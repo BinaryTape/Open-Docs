@@ -20,7 +20,7 @@
         "description": "Description of SQLDelight"
     },
     "homepage.ad.description": {
-        "message": "BinaryTape 通過創新諮詢和解決方案連接全球與亞洲技術社區，利用我們在移動基礎設施和新興人工智能領域的專業知識，促進全球範圍內的開源協作。",
+        "message": "通過創新諮詢和解決方案連接全球與亞洲技術社區，利用我們在移動基礎設施和新興人工智能領域的專業知識，促進全球範圍內的開源協作。",
         "description": "Description of BinaryTape company"
     },
     "homepage.ad.contact": {
@@ -347,11 +347,11 @@
         "description": "Coming soon badge text"
     },
     "homepage.banner.title": {
-        "message": "開始探索文檔",
+        "message": "開始探索文件",
         "description": "The title of the banner at the bottom of the homepage"
     },
     "homepage.banner.description": {
-        "message": "選擇上方任一技術棧，開始探索詳盡的文檔和示例",
+        "message": "點選上方任一技術堆疊，查看完整文件與實作範例",
         "description": "The description of the banner at the bottom of the homepage"
     },
     "homepage.card.koin.tag.di": {

@@ -24,14 +24,16 @@ const themeConfig = {
           activeBasePath: 'https://kotlin.openaidoc.org',
         },
         {
-          to: 'https://ktor.openaidoc.org',
+          // to: 'https://ktor.openaidoc.org',
+          to: ' ',
           label: 'Ktor',
           position: 'left',
           className: 'header-ktor-link',
           activeBasePath: 'https://ktor.openaidoc.org',
         },
         {
-          to: 'https://sqldelight.openaidoc.org',
+          // to: 'https://sqldelight.openaidoc.org',
+          to: ' ',
           label: 'SQLDelight',
           position: 'left',
           className: 'header-sqldelight-link',

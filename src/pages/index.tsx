@@ -75,8 +75,8 @@ export default function Home(): ReactNode {
               <div className={styles.cardIcon}></div>
             </div>
           </Link>
-          
-          <Link to="https://ktor.openaidoc.org" className={clsx(styles.card, styles.ktorCard)} data-aos="fade-up" data-aos-delay="300">
+
+          <Link to="" className={clsx(styles.card, styles.ktorCard)} data-aos="fade-up" data-aos-delay="300">
             <div className={styles.cardContent}>
               <div className={styles.comingSoonBadge}>
                 <Translate id="homepage.badge.comingSoon">敬请期待</Translate>
@@ -102,8 +102,8 @@ export default function Home(): ReactNode {
               <div className={styles.cardIcon}></div>
             </div>
           </Link>
-          
-          <Link to="https://sqldelight.openaidoc.org" className={clsx(styles.card, styles.sqldelightCard)} data-aos="fade-up" data-aos-delay="400">
+
+          <Link to="" className={clsx(styles.card, styles.sqldelightCard)} data-aos="fade-up" data-aos-delay="400">
             <div className={styles.cardContent}>
               <div className={styles.comingSoonBadge}>
                 <Translate id="homepage.badge.comingSoon">敬请期待</Translate>
