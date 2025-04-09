@@ -1,0 +1,22 @@
+{
+    "sourceDir": "./docs",
+    "targetLanguages": [
+        "zh-Hans",
+        "zh-Hant",
+        "ko",
+        "ja"
+    ],
+    "modelConfigs": {
+        "zh-Hans": { "provider": "google", "model": "gemini-2.0-flash" },
+        "zh-Hant": { "provider": "google", "model": "gemini-2.0-flash" },
+        "ko": { "provider": "google", "model": "gemini-2.0-flash" },
+        "ja": { "provider": "google", "model": "gemini-2.0-flash" }
+    },
+    "terminologyPath": "./demo/terminology.json",
+    "languageNames": {
+        "zh-Hans": "简体中文",
+        "zh-Hant": "繁体中文",
+        "ko": "Korean",
+        "ja": "Japanese"
+    }
+}

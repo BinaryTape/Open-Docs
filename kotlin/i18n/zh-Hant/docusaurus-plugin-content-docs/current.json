@@ -1,0 +1,346 @@
+{
+    "version.label": {
+        "message": "下一個",
+        "description": "The label for version current"
+    },
+    "sidebar.kotlinSidebar.category.Kotlin 教程": {
+        "message": "Kotlin 教程",
+        "description": "The label for category Kotlin 教程 in sidebar kotlinSidebar"
+    },
+    "sidebar.kotlinSidebar.category.Kotlin 概述": {
+        "message": "Kotlin 概述",
+        "description": "The label for category Kotlin 概述 in sidebar kotlinSidebar"
+    },
+    "sidebar.kotlinSidebar.category.Kotlin 新特性": {
+        "message": "Kotlin 新特性",
+        "description": "The label for category Kotlin 新特性 in sidebar kotlinSidebar"
+    },
+    "sidebar.kotlinSidebar.category.早期版本": {
+        "message": "早期版本",
+        "description": "The label for category 早期版本 in sidebar kotlinSidebar"
+    },
+    "sidebar.kotlinSidebar.category.Kotlin 演进与路线图": {
+        "message": "Kotlin 演進與路線圖",
+        "description": "The label for category Kotlin 演进与路线图 in sidebar kotlinSidebar"
+    },
+    "sidebar.kotlinSidebar.category.基础知识": {
+        "message": "基礎知識",
+        "description": "The label for category 基础知识 in sidebar kotlinSidebar"
+    },
+    "sidebar.kotlinSidebar.category.核心概念": {
+        "message": "核心概念",
+        "description": "The label for category 核心概念 in sidebar kotlinSidebar"
+    },
+    "sidebar.kotlinSidebar.category.类型": {
+        "message": "類型",
+        "description": "The label for category 类型 in sidebar kotlinSidebar"
+    },
+    "sidebar.kotlinSidebar.category.基本类型": {
+        "message": "基本類型",
+        "description": "The label for category 基本类型 in sidebar kotlinSidebar"
+    },
+    "sidebar.kotlinSidebar.category.控制流": {
+        "message": "控制流",
+        "description": "The label for category 控制流 in sidebar kotlinSidebar"
+    },
+    "sidebar.kotlinSidebar.category.类和对象": {
+        "message": "類和對象",
+        "description": "The label for category 类和对象 in sidebar kotlinSidebar"
+    },
+    "sidebar.kotlinSidebar.category.函數": {
+        "message": "函數",
+        "description": "The label for category 函数 in sidebar kotlinSidebar"
+    },
+    "sidebar.kotlinSidebar.category.构建器": {
+        "message": "構建器",
+        "description": "The label for category 构建器 in sidebar kotlinSidebar"
+    },
+    "sidebar.kotlinSidebar.category.多平台开发": {
+        "message": "多平台開發",
+        "description": "The label for category 多平台开发 in sidebar kotlinSidebar"
+    },
+    "sidebar.kotlinSidebar.category.共享代码": {
+        "message": "共享代碼",
+        "description": "The label for category 共享代码 in sidebar kotlinSidebar"
+    },
+    "sidebar.kotlinSidebar.category.添加依赖": {
+        "message": "添加依賴",
+        "description": "The label for category 添加依赖 in sidebar kotlinSidebar"
+    },
+    "sidebar.kotlinSidebar.category.設置 iOS 集成": {
+        "message": "設置 iOS 集成",
+        "description": "The label for category 设置 iOS 集成 in sidebar kotlinSidebar"
+    },
+    "sidebar.kotlinSidebar.category.CocoaPods 集成": {
+        "message": "CocoaPods 集成",
+        "description": "The label for category CocoaPods 集成 in sidebar kotlinSidebar"
+    },
+    "sidebar.kotlinSidebar.category.编译成品": {
+        "message": "編譯成品",
+        "description": "The label for category 编译成品 in sidebar kotlinSidebar"
+    },
+    "sidebar.kotlinSidebar.category.参考": {
+        "message": "參考",
+        "description": "The label for category 参考 in sidebar kotlinSidebar"
+    },
+    "sidebar.kotlinSidebar.category.数据分析": {
+        "message": "數據分析",
+        "description": "The label for category 数据分析 in sidebar kotlinSidebar"
+    },
+    "sidebar.kotlinSidebar.category.Kotlin Notebook 入门": {
+        "message": "Kotlin Notebook 入門",
+        "description": "The label for category Kotlin Notebook 入门 in sidebar kotlinSidebar"
+    },
+    "sidebar.kotlinSidebar.category.使用数据源": {
+        "message": "使用數據源",
+        "description": "The label for category 使用数据源 in sidebar kotlinSidebar"
+    },
+    "sidebar.kotlinSidebar.category.平台": {
+        "message": "平台",
+        "description": "The label for category 平台 in sidebar kotlinSidebar"
+    },
+    "sidebar.kotlinSidebar.category.JVM": {
+        "message": "JVM",
+        "description": "The label for category JVM in sidebar kotlinSidebar"
+    },
+    "sidebar.kotlinSidebar.category.Spring": {
+        "message": "Spring",
+        "description": "The label for category Spring in sidebar kotlinSidebar"
+    },
+    "sidebar.kotlinSidebar.category.使用 Spring Boot 创建 RESTful web 服务和数据库": {
+        "message": "使用 Spring Boot 創建 RESTful web 服務和數據庫",
+        "description": "The label for category 使用 Spring Boot 创建 RESTful web 服务和数据库 in sidebar kotlinSidebar"
+    },
+    "sidebar.kotlinSidebar.category.Java 到 Kotlin 迁移指南": {
+        "message": "Java 到 Kotlin 遷移指南",
+        "description": "The label for category Java 到 Kotlin 迁移指南 in sidebar kotlinSidebar"
+    },
+    "sidebar.kotlinSidebar.category.Native": {
+        "message": "Native",
+        "description": "The label for category Native in sidebar kotlinSidebar"
+    },
+    "sidebar.kotlinSidebar.category.C 互操作": {
+        "message": "C 互操作",
+        "description": "The label for category C 互操作 in sidebar kotlinSidebar"
+    },
+    "sidebar.kotlinSidebar.category.Objective-C 互操作": {
+        "message": "Objective-C 互操作",
+        "description": "The label for category Objective-C 互操作 in sidebar kotlinSidebar"
+    },
+    "sidebar.kotlinSidebar.category.内存管理器": {
+        "message": "內存管理器",
+        "description": "The label for category 内存管理器 in sidebar kotlinSidebar"
+    },
+    "sidebar.kotlinSidebar.category.参考与技巧": {
+        "message": "參考與技巧",
+        "description": "The label for category 参考与技巧 in sidebar kotlinSidebar"
+    },
+    "sidebar.kotlinSidebar.category.WebAssembly (Wasm)": {
+        "message": "WebAssembly (Wasm)",
+        "description": "The label for category WebAssembly (Wasm) in sidebar kotlinSidebar"
+    },
+    "sidebar.kotlinSidebar.category.JavaScript": {
+        "message": "JavaScript",
+        "description": "The label for category JavaScript in sidebar kotlinSidebar"
+    },
+    "sidebar.kotlinSidebar.category.适用于 JS 平台的 Kotlin": {
+        "message": "適用於 JS 平台的 Kotlin",
+        "description": "The label for category 适用于 JS 平台的 Kotlin in sidebar kotlinSidebar"
+    },
+    "sidebar.kotlinSidebar.category.脚本": {
+        "message": "腳本",
+        "description": "The label for category 脚本 in sidebar kotlinSidebar"
+    },
+    "sidebar.kotlinSidebar.category.标准库": {
+        "message": "標準庫",
+        "description": "The label for category 标准库 in sidebar kotlinSidebar"
+    },
+    "sidebar.kotlinSidebar.category.集合": {
+        "message": "集合",
+        "description": "The label for category 集合 in sidebar kotlinSidebar"
+    },
+    "sidebar.kotlinSidebar.category.官方库": {
+        "message": "官方庫",
+        "description": "The label for category 官方库 in sidebar kotlinSidebar"
+    },
+    "sidebar.kotlinSidebar.category.协程 (kotlinx.coroutines)": {
+        "message": "協程 (kotlinx.coroutines)",
+        "description": "The label for category 协程 (kotlinx.coroutines) in sidebar kotlinSidebar"
+    },
+    "sidebar.kotlinSidebar.category.API 参考": {
+        "message": "API 參考",
+        "description": "The label for category API 参考 in sidebar kotlinSidebar"
+    },
+    "sidebar.kotlinSidebar.category.语言参考": {
+        "message": "語言參考",
+        "description": "The label for category 语言参考 in sidebar kotlinSidebar"
+    },
+    "sidebar.kotlinSidebar.category.工具": {
+        "message": "工具",
+        "description": "The label for category 工具 in sidebar kotlinSidebar"
+    },
+    "sidebar.kotlinSidebar.category.构建工具": {
+        "message": "構建工具",
+        "description": "The label for category 构建工具 in sidebar kotlinSidebar"
+    },
+    "sidebar.kotlinSidebar.category.Gradle": {
+        "message": "Gradle",
+        "description": "The label for category Gradle in sidebar kotlinSidebar"
+    },
+    "sidebar.kotlinSidebar.category.编译器和插件": {
+        "message": "編譯器和插件",
+        "description": "The label for category 编译器和插件 in sidebar kotlinSidebar"
+    },
+    "sidebar.kotlinSidebar.category.Kotlin 编译器": {
+        "message": "Kotlin 編譯器",
+        "description": "The label for category Kotlin 编译器 in sidebar kotlinSidebar"
+    },
+    "sidebar.kotlinSidebar.category.Kotlin 编译器插件": {
+        "message": "Kotlin 編譯器插件",
+        "description": "The label for category Kotlin 编译器插件 in sidebar kotlinSidebar"
+    },
+    "sidebar.kotlinSidebar.category.Compose 编译器": {
+        "message": "Compose 編譯器",
+        "description": "The label for category Compose 编译器 in sidebar kotlinSidebar"
+    },
+    "sidebar.kotlinSidebar.category.Kotlin Symbol Processing API": {
+        "message": "Kotlin Symbol Processing API",
+        "description": "The label for category Kotlin Symbol Processing API in sidebar kotlinSidebar"
+    },
+    "sidebar.kotlinSidebar.category.学习资料": {
+        "message": "學習資料",
+        "description": "The label for category 学习资料 in sidebar kotlinSidebar"
+    },
+    "sidebar.kotlinSidebar.category.在 IDE 中学习 (JetBrains Academy)": {
+        "message": "在 IDE 中學習 (JetBrains Academy)",
+        "description": "The label for category 在 IDE 中学习 (JetBrains Academy) in sidebar kotlinSidebar"
+    },
+    "sidebar.kotlinSidebar.category.早期访问预览 (EAP)": {
+        "message": "早期訪問預覽 (EAP)",
+        "description": "The label for category 早期访问预览 (EAP) in sidebar kotlinSidebar"
+    },
+    "sidebar.kotlinSidebar.category.其他資源": {
+        "message": "其他資源",
+        "description": "The label for category 其他资源 in sidebar kotlinSidebar"
+    },
+    "sidebar.kotlinSidebar.category.Kotlin 兼容性指南": {
+        "message": "Kotlin 兼容性指南",
+        "description": "The label for category Kotlin 兼容性指南 in sidebar kotlinSidebar"
+    },
+    "sidebar.kotlinSidebar.category.Kotlin 基金会": {
+        "message": "Kotlin 基金會",
+        "description": "The label for category Kotlin 基金会 in sidebar kotlinSidebar"
+    },
+    "sidebar.kotlinSidebar.category.Google Summer of Code": {
+        "message": "Google Summer of Code",
+        "description": "The label for category Google Summer of Code in sidebar kotlinSidebar"
+    },
+    "sidebar.kotlinSidebar.category.社区": {
+        "message": "社區",
+        "description": "The label for category 社区 in sidebar kotlinSidebar"
+    },
+    "sidebar.kotlinSidebar.link.通过示例学习 Kotlin": {
+        "message": "通過示例學習 Kotlin",
+        "description": "The label for link 通过示例学习 Kotlin in sidebar kotlinSidebar, linking to https://play.kotlinlang.org/byExample/overview"
+    },
+    "sidebar.kotlinSidebar.link.Spring Framework 的 Kotlin 文档": {
+        "message": "Spring Framework 的 Kotlin 文檔",
+        "description": "The label for link Spring Framework 的 Kotlin 文档 in sidebar kotlinSidebar, linking to https://docs.spring.io/spring-framework/docs/current/reference/html/languages.html#languages"
+    },
+    "sidebar.kotlinSidebar.link.使用 Spring Boot 和 Kotlin 构建 Web 应用 - 教程": {
+        "message": "使用 Spring Boot 和 Kotlin 構建 Web 應用 - 教程",
+        "description": "The label for link 使用 Spring Boot 和 Kotlin 构建 Web 应用 - 教程 in sidebar kotlinSidebar, linking to https://spring.io/guides/tutorials/spring-boot-kotlin/"
+    },
+    "sidebar.kotlinSidebar.link.使用 Kotlin 协程和 RSocket 创建聊天应用 - 教程": {
+        "message": "使用 Kotlin 協程和 RSocket 創建聊天應用 - 教程",
+        "description": "The label for link 使用 Kotlin 协程和 RSocket 创建聊天应用 - 教程 in sidebar kotlinSidebar, linking to https://spring.io/guides/tutorials/spring-webflux-kotlin-rsocket/"
+    },
+    "sidebar.kotlinSidebar.link.Ktor": {
+        "message": "Ktor",
+        "description": "The label for link Ktor in sidebar kotlinSidebar, linking to https://api.ktor.io/"
+    },
+    "sidebar.kotlinSidebar.link.标准库 (stdlib)": {
+        "message": "標準庫 (stdlib)",
+        "description": "The label for link 标准库 (stdlib) in sidebar kotlinSidebar, linking to https://kotlinlang.org/api/latest/jvm/stdlib/"
+    },
+    "sidebar.kotlinSidebar.link.测试库 (kotlin.test)": {
+        "message": "測試庫 (kotlin.test)",
+        "description": "The label for link 测试库 (kotlin.test) in sidebar kotlinSidebar, linking to https://kotlinlang.org/api/latest/kotlin.test/"
+    },
+    "sidebar.kotlinSidebar.link.协程 (kotlinx.coroutines)": {
+        "message": "協程 (kotlinx.coroutines)",
+        "description": "The label for link 协程 (kotlinx.coroutines) in sidebar kotlinSidebar, linking to https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/"
+    },
+    "sidebar.kotlinSidebar.link.序列化 (kotlinx.serialization)": {
+        "message": "序列化 (kotlinx.serialization)",
+        "description": "The label for link 序列化 (kotlinx.serialization) in sidebar kotlinSidebar, linking to https://kotlinlang.org/api/kotlinx.serialization/kotlinx-serialization-core/"
+    },
+    "sidebar.kotlinSidebar.link.Kotlin I/O 库 (kotlinx-io)": {
+        "message": "Kotlin I/O 庫 (kotlinx-io)",
+        "description": "The label for link Kotlin I/O 库 (kotlinx-io) in sidebar kotlinSidebar, linking to https://kotlinlang.org/api/kotlinx-io/"
+    },
+    "sidebar.kotlinSidebar.link.日期和时间 (kotlinx-datetime)": {
+        "message": "日期和時間 (kotlinx-datetime)",
+        "description": "The label for link 日期和时间 (kotlinx-datetime) in sidebar kotlinSidebar, linking to https://kotlinlang.org/api/kotlinx-datetime/"
+    },
+    "sidebar.kotlinSidebar.link.JVM 元数据 (kotlin-metadata-jvm)": {
+        "message": "JVM 元數據 (kotlin-metadata-jvm)",
+        "description": "The label for link JVM 元数据 (kotlin-metadata-jvm) in sidebar kotlinSidebar, linking to https://kotlinlang.org/api/kotlinx-metadata-jvm/"
+    },
+    "sidebar.kotlinSidebar.link.Kotlin Gradle 插件 (kotlin-gradle-plugin)": {
+        "message": "Kotlin Gradle 插件 (kotlin-gradle-plugin)",
+        "description": "The label for link Kotlin Gradle 插件 (kotlin-gradle-plugin) in sidebar kotlinSidebar, linking to https://kotlinlang.org/api/kotlin-gradle-plugin/"
+    },
+    "sidebar.kotlinSidebar.link.语法": {
+        "message": "語法",
+        "description": "The label for link 语法 in sidebar kotlinSidebar, linking to https://kotlinlang.org/docs/reference/grammar.html"
+    },
+    "sidebar.kotlinSidebar.link.语言规范": {
+        "message": "語言規範",
+        "description": "The label for link 语言规范 in sidebar kotlinSidebar, linking to https://kotlinlang.org/spec/"
+    },
+    "sidebar.kotlinSidebar.link.Kotlin by example": {
+        "message": "Kotlin by example",
+        "description": "The label for link Kotlin by example in sidebar kotlinSidebar, linking to https://play.kotlinlang.org/byExample/overview"
+    },
+    "sidebar.kotlinSidebar.link.Kotlin Core track": {
+        "message": "Kotlin Core track",
+        "description": "The label for link Kotlin Core track in sidebar kotlinSidebar, linking to https://hyperskill.org/tracks?category=4&utm_source=jbkotlin_hs&utm_medium=referral&utm_campaign=kotlinlang-docs&utm_content=button_1&utm_term=22.03.23"
+    },
+    "sidebar.kotlinSidebar.link.Kotlin 基金会": {
+        "message": "Kotlin 基金會",
+        "description": "The label for link Kotlin 基金会 in sidebar kotlinSidebar, linking to https://kotlinfoundation.org/"
+    },
+    "sidebar.kotlinSidebar.link.语言委员会指南": {
+        "message": "語言委員會指南",
+        "description": "The label for link 语言委员会指南 in sidebar kotlinSidebar, linking to https://kotlinfoundation.org/language-committee-guidelines/"
+    },
+    "sidebar.kotlinSidebar.link.提交不兼容变更": {
+        "message": "提交不兼容變更",
+        "description": "The label for link 提交不兼容变更 in sidebar kotlinSidebar, linking to https://kotlinfoundation.org/submitting-incompatible-changes/"
+    },
+    "sidebar.kotlinSidebar.link.品牌使用": {
+        "message": "品牌使用",
+        "description": "The label for link 品牌使用 in sidebar kotlinSidebar, linking to https://kotlinfoundation.org/guidelines/"
+    },
+    "sidebar.kotlinSidebar.link.Kotlin 基金会常见问题": {
+        "message": "Kotlin 基金會常見問題",
+        "description": "The label for link Kotlin 基金会常见问题 in sidebar kotlinSidebar, linking to https://kotlinfoundation.org/faq/"
+    },
+    "sidebar.kotlinSidebar.link.新闻资料包": {
+        "message": "新聞資料包",
+        "description": "The label for link 新闻资料包 in sidebar kotlinSidebar, linking to https://kotlinlang.org/assets/kotlin-media-kit.pdf"
+    },
+    "sidebar.kotlinSidebar.doc.首页": {
+        "message": "首頁",
+        "description": "The label for the doc item 首页 in sidebar kotlinSidebar, linking to the doc getting-started"
+    },
+    "sidebar.kotlinSidebar.doc.Kotlin 2.1.20": {
+        "message": "Kotlin 2.1.20",
+        "description": "The label for the doc item Kotlin 2.1.20 in sidebar kotlinSidebar, linking to the doc whatsnew2120"
+    },
+    "sidebar.kotlinSidebar.doc.Kotlin 2.1.0": {
+        "message": "Kotlin 2.1.0",
+        "description": "The label for the doc item Kotlin 2.1.0 in sidebar kotlinSidebar, linking to the doc whatsnew21"
+    }
+}

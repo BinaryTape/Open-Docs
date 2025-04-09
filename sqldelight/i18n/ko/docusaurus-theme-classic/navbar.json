@@ -1,0 +1,26 @@
+{
+  "title": {
+    "message": "OpenAIDoc",
+    "description": "The title in the navbar"
+  },
+  "logo.alt": {
+    "message": "OpenAIDoc Logo",
+    "description": "The alt text of navbar logo"
+  },
+  "item.label.Koin": {
+    "message": "Koin",
+    "description": "Navbar item with label Koin"
+  },
+  "item.label.Kotlin": {
+    "message": "Kotlin",
+    "description": "Navbar item with label Kotlin"
+  },
+  "item.label.Ktor": {
+    "message": "Ktor",
+    "description": "Navbar item with label Ktor"
+  },
+  "item.label.SQLDelight": {
+    "message": "SQLDelight",
+    "description": "Navbar item with label SQLDelight"
+  }
+}

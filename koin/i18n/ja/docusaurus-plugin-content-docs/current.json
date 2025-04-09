@@ -1,0 +1,38 @@
+{
+  "version.label": {
+    "message": "次へ",
+    "description": "The label for version current"
+  },
+  "sidebar.sidebar.category.配置": {
+    "message": "構成",
+    "description": "The label for category 配置 in sidebar sidebar"
+  },
+  "sidebar.sidebar.category.核心 & 测试": {
+    "message": "コア & テスト",
+    "description": "The label for category 核心 & 测试 in sidebar sidebar"
+  },
+  "sidebar.sidebar.category.Android": {
+    "message": "Android",
+    "description": "The label for category Android in sidebar sidebar"
+  },
+  "sidebar.sidebar.category.Compose": {
+    "message": "Compose",
+    "description": "The label for category Compose in sidebar sidebar"
+  },
+  "sidebar.sidebar.category.多平台": {
+    "message": "マルチプラットフォーム",
+    "description": "The label for category 多平台 in sidebar sidebar"
+  },
+  "sidebar.sidebar.category.Ktor": {
+    "message": "Ktor",
+    "description": "The label for category Ktor in sidebar sidebar"
+  },
+  "sidebar.sidebar.category.注解": {
+    "message": "アノテーション",
+    "description": "The label for category 注解 in sidebar sidebar"
+  },
+  "sidebar.sidebar.category.教程": {
+    "message": "チュートリアル",
+    "description": "The label for category 教程 in sidebar sidebar"
+  }
+}

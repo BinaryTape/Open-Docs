@@ -1,0 +1,845 @@
+/**
+ * CSS files with the .module.css suffix will be treated as CSS modules
+ * and scoped locally.
+ */
+
+.mainContainer {
+    padding: 2rem 2rem 4rem;
+    max-width: 1400px;
+    margin: 0 auto;
+    width: 100%;
+    min-height: calc(100vh - var(--ifm-navbar-height) - 10px);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.heroSection {
+    text-align: center;
+    margin-bottom: 5rem;
+    padding-top: 2rem;
+    animation: fadeInUp 1s ease-out;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.heroTitle {
+    font-size: 4rem;
+    font-weight: 800;
+    margin-bottom: 1.5rem;
+    background: linear-gradient(90deg, #4D6CFA 0%, #6b85fb 50%, #7b92fb 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    position: relative;
+    display: inline-block;
+    text-shadow: 0 10px 30px rgba(77, 108, 250, 0.2);
+}
+
+.heroTitle::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(90deg, #4D6CFA 0%, #6b85fb 100%);
+    border-radius: 2px;
+}
+
+.heroSubtitle {
+    font-size: 1.5rem;
+    opacity: 0.8;
+    max-width: 700px;
+    margin: 1.5rem auto 0;
+    line-height: 1.6;
+    color: var(--ifm-font-color-base);
+}
+
+
+/* 徽章样式 */
+
+.heroBadges {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 2rem;
+    flex-wrap: wrap;
+}
+
+.badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    background: rgba(77, 108, 250, 0.08);
+    border-radius: 50px;
+    font-weight: 500;
+    font-size: 0.9rem;
+    color: var(--ifm-color-primary);
+    box-shadow: 0 3px 10px rgba(77, 108, 250, 0.1);
+    transition: all 0.3s ease;
+    animation: fadeInUp 1s ease-out;
+    animation-delay: 0.3s;
+    animation-fill-mode: both;
+}
+
+.badge:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(77, 108, 250, 0.15);
+    background: rgba(77, 108, 250, 0.12);
+}
+
+.badgeIcon {
+    margin-right: 0.5rem;
+    font-size: 1.1rem;
+}
+
+[data-theme='dark'] .badge {
+    background: rgba(77, 108, 250, 0.15);
+    box-shadow: 0 3px 10px rgba(77, 108, 250, 0.2);
+}
+
+[data-theme='dark'] .badge:hover {
+    background: rgba(77, 108, 250, 0.25);
+    box-shadow: 0 5px 15px rgba(77, 108, 250, 0.3);
+}
+
+.cardsContainer {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(400px, 1fr));
+    grid-template-rows: repeat(2, auto);
+    gap: 2.5rem;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    flex-grow: 1;
+    align-self: center;
+}
+
+.card {
+    display: block;
+    border-radius: var(--global-border-radius);
+    overflow: hidden;
+    transition: var(--global-transition);
+    text-decoration: none;
+    color: inherit;
+    height: 260px;
+    position: relative;
+    box-shadow: var(--global-shadow);
+    width: 100%;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.15);
+    text-decoration: none;
+    z-index: 2;
+}
+
+.card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: 400% 400%;
+    opacity: 0;
+    transition: opacity 0.6s ease;
+    z-index: 1;
+}
+
+.card:hover::before {
+    opacity: 0.05;
+    animation: gradientBG 3s ease infinite;
+}
+
+@keyframes gradientBG {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.cardContent {
+    padding: 2.5rem;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    z-index: 2;
+    position: relative;
+    transition: var(--global-transition);
+}
+
+.card:hover .cardContent {
+    padding-left: 3rem;
+}
+
+.cardTitle {
+    font-size: 2.2rem;
+    font-weight: 800;
+    margin-bottom: 0.5rem;
+    transition: all 0.3s ease;
+    letter-spacing: -0.02em;
+    position: relative;
+    display: inline-block;
+}
+
+.cardDescription {
+    font-size: 1.1rem;
+    opacity: 0.8;
+    margin-bottom: 1.5rem;
+    transition: all 0.3s ease;
+    line-height: 1.5;
+    max-width: 85%;
+}
+
+.cardIcon {
+    position: absolute;
+    bottom: 2rem;
+    right: 2rem;
+    width: 56px;
+    height: 56px;
+    opacity: 0.4;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    transition: all 0.5s ease;
+    transform: translateY(5px);
+    filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.1));
+}
+
+.card:hover .cardIcon {
+    opacity: 0.8;
+    transform: translateY(0) scale(1.1) rotate(5deg);
+}
+
+
+/* 卡片标签样式 */
+
+.cardMeta {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.cardTag {
+    display: inline-block;
+    padding: 0.3rem 0.8rem;
+    background: rgba(0, 0, 0, 0.06);
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.comingSoonBadge {
+    position: absolute;
+    top: 15px;
+    right: -35px;
+    background: #ff3838;
+    color: white;
+    font-size: 0.85rem;
+    font-weight: 700;
+    padding: 0.4rem 0;
+    width: 140px;
+    text-align: center;
+    transform: rotate(45deg);
+    transform-origin: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    z-index: 10;
+    text-transform: uppercase;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.comingSoonBadge::before {
+    display: none;
+}
+
+.card:hover .comingSoonBadge {
+    background: #ff2424;
+}
+
+[data-theme='dark'] .comingSoonBadge {
+    background: #ff4747;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+}
+
+.koinCard .cardTag {
+    background: rgba(249, 178, 51, 0.1);
+    color: #F9B233;
+}
+
+.kotlinCard .cardTag {
+    background: rgba(127, 82, 255, 0.1);
+    color: #7F52FF;
+}
+
+.ktorCard .cardTag {
+    background: rgba(177, 37, 234, 0.1);
+    color: #B125EA;
+}
+
+.sqldelightCard .cardTag {
+    background: rgba(210, 82, 43, 0.1);
+    color: #D2522B;
+}
+
+[data-theme='dark'] .cardTag {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.koinCard:hover .cardTag {
+    background: rgba(249, 178, 51, 0.2);
+    transform: translateY(-2px);
+}
+
+.kotlinCard:hover .cardTag {
+    background: rgba(127, 82, 255, 0.2);
+    transform: translateY(-2px);
+}
+
+.ktorCard:hover .cardTag {
+    background: rgba(177, 37, 234, 0.2);
+    transform: translateY(-2px);
+}
+
+.sqldelightCard:hover .cardTag {
+    background: rgba(210, 82, 43, 0.2);
+    transform: translateY(-2px);
+}
+
+
+/* 卡片特定样式 */
+
+.koinCard {
+    background: linear-gradient(135deg, rgba(249, 178, 51, 0.08) 0%, rgba(249, 178, 51, 0.16) 100%);
+    border: 1px solid rgba(249, 178, 51, 0.1);
+    border-radius: var(--global-border-radius);
+}
+
+.koinCard::before {
+    background: linear-gradient(-45deg, #F9B233, #ffcc6f, #F9B233, #ffb84d);
+}
+
+.koinCard .cardTitle {
+    position: relative;
+    width: fit-content;
+    padding-bottom: 8px;
+    color: #F9B233;
+    text-shadow: 0 2px 10px rgba(249, 178, 51, 0.2);
+}
+
+.koinCard .cardTitle::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 40px;
+    height: 3px;
+    background-color: #F9B233;
+    border-radius: 3px;
+    transition: width 0.3s ease;
+}
+
+.koinCard:hover .cardTitle::after {
+    width: 100%;
+}
+
+.koinCard:hover .cardTitle {
+    color: #F9B233;
+}
+
+.koinCard:hover .cardDescription {
+    color: rgba(249, 178, 51, 0.9);
+}
+
+.koinCard .cardIcon {
+    background-image: url('/img/koin_logo.png');
+}
+
+.kotlinCard {
+    background: linear-gradient(135deg, rgba(127, 82, 255, 0.08) 0%, rgba(127, 82, 255, 0.16) 100%);
+    border: 1px solid rgba(127, 82, 255, 0.1);
+    border-radius: var(--global-border-radius);
+}
+
+.kotlinCard::before {
+    background: linear-gradient(-45deg, #7F52FF, #a385ff, #7F52FF, #9470ff);
+}
+
+.kotlinCard .cardTitle {
+    position: relative;
+    width: fit-content;
+    padding-bottom: 8px;
+    color: #7F52FF;
+    text-shadow: 0 2px 10px rgba(127, 82, 255, 0.2);
+}
+
+.kotlinCard .cardTitle::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 40px;
+    height: 3px;
+    background-color: #7F52FF;
+    border-radius: 3px;
+    transition: width 0.3s ease;
+}
+
+.kotlinCard:hover .cardTitle::after {
+    width: 100%;
+}
+
+.kotlinCard:hover .cardTitle {
+    color: #7F52FF;
+}
+
+.kotlinCard:hover .cardDescription {
+    color: rgba(127, 82, 255, 0.9);
+}
+
+.kotlinCard .cardIcon {
+    background-image: url('/img/kotlin_Icon.png');
+}
+
+.ktorCard {
+    background: linear-gradient(135deg, rgba(177, 37, 234, 0.08) 0%, rgba(177, 37, 234, 0.16) 100%);
+    border: 1px solid rgba(177, 37, 234, 0.1);
+    border-radius: var(--global-border-radius);
+}
+
+.ktorCard::before {
+    background: linear-gradient(-45deg, #B125EA, #ca6cf1, #B125EA, #c54cee);
+}
+
+.ktorCard .cardTitle {
+    position: relative;
+    width: fit-content;
+    padding-bottom: 8px;
+    color: #B125EA;
+    text-shadow: 0 2px 10px rgba(177, 37, 234, 0.2);
+}
+
+.ktorCard .cardTitle::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 40px;
+    height: 3px;
+    background-color: #B125EA;
+    border-radius: 3px;
+    transition: width 0.3s ease;
+}
+
+.ktorCard:hover .cardTitle::after {
+    width: 100%;
+}
+
+.ktorCard:hover .cardTitle {
+    color: #B125EA;
+}
+
+.ktorCard:hover .cardDescription {
+    color: rgba(177, 37, 234, 0.9);
+}
+
+.ktorCard .cardIcon {
+    background-image: url('/img/ktor_logo.png');
+}
+
+.sqldelightCard {
+    background: linear-gradient(135deg, rgba(210, 82, 43, 0.08) 0%, rgba(210, 82, 43, 0.16) 100%);
+    border: 1px solid rgba(210, 82, 43, 0.1);
+    border-radius: var(--global-border-radius);
+}
+
+.sqldelightCard::before {
+    background: linear-gradient(-45deg, #D2522B, #e67e5c, #D2522B, #e06a47);
+}
+
+.sqldelightCard .cardTitle {
+    position: relative;
+    width: fit-content;
+    padding-bottom: 8px;
+    color: #D2522B;
+    text-shadow: 0 2px 10px rgba(210, 82, 43, 0.2);
+}
+
+.sqldelightCard .cardTitle::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 40px;
+    height: 3px;
+    background-color: #D2522B;
+    border-radius: 3px;
+    transition: width 0.3s ease;
+}
+
+.sqldelightCard:hover .cardTitle::after {
+    width: 100%;
+}
+
+.sqldelightCard:hover .cardTitle {
+    color: #D2522B;
+}
+
+.sqldelightCard:hover .cardDescription {
+    color: rgba(210, 82, 43, 0.9);
+}
+
+.sqldelightCard .cardIcon {
+    background-image: url('/img/sqldelight_logo.png');
+}
+
+
+/* 响应式设计 */
+
+@media (max-width: 996px) {
+    .heroTitle {
+        font-size: 3rem;
+    }
+    .heroSubtitle {
+        font-size: 1.3rem;
+    }
+    .cardsContainer {
+        grid-template-columns: 1fr;
+        max-width: 600px;
+        gap: 2rem;
+    }
+    .card {
+        height: 220px;
+    }
+    .cardContent {
+        padding: 2rem;
+    }
+    .card:hover .cardContent {
+        padding-left: 2.5rem;
+    }
+    .cardTitle {
+        font-size: 1.8rem;
+    }
+    .cardDescription {
+        font-size: 1rem;
+        max-width: 90%;
+    }
+    .cardIcon {
+        width: 48px;
+        height: 48px;
+        bottom: 1.5rem;
+        right: 1.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .heroTitle {
+        font-size: 2.5rem;
+    }
+    .heroSubtitle {
+        font-size: 1.1rem;
+        max-width: 100%;
+    }
+    .mainContainer {
+        padding: 1.5rem 1.5rem 3rem;
+    }
+    .heroSection {
+        margin-bottom: 3rem;
+        padding-top: 1.5rem;
+    }
+    .cardsContainer {
+        gap: 1.5rem;
+    }
+    .card {
+        height: 200px;
+    }
+    .comingSoonBadge {
+        font-size: 0.75rem;
+        padding: 0.3rem 0;
+        width: 120px;
+        top: 12px;
+        right: -30px;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+    .card:hover .comingSoonBadge {
+        background: #ff3838;
+    }
+}
+
+.homeLayout {
+    position: relative;
+    overflow: hidden;
+    width: 100% !important;
+    max-width: 100% !important;
+}
+
+.mainContainer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 10% 10%, rgba(77, 108, 250, 0.05) 0%, transparent 50%), radial-gradient(circle at 90% 30%, rgba(127, 82, 255, 0.05) 0%, transparent 40%), radial-gradient(circle at 50% 80%, rgba(177, 37, 234, 0.05) 0%, transparent 40%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+
+/* 广告栏样式 */
+
+.adBanner {
+    margin: 3rem auto 0;
+    padding: 3rem 2rem;
+    border-radius: var(--global-border-radius);
+    background: linear-gradient(135deg, rgba(77, 108, 250, 0.03) 0%, rgba(127, 82, 255, 0.03) 100%);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    max-width: 1000px;
+    width: 100%;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(77, 108, 250, 0.08);
+    animation: fadeInUp 1s ease-out;
+    animation-delay: 0.5s;
+    animation-fill-mode: both;
+    position: relative;
+    overflow: hidden;
+}
+
+.adBanner::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 10% 10%, rgba(77, 108, 250, 0.1) 0%, transparent 30%), radial-gradient(circle at 90% 90%, rgba(127, 82, 255, 0.1) 0%, transparent 30%);
+    opacity: 0.3;
+    z-index: 1;
+}
+
+[data-theme='dark'] .adBanner {
+    background: linear-gradient(135deg, rgba(77, 108, 250, 0.05) 0%, rgba(127, 82, 255, 0.05) 100%);
+    border: 1px solid rgba(77, 108, 250, 0.15);
+}
+
+.adContent {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.adContentVertical {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 1.5rem;
+    position: relative;
+    z-index: 2;
+}
+
+.adLogo {
+    width: 150px;
+    height: auto;
+}
+
+.adInfo {
+    flex: 1;
+    max-width: 700px;
+    position: relative;
+    z-index: 2;
+}
+
+.adTitle {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: var(--ifm-font-color-base);
+}
+
+.adTitle a {
+    color: var(--ifm-color-primary);
+    text-decoration: none;
+    transition: color 0.3s ease;
+    position: relative;
+    display: inline-block;
+}
+
+.adTitle a::after {
+    display: none;
+}
+
+.adTitle a:hover::after {
+    display: none;
+}
+
+.adTitle a:hover {
+    color: var(--ifm-color-primary-darker);
+    text-decoration: none;
+}
+
+.adDescription {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    color: var(--ifm-font-color-base);
+    opacity: 0.9;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.adDescription a {
+    color: var(--ifm-color-primary);
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    position: relative;
+    display: inline-block;
+}
+
+.adDescription a::after {
+    display: none;
+}
+
+.adDescription a:hover::after {
+    display: none;
+}
+
+.adDescription a:hover {
+    color: var(--ifm-color-primary-darker);
+    text-decoration: none;
+}
+
+.adContact {
+    font-size: 1rem;
+    color: var(--ifm-font-color-base);
+    opacity: 0.8;
+    margin-bottom: 0.8rem;
+    background: rgba(77, 108, 250, 0.08);
+    padding: 0.5rem 1.2rem;
+    border-radius: 50px;
+    display: inline-block;
+}
+
+.adSponsor {
+    font-size: 1rem;
+    font-style: italic;
+    color: var(--ifm-color-primary);
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    margin-top: 0.5rem;
+}
+
+@media (max-width: 768px) {
+    .adContent {
+        flex-direction: column;
+        text-align: center;
+    }
+    .adLogo {
+        width: 120px;
+    }
+    .adTitle {
+        font-size: 1.7rem;
+    }
+    .adDescription {
+        font-size: 1rem;
+    }
+}
+
+
+/* 添加底部Banner */
+
+.footerBanner {
+    margin-top: 5rem;
+    padding: 3rem 2rem;
+    border-radius: var(--global-border-radius);
+    background: linear-gradient(135deg, rgba(77, 108, 250, 0.08) 0%, rgba(127, 82, 255, 0.08) 100%);
+    text-align: center;
+    box-shadow: var(--global-shadow);
+    border: 1px solid rgba(77, 108, 250, 0.1);
+    position: relative;
+    overflow: hidden;
+    animation: fadeInUp 1s ease-out;
+    animation-delay: 0.6s;
+    animation-fill-mode: both;
+}
+
+.footerBanner::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 10% 10%, rgba(77, 108, 250, 0.2) 0%, transparent 30%), radial-gradient(circle at 90% 90%, rgba(127, 82, 255, 0.2) 0%, transparent 30%);
+    opacity: 0.3;
+    z-index: 1;
+}
+
+.bannerContent {
+    position: relative;
+    z-index: 2;
+}
+
+.bannerTitle {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    background: linear-gradient(90deg, #4D6CFA 0%, #7F52FF 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: -0.02em;
+    display: inline-block;
+}
+
+.bannerDescription {
+    font-size: 1.2rem;
+    max-width: 600px;
+    margin: 0 auto;
+    opacity: 0.8;
+}
+
+@media (max-width: 768px) {
+    .bannerTitle {
+        font-size: 1.6rem;
+    }
+    .bannerDescription {
+        font-size: 1rem;
+    }
+    .footerBanner {
+        padding: 2rem 1.5rem;
+        margin-top: 3rem;
+    }
+    .heroBadges {
+        margin-top: 1.5rem;
+    }
+    .badge {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.8rem;
+    }
+}

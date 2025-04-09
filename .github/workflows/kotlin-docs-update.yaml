@@ -1,0 +1,220 @@
+name: Kotlin docs update
+
+on:
+#  schedule:
+#    - cron: '0 0 * * 0'  # Run every Sunday at 0:00 UTC (Manual trigger right now because of the convertion is unstable)
+  workflow_dispatch:  # Allow manual trigger
+
+jobs:
+  check-external-docs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout main repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Get complete history for diff comparison
+
+      - name: Checkout Kotlin repository
+        uses: actions/checkout@v4
+        with:
+          repository: JetBrains/kotlin-web-site
+          path: kotlin-repo
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm install @google/genai
+
+      - name: Check last run timestamp for Kotlin
+        id: last-run-kotlin
+        run: |
+          if [ -f ".github/last_check_kotlin.txt" ]; then
+            echo "first_run=false" >> $GITHUB_OUTPUT
+            echo "last_commit=$(cat .github/last_check_kotlin.txt)" >> $GITHUB_OUTPUT
+          else
+            echo "first_run=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Get current commit for Kotlin
+        id: current-commit-kotlin
+        run: |
+          cd kotlin-repo
+          echo "current_commit=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
+
+      - name: Get changed markdown files for Kotlin
+        id: changed-files-kotlin
+        if: steps.last-run-kotlin.outputs.first_run == 'false' || steps.last-run-kotlin.outputs.last_commit != steps.current-commit-kotlin.outputs.current_commit
+        uses: tj-actions/changed-files@v46.0.3
+        with:
+          path: kotlin-repo
+          base_sha: ${{ steps.last-run-kotlin.outputs.last_commit }}
+          files: |
+            docs/topics/**/*.md
+
+      - name: Get all markdown files for Kotlin (first run)
+        id: all-files-kotlin
+        if: steps.last-run-kotlin.outputs.first_run == 'true'
+        run: |
+          cd kotlin-repo
+          ALL_FILES=$(find docs -name "*.md" | tr '\n' ' ' | sed 's/ $//')
+          echo "all_changed_files=$ALL_FILES" >>  $GITHUB_OUTPUT
+
+      - name: Prepare files for translation
+        id: prepare-translation
+        run: |
+          # Process Kotlin repository files
+          if [ "${{ steps.last-run-kotlin.outputs.first_run }}" == "true" ]; then
+            # First run - use all files
+            echo "KOTLIN_CHANGED_FILES=${{ steps.all-files-kotlin.outputs.all_changed_files }}" >> $GITHUB_ENV
+            echo "kotlin_any_changed=true" >> $GITHUB_OUTPUT
+          else
+            # Subsequent runs - use changed files
+            echo "KOTLIN_CHANGED_FILES=${{ steps.changed-files-kotlin.outputs.all_changed_files }}" >> $GITHUB_ENV
+          
+            if [ -n "${{ steps.changed-files-kotlin.outputs.all_changed_files }}" ]; then
+              echo "kotlin_any_changed=true" >> $GITHUB_OUTPUT
+            else
+              echo "kotlin_any_changed=false" >> $GITHUB_OUTPUT
+            fi
+          fi
+          
+          # Save current commit SHA for future updates
+          echo "last_commit_sha=${{ github.sha }}" >> $GITHUB_OUTPUT
+
+      - name: Process documents to Docusaurus format
+        if: steps.prepare-translation.outputs.kotlin_any_changed == 'true'
+        env:
+          START_PAGE: getting-started.md
+          REPO_PATH: kotlin-repo
+        run: |
+          # Check if v.list file exists
+          if [ -f "kotlin-repo/docs/v.list" ]; then
+            echo "Found v.list file, will use for variable replacement"
+          else
+            echo "v.list file not found, will skip variable replacement"
+          fi
+          
+          # Process documents and modify files
+          node .github/workflows/process-docs.js
+
+      - name: Translate Kotlin docs
+        if: steps.prepare-translation.outputs.kotlin_any_changed == 'true'
+        env:
+          BASE_DIR: ./kotlin
+          GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
+          CHANGED_FILES: ${{ env.KOTLIN_CHANGED_FILES }}
+          REPO_PATH: kotlin-repo
+        run: node .github/workflows/translate-kotlin.js
+
+      - name: Reorganize files
+        if: steps.prepare-translation.outputs.kotlin_any_changed == 'true'
+        run: |
+          # Move all Markdown files under topics to the docs directory, flattening the directory structure
+          echo "Moving Markdown files..."
+          find kotlin/docs/topics -name "*.md" | while read file; do
+            # Extract filename (without path)
+            filename=$(basename "$file")
+            # Move file to target location, overwrite if exists
+            echo "Moving: $file -> kotlin/docs/$filename"
+            mv -f "$file" "kotlin/docs/$filename"
+          done
+          
+          # Move all Markdown files under zh-Hant/topics to the docs directory, flattening the directory structure
+          echo "Moving Markdown files..."
+          find kotlin/i18n/zh-Hant/docusaurus-plugin-content-docs/current/topics -name "*.md" | while read file; do
+            # Extract filename (without path)
+            filename=$(basename "$file")
+            # Move file to target location, overwrite if exists
+            echo "Moving: $file -> kotlin/i18n/zh-Hant/docusaurus-plugin-content-docs/current/$filename"
+            mv -f "$file" "kotlin/i18n/zh-Hant/docusaurus-plugin-content-docs/current/$filename"
+          done
+          
+          # Move all Markdown files under ko/topics to the docs directory, flattening the directory structure
+          echo "Moving Markdown files..."
+          find kotlin/i18n/ko/docusaurus-plugin-content-docs/current/topics -name "*.md" | while read file; do
+            # Extract filename (without path)
+            filename=$(basename "$file")
+            # Move file to target location, overwrite if exists
+            echo "Moving: $file -> kotlin/i18n/ko/docusaurus-plugin-content-docs/current/$filename"
+            mv -f "$file" "kotlin/i18n/ko/docusaurus-plugin-content-docs/current/$filename"
+          done
+          
+          # Move all Markdown files under ja/topics to the docs directory, flattening the directory structure
+          echo "Moving Markdown files..."
+          find kotlin/i18n/ja/docusaurus-plugin-content-docs/current/topics -name "*.md" | while read file; do
+            # Extract filename (without path)
+            filename=$(basename "$file")
+            # Move file to target location, overwrite if exists
+            echo "Moving: $file -> kotlin/i18n/ja/docusaurus-plugin-content-docs/current/$filename"
+            mv -f "$file" "kotlin/i18n/ja/docusaurus-plugin-content-docs/current/$filename"
+          done
+          
+          # Copy all files under images directory to static/img, flattening the directory structure
+          echo "Copying image files..."
+          if [ -d "kotlin-repo/docs/images" ]; then
+            # Find all image files and copy to target directory, flattening directory structure
+            find kotlin-repo/docs/images -type f | while read img_file; do
+              # Extract filename (without path)
+              img_filename=$(basename "$img_file")
+              # Copy file to target location, overwrite if exists
+              echo "Copying: $img_file -> kotlin/static/img/$img_filename"
+              cp -f "$img_file" "kotlin/static/img/$img_filename"
+            done
+            echo "Copied image files to kotlin/static/img/"
+          else
+            echo "Warning: kotlin-repo/docs/images directory does not exist"
+          fi
+          
+          # Remove empty topics directory (if needed)
+          rm -rf kotlin/docs/topics
+          
+          echo "File reorganization complete"
+
+      - name: Update last check timestamps
+        if: success() && steps.prepare-translation.outputs.kotlin_any_changed == 'true'
+        run: |
+          # Only update the last checked commit if all previous steps were successful
+          echo "${{ steps.current-commit-kotlin.outputs.current_commit }}" > .github/last_check_kotlin.txt
+          echo "Updated check record timestamp"
+
+      - name: Commit and push changes
+        if: steps.prepare-translation.outputs.kotlin_any_changed == 'true'
+        run: |
+          git config --global user.name 'github-actions'
+          git config --global user.email 'github-actions@github.com'
+          # Exclude files and directories that don't need to be committed
+          git add . ':!package.json' ':!package-lock.json' ':!kotlin-repo' ':!kotlin-repo/**'
+          git commit -m 'Add translated files and update check record'
+          git push origin main
+
+      - name: Create summary
+        if: always()
+        run: |
+          echo "## Documentation Update Detection" >> $GITHUB_STEP_SUMMARY
+          
+          # Check if commit changed
+          echo "### Commit Change Detection" >> $GITHUB_STEP_SUMMARY
+          echo "- Kotlin repository: ${{ steps.prepare-translation.outputs.kotlin_any_changed }}" >> $GITHUB_STEP_SUMMARY
+          
+          # Kotlin repository summary
+          echo "### Kotlin Repository" >> $GITHUB_STEP_SUMMARY
+          if [ "${{ steps.last-run-kotlin.outputs.first_run }}" == "true" ]; then
+            echo "First run - processed all documentation files" >> $GITHUB_STEP_SUMMARY
+            FILES="${{ steps.all-files-kotlin.outputs.all_changed_files }}"
+            COUNT=$(echo "$FILES" | wc -w)
+            echo "Processed $COUNT files in total" >> $GITHUB_STEP_SUMMARY
+          else
+            if [ -z "${{ steps.changed-files-kotlin.outputs.all_changed_files }}" ]; then
+              echo "No document changes detected" >> $GITHUB_STEP_SUMMARY
+            else
+              CHANGED_FILES="${{ steps.changed-files-kotlin.outputs.all_changed_files }}"
+              COUNT=$(echo "$CHANGED_FILES" | wc -w)
+              echo "Detected $COUNT file changes:" >> $GITHUB_STEP_SUMMARY
+              echo '```' >> $GITHUB_STEP_SUMMARY
+              echo "$CHANGED_FILES" | tr ' ' '\n' >> $GITHUB_STEP_SUMMARY
+              echo '```' >> $GITHUB_STEP_SUMMARY
+            fi
+          fi
