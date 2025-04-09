@@ -157,7 +157,7 @@ export default function Home(): ReactNode {
                 <Link to="https://binarytape.com">BinaryTape</Link> <Translate
                   id="homepage.ad.description"
                   description="Description of BinaryTape company">
-                  通过创新咨询和解决方案连接全球与亚洲技术社区，利用我们在移动基础设施和新兴人工智能领域的专业知识，促进全球范围内的开源协作。
+                  通过创新咨询和解决方案连接全球与亚洲技术社区，利用我们在移动基础设施和新兴 AI 领域的专业知识，促进全球范围内的开源协作。
                 </Translate>
               </p>
               <p className={styles.adContact}>
