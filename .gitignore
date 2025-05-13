@@ -7,7 +7,7 @@
 /build
 
 # Generated files
-.docusaurus
+/docs/.vitepress/cache/
 .cache-loader
 
 # Misc
