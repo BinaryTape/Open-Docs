@@ -1,4 +1,4 @@
-import {defineConfig} from 'vitepress'
+import { defineConfig } from 'vitepress'
 import markdownItContainer from 'markdown-it-container'
 import markdownItWsCodeGroup from "./markdown-it-ws-code-group";
 import markdownItWsContainer from "./markdown-it-ws-container";
@@ -14,6 +14,7 @@ import markdownItWsVars from "./markdown-it-ws-vars";
 export default defineConfig({
   title: "OpenAIDoc",
   description: "OpenAIDoc",
+  cleanUrls: true,
 
   rewrites: {
     '/koin.html': '/',
@@ -22,33 +23,41 @@ export default defineConfig({
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     nav: [
-      {text: 'Koin', link: '/koin'}
+      { text: 'Koin', link: '/koin/setup/koin' },
+      { text: 'kotlin', link: '/kotlin/home' }
     ],
 
     editLink: {
       pattern: 'https://github.com/BinaryTape/Open-Docs/blob/main/koin/:path'
     },
 
-    sidebar: [
-      {
-        text: 'Koin页面',
-        collapsed: false,
-        items: [
-          {text: 'Koin', link: '/koin'},
-        ]
-      },
-      {
-        text: 'Kotlin页面',
-        collapsed: false,
-        items: [
-          {text: 'Kotlin组件A', link: '/kotlin1'},
-          {text: 'Kotlin组件B', link: '/kotlin2'},
-        ]
-      }
-    ],
+    sidebar: {
+      "/koin/": [
+        {
+          text: 'Setup',
+          collapsed: false,
+          items: [
+            { text: 'Koin', link: '/koin/setup/koin' },
+          ]
+        },
+      ],
+      "/kotlin/": [
+        {
+          text: 'Home',
+          link: '/kotlin/home'
+        },
+        {
+          text: 'Kotlin教程',
+          collapsed: false,
+          items: [
+            { text: 'Kotlin组件B', link: '/kotlin/kotlin2' },
+          ]
+        }
+      ]
+    },
 
     socialLinks: [
-      {icon: 'github', link: 'https://github.com/vuejs/vitepress'}
+      { icon: 'github', link: 'https://github.com/vuejs/vitepress' }
     ],
 
   },
@@ -96,15 +105,15 @@ export default defineConfig({
       })
 
       md.use(markdownItContainer, 'caution', {
-          render: function (tokens, idx) {
-              const m = tokens[idx].info.trim().match(/^caution\s*(.*)$/);
+        render: function (tokens, idx) {
+          const m = tokens[idx].info.trim().match(/^caution\s*(.*)$/);
 
-              if (tokens[idx].nesting === 1) {
-                  return `<div class="warning custom-block"><p class="custom-block-title">${md.utils.escapeHtml(m[1] || 'CAUTION')}</p>\n`;
-              } else {
-                  return '</div>\n';
-              }
+          if (tokens[idx].nesting === 1) {
+            return `<div class="warning custom-block"><p class="custom-block-title">${md.utils.escapeHtml(m[1] || 'CAUTION')}</p>\n`;
+          } else {
+            return '</div>\n';
           }
+        }
       })
 
       md.use(markdownItContainer, 'warning', {
