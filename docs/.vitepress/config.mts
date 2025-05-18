@@ -9,57 +9,124 @@ import markdownItWsCodeClean from "./markdown-it-ws-code-clean";
 import markdownItWsDeflist from "./markdown-it-ws-deflist";
 import markdownItWsAssets from "./markdown-it-ws-assets";
 import markdownItWsVars from "./markdown-it-ws-vars";
+import generateSidebarItems from './script/generateSidebar';
+import { DocsTypeConfig } from './docs.config';
+import { markdownItRewriteLinks } from './markdown-it-ws-inline-link';
+import { SiteLocaleConfig } from './locales.config';
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
-  title: "OpenAIDoc",
-  description: "OpenAIDoc",
   cleanUrls: true,
-
-  rewrites: {
-    '/koin.html': '/',
-  },
-
-  themeConfig: {
-    // https://vitepress.dev/reference/default-theme-config
-    nav: [
-      { text: 'Koin', link: '/koin/setup/koin' },
-      { text: 'kotlin', link: '/kotlin/home' }
-    ],
-
-    editLink: {
-      pattern: 'https://github.com/BinaryTape/Open-Docs/blob/main/koin/:path'
-    },
-
-    sidebar: {
-      "/koin/": [
-        {
-          text: 'Setup',
-          collapsed: false,
-          items: [
-            { text: 'Koin', link: '/koin/setup/koin' },
+  lastUpdated: true,
+  locales: {
+    root: {
+      ...SiteLocaleConfig['zh-hans'],
+      themeConfig: {
+        // https://vitepress.dev/reference/default-theme-config
+        nav: [
+          { text: 'Koin', link: '/koin/setup/koin' },
+          { text: 'kotlin', link: '/kotlin/home' }
+        ],
+        sidebar: {
+          "/koin/": generateSidebarItems("zh-hans", DocsTypeConfig.koin),
+          "/kotlin/": [
+            {
+              text: 'Home',
+              link: '/kotlin/home'
+            },
+            {
+              text: 'Kotlin教程',
+              collapsed: false,
+              items: [
+                { text: 'Kotlin组件B', link: '/kotlin/kotlin2' },
+              ]
+            }
           ]
         },
-      ],
-      "/kotlin/": [
-        {
-          text: 'Home',
-          link: '/kotlin/home'
+        editLink: {
+          pattern: 'https://github.com/BinaryTape/Open-Docs/blob/main/koin/:path'
         },
-        {
-          text: 'Kotlin教程',
-          collapsed: false,
-          items: [
-            { text: 'Kotlin组件B', link: '/kotlin/kotlin2' },
+        socialLinks: [
+          { icon: 'github', link: 'https://github.com/vuejs/vitepress' }
+        ],
+      },
+    },
+    "zh-hant": {
+      ...SiteLocaleConfig['zh-hant'],
+      themeConfig: {
+        // https://vitepress.dev/reference/default-theme-config
+        nav: [
+          { text: 'Koin', link: 'zh-hant/koin/setup/koin' },
+          { text: 'kotlin', link: '/kotlin/home' }
+        ],
+        sidebar: {
+          "zh-hant/koin/": generateSidebarItems("zh-hant", DocsTypeConfig.koin),
+          "/kotlin/": [
+            {
+              text: 'Home',
+              link: '/kotlin/home'
+            },
+            {
+              text: 'Kotlin教程',
+              collapsed: false,
+              items: [
+                { text: 'Kotlin组件B', link: '/kotlin/kotlin2' },
+              ]
+            }
+          ]
+        },
+      },
+    },
+    ja: {
+      ...SiteLocaleConfig['ja'],
+      themeConfig: {
+        nav: [
+          { text: 'Koin', link: 'ja/koin/setup/koin' },
+          { text: 'kotlin', link: '/kotlin/home' }
+        ],
+        sidebar: {
+          "ja/koin/": generateSidebarItems("ja", DocsTypeConfig.koin),
+          "/kotlin/": [
+            {
+              text: 'Home',
+              link: '/kotlin/home'
+            },
+            {
+              text: 'Kotlin教程',
+              collapsed: false,
+              items: [
+                { text: 'Kotlin组件B', link: '/kotlin/kotlin2' },
+              ]
+            }
+          ]
+        },
+      },
+    },
+    ko: {
+      ...SiteLocaleConfig['ko'],
+      themeConfig: {
+        nav: [
+          { text: 'Koin', link: 'ko/koin/setup/koin' },
+          { text: 'kotlin', link: '/kotlin/home' }
+        ],
+        sidebar: {
+          "ko/koin/": generateSidebarItems("ko", DocsTypeConfig.koin),
+          "/kotlin/": [
+            {
+              text: 'Home',
+              link: '/kotlin/home'
+            },
+            {
+              text: 'Kotlin教程',
+              collapsed: false,
+              items: [
+                { text: 'Kotlin组件B', link: '/kotlin/kotlin2' },
+              ]
+            }
           ]
         }
-      ]
-    },
-
-    socialLinks: [
-      { icon: 'github', link: 'https://github.com/vuejs/vitepress' }
-    ],
-
+      }
+    }
   },
   markdown: {
     attrs: {
@@ -91,6 +158,7 @@ export default defineConfig({
       md.use(markdownItWsVars, {
         xmlFilePath: 'docs/v.list'
       });
+      md.use(markdownItRewriteLinks)
 
       md.use(markdownItContainer, 'note', {
         render: function (tokens, idx) {
@@ -139,6 +207,6 @@ export default defineConfig({
 
         return result
       }
-    }
-  }
+    },
+  },
 })

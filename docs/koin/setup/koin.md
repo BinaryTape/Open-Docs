@@ -1,16 +1,16 @@
 ---
 title: Koin
+slug: /
 ---
+在你的项目中设置 Koin 所需的一切
 
-All you need to setting up Koin in your project
+## 当前版本
 
-## Current Versions
+你可以在 [maven central](https://search.maven.org/search?q=io.insert-koin) 上找到所有的 Koin 包。
 
-You can find all Koin packages on [maven central](https://search.maven.org/search?q=io.insert-koin).
+以下是当前可用的版本：
 
-Here are the currently available versions:
-
-| Project                          |                                                                                                      Version                                                                                                       |
+| 项目                          |                                                                                                      版本                                                                                                       |
 |----------------------------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|
 | koin-bom                         |                                   [![Maven Central](https://img.shields.io/maven-central/v/io.insert-koin/koin-bom)](https://mvnrepository.com/artifact/io.insert-koin/koin-bom)                                   |
 | koin-core                        |                                  [![Maven Central](https://img.shields.io/maven-central/v/io.insert-koin/koin-core)](https://mvnrepository.com/artifact/io.insert-koin/koin-core)                                  |
@@ -34,18 +34,18 @@ Here are the currently available versions:
 | koin-ktor                        |                                  [![Maven Central](https://img.shields.io/maven-central/v/io.insert-koin/koin-ktor)](https://mvnrepository.com/artifact/io.insert-koin/koin-ktor)                                  |
 | koin-logger-slf4j                |                          [![Maven Central](https://img.shields.io/maven-central/v/io.insert-koin/koin-logger-slf4j)](https://mvnrepository.com/artifact/io.insert-koin/koin-logger-slf4j)                          |
 
-## Gradle Setup
+## Gradle 设置
 
 ### Kotlin
 
-Starting from 3.5.0 you can use BOM-version to manage all Koin library versions. When using the BOM in your app, you don't need to add any version to the Koin library dependencies themselves. When you update the BOM version, all the libraries that you're using are automatically updated to their new versions.
+从 3.5.0 版本开始，你可以使用 BOM 版本来管理所有 Koin 库的版本。在你的应用中使用 BOM 时，你不需要为 Koin 库的依赖项本身添加任何版本。当你更新 BOM 版本时，你正在使用的所有库都会自动更新到它们的新版本。
 
-Add `koin-bom` BOM and `koin-core` dependency to your application:
+将 `koin-bom` BOM 和 `koin-core` 依赖添加到你的应用程序：
 ```kotlin
 implementation(project.dependencies.platform("io.insert-koin:koin-bom:$koin_version"))
 implementation("io.insert-koin:koin-core")
 ```
-If you are using version catalogs:
+如果你正在使用 version catalogs（版本目录）：
 ```toml
 [versions]
 koin-bom = "x.x.x"
@@ -63,14 +63,14 @@ dependencies {
 }
 ```
 
-Or use an old way of specifying the exact dependency version for Koin:
+或者使用旧的方式来指定 Koin 的确切依赖版本：
 ```kotlin
 dependencies {
     implementation("io.insert-koin:koin-core:$koin_version")
 }
 ```
 
-You are now ready to start Koin:
+现在你可以开始 Koin 了：
 
 ```kotlin
 fun main() {
@@ -80,7 +80,7 @@ fun main() {
 }
 ```
 
-If you need testing capacity:
+如果你需要测试功能：
 
 ```groovy
 dependencies {
@@ -94,12 +94,12 @@ dependencies {
 ```
 
 :::info
-From now you can continue on Koin Tutorials to learn about using Koin: [Kotlin App Tutorial](/docs/quickstart/kotlin)
+从现在开始，你可以继续学习 Koin 教程，了解如何使用 Koin：[Kotlin 应用教程](/quickstart/kotlin.md)
 :::
 
 ### **Android**
 
-Add `koin-android` dependency to your Android application:
+将 `koin-android` 依赖添加到你的 Android 应用程序：
 
 ```groovy
 dependencies {
@@ -107,7 +107,7 @@ dependencies {
 }
 ```
 
-You are now ready to start Koin in your `Application` class:
+现在你可以在你的 `Application` 类中启动 Koin 了：
 
 ```kotlin
 class MainApplication : Application() {
@@ -121,7 +121,7 @@ class MainApplication : Application() {
 }
 ```
 
-If you need extra features, add the following needed package:
+如果你需要额外的功能，添加以下需要的包：
 
 ```groovy
 dependencies {
@@ -137,12 +137,12 @@ dependencies {
 ```
 
 :::info
-From now you can continue on Koin Tutorials to learn about using Koin: [Android App Tutorial](/docs/quickstart/android-viewmodel)
+从现在开始，你可以继续学习 Koin 教程，了解如何使用 Koin：[Android 应用教程](/quickstart/android-viewmodel.md)
 :::
 
-### **Jetpack Compose or Compose Multiplatform**
+### **Jetpack Compose 或 Compose Multiplatform**
 
-Add `koin-compose` dependency to your multiplatform application, for use Koin & Compose API:
+将 `koin-compose` 依赖添加到你的 multiplatform（多平台）应用程序中，用于使用 Koin & Compose API：
 
 ```groovy
 dependencies {
@@ -152,7 +152,7 @@ dependencies {
 }
 ```
 
-If you are using pure Android Jetpack Compose, you can go with
+如果你正在使用纯 Android Jetpack Compose，你可以使用
 
 ```groovy
 dependencies {
@@ -163,7 +163,7 @@ dependencies {
 
 ### **Kotlin Multiplatform**
 
-Add `koin-core` dependency to your multiplatform application, for shared Kotlin part:
+将 `koin-core` 依赖添加到你的 multiplatform（多平台）应用程序中，用于共享的 Kotlin 部分：
 
 ```groovy
 dependencies {
@@ -172,12 +172,12 @@ dependencies {
 ```
 
 :::info
-From now you can continue on Koin Tutorials to learn about using Koin: [Kotlin Multiplatform App Tutorial](/docs/quickstart/kmp)
+从现在开始，你可以继续学习 Koin 教程，了解如何使用 Koin：[Kotlin Multiplatform 应用教程](/quickstart/kmp.md)
 :::
 
 ### **Ktor**
 
-Add `koin-ktor` dependency to your Ktor application:
+将 `koin-ktor` 依赖添加到你的 Ktor 应用程序：
 
 ```groovy
 dependencies {
@@ -188,7 +188,7 @@ dependencies {
 }
 ```
 
-You are now ready to install Koin feature into your Ktor application:
+现在你可以将 Koin 功能安装到你的 Ktor 应用程序中了：
 
 ```kotlin
 fun Application.main() {
@@ -200,12 +200,11 @@ fun Application.main() {
 ```
 
 :::info
-From now you can continue on Koin Tutorials to learn about using Koin: [Ktor App Tutorial](/docs/quickstart/ktor)
+从现在开始，你可以继续学习 Koin 教程，了解如何使用 Koin：[Ktor 应用教程](/quickstart/ktor.md)
 :::
 
-
 ### **Koin BOM**
-The Koin Bill of Materials (BOM) lets you manage all of your Koin library versions by specifying only the BOM’s version. The BOM itself has links to the stable versions of the different Koin libraries, in such a way that they work well together. When using the BOM in your app, you don't need to add any version to the Koin library dependencies themselves. When you update the BOM version, all the libraries that you're using are automatically updated to their new versions.
+Koin Bill of Materials (BOM)（Koin 物料清单）允许你仅通过指定 BOM 的版本来管理所有 Koin 库的版本。 BOM 本身具有指向不同 Koin 库的稳定版本的链接，以便它们可以很好地协同工作。 在你的应用中使用 BOM 时，你不需要为 Koin 库的依赖项本身添加任何版本。 当你更新 BOM 版本时，你正在使用的所有库都会自动更新到它们的新版本。
 
 ```groovy
 dependencies {
@@ -224,4 +223,3 @@ dependencies {
     testImplementation("io.insert-koin:koin-test-junit4")
     testImplementation("io.insert-koin:koin-android-test")
 }
-```
