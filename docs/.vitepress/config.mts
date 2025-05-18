@@ -10,17 +10,17 @@ import markdownItWsDeflist from "./markdown-it-ws-deflist";
 import markdownItWsAssets from "./markdown-it-ws-assets";
 import markdownItWsVars from "./markdown-it-ws-vars";
 import generateSidebarItems from './script/generateSidebar';
-import { docsConfig } from './script/doc.config';
+import { DocsTypeConfig } from './docs.config';
+import { markdownItRewriteLinks } from './markdown-it-ws-inline-link';
+import { SiteLocaleConfig } from './locales.config';
+
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
   cleanUrls: true,
+  lastUpdated: true,
   locales: {
     root: {
-      lang: 'zh-hans',
-      label: '简体中文',
-      title: 'OpenAIDoc',
-      description: 'OpenAIDoc',
-      link: '/',
+      ...SiteLocaleConfig['zh-hans'],
       themeConfig: {
         // https://vitepress.dev/reference/default-theme-config
         nav: [
@@ -28,7 +28,7 @@ export default defineConfig({
           { text: 'kotlin', link: '/kotlin/home' }
         ],
         sidebar: {
-          "/koin/": generateSidebarItems("zh-hans", docsConfig.koin),
+          "/koin/": generateSidebarItems("zh-hans", DocsTypeConfig.koin),
           "/kotlin/": [
             {
               text: 'Home',
@@ -52,10 +52,7 @@ export default defineConfig({
       },
     },
     "zh-hant": {
-      lang: 'zh-hant',
-      label: '繁體中文',
-      title: 'OpenAIDoc',
-      description: 'OpenAIDoc',
+      ...SiteLocaleConfig['zh-hant'],
       themeConfig: {
         // https://vitepress.dev/reference/default-theme-config
         nav: [
@@ -63,7 +60,7 @@ export default defineConfig({
           { text: 'kotlin', link: '/kotlin/home' }
         ],
         sidebar: {
-          "zh-hant/koin/": generateSidebarItems("zh-hant", docsConfig.koin),
+          "zh-hant/koin/": generateSidebarItems("zh-hant", DocsTypeConfig.koin),
           "/kotlin/": [
             {
               text: 'Home',
@@ -81,17 +78,14 @@ export default defineConfig({
       },
     },
     ja: {
-      lang: 'ja',
-      label: '日本語',
-      title: 'OpenAIDoc',
-      description: 'OpenAIDoc',
+      ...SiteLocaleConfig['ja'],
       themeConfig: {
         nav: [
           { text: 'Koin', link: 'ja/koin/setup/koin' },
           { text: 'kotlin', link: '/kotlin/home' }
         ],
         sidebar: {
-          "ja/koin/": generateSidebarItems("ja", docsConfig.koin),
+          "ja/koin/": generateSidebarItems("ja", DocsTypeConfig.koin),
           "/kotlin/": [
             {
               text: 'Home',
@@ -109,17 +103,14 @@ export default defineConfig({
       },
     },
     ko: {
-      lang: 'ko',
-      label: '한국어',
-      title: 'OpenAIDoc',
-      description: 'OpenAIDoc',
+      ...SiteLocaleConfig['ko'],
       themeConfig: {
         nav: [
           { text: 'Koin', link: 'ko/koin/setup/koin' },
           { text: 'kotlin', link: '/kotlin/home' }
         ],
         sidebar: {
-          "ko/koin/": generateSidebarItems("ko", docsConfig.koin),
+          "ko/koin/": generateSidebarItems("ko", DocsTypeConfig.koin),
           "/kotlin/": [
             {
               text: 'Home',
@@ -167,6 +158,7 @@ export default defineConfig({
       md.use(markdownItWsVars, {
         xmlFilePath: 'docs/v.list'
       });
+      md.use(markdownItRewriteLinks)
 
       md.use(markdownItContainer, 'note', {
         render: function (tokens, idx) {
@@ -215,6 +207,6 @@ export default defineConfig({
 
         return result
       }
-    }
-  }
+    },
+  },
 })

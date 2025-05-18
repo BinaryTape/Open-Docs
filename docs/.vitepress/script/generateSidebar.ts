@@ -2,7 +2,7 @@ import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
 import { sidebarsConfig, sidebarI18nConfig } from "./sidebar.config";
-import { DocsItemConfig } from "./doc.config";
+import { DocsItemConfig } from "../docs.config";
 
 function applyI18nToSidebar(sidebars, sidebarI18nConfig, locale) {
   const i18nLabels = sidebarI18nConfig[locale];

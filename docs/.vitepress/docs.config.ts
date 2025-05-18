@@ -3,7 +3,7 @@ export type DocsItemConfig = {
     description: string;
     path: string;
 }
-export const docsConfig: { [key: string]: DocsItemConfig } = {
+export const DocsTypeConfig: { [key: string]: DocsItemConfig } = {
     koin: {
         title: "Koin",
         description: "Koin",
@@ -14,4 +14,6 @@ export const docsConfig: { [key: string]: DocsItemConfig } = {
         description: "Kotlin",
         path: "/kotlin/",
     }
-} 
+}
+
+export const DOCS_TYPES = Object.keys(DocsTypeConfig)
