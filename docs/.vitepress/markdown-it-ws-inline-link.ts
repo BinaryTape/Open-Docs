@@ -15,7 +15,6 @@ const rewiteOptions: RewriteLinkOptions = {
     const locale = parts.find(p => SITE_LOCALES.includes(p))
     const docType = parts.find(p => DOCS_TYPES.includes(p))
     const config = { locale, docType }
-    console.log(config)
     const localePath = locale === undefined ? '' : `/${config.locale}`
     const docsPath = `/${config.docType}`
     return `${localePath}${docsPath}${href}`

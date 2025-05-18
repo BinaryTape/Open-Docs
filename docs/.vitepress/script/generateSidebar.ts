@@ -54,10 +54,5 @@ export default function generateSidebarItems(locale = "zh-hans", docsConfig: Doc
     })),
   }));
   const result = applyI18nToSidebar(sidebars, sidebarI18nConfig, locale);
-  // fs.writeFileSync(
-  //   path.join("docs", `sidebar-${locale}.json`),
-  //   JSON.stringify(result, null, 2),
-  //   "utf-8"
-  // );
   return result;
 }
