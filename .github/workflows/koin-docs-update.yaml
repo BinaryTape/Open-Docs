@@ -186,8 +186,7 @@ jobs:
       - name: Translate Koin docs
         if: steps.prepare-translation.outputs.koin_any_changed == 'true'
         env:
-          BASE_DIR: ./koin
-          START_PAGE: koin.md
+          BASE_DIR: ./docs
           GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
           CHANGED_FILES: ${{ env.KOIN_CHANGED_FILES }}
           REPO_PATH: koin-repo
@@ -196,7 +195,7 @@ jobs:
       - name: Translate Koin-Annotations docs
         if: steps.prepare-translation.outputs.annotations_any_changed == 'true'
         env:
-          BASE_DIR: ./koin
+          BASE_DIR: ./docs
           GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
           CHANGED_FILES: ${{ env.ANNOTATIONS_CHANGED_FILES }}
           REPO_PATH: koin-annotations-repo

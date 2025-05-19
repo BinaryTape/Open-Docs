@@ -9,100 +9,6 @@ const config = JSON.parse(fs.readFileSync(configPath, 'utf8'));
 // Google LLM API
 const genAI = new GoogleGenAI({ apiKey: process.env.GOOGLE_API_KEY });
 
-// Fix broken links in Markdown files
-function fixBrokenLinks(content, filePath) {
-    console.log(`Fixing broken links in file: ${filePath}`);
-
-    // Define link fix rules
-    const linkFixRules = [
-        // 0. Remove # and everything after it from links
-        {
-            pattern: /\[([^\]]+)\]\(([^#\)]+)(#[^\)]*)?\)/g,
-            replacer: (match, text, link, hash) => {
-                if (hash) {
-                    console.log(`  Removing # and content after it from link: ${match} -> [${text}](${link})`);
-                    return `[${text}](${link})`;
-                }
-                return match;
-            }
-        },
-        // 1. Fix links starting with '/docs/'
-        {
-            pattern: /\[([^\]]+)\]\(\/docs\/([^\)]+)\)/g,
-            replacer: (match, text, link) => {
-                console.log(`  Fixing /docs/ link: ${match} -> [${text}](/${link})`);
-                return `[${text}](/${link})`;
-            }
-        },
-        // 2. Fix malformatted links like [text]([url](link))
-        {
-            pattern: /\[([^\]]+)\]\(\[url\]\(([^\)]+)\)\)/g,
-            replacer: (match, text, url) => {
-                console.log(`  Fixing malformatted link: ${match} -> [${text}](${url})`);
-                return `[${text}](${url})`;
-            }
-        },
-        // 4. Add .md extension to relative paths
-        {
-            pattern: /\[([^\]]+)\]\((\.\.\/[^\.][^\)]*)(#[^\)]+)?\)/g,
-            replacer: (match, text, relPath, hash = '') => {
-                if (!relPath.endsWith('.md') && !relPath.endsWith('/')) {
-                    console.log(`  Adding .md extension to relative path: ${match} -> [${text}](${relPath}.md${hash || ''})`);
-                    return `[${text}](${relPath}.md${hash || ''})`;
-                }
-                return match;
-            }
-        },
-        // 5. Add .md extension to absolute paths
-        {
-            pattern: /\[([^\]]+)\]\(\/([^\.][^\)]*)(#[^\)]+)?\)/g,
-            replacer: (match, text, absPath, hash = '') => {
-                if (!absPath.endsWith('.md') && !absPath.endsWith('/')) {
-                    console.log(`  Adding .md extension to absolute path: ${match} -> [${text}](/${absPath}.md${hash || ''})`);
-                    return `[${text}](${absPath}.md${hash || ''})`;
-                }
-                return match;
-            }
-        },
-        // 6. Fix percent-encoded links
-        {
-            pattern: /%5B([^\]]+)%5D\(%5B([^\)]+)%5D\)/g,
-            replacer: (match, text, url) => {
-                const decodedText = decodeURIComponent(text);
-                const decodedUrl = decodeURIComponent(url);
-                console.log(`  Fixing percent-encoded link: ${match} -> [${decodedText}](${decodedUrl})`);
-                return `[${decodedText}](${decodedUrl})`;
-            }
-        },
-    ];
-
-    // Apply all fix rules
-    let modifiedContent = content;
-    let totalFixes = 0;
-
-    linkFixRules.forEach(({ pattern, replacer }) => {
-        let fixCount = 0;
-        modifiedContent = modifiedContent.replace(pattern, (...args) => {
-            fixCount++;
-            return replacer(...args);
-        });
-
-        if (fixCount > 0) {
-            totalFixes += fixCount;
-            console.log(`  Applied rule fixed ${fixCount} links`);
-        }
-    });
-
-    // Output fix results statistics
-    if (totalFixes > 0) {
-        console.log(`Fixed ${totalFixes} broken links in file ${filePath}`);
-    } else {
-        console.log(`No broken links found in file ${filePath}`);
-    }
-
-    return modifiedContent;
-}
-
 // Load terminology database
 let terminology = {};
 
@@ -165,7 +71,7 @@ function generateFrontmatter(frontmatterObj) {
         const needsQuotes = /[:"\s]/.test(value);
         result += `${key}: ${needsQuotes ? `"${value.replace(/"/g, '\\"')}"` : value}\n`;
     }
-    
+
     result += '---\n';
     return result;
 }
@@ -173,25 +79,17 @@ function generateFrontmatter(frontmatterObj) {
 // Translate title in frontmatter
 async function translateFrontmatter(frontmatter, targetLang, filePath) {
     if (!frontmatter) return '';
-    
+
     const { frontmatterObj, rawFrontmatter } = parseFrontmatter(frontmatter);
-    
-    // Check if this is the koin.md file, if so add slug: /
-    const fileName = path.basename(filePath);
-    if (fileName === process.env.START_PAGE) {
-        frontmatterObj.slug = '/';
-        console.log(`Added slug: / setting for file ${fileName}`);
-    }
-    
+
     // Check if there are fields to translate
     const fieldsToTranslate = ['title', 'description', 'sidebar_label'];
     const hasFieldsToTranslate = fieldsToTranslate.some(field => frontmatterObj[field]);
-    
+
     if (!hasFieldsToTranslate) {
-        // Even if there are no fields to translate, still need to generate new frontmatter to include possible added slug
         return generateFrontmatter(frontmatterObj);
     }
-    
+
     // Prepare text to translate
     const textsToTranslate = [];
     for (const field of fieldsToTranslate) {
@@ -199,16 +97,16 @@ async function translateFrontmatter(frontmatter, targetLang, filePath) {
             textsToTranslate.push(`${field}: ${frontmatterObj[field]}`);
         }
     }
-    
+
     if (textsToTranslate.length === 0) {
         return generateFrontmatter(frontmatterObj);
     }
-    
+
     // Join fields into text for translation
     const textToTranslate = textsToTranslate.join('\n');
     const translatedText = await translateWithLLM(textToTranslate, targetLang, filePath);
     const cleanedTranslatedText = cleanupTranslation(translatedText);
-    
+
     // Parse translation results back to object
     const translatedLines = cleanedTranslatedText.split('\n');
     for (const line of translatedLines) {
@@ -216,32 +114,24 @@ async function translateFrontmatter(frontmatter, targetLang, filePath) {
         if (colonIndex !== -1) {
             const key = line.substring(0, colonIndex).trim();
             let value = line.substring(colonIndex + 1).trim();
-            
+
             // If it's a field we want to translate, update the value
             if (fieldsToTranslate.includes(key) && frontmatterObj[key]) {
                 frontmatterObj[key] = value;
             }
         }
     }
-    
+
     // Generate new frontmatter
     return generateFrontmatter(frontmatterObj);
 }
 
 // Calculate target file path
 function getTargetPath(filePath, targetLang) {
-    // For Simplified Chinese, store directly in baseDir/docs
-    if (targetLang === 'zh-Hans') {
-        const baseDir = process.env.BASE_DIR || '.';
-        const relativePath = path.relative(config.sourceDir, filePath);
-        return path.join(baseDir, 'docs', relativePath);
-    } 
-    // Other languages go in i18n/[language]/content-docs/current
-    else {
-        const baseDir = process.env.BASE_DIR || '.';
-        const relativePath = path.relative(config.sourceDir, filePath);
-        return path.join(baseDir, 'i18n', targetLang, 'docusaurus-plugin-content-docs', 'current', relativePath);
-    }
+    // baseDir/[language]/koin/relativePath
+    const baseDir = process.env.BASE_DIR || '.';
+    const relativePath = path.relative(config.sourceDir, filePath);
+    return path.join(baseDir, targetLang, 'koin', relativePath);
 }
 
 // Load previously translated related files as reference
@@ -249,24 +139,24 @@ function loadPreviousTranslations(targetLang, currentFilePath) {
     try {
         // Calculate path for the corresponding translation file
         const targetPath = getTargetPath(currentFilePath, targetLang);
-        
+
         console.log(`Trying to load reference translation: ${targetPath}`);
-        
+
         // Check if corresponding translation file exists
         if (!fs.existsSync(targetPath)) {
             console.log(`Reference translation file does not exist: ${targetPath}`);
             return [];
         }
-        
+
         // Read previous translation content
         const content = fs.readFileSync(targetPath, 'utf8');
         console.log(`Successfully loaded reference translation file: ${targetPath}`);
-        
+
         return [{
             file: targetPath,
             content: content
         }];
-        
+
     } catch (error) {
         console.error("Error loading previous translation:", error);
         return [];
@@ -280,10 +170,10 @@ function prepareTranslationPrompt(sourceText, targetLang, currentFilePath) {
         .filter(([term]) => sourceText.includes(term))
         .map(([term, translations]) => `"${term}" → "${translations[targetLang]}"`)
         .join('\n');
-    
+
     // Get previously translated file with the same name as reference
     const previousTranslations = loadPreviousTranslations(targetLang, currentFilePath);
-    
+
     // Build reference translation section
     let translationReferences = '';
     if (previousTranslations.length > 0) {
@@ -296,17 +186,17 @@ function prepareTranslationPrompt(sourceText, targetLang, currentFilePath) {
             translationReferences += `### 之前的翻译版本\n\`\`\`\n${previousTranslations[0].content}\n\`\`\`\n\n`;
         }
     }
-  
+
     // Choose appropriate prompt template based on target language
     const promptTemplate = getPromptTemplate(targetLang, getLangDisplayName(targetLang));
-  
+
     // Insert variables into template
     return promptTemplate
       .replace('{RELEVANT_TERMS}', relevantTerms || (targetLang === 'ja' || targetLang === 'ko' ? 'No relevant terms' : '无相关术语'))
       .replace('{TRANSLATION_REFERENCES}', translationReferences || (targetLang === 'ja' || targetLang === 'ko' ? 'No reference translations' : '无参考翻译'))
       .replace('{SOURCE_TEXT}', sourceText);
   }
-  
+
   // Get appropriate prompt template based on target language
   function getPromptTemplate(targetLang, langDisplayName) {
     // Japanese and Korean use English prompts
@@ -342,7 +232,7 @@ function prepareTranslationPrompt(sourceText, targetLang, currentFilePath) {
     \`\`\`
     `;
     }
-    
+
     // Other languages use Chinese prompts
     return `你是一位精通技术文档翻译的专业翻译人员，负责将英文技术文档准确翻译为${langDisplayName}。请严格遵循以下要求：
     
@@ -377,7 +267,7 @@ function prepareTranslationPrompt(sourceText, targetLang, currentFilePath) {
     \`\`\`
     `;
   }
-  
+
 
 // Call LLM API for translation
 async function translateWithLLM(text, targetLang, filePath) {
@@ -414,26 +304,23 @@ async function callGemini(prompt, model) {
 // Translate file
 async function translateFile(filePath) {
     console.log(`Translating file: ${filePath}`);
-    
+
     if (!filePath) {
         console.error('Invalid file path');
         return;
     }
-    
+
     // Fix file path, need to read source file from REPO_PATH
     const absoluteFilePath = path.resolve(process.env.REPO_PATH, filePath);
-    
+
     // Check if file exists
     if (!fs.existsSync(absoluteFilePath)) {
         console.error(`File not found: ${absoluteFilePath}`);
         return;
     }
-    
+
     try {
         let content = fs.readFileSync(absoluteFilePath, 'utf8');
-        
-        // Fix broken links before translation
-        content = fixBrokenLinks(content, filePath);
 
         const { frontmatter, mainContent } = extractFrontmatterAndContent(content);
 
@@ -441,7 +328,7 @@ async function translateFile(filePath) {
             try {
                 // Use new path calculation function
                 const targetPath = getTargetPath(filePath, targetLang);
-                
+
                 if (!targetPath) {
                     console.error(`Unable to get target path: ${filePath} -> ${targetLang}`);
                     continue;
@@ -496,22 +383,22 @@ function cleanupTranslation(text) {
     } else if (text.startsWith('```')) {
         text = text.replace(/^```\n/, '');
     }
-    
+
     // Remove markdown code block markers at end
     if (text.endsWith('```')) {
         text = text.replace(/```$/, '');
     }
-    
+
     // Remove extra 'n' characters (usually found in translation API error outputs)
     text = text.replace(/([^\\])\\n/g, '$1\n'); // Replace non-escaped \n with actual newline
     text = text.replace(/^\\n/g, '\n'); // Handle leading \n
-    
+
     // Remove extra blank lines
     text = text.replace(/\n{3,}/g, '\n\n');
-    
+
     // Remove possible extra spaces
     text = text.trim();
-    
+
     return text;
 }
 
@@ -524,7 +411,7 @@ function getLangDisplayName(langCode) {
 async function main() {
     const changedFilesInput = process.env.CHANGED_FILES || '';
     console.log(`Environment variable CHANGED_FILES: ${changedFilesInput}`);
-    
+
     const changedFiles = changedFilesInput.split(/[\s,]+/).filter(file => file.trim());
     console.log(`Found ${changedFiles.length} changed files`);
 
