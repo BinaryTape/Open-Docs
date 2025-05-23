@@ -44,7 +44,7 @@ export default defineConfig({
       },
     },
     "zh-hant": {
-      dir: 'zh-hant',
+      link: "/zh-hant/",
       ...SiteLocaleConfig['zh-hant'],
       themeConfig: {
         ...commonThemeConfig,
@@ -53,8 +53,8 @@ export default defineConfig({
           { text: 'kotlin', link: 'zh-hant/kotlin/getting-started' }
         ],
         sidebar: {
-          "zh-hant/koin/": generateSidebarItems(SiteLocaleConfig['zh-hant'], DocsTypeConfig.koin),
-          "zh-hant/kotlin/": generateSidebarItems(SiteLocaleConfig['zh-hant'], DocsTypeConfig.kotlin),
+          "/zh-hant/koin/": generateSidebarItems(SiteLocaleConfig['zh-hant'], DocsTypeConfig.koin),
+          "/zh-hant/kotlin/": generateSidebarItems(SiteLocaleConfig['zh-hant'], DocsTypeConfig.kotlin),
         },
       },
     },

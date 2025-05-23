@@ -9,7 +9,7 @@ function createI18nSideBarConfig(t) {
         koin: [
             {
                 "text": t['koin.setup'],
-                "collapsed": false,
+                "collapsed": true,
                 "items": [
                     {
                         "text": "Koin",
@@ -43,7 +43,7 @@ function createI18nSideBarConfig(t) {
             },
             {
                 "text": t['koin.tutorial'],
-                "collapsed": false,
+                "collapsed": true,
                 "items": [
                     {
                         "text": "Kotlin",
@@ -85,7 +85,7 @@ function createI18nSideBarConfig(t) {
             },
             {
                 "text": t['koin.core.test'],
-                "collapsed": false,
+                "collapsed": true,
                 "items": [
                     {
                         "text": "什么是 Koin？",
@@ -147,7 +147,7 @@ function createI18nSideBarConfig(t) {
             },
             {
                 "text": t['koin.android'],
-                "collapsed": false,
+                "collapsed": true,
                 "items": [
                     {
                         "text": "在 Android 上启动 Koin",
@@ -189,7 +189,7 @@ function createI18nSideBarConfig(t) {
             },
             {
                 "text": t['koin.compose'],
-                "collapsed": false,
+                "collapsed": true,
                 "items": [
                     {
                         "text": "Koin 对 Jetpack Compose 和 Compose Multiplatform 的支持",
@@ -203,7 +203,7 @@ function createI18nSideBarConfig(t) {
             },
             {
                 "text": t['koin.annotation'],
-                "collapsed": false,
+                "collapsed": true,
                 "items": [
                     {
                         "text": "Koin 注解入门",
@@ -229,7 +229,7 @@ function createI18nSideBarConfig(t) {
             },
             {
                 "text": t['koin.multiplatform'],
-                "collapsed": false,
+                "collapsed": true,
                 "items": [
                     {
                         "text": "Kotlin 多平台依赖注入",
@@ -239,7 +239,7 @@ function createI18nSideBarConfig(t) {
             },
             {
                 "text": t['koin.ktor'],
-                "collapsed": false,
+                "collapsed": true,
                 "items": [
                     {
                         "text": "Ktor 中的依赖注入 (Dependency Injection)",
@@ -260,6 +260,7 @@ function createI18nSideBarConfig(t) {
             {
                 "text": t['kotlin.tour'],
                 "link": "kotlin-tour-welcome",
+                "collapsed": true,
                 "items": [
                     {
                         "text": "你好，世界",
@@ -293,6 +294,7 @@ function createI18nSideBarConfig(t) {
             },
             {
                 "text": t['kotlin.overview'],
+                "collapsed": true,
                 "items": [
                     {
                         "text": "Kotlin服务端开发",
@@ -326,6 +328,7 @@ function createI18nSideBarConfig(t) {
             },
             {
                 "text": t['kotlin.whatsnew'],
+                "collapsed": true,
                 "items": [
                     {
                         "link": "whatsnew2120",
@@ -337,6 +340,7 @@ function createI18nSideBarConfig(t) {
                     },
                     {
                         "text": t['kotlin.early-access'],
+                        "collapsed": true,
                         "items": [
                             {
                                 "text": "Kotlin 2.0.20 中的新增功能",
@@ -420,6 +424,7 @@ function createI18nSideBarConfig(t) {
             },
             {
                 "text": t['kotlin.evolution-roadmap'],
+                "collapsed": true,
                 "items": [
                     {
                         "text": "Kotlin 路线图",
@@ -445,6 +450,7 @@ function createI18nSideBarConfig(t) {
             },
             {
                 "text": t['kotlin.basics'],
+                "collapsed": true,
                 "items": [
                     {
                         "text": "基本语法",
@@ -466,12 +472,15 @@ function createI18nSideBarConfig(t) {
             },
             {
                 "text": t['kotlin.core-concepts'],
+                "collapsed": true,
                 "items": [
                     {
                         "text": t['kotlin.core-concepts-types'],
+                        "collapsed": true,
                         "items": [
                             {
                                 "text": t['kotlin.core-concepts-basic-types'],
+                                "collapsed": true,
                                 "items": [
                                     {
                                         "text": "基本类型",
@@ -511,6 +520,7 @@ function createI18nSideBarConfig(t) {
                     },
                     {
                         "text": t['kotlin.core-concepts-control-flow'],
+                        "collapsed": true,
                         "items": [
                             {
                                 "text": "条件语句和循环",
@@ -532,6 +542,7 @@ function createI18nSideBarConfig(t) {
                     },
                     {
                         "text": t['kotlin.core-concepts-classes-objects'],
+                        "collapsed": true,
                         "items": [
                             {
                                 "text": "类 (Classes)",
@@ -605,6 +616,7 @@ function createI18nSideBarConfig(t) {
                     },
                     {
                         "text": t['kotlin.core-concepts-functions'],
+                        "collapsed": true,
                         "items": [
                             {
                                 "text": "函数",
@@ -624,6 +636,7 @@ function createI18nSideBarConfig(t) {
                             },
                             {
                                 "text": t['kotlin.core-concepts-builders'],
+                                "collapsed": true,
                                 "items": [
                                     {
                                         "text": "类型安全的构建器",
@@ -673,6 +686,7 @@ function createI18nSideBarConfig(t) {
             },
             {
                 "text": t['kotlin.multiplatform'],
+                "collapsed": true,
                 "items": [
                     {
                         "text": "Kotlin Multiplatform 简介",
@@ -688,6 +702,7 @@ function createI18nSideBarConfig(t) {
                     },
                     {
                         "text": t['kotlin.multiplatform.shared-code'],
+                        "collapsed": true,
                         "items": [
                             {
                                 "text": "在平台上共享代码",
@@ -705,6 +720,7 @@ function createI18nSideBarConfig(t) {
                     },
                     {
                         "text": t['kotlin.multiplatform.add-dependencies'],
+                        "collapsed": true,
                         "items": [
                             {
                                 "text": "添加对多平台库的依赖",
@@ -721,7 +737,8 @@ function createI18nSideBarConfig(t) {
                         ]
                     },
                     {
-                        "text": "设置 iOS 集成",
+                        "text": t['kotlin.multiplatform.ios-integration'],
+                        "collapsed": true,
                         "items": [
                             {
                                 "text": "iOS 集成方法",
@@ -736,7 +753,8 @@ function createI18nSideBarConfig(t) {
                                 "link": "native-spm"
                             },
                             {
-                                "text": "CocoaPods 集成",
+                                "text": t['kotlin.multiplatform.cocoapod-integration'],
+                                "collapsed": true,
                                 "items": [
                                     {
                                         "text": "CocoaPods 概述和设置",
@@ -764,6 +782,7 @@ function createI18nSideBarConfig(t) {
                     },
                     {
                         "text": t['kotlin.multiplatform.compilations'],
+                        "collapsed": true,
                         "items": [
                             {
                                 "text": "配置编译",
@@ -781,6 +800,7 @@ function createI18nSideBarConfig(t) {
                     },
                     {
                         "text": t['kotlin.multiplatform.reference'],
+                        "collapsed": true,
                         "items": [
                             {
                                 "text": "多平台 Gradle DSL 参考",
@@ -804,9 +824,11 @@ function createI18nSideBarConfig(t) {
             },
             {
                 "text": t['kotlin.data-analysis'],
+                "collapsed": true,
                 "items": [
                     {
                         "text": t['kotlin.data-analysis.notebooks'],
+                        "collapsed": true,
                         "items": [
                             {
                                 "text": "Kotlin Notebook 入门",
@@ -836,6 +858,7 @@ function createI18nSideBarConfig(t) {
                     },
                     {
                         "text": t['kotlin.data-analysis.datasources'],
+                        "collapsed": true,
                         "items": [
                             {
                                 "text": "从文件中检索数据",
@@ -863,9 +886,11 @@ function createI18nSideBarConfig(t) {
             },
             {
                 "text": t['kotlin.platforms'],
+                "collapsed": true,
                 "items": [
                     {
                         "text": "JVM",
+                        "collapsed": true,
                         "items": [
                             {
                                 "text": "Kotlin/JVM 入门",
@@ -885,9 +910,11 @@ function createI18nSideBarConfig(t) {
                             },
                             {
                                 "text": "Spring",
+                                "collapsed": true,
                                 "items": [
                                     {
                                         "text": "使用 Spring Boot 创建 RESTful web 服务和数据库",
+                                        "collapsed": true,
                                         "items": [
                                             {
                                                 "text": "Spring Boot 和 Kotlin 入门",
@@ -939,6 +966,7 @@ function createI18nSideBarConfig(t) {
                             },
                             {
                                 "text": t['kotlin.platforms.java2kotlin'],
+                                "collapsed": true,
                                 "items": [
                                     {
                                         "text": "Java 和 Kotlin 中的字符串",
@@ -962,6 +990,7 @@ function createI18nSideBarConfig(t) {
                     },
                     {
                         "text": "Native",
+                        "collapsed": true,
                         "items": [
                             {
                                 "text": "Kotlin/Native 入门",
@@ -973,6 +1002,7 @@ function createI18nSideBarConfig(t) {
                             },
                             {
                                 "text": t['kotlin.platforms.c-interop'],
+                                "collapsed": true,
                                 "items": [
                                     {
                                         "text": "与 C 的互操作性",
@@ -1006,6 +1036,7 @@ function createI18nSideBarConfig(t) {
                             },
                             {
                                 "text": t['kotlin.platforms.object-c-interop'],
+                                "collapsed": true,
                                 "items": [
                                     {
                                         "text": "与 Swift/Objective-C 的互操作性",
@@ -1027,6 +1058,7 @@ function createI18nSideBarConfig(t) {
                             },
                             {
                                 "text": t['kotlin.platforms.memory-management'],
+                                "collapsed": true,
                                 "items": [
                                     {
                                         "text": "Kotlin/Native 内存管理",
@@ -1052,6 +1084,7 @@ function createI18nSideBarConfig(t) {
                             },
                             {
                                 "text": t['kotlin.platforms.references-tips'],
+                                "collapsed": true,
                                 "items": [
                                     {
                                         "text": "Kotlin/Native 目标平台支持",
@@ -1079,6 +1112,7 @@ function createI18nSideBarConfig(t) {
                     },
                     {
                         "text": "WebAssembly (Wasm)",
+                        "collapsed": true,
                         "items": [
                             {
                                 "text": "Kotlin/Wasm 和 Compose Multiplatform 入门",
@@ -1104,6 +1138,7 @@ function createI18nSideBarConfig(t) {
                     },
                     {
                         "text": "JavaScript",
+                        "collapsed": true,
                         "items": [
                             {
                                 "text": "搭建 Kotlin/JS 项目",
@@ -1138,7 +1173,8 @@ function createI18nSideBarConfig(t) {
                                 "link": "js-ir-migration"
                             },
                             {
-                                "text": "适用于 JS 平台的 Kotlin",
+                                "text": t['kotlin.platforms.kotlin-js'],
+                                "collapsed": true,
                                 "items": [
                                     {
                                         "text": "浏览器和 DOM API",
@@ -1177,7 +1213,8 @@ function createI18nSideBarConfig(t) {
                         ]
                     },
                     {
-                        "text": "脚本",
+                        "text": t['kotlin.platforms.kotlin-script'],
+                        "collapsed": true,
                         "items": [
                             {
                                 "text": "Kotlin 自定义脚本入门教程",
@@ -1188,10 +1225,12 @@ function createI18nSideBarConfig(t) {
                 ]
             },
             {
-                "text": "标准库",
+                "text": t['kotlin.stdlib.standard-library'],
+                "collapsed": true,
                 "items": [
                     {
-                        "text": "集合",
+                        "text": t['kotlin.stdlib.standard-library-collections'],
+                        "collapsed": true,
                         "items": [
                             {
                                 "text": "集合概览",
@@ -1286,10 +1325,12 @@ function createI18nSideBarConfig(t) {
                 ]
             },
             {
-                "text": "官方库",
+                "text": t['kotlin.stdlib.official-library'],
+                "collapsed": true,
                 "items": [
                     {
                         "text": "协程 (kotlinx.coroutines)",
+                        "collapsed": true,
                         "items": [
                             {
                                 "text": "协程",
@@ -1312,7 +1353,8 @@ function createI18nSideBarConfig(t) {
                 ]
             },
             {
-                "text": "API 参考",
+                "text": t['kotlin.api.reference'],
+                "collapsed": true,
                 "items": [
                     {
                         "text": "标准库 (stdlib)",
@@ -1353,7 +1395,8 @@ function createI18nSideBarConfig(t) {
                 ]
             },
             {
-                "text": "语言参考",
+                "text": t['kotlin.language.reference'],
+                "collapsed": true,
                 "items": [
                     {
                         "text": "关键字和运算符",
@@ -1370,13 +1413,16 @@ function createI18nSideBarConfig(t) {
                 ]
             },
             {
-                "text": "工具",
+                "text": t['kotlin.tools'],
+                "collapsed": true,
                 "items": [
                     {
-                        "text": "构建工具",
+                        "text": t['kotlin.tools.build-tools'],
+                        "collapsed": true,
                         "items": [
                             {
                                 "text": "Gradle",
+                                "collapsed": true,
                                 "items": [
                                     {
                                         "text": "Gradle",
@@ -1453,10 +1499,12 @@ function createI18nSideBarConfig(t) {
                 ]
             },
             {
-                "text": "编译器和插件",
+                "text": t['kotlin.compiler-plugins'],
+                "collapsed": true,
                 "items": [
                     {
-                        "text": "Kotlin 编译器",
+                        "text": t['kotlin.compiler-plugins.kotlin-compiler'],
+                        "collapsed": true,
                         "items": [
                             {
                                 "text": "K2 编译器迁移指南",
@@ -1473,7 +1521,8 @@ function createI18nSideBarConfig(t) {
                         ]
                     },
                     {
-                        "text": "Kotlin 编译器插件",
+                        "text": t['kotlin.compiler-plugins.kotlin-compiler-plugins'],
+                        "collapsed": true,
                         "items": [
                             {
                                 "text": "全开放编译器插件",
@@ -1502,7 +1551,8 @@ function createI18nSideBarConfig(t) {
                         ]
                     },
                     {
-                        "text": "Compose 编译器",
+                        "text": t['kotlin.compiler-plugins.compose-compiler'],
+                        "collapsed": true,
                         "items": [
                             {
                                 "text": "Compose 编译器迁移指南",
@@ -1516,6 +1566,7 @@ function createI18nSideBarConfig(t) {
                     },
                     {
                         "text": "Kotlin Symbol Processing API",
+                        "collapsed": true,
                         "items": [
                             {
                                 "text": "Kotlin 符号处理 API",
@@ -1566,7 +1617,8 @@ function createI18nSideBarConfig(t) {
                 ]
             },
             {
-                "text": "学习资料",
+                "text": t['kotlin.materials'],
+                "collapsed": true,
                 "items": [
                     {
                         "text": "学习材料概述",
@@ -1601,7 +1653,8 @@ function createI18nSideBarConfig(t) {
                         "link": "advent-of-code"
                     },
                     {
-                        "text": "在 IDE 中学习 (JetBrains Academy)",
+                        "text": t['kotlin.materials.ide'],
+                        "collapsed": true,
                         "items": [
                             {
                                 "text": "通过 JetBrains Academy 插件学习 Kotlin",
@@ -1616,7 +1669,8 @@ function createI18nSideBarConfig(t) {
                 ]
             },
             {
-                "text": "早期访问预览 (EAP)",
+                "text": t['kotlin.eap'],
+                "collapsed": true,
                 "items": [
                     {
                         "text": "参与 Kotlin 抢先体验预览",
@@ -1629,14 +1683,16 @@ function createI18nSideBarConfig(t) {
                 ]
             },
             {
-                "text": "其他资源",
+                "text": t['kotlin.others'],
+                "collapsed": true,
                 "items": [
                     {
                         "text": "常见问题解答",
                         "link": "faq"
                     },
                     {
-                        "text": "Kotlin 兼容性指南",
+                        "text": t['kotlin.others.compatibility-guide'],
+                        "collapsed": true,
                         "items": [
                             {
                                 "text": "Kotlin 2.1 兼容性指南",
@@ -1685,7 +1741,8 @@ function createI18nSideBarConfig(t) {
                         ]
                     },
                     {
-                        "text": "Kotlin 基金会",
+                        "text": t['kotlin.others.foundation'],
+                        "collapsed": true,
                         "items": [
                             {
                                 "text": "Kotlin 基金会",
@@ -1711,6 +1768,7 @@ function createI18nSideBarConfig(t) {
                     },
                     {
                         "text": "Google Summer of Code",
+                        "collapsed": true,
                         "items": [
                             {
                                 "text": "Kotlin 与 Google 编程之夏",
@@ -1739,7 +1797,8 @@ function createI18nSideBarConfig(t) {
                         "link": "kotlin-pdf"
                     },
                     {
-                        "text": "社区",
+                        "text": t['kotlin.others.community'],
+                        "collapsed": true,
                         "items": [
                             {
                                 "text": "贡献",
@@ -1764,7 +1823,7 @@ function createI18nSideBarConfig(t) {
                         "link": "kotlin-brand-assets"
                     },
                     {
-                        "text": "新闻资料包",
+                        "text": t['kotlin.others.news-kit'],
                         "href": "https://kotlinlang.org/assets/kotlin-media-kit.pdf"
                     }
                 ]
@@ -1801,14 +1860,14 @@ function traversalConfig(config, sidebarPrefixDir, relativePrefixDir) {
         if (item.items) {
             return {
                 ...item,
-                text: getTitleFromMarkdownFile(relativePrefixDir, item.link) || '',
-                link: `${sidebarPrefixDir}${item.link}`,
+                text: item.text ?? (getTitleFromMarkdownFile(relativePrefixDir, item.link) || ''),
+                link: item.link ? `${sidebarPrefixDir}${item.link}` : undefined,
                 items: traversalConfig(item.items, sidebarPrefixDir, relativePrefixDir)
             };
         } else {
             return {
                 ...item,
-                text: getTitleFromMarkdownFile(relativePrefixDir, item.link) || '',
+                text: item.text ?? (getTitleFromMarkdownFile(relativePrefixDir, item.link) || ''),
                 link: `${sidebarPrefixDir}${item.link}`,
             };
         }
@@ -1822,11 +1881,9 @@ function traversalConfig(config, sidebarPrefixDir, relativePrefixDir) {
  * @returns An array of sidebar items with localized text and links
  */
 export default function generateSidebarItems(localeConfig: SideLocaleConfig, docsConfig: DocsItemConfig) {
-    let sidebarPrefixDir = docsConfig.path
-    if (localeConfig.lang !== "zh-hans") {
-        sidebarPrefixDir = path.posix.join(localeConfig.lang, sidebarPrefixDir);
-    }
+    let sidebarPrefixDir = localeConfig.lang === "zh-hans" ? docsConfig.path : path.posix.join(localeConfig.lang, docsConfig.path);
     const relativePrefixDir = path.posix.join("docs", sidebarPrefixDir);
+    sidebarPrefixDir = path.posix.join("/", sidebarPrefixDir);
     const sidebars = traversalConfig(createI18nSideBarConfig(localeConfig.messages)[docsConfig.type], sidebarPrefixDir, relativePrefixDir)
     // fs.writeFileSync(
     //     path.join("docs", `${localeConfig.lang}-${docsConfig.type}.json`),
