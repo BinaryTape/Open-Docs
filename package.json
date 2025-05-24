@@ -13,8 +13,9 @@
   "license": "ISC",
   "description": "",
   "devDependencies": {
+    "gray-matter": "^4.0.3",
     "markdown-it-container": "^4.0.0",
     "vitepress": "^1.6.3",
-    "gray-matter": "^4.0.3"
+    "vue-i18n": "^11.1.3"
   }
 }
