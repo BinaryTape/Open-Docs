@@ -19,14 +19,20 @@ const commonThemeConfig = {
     pattern: 'https://github.com/BinaryTape/Open-Docs/blob/main/koin/:path'
   },
   socialLinks: [
-    { icon: 'github', link: 'https://github.com/vuejs/vitepress' }
+    { icon: 'github', link: 'https://github.com/BinaryTape/Open-Docs' }
   ],
+  footer: {
+    copyright: 'Copyright © 2025 Open AIDoc.'
+  }
 }
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
   cleanUrls: true,
   lastUpdated: true,
+  lang: 'zh-hans',
+  title: 'Open AiDoc',
+  head: [['link', { rel: 'icon', href: 'img/favicon.ico' }]],
   locales: {
     root: {
       ...SiteLocaleConfig['zh-hans'],
