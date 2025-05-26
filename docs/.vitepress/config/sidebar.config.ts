@@ -1860,14 +1860,14 @@ function traversalConfig(config, sidebarPrefixDir, relativePrefixDir) {
         if (item.items) {
             return {
                 ...item,
-                text: item.text ?? (getTitleFromMarkdownFile(relativePrefixDir, item.link) || ''),
+                text: getTitleFromMarkdownFile(relativePrefixDir, item.link) || item.text,
                 link: item.link ? `${sidebarPrefixDir}${item.link}` : undefined,
                 items: traversalConfig(item.items, sidebarPrefixDir, relativePrefixDir)
             };
         } else {
             return {
                 ...item,
-                text: item.text ?? (getTitleFromMarkdownFile(relativePrefixDir, item.link) || ''),
+                text: getTitleFromMarkdownFile(relativePrefixDir, item.link) || item.text,
                 link: `${sidebarPrefixDir}${item.link}`,
             };
         }
