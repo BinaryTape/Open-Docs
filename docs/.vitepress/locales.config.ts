@@ -17,29 +17,29 @@ export const SiteLocaleConfig: { [key: string]: SideLocaleConfig } = {
     'zh-hans': {
         lang: 'zh-hans',
         label: '简体中文',
-        title: 'OpenAIDoc',
-        description: 'OpenAIDoc',
+        title: 'Open AIDoc',
+        description: 'Open AIDoc',
         messages: zh_hans
     },
     "zh-hant": {
         lang: 'zh-hant',
         label: '繁體中文',
-        title: 'OpenAIDoc',
-        description: 'OpenAIDoc',
+        title: 'Open AIDoc',
+        description: 'Open AIDoc',
         messages: zh_hant
     },
     ja: {
         lang: 'ja',
         label: '日本語',
-        title: 'OpenAIDoc',
-        description: 'OpenAIDoc',
+        title: 'Open AIDoc',
+        description: 'Open AIDoc',
         messages: ja
     },
     ko: {
         lang: 'ko',
         label: '한국어',
-        title: 'OpenAIDoc',
-        description: 'OpenAIDoc',
+        title: 'Open AIDoc',
+        description: 'Open AIDoc',
         messages: ko
     }
 }
