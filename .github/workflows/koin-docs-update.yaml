@@ -12,6 +12,7 @@ jobs:
       - name: Checkout main repository
         uses: actions/checkout@v4
         with:
+          ref: ${{ github.head_ref || github.ref_name }}
           fetch-depth: 0  # Get complete history for diff comparison
 
       - name: Checkout Koin repository
@@ -204,7 +205,7 @@ jobs:
           # Exclude files and directories that don't need to be committed
           git add . ':!package.json' ':!package-lock.json' ':!koin-repo' ':!koin-repo/**' ':!koin-annotations-repo' ':!koin-annotations-repo/**'
           git commit -m 'Add translated files and update check record'
-          git push origin main
+          git push origin HEAD:${{ github.head_ref || github.ref_name }}
 
       - name: Create summary
         if: always()
