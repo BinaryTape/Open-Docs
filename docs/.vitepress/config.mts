@@ -226,8 +226,6 @@ export default defineConfig({
         for (const line of lines) {
           const trimmedLine = line.trim();
           if (trimmedLine === '') continue; // 跳过空行
-          console.log(line)
-          console.log(trimmedLine)
           // 检查是否是h1标题行
           if (trimmedLine.startsWith('# ')) {
             hasH1 = true;
@@ -245,9 +243,7 @@ export default defineConfig({
         
         // 如果源码中没有h1标题，则使用侧栏标题
         if (!hasH1) {
-          console.log(env.relativePath)
           const sidebarTitle = getSidebarTitle(env.relativePath);
-          console.log(sidebarTitle)
           if (sidebarTitle) {
             return `<h1>${sidebarTitle}</h1>\n${result}`;
           }
