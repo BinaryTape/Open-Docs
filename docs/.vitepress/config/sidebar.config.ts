@@ -2574,18 +2574,24 @@ function getTitleFromMarkdownFile(rootDir, filePath) {
  */
 function traversalConfig(config, sidebarPrefixDir, relativePrefixDir) {
     return config.map((item) => {
+        let itemLink: string | undefined = undefined;
+        if (item.href) {
+            itemLink = item.href;
+        } else {
+            itemLink = item.link ? `${sidebarPrefixDir}${item.link}` : undefined;
+        }
         if (item.items) {
             return {
                 ...item,
                 text: getTitleFromMarkdownFile(relativePrefixDir, item.link) || item.text,
-                link: item.link ? `${sidebarPrefixDir}${item.link}` : undefined,
+                link: itemLink,
                 items: traversalConfig(item.items, sidebarPrefixDir, relativePrefixDir)
             };
         } else {
             return {
                 ...item,
                 text: getTitleFromMarkdownFile(relativePrefixDir, item.link) || item.text,
-                link: `${sidebarPrefixDir}${item.link}`,
+                link: itemLink,
             };
         }
     });
