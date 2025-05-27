@@ -1828,6 +1828,723 @@ function createI18nSideBarConfig(t) {
                     }
                 ]
             }
+        ],
+        sqldelight: [
+            {
+                "text": "SQLDelight",
+                "items": [
+                    {
+                        "text": "概述",
+                        "link": "index"
+                    },
+                    {
+                        "text": "升级到 2.0",
+                        "link": "upgrading-2.0"
+                    },
+                    {
+                        "text": "更新日志",
+                        "link": "changelog"
+                    },
+                    {
+                        "text": "贡献",
+                        "link": "contributing"
+                    },
+                    {
+                        "text": "行为准则",
+                        "link": "code_of_conduct"
+                    }
+                ]
+            },
+            {
+                "text": "SQLite (Android)",
+                "collapsed": true,
+                "items": [
+                    {
+                        "text": "入门指南",
+                        "link": "android_sqlite/index"
+                    },
+                    {
+                        "text": "SQL",
+                        "collapsed": true,
+                        "items": [
+                            {
+                                "text": "外键",
+                                "link": "android_sqlite/foreign_keys"
+                            },
+                            {
+                                "text": "类型投影",
+                                "link": "android_sqlite/custom_projections"
+                            },
+                            {
+                                "text": "参数",
+                                "link": "android_sqlite/query_arguments"
+                            },
+                            {
+                                "text": "类型",
+                                "link": "android_sqlite/types"
+                            },
+                            {
+                                "text": "事务",
+                                "link": "android_sqlite/transactions"
+                            },
+                            {
+                                "text": "语句分组",
+                                "link": "android_sqlite/grouping_statements"
+                            }
+                        ]
+                    },
+                    {
+                        "text": "扩展",
+                        "collapsed": true,
+                        "items": [
+                            {
+                                "text": "RxJava",
+                                "link": "android_sqlite/rxjava"
+                            },
+                            {
+                                "text": "协程",
+                                "link": "android_sqlite/coroutines"
+                            },
+                            {
+                                "text": "AndroidX Paging",
+                                "link": "android_sqlite/androidx_paging"
+                            }
+                        ]
+                    },
+                    {
+                        "text": "迁移",
+                        "link": "android_sqlite/migrations"
+                    },
+                    {
+                        "text": "测试",
+                        "link": "android_sqlite/testing"
+                    },
+                    {
+                        "text": "IntelliJ 插件",
+                        "link": "android_sqlite/intellij_plugin"
+                    },
+                    {
+                        "text": "Gradle",
+                        "link": "android_sqlite/gradle"
+                    },
+                    {
+                        "text": "2.x API",
+                        "collapsed": true,
+                        "items": [
+                            {
+                                "text": "coroutines-extensions",
+                                "href": "https://sqldelight.github.io/sqldelight/latest/2.x/extensions/coroutines-extensions/index.html"
+                            },
+                            {
+                                "text": "rxjava2-extensions",
+                                "href": "https://sqldelight.github.io/sqldelight/latest/2.x/extensions/rxjava2-extensions/index.html"
+                            },
+                            {
+                                "text": "rxjava3-extensions",
+                                "href": "https://sqldelight.github.io/sqldelight/latest/2.x/extensions/rxjava3-extensions/index.html"
+                            },
+                            {
+                                "text": "androidx-paging3",
+                                "href": "https://sqldelight.github.io/sqldelight/latest/2.x/extensions/androidx-paging3/index.html"
+                            },
+                            {
+                                "text": "android-driver",
+                                "href": "https://sqldelight.github.io/sqldelight/latest/2.x/drivers/android-driver/index.html"
+                            },
+                            {
+                                "text": "runtime",
+                                "href": "https://sqldelight.github.io/sqldelight/latest/2.x/runtime/index.html"
+                            }
+                        ]
+                    },
+                    {
+                        "text": "资源",
+                        "link": "android_sqlite/resources"
+                    }
+                ]
+            },
+            {
+                "text": "SQLite (多平台)",
+                "collapsed": true,
+                "items": [
+                    {
+                        "text": "入门指南",
+                        "link": "multiplatform_sqlite/index"
+                    },
+                    {
+                        "text": "SQL",
+                        "collapsed": true,
+                        "items": [
+                            {
+                                "text": "外键",
+                                "link": "multiplatform_sqlite/foreign_keys"
+                            },
+                            {
+                                "text": "类型投影",
+                                "link": "multiplatform_sqlite/custom_projections"
+                            },
+                            {
+                                "text": "参数",
+                                "link": "multiplatform_sqlite/query_arguments"
+                            },
+                            {
+                                "text": "类型",
+                                "link": "multiplatform_sqlite/types"
+                            },
+                            {
+                                "text": "事务",
+                                "link": "multiplatform_sqlite/transactions"
+                            },
+                            {
+                                "text": "语句分组",
+                                "link": "multiplatform_sqlite/grouping_statements"
+                            }
+                        ]
+                    },
+                    {
+                        "text": "扩展",
+                        "collapsed": true,
+                        "items": [
+                            {
+                                "text": "协程",
+                                "link": "multiplatform_sqlite/coroutines"
+                            },
+                            {
+                                "text": "AndroidX Paging",
+                                "link": "multiplatform_sqlite/androidx_paging"
+                            }
+                        ]
+                    },
+                    {
+                        "text": "迁移",
+                        "link": "multiplatform_sqlite/migrations"
+                    },
+                    {
+                        "text": "IntelliJ 插件",
+                        "link": "multiplatform_sqlite/intellij_plugin"
+                    },
+                    {
+                        "text": "Gradle",
+                        "link": "multiplatform_sqlite/gradle"
+                    },
+                    {
+                        "text": "资源",
+                        "link": "multiplatform_sqlite/resources"
+                    },
+                    {
+                        "text": "2.x API",
+                        "collapsed": true,
+                        "items": [
+                            {
+                                "text": "coroutines-extensions",
+                                "href": "https://sqldelight.github.io/sqldelight/latest/2.x/extensions/coroutines-extensions/index.html"
+                            },
+                            {
+                                "text": "runtime",
+                                "href": "https://sqldelight.github.io/sqldelight/latest/2.x/runtime/index.html"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "text": "MySQL (JVM)",
+                "collapsed": true,
+                "items": [
+                    {
+                        "text": "入门指南",
+                        "link": "jvm_mysql/index"
+                    },
+                    {
+                        "text": "SQL",
+                        "collapsed": true,
+                        "items": [
+                            {
+                                "text": "类型投影",
+                                "link": "jvm_mysql/custom_projections"
+                            },
+                            {
+                                "text": "参数",
+                                "link": "jvm_mysql/query_arguments"
+                            },
+                            {
+                                "text": "类型",
+                                "link": "jvm_mysql/types"
+                            },
+                            {
+                                "text": "事务",
+                                "link": "jvm_mysql/transactions"
+                            },
+                            {
+                                "text": "语句分组",
+                                "link": "jvm_mysql/grouping_statements"
+                            }
+                        ]
+                    },
+                    {
+                        "text": "扩展",
+                        "collapsed": true,
+                        "items": [
+                            {
+                                "text": "AndroidX Paging",
+                                "link": "jvm_mysql/androidx_paging"
+                            }
+                        ]
+                    },
+                    {
+                        "text": "迁移",
+                        "link": "jvm_mysql/migrations"
+                    },
+                    {
+                        "text": "IntelliJ 插件",
+                        "link": "jvm_mysql/intellij_plugin"
+                    },
+                    {
+                        "text": "Gradle",
+                        "link": "jvm_mysql/gradle"
+                    },
+                    {
+                        "text": "2.x API",
+                        "collapsed": true,
+                        "items": [
+                            {
+                                "text": "jdbc-driver",
+                                "href": "https://sqldelight.github.io/sqldelight/latest/2.x/drivers/jdbc-driver/index.html"
+                            },
+                            {
+                                "text": "runtime",
+                                "href": "https://sqldelight.github.io/sqldelight/latest/2.x/runtime/index.html"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "text": "PostgreSQL (JVM)",
+                "collapsed": true,
+                "items": [
+                    {
+                        "text": "入门指南",
+                        "link": "jvm_postgresql/index"
+                    },
+                    {
+                        "text": "SQL",
+                        "collapsed": true,
+                        "items": [
+                            {
+                                "text": "类型投影",
+                                "link": "jvm_postgresql/custom_projections"
+                            },
+                            {
+                                "text": "参数",
+                                "link": "jvm_postgresql/query_arguments"
+                            },
+                            {
+                                "text": "类型",
+                                "link": "jvm_postgresql/types"
+                            },
+                            {
+                                "text": "事务",
+                                "link": "jvm_postgresql/transactions"
+                            },
+                            {
+                                "text": "语句分组",
+                                "link": "jvm_postgresql/grouping_statements"
+                            }
+                        ]
+                    },
+                    {
+                        "text": "扩展",
+                        "collapsed": true,
+                        "items": [
+                            {
+                                "text": "AndroidX Paging",
+                                "link": "jvm_postgresql/androidx_paging"
+                            }
+                        ]
+                    },
+                    {
+                        "text": "迁移",
+                        "link": "jvm_postgresql/migrations"
+                    },
+                    {
+                        "text": "IntelliJ 插件",
+                        "link": "jvm_postgresql/intellij_plugin"
+                    },
+                    {
+                        "text": "Gradle",
+                        "link": "jvm_postgresql/gradle"
+                    },
+                    {
+                        "text": "2.x API",
+                        "collapsed": true,
+                        "items": [
+                            {
+                                "text": "jdbc-driver",
+                                "href": "https://sqldelight.github.io/sqldelight/latest/2.x/drivers/jdbc-driver/index.html"
+                            },
+                            {
+                                "text": "runtime",
+                                "href": "https://sqldelight.github.io/sqldelight/latest/2.x/runtime/index.html"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "text": "HSQL (JVM)",
+                "collapsed": true,
+                "items": [
+                    {
+                        "text": "入门指南",
+                        "link": "jvm_h2/index"
+                    },
+                    {
+                        "text": "SQL",
+                        "collapsed": true,
+                        "items": [
+                            {
+                                "text": "类型投影",
+                                "link": "jvm_h2/custom_projections"
+                            },
+                            {
+                                "text": "参数",
+                                "link": "jvm_h2/query_arguments"
+                            },
+                            {
+                                "text": "类型",
+                                "link": "jvm_h2/types"
+                            },
+                            {
+                                "text": "事务",
+                                "link": "jvm_h2/transactions"
+                            },
+                            {
+                                "text": "语句分组",
+                                "link": "jvm_h2/grouping_statements"
+                            }
+                        ]
+                    },
+                    {
+                        "text": "扩展",
+                        "collapsed": true,
+                        "items": [
+                            {
+                                "text": "AndroidX Paging",
+                                "link": "jvm_h2/androidx_paging"
+                            }
+                        ]
+                    },
+                    {
+                        "text": "迁移",
+                        "link": "jvm_h2/migrations"
+                    },
+                    {
+                        "text": "IntelliJ 插件",
+                        "link": "jvm_h2/intellij_plugin"
+                    },
+                    {
+                        "text": "Gradle",
+                        "link": "jvm_h2/gradle"
+                    },
+                    {
+                        "text": "2.x API",
+                        "collapsed": true,
+                        "items": [
+                            {
+                                "text": "jdbc-driver",
+                                "href": "https://sqldelight.github.io/sqldelight/latest/2.x/drivers/jdbc-driver/index.html"
+                            },
+                            {
+                                "text": "runtime",
+                                "href": "https://sqldelight.github.io/sqldelight/latest/2.x/runtime/index.html"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "text": "SQLite (Native)",
+                "collapsed": true,
+                "items": [
+                    {
+                        "text": "入门指南",
+                        "link": "native_sqlite/index"
+                    },
+                    {
+                        "text": "SQL",
+                        "collapsed": true,
+                        "items": [
+                            {
+                                "text": "外键",
+                                "link": "native_sqlite/foreign_keys"
+                            },
+                            {
+                                "text": "类型投影",
+                                "link": "native_sqlite/custom_projections"
+                            },
+                            {
+                                "text": "参数",
+                                "link": "native_sqlite/query_arguments"
+                            },
+                            {
+                                "text": "类型",
+                                "link": "native_sqlite/types"
+                            },
+                            {
+                                "text": "事务",
+                                "link": "native_sqlite/transactions"
+                            },
+                            {
+                                "text": "语句分组",
+                                "link": "native_sqlite/grouping_statements"
+                            }
+                        ]
+                    },
+                    {
+                        "text": "扩展",
+                        "collapsed": true,
+                        "items": [
+                            {
+                                "text": "协程",
+                                "link": "native_sqlite/coroutines"
+                            },
+                            {
+                                "text": "AndroidX Paging",
+                                "link": "native_sqlite/androidx_paging"
+                            }
+                        ]
+                    },
+                    {
+                        "text": "迁移",
+                        "link": "native_sqlite/migrations"
+                    },
+                    {
+                        "text": "IntelliJ 插件",
+                        "link": "native_sqlite/intellij_plugin"
+                    },
+                    {
+                        "text": "Gradle",
+                        "link": "native_sqlite/gradle"
+                    },
+                    {
+                        "text": "2.x API",
+                        "collapsed": true,
+                        "items": [
+                            {
+                                "text": "coroutines-extensions",
+                                "href": "https://sqldelight.github.io/sqldelight/latest/2.x/extensions/coroutines-extensions/index.html"
+                            },
+                            {
+                                "text": "native-driver",
+                                "href": "https://sqldelight.github.io/sqldelight/latest/2.x/drivers/native-driver/index.html"
+                            },
+                            {
+                                "text": "runtime",
+                                "href": "https://sqldelight.github.io/sqldelight/latest/2.x/runtime/index.html"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "text": "SQLite (JVM)",
+                "collapsed": true,
+                "items": [
+                    {
+                        "text": "入门指南",
+                        "link": "jvm_sqlite/index"
+                    },
+                    {
+                        "text": "SQL",
+                        "collapsed": true,
+                        "items": [
+                            {
+                                "text": "外键",
+                                "link": "jvm_sqlite/foreign_keys"
+                            },
+                            {
+                                "text": "类型投影",
+                                "link": "jvm_sqlite/custom_projections"
+                            },
+                            {
+                                "text": "参数",
+                                "link": "jvm_sqlite/query_arguments"
+                            },
+                            {
+                                "text": "类型",
+                                "link": "jvm_sqlite/types"
+                            },
+                            {
+                                "text": "事务",
+                                "link": "jvm_sqlite/transactions"
+                            },
+                            {
+                                "text": "语句分组",
+                                "link": "jvm_sqlite/grouping_statements"
+                            }
+                        ]
+                    },
+                    {
+                        "text": "扩展",
+                        "collapsed": true,
+                        "items": [
+                            {
+                                "text": "RxJava",
+                                "link": "jvm_sqlite/rxjava"
+                            },
+                            {
+                                "text": "协程",
+                                "link": "jvm_sqlite/coroutines"
+                            },
+                            {
+                                "text": "AndroidX Paging",
+                                "link": "jvm_sqlite/androidx_paging"
+                            }
+                        ]
+                    },
+                    {
+                        "text": "迁移",
+                        "link": "jvm_sqlite/migrations"
+                    },
+                    {
+                        "text": "IntelliJ 插件",
+                        "link": "jvm_sqlite/intellij_plugin"
+                    },
+                    {
+                        "text": "Gradle",
+                        "link": "jvm_sqlite/gradle"
+                    },
+                    {
+                        "text": "2.x API",
+                        "collapsed": true,
+                        "items": [
+                            {
+                                "text": "coroutines-extensions",
+                                "href": "https://sqldelight.github.io/sqldelight/latest/2.x/extensions/coroutines-extensions/index.html"
+                            },
+                            {
+                                "text": "rxjava2-extensions",
+                                "href": "https://sqldelight.github.io/sqldelight/latest/2.x/extensions/rxjava2-extensions/index.html"
+                            },
+                            {
+                                "text": "rxjava3-extensions",
+                                "href": "https://sqldelight.github.io/sqldelight/latest/2.x/extensions/rxjava3-extensions/index.html"
+                            },
+                            {
+                                "text": "sqlite-driver",
+                                "href": "https://sqldelight.github.io/sqldelight/latest/2.x/drivers/sqlite-driver/index.html"
+                            },
+                            {
+                                "text": "runtime",
+                                "href": "https://sqldelight.github.io/sqldelight/latest/2.x/runtime/index.html"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "text": "SQLite (JS)",
+                "collapsed": true,
+                "items": [
+                    {
+                        "text": "入门指南",
+                        "link": "js_sqlite/index"
+                    },
+                    {
+                        "text": "多平台",
+                        "link": "js_sqlite/multiplatform"
+                    },
+                    {
+                        "text": "Web Workers",
+                        "collapsed": true,
+                        "items": [
+                            {
+                                "text": "SQL.js Worker",
+                                "link": "js_sqlite/sqljs_worker"
+                            },
+                            {
+                                "text": "自定义 Workers",
+                                "link": "js_sqlite/custom_worker"
+                            }
+                        ]
+                    },
+                    {
+                        "text": "SQL",
+                        "collapsed": true,
+                        "items": [
+                            {
+                                "text": "类型投影",
+                                "link": "js_sqlite/custom_projections"
+                            },
+                            {
+                                "text": "参数",
+                                "link": "js_sqlite/query_arguments"
+                            },
+                            {
+                                "text": "类型",
+                                "link": "js_sqlite/types"
+                            },
+                            {
+                                "text": "事务",
+                                "link": "js_sqlite/transactions"
+                            },
+                            {
+                                "text": "语句分组",
+                                "link": "js_sqlite/grouping_statements"
+                            }
+                        ]
+                    },
+                    {
+                        "text": "扩展",
+                        "collapsed": true,
+                        "items": [
+                            {
+                                "text": "协程",
+                                "link": "js_sqlite/coroutines"
+                            },
+                            {
+                                "text": "AndroidX Paging",
+                                "link": "js_sqlite/androidx_paging"
+                            }
+                        ]
+                    },
+                    {
+                        "text": "迁移",
+                        "link": "js_sqlite/migrations"
+                    },
+                    {
+                        "text": "IntelliJ 插件",
+                        "link": "js_sqlite/intellij_plugin"
+                    },
+                    {
+                        "text": "Gradle",
+                        "link": "js_sqlite/gradle"
+                    },
+                    {
+                        "text": "2.x API",
+                        "collapsed": true,
+                        "items": [
+                            {
+                                "text": "coroutines-extensions",
+                                "href": "https://sqldelight.github.io/sqldelight/latest/2.x/extensions/coroutines-extensions/index.html"
+                            },
+                            {
+                                "text": "sqljs-driver",
+                                "href": "https://sqldelight.github.io/sqldelight/latest/2.x/drivers/sqljs-driver/index.html"
+                            },
+                            {
+                                "text": "runtime",
+                                "href": "https://sqldelight.github.io/sqldelight/latest/2.x/runtime/index.html"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "text": "2.x API",
+                "href": "https://sqldelight.github.io/sqldelight/latest/2.x/index.html"
+            }
         ]
     }
 }

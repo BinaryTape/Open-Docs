@@ -1,5 +1,5 @@
 export type DocsItemConfig = {
-    type: "koin" | "kotlin";
+    type: "koin" | "kotlin" | "sqldelight";
     title: string;
     description: string;
     path: string;
@@ -16,6 +16,12 @@ export const DocsTypeConfig: { [key: string]: DocsItemConfig } = {
         title: "Kotlin",
         description: "Kotlin",
         path: "/kotlin/",
+    },
+    sqldelight: {
+        type: "sqldelight",
+        title: "SQLDelight",
+        description: "SQLDelight",
+        path: "/sqldelight/",
     }
 }
 

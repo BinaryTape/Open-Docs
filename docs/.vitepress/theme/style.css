@@ -172,6 +172,7 @@
 }
 
 .vp-doc h2 {
+  margin: 0;
   border-top: 0;
 }
 
@@ -309,4 +310,88 @@ img[type="joined"] {
 .ws-def-content i {
   font-style: normal;
   font-weight: bold;
+}
+
+/**
+ * Component: SQLDelight
+ * -------------------------------------------------------------------------- */
+
+.cash-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1em;
+}
+
+.cash-grid-item {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  width: calc(50% - 0.5em);
+  border: 2px solid var(--vp-c-default-1);
+  padding: 1em;
+  border-radius: 8px;
+}
+
+.cash-grid-item p{
+  margin: 0 !important;
+}
+
+.cash-grid-title {
+  margin: 0 !important;
+  font-size: 1.3em;
+}
+
+.lg {
+  --md-icon-size: 1.5em !important;
+}
+
+.middle {
+  vertical-align: middle;
+}
+
+.emoji {
+  --md-icon-size: 1.125em;
+  display: inline-flex;
+  height: var(--md-icon-size);
+  vertical-align: text-top;
+}
+
+.emoji svg {
+  fill: currentcolor;
+  max-height: 100%;
+  width: var(--md-icon-size);
+  height: auto;
+}
+
+.cash-grid-item a {
+  text-decoration: none;
+}
+
+#third-party-dialects {
+  margin: 32px 0 16px;
+}
+
+.vp-code-block-title-bar {
+  position: relative;
+  margin: 16px -24px 0;
+  background-color: var(--vp-code-block-bg);
+  overflow-x: auto;
+  font-size: 14px;
+  font-weight: 500;
+  white-space: nowrap;
+  transition: background-color .5s;
+  border-radius: 8px 8px 0 0;
+  padding: 12px 24px;
+  box-shadow: inset 0 -1px var(--vp-code-tab-divider);
+}
+
+@media (min-width: 640px) {
+  .vp-code-block-title-bar {
+    margin: 16px 0 0;
+  }
+}
+
+.language-diff {
+  border-radius: 0 0 8px 8px !important;
+  margin: 0 !important;
 }
