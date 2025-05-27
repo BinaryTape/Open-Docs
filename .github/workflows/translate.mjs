@@ -3,9 +3,8 @@ import path from 'path'
 import { GoogleGenAI } from '@google/genai'
 import { fileURLToPath } from 'url';
 
-// Local test only
-// const __filename = fileURLToPath(import.meta.url);
-// const __dirname = path.dirname(__filename);
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // Load configuration from config file
 const configPath = path.resolve(__dirname, './translate-config.json');
