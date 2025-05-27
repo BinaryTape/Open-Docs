@@ -5,6 +5,9 @@ on:
 #    - cron: '0 0 * * 0'  # Run every Sunday at 0:00 UTC
   workflow_dispatch:  # Allow manual trigger
 
+permissions:
+  contents: write
+
 jobs:
   koin-docs-update:
     runs-on: ubuntu-latest
