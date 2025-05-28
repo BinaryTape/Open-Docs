@@ -1,0 +1,209 @@
+name: SQLDelight docs update
+
+on:
+#  schedule:
+#    - cron: '0 0 * * 0'  # 每周日 UTC 0:00 运行
+  workflow_dispatch:  # 允许手动触发
+
+permissions:
+  contents: write
+
+jobs:
+  sqldelight-docs-update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout main repository
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref || github.ref_name }}
+          fetch-depth: 0  # 获取完整历史以进行差异比较
+
+      - name: Checkout SQLDelight repository
+        uses: actions/checkout@v4
+        with:
+          repository: sqldelight/sqldelight
+          path: sqldelight-repo
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm install @google/genai
+
+      - name: Check last run timestamp for SQLDelight
+        id: last-run-sqldelight
+        run: |
+          if [ -f ".github/last_check_sqldelight.txt" ]; then
+            echo "first_run=false" >> $GITHUB_OUTPUT
+            echo "last_commit=$(cat .github/last_check_sqldelight.txt)" >> $GITHUB_OUTPUT
+          else
+            echo "first_run=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Get current commit for SQLDelight
+        id: current-commit-sqldelight
+        run: |
+          cd sqldelight-repo
+          echo "current_commit=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
+
+      - name: Check if SQLDelight repository has changed
+        id: check-sqldelight-commit
+        run: |
+          # 检查 SQLDelight 仓库的提交是否已更改
+          if [ "${{ steps.last-run-sqldelight.outputs.first_run }}" == "true" ]; then
+            echo "sqldelight_changed=true" >> $GITHUB_OUTPUT
+          elif [ "${{ steps.last-run-sqldelight.outputs.last_commit }}" != "${{ steps.current-commit-sqldelight.outputs.current_commit }}" ]; then
+            echo "sqldelight_changed=true" >> $GITHUB_OUTPUT
+          else
+            echo "sqldelight_changed=false" >> $GITHUB_OUTPUT
+          fi
+          echo "SQLDelight repository changed: ${{ steps.check-sqldelight-commit.outputs.sqldelight_changed }}"
+
+      - name: Get changed markdown files for SQLDelight
+        id: changed-files-sqldelight
+        if: steps.check-sqldelight-commit.outputs.sqldelight_changed == 'true'
+        uses: tj-actions/changed-files@v46.0.3
+        with:
+          path: sqldelight-repo
+          base_sha: ${{ steps.last-run-sqldelight.outputs.last_commit }}
+          files: |
+            docs/**/*.md
+            CHANGELOG.md
+            CONTRIBUTING.md
+
+      - name: Copy root markdown files to docs directory
+        id: copy-root-markdown
+        run: |
+          # 复制根目录中的CHANGELOG.md和CONTRIBUTING.md到docs目录并重命名为小写
+          if [ -f "sqldelight-repo/CHANGELOG.md" ]; then
+            cp sqldelight-repo/CHANGELOG.md sqldelight-repo/docs/
+            # 重命名为小写
+            mv sqldelight-repo/docs/CHANGELOG.md sqldelight-repo/docs/changelog.md
+            echo "已复制并重命名 CHANGELOG.md 到 docs/changelog.md"
+          else
+            echo "未找到 CHANGELOG.md 文件"
+          fi
+          
+          if [ -f "sqldelight-repo/CONTRIBUTING.md" ]; then
+            cp sqldelight-repo/CONTRIBUTING.md sqldelight-repo/docs/
+            # 重命名为小写
+            mv sqldelight-repo/docs/CONTRIBUTING.md sqldelight-repo/docs/contributing.md
+            echo "已复制并重命名 CONTRIBUTING.md 到 docs/contributing.md"
+          else
+            echo "未找到 CONTRIBUTING.md 文件"
+          fi
+
+      - name: Get all markdown files for SQLDelight (first run)
+        id: all-files-sqldelight
+        if: steps.last-run-sqldelight.outputs.first_run == 'true'
+        run: |
+          cd sqldelight-repo
+          DOCS_FILES=$(find docs -name "*.md" | tr '\n' ' ')
+          ALL_FILES="${DOCS_FILES} ${ROOT_FILES}"
+          echo "all_changed_files=$ALL_FILES" >>  $GITHUB_OUTPUT
+
+      - name: Prepare files for translation
+        id: prepare-translation
+        run: |
+          # 处理 SQLDelight 仓库文件
+          if [ "${{ steps.last-run-sqldelight.outputs.first_run }}" == "true" ]; then
+            # 首次运行 - 使用所有文件
+            echo "SQLDELIGHT_CHANGED_FILES=${{ steps.all-files-sqldelight.outputs.all_changed_files }}" >> $GITHUB_ENV
+            echo "sqldelight_any_changed=true" >> $GITHUB_OUTPUT
+          else
+            # 后续运行 - 使用更改的文件
+            echo "SQLDELIGHT_CHANGED_FILES=${{ steps.changed-files-sqldelight.outputs.all_changed_files }}" >> $GITHUB_ENV
+          
+            if [ -n "${{ steps.changed-files-sqldelight.outputs.all_changed_files }}" ]; then
+              echo "sqldelight_any_changed=true" >> $GITHUB_OUTPUT
+            else
+              echo "sqldelight_any_changed=false" >> $GITHUB_OUTPUT
+            fi
+          fi
+          
+          # 保存当前提交 SHA 以供将来更新
+          cd sqldelight-repo
+          echo "SQLDELIGHT_CURRENT_COMMIT=$(git rev-parse HEAD)" >> $GITHUB_ENV
+
+      - name: Translate SQLDelight docs
+        if: steps.prepare-translation.outputs.sqldelight_any_changed == 'true'
+        env:
+          DOC_TYPE: sqldelight
+          GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
+          CHANGED_FILES: ${{ env.SQLDELIGHT_CHANGED_FILES }}
+          REPO_PATH: sqldelight-repo
+        run: node .github/workflows/translate.mjs
+
+      - name: Update last check timestamps
+        if: success() && steps.prepare-translation.outputs.sqldelight_any_changed == 'true'
+        run: |
+          # 仅当所有前面的步骤都成功时才更新最后检查的提交
+          echo "${{ env.SQLDELIGHT_CURRENT_COMMIT }}" > .github/last_check_sqldelight.txt
+          echo "更新检查记录时间戳"
+
+      - name: Copy image files
+        if: steps.prepare-translation.outputs.sqldelight_any_changed == 'true'
+        run: |
+          # 创建目标目录
+          mkdir -p docs/public/sqldelight
+
+          # 复制 sqldelight 仓库图片
+          if [ "${{ steps.prepare-translation.outputs.sqldelight_any_changed }}" == "true" ]; then
+            echo "Copying sqldelight image files..."
+            if [ -d "sqldelight-repo/docs/images" ]; then
+              # 查找所有图片文件并复制到目标目录，扁平化目录结构
+              find sqldelight-repo/docs/images -type f | while read img_file; do
+                # 提取文件名（不含路径）
+                img_filename=$(basename "$img_file")
+                # 复制文件到目标位置，如果存在则覆盖
+                echo "Copying: $img_file -> docs/public/sqldelight/$img_filename"
+                cp -f "$img_file" "docs/public/sqldelight/$img_filename"
+              done
+              echo "Copied sqldelight image files to docs/public/sqldelight/"
+            else
+              echo "Warning: sqldelight-repo/docs/images directory does not exist"
+            fi
+          fi
+
+      - name: Commit and push changes
+        if: steps.prepare-translation.outputs.sqldelight_any_changed == 'true'
+        run: |
+          git config --global user.name 'github-actions'
+          git config --global user.email 'github-actions@github.com'
+          # 从远程分支拉取最新更改以避免冲突
+          git pull --rebase origin ${{ github.head_ref || github.ref_name }}
+          # 排除不需要提交的文件和目录
+          git add . ':!package.json' ':!package-lock.json' ':!sqldelight-repo' ':!sqldelight-repo/**'
+          git commit -m '添加已翻译文件并更新检查记录'
+        #  git push origin HEAD:${{ github.head_ref || github.ref_name }}
+
+      - name: Create summary
+        if: always()
+        run: |
+          echo "## 文档更新检测" >> $GITHUB_STEP_SUMMARY
+          
+          # 检查提交是否更改
+          echo "### 提交更改检测" >> $GITHUB_STEP_SUMMARY
+          echo "- SQLDelight 仓库: ${{ steps.check-sqldelight-commit.outputs.sqldelight_changed }}" >> $GITHUB_STEP_SUMMARY
+          
+          # SQLDelight 仓库摘要
+          echo "### SQLDelight 仓库" >> $GITHUB_STEP_SUMMARY
+          if [ "${{ steps.last-run-sqldelight.outputs.first_run }}" == "true" ]; then
+            echo "首次运行 - 处理所有文档文件" >> $GITHUB_STEP_SUMMARY
+            FILES="${{ steps.all-files-sqldelight.outputs.all_changed_files }}"
+            COUNT=$(echo "$FILES" | wc -w)
+            echo "总共处理了 $COUNT 个文件" >> $GITHUB_STEP_SUMMARY
+          else
+            if [ -z "${{ steps.changed-files-sqldelight.outputs.all_changed_files }}" ]; then
+              echo "未检测到文档更改" >> $GITHUB_STEP_SUMMARY
+            else
+              CHANGED_FILES="${{ steps.changed-files-sqldelight.outputs.all_changed_files }}"
+              COUNT=$(echo "$CHANGED_FILES" | wc -w)
+              echo "检测到 $COUNT 个文件更改:" >> $GITHUB_STEP_SUMMARY
+              echo '```' >> $GITHUB_STEP_SUMMARY
+              echo "$CHANGED_FILES" | tr ' ' '\n' >> $GITHUB_STEP_SUMMARY
+              echo '```' >> $GITHUB_STEP_SUMMARY
+            fi
+          fi
