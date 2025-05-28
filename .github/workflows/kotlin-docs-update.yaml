@@ -505,11 +505,11 @@ jobs:
         run: |
           git config --global user.name 'github-actions'
           git config --global user.email 'github-actions@github.com'
-          # Pull the latest changes from the remote branch to avoid conflicts
-          git pull --rebase origin ${{ github.head_ref || github.ref_name }}
           # Exclude files and directories that don't need to be committed
           git add . ':!package.json' ':!package-lock.json' ':!kotlin-repo' ':!kotlin-repo/**' ':!docs/*/kotlin/kotlin-mascot.md' ':!docs/kotlin/kotlin-mascot.md' ':!docs/*/kotlin/debugging.md' ':!docs/kotlin/debugging.md' 
           git commit -m 'Add translated files and update check record'
+          # 拉取远程分支的最新更改以避免冲突
+          git pull --rebase origin ${{ github.head_ref || github.ref_name }}
           git push origin HEAD:${{ github.head_ref || github.ref_name }}
 
       - name: Create summary
