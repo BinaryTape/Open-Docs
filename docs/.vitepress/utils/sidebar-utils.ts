@@ -12,7 +12,7 @@ export function getSidebarTitle(relativePath: string): string | undefined {
   if (!relativePath) return undefined;
 
   // 确定当前文档所属的区域和语言
-  let locale = 'zh-hans';
+  let locale = 'zh-Hans';
   let section = '';
   let pathWithoutExt = relativePath.replace(/\.md$/, '');
 

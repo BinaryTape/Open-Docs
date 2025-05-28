@@ -259,38 +259,7 @@ function createI18nSideBarConfig(t) {
             },
             {
                 "text": t['kotlin.tour'],
-                "link": "kotlin-tour-welcome",
-                "collapsed": true,
-                "items": [
-                    {
-                        "text": "你好，世界",
-                        "link": "kotlin-tour-hello-world"
-                    },
-                    {
-                        "text": "基本类型",
-                        "link": "kotlin-tour-basic-types"
-                    },
-                    {
-                        "text": "集合",
-                        "link": "kotlin-tour-collections"
-                    },
-                    {
-                        "text": "控制流",
-                        "link": "kotlin-tour-control-flow"
-                    },
-                    {
-                        "text": "函数",
-                        "link": "kotlin-tour-functions"
-                    },
-                    {
-                        "text": "类",
-                        "link": "kotlin-tour-classes"
-                    },
-                    {
-                        "text": "Null 安全",
-                        "link": "kotlin-tour-null-safety"
-                    }
-                ]
+                "link": "kotlin-tour-welcome"
             },
             {
                 "text": t['kotlin.overview'],
@@ -337,6 +306,10 @@ function createI18nSideBarConfig(t) {
                     {
                         "link": "whatsnew21",
                         "text": "Kotlin 2.1.0"
+                    },
+                    {
+                        "link": "whatsnew-eap",
+                        "text": "Kotlin 2.2.0-RC"
                     },
                     {
                         "text": t['kotlin.early-access'],
@@ -685,144 +658,6 @@ function createI18nSideBarConfig(t) {
                 ]
             },
             {
-                "text": t['kotlin.multiplatform'],
-                "collapsed": true,
-                "items": [
-                    {
-                        "text": "Kotlin Multiplatform 简介",
-                        "link": "multiplatform-intro"
-                    },
-                    {
-                        "text": "Kotlin Multiplatform 项目结构基础",
-                        "link": "multiplatform-discover-project"
-                    },
-                    {
-                        "text": "多平台项目结构的高级概念",
-                        "link": "multiplatform-advanced-project-structure"
-                    },
-                    {
-                        "text": t['kotlin.multiplatform.shared-code'],
-                        "collapsed": true,
-                        "items": [
-                            {
-                                "text": "在平台上共享代码",
-                                "link": "multiplatform-share-on-platforms"
-                            },
-                            {
-                                "text": "预期声明和实际声明",
-                                "link": "multiplatform-expect-actual"
-                            },
-                            {
-                                "text": "分层项目结构",
-                                "link": "multiplatform-hierarchy"
-                            }
-                        ]
-                    },
-                    {
-                        "text": t['kotlin.multiplatform.add-dependencies'],
-                        "collapsed": true,
-                        "items": [
-                            {
-                                "text": "添加对多平台库的依赖",
-                                "link": "multiplatform-add-dependencies"
-                            },
-                            {
-                                "text": "添加 Android 依赖项",
-                                "link": "multiplatform-android-dependencies"
-                            },
-                            {
-                                "text": "添加 iOS 依赖项",
-                                "link": "multiplatform-ios-dependencies"
-                            }
-                        ]
-                    },
-                    {
-                        "text": t['kotlin.multiplatform.ios-integration'],
-                        "collapsed": true,
-                        "items": [
-                            {
-                                "text": "iOS 集成方法",
-                                "link": "multiplatform-ios-integration-overview"
-                            },
-                            {
-                                "text": "Direct integration",
-                                "link": "multiplatform-direct-integration"
-                            },
-                            {
-                                "text": "Swift 包导出设置",
-                                "link": "native-spm"
-                            },
-                            {
-                                "text": t['kotlin.multiplatform.cocoapod-integration'],
-                                "collapsed": true,
-                                "items": [
-                                    {
-                                        "text": "CocoaPods 概述和设置",
-                                        "link": "native-cocoapods"
-                                    },
-                                    {
-                                        "text": "添加对 Pod 库的依赖",
-                                        "link": "native-cocoapods-libraries"
-                                    },
-                                    {
-                                        "text": "将 Kotlin Gradle 项目用作 CocoaPods 依赖项",
-                                        "link": "native-cocoapods-xcode"
-                                    },
-                                    {
-                                        "text": "CocoaPods Gradle 插件 DSL 参考",
-                                        "link": "native-cocoapods-dsl-reference"
-                                    }
-                                ]
-                            },
-                            {
-                                "text": "从本地 Swift 包中使用 Kotlin",
-                                "link": "multiplatform-spm-local-integration"
-                            }
-                        ]
-                    },
-                    {
-                        "text": t['kotlin.multiplatform.compilations'],
-                        "collapsed": true,
-                        "items": [
-                            {
-                                "text": "配置编译",
-                                "link": "multiplatform-configure-compilations"
-                            },
-                            {
-                                "text": "构建最终原生二进制文件",
-                                "link": "multiplatform-build-native-binaries"
-                            }
-                        ]
-                    },
-                    {
-                        "text": "设置多平台库发布",
-                        "link": "multiplatform-publish-lib"
-                    },
-                    {
-                        "text": t['kotlin.multiplatform.reference'],
-                        "collapsed": true,
-                        "items": [
-                            {
-                                "text": "多平台 Gradle DSL 参考",
-                                "link": "multiplatform-dsl-reference"
-                            },
-                            {
-                                "text": "Android 源码集布局",
-                                "link": "multiplatform-android-layout"
-                            },
-                            {
-                                "text": "Kotlin Multiplatform 兼容性指南",
-                                "link": "multiplatform-compatibility-guide"
-                            },
-                            {
-                                "text": "Kotlin Multiplatform 插件发布",
-                                "link": "multiplatform-plugin-releases"
-                            }
-                        ]
-                    }
-                ]
-            },
-            {
                 "text": t['kotlin.data-analysis'],
                 "collapsed": true,
                 "items": [
@@ -1043,7 +878,7 @@ function createI18nSideBarConfig(t) {
                                         "link": "native-objc-interop"
                                     },
                                     {
-                                        "text": "Kotlin/Native 作为 Apple 框架 – 教程",
+                                        "text": "Kotlin/Native 作为 Apple framework – 教程",
                                         "link": "apple-framework"
                                     }
                                 ]
@@ -1089,10 +924,6 @@ function createI18nSideBarConfig(t) {
                                     {
                                         "text": "Kotlin/Native 目标平台支持",
                                         "link": "native-target-support"
-                                    },
-                                    {
-                                        "text": "iOS 应用的隐私清单",
-                                        "link": "apple-privacy-manifest"
                                     },
                                     {
                                         "text": "提升编译时间的技巧",
@@ -1161,7 +992,7 @@ function createI18nSideBarConfig(t) {
                                 "link": "js-running-tests"
                             },
                             {
-                                "text": "Kotlin/JS 死代码消除 (dead code elimination)",
+                                "text": "Kotlin/JS 无效代码消除",
                                 "link": "javascript-dce"
                             },
                             {
@@ -1273,7 +1104,7 @@ function createI18nSideBarConfig(t) {
                                 "link": "collection-grouping"
                             },
                             {
-                                "text": "获取集合的部分内容",
+                                "text": "检索集合部分",
                                 "link": "collection-parts"
                             },
                             {
@@ -1289,29 +1120,29 @@ function createI18nSideBarConfig(t) {
                                 "link": "collection-aggregate"
                             },
                             {
-                                "text": "集合写操作",
+                                "text": "写入操作",
                                 "link": "collection-write"
                             },
                             {
-                                "text": "列表特定操作",
+                                "text": "List 特定操作",
                                 "link": "list-operations"
                             },
                             {
-                                "text": "Set-specific operations",
+                                "text": "Set 特定操作",
                                 "link": "set-operations"
                             },
                             {
-                                "text": "Map-specific operations",
+                                "text": "Map 特定操作",
                                 "link": "map-operations"
                             }
                         ]
                     },
                     {
-                        "text": "Read standard input",
+                        "text": "读取标准输入",
                         "link": "read-standard-input"
                     },
                     {
-                        "text": "选择加入要求",
+                        "text": "Opt-in 要求",
                         "link": "opt-in-requirements"
                     },
                     {
@@ -1333,18 +1164,101 @@ function createI18nSideBarConfig(t) {
                         "collapsed": true,
                         "items": [
                             {
-                                "text": "协程",
-                                "link": "coroutines-overview"
+                                "text": "协程指南",
+                                "link": "coroutines-guide"
+                            },
+                            {
+                                "text": "协程基础",
+                                "link": "coroutines-basics"
+                            },
+                            {
+                                "text": "协程和通道",
+                                "link": "coroutines-and-channels"
+                            },
+                            {
+                                "text": "取消和超时",
+                                "link": "cancellation-and-timeouts"
+                            },
+                            {
+                                "text": "组合挂起函数",
+                                "link": "composing-suspending-functions"
+                            },
+                            {
+                                "text": "协程上下文和调度器",
+                                "link": "coroutine-context-and-dispatchers"
+                            },
+                            {
+                                "text": "流",
+                                "link": "flow"
+                            },
+                            {
+                                "text": "通道",
+                                "link": "channels"
+                            },
+                            {
+                                "text": "异常处理",
+                                "link": "exception-handling"
+                            },
+                            {
+                                "text": "共享可变状态和并发",
+                                "link": "shared-mutable-state-and-concurrency"
+                            },
+                            {
+                                "text": "select 表达式",
+                                "link": "select-expression"
+                            },
+                            {
+                                "text": "使用 IDEA 调试协程",
+                                "link": "debug-coroutines-with-idea"
+                            },
+                            {
+                                "text": "使用 IDEA 调试流",
+                                "link": "debug-flow-with-idea"
                             }
                         ]
                     },
                     {
-                        "text": "序列化",
+                        "text": "序列化 (kotlinx.serialization)",
                         "link": "serialization"
                     },
                     {
-                        "text": "Kotlin元数据 JVM 库",
+                        "text": "Kotlin Metadata JVM (kotlin-metadata-jvm)",
                         "link": "metadata-jvm"
+                    },
+                    {
+                        "text": "Lincheck (kotlinx.lincheck)",
+                        "collapsed": true,
+                        "items": [
+                            {
+                                text: "Lincheck 指南",
+                                link: "lincheck-guide"
+                            },
+                            {
+                                text: "使用 Lincheck 编写您的第一个测试",
+                                link: "introduction"
+                            },
+                            {
+                                text: "测试策略",
+                                link: "testing-strategies"
+                            },
+                            {
+                                text: "操作参数",
+                                link: "operation-arguments"
+                            },
+                            {
+                                text: "数据结构约束",
+                                link: "constraints"
+                            },
+                            {
+                                text: "进度保证",
+                                link: "progress-guarantees"
+                            },
+                            {
+                                text: "顺序规范",
+                                link: "sequential-specification"
+                            }
+
+                        ]
                     },
                     {
                         "text": "Ktor",
@@ -1425,7 +1339,7 @@ function createI18nSideBarConfig(t) {
                                 "collapsed": true,
                                 "items": [
                                     {
-                                        "text": "Gradle",
+                                        "text": "Gradle 概述",
                                         "link": "gradle"
                                     },
                                     {
@@ -1461,6 +1375,68 @@ function createI18nSideBarConfig(t) {
                             {
                                 "text": "Ant",
                                 "link": "ant"
+                            }
+                        ]
+                    },
+                    {
+                        "text": t['kotlin.dokka'],
+                        "collapsed": true,
+                        "items": [
+                            {
+                                "text": "Dokka 简介",
+                                "link": "dokka-introduction"
+                            },
+                            {
+                                "text": "开始使用 Dokka",
+                                "link": "dokka-get-started"
+                            },
+                            {
+                                "text": "运行 Dokka",
+                                "collapsed": true,
+                                "items": [
+                                    {
+                                        "text": "Gradle",
+                                        "link": "dokka-gradle"
+                                    },
+                                    {
+                                        "text": "迁移到 Dokka Gradle 插件 v2",
+                                        "link": "dokka-migration"
+                                    },
+                                    {
+                                        "text": "Maven",
+                                        "link": "dokka-maven"
+                                    },
+                                    {
+                                        "text": "命令行",
+                                        "link": "dokka-cli"
+                                    }
+                                ]
+                            },
+                            {
+                                "text": "输出格式",
+                                "collapsed": true,
+                                "items": [
+                                    {
+                                        "text": "HTML",
+                                        "link": "dokka-html"
+                                    },
+                                    {
+                                        "text": "Markdown",
+                                        "link": "dokka-markdown"
+                                    },
+                                    {
+                                        "text": "Javadoc",
+                                        "link": "dokka-javadoc"
+                                    }
+                                ]
+                            },
+                            {
+                                "text": "Dokka 插件",
+                                "link": "dokka-plugins"
+                            },
+                            {
+                                "text": "模块文档",
+                                "link": "dokka-module-and-package-docs"
                             }
                         ]
                     },
@@ -1525,27 +1501,27 @@ function createI18nSideBarConfig(t) {
                         "collapsed": true,
                         "items": [
                             {
-                                "text": "全开放编译器插件",
+                                "text": "All-open",
                                 "link": "all-open-plugin"
                             },
                             {
-                                "text": "无参数编译器插件",
+                                "text": "No-arg",
                                 "link": "no-arg-plugin"
                             },
                             {
-                                "text": "带有接收器的 SAM 转换编译器插件",
+                                "text": "SAM with receiver",
                                 "link": "sam-with-receiver-plugin"
                             },
                             {
-                                "text": "kapt编译器插件",
+                                "text": "kapt",
                                 "link": "kapt"
                             },
                             {
-                                "text": "Lombok 编译器插件",
+                                "text": "Lombok",
                                 "link": "lombok"
                             },
                             {
-                                "text": "Power-assert 编译器插件",
+                                "text": "Power-assert",
                                 "link": "power-assert"
                             }
                         ]
@@ -1569,7 +1545,7 @@ function createI18nSideBarConfig(t) {
                         "collapsed": true,
                         "items": [
                             {
-                                "text": "Kotlin 符号处理 API",
+                                "text": "Kotlin Symbol Processing API",
                                 "link": "ksp-overview"
                             },
                             {
@@ -1601,7 +1577,7 @@ function createI18nSideBarConfig(t) {
                                 "link": "ksp-multi-round"
                             },
                             {
-                                "text": "使用 Kotlin Multiplatform 的 KSP",
+                                "text": "在 Kotlin Multiplatform 使用 KSP",
                                 "link": "ksp-multiplatform"
                             },
                             {
@@ -1629,7 +1605,7 @@ function createI18nSideBarConfig(t) {
                         "href": "https://play.kotlinlang.org/byExample/overview"
                     },
                     {
-                        "text": "Kotlin 考研",
+                        "text": "Kotlin 习题",
                         "link": "koans"
                     },
                     {
@@ -1649,7 +1625,7 @@ function createI18nSideBarConfig(t) {
                         "link": "books"
                     },
                     {
-                        "text": "使用惯用的 Kotlin 解决 Advent of Code 谜题",
+                        "text": "Advent of Code 谜题",
                         "link": "advent-of-code"
                     },
                     {
@@ -1771,19 +1747,19 @@ function createI18nSideBarConfig(t) {
                         "collapsed": true,
                         "items": [
                             {
-                                "text": "Kotlin 与 Google 编程之夏",
+                                "text": "Kotlin 与 GSoC",
                                 "link": "gsoc-overview"
                             },
                             {
-                                "text": "Kotlin 2025 年 Google 编程之夏",
+                                "text": "GSoC 2025",
                                 "link": "gsoc-2025"
                             },
                             {
-                                "text": "2024 年 Kotlin 的 Google 编程之夏活动",
+                                "text": "GSoC 2024",
                                 "link": "gsoc-2024"
                             },
                             {
-                                "text": "Kotlin 与 Google Summer of Code 2023",
+                                "text": "GSoC 2023",
                                 "link": "gsoc-2023"
                             }
                         ]
@@ -2599,12 +2575,12 @@ function traversalConfig(config, sidebarPrefixDir, relativePrefixDir) {
 
 /**
  * Generates sidebar items for documentation navigation
- * @param locale - The locale code for internationalization (default: "zh-hans")
+ * @param locale - The locale code for internationalization (default: "zh-Hans")
  * @param docsConfig - Configuration object containing documentation settings
  * @returns An array of sidebar items with localized text and links
  */
 export default function generateSidebarItems(localeConfig: SideLocaleConfig, docsConfig: DocsItemConfig) {
-    let sidebarPrefixDir = localeConfig.lang === "zh-hans" ? docsConfig.path : path.posix.join(localeConfig.lang, docsConfig.path);
+    let sidebarPrefixDir = localeConfig.lang === "zh-Hans" ? docsConfig.path : path.posix.join(localeConfig.lang, docsConfig.path);
     const relativePrefixDir = path.posix.join("docs", sidebarPrefixDir);
     sidebarPrefixDir = path.posix.join("/", sidebarPrefixDir);
     const sidebars = traversalConfig(createI18nSideBarConfig(localeConfig.messages)[docsConfig.type], sidebarPrefixDir, relativePrefixDir)

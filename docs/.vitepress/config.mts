@@ -15,7 +15,7 @@ import markdownItMkLiquidCondition from "./markdown-it-mk-liquid-condition";
 import markdownItMkAdmonition from "./markdown-it-mk-admonitions";
 import markdownItMkCodeTabs from "./markdown-it-mk-code-tabs";
 import markdownItMkLinks from "./markdown-it-mk-links";
-import { DocsTypeConfig } from './docs.config';
+import {DOCS_TYPES, DocsTypeConfig} from './docs.config';
 import { markdownItRewriteLinks } from './markdown-it-ws-inline-link';
 import { SiteLocaleConfig } from './locales.config';
 import generateSidebarItems from './config/sidebar.config';
@@ -27,6 +27,8 @@ import shikiRemoveDiffMarker from "./shiki-remove-diff-marker";
 import liquidIncludePlugin from "./vite-liquid-include";
 import markdownItMKInclude from "./markdown-it-mk-Include";
 import markdownItRemoveScript from "./markdown-it-remove-script";
+import markdownItRemoveContributeUrl from "./markdown-it-remove-contribute-url";
+import markdownItWsClassstyles from "./markdown-it-ws-classstyles";
 
 const commonThemeConfig = {
   editLink: {
@@ -47,7 +49,8 @@ const mkDiffGrammar = JSON.parse(readFileSync(mkDiffGrammarPath, 'utf-8'))
 export default defineConfig({
   cleanUrls: true,
   lastUpdated: true,
-  lang: 'zh-hans',
+  ignoreDeadLinks: true,
+  lang: 'zh-Hans',
   title: 'Open AiDoc',
   head: [['link', { rel: 'icon', href: 'img/favicon.ico' }]],
   vite: {
@@ -57,36 +60,36 @@ export default defineConfig({
   },
   locales: {
     root: {
-      ...SiteLocaleConfig['zh-hans'],
+      ...SiteLocaleConfig['zh-Hans'],
       themeConfig: {
         ...commonThemeConfig,
         // https://vitepress.dev/reference/default-theme-config
         nav: [
           { text: 'Koin', link: '/koin/setup/koin' },
-          { text: 'kotlin', link: '/kotlin/getting-started' },
+          { text: 'Kotlin', link: '/kotlin/getting-started' },
           { text: 'SQLDelight', link: '/sqldelight/index' }
         ],
         sidebar: {
-          "/koin/": generateSidebarItems(SiteLocaleConfig['zh-hans'], DocsTypeConfig.koin),
-          "/kotlin/": generateSidebarItems(SiteLocaleConfig['zh-hans'], DocsTypeConfig.kotlin),
-          "/sqldelight/": generateSidebarItems(SiteLocaleConfig['zh-hans'], DocsTypeConfig.sqldelight),
+          "/koin/": generateSidebarItems(SiteLocaleConfig['zh-Hans'], DocsTypeConfig.koin),
+          "/kotlin/": generateSidebarItems(SiteLocaleConfig['zh-Hans'], DocsTypeConfig.kotlin),
+          "/sqldelight/": generateSidebarItems(SiteLocaleConfig['zh-Hans'], DocsTypeConfig.sqldelight),
         },
       },
     },
-    "zh-hant": {
-      link: "/zh-hant/",
-      ...SiteLocaleConfig['zh-hant'],
+    "zh-Hant": {
+      link: "/zh-Hant/",
+      ...SiteLocaleConfig['zh-Hant'],
       themeConfig: {
         ...commonThemeConfig,
         nav: [
-          { text: 'Koin', link: 'zh-hant/koin/setup/koin' },
-          { text: 'kotlin', link: 'zh-hant/kotlin/getting-started' },
-          { text: 'SQLDelight', link: 'zh-hant/sqldelight/index' }
+          { text: 'Koin', link: 'zh-Hant/koin/setup/koin' },
+          { text: 'kotlin', link: 'zh-Hant/kotlin/getting-started' },
+          { text: 'SQLDelight', link: 'zh-Hant/sqldelight/index' }
         ],
         sidebar: {
-          "/zh-hant/koin/": generateSidebarItems(SiteLocaleConfig['zh-hant'], DocsTypeConfig.koin),
-          "/zh-hant/kotlin/": generateSidebarItems(SiteLocaleConfig['zh-hant'], DocsTypeConfig.kotlin),
-          "/zh-hant/sqldelight/": generateSidebarItems(SiteLocaleConfig['zh-hant'], DocsTypeConfig.sqldelight),
+          "/zh-Hant/koin/": generateSidebarItems(SiteLocaleConfig['zh-Hant'], DocsTypeConfig.koin),
+          "/zh-Hant/kotlin/": generateSidebarItems(SiteLocaleConfig['zh-Hant'], DocsTypeConfig.kotlin),
+          "/zh-Hant/sqldelight/": generateSidebarItems(SiteLocaleConfig['zh-Hant'], DocsTypeConfig.sqldelight),
         },
       },
     },
@@ -143,6 +146,12 @@ export default defineConfig({
     ],
 
     config: (md) => {
+
+      md.use(markdownItWsClassstyles)
+      md.use(markdownItRewriteLinks)
+
+      md.use(markdownItRemoveContributeUrl)
+
       md.use(markdownItRemoveScript)
 
       md.use(markdownItMKInclude)
@@ -172,12 +181,10 @@ export default defineConfig({
       md.use(markdownItMkLinks)
 
       md.use(markdownItDiffTitleWrapper)
-
       md.use(markdownItWsVars, {
         xmlFilePath: 'docs/.vitepress/v.list'
       });
       md.use(markdownItMKVars);
-      md.use(markdownItRewriteLinks)
 
       md.use(markdownItContainer, 'note', {
         render: function (tokens, idx) {
@@ -221,7 +228,14 @@ export default defineConfig({
         // 检查源代码是否以#开头的标题开始（处理可能的空行）
         const lines = src.trim().split(/\r?\n/);
         let hasH1 = false;
-        
+
+        const parts = env.relativePath.split('/')
+        const docType = parts.find(p => DOCS_TYPES.includes(p))
+
+        if (docType === 'kotlin') {
+          return originalRender.call(this, src, env);
+        }
+
         // 跳过可能的空行，检查是否有#开头的标题行
         for (const line of lines) {
           const trimmedLine = line.trim();
@@ -232,15 +246,15 @@ export default defineConfig({
             break;
           }
         }
-        
+
         // 执行原始渲染
         const result = originalRender.call(this, src, env);
-        
+
         // 如果frontmatter中有标题，直接使用
         if (env.frontmatter && env.frontmatter.title) {
           return `<h1>${env.frontmatter.title}</h1>\n${result}`;
         }
-        
+
         // 如果源码中没有h1标题，则使用侧栏标题
         if (!hasH1) {
           const sidebarTitle = getSidebarTitle(env.relativePath);
@@ -248,7 +262,7 @@ export default defineConfig({
             return `<h1>${sidebarTitle}</h1>\n${result}`;
           }
         }
-      
+
         return result;
       }
     },

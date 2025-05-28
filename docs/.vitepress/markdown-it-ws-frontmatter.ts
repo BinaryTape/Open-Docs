@@ -1,60 +1,24 @@
-// Process Writerside flavored Frontmatter
+// Process comments and convert title to markdown heading
 
 export default function markdownItWsFrontmatter(md) {
-
   const originalRender = md.render.bind(md);
-  const commentRegex = /^\[\/\/\]: # \(([^:]+):\s*(.*?)\)\s*$/;
+  const titleCommentRegex = /\[\/\/\]: # \(title:\s*(.*?)\)/i;
 
   md.render = function(src: string, env?: any): any[] {
-    const lines = src.split(/\r?\n/); // Split source into lines
-    const frontmatterData = {};
-    let linesConsumed = 0;
-    let processingFrontmatter = true;
-
-    // Skip initial empty lines
-    while (linesConsumed < lines.length && lines[linesConsumed].trim() === '') {
-      linesConsumed++;
+    // 查找 title 注释
+    const titleMatch = src.match(titleCommentRegex);
+    
+    if (titleMatch && titleMatch[1]) {
+      // 提取标题内容
+      const titleContent = titleMatch[1].trim();
+      
+      // 将标题内容转换为 Markdown 标题
+      const modifiedSource = `# ${titleContent}\n\n${src}`;
+      
+      return originalRender(modifiedSource, env);
     }
-
-    // Process frontmatter comments
-    while (processingFrontmatter && linesConsumed < lines.length) {
-      const line = lines[linesConsumed];
-      const match = line.match(commentRegex);
-
-      if (match) {
-        // Found a frontmatter comment
-        const key = match[1].trim();
-        const value = match[2].trim();
-        if (key) {
-          frontmatterData[key] = value;
-        }
-        linesConsumed++;
-      } else if (line.trim() === '') {
-        // Empty line after frontmatter
-        linesConsumed++;
-        processingFrontmatter = false;
-      } else {
-        // Non-empty, non-frontmatter line - stop processing
-        processingFrontmatter = false;
-      }
-    }
-
-    // If any frontmatter key-value pairs were extracted
-    if (Object.keys(frontmatterData).length > 0) {
-      let frontmatterString = '---\n';
-      for (const key in frontmatterData) {
-        // Proper string escaping for YAML format
-        const escapedValue = frontmatterData[key].replace(/"/g, '\\"');
-        frontmatterString += `${key}: "${escapedValue}"\n`;
-      }
-      frontmatterString += '---\n\n';
-
-      // Reconstruct the source: frontmatter + rest of the document
-      const remainingLines = lines.slice(linesConsumed);
-      return originalRender(frontmatterString + remainingLines.join('\n'), env);
-    }
-
-    // No frontmatter found, process the original source
+    
+    // 没有找到标题，直接处理原始内容
     return originalRender(src, env);
   };
 }

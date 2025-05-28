@@ -8,6 +8,7 @@
 
 # Generated files
 /docs/.vitepress/cache/
+/docs/.vitepress/dist/
 .cache-loader
 
 # Misc

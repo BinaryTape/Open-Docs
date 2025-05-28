@@ -14,15 +14,15 @@ export type SideLocaleConfig = {
 }
 
 export const SiteLocaleConfig: { [key: string]: SideLocaleConfig } = {
-    'zh-hans': {
-        lang: 'zh-hans',
+    'zh-Hans': {
+        lang: 'zh-Hans',
         label: '简体中文',
         title: 'Open AIDoc',
         description: 'Open AIDoc',
         messages: zh_hans
     },
-    "zh-hant": {
-        lang: 'zh-hant',
+    "zh-Hant": {
+        lang: 'zh-Hant',
         label: '繁體中文',
         title: 'Open AIDoc',
         description: 'Open AIDoc',

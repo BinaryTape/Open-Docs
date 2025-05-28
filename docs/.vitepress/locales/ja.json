@@ -73,5 +73,6 @@
     "kotlin.others.compatibility-guide": "Kotlin 互換性ガイド",
     "kotlin.others.foundation": "Kotlin Foundation",
     "kotlin.others.community": "コミュニティ",
-    "kotlin.others.news-kit": "ニュースキット"
+    "kotlin.others.news-kit": "ニュースキット",
+    "kotlin.dokka": "Dokka"
 }

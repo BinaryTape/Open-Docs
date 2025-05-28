@@ -135,7 +135,7 @@ function prepareTranslationPrompt(sourceText, targetLang, currentFilePath) {
     4.  **HTML Tags:**
         * If HTML tags are embedded in the original Markdown, these tags and their attributes should also remain unchanged.
         
-    ## III. YAML Frontmatter Handling Requirements
+    ## III. YAML Frontmatter and Special Comments Handling Requirements
     
     1.  **Format Preservation:**
         * The format of the YAML Frontmatter section at the beginning of the document, surrounded by two '---', must be strictly preserved.
@@ -145,6 +145,11 @@ function prepareTranslationPrompt(sourceText, targetLang, currentFilePath) {
         * Only translate the content values of fields like 'title', 'description', etc.
         * If field values contain quotes, ensure that the quote format is correctly preserved after translation.
         * Do not translate field names, configuration parameter names, or special identifiers.
+        
+    3.  **Special Comments Handling:**
+        * Translate the title content in special comments like \`[//]: # (title: Content to translate)\`.
+        * Keep the comment format unchanged, only translate the actual content after the colon.
+        * Example: \`[//]: # (title: Kotlin/Native as an Apple framework – tutorial)\` should be translated to appropriate target language while maintaining the format.
     
     ## IV. Output Requirements
     
@@ -207,7 +212,7 @@ function prepareTranslationPrompt(sourceText, targetLang, currentFilePath) {
     4.  **HTML 标签:**
         * 如果原文 Markdown 中内嵌了 HTML 标签，这些标签及其属性也应保持不变。
         
-    ## 三、YAML Frontmatter 处理要求
+    ## 三、YAML Frontmatter 及特殊注释处理要求
     
     1.  **格式保持:**
         * 文档开头由两个 '---' 包围的 YAML Frontmatter 部分的格式必须严格保持不变。
@@ -217,7 +222,12 @@ function prepareTranslationPrompt(sourceText, targetLang, currentFilePath) {
         * 仅翻译 'title'、'description' 等字段的内容值。
         * 如字段值包含引号，请确保在翻译后正确保留引号格式。
         * 不要翻译字段名、配置参数名或特殊标识符。
-    
+        
+    3.  **特殊注释处理:**
+        * 翻译形如 \`[//]: # (title: 标题内容)\` 的特殊注释中的标题内容。
+        * 保持注释格式不变，只翻译冒号后的实际内容。
+        * 例如: \`[//]: # (title: Kotlin/Native as an Apple framework – tutorial)\` 应翻译为 \`[//]: # (title: Kotlin/Native 作为 Apple 框架 – 教程)\`。
+
     ## 四、输出要求
     
     1.  **纯净输出:** 仅输出翻译后的 Markdown 内容。不要包含任何额外的解释、说明、道歉、或自我评论（例如，"这是一个不错的翻译…" 或 "请注意…"）。

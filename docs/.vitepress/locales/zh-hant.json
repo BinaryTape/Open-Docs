@@ -74,5 +74,6 @@
     "kotlin.others.compatibility-guide": "Kotlin 相容性指南",
     "kotlin.others.foundation": "Kotlin 基金會",
     "kotlin.others.community": "社群",
-    "kotlin.others.news-kit": "新聞資料包"
+    "kotlin.others.news-kit": "新聞資料包",
+    "kotlin.dokka": "Dokka"
 }
