@@ -31,6 +31,7 @@ import markdownItRemoveContributeUrl from "./markdown-it-remove-contribute-url";
 import markdownItWsClassstyles from "./markdown-it-ws-classstyles";
 
 const commonThemeConfig = {
+  logo: '/img/logo.png',
   editLink: {
     pattern: 'https://github.com/BinaryTape/Open-Docs/blob/main/:path'
   },
@@ -51,7 +52,7 @@ export default defineConfig({
   lastUpdated: true,
   ignoreDeadLinks: true,
   lang: 'zh-Hans',
-  title: 'Open AiDoc',
+  title: 'Open AIDoc',
   head: [['link', { rel: 'icon', href: 'img/favicon.ico' }]],
   vite: {
     plugins: [
