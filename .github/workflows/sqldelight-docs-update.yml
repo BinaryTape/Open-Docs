@@ -175,6 +175,8 @@ jobs:
           # 排除不需要提交的文件和目录
           git add . ':!package.json' ':!package-lock.json' ':!sqldelight-repo' ':!sqldelight-repo/**'
           git commit -m '添加已翻译文件并更新检查记录'
+          # 拉取远程分支的最新更改以避免冲突
+          git pull --rebase origin ${{ github.head_ref || github.ref_name }}
           git push origin HEAD:${{ github.head_ref || github.ref_name }}
 
       - name: Create summary
