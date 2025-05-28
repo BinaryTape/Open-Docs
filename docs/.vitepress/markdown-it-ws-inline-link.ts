@@ -25,11 +25,16 @@ const rewiteOptions: RewriteLinkOptions = {
     const docType = parts.find(p => DOCS_TYPES.includes(p))
     
     // 检查是否为 Kotlin 文档以及链接是否以 .png 或 .svg 结尾
-    if ((docType === 'kotlin' || docType === 'ktor') && (href.endsWith('.png') || href.endsWith('.svg') || href.endsWith('.jpeg') || href.endsWith('.jpg') || href.endsWith('.gif'))) {
+    if (docType === 'kotlin' && (href.endsWith('.png') || href.endsWith('.svg') || href.endsWith('.jpeg') || href.endsWith('.jpg') || href.endsWith('.gif'))) {
       // 提取文件名
 
       const fileName = path.basename(href)
       return `/kotlin/${fileName}`
+    }
+
+    if (docType === 'ktor' && (href.endsWith('.png') || href.endsWith('.svg') || href.endsWith('.jpeg') || href.endsWith('.jpg') || href.endsWith('.gif'))) {
+      const fileName = path.basename(href)
+      return `/ktor/${fileName}`
     }
 
     if (docType === 'sqldelight' && (href.endsWith('.png') || href.endsWith('.svg') || href.endsWith('.gif'))) {
