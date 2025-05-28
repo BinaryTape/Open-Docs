@@ -1810,23 +1810,23 @@ function createI18nSideBarConfig(t) {
                 "text": "SQLDelight",
                 "items": [
                     {
-                        "text": "概述",
+                        "text": t['sqldelight.overview'],
                         "link": "index"
                     },
                     {
-                        "text": "升级到 2.0",
+                        "text": t['sqldelight.upgrading-2.0'],
                         "link": "upgrading-2.0"
                     },
                     {
-                        "text": "更新日志",
+                        "text": t['sqldelight.changelog'],
                         "link": "changelog"
                     },
                     {
-                        "text": "贡献",
+                        "text": t['sqldelight.contributing'],
                         "link": "contributing"
                     },
                     {
-                        "text": "行为准则",
+                        "text": t['sqldelight.code-of-conduct'],
                         "link": "code_of_conduct"
                     }
                 ]
@@ -1836,7 +1836,7 @@ function createI18nSideBarConfig(t) {
                 "collapsed": true,
                 "items": [
                     {
-                        "text": "入门指南",
+                        "text": t['sqldelight.getting-started'],
                         "link": "android_sqlite/index"
                     },
                     {
@@ -1844,33 +1844,33 @@ function createI18nSideBarConfig(t) {
                         "collapsed": true,
                         "items": [
                             {
-                                "text": "外键",
+                                "text": t['sqldelight.foreign-keys'],
                                 "link": "android_sqlite/foreign_keys"
                             },
                             {
-                                "text": "类型投影",
+                                "text": t['sqldelight.custom-projections'],
                                 "link": "android_sqlite/custom_projections"
                             },
                             {
-                                "text": "参数",
+                                "text": t['sqldelight.query-arguments'],
                                 "link": "android_sqlite/query_arguments"
                             },
                             {
-                                "text": "类型",
+                                "text": t['sqldelight.types'],
                                 "link": "android_sqlite/types"
                             },
                             {
-                                "text": "事务",
+                                "text": t['sqldelight.transactions'],
                                 "link": "android_sqlite/transactions"
                             },
                             {
-                                "text": "语句分组",
+                                "text": t['sqldelight.grouping-statements'],
                                 "link": "android_sqlite/grouping_statements"
                             }
                         ]
                     },
                     {
-                        "text": "扩展",
+                        "text": t['sqldelight.extensions'],
                         "collapsed": true,
                         "items": [
                             {
@@ -1878,7 +1878,7 @@ function createI18nSideBarConfig(t) {
                                 "link": "android_sqlite/rxjava"
                             },
                             {
-                                "text": "协程",
+                                "text": t['sqldelight.coroutines'],
                                 "link": "android_sqlite/coroutines"
                             },
                             {
@@ -1888,15 +1888,15 @@ function createI18nSideBarConfig(t) {
                         ]
                     },
                     {
-                        "text": "迁移",
+                        "text": t['sqldelight.migrations'],
                         "link": "android_sqlite/migrations"
                     },
                     {
-                        "text": "测试",
+                        "text": t['sqldelight.testing'],
                         "link": "android_sqlite/testing"
                     },
                     {
-                        "text": "IntelliJ 插件",
+                        "text": t['sqldelight.intellij-plugin'],
                         "link": "android_sqlite/intellij_plugin"
                     },
                     {
@@ -1934,17 +1934,17 @@ function createI18nSideBarConfig(t) {
                         ]
                     },
                     {
-                        "text": "资源",
+                        "text": t['sqldelight.resources'],
                         "link": "android_sqlite/resources"
                     }
                 ]
             },
             {
-                "text": "SQLite (多平台)",
+                "text": t['sqldelight.sqlite-multiplatform'],
                 "collapsed": true,
                 "items": [
                     {
-                        "text": "入门指南",
+                        "text": t['sqldelight.getting-started'],
                         "link": "multiplatform_sqlite/index"
                     },
                     {
@@ -1952,37 +1952,37 @@ function createI18nSideBarConfig(t) {
                         "collapsed": true,
                         "items": [
                             {
-                                "text": "外键",
+                                "text": t['sqldelight.foreign-keys'],
                                 "link": "multiplatform_sqlite/foreign_keys"
                             },
                             {
-                                "text": "类型投影",
+                                "text": t['sqldelight.custom-projections'],
                                 "link": "multiplatform_sqlite/custom_projections"
                             },
                             {
-                                "text": "参数",
+                                "text": t['sqldelight.query-arguments'],
                                 "link": "multiplatform_sqlite/query_arguments"
                             },
                             {
-                                "text": "类型",
+                                "text": t['sqldelight.types'],
                                 "link": "multiplatform_sqlite/types"
                             },
                             {
-                                "text": "事务",
+                                "text": t['sqldelight.transactions'],
                                 "link": "multiplatform_sqlite/transactions"
                             },
                             {
-                                "text": "语句分组",
+                                "text": t['sqldelight.grouping-statements'],
                                 "link": "multiplatform_sqlite/grouping_statements"
                             }
                         ]
                     },
                     {
-                        "text": "扩展",
+                        "text": t['sqldelight.extensions'],
                         "collapsed": true,
                         "items": [
                             {
-                                "text": "协程",
+                                "text": t['sqldelight.coroutines'],
                                 "link": "multiplatform_sqlite/coroutines"
                             },
                             {
@@ -1992,11 +1992,11 @@ function createI18nSideBarConfig(t) {
                         ]
                     },
                     {
-                        "text": "迁移",
+                        "text": t['sqldelight.migrations'],
                         "link": "multiplatform_sqlite/migrations"
                     },
                     {
-                        "text": "IntelliJ 插件",
+                        "text": t['sqldelight.intellij-plugin'],
                         "link": "multiplatform_sqlite/intellij_plugin"
                     },
                     {
@@ -2004,7 +2004,7 @@ function createI18nSideBarConfig(t) {
                         "link": "multiplatform_sqlite/gradle"
                     },
                     {
-                        "text": "资源",
+                        "text": t['sqldelight.resources'],
                         "link": "multiplatform_sqlite/resources"
                     },
                     {
@@ -2028,7 +2028,7 @@ function createI18nSideBarConfig(t) {
                 "collapsed": true,
                 "items": [
                     {
-                        "text": "入门指南",
+                        "text": t['sqldelight.getting-started'],
                         "link": "jvm_mysql/index"
                     },
                     {
@@ -2036,29 +2036,29 @@ function createI18nSideBarConfig(t) {
                         "collapsed": true,
                         "items": [
                             {
-                                "text": "类型投影",
+                                "text": t['sqldelight.custom-projections'],
                                 "link": "jvm_mysql/custom_projections"
                             },
                             {
-                                "text": "参数",
+                                "text": t['sqldelight.query-arguments'],
                                 "link": "jvm_mysql/query_arguments"
                             },
                             {
-                                "text": "类型",
+                                "text": t['sqldelight.types'],
                                 "link": "jvm_mysql/types"
                             },
                             {
-                                "text": "事务",
+                                "text": t['sqldelight.transactions'],
                                 "link": "jvm_mysql/transactions"
                             },
                             {
-                                "text": "语句分组",
+                                "text": t['sqldelight.grouping-statements'],
                                 "link": "jvm_mysql/grouping_statements"
                             }
                         ]
                     },
                     {
-                        "text": "扩展",
+                        "text": t['sqldelight.extensions'],
                         "collapsed": true,
                         "items": [
                             {
@@ -2068,11 +2068,11 @@ function createI18nSideBarConfig(t) {
                         ]
                     },
                     {
-                        "text": "迁移",
+                        "text": t['sqldelight.migrations'],
                         "link": "jvm_mysql/migrations"
                     },
                     {
-                        "text": "IntelliJ 插件",
+                        "text": t['sqldelight.intellij-plugin'],
                         "link": "jvm_mysql/intellij_plugin"
                     },
                     {
@@ -2100,7 +2100,7 @@ function createI18nSideBarConfig(t) {
                 "collapsed": true,
                 "items": [
                     {
-                        "text": "入门指南",
+                        "text": t['sqldelight.getting-started'],
                         "link": "jvm_postgresql/index"
                     },
                     {
@@ -2108,29 +2108,29 @@ function createI18nSideBarConfig(t) {
                         "collapsed": true,
                         "items": [
                             {
-                                "text": "类型投影",
+                                "text": t['sqldelight.custom-projections'],
                                 "link": "jvm_postgresql/custom_projections"
                             },
                             {
-                                "text": "参数",
+                                "text": t['sqldelight.query-arguments'],
                                 "link": "jvm_postgresql/query_arguments"
                             },
                             {
-                                "text": "类型",
+                                "text": t['sqldelight.types'],
                                 "link": "jvm_postgresql/types"
                             },
                             {
-                                "text": "事务",
+                                "text": t['sqldelight.transactions'],
                                 "link": "jvm_postgresql/transactions"
                             },
                             {
-                                "text": "语句分组",
+                                "text": t['sqldelight.grouping-statements'],
                                 "link": "jvm_postgresql/grouping_statements"
                             }
                         ]
                     },
                     {
-                        "text": "扩展",
+                        "text": t['sqldelight.extensions'],
                         "collapsed": true,
                         "items": [
                             {
@@ -2140,11 +2140,11 @@ function createI18nSideBarConfig(t) {
                         ]
                     },
                     {
-                        "text": "迁移",
+                        "text": t['sqldelight.migrations'],
                         "link": "jvm_postgresql/migrations"
                     },
                     {
-                        "text": "IntelliJ 插件",
+                        "text": t['sqldelight.intellij-plugin'],
                         "link": "jvm_postgresql/intellij_plugin"
                     },
                     {
@@ -2172,7 +2172,7 @@ function createI18nSideBarConfig(t) {
                 "collapsed": true,
                 "items": [
                     {
-                        "text": "入门指南",
+                        "text": t['sqldelight.getting-started'],
                         "link": "jvm_h2/index"
                     },
                     {
@@ -2180,29 +2180,29 @@ function createI18nSideBarConfig(t) {
                         "collapsed": true,
                         "items": [
                             {
-                                "text": "类型投影",
+                                "text": t['sqldelight.custom-projections'],
                                 "link": "jvm_h2/custom_projections"
                             },
                             {
-                                "text": "参数",
+                                "text": t['sqldelight.query-arguments'],
                                 "link": "jvm_h2/query_arguments"
                             },
                             {
-                                "text": "类型",
+                                "text": t['sqldelight.types'],
                                 "link": "jvm_h2/types"
                             },
                             {
-                                "text": "事务",
+                                "text": t['sqldelight.transactions'],
                                 "link": "jvm_h2/transactions"
                             },
                             {
-                                "text": "语句分组",
+                                "text": t['sqldelight.grouping-statements'],
                                 "link": "jvm_h2/grouping_statements"
                             }
                         ]
                     },
                     {
-                        "text": "扩展",
+                        "text": t['sqldelight.extensions'],
                         "collapsed": true,
                         "items": [
                             {
@@ -2212,11 +2212,11 @@ function createI18nSideBarConfig(t) {
                         ]
                     },
                     {
-                        "text": "迁移",
+                        "text": t['sqldelight.migrations'],
                         "link": "jvm_h2/migrations"
                     },
                     {
-                        "text": "IntelliJ 插件",
+                        "text": t['sqldelight.intellij-plugin'],
                         "link": "jvm_h2/intellij_plugin"
                     },
                     {
@@ -2244,7 +2244,7 @@ function createI18nSideBarConfig(t) {
                 "collapsed": true,
                 "items": [
                     {
-                        "text": "入门指南",
+                        "text": t['sqldelight.getting-started'],
                         "link": "native_sqlite/index"
                     },
                     {
@@ -2252,37 +2252,37 @@ function createI18nSideBarConfig(t) {
                         "collapsed": true,
                         "items": [
                             {
-                                "text": "外键",
+                                "text": t['sqldelight.foreign-keys'],
                                 "link": "native_sqlite/foreign_keys"
                             },
                             {
-                                "text": "类型投影",
+                                "text": t['sqldelight.custom-projections'],
                                 "link": "native_sqlite/custom_projections"
                             },
                             {
-                                "text": "参数",
+                                "text": t['sqldelight.query-arguments'],
                                 "link": "native_sqlite/query_arguments"
                             },
                             {
-                                "text": "类型",
+                                "text": t['sqldelight.types'],
                                 "link": "native_sqlite/types"
                             },
                             {
-                                "text": "事务",
+                                "text": t['sqldelight.transactions'],
                                 "link": "native_sqlite/transactions"
                             },
                             {
-                                "text": "语句分组",
+                                "text": t['sqldelight.grouping-statements'],
                                 "link": "native_sqlite/grouping_statements"
                             }
                         ]
                     },
                     {
-                        "text": "扩展",
+                        "text": t['sqldelight.extensions'],
                         "collapsed": true,
                         "items": [
                             {
-                                "text": "协程",
+                                "text": t['sqldelight.coroutines'],
                                 "link": "native_sqlite/coroutines"
                             },
                             {
@@ -2292,11 +2292,11 @@ function createI18nSideBarConfig(t) {
                         ]
                     },
                     {
-                        "text": "迁移",
+                        "text": t['sqldelight.migrations'],
                         "link": "native_sqlite/migrations"
                     },
                     {
-                        "text": "IntelliJ 插件",
+                        "text": t['sqldelight.intellij-plugin'],
                         "link": "native_sqlite/intellij_plugin"
                     },
                     {
@@ -2328,7 +2328,7 @@ function createI18nSideBarConfig(t) {
                 "collapsed": true,
                 "items": [
                     {
-                        "text": "入门指南",
+                        "text": t['sqldelight.getting-started'],
                         "link": "jvm_sqlite/index"
                     },
                     {
@@ -2336,33 +2336,33 @@ function createI18nSideBarConfig(t) {
                         "collapsed": true,
                         "items": [
                             {
-                                "text": "外键",
+                                "text": t['sqldelight.foreign-keys'],
                                 "link": "jvm_sqlite/foreign_keys"
                             },
                             {
-                                "text": "类型投影",
+                                "text": t['sqldelight.custom-projections'],
                                 "link": "jvm_sqlite/custom_projections"
                             },
                             {
-                                "text": "参数",
+                                "text": t['sqldelight.query-arguments'],
                                 "link": "jvm_sqlite/query_arguments"
                             },
                             {
-                                "text": "类型",
+                                "text": t['sqldelight.types'],
                                 "link": "jvm_sqlite/types"
                             },
                             {
-                                "text": "事务",
+                                "text": t['sqldelight.transactions'],
                                 "link": "jvm_sqlite/transactions"
                             },
                             {
-                                "text": "语句分组",
+                                "text": t['sqldelight.grouping-statements'],
                                 "link": "jvm_sqlite/grouping_statements"
                             }
                         ]
                     },
                     {
-                        "text": "扩展",
+                        "text": t['sqldelight.extensions'],
                         "collapsed": true,
                         "items": [
                             {
@@ -2370,7 +2370,7 @@ function createI18nSideBarConfig(t) {
                                 "link": "jvm_sqlite/rxjava"
                             },
                             {
-                                "text": "协程",
+                                "text": t['sqldelight.coroutines'],
                                 "link": "jvm_sqlite/coroutines"
                             },
                             {
@@ -2380,11 +2380,11 @@ function createI18nSideBarConfig(t) {
                         ]
                     },
                     {
-                        "text": "迁移",
+                        "text": t['sqldelight.migrations'],
                         "link": "jvm_sqlite/migrations"
                     },
                     {
-                        "text": "IntelliJ 插件",
+                        "text": t['sqldelight.intellij-plugin'],
                         "link": "jvm_sqlite/intellij_plugin"
                     },
                     {
@@ -2424,11 +2424,11 @@ function createI18nSideBarConfig(t) {
                 "collapsed": true,
                 "items": [
                     {
-                        "text": "入门指南",
+                        "text": t['sqldelight.getting-started'],
                         "link": "js_sqlite/index"
                     },
                     {
-                        "text": "多平台",
+                        "text": t['sqldelight.multiplatform'],
                         "link": "js_sqlite/multiplatform"
                     },
                     {
@@ -2440,7 +2440,7 @@ function createI18nSideBarConfig(t) {
                                 "link": "js_sqlite/sqljs_worker"
                             },
                             {
-                                "text": "自定义 Workers",
+                                "text": t['sqldelight.custom-workers'],
                                 "link": "js_sqlite/custom_worker"
                             }
                         ]
@@ -2450,33 +2450,33 @@ function createI18nSideBarConfig(t) {
                         "collapsed": true,
                         "items": [
                             {
-                                "text": "类型投影",
+                                "text": t['sqldelight.custom-projections'],
                                 "link": "js_sqlite/custom_projections"
                             },
                             {
-                                "text": "参数",
+                                "text": t['sqldelight.query-arguments'],
                                 "link": "js_sqlite/query_arguments"
                             },
                             {
-                                "text": "类型",
+                                "text": t['sqldelight.types'],
                                 "link": "js_sqlite/types"
                             },
                             {
-                                "text": "事务",
+                                "text": t['sqldelight.transactions'],
                                 "link": "js_sqlite/transactions"
                             },
                             {
-                                "text": "语句分组",
+                                "text": t['sqldelight.grouping-statements'],
                                 "link": "js_sqlite/grouping_statements"
                             }
                         ]
                     },
                     {
-                        "text": "扩展",
+                        "text": t['sqldelight.extensions'],
                         "collapsed": true,
                         "items": [
                             {
-                                "text": "协程",
+                                "text": t['sqldelight.coroutines'],
                                 "link": "js_sqlite/coroutines"
                             },
                             {
@@ -2486,11 +2486,11 @@ function createI18nSideBarConfig(t) {
                         ]
                     },
                     {
-                        "text": "迁移",
+                        "text": t['sqldelight.migrations'],
                         "link": "js_sqlite/migrations"
                     },
                     {
-                        "text": "IntelliJ 插件",
+                        "text": t['sqldelight.intellij-plugin'],
                         "link": "js_sqlite/intellij_plugin"
                     },
                     {

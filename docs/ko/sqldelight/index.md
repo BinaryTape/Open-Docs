@@ -1,6 +1,6 @@
 !!! info "SQLDelight 2.0"
 
-현재 SQLDelight 1.x를 사용 중이라면, SQLDelight 2.0으로 업그레이드하는 방법에 대한 [문서](upgrading-2.0)를 확인하세요!
+    현재 SQLDelight 1.x를 사용 중이라면, SQLDelight 2.0으로 업그레이드하는 방법에 대한 [문서](upgrading-2.0)를 확인하세요!
 
 SQLDelight는 SQL 문(statement)으로부터 타입-세이프(typesafe)한 Kotlin API를 생성합니다. 컴파일 시점(compile-time)에 스키마, 문 및 마이그레이션을 검증하며, 자동 완성(autocomplete) 및 리팩토링(refactoring)과 같은 IDE 기능을 제공하여 SQL 작성 및 유지를 간단하게 만듭니다.
 

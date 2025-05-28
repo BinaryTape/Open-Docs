@@ -66,4 +66,4 @@ playerQueries.insertPlayer(rickardRakell)
 
 ## 输入净化
 
-SQLDelight 使用查询占位符 (query placeholders) 将参数传入查询。参数输入的实际净化工作由各个平台和方言的底层驱动实现完成。
+SQLDelight 使用查询占位符 (query placeholders) 将参数传入查询。参数输入的实际净化工作由各个平台和变体的底层驱动实现完成。

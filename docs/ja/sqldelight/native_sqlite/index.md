@@ -50,4 +50,4 @@ val driver: SqlDriver = NativeSqliteDriver(
 
 リーダー接続は、トランザクション外でクエリを実行するためにのみ使用されます。あらゆる書き込み呼び出し、およびトランザクション内のすべてのものは、トランザクション専用の単一の接続を使用します。
 
-[new memory manager]: https://kotlinlang.org/docs/native-memory-manager.html
+[新しいメモリマネージャー]: https://kotlinlang.org/docs/native-memory-manager.html

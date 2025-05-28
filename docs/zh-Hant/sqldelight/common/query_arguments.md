@@ -66,4 +66,4 @@ playerQueries.insertPlayer(rickardRakell)
 
 ## 輸入清理
 
-SQLDelight 使用查詢佔位符將參數傳遞至查詢。參數輸入的實際清理是由每個各自平台和方言上的底層驅動程式實作完成。
+SQLDelight 使用查詢佔位符將參數傳遞至查詢。參數輸入的實際清理是由每個各自平台和變體上的底層驅動程式實作完成。

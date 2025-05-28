@@ -74,5 +74,27 @@
     "kotlin.others.foundation": "Kotlin 재단",
     "kotlin.others.community": "커뮤니티",
     "kotlin.others.news-kit": "뉴스 키트",
-    "kotlin.dokka": "Dokka"
+    "kotlin.dokka": "Dokka",
+
+    "sqldelight.overview": "개요",
+    "sqldelight.upgrading-2.0": "2.0으로 업그레이드",
+    "sqldelight.changelog": "변경 로그",
+    "sqldelight.contributing": "기여하기",
+    "sqldelight.code-of-conduct": "행동 강령",
+    "sqldelight.getting-started": "시작하기",
+    "sqldelight.foreign-keys": "외래 키",
+    "sqldelight.custom-projections": "타입 프로젝션",
+    "sqldelight.query-arguments": "매개변수",
+    "sqldelight.types": "타입",
+    "sqldelight.transactions": "트랜잭션",
+    "sqldelight.grouping-statements": "구문 그룹화",
+    "sqldelight.extensions": "확장",
+    "sqldelight.coroutines": "코루틴",
+    "sqldelight.migrations": "마이그레이션",
+    "sqldelight.testing": "테스트",
+    "sqldelight.intellij-plugin": "IntelliJ 플러그인",
+    "sqldelight.resources": "리소스",
+    "sqldelight.sqlite-multiplatform": "SQLite (멀티플랫폼)",
+    "sqldelight.multiplatform": "멀티플랫폼",
+    "sqldelight.custom-workers": "커스텀 Workers"
 }

@@ -42,9 +42,9 @@ SQLDelight 的編譯器有多個層次——如果您嚴格只對程式碼生成
 
 ## SQL PSI
 
-在下一節中，我們將介紹如何為解析器和 PSI 層貢獻，但在那之前，您應該閱讀一篇關於 [多種方言](https://www.alecstrong.com/posts/multiple-dialects/) 的部落格文章，以了解 [sql-psi](https://github.com/AlecStrong/sql-psi) 中的各個活動組件。與 SQLDelight 一樣，如果您遇到問題但不知道如何貢獻修復或需要協助，請在 GitHub 問題中留言或建立一個新問題來開始討論。
+在下一節中，我們將介紹如何為解析器和 PSI 層貢獻，但在那之前，您應該閱讀一篇關於 [多種變體](https://www.alecstrong.com/posts/multiple-dialects/) 的部落格文章，以了解 [sql-psi](https://github.com/AlecStrong/sql-psi) 中的各個活動組件。與 SQLDelight 一樣，如果您遇到問題但不知道如何貢獻修復或需要協助，請在 GitHub 問題中留言或建立一個新問題來開始討論。
 
-對於 SQL-PSI 中的任何變更，您將需要在對應的 `core/src/test/fixtures_*` 資料夾中新增一個測試夾具。`fixtures` 資料夾 (無尾碼) 適用於所有方言。在您的變更合併到 sql-psi 後，如果 SQLDelight 中也需要進行變更，請在 SQLDelight 上檢出 `sql-psi-dev` 分支並將您的 PR 目標指向它。它使用 sql-psi 的快照版本，因此您可以在 sql-psi 變更合併後大約 10 分鐘內構建您的 SQLDelight 變更。
+對於 SQL-PSI 中的任何變更，您將需要在對應的 `core/src/test/fixtures_*` 資料夾中新增一個測試夾具。`fixtures` 資料夾 (無尾碼) 適用於所有變體。在您的變更合併到 sql-psi 後，如果 SQLDelight 中也需要進行變更，請在 SQLDelight 上檢出 `sql-psi-dev` 分支並將您的 PR 目標指向它。它使用 sql-psi 的快照版本，因此您可以在 sql-psi 變更合併後大約 10 分鐘內構建您的 SQLDelight 變更。
 
 ### 語法
 
@@ -85,7 +85,7 @@ delete ::= DELETE FROM {table_name} {
 }
 ```
 
-方言不能新增自己的 Token，但您可以透過用 "" 包圍來要求精確文字：
+變體不能新增自己的 Token，但您可以透過用 "" 包圍來要求精確文字：
 
 ```bnf
 my_rule ::= "SOME_TOKEN"

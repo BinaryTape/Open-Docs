@@ -50,4 +50,4 @@ val driver: SqlDriver = NativeSqliteDriver(
 
 读连接仅用于在事务之外运行查询。任何写入调用以及事务中的任何操作都使用一个专用于事务的单一连接。
 
-[new memory manager]: https://kotlinlang.org/docs/native-memory-manager.html
+[新内存管理器]: https://kotlinlang.org/docs/native-memory-manager.html

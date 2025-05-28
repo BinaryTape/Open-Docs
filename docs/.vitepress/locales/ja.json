@@ -74,5 +74,27 @@
     "kotlin.others.foundation": "Kotlin Foundation",
     "kotlin.others.community": "コミュニティ",
     "kotlin.others.news-kit": "ニュースキット",
-    "kotlin.dokka": "Dokka"
+    "kotlin.dokka": "Dokka",
+
+    "sqldelight.overview": "概要",
+    "sqldelight.upgrading-2.0": "2.0 へのアップグレード",
+    "sqldelight.changelog": "変更履歴",
+    "sqldelight.contributing": "貢献",
+    "sqldelight.code-of-conduct": "行動規範",
+    "sqldelight.getting-started": "はじめに",
+    "sqldelight.foreign-keys": "外部キー",
+    "sqldelight.custom-projections": "型射影",
+    "sqldelight.query-arguments": "パラメータ",
+    "sqldelight.types": "型",
+    "sqldelight.transactions": "トランザクション",
+    "sqldelight.grouping-statements": "ステートメントのグループ化",
+    "sqldelight.extensions": "拡張機能",
+    "sqldelight.coroutines": "コルーチン",
+    "sqldelight.migrations": "マイグレーション",
+    "sqldelight.testing": "テスト",
+    "sqldelight.intellij-plugin": "IntelliJ プラグイン",
+    "sqldelight.resources": "リソース",
+    "sqldelight.sqlite-multiplatform": "SQLite (マルチプラットフォーム)",
+    "sqldelight.multiplatform": "マルチプラットフォーム",
+    "sqldelight.custom-workers": "カスタム Workers"
 }

@@ -68,11 +68,8 @@ const { site } = useData();
                 </div>
             </a>
 
-            <a href="" :class="['card', 'sqldelightCard']" data-aos="fade-up" data-aos-delay="400">
+            <a href="sqldelight/index" :class="['card', 'sqldelightCard']" data-aos="fade-up" data-aos-delay="400">
                 <div class="cardContent">
-                    <div class="comingSoonBadge">
-                        {{ $t('homepage.badge.comingSoon') }}
-                    </div>
                     <div>
                         <h2 class="cardTitle">SQLDelight</h2>
                         <p class="cardDescription">

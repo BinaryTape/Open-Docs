@@ -1,4 +1,4 @@
-首先在你的项目中应用 Gradle 插件{% if dialect %} 并相应地设置你的数据库方言{% endif %}。{% if async %}创建数据库时，请务必将 `generateAsync` 设置为 `true`。{% endif %}
+首先在你的项目中应用 Gradle 插件{% if dialect %} 并相应地设置你的数据库变体{% endif %}。{% if async %}创建数据库时，请务必将 `generateAsync` 设置为 `true`。{% endif %}
 
 === "Kotlin"
     ```kotlin
@@ -41,3 +41,4 @@
         }
       }
     }
+    ```

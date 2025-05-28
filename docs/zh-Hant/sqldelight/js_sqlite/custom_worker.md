@@ -6,7 +6,7 @@ Web Worker 最容易以純 JavaScript 實作，因為它們是相對簡短且簡
 
 ## 傳入訊息
 
-Web Worker 驅動程式訊息格式允許 SQLDelight 以通用方式與 Worker 實作進行通訊，不受特定 SQL 方言或實作的限制。每個訊息都包含一個 `action` 屬性，指定四種動作之一。
+Web Worker 驅動程式訊息格式允許 SQLDelight 以通用方式與 Worker 實作進行通訊，不受特定 SQL 變體或實作的限制。每個訊息都包含一個 `action` 屬性，指定四種動作之一。
 
 ### `exec`
 

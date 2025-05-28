@@ -6,7 +6,7 @@ Web Worker 通常使用纯 JavaScript 实现最为简便，因为它们是相对
 
 ## 传入消息
 
-Web Worker 驱动器消息格式允许 SQLDelight 以一种不依赖于特定 SQL 方言或实现的通用方式与 Worker 实现进行通信。每条消息都包含一个 `action` 属性，用于指定四种操作之一。
+Web Worker 驱动器消息格式允许 SQLDelight 以一种不依赖于特定 SQL 变体或实现的通用方式与 Worker 实现进行通信。每条消息都包含一个 `action` 属性，用于指定四种操作之一。
 
 ### `exec`
 

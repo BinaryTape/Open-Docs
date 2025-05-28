@@ -75,5 +75,27 @@
     "kotlin.others.foundation": "Kotlin 基金会",
     "kotlin.others.community": "社区",
     "kotlin.others.news-kit": "新闻资料包",
-    "kotlin.dokka": "Dokka"
+    "kotlin.dokka": "Dokka",
+
+    "sqldelight.overview": "概述",
+    "sqldelight.upgrading-2.0": "升级到 2.0",
+    "sqldelight.changelog": "更新日志",
+    "sqldelight.contributing": "贡献",
+    "sqldelight.code-of-conduct": "行为准则",
+    "sqldelight.getting-started": "入门指南",
+    "sqldelight.foreign-keys": "外键",
+    "sqldelight.custom-projections": "类型投影",
+    "sqldelight.query-arguments": "参数",
+    "sqldelight.types": "类型",
+    "sqldelight.transactions": "事务",
+    "sqldelight.grouping-statements": "语句分组",
+    "sqldelight.extensions": "扩展",
+    "sqldelight.coroutines": "协程",
+    "sqldelight.migrations": "迁移",
+    "sqldelight.testing": "测试",
+    "sqldelight.intellij-plugin": "IntelliJ 插件",
+    "sqldelight.resources": "资源",
+    "sqldelight.sqlite-multiplatform": "SQLite (多平台)",
+    "sqldelight.multiplatform": "多平台",
+    "sqldelight.custom-workers": "自定义 Workers"
 }

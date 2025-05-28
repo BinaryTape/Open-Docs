@@ -1,6 +1,6 @@
 !!! info "SQLDelight 2.0"
 
-如果您目前正在使用 SQLDelight 1.x，请[查阅文档](upgrading-2.0)了解如何升级到 SQLDelight 2.0！
+    如果您目前正在使用 SQLDelight 1.x，请[查阅文档](upgrading-2.0)了解如何升级到 SQLDelight 2.0！
 
 SQLDelight 从您的 SQL 语句生成类型安全的 Kotlin API。它在编译时验证您的模式、语句和迁移，并提供自动补全和重构等 IDE 功能，使编写和维护 SQL 变得简单。
 
@@ -20,9 +20,9 @@ CREATE TABLE hockey_player (
 
 ---
 
-## 支持的方言和平台
+## 支持的变体和平台
 
-SQLDelight 支持多种 SQL 方言和平台。
+SQLDelight 支持多种 SQL 变体和平台。
 
 <div class="cash-grid" markdown="1">
 <div class="cash-grid-item" markdown="1">
@@ -56,7 +56,7 @@ SQLDelight 支持多种 SQL 方言和平台。
 </div>
 </div>
 
-### 第三方方言
+### 第三方变体
 
 <div class="cash-grid" markdown="1">
 <div class="cash-grid-item" markdown="1">

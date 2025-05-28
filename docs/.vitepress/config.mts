@@ -83,7 +83,7 @@ export default defineConfig({
         ...commonThemeConfig,
         nav: [
           { text: 'Koin', link: 'zh-Hant/koin/setup/koin' },
-          { text: 'kotlin', link: 'zh-Hant/kotlin/getting-started' },
+          { text: 'Kotlin', link: 'zh-Hant/kotlin/getting-started' },
           { text: 'SQLDelight', link: 'zh-Hant/sqldelight/index' }
         ],
         sidebar: {
@@ -99,7 +99,7 @@ export default defineConfig({
         ...commonThemeConfig,
         nav: [
           { text: 'Koin', link: 'ja/koin/setup/koin' },
-          { text: 'kotlin', link: 'ja/kotlin/getting-started' },
+          { text: 'Kotlin', link: 'ja/kotlin/getting-started' },
           { text: 'SQLDelight', link: 'ja/sqldelight/index' }
         ],
         sidebar: {
@@ -115,7 +115,7 @@ export default defineConfig({
         ...commonThemeConfig,
         nav: [
           { text: 'Koin', link: 'ko/koin/setup/koin' },
-          { text: 'kotlin', link: 'ko/kotlin/getting-started' },
+          { text: 'Kotlin', link: 'ko/kotlin/getting-started' },
           { text: 'SQLDelight', link: 'ko/sqldelight/index' }
         ],
         sidebar: {
@@ -146,7 +146,6 @@ export default defineConfig({
     ],
 
     config: (md) => {
-
       md.use(markdownItWsClassstyles)
       md.use(markdownItRewriteLinks)
 
@@ -222,18 +221,34 @@ export default defineConfig({
         }
       })
 
-      const originalRender = md.render
+      md.use(markdownItContainer, 'example', {
+        render: function (tokens, idx) {
+          const m = tokens[idx].info.trim().match(/^example\s*(.*)$/);
 
-      md.render = function (src, env) {
+          if (tokens[idx].nesting === 1) {
+            return `<div class="danger custom-block"><p class="custom-block-title">${md.utils.escapeHtml(m[1] || 'DANGER')}</p>\n`;
+          } else {
+            return '</div>\n';
+          }
+        }
+      })
+
+      const originalParse = md.parse;
+
+      md.parse = function (src, env) {
         // 检查源代码是否以#开头的标题开始（处理可能的空行）
+        src = src.replace(/{%\s*if\s+.*?%}[\s\S]*?{%\s*endif\s*%}/g, '');
         const lines = src.trim().split(/\r?\n/);
         let hasH1 = false;
+        let modifiedSrc = src;
+
+
 
         const parts = env.relativePath.split('/')
         const docType = parts.find(p => DOCS_TYPES.includes(p))
 
         if (docType === 'kotlin') {
-          return originalRender.call(this, src, env);
+          return originalParse.call(this, src, env);
         }
 
         // 跳过可能的空行，检查是否有#开头的标题行
@@ -247,23 +262,22 @@ export default defineConfig({
           }
         }
 
-        // 执行原始渲染
-        const result = originalRender.call(this, src, env);
-
-        // 如果frontmatter中有标题，直接使用
-        if (env.frontmatter && env.frontmatter.title) {
-          return `<h1>${env.frontmatter.title}</h1>\n${result}`;
-        }
-
-        // 如果源码中没有h1标题，则使用侧栏标题
+        // 如果没有H1标题，在源码开头添加标题
         if (!hasH1) {
-          const sidebarTitle = getSidebarTitle(env.relativePath);
-          if (sidebarTitle) {
-            return `<h1>${sidebarTitle}</h1>\n${result}`;
+          // 先尝试从frontmatter获取标题
+          if (env.frontmatter && env.frontmatter.title) {
+            modifiedSrc = `# ${env.frontmatter.title}\n\n${src}`;
+          } else {
+            // 否则从侧栏获取标题
+            const sidebarTitle = getSidebarTitle(env.relativePath);
+            if (sidebarTitle) {
+              modifiedSrc = `# ${sidebarTitle}\n\n${src}`;
+            }
           }
         }
 
-        return result;
+        // 使用可能修改过的源码执行原始渲染
+        return originalParse.call(this, modifiedSrc, env);
       }
     },
   },

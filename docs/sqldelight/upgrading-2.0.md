@@ -89,7 +89,7 @@ dependencies {
         }
         ```
 
-*   数据库的 SQL 方言现在通过 Gradle 依赖指定。
+*   数据库的 SQL 变体现在通过 Gradle 依赖指定。
 
     === "Kotlin"
         ```groovy
@@ -120,7 +120,7 @@ dependencies {
         }
         ```
 
-    目前支持的方言有 `mysql-dialect`、`postgresql-dialect`、`hsql-dialect`、`sqlite-3-18-dialect`、`sqlite-3-24-dialect`、`sqlite-3-25-dialect`、`sqlite-3-30-dialect`、`sqlite-3-35-dialect` 和 `sqlite-3-38-dialect`。
+    目前支持的变体有 `mysql-dialect`、`postgresql-dialect`、`hsql-dialect`、`sqlite-3-18-dialect`、`sqlite-3-24-dialect`、`sqlite-3-25-dialect`、`sqlite-3-30-dialect`、`sqlite-3-35-dialect` 和 `sqlite-3-38-dialect`。
 
 ## 运行时变更
 

@@ -98,8 +98,6 @@ const rewiteOptions: RewriteLinkOptions = {
         const currentDir = env.relativePath.split('/');
         currentDir.pop(); // 移除文件名
 
-        console.log(currentDir)
-
         // 构建相对于当前文件的路径
         return `/${currentDir.join('/')}/${href}.md`;
       }

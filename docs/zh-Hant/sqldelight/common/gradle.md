@@ -147,14 +147,14 @@
 
 類型：`String` 或 `Provider<MinimalExternalModuleDependency>`
 
-你希望針對的 SQL 方言。方言是透過 Gradle 依賴來選擇的。
+你希望針對的 SQL 變體。變體是透過 Gradle 依賴來選擇的。
 這些依賴可以指定為 `app.cash.sqldelight:{dialect module}:{{ versions.sqldelight }}`。
-可用方言請見下方。
+可用變體請見下方。
 
 對於 Android 專案，SQLite 版本會根據你的 `minSdk` 自動選擇。
 否則預設為 SQLite 3.18。
 
-可用方言：
+可用變體：
 
 *   HSQL：`hsql-dialect`
 *   MySQL：`mysql-dialect`

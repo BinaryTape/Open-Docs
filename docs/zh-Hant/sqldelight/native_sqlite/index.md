@@ -50,4 +50,4 @@ val driver: SqlDriver = NativeSqliteDriver(
 
 讀取器連線僅用於在交易之外執行查詢。任何寫入呼叫以及交易中的任何內容，都使用專用於交易的單一連線。
 
-[new memory manager]: https://kotlinlang.org/docs/native-memory-manager.html
+[新記憶體管理器]: https://kotlinlang.org/docs/native-memory-manager.html

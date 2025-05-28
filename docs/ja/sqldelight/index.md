@@ -1,6 +1,6 @@
 !!! info "SQLDelight 2.0"
 
-現在SQLDelight 1.xをご利用の場合は、SQLDelight 2.0へのアップグレードに関する[ドキュメント](upgrading-2.0)をご確認ください！
+    現在SQLDelight 1.xをご利用の場合は、SQLDelight 2.0へのアップグレードに関する[ドキュメント](upgrading-2.0)をご確認ください！
 
 SQLDelightは、SQLステートメントから型安全なKotlin APIを生成します。コンパイル時にスキーマ、ステートメント、マイグレーションを検証し、オートコンプリートやリファクタリングといったIDE機能を提供することで、SQLの記述と保守を容易にします。
 
