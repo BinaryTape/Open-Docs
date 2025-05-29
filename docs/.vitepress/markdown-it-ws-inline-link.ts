@@ -70,6 +70,7 @@ const rewiteOptions: RewriteLinkOptions = {
     }
 
     if ((docType === 'kotlin' || docType === 'ktor') && href.includes('.md')) {
+      href = href.replace('.md', '')
       href = `/${href}`
     }
 
@@ -135,6 +136,22 @@ export function markdownItRewriteLinks(md: MarkdownIt) {
             return `<img ${beforeSrc}src="${newSrc}"${afterSrc}>`
           }
         )
+
+        // 处理a标签中的href属性
+        token.content = token.content.replace(
+          /<a\s+([^>]*?)href\s*=\s*["']([^"']+)["']([^>]*?)>/gi,
+          (match, beforeHref, hrefValue, afterHref) => {
+            // 不处理已经以/或http开头的路径
+            if (hrefValue.startsWith('/') || hrefValue.startsWith('http')) {
+              return match
+            }
+
+            // 使用与其他链接相同的逻辑处理href路径
+            const newHref = rewiteOptions.rewriteHref(state.env, hrefValue)
+            return `<a ${beforeHref}href="${newHref}"${afterHref}>`
+          }
+        )
+
       }
 
       // 处理行内HTML标签
@@ -150,6 +167,21 @@ export function markdownItRewriteLinks(md: MarkdownIt) {
             // 使用与其他链接相同的逻辑处理src路径
             const newSrc = rewiteOptions.rewriteHref(state.env, srcValue)
             return `<img ${beforeSrc}src="${newSrc}"${afterSrc}>`
+          }
+        )
+
+        // 处理a标签
+        token.content = token.content.replace(
+          /<a\s+([^>]*?)href\s*=\s*["']([^"']+)["']([^>]*?)>/gi,
+          (match, beforeHref, hrefValue, afterHref) => {
+            // 不处理已经以/或http开头的路径
+            if (hrefValue.startsWith('/') || hrefValue.startsWith('http')) {
+              return match
+            }
+
+            // 使用与其他链接相同的逻辑处理href路径
+            const newHref = rewiteOptions.rewriteHref(state.env, hrefValue)
+            return `<a ${beforeHref}href="${newHref}"${afterHref}>`
           }
         )
       }

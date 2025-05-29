@@ -266,31 +266,31 @@ function createI18nSideBarConfig(t) {
                 "collapsed": true,
                 "items": [
                     {
-                        "text": "Kotlin服务端开发",
+                        "text": t['kotlin.server-dev'],
                         "link": "server-overview"
                     },
                     {
-                        "text": "Android平台的Kotlin语言",
+                        "text": t['kotlin.android-platform'],
                         "link": "android-overview"
                     },
                     {
-                        "text": "Kotlin/Wasm",
+                        "text": t['kotlin.wasm'],
                         "link": "wasm-overview"
                     },
                     {
-                        "text": "Kotlin Native",
+                        "text": t['kotlin.native'],
                         "link": "native-overview"
                     },
                     {
-                        "text": "Kotlin for JavaScript",
+                        "text": t['kotlin.js-platform'],
                         "link": "js-overview"
                     },
                     {
-                        "text": "用于数据分析的 Kotlin",
+                        "text": t['kotlin.data-analysis-overview'],
                         "link": "data-analysis-overview"
                     },
                     {
-                        "text": "Kotlin 竞赛编程",
+                        "text": t['kotlin.competitive-programming'],
                         "link": "competitive-programming"
                     }
                 ]
@@ -301,94 +301,94 @@ function createI18nSideBarConfig(t) {
                 "items": [
                     {
                         "link": "whatsnew2120",
-                        "text": "Kotlin 2.1.20"
+                        "text": t['kotlin.kotlin-version-2120']
                     },
                     {
                         "link": "whatsnew21",
-                        "text": "Kotlin 2.1.0"
+                        "text": t['kotlin.kotlin-version-210']
                     },
                     {
                         "link": "whatsnew-eap",
-                        "text": "Kotlin 2.2.0-RC"
+                        "text": t['kotlin.kotlin-version-22rc']
                     },
                     {
                         "text": t['kotlin.early-access'],
                         "collapsed": true,
                         "items": [
                             {
-                                "text": "Kotlin 2.0.20 中的新增功能",
+                                "text": t['kotlin.kotlin-version-2020'],
                                 "link": "whatsnew2020"
                             },
                             {
-                                "text": "Kotlin 2.0.0 中的新特性",
+                                "text": t['kotlin.kotlin-version-200'],
                                 "link": "whatsnew20"
                             },
                             {
-                                "text": "Kotlin 1.9.20 中的新特性",
+                                "text": t['kotlin.kotlin-version-1920'],
                                 "link": "whatsnew1920"
                             },
                             {
-                                "text": "Kotlin 1.9.0 版本的新特性",
+                                "text": t['kotlin.kotlin-version-190'],
                                 "link": "whatsnew19"
                             },
                             {
-                                "text": "Kotlin 1.8.20 版本的新特性",
+                                "text": t['kotlin.kotlin-version-1820'],
                                 "link": "whatsnew1820"
                             },
                             {
-                                "text": "Kotlin 1.8.0 新特性",
+                                "text": t['kotlin.kotlin-version-180'],
                                 "link": "whatsnew18"
                             },
                             {
-                                "text": "Kotlin 1.7.20 中的新特性",
+                                "text": t['kotlin.kotlin-version-1720'],
                                 "link": "whatsnew1720"
                             },
                             {
-                                "text": "Kotlin 1.7.0 中的新特性",
+                                "text": t['kotlin.kotlin-version-170'],
                                 "link": "whatsnew17"
                             },
                             {
-                                "text": "Kotlin 1.6.20 中的新特性",
+                                "text": t['kotlin.kotlin-version-1620'],
                                 "link": "whatsnew1620"
                             },
                             {
-                                "text": "Kotlin 1.6.0 的新特性",
+                                "text": t['kotlin.kotlin-version-160'],
                                 "link": "whatsnew16"
                             },
                             {
-                                "text": "Kotlin 1.5.30 中的新增功能",
+                                "text": t['kotlin.kotlin-version-1530'],
                                 "link": "whatsnew1530"
                             },
                             {
-                                "text": "Kotlin 1.5.20 中的新增功能",
+                                "text": t['kotlin.kotlin-version-1520'],
                                 "link": "whatsnew1520"
                             },
                             {
-                                "text": "Kotlin 1.5.0 新特性",
+                                "text": t['kotlin.kotlin-version-150'],
                                 "link": "whatsnew15"
                             },
                             {
-                                "text": "Kotlin 1.4.30 中的新增功能",
+                                "text": t['kotlin.kotlin-version-1430'],
                                 "link": "whatsnew1430"
                             },
                             {
-                                "text": "Kotlin 1.4.20 新特性",
+                                "text": t['kotlin.kotlin-version-1420'],
                                 "link": "whatsnew1420"
                             },
                             {
-                                "text": "Kotlin 1.4.0 中的新特性",
+                                "text": t['kotlin.kotlin-version-140'],
                                 "link": "whatsnew14"
                             },
                             {
-                                "text": "Kotlin 1.3 中的新特性",
+                                "text": t['kotlin.kotlin-version-130'],
                                 "link": "whatsnew13"
                             },
                             {
-                                "text": "Kotlin 1.2 新特性",
+                                "text": t['kotlin.kotlin-version-120'],
                                 "link": "whatsnew12"
                             },
                             {
-                                "text": "Kotlin 1.1 的新特性",
+                                "text": t['kotlin.kotlin-version-110'],
                                 "link": "whatsnew11"
                             }
                         ]
@@ -400,23 +400,23 @@ function createI18nSideBarConfig(t) {
                 "collapsed": true,
                 "items": [
                     {
-                        "text": "Kotlin 路线图",
+                        "text": t['kotlin.roadmap'],
                         "link": "roadmap"
                     },
                     {
-                        "text": "Kotlin 语言特性和提案",
+                        "text": t['kotlin.language-features'],
                         "link": "kotlin-language-features-and-proposals"
                     },
                     {
-                        "text": "Kotlin 演进原则",
+                        "text": t['kotlin.evolution-principles'],
                         "link": "kotlin-evolution-principles"
                     },
                     {
-                        "text": "Kotlin 组件的稳定性",
+                        "text": t['kotlin.components-stability'],
                         "link": "components-stability"
                     },
                     {
-                        "text": "Kotlin 发布版本",
+                        "text": t['kotlin.releases'],
                         "link": "releases"
                     }
                 ]
@@ -426,19 +426,19 @@ function createI18nSideBarConfig(t) {
                 "collapsed": true,
                 "items": [
                     {
-                        "text": "基本语法",
+                        "text": t['kotlin.basic-syntax'],
                         "link": "basic-syntax"
                     },
                     {
-                        "text": "习惯用法",
+                        "text": t['kotlin.idioms'],
                         "link": "idioms"
                     },
                     {
-                        "text": "通过示例学习 Kotlin",
+                        "text": t['kotlin.byexample'],
                         "href": "https://play.kotlinlang.org/byExample/overview"
                     },
                     {
-                        "text": "编码规范",
+                        "text": t['kotlin.coding-conventions'],
                         "link": "coding-conventions"
                     }
                 ]
@@ -456,37 +456,37 @@ function createI18nSideBarConfig(t) {
                                 "collapsed": true,
                                 "items": [
                                     {
-                                        "text": "基本类型",
+                                        "text": t['kotlin.basic-types'],
                                         "link": "basic-types"
                                     },
                                     {
-                                        "text": "数字",
+                                        "text": t['kotlin.numbers'],
                                         "link": "numbers"
                                     },
                                     {
-                                        "text": "无符号整型",
+                                        "text": t['kotlin.unsigned-integer-types'],
                                         "link": "unsigned-integer-types"
                                     },
                                     {
-                                        "text": "布尔值",
+                                        "text": t['kotlin.booleans'],
                                         "link": "booleans"
                                     },
                                     {
-                                        "text": "字符",
+                                        "text": t['kotlin.characters'],
                                         "link": "characters"
                                     },
                                     {
-                                        "text": "字符串",
+                                        "text": t['kotlin.strings'],
                                         "link": "strings"
                                     },
                                     {
-                                        "text": "数组",
+                                        "text": t['kotlin.arrays'],
                                         "link": "arrays"
                                     }
                                 ]
                             },
                             {
-                                "text": "类型检查与转换",
+                                "text": t['kotlin.typecasts'],
                                 "link": "typecasts"
                             }
                         ]
@@ -496,21 +496,21 @@ function createI18nSideBarConfig(t) {
                         "collapsed": true,
                         "items": [
                             {
-                                "text": "条件语句和循环",
+                                "text": t['kotlin.control-flow'],
                                 "link": "control-flow"
                             },
                             {
-                                "text": "返回值和跳转",
+                                "text": t['kotlin.returns'],
                                 "link": "returns"
                             },
                             {
-                                "text": "异常",
+                                "text": t['kotlin.exceptions'],
                                 "link": "exceptions"
                             }
                         ]
                     },
                     {
-                        "text": "包和导入",
+                        "text": t['kotlin.packages'],
                         "link": "packages"
                     },
                     {
@@ -518,71 +518,71 @@ function createI18nSideBarConfig(t) {
                         "collapsed": true,
                         "items": [
                             {
-                                "text": "类 (Classes)",
+                                "text": t['kotlin.classes'],
                                 "link": "classes"
                             },
                             {
-                                "text": "继承",
+                                "text": t['kotlin.inheritance'],
                                 "link": "inheritance"
                             },
                             {
-                                "text": "属性",
+                                "text": t['kotlin.properties'],
                                 "link": "properties"
                             },
                             {
-                                "text": "接口",
+                                "text": t['kotlin.interfaces'],
                                 "link": "interfaces"
                             },
                             {
-                                "text": "函数式 (SAM) 接口",
+                                "text": t['kotlin.fun-interfaces'],
                                 "link": "fun-interfaces"
                             },
                             {
-                                "text": "可见性修饰符",
+                                "text": t['kotlin.visibility-modifiers'],
                                 "link": "visibility-modifiers"
                             },
                             {
-                                "text": "扩展",
+                                "text": t['kotlin.extensions'],
                                 "link": "extensions"
                             },
                             {
-                                "text": "数据类",
+                                "text": t['kotlin.data-classes'],
                                 "link": "data-classes"
                             },
                             {
-                                "text": "密封类和密封接口",
+                                "text": t['kotlin.sealed-classes'],
                                 "link": "sealed-classes"
                             },
                             {
-                                "text": "泛型：in、out、where",
+                                "text": t['kotlin.generics'],
                                 "link": "generics"
                             },
                             {
-                                "text": "嵌套类和内部类",
+                                "text": t['kotlin.nested-classes'],
                                 "link": "nested-classes"
                             },
                             {
-                                "text": "枚举类",
+                                "text": t['kotlin.enum-classes'],
                                 "link": "enum-classes"
                             },
                             {
-                                "text": "内联值类 (Inline value classes)",
+                                "text": t['kotlin.inline-classes'],
                                 "link": "inline-classes"
                             },
                             {
-                                "text": "对象声明和表达式",
+                                "text": t['kotlin.object-declarations'],
                                 "link": "object-declarations"
                             },
                             {
-                                "text": "委托",
+                                "text": t['kotlin.delegation'],
                                 "link": "delegation"
                             },
                             {
-                                "text": "委托属性",
+                                "text": t['kotlin.delegated-properties'],
                                 "link": "delegated-properties"
                             },
                             {
-                                "text": "类型别名",
+                                "text": t['kotlin.type-aliases'],
                                 "link": "type-aliases"
                             }
                         ]
@@ -592,19 +592,19 @@ function createI18nSideBarConfig(t) {
                         "collapsed": true,
                         "items": [
                             {
-                                "text": "函数",
+                                "text": t['kotlin.functions'],
                                 "link": "functions"
                             },
                             {
-                                "text": "高阶函数与 Lambda 表达式",
+                                "text": t['kotlin.lambdas'],
                                 "link": "lambdas"
                             },
                             {
-                                "text": "内联函数",
+                                "text": t['kotlin.inline-functions'],
                                 "link": "inline-functions"
                             },
                             {
-                                "text": "运算符重载",
+                                "text": t['kotlin.operator-overloading'],
                                 "link": "operator-overloading"
                             },
                             {
@@ -612,11 +612,11 @@ function createI18nSideBarConfig(t) {
                                 "collapsed": true,
                                 "items": [
                                     {
-                                        "text": "类型安全的构建器",
+                                        "text": t['kotlin.type-safe-builders'],
                                         "link": "type-safe-builders"
                                     },
                                     {
-                                        "text": "结合构建器类型推断使用构建器",
+                                        "text": t['kotlin.using-builders'],
                                         "link": "using-builders-with-builder-inference"
                                     }
                                 ]
@@ -624,35 +624,35 @@ function createI18nSideBarConfig(t) {
                         ]
                     },
                     {
-                        "text": "Null 安全",
+                        "text": t['kotlin.null-safety'],
                         "link": "null-safety"
                     },
                     {
-                        "text": "相等性",
+                        "text": t['kotlin.equality'],
                         "link": "equality"
                     },
                     {
-                        "text": "This 表达式",
+                        "text": t['kotlin.this-expressions'],
                         "link": "this-expressions"
                     },
                     {
-                        "text": "异步编程技术",
+                        "text": t['kotlin.async-programming'],
                         "link": "async-programming"
                     },
                     {
-                        "text": "协程",
+                        "text": t['kotlin.coroutines-overview'],
                         "link": "coroutines-overview"
                     },
                     {
-                        "text": "注解 (Annotations)",
+                        "text": t['kotlin.annotations'],
                         "link": "annotations"
                     },
                     {
-                        "text": "解构声明",
+                        "text": t['kotlin.destructuring-declarations'],
                         "link": "destructuring-declarations"
                     },
                     {
-                        "text": "反射",
+                        "text": t['kotlin.reflection'],
                         "link": "reflection"
                     }
                 ]
@@ -666,29 +666,29 @@ function createI18nSideBarConfig(t) {
                         "collapsed": true,
                         "items": [
                             {
-                                "text": "Kotlin Notebook 入门",
+                                "text": t['kotlin.notebooks-overview'],
                                 "link": "get-started-with-kotlin-notebooks"
                             },
                             {
-                                "text": "设置环境",
+                                "text": t['kotlin.notebook-setup'],
                                 "link": "kotlin-notebook-set-up-env"
                             },
                             {
-                                "text": "创建你的第一个 Kotlin Notebook",
+                                "text": t['kotlin.notebook-create'],
                                 "link": "kotlin-notebook-create"
                             },
                             {
-                                "text": "向你的 Kotlin Notebook 添加依赖",
+                                "text": t['kotlin.notebook-dependencies'],
                                 "link": "kotlin-notebook-add-dependencies"
                             }
                         ]
                     },
                     {
-                        "text": "分享你的 Kotlin Notebook",
+                        "text": t['kotlin.notebook-share'],
                         "link": "kotlin-notebook-share"
                     },
                     {
-                        "text": "Kotlin Notebook 支持的输出格式",
+                        "text": t['kotlin.notebook-output-formats'],
                         "link": "data-analysis-notebooks-output-formats"
                     },
                     {
@@ -696,25 +696,25 @@ function createI18nSideBarConfig(t) {
                         "collapsed": true,
                         "items": [
                             {
-                                "text": "从文件中检索数据",
+                                "text": t['kotlin.data-sources'],
                                 "link": "data-analysis-work-with-data-sources"
                             },
                             {
-                                "text": "从 Web 源和 API 检索数据",
+                                "text": t['kotlin.web-api-sources'],
                                 "link": "data-analysis-work-with-api"
                             },
                             {
-                                "text": "连接数据库并从中检索数据",
+                                "text": t['kotlin.db-connection'],
                                 "link": "data-analysis-connect-to-db"
                             }
                         ]
                     },
                     {
-                        "text": "在 Kotlin Notebook 中使用 Kandy 进行数据可视化",
+                        "text": t['kotlin.data-visualization'],
                         "link": "data-analysis-visualization"
                     },
                     {
-                        "text": "用于数据分析的 Kotlin 和 Java 库",
+                        "text": t['kotlin.data-libraries'],
                         "link": "data-analysis-libraries"
                     }
                 ]
@@ -728,19 +728,19 @@ function createI18nSideBarConfig(t) {
                         "collapsed": true,
                         "items": [
                             {
-                                "text": "Kotlin/JVM 入门",
+                                "text": t['kotlin.jvm-get-started'],
                                 "link": "jvm-get-started"
                             },
                             {
-                                "text": "与 Java 的比较",
+                                "text": t['kotlin.java-comparison'],
                                 "link": "comparison-to-java"
                             },
                             {
-                                "text": "从 Kotlin 中调用 Java",
+                                "text": t['kotlin.java-interop'],
                                 "link": "java-interop"
                             },
                             {
-                                "text": "从 Java 调用 Kotlin",
+                                "text": t['kotlin.java-to-kotlin-interop'],
                                 "link": "java-to-kotlin-interop"
                             },
                             {
@@ -748,55 +748,55 @@ function createI18nSideBarConfig(t) {
                                 "collapsed": true,
                                 "items": [
                                     {
-                                        "text": "使用 Spring Boot 创建 RESTful web 服务和数据库",
+                                        "text": t['kotlin.spring-boot'],
                                         "collapsed": true,
                                         "items": [
                                             {
-                                                "text": "Spring Boot 和 Kotlin 入门",
+                                                "text": t['kotlin.spring-boot-start'],
                                                 "link": "jvm-get-started-spring-boot"
                                             },
                                             {
-                                                "text": "使用 Kotlin 创建 Spring Boot 项目",
+                                                "text": t['kotlin.spring-boot-create'],
                                                 "link": "jvm-create-project-with-spring-boot"
                                             },
                                             {
-                                                "text": "向 Spring Boot 项目添加数据类",
+                                                "text": t['kotlin.spring-boot-data-class'],
                                                 "link": "jvm-spring-boot-add-data-class"
                                             },
                                             {
-                                                "text": "为 Spring Boot 项目添加数据库支持",
+                                                "text": t['kotlin.spring-boot-db'],
                                                 "link": "jvm-spring-boot-add-db-support"
                                             },
                                             {
-                                                "text": "使用 Spring Data CrudRepository 进行数据库访问",
+                                                "text": t['kotlin.spring-boot-crud'],
                                                 "link": "jvm-spring-boot-using-crudrepository"
                                             }
                                         ]
                                     },
                                     {
-                                        "text": "Spring Framework 的 Kotlin 文档",
+                                        "text": t['kotlin.spring-framework'],
                                         "href": "https://docs.spring.io/spring-framework/docs/current/reference/html/languages.html#languages"
                                     },
                                     {
-                                        "text": "使用 Spring Boot 和 Kotlin 构建 Web 应用 - 教程",
+                                        "text": t['kotlin.spring-boot-kotlin'],
                                         "href": "https://spring.io/guides/tutorials/spring-boot-kotlin/"
                                     },
                                     {
-                                        "text": "使用 Kotlin 协程和 RSocket 创建聊天应用 - 教程",
+                                        "text": t['kotlin.spring-webflux-kotlin'],
                                         "href": "https://spring.io/guides/tutorials/spring-webflux-kotlin-rsocket/"
                                     }
                                 ]
                             },
                             {
-                                "text": "在 JVM 中使用 JUnit 测试代码 – 教程",
+                                "text": t['kotlin.junit-test'],
                                 "link": "jvm-test-using-junit"
                             },
                             {
-                                "text": "在一个项目中混合使用 Java 和 Kotlin – 教程",
+                                "text": t['kotlin.mixing-java-kotlin'],
                                 "link": "mixing-java-kotlin-intellij"
                             },
                             {
-                                "text": "在 Kotlin 中使用 Java records (记录类)",
+                                "text": t['kotlin.java-records'],
                                 "link": "jvm-records"
                             },
                             {
@@ -804,19 +804,19 @@ function createI18nSideBarConfig(t) {
                                 "collapsed": true,
                                 "items": [
                                     {
-                                        "text": "Java 和 Kotlin 中的字符串",
+                                        "text": t['kotlin.idioms-strings'],
                                         "link": "java-to-kotlin-idioms-strings"
                                     },
                                     {
-                                        "text": "Java 和 Kotlin 中的集合",
+                                        "text": t['kotlin.collections-guide'],
                                         "link": "java-to-kotlin-collections-guide"
                                     },
                                     {
-                                        "text": "Java 和 Kotlin 中的可空性",
+                                        "text": t['kotlin.nullability-guide'],
                                         "link": "java-to-kotlin-nullability-guide"
                                     },
                                     {
-                                        "text": "标准输入",
+                                        "text": t['kotlin.standard-input'],
                                         "link": "standard-input"
                                     }
                                 ]
@@ -828,11 +828,11 @@ function createI18nSideBarConfig(t) {
                         "collapsed": true,
                         "items": [
                             {
-                                "text": "Kotlin/Native 入门",
+                                "text": t['kotlin.native-get-started'],
                                 "link": "native-get-started"
                             },
                             {
-                                "text": "定义文件",
+                                "text": t['kotlin.definition-file'],
                                 "link": "native-definition-file"
                             },
                             {
@@ -840,31 +840,31 @@ function createI18nSideBarConfig(t) {
                                 "collapsed": true,
                                 "items": [
                                     {
-                                        "text": "与 C 的互操作性",
+                                        "text": t['kotlin.c-interop'],
                                         "link": "native-c-interop"
                                     },
                                     {
-                                        "text": "C 原始数据类型映射 – 教程",
+                                        "text": t['kotlin.c-primitive-mapping'],
                                         "link": "mapping-primitive-data-types-from-c"
                                     },
                                     {
-                                        "text": "C 语言结构体和联合体类型的映射——教程",
+                                        "text": t['kotlin.c-struct-mapping'],
                                         "link": "mapping-struct-union-types-from-c"
                                     },
                                     {
-                                        "text": "C 语言中的映射函数指针 – 教程",
+                                        "text": t['kotlin.c-function-pointers'],
                                         "link": "mapping-function-pointers-from-c"
                                     },
                                     {
-                                        "text": "C 语言中的字符串映射 – 教程",
+                                        "text": t['kotlin.c-strings-mapping'],
                                         "link": "mapping-strings-from-c"
                                     },
                                     {
-                                        "text": "Kotlin/Native 作为动态库 - 教程",
+                                        "text": t['kotlin.dynamic-libraries'],
                                         "link": "native-dynamic-libraries"
                                     },
                                     {
-                                        "text": "使用 C 互操作和 libcurl 创建应用程序 – 教程",
+                                        "text": t['kotlin.native-app-with-c'],
                                         "link": "native-app-with-c-and-libcurl"
                                     }
                                 ]
@@ -874,21 +874,21 @@ function createI18nSideBarConfig(t) {
                                 "collapsed": true,
                                 "items": [
                                     {
-                                        "text": "与 Swift/Objective-C 的互操作性",
+                                        "text": t['kotlin.objc-interop'],
                                         "link": "native-objc-interop"
                                     },
                                     {
-                                        "text": "Kotlin/Native 作为 Apple framework – 教程",
+                                        "text": t['kotlin.apple-framework'],
                                         "link": "apple-framework"
                                     }
                                 ]
                             },
                             {
-                                "text": "Kotlin/Native 库",
+                                "text": t['kotlin.native-libraries'],
                                 "link": "native-libraries"
                             },
                             {
-                                "text": "平台库",
+                                "text": t['kotlin.platform-libs'],
                                 "link": "native-platform-libs"
                             },
                             {
@@ -896,25 +896,25 @@ function createI18nSideBarConfig(t) {
                                 "collapsed": true,
                                 "items": [
                                     {
-                                        "text": "Kotlin/Native 内存管理",
+                                        "text": t['kotlin.memory-manager'],
                                         "link": "native-memory-manager"
                                     },
                                     {
-                                        "text": "与 Swift/Objective-C ARC 集成",
+                                        "text": t['kotlin.arc-integration'],
                                         "link": "native-arc-integration"
                                     },
                                     {
-                                        "text": "迁移到新的内存管理器",
+                                        "text": t['kotlin.migration-guide'],
                                         "link": "native-migration-guide"
                                     }
                                 ]
                             },
                             {
-                                "text": "调试 Kotlin/Native",
+                                "text": t['kotlin.native-debugging'],
                                 "link": "native-debugging"
                             },
                             {
-                                "text": "iOS崩溃报告符号化",
+                                "text": t['kotlin.ios-symbolication'],
                                 "link": "native-ios-symbolication"
                             },
                             {
@@ -922,19 +922,19 @@ function createI18nSideBarConfig(t) {
                                 "collapsed": true,
                                 "items": [
                                     {
-                                        "text": "Kotlin/Native 目标平台支持",
+                                        "text": t['kotlin.native-target-support'],
                                         "link": "native-target-support"
                                     },
                                     {
-                                        "text": "提升编译时间的技巧",
+                                        "text": t['kotlin.compilation-time'],
                                         "link": "native-improving-compilation-time"
                                     },
                                     {
-                                        "text": "Kotlin/Native 二进制文件的许可文件",
+                                        "text": t['kotlin.binary-licenses'],
                                         "link": "native-binary-licenses"
                                     },
                                     {
-                                        "text": "Kotlin/Native 常见问题解答",
+                                        "text": t['kotlin.native-faq'],
                                         "link": "native-faq"
                                     }
                                 ]
@@ -942,65 +942,65 @@ function createI18nSideBarConfig(t) {
                         ]
                     },
                     {
-                        "text": "WebAssembly (Wasm)",
+                        "text": t['kotlin.wasm'],
                         "collapsed": true,
                         "items": [
                             {
-                                "text": "Kotlin/Wasm 和 Compose Multiplatform 入门",
+                                "text": t['kotlin.wasm-get-started'],
                                 "link": "wasm-get-started"
                             },
                             {
-                                "text": "Kotlin/Wasm 和 WASI 入门",
+                                "text": t['kotlin.wasm-wasi'],
                                 "link": "wasm-wasi"
                             },
                             {
-                                "text": "调试 Kotlin/Wasm 代码",
+                                "text": t['kotlin.wasm-debugging'],
                                 "link": "wasm-debugging"
                             },
                             {
-                                "text": "与 JavaScript 的互操作性",
+                                "text": t['kotlin.wasm-js-interop'],
                                 "link": "wasm-js-interop"
                             },
                             {
-                                "text": "问题排查",
+                                "text": t['kotlin.wasm-troubleshooting'],
                                 "link": "wasm-troubleshooting"
                             }
                         ]
                     },
                     {
-                        "text": "JavaScript",
+                        "text": t['kotlin.js-platform'],
                         "collapsed": true,
                         "items": [
                             {
-                                "text": "搭建 Kotlin/JS 项目",
+                                "text": t['kotlin.js-project-setup'],
                                 "link": "js-project-setup"
                             },
                             {
-                                "text": "运行 Kotlin/JS",
+                                "text": t['kotlin.running-kotlin-js'],
                                 "link": "running-kotlin-js"
                             },
                             {
-                                "text": "开发服务器和持续编译",
+                                "text": t['kotlin.dev-server'],
                                 "link": "dev-server-continuous-compilation"
                             },
                             {
-                                "text": "调试 Kotlin/JS 代码",
+                                "text": t['kotlin.js-debugging'],
                                 "link": "js-debugging"
                             },
                             {
-                                "text": "在 Kotlin/JS 中运行测试",
+                                "text": t['kotlin.js-tests'],
                                 "link": "js-running-tests"
                             },
                             {
-                                "text": "Kotlin/JS 无效代码消除",
+                                "text": t['kotlin.js-dce'],
                                 "link": "javascript-dce"
                             },
                             {
-                                "text": "Kotlin/JS IR 编译器",
+                                "text": t['kotlin.js-ir-compiler'],
                                 "link": "js-ir-compiler"
                             },
                             {
-                                "text": "将 Kotlin/JS 项目迁移到 IR 编译器",
+                                "text": t['kotlin.js-ir-migration'],
                                 "link": "js-ir-migration"
                             },
                             {
@@ -1008,35 +1008,35 @@ function createI18nSideBarConfig(t) {
                                 "collapsed": true,
                                 "items": [
                                     {
-                                        "text": "浏览器和 DOM API",
+                                        "text": t['kotlin.browser-api-dom'],
                                         "link": "browser-api-dom"
                                     },
                                     {
-                                        "text": "从 Kotlin 中使用 JavaScript 代码",
+                                        "text": t['kotlin.js-interop'],
                                         "link": "js-interop"
                                     },
                                     {
-                                        "text": "动态类型",
+                                        "text": t['kotlin.dynamic-type'],
                                         "link": "dynamic-type"
                                     },
                                     {
-                                        "text": "使用 npm 中的依赖项",
+                                        "text": t['kotlin.npm-packages'],
                                         "link": "using-packages-from-npm"
                                     },
                                     {
-                                        "text": "从 JavaScript 中使用 Kotlin 代码",
+                                        "text": t['kotlin.js-to-kotlin-interop'],
                                         "link": "js-to-kotlin-interop"
                                     },
                                     {
-                                        "text": "JavaScript 模块",
+                                        "text": t['kotlin.js-modules'],
                                         "link": "js-modules"
                                     },
                                     {
-                                        "text": "Kotlin/JS 反射",
+                                        "text": t['kotlin.js-reflection'],
                                         "link": "js-reflection"
                                     },
                                     {
-                                        "text": "类型安全的 HTML DSL",
+                                        "text": t['kotlin.html-dsl'],
                                         "link": "typesafe-html-dsl"
                                     }
                                 ]
@@ -1048,7 +1048,7 @@ function createI18nSideBarConfig(t) {
                         "collapsed": true,
                         "items": [
                             {
-                                "text": "Kotlin 自定义脚本入门教程",
+                                "text": t['kotlin.custom-script'],
                                 "link": "custom-script-deps-tutorial"
                             }
                         ]
@@ -1064,93 +1064,93 @@ function createI18nSideBarConfig(t) {
                         "collapsed": true,
                         "items": [
                             {
-                                "text": "集合概览",
+                                "text": t['kotlin.collections-overview'],
                                 "link": "collections-overview"
                             },
                             {
-                                "text": "构建集合",
+                                "text": t['kotlin.constructing-collections'],
                                 "link": "constructing-collections"
                             },
                             {
-                                "text": "迭代器",
+                                "text": t['kotlin.iterators'],
                                 "link": "iterators"
                             },
                             {
-                                "text": "区间 (Ranges) 和数列 (progressions)",
+                                "text": t['kotlin.ranges'],
                                 "link": "ranges"
                             },
                             {
-                                "text": "序列",
+                                "text": t['kotlin.sequences'],
                                 "link": "sequences"
                             },
                             {
-                                "text": "集合操作概览",
+                                "text": t['kotlin.collection-operations'],
                                 "link": "collection-operations"
                             },
                             {
-                                "text": "集合转换操作",
+                                "text": t['kotlin.collection-transformations'],
                                 "link": "collection-transformations"
                             },
                             {
-                                "text": "过滤集合",
+                                "text": t['kotlin.collection-filtering'],
                                 "link": "collection-filtering"
                             },
                             {
-                                "text": "加号和减号运算符",
+                                "text": t['kotlin.collection-plus-minus'],
                                 "link": "collection-plus-minus"
                             },
                             {
-                                "text": "分组",
+                                "text": t['kotlin.collection-grouping'],
                                 "link": "collection-grouping"
                             },
                             {
-                                "text": "检索集合部分",
+                                "text": t['kotlin.collection-parts'],
                                 "link": "collection-parts"
                             },
                             {
-                                "text": "检索单个元素",
+                                "text": t['kotlin.collection-elements'],
                                 "link": "collection-elements"
                             },
                             {
-                                "text": "排序",
+                                "text": t['kotlin.collection-ordering'],
                                 "link": "collection-ordering"
                             },
                             {
-                                "text": "聚合操作",
+                                "text": t['kotlin.collection-aggregate'],
                                 "link": "collection-aggregate"
                             },
                             {
-                                "text": "写入操作",
+                                "text": t['kotlin.collection-write'],
                                 "link": "collection-write"
                             },
                             {
-                                "text": "List 特定操作",
+                                "text": t['kotlin.list-operations'],
                                 "link": "list-operations"
                             },
                             {
-                                "text": "Set 特定操作",
+                                "text": t['kotlin.set-operations'],
                                 "link": "set-operations"
                             },
                             {
-                                "text": "Map 特定操作",
+                                "text": t['kotlin.map-operations'],
                                 "link": "map-operations"
                             }
                         ]
                     },
                     {
-                        "text": "读取标准输入",
+                        "text": t['kotlin.read-input'],
                         "link": "read-standard-input"
                     },
                     {
-                        "text": "Opt-in 要求",
+                        "text": t['kotlin.opt-in-requirements'],
                         "link": "opt-in-requirements"
                     },
                     {
-                        "text": "作用域函数",
+                        "text": t['kotlin.scope-functions'],
                         "link": "scope-functions"
                     },
                     {
-                        "text": "时间测量",
+                        "text": t['kotlin.time-measurement'],
                         "link": "time-measurement"
                     }
                 ]
@@ -1160,101 +1160,101 @@ function createI18nSideBarConfig(t) {
                 "collapsed": true,
                 "items": [
                     {
-                        "text": "协程 (kotlinx.coroutines)",
+                        "text": t['kotlin.coroutines'],
                         "collapsed": true,
                         "items": [
                             {
-                                "text": "协程指南",
+                                "text": t['kotlin.coroutines-guide'],
                                 "link": "coroutines-guide"
                             },
                             {
-                                "text": "协程基础",
+                                "text": t['kotlin.coroutines-basics'],
                                 "link": "coroutines-basics"
                             },
                             {
-                                "text": "协程和通道",
+                                "text": t['kotlin.coroutines-channels'],
                                 "link": "coroutines-and-channels"
                             },
                             {
-                                "text": "取消和超时",
+                                "text": t['kotlin.cancellation-timeouts'],
                                 "link": "cancellation-and-timeouts"
                             },
                             {
-                                "text": "组合挂起函数",
+                                "text": t['kotlin.composing-functions'],
                                 "link": "composing-suspending-functions"
                             },
                             {
-                                "text": "协程上下文和调度器",
+                                "text": t['kotlin.coroutine-context'],
                                 "link": "coroutine-context-and-dispatchers"
                             },
                             {
-                                "text": "流",
+                                "text": t['kotlin.flow'],
                                 "link": "flow"
                             },
                             {
-                                "text": "通道",
+                                "text": t['kotlin.channels'],
                                 "link": "channels"
                             },
                             {
-                                "text": "异常处理",
+                                "text": t['kotlin.exception-handling'],
                                 "link": "exception-handling"
                             },
                             {
-                                "text": "共享可变状态和并发",
+                                "text": t['kotlin.shared-mutable-state'],
                                 "link": "shared-mutable-state-and-concurrency"
                             },
                             {
-                                "text": "select 表达式",
+                                "text": t['kotlin.select-expression'],
                                 "link": "select-expression"
                             },
                             {
-                                "text": "使用 IDEA 调试协程",
+                                "text": t['kotlin.debug-coroutines'],
                                 "link": "debug-coroutines-with-idea"
                             },
                             {
-                                "text": "使用 IDEA 调试流",
+                                "text": t['kotlin.debug-flow'],
                                 "link": "debug-flow-with-idea"
                             }
                         ]
                     },
                     {
-                        "text": "序列化 (kotlinx.serialization)",
+                        "text": t['kotlin.serialization'],
                         "link": "serialization"
                     },
                     {
-                        "text": "Kotlin Metadata JVM (kotlin-metadata-jvm)",
+                        "text": t['kotlin.metadata-jvm'],
                         "link": "metadata-jvm"
                     },
                     {
-                        "text": "Lincheck (kotlinx.lincheck)",
+                        "text": t['kotlin.lincheck'],
                         "collapsed": true,
                         "items": [
                             {
-                                text: "Lincheck 指南",
+                                text: t['kotlin.lincheck-guide'],
                                 link: "lincheck-guide"
                             },
                             {
-                                text: "使用 Lincheck 编写您的第一个测试",
+                                text: t['kotlin.lincheck-intro'],
                                 link: "introduction"
                             },
                             {
-                                text: "测试策略",
+                                text: t['kotlin.testing-strategies'],
                                 link: "testing-strategies"
                             },
                             {
-                                text: "操作参数",
+                                text: t['kotlin.operation-arguments'],
                                 link: "operation-arguments"
                             },
                             {
-                                text: "数据结构约束",
+                                text: t['kotlin.constraints'],
                                 link: "constraints"
                             },
                             {
-                                text: "进度保证",
+                                text: t['kotlin.progress-guarantees'],
                                 link: "progress-guarantees"
                             },
                             {
-                                text: "顺序规范",
+                                text: t['kotlin.sequential-specification'],
                                 link: "sequential-specification"
                             }
 
@@ -1271,39 +1271,39 @@ function createI18nSideBarConfig(t) {
                 "collapsed": true,
                 "items": [
                     {
-                        "text": "标准库 (stdlib)",
+                        "text": t['kotlin.api.stdlib'],
                         "href": "https://kotlinlang.org/api/latest/jvm/stdlib/"
                     },
                     {
-                        "text": "测试库 (kotlin.test)",
+                        "text": t['kotlin.api.test'],
                         "href": "https://kotlinlang.org/api/latest/kotlin.test/"
                     },
                     {
-                        "text": "协程 (kotlinx.coroutines)",
+                        "text": t['kotlin.api.coroutines'],
                         "href": "https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/"
                     },
                     {
-                        "text": "序列化 (kotlinx.serialization)",
+                        "text": t['kotlin.api.serialization'],
                         "href": "https://kotlinlang.org/api/kotlinx.serialization/kotlinx-serialization-core/"
                     },
                     {
-                        "text": "Kotlin I/O 库 (kotlinx-io)",
+                        "text": t['kotlin.api.io'],
                         "href": "https://kotlinlang.org/api/kotlinx-io/"
                     },
                     {
-                        "text": "日期和时间 (kotlinx-datetime)",
+                        "text": t['kotlin.api.datetime'],
                         "href": "https://kotlinlang.org/api/kotlinx-datetime/"
                     },
                     {
-                        "text": "JVM 元数据 (kotlin-metadata-jvm)",
+                        "text": t['kotlin.api.metadata'],
                         "href": "https://kotlinlang.org/api/kotlinx-metadata-jvm/"
                     },
                     {
-                        "text": "Ktor",
+                        "text": t['kotlin.api.ktor'],
                         "href": "https://api.ktor.io/"
                     },
                     {
-                        "text": "Kotlin Gradle 插件 (kotlin-gradle-plugin)",
+                        "text": t['kotlin.api.gradle-plugin'],
                         "href": "https://kotlinlang.org/api/kotlin-gradle-plugin/"
                     }
                 ]
@@ -1313,15 +1313,15 @@ function createI18nSideBarConfig(t) {
                 "collapsed": true,
                 "items": [
                     {
-                        "text": "关键字和运算符",
+                        "text": t['kotlin.keyword-reference'],
                         "link": "keyword-reference"
                     },
                     {
-                        "text": "语法",
+                        "text": t['kotlin.language.grammar'],
                         "href": "https://kotlinlang.org/docs/reference/grammar.html"
                     },
                     {
-                        "text": "语言规范",
+                        "text": t['kotlin.language.spec'],
                         "href": "https://kotlinlang.org/spec/"
                     }
                 ]
@@ -1339,41 +1339,41 @@ function createI18nSideBarConfig(t) {
                                 "collapsed": true,
                                 "items": [
                                     {
-                                        "text": "Gradle 概述",
+                                        "text": t['kotlin.gradle'],
                                         "link": "gradle"
                                     },
                                     {
-                                        "text": "Gradle 和 Kotlin/JVM 入门",
+                                        "text": t['kotlin.gradle-jvm-start'],
                                         "link": "get-started-with-jvm-gradle-project"
                                     },
                                     {
-                                        "text": "配置 Gradle 项目",
+                                        "text": t['kotlin.gradle-configure'],
                                         "link": "gradle-configure-project"
                                     },
                                     {
-                                        "text": "Gradle 最佳实践",
+                                        "text": t['kotlin.gradle-best-practices'],
                                         "link": "gradle-best-practices"
                                     },
                                     {
-                                        "text": "Kotlin Gradle 插件中的编译器选项",
+                                        "text": t['kotlin.gradle-compiler-options'],
                                         "link": "gradle-compiler-options"
                                     },
                                     {
-                                        "text": "Kotlin Gradle 插件中的编译和缓存",
+                                        "text": t['kotlin.gradle-compilation'],
                                         "link": "gradle-compilation-and-caches"
                                     },
                                     {
-                                        "text": "支持 Gradle 插件变体",
+                                        "text": t['kotlin.gradle-plugin-variants'],
                                         "link": "gradle-plugin-variants"
                                     }
                                 ]
                             },
                             {
-                                "text": "Maven",
+                                "text": t['kotlin.maven'],
                                 "link": "maven"
                             },
                             {
-                                "text": "Ant",
+                                "text": t['kotlin.ant'],
                                 "link": "ant"
                             }
                         ]
@@ -1383,93 +1383,93 @@ function createI18nSideBarConfig(t) {
                         "collapsed": true,
                         "items": [
                             {
-                                "text": "Dokka 简介",
+                                "text": t['kotlin.dokka-introduction'],
                                 "link": "dokka-introduction"
                             },
                             {
-                                "text": "开始使用 Dokka",
+                                "text": t['kotlin.dokka-get-started'],
                                 "link": "dokka-get-started"
                             },
                             {
-                                "text": "运行 Dokka",
+                                "text": t['kotlin.dokka-run'],
                                 "collapsed": true,
                                 "items": [
                                     {
-                                        "text": "Gradle",
+                                        "text": t['kotlin.dokka-gradle'],
                                         "link": "dokka-gradle"
                                     },
                                     {
-                                        "text": "迁移到 Dokka Gradle 插件 v2",
+                                        "text": t['kotlin.dokka-migration'],
                                         "link": "dokka-migration"
                                     },
                                     {
-                                        "text": "Maven",
+                                        "text": t['kotlin.dokka-maven'],
                                         "link": "dokka-maven"
                                     },
                                     {
-                                        "text": "命令行",
+                                        "text": t['kotlin.dokka-cli'],
                                         "link": "dokka-cli"
                                     }
                                 ]
                             },
                             {
-                                "text": "输出格式",
+                                "text": t['kotlin.dokka-output-formats'],
                                 "collapsed": true,
                                 "items": [
                                     {
-                                        "text": "HTML",
+                                        "text": t['kotlin.dokka-html'],
                                         "link": "dokka-html"
                                     },
                                     {
-                                        "text": "Markdown",
+                                        "text": t['kotlin.dokka-markdown'],
                                         "link": "dokka-markdown"
                                     },
                                     {
-                                        "text": "Javadoc",
+                                        "text": t['kotlin.dokka-javadoc'],
                                         "link": "dokka-javadoc"
                                     }
                                 ]
                             },
                             {
-                                "text": "Dokka 插件",
+                                "text": t['kotlin.dokka-plugins'],
                                 "link": "dokka-plugins"
                             },
                             {
-                                "text": "模块文档",
+                                "text": t['kotlin.dokka-docs'],
                                 "link": "dokka-module-and-package-docs"
                             }
                         ]
                     },
                     {
-                        "text": "Kotlin 开发的 IDE",
+                        "text": t['kotlin.ide'],
                         "link": "kotlin-ide"
                     },
                     {
-                        "text": "迁移到 Kotlin 代码风格",
+                        "text": t['kotlin.code-style-migration'],
                         "link": "code-style-migration-guide"
                     },
                     {
-                        "text": "Kotlin Notebook",
+                        "text": t['kotlin.kotlin-notebook'],
                         "link": "kotlin-notebook-overview"
                     },
                     {
-                        "text": "使用 Kotlin 的 Lets-Plot 进行数据可视化",
+                        "text": t['kotlin.lets-plot'],
                         "link": "lets-plot"
                     },
                     {
-                        "text": "运行代码片段",
+                        "text": t['kotlin.run-code-snippets'],
                         "link": "run-code-snippets"
                     },
                     {
-                        "text": "Kotlin 和 TeamCity 的持续集成",
+                        "text": t['kotlin.ci'],
                         "link": "kotlin-and-ci"
                     },
                     {
-                        "text": "Kotlin 代码文档：KDoc",
+                        "text": t['kotlin.kotlin-doc'],
                         "link": "kotlin-doc"
                     },
                     {
-                        "text": "Kotlin 和 OSGi",
+                        "text": t['kotlin.kotlin-osgi'],
                         "link": "kotlin-osgi"
                     }
                 ]
@@ -1483,15 +1483,15 @@ function createI18nSideBarConfig(t) {
                         "collapsed": true,
                         "items": [
                             {
-                                "text": "K2 编译器迁移指南",
+                                "text": t['kotlin.k2-migration'],
                                 "link": "k2-compiler-migration-guide"
                             },
                             {
-                                "text": "Kotlin 命令行编译器",
+                                "text": t['kotlin.command-line'],
                                 "link": "command-line"
                             },
                             {
-                                "text": "Kotlin 编译器选项",
+                                "text": t['kotlin.compiler-reference'],
                                 "link": "compiler-reference"
                             }
                         ]
@@ -1501,27 +1501,27 @@ function createI18nSideBarConfig(t) {
                         "collapsed": true,
                         "items": [
                             {
-                                "text": "All-open",
+                                "text": t['kotlin.all-open-plugin'],
                                 "link": "all-open-plugin"
                             },
                             {
-                                "text": "No-arg",
+                                "text": t['kotlin.no-arg-plugin'],
                                 "link": "no-arg-plugin"
                             },
                             {
-                                "text": "SAM with receiver",
+                                "text": t['kotlin.sam-with-receiver-plugin'],
                                 "link": "sam-with-receiver-plugin"
                             },
                             {
-                                "text": "kapt",
+                                "text": t['kotlin.kapt'],
                                 "link": "kapt"
                             },
                             {
-                                "text": "Lombok",
+                                "text": t['kotlin.lombok'],
                                 "link": "lombok"
                             },
                             {
-                                "text": "Power-assert",
+                                "text": t['kotlin.power-assert'],
                                 "link": "power-assert"
                             }
                         ]
@@ -1531,61 +1531,61 @@ function createI18nSideBarConfig(t) {
                         "collapsed": true,
                         "items": [
                             {
-                                "text": "Compose 编译器迁移指南",
+                                "text": t['kotlin.compose-compiler-migration'],
                                 "link": "compose-compiler-migration-guide"
                             },
                             {
-                                "text": "Compose 编译器选项 DSL",
+                                "text": t['kotlin.compose-compiler-options'],
                                 "link": "compose-compiler-options"
                             }
                         ]
                     },
                     {
-                        "text": "Kotlin Symbol Processing API",
+                        "text": t['kotlin.ksp-overview'],
                         "collapsed": true,
                         "items": [
                             {
-                                "text": "Kotlin Symbol Processing API",
+                                "text": t['kotlin.ksp-overview'],
                                 "link": "ksp-overview"
                             },
                             {
-                                "text": "KSP 快速入门",
+                                "text": t['kotlin.ksp-quickstart'],
                                 "link": "ksp-quickstart"
                             },
                             {
-                                "text": "为什么选择 KSP",
+                                "text": t['kotlin.ksp-why'],
                                 "link": "ksp-why-ksp"
                             },
                             {
-                                "text": "KSP 示例",
+                                "text": t['kotlin.ksp-examples'],
                                 "link": "ksp-examples"
                             },
                             {
-                                "text": "KSP 如何对 Kotlin 代码建模",
+                                "text": t['kotlin.ksp-details'],
                                 "link": "ksp-additional-details"
                             },
                             {
-                                "text": "Java 注解处理器到 KSP 参考",
+                                "text": t['kotlin.ksp-reference'],
                                 "link": "ksp-reference"
                             },
                             {
-                                "text": "增量处理",
+                                "text": t['kotlin.ksp-incremental'],
                                 "link": "ksp-incremental"
                             },
                             {
-                                "text": "多轮处理",
+                                "text": t['kotlin.ksp-multi-round'],
                                 "link": "ksp-multi-round"
                             },
                             {
-                                "text": "在 Kotlin Multiplatform 使用 KSP",
+                                "text": t['kotlin.ksp-multiplatform'],
                                 "link": "ksp-multiplatform"
                             },
                             {
-                                "text": "通过命令行运行 KSP",
+                                "text": t['kotlin.ksp-command-line'],
                                 "link": "ksp-command-line"
                             },
                             {
-                                "text": "KSP 常见问题",
+                                "text": t['kotlin.ksp-faq'],
                                 "link": "ksp-faq"
                             }
                         ]
@@ -1597,35 +1597,35 @@ function createI18nSideBarConfig(t) {
                 "collapsed": true,
                 "items": [
                     {
-                        "text": "学习材料概述",
+                        "text": t['kotlin.learning-materials'],
                         "link": "learning-materials-overview"
                     },
                     {
-                        "text": "Kotlin by example",
+                        "text": t['kotlin.byexample'],
                         "href": "https://play.kotlinlang.org/byExample/overview"
                     },
                     {
-                        "text": "Kotlin 习题",
+                        "text": t['kotlin.koans'],
                         "link": "koans"
                     },
                     {
-                        "text": "Kotlin Core track",
+                        "text": t['kotlin.core-track'],
                         "href": "https://hyperskill.org/tracks?category=4&utm_source=jbkotlin_hs&utm_medium=referral&utm_campaign=kotlinlang-docs&utm_content=button_1&utm_term=22.03.23"
                     },
                     {
-                        "text": "Kotlin 实践",
+                        "text": t['kotlin.hands-on'],
                         "link": "kotlin-hands-on"
                     },
                     {
-                        "text": "Kotlin 小贴士",
+                        "text": t['kotlin.tips'],
                         "link": "kotlin-tips"
                     },
                     {
-                        "text": "Kotlin 书籍",
+                        "text": t['kotlin.books'],
                         "link": "books"
                     },
                     {
-                        "text": "Advent of Code 谜题",
+                        "text": t['kotlin.advent-of-code'],
                         "link": "advent-of-code"
                     },
                     {
@@ -1633,11 +1633,11 @@ function createI18nSideBarConfig(t) {
                         "collapsed": true,
                         "items": [
                             {
-                                "text": "通过 JetBrains Academy 插件学习 Kotlin",
+                                "text": t['kotlin.edu-tools-learner'],
                                 "link": "edu-tools-learner"
                             },
                             {
-                                "text": "使用 JetBrains Academy 插件教授 Kotlin",
+                                "text": t['kotlin.edu-tools-educator'],
                                 "link": "edu-tools-educator"
                             }
                         ]
@@ -1649,11 +1649,11 @@ function createI18nSideBarConfig(t) {
                 "collapsed": true,
                 "items": [
                     {
-                        "text": "参与 Kotlin 抢先体验预览",
+                        "text": t['kotlin.eap-participate'],
                         "link": "eap"
                     },
                     {
-                        "text": "为 EAP 配置你的构建",
+                        "text": t['kotlin.eap-configure'],
                         "link": "configure-build-for-eap"
                     }
                 ]
@@ -1663,7 +1663,7 @@ function createI18nSideBarConfig(t) {
                 "collapsed": true,
                 "items": [
                     {
-                        "text": "常见问题解答",
+                        "text": t['kotlin.faq'],
                         "link": "faq"
                     },
                     {
@@ -1671,47 +1671,47 @@ function createI18nSideBarConfig(t) {
                         "collapsed": true,
                         "items": [
                             {
-                                "text": "Kotlin 2.1 兼容性指南",
+                                "text": t['kotlin.compatibility-21'],
                                 "link": "compatibility-guide-21"
                             },
                             {
-                                "text": "Kotlin 2.0 兼容性指南",
+                                "text": t['kotlin.compatibility-20'],
                                 "link": "compatibility-guide-20"
                             },
                             {
-                                "text": "Kotlin 1.9 兼容性指南",
+                                "text": t['kotlin.compatibility-19'],
                                 "link": "compatibility-guide-19"
                             },
                             {
-                                "text": "Kotlin 1.8 兼容性指南",
+                                "text": t['kotlin.compatibility-18'],
                                 "link": "compatibility-guide-18"
                             },
                             {
-                                "text": "Kotlin 1.7.20 兼容性指南",
+                                "text": t['kotlin.compatibility-1720'],
                                 "link": "compatibility-guide-1720"
                             },
                             {
-                                "text": "Kotlin 1.7 兼容性指南",
+                                "text": t['kotlin.compatibility-17'],
                                 "link": "compatibility-guide-17"
                             },
                             {
-                                "text": "Kotlin 1.6 兼容性指南",
+                                "text": t['kotlin.compatibility-16'],
                                 "link": "compatibility-guide-16"
                             },
                             {
-                                "text": "Kotlin 1.5 兼容性指南",
+                                "text": t['kotlin.compatibility-15'],
                                 "link": "compatibility-guide-15"
                             },
                             {
-                                "text": "Kotlin 1.4 兼容性指南",
+                                "text": t['kotlin.compatibility-14'],
                                 "link": "compatibility-guide-14"
                             },
                             {
-                                "text": "Kotlin 1.3 兼容性指南",
+                                "text": t['kotlin.compatibility-13'],
                                 "link": "compatibility-guide-13"
                             },
                             {
-                                "text": "兼容模式",
+                                "text": t['kotlin.compatibility-modes'],
                                 "link": "compatibility-modes"
                             }
                         ]
@@ -1721,55 +1721,55 @@ function createI18nSideBarConfig(t) {
                         "collapsed": true,
                         "items": [
                             {
-                                "text": "Kotlin 基金会",
+                                "text": t['kotlin.foundation'],
                                 "href": "https://kotlinfoundation.org/"
                             },
                             {
-                                "text": "语言委员会指南",
+                                "text": t['kotlin.foundation-committee'],
                                 "href": "https://kotlinfoundation.org/language-committee-guidelines/"
                             },
                             {
-                                "text": "提交不兼容变更",
+                                "text": t['kotlin.foundation-changes'],
                                 "href": "https://kotlinfoundation.org/submitting-incompatible-changes/"
                             },
                             {
-                                "text": "品牌使用",
+                                "text": t['kotlin.foundation-brand'],
                                 "href": "https://kotlinfoundation.org/guidelines/"
                             },
                             {
-                                "text": "Kotlin 基金会常见问题",
+                                "text": t['kotlin.foundation-faq'],
                                 "href": "https://kotlinfoundation.org/faq/"
                             }
                         ]
                     },
                     {
-                        "text": "Google Summer of Code",
+                        "text": t['kotlin.gsoc'],
                         "collapsed": true,
                         "items": [
                             {
-                                "text": "Kotlin 与 GSoC",
+                                "text": t['kotlin.gsoc-overview'],
                                 "link": "gsoc-overview"
                             },
                             {
-                                "text": "GSoC 2025",
+                                "text": t['kotlin.gsoc-2025'],
                                 "link": "gsoc-2025"
                             },
                             {
-                                "text": "GSoC 2024",
+                                "text": t['kotlin.gsoc-2024'],
                                 "link": "gsoc-2024"
                             },
                             {
-                                "text": "GSoC 2023",
+                                "text": t['kotlin.gsoc-2023'],
                                 "link": "gsoc-2023"
                             }
                         ]
                     },
                     {
-                        "text": "安全性",
+                        "text": t['kotlin.security'],
                         "link": "security"
                     },
                     {
-                        "text": "Kotlin 文档的 PDF 版本",
+                        "text": t['kotlin.kotlin-pdf'],
                         "link": "kotlin-pdf"
                     },
                     {
@@ -1777,25 +1777,25 @@ function createI18nSideBarConfig(t) {
                         "collapsed": true,
                         "items": [
                             {
-                                "text": "贡献",
+                                "text": t['kotlin.contribute'],
                                 "link": "contribute"
                             },
                             {
-                                "text": "KUG 指南",
+                                "text": t['kotlin.kug-guidelines'],
                                 "link": "kug-guidelines"
                             },
                             {
-                                "text": "Kotlin Night 指南",
+                                "text": t['kotlin.kotlin-night'],
                                 "link": "kotlin-night-guidelines"
                             },
                             {
-                                "text": "Kotlin Slack 的行为准则和指南",
+                                "text": t['kotlin.slack'],
                                 "link": "slack-code-of-conduct"
                             }
                         ]
                     },
                     {
-                        "text": "Kotlin 品牌资源",
+                        "text": t['kotlin.brand'],
                         "link": "kotlin-brand-assets"
                     },
                     {

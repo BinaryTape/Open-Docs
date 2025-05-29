@@ -50,7 +50,7 @@ const mkDiffGrammar = JSON.parse(readFileSync(mkDiffGrammarPath, 'utf-8'))
 export default defineConfig({
   cleanUrls: true,
   lastUpdated: true,
-  ignoreDeadLinks: true,
+  // ignoreDeadLinks: true,
   lang: 'zh-Hans',
   title: 'Open AIDoc',
   head: [['link', { rel: 'icon', href: 'img/favicon.ico' }]],

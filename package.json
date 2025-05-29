@@ -1,11 +1,11 @@
 {
-  "name": "open-aidoc-demo-v2",
+  "name": "open-aidoc",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "docs:dev": "vitepress dev docs",
-    "docs:build": "vitepress build docs",
+    "docs:build": "node --max-old-space-size=8192 node_modules/vitepress/bin/vitepress.js build docs",
     "docs:preview": "vitepress preview docs"
   },
   "keywords": [],
