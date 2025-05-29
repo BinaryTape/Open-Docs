@@ -53,7 +53,21 @@ export default defineConfig({
   ignoreDeadLinks: true,
   lang: 'zh-Hans',
   title: 'Open AIDoc',
-  head: [['link', { rel: 'icon', href: 'img/favicon.ico' }]],
+  head: [
+    ['link', { rel: 'icon', href: 'img/favicon.ico' }],
+    [
+      'script',
+      { async: '', src: 'https://www.googletagmanager.com/gtag/js?id=G-HLCXSW4HH1' }
+    ],
+    [
+      'script',
+      {},
+      `window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-HLCXSW4HH1');`
+    ]
+  ],
   vite: {
     plugins: [
       liquidIncludePlugin()
