@@ -1,0 +1,397 @@
+/**
+ * Customize default theme styling by overriding CSS variables:
+ * https://github.com/vuejs/vitepress/blob/main/src/client/theme-default/styles/vars.css
+ */
+
+/**
+ * Colors
+ *
+ * Each colors have exact same color scale system with 3 levels of solid
+ * colors with different brightness, and 1 soft color.
+ *
+ * - `XXX-1`: The most solid color used mainly for colored text. It must
+ *   satisfy the contrast ratio against when used on top of `XXX-soft`.
+ *
+ * - `XXX-2`: The color used mainly for hover state of the button.
+ *
+ * - `XXX-3`: The color for solid background, such as bg color of the button.
+ *   It must satisfy the contrast ratio with pure white (#ffffff) text on
+ *   top of it.
+ *
+ * - `XXX-soft`: The color used for subtle background such as custom container
+ *   or badges. It must satisfy the contrast ratio when putting `XXX-1` colors
+ *   on top of it.
+ *
+ *   The soft color must be semi transparent alpha channel. This is crucial
+ *   because it allows adding multiple "soft" colors on top of each other
+ *   to create a accent, such as when having inline code block inside
+ *   custom containers.
+ *
+ * - `default`: The color used purely for subtle indication without any
+ *   special meanings attached to it such as bg color for menu hover state.
+ *
+ * - `brand`: Used for primary brand colors, such as link text, button with
+ *   brand theme, etc.
+ *
+ * - `tip`: Used to indicate useful information. The default theme uses the
+ *   brand color for this by default.
+ *
+ * - `warning`: Used to indicate warning to the users. Used in custom
+ *   container, badges, etc.
+ *
+ * - `danger`: Used to show error, or dangerous message to the users. Used
+ *   in custom container, badges, etc.
+ * -------------------------------------------------------------------------- */
+
+:root {
+  --vp-c-default-1: var(--vp-c-gray-1);
+  --vp-c-default-2: var(--vp-c-gray-2);
+  --vp-c-default-3: var(--vp-c-gray-3);
+  --vp-c-default-soft: var(--vp-c-gray-soft);
+
+  --vp-c-brand-1: var(--vp-c-indigo-1);
+  --vp-c-brand-2: var(--vp-c-indigo-2);
+  --vp-c-brand-3: var(--vp-c-indigo-3);
+  --vp-c-brand-soft: var(--vp-c-indigo-soft);
+
+  --vp-c-info-1: rgb(58, 143, 242);
+  --vp-c-info-2: rgb(79, 156, 245);
+  --vp-c-info-3: rgb(100, 167, 248);
+  --vp-c-info-soft: rgba(58, 143, 242, 0.14);
+
+  --vp-c-tip-1: var(--vp-c-brand-1);
+  --vp-c-tip-2: var(--vp-c-brand-2);
+  --vp-c-tip-3: var(--vp-c-brand-3);
+  --vp-c-tip-soft: var(--vp-c-brand-soft);
+
+  --vp-c-warning-1: var(--vp-c-yellow-1);
+  --vp-c-warning-2: var(--vp-c-yellow-2);
+  --vp-c-warning-3: var(--vp-c-yellow-3);
+  --vp-c-warning-soft: var(--vp-c-yellow-soft);
+
+  --vp-c-danger-1: var(--vp-c-red-1);
+  --vp-c-danger-2: var(--vp-c-red-2);
+  --vp-c-danger-3: var(--vp-c-red-3);
+  --vp-c-danger-soft: var(--vp-c-red-soft);
+
+  /* Custom */
+  --ifm-navbar-sidebar-width: 340px;
+  --global-border-radius: 12px;
+  --global-transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  --global-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+}
+
+/**
+ * Component: Button
+ * -------------------------------------------------------------------------- */
+
+:root {
+  --vp-button-brand-border: transparent;
+  --vp-button-brand-text: var(--vp-c-white);
+  --vp-button-brand-bg: var(--vp-c-brand-3);
+  --vp-button-brand-hover-border: transparent;
+  --vp-button-brand-hover-text: var(--vp-c-white);
+  --vp-button-brand-hover-bg: var(--vp-c-brand-2);
+  --vp-button-brand-active-border: transparent;
+  --vp-button-brand-active-text: var(--vp-c-white);
+  --vp-button-brand-active-bg: var(--vp-c-brand-1);
+}
+
+/**
+ * Component: Home
+ * -------------------------------------------------------------------------- */
+
+:root {
+  --vp-home-hero-name-color: transparent;
+  --vp-home-hero-name-background: -webkit-linear-gradient(
+    120deg,
+    #bd34fe 30%,
+    #41d1ff
+  );
+
+  --vp-home-hero-image-background-image: linear-gradient(
+    -45deg,
+    #bd34fe 50%,
+    #47caff 50%
+  );
+  --vp-home-hero-image-filter: blur(44px);
+}
+
+@media (min-width: 640px) {
+  :root {
+    --vp-home-hero-image-filter: blur(56px);
+  }
+}
+
+@media (min-width: 960px) {
+  :root {
+    --vp-home-hero-image-filter: blur(68px);
+  }
+}
+
+/**
+ * Component: Custom Block
+ * -------------------------------------------------------------------------- */
+
+:root {
+  --vp-custom-block-tip-border: transparent;
+  --vp-custom-block-tip-text: var(--vp-c-text-1);
+  --vp-custom-block-tip-bg: var(--vp-c-brand-soft);
+  --vp-custom-block-tip-code-bg: var(--vp-c-brand-soft);
+
+  --vp-custom-block-info-border: transparent;
+  --vp-custom-block-info-text: var(--vp-c-text-1);
+  --vp-custom-block-info-bg: var(--vp-c-info-soft);
+  --vp-custom-block-info-code-bg: var(--vp-c-info-soft);
+
+  --vp-custom-block-note-border: transparent;
+  --vp-custom-block-note-text: var(--vp-c-text-1);
+  --vp-custom-block-note-bg: var(--vp-c-default-soft);
+  --vp-custom-block-note-code-bg: var(--vp-c-default-soft);
+
+  --vp-custom-block-details-border: transparent;
+  --vp-custom-block-details-text: var(--vp-c-text-1);
+  --vp-custom-block-details-bg: var(--vp-c-default-soft);
+  --vp-custom-block-details-code-bg: var(--vp-c-default-soft);
+}
+
+/**
+ * Component: Algolia
+ * -------------------------------------------------------------------------- */
+
+.DocSearch {
+  --docsearch-primary-color: var(--vp-c-brand-1) !important;
+}
+
+/**
+ * Component: Doc
+ * -------------------------------------------------------------------------- */
+
+.vp-doc h1 {
+  margin: 0 0 1.25em;
+}
+
+.vp-doc h2 {
+  margin: 0;
+  border-top: 0;
+}
+
+em {
+  font-style: normal;
+  font-weight: bold;
+}
+
+/**
+ * Component: code
+ * -------------------------------------------------------------------------- */
+
+.vp-code {
+  scrollbar-width: thin;
+}
+
+html:not(.dark) .vp-doc [class*="language-none"] code {
+  color: black !important;
+}
+
+.dark .vp-doc [class*="language-none"] code {
+  color: #dfdfd6 !important;
+}
+
+html:not(.dark) .vp-doc [class*="language-text"] code {
+  color: black !important;
+}
+
+.dark .vp-doc [class*="language-text"] code {
+  color: #dfdfd6 !important;
+}
+
+.custom-block.details summary {
+  margin: 0px 0 8px;
+  font-weight: 700;
+  cursor: pointer;
+  user-select: none;
+  font-size: 1.1em;
+}
+
+/**
+ * Component: Writerside tldr
+ * -------------------------------------------------------------------------- */
+
+.ws-tldr {
+  display: inline-flex;
+  flex-flow: column nowrap;
+  padding: 16px;
+  border: 1px solid #d1d1d2;
+  border-radius: 6px;
+}
+
+.ws-tldr img {
+  vertical-align: middle !important;
+  display: inline-block !important;
+}
+
+.ws-tldr p {
+  margin: 0;
+}
+
+/**
+ * Component: Writerside tabs
+ * -------------------------------------------------------------------------- */
+
+.ws-tabs-container .ws-tablist input {
+  position: fixed;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.ws-tabs-container input:checked + label::after {
+  background-color: var(--vp-code-tab-active-bar-color);
+}
+
+.ws-tabs-container .ws-tablist label::after {
+  position: absolute;
+  right: 8px;
+  bottom: -1px;
+  left: 8px;
+  z-index: 1;
+  height: 2px;
+  border-radius: 2px;
+  content: "";
+  background-color: transparent;
+  transition: background-color 0.25s;
+}
+
+.ws-tabs-container .ws-tablist label:hover {
+  color: var(--vp-code-tab-hover-text-color);
+}
+
+.ws-tabs-container input:checked + label {
+  color: var(--vp-code-tab-active-text-color);
+}
+
+.ws-tab {
+  cursor: pointer;
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px solid transparent;
+  padding: 0 12px;
+  line-height: 48px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--vp-code-tab-text-color);
+  white-space: nowrap;
+  transition: color 0.25s;
+}
+
+.ws-tabs-container .ws-tabcontents .ws-tabcontent {
+  display: none;
+  margin-top: 0 !important;
+  border-top-left-radius: 0 !important;
+  border-top-right-radius: 0 !important;
+}
+
+.ws-tabs-container .ws-tabcontents .ws-tabcontent.active {
+  display: block;
+}
+
+.ws-tabcontents {
+  padding: 0 12px;
+}
+
+img[type="joined"] {
+  vertical-align: middle !important;
+  display: inline-block !important;
+}
+
+.ws-def-content {
+  padding: 0 16px;
+}
+
+.ws-def-content i {
+  font-style: normal;
+  font-weight: bold;
+}
+
+/**
+ * Component: SQLDelight
+ * -------------------------------------------------------------------------- */
+
+.cash-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1em;
+}
+
+.cash-grid-item {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  width: calc(50% - 0.5em);
+  border: 2px solid var(--vp-c-default-1);
+  padding: 1em;
+  border-radius: 8px;
+}
+
+.cash-grid-item p{
+  margin: 0 !important;
+}
+
+.cash-grid-title {
+  margin: 0 !important;
+  font-size: 1.3em;
+}
+
+.lg {
+  --md-icon-size: 1.5em !important;
+}
+
+.middle {
+  vertical-align: middle;
+}
+
+.emoji {
+  --md-icon-size: 1.125em;
+  display: inline-flex;
+  height: var(--md-icon-size);
+  vertical-align: text-top;
+}
+
+.emoji svg {
+  fill: currentcolor;
+  max-height: 100%;
+  width: var(--md-icon-size);
+  height: auto;
+}
+
+.cash-grid-item a {
+  text-decoration: none;
+}
+
+#third-party-dialects {
+  margin: 32px 0 16px;
+}
+
+.vp-code-block-title-bar {
+  position: relative;
+  margin: 16px -24px 0;
+  background-color: var(--vp-code-block-bg);
+  overflow-x: auto;
+  font-size: 14px;
+  font-weight: 500;
+  white-space: nowrap;
+  transition: background-color .5s;
+  border-radius: 8px 8px 0 0;
+  padding: 12px 24px;
+  box-shadow: inset 0 -1px var(--vp-code-tab-divider);
+}
+
+@media (min-width: 640px) {
+  .vp-code-block-title-bar {
+    margin: 16px 0 0;
+  }
+}
+
+.language-diff {
+  border-radius: 0 0 8px 8px !important;
+  margin: 0 !important;
+}

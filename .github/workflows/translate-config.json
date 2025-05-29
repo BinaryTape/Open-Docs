@@ -7,10 +7,10 @@
         "ja"
     ],
     "modelConfigs": {
-        "zh-Hans": { "provider": "google", "model": "gemini-2.0-flash" },
-        "zh-Hant": { "provider": "google", "model": "gemini-2.0-flash" },
-        "ko": { "provider": "google", "model": "gemini-2.0-flash" },
-        "ja": { "provider": "google", "model": "gemini-2.0-flash" }
+        "zh-Hans": { "provider": "google", "model": "gemini-2.5-flash-preview-05-20" },
+        "zh-Hant": { "provider": "google", "model": "gemini-2.5-flash-preview-05-20" },
+        "ko": { "provider": "google", "model": "gemini-2.5-flash-preview-05-20" },
+        "ja": { "provider": "google", "model": "gemini-2.5-flash-preview-05-20" }
     },
     "terminologyPath": "./demo/terminology.json",
     "languageNames": {

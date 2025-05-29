@@ -1,17 +1,21 @@
 name: Koin docs update
 
 on:
-  schedule:
-    - cron: '0 0 * * 0'  # Run every Sunday at 0:00 UTC
+#  schedule:
+#    - cron: '0 0 * * 0'  # Run every Sunday at 0:00 UTC
   workflow_dispatch:  # Allow manual trigger
 
+permissions:
+  contents: write
+
 jobs:
-  check-external-docs:
+  koin-docs-update:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout main repository
         uses: actions/checkout@v4
         with:
+          ref: ${{ github.head_ref || github.ref_name }}
           fetch-depth: 0  # Get complete history for diff comparison
 
       - name: Checkout Koin repository
@@ -66,8 +70,8 @@ jobs:
           cd koin-annotations-repo
           echo "current_commit=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
 
-      - name: Check if commits have changed
-        id: check-commits
+      - name: Check if Koin repository has changed
+        id: check-koin-commit
         run: |
           # Check if Koin repository's commit has changed
           if [ "${{ steps.last-run-koin.outputs.first_run }}" == "true" ]; then
@@ -77,7 +81,11 @@ jobs:
           else
             echo "koin_changed=false" >> $GITHUB_OUTPUT
           fi
-          
+          echo "Koin repository changed: ${{ steps.check-koin-commit.outputs.koin_changed }}"
+
+      - name: Check if Koin-Annotations repository has changed
+        id: check-annotations-commit
+        run: |
           # Check if Koin-Annotations repository's commit has changed
           if [ "${{ steps.last-run-annotations.outputs.first_run }}" == "true" ]; then
             echo "annotations_changed=true" >> $GITHUB_OUTPUT
@@ -86,17 +94,7 @@ jobs:
           else
             echo "annotations_changed=false" >> $GITHUB_OUTPUT
           fi
-          
-          # Any repository has changed
-          if [[ "${{ steps.check-commits.outputs.koin_changed }}" == "true" || "${{ steps.check-commits.outputs.annotations_changed }}" == "true" ]]; then
-            echo "any_changed=true" >> $GITHUB_OUTPUT
-          else
-            echo "any_changed=false" >> $GITHUB_OUTPUT
-          fi
-          
-          echo "Koin repository changed: ${{ steps.check-commits.outputs.koin_changed }}"
-          echo "Koin-Annotations repository changed: ${{ steps.check-commits.outputs.annotations_changed }}"
-          echo "Any repository changed: ${{ steps.check-commits.outputs.any_changed }}"
+          echo "Koin-Annotations repository changed: ${{ steps.check-annotations-commit.outputs.annotations_changed }}"
 
       - name: Get changed markdown files for Koin
         id: changed-files-koin
@@ -169,13 +167,6 @@ jobs:
             fi
           fi
           
-          # Any repository has changes
-          if [[ "${{ steps.last-run-koin.outputs.first_run }}" == "true" || "${{ steps.last-run-annotations.outputs.first_run }}" == "true" || -n "${{ steps.changed-files-koin.outputs.all_changed_files }}" || -n "${{ steps.changed-files-annotations.outputs.all_changed_files }}" ]]; then
-            echo "any_changed=true" >> $GITHUB_OUTPUT
-          else
-            echo "any_changed=false" >> $GITHUB_OUTPUT
-          fi
-          
           # Save current commit SHA for future updates
           cd koin-repo
           echo "KOIN_CURRENT_COMMIT=$(git rev-parse HEAD)" >> $GITHUB_ENV
@@ -186,24 +177,23 @@ jobs:
       - name: Translate Koin docs
         if: steps.prepare-translation.outputs.koin_any_changed == 'true'
         env:
-          BASE_DIR: ./koin
-          START_PAGE: koin.md
+          DOC_TYPE: koin
           GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
           CHANGED_FILES: ${{ env.KOIN_CHANGED_FILES }}
           REPO_PATH: koin-repo
-        run: node .github/workflows/translate.js
+        run: node .github/workflows/translate.mjs
 
       - name: Translate Koin-Annotations docs
         if: steps.prepare-translation.outputs.annotations_any_changed == 'true'
         env:
-          BASE_DIR: ./koin
+          DOC_TYPE: koin
           GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
           CHANGED_FILES: ${{ env.ANNOTATIONS_CHANGED_FILES }}
           REPO_PATH: koin-annotations-repo
-        run: node .github/workflows/translate.js
+        run: node .github/workflows/translate.mjs
 
       - name: Update last check timestamps
-        if: success() && steps.prepare-translation.outputs.any_changed == 'true'
+        if: success() && (steps.prepare-translation.outputs.koin_any_changed == 'true' || steps.prepare-translation.outputs.annotations_any_changed == 'true')
         run: |
           # Only update the last checked commit if all previous steps were successful
           echo "${{ env.KOIN_CURRENT_COMMIT }}" > .github/last_check_koin.txt
@@ -211,14 +201,16 @@ jobs:
           echo "Updated check record timestamps"
 
       - name: Commit and push changes
-        if: steps.prepare-translation.outputs.any_changed == 'true'
+        if: steps.prepare-translation.outputs.koin_any_changed == 'true' || steps.prepare-translation.outputs.annotations_any_changed == 'true'
         run: |
           git config --global user.name 'github-actions'
           git config --global user.email 'github-actions@github.com'
+          # Pull the latest changes from the remote branch to avoid conflicts
+          git pull --rebase origin ${{ github.head_ref || github.ref_name }}
           # Exclude files and directories that don't need to be committed
           git add . ':!package.json' ':!package-lock.json' ':!koin-repo' ':!koin-repo/**' ':!koin-annotations-repo' ':!koin-annotations-repo/**'
           git commit -m 'Add translated files and update check record'
-          git push origin main
+          git push origin HEAD:${{ github.head_ref || github.ref_name }}
 
       - name: Create summary
         if: always()

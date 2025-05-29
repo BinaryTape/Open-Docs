@@ -1,0 +1,282 @@
+---
+title: Androidスコープの管理
+---
+
+## Androidライフサイクルとの連携
+
+Androidコンポーネントは主にそのライフサイクルによって管理されます。ActivityやFragmentを直接インスタンス化することはできません。システムが作成と管理をすべて行ってくれ、`onCreate`、`onStart`などのメソッドでコールバックを行います。
+
+そのため、KoinモジュールでActivity/Fragment/Serviceを記述することはできません。そこで、プロパティに依存関係を注入し、ライフサイクルも考慮する必要があります。UI部分に関連するコンポーネントは、不要になり次第すぐに解放されなければなりません。
+
+これにより、以下のようなコンポーネントがあります。
+
+*   長寿命コンポーネント (Service、データリポジトリなど) - 複数の画面で使用され、決して破棄されない
+*   中寿命コンポーネント (ユーザーセッションなど) - 複数の画面で使用され、一定時間が経過したら破棄される必要がある
+*   短寿命コンポーネント (ビュー) - 1つの画面でのみ使用され、画面終了時に破棄される必要がある
+
+長寿命コンポーネントは、`single` 定義として簡単に記述できます。中寿命および短寿命コンポーネントの場合、いくつかの方法があります。
+
+MVPアーキテクチャスタイルでは、`Presenter` はUIを支援/サポートする短寿命コンポーネントです。Presenterは画面が表示されるたびに作成され、画面が終了したら破棄される必要があります。
+
+新しいPresenterは毎回作成されます
+
+```kotlin
+class DetailActivity : AppCompatActivity() {
+
+    // 注入されたPresenter
+    override val presenter : Presenter by inject()
+```
+
+モジュールで以下のように記述できます。
+
+*   `factory` として - `by inject()` または `get()` が呼び出されるたびに新しいインスタンスを生成する
+
+```kotlin
+val androidModule = module {
+
+    // Presenterのファクトリインスタンス
+    factory { Presenter() }
+}
+```
+
+*   `scope` として - スコープに紐付けられたインスタンスを生成する
+
+```kotlin
+val androidModule = module {
+
+    scope<DetailActivity> {
+        scoped { Presenter() }
+    }
+}
+```
+
+:::note
+Androidのメモリリークのほとんどは、非AndroidコンポーネントからUI/Androidコンポーネントを参照することから発生します。システムがその参照を保持し、ガベージコレクションによって完全に破棄できないためです。
+:::
+
+## Androidコンポーネントのスコープ (3.2.1以降)
+
+### Androidスコープの宣言
+
+Androidコンポーネントに依存関係をスコープ化するには、以下のように`scope`ブロックでスコープセクションを宣言する必要があります。
+
+```kotlin
+class MyPresenter()
+class MyAdapter(val presenter : MyPresenter)
+
+module {
+  // MyActivityのスコープを宣言
+  scope<MyActivity> {
+    // 現在のスコープからMyPresenterインスタンスを取得 
+    scoped { MyAdapter(get()) }
+    scoped { MyPresenter() }
+  }
+}
+```
+
+### Androidスコープクラス
+
+Koinは`ScopeActivity`、`RetainedScopeActivity`、`ScopeFragment`クラスを提供しており、ActivityやFragmentで宣言されたスコープを直接使用できるようにします。
+
+```kotlin
+class MyActivity : ScopeActivity() {
+    
+    // MyPresenterはMyActivityのスコープから解決されます 
+    val presenter : MyPresenter by inject()
+}
+```
+
+内部では、Androidスコープは`AndroidScopeComponent`インターフェースと一緒に使用され、次のように`scope`フィールドを実装する必要があります。
+
+```kotlin
+abstract class ScopeActivity(
+    @LayoutRes contentLayoutId: Int = 0,
+) : AppCompatActivity(contentLayoutId), AndroidScopeComponent {
+
+    override val scope: Scope by activityScope()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        checkNotNull(scope)
+    }
+}
+```
+
+`AndroidScopeComponent`インターフェースを使用し、`scope`プロパティを実装する必要があります。これにより、クラスで使用されるデフォルトスコープが設定されます。
+
+### AndroidスコープAPI
+
+AndroidコンポーネントにバインドされたKoinスコープを作成するには、以下の関数を使用します。
+- `createActivityScope()` - 現在のActivityのスコープを作成 (スコープセクションの宣言が必要)
+- `createActivityRetainedScope()` - 現在のActivityの保持されたスコープ (ViewModelライフサイクルに裏打ちされた) を作成 (スコープセクションの宣言が必要)
+- `createFragmentScope()` - 現在のFragmentのスコープを作成し、親Activityスコープにリンクする
+
+これらの関数はデリゲートとして利用でき、異なる種類のスコープを実装できます。
+
+- `activityScope()` - 現在のActivityのスコープを作成 (スコープセクションの宣言が必要)
+- `activityRetainedScope()` - 現在のActivityの保持されたスコープ (ViewModelライフサイクルに裏打ちされた) を作成 (スコープセクションの宣言が必要)
+- `fragmentScope()` - 現在のFragmentのスコープを作成し、親Activityスコープにリンクする
+
+```kotlin
+class MyActivity() : AppCompatActivity(contentLayoutId), AndroidScopeComponent {
+
+    override val scope: Scope by activityScope()
+    
+}
+```
+
+また、以下を使用して保持されたスコープ (ViewModelライフサイクルに裏打ちされた) を設定することもできます。
+
+```kotlin
+class MyActivity() : AppCompatActivity(contentLayoutId), AndroidScopeComponent {
+
+    override val scope: Scope by activityRetainedScope()
+}
+```
+
+:::note
+Androidスコープクラスを使用したくない場合は、独自のクラスで作業し、スコープ作成APIとともに`AndroidScopeComponent`を使用できます。
+:::
+
+### AndroidScopeComponentとスコープのクローズ処理
+
+Koinスコープが破棄される前にコードを実行するには、`AndroidScopeComponent`の`onCloseScope`関数をオーバーライドします。
+
+```kotlin
+class MyActivity() : AppCompatActivity(contentLayoutId), AndroidScopeComponent {
+
+    override val scope: Scope by activityScope()
+
+    override fun onCloseScope() {
+        // スコープが閉じられる前に呼び出されます
+    }
+}
+```
+
+:::note
+`onDestroy()`関数からスコープにアクセスしようとすると、スコープはすでに閉じられています。
+:::
+
+### ViewModelスコープ (3.5.4以降)
+
+ViewModelは、(ActivityやFragmentの)リークを防ぐためにルートスコープに対してのみ作成されます。これにより、ViewModelが互換性のないスコープにアクセスしてしまう可視性の問題が防止されます。
+
+:::warn
+ViewModelはActivityまたはFragmentスコープにアクセスできません。なぜでしょうか？ ViewModelはActivityやFragmentよりも長く存在するため、適切なスコープ外に依存関係がリークしてしまうためです。
+:::
+
+:::note
+ViewModelスコープ外から依存関係を_どうしても_ブリッジする必要がある場合は、「注入パラメータ (injected parameters)」を使用して、いくつかのオブジェクトをViewModelに渡すことができます: `viewModel { p -> }`
+:::
+
+`ScopeViewModel`は、ViewModelスコープで作業を支援するための新しいクラスです。これはViewModelのスコープ作成を処理し、`by scope.inject()`で注入を可能にする`scope`プロパティを提供します。
+
+```kotlin
+module {
+    viewModelOf(::MyScopeViewModel)
+    scope<MyScopeViewModel> {
+        scopedOf(::Session)
+    }    
+}
+
+class MyScopeViewModel : ScopeViewModel() {
+
+    // onClearedでスコープが閉じられる
+    
+    // 現在のMyScopeViewModelのスコープから注入される
+    val session by scope.inject<Session>()
+
+}
+```
+
+`ScopeViewModel`を使用することで、スコープが閉じられる前にコードを実行するために`onCloseScope()`関数をオーバーライドすることもできます。
+
+:::note
+ViewModelスコープ内のすべてのインスタンスは同じ可視性を持っており、ViewModelインスタンスのライフタイム中、ViewModelの`onCleared`関数が呼び出されるまで存続します。
+:::
+
+例えば、ActivityまたはFragmentがViewModelを作成すると、関連するスコープが作成されます。
+
+```kotlin
+class MyActivity : AppCompatActivity() {
+
+    // ViewModelとそのスコープを作成
+    val myViewModel by viewModel<MyScopeViewModel>()
+
+}
+```
+
+ViewModelが作成されると、このスコープ内から関連するすべての依存関係が作成され、注入できるようになります。
+
+`ScopeViewModel`クラスを使用せずにViewModelスコープを手動で実装するには、次のようにします。
+
+```kotlin
+class MyScopeViewModel : ViewModel(), KoinScopeComponent {
+
+    override val scope: Scope = createScope(this)
+
+    // 依存関係を注入
+    val session by scope.inject<Session>()
+
+    // スコープをクリア
+    override fun onCleared() {
+        super.onCleared()
+        scope.close()
+    }
+}
+```
+
+## スコープリンク
+
+スコープリンクを使用すると、カスタムスコープを持つコンポーネント間でインスタンスを共有できます。
+
+より高度な使い方として、複数のコンポーネント間で`Scope`インスタンスを使用できます。例えば、`UserSession`インスタンスを共有する必要がある場合です。
+
+まずスコープ定義を宣言します。
+
+```kotlin
+module {
+    // 共有ユーザーセッションデータ
+    scope(named("session")) {
+        scoped { UserSession() }
+    }
+}
+```
+
+`UserSession`インスタンスの使用を開始する必要がある場合は、そのためのスコープを作成します。
+
+```kotlin
+val ourSession = getKoin().createScope("ourSession",named("session"))
+
+// ourSessionスコープを、ScopeActivityまたはScopeFragmentから現在の`scope`にリンク
+scope.linkTo(ourSession)
+```
+
+その後、必要な場所でどこでも使用できます。
+
+```kotlin
+class MyActivity1 : ScopeActivity() {
+    
+    fun reuseSession(){
+        val ourSession = getKoin().createScope("ourSession",named("session"))
+        
+        // ourSessionスコープを、ScopeActivityまたはScopeFragmentから現在の`scope`にリンク
+        scope.linkTo(ourSession)
+
+        // 解決のためにMyActivity1のスコープとourSessionスコープを検索します
+        val userSession = get<UserSession>()
+    }
+}
+class MyActivity2 : ScopeActivity() {
+
+    fun reuseSession(){
+        val ourSession = getKoin().createScope("ourSession",named("session"))
+        
+        // ourSessionスコープを、ScopeActivityまたはScopeFragmentから現在の`scope`にリンク
+        scope.linkTo(ourSession)
+
+        // 解決のためにMyActivity2のスコープとourSessionスコープを検索します
+        val userSession = get<UserSession>()
+    }
+}
