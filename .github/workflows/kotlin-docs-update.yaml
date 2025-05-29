@@ -1,8 +1,8 @@
 name: Kotlin docs update
 
 on:
-#  schedule:
-#    - cron: '0 0 * * 0'  # Run every Sunday at 0:00 UTC (Manual trigger right now because of the convertion is unstable)
+  schedule:
+    - cron: '0 0 * * 0'  # Run every Sunday at 0:00 UTC (Manual trigger right now because of the convertion is unstable)
   workflow_dispatch:  # Allow manual trigger
 
 permissions:
