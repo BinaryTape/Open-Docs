@@ -1,4 +1,4 @@
-import { defineConfig } from 'vitepress'
+import { DefaultTheme, defineConfig } from 'vitepress'
 import markdownItContainer from 'markdown-it-container'
 import markdownItWsCodeGroup from "./markdown-it-ws-code-group";
 import markdownItWsContainer from "./markdown-it-ws-container";
@@ -15,7 +15,7 @@ import markdownItMkLiquidCondition from "./markdown-it-mk-liquid-condition";
 import markdownItMkAdmonition from "./markdown-it-mk-admonitions";
 import markdownItMkCodeTabs from "./markdown-it-mk-code-tabs";
 import markdownItMkLinks from "./markdown-it-mk-links";
-import {DOCS_TYPES, DocsTypeConfig} from './docs.config';
+import { DOCS_TYPES, DocsTypeConfig } from './docs.config';
 import { markdownItRewriteLinks } from './markdown-it-ws-inline-link';
 import { SiteLocaleConfig } from './locales.config';
 import generateSidebarItems from './config/sidebar.config';
@@ -29,19 +29,6 @@ import markdownItMKInclude from "./markdown-it-mk-Include";
 import markdownItRemoveScript from "./markdown-it-remove-script";
 import markdownItRemoveContributeUrl from "./markdown-it-remove-contribute-url";
 import markdownItWsClassstyles from "./markdown-it-ws-classstyles";
-
-const commonThemeConfig = {
-  logo: '/img/logo.png',
-  editLink: {
-    pattern: 'https://github.com/BinaryTape/Open-Docs/blob/main/:path'
-  },
-  socialLinks: [
-    { icon: 'github', link: 'https://github.com/BinaryTape/Open-Docs' }
-  ],
-  footer: {
-    copyright: 'Copyright © 2025 Open AIDoc.'
-  }
-}
 
 const mkDiffGrammarPath = resolve(__dirname, './shiki-mk-diff.json')
 const mkDiffGrammar = JSON.parse(readFileSync(mkDiffGrammarPath, 'utf-8'))
@@ -73,11 +60,30 @@ export default defineConfig({
       liquidIncludePlugin()
     ]
   },
+  themeConfig: {
+    search: {
+      provider: 'algolia',
+      options: {
+        appId: 'KKPT76EMFG',
+        apiKey: '4aa380b300f9018dd16ecfc112c8a786',
+        indexName: 'openaiorg'
+      }
+    },
+    logo: '/img/logo.png',
+    editLink: {
+      pattern: 'https://github.com/BinaryTape/Open-Docs/blob/main/:path'
+    },
+    socialLinks: [
+      { icon: 'github', link: 'https://github.com/BinaryTape/Open-Docs' }
+    ],
+    footer: {
+      copyright: 'Copyright © 2025 Open AIDoc.'
+    }
+  },
   locales: {
     root: {
       ...SiteLocaleConfig['zh-Hans'],
       themeConfig: {
-        ...commonThemeConfig,
         // https://vitepress.dev/reference/default-theme-config
         nav: [
           { text: 'Koin', link: '/koin/setup/koin' },
@@ -95,7 +101,6 @@ export default defineConfig({
       link: "/zh-Hant/",
       ...SiteLocaleConfig['zh-Hant'],
       themeConfig: {
-        ...commonThemeConfig,
         nav: [
           { text: 'Koin', link: 'zh-Hant/koin/setup/koin' },
           { text: 'Kotlin', link: 'zh-Hant/kotlin/getting-started' },
@@ -111,7 +116,6 @@ export default defineConfig({
     ja: {
       ...SiteLocaleConfig['ja'],
       themeConfig: {
-        ...commonThemeConfig,
         nav: [
           { text: 'Koin', link: 'ja/koin/setup/koin' },
           { text: 'Kotlin', link: 'ja/kotlin/getting-started' },
@@ -127,7 +131,6 @@ export default defineConfig({
     ko: {
       ...SiteLocaleConfig['ko'],
       themeConfig: {
-        ...commonThemeConfig,
         nav: [
           { text: 'Koin', link: 'ko/koin/setup/koin' },
           { text: 'Kotlin', link: 'ko/kotlin/getting-started' },
