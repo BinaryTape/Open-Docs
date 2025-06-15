@@ -98,7 +98,7 @@ jobs:
 
       - name: Get changed markdown files for Koin
         id: changed-files-koin
-        if: steps.check-commits.outputs.koin_changed == 'true'
+        if: steps.check-koin-commit.outputs.koin_changed == 'true'
         uses: tj-actions/changed-files@v46.0.3
         with:
           path: koin-repo
@@ -108,7 +108,7 @@ jobs:
 
       - name: Get changed markdown files for Koin-Annotations
         id: changed-files-annotations
-        if: steps.check-commits.outputs.annotations_changed == 'true'
+        if: steps.check-annotations-commit.outputs.annotations_changed == 'true'
         uses: tj-actions/changed-files@v46.0.3
         with:
           path: koin-annotations-repo
