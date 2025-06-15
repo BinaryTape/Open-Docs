@@ -205,8 +205,6 @@ jobs:
         run: |
           git config --global user.name 'github-actions'
           git config --global user.email 'github-actions@github.com'
-          # Pull the latest changes from the remote branch to avoid conflicts
-          git pull --rebase origin ${{ github.head_ref || github.ref_name }}
           # Exclude files and directories that don't need to be committed
           git add . ':!package.json' ':!package-lock.json' ':!koin-repo' ':!koin-repo/**' ':!koin-annotations-repo' ':!koin-annotations-repo/**'
           git commit -m 'Add translated files and update check record'
