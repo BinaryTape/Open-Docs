@@ -11,9 +11,9 @@ Koin은 DSL이자, 경량 컨테이너이며, 실용적인 API입니다. Koin �
 
 Koin 시작하기
 ```kotlin
-// start a KoinApplication in Global context
+// Global 컨텍스트에서 KoinApplication 시작
 startKoin {
-    // declare used modules
+    // 사용될 모듈 선언
     modules(coffeeAppModule)
 }
 ```
@@ -22,12 +22,37 @@ startKoin {
 
 Koin 컨테이너는 다음과 같은 몇 가지 옵션을 가질 수 있습니다.
 
-*   `logger` - 로깅을 활성화합니다. - <<logging.adoc#_logging,logging>> 섹션 참조
-*   `properties()`, `fileProperties( )` 또는 `environmentProperties( )` - 환경, `koin.properties` 파일, 추가 프로퍼티 등에서 프로퍼티를 로드합니다. - <<properties.adoc#_lproperties,properties>> 섹션 참조
+* `logger` - 로깅을 활성화합니다. - [로깅](#logging) 섹션 참조
+* `properties()`, `fileProperties( )` 또는 `environmentProperties( )` - 환경, `koin.properties` 파일, 추가 프로퍼티 등에서 프로퍼티를 로드합니다. - [프로퍼티 로드](#loading-properties) 섹션 참조
 
 :::info
 `startKoin`은 두 번 이상 호출될 수 없습니다. 여러 지점에서 모듈을 로드해야 하는 경우, `loadKoinModules` 함수를 사용하세요.
 :::
+
+### Koin 시작 확장 (KMP 및 기타 재사용성 지원)
+
+Koin은 이제 KoinConfiguration을 위한 재사용 가능하고 확장 가능한 구성 객체를 지원합니다. 공유 구성을 플랫폼(Android, iOS, JVM 등) 간에 사용하거나 다른 환경에 맞게 조정하여 추출할 수 있습니다. 이는 `includes()` 함수로 수행할 수 있습니다. 아래에서 일반적인 구성을 쉽게 재사용하고, Android 환경 설정을 추가하여 확장할 수 있습니다:
+
+```kotlin
+fun initKoin(config : KoinAppDeclaration? = null){
+   startKoin {
+        includes(config) // 외부 구성 확장을 포함할 수 있음
+        modules(appModule)
+   }
+}
+
+class MainApplication : Application() {
+
+    override fun onCreate() {
+        super.onCreate()
+
+        initKoin {
+            androidContext(this@MainApplication)
+            androidLogger()
+        }
+    }
+}
+```
 
 ### 시작 과정의 내부 동작 - Koin 인스턴스
 
@@ -40,7 +65,7 @@ Koin을 시작할 때, Koin 컨테이너 구성 인스턴스를 나타내는 `Ko
 
 `startKoin` 함수를 두 번 이상 호출할 수는 없습니다. 하지만 `loadKoinModules()` 함수를 직접 사용할 수 있습니다.
 
-이 함수는 Koin을 사용하려는 SDK 개발자에게 유용합니다. 왜냐하면 그들은 `starKoin()` 함수를 사용할 필요 없이 라이브러리 시작 시 `loadKoinModules`를 사용하기만 하면 되기 때문입니다.
+이 함수는 Koin을 사용하려는 SDK 개발자에게 유용합니다. 왜냐하면 그들은 `startKoin()` 함수를 사용할 필요 없이 라이브러리 시작 시 `loadKoinModules`를 사용하기만 하면 되기 때문입니다.
 
 ```kotlin
 loadKoinModules(module1,module2 ...)
@@ -68,7 +93,7 @@ Koin 로거
 ```kotlin
 abstract class Logger(var level: Level = Level.INFO) {
 
-    abstract fun log(level: Level, msg: MESSAGE)
+    abstract fun display(level: Level, msg: MESSAGE)
 
     fun debug(msg: MESSAGE) {
         log(Level.DEBUG, msg)
@@ -76,6 +101,10 @@ abstract class Logger(var level: Level = Level.INFO) {
 
     fun info(msg: MESSAGE) {
         log(Level.INFO, msg)
+    }
+
+    fun warn(msg: MESSAGE) {
+        log(Level.WARNING, msg)
     }
 
     fun error(msg: MESSAGE) {
@@ -86,10 +115,10 @@ abstract class Logger(var level: Level = Level.INFO) {
 
 Koin은 대상 플랫폼에 따라 몇 가지 로깅 구현을 제공합니다.
 
-*   `PrintLogger` - 콘솔에 직접 로깅합니다 (`koin-core`에 포함됨)
-*   `EmptyLogger` - 아무것도 로깅하지 않습니다 (`koin-core`에 포함됨)
-*   `SLF4JLogger` - SLF4J를 사용하여 로깅합니다. Ktor 및 Spark에서 사용됩니다 (`koin-logger-slf4j` 프로젝트)
-*   `AndroidLogger` - Android 로거에 로깅합니다 (`koin-android`에 포함됨)
+* `PrintLogger` - 콘솔에 직접 로깅합니다 (`koin-core`에 포함됨)
+* `EmptyLogger` - 아무것도 로깅하지 않습니다 (`koin-core`에 포함됨)
+* `SLF4JLogger` - SLF4J를 사용하여 로깅합니다. Ktor 및 Spark에서 사용됩니다 (`koin-logger-slf4j` 프로젝트)
+* `AndroidLogger` - Android 로거에 로깅합니다 (`koin-android`에 포함됨)
 
 ### 시작 시 로깅 설정
 
@@ -105,9 +134,9 @@ startKoin {
 
 시작 시 다음과 같은 여러 종류의 프로퍼티를 로드할 수 있습니다.
 
-*   환경 프로퍼티 - *시스템* 프로퍼티를 로드합니다.
-*   `koin.properties` 파일 - `/src/main/resources/koin.properties` 파일에서 프로퍼티를 로드합니다.
-*   "추가" 시작 프로퍼티 - `startKoin` 함수에 전달되는 값의 맵입니다.
+* 환경 프로퍼티 - *시스템* 프로퍼티를 로드합니다.
+* `koin.properties` 파일 - `/src/main/resources/koin.properties` 파일에서 프로퍼티를 로드합니다.
+* "추가" 시작 프로퍼티 - `startKoin` 함수에 전달되는 값의 맵입니다.
 
 ### 모듈에서 프로퍼티 읽기
 
@@ -115,8 +144,8 @@ Koin 시작 시 프로퍼티를 로드해야 합니다.
 
 ```kotlin
 startKoin {
-    // Load properties from the default location
-    // (i.e. `/src/main/resources/koin.properties`)
+    // 기본 위치에서 프로퍼티 로드
+    // (예: `/src/main/resources/koin.properties`)
     fileProperties()
 }
 ```
@@ -125,7 +154,7 @@ Koin 모듈에서는 키를 사용하여 프로퍼티를 가져올 수 있습니
 
 `/src/main/resources/koin.properties` 파일에서
 ```java
-// Key - value
+// 키 - 값
 server_url=http://service_url
 ```
 
@@ -134,6 +163,20 @@ server_url=http://service_url
 ```kotlin
 val myModule = module {
 
-    // use the "server_url" key to retrieve its value
+    // "server_url" 키를 사용하여 해당 값 가져오기
     single { MyService(getProperty("server_url")) }
 }
+```
+
+## Koin 옵션 - 기능 플래그 (4.1.0)
+
+이제 Koin 애플리케이션은 전용 `options` 섹션을 통해 일부 실험적 기능을 활성화할 수 있습니다. 예를 들어:
+
+```kotlin
+startKoin {
+    options(
+        // ViewModel Scope 팩토리 기능 활성화 
+        viewModelScopeFactory()
+    )
+}
+```

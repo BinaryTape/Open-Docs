@@ -2,7 +2,7 @@
 title: 在测试中注入
 ---
 
-## 将你的测试标记为 KoinComponent 并使用 KoinTest
+## 使你的测试成为带有 KoinTest 的 KoinComponent
 
 *警告*：这不适用于 Android 仪器化测试。有关使用 Koin 进行仪器化测试，请参阅 [Android 仪器化测试](/docs/reference/koin-android/instrumented-testing.md)
 

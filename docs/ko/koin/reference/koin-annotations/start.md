@@ -2,7 +2,7 @@
 title: Koin Annotations 시작하기
 ---
 
-Koin Annotations 프로젝트의 목표는 Koin 정의를 매우 빠르고 직관적인 방식으로 선언하고, 기저의 모든 Koin DSL을 자동으로 생성하는 것입니다. 이 목표는 Kotlin 컴파일러 덕분에 개발자 경험을 확장하고 빠르게 진행할 수 있도록 돕는 것입니다 🚀.
+Koin Annotations 프로젝트의 목표는 Koin 정의를 매우 빠르고 직관적인 방식으로 선언하고, 기저의 모든 Koin DSL을 자동으로 생성하는 것입니다. Kotlin 컴파일러 덕분에 개발자 경험을 확장하고 빠르게 진행할 수 있도록 돕는 것이 목표입니다 🚀.
 
 ## 시작하기
 
@@ -93,3 +93,15 @@ ksp {
 공식 문서에 설명된 대로 KSP 설정을 따르세요: [KSP with Kotlin Multiplatform](https://kotlinlang.org/docs/ksp-multiplatform.html)
 
 Koin Annotations의 기본 설정이 포함된 [Hello Koin KMP](https://github.com/InsertKoinIO/hello-kmp/tree/annotations) 프로젝트도 확인할 수 있습니다.
+
+### Pro-Guard
+
+Koin Annotations 애플리케이션을 SDK로 임베드하려는 경우, 다음 Pro-Guard 규칙을 살펴보세요:
+
+```
+# 애너테이션 정의 유지
+-keep class org.koin.core.annotation.** { *; }
+
+# Koin 애너테이션이 붙은 클래스 유지  
+-keep @org.koin.core.annotation.* class * { *; }
+```

@@ -2,16 +2,16 @@
 title: 適用於 Jetpack Compose 與 Compose Multiplatform 的 Koin
 ---
 
-本頁面說明您如何為您的 [Android Jetpack Compose](https://developer.android.com/jetpack/compose) 或 [Multiplatform Compose](https://www.jetbrains.com/lp/compose-mpp/) 應用程式注入依賴項。
+本頁面說明您如何為您的 [Android Jetpack Compose](https://developer.android.com/jetpack/compose) 或您的 [Multiplatform Compose](https://www.jetbrains.com/lp/compose-mpp/) 應用程式注入依賴項。
 
-## Koin Compose Multiplatform 與 Koin Android Jetpack Compose
+## Koin Compose Multiplatform 對比 Koin Android Jetpack Compose
 
 自 2024 年年中起，Compose 應用程式可使用 Koin Multiplatform API 進行開發。所有 API 在 Koin Jetpack Compose (koin-androidx-compose) 和 Koin Compose Multiplatform (koin-compose) 之間都是相同的。
 
 ### Compose 應使用哪個 Koin 套件？
 
 對於僅使用 Android Jetpack Compose API 的純 Android 應用程式，請使用以下套件：
-- `koin-androidx-compose` - 解鎖 Compose 基礎 API + Compose ViewModel API
+- `koin-androidx-compose` - 用於解鎖 Compose 基礎 API + Compose ViewModel API
 - `koin-androidx-compose-navigation` - 帶有導航 API 整合的 Compose ViewModel API
 
 對於 Android/Multiplatform 應用程式，請使用以下套件：
@@ -19,34 +19,19 @@ title: 適用於 Jetpack Compose 與 Compose Multiplatform 的 Koin
 - `koin-compose-viewmodel` - Compose ViewModel API
 - `koin-compose-viewmodel-navigation` - 帶有導航 API 整合的 Compose ViewModel API
 
-## 沿用現有 Koin 上下文 (Koin 已啟動)
+## 沿用現有 Koin 上下文
 
-有時候 `startKoin` 函式已經在應用程式中使用，用於啟動 Koin (例如在 Android 主應用程式類別，即 Application 類別中)。在這種情況下，您需要使用 `KoinContext` 或 `KoinAndroidContext` 將當前的 Koin 上下文告知您的 Compose 應用程式。這些函式會重用當前的 Koin 上下文並將其綁定到 Compose 應用程式。
-
-```kotlin
-@Composable
-fun App() {
-    // 將當前的 Koin 實例設定到 Compose 上下文
-    KoinContext() {
-
-        MyScreen()
-    }
-}
-```
-
-:::info
-`KoinAndroidContext` 與 `KoinContext` 之間的區別：
-- `KoinAndroidContext` 會在當前的 Android 應用程式上下文中尋找 Koin 實例
-- `KoinContext` 會在當前的 GlobalContext 中尋找 Koin 實例
-:::
+透過在您的 Compose 應用程式之前使用 `startKoin` 函式，您的應用程式已準備好迎接 Koin 注入。不再需要進行任何設定來配置您的 Compose Koin 上下文。
 
 :::note
-如果您從一個 Composable 中遇到 `ClosedScopeException`，請使用 `KoinContext` 在您的 Composable 上，或者確保有正確的 Koin 啟動配置 [與 Android 上下文](/docs/reference/koin-android/start.md#from-your-application-class)。
+`KoinContext` 和 `KoinAndroidContext` 已棄用。
 :::
 
 ## 使用 Compose 應用程式啟動 Koin - KoinApplication
 
-`KoinApplication` 函式可以幫助您以 Composable 的形式建立 Koin 應用程式實例：
+如果您無法存取可以執行 `startKoin` 函式的空間，您可以依賴 Compose 和 Koin 來啟動您的 Koin 配置。
+
+`KoinApplication` 可組合函式有助於建立 Koin 應用程式實例，作為一個 Composable：
 
 ```kotlin
 @Composable
@@ -68,22 +53,22 @@ fun App() {
 :::
 
 :::note
-這取代了經典 `startKoin` 應用程式函式的使用。
+(實驗性 API)
+您可以使用 `KoinMultiplatformApplication` 來取代多平台進入點：它與 `KoinApplication` 相同，但會自動為您注入 `androidContext` 和 `androidLogger`。
 :::
 
-### 使用 Koin 進行 Compose 預覽
+## 使用 KoinApplicationPreview 進行 Compose 預覽
 
-`KoinApplication` 函式對於啟動專用預覽上下文很有趣。這也可以用於幫助 Compose 預覽：
+`KoinApplicationPreview` 可組合函式專門用於預覽 Composable：
 
 ```kotlin
+@Preview(name = "1 - Pixel 2 XL", device = Devices.PIXEL_2_XL, locale = "en")
+@Preview(name = "2 - Pixel 5", device = Devices.PIXEL_5, locale = "en", uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Preview(name = "3 - Pixel 7 ", device = Devices.PIXEL_7, locale = "ru", uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
-@Preview
-fun App() {
-    KoinApplication(application = {
-        // 您的預覽配置在此
-        modules(previewModule)
-    }) {
-        // 使用 Koin 預覽的 Compose
+fun previewVMComposable(){
+    KoinApplicationPreview(application = { modules(appModule) }) {
+        ViewModelComposable()
     }
 }
 ```
@@ -176,6 +161,18 @@ fun App(vm : MyViewModel = koinViewModel()) {
 Lazy API 不支援 Jetpack Compose 的更新。
 :::
 
+### 共享 Activity ViewModel (4.1 - Android)
+
+您現在可以使用 `koinActivityViewModel()` 從相同的 ViewModel 宿主：Activity 中注入 ViewModel。
+
+```kotlin
+@Composable
+fun App() {
+    // 將 ViewModel 實例保留在 Activity 層級
+    val vm = koinActivityViewModel<MyViewModel>()
+}
+```
+
 ### ViewModel 與 SavedStateHandle 適用於 @Composable
 
 您可以有一個 `SavedStateHandle` 建構函式參數，它將根據 Compose 環境（導航返回堆疊或 ViewModel）進行注入。
@@ -210,6 +207,24 @@ class DetailViewModel(
 :::note
 關於 SavedStateHandle 注入差異的更多詳細資訊：https://github.com/InsertKoinIO/koin/issues/1935#issuecomment-2362335705
 :::
+
+### 共享 ViewModel 與導航 (實驗性)
+
+Koin Compose Navigation 現在有一個 `NavBackEntry.sharedKoinViewModel()` 函式，用於檢索已儲存在當前 `NavBackEntry` 中的 ViewModel。在您的導航部分，只需使用 `sharedKoinViewModel`：
+
+```kotlin
+navigation<Route.BookGraph>(
+                startDestination = Route.BookList
+            ) {
+                composable<Route.BookList>(
+                    exitTransition = { slideOutHorizontally() },
+                    popEnterTransition = { slideInHorizontally() }
+                ) {
+                    // 在此使用 SharedViewModel ...
+
+                    val selectedBookViewModel =
+                        it.sharedKoinViewModel<SelectedBookViewModel>(navController)
+```
 
 ## 模組載入與卸載與 Composable 綁定
 

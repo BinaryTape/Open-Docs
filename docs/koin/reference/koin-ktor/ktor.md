@@ -19,9 +19,37 @@ fun Application.main() {
 }
 ```
 
+### 兼容 Ktor 的 DI (4.1)
+
+Koin 4.1 完全支持新的 Ktor 3.2！
+
+我们提取了 `CoreResolver` 来抽象 Koin 的解析规则，并允许通过 `ResolutionExtension` 进行扩展。我们添加了新的 `KtorDIExtension` 作为 Ktor 的 `ResolutionExtension`，以帮助 Koin 解析 Ktor 默认的 DI 实例。
+
+Koin Ktor 插件会自动设置 Ktor DI 集成。下面，你可以看到如何从 Koin 中消费 Ktor 依赖项：
+```kotlin
+// 让我们定义一个 Ktor 对象
+fun Application.setupDatabase(config: DbConfig) {
+    // ...
+    dependencies {
+        provide<Database> { database }
+    }
+}
+```
+
+```kotlin
+// 让我们将其注入到 Koin 定义中
+class CustomerRepositoryImpl(private val database: Database) : CustomerRepository
+
+    fun Application.customerDataModule() {
+        koinModule {
+            singleOf(::CustomerRepositoryImpl) bind CustomerRepository::class
+        }
+}
+```
+
 ## 在 Ktor 中注入
 
-Koin 的 `inject()` 和 `get()` 函数可从 `Application`、`Route`、`Routing` 类中获得：
+Koin 的 `inject()` 和 `get()` 函数可从 `Application`、`Route` 和 `Routing` 类中获得：
 
 ```kotlin
 fun Application.main() {
@@ -37,7 +65,7 @@ fun Application.main() {
 }
 ```
 
-### 从 Ktor 请求作用域中解析 (4.1.0 起)
+### 从 Ktor 请求作用域中解析 (4.1 起)
 
 您可以声明组件使其在 Ktor 请求作用域的生命周期内存在。为此，您只需在 `requestScope` 部分中声明您的组件。假设有一个要在 Ktor Web 请求作用域上实例化的 `ScopeComponent` 类，我们来声明它：
 
@@ -58,22 +86,26 @@ routing {
 }
 ```
 
+这允许您的作用域依赖项将 `ApplicationCall` 解析为作用域的解析源。您可以直接将其注入到构造函数中：
+
+```kotlin
+class ScopeComponent(val call : ApplicationCall) {
+}
+```
+
 :::note
 对于每个新请求，作用域都将被重新创建。这会为每个请求创建并销毁作用域实例。
 :::
 
-### 从外部 Ktor 模块运行 Koin
+### 在 Ktor 模块中声明 Koin 模块 (4.1)
 
-对于一个 Ktor 模块，您可以加载特定的 Koin 模块。只需使用 `koin { }` 函数来声明它们：
+直接在您的应用设置中使用 `Application.koinModule {}` 或 `Application.koinModules()`，以在 Ktor 模块中声明新的模块：
 
 ```kotlin
-fun Application.module2() {
-
-    koin {
-        // load koin modules
-        modules(appModule2)
+fun Application.customerDataModule() {
+    koinModule {
+        singleOf(::CustomerRepositoryImpl) bind CustomerRepository::class
     }
-
 }
 ```
 
@@ -87,16 +119,17 @@ fun Application.main() {
 
     // Install Ktor features
     environment.monitor.subscribe(KoinApplicationStarted) {
-        log.info("Koin started.")
+        log.info("Koin 已启动。")
     }
 
     environment.monitor.subscribe(KoinApplicationStopPreparing) {
-        log.info("Koin stopping...")
+        log.info("Koin 正在停止...")
     }
 
     environment.monitor.subscribe(KoinApplicationStopped) {
-        log.info("Koin stopped.")
+        log.info("Koin 已停止。")
     }
 
     //...
 }
+```

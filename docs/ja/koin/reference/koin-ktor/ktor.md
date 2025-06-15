@@ -19,14 +19,43 @@ fun Application.main() {
 }
 ```
 
+### KtorのDIとの互換性 (4.1)
+
+Koin 4.1は、新しいKtor 3.2を完全にサポートしています！
+
+Koinの解決ルールを抽象化し、`ResolutionExtension`による拡張を可能にするために、`CoreResolver`を抽出しました。KoinがKtorのデフォルトDIインスタンスを解決するのを助けるために、新しい`KtorDIExtension`をKtorの`ResolutionExtension`として追加しました。
+
+Koin Ktorプラグインは、Ktor DI統合を自動的にセットアップします。以下に、KoinからKtorの依存性を消費する方法を示します。
+
+```kotlin
+// Ktorオブジェクトを定義しましょう
+fun Application.setupDatabase(config: DbConfig) {
+    // ...
+    dependencies {
+        provide<Database> { database }
+    }
+}
+```
+
+```kotlin
+// Koinの定義に注入しましょう
+class CustomerRepositoryImpl(private val database: Database) : CustomerRepository
+
+    fun Application.customerDataModule() {
+        koinModule {
+            singleOf(::CustomerRepositoryImpl) bind CustomerRepository::class
+        }
+}
+```
+
 ## Ktorでの注入
 
-Koinの`inject()`および`get()`関数は、`Application`、`Route`、`Routing`クラスから利用可能です。
+Koinの`inject()`および`get()`関数は、`Application`、`Route`、および`Routing`クラスから利用可能です。
 
 ```kotlin
 fun Application.main() {
 
-    // inject HelloService
+    // HelloServiceを注入
     val service by inject<HelloService>()
 
     routing {
@@ -37,7 +66,7 @@ fun Application.main() {
 }
 ```
 
-### Ktorリクエストスコープからの解決 (4.1.0以降)
+### Ktorリクエストスコープからの解決 (4.1以降)
 
 Ktorリクエストスコープのライフサイクル内で存続するコンポーネントを宣言できます。そのためには、`requestScope`セクション内にコンポーネントを宣言するだけです。Ktorウェブ・リクエストスコープでインスタンス化する`ScopeComponent`クラスがある場合、次のように宣言します。
 
@@ -58,22 +87,26 @@ routing {
 }
 ```
 
+これにより、スコープ化された依存性が、解決のスコープのソースとして`ApplicationCall`を解決できるようになります。コンストラクタに直接注入できます。
+
+```kotlin
+class ScopeComponent(val call : ApplicationCall) {
+}
+```
+
 :::note
 新しいリクエストごとにスコープが再作成されます。これにより、リクエストごとにスコープインスタンスが作成および破棄されます。
 :::
 
-### 外部KtorモジュールからのKoinの実行
+### Ktorモジュール内でKoinモジュールを宣言 (4.1)
 
-Ktorモジュールの場合、特定のKoinモジュールをロードできます。`koin { }`関数でそれらを宣言するだけです。
+`Application.koinModule {}`または`Application.koinModules()`をアプリのセットアップ内で直接使用し、Ktorモジュール内で新しいモジュールを宣言します。
 
 ```kotlin
-fun Application.module2() {
-
-    koin {
-        // load koin modules
-        modules(appModule2)
+fun Application.customerDataModule() {
+    koinModule {
+        singleOf(::CustomerRepositoryImpl) bind CustomerRepository::class
     }
-
 }
 ```
 

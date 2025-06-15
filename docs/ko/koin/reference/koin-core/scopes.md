@@ -4,7 +4,7 @@ title: 스코프
 
 Koin은 제한된 수명에 묶인 인스턴스를 정의할 수 있는 간단한 API를 제공합니다.
 
-## 스코프(Scope)란 무엇인가요?
+## 스코프란 무엇인가요?
 
 스코프는 객체가 존재하는 고정된 시간 기간 또는 메서드 호출을 의미합니다.
 다른 관점에서 보면, 스코프는 객체의 상태가 지속되는 기간으로 생각할 수 있습니다.
@@ -212,3 +212,24 @@ val b = a.scope.get<B>()
 a.scope.linkTo(b.scope)
 // A 또는 B 스코프로부터 동일한 C 인스턴스를 얻습니다
 assertTrue(a.scope.get<C>() == b.scope.get<C>())
+```
+
+### 스코프 아키타입(Archetypes)
+
+스코프 "아키타입"은 일반적인 종류의 클래스를 위한 스코프 공간입니다. 예를 들어, 안드로이드(Android) (Activity, Fragment, ViewModel) 또는 Ktor (RequestScope)를 위한 스코프 아키타입을 가질 수 있습니다.
+스코프 아키타입은 주어진 타입에 대한 스코프 공간을 요청하기 위해 다양한 API에 전달되는 Koin의 `TypeQualifier`입니다.
+
+아키타입은 다음으로 구성됩니다:
+- 모듈 DSL 확장: 주어진 타입에 대한 스코프를 선언하기 위한
+```kotlin
+// ActivityScopeArchetype (TypeQualifier(AppCompatActivity::class))에 대한 스코프 아키타입 선언
+fun Module.activityScope(scopeSet: ScopeDSL.() -> Unit) {
+    val qualifier = ActivityScopeArchetype
+    ScopeDSL(qualifier, this).apply(scopeSet)
+}
+```
+- 주어진 특정 스코프 아키타입 `TypeQualifier`로 스코프를 요청하는 API:
+```kotlin
+// ActivityScopeArchetype 아키타입으로 스코프 생성
+val scope = getKoin().createScope(getScopeId(), getScopeName(), this, ActivityScopeArchetype)
+```

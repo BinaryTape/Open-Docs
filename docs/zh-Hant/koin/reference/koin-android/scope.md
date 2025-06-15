@@ -1,10 +1,10 @@
 ---
-title: 管理 Android 作用域
+title: Android 作用域
 ---
 
-## 處理 Android 生命周期
+## 處理 Android 生命週期
 
-Android 組件主要由其生命週期管理：我們無法直接實例化 Activity 或 Fragment。系統為我們執行所有建立和管理，並在方法中進行回呼 (callbacks)：`onCreate`、`onStart` 等。
+Android 組件主要由其生命週期管理：我們無法直接實例化 Activity 或 Fragment。系統為我們執行所有建立和管理，並在方法中進行回呼：`onCreate`、`onStart` 等。
 
 這就是為什麼我們無法在 Koin 模組中描述我們的 Activity/Fragment/Service。因此，我們需要將依賴注入到屬性中，並同時尊重生命週期：與 UI 部分相關的組件在我們不再需要它們時必須立即釋放。
 
@@ -67,9 +67,15 @@ class MyAdapter(val presenter : MyPresenter)
 module {
   // Declare scope for MyActivity
   scope<MyActivity> {
-    // get MyPresenter instance from current scope 
-    scoped { MyAdapter(get()) }
-    scoped { MyPresenter() }
+   // get MyPresenter instance from current scope 
+   scoped { MyAdapter(get()) }
+   scoped { MyPresenter() }
+  }
+ 
+  // 或
+  activityScope {
+   scoped { MyAdapter(get()) }
+   scoped { MyPresenter() }
   }
 }
 ```
@@ -158,86 +164,131 @@ class MyActivity() : AppCompatActivity(contentLayoutId), AndroidScopeComponent {
 如果您嘗試從 `onDestroy()` 函數訪問作用域，作用域將已被關閉。
 :::
 
-### ViewModel 作用域 (自 3.5.4 版起)
+### 作用域原型 (4.1.0)
+
+作為一項新功能，您現在可以透過 **原型** 來宣告作用域：您不需要針對特定類型定義作用域，而是針對一個「原型」(一種作用域類別)。您可以為「Activity」、「Fragment」或「ViewModel」宣告作用域。
+您現在可以使用以下 DSL 區塊：
+
+```kotlin
+module {
+ activityScope {
+  // 為一個 Activity 作用域化的實例
+ }
+
+ activityRetainedScope {
+  // 為一個 Activity 作用域化的實例，保留作用域
+ }
+
+ fragmentScope {
+  // 為 Fragment 作用域化的實例
+ }
+
+ viewModelScope {
+  // 為 ViewModel 作用域化的實例
+ }
+}
+```
+
+這使得在不同作用域之間更容易重用定義。除了您需要在精確物件上作用域外，無需使用像 `scope<>{ }` 這樣的特定類型。
+
+:::info
+請參閱 [Android 作用域 API](#android-scope-api)，了解如何使用 `by activityScope()`、`by activityRetainedScope()` 和 `by fragmentScope()` 函數來啟用您的 Android 作用域。這些函數將觸發作用域原型。
+:::
+
+例如，您可以使用作用域原型輕鬆地將定義作用域到一個 Activity 中，如下所示：
+
+```kotlin
+// 在 Activity 作用域中宣告 Session 類別
+module {
+ activityScope {
+    scopedOf(::Session)
+ }
+}
+
+// 將作用域化的 Session 物件注入到 Activity 中：
+class MyActivity : AppCompatActivity(), AndroidScopeComponent {
+    
+    // 建立 Activity 的作用域
+    val scope: Scope by activityScope() 
+    
+    // 從上方作用域注入
+    val session: Session by inject()
+}
+```
+
+### ViewModel 作用域 (於 4.1.0 更新)
 
 ViewModel 僅針對根作用域建立，以避免任何洩漏 (洩漏 Activity 或 Fragment 等)。這為可見性問題提供了保護，因為 ViewModel 可能會訪問不相容的作用域。
 
 :::warn
 ViewModel 無法訪問 Activity 或 Fragment 作用域。為什麼？因為 ViewModel 的生命週期比 Activity 和 Fragment 更長，因此它會將依賴項洩漏到適當作用域之外。
+如果您需要從 ViewModel 作用域外部橋接 (bridge) 依賴項，您可以使用「注入參數」(injected parameters) 將一些物件傳遞給您的 ViewModel：`viewModel { p -> }`
 :::
 
-:::note
-如果您**確實**需要從 ViewModel 作用域外部橋接 (bridge) 依賴項，您可以使用「注入參數」(injected parameters) 將一些物件傳遞給您的 ViewModel：`viewModel { p -> }`
-:::
-
-`ScopeViewModel` 是一個新的類別，用於幫助在 ViewModel 作用域上工作。它處理 ViewModel 作用域的建立，並提供 `scope` 屬性以允許使用 `by scope.inject()` 注入：
+請依照以下方式宣告您的 ViewModel 作用域，將其綁定到您的 ViewModel 類別或使用 `viewModelScope` DSL 區塊：
 
 ```kotlin
 module {
     viewModelOf(::MyScopeViewModel)
+    // 僅用於 MyScopeViewModel 的作用域
     scope<MyScopeViewModel> {
         scopedOf(::Session)
-    }    
-}
-
-class MyScopeViewModel : ScopeViewModel() {
-
-    // on onCleared, scope is closed
-    
-    // injected from current MyScopeViewModel's scope
-    val session by scope.inject<Session>()
-
+    }
+    // ViewModel 原型作用域 - 所有 ViewModel 的作用域
+    viewModelScope {
+        scopedOf(::Session)
+    }
 }
 ```
 
-透過使用 `ScopeViewModel`，您還可以覆寫 `onCloseScope()` 函數，以便在作用域關閉之前執行程式碼。
+一旦您宣告了您的 ViewModel 和作用域化的組件，您可以_在以下選項中選擇_：
+- 手動 API - 手動使用 `KoinScopeComponent` 和 `viewModelScope` 函數。這將處理您所建立的 ViewModel 作用域的建立和銷毀。但是，您將必須透過欄位注入您的作用域定義，因為您需要依賴 `scope` 屬性來注入您的作用域定義：
+```kotlin
+class MyScopeViewModel : ViewModel(), KoinScopeComponent {
+    
+    // 建立 ViewModel 作用域
+    override val scope: Scope = viewModelScope()
+    
+    // 使用上方作用域注入 session
+    val session: Session by inject()
+}
+```
+- 自動作用域建立
+    - 啟用 `viewModelScopeFactory` 選項 (請參閱 [Koin 選項](../koin-core/start-koin.md#koin-options---feature-flagging)) 以在運行時自動建立 ViewModel 作用域。
+    - 這允許使用建構函數注入
+```kotlin
+// 啟用 ViewModel 作用域工廠
+startKoin {
+    options(
+        viewModelScopeFactory()
+    )
+}
 
-:::note
-ViewModel 作用域內的所有實例都具有相同的可見性，並將在 ViewModel 實例的生命週期內存在，直到呼叫 ViewModel 的 `onCleared` 函數。
-:::
+// 作用域在工廠層級自動建立，在注入之前
+class MyScopeViewModel(val session: Session) : ViewModel()
+```
 
-例如，一旦 Activity 或 fragment 建立了一個 ViewModel，就會建立關聯的作用域：
+現在只需從您的 Activity 或 Fragment 呼叫您的 ViewModel：
 
 ```kotlin
 class MyActivity : AppCompatActivity() {
-
-    // Create ViewModel and its scope
-    val myViewModel by viewModel<MyScopeViewModel>()
-
-}
-```
-
-一旦您的 ViewModel 被建立，此作用域內的所有相關依賴項都可以被建立和注入。
-
-如果沒有 `ScopeViewModel` 類別，要手動實作您的 ViewModel 作用域，請按以下步驟操作：
-
-```kotlin
-class MyScopeViewModel : ViewModel(), KoinScopeComponent {
-
-    override val scope: Scope = createScope(this)
-
-    // inject your dependency
-    val session by scope.inject<Session>()
-
-    // clear scope
-    override fun onCleared() {
-        super.onCleared()
-        scope.close()
-    }
+    
+    // 建立 MyScopeViewModel 實例，並分配 MyScopeViewModel 的作用域
+    val vieModel: MyScopeViewModel by viewModel()
 }
 ```
 
 ## 作用域連結
 
-作用域連結 (Scope Links) 允許在具有自訂作用域的組件之間共享實例。
+作用域連結允許在具有自訂作用域的組件之間共享實例。預設情況下，Fragment 的作用域會連結到父 Activity 作用域。
 
 在更廣泛的用法中，您可以在組件之間使用 `Scope` 實例。例如，如果我們需要共享一個 `UserSession` 實例。
 
-首先宣告一個作用域定義：
+首先，宣告一個作用域定義：
 
 ```kotlin
 module {
-    // Shared user session data
+    // 共享使用者會話資料
     scope(named("session")) {
         scoped { UserSession() }
     }
@@ -249,7 +300,7 @@ module {
 ```kotlin
 val ourSession = getKoin().createScope("ourSession",named("session"))
 
-// link ourSession scope to current `scope`, from ScopeActivity or ScopeFragment
+// 將 ourSession 作用域連結到當前 `scope`，來自 ScopeActivity 或 ScopeFragment
 scope.linkTo(ourSession)
 ```
 
@@ -261,10 +312,10 @@ class MyActivity1 : ScopeActivity() {
     fun reuseSession(){
         val ourSession = getKoin().createScope("ourSession",named("session"))
         
-        // link ourSession scope to current `scope`, from ScopeActivity or ScopeFragment
+        // 將 ourSession 作用域連結到當前 `scope`，來自 ScopeActivity 或 ScopeFragment
         scope.linkTo(ourSession)
 
-        // will look at MyActivity1's Scope + ourSession scope to resolve
+        // 將查看 MyActivity1 的作用域 + ourSession 作用域來解析
         val userSession = get<UserSession>()
     }
 }
@@ -273,10 +324,11 @@ class MyActivity2 : ScopeActivity() {
     fun reuseSession(){
         val ourSession = getKoin().createScope("ourSession",named("session"))
         
-        // link ourSession scope to current `scope`, from ScopeActivity or ScopeFragment
+        // 將 ourSession 作用域連結到當前 `scope`，來自 ScopeActivity 或 ScopeFragment
         scope.linkTo(ourSession)
 
-        // will look at MyActivity2's Scope + ourSession scope to resolve
+        // 將查看 MyActivity2 的作用域 + ourSession 作用域來解析
         val userSession = get<UserSession>()
     }
 }
+```
