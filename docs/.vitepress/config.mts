@@ -71,7 +71,7 @@ export default defineConfig({
     },
     logo: '/img/logo.png',
     editLink: {
-      pattern: 'https://github.com/BinaryTape/Open-Docs/blob/main/:path'
+      pattern: 'https://github.com/BinaryTape/Open-Docs/blob/main/docs/:path'
     },
     socialLinks: [
       { icon: 'github', link: 'https://github.com/BinaryTape/Open-Docs' }
