@@ -8,11 +8,11 @@ Koin 是一个 DSL、一个轻量级容器和一个实用 API。一旦你在 Koi
 
 `startKoin` 函数是启动 Koin 容器的主要入口点。它需要一个 *Koin 模块列表* 来运行。模块被加载后，定义就准备好被 Koin 容器解析了。
 
-启动 Koin
+.启动 Koin
 ```kotlin
-// 在全局上下文 (Global context) 中启动 KoinApplication
+// start a KoinApplication in Global context
 startKoin {
-    // 声明使用的模块
+    // declare used modules
     modules(coffeeAppModule)
 }
 ```
@@ -21,17 +21,41 @@ startKoin {
 
 你的 Koin 容器可以有几个选项：
 
-*   `logger` - 用于启用日志记录 - 参阅 <<logging.adoc#_logging,日志记录>> 部分
-*   `properties()`、`fileProperties()` 或 `environmentProperties()` - 用于从环境变量、koin.properties 文件、额外属性等加载属性 - 参阅 <<properties.adoc#_lproperties,属性>> 部分
+*   `logger` - 用于启用日志记录 - 参阅 [日志记录](#logging) 部分
+*   `properties()`、`fileProperties()` 或 `environmentProperties()` - 用于从环境变量、koin.properties 文件、额外属性等加载属性 - 参阅 [加载属性](#loading-properties) 部分
 
 :::info
 `startKoin` 不能被调用超过一次。如果你需要多个加载模块的时机，请使用 `loadKoinModules` 函数。
 :::
 
+### 扩展 Koin 启动（有助于 KMP 及其他方面的重用）
+
+Koin 现在支持 KoinConfiguration 的可重用和可扩展配置对象。你可以提取共享配置，以便跨平台（Android、iOS、JVM 等）使用，或根据不同环境进行定制。这可以通过 `includes()` 函数完成。下面，我们可以轻松重用一个通用配置，并对其进行扩展以添加一些 Android 环境设置：
+
+```kotlin
+fun initKoin(config : KoinAppDeclaration? = null){
+   startKoin {
+        includes(config) //can include external configuration extension
+        modules(appModule)
+   }
+}
+
+class MainApplication : Application() {
+
+    override fun onCreate() {
+        super.onCreate()
+
+        initKoin {
+            androidContext(this@MainApplication)
+            androidLogger()
+        }
+    }
+}
+```
+
 ### 启动背后 - Koin 实例的幕后
 
-当我们启动 Koin 时，我们会创建一个 `KoinApplication` 实例，它代表 Koin 容器的配置实例。一旦启动，它将根据你的模块和选项生成一个 `Koin` 实例。
-这个 `Koin` 实例随后由 `GlobalContext` 持有，供任何 `KoinComponent` 类使用。
+当我们启动 Koin 时，我们会创建一个 `KoinApplication` 实例，它代表 Koin 容器的配置实例。一旦启动，它将根据你的模块和选项生成一个 `Koin` 实例。这个 `Koin` 实例随后由 `GlobalContext` 持有，供任何 `KoinComponent` 类使用。
 
 `GlobalContext` 是 Koin 默认的 JVM 上下文策略。它由 `startKoin` 调用并注册到 `GlobalContext`。这将使我们能够注册不同类型的上下文，以支持 Koin 多平台 (Multiplatform)。
 
@@ -39,7 +63,7 @@ startKoin {
 
 你不能调用 `startKoin` 函数超过一次。但你可以直接使用 `loadKoinModules()` 函数。
 
-这个函数对于想要使用 Koin 的 SDK 开发者来说很有用，因为他们不需要使用 `starKoin()` 函数，而只需在他们的库启动时使用 `loadKoinModules`。
+这个函数对于想要使用 Koin 的 SDK 开发者来说很有用，因为他们不需要使用 `startKoin()` 函数，而只需在他们的库启动时使用 `loadKoinModules`。
 
 ```kotlin
 loadKoinModules(module1,module2 ...)
@@ -55,8 +79,7 @@ unloadKoinModules(module1,module2 ...)
 
 ### 停止 Koin - 关闭所有资源
 
-你可以关闭所有 Koin 资源并丢弃实例和定义。为此，你可以从任何地方使用 `stopKoin()` 函数来停止 Koin 的 `GlobalContext`。
-否则，在 `KoinApplication` 实例上，只需调用 `close()`。
+你可以关闭所有 Koin 资源并丢弃实例和定义。为此，你可以从任何地方使用 `stopKoin()` 函数来停止 Koin 的 `GlobalContext`。否则，在 `KoinApplication` 实例上，只需调用 `close()`。
 
 ## 日志记录
 
@@ -67,7 +90,7 @@ Koin 日志器
 ```kotlin
 abstract class Logger(var level: Level = Level.INFO) {
 
-    abstract fun log(level: Level, msg: MESSAGE)
+    abstract fun display(level: Level, msg: MESSAGE)
 
     fun debug(msg: MESSAGE) {
         log(Level.DEBUG, msg)
@@ -75,6 +98,10 @@ abstract class Logger(var level: Level = Level.INFO) {
 
     fun info(msg: MESSAGE) {
         log(Level.INFO, msg)
+    }
+
+    fun warn(msg: MESSAGE) {
+        log(Level.WARNING, msg)
     }
 
     fun error(msg: MESSAGE) {
@@ -114,8 +141,8 @@ startKoin {
 
 ```kotlin
 startKoin {
-    // 从默认位置加载属性
-    // (即 `/src/main/resources/koin.properties`)
+    // Load properties from the default location
+    // (i.e. `/src/main/resources/koin.properties`)
     fileProperties()
 }
 ```
@@ -124,7 +151,7 @@ startKoin {
 
 在 /src/main/resources/koin.properties 文件中
 ```java
-// 键 - 值
+// Key - value
 server_url=http://service_url
 ```
 
@@ -133,6 +160,20 @@ server_url=http://service_url
 ```kotlin
 val myModule = module {
 
-    // 使用 "server_url" 键来检索其值
+    // use the "server_url" key to retrieve its value
     single { MyService(getProperty("server_url")) }
 }
+```
+
+## Koin 选项 - 功能标记 (4.1.0)
+
+你的 Koin 应用程序现在可以通过一个专用的 `options` 部分激活一些实验性功能，例如：
+
+```kotlin
+startKoin {
+    options(
+        // activate ViewModel Scope factory feature
+        viewModelScopeFactory()
+    )
+}
+```

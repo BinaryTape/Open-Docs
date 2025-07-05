@@ -84,10 +84,10 @@ module {
 class A : KoinScopeComponent {
     override val scope: Scope by lazy { newScope(this) }
 
-    // resolve B as inject
+    // Bをインジェクトとして解決
     val b : B by inject() // スコープからインジェクト
 
-    // Resolve B
+    // Bを解決
     fun doSomething(){
         val b = get<B>()
     }
@@ -212,3 +212,23 @@ val b = a.scope.get<B>()
 a.scope.linkTo(b.scope)
 // AまたはBのスコープから同じCインスタンスを取得できます
 assertTrue(a.scope.get<C>() == b.scope.get<C>())
+```
+
+### スコープアーキタイプ
+
+スコープ「アーキタイプ」は、汎用的な種類のクラスのためのスコープ空間です。例えば、Android（Activity、Fragment、ViewModel）やKtor（RequestScope）用のスコープアーキタイプを持つことができます。
+スコープアーキタイプは、特定のスコープ空間を要求するために、Koinの`TypeQualifier`が様々なAPIに渡されるものです。
+
+アーキタイプは以下から構成されます。
+- 特定の型に対してスコープを宣言するための、モジュールDSL拡張：
+```kotlin
+// ActivityScopeArchetype (TypeQualifier(AppCompatActivity::class)) のスコープアーキタイプを宣言
+fun Module.activityScope(scopeSet: ScopeDSL.() -> Unit) {
+    val qualifier = ActivityScopeArchetype
+    ScopeDSL(qualifier, this).apply(scopeSet)
+}
+```
+- 指定された特定のスコープアーキタイプ `TypeQualifier` を持つスコープを要求するAPI：
+```kotlin
+// ActivityScopeArchetype アーキタイプでスコープを作成
+val scope = getKoin().createScope(getScopeId(), getScopeName(), this, ActivityScopeArchetype)

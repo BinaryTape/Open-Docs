@@ -2,7 +2,7 @@
 title: 建構函式 DSL
 ---
 
-Koin 現在提供了一種新型的 DSL 關鍵字，允許你直接指定類別建構函式，並避免在 Lambda 表達式中定義。
+Koin 現在提供一種新型的 DSL 關鍵字，允許你直接指定類別建構函式，並避免在 Lambda 表達式中定義。
 
 對於具有以下依賴項的 `ClassA` 類別：
 
@@ -12,7 +12,7 @@ class ClassB()
 class ClassC()
 ```
 
-你現在可以直接指定 `類別建構函式` 來宣告這些元件：
+你現在可以直接宣告這些元件，直接指定 `類別建構函式`：
 
 ```kotlin
 module {
@@ -40,9 +40,9 @@ module {
 
 以下關鍵字可用於從建構函式建立你的定義：
 
-*   `factoryOf` - 等同於 `factory { }` - factory 定義
-*   `singleOf` - 等同於 `single { }` - single 定義
-*   `scopedOf` - 等同於 `scoped { }` - scoped 定義
+* `factoryOf` - 等同於 `factory { }` - factory 定義
+* `singleOf` - 等同於 `single { }` - single 定義
+* `scopedOf` - 等同於 `scoped { }` - scoped 定義
 
 :::info
 務必不要在你的建構函式中使用任何預設值，因為 Koin 會嘗試用它填充每個參數。
@@ -65,11 +65,11 @@ module {
 
 此 lambda 中提供了常用選項和 DSL 關鍵字：
 
-*   `named("a_qualifier")` - 為定義提供一個字串限定符
-*   `named<MyType>()` - 為定義提供一個類型限定符
-*   `bind<MyInterface>()` - 為給定的 bean 定義添加要綁定的類型
-*   `binds(listOf(...))` - 為給定的 bean 定義添加類型列表
-*   `createdAtStart()` - 在 Koin 啟動時建立單例實例
+* `named("a_qualifier")` - 為定義提供一個字串限定符
+* `named<MyType>()` - 為定義提供一個類型限定符
+* `bind<MyInterface>()` - 為給定的 bean 定義添加要綁定的類型
+* `binds(listOf(...))` - 為給定的 bean 定義添加類型列表
+* `createdAtStart()` - 在 Koin 啟動時建立單例實例
 
 你也可以使用 `bind` 或 `binds` 運算符，而無需任何 lambda：
 

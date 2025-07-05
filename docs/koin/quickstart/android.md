@@ -31,7 +31,7 @@ dependencies {
 
 该应用程序的构想是管理用户列表，并使用 Presenter 或 ViewModel 在我们的 `MainActivity` 类中显示它：
 
-> Users -> UserRepository -> (Presenter 或 ViewModel) -> MainActivity
+> Users -> UserRepository -> (Presenter or ViewModel) -> MainActivity
 
 ## “用户”数据
 

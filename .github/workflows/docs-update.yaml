@@ -1,0 +1,36 @@
+name: Docs update
+
+on:
+  schedule:
+    - cron: "0 0 * * 0" # Run every Sunday at 0:00 UTC
+  workflow_dispatch: # Allow manual trigger
+
+permissions:
+  contents: write
+
+jobs:
+  koin-docs-update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout main repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "18"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm install execa fs-extra glob @google/genai
+
+      - name: Run Update and Translation Script
+        env:
+          GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
+        run: node .github/scripts/sync-docs.mjs
+
+      - name: Create Summary
+        if: always()
+        run: echo "Workflow finished. Check logs for details." >> $GITHUB_STEP_SUMMARY

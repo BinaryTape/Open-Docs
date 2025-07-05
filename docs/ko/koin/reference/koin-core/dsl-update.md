@@ -54,8 +54,8 @@ Koin이 모든 매개변수를 해당 값으로 채우려고 시도하므로, �
 
 ```kotlin
 module {
-    singleOf(::ClassA) {
-        // 정의 옵션
+    singleOf(::ClassA) { 
+        // definition options
         named("my_qualifier")
         bind<InterfaceA>()
         createdAtStart()

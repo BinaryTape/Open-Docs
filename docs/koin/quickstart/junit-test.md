@@ -16,10 +16,10 @@ title: JUnit 测试
 
 ```groovy
 dependencies {
-    // Koin testing tools
-    testCompile "io.insert-koin:koin-test:$koin_version"
-    // Needed JUnit version
-    testCompile "io.insert-koin:koin-test-junit4:$koin_version"
+    // Koin 测试工具
+    testImplementation "io.insert-koin:koin-test:$koin_version"
+    // 所需的 JUnit 版本
+    testImplementation "io.insert-koin:koin-test-junit4:$koin_version"
 }
 ```
 
@@ -36,7 +36,7 @@ val helloModule = module {
 
 ## 编写我们的第一个测试
 
-为了编写我们的第一个测试，让我们编写一个简单的 JUnit 测试文件并使用 KoinTest 扩展它。然后，我们将能够使用 `by inject()` 操作符。
+为了编写我们的第一个测试，让我们编写一个简单的 JUnit 测试文件并使用 `KoinTest` 扩展它。然后，我们将能够使用 `by inject()` 操作符。
 
 ```kotlin
 class HelloAppTest : KoinTest {
@@ -90,3 +90,4 @@ class HelloMockTest : KoinTest {
         Mockito.verify(service,times(1)).hello()
     }
 }
+```

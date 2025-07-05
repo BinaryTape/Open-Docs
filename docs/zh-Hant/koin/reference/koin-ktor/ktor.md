@@ -19,9 +19,37 @@ fun Application.main() {
 }
 ```
 
+### 相容於 Ktor 的 DI (4.1)
+
+Koin 4.1 完全支援新的 Ktor 3.2！
+
+我們提取了 `CoreResolver` 以抽象化 Koin 的解析規則，並允許透過 `ResolutionExtension` 進行擴展。我們添加了新的 `KtorDIExtension` 作為 Ktor `ResolutionExtension`，以幫助 Koin 解析 Ktor 預設的 DI 實例。
+
+Koin Ktor 插件會自動設定 Ktor DI 整合。下面，您可以看看如何從 Koin 消費 Ktor 依賴項：
+```kotlin
+// let's define a Ktor object
+fun Application.setupDatabase(config: DbConfig) {
+    // ...
+    dependencies {
+        provide<Database> { database }
+    }
+}
+```
+
+```kotlin
+// let's inject it in a Koin definition
+class CustomerRepositoryImpl(private val database: Database) : CustomerRepository
+
+    fun Application.customerDataModule() {
+        koinModule {
+            singleOf(::CustomerRepositoryImpl) bind CustomerRepository::class
+        }
+}
+```
+
 ## 在 Ktor 中注入
 
-Koin 的 `inject()` 和 `get()` 函數可從 `Application`、`Route`、`Routing` 類別中取得：
+Koin 的 `inject()` 和 `get()` 函數可從 `Application`、`Route` 和 `Routing` 類別中取得：
 
 ```kotlin
 fun Application.main() {
@@ -37,9 +65,9 @@ fun Application.main() {
 }
 ```
 
-### 從 Ktor 請求作用域解析 (自 4.1.0 版本起)
+### 從 Ktor 請求作用域解析 (自 4.1 版本起)
 
-您可以宣告元件以存在於 Ktor 請求作用域的生命週期內。為此，您只需在 `requestScope` 區塊內宣告您的元件。假設有一個 `ScopeComponent` 類別需要實例化在 Ktor 網頁請求作用域中，讓我們來宣告它：
+您可以宣告元件以存在於 Ktor 請求作用域的生命週期內。為此，您只需在 `requestScope` 區塊內宣告您的元件。假設有一個 `ScopeComponent` 類別需要在 Ktor 網頁請求作用域中實例化，讓我們來宣告它：
 
 ```kotlin
 requestScope {
@@ -58,22 +86,26 @@ routing {
 }
 ```
 
+這允許您的作用域依賴項將 `ApplicationCall` 解析為作用域的解析來源。您可以直接將其注入到建構函式中：
+
+```kotlin
+class ScopeComponent(val call : ApplicationCall) {
+}
+```
+
 :::note
 對於每個新請求，作用域將會被重新建立。這會為每個請求建立並銷毀作用域實例。
 :::
 
-### 從外部 Ktor 模組執行 Koin
+### 在 Ktor 模組中宣告 Koin 模組 (4.1)
 
-對於一個 Ktor 模組，您可以載入特定的 Koin 模組。只需使用 `koin { }` 函數宣告它們：
+直接在您的應用程式設定中使用 `Application.koinModule {}` 或 `Application.koinModules()`，以在 Ktor 模組中宣告新的模組：
 
 ```kotlin
-fun Application.module2() {
-
-    koin {
-        // load koin modules
-        modules(appModule2)
+fun Application.customerDataModule() {
+    koinModule {
+        singleOf(::CustomerRepositoryImpl) bind CustomerRepository::class
     }
-
 }
 ```
 

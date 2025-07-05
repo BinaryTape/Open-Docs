@@ -2,7 +2,7 @@
 title: Android ViewModel 与 Navigation
 ---
 
-`koin-android` Gradle 模块引入了一个新的 `viewModel` DSL 关键字，作为对 `single` 和 `factory` 的补充，用于帮助声明 ViewModel 组件并将其绑定到 Android 组件生命周期。`viewModelOf` 关键字也可用，允许你使用其构造函数声明 ViewModel。
+`koin-android` Gradle 模块引入了一个新的 `viewModel` DSL 关键字，作为对 `single` 和 `factory` 的补充，以帮助声明 ViewModel 组件并将其绑定到 Android 组件生命周期。`viewModelOf` 关键字也可用，允许你使用其构造函数声明 ViewModel。
 
 ```kotlin
 val appModule = module {
@@ -96,7 +96,7 @@ class WeatherListFragment : Fragment() {
 
 ## 向构造函数传递参数
 
-`viewModel` 关键字和注入 API 与注入参数兼容。
+`viewModel` 关键字 API 与注入参数兼容。
 
 在模块中：
 

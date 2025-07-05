@@ -82,9 +82,24 @@ class NiaAppModuleCheck {
 
         // Verify Koin configuration
         niaAppModule.verify(
-            // List types used in definitions but not declared directly (like parameters injection)
+            // List types used in definitions but not declared directly (like parameter injection)
             extraTypes = listOf(MyType::class ...)
         )
     }
 }
 ```
+
+## 核心注解 - 自动声明安全类型
+
+我们还在主 Koin 项目中（在 `koin-core-annotations` 模块下）引入了注解，这些注解是从 Koin 的其他注解中提取出来的。
+它们通过使用 `@InjectedParam` 和 `@Provided` 避免了冗长的声明，帮助 Koin 推断注入契约和验证配置。与复杂的 DSL 配置相比，这有助于识别这些元素。
+目前，这些注解仅与 `verify` API 配合使用。
+
+```kotlin
+// indicates that "a" is an injected parameter
+class ComponentB(@InjectedParam val a: ComponentA)
+// indicates that "a" is dynamically provided
+class ComponentBProvided(@Provided val a: ComponentA)
+```
+
+这有助于防止在测试或运行时出现细微问题，而无需编写自定义验证逻辑。

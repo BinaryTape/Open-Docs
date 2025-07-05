@@ -83,8 +83,24 @@ class NiaAppModuleCheck {
 
         // Verify Koin configuration
         niaAppModule.verify(
-            // List types used in definitions but not declared directly (like parameters injection)
+            // List types used in definitions but not declared directly (like parameter injection)
             extraTypes = listOf(MyType::class ...)
         )
     }
 }
+```
+
+## コアアノテーション - 安全な型を自動的に宣言する
+
+また、Koinのメインプロジェクト（`koin-core-annotations` モジュール配下）に、Koinアノテーションから抽出されたアノテーションを導入しました。
+これらは、`@InjectedParam` と `@Provided` を使用することで冗長な宣言を避け、Koinがインジェクションコントラクトを推論し、設定を検証するのに役立ちます。複雑なDSL設定を使用する代わりに、これによりこれらの要素を特定しやすくなります。
+これらのアノテーションは、今のところ `verify` APIでのみ使用されます。
+
+```kotlin
+// indicates that "a" is an injected parameter
+class ComponentB(@InjectedParam val a: ComponentA)
+// indicates that "a" is dynamically provided
+class ComponentBProvided(@Provided val a: ComponentA)
+```
+
+これにより、カスタム検証ロジックを記述することなく、テスト中または実行時に発生する微妙な問題を防止できます。

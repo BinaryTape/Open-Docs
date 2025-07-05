@@ -8,11 +8,11 @@ KoinはDSLであり、軽量なコンテナであり、実用的なAPIです。K
 
 `startKoin`関数は、Koinコンテナを起動するための主要なエントリーポイントです。実行するには、*Koinモジュールのリスト*が必要です。モジュールがロードされ、定義はKoinコンテナによって解決可能になります。
 
-Koinの起動
+.Koinの起動
 ```kotlin
-// GlobalコンテキストでKoinApplicationを開始
+// start a KoinApplication in Global context
 startKoin {
-    // 使用するモジュールを宣言
+    // declare used modules
     modules(coffeeAppModule)
 }
 ```
@@ -21,14 +21,39 @@ startKoin {
 
 Koinコンテナにはいくつかのオプションがあります。
 
-*   `logger` - ロギングを有効にする - <<logging.adoc#_logging,ロギング>>セクションを参照
-*   `properties()`, `fileProperties()` または `environmentProperties()` - 環境、koin.propertiesファイル、追加プロパティなどからプロパティをロードする - <<properties.adoc#_lproperties,プロパティ>>セクションを参照
+*   `logger` - ロギングを有効にする - [ロギング](#logging)セクションを参照
+*   `properties()`, `fileProperties( )` または `environmentProperties( )` - 環境、koin.propertiesファイル、追加プロパティなどからプロパティをロードする - [プロパティのロード](#loading-properties)セクションを参照
 
 :::info
 `startKoin`は複数回呼び出すことはできません。モジュールをロードする場所が複数必要な場合は、`loadKoinModules`関数を使用してください。
 :::
 
-### 起動の裏側 - Koinインスタンスの内部
+### Koinの起動を拡張する（KMPなどでの再利用に役立つ）
+
+Koinは現在、`KoinConfiguration`の再利用可能で拡張可能な設定オブジェクトをサポートしています。共有設定をプラットフォーム間（Android、iOS、JVMなど）で利用したり、異なる環境に合わせたりするために抽出できます。これは`includes()`関数で行うことができます。以下では、共通の設定を簡単に再利用し、Android環境設定を追加するためにそれを拡張する方法を示します。
+
+```kotlin
+fun initKoin(config : KoinAppDeclaration? = null){
+   startKoin {
+        includes(config) //can include external configuration extension
+        modules(appModule)
+   }
+}
+
+class MainApplication : Application() {
+
+    override fun onCreate() {
+        super.onCreate()
+
+        initKoin {
+            androidContext(this@MainApplication)
+            androidLogger()
+        }
+    }
+}
+```
+
+### 起動の裏側 - 内部のKoinインスタンス
 
 Koinを起動すると、Koinコンテナの設定インスタンスを表す`KoinApplication`インスタンスが作成されます。起動されると、モジュールとオプションに基づいて`Koin`インスタンスを生成します。この`Koin`インスタンスは`GlobalContext`によって保持され、任意の`KoinComponent`クラスで使用されます。
 
@@ -65,7 +90,7 @@ Koinロガー
 ```kotlin
 abstract class Logger(var level: Level = Level.INFO) {
 
-    abstract fun log(level: Level, msg: MESSAGE)
+    abstract fun display(level: Level, msg: MESSAGE)
 
     fun debug(msg: MESSAGE) {
         log(Level.DEBUG, msg)
@@ -73,6 +98,10 @@ abstract class Logger(var level: Level = Level.INFO) {
 
     fun info(msg: MESSAGE) {
         log(Level.INFO, msg)
+    }
+
+    fun warn(msg: MESSAGE) {
+        log(Level.WARNING, msg)
     }
 
     fun error(msg: MESSAGE) {
@@ -112,8 +141,8 @@ Koinの起動時にプロパティをロードするようにしてください�
 
 ```kotlin
 startKoin {
-    // デフォルトの場所からプロパティをロードします
-    // (つまり、`/src/main/resources/koin.properties`から)
+    // Load properties from the default location
+    // (i.e. `/src/main/resources/koin.properties`)
     fileProperties()
 }
 ```
@@ -122,7 +151,7 @@ Koinモジュールでは、キーを使ってプロパティを取得できま�
 
 /src/main/resources/koin.propertiesファイル内
 ```java
-// キー - 値
+// Key - value
 server_url=http://service_url
 ```
 
@@ -131,6 +160,20 @@ server_url=http://service_url
 ```kotlin
 val myModule = module {
 
-    // "server_url"キーを使ってその値を取得します
+    // use the "server_url" key to retrieve its value
     single { MyService(getProperty("server_url")) }
 }
+```
+
+## Koinオプション - 機能フラグ (4.1.0)
+
+Koinアプリケーションは、専用の`options`セクションを通じて、いくつかの実験的な機能を有効にできるようになりました。例えば、以下のようになります。
+
+```kotlin
+startKoin {
+    options(
+        // activate ViewModel Scope factory feature 
+        viewModelScopeFactory()
+    )
+}
+```

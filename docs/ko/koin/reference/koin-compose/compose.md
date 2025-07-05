@@ -11,42 +11,26 @@ title: Jetpack Compose 및 Compose Multiplatform용 Koin
 ### Compose용 Koin 패키지는 무엇인가요?
 
 Android Jetpack Compose API만 사용하는 순수 Android 앱의 경우 다음 패키지를 사용하세요.
-- `koin-androidx-compose` - Compose 기본 API + Compose ViewModel API를 제공합니다.
-- `koin-androidx-compose-navigation` - Navigation API 통합을 포함한 Compose ViewModel API를 제공합니다.
+- `koin-androidx-compose` - Compose 기본 API + Compose ViewModel API를 잠금 해제합니다.
+- `koin-androidx-compose-navigation` - Navigation API 통합을 포함한 Compose ViewModel API
 
 Android/Multiplatform 앱의 경우 다음 패키지를 사용하세요.
 - `koin-compose` - Compose 기본 API
 - `koin-compose-viewmodel` - Compose ViewModel API
 - `koin-compose-viewmodel-navigation` - Navigation API 통합을 포함한 Compose ViewModel API
 
-## 기존 Koin 컨텍스트에서 시작하기 (Koin이 이미 시작된 경우)
+## 기존 Koin 컨텍스트에서 시작하기
 
-때로는 애플리케이션에서 Koin을 시작하기 위해 (예: Android 메인 앱 클래스인 `Application` 클래스에서) `startKoin` 함수가 이미 사용되는 경우가 있습니다. 이 경우 `KoinContext` 또는 `KoinAndroidContext`를 사용하여 현재 Koin 컨텍스트를 Compose 애플리케이션에 알려야 합니다. 이 함수들은 현재 Koin 컨텍스트를 재사용하여 Compose 애플리케이션에 바인딩합니다.
-
-```kotlin
-@Composable
-fun App() {
-    // 현재 Koin 인스턴스를 Compose 컨텍스트에 설정
-    KoinContext() {
-
-        MyScreen()
-    }
-}
-```
-
-:::info
-`KoinAndroidContext`와 `KoinContext`의 차이점:
-- `KoinAndroidContext`는 현재 Android 앱 컨텍스트에서 Koin 인스턴스를 찾습니다.
-- `KoinContext`는 현재 GlobalContext에서 Koin 인스턴스를 찾습니다.
-:::
+Compose 애플리케이션 이전에 `startKoin` 함수를 사용하면 애플리케이션은 Koin 주입을 받아들일 준비가 됩니다. Compose로 Koin 컨텍스트를 설정하기 위해 더 이상 필요한 것은 없습니다.
 
 :::note
-Composable에서 `ClosedScopeException`이 발생한다면, 해당 Composable에서 `KoinContext`를 사용하거나 [Android 컨텍스트를 사용한 Koin 시작 구성](/docs/reference/koin-android/start.md#from-your-application-class)이 올바르게 설정되었는지 확인하세요.
+`KoinContext` 및 `KoinAndroidContext`는 더 이상 사용되지 않습니다.
 :::
 
 ## Compose 앱으로 Koin 시작하기 - KoinApplication
+`startKoin` 함수를 실행할 수 있는 공간에 접근할 수 없는 경우, Compose와 Koin에 의존하여 Koin 설정을 시작할 수 있습니다.
 
-`KoinApplication` 함수는 Composable로서 Koin 애플리케이션 인스턴스를 생성하는 데 도움을 줍니다.
+`KoinApplication` Compose 함수는 Composable로서 Koin 애플리케이션 인스턴스를 생성하는 데 도움을 줍니다.
 
 ```kotlin
 @Composable
@@ -68,22 +52,22 @@ Android 애플리케이션에서 `KoinApplication`은 구성 변경 또는 Activ
 :::
 
 :::note
-이는 기존 `startKoin` 애플리케이션 함수의 사용을 대체합니다.
+(실험적 API)
+`KoinMultiplatformApplication`을 사용하여 멀티플랫폼 진입점을 대체할 수 있습니다. 이는 `KoinApplication`과 동일하지만, 자동으로 `androidContext`와 `androidLogger`를 주입합니다.
 :::
 
-### Koin을 사용한 Compose 미리보기
+## KoinApplicationPreview를 사용한 Compose 미리보기
 
-`KoinApplication` 함수는 미리보기를 위한 전용 컨텍스트를 시작하는 데 유용합니다. 이는 Compose 미리보기를 돕는 데도 사용될 수 있습니다.
+`KoinApplicationPreview` Compose 함수는 Composable을 미리보기하는 데 전용됩니다.
 
 ```kotlin
+@Preview(name = "1 - Pixel 2 XL", device = Devices.PIXEL_2_XL, locale = "en")
+@Preview(name = "2 - Pixel 5", device = Devices.PIXEL_5, locale = "en", uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Preview(name = "3 - Pixel 7 ", device = Devices.PIXEL_7, locale = "ru", uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
-@Preview
-fun App() {
-    KoinApplication(application = {
-        // 여기에 미리보기 구성
-        modules(previewModule)
-    }) {
-        // Koin을 사용하여 미리보기할 Compose
+fun previewVMComposable(){
+    KoinApplicationPreview(application = { modules(appModule) }) {
+        ViewModelComposable()
     }
 }
 ```
@@ -139,10 +123,10 @@ Koin 버전 4.0.2부터 `koinInject(Qualifier,Scope,ParametersHolder)`가 도입
 
 ## @Composable용 ViewModel
 
-클래식한 single/factory 인스턴스에 접근하는 것과 마찬가지로, 다음과 같은 Koin ViewModel API에 접근할 수 있습니다.
+클래식한 single/factory 인스턴스에 접근하는 것과 마찬가지로, 다음 Koin ViewModel API에 접근할 수 있습니다.
 
 *   `koinViewModel()` - ViewModel 인스턴스 주입
-*   `koinNavViewModel()` - ViewModel 인스턴스 + Navigation 인자 데이터 주입 (Navigation API를 사용하는 경우)
+*   `koinNavViewModel()` - ViewModel 인스턴스 + Navigation 인자 데이터 주입 (`Navigation` API를 사용하는 경우)
 
 'MyViewModel' 컴포넌트를 선언하는 모듈의 경우:
 
@@ -173,8 +157,20 @@ fun App(vm : MyViewModel = koinViewModel()) {
 ```
 
 :::note
-Lazy API는 Jetpack Compose 업데이트와 함께 지원되지 않습니다.
+Jetpack Compose 업데이트와 함께 Lazy API는 지원되지 않습니다.
 :::
+
+### 공유 Activity ViewModel (4.1 - Android)
+
+이제 `koinActivityViewModel()`을 사용하여 동일한 ViewModel 호스트인 Activity에서 ViewModel을 주입할 수 있습니다.
+
+```kotlin
+@Composable
+fun App() {
+    // Activity 수준에서 ViewModel 인스턴스를 유지
+    val vm = koinActivityViewModel<MyViewModel>()
+}
+```
 
 ### @Composable용 ViewModel 및 SavedStateHandle
 
@@ -211,6 +207,24 @@ class DetailViewModel(
 SavedStateHandle 주입 차이에 대한 자세한 내용은 다음을 참조하세요: https://github.com/InsertKoinIO/koin/issues/1935#issuecomment-2362335705
 :::
 
+### 공유 ViewModel 및 Navigation (실험적)
+
+Koin Compose Navigation은 이제 현재 `NavBackEntry`에 이미 저장된 ViewModel을 검색할 수 있도록 `NavBackEntry.sharedKoinViewModel()` 함수를 제공합니다. 내비게이션 부분에서 `sharedKoinViewModel`을 사용하기만 하면 됩니다.
+
+```kotlin
+navigation<Route.BookGraph>(
+                startDestination = Route.BookList
+            ) {
+                composable<Route.BookList>(
+                    exitTransition = { slideOutHorizontally() },
+                    popEnterTransition = { slideInHorizontally() }
+                ) {
+                    // 여기에 SharedViewModel 사용 ...
+
+                    val selectedBookViewModel =
+                        it.sharedKoinViewModel<SelectedBookViewModel>(navController)
+```
+
 ## Composable에 연결된 모듈 로드 및 언로드
 
 Koin은 주어진 Composable 함수에 대해 특정 모듈을 로드하는 방법을 제공합니다. `rememberKoinModules` 함수는 Koin 모듈을 로드하고 현재 Composable에서 유지합니다.
@@ -232,7 +246,7 @@ fun MyComponentComposable() {
 
 ## Composable을 사용하여 Koin Scope 생성
 
-Composable 함수 `rememberKoinScope`와 `KoinScope`는 Composable 내에서 Koin Scope를 처리하고, Composable이 종료되면 현재 스코프를 추적하여 닫을 수 있도록 합니다.
+`rememberKoinScope` 및 `KoinScope` Composable 함수는 Composable 내에서 Koin Scope를 처리하고, Composable이 종료되면 현재 스코프를 추적하여 닫을 수 있도록 합니다.
 
 :::info
 이 API는 아직 불안정합니다.

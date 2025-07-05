@@ -74,3 +74,4 @@ class MyClassTest : KoinTest {
         koin.loadModules(listOf(module))
     }
 }
+```
