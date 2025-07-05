@@ -19,7 +19,7 @@ startKoin {
 
 이는 기본 Koin 컨텍스트를 사용하여 의존성을 등록합니다.
 
-하지만 격리된 Koin 인스턴스를 사용하려면, 인스턴스를 선언하고 이를 담을 클래스에 저장해야 합니다. Koin Application 인스턴스를 라이브러리 내에서 사용할 수 있도록 유지하고, 이를 사용자 지정 KoinComponent 구현에 전달해야 합니다.
+하지만 격리된 Koin 인스턴스를 사용하려면, 인스턴스를 선언하고 이를 담을 클래스에 저장해야 합니다. Koin Application 인스턴스를 라이브러리 내에서 사용할 수 있도록 유지하고, 이를 사용자 지정 KoinComponent 구현에 전달해야 합니다:
 
 여기서는 `MyIsolatedKoinContext` 클래스가 Koin 인스턴스를 담고 있습니다:
 
@@ -36,7 +36,7 @@ object MyIsolatedKoinContext {
 }
 ```
 
-`MyIsolatedKoinContext`를 사용하여 `IsolatedKoinComponent` 클래스를 정의해봅시다. 이 클래스는 우리의 격리된 컨텍스트를 사용할 KoinComponent입니다.
+`MyIsolatedKoinContext`를 사용하여 `IsolatedKoinComponent` 클래스를 정의해봅시다. 이 클래스는 우리의 격리된 컨텍스트를 사용할 KoinComponent입니다:
 
 ```kotlin
 internal interface IsolatedKoinComponent : KoinComponent {

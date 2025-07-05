@@ -2,7 +2,7 @@
 title: JUnitテスト
 ---
 
-> このチュートリアルでは、Kotlinアプリケーションをテストし、Koinのinjectとコンポーネントの取得機能を利用する方法を説明します。
+> このチュートリアルでは、Kotlinアプリケーションをテストし、Koinのinject機能とコンポーネントの取得機能を利用する方法を説明します。
 
 ## コードの取得
 
@@ -16,10 +16,10 @@ title: JUnitテスト
 
 ```groovy
 dependencies {
-    // Koin testing tools
-    testCompile "io.insert-koin:koin-test:$koin_version"
-    // Needed JUnit version
-    testCompile "io.insert-koin:koin-test-junit4:$koin_version"
+    // Koinテストツール
+    testImplementation "io.insert-koin:koin-test:$koin_version"
+    // 必要なJUnitバージョン
+    testImplementation "io.insert-koin:koin-test-junit4:$koin_version"
 }
 ```
 

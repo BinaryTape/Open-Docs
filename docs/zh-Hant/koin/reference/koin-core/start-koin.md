@@ -9,7 +9,7 @@ Koin 是一個 DSL、一個輕量級容器和一個實用型 API。一旦您在 
 `startKoin` 函數是啟動 Koin 容器的主要進入點。它需要一個 *Koin 模組清單* 才能執行。
 模組載入後，定義即可由 Koin 容器解析。
 
-啟動 Koin
+.啟動 Koin
 ```kotlin
 // start a KoinApplication in Global context
 startKoin {
@@ -18,16 +18,41 @@ startKoin {
 }
 ```
 
-一旦呼叫 `startKoin`，Koin 將讀取您的所有模組和定義。Koin 隨後就可以處理任何 `get()` 或 `by inject()` 呼叫以檢索所需的實例。
+一旦呼叫 `startKoin`，Koin 將讀取您的所有模組與定義。Koin 隨後就可以處理任何 `get()` 或 `by inject()` 呼叫以檢索所需的實例。
 
 您的 Koin 容器可以有數個選項：
 
-*   `logger` - 啟用日誌記錄 - 請參閱 <<logging.adoc#_logging,日誌記錄>> 區塊
-*   `properties()`、`fileProperties()` 或 `environmentProperties()` 載入來自環境、koin.properties 檔案、額外屬性等的屬性 ... - 請參閱 <<properties.adoc#_lproperties,屬性>> 區塊
+*   `logger` - 啟用日誌記錄 - 請參閱 [日誌記錄](#logging) 區塊
+*   `properties()`、`fileProperties()` 或 `environmentProperties()` 載入來自環境、koin.properties 檔案、額外屬性等的屬性 ... - 請參閱 [載入屬性](#loading-properties) 區塊
 
 :::info
- `startKoin` 無法呼叫超過一次。如果您需要從多個位置載入模組，請使用 `loadKoinModules` 函數。
+`startKoin` 無法呼叫超過一次。如果您需要從多個位置載入模組，請使用 `loadKoinModules` 函數。
 :::
+
+### 擴展您的 Koin 啟動（有助於 KMP 及其他重複利用...）
+
+Koin 現在支援 KoinConfiguration 的可重複使用和可擴展配置物件。您可以提取共享配置，以便跨平台（Android、iOS、JVM 等）使用或根據不同環境進行調整。這可以透過 `includes()` 函數完成。下面，我們可以輕鬆地重複使用一個通用配置，並將其擴展以添加一些 Android 環境設定：
+
+```kotlin
+fun initKoin(config : KoinAppDeclaration? = null){
+   startKoin {
+        includes(config) //can include external configuration extension
+        modules(appModule)
+   }
+}
+
+class MainApplication : Application() {
+
+    override fun onCreate() {
+        super.onCreate()
+
+        initKoin {
+            androidContext(this@MainApplication)
+            androidLogger()
+        }
+    }
+}
+```
 
 ### 啟動背後 - Koin 實例的內部運作
 
@@ -56,19 +81,18 @@ unloadKoinModules(module1,module2 ...)
 
 ### 停止 Koin - 關閉所有資源
 
-您可以關閉所有 Koin 資源並捨棄實例和定義。為此，您可以從任何地方使用 `stopKoin()` 函數來停止 Koin `GlobalContext`。
+您可以關閉所有 Koin 資源並捨棄實例與定義。為此，您可以從任何地方使用 `stopKoin()` 函數來停止 Koin `GlobalContext`。
 否則在 `KoinApplication` 實例上，只需呼叫 `close()`。
 
 ## 日誌記錄
 
 Koin 具有一個簡單的日誌記錄 API，用於記錄任何 Koin 活動（分配、查詢等）。日誌記錄 API 由以下類別表示：
 
-Koin 日誌記錄器
-
+.Koin 日誌記錄器
 ```kotlin
 abstract class Logger(var level: Level = Level.INFO) {
 
-    abstract fun log(level: Level, msg: MESSAGE)
+    abstract fun display(level: Level, msg: MESSAGE)
 
     fun debug(msg: MESSAGE) {
         log(Level.DEBUG, msg)
@@ -76,6 +100,10 @@ abstract class Logger(var level: Level = Level.INFO) {
 
     fun info(msg: MESSAGE) {
         log(Level.INFO, msg)
+    }
+
+    fun warn(msg: MESSAGE) {
+        log(Level.WARNING, msg)
     }
 
     fun error(msg: MESSAGE) {
@@ -123,7 +151,7 @@ startKoin {
 
 在 Koin 模組中，您可以透過其鍵獲取屬性：
 
-在 /src/main/resources/koin.properties 檔案中
+.在 /src/main/resources/koin.properties 檔案中
 ```java
 // Key - value
 server_url=http://service_url
@@ -136,5 +164,18 @@ val myModule = module {
 
     // use the "server_url" key to retrieve its value
     single { MyService(getProperty("server_url")) }
+}
+```
+
+## Koin 選項 - 功能旗標 (4.1.0)
+
+您的 Koin 應用程式現在可以透過專用的 `options` 區塊啟用一些實驗性功能，例如：
+
+```kotlin
+startKoin {
+    options(
+        // activate ViewModel Scope factory feature
+        viewModelScopeFactory()
+    )
 }
 ```

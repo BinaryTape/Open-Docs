@@ -17,9 +17,9 @@ title: JUnit 測試
 ```groovy
 dependencies {
     // Koin testing tools
-    testCompile "io.insert-koin:koin-test:$koin_version"
+    testImplementation "io.insert-koin:koin-test:$koin_version"
     // Needed JUnit version
-    testCompile "io.insert-koin:koin-test-junit4:$koin_version"
+    testImplementation "io.insert-koin:koin-test-junit4:$koin_version"
 }
 ```
 
@@ -63,7 +63,7 @@ class HelloAppTest : KoinTest {
 
 > 我們使用 Koin 的 `KoinTestRule` 規則來啟動/停止我們的 Koin 上下文。
 
-您甚至可以直接在 `MyPresenter` 中建立模擬 (Mocks)，或測試 `MyRepository`。這些元件與 Koin API 沒有任何關聯。
+您甚至可以直接在 MyPresenter 中建立模擬 (Mocks)，或測試 MyRepository。這些元件與 Koin API 沒有任何關聯。
 
 ```kotlin
 class HelloMockTest : KoinTest {

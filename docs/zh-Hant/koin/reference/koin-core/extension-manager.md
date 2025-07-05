@@ -10,9 +10,9 @@ title: 擴充管理員
 
 ```kotlin
 interface KoinExtension {
-    
-    var koin : Koin
-    
+
+    fun onRegister(koin : Koin)
+
     fun onClose()
 }
 ```
@@ -40,3 +40,40 @@ fun KoinApplication.coroutinesEngine() {
 ```kotlin
 val Koin.coroutinesEngine: KoinCoroutinesEngine get() = extensionManager.getExtension(EXTENSION_NAME)
 ```
+
+## 解析器引擎與解析擴充
+
+Koin 的解析演算法已重新設計為可插拔和可擴充的。新的 `CoreResolver` 和 `ResolutionExtension` API 允許與外部系統或自訂解析邏輯整合。
+
+在內部，解析現在能更有效地遍歷堆疊元素，並在作用域和父層級結構之間進行更清晰的傳播。這將解決許多與鏈接作用域遍歷相關的問題，並允許 Koin 更好地整合到其他系統中。
+
+請看下方演示解析擴充的測試：
+
+```kotlin
+@Test
+fun extend_resolution_test(){
+    val resolutionExtension = object : ResolutionExtension {
+        val instanceMap = mapOf<KClass<*>, Any>(
+            Simple.ComponentA::class to Simple.ComponentA()
+        )
+
+        override val name: String = "hello-extension"
+        override fun resolve(
+            scope: Scope,
+            instanceContext: ResolutionContext
+        ): Any? {
+            return instanceMap[instanceContext.clazz]
+        }
+    }
+
+    val koin = koinApplication{
+        printLogger(Level.DEBUG)
+        koin.resolver.addResolutionExtension(resolutionExtension)
+        modules(module {
+            single { Simple.ComponentB(get())}
+        })
+    }.koin
+
+    assertEquals(resolutionExtension.instanceMap[Simple.ComponentA::class], koin.get<Simple.ComponentB>().a)
+    assertEquals(1,koin.instanceRegistry.instances.values.size)
+}

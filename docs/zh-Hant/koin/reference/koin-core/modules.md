@@ -10,7 +10,7 @@ Koin 模組是一個用於彙集 Koin 定義的「空間」。它使用 `module`
 
 ```kotlin
 val myModule = module {
-    // 您的定義 ...
+    // Your definitions ...
 }
 ```
 
@@ -21,29 +21,29 @@ val myModule = module {
 讓我們舉一個範例，其中包含在獨立模組中連結的元件：
 
 ```kotlin
-// ComponentB 依賴於 ComponentA
+// ComponentB <- ComponentA
 class ComponentA()
 class ComponentB(val componentA : ComponentA)
 
 val moduleA = module {
-    // ComponentA 單例
+    // Singleton ComponentA
     single { ComponentA() }
 }
 
 val moduleB = module {
-    // ComponentB 單例，連結了 ComponentA 實例
+    // Singleton ComponentB with linked instance ComponentA
     single { ComponentB(get()) }
 }
 ```
 
-:::info
+:::info 
 Koin 沒有任何匯入概念。Koin 定義是延遲載入的：Koin 定義會隨 Koin 容器啟動，但不會立即實例化。僅當該型別被請求時才會建立實例。
 :::
 
 我們只需在啟動 Koin 容器時宣告所使用的模組清單：
 
 ```kotlin
-// 使用 moduleA 和 moduleB 啟動 Koin
+// Start Koin with moduleA & moduleB
 startKoin {
     modules(moduleA,moduleB)
 }
@@ -66,7 +66,7 @@ val myModuleB = module {
 }
 
 startKoin {
-    // TestServiceImp 將覆寫 ServiceImp 的定義
+    // TestServiceImp will override ServiceImp definition
     modules(myModuleA,myModuleB)
 }
 ```
@@ -77,7 +77,7 @@ startKoin {
 
 ```kotlin
 startKoin {
-    // 禁止定義覆寫
+    // Forbid definition override
     allowOverride(false)
 }
 ```
@@ -90,7 +90,7 @@ startKoin {
 
 ```kotlin
 fun sharedModule() = module {
-    // 您的定義 ...
+    // Your definitions ...
 }
 ```
 
@@ -111,7 +111,7 @@ val myModuleB = module {
     single<Service> { TestServiceImp() }
 }
 
-// 將拋出 BeanOverrideException
+// Will throw an BeanOverrideException
 startKoin {
     modules(myModuleA,myModuleB)
 }
@@ -127,7 +127,7 @@ val myModuleA = module {
 
 val myModuleB = module {
 
-    // 覆寫此定義
+    // override for this definition
     single<Service>(override=true) { TestServiceImp() }
 }
 ```
@@ -138,7 +138,7 @@ val myModuleA = module {
     single<Service> { ServiceImp() }
 }
 
-// 允許覆寫模組中所有定義
+// Allow override for all definitions from module
 val myModuleB = module(override=true) {
 
     single<Service> { TestServiceImp() }
@@ -181,18 +181,18 @@ val remoteDatasourceModule = module {
 然後我們只需以正確的模組組合啟動 Koin：
 
 ```kotlin
-// 載入 Repository + 本機 Datasource 定義
+// Load Repository + Local Datasource definitions
 startKoin {
     modules(repositoryModule,localDatasourceModule)
 }
 
-// 載入 Repository + 遠端 Datasource 定義
+// Load Repository + Remote Datasource definitions
 startKoin {
     modules(repositoryModule,remoteDatasourceModule)
 }
 ```
 
-## 模組包含 (Module Includes) (自 3.2 版起)
+## 模組包含 (自 3.2 版起)
 
 `Module` 類別中新增了一個 `includes()` 函式，讓您可以透過包含其他模組，以有組織且結構化的方式組成一個模組。
 
@@ -203,18 +203,18 @@ startKoin {
 它是如何運作的？讓我們以一些模組為例，我們將模組包含在 `parentModule` 中：
 
 ```kotlin
-// `:feature` 模組
+// `:feature` module
 val childModule1 = module {
-    /* 其他定義在此。 */
+    /* Other definitions here. */
 }
 val childModule2 = module {
-    /* 其他定義在此。 */
+    /* Other definitions here. */
 }
 val parentModule = module {
     includes(childModule1, childModule2)
 }
 
-// `:app` 模組
+// `:app` module
 startKoin { modules(parentModule) }
 ```
 
@@ -229,12 +229,12 @@ startKoin { modules(parentModule) }
 最後，您可以包含多個巢狀或重複的模組，Koin 將會平坦化所有包含的模組並移除重複項：
 
 ```kotlin
-// :feature 模組
+// :feature module
 val dataModule = module {
-    /* 其他定義在此。 */
+    /* Other definitions here. */
 }
 val domainModule = module {
-    /* 其他定義在此。 */
+    /* Other definitions here. */
 }
 val featureModule1 = module {
     includes(domainModule, dataModule)
@@ -243,7 +243,7 @@ val featureModule2 = module {
     includes(domainModule, dataModule)
 }
 
-// `:app` 模組
+// `:app` module
 startKoin { modules(featureModule1, featureModule2) }
 ```
 

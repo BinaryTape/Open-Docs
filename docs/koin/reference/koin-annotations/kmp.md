@@ -1,5 +1,5 @@
 ---
-title: Kotlin Multiplatform 应用中的定义和模块注解
+title: Kotlin Multiplatform - 定义和模块注解
 ---
 
 ## KSP 设置
@@ -20,15 +20,15 @@ plugins {
 
 ```kotlin
 sourceSets {
-        commonMain.dependencies {
-            implementation(libs.koin.core)
-            api(libs.koin.annotations)
-            // ...
-        }
+    commonMain.dependencies {
+        implementation(libs.koin.core)
+        api(libs.koin.annotations)
+        // ...
+    }
 }
 ```
 
-并且别忘了在正确的 `sourceSet` 上配置 KSP：
+并且别忘了在正确的 sourceSet 上配置 KSP：
 
 ```kotlin
 dependencies {
@@ -40,50 +40,262 @@ dependencies {
 }
 ```
 
-## 声明通用模块和 KMP Expect 组件
+## 在通用代码中定义和模块
 
-在你的 `commonMain` `sourceSet` 中，你只需声明一个模块来扫描包含 `expect` 类或函数的原生实现的包。
+在你的 `commonMain` sourceSet 中，声明你的模块，扫描定义，或者将函数定义为常规的 Kotlin Koin 声明。请参阅 [定义](definitions.md) 和 [模块](./modules.md)。
 
-下面我们有一个 `PlatformModule`，它扫描 `com.jetbrains.kmpapp.platform` 包，其中包含 `PlatformHelper` `expect` 类。该模块类使用 `@Module` 和 `@ComponentScan` 注解进行标注。
+## 共享模式
 
+在本节中，我们将一起探讨几种通过定义和模块共享组件的方式。
+
+在 Kotlin Multiplatform 应用程序中，某些组件必须针对每个平台进行特定实现。你可以在定义级别共享这些组件，通过对给定类（定义或模块）使用 expect/actual。
+你可以通过 expect/actual 实现来共享定义，或者共享一个带有 expect/actual 的模块。
+
+请查阅 [Multiplatform Expect & Actual 规则](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-expect-actual.html) 文档，获取通用的 Kotlin 指导。
+
+### 为原生实现共享定义（通用模块 + Expect/Actual 类定义）
+
+对于这种经典的模式，你可以使用带 `@ComponentScan` 的定义扫描，或者将定义声明为模块类函数。
+
+请注意，要使用 `expect/actual` 定义，你将使用相同的构造函数（无论是默认构造函数还是自定义构造函数）。此构造函数必须在所有平台上保持一致。
+
+#### 扫描 Expect/Actual 定义
+
+在 commonMain 中：
 ```kotlin
-// in commonMain
+// commonMain
 
 @Module
-@ComponentScan("com.jetbrains.kmpapp.platform")
-class PlatformModule
+@ComponentScan("com.jetbrains.kmpapp.native")
+class NativeModuleA()
 
-// package com.jetbrains.kmpapp.platform 
+// package com.jetbrains.kmpapp.native
+@Factory
+expect class PlatformComponentA() {
+    fun sayHello() : String
+}
+```
 
-@Single
-expect class PlatformHelper {
-    fun getName() : String
+在原生源码中，实现我们的实际类：
+
+```kotlin
+// androidMain
+
+// package com.jetbrains.kmpapp.native
+actual class PlatformComponentA {
+    actual fun sayHello() : String = "I'm Android - A"
+}
+
+// iOSMain
+
+// package com.jetbrains.kmpapp.native
+actual class PlatformComponentA {
+    actual fun sayHello() : String = "I'm iOS - A"
+}
+```
+
+#### 声明 Expect/Actual 函数定义
+
+在 commonMain 中：
+```kotlin
+// commonMain
+
+@Module
+class NativeModuleB() {
+
+    @Factory
+    fun providesPlatformComponentB() : PlatformComponentB = PlatformComponentB()
+}
+
+expect class PlatformComponentB() {
+    fun sayHello() : String
+}
+```
+
+在原生源码中，实现我们的实际类：
+
+```kotlin
+// androidMain
+
+// package com.jetbrains.kmpapp.native
+actual class PlatformComponentB {
+    actual fun sayHello() : String = "I'm Android - B"
+}
+
+// iOSMain
+
+// package com.jetbrains.kmpapp.native
+actual class PlatformComponentB {
+    actual fun sayHello() : String = "I'm iOS - A"
+}
+```
+
+### 通过不同的原生实现共享定义（Expect/Actual 通用模块 + 通用接口 + 原生实现）
+
+在某些情况下，你可能需要在每个原生实现上使用不同的构造函数参数。此时，Expect/Actual 类就不是你的解决方案。
+你需要使用一个 `interface` 在每个平台上进行实现，并使用一个 Expect/Actual 类模块，让该模块定义正确的平台实现：
+
+在 commonMain 中：
+```kotlin
+// commonMain
+
+expect class NativeModuleD() {
+    @Factory
+    fun providesPlatformComponentD(scope : org.koin.core.scope.Scope) : PlatformComponentD
+}
+
+interface PlatformComponentD {
+    fun sayHello() : String
+}
+```
+
+在原生源码中，实现我们的实际类：
+
+```kotlin
+// androidMain
+
+@Module
+actual class NativeModuleD {
+    @Factory
+    actual fun providesPlatformComponentD(scope : org.koin.core.scope.Scope) : PlatformComponentD = PlatformComponentDAndroid(ctx)
+}
+
+class PlatformComponentDAndroid(scope : org.koin.core.scope.Scope) : PlatformComponentD{
+    val context : Context = scope.get()
+    override fun sayHello() : String = "I'm Android - D - with ${ctx.context}"
+}
+
+// iOSMain
+@Module
+actual class NativeModuleD {
+    @Factory
+    actual fun providesPlatformComponentD(scope : org.koin.core.scope.Scope) : PlatformComponentD = PlatformComponentDiOS()
+}
+
+class PlatformComponentDiOS : PlatformComponentD{
+    override fun sayHello() : String = "I'm iOS - D"
 }
 ```
 
 :::note
-生成代码是在每个平台实现中完成的。模块包扫描将收集正确的平台实现。
+每次你手动访问 Koin 作用域时，都是在进行动态连接。编译安全无法覆盖此类连接。
 :::
 
-## 注解原生组件
+### 使用平台包装器安全地跨平台共享
 
-在每个实现 `sourceSet` 中，你现在可以定义正确的平台实现。这些实现都使用 `@Single` 注解进行标注（也可以是其他定义注解）：
+你可以将特定的平台组件包装成一个“平台包装器”，以帮助你最小化动态注入。
+
+例如，我们可以创建一个 `ContextWrapper`，它允许我们在需要时注入 Android `Context`，但不会影响 iOS 端。
+
+在 commonMain 中：
+```kotlin
+// commonMain
+
+expect class ContextWrapper
+
+@Module
+expect class ContextModule() {
+
+    @Single
+    fun providesContextWrapper(scope : Scope) : ContextWrapper
+}
+```
+
+在原生源码中，实现我们的实际类：
 
 ```kotlin
-// in androidMain
-// package com.jetbrains.kmpapp.platform
+// androidMain
+actual class ContextWrapper(val context: Context)
 
-@Single
-actual class PlatformHelper(
-    val context: Context
-){
-    actual fun getName(): String = "I'm Android - $context"
+@Module
+actual class ContextModule {
+    
+    // needs androidContext() to be setup at start
+    @Single
+    actual fun providesContextWrapper(scope : Scope) : ContextWrapper = ContextWrapper(scope.get())
 }
 
-// in nativeMain
-// package com.jetbrains.kmpapp.platform
+// iOSMain
+actual class ContextWrapper
 
-@Single
-actual class PlatformHelper(){
-    actual fun getName(): String = "I'm Native"
+@Module
+actual class ContextModule {
+
+    @Single
+    actual fun providesContextWrapper(scope : Scope) : ContextWrapper = ContextWrapper()
 }
+```
+
+:::info
+通过这种方式，你可以将动态平台连接最小化到一个定义中，并在整个系统中安全注入。
+:::
+
+你现在可以从通用代码中使用 `ContextWrapper`，并轻松地将其传递到你的 Expect/Actual 类中：
+
+在 commonMain 中：
+```kotlin
+// commonMain
+
+@Module
+@ComponentScan("com.jetbrains.kmpapp.native")
+class NativeModuleA()
+
+// package com.jetbrains.kmpapp.native
+@Factory
+expect class PlatformComponentA(ctx : ContextWrapper) {
+    fun sayHello() : String
+}
+```
+
+在原生源码中，实现我们的实际类：
+
+```kotlin
+// androidMain
+
+// package com.jetbrains.kmpapp.native
+actual class PlatformComponentA actual constructor(val ctx : ContextWrapper) {
+    actual fun sayHello() : String = "I'm Android - A - with context: ${ctx.context"
+}
+
+// iOSMain
+
+// package com.jetbrains.kmpapp.native
+actual class PlatformComponentA actual constructor(val ctx : ContextWrapper) {
+    actual fun sayHello() : String = "I'm iOS - A"
+}
+```
+
+### 共享 Expect/Actual 模块 - 依赖原生模块扫描
+
+在某些情况下，你可能不希望有任何限制，并且希望在每个原生端扫描组件。在 common source set 中定义一个空的模块类，然后在每个平台上定义你的实现。
+
+:::info
+如果你在通用端定义一个空模块，每个原生模块实现将从各自的原生目标生成，例如，这允许扫描仅限原生的组件。
+:::
+
+在 commonMain 中：
+```kotlin
+// commonMain
+
+@Module
+expect class NativeModuleC()
+```
+
+在原生 source sets 中：
+
+```kotlin
+// androidMain
+@Module
+@ComponentScan("com.jetbrains.kmpapp.other.android")
+actual class NativeModuleC
+
+//com.jetbrains.kmpapp.other.android
+@Factory
+class PlatformComponentC(val context: Context) {
+    fun sayHello() : String = "I'm Android - C - $context"
+}
+
+// iOSMain
+// do nothing on iOS
+@Module
+actual class NativeModuleC

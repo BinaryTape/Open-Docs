@@ -8,9 +8,9 @@ title: テストでのインジェクション
 
 クラスに`KoinTest`タグを付けることで、そのクラスは`KoinComponent`となり、以下の機能を提供します：
 
-* `by inject()` & `get()` - Koinからインスタンスを取得する関数
-* `checkModules` - 設定をチェックするのに役立ちます
-* `declareMock` & `declare` - 現在のコンテキストでモックまたは新しい定義を宣言するため
+*   `by inject()` & `get()` - Koinからインスタンスを取得する関数
+*   `checkModules` - 設定をチェックするのに役立ちます
+*   `declareMock` & `declare` - 現在のコンテキストでモックまたは新しい定義を宣言するため
 
 ```kotlin
 class ComponentA
@@ -161,15 +161,12 @@ Koinは、Koinモジュールが適切かどうかをテストする方法を提
 テストで`startKoin`を使用している場合、各テスト間でKoinインスタンスを停止するように注意してください。そうしない場合、ローカルのKoinインスタンスには`koinApplication`を、現在のグローバルインスタンスを停止するには`stopKoin()`を使用してください。
 
 ## JUnit5でのテスト
-
 JUnit 5は、Koinコンテキストの起動と停止を処理する[Extensions](https://junit.org/junit5/docs/current/user-guide/#extensions)を提供します。これは、エクステンションを使用する場合、`AutoCloseKoinTest`を使用する必要がないことを意味します。
 
 ### 依存関係 (Dependency)
-
 JUnit5でのテストには、`koin-test-junit5`依存関係を使用する必要があります。
 
 ### テストの記述 (Writing tests)
-
 `KoinTestExtension`を登録し、モジュール構成を提供する必要があります。これが完了したら、コンポーネントをテストに`get`または`inject`できます。`@RegisterExtension`と一緒に`@JvmField`を使用することを忘れないでください。
 
 ```kotlin
@@ -197,7 +194,6 @@ class ExtensionTests: KoinTest {
 ```
 
 ### JUnit5でのモック (Mocking with JUnit5)
-
 これはJUnit4と全く同じように機能しますが、`@RegisterExtension`を使用する必要があります。
 
 ```kotlin
@@ -216,7 +212,7 @@ class MockExtensionTests: KoinTest {
 
     @JvmField
     @RegisterExtension
-    val mockProvider = MockProviderExtension.create { clazz ->
+    val mockProvider = MockProviderRule.create { clazz ->
         Mockito.mock(clazz.java)
     }
 
@@ -233,7 +229,6 @@ class MockExtensionTests: KoinTest {
 ```
 
 ### 作成されたKoinインスタンスの取得 (Getting the created Koin instances)
-
 作成されたKoinコンテキストを関数パラメータとして取得することもできます。これは、テスト関数に関数パラメータを追加することで実現できます。
 
 ```kotlin

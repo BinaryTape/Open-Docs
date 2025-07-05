@@ -8,9 +8,9 @@ title: 테스트에서 주입하기
 
 클래스에 `KoinTest`를 태그하면, 해당 클래스는 `KoinComponent`가 되어 다음 기능을 제공합니다:
 
-* `by inject()` & `get()` - Koin에서 인스턴스를 가져오는 함수
-* `checkModules` - 구성을 확인하는 데 도움
-* `declareMock` & `declare` - 현재 컨텍스트에서 모의(mock) 또는 새로운 정의를 선언
+*   `by inject()` & `get()` - Koin에서 인스턴스를 가져오는 함수
+*   `checkModules` - 구성을 확인하는 데 도움
+*   `declareMock` & `declare` - 현재 컨텍스트에서 모의(mock) 또는 새로운 정의를 선언
 
 ```kotlin
 class ComponentA
@@ -18,7 +18,7 @@ class ComponentB(val a: ComponentA)
 
 class MyTest : KoinTest {
 
-    // Lazy inject property
+    // 지연 주입 속성
     val componentB : ComponentB by inject()
 
     @Test
@@ -31,7 +31,7 @@ class MyTest : KoinTest {
                 })
         }
 
-        // directly request an instance
+        // 인스턴스를 직접 요청
         val componentA = get<ComponentA>()
 
         assertNotNull(a)
@@ -40,7 +40,7 @@ class MyTest : KoinTest {
 ```
 
 :::note
- Koin 모듈 구성을 오버로드하여 앱을 부분적으로 빌드하는 데 활용하는 것을 주저하지 마세요.
+Koin 모듈 구성을 오버로드하여 앱을 부분적으로 빌드하는 데 활용하는 것을 주저하지 마세요.
 :::
 
 ## JUnit 규칙
@@ -52,7 +52,7 @@ class MyTest : KoinTest {
 ```kotlin
 @get:Rule
 val koinTestRule = KoinTestRule.create {
-    // Your KoinApplication instance here
+    // 여기에 KoinApplication 인스턴스를 지정하세요
     modules(myModule)
 }
 ```
@@ -66,7 +66,7 @@ Mockito를 사용하여 모의(mock) 생성:
 ```kotlin
 @get:Rule
 val mockProvider = MockProviderRule.create { clazz ->
-    // Your way to build a Mock here
+    // 여기에 모의를 빌드하는 방법을 지정하세요
     Mockito.mock(clazz.java)
 }
 ```
@@ -76,7 +76,7 @@ MockK를 사용하여 모의(mock) 생성:
 ```kotlin
 @get:Rule
 val mockProvider = MockProviderRule.create { clazz ->
-    // Your way to build a Mock here
+    // 여기에 모의를 빌드하는 방법을 지정하세요
     mockkClass(clazz)
 }
 ```
@@ -111,19 +111,19 @@ class MyTest : KoinTest {
     fun `should inject my components`() {
     
     }
-        // Replace current definition by a Mock
+        // 현재 정의를 모의로 대체
         val mock = declareMock<ComponentA>()
 
-        // retrieve mock, same as variable above 
+        // 모의 검색, 위 변수와 동일 
         assertNotNull(get<ComponentA>())
 
-        // is built with mocked ComponentA
+        // 모의된 ComponentA로 빌드됨
         assertNotNull(get<ComponentB>())
     }
 ```
 
 :::note
- declareMock은 single 또는 factory 여부와 모듈 경로에 포함할지 여부를 지정할 수 있습니다.
+declareMock은 single 또는 factory 여부와 모듈 경로에 포함할지 여부를 지정할 수 있습니다.
 :::
 
 ## 즉석에서 컴포넌트 선언하기
@@ -212,7 +212,7 @@ class MockExtensionTests: KoinTest {
 
     @JvmField
     @RegisterExtension
-    val mockProvider = MockProviderExtension.create { clazz ->
+    val mockProvider = MockProviderRule.create { clazz ->
         Mockito.mock(clazz.java)
     }
 

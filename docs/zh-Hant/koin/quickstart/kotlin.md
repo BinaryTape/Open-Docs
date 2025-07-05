@@ -23,7 +23,7 @@ title: Kotlin
 dependencies {
     
     // Koin for Kotlin apps
-    compile "io.insert-koin:koin-core:$koin_version"
+    implementation "io.insert-koin:koin-core:$koin_version"
 }
 ```
 

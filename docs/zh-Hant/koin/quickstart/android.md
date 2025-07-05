@@ -40,7 +40,7 @@ dependencies {
 data class User(val name : String)
 ```
 
-我們建立一個「Repository」(儲存庫) 元件來管理使用者列表 (加入使用者或透過名稱尋找使用者)。如下所示，`UserRepository` 介面 (Interface) 及其實作 (Implementation)：
+我們建立一個「儲存庫」(Repository) 元件來管理使用者列表 (加入使用者或透過名稱尋找使用者)。如下所示，`UserRepository` 介面 (Interface) 及其實作 (Implementation)：
 
 ```kotlin
 interface UserRepository {
@@ -96,7 +96,7 @@ class UserPresenter(private val repository: UserRepository) {
 
 > `UserRepository` 在 `UserPresenter` 的建構函數 (Constructor) 中被參考。
 
-我們在 Koin 模組中宣告 `UserPresenter`。我們將它宣告為一個 `factoryOf` 定義，以避免在記憶體中保留任何實例 (避免 Android 生命週期 (Lifecycle) 相關的記憶體洩漏)：
+我們在 Koin 模組中宣告 `UserPresenter`。我們將它宣告為一個 `factoryOf` 定義 (Definition)，以避免在記憶體中保留任何實例 (避免 Android 生命週期 (Lifecycle) 相關的記憶體洩漏)：
 
 ```kotlin
 val appModule = module {
@@ -127,7 +127,7 @@ class MainActivity : AppCompatActivity() {
 就這樣，你的應用程式已準備就緒。
 
 :::info
-`by inject()` 函數允許我們在 Android 元件的執行時 (Runtime) (Activity、fragment、Service 等) 取得 Koin 實例。
+`by inject()` 函數允許我們在 Android 元件的執行時 (Activity、fragment、Service 等) 取得 Koin 實例。
 :::
 
 ## 啟動 Koin
