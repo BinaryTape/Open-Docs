@@ -213,3 +213,23 @@ a.scope.linkTo(b.scope)
 // we got the same C instance from A or B scope
 assertTrue(a.scope.get<C>() == b.scope.get<C>())
 ```
+
+### 作用域原型 (Scope Archetypes)
+
+作用域“原型 (Archetypes)”是用于特定类型类别的作用域空间。例如，你可以为 Android（`Activity`、`Fragment`、`ViewModel`）甚至 Ktor（`RequestScope`）拥有作用域原型。
+作用域原型是 Koin 的 `TypeQualifier`，传递给不同的 API，以请求给定类型的作用域空间。
+
+一个原型包括：
+- 模块 DSL 扩展，用于为给定类型声明作用域：
+```kotlin
+// Declare a scope archetype for ActivityScopeArchetype (TypeQualifier(AppCompatActivity::class)
+fun Module.activityScope(scopeSet: ScopeDSL.() -> Unit) {
+    val qualifier = ActivityScopeArchetype
+    ScopeDSL(qualifier, this).apply(scopeSet)
+}
+```
+- 一个请求具有给定特定作用域原型 `TypeQualifier` 的 API：
+```kotlin
+// Create scope with ActivityScopeArchetype archetype
+val scope = getKoin().createScope(getScopeId(), getScopeName(), this, ActivityScopeArchetype)
+```

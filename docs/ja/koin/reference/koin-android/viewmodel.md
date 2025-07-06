@@ -2,7 +2,7 @@
 title: Android ViewModelとナビゲーション
 ---
 
-`koin-android` Gradleモジュールは、`single`や`factory`を補完する新しい`viewModel` DSLキーワードを導入しており、これによりViewModelコンポーネントを宣言し、Androidコンポーネントのライフサイクルにバインドするのに役立ちます。また、`viewModelOf`キーワードも利用でき、これによりコンストラクタでViewModelを宣言できます。
+`koin-android` Gradleモジュールは、`single`や`factory`を補完する新しい`viewModel` DSLキーワードを導入し、ViewModelコンポーネントを宣言し、Androidコンポーネントのライフサイクルにバインドするのに役立ちます。`viewModelOf`キーワードも利用でき、コンストラクタでViewModelを宣言できます。
 
 ```kotlin
 val appModule = module {
@@ -64,7 +64,7 @@ val weatherAppModule = module {
 }
 ```
 
-注: ViewModelのクオリファイアは、ViewModelのTagとして扱われます。
+注: ViewModelのQualifierは、ViewModelのTagとして扱われます。
 
 そして、ActivityとFragmentで再利用します：
 
@@ -96,7 +96,7 @@ class WeatherListFragment : Fragment() {
 
 ## コンストラクタへのパラメータの渡し方
 
-`viewModel`キーワードとインジェクションAPIは、インジェクションパラメータと互換性があります。
+`viewModel`キーワードAPIは、インジェクションパラメータと互換性があります。
 
 モジュール内：
 
@@ -177,7 +177,7 @@ class NavFragment : Fragment() {
 
 ViewModelとScopeに使用されるすべてのAPIを参照してください：[ViewModel Scope](/docs/reference/koin-android/scope.md#viewmodel-scope-since-354)
 
-## ViewModelの汎用API
+## ViewModel汎用API
 
 Koinは、ViewModelインスタンスを直接調整するための「内部的な」APIを提供しています。利用可能な関数は、`ComponentActivity`および`Fragment`向けの`viewModelForClass`です：
 

@@ -9,7 +9,11 @@ Koin Embedded 是一个面向 Android/Kotlin SDK 和库开发者的新 Koin 项�
 
 意见反馈或帮助？请联系 [Koin 团队](mailto:koin@kotzilla.io)。
 
-## 嵌入式版本
+:::info
+此举措目前处于 Beta 阶段，我们正在征集反馈。
+:::
+
+## 嵌入式版本 (Beta)
 
 以下是 Koin 嵌入式版本的一个示例：[Kotzilla 仓库](https://repository.kotzilla.io/#browse/browse:Koin-Embedded)
 - 可用包：`embedded-koin-core`、`embedded-koin-android`
@@ -20,7 +24,7 @@ Koin Embedded 是一个面向 Android/Kotlin SDK 和库开发者的新 Koin 项�
 maven { 'https://repository.kotzilla.io/repository/kotzilla-platform/' }
 ```
 
-## 重定位脚本
+## 重定位脚本 (Beta)
 
 这里有一些脚本，可以帮助为给定包名重建 Koin，从而帮助将其嵌入并避免与 Koin 框架的常规用法发生冲突。
 

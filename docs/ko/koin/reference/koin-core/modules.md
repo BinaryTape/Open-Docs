@@ -10,7 +10,7 @@ Koin 모듈은 Koin 정의를 모으는 "공간"입니다. 이는 `module` 함�
 
 ```kotlin
 val myModule = module {
-    // 당신의 정의들 ...
+    // Your definitions ...
 }
 ```
 
@@ -26,24 +26,24 @@ class ComponentA()
 class ComponentB(val componentA : ComponentA)
 
 val moduleA = module {
-    // ComponentA 싱글톤
+    // Singleton ComponentA
     single { ComponentA() }
 }
 
 val moduleB = module {
-    // ComponentA 인스턴스와 연결된 ComponentB 싱글톤
+    // Singleton ComponentB with linked instance ComponentA
     single { ComponentB(get()) }
 }
 ```
 
-:::info
+:::info 
 Koin은 import 개념이 없습니다. Koin 정의는 지연(lazy)됩니다. Koin 정의는 Koin 컨테이너와 함께 시작되지만, 인스턴스화되지는 않습니다. 인스턴스는 해당 타입에 대한 요청이 이루어졌을 때만 생성됩니다.
 :::
 
 Koin 컨테이너를 시작할 때 사용될 모듈 목록을 선언하기만 하면 됩니다:
 
 ```kotlin
-// moduleA와 moduleB로 Koin 시작
+// Start Koin with moduleA & moduleB
 startKoin {
     modules(moduleA,moduleB)
 }
@@ -66,7 +66,7 @@ val myModuleB = module {
 }
 
 startKoin {
-    // TestServiceImp가 ServiceImp 정의를 재정의합니다
+    // TestServiceImp will override ServiceImp definition
     modules(myModuleA,myModuleB)
 }
 ```
@@ -77,7 +77,7 @@ Koin 애플리케이션 설정에서 `allowOverride(false)`를 사용하여 재�
 
 ```kotlin
 startKoin {
-    // 정의 재정의 금지
+    // Forbid definition override
     allowOverride(false)
 }
 ```
@@ -90,7 +90,7 @@ startKoin {
 
 ```kotlin
 fun sharedModule() = module {
-    // 당신의 정의들 ...
+    // Your definitions ...
 }
 ```
 
@@ -111,7 +111,7 @@ val myModuleB = module {
     single<Service> { TestServiceImp() }
 }
 
-// BeanOverrideException을 발생시킵니다
+// Will throw an BeanOverrideException
 startKoin {
     modules(myModuleA,myModuleB)
 }
@@ -127,7 +127,7 @@ val myModuleA = module {
 
 val myModuleB = module {
 
-    // 이 정의에 대한 재정의
+    // override for this definition
     single<Service>(override=true) { TestServiceImp() }
 }
 ```
@@ -138,7 +138,7 @@ val myModuleA = module {
     single<Service> { ServiceImp() }
 }
 
-// 모듈의 모든 정의에 대한 재정의 허용
+// Allow override for all definitions from module
 val myModuleB = module(override=true) {
 
     single<Service> { TestServiceImp() }
@@ -181,12 +181,12 @@ val remoteDatasourceModule = module {
 그런 다음 올바른 모듈 조합으로 Koin을 시작하기만 하면 됩니다:
 
 ```kotlin
-// Repository + 로컬 Datasource 정의 로드
+// Load Repository + Local Datasource definitions
 startKoin {
     modules(repositoryModule,localDatasourceModule)
 }
 
-// Repository + 원격 Datasource 정의 로드
+// Load Repository + Remote Datasource definitions
 startKoin {
     modules(repositoryModule,remoteDatasourceModule)
 }
@@ -203,18 +203,18 @@ startKoin {
 어떻게 작동할까요? 몇 가지 모듈을 사용하고, `parentModule`에 모듈을 포함하는 예시를 살펴보겠습니다:
 
 ```kotlin
-// `:feature` 모듈
+// `:feature` module
 val childModule1 = module {
-    /* 여기에 다른 정의들. */
+    /* Other definitions here. */
 }
 val childModule2 = module {
-    /* 여기에 다른 정의들. */
+    /* Other definitions here. */
 }
 val parentModule = module {
     includes(childModule1, childModule2)
 }
 
-// `:app` 모듈
+// `:app` module
 startKoin { modules(parentModule) }
 ```
 
@@ -229,12 +229,12 @@ startKoin { modules(parentModule) }
 마지막으로, 여러 중첩되거나 중복된 모듈을 포함할 수 있으며, Koin은 포함된 모든 모듈을 평탄화하여 중복을 제거합니다:
 
 ```kotlin
-// :feature 모듈
+// :feature module
 val dataModule = module {
-    /* 여기에 다른 정의들. */
+    /* Other definitions here. */
 }
 val domainModule = module {
-    /* 여기에 다른 정의들. */
+    /* Other definitions here. */
 }
 val featureModule1 = module {
     includes(domainModule, dataModule)
@@ -243,7 +243,7 @@ val featureModule2 = module {
     includes(domainModule, dataModule)
 }
 
-// `:app` 모듈
+// `:app` module
 startKoin { modules(featureModule1, featureModule2) }
 ```
 

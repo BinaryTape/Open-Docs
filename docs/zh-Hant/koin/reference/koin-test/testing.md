@@ -161,7 +161,7 @@ Koin 提供一種測試您的 Koin 模組是否良好的方法：`checkModules` 
 請注意在每次測試之間停止您的 koin 實例（如果您在測試中使用 `startKoin`）。否則請確保使用 `koinApplication`，用於本地 koin 實例，或使用 `stopKoin()` 來停止目前的全局實例。
 
 ## 使用 JUnit5 進行測試
-JUnit 5 支援提供 [Extensions]([url](https://junit.org/junit5/docs/current/user-guide/#extensions))，它們將處理 Koin 上下文的啟動與停止。這表示如果您正在使用此擴充功能，則無需使用 `AutoCloseKoinTest`。
+JUnit 5 支援提供 [Extensions](https://junit.org/junit5/docs/current/user-guide/#extensions)，它們將處理 Koin 上下文的啟動與停止。這表示如果您正在使用此擴充功能，則無需使用 `AutoCloseKoinTest`。
 
 ### 依賴項
 為了使用 JUnit5 進行測試，您需要使用 `koin-test-junit5` 依賴項。

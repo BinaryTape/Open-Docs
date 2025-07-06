@@ -34,7 +34,7 @@ val myModule = module {
 
 `single`、`factory` 和 `scoped` 关键字帮助你通过 lambda 表达式声明组件。此 lambda 描述了你构建组件的方式。通常我们通过组件的构造函数来实例化组件，但你也可以使用任何表达式。
 
-`single { 类构造函数 // Kotlin 表达式 }`
+`single { Class constructor // Kotlin expression }`
 
 你的 lambda 的结果类型是你的组件的主要类型。
 
@@ -67,34 +67,33 @@ val myModule = module {
 让我们用几个类来举例：
 
 ```kotlin
-// 演示器 <- 服务
+// Presenter <- Service
 class Service()
 class Controller(val view : View)
 
 val myModule = module {
 
-    // 声明 Service 为单例
+    // declare Service as single instance
     single { Service() }
-    // 声明 Controller 为单例，使用 get() 解析 View 实例
+    // declare Controller as single instance, resolving View instance with get()
     single { Controller(get()) }
 }
 ```
 
 ## 定义：绑定接口
 
-`single` 或 `factory` 定义使用其给定 lambda 定义中的类型，即： `single { T }`
-该定义匹配的类型是此表达式中唯一匹配的类型。
+一个 `single` 或 `factory` 定义使用其给定 lambda 定义中的类型，即： `single { T }` 该定义匹配的类型是此表达式中唯一匹配的类型。
 
 让我们用一个类和已实现的接口来举例：
 
 ```kotlin
-// Service 接口
+// Service interface
 interface Service{
 
     fun doSomething()
 }
 
-// Service 实现
+// Service Implementation
 class ServiceImp() : Service {
 
     fun doSomething() { ... }
@@ -106,10 +105,10 @@ class ServiceImp() : Service {
 ```kotlin
 val myModule = module {
 
-    // 将只匹配 ServiceImp 类型
+    // Will match type ServiceImp only
     single { ServiceImp() }
 
-    // 将只匹配 Service 类型
+    // Will match type Service only
     single { ServiceImp() as Service }
 
 }
@@ -120,10 +119,10 @@ val myModule = module {
 ```kotlin
 val myModule = module {
 
-    // 将只匹配 ServiceImp 类型
+    // Will match type ServiceImp only
     single { ServiceImp() }
 
-    // 将只匹配 Service 类型
+    // Will match type Service only
     single<Service> { ServiceImp() }
 
 }
@@ -140,13 +139,13 @@ val myModule = module {
 让我们用一个类和接口来举例：
 
 ```kotlin
-// Service 接口
+// Service interface
 interface Service{
 
     fun doSomething()
 }
 
-// Service 实现
+// Service Implementation
 class ServiceImp() : Service{
 
     fun doSomething() { ... }
@@ -158,7 +157,7 @@ class ServiceImp() : Service{
 ```kotlin
 val myModule = module {
 
-    // 将匹配 ServiceImp 和 Service 类型
+    // Will match types ServiceImp & Service
     single { ServiceImp() } bind Service::class
 }
 ```
@@ -225,7 +224,7 @@ val presenter : Presenter by inject { parametersOf(view) }
 class Presenter(val view : View)
 
 val myModule = module {
-    factory { (view : View) -> Presenter(view) } onClose { // 关闭回调 - 它是 Presenter }
+    factory { (view : View) -> Presenter(view) } onClose { // closing callback - it is Presenter }
 }
 ```
 
@@ -235,7 +234,7 @@ Koin DSL 还提供了一些标志。
 
 ### 启动时创建实例
 
-一个定义或模块可以被标记为 `CreatedAtStart`，以便在启动时（或在你需要时）创建。首先在你的模块或定义上设置 `createdAtStart` 标志。
+一个定义或一个模块可以被标记为 `CreatedAtStart`，以便在启动时（或在你需要时）创建。首先在你的模块或定义上设置 `createdAtStart` 标志。
 
 定义上的 CreatedAtStart 标志
 
@@ -299,3 +298,4 @@ module {
     single(named("Ints")) { ArrayList<Int>() }
     single(named("Strings")) { ArrayList<String>() }
 }
+```

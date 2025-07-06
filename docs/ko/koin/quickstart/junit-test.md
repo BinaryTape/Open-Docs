@@ -2,7 +2,7 @@
 title: JUnit 테스트
 ---
 
-> 이 튜토리얼에서는 코틀린 애플리케이션을 테스트하고 Koin을 사용하여 컴포넌트를 주입(inject)하고 검색(retrieve)하는 방법을 설명합니다.
+> 이 튜토리얼에서는 코틀린 애플리케이션을 테스트하고 Koin을 사용하여 컴포넌트를 주입(inject)하고 검색(retrieve)합니다.
 
 ## 코드 가져오기
 
@@ -17,15 +17,15 @@ title: JUnit 테스트
 ```groovy
 dependencies {
     // Koin testing tools
-    testCompile "io.insert-koin:koin-test:$koin_version"
+    testImplementation "io.insert-koin:koin-test:$koin_version"
     // Needed JUnit version
-    testCompile "io.insert-koin:koin-test-junit4:$koin_version"
+    testImplementation "io.insert-koin:koin-test-junit4:$koin_version"
 }
 ```
 
 ## 의존성 선언
 
-koin 모듈을 사용하기 위해 `koin-core` 시작하기 프로젝트를 재사용합니다:
+Koin 모듈을 사용하기 위해 `koin-core` 시작하기 프로젝트를 재사용합니다:
 
 ```kotlin
 val helloModule = module {
@@ -90,3 +90,4 @@ class HelloMockTest : KoinTest {
         Mockito.verify(service,times(1)).hello()
     }
 }
+```
