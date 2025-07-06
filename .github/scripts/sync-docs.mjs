@@ -143,6 +143,7 @@ async function translateAndPush(repoConfig, task) {
     ".",
     ":!package.json",
     ":!package-lock.json",
+    `:!${repoConfig.path}`,
     `:!${repoConfig.path}/`,
   ]);
 
