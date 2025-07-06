@@ -149,6 +149,8 @@ async function translateAndPush(repoConfig, task) {
 
   const { stdout: status } = await execa("git", ["status", "--porcelain"]);
   if (status) {
+    console.log("Changes detected, committing...");
+    console.log(status.split("\n").map((line) => `  - ${line}`).join("\n"));
     await execa("git", [
       "-c",
       "user.name=github-actions[bot]",
