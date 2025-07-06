@@ -140,6 +140,7 @@ async function translateAndPush(repoConfig, task) {
   ]);
   await execa("git", [
     "add",
+    "--force",
     ".",
     ":!package.json",
     ":!package-lock.json",
@@ -161,7 +162,9 @@ async function translateAndPush(repoConfig, task) {
     ]);
 
     await execa("git", ["push", "origin", currentBranch]);
-    console.log(`Changes committed and push to ${currentBranch} branch successfully.`);
+    console.log(
+      `Changes committed and push to ${currentBranch} branch successfully.`
+    );
   } else {
     console.log("No changes to commit.");
   }

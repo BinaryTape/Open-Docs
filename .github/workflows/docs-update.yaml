@@ -9,7 +9,7 @@ permissions:
   contents: write
 
 jobs:
-  koin-docs-update:
+  docs-update:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout main repository
