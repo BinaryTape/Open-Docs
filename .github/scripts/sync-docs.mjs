@@ -149,10 +149,15 @@ async function translateAndPush(repoConfig, task) {
   const { stdout: status } = await execa("git", ["status", "--porcelain"]);
   if (status) {
     await execa("git", [
+      "-c",
+      "user.name=github-actions[bot]",
+      "-c",
+      "user.email=github-actions[bot]@users.noreply.github.com",
       "commit",
       "-m",
       `docs: [${task.docType}] Add translated files and update check record`,
     ]);
+
     const { stdout: currentBranch } = await execa("git", [
       "symbolic-ref",
       "--short",
