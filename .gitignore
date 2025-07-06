@@ -21,7 +21,3 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-
-# Koin docs
-/koin-annotations-repo
-/koin-repo

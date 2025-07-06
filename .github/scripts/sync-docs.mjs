@@ -140,12 +140,10 @@ async function translateAndPush(repoConfig, task) {
   ]);
   await execa("git", [
     "add",
-    "--force",
     ".",
     ":!package.json",
     ":!package-lock.json",
-    `:!${repoConfig.path}`,
-    `:!${repoConfig.path}/**`,
+    `:!${repoConfig.path}/`,
   ]);
 
   const { stdout: status } = await execa("git", ["status", "--porcelain"]);
