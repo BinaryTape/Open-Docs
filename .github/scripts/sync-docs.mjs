@@ -4,6 +4,7 @@ import path from "path";
 import { glob } from "glob";
 import { translateFiles } from "./translate.mjs";
 import { REPOS } from "./repo-config.mjs";
+import { get } from "http";
 
 async function getCommitSha(repoPath) {
   const { stdout } = await execa("git", ["rev-parse", "HEAD"], {
@@ -18,6 +19,12 @@ async function getLastCommitSha(filePath) {
     return content.trim();
   }
   return null;
+}
+
+function getIgnorePatterns(repos) {
+  return repos.map((repo) => {
+    return repo.path + "/";
+  });
 }
 
 async function getChangedFiles(repoPath, baseSha, filePattern) {
@@ -138,12 +145,7 @@ async function push(repoConfig, task) {
     "user.email",
     "github-actions[bot]@users.noreply.github.com",
   ]);
-  await execa("git", [
-    "add",
-    ".",
-    `:!${repoConfig.path}`,
-    `:!${repoConfig.path}/`,
-  ]);
+  await execa("git", ["add", ".", ...getIgnorePatterns(REPOS)]);
 
   const { stdout: status } = await execa("git", ["status", "--porcelain"]);
   if (status) {
