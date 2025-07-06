@@ -4,7 +4,6 @@ import path from "path";
 import { glob } from "glob";
 import { translateFiles } from "./translate.mjs";
 import { REPOS } from "./repo-config.mjs";
-import { get } from "http";
 
 async function getCommitSha(repoPath) {
   const { stdout } = await execa("git", ["rev-parse", "HEAD"], {
@@ -22,9 +21,10 @@ async function getLastCommitSha(filePath) {
 }
 
 function getIgnorePatterns(repos) {
-  return repos.map((repo) => {
-    return repo.path + "/";
+  const repoIgnorePattern = repos.map((repo) => {
+    return `:!${repo.path}/`;
   });
+  return [":!package.json", ":!package-lock.json", ...repoIgnorePattern];
 }
 
 async function getChangedFiles(repoPath, baseSha, filePattern) {
