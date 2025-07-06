@@ -57,7 +57,7 @@ async function getAllFiles(repoPath, filePattern) {
   return files.map((p) => path.relative(repoPath, p).replace(/\\/g, "/"));
 }
 
-async function syncRepo(repoConfig) {
+async function sync(repoConfig) {
   let task = undefined;
   console.log(`\n--- Processing repository: ${repoConfig.name} ---`);
   if (!(await fs.pathExists(repoConfig.path))) {
@@ -124,13 +124,13 @@ async function syncRepo(repoConfig) {
   return task;
 }
 
-async function translateAndPush(repoConfig, task) {
+async function translate(task) {
   console.log("\n--- Starting translation process ---");
   console.log(`Translating ${task.files.length} files for ${task.docType}...`);
   await translateFiles(task.docType, task.repoPath, task.files);
-  await fs.outputFile(task.checkFile, task.newSha);
-  console.log(`Updated ${task.checkFile} with new SHA: ${task.newSha}`);
+}
 
+async function push(repoConfig, task) {
   console.log("\n--- Committing and pushing changes ---");
   await execa("git", ["config", "user.name", "github-actions[bot]"]);
   await execa("git", [
@@ -141,8 +141,6 @@ async function translateAndPush(repoConfig, task) {
   await execa("git", [
     "add",
     ".",
-    ":!package.json",
-    ":!package-lock.json",
     `:!${repoConfig.path}`,
     `:!${repoConfig.path}/`,
   ]);
@@ -150,7 +148,12 @@ async function translateAndPush(repoConfig, task) {
   const { stdout: status } = await execa("git", ["status", "--porcelain"]);
   if (status) {
     console.log("Changes detected, committing...");
-    console.log(status.split("\n").map((line) => `  - ${line}`).join("\n"));
+    console.log(
+      status
+        .split("\n")
+        .map((line) => `  - ${line}`)
+        .join("\n")
+    );
     await execa("git", [
       "-c",
       "user.name=github-actions[bot]",
@@ -171,17 +174,22 @@ async function translateAndPush(repoConfig, task) {
     console.log(
       `Changes committed and push to ${currentBranch} branch successfully.`
     );
+    await fs.outputFile(task.checkFile, task.newSha);
+    console.log(`Updated ${task.checkFile} with new SHA: ${task.newSha}`);
   } else {
     console.log("No changes to commit.");
+    await fs.outputFile(task.checkFile, task.newSha);
+    console.log(`Updated ${task.checkFile} with new SHA: ${task.newSha}`);
   }
 }
 
 async function main() {
   for (const repoConfig of REPOS) {
     try {
-      const translationTask = await syncRepo(repoConfig);
+      const translationTask = await sync(repoConfig);
       if (translationTask) {
-        await translateAndPush(repoConfig, translationTask);
+        await translate(translationTask);
+        await push(repoConfig, translationTask);
       } else {
         console.log(`No changes detected for ${repoConfig.name}.`);
       }
