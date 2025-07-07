@@ -1811,7 +1811,7 @@ function createI18nSideBarConfig(t) {
                 "items": [
                     {
                         "text": t['sqldelight.overview'],
-                        "link": "index"
+                        "link": "index.md"
                     },
                     {
                         "text": t['sqldelight.upgrading-2.0'],
