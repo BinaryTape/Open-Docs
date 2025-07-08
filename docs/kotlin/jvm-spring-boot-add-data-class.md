@@ -83,6 +83,7 @@
             </code-block>
           <p>这是 Kotlin 语法的一个方便特性，并且是完全可选的——你的代码即使没有它们也能正常工作。</p>
           <p>在上面的示例中，创建 `Message` 对象列表时在最后一个 `listOf()` 函数参数后包含尾随逗号。</p>
+      </def>
     </deflist>
 
 `MessageController` 的响应现在将是一个包含 `Message` 对象集合的 JSON 文档。

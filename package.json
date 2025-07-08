@@ -15,7 +15,8 @@
   "devDependencies": {
     "gray-matter": "^4.0.3",
     "markdown-it-container": "^4.0.0",
-    "vitepress": "^1.6.3"
+    "vitepress": "^1.6.3",
+    "shiki": "^3.7.0"
   },
   "dependencies": {
     "aos": "^2.3.4"

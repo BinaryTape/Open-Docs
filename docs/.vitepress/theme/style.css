@@ -210,107 +210,20 @@ html:not(.dark) .vp-doc [class*="language-text"] code {
   font-weight: 700;
   cursor: pointer;
   user-select: none;
-  font-size: 1.1em;
-}
-
-/**
- * Component: Writerside tldr
- * -------------------------------------------------------------------------- */
-
-.ws-tldr {
-  display: inline-flex;
-  flex-flow: column nowrap;
-  padding: 16px;
-  border: 1px solid #d1d1d2;
-  border-radius: 6px;
-}
-
-.ws-tldr img {
-  vertical-align: middle !important;
-  display: inline-block !important;
-}
-
-.ws-tldr p {
-  margin: 0;
+  font-size: 1.2em;
 }
 
 /**
  * Component: Writerside tabs
  * -------------------------------------------------------------------------- */
 
-.ws-tabs-container .ws-tablist input {
-  position: fixed;
-  opacity: 0;
-  pointer-events: none;
-}
-
-.ws-tabs-container input:checked + label::after {
-  background-color: var(--vp-code-tab-active-bar-color);
-}
-
-.ws-tabs-container .ws-tablist label::after {
-  position: absolute;
-  right: 8px;
-  bottom: -1px;
-  left: 8px;
-  z-index: 1;
-  height: 2px;
-  border-radius: 2px;
-  content: "";
-  background-color: transparent;
-  transition: background-color 0.25s;
-}
-
-.ws-tabs-container .ws-tablist label:hover {
-  color: var(--vp-code-tab-hover-text-color);
-}
-
-.ws-tabs-container input:checked + label {
-  color: var(--vp-code-tab-active-text-color);
-}
-
-.ws-tab {
-  cursor: pointer;
-  position: relative;
-  display: inline-block;
-  border-bottom: 1px solid transparent;
-  padding: 0 12px;
-  line-height: 48px;
-  font-size: 14px;
-  font-weight: 500;
-  color: var(--vp-code-tab-text-color);
-  white-space: nowrap;
-  transition: color 0.25s;
-}
-
-.ws-tabs-container .ws-tabcontents .ws-tabcontent {
-  display: none;
-  margin-top: 0 !important;
-  border-top-left-radius: 0 !important;
-  border-top-right-radius: 0 !important;
-}
-
-.ws-tabs-container .ws-tabcontents .ws-tabcontent.active {
-  display: block;
-}
-
-.ws-tabcontents {
-  padding: 0 12px;
-}
 
 img[type="joined"] {
   vertical-align: middle !important;
   display: inline-block !important;
 }
 
-.ws-def-content {
-  padding: 0 16px;
-}
 
-.ws-def-content i {
-  font-style: normal;
-  font-weight: bold;
-}
 
 /**
  * Component: SQLDelight
