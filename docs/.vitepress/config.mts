@@ -1,12 +1,8 @@
 import {DefaultTheme, defineConfig} from 'vitepress'
 import markdownItContainer from 'markdown-it-container'
-import markdownItWsCodeGroup from "./markdown-it-ws-code-group";
 import markdownItWsContainer from "./markdown-it-ws-container";
 import markdownItWsFrontmatter from "./markdown-it-ws-frontmatter";
-import markdownItWsTldr from "./markdown-it-ws-tldr";
-import markdownItWsTabs from "./markdown-it-ws-tabs";
 import markdownItWsCodeClean from "./markdown-it-ws-code-clean";
-import markdownItWsDeflist from "./markdown-it-ws-deflist";
 import markdownItWsAssets from "./markdown-it-ws-assets";
 import markdownItWsVars from "./markdown-it-ws-vars";
 import markdownItMKVars from "./markdown-it-mk-vars";
@@ -29,6 +25,7 @@ import markdownItMKInclude from "./markdown-it-mk-Include";
 import markdownItRemoveScript from "./markdown-it-remove-script";
 import markdownItRemoveContributeUrl from "./markdown-it-remove-contribute-url";
 import markdownItWsClassstyles from "./markdown-it-ws-classstyles";
+import markdownItWsRenderInline from "./markdown-it-ws-render-inline";
 
 const mkDiffGrammarPath = resolve(__dirname, './shiki-mk-diff.json')
 const mkDiffGrammar = JSON.parse(readFileSync(mkDiffGrammarPath, 'utf-8'))
@@ -297,12 +294,9 @@ export default defineConfig({
             md.use(markdownItRemoveScript)
             md.use(markdownItMKInclude)
             md.use(markdownItWsCodeClean)
-            md.use(markdownItWsTabs)
             md.use(markdownItWsFrontmatter)
-            md.use(markdownItWsTldr)
-            md.use(markdownItWsDeflist)
+            md.use(markdownItWsRenderInline)
             md.use(markdownItWsContainer)
-            md.use(markdownItWsCodeGroup)
             md.use(markdownItWsAssets)
             md.use(markdownItMkAdmonition)
             md.use(markdownItMkHlLines)
