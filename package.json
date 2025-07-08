@@ -13,6 +13,10 @@
   "license": "ISC",
   "description": "",
   "devDependencies": {
+    "@google/genai": "^1.7.0",
+    "fs-extra": "^11.3.0",
+    "glob": "^11.0.3",
+    "execa": "^9.6.0",
     "gray-matter": "^4.0.3",
     "markdown-it-container": "^4.0.0",
     "vitepress": "^1.6.3",
