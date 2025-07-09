@@ -1,14 +1,14 @@
-import fs from "fs";
-import path from "path";
-import { GoogleGenAI } from "@google/genai";
-import { fileURLToPath } from "url";
+import fs from 'fs'
+import path from 'path'
+import { GoogleGenAI } from '@google/genai'
+import { fileURLToPath } from 'url';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // Load configuration from config file
-const configPath = path.resolve(__dirname, "./translate-config.json");
-const config = JSON.parse(fs.readFileSync(configPath, "utf8"));
+const configPath = path.resolve(__dirname, './translate-config.json');
+const config = JSON.parse(fs.readFileSync(configPath, 'utf8'));
 
 // Google LLM API
 const genAI = new GoogleGenAI({ apiKey: process.env.GOOGLE_API_KEY });
@@ -17,114 +17,92 @@ const genAI = new GoogleGenAI({ apiKey: process.env.GOOGLE_API_KEY });
 let terminology = {};
 
 try {
-  terminology = JSON.parse(fs.readFileSync(config.terminologyPath, "utf8"));
+    terminology = JSON.parse(fs.readFileSync(config.terminologyPath, 'utf8'));
 } catch (error) {
-  terminology = { terms: {} };
+    terminology = { terms: {} };
 }
 
 // Calculate target file path
 function getTargetPath(filePath, targetLang) {
-  // baseDir/[language]/koin/relativePath
-  const baseDir = "./docs";
-  const docType = process.env.DOC_TYPE;
-  const relativePath = path.relative(config.sourceDir, filePath);
+    // baseDir/[language]/koin/relativePath
+    const baseDir = './docs';
+    const docType = process.env.DOC_TYPE;
+    const relativePath = path.relative(config.sourceDir, filePath);
 
-  if (targetLang === "zh-Hans") {
-    return path.join(baseDir, docType, relativePath);
-  } else {
-    return path.join(baseDir, targetLang, docType, relativePath);
-  }
+    if (targetLang === 'zh-Hans') {
+        return path.join(baseDir, docType, relativePath);
+    } else {
+        return path.join(baseDir, targetLang, docType, relativePath);
+    }
 }
 
 // Load previously translated related files as reference
 function loadPreviousTranslations(targetLang, currentFilePath) {
-  try {
-    // Calculate path for the corresponding translation file
-    const targetPath = getTargetPath(currentFilePath, targetLang);
+    try {
+        // Calculate path for the corresponding translation file
+        const targetPath = getTargetPath(currentFilePath, targetLang);
 
-    console.log(`Trying to load reference translation: ${targetPath}`);
+        console.log(`Trying to load reference translation: ${targetPath}`);
 
-    // Check if corresponding translation file exists
-    if (!fs.existsSync(targetPath)) {
-      console.log(`Reference translation file does not exist: ${targetPath}`);
-      return [];
+        // Check if corresponding translation file exists
+        if (!fs.existsSync(targetPath)) {
+            console.log(`Reference translation file does not exist: ${targetPath}`);
+            return [];
+        }
+
+        // Read previous translation content
+        const content = fs.readFileSync(targetPath, 'utf8');
+        console.log(`Successfully loaded reference translation file: ${targetPath}`);
+
+        return [{
+            file: targetPath,
+            content: content
+        }];
+
+    } catch (error) {
+        console.error("Error loading previous translation:", error);
+        return [];
     }
-
-    // Read previous translation content
-    const content = fs.readFileSync(targetPath, "utf8");
-    console.log(
-      `Successfully loaded reference translation file: ${targetPath}`
-    );
-
-    return [
-      {
-        file: targetPath,
-        content: content,
-      },
-    ];
-  } catch (error) {
-    console.error("Error loading previous translation:", error);
-    return [];
-  }
 }
 
 // Prepare translation prompt
 function prepareTranslationPrompt(sourceText, targetLang, currentFilePath) {
-  // Get relevant terminology
-  const relevantTerms = Object.entries(terminology.terms)
-    .filter(([term]) => sourceText.includes(term))
-    .map(([term, translations]) => `"${term}" → "${translations[targetLang]}"`)
-    .join("\n");
+    // Get relevant terminology
+    const relevantTerms = Object.entries(terminology.terms)
+        .filter(([term]) => sourceText.includes(term))
+        .map(([term, translations]) => `"${term}" → "${translations[targetLang]}"`)
+        .join('\n');
 
-  // Get previously translated file with the same name as reference
-  const previousTranslations = loadPreviousTranslations(
-    targetLang,
-    currentFilePath
-  );
+    // Get previously translated file with the same name as reference
+    const previousTranslations = loadPreviousTranslations(targetLang, currentFilePath);
 
-  // Build reference translation section
-  let translationReferences = "";
-  if (previousTranslations.length > 0) {
-    // Choose English or Chinese based on target language
-    if (targetLang === "ja" || targetLang === "ko") {
-      translationReferences =
-        "\n## Reference Translations (Reference previously translated documents to maintain consistent style and terminology)\n";
-      translationReferences += `### Previous Translation Version\n\`\`\`\n${previousTranslations[0].content}\n\`\`\`\n\n`;
-    } else {
-      translationReferences = `\n\`\`\`\n${previousTranslations[0].content}\n\`\`\`\n\n`;
+    // Build reference translation section
+    let translationReferences = '';
+    if (previousTranslations.length > 0) {
+        // Choose English or Chinese based on target language
+        if (targetLang === 'ja' || targetLang === 'ko') {
+            translationReferences = '\n## Reference Translations (Reference previously translated documents to maintain consistent style and terminology)\n';
+            translationReferences += `### Previous Translation Version\n\`\`\`\n${previousTranslations[0].content}\n\`\`\`\n\n`;
+        } else {
+            translationReferences = `\n\`\`\`\n${previousTranslations[0].content}\n\`\`\`\n\n`;
+        }
     }
+
+    // Choose appropriate prompt template based on target language
+    const promptTemplate = getPromptTemplate(targetLang, getLangDisplayName(targetLang));
+
+    // Insert variables into template
+    return promptTemplate
+      .replace('{RELEVANT_TERMS}', relevantTerms || (targetLang === 'ja' || targetLang === 'ko' ? 'No relevant terms' : '无相关术语'))
+      .replace('{TRANSLATION_REFERENCES}', translationReferences || (targetLang === 'ja' || targetLang === 'ko' ? 'No reference translations' : '无参考翻译'))
+      .replace('{SOURCE_TEXT}', sourceText);
   }
 
-  // Choose appropriate prompt template based on target language
-  const promptTemplate = getPromptTemplate(
-    targetLang,
-    getLangDisplayName(targetLang)
-  );
-
-  // Insert variables into template
-  return promptTemplate
-    .replace(
-      "{RELEVANT_TERMS}",
-      relevantTerms ||
-        (targetLang === "ja" || targetLang === "ko"
-          ? "No relevant terms"
-          : "无相关术语")
-    )
-    .replace(
-      "{TRANSLATION_REFERENCES}",
-      translationReferences ||
-        (targetLang === "ja" || targetLang === "ko"
-          ? "No reference translations"
-          : "无参考翻译")
-    )
-    .replace("{SOURCE_TEXT}", sourceText);
-}
-
-// Get appropriate prompt template based on target language
-function getPromptTemplate(targetLang, langDisplayName) {
-  // Japanese and Korean use English prompts
-  if (targetLang === "ja" || targetLang === "ko") {
-    return `# Role and Task
+  // Get appropriate prompt template based on target language
+  function getPromptTemplate(targetLang, langDisplayName) {
+    // Japanese and Korean use English prompts
+    if (targetLang === 'ja' || targetLang === 'ko') {
+      return `# Role and Task
   
     You are a professional AI translation assistant specializing in translating **Kotlin-related** English technical documentation into ${langDisplayName} with precision. Your goal is to produce high-quality, technically accurate translations that conform to the reading habits of the target language, primarily for a **developer audience**. Please strictly follow these guidelines and requirements:
     
@@ -198,10 +176,10 @@ function getPromptTemplate(targetLang, langDisplayName) {
     \`\`\`markdown
     {SOURCE_TEXT}
     \`\`\``;
-  }
+    }
 
-  // Other languages use Chinese prompts
-  return `# 角色与任务
+    // Other languages use Chinese prompts
+    return `# 角色与任务
 
     你是一位专业的 AI 翻译助手，专门负责将 **Github中Kotlin相关的** 英文技术文档精准翻译为 ${langDisplayName}。你的目标是产出高质量、技术准确、且符合目标语言阅读习惯的译文，主要面向**开发者受众**。请严格遵循以下指导原则和要求：
     
@@ -275,193 +253,162 @@ function getPromptTemplate(targetLang, langDisplayName) {
     \`\`\`markdown
     {SOURCE_TEXT}
     \`\`\``;
-}
+  }
+
 
 // Call LLM API for translation
 async function translateWithLLM(text, targetLang, filePath) {
-  const modelConfig = config.modelConfigs[targetLang];
-  const prompt = prepareTranslationPrompt(text, targetLang, filePath);
+    const modelConfig = config.modelConfigs[targetLang];
+    const prompt = prepareTranslationPrompt(text, targetLang, filePath);
 
-  console.log(
-    `Translating to ${targetLang} using ${modelConfig.provider}:${modelConfig.model}`
-  );
+    console.log(`Translating to ${targetLang} using ${modelConfig.provider}:${modelConfig.model}`);
 
-  if (modelConfig.provider === "google") {
-    return await callGemini(prompt, modelConfig.model);
-  }
+    if (modelConfig.provider === 'google') {
+        return await callGemini(prompt, modelConfig.model);
+    }
 
-  throw new Error(`Unsupported provider: ${modelConfig.provider}`);
+    throw new Error(`Unsupported provider: ${modelConfig.provider}`);
 }
 
 // Call Gemini API
 async function callGemini(prompt, model) {
-  try {
-    const response = await genAI.models.generateContent({
-      model: model,
-      contents: prompt,
-      config: {
-        temperature: 1,
-      },
-    });
+    try {
+        const response = await genAI.models.generateContent({
+            model: model,
+            contents: prompt,
+            config: {
+                temperature: 1
+            }
+        });
 
-    return response.text;
-  } catch (error) {
-    console.error("Gemini API error:", error);
-    throw error;
-  }
+        return response.text;
+    } catch (error) {
+        console.error('Gemini API error:', error);
+        throw error;
+    }
 }
 
 // Translate file
 async function translateFile(filePath) {
-  console.log(`Translating file: ${filePath}`);
+    console.log(`Translating file: ${filePath}`);
 
-  if (!filePath) {
-    console.error("Invalid file path");
-    return;
-  }
-
-  // Fix file path, need to read source file from REPO_PATH
-  const absoluteFilePath = path.resolve(process.env.REPO_PATH, filePath);
-
-  // Check if file exists
-  if (!fs.existsSync(absoluteFilePath)) {
-    console.error(`File not found: ${absoluteFilePath}`);
-    return;
-  }
-
-  try {
-    let content = fs.readFileSync(absoluteFilePath, "utf8");
-
-    for (const targetLang of config.targetLanguages) {
-      try {
-        // Use new path calculation function
-        const targetPath = getTargetPath(filePath, targetLang);
-
-        if (!targetPath) {
-          console.error(
-            `Unable to get target path: ${filePath} -> ${targetLang}`
-          );
-          continue;
-        }
-
-        // Create target directory
-        fs.mkdirSync(path.dirname(targetPath), { recursive: true });
-
-        // Translate content
-        let translatedContent;
-        if (content && content.trim()) {
-          translatedContent = await translateWithLLM(
-            content,
-            targetLang,
-            filePath
-          );
-
-          // Check translation result
-          if (!translatedContent) {
-            console.error(
-              `Translation result is empty: ${filePath} -> ${targetLang}`
-            );
-            continue;
-          }
-
-          // Clean up extra content in translation result
-          translatedContent = cleanupTranslation(translatedContent);
-        } else {
-          console.error(`File content is empty: ${filePath}`);
-          continue;
-        }
-
-        // Write translated file
-        fs.writeFileSync(targetPath, translatedContent);
-        console.log(`Translated to ${targetLang}: ${targetPath}`);
-      } catch (langError) {
-        console.error(
-          `Error translating to ${targetLang}: ${langError.message}`
-        );
-      }
+    if (!filePath) {
+        console.error('Invalid file path');
+        return;
     }
-  } catch (fileError) {
-    console.error(`Error processing file ${filePath}: ${fileError.message}`);
-  }
+
+    // Fix file path, need to read source file from REPO_PATH
+    const absoluteFilePath = path.resolve(process.env.REPO_PATH, filePath);
+
+    // Check if file exists
+    if (!fs.existsSync(absoluteFilePath)) {
+        console.error(`File not found: ${absoluteFilePath}`);
+        return;
+    }
+
+    try {
+        let content = fs.readFileSync(absoluteFilePath, 'utf8');
+
+        for (const targetLang of config.targetLanguages) {
+            try {
+                // Use new path calculation function
+                const targetPath = getTargetPath(filePath, targetLang);
+
+                if (!targetPath) {
+                    console.error(`Unable to get target path: ${filePath} -> ${targetLang}`);
+                    continue;
+                }
+
+                // Create target directory
+                fs.mkdirSync(path.dirname(targetPath), { recursive: true });
+
+                // Translate content
+                let translatedContent;
+                if (content && content.trim()) {
+                    translatedContent = await translateWithLLM(content, targetLang, filePath);
+
+                    // Check translation result
+                    if (!translatedContent) {
+                        console.error(`Translation result is empty: ${filePath} -> ${targetLang}`);
+                        continue;
+                    }
+
+                    // Clean up extra content in translation result
+                    translatedContent = cleanupTranslation(translatedContent);
+                } else {
+                    console.error(`File content is empty: ${filePath}`);
+                    continue;
+                }
+
+                // Write translated file
+                fs.writeFileSync(targetPath, translatedContent);
+                console.log(`Translated to ${targetLang}: ${targetPath}`);
+            } catch (langError) {
+                console.error(`Error translating to ${targetLang}: ${langError.message}`);
+            }
+        }
+    } catch (fileError) {
+        console.error(`Error processing file ${filePath}: ${fileError.message}`);
+    }
 }
 
 // Clean up extra content in translation results
 function cleanupTranslation(text) {
-  // Remove markdown code block markers at beginning
-  if (text.startsWith("```markdown")) {
-    text = text.replace(/^```markdown\n/, "");
-  } else if (text.startsWith("```md")) {
-    text = text.replace(/^```md\n/, "");
-  } else if (text.startsWith("```")) {
-    text = text.replace(/^```\n/, "");
-  }
+    // Remove markdown code block markers at beginning
+    if (text.startsWith('```markdown')) {
+        text = text.replace(/^```markdown\n/, '');
+    } else if (text.startsWith('```md')) {
+        text = text.replace(/^```md\n/, '');
+    } else if (text.startsWith('```')) {
+        text = text.replace(/^```\n/, '');
+    }
 
-  // Remove markdown code block markers at end
-  if (text.endsWith("```")) {
-    text = text.replace(/```$/, "");
-  }
+    // Remove markdown code block markers at end
+    if (text.endsWith('```')) {
+        text = text.replace(/```$/, '');
+    }
 
-  // Remove extra 'n' characters (usually found in translation API error outputs)
-  text = text.replace(/([^\\])\\n/g, "$1\n"); // Replace non-escaped \n with actual newline
-  text = text.replace(/^\\n/g, "\n"); // Handle leading \n
+    // Remove extra 'n' characters (usually found in translation API error outputs)
+    text = text.replace(/([^\\])\\n/g, '$1\n'); // Replace non-escaped \n with actual newline
+    text = text.replace(/^\\n/g, '\n'); // Handle leading \n
 
-  // Remove extra blank lines
-  text = text.replace(/\n{3,}/g, "\n\n");
+    // Remove extra blank lines
+    text = text.replace(/\n{3,}/g, '\n\n');
 
-  // Remove possible extra spaces
-  text = text.trim();
+    // Remove possible extra spaces
+    text = text.trim();
 
-  return text;
+    return text;
 }
 
 // Get language display name
 function getLangDisplayName(langCode) {
-  return config.languageNames[langCode] || langCode;
+    return config.languageNames[langCode] || langCode;
 }
 
 // Main function
 async function main() {
-  const changedFilesInput = process.env.CHANGED_FILES || "";
-  console.log(`Environment variable CHANGED_FILES: ${changedFilesInput}`);
+    const changedFilesInput = process.env.CHANGED_FILES || '';
+    console.log(`Environment variable CHANGED_FILES: ${changedFilesInput}`);
 
-  const changedFiles = changedFilesInput
-    .split(/[\s,]+/)
-    .filter((file) => file.trim());
-  console.log(`Found ${changedFiles.length} changed files`);
+    const changedFiles = changedFilesInput.split(/[\s,]+/).filter(file => file.trim());
+    console.log(`Found ${changedFiles.length} changed files`);
 
-  if (changedFiles.length === 0) {
-    console.log(
-      "No files found to translate, if you need to specify files, please set CHANGED_FILES environment variable"
-    );
-    return;
-  }
-
-  for (const file of changedFiles) {
-    try {
-      await translateFile(file);
-    } catch (error) {
-      console.error(`Error translating ${file}:`, error);
-      // Continue processing next file
+    if (changedFiles.length === 0) {
+        console.log('No files found to translate, if you need to specify files, please set CHANGED_FILES environment variable');
+        return;
     }
-  }
 
-  console.log("Translation completed");
-}
-
-export async function translateFiles(docType, repoPath, files) {
-  console.log(`Translating ${files.length} files for ${docType}...`);
-
-  // Set environment variables
-  process.env.REPO_PATH = repoPath;
-  process.env.DOC_TYPE = docType;
-  for (const file of files) {
-    try {
-      await translateFile(file);
-    } catch (error) {
-      console.error(`Error translating ${file}:`, error);
-      // Continue processing next file
+    for (const file of changedFiles) {
+        try {
+            await translateFile(file);
+        } catch (error) {
+            console.error(`Error translating ${file}:`, error);
+            // Continue processing next file
+        }
     }
-  }
+
+    console.log('Translation completed');
 }
 
 main().catch(console.error);
