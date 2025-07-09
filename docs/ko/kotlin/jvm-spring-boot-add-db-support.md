@@ -51,7 +51,7 @@ class MessageService(private val db: JdbcTemplate) {
       @Service
       class MessageService(private val db: JdbcTemplate)
       </code-block>
-  </def>
+   </def>
    <def title="후행 람다와 SAM 변환">
       <p><code>findMessages()</code> 함수는 <code>JdbcTemplate</code> 클래스의 <code>query()</code> 함수를 호출합니다. <code>query()</code> 함수는 두 개의 인수를 받습니다: String 인스턴스로서의 SQL 쿼리와 행당 하나의 객체를 매핑할 콜백입니다:</p>
       <code-block lang="sql">
@@ -354,19 +354,19 @@ ID로 개별 메시지를 검색하도록 애플리케이션의 기능을 확장
     ```
 
     <deflist collapsible="true">
-    <def title="컨텍스트 경로에서 값 검색">
-       <p>새 함수에 <code>@GetMapping(&quot;/{id}&quot;)</code> 어노테이션을 지정했기 때문에 Spring Framework는 컨텍스트 경로에서 메시지 <code>id</code>를 검색합니다. 함수 인수에 <code>@PathVariable</code> 어노테이션을 지정함으로써 프레임워크에 검색된 값을 함수 인수로 사용하도록 지시합니다. 새 함수는 <code>MessageService</code>를 호출하여 ID로 개별 메시지를 검색합니다.</p>
-    </def>
-    <def title="널러블 리시버를 사용하는 확장 함수">
-         <p>확장 함수는 널러블 리시버 타입으로 정의될 수 있습니다. 리시버가 <code>null</code>이면 <code>this</code>도 <code>null</code>입니다. 따라서 널러블 리시버 타입을 가진 확장 함수를 정의할 때는 함수 본문 내에서 <code>this == null</code> 검사를 수행하는 것이 좋습니다.</p>
-         <p>위 <code>toResponseEntity()</code> 함수에서와 같이 널 안전 호출 연산자 (<code>?.</code>)를 사용하여 널 검사를 수행할 수도 있습니다:</p>
-         <code-block lang="kotlin">
-         this?.let { ResponseEntity.ok(it) }
-         </code-block>
-    </def>
-    <def title="ResponseEntity">
-        <p><code>ResponseEntity</code>는 상태 코드, 헤더 및 본문을 포함한 HTTP 응답을 나타냅니다. 이는 클라이언트에게 콘텐츠에 대한 더 많은 제어권을 가지고 사용자 정의 HTTP 응답을 다시 보낼 수 있도록 하는 제네릭 래퍼입니다.</p>
-    </def>
+       <def title="컨텍스트 경로에서 값 검색">
+          <p>새 함수에 <code>@GetMapping(&quot;/{id}&quot;)</code> 어노테이션을 지정했기 때문에 Spring Framework는 컨텍스트 경로에서 메시지 <code>id</code>를 검색합니다. 함수 인수에 <code>@PathVariable</code> 어노테이션을 지정함으로써 프레임워크에 검색된 값을 함수 인수로 사용하도록 지시합니다. 새 함수는 <code>MessageService</code>를 호출하여 ID로 개별 메시지를 검색합니다.</p>
+       </def>
+       <def title="널러블 리시버를 사용하는 확장 함수">
+            <p>확장 함수는 널러블 리시버 타입으로 정의될 수 있습니다. 리시버가 <code>null</code>이면 <code>this</code>도 <code>null</code>입니다. 따라서 널러블 리시버 타입을 가진 확장 함수를 정의할 때는 함수 본문 내에서 <code>this == null</code> 검사를 수행하는 것이 좋습니다.</p>
+            <p>위 <code>toResponseEntity()</code> 함수에서와 같이 널 안전 호출 연산자 (<code>?.</code>)를 사용하여 널 검사를 수행할 수도 있습니다:</p>
+            <code-block lang="kotlin">
+            this?.let { ResponseEntity.ok(it) }
+            </code-block>
+       </def>
+       <def title="ResponseEntity">
+           <p><code>ResponseEntity</code>는 상태 코드, 헤더 및 본문을 포함한 HTTP 응답을 나타냅니다. 이는 클라이언트에게 콘텐츠에 대한 더 많은 제어권을 가지고 사용자 정의 HTTP 응답을 다시 보낼 수 있도록 하는 제네릭 래퍼입니다.</p>
+       </def>
     </deflist>
 
 다음은 애플리케이션의 전체 코드입니다:

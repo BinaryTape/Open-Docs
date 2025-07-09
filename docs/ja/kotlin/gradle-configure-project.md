@@ -896,10 +896,10 @@ kotlin.stdlib.jdk.variants.version.alignment=false
           exclude group: "org.jetbrains.kotlin", module: "kotlin-stdlib"
       }
   }
-```
-
-</tab>
-</tabs>
+  ```
+  
+  </tab>
+  </tabs>
 
 ### テストライブラリの依存関係を設定する
 
