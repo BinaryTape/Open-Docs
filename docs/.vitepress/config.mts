@@ -26,6 +26,7 @@ import markdownItRemoveScript from "./markdown-it-remove-script";
 import markdownItRemoveContributeUrl from "./markdown-it-remove-contribute-url";
 import markdownItWsClassstyles from "./markdown-it-ws-classstyles";
 import markdownItWsRenderInline from "./markdown-it-ws-render-inline";
+import {markdownItCollapsed} from "./markdownItCollapsed.mts";
 
 const mkDiffGrammarPath = resolve(__dirname, './shiki-mk-diff.json')
 const mkDiffGrammar = JSON.parse(readFileSync(mkDiffGrammarPath, 'utf-8'))
@@ -303,8 +304,10 @@ export default defineConfig({
             md.use(markdownItMkCodeTabs)
             md.use(markdownItMkLinks)
             md.use(markdownItDiffTitleWrapper)
+            md.use(markdownItCollapsed)
             md.use(markdownItWsVars, {xmlFilePath: 'docs/.vitepress/v.list'});
             md.use(markdownItMKVars);
+
 
             // Use the helper function to create containers cleanly
             createContainer(md, 'note', 'note', 'NOTE');
