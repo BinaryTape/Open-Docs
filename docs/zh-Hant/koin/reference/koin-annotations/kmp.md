@@ -4,7 +4,7 @@ title: Kotlin 多平台 - 定義與模組註解
 
 ## KSP 設定
 
-請依照官方文件中的 KSP 設定說明操作：[KSP 與 Kotlin 多平台](https://kotlinlang.org/docs/ksp-multiplatform.html)
+請依照官方文件中的 KSP 設定說明操作：[KSP with Kotlin Multiplatform](https://kotlinlang.org/docs/ksp-multiplatform.html)
 
 您也可以查看 [Hello Koin KMP](https://github.com/InsertKoinIO/hello-kmp/tree/annotations) 專案，其中包含 Koin 註解 (Annotations) 的基本設定。
 
@@ -52,7 +52,11 @@ dependencies {
 
 請參閱 [多平台 Expect & Actual 規則](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-expect-actual.html) 文件以獲取通用的 Kotlin 指導。
 
-### 共享用於原生實作的定義 (共同模組 + Expect/Actual 類別定義)
+### 共享用於原生實作的定義
+
+:::info
+我們旨在透過共同模組 + Expect/Actual 類別定義進行共享
+:::
 
 對於這種第一個經典模式，您可以將定義掃描與 `@ComponentScan` 一起使用，或者將定義宣告為模組類別函式。
 
@@ -129,7 +133,11 @@ actual class PlatformComponentB {
 }
 ```
 
-### 共享具有不同原生實作的定義 (Expect/Actual 共同模組 + 共同介面 + 原生實作)
+### 共享具有不同原生合約的定義
+
+:::info
+我們旨在透過 Expect/Actual 共同模組 + 共同介面 + 原生實作
+:::
 
 在某些情況下，您需要每個原生實作上具有不同的建構函式參數。那麼 Expect/Actual 類別就不是您的解決方案。您需要使用一個 `interface` 在每個平台上實作，以及一個 Expect/Actual 類別模組，以允許模組定義您正確的平台實作：
 
@@ -180,6 +188,10 @@ class PlatformComponentDiOS : PlatformComponentD{
 :::
 
 ### 使用平台包裝器安全地跨平台共享
+
+:::info
+將特定平台元件包裝為「平台包裝器 (platform wrapper)」
+:::
 
 您可以將特定的平台元件包裝成一個「平台包裝器 (platform wrapper)」，以幫助您最小化動態注入。
 
@@ -265,6 +277,10 @@ actual class PlatformComponentA actual constructor(val ctx : ContextWrapper) {
 
 ### 共享 Expect/Actual 模組 - 依賴原生模組掃描
 
+:::info
+依賴共同模組中的原生模組
+:::
+
 在某些情況下，您不希望有約束，並在每個原生端掃描元件。在 common source set 中定義一個空的模組類別，並在每個平台上定義您的實作。
 
 :::info
@@ -297,3 +313,4 @@ class PlatformComponentC(val context: Context) {
 // do nothing on iOS
 @Module
 actual class NativeModuleC
+```
