@@ -28,6 +28,9 @@ jobs:
 
       - name: Run Update and Translation Script
         env:
+          GIT_AUTHOR_NAME: "github-actions[bot]"
+          GIT_AUTHOR_EMAIL: "github-actions[bot]@users.noreply.github.com"
+          GITHUB_HEAD_REF: ${{ github.head_ref || github.ref_name }}
           GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
         run: node .github/scripts/docs-pipeline.mjs
 

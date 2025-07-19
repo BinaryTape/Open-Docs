@@ -189,9 +189,6 @@ async function commit(context) {
 }
 
 async function main() {
-  process.env.GIT_AUTHOR_NAME = "github-actions[bot]";
-  process.env.GIT_AUTHOR_EMAIL = "github-actions[bot]@users.noreply.github.com";
-  process.env.GITHUB_REF_NAME = "0.3"
   Logger.info("Starting Documentation Synchronization Workflow...");
   const context = {
     repos: REPOS,
@@ -213,4 +210,15 @@ async function main() {
   }
 }
 
-main();
+(async () => {
+  process.env.GIT_AUTHOR_NAME = "github-actions[bot]";
+  process.env.GIT_AUTHOR_EMAIL = "github-actions[bot]@users.noreply.github.com";
+  // Uncomment the next line to simulate a specific branch name for testing
+  // process.env.GITHUB_REF_NAME = "docs-update-branch";
+  console.log("Starting documentation pipeline script...");
+  if (!process.env.GOOGLE_API_KEY) {
+    console.error("GOOGLE_API_KEY environment variable is not set.");
+    process.exit(1);
+  }
+  await main();
+})();

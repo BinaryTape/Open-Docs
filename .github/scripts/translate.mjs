@@ -469,5 +469,3 @@ export async function translateFiles(docType, repoPath, files) {
   }
   return totalTargetTranslateFiles;
 }
-
-main().catch(console.error);
