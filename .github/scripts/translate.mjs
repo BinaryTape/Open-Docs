@@ -314,10 +314,11 @@ async function callGemini(prompt, model) {
 // Translate file
 async function translateFile(filePath) {
   console.log(`Translating file: ${filePath}`);
+  const targetTranslateFiles = [];
 
   if (!filePath) {
     console.error("Invalid file path");
-    return;
+    return targetTranslateFiles;
   }
 
   // Fix file path, need to read source file from REPO_PATH
@@ -326,7 +327,7 @@ async function translateFile(filePath) {
   // Check if file exists
   if (!fs.existsSync(absoluteFilePath)) {
     console.error(`File not found: ${absoluteFilePath}`);
-    return;
+    return targetTranslateFiles;
   }
 
   try {
@@ -374,6 +375,7 @@ async function translateFile(filePath) {
         // Write translated file
         fs.writeFileSync(targetPath, translatedContent);
         console.log(`Translated to ${targetLang}: ${targetPath}`);
+        targetTranslateFiles.push(targetPath);
       } catch (langError) {
         console.error(
           `Error translating to ${targetLang}: ${langError.message}`
@@ -383,6 +385,7 @@ async function translateFile(filePath) {
   } catch (fileError) {
     console.error(`Error processing file ${filePath}: ${fileError.message}`);
   }
+  return targetTranslateFiles;
 }
 
 // Clean up extra content in translation results
@@ -454,14 +457,15 @@ export async function translateFiles(docType, repoPath, files) {
   // Set environment variables
   process.env.REPO_PATH = repoPath;
   process.env.DOC_TYPE = docType;
+  const totalTargetTranslateFiles = [];
   for (const file of files) {
     try {
-      await translateFile(file);
+      const targetTranslateFiles = await translateFile(file);
+      totalTargetTranslateFiles.push(...targetTranslateFiles);
     } catch (error) {
       console.error(`Error translating ${file}:`, error);
       // Continue processing next file
     }
   }
+  return totalTargetTranslateFiles;
 }
-
-main().catch(console.error);

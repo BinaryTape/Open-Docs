@@ -121,6 +121,6 @@ SQLDelight는 다양한 SQL 다이얼렉트와 플랫폼을 지원합니다.
     }
     ```
 
-IntelliJ에서 알파 채널(`https://plugins.jetbrains.com/plugins/alpha/com.squareup.sqldelight`)을 사용하여 [알파(Alpha) IDE 플러그인](https://plugins.jetbrains.com/plugin/8191-sqldelight/versions/alpha)도 이용할 수 있습니다. 스냅샷은 [EAP](https://plugins.jetbrains.com/plugin/8191-sqldelight/versions/eap) 채널(`https://plugins.jetbrains.com/plugins/eap/com.squareup.sqldelight`)에서도 이용할 수 있습니다.
+[알파(Alpha) IDE 플러그인](https://plugins.jetbrains.com/plugin/8191-sqldelight/versions/alpha)도 IntelliJ에서 알파 채널(`https://plugins.jetbrains.com/plugins/alpha/com.squareup.sqldelight`)을 사용하여 이용할 수 있습니다. 스냅샷은 [EAP](https://plugins.jetbrains.com/plugin/8191-sqldelight/versions/eap) 채널(`https://plugins.jetbrains.com/plugins/eap/com.squareup.sqldelight`)에서도 이용할 수 있습니다.
 
 <img width="738" alt="IntelliJ_alpha_channel" src="https://user-images.githubusercontent.com/22521688/168236653-e32deb26-167f-46ce-9277-ea169cbb22d6.png">

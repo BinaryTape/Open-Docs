@@ -1,6 +1,6 @@
 !!! info "SQLDelight 2.0"
 
-    如果您目前正在使用 SQLDelight 1.x，請[查閱說明文件](upgrading-2.0)以升級到 SQLDelight 2.0！
+如果您目前正在使用 SQLDelight 1.x，請[查閱說明文件](upgrading-2.0)以升級到 SQLDelight 2.0！
 
 SQLDelight 會根據您的 SQL 語句產生型別安全 (typesafe) 的 Kotlin API。它會在編譯時驗證您的結構描述、語句和遷移，並提供自動完成和重構等 IDE 功能，使編寫和維護 SQL 變得簡單。
 

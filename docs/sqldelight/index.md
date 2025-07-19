@@ -1,6 +1,6 @@
 !!! info "SQLDelight 2.0"
 
-    如果您目前正在使用 SQLDelight 1.x，请[查阅文档](upgrading-2.0)了解如何升级到 SQLDelight 2.0！
+如果您目前正在使用 SQLDelight 1.x，请[查阅文档](upgrading-2.0)了解如何升级到 SQLDelight 2.0！
 
 SQLDelight 从您的 SQL 语句生成类型安全的 Kotlin API。它在编译时验证您的模式、语句和迁移，并提供自动补全和重构等 IDE 功能，使编写和维护 SQL 变得简单。
 
@@ -14,7 +14,7 @@ CREATE TABLE hockey_player (
 );
 ```
 
-并生成类型安全的 Kotlin 代码来运行您的 SQL 语句和查询。
+并生成类型安全代码来运行您的 SQL 语句和查询。
 
 ![intro.gif](images/intro.gif)
 
