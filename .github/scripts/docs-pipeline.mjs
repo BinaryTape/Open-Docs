@@ -211,8 +211,11 @@ async function main() {
 }
 
 (async () => {
-  process.env.GIT_AUTHOR_NAME = "github-actions[bot]";
-  process.env.GIT_AUTHOR_EMAIL = "github-actions[bot]@users.noreply.github.com";
+  process.env.GIT_AUTHOR_NAME =
+    process.env.GIT_AUTHOR_NAME || "github-actions[bot]";
+  process.env.GIT_AUTHOR_EMAIL =
+    process.env.GIT_AUTHOR_EMAIL ||
+    "github-actions[bot]@users.noreply.github.com";
   // Uncomment the next line to simulate a specific branch name for testing
   // process.env.GITHUB_REF_NAME = "docs-update-branch";
   console.log("Starting documentation pipeline script...");
