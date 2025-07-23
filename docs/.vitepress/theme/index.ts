@@ -5,7 +5,6 @@ import DefaultTheme from 'vitepress/theme'
 import 'aos/dist/aos.css'
 import './style.css'
 import './home.style.css'
-import { useWsTabs } from "./ws-tabs";
 import HomeLayout from './layout/Home.vue' // 调整路径，如果它在子目录，例如 './layouts/MyHomeLayout.vue'
 import { SiteLocaleConfig } from '../locales.config'
 import { createI18n, setLocale } from '../utils/i18n-utils'
@@ -56,6 +55,5 @@ export default {
         setLocale(locale);
       }
     }
-    useWsTabs()
   }
 } satisfies Theme
