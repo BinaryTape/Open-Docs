@@ -4,7 +4,7 @@ title: Kotlin Multiplatform - 定义和模块注解
 
 ## KSP 设置
 
-请按照官方文档中描述的 KSP 设置步骤进行操作：[KSP 与 Kotlin Multiplatform](https://kotlinlang.org/docs/ksp-multiplatform.html)
+请按照官方文档中描述的 KSP 设置步骤进行操作：[KSP with Kotlin Multiplatform](https://kotlinlang.org/docs/ksp-multiplatform.html)
 
 你也可以查看 [Hello Koin KMP](https://github.com/InsertKoinIO/hello-kmp/tree/annotations) 项目，了解 Koin 注解的基本设置。
 
@@ -48,12 +48,15 @@ dependencies {
 
 在本节中，我们将一起探讨几种通过定义和模块共享组件的方式。
 
-在 Kotlin Multiplatform 应用程序中，某些组件必须针对每个平台进行特定实现。你可以在定义级别共享这些组件，通过对给定类（定义或模块）使用 expect/actual。
-你可以通过 expect/actual 实现来共享定义，或者共享一个带有 expect/actual 的模块。
+在 Kotlin Multiplatform 应用程序中，某些组件必须针对每个平台进行特定实现。你可以在定义级别共享这些组件，通过对给定类（定义或模块）使用 expect/actual。你可以通过 expect/actual 实现来共享定义，或者共享一个带有 expect/actual 的模块。
 
 请查阅 [Multiplatform Expect & Actual 规则](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-expect-actual.html) 文档，获取通用的 Kotlin 指导。
 
-### 为原生实现共享定义（通用模块 + Expect/Actual 类定义）
+### 为原生实现共享定义
+
+:::info
+我们以通用模块 + Expect/Actual 类定义为目标进行共享。
+:::
 
 对于这种经典的模式，你可以使用带 `@ComponentScan` 的定义扫描，或者将定义声明为模块类函数。
 
@@ -130,10 +133,13 @@ actual class PlatformComponentB {
 }
 ```
 
-### 通过不同的原生实现共享定义（Expect/Actual 通用模块 + 通用接口 + 原生实现）
+### 通过不同的原生实现共享定义
 
-在某些情况下，你可能需要在每个原生实现上使用不同的构造函数参数。此时，Expect/Actual 类就不是你的解决方案。
-你需要使用一个 `interface` 在每个平台上进行实现，并使用一个 Expect/Actual 类模块，让该模块定义正确的平台实现：
+:::info
+我们以 Expect/Actual 通用模块 + 通用接口 + 原生实现为目标进行共享。
+:::
+
+在某些情况下，你可能需要在每个原生实现上使用不同的构造函数参数。此时，Expect/Actual 类就不是你的解决方案。你需要使用一个 `interface` 在每个平台上进行实现，并使用一个 Expect/Actual 类模块，让该模块定义正确的平台实现：
 
 在 commonMain 中：
 ```kotlin
@@ -182,6 +188,10 @@ class PlatformComponentDiOS : PlatformComponentD{
 :::
 
 ### 使用平台包装器安全地跨平台共享
+
+:::info
+将特定的平台组件包装成一个“平台包装器”。
+:::
 
 你可以将特定的平台组件包装成一个“平台包装器”，以帮助你最小化动态注入。
 
@@ -267,6 +277,10 @@ actual class PlatformComponentA actual constructor(val ctx : ContextWrapper) {
 
 ### 共享 Expect/Actual 模块 - 依赖原生模块扫描
 
+:::info
+从通用模块中依赖原生模块。
+:::
+
 在某些情况下，你可能不希望有任何限制，并且希望在每个原生端扫描组件。在 common source set 中定义一个空的模块类，然后在每个平台上定义你的实现。
 
 :::info
@@ -299,3 +313,4 @@ class PlatformComponentC(val context: Context) {
 // do nothing on iOS
 @Module
 actual class NativeModuleC
+```

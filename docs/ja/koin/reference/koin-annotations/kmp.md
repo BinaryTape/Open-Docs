@@ -53,7 +53,11 @@ Kotlin Multiplatformアプリケーションでは、一部のコンポーネン
 
 一般的なKotlinのガイダンスについては、「[Multiplatform Expect & Actual Rules](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-expect-actual.html)」ドキュメントを参照してください。
 
-### ネイティブ実装のための定義の共有（共通モジュール + Expect/Actualクラス定義）
+### ネイティブ実装のための定義の共有
+
+:::info
+「共通モジュール + Expect/Actualクラス定義」を用いた共有を対象とします
+:::
 
 この最初の典型的なパターンでは、`@ComponentScan`による定義のスキャンと、モジュールクラス関数としての定義の宣言の両方を使用できます。
 
@@ -130,7 +134,11 @@ actual class PlatformComponentB {
 }
 ```
 
-### 異なるネイティブ実装との定義の共有（Expect/Actual共通モジュール + 共通インターフェース + ネイティブ実装）
+### 異なるネイティブコントラクトを持つ定義の共有
+
+:::info
+「Expect/Actual共通モジュール + 共通インターフェース + ネイティブ実装」を対象とします
+:::
 
 場合によっては、各ネイティブ実装で異なるコンストラクタ引数が必要になることがあります。その場合、Expect/Actualクラスは解決策にはなりません。
 各プラットフォームで実装する`interface`を使用し、モジュールが適切なプラットフォームの実装を定義できるようにするためのExpect/Actualクラスモジュールが必要です。
@@ -182,6 +190,10 @@ Koinスコープに手動でアクセスするたびに、動的なワイヤリ�
 :::
 
 ### プラットフォームラッパーによるプラットフォーム間の安全な共有
+
+:::info
+特定のプラットフォームコンポーネントを「プラットフォームラッパー」としてラップします
+:::
 
 特定のプラットフォームコンポーネントを「プラットフォームラッパー」としてラップし、動的なインジェクションを最小限に抑えるのに役立てることができます。
 
@@ -267,6 +279,10 @@ actual class PlatformComponentA actual constructor(val ctx : ContextWrapper) {
 
 ### Expect/Actualモジュールの共有 - ネイティブモジュールスキャンに依存
 
+:::info
+共通モジュールからネイティブモジュールに依存します
+:::
+
 場合によっては、制約を持ちたくなく、各ネイティブ側でコンポーネントをスキャンしたいことがあります。その場合、共通のソースセットで空のモジュールクラスを定義し、各プラットフォームでその実装を定義します。
 
 :::info
@@ -299,4 +315,3 @@ class PlatformComponentC(val context: Context) {
 // do nothing on iOS
 @Module
 actual class NativeModuleC
-```
