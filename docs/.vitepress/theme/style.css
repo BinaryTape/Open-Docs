@@ -308,3 +308,29 @@ img[type="joined"] {
   border-radius: 0 0 8px 8px !important;
   margin: 0 !important;
 }
+
+/*
+ * 目标：选中 <tldr> 元素内 <p> 元素中的 <img> 标签
+ */
+.ws-tldr p img {
+  /*
+   * 1. 关键修复：将图片设置为行内块元素 (inline-block)。
+   */
+  display: inline-block !important;
+
+  /*
+   * 2. 垂直对齐：让图片和旁边的文字垂直居中对齐，看起来更美观。
+   */
+  vertical-align: middle;
+
+  /*
+   * 3. 增加右边距：在图标和文字之间留出一点空隙。
+   */
+  margin-right: 8px;
+
+  /*
+   * 4. 避免其他边距影响：重置上下的 margin，以防万一。
+   */
+  margin-top: 0;
+  margin-bottom: 0;
+}
