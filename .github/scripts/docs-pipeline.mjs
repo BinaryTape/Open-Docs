@@ -61,7 +61,7 @@ async function sync(context) {
       );
       await git.update(repoConfig.path, repoConfig.branch);
     }
-    await repoConfig.strategy.onSyncEnd(repoConfig.path);
+    await repoConfig.strategy.postSync(repoConfig.path);
   }
 }
 
@@ -140,7 +140,7 @@ async function translate(context) {
     );
     translatedPaths.forEach((p) => context.gitAddPaths.add(p));
 
-    await repoConfig.strategy.onTranslateEnd(context, repoConfig);
+    await repoConfig.strategy.postTranslate(context, repoConfig);
 
     await fs.outputFile(repoConfig.lastCheckFile, task.newSha);
     context.gitAddPaths.add(repoConfig.lastCheckFile);
