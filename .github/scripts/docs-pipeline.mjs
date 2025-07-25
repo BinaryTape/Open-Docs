@@ -98,11 +98,13 @@ async function detect(context) {
       if (changedDocs.length > 0) {
         Logger.dim(`Found ${changedDocs.length} changed document(s).`);
         Logger.dim(changedDocs.map((f) => `  - ${f}`).join("\n"));
-        context.tasks.push({
+        const task = {
           repoConfig,
           files: changedDocs,
           newSha: currentSha,
-        });
+        };
+        await repoConfig.strategy.postDetect(repoConfig, task);
+        context.tasks.push(task);
       } else {
         Logger.dim("No relevant documents changed, updating checkpoint.");
         await fs.outputFile(repoConfig.lastCheckFile, currentSha);
@@ -217,7 +219,7 @@ async function main() {
     process.env.GIT_AUTHOR_EMAIL ||
     "github-actions[bot]@users.noreply.github.com";
   // Uncomment the next line to simulate a specific branch name for testing
-  // process.env.GITHUB_REF_NAME = "docs-update-branch";
+  // process.env.GITHUB_REF_NAME = "0.3";
   console.log("Starting documentation pipeline script...");
   if (!process.env.GOOGLE_API_KEY) {
     console.error("GOOGLE_API_KEY environment variable is not set.");

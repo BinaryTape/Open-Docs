@@ -11,7 +11,15 @@ const configPath = path.resolve(__dirname, "./translate-config.json");
 const config = JSON.parse(fs.readFileSync(configPath, "utf8"));
 
 // Google LLM API
-const genAI = new GoogleGenAI({ apiKey: process.env.GOOGLE_API_KEY });
+let genAI = (() => {
+  let instance;
+  return () => {
+    if (!instance) {
+      instance = new GoogleGenAI({ apiKey: process.env.GOOGLE_API_KEY });
+    }
+    return instance;
+  };
+})();
 
 // Load terminology database
 let terminology = {};
@@ -296,7 +304,7 @@ async function translateWithLLM(text, targetLang, filePath) {
 // Call Gemini API
 async function callGemini(prompt, model) {
   try {
-    const response = await genAI.models.generateContent({
+    const response = await genAI().models.generateContent({
       model: model,
       contents: prompt,
       config: {

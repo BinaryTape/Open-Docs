@@ -12,6 +12,13 @@ export const defaultStrategy = {
   postSync: async (repoPath) => {},
 
   /**
+   * On Detect finished.
+   * @param {object} repoConfig 
+   * @param {object} task 
+   */
+  postDetect: async (repoConfig, task) => {},
+
+  /**
    * On Translate finished.
    * @param {object} context - Stage context
    * @param {object} repoConfig - Configuration of the current repository

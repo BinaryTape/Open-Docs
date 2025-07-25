@@ -1,3 +1,4 @@
+import { coilStrategy } from "./strategy-coil.mjs";
 import { koinStrategy } from "./strategy-koin.mjs";
 import { sqlDelightStrategy } from "./strategy-sqldelight.mjs";
 
@@ -29,5 +30,17 @@ export const REPOS = [
       dest: "docs/public/sqldelight",
     },
     strategy: sqlDelightStrategy,
+  },
+  {
+    name: "coil",
+    repo: "coil-kt/coil",
+    branch: "origin/main",
+    path: "coil-repo",
+    lastCheckFile: ".github/last_check_coil.txt",
+    assets: {
+      src: "docs/images",
+      dest: "docs/public/coil",
+    },
+    strategy: coilStrategy,
   },
 ];
