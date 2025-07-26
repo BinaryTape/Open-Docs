@@ -15,6 +15,24 @@ import CodeBlock from "../component/CodeBlock.vue";
 import TLDR from "../component/TLDR.vue";
 import Tabs from "../component/Tabs.vue";
 import Tab from "../component/Tab.vue";
+import Topic from "../component/Topic.vue";
+import TopicTitle from "../component/TopicTitle.vue";
+import Page from "../component/Page.vue";
+import IgnoreComponent from "../component/IgnoreComponent.vue";
+import EmptyComponent from "../component/EmptyComponent.vue";
+import Description from "../component/Description.vue";
+import TopicCardSection from "../component/TopicCardSection.vue";
+import Card from "../component/Card.vue";
+import TopicLinkSection from "../component/TopicLinkSection.vue";
+import LinkGroup from "../component/LinkGroup.vue";
+import Link from "../component/Link.vue";
+import Chapter from "../component/Chapter.vue";
+import Procedure from "../component/Procedure.vue";
+import Step from "../component/Step.vue";
+import Highlight from "../component/Highlight.vue";
+import Note from "../component/Note.vue";
+import Tip from "../component/Tip.vue";
+import YouTubeVideo from "../component/YouTubeVideo.vue";
 
 export default {
   extends: DefaultTheme,
@@ -27,13 +45,52 @@ export default {
     // ...
     app.component('HomeLayout', HomeLayout)
 
-    app.component('deflist', Deflist)
-    app.component('def', Def)
+    app.component('deflist', Deflist);
+    app.component('def', Def);
     app.component('list', List)
-    app.component('code-block', CodeBlock)
+
     app.component('tldr', TLDR)
     app.component('tabs', Tabs)
     app.component('tab', Tab)
+    app.component('code-block', CodeBlock)
+
+    app.component('topic', Topic)
+    app.component('TopicTitle', TopicTitle)
+    app.component('section-starting-page', Page)
+
+    app.component('show-structure', IgnoreComponent)
+    app.component('link-summary', IgnoreComponent)
+    app.component('card-summary', IgnoreComponent)
+    app.component('web-summary', IgnoreComponent)
+    app.component('snippet', EmptyComponent)
+
+    app.component('description', Description)
+
+    app.component('spotlight', TopicCardSection)
+    app.component('primary', TopicCardSection)
+    app.component('secondary', TopicCardSection)
+    app.component('misc', EmptyComponent)
+
+    app.component('cards', TopicCardSection)
+    app.component('card', Card)
+
+    app.component('links', TopicLinkSection)
+    app.component('group', LinkGroup)
+    app.component('Links', Link)
+
+    app.component('chapter', Chapter)
+    app.component('procedure', Procedure)
+    app.component('step', Step)
+
+    app.component('control', Highlight)
+    app.component('Path', Highlight)
+    app.component('ui-path', Highlight)
+    app.component('emphasis', Highlight)
+
+    app.component('note', Note)
+    app.component('tip', Tip)
+
+    app.component('YouTubeVideo', YouTubeVideo)
 
     // Use our custom i18n implementation
     app.use(createI18n())

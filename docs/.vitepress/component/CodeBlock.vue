@@ -1,69 +1,109 @@
-<template>
-  <div :class="`language-${props.lang} vp-adaptive-theme`">
-    <button title="复制代码" class="copy"></button>
-    <span class="lang"> {{props.lang}} </span>
-    <div v-html="highlightedCode"></div>
-  </div>
-</template>
-
 <script setup>
-import { ref, watchEffect, useSlots } from 'vue';
-import { codeToHtml } from 'shiki';
+import { ref, watchEffect, onMounted } from 'vue'
+import { codeToHtml } from 'shiki'
 import { useData } from 'vitepress'
 
 const props = defineProps({
-  lang: {
-    type: String,
-    required: true,
-  }
-});
+  lang: { type: String, required: false },
+  code: { type: String, required: false },
+  src: { type: String, required: false }
+})
 
-const slots = useSlots();
-const highlightedCode = ref('');
-
+const highlightedCode = ref('')
 const { isDark } = useData()
-const getTheme = () => {
-  return isDark.value ? 'github-dark' : 'github-light'
+
+// 1. 把常见 HTML 实体转回原字符
+function decodeHtmlEntities(str) {
+  // 如果在 SSR（没有 document）时，直接返回
+  if (typeof document === 'undefined') return str
+  const txt = document.createElement('textarea')
+  txt.innerHTML = str
+  return txt.value
 }
 
-
-const getRawCode = () => {
-  if (!slots.default) return '';
-
-  const slotContent = slots.default();
-  if (!slotContent || !slotContent[0]) return '';
-
-  const firstSlot = slotContent[0];
-  if (typeof firstSlot.children === 'string') {
-    return firstSlot.children;
+// 2. 去掉首尾空行 & 统一缩进
+function normalizeIndent(code) {
+  code = code.replace(/^\s*\n/, '').replace(/\n\s*$/, '')
+  const lines = code.split('\n')
+  // 找最小缩进
+  let minIndent = lines
+      .filter(l => l.trim())
+      .reduce((min, l) => {
+        const m = l.match(/^(\s*)/)
+        const len = m ? m[1].length : 0
+        return min === null ? len : Math.min(min, len)
+      }, null)
+  if (minIndent > 0) {
+    return lines.map(l => l.slice(minIndent)).join('\n')
   }
+  return lines.join('\n')
+}
 
-  return '';
-};
+const getTheme = () => (isDark.value ? 'github-dark' : 'github-light')
 
-watchEffect(async () => {
-  const rawCode = getRawCode();
-  if (!rawCode) return;
-
-  try {
-    // 使用 codeToHtml 函数直接处理
-    highlightedCode.value = await codeToHtml(rawCode, {
-      lang: props.lang,
-      theme: getTheme(),
-      transformers: [{
-        // 自定义 pre 标签属性的转换器
-        pre(node) {
-          // 添加自定义类名
-          node.properties.class += ' shiki-themes vp-code';
-          node.properties.style = null;
-          return node;
-        }
-      }]
-    });
-  } catch (error) {
-    console.error('Shiki highlighting failed:', error);
-    highlightedCode.value = `<pre class="shiki shiki-themes github-light github-dark vp-code"><code>${rawCode.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</code></pre>`;
+function langAlias(lang) {
+  switch (lang) {
+    case 'Kotlin': return 'kotlin'
+    default: return lang
   }
-});
+}
+
+// 只在客户端高亮（确保 document 存在）
+onMounted(() => {
+  watchEffect(async () => {
+    let raw = props.code || ''
+
+    raw = decodeHtmlEntities(raw)
+    raw = normalizeIndent(raw)
+
+    const lang = langAlias(props.lang)
+
+    try {
+      highlightedCode.value = await codeToHtml(raw, {
+        lang: lang,
+        theme: getTheme(),
+        transformers: [
+          {
+            pre(node) {
+              node.properties.class += ' shiki-themes vp-code'
+              node.properties.style = null
+              return node
+            }
+          }
+        ]
+      })
+    } catch (err) {
+      highlightedCode.value = await codeToHtml(raw, {
+        lang: 'md',
+        theme: getTheme(),
+        transformers: [
+          {
+            pre(node) {
+              node.properties.class += ' shiki-themes vp-code'
+              node.properties.style = null
+              return node
+            }
+          }
+        ],
+      })
+    }
+  })
+})
 </script>
 
+<template>
+  <div :class="`language-${lang} vp-adaptive-theme`">
+    <button title="复制代码" class="copy"></button>
+    <span class="lang">{{ lang }}</span>
+    <div v-html="highlightedCode"/>
+  </div>
+</template>
+
+<style scoped>
+.vp-doc div[class*="language-"] {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 8px;
+}
+</style>
