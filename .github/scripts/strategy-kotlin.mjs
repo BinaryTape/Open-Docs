@@ -23,6 +23,16 @@ export const kotlinStrategy = {
         }
         console.log(`  Flattening finished - ${repoPath}`);
 
+        console.log(`  Running Kotlin onSyncEnd: Remove redundant files - ${repoPath}...`);
+        const redundantFiles = ["kotlin-mascot.md", "debugging.md"];
+        for (const file of redundantFiles) {
+            const filePath = path.join(docsPath, file);
+            if (await fs.pathExists(filePath)) {
+                await fs.remove(filePath);
+            }
+        }
+        console.log(`  Remove redundant files finished - ${repoPath}`);
+
         console.log(` Running Kotlin onSyncEnd: Convert topic files - ${repoPath}`);
         const docs = await fs.readdir(docsPath);
         const topicFiles = docs.filter(doc => doc.endsWith(".topic"));
