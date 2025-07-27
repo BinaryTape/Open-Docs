@@ -20,11 +20,11 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "18"
+          node-version: "20"
           cache: "npm"
 
       - name: Install dependencies
-        run: npm install execa fs-extra glob @google/genai
+        run: npm install execa fs-extra glob @google/genai p-limit
 
       - name: Run Update and Translation Script
         env:

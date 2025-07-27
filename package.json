@@ -14,6 +14,7 @@
   "description": "",
   "devDependencies": {
     "@google/genai": "^1.7.0",
+    "@mdit-vue/shared": "^2.1.4",
     "execa": "^9.6.0",
     "fs-extra": "^11.3.0",
     "glob": "^11.0.3",
@@ -21,7 +22,7 @@
     "markdown-it-container": "^4.0.0",
     "shiki": "^3.7.0",
     "vitepress": "^1.6.3",
-    "@mdit-vue/shared": "^2.1.4"
+    "p-limit": "^6.2.0"
   },
   "dependencies": {
     "aos": "^2.3.4"

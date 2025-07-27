@@ -2,6 +2,7 @@ import fs from "fs";
 import path from "path";
 import { GoogleGenAI } from "@google/genai";
 import { fileURLToPath } from "url";
+import pLimit from "p-limit";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -41,8 +42,6 @@ function loadPreviousTranslations(targetLang, currentFilePath) {
   try {
     // Calculate path for the corresponding translation file
     const targetPath = getTargetPath(currentFilePath, targetLang);
-
-    console.log(`Trying to load reference translation: ${targetPath}`);
 
     // Check if corresponding translation file exists
     if (!fs.existsSync(targetPath)) {
@@ -282,10 +281,6 @@ async function translateWithLLM(text, targetLang, filePath) {
   const modelConfig = config.modelConfigs[targetLang];
   const prompt = prepareTranslationPrompt(text, targetLang, filePath);
 
-  console.log(
-    `Translating to ${targetLang} using ${modelConfig.provider}:${modelConfig.model}`
-  );
-
   if (modelConfig.provider === "google") {
     return await callGemini(prompt, modelConfig.model);
   }
@@ -451,21 +446,36 @@ async function main() {
   console.log("Translation completed");
 }
 
+async function retry(fn, attempts = 3) {
+  let lastError;
+  for (let i = 1; i <= attempts; i++) {
+    try {
+      return await fn();
+    } catch (e) {
+      lastError = e;
+      console.warn(`Attempt ${i} failed: ${e.message}`);
+    }
+  }
+  throw lastError;
+}
+
 export async function translateFiles(docType, repoPath, files) {
   console.log(`Translating ${files.length} files for ${docType}...`);
 
   // Set environment variables
   process.env.REPO_PATH = repoPath;
   process.env.DOC_TYPE = docType;
-  const totalTargetTranslateFiles = [];
-  for (const file of files) {
+
+  const limit = pLimit(10);
+  const translationTasks = files.map((file) => limit(async () => {
     try {
-      const targetTranslateFiles = await translateFile(file);
-      totalTargetTranslateFiles.push(...targetTranslateFiles);
-    } catch (error) {
-      console.error(`Error translating ${file}:`, error);
-      // Continue processing next file
+      return await retry(() => translateFile(file), 3);
+    } catch (e) {
+      console.error(`❌ Failed translating ${file} after 3 attempts:`, e);
+      return [];
     }
-  }
-  return totalTargetTranslateFiles;
+  }));
+
+  const results = await Promise.all(translationTasks);
+  return results.flat();
 }
