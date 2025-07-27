@@ -9,19 +9,19 @@
     "modelConfigs": {
         "zh-Hans": {
             "provider": "google",
-            "model": "gemini-2.5-flash-preview-05-20"
+            "model": "gemini-2.5-flash"
         },
         "zh-Hant": {
             "provider": "google",
-            "model": "gemini-2.5-flash-preview-05-20"
+            "model": "gemini-2.5-flash"
         },
         "ko": {
             "provider": "google",
-            "model": "gemini-2.5-flash-preview-05-20"
+            "model": "gemini-2.5-flash"
         },
         "ja": {
             "provider": "google",
-            "model": "gemini-2.5-flash-preview-05-20"
+            "model": "gemini-2.5-flash"
         }
     },
     "terminologyPath": "./demo/terminology.json",
