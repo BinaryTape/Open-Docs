@@ -15,6 +15,9 @@ export async function copyFlatten(srcDir, destDir) {
             await copyFlatten(fullPath, destDir);
         } else if (entry.isFile()) {
             const targetPath = path.join(destDir, entry.name);
+            if (fullPath === targetPath) {
+                continue;
+            }
             await fs.copy(fullPath, targetPath, { overwrite: true });
             console.log(`Copied: ${fullPath} → ${targetPath}`);
         }

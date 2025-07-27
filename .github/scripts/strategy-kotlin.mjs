@@ -10,16 +10,17 @@ export const kotlinStrategy = {
     /**
      * @override
      */
-    getDocPatterns: () => ["docs/topics/**/*.md"],
+    getDocPatterns: () => ["docs/*.md"],
 
     /**
      * @override
      */
     onSyncEnd: async (repoPath) => {
         console.log(`  Running Kotlin onSyncEnd: Flattening directory - ${repoPath}...`);
-        const docsPath = path.join(repoPath, "docs/topics");
-        if (await fs.pathExists(docsPath)) {
-            await copyFlatten(docsPath, docsPath);
+        const originDocsPath = path.join(repoPath, "docs/topics");
+        const docsPath = path.join(repoPath, "docs");
+        if (await fs.pathExists(originDocsPath)) {
+            await copyFlatten(originDocsPath, docsPath);
         }
         console.log(`  Flattening finished - ${repoPath}`);
 
@@ -43,33 +44,38 @@ export const kotlinStrategy = {
         }
         console.log(`  Convert topic files finished - ${repoPath}`);
 
-        console.log(`  Running Kotlin onSyncEnd: Resolve includes - ${repoPath}`);
-        const includeMD = path.join(docsPath, "kotlin-language-features-and-proposals.md");
-        let content = await fs.readFile(includeMD, "utf8");
-        const includeFilterRe = /<include\s+element-id="([^"]+)"\s+use-filter="([^"]+)"\s+from="([^"]+)"\s*\/?>/g;
 
-        content = content.replace(includeFilterRe, (match, elementId, filterMatch, from) => {
-            const filter = filterMatch.split(',')[1]
-            const trMatch = content.match(new RegExp(`<tr\\s+filter="${filter}">([\\s\\S]*?)<\\/tr>`, 'g'));
-            if (!trMatch) return '';
+        if (repoPath === "kotlin-repo") {
+            console.log(`  Running Kotlin onSyncEnd: Resolve includes`);
+            const includeMD = path.join(docsPath, "kotlin-language-features-and-proposals.md");
+            let content = await fs.readFile(includeMD, "utf8");
+            const includeFilterRe = /<include\s+element-id="([^"]+)"\s+use-filter="([^"]+)"\s+from="([^"]+)"\s*\/?>/g;
 
-            const tr = trMatch.join('\n\n');
-            return `<table>\n${tr}\n</table>`
-        })
+            content = content.replace(includeFilterRe, (match, elementId, filterMatch, from) => {
+                const filter = filterMatch.split(',')[1]
+                const trMatch = content.match(new RegExp(`<tr\\s+filter="${filter}">([\\s\\S]*?)<\\/tr>`, 'g'));
+                if (!trMatch) return '';
 
-        await fs.writeFile(includeMD, content, "utf8");
-        console.log(`  Resolve includes finished - ${repoPath}`);
+                const tr = trMatch.join('\n\n');
+                return `<table>\n<tbody>\n${tr}\n</tbody>\n</table>`
+            })
+
+            await fs.writeFile(includeMD, content, "utf8");
+            console.log(`  Resolve includes finished - ${repoPath}`);
+        }
     },
 
     /**
      * @override
      */
     onTranslateEnd: async (context, repoConfig) => {
-        console.log(`  Copying Kotlin version file... `);
-        const versionFile = "kotlin-repo/docs/v.list";
-        if (await fs.pathExists(versionFile)) {
-            await fs.copy(versionFile, "docs/.vitepress", { overwrite: true });
-            console.log(`  Copying Kotlin version file finished - ${repoConfig.path}`);
+        if (repoConfig.path === "kotlin-repo") {
+            console.log(`  Copying Kotlin version file... `);
+            const versionFile = "kotlin-repo/docs/v.list";
+            if (await fs.pathExists(versionFile)) {
+                await fs.copy(versionFile, "docs/.vitepress/v.list", { overwrite: true });
+                console.log(`  Copying Kotlin version file finished - ${repoConfig.path}`);
+            }
         }
 
         console.log(`  Handling Kotlin assets: Copying images - ${repoConfig.path}... `);
