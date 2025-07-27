@@ -214,16 +214,40 @@ html:not(.dark) .vp-doc [class*="language-text"] code {
 }
 
 /**
- * Component: Writerside tabs
+ * Component: Writerside
  * -------------------------------------------------------------------------- */
-
 
 img[type="joined"] {
   vertical-align: middle !important;
   display: inline-block !important;
 }
 
+[class*="ws-col-"] {
+  --ws-horizontal-layout-gutter: 16px;
+  flex-basis: calc(((100% / 12) * var(--ws-col-count)) - var(--ws-horizontal-layout-gutter));
+  max-width: calc(((100% / 12) * var(--ws-col-count)) - var(--ws-horizontal-layout-gutter));
+  box-sizing: border-box;
+}
 
+.ws-col-1 { --ws-col-count: 1; }
+.ws-col-2 { --ws-col-count: 2; }
+.ws-col-3 { --ws-col-count: 3; }
+.ws-col-4 { --ws-col-count: 4; }
+.ws-col-6 { --ws-col-count: 6; }
+.ws-col-7 { --ws-col-count: 7; }
+.ws-col-8 { --ws-col-count: 8; }
+.ws-col-9 { --ws-col-count: 9; }
+.ws-col-10 { --ws-col-count: 10; }
+.ws-col-11 { --ws-col-count: 11; }
+.ws-col-12 { --ws-col-count: 12; }
+
+.vp-doc tr:nth-child(2n) pre {
+  background: var(--vp-c-bg);
+}
+
+.dark .vp-doc tr:nth-child(2n) pre {
+  background: transparent;
+}
 
 /**
  * Component: SQLDelight

@@ -8,7 +8,6 @@ const props = defineProps({
   }
 })
 
-// 使用 ref 包装布尔值，使其具有响应性
 const isExpanded = ref(props.collapsible != null)
 provide('isExpanded', isExpanded)
 

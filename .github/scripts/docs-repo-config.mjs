@@ -1,5 +1,6 @@
 import { koinStrategy } from "./strategy-koin.mjs";
 import { sqlDelightStrategy } from "./strategy-sqldelight.mjs";
+import {kotlinStrategy} from "./strategy-kotlin.mjs";
 
 export const REPOS = [
   {
@@ -30,4 +31,52 @@ export const REPOS = [
     },
     strategy: sqlDelightStrategy,
   },
+  {
+    name: "kotlin",
+    repo: "JetBrains/kotlin-web-site",
+    branch: "origin/main",
+    path: "kotlin-repo",
+    lastCheckFile: ".github/last_check_kotlin.txt",
+    assets: {
+      src: "docs/images",
+      dest: "docs/public/kotlin",
+    },
+    strategy: kotlinStrategy
+  },
+  {
+    name: "kotlin",
+    repo: "Kotlin/kotlinx.coroutines",
+    branch: "origin/main",
+    path: "kotlinx-coroutines-repo",
+    lastCheckFile: ".github/last_check_kotlinx_coroutines.txt",
+    assets: {
+      src: "docs/images",
+      dest: "docs/public/kotlin",
+    },
+    strategy: kotlinStrategy
+  },
+  {
+    name: "kotlin",
+    repo: "Kotlin/dokka",
+    branch: "origin/main",
+    path: "dokka-repo",
+    lastCheckFile: ".github/last_check_dokka.txt",
+    assets: {
+      src: "docs/images",
+      dest: "docs/public/kotlin",
+    },
+    strategy: kotlinStrategy
+  },
+  {
+    name: "kotlin",
+    repo: "JetBrains/lincheck",
+    branch: "origin/main",
+    path: "lincheck-repo",
+    lastCheckFile: ".github/last_check_lincheck.txt",
+    assets: {
+      src: "docs/images",
+      dest: "docs/public/kotlin",
+    },
+    strategy: kotlinStrategy
+  }
 ];

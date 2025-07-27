@@ -6,8 +6,12 @@ defineProps({
   },
   groupKey: {
     type: String,
-    required: true,
+    required: false,
   },
+  id: {
+    type: String,
+    required: false,
+  }
 });
 </script>
 

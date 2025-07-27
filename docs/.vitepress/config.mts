@@ -27,6 +27,8 @@ import markdownItRemoveContributeUrl from "./markdown-it-remove-contribute-url";
 import markdownItWsClassstyles from "./markdown-it-ws-classstyles";
 import markdownItWsRenderInline from "./markdown-it-ws-render-inline";
 import {markdownItCollapsed} from "./markdownItCollapsed.mts";
+import markdownItWsRename from "./markdown-it-ws-rename";
+import markdownItWsTopicTitle from "./markdown-it-ws-topicTitle";
 
 const mkDiffGrammarPath = resolve(__dirname, './shiki-mk-diff.json')
 const mkDiffGrammar = JSON.parse(readFileSync(mkDiffGrammarPath, 'utf-8'))
@@ -91,6 +93,7 @@ export default defineConfig({
         ]
     },
     themeConfig: {
+        outline: [2, 3],
         logo: '/img/logo.png',
         lastUpdated: {
             text: '上次更新'
@@ -307,6 +310,9 @@ export default defineConfig({
             md.use(markdownItCollapsed)
             md.use(markdownItWsVars, {xmlFilePath: 'docs/.vitepress/v.list'});
             md.use(markdownItMKVars);
+
+            md.use(markdownItWsRename)
+            md.use(markdownItWsTopicTitle)
 
 
             // Use the helper function to create containers cleanly

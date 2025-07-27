@@ -15,6 +15,7 @@
   padding: 16px;
   border: 1px solid #d1d1d2;
   border-radius: 6px;
+  margin-top: 16px;
 }
 
 .ws-tldr img {
