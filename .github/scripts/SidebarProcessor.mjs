@@ -204,5 +204,3 @@ async function parseMKSidebar(source, docType, baseUrl) {
 async function generateFromDir(dir, docType) {
     const files = await fs.readdir(dir);
 }
-
-await generateSidebar('.github/scripts/mkdocs.yml', 'sqldelight', 'https://sqldelight.github.io/sqldelight/2.1.0/');
