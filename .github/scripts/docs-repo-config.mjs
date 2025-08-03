@@ -47,8 +47,8 @@ export const REPOS = [
     name: "kotlin",
     repo: "Kotlin/kotlinx.coroutines",
     branch: "origin/main",
-    path: "kotlinx-coroutines-repo",
-    lastCheckFile: ".github/last_check_kotlinx_coroutines.txt",
+    path: "coroutines-repo",
+    lastCheckFile: ".github/last_check_coroutines.txt",
     assets: {
       src: "docs/images",
       dest: "docs/public/kotlin",
@@ -73,6 +73,18 @@ export const REPOS = [
     branch: "origin/main",
     path: "lincheck-repo",
     lastCheckFile: ".github/last_check_lincheck.txt",
+    assets: {
+      src: "docs/images",
+      dest: "docs/public/kotlin",
+    },
+    strategy: kotlinStrategy
+  },
+  {
+    name: "kotlin",
+    repo: "Kotlin/api-guidelines",
+    branch: "origin/main",
+    path: "api-guidelines-repo",
+    lastCheckFile: ".github/last_check_api-guidelines.txt",
     assets: {
       src: "docs/images",
       dest: "docs/public/kotlin",

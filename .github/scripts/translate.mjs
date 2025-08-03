@@ -76,10 +76,10 @@ function prepareTranslationPrompt(sourceText, targetLang, currentFilePath) {
     .join("\n");
 
   // Get previously translated file with the same name as reference
-  const previousTranslations = loadPreviousTranslations(
+  const previousTranslations = currentFilePath.includes('locales') ? fs.readFileSync(currentFilePath, 'utf8') : loadPreviousTranslations(
     targetLang,
     currentFilePath
-  );
+  )
 
   // Build reference translation section
   let translationReferences = "";
@@ -95,10 +95,7 @@ function prepareTranslationPrompt(sourceText, targetLang, currentFilePath) {
   }
 
   // Choose appropriate prompt template based on target language
-  const promptTemplate = getPromptTemplate(
-    targetLang,
-    getLangDisplayName(targetLang)
-  );
+  const promptTemplate = currentFilePath.includes('locales') ? getLocalePromptTemplate(getLangDisplayName(targetLang)) : getPromptTemplate(targetLang, getLangDisplayName(targetLang));
 
   // Insert variables into template
   return promptTemplate
@@ -117,6 +114,52 @@ function prepareTranslationPrompt(sourceText, targetLang, currentFilePath) {
           : "无参考翻译")
     )
     .replace("{SOURCE_TEXT}", sourceText);
+}
+
+function getLocalePromptTemplate(langDisplayName) {
+  return `# Role & Task
+  You are a professional AI translation assistant. Your job is to translate **Kotlin/GitHub-related** English JSON copy into ${langDisplayName}. You must produce high-quality, technically accurate text that reads naturally for a developer audience—**without changing any JSON structure or keys**. Translate **values only**.
+
+## 1) General Requirements
+  1. **Translate values only; do not modify keys.** Keep all keys, nesting, and order exactly the same.
+  2. **Return valid JSON.** Preserve correct JSON syntax and escaping (quotes, backslashes, \`\\n\`, \`\\t\`, etc.).
+3. **Clean output.** Return only the final JSON—no explanations, headers, or comments.
+4. **Do not translate URLs/paths/version strings.** Keep items like \`https://...\`, file/image paths, \`Kotlin 2.2.0\`, \`2.2.20-Beta1\` unchanged.
+5. **Product and proper names.** Keep terms like \`Kotlin\`, \`JetBrains\`, \`Gradle\`, \`Kotlin Multiplatform\` in English unless the Glossary says otherwise.
+6. **Tone and fluency.** Ensure technical accuracy and natural, idiomatic ${langDisplayName} suitable for developer-facing UI/Docs.
+
+## 2) Terminology & Placeholders
+1. **Glossary has highest priority.** Use the translations from the Glossary exactly as given.
+2. **Consistency.** If a term isn’t in the Glossary, follow the Translation References for style and consistency.
+3. **Do not alter placeholders or code-like fragments:**
+   - API/class/method/config names, flags, CLI commands.
+4. **Uncertain technical terms.** If no guidance exists and translation may confuse, **keep the English term**. In pure JSON UI strings, prefer keeping English rather than risking misleading translations.
+
+## 3) Format & Safety
+1. **Only change value strings.** Do not add/remove pairs, reorder keys, or introduce trailing commas.
+2. **Escaping.** Correctly preserve and escape \`"\`, \`\\\`, \`\\n\`, \`\\t\`, and Unicode characters.
+3. **ICU/Plural/Message syntax.** If values contain patterns like \`{count, plural, one {...} other {...}}\`, keep the syntax and variable names unchanged; translate only the human-readable text.
+4. **Contractions and punctuation.** Render them naturally in ${langDisplayName} while keeping JSON validity.
+
+## 4) Output Requirements
+1. **Return the translated JSON only** (UTF-8). No code fences or extra text.
+2. **Structure must match the source exactly** (keys, nesting, order).
+3. **Quality checks.** Ensure technical correctness, clarity, and fluency; no typos or broken placeholders.
+
+---
+## 5) Resources
+### Glossary
+{RELEVANT_TERMS}
+
+### Translation References
+{TRANSLATION_REFERENCES}
+
+---
+## 6) Source JSON
+Translate **all values** in the following JSON from English into ${langDisplayName}, and return valid JSON per the rules above:
+
+{SOURCE_TEXT}
+`;
 }
 
 // Get appropriate prompt template based on target language
@@ -417,35 +460,6 @@ function getLangDisplayName(langCode) {
   return config.languageNames[langCode] || langCode;
 }
 
-// Main function
-async function main() {
-  const changedFilesInput = process.env.CHANGED_FILES || "";
-  console.log(`Environment variable CHANGED_FILES: ${changedFilesInput}`);
-
-  const changedFiles = changedFilesInput
-    .split(/[\s,]+/)
-    .filter((file) => file.trim());
-  console.log(`Found ${changedFiles.length} changed files`);
-
-  if (changedFiles.length === 0) {
-    console.log(
-      "No files found to translate, if you need to specify files, please set CHANGED_FILES environment variable"
-    );
-    return;
-  }
-
-  for (const file of changedFiles) {
-    try {
-      await translateFile(file);
-    } catch (error) {
-      console.error(`Error translating ${file}:`, error);
-      // Continue processing next file
-    }
-  }
-
-  console.log("Translation completed");
-}
-
 async function retry(fn, attempts = 3) {
   let lastError;
   for (let i = 1; i <= attempts; i++) {
@@ -478,4 +492,61 @@ export async function translateFiles(docType, repoPath, files) {
 
   const results = await Promise.all(translationTasks);
   return results.flat();
+}
+
+export async function translateLocaleFiles(files) {
+  console.log(`Translating locale files...`);
+
+  const limit = pLimit(10);
+  const translationTasks = files.map((file) => limit(async () => {
+    try {
+      return await retry(() => translateLocaleFile(file), 3);
+    } catch (e) {
+      console.error(`❌ Failed translating ${file} after 3 attempts:`, e);
+      return [];
+    }
+  }));
+
+  const results = await Promise.all(translationTasks);
+  return results.flat();
+}
+
+async function translateLocaleFile(filePath) {
+  console.log(`Translating locale file: ${filePath}`);
+  let targetTranslateFile = '';
+  const absoluteFilePath = path.resolve("docs/.vitepress/locales", filePath);
+
+  if (!fs.existsSync(absoluteFilePath)) {
+    console.error(`File not found: ${absoluteFilePath}`);
+    return targetTranslateFile;
+  }
+
+  try {
+    let content = fs.readFileSync(absoluteFilePath, "utf8");
+
+    // Translate content
+    let translatedContent;
+    if (content && content.trim()) {
+      const targetLang = filePath.split(".")[0];
+      const modelConfig = config.modelConfigs[targetLang];
+      const prompt = prepareTranslationPrompt(content, targetLang, absoluteFilePath)
+      translatedContent = await callGemini(prompt, modelConfig.model);
+
+      // Clean up extra content in translation result
+      translatedContent = cleanupTranslation(translatedContent);
+      if (translatedContent.startsWith("```json")) {
+        translatedContent = translatedContent.replace(/^```json\n/, "");
+      }
+    } else {
+      console.error(`File content is empty: ${filePath}`);
+    }
+
+    // Write translated file
+    fs.writeFileSync(absoluteFilePath, translatedContent);
+    console.log(`${filePath} Translated`);
+    targetTranslateFile = absoluteFilePath;
+  } catch (fileError) {
+    console.error(`Error processing file ${filePath}: ${fileError.message}`);
+  }
+  return targetTranslateFile;
 }

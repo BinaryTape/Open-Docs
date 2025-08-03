@@ -14,7 +14,7 @@ import markdownItMkLinks from "./markdown-it-mk-links";
 import {DOCS_TYPES, DocsTypeConfig} from './docs.config';
 import {markdownItRewriteLinks} from './markdown-it-ws-inline-link';
 import {SiteLocaleConfig} from './locales.config';
-import generateSidebarItems from './config/sidebar.config';
+import generateSidebar from './config/sidebar.config';
 import markdownItDiffTitleWrapper from "./markdown-it-mk-diff-code-block";
 import {getSidebarTitle} from './utils/sidebar-utils';
 import {readFileSync, existsSync} from 'node:fs'
@@ -150,9 +150,9 @@ export default defineConfig({
                     {text: 'SQLDelight', link: '/sqldelight/index'}
                 ],
                 sidebar: {
-                    "/koin/": generateSidebarItems(SiteLocaleConfig['zh-Hans'], DocsTypeConfig.koin),
-                    "/kotlin/": generateSidebarItems(SiteLocaleConfig['zh-Hans'], DocsTypeConfig.kotlin),
-                    "/sqldelight/": generateSidebarItems(SiteLocaleConfig['zh-Hans'], DocsTypeConfig.sqldelight),
+                    "/koin/": generateSidebar(SiteLocaleConfig['zh-Hans'], DocsTypeConfig.koin),
+                    "/kotlin/": generateSidebar(SiteLocaleConfig['zh-Hans'], DocsTypeConfig.kotlin),
+                    "/sqldelight/": generateSidebar(SiteLocaleConfig['zh-Hans'], DocsTypeConfig.sqldelight),
                 },
             },
         },
@@ -166,9 +166,9 @@ export default defineConfig({
                     {text: 'SQLDelight', link: '/zh-Hant/sqldelight/index'}
                 ],
                 sidebar: {
-                    "/zh-Hant/koin/": generateSidebarItems(SiteLocaleConfig['zh-Hant'], DocsTypeConfig.koin),
-                    "/zh-Hant/kotlin/": generateSidebarItems(SiteLocaleConfig['zh-Hant'], DocsTypeConfig.kotlin),
-                    "/zh-Hant/sqldelight/": generateSidebarItems(SiteLocaleConfig['zh-Hant'], DocsTypeConfig.sqldelight),
+                    "/zh-Hant/koin/": generateSidebar(SiteLocaleConfig['zh-Hant'], DocsTypeConfig.koin),
+                    "/zh-Hant/kotlin/": generateSidebar(SiteLocaleConfig['zh-Hant'], DocsTypeConfig.kotlin),
+                    "/zh-Hant/sqldelight/": generateSidebar(SiteLocaleConfig['zh-Hant'], DocsTypeConfig.sqldelight),
                 },
                 lastUpdated: {text: '最後更新'},
                 editLink: {
@@ -204,9 +204,9 @@ export default defineConfig({
                     {text: 'SQLDelight', link: '/ja/sqldelight/index'}
                 ],
                 sidebar: {
-                    "/ja/koin/": generateSidebarItems(SiteLocaleConfig['ja'], DocsTypeConfig.koin),
-                    "/ja/kotlin/": generateSidebarItems(SiteLocaleConfig['ja'], DocsTypeConfig.kotlin),
-                    "/ja/sqldelight/": generateSidebarItems(SiteLocaleConfig['ja'], DocsTypeConfig.sqldelight),
+                    "/ja/koin/": generateSidebar(SiteLocaleConfig['ja'], DocsTypeConfig.koin),
+                    "/ja/kotlin/": generateSidebar(SiteLocaleConfig['ja'], DocsTypeConfig.kotlin),
+                    "/ja/sqldelight/": generateSidebar(SiteLocaleConfig['ja'], DocsTypeConfig.sqldelight),
                 },
                 lastUpdated: {text: '最終更新日'},
                 editLink: {
@@ -245,9 +245,9 @@ export default defineConfig({
                     {text: 'SQLDelight', link: '/ko/sqldelight/index'}
                 ],
                 sidebar: {
-                    "/ko/koin/": generateSidebarItems(SiteLocaleConfig['ko'], DocsTypeConfig.koin),
-                    "/ko/kotlin/": generateSidebarItems(SiteLocaleConfig['ko'], DocsTypeConfig.kotlin),
-                    "/ko/sqldelight/": generateSidebarItems(SiteLocaleConfig['ko'], DocsTypeConfig.sqldelight),
+                    "/ko/koin/": generateSidebar(SiteLocaleConfig['ko'], DocsTypeConfig.koin),
+                    "/ko/kotlin/": generateSidebar(SiteLocaleConfig['ko'], DocsTypeConfig.kotlin),
+                    "/ko/sqldelight/": generateSidebar(SiteLocaleConfig['ko'], DocsTypeConfig.sqldelight),
                 },
                 lastUpdated: {text: '마지막 업데이트'},
                 editLink: {

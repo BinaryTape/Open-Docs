@@ -3,6 +3,7 @@ import { copyFlatten } from "./fsUtils.mjs";
 import path from "path";
 import fs from "fs-extra";
 import {processTopicFile} from "./TopicProcessor.mjs";
+import {generateSidebar} from "./SidebarProcessor.mjs";
 
 export const kotlinStrategy = {
     ...defaultStrategy,
@@ -44,6 +45,14 @@ export const kotlinStrategy = {
         }
         console.log(`  Convert topic files finished - ${repoPath}`);
 
+        console.log(`  Running Kotlin onSyncEnd: Generate sidebar - ${repoPath}...`);
+        const sidebarFile = docs.filter(doc => doc.endsWith(".tree"));
+        const sidebarPath = path.join(docsPath, sidebarFile[0]);
+        const docType = repoPath.replace("-repo", "");
+        if (await fs.pathExists(sidebarPath)) {
+            await generateSidebar(sidebarPath, docType);
+        }
+        console.log(`  Generate sidebar finished - ${repoPath}`);
 
         if (repoPath === "kotlin-repo") {
             console.log(`  Running Kotlin onSyncEnd: Resolve includes`);

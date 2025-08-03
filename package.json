@@ -20,9 +20,11 @@
     "glob": "^11.0.3",
     "gray-matter": "^4.0.3",
     "markdown-it-container": "^4.0.0",
+    "p-limit": "^6.2.0",
     "shiki": "^3.7.0",
     "vitepress": "^1.6.3",
-    "p-limit": "^6.2.0"
+    "js-yaml": "^4.1.0",
+    "xml2js": "^0.6.2"
   },
   "dependencies": {
     "aos": "^2.3.4"

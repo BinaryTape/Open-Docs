@@ -1,7 +1,7 @@
 import { execa } from "execa";
 import fs from "fs-extra";
 import { glob } from "glob";
-import { translateFiles } from "./translate.mjs";
+import {translateFiles, translateLocaleFiles} from "./translate.mjs";
 import { REPOS } from "./docs-repo-config.mjs";
 
 const Logger = {
@@ -148,6 +148,18 @@ async function translate(context) {
 }
 
 // =================================================================
+// STAGE 3.1: TRANSLATE - Translate sidebar
+// =================================================================
+async function translateSidebar(context) {
+  Logger.step("STAGE 3.1: Translating sidebar...");
+  let sidebarFiles = await files.find("docs/.vitepress/locales", ["*.json"]);
+  sidebarFiles = sidebarFiles.filter((f) => f.endsWith("en.json"));
+
+  const translatedPaths = await translateLocaleFiles(sidebarFiles)
+  translatedPaths.forEach((p) => context.gitAddPaths.add(p));
+}
+
+// =================================================================
 // STAGE 4: COMMIT - Push all changes to the repository
 // =================================================================
 async function commit(context) {
@@ -200,6 +212,7 @@ async function main() {
     await sync(context);
     await detect(context);
     await translate(context);
+    await translateSidebar(context);
     await commit(context);
 
     Logger.info("Workflow completed successfully.");
