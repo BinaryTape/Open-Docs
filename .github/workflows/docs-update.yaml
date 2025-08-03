@@ -32,7 +32,7 @@ jobs:
           GIT_AUTHOR_EMAIL: "github-actions[bot]@users.noreply.github.com"
           GITHUB_HEAD_REF: ${{ github.head_ref || github.ref_name }}
           GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
-        run: tsx .github/scripts/docs-pipeline.mjs
+        run: npx tsx .github/scripts/docs-pipeline.mjs
 
       - name: Create Summary
         if: always()
