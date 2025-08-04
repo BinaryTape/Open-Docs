@@ -153,7 +153,7 @@ async function translate(context) {
 async function translateSidebar(context) {
   Logger.step("STAGE 3.1: Translating sidebar...");
   let sidebarFiles = await files.find("docs/.vitepress/locales", ["*.json"]);
-  sidebarFiles = sidebarFiles.filter((f) => f.endsWith("en.json"));
+  sidebarFiles = sidebarFiles.filter((f) => !f.endsWith("en.json"));
 
   const translatedPaths = await translateLocaleFiles(sidebarFiles)
   translatedPaths.forEach((p) => context.gitAddPaths.add(p));
