@@ -15,10 +15,10 @@ const config = JSON.parse(fs.readFileSync(configPath, "utf8"));
 const genAI = new GoogleGenAI({ apiKey: process.env.GOOGLE_API_KEY });
 
 // Load terminology database
-let terminology = {};
+let terminology = '';
 
 try {
-  terminology = JSON.parse(fs.readFileSync(config.terminologyPath, "utf8"));
+  terminology = fs.readFileSync(config.terminologyPath, "utf8")
 } catch (error) {
   terminology = { terms: {} };
 }
@@ -70,10 +70,7 @@ function loadPreviousTranslations(targetLang, currentFilePath) {
 // Prepare translation prompt
 function prepareTranslationPrompt(sourceText, targetLang, currentFilePath) {
   // Get relevant terminology
-  const relevantTerms = Object.entries(terminology.terms)
-    .filter(([term]) => sourceText.includes(term))
-    .map(([term, translations]) => `"${term}" → "${translations[targetLang]}"`)
-    .join("\n");
+  const relevantTerms = targetLang === "zh-Hans" ? terminology : ''
 
   // Get previously translated file with the same name as reference
   const previousTranslations = currentFilePath.includes('locales') ? fs.readFileSync(currentFilePath, 'utf8') : loadPreviousTranslations(
@@ -249,18 +246,31 @@ function getPromptTemplate(targetLang, langDisplayName) {
     
     ## 一、翻译风格与质量要求
     
-    1.  **忠实原文与流畅表达:**
-        * 在确保技术准确性的前提下，译文应自然流畅，符合 ${langDisplayName} 的语言习惯和互联网技术社群的表达方式。
-        * 妥善处理原文的语序和句子结构，避免生硬直译或产生阅读障碍。
-        * 保持原文的语气（例如：正式、非正式、教学性）。
+    1. **忠实原文与流畅表达**
+
+       * 在确保技术准确性的前提下，译文应自然流畅，符合 \${langDisplayName} 的语言习惯和互联网技术社群的表达方式。
+       * 妥善处理原文的语序和句子结构，避免生硬直译或产生阅读障碍。
+       * 保持原文的语气（例如：正式、非正式、教学性）。
+
+    2. **术语与优先级规则（重要）**
     
-    2.  **术语处理:**
-        * **优先使用术语表:** 严格按照下方提供的(术语表)进行翻译。术语表具有最高优先级。
-        * **参考翻译一致性:** 对于术语表中未包含的术语，请参考(参考翻译)以保持风格和已有术语使用的一致性。
-        * **新/模糊术语处理:**
-            * 对于术语表中未包含、参考翻译中亦无先例的专有名词或技术术语，若你选择翻译，建议在首次出现时，在译文后用括号附注英文原文，例如：“译文 (English Term)”。
-            * 若对某个术语的翻译没有把握，或者认为保留英文更清晰，请**直接保留英文原文**。
-        * **占位符/变量名:** 文档中非代码块内的占位符（如 \`YOUR_API_KEY\`）或特殊变量名，通常保留英文，或根据上下文判断是否需要翻译并加注释。
+       * **优先级次序：** 术语表（Glossary） > 文内惯例 > 一般语言习惯。
+       * **冲突裁决：** 当“专有名词不译”与“常规含义可译”冲突时，以术语表**适用上下文**说明裁决。
+       * **不翻译术语的形态：** 列入“**不翻译术语**”的词一律保持**英文原形与大小写**，即使原文为复数或时态变化也要还原为词典形（如 *futures* → **future**）。
+       * **翻译术语：** 按术语表“翻译术语”指定译法执行。若存在“不要译作 …”的禁用译法，严禁使用。
+       * **括号称谓统一：** 使用“圆括号 / 方括号 / 花括号”，不得使用“小/中/大括号”。
+    
+    3. **新/模糊术语处理**
+    
+       * 对于术语表中未包含、参考翻译亦无先例的专有名词或技术术语：
+    
+         * 若你选择翻译，**首次出现**可在中文后以括号附注英文原文（可选），如：\`译文 (English Term)\`。
+         * 若不确定或保留英文更清晰，**直接保留英文原文**；必要时在译文处标注 **\[待确认]**。
+    
+    4. **风格统一（补充）**
+    
+       * 代码、API 名、类名、方法名、关键字、包名等**一律保持英文与大小写**，不加空格。
+       * 标点遵循中文习惯；数值与单位之间保留半角空格（如 \`10 MB\`）。
     
     ## 二、技术格式要求
     
