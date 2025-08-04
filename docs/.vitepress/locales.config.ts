@@ -1,5 +1,5 @@
-import zh_hans from './locales/zh-hans.json'
-import zh_hant from './locales/zh-hant.json'
+import zh_Hans from './locales/zh-Hans.json'
+import zh_Hant from './locales/zh-Hant.json'
 import ja from './locales/ja.json'
 import ko from './locales/ko.json'
 
@@ -19,14 +19,14 @@ export const SiteLocaleConfig: { [key: string]: SideLocaleConfig } = {
         label: '简体中文',
         title: 'Open AIDoc',
         description: 'Open AIDoc',
-        messages: zh_hans
+        messages: zh_Hans
     },
     "zh-Hant": {
         lang: 'zh-Hant',
         label: '繁體中文',
         title: 'Open AIDoc',
         description: 'Open AIDoc',
-        messages: zh_hant
+        messages: zh_Hant
     },
     ja: {
         lang: 'ja',
