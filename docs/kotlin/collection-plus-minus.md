@@ -1,0 +1,28 @@
+[//]: # (title: 加减操作符)
+
+在 Kotlin 中，为集合定义了 [`plus`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/plus.html) (`+`) 和 [`minus`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/minus.html) (`-`) 操作符。
+它们将一个集合作为第一个操作数；第二个操作数可以是元素或另一个集合。
+返回值为一个新的只读集合：
+
+* `plus` 的结果包含原始集合**以及**第二个操作数中的元素。
+* `minus` 的结果包含原始集合中的元素，**但不包含**第二个操作数中的元素。
+   如果它是一个元素，`minus` 会移除其**首次**出现项；如果它是一个集合，则会移除其元素中的**所有**出现项。
+
+```kotlin
+
+fun main() {
+//sampleStart
+    val numbers = listOf("one", "two", "three", "four")
+
+    val plusList = numbers + "five"
+    val minusList = numbers - listOf("three", "four")
+    println(plusList)
+    println(minusList)
+//sampleEnd
+}
+```
+{kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
+
+关于 Map 的 `plus` 和 `minus` 操作符的详情，请参见 [Map 特有的操作](map-operations.md)。
+增广赋值操作符 [`plusAssign`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/plus-assign.html) (`+=`) 和 [`minusAssign`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/minus-assign.html) (`-=`) 也为集合定义了。然而，对于只读集合，它们实际上会使用 `plus` 或 `minus` 操作符，并尝试将结果赋值给同一个变量。因此，它们仅适用于 `var` 声明的只读集合。
+对于可变集合，如果集合是 `val` 声明的，它们会修改集合。更多详情请参见 [集合写入操作](collection-write.md)。

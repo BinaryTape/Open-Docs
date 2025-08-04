@@ -1,0 +1,117 @@
+[//]: # (title: Kotlin Slack 行为准则与使用指南)
+
+Kotlin Slack 旨在成为一个包容的空间，致力于为所有人提供一个友好、安全、热情的环境，无论性别、性取向、能力、种族、社会经济地位和宗教（或无宗教信仰）。
+
+为此，我们所有人遵循一套基本指南至关重要，最重要的是，要遵守行为准则。因此，请务必完整阅读本行为准则和基本使用指南。这不是那种你应该直接滚动到底并盲目同意的常规许可协议。它之所以存在，自有其理由，并且还包含实用信息。
+
+* [行为规范](#行为规范)
+* [禁止行为](#禁止行为)
+* [如何报告问题](#如何报告问题)
+* [协管员](#协管员)
+* [基本使用指南](#基本使用指南)
+* [协管员](#协管员)
+* [版权](#版权)
+
+## 行为规范
+
+* 以真诚和积极的方式参与。这样做有助于本社区的健康和长远发展。
+* 言行举止要考虑周全、尊重他人、富有同理心。请记住，我们所有人都在学习采用技术时，经历过不同的学习阶段。
+* 避免贬低、歧视或骚扰性的行为和言论。
+* 对事物有分歧是正常的，但争论性行为或网络喷子行为是不允许的。
+
+## 禁止行为
+
+* *不*得针对他人进行暴力威胁或使用暴力语言。
+* *不*得开具性别歧视、种族主义、同性恋恐惧、跨性别恐惧、健全歧视或其他歧视性质的玩笑，或使用此类语言。
+* *不*得发布或展示色情或暴力材料。
+* *不*得发布或威胁发布他人个人身份信息（“人肉搜索”）。
+* *不*得进行人身攻击，特别是与性别、性取向、种族、宗教或残疾相关的攻击。
+* *不*得寻求性关注。这包括性暗示评论或笑话以及性挑逗。
+* *不*得倡导或鼓励任何上述行为。
+
+## 如何报告问题
+
+如果有人行为不当或以任何形式违反本行为准则，且他们不接受您的反馈，或者您不愿与他们对质，请联系其中一位管理员。主要管理员是 Ilya Ryzhenkov (@orangy) 和 Hadi Hariri (@hhariri)。
+
+## 基本使用指南
+
+超过 50,000 名用户分布在不同时区使用 Kotlin Slack，而且这个数字还在快速增长。每天涌入的消息和众多频道长此以往可能导致大量噪音，并降低价值。如果我们都遵循一套指南，它将有助于让每个人都觉得更有用、更易于忍受。
+
+* 请记住这是一个 Kotlin 的 Slack 团队。如果您有关于某项技术（无论是否与 Kotlin 一起使用）的通用问题，或许最好使用其他论坛，例如 StackOverflow。
+* 此 Slack 不是官方支持渠道。这是一个社区成员以及 JetBrains 和 Kotlin 团队的一些成员（后缀 [JetBrains]）交流的场所。
+* 此 Slack 并非报告 bug 的最佳场所。为此，请使用 [YouTrack](https://youtrack.jetbrains.com/issues/kt)。
+* 找到正确的频道来提问。几乎每个主题都有频道。
+* 新频道应围绕一项知名技术或一个特定兴趣领域。谨慎创建。在请求创建新频道之前，请确保它不存在其他任何形式。在 #meta 频道请求管理员创建新频道。如果最终创建了频道，请务必设置主题。
+* 请避免在多个频道交叉发布相同消息。这被视为垃圾邮件行为。
+* 提问时请耐心等待。不要重复提问。至少不要立即重复。
+* 请不要直接 @ 或提及某人以寻求问题答案，特别是项目所有者，无论项目是 Kotlin 还是其他，除非他们明确表示可以这样做。
+* 不要将消息拆分成多条。请在一条消息中提出所有问题。
+* 使用代码块。不要将代码粘贴为纯文本。Slack 支持 Kotlin 标记。如果您粘贴的代码超过几行，请使用消息输入框旁 `+` 菜单中的“代码或文本片段”。只有前几行会显示给所有用户，对代码感兴趣的人可以展开您的代码查看详细信息。
+* 虽然在提问前说“你好”或“我有一个问题”是礼貌的，但这不具备可伸缩性，并会产生噪音。如果您愿意，可以在提问的同一条消息中打招呼。
+* 使用话题（threads）并非强制要求，但请考虑到它确实能让人们更容易追踪对话，特别是那些稍后加入的人。
+* 使用表情回应来表达感谢，而不是发送消息。这能减少噪音并传达信息。
+* 不要使用表情回应来告诉人们他们发错了地方或问错了问题。如果他们在错误的频道，请指引他们到正确的频道。如果他们的问题表述不佳，请帮助他们纠正。保持同理心。
+* 考虑文化差异。正如他们所说，英国人所言非其本意。作为消息的接收者和发出者，请牢记这一点。
+* 不要与 Slack 创建集成。鉴于这是在免费层运行，数量有限，因此不会被批准。
+* @channel、@here 和其他形式的通知已被禁用，即使您是频道所有者（遗憾的是，Slack 不允许细粒度权限）。
+* 如果您不确定如何操作，请使用 #meta 频道。
+
+## 协管员
+
+协管员是 Kotlin Slack 社区的成员，他们自愿维护 kotlinlang Slack 成为其他成员安全、热情的场所。协管员由 kotlinlang Slack 管理员批准。他们的职责和遵循的指南如下所述。
+
+### 职责
+
+* 监控 Slack 频道，确保遵守行为准则。
+* 帮助社区成员遵守规则。
+* 如果频道有额外规则，请确保这些规则可见且最新。
+* 监控 #reports 和 #meta 频道。
+* 参与私有 #moderators 频道。
+
+### 指南
+
+* 协管员以友好的方式沟通，并尽力帮助其他社区成员。
+* 协管员提出的任何更改都应在生效前由所有协管员和管理员讨论。
+
+### 流程
+
+* 每位协管员至少监督一个频道，如果可能则监督更多。
+* 当协管员发现不当行为时，他们会向成员解释规则和指南，并帮助找出如何纠正不良行为。如果不良行为持续存在，协管员将向管理员报告此情况以采取进一步行动。对于明显和/或特别公然的违规行为，可以直接报告违规成员。
+* 要设置或更新频道规则，协管员会发起一项变更提案，并与相关社区成员讨论。
+* 关于协调管理的沟通在私有 #moderators 频道中进行。
+* 如果社区成员发现协管员忽视其职责（或从事任何不良行为），他们可以提醒管理员。
+
+### 协管员身份获取与撤销流程
+
+* 任何在 Slack 社区中活跃超过 6 个月的成员都欢迎申请成为协管员。
+* 协管员身份根据管理员的决定授予。
+* 协管员身份可能被撤销，如果（此列表并非详尽无遗，可根据具体情况进行更新）：
+  * 协管员忽视职责，导致频道出现问题。
+  * 协管员违反这些指南。
+
+### 协管员列表 {initial-collapse-state="collapsed" collapsible="true"}
+
+目前我们有 17 名确认的协管员，他们将负责观察总共 64 个频道。对于所有其他频道，如果出现任何问题，成员可以直接 @ 任何协管员或管理员，或者在 #meta 频道发布消息。
+
+* Alexander Nozik	(@altavir) – #mathematics, #science, #datascience, #education
+* Anderson Lameck	(@andylamax) – #coroutines, #kotlin-native, #webassembly, #serialization, #random, #javascript, #react
+* Andrey Mischenko	(@gildor) – #coroutines, #android, #gradle, #multiplatform, #getting-started, #kotlin-asia, #singapore
+* Eric Ampire	(@Eric Ampire) – #events
+* Holger Steinhauer	(@Holger Steinhauer) – #fosdem, #berlin, #vkug, #german-lang, #server
+* Louis CAD	(@louiscad) – #coroutines, #android
+* Magda Miu (@Magda Miu) – #android, #100daysofkotlin
+* Maryam Alhuthayfi (@Maryam Alhuthayfi) – #compose, #books, #ksp, #eap, #dagger, and #kontributors.
+* Nicola Corti	(@gammax) – #feed, #detekt, #appintro, #chucker, #fosdem, #london, #berlin, #hamburg, #sweden, #ktlint, 
+  #kug-leads, #kotlinconf, #koin, #koin-dev, #spek, #vkug
+* Paulien van Alst (@Paulien van Alst) – #detekt, #koin, #mockk
+* Qian Jin (@qian) – #kotlin-native, #android-studio, #french
+* Raul Raja	(@raulraja) - #arrow, #arrow-contributors, #arrow-meta
+* Sam Sam	(@sam) – #kotest, #kotest-contributors
+* Simon Vergauwen	(@simon.vergauwen) – #arrow, #arrow-contributors, #arrow-meta
+* Youssef Shoaib	(@Youssef Shoaib)  – #getting-started, #feed, #language-evolution, #language-proposals
+* Zach Klippenstein	(@Zach Klippenstein) – #coroutines, #compose, #compose-desktop, #compose-web, #squarelibraries, 
+  #library-development
+
+## 版权
+
+本行为准则根据 [知识共享署名-相同方式共享许可](http://creativecommons.org/licenses/by-sa/3.0/) 协议分发。部分文本源自 [公民行为准则](http://citizencodeofconduct.org/)。
