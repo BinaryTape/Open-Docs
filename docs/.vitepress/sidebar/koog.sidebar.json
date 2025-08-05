@@ -3,123 +3,124 @@
     "text": "koog.documentation",
     "items": [
       {
-        "text": "koog.overview"
+        "text": "koog.overview",
+        "link": "index.md"
       },
       {
         "text": "koog.key-concepts",
-        "link": "key-concepts.md"
+        "link": "key-concepts"
       },
       {
         "text": "koog.getting-started",
         "items": [
           {
             "text": "koog.single-run-agents",
-            "link": "single-run-agents.md"
+            "link": "single-run-agents"
           },
           {
             "text": "koog.complex-workflow-agents",
-            "link": "complex-workflow-agents.md"
+            "link": "complex-workflow-agents"
           }
         ],
         "collapsed": true
       },
       {
         "text": "koog.prompt-api",
-        "link": "prompt-api.md"
+        "link": "prompt-api"
       },
       {
         "text": "koog.tools",
         "items": [
           {
             "text": "koog.overview",
-            "link": "tools-overview.md"
+            "link": "tools-overview"
           },
           {
             "text": "koog.built-in-tools",
-            "link": "built-in-tools.md"
+            "link": "built-in-tools"
           },
           {
             "text": "koog.annotation-based-tools",
-            "link": "annotation-based-tools.md"
+            "link": "annotation-based-tools"
           },
           {
             "text": "koog.advanced-implementation",
-            "link": "advanced-tool-implementation.md"
+            "link": "advanced-tool-implementation"
           }
         ],
         "collapsed": true
       },
       {
         "text": "koog.agent-events",
-        "link": "agent-events.md"
+        "link": "agent-events"
       },
       {
         "text": "koog.custom-strategy-graphs",
-        "link": "custom-strategy-graphs.md"
+        "link": "custom-strategy-graphs"
       },
       {
         "text": "koog.pre-defined-nodes-and-components",
-        "link": "nodes-and-components.md"
+        "link": "nodes-and-components"
       },
       {
         "text": "koog.history-compression",
-        "link": "history-compression.md"
+        "link": "history-compression"
       },
       {
         "text": "koog.model-context-protocol",
-        "link": "model-context-protocol.md"
+        "link": "model-context-protocol"
       },
       {
         "text": "koog.advanced-usage",
         "items": [
           {
             "text": "koog.structured-data",
-            "link": "structured-data.md"
+            "link": "structured-data"
           },
           {
             "text": "koog.streaming-api",
-            "link": "streaming-api.md"
+            "link": "streaming-api"
           },
           {
             "text": "koog.custom-nodes",
-            "link": "custom-nodes.md"
+            "link": "custom-nodes"
           },
           {
             "text": "koog.llm-sessions-and-manual-history-management",
-            "link": "sessions.md"
+            "link": "sessions"
           },
           {
             "text": "koog.subgraphs",
             "items": [
               {
                 "text": "koog.overview",
-                "link": "subgraphs-overview.md"
+                "link": "subgraphs-overview"
               },
               {
                 "text": "koog.custom-subgraphs",
-                "link": "custom-subgraphs.md"
+                "link": "custom-subgraphs"
               }
             ],
             "collapsed": true
           },
           {
             "text": "koog.embeddings",
-            "link": "embeddings.md"
+            "link": "embeddings"
           },
           {
             "text": "koog.features",
             "items": [
               {
                 "text": "koog.overview",
-                "link": "features-overview.md"
+                "link": "features-overview"
               },
               {
                 "text": "koog.tracing",
-                "link": "tracing.md"
+                "link": "tracing"
               },
               {
                 "text": "koog.memory",
-                "link": "agent-memory.md"
+                "link": "agent-memory"
               }
             ],
             "collapsed": true
@@ -129,14 +130,14 @@
       },
       {
         "text": "koog.testing",
-        "link": "testing.md"
+        "link": "testing"
       }
     ],
     "collapsed": true
   },
   {
     "text": "koog.examples",
-    "link": "examples.md"
+    "link": "examples"
   },
   {
     "text": "koog.api-reference",
