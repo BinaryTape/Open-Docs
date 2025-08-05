@@ -1,5 +1,5 @@
 export type DocsItemConfig = {
-    type: "koin" | "kotlin" | "sqldelight" | "ktor" | "kmp";
+    type: "koin" | "kotlin" | "sqldelight" | "ktor" | "kmp" | "koog";
     title: string;
     path: string;
     framework: "Docusaurus" | "Writerside" | "MKDocs";
@@ -34,6 +34,12 @@ export const DocsTypeConfig: { [key: string]: DocsItemConfig } = {
         title: "KMP",
         path: "/kmp/",
         framework: "Writerside"
+    },
+    koog: {
+        type: "koog",
+        title: "Koog",
+        path: "/koog/",
+        framework: "MKDocs"
     }
 }
 

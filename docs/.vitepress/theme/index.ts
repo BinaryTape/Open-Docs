@@ -133,17 +133,32 @@ function interceptLinks(event) {
   if (!href) return
 
   // 匹配 JetBrains 链接
-  const match = href.match(/https:\/\/www\.jetbrains\.com\/help\/kotlin-multiplatform-dev\/([^)]+)\.html/)
+  const kmpMatch = href.match(/https:\/\/www\.jetbrains\.com\/help\/kotlin-multiplatform-dev\/([^)]+)\.html/)
 
-  if (match) {
+  if (kmpMatch) {
     // 阻止默认跳转
     event.preventDefault()
     event.stopPropagation()
 
     // 构造新链接
-    const newPath = `../kmp/${match[1]}.html`
+    const newPath = `../kmp/${kmpMatch[1]}.html`
 
     // 跳转
+    if (link.target === '_blank') {
+      window.open(newPath, '_blank')
+    } else {
+      window.location.href = newPath
+    }
+  }
+
+  const koogMatch = href.match(/https:\/\/koog\.ai/)
+
+  if (koogMatch) {
+    event.preventDefault()
+    event.stopPropagation()
+
+    const newPath = `../koog/`
+
     if (link.target === '_blank') {
       window.open(newPath, '_blank')
     } else {
