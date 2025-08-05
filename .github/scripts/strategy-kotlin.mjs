@@ -4,7 +4,6 @@ import path from "path";
 import fs from "fs-extra";
 import {processTopicFile} from "./TopicProcessor.mjs";
 import {generateSidebar} from "./SidebarProcessor.mjs";
-import {git} from "./docs-pipeline.mjs";
 
 export const kotlinStrategy = {
     ...defaultStrategy,
