@@ -1,0 +1,1466 @@
+[
+  {
+    "text": "kotlin.home",
+    "link": "home"
+  },
+  {
+    "text": "kotlin.getting-started",
+    "link": "getting-started"
+  },
+  {
+    "text": "kotlin.kotlin-tour-welcome",
+    "link": "kotlin-tour-welcome"
+  },
+  {
+    "text": "kotlin.kotlin-overview",
+    "items": [
+      {
+        "text": "kotlin.multiplatform",
+        "link": "multiplatform"
+      },
+      {
+        "text": "kotlin.server-overview",
+        "link": "server-overview"
+      },
+      {
+        "text": "kotlin.android-overview",
+        "link": "android-overview"
+      },
+      {
+        "text": "kotlin.wasm-overview",
+        "link": "wasm-overview"
+      },
+      {
+        "text": "kotlin.native-overview",
+        "link": "native-overview"
+      },
+      {
+        "text": "kotlin.js-overview",
+        "link": "js-overview"
+      },
+      {
+        "text": "kotlin.data-analysis-overview",
+        "link": "data-analysis-overview"
+      },
+      {
+        "text": "kotlin.kotlin-ai-apps-development-overview",
+        "link": "kotlin-ai-apps-development-overview"
+      },
+      {
+        "text": "kotlin.competitive-programming",
+        "link": "competitive-programming"
+      }
+    ],
+    "collapsed": true
+  },
+  {
+    "text": "kotlin.what-s-new-in-kotlin",
+    "items": [
+      {
+        "text": "kotlin.whatsnew22",
+        "link": "whatsnew22"
+      },
+      {
+        "text": "kotlin.whatsnew-eap",
+        "link": "whatsnew-eap"
+      },
+      {
+        "text": "kotlin.earlier-versions",
+        "items": [
+          {
+            "text": "kotlin.whatsnew2120",
+            "link": "whatsnew2120"
+          },
+          {
+            "text": "kotlin.whatsnew21",
+            "link": "whatsnew21"
+          },
+          {
+            "text": "kotlin.whatsnew2020",
+            "link": "whatsnew2020"
+          },
+          {
+            "text": "kotlin.whatsnew20",
+            "link": "whatsnew20"
+          },
+          {
+            "text": "kotlin.whatsnew1920",
+            "link": "whatsnew1920"
+          },
+          {
+            "text": "kotlin.whatsnew19",
+            "link": "whatsnew19"
+          },
+          {
+            "text": "kotlin.whatsnew1820",
+            "link": "whatsnew1820"
+          },
+          {
+            "text": "kotlin.whatsnew18",
+            "link": "whatsnew18"
+          },
+          {
+            "text": "kotlin.whatsnew1720",
+            "link": "whatsnew1720"
+          },
+          {
+            "text": "kotlin.whatsnew17",
+            "link": "whatsnew17"
+          },
+          {
+            "text": "kotlin.whatsnew1620",
+            "link": "whatsnew1620"
+          },
+          {
+            "text": "kotlin.whatsnew16",
+            "link": "whatsnew16"
+          },
+          {
+            "text": "kotlin.whatsnew1530",
+            "link": "whatsnew1530"
+          },
+          {
+            "text": "kotlin.whatsnew1520",
+            "link": "whatsnew1520"
+          },
+          {
+            "text": "kotlin.whatsnew15",
+            "link": "whatsnew15"
+          },
+          {
+            "text": "kotlin.whatsnew1430",
+            "link": "whatsnew1430"
+          },
+          {
+            "text": "kotlin.whatsnew1420",
+            "link": "whatsnew1420"
+          },
+          {
+            "text": "kotlin.whatsnew14",
+            "link": "whatsnew14"
+          },
+          {
+            "text": "kotlin.whatsnew13",
+            "link": "whatsnew13"
+          },
+          {
+            "text": "kotlin.whatsnew12",
+            "link": "whatsnew12"
+          },
+          {
+            "text": "kotlin.whatsnew11",
+            "link": "whatsnew11"
+          }
+        ],
+        "collapsed": true
+      }
+    ],
+    "collapsed": true
+  },
+  {
+    "text": "kotlin.kotlin-evolution-and-roadmap",
+    "items": [
+      {
+        "text": "kotlin.roadmap",
+        "link": "roadmap"
+      },
+      {
+        "text": "kotlin.kotlin-language-features-and-proposals",
+        "link": "kotlin-language-features-and-proposals"
+      },
+      {
+        "text": "kotlin.kotlin-evolution-principles",
+        "link": "kotlin-evolution-principles"
+      },
+      {
+        "text": "kotlin.components-stability",
+        "link": "components-stability"
+      },
+      {
+        "text": "kotlin.releases",
+        "link": "releases"
+      }
+    ],
+    "collapsed": true
+  },
+  {
+    "text": "kotlin.basics",
+    "items": [
+      {
+        "text": "kotlin.basic-syntax",
+        "link": "basic-syntax"
+      },
+      {
+        "text": "kotlin.idioms",
+        "link": "idioms"
+      },
+      {
+        "text": "kotlin.kotlin-by-example",
+        "href": "https://play.kotlinlang.org/byExample/overview"
+      },
+      {
+        "text": "kotlin.coding-conventions",
+        "link": "coding-conventions"
+      }
+    ],
+    "collapsed": true
+  },
+  {
+    "text": "kotlin.concepts",
+    "items": [
+      {
+        "text": "kotlin.types",
+        "items": [
+          {
+            "text": "kotlin.basic-types",
+            "items": [
+              {
+                "text": "kotlin.basic-types",
+                "link": "basic-types"
+              },
+              {
+                "text": "kotlin.numbers",
+                "link": "numbers"
+              },
+              {
+                "text": "kotlin.unsigned-integer-types",
+                "link": "unsigned-integer-types"
+              },
+              {
+                "text": "kotlin.booleans",
+                "link": "booleans"
+              },
+              {
+                "text": "kotlin.characters",
+                "link": "characters"
+              },
+              {
+                "text": "kotlin.strings",
+                "link": "strings"
+              },
+              {
+                "text": "kotlin.arrays",
+                "link": "arrays"
+              }
+            ],
+            "collapsed": true
+          },
+          {
+            "text": "kotlin.typecasts",
+            "link": "typecasts"
+          }
+        ],
+        "collapsed": true
+      },
+      {
+        "text": "kotlin.control-flow",
+        "items": [
+          {
+            "text": "kotlin.control-flow",
+            "link": "control-flow"
+          },
+          {
+            "text": "kotlin.returns",
+            "link": "returns"
+          },
+          {
+            "text": "kotlin.exceptions",
+            "link": "exceptions"
+          }
+        ],
+        "collapsed": true
+      },
+      {
+        "text": "kotlin.packages",
+        "link": "packages"
+      },
+      {
+        "text": "kotlin.classes-and-objects",
+        "items": [
+          {
+            "text": "kotlin.classes",
+            "link": "classes"
+          },
+          {
+            "text": "kotlin.inheritance",
+            "link": "inheritance"
+          },
+          {
+            "text": "kotlin.properties",
+            "link": "properties"
+          },
+          {
+            "text": "kotlin.interfaces",
+            "link": "interfaces"
+          },
+          {
+            "text": "kotlin.fun-interfaces",
+            "link": "fun-interfaces"
+          },
+          {
+            "text": "kotlin.visibility-modifiers",
+            "link": "visibility-modifiers"
+          },
+          {
+            "text": "kotlin.extensions",
+            "link": "extensions"
+          },
+          {
+            "text": "kotlin.data-classes",
+            "link": "data-classes"
+          },
+          {
+            "text": "kotlin.sealed-classes",
+            "link": "sealed-classes"
+          },
+          {
+            "text": "kotlin.generics",
+            "link": "generics"
+          },
+          {
+            "text": "kotlin.nested-classes",
+            "link": "nested-classes"
+          },
+          {
+            "text": "kotlin.enum-classes",
+            "link": "enum-classes"
+          },
+          {
+            "text": "kotlin.inline-classes",
+            "link": "inline-classes"
+          },
+          {
+            "text": "kotlin.object-declarations",
+            "link": "object-declarations"
+          },
+          {
+            "text": "kotlin.delegation",
+            "link": "delegation"
+          },
+          {
+            "text": "kotlin.delegated-properties",
+            "link": "delegated-properties"
+          },
+          {
+            "text": "kotlin.type-aliases",
+            "link": "type-aliases"
+          }
+        ],
+        "collapsed": true
+      },
+      {
+        "text": "kotlin.functions",
+        "items": [
+          {
+            "text": "kotlin.functions",
+            "link": "functions"
+          },
+          {
+            "text": "kotlin.lambdas",
+            "link": "lambdas"
+          },
+          {
+            "text": "kotlin.inline-functions",
+            "link": "inline-functions"
+          },
+          {
+            "text": "kotlin.operator-overloading",
+            "link": "operator-overloading"
+          },
+          {
+            "text": "kotlin.builders",
+            "items": [
+              {
+                "text": "kotlin.type-safe-builders",
+                "link": "type-safe-builders"
+              },
+              {
+                "text": "kotlin.using-builders-with-builder-inference",
+                "link": "using-builders-with-builder-inference"
+              }
+            ],
+            "collapsed": true
+          },
+          {
+            "text": "kotlin.context-parameters",
+            "link": "context-parameters"
+          }
+        ],
+        "collapsed": true
+      },
+      {
+        "text": "kotlin.null-safety",
+        "link": "null-safety"
+      },
+      {
+        "text": "kotlin.equality",
+        "link": "equality"
+      },
+      {
+        "text": "kotlin.this-expressions",
+        "link": "this-expressions"
+      },
+      {
+        "text": "kotlin.async-programming",
+        "link": "async-programming"
+      },
+      {
+        "text": "kotlin.coroutines-overview",
+        "link": "coroutines-overview"
+      },
+      {
+        "text": "kotlin.annotations",
+        "link": "annotations"
+      },
+      {
+        "text": "kotlin.destructuring-declarations",
+        "link": "destructuring-declarations"
+      },
+      {
+        "text": "kotlin.reflection",
+        "link": "reflection"
+      }
+    ],
+    "collapsed": true
+  },
+  {
+    "text": "kotlin.data-analysis",
+    "items": [
+      {
+        "text": "kotlin.get-started-with-kotlin-notebook",
+        "items": [
+          {
+            "text": "kotlin.get-started-with-kotlin-notebooks",
+            "link": "get-started-with-kotlin-notebooks"
+          },
+          {
+            "text": "kotlin.kotlin-notebook-set-up-env",
+            "link": "kotlin-notebook-set-up-env"
+          },
+          {
+            "text": "kotlin.kotlin-notebook-create",
+            "link": "kotlin-notebook-create"
+          },
+          {
+            "text": "kotlin.kotlin-notebook-add-dependencies",
+            "link": "kotlin-notebook-add-dependencies"
+          }
+        ],
+        "collapsed": true
+      },
+      {
+        "text": "kotlin.kotlin-notebook-share",
+        "link": "kotlin-notebook-share"
+      },
+      {
+        "text": "kotlin.data-analysis-notebooks-output-formats",
+        "link": "data-analysis-notebooks-output-formats"
+      },
+      {
+        "text": "kotlin.working-with-data-sources",
+        "items": [
+          {
+            "text": "kotlin.data-analysis-work-with-data-sources",
+            "link": "data-analysis-work-with-data-sources"
+          },
+          {
+            "text": "kotlin.data-analysis-work-with-api",
+            "link": "data-analysis-work-with-api"
+          },
+          {
+            "text": "kotlin.data-analysis-connect-to-db",
+            "link": "data-analysis-connect-to-db"
+          }
+        ],
+        "collapsed": true
+      },
+      {
+        "text": "kotlin.data-analysis-visualization",
+        "link": "data-analysis-visualization"
+      },
+      {
+        "text": "kotlin.data-analysis-libraries",
+        "link": "data-analysis-libraries"
+      }
+    ],
+    "collapsed": true
+  },
+  {
+    "text": "kotlin.platforms",
+    "items": [
+      {
+        "text": "kotlin.jvm",
+        "items": [
+          {
+            "text": "kotlin.jvm-get-started",
+            "link": "jvm-get-started"
+          },
+          {
+            "text": "kotlin.comparison-to-java",
+            "link": "comparison-to-java"
+          },
+          {
+            "text": "kotlin.java-interop",
+            "link": "java-interop"
+          },
+          {
+            "text": "kotlin.java-to-kotlin-interop",
+            "link": "java-to-kotlin-interop"
+          },
+          {
+            "text": "kotlin.spring",
+            "items": [
+              {
+                "text": "kotlin.create-a-restful-web-service-with-a-database-using-spring-boot",
+                "items": [
+                  {
+                    "text": "kotlin.jvm-get-started-spring-boot",
+                    "link": "jvm-get-started-spring-boot"
+                  },
+                  {
+                    "text": "kotlin.jvm-create-project-with-spring-boot",
+                    "link": "jvm-create-project-with-spring-boot"
+                  },
+                  {
+                    "text": "kotlin.jvm-spring-boot-add-data-class",
+                    "link": "jvm-spring-boot-add-data-class"
+                  },
+                  {
+                    "text": "kotlin.jvm-spring-boot-add-db-support",
+                    "link": "jvm-spring-boot-add-db-support"
+                  },
+                  {
+                    "text": "kotlin.jvm-spring-boot-using-crudrepository",
+                    "link": "jvm-spring-boot-using-crudrepository"
+                  }
+                ],
+                "collapsed": true
+              },
+              {
+                "text": "kotlin.spring-ai-guide",
+                "link": "spring-ai-guide"
+              },
+              {
+                "text": "kotlin.spring-framework-documentation-for-kotlin",
+                "href": "https://docs.spring.io/spring-framework/docs/current/reference/html/languages.html#languages"
+              },
+              {
+                "text": "kotlin.build-a-web-application-with-spring-boot-and-kotlin-–-tutorial",
+                "href": "https://spring.io/guides/tutorials/spring-boot-kotlin/"
+              },
+              {
+                "text": "kotlin.create-a-chat-application-with-kotlin-coroutines-and-rsocket-–-tutorial",
+                "href": "https://spring.io/guides/tutorials/spring-webflux-kotlin-rsocket/"
+              }
+            ],
+            "collapsed": true
+          },
+          {
+            "text": "kotlin.jvm-test-using-junit",
+            "link": "jvm-test-using-junit"
+          },
+          {
+            "text": "kotlin.mixing-java-kotlin-intellij",
+            "link": "mixing-java-kotlin-intellij"
+          },
+          {
+            "text": "kotlin.jvm-records",
+            "link": "jvm-records"
+          },
+          {
+            "text": "kotlin.java-to-kotlin-migration-guides",
+            "items": [
+              {
+                "text": "kotlin.java-to-kotlin-idioms-strings",
+                "link": "java-to-kotlin-idioms-strings"
+              },
+              {
+                "text": "kotlin.java-to-kotlin-collections-guide",
+                "link": "java-to-kotlin-collections-guide"
+              },
+              {
+                "text": "kotlin.java-to-kotlin-nullability-guide",
+                "link": "java-to-kotlin-nullability-guide"
+              },
+              {
+                "text": "kotlin.standard-input",
+                "link": "standard-input"
+              }
+            ],
+            "collapsed": true
+          }
+        ],
+        "collapsed": true
+      },
+      {
+        "text": "kotlin.native",
+        "items": [
+          {
+            "text": "kotlin.native-get-started",
+            "link": "native-get-started"
+          },
+          {
+            "text": "kotlin.native-definition-file",
+            "link": "native-definition-file"
+          },
+          {
+            "text": "kotlin.native-c-interop-stability",
+            "link": "native-c-interop-stability"
+          },
+          {
+            "text": "kotlin.c-interop",
+            "items": [
+              {
+                "text": "kotlin.native-c-interop",
+                "link": "native-c-interop"
+              },
+              {
+                "text": "kotlin.mapping-primitive-data-types-from-c",
+                "link": "mapping-primitive-data-types-from-c"
+              },
+              {
+                "text": "kotlin.mapping-struct-union-types-from-c",
+                "link": "mapping-struct-union-types-from-c"
+              },
+              {
+                "text": "kotlin.mapping-function-pointers-from-c",
+                "link": "mapping-function-pointers-from-c"
+              },
+              {
+                "text": "kotlin.mapping-strings-from-c",
+                "link": "mapping-strings-from-c"
+              },
+              {
+                "text": "kotlin.native-dynamic-libraries",
+                "link": "native-dynamic-libraries"
+              },
+              {
+                "text": "kotlin.native-app-with-c-and-libcurl",
+                "link": "native-app-with-c-and-libcurl"
+              }
+            ],
+            "collapsed": true
+          },
+          {
+            "text": "kotlin.objective-c-interop",
+            "items": [
+              {
+                "text": "kotlin.native-objc-interop",
+                "link": "native-objc-interop"
+              },
+              {
+                "text": "kotlin.apple-framework",
+                "link": "apple-framework"
+              }
+            ],
+            "collapsed": true
+          },
+          {
+            "text": "kotlin.native-libraries",
+            "link": "native-libraries"
+          },
+          {
+            "text": "kotlin.native-platform-libs",
+            "link": "native-platform-libs"
+          },
+          {
+            "text": "kotlin.memory-manager",
+            "items": [
+              {
+                "text": "kotlin.native-memory-manager",
+                "link": "native-memory-manager"
+              },
+              {
+                "text": "kotlin.native-arc-integration",
+                "link": "native-arc-integration"
+              },
+              {
+                "text": "kotlin.native-migration-guide",
+                "link": "native-migration-guide"
+              }
+            ],
+            "collapsed": true
+          },
+          {
+            "text": "kotlin.native-debugging",
+            "link": "native-debugging"
+          },
+          {
+            "text": "kotlin.native-ios-symbolication",
+            "link": "native-ios-symbolication"
+          },
+          {
+            "text": "kotlin.reference-and-tips",
+            "items": [
+              {
+                "text": "kotlin.native-target-support",
+                "link": "native-target-support"
+              },
+              {
+                "text": "kotlin.native-improving-compilation-time",
+                "link": "native-improving-compilation-time"
+              },
+              {
+                "text": "kotlin.native-llvm-passes",
+                "link": "native-llvm-passes"
+              },
+              {
+                "text": "kotlin.native-binary-licenses",
+                "link": "native-binary-licenses"
+              },
+              {
+                "text": "kotlin.native-faq",
+                "link": "native-faq"
+              }
+            ],
+            "collapsed": true
+          }
+        ],
+        "collapsed": true
+      },
+      {
+        "text": "kotlin.webassembly-wasm",
+        "items": [
+          {
+            "text": "kotlin.wasm-get-started",
+            "link": "wasm-get-started"
+          },
+          {
+            "text": "kotlin.wasm-wasi",
+            "link": "wasm-wasi"
+          },
+          {
+            "text": "kotlin.wasm-debugging",
+            "link": "wasm-debugging"
+          },
+          {
+            "text": "kotlin.wasm-js-interop",
+            "link": "wasm-js-interop"
+          },
+          {
+            "text": "kotlin.wasm-troubleshooting",
+            "link": "wasm-troubleshooting"
+          }
+        ],
+        "collapsed": true
+      },
+      {
+        "text": "kotlin.javascript",
+        "items": [
+          {
+            "text": "kotlin.js-project-setup",
+            "link": "js-project-setup"
+          },
+          {
+            "text": "kotlin.running-kotlin-js",
+            "link": "running-kotlin-js"
+          },
+          {
+            "text": "kotlin.dev-server-continuous-compilation",
+            "link": "dev-server-continuous-compilation"
+          },
+          {
+            "text": "kotlin.js-debugging",
+            "link": "js-debugging"
+          },
+          {
+            "text": "kotlin.js-running-tests",
+            "link": "js-running-tests"
+          },
+          {
+            "text": "kotlin.js-ir-compiler",
+            "link": "js-ir-compiler"
+          },
+          {
+            "text": "kotlin.js-ir-migration",
+            "link": "js-ir-migration"
+          },
+          {
+            "text": "kotlin.kotlin-for-the-js-platform",
+            "items": [
+              {
+                "text": "kotlin.browser-api-dom",
+                "link": "browser-api-dom"
+              },
+              {
+                "text": "kotlin.js-interop",
+                "link": "js-interop"
+              },
+              {
+                "text": "kotlin.dynamic-type",
+                "link": "dynamic-type"
+              },
+              {
+                "text": "kotlin.using-packages-from-npm",
+                "link": "using-packages-from-npm"
+              },
+              {
+                "text": "kotlin.js-to-kotlin-interop",
+                "link": "js-to-kotlin-interop"
+              },
+              {
+                "text": "kotlin.js-modules",
+                "link": "js-modules"
+              },
+              {
+                "text": "kotlin.js-reflection",
+                "link": "js-reflection"
+              },
+              {
+                "text": "kotlin.typesafe-html-dsl",
+                "link": "typesafe-html-dsl"
+              }
+            ],
+            "collapsed": true
+          }
+        ],
+        "collapsed": true
+      },
+      {
+        "text": "kotlin.scripting",
+        "items": [
+          {
+            "text": "kotlin.custom-script-deps-tutorial",
+            "link": "custom-script-deps-tutorial"
+          }
+        ],
+        "collapsed": true
+      }
+    ],
+    "collapsed": true
+  },
+  {
+    "text": "kotlin.develop-with-kotlin-multiplatform",
+    "href": "https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html"
+  },
+  {
+    "text": "kotlin.standard-library",
+    "items": [
+      {
+        "text": "kotlin.collections",
+        "items": [
+          {
+            "text": "kotlin.collections-overview",
+            "link": "collections-overview"
+          },
+          {
+            "text": "kotlin.constructing-collections",
+            "link": "constructing-collections"
+          },
+          {
+            "text": "kotlin.iterators",
+            "link": "iterators"
+          },
+          {
+            "text": "kotlin.ranges",
+            "link": "ranges"
+          },
+          {
+            "text": "kotlin.sequences",
+            "link": "sequences"
+          },
+          {
+            "text": "kotlin.collection-operations",
+            "link": "collection-operations"
+          },
+          {
+            "text": "kotlin.collection-transformations",
+            "link": "collection-transformations"
+          },
+          {
+            "text": "kotlin.collection-filtering",
+            "link": "collection-filtering"
+          },
+          {
+            "text": "kotlin.collection-plus-minus",
+            "link": "collection-plus-minus"
+          },
+          {
+            "text": "kotlin.collection-grouping",
+            "link": "collection-grouping"
+          },
+          {
+            "text": "kotlin.collection-parts",
+            "link": "collection-parts"
+          },
+          {
+            "text": "kotlin.collection-elements",
+            "link": "collection-elements"
+          },
+          {
+            "text": "kotlin.collection-ordering",
+            "link": "collection-ordering"
+          },
+          {
+            "text": "kotlin.collection-aggregate",
+            "link": "collection-aggregate"
+          },
+          {
+            "text": "kotlin.collection-write",
+            "link": "collection-write"
+          },
+          {
+            "text": "kotlin.list-operations",
+            "link": "list-operations"
+          },
+          {
+            "text": "kotlin.set-operations",
+            "link": "set-operations"
+          },
+          {
+            "text": "kotlin.map-operations",
+            "link": "map-operations"
+          }
+        ],
+        "collapsed": true
+      },
+      {
+        "text": "kotlin.read-standard-input",
+        "link": "read-standard-input"
+      },
+      {
+        "text": "kotlin.opt-in-requirements",
+        "link": "opt-in-requirements"
+      },
+      {
+        "text": "kotlin.scope-functions",
+        "link": "scope-functions"
+      },
+      {
+        "text": "kotlin.time-measurement",
+        "link": "time-measurement"
+      }
+    ],
+    "collapsed": true
+  },
+  {
+    "text": "kotlin.official-libraries",
+    "items": [
+      {
+        "text": "kotlin.coroutines-kotlinx-coroutines",
+        "collapsed": true,
+        "include": "coroutines"
+      },
+      {
+        "text": "kotlin.serialization",
+        "link": "serialization"
+      },
+      {
+        "text": "kotlin.metadata-jvm",
+        "link": "metadata-jvm"
+      },
+      {
+        "text": "kotlin.lincheck-kotlinx-lincheck",
+        "collapsed": true,
+        "include": "lincheck"
+      },
+      {
+        "text": "kotlin.ktor",
+        "href": "https://ktor.io/"
+      }
+    ],
+    "collapsed": true
+  },
+  {
+    "text": "kotlin.api-reference",
+    "items": [
+      {
+        "text": "kotlin.api-references",
+        "link": "api-references"
+      },
+      {
+        "text": "kotlin.standard-library-stdlib",
+        "href": "https://kotlinlang.org/api/latest/jvm/stdlib/"
+      },
+      {
+        "text": "kotlin.test-library-kotlin-test",
+        "href": "https://kotlinlang.org/api/latest/kotlin.test/"
+      },
+      {
+        "text": "kotlin.coroutines-kotlinx-coroutines",
+        "href": "https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/"
+      },
+      {
+        "text": "kotlin.serialization-kotlinx-serialization",
+        "href": "https://kotlinlang.org/api/kotlinx.serialization/kotlinx-serialization-core/"
+      },
+      {
+        "text": "kotlin.kotlin-i-o-library-kotlinx-io",
+        "href": "https://kotlinlang.org/api/kotlinx-io/"
+      },
+      {
+        "text": "kotlin.date-and-time-kotlinx-datetime",
+        "href": "https://kotlinlang.org/api/kotlinx-datetime/"
+      },
+      {
+        "text": "kotlin.jvm-metadata-kotlin-metadata-jvm",
+        "href": "https://kotlinlang.org/api/kotlinx-metadata-jvm/"
+      },
+      {
+        "text": "kotlin.ktor",
+        "href": "https://api.ktor.io/"
+      },
+      {
+        "text": "kotlin.kotlin-gradle-plugins-kotlin-gradle-plugin",
+        "href": "https://kotlinlang.org/api/kotlin-gradle-plugin/"
+      }
+    ],
+    "collapsed": true
+  },
+  {
+    "text": "kotlin.language-reference",
+    "items": [
+      {
+        "text": "kotlin.keyword-reference",
+        "link": "keyword-reference"
+      },
+      {
+        "text": "kotlin.grammar",
+        "href": "https://kotlinlang.org/docs/reference/grammar.html"
+      },
+      {
+        "text": "kotlin.language-specification",
+        "href": "https://kotlinlang.org/spec/"
+      }
+    ],
+    "collapsed": true
+  },
+  {
+    "text": "kotlin.tools",
+    "items": [
+      {
+        "text": "kotlin.build-tools",
+        "items": [
+          {
+            "text": "kotlin.gradle",
+            "items": [
+              {
+                "text": "kotlin.gradle",
+                "link": "gradle"
+              },
+              {
+                "text": "kotlin.get-started-with-jvm-gradle-project",
+                "link": "get-started-with-jvm-gradle-project"
+              },
+              {
+                "text": "kotlin.gradle-configure-project",
+                "link": "gradle-configure-project"
+              },
+              {
+                "text": "kotlin.gradle-best-practices",
+                "link": "gradle-best-practices"
+              },
+              {
+                "text": "kotlin.gradle-compiler-options",
+                "link": "gradle-compiler-options"
+              },
+              {
+                "text": "kotlin.gradle-compilation-and-caches",
+                "link": "gradle-compilation-and-caches"
+              },
+              {
+                "text": "kotlin.gradle-binary-compatibility-validation",
+                "link": "gradle-binary-compatibility-validation"
+              },
+              {
+                "text": "kotlin.gradle-plugin-variants",
+                "link": "gradle-plugin-variants"
+              }
+            ],
+            "collapsed": true
+          },
+          {
+            "text": "kotlin.maven",
+            "link": "maven"
+          },
+          {
+            "text": "kotlin.build-tools-api",
+            "link": "build-tools-api"
+          },
+          {
+            "text": "kotlin.ant",
+            "link": "ant"
+          }
+        ],
+        "collapsed": true
+      },
+      {
+        "text": "kotlin.dokka",
+        "collapsed": true,
+        "include": "dokka"
+      },
+      {
+        "text": "kotlin.kotlin-ide",
+        "link": "kotlin-ide"
+      },
+      {
+        "text": "kotlin.code-style-migration-guide",
+        "link": "code-style-migration-guide"
+      },
+      {
+        "text": "kotlin.kotlin-notebook-overview",
+        "link": "kotlin-notebook-overview"
+      },
+      {
+        "text": "kotlin.lets-plot",
+        "link": "lets-plot"
+      },
+      {
+        "text": "kotlin.run-code-snippets",
+        "link": "run-code-snippets"
+      },
+      {
+        "text": "kotlin.kotlin-and-ci",
+        "link": "kotlin-and-ci"
+      },
+      {
+        "text": "kotlin.kotlin-doc",
+        "link": "kotlin-doc"
+      },
+      {
+        "text": "kotlin.kotlin-osgi",
+        "link": "kotlin-osgi"
+      }
+    ],
+    "collapsed": true
+  },
+  {
+    "text": "kotlin.compiler-and-plugins",
+    "items": [
+      {
+        "text": "kotlin.kotlin-compiler",
+        "items": [
+          {
+            "text": "kotlin.k2-compiler-migration-guide",
+            "link": "k2-compiler-migration-guide"
+          },
+          {
+            "text": "kotlin.command-line",
+            "link": "command-line"
+          },
+          {
+            "text": "kotlin.compiler-reference",
+            "link": "compiler-reference"
+          }
+        ],
+        "collapsed": true
+      },
+      {
+        "text": "kotlin.kotlin-compiler-plugins",
+        "items": [
+          {
+            "text": "kotlin.all-open-plugin",
+            "link": "all-open-plugin"
+          },
+          {
+            "text": "kotlin.no-arg-plugin",
+            "link": "no-arg-plugin"
+          },
+          {
+            "text": "kotlin.sam-with-receiver-plugin",
+            "link": "sam-with-receiver-plugin"
+          },
+          {
+            "text": "kotlin.kapt",
+            "link": "kapt"
+          },
+          {
+            "text": "kotlin.lombok",
+            "link": "lombok"
+          },
+          {
+            "text": "kotlin.power-assert",
+            "link": "power-assert"
+          }
+        ],
+        "collapsed": true
+      },
+      {
+        "text": "kotlin.compose-compiler",
+        "items": [
+          {
+            "text": "kotlin.compose-compiler-migration-guide",
+            "link": "compose-compiler-migration-guide"
+          },
+          {
+            "text": "kotlin.compose-compiler-options",
+            "link": "compose-compiler-options"
+          }
+        ],
+        "collapsed": true
+      },
+      {
+        "text": "kotlin.kotlin-symbol-processing-api",
+        "items": [
+          {
+            "text": "kotlin.ksp-overview",
+            "link": "ksp-overview"
+          },
+          {
+            "text": "kotlin.ksp-quickstart",
+            "link": "ksp-quickstart"
+          },
+          {
+            "text": "kotlin.ksp-why-ksp",
+            "link": "ksp-why-ksp"
+          },
+          {
+            "text": "kotlin.ksp-examples",
+            "link": "ksp-examples"
+          },
+          {
+            "text": "kotlin.ksp-additional-details",
+            "link": "ksp-additional-details"
+          },
+          {
+            "text": "kotlin.ksp-reference",
+            "link": "ksp-reference"
+          },
+          {
+            "text": "kotlin.ksp-incremental",
+            "link": "ksp-incremental"
+          },
+          {
+            "text": "kotlin.ksp-multi-round",
+            "link": "ksp-multi-round"
+          },
+          {
+            "text": "kotlin.ksp-multiplatform",
+            "link": "ksp-multiplatform"
+          },
+          {
+            "text": "kotlin.ksp-command-line",
+            "link": "ksp-command-line"
+          },
+          {
+            "text": "kotlin.ksp-faq",
+            "link": "ksp-faq"
+          }
+        ],
+        "collapsed": true
+      }
+    ],
+    "collapsed": true
+  },
+  {
+    "text": "kotlin.learning-materials",
+    "items": [
+      {
+        "text": "kotlin.learning-materials-overview",
+        "link": "learning-materials-overview"
+      },
+      {
+        "text": "kotlin.kotlin-by-example",
+        "href": "https://play.kotlinlang.org/byExample/overview"
+      },
+      {
+        "text": "kotlin.koans",
+        "link": "koans"
+      },
+      {
+        "text": "kotlin.kotlin-core-track",
+        "href": "https://hyperskill.org/tracks?category=4&utm_source=jbkotlin_hs&utm_medium=referral&utm_campaign=kotlinlang-docs&utm_content=button_1&utm_term=22.03.23"
+      },
+      {
+        "text": "kotlin.kotlin-hands-on",
+        "link": "kotlin-hands-on"
+      },
+      {
+        "text": "kotlin.kotlin-tips",
+        "link": "kotlin-tips"
+      },
+      {
+        "text": "kotlin.books",
+        "link": "books"
+      },
+      {
+        "text": "kotlin.advent-of-code",
+        "link": "advent-of-code"
+      },
+      {
+        "text": "kotlin.learn-in-ide-jetbrains-academy",
+        "items": [
+          {
+            "text": "kotlin.edu-tools-learner",
+            "link": "edu-tools-learner"
+          },
+          {
+            "text": "kotlin.edu-tools-educator",
+            "link": "edu-tools-educator"
+          }
+        ],
+        "collapsed": true
+      },
+      {
+        "text": "kotlin.library-authors-guidelines",
+        "collapsed": true,
+        "include": "api-guidelines"
+      }
+    ],
+    "collapsed": true
+  },
+  {
+    "text": "kotlin.early-access-preview-eap",
+    "items": [
+      {
+        "text": "kotlin.eap",
+        "link": "eap"
+      },
+      {
+        "text": "kotlin.configure-build-for-eap",
+        "link": "configure-build-for-eap"
+      }
+    ],
+    "collapsed": true
+  },
+  {
+    "text": "kotlin.other-resources",
+    "items": [
+      {
+        "text": "kotlin.faq",
+        "link": "faq"
+      },
+      {
+        "text": "kotlin.kotlin-compatibility-guides",
+        "items": [
+          {
+            "text": "kotlin.compatibility-guide-22",
+            "link": "compatibility-guide-22"
+          },
+          {
+            "text": "kotlin.compatibility-guide-21",
+            "link": "compatibility-guide-21"
+          },
+          {
+            "text": "kotlin.compatibility-guide-20",
+            "link": "compatibility-guide-20"
+          },
+          {
+            "text": "kotlin.compatibility-guide-19",
+            "link": "compatibility-guide-19"
+          },
+          {
+            "text": "kotlin.compatibility-guide-18",
+            "link": "compatibility-guide-18"
+          },
+          {
+            "text": "kotlin.compatibility-guide-1720",
+            "link": "compatibility-guide-1720"
+          },
+          {
+            "text": "kotlin.compatibility-guide-17",
+            "link": "compatibility-guide-17"
+          },
+          {
+            "text": "kotlin.compatibility-guide-16",
+            "link": "compatibility-guide-16"
+          },
+          {
+            "text": "kotlin.compatibility-guide-15",
+            "link": "compatibility-guide-15"
+          },
+          {
+            "text": "kotlin.compatibility-guide-14",
+            "link": "compatibility-guide-14"
+          },
+          {
+            "text": "kotlin.compatibility-guide-13",
+            "link": "compatibility-guide-13"
+          },
+          {
+            "text": "kotlin.compatibility-modes",
+            "link": "compatibility-modes"
+          }
+        ],
+        "collapsed": true
+      },
+      {
+        "text": "kotlin.kotlin-foundation",
+        "items": [
+          {
+            "text": "kotlin.kotlin-foundation",
+            "href": "https://kotlinfoundation.org/"
+          },
+          {
+            "text": "kotlin.language-committee-guidelines",
+            "href": "https://kotlinfoundation.org/language-committee-guidelines/"
+          },
+          {
+            "text": "kotlin.submitting-incompatible-changes",
+            "href": "https://kotlinfoundation.org/submitting-incompatible-changes/"
+          },
+          {
+            "text": "kotlin.brand-usage",
+            "href": "https://kotlinfoundation.org/guidelines/"
+          },
+          {
+            "text": "kotlin.kotlin-foundation-faq",
+            "href": "https://kotlinfoundation.org/faq/"
+          }
+        ],
+        "collapsed": true
+      },
+      {
+        "text": "kotlin.google-summer-of-code",
+        "items": [
+          {
+            "text": "kotlin.gsoc-overview",
+            "link": "gsoc-overview"
+          },
+          {
+            "text": "kotlin.gsoc-2025",
+            "link": "gsoc-2025"
+          },
+          {
+            "text": "kotlin.gsoc-2024",
+            "link": "gsoc-2024"
+          },
+          {
+            "text": "kotlin.gsoc-2023",
+            "link": "gsoc-2023"
+          }
+        ],
+        "collapsed": true
+      },
+      {
+        "text": "kotlin.security",
+        "link": "security"
+      },
+      {
+        "text": "kotlin.kotlin-pdf",
+        "link": "kotlin-pdf"
+      },
+      {
+        "text": "kotlin.community",
+        "items": [
+          {
+            "text": "kotlin.contribute",
+            "link": "contribute"
+          },
+          {
+            "text": "kotlin.kug-guidelines",
+            "link": "kug-guidelines"
+          },
+          {
+            "text": "kotlin.kotlin-night-guidelines",
+            "link": "kotlin-night-guidelines"
+          },
+          {
+            "text": "kotlin.slack-code-of-conduct",
+            "link": "slack-code-of-conduct"
+          }
+        ],
+        "collapsed": true
+      },
+      {
+        "text": "kotlin.kotlin-brand-assets",
+        "link": "kotlin-brand-assets"
+      },
+      {
+        "text": "kotlin.press-kit",
+        "href": "https://kotlinlang.org/assets/kotlin-media-kit.pdf"
+      }
+    ],
+    "collapsed": true
+  }
+]

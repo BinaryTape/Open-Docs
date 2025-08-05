@@ -1,0 +1,52 @@
+[
+  {
+    "text": "api-guidelines.api-guidelines-introduction",
+    "link": "api-guidelines-introduction"
+  },
+  {
+    "text": "api-guidelines.minimizing-mental-complexity",
+    "items": [
+      {
+        "text": "api-guidelines.api-guidelines-minimizing-mental-complexity",
+        "link": "api-guidelines-minimizing-mental-complexity"
+      },
+      {
+        "text": "api-guidelines.api-guidelines-simplicity",
+        "link": "api-guidelines-simplicity"
+      },
+      {
+        "text": "api-guidelines.api-guidelines-readability",
+        "link": "api-guidelines-readability"
+      },
+      {
+        "text": "api-guidelines.api-guidelines-consistency",
+        "link": "api-guidelines-consistency"
+      },
+      {
+        "text": "api-guidelines.api-guidelines-predictability",
+        "link": "api-guidelines-predictability"
+      },
+      {
+        "text": "api-guidelines.api-guidelines-debuggability",
+        "link": "api-guidelines-debuggability"
+      },
+      {
+        "text": "api-guidelines.api-guidelines-testability",
+        "link": "api-guidelines-testability"
+      }
+    ],
+    "collapsed": true
+  },
+  {
+    "text": "api-guidelines.api-guidelines-backward-compatibility",
+    "link": "api-guidelines-backward-compatibility"
+  },
+  {
+    "text": "api-guidelines.api-guidelines-informative-documentation",
+    "link": "api-guidelines-informative-documentation"
+  },
+  {
+    "text": "api-guidelines.api-guidelines-build-for-multiplatform",
+    "link": "api-guidelines-build-for-multiplatform"
+  }
+]
