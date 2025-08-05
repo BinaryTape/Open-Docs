@@ -164,8 +164,10 @@ async function parseMKSidebar(source, docType, baseUrl) {
             const p = value.trim();
             if (/^https?:\/\//i.test(p)) {
                 node.href = p;                          // 绝对外链
-            } else if (p.endsWith('.md') && !p.startsWith('index')) {
+            } else if (p.startsWith('index')) {
                 node.link = p;
+            } else if (p.endsWith('.md')) {
+                node.link = p.replace(/\.md$/i, '');
             } else if (p.endsWith('.html')) {
                 node.href = siteUrl + p;                          // 本地 html（API 文档等）→ href
             }
@@ -186,7 +188,7 @@ async function parseMKSidebar(source, docType, baseUrl) {
             })
             .filter(Boolean);
 
-        node.collapsable = node.items.length > 0 ? true : undefined;
+        node.collapsed = node.items.length > 0 ? true : undefined;
 
         return node;
     }

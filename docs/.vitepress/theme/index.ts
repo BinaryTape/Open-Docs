@@ -96,6 +96,8 @@ export default {
     app.use(createI18n())
 
     router.onAfterRouteChange = () => {
+      setupInterceptor()
+
       if (typeof window !== 'undefined') {
         import('aos').then((AOS) => {
           AOS.init({
@@ -114,3 +116,53 @@ export default {
     }
   }
 } satisfies Theme
+
+function setupInterceptor() {
+  // 移除旧的监听器
+  document.removeEventListener('click', interceptLinks, true)
+
+  // 添加新的监听器
+  document.addEventListener('click', interceptLinks, true)
+}
+
+function interceptLinks(event) {
+  const link = event.target.closest('a')
+  if (!link) return
+
+  const href = link.getAttribute('href')
+  if (!href) return
+
+  // 匹配 JetBrains 链接
+  const kmpMatch = href.match(/https:\/\/www\.jetbrains\.com\/help\/kotlin-multiplatform-dev\/([^)]+)\.html/)
+
+  if (kmpMatch) {
+    // 阻止默认跳转
+    event.preventDefault()
+    event.stopPropagation()
+
+    // 构造新链接
+    const newPath = `../kmp/${kmpMatch[1]}.html`
+
+    // 跳转
+    if (link.target === '_blank') {
+      window.open(newPath, '_blank')
+    } else {
+      window.location.href = newPath
+    }
+  }
+
+  const koogMatch = href.match(/https:\/\/koog\.ai/)
+
+  if (koogMatch) {
+    event.preventDefault()
+    event.stopPropagation()
+
+    const newPath = `../koog/`
+
+    if (link.target === '_blank') {
+      window.open(newPath, '_blank')
+    } else {
+      window.location.href = newPath
+    }
+  }
+}
