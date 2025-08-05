@@ -1,6 +1,7 @@
 import { koinStrategy } from "./strategy-koin.mjs";
 import { sqlDelightStrategy } from "./strategy-sqldelight.mjs";
 import {kotlinStrategy} from "./strategy-kotlin.mjs";
+import {kmpStrategy} from "./strategy-kmp.mjs";
 
 export const REPOS = [
   {
@@ -90,5 +91,17 @@ export const REPOS = [
       dest: "docs/public/kotlin",
     },
     strategy: kotlinStrategy
+  },
+  {
+    name: "kmp",
+    repo: "JetBrains/kotlin-multiplatform-dev-docs",
+    branch: "origin/main",
+    path: "kmp-repo",
+    lastCheckFile: ".github/last_check_kmp.txt",
+    assets: {
+      src: "images",
+      dest: "docs/public/kmp",
+    },
+    strategy: kmpStrategy
   }
 ];
