@@ -11,7 +11,7 @@ export const kmpStrategy = {
     /**
      * @override
      */
-    getDocPatterns: () => ["topic/*.md"],
+    getDocPatterns: () => ["topics/*.md"],
 
     /**
      * @override
