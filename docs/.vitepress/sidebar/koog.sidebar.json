@@ -1,0 +1,145 @@
+[
+  {
+    "text": "koog.documentation",
+    "items": [
+      {
+        "text": "koog.overview"
+      },
+      {
+        "text": "koog.key-concepts",
+        "link": "key-concepts.md"
+      },
+      {
+        "text": "koog.getting-started",
+        "items": [
+          {
+            "text": "koog.single-run-agents",
+            "link": "single-run-agents.md"
+          },
+          {
+            "text": "koog.complex-workflow-agents",
+            "link": "complex-workflow-agents.md"
+          }
+        ],
+        "collapsable": true
+      },
+      {
+        "text": "koog.prompt-api",
+        "link": "prompt-api.md"
+      },
+      {
+        "text": "koog.tools",
+        "items": [
+          {
+            "text": "koog.overview",
+            "link": "tools-overview.md"
+          },
+          {
+            "text": "koog.built-in-tools",
+            "link": "built-in-tools.md"
+          },
+          {
+            "text": "koog.annotation-based-tools",
+            "link": "annotation-based-tools.md"
+          },
+          {
+            "text": "koog.advanced-implementation",
+            "link": "advanced-tool-implementation.md"
+          }
+        ],
+        "collapsable": true
+      },
+      {
+        "text": "koog.agent-events",
+        "link": "agent-events.md"
+      },
+      {
+        "text": "koog.custom-strategy-graphs",
+        "link": "custom-strategy-graphs.md"
+      },
+      {
+        "text": "koog.pre-defined-nodes-and-components",
+        "link": "nodes-and-components.md"
+      },
+      {
+        "text": "koog.history-compression",
+        "link": "history-compression.md"
+      },
+      {
+        "text": "koog.model-context-protocol",
+        "link": "model-context-protocol.md"
+      },
+      {
+        "text": "koog.advanced-usage",
+        "items": [
+          {
+            "text": "koog.structured-data",
+            "link": "structured-data.md"
+          },
+          {
+            "text": "koog.streaming-api",
+            "link": "streaming-api.md"
+          },
+          {
+            "text": "koog.custom-nodes",
+            "link": "custom-nodes.md"
+          },
+          {
+            "text": "koog.llm-sessions-and-manual-history-management",
+            "link": "sessions.md"
+          },
+          {
+            "text": "koog.subgraphs",
+            "items": [
+              {
+                "text": "koog.overview",
+                "link": "subgraphs-overview.md"
+              },
+              {
+                "text": "koog.custom-subgraphs",
+                "link": "custom-subgraphs.md"
+              }
+            ],
+            "collapsable": true
+          },
+          {
+            "text": "koog.embeddings",
+            "link": "embeddings.md"
+          },
+          {
+            "text": "koog.features",
+            "items": [
+              {
+                "text": "koog.overview",
+                "link": "features-overview.md"
+              },
+              {
+                "text": "koog.tracing",
+                "link": "tracing.md"
+              },
+              {
+                "text": "koog.memory",
+                "link": "agent-memory.md"
+              }
+            ],
+            "collapsable": true
+          }
+        ],
+        "collapsable": true
+      },
+      {
+        "text": "koog.testing",
+        "link": "testing.md"
+      }
+    ],
+    "collapsable": true
+  },
+  {
+    "text": "koog.examples",
+    "link": "examples.md"
+  },
+  {
+    "text": "koog.api-reference",
+    "href": "https://api.koog.ai/"
+  }
+]
