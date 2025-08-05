@@ -686,10 +686,6 @@
             "link": "native-debugging"
           },
           {
-            "text": "kotlin.native-ios-symbolication",
-            "link": "native-ios-symbolication"
-          },
-          {
             "text": "kotlin.reference-and-tips",
             "items": [
               {
