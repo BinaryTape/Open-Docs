@@ -124,6 +124,7 @@ function getLocalePromptTemplate(langDisplayName) {
 4. **Do not translate URLs/paths/version strings.** Keep items like \`https://...\`, file/image paths, \`Kotlin 2.2.0\`, \`2.2.20-Beta1\` unchanged.
 5. **Product and proper names.** Keep terms like \`Kotlin\`, \`JetBrains\`, \`Gradle\`, \`Kotlin Multiplatform\` in English unless the Glossary says otherwise.
 6. **Tone and fluency.** Ensure technical accuracy and natural, idiomatic ${langDisplayName} suitable for developer-facing UI/Docs.
+7. **Do not re-translate already translated values.** If a value is already in ${langDisplayName} (e.g., matches the Glossary/known translations, or clearly contains only ${langDisplayName} text), **leave it unchanged**. If a value mixes English with placeholders/brands, translate only the human-readable English parts and preserve the rest.
 
 ## 2) Terminology & Placeholders
 1. **Glossary has highest priority.** Use the translations from the Glossary exactly as given.

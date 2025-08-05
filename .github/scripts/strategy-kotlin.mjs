@@ -4,6 +4,7 @@ import path from "path";
 import fs from "fs-extra";
 import {processTopicFile} from "./TopicProcessor.mjs";
 import {generateSidebar} from "./SidebarProcessor.mjs";
+import {git} from "./docs-pipeline.mjs";
 
 export const kotlinStrategy = {
     ...defaultStrategy,
@@ -83,6 +84,7 @@ export const kotlinStrategy = {
             const versionFile = "kotlin-repo/docs/v.list";
             if (await fs.pathExists(versionFile)) {
                 await fs.copy(versionFile, "docs/.vitepress/v.list", { overwrite: true });
+                context.gitAddPaths.add("docs/.vitepress/v.list")
                 console.log(`  Copying Kotlin version file finished - ${repoConfig.path}`);
             }
         }
