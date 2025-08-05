@@ -136,6 +136,7 @@ async function translate(context) {
     const translatedPaths = await translateFiles(
       repoConfig.name,
       repoConfig.path,
+      repoConfig.docPath,
       filesToTranslate
     );
     translatedPaths.forEach((p) => context.gitAddPaths.add(p));

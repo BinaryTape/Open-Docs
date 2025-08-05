@@ -28,7 +28,7 @@ function getTargetPath(filePath, targetLang) {
   // baseDir/[language]/koin/relativePath
   const baseDir = "./docs";
   const docType = process.env.DOC_TYPE;
-  const relativePath = path.relative(config.sourceDir, filePath);
+  const relativePath = path.relative(process.env.DOC_PATH, filePath);
 
   if (targetLang === "zh-Hans") {
     return path.join(baseDir, docType, relativePath);
@@ -484,12 +484,13 @@ async function retry(fn, attempts = 3) {
   throw lastError;
 }
 
-export async function translateFiles(docType, repoPath, files) {
+export async function translateFiles(docType, repoPath, docPath, files) {
   console.log(`Translating ${files.length} files for ${docType}...`);
 
   // Set environment variables
   process.env.REPO_PATH = repoPath;
   process.env.DOC_TYPE = docType;
+  process.env.DOC_PATH = docPath;
 
   const limit = pLimit(10);
   const translationTasks = files.map((file) => limit(async () => {
