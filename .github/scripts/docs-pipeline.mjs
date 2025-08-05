@@ -152,10 +152,11 @@ async function translate(context) {
 // =================================================================
 async function translateSidebar(context) {
   Logger.step("STAGE 3.1: Translating sidebar...");
-  let sidebarFiles = await files.find("docs/.vitepress/locales", ["*.json"]);
-  sidebarFiles = sidebarFiles.filter((f) => !f.endsWith("en.json"));
+  let localeFiles = await files.find("docs/.vitepress/locales", ["*.json"]);
+  localeFiles = localeFiles.filter((f) => !f.endsWith("en.json"));
+  context.gitAddPaths.add("docs/.vitepress/sidebar/en.json");
 
-  const translatedPaths = await translateLocaleFiles(sidebarFiles)
+  const translatedPaths = await translateLocaleFiles(localeFiles)
   translatedPaths.forEach((p) => context.gitAddPaths.add(p));
 }
 
@@ -168,6 +169,9 @@ async function commit(context) {
     Logger.info("No file changes to commit.");
     return;
   }
+
+  const sidebarFiles = await files.find("docs/.vitepress/sidebar", ["*.json"]);
+  sidebarFiles.forEach((f) => context.gitAddPaths.add(`docs/.vitepress/sidebar/${f}`));
 
   const pathsToAdd = [...context.gitAddPaths];
   Logger.dim("Adding the following paths to git:");
