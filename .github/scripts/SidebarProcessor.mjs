@@ -186,7 +186,7 @@ async function parseMKSidebar(source, docType, baseUrl) {
             })
             .filter(Boolean);
 
-        node.collapsable = node.items.length > 0 ? true : undefined;
+        node.collapsed = node.items.length > 0 ? true : undefined;
 
         return node;
     }

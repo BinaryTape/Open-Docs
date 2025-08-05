@@ -21,7 +21,7 @@
             "link": "complex-workflow-agents.md"
           }
         ],
-        "collapsable": true
+        "collapsed": true
       },
       {
         "text": "koog.prompt-api",
@@ -47,7 +47,7 @@
             "link": "advanced-tool-implementation.md"
           }
         ],
-        "collapsable": true
+        "collapsed": true
       },
       {
         "text": "koog.agent-events",
@@ -100,7 +100,7 @@
                 "link": "custom-subgraphs.md"
               }
             ],
-            "collapsable": true
+            "collapsed": true
           },
           {
             "text": "koog.embeddings",
@@ -122,17 +122,17 @@
                 "link": "agent-memory.md"
               }
             ],
-            "collapsable": true
+            "collapsed": true
           }
         ],
-        "collapsable": true
+        "collapsed": true
       },
       {
         "text": "koog.testing",
         "link": "testing.md"
       }
     ],
-    "collapsable": true
+    "collapsed": true
   },
   {
     "text": "koog.examples",

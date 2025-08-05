@@ -22,7 +22,7 @@
         "link": "code_of_conduct.md"
       }
     ],
-    "collapsable": true
+    "collapsed": true
   },
   {
     "text": "sqldelight.sqlite-android",
@@ -59,7 +59,7 @@
             "link": "android_sqlite/grouping_statements.md"
           }
         ],
-        "collapsable": true
+        "collapsed": true
       },
       {
         "text": "sqldelight.extensions",
@@ -77,7 +77,7 @@
             "link": "android_sqlite/androidx_paging.md"
           }
         ],
-        "collapsable": true
+        "collapsed": true
       },
       {
         "text": "sqldelight.migrations",
@@ -123,14 +123,14 @@
             "href": "https://sqldelight.github.io/sqldelight/2.1.0/2.x/runtime/index.html"
           }
         ],
-        "collapsable": true
+        "collapsed": true
       },
       {
         "text": "sqldelight.resources",
         "link": "android_sqlite/resources.md"
       }
     ],
-    "collapsable": true
+    "collapsed": true
   },
   {
     "text": "sqldelight.sqlite-multiplatform",
@@ -167,7 +167,7 @@
             "link": "multiplatform_sqlite/grouping_statements.md"
           }
         ],
-        "collapsable": true
+        "collapsed": true
       },
       {
         "text": "sqldelight.extensions",
@@ -181,7 +181,7 @@
             "link": "multiplatform_sqlite/androidx_paging.md"
           }
         ],
-        "collapsable": true
+        "collapsed": true
       },
       {
         "text": "sqldelight.migrations",
@@ -211,10 +211,10 @@
             "href": "https://sqldelight.github.io/sqldelight/2.1.0/2.x/runtime/index.html"
           }
         ],
-        "collapsable": true
+        "collapsed": true
       }
     ],
-    "collapsable": true
+    "collapsed": true
   },
   {
     "text": "sqldelight.mysql-jvm",
@@ -247,7 +247,7 @@
             "link": "jvm_mysql/grouping_statements.md"
           }
         ],
-        "collapsable": true
+        "collapsed": true
       },
       {
         "text": "sqldelight.extensions",
@@ -257,7 +257,7 @@
             "link": "jvm_mysql/androidx_paging.md"
           }
         ],
-        "collapsable": true
+        "collapsed": true
       },
       {
         "text": "sqldelight.migrations",
@@ -283,10 +283,10 @@
             "href": "https://sqldelight.github.io/sqldelight/2.1.0/2.x/runtime/index.html"
           }
         ],
-        "collapsable": true
+        "collapsed": true
       }
     ],
-    "collapsable": true
+    "collapsed": true
   },
   {
     "text": "sqldelight.postgresql-jvm",
@@ -319,7 +319,7 @@
             "link": "jvm_postgresql/grouping_statements.md"
           }
         ],
-        "collapsable": true
+        "collapsed": true
       },
       {
         "text": "sqldelight.extensions",
@@ -329,7 +329,7 @@
             "link": "jvm_postgresql/androidx_paging.md"
           }
         ],
-        "collapsable": true
+        "collapsed": true
       },
       {
         "text": "sqldelight.migrations",
@@ -355,10 +355,10 @@
             "href": "https://sqldelight.github.io/sqldelight/2.1.0/2.x/runtime/index.html"
           }
         ],
-        "collapsable": true
+        "collapsed": true
       }
     ],
-    "collapsable": true
+    "collapsed": true
   },
   {
     "text": "sqldelight.hsql-jvm",
@@ -391,7 +391,7 @@
             "link": "jvm_h2/grouping_statements.md"
           }
         ],
-        "collapsable": true
+        "collapsed": true
       },
       {
         "text": "sqldelight.extensions",
@@ -401,7 +401,7 @@
             "link": "jvm_h2/androidx_paging.md"
           }
         ],
-        "collapsable": true
+        "collapsed": true
       },
       {
         "text": "sqldelight.migrations",
@@ -427,10 +427,10 @@
             "href": "https://sqldelight.github.io/sqldelight/2.1.0/2.x/runtime/index.html"
           }
         ],
-        "collapsable": true
+        "collapsed": true
       }
     ],
-    "collapsable": true
+    "collapsed": true
   },
   {
     "text": "sqldelight.sqlite-native",
@@ -467,7 +467,7 @@
             "link": "native_sqlite/grouping_statements.md"
           }
         ],
-        "collapsable": true
+        "collapsed": true
       },
       {
         "text": "sqldelight.extensions",
@@ -481,7 +481,7 @@
             "link": "native_sqlite/androidx_paging.md"
           }
         ],
-        "collapsable": true
+        "collapsed": true
       },
       {
         "text": "sqldelight.migrations",
@@ -511,10 +511,10 @@
             "href": "https://sqldelight.github.io/sqldelight/2.1.0/2.x/runtime/index.html"
           }
         ],
-        "collapsable": true
+        "collapsed": true
       }
     ],
-    "collapsable": true
+    "collapsed": true
   },
   {
     "text": "sqldelight.sqlite-jvm",
@@ -551,7 +551,7 @@
             "link": "jvm_sqlite/grouping_statements.md"
           }
         ],
-        "collapsable": true
+        "collapsed": true
       },
       {
         "text": "sqldelight.extensions",
@@ -569,7 +569,7 @@
             "link": "jvm_sqlite/androidx_paging.md"
           }
         ],
-        "collapsable": true
+        "collapsed": true
       },
       {
         "text": "sqldelight.migrations",
@@ -607,10 +607,10 @@
             "href": "https://sqldelight.github.io/sqldelight/2.1.0/2.x/runtime/index.html"
           }
         ],
-        "collapsable": true
+        "collapsed": true
       }
     ],
-    "collapsable": true
+    "collapsed": true
   },
   {
     "text": "sqldelight.sqlite-js",
@@ -635,7 +635,7 @@
             "link": "js_sqlite/custom_worker.md"
           }
         ],
-        "collapsable": true
+        "collapsed": true
       },
       {
         "text": "sqldelight.sql",
@@ -661,7 +661,7 @@
             "link": "js_sqlite/grouping_statements.md"
           }
         ],
-        "collapsable": true
+        "collapsed": true
       },
       {
         "text": "sqldelight.extensions",
@@ -675,7 +675,7 @@
             "link": "js_sqlite/androidx_paging.md"
           }
         ],
-        "collapsable": true
+        "collapsed": true
       },
       {
         "text": "sqldelight.migrations",
@@ -705,10 +705,10 @@
             "href": "https://sqldelight.github.io/sqldelight/2.1.0/2.x/runtime/index.html"
           }
         ],
-        "collapsable": true
+        "collapsed": true
       }
     ],
-    "collapsable": true
+    "collapsed": true
   },
   {
     "text": "sqldelight._2-x-api",
