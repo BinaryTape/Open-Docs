@@ -35,8 +35,7 @@ export const kmpStrategy = {
         console.log(`  Convert topic files finished - ${repoPath}`);
 
         console.log(`  Running KMP onSyncEnd: Generate sidebar - ${repoPath}...`);
-        const sidebarFile = repoPath.filter(doc => doc.endsWith(".tree"));
-        const sidebarPath = path.join(repoPath, sidebarFile[0]);
+        const sidebarPath = path.join(repoPath, "mpd.tree");
         const docType = repoPath.replace("-repo", "");
         if (await fs.pathExists(sidebarPath)) {
             await generateSidebar(sidebarPath, docType);
