@@ -1,71 +1,72 @@
 [//]: # (title: Kotlin 1.9.0の新機能)
 
-[リリース日: 2023年7月6日](releases.md#release-details)
+_[リリース日: 2023年7月6日](releases.md#release-details)_
 
-Kotlin 1.9.0がリリースされ、JVM向けK2コンパイラーは**ベータ版**になりました。その他、主なハイライトは以下の通りです。
+Kotlin 1.9.0がリリースされ、JVM向けK2コンパイラが**ベータ版**になりました。その他、主なハイライトは以下のとおりです。
 
-*   [新しいKotlin K2コンパイラーの更新](#new-kotlin-k2-compiler-updates)
-*   [enumクラスの`values`関数の安定版の代替](#stable-replacement-of-the-enum-class-values-function)
-*   [開区間範囲のための安定した`..<`演算子](#stable-operator-for-open-ended-ranges)
-*   [名前で正規表現のキャプチャグループを取得する新しい共通関数](#new-common-function-to-get-regex-capture-group-by-name)
+*   [Kotlin K2コンパイラの新しい更新](#new-kotlin-k2-compiler-updates)
+*   [enumクラスの`values`関数の安定版の代替機能](#stable-replacement-of-the-enum-class-values-function)
+*   [オープンエンドレンジの安定版`..<`演算子](#stable-operator-for-open-ended-ranges)
+*   [正規表現キャプチャグループを名前で取得する新しい共通関数](#new-common-function-to-get-regex-capture-group-by-name)
 *   [親ディレクトリを作成する新しいパスユーティリティ](#new-path-utility-to-create-parent-directories)
-*   [Kotlin MultiplatformにおけるGradle Configuration Cacheのプレビュー](#preview-of-the-gradle-configuration-cache)
-*   [Kotlin MultiplatformにおけるAndroidターゲットサポートの変更点](#changes-to-android-target-support)
-*   [Kotlin/Nativeにおけるカスタムメモリ割り当て器のプレビュー](#preview-of-custom-memory-allocator)
-*   [Kotlin/Nativeにおけるライブラリリンケージ](#library-linkage-in-kotlin-native)
+*   [Kotlin MultiplatformにおけるGradle構成キャッシュのプレビュー](#preview-of-the-gradle-configuration-cache)
+*   [Kotlin MultiplatformにおけるAndroidターゲットサポートの変更](#changes-to-android-target-support)
+*   [Kotlin/Nativeにおけるカスタムメモリ割り当て機能のプレビュー](#preview-of-custom-memory-allocator)
+*   [Kotlin/Nativeにおけるライブラリのリンク](#library-linkage-in-kotlin-native)
 *   [Kotlin/Wasmにおけるサイズ関連の最適化](#size-related-optimizations)
 
-これらの更新の簡単な概要は、こちらのビデオでもご覧いただけます。
+これらの更新の簡単な概要を以下のビデオでご覧いただけます。
 
 <video src="https://www.youtube.com/v/fvwTZc-dxsM" title="What's new in Kotlin 1.9.0"/>
 
 ## IDEサポート
 
-1.9.0をサポートするKotlinプラグインは、以下のIDEで利用できます。
+1.9.0をサポートするKotlinプラグインは、以下のIDEで利用可能です。
 
 | IDE | サポートバージョン |
-|--|--|
+|---|---|
 | IntelliJ IDEA | 2022.3.x, 2023.1.x |
 | Android Studio | Giraffe (223), Hedgehog (231)* |
 
-*Kotlin 1.9.0プラグインは、今後のリリースでAndroid Studio Giraffe (223)およびHedgehog (231)に含まれる予定です。
+*Kotlin 1.9.0プラグインは、Android Studio Giraffe (223) および Hedgehog (231) の今後のリリースに含まれます。
 
-Kotlin 1.9.0プラグインは、今後のリリースでIntelliJ IDEA 2023.2に含まれる予定です。
+Kotlin 1.9.0プラグインは、今後のIntelliJ IDEA 2023.2のリリースに含まれます。
 
-> Kotlinのアーティファクトと依存関係をダウンロードするには、Maven Central Repositoryを使用するように[Gradle設定を構成してください](#configure-gradle-settings)。
+> Kotlinのアーティファクトと依存関係をダウンロードするには、[Gradle設定を構成して](#configure-gradle-settings)Maven Central Repositoryを使用してください。
 >
 {style="warning"}
 
-## 新しいKotlin K2コンパイラーの更新
+## Kotlin K2コンパイラの新しい更新
 
-JetBrainsのKotlinチームはK2コンパイラーの安定化を進めており、1.9.0リリースではさらなる進歩をもたらします。
-JVM向けK2コンパイラーは現在**ベータ版**です。
+JetBrainsのKotlinチームはK2コンパイラの安定化を続けており、1.9.0リリースではさらなる進歩が導入されました。
+JVM向けK2コンパイラは現在**ベータ版**です。
 
 Kotlin/Nativeおよびマルチプラットフォームプロジェクトの基本的なサポートも追加されました。
 
-### kaptコンパイラープラグインのK2コンパイラーとの互換性
+### kaptコンパイラプラグインとK2コンパイラの互換性
 
-[kaptプラグイン](kapt.md)はK2コンパイラーと一緒にプロジェクトで使用できますが、いくつかの制限があります。
-`languageVersion`を`2.0`に設定しているにもかかわらず、kaptコンパイラープラグインは引き続き古いコンパイラーを利用します。
+[kaptプラグイン](kapt.md)はK2コンパイラとともにプロジェクトで使用できますが、いくつかの制限があります。
+`languageVersion`を`2.0`に設定しても、kaptコンパイラプラグインは引き続き古いコンパイラを利用します。
 
-`languageVersion`が`2.0`に設定されているプロジェクト内でkaptコンパイラープラグインを実行すると、kaptは自動的に`1.9`に切り替わり、特定のバージョン互換性チェックを無効にします。この動作は、以下のコマンド引数を含めることと同じです。
+`languageVersion`が`2.0`に設定されているプロジェクトでkaptコンパイラプラグインを実行すると、kaptは自動的に`1.9`に切り替わり、特定のバージョン互換性チェックを無効にします。この動作は、以下のコマンド引数を含めることと同じです。
 *   `-Xskip-metadata-version-check`
 *   `-Xskip-prerelease-check`
 *   `-Xallow-unstable-dependencies`
 
-これらのチェックはkaptタスク専用に無効化されます。他のすべてのコンパイルタスクは引き続き新しいK2コンパイラーを利用します。
+これらのチェックはkaptタスクに対してのみ無効化されます。他のすべてのコンパイルタスクは引き続き新しいK2コンパイラを利用します。
 
-K2コンパイラーでkaptを使用する際に問題に遭遇した場合は、[課題トラッカー](http://kotl.in/issue)に報告してください。
+K2コンパイラでkaptを使用する際に問題が発生した場合は、[課題トラッカー](http://kotl.in/issue)に報告してください。
 
-### プロジェクトでK2コンパイラーを試す
+### プロジェクトでK2コンパイラを試す
 
-1.9.0からKotlin 2.0のリリースまでの間、`gradle.properties`ファイルに`kotlin.experimental.tryK2=true` Gradleプロパティを追加することで、K2コンパイラーを簡単にテストできます。以下のコマンドを実行することもできます。
+1.9.0以降、Kotlin 2.0のリリースまでは、`gradle.properties`ファイルに`kotlin.experimental.tryK2=true`
+Gradleプロパティを追加することで、簡単にK2コンパイラをテストできます。以下のコマンドを実行することもできます。
 
 ```shell
 ./gradlew assemble -Pkotlin.experimental.tryK2=true
 ```
 
-このGradleプロパティは、言語バージョンを自動的に2.0に設定し、現在のコンパイラーと比較してK2コンパイラーを使用してコンパイルされたKotlinタスクの数でビルドレポートを更新します。
+このGradleプロパティは、言語バージョンを自動的に2.0に設定し、ビルドレポートをK2コンパイラを使用してコンパイルされたKotlinタスクの数と現在のコンパイラを使用してコンパイルされたタスクの数で更新します。
 
 ```none
 ##### 'kotlin.experimental.tryK2' results (Kotlin/Native not checked) #####
@@ -76,35 +77,35 @@ K2コンパイラーでkaptを使用する際に問題に遭遇した場合は�
 
 ### Gradleビルドレポート
 
-[Gradleビルドレポート](gradle-compilation-and-caches.md#build-reports)は、コードのコンパイルに現在のコンパイラーとK2コンパイラーのどちらが使用されたかを表示するようになりました。Kotlin 1.9.0では、[Gradleビルドスキャン](https://scans.gradle.com/)でこの情報を見ることができます。
+[Gradleビルドレポート](gradle-compilation-and-caches.md#build-reports)は、コードのコンパイルに現在のコンパイラまたはK2コンパイラが使用されたかどうかを示すようになりました。Kotlin 1.9.0では、この情報を[Gradleビルドスキャン](https://scans.gradle.com/)で確認できます。
 
 ![Gradle build scan - K1](gradle-build-scan-k1.png){width=700}
 
 ![Gradle build scan - K2](gradle-build-scan-k2.png){width=700}
 
-プロジェクトで使用されているKotlinバージョンもビルドレポートに直接表示されます。
+プロジェクトで使用されているKotlinのバージョンは、ビルドレポートで直接確認することもできます。
 
 ```none
 Task info:
   Kotlin language version: 1.9
 ```
 
-> Gradle 8.0を使用している場合、特にGradle Configuration Cacheが有効になっていると、ビルドレポートでいくつかの問題に遭遇する可能性があります。これは既知の問題で、Gradle 8.1以降で修正されています。
+> Gradle 8.0を使用している場合、特にGradle構成キャッシュが有効になっていると、ビルドレポートで問題が発生する可能性があります。これは既知の問題であり、Gradle 8.1以降で修正されています。
 >
 {style="note"}
 
-### 現在のK2コンパイラーの制限事項
+### 現在のK2コンパイラの制限
 
-GradleプロジェクトでK2を有効にすると、特定の制限が伴います。これらの制限は、以下のケースでGradleバージョン8.3未満を使用するプロジェクトに影響を与える可能性があります。
+GradleプロジェクトでK2を有効にすると、特定の制限が伴います。これらの制限は、Gradleバージョン8.3より前のプロジェクトで、以下のケースに影響を与える可能性があります。
 
 *   `buildSrc`からのソースコードのコンパイル。
-*   インクルードビルド内のGradleプラグインのコンパイル。
-*   Gradleバージョン8.3未満のプロジェクトで使用されている場合の他のGradleプラグインのコンパイル。
+*   インクルードされたビルド内のGradleプラグインのコンパイル。
+*   Gradleバージョン8.3より前のプロジェクトで使用されている他のGradleプラグインのコンパイル。
 *   Gradleプラグインの依存関係のビルド。
 
-上記のいずれかの問題に遭遇した場合は、以下の手順で対処できます。
+上記の問題に遭遇した場合は、以下の手順で対処できます。
 
-*   `buildSrc`、すべてのGradleプラグイン、およびその依存関係の言語バージョンを設定します。
+*   `buildSrc`、任意のGradleプラグイン、およびその依存関係の言語バージョンを設定します。
 
 ```kotlin
 kotlin {
@@ -115,28 +116,28 @@ kotlin {
 }
 ```
 
-*   プロジェクトのGradleバージョンを8.3が利用可能になったら更新します。
+*   プロジェクトのGradleバージョンを8.3（利用可能になり次第）に更新します。
 
-### 新しいK2コンパイラーに関するフィードバック
+### 新しいK2コンパイラに関するフィードバック
 
-フィードバックをお待ちしております！
+皆様からのフィードバックをお待ちしております！
 
-*   K2開発者に直接フィードバックを提供してください。KotlinのSlack – [招待を受ける](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up)から、[#k2-early-adopters](https://kotlinlang.slack.com/archives/C03PK0PE257)チャネルに参加してください。
-*   新しいK2コンパイラーで直面した問題を[課題トラッカー](https://kotl.in/issue)に報告してください。
-*   JetBrainsがK2の使用に関する匿名データを収集できるように、[**使用統計を送信**オプションを有効にしてください](https://www.jetbrains.com/help/idea/settings-usage-statistics.html)。
+*   K2開発者に直接フィードバックを提供するには、KotlinのSlackで[招待を受け取り](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up)、[#k2-early-adopters](https://kotlinlang.slack.com/archives/C03PK0PE257)チャンネルに参加してください。
+*   新しいK2コンパイラで直面した問題は、[課題トラッカー](https://kotl.in/issue)に報告してください。
+*   [**利用状況統計の送信**オプションを有効にして](https://www.jetbrains.com/help/idea/settings-usage-statistics.html)、JetBrainsがK2の利用に関する匿名データを収集できるようにしてください。
 
 ## 言語
 
-Kotlin 1.9.0では、以前導入されたいくつかの新しい言語機能を安定化させています。
-*   [enumクラスの`values`関数の代替](#stable-replacement-of-the-enum-class-values-function)
+Kotlin 1.9.0では、以前に導入されたいくつかの新言語機能を安定化しています。
+*   [enumクラスの`values`関数の代替機能](#stable-replacement-of-the-enum-class-values-function)
 *   [データクラスとの対称性のためのデータオブジェクト](#stable-data-objects-for-symmetry-with-data-classes)
-*   [インライン値クラスにおけるボディを持つセカンダリコンストラクターのサポート](#support-for-secondary-constructors-with-bodies-in-inline-value-classes)
+*   [インライン値クラスにおける本体を持つセカンダリコンストラクタのサポート](#support-for-secondary-constructors-with-bodies-in-inline-value-classes)
 
-### enumクラスの`values`関数の安定版の代替
+### enumクラスの`values`関数の安定版の代替機能
 
-1.8.20では、enumクラスの`entries`プロパティが試験的機能として導入されました。`entries`プロパティは、合成された`values()`関数の現代的で高性能な代替です。1.9.0では、`entries`プロパティは安定版になりました。
+1.8.20で、enumクラスの`entries`プロパティが実験的機能として導入されました。`entries`プロパティは、合成関数`values()`の現代的でパフォーマンスの高い代替機能です。1.9.0では、`entries`プロパティは安定版になりました。
 
-> `values()`関数は引き続きサポートされていますが、代わりに`entries`プロパティを使用することをお勧めします。
+> `values()`関数は引き続きサポートされますが、代わりに`entries`プロパティを使用することをお勧めします。
 >
 {style="tip"}
 
@@ -153,11 +154,11 @@ fun findByRgb(rgb: String): Color? = Color.entries.find { it.rgb == rgb }
 
 enumクラスの`entries`プロパティの詳細については、「[Kotlin 1.8.20の新機能](whatsnew1820.md#a-modern-and-performant-replacement-of-the-enum-class-values-function)」を参照してください。
 
-### データクラスとの対称性のためのデータオブジェクトの安定版
+### データクラスとの対称性のためのデータオブジェクトの安定化
 
-[Kotlin 1.8.20](whatsnew1820.md#preview-of-data-objects-for-symmetry-with-data-classes)で導入されたデータオブジェクト宣言は、安定版になりました。これには、データクラスとの対称性のために追加された`toString()`、`equals()`、`hashCode()`関数が含まれます。
+[Kotlin 1.8.20](whatsnew1820.md#preview-of-data-objects-for-symmetry-with-data-classes)で導入されたデータオブジェクト宣言が安定版になりました。これには、データクラスとの対称性のために追加された関数である`toString()`、`equals()`、`hashCode()`も含まれます。
 
-この機能は、`sealed`階層（`sealed class`や`sealed interface`階層など）で特に役立ちます。なぜなら、`data object`宣言を`data class`宣言と一緒に便利に使用できるからです。この例では、`EndOfFile`を単なる`object`ではなく`data object`として宣言することで、手動でオーバーライドする必要なく、自動的に`toString()`関数を持つことができます。これにより、付随するデータクラスの定義との対称性が維持されます。
+この機能は、`sealed`階層（`sealed class`や`sealed interface`階層など）で特に有用です。なぜなら、`data object`宣言は`data class`宣言と組み合わせて便利に使用できるためです。この例では、`EndOfFile`を通常の`object`ではなく`data object`として宣言することで、手動でオーバーライドする必要なく自動的に`toString()`関数を持つことができます。これにより、付随するデータクラス定義との対称性が維持されます。
 
 ```kotlin
 sealed interface ReadResult
@@ -174,9 +175,9 @@ fun main() {
 
 詳細については、「[Kotlin 1.8.20の新機能](whatsnew1820.md#preview-of-data-objects-for-symmetry-with-data-classes)」を参照してください。
 
-### インライン値クラスにおけるボディを持つセカンダリコンストラクターのサポート
+### インライン値クラスにおける本体を持つセカンダリコンストラクタのサポート
 
-Kotlin 1.9.0以降、[インライン値クラス](inline-classes.md)におけるボディを持つセカンダリコンストラクターの使用がデフォルトで利用可能になりました。
+Kotlin 1.9.0以降、[インライン値クラス](inline-classes.md)での本体を持つセカンダリコンストラクタの使用がデフォルトで利用可能になりました。
 
 ```kotlin
 @JvmInline
@@ -197,51 +198,51 @@ value class Person(private val fullName: String) {
 ```
 {validate="false"}
 
-以前は、Kotlinはインラインクラスでpublicなプライマリコンストラクターのみを許可していました。その結果、基になる値をカプセル化したり、制約された値を表現するインラインクラスを作成したりすることは不可能でした。
+以前は、Kotlinはインラインクラスでパブリックなプライマリコンストラクタのみを許可していました。その結果、基になる値をカプセル化したり、制約のある値を表現するインラインクラスを作成したりすることができませんでした。
 
-Kotlinの開発が進むにつれて、これらの問題は修正されました。Kotlin 1.4.30は`init`ブロックの制限を解除し、その後Kotlin 1.8.20ではボディを持つセカンダリコンストラクターのプレビューが導入されました。これらは現在、デフォルトで利用可能です。Kotlinインラインクラスの開発について詳しくは、[このKEEP](https://github.com/Kotlin/KEEP/blob/master/proposals/inline-classes.md)を参照してください。
+Kotlinの発展に伴い、これらの問題は修正されました。Kotlin 1.4.30では`init`ブロックの制限が解除され、その後Kotlin 1.8.20では本体を持つセカンダリコンストラクタのプレビューが導入されました。これらは現在デフォルトで利用可能です。Kotlinインラインクラスの発展については、[このKEEP](https://github.com/Kotlin/KEEP/blob/master/proposals/inline-classes.md)で詳細を確認してください。
 
 ## Kotlin/JVM
 
-バージョン1.9.0以降、コンパイラーはJVM 20に対応するバイトコードバージョンを持つクラスを生成できます。さらに、`JvmDefault`アノテーションとレガシーな`-Xjvm-default`モードの非推奨化が継続されます。
+バージョン1.9.0以降、コンパイラはJVM 20に対応するバイトコードバージョンでクラスを生成できます。さらに、`JvmDefault`アノテーションと従来の`-Xjvm-default`モードの非推奨化が継続されます。
 
-### JvmDefaultアノテーションとレガシーな-Xjvm-defaultモードの非推奨化
+### JvmDefaultアノテーションと従来の-Xjvm-defaultモードの非推奨化
 
-Kotlin 1.5以降、`JvmDefault`アノテーションの使用は、新しい`-Xjvm-default`モードである`all`および`all-compatibility`に代わって非推奨になりました。Kotlin 1.4での`JvmDefaultWithoutCompatibility`、Kotlin 1.6での`JvmDefaultWithCompatibility`の導入により、これらのモードは`DefaultImpls`クラスの生成の包括的な制御を提供し、古いKotlinコードとのシームレスな互換性を保証します。
+Kotlin 1.5以降、`JvmDefault`アノテーションの使用は、新しい`-Xjvm-default`モードである`all`および`all-compatibility`に置き換えられ、非推奨となりました。Kotlin 1.4で`JvmDefaultWithoutCompatibility`、Kotlin 1.6で`JvmDefaultWithCompatibility`が導入されたことで、これらのモードは`DefaultImpls`クラスの生成を包括的に制御し、古いKotlinコードとのシームレスな互換性を確保します。
 
-結果として、Kotlin 1.9.0では、`JvmDefault`アノテーションはもはや意味を持たなくなり、非推奨としてマークされ、エラーになります。最終的にKotlinから削除されます。
+その結果、Kotlin 1.9.0では、`JvmDefault`アノテーションはもはや意味を持たず、非推奨としてマークされ、エラーになります。最終的にはKotlinから削除されます。
 
 ## Kotlin/Native
 
-このリリースでは、その他の改善の中でも、[Kotlin/Nativeメモリマネージャー](native-memory-manager.md)のさらなる進歩がもたらされ、その堅牢性とパフォーマンスが向上するはずです。
+このリリースでは、その他の改善に加えて、[Kotlin/Nativeメモリマネージャー](native-memory-manager.md)のさらなる進歩がもたらされ、その堅牢性とパフォーマンスが向上するはずです。
 
-*   [カスタムメモリ割り当て器のプレビュー](#preview-of-custom-memory-allocator)
+*   [カスタムメモリ割り当て機能のプレビュー](#preview-of-custom-memory-allocator)
 *   [メインスレッドでのObjective-CまたはSwiftオブジェクトのデアロケーションフック](#objective-c-or-swift-object-deallocation-hook-on-the-main-thread)
-*   [Kotlin/Nativeで定数にアクセスする際のオブジェクトの初期化なし](#no-object-initialization-when-accessing-constant-values-in-kotlin-native)
-*   [iOSシミュレーターテストのスタンドアロンモードを構成する機能](#ability-to-configure-standalone-mode-for-ios-simulator-tests-in-kotlin-native)
-*   [Kotlin/Nativeにおけるライブラリリンケージ](#library-linkage-in-kotlin-native)
+*   [Kotlin/Nativeでの定数値アクセス時のオブジェクト初期化なし](#no-object-initialization-when-accessing-constant-values-in-kotlin-native)
+*   [iOSシミュレータテストのスタンドアローンモード設定機能](#ability-to-configure-standalone-mode-for-ios-simulator-tests-in-kotlin-native)
+*   [Kotlin/Nativeにおけるライブラリのリンク](#library-linkage-in-kotlin-native)
 
-### カスタムメモリ割り当て器のプレビュー
+### カスタムメモリ割り当て機能のプレビュー
 
-Kotlin 1.9.0では、カスタムメモリ割り当て器のプレビューが導入されます。その割り当てシステムは、[Kotlin/Nativeメモリマネージャー](native-memory-manager.md)の実行時パフォーマンスを向上させます。
+Kotlin 1.9.0では、カスタムメモリ割り当て機能のプレビューが導入されました。その割り当てシステムは、[Kotlin/Nativeメモリマネージャー](native-memory-manager.md)のランタイムパフォーマンスを向上させます。
 
-Kotlin/Nativeの現在のオブジェクト割り当てシステムは、効率的なガベージコレクションの機能を備えていない汎用アロケーターを使用しています。それを補うために、ガベージコレクター（GC）がそれらを単一のリストにマージする前に、すべての割り当てられたオブジェクトのスレッドローカルなリンクリストを保持し、それはスイープ中にイテレートできます。このアプローチには、いくつかのパフォーマンス上の欠点があります。
+Kotlin/Nativeの現在のオブジェクト割り当てシステムは、効率的なガベージコレクションの機能を持たない汎用アロケーターを使用しています。これを補うために、ガベージコレクター (GC) がそれらを単一のリストにマージする前に、すべての割り当て済みオブジェクトのスレッドローカルな連結リストを維持し、スイープ中に反復することができます。このアプローチには、いくつかのパフォーマンス上の欠点があります。
 
-*   スイープの順序はメモリの局所性がなく、しばしば散乱したメモリアクセスパターンをもたらし、潜在的なパフォーマンス問題につながります。
-*   リンクリストは各オブジェクトに追加のメモリを必要とし、特に多くの小さなオブジェクトを扱う場合にメモリ使用量を増加させます。
-*   割り当てられたオブジェクトの単一リストでは、スイープを並列化することが困難になり、ミューテーターのスレッドがGCスレッドがそれらを収集するよりも速くオブジェクトを割り当てる場合にメモリ使用量の問題が発生する可能性があります。
+*   スイープ順序にはメモリ局所性がなく、しばしば散発的なメモリアクセスパターンを引き起こし、潜在的なパフォーマンス問題につながります。
+*   連結リストは各オブジェクトに追加のメモリを必要とし、特に多くの小さなオブジェクトを扱う場合にメモリ使用量が増加します。
+*   割り当て済みオブジェクトの単一リストでは、スイープの並列化が困難であり、ミューテーターのスレッドがGCスレッドよりも速くオブジェクトを割り当てる場合にメモリ使用量の問題を引き起こす可能性があります。
 
-これらの問題に対処するため、Kotlin 1.9.0ではカスタムアロケーターのプレビューが導入されます。これはシステムメモリをページに分割し、連続した順序での独立したスイープを可能にします。各割り当てはページ内のメモリーブロックとなり、ページはブロックサイズを追跡します。さまざまなページタイプがさまざまな割り当てサイズに最適化されています。メモリーブロックの連続的な配置により、すべての割り当てられたブロックを効率的に反復できます。
+これらの問題を解決するために、Kotlin 1.9.0ではカスタムアロケーターのプレビューが導入されました。これはシステムメモリをページに分割し、連続した順序で独立したスイープを可能にします。各割り当てはページ内のメモリブロックとなり、ページはブロックサイズを追跡します。異なるページタイプは、さまざまな割り当てサイズに最適化されています。メモリブロックの連続した配置により、すべての割り当て済みブロックを効率的に反復できます。
 
-スレッドがメモリを割り当てるとき、割り当てサイズに基づいて適切なページを検索します。スレッドはさまざまなサイズカテゴリのページセットを保持します。通常、与えられたサイズに対する現在のページは割り当てを収容できます。そうでない場合、スレッドは共有割り当てスペースから別のページを要求します。このページはすでに利用可能であるか、スイープを必要とするか、まず作成されるべきです。
+スレッドがメモリを割り当てる際、割り当てサイズに基づいて適切なページを検索します。スレッドは、異なるサイズのカテゴリに対応するページのセットを維持します。通常、特定のサイズの現在のページは割り当てを収容できます。そうでない場合、スレッドは共有割り当てスペースから別のページを要求します。このページはすでに利用可能であるか、スイープが必要であるか、または最初に作成する必要があります。
 
-新しいアロケーターは、複数の独立した割り当てスペースを同時に持つことを可能にし、これにより、Kotlinチームはさまざまなページレイアウトを試して、パフォーマンスをさらに向上させることができます。
+新しいアロケーターでは、複数の独立した割り当て空間を同時に持つことができ、Kotlinチームはさまざまなページレイアウトを試してパフォーマンスをさらに向上させることができます。
 
-新しいアロケーターの設計に関する詳細については、この[README](https://github.com/JetBrains/kotlin/blob/master/kotlin-native/runtime/src/alloc/custom/README.md)を参照してください。
+新しいアロケーターの設計に関する詳細については、この[README](https://github.com/Kotlin/KEEP/blob/master/proposals/inline-classes.md)を参照してください。
 
 #### 有効化方法
 
-`-Xallocator=custom`コンパイラーオプションを追加します。
+`-Xallocator=custom`コンパイラオプションを追加します。
 
 ```kotlin
 kotlin {
@@ -258,31 +259,31 @@ kotlin {
 ```
 {validate="false"}
 
-#### フィードバックを残す
+#### フィードバックの提供
 
-カスタムアロケーターを改善するために、[YouTrack](https://youtrack.jetbrains.com/issue/KT-55364/Implement-custom-allocator-for-Kotlin-Native)でのフィードバックをお待ちしております。
+カスタムアロケーターを改善するために、[YouTrack](https://youtrack.jetbrains.com/issue/KT-55364/Implement-custom-allocator-for-Kotlin-Native)でフィードバックをお寄せください。
 
 ### メインスレッドでのObjective-CまたはSwiftオブジェクトのデアロケーションフック
 
-Kotlin 1.9.0以降、Objective-CまたはSwiftオブジェクトがKotlinに渡された場合、そのデアロケーションフックはメインスレッドで呼び出されます。[Kotlin/Nativeメモリマネージャー](native-memory-manager.md)が以前Objective-Cオブジェクトへの参照を処理していた方法では、メモリリークにつながる可能性がありました。新しい振る舞いはメモリマネージャーの堅牢性を向上させると信じています。
+Kotlin 1.9.0以降、Objective-CまたはSwiftオブジェクトがメインスレッドにKotlinに渡された場合、そのデアロケーションフックはメインスレッドで呼び出されます。[Kotlin/Nativeメモリマネージャー](native-memory-manager.md)が以前Objective-Cオブジェクトへの参照を処理する方法は、メモリリークにつながる可能性がありました。この新しい動作により、メモリマネージャーの堅牢性が向上すると考えられます。
 
-Kotlinコードで参照されるObjective-Cオブジェクト（例えば、引数として渡される場合、関数によって返される場合、またはコレクションから取得される場合）を考えます。この場合、KotlinはObjective-Cオブジェクトへの参照を保持する独自のオブジェクトを作成します。Kotlinオブジェクトがデアロケートされると、Kotlin/NativeランタイムはObjective-C参照を解放する`objc_release`関数を呼び出します。
+Objective-CオブジェクトがKotlinコード内で参照されている場合、例えば引数として渡されたり、関数から返されたり、コレクションから取得されたりする場合を考えます。この場合、KotlinはObjective-Cオブジェクトへの参照を保持する独自のオブジェクトを作成します。Kotlinオブジェクトがデアロケートされると、Kotlin/Nativeランタイムは`objc_release`関数を呼び出し、Objective-C参照を解放します。
 
-以前は、Kotlin/Nativeメモリマネージャーは`objc_release`を特別なGCスレッドで実行しました。それが最後のオブジェクト参照である場合、オブジェクトはデアロケートされます。Objective-CオブジェクトがObjective-Cの`dealloc`メソッドやSwiftの`deinit`ブロックのようなカスタムデアロケーションフックを持ち、これらのフックが特定の呼び出しスレッドを想定している場合に問題が発生する可能性がありました。
+以前は、Kotlin/Nativeメモリマネージャーは`objc_release`を特殊なGCスレッドで実行していました。最後のオブジェクト参照の場合、オブジェクトはデアロケートされます。Objective-Cオブジェクトが`dealloc`メソッド（Objective-C）や`deinit`ブロック（Swift）などのカスタムデアロケーションフックを持ち、これらのフックが特定の`thread`で呼び出されることを期待している場合に問題が発生する可能性がありました。
 
-メインスレッド上のオブジェクトのフックは通常そこで呼び出されることを期待するため、Kotlin/Nativeランタイムも`objc_release`をメインスレッドで呼び出すようになりました。これは、Objective-CオブジェクトがメインスレッドでKotlinに渡され、そこでKotlinのピアオブジェクトを作成した場合をカバーするはずです。これは、メインディスパッチキューが処理される場合にのみ機能します。これは通常のUIアプリケーションの場合です。メインキューではない場合、またはオブジェクトがメイン以外のスレッドでKotlinに渡された場合、`objc_release`は以前と同様に特別なGCスレッドで呼び出されます。
+メインスレッド上のオブジェクトのフックは通常そこで呼び出されることを期待するため、Kotlin/Nativeランタイムは`objc_release`もメインスレッドで呼び出すようになりました。これは、Objective-CオブジェクトがメインスレッドでKotlinに渡され、そこでKotlinピアオブジェクトが作成されたケースをカバーするはずです。これは、通常のUIアプリケーションの場合のように、メインディスパッチキューが処理されている場合にのみ機能します。メインキューではない場合、またはオブジェクトがメイン以外のスレッドでKotlinに渡された場合、`objc_release`は以前と同様に特殊なGCスレッドで呼び出されます。
 
 #### オプトアウト方法
 
-問題に直面した場合は、`gradle.properties`ファイルで以下のオプションを使用してこの動作を無効にできます。
+問題が発生した場合は、`gradle.properties`ファイルで以下のオプションを使用してこの動作を無効にできます。
 
 ```none
 kotlin.native.binary.objcDisposeOnMain=false
 ```
 
-このようなケースは[課題トラッカー](https://kotl.in/issue)に報告することを躊躇しないでください。
+このようなケースは、[課題トラッカー](https://kotl.in/issue)に報告することをためらわないでください。
 
-### Kotlin/Nativeで定数にアクセスする際のオブジェクトの初期化なし
+### Kotlin/Nativeでの定数値アクセス時のオブジェクト初期化なし
 
 Kotlin 1.9.0以降、Kotlin/Nativeバックエンドは`const val`フィールドにアクセスする際にオブジェクトを初期化しません。
 
@@ -303,13 +304,13 @@ fun main() {
 ```
 {validate="false"}
 
-この動作はKotlin/JVMと統一されました。Kotlin/JVMではJavaと一貫した実装がされており、この場合オブジェクトは決して初期化されません。この変更により、Kotlin/Nativeプロジェクトでパフォーマンスの向上が期待できます。
+この動作は現在Kotlin/JVMと統一されており、Javaと一貫した実装で、この場合はオブジェクトは決して初期化されません。この変更により、Kotlin/Nativeプロジェクトでパフォーマンスの向上が期待できます。
 
-### iOSシミュレーターテストのスタンドアロンモードを構成する機能
+### iOSシミュレータテストのスタンドアローンモード設定機能
 
-デフォルトでは、Kotlin/NativeのiOSシミュレーターテストを実行する際に、手動でのシミュレーターの起動とシャットダウンを回避するために`--standalone`フラグが使用されます。1.9.0では、`standalone`プロパティを介して、Gradleタスクでこのフラグが使用されるかどうかを構成できるようになりました。デフォルトでは`--standalone`フラグが使用されるため、スタンドアロンモードが有効になります。
+デフォルトでは、Kotlin/NativeのiOSシミュレータテストを実行する際、手動でのシミュレータの起動とシャットダウンを避けるために`--standalone`フラグが使用されます。1.9.0では、このフラグがGradleタスクで`standalone`プロパティを通じて使用されるかどうかを設定できるようになりました。デフォルトでは`--standalone`フラグが使用されるため、スタンドアローンモードは有効になっています。
 
-`build.gradle.kts`ファイルでスタンドアロンモードを無効にする例を以下に示します。
+`build.gradle.kts`ファイルでスタンドアローンモードを無効にする例を以下に示します。
 
 ```kotlin
 tasks.withType<org.jetbrains.kotlin.gradle.targets.native.tasks.KotlinNativeSimulatorTest>().configureEach {
@@ -318,22 +319,21 @@ tasks.withType<org.jetbrains.kotlin.gradle.targets.native.tasks.KotlinNativeSimu
 ```
 {validate="false"}
 
-> スタンドアロンモードを無効にした場合、シミュレーターを手動で起動する必要があります。CLIからシミュレーターを起動するには、以下のコマンドを使用できます。
+> スタンドアローンモードを無効にする場合、シミュレータを手動で起動する必要があります。CLIからシミュレータを起動するには、以下のコマンドを使用します。
 >
 > ```shell
 > /usr/bin/xcrun simctl boot <DeviceId>
->```
+> ```
 >
 {style="warning"}
 
-### Kotlin/Nativeにおけるライブラリリンケージ
+### Kotlin/Nativeにおけるライブラリのリンク
 
-Kotlin 1.9.0以降、Kotlin/NativeコンパイラーはKotlinライブラリのリンケージの問題をKotlin/JVMと同じように扱います。
-あるサードパーティのKotlinライブラリの作者が、別のサードパーティのKotlinライブラリが消費する試験的なAPIに互換性のない変更を加えた場合、このような問題に直面する可能性があります。
+Kotlin 1.9.0以降、Kotlin/NativeコンパイラはKotlinライブラリ内のリンケージの問題をKotlin/JVMと同様に扱います。これは、あるサードパーティのKotlinライブラリの作者が、別のサードパーティのKotlinライブラリが消費する実験的APIに互換性のない変更を加えた場合に、そのような問題に直面する可能性があります。
 
-現在、サードパーティのKotlinライブラリ間のリンケージの問題がある場合でも、ビルドはコンパイル中に失敗しません。代わりに、JVMと同様に、これらのエラーは実行時にのみ発生します。
+現在、サードパーティのKotlinライブラリ間のリンケージの問題がある場合でも、ビルドはコンパイル中に失敗しません。代わりに、JVMとまったく同じように、これらのエラーは実行時にのみ発生します。
 
-Kotlin/Nativeコンパイラーは、ライブラリリンケージに問題が検出されるたびに警告を報告します。これらの警告はコンパイルログで確認できます。以下に例を示します。
+Kotlin/Nativeコンパイラは、ライブラリのリンケージに関する問題を検出するたびに警告を報告します。これらの警告は、コンパイルログで確認できます。
 
 ```text
 No function found for symbol 'org.samples/MyRemovedClass.doSomething|3657632771909858561[0]'
@@ -343,27 +343,27 @@ Can not get instance of singleton 'MyEnumClass.REMOVED_ENTRY': No enum entry fou
 Function 'getMyRemovedClass' can not be called: Function uses unlinked class symbol 'org.samples/MyRemovedClass|null[0]'
 ```
 
-プロジェクトでこの動作をさらに設定したり、無効にすることもできます。
+これらの動作をプロジェクトでさらに設定したり、無効にしたりできます。
 
-*   これらの警告をコンパイルログに表示したくない場合は、`-Xpartial-linkage-loglevel=INFO`コンパイラーオプションで抑制します。
-*   報告された警告の重大度を`-Xpartial-linkage-loglevel=ERROR`でコンパイルエラーまで引き上げることも可能です。この場合、コンパイルは失敗し、すべてのエラーがコンパイルログに表示されます。このオプションを使用して、リンケージの問題をより詳しく調べることができます。
-*   この機能で予期しない問題に直面した場合は、いつでも`-Xpartial-linkage=disable`コンパイラーオプションでオプトアウトできます。このようなケースは[課題トラッカー](https://kotl.in/issue)に報告することを躊躇しないでください。
+*   コンパイルログにこれらの警告を表示したくない場合は、`-Xpartial-linkage-loglevel=INFO`コンパイラオプションで抑制します。
+*   報告された警告の重大度を`-Xpartial-linkage-loglevel=ERROR`でコンパイルエラーに引き上げることも可能です。この場合、コンパイルは失敗し、すべてのエラーがコンパイルログに表示されます。このオプションを使用して、リンケージの問題をより詳細に調べます。
+*   この機能で予期せぬ問題が発生した場合は、`-Xpartial-linkage=disable`コンパイラオプションでいつでもオプトアウトできます。このようなケースは、[課題トラッカー](https://kotl.in/issue)に報告することをためらわないでください。
 
 ```kotlin
-// Gradleビルドファイルを介してコンパイラーオプションを渡す例。
+// An example of passing compiler options via Gradle build file.
 kotlin {
     macosX64("native") {
         binaries.executable()
 
         compilations.configureEach {
             compilerOptions.configure {
-                // リンケージ警告を抑制するには：
+                // To suppress linkage warnings:
                 freeCompilerArgs.add("-Xpartial-linkage-loglevel=INFO")
 
-                // リンケージ警告をエラーにするには：
+                // To raise linkage warnings to errors:
                 freeCompilerArgs.add("-Xpartial-linkage-loglevel=ERROR")
 
-                // 機能を完全に無効にするには：
+                // To disable the feature completely:
                 freeCompilerArgs.add("-Xpartial-linkage=disable")
             }
         }
@@ -372,11 +372,11 @@ kotlin {
 ```
 {validate="false"}
 
-### Cインターオプの暗黙的な整数変換のためのコンパイラーオプション
+### C interopにおける暗黙的な整数変換のコンパイラオプション
 
-Cインターオプのコンパイラーオプションを導入しました。これにより、暗黙的な整数変換を使用できます。慎重な検討の結果、この機能はまだ改善の余地があるため、意図しない使用を防ぐためにこのコンパイラーオプションを導入しました。私たちの目標は最高品質のAPIを持つことです。
+C interopで暗黙的な整数変換を使用できるようにするコンパイラオプションが導入されました。慎重な検討の結果、この機能にはまだ改善の余地があり、最高品質のAPIを目指しているため、意図しない使用を防ぐためにこのコンパイラオプションが導入されました。
 
-このコードサンプルでは、[`options`](https://developer.apple.com/documentation/foundation/nscalendar/options)が符号なし型`UInt`を持ち、`0`が符号付きであるにもかかわらず、暗黙的な整数変換により`options = 0`が許可されます。
+このコードサンプルでは、`options = 0`が許可されていますが、[`options`](https://developer.apple.com/documentation/foundation/nscalendar/options)が符号なし型`UInt`で、`0`が符号ありであるにもかかわらず、暗黙的な整数変換が許可されています。
 
 ```kotlin
 val today = NSDate()
@@ -389,9 +389,9 @@ val tomorrow = NSCalendar.currentCalendar.dateByAddingUnit(
 ```
 {validate="false"}
 
-ネイティブインターオプライブラリで暗黙的な変換を使用するには、`-XXLanguage:+ImplicitSignedToUnsignedIntegerConversion`コンパイラーオプションを使用します。
+ネイティブインターロップライブラリで暗黙的な変換を使用するには、`-XXLanguage:+ImplicitSignedToUnsignedIntegerConversion`コンパイラオプションを使用します。
 
-`build.gradle.kts`ファイルでこれを構成できます。
+これはGradleの`build.gradle.kts`ファイルで設定できます。
 ```kotlin
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinNativeCompile>().configureEach {
     compilerOptions.freeCompilerArgs.addAll(
@@ -403,86 +403,86 @@ tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinNativeCompile>().configur
 
 ## Kotlin Multiplatform
 
-Kotlin Multiplatformは、開発者エクスペリエンスを向上させるように設計された注目すべき更新を1.9.0で受けました。
+Kotlin Multiplatformは、開発者エクスペリエンスを向上させるために設計されたいくつかの注目すべきアップデートを1.9.0で受けました。
 
-*   [Androidターゲットサポートの変更点](#changes-to-android-target-support)
+*   [Androidターゲットサポートの変更](#changes-to-android-target-support)
 *   [新しいAndroidソースセットレイアウトがデフォルトで有効に](#new-android-source-set-layout-enabled-by-default)
-*   [マルチプラットフォームプロジェクトにおけるGradle Configuration Cacheのプレビュー](#preview-of-the-gradle-configuration-cache)
+*   [マルチプラットフォームプロジェクトにおけるGradle構成キャッシュのプレビュー](#preview-of-the-gradle-configuration-cache)
 
-### Androidターゲットサポートの変更点
+### Androidターゲットサポートの変更
 
-Kotlin Multiplatformの安定化に引き続き取り組んでいます。Androidターゲットへのファーストクラスのサポートを提供することが不可欠なステップです。将来的に、GoogleのAndroidチームがKotlin MultiplatformでAndroidをサポートするための独自のGradleプラグインを提供することを発表できることを嬉しく思います。
+Kotlin Multiplatformの安定化に向けた取り組みを継続しています。重要な一歩は、Androidターゲットに対するファーストクラスのサポートを提供することです。将来的には、GoogleのAndroidチームがKotlin MultiplatformでAndroidをサポートするための独自のGradleプラグインを提供することを発表できることを嬉しく思います。
 
-Googleからのこの新しいソリューションへの道を開くために、1.9.0で現在のKotlin DSLの`android`ブロックの名前を変更しています。ビルドスクリプト内の`android`ブロックのすべての出現箇所を`androidTarget`に変更してください。これは、Googleからの今後のDSLのために`android`という名前を解放するために必要な一時的な変更です。
+Googleからのこの新しいソリューションへの道を開くために、現在のKotlin DSLにおける`android`ブロックの名前を1.9.0で変更しています。ビルドスクリプト内の`android`ブロックのすべての出現箇所を`androidTarget`に変更してください。これはGoogleからの今後のDSLのために`android`という名前を解放するために必要な一時的な変更です。
 
-Googleプラグインは、マルチプラットフォームプロジェクトでAndroidを扱うための推奨される方法になります。準備が整ったら、以前と同様に短い`android`の名前を使用できるよう、必要な移行手順を提供します。
+Googleのプラグインは、マルチプラットフォームプロジェクトでAndroidを扱う際の推奨される方法となるでしょう。準備が整い次第、必要なマイグレーション手順を提供し、以前と同じように短い`android`名を使用できるようになります。
 
 ### 新しいAndroidソースセットレイアウトがデフォルトで有効に
 
-Kotlin 1.9.0以降、新しいAndroidソースセットレイアウトがデフォルトになりました。これは、複数の点で混乱を招くものであった、ディレクトリの以前の命名スキーマを置き換えました。新しいレイアウトにはいくつかの利点があります。
+Kotlin 1.9.0以降、新しいAndroidソースセットレイアウトがデフォルトになりました。これは、以前の複数の点で混乱を招いていたディレクトリ命名スキームに代わるものです。新しいレイアウトにはいくつかの利点があります。
 
-*   型セマンティクスの簡素化 – 新しいAndroidソースレイアウトは、さまざまな種類のソースセットを区別するのに役立つ、明確で一貫した命名規則を提供します。
-*   ソースディレクトリレイアウトの改善 – 新しいレイアウトにより、`SourceDirectories`の配置がより一貫性を持つようになり、コードの整理とソースファイルの特定が容易になります。
-*   Gradle構成の明確な命名スキーマ – スキーマは`KotlinSourceSets`と`AndroidSourceSets`の両方でより一貫性があり予測可能になりました。
+*   簡素化されたタイプセマンティクス – 新しいAndroidソースレイアウトは、異なるタイプのソースセットを区別するのに役立つ、明確で一貫性のある命名規則を提供します。
+*   改善されたソースディレクトリレイアウト – 新しいレイアウトにより、`SourceDirectories`の配置がより一貫性のあるものになり、コードの整理とソースファイルの特定が容易になります。
+*   Gradle構成の明確な命名スキーム – スキーマは`KotlinSourceSets`と`AndroidSourceSets`の両方でより一貫性があり、予測可能になりました。
 
-新しいレイアウトにはAndroid Gradleプラグインバージョン7.0以降が必要であり、Android Studio 2022.3以降でサポートされています。`build.gradle(.kts)`ファイルで必要な変更を行うには、[移行ガイド](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-android-layout.html)を参照してください。
+新しいレイアウトには、Android Gradleプラグインバージョン7.0以降が必要であり、Android Studio 2022.3以降でサポートされています。`build.gradle(.kts)`ファイルに必要な変更を加えるには、[マイグレーションガイド](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-android-layout.html)を参照してください。
 
-### Gradle Configuration Cacheのプレビュー
+### Gradle構成キャッシュのプレビュー
 
 <anchor name="preview-of-gradle-configuration-cache"/>
 
-Kotlin 1.9.0には、マルチプラットフォームライブラリにおける[Gradle Configuration Cache](https://docs.gradle.org/current/userguide/configuration_cache.html)のサポートが含まれています。ライブラリの作成者であれば、改善されたビルドパフォーマンスからすでに恩恵を受けることができます。
+Kotlin 1.9.0には、マルチプラットフォームライブラリにおける[Gradle構成キャッシュ](https://docs.gradle.org/current/userguide/configuration_cache.html)のサポートが含まれています。ライブラリの作成者であれば、すでにビルドパフォーマンスの向上から恩恵を受けることができます。
 
-Gradle Configuration Cacheは、構成フェーズの結果を後続のビルドで再利用することで、ビルドプロセスを高速化します。この機能はGradle 8.1以降安定版になりました。有効にするには、[Gradleドキュメント](https://docs.gradle.org/current/userguide/configuration_cache.html#config_cache:usage)の指示に従ってください。
+Gradle構成キャッシュは、設定フェーズの結果を後続のビルドで再利用することで、ビルドプロセスを高速化します。この機能はGradle 8.1以降で安定版となりました。有効にするには、[Gradleドキュメント](https://docs.gradle.org/current/userguide/configuration_cache.html#config_cache:usage)の指示に従ってください。
 
-> Kotlin Multiplatformプラグインは、Xcode統合タスクや[Kotlin CocoaPods Gradleプラグイン](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-cocoapods-dsl-reference.html)とのGradle Configuration Cacheをまだサポートしていません。今後のKotlinリリースでこの機能を追加する予定です。
+> Kotlin Multiplatformプラグインは、Xcode統合タスクや[Kotlin CocoaPods Gradleプラグイン](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-cocoapods-dsl-reference.html)では、まだGradle構成キャッシュをサポートしていません。この機能は今後のKotlinリリースで追加される予定です。
 >
 {style="note"}
 
 ## Kotlin/Wasm
 
-Kotlinチームは新しいKotlin/Wasmターゲットの実験を続けています。このリリースでは、いくつかのパフォーマンスと[サイズ関連の最適化](#size-related-optimizations)に加え、[JavaScript相互運用性の更新](#updates-in-javascript-interop)も導入されます。
+Kotlinチームは、新しいKotlin/Wasmターゲットの実験を続けています。このリリースでは、いくつかのパフォーマンスと[サイズ関連の最適化](#size-related-optimizations)に加え、[JavaScript interopの更新](#updates-in-javascript-interop)が導入されています。
 
 ### サイズ関連の最適化
 
-Kotlin 1.9.0では、WebAssembly（Wasm）プロジェクトに大幅なサイズ改善を導入しました。2つの「Hello World」プロジェクトを比較すると、Kotlin 1.9.0でのWasmのコードフットプリントは、Kotlin 1.8.20よりも10倍以上小さくなりました。
+Kotlin 1.9.0では、WebAssembly (Wasm) プロジェクト向けの重要なサイズ改善が導入されています。「Hello World」プロジェクトを比較すると、Kotlin 1.9.0におけるWasmのコードフットプリントは、Kotlin 1.8.20と比較して10分の1以下になりました。
 
 ![Kotlin/Wasm size-related optimizations](wasm-1-9-0-size-improvements.png){width=700}
 
-これらのサイズ最適化は、KotlinコードでWasmプラットフォームをターゲットとする際に、より効率的なリソース利用とパフォーマンスの向上をもたらします。
+これらのサイズ最適化により、WasmプラットフォームをKotlinコードでターゲットとする際の、より効率的なリソース利用とパフォーマンスの向上が実現されます。
 
-### JavaScript相互運用性の更新
+### JavaScript interopの更新
 
-このKotlinの更新では、Kotlin/WasmのKotlinとJavaScript間の相互運用性に関する変更が導入されます。Kotlin/Wasmは[試験的](components-stability.md#stability-levels-explained)機能であるため、その相互運用性には特定の制限が適用されます。
+このKotlinのアップデートでは、Kotlin/WasmにおけるKotlinとJavaScript間の相互運用性に変更が加えられています。Kotlin/Wasmは[実験的](components-stability.md#stability-levels-explained)機能であるため、その相互運用性には特定の制限が適用されます。
 
-#### Dynamic型の制限
+#### Dynamic型に対する制限
 
-バージョン1.9.0以降、KotlinはKotlin/Wasmでの`Dynamic`型の使用をサポートしなくなりました。これは、JavaScriptの相互運用性を促進する新しい汎用`JsAny`型に代わって非推奨になりました。
+バージョン1.9.0以降、Kotlin/Wasmでは`Dynamic`型の使用がサポートされなくなりました。これは、JavaScriptの相互運用性を容易にする新しい汎用`JsAny`型に置き換えられ、非推奨となりました。
 
-詳細については、[Kotlin/WasmとJavaScriptの相互運用性](wasm-js-interop.md)ドキュメントを参照してください。
+詳細については、[Kotlin/WasmとJavaScriptの相互運用性](wasm-js-interop.md)のドキュメントを参照してください。
 
-#### 非外部型の制限
+#### 非外部型に対する制限
 
-Kotlin/Wasmは、JavaScriptとの間で値を渡す際に特定のKotlin静的型の変換をサポートしています。これらのサポートされている型には以下が含まれます。
+Kotlin/Wasmは、値をJavaScriptに渡したりJavaScriptから受け取ったりする際に、特定のKotlin静的型の変換をサポートしています。これらのサポートされる型は以下のとおりです。
 
 *   符号付き数値、`Boolean`、`Char`などのプリミティブ型。
 *   `String`。
 *   関数型。
 
-他の型は不透明な参照として変換なしで渡され、JavaScriptとKotlinのサブタイピングとの間で不整合を引き起こしていました。
+他の型は変換されずに不透明な参照として渡され、JavaScriptとKotlinのサブタイピング間で不整合が生じていました。
 
-これに対処するために、KotlinはJavaScriptの相互運用性を十分にサポートされた型セットに制限します。Kotlin 1.9.0以降、Kotlin/Wasm JavaScript相互運用性では外部型、プリミティブ型、文字列型、関数型のみがサポートされます。さらに、`JsReference`という別の明示的な型が導入され、JavaScriptの相互運用性で使用できるKotlin/Wasmオブジェクトへのハンドルを表します。
+この問題に対処するため、KotlinはJavaScript interopを十分にサポートされている型のセットに制限します。Kotlin 1.9.0以降、Kotlin/Wasm JavaScript interopでは、外部型、プリミティブ型、文字列型、および関数型のみがサポートされます。さらに、JavaScript interopで使用できるKotlin/Wasmオブジェクトへのハンドルを表すための、`JsReference`という個別の明示的な型が導入されました。
 
-詳細については、[Kotlin/WasmとJavaScriptの相互運用性](wasm-js-interop.md)ドキュメントを参照してください。
+詳細については、[Kotlin/WasmとJavaScriptの相互運用性](wasm-js-interop.md)のドキュメントを参照してください。
 
-### Kotlin PlaygroundでのKotlin/Wasm
+### Kotlin/Wasm in Kotlin Playground
 
 Kotlin PlaygroundはKotlin/Wasmターゲットをサポートしています。
 Kotlin/WasmをターゲットとするKotlinコードを記述、実行、共有できます。[ぜひお試しください！](https://pl.kotl.in/HDFAvimga)
 
-> Kotlin/Wasmを使用するには、ブラウザーで試験的な機能を有効にする必要があります。
+> Kotlin/Wasmを使用するには、ブラウザで実験的機能を有効にする必要があります。
 >
-> [これらの機能を有効にする方法の詳細](wasm-troubleshooting.md)。
+> [これらの機能を有効にする方法について詳しくはこちらをご覧ください](wasm-troubleshooting.md)。
 >
 {style="note"}
 
@@ -515,38 +515,38 @@ fun computeAck(m: Int, n: Int) {
 
 ## Kotlin/JS
 
-このリリースでは、古いKotlin/JSコンパイラーの削除、Kotlin/JS Gradleプラグインの非推奨化、ES2015の試験的サポートなど、Kotlin/JSの更新が導入されます。
+このリリースでは、Kotlin/JSの更新が含まれており、古いKotlin/JSコンパイラの削除、Kotlin/JS Gradleプラグインの非推奨化、ES2015の実験的サポートなどがあります。
 
-*   [古いKotlin/JSコンパイラーの削除](#removal-of-the-old-kotlin-js-compiler)
+*   [古いKotlin/JSコンパイラの削除](#removal-of-the-old-kotlin-js-compiler)
 *   [Kotlin/JS Gradleプラグインの非推奨化](#deprecation-of-the-kotlin-js-gradle-plugin)
 *   [外部enumの非推奨化](#deprecation-of-external-enum)
-*   [ES2015クラスとモジュールの試験的サポート](#experimental-support-for-es2015-classes-and-modules)
-*   [JSプロダクションディストリビューションのデフォルト出力先の変更](#changed-default-destination-of-js-production-distribution)
-*   [`stdlib-js`から`org.w3c`宣言を抽出](#extract-org-w3c-declarations-from-stdlib-js)
+*   [ES2015クラスとモジュールの実験的サポート](#experimental-support-for-es2015-classes-and-modules)
+*   [JSプロダクション配布のデフォルトの保存先変更](#changed-default-destination-of-js-production-distribution)
+*   [`org.w3c`宣言の`stdlib-js`からの抽出](#extract-org-w3c-declarations-from-stdlib-js)
 
 > バージョン1.9.0以降、[部分的なライブラリリンケージ](#library-linkage-in-kotlin-native)もKotlin/JSで有効になります。
 >
 {style="note"}
 
-### 古いKotlin/JSコンパイラーの削除
+### 古いKotlin/JSコンパイラの削除
 
-Kotlin 1.8.0で、IRベースのバックエンドが[安定版](components-stability.md)になったことを[発表しました](whatsnew18.md#stable-js-ir-compiler-backend)。
-それ以降、コンパイラーを指定しないことがエラーになり、古いコンパイラーを使用すると警告が発生します。
+Kotlin 1.8.0では、IRベースのバックエンドが[安定版](components-stability.md)になったことを[発表しました](whatsnew18.md#stable-js-ir-compiler-backend)。
+それ以来、コンパイラを指定しないことがエラーとなり、古いコンパイラを使用すると警告が表示されるようになりました。
 
-Kotlin 1.9.0では、古いバックエンドを使用するとエラーになります。[移行ガイド](js-ir-migration.md)に従ってIRコンパイラーに移行してください。
+Kotlin 1.9.0では、古いバックエンドを使用するとエラーになります。[マイグレーションガイド](js-ir-migration.md)に従ってIRコンパイラに移行してください。
 
 ### Kotlin/JS Gradleプラグインの非推奨化
 
 Kotlin 1.9.0以降、`kotlin-js` Gradleプラグインは非推奨になりました。
-代わりに、`js()`ターゲットを持つ`kotlin-multiplatform` Gradleプラグインを使用することをお勧めします。
+代わりに`js()`ターゲットを持つ`kotlin-multiplatform` Gradleプラグインを使用することを推奨します。
 
-Kotlin/JS Gradleプラグインの機能は基本的に`kotlin-multiplatform`プラグインと重複しており、内部的には同じ実装を共有していました。この重複は混乱を招き、Kotlinチームのメンテナンス負荷の増加をもたらしました。
+Kotlin/JS Gradleプラグインの機能は、実質的に`kotlin-multiplatform`プラグインと重複しており、内部で同じ実装を共有していました。この重複は混乱を生み出し、Kotlinチームのメンテナンス負荷を増加させていました。
 
-移行手順については、[Kotlin Multiplatformの互換性ガイド](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-compatibility-guide.html#migration-from-kotlin-js-gradle-plugin-to-kotlin-multiplatform-gradle-plugin)を参照してください。ガイドでカバーされていない問題を発見した場合は、[課題トラッカー](http://kotl.in/issue)に報告してください。
+マイグレーション手順については、[Kotlin Multiplatformの互換性ガイド](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-compatibility-guide.html#migration-from-kotlin-js-gradle-plugin-to-kotlin-multiplatform-gradle-plugin)を参照してください。ガイドに記載されていない問題が見つかった場合は、[課題トラッカー](http://kotl.in/issue)に報告してください。
 
 ### 外部enumの非推奨化
 
-Kotlin 1.9.0では、Kotlinの外に存在できない`entries`のような静的enumメンバーに関する問題があるため、外部enumの使用が非推奨になります。代わりに、オブジェクトサブクラスを持つ外部シールドクラスを使用することをお勧めします。
+Kotlin 1.9.0では、`entries`のような静的なenumメンバーがKotlinの外部に存在できないという問題のため、外部enumの使用は非推奨になります。代わりに、オブジェクトサブクラスを持つ外部シールドクラスの使用を推奨します。
 
 ```kotlin
 // Before
@@ -560,17 +560,17 @@ external sealed class ExternalEnum {
 ```
 {validate="false"}
 
-オブジェクトサブクラスを持つ外部シールドクラスに切り替えることで、外部enumと同様の機能を実現しつつ、デフォルトメソッドに関連する問題を回避できます。
+外部enumからオブジェクトサブクラスを持つ外部シールドクラスに切り替えることで、外部enumと同様の機能を実現しつつ、デフォルトのメソッドに関連する問題を回避できます。
 
-Kotlin 1.9.0以降、外部enumの使用は非推奨としてマークされます。互換性と将来のメンテナンスのために、推奨される外部シールドクラスの実装を利用するようにコードを更新することをお勧めします。
+Kotlin 1.9.0以降、外部enumの使用は非推奨としてマークされます。互換性と将来のメンテナンスのために、提案された外部シールドクラスの実装を利用するようにコードを更新することを推奨します。
 
-### ES2015クラスとモジュールの試験的サポート
+### ES2015クラスとモジュールの実験的サポート
 
-このリリースでは、ES2015モジュールとES2015クラス生成の[試験的](components-stability.md#stability-levels-explained)サポートが導入されます。
+このリリースでは、ES2015モジュールとES2015クラスの生成に対する[実験的](components-stability.md#stability-levels-explained)サポートが導入されました。
 *   モジュールは、コードベースを簡素化し、保守性を向上させる方法を提供します。
-*   クラスを使用すると、オブジェクト指向プログラミング（OOP）の原則を組み込むことができ、よりクリーンで直感的なコードになります。
+*   クラスを使用すると、オブジェクト指向プログラミング (OOP) の原則を取り入れることができ、よりクリーンで直感的なコードになります。
 
-これらの機能を有効にするには、`build.gradle.kts`ファイルを適切に更新してください。
+これらの機能を有効にするには、`build.gradle.kts`ファイルを次のように更新します。
 
 ```kotlin
 // build.gradle.kts
@@ -590,52 +590,51 @@ tasks.withType<KotlinJsCompile>().configureEach {
 ```
 {validate="false"}
 
-[ES2015（ECMAScript 2015、ES6）について公式ドキュメントで詳細を確認してください](https://262.ecma-international.org/6.0/)。
+[ES2015 (ECMAScript 2015, ES6) の詳細については、公式ドキュメントを参照してください](https://262.ecma-international.org/6.0/)。
 
-### JSプロダクションディストリビューションのデフォルト出力先の変更
+### JSプロダクション配布のデフォルトの保存先変更
 
-Kotlin 1.9.0より前は、ディストリビューションのターゲットディレクトリは`build/distributions`でした。しかし、これはGradleアーカイブの一般的なディレクトリです。この問題を解決するため、Kotlin 1.9.0ではデフォルトのディストリビューションターゲットディレクトリを`build/dist/<targetName>/<binaryName>`に変更しました。
+Kotlin 1.9.0以前は、配布ターゲットディレクトリは`build/distributions`でした。しかし、これはGradleアーカイブの一般的なディレクトリでした。この問題を解決するため、Kotlin 1.9.0ではデフォルトの配布ターゲットディレクトリを`build/dist/<targetName>/<binaryName>`に変更しました。
 
 例えば、`productionExecutable`は`build/distributions`にありました。Kotlin 1.9.0では、`build/dist/js/productionExecutable`にあります。
 
-> これらのビルドの結果を使用するパイプラインがある場合は、ディレクトリを更新してください。
+> これらのビルド結果を使用するパイプラインがある場合は、ディレクトリを更新するようにしてください。
 >
 {style="warning"}
 
-### `stdlib-js`から`org.w3c`宣言を抽出
+### `org.w3c`宣言の`stdlib-js`からの抽出
 
-Kotlin 1.9.0以降、`stdlib-js`は`org.w3c`宣言を含まなくなりました。代わりに、これらの宣言は別のGradle依存関係に移動されました。`build.gradle.kts`ファイルにKotlin Multiplatform Gradleプラグインを追加すると、これらの宣言は、標準ライブラリと同様にプロジェクトに自動的に含まれます。
+Kotlin 1.9.0以降、`stdlib-js`には`org.w3c`宣言が含まれなくなりました。代わりに、これらの宣言は別のGradle依存関係に移動されました。Kotlin Multiplatform Gradleプラグインを`build.gradle.kts`ファイルに追加すると、これらの宣言は標準ライブラリと同様にプロジェクトに自動的に含まれます。
 
-手動での操作や移行は不要です。必要な調整は自動的に処理されます。
+手動での操作やマイグレーションは必要ありません。必要な調整は自動的に処理されます。
 
 ## Gradle
 
-Kotlin 1.9.0には、新しいGradleコンパイラーオプションとその他多くの機能が含まれています。
+Kotlin 1.9.0には、新しいGradleコンパイラオプションなど、多くの機能が追加されています。
 
 *   [`classpath`プロパティの削除](#removed-classpath-property)
-*   [新しいGradleコンパイラーオプション](#new-compiler-options)
-*   [Kotlin/JVMのプロジェクトレベルコンパイラーオプション](#project-level-compiler-options-for-kotlin-jvm)
-*   [Kotlin/Nativeモジュール名のコンパイラーオプション](#compiler-option-for-kotlin-native-module-name)
-*   [公式Kotlinライブラリ用の個別のコンパイラープラグイン](#separate-compiler-plugins-for-official-kotlin-libraries)
-*   [最小サポートバージョンの引き上げ](#incremented-minimum-supported-version)
-*   [kaptはGradleでEager Task Creationを引き起こしません](#kapt-doesn-t-cause-eager-task-creation-in-gradle)
-*   [JVMターゲット検証モードのプログラムによる構成](#programmatic-configuration-of-the-jvm-target-validation-mode)
+*   [新しいGradleコンパイラオプション](#new-compiler-options)
+*   [Kotlin/JVM向けのプロジェクトレベルコンパイラオプション](#project-level-compiler-options-for-kotlin-jvm)
+*   [Kotlin/Nativeモジュール名のコンパイラオプション](#compiler-option-for-kotlin-native-module-name)
+*   [公式Kotlinライブラリのコンパイラプラグインの分離](#separate-compiler-plugins-for-official-kotlin-libraries)
+*   [サポートされる最低バージョンの引き上げ](#incremented-minimum-supported-version)
+*   [kaptがGradleでの先行タスク作成を引き起こさないように](#kapt-doesn-t-cause-eager-task-creation-in-gradle)
+*   [JVMターゲット検証モードのプログラムによる設定](#programmatic-configuration-of-the-jvm-target-validation-mode)
 
 ### `classpath`プロパティの削除
 
-Kotlin 1.7.0で、`KotlinCompile`タスクのプロパティである`classpath`の非推奨化サイクルを開始したことを発表しました。Kotlin 1.8.0では非推奨レベルが`ERROR`に引き上げられました。このリリースで、ついに`classpath`プロパティを削除しました。
-すべてのコンパイルタスクは現在、コンパイルに必要なライブラリのリストのために`libraries`入力を使用する必要があります。
+Kotlin 1.7.0で、`KotlinCompile`タスクのプロパティである`classpath`の非推奨化サイクルを開始することを発表しました。Kotlin 1.8.0では非推奨レベルが`ERROR`に引き上げられました。このリリースでは、ついに`classpath`プロパティを削除しました。すべてのコンパイルタスクは、コンパイルに必要なライブラリのリストに対して`libraries`入力を使用するべきです。
 
-### 新しいコンパイラーオプション
+### 新しいコンパイラオプション
 
-Kotlin Gradleプラグインは現在、オプトインとコンパイラーのプログレッシブモードのための新しいプロパティを提供します。
+Kotlin Gradleプラグインは、オプトインとコンパイラのプログレッシブモードのための新しいプロパティを提供します。
 
-*   新しいAPIをオプトインするには、`optIn`プロパティを使用し、`optIn.set(listOf(a, b, c))`のような文字列リストを渡すことができます。
+*   新しいAPIにオプトインするには、`optIn`プロパティを使用し、`optIn.set(listOf(a, b, c))`のように文字列のリストを渡すことができます。
 *   プログレッシブモードを有効にするには、`progressiveMode.set(true)`を使用します。
 
-### Kotlin/JVMのプロジェクトレベルコンパイラーオプション
+### Kotlin/JVM向けのプロジェクトレベルコンパイラオプション
 
-Kotlin 1.9.0以降、`kotlin`構成ブロック内に新しい`compilerOptions`ブロックが利用可能になりました。
+Kotlin 1.9.0以降、新しい`compilerOptions`ブロックが`kotlin`構成ブロック内で利用可能になりました。
 
 ```kotlin
 kotlin {
@@ -646,10 +645,10 @@ kotlin {
 ```
 {validate="false"}
 
-これにより、コンパイラーオプションの構成がはるかに簡単になります。しかし、いくつかの重要な詳細に注意することが重要です。
+これにより、コンパイラオプションの設定がはるかに簡単になります。ただし、いくつかの重要な詳細に注意することが重要です。
 
 *   この構成はプロジェクトレベルでのみ機能します。
-*   Androidプラグインの場合、このブロックは次のオブジェクトと同じものを構成します。
+*   Androidプラグインの場合、このブロックは以下と同じオブジェクトを構成します。
 
 ```kotlin
 android {
@@ -658,17 +657,17 @@ android {
 ```
 {validate="false"}
 
-*   `android.kotlinOptions`と`kotlin.compilerOptions`構成ブロックは互いにオーバーライドします。ビルドファイル内の最後の（最も低い）ブロックが常に有効になります。
-*   `moduleName`がプロジェクトレベルで構成されている場合、コンパイラーに渡されるときにその値が変更される可能性があります。これは`main`コンパイルの場合はそうではありませんが、他のタイプ、例えばテストソースの場合、Kotlin Gradleプラグインは`_test`サフィックスを追加します。
-*   `tasks.withType<KotlinJvmCompile>().configureEach {}`（または`tasks.named<KotlinJvmCompile>("compileKotlin") { }`）内の構成は、`kotlin.compilerOptions`と`android.kotlinOptions`の両方をオーバーライドします。
+*   `android.kotlinOptions`と`kotlin.compilerOptions`構成ブロックは互いに上書きし合います。ビルドファイル内で最後（最も低い）のブロックが常に有効になります。
+*   `moduleName`がプロジェクトレベルで構成されている場合、その値はコンパイラに渡される際に変更される可能性があります。これは`main`コンパイルには当てはまりませんが、他のタイプ、例えばテストソースの場合、Kotlin Gradleプラグインは`_test`サフィックスを追加します。
+*   `tasks.withType<KotlinJvmCompile>().configureEach {}`（または`tasks.named<KotlinJvmCompile>("compileKotlin") { }`）内の構成は、`kotlin.compilerOptions`と`android.kotlinOptions`の両方を上書きします。
 
-### Kotlin/Nativeモジュール名のコンパイラーオプション
+### Kotlin/Nativeモジュール名のコンパイラオプション
 
-Kotlin/Nativeの[`module-name`](compiler-reference.md#module-name-name-native)コンパイラーオプションは、Kotlin Gradleプラグインで簡単に利用できるようになりました。
+Kotlin/Nativeの[`module-name`](compiler-reference.md#module-name-name-native)コンパイラオプションが、Kotlin Gradleプラグインで簡単に利用できるようになりました。
 
 このオプションは、コンパイルモジュールの名前を指定し、Objective-Cにエクスポートされる宣言の名前プレフィックスを追加するためにも使用できます。
 
-`compilerOptions`ブロックでモジュール名を直接設定できるようになりました。
+Gradleビルドファイルの`compilerOptions`ブロックで直接モジュール名を設定できるようになりました。
 
 <tabs group="build-script">
 <tab title="Kotlin" group-key="kotlin">
@@ -695,13 +694,13 @@ tasks.named("compileKotlinLinuxX64", org.jetbrains.kotlin.gradle.tasks.KotlinNat
 </tab>
 </tabs>
 
-### 公式Kotlinライブラリ用の個別のコンパイラープラグイン
+### 公式Kotlinライブラリのコンパイラプラグインの分離
 
-Kotlin 1.9.0は、公式ライブラリ用の個別のコンパイラープラグインを導入します。以前は、コンパイラープラグインは対応するGradleプラグインに埋め込まれていました。これは、コンパイラープラグインがGradleビルドのKotlinランタイムバージョンよりも高いKotlinバージョンに対してコンパイルされた場合に互換性の問題を引き起こす可能性がありました。
+Kotlin 1.9.0では、公式ライブラリ用に個別のコンパイラプラグインが導入されました。以前は、コンパイラプラグインは対応するGradleプラグインに組み込まれていました。これにより、コンパイラプラグインがGradleビルドのKotlinランタイムバージョンよりも高いKotlinバージョンに対してコンパイルされた場合、互換性の問題が発生する可能性がありました。
 
-現在、コンパイラープラグインは個別の依存関係として追加されるため、古いGradleバージョンとの互換性の問題に直面することはなくなります。新しいアプローチのもう1つの大きな利点は、新しいコンパイラープラグインが[Bazel](https://bazel.build/)のような他のビルドシステムで使用できることです。
+現在、コンパイラプラグインは個別の依存関係として追加されるため、古いGradleバージョンとの互換性の問題に直面することはなくなりました。新しいアプローチのもう一つの大きな利点は、新しいコンパイラプラグインを[Bazel](https://bazel.build/)などの他のビルドシステムでも使用できることです。
 
-Maven Centralに現在公開している新しいコンパイラープラグインのリストです。
+以下は、Maven Centralに公開されている新しいコンパイラプラグインのリストです。
 
 *   kotlin-atomicfu-compiler-plugin
 *   kotlin-allopen-compiler-plugin
@@ -710,22 +709,22 @@ Maven Centralに現在公開している新しいコンパイラープラグイ�
 *   kotlin-sam-with-receiver-compiler-plugin
 *   kotlinx-serialization-compiler-plugin
 
-すべてのプラグインには、対応する`-embeddable`があります。例えば、`kotlin-allopen-compiler-plugin-embeddable`は`kotlin-compiler-embeddable`アーティファクトと連携するように設計されており、スクリプトアーティファクトのデフォルトオプションです。
+すべてのプラグインには`-embeddable`版があります。例えば、`kotlin-allopen-compiler-plugin-embeddable`はスクリプトアーティファクトのデフォルトオプションである`kotlin-compiler-embeddable`アーティファクトで動作するように設計されています。
 
-Gradleはこれらのプラグインをコンパイラー引数として追加します。既存のプロジェクトに変更を加える必要はありません。
+Gradleはこれらのプラグインをコンパイラ引数として追加します。既存のプロジェクトに変更を加える必要はありません。
 
-### 最小サポートバージョンの引き上げ
+### サポートされる最低バージョンの引き上げ
 
-Kotlin 1.9.0以降、最小サポートAndroid Gradleプラグインバージョンは4.2.2です。
+Kotlin 1.9.0以降、サポートされるAndroid Gradleプラグインの最低バージョンは4.2.2です。
 
-[Kotlin Gradleプラグインと利用可能なGradleバージョンの互換性については、ドキュメント](gradle-configure-project.md#apply-the-plugin)を参照してください。
+[Kotlin Gradleプラグインと利用可能なGradleバージョンの互換性については、ドキュメントを参照してください](gradle-configure-project.md#apply-the-plugin)。
 
-### kaptはGradleでEager Task Creationを引き起こしません
+### kaptがGradleでの先行タスク作成を引き起こさないように
 
-1.9.0より前は、[kaptコンパイラープラグイン](kapt.md)は、Kotlinコンパイルタスクの構成済みインスタンスを要求することで、Eager Task Creationを引き起こしていました。この動作はKotlin 1.9.0で修正されました。`build.gradle.kts`ファイルのデフォルト構成を使用している場合、この変更による影響は受けません。
+1.9.0以前は、[kaptコンパイラプラグイン](kapt.md)が、構成されたKotlinコンパイルタスクのインスタンスを要求することで、タスクの先行作成を引き起こしていました。この動作はKotlin 1.9.0で修正されました。`build.gradle.kts`ファイルのデフォルト設定を使用している場合、この変更による影響はありません。
 
-> カスタム構成を使用している場合、設定は悪影響を受けます。
-> 例えば、Gradleのtasks APIを使用して`KotlinJvmCompile`タスクを変更した場合は、同様にビルドスクリプトの`KaptGenerateStubs`タスクも変更する必要があります。
+> カスタム構成を使用している場合、セットアップが悪影響を受ける可能性があります。
+> 例えば、GradleのタスクAPIを使用して`KotlinJvmCompile`タスクを変更している場合、ビルドスクリプトで同様に`KaptGenerateStubs`タスクも変更する必要があります。
 >
 > 例えば、スクリプトに`KotlinJvmCompile`タスクの以下の構成がある場合：
 > ```kotlin
@@ -733,7 +732,7 @@ Kotlin 1.9.0以降、最小サポートAndroid Gradleプラグインバージョ
 > ```
 > {validate="false"}
 >
-> この場合、同じ変更が`KaptGenerateStubs`タスクの一部として含まれていることを確認する必要があります。
+> この場合、同じ変更が`KaptGenerateStubs`タスクの一部として含まれていることを確認する必要があります：
 > ```kotlin
 > tasks.named<KaptGenerateStubs>("kaptGenerateStubs") { // Your custom configuration }
 > ```
@@ -743,11 +742,11 @@ Kotlin 1.9.0以降、最小サポートAndroid Gradleプラグインバージョ
 
 詳細については、[YouTrackチケット](https://youtrack.jetbrains.com/issue/KT-54468/KAPT-Gradle-plugin-causes-eager-task-creation)を参照してください。
 
-### JVMターゲット検証モードのプログラムによる構成
+### JVMターゲット検証モードのプログラムによる設定
 
-Kotlin 1.9.0より前は、KotlinとJava間のJVMターゲットの非互換性の検出を調整する方法は1つしかありませんでした。プロジェクト全体で`gradle.properties`に`kotlin.jvm.target.validation.mode=ERROR`を設定する必要がありました。
+Kotlin 1.9.0以前は、KotlinとJava間のJVMターゲットの非互換性の検出を調整する方法は1つしかありませんでした。プロジェクト全体に対して`gradle.properties`ファイルで`kotlin.jvm.target.validation.mode=ERROR`を設定する必要がありました。
 
-`build.gradle.kts`ファイルでタスクレベルでも設定できるようになりました。
+`build.gradle.kts`ファイルでタスクレベルで設定することもできるようになりました。
 
 ```kotlin
 tasks.named<org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile>("compileKotlin") {
@@ -758,18 +757,18 @@ tasks.named<org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile>("compileKotlin")
 
 ## 標準ライブラリ
 
-Kotlin 1.9.0には、標準ライブラリにいくつかの大きな改善があります。
-*   [`..<`演算子](#stable-operator-for-open-ended-ranges)と[時間API](#stable-time-api)は安定版です。
-*   [Kotlin/Native標準ライブラリは徹底的にレビューされ、更新されました](#the-kotlin-native-standard-library-s-journey-towards-stabilization)。
-*   [`@Volatile`アノテーションはより多くのプラットフォームで使用できます](#stable-volatile-annotation)。
-*   [名前で正規表現のキャプチャグループを取得する**共通**関数があります](#new-common-function-to-get-regex-capture-group-by-name)。
-*   [16進数をフォーマットおよびパースするために`HexFormat`クラスが導入されました](#new-hexformat-class-to-format-and-parse-hexadecimals)。
+Kotlin 1.9.0では、標準ライブラリにいくつかの大きな改善があります。
+*   [`..<`演算子](#stable-operator-for-open-ended-ranges)と[Time API](#stable-time-api)が安定版になりました。
+*   [Kotlin/Native標準ライブラリが徹底的に見直され、更新されました](#the-kotlin-native-standard-library-s-journey-towards-stabilization)。
+*   [`@Volatile`アノテーションがより多くのプラットフォームで使用できるようになりました](#stable-volatile-annotation)。
+*   [正規表現キャプチャグループを名前で取得する**共通**関数があります](#new-common-function-to-get-regex-capture-group-by-name)。
+*   [16進数をフォーマットおよびパースするための新しい`HexFormat`クラスが導入されました](#new-hexformat-class-to-format-and-parse-hexadecimals)。
 
-### 開区間範囲のための安定した`..<`演算子
+### オープンエンドレンジの安定版`..<`演算子
 
-[Kotlin 1.7.20](whatsnew1720.md#preview-of-the-operator-for-creating-open-ended-ranges)で導入され、1.8.0で安定版になった開区間範囲のための新しい`..<`演算子。1.9.0では、開区間範囲を扱うための標準ライブラリAPIも安定版です。
+[Kotlin 1.7.20](whatsnew1720.md#preview-of-the-operator-for-creating-open-ended-ranges)で導入され、1.8.0で安定版になったオープンエンドレンジの新しい`..<`演算子が、1.9.0ではオープンエンドレンジを扱う標準ライブラリAPIも安定版になりました。
 
-私たちの調査によると、新しい`..<`演算子を使用すると、開区間範囲が宣言されたときに理解しやすくなります。[`until`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.ranges/until.html)infix関数を使用すると、上限が含まれると誤解しやすいです。
+私たちの調査によると、新しい`..<`演算子は、オープンエンドレンジが宣言されたときに理解しやすくします。`until`infix関数を使用すると、上限が含まれると誤解しやすいです。
 
 `until`関数を使用した例を以下に示します。
 
@@ -785,7 +784,7 @@ fun main() {
 ```
 {validate="false"}
 
-新しい`..<`演算子を使用した例を以下に示します。
+そして、新しい`..<`演算子を使用した例を以下に示します。
 
 ```kotlin
 fun main() {
@@ -799,32 +798,32 @@ fun main() {
 ```
 {validate="false"}
 
-> IntelliJ IDEAバージョン2023.1.1以降、`..<`演算子を使用できる箇所をハイライトする新しいコード検査が利用可能です。
+> IntelliJ IDEA 2023.1.1以降のバージョンでは、`..<`演算子を使用できる箇所を強調表示する新しいコードインスペクションが利用できます。
 >
 {style="note"}
 
 この演算子で何ができるかの詳細については、「[Kotlin 1.7.20の新機能](whatsnew1720.md#preview-of-the-operator-for-creating-open-ended-ranges)」を参照してください。
 
-### 安定した時間API
+### 安定版Time API
 
-1.3.50以降、新しい時間計測APIのプレビューを提供してきました。APIの期間部分は1.6.0で安定版になりました。1.9.0では、残りの時間計測APIは安定版です。
+1.3.50以降、新しい時間計測APIをプレビューしてきました。APIの期間部分は1.6.0で安定版になりました。1.9.0では、残りの時間計測APIが安定版になりました。
 
-古い時間APIは`measureTimeMillis`と`measureNanoTime`関数を提供しましたが、これらは直感的に使用できません。両者が異なる単位で時間を測定することは明らかですが、`measureTimeMillis`が[壁時計](https://en.wikipedia.org/wiki/Elapsed_real_time)を使用して時間を測定するのに対し、`measureNanoTime`がモノトニックな時間源を使用することは明らかではありません。新しい時間APIはこれとその他の問題を解決し、APIをよりユーザーフレンドリーにします。
+古い時間APIは、`measureTimeMillis`と`measureNanoTime`関数を提供していましたが、これらは直感的ではありませんでした。これら2つの関数が異なる単位で時間を計測することは明らかですが、`measureTimeMillis`が時間を計測するために[ウォールクロック](https://ja.wikipedia.org/wiki/%E5%AE%9F%E6%99%82%E9%96%93_(%E3%82%B3%E3%83%B3%E3%83%94%E3%83%A5%E3%83%BC%E3%82%BF))を使用し、`measureNanoTime`がモノトニックな時間ソースを使用することは明らかではありませんでした。新しい時間APIはこれを解決し、APIをよりユーザーフレンドリーにするための他の問題も解決します。
 
-新しい時間APIを使用すると、簡単に以下を行うことができます。
-*   モノトニックな時間源を使用して、希望する時間単位でコードの実行にかかる時間を測定する。
-*   時刻を記録する。
-*   2つの時点を比較し、その差を求める。
-*   特定の時点からどれくらいの時間が経過したかを確認する。
-*   現在の時間が特定の時点を過ぎたかどうかを確認する。
+新しい時間APIを使用すると、簡単に以下のことができます。
+*   モノトニックな時間ソースと希望の時間単位を使用して、コードの実行にかかる時間を測定します。
+*   特定の時点をマークします。
+*   2つの時点を比較し、その差を求めます。
+*   特定の時点からどれくらいの時間が経過したかを確認します。
+*   現在の時間が特定の時点を過ぎたかどうかを確認します。
 
-#### コードの実行時間を測定
+#### コード実行時間の計測
 
-コードブロックの実行にかかる時間を測定するには、[`measureTime`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.time/measure-time.html)インライン関数を使用します。
+コードブロックの実行にかかる時間を計測するには、[`measureTime`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.time/measure-time.html)インライン関数を使用します。
 
-コードブロックの実行にかかる時間を測定し、**かつ**そのコードブロックの結果を返すには、[`measureTimedValue`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.time/measure-timed-value.html)インライン関数を使用します。
+コードブロックの実行にかかる時間を計測し、**かつ**そのコードブロックの結果を返すには、[`measureTimedValue`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.time/measure-timed-value.html)インライン関数を使用します。
 
-デフォルトでは、両方の関数はモノトニックな時間源を使用します。しかし、経過実時間源を使用したい場合は可能です。例えば、Androidではデフォルトの時間源である`System.nanoTime()`は、デバイスがアクティブな間のみ時間をカウントします。デバイスがディープスリープに入ると、時間の追跡を失います。デバイスがディープスリープ中も時間を追跡するには、代わりに[`SystemClock.elapsedRealtimeNanos()`](https://developer.android.com/reference/android/os/SystemClock#elapsedRealtimeNanos())を使用する時間源を作成できます。
+デフォルトでは、両方の関数はモノトニックな時間ソースを使用します。ただし、経過実時間ソースを使用したい場合は可能です。例えば、Androidではデフォルトの時間ソース`System.nanoTime()`はデバイスがアクティブなときにのみ時間をカウントします。デバイスがディープスリープ状態に入ると、時間の追跡が失われます。デバイスがディープスリープ状態のときにも時間を追跡し続けるには、代わりに[`SystemClock.elapsedRealtimeNanos()`](https://developer.android.com/reference/android/os/SystemClock#elapsedRealtimeNanos())を使用する時間ソースを作成できます。
 
 ```kotlin
 object RealtimeMonotonicTimeSource : AbstractLongTimeSource(DurationUnit.NANOSECONDS) {
@@ -833,9 +832,9 @@ object RealtimeMonotonicTimeSource : AbstractLongTimeSource(DurationUnit.NANOSEC
 ```
 {validate="false"}
 
-#### 時刻をマークし、その差を測定
+#### 時点のマークと時間の差の計測
 
-特定の時刻をマークするには、[`TimeSource`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.time/-time-source/)インターフェースと[`markNow()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.time/-time-source/mark-now.html)関数を使用して[`TimeMark`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.time/-time-mark/)を作成します。同じ時間源からの`TimeMark`間の差を測定するには、減算演算子（`-`）を使用します。
+特定の時点をマークするには、[`TimeSource`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.time/-time-source/)インターフェースと[`markNow()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.time/-time-source/mark-now.html)関数を使用して[`TimeMark`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.time/-time-mark/)を作成します。同じ時間ソースからの`TimeMark`間の差を測定するには、減算演算子 (`-`) を使用します。
 
 ```kotlin
 import kotlin.time.*
@@ -885,67 +884,67 @@ fun main() {
 
 ### Kotlin/Native標準ライブラリの安定化への道
 
-Kotlin/Nativeの標準ライブラリが成長を続けるにつれて、その高い基準を満たすことを保証するために、完全なレビューを行う時期が来たと判断しました。これの一環として、既存の**すべての**公開シグネチャを慎重にレビューしました。各シグネチャについて、それが以下であるかどうかを検討しました。
+Kotlin/Nativeの標準ライブラリが成長を続ける中、私たちは高い基準を満たしていることを確認するために完全なレビューを行う時期が来たと判断しました。この一環として、既存の**すべての**パブリックシグネチャを慎重にレビューしました。各シグネチャについて、以下の点を検討しました。
 
-*   独自の目的を持っているか。
-*   他のKotlin APIと一貫性があるか。
-*   JVMの対応するものと同様の動作をするか。
+*   独自の使用目的があるか。
+*   他のKotlin APIと一貫しているか。
+*   JVMの対応する機能と似た動作をするか。
 *   将来性があるか。
 
-これらの考慮事項に基づいて、以下のいずれかの決定を下しました。
-*   安定版にした。
-*   試験的機能にした。
-*   `private`とマークした。
-*   その動作を変更した。
-*   別の場所に移動した。
-*   非推奨にした。
-*   廃止とマークした。
+これらの考慮事項に基づき、以下のいずれかの決定を下しました。
+*   安定版とする。
+*   実験的機能とする。
+*   `private`とマークする。
+*   動作を変更する。
+*   別の場所に移動する。
+*   非推奨とする。
+*   廃止とマークする。
 
 > 既存のシグネチャが以下の場合：
-> *   別のパッケージに移動された場合、シグネチャは元のパッケージに引き続き存在しますが、非推奨レベル`WARNING`で非推奨になりました。IntelliJ IDEAはコード検査時に自動的に代替を提案します。
-> *   非推奨になった場合、非推奨レベル`WARNING`で非推奨になりました。
-> *   廃止とマークされた場合、引き続き使用できますが、将来的に置き換えられます。
+> *   別のパッケージに移動された場合、元のパッケージには引き続き存在しますが、非推奨レベル`WARNING`で非推奨となりました。IntelliJ IDEAはコードインスペクション時に自動的に代替を提案します。
+> *   非推奨とされた場合、非推奨レベル`WARNING`で非推奨とされました。
+> *   廃止とマークされた場合、引き続き使用できますが、将来的には置き換えられます。
 >
 {style="note"}
 
-レビューのすべての結果をここにリストするわけではありませんが、主なハイライトをいくつか紹介します。
-*   Atomics APIを安定化しました。
-*   [`kotlinx.cinterop`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlinx.cinterop/)を試験的機能とし、パッケージを使用するために異なるオプトインを要求するようになりました。詳細については、「[明示的なC相互運用性の安定性保証](#explicit-c-interoperability-stability-guarantees)」を参照してください。
+ここではレビューのすべての結果をリストアップしませんが、主なハイライトは以下のとおりです。
+*   Atomics APIを安定版としました。
+*   [`kotlinx.cinterop`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlinx.cinterop/)を実験的とし、使用するには異なるオプトインが必要になりました。詳細については、[C-interoperabilityの明示的な安定性保証](#explicit-c-interoperability-stability-guarantees)を参照してください。
 *   [`Worker`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.native.concurrent/-worker/)クラスとその関連APIを廃止とマークしました。
 *   [`BitSet`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.native/-bit-set/)クラスを廃止とマークしました。
 *   `kotlin.native.internal`パッケージのすべての`public` APIを`private`とマークするか、他のパッケージに移動しました。
 
-#### 明示的なC相互運用性の安定性保証
+#### C-interoperabilityの明示的な安定性保証
 
-APIの高品質を維持するため、[`kotlinx.cinterop`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlinx.cinterop/)を試験的機能とすることにしました。`kotlinx.cinterop`は徹底的に試されテストされてきましたが、安定版とするにはまだ改善の余地があります。このAPIを相互運用性のために使用することをお勧めしますが、プロジェクトの特定の領域にその使用を限定するようにしてください。これにより、このAPIを安定版にするために進化させ始めた際に、移行が容易になります。
+APIの高品質を維持するため、[`kotlinx.cinterop`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlinx.cinterop/)を実験的とすることにしました。`kotlinx.cinterop`は徹底的に試されテストされていますが、安定版とするにはまだ改善の余地があります。このAPIを相互運用性のために使用することをお勧めしますが、プロジェクト内の特定の領域にその使用を限定するようにしてください。これにより、このAPIを安定版にするために進化させ始めたときに、移行が容易になります。
 
-ポインタなどのCのような外部APIを使用したい場合は、`@OptIn(ExperimentalForeignApi)`でオプトインする必要があります。そうしないと、コードはコンパイルされません。
+ポインタなどのC風の外部APIを使用したい場合は、`@OptIn(ExperimentalForeignApi)`でオプトインする必要があります。そうしないと、コードはコンパイルされません。
 
-Objective-C/Swift相互運用性をカバーする`kotlinx.cinterop`の残りの部分を使用するには、`@OptIn(BetaInteropApi)`でオプトインする必要があります。オプトインなしでこのAPIを使用しようとすると、コードはコンパイルされますが、コンパイラーが予期される動作を明確に説明する警告を発生させます。
+Objective-C/Swift相互運用性をカバーする残りの`kotlinx.cinterop`を使用するには、`@OptIn(BetaInteropApi)`でオプトインする必要があります。このAPIをオプトインなしで使用しようとすると、コードはコンパイルされますが、コンパイラは期待できる動作を明確に説明する警告を発します。
 
 これらのアノテーションの詳細については、[`Annotations.kt`](https://github.com/JetBrains/kotlin/blob/master/kotlin-native/Interop/Runtime/src/main/kotlin/kotlinx/cinterop/Annotations.kt)のソースコードを参照してください。
 
-このレビューの一環としての**すべて**の変更に関する詳細については、[YouTrackチケット](https://youtrack.jetbrains.com/issue/KT-55765)を参照してください。
+このレビューの一環としての**すべて**の変更の詳細については、[YouTrackチケット](https://youtrack.jetbrains.com/issue/KT-55765)を参照してください。
 
-フィードバックをお待ちしております！[チケット](https://youtrack.jetbrains.com/issue/KT-57728)にコメントすることで直接フィードバックを提供できます。
+皆様からのフィードバックをお待ちしております！[チケット](https://youtrack.jetbrains.com/issue/KT-57728)に直接コメントすることでフィードバックを提供できます。
 
-### 安定した`@Volatile`アノテーション
+### 安定版`@Volatile`アノテーション
 
-`var`プロパティに`@Volatile`をアノテーションすると、バッキングフィールドがマークされ、このフィールドへの読み取りまたは書き込みはアトミックになり、書き込みは常に他のスレッドに可視になります。
+`var`プロパティに`@Volatile`アノテーションを付けると、バッキングフィールドがマークされ、そのフィールドへの読み書きがアトミックになり、書き込みが常に他のスレッドに可視になります。
 
-1.8.20より前は、[`kotlin.jvm.Volatile`アノテーション](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.jvm/-volatile/)が共通の標準ライブラリで利用可能でした。しかし、このアノテーションはJVMでのみ有効でした。他のプラットフォームで使用すると無視され、エラーにつながりました。
+1.8.20以前は、[`kotlin.jvm.Volatile`アノテーション](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.jvm/-volatile/)が共通標準ライブラリで利用可能でした。しかし、このアノテーションはJVMでのみ有効でした。他のプラットフォームで使用すると無視され、エラーにつながっていました。
 
-1.8.20では、JVMとKotlin/Nativeの両方でプレビューできた試験的な共通アノテーション`kotlin.concurrent.Volatile`を導入しました。
+1.8.20では、実験的な共通アノテーション`kotlin.concurrent.Volatile`を導入し、JVMとKotlin/Nativeの両方でプレビューできるようになりました。
 
-1.9.0では、`kotlin.concurrent.Volatile`は安定版です。マルチプラットフォームプロジェクトで`kotlin.jvm.Volatile`を使用している場合は、`kotlin.concurrent.Volatile`への移行をお勧めします。
+1.9.0では、`kotlin.concurrent.Volatile`が安定版になりました。マルチプラットフォームプロジェクトで`kotlin.jvm.Volatile`を使用している場合は、`kotlin.concurrent.Volatile`への移行を推奨します。
 
-### 名前で正規表現のキャプチャグループを取得する新しい共通関数
+### 正規表現キャプチャグループを名前で取得する新しい共通関数
 
-1.9.0より前は、各プラットフォームには、正規表現マッチングから名前で正規表現のキャプチャグループを取得するための独自の拡張機能がありました。しかし、共通関数はありませんでした。標準ライブラリが依然としてJVMターゲット1.6および1.7をサポートしていたため、Kotlin 1.8.0より前は共通関数を持つことができませんでした。
+1.9.0以前は、正規表現マッチから名前で正規表現キャプチャグループを取得するための拡張機能が各プラットフォームに独自に存在していましたが、共通関数はありませんでした。Kotlin 1.8.0以前は、標準ライブラリがJVMターゲット1.6および1.7をまだサポートしていたため、共通関数を持つことはできませんでした。
 
-Kotlin 1.8.0以降、標準ライブラリはJVMターゲット1.8でコンパイルされます。そのため、1.9.0では、正規表現マッチングで名前によってグループの内容を取得するために使用できる**共通**[`groups`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/-match-result/groups.html)関数が利用できるようになりました。これは、特定のキャプチャグループに属する正規表現マッチングの結果にアクセスしたい場合に役立ちます。
+Kotlin 1.8.0以降、標準ライブラリはJVMターゲット1.8でコンパイルされます。そのため1.9.0では、正規表現マッチングにおけるグループの内容を名前で取得できる**共通**の[`groups`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/-match-result/groups.html)関数が利用可能になりました。これは、特定のキャプチャグループに属する正規表現マッチの結果にアクセスしたい場合に便利です。
 
-`city`、`state`、`areaCode`の3つのキャプチャグループを含む正規表現の例を以下に示します。これらのグループ名を使用して、マッチした値にアクセスできます。
+以下に、`city`、`state`、`areaCode`の3つのキャプチャグループを含む正規表現の例を示します。これらのグループ名を使用して、マッチした値にアクセスできます。
 
 ```kotlin
 fun main() {
@@ -965,7 +964,7 @@ fun main() {
 
 ### 親ディレクトリを作成する新しいパスユーティリティ
 
-1.9.0では、必要なすべての親ディレクトリを持つ新しいファイルを作成するために使用できる新しい`createParentDirectories()`拡張関数が追加されました。`createParentDirectories()`にファイルパスを提供すると、親ディレクトリが既に存在するかどうかを確認します。存在する場合は何もせず、存在しない場合は、それらを作成します。
+1.9.0には、必要なすべての親ディレクトリを持つ新しいファイルを作成するために使用できる新しい`createParentDirectories()`拡張関数があります。ファイルパスを`createParentDirectories()`に提供すると、親ディレクトリが既に存在するかどうかがチェックされます。存在する場合は何もせず、存在しない場合は作成します。
 
 `createParentDirectories()`は、ファイルをコピーする際に特に便利です。例えば、`copyToRecursively()`関数と組み合わせて使用できます。
 
@@ -977,15 +976,15 @@ sourcePath.copyToRecursively(
  ```
 {validate="false"}
 
-### 16進数をフォーマットおよびパースするための新しいHexFormatクラス
+### 16進数をフォーマットおよびパースするための新しい`HexFormat`クラス
 
-> 新しい`HexFormat`クラスとその関連拡張関数は[試験的](components-stability.md#stability-levels-explained)であり、使用するには`@OptIn(ExperimentalStdlibApi::class)`またはコンパイラー引数`-opt-in=kotlin.ExperimentalStdlibApi`でオプトインする必要があります。
+> 新しい`HexFormat`クラスとその関連する拡張関数は[実験的](components-stability.md#stability-levels-explained)であり、使用するには`@OptIn(ExperimentalStdlibApi::class)`またはコンパイラ引数`-opt-in=kotlin.ExperimentalStdlibApi`でオプトインする必要があります。
 >
 {style="warning"}
 
-1.9.0では、[`HexFormat`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/-hex-format/)クラスとその関連拡張関数が試験的機能として提供され、数値と16進文字列の間で変換できます。具体的には、拡張関数を使用して、16進文字列と`ByteArray`または他の数値型（`Int`、`Short`、`Long`）の間で変換できます。
+1.9.0では、[`HexFormat`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/-hex-format/)クラスとその関連する拡張関数が実験的機能として提供され、数値と16進数文字列間の変換を可能にします。具体的には、拡張関数を使用して16進数文字列と`ByteArray`または他の数値型（`Int`、`Short`、`Long`）の間で変換できます。
 
-例えば：
+例：
 
 ```kotlin
 println(93.toHexString()) // "0000005d"
@@ -994,30 +993,30 @@ println(93.toHexString()) // "0000005d"
 
 `HexFormat`クラスには、`HexFormat{}`ビルダーで構成できる書式設定オプションが含まれています。
 
-`ByteArray`を扱っている場合、プロパティで構成できる以下のオプションがあります。
+`ByteArray`を扱う場合、プロパティで設定可能な以下のオプションがあります。
 
 | オプション | 説明 |
-|--|--|
-| `upperCase` | 16進数が大文字か小文字か。デフォルトでは小文字が想定されます。`upperCase = false`。 |
+|---|---|
+| `upperCase` | 16進数の桁が大文字か小文字か。デフォルトでは小文字と仮定されます。`upperCase = false`。 |
 | `bytes.bytesPerLine` | 1行あたりの最大バイト数。 |
 | `bytes.bytesPerGroup` | 1グループあたりの最大バイト数。 |
 | `bytes.bytesSeparator` | バイト間の区切り文字。デフォルトではなし。 |
-| `bytes.bytesPrefix` | 各バイトの2桁の16進表現の直前に置かれる文字列。デフォルトではなし。 |
-| `bytes.bytesSuffix` | 各バイトの2桁の16進表現の直後に置かれる文字列。デフォルトではなし。 |
+| `bytes.bytesPrefix` | 各バイトの2桁の16進数表現の直前に置かれる文字列。デフォルトではなし。 |
+| `bytes.bytesSuffix` | 各バイトの2桁の16進数表現の直後に置かれる文字列。デフォルトではなし。 |
 
-例えば：
+例：
 
 ```kotlin
 val macAddress = "001b638445e6".hexToByteArray()
 
-// HexFormat{}ビルダーを使用して16進文字列をコロンで区切る
+// Use HexFormat{} builder to separate the hexadecimal string by colons
 println(macAddress.toHexString(HexFormat { bytes.byteSeparator = ":" }))
 // "00:1b:63:84:45:e6"
 
-// HexFormat{}ビルダーを使用して：
-// * 16進文字列を大文字にする
-// * バイトをペアでグループ化する
-// * ピリオドで区切る
+// Use HexFormat{} builder to:
+// * Make the hexadecimal string uppercase
+// * Group the bytes in pairs
+// * Separate by periods
 val threeGroupFormat = HexFormat { upperCase = true; bytes.bytesPerGroup = 2; bytes.groupSeparator = "." }
 
 println(macAddress.toHexString(threeGroupFormat))
@@ -1025,43 +1024,43 @@ println(macAddress.toHexString(threeGroupFormat))
 ```
 {validate="false"}
 
-数値型を扱っている場合、プロパティで構成できる以下のオプションがあります。
+数値型を扱う場合、プロパティで設定可能な以下のオプションがあります。
 
 | オプション | 説明 |
-|--|--|
-| `number.prefix` | 16進文字列のプレフィックス。デフォルトではなし。 |
-| `number.suffix` | 16進文字列のサフィックス。デフォルトではなし。 |
-| `number.removeLeadingZeros` | 16進文字列の先頭のゼロを削除するかどうか。デフォルトでは先頭のゼロは削除されません。`number.removeLeadingZeros = false` |
+|---|---|
+| `number.prefix` | 16進数文字列のプレフィックス。デフォルトではなし。 |
+| `number.suffix` | 16進数文字列のサフィックス。デフォルトではなし。 |
+| `number.removeLeadingZeros` | 16進数文字列の先行ゼロを削除するかどうか。デフォルトでは先行ゼロは削除されません。`number.removeLeadingZeros = false` |
 
-例えば：
+例：
 
 ```kotlin
-// HexFormat{}ビルダーを使用して、プレフィックス「0x」を持つ16進数をパースする。
+// Use HexFormat{} builder to parse a hexadecimal that has prefix: "0x".
 println("0x3a".hexToInt(HexFormat { number.prefix = "0x" })) // "58"
 ```
 {validate="false"}
 
 ## ドキュメントの更新
 
-Kotlinドキュメントにいくつかの注目すべき変更が加えられました。
-*   [Kotlinツアー](kotlin-tour-welcome.md) – 理論と実践の両方を含む章でKotlinプログラミング言語の基本を学びます。
+Kotlinのドキュメントにはいくつかの注目すべき変更が加えられました。
+*   [Kotlinのツアー](kotlin-tour-welcome.md) – Kotlinプログラミング言語の基礎を、理論と実践の両方を含む章で学びます。
 *   [Androidソースセットレイアウト](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-android-layout.html) – 新しいAndroidソースセットレイアウトについて学びます。
 *   [Kotlin Multiplatformの互換性ガイド](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-compatibility-guide.html) – Kotlin Multiplatformでプロジェクトを開発する際に遭遇する可能性のある互換性のない変更について学びます。
-*   [Kotlin Wasm](wasm-overview.md) – Kotlin/Wasmについて、そしてKotlin Multiplatformプロジェクトでどのように使用できるかについて学びます。
+*   [Kotlin Wasm](wasm-overview.md) – Kotlin/Wasmと、Kotlin Multiplatformプロジェクトでの使用方法について学びます。
 
 ## Kotlin 1.9.0のインストール
 
 ### IDEバージョンの確認
 
-[IntelliJ IDEA](https://www.jetbrains.com/idea/download/) 2022.3.3および2023.1.1は、Kotlinプラグインをバージョン1.9.0に更新することを自動的に提案します。IntelliJ IDEA 2023.2には、Kotlin 1.9.0プラグインが含まれる予定です。
+[IntelliJ IDEA](https://www.jetbrains.com/idea/download/) 2022.3.3および2023.1.1は、Kotlinプラグインをバージョン1.9.0に更新することを自動的に提案します。IntelliJ IDEA 2023.2にはKotlin 1.9.0プラグインが含まれる予定です。
 
-Android Studio Giraffe (223)およびHedgehog (231)は、今後のリリースでKotlin 1.9.0をサポートします。
+Android Studio Giraffe (223) および Hedgehog (231) は、今後のリリースでKotlin 1.9.0をサポートする予定です。
 
-新しいコマンドラインコンパイラーは、[GitHubリリースページ](https://github.com/JetBrains/kotlin/releases/tag/v1.9.0)でダウンロードできます。
+新しいコマンドラインコンパイラは、[GitHubリリースページ](https://github.com/JetBrains/kotlin/releases/tag/v1.9.0)からダウンロードできます。
 
 ### Gradle設定の構成
 
-Kotlinのアーティファクトと依存関係をダウンロードするには、Maven Central Repositoryを使用するように`settings.gradle(.kts)`ファイルを更新してください。
+Kotlinのアーティファクトと依存関係をダウンロードするには、`settings.gradle(.kts)`ファイルを更新してMaven Centralリポジトリを使用するようにしてください。
 
 ```kotlin
 pluginManagement {
@@ -1073,8 +1072,8 @@ pluginManagement {
 ```
 {validate="false"}
 
-リポジトリが指定されていない場合、Gradleは廃止されたJCenterリポジトリを使用し、これによりKotlinアーティファクトで問題が発生する可能性があります。
+リポジトリが指定されていない場合、Gradleは廃止されたJCenterリポジトリを使用するため、Kotlinアーティファクトで問題が発生する可能性があります。
 
 ## Kotlin 1.9.0の互換性ガイド
 
-Kotlin 1.9.0は[機能リリース](kotlin-evolution-principles.md#language-and-tooling-releases)であり、そのため、以前のバージョンの言語用に書かれたコードとの互換性のない変更をもたらす可能性があります。これらの変更の詳細なリストは、[Kotlin 1.9.0の互換性ガイド](compatibility-guide-19.md)で確認してください。
+Kotlin 1.9.0は[フィーチャーリリース](kotlin-evolution-principles.md#language-and-tooling-releases)であり、そのため、以前のバージョンの言語用に書かれたコードと互換性のない変更をもたらす可能性があります。これらの変更の詳細なリストは、[Kotlin 1.9.0の互換性ガイド](compatibility-guide-19.md)にあります。

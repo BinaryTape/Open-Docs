@@ -1,16 +1,16 @@
-[//]: # (title: Lincheckガイド)
+[//]: # (title: Lincheck ガイド)
 
-Lincheckは、JVM上の並行アルゴリズムをテストするための実用的で使いやすいフレームワークです。並行テストを記述するためのシンプルかつ宣言的な方法を提供します。
+Lincheckは、JVM上で並行アルゴリズムをテストするための実用的で使いやすいフレームワークです。これは、並行テストを記述するためのシンプルかつ宣言的な方法を提供します。
 
-Lincheckフレームワークを使用すると、テストの実行方法を記述する代わりに、検証するすべての操作と必要な正しさのプロパティを宣言することで、_何をテストするか_を指定できます。その結果、典型的なLincheck並行テストは約15行しか含まれていません。
+Lincheckフレームワークを使用すると、テストの実行方法を記述する代わりに、検査するすべての操作と必要な正当性プロパティを宣言することで、_何をテストするか_を指定できます。その結果、一般的な並行Lincheckテストはわずか約15行になります。
 
-操作のリストが与えられると、Lincheckは自動的に次のことを行います。
+操作のリストが与えられると、Lincheckは自動的に以下を行います。
 
 *   ランダムな並行シナリオのセットを生成します。
-*   ストレステストまたは有界モデル検査のいずれかを使用してそれらを検査します。
-*   各呼び出しの結果が必要な正しさのプロパティを満たしていることを検証します（線形化可能性がデフォルトです）。
+*   ストレス テストまたは有界モデル検査のいずれかを使用してそれらを検査します。
+*   各呼び出しの結果が、要求される正当性プロパティ（線形化可能性がデフォルトです）を満たしていることを検証します。
 
-## Lincheckをプロジェクトに追加する
+## プロジェクトにLincheckを追加する
 
 Lincheckのサポートを有効にするには、対応するリポジトリと依存関係をGradle設定に含めます。`build.gradle(.kts)`ファイルに以下を追加します。
 
@@ -23,7 +23,7 @@ repositories {
 }
  
 dependencies {
-    testImplementation("org.jetbrains.kotlinx:lincheck:%lincheckVersion%")
+    testImplementation("org.jetbrains.lincheck:lincheck:%lincheckVersion%")
 }
 ```
 
@@ -36,24 +36,24 @@ repositories {
 }
 
 dependencies {
-    testImplementation "org.jetbrains.kotlinx:lincheck:%lincheckVersion%"
+    testImplementation "org.jetbrains.lincheck:lincheck:%lincheckVersion%"
 }
 ```
 
 </tab>
 </tabs>
 
-## Lincheckを探索する
+## Lincheckを使ってみる
 
-このガイドでは、Lincheckフレームワークに触れ、最も有用な機能を例とともに試すことができます。Lincheckの機能をステップバイステップで学びましょう。
+このガイドは、Lincheckフレームワークに親しみ、例を交えながら最も役立つ機能を試すのに役立ちます。Lincheckの機能をステップバイステップで学びましょう。
 
-1.  [Lincheckで最初のテストを記述する](introduction.md)
+1.  [Lincheckで最初のテストを作成する](introduction.md)
 2.  [テスト戦略を選択する](testing-strategies.md)
-3.  [操作の引数を設定する](operation-arguments.md)
+3.  [操作引数を設定する](operation-arguments.md)
 4.  [一般的なアルゴリズムの制約を考慮する](constraints.md)
-5.  [非ブロッキングな進行保証についてアルゴリズムをチェックする](progress-guarantees.md)
-6.  [アルゴリズムの逐次仕様を定義する](sequential-specification.md)
+5.  [アルゴリズムの非ブロッキング進行保証を確認する](progress-guarantees.md)
+6.  [アルゴリズムのシーケンシャル仕様を定義する](sequential-specification.md)
 
-## 追加リファレンス
-*   「Kotlinコルーチンにおける並行アルゴリズムのテスト方法」by Nikita Koval: [動画](https://youtu.be/jZqkWfa11Js)。KotlinConf 2023
-*   「Lincheck: JVMでの並行性のテスト」ワークショップ by Maria Sokolova: [パート1](https://www.youtube.com/watch?v=YNtUK9GK4pA)、[パート2](https://www.youtube.com/watch?v=EW7mkAOErWw)。Hydra 2021
+## その他の参考資料
+*   Nikita Kovalによる「Kotlinコルーチンにおける並行アルゴリズムのテスト方法」： [動画](https://youtu.be/jZqkWfa11Js)。 KotlinConf 2023
+*   Maria Sokolovaによる「Lincheck: JVM上での並行性テスト」ワークショップ： [パート1](https://www.youtube.com/watch?v=YNtUK9GK4pA)、[パート2](https://www.youtube.com/watch?v=EW7mkAOErWw)。 Hydra 2021

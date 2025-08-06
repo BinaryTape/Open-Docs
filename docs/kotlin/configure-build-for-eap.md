@@ -1,37 +1,38 @@
-`[//]: # (title: 配置你的构建以使用 EAP)`
+[//]: # (title: 为 EAP 配置你的构建)
 
 <tldr>
-    <!-- <p>No preview versions are currently available</p> -->
-    <p>最新的 Kotlin EAP 版本：<strong>%kotlinEapVersion%</strong></p>
+    <!--  
+    <p>目前没有可用的预览版本。</p>
+    -->
+    <p>最新 Kotlin EAP 版本：<strong>%kotlinEapVersion%</strong></p>
     <p><a href="eap.md#build-details">探索 Kotlin EAP 版本详情</a></p>
 </tldr>
 
-要配置你的构建以使用 Kotlin 的 EAP 版本，你需要：
+要配置你的构建以使用 Kotlin EAP 版本，你需要：
 
-* 指定 Kotlin 的 EAP 版本。[此处列出了可用的 EAP 版本](eap.md#build-details)。
-* 将依赖的版本更改为 EAP 版本。
-Kotlin 的 EAP 版本可能无法与先前发布的库版本兼容。
+*   指定 Kotlin EAP 版本。[可用的 EAP 版本此处列出](eap.md#build-details)。
+*   将依赖项版本更改为 EAP 版本。
+Kotlin EAP 版本可能无法与之前发布的版本库一起使用。
 
 以下步骤描述了如何在 Gradle 和 Maven 中配置你的构建：
 
-* [在 Gradle 中配置](#configure-in-gradle)
-* [在 Maven 中配置](#configure-in-maven)
+*   [在 Gradle 中配置](#configure-in-gradle)
+*   [在 Maven 中配置](#configure-in-maven)
 
 ## 在 Gradle 中配置
 
 本节描述了如何：
 
-* [调整 Kotlin 版本](#adjust-the-kotlin-version)
-* [调整依赖中的版本](#adjust-versions-in-dependencies)
+*   [调整 Kotlin 版本](#adjust-the-kotlin-version)
+*   [调整依赖项版本](#adjust-versions-in-dependencies)
 
 ### 调整 Kotlin 版本
 
-在 `build.gradle(.kts)` 文件中的 `plugins` 块中，将 `KOTLIN-EAP-VERSION` 更改为实际的 EAP 版本，
-例如 `%kotlinEapVersion%`。[此处列出了可用的 EAP 版本](eap.md#build-details)。
+在 `build.gradle(.kts)` 文件中的 `plugins` 代码块中，将 `KOTLIN-EAP-VERSION` 更改为实际的 EAP 版本，例如 `%kotlinEAPVersion%`。[可用的 EAP 版本此处列出](eap.md#build-details)。
 
-或者，你可以在 `settings.gradle(.kts)` 文件中的 `pluginManagement` 块中指定 EAP 版本——有关详细信息，请参阅 [Gradle 文档](https://docs.gradle.org/current/userguide/plugins.html#sec:plugin_version_management)。
+或者，你可以在 `settings.gradle(.kts)` 文件中的 `pluginManagement` 代码块中指定 EAP 版本——关于详情请参见 [Gradle 文档](https://docs.gradle.org/current/userguide/plugins.html#sec:plugin_version_management)。
 
-以下是一个多平台项目的示例。
+以下是 Multiplatform 项目的示例。
 
 <tabs group="build-script">
 <tab title="Kotlin" group-key="kotlin">
@@ -64,14 +65,13 @@ repositories {
 </tab>
 </tabs>
 
-### 调整依赖中的版本
+### 调整依赖项版本
 
-如果在你的项目中使用了 `kotlinx` 库，这些库的版本可能与 Kotlin 的 EAP 版本不兼容。
+如果你的项目中使用 kotlinx 库，库的版本可能与 Kotlin EAP 版本不兼容。
 
-要解决此问题，你需要在依赖中指定一个兼容库的版本。有关兼容库的列表，
-请参阅 [EAP 构建详情](eap.md#build-details)。
+要解决此问题，你需要在依赖项中指定兼容库的版本。关于兼容库列表，请参见 [EAP 构建详情](eap.md#build-details)。
 
-> 大多数情况下，我们只为特定发布的第一个 EAP 版本创建库，并且这些库适用于该发布的后续 EAP 版本。
+> 大多数情况下，我们仅为特定发布的首个 EAP 版本创建库，并且这些库与该发布的后续 EAP 版本兼容。
 >
 > 如果后续 EAP 版本中存在不兼容的更改，我们将发布新版本的库。
 >
@@ -79,7 +79,7 @@ repositories {
 
 以下是一个示例。
 
-对于 **kotlinx.coroutines** 库，请添加与 `%kotlinEapVersion%` 兼容的版本号——`%coroutinesEapVersion%`。
+对于 **kotlinx.coroutines** 库，添加与 `%kotlinEapVersion%` 兼容的版本号——`%coroutinesEapVersion%`。
 
 <tabs group="build-script">
 <tab title="Kotlin" group-key="kotlin">
@@ -104,8 +104,7 @@ dependencies {
 
 ## 在 Maven 中配置
 
-在示例 Maven 项目定义中，将 `KOTLIN-EAP-VERSION` 替换为实际版本，例如 `%kotlinEapVersion%`。
-[此处列出了可用的 EAP 版本](eap.md#build-details)。
+在 Maven 项目定义示例中，将 `KOTLIN-EAP-VERSION` 替换为实际版本，例如 `%kotlinEapVersion%`。[可用的 EAP 版本此处列出](eap.md#build-details)。
 
 ```xml
 <project ...>
@@ -150,6 +149,6 @@ dependencies {
 
 ## 如果你遇到任何问题
 
-* 向 [我们的问题跟踪器 YouTrack](https://kotl.in/issue) 报告问题。
-* 在 [Kotlin Slack 的 #eap 频道](https://app.slack.com/client/T09229ZC6/C0KLZSCHF) 中寻求帮助（[获取邀请](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up)）。
-* 回滚到最新的稳定版本：[在你的构建脚本文件中更改](#adjust-the-kotlin-version)。
+*   向 [我们的问题跟踪器 YouTrack](https://kotl.in/issue) 报告问题。
+*   在 [#eap 频道中的 Kotlin Slack](https://app.slack.com/client/T09229ZC6/C0KLZSCHF) 中寻求帮助（[获取邀请](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up)）。
+*   回滚到最新稳定版本：[在你的构建脚本文件中更改](#adjust-the-kotlin-version)。

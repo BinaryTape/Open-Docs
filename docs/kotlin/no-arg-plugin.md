@@ -1,14 +1,14 @@
-[//]: # (title: no-arg 编译器插件)
+[//]: # (title: 无参编译器插件)
 
-*no-arg* 编译器插件为带有特定注解的类生成一个额外的零参数构造函数。
+*no-arg* 编译器插件会为带有特定注解的类生成一个额外的零参构造函数。
 
-生成的构造函数是合成的，因此不能从 Java 或 Kotlin 直接调用，但可以通过反射调用。
+生成的构造函数是合成的，因此无法从 Java 或 Kotlin 中直接调用，但可以使用反射进行调用。
 
-这使得 Java 持久化 API (JPA) 能够实例化一个类，即使从 Kotlin 或 Java 的角度来看该类没有零参数构造函数（参见下方关于 `kotlin-jpa` 插件的描述）。
+这使得 Java Persistence API (JPA) 即使在 Kotlin 或 Java 的角度来看没有零参数构造函数，也能实例化一个类（关于 `kotlin-jpa` 插件的描述，请参阅[下方](#jpa-support)）。
 
 ## 在你的 Kotlin 文件中
 
-添加新注解以标记需要零参数构造函数的代码：
+添加新注解来标记需要零参构造函数的代码：
 
 ```kotlin
 package com.my
@@ -18,7 +18,7 @@ annotation class Annotation
 
 ## Gradle
 
-使用 Gradle 的插件 DSL 添加此插件：
+使用 Gradle 的插件 DSL 添加该插件：
 
 <tabs group="build-script">
 <tab title="Kotlin" group-key="kotlin">
@@ -41,7 +41,7 @@ plugins {
 </tab>
 </tabs>
 
-然后指定 no-arg 注解的列表，这些注解必须导致为被注解的类生成一个 no-arg 构造函数：
+然后指定无参注解的列表，这些注解必须导致为被注解的类生成无参构造函数：
 
 ```groovy
 noArg {
@@ -49,7 +49,7 @@ noArg {
 }
 ```
 
-如果您希望插件从合成构造函数运行初始化逻辑，请启用 `invokeInitializers` 选项。默认情况下，它是禁用的。
+如果你希望插件从合成构造函数中运行初始化逻辑，请启用 `invokeInitializers` 选项。默认情况下，该选项是禁用的。
 
 ```groovy
 noArg {
@@ -67,13 +67,13 @@ noArg {
 
     <configuration>
         <compilerPlugins>
-            <!-- Or "jpa" for JPA support -->
+            <!-- 或者 "jpa" 以支持 JPA -->
             <plugin>no-arg</plugin>
         </compilerPlugins>
 
         <pluginOptions>
             <option>no-arg:annotation=com.my.Annotation</option>
-            <!-- Call instance initializers in the synthetic constructor -->
+            <!-- 在合成构造函数中调用实例初始化器 -->
             <!-- <option>no-arg:invokeInitializers=true</option> -->
         </pluginOptions>
     </configuration>
@@ -90,9 +90,9 @@ noArg {
 
 ## JPA 支持
 
-与封装在 `all-open` 之上的 `kotlin-spring` 插件类似，`kotlin-jpa` 插件封装在 `no-arg` 之上。该插件会自动指定 [`@Entity`](https://docs.oracle.com/javaee/7/api/javax/persistence/Entity.html)、[`@Embeddable`](https://docs.oracle.com/javaee/7/api/javax/persistence/Embeddable.html) 和 [`@MappedSuperclass`](https://docs.oracle.com/javaee/7/api/javax/persistence/MappedSuperclass.html) *no-arg* 注解。
+与封装在 `all-open` 之上的 `kotlin-spring` 插件一样，`kotlin-jpa` 封装在 `no-arg` 之上。该插件会自动指定 [`@Entity`](https://docs.oracle.com/javaee/7/api/javax/persistence/Entity.html)、[`@Embeddable`](https://docs.oracle.com/javaee/7/api/javax/persistence/Embeddable.html) 和 [`@MappedSuperclass`](https://docs.oracle.com/javaee/7/api/javax/persistence/MappedSuperclass.html) 无参注解。
 
-使用 Gradle 插件 DSL 添加此插件：
+使用 Gradle 插件 DSL 添加该插件：
 
 <tabs group="build-script">
 <tab title="Kotlin" group-key="kotlin">

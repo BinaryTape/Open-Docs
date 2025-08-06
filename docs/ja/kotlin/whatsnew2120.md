@@ -1,79 +1,81 @@
-[//]: # (title: Kotlin 2.1.20 の新機能)
+[//]: # (title: Kotlin 2.1.20の新機能)
 
 _[リリース日: 2025年3月20日](releases.md#release-details)_
 
-Kotlin 2.1.20 がリリースされました！主なハイライトは以下の通りです。
+Kotlin 2.1.20がリリースされました！主なハイライトは以下の通りです。
 
-*   **K2 コンパイラの更新**: [新しい kapt および Lombok プラグインの更新](#kotlin-k2-compiler)
-*   **Kotlin Multiplatform**: [Gradle の Application プラグインを置き換える新しい DSL](#kotlin-multiplatform-new-dsl-to-replace-gradle-s-application-plugin)
-*   **Kotlin/Native**: [Xcode 16.3 のサポートと新しいインライン化最適化](#kotlin-native)
-*   **Kotlin/Wasm**: [デフォルトのカスタムフォーマッター、DWARF のサポート、Provider API への移行](#kotlin-wasm)
-*   **Gradle サポート**: [Gradle の Isolated Projects とカスタムパブリケーションバリアントとの互換性](#gradle)
-*   **標準ライブラリ**: [共通アトミック型、UUID サポートの改善、新しい時間追跡機能](#standard-library)
-*   **Compose コンパイラ**: [`@Composable` 関数の制限緩和とその他の更新](#compose-compiler)
-*   **ドキュメント**: [Kotlin ドキュメントの重要な改善](#documentation-updates)。
+*   **K2コンパイラの更新**: [新しいkaptおよびLombokプラグインへの更新](#kotlin-k2-compiler)
+*   **Kotlin Multiplatform**: [GradleのApplicationプラグインを置き換える新しいDSL](#kotlin-multiplatform-new-dsl-to-replace-gradle-s-application-plugin)
+*   **Kotlin/Native**: [Xcode 16.3のサポートと新しいインライン化最適化](#kotlin-native)
+*   **Kotlin/Wasm**: [デフォルトのカスタムフォーマッタ、DWARFのサポート、Provider APIへの移行](#kotlin-wasm)
+*   **Gradleサポート**: [GradleのIsolated Projectsとの互換性、カスタムパブリケーションバリアント](#gradle)
+*   **標準ライブラリ**: [共通のアトミック型、UUIDサポートの改善、新しい時間追跡機能](#standard-library)
+*   **Composeコンパイラ**: [`@Composable`関数の制限緩和とその他の更新](#compose-compiler)
+*   **ドキュメント**: [Kotlinドキュメントの注目すべき改善](#documentation-updates)。
 
-## IDE サポート
+## IDEサポート
 
-2.1.20 をサポートする Kotlin プラグインは、最新の IntelliJ IDEA および Android Studio にバンドルされています。
-IDE の Kotlin プラグインを更新する必要はありません。
-必要なのは、ビルドスクリプトで Kotlin のバージョンを 2.1.20 に変更することだけです。
+2.1.20をサポートするKotlinプラグインは、最新のIntelliJ IDEAおよびAndroid Studioにバンドルされています。
+IDEでKotlinプラグインを更新する必要はありません。
+ビルドスクリプトでKotlinのバージョンを2.1.20に変更するだけです。
 
-詳細については、「[新しいリリースへの更新](releases.md#update-to-a-new-kotlin-version)」を参照してください。
+詳細については、[新しいリリースへの更新](releases.md#update-to-a-new-kotlin-version)を参照してください。
 
-### OSGi サポートを持つプロジェクトでの Kotlin アーティファクトのソースのダウンロード
+### OSGiサポートを使用するプロジェクトにおけるKotlinアーティファクトのソースのダウンロード
 
-`kotlin-osgi-bundle` ライブラリのすべての依存関係のソースが、その配布物に含められるようになりました。これにより、
-IntelliJ IDEA はこれらのソースをダウンロードして Kotlin シンボルのドキュメントを提供し、デバッグエクスペリエンスを向上させることができます。
+`kotlin-osgi-bundle`ライブラリのすべての依存関係のソースが、そのディストリビューションに含まれるようになりました。これにより、
+IntelliJ IDEAはこれらのソースをダウンロードして、Kotlinシンボルのドキュメントを提供し、デバッグエクスペリエンスを向上させることができます。
 
-## Kotlin K2 コンパイラ
+## Kotlin K2コンパイラ
 
-新しい Kotlin K2 コンパイラに対するプラグインのサポートを引き続き改善しています。このリリースでは、新しい kapt および Lombok プラグインが更新されました。
+新しいKotlin K2コンパイラに対するプラグインのサポートを改善し続けています。このリリースでは、新しいkaptおよびLombokプラグインの更新が含まれています。
 
-### 新しいデフォルトの kapt プラグイン
+### 新しいデフォルトのkaptプラグイン
 <primary-label ref="beta"/>
 
-Kotlin 2.1.20 以降、kapt コンパイラプラグインの K2 実装がすべてのプロジェクトでデフォルトで有効になります。
+Kotlin 2.1.20より、kaptコンパイラプラグインのK2実装がすべてのプロジェクトでデフォルトで有効になります。
 
-JetBrains チームは、Kotlin 1.9.20 で K2 コンパイラによる kapt プラグインの新しい実装をローンチしました。
-それ以来、私たちは K2 kapt の内部実装をさらに開発し、その動作を K1 バージョンと類似させるとともに、パフォーマンスも大幅に改善しました。
+JetBrainsチームは、Kotlin 1.9.20でK2コンパイラとともにkaptプラグインの新しい実装をリリースしました。
+それ以来、私たちはK2 kaptの内部実装をさらに開発し、その動作をK1バージョンと同様にしつつ、
+パフォーマンスも大幅に改善しました。
 
-K2 コンパイラで kapt を使用する際に問題が発生した場合は、
+K2コンパイラでkaptを使用中に問題が発生した場合は、
 一時的に以前のプラグイン実装に戻すことができます。
 
-これを行うには、プロジェクトの `gradle.properties` ファイルに次のオプションを追加します。
+そのためには、プロジェクトの`gradle.properties`ファイルに以下のオプションを追加してください。
 
 ```kotlin
 kapt.use.k2=false
 ```
 
-問題は [issue tracker](https://youtrack.jetbrains.com/issue/KT-71439/K2-kapt-feedback) までご報告ください。
+問題がありましたら、[イシュートラッカー](https://youtrack.jetbrains.com/issue/KT-71439/K2-kapt-feedback)にご報告ください。
 
-### Lombok コンパイラプラグイン: `@SuperBuilder` のサポートと `@Builder` の更新
+### Lombokコンパイラプラグイン: `@SuperBuilder`のサポートと`@Builder`の更新
 <primary-label ref="experimental-general"/>
 
-[Kotlin Lombok コンパイラプラグイン](lombok.md) は `@SuperBuilder` アノテーションをサポートするようになり、クラス階層のビルダー作成が容易になりました。以前は、Kotlin で Lombok を使用する開発者は、継承を扱う際に手動でビルダーを定義する必要がありました。`@SuperBuilder` を使用すると、ビルダーがスーパークラスのフィールドを自動的に継承し、オブジェクトを構築する際にそれらを初期化できるようになります。
+[Kotlin Lombokコンパイラプラグイン](lombok.md)が`@SuperBuilder`アノテーションをサポートし、クラス階層用のビルダーをより簡単に作成できるようになりました。以前は、KotlinでLombokを使用する開発者は、継承を扱う際にビルダーを手動で定義する必要がありました。`@SuperBuilder`を使用すると、ビルダーが自動的にスーパークラスのフィールドを継承し、オブジェクト構築時にそれらを初期化できるようになります。
 
 さらに、この更新にはいくつかの改善とバグ修正が含まれています。
 
-*   `@Builder` アノテーションがコンストラクタで機能するようになり、より柔軟なオブジェクト作成が可能になりました。詳細については、対応する [YouTrack イシュー](https://youtrack.jetbrains.com/issue/KT-71547) を参照してください。
-*   Kotlin での Lombok のコード生成に関連するいくつかの問題が解決され、全体的な互換性が向上しました。詳細については、[GitHub changelog](https://github.com/JetBrains/kotlin/releases/tag/v2.1.20) を参照してください。
+*   `@Builder`アノテーションがコンストラクタで動作するようになり、より柔軟なオブジェクト作成が可能になりました。詳細については、関連する[YouTrackイシュー](https://youtrack.jetbrains.com/issue/KT-71547)を参照してください。
+*   KotlinにおけるLombokのコード生成に関連するいくつかの問題が解決され、全体的な互換性が向上しました。詳細については、[GitHub changelog](https://github.com/JetBrains/kotlin/releases/tag/v2.1.20)を参照してください。
 
-`@SuperBuilder` アノテーションの詳細については、公式の [Lombok ドキュメント](https://projectlombok.org/features/experimental/SuperBuilder) を参照してください。
+`@SuperBuilder`アノテーションの詳細については、公式の[Lombokドキュメント](https://projectlombok.org/features/experimental/SuperBuilder)を参照してください。
 
-## Kotlin Multiplatform: Gradle の Application プラグインを置き換える新しい DSL
+## Kotlin Multiplatform: GradleのApplicationプラグインを置き換える新しいDSL
 <primary-label ref="experimental-opt-in"/>
 
-Gradle 8.7 以降、[Application](https://docs.gradle.org/current/userguide/application_plugin.html) プラグインは
-Kotlin Multiplatform Gradle プラグインと互換性がなくなりました。Kotlin 2.1.20 では、同様の機能を実現するための実験的 DSL が導入されています。新しい `executable {}` ブロックは、JVM ターゲットの実行タスクと Gradle [ディストリビューション](https://docs.gradle.org/current/userguide/distribution_plugin.html#distribution_plugin) を構成します。
+Gradle 8.7以降、[Application](https://docs.gradle.org/current/userguide/application_plugin.html)プラグインは
+Kotlin Multiplatform Gradleプラグインと互換性がなくなりました。Kotlin 2.1.20では、同様の機能を実現するためのExperimentalな
+DSLが導入されました。新しい`executable {}`ブロックは、JVMターゲットの実行タスクとGradleの[ディストリビューション](https://docs.gradle.org/current/userguide/distribution_plugin.html#distribution_plugin)を設定します。
 
-ビルドスクリプトの `executable {}` ブロックの前に、次の `@OptIn` アノテーションを追加します。
+ビルドスクリプトの`executable {}`ブロックの前に、以下の`@OptIn`アノテーションを追加してください。
 
 ```kotlin
 @OptIn(ExperimentalKotlinGradlePluginApi::class)
 ```
 
-例：
+例:
 
 ```kotlin
 kotlin {
@@ -105,58 +107,61 @@ kotlin {
 }
 ```
 
-この例では、Gradle の [Distribution](https://docs.gradle.org/current/userguide/distribution_plugin.html#distribution_plugin)
-プラグインが最初の `executable {}` ブロックに適用されます。
+この例では、Gradleの[Distribution](https://docs.gradle.org/current/userguide/distribution_plugin.html#distribution_plugin)プラグインが、最初の`executable {}`ブロックに適用されています。
 
-問題が発生した場合は、[issue tracker](https://kotl.in/issue) で報告するか、[public Slack channel](https://kotlinlang.slack.com/archives/C19FD9681) でお知らせください。
+問題が発生した場合は、[イシュートラッカー](https://kotl.in/issue)にご報告いただくか、[公開Slackチャンネル](https://kotlinlang.slack.com/archives/C19FD9681)でお知らせください。
 
 ## Kotlin/Native
 
-### Xcode 16.3 のサポート
+### Xcode 16.3のサポート
 
-Kotlin **2.1.21** 以降、Kotlin/Native コンパイラは Xcode 16.3（Xcode の最新安定バージョン）をサポートします。
-Xcode を更新して、Apple オペレーティングシステム向けの Kotlin プロジェクトでの作業を続行してください。
+Kotlin **2.1.21**以降、Kotlin/NativeコンパイラはXcodeの最新安定バージョンであるXcode 16.3をサポートします。
+Xcodeを更新して、Appleオペレーティングシステム向けのKotlinプロジェクトの作業を続けることができます。
 
-2.1.21 リリースでは、Kotlin Multiplatform プロジェクトでのコンパイル失敗を引き起こした関連する [cinterop のイシュー](https://youtrack.jetbrains.com/issue/KT-75781/) も修正されています。
+2.1.21リリースでは、Kotlin Multiplatformプロジェクトでコンパイルエラーを引き起こしていた関連する[cinteropのイシュー](https://youtrack.jetbrains.com/issue/KT-75781/)も修正されています。
 
 ### 新しいインライン化最適化
 <primary-label ref="experimental-opt-in"/>
 
-Kotlin 2.1.20 では、実際のコード生成フェーズの前に、新しいインライン化最適化パスが導入されました。
+Kotlin 2.1.20では、実際のコード生成フェーズの前に実行される新しいインライン化最適化パスが導入されました。
 
-Kotlin/Native コンパイラにおける新しいインライン化パスは、標準の LLVM インライナーよりも優れたパフォーマンスを発揮し、生成されたコードの実行時パフォーマンスを向上させるはずです。
+Kotlin/Nativeコンパイラにおける新しいインライン化パスは、標準のLLVMインライナーよりも優れたパフォーマンスを発揮し、生成されたコードのランタイムパフォーマンスを向上させるはずです。
 
-新しいインライン化パスは現在 [実験的](components-stability.md#stability-levels-explained) です。試すには、次のコンパイラオプションを使用します。
+新しいインライン化パスは現在[Experimental](components-stability.md#stability-levels-explained)です。試すには、
+以下のコンパイラオプションを使用してください。
 
 ```none
 -Xbinary=preCodegenInlineThreshold=40
 ```
 
-私たちの実験では、しきい値を 40 トークン（コンパイラによって解析されるコード単位）に設定すると、コンパイル最適化のための合理的な妥協点となることが示されています。ベンチマークによると、これにより全体的なパフォーマンスが 9.5% 向上します。もちろん、他の値を試すこともできます。
+私たちの実験では、閾値を40トークン（コンパイラによって解析されるコード単位）に設定すると、コンパイル最適化にとって妥当な妥協点となることが示されています。私たちのベンチマークによると、これにより全体的なパフォーマンスが9.5%向上します。もちろん、他の値を試すこともできます。
 
-バイナリサイズやコンパイル時間の増加が発生した場合は、[YouTrack](https://kotl.in/issue) を通じて問題を報告してください。
+バイナリサイズやコンパイル時間の増加を経験した場合は、[YouTrack](https://kotl.in/issue)経由で問題を報告してください。
 
 ## Kotlin/Wasm
 
-このリリースでは、Kotlin/Wasm のデバッグとプロパティの使用が改善されています。開発ビルドではカスタムフォーマッターがすぐに機能するようになり、DWARF デバッグはコードインスペクションを容易にします。さらに、Provider API は Kotlin/Wasm および Kotlin/JS におけるプロパティの使用を簡素化します。
+このリリースでは、Kotlin/Wasmのデバッグとプロパティの使用が改善されています。カスタムフォーマッタが開発
+ビルドでそのまま動作するようになり、DWARFデバッグはコードの検査を容易にします。さらに、Provider APIは
+Kotlin/WasmおよびKotlin/JSにおけるプロパティの使用を簡素化します。
 
-### カスタムフォーマッターがデフォルトで有効に
+### カスタムフォーマッタがデフォルトで有効に
 
-以前は、Kotlin/Wasm コードを扱う際にウェブブラウザでのデバッグを改善するために、カスタムフォーマッターを [手動で設定](whatsnew21.md#improved-debugging-experience-for-kotlin-wasm) する必要がありました。
+以前は、Kotlin/Wasmコードを扱う際にWebブラウザでのデバッグを改善するために、カスタムフォーマッタを[手動で設定](whatsnew21.md#improved-debugging-experience-for-kotlin-wasm)する必要がありました。
 
-このリリースでは、開発ビルドでカスタムフォーマッターがデフォルトで有効になっているため、追加の Gradle 設定は不要です。
+このリリースでは、開発ビルドでカスタムフォーマッタがデフォルトで有効になるため、追加のGradle設定は不要です。
 
-この機能を使用するには、ブラウザの開発者ツールでカスタムフォーマッターが有効になっていることを確認するだけで十分です。
+この機能を使用するには、ブラウザの開発者ツールでカスタムフォーマッタが有効になっていることを確認するだけです。
 
-*   Chrome DevTools では、**設定 | 環境設定 | コンソール** でカスタムフォーマッターのチェックボックスを見つけます。
+*   Chrome DevToolsでは、**Settings | Preferences | Console**でカスタムフォーマッタのチェックボックスを見つけます。
 
-    ![Chromeでカスタムフォーマッターを有効にする](wasm-custom-formatters-chrome.png){width=400}
+    ![Enable custom formatters in Chrome](wasm-custom-formatters-chrome.png){width=400}
 
-*   Firefox DevTools では、**設定 | 詳細設定** でカスタムフォーマッターのチェックボックスを見つけます。
+*   Firefox DevToolsでは、**Settings | Advanced settings**でカスタムフォーマッタのチェックボックスを見つけます。
 
-    ![Firefoxでカスタムフォーマッターを有効にする](wasm-custom-formatters-firefox.png){width=400}
+    ![Enable custom formatters in Firefox](wasm-custom-formatters-firefox.png){width=400}
 
-この変更は主に Kotlin/Wasm の開発ビルドに影響します。プロダクションビルドに特定の要件がある場合は、それに応じて Gradle 設定を調整する必要があります。そのためには、`wasmJs {}` ブロックに次のコンパイラオプションを追加します。
+この変更は主にKotlin/Wasmの開発ビルドに影響します。プロダクションビルドに特定の要件がある場合は、
+それに応じてGradle設定を調整する必要があります。そのためには、`wasmJs {}`ブロックに以下のコンパイラオプションを追加します。
 
 ```kotlin
 // build.gradle.kts
@@ -171,101 +176,105 @@ kotlin {
 }
 ```
 
-### Kotlin/Wasm コードのデバッグのための DWARF のサポート
+### Kotlin/WasmコードをデバッグするためのDWARFのサポート
 
-Kotlin 2.1.20 では、Kotlin/Wasm で DWARF (debugging with arbitrary record format) のサポートが導入されました。
+Kotlin 2.1.20では、Kotlin/WasmでDWARF（debugging with arbitrary record format）のサポートが導入されました。
 
-この変更により、Kotlin/Wasm コンパイラは生成された WebAssembly (Wasm) バイナリに DWARF データを埋め込むことができます。
-多くのデバッガや仮想マシンはこのデータを読み取り、コンパイルされたコードに関する洞察を提供できます。
+この変更により、Kotlin/Wasmコンパイラは生成されたWebAssembly (Wasm) バイナリにDWARFデータを埋め込むことができるようになります。
+多くのデバッガや仮想マシンは、このデータを読み取ってコンパイルされたコードに関する洞察を提供できます。
 
-DWARF は主に、スタンドアロンの Wasm 仮想マシン (VM) 内で Kotlin/Wasm アプリケーションをデバッグする場合に役立ちます。この機能を使用するには、Wasm VM とデバッガが DWARF をサポートしている必要があります。
+DWARFは、主にスタンドアロンのWasm仮想マシン（VM）内でKotlin/Wasmアプリケーションをデバッグするのに役立ちます。この機能を
+使用するには、Wasm VMとデバッガがDWARFをサポートしている必要があります。
 
-DWARF のサポートにより、Kotlin/Wasm アプリケーションのステップ実行、変数の検査、コードの洞察を得ることができます。この機能を有効にするには、次のコンパイラオプションを使用します。
+DWARFのサポートにより、Kotlin/Wasmアプリケーションをステップ実行したり、変数を検査したり、コードの洞察を得ることができます。この機能を有効にするには、
+以下のコンパイラオプションを使用してください。
 
 ```bash
 -Xwasm-generate-dwarf
 ```
-### Kotlin/Wasm および Kotlin/JS プロパティの Provider API への移行
+### Kotlin/WasmおよびKotlin/JSプロパティのProvider APIへの移行
 
-以前は、Kotlin/Wasm および Kotlin/JS 拡張機能のプロパティは可変 (`var`) であり、ビルドスクリプトで直接割り当てられていました。
+以前、Kotlin/WasmおよびKotlin/JS拡張機能のプロパティはミュータブル（`var`）であり、ビルドスクリプトで直接代入されていました。
 
 ```kotlin
 the<NodeJsExtension>().version = "2.0.0"
 ```
 
-現在、プロパティは [Provider API](https://docs.gradle.org/current/userguide/properties_providers.html) を介して公開されており、値を割り当てるには `.set()` 関数を使用する必要があります。
+現在、プロパティは[Provider API](https://docs.gradle.org/current/userguide/properties_providers.html)を介して公開されており、
+値を代入するには`.set()`関数を使用する必要があります。
 
 ```kotlin
 the<NodeJsEnvSpec>().version.set("2.0.0")
 ```
 
-Provider API は、値が遅延計算され、タスク依存関係と適切に統合されることを保証し、ビルドパフォーマンスを向上させます。
+Provider APIは、値が遅延計算され、タスクの依存関係と適切に統合されることを保証し、ビルドパフォーマンスを向上させます。
 
-この変更により、直接的なプロパティ割り当ては、`NodeJsEnvSpec` や `YarnRootEnvSpec` などの `*EnvSpec` クラスを優先して非推奨になりました。
+この変更により、`NodeJsEnvSpec`や`YarnRootEnvSpec`などの`*EnvSpec`クラスに有利な直接のプロパティ代入は非推奨になりました。
 
 さらに、混乱を避けるためにいくつかのエイリアスタスクが削除されました。
 
-| 非推奨タスク        | 代替                                                     |
-|------------------------|-----------------------------------------------------------------|
+| Deprecated task        | Replacement                                                     |
+|:-----------------------|:----------------------------------------------------------------|
 | `wasmJsRun`            | `wasmJsBrowserDevelopmentRun`                                   |
 | `wasmJsBrowserRun`     | `wasmJsBrowserDevelopmentRun`                                   |
 | `wasmJsNodeRun`        | `wasmJsNodeDevelopmentRun`                                      |
-| `wasmJsBrowserWebpack` | `wasmJsBrowserProductionWebpack` または `wasmJsBrowserDistribution` |
+| `wasmJsBrowserWebpack` | `wasmJsBrowserProductionWebpack` or `wasmJsBrowserDistribution` |
 | `jsRun`                | `jsBrowserDevelopmentRun`                                       |
 | `jsBrowserRun`         | `jsBrowserDevelopmentRun`                                       |
 | `jsNodeRun`            | `jsNodeDevelopmentRun`                                          |
-| `jsBrowserWebpack`     | `jsBrowserProductionWebpack` または `jsBrowserDistribution`         |
+| `jsBrowserWebpack`     | `jsBrowserProductionWebpack` or `jsBrowserDistribution`         |
 
-ビルドスクリプトで Kotlin/JS または Kotlin/Wasm のみを使用している場合、Gradle が割り当てを自動的に処理するため、特別な操作は必要ありません。
+ビルドスクリプトでKotlin/JSまたはKotlin/Wasmのみを使用している場合、Gradleが自動的に代入を処理するため、何もアクションは必要ありません。
 
-ただし、Kotlin Gradle プラグインに基づいたプラグインを保守しており、そのプラグインが `kotlin-dsl` を適用しない場合は、プロパティの割り当てを `.set()` 関数を使用するように更新する必要があります。
+ただし、Kotlin Gradle Pluginをベースとしたプラグインをメンテナンスしており、そのプラグインが`kotlin-dsl`を適用していない場合は、
+プロパティの代入を`.set()`関数を使用するように更新する必要があります。
 
 ## Gradle
 
-Kotlin 2.1.20 は Gradle 7.6.3 から 8.11 までと完全に互換性があります。最新の Gradle リリースまで使用することもできます。ただし、その場合、非推奨の警告が表示されたり、一部の新しい Gradle 機能が動作しない可能性があることに注意してください。
+Kotlin 2.1.20はGradle 7.6.3から8.11までと完全に互換性があります。最新のGradle
+リリースまでのGradleバージョンも使用できます。ただし、そうすると非推奨の警告が表示されたり、新しいGradle機能の一部が動作しない可能性があることに注意してください。
 
-このバージョンの Kotlin には、Kotlin Gradle プラグインと Gradle の Isolated Projects の互換性、およびカスタム Gradle パブリケーションバリアントのサポートが含まれています。
+このバージョンのKotlinには、Kotlin GradleプラグインのGradleのIsolated Projectsとの互換性、およびカスタムGradleパブリケーションバリアントのサポートが含まれています。
 
-### Kotlin Gradle プラグインが Gradle の Isolated Projects と互換性を持つように
+### GradleのIsolated Projectsと互換性のあるKotlin Gradleプラグイン
 <primary-label ref="experimental-opt-in"/>
 
-> この機能は現在、Gradle でプレアルファ状態です。JS および Wasm ターゲットは現時点ではサポートされていません。
-> Gradle バージョン 8.10 以降でのみ、評価目的で単独で使用してください。
+> この機能は現在、Gradleでプレアルファ（pre-Alpha）状態です。JSおよびWasmターゲットは現在サポートされていません。
+> Gradleバージョン8.10以降でのみ、評価目的でご利用ください。
 >
 {style="warning"}
 
-Kotlin 2.1.0 以降、プロジェクトで [Gradle の Isolated Projects 機能のプレビュー](whatsnew21.md#preview-gradle-s-isolated-projects-in-kotlin-multiplatform) を試すことができました。
+Kotlin 2.1.0以降、プロジェクトで[GradleのIsolated Projects機能をプレビュー](whatsnew21.md#preview-gradle-s-isolated-projects-in-kotlin-multiplatform)できるようになりました。
 
-以前は、Isolated Projects 機能を試す前に、Kotlin Gradle プラグインを設定してプロジェクトをこの機能と互換性があるようにする必要がありました。Kotlin 2.1.20 では、この追加の手順は不要になりました。
+以前は、この機能を試す前に、Kotlin Gradleプラグインを設定してプロジェクトをIsolated Projects機能と互換性があるようにする必要がありました。Kotlin 2.1.20では、この追加の手順は不要になりました。
 
-現在、Isolated Projects 機能を有効にするには、[システムプロパティを設定する](https://docs.gradle.org/current/userguide/isolated_projects.html#how_do_i_use_it) だけで済みます。
+現在、Isolated Projects機能を有効にするには、[システムプロパティを設定](https://docs.gradle.org/current/userguide/isolated_projects.html#how_do_i_use_it)するだけで済みます。
 
-Gradle の Isolated Projects 機能は、Kotlin Gradle プラグインでマルチプラットフォームプロジェクトと、JVM または Android ターゲットのみを含むプロジェクトの両方でサポートされています。
+GradleのIsolated Projects機能は、マルチプラットフォームプロジェクトと、JVMまたはAndroidターゲットのみを含むプロジェクトの両方で、Kotlin Gradleプラグインでサポートされています。
 
-特にマルチプラットフォームプロジェクトの場合、アップグレード後に Gradle ビルドで問題が発生した場合は、次の行を追加することで新しい Kotlin Gradle プラグインの動作をオプトアウトできます。
+特にマルチプラットフォームプロジェクトの場合、アップグレード後にGradleビルドで問題が発生した場合は、
+以下の行を追加することで新しいKotlin Gradleプラグインの動作をオプトアウトできます。
 
 ```none
 kotlin.kmp.isolated-projects.support=disable
 ```
 
-ただし、マルチプラットフォームプロジェクトでこの Gradle プロパティを使用する場合、Isolated Projects 機能を使用することはできません。
+ただし、マルチプラットフォームプロジェクトでこのGradleプロパティを使用すると、Isolated Projects機能は使用できません。
 
-この機能に関するあなたの経験を [YouTrack](https://youtrack.jetbrains.com/issue/KT-57279/Support-Gradle-Project-Isolation-Feature-for-Kotlin-Multiplatform) でお知らせください。
+この機能に関するご意見は、[YouTrack](https://youtrack.jetbrains.com/issue/KT-57279/Support-Gradle-Project-Isolation-Feature-for-Kotlin-Multiplatform)でお知らせください。
 
-### カスタム Gradle パブリケーションバリアントの追加のサポート
+### カスタムGradleパブリケーションバリアントの追加のサポート
 <primary-label ref="experimental-opt-in"/>
 
-Kotlin 2.1.20 では、カスタム [Gradle パブリケーションバリアント](https://docs.gradle.org/current/userguide/variant_attributes.html) の追加がサポートされます。
-この機能は、マルチプラットフォームプロジェクトと JVM をターゲットとするプロジェクトで利用可能です。
-
-> この機能では、既存の Gradle バリアントを変更することはできません。
+> この機能では、既存のGradleバリアントを変更することはできません。
 >
 {style="note"}
 
-この機能は [実験的](components-stability.md#stability-levels-explained) です。
-オプトインするには、`@OptIn(ExperimentalKotlinGradlePluginApi::class)` アノテーションを使用します。
+この機能は[Experimental](components-stability.md#stability-levels-explained)です。
+オプトインするには、`@OptIn(ExperimentalKotlinGradlePluginApi::class)`アノテーションを使用します。
 
-カスタム Gradle パブリケーションバリアントを追加するには、`adhocSoftwareComponent()` 関数を呼び出します。この関数は [`AdhocComponentWithVariants`](https://docs.gradle.org/current/javadoc/org/gradle/api/component/AdhocComponentWithVariants.html) のインスタンスを返し、Kotlin DSL で設定できます。
+カスタムGradleパブリケーションバリアントを追加するには、`adhocSoftwareComponent()`関数を呼び出します。この関数は、
+Kotlin DSLで設定可能な[`AdhocComponentWithVariants`](https://docs.gradle.org/current/javadoc/org/gradle/api/component/AdhocComponentWithVariants.html)のインスタンスを返します。
 
 ```kotlin
 plugins {
@@ -288,37 +297,39 @@ kotlin {
 }
 ```
 
-> バリアントの詳細については、Gradle の [公開のカスタマイズガイド](https://docs.gradle.org/current/userguide/publishing_customization.html) を参照してください。
+> バリアントの詳細については、Gradleの[カスタマイズパブリッシングガイド](https://docs.gradle.org/current/userguide/publishing_customization.html)を参照してください。
 >
 {style="tip"}
 
 ## 標準ライブラリ
 
-このリリースでは、標準ライブラリに新しい実験的機能が追加されます。共通のアトミック型、UUID のサポートの改善、新しい時間追跡機能です。
+このリリースでは、共通のアトミック型、UUIDサポートの改善、新しい時間追跡機能といった、標準ライブラリの新しいExperimental機能が導入されています。
 
-### 共通アトミック型
+### 共通のアトミック型
 <primary-label ref="experimental-opt-in"/>
 
-Kotlin 2.1.20 では、標準ライブラリの `kotlin.concurrent.atomics` パッケージに共通のアトミック型を導入し、スレッドセーフな操作のための共有されたプラットフォームに依存しないコードを可能にします。これにより、Kotlin Multiplatform プロジェクトでの開発において、ソースセット間でアトミックに依存するロジックを重複させる必要がなくなり、開発が簡素化されます。
+Kotlin 2.1.20では、標準ライブラリの`kotlin.concurrent.atomics`パッケージに共通のアトミック型が導入され、
+スレッドセーフな操作のための共有されたプラットフォーム非依存のコードが可能になります。これにより、
+ソースセット間でアトミック依存ロジックを重複させる必要がなくなり、Kotlin Multiplatformプロジェクトの開発が簡素化されます。
 
-`kotlin.concurrent.atomics` パッケージとそのプロパティは [実験的](components-stability.md#stability-levels-explained) です。
-オプトインするには、`@OptIn(ExperimentalAtomicApi::class)` アノテーションを使用するか、コンパイラオプション `-opt-in=kotlin.ExperimentalAtomicApi` を使用します。
+`kotlin.concurrent.atomics`パッケージとそのプロパティは[Experimental](components-stability.md#stability-levels-explained)です。
+オプトインするには、`@OptIn(ExperimentalAtomicApi::class)`アノテーションまたはコンパイラオプション`-opt-in=kotlin.ExperimentalAtomicApi`を使用します。
 
-以下に、`AtomicInt` を使用して複数のスレッドで処理されたアイテムを安全にカウントする例を示します。
+以下は、`AtomicInt`を使用して複数のスレッド間で処理済みアイテムを安全にカウントする方法を示す例です。
 
 ```kotlin
-// 必要なライブラリをインポート
+// Imports the necessary libraries
 import kotlin.concurrent.atomics.*
 import kotlinx.coroutines.*
 
 //sampleStart
 @OptIn(ExperimentalAtomicApi::class)
 suspend fun main() {
-    // 処理済みアイテムのアトミックカウンターを初期化
+    // Initializes the atomic counter for processed items
     var processedItems = AtomicInt(0)
     val totalItems = 100
     val items = List(totalItems) { "item$it" }
-    // 複数のコルーチンによる処理のためにアイテムをチャンクに分割
+    // Splits the items into chunks for processing by multiple coroutines
     val chunkSize = 20
     val itemChunks = items.chunked(chunkSize)
     coroutineScope {
@@ -326,37 +337,37 @@ suspend fun main() {
             launch {
                 for (item in chunk) {
                     println("Processing $item in thread ${Thread.currentThread()}")
-                    processedItems += 1 // カウンターをアトミックにインクリメント
+                    processedItems += 1 // Increment counter atomically
                 }
             }
          }
     }
 //sampleEnd
-    // 処理済みアイテムの合計数を表示
+    // Prints the total number of processed items
     println("Total processed items: ${processedItems.load()}")
 }
 ```
 {validate="false" kotlin-runnable="true" kotlin-min-compiler-version="2.1.20"}
 
-Kotlin のアトミック型と Java の [`java.util.concurrent.atomic`](https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/atomic/package-summary.html) アトミック型とのシームレスな相互運用性を提供するために、API は `.asJavaAtomic()` および `.asKotlinAtomic()` 拡張関数を提供します。JVM では、Kotlin のアトミック型と Java のアトミック型はランタイムで同じ型であるため、オーバーヘッドなしで Java のアトミック型を Kotlin のアトミック型に、またはその逆に変換できます。
+Kotlinのアトミック型とJavaの[`java.util.concurrent.atomic`](https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/atomic/package-summary.html)アトミック型とのシームレスな相互運用を可能にするために、APIは`.asJavaAtomic()`および`.asKotlinAtomic()`拡張関数を提供します。JVM上では、Kotlinのアトミック型とJavaのアトミック型はランタイムで同じ型であるため、オーバーヘッドなしでJavaのアトミック型をKotlinのアトミック型に、またはその逆に変換できます。
 
-以下に、Kotlin と Java のアトミック型が連携する例を示します。
+以下は、KotlinとJavaのアトミック型が連携して動作する方法を示す例です。
 
 ```kotlin
-// 必要なライブラリをインポート
+// Imports the necessary libraries
 import kotlin.concurrent.atomics.*
 import java.util.concurrent.atomic.*
 
 //sampleStart
 @OptIn(ExperimentalAtomicApi::class)
 fun main() {
-    // Kotlin AtomicInt を Java の AtomicInteger に変換
+    // Converts Kotlin AtomicInt to Java's AtomicInteger
     val kotlinAtomic = AtomicInt(42)
     val javaAtomic: AtomicInteger = kotlinAtomic.asJavaAtomic()
     println("Java atomic value: ${javaAtomic.get()}")
     // Java atomic value: 42
 
-    // Java の AtomicInteger を Kotlin の AtomicInt に戻す
+    // Converts Java's AtomicInteger back to Kotlin's AtomicInt
     val kotlinAgain: AtomicInt = javaAtomic.asKotlinAtomic()
     println("Kotlin atomic value: ${kotlinAgain.load()}")
     // Kotlin atomic value: 42
@@ -365,24 +376,28 @@ fun main() {
 ```
 {validate="false" kotlin-runnable="true" kotlin-min-compiler-version="2.1.20"}
 
-### UUID の解析、フォーマット、比較可能性の変更
+### UUIDのパース、フォーマット、比較可能性の変更
 <primary-label ref="experimental-opt-in"/>
 
-JetBrains チームは、[2.0.20 で標準ライブラリに導入された](whatsnew2020.md#support-for-uuids-in-the-common-kotlin-standard-library) UUID のサポートを引き続き改善しています。
+JetBrainsチームは、[2.0.20で標準ライブラリに導入された](whatsnew2020.md#support-for-uuids-in-the-common-kotlin-standard-library)UUIDのサポートを改善し続けています。
 
-以前は、`parse()` 関数はハイフン付き16進数形式の UUID のみを受け付けていました。Kotlin 2.1.20 では、`parse()` をハイフン付き16進数形式とプレーンな16進数（ハイフンなし）形式の _両方_ に使用できます。
+以前は、`parse()`関数は16進数とダッシュ形式のUUIDのみを受け入れていました。Kotlin 2.1.20では、
+16進数とダッシュ形式 _および_ プレーンな16進数形式（ダッシュなし）の _両方_ に`parse()`を使用できます。
 
-このリリースでは、ハイフン付き16進数形式での操作に特化した関数も導入されました。
+このリリースでは、16進数とダッシュ形式での操作に特化した関数も導入されました。
 
-*   `parseHexDash()` はハイフン付き16進数形式から UUID を解析します。
-*   `toHexDashString()` は `Uuid` をハイフン付き16進数形式の `String` に変換します（`toString()` の機能と鏡像関係にあります）。
+*   `parseHexDash()`は、16進数とダッシュ形式からUUIDをパースします。
+*   `toHexDashString()`は、`Uuid`を16進数とダッシュ形式の`String`に変換します（`toString()`の機能をミラーリング）。
 
-これらの関数は、以前に16進数形式のために導入された [`parseHex()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.uuid/-uuid/-companion/parse-hex.html) および [`toHexString()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.uuid/-uuid/to-hex-string.html) と同様に機能します。解析およびフォーマット機能の明示的な命名は、コードの明確さと UUID を使用する全体的なエクスペリエンスを向上させるはずです。
+これらの関数は、以前16進数形式のために導入された[`parseHex()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.uuid/-uuid/-companion/parse-hex.html)および[`toHexString()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.uuid/-uuid/to-hex-string.html)と同様に機能します。
+パースおよびフォーマット機能の明示的な命名は、コードの明確性とUUIDの全体的なエクスペリエンスを向上させるはずです。
 
-Kotlin の UUID は `Comparable` になりました。Kotlin 2.1.20 以降、`Uuid` 型の値を直接比較およびソートできます。これにより、`<` および `>` 演算子の使用、`Comparable` 型またはそのコレクション（`sorted()` など）専用の標準ライブラリ拡張機能の使用が可能になり、UUID を `Comparable` インターフェースを必要とする関数や API に渡すこともできます。
+KotlinのUUIDは`Comparable`になりました。Kotlin 2.1.20以降、`Uuid`型の値を直接比較したりソートしたりできます。
+これにより、`<`および`>`演算子、および`Comparable`型またはそのコレクション（`sorted()`など）専用に利用可能な標準ライブラリの拡張機能の使用が可能になり、
+また、`Comparable`インターフェースを必要とするあらゆる関数やAPIにUUIDを渡すこともできます。
 
-標準ライブラリの UUID サポートはまだ [実験的](components-stability.md#stability-levels-explained) であることに注意してください。
-オプトインするには、`@OptIn(ExperimentalUuidApi::class)` アノテーションを使用するか、コンパイラオプション `-opt-in=kotlin.uuid.ExperimentalUuidApi` を使用します。
+標準ライブラリにおけるUUIDのサポートはまだ[Experimental](components-stability.md#stability-levels-explained)であることに注意してください。
+オプトインするには、`@OptIn(ExperimentalUuidApi::class)`アノテーションまたはコンパイラオプション`-opt-in=kotlin.uuid.ExperimentalUuidApi`を使用します。
 
 ```kotlin
 import kotlin.uuid.ExperimentalUuidApi
@@ -391,16 +406,16 @@ import kotlin.uuid.Uuid
 //sampleStart
 @OptIn(ExperimentalUuidApi::class)
 fun main() {
-    // parse() はプレーンな16進数形式の UUID を受け付ける
+    // parse() accepts a UUID in a plain hexadecimal format
     val uuid = Uuid.parse("550e8400e29b41d4a716446655440000")
 
-    // ハイフン付き16進数形式に変換
+    // Converts it to the hex-and-dash format
     val hexDashFormat = uuid.toHexDashString()
  
-    // ハイフン付き16進数形式で UUID を出力
+    // Outputs the UUID in the hex-and-dash format
     println(hexDashFormat)
 
-    // UUID を昇順に出力
+    // Outputs UUIDs in ascending order
     println(
         listOf(
             uuid,
@@ -416,20 +431,27 @@ fun main() {
 ### 新しい時間追跡機能
 <primary-label ref="experimental-opt-in"/>
 
-Kotlin 2.1.20 以降、標準ライブラリは時間の瞬間を表す機能を提供します。この機能は、以前は公式の Kotlin ライブラリである [`kotlinx-datetime`](https://kotlinlang.org/api/kotlinx-datetime/) でのみ利用可能でした。
+Kotlin 2.1.20以降、標準ライブラリは時刻の瞬間を表す機能を提供します。この機能は
+以前は公式Kotlinライブラリである[`kotlinx-datetime`](https://kotlinlang.org/api/kotlinx-datetime/)でのみ利用可能でした。
 
-[`kotlinx.datetime.Clock`](https://kotlinlang.org/api/kotlinx-datetime/kotlinx-datetime/kotlinx.datetime/-clock/) インターフェースは `kotlin.time.Clock` として、[`kotlinx.datetime.Instant`](https://kotlinlang.org/api/kotlinx-datetime/kotlinx-datetime/kotlinx.datetime/-instant/) クラスは `kotlin.time.Instant` として標準ライブラリに導入されます。これらの概念は、より複雑なカレンダーおよびタイムゾーン機能が `kotlinx-datetime` に残されているのに対し、時間の瞬間にのみ関心があるため、標準ライブラリの `time` パッケージと自然に連携します。
+[`kotlinx.datetime.Clock`](https://kotlinlang.org/api/kotlinx-datetime/kotlinx-datetime/kotlinx.datetime/-clock/)インターフェースは
+標準ライブラリに`kotlin.time.Clock`として導入され、[`kotlinx.datetime.Instant`](https://kotlinlang.org/api/kotlinx-datetime/kotlinx-datetime/kotlinx.datetime/-instant/)クラスは
+`kotlin.time.Instant`として導入されました。これらの概念は、より複雑なカレンダーやタイムゾーン機能が`kotlinx-datetime`に残るのに対し、
+時刻の瞬間にのみ関心があるため、標準ライブラリの`time`パッケージと自然に整合します。
 
-`Instant` と `Clock` は、タイムゾーンや日付を考慮せずに正確な時間追跡が必要な場合に役立ちます。たとえば、タイムスタンプ付きイベントをログに記録したり、2つの時点間の期間を測定したり、システムプロセス用の現在の瞬間を取得したりするために使用できます。
+`Instant`と`Clock`は、タイムゾーンや日付を考慮せずに正確な時間追跡が必要な場合に役立ちます。例えば、
+タイムスタンプ付きでイベントを記録したり、2つの時点間の期間を測定したり、システムプロセス用の現在の
+瞬間を取得したりするのに使用できます。
 
 他の言語との相互運用性を提供するために、追加の変換関数が利用可能です。
 
-*   `.toKotlinInstant()` は時間値を `kotlin.time.Instant` インスタンスに変換します。
-*   `.toJavaInstant()` は `kotlin.time.Instant` 値を `java.time.Instant` 値に変換します。
-*   `Instant.toJSDate()` は `kotlin.time.Instant` 値を JS の `Date` クラスのインスタンスに変換します。この変換は厳密ではありません。JS は日付を表すためにミリ秒精度を使用しますが、Kotlin はナノ秒分解能を許容します。
+*   `.toKotlinInstant()`は、時刻値を`kotlin.time.Instant`インスタンスに変換します。
+*   `.toJavaInstant()`は、`kotlin.time.Instant`値を`java.time.Instant`値に変換します。
+*   `Instant.toJSDate()`は、`kotlin.time.Instant`値をJS `Date`クラスのインスタンスに変換します。この変換は
+    正確ではありません。JSは日付を表すのにミリ秒精度を使用しますが、Kotlinはナノ秒解像度を許容します。
 
-標準ライブラリの新しい時間機能はまだ [実験的](components-stability.md#stability-levels-explained) です。
-オプトインするには、`@OptIn(ExperimentalTime::class)` アノテーションを使用します。
+標準ライブラリの新しい時間機能はまだ[Experimental](components-stability.md#stability-levels-explained)です。
+オプトインするには、`@OptIn(ExperimentalTime::class)`アノテーションを使用します。
 
 ```kotlin
 import kotlin.time.*
@@ -437,11 +459,11 @@ import kotlin.time.*
 @OptIn(ExperimentalTime::class)
 fun main() {
 
-    // 現在の時間を取得
+    // Get the current moment in time
     val currentInstant = Clock.System.now()
     println("Current time: $currentInstant")
 
-    // 2つの時点間の差を見つける
+    // Find the difference between two moments in time
     val pastInstant = Instant.parse("2023-01-01T00:00:00Z")
     val duration = currentInstant - pastInstant
 
@@ -450,73 +472,89 @@ fun main() {
 ```
 {validate="false" kotlin-runnable="true" kotlin-min-compiler-version="2.1.20"}
 
-実装の詳細については、この [KEEP 提案](https://github.com/Kotlin/KEEP/pull/387/files) を参照してください。
+実装に関する詳細情報は、この[KEEP提案](https://github.com/Kotlin/KEEP/pull/387/files)を参照してください。
 
-## Compose コンパイラ
+## Composeコンパイラ
 
-2.1.20 では、Compose コンパイラは以前のリリースで導入された `@Composable` 関数に対するいくつかの制限を緩和します。
-さらに、Compose コンパイラ Gradle プラグインは、Android との動作を合わせるため、デフォルトでソース情報を含むように設定されます。
+2.1.20では、Composeコンパイラは以前のリリースで導入された`@Composable`関数に対する一部の制限を緩和します。
+さらに、ComposeコンパイラのGradleプラグインは、Androidとのすべてのプラットフォームでの動作を合わせるため、
+ソース情報をデフォルトで含めるように設定されています。
 
-### open な `@Composable` 関数におけるデフォルト引数のサポート
+### openな`@Composable`関数におけるデフォルト値を持つパラメーターのサポート
 
-コンパイラは以前、誤ったコンパイラ出力により open な `@Composable` 関数でのデフォルト引数を制限していました。これによりランタイムでクラッシュが発生する可能性がありました。根本的な問題は解決され、Kotlin 2.1.20 以降で使用する場合、デフォルト引数は完全にサポートされます。
+以前、コンパイラは、不正確なコンパイラ出力により、ランタイムでクラッシュを引き起こす可能性があったため、`open`な`@Composable`関数におけるデフォルト値を持つパラメーターを制限していました。この根本的な問題は解決され、Kotlin 2.1.20以降で使用する場合、デフォルト値を持つパラメーターは完全にサポートされます。
 
-Compose コンパイラは [バージョン 1.5.8](https://developer.android.com/jetpack/androidx/releases/compose-compiler#1.5.8) より前に open 関数でのデフォルト引数を許可していたため、サポートはプロジェクト構成に依存します。
+Composeコンパイラは、[バージョン1.5.8](https://developer.android.com/jetpack/androidx/releases/compose-compiler#1.5.8)より前に`open`な関数でデフォルト値を持つパラメーターを許可していたため、
+そのサポートはプロジェクト構成に依存します。
 
-*   open なコンポーザブル関数が Kotlin バージョン 2.1.20 以降でコンパイルされる場合、コンパイラはデフォルト引数に対して正しいラッパーを生成します。これには 1.5.8 以前のバイナリと互換性のあるラッパーが含まれるため、ダウンストリームライブラリもこの open 関数を使用できるようになります。
-*   open なコンポーザブル関数が Kotlin 2.1.20 より古いバージョンでコンパイルされる場合、Compose は互換性モードを使用し、ランタイムクラッシュを引き起こす可能性があります。互換性モードを使用する場合、コンパイラは潜在的な問題を強調するために警告を発します。
+*   `open`なコンポーザブル関数がKotlinバージョン2.1.20以降でコンパイルされた場合、コンパイラはデフォルト値を持つパラメーターに対して正しいラッパーを生成します。これには、1.5.8より前のバイナリと互換性のあるラッパーが含まれ、ダウンストリームライブラリもこの`open`関数を使用できるようになります。
+*   `open`なコンポーザブル関数がKotlin 2.1.20より古いバージョンでコンパイルされた場合、Composeは互換性モードを使用し、ランタイムでクラッシュが発生する可能性があります。互換性モードを使用している場合、コンパイラは潜在的な問題を強調するために警告を発します。
 
-### final なオーバーライド関数が再起動可能に
+### finalでオーバーライドされた関数は再起動可能に
 
-仮想関数（`open` および `abstract` のオーバーライド、インターフェースを含む）は、[2.1.0 リリースで再起動不可に強制されました](whatsnew21.md#changes-to-open-and-overridden-composable-functions)。
-この制限は、final クラスのメンバーである関数、またはそれ自体が `final` である関数に対して緩和され、通常通り再起動またはスキップされます。
+仮想関数（インターフェースを含む`open`および`abstract`のオーバーライド）は、[2.1.0リリースで再起動不可とされていました](whatsnew21.md#changes-to-open-and-overridden-composable-functions)。
+この制限は、`final`クラスのメンバーであるか、それ自体が`final`である関数に対して緩和され、
+通常どおり再起動またはスキップされます。
 
-Kotlin 2.1.20 にアップグレードした後、影響を受ける関数で動作の変更が見られるかもしれません。以前のバージョンの再起動不可ロジックを強制するには、関数に `@NonRestartableComposable` アノテーションを適用してください。
+Kotlin 2.1.20にアップグレードした後、影響を受ける関数でいくつかの動作変更が見られるかもしれません。以前のバージョンの再起動不可ロジックを強制するには、
+関数に`@NonRestartableComposable`アノテーションを適用してください。
 
-### `ComposableSingletons` がパブリック API から削除
+### `ComposableSingletons`が公開APIから削除
 
-`ComposableSingletons` は、Compose コンパイラが `@Composable` ラムダを最適化する際に作成するクラスです。パラメータをキャプチャしないラムダは一度アロケートされ、クラスのプロパティにキャッシュされるため、ランタイム時のアロケーションが節約されます。このクラスは内部可視性で生成され、コンパイルユニット（通常はファイル）内のラムダを最適化することのみを目的としています。
+`ComposableSingletons`は、`@Composable`ラムダを最適化する際にComposeコンパイラによって作成されるクラスです。
+パラメーターをキャプチャしないラムダは一度割り当てられ、クラスのプロパティにキャッシュされるため、ランタイムでのアロケーションを節約します。
+このクラスは内部可視性で生成され、コンパイル単位（通常はファイル）内のラムダを最適化することのみを目的としています。
 
-しかし、この最適化は `inline` 関数本体にも適用され、シングルトンラムダインスタンスがパブリック API にリークする結果となりました。この問題を修正するため、2.1.20 以降、`@Composable` ラムダはインライン関数内でシングルトンに最適化されなくなります。同時に、Compose コンパイラは、以前のモデルでコンパイルされたモジュールのバイナリ互換性をサポートするために、シングルトンクラスとラムダをインライン関数に対して引き続き生成します。
+しかし、この最適化は`inline`関数本体にも適用され、シングルトンラムダインスタンスが
+公開APIに漏洩するという問題を引き起こしていました。この問題を解決するため、2.1.20以降、`@Composable`ラムダは
+インライン関数内でシングルトンに最適化されなくなりました。同時に、Composeコンパイラは、
+以前のモデルでコンパイルされたモジュールのバイナリ互換性をサポートするために、
+インライン関数用のシングルトンクラスとラムダの生成を継続します。
 
 ### ソース情報がデフォルトで含まれるように
 
-Compose コンパイラ Gradle プラグインは、Android で [ソース情報を含む機能](https://kotlinlang.org/api/kotlin-gradle-plugin/compose-compiler-gradle-plugin/org.jetbrains.kotlin.compose.compiler.gradle/-compose-compiler-gradle-plugin-extension/include-source-information.html) がデフォルトで有効になっています。Kotlin 2.1.20 以降、この機能はすべてのプラットフォームでデフォルトで有効になります。
+ComposeコンパイラGradleプラグインは、Androidではすでに[ソース情報を含める機能](https://kotlinlang.org/api/kotlin-gradle-plugin/compose-compiler-gradle-plugin/org.jetbrains.kotlin.compose.compiler.gradle/-compose-compiler-gradle-plugin-extension/include-source-information.html)がデフォルトで有効になっています。
+Kotlin 2.1.20以降、この機能はすべてのプラットフォームでデフォルトで有効になります。
 
-`freeCompilerArgs` を使用してこのオプションを設定しているかどうかを確認してください。この方法を使用すると、オプションが実質的に二重に設定されるため、プラグインと併用した場合にビルドが失敗する可能性があります。
+このオプションを`freeCompilerArgs`を使用して設定していないか確認してください。この方法は、
+プラグインと併用された場合に、オプションが事実上2回設定されることになり、ビルドが失敗する原因となる可能性があります。
 
 ## 破壊的変更と非推奨
 
-*   Kotlin Multiplatform を今後の Gradle の変更に合わせるため、`withJava()` 関数は段階的に廃止されます。
-    [Java ソースセットはデフォルトで作成されるようになりました](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-compatibility-guide.html#java-source-sets-created-by-default)。[Java テストフィクスチャ](https://docs.gradle.org/current/userguide/java_testing.html#sec:java_test_fixtures) Gradle プラグインを使用している場合、互換性の問題を回避するため、直接 [Kotlin 2.1.21](releases.md#release-details) にアップグレードしてください。
-*   JetBrains チームは `kotlin-android-extensions` プラグインの非推奨化を進めています。プロジェクトで使用しようとすると、設定エラーが発生し、プラグインコードは実行されなくなります。
-*   レガシーな `kotlin.incremental.classpath.snapshot.enabled` プロパティが Kotlin Gradle プラグインから削除されました。
-    このプロパティは、以前は JVM 上で組み込みの ABI スナップショットにフォールバックする機会を提供していました。プラグインは現在、不要な再コンパイルを検出し回避するために他の方法を使用しており、このプロパティは廃止されました。
+*   Kotlin MultiplatformをGradleの今後の変更に合わせるため、`withJava()`関数を段階的に廃止しています。
+    [Javaソースセットはデフォルトで作成されるようになりました](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-compatibility-guide.html#java-source-sets-created-by-default)。[Javaテストフィクスチャ](https://docs.gradle.org/current/userguide/java_testing.html#sec:java_test_fixtures)Gradleプラグインを使用している場合は、
+    互換性の問題を避けるため、直接[Kotlin 2.1.21](releases.md#release-details)にアップグレードしてください。
+*   JetBrainsチームは`kotlin-android-extensions`プラグインの非推奨化を進めています。プロジェクトでこれを使用しようとすると、
+    設定エラーが発生し、プラグインコードは実行されなくなります。
+*   レガシープロパティ`kotlin.incremental.classpath.snapshot.enabled`がKotlin Gradleプラグインから削除されました。
+    このプロパティは、JVMで組み込みのABIスナップショットにフォールバックする機会を提供していました。現在、プラグインは
+    不要な再コンパイルを検出して回避するために他の方法を使用しており、このプロパティは廃止されました。
 
 ## ドキュメントの更新
 
-Kotlin ドキュメントはいくつかの注目すべき変更を受けました。
+Kotlinドキュメントにはいくつかの注目すべき変更が加えられました。
 
-### 再構成された新しいページ
+### 改良されたページと新しいページ
 
-*   [Kotlin ロードマップ](roadmap.md) – 言語とエコシステムの進化における Kotlin の優先事項の更新されたリストを参照してください。
-*   [Gradle のベストプラクティス](gradle-best-practices.md) ページ – Gradle ビルドを最適化し、パフォーマンスを向上させるための重要なベストプラクティスを学びましょう。
-*   [Compose Multiplatform と Jetpack Compose](https://www.jetbrains.com/help/kotlin-multiplatform-dev/compose-multiplatform-and-jetpack-compose.html)
-    – 2つの UI フレームワーク間の関係の概要。
-*   [Kotlin Multiplatform と Flutter](https://www.jetbrains.com/help/kotlin-multiplatform-dev/kotlin-multiplatform-flutter.html)
-    – 2つの人気のあるクロスプラットフォームフレームワークの比較を参照してください。
-*   [C との相互運用性](native-c-interop.md) – Kotlin と C の相互運用性の詳細を探ります。
-*   [数値型](numbers.md) – 数値を表現するためのさまざまな Kotlin 型について学びましょう。
+*   [Kotlinロードマップ](roadmap.md) – Kotlinの言語とエコシステムの進化における優先順位の更新されたリストをご覧ください。
+*   [Gradleのベストプラクティス](gradle-best-practices.md)ページ – Gradleビルドを最適化し、パフォーマンスを向上させるための重要なベストプラクティスを学びましょう。
+*   [Compose MultiplatformとJetpack Compose](https://www.jetbrains.com/help/kotlin-multiplatform-dev/compose-multiplatform-and-jetpack-compose.html)
+    – 2つのUIフレームワーク間の関係の概要。
+*   [Kotlin MultiplatformとFlutter](https://www.jetbrains.com/help/kotlin-multiplatform-dev/kotlin-multiplatform-flutter.html)
+    – 2つの人気のあるクロスプラットフォームフレームワークの比較をご覧ください。
+*   [Cとの相互運用](native-c-interop.md) – KotlinとCの相互運用の詳細を探りましょう。
+*   [数値型](numbers.md) – 数値を表現するためのさまざまなKotlin型について学びましょう。
 
-### 新しいおよび更新されたチュートリアル
+### 新しく更新されたチュートリアル
 
-*   [ライブラリを Maven Central に公開する](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-publish-libraries.html)
-    – 最も人気のある Maven リポジトリに KMP ライブラリアーティファクトを公開する方法を学びましょう。
-*   [動的ライブラリとしての Kotlin/Native](native-dynamic-libraries.md) – 動的 Kotlin ライブラリを作成します。
-*   [Apple フレームワークとしての Kotlin/Native](apple-framework.md) – 独自のフレームワークを作成し、macOS および iOS の Swift/Objective-C アプリケーションから Kotlin/Native コードを使用します。
+*   [Maven Centralにライブラリを公開する](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-publish-libraries.html)
+    – 最も人気のあるMavenリポジトリにKMPライブラリアーティファクトを公開する方法を学びましょう。
+*   [Kotlin/Nativeを動的ライブラリとして使用する](native-dynamic-libraries.md) – 動的Kotlinライブラリを作成します。
+*   [Kotlin/NativeをAppleフレームワークとして使用する](apple-framework.md) – 独自のフレームワークを作成し、macOSおよびiOS上のSwift/Objective-CアプリケーションからKotlin/Nativeコードを使用します。
 
-## Kotlin 2.1.20 へのアップデート方法
+## Kotlin 2.1.20へのアップデート方法
 
-IntelliJ IDEA 2023.3 および Android Studio Iguana (2023.2.1) Canary 15 以降、Kotlin プラグインは IDE に含まれるバンドルされたプラグインとして配布されます。これは、JetBrains Marketplace からプラグインをインストールできなくなったことを意味します。
+IntelliJ IDEA 2023.3およびAndroid Studio Iguana (2023.2.1) Canary 15以降、KotlinプラグインはIDEにバンドルされた
+プラグインとして配布されます。これは、JetBrains Marketplaceからプラグインをインストールできなくなったことを意味します。
 
-新しい Kotlin バージョンにアップデートするには、ビルドスクリプトで [Kotlin のバージョンを 2.1.20 に変更](releases.md#update-to-a-new-kotlin-version) してください。
+新しいKotlinバージョンに更新するには、ビルドスクリプトで[Kotlinのバージョンを2.1.20に変更](releases.md#update-to-a-new-kotlin-version)してください。

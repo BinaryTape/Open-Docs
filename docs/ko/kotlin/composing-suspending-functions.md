@@ -3,11 +3,11 @@
 
 [//]: # (title: 일시 중단 함수 구성하기)
 
-이 섹션에서는 일시 중단 함수 구성에 대한 다양한 접근 방식을 다룹니다.
+이 섹션에서는 일시 중단 함수(suspending functions)를 구성하는 다양한 접근 방식에 대해 설명합니다.
 
 ## 기본적으로 순차적
 
-어떤 종류의 원격 서비스 호출이나 연산과 같이 유용한 작업을 수행하는 두 개의 일시 중단 함수가 다른 곳에 정의되어 있다고 가정해 보겠습니다. 이 예시에서는 이 함수들이 유용하다고 가정하지만, 실제로는 각각 1초 동안 지연됩니다:
+어딘가에 정의된 두 개의 일시 중단 함수가 원격 서비스 호출이나 계산과 같은 유용한 작업을 수행한다고 가정해 봅시다. 이 예제에서는 유용한 작업을 하는 것처럼 보이지만, 실제로는 각 함수가 1초 동안 지연됩니다.
 
 ```kotlin
 suspend fun doSomethingUsefulOne(): Int {
@@ -21,10 +21,10 @@ suspend fun doSomethingUsefulTwo(): Int {
 }
 ```
 
-만약 이 함수들을 _순차적으로_ &mdash; 먼저 `doSomethingUsefulOne`을 호출한 _다음_ `doSomethingUsefulTwo`를 호출하고, 그 결과들의 합을 계산해야 한다면 어떻게 해야 할까요?
-실제로 첫 번째 함수의 결과를 사용하여 두 번째 함수를 호출해야 할지 또는 어떻게 호출할지 결정할 때 이렇게 합니다.
+이 함수들을 _순차적으로_ 호출해야 한다면 어떻게 해야 할까요? &mdash; 먼저 `doSomethingUsefulOne`을 호출한 _다음_ `doSomethingUsefulTwo`를 호출하고, 그 결과의 합계를 계산해야 한다면요?
+실제로 이러한 작업은 첫 번째 함수의 결과를 사용하여 두 번째 함수를 호출해야 할지 또는 어떻게 호출할지에 대한 결정을 내려야 할 때 수행합니다.
 
-일반 코드와 마찬가지로 코루틴 내의 코드도 기본적으로 _순차적_이므로 일반적인 순차적 호출을 사용합니다. 다음 예시는 두 일시 중단 함수를 실행하는 데 걸리는 총 시간을 측정하여 이를 보여줍니다:
+일반적인 코드와 마찬가지로 코루틴 내부의 코드도 기본적으로 _순차적_이므로 일반적인 순차적 호출을 사용합니다. 다음 예제는 두 일시 중단 함수를 실행하는 데 걸리는 총 시간을 측정하여 이를 보여줍니다.
 
 <!--- CLEAR -->
 
@@ -59,7 +59,7 @@ suspend fun doSomethingUsefulTwo(): Int {
 >
 {style="note"}
 
-결과는 다음과 같습니다:
+결과는 다음과 같습니다.
 
 ```text
 The answer is 42
@@ -68,11 +68,11 @@ Completed in 2017 ms
 
 <!--- TEST ARBITRARY_TIME -->
 
-## async를 사용한 동시 실행
+## `async`를 사용한 동시 실행
 
-`doSomethingUsefulOne`과 `doSomethingUsefulTwo` 호출 사이에 의존성이 없고, 두 작업을 _동시에_ 수행하여 더 빨리 결과를 얻고 싶다면 어떻게 해야 할까요? 바로 이 지점에서 [async]가 도움이 됩니다.
- 
-개념적으로 [async]는 [launch]와 같습니다. [async]는 다른 모든 코루틴과 동시에 작동하는 경량 스레드인 별도의 코루틴을 시작합니다. 차이점은 `launch`는 [Job]을 반환하고 결과 값을 가지지 않지만, `async`는 나중에 결과를 제공하겠다는 약속을 나타내는 경량 비블로킹 퓨처인 [Deferred]를 반환한다는 것입니다. 지연된(deferred) 값에 `.await()`를 사용하여 최종 결과를 얻을 수 있으며, `Deferred`는 [Job]이기도 하므로 필요한 경우 취소할 수 있습니다.
+`doSomethingUsefulOne`과 `doSomethingUsefulTwo`의 호출 사이에 종속성이 없고, 두 함수를 _동시적으로_ 실행하여 더 빨리 결과를 얻고 싶다면 어떻게 해야 할까요? 바로 이때 [async]가 도움이 됩니다.
+
+개념적으로 [async]는 [launch]와 같습니다. [async]는 다른 모든 코루틴과 동시에 작동하는 경량 스레드인 별도의 코루틴을 시작합니다. 차이점은 `launch`가 [Job]을 반환하고 결과 값을 전달하지 않는 반면, `async`는 [Deferred] &mdash; 나중에 결과를 제공하겠다는 약속을 나타내는 경량 비블로킹 퓨처(future)를 반환한다는 것입니다. `Deferred` 값에 `.await()`를 사용하여 최종 결과를 얻을 수 있지만, `Deferred`는 또한 [Job]이므로 필요하면 취소할 수도 있습니다.
 
 ```kotlin
 import kotlinx.coroutines.*
@@ -105,7 +105,7 @@ suspend fun doSomethingUsefulTwo(): Int {
 >
 {style="note"}
 
-결과는 다음과 같습니다:
+결과는 다음과 같습니다.
 
 ```text
 The answer is 42
@@ -114,13 +114,13 @@ Completed in 1017 ms
 
 <!--- TEST ARBITRARY_TIME -->
 
-두 코루틴이 동시에 실행되기 때문에 두 배 빠릅니다.
-코루틴을 사용한 동시성은 항상 명시적이라는 점에 유의하세요.
+두 코루틴이 동시에 실행되므로 두 배 더 빠릅니다.
+코루틴을 통한 동시성(concurrency)은 항상 명시적(explicit)이라는 점에 유의하세요.
 
-## 지연 시작 async
+## 지연 시작 `async`
 
-선택적으로, [async]는 `start` 매개변수를 [CoroutineStart.LAZY]로 설정하여 지연되게(lazy) 만들 수 있습니다.
-이 모드에서는 [await][Deferred.await]에 의해 결과가 필요하거나, 해당 [Job]의 [start][Job.start] 함수가 호출될 때만 코루틴을 시작합니다. 다음 예시를 실행해 보세요:
+선택적으로 [async]는 `start` 매개변수를 [CoroutineStart.LAZY]로 설정하여 지연(lazy)되도록 만들 수 있습니다.
+이 모드에서는 [await][Deferred.await]를 통해 결과가 필요하거나 [Job]의 [start][Job.start] 함수가 호출될 때만 코루틴을 시작합니다. 다음 예제를 실행해 보세요.
 
 ```kotlin
 import kotlinx.coroutines.*
@@ -156,7 +156,7 @@ suspend fun doSomethingUsefulTwo(): Int {
 >
 {style="note"}
 
-결과는 다음과 같습니다:
+결과는 다음과 같습니다.
 
 ```text
 The answer is 42
@@ -165,21 +165,21 @@ Completed in 1017 ms
 
 <!--- TEST ARBITRARY_TIME -->
 
-따라서 여기서는 이전 예시와 달리 두 코루틴이 정의되었지만 실행되지는 않았으며, [start][Job.start]를 호출하여 정확히 언제 실행을 시작할지에 대한 제어권이 프로그래머에게 주어집니다. 먼저 `one`을 시작하고, 다음으로 `two`를 시작한 다음, 각 코루틴이 완료될 때까지 기다립니다.
+여기서는 두 코루틴이 정의되었지만 이전 예제처럼 바로 실행되지 않고, [start][Job.start]를 호출하여 정확히 언제 실행을 시작할지에 대한 제어권이 프로그래머에게 주어집니다. 먼저 `one`을 시작하고, 다음으로 `two`를 시작한 후, 각 코루틴이 끝날 때까지 기다립니다.
 
-개별 코루틴에 대해 [start][Job.start]를 먼저 호출하지 않고 `println`에서 [await][Deferred.await]만 호출하면 순차적인 동작으로 이어진다는 점에 유의하세요. 이는 [await][Deferred.await]가 코루틴 실행을 시작하고 완료될 때까지 기다리기 때문이며, 이는 지연(laziness)의 의도된 사용 사례가 아닙니다.
-`async(start = CoroutineStart.LAZY)`의 사용 사례는 값의 연산에 일시 중단 함수가 포함되는 경우 표준 [lazy](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/lazy.html) 함수를 대체하는 것입니다.
+만약 각 코루틴에 대해 [start][Job.start]를 먼저 호출하지 않고 `println`에서 [await][Deferred.await]만 호출하면, [await][Deferred.await]가 코루틴 실행을 시작하고 완료될 때까지 기다리므로 순차적인 동작이 발생할 것입니다. 이는 지연(laziness)의 의도된 사용 사례가 아닙니다.
+`async(start = CoroutineStart.LAZY)`의 사용 사례는 값 계산에 일시 중단 함수가 포함되는 경우 표준 [lazy](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/lazy.html) 함수를 대체하는 것입니다.
 
-## async 스타일 함수
+## 비동기 스타일 함수
 
-> async 함수를 사용하는 이 프로그래밍 스타일은 다른 프로그래밍 언어에서 널리 사용되는 스타일이므로 여기서는 설명을 위해서만 제공됩니다. 아래에서 설명하는 이유 때문에 Kotlin 코루틴에서 이 스타일을 사용하는 것은 **강력히 권장하지 않습니다**.
+> 이 비동기 함수 프로그래밍 스타일은 다른 프로그래밍 언어에서 인기 있는 스타일이기 때문에 여기에 예시로만 제공됩니다. 아래에 설명된 이유로 인해 이 스타일을 Kotlin 코루틴과 함께 사용하는 것은 **강력히 권장되지 않습니다**.
 >
 {style="note"}
 
-구조화된 동시성(structured concurrency)에서 벗어나기 위해 [GlobalScope] 참조를 사용하여 [async] 코루틴 빌더를 통해 `doSomethingUsefulOne`과 `doSomethingUsefulTwo`를 _비동기적으로_ 호출하는 async 스타일 함수를 정의할 수 있습니다.
-이러한 함수에 "...Async" 접미사를 붙여 이름을 지정하는데, 이는 함수들이 비동기 연산만 시작하며 결과를 얻기 위해서는 생성된 지연된(deferred) 값을 사용해야 한다는 사실을 강조하기 위함입니다.
+[GlobalScope]를 사용하여 구조화된 동시성에서 벗어나도록 [async] 코루틴 빌더를 사용하여 `doSomethingUsefulOne`과 `doSomethingUsefulTwo`를 _비동기적으로_ 호출하는 비동기 스타일 함수를 정의할 수 있습니다.
+이러한 함수는 비동기 계산을 시작할 뿐이며, 결과를 얻기 위해서는 결과 `Deferred` 값을 사용해야 한다는 점을 강조하기 위해 "...Async" 접미사를 붙입니다.
 
-> [GlobalScope]는 미묘한 방식으로 역효과를 낼 수 있는 섬세한 API이며, 그 중 하나는 아래에서 설명할 것이므로, `@OptIn(DelicateCoroutinesApi::class)`를 사용하여 `GlobalScope` 사용을 명시적으로 선택해야 합니다.
+> [GlobalScope]는 사소하지 않은 방식으로 역효과를 낼 수 있는 섬세한 API이며, 그 중 하나는 아래에서 설명될 것입니다. 따라서 `@OptIn(DelicateCoroutinesApi::class)`를 사용하여 `GlobalScope` 사용에 명시적으로 옵트인(opt-in)해야 합니다.
 >
 {style="note"}
 
@@ -197,10 +197,10 @@ fun somethingUsefulTwoAsync() = GlobalScope.async {
 }
 ```
 
-이러한 `xxxAsync` 함수는 **일시 중단** 함수가 아니라는 점에 유의하세요. 이 함수들은 어디에서나 사용할 수 있습니다.
-하지만 이 함수들을 사용하면 항상 호출하는 코드와 함께 해당 작업이 비동기적(여기서는 _동시적_을 의미)으로 실행됨을 암시합니다.
- 
-다음 예시는 코루틴 외부에서 이 함수들을 사용하는 방법을 보여줍니다:
+이 `xxxAsync` 함수들은 _일시 중단 함수(suspending functions)_가 **아닙니다**. 이 함수들은 어디에서든 사용할 수 있습니다.
+그러나 이 함수들을 사용하는 것은 항상 호출하는 코드와 해당 액션의 비동기(여기서는 _동시적_ 의미) 실행을 암시합니다.
+
+다음 예제는 코루틴 외부에서의 사용법을 보여줍니다.
 
 <!--- CLEAR -->
 
@@ -209,14 +209,14 @@ import kotlinx.coroutines.*
 import kotlin.system.*
 
 //sampleStart
-// 이 예시에서는 `main` 오른쪽에 `runBlocking`이 없다는 점에 유의하세요.
+// note that we don't have `runBlocking` to the right of `main` in this example
 fun main() {
     val time = measureTimeMillis {
-        // 코루틴 외부에서 비동기 작업을 시작할 수 있습니다.
+        // we can initiate async actions outside of a coroutine
         val one = somethingUsefulOneAsync()
         val two = somethingUsefulTwoAsync()
-        // 하지만 결과를 기다리려면 일시 중단하거나 블로킹해야 합니다.
-        // 여기서는 `runBlocking { ... }`을 사용하여 결과를 기다리는 동안 메인 스레드를 블록합니다.
+        // but waiting for a result must involve either suspending or blocking.
+        // here we use `runBlocking { ... }` to block the main thread while waiting for the result
         runBlocking {
             println("The answer is ${one.await() + two.await()}")
         }
@@ -256,13 +256,14 @@ The answer is 42
 Completed in 1085 ms
 -->
 
-`val one = somethingUsefulOneAsync()` 라인과 `one.await()` 표현식 사이에 코드에 논리적 오류가 있어 프로그램이 예외를 발생시키고 프로그램이 수행 중이던 작업이 중단되는 경우 어떤 일이 발생하는지 생각해 보세요.
-일반적으로 전역 오류 핸들러가 이 예외를 catch하여 개발자에게 오류를 기록하고 보고할 수 있지만, 프로그램은 다른 작업을 계속할 수 있습니다. 그러나 여기서는 `somethingUsefulOneAsync`를 시작한 작업이 중단되었음에도 불구하고 이 함수가 여전히 백그라운드에서 실행되고 있습니다. 이 문제는 아래 섹션에서 보여주는 바와 같이 구조화된 동시성에서는 발생하지 않습니다.
+`val one = somethingUsefulOneAsync()` 줄과 `one.await()` 표현식 사이에 코드에 논리 오류가 있고, 프로그램이 예외를 throw하여 수행 중인 작업이 중단되는 경우 어떤 일이 발생하는지 생각해 보세요.
+일반적으로 전역 오류 핸들러는 이 예외를 잡아서 개발자에게 오류를 기록하고 보고할 수 있지만, 프로그램은 다른 작업을 계속할 수 있습니다. 그러나 여기서는 작업을 시작한 프로그램이 중단되었음에도 불구하고 `somethingUsefulOneAsync`가 여전히 백그라운드에서 실행되고 있습니다.
+이러한 문제는 아래 섹션에서 보여지는 것처럼 구조화된 동시성(structured concurrency)에서는 발생하지 않습니다.
 
-## async를 사용한 구조화된 동시성
+## `async`를 사용한 구조화된 동시성
 
-[Concurrent using async](#concurrent-using-async) 예시를 `doSomethingUsefulOne`과 `doSomethingUsefulTwo`를 동시에 실행하고 결합된 결과를 반환하는 함수로 리팩터링해 봅시다.
-[async]는 [CoroutineScope] 확장 함수이므로, 필요한 스코프를 제공하기 위해 [coroutineScope][_coroutineScope] 함수를 사용할 것입니다:
+[async`를 사용한 동시 실행](#concurrent-using-async) 예제를 `doSomethingUsefulOne`과 `doSomethingUsefulTwo`를 동시에 실행하고 그 결합된 결과를 반환하는 함수로 리팩토링해 봅시다.
+[async]는 [CoroutineScope] 확장 함수이므로, 필요한 스코프를 제공하기 위해 [coroutineScope][_coroutineScope] 함수를 사용할 것입니다.
 
 ```kotlin
 suspend fun concurrentSum(): Int = coroutineScope {
@@ -272,7 +273,7 @@ suspend fun concurrentSum(): Int = coroutineScope {
 }
 ```
 
-이렇게 하면 `concurrentSum` 함수의 코드 내부에서 무언가 잘못되어 예외가 발생하면 해당 스코프에서 시작된 모든 코루틴이 취소됩니다.
+이러면 `concurrentSum` 함수 코드 내부에서 문제가 발생하여 예외가 throw되는 경우, 해당 스코프 내에서 시작된 모든 코루틴이 취소됩니다.
 
 <!--- CLEAR -->
 
@@ -311,7 +312,7 @@ suspend fun doSomethingUsefulTwo(): Int {
 >
 {style="note"}
 
-위 `main` 함수의 출력에서 알 수 있듯이, 두 작업은 여전히 동시 실행됩니다:
+위 `main` 함수의 출력에서 볼 수 있듯이, 두 작업은 여전히 동시에 실행됩니다.
 
 ```text
 The answer is 42
@@ -320,7 +321,7 @@ Completed in 1017 ms
 
 <!--- TEST ARBITRARY_TIME -->
 
-취소는 코루틴 계층을 통해 항상 전파됩니다:
+취소는 항상 코루틴 계층 구조를 통해 전파됩니다.
 
 <!--- CLEAR -->
 
@@ -338,7 +339,7 @@ fun main() = runBlocking<Unit> {
 suspend fun failedConcurrentSum(): Int = coroutineScope {
     val one = async<Int> { 
         try {
-            delay(Long.MAX_VALUE) // 매우 긴 연산을 에뮬레이션합니다.
+            delay(Long.MAX_VALUE) // Emulates very long computation
             42
         } finally {
             println("First child was cancelled")
@@ -357,7 +358,7 @@ suspend fun failedConcurrentSum(): Int = coroutineScope {
 >
 {style="note"}
 
-자식 중 하나(즉, `two`가) 실패할 때 첫 번째 `async`와 기다리던 부모 모두 취소되는 방식을 확인하세요:
+첫 번째 `async`와 대기 중인 부모 모두 자식 중 하나(`two`)의 실패 시 어떻게 취소되는지 주목하세요.
 ```text
 Second child throws an exception
 First child was cancelled

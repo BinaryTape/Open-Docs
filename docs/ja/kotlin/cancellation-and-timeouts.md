@@ -5,11 +5,11 @@
 
 このセクションでは、コルーチンのキャンセルとタイムアウトについて説明します。
 
-## コルーチン実行のキャンセル
+## コルーチンの実行をキャンセルする
 
 長時間実行されるアプリケーションでは、バックグラウンドコルーチンをきめ細かく制御する必要がある場合があります。
-たとえば、ユーザーがコルーチンを起動したページを閉じると、その結果は不要になり、その操作をキャンセルできます。
-`launch`関数は、実行中のコルーチンをキャンセルするために使用できる`Job`を返します。
+たとえば、ユーザーがコルーチンを起動したページを閉じた場合、その結果はもはや不要となり、その操作をキャンセルできます。
+[launch]関数は、実行中のコルーチンをキャンセルするために使用できる[Job]を返します。
 
 ```kotlin
 import kotlinx.coroutines.*
@@ -32,11 +32,11 @@ fun main() = runBlocking {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 <!--- KNIT example-cancel-01.kt -->
-> 完全なコードは[こちら](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-cancel-01.kt)から取得できます。
+> 完全なコードは[こちら](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-cancel-01.kt)から入手できます。
 >
 {style="note"}
 
-次の出力が生成されます。
+これは以下の出力を生成します。
 
 ```text
 job: I'm sleeping 0 ...
@@ -48,14 +48,13 @@ main: Now I can quit.
 
 <!--- TEST -->
 
-`main`が`job.cancel`を呼び出すとすぐに、他のコルーチンからは何も出力されなくなります。これは、そのコルーチンがキャンセルされたためです。
-また、`cancel`と`join`の呼び出しを組み合わせる`cancelAndJoin`という`Job`の拡張関数もあります。
+`main`が`job.cancel`を呼び出すとすぐに、キャンセルされたため、他のコルーチンからの出力は表示されません。
+また、[Job]の拡張関数[cancelAndJoin]があり、[cancel][Job.cancel]と[join][Job.join]の呼び出しを組み合わせます。
 
-## キャンセルは協調的
+## キャンセルは協調的である
 
-コルーチンのキャンセルは_協調的_です。コルーチンコードはキャンセル可能であるために協調する必要があります。
-`kotlinx.coroutines`のすべてのサスペンド関数は_キャンセル可能_です。それらはコルーチンのキャンセルをチェックし、キャンセルされたときに`CancellationException`をスローします。
-ただし、コルーチンが計算処理中にキャンセルのチェックを行わない場合、次の例に示すように、キャンセルすることはできません。
+コルーチンのキャンセルは_協調的_です。コルーチンコードは、キャンセル可能であるために協調する必要があります。
+`kotlinx.coroutines`内のすべてのサスペンド関数は_キャンセル可能_です。これらはコルーチンのキャンセルをチェックし、キャンセルされたときに[CancellationException]をスローします。しかし、コルーチンが計算処理中にキャンセルのチェックを行わない場合、以下の例が示すように、キャンセルすることはできません。
 
 ```kotlin
 import kotlinx.coroutines.*
@@ -83,11 +82,11 @@ fun main() = runBlocking {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 <!--- KNIT example-cancel-02.kt -->
-> 完全なコードは[こちら](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-cancel-02.kt)から取得できます。
+> 完全なコードは[こちら](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-cancel-02.kt)から入手できます。
 >
 {style="note"}
 
-実行すると、キャンセルされた後でも、ジョブが5回のイテレーションを終えて自己完了するまで、「I'm sleeping」と表示され続けることがわかります。
+これを実行すると、キャンセル後もジョブが5回の繰り返し後に自己完了するまで「I'm sleeping」の出力が続くことがわかります。
 
 <!--- TEST 
 job: I'm sleeping 0 ...
@@ -99,7 +98,7 @@ job: I'm sleeping 4 ...
 main: Now I can quit.
 -->
 
-同様の問題は、`CancellationException`をキャッチし、それを再スローしないことによっても観察できます。
+[CancellationException]をキャッチして再スローしないことでも、同様の問題が観察されます。
 
 ```kotlin
 import kotlinx.coroutines.*
@@ -127,18 +126,18 @@ fun main() = runBlocking {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 <!--- KNIT example-cancel-03.kt -->
-> 完全なコードは[こちら](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-cancel-03.kt)から取得できます。
+> 完全なコードは[こちら](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-cancel-03.kt)から入手できます。
 >
 {style="note"}
 
-`Exception`をキャッチすることはアンチパターンですが、この問題は、`CancellationException`を再スローしない[`runCatching`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/run-catching.html)関数を使用する場合など、より巧妙な方法で表面化する可能性があります。
+`Exception`をキャッチすることはアンチパターンですが、この問題は、[CancellationException]を再スローしない[`runCatching`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/run-catching.html)関数の使用時など、より巧妙な方法で表面化する可能性があります。
 
 ## 計算コードをキャンセル可能にする
 
 計算コードをキャンセル可能にするには、2つのアプローチがあります。
 1つ目は、キャンセルをチェックするサスペンド関数を定期的に呼び出す方法です。
-その目的には、`yield`関数と`ensureActive`関数が非常に適しています。
-もう1つは、`isActive`を使用してキャンセルの状態を明示的にチェックする方法です。
+その目的には、[yield]および[ensureActive]関数が最適です。
+もう1つは、[isActive]を使用してキャンセルのステータスを明示的にチェックする方法です。
 後者のアプローチを試してみましょう。
 
 前の例の`while (i < 5)`を`while (isActive)`に置き換えて、再度実行してください。
@@ -169,11 +168,11 @@ fun main() = runBlocking {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 <!--- KNIT example-cancel-04.kt -->
-> 完全なコードは[こちら](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-cancel-04.kt)から取得できます。
+> 完全なコードは[こちら](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-cancel-04.kt)から入手できます。
 >
 {style="note"}
 
-ご覧のとおり、このループはキャンセルされます。`isActive`は、`CoroutineScope`オブジェクトを介してコルーチンの内部で利用できる拡張プロパティです。
+ご覧のとおり、このループはキャンセルされます。[isActive]は、[CoroutineScope]オブジェクトを介してコルーチン内で利用可能な拡張プロパティです。
 
 <!--- TEST
 job: I'm sleeping 0 ...
@@ -183,10 +182,10 @@ main: I'm tired of waiting!
 main: Now I can quit.
 -->
 
-## finallyによるリソースのクローズ
+## `finally`でリソースを閉じる
 
-キャンセル可能なサスペンド関数は、キャンセル時に`CancellationException`をスローし、これは通常の方法で処理できます。
-たとえば、`try {...} finally {...}`式とKotlinの[`use`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.io/use.html)関数は、コルーチンがキャンセルされたときに、そのファイナライゼーションアクションを正常に実行します。
+キャンセル可能なサスペンド関数は、キャンセル時に[CancellationException]をスローし、これは通常の方法で処理できます。
+たとえば、コルーチンがキャンセルされた場合、`try {...} finally {...}`式とKotlinの[use](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.io/use.html)関数は、その終了処理を通常どおり実行します。
 
 ```kotlin
 import kotlinx.coroutines.*
@@ -212,11 +211,11 @@ fun main() = runBlocking {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 <!--- KNIT example-cancel-05.kt -->
-> 完全なコードは[こちら](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-cancel-05.kt)から取得できます。
+> 完全なコードは[こちら](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-cancel-05.kt)から入手できます。
 >
 {style="note"}
 
-`join`と`cancelAndJoin`はどちらもすべてのファイナライゼーションアクションの完了を待機するため、上記の例では次の出力が生成されます。
+[join][Job.join]と[cancelAndJoin]は両方とも、すべての終了処理が完了するのを待つため、上記の例は以下の出力を生成します。
 
 ```text
 job: I'm sleeping 0 ...
@@ -229,9 +228,9 @@ main: Now I can quit.
 
 <!--- TEST -->
 
-## キャンセル不可なブロックの実行
+## キャンセル不可ブロックの実行
 
-前の例の`finally`ブロックでサスペンド関数を使用しようとすると、このコードを実行しているコルーチンがキャンセルされているため、`CancellationException`が発生します。通常、これは問題になりません。なぜなら、適切に動作するクローズ操作（ファイルのクローズ、ジョブのキャンセル、あらゆる種類の通信チャネルのクローズなど）は通常ノンブロッキングであり、サスペンド関数を伴わないためです。ただし、キャンセルされたコルーチンでサスペンドする必要があるまれなケースでは、次の例に示すように、`withContext`関数と`NonCancellable`コンテキストを使用して、対応するコードを`withContext(NonCancellable) {...}`でラップできます。
+前の例の`finally`ブロックでサスペンド関数を使用しようとすると、このコードを実行しているコルーチンがキャンセルされるため、[CancellationException]が発生します。通常、これは問題ではありません。なぜなら、適切に動作するすべてのクローズ操作（ファイルのクローズ、ジョブのキャンセル、あらゆる種類の通信チャネルのクローズなど）は通常ノンブロッキングであり、サスペンド関数を含まないためです。しかし、キャンセルされたコルーチン内でサスペンドする必要がある稀なケースでは、以下の例が示すように、[withContext]関数と[NonCancellable]コンテキストを使用して、対応するコードを`withContext(NonCancellable) {...}`で囲むことができます。
 
 ```kotlin
 import kotlinx.coroutines.*
@@ -261,7 +260,7 @@ fun main() = runBlocking {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 <!--- KNIT example-cancel-06.kt -->
-> 完全なコードは[こちら](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-cancel-06.kt)から取得できます。
+> 完全なコードは[こちら](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-cancel-06.kt)から入手できます。
 >
 {style="note"}
 
@@ -277,9 +276,9 @@ main: Now I can quit.
 
 ## タイムアウト
 
-コルーチンの実行をキャンセルする最も明白で実用的な理由は、その実行時間がタイムアウトを超過したためです。
-対応する`Job`への参照を手動で追跡し、遅延後に追跡対象をキャンセルする別のコルーチンを起動することもできますが、それを実行するすぐに使える`withTimeout`関数があります。
-次の例を見てください。
+コルーチンの実行をキャンセルする最も明白な実用的な理由は、その実行時間がタイムアウトを超過したためです。
+対応する[Job]への参照を手動で追跡し、遅延後に追跡対象をキャンセルする別のコルーチンを起動することもできますが、それを実行するためのすぐに使える[withTimeout]関数があります。
+以下の例を見てください。
 
 ```kotlin
 import kotlinx.coroutines.*
@@ -297,11 +296,11 @@ fun main() = runBlocking {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 <!--- KNIT example-cancel-07.kt -->
-> 完全なコードは[こちら](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-cancel-07.kt)から取得できます。
+> 完全なコードは[こちら](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-cancel-07.kt)から入手できます。
 >
 {style="note"}
 
-次の出力が生成されます。
+これは以下の出力を生成します。
 
 ```text
 I'm sleeping 0 ...
@@ -312,13 +311,12 @@ Exception in thread "main" kotlinx.coroutines.TimeoutCancellationException: Time
 
 <!--- TEST STARTS_WITH -->
 
-`withTimeout`によってスローされる`TimeoutCancellationException`は、`CancellationException`のサブクラスです。
-これまで、そのスタックトレースがコンソールに表示されるのを見たことはありませんでした。
-これは、キャンセルされたコルーチン内では`CancellationException`がコルーチンの完了の正常な理由と見なされるためです。
-しかし、この例では`main`関数の内部で`withTimeout`を直接使用しています。
+[withTimeout]によってスローされる[TimeoutCancellationException]は、[CancellationException]のサブクラスです。
+これまでそのスタックトレースがコンソールに表示されることはありませんでした。それは、キャンセルされたコルーチン内では`CancellationException`がコルーチン完了の通常の理由と見なされるためです。
+しかし、この例では、`main`関数のすぐ内側で`withTimeout`を使用しました。
 
-キャンセルは単なる例外であるため、すべてのリソースは通常の方法でクローズされます。
-タイムアウト時に特定のアクションを実行する必要がある場合は、タイムアウトするコードを`try {...} catch (e: TimeoutCancellationException) {...}`ブロックでラップするか、`withTimeout`と似ていますが例外をスローする代わりにタイムアウト時に`null`を返す`withTimeoutOrNull`関数を使用できます。
+キャンセルは単なる例外であるため、すべてのリソースは通常の方法で閉じられます。
+タイムアウト時に特定の追加アクションを実行する必要がある場合は、タイムアウトコードを`try {...} catch (e: TimeoutCancellationException) {...}`ブロックで囲むか、[withTimeout]に似ていますが例外をスローする代わりにタイムアウト時に`null`を返す[withTimeoutOrNull]関数を使用できます。
 
 ```kotlin
 import kotlinx.coroutines.*
@@ -338,11 +336,11 @@ fun main() = runBlocking {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 <!--- KNIT example-cancel-08.kt -->
-> 完全なコードは[こちら](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-cancel-08.kt)から取得できます。
+> 完全なコードは[こちら](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-cancel-08.kt)から入手できます。
 >
 {style="note"}
 
-このコードを実行しても、例外は発生しなくなります。
+このコードを実行しても、例外は発生しません。
 
 ```text
 I'm sleeping 0 ...
@@ -355,16 +353,10 @@ Result is null
 
 ## 非同期タイムアウトとリソース
 
-<!-- 
-  NOTE: Don't change this section name. It is being referenced to from within KDoc of withTimeout functions.
--->
+[withTimeout]でのタイムアウトイベントは、そのブロック内で実行されているコードに対して非同期であり、タイムアウトブロックの内部から戻る直前であっても、いつでも発生する可能性があります。ブロック内でリソースを開いたり取得したりする場合で、そのリソースをブロックの外で閉じたり解放したりする必要がある場合は、この点に注意してください。
 
-`withTimeout`におけるタイムアウトイベントは、そのブロック内で実行されているコードに対して非同期であり、タイムアウトブロックの内部から戻る直前であっても、いつでも発生する可能性があります。
-ブロック内で開いたり取得したりしたリソースをブロック外でクローズまたは解放する必要がある場合、この点に留意してください。
-
-たとえば、ここでは`Resource`クラスを使用して、クローズ可能なリソースを模倣します。このクラスは、`acquired`カウンターをインクリメントすることで作成された回数を追跡し、`close`関数でカウンターをデクリメントします。
-ここで、多数のコルーチンを作成してみましょう。それぞれのコルーチンは、`withTimeout`ブロックの最後に`Resource`を作成し、ブロック外でリソースを解放します。
-タイムアウトが`withTimeout`ブロックが完了した直後に発生しやすくなるように小さな遅延を追加します。これにより、リソースリークが発生します。
+たとえば、ここでは`Resource`クラスを使用してクローズ可能なリソースを模倣します。このクラスは、`acquired`カウンターをインクリメントすることで作成された回数を追跡し、`close`関数でカウンターをデクリメントします。
+ここで、多数のコルーチンを作成します。それぞれのコルーチンは、`withTimeout`ブロックの最後に`Resource`を作成し、ブロックの外でリソースを解放します。`withTimeout`ブロックが既に終了しているときにタイムアウトが発生する可能性が高まるように、わずかな遅延を追加します。これにより、リソースリークが発生します。
 
 ```kotlin
 import kotlinx.coroutines.*
@@ -396,20 +388,20 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 <!--- KNIT example-cancel-09.kt -->
-> 完全なコードは[こちら](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-cancel-09.kt)から取得できます。
+> 完全なコードは[こちら](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-cancel-09.kt)から入手できます。
 >
 {style="note"}
 
 <!--- CLEAR -->
 
-上記のコードを実行すると、常にゼロが出力されるわけではないことがわかります。これは、お使いのマシンのタイミングに依存する場合があります。実際にゼロ以外の値を確認するには、この例のタイムアウトを調整する必要があるかもしれません。
+上記のコードを実行すると、常にゼロが出力されるわけではないことがわかります。ただし、これはお使いのマシンのタイミングに依存する可能性があります。非ゼロの値を実際に確認するには、この例のタイムアウトを調整する必要があるかもしれません。
 
-> ここで1万個のコルーチンから`acquired`カウンターを増減させることは、`runBlocking`が使用する同じスレッドから常に発生するため、完全にスレッドセーフであることに注意してください。
-> これについては、コルーチンコンテキストの章でさらに詳しく説明します。
-> 
+> ここで10K個のコルーチンから`acquired`カウンターをインクリメントおよびデクリメントしても、`runBlocking`によって使用されるのと同じスレッドから常に発生するため、完全にスレッドセーフであることに注意してください。
+> 詳細については、コルーチンコンテキストに関する章で説明します。
+>
 {style="note"}
 
-この問題を回避するには、`withTimeout`ブロックからリソースを返すのではなく、変数にリソースへの参照を格納することができます。
+この問題を回避するには、`withTimeout`ブロックからリソースを返すのではなく、変​​数にリソースへの参照を格納できます。
 
 ```kotlin
 import kotlinx.coroutines.*
@@ -446,11 +438,11 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 <!--- KNIT example-cancel-10.kt -->
-> 完全なコードは[こちら](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-cancel-10.kt)から取得できます。
+> 完全なコードは[こちら](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-cancel-10.kt)から入手できます。
 >
 {style="note"}
 
-この例では常にゼロが出力されます。リソースはリークしません。
+この例は常にゼロを出力します。リソースはリークしません。
 
 <!--- TEST 
 0

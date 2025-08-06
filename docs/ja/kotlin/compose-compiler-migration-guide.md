@@ -1,23 +1,24 @@
-[//]: # (title: Composeコンパイラの移行ガイド)
+[//]: # (title: Compose コンパイラの移行ガイド)
 
-ComposeコンパイラはGradleプラグインによって補完されており、セットアップを簡素化し、コンパイラオプションへのアクセスを容易にします。
-Android Gradleプラグイン (AGP) と共に適用される場合、このComposeコンパイラプラグインは、AGPによって自動的に提供されるComposeコンパイラの座標を上書きします。
+Compose コンパイラは Gradle プラグインによって補完され、セットアップを簡素化し、コンパイラオプションへのアクセスを容易にします。
+この Compose コンパイラプラグインが Android Gradle プラグイン (AGP) とともに適用されると、AGP によって自動的に提供される Compose コンパイラの座標を上書きします。
 
-Composeコンパイラは、Kotlin 2.0.0以降、Kotlinリポジトリにマージされました。
-これにより、ComposeコンパイラがKotlinと同時にリリースされ、常に同じバージョンのKotlinと互換性があるため、プロジェクトのKotlin 2.0.0以降への移行が円滑になります。
+Compose コンパイラは Kotlin 2.0.0 から Kotlin リポジトリにマージされました。
+これにより、Compose コンパイラが Kotlin と同時に提供され、常に同バージョンの Kotlin と互換性があるため、プロジェクトの Kotlin 2.0.0 以降への移行がスムーズになります。
 
-新しいComposeコンパイラプラグインをプロジェクトで使用するには、Composeを使用するモジュールごとに適用します。
-[Jetpack Composeプロジェクトを移行する方法](#migrating-a-jetpack-compose-project)の詳細については、引き続きお読みください。Compose Multiplatformプロジェクトの場合は、[マルチプラットフォーム移行ガイド](https://www.jetbrains.com/help/kotlin-multiplatform-dev/compose-compiler.html#migrating-a-compose-multiplatform-project)を参照してください。
+プロジェクトで新しい Compose コンパイラプラグインを使用するには、Compose を使用するモジュールごとに適用します。
+Jetpack Compose プロジェクトを移行する方法の詳細については、[こちら](#migrating-a-jetpack-compose-project)をお読みください。Compose Multiplatform プロジェクトについては、[Multiplatform 移行ガイド](https://www.jetbrains.com/help/kotlin-multiplatform-dev/compose-compiler.html#migrating-a-compose-multiplatform-project)を参照してください。
 
-## Jetpack Composeプロジェクトの移行
+## Jetpack Compose プロジェクトの移行
 
-1.9からKotlin 2.0.0以降に移行する場合、Composeコンパイラの扱い方に応じてプロジェクト設定を調整する必要があります。設定管理を自動化するために、Kotlin GradleプラグインとComposeコンパイラGradleプラグインを使用することを推奨します。
+Kotlin 1.9 から Kotlin 2.0.0 以降に移行する場合、Compose コンパイラの扱い方に応じてプロジェクト設定を調整する必要があります。
+設定管理を自動化するために、Kotlin Gradle プラグインと Compose コンパイラ Gradle プラグインを使用することをお勧めします。
 
-### GradleプラグインによるComposeコンパイラの管理
+### Gradle プラグインによる Compose コンパイラの管理
 
-Androidモジュールの場合:
+Android モジュールの場合：
 
-1.  [Gradleバージョンカタログ](https://docs.gradle.org/current/userguide/platforms.html#sub:conventional-dependencies-toml) にComposeコンパイラGradleプラグインを追加します:
+1.  Compose コンパイラ Gradle プラグインを [Gradle バージョンカタログ](https://docs.gradle.org/current/userguide/platforms.html#sub:conventional-dependencies-toml)に追加します。
 
     ```
     [versions]
@@ -30,7 +31,7 @@ Androidモジュールの場合:
     compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
     ```
 
-2.  ルートの`build.gradle.kts`ファイルにGradleプラグインを追加します:
+2.  Gradle プラグインをルートの `build.gradle.kts` ファイルに追加します。
 
     ```kotlin
     plugins {
@@ -39,7 +40,7 @@ Androidモジュールの場合:
     }
     ```
 
-3.  Jetpack Composeを使用するすべてのモジュールにプラグインを適用します:
+3.  Jetpack Compose を使用するすべてのモジュールにプラグインを適用します。
 
     ```kotlin
     plugins {
@@ -48,18 +49,19 @@ Androidモジュールの場合:
     }
     ```
 
-4.  Jetpack Composeコンパイラのコンパイラオプションを使用している場合は、`composeCompiler {}`ブロックでそれらを設定します。参考として、[コンパイラオプションのリスト](compose-compiler-options.md)を参照してください。
+4.  Jetpack Compose コンパイラのコンパイラオプションを使用している場合は、`composeCompiler {}` ブロックで設定します。
+    詳細については、[コンパイラオプションのリスト](compose-compiler-options.md)を参照してください。
 
-5.  Composeコンパイラのアーティファクトを直接参照している場合は、これらの参照を削除し、Gradleプラグインに処理を任せることができます。
+5.  Compose コンパイラのアーティファクトを直接参照している場合は、これらの参照を削除し、Gradle プラグインに任せることができます。
 
-### Gradleプラグインを使用しないComposeコンパイラの利用
+### Gradle プラグインを使用せずに Compose コンパイラを使用する
 
-Composeコンパイラの管理にGradleプラグインを使用していない場合は、プロジェクト内の古いMavenアーティファクトへの直接参照を更新してください:
+Gradle プラグインを使用して Compose コンパイラを管理していない場合は、プロジェクト内の古い Maven アーティファクトへの直接参照を更新します。
 
-*   `androidx.compose.compiler:compiler`を`org.jetbrains.kotlin:kotlin-compose-compiler-plugin-embeddable`に変更
-*   `androidx.compose.compiler:compiler-hosted`を`org.jetbrains.kotlin:kotlin-compose-compiler-plugin`に変更
+*   `androidx.compose.compiler:compiler` を `org.jetbrains.kotlin:kotlin-compose-compiler-plugin-embeddable` に変更します。
+*   `androidx.compose.compiler:compiler-hosted` を `org.jetbrains.kotlin:kotlin-compose-compiler-plugin` に変更します。
 
-## 次に行うこと
+## 次のステップ
 
-*   ComposeコンパイラがKotlinリポジトリに移行することに関する[Googleのアナウンス](https://android-developers.googleblog.com/2024/04/jetpack-compose-compiler-moving-to-kotlin-repository.html)を参照してください。
-*   Androidアプリを構築するためにJetpack Composeを使用している場合は、[マルチプラットフォーム化するためのガイド](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-integrate-in-existing-app.html)を確認してください。
+*   Compose コンパイラが Kotlin リポジトリに移行することに関する [Google のアナウンス](https://android-developers.googleblog.com/2024/04/jetpack-compose-compiler-moving-to-kotlin-repository.html)を参照してください。
+*   Jetpack Compose を使用して Android アプリを構築している場合は、[Multiplatform 化する方法に関するガイド](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-integrate-in-existing-app.html)を確認してください。

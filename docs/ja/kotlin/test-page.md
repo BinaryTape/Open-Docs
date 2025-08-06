@@ -1,18 +1,19 @@
 [//]: # (title: テストページ)
-[//]: # (description: このページはテスト目的のみです。)
+
+<web-summary>このページはテスト目的のみで利用されます。</web-summary>
 
 <no-index/>
 
 <tldr>
-   <p>これは画像を含むブロックです（「<strong>Compose Multiplatform の開始</strong>」チュートリアルから引用）。</p>
-   <p><img src="icon-1-done.svg" width="20" alt="最初のステップ"/> <a href="jvm-create-project-with-spring-boot.md">KotlinでSpring Bootプロジェクトを作成する</a><br/>
-      <img src="icon-2-done.svg" width="20" alt="2番目のステップ"/> <a href="jvm-spring-boot-add-data-class.md">Spring Bootプロジェクトにデータクラスを追加する</a><br/>
-      <img src="icon-3.svg" width="20" alt="3番目のステップ"/> <strong>Spring Bootプロジェクトにデータベースサポートを追加する</strong><br/>
-      <img src="icon-4-todo.svg" width="20" alt="4番目のステップ"/> データベースアクセスにSpring Data CrudRepositoryを使用する<br/>
+   <p>これは、画像を含むブロックです（**Compose Multiplatform の始め方**チュートリアルから引用）。</p>
+   <p><img src="icon-1-done.svg" width="20" alt="最初のステップ"/> <a href="jvm-create-project-with-spring-boot.md">Kotlin を使用して Spring Boot プロジェクトを作成</a><br/>
+      <img src="icon-2-done.svg" width="20" alt="2番目のステップ"/> <a href="jvm-spring-boot-add-data-class.md">Spring Boot プロジェクトにデータクラスを追加</a><br/>
+      <img src="icon-3.svg" width="20" alt="3番目のステップ"/> <strong>Spring Boot プロジェクトにデータベースサポートを追加</strong><br/>
+      <img src="icon-4-todo.svg" width="20" alt="4番目のステップ"/> Spring Data CrudRepository を使用してデータベースにアクセス><br/>
     </p>
 </tldr>
 
-## タブの同期
+## 同期されたタブ
 
 <tabs group="build-script">
 <tab title="Kotlin" group-key="kotlin">
@@ -60,7 +61,7 @@ plugins {
 
 ### 折りたたみ可能なセクション {initial-collapse-state="collapsed" collapsible="true"}
 
-ここにいくつかのテキストとコードブロックがあります:
+ここにテキストとコードブロックがあります:
 
 ```kotlin
 plugins {
@@ -70,7 +71,7 @@ plugins {
 
 ## コードブロック
 
-コードブロックのみ:
+コードブロック:
 
 ```kotlin
     import java.util.*
@@ -137,8 +138,8 @@ fun main() {
 
 ### Markdownテーブル
 
-| プリミティブ型配列                                                                    | Javaでの等価 |
-|:--------------------------------------------------------------------------------------|:-------------------|
+| プリミティブ型配列                                                                    | Javaでの等価な型 |
+|---------------------------------------------------------------------------------------|--------------------|
 | [`BooleanArray`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean-array/) | `boolean[]`        |
 | [`ByteArray`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-byte-array/)       | `byte[]`           |
 | [`CharArray`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-array/)       | `char[]`           |
@@ -209,7 +210,7 @@ kotlin {
         <td>変更後</td>
     </tr>
     <tr>
-        <td rowspan="2">jvmMainコンパイルの依存関係</td>
+        <td rowspan="2"><code>jvmMain</code>コンパイルの依存関係</td>
 <td>
 
 ```kotlin
@@ -248,7 +249,7 @@ dependencies {
 </td>
     </tr>
     <tr>
-        <td>jvmMainソースセットの依存関係</td>
+        <td><code>jvmMain</code>ソースセットの依存関係</td>
 <td colspan="2">
 
 ```kotlin
@@ -258,7 +259,7 @@ jvmMain<Scope>
 </td>
     </tr>
     <tr>
-        <td>jvmTestコンパイルの依存関係</td>
+        <td><code>jvmTest</code>コンパイルの依存関係</td>
 <td>
 
 ```kotlin
@@ -275,7 +276,7 @@ jvmTestCompilation<Scope>
 </td>
     </tr>
     <tr>
-        <td>jvmTestソースセットの依存関係</td>
+        <td><code>jvmTest</code>ソースセットの依存関係</td>
 <td colspan="2">
 
 ```kotlin
@@ -290,14 +291,14 @@ jvmTest<Scope>
 
 ### 順序付きリスト
 
-1. 1
-2. 2
-3. 3
-    1. 3.1
-    2. 3.2
-    3. 3.3
-        1. 3.1.1
-4. コードブロック内:
+1. 項目1
+2. 項目2
+3. 項目3
+    1. 項目3.1
+    2. 項目3.2
+    3. 項目3.3
+        1. 項目3.3.1
+4. コードブロックを含むもの:
 
    ```kotlin
    jvmTest<Scope>
@@ -305,13 +306,13 @@ jvmTest<Scope>
 
 ### 順序なしリスト
 
-* 最初の箇条書き
-* 2番目の箇条書き
-* 3番目の箇条書き
+* 最初の項目
+* 2番目の項目
+* 3番目の項目
     * もう一つ
-    * もう一つ
-        * すごい、もう一つ
-* コードブロック内:
+    * 別なもの
+        * なんと、さらにもう一つ
+* コードブロックを含むもの:
 
    ```kotlin
    jvmTest<Scope>
@@ -321,34 +322,34 @@ jvmTest<Scope>
 
 <deflist collapsible="true">
    <def title="折りたたみ可能な項目 #1">
-      <p><code>CrudRepository</code> インターフェースの <code>findById()</code> 関数の戻り値の型は <code>Optional</code> クラスのインスタンスです。しかし、一貫性のために単一のメッセージを持つ <code>List</code> を返すのが便利でしょう。そのためには、<code>Optional</code> の値が存在する場合にそれをアンラップし、その値を持つリストを返す必要があります。これは <code>Optional</code> 型への<a href="extensions.md#extension-functions">拡張関数</a>として実装できます。</p>
-      <p>コード中の <code>Optional&lt;out T&gt;.toList()</code> では、<code>.toList()</code> は <code>Optional</code> の拡張関数です。拡張関数を使用すると、任意のクラスに追加の関数を記述でき、特にライブラリクラスの機能を拡張したい場合に非常に役立ちます。</p>
+      <p><code>CrudRepository</code>インターフェースの<code>findById()</code>関数の戻り値の型は<code>Optional</code>クラスのインスタンスです。しかし、一貫性のために単一のメッセージを持つ<code>List</code>を返す方が便利でしょう。そのためには、<code>Optional</code>値が存在する場合はそれをアンラップし、その値を含むリストを返す必要があります。これは、<code>Optional</code>型への[拡張関数](extensions.md#extension-functions)として実装できます。</p>
+      <p>コード中の<code>Optional&lt;out T&gt;.toList()</code>では、<code>.toList()</code>は<code>Optional</code>の拡張関数です。拡張関数を使用すると、任意のクラスに追加の関数を記述できます。これは、特定のライブラリクラスの機能を拡張したい場合に特に役立ちます。</p>
    </def>
    <def title="折りたたみ可能な項目 #2">
-      <p><a href="https://docs.spring.io/spring-data/jdbc/docs/current/reference/html/#jdbc.entity-persistence">この関数は、</a>新しいオブジェクトがデータベースにIDを持たないという仮定で動作します。したがって、挿入時にはIDは**nullであるべき**です。</p>
-      <p>IDが <i>null</i> でない場合、<code>CrudRepository</code> は、そのオブジェクトがすでにデータベースに存在し、これは挿入操作ではなく <i>更新</i> 操作であると仮定します。挿入操作の後、<code>id</code> はデータストアによって生成され、<code>Message</code> インスタンスに再度割り当てられます。これが、<code>id</code> プロパティを <code>var</code> キーワードを使用して宣言する必要がある理由です。</p>
+      <p><a href="https://docs.spring.io/spring-data/jdbc/docs/current/reference/html/#jdbc.entity-persistence">この関数は</a>、新しいオブジェクトがデータベースにidを持たないという前提で動作します。したがって、挿入時にはidが<b>`null`である必要があります</b>。</p>
+      <p>idが<i>`null`</i>でない場合、<code>CrudRepository</code>は、そのオブジェクトがすでにデータベースに存在し、これが<i>挿入</i>操作ではなく<i>更新</i>操作であると見なします。挿入操作の後、<code>id</code>はデータストアによって生成され、<code>Message</code>インスタンスに割り当て直されます。このため、<code>id</code>プロパティは<code>var</code>キーワードを使用して宣言する必要があります。</p>
       <p></p>
    </def>
 </deflist>
 
 ## テキスト要素
 
-* **太字のテキスト**
-* _斜体のテキスト_
-* `inline code`
+* **太字テキスト**
+* _斜体テキスト_
+* `インラインコード`
 * [内部アンカー](#lists)
 * [内部リンク](roadmap.md)
 * [外部リンク](https://jetbrains.com)
 * 絵文字 ❌✅🆕
 
 ## 変数
-* 変数使用: 最新のKotlinバージョンは %kotlinVersion% です
+* 変数使用例: 最新のKotlinバージョンは %kotlinVersion%
 
 ## 埋め込み要素
 
 ### YouTube動画
 
-<video src="https://www.youtube.com/v/Ol_96CHKqg8" title="Kotlin 1.9.20 の新機能"/>
+<video src="https://www.youtube.com/v/Ol_96CHKqg8" title="Kotlin 1.9.20の新機能"/>
 
 ### 画像
 
@@ -378,19 +379,19 @@ jvmTest<Scope>
 
 警告:
 
-> kaptコンパイラプラグインでのK2のサポートは[実験的](components-stability.md)です。
-> オプトインが必要です（詳細は下記参照）。評価目的のみで使用してください。
+> kaptコンパイラプラグインにおけるK2のサポートは[試験的](components-stability.md)です。
+> オプトインが必要です（詳細は下記参照）。評価目的のみにご利用ください。
 >
 {style="warning"}
 
-注記:
+注:
 
-> Kotlin/Nativeに同梱されているネイティブプラットフォームライブラリ（Foundation、UIKit、POSIXなど）に関しては、一部のAPIのみが<code>@ExperimentalForeignApi</code>でのオプトインを必要とします。そのような場合、オプトイン要件に関する警告が表示されます。
+> Kotlin/Nativeに同梱されているネイティブプラットフォームライブラリ（Foundation、UIKit、POSIXなど）については、そのAPIの一部のみが`@ExperimentalForeignApi`によるオプトインを必要とします。このような場合、オプトイン要件に関する警告が表示されます。
 >
 {style="note"}
 
 ヒント:
 
-> Kotlin/Nativeに同梱されているネイティブプラットフォームライブラリ（Foundation、UIKit、POSIXなど）に関しては、一部のAPIのみが<code>@ExperimentalForeignApi</code>でのオプトインを必要とします。そのような場合、オプトイン要件に関する警告が表示されます。
+> Kotlin/Nativeに同梱されているネイティブプラットフォームライブラリ（Foundation、UIKit、POSIXなど）については、そのAPIの一部のみが`@ExperimentalForeignApi`によるオプトインを必要とします。このような場合、オプトイン要件に関する警告が表示されます。
 >
 {style="tip"}

@@ -1,13 +1,14 @@
-<!--- TEST_NAME FlowGuideTest -->
+<!--- TEST_NAME FlowGuideTest --> 
 <contribute-url>https://github.com/Kotlin/kotlinx.coroutines/edit/master/docs/topics/</contribute-url>
 
-[//]: # (title: 非同期Flow)
+[//]: # (title: 非同期フロー)
 
-中断関数は非同期に単一の値を返しますが、非同期に計算された複数の値を返すにはどうすればよいでしょうか？ここでKotlinのFlowが登場します。
+停止関数は非同期に単一の値を返しますが、複数の非同期的に計算された値を返すにはどうすればよいでしょうか？ここでKotlinのFlowが登場します。
 
-## 複数の値の表現
+## 複数の値を表現する
 
-Kotlinでは、複数の値を[コレクション][collections]を使って表現できます。例えば、3つの数値の[リスト][List]を返す`simple`関数を作成し、[forEach][forEach]を使ってそれらすべてを出力できます。
+Kotlinでは、[コレクション]を使用して複数の値を表現できます。
+たとえば、3つの数値の[List]を返し、[forEach]を使用してそれらすべてをプリントする`simple`関数を作成できます。
 
 ```kotlin
 fun simple(): List<Int> = listOf(1, 2, 3)
@@ -18,11 +19,11 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 <!--- KNIT example-flow-01.kt -->
-> 完全なコードは[こちら](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-flow-01.kt)から入手できます。
+> 全体のコードは[こちら](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-flow-01.kt)から入手できます。
 >
 {style="note"}
 
-このコードは次のように出力されます。
+このコードは次を出力します。
 
 ```text
 1
@@ -34,7 +35,7 @@ fun main() {
 
 ### シーケンス
 
-CPUを大量に消費するブロッキングコードで数値を計算している場合（各計算に100msかかる）、[シーケンス][Sequence]を使って数値を表現できます。
+数値がCPUを大量に消費するブロッキングコード（各計算に100ミリ秒かかる）で計算されている場合、[Sequence]を使用して数値を表現できます。
 
 ```kotlin
 fun simple(): Sequence<Int> = sequence { // sequence builder
@@ -50,11 +51,11 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 <!--- KNIT example-flow-02.kt -->
-> 完全なコードは[こちら](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-flow-02.kt)から入手できます。
+> 全体のコードは[こちら](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-flow-02.kt)から入手できます。
 >
 {style="note"}
 
-このコードは同じ数値を表示しますが、それぞれの数値を出力する前に100ms待機します。
+このコードは同じ数値を出力しますが、それぞれを出力する前に100ミリ秒待機します。
 
 <!--- TEST 
 1
@@ -62,9 +63,10 @@ fun main() {
 3
 -->
 
-### 中断関数
+### 停止関数
 
-しかし、この計算はコードを実行しているメインスレッドをブロックします。これらの値が非同期コードによって計算される場合、`simple`関数に`suspend`修飾子を付けて、ブロックせずに処理を実行し、結果をリストとして返すことができます。
+しかし、この計算はコードを実行しているメインスレッドをブロックします。
+これらの値が非同期コードによって計算される場合、`simple`関数を`suspend`修飾子でマークすることで、ブロックせずにその作業を実行し、結果をリストとして返すことができます。
 
 ```kotlin
 import kotlinx.coroutines.*                 
@@ -82,11 +84,11 @@ fun main() = runBlocking<Unit> {
 ```  
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 <!--- KNIT example-flow-03.kt -->
-> 完全なコードは[こちら](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-flow-03.kt)から入手できます。
+> 全体のコードは[こちら](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-flow-03.kt)から入手できます。
 >
 {style="note"}
 
-このコードは、1秒待ってから数値を表示します。
+このコードは、1秒待機した後で数値をプリントします。
 
 <!--- TEST 
 1
@@ -96,7 +98,7 @@ fun main() = runBlocking<Unit> {
 
 ### Flow
 
-`List<Int>`の結果型を使用すると、すべての値を一度に返すことしかできません。非同期に計算される値のストリームを表現するには、同期的に計算される値に`Sequence<Int>`型を使用するのと同様に、[`Flow<Int>`][Flow]型を使用できます。
+`List<Int>`の結果型を使用すると、すべての値を一度にしか返せません。非同期的に計算されている値のストリームを表現するには、同期的に計算された値に`Sequence<Int>`型を使用するのと同じように、[`Flow<Int>`][Flow]型を使用できます。
 
 ```kotlin
 import kotlinx.coroutines.*
@@ -125,11 +127,11 @@ fun main() = runBlocking<Unit> {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 <!--- KNIT example-flow-04.kt -->
-> 完全なコードは[こちら](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-flow-04.kt)から入手できます。
+> 全体のコードは[こちら](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-flow-04.kt)から入手できます。
 >
 {style="note"}
 
-このコードは、メインスレッドをブロックすることなく、各数値を出力する前に100ms待機します。これは、メインスレッドで実行されている別のコルーチンから100msごとに「I'm not blocked」と出力されることで確認できます。
+このコードは、メインスレッドをブロックせずに各数値をプリントする前に100ミリ秒待機します。これは、メインスレッドで実行されている別のコルーチンから100ミリ秒ごとに「I'm not blocked」をプリントすることで検証されます。
 
 ```text
 I'm not blocked 1
@@ -142,21 +144,21 @@ I'm not blocked 3
 
 <!--- TEST -->
 
-以前の例の[Flow]との以下の違いに注目してください。
+以前の例の[Flow]を使用したコードの以下の違いに注目してください。
 
-*   [Flow]型のビルダー関数は[flow][\_flow]と呼ばれます。
-*   `flow { ... }`ビルダーブロック内のコードは中断（suspend）できます。
-*   `simple`関数には`suspend`修飾子が付けられていません。
-*   値は[emit][FlowCollector.emit]関数を使ってFlowから_emit_されます。
-*   値は[collect][collect]関数を使ってFlowから_collect_されます。
+*   [Flow]型のビルダー関数は[flow][_flow]と呼ばれます。
+*   `flow { ... }`ビルダーブロック内のコードは停止できます。
+*   `simple`関数にはもはや`suspend`修飾子は付けられません。
+*   値は[emit][FlowCollector.emit]関数を使用してフローから_emit_されます。
+*   値は[collect][collect]関数を使用してフローから_collect_されます。
 
-> `simple`の`flow { ... }`の本体で[delay][delay]を`Thread.sleep`に置き換えると、この場合メインスレッドがブロックされることがわかります。
+> `simple`の`flow { ... }`のボディで[delay]を`Thread.sleep`に置き換えると、この場合、メインスレッドがブロックされることがわかります。
 >
 {style="note"}
 
-## Flowはコールドです
+## Flowはコールド
 
-Flowはシーケンスと同様に_コールド_ストリームです。— [flow][\_flow]ビルダー内のコードは、Flowがcollectされるまで実行されません。これは次の例で明らかになります。
+Flowはシーケンスと同様に_コールド_ストリームです。つまり、[flow][_flow]ビルダー内のコードは、フローが収集されるまで実行されません。これは以下の例で明らかになります。
 
 ```kotlin
 import kotlinx.coroutines.*
@@ -183,11 +185,11 @@ fun main() = runBlocking<Unit> {
 ```  
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 <!--- KNIT example-flow-05.kt -->
-> 完全なコードは[こちら](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-flow-05.kt)から入手できます。
+> 全体のコードは[こちら](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-flow-05.kt)から入手できます。
 >
 {style="note"}
 
-これは次のように出力されます。
+これは次を出力します。
 
 ```text
 Calling simple function...
@@ -205,11 +207,13 @@ Flow started
 
 <!--- TEST -->
  
-これが、`simple`関数（Flowを返す）に`suspend`修飾子が付けられていない主な理由です。`simple()`の呼び出し自体はすぐに戻り、何も待機しません。Flowはcollectされるたびに最初から開始されるため、`collect`を呼び出すたびに「Flow started」と表示されます。
+これは、`simple`関数（Flowを返す関数）に`suspend`修飾子が付けられていない主な理由です。
+`simple()`呼び出し自体はすぐに返され、何も待機しません。フローは収集されるたびに新たに開始されるため、`collect`を再度呼び出すたびに「Flow started」と表示されます。
 
-## Flowのキャンセル基礎
+## Flowのキャンセルの基本
 
-Flowはコルーチンの一般的な協調的キャンセルに従います。通常通り、Flowの収集は、Flowがキャンセル可能な中断関数（[delay][delay]など）で中断されている場合にキャンセルできます。[withTimeoutOrNull][withTimeoutOrNull]ブロック内で実行される場合、Flowがタイムアウトによってキャンセルされ、コードの実行を停止する方法を次の例に示します。
+Flowは、コルーチンの一般的な協調キャンセルに従います。通常通り、フローがキャンセル可能な停止関数（[delay]など）で停止されている場合、フローの収集はキャンセルできます。
+以下の例は、[withTimeoutOrNull]ブロックで実行されているときにフローがタイムアウトでキャンセルされ、コードの実行を停止する方法を示しています。
 
 ```kotlin
 import kotlinx.coroutines.*
@@ -234,11 +238,11 @@ fun main() = runBlocking<Unit> {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 <!--- KNIT example-flow-06.kt -->
-> 完全なコードは[こちら](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-flow-06.kt)から入手できます。
+> 全体のコードは[こちら](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-flow-06.kt)から入手できます。
 >
 {style="note"}
 
-`simple`関数内のFlowによって2つの数値のみがemitされ、次の出力が生成されることに注目してください。
+`simple`関数内のフローによって2つの数値のみがemitされ、以下の出力が生成されることに注目してください。
 
 ```text
 Emitting 1
@@ -250,16 +254,16 @@ Done
 
 <!--- TEST -->
 
-詳細は「[Flowのキャンセルチェック](#flow-cancellation-checks)」セクションを参照してください。
+詳細については、「[フローのキャンセルチェック](#flow-cancellation-checks)」セクションを参照してください。
 
 ## Flowビルダー
 
-これまでの例で登場した`flow { ... }`ビルダーは最も基本的なものです。他にもFlowを宣言できるビルダーがあります。
+以前の例の`flow { ... }`ビルダーは最も基本的なものです。フローを宣言できる他のビルダーもあります。
 
-*   [flowOf][flowOf]ビルダーは、固定された値のセットをemitするFlowを定義します。
-*   様々なコレクションやシーケンスは、`.asFlow()`拡張関数を使ってFlowに変換できます。
+*   [flowOf]ビルダーは、固定された値のセットをemitするフローを定義します。
+*   さまざまなコレクションやシーケンスは、`.asFlow()`拡張関数を使用してフローに変換できます。
 
-例えば、Flowから1から3までの数値を表示するスニペットは、次のように書き直すことができます。
+たとえば、フローから1から3までの数値をプリントするスニペットは次のように書き換えられます。
 
 ```kotlin
 import kotlinx.coroutines.*
@@ -274,7 +278,7 @@ fun main() = runBlocking<Unit> {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 <!--- KNIT example-flow-07.kt -->
-> 完全なコードは[こちら](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-flow-07.kt)から入手できます。
+> 全体のコードは[こちら](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-flow-07.kt)から入手できます。
 >
 {style="note"}
 
@@ -284,13 +288,17 @@ fun main() = runBlocking<Unit> {
 3
 -->
 
-## 中間Flow演算子
+## 中間Flowオペレーター
 
-Flowは、コレクションやシーケンスを変換するのと同じように、演算子を使って変換できます。中間演算子はアップストリームのFlowに適用され、ダウンストリームのFlowを返します。これらの演算子はFlowと同様にコールドです。このような演算子の呼び出し自体は中断関数ではありません。それは素早く動作し、変換された新しいFlowの定義を返します。
+Flowは、コレクションやシーケンスを変換するのと同じように、オペレーターを使用して変換できます。
+中間オペレーターはアップストリームフローに適用され、ダウンストリームフローを返します。
+これらのオペレーターは、フローと同様にコールドです。そのようなオペレーターの呼び出し自体は、停止関数ではありません。
+それは高速に動作し、新しい変換されたフローの定義を返します。
 
-基本的な演算子には、[map][map]や[filter][filter]といったおなじみの名前があります。これらの演算子とシーケンスとの重要な違いは、これらの演算子内のコードブロックが中断関数を呼び出せることです。
+基本的なオペレーターには、[map]や[filter]のような馴染みのある名前があります。
+これらのオペレーターとシーケンスの重要な違いは、これらのオペレーター内のコードブロックが停止関数を呼び出せることです。
 
-例えば、入力リクエストのFlowは、[map][map]演算子を使って結果にマップできます。たとえリクエストの実行が中断関数によって実装される時間のかかる操作であってもです。
+たとえば、受信リクエストのフローは、リクエストの実行が停止関数によって実装される長時間の操作である場合でも、[map]オペレーターでその結果にマッピングできます。
 
 ```kotlin
 import kotlinx.coroutines.*
@@ -311,11 +319,11 @@ fun main() = runBlocking<Unit> {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 <!--- KNIT example-flow-08.kt -->
-> 完全なコードは[こちら](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-flow-08.kt)から入手できます。
+> 全体のコードは[こちら](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-flow-08.kt)から入手できます。
 >
 {style="note"}
 
-これは次の3行を生成し、それぞれ前の行の1秒後に表示されます。
+これは次の3行を生成し、それぞれが前の行から1秒後に表示されます。
 
 ```text                                                                    
 response 1
@@ -325,11 +333,12 @@ response 3
 
 <!--- TEST -->
 
-### transform演算子
+### `transform`オペレーター
 
-Flow変換演算子の中で最も一般的なものは[transform][transform]です。[map][map]や[filter][filter]のような単純な変換を模倣できるだけでなく、より複雑な変換も実装できます。`transform`演算子を使用すると、[emit][FlowCollector.emit]によって任意の値を任意の回数emitできます。
+フロー変換オペレーターの中で、最も汎用的なものは[transform]と呼ばれます。それは[map]や[filter]のような単純な変換を模倣するためにも、より複雑な変換を実装するためにも使用できます。
+`transform`オペレーターを使用すると、任意の値を任意の回数[emit][FlowCollector.emit]できます。
 
-例えば、`transform`を使って、時間のかかる非同期リクエストを実行する前に文字列をemitし、その後に応答をemitすることができます。
+たとえば、`transform`を使用して、時間のかかる非同期リクエストを実行する前に文字列をemitし、その後にレスポンスを続けることができます。
 
 ```kotlin
 import kotlinx.coroutines.*
@@ -353,11 +362,11 @@ fun main() = runBlocking<Unit> {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 <!--- KNIT example-flow-09.kt -->
-> 完全なコードは[こちら](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-flow-09.kt)から入手できます。
+> 全体のコードは[こちら](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-flow-09.kt)から入手できます。
 >
 {style="note"}
 
-このコードの出力は次の通りです。
+このコードの出力は次のとおりです。
 
 ```text
 Making request 1
@@ -370,9 +379,9 @@ response 3
 
 <!--- TEST -->
 
-### サイズ制限演算子
+### サイズ制限オペレーター
 
-[take][take]のようなサイズ制限中間演算子は、対応する制限に達したときにFlowの実行をキャンセルします。コルーチンでのキャンセルは常に例外をスローすることによって実行されるため、すべてのリソース管理関数（`try { ... } finally { ... }`ブロックなど）はキャンセル時にも正常に動作します。
+[take]のようなサイズ制限中間オペレーターは、対応する制限に達するとフローの実行をキャンセルします。コルーチンでのキャンセルは常に例外をスローすることによって実行されるため、すべてのリソース管理関数（`try { ... } finally { ... }`ブロックなど）はキャンセルの場合でも正常に動作します。
 
 ```kotlin
 import kotlinx.coroutines.*
@@ -399,11 +408,11 @@ fun main() = runBlocking<Unit> {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 <!--- KNIT example-flow-10.kt -->
-> 完全なコードは[こちら](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-flow-10.kt)から入手できます。
+> 全体のコードは[こちら](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-flow-10.kt)から入手できます。
 >
 {style="note"}
 
-このコードの出力は、`numbers()`関数内の`flow { ... }`の本体の実行が2番目の値をemitした後に停止したことを明確に示しています。
+このコードの出力は、`numbers()`関数内の`flow { ... }`ボディの実行が2番目の数値のemit後に停止したことを明確に示しています。
 
 ```text       
 1
@@ -413,15 +422,16 @@ Finally in numbers
 
 <!--- TEST -->
 
-## ターミナルFlow演算子
+## 終端Flowオペレーター
 
-Flowのターミナル演算子は、Flowの収集を開始する_中断関数_です。[collect][collect]演算子は最も基本的なものですが、他にもFlowの収集を容易にするターミナル演算子があります。
+フローの終端オペレーターは、フローの収集を開始する_停止関数_です。
+[collect]オペレーターが最も基本的なものですが、他にも収集を容易にする終端オペレーターがあります。
 
-*   [toList][toList]や[toSet][toSet]など、様々なコレクションへの変換。
-*   [first][first]値を取得する演算子と、Flowが[single][single]値をemitすることを保証する演算子。
-*   [reduce][reduce]と[fold][fold]によるFlowの値への還元。
+*   [toList]や[toSet]などのさまざまなコレクションへの変換。
+*   [first]値を取得し、フローが[single]値をemitすることを保証するオペレーター。
+*   [reduce]と[fold]でフローを値に削減する。
 
-例:
+例えば:
 
 ```kotlin
 import kotlinx.coroutines.*
@@ -438,11 +448,11 @@ fun main() = runBlocking<Unit> {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 <!--- KNIT example-flow-11.kt -->
-> 完全なコードは[こちら](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-flow-11.kt)から入手できます。
+> 全体のコードは[こちら](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-flow-11.kt)から入手できます。
 >
 {style="note"}
 
-単一の数値が出力されます。
+単一の数値を出力します。
 
 ```text
 55
@@ -450,11 +460,12 @@ fun main() = runBlocking<Unit> {
 
 <!--- TEST -->
 
-## Flowはシーケンシャルです
+## Flowは逐次的
 
-Flowの個々の収集は、複数のFlowに対して動作する特殊な演算子を使用しない限り、シーケンシャルに実行されます。収集は、ターミナル演算子を呼び出すコルーチンで直接動作します。デフォルトでは新しいコルーチンは起動されません。emitされた各値は、アップストリームからダウンストリームまでのすべての中間演算子によって処理され、その後ターミナル演算子に渡されます。
+複数のフローを操作する特殊なオペレーターが使用されない限り、フローの個々の収集は順次実行されます。収集は、終端オペレーターを呼び出すコルーチンで直接機能します。デフォルトでは新しいコルーチンは起動されません。
+emitされた各値は、アップストリームからダウンストリームまですべての中間オペレーターによって処理され、その後、終端オペレーターに届けられます。
 
-偶数をフィルタリングし、それらを文字列にマップする次の例を見てください。
+偶数整数をフィルタリングし、文字列にマッピングする次の例を参照してください。
 
 ```kotlin
 import kotlinx.coroutines.*
@@ -478,7 +489,7 @@ fun main() = runBlocking<Unit> {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 <!--- KNIT example-flow-12.kt -->
-> 完全なコードは[こちら](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-flow-12.kt)から入手できます。
+> 全体のコードは[こちら](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-flow-12.kt)から入手できます。
 >
 {style="note"}
 
@@ -500,7 +511,7 @@ Filter 5
 
 ## Flowコンテキスト
 
-Flowの収集は常に呼び出し元のコルーチンのコンテキストで発生します。例えば、`simple` Flowがある場合、次のコードは、`simple` Flowの実装詳細に関わらず、このコードの作成者によって指定されたコンテキストで実行されます。
+フローの収集は常に、呼び出し元のコルーチンのコンテキストで発生します。たとえば、`simple`フローがある場合、`simple`フローの実装詳細に関わらず、以下のコードはこのコードの作成者によって指定されたコンテキストで実行されます。
 
 ```kotlin
 withContext(context) {
@@ -512,9 +523,9 @@ withContext(context) {
 
 <!--- CLEAR -->
 
-Flowのこのプロパティは、_コンテキストの保存_と呼ばれます。
+このフローのプロパティは、_コンテキストの保存_と呼ばれます。
 
-したがって、デフォルトでは、`flow { ... }`ビルダー内のコードは、対応するFlowのコレクターによって提供されるコンテキストで実行されます。例えば、呼び出されたスレッドを出力し、3つの数値をemitする`simple`関数の実装を考えてみましょう。
+したがって、デフォルトでは、`flow { ... }`ビルダー内のコードは、対応するフローのコレクターによって提供されるコンテキストで実行されます。たとえば、呼び出されたスレッドをプリントし、3つの数値をemitする`simple`関数の実装を考えてみましょう。
 
 ```kotlin
 import kotlinx.coroutines.*
@@ -537,11 +548,11 @@ fun main() = runBlocking<Unit> {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 <!--- KNIT example-flow-13.kt -->
-> 完全なコードは[こちら](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-flow-13.kt)から入手できます。
+> 全体のコードは[こちら](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-flow-13.kt)から入手できます。
 >
 {style="note"}
 
-このコードを実行すると、次のように出力されます。
+このコードを実行すると、次が生成されます。
 
 ```text  
 [main @coroutine#1] Started simple flow
@@ -552,11 +563,11 @@ fun main() = runBlocking<Unit> {
 
 <!--- TEST FLEXIBLE_THREAD -->
 
-`simple().collect`がメインスレッドから呼び出されるため、`simple`のFlowの本体もメインスレッドで呼び出されます。これは、高速に実行されるコードや非同期コードにとって完璧なデフォルトであり、実行コンテキストを気にせず、呼び出し元をブロックしません。
+`simple().collect`がメインスレッドから呼び出されるため、`simple`のフローの本体もメインスレッドで呼び出されます。これは、実行コンテキストを気にせず、呼び出し元をブロックしない高速に実行される、または非同期コードにとって完璧なデフォルトです。
 
-### withContextを使用する際の一般的な落とし穴
+### `withContext`使用時の一般的な落とし穴
 
-ただし、時間のかかるCPUを大量に消費するコードは[Dispatchers.Default][Dispatchers.Default]のコンテキストで実行する必要がある場合がありますし、UI更新コードは[Dispatchers.Main][Dispatchers.Main]のコンテキストで実行する必要があるかもしれません。通常、[withContext][withContext]はKotlinコルーチンを使用するコードでコンテキストを変更するために使用されますが、`flow { ... }`ビルダー内のコードはコンテキストの保存プロパティを尊重する必要があり、異なるコンテキストから[emit][FlowCollector.emit]することは許可されていません。
+しかし、長時間実行されるCPUを大量に消費するコードは[Dispatchers.Default]のコンテキストで実行する必要があるかもしれませんし、UI更新コードは[Dispatchers.Main]のコンテキストで実行する必要があるかもしれません。通常、Kotlinコルーチンを使用するコードでコンテキストを変更するには[withContext]が使用されますが、`flow { ... }`ビルダー内のコードはコンテキストの保存プロパティを尊重する必要があり、異なるコンテキストから[emit][FlowCollector.emit]することは許可されていません。
 
 次のコードを実行してみてください。
 
@@ -582,7 +593,7 @@ fun main() = runBlocking<Unit> {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 <!--- KNIT example-flow-14.kt -->
-> 完全なコードは[こちら](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-flow-14.kt)から入手できます。
+> 全体のコードは[こちら](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-flow-14.kt)から入手できます。
 >
 {style="note"}
 
@@ -598,9 +609,10 @@ Exception in thread "main" java.lang.IllegalStateException: Flow invariant is vi
 
 <!--- TEST EXCEPTION -->
 
-### flowOn演算子
+### `flowOn`オペレーター
    
-この例外は、Flowのemitのコンテキストを変更するために使用されるべき[flowOn][flowOn]関数を参照しています。Flowのコンテキストを変更する正しい方法は次の例で示されています。これは、すべてがどのように機能するかを示すために対応するスレッド名も出力します。
+この例外は、フローのemitのコンテキストを変更するために使用されるべき[flowOn]関数に言及しています。
+フローのコンテキストを変更する正しい方法は以下の例に示されており、すべてがどのように機能するかを示すために対応するスレッド名もプリントされます。
 
 ```kotlin
 import kotlinx.coroutines.*
@@ -626,7 +638,7 @@ fun main() = runBlocking<Unit> {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 <!--- KNIT example-flow-15.kt -->
-> 完全なコードは[こちら](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-flow-15.kt)から入手できます。
+> 全体のコードは[こちら](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-flow-15.kt)から入手できます。
 >
 {style="note"}
   
@@ -643,11 +655,12 @@ fun main() = runBlocking<Unit> {
 
 <!--- TEST FLEXIBLE_THREAD -->
 
-ここで観察すべきもう1つの点は、[flowOn][flowOn]演算子がFlowのデフォルトのシーケンシャルな性質を変更したことです。これで、収集は1つのコルーチン（"coroutine#1"）で発生し、emitは収集するコルーチンと並行して別のスレッドで実行されている別のコルーチン（"coroutine#2"）で発生します。[flowOn][flowOn]演算子は、コンテキストの[CoroutineDispatcher][CoroutineDispatcher]を変更する必要がある場合に、アップストリームのFlow用に別のコルーチンを作成します。
+ここで注目すべきもう1つの点は、[flowOn]オペレーターがフローのデフォルトの逐次的な性質を変更したことです。
+今や収集は1つのコルーチン（「coroutine#1」）で発生し、emitは別のスレッドで収集コルーチンと並行して実行されている別のコルーチン（「coroutine#2」）で発生します。[flowOn]オペレーターは、コンテキスト内の[CoroutineDispatcher]を変更する必要がある場合に、アップストリームフローのために別のコルーチンを作成します。
 
 ## バッファリング
 
-Flowの異なる部分を異なるコルーチンで実行することは、特に時間のかかる非同期操作が関係している場合、Flowを収集するのにかかる全体の時間という観点から役立ちます。例えば、`simple` Flowによるemitが遅く、要素の生成に100msかかり、コレクターも遅く、要素の処理に300msかかるとします。3つの数値を持つそのようなFlowを収集するのにどれくらいの時間がかかるか見てみましょう。
+フローの異なる部分を異なるコルーチンで実行することは、フローを収集するのにかかる全体的な時間の観点から役立ちます。特に、長時間実行される非同期操作が関係している場合にそうです。たとえば、`simple`フローによるemitが遅く、要素の生成に100ミリ秒かかる場合を考えてみましょう。そして、コレクターも遅く、要素の処理に300ミリ秒かかります。そのそのようなフローを3つの数値で収集するのにどれくらいの時間がかかるか見てみましょう。
 
 ```kotlin
 import kotlinx.coroutines.*
@@ -675,11 +688,11 @@ fun main() = runBlocking<Unit> {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 <!--- KNIT example-flow-16.kt -->
-> 完全なコードは[こちら](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-flow-16.kt)から入手できます。
+> 全体のコードは[こちら](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-flow-16.kt)から入手できます。
 >
 {style="note"}
 
-これは次のような出力を生成し、全体の収集に約1200msかかります（3つの数値、それぞれ400ms）。
+これは次のようなものを生成し、全体の収集には約1200ミリ秒かかります（3つの数値、それぞれに400ミリ秒）。
 
 ```text
 1
@@ -690,7 +703,7 @@ Collected in 1220 ms
 
 <!--- TEST ARBITRARY_TIME -->
 
-Flowで[buffer][buffer]演算子を使用すると、`simple` Flowのemitするコードを収集するコードと並行して実行できます。シーケンシャルに実行するのとは対照的です。
+フローに[buffer]オペレーターを使用すると、`simple`フローのemitコードを収集コードと並行して実行できます（逐次的に実行するのではなく）。
 
 ```kotlin
 import kotlinx.coroutines.*
@@ -720,11 +733,11 @@ fun main() = runBlocking<Unit> {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 <!--- KNIT example-flow-17.kt -->
-> 完全なコードは[こちら](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-flow-17.kt)から入手できます。
+> 全体のコードは[こちら](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-flow-17.kt)から入手できます。
 >
 {style="note"}
 
-これにより同じ数値がより速く生成されます。なぜなら、効果的に処理パイプラインを作成し、最初の数値で100ms待つだけで、各数値の処理には300msしかかからないからです。このようにして、実行には約1000msかかります。
+同じ数値がより速く生成されます。これは、処理パイプラインを効果的に作成したためで、最初の数値のために100ミリ秒だけ待てばよく、その後は各数値を処理するために300ミリ秒しか費やしません。この方法では、実行に約1000ミリ秒かかります。
 
 ```text
 1
@@ -735,13 +748,13 @@ Collected in 1071 ms
 
 <!--- TEST ARBITRARY_TIME -->
 
-> [flowOn][flowOn]演算子は、[CoroutineDispatcher][CoroutineDispatcher]を変更する必要がある場合に同じバッファリングメカニズムを使用しますが、ここでは実行コンテキストを変更せずに明示的にバッファリングを要求しています。
+> [flowOn]オペレーターは[CoroutineDispatcher]を変更する必要があるときに同じバッファリングメカニズムを使用しますが、ここでは実行コンテキストを変更せずに明示的にバッファリングを要求していることに注意してください。
 >
 {style="note"}
 
-### コンフレーション (Conflation)
+### コンフレーション
 
-Flowが操作の部分的な結果や操作のステータス更新を表現している場合、すべての値を処理する必要はなく、最新のデータのみを処理すればよい場合があります。この場合、コレクターが値を処理するには遅すぎる場合に、[conflate][conflate]演算子を使って中間値をスキップできます。前の例を基に見てみましょう。
+フローが操作の部分的な結果または操作ステータスの更新を表す場合、各値を処理する必要はなく、代わりに最新の値のみを処理すればよい場合があります。この場合、[conflate]オペレーターを使用して、コレクターが値を処理するには遅すぎる場合に中間値をスキップできます。前の例に基づいて考えてみましょう。
 
 ```kotlin
 import kotlinx.coroutines.*
@@ -771,11 +784,11 @@ fun main() = runBlocking<Unit> {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 <!--- KNIT example-flow-18.kt -->
-> 完全なコードは[こちら](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-flow-18.kt)から入手できます。
+> 全体のコードは[こちら](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-flow-18.kt)から入手できます。
 >
 {style="note"}
 
-最初の数値がまだ処理されている間に2番目と3番目の数値がすでに生成されていたため、2番目の値は_コンフレーション_され、最新の値（3番目の値）のみがコレクターに渡されたことがわかります。
+最初の数値がまだ処理されている間、2番目と3番目の数値はすでに生成されていたため、2番目のものは_コンフレーション_され、最新のもの（3番目のもの）だけがコレクターに届けられたことがわかります。
 
 ```text
 1
@@ -785,9 +798,11 @@ Collected in 758 ms
 
 <!--- TEST ARBITRARY_TIME -->
 
-### 最新の値の処理
+### 最新の値を処理する
 
-コンフレーション (Conflation) は、エミッターとコレクターの両方が遅い場合に処理を高速化する方法の1つです。これはemitされた値を破棄することで実現します。もう1つの方法は、遅いコレクターをキャンセルし、新しい値がemitされるたびに再起動することです。`xxx`演算子と同じ基本的なロジックを実行しますが、新しい値が来るとブロック内のコードをキャンセルする`xxxLatest`演算子のファミリーがあります。前の例で[conflate][conflate]を[collectLatest][collectLatest]に変更してみましょう。
+コンフレーションは、emit元とコレクターの両方が遅い場合に処理を高速化する1つの方法です。これは、emitされた値をドロップすることで行われます。
+もう1つの方法は、遅いコレクターをキャンセルし、新しい値がemitされるたびにそれを再起動することです。
+`xxxLatest`オペレーターには、`xxx`オペレーターと同じ本質的なロジックを実行しますが、新しい値でブロック内のコードをキャンセルする一連のものが存在します。前の例で[conflate]を[collectLatest]に変更してみましょう。
 
 ```kotlin
 import kotlinx.coroutines.*
@@ -817,11 +832,11 @@ fun main() = runBlocking<Unit> {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 <!--- KNIT example-flow-19.kt -->
-> 完全なコードは[こちら](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-flow-19.kt)から入手できます。
+> 全体のコードは[こちら](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-flow-19.kt)から入手できます。
 >
 {style="note"}
  
-[collectLatest][collectLatest]の本体は300msかかりますが、新しい値は100msごとにemitされるため、ブロックはすべての値で実行されますが、最後の値でのみ完了することがわかります。
+[collectLatest]のボディは300ミリ秒かかりますが、新しい値は100ミリ秒ごとにemitされるため、ブロックはすべての値で実行されますが、最後の値に対してのみ完了することがわかります。
 
 ```text 
 Collecting 1
@@ -833,13 +848,13 @@ Collected in 741 ms
 
 <!--- TEST ARBITRARY_TIME -->
 
-## 複数のFlowの結合
+## 複数のFlowの合成
 
-複数のFlowを結合する方法はたくさんあります。
+複数のFlowを合成する方法はたくさんあります。
 
 ### Zip
 
-Kotlin標準ライブラリの[Sequence.zip][Sequence.zip]拡張関数と同様に、Flowには2つのFlowの対応する値を結合する[zip][zip]演算子があります。
+Kotlin標準ライブラリの[Sequence.zip]拡張関数と同様に、Flowには2つのフローの対応する値を結合する[zip]オペレーターがあります。
 
 ```kotlin
 import kotlinx.coroutines.*
@@ -856,11 +871,11 @@ fun main() = runBlocking<Unit> {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 <!--- KNIT example-flow-20.kt -->
-> 完全なコードは[こちら](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-flow-20.kt)から入手できます。
+> 全体のコードは[こちら](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-flow-20.kt)から入手できます。
 >
 {style="note"}
 
-この例は次のように出力します。
+この例は次を出力します。
 
 ```text
 1 -> one
@@ -872,11 +887,11 @@ fun main() = runBlocking<Unit> {
 
 ### Combine
 
-Flowが変数や操作の最新の値を表現している場合（関連セクション「[コンフレーション (Conflation)](#conflation)」も参照）、対応するFlowの最新の値に依存する計算を実行し、アップストリームのいずれかのFlowが値をemitするたびにそれを再計算する必要がある場合があります。対応する演算子ファミリーは[combine][combine]と呼ばれます。
+フローが変数または操作の最新値を表す場合（関連する「[コンフレーション](#conflation)」セクションも参照）、対応するフローの最新値に依存する計算を実行し、いずれかのアップストリームフローが値をemitするたびにそれを再計算する必要があるかもしれません。対応するオペレーターのファミリーは[combine]と呼ばれます。
 
-例えば、前の例で数値が300msごとに更新され、文字列が400msごとに更新される場合でも、[zip][zip]演算子を使ってそれらをzipすると同じ結果が生成されますが、結果は400msごとに表示されます。
+たとえば、前の例の数値が300ミリ秒ごとに更新され、文字列が400ミリ秒ごとに更新される場合でも、[zip]オペレーターを使用してそれらをzipすると、400ミリ秒ごとに結果がプリントされるものの、同じ結果が生成されます。
 
-> この例では、[onEach][onEach]中間演算子を使用して各要素を遅延させ、サンプルFlowをemitするコードをより宣言的で短くしています。
+> この例では、各要素を遅延させ、サンプルフローをemitするコードをより宣言的かつ短くするために、[onEach]中間オペレーターを使用しています。
 >
 {style="note"}
 
@@ -898,7 +913,7 @@ fun main() = runBlocking<Unit> {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 <!--- KNIT example-flow-21.kt -->
-> 完全なコードは[こちら](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-flow-21.kt)から入手できます。
+> 全体のコードは[こちら](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-flow-21.kt)から入手できます。
 >
 {style="note"}
 
@@ -908,7 +923,7 @@ fun main() = runBlocking<Unit> {
 3 -> three at 1243 ms from start
 -->
 
-しかし、ここで[zip][zip]の代わりに[combine][combine]演算子を使用すると、
+しかし、ここで[zip]の代わりに[combine]オペレーターを使用すると、
 
 ```kotlin
 import kotlinx.coroutines.*
@@ -928,11 +943,11 @@ fun main() = runBlocking<Unit> {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 <!--- KNIT example-flow-22.kt -->
-> 完全なコードは[こちら](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-flow-22.kt)から入手できます。
+> 全体のコードは[こちら](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-flow-22.kt)から入手できます。
 >
 {style="note"}
 
-`nums`または`strs`のいずれかのFlowからの各emitのたびに1行が出力される、かなり異なる出力が得られます。
+`nums`または`strs`フローのいずれかからの各emitで1行がプリントされる、かなり異なる出力が得られます。
 
 ```text 
 1 -> one at 452 ms from start
@@ -944,9 +959,9 @@ fun main() = runBlocking<Unit> {
 
 <!--- TEST ARBITRARY_TIME -->
 
-## Flowの平坦化
+## Flowのフラット化
 
-Flowは非同期に受信される値のシーケンスを表現するため、各値が別の値のシーケンスへのリクエストをトリガーする状況に陥りやすいです。例えば、500ms間隔で2つの文字列のFlowを返す次の関数があるとします。
+Flowは非同期に受信される値のシーケンスを表すため、各値が別の値のシーケンスへのリクエストをトリガーする状況に陥りやすいです。たとえば、500ミリ秒間隔で2つの文字列のフローを返す次の関数があるとします。
 
 ```kotlin
 fun requestFlow(i: Int): Flow<String> = flow {
@@ -958,7 +973,7 @@ fun requestFlow(i: Int): Flow<String> = flow {
 
 <!--- CLEAR -->
 
-さて、3つの整数のFlowがあり、それぞれに対して`requestFlow`を次のように呼び出すと、
+さて、3つの整数のフローがあり、それぞれに対してこのように`requestFlow`を呼び出すと、
 
 ```kotlin
 (1..3).asFlow().map { requestFlow(it) }
@@ -966,11 +981,11 @@ fun requestFlow(i: Int): Flow<String> = flow {
 
 <!--- CLEAR -->
 
-FlowのFlow（`Flow<Flow<String>>`）になり、さらなる処理のために単一のFlowに_平坦化_する必要があります。コレクションやシーケンスには、このための[flatten][Sequence.flatten]および[flatMap][Sequence.flatMap]演算子があります。しかし、Flowの非同期的な性質のため、これらは異なる_平坦化モード_を必要とし、Flowには平坦化演算子のファミリーが存在します。
+その後、さらなる処理のために単一のフローに_フラット化_する必要があるフローのフロー（`Flow<Flow<String>>`）になってしまいます。コレクションとシーケンスには、このための[flatten][Sequence.flatten]および[flatMap][Sequence.flatMap]オペレーターがあります。しかし、フローの非同期的な性質のため、それらは異なる_フラット化モード_を必要とし、したがって、フローには一連のフラット化オペレーターが存在します。
 
-### flatMapConcat
+### `flatMapConcat`
 
-FlowのFlowの連結は、[flatMapConcat][flatMapConcat]および[flattenConcat][flattenConcat]演算子によって提供されます。これらは対応するシーケンス演算子と最も直接的な類似物です。これらは、次の例が示すように、内側のFlowが完了するのを待ってから次のFlowの収集を開始します。
+フローのフローの連結は、[flatMapConcat]および[flattenConcat]オペレーターによって提供されます。それらは、対応するシーケンスオペレーターの最も直接的な類義語です。以下の例が示すように、次のフローの収集を開始する前に、内部フローが完了するのを待ちます。
 
 ```kotlin
 import kotlinx.coroutines.*
@@ -995,11 +1010,11 @@ fun main() = runBlocking<Unit> {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 <!--- KNIT example-flow-23.kt -->
-> 完全なコードは[こちら](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-flow-23.kt)から入手できます。
+> 全体のコードは[こちら](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-flow-23.kt)から入手できます。
 >
 {style="note"}
 
-[flatMapConcat][flatMapConcat]のシーケンシャルな性質は、出力から明確に見られます。
+[flatMapConcat]の逐次的な性質は、出力で明確に確認できます。
 
 ```text                      
 1: First at 121 ms from start
@@ -1012,9 +1027,10 @@ fun main() = runBlocking<Unit> {
 
 <!--- TEST ARBITRARY_TIME -->
 
-### flatMapMerge
+### `flatMapMerge`
 
-もう1つの平坦化操作は、着信するすべてのFlowを並行して収集し、それらの値を単一のFlowにマージすることです。これにより、値は可能な限り早くemitされます。これは[flatMapMerge][flatMapMerge]および[flattenMerge][flattenMerge]演算子によって実装されています。両方とも、同時に収集される並行Flowの数を制限するオプションの`concurrency`パラメータを受け入れます（デフォルトでは[DEFAULT_CONCURRENCY][DEFAULT_CONCURRENCY]と等しいです）。
+もう1つのフラット化操作は、受信するすべてのフローを並行して収集し、それらの値を単一のフローにマージして、可能な限り早く値がemitされるようにすることです。
+それは[flatMapMerge]および[flattenMerge]オペレーターによって実装されます。それらは両方とも、同時に収集される並行フローの数を制限するオプションの`concurrency`パラメーターを受け入れます（デフォルトでは[DEFAULT_CONCURRENCY]に等しいです）。
 
 ```kotlin
 import kotlinx.coroutines.*
@@ -1039,11 +1055,11 @@ fun main() = runBlocking<Unit> {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 <!--- KNIT example-flow-24.kt -->
-> 完全なコードは[こちら](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-flow-24.kt)から入手できます。
+> 全体のコードは[こちら](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-flow-24.kt)から入手できます。
 >
 {style="note"}
 
-[flatMapMerge][flatMapMerge]の並行性は明らかです。
+[flatMapMerge]の並行的な性質は明らかです。
 
 ```text                      
 1: First at 136 ms from start
@@ -1056,13 +1072,14 @@ fun main() = runBlocking<Unit> {
 
 <!--- TEST ARBITRARY_TIME -->
 
-> [flatMapMerge][flatMapMerge]はコードブロック（この例では`{ requestFlow(it) }`）をシーケンシャルに呼び出しますが、結果のFlowは並行して収集することに注意してください。これは、最初にシーケンシャルな`map { requestFlow(it) }`を実行し、その結果に対して[flattenMerge][flattenMerge]を呼び出すのと同等です。
+> [flatMapMerge]はそのコードブロック（この例では`{ requestFlow(it) }`）を逐次的に呼び出しますが、結果のフローを並行して収集することに注意してください。これは、まず逐次的な`map { requestFlow(it) }`を実行し、その結果に対して[flattenMerge]を呼び出すことと同じです。
 >
 {style="note"}
 
-### flatMapLatest   
+### `flatMapLatest`   
 
-「[最新の値の処理](#processing-the-latest-value)」セクションで説明した[collectLatest][collectLatest]演算子と同様に、新しいFlowがemitされるとすぐに以前のFlowの収集がキャンセルされる対応する「最新」の平坦化モードがあります。これは[flatMapLatest][flatMapLatest]演算子によって実装されています。
+「[最新の値を処理する](#processing-the-latest-value)」セクションで説明した[collectLatest]オペレーターと同様に、新しいフローがemitされるとすぐに以前のフローの収集がキャンセルされる、対応する「Latest」フラット化モードがあります。
+それは[flatMapLatest]オペレーターによって実装されます。
 
 ```kotlin
 import kotlinx.coroutines.*
@@ -1087,11 +1104,11 @@ fun main() = runBlocking<Unit> {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 <!--- KNIT example-flow-25.kt -->
-> 完全なコードは[こちら](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-flow-25.kt)から入手できます。
+> 全体のコードは[こちら](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-flow-25.kt)から入手できます。
 >
 {style="note"}
 
-この例の出力は、[flatMapLatest][flatMapLatest]がどのように機能するかをよく示しています。
+この例の出力は、[flatMapLatest]がどのように機能するかをよく示しています。
 
 ```text                      
 1: First at 142 ms from start
@@ -1102,18 +1119,18 @@ fun main() = runBlocking<Unit> {
 
 <!--- TEST ARBITRARY_TIME -->
   
-> [flatMapLatest][flatMapLatest]は、新しい値が受信されると、そのブロック内のすべてのコード（この例では`{ requestFlow(it) }`）をキャンセルすることに注意してください。
-> この特定の例では違いはありません。なぜなら、`requestFlow`の呼び出し自体は高速で、中断せず、キャンセルできないからです。しかし、`requestFlow`で`delay`のような中断関数を使用した場合、出力の違いが見られるでしょう。
+> [flatMapLatest]は、新しい値が受信されたときに、そのブロック（この例では`{ requestFlow(it) }`）内のすべてのコードをキャンセルすることに注意してください。
+> `requestFlow`の呼び出し自体は高速で、停止せず、キャンセルできないため、この特定の例では違いはありません。しかし、`requestFlow`で`delay`のような停止関数を使用した場合、出力に違いが見られるでしょう。
 >
 {style="note"}
 
 ## Flowの例外
 
-Flowの収集は、エミッターまたは演算子内のコードが例外をスローした場合に、例外で完了する可能性があります。これらの例外を処理する方法はいくつかあります。
+フローの収集は、emit元またはオペレーター内のコードが例外をスローした場合に例外で完了する可能性があります。これらの例外を処理する方法はいくつかあります。
 
-### コレクターのtry-catch
+### コレクターの`try`と`catch`
 
-コレクターはKotlinの[`try/catch`][exceptions]ブロックを使用して例外を処理できます。
+コレクターは、Kotlinの[`try/catch`][exceptions]ブロックを使用して例外を処理できます。
 
 ```kotlin
 import kotlinx.coroutines.*
@@ -1141,11 +1158,11 @@ fun main() = runBlocking<Unit> {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 <!--- KNIT example-flow-26.kt -->
-> 完全なコードは[こちら](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-flow-26.kt)から入手できます。
+> 全体のコードは[こちら](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-flow-26.kt)から入手できます。
 >
 {style="note"}
 
-このコードは[collect][collect]ターミナル演算子内の例外を正常にキャッチし、ご覧の通り、それ以降は値がemitされません。
+このコードは[collect]終端オペレーターで例外を正常にキャッチし、ご覧のとおり、その後は値がemitされません。
 
 ```text 
 Emitting 1
@@ -1159,7 +1176,8 @@ Caught java.lang.IllegalStateException: Collected 2
 
 ### すべてがキャッチされる
 
-前の例は、実際にはエミッターまたは任意の中間・ターミナル演算子で発生するあらゆる例外をキャッチします。例えば、emitされた値が文字列に[マップ][map]されるようにコードを変更し、対応するコードが例外を生成するようにしてみましょう。
+前の例では、実際にはemit元、または任意の中間オペレーターや終端オペレーターで発生するすべての例外がキャッチされます。
+たとえば、emitされた値が文字列に[map]されるようにコードを変更し、対応するコードが例外を生成するようにしてみましょう。
 
 ```kotlin
 import kotlinx.coroutines.*
@@ -1189,11 +1207,11 @@ fun main() = runBlocking<Unit> {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 <!--- KNIT example-flow-27.kt -->
-> 完全なコードは[こちら](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-flow-27.kt)から入手できます。
+> 全体のコードは[こちら](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-flow-27.kt)から入手できます。
 >
 {style="note"}
 
-この例外は依然としてキャッチされ、収集は停止されます。
+この例外は引き続きキャッチされ、収集は停止します。
 
 ```text 
 Emitting 1
@@ -1206,17 +1224,17 @@ Caught java.lang.IllegalStateException: Crashed on 2
 
 ## 例外の透過性
 
-しかし、エミッターのコードはその例外処理動作をどのようにカプセル化できるでしょうか？
+しかし、emit元のコードはどのようにして例外処理の振る舞いをカプセル化できるのでしょうか？
 
-Flowは_例外に対して透過的_でなければならず、`flow { ... }`ビルダー内で`try/catch`ブロック内から値を[emit][FlowCollector.emit]することは、例外の透過性の違反となります。これにより、例外をスローするコレクターが、前の例のように常に`try/catch`を使用してそれをキャッチできることが保証されます。
+Flowは_例外に対して透過的_である必要があり、`flow { ... }`ビルダー内で`try/catch`ブロックの内部から値を[emit][FlowCollector.emit]することは、例外透過性の違反です。これにより、例外をスローするコレクターは、前の例のように`try/catch`を使用して常にそれをキャッチできることが保証されます。
 
-エミッターは、この例外の透過性を維持し、その例外処理のカプセル化を可能にする[catch][catch]演算子を使用できます。`catch`演算子の本体は例外を分析し、どの例外がキャッチされたかによって異なる方法で反応できます。
+emit元は、この例外透過性を保持し、例外処理のカプセル化を可能にする[catch]オペレーターを使用できます。`catch`オペレーターのボディは例外を分析し、どの例外がキャッチされたかに応じてさまざまな方法で反応できます。
 
-*   例外は`throw`を使って再スローできます。
-*   例外は[catch][catch]の本体から[emit][FlowCollector.emit]を使って値のemitに変換できます。
-*   例外は無視されたり、ログに記録されたり、他のコードによって処理されたりする場合があります。
+*   例外は`throw`を使用して再スローできます。
+*   例外は、[catch]のボディから[emit][FlowCollector.emit]を使用して値のemitに変換できます。
+*   例外は無視されたり、ログに記録されたり、他のコードによって処理されたりすることができます。
 
-例えば、例外をキャッチしたときにテキストをemitしてみましょう。
+たとえば、例外をキャッチしたときにテキストをemitしてみましょう。
 
 ```kotlin
 import kotlinx.coroutines.*
@@ -1244,11 +1262,11 @@ fun main() = runBlocking<Unit> {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 <!--- KNIT example-flow-28.kt -->
-> 完全なコードは[こちら](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-flow-28.kt)から入手できます。
+> 全体のコードは[こちら](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-flow-28.kt)から入手できます。
 >
 {style="note"} 
  
-`try/catch`がコードの周りにないにも関わらず、例の出力は同じです。
+コードの周りに`try/catch`がなくなったにもかかわらず、例の出力は同じです。
 
 <!--- TEST  
 Emitting 1
@@ -1257,9 +1275,10 @@ Emitting 2
 Caught java.lang.IllegalStateException: Crashed on 2
 -->
 
-### 透過的なcatch
+### 透過的な`catch`
 
-[catch][catch]中間演算子は、例外の透過性を尊重し、アップストリームの例外のみをキャッチします（つまり、`catch`の上にあるすべての演算子からの例外で、それより下にあるものではありません）。`collect { ... }`内のブロック（`catch`の下に配置される）が例外をスローした場合、それはエスケープします。
+[catch]中間オペレーターは、例外透過性を尊重し、アップストリームの例外のみをキャッチします（つまり、`catch`よりも上にあるすべてのオペレーターからの例外であり、それより下にあるものではありません）。
+`collect { ... }`内のブロック（`catch`の下に配置される）が例外をスローすると、それはエスケープします。
 
 ```kotlin
 import kotlinx.coroutines.*
@@ -1285,11 +1304,11 @@ fun main() = runBlocking<Unit> {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 <!--- KNIT example-flow-29.kt -->
-> 完全なコードは[こちら](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-flow-29.kt)から入手できます。
+> 全体のコードは[こちら](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-flow-29.kt)から入手できます。
 >
 {style="note"}
  
-`catch`演算子があるにも関わらず、「Caught ...」メッセージは表示されません。
+`catch`オペレーターがあるにもかかわらず、「Caught ...」メッセージはプリントされません。
 
 ```text  
 Emitting 1
@@ -1303,7 +1322,7 @@ Exception in thread "main" java.lang.IllegalStateException: Collected 2
 
 ### 宣言的なキャッチ
 
-[catch][catch]演算子の宣言的な性質と、すべての例外を処理したいという要望を組み合わせることができます。これは、[collect][collect]演算子の本体を[onEach][onEach]に移動し、それを`catch`演算子の前に配置することで実現します。このFlowの収集は、パラメータなしの`collect()`の呼び出しによってトリガーされる必要があります。
+[catch]オペレーターの宣言的な性質と、すべての例外を処理したいという要望を組み合わせるには、[collect]オペレーターのボディを[onEach]に移動し、それを`catch`オペレーターの前に置きます。このフローの収集は、パラメータなしの`collect()`の呼び出しによってトリガーされる必要があります。
 
 ```kotlin
 import kotlinx.coroutines.*
@@ -1330,11 +1349,11 @@ fun main() = runBlocking<Unit> {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 <!--- KNIT example-flow-30.kt -->
-> 完全なコードは[こちら](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-flow-30.kt)から入手できます。
+> 全体のコードは[こちら](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-flow-30.kt)から入手できます。
 >
 {style="note"} 
  
-これで、「Caught ...」メッセージが表示されることがわかります。つまり、`try/catch`ブロックを明示的に使用せずにすべての例外をキャッチできます。
+これで、「Caught ...」メッセージがプリントされ、`try/catch`ブロックを明示的に使用せずにすべての例外をキャッチできることがわかります。
 
 ```text 
 Emitting 1
@@ -1347,9 +1366,10 @@ Caught java.lang.IllegalStateException: Collected 2
 
 ## Flowの完了
 
-Flowの収集が完了した場合（正常に、または例外的に）、アクションを実行する必要がある場合があります。すでに気づかれたかもしれませんが、これは命令型と宣言型の2つの方法で実行できます。
+フローの収集が完了すると（正常に、または例外的に）、アクションを実行する必要がある場合があります。
+すでにお気づきかもしれませんが、これには命令的または宣言的な2つの方法があります。
 
-### 命令型のfinallyブロック
+### 命令的な`finally`ブロック
 
 `try`/`catch`に加えて、コレクターは`finally`ブロックを使用して`collect`の完了時にアクションを実行することもできます。
 
@@ -1371,11 +1391,11 @@ fun main() = runBlocking<Unit> {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 <!--- KNIT example-flow-31.kt -->
-> 完全なコードは[こちら](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-flow-31.kt)から入手できます。
+> 全体のコードは[こちら](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-flow-31.kt)から入手できます。
 >
 {style="note"} 
 
-このコードは、`simple` Flowによって生成された3つの数値の後に「Done」という文字列を出力します。
+このコードは、`simple`フローによって生成された3つの数値に続いて「Done」文字列をプリントします。
 
 ```text
 1
@@ -1386,11 +1406,11 @@ Done
 
 <!--- TEST  -->
 
-### 宣言的なハンドリング
+### 宣言的な処理
 
-宣言的なアプローチの場合、FlowにはFlowが完全に収集されたときに呼び出される[onCompletion][onCompletion]中間演算子があります。
+宣言的なアプローチの場合、フローには[onCompletion]中間オペレーターがあり、フローが完全に収集されたときに呼び出されます。
 
-前の例は、[onCompletion][onCompletion]演算子を使用して書き換えられ、同じ出力を生成します。
+前の例は[onCompletion]オペレーターを使用して書き換えられ、同じ出力を生成します。
 
 ```kotlin
 import kotlinx.coroutines.*
@@ -1408,7 +1428,7 @@ fun main() = runBlocking<Unit> {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 <!--- KNIT example-flow-32.kt -->
-> 完全なコードは[こちら](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-flow-32.kt)から入手できます。
+> 全体のコードは[こちら](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-flow-32.kt)から入手できます。
 >
 {style="note"} 
 
@@ -1419,7 +1439,7 @@ fun main() = runBlocking<Unit> {
 Done
 -->
 
-[onCompletion][onCompletion]の主な利点は、Flowの収集が正常に完了したか、例外的に完了したかを判断するために使用できるラムダのnull許容`Throwable`パラメータです。次の例では、`simple` Flowは数値1をemitした後に例外をスローします。
+[onCompletion]の主な利点は、フローの収集が正常に完了したか、例外的に完了したかを判断するために使用できるラムダのnullableな`Throwable`パラメータです。次の例では、`simple`フローは数値1をemitした後に例外をスローします。
 
 ```kotlin
 import kotlinx.coroutines.*
@@ -1441,11 +1461,11 @@ fun main() = runBlocking<Unit> {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 <!--- KNIT example-flow-33.kt -->
-> 完全なコードは[こちら](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-flow-33.kt)から入手できます。
+> 全体のコードは[こちら](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-flow-33.kt)から入手できます。
 >
 {style="note"}
 
-予想される通り、次のように出力されます。
+ご想像のとおり、次がプリントされます。
 
 ```text
 1
@@ -1455,11 +1475,11 @@ Caught exception
 
 <!--- TEST -->
 
-[onCompletion][onCompletion]演算子は、[catch][catch]とは異なり、例外を処理しません。上記のコード例からわかるように、例外は依然としてダウンストリームに流れます。それはさらに`onCompletion`演算子に渡され、`catch`演算子で処理できます。
+[onCompletion]オペレーターは、[catch]とは異なり、例外を処理しません。上記の例のコードからわかるように、例外は依然としてダウンストリームに流れます。それはさらに`onCompletion`オペレーターに届けられ、`catch`オペレーターで処理できます。
 
 ### 正常な完了
 
-[catch][catch]演算子とのもう1つの違いは、[onCompletion][onCompletion]がすべての例外を認識し、アップストリームのFlowが正常に完了した場合にのみ（キャンセルや失敗なしで）`null`例外を受け取ることです。
+[catch]オペレーターとのもう1つの違いは、[onCompletion]がすべての例外を確認し、アップストリームフローの正常な完了（キャンセルまたは失敗なし）の場合にのみ`null`例外を受け取ることです。
 
 ```kotlin
 import kotlinx.coroutines.*
@@ -1480,11 +1500,11 @@ fun main() = runBlocking<Unit> {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 <!--- KNIT example-flow-34.kt -->
-> 完全なコードは[こちら](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-flow-34.kt)から入手できます。
+> 全体のコードは[こちら](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-flow-34.kt)から入手できます。
 >
 {style="note"}
 
-ダウンストリームの例外によりFlowが中断されたため、完了の原因がnullではないことがわかります。
+フローがダウンストリームの例外によって中断されたため、完了原因がnullではないことがわかります。
 
 ```text 
 1
@@ -1494,15 +1514,20 @@ Exception in thread "main" java.lang.IllegalStateException: Collected 2
 
 <!--- TEST EXCEPTION -->
 
-## 命令型と宣言型
+## 命令的 vs 宣言的
 
-これで、Flowを収集し、その完了と例外を命令型と宣言型の両方の方法で処理する方法がわかりました。ここで当然の疑問は、どちらのアプローチが推奨され、なぜか、ということです。ライブラリとして、私たちは特定のアプローチを推奨せず、どちらのオプションも有効であり、個人の好みやコーディングスタイルに応じて選択すべきだと考えています。
+これで、フローを収集し、その完了と例外を命令的および宣言的の両方の方法で処理する方法がわかりました。
+ここでの当然の疑問は、どちらのアプローチが推奨され、なぜかということです。
+ライブラリとしては、特定のどのアプローチも推奨せず、どちらのオプションも有効であり、個人の好みとコードスタイルに応じて選択されるべきだと考えます。
 
 ## Flowの起動
 
-Flowを使って、何らかのソースから来る非同期イベントを表現するのは簡単です。この場合、着信するイベントに対する反応を持つコードの一部を登録し、さらに作業を続行する`addEventListener`関数の類似物が必要です。[onEach][onEach]演算子がこの役割を果たすことができます。ただし、`onEach`は中間演算子です。Flowを収集するためのターミナル演算子も必要です。そうでなければ、`onEach`を呼び出すだけでは効果がありません。
+フローを使用して、何らかのソースから来る非同期イベントを表現するのは簡単です。
+この場合、受信イベントに対する反応としてコードの一部を登録し、さらなる作業を継続する`addEventListener`関数に似たものが必要です。[onEach]オペレーターがこの役割を果たすことができます。
+しかし、`onEach`は中間オペレーターです。フローを収集するための終端オペレーターも必要です。
+そうでなければ、`onEach`を呼び出すだけでは効果がありません。
  
-`onEach`の後に[collect][collect]ターミナル演算子を使用すると、その後のコードはFlowが収集されるまで待機します。
+`onEach`の後に[collect]終端オペレーターを使用すると、その後のコードはフローが収集されるまで待機します。
 
 ```kotlin
 import kotlinx.coroutines.*
@@ -1522,11 +1547,11 @@ fun main() = runBlocking<Unit> {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 <!--- KNIT example-flow-35.kt -->
-> 完全なコードは[こちら](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-flow-35.kt)から入手できます。
+> 全体のコードは[こちら](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-flow-35.kt)から入手できます。
 >
 {style="note"} 
   
-ご覧の通り、次のように出力されます。
+ご覧のとおり、次がプリントされます。
 
 ```text 
 Event: 1
@@ -1537,7 +1562,7 @@ Done
 
 <!--- TEST -->
  
-ここで[launchIn][launchIn]ターミナル演算子が役立ちます。`collect`を`launchIn`に置き換えることで、別のコルーチンでFlowの収集を起動できるため、その後のコードの実行はすぐに続行されます。
+ここで[launchIn]終端オペレーターが役立ちます。`collect`を`launchIn`に置き換えることで、別のコルーチンでフローの収集を起動し、その後のコードの実行がすぐに継続するようにできます。
 
 ```kotlin
 import kotlinx.coroutines.*
@@ -1557,11 +1582,11 @@ fun main() = runBlocking<Unit> {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 <!--- KNIT example-flow-36.kt -->
-> 完全なコードは[こちら](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-flow-36.kt)から入手できます。
+> 全体のコードは[こちら](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-flow-36.kt)から入手できます。
 >
 {style="note"} 
   
-次のように出力されます。
+これは次を出力します。
 
 ```text          
 Done
@@ -1572,15 +1597,16 @@ Event: 3
 
 <!--- TEST -->
 
-`launchIn`の必須パラメータは、Flowを収集するコルーチンが起動される[CoroutineScope][CoroutineScope]を指定する必要があります。上記の例では、このスコープは[runBlocking][runBlocking]コルーチンビルダーから来ており、Flowが実行されている間、この[runBlocking][runBlocking]スコープはその子コルーチンの完了を待ち、メイン関数が戻ってこの例を終了するのを防ぎます。
+`launchIn`の必須パラメータは、フローを収集するためのコルーチンが起動される[CoroutineScope]を指定する必要があります。上記の例では、このスコープは[runBlocking]コルーチンビルダーから来るため、フローが実行されている間、この[runBlocking]スコープはその子コルーチンの完了を待機し、main関数が戻ってこの例を終了するのを防ぎます。
 
-実際のアプリケーションでは、スコープは限られたライフタイムを持つエンティティから来ます。このエンティティのライフタイムが終了するとすぐに、対応するスコープがキャンセルされ、対応するFlowの収集もキャンセルされます。このようにして、`onEach { ... }.launchIn(scope)`のペアは`addEventListener`のように機能します。しかし、対応する`removeEventListener`関数は必要ありません。キャンセルと構造化された並行性がこの目的を果たすからです。
+実際のアプリケーションでは、スコープは限られた寿命を持つエンティティから来ます。このエンティティの寿命が終了するとすぐに、対応するスコープがキャンセルされ、対応するフローの収集もキャンセルされます。このように、`onEach { ... }.launchIn(scope)`のペアは`addEventListener`のように機能します。しかし、キャンセルと構造化された並行性がこの目的を果たすため、対応する`removeEventListener`関数は必要ありません。
 
-[launchIn][launchIn]は[Job][Job]も返すことに注意してください。これは、スコープ全体をキャンセルすることなく、対応するFlow収集コルーチンのみを[キャンセル][Job.cancel]したり、[結合][Job.join]したりするために使用できます。
+[launchIn]は[Job]も返し、これはスコープ全体をキャンセルすることなく、対応するフロー収集コルーチンを[cancel][Job.cancel]したり、それに[join][Job.join]したりするために使用できることに注意してください。
 
 ### Flowのキャンセルチェック
 
-便宜上、[flow][\_flow]ビルダーは、emitされる各値に対してキャンセルに関する追加の[ensureActive][ensureActive]チェックを実行します。これは、`flow { ... }`からemitするビジーループがキャンセル可能であることを意味します。
+利便性のために、[flow][_flow]ビルダーは、emitされる各値に対して追加の[ensureActive]キャンセルチェックを実行します。
+これは、`flow { ... }`からemitするビジーループがキャンセル可能であることを意味します。
 
 ```kotlin
 import kotlinx.coroutines.*
@@ -1604,11 +1630,11 @@ fun main() = runBlocking<Unit> {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 <!--- KNIT example-flow-37.kt -->
-> 完全なコードは[こちら](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-flow-37.kt)から入手できます。
+> 全体のコードは[こちら](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-flow-37.kt)から入手できます。
 >
 {style="note"}
 
-3までの数値のみが取得され、数値4をemitしようとした後に[CancellationException][CancellationException]が発生します。
+3までの数値と、4番目の数値をemitしようとした後に[CancellationException]のみが取得されます。
 
 ```text 
 Emitting 1
@@ -1623,7 +1649,8 @@ Exception in thread "main" kotlinx.coroutines.JobCancellationException: Blocking
 
 <!--- TEST EXCEPTION -->
 
-ただし、他のほとんどのFlow演算子は、パフォーマンス上の理由から、独自の追加のキャンセルチェックを行いません。例えば、同じビジーループを記述するために[IntRange.asFlow][IntRange.asFlow]拡張機能を使用し、どこも中断しない場合、キャンセルチェックは行われません。
+しかし、他のほとんどのフローオペレーターは、パフォーマンス上の理由から、独自の追加のキャンセルチェックを実行しません。
+たとえば、[IntRange.asFlow]拡張を使用して同じビジーループを記述し、どこも停止しない場合、キャンセルチェックは行われません。
 
 ```kotlin
 import kotlinx.coroutines.*
@@ -1640,11 +1667,11 @@ fun main() = runBlocking<Unit> {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 <!--- KNIT example-flow-38.kt -->
-> 完全なコードは[こちら](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-flow-38.kt)から入手できます。
+> 全体のコードは[こちら](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-flow-38.kt)から入手できます。
 >
 {style="note"}
 
-1から5までのすべての数値が収集され、キャンセルは`runBlocking`からの戻り直前にのみ検出されます。
+1から5まですべての数値が収集され、キャンセルは`runBlocking`から戻る直前にのみ検出されます。
 
 ```text
 1
@@ -1657,10 +1684,10 @@ Exception in thread "main" kotlinx.coroutines.JobCancellationException: Blocking
 
 <!--- TEST EXCEPTION -->
 
-#### ビジーなFlowをキャンセル可能にする 
+#### ビジーフローをキャンセル可能にする
 
-コルーチンでビジーループを使用している場合は、明示的にキャンセルをチェックする必要があります。
-`.onEach { currentCoroutineContext().ensureActive() }`を追加できますが、それを行うために[cancellable][cancellable]演算子がすぐに利用できます。
+コルーチンを使用したビジーループがある場合は、明示的にキャンセルをチェックする必要があります。
+`.onEach { currentCoroutineContext().ensureActive() }`を追加できますが、そのために[cancellable]オペレーターが用意されています。
 
 ```kotlin
 import kotlinx.coroutines.*
@@ -1677,11 +1704,11 @@ fun main() = runBlocking<Unit> {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 <!--- KNIT example-flow-39.kt -->
-> 完全なコードは[こちら](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-flow-39.kt)から入手できます。
+> 全体のコードは[こちら](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-flow-39.kt)から入手できます。
 >
 {style="note"}
 
-`cancellable`演算子を使用すると、1から3までの数値のみが収集されます。
+`cancellable`オペレーターを使用すると、1から3までの数値のみが収集されます。
 
 ```text
 1
@@ -1694,13 +1721,13 @@ Exception in thread "main" kotlinx.coroutines.JobCancellationException: Blocking
 
 ## FlowとReactive Streams
 
-[Reactive Streams](https://www.reactive-streams.org/)やRxJava、Project Reactorなどのリアクティブフレームワークに精通している人にとっては、Flowの設計は非常によく似ているように見えるかもしれません。
+[Reactive Streams](https://www.reactive-streams.org/)やRxJava、Project Reactorなどのリアクティブフレームワークに精通している人にとっては、Flowの設計は非常に馴染み深く見えるかもしれません。
 
-実際、その設計はReactive Streamsとその様々な実装に触発されました。しかし、Flowの主な目標は、可能な限りシンプルな設計を持ち、Kotlinと中断（suspension）に優しく、構造化された並行性を尊重することです。この目標達成は、リアクティブの先駆者たちの計り知れない努力なしには不可能だったでしょう。詳細な記事は「[Reactive Streams and Kotlin Flows](https://medium.com/@elizarov/reactive-streams-and-kotlin-flows-bfd12772cda4)」を参照してください。
+実際、その設計はReactive Streamsとその様々な実装に触発されています。しかし、Flowの主な目標は、可能な限りシンプルな設計を持ち、Kotlinと停止に友好的であり、構造化された並行性を尊重することです。この目標を達成することは、リアクティブの先駆者とその多大な貢献なしには不可能でした。完全な話は、「[Reactive Streams and Kotlin Flows](https://medium.com/@elizarov/reactive-streams-and-kotlin-flows-bfd12772cda4)」の記事で読むことができます。
 
-概念的にはFlowは異なるものの、リアクティブストリーム_です_。そして、それをリアクティブな（仕様およびTCK準拠の）Publisherに変換したり、その逆に変換したりすることが可能です。
-このような変換器は`kotlinx.coroutines`によってすぐに利用可能であり、対応するリアクティブモジュール（Reactive Streams用には`kotlinx-coroutines-reactive`、Project Reactor用には`kotlinx-coroutines-reactor`、RxJava2/RxJava3用には`kotlinx-coroutines-rx2`/`kotlinx-coroutines-rx3`）で見つけることができます。
-統合モジュールには、Flowとの相互変換、Reactorの`Context`との統合、そして様々なリアクティブエンティティを扱うための中断に優しい方法が含まれています。
+異なる点はあるものの、概念的にはFlowはリアクティブストリームであり、リアクティブ（仕様およびTCK準拠）なPublisherに変換することも、その逆も可能です。
+そのような変換は`kotlinx.coroutines`によってすぐに提供されており、対応するリアクティブモジュール（Reactive Streams用には`kotlinx-coroutines-reactive`、Project Reactor用には`kotlinx-coroutines-reactor`、RxJava2/RxJava3用には`kotlinx-coroutines-rx2`/`kotlinx-coroutines-rx3`）で見つけることができます。
+統合モジュールには、`Flow`との相互変換、Reactorの`Context`との統合、および様々なリアクティブエンティティを扱うための停止に友好的な方法が含まれています。
  
 <!-- stdlib references -->
 

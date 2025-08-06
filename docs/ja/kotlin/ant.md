@@ -1,18 +1,26 @@
 [//]: # (title: Ant)
 
-## Ant タスクの取得
+> Kotlin 2.2.0以降、KotlinにおけるAntビルドシステムのサポートは非推奨となります。
+> Kotlin 2.3.0ではAntサポートを削除する予定です。
+>
+> しかし、もしAntの外部メンテナーになることにご興味がある場合は、
+> [こちらのYouTrack課題](https://youtrack.jetbrains.com/issue/KT-75875/)にコメントを残してください。
+>
+{style="warning"}
 
-Kotlin は Ant 用に 3 つのタスクを提供します。
+## Antタスクの取得
 
-*   `kotlinc`: JVM をターゲットとする Kotlin コンパイラ
-*   `kotlin2js`: JavaScript をターゲットとする Kotlin コンパイラ
-*   `withKotlin`: 標準の *javac* Ant タスクを使用する際に Kotlin ファイルをコンパイルするためのタスク
+KotlinはAnt用に3つのタスクを提供します。
 
-これらのタスクは、[Kotlin コンパイラ](%kotlinLatestUrl%)アーカイブの `lib` フォルダにある *kotlin-ant.jar* ライブラリで定義されています。Ant バージョン 1.8.2 以降が必要です。
+*   `kotlinc`: JVMをターゲットとするKotlinコンパイラー
+*   `kotlin2js`: JavaScriptをターゲットとするKotlinコンパイラー
+*   `withKotlin`: 標準の*javac* Antタスクを使用する際にKotlinファイルをコンパイルするためのタスク
 
-## Kotlin のみで書かれたソースコードで JVM をターゲットにする
+これらのタスクは、[Kotlinコンパイラー](%kotlinLatestUrl%)アーカイブの`lib`フォルダーにある*kotlin-ant.jar*ライブラリで定義されています。Antバージョン1.8.2以降が必要です。
 
-プロジェクトが Kotlin ソースコードのみで構成されている場合、プロジェクトをコンパイルする最も簡単な方法は、`kotlinc` タスクを使用することです。
+## KotlinソースのみでJVMをターゲットにする
+
+プロジェクトがKotlinソースコードのみで構成されている場合、プロジェクトをコンパイルする最も簡単な方法は`kotlinc`タスクを使用することです。
 
 ```xml
 <project name="Ant Task Test" default="build">
@@ -24,11 +32,11 @@ Kotlin は Ant 用に 3 つのタスクを提供します。
 </project>
 ```
 
-ここで、`${kotlin.lib}` は Kotlin スタンドアロンコンパイラが解凍されたフォルダを指します。
+ここで、`${kotlin.lib}`はKotlinスタンドアロンコンパイラーが解凍されたフォルダーを指します。
 
-## 複数のルートを持つ Kotlin のみで書かれたソースコードで JVM をターゲットにする
+## 複数のルートを持つKotlinソースのみでJVMをターゲットにする
 
-プロジェクトが複数のソースルートで構成されている場合は、`src` を要素として使用してパスを定義します。
+プロジェクトが複数のソースルートで構成されている場合、パスを定義するために`src`を要素として使用します。
 
 ```xml
 <project name="Ant Task Test" default="build">
@@ -43,9 +51,9 @@ Kotlin は Ant 用に 3 つのタスクを提供します。
 </project>
 ```
 
-## Kotlin と Java のソースコードで JVM をターゲットにする
+## KotlinとJavaソースでJVMをターゲットにする
 
-プロジェクトが Kotlin と Java の両方のソースコードで構成されている場合、`kotlinc` を使用することも可能ですが、タスクパラメータの繰り返しを避けるため、`withKotlin` タスクを使用することが推奨されます。
+プロジェクトがKotlinとJavaの両方のソースコードで構成されている場合、`kotlinc`を使用することも可能ですが、タスクパラメーターの繰り返しを避けるため、`withKotlin`タスクの使用を推奨します。
 
 ```xml
 <project name="Ant Task Test" default="build">
@@ -64,13 +72,13 @@ Kotlin は Ant 用に 3 つのタスクを提供します。
 </project>
 ```
 
-また、`moduleName` 属性としてコンパイル対象のモジュールの名前を指定することもできます。
+また、コンパイルされるモジュールの名前を`moduleName`属性として指定することもできます。
 
 ```xml
 <withKotlin moduleName="myModule"/>
 ```
 
-## 単一のソースフォルダで JavaScript をターゲットにする
+## 単一ソースフォルダーでJavaScriptをターゲットにする
 
 ```xml
 <project name="Ant Task Test" default="build">
@@ -82,7 +90,7 @@ Kotlin は Ant 用に 3 つのタスクを提供します。
 </project>
 ```
 
-## Prefix、Postfix、および sourcemap オプションで JavaScript をターゲットにする
+## Prefix、PostFix、およびsourcemapオプションでJavaScriptをターゲットにする
 
 ```xml
 <project name="Ant Task Test" default="build">
@@ -94,16 +102,17 @@ Kotlin は Ant 用に 3 つのタスクを提供します。
 </project>
 ```
 
-## 単一のソースフォルダと metaInfo オプションで JavaScript をターゲットにする
+## 単一ソースフォルダーとmetaInfoオプションでJavaScriptをターゲットにする
 
-`metaInfo` オプションは、コンパイル結果を Kotlin/JavaScript ライブラリとして配布したい場合に便利です。`metaInfo` が `true` に設定されている場合、コンパイル中にバイナリメタデータを含む追加の JS ファイルが作成されます。このファイルは、コンパイル結果と合わせて配布されるべきです。
+`metaInfo`オプションは、翻訳結果をKotlin/JavaScriptライブラリとして配布したい場合に有用です。
+`metaInfo`が`true`に設定されている場合、コンパイル中にバイナリメタデータを含む追加のJSファイルが作成されます。このファイルは翻訳結果と一緒に配布する必要があります。
 
 ```xml
 <project name="Ant Task Test" default="build">
     <typedef resource="org/jetbrains/kotlin/ant/antlib.xml" classpath="${kotlin.lib}/kotlin-ant.jar"/>
 
     <target name="build">
-        <!-- out.meta.js が作成され、バイナリメタデータが含まれます -->
+        <!-- out.meta.js will be created, which contains binary metadata -->
         <kotlin2js src="root1" output="out.js" metaInfo="true"/>
     </target>
 </project>
@@ -113,40 +122,41 @@ Kotlin は Ant 用に 3 つのタスクを提供します。
 
 要素と属性の完全なリストを以下に示します。
 
-### kotlinc と kotlin2js に共通の属性
+### kotlincとkotlin2jsに共通の属性
 
-| 名前 | 説明 | 必須 | デフォルト値 |
-|------|-------------|----------|---------------|
-| `src`  | コンパイルする Kotlin ソースファイルまたはディレクトリ | Yes |  |
-| `nowarn` | すべてのコンパイル警告を抑制します | No | false |
-| `noStdlib` | Kotlin 標準ライブラリをクラスパスに含めません | No | false |
-| `failOnError` | コンパイル中にエラーが検出された場合、ビルドを失敗させます | No | true |
+| Name | 説明                                                                    | 必須 | デフォルト値 |
+|------|-------------------------------------------------------------------------|------|-------------|
+| `src`  | コンパイルするKotlinソースファイルまたはディレクトリ                  | Yes  |             |
+| `nowarn` | すべてのコンパイル警告を抑制する                                        | No   | false       |
+| `noStdlib` | Kotlin標準ライブラリをクラスパスに含めない                                | No   | false       |
+| `failOnError` | コンパイル中にエラーが検出された場合、ビルドを失敗させる                 | No   | true        |
 
-### kotlinc 属性
+### kotlincの属性
 
-| 名前 | 説明 | 必須 | デフォルト値 |
-|------|-------------|----------|---------------|
-| `output`  | 出力先ディレクトリまたは .jar ファイル名 | Yes |  |
-| `classpath`  | コンパイル時のクラスパス | No |  |
-| `classpathref`  | コンパイル時のクラスパス参照 | No |  |
-| `includeRuntime`  | `output` が .jar ファイルの場合、Kotlin ランタイムライブラリが jar に含まれるかどうか | No | true  |
-| `moduleName` | コンパイル対象のモジュールの名前 | No | ターゲットの名前 (指定されている場合) またはプロジェクトの名前 |
+| Name | 説明                                                                                 | 必須 | デフォルト値                                    |
+|------|--------------------------------------------------------------------------------------|------|-------------------------------------------------|
+| `output`  | 出力先ディレクトリまたは.jarファイル名                                           | Yes  |                                                 |
+| `classpath`  | コンパイルクラスパス                                                                 | No   |                                                 |
+| `classpathref`  | コンパイルクラスパス参照                                                             | No   |                                                 |
+| `includeRuntime`  | `output`が.jarファイルの場合、Kotlinランタイムライブラリをjarに含めるかどうか | No   | true                                            |
+| `moduleName` | コンパイルされるモジュールの名前                                                     | No   | ターゲットの名前（指定されている場合）またはプロジェクト |
 
-### kotlin2js 属性
+### kotlin2jsの属性
 
-| 名前 | 説明 | 必須 |
-|------|-------------|----------|
-| `output`  | 出力先ファイル | Yes |
-| `libraries`  | Kotlin ライブラリへのパス | No |
-| `outputPrefix`  | 生成される JavaScript ファイルに使用するプレフィックス | No |
-| `outputSuffix` | 生成される JavaScript ファイルに使用するサフィックス | No |
-| `sourcemap`  | ソースマップファイルを生成するかどうか | No |
-| `metaInfo`  | バイナリディスクリプタを含むメタデータファイルを生成するかどうか | No |
-| `main`  | コンパイラが生成するコードがメイン関数を呼び出すべきかどうか | No |
+| Name | 説明                                                     | 必須 |
+|------|----------------------------------------------------------|------|
+| `output`  | 出力先ファイル                                           | Yes  |
+| `libraries`  | Kotlinライブラリへのパス                                 | No   |
+| `outputPrefix`  | 生成されるJavaScriptファイルに使用するプレフィックス | No   |
+| `outputSuffix` | 生成されるJavaScriptファイルに使用するサフィックス | No   |
+| `sourcemap`  | ソースマップファイルを生成するかどうか                   | No   |
+| `metaInfo`  | バイナリディスクリプターを持つメタデータファイルを生成するかどうか | No   |
+| `main`  | コンパイラーが生成したコードがmain関数を呼び出すべきか | No   |
 
-### 生の (raw) コンパイラ引数の引き渡し
+### 生のコンパイラー引数を渡す
 
-カスタムの raw コンパイラ引数を渡すには、`<compilerarg>` 要素を `value` または `line` 属性とともに使用できます。これは、`<kotlinc>`、`<kotlin2js>`、および `<withKotlin>` タスク要素内で実行できます。例を以下に示します。
+カスタムの生のコンパイラー引数を渡すには、`value`または`line`属性とともに`<compilerarg>`要素を使用できます。
+これは、`<kotlinc>`、`<kotlin2js>`、および`<withKotlin>`タスク要素内で実行できます。
 
 ```xml
 <kotlinc src="${test.data}/hello.kt" output="${temp}/hello.jar">
@@ -156,4 +166,4 @@ Kotlin は Ant 用に 3 つのタスクを提供します。
 </kotlinc>
 ```
 
-使用可能な引数の完全なリストは、`kotlinc -help` を実行したときに表示されます。
+使用できる引数の完全なリストは、`kotlinc -help`を実行すると表示されます。

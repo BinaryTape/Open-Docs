@@ -1,21 +1,21 @@
-[//]: # (title: 基本型)
+[//]: # (title: 基本データ型)
 
 <no-index/>
 
 <tldr>
-    <p><img src="icon-1-done.svg" width="20" alt="最初のステップ" /> <a href="kotlin-tour-hello-world.md">Hello world</a><br />
-        <img src="icon-2.svg" width="20" alt="2番目のステップ" /> <strong>基本型</strong><br />
-        <img src="icon-3-todo.svg" width="20" alt="3番目のステップ" /> <a href="kotlin-tour-collections.md">コレクション</a><br />
-        <img src="icon-4-todo.svg" width="20" alt="4番目のステップ" /> <a href="kotlin-tour-control-flow.md">制御フロー</a><br />
-        <img src="icon-5-todo.svg" width="20" alt="5番目のステップ" /> <a href="kotlin-tour-functions.md">関数</a><br />
-        <img src="icon-6-todo.svg" width="20" alt="6番目のステップ" /> <a href="kotlin-tour-classes.md">クラス</a><br />
-        <img src="icon-7-todo.svg" width="20" alt="最後のステップ" /> <a href="kotlin-tour-null-safety.md">null安全性</a></p>
+    <p><img src="icon-1-done.svg" width="20" alt="First step" /> <a href="kotlin-tour-hello-world.md">Hello world</a><br />
+        <img src="icon-2.svg" width="20" alt="Second step" /> <strong>基本データ型</strong><br />
+        <img src="icon-3-todo.svg" width="20" alt="Third step" /> <a href="kotlin-tour-collections.md">コレクション</a><br />
+        <img src="icon-4-todo.svg" width="20" alt="Fourth step" /> <a href="kotlin-tour-control-flow.md">制御フロー</a><br />
+        <img src="icon-5-todo.svg" width="20" alt="Fifth step" /> <a href="kotlin-tour-functions.md">関数</a><br />
+        <img src="icon-6-todo.svg" width="20" alt="Sixth step" /> <a href="kotlin-tour-classes.md">クラス</a><br />
+        <img src="icon-7-todo.svg" width="20" alt="Final step" /> <a href="kotlin-tour-null-safety.md">Null安全性</a></p>
 </tldr>
 
-Kotlinのすべての変数とデータ構造には型があります。型は、その変数やデータ構造に対して何ができるか、言い換えれば、どのような関数やプロパティを持っているかをコンパイラに伝えるため、重要です。
+Kotlinのすべての変数とデータ構造には型があります。型は、その変数またはデータ構造で何ができるかをコンパイラに伝えるため重要です。言い換えれば、どのような関数とプロパティを持っているかを示します。
 
-前章の例では、Kotlinは`customers`が[`Int`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/)型であることを認識できました。
-Kotlinが型を**推論**する能力は**型推論**と呼ばれます。`customers`には整数値が割り当てられています。ここから、Kotlinは`customers`が数値型`Int`であると推論します。その結果、コンパイラは`customers`に対して算術演算を実行できることを認識します。
+前の章で、Kotlinは前の例で`customers`が[`Int`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/)型であることを認識できました。
+Kotlinが型を**推論**する能力は**型推論**と呼ばれます。`customers`には整数値が代入されています。これにより、Kotlinは`customers`が数値型`Int`であると推論します。結果として、コンパイラは`customers`に対して算術演算を実行できることを認識します。
 
 ```kotlin
 fun main() {
@@ -37,39 +37,39 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-tour-basic-types-arithmetic"}
 
-> `+=`、`-=`、`*=`、`/=`、`%=` は複合代入演算子です。詳細については、[複合代入](operator-overloading.md#augmented-assignments)を参照してください。
+> `+=`、`-=`、`*=`、`/=`、および`%=`は複合代入演算子です。詳細は[複合代入](operator-overloading.md#augmented-assignments)を参照してください。
 > 
 {style="tip"}
 
-Kotlinには、以下の基本型があります。
+Kotlinには、以下の基本データ型があります。
 
-| **カテゴリ**           | **基本型**                    | **コード例**                                              |
+| **カテゴリ**           | **基本データ型**                   | **コード例**                                              |
 |------------------------|------------------------------------|---------------------------------------------------------------|
-| 整数               | `Byte`、`Short`、`Int`、`Long`     | `val year: Int = 2020`                                        |
-| 符号なし整数      | `UByte`、`UShort`、`UInt`、`ULong` | `val score: UInt = 100u`                                      |
-| 浮動小数点数 | `Float`、`Double`                  | `val currentTemp: Float = 24.5f`、`val price: Double = 19.99` |
-| 論理値               | `Boolean`                          | `val isEnabled: Boolean = true`                               |
-| 文字             | `Char`                             | `val separator: Char = ','`                                   |
-| 文字列             | `String`                           | `val message: String = "Hello, world!"`                       |
+| 整数型               | `Byte`, `Short`, `Int`, `Long`     | `val year: Int = 2020`                                        |
+| 符号なし整数型      | `UByte`, `UShort`, `UInt`, `ULong` | `val score: UInt = 100u`                                      |
+| 浮動小数点数型 | `Float`, `Double`                  | `val currentTemp: Float = 24.5f`, `val price: Double = 19.99` |
+| 論理型               | `Boolean`                          | `val isEnabled: Boolean = true`                               |
+| 文字型             | `Char`                             | `val separator: Char = ','`                                   |
+| 文字列型             | `String`                           | `val message: String = "Hello, world!"`                       |
 
-基本型とそのプロパティの詳細については、[基本型](basic-types.md)を参照してください。
+基本データ型とそのプロパティの詳細については、[基本データ型](basic-types.md)を参照してください。
 
-この知識があれば、変数を宣言し、後で初期化することができます。Kotlinは、変数が最初の読み取りの前に初期化される限り、これを管理できます。
+この知識があれば、変数を宣言し、後で初期化することができます。Kotlinは、変数が最初に読み取られる前に初期化されていれば、これを管理できます。
 
-初期化せずに変数を宣言するには、`:` を使用して型を指定します。例えば、
+変数を初期化せずに宣言するには、`:`を使ってその型を指定します。例えば、
 
 ```kotlin
 fun main() {
 //sampleStart
-    // Variable declared without initialization
+    // 初期化せずに宣言された変数
     val d: Int
-    // Variable initialized
+    // 初期化された変数
     d = 3
 
-    // Variable explicitly typed and initialized
+    // 明示的に型指定され初期化された変数
     val e: String = "hello"
 
-    // Variables can be read because they have been initialized
+    // 変数は初期化されているため読み取り可能
     println(d) // 3
     println(e) // hello
 //sampleEnd
@@ -77,29 +77,29 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-tour-basic-types-initialization"}
 
-変数が読み取られる前に初期化しない場合、エラーが表示されます。
+変数が読み取られる前に初期化しない場合、エラーが発生します。
 
 ```kotlin
 fun main() {
 //sampleStart
-    // Variable declared without initialization
+    // 初期化せずに宣言された変数
     val d: Int
     
-    // Triggers an error
+    // エラーをトリガーします
     println(d)
-    // Variable 'd' must be initialized
+    // 変数 'd' は初期化する必要があります
 //sampleEnd
 }
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-tour-basic-types-no-initialization" validate="false"}
 
-基本型の宣言方法がわかったところで、次は[コレクション](kotlin-tour-collections.md)について学びましょう。
+基本データ型を宣言する方法がわかったところで、次は[コレクション](kotlin-tour-collections.md)について学びましょう。
 
-## 演習
+## 練習問題
 
 ### 演習 {initial-collapse-state="collapsed" collapsible="true"}
 
-各変数に正しい型を明示的に宣言してください:
+各変数に正しい型を明示的に宣言してください。
 
 |---|---|
 ```kotlin

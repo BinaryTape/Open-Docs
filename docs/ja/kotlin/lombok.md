@@ -1,39 +1,39 @@
-[//]: # (title: Lombokコンパイラプラグイン)
+[//]: # (title: Lombokコンパイラープラグイン)
 
-> Lombokコンパイラプラグインは[実験的](components-stability.md)です。
-> これはいつでも廃止または変更される可能性があります。評価目的でのみ使用してください。
-> これに関するフィードバックを[YouTrack](https://youtrack.jetbrains.com/issue/KT-7112)でお寄せいただけると幸いです。
+> Lombokコンパイラープラグインは[実験的](components-stability.md)なものです。
+> いつでも変更または削除される可能性があります。評価目的でのみ使用してください。
+> [YouTrack](https://youtrack.jetbrains.com/issue/KT-7112)でのフィードバックをお待ちしております。
 >
 {style="warning"}
 
-Kotlin Lombokコンパイラプラグインを使用すると、同じJava/Kotlin混在モジュール内でKotlinコードによるJavaのLombok宣言の生成と使用が可能になります。
-別のモジュールからそのような宣言を呼び出す場合、そのモジュールのコンパイルにこのプラグインを使用する必要はありません。
+Kotlin Lombokコンパイラープラグインを使用すると、同じJava/Kotlin混在モジュール内でKotlinコードによるJavaのLombok宣言の生成と使用が可能になります。
+別のモジュールからそのような宣言を呼び出す場合、そのモジュールのコンパイルにはこのプラグインを使用する必要はありません。
 
-Lombokコンパイラプラグインは[Lombok](https://projectlombok.org/)を置き換えることはできませんが、LombokがJava/Kotlin混在モジュールで動作するのを助けます。
+Lombokコンパイラープラグインは[Lombok](https://projectlombok.org/)を置き換えるものではありませんが、Java/Kotlin混在モジュールでLombokが動作するのを助けます。
 したがって、このプラグインを使用する場合でも、通常通りLombokを設定する必要があります。
-[Lombokコンパイラプラグインの設定方法](#using-the-lombok-configuration-file)について詳しくはこちらをご覧ください。
+[Lombokコンパイラープラグインの設定方法](#using-the-lombok-configuration-file)について詳しく学びましょう。
 
-## サポートされているアノテーション
+## サポートされている注釈
 
-このプラグインは次のアノテーションをサポートしています。
+プラグインは以下の注釈をサポートしています。
 * `@Getter`, `@Setter`
 * `@Builder`, `@SuperBuilder`
-* `@NoArgsConstructor`, `@RequiredArgsConstructor`, and `@AllArgsConstructor`
+* `@NoArgsConstructor`, `@RequiredArgsConstructor`, および `@AllArgsConstructor`
 * `@Data`
 * `@With`
 * `@Value`
 
-私たちはこのプラグインの開発を継続しています。詳細な現在の状態については、[LombokコンパイラプラグインのREADME](https://github.com/JetBrains/kotlin/tree/master/plugins/lombok)をご覧ください。
+私たちはこのプラグインの開発を継続しています。詳細な現状については、[LombokコンパイラープラグインのREADME](https://github.com/JetBrains/kotlin/tree/master/plugins/lombok)を参照してください。
 
-現在、`@Tolerate`アノテーションをサポートする予定はありません。しかし、YouTrackで[@Tolerateに関する問題](https://youtrack.jetbrains.com/issue/KT-53564/Kotlin-Lombok-Support-Tolerate)に投票していただければ、検討することは可能です。
+現在、`@Tolerate`注釈をサポートする予定はありません。ただし、YouTrackの[@Tolerate issue](https://youtrack.jetbrains.com/issue/KT-53564/Kotlin-Lombok-Support-Tolerate)に投票していただければ、検討することができます。
 
-> Kotlinコンパイラは、KotlinコードでLombokアノテーションを使用しても無視します。
+> Kotlinコンパイラーは、KotlinコードでLombok注釈を使用した場合、それらを無視します。
 >
 {style="note"}
 
 ## Gradle
 
-`build.gradle(.kts)`ファイルで`kotlin-plugin-lombok` Gradleプラグインを適用します。
+`kotlin-plugin-lombok` Gradleプラグインを`build.gradle(.kts)`ファイルに適用します。
 
 <tabs group="build-script">
 <tab title="Kotlin" group-key="kotlin">
@@ -58,13 +58,13 @@ plugins {
 </tab>
 </tabs>
 
-Lombokコンパイラプラグインの使用例を含む[このテストプロジェクト](https://github.com/kotlin-hands-on/kotlin-lombok-examples/tree/master/kotlin_lombok_gradle/nokapt)をご覧ください。
+Lombokコンパイラープラグインの使用例を含む[テストプロジェクト](https://github.com/kotlin-hands-on/kotlin-lombok-examples/tree/master/kotlin_lombok_gradle/nokapt)を参照してください。
 
 ### Lombok設定ファイルの使用
 
-[Lombok設定ファイル](https://projectlombok.org/features/configuration)である`lombok.config`を使用する場合、プラグインがそれを見つけられるようにファイルのパスを設定する必要があります。
-パスはモジュールのディレクトリに対する相対パスでなければなりません。
-例えば、`build.gradle(.kts)`ファイルに以下のコードを追加します。
+[Lombok設定ファイル](https://projectlombok.org/features/configuration) `lombok.config`を使用する場合、プラグインがそれを見つけられるようにファイルのパスを設定する必要があります。
+パスはモジュールのディレクトリからの相対パスである必要があります。
+例えば、次のコードを`build.gradle(.kts)`ファイルに追加します。
 
 <tabs group="build-script">
 <tab title="Kotlin" group-key="kotlin">
@@ -87,12 +87,12 @@ kotlinLombok {
 </tab>
 </tabs>
 
-Lombokコンパイラプラグインと`lombok.config`の使用例を含む[このテストプロジェクト](https://github.com/kotlin-hands-on/kotlin-lombok-examples/tree/master/kotlin_lombok_gradle/withconfig)をご覧ください。
+Lombokコンパイラープラグインと`lombok.config`の使用例を含む[テストプロジェクト](https://github.com/kotlin-hands-on/kotlin-lombok-examples/tree/master/kotlin_lombok_gradle/withconfig)を参照してください。
 
 ## Maven
 
-Lombokコンパイラプラグインを使用するには、`compilerPlugins`セクションにプラグイン`lombok`を、`dependencies`セクションに依存関係`kotlin-maven-lombok`を追加します。
-[Lombok設定ファイル](https://projectlombok.org/features/configuration)である`lombok.config`を使用する場合、`pluginOptions`でプラグインにそのパスを提供します。以下の行を`pom.xml`ファイルに追加します。
+Lombokコンパイラープラグインを使用するには、プラグイン`lombok`を`compilerPlugins`セクションに、依存関係`kotlin-maven-lombok`を`dependencies`セクションに追加します。
+[Lombok設定ファイル](https://projectlombok.org/features/configuration) `lombok.config`を使用する場合、`pluginOptions`でプラグインにそのパスを提供します。次の行を`pom.xml`ファイルに追加します。
 
 ```xml
 <plugin>
@@ -123,14 +123,14 @@ Lombokコンパイラプラグインを使用するには、`compilerPlugins`セ
 </plugin>
 ```
 
-Lombokコンパイラプラグインと`lombok.config`の使用例を示す[このテストプロジェクト](https://github.com/kotlin-hands-on/kotlin-lombok-examples/tree/master/kotlin_lombok_maven/nokapt)をご覧ください。
+Lombokコンパイラープラグインと`lombok.config`の使用例の[テストプロジェクト](https://github.com/kotlin-hands-on/kotlin-lombok-examples/tree/master/kotlin_lombok_maven/nokapt)を参照してください。
 
 ## kaptとの使用
 
-デフォルトでは、[kapt](kapt.md)コンパイラプラグインは全てのアノテーションプロセッサを実行し、javacによるアノテーション処理を無効にします。
-[Lombok](https://projectlombok.org/)をkaptと共に実行するには、kaptがjavacのアノテーションプロセッサを動作させ続けるように設定します。
+デフォルトでは、[kapt](kapt.md)コンパイラープラグインはすべてのアノテーションプロセッサーを実行し、javacによるアノテーション処理を無効にします。
+kaptと一緒に[Lombok](https://projectlombok.org/)を実行するには、javacのアノテーションプロセッサーが動作し続けるようにkaptを設定します。
 
-Gradleを使用している場合は、`build.gradle(.kts)`ファイルに以下のオプションを追加します。
+Gradleを使用している場合、`build.gradle(.kts)`ファイルにオプションを追加します。
 
 ```groovy
 kapt {
@@ -138,7 +138,7 @@ kapt {
 }
 ```
 
-Mavenでは、JavaコンパイラでLombokを起動するために以下の設定を使用します。
+Mavenでは、JavaのコンパイラーでLombokを起動するために、次の設定を使用します。
 
 ```xml
 <plugin>
@@ -159,25 +159,26 @@ Mavenでは、JavaコンパイラでLombokを起動するために以下の設�
 </plugin>    
 ```
 
-アノテーションプロセッサがLombokによって生成されたコードに依存しない場合、Lombokコンパイラプラグインは[kapt](kapt.md)と正しく連携して動作します。
+Lombokコンパイラープラグインは、アノテーションプロセッサーがLombokによって生成されたコードに依存しない場合、[kapt](kapt.md)と正しく動作します。
 
-kaptとLombokコンパイラプラグインの使用例を示すテストプロジェクトをご覧ください。
-* [Gradle](https://github.com/JetBrains/kotlin/tree/master/libraries/tools/kotlin-gradle-plugin-integration-tests/src/test/resources/testProject/lombokProject/yeskapt)を使用する。
-* [Maven](https://github.com/kotlin-hands-on/kotlin-lombok-examples/tree/master/kotlin_lombok_maven/yeskapt)を使用する。
+kaptとLombokコンパイラープラグインの使用例のテストプロジェクトを参照してください。
+* [Gradle](https://github.com/JetBrains/kotlin/tree/master/libraries/tools/kotlin-gradle-plugin-integration-tests/src/test/resources/testProject/lombokProject/yeskapt)を使用する場合。
+* [Maven](https://github.com/kotlin-hands-on/kotlin-lombok-examples/tree/master/kotlin_lombok_maven/yeskapt)を使用する場合。
 
-## コマンドラインコンパイラ
+## コマンドラインコンパイラー
 
-LombokコンパイラプラグインのJARは、Kotlinコンパイラのバイナリディストリビューションで利用できます。
-そのJARファイルへのパスを`Xplugin` kotlincオプションを使用して提供することで、プラグインをアタッチできます。
+LombokコンパイラープラグインのJARは、Kotlinコンパイラーのバイナリ配布に含まれています。
+`Xplugin` kotlincオプションを使用して、JARファイルへのパスを指定することでプラグインをアタッチできます。
 
 ```bash
 -Xplugin=$KOTLIN_HOME/lib/lombok-compiler-plugin.jar
 ```
 
-もし`lombok.config`ファイルを使用したい場合は、`<PATH_TO_CONFIG_FILE>`をあなたの`lombok.config`へのパスに置き換えてください。
+`lombok.config`ファイルを使用したい場合は、`<PATH_TO_CONFIG_FILE>`を`lombok.config`へのパスに置き換えてください。
 
 ```bash
-# プラグインオプションの形式は「-P plugin:<プラグインID>:<キー>=<値>」です。オプションは複数指定できます。
+# プラグインオプションの形式は「-P plugin:<plugin ID>:<キー>=<値>」です。
+# オプションは複数指定できます。
 
 -P plugin:org.jetbrains.kotlin.lombok:config=<PATH_TO_CONFIG_FILE>
 ```

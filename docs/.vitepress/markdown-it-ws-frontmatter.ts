@@ -1,24 +1,42 @@
 // Process comments and convert title to markdown heading
 
 export default function markdownItWsFrontmatter(md) {
-  const originalRender = md.render.bind(md);
-  const titleCommentRegex = /\[\/\/\]: # \(title:\s*(.*?)\)/i;
+  const titleCommentRe = /\[\/\/\]: # \(title:\s*(.*?)\)/i;
+  const primaryLabelRe = /<primary-label\s+ref="([^"]+)"\/>/i;
 
-  md.render = function(src: string, env?: any): any[] {
-    // 查找 title 注释
-    const titleMatch = src.match(titleCommentRegex);
-    
-    if (titleMatch && titleMatch[1]) {
-      // 提取标题内容
-      const titleContent = titleMatch[1].trim();
-      
-      // 将标题内容转换为 Markdown 标题
-      const modifiedSource = `# ${titleContent}\n\n${src}`;
-      
-      return originalRender(modifiedSource, env);
+  // 在 normalize 阶段之前运行，修改 state.src
+  md.core.ruler.before('normalize', 'ws_frontmatter', state => {
+    const src = state.src;
+    const lines = src.split(/\r?\n/);
+
+    // 找到 title 注释所在的行索引
+    const titleLineIndex = lines.findIndex(line => titleCommentRe.test(line));
+    if (titleLineIndex < 0) {
+      return; // 没有 title 注释，跳过
     }
-    
-    // 没有找到标题，直接处理原始内容
-    return originalRender(src, env);
-  };
+
+    // 提取 title 文本
+    const titleMatch = titleCommentRe.exec(lines[titleLineIndex]);
+    const titleContent = titleMatch[1].trim();
+
+    // 在 title 之后的 4 行内寻找 primary-label
+    let ref = '';
+    for (let i = titleLineIndex + 1; i <= titleLineIndex + 4 && i < lines.length; i++) {
+      const m = primaryLabelRe.exec(lines[i]);
+      if (m && m[1] && m[1].trim().toLowerCase() !== 'none') {
+        ref = m[1].trim();
+        break;
+      }
+    }
+
+    // 根据是否找到 ref 决定插入 <TopicTitle> 还是普通 Markdown 标题
+    let newSrc;
+    if (ref) {
+      newSrc = `<TopicTitle labelRef="${ref}" title="${titleContent}"/>\n\n${src}`;
+    } else {
+      newSrc = `# ${titleContent}\n\n${src}`;
+    }
+
+    state.src = newSrc;
+  });
 }

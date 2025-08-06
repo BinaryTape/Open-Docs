@@ -1,14 +1,14 @@
 [//]: # (title: 与 Swift/Objective-C ARC 集成)
 
-Kotlin 和 Objective-C 使用不同的内存管理策略。Kotlin 有追踪式垃圾收集器，而 Objective-C 依赖自动引用计数 (ARC)。
+Kotlin 和 Objective-C 使用不同的内存管理策略。Kotlin 拥有跟踪式垃圾回收器，而 Objective-C 依赖于自动引用计数 (ARC)。
 
-这些策略之间的集成通常是无缝的，并且通常不需要额外的工作。但是，您需要牢记一些特殊之处：
+这些策略之间的集成通常是无缝的，且通常无需额外工作。然而，你需要记住以下一些具体事项：
 
 ## 线程
 
 ### 析构器
 
-如果 Swift/Objective-C 对象及其引用的对象在主线程上传递给 Kotlin，例如：
+如果 Swift/Objective-C 对象及其引用的对象在主线程上被传递给 Kotlin，则这些对象的析构将在主线程上调用，例如：
 
 ```kotlin
 // Kotlin
@@ -36,7 +36,7 @@ func test() {
 }
 ```
 
-结果输出：
+结果输出为：
 
 ```text
 init on <_NSMainThread: 0x600003bc0000>{number = 1, name = main}
@@ -44,18 +44,18 @@ shared.SwiftExample
 deinit on <_NSMainThread: 0x600003bc0000>{number = 1, name = main}
 ```
 
-如果出现以下情况，Swift/Objective-C 对象的析构将在特殊的 GC 线程而不是主线程上调用：
+如果出现以下情况，Swift/Objective-C 对象的析构将在特殊 GC 线程上调用，而非主线程：
 
-* Swift/Objective-C 对象在非主线程上传递给 Kotlin。
-* 主调度队列未被处理。
+*   Swift/Objective-C 对象在非主线程上被传递给 Kotlin。
+*   主调度队列未被处理。
 
-如果您想显式地在特殊的 GC 线程上调用析构，请在您的 `gradle.properties` 中设置 `kotlin.native.binary.objcDisposeOnMain=false`。此选项启用在特殊的 GC 线程上析构，即使 Swift/Objective-C 对象是在主线程上传递给 Kotlin 的。
+如果你想显式地在特殊 GC 线程上调用析构，请在你的 `gradle.properties` 中设置 `kotlin.native.binary.objcDisposeOnMain=false`。此选项将启用在特殊 GC 线程上的析构，即使 Swift/Objective-C 对象是在主线程上被传递给 Kotlin 的。
 
-特殊的 GC 线程符合 Objective-C 运行时，这意味着它有一个运行循环并释放自动释放池。
+特殊 GC 线程符合 Objective-C 运行时，这意味着它具有运行循环并会排出自动释放池。
 
-### 完成处理程序
+### 完成处理器
 
-当从 Swift 调用 Kotlin 挂起函数时，完成处理程序可能会在非主线程上调用，例如：
+从 Swift 调用 Kotlin 挂起函数时，完成处理器可能在非主线程上被调用，例如：
 
 ```kotlin
 // Kotlin
@@ -79,7 +79,7 @@ func test() {
 }
 ```
 
-结果输出：
+结果输出为：
 
 ```text
 Running test on <_NSMainThread: 0x600001b100c0>{number = 1, name = main}
@@ -88,11 +88,11 @@ World!
 Running completion handler on <NSThread: 0x600001b45bc0>{number = 7, name = (null)}
 ```
 
-## 垃圾收集和生命周期
+## 垃圾回收和生命周期
 
 ### 对象回收
 
-对象仅在垃圾收集期间被回收。这适用于跨越互操作边界进入 Kotlin/Native 的 Swift/Objective-C 对象，例如：
+对象仅在垃圾回收期间被回收。这适用于跨越互操作边界进入 Kotlin/Native 的 Swift/Objective-C 对象，例如：
 
 ```kotlin
 // Kotlin
@@ -127,7 +127,7 @@ func kotlinTest() {
 }
 ```
 
-结果输出：
+结果输出为：
 
 ```text
 shared.SwiftExample
@@ -140,9 +140,9 @@ SwiftExample deinit
 
 ### Objective-C 对象的生命周期
 
-Objective-C 对象可能存活时间比预期更长，这有时可能导致性能问题。例如，当一个长运行循环在每次迭代中创建多个跨越 Swift/Objective-C 互操作边界的临时对象时。
+Objective-C 对象的存活时间可能超出预期，这有时可能导致性能问题。例如，当一个长时间运行的循环在每次迭代中创建多个跨越 Swift/Objective-C 互操作边界的临时对象时。
 
-在 [GC 日志](native-memory-manager.md#monitor-gc-performance)中，根集合中存在一些稳定引用。如果这个数量持续增长，可能表明 Swift/Objective-C 对象没有在它们应该被释放时被释放。在这种情况下，尝试在执行互操作调用的循环体周围使用 `autoreleasepool` 块：
+在 [GC 日志](native-memory-manager.md#monitor-gc-performance)中，根集合中存在一定数量的稳定引用。如果这个数量持续增长，则可能表明 Swift/Objective-C 对象未能及时释放。在这种情况下，请尝试在执行互操作调用的循环体周围使用 `autoreleasepool` 代码块：
 
 ```kotlin
 // Kotlin
@@ -163,7 +163,7 @@ fun steadyMemoryUsage() {
 }
 ```
 
-### Swift 和 Kotlin 对象链的垃圾收集
+### Swift 和 Kotlin 对象链的垃圾回收
 
 考虑以下示例：
 
@@ -221,19 +221,19 @@ func test() {
 }
 ```
 
-"deinit SwiftStorage first" 和 "deinit SwiftStorage second" 消息出现在日志中需要一些时间。原因是 `firstKotlinStorage` 和 `secondKotlinStorage` 在不同的 GC 周期中被收集。以下是事件序列：
+“deinit SwiftStorage first” 和 “deinit SwiftStorage second” 消息出现在日志中需要一些时间。原因是 `firstKotlinStorage` 和 `secondKotlinStorage` 在不同的 GC 周期中被回收。事件序列如下：
 
-1.  `KotlinExample.action` 完成。`firstKotlinStorage` 被认为是“死”的，因为它没有被任何东西引用，而 `secondKotlinStorage` 不是，因为它被 `firstSwiftStorage` 引用。
-2.  第一个 GC 周期开始，`firstKotlinStorage` 被收集。
-3.  没有对 `firstSwiftStorage` 的引用，因此它也“死”了，并调用了 `deinit`。
-4.  第二个 GC 周期开始。`secondKotlinStorage` 被收集，因为 `firstSwiftStorage` 不再引用它。
+1.  `KotlinExample.action` 完成。`firstKotlinStorage` 被视为“死亡”，因为没有东西引用它，而 `secondKotlinStorage` 则不是，因为它被 `firstSwiftStorage` 引用。
+2.  第一个 GC 周期开始，并且 `firstKotlinStorage` 被回收。
+3.  `firstSwiftStorage` 没有引用，因此它也被视为“死亡”，并且会调用 `deinit`。
+4.  第二个 GC 周期开始。`secondKotlinStorage` 被回收，因为 `firstSwiftStorage` 不再引用它。
 5.  `secondSwiftStorage` 最终被回收。
 
-收集这四个对象需要两个 GC 周期，因为 Swift 和 Objective-C 对象的析构发生在 GC 周期之后。这种限制源于 `deinit` 可以调用任意代码，包括无法在 GC 暂停期间运行的 Kotlin 代码。
+回收这四个对象需要两个 GC 周期，因为 Swift 和 Objective-C 对象的析构发生在 GC 周期之后。此限制源于 `deinit` 可以调用任意代码，包括无法在 GC 暂停期间运行的 Kotlin 代码。
 
-### 循环引用
+### 引用循环
 
-在_循环引用_中，多个对象使用强引用相互循环引用：
+在 _引用循环_ 中，多个对象通过强引用循环地相互引用：
 
 ```mermaid
 graph TD
@@ -242,9 +242,9 @@ graph TD
     C --> A
 ```
 
-Kotlin 的追踪式 GC 和 Objective-C 的 ARC 处理循环引用的方式不同。当对象变得不可达时，Kotlin 的 GC 可以正确地回收此类循环，而 Objective-C 的 ARC 不能。因此，Kotlin 对象的循环引用可以被回收，而 [Swift/Objective-C 对象的循环引用不能](https://docs.swift.org/swift-book/documentation/the-swift-programming-language/automaticreferencecounting/#Strong-Reference-Cycles-Between-Class-Instances)。
+Kotlin 的跟踪式 GC 和 Objective-C 的 ARC 处理引用循环的方式不同。当对象变得不可达时，Kotlin 的 GC 可以正确回收此类循环，而 Objective-C 的 ARC 则不能。因此，Kotlin 对象的引用循环可以被回收，而 [Swift/Objective-C 对象的引用循环不能](https://docs.swift.org/swift-book/documentation/the-swift-programming-language/automaticreferencecounting/#Strong-Reference-Cycles-Between-Class-Instances)。
 
-考虑循环引用同时包含 Objective-C 和 Kotlin 对象的情况：
+考虑引用循环同时包含 Objective-C 和 Kotlin 对象的情况：
 
 ```mermaid
 graph TD
@@ -252,22 +252,22 @@ graph TD
     ObjC.B --> Kotlin.A
 ```
 
-这涉及结合 Kotlin 和 Objective-C 的内存管理模型，这些模型无法共同处理（回收）循环引用。这意味着如果至少存在一个 Objective-C 对象，则整个对象图的循环引用无法被回收，并且无法从 Kotlin 侧打破循环。
+这涉及结合 Kotlin 和 Objective-C 的内存管理模型，它们无法共同处理（回收）引用循环。这意味着如果至少存在一个 Objective-C 对象，则整个对象图的引用循环无法被回收，并且无法从 Kotlin 侧打破循环。
 
-遗憾的是，目前没有可用的特殊工具来自动检测 Kotlin/Native 代码中的循环引用。为了避免循环引用，请使用[弱引用或无主引用](https://docs.swift.org/swift-book/documentation/the-swift-programming-language/automaticreferencecounting/#Resolving-Strong-Reference-Cycles-Between-Class-Instances)。
+遗憾的是，目前没有可用的特殊工具来自动检测 Kotlin/Native 代码中的引用循环。为避免引用循环，请使用 [弱引用或无主引用](https://docs.swift.org/swift-book/documentation/the-swift-programming-language/automaticreferencecounting/#Resolving-Strong-Reference-Cycles-Between-Class-Instances)。
 
 ## 对后台状态和 App Extensions 的支持
 
-当前内存管理器默认情况下不跟踪应用程序状态，也无法开箱即用地与 [App Extensions](https://developer.apple.com/app-extensions/) 集成。
+当前的内存管理器默认情况下不跟踪应用程序状态，也不支持 [App Extensions](https://developer.apple.com/app-extensions/) 的开箱即用集成。
 
-这意味着内存管理器不会相应地调整 GC 行为，这在某些情况下可能有害。为了改变这种行为，请在您的 `gradle.properties` 中添加以下 [实验性](components-stability.md) 二进制选项：
+这意味着内存管理器不会相应地调整 GC 行为，这在某些情况下可能有害。要更改此行为，请将以下[实验性的](components-stability.md)二进制选项添加到你的 `gradle.properties` 中：
 
 ```none
 kotlin.native.binary.appStateTracking=enabled
 ```
 
-它会在应用程序处于后台时关闭基于计时器的垃圾收集器调用，因此只有当内存消耗过高时才会调用 GC。
+当应用程序处于后台时，它会关闭基于计时器的垃圾回收器调用，因此只有当内存消耗过高时才调用 GC。
 
-## 接下来
+## 下一步
 
-了解更多关于 [Swift/Objective-C 互操作性](native-objc-interop.md) 的信息。
+了解更多关于 [Swift/Objective-C 互操作](native-objc-interop.md)。

@@ -1,11 +1,11 @@
-[//]: # (title: Dokka の使用を開始する)
+[//]: # (title: Dokkaを始める)
 
-以下に、Dokka の使用を開始するための簡単な手順を示します。
+以下に、Dokkaの入門に役立つ簡単な手順を示します。
 
 <tabs group="build-script">
 <tab title="Gradle Kotlin DSL" group-key="kotlin">
 
-プロジェクトのルートビルドスクリプトに Dokka 用の Gradle プラグインを適用します。
+プロジェクトのルートビルドスクリプトにDokkaのGradleプラグインを適用します。
 
 ```kotlin
 plugins {
@@ -13,7 +13,7 @@ plugins {
 }
 ```
 
-[マルチプロジェクト](https://docs.gradle.org/current/userguide/multi_project_builds.html)ビルドをドキュメント化する場合は、サブプロジェクト内にも Gradle プラグインを適用する必要があります。
+[マルチプロジェクト](https://docs.gradle.org/current/userguide/multi_project_builds.html)ビルドをドキュメント化する場合は、サブプロジェクト内にもGradleプラグインを適用する必要があります。
 
 ```kotlin
 subprojects {
@@ -21,19 +21,19 @@ subprojects {
 }
 ```
 
-ドキュメントを生成するには、次の Gradle タスクを実行します。
+ドキュメントを生成するには、以下のGradleタスクを実行します。
 
 *   `dokkaHtml` (シングルプロジェクトビルドの場合)
 *   `dokkaHtmlMultiModule` (マルチプロジェクトビルドの場合)
 
 デフォルトでは、出力ディレクトリは `/build/dokka/html` および `/build/dokka/htmlMultiModule` に設定されています。
 
-Gradle と Dokka の使用について詳しく知るには、[Gradle](dokka-gradle.md) を参照してください。
+GradleでDokkaを使用する方法の詳細については、[Gradle](dokka-gradle.md)を参照してください。
 
 </tab>
 <tab title="Gradle Groovy DSL" group-key="groovy">
 
-プロジェクトのルートビルドスクリプトに Dokka 用の Gradle プラグインを適用します。
+プロジェクトのルートビルドスクリプトにDokkaのGradleプラグインを適用します。
 
 ```groovy
 plugins {
@@ -41,7 +41,7 @@ plugins {
 }
 ```
 
-[マルチプロジェクト](https://docs.gradle.org/current/userguide/multi_project_builds.html)ビルドをドキュメント化する場合は、サブプロジェクト内にも Gradle プラグインを適用する必要があります。
+[マルチプロジェクト](https://docs.gradle.org/current/userguide/multi_project_builds.html)ビルドをドキュメント化する場合は、サブプロジェクト内にもGradleプラグインを適用する必要があります。
 
 ```groovy
 subprojects {
@@ -49,19 +49,19 @@ subprojects {
 }
 ```
 
-ドキュメントを生成するには、次の Gradle タスクを実行します。
+ドキュメントを生成するには、以下のGradleタスクを実行します。
 
 *   `dokkaHtml` (シングルプロジェクトビルドの場合)
 *   `dokkaHtmlMultiModule` (マルチプロジェクトビルドの場合)
 
 デフォルトでは、出力ディレクトリは `/build/dokka/html` および `/build/dokka/htmlMultiModule` に設定されています。
 
-Gradle と Dokka の使用について詳しく知るには、[Gradle](dokka-gradle.md) を参照してください。
+GradleでDokkaを使用する方法の詳細については、[Gradle](dokka-gradle.md)を参照してください。
 
 </tab>
 <tab title="Maven" group-key="mvn">
 
-Dokka 用の Maven プラグインを POM ファイルの `plugins` セクションに追加します。
+POMファイルの`plugins`セクションにDokkaのMavenプラグインを追加します。
 
 ```xml
 <build>
@@ -87,17 +87,17 @@ Dokka 用の Maven プラグインを POM ファイルの `plugins` セクショ
 
 デフォルトでは、出力ディレクトリは `target/dokka` に設定されています。
 
-Maven と Dokka の使用について詳しく知るには、[Maven](dokka-maven.md) を参照してください。
+MavenでDokkaを使用する方法の詳細については、[Maven](dokka-maven.md)を参照してください。
 
 </tab>
 </tabs>
 
-> Dokka 2.0.0 では、使用開始のためのいくつかの手順とタスクが更新されました。以下が含まれます。
+> Dokka 2.0.0では、入門に関するいくつかの手順とタスクが更新されました。これには以下が含まれます。
 >
-> *   [マルチプロジェクトビルドの構成](dokka-migration.md#share-dokka-configuration-across-modules)
+> *   [マルチプロジェクトビルドの設定](dokka-migration.md#share-dokka-configuration-across-modules)
 > *   [更新されたタスクでのドキュメントの生成](dokka-migration.md#generate-documentation-with-the-updated-task)
 > *   [出力ディレクトリの指定](dokka-migration.md#output-directory)
 >
-> 詳細と変更点の完全なリストについては、[移行ガイド](dokka-migration.md)を参照してください。
+> 詳細および変更点の全リストについては、[マイグレーションガイド](dokka-migration.md)を参照してください。
 >
 {style="note"}

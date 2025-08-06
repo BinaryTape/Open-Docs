@@ -1,35 +1,34 @@
-[//]: # (title: JavaとKotlinにおけるヌル可能性)
-[//]: # (description: JavaからKotlinへのヌル許容な構造の移行方法を学びましょう。このガイドでは、Kotlinにおけるヌル許容型のサポート、KotlinがJavaのヌル許容アノテーションをどのように扱うかなどを説明します。)
+[//]: # (title: JavaとKotlinにおけるnull許容性)
 
-_ヌル可能性_ とは、変数が`null`値を保持できる能力のことです。
-変数が`null`を含む場合、その変数を逆参照しようとすると`NullPointerException`が発生します。
-ヌルポインタ例外が発生する可能性を最小限に抑えるために、コードを書く方法はたくさんあります。
+<web-summary>JavaからKotlinにnull許容な構造を移行する方法を学びましょう。このガイドでは、Kotlinにおけるnull許容型のサポート、KotlinがJavaのnull許容アノテーションをどのように扱うかなどを解説します。</web-summary>
 
-このガイドでは、JavaとKotlinにおけるヌル許容変数（nullになりうる変数）の扱い方の違いを説明します。
-これは、JavaからKotlinへ移行し、本格的なKotlinスタイルでコードを書くのに役立ちます。
+_Null許容性_とは、変数が`null`値を保持できる能力のことです。
+変数が`null`を含んでいる場合、その変数を参照解除しようとすると`NullPointerException`が発生します。
+nullポインタ例外が発生する可能性を最小限に抑えるためにコードを書く方法はたくさんあります。
 
-このガイドの最初の部分では、最も重要な違いであるKotlinにおけるヌル許容型のサポートと、
-Kotlinが[Javaコードの型](#platform-types)をどのように処理するかについて説明します。2番目の部分では、
-[関数呼び出しの結果の確認](#checking-the-function-call-result)から始まり、いくつかの具体的なケースを検証して、特定の相違点を説明します。
+このガイドでは、JavaとKotlinのnull許容変数へのアプローチの違いについて説明します。
+JavaからKotlinへの移行を助け、Kotlinらしいコードを書くのに役立つでしょう。
 
-[Kotlinのヌル安全性についてさらに学ぶ](null-safety.md)。
+このガイドの最初のパートでは、最も重要な違いであるKotlinにおける[null許容型](null-safety.md)のサポートと、Kotlinが[Javaコードからの型](#platform-types)をどのように処理するかについて説明します。2番目のパートでは、[関数呼び出しの結果のチェック](#checking-the-result-of-a-function-call)から始めて、いくつかの具体的なケースを検証し、特定の違いを解説します。
 
-## ヌル許容型のサポート
+[Kotlinのnull安全性についてさらに詳しく学ぶ](null-safety.md)。
 
-KotlinとJavaの型システムにおける最も重要な違いは、Kotlinが[ヌル許容型](null-safety.md)を明示的にサポートしている点です。
-これは、どの変数が`null`値を保持できる可能性があるかを示す方法です。
-変数が`null`になりうる場合、その変数に対してメソッドを呼び出すのは安全ではありません。`NullPointerException`を引き起こす可能性があるためです。
-Kotlinはコンパイル時にそのような呼び出しを禁止し、これにより多くの潜在的な例外を防ぎます。
-実行時には、ヌル許容型のオブジェクトと非ヌル許容型のオブジェクトは同じように扱われます。
-ヌル許容型は非ヌル許容型のラッパーではありません。すべてのチェックはコンパイル時に実行されます。
-これは、Kotlinでヌル許容型を扱う際の実行時オーバーヘッドがほとんどないことを意味します。
+## null許容型のサポート
 
-> 「ほとんど」と述べているのは、[組み込み](https://en.wikipedia.org/wiki/Intrinsic_function)チェックが生成されるものの、
+Kotlinの型システムとJavaの型システムとの最も重要な違いは、Kotlinが[null許容型](null-safety.md)を明示的にサポートしている点です。
+これは、どの変数が`null`値を保持する可能性があるかを示す方法です。
+変数が`null`である可能性がある場合、その変数に対してメソッドを呼び出すのは安全ではありません。`NullPointerException`を引き起こす可能性があるためです。
+Kotlinはコンパイル時にこのような呼び出しを禁止することで、多くの潜在的な例外を防ぎます。
+実行時には、null許容型のオブジェクトと非null許容型のオブジェクトは同じように扱われます。
+null許容型は非null許容型のラッパーではありません。すべてのチェックはコンパイル時に実行されます。
+これは、Kotlinでnull許容型を扱う際の実行時オーバーヘッドがほとんどないことを意味します。
+
+> 「ほとんど」と述べるのは、[組み込み関数](https://ja.wikipedia.org/wiki/%E5%86%85%E5%9F%BA%E9%96%A2%E6%95%B0)のチェックは生成されるものの、
 そのオーバーヘッドはごくわずかだからです。
 >
 {style="note"}
 
-Javaでは、ヌルチェックを書かない場合、メソッドは`NullPointerException`をスローする可能性があります。
+Javaでは、nullチェックを書かないと、メソッドが`NullPointerException`をスローすることがあります。
 
 ```java
 // Java
@@ -43,7 +42,7 @@ void main() {
 ```
 {id="get-length-of-null-java"}
 
-この呼び出しは以下の出力を持ちます。
+この呼び出しは、以下の出力になります。
 
 ```java
 java.lang.NullPointerException: Cannot invoke "String.length()" because "a" is null
@@ -53,8 +52,8 @@ java.lang.NullPointerException: Cannot invoke "String.length()" because "a" is n
     at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
 ```
 
-Kotlinでは、明示的にヌル許容型としてマークしない限り、すべての通常の型はデフォルトで非ヌル許容型です。
-もし`a`が`null`になることを想定しない場合、`stringLength()`関数を次のように宣言します。
+Kotlinでは、すべての通常の型は、明示的にnull許容型としてマークしない限り、デフォルトで非null許容型です。
+`a`が`null`ではないと想定する場合、`stringLength()`関数を次のように宣言します。
 
 ```kotlin
 // Kotlin
@@ -63,16 +62,14 @@ fun stringLength(a: String) = a.length
 {id="get-length-kotlin"}
 
 パラメータ`a`は`String`型であり、Kotlinでは常に`String`インスタンスを含み、`null`を含むことはできないことを意味します。
-Kotlinのヌル許容型は、疑問符`?`を付けてマークされます（例: `String?`）。
-コンパイラが`stringLength()`のすべての引数が`null`でないというルールを強制するため、`a`が`String`である場合、実行時に`NullPointerException`が発生する状況はありえません。
+Kotlinのnull許容型は、`String?`のように疑問符`?`でマークされます。
+コンパイラが`stringLength()`のすべての引数が`null`であってはならないというルールを強制するため、`a`が`String`である場合、実行時に`NullPointerException`が発生する状況は不可能です。
 
-`null`値を`stringLength(a: String)`関数に渡そうとすると、コンパイル時エラーが発生し、
-「Null can not be a value of a non-null type String」と表示されます。
+`null`値を`stringLength(a: String)`関数に渡そうとすると、「Null can not be a value of a non-null type String (nullは非null型のStringの値にはなりえません)」というコンパイル時エラーが発生します。
 
-![Passing null to a non-nullable function error](passing-null-to-function.png){width=700}
+![Nullを非null許容関数に渡すエラー](passing-null-to-function.png){width=700}
 
-この関数を`null`を含む任意の引数で使用したい場合は、引数型`String?`の後に疑問符を付け、
-関数本体内で引数の値が`null`でないことを確認するためのチェックを行います。
+`null`を含む任意の引数でこの関数を使用したい場合は、引数型`String?`の後に疑問符を付け、関数本体内で引数の値が`null`ではないことを確認します。
 
 ```kotlin
 // Kotlin
@@ -80,12 +77,11 @@ fun stringLength(a: String?): Int = if (a != null) a.length else 0
 ```
 {id="get-length-of-null-kotlin"}
 
-チェックが正常に通過すると、コンパイラは、コンパイラがチェックを実行するスコープ内で、その変数を非ヌル許容型の`String`であるかのように扱います。
+チェックが正常にパスされた後、コンパイラは、チェックが実行されるスコープ内でその変数を非null許容型の`String`であるかのように扱います。
 
-このチェックを実行しない場合、コードは以下のメッセージでコンパイルに失敗します。
-「[セーフコール演算子 (?.)](null-safety.md#safe-call-operator)または[非ヌル表明 (!!.) 呼び出し](null-safety.md#not-null-assertion-operator)のみが、String? 型の[ヌル許容レシーバ](extensions.md#nullable-receiver)で許可されています。」
+このチェックを行わない場合、コードは「Only [safe (?.)](null-safety.md#safe-call-operator) or [non-nullable asserted (!!.) calls](null-safety.md#not-null-assertion-operator) are allowed on a [nullable receiver](extensions.md#nullable-receiver) of type String? (String?型の[null許容レシーバー](extensions.md#nullable-receiver)では、[セーフコール(?.)](null-safety.md#safe-call-operator)または[非nullアサート(!!.)](null-safety.md#not-null-assertion-operator)による呼び出しのみが許可されます)」というメッセージでコンパイルに失敗します。
 
-同じことをより短く書くことができます。ヌルチェックとメソッド呼び出しを単一の操作に結合できる[セーフコール演算子 ?. (If-not-null shorthand)](idioms.md#if-not-null-shorthand)を使用します。
+同じことをより短く書くことができます。nullチェックとメソッド呼び出しを単一の操作に結合できる[セーフコール演算子 `?.` (If-not-null shorthand)](idioms.md#if-not-null-shorthand)を使用します。
 
 ```kotlin
 // Kotlin
@@ -95,27 +91,25 @@ fun stringLength(a: String?): Int = a?.length ?: 0
 
 ## プラットフォーム型
 
-Javaでは、変数が`null`になりうるか、または`null`になりえないかを示すアノテーションを使用できます。
-そのようなアノテーションは標準ライブラリの一部ではありませんが、別途追加できます。
-例えば、JetBrainsのアノテーション`@Nullable`や`@NotNull` (`org.jetbrains.annotations`パッケージから) や、
-Eclipseのアノテーション (`org.eclipse.jdt.annotation`) を使用できます。
-Kotlinは、[KotlinコードからJavaコードを呼び出す](java-interop.md#nullability-annotations)際に、そのようなアノテーションを認識し、
-それらのアノテーションに従って型を扱います。
+Javaでは、変数が`null`である可能性があるか、または`null`ではないかを示すアノテーションを使用できます。
+このようなアノテーションは標準ライブラリの一部ではありませんが、別途追加できます。
+たとえば、JetBrainsのアノテーションである`@Nullable`と`@NotNull`（`org.jetbrains.annotations`パッケージから）や、Eclipse（`org.eclipse.jdt.annotation`）のアノテーションを使用できます。
+Kotlinは、[KotlinコードからJavaコードを呼び出す](java-interop.md#nullability-annotations)際にこれらのアノテーションを認識し、そのアノテーションに従って型を扱います。
 
 Javaコードにこれらのアノテーションがない場合、KotlinはJavaの型を_プラットフォーム型_として扱います。
-しかし、Kotlinはそのような型に対するヌル可能性情報を持たないため、コンパイラはそれらに対するすべての操作を許可します。
-ヌルチェックを実行するかどうかを決定する必要があります。なぜなら、
+しかし、Kotlinにはこのような型のnull許容性情報がないため、そのコンパイラはそれらに対するすべての操作を許可します。
+nullチェックを実行するかどうかは、自分で判断する必要があります。なぜなら、
 
-*   Javaと同様に、`null`に対して操作を実行しようとすると`NullPointerException`が発生します。
-*   通常、非ヌル許容型の値に対してヌルセーフな操作を実行した場合にコンパイラが行う冗長なヌルチェックのハイライトは行われません。
+*   Javaと同じように、`null`に対して操作を実行しようとすると`NullPointerException`が発生します。
+*   コンパイラは、非null許容型の値に対してnull安全な操作を実行する際に通常行うような、冗長なnullチェックを強調表示しません。
 
-[ヌル安全性とプラットフォーム型に関するKotlinからJavaの呼び出し](java-interop.md#null-safety-and-platform-types)についてさらに学びましょう。
+[null安全性とプラットフォーム型に関してKotlinからJavaを呼び出す方法](java-interop.md#null-safety-and-platform-types)について詳しく学んでください。
 
-## 確定非ヌル許容型のサポート
+## 厳密な非null許容型のサポート
 
-Kotlinでは、引数として`@NotNull`を含むJavaメソッドをオーバーライドしたい場合、Kotlinの確定非ヌル許容型が必要です。
+Kotlinでは、引数に`@NotNull`を含むJavaメソッドをオーバーライドしたい場合、Kotlinの厳密な非null許容型が必要になります。
 
-例えば、Javaの次の`load()`メソッドを考えてみましょう。
+たとえば、Javaのこの`load()`メソッドを考えてみましょう。
 
 ```java
 import org.jetbrains.annotations.*;
@@ -127,27 +121,27 @@ public interface Game<T> {
 }
 ```
 
-Kotlinで`load()`メソッドを正常にオーバーライドするには、`T1`を確定非ヌル許容型 (`T1 & Any`) として宣言する必要があります。
+Kotlinで`load()`メソッドを正常にオーバーライドするには、`T1`を厳密な非null許容型（`T1 & Any`）として宣言する必要があります。
 
 ```kotlin
 interface ArcadeGame<T1> : Game<T1> {
   override fun save(x: T1): T1
-  // T1 is definitely non-nullable
+  // T1は厳密な非null許容型です
   override fun load(x: T1 & Any): T1 & Any
 }
 ```
 
-[確定非ヌル許容型](generics.md#definitely-non-nullable-types)であるジェネリック型についてさらに学びましょう。
+[厳密な非null許容型](generics.md#definitely-non-nullable-types)であるジェネリック型について詳しく学びましょう。
 
-## 関数呼び出しの結果の確認
+## 関数呼び出しの結果のチェック
 
-ヌルチェックが必要となる最も一般的な状況の1つは、関数呼び出しから結果を取得するときです。
+`null`チェックが必要となる最も一般的な状況の1つは、関数呼び出しから結果を取得する場合です。
 
-以下の例では、`Order`と`Customer`という2つのクラスがあります。`Order`は`Customer`インスタンスへの参照を持っています。
-`findOrder()`関数は`Order`クラスのインスタンスを返しますが、注文が見つからない場合は`null`を返します。
+次の例では、`Order`と`Customer`の2つのクラスがあります。`Order`は`Customer`のインスタンスへの参照を持っています。
+`findOrder()`関数は`Order`クラスのインスタンスを返すか、注文が見つからない場合は`null`を返します。
 目的は、取得した注文の顧客インスタンスを処理することです。
 
-Javaのクラスを次に示します。
+Javaでのクラスは次のとおりです。
 
 ```java
 //Java
@@ -156,7 +150,7 @@ record Order (Customer customer) {}
 record Customer (String name) {}
 ```
 
-Javaでは、関数を呼び出し、必要なプロパティの逆参照に進むために、結果に対してif-not-nullチェックを行います。
+Javaでは、関数を呼び出し、結果に対してif-not-nullチェックを行い、必要なプロパティの参照解除を進めます。
 
 ```java
 // Java
@@ -168,7 +162,7 @@ if (order != null) {
 ```
 {id="process-customer-if-not-null-java"}
 
-上記のJavaコードを直接Kotlinコードに変換すると、次のようになります。
+上記のJavaコードをKotlinコードに直接変換すると、次のようになります。
 
 ```kotlin
 // Kotlin
@@ -185,7 +179,7 @@ if (order != null){
 ```
 {id="process-customer-if-not-null-kotlin"}
 
-[セーフコール演算子 `?.` (If-not-null shorthand)](idioms.md#if-not-null-shorthand)を、標準ライブラリの[スコープ関数](scope-functions.md)のいずれかと組み合わせて使用します。
+[セーフコール演算子 `?.` (If-not-null shorthand)](idioms.md#if-not-null-shorthand)を標準ライブラリのいずれかの[スコープ関数](scope-functions.md)と組み合わせて使用します。
 通常、これには`let`関数が使用されます。
 
 ```kotlin
@@ -198,7 +192,7 @@ order?.let {
 ```
 {id="process-customer-with-let-kotlin"}
 
-同じもののより短いバージョンを次に示します。
+同じものの短いバージョンは次のとおりです。
 
 ```kotlin
 // Kotlin
@@ -206,11 +200,11 @@ findOrder()?.customer?.let(::processCustomer)
 ```
 {id="process-customer-with-let-short-kotlin"}
 
-## ヌルの代わりにデフォルト値
+## nullの代わりにデフォルト値
 
-`null`のチェックは、ヌルチェックが成功した場合に[デフォルト値を設定する](functions.md#default-arguments)ことと組み合わせてよく使用されます。
+`null`のチェックは、nullチェックが成功した場合の[デフォルト値の設定](functions.md#parameters-with-default-values)と組み合わせてよく使用されます。
 
-ヌルチェックを含むJavaコード:
+nullチェックを含むJavaコード:
 
 ```java
 // Java
@@ -229,9 +223,9 @@ val order = findOrder() ?: Order(Customer("Antonio"))
 ```
 {id="default-value-instead-of-null-kotlin"}
 
-## 値またはヌルを返す関数
+## 値またはnullを返す関数
 
-Javaでは、リスト要素を扱う際に注意が必要です。要素を使用しようとする前に、常にインデックスに要素が存在するかどうかを確認する必要があります。
+Javaでは、リスト要素を扱う際に注意が必要です。要素を使用しようとする前に、常にインデックスに要素が存在するかどうかをチェックする必要があります。
 
 ```java
 // Java
@@ -244,20 +238,20 @@ System.out.println(numbers.get(0));
 ```
 {id="functions-returning-null-java"}
 
-Kotlinの標準ライブラリには、`null`値を返す可能性があるかどうかを名前に示す関数がよく提供されています。
+Kotlinの標準ライブラリは、`null`値を返す可能性があるかどうかを示す関数名をよく提供しています。
 これは特にコレクションAPIで一般的です。
 
 ```kotlin
 fun main() {
 //sampleStart
     // Kotlin
-    // The same code as in Java:
+    // Javaと同じコード:
     val numbers = listOf(1, 2)
     
-    println(numbers[0])  // Can throw IndexOutOfBoundsException if the collection is empty
+    println(numbers[0])  // コレクションが空の場合、IndexOutOfBoundsExceptionをスローする可能性がある
     //numbers.get(5)     // Exception!
 
-    // More abilities:
+    // その他の機能:
     println(numbers.firstOrNull())
     println(numbers.getOrNull(5)) // null
 //sampleEnd
@@ -265,10 +259,9 @@ fun main() {
 ```
 {kotlin-runnable="true" id="functions-returning-null-kotlin"}
 
-## 集計操作
+## 集計演算
 
-最大の要素を取得する必要がある場合、または要素がない場合に`null`を取得する必要がある場合、Javaでは
-[Stream API](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/stream/package-summary.html)を使用します。
+要素がない場合に最大要素または`null`を取得する必要がある場合、Javaでは[Stream API](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/stream/package-summary.html)を使用します。
 
 ```java
 // Java
@@ -278,7 +271,7 @@ System.out.println("Max: " + max);
 ```
 {id="aggregate-functions-java"}
 
-Kotlinでは、[集計操作](collection-aggregate.md)を使用します。
+Kotlinでは、[集計演算](collection-aggregate.md)を使用します。
 
 ```kotlin
 // Kotlin
@@ -287,11 +280,11 @@ println("Max: ${numbers.maxOrNull()}")
 ```
 {id="aggregate-functions-kotlin"}
 
-[JavaとKotlinにおけるコレクション](java-to-kotlin-collections-guide.md)についてさらに学びましょう。
+[JavaとKotlinのコレクション](java-to-kotlin-collections-guide.md)について詳しく学びましょう。
 
 ## 型を安全にキャストする
 
-型を安全にキャストする必要がある場合、Javaでは`instanceof`演算子を使用し、その後それがうまくいったかどうかをチェックします。
+型を安全にキャストする必要がある場合、Javaでは`instanceof`演算子を使用し、その後それがどれくらいうまく機能したかをチェックします。
 
 ```java
 // Java
@@ -315,7 +308,7 @@ fun main() {
 
 fun getStringLength(y: Any): Int {
     val x: String? = y as? String // null
-    return x?.length ?: -1 // Returns -1 because `x` is null
+    return x?.length ?: -1 // `x`がnullのため、-1を返す
 }
 ```
 {kotlin-runnable="true" id="casting-types-kotlin"}
@@ -327,12 +320,12 @@ fun getStringLength(y: Any): Int {
 >
 {style="note"}
 
-## 次は何をしますか？
+## 次のステップ
 
 *   他の[Kotlinイディオム](idioms.md)を参照してください。
 *   [Java-to-Kotlin (J2K) コンバーター](mixing-java-kotlin-intellij.md#converting-an-existing-java-file-to-kotlin-with-j2k)を使用して、既存のJavaコードをKotlinに変換する方法を学びましょう。
 *   その他の移行ガイドを確認してください。
-    *   [JavaとKotlinにおける文字列](java-to-kotlin-idioms-strings.md)
-    *   [JavaとKotlinにおけるコレクション](java-to-kotlin-collections-guide.md)
+    *   [JavaとKotlinの文字列](java-to-kotlin-idioms-strings.md)
+    *   [JavaとKotlinのコレクション](java-to-kotlin-collections-guide.md)
 
-お気に入りのイディオムがあれば、プルリクエストを送ってぜひ私たちと共有してください！
+お気に入りのイディオムがあれば、プルリクエストを送ってぜひ共有してください！

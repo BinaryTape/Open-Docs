@@ -1,16 +1,18 @@
-[//]: # (title: ComposeコンパイラオプションのDSL)
+[//]: # (title: Compose コンパイラのオプションDSL)
 
-ComposeコンパイラのGradleプラグインは、さまざまなコンパイラオプションのDSLを提供します。
-プラグインを適用するモジュールの`build.gradle.kts`ファイルの`composeCompiler {}`ブロックで、これを使用してコンパイラを設定できます。
+Compose コンパイラ Gradle プラグインは、さまざまなコンパイラオプションのDSLを提供します。
+これを使用して、プラグインを適用するモジュールの `build.gradle.kts` ファイル内の `composeCompiler {}` ブロックでコンパイラを設定できます。
 
-指定できるオプションは2種類あります。
+指定できるオプションには2種類あります。
 
-*   一般的なコンパイラ設定。これは、どのプロジェクトでも必要に応じて無効化または有効化できます。
-*   新しい実験的な機能を有効または無効にするフィーチャーフラグ (Feature flags)。これらは最終的にはベースラインの一部となるべきものです。
+*   一般的なコンパイラ設定。これらは、どのプロジェクトでも必要に応じて無効または有効にできます。
+*   新しい実験的な機能を有効または無効にするフィーチャーフラグ。これらは最終的にベースラインの一部となる予定です。
 
-ComposeコンパイラのGradleプラグインAPIリファレンスで、[利用可能な一般的な設定のリスト](https://kotlinlang.org/api/kotlin-gradle-plugin/compose-compiler-gradle-plugin/org.jetbrains.kotlin.compose.compiler.gradle/-compose-compiler-gradle-plugin-extension/)と[サポートされているフィーチャーフラグのリスト](https://kotlinlang.org/api/kotlin-gradle-plugin/compose-compiler-gradle-plugin/org.jetbrains.kotlin.compose.compiler.gradle/-compose-feature-flag/-companion/)を確認できます。
+利用可能な一般的な設定のリストと、サポートされているフィーチャーフラグのリストは、Compose コンパイラ Gradle プラグインのAPIリファレンスで確認できます。
+[利用可能な一般的な設定のリスト](https://kotlinlang.org/api/kotlin-gradle-plugin/compose-compiler-gradle-plugin/org.jetbrains.kotlin.compose.compiler.gradle/-compose-compiler-gradle-plugin-extension/)
+および[サポートされているフィーチャーフラグのリスト](https://kotlinlang.org/api/kotlin-gradle-plugin/compose-compiler-gradle-plugin/org.jetbrains.kotlin.compose.compiler.gradle/-compose-feature-flag/-companion/)
 
-以下に設定例を示します。
+設定例を以下に示します。
 
 ```kotlin
 composeCompiler {
@@ -23,31 +25,32 @@ composeCompiler {
 }
 ```
 
-> Gradleプラグインは、Kotlin 2.0より前は手動でのみ指定されていたいくつかのComposeコンパイラオプションのデフォルト値を提供します。
-> 例えば、それらのいずれかを`freeCompilerArgs`で設定している場合、Gradleは重複オプションエラーを報告します。
+> Gradle プラグインは、Kotlin 2.0以前は手動でしか指定できなかったいくつかのComposeコンパイラオプションのデフォルト値を提供します。
+> たとえば、それらのいずれかを `freeCompilerArgs` で設定している場合、Gradle はオプションの重複エラーを報告します。
 >
 {style="warning"}
 
-## フィーチャーフラグの目的と使用法
+## フィーチャーフラグの目的と使用方法
 
-フィーチャーフラグは、新しいフラグが継続的に導入され、非推奨となるにつれて、トップレベルのプロパティへの変更を最小限に抑えるために、個別のオプションセットとして構成されています。
+フィーチャーフラグは、新しいフラグが継続的に導入され非推奨になるにつれて、トップレベルのプロパティへの変更を最小限に抑えるために、オプションの個別のセットとして整理されています。
 
-デフォルトで無効になっているフィーチャーフラグを有効にするには、次のようにセットで指定します。
+デフォルトで無効になっているフィーチャーフラグを有効にするには、セットで指定します。例:
 
 ```kotlin
 featureFlags = setOf(ComposeFeatureFlag.OptimizeNonSkippingGroups)
 ```
 
-デフォルトで有効になっているフィーチャーフラグを無効にするには、次のように`disabled()`関数を呼び出します。
+デフォルトで有効になっているフィーチャーフラグを無効にするには、その `disabled()` 関数を呼び出します。例:
 
 ```kotlin
 featureFlags = setOf(ComposeFeatureFlag.StrongSkipping.disabled())
 ```
 
-Composeコンパイラを直接構成している場合、フィーチャーフラグを渡すには以下の構文を使用します。
+Compose コンパイラを直接設定する場合、次の構文を使用してフィーチャーフラグを渡します。
 
 ```none
 -P plugin:androidx.compose.compiler.plugins.kotlin:featureFlag=<flag name>
 ```
 
-ComposeコンパイラのGradleプラグインAPIリファレンスで、[サポートされているフィーチャーフラグのリスト](https://kotlinlang.org/api/kotlin-gradle-plugin/compose-compiler-gradle-plugin/org.jetbrains.kotlin.compose.compiler.gradle/-compose-feature-flag/-companion/)を参照してください。
+サポートされているフィーチャーフラグのリストは、Compose コンパイラ Gradle プラグインのAPIリファレンスで確認してください。
+[サポートされているフィーチャーフラグのリスト](https://kotlinlang.org/api/kotlin-gradle-plugin/compose-compiler-gradle-plugin/org.jetbrains.kotlin.compose.compiler.gradle/-compose-feature-flag/-companion/)

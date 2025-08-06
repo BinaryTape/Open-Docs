@@ -1,6 +1,6 @@
 [//]: # (title: 枚举类)
 
-枚举类最基本的用例是实现类型安全的枚举：
+枚举类最基本的用途是实现类型安全的枚举：
 
 ```kotlin
 enum class Direction {
@@ -9,7 +9,7 @@ enum class Direction {
 ```
 每个枚举常量都是一个对象。枚举常量之间用逗号分隔。
 
-由于每个枚举都是枚举类的一个实例，它可以像这样初始化：
+由于每个枚举都是枚举类的实例，它可以被初始化为：
 
 ```kotlin
 enum class Color(val rgb: Int) {
@@ -21,7 +21,7 @@ enum class Color(val rgb: Int) {
 
 ## 匿名类
 
-枚举常量可以声明自己的匿名类，并包含相应的方法，以及重写（override）基类方法。
+枚举常量可以声明自己的匿名类，其中包含对应的方法，也可以覆盖基类方法。
 
 ```kotlin
 enum class ProtocolState {
@@ -37,12 +37,11 @@ enum class ProtocolState {
 }
 ```
 
-如果枚举类定义了任何成员，请用分号将常量定义与成员定义分开。
+如果枚举类定义了任何成员，则需要用分号将常量定义与成员定义分开。
 
 ## 在枚举类中实现接口
 
-枚举类可以实现接口（但不能派生自类），为所有条目提供接口成员的共同实现，或者在其匿名类中为每个条目提供独立的实现。
-这可以通过将要实现的接口添加到枚举类声明中来完成，如下所示：
+枚举类可以实现接口（但不能派生自类），为所有枚举条目提供接口成员的共同实现，或在每个条目的匿名类中提供单独的实现。这可以通过将你想要实现的接口添加到枚举类声明中来完成，如下所示：
 
 ```kotlin
 import java.util.function.BinaryOperator
@@ -71,18 +70,18 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.9"}
 
-所有枚举类默认都实现了 [Comparable](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-comparable/index.html) 接口。枚举类中的常量按自然顺序定义。有关更多信息，请参阅[排序](collection-ordering.md)。
+所有枚举类默认都实现了 [Comparable](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-comparable/index.html) 接口。枚举类中的常量按自然顺序定义。关于更多信息，请参见 [排序](collection-ordering.md)。
 
 ## 使用枚举常量
 
-Kotlin 中的枚举类具有合成属性和方法，用于列出定义的枚举常量以及按名称获取枚举常量。这些方法的签名如下（假设枚举类的名称为 `EnumClass`）：
+Kotlin 中的枚举类具有合成属性和方法，用于列出已定义的枚举常量以及根据名称获取枚举常量。这些方法的签名如下（假设枚举类的名称为 `EnumClass`）：
 
 ```kotlin
 EnumClass.valueOf(value: String): EnumClass
 EnumClass.entries: EnumEntries<EnumClass> // specialized List<EnumClass>
 ```
 
-下面是它们在实际应用中的示例：
+下面是它们实际运用中的一个示例：
 
 ```kotlin
 enum class RGB { RED, GREEN, BLUE }
@@ -94,7 +93,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.9" id="rgb-enums-kotlin"}
 
-如果指定名称与类中定义的任何枚举常量不匹配，`valueOf()` 方法会抛出 `IllegalArgumentException` 异常。
+如果指定的名称与类中定义的任何枚举常量都不匹配，`valueOf()` 方法会抛出 `IllegalArgumentException`。
 
 在 Kotlin 1.9.0 引入 `entries` 之前，`values()` 函数用于检索枚举常量数组。
 
@@ -112,9 +111,16 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="rgb-enums-properties-kotlin"}
 
-您可以使用 [`enumValues<T>()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/enum-values.html) 和 [`enumValueOf<T>()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/enum-value-of.html) 函数以泛型方式访问枚举类中的常量。在 Kotlin 2.0.0 中，[`enumEntries<T>()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.enums/enum-entries.html) 函数作为 [`enumValues<T>()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/enum-values.html) 函数的替代方案被引入。`enumEntries<T>()` 函数返回给定枚举类型 `T` 的所有枚举条目的列表。
+> 为了减少处理枚举条目时的重复，可以尝试上下文敏感解析（目前处于预览阶段）。
+> 这项特性允许在预期类型已知时省略枚举类名称，例如在 `when` 表达式中或在赋值给类型化变量时。
+>
+> 关于更多信息，请参见 [上下文敏感解析预览](whatsnew22.md#preview-of-context-sensitive-resolution) 或相关的 [KEEP 提案](https://github.com/Kotlin/KEEP/blob/improved-resolution-expected-type/proposals/context-sensitive-resolution.md)。
+>
+{style="tip"}
 
-`enumValues<T>()` 函数仍受支持，但我们建议您改用 `enumEntries<T>()` 函数，因为它对性能影响较小。每次调用 `enumValues<T>()` 都会创建一个新数组，而每当您调用 `enumEntries<T>()` 时都会返回相同的列表，这效率更高。
+你可以使用 [`enumValues<T>()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/enum-values.html) 和 [`enumValueOf<T>()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/enum-value-of.html) 函数以泛型方式访问枚举类中的常量。在 Kotlin 2.0.0 中，引入了 [`enumEntries<T>()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.enums/enum-entries.html) 函数，作为 [`enumValues<T>()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/enum-values.html) 函数的替代。`enumEntries<T>()` 函数返回给定枚举类型 `T` 的所有枚举条目的 `list`。
+
+`enumValues<T>()` 函数仍然受支持，但我们推荐你使用 `enumEntries<T>()` 函数替代，因为它对性能的影响更小。每次调用 `enumValues<T>()` 都会创建一个新数组，而每次调用 `enumEntries<T>()` 都会返回相同的 `list`，这效率高得多。
 
 例如：
 
@@ -128,6 +134,6 @@ inline fun <reified T : Enum<T>> printAllValues() {
 printAllValues<RGB>() 
 // RED, GREEN, BLUE
 ```
-> 有关内联函数和具体化类型参数的更多信息，请参阅[内联函数](inline-functions.md)。
+> 关于内联函数和具体化类型形参的更多信息，请参见 [内联函数](inline-functions.md)。
 >
 > {style="tip"}

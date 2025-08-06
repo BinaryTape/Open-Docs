@@ -3,11 +3,11 @@
 
 [//]: # (title: サスペンド関数の構成)
 
-このセクションでは、サスペンド関数のさまざまな構成アプローチについて説明します。
+このセクションでは、サスペンド関数のさまざまな構成方法について説明します。
 
-## デフォルトでは逐次的
+## デフォルトで順次実行
 
-どこかで定義された、リモートサービス呼び出しや計算のような何らかの有用な処理を行う2つのサスペンド関数があると仮定します。それらが有用であると仮定しますが、この例の目的のため、実際にはそれぞれが1秒間遅延するだけです。
+リモートサービス呼び出しや計算のような有用な処理を行う2つのサスペンド関数が、別の場所で定義されていると仮定しましょう。ここではそれらが有用であると仮定しますが、実際にはこの例のためにそれぞれが1秒間遅延するだけです。
 
 ```kotlin
 suspend fun doSomethingUsefulOne(): Int {
@@ -21,9 +21,9 @@ suspend fun doSomethingUsefulTwo(): Int {
 }
 ```
 
-まず`doSomethingUsefulOne`を呼び出し、_次に_`doSomethingUsefulTwo`を呼び出して、それらの結果の合計を計算する必要がある場合、どうすればよいでしょうか？実際には、最初の関数の結果を使って、2番目の関数を呼び出す必要があるかどうか、またはどのように呼び出すかを決定する場合にこれを行います。
+もしこれらを_順次_呼び出す必要がある場合 — つまり、まず`doSomethingUsefulOne`を呼び出し、_次に_`doSomethingUsefulTwo`を呼び出し、その結果の合計を計算する場合、どうすればよいでしょうか？実際には、最初の関数の結果を使用して、2番目の関数を呼び出す必要があるか、あるいはどのように呼び出すかを決定する場合に、この方法を使用します。
 
-コルーチン内のコードは、通常のコードと同様に、デフォルトで_逐次的_であるため、通常の逐次的呼び出しを使用します。次の例では、両方のサスペンド関数の実行にかかる合計時間を測定することで、それを示します。
+コルーチン内のコードは、通常のコードと同様に、デフォルトで_順次_実行されるため、通常の順次呼び出しを使用します。次の例では、両方のサスペンド関数の実行にかかる合計時間を測定することで、これを実演します。
 
 <!--- CLEAR -->
 
@@ -54,11 +54,11 @@ suspend fun doSomethingUsefulTwo(): Int {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 <!--- KNIT example-compose-01.kt -->
-> 完全なコードは[こちら](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-compose-01.kt)から入手できます。
+> 完全なコードは[こちら](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-compose-01.kt)で入手できます。
 >
 {style="note"}
 
-以下のような結果が出力されます。
+これは次のような出力を生成します:
 
 ```text
 The answer is 42
@@ -67,11 +67,11 @@ Completed in 2017 ms
 
 <!--- TEST ARBITRARY_TIME -->
 
-## async を使った並行処理
+## asyncを使った並行処理
 
-`doSomethingUsefulOne`と`doSomethingUsefulTwo`の呼び出し間に依存関係がなく、両方を_並行して_実行することで、より速く結果を得たい場合はどうでしょうか？ここで [async] が役立ちます。
-
-概念的に、[async] は [launch] と同じです。それは、他のすべてのコルーチンと並行して動作する軽量なスレッドである独立したコルーチンを開始します。違いは、`launch` が [Job] を返し、結果値を保持しないのに対し、`async` は [Deferred] (後で結果を提供するという約束を表す軽量なノンブロッキングフューチャー) を返す点です。遅延値に対して `.await()` を使用してその最終的な結果を取得できますが、`Deferred` は [Job] でもあるため、必要に応じてキャンセルできます。
+もし`doSomethingUsefulOne`と`doSomethingUsefulTwo`の呼び出し間に依存関係がなく、両方を_並行して_実行することで、より早く答えを得たい場合はどうでしょうか？ここで[async]が役に立ちます。
+ 
+概念的には、[async]は[launch]と同じです。これは、他のすべてのコルーチンと並行して動作する軽量スレッドである、個別のコルーチンを開始します。違いは、`launch`が[Job]を返し、結果値を持ちませんが、`async`は[Deferred] — 後で結果を提供することを約束する軽量な非ブロッキングのFuture（フューチャー） — を返すことです。deferred値に対して`.await()`を使用すると、最終的な結果を取得できますが、`Deferred`も`Job`なので、必要に応じてキャンセルできます。
 
 ```kotlin
 import kotlinx.coroutines.*
@@ -100,11 +100,11 @@ suspend fun doSomethingUsefulTwo(): Int {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 <!--- KNIT example-compose-02.kt -->
-> 完全なコードは[こちら](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-compose-02.kt)から入手できます。
+> 完全なコードは[こちら](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-compose-02.kt)で入手できます。
 >
 {style="note"}
 
-以下のような結果が出力されます。
+これは次のような出力を生成します:
 
 ```text
 The answer is 42
@@ -113,11 +113,11 @@ Completed in 1017 ms
 
 <!--- TEST ARBITRARY_TIME -->
 
-これは2つのコルーチンが並行して実行されるため、2倍高速です。コルーチンでの並行処理は常に明示的であることに注意してください。
+2つのコルーチンが並行して実行されるため、これは2倍高速です。コルーチンにおける並行処理は常に明示的であることに注意してください。
 
-## 遅延開始の async
+## 遅延開始のasync
 
-オプションとして、[async] は `start` パラメータを [CoroutineStart.LAZY] に設定することで遅延実行にできます。このモードでは、コルーチンはその結果が [await][Deferred.await] によって要求された場合、またはその `Job` の [start][Job.start] 関数が呼び出された場合にのみ開始されます。次の例を実行してください。
+オプションとして、[async]の`start`パラメータを[CoroutineStart.LAZY]に設定することで、遅延実行にできます。このモードでは、[await][Deferred.await]によって結果が必要とされたとき、またはその`Job`の[start][Job.start]関数が呼び出されたときにのみコルーチンが開始されます。次の例を実行してください。
 
 ```kotlin
 import kotlinx.coroutines.*
@@ -149,11 +149,11 @@ suspend fun doSomethingUsefulTwo(): Int {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 <!--- KNIT example-compose-03.kt -->
-> 完全なコードは[こちら](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-compose-03.kt)から入手できます。
+> 完全なコードは[こちら](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-compose-03.kt)で入手できます。
 >
 {style="note"}
 
-以下のような結果が出力されます。
+これは次のような出力を生成します:
 
 ```text
 The answer is 42
@@ -162,19 +162,19 @@ Completed in 1017 ms
 
 <!--- TEST ARBITRARY_TIME -->
 
-つまり、ここでは2つのコルーチンが定義されていますが、前の例のように実行されるわけではありません。代わりに、[start][Job.start] を呼び出すことで、いつ実行を開始するかはプログラマーに制御が委ねられます。まず `one` を開始し、次に `two` を開始し、個々のコルーチンが完了するのを待ちます。
+このように、ここでは2つのコルーチンが定義されていますが、前の例のようにすぐに実行されるわけではなく、[start][Job.start]を呼び出すことで、いつ正確に実行を開始するかをプログラマが制御できます。まず`one`を開始し、次に`two`を開始し、その後個々のコルーチンが終了するのを待機します。
 
-なお、個々のコルーチンで最初に [start][Job.start] を呼び出さずに `println` で [await][Deferred.await] を呼び出しただけでは、[await][Deferred.await] がコルーチンの実行を開始し、その完了を待つため、逐次的な動作になります。これは遅延実行の意図されたユースケースではありません。`async(start = CoroutineStart.LAZY)` のユースケースは、値の計算にサスペンド関数が関わる場合における標準の [lazy](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/lazy.html) 関数の代替です。
+個々のコルーチンで最初に[start][Job.start]を呼び出さずに`println`で[await][Deferred.await]を呼び出すだけの場合、[await][Deferred.await]はコルーチンの実行を開始し、その完了を待機するため、これは順次的な振る舞いにつながることに注意してください。これは、遅延実行の意図されたユースケースではありません。`async(start = CoroutineStart.LAZY)`のユースケースは、値の計算にサスペンド関数が関与する場合において、標準の[lazy](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/lazy.html)関数の代替となります。
 
-## Asyncスタイルの関数
+## asyncスタイルの関数
 
-> このasync関数を用いたプログラミングスタイルは、他のプログラミング言語で人気のあるスタイルであるため、ここでは説明のためだけに提供されています。以下の理由により、Kotlinコルーチンでこのスタイルを使用することは**強く推奨されません**。
+> このasync関数を使ったプログラミングスタイルは、他のプログラミング言語で一般的なスタイルであるため、ここでは例示のためだけに提供されています。Kotlinコルーチンでこのスタイルを使用することは、以下の理由により**強く推奨されません**。
 >
 {style="note"}
 
-構造化された並行処理からオプトアウトするために [GlobalScope] を参照し、[async] コルーチンビルダーを使用して `doSomethingUsefulOne` と `doSomethingUsefulTwo` を_非同期に_呼び出す asyncスタイルの関数を定義できます。これらの関数は、非同期計算を開始するだけであり、結果を取得するためには、生成された遅延値を使用する必要があるという事実を強調するために、「...Async」のサフィックスを付けて命名します。
+[async]コルーチンビルダーを使用し、構造化された並行処理をオプトアウトするために[GlobalScope]参照を使用することで、`doSomethingUsefulOne`と`doSomethingUsefulTwo`を_非同期に_呼び出すasyncスタイルの関数を定義できます。そのような関数には「...Async」というサフィックス（接尾辞）を付け、それらが非同期計算を開始するだけで、結果を得るには生成されたdeferred値を使用する必要があるという事実を強調します。
 
-> [GlobalScope] は非自明な方法で裏目に出る可能性があるデリケートなAPIであり、そのうちの1つは以下で説明されます。そのため、`@OptIn(DelicateCoroutinesApi::class)` を使って `GlobalScope` の使用を明示的にオプトインする必要があります。
+> [GlobalScope]は、些細ではない方法で裏目に出る可能性があるデリケートなAPIであり、そのうちの1つは以下で説明されます。そのため、`GlobalScope`を使用するには`@OptIn(DelicateCoroutinesApi::class)`で明示的にオプトインする必要があります。
 >
 {style="note"}
 
@@ -192,9 +192,9 @@ fun somethingUsefulTwoAsync() = GlobalScope.async {
 }
 ```
 
-これらの `xxxAsync` 関数は_サスペンド_関数では**ありません**。これらはどこからでも使用できます。しかし、これらを使用すると、常に呼び出し元のコードと並行して（ここでいう_並行_とは、非同期的な）アクションが実行されることになります。
+これらの`xxxAsync`関数は、_サスペンド_関数**ではない**ことに注意してください。これらはどこからでも使用できます。ただし、これらを使用すると、常に呼び出し元のコードとの非同期（ここでは_並行_を意味します）でのアクションの実行が伴います。
 
-次の例は、コルーチンの外での使用を示しています。
+次の例は、コルーチンの外部でのそれらの使用方法を示しています:
 
 <!--- CLEAR -->
 
@@ -241,7 +241,7 @@ suspend fun doSomethingUsefulTwo(): Int {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 <!--- KNIT example-compose-04.kt -->
-> 完全なコードは[こちら](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-compose-04.kt)から入手できます。
+> 完全なコードは[こちら](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-compose-04.kt)で入手できます。
 >
 {style="note"}
 
@@ -250,11 +250,11 @@ The answer is 42
 Completed in 1085 ms
 -->
 
-`val one = somethingUsefulOneAsync()` の行と `one.await()` 式の間にコードに論理エラーがあり、プログラムが例外をスローして、プログラムが実行していた操作が中断された場合に何が起こるか考えてみましょう。通常、グローバルなエラーハンドラはこの例外を捕捉し、開発者向けにエラーをログに記録して報告できますが、プログラムはそれ以外の操作を続行できます。しかし、ここでは`somethingUsefulOneAsync`が、それを開始した操作が中断されたにもかかわらず、バックグラウンドでまだ実行されています。この問題は、以下のセクションで示すように、構造化された並行処理では発生しません。
+もし`val one = somethingUsefulOneAsync()`の行と`one.await()`の式の間にコードに何らかの論理エラーがあり、プログラムが例外をスローし、プログラムによって実行されていた操作が中断された場合に何が起こるかを考えてみましょう。通常、グローバルなエラーハンドラーがこの例外をキャッチし、エラーを開発者向けにログに記録して報告できますが、プログラムは他の操作を続行できます。しかし、ここでは、`somethingUsefulOneAsync`を開始した操作が中断されたにもかかわらず、それがバックグラウンドでまだ実行されています。この問題は、以下のセクションで示すように、構造化された並行処理では発生しません。
 
-## async を使った構造化された並行処理
+## asyncを使った構造化された並行処理
 
-[async を使った並行処理](#concurrent-using-async) の例を、`doSomethingUsefulOne` と `doSomethingUsefulTwo` を並行して実行し、それらの結合された結果を返す関数にリファクタリングしてみましょう。[async] は [CoroutineScope] の拡張であるため、必要なスコープを提供するために [coroutineScope][_coroutineScope] 関数を使用します。
+[asyncを使った並行処理](#concurrent-using-async)の例を、`doSomethingUsefulOne`と`doSomethingUsefulTwo`を並行して実行し、それらの結合された結果を返す関数にリファクタリングしてみましょう。[async]は[CoroutineScope]の拡張であるため、必要なスコープを提供するために[coroutineScope][_coroutineScope]関数を使用します:
 
 ```kotlin
 suspend fun concurrentSum(): Int = coroutineScope {
@@ -264,7 +264,7 @@ suspend fun concurrentSum(): Int = coroutineScope {
 }
 ```
 
-このようにして、`concurrentSum` 関数のコード内で何らかの問題が発生し、例外がスローされた場合、そのスコープで起動されたすべてのコルーチンはキャンセルされます。
+このようにして、もし`concurrentSum`関数のコード内で何かがうまくいかず、例外がスローされた場合、そのスコープ内で起動されたすべてのコルーチンがキャンセルされます。
 
 <!--- CLEAR -->
 
@@ -299,11 +299,11 @@ suspend fun doSomethingUsefulTwo(): Int {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 <!--- KNIT example-compose-05.kt -->
-> 完全なコードは[こちら](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-compose-05.kt)から入手できます。
+> 完全なコードは[こちら](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-compose-05.kt)で入手できます。
 >
 {style="note"}
 
-上記の `main` 関数の出力から明らかなように、両方の操作は依然として並行して実行されます。
+上記の`main`関数の出力から明らかなように、両方の操作は引き続き並行して実行されます:
 
 ```text
 The answer is 42
@@ -312,7 +312,7 @@ Completed in 1017 ms
 
 <!--- TEST ARBITRARY_TIME -->
 
-キャンセルは常にコルーチン階層を通じて伝播されます。
+キャンセルは常にコルーチン階層を通じて伝播されます:
 
 <!--- CLEAR -->
 
@@ -345,11 +345,11 @@ suspend fun failedConcurrentSum(): Int = coroutineScope {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 <!--- KNIT example-compose-06.kt -->
-> 完全なコードは[こちら](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-compose-06.kt)から入手できます。
+> 完全なコードは[こちら](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-compose-06.kt)で入手できます。
 >
 {style="note"}
 
-最初の `async` と待機中の親の両方が、いずれかの子（具体的には `two`）の失敗によってキャンセルされることに注目してください。
+子の1つ（つまり`two`）が失敗すると、最初の`async`と待機中の親の両方がキャンセルされることに注目してください:
 ```text
 Second child throws an exception
 First child was cancelled

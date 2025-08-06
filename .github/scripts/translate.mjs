@@ -2,6 +2,7 @@ import fs from "fs";
 import path from "path";
 import { GoogleGenAI } from "@google/genai";
 import { fileURLToPath } from "url";
+import pLimit from "p-limit";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -22,10 +23,10 @@ let genAI = (() => {
 })();
 
 // Load terminology database
-let terminology = {};
+let terminology = '';
 
 try {
-  terminology = JSON.parse(fs.readFileSync(config.terminologyPath, "utf8"));
+  terminology = fs.readFileSync(config.terminologyPath, "utf8")
 } catch (error) {
   terminology = { terms: {} };
 }
@@ -35,7 +36,7 @@ function getTargetPath(filePath, targetLang) {
   // baseDir/[language]/koin/relativePath
   const baseDir = "./docs";
   const docType = process.env.DOC_TYPE;
-  const relativePath = path.relative(config.sourceDir, filePath);
+  const relativePath = path.relative(process.env.DOC_PATH, filePath);
 
   if (targetLang === "zh-Hans") {
     return path.join(baseDir, docType, relativePath);
@@ -49,8 +50,6 @@ function loadPreviousTranslations(targetLang, currentFilePath) {
   try {
     // Calculate path for the corresponding translation file
     const targetPath = getTargetPath(currentFilePath, targetLang);
-
-    console.log(`Trying to load reference translation: ${targetPath}`);
 
     // Check if corresponding translation file exists
     if (!fs.existsSync(targetPath)) {
@@ -79,16 +78,13 @@ function loadPreviousTranslations(targetLang, currentFilePath) {
 // Prepare translation prompt
 function prepareTranslationPrompt(sourceText, targetLang, currentFilePath) {
   // Get relevant terminology
-  const relevantTerms = Object.entries(terminology.terms)
-    .filter(([term]) => sourceText.includes(term))
-    .map(([term, translations]) => `"${term}" → "${translations[targetLang]}"`)
-    .join("\n");
+  const relevantTerms = targetLang === "zh-Hans" ? terminology : ''
 
   // Get previously translated file with the same name as reference
-  const previousTranslations = loadPreviousTranslations(
+  const previousTranslations = currentFilePath.includes('locales') ? fs.readFileSync(currentFilePath, 'utf8') : loadPreviousTranslations(
     targetLang,
     currentFilePath
-  );
+  )
 
   // Build reference translation section
   let translationReferences = "";
@@ -104,10 +100,7 @@ function prepareTranslationPrompt(sourceText, targetLang, currentFilePath) {
   }
 
   // Choose appropriate prompt template based on target language
-  const promptTemplate = getPromptTemplate(
-    targetLang,
-    getLangDisplayName(targetLang)
-  );
+  const promptTemplate = currentFilePath.includes('locales') ? getLocalePromptTemplate(getLangDisplayName(targetLang)) : getPromptTemplate(targetLang, getLangDisplayName(targetLang));
 
   // Insert variables into template
   return promptTemplate
@@ -126,6 +119,53 @@ function prepareTranslationPrompt(sourceText, targetLang, currentFilePath) {
           : "无参考翻译")
     )
     .replace("{SOURCE_TEXT}", sourceText);
+}
+
+function getLocalePromptTemplate(langDisplayName) {
+  return `# Role & Task
+  You are a professional AI translation assistant. Your job is to translate **Kotlin/GitHub-related** English JSON copy into ${langDisplayName}. You must produce high-quality, technically accurate text that reads naturally for a developer audience—**without changing any JSON structure or keys**. Translate **values only**.
+
+## 1) General Requirements
+  1. **Translate values only; do not modify keys.** Keep all keys, nesting, and order exactly the same.
+  2. **Return valid JSON.** Preserve correct JSON syntax and escaping (quotes, backslashes, \`\\n\`, \`\\t\`, etc.).
+3. **Clean output.** Return only the final JSON—no explanations, headers, or comments.
+4. **Do not translate URLs/paths/version strings.** Keep items like \`https://...\`, file/image paths, \`Kotlin 2.2.0\`, \`2.2.20-Beta1\` unchanged.
+5. **Product and proper names.** Keep terms like \`Kotlin\`, \`JetBrains\`, \`Gradle\`, \`Kotlin Multiplatform\` in English unless the Glossary says otherwise.
+6. **Tone and fluency.** Ensure technical accuracy and natural, idiomatic ${langDisplayName} suitable for developer-facing UI/Docs.
+7. **Do not re-translate already translated values.** If a value is already in ${langDisplayName} (e.g., matches the Glossary/known translations, or clearly contains only ${langDisplayName} text), **leave it unchanged**. If a value mixes English with placeholders/brands, translate only the human-readable English parts and preserve the rest.
+
+## 2) Terminology & Placeholders
+1. **Glossary has highest priority.** Use the translations from the Glossary exactly as given.
+2. **Consistency.** If a term isn’t in the Glossary, follow the Translation References for style and consistency.
+3. **Do not alter placeholders or code-like fragments:**
+   - API/class/method/config names, flags, CLI commands.
+4. **Uncertain technical terms.** If no guidance exists and translation may confuse, **keep the English term**. In pure JSON UI strings, prefer keeping English rather than risking misleading translations.
+
+## 3) Format & Safety
+1. **Only change value strings.** Do not add/remove pairs, reorder keys, or introduce trailing commas.
+2. **Escaping.** Correctly preserve and escape \`"\`, \`\\\`, \`\\n\`, \`\\t\`, and Unicode characters.
+3. **ICU/Plural/Message syntax.** If values contain patterns like \`{count, plural, one {...} other {...}}\`, keep the syntax and variable names unchanged; translate only the human-readable text.
+4. **Contractions and punctuation.** Render them naturally in ${langDisplayName} while keeping JSON validity.
+
+## 4) Output Requirements
+1. **Return the translated JSON only** (UTF-8). No code fences or extra text.
+2. **Structure must match the source exactly** (keys, nesting, order).
+3. **Quality checks.** Ensure technical correctness, clarity, and fluency; no typos or broken placeholders.
+
+---
+## 5) Resources
+### Glossary
+{RELEVANT_TERMS}
+
+### Translation References
+{TRANSLATION_REFERENCES}
+
+---
+## 6) Source JSON
+Translate **all values** in the following JSON from English into ${langDisplayName}, and return valid JSON per the rules above:
+
+{SOURCE_TEXT}
+`;
 }
 
 // Get appropriate prompt template based on target language
@@ -215,18 +255,31 @@ function getPromptTemplate(targetLang, langDisplayName) {
     
     ## 一、翻译风格与质量要求
     
-    1.  **忠实原文与流畅表达:**
-        * 在确保技术准确性的前提下，译文应自然流畅，符合 ${langDisplayName} 的语言习惯和互联网技术社群的表达方式。
-        * 妥善处理原文的语序和句子结构，避免生硬直译或产生阅读障碍。
-        * 保持原文的语气（例如：正式、非正式、教学性）。
+    1. **忠实原文与流畅表达**
+
+       * 在确保技术准确性的前提下，译文应自然流畅，符合 \${langDisplayName} 的语言习惯和互联网技术社群的表达方式。
+       * 妥善处理原文的语序和句子结构，避免生硬直译或产生阅读障碍。
+       * 保持原文的语气（例如：正式、非正式、教学性）。
+
+    2. **术语与优先级规则（重要）**
     
-    2.  **术语处理:**
-        * **优先使用术语表:** 严格按照下方提供的(术语表)进行翻译。术语表具有最高优先级。
-        * **参考翻译一致性:** 对于术语表中未包含的术语，请参考(参考翻译)以保持风格和已有术语使用的一致性。
-        * **新/模糊术语处理:**
-            * 对于术语表中未包含、参考翻译中亦无先例的专有名词或技术术语，若你选择翻译，建议在首次出现时，在译文后用括号附注英文原文，例如：“译文 (English Term)”。
-            * 若对某个术语的翻译没有把握，或者认为保留英文更清晰，请**直接保留英文原文**。
-        * **占位符/变量名:** 文档中非代码块内的占位符（如 \`YOUR_API_KEY\`）或特殊变量名，通常保留英文，或根据上下文判断是否需要翻译并加注释。
+       * **优先级次序：** 术语表（Glossary） > 文内惯例 > 一般语言习惯。
+       * **冲突裁决：** 当“专有名词不译”与“常规含义可译”冲突时，以术语表**适用上下文**说明裁决。
+       * **不翻译术语的形态：** 列入“**不翻译术语**”的词一律保持**英文原形与大小写**，即使原文为复数或时态变化也要还原为词典形（如 *futures* → **future**）。
+       * **翻译术语：** 按术语表“翻译术语”指定译法执行。若存在“不要译作 …”的禁用译法，严禁使用。
+       * **括号称谓统一：** 使用“圆括号 / 方括号 / 花括号”，不得使用“小/中/大括号”。
+    
+    3. **新/模糊术语处理**
+    
+       * 对于术语表中未包含、参考翻译亦无先例的专有名词或技术术语：
+    
+         * 若你选择翻译，**首次出现**可在中文后以括号附注英文原文（可选），如：\`译文 (English Term)\`。
+         * 若不确定或保留英文更清晰，**直接保留英文原文**；必要时在译文处标注 **\[待确认]**。
+    
+    4. **风格统一（补充）**
+    
+       * 代码、API 名、类名、方法名、关键字、包名等**一律保持英文与大小写**，不加空格。
+       * 标点遵循中文习惯；数值与单位之间保留半角空格（如 \`10 MB\`）。
     
     ## 二、技术格式要求
     
@@ -289,10 +342,6 @@ function getPromptTemplate(targetLang, langDisplayName) {
 async function translateWithLLM(text, targetLang, filePath) {
   const modelConfig = config.modelConfigs[targetLang];
   const prompt = prepareTranslationPrompt(text, targetLang, filePath);
-
-  console.log(
-    `Translating to ${targetLang} using ${modelConfig.provider}:${modelConfig.model}`
-  );
 
   if (modelConfig.provider === "google") {
     return await callGemini(prompt, modelConfig.model);
@@ -430,50 +479,94 @@ function getLangDisplayName(langCode) {
   return config.languageNames[langCode] || langCode;
 }
 
-// Main function
-async function main() {
-  const changedFilesInput = process.env.CHANGED_FILES || "";
-  console.log(`Environment variable CHANGED_FILES: ${changedFilesInput}`);
-
-  const changedFiles = changedFilesInput
-    .split(/[\s,]+/)
-    .filter((file) => file.trim());
-  console.log(`Found ${changedFiles.length} changed files`);
-
-  if (changedFiles.length === 0) {
-    console.log(
-      "No files found to translate, if you need to specify files, please set CHANGED_FILES environment variable"
-    );
-    return;
-  }
-
-  for (const file of changedFiles) {
+async function retry(fn, attempts = 3) {
+  let lastError;
+  for (let i = 1; i <= attempts; i++) {
     try {
-      await translateFile(file);
-    } catch (error) {
-      console.error(`Error translating ${file}:`, error);
-      // Continue processing next file
+      return await fn();
+    } catch (e) {
+      lastError = e;
+      console.warn(`Attempt ${i} failed: ${e.message}`);
     }
   }
-
-  console.log("Translation completed");
+  throw lastError;
 }
 
-export async function translateFiles(docType, repoPath, files) {
+export async function translateFiles(docType, repoPath, docPath, files) {
   console.log(`Translating ${files.length} files for ${docType}...`);
 
   // Set environment variables
   process.env.REPO_PATH = repoPath;
   process.env.DOC_TYPE = docType;
-  const totalTargetTranslateFiles = [];
-  for (const file of files) {
+  process.env.DOC_PATH = docPath;
+
+  const limit = pLimit(10);
+  const translationTasks = files.map((file) => limit(async () => {
     try {
-      const targetTranslateFiles = await translateFile(file);
-      totalTargetTranslateFiles.push(...targetTranslateFiles);
-    } catch (error) {
-      console.error(`Error translating ${file}:`, error);
-      // Continue processing next file
+      return await retry(() => translateFile(file), 3);
+    } catch (e) {
+      console.error(`❌ Failed translating ${file} after 3 attempts:`, e);
+      return [];
     }
+  }));
+
+  const results = await Promise.all(translationTasks);
+  return results.flat();
+}
+
+export async function translateLocaleFiles(files) {
+  console.log(`Translating locale files...`);
+
+  const limit = pLimit(10);
+  const translationTasks = files.map((file) => limit(async () => {
+    try {
+      return await retry(() => translateLocaleFile(file), 3);
+    } catch (e) {
+      console.error(`❌ Failed translating ${file} after 3 attempts:`, e);
+      return [];
+    }
+  }));
+
+  const results = await Promise.all(translationTasks);
+  return results.flat();
+}
+
+async function translateLocaleFile(filePath) {
+  console.log(`Translating locale file: ${filePath}`);
+  let targetTranslateFile = '';
+  const absoluteFilePath = path.resolve("docs/.vitepress/locales", filePath);
+
+  if (!fs.existsSync(absoluteFilePath)) {
+    console.error(`File not found: ${absoluteFilePath}`);
+    return targetTranslateFile;
   }
-  return totalTargetTranslateFiles;
+
+  try {
+    let content = fs.readFileSync(absoluteFilePath, "utf8");
+
+    // Translate content
+    let translatedContent;
+    if (content && content.trim()) {
+      const targetLang = filePath.split(".")[0];
+      const modelConfig = config.modelConfigs[targetLang];
+      const prompt = prepareTranslationPrompt(content, targetLang, absoluteFilePath)
+      translatedContent = await callGemini(prompt, modelConfig.model);
+
+      // Clean up extra content in translation result
+      translatedContent = cleanupTranslation(translatedContent);
+      if (translatedContent.startsWith("```json")) {
+        translatedContent = translatedContent.replace(/^```json\n/, "");
+      }
+    } else {
+      console.error(`File content is empty: ${filePath}`);
+    }
+
+    // Write translated file
+    fs.writeFileSync(absoluteFilePath, translatedContent);
+    console.log(`${filePath} Translated`);
+    targetTranslateFile = absoluteFilePath;
+  } catch (fileError) {
+    console.error(`Error processing file ${filePath}: ${fileError.message}`);
+  }
+  return targetTranslateFile;
 }

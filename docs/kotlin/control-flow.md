@@ -2,8 +2,8 @@
 
 ## If 表达式
 
-在 Kotlin 中，`if` 是一个表达式：它会返回一个值。
-因此，不存在三元运算符（`condition ? then : else`），因为普通的 `if` 在此作用下工作得很好。
+在 Kotlin 中，`if` 是一种表达式：它会返回一个值。
+因此，Kotlin 没有三元操作符（`condition ? then : else`），因为普通的 `if` 就能很好地胜任这个角色。
 
 ```kotlin
 fun main() {
@@ -49,11 +49,11 @@ val max = if (a > b) {
 }
 ```
 
-如果你将 `if` 作为表达式使用，例如，用于返回其值或将其赋值给变量，则 `else` 分支是强制性的。
+如果你将 `if` 作为表达式使用（例如，用于返回其值或将其赋值给一个变量），那么 `else` 分支是强制性的。
 
-## When 表达式和语句
+## When 表达式与语句
 
-`when` 是一个条件表达式，它根据多个可能的值或条件来运行代码。它类似于 Java、C 和其他类似语言中的 `switch` 语句。例如：
+`when` 是一种条件表达式，它根据多个可能的值或条件来运行代码。它类似于 Java、C 及类似语言中的 `switch` 语句。例如：
 
 ```kotlin
 fun main() {
@@ -70,10 +70,9 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-conditions-when-statement"}
 
-`when` 会按顺序将其参数与所有分支进行匹配，直到某个分支条件被满足为止。
+`when` 会将其实参按顺序与所有分支进行匹配，直到某个分支条件得到满足。
 
-你可以使用 `when` 的几种不同方式。首先，你可以将 `when` 用作**表达式**或**语句**。
-作为表达式，`when` 返回一个值，供你的代码后续使用。作为语句，`when` 完成一个动作，不返回任何进一步有用的值：
+你可以通过几种不同的方式使用 `when`。首先，你可以将 `when` 用作**表达式**或**语句**。作为表达式，`when` 会返回一个值供代码后续使用。作为语句，`when` 会完成一个动作，而不返回任何进一步使用的值：
 
 <table>
    <tr>
@@ -84,7 +83,8 @@ fun main() {
 <td>
 
 ```kotlin
-// 返回赋值给 text 变量的字符串
+// Returns a string assigned to the 
+// text variable
 val text = when (x) {
     1 -> "x == 1"
     2 -> "x == 2"
@@ -96,7 +96,8 @@ val text = when (x) {
 <td>
 
 ```kotlin
-// 不返回任何值，但触发一个 print 语句
+// Returns nothing but triggers a 
+// print statement
 when (x) {
     1 -> print("x == 1")
     2 -> print("x == 2")
@@ -108,12 +109,12 @@ when (x) {
 </tr>
 </table>
 
-其次，你可以有主题（subject）地或无主题地使用 `when`。无论你是否将主题与 `when` 一起使用，你的表达式或语句行为相同。我们建议尽可能使用带主题的 `when`，因为它通过清晰地展示你正在检查的内容，使你的代码更易于阅读和维护。
+其次，你可以带主题（subject）使用 `when`，也可以不带主题使用。无论你是否带主题使用 `when`，你的表达式或语句行为都相同。我们建议尽可能带主题使用 `when`，因为这样可以清晰地表明你在检测什么，从而使你的代码更易于阅读和维护。
 
 <table>
    <tr>
        <td>带主题 <code>x</code></td>
-       <td>无主题</td>
+       <td>不带主题</td>
    </tr>
    <tr>
 <td>
@@ -133,16 +134,16 @@ when { ... }
 </tr>
 </table>
 
-根据你使用 `when` 的方式，对于你是否需要在分支中覆盖所有可能的情况，有不同的要求。
+根据你使用 `when` 的方式，对是否需要覆盖所有可能的分支情况有不同的要求。
 
-如果你将 `when` 用作语句，你不必覆盖所有可能的情况。在此示例中，某些情况未被覆盖，因此什么也不会发生。然而，不会发生错误：
+如果你将 `when` 用作语句，则不必覆盖所有可能的情况。在此示例中，有些情况没有被覆盖，因此什么也不会发生。但是，不会出现错误：
 
 ```kotlin
 fun main() {
     //sampleStart
     val x = 3
     when (x) {
-        // 并非所有情况都已覆盖
+        // Not all cases are covered
         1 -> print("x == 1")
         2 -> print("x == 2")
     }
@@ -151,12 +152,11 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-when-statement"}
 
-在 `when` 语句中，各个分支的值会被忽略。就像 `if` 一样，每个分支都可以是一个代码块，并且它的值是该代码块中最后一个表达式的值。
+在 `when` 语句中，单个分支的值会被忽略。就像 `if` 一样，每个分支都可以是一个代码块，并且其值是该代码块中最后一个表达式的值。
 
-如果你将 `when` 用作表达式，你必须覆盖所有可能的情况。换句话说，它必须是 _穷尽的_。
-第一个匹配分支的值成为整个表达式的值。如果你不覆盖所有情况，编译器会抛出错误。
+如果你将 `when` 用作表达式，则必须覆盖所有可能的情况。换句话说，它必须是 _穷尽的_。第一个匹配分支的值将成为整个表达式的值。如果你没有覆盖所有情况，编译器会抛出错误。
 
-如果你的 `when` 表达式有主题，你可以使用 `else` 分支来确保覆盖所有可能的情况，但这并不是强制性的。例如，如果你的主题是 `Boolean`、[`enum` 类](enum-classes.md)、[`sealed` 类](sealed-classes.md)，或它们的对应可空类型之一，你可以不使用 `else` 分支就覆盖所有情况：
+如果你的 `when` 表达式有主题，你可以使用 `else` 分支来确保覆盖所有可能的情况，但这不是强制性的。例如，如果你的主题是 `Boolean`、[`enum` 类](enum-classes.md)、[`sealed` 类](sealed-classes.md)或其可空对应类型之一，你可以在没有 `else` 分支的情况下覆盖所有情况：
 
 ```kotlin
 enum class Bit {
@@ -164,14 +164,20 @@ enum class Bit {
 }
 
 val numericValue = when (getRandomBit()) {
-    // 不需要 else 分支，因为所有情况都已覆盖
+    // No else branch is needed because all cases are covered
     Bit.ZERO -> 0
     Bit.ONE -> 1
 }
 ```
 
-如果你的 `when` 表达式**没有**主题，你**必须**有一个 `else` 分支，否则编译器会抛出错误。
-当其他分支条件均未满足时，`else` 分支会被评估：
+> 为了简化 `when` 表达式并减少重复，请尝试上下文敏感解析（目前处于预览阶段）。
+> 此特性允许你在 `when` 表达式中，当已知预期类型时，在使用枚举条目或密封类成员时省略类型名称。
+> 
+> 关于更多信息，关于 [上下文敏感解析的预览](whatsnew22.md#preview-of-context-sensitive-resolution) 或相关的 [KEEP 提案](https://github.com/Kotlin/KEEP/blob/improved-resolution-expected-type/proposals/context-sensitive-resolution.md) 请参见。
+> 
+{style="tip"}
+
+如果你的 `when` 表达式**没有**主题，你**必须**有一个 `else` 分支，否则编译器会抛出错误。当所有其他分支条件都不满足时，`else` 分支会被求值：
 
 ```kotlin
 val message = when {
@@ -181,9 +187,9 @@ val message = when {
 }
 ```
 
-`when` 表达式和语句提供了不同的方式来简化你的代码、处理多个条件并执行类型检查。
+`when` 表达式和语句提供了不同的方式来简化你的代码、处理多个条件并执行类型检测。
 
-你可以通过在一行中使用逗号组合多个情况的条件来定义它们的共同行为：
+你可以通过在单行中使用逗号组合多个条件来定义它们的共同行为：
 
 ```kotlin
 when (x) {
@@ -201,7 +207,7 @@ when (x) {
 }
 ```
 
-你还可以通过 `in` 或 `!in` 关键字检查一个值是否包含在[区间](ranges.md)或集合中：
+你还可以通过 `in` 或 `!in` 关键字检测一个值是否包含在[区间](ranges.md)或集合中：
 
 ```kotlin
 when (x) {
@@ -212,7 +218,7 @@ when (x) {
 }
 ```
 
-此外，你还可以通过 `is` 或 `!is` 关键字检查一个值是否为特定类型。请注意，由于[智能类型转换](typecasts.md#smart-casts)，你可以访问该类型的成员函数和属性，而无需任何额外的检查。
+此外，你还可以通过 `is` 或 `!is` 关键字检测一个值是否为特定类型。请注意，由于[智能类型转换](typecasts.md#smart-casts)，你可以直接访问该类型的成员函数和属性，而无需进行任何额外的检测。
 
 ```kotlin
 fun hasPrefix(x: Any) = when(x) {
@@ -222,7 +228,7 @@ fun hasPrefix(x: Any) = when(x) {
 ```
 
 你可以使用 `when` 来替代 `if`-`else` `if` 链。
-如果没有主题，分支条件就是简单的布尔表达式。第一个条件为 `true` 的分支会运行：
+如果没有主题，分支条件就只是布尔表达式。第一个条件为 `true` 的分支会运行：
 
 ```kotlin
 when {
@@ -232,7 +238,7 @@ when {
 }
 ```
 
-你可以通过以下语法将主题捕获到一个变量中：
+你可以使用以下语法将主题捕获到一个变量中：
 
 ```kotlin
 fun Request.getBody() =
@@ -246,15 +252,9 @@ fun Request.getBody() =
 
 ### when 表达式中的守卫条件
 
-> 守卫条件是一个[实验性功能](components-stability.md#stability-levels-explained)，随时可能更改。
-> 我们希望收到你在 [YouTrack](https://youtrack.jetbrains.com/issue/KT-71140/Guard-conditions-in-when-expressions-feedback) 中的反馈。
->
-{style="warning"}
+守卫条件允许你在 `when` 表达式的分支中包含多个条件，从而使复杂的控制流更加显式和简洁。你可以在带主题的 `when` 表达式或语句中使用守卫条件。
 
-守卫条件允许你在 `when` 表达式的分支中包含多个条件，使复杂的控制流更明确和简洁。
-你可以在带主题的 `when` 表达式或语句中使用守卫条件。
-
-要在分支中包含守卫条件，请将其放在主条件之后，用 `if` 分隔：
+要在分支中包含守卫条件，请将其放置在主条件之后，用 `if` 分隔：
 
 ```kotlin
 sealed interface Animal {
@@ -266,39 +266,36 @@ fun feedAnimal(animal: Animal) {
     when (animal) {
         // 仅包含主条件的分支。当 `animal` 是 `Dog` 时调用 `feedDog()`。
         is Animal.Dog -> feedDog()
-        // 包含主条件和守卫条件的分支。当 `animal` 是 `Cat` 且不是 `mouseHunter` 时调用 `feedCat()`。
+        // 同时包含主条件和守卫条件的分支。当 `animal` 是 `Cat` 且不是 `mouseHunter` 时调用 `feedCat()`。
         is Animal.Cat if !animal.mouseHunter -> feedCat()
-        // 如果上述条件都不匹配，则打印 "Unknown animal"
+        // 如果以上条件均不匹配，则打印 "Unknown animal"
         else -> println("Unknown animal")
     }
 }
 ```
 
-在单个 `when` 表达式中，你可以结合使用带守卫条件和不带守卫条件的分支。
-带有守卫条件的分支中的代码仅在主条件和守卫条件都评估为 true 时运行。
-如果主条件不匹配，守卫条件将不会被评估。
+在单个 `when` 表达式中，你可以结合使用带守卫条件和不带守卫条件的分支。带守卫条件的分支中的代码只有当主条件和守卫条件都求值为 true 时才会运行。如果主条件不匹配，守卫条件将不会被求值。
 
-如果你在没有 `else` 分支的 `when` 语句中使用守卫条件，并且没有任何条件匹配，则不会执行任何分支。
+如果你在不带 `else` 分支的 `when` 语句中使用守卫条件，并且没有条件匹配，则任何分支都不会被执行。
 
-否则，如果你在没有 `else` 分支的 `when` 表达式中使用守卫条件，编译器会要求你声明所有可能的情况，以避免运行时错误。
+否则，如果你在不带 `else` 分支的 `when` 表达式中使用守卫条件，编译器会要求你声明所有可能的情况，以避免运行时错误。
 
 此外，守卫条件支持 `else if`：
 
 ```kotlin
 when (animal) {
-    // 检查 `animal` 是否为 `Dog`
+    // 检测 `animal` 是否为 `Dog`
     is Animal.Dog -> feedDog()
-    // 守卫条件，检查 `animal` 是否为 `Cat` 且不是 `mouseHunter`
+    // 守卫条件，检测 `animal` 是否为 `Cat` 且不是 `mouseHunter`
     is Animal.Cat if !animal.mouseHunter -> feedCat()
-    // 如果上述条件都不匹配且 animal.eatsPlants 为 true，则调用 giveLettuce()
+    // 如果以上条件均不匹配且 animal.eatsPlants 为 true，则调用 giveLettuce()
     else if animal.eatsPlants -> giveLettuce()
-    // 如果上述条件都不匹配，则打印 "Unknown animal"
+    // 如果以上条件均不匹配，则打印 "Unknown animal"
     else -> println("Unknown animal")
 }
 ```
 
-在单个分支中组合多个守卫条件，请使用布尔运算符 `&&` (AND) 或 `||` (OR)。
-在布尔表达式周围使用括号以[避免混淆](coding-conventions.md#guard-conditions-in-when-expression)：
+可以使用布尔操作符 `&&` (AND) 或 `||` (OR) 在单个分支中组合多个守卫条件。请使用圆括号将布尔表达式括起来以[避免混淆](coding-conventions.md#guard-conditions-in-when-expression)：
 
 ```kotlin
 when (animal) {
@@ -306,23 +303,11 @@ when (animal) {
 }
 ```
 
-你可以在任何带主题的 `when` 表达式或语句中使用守卫条件，除了有多个条件用逗号分隔的情况。
-例如，`0, 1 -> print("x == 0 or x == 1")`。
-
-> 要在 CLI 中启用守卫条件，请运行以下命令：
->
-> `kotlinc -Xwhen-guards main.kt`
->
-> 要在 Gradle 中启用守卫条件，请将以下行添加到 `build.gradle.kts` 文件中：
->
-> `kotlin.compilerOptions.freeCompilerArgs.add("-Xwhen-guards")`
->
-{style="note"}
+你可以在任何带有主题的 `when` 表达式或语句中使用守卫条件，但你使用逗号分隔多个条件的情况除外。例如，`0, 1 -> print("x == 0 or x == 1")`。
 
 ## For 循环
 
-`for` 循环迭代任何提供迭代器（iterator）的事物。这等同于 C# 等语言中的 `foreach` 循环。
-`for` 的语法如下：
+`for` 循环遍历任何提供迭代器的事物。这等同于 C# 等语言中的 `foreach` 循环。`for` 的语法如下：
 
 ```kotlin
 for (item in collection) print(item)
@@ -336,15 +321,15 @@ for (item: Int in ints) {
 }
 ```
 
-如前所述，`for` 迭代任何提供迭代器的事物。这意味着它：
+如前所述，`for` 会遍历任何提供迭代器的事物。这意味着它：
 
-* 具有一个成员函数或扩展函数 `iterator()`，它返回 `Iterator<T>`，并且：
-  * 具有一个成员函数或扩展函数 `next()`
-  * 具有一个成员函数或扩展函数 `hasNext()`，它返回 `Boolean`。
+* 拥有一个成员函数或扩展函数 `iterator()`，该函数返回 `Iterator<T>`，并且：
+  * 拥有一个成员函数或扩展函数 `next()`
+  * 拥有一个成员函数或扩展函数 `hasNext()`，该函数返回 `Boolean`。
 
-这三个函数都需要被标记为 `operator`。
+所有这三个函数都需要标记为 `operator`。
 
-要迭代数字范围，请使用[区间表达式](ranges.md)：
+要遍历数字[区间](ranges.md)，请使用区间表达式：
 
 ```kotlin
 fun main() {
@@ -361,9 +346,9 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-针对区间或数组的 `for` 循环会被编译成基于索引的循环，不会创建迭代器对象。
+遍历区间或数组的 `for` 循环会被编译为基于索引的循环，而不会创建迭代器对象。
 
-如果你想带索引迭代数组或列表，你可以这样做：
+如果你想通过索引遍历数组或 `list`，可以这样做：
 
 ```kotlin
 fun main() {
@@ -397,10 +382,10 @@ fun main() {
 
 ## While 循环
 
-`while` 和 `do-while` 循环会持续处理其主体，只要它们的条件满足。
-它们之间的区别在于条件检查的时间：
-* `while` 会先检查条件，如果条件满足，则处理循环体，然后返回到条件检查。
-* `do-while` 会先处理循环体，然后检查条件。如果条件满足，循环会重复。因此，无论条件如何，`do-while` 的循环体至少会运行一次。
+`while` 和 `do-while` 循环在条件满足时持续处理其主体。
+它们之间的区别在于条件检测的时机：
+* `while` 会检测条件，如果条件满足，则处理主体，然后返回条件检测。
+* `do-while` 会处理主体，然后检测条件。如果条件满足，循环将重复。因此，无论条件如何，`do-while` 的主体至少会运行一次。
 
 ```kotlin
 while (x > 0) {
@@ -412,6 +397,6 @@ do {
 } while (y != null) // y 在此处可见！
 ```
 
-## 循环中的 Break 和 Continue
+## 循环中的 Break 与 Continue
 
-Kotlin 支持循环中的传统 `break` 和 `continue` 运算符。详见[返回与跳转](returns.md)。
+Kotlin 支持循环中传统的 `break` 和 `continue` 操作符。关于更多信息，请参见 [返回与跳转](returns.md)。

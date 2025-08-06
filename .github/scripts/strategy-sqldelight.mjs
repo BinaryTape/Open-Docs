@@ -1,6 +1,7 @@
 import fs from "fs-extra";
 import path from "path";
 import { defaultStrategy } from "./strategy.mjs";
+import {generateSidebar} from "./SidebarProcessor.mjs";
 
 export const sqlDelightStrategy = {
   ...defaultStrategy,
@@ -28,6 +29,14 @@ export const sqlDelightStrategy = {
         await fs.copy(srcPath, path.join(docsDir, dest));
       }
     }
+
+    console.log(`  Running SQLDelight onSyncEnd: Generate sidebar...`);
+    const sidebarPath = path.join(repoPath, 'mkdocs.yml');
+    const docType = repoPath.replace("-repo", "");
+    if (await fs.pathExists(sidebarPath)) {
+      await generateSidebar(sidebarPath, docType, 'https://sqldelight.github.io/sqldelight/2.1.0/');
+    }
+    console.log(`  Generate sidebar finished`);
   },
   
   /**

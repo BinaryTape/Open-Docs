@@ -2,17 +2,17 @@
 
 目前，Kotlin/Native 編譯器會產生與 DWARF 2 規範相容的偵錯資訊，因此現代偵錯工具可以執行以下操作：
 - 中斷點
-- 步進
-- 檢查型別資訊
+- 單步執行
+- 型別資訊檢查
 - 變數檢查
 
->支援 DWARF 2 規範意味著偵錯工具會將 Kotlin 識別為 C89，因為在 DWARF 5 規範之前，規範中沒有 Kotlin 語言型別的識別碼。
+>支援 DWARF 2 規範表示偵錯工具會將 Kotlin 識別為 C89，因為在 DWARF 5 規範之前，規範中沒有 Kotlin 語言型別的識別碼。
 >
 {style="note"}
 
-## 使用 Kotlin/Native 編譯器產生帶有偵錯資訊的二進位檔
+## 使用 Kotlin/Native 編譯器產生包含偵錯資訊的二進位檔
 
-若要使用 Kotlin/Native 編譯器產生二進位檔，請在命令列上使用 ``-g`` 選項。
+要使用 Kotlin/Native 編譯器產生二進位檔，請在命令列上使用 `-g` 選項。
 
 ```bash
 0:b-debugger-fixes:minamoto@unit-703(0)# cat - > hello.kt
@@ -50,33 +50,33 @@ Process 28473 stopped
 
 ## 中斷點
 
-現代偵錯工具提供了多種設定中斷點的方式，請參閱下方的工具細項說明：
+現代偵錯器提供多種設定中斷點的方式，請參閱以下各工具的詳細說明：
 
 ### lldb
 
-- 依名稱
+- 按名稱
 
     ```bash
     (lldb) b -n kfun:main(kotlin.Array<kotlin.String>)
     Breakpoint 4: where = terminator.kexe`kfun:main(kotlin.Array<kotlin.String>) + 4 at hello.kt:2, address = 0x00000001000012e4
     ```
 
-_``-n`` 是可選的，此旗標預設啟用_
-- 依位置 (檔案名稱, 行號)
+_`-n` 是選用的，此旗標預設套用_
+- 按位置（檔名、行號）
 
     ```bash
     (lldb) b -f hello.kt -l 1
     Breakpoint 1: where = terminator.kexe`kfun:main(kotlin.Array<kotlin.String>) + 4 at hello.kt:2, address = 0x00000001000012e4
     ```
 
-- 依記憶體位址
+- 按位址
 
     ```bash
     (lldb) b -a 0x00000001000012e4
     Breakpoint 2: address = 0x00000001000012e4
     ```
 
-- 依正規表達式，這對於偵錯生成的產物（例如 lambda 等）可能很有用（名稱中使用了 ``#`` 符號的地方）。
+- 按正規表達式，您可能會發現這對於偵錯產生的構件（例如匿名函式等）很有用（其中名稱使用了 `#` 符號）。
 
     ```bash
     3: regex = 'main\(', locations = 1
@@ -85,7 +85,7 @@ _``-n`` 是可選的，此旗標預設啟用_
 
 ### gdb
 
-- 依正規表達式
+- 按正規表達式
 
     ```bash
     (gdb) rbreak main(
@@ -93,7 +93,7 @@ _``-n`` 是可選的，此旗標預設啟用_
     struct ktype:kotlin.Unit &kfun:main(kotlin.Array<kotlin.String>);
     ```
 
-- 依名稱 __不可用__，因為 ``:`` 是位置中斷點的分隔符號
+- 按名稱 **無法使用**，因為 `:` 是按位置設定中斷點的分隔符
     
     ```bash
     (gdb) b kfun:main(kotlin.Array<kotlin.String>)
@@ -102,14 +102,14 @@ _``-n`` 是可選的，此旗標預設啟用_
     Breakpoint 1 (kfun:main(kotlin.Array<kotlin.String>)) pending
     ```
 
-- 依位置
+- 按位置
 
     ```bash
     (gdb) b hello.kt:1
     Breakpoint 2 at 0x100001704: file /Users/minamoto/ws/.git-trees/hello.kt, line 1.
     ```
 
-- 依記憶體位址
+- 按位址
 
     ```bash
     (gdb) b *0x100001704
@@ -117,14 +117,14 @@ _``-n`` 是可選的，此旗標預設啟用_
     Breakpoint 3 at 0x100001704: file /Users/minamoto/ws/.git-trees/hello.kt, line 2.
     ```
 
-## 步進
+## 單步執行
 
-步進函數的運作方式與 C/C++ 程式大致相同。
+單步執行函式的功能與 C/C++ 程式大致相同。
 
 ## 變數檢查
 
-對 `var` 變數進行變數檢查，對於基本型別來說是開箱即用的。
-對於非基本型別，`konan_lldb.py` 中有 lldb 的自訂美化印表機 (pretty printers)：
+`var` 變數的變數檢查對於基本型別來說是開箱即用的。
+對於非基本型別，`konan_lldb.py` 中有適用於 lldb 的自訂美化輸出器：
 
 ```bash
 λ cat main.kt | nl
@@ -171,7 +171,7 @@ Process 4985 launched: './program.kexe' (x86_64)
 (lldb) 
 ```
 
-獲取物件變數 (`var`) 的表示形式也可以使用內建的執行時函數 `Konan_DebugPrint` (這種方法也適用於 gdb，透過使用命令語法模組)：
+也可以使用內建執行時期函式 `Konan_DebugPrint` 取得物件變數 (`var`) 的表示（此方法也適用於 gdb，使用命令語法模組）：
 
 ```bash
 0:b-debugger-fixes:minamoto@unit-703(0)# cat ../debugger-plugin/1.kt | nl -p

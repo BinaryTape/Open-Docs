@@ -1,29 +1,29 @@
 [//]: # (title: Kotlin 1.7.20 の新機能)
 
 <tldr>
-   <p>Kotlin 1.7.20 の IDE サポートは、IntelliJ IDEA 2021.3、2022.1、2022.2 で利用可能です。</p>
+   <p>Kotlin 1.7.20のIDEサポートは、IntelliJ IDEA 2021.3、2022.1、および 2022.2 で利用できます。</p>
 </tldr>
 
 _[リリース日: 2022年9月29日](releases.md#release-details)_
 
-Kotlin 1.7.20 がリリースされました！ このリリースの主なハイライトは以下の通りです。
+Kotlin 1.7.20 がリリースされました！ 本リリースにおける主な変更点は次のとおりです。
 
-* [新しい Kotlin K2 コンパイラが `all-open`、SAM with receiver、Lombok、その他のコンパイラプラグインをサポート](#support-for-kotlin-k2-compiler-plugins)
-* [開区間を作成するための `..<` 演算子のプレビューを導入](#preview-of-the-operator-for-creating-open-ended-ranges)
-* [新しい Kotlin/Native メモリマネージャがデフォルトで有効に](#the-new-kotlin-native-memory-manager-enabled-by-default)
-* [JVM 向けに新しい実験的な機能である、ジェネリックな基底型を持つインラインクラスを導入](#generic-inline-classes)
+* [新しいKotlin K2コンパイラーがall-open、SAM with receiver、Lombok、およびその他のコンパイラープラグインをサポートします](#support-for-kotlin-k2-compiler-plugins)
+* [開区間を作成するための `..<` 演算子のプレビュー版を導入しました](#preview-of-the-operator-for-creating-open-ended-ranges)
+* [新しいKotlin/Nativeメモリマネージャーがデフォルトで有効になりました](#the-new-kotlin-native-memory-manager-enabled-by-default)
+* [JVM向けに新しい実験的機能である、ジェネリックな基底型を持つインラインクラスを導入しました](#generic-inline-classes)
 
-変更点の簡単な概要は、以下の動画でも確認できます。
+変更点の簡単な概要については、この動画もご覧ください。
 
-<video src="https://www.youtube.com/v/OG9npowJgE8" title="What's new in Kotlin 1.7.20"/>
+<video src="https://www.youtube.com/v/OG9npowJgE8" title="Kotlin 1.7.20の新機能"/>
 
-## Kotlin K2 コンパイラプラグインのサポート
+## Kotlin K2 コンパイラープラグインのサポート
 
-Kotlin チームは K2 コンパイラの安定化を継続しています。
-K2 はまだ**Alpha**版ですが（[Kotlin 1.7.0 リリース](whatsnew17.md#new-kotlin-k2-compiler-for-the-jvm-in-alpha)で発表された通り）、
-いくつかのコンパイラプラグインをサポートするようになりました。新しいコンパイラに関する Kotlin チームからの更新は、[この YouTrack イシュー](https://youtrack.jetbrains.com/issue/KT-52604)で確認できます。
+KotlinチームはK2コンパイラーの安定化を継続しています。
+K2はまだ**アルファ版**ですが（[Kotlin 1.7.0リリース](whatsnew17.md#new-kotlin-k2-compiler-for-the-jvm-in-alpha)で発表されたように）、
+いくつかのコンパイラープラグインをサポートしています。 新しいコンパイラーに関するKotlinチームの最新情報は、[このYouTrack課題](https://youtrack.jetbrains.com/issue/KT-52604)で確認できます。
 
-この 1.7.20 リリースから、Kotlin K2 コンパイラは以下のプラグインをサポートします。
+本1.7.20リリースより、Kotlin K2コンパイラーは以下のプラグインをサポートします。
 
 * [`all-open`](all-open-plugin.md)
 * [`no-arg`](no-arg-plugin.md)
@@ -32,24 +32,24 @@ K2 はまだ**Alpha**版ですが（[Kotlin 1.7.0 リリース](whatsnew17.md#ne
 * AtomicFU
 * `jvm-abi-gen`
 
-> 新しい K2 コンパイラの Alpha 版は JVM プロジェクトでのみ動作します。
-> Kotlin/JS、Kotlin/Native、または他のマルチプラットフォームプロジェクトはサポートしていません。
+> 新しいK2コンパイラーのアルファ版はJVMプロジェクトでのみ動作します。
+> Kotlin/JS、Kotlin/Native、またはその他のマルチプラットフォームプロジェクトはサポートしていません。
 >
 {style="warning"}
 
-新しいコンパイラとその利点について、以下の動画で詳細をご覧ください。
+新しいコンパイラーとその利点の詳細については、以下の動画をご覧ください。
 * [The Road to the New Kotlin Compiler](https://www.youtube.com/watch?v=iTdJJq_LyoY)
 * [K2 Compiler: a Top-Down View](https://www.youtube.com/watch?v=db19VFLZqJM)
 
-### Kotlin K2 コンパイラを有効にする方法
+### Kotlin K2 コンパイラーを有効にする方法
 
-Kotlin K2 コンパイラを有効にしてテストするには、以下のコンパイラオプションを使用します。
+Kotlin K2コンパイラーを有効にしてテストするには、以下のコンパイラーオプションを使用します。
 
 ```bash
 -Xuse-k2
 ```
 
-`build.gradle(.kts)` ファイルで指定できます。
+`build.gradle(.kts)`ファイルで指定できます。
 
 <tabs group="build-script">
 <tab title="Kotlin" group-key="kotlin">
@@ -71,53 +71,52 @@ compileKotlin {
 </tab>
 </tabs>
 
-ご自身の JVM プロジェクトでのパフォーマンス向上を試して、古いコンパイラの結果と比較してみてください。
+お使いのJVMプロジェクトでパフォーマンスの向上を確認し、以前のコンパイラーの結果と比較してください。
 
-### 新しい K2 コンパイラに関するフィードバック
+### 新しいK2コンパイラーに関するフィードバック
 
-どのような形でも皆様からのフィードバックを大変歓迎いたします。
-* Kotlin Slack の K2 開発者に直接フィードバックを提供してください: [招待状を入手](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up?_gl=1*ju6cbn*_ga*MTA3MTk5NDkzMC4xNjQ2MDY3MDU4*_ga_9J976DJZ68*MTY1ODMzNzA3OS4xMDAuMS4xNjU4MzQwODEwLjYw)し、[#k2-early-adopters](https://kotlinlang.slack.com/archives/C03PK0PE257)チャンネルに参加してください。
-* 新しい K2 コンパイラで遭遇した問題は、[弊社のイシュートラッカー](https://kotl.in/issue)に報告してください。
-* K2 の使用に関する匿名データを JetBrains が収集できるように、[**使用状況統計の送信**オプション](https://www.jetbrains.com/help/idea/settings-usage-statistics.html)を有効にしてください。
+あらゆる形式のフィードバックをお待ちしております。
+* Kotlin SlackでK2開発者に直接フィードバックを: [招待を受ける](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up?_gl=1*ju6cbn*_ga*MTA3MTk5NDkzMC4xNjQ2MDY3MDU4*_ga_9J976DJZ68*MTY1ODMzNzA3OS4xMDAuMS4xNjU4MzQwODEwLjYw) と [#k2-early-adopters](https://kotlinlang.slack.com/archives/C03PK0PE257) チャンネルに参加してください。
+* 新しいK2コンパイラーで直面した問題は、[私たちの課題トラッカー](https://kotl.in/issue)に報告してください。
+* 「**使用統計を送信**」オプションを有効にして、JetBrainsがK2の使用状況に関する匿名データを収集できるようにします。
 
 ## 言語
 
-Kotlin 1.7.20 では、新しい言語機能のプレビュー版が導入され、ビルダ型推論に制限が加えられました。
+Kotlin 1.7.20では、新しい言語機能のプレビュー版を導入するだけでなく、ビルダー型推論に制限を設けています。
 
 * [開区間を作成するための `..<` 演算子のプレビュー](#preview-of-the-operator-for-creating-open-ended-ranges)
-* [新しい `data object` 宣言](#improved-string-representations-for-singletons-and-sealed-class-hierarchies-with-data-objects)
-* [ビルダ型推論の制限](#new-builder-type-inference-restrictions)
+* [新しいデータオブジェクト宣言](#improved-string-representations-for-singletons-and-sealed-class-hierarchies-with-data-objects)
+* [ビルダー型推論の制限](#new-builder-type-inference-restrictions)
 
 ### 開区間を作成するための `..<` 演算子のプレビュー
 
-> この新しい演算子は[Experimental](components-stability.md#stability-levels-explained)であり、IDE でのサポートは限定的です。
+> 新しい演算子は[実験的](components-stability.md#stability-levels-explained)であり、IDEでのサポートは限定的です。
 >
 {style="warning"}
 
-このリリースでは、新しい `..<` 演算子が導入されました。Kotlin には値の範囲を表す `..` 演算子があります。新しい `..<`
-演算子は `until` 関数のように動作し、開区間を定義するのに役立ちます。
+本リリースでは、新しい `..<` 演算子が導入されました。Kotlinには、値の範囲を表す `..` 演算子があります。新しい `..<` 演算子は `until` 関数のように機能し、開区間を定義するのに役立ちます。
 
-<video src="https://www.youtube.com/watch?v=v0AHdAIBnbs" title="New operator for open-ended ranges"/>
+<video src="https://www.youtube.com/watch?v=v0AHdAIBnbs" title="開区間用の新しい演算子"/>
 
-弊社の調査によると、この新しい演算子は開区間を表現するのに優れており、上限が含まれないことを明確に示しています。
+私たちの調査によると、この新しい演算子は、開区間をより適切に表現し、上限が含まれていないことを明確にするのに役立ちます。
 
-以下に、`when` 式で `..<` 演算子を使用する例を示します。
+`when` 式で `..<` 演算子を使用する例を次に示します。
 
 ```kotlin
 when (value) {
-    in 0.0..<0.25 -> // 第1クォーター
-    in 0.25..<0.5 -> // 第2クォーター
-    in 0.5..<0.75 -> // 第3クォーター
-    in 0.75..1.0 ->  // 最終クォーター  <- ここが閉区間であることに注意
+    in 0.0..<0.25 -> // First quarter
+    in 0.25..<0.5 -> // Second quarter
+    in 0.5..<0.75 -> // Third quarter
+    in 0.75..1.0 ->  // Last quarter  <- ここでは閉区間であることに注意
 }
 ```
 {validate="false"}
 
-#### 標準ライブラリ API の変更点
+#### 標準ライブラリAPIの変更点
 
-以下の新しい型と操作が、共通 Kotlin 標準ライブラリの `kotlin.ranges` パッケージに導入されます。
+共通Kotlin標準ライブラリの `kotlin.ranges` パッケージに以下の新しい型と操作が導入されます。
 
-##### 新しい OpenEndRange&lt;T&gt; インターフェース
+##### 新しい `OpenEndRange<T>` インターフェース
 
 開区間を表す新しいインターフェースは、既存の `ClosedRange<T>` インターフェースと非常によく似ています。
 
@@ -125,7 +124,7 @@ when (value) {
 interface OpenEndRange<T : Comparable<T>> {
     // 下限
     val start: T
-    // 上限（範囲には含まれません）
+    // 上限 (範囲には含まれない)
     val endExclusive: T
     operator fun contains(value: T): Boolean = value >= start && value < endExclusive
     fun isEmpty(): Boolean = start >= endExclusive
@@ -133,9 +132,9 @@ interface OpenEndRange<T : Comparable<T>> {
 ```
 {validate="false"}
 
-##### 既存のイテラブルな範囲における OpenEndRange の実装
+##### 既存のイテラブル範囲での `OpenEndRange` の実装
 
-開発者が除外された上限を持つ範囲を取得する必要がある場合、現在では `until` 関数を使用して、同じ値を持つ閉じたイテラブルな範囲を効果的に生成しています。これらの範囲を `OpenEndRange<T>` を受け入れる新しい API で利用可能にするために、既存のイテラブルな範囲である `IntRange`、`LongRange`、`CharRange`、`UIntRange`、`ULongRange` にそのインターフェースを実装したいと考えています。これにより、これらは `ClosedRange<T>` と `OpenEndRange<T>` の両インターフェースを同時に実装することになります。
+開発者が上限が除外された範囲を取得する必要がある場合、現在は `until` 関数を使用して、同じ値を持つ閉じたイテラブル範囲を実質的に生成しています。`OpenEndRange<T>` を受け取る新しいAPIでこれらの範囲を利用できるようにするため、既存のイテラブル範囲である `IntRange`、`LongRange`、`CharRange`、`UIntRange`、および `ULongRange` でそのインターフェースを実装したいと考えています。そのため、これらは同時に `ClosedRange<T>` インターフェースと `OpenEndRange<T>` インターフェースの両方を実装することになります。
 
 ```kotlin
 class IntRange : IntProgression(...), ClosedRange<Int>, OpenEndRange<Int> {
@@ -146,27 +145,27 @@ class IntRange : IntProgression(...), ClosedRange<Int>, OpenEndRange<Int> {
 ```
 {validate="false"}
 
-##### 標準型に対する rangeUntil 演算子
+##### 標準型向けの `rangeUntil` 演算子
 
-`rangeUntil` 演算子は、現在 `rangeTo` 演算子によって定義されているのと同じ型と組み合わせで提供されます。これらはプロトタイプ目的で拡張関数として提供されていますが、整合性を保つため、開区間 API を安定化する前に後でメンバーとして実装する予定です。
+`rangeTo` 演算子によって現在定義されているものと同じ型と組み合わせで `rangeUntil` 演算子が提供されます。プロトタイプ目的では拡張関数として提供していますが、一貫性を保つため、開区間APIを安定化する前に、後でメンバーとして実装することを計画しています。
 
 #### `..<` 演算子を有効にする方法
 
-`..<` 演算子を使用するか、ご自身の型にその演算子規約を実装するには、`-language-version 1.8` コンパイラオプションを有効にしてください。
+`..<` 演算子を使用するか、独自の型でその演算子規約を実装するには、`-language-version 1.8` コンパイラーオプションを有効にしてください。
 
-標準型の開区間をサポートするために導入された新しい API 要素は、実験的な stdlib API と同様にオプトインが必要です: `@OptIn(ExperimentalStdlibApi::class)`。または、`-opt-in=kotlin.ExperimentalStdlibApi` コンパイラオプションを使用することもできます。
+標準型の開区間をサポートするために導入された新しいAPI要素は、実験的な標準ライブラリAPIとしては通常通り、`@OptIn(ExperimentalStdlibApi::class)` のようにオプトインが必要です。または、`-opt-in=kotlin.ExperimentalStdlibApi` コンパイラーオプションを使用できます。
 
-[この KEEP ドキュメントで新しい演算子についてさらに詳しく読む](https://github.com/kotlin/KEEP/blob/open-ended-ranges/proposals/open-ended-ranges.md)。
+[この新しい演算子の詳細については、こちらのKEEPドキュメントをご覧ください](https://github.com/kotlin/KEEP/blob/open-ended-ranges/proposals/open-ended-ranges.md)。
 
-### データオブジェクトによるシングルトンとシールドクラス階層の文字列表現の改善
+### データオブジェクトによるシングルトンおよびシールクラス階層の文字列表現の改善
 
-> データオブジェクトは[Experimental](components-stability.md#stability-levels-explained)であり、現時点では IDE でのサポートが限定的です。
+> データオブジェクトは[実験的](components-stability.md#stability-levels-explained)であり、現時点ではIDEでのサポートが限定的です。
 >
 {style="warning"}
 
-このリリースでは、新しい種類の `object` 宣言である `data object` が導入されました。[データオブジェクト](https://youtrack.jetbrains.com/issue/KT-4107)は、概念的には通常の `object` 宣言と同一に動作しますが、そのまま使用できるクリーンな `toString` 表現が付属しています。
+本リリースでは、新しい種類の `object` 宣言である `data object` が利用可能になりました。[データオブジェクト](https://youtrack.jetbrains.com/issue/KT-4107)は、概念的には通常の `object` 宣言と同一に動作しますが、きれいな `toString` 表現が標準で提供されます。
 
-<video src="https://www.youtube.com/v/ovAqcwFhEGc" title="Data objects in Kotlin 1.7.20"/>
+<video src="https://www.youtube.com/v/ovAqcwFhEGc" title="Kotlin 1.7.20 のデータオブジェクト"/>
 
 ```kotlin
 package org.example
@@ -179,7 +178,7 @@ fun main() {
 }
 ```
 
-これにより、`data object` 宣言は sealed class 階層に最適です。sealed class 階層では、`data class` 宣言と組み合わせて使用できます。このスニペットでは、`EndOfFile` を通常の `object` ではなく `data object` として宣言することで、手動でオーバーライドすることなく美しい `toString` を取得でき、付随する `data class` の定義との対称性が保たれます。
+これにより、`data object` 宣言はシールクラス階層に最適になります。その中で、`data class` 宣言と並行して使用できます。このスニペットでは、`EndOfFile` を通常の `object` ではなく `data object` として宣言することで、`toString` を手動でオーバーライドする必要なく、より良い表現が得られることを意味し、付随する `data class` の定義との対称性を維持します。
 
 ```kotlin
 sealed class ReadResult {
@@ -197,7 +196,7 @@ fun main() {
 
 #### データオブジェクトを有効にする方法
 
-コードでデータオブジェクト宣言を使用するには、`-language-version 1.9` コンパイラオプションを有効にしてください。Gradle プロジェクトでは、`build.gradle(.kts)` に以下を追加することで実現できます。
+コードでデータオブジェクト宣言を使用するには、`-language-version 1.9` コンパイラーオプションを有効にします。Gradleプロジェクトでは、`build.gradle(.kts)` に以下を追加することでこれを行うことができます。
 
 <tabs group="build-script">
 <tab title="Kotlin" group-key="kotlin">
@@ -221,17 +220,17 @@ compileKotlin {
 </tab>
 </tabs>
 
-データオブジェクトの詳細について、またその実装に関するフィードバックは、[関連する KEEP ドキュメント](https://github.com/Kotlin/KEEP/pull/316)で共有してください。
+データオブジェクトの詳細については、以下をご覧いただき、[関連するKEEPドキュメント](https://github.com/Kotlin/KEEP/pull/316)で実装に関するフィードバックを共有してください。
 
-### 新しいビルダ型推論の制限
+### ビルダー型推論の新しい制限
 
-Kotlin 1.7.20 では、[ビルダ型推論の使用](using-builders-with-builder-inference.md)にいくつかの主要な制限が加えられており、コードに影響を与える可能性があります。これらの制限は、ビルダラムダ関数を含むコードに適用され、ラムダ自体を分析せずにパラメータを導出することが不可能な場合です。パラメータは引数として使用されます。現在、コンパイラはそのようなコードに対して常にエラーを表示し、型を明示的に指定するよう求めます。
+Kotlin 1.7.20では、お使いのコードに影響を与える可能性のある[ビルダー型推論の使用](using-builders-with-builder-inference.md)に関して、いくつかの大きな制限が課せられます。これらの制限は、ラムダ自体を解析せずにパラメータを導出することが不可能な場合があるビルダーラムダ関数を含むコードに適用されます。パラメータは引数として使用されます。今後、コンパイラーはそのようなコードに対して常にエラーを表示し、明示的に型を指定するよう求めます。
 
-これは破壊的な変更ですが、弊社の調査によると、これらのケースは非常に稀であり、制限がコードに影響を与えることはないはずです。もし影響がある場合は、以下のケースを検討してください。
+これは破壊的変更ですが、私たちの調査では、これらのケースは非常にまれであり、制限がお使いのコードに影響を与えることはないはずです。もし影響がある場合は、以下のケースを検討してください。
 
-* メンバーを隠蔽する拡張機能を持つビルダ推論。
+* メンバーを隠す拡張関数を使用するビルダー推論。
 
-  コードにビルダ推論中に使用される同名の拡張関数が含まれている場合、コンパイラはエラーを表示します。
+  お使いのコードに、ビルダー型推論中に使用される同名の拡張関数が含まれている場合、コンパイラーはエラーを表示します。
 
     ```kotlin
     class Data {
@@ -243,7 +242,7 @@ Kotlin 1.7.20 では、[ビルダ型推論の使用](using-builders-with-builder
     fun test() {
         buildList {
             this.add(Data())
-            this.get(0).doSmth() // 2 に解決され、エラーにつながります
+            this.get(0).doSmth() // 2に解決され、エラーにつながる
         }
     }
     ```
@@ -261,14 +260,14 @@ Kotlin 1.7.20 では、[ビルダ型推論の使用](using-builders-with-builder
     fun test() {
         buildList<Data> { // 型引数！
             this.add(Data())
-            this.get(0).doSmth() // 1 に解決されます
+            this.get(0).doSmth() // 1に解決される
         }
     }
     ```
 
-* 複数のラムダを持つビルダ推論で、型引数が明示的に指定されていない場合。
+* 複数のラムダと、型引数が明示的に指定されていないビルダー推論。
 
-  ビルダ推論に2つ以上のラムダブロックがある場合、それらは型に影響を与えます。エラーを防ぐために、コンパイラは型の指定を要求します。
+  ビルダー型推論に2つ以上のラムダブロックがある場合、それらは型に影響を与えます。エラーを防ぐため、コンパイラーは型を指定するよう要求します。
 
     ```kotlin
     fun <T: Any> buildList(
@@ -311,29 +310,29 @@ Kotlin 1.7.20 では、[ビルダ型推論の使用](using-builders-with-builder
     }
     ```
 
-上記で言及されていないケースが見つかった場合は、[弊社チームにイシューを提出](https://kotl.in/issue)してください。
+上記で言及されていないケースに遭遇した場合は、私たちのチームに[課題を提出](https://kotl.in/issue)してください。
 
-このビルダ推論の更新に関する詳細については、[この YouTrack イシュー](https://youtrack.jetbrains.com/issue/KT-53797)を参照してください。
+このビルダー型推論の更新に関する詳細については、この[YouTrack課題](https://youtrack.jetbrains.com/issue/KT-53797)をご覧ください。
 
 ## Kotlin/JVM
 
-Kotlin 1.7.20 では、ジェネリックなインラインクラスが導入され、委譲プロパティに対するバイトコード最適化がさらに追加され、kapt スタブ生成タスクで IR をサポートすることで、最新の Kotlin 機能をすべて kapt で使用できるようになりました。
+Kotlin 1.7.20では、ジェネリックなインラインクラスを導入し、デリゲートプロパティのバイトコード最適化をさらに追加し、kaptスタブ生成タスクでIRをサポートすることで、kaptですべての最新のKotlin機能を使用できるようになります。
 
 * [ジェネリックなインラインクラス](#generic-inline-classes)
-* [委譲プロパティのさらなる最適化ケース](#more-optimized-cases-of-delegated-properties)
-* [kapt スタブ生成タスクでの JVM IR バックエンドのサポート](#support-for-the-jvm-ir-backend-in-kapt-stub-generating-task)
+* [デリゲートプロパティのさらなる最適化されたケース](#more-optimized-cases-of-delegated-properties)
+* [kaptスタブ生成タスクにおけるJVM IRバックエンドのサポート](#support-for-the-jvm-ir-backend-in-kapt-stub-generating-task)
 
 ### ジェネリックなインラインクラス
 
-> ジェネリックなインラインクラスは[Experimental](components-stability.md#stability-levels-explained)機能です。
-> いつでも廃止または変更される可能性があります。オプトインが必要です（詳細は下記参照）。評価目的でのみ使用してください。
-> [YouTrack](https://youtrack.jetbrains.com/issue/KT-52994)でのフィードバックを高く評価いたします。
+> ジェネリックなインラインクラスは[実験的](components-stability.md#stability-levels-explained)な機能です。
+> いつでも削除または変更される可能性があります。オプトインが必要です（詳細は下記参照）。評価目的でのみ使用してください。
+> [YouTrack](https://youtrack.jetbrains.com/issue/KT-52994)でフィードバックをいただけると幸いです。
 >
 {style="warning"}
 
-Kotlin 1.7.20 では、JVM インラインクラスの基底型を型パラメータにできるようになりました。コンパイラはそれを `Any?`、または一般的には型パラメータの上限にマッピングします。
+Kotlin 1.7.20では、JVMインラインクラスの基底型を型パラメーターにすることを可能にします。コンパイラーはそれを `Any?` にマップするか、一般的には型パラメーターの上限にマップします。
 
-<video src="https://www.youtube.com/v/0JRPA0tt9og" title="Generic inline classes in Kotlin 1.7.20"/>
+<video src="https://www.youtube.com/v/0JRPA0tt9og" title="Kotlin 1.7.20 のジェネリックなインラインクラス"/>
 
 以下の例を検討してください。
 
@@ -341,21 +340,21 @@ Kotlin 1.7.20 では、JVM インラインクラスの基底型を型パラメ�
 @JvmInline
 value class UserId<T>(val value: T)
 
-fun compute(s: UserId<String>) {} // コンパイラは fun compute-<hashcode>(s: Any?) を生成します
+fun compute(s: UserId<String>) {} // コンパイラーは fun compute-<hashcode>(s: Any?) を生成します
 ```
 
-この関数は、インラインクラスをパラメータとして受け取ります。パラメータは型引数ではなく、上限にマッピングされます。
+関数はインラインクラスをパラメーターとして受け入れます。パラメーターは型引数ではなく、上限にマップされます。
 
-この機能を有効にするには、`-language-version 1.8` コンパイラオプションを使用します。
+この機能を有効にするには、`-language-version 1.8` コンパイラーオプションを使用します。
 
-[YouTrack](https://youtrack.jetbrains.com/issue/KT-52994)でのこの機能に関するフィードバックを高く評価いたします。
+この機能に関するフィードバックを[YouTrack](https://youtrack.jetbrains.com/issue/KT-52994)でいただけると幸いです。
 
-### 委譲プロパティのさらなる最適化ケース
+### デリゲートプロパティのさらなる最適化されたケース
 
-Kotlin 1.6.0 では、`$delegate` フィールドを省略し、[参照されるプロパティへの即時アクセスを生成する](whatsnew16.md#optimize-delegated-properties-which-call-get-set-on-the-given-kproperty-instance)ことで、プロパティへの委譲のケースを最適化しました。1.7.20 では、この最適化をより多くのケースに実装しました。
-デリゲートが以下の場合、`$delegate` フィールドは省略されます。
+Kotlin 1.6.0では、`$delegate` フィールドを省略し、[参照されるプロパティへの即時アクセスを生成](whatsnew16.md#optimize-delegated-properties-which-call-get-set-on-the-given-kproperty-instance)することで、プロパティへのデリゲートの場合に最適化しました。1.7.20では、この最適化をより多くのケースに適用しました。
+`$delegate` フィールドは、デリゲートが以下の場合に省略されるようになりました。
 
-* 名前付きオブジェクトの場合：
+* 名前付きオブジェクト:
 
   ```kotlin
   object NamedObject {
@@ -366,7 +365,7 @@ Kotlin 1.6.0 では、`$delegate` フィールドを省略し、[参照される
   ```
   {validate="false"}
 
-* 同じモジュール内に[バッキングフィールド](properties.md#backing-fields)とデフォルトゲッターを持つ final `val` プロパティの場合：
+* [バッキングフィールド](properties.md#backing-fields)を持ち、同じモジュール内のデフォルトゲッターを持つ `val` の最終プロパティ:
 
   ```kotlin
   val impl: ReadOnlyProperty<Any?, String> = ...
@@ -377,7 +376,7 @@ Kotlin 1.6.0 では、`$delegate` フィールドを省略し、[参照される
   ```
   {validate="false"}
 
-* 定数式、enum エントリ、`this`、または `null` の場合。以下は `this` の例です。
+* 定数式、enumエントリー、`this`、または `null`。`this` の例を次に示します。
 
   ```kotlin
   class A {
@@ -388,136 +387,138 @@ Kotlin 1.6.0 では、`$delegate` フィールドを省略し、[参照される
   ```
   {validate="false"}
 
-[委譲プロパティ](delegated-properties.md)について詳しくはこちら。
+[デリゲートプロパティ](delegated-properties.md)の詳細をご覧ください。
 
-[YouTrack](https://youtrack.jetbrains.com/issue/KT-23397)でのこの機能に関するフィードバックを高く評価いたします。
+この機能に関するフィードバックを[YouTrack](https://youtrack.jetbrains.com/issue/KT-23397)でいただけると幸いです。
 
-### kapt スタブ生成タスクでの JVM IR バックエンドのサポート
+### kaptスタブ生成タスクにおけるJVM IRバックエンドのサポート
 
-> kapt スタブ生成タスクにおける JVM IR バックエンドのサポートは[Experimental](components-stability.md)機能です。
+> kaptスタブ生成タスクにおけるJVM IRバックエンドのサポートは[実験的](components-stability.md)な機能です。
 > いつでも変更される可能性があります。オプトインが必要です（詳細は下記参照）。評価目的でのみ使用してください。
 >
 {style="warning"}
 
-1.7.20 より前は、kapt スタブ生成タスクは古いバックエンドを使用しており、[repeatable annotations](annotations.md#repeatable-annotations)は[kapt](kapt.md)では動作しませんでした。Kotlin 1.7.20 では、kapt スタブ生成タスクで[JVM IR バックエンド](whatsnew15.md#stable-jvm-ir-backend)のサポートを追加しました。これにより、repeatable annotations を含む最新の Kotlin 機能をすべて kapt で使用できるようになります。
+1.7.20より前は、kaptスタブ生成タスクは古いバックエンドを使用しており、[反復可能アノテーション](annotations.md#repeatable-annotations)は[kapt](kapt.md)で動作しませんでした。Kotlin 1.7.20では、kaptスタブ生成タスクで[JVM IRバックエンド](whatsnew15.md#stable-jvm-ir-backend)のサポートを追加しました。これにより、反復可能アノテーションを含め、kaptですべての最新のKotlin機能を使用できるようになります。
 
-kapt で IR バックエンドを使用するには、以下のオプションを `gradle.properties` ファイルに追加します。
+kaptでIRバックエンドを使用するには、`gradle.properties` ファイルに以下のオプションを追加します。
 
 ```none
 kapt.use.jvm.ir=true
 ```
 
-[YouTrack](https://youtrack.jetbrains.com/issue/KT-49682)でのこの機能に関するフィードバックを高く評価いたします。
+この機能に関するフィードバックを[YouTrack](https://youtrack.jetbrains.com/issue/KT-49682)でいただけると幸いです。
 
 ## Kotlin/Native
 
-Kotlin 1.7.20 では、新しい Kotlin/Native メモリマネージャがデフォルトで有効になり、`Info.plist` ファイルをカスタマイズするオプションが追加されました。
+Kotlin 1.7.20では、新しいKotlin/Nativeメモリマネージャーがデフォルトで有効になり、`Info.plist` ファイルをカスタマイズするオプションが追加されました。
 
-* [新しいデフォルトメモリマネージャ](#the-new-kotlin-native-memory-manager-enabled-by-default)
-* [`Info.plist` ファイルのカスタマイズ](#customizing-the-info-plist-file)
+* [新しいデフォルトのメモリマネージャー](#the-new-kotlin-native-memory-manager-enabled-by-default)
+* [Info.plist ファイルのカスタマイズ](#customizing-the-info-plist-file)
 
-### 新しい Kotlin/Native メモリマネージャがデフォルトで有効に
+### 新しいKotlin/Nativeメモリマネージャーがデフォルトで有効に
 
-このリリースでは、新しいメモリマネージャにさらなる安定性とパフォーマンスの改善がもたらされ、新しいメモリマネージャを[Beta](components-stability.md)版に昇格させることが可能になりました。
+本リリースでは、新しいメモリマネージャーにさらなる安定性とパフォーマンスの改善が加えられ、新しいメモリマネージャーを[ベータ版](components-stability.md)に昇格させることができました。
 
-以前のメモリマネージャは、`kotlinx.coroutines` ライブラリの実装における問題を含め、並行および非同期コードの記述を複雑にしていました。このため、並行処理の制限が iOS と Android プラットフォーム間で Kotlin コードを共有する際に問題を引き起こし、Kotlin Multiplatform Mobile の採用が妨げられていました。新しいメモリマネージャは、ついに[Kotlin Multiplatform Mobile を Beta 版に昇格させる](https://blog.jetbrains.com/kotlin/2022/05/kotlin-multiplatform-mobile-beta-roadmap-update/)道を開きました。
+以前のメモリマネージャーは、`kotlinx.coroutines` ライブラリの実装に関する問題を含め、並行および非同期コードの記述を複雑にしていました。これにより、並行性の制限がiOSとAndroidプラットフォーム間でのKotlinコードの共有に問題を引き起こしたため、Kotlin Multiplatform Mobileの採用が妨げられました。新しいメモリマネージャーは、ついに[Kotlin Multiplatform Mobileをベータ版に昇格させる](https://blog.jetbrains.com/kotlin/2022/05/kotlin-multiplatform-mobile-beta-roadmap-update/)道を開きます。
 
-新しいメモリマネージャはコンパイラキャッシュもサポートしており、コンパイル時間を以前のリリースと同等にしています。新しいメモリマネージャの利点の詳細については、プレビュー版に関する[元のブログ記事](https://blog.jetbrains.com/kotlin/2021/08/try-the-new-kotlin-native-memory-manager-development-preview/)を参照してください。より技術的な詳細は[ドキュメント](native-memory-manager.md)で確認できます。
+新しいメモリマネージャーは、コンパイラーキャッシュもサポートしており、これによりコンパイル時間が以前のリリースと同等になります。新しいメモリマネージャーの利点の詳細については、プレビュー版に関する[オリジナルのブログ投稿](https://blog.jetbrains.com/kotlin/2021/08/try-the-new-kotlin-native-memory-manager-development-preview/)をご覧ください。より詳細な技術情報は[ドキュメント](native-memory-manager.md)で確認できます。
 
 #### 設定とセットアップ
 
-Kotlin 1.7.20 から、新しいメモリマネージャがデフォルトになります。追加の設定はほとんど必要ありません。
+Kotlin 1.7.20より、新しいメモリマネージャーがデフォルトになりました。追加のセットアップはほとんど必要ありません。
 
-すでに手動で有効にしている場合は、`gradle.properties` から `kotlin.native.binary.memoryModel=experimental` オプションを、または `build.gradle(.kts)` ファイルから `binaryOptions["memoryModel"] = "experimental"` を削除できます。
+すでに手動で有効にしている場合は、`gradle.properties` から `kotlin.native.binary.memoryModel=experimental` オプションを削除するか、`build.gradle(.kts)` ファイルから `binaryOptions["memoryModel"] = "experimental"` を削除できます。
 
-必要に応じて、`gradle.properties` で `kotlin.native.binary.memoryModel=strict` オプションを使用して、レガシーメモリマネージャに戻すことができます。ただし、レガシーメモリマネージャではコンパイラキャッシュのサポートが利用できなくなったため、コンパイル時間が悪化する可能性があります。
+必要であれば、`gradle.properties` で `kotlin.native.binary.memoryModel=strict` オプションを使用することで、従来のメモリマネージャーに戻すことができます。ただし、従来のメモリマネージャーではコンパイラーキャッシュのサポートが利用できなくなったため、コンパイル時間が悪化する可能性があります。
 
-#### フリージング
+#### フリーズ
 
-新しいメモリマネージャでは、フリージングは非推奨です。レガシーマネージャ（フリージングがまだ必要な場合）でコードを動作させる必要がある場合を除き、使用しないでください。これは、レガシーメモリマネージャのサポートを維持する必要があるライブラリ作成者や、新しいメモリマネージャで問題が発生した場合にフォールバックを用意したい開発者にとって役立つかもしれません。
+新しいメモリマネージャーでは、フリーズ（freezing）は非推奨になりました。従来のマネージャー（フリーズがまだ必要な場合）でコードを動作させる必要がある場合を除き、使用しないでください。これは、従来のメモリマネージャーのサポートを維持する必要があるライブラリ作者や、新しいメモリマネージャーで問題が発生した場合にフォールバックを用意したい開発者にとって役立つ可能性があります。
 
-そのような場合、新しいメモリマネージャとレガシーメモリマネージャの両方で一時的にコードをサポートできます。非推奨の警告を無視するには、以下のいずれかを実行します。
+そのような場合は、新しいメモリマネージャーと従来のメモリマネージャーの両方でコードを一時的にサポートできます。非推奨の警告を無視するには、以下のいずれかを実行してください。
 
-* 非推奨 API の使用箇所に `@OptIn(FreezingIsDeprecated::class)` をアノテーション付けします。
-* Gradle のすべての Kotlin ソースセットに `languageSettings.optIn("kotlin.native.FreezingIsDeprecated")` を適用します。
-* コンパイラフラグ `-opt-in=kotlin.native.FreezingIsDeprecated` を渡します。
+* 非推奨のAPIの使用箇所に `@OptIn(FreezingIsDeprecated::class)` アノテーションを付与します。
+* GradleのすべてのKotlinソースセットに `languageSettings.optIn("kotlin.native.FreezingIsDeprecated")` を適用します。
+* コンパイラーフラグ `-opt-in=kotlin.native.FreezingIsDeprecated` を渡します。
 
-#### Kotlin の `suspend` 関数を Swift/Objective-C から呼び出す
+#### Swift/Objective-CからKotlinのサスペンド関数を呼び出す
 
-新しいメモリマネージャは、Kotlin の `suspend` 関数を Swift および Objective-C からメインスレッド以外のスレッドで呼び出すことを依然として制限していますが、新しい Gradle オプションでこの制限を解除できます。
+新しいメモリマネージャーは、依然としてKotlinの `suspend` 関数をSwiftおよびObjective-Cからメインスレッド以外のスレッドから呼び出すことを制限しますが、新しいGradleオプションを使用することでこの制限を解除できます。
 
-この制限は、コードが継続を元のスレッドで再開するようにディスパッチするケースがあったため、元々レガシーメモリマネージャで導入されました。このスレッドにサポートされているイベントループがなかった場合、タスクは実行されず、コルーチンは再開されませんでした。
+この制限は元々、コードが継続を元のスレッドで再開するようにディスパッチするケースのため、従来のメモリマネージャーで導入されました。このスレッドがサポートされているイベントループを持っていなかった場合、タスクは実行されず、コルーチンは再開されませんでした。
 
-特定の場合、この制限は不要になりましたが、必要なすべての条件のチェックを簡単に実装することはできません。このため、無効にするオプションを導入しつつ、新しいメモリマネージャに残すことを決定しました。そのためには、以下のオプションを `gradle.properties` に追加します。
+特定のケースでは、この制限はもはや必要ありませんが、必要なすべての条件のチェックを簡単に実装することはできません。このため、私たちは新しいメモリマネージャーでもこの制限を維持しつつ、無効にするオプションを導入することにしました。そのためには、`gradle.properties` に以下のオプションを追加します。
 
 ```none
 kotlin.native.binary.objcExportSuspendFunctionLaunchThreadRestriction=none
 ```
 
-> `kotlinx.coroutines` の `native-mt` バージョン、または同じ「元のスレッドへのディスパッチ」アプローチを持つ他のライブラリを使用している場合は、このオプションを追加しないでください。
+> `kotlinx.coroutines` の `native-mt` バージョン、または「元のスレッドへのディスパッチ」と同じアプローチを持つ他のライブラリを使用している場合は、このオプションを追加しないでください。
 >
 {style="warning"}
 
-Kotlin チームは、このオプションを実装してくれた [Ahmed El-Helw](https://github.com/ahmedre) 氏に深く感謝いたします。
+Kotlinチームは、このオプションの実装に貢献してくれた[Ahmed El-Helw](https://github.com/ahmedre)氏に深く感謝いたします。
 
-#### フィードバックを残す
+#### フィードバック
 
-これは弊社のエコシステムにとって重要な変更です。さらに改善するために、皆様からのフィードバックを高く評価いたします。
+これは私たちのエコシステムにとって重要な変更です。より良いものにするため、皆様からのフィードバックをお待ちしております。
 
-ご自身のプロジェクトで新しいメモリマネージャを試して、[弊社のイシュートラッカー YouTrack でフィードバックを共有](https://youtrack.jetbrains.com/issue/KT-48525)してください。
+ご自身のプロジェクトで新しいメモリマネージャーを試して、[私たちの課題トラッカーであるYouTrackでフィードバックを共有してください](https://youtrack.jetbrains.com/issue/KT-48525)。
 
-### Info.plist ファイルのカスタマイズ
+### `Info.plist` ファイルのカスタマイズ
 
-フレームワークを生成する際、Kotlin/Native コンパイラは情報プロパティリストファイル `Info.plist` を生成します。以前は、その内容をカスタマイズするのが面倒でした。Kotlin 1.7.20 では、以下のプロパティを直接設定できます。
+フレームワークを生成する際、Kotlin/Nativeコンパイラーは情報プロパティリストファイル `Info.plist` を生成します。以前は、その内容をカスタマイズするのは面倒でした。Kotlin 1.7.20では、以下のプロパティを直接設定できます。
 
-| Property                     | Binary option              |
+| プロパティ                     | バイナリオプション              |
 |------------------------------|----------------------------|
 | `CFBundleIdentifier`         | `bundleId`                 |
 | `CFBundleShortVersionString` | `bundleShortVersionString` |
 | `CFBundleVersion`            | `bundleVersion`            |
 
-そのためには、対応するバイナリオプションを使用します。必要なフレームワークに対して、`-Xbinary=$option=$value` コンパイラフラグを渡すか、`binaryOption(option, value)` Gradle DSL を設定します。
+そのためには、対応するバイナリオプションを使用します。`-Xbinary=$option=$value` コンパイラーフラグを渡すか、必要なフレームワークに対して `binaryOption(option, value)` Gradle DSLを設定します。
 
-Kotlin チームは、この機能を実装してくれた Mads Ager 氏に深く感謝いたします。
+Kotlinチームは、この機能の実装に貢献してくれたMads Ager氏に深く感謝いたします。
 
 ## Kotlin/JS
 
-Kotlin/JS は、開発者エクスペリエンスを向上させ、パフォーマンスを向上させるいくつかの機能強化を受けました。
+Kotlin/JSにはいくつかの機能強化が加えられ、開発者エクスペリエンスの向上とパフォーマンスの向上に貢献しています。
 
-* 依存関係のロード効率が改善されたおかげで、増分ビルドとクリーンビルドの両方で Klib 生成が高速化されました。
-* [開発バイナリの増分コンパイル](js-ir-compiler.md#incremental-compilation-for-development-binaries)が再設計され、クリーンビルドシナリオでの大幅な改善、より高速な増分ビルド、および安定性の修正がもたらされました。
-* ネストされたオブジェクト、sealed クラス、およびコンストラクタのオプションパラメータに対する `.d.ts` 生成を改善しました。
+* Klibの生成が、依存関係のロード効率が向上したおかげで、インクリメンタルビルドとクリーンビルドの両方で高速化されました。
+* [開発バイナリのインクリメンタルコンパイル](js-ir-compiler.md#incremental-compilation-for-development-binaries)が再構築され、クリーンビルドシナリオでの大幅な改善、インクリメンタルビルドの高速化、および安定性の修正がもたらされました。
+* ネストされたオブジェクト、シールクラス、およびコンストラクター内のデフォルト値を持つパラメーター向けに、`.d.ts` の生成を改善しました。
 
 ## Gradle
 
-Kotlin Gradle プラグインの更新は、新しい Gradle 機能および最新の Gradle バージョンとの互換性に重点を置いています。
+Kotlin Gradleプラグインのアップデートは、新しいGradle機能と最新のGradleバージョンとの互換性に焦点を当てています。
 
-Kotlin 1.7.20 には、Gradle 7.1 をサポートするための変更が含まれています。非推奨のメソッドとプロパティが削除または置き換えられ、Kotlin Gradle プラグインによって生成される非推奨の警告の数を減らし、Gradle 8.0 の将来のサポートを妨げないようにしました。
+Kotlin 1.7.20には、Gradle 7.1をサポートするための変更が含まれています。非推奨のメソッドとプロパティは削除または置き換えられ、Kotlin Gradleプラグインによって生成される非推奨警告の数を減らし、Gradle 8.0の将来的なサポートを妨げていた要因を取り除きました。
 
 ただし、注意が必要な破壊的変更がいくつかあります。
 
 ### ターゲット構成
 
-* `org.jetbrains.kotlin.gradle.dsl.SingleTargetExtension` は現在、ジェネリックパラメータ `SingleTargetExtension<T : KotlinTarget>` を持ちます。
+* `org.jetbrains.kotlin.gradle.dsl.SingleTargetExtension` は、ジェネリックなパラメーター `SingleTargetExtension<T : KotlinTarget>` を持つようになりました。
 * `kotlin.targets.fromPreset()` 規約は非推奨になりました。代わりに、引き続き `kotlin.targets { fromPreset() }` を使用できますが、[ターゲットを明示的に設定する](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-discover-project.html#targets)ことをお勧めします。
-* Gradle によって自動生成されるターゲットアクセサは、`kotlin.targets { }` ブロック内では利用できなくなりました。代わりに `findByName("targetName")` メソッドを使用してください。
+* Gradleによって自動生成されるターゲットアクセサーは、`kotlin.targets { }` ブロック内では利用できなくなりました。代わりに `findByName("targetName")` メソッドを使用してください。
 
-  なお、`kotlin.targets` の場合、例えば `kotlin.targets.linuxX64` のようなアクセサは引き続き利用可能です。
+  ただし、`kotlin.targets` の場合、例えば `kotlin.targets.linuxX64` のように、これらのアクセサーは引き続き利用できます。
 
 ### ソースディレクトリ構成
 
-Kotlin Gradle プラグインは、Kotlin `SourceDirectorySet` を Java の `SourceSet` グループに `kotlin` 拡張として追加するようになりました。これにより、[Java、Groovy、Scala](https://docs.gradle.org/7.1/release-notes.html#easier-source-set-configuration-in-kotlin-dsl)で設定されるのと同様に、`build.gradle.kts` ファイルでソースディレクトリを設定することが可能になります。
+Kotlin Gradleプラグインは、Kotlin `SourceDirectorySet` をJavaの `SourceSet` グループへの `kotlin` 拡張として追加するようになりました。これにより、`build.gradle.kts` ファイルでソースディレクトリを、[Java、Groovy、Scala](https://docs.gradle.org/7.1/release-notes.html#easier-source-set-configuration-in-kotlin-dsl)で設定されるのと同様に設定できるようになります。
 
 ```kotlin
 sourceSets {
     main {
-        java.setSrcDirs(listOf("src/java"))
-        kotlin.setSrcDirs(listOf("src/kotlin"))
+        kotlin {
+            java.setSrcDirs(listOf("src/java"))
+            kotlin.setSrcDirs(listOf("src/kotlin"))
+        }
     }
 }
 ```
 
-非推奨の Gradle 規約を使用したり、Kotlin のソースディレクトリを指定したりする必要がなくなりました。
+非推奨のGradle規約を使用する必要がなくなり、Kotlinのソースディレクトリを指定する必要がなくなりました。
 
 `kotlin` 拡張を使用して `KotlinSourceSet` にアクセスすることもできます。
 
@@ -531,9 +532,9 @@ kotlin {
 }
 ```
 
-### JVM ツールチェイン設定のための新しいメソッド
+### JVMツールチェーン構成の新しいメソッド
 
-このリリースでは、[JVM ツールチェイン機能](gradle-configure-project.md#gradle-java-toolchains-support)を有効にするための新しい `jvmToolchain()` メソッドが提供されます。`implementation` や `vendor` などの追加の[設定フィールド](https://docs.gradle.org/current/javadoc/org/gradle/jvm/toolchain/JavaToolchainSpec.html)が不要な場合は、Kotlin 拡張からこのメソッドを使用できます。
+本リリースでは、[JVMツールチェーン機能](gradle-configure-project.md#gradle-java-toolchains-support)を有効にするための新しい `jvmToolchain()` メソッドが提供されます。`implementation` や `vendor` などの追加の[設定フィールド](https://docs.gradle.org/current/javadoc/org/gradle/jvm/toolchain/JavaToolchainSpec.html)が不要な場合は、Kotlin拡張からこのメソッドを使用できます。
 
 ```kotlin
 kotlin {
@@ -541,7 +542,8 @@ kotlin {
 }
 ```
 
-これにより、Kotlin プロジェクトのセットアッププロセスが追加設定なしで簡素化されます。このリリース以前は、JDK バージョンを以下の方法でのみ指定できました。
+これにより、Kotlinプロジェクトのセットアッププロセスが簡素化され、追加の設定が不要になります。
+本リリース以前は、JDKバージョンは以下の方法でのみ指定できました。
 
 ```kotlin
 kotlin {
@@ -553,59 +555,59 @@ kotlin {
 
 ## 標準ライブラリ
 
-Kotlin 1.7.20 では、`java.nio.file.Path` クラスに新しい[拡張関数](extensions.md#extension-functions)が提供され、ファイルツリーを走査できるようになりました。
+Kotlin 1.7.20では、`java.nio.file.Path` クラス向けに新しい[拡張関数](extensions.md#extension-functions)を提供します。これによりファイルツリーを走査できます。
 
 * `walk()` は、指定されたパスをルートとするファイルツリーを遅延的に走査します。
 * `fileVisitor()` は、`FileVisitor` を個別に作成することを可能にします。`FileVisitor` は、ディレクトリとファイルを走査する際のアクションを定義します。
-* `visitFileTree(fileVisitor: FileVisitor, ...)` は、準備された `FileVisitor` を消費し、内部で `java.nio.file.Files.walkFileTree()` を使用します。
-* `visitFileTree(..., builderAction: FileVisitorBuilder.() -> Unit)` は、`builderAction` で `FileVisitor` を作成し、`visitFileTree(fileVisitor, ...)` 関数を呼び出します。
-* `FileVisitor` の戻り値の型である `FileVisitResult` は、ファイルの処理を継続する `CONTINUE` のデフォルト値を持ちます。
+* `visitFileTree(fileVisitor: FileVisitor, ...)` は、準備された `FileVisitor` を受け取り、内部で `java.nio.file.Files.walkFileTree()` を使用します。
+* `visitFileTree(..., builderAction: FileVisitorBuilder.() -> Unit)` は、`builderAction` を使用して `FileVisitor` を作成し、`visitFileTree(fileVisitor, ...)` 関数を呼び出します。
+* `FileVisitor` の戻り値の型である `FileVisitResult` は、`CONTINUE` というデフォルト値を持っています。これはファイルの処理を続行します。
 
-> `java.nio.file.Path` の新しい拡張関数は[Experimental](components-stability.md)です。
+> `java.nio.file.Path` の新しい拡張関数は[実験的](components-stability.md)です。
 > いつでも変更される可能性があります。オプトインが必要です（詳細は下記参照）。評価目的でのみ使用してください。
 >
 {style="warning"}
 
-これらの新しい拡張関数でできることの例をいくつか示します。
+これらの新しい拡張関数でできることの例を次に示します。
 
-* 明示的に `FileVisitor` を作成し、それから使用する：
+* `FileVisitor` を明示的に作成して使用する:
 
   ```kotlin
   val cleanVisitor = fileVisitor {
       onPreVisitDirectory { directory, attributes ->
-          // ディレクトリを訪問する際のロジック
+          // ディレクトリ訪問時のロジック
           FileVisitResult.CONTINUE
       }
   
       onVisitFile { file, attributes ->
-          // ファイルを訪問する際のロジック
+          // ファイル訪問時のロジック
           FileVisitResult.CONTINUE
       }
   }
   
-  // ロジックをここに追加できます
+  // ここにロジックが入る場合があります
   
   projectDirectory.visitFileTree(cleanVisitor)
   ```
 
-* `builderAction` で `FileVisitor` を作成し、すぐに使用する：
+* `builderAction` を使用して `FileVisitor` を作成し、すぐに使用する:
 
   ```kotlin
   projectDirectory.visitFileTree {
-  // builderAction の定義:
+  // builderActionの定義:
       onPreVisitDirectory { directory, attributes ->
-          // ディレクトリを訪問する際のロジック
+          // ディレクトリ訪問時のロジック
           FileVisitResult.CONTINUE
       }
   
       onVisitFile { file, attributes ->
-          // ファイルを訪問する際のロジック
+          // ファイル訪問時のロジック
           FileVisitResult.CONTINUE
       }
   }
   ```
 
-* `walk()` 関数を使用して、指定されたパスをルートとするファイルツリーを走査する：
+* `walk()` 関数を使用して、指定されたパスをルートとするファイルツリーを走査する:
 
   ```kotlin
   @OptIn(kotlin.io.path.ExperimentalPathApi::class)
@@ -642,7 +644,7 @@ Kotlin 1.7.20 では、`java.nio.file.Path` クラスに新しい[拡張関数](
       }
   
    
-  // walk 関数を使用します:
+  // walk関数を使用:
       val directoryStructure = rootDirectory.walk(PathWalkOption.INCLUDE_DIRECTORIES)
           .map { it.relativeTo(rootDirectory).toString() }
           .toList().sorted()
@@ -658,47 +660,47 @@ Kotlin 1.7.20 では、`java.nio.file.Path` クラスに新しい[拡張関数](
   }
   ```
 
-実験的な API と同様に、新しい拡張機能にはオプトインが必要です：`@OptIn(kotlin.io.path.ExperimentalPathApi::class)` または `@kotlin.io.path.ExperimentalPathApi`。または、コンパイラオプション `-opt-in=kotlin.io.path.ExperimentalPathApi` を使用することもできます。
+実験的なAPIとしては通常通り、新しい拡張機能には `@OptIn(kotlin.io.path.ExperimentalPathApi::class)` または `@kotlin.io.path.ExperimentalPathApi` のようにオプトインが必要です。または、`-opt-in=kotlin.io.path.ExperimentalPathApi` コンパイラーオプションを使用できます。
 
-[YouTrack](https://youtrack.jetbrains.com/issue/KT-52909)での[`walk()`関数](https://youtrack.jetbrains.com/issue/KT-52909)および[訪問拡張関数](https://youtrack.jetbrains.com/issue/KT-52910)に関するフィードバックを高く評価いたします。
+[`walk()` 関数](https://youtrack.jetbrains.com/issue/KT-52909)および[訪問拡張関数](https://youtrack.jetbrains.com/issue/KT-52910)に関するフィードバックをYouTrackでいただけると幸いです。
 
 ## ドキュメントの更新
 
-前回のリリース以降、Kotlin ドキュメントにはいくつかの注目すべき変更が加えられました。
+以前のリリース以降、Kotlinドキュメントにはいくつかの注目すべき変更が加えられました。
 
 ### 改訂および改善されたページ
 
-* [基本型概要](basic-types.md) – Kotlin で使用される基本型（数値、ブール、文字、文字列、配列、符号なし整数）について学習します。
-* [Kotlin 開発用 IDE](kotlin-ide.md) – 公式の Kotlin サポートがある IDE と、コミュニティがサポートするプラグインがあるツールのリストを参照してください。
+* [基本型概要](basic-types.md) – Kotlinで使用される基本型（数値、ブール値、文字、文字列、配列、符号なし整数）について学習します。
+* [Kotlin開発用IDE](kotlin-ide.md) – 公式のKotlinサポートを持つIDEと、コミュニティがサポートするプラグインを持つツールのリストを確認してください。
 
-### Kotlin Multiplatform journal の新しい記事
+### Kotlin Multiplatformジャーナルの新しい記事
 
-* [ネイティブとクロスプラットフォームアプリ開発: どちらを選ぶべきか？](https://www.jetbrains.com/help/kotlin-multiplatform-dev/native-and-cross-platform.html) – クロスプラットフォームアプリ開発とネイティブアプローチの概要と利点をご覧ください。
-* [最高のクロスプラットフォームアプリ開発フレームワーク6選](https://www.jetbrains.com/help/kotlin-multiplatform-dev/cross-platform-frameworks.html) – クロスプラットフォームプロジェクトに適切なフレームワークを選択するための主要な側面についてお読みください。
+* [ネイティブおよびクロスプラットフォームアプリ開発: 選択方法](https://www.jetbrains.com/help/kotlin-multiplatform-dev/native-and-cross-platform.html) – クロスプラットフォームアプリ開発とネイティブアプローチの概要と利点をご覧ください。
+* [最高のクロスプラットフォームアプリ開発フレームワーク6選](https://www.jetbrains.com/help/kotlin-multiplatform-dev/cross-platform-frameworks.html) – クロスプラットフォームプロジェクトに適切なフレームワークを選択するのに役立つ主要な側面についてお読みください。
 
 ### 新規および更新されたチュートリアル
 
-* [Kotlin Multiplatform を始める](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-create-first-app.html) – Kotlin によるクロスプラットフォームモバイル開発について学び、Android と iOS の両方で動作するアプリを作成します。
-* [React と Kotlin/JS でウェブアプリケーションを構築する](js-react.md) – Kotlin の DSL と典型的な React プログラムの機能を探索して、ブラウザアプリを作成します。
+* [Kotlin Multiplatformを始める](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-create-first-app.html) – Kotlinでのクロスプラットフォームモバイル開発について学び、AndroidとiOSの両方で動作するアプリを作成します。
+* [ReactとKotlin/JSでWebアプリケーションを構築する](js-react.md) – KotlinのDSLと典型的なReactプログラムの機能を活用してブラウザアプリを作成します。
 
 ### リリースドキュメントの変更点
 
-各リリースで推奨される kotlinx ライブラリのリストは提供されなくなりました。このリストには、Kotlin 自体で推奨されテストされたバージョンのみが含まれていました。一部のライブラリが相互に依存しており、推奨される Kotlin バージョンとは異なる特別な kotlinx バージョンを必要とすることが考慮されていませんでした。
+各リリースにおいて、推奨されるkotlinxライブラリのリストは提供されなくなりました。このリストには、Kotlin自体で推奨され、テストされたバージョンのみが含まれていました。一部のライブラリが互いに依存しており、推奨されるKotlinバージョンと異なる特別なkotlinxバージョンを必要とすることが考慮されていませんでした。
 
-プロジェクトで Kotlin バージョンをアップグレードする際に、どの kotlinx ライブラリバージョンを使用すべきかを明確にするために、ライブラリがどのように相互に関連し、依存しているかに関する情報を提供する方法を検討しています。
+私たちは、ライブラリがどのように相互に関連し、互いに依存しているかについて情報を提供する方法を模索しており、プロジェクトのKotlinバージョンをアップグレードする際にどのkotlinxライブラリバージョンを使用すべきかが明確になるように取り組んでいます。
 
-## Kotlin 1.7.20 のインストール
+## Kotlin 1.7.20のインストール
 
-[IntelliJ IDEA](https://www.jetbrains.com/idea/download/) 2021.3、2022.1、2022.2 は、Kotlin プラグインを 1.7.20 に自動的に更新することを提案します。
+[IntelliJ IDEA](https://www.jetbrains.com/idea/download/) 2021.3、2022.1、および 2022.2は、Kotlinプラグインを1.7.20に自動的に更新することを提案します。
 
-> Android Studio Dolphin (213)、Electric Eel (221)、Flamingo (222) の場合、Kotlin プラグイン 1.7.20 は今後の Android Studio の更新で提供されます。
+> Android Studio Dolphin (213)、Electric Eel (221)、および Flamingo (222)の場合、Kotlinプラグイン1.7.20は、今後のAndroid Studioのアップデートとともに提供されます。
 >
 {style="note"}
 
-新しいコマンドラインコンパイラは、[GitHub リリースぺージ](https://github.com/JetBrains/kotlin/releases/tag/v1.7.20)からダウンロードできます。
+新しいコマンドラインコンパイラーは、[GitHubリリースページ](https://github.com/JetBrains/kotlin/releases/tag/v1.7.20)からダウンロードできます。
 
-### Kotlin 1.7.20 の互換性ガイド
+### Kotlin 1.7.20の互換性ガイド
 
-Kotlin 1.7.20 は増分リリースですが、Kotlin 1.7.0 で導入された問題の広がりを制限するために、互換性のない変更を加えざるを得ませんでした。
+Kotlin 1.7.20はインクリメンタルリリースですが、Kotlin 1.7.0で導入された問題の広がりを制限するために、互換性のない変更がまだあります。
 
-これらの変更点の詳細なリストは、[Kotlin 1.7.20 の互換性ガイド](compatibility-guide-1720.md)で確認できます。
+これらの変更の詳細なリストは、[Kotlin 1.7.20 の互換性ガイド](compatibility-guide-1720.md)で確認できます。

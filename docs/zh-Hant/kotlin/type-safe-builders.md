@@ -1,8 +1,8 @@
-[//]: # (title: 型別安全建構器)
+[//]: # (title: 類型安全建構器)
 
-透過將命名良好的函式作為建構器，並結合[帶有接收者的函式文字](lambdas.md#function-literals-with-receiver)使用，可以在 Kotlin 中建立型別安全、靜態型別的建構器。
+透過將命名良好的函式作為建構器，並結合 [帶接收者的函式字面值](lambdas.md#function-literals-with-receiver)，可以在 Kotlin 中建立類型安全、靜態型別的建構器。
 
-型別安全建構器允許建立基於 Kotlin 的領域特定語言 (DSLs)，以半宣告式的方式建構複雜的階層式資料結構。建構器的範例使用案例包括：
+類型安全建構器允許建立基於 Kotlin 的領域特定語言 (DSLs)，適用於以半宣告式方式建構複雜的階層式資料結構。建構器的範例使用案例包括：
 
 *   使用 Kotlin 程式碼產生標記，例如 [HTML](https://github.com/Kotlin/kotlinx.html) 或 XML
 *   為網頁伺服器設定路由：[Ktor](https://ktor.io/docs/routing.html)
@@ -44,17 +44,17 @@ fun result() =
 ```
 
 這是完全合法的 Kotlin 程式碼。
-您可以在這裡[線上試用此程式碼 (修改並在瀏覽器中執行)](https://play.kotlinlang.org/byExample/09_Kotlin_JS/06_HtmlBuilder)。
+您可以在[線上試用此程式碼 (修改並在瀏覽器中執行)](https://play.kotlinlang.org/byExample/09_Kotlin_JS/06_HtmlBuilder)。
 
-## 運作原理
+## 運作方式
 
-假設您需要在 Kotlin 中實作一個型別安全建構器。
-首先，定義您想要建構的模型。在這個案例中，您需要為 HTML 標籤建模。
-這可以透過一系列類別輕鬆完成。
-例如，`HTML` 是一個描述 `<html>` 標籤的類別，它定義了 `<head>` 和 `<body>` 等子元素。
-(參閱下方[完整的 `com.example.html` 套件定義](#full-definition-of-the-com-example-html-package)。)
+假設您需要在 Kotlin 中實作一個類型安全建構器。
+首先，定義您要建構的模型。在此案例中，您需要為 HTML 標籤建模。
+這透過一些類別就能輕鬆完成。
+例如，`HTML` 是一個描述 `<html>` 標籤的類別，該標籤定義了 `<head>` 和 `<body>` 等子元素。
+(請參閱其宣告 [下方](#full-definition-of-the-com-example-html-package)。)
 
-現在，讓我們回顧一下為什麼您可以在程式碼中這樣寫：
+現在，讓我們回想一下為什麼您可以在程式碼中這樣寫：
 
 ```kotlin
 html {
@@ -62,8 +62,8 @@ html {
 }
 ```
 
-`html` 實際上是一個函式呼叫，它接受一個 [Lambda 表達式](lambdas.md)作為參數。
-這個函式定義如下：
+`html` 實際上是一個函式呼叫，它將一個 [lambda 運算式](lambdas.md) 作為引數。
+此函式定義如下：
 
 ```kotlin
 fun html(init: HTML.() -> Unit): HTML {
@@ -73,12 +73,12 @@ fun html(init: HTML.() -> Unit): HTML {
 }
 ```
 
-這個函式接受一個名為 `init` 的參數，它本身就是一個函式。
-該函式的型別是 `HTML.() -> Unit`，這是一個 *帶有接收者的函式型別*。
-這意味著您需要將一個 `HTML` 型別的實例 (一個 *接收者*) 傳遞給該函式，
-然後您可以在函式內部呼叫該實例的成員。
+此函式接受一個名為 `init` 的參數，該參數本身就是一個函式。
+該函式的類型是 `HTML.() -> Unit`，這是一種 *帶接收者的函式類型*。
+這表示您需要將一個 `HTML` 類型的實例（一個 *接收者*）傳遞給該函式，
+並且您可以在函式內部呼叫該實例的成員。
 
-接收者可以透過 `this` 關鍵字存取：
+接收者可以透過 `this` 關鍵字來存取：
 
 ```kotlin
 html {
@@ -89,7 +89,7 @@ html {
 
 (`head` 和 `body` 是 `HTML` 的成員函式。)
 
-現在，`this` 可以像往常一樣被省略，您就會得到一個看起來非常像建構器的東西：
+現在，`this` 可以像往常一樣省略，您會得到一個看起來已經非常像建構器的東西：
 
 ```kotlin
 html {
@@ -98,13 +98,11 @@ html {
 }
 ```
 
-那麼，這個呼叫做了什麼？讓我們看看上面定義的 `html` 函式的本體。
-它建立一個 `HTML` 的新實例，然後透過呼叫作為參數傳入的函式來初始化它
-(在這個範例中，這歸結為在 `HTML` 實例上呼叫 `head` 和 `body`)，然後它返回此實例。
-這正是建構器應有的行為。
+那麼，這個呼叫做了什麼？讓我們看看上面定義的 `html` 函式的主體。
+它建立一個 `HTML` 的新實例，然後透過呼叫作為引數傳遞的函式來初始化它（在此範例中，這歸結為在 `HTML` 實例上呼叫 `head` 和 `body`），然後返回此實例。這正是建構器應該做的事情。
 
-`HTML` 類別中的 `head` 和 `body` 函式以類似於 `html` 的方式定義。
-唯一的區別是它們將建立的實例加入到外部 `HTML` 實例的 `children` 集合中：
+`HTML` 類別中的 `head` 和 `body` 函式定義方式與 `html` 類似。
+唯一的區別是它們將建構的實例新增到封閉 `HTML` 實例的 `children` 集合中：
 
 ```kotlin
 fun head(init: Head.() -> Unit): Head {
@@ -122,7 +120,7 @@ fun body(init: Body.() -> Unit): Body {
 }
 ```
 
-實際上，這兩個函式做的事情完全相同，因此您可以擁有一個泛型版本 `initTag`：
+實際上這兩個函式做著相同的事情，因此您可以有一個泛型版本，`initTag`：
 
 ```kotlin
 protected fun <T : Element> initTag(tag: T, init: T.() -> Unit): T {
@@ -140,9 +138,9 @@ fun head(init: Head.() -> Unit) = initTag(Head(), init)
 fun body(init: Body.() -> Unit) = initTag(Body(), init)
 ```
 
-您可以使用它們來建立 `<head>` 和 `<body>` 標籤。
+您可以使用它們來建構 `<head>` 和 `<body>` 標籤。
 
-這裡要討論的另一件事是如何將文字加入標籤本體。在上面的範例中，您會這樣寫：
+這裡要討論的另一件事是如何向標籤主體新增文字。在上面的範例中，您會寫類似這樣的程式碼：
 
 ```kotlin
 html {
@@ -153,9 +151,8 @@ html {
 }
 ```
 
-所以基本上，您只是將一個字串放在標籤本體內部，但在它前面有一個小小的 `+`，
-因此它是一個函式呼叫，呼叫一個前綴 `unaryPlus()` 運算子操作。
-該操作實際上是由一個擴充函式 `unaryPlus()` 定義的，它是 `TagWithText` 抽象類別 ( `Title` 的父類別) 的成員：
+所以基本上，您只是將一個字串放入標籤主體中，但在它前面有一個小小的 `+`，所以它是一個呼叫前綴 `unaryPlus()` 運算子的函式呼叫。
+該運算實際上是由一個擴展函式 `unaryPlus()` 定義的，該函式是 `TagWithText` 抽象類別（`Title` 的父類別）的成員：
 
 ```kotlin
 operator fun String.unaryPlus() {
@@ -163,17 +160,15 @@ operator fun String.unaryPlus() {
 }
 ```
 
-因此，這裡的前綴 `+` 所做的是將字串包裝成 `TextElement` 的實例並將其加入 `children` 集合中，
-使其成為標籤樹的適當部分。
+因此，這裡的前綴 `+` 所做的就是將一個字串包裝成 `TextElement` 的實例並將其新增到 `children` 集合中，使其成為標籤樹的一個適當部分。
 
-所有這些都定義在 `com.example.html` 套件中，該套件已在上方建構器範例的頂部匯入。
+所有這些都定義在 `com.example.html` 套件中，該套件在上面建構器範例的頂部被匯入。
 在最後一節中，您可以閱讀此套件的完整定義。
 
 ## 作用域控制：@DslMarker
 
-在使用 DSL 時，可能會遇到在上下文中呼叫過多函式的問題。
-您可以在 Lambda 內部呼叫每個可用的隱式接收者的成員方法，從而得到不一致的結果，
-例如在另一個 `head` 內部有一個 `head` 標籤：
+使用 DSLs 時，可能會遇到在特定上下文中可以呼叫過多函式的問題。
+您可以在 lambda 內部呼叫每個可用的隱式接收者的成員，從而得到不一致的結果，例如在另一個 `head` 內部出現 `head` 標籤：
 
 ```kotlin
 html {
@@ -184,29 +179,29 @@ html {
 }
 ```
 
-在這個範例中，只能存取最近的隱式接收者 `this@head` 的成員；`head()` 是外部接收者 `this@html` 的成員，因此呼叫它應該是非法的。
+在此範例中，只有最近的隱式接收者 `this@head` 的成員必須可用；`head()` 是外部接收者 `this@html` 的成員，因此呼叫它必須是非法的。
 
 為了解決這個問題，有一個特殊的機制來控制接收者作用域。
 
-為了讓編譯器開始控制作用域，您只需要使用相同的標記註解來註解 DSL 中使用的所有接收者的型別。
-例如，對於 HTML 建構器，您可以宣告一個註解 `@HTMLTagMarker`：
+要讓編譯器開始控制作用域，您只需要使用相同的標記註解來註解 DSL 中使用的所有接收者的類型。
+例如，對於 HTML 建構器，您宣告一個註解 `@HTMLTagMarker`：
 
 ```kotlin
 @DslMarker
 annotation class HtmlTagMarker
 ```
 
-如果一個註解類別被 `@DslMarker` 註解註解，則稱其為 DSL 標記。
+如果一個註解類別使用 `@DslMarker` 註解進行註解，則稱其為 DSL 標記。
 
-在我們的 DSL 中，所有的標籤類別都繼承自同一個父類別 `Tag`。
-只需要註解父類別 `Tag` 加上 `@HtmlTagMarker`，之後 Kotlin 編譯器就會將所有繼承的類別視為已註解：
+在我們的 DSL 中，所有標籤類別都擴展了相同的父類別 `Tag`。
+只需使用 `@HtmlTagMarker` 註解父類別就足夠了，之後 Kotlin 編譯器會將所有繼承的類別視為已註解：
 
 ```kotlin
 @HtmlTagMarker
 abstract class Tag(val name: String) { ... }
 ```
 
-您不需要註解 `HTML` 或 `Head` 類別加上 `@HtmlTagMarker`，因為它們的父類別已經被註解：
+您不必使用 `@HtmlTagMarker` 註解 `HTML` 或 `Head` 類別，因為它們的父類別已經被註解了：
 
 ```kotlin
 class HTML() : Tag("html") { ... }
@@ -214,7 +209,7 @@ class HTML() : Tag("html") { ... }
 class Head() : Tag("head") { ... }
 ```
 
-加入此註解後，Kotlin 編譯器就知道哪些隱式接收者屬於同一個 DSL，並只允許呼叫最近接收者的成員：
+新增此註解後，Kotlin 編譯器會知道哪些隱式接收者是同一 DSL 的一部分，並且只允許呼叫最近接收者的成員：
 
 ```kotlin
 html {
@@ -225,7 +220,7 @@ html {
 }
 ```
 
-請注意，仍然可以呼叫外部接收者的成員，但為此您必須明確指定此接收者：
+請注意，仍然可以呼叫外部接收者的成員，但為此您必須明確指定該接收者：
 
 ```kotlin
 html {
@@ -236,8 +231,8 @@ html {
 }
 ```
 
-您也可以將 `@DslMarker` 註解直接應用於[函式型別](lambdas.md#function-types)。
-只需使用 `@Target(AnnotationTarget.TYPE)` 註解 `@DslMarker` 註解本身：
+您也可以將 `@DslMarker` 註解直接應用於 [函式類型](lambdas.md#function-types)。
+只需使用 `@Target(AnnotationTarget.TYPE)` 註解 `@DslMarker` 註解：
 
 ```kotlin
 @Target(AnnotationTarget.TYPE)
@@ -245,7 +240,7 @@ html {
 annotation class HtmlTagMarker
 ```
 
-結果，`@DslMarker` 註解可以應用於函式型別，最常見的是應用於帶有接收者的 Lambda。例如：
+因此，`@DslMarker` 註解可以應用於函式類型，最常見的是帶接收者的 lambda 運算式。例如：
 
 ```kotlin
 fun html(init: @HtmlTagMarker HTML.() -> Unit): HTML { ... }
@@ -255,7 +250,7 @@ fun HTML.head(init: @HtmlTagMarker Head.() -> Unit): Head { ... }
 fun Head.title(init: @HtmlTagMarker Title.() -> Unit): Title { ... }
 ```
 
-當您呼叫這些函式時，`@DslMarker` 註解會限制對標記的 Lambda 本體中外部接收者的存取，除非您明確指定它們：
+當您呼叫這些函式時，`@DslMarker` 註解會限制對標記有它的 lambda 主體中外部接收者的存取，除非您明確指定它們：
 
 ```kotlin
 html {
@@ -267,12 +262,12 @@ html {
 }
 ```
 
-只有最近接收者的成員和擴充可以在 Lambda 內部存取，從而防止巢狀作用域之間發生意外互動。
+在 lambda 中只能存取最近接收者的成員和擴展，防止了巢狀作用域之間意外的互動。
 
 ### `com.example.html` 套件的完整定義
 
-`com.example.html` 套件的定義如下 (僅包含上面範例中使用的元素)。
-它建立一個 HTML 樹。它大量使用了[擴充函式](extensions.md)和[帶有接收者的 Lambda](lambdas.md#function-literals-with-receiver)。
+這就是 `com.example.html` 套件的定義方式（僅包含上面範例中使用的元素）。
+它建構一個 HTML 樹。它大量使用了 [擴展函式](extensions.md) 和 [帶接收者的 lambda 運算式](lambdas.md#function-literals-with-receiver)。
 
 ```kotlin
 package com.example.html

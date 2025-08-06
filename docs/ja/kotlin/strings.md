@@ -2,7 +2,7 @@
 
 Kotlinの文字列は、[`String`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/)型で表現されます。
 
-> JVM上では、UTF-16エンコーディングの`String`型オブジェクトは1文字あたり約2バイトを使用します。
+> JVM上では、UTF-16エンコーディングの`String`型オブジェクトは、1文字あたり約2バイトを使用します。
 >
 {style="note"}
 
@@ -12,12 +12,12 @@ Kotlinの文字列は、[`String`](https://kotlinlang.org/api/latest/jvm/stdlib/
 val str = "abcd 123"
 ```
 
-文字列の要素は、インデックス操作 `s[i]` でアクセスできる文字です。
-`for`ループを使ってこれらの文字を反復処理できます。
+文字列の要素は、インデックス操作 `s[i]` を介してアクセスできる文字です。
+`for`ループを使用してこれらの文字を反復処理できます。
 
 ```kotlin
 fun main() {
-    val str = "abcd"
+    val str = "abcd" 
 //sampleStart
     for (c in str) {
         println(c)
@@ -27,8 +27,8 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-文字列はイミュータブル（不変）です。一度文字列を初期化すると、その値を変更したり、新しい値を代入したりすることはできません。
-文字列を変換するすべての操作は、結果を新しい`String`オブジェクトとして返し、元の文字列は変更されません。
+文字列は不変（immutable）です。一度文字列を初期化すると、その値を変更したり、新しい値を代入したりすることはできません。
+文字列を変換するすべての操作は、新しい`String`オブジェクトとして結果を返し、元の文字列は変更されません。
 
 ```kotlin
 fun main() {
@@ -39,15 +39,16 @@ fun main() {
     println(str.uppercase())
     // ABCD
    
-    // 元の文字列は変更されません
-    println(str)
+    // 元の文字列は同じままです
+    println(str) 
     // abcd
 //sampleEnd
 }
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-文字列を連結するには、`+`演算子を使用します。これは、式内の最初の要素が文字列である限り、他の型の値との文字列連結にも機能します。
+文字列を連結するには、`+`演算子を使用します。これは、式内の最初の要素が文字列である限り、
+他の型の値との文字列連結にも機能します。
 
 ```kotlin
 fun main() {
@@ -73,7 +74,7 @@ Kotlinには2種類の文字列リテラルがあります。
 
 ### エスケープ文字列
 
-_エスケープ文字列_ は、エスケープ文字を含めることができます。
+_エスケープ文字列_は、エスケープ文字を含むことができます。
 エスケープ文字列の例を次に示します。
 
 ```kotlin
@@ -81,13 +82,13 @@ val s = "Hello, world!
 "
 ```
 
-エスケープは、バックスラッシュ (`\`) を使用して慣例的な方法で行われます。
-サポートされているエスケープシーケンスのリストについては、[Characters](characters.md)ページを参照してください。
+エスケープは、バックスラッシュ (`\`) を使用する従来の方法で行われます。
+サポートされているエスケープシーケンスのリストについては、[文字](characters.md)のページを参照してください。
 
 ### 複数行文字列
 
-_複数行文字列_ は改行と任意のテキストを含めることができます。トリプルクォート (`"""`) で区切られ、
-エスケープは不要で、改行やその他の任意の文字を含めることができます。
+_複数行文字列_は、改行や任意のテキストを含むことができます。三重引用符 (`"""`) で区切られ、
+エスケープを含まず、改行やその他の文字を含むことができます。
 
 ```kotlin
 val text = """
@@ -96,7 +97,7 @@ val text = """
     """
 ```
 
-複数行文字列の行頭の空白を削除するには、[`trimMargin()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/trim-margin.html) 関数を使用します。
+複数行文字列の先頭の空白を削除するには、[`trimMargin()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/trim-margin.html)関数を使用します。
 
 ```kotlin
 val text = """
@@ -107,22 +108,25 @@ val text = """
     """.trimMargin()
 ```
 
-デフォルトでは、パイプ記号 `|` がマージンプレフィックスとして使用されますが、別の文字を選択して、`trimMargin(">")`のようにパラメーターとして渡すこともできます。
+デフォルトでは、パイプ記号 `|` がマージンプレフィックスとして使用されますが、`trimMargin(">")` のように別の文字を選択してパラメーターとして渡すこともできます。
 
 ## 文字列テンプレート
 
-文字列リテラルには、_テンプレート式_ を含めることができます。これは評価され、その結果が文字列に連結されるコードの断片です。
-テンプレート式が処理されると、Kotlinは式の結果に対して自動的に`.toString()`関数を呼び出し、文字列に変換します。テンプレート式はドル記号 (`$`) で始まり、変数名
+文字列リテラルには、_テンプレート式_を含めることができます。これは、評価され、その結果が文字列に連結されるコードの一部です。
+テンプレート式が処理されるとき、Kotlinは式の結果を文字列に変換するために自動的に`.toString()`関数を呼び出します。
+テンプレート式はドル記号 (`$`) で始まり、以下のいずれかで構成されます。
+
+変数名:
 
 ```kotlin
 fun main() {
 //sampleStart
     val i = 10
-    println("i = $i")
+    println("i = $i") 
     // i = 10
     
     val letters = listOf("a","b","c","d","e")
-    println("Letters: $letters")
+    println("Letters: $letters") 
     // Letters: [a, b, c, d, e]
 
 //sampleEnd
@@ -130,54 +134,45 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-または中括弧の式で構成されます。
+または、中括弧内の式:
 
 ```kotlin
 fun main() {
 //sampleStart
     val s = "abc"
-    println("$s.length is ${s.length}")
+    println("$s.length is ${s.length}") 
     // abc.length is 3
 //sampleEnd
 }
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-テンプレートは複数行文字列とエスケープ文字列の両方で使用できます。ただし、複数行文字列はバックスラッシュエスケープをサポートしていません。
-複数行文字列内で、[識別子](https://kotlinlang.org/docs/reference/grammar.html#identifiers)の先頭で許可されている記号の前にドル記号 `$` を挿入するには、次の構文を使用します。
+テンプレートは、複数行文字列とエスケープ文字列の両方で使用できます。ただし、複数行文字列はバックスラッシュエスケープをサポートしていません。
+複数行文字列で[識別子](https://kotlinlang.org/docs/reference/grammar.html#identifiers)の先頭に許可されるシンボルの前にドル記号 `$` を挿入するには、次の構文を使用します。
 
 ```kotlin
 val price = """
-${'
-    ```}_9.99
+${'$'}9.99
 """
 ```
 
-> 文字列内の`${'
-    ```}`シーケンスを避けるには、実験的な[マルチダラー文字列補間機能](#multi-dollar-string-interpolation)を使用できます。
+> 文字列内で`${'$'}`シーケンスを使用しないようにするには、試験段階の[複数ドル記号文字列補間 (Multi-dollar string interpolation) 機能](#multi-dollar-string-interpolation)を使用できます。
 >
 {style="note"}
 
-### マルチダラー文字列補間
+### 複数ドル記号文字列補間
 
-> マルチダラー文字列補間は[実験的](components-stability.md#stability-levels-explained)な機能であり、オプトインが必要です（詳細は下記を参照）。
->
-> これはいつでも変更される可能性があります。[YouTrack](https://youtrack.jetbrains.com/issue/KT-2425)でフィードバックをいただけると幸いです。
->
-{style="warning"}
-
-マルチダラー文字列補間を使用すると、補間をトリガーするために必要な連続するドル記号の数を指定できます。
+複数ドル記号文字列補間 (Multi-dollar string interpolation) を使用すると、補間をトリガーするために必要な連続するドル記号の数を指定できます。
 補間とは、変数や式を文字列に直接埋め込むプロセスです。
 
-1行文字列では[リテラルをエスケープ](#escaped-strings)できますが、
+単一行文字列では[リテラルをエスケープ](#escaped-strings)できますが、
 Kotlinの複数行文字列はバックスラッシュエスケープをサポートしていません。
-ドル記号 (`$`) をリテラル文字として含めるには、文字列補間を防ぐために`${'
-    ```}`構文を使用する必要があります。
-このアプローチは、特に文字列に複数のドル記号が含まれる場合に、コードを読みにくくする可能性があります。
+ドル記号 (`$`) をリテラル文字として含めるには、文字列補間を防ぐために`${'$'}`構文を使用する必要があります。
+このアプローチは、特に文字列に複数のドル記号が含まれている場合、コードを読みにくくする可能性があります。
 
-マルチダラー文字列補間は、
-ドル記号を1行文字列と複数行文字列の両方でリテラル文字として扱えるようにすることで、これを簡素化します。
-例:
+複数ドル記号文字列補間 (Multi-dollar string interpolation) は、
+単一行文字列と複数行文字列の両方でドル記号をリテラル文字として扱えるようにすることで、これを簡素化します。
+例：
 
 ```kotlin
 val KClass<*>.jsonSchema : String
@@ -185,7 +180,7 @@ val KClass<*>.jsonSchema : String
     {
       "$schema": "https://json-schema.org/draft/2020-12/schema",
       "$id": "https://example.com/product.schema.json",
-      "$dynamicAnchor": "meta"
+      "$dynamicAnchor": "meta",
       "title": "${simpleName ?: qualifiedName ?: "unknown"}",
       "type": "object"
     }
@@ -193,10 +188,10 @@ val KClass<*>.jsonSchema : String
 ```
 
 ここでは、`$$`プレフィックスは、文字列補間をトリガーするために2つの連続するドル記号が必要であることを指定しています。
-単一のドル記号はリテラル文字として残ります。
+単一のドル記号はリテラル文字のままです。
 
 補間をトリガーするドル記号の数を調整できます。
-例えば、3つの連続するドル記号 (`$$$`) を使用すると、`$` と `$$` をリテラルとして残しつつ、`$$$` で補間を有効にすることができます。
+例えば、3つの連続するドル記号 (`$$$`) を使用すると、`$`と`$$`がリテラルとして残り、`$$$`による補間が可能になります。
 
 ```kotlin
 val productName = "carrot"
@@ -218,65 +213,47 @@ println(requestedData)
 //}
 ```
 
-ここでは、`$$`プレフィックスにより、エスケープのために`${'
-    ```}`構文を使用することなく、文字列に`$`と`$`を含めることができます。
+ここでは、`$$`プレフィックスにより、エスケープのために`${'$'}`構文を必要とせずに、文字列に`$`と`$$`を含めることができます。
 
-この機能を有効にするには、コマンドラインで次のコンパイラオプションを使用します。
+複数ドル記号文字列補間は、単一ドル記号文字列補間を使用する既存のコードには影響しません。
+これまでどおり単一の`$`を引き続き使用し、文字列内でリテラルドル記号を処理する必要がある場合に複数ドル記号を適用できます。
 
-```bash
-kotlinc -Xmulti-dollar-interpolation main.kt
-```
+## 文字列フォーマット
 
-あるいは、Gradleビルドファイルの`compilerOptions {}`ブロックを更新します。
-
-```kotlin
-// build.gradle.kts
-kotlin {
-    compilerOptions {
-        freeCompilerArgs.add("-Xmulti-dollar-interpolation")
-    }
-}
-```
-
-この機能は、単一ドル記号の文字列補間を使用している既存のコードには影響しません。
-以前と同様に単一の`$`を使い続けることができ、文字列でリテラルのドル記号を処理する必要がある場合にマルチダラー記号を適用できます。
-
-## 文字列の書式設定
-
-> `String.format()`関数による文字列の書式設定は、Kotlin/JVMでのみ利用可能です。
+> `String.format()`関数による文字列フォーマットは、Kotlin/JVMでのみ利用可能です。
 >
 {style="note"}
 
-特定の要件に合わせて文字列を整形するには、[`String.format()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/format.html) 関数を使用します。
+特定の要件に合わせて文字列をフォーマットするには、[`String.format()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/format.html)関数を使用します。
 
-`String.format()`関数は、フォーマット文字列と1つ以上の引数を受け取ります。フォーマット文字列には、指定された引数のためのプレースホルダーが1つ（`%`で示されます）含まれ、その後にフォーマット指定子が続きます。
-フォーマット指定子は、対応する引数に対する書式設定の指示であり、フラグ、幅、精度、および変換タイプで構成されます。これら全体で、フォーマット指定子が出力の書式設定を決定します。一般的なフォーマット指定子には、整数用の`%d`、浮動小数点数用の`%f`、文字列用の`%s`があります。また、`argument_index$`構文を使用して、フォーマット文字列内で同じ引数を異なるフォーマットで複数回参照することもできます。
+`String.format()`関数は、フォーマット文字列と1つ以上の引数を受け入れます。フォーマット文字列には、指定された引数に対する1つのプレースホルダー（`%`で示されます）が、フォーマット指定子に続いて含まれます。
+フォーマット指定子は、フラグ、幅、精度、変換タイプからなる、対応する引数に対するフォーマット指示です。これらフォーマット指定子全体で、出力のフォーマットを形成します。一般的なフォーマット指定子には、整数用の`%d`、浮動小数点数用の`%f`、文字列用の`%s`があります。また、`argument_index$`構文を使用して、フォーマット文字列内で同じ引数を異なるフォーマットで複数回参照することもできます。
 
-> 詳細な理解とフォーマット指定子の広範なリストについては、[JavaのClass Formatterドキュメント](https://docs.oracle.com/javase/8/docs/api/java/util/Formatter.html#summary)を参照してください。
+> フォーマット指定子の詳細な理解と広範なリストについては、[JavaのClass Formatterドキュメント](https://docs.oracle.com/javase/8/docs/api/java/util/Formatter.html#summary)を参照してください。
 >
 {style="note"}
 
 例を見てみましょう。
 
 ```kotlin
-fun main() {
+fun main() { 
 //sampleStart
     // 整数をフォーマットし、長さを7文字にするために先頭にゼロを追加します
     val integerNumber = String.format("%07d", 31416)
     println(integerNumber)
     // 0031416
 
-    // 浮動小数点数をフォーマットし、+記号と小数点以下4桁で表示します
+    // 浮動小数点数をプラス記号と小数点以下4桁で表示するようにフォーマットします
     val floatNumber = String.format("%+.4f", 3.141592)
     println(floatNumber)
     // +3.1416
 
-    // 2つの文字列を大文字にフォーマットし、それぞれ1つのプレースホルダーを取ります
+    // 2つの文字列を大文字にフォーマットし、それぞれが1つのプレースホルダーを取ります
     val helloString = String.format("%S %S", "hello", "world")
     println(helloString)
     // HELLO WORLD
     
-    // 負の数を括弧で囲んでフォーマットし、`argument_index$`を使用して同じ数を異なるフォーマット（括弧なし）で繰り返します。
+    // 負の数を括弧で囲み、argument_index$を使用して同じ数を異なるフォーマット（括弧なし）で繰り返します。
     val negativeNumberInParentheses = String.format("%(d means %1\$d", -31416)
     println(negativeNumberInParentheses)
     //(31416) means -31416
@@ -285,8 +262,8 @@ fun main() {
 ```
 {interpolate-variables="false" kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-`String.format()`関数は文字列テンプレートと同様の機能を提供します。ただし、利用可能な書式設定オプションが多いため、`String.format()`関数はより多機能です。
+`String.format()`関数は文字列テンプレートと同様の機能を提供します。しかし、`String.format()`関数は、より多くのフォーマットオプションが利用できるため、より汎用性があります。
 
-さらに、フォーマット文字列を変数から割り当てることができます。これは、フォーマット文字列が変更される場合、例えばユーザーのロケールに依存するローカライズの場合などに役立ちます。
+さらに、フォーマット文字列を変数から代入することができます。これは、例えばユーザーのロケールに依存するローカライズのケースなど、フォーマット文字列が変更される場合に役立ちます。
 
-`String.format()`関数を使用する際は、引数の数や位置とそれに対応するプレースホルダーを不一致させやすいので注意してください。
+`String.format()`関数を使用する際には注意が必要です。引数の数や位置が対応するプレースホルダーと簡単に不一致になる可能性があるためです。

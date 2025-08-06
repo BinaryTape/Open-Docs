@@ -1,12 +1,16 @@
-[//]: # (title: 過濾集合)
+[//]: # (title: 篩選集合)
 
-過濾是集合處理中最常見的任務之一。在 Kotlin 中，過濾條件是透過 _判斷式 (predicates)_ 定義的，判斷式是 Lambda 函式，它接受一個集合元素並回傳一個布林值：`true` 表示給定的元素符合判斷式，`false` 表示不符合。
+篩選是集合處理中最常見的任務之一。
+在 Kotlin 中，篩選條件由_謂詞_定義 – 謂詞是接受集合元素並回傳布林值 (boolean value) 的 Lambda 函式：`true` 表示給定元素符合該謂詞，`false` 表示相反。
 
-標準函式庫 (standard library) 包含一組擴充函式 (extension functions)，讓您只需一個呼叫即可過濾集合。這些函式不會改變原始集合，因此它們適用於[可變動 (mutable) 和唯讀 (read-only)](collections-overview.md#collection-types) 集合。若要操作過濾結果，您應該將其賦值給一個變數，或在過濾後鏈接 (chain) 其他函式。
+標準函式庫包含一組擴充函式，讓您可以單次呼叫即可篩選集合。
+這些函式不會改變原始集合，因此它們適用於[可變與唯讀](collections-overview.md#collection-types)集合。若要操作篩選結果，您應該將其賦值給變數或在篩選後鏈接函式。
 
-## 依判斷式過濾
+## 按謂詞篩選
 
-基本的過濾函式是 [`filter()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/filter.html)。當呼叫 `filter()` 並帶有判斷式時，它會回傳符合判斷式的集合元素。對於 `List` 和 `Set`，結果集合都是 `List`；對於 `Map`，結果仍是 `Map`。
+基本篩選函式是 [`filter()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/filter.html)。
+當使用謂詞呼叫時，`filter()` 會回傳符合該謂詞的集合元素。
+對於 `List` 和 `Set`，結果集合是 `List`；對於 `Map`，它也是 `Map`。
 
 ```kotlin
 fun main() {
@@ -23,9 +27,12 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-`filter()` 中的判斷式只能檢查元素的值。如果您想在過濾時使用元素位置，請使用 [`filterIndexed()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/filter-indexed.html)。它接受一個帶有兩個引數的判斷式：元素的索引 (index) 和值 (value)。
+`filter()` 中的謂詞只能檢查元素的數值。
+如果您想在篩選中使用元素位置，請使用 [`filterIndexed()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/filter-indexed.html)。
+它接受一個具有兩個引數的謂詞：元素的索引和值。
 
-若要根據否定條件過濾集合，請使用 [`filterNot()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/filter-not.html)。它回傳判斷式產生 `false` 的元素列表。
+若要按負面條件篩選集合，請使用 [`filterNot()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/filter-not.html)。
+它會回傳謂詞結果為 `false` 的元素列表。
 
 ```kotlin
 fun main() {
@@ -42,15 +49,15 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-還有一些函式透過過濾給定型別的元素來縮小元素型別：
+還有一些函式透過篩選給定型別的元素來縮小元素型別：
 
-*   [`filterIsInstance()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/filter-is-instance.html) 回傳給定型別的集合元素。當對 `List<Any>` 呼叫 `filterIsInstance<T>()` 時，它會回傳一個 `List<T>`，從而允許您對其項目呼叫 `T` 型別的函式。
+* [`filterIsInstance()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/filter-is-instance.html) 會回傳給定型別的集合元素。在 `List<Any>` 上呼叫時，`filterIsInstance<T>()` 會回傳 `List<T>`，因此允許您在其項目上呼叫 `T` 型別的函式。
 
     ```kotlin
     fun main() {
     //sampleStart
         val numbers = listOf(null, 1, "two", 3.0, "four")
-        println("All String elements in upper case:")
+        println("所有 String 元素均為大寫：")
         numbers.filterIsInstance<String>().forEach {
             println(it.uppercase())
         }
@@ -59,23 +66,24 @@ fun main() {
     ```
     {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-*   [`filterNotNull()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/filter-not-null.html) 回傳所有非空 (non-nullable) 元素。當對 `List<T?>` 呼叫 `filterNotNull()` 時，它會回傳一個 `List<T: Any>`，從而允許您將這些元素視為非空物件。
+* [`filterNotNull()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/filter-not-null.html) 會回傳所有非空元素。在 `List<T?>` 上呼叫時，`filterNotNull()` 會回傳 `List<T: Any>`，因此允許您將這些元素視為非空物件。
 
     ```kotlin
     fun main() {
     //sampleStart
         val numbers = listOf(null, "one", "two", null)
         numbers.filterNotNull().forEach {
-            println(it.length)   // length is unavailable for nullable Strings
+            println(it.length)   // length 對於可空 Strings 不可用
         }
     //sampleEnd
     }
     ```
     {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-## 分割 (Partition)
+## 分區
 
-另一個過濾函式 – [`partition()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/partition.html) – 會根據判斷式過濾集合，並將不符合的元素保留在另一個獨立的列表中。因此，您將會得到一個 `List` 的 `Pair` 作為回傳值：第一個列表包含符合判斷式的元素，第二個列表包含原始集合中所有其他元素。
+另一個篩選函式 – [`partition()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/partition.html) – 會按謂詞篩選集合，並將不符合該謂詞的元素保留在單獨的列表中。
+因此，您會得到一個 `List` 型別的 `Pair` 作為回傳值：第一個列表包含符合謂詞的元素，第二個列表包含來自原始集合的所有其他元素。
 
 ```kotlin
 fun main() {
@@ -90,13 +98,14 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-## 測試判斷式
+## 測試謂詞
 
-最後，有一些函式只用於測試判斷式對集合元素的作用：
+最後，還有一些函式只是針對集合元素測試謂詞：
 
-*   [`any()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/any.html) 如果至少有一個元素符合給定的判斷式，則回傳 `true`。
-*   [`none()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/none.html) 如果沒有任何元素符合給定的判斷式，則回傳 `true`。
-*   [`all()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/all.html) 如果所有元素都符合給定的判斷式，則回傳 `true`。請注意，當對空集合呼叫 `all()` 並帶有任何有效判斷式時，它會回傳 `true`。這種行為在邏輯上被稱為 _[空泛真理 (vacuous truth)](https://en.wikipedia.org/wiki/Vacuous_truth)_。
+* [`any()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/any.html) 如果至少一個元素符合給定謂詞，則回傳 `true`。
+* [`none()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/none.html) 如果沒有元素符合給定謂詞，則回傳 `true`。
+* [`all()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/all.html) 如果所有元素都符合給定謂詞，則回傳 `true`。
+    請注意，`all()` 在空集合上使用任何有效謂詞呼叫時都會回傳 `true`。這種行為在邏輯中被稱為_[空泛真理](https://en.wikipedia.org/wiki/Vacuous_truth)_。
 
 ```kotlin
 fun main() {
@@ -107,13 +116,14 @@ fun main() {
     println(numbers.none { it.endsWith("a") })
     println(numbers.all { it.endsWith("e") })
 
-    println(emptyList<Int>().all { it > 5 })   // vacuous truth
+    println(emptyList<Int>().all { it > 5 })   // 空泛真理
 //sampleEnd
 }
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-`any()` 和 `none()` 也可以在不帶判斷式的情況下使用：在這種情況下，它們僅檢查集合是否為空。`any()` 如果存在元素則回傳 `true`，如果不存在則回傳 `false`；`none()` 則相反。
+`any()` 和 `none()` 也可以在沒有謂詞的情況下使用：在這種情況下，它們僅檢查集合是否為空。
+`any()` 如果存在元素則回傳 `true`，否則回傳 `false`；`none()` 則執行相反操作。
 
 ```kotlin
 fun main() {

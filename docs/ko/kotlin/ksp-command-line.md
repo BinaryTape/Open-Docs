@@ -1,6 +1,6 @@
 [//]: # (title: 명령줄에서 KSP 실행하기)
 
-KSP는 Kotlin 컴파일러 플러그인이며 Kotlin 컴파일러와 함께 실행되어야 합니다. 다운로드하여 압축을 해제하세요.
+KSP는 Kotlin 컴파일러 플러그인이므로 Kotlin 컴파일러와 함께 실행되어야 합니다. 이를 다운로드하고 압축을 해제하세요.
 
 ```bash
 #!/bin/bash
@@ -14,21 +14,21 @@ wget https://github.com/google/ksp/releases/download/%kspSupportedKotlinVersion%
 unzip artifacts.zip
 ```
 
-`kotlinc`로 KSP를 실행하려면 `kotlinc`에 `-Xplugin` 옵션을 전달하세요.
+`kotlinc`로 KSP를 실행하려면 `-Xplugin` 옵션을 `kotlinc`에 전달하세요.
 
 ```
 -Xplugin=/path/to/symbol-processing-cmdline-%kspSupportedKotlinVersion%-%kspVersion%.jar
 ```
 
-이 파일은 Gradle과 함께 실행할 때 `kotlin-compiler-embeddable`과 함께 사용하도록 설계된 `symbol-processing-%kspSupportedKotlinVersion%-%kspVersion%.jar`과는 다릅니다. 명령줄 `kotlinc`는 `symbol-processing-cmdline-%kspSupportedKotlinVersion%-%kspVersion%.jar`이 필요합니다.
+이것은 Gradle로 실행할 때 `kotlin-compiler-embeddable`과 함께 사용하도록 설계된 `symbol-processing-%kspSupportedKotlinVersion%-%kspVersion%.jar`와는 다릅니다. 명령줄 `kotlinc`에는 `symbol-processing-cmdline-%kspSupportedKotlinVersion%-%kspVersion%.jar`가 필요합니다.
 
-또한 API JAR도 필요합니다.
+또한 API jar도 필요합니다.
 
 ```
 -Xplugin=/path/to/symbol-processing-api-%kspSupportedKotlinVersion%-%kspVersion%.jar
 ```
 
-전체 예시를 확인하세요:
+전체 예시를 참조하세요:
 
 ```bash
 #!/bin/bash

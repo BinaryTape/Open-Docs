@@ -1,17 +1,15 @@
 [//]: # (title: 標準輸入)
 
-> Java Scanner 是一個緩慢的工具。僅在您需要它提供的特定功能時才使用它。
+> Java Scanner 是一個慢速工具。僅在您需要它提供的特定功能時才使用它。
 > 否則，通常更推薦使用 Kotlin 的 `readln()` 函數來[讀取標準輸入](basic-syntax.md#read-from-the-standard-input)。
 >
 {style="note"}
 
-為了從標準輸入讀取資料，Java 提供了 `Scanner` 類別。Kotlin 提供了兩種主要方式來從標準輸入讀取資料：
-與 Java 類似的 `Scanner` 類別，以及 `readln()` 函數。
+為了從標準輸入讀取，Java 提供了 `Scanner` 類別。Kotlin 提供了兩種主要方式來從標準輸入讀取：類似於 Java 的 `Scanner` 類別，以及 `readln()` 函數。
 
 ## 使用 Java Scanner 從標準輸入讀取
 
-在 Java 中，標準輸入通常透過 `System.in` 物件來存取。您需要匯入 `Scanner` 類別，
-建立一個物件，並使用像是 `.nextLine()` 和 `.nextInt()` 等方法來讀取不同的資料型別：
+在 Java 中，標準輸入通常透過 `System.in` 物件存取。您需要匯入 `Scanner` 類別，建立一個物件，並使用 `.nextLine()` 和 `.nextInt()` 等方法來讀取不同資料類型：
 
 ```java
 //Java implementation
@@ -40,12 +38,10 @@ public class Main {
 
 ### 在 Kotlin 中使用 Java Scanner
 
-由於 Kotlin 與 Java 函式庫的互通性，
-您可以直接從 Kotlin 程式碼中存取 Java Scanner。
+由於 Kotlin 與 Java 函式庫的互操作性，您可以開箱即用地從 Kotlin 程式碼存取 Java Scanner。
 
-要在 Kotlin 中使用 Java Scanner，您需要匯入 `Scanner` 類別，並透過傳入一個代表標準輸入流並指示如何讀取資料的 `System.in` 物件來初始化它。
-您可以使用[可用的讀取方法](https://docs.oracle.com/javase/8/docs/api/java/util/Scanner.html)來讀取非字串的值，
-例如 `.nextLine()`、`.next()` 和 `.nextInt()`：
+要在 Kotlin 中使用 Java Scanner，您需要匯入 `Scanner` 類別並透過傳遞一個代表標準輸入串流並決定如何讀取資料的 `System.in` 物件來初始化它。
+您可以參閱[可用的讀取方法](https://docs.oracle.com/javase/8/docs/api/java/util/Scanner.html)來讀取與字串不同的值，例如 `.nextLine()`、`.next()` 和 `.nextInt()`：
 
 ```kotlin
 // Imports Java Scanner
@@ -74,22 +70,23 @@ fun main() {
 
 使用 Java Scanner 讀取輸入的其他有用方法包括 `.hasNext()`、`.useDelimiter()` 和 `.close()`：
 
-* `.hasNext()` 方法會檢查輸入中是否有更多可用資料。如果有剩餘元素可供迭代，它會返回布林值 `true`；如果輸入中沒有剩餘元素，則返回 `false`。
+*   `.hasNext()`
+    方法檢查輸入中是否有更多可用資料。如果還有剩餘元素可以迭代，它會返回布林值 `true`；如果輸入中沒有更多元素，則返回 `false`。
 
-* `.useDelimiter()` 方法會設定用於讀取輸入元素的分隔符。預設情況下，分隔符是空白字元，但您可以指定其他字元。
-  例如，`.useDelimiter(",")` 會讀取以逗號分隔的輸入元素。
+*   `.useDelimiter()` 方法設定讀取輸入元素的分隔符號。分隔符號預設為空白字元，但您可以指定其他字元。
+    例如，`.useDelimiter(",")` 讀取以逗號分隔的輸入元素。
 
-* `.close()` 方法會關閉與 Scanner 相關聯的輸入流，防止 Scanner 進一步用於讀取輸入。
+*   `.close()` 方法關閉與 Scanner 相關聯的輸入串流，防止 Scanner 進一步用於讀取輸入。
 
-> 當您使用 Java Scanner 完畢後，務必使用 `.close()` 方法。關閉 Java Scanner
-> 會釋放其所消耗的資源，並確保程式行為正常。
+> 當您完成使用 Java Scanner 時，務必使用 `.close()` 方法。關閉 Java Scanner
+> 會釋放它佔用的資源，並確保程式行為正常。
 >
 {style="note"}
 
 ## 使用 readln() 從標準輸入讀取
 
-在 Kotlin 中，除了 Java Scanner 之外，您還可以使用 `readln()` 函數。這是讀取輸入最直接的方式。此函數會從標準輸入中讀取一行文字，
-並將其作為字串返回：
+在 Kotlin 中，除了 Java Scanner 之外，您還可以使用 `readln()` 函數。這是讀取輸入最直接的方式。此函數從標準輸入讀取一行
+文字，並將其作為字串返回：
 
 ```kotlin
 // Reads a string. For example: Charlotte
@@ -102,4 +99,4 @@ println("Hello, $name! You are $age years old.")
 // Hello, Charlotte! You are 43 years old.
 ```
 
-更多資訊請參閱[讀取標準輸入](read-standard-input.md)。
+欲了解更多資訊，請參閱[讀取標準輸入](read-standard-input.md)。

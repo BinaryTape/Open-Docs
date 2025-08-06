@@ -1,130 +1,125 @@
-[//]: # (title: Kotlin 組件的穩定性)
+[//]: # (title: Kotlin 元件的穩定性)
 
-Kotlin 語言和工具集被劃分為許多組件，例如針對 JVM、JS 和 Native 目標的編譯器、標準函式庫以及各種伴隨工具等等。
-這些組件中有許多已正式發布為 **穩定版**，這表示它們是依循[《舒適更新》和《保持語言現代化》原則](kotlin-evolution-principles.md)以向下兼容的方式演進的。
+Kotlin 語言和工具集被劃分為許多元件，例如 JVM、JS 和 Native 目標的編譯器、標準函式庫以及各種配套工具等。
+許多這些元件已正式發佈為 **Stable**，這表示它們遵循 [《舒適更新》和《保持語言現代化》的原則](kotlin-evolution-principles.md) 以向後相容的方式演進。
 
-遵循《回饋迴圈》原則，我們提早發布了許多內容供社群試用，因此許多組件尚未發布為 **穩定版**。
-其中有些處於非常早期的階段，有些則更為成熟。
-我們會根據每個組件的演進速度以及使用者採用時所承擔的風險程度，將它們標記為 **實驗性**、**Alpha 版** 或 **Beta 版**。
+遵循《回饋循環》原則，我們提早發布許多內容供社群試用，因此許多元件尚未發佈為 **Stable**。
+其中一些處於非常早期的階段，另一些則更為成熟。
+我們根據每個元件的演進速度以及使用者採用時所承擔的風險程度，將它們標記為 **Experimental**、**Alpha** 或 **Beta**。
 
 ## 穩定性等級說明
 
-以下是這些穩定性等級及其含義的快速指南：
+以下是這些穩定性等級及其意義的快速指南：
 
-**實驗性** 表示「僅限於試驗專案中使用」：
-  * 我們只是在嘗試一個想法，希望一些使用者試用並提供回饋。如果行不通，我們可能會隨時放棄它。
+**Experimental** 意味著「僅限用於試驗性專案」：
+* 我們只是在嘗試一個想法，並希望一些使用者能試用並提供回饋。如果行不通，我們隨時可能放棄它。
 
-**Alpha 版** 表示「風險自負，預期會出現遷移問題」：
-  * 我們打算將這個想法產品化，但它尚未定型。
+**Alpha** 意味著「自行承擔風險使用，預期會出現遷移問題」：
+* 我們打算將此想法產品化，但它尚未達到最終形態。
 
-**Beta 版** 表示「你可以使用它，我們將盡力為你最大程度地減少遷移問題」：
-  * 它幾乎完成，使用者回饋現在尤其重要。
-  * 儘管如此，它尚未 100% 完成，因此仍有可能會變動（包括根據你自身回饋的變動）。
-  * 請提前留意棄用警告，以獲得最佳的更新體驗。
+**Beta** 意味著「您可以使用它，我們將盡力為您最大限度地減少遷移問題」：
+* 它幾乎已完成，使用者回饋現在尤為重要。
+* 不過，它並非 100% 完成，因此仍有可能更改（包括根據您自己的回饋進行的更改）。
+* 請提前注意棄用警告，以獲得最佳更新體驗。
 
-我們統稱 _實驗性_、_Alpha 版_ 和 _Beta 版_ 為 **預穩定版** 等級。
+我們統稱 _Experimental_、_Alpha_ 和 _Beta_ 為 **pre-stable** 等級。
 
 <a name="stable"/>
 
-**穩定版** 表示「即使在最保守的場景下也可以使用」：
-  * 它已完成。我們將根據我們嚴格的[向下兼容規則](https://kotlinfoundation.org/language-committee-guidelines/)來演進它。
+**Stable** 意味著「即使在最保守的情境中也可以使用」：
+* 它已完成。我們將根據嚴格的 [向後相容性規則](https://kotlinfoundation.org/language-committee-guidelines/) 對其進行演進。
 
-請注意，穩定性等級並未說明組件將多快發布為穩定版。同樣，它們也未指出組件在發布前會有多大程度的變更。它們僅說明組件變更的速度以及使用者在更新時所面臨的問題風險。
+請注意，穩定性等級並未說明元件將多快發佈為 Stable。同樣，它們也未指出元件在發佈前將會改變多少。它們僅說明元件的變化速度以及使用者面臨的更新問題風險程度。
 
-## Kotlin 組件的 GitHub 徽章
+## Kotlin 元件的 GitHub 標章
 
-[Kotlin GitHub 組織](https://github.com/Kotlin)託管了各種與 Kotlin 相關的專案。
-其中一些是我們全職開發的，而另一些則是副專案。
+[Kotlin GitHub 組織](https://github.com/Kotlin) 託管著不同的 Kotlin 相關專案。其中一些是我們全職開發的，而另一些則是附帶專案。
 
-每個 Kotlin 專案都有兩個 GitHub 徽章，描述其穩定性與支援狀態：
+每個 Kotlin 專案都有兩個 GitHub 標章，描述其穩定性和支援狀態：
 
-*   **穩定性** 狀態。這顯示了每個專案的演進速度以及使用者採用時所承擔的風險程度。
-    穩定性狀態與[Kotlin 語言功能及其組件的穩定性等級](#stability-levels-explained)完全一致：
-    *   ![實驗性穩定性等級](https://kotl.in/badges/experimental.svg){type="joined"} 代表 **實驗性**
-    *   ![Alpha 穩定性等級](https://kotl.in/badges/alpha.svg){type="joined"} 代表 **Alpha 版**
-    *   ![Beta 穩定性等級](https://kotl.in/badges/beta.svg){type="joined"} 代表 **Beta 版**
-    *   ![穩定性等級](https://kotl.in/badges/stable.svg){type="joined"} 代表 **穩定版**
+* **穩定性**狀態。這顯示了每個專案的演進速度以及使用者採用時所承擔的風險。穩定性狀態與 [Kotlin 語言功能及其元件的穩定性等級](#stability-levels-explained) 完全一致：
+    * ![Experimental stability level](https://kotl.in/badges/experimental.svg){type="joined"} 代表 **Experimental**
+    * ![Alpha stability level](https://kotl.in/badges/alpha.svg){type="joined"} 代表 **Alpha**
+    * ![Beta stability level](https://kotl.in/badges/beta.svg){type="joined"} 代表 **Beta**
+    * ![Stable stability level](https://kotl.in/badges/stable.svg){type="joined"} 代表 **Stable**
 
-*   **支援** 狀態。這顯示了我們維護專案並協助使用者解決問題的承諾。
-    所有 JetBrains 產品的支援等級都是統一的。
-    [請參閱 JetBrains 開源文件以了解詳情](https://github.com/JetBrains#jetbrains-on-github)。
+* **支援**狀態。這顯示了我們維護專案和協助使用者解決問題的承諾。所有 JetBrains 產品的支援等級都是統一的。[有關詳細資訊，請參閱 JetBrains 開源文件](https://github.com/JetBrains#jetbrains-on-github)。
 
-## 子組件的穩定性
+## 子元件的穩定性
 
-一個穩定版組件可能擁有一個實驗性子組件，例如：
-*   穩定版編譯器可能具有實驗性功能；
-*   穩定版 API 可能包含實驗性類別或函式；
-*   穩定版命令列工具可能具有實驗性選項。
+一個穩定的元件可能會有一個實驗性的子元件，例如：
+* 穩定的編譯器可能具有實驗性功能；
+* 穩定的 API 可能包含實驗性類別或函數；
+* 穩定的命令列工具可能具有實驗性選項。
 
-我們確保精確地記錄哪些子組件不是 **穩定版**。
-我們也盡力在可能的情況下警告使用者，並要求他們明確選擇啟用，以避免意外使用尚未發布為穩定版的功能。
+我們確保精確記錄哪些子元件不是 **Stable**。我們也盡力在可能的情況下警告使用者，並要求他們明確選擇加入，以避免意外使用尚未發布為 Stable 的功能。
 
-## Kotlin 組件的當前穩定性
+## Kotlin 元件的當前穩定性
 
-> 依預設，所有新組件都具有實驗性狀態。
+> 預設情況下，所有新元件都具有 Experimental 狀態。
 >
 {style="note"}
 
 ### Kotlin 編譯器
 
-| **組件**                                                      | **狀態**   | **狀態版本** | **備註** |
-|---------------------------------------------------------------|------------|--------------------|--------------|
-| Kotlin/JVM                                                    | 穩定版     | 1.0.0              |              |
-| Kotlin/Native                                                 | 穩定版     | 1.9.0              |              |
-| Kotlin/JS                                                     | 穩定版     | 1.3.0              |              |
-| Kotlin/Wasm                                                   | Alpha 版   | 1.9.20             |              |
-| [分析 API](https://kotlin.github.io/analysis-api/index_md.html) | 穩定版     |                    |              |
+| **元件**                                                       | **狀態** | **自版本起狀態** | **備註** |
+|---------------------------------------------------------------------|------------|--------------------------|--------------|
+| Kotlin/JVM                                                          | Stable     | 1.0.0                    |              |
+| Kotlin/Native                                                       | Stable     | 1.9.0                    |              |
+| Kotlin/JS                                                           | Stable     | 1.3.0                    |              |
+| Kotlin/Wasm                                                         | Alpha      | 1.9.20                   |              |
+| [Analysis API](https://kotlin.github.io/analysis-api/index_md.html) | Stable     |                          |              |
 
 ### 核心編譯器外掛程式
 
-| **組件**                                   | **狀態**   | **狀態版本** | **備註** |
-|--------------------------------------------|------------|--------------------|--------------|
-| [All-open](all-open-plugin.md)             | 穩定版     | 1.3.0              |              |
-| [No-arg](no-arg-plugin.md)                 | 穩定版     | 1.3.0              |              |
-| [SAM-with-receiver](sam-with-receiver-plugin.md) | 穩定版     | 1.3.0              |              |
-| [kapt](kapt.md)                            | 穩定版     | 1.3.0              |              |
-| [Lombok](lombok.md)                        | 實驗性     | 1.5.20             |              |
-| [Power-assert](power-assert.md)            | 實驗性     | 2.0.0              |              |
+| **元件**                                    | **狀態**   | **自版本起狀態** | **備註** |
+|--------------------------------------------------|--------------|--------------------------|--------------|
+| [All-open](all-open-plugin.md)                   | Stable       | 1.3.0                    |              |
+| [No-arg](no-arg-plugin.md)                       | Stable       | 1.3.0                    |              |
+| [SAM-with-receiver](sam-with-receiver-plugin.md) | Stable       | 1.3.0                    |              |
+| [kapt](kapt.md)                                  | Stable       | 1.3.0                    |              |
+| [Lombok](lombok.md)                              | Experimental | 1.5.20                   |              |
+| [Power-assert](power-assert.md)                  | Experimental | 2.0.0                    |              |
 
 ### Kotlin 函式庫
 
-| **組件**              | **狀態**   | **狀態版本** | **備註** |
-|-----------------------|------------|--------------------|--------------|
-| kotlin-stdlib (JVM)   | 穩定版     | 1.0.0              |              |
-| kotlinx-coroutines    | 穩定版     | 1.3.0              |              |
-| kotlinx-serialization | 穩定版     | 1.0.0              |              |
-| kotlin-metadata-jvm   | 穩定版     | 2.0.0              |              |
-| kotlin-reflect (JVM)  | Beta 版    | 1.0.0              |              |
-| kotlinx-datetime      | Alpha 版   | 0.2.0              |              |
-| kotlinx-io            | Alpha 版   | 0.2.0              |              |
+| **元件**         | **狀態** | **自版本起狀態** | **備註** |
+|-----------------------|------------|--------------------------|--------------|
+| kotlin-stdlib (JVM)   | Stable     | 1.0.0                    |              |
+| kotlinx-coroutines    | Stable     | 1.3.0                    |              |
+| kotlinx-serialization | Stable     | 1.0.0                    |              |
+| kotlin-metadata-jvm   | Stable     | 2.0.0                    |              |
+| kotlin-reflect (JVM)  | Beta       | 1.0.0                    |              |
+| kotlinx-datetime      | Alpha      | 0.2.0                    |              |
+| kotlinx-io            | Alpha      | 0.2.0                    |              |
 
-### Kotlin 多平台
+### Kotlin Multiplatform
 
-| **組件**                               | **狀態**   | **狀態版本** | **備註**                                                                                                                               |
-|----------------------------------------|------------|--------------------|----------------------------------------------------------------------------------------------------------------------------------------|
-| Kotlin 多平台                          | 穩定版     | 1.9.20             |                                                                                                                                        |
-| 適用於 Android Studio 的 Kotlin 多平台外掛程式 | Beta 版    | 0.8.0              | [與語言分開版本化](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-plugin-releases.html) |
+| **元件**                                  | **狀態** | **自版本起狀態** | **備註**                                                                                                                         |
+|------------------------------------------------|------------|--------------------------|--------------------------------------------------------------------------------------------------------------------------------------|
+| Kotlin Multiplatform                           | Stable     | 1.9.20                   |                                                                                                                                      |
+| Kotlin Multiplatform 外掛程式 for Android Studio | Beta       | 0.8.0                    | [與語言單獨版本化](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-plugin-releases.html) |
 
 ### Kotlin/Native
 
-| **組件**                           | **狀態**   | **狀態版本** | **備註**                                 |
-|------------------------------------|------------|--------------------|------------------------------------------|
-| Kotlin/Native 執行時               | 穩定版     | 1.9.20             |                                          |
-| Kotlin/Native 與 C 和 Objective-C 的互通 | Beta 版    | 1.3.0              |                                          |
-| klib 二進位檔                      | 穩定版     | 1.9.20             | 不包括 cinterop klibs，請參閱下文 |
-| cinterop klib 二進位檔             | Beta 版    | 1.3.0              |                                          |
-| CocoaPods 整合                     | 穩定版     | 1.9.20             |                                          |
+| **元件**                                | **狀態** | **自版本起狀態** | **備註**                                                                   |
+|----------------------------------------------|------------|--------------------------|--------------------------------------------------------------------------------|
+| Kotlin/Native 執行時                        | Stable     | 1.9.20                   |                                                                                |
+| Kotlin/Native 與 C 和 Objective-C 的互通 | Beta       | 1.3.0                    | [C 和 Objective-C 函式庫匯入的穩定性](native-c-interop-stability.md) |
+| klib 二進位檔                                | Stable     | 1.9.20                   | 不包括 cinterop klibs，詳見下文                                        |
+| cinterop klib 二進位檔                       | Beta       | 1.3.0                    | [C 和 Objective-C 函式庫匯入的穩定性](native-c-interop-stability.md) |
+| CocoaPods 整合                        | Stable     | 1.9.20                   |                                                                                |
 
-> 有關 Kotlin/Native 目標支援的詳細資訊，請參閱 [](native-target-support.md)。
+有關不同目標的支援等級的更多資訊，請參閱 [](native-target-support.md)。
 
 ### 語言工具
 
-| **組件**                         | **狀態**   | **狀態版本** | **備註**                                   |
-|----------------------------------|------------|--------------------|--------------------------------------------|
-| 指令碼語法和語義                 | Alpha 版   | 1.2.0              |                                            |
-| 指令碼嵌入與擴充 API             | Beta 版    | 1.5.0              |                                            |
-| 指令碼 IDE 支援                  | Beta 版    |                    | 自 IntelliJ IDEA 2023.1 及更高版本起可用 |
-| CLI 指令碼                       | Alpha 版   | 1.2.0              |                                            |
+| **元件**                         | **狀態**   | **自版本起狀態** | **備註**                                   |
+|---------------------------------------|--------------|--------------------------|------------------------------------------------|
+| Scripting 語法和語義        | Alpha        | 1.2.0                    |                                                |
+| Scripting 嵌入和擴展 API | Beta         | 1.5.0                    |                                                |
+| Scripting IDE 支援                 | Beta         |                          | 適用於 IntelliJ IDEA 2023.1 及更高版本 |
+| CLI scripting                         | Alpha        | 1.2.0                    |                                                |
 
 ## 語言功能和設計提案
 

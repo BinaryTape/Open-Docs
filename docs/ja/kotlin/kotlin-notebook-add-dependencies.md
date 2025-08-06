@@ -1,20 +1,20 @@
 [//]: # (title: Kotlin Notebookに依存関係を追加する)
 
 <tldr>
-   <p>これは、**Kotlin Notebookを使ってみる**チュートリアルの第3部です。進む前に、前の手順を完了していることを確認してください。</p>
+   <p>これは**Kotlin Notebookの利用開始**チュートリアルの3番目のパートです。先に進む前に、前の手順を完了していることを確認してください。</p>
    <p><img src="icon-1-done.svg" width="20" alt="First step"/> <a href="kotlin-notebook-set-up-env.md">環境をセットアップする</a><br/>
       <img src="icon-2-done.svg" width="20" alt="Second step"/> <a href="kotlin-notebook-create.md">Kotlin Notebookを作成する</a><br/>
-      <img src="icon-3.svg" width="20" alt="Third step"/> **Kotlin Notebookに依存関係を追加する**<br/>
+      <img src="icon-3.svg" width="20" alt="Third step"/> <strong>Kotlin Notebookに依存関係を追加する</strong><br/>
   </p>
 </tldr>
 
-最初の[Kotlin Notebook](kotlin-notebook-overview.md)をすでに作成しましたね！次に、高度な機能をアンロックするために必要な、ライブラリへの依存関係の追加方法を学びましょう。
+初めての[Kotlin Notebook](kotlin-notebook-overview.md)を作成しましたね！次に、高度な機能を利用するために必要な、ライブラリへの依存関係を追加する方法を学びましょう。
 
-> Kotlin標準ライブラリはすぐに使えるため、インポートする必要はありません。
+> Kotlin標準ライブラリはすぐに使用できるため、インポートする必要はありません。
 > 
 {style="note"}
 
-任意のコードセルでGradle形式の構文を使用して座標を指定することで、Mavenリポジトリから任意のライブラリをロードできます。
+Mavenリポジトリから任意のライブラリを、任意のコードセルでGradleスタイル構文を使用してその座標を指定することでロードできます。
 ただし、Kotlin Notebookには、人気のあるライブラリをロードするための簡略化された方法として、[`%use`ステートメント](https://www.jetbrains.com/help/idea/kotlin-notebook.html#import-libraries)があります。
 
 ```kotlin
@@ -24,19 +24,19 @@
 
 Kotlin Notebookのオートコンプリート機能を使用して、利用可能なライブラリにすばやくアクセスすることもできます。
 
-![Kotlin Notebookのオートコンプリート機能](autocompletion-feature-notebook.png){width=700}
+![Autocompletion feature in Kotlin Notebook](autocompletion-feature-notebook.png){width=700}
 
-## Kotlin DataFrameとKandyライブラリをKotlin Notebookに追加する
+## Kotlin DataFrameおよびKandyライブラリをKotlin Notebookに追加する
 
-Kotlin Notebookに2つの人気のあるKotlinライブラリの依存関係を追加してみましょう。
-* [Kotlin DataFrameライブラリ](https://kotlin.github.io/dataframe/gettingstarted.html)は、Kotlinプロジェクトでデータを操作する機能を提供します。
-[API](data-analysis-work-with-api.md)、[SQLデータベース](data-analysis-connect-to-db.md)、およびCSVやJSONなどの[さまざまなファイル形式](data-analysis-work-with-data-sources.md)からデータを取得するために使用できます。
-* [Kandyライブラリ](https://kotlin.github.io/kandy/welcome.html)は、[グラフの作成](data-analysis-visualization.md)のための強力で柔軟なDSLを提供します。
+Kotlin Notebookに、2つの人気のあるKotlinライブラリの依存関係を追加しましょう。
+*   [Kotlin DataFrameライブラリ](https://kotlin.github.io/dataframe/gettingstarted.html)は、Kotlinプロジェクトでデータを操作する機能を提供します。
+    これを使用して、[API](data-analysis-work-with-api.md)、[SQLデータベース](data-analysis-connect-to-db.md)、およびCSVやJSONなどの[さまざまなファイル形式](data-analysis-work-with-data-sources.md)からデータを取得できます。
+*   [Kandyライブラリ](https://kotlin.github.io/kandy/welcome.html)は、[チャートを作成](data-analysis-visualization.md)するための強力で柔軟なDSLを提供します。
 
 これらのライブラリを追加するには：
 
-1. **Add Code Cell**をクリックして、新しいコードセルを作成します。
-2. コードセルに以下のコードを入力します。
+1.  **Add Code Cell**をクリックして、新しいコードセルを作成します。
+2.  コードセルに次のコードを入力します。
 
     ```kotlin
     // Ensures that the latest available library versions are used
@@ -49,15 +49,15 @@ Kotlin Notebookに2つの人気のあるKotlinライブラリの依存関係を�
     %use kandy
     ```
 
-3. コードセルを実行します。
+3.  コードセルを実行します。
 
     `%use`ステートメントが実行されると、ライブラリの依存関係がダウンロードされ、デフォルトのインポートがノートブックに追加されます。
 
-    > ライブラリに依存する他のコードセルを実行する前に、`%use libraryName`行を含むコードセルを実行していることを確認してください。
+    > ライブラリに依存する他のコードセルを実行する前に、`%use libraryName`行のあるコードセルを実行するようにしてください。
     >
     {style="note"}
 
-4. Kotlin DataFrameライブラリを使用してCSVファイルからデータをインポートするには、新しいコードセルで`.read()`関数を使用します。
+4.  Kotlin DataFrameライブラリを使用してCSVファイルからデータをインポートするには、新しいコードセルで`.read()`関数を使用します。
 
     ```kotlin
     // Creates a DataFrame by importing data from the "netflix_titles.csv" file.
@@ -67,14 +67,14 @@ Kotlin Notebookに2つの人気のあるKotlinライブラリの依存関係を�
     rawDf
     ```
 
-    > このCSVの例は、[Kotlin DataFrame examples GitHub repository](https://github.com/Kotlin/dataframe/blob/master/examples/notebooks/netflix/netflix_titles.csv)からダウンロードできます。
+    > このCSVファイルの例は、[Kotlin DataFrame examples GitHubリポジトリ](https://github.com/Kotlin/dataframe/blob/master/examples/notebooks/netflix/netflix_titles.csv)からダウンロードできます。
     > プロジェクトディレクトリに追加してください。
     > 
     {style="tip"}
 
-    ![DataFrameを使用してデータを表示する](add-dataframe-dependency.png){width=700}
+    ![Using DataFrame to display data](add-dataframe-dependency.png){width=700}
 
-5. 新しいコードセルで、`.plot`メソッドを使用して、DataFrame内のTV番組と映画の分布を視覚的に表現します。
+5.  新しいコードセルで、`.plot`メソッドを使用して、DataFrame内のテレビ番組と映画の分布を視覚的に表現します。
 
     ```kotlin
     rawDf
@@ -98,16 +98,16 @@ Kotlin Notebookに2つの人気のあるKotlinライブラリの依存関係を�
         }
     ```
 
-結果のグラフ：
+結果のチャート：
 
-![Kandyライブラリを使用した可視化](kandy-library.png){width=700}
+![Visualization using the Kandy library](kandy-library.png){width=700}
 
-Kotlin Notebookでこれらのライブラリを追加し、活用できたことをお祝いします！
-これは、Kotlin Notebookとその[サポートされているライブラリ](data-analysis-libraries.md)で達成できることのほんの一部に過ぎません。
+これらのライブラリを追加し、Kotlin Notebookで活用できたことをお祝いします！
+これは、Kotlin Notebookとその[サポートされているライブラリ](data-analysis-libraries.md)で達成できることのほんの一端にすぎません。
 
 ## 次のステップ
 
-* [Kotlin Notebookを共有する](kotlin-notebook-share.md)方法を学ぶ
-* [Kotlin Notebookに依存関係を追加する](https://www.jetbrains.com/help/idea/kotlin-notebook.html#add-dependencies)ことについてさらに詳しく見る
-* Kotlin DataFrameライブラリを使用したより広範なガイドについては、[ファイルからデータを取得する](data-analysis-work-with-data-sources.md)を参照してください
-* Kotlinにおけるデータサイエンスと分析に利用可能なツールとリソースの包括的な概要については、[データ分析のためのKotlinとJavaライブラリ](data-analysis-libraries.md)を参照してください
+*   [Kotlin Notebookを共有](kotlin-notebook-share.md)する方法を学ぶ
+*   [Kotlin Notebookへの依存関係の追加](https://www.jetbrains.com/help/idea/kotlin-notebook.html#add-dependencies)に関する詳細を見る
+*   Kotlin DataFrameライブラリを使用したより広範なガイドについては、「[ファイルからデータを取得する](data-analysis-work-with-data-sources.md)」を参照する
+*   Kotlinにおけるデータサイエンスと分析に利用可能なツールとリソースの広範な概要については、「[データ分析のためのKotlinおよびJavaライブラリ](data-analysis-libraries.md)」を参照する

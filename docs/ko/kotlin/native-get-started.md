@@ -1,16 +1,16 @@
 [//]: # (title: Kotlin/Native 시작하기)
 
-이 튜토리얼에서는 Kotlin/Native 애플리케이션을 만드는 방법을 배웁니다. 다음 도구 중 가장 적합한 것을 선택하여 앱을 생성해 보세요:
+이 튜토리얼에서는 Kotlin/Native 애플리케이션을 만드는 방법을 배웁니다. 자신에게 가장 적합한 도구를 선택하여 다음 방법을 사용하여 앱을 만들 수 있습니다.
 
-*   **[IDE](#in-ide)**. 여기서는 버전 관리 시스템에서 프로젝트 템플릿을 클론하여 IntelliJ IDEA에서 사용할 수 있습니다.
-*   **[Gradle 빌드 시스템](#using-gradle)**. 내부 동작 방식을 더 잘 이해하기 위해 프로젝트의 빌드 파일을 수동으로 생성합니다.
-*   **[명령줄 도구](#using-the-command-line-compiler)**. 표준 Kotlin 배포판의 일부로 제공되는 Kotlin/Native 컴파일러를 사용하여 명령줄 도구에서 직접 앱을 생성할 수 있습니다.
+*   **[IDE](#in-ide)**. 여기서는 버전 관리 시스템에서 프로젝트 템플릿을 복제하여 IntelliJ IDEA에서 사용할 수 있습니다.
+*   **[Gradle 빌드 시스템](#using-gradle)**. 내부 동작 방식을 더 잘 이해하기 위해 프로젝트 빌드 파일을 수동으로 만들 수 있습니다.
+*   **[명령줄 도구](#using-the-command-line-compiler)**. 표준 Kotlin 배포판의 일부로 제공되는 Kotlin/Native 컴파일러를 사용하여 명령줄 도구에서 직접 앱을 만들 수 있습니다.
 
-    콘솔 컴파일은 쉽고 간단해 보일 수 있지만, 수백 개의 파일과 라이브러리가 있는 대규모 프로젝트에는 적합하지 않습니다. 이러한 프로젝트의 경우 IDE 또는 빌드 시스템을 사용하는 것이 좋습니다.
+    콘솔 컴파일은 쉽고 간단해 보일 수 있지만, 수백 개의 파일과 라이브러리가 있는 대규모 프로젝트에는 잘 확장되지 않습니다. 이러한 프로젝트에는 IDE 또는 빌드 시스템을 사용하는 것이 좋습니다.
 
-Kotlin/Native를 사용하면 Linux, macOS, Windows를 포함한 [다양한 타겟](native-target-support.md)용으로 컴파일할 수 있습니다. 한 플랫폼을 사용하여 다른 플랫폼용으로 컴파일하는 교차 플랫폼 컴파일이 가능하지만, 이 튜토리얼에서는 컴파일하는 것과 동일한 플랫폼을 타겟팅합니다.
+Kotlin/Native를 사용하면 Linux, macOS, Windows를 포함한 [다양한 타겟](native-target-support.md)용으로 컴파일할 수 있습니다. 한 플랫폼에서 다른 플랫폼용으로 컴파일하는 교차 플랫폼 컴파일이 가능하지만, 이 튜토리얼에서는 컴파일하는 플랫폼과 동일한 플랫폼을 타겟으로 할 것입니다.
 
-> Mac을 사용하고 macOS 또는 기타 Apple 타겟용 애플리케이션을 생성 및 실행하려면, 먼저 [Xcode Command Line Tools](https://developer.apple.com/download/)를 설치하고, 실행한 다음, 라이선스 약관에 동의해야 합니다.
+> Mac을 사용하고 macOS 또는 다른 Apple 타겟용 애플리케이션을 만들고 실행하려면 먼저 [Xcode Command Line Tools](https://developer.apple.com/download/)를 설치하고 실행한 다음 라이선스 약관에 동의해야 합니다.
 >
 {style="note"}
 
@@ -20,25 +20,25 @@ Kotlin/Native를 사용하면 Linux, macOS, Windows를 포함한 [다양한 타�
 
 ### 프로젝트 생성
 
-1.  최신 버전의 [IntelliJ IDEA](https://www.jetbrains.com/idea/)를 다운로드하여 설치합니다.
-2.  IntelliJ IDEA에서 **File** | **New** | **Project from Version Control**을 선택하고 다음 URL을 사용하여 [프로젝트 템플릿](https://github.com/Kotlin/kmp-native-wizard)을 클론합니다.
+1.  [IntelliJ IDEA](https://www.jetbrains.com/idea/)의 최신 버전을 다운로드하여 설치합니다.
+2.  IntelliJ IDEA에서 **File** | **New** | **Project from Version Control**을 선택하고 다음 URL을 사용하여 [프로젝트 템플릿](https://github.com/Kotlin/kmp-native-wizard)을 복제합니다.
 
     ```none
     https://github.com/Kotlin/kmp-native-wizard
     ```
 
-3.  프로젝트 의존성을 위한 버전 카탈로그인 `gradle/libs.versions.toml` 파일을 엽니다. Kotlin/Native 애플리케이션을 만들려면 Kotlin과 동일한 버전을 가진 Kotlin Multiplatform Gradle 플러그인이 필요합니다. 최신 Kotlin 버전을 사용하고 있는지 확인하세요:
+3.  프로젝트 종속성(dependencies)에 대한 버전 카탈로그인 `gradle/libs.versions.toml` 파일을 엽니다. Kotlin/Native 애플리케이션을 만들려면 Kotlin과 동일한 버전을 가진 Kotlin Multiplatform Gradle 플러그인이 필요합니다. 최신 Kotlin 버전을 사용하고 있는지 확인합니다.
 
     ```none
     [versions]
     kotlin = "%kotlinVersion%"
     ```
 
-4.  Gradle 파일 재로드 제안을 따릅니다.
+4.  Gradle 파일 다시 로드 제안을 따릅니다.
 
-    ![Gradle 변경 사항 로드 버튼](load-gradle-changes.png){width=295}
+    ![Load Gradle changes button](load-gradle-changes.png){width=295}
 
-이 설정에 대한 자세한 내용은 [Multiplatform Gradle DSL 참조](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-dsl-reference.html)를 참조하세요.
+이 설정에 대한 자세한 내용은 [Multiplatform Gradle DSL 참조](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-dsl-reference.html)를 참조하십시오.
 
 ### 애플리케이션 빌드 및 실행
 
@@ -47,43 +47,43 @@ Kotlin/Native를 사용하면 Linux, macOS, Windows를 포함한 [다양한 타�
 *   `src` 디렉터리에는 Kotlin 소스 파일이 포함되어 있습니다.
 *   `Main.kt` 파일에는 [`println()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.io/println.html) 함수를 사용하여 "Hello, Kotlin/Native!"를 출력하는 코드가 포함되어 있습니다.
 
-거터에 있는 녹색 아이콘을 눌러 코드를 실행합니다.
+코드를 실행하려면 거터(gutter)의 녹색 아이콘을 누릅니다.
 
-![애플리케이션 실행](native-run-gutter.png){width=478}
+![Run the application](native-run-gutter.png){width=478}
 
-IntelliJ IDEA는 Gradle 태스크를 사용하여 코드를 실행하고 **Run** 탭에 결과를 출력합니다.
+IntelliJ IDEA는 Gradle 작업을 사용하여 코드를 실행하고 **Run** 탭에 결과를 출력합니다.
 
-![애플리케이션 출력](native-output-gutter-1.png){width=331}
+![Application output](native-output-gutter-1.png){width=331}
 
-첫 실행 후 IDE는 상단에 해당 실행 구성을 생성합니다.
+첫 실행 후, IDE는 상단에 해당 실행 구성(run configuration)을 생성합니다.
 
-![Gradle 실행 구성](native-run-config.png){width=503}
+![Gradle run configuration](native-run-config.png){width=503}
 
-> IntelliJ IDEA Ultimate 사용자는 컴파일된 네이티브 실행 파일을 디버깅하고 임포트된 Kotlin/Native 프로젝트에 대한 실행 구성을 자동으로 생성할 수 있는 [Native Debugging Support](https://plugins.jetbrains.com/plugin/12775-native-debugging-support) 플러그인을 설치할 수 있습니다.
+> IntelliJ IDEA Ultimate 사용자는 컴파일된 네이티브 실행 파일(executables)을 디버깅하고 가져온 Kotlin/Native 프로젝트에 대한 실행 구성을 자동으로 생성하는 [Native Debugging Support](https://plugins.jetbrains.com/plugin/12775-native-debugging-support) 플러그인을 설치할 수 있습니다.
 
-IntelliJ IDEA를 구성하여 프로젝트를 자동으로 빌드할 수 있습니다:
+프로젝트를 자동으로 빌드하도록 [IntelliJ IDEA를 구성](https://www.jetbrains.com/help/idea/compiling-applications.html#auto-build)할 수 있습니다.
 
 1.  **Settings | Build, Execution, Deployment | Compiler**로 이동합니다.
 2.  **Compiler** 페이지에서 **Build project automatically**를 선택합니다.
 3.  변경 사항을 적용합니다.
 
-이제 클래스 파일을 변경하거나 파일을 저장할 때 (<shortcut>Ctrl + S</shortcut>/<shortcut>Cmd + S</shortcut>), IntelliJ IDEA가 프로젝트의 증분 빌드를 자동으로 수행합니다.
+이제 클래스 파일을 변경하거나 파일을 저장할 때 (<shortcut>Ctrl + S</shortcut>/<shortcut>Cmd + S</shortcut>), IntelliJ IDEA는 프로젝트를 자동으로 증분 빌드(incremental build)합니다.
 
 ### 애플리케이션 업데이트
 
-이제 애플리케이션에 이름의 글자 수를 세는 기능을 추가해 봅시다.
+애플리케이션에 이름의 글자 수를 세는 기능을 추가해 봅시다.
 
 1.  `Main.kt` 파일에 입력을 읽는 코드를 추가합니다. [`readln()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.io/readln.html) 함수를 사용하여 입력 값을 읽고 `name` 변수에 할당합니다.
 
     ```kotlin
     fun main() {
-        // Read the input value.
+        // 입력 값을 읽습니다.
         println("Hello, enter your name:")
         val name = readln()
     }
     ```
 
-2.  Gradle을 사용하여 이 앱을 실행하려면, `build.gradle.kts` 파일에서 사용할 입력으로 `System.in`을 지정하고 Gradle 변경 사항을 로드합니다.
+2.  Gradle을 사용하여 이 앱을 실행하려면 `build.gradle.kts` 파일에 사용할 입력으로 `System.in`을 지정하고 Gradle 변경 사항을 로드합니다.
 
     ```kotlin
     kotlin {
@@ -104,15 +104,15 @@ IntelliJ IDEA를 구성하여 프로젝트를 자동으로 빌드할 수 있습�
 3.  공백을 제거하고 글자 수를 셉니다.
 
     *   [`replace()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/replace.html) 함수를 사용하여 이름에서 공백을 제거합니다.
-    *   스코프 함수 [`let`](scope-functions.md#let)을 사용하여 객체 컨텍스트 내에서 함수를 실행합니다.
-    *   [문자열 템플릿](strings.md#string-templates)을 사용하여 달러 기호 `$`를 추가하고 중괄호 안에 감싸 (`${it.length}`) 이름 길이를 문자열에 삽입합니다. `it`은 [람다 매개변수](coding-conventions.md#lambda-parameters)의 기본 이름입니다.
+    *   객체 컨텍스트 내에서 함수를 실행하려면 스코프 함수(scope function) [`let`](scope-functions.md#let)을 사용합니다.
+    *   [문자열 템플릿(string template)](strings.md#string-templates)을 사용하여 달러 기호 `$`를 추가하고 중괄호 (`${it.length}`)로 묶어 이름 길이를 문자열에 삽입합니다. `it`은 [람다 매개변수(lambda parameter)](coding-conventions.md#lambda-parameters)의 기본 이름입니다.
 
     ```kotlin
     fun main() {
-        // Read the input value.
+        // 입력 값을 읽습니다.
         println("Hello, enter your name:")
         val name = readln()
-        // Count the letters in the name.
+        // 이름의 글자 수를 셉니다.
         name.replace(" ", "").let {
             println("Your name contains ${it.length} letters")
         }
@@ -122,16 +122,16 @@ IntelliJ IDEA를 구성하여 프로젝트를 자동으로 빌드할 수 있습�
 4.  애플리케이션을 실행합니다.
 5.  이름을 입력하고 결과를 확인합니다.
 
-    ![애플리케이션 출력](native-output-gutter-2.png){width=422}
+    ![Application output](native-output-gutter-2.png){width=422}
 
 이제 이름에 있는 고유한 글자만 세어 봅시다.
 
-1.  `Main.kt` 파일에서 `String`에 대한 새로운 [확장 함수](extensions.md#extension-functions) `.countDistinctCharacters()`를 선언합니다.
+1.  `Main.kt` 파일에 `String`에 대한 새로운 [확장 함수(extension function)](extensions.md#extension-functions) `.countDistinctCharacters()`를 선언합니다.
 
     *   [`lowercase()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/lowercase.html) 함수를 사용하여 이름을 소문자로 변환합니다.
     *   [`toList()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/to-list.html) 함수를 사용하여 입력 문자열을 문자 목록으로 변환합니다.
-    *   [`distinct()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/distinct.html) 함수를 사용하여 이름에 있는 고유한 문자만 선택합니다.
-    *   [`count()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/count.html) 함수를 사용하여 고유한 문자의 수를 셉니다.
+    *   [`distinct()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/distinct.html) 함수를 사용하여 이름에서 고유한 문자만 선택합니다.
+    *   [`count()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/count.html) 함수를 사용하여 고유한 문자 수를 셉니다.
 
     ```kotlin
     fun String.countDistinctCharacters() = lowercase().toList().distinct().count()
@@ -143,13 +143,13 @@ IntelliJ IDEA를 구성하여 프로젝트를 자동으로 빌드할 수 있습�
     fun String.countDistinctCharacters() = lowercase().toList().distinct().count()
 
     fun main() {
-        // Read the input value.
+        // 입력 값을 읽습니다.
         println("Hello, enter your name:")
         val name = readln()
-        // Count the letters in the name.
+        // 이름의 글자 수를 셉니다.
         name.replace(" ", "").let {
             println("Your name contains ${it.length} letters")
-            // Print the number of unique letters.
+            // 고유한 글자 수를 출력합니다.
             println("Your name contains ${it.countDistinctCharacters()} unique letters")
         }
     }
@@ -158,16 +158,16 @@ IntelliJ IDEA를 구성하여 프로젝트를 자동으로 빌드할 수 있습�
 3.  애플리케이션을 실행합니다.
 4.  이름을 입력하고 결과를 확인합니다.
 
-    ![애플리케이션 출력](native-output-gutter-3.png){width=422}
+    ![Application output](native-output-gutter-3.png){width=422}
 
-## Gradle 사용
+## Gradle 사용하기
 
 이 섹션에서는 [Gradle](https://gradle.org)을 사용하여 Kotlin/Native 애플리케이션을 수동으로 만드는 방법을 배웁니다. Gradle은 Kotlin/Native 및 Kotlin Multiplatform 프로젝트의 기본 빌드 시스템이며, Java, Android 및 기타 생태계에서도 일반적으로 사용됩니다.
 
 ### 프로젝트 파일 생성
 
-1.  시작하려면 호환되는 버전의 [Gradle](https://gradle.org/install/)을 설치합니다. Kotlin Gradle 플러그인(KGP)과 사용 가능한 Gradle 버전 간의 호환성 여부는 [호환성 표](gradle-configure-project.md#apply-the-plugin)를 참조하세요.
-2.  빈 프로젝트 디렉터리를 생성합니다. 그 안에 다음 내용으로 `build.gradle(.kts)` 파일을 생성합니다.
+1.  시작하려면 호환되는 버전의 [Gradle](https://gradle.org/install/)을 설치합니다. [호환성 표](gradle-configure-project.md#apply-the-plugin)를 참조하여 Kotlin Gradle 플러그인(KGP)과 사용 가능한 Gradle 버전 간의 호환성을 확인하십시오.
+2.  빈 프로젝트 디렉터리를 만듭니다. 그 안에 다음 내용을 가진 `build.gradle(.kts)` 파일을 생성합니다.
 
     <tabs group="build-script">
     <tab title="Kotlin" group-key="kotlin">
@@ -230,10 +230,10 @@ IntelliJ IDEA를 구성하여 프로젝트를 자동으로 빌드할 수 있습�
     </tab>
     </tabs>
 
-    `macosArm64`, `iosArm64`, `linuxArm64`, `mingwX64`와 같은 다른 [타겟 이름](native-target-support.md)을 사용하여 코드를 컴파일할 타겟을 정의할 수 있습니다. 이 타겟 이름은 선택적으로 플랫폼 이름을 매개변수로 받을 수 있으며, 이 경우 `native`입니다. 플랫폼 이름은 프로젝트에서 소스 경로와 태스크 이름을 생성하는 데 사용됩니다.
+    `macosArm64`, `iosArm64`, `linuxArm64`, `mingwX64`와 같은 [타겟 이름](native-target-support.md)을 사용하여 코드를 컴파일할 타겟을 정의할 수 있습니다. 이러한 타겟 이름은 선택적으로 플랫폼 이름을 매개변수로 취할 수 있으며, 이 경우 `native`입니다. 플랫폼 이름은 프로젝트에서 소스 경로와 태스크 이름을 생성하는 데 사용됩니다.
 
-3.  프로젝트 디렉터리에 빈 `settings.gradle(.kts)` 파일을 생성합니다.
-4.  `src/nativeMain/kotlin` 디렉터리를 생성하고 그 안에 다음 내용으로 `hello.kt` 파일을 배치합니다.
+3.  프로젝트 디렉터리에 빈 `settings.gradle(.kts)` 파일을 만듭니다.
+4.  `src/nativeMain/kotlin` 디렉터리를 만들고 그 안에 다음 내용을 가진 `hello.kt` 파일을 배치합니다.
 
     ```kotlin
     fun main() {
@@ -253,7 +253,7 @@ IntelliJ IDEA를 구성하여 프로젝트를 자동으로 빌드할 수 있습�
 
     이 명령은 `build/bin/native` 디렉터리를 생성하며, 그 안에 `debugExecutable`과 `releaseExecutable`이라는 두 개의 디렉터리가 있습니다. 이 디렉터리에는 해당 바이너리 파일이 포함되어 있습니다.
 
-    기본적으로 바이너리 파일의 이름은 프로젝트 디렉터리 이름과 동일합니다.
+    기본적으로 바이너리 파일의 이름은 프로젝트 디렉터리의 이름과 동일합니다.
 
 2.  프로젝트를 실행하려면 다음 명령을 실행합니다.
 
@@ -273,7 +273,7 @@ IntelliJ IDEA를 구성하여 프로젝트를 자동으로 빌드할 수 있습�
 
 프로젝트에 문제가 발생하면 IntelliJ IDEA는 **Build** 탭에 오류 메시지를 표시합니다.
 
-## 명령줄 컴파일러 사용
+## 명령줄 컴파일러 사용하기
 
 이 섹션에서는 명령줄 도구에서 Kotlin 컴파일러를 사용하여 Kotlin/Native 애플리케이션을 만드는 방법을 배웁니다.
 
@@ -281,8 +281,8 @@ IntelliJ IDEA를 구성하여 프로젝트를 자동으로 빌드할 수 있습�
 
 컴파일러를 설치하려면:
 
-1.  Kotlin의 [GitHub 릴리스](%kotlinLatestUrl%) 페이지로 이동합니다.
-2.  이름에 `kotlin-native`가 포함된 파일을 찾아 운영 체제에 적합한 파일을 다운로드합니다. 예를 들어 `kotlin-native-prebuilt-linux-x86_64-2.0.21.tar.gz`와 같은 파일입니다.
+1.  Kotlin의 [GitHub 릴리스](%kotlinLatestUrl%) 페이지로 이동하여 **Assets** 섹션으로 스크롤합니다.
+2.  이름에 `kotlin-native`가 포함된 파일을 찾아 운영 체제에 적합한 파일을 다운로드합니다. 예를 들어 `kotlin-native-prebuilt-linux-x86_64-%kotlinVersion%.tar.gz`와 같은 파일입니다.
 3.  아카이브를 원하는 디렉터리에 압축 해제합니다.
 4.  셸 프로필을 열고 컴파일러의 `/bin` 디렉터리 경로를 `PATH` 환경 변수에 추가합니다.
 
@@ -290,13 +290,13 @@ IntelliJ IDEA를 구성하여 프로젝트를 자동으로 빌드할 수 있습�
     export PATH="/<path to the compiler>/kotlin-native/bin:$PATH"
     ```
 
-> 컴파일러 출력은 의존성이나 가상 머신 요구 사항이 없지만, 컴파일러 자체는 Java 1.8 이상 런타임을 필요로 합니다. [JDK 8 (JAVA SE 8) 또는 이후 버전](https://www.oracle.com/java/technologies/downloads/)에서 지원됩니다.
+> 컴파일러 출력은 종속성이나 가상 머신 요구 사항이 없지만, 컴파일러 자체는 Java 1.8 이상의 런타임을 필요로 합니다. [JDK 8 (JAVA SE 8) 또는 이후 버전](https://www.oracle.com/java/technologies/downloads/)에서 지원됩니다.
 >
 {style="note"}
 
 ### 프로그램 생성
 
-작업 디렉터리를 선택하고 `hello.kt`라는 파일을 생성합니다. 다음 코드로 업데이트합니다.
+작업 디렉터리를 선택하고 `hello.kt`라는 파일을 만듭니다. 다음 코드로 업데이트합니다.
 
 ```kotlin
 fun main() {
@@ -312,16 +312,16 @@ fun main() {
 kotlinc-native hello.kt -o hello
 ```
 
-`-o` 옵션의 값은 출력 파일의 이름을 지정하므로, 이 호출은 macOS 및 Linux에서는 `hello.kexe` 바이너리 파일을, Windows에서는 `hello.exe` 파일을 생성합니다.
+`-o` 옵션의 값은 출력 파일의 이름을 지정하므로, 이 호출은 macOS 및 Linux에서는 `hello.kexe` 바이너리 파일을 생성하고 (Windows에서는 `hello.exe`를 생성합니다).
 
-사용 가능한 모든 옵션에 대한 자세한 내용은 [Kotlin 컴파일러 옵션](compiler-reference.md)을 참조하세요.
+사용 가능한 옵션의 전체 목록은 [Kotlin 컴파일러 옵션](compiler-reference.md)을 참조하십시오.
 
 ### 프로그램 실행
 
 프로그램을 실행하려면 명령줄 도구에서 바이너리 파일이 포함된 디렉터리로 이동하여 다음 명령을 실행합니다.
 
 <tabs>
-<tab title="macOS 및 Linux">
+<tab title="macOS and Linux">
 
 ```none
 ./hello.kexe
@@ -337,10 +337,10 @@ kotlinc-native hello.kt -o hello
 </tab>
 </tabs>
 
-애플리케이션은 "Hello, Kotlin/Native"를 표준 출력으로 인쇄합니다.
+애플리케이션은 표준 출력에 "Hello, Kotlin/Native"를 출력합니다.
 
 ## 다음 단계
 
-*   네이티브 HTTP 클라이언트를 만들고 C 라이브러리와 상호 운용하는 방법을 설명하는 [C interop 및 libcurl을 사용하여 앱 생성](native-app-with-c-and-libcurl.md) 튜토리얼을 완료하세요.
-*   [실제 Kotlin/Native 프로젝트를 위한 Gradle 빌드 스크립트를 작성](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-dsl-reference.html)하는 방법을 배우세요.
-*   [문서](gradle.md)에서 Gradle 빌드 시스템에 대해 더 자세히 읽어보세요.
+*   네이티브 HTTP 클라이언트를 만들고 C 라이브러리와 상호 운용하는 방법을 설명하는 [C interop 및 libcurl을 사용하여 앱 생성하기](native-app-with-c-and-libcurl.md) 튜토리얼을 완료하십시오.
+*   실제 Kotlin/Native 프로젝트를 위한 [Gradle 빌드 스크립트를 작성하는 방법](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-dsl-reference.html)을 배우십시오.
+*   [문서](gradle.md)에서 Gradle 빌드 시스템에 대해 더 자세히 읽어보십시오.

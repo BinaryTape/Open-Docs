@@ -1,32 +1,32 @@
 [//]: # (title: 環境をセットアップする)
 
 <tldr>
-   <p>これは**Kotlin Notebookを始める**チュートリアルの最初のパートです。</p>
-   <p><img src="icon-1.svg" width="20" alt="最初のステップ"/> <strong>環境をセットアップする</strong><br/>
-      <img src="icon-2-todo.svg" width="20" alt="次のステップ"/> Kotlin Notebookを作成する<br/>
-      <img src="icon-3-todo.svg" width="20" alt="3番目のステップ"/> Kotlin Notebookに依存関係を追加する<br/>
+   <p>これは <strong>Kotlin Notebook の始め方</strong> チュートリアルの最初のパートです:</p>
+   <p><img src="icon-1.svg" width="20" alt="First step"/> <strong>環境をセットアップする</strong><br/>
+      <img src="icon-2-todo.svg" width="20" alt="Second step"/> Kotlin Notebook を作成する<br/>
+      <img src="icon-3-todo.svg" width="20" alt="Third step"/> Kotlin Notebook に依存関係を追加する<br/>
   </p>
 </tldr>
 
-最初の[Kotlin Notebook](kotlin-notebook-overview.md)を作成する前に、環境をセットアップする必要があります。
+初めての [Kotlin Notebook](kotlin-notebook-overview.md) を作成する前に、環境をセットアップする必要があります。
 
 ## 環境をセットアップする
 
-Kotlin Notebookは、[Kotlin Notebookプラグイン](https://plugins.jetbrains.com/plugin/16340-kotlin-notebook)に依存しています。このプラグインはIntelliJ IDEAにデフォルトでバンドルされ、有効になっています。
+Kotlin Notebook は、[Kotlin Notebook プラグイン](https://plugins.jetbrains.com/plugin/16340-kotlin-notebook)に依存しています。このプラグインは、IntelliJ IDEA にデフォルトでバンドルされ、有効化されています。
 
-Kotlin Notebookを使用するには、[IntelliJ IDEA](https://www.jetbrains.com/idea/download/index.html)の最新版をダウンロードしてインストールしてください。
+Kotlin Notebook を使用するには、最新バージョンの [IntelliJ IDEA](https://www.jetbrains.com/idea/download/index.html) をダウンロードしてインストールしてください。
 
-Kotlin Notebookの機能が利用できない場合は、プラグインが有効になっていることを確認してください。
+Kotlin Notebook の機能が利用できない場合は、プラグインが有効になっていることを確認してください。
 
-1. IntelliJ IDEAで、**IntelliJ IDEA | Settings | Plugins**を選択します。
-2. **Installed**タブで、**Kotlin Notebook**プラグインを見つけ、プラグイン名の横にあるチェックボックスをオンにします。
+1. IntelliJ IDEA で、**IntelliJ IDEA | Settings | Plugins** を選択します。
+2. **Installed** タブで、**Kotlin Notebook** プラグインを見つけ、プラグイン名の横にあるチェックボックスをオンにします。
 
-   ![Kotlin Notebookをインストール](kotlin-notebook-plugin.png){width=700}
+   ![Install Kotlin Notebook](kotlin-notebook-plugin.png){width=700}
 
-3. **OK**をクリックして変更を適用し、プロンプトが表示されたらIDEを再起動します。
+3. **OK** をクリックして変更を適用し、プロンプトが表示されたら IDE を再起動します。
 
 ## 次のステップ
 
-チュートリアルの次のパートでは、Kotlin Notebookの作成方法を学びます。
+チュートリアルの次のパートでは、Kotlin Notebook の作成方法を学習します。
 
 **[次のチャプターに進む](kotlin-notebook-create.md)**

@@ -3,38 +3,38 @@
 <no-index/>
 
 <tldr>
-    <p><img src="icon-1-done.svg" width="20" alt="First step" /> <a href="kotlin-tour-hello-world.md">Hello world</a><br />
-        <img src="icon-2-done.svg" width="20" alt="Second step" /> <a href="kotlin-tour-basic-types.md">基本类型</a><br />
-        <img src="icon-3.svg" width="20" alt="Third step" /> <strong>集合</strong><br />
-        <img src="icon-4-todo.svg" width="20" alt="Fourth step" /> <a href="kotlin-tour-control-flow.md">控制流</a><br />
-        <img src="icon-5-todo.svg" width="20" alt="Fifth step" /> <a href="kotlin-tour-functions.md">函数</a><br />
-        <img src="icon-6-todo.svg" width="20" alt="Sixth step" /> <a href="kotlin-tour-classes.md">类</a><br />
-        <img src="icon-7-todo.svg" width="20" alt="Final step" /> <a href="kotlin-tour-null-safety.md">空安全</a></p>
+    <p><img src="icon-1-done.svg" width="20" alt="第一步" /> <a href="kotlin-tour-hello-world.md">Hello world</a><br />
+        <img src="icon-2-done.svg" width="20" alt="第二步" /> <a href="kotlin-tour-basic-types.md">基本类型</a><br />
+        <img src="icon-3.svg" width="20" alt="第三步" /> <strong>集合</strong><br />
+        <img src="icon-4-todo.svg" width="20" alt="第四步" /> <a href="kotlin-tour-control-flow.md">控制流</a><br />
+        <img src="icon-5-todo.svg" width="20" alt="第五步" /> <a href="kotlin-tour-functions.md">函数</a><br />
+        <img src="icon-6-todo.svg" width="20" alt="第六步" /> <a href="kotlin-tour-classes.md">类</a><br />
+        <img src="icon-7-todo.svg" width="20" alt="最后一步" /> <a href="kotlin-tour-null-safety.md">空安全</a></p>
 </tldr>
 
-编程时，将数据分组到结构中以便后续处理非常有用。Kotlin 正是为了这个目的提供了集合。
+编程时，将数据分组到结构中以便后续处理是非常有用的。Kotlin 正为此目的提供了集合。
 
-Kotlin 提供了以下集合类型用于分组项：
+Kotlin 提供了以下集合类型来分组项目：
 
-| **集合类型** | **描述**                                        |
-|--------------|-------------------------------------------------|
-| 列表         | 有序的项集合                                    |
-| 集           | 无序的唯一项集合                                |
-| 映射         | 键值对的集合，其中键是唯一的且只映射到一个值    |
+| **集合类型** | **描述**                                                             |
+|---------------------|--------------------------------------------------------------------------|
+| Lists               | 有序的项目集合                                                     |
+| Sets                | 唯一的无序项目集合                                                 |
+| Maps                | 键值对的集合，其中键是唯一的且只映射到一个值                     |
 
 每种集合类型都可以是可变的或只读的。
 
-## 列表
+## List
 
-列表按照项添加的顺序存储项，并允许重复项。
+Lists 按照添加的顺序存储项目，并允许重复项目。
 
-要创建一个只读列表 ([`List`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/))，请使用
+要创建只读 list ([`List`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/))，请使用
 [`listOf()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/list-of.html) 函数。
 
-要创建一个可变列表 ([`MutableList`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-list.html))，
+要创建可变 list ([`MutableList`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-list.html))，
 请使用 [`mutableListOf()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/mutable-list-of.html) 函数。
 
-创建列表时，Kotlin 可以推断存储的项的类型。要显式声明类型，请在列表声明后添加带尖括号 `<>` 的类型：
+创建 list 时，Kotlin 可以推断所存储项目的类型。要显式声明类型，请在 list 声明后将类型添加到尖括号 `<>` 内：
 
 ```kotlin
 fun main() { 
@@ -53,17 +53,17 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-tour-lists-declaration"}
 
-> 为防止意外修改，你可以通过将可变列表赋值给 `List` 来创建其只读视图：
+> 为了防止不必要的修改，你可以通过将可变 list 赋值给 `List` 来创建它的只读视图：
 > 
 > ```kotlin
 >     val shapes: MutableList<String> = mutableListOf("triangle", "square", "circle")
 >     val shapesLocked: List<String> = shapes
 > ```
-> 这也称为 **类型转换**。
+> 这也被称为 **类型转换 (casting)**。
 > 
 {style="tip"}
 
-列表是有序的，因此要访问列表中的项，请使用[索引访问操作符](operator-overloading.md#indexed-access-operator) `[]`：
+Lists 是有序的，因此要访问 list 中的项目，请使用[索引访问操作符](operator-overloading.md#indexed-access-operator) `[]`：
 
 ```kotlin
 fun main() { 
@@ -76,7 +76,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-tour-list-access"}
 
-要获取列表中的第一个或最后一个项，请分别使用 [`.first()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/first.html)
+要获取 list 中的第一个或最后一个项目，请分别使用 [`.first()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/first.html)
 和 [`.last()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/last.html) 函数：
 
 ```kotlin
@@ -91,13 +91,14 @@ fun main() {
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-tour-list-first"}
 
 > [`.first()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/first.html) 和 [`.last()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/last.html)
-> 函数是**扩展函数**的示例。要在对象上调用扩展函数，请在对象名后加上一个点 `.` 和函数名。
+> 函数是**扩展**函数的示例。要在对象上调用扩展函数，请在对象名称后加上句点 `.`，然后是函数名。
 > 
-> 扩展函数在[中级教程](kotlin-tour-intermediate-extension-functions.md#extension-functions)中详细介绍。目前，你只需要知道如何调用它们。
+> 扩展函数在[中级教程](kotlin-tour-intermediate-extension-functions.md#extension-functions)中有详细介绍。
+> 目前，你只需了解如何调用它们。
 > 
 {style="note"}
 
-要获取列表中的项数，请使用 [`.count()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/count.html)
+要获取 list 中的项目数量，请使用 [`.count()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/count.html)
 函数：
 
 ```kotlin
@@ -111,7 +112,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-tour-list-count"}
 
-要检查某个项是否在列表中，请使用[`in` 操作符](operator-overloading.md#in-operator)：
+要检测项目是否在 list 中，请使用 [`in` 操作符](operator-overloading.md#in-operator)：
 
 ```kotlin
 fun main() {
@@ -124,7 +125,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-tour-list-in"}
 
-要从可变列表中添加或删除项，请分别使用 [`.add()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-list/add.html)
+要从可变 list 中添加或移除项目，请分别使用 [`.add()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-list/add.html)
 和 [`.remove()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/remove.html) 函数：
 
 ```kotlin
@@ -145,17 +146,17 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-tour-list-add-remove"}
 
-## 集
+## Set
 
-列表是有序的且允许重复项，而集是**无序的**且只存储**唯一**项。
+List 是有序并允许重复项目，而 Set 则是**无序**的，并且只存储**唯一**的项目。
 
-要创建一个只读集 ([`Set`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-set/))，请使用
+要创建只读 set ([`Set`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-set/))，请使用
 [`setOf()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/set-of.html) 函数。
 
-要创建一个可变集 ([`MutableSet`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-set/))，
+要创建可变 set ([`MutableSet`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-set/))，
 请使用 [`mutableSetOf()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/mutable-set-of.html) 函数。
 
-创建集时，Kotlin 可以推断存储的项的类型。要显式声明类型，请在集声明后添加带尖括号 `<>` 的类型：
+创建 set 时，Kotlin 可以推断所存储项目的类型。要显式声明类型，请在 set 声明后将类型添加到尖括号 `<>` 内：
 
 ```kotlin
 fun main() {
@@ -172,9 +173,9 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-tour-sets-declaration"}
 
-你可以在前面的示例中看到，由于集只包含唯一元素，重复的 `"cherry"` 项被丢弃了。
+在前面的示例中可以看到，因为 Set 只包含唯一元素，所以重复的 `"cherry"` 项目被去掉了。
 
-> 为防止意外修改，你可以通过将可变集赋值给 `Set` 来创建其只读视图：
+> 为了防止不必要的修改，你可以通过将可变 set 赋值给 `Set` 来创建它的只读视图：
 > 
 > ```kotlin
 >     val fruit: MutableSet<String> = mutableSetOf("apple", "banana", "cherry", "cherry")
@@ -183,11 +184,11 @@ fun main() {
 >
 {style="tip"}
 
-> 由于集是**无序的**，你无法通过特定索引访问项。
+> 由于 Set 是**无序**的，因此无法通过特定索引访问项目。
 > 
 {style="note"}
 
-要获取集中的项数，请使用 [`.count()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/count.html)
+要获取 set 中的项目数量，请使用 [`.count()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/count.html)
 函数：
 
 ```kotlin
@@ -201,7 +202,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-tour-set-count"}
 
-要检查某个项是否在集中，请使用[`in` 操作符](operator-overloading.md#in-operator)：
+要检测项目是否在 set 中，请使用 [`in` 操作符](operator-overloading.md#in-operator)：
 
 ```kotlin
 fun main() {
@@ -214,7 +215,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-tour-set-in"}
 
-要从可变集中添加或删除项，请分别使用 [`.add()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-set/add.html)
+要从可变 set 中添加或移除项目，请分别使用 [`.add()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-set/add.html)
 和 [`.remove()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/remove.html) 函数：
 
 ```kotlin
@@ -231,24 +232,26 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-tour-set-add-remove"}
 
-## 映射
+## Map
 
-映射将项存储为键值对。你可以通过引用键来访问值。你可以将映射想象成一份食物菜单。通过查找你想吃的食物（键），你可以找到价格（值）。如果你想在不使用像列表那样编号索引的情况下查找值，映射会很有用。
+Maps 将项目存储为键值对。通过引用键来访问值。你可以将 map 想象成一个食物菜单。
+你可以通过查找你想要吃的食物（键）来找到价格（值）。如果你想在不使用编号索引的情况下查找值，例如在 list 中，Map 非常有用。
 
-> * 映射中的每个键都必须是唯一的，这样 Kotlin 才能理解你想要获取哪个值。
-> * 映射中可以有重复的值。
+> * Map 中的每个键都必须是唯一的，以便 Kotlin 能够理解你想要获取哪个值。
+> * Map 中可以有重复的值。
 >
 {style="note"}
 
-要创建一个只读映射 ([`Map`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/))，请使用
+要创建只读 map ([`Map`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/))，请使用
 [`mapOf()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/map-of.html) 函数。
 
-要创建一个可变映射 ([`MutableMap`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-map/))，
+要创建可变 map ([`MutableMap`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-map/))，
 请使用 [`mutableMapOf()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/mutable-map-of.html) 函数。
 
-创建映射时，Kotlin 可以推断存储的项的类型。要显式声明类型，请在映射声明后添加带尖括号 `<>` 的键和值类型。例如：`MutableMap<String, Int>`。键的类型为 `String`，值的类型为 `Int`。
+创建 map 时，Kotlin 可以推断所存储项目的类型。要显式声明类型，请在 map 声明后将键和值的类型添加到尖括号 `<>` 内。例如：`MutableMap<String, Int>`。
+键的类型为 `String`，值的类型为 `Int`。
 
-创建映射最简单的方法是在每个键及其相关值之间使用 [`to`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/to.html)：
+创建 map 最简单的方法是在每个键及其相关值之间使用 [`to`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/to.html)：
 
 ```kotlin
 fun main() {
@@ -267,7 +270,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-tour-maps-declaration"}
 
-> 为防止意外修改，你可以通过将可变映射赋值给 `Map` 来创建其只读视图：
+> 为了防止不必要的修改，你可以通过将可变 map 赋值给 `Map` 来创建它的只读视图：
 > 
 > ```kotlin
 >     val juiceMenu: MutableMap<String, Int> = mutableMapOf("apple" to 100, "kiwi" to 190, "orange" to 100)
@@ -276,7 +279,7 @@ fun main() {
 >
 {style="tip"}
 
-要访问映射中的值，请使用带其键的[索引访问操作符](operator-overloading.md#indexed-access-operator) `[]`：
+要访问 map 中的值，请使用带其键的[索引访问操作符](operator-overloading.md#indexed-access-operator) `[]`：
 
 ```kotlin
 fun main() {
@@ -290,7 +293,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-tour-map-access"}
 
-> 如果你尝试使用映射中不存在的键来访问键值对，你会看到 `null` 值：
+> 如果你尝试使用 map 中不存在的键来访问键值对，你将看到 `null` 值：
 >
 > ```kotlin
 > fun main() {
@@ -304,11 +307,11 @@ fun main() {
 > ```
 > {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-tour-map-no-key" validate="false"}
 > 
-> 本教程稍后会在[空安全](kotlin-tour-null-safety.md)章节中解释 `null` 值。
+> 本教程稍后将在[空安全](kotlin-tour-null-safety.md)章节中解释 null 值。
 > 
 {style="note"}
 
-你也可以使用[索引访问操作符](operator-overloading.md#indexed-access-operator) `[]` 向可变映射中添加项：
+你还可以使用[索引访问操作符](operator-overloading.md#indexed-access-operator) `[]` 向可变 map 添加项目：
 
 ```kotlin
 fun main() {
@@ -322,7 +325,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-tour-map-add-item"}
 
-要从可变映射中删除项，请使用 [`.remove()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/remove.html) 
+要从可变 map 中移除项目，请使用 [`.remove()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/remove.html)
 函数：
 
 ```kotlin
@@ -337,7 +340,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-tour-map-put-remove"}
 
-要获取映射中的项数，请使用 [`.count()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/count.html)
+要获取 map 中的项目数量，请使用 [`.count()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/count.html)
 函数：
 
 ```kotlin
@@ -352,7 +355,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-tour-map-count"}
 
-要检查映射中是否已包含特定键，请使用 [`.containsKey()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/contains-key.html)
+要检测 map 中是否已包含特定键，请使用 [`.containsKey()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/contains-key.html)
 函数：
 
 ```kotlin
@@ -366,7 +369,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-tour-map-contains-keys"}
 
-要获取映射的键或值的集合，请分别使用 [`keys`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/keys.html)
+要获取 map 的键或值的集合，请分别使用 [`keys`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/keys.html)
 和 [`values`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/values.html) 属性：
 
 ```kotlin
@@ -383,13 +386,14 @@ fun main() {
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-tour-map-keys-values"}
 
 > [`keys`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/keys.html) 和 [`values`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/values.html)
-> 是对象**属性**的示例。要访问对象的属性，请在对象名后加上一个点 `.` 和属性名。
+> 是对象**属性**的示例。要访问对象的属性，请在对象名称后加上句点 `.`，然后是属性名。
 >
-> 属性在[类](kotlin-tour-classes.md)章节中有更详细的讨论。在本教程的这一点上，你只需要知道如何访问它们。
+> 属性在[类](kotlin-tour-classes.md)章节中有更详细的讨论。
+> 在本教程的此时，你只需了解如何访问它们。
 >
 {style="note"}
 
-要检查键或值是否在映射中，请使用[`in` 操作符](operator-overloading.md#in-operator)：
+要检测键或值是否在 map 中，请使用 [`in` 操作符](operator-overloading.md#in-operator)：
 
 ```kotlin
 fun main() {
@@ -409,15 +413,15 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-tour-map-in"}
 
-有关集合可以执行的操作的更多信息，请参阅[集合](collections-overview.md)。
+有关集合能做什么的更多信息，请参见[集合](collections-overview.md)。
 
-既然你已经了解了基本类型以及如何管理集合，现在是时候探索可以在程序中使用的[控制流](kotlin-tour-control-flow.md)了。
+现在你已经了解了基本类型以及如何管理集合，是时候探索你可以在程序中使用的[控制流](kotlin-tour-control-flow.md)了。
 
 ## 练习
 
 ### 练习 1 {initial-collapse-state="collapsed" collapsible="true"}
 
-你有一组“绿色”数字和一组“红色”数字。补全代码以打印总共有多少个数字。
+你有一个“绿色”数字列表和一个“红色”数字列表。完成代码以打印总共有多少个数字。
 
 |---|---|
 ```kotlin
@@ -438,11 +442,11 @@ fun main() {
     println(totalCount)
 }
 ```
-{initial-collapse-state="collapsed" collapsible="true" collapsed-title="示例解决方案" id="kotlin-tour-collections-solution-1"}
+{initial-collapse-state="collapsed" collapsible="true" collapsed-title="示例解答" id="kotlin-tour-collections-solution-1"}
 
 ### 练习 2 {initial-collapse-state="collapsed" collapsible="true"}
 
-你的服务器支持一组协议。用户请求使用特定协议。补全程序以检查请求的协议是否受支持（`isSupported` 必须是一个布尔值）。
+你有一组服务器支持的协议。用户请求使用特定协议。完成程序以检测请求的协议是否受支持 (`isSupported` 必须是布尔值)。
 
 |---|---|
 ```kotlin
@@ -457,8 +461,8 @@ fun main() {
 
 <deflist collapsible="true" id="kotlin-tour-collections-exercise-2-hint">
     <def title="提示">
-        确保你检查的是请求协议的大写形式。你可以使用 <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/uppercase.html"><code>.uppercase()</code></a>
-函数来帮助你完成此操作。
+        请确保检查请求协议的大写形式。你可以使用 <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/uppercase.html"><code>.uppercase()</code></a>
+函数来帮助你。
     </def>
 </deflist>
 
@@ -471,11 +475,11 @@ fun main() {
     println("Support for $requested: $isSupported")
 }
 ```
-{initial-collapse-state="collapsed" collapsible="true" collapsed-title="示例解决方案" id="kotlin-tour-collections-solution-2"}
+{initial-collapse-state="collapsed" collapsible="true" collapsed-title="示例解答" id="kotlin-tour-collections-solution-2"}
 
 ### 练习 3 {initial-collapse-state="collapsed" collapsible="true"}
 
-定义一个将整数 1 到 3 关联到其对应拼写的映射。使用此映射来拼写给定的数字。
+定义一个 map，将整数 1 到 3 映射到其对应的拼写。使用此 map 拼写给定数字。
 
 |---|---|
 ```kotlin
@@ -495,7 +499,7 @@ fun main() {
     println("$n is spelt as '${number2word[n]}'")
 }
 ```
-{initial-collapse-state="collapsed" collapsible="true" collapsed-title="示例解决方案" id="kotlin-tour-collections-solution-3"}
+{initial-collapse-state="collapsed" collapsible="true" collapsed-title="示例解答" id="kotlin-tour-collections-solution-3"}
 
 ## 下一步
 

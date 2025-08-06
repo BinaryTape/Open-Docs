@@ -11,15 +11,15 @@ class Message { /*...*/ }
 // ...
 ```
 
-클래스와 함수를 포함한 소스 파일의 모든 내용은 이 패키지에 포함됩니다.
-따라서 위 예시에서 `printMessage()`의 전체 이름은 `org.example.printMessage`이며,
+클래스와 함수 등 소스 파일의 모든 내용은 이 패키지에 포함됩니다.
+따라서 위 예시에서 `printMessage()`의 전체 이름은 `org.example.printMessage`이고,
 `Message`의 전체 이름은 `org.example.Message`입니다.
 
-패키지가 지정되지 않은 경우, 해당 파일의 내용은 이름 없는 _기본_ 패키지(default package)에 속합니다.
+패키지가 지정되지 않은 경우, 해당 파일의 내용은 이름이 없는 _기본_ 패키지에 속합니다.
 
 ## 기본 임포트
 
-기본적으로 여러 패키지가 모든 Kotlin 파일로 임포트됩니다:
+기본적으로 여러 패키지가 모든 Kotlin 파일에 임포트됩니다:
 
 - [kotlin.*](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/index.html)
 - [kotlin.annotation.*](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.annotation/index.html)
@@ -36,38 +36,38 @@ class Message { /*...*/ }
   - java.lang.*
   - [kotlin.jvm.*](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.jvm/index.html)
 
-- JS:
+- JS:    
   - [kotlin.js.*](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.js/index.html)
 
 ## 임포트
 
-기본 임포트 외에도 각 파일은 자체적인 `import` 지시어를 포함할 수 있습니다.
+기본 임포트 외에도 각 파일은 자체 `import` 지시자를 포함할 수 있습니다.
 
 단일 이름을 임포트할 수 있습니다:
 
 ```kotlin
-import org.example.Message // Message에 접근 가능합니다
+import org.example.Message // Message is now accessible without qualification
 ```
 
-또는 범위(scope)의 모든 접근 가능한 내용(패키지, 클래스, 객체 등)을 임포트할 수 있습니다:
+또는 스코프 내의 모든 접근 가능한 내용(패키지, 클래스, 객체 등)을 임포트할 수 있습니다:
 
 ```kotlin
-import org.example.* // 'org.example'의 모든 내용이 접근 가능해집니다
+import org.example.* // everything in 'org.example' becomes accessible
 ```
 
-이름 충돌이 있는 경우, `as` 키워드를 사용하여 충돌하는 엔티티(entity)의 이름을 로컬에서 변경하여 모호성을 해소할 수 있습니다:
+이름 충돌이 있는 경우, `as` 키워드를 사용하여 충돌하는 엔티티의 이름을 로컬로 변경함으로써 모호성을 해결할 수 있습니다:
 
 ```kotlin
-import org.example.Message // Message에 접근 가능합니다
-import org.test.Message as TestMessage // TestMessage는 'org.test.Message'를 나타냅니다
+import org.example.Message // Message is accessible
+import org.test.Message as TestMessage // TestMessage stands for 'org.test.Message'
 ```
 
-`import` 키워드는 클래스를 임포트하는 데에만 국한되지 않습니다; 다른 선언(declaration)들을 임포트하는 데에도 사용할 수 있습니다:
+`import` 키워드는 클래스를 임포트하는 데에만 제한되지 않습니다; 다른 선언을 임포트하는 데에도 사용할 수 있습니다:
 
   * 최상위 함수 및 프로퍼티
   * [객체 선언](object-declarations.md#object-declarations-overview)에 선언된 함수 및 프로퍼티
-  * [열거형 상수](enum-classes.md)
+  * [enum 상수](enum-classes.md)
 
 ## 최상위 선언의 가시성
 
-최상위 선언이 `private`으로 표시되면, 해당 선언이 선언된 파일에만 비공개로 유지됩니다 (자세한 내용은 [가시성 변경자](visibility-modifiers.md) 참조).
+최상위 선언이 `private`으로 표시되면, 해당 선언이 선언된 파일에 대해서만 비공개입니다 (자세한 내용은 [가시성 변경자](visibility-modifiers.md)를 참조하세요).

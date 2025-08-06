@@ -1,12 +1,12 @@
-[//]: # (title: イテレータ)
+[//]: # (title: イテレーター)
 
-コレクションの要素を走査するために、Kotlin標準ライブラリは、_イテレータ_という一般的に使用されるメカニズムをサポートしています。イテレータは、コレクションの基盤となる構造を公開することなく、要素に順次アクセスを提供するオブジェクトです。イテレータは、コレクションのすべての要素を一つずつ処理する必要がある場合（例えば、値を出力したり、同様の更新を行ったりする場合）に役立ちます。
+コレクションの要素を走査するために、Kotlin標準ライブラリは、コレクションの基となる構造を公開することなく要素に順次アクセスを提供する、一般的に使用されるメカニズムである_イテレーター_をサポートしています。イテレーターは、コレクションのすべての要素を1つずつ処理する必要がある場合に便利です。例えば、値を出力したり、同様の更新を行ったりする場合などです。
 
-イテレータは、[`Iterable<T>`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html)インターフェースを継承するクラス（`Set`や`List`を含む）で、[`iterator()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/iterator.html)関数を呼び出すことで取得できます。
+イテレーターは、`Set`や`List`を含む[`Iterable<T>`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html)インターフェースの継承者に対して、[`iterator()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/iterator.html)関数を呼び出すことで取得できます。
 
-イテレータを取得すると、それはコレクションの最初の要素を指します。[`next()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterator/next.html)関数を呼び出すと、その要素が返され、存在する場合はイテレータの位置が次の要素に移動します。
+イテレーターを取得すると、それはコレクションの最初の要素を指します。[`next()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterator/next.html)関数を呼び出すと、この要素が返され、存在する場合はイテレーターの位置が次の要素に移動します。
 
-イテレータが最後の要素を通過すると、それ以上要素を取得するために使用できなくなります。また、以前の位置にリセットすることもできません。コレクションを再度イテレートするには、新しいイテレータを作成します。
+イテレーターが最後の要素を通過すると、要素の取得にはこれ以上使用できなくなり、以前のどの位置にもリセットできません。コレクションを再度イテレートするには、新しいイテレーターを作成してください。
 
 ```kotlin
 
@@ -26,7 +26,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-`Iterable`コレクションを走査する別の方法は、よく知られた`for`ループです。コレクションで`for`を使用すると、イテレータが暗黙的に取得されます。したがって、以下のコードは上記の例と同等です。
+`Iterable`コレクションを走査する別の方法は、よく知られた`for`ループです。コレクションに対して`for`を使用すると、暗黙的にイテレーターが取得されます。したがって、以下のコードは上記の例と同等です。
 
 ```kotlin
 
@@ -45,7 +45,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-最後に、コレクションを自動的にイテレートし、各要素に対して与えられたコードを実行できる便利な`forEach()`関数があります。同じ例は次のようになります。
+最後に、コレクションを自動的にイテレートし、各要素に対して指定されたコードを実行できる便利な`forEach()`関数があります。したがって、同じ例は次のようになります。
 
 ```kotlin
 
@@ -64,11 +64,11 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-## リストイテレータ
+## リストイテレーター
 
-リストには、特殊なイテレータ実装である[`ListIterator`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list-iterator/index.html)があります。これは、リストを両方向（前方と後方）にイテレートするのをサポートしています。
+リストには、特殊なイテレーター実装である[`ListIterator`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list-iterator/index.html)があります。これは、前方と後方の両方向でリストをイテレートすることをサポートしています。
 
-後方イテレーションは、[`hasPrevious()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list-iterator/has-previous.html)および[`previous()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list-iterator/previous.html)関数によって実装されます。さらに、`ListIterator`は、[`nextIndex()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list-iterator/next-index.html)および[`previousIndex()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list-iterator/previous-index.html)関数で要素のインデックスに関する情報を提供します。
+後方イテレーションは、[`hasPrevious()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list-iterator/has-previous.html)および[`previous()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list-iterator/previous.html)関数によって実装されます。さらに、`ListIterator`は[`nextIndex()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list-iterator/next-index.html)および[`previousIndex()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list-iterator/previous-index.html)関数を使用して要素のインデックスに関する情報を提供します。
 
 ```kotlin
 
@@ -92,11 +92,11 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-両方向にイテレートする能力があるため、`ListIterator`は最後の要素に到達した後でも使用できます。
+両方向にイテレートする機能があるため、`ListIterator`は最後の要素に到達した後でも引き続き使用できます。
 
-## 可変イテレータ
+## ミュータブルイテレーター
 
-可変コレクションをイテレートするために、[`MutableIterator`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-iterator/index.html)があります。これは`Iterator`を要素削除関数[`remove()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-iterator/remove.html)で拡張します。これにより、コレクションをイテレート中に要素を削除できます。
+変更可能なコレクションをイテレートするには、要素を削除する関数[`remove()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-iterator/remove.html)で`Iterator`を拡張した[`MutableIterator`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-iterator/index.html)があります。したがって、コレクションをイテレートしながら要素を削除できます。
 
 ```kotlin
 
@@ -114,7 +114,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-要素を削除する以外に、[`MutableListIterator`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-list-iterator/index.html)は、[`add()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-list-iterator/add.html)関数と[`set()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-list-iterator/set.html)関数を使用して、リストをイテレート中に要素を挿入および置換することもできます。
+要素を削除するだけでなく、[`MutableListIterator`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-list-iterator/index.html)は、リストをイテレートしながら[`add()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-list-iterator/add.html)および[`set()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-list-iterator/set.html)関数を使用して要素を挿入および置換することもできます。
 
 ```kotlin
 

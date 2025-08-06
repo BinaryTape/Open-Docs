@@ -1,6 +1,6 @@
 [//]: # (title: 从命令行运行 KSP)
 
-KSP 是一个 Kotlin 编译器插件，需要与 Kotlin 编译器一起运行。下载并解压它们。
+KSP 是一个 Kotlin 编译器插件，需要与 Kotlin 编译器一起运行。请下载并解压它们。
 
 ```bash
 #!/bin/bash
@@ -14,21 +14,22 @@ wget https://github.com/google/ksp/releases/download/%kspSupportedKotlinVersion%
 unzip artifacts.zip
 ```
 
-要使用 `kotlinc` 运行 KSP，请将 `-Xplugin` 选项传递给 `kotlinc`。
+要使用 `kotlinc` 运行 KSP，请向 `kotlinc` 传递 `-Xplugin` 选项。
 
 ```
 -Xplugin=/path/to/symbol-processing-cmdline-%kspSupportedKotlinVersion%-%kspVersion%.jar
 ```
 
-这与 `symbol-processing-%kspSupportedKotlinVersion%-%kspVersion%.jar` 不同，后者设计用于在运行 Gradle 时与 `kotlin-compiler-embeddable` 一起使用。命令行 `kotlinc` 需要 `symbol-processing-cmdline-%kspSupportedKotlinVersion%-%kspVersion%.jar`。
+这不同于 `symbol-processing-%kspSupportedKotlinVersion%-%kspVersion%.jar`，后者旨在与 `kotlin-compiler-embeddable` 在使用 Gradle 运行时一起使用。
+命令行 `kotlinc` 需要 `symbol-processing-cmdline-%kspSupportedKotlinVersion%-%kspVersion%.jar`。
 
-你还需要 API JAR。
+你还需要 API jar。
 
 ```
 -Xplugin=/path/to/symbol-processing-api-%kspSupportedKotlinVersion%-%kspVersion%.jar
 ```
 
-查看完整示例：
+请参阅完整的示例：
 
 ```bash
 #!/bin/bash

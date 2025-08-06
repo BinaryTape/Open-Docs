@@ -1,19 +1,19 @@
-[//]: # (title: 使用 Kandy 在 Kotlin Notebook 中进行数据可视化)
+[//]: # (title: Kotlin Notebook 中结合 Kandy 进行数据可视化)
 
-Kotlin 为强大而灵活的数据可视化提供了一站式解决方案，它提供了一种直观的方式来呈现和探索数据，然后再深入复杂的模型。
+Kotlin 提供了一个一站式解决方案，用于强大而灵活的数据可视化，以直观的方式呈现和探索数据，然后再深入复杂的模型。
 
-本教程演示了如何在 IntelliJ IDEA 中使用 [Kotlin Notebook](kotlin-notebook-overview.md) 以及 [Kandy](https://kotlin.github.io/kandy/welcome.html) 和 [Kotlin DataFrame](https://kotlin.github.io/dataframe/gettingstarted.html) 库创建不同类型的图表。
+本教程演示了如何在 IntelliJ IDEA 中使用 [Kotlin Notebook](kotlin-notebook-overview.md) 结合 [Kandy](https://kotlin.github.io/kandy/welcome.html) 和 [Kotlin DataFrame](https://kotlin.github.io/dataframe/gettingstarted.html) 库创建不同类型的图表。
 
 ## 开始之前
 
-Kotlin Notebook 依赖于 [Kotlin Notebook 插件](https://plugins.jetbrains.com/plugin/16340-kotlin-notebook)，该插件默认捆绑并启用在 IntelliJ IDEA 中。
+Kotlin Notebook 依赖于 [Kotlin Notebook 插件](https://plugins.jetbrains.com/plugin/16340-kotlin-notebook)，该插件在 IntelliJ IDEA 中默认捆绑并启用。
 
-如果 Kotlin Notebook 功能不可用，请确保插件已启用。更多信息，请参阅 [设置环境](kotlin-notebook-set-up-env.md)。
+如果 Kotlin Notebook 特性不可用，请确保插件已启用。有关更多信息，请参见[设置环境](kotlin-notebook-set-up-env.md)。
 
-创建一个新的 Kotlin Notebook：
+创建新的 Kotlin Notebook:
 
 1. 选择 **File** | **New** | **Kotlin Notebook**。
-2. 在您的 Notebook 中，运行以下命令导入 Kandy 和 Kotlin DataFrame 库：
+2. 在你的 Notebook 中，通过运行以下命令导入 Kandy 和 Kotlin DataFrame 库：
 
     ```kotlin
     %use kandy
@@ -22,7 +22,7 @@ Kotlin Notebook 依赖于 [Kotlin Notebook 插件](https://plugins.jetbrains.com
 
 ## 创建 DataFrame
 
-首先创建包含要可视化记录的 DataFrame。此 DataFrame 存储了三个城市（柏林、马德里和加拉加斯）的月平均气温模拟数据。
+首先创建包含要可视化记录的 DataFrame。此 DataFrame 存储了柏林、马德里和加拉加斯三个城市的月平均温度模拟数据。
 
 使用 Kotlin DataFrame 库中的 `dataFrameOf()` 函数生成 DataFrame。在 Kotlin Notebook 中运行以下代码片段：
 
@@ -51,26 +51,26 @@ val df = dataFrameOf(
 )
 ```
 
-通过查看前四行来探索新 DataFrame 的结构：
+通过查看前四行来探查新 DataFrame 的结构：
 
 ```kotlin
 df.head(4)
 ```
 
-您可以看到该 DataFrame 有三列：Month、Temperature 和 City。DataFrame 的前四行包含柏林从一月到四月的温度记录：
+你可以看到 DataFrame 有三列：Month、Temperature 和 City。DataFrame 的前四行包含柏林从一月到四月的温度记录：
 
-![DataFrame 探索](visualization-dataframe-temperature.png){width=600}
+![DataFrame 探查](visualization-dataframe-temperature.png){width=600}
 
-> 存在不同的选项来访问列的记录，这有助于您在使用 Kandy 和 Kotlin DataFrame 库时提高类型安全性。
-> 更多信息，请参阅 [访问 API](https://kotlin.github.io/dataframe/apilevels.html)。
+> 有不同的选项可以访问列的记录，这有助于你在同时使用 Kandy 和 Kotlin DataFrame 库时提高类型安全性。
+> 有关更多信息，请参见 [访问 API](https://kotlin.github.io/dataframe/apilevels.html)。
 >
 {style="tip"}
 
 ## 创建折线图
 
-现在，让我们使用上一节中的 `df` DataFrame 在 Kotlin Notebook 中创建一个折线图。
+让我们使用上一节中的 `df` DataFrame 在 Kotlin Notebook 中创建折线图。
 
-使用 Kandy 库中的 `plot()` 函数。在 `plot()` 函数中，指定图表类型（在本例中为 `line`）以及 X 轴和 Y 轴的值。您可以自定义颜色和大小：
+使用 Kandy 库中的 `plot()` 函数。在 `plot()` 函数中，指定图表类型（在本例中为 `line`）以及 X 轴和 Y 轴的值。你可以自定义颜色和大小：
 
 ```kotlin
 df.plot {
@@ -94,11 +94,11 @@ df.plot {
 
 ![折线图](visualization-line-chart.svg){width=600}
 
-## 创建散点图（points chart）
+## 创建点图
 
-现在，让我们在散点图（points chart）中可视化 `df` DataFrame。
+现在，让我们在点图（散点图）中可视化 `df` DataFrame。
 
-在 `plot()` 函数中，指定 `points` 图表类型。添加 X 轴和 Y 轴的值以及 `df` 列中的分类值。您还可以为图表添加标题：
+在 `plot()` 函数中，指定 `points` 图表类型。添加 X 轴和 Y 轴的值以及 `df` 列中的分类值。你还可以为图表添加标题：
 
 ```kotlin
 df.plot {
@@ -120,11 +120,11 @@ df.plot {
 
 结果如下：
 
-![散点图](visualization-points-chart.svg){width=600}
+![点图](visualization-points-chart.svg){width=600}
 
 ## 创建条形图
 
-最后，让我们使用与之前图表相同的数据创建一个按城市分组的条形图。对于颜色，您也可以使用十六进制代码：
+最后，让我们使用与之前图表相同的数据创建一个按城市分组的条形图。对于颜色，你还可以使用十六进制代码：
 
 ```kotlin
 // Groups by cities  
@@ -153,7 +153,7 @@ df.groupBy { City }.plot {
 
 ## 接下来
 
-* 在 [Kandy 库文档](https://kotlin.github.io/kandy/examples.html) 中探索更多图表示例
-* 在 [Lets-Plot 库文档](lets-plot.md) 中探索更多高级绘图选项
-* 在 [Kotlin DataFrame 库文档](https://kotlin.github.io/dataframe/info.html) 中查找有关创建、探索和管理数据帧的更多信息
-* 在此 [YouTube 视频]( https://www.youtube.com/watch?v=m4Cqz2_P9rI&t=4s) 中了解更多关于 Kotlin Notebook 中的数据可视化知识
+* 探查 [Kandy 库文档](https://kotlin.github.io/kandy/examples.html)中的更多图表示例
+* 探查 [Lets-Plot 库文档](lets-plot.md)中的更多高级绘图选项
+* 在 [Kotlin DataFrame 库文档](https://kotlin.github.io/dataframe/info.html)中查找有关创建、探查和管理数据帧的更多信息。
+* 在此 [YouTube 视频]( https://www.youtube.com/watch?v=m4Cqz2_P9rI&t=4s)中了解更多有关 Kotlin Notebook 数据可视化的信息。

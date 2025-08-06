@@ -1,7 +1,7 @@
 import { execa } from "execa";
 import fs from "fs-extra";
 import { glob } from "glob";
-import { translateFiles } from "./translate.mjs";
+import {translateFiles, translateLocaleFiles} from "./translate.mjs";
 import { REPOS } from "./docs-repo-config.mjs";
 
 const Logger = {
@@ -138,6 +138,7 @@ async function translate(context) {
     const translatedPaths = await translateFiles(
       repoConfig.name,
       repoConfig.path,
+      repoConfig.docPath,
       filesToTranslate
     );
     translatedPaths.forEach((p) => context.gitAddPaths.add(p));
@@ -150,6 +151,19 @@ async function translate(context) {
 }
 
 // =================================================================
+// STAGE 3.1: TRANSLATE - Translate sidebar
+// =================================================================
+async function translateSidebar(context) {
+  Logger.step("STAGE 3.1: Translating sidebar...");
+  let localeFiles = await files.find("docs/.vitepress/locales", ["*.json"]);
+  localeFiles = localeFiles.filter((f) => !f.endsWith("en.json"));
+  context.gitAddPaths.add("docs/.vitepress/locales/en.json");
+
+  const translatedPaths = await translateLocaleFiles(localeFiles)
+  translatedPaths.forEach((p) => context.gitAddPaths.add(p));
+}
+
+// =================================================================
 // STAGE 4: COMMIT - Push all changes to the repository
 // =================================================================
 async function commit(context) {
@@ -158,6 +172,9 @@ async function commit(context) {
     Logger.info("No file changes to commit.");
     return;
   }
+
+  const sidebarFiles = await files.find("docs/.vitepress/sidebar", ["*.json"]);
+  sidebarFiles.forEach((f) => context.gitAddPaths.add(`docs/.vitepress/sidebar/${f}`));
 
   const pathsToAdd = [...context.gitAddPaths];
   Logger.dim("Adding the following paths to git:");
@@ -202,6 +219,7 @@ async function main() {
     await sync(context);
     await detect(context);
     await translate(context);
+    await translateSidebar(context);
     await commit(context);
 
     Logger.info("Workflow completed successfully.");

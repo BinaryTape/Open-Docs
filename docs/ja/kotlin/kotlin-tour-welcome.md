@@ -1,18 +1,18 @@
-[//]: # (title: Kotlinのツアーへようこそ！)
+[//]: # (title: Kotlinツアーへようこそ！)
 
-> これらのツアーはすべてブラウザ内で完結できます。インストールは不要です。
+> これらのツアーはブラウザ内で完結できます。インストールは不要です。
 > 
 { style = "note" }
 
-Kotlinプログラミング言語の基本を、初心者から中級レベルまでステップアップできるツアーを通して素早く学びましょう。各チャプターには以下が含まれます。
+私たちのツアーを通して、Kotlinプログラミング言語の基本を素早く学びましょう。これらのツアーは、あなたを初心者から中級レベルへと導きます。各チャプターには以下が含まれます:
 
 *   **理論**: 言語の主要な概念を例とともに紹介します。
-*   **実践**: 学んだことの理解度を試すための演習が含まれます。
-*   **解答**: 参考にしてください。
+*   **実践**: 学んだ内容の理解度を試す演習が含まれています。
+*   **解答**: 参照用の解答です。
 
-基礎を習得するには、初心者向けツアーから始めましょう。
+まず、初心者向けツアーから始めて基礎を習得しましょう:
 
-<a href="kotlin-tour-hello-world.md"><img src="start-beginner-tour.svg" width="700" alt="初心者向けKotlinツアーを開始" style="block"/></a>
+<a href="kotlin-tour-hello-world.md"><img src="start-beginner-tour.svg" width="700" alt="初心者向けKotlinツアーを開始する" style="block"/></a>
 
 <deflist collapsible="true">
     <def title="初心者向けツアーの内容" default-state="collapsed">
@@ -23,26 +23,26 @@ Kotlinプログラミング言語の基本を、初心者から中級レベル�
             <li><a href="kotlin-tour-control-flow.md">制御フロー</a></li>
             <li><a href="kotlin-tour-functions.md">関数</a></li>
             <li><a href="kotlin-tour-classes.md">クラス</a></li>
-            <li><a href="kotlin-tour-null-safety.md">Null安全性</a></li>
+            <li><a href="kotlin-tour-null-safety.md">null安全性</a></li>
         </ul>
     </def>
 </deflist>
 
-Kotlinの理解をさらに深めたい場合は、中級者向けツアーに進みましょう。
+Kotlinの理解をさらに深めたい場合は、中級者向けツアーを受講してください:
 
-<a href="kotlin-tour-intermediate-extension-functions.md"><img src="start-intermediate-tour.svg" width="700" alt="中級者向けKotlinツアーを開始" style="block"/></a>
+<a href="kotlin-tour-intermediate-extension-functions.md"><img src="start-intermediate-tour.svg" width="700" alt="中級者向けKotlinツアーを開始する" style="block"/></a>
 
 <deflist collapsible="true">
     <def title="中級者向けツアーの内容" default-state="collapsed">
         <ul>
             <li><a href="kotlin-tour-intermediate-extension-functions.md">拡張関数</a></li>
             <li><a href="kotlin-tour-intermediate-scope-functions.md">スコープ関数</a></li>
-            <li><a href="kotlin-tour-intermediate-lambdas-receiver.md">レシーバー付きラムダ式</a></li>
+            <li><a href="kotlin-tour-intermediate-lambdas-receiver.md">レシーバ付きラムダ式</a></li>
             <li><a href="kotlin-tour-intermediate-classes-interfaces.md">クラスとインターフェース</a></li>
             <li><a href="kotlin-tour-intermediate-objects.md">オブジェクト</a></li>
-            <li><a href="kotlin-tour-intermediate-open-special-classes.md">`open`クラスと特殊なクラス</a></li>
+            <li><a href="kotlin-tour-intermediate-open-special-classes.md">openクラスと特殊クラス</a></li>
             <li><a href="kotlin-tour-intermediate-properties.md">プロパティ</a></li>
-            <li><a href="kotlin-tour-intermediate-null-safety.md">Null安全性</a></li>
+            <li><a href="kotlin-tour-intermediate-null-safety.md">null安全性</a></li>
             <li><a href="kotlin-tour-intermediate-libraries-and-apis.md">ライブラリとAPI</a></li>
         </ul>
     </def>

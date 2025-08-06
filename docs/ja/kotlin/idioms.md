@@ -1,23 +1,23 @@
 [//]: # (title: イディオム)
 
-Kotlinでランダムに、かつ頻繁に使用されるイディオムのコレクションです。お気に入りのイディオムがあれば、プルリクエストを送って貢献してください。
+Kotlinで頻繁に使用される、さまざまなイディオムのコレクションです。お気に入りのイディオムがあれば、プルリクエストを送って貢献してください。
 
-## DTOの作成 (POJOs/POCOs)
+## DTO (POJO/POCO) の作成
 
 ```kotlin
 data class Customer(val name: String, val email: String)
 ```
 
-は、以下の機能を持つ`Customer`クラスを提供します：
+上記のコードは、以下の機能を持つ`Customer`クラスを提供します:
 
-*   すべてのプロパティに対するゲッター（`var`の場合はセッターも）
+*   すべてのプロパティに対するゲッター (および`var`の場合のセッター)
 *   `equals()`
 *   `hashCode()`
 *   `toString()`
 *   `copy()`
-*   すべてのプロパティに対する`component1()`、`component2()`など（[データクラス](data-classes.md)を参照）
+*   すべてのプロパティに対する`component1()`、`component2()`など (「データクラス」を参照)
 
-## 関数パラメーターのデフォルト値
+## 関数パラメータのデフォルト値
 
 ```kotlin
 fun foo(a: Int = 0, b: String = "") { ... }
@@ -29,7 +29,7 @@ fun foo(a: Int = 0, b: String = "") { ... }
 val positives = list.filter { x -> x > 0 }
 ```
 
-あるいは、さらに短く：
+または、さらに短く書くこともできます:
 
 ```kotlin
 val positives = list.filter { it > 0 }
@@ -53,7 +53,7 @@ println("Name $name")
 
 [JavaとKotlinの文字列結合](java-to-kotlin-idioms-strings.md#concatenate-strings)の違いについて学習してください。
 
-## 標準入力を安全に読み取る
+## 標準入力の安全な読み込み
 
 ```kotlin
 // 文字列を読み込み、入力が整数に変換できない場合はnullを返します。例: Hi there!
@@ -67,7 +67,7 @@ println(correctInt)
 // 13
 ```
 
-詳細については、[標準入力の読み取り](read-standard-input.md)を参照してください。
+詳細については、「[標準入力の読み込み](read-standard-input.md)」を参照してください。
 
 ## インスタンスチェック
 
@@ -97,7 +97,7 @@ println(map["key"])
 map["key"] = value
 ```
 
-## マップまたはペアのリストをトラバースする
+## マップまたはペアのリストの走査
 
 ```kotlin
 for ((k, v) in map) {
@@ -105,13 +105,13 @@ for ((k, v) in map) {
 }
 ```
 
-`k`と`v`は、`name`や`age`のような任意の便利な名前を使用できます。
+`k`と`v`は、`name`や`age`など、任意の便利な名前にすることができます。
 
-## 範囲のイテレーション
+## 範囲の反復処理
 
 ```kotlin
-for (i in 1..100) { ... }  // 閉じた範囲: 100を含む
-for (i in 1..<100) { ... } // 開いた範囲: 100を含まない
+for (i in 1..100) { ... }  // 終端を含む範囲: 100を含む
+for (i in 1..<100) { ... } // 終端を含まない範囲: 100を含まない
 for (x in 2..10 step 2) { ... }
 for (x in 10 downTo 1) { ... }
 (1..10).forEach { ... }
@@ -121,7 +121,7 @@ for (x in 10 downTo 1) { ... }
 
 ```kotlin
 val p: String by lazy { // 値は最初のアクセス時にのみ計算されます
-    // 文字列を計算する
+    // compute the string
 }
 ```
 
@@ -178,15 +178,15 @@ fun main() {
 }
 ```
 
-## nullでない場合の短縮記法
+## nullでない場合の省略記法
 
 ```kotlin
 val files = File("Test").listFiles()
 
-println(files?.size) // filesがnullでない場合、sizeが出力されます
+println(files?.size) // filesがnullでない場合、サイズが出力されます
 ```
 
-## nullでない場合またはnullの場合の短縮記法
+## nullでない場合またはnullの場合の省略記法
 
 ```kotlin
 val files = File("Test").listFiles()
@@ -202,21 +202,21 @@ val filesSize = files?.size ?: run {
 println(filesSize)
 ```
 
-## nullの場合に文を実行する
+## nullの場合に式を実行
 
 ```kotlin
 val values = ...
 val email = values["email"] ?: throw IllegalStateException("Email is missing!")
 ```
 
-## 空の可能性があるコレクションの最初の項目を取得する
+## 空の可能性があるコレクションの最初のアイテムの取得
 
 ```kotlin
 val emails = ... // 空の可能性がある
 val mainEmail = emails.firstOrNull() ?: ""
 ```
 
-[JavaとKotlinの最初の項目を取得する方法](java-to-kotlin-collections-guide.md#get-the-first-and-the-last-items-of-a-possibly-empty-collection)の違いについて学習してください。
+[JavaとKotlinで空の可能性があるコレクションの最初のアイテムを取得する方法](java-to-kotlin-collections-guide.md#get-the-first-and-the-last-items-of-a-possibly-empty-collection)の違いについて学習してください。
 
 ## nullでない場合に実行
 
@@ -224,11 +224,11 @@ val mainEmail = emails.firstOrNull() ?: ""
 val value = ...
 
 value?.let {
-    ... // nullでない場合、このブロックを実行
+    ... // nullでない場合にこのブロックを実行
 }
 ```
 
-## nullでない場合にnull許容値をマッピングする
+## nullでない場合にnullableな値をマッピング
 
 ```kotlin
 val value = ...
@@ -237,7 +237,7 @@ val mapped = value?.let { transformValue(it) } ?: defaultValue
 // valueまたは変換結果がnullの場合、defaultValueが返されます。
 ```
 
-## whenステートメントでの戻り値
+## `when`文でのreturn
 
 ```kotlin
 fun transform(color: String): Int {
@@ -250,7 +250,7 @@ fun transform(color: String): Int {
 }
 ```
 
-## try-catch式
+## `try-catch`式
 
 ```kotlin
 fun test() {
@@ -260,11 +260,11 @@ fun test() {
         throw IllegalStateException(e)
     }
 
-    // 結果を処理する
+    // Working with result
 }
 ```
 
-## if式
+## `if`式
 
 ```kotlin
 val y = if (x == 1) {
@@ -276,7 +276,7 @@ val y = if (x == 1) {
 }
 ```
 
-## Unitを返すメソッドのビルダー形式の使用
+## `Unit`を返すメソッドのビルダー形式の使用法
 
 ```kotlin
 fun arrayOfMinusOnes(size: Int): IntArray {
@@ -290,7 +290,7 @@ fun arrayOfMinusOnes(size: Int): IntArray {
 fun theAnswer() = 42
 ```
 
-これは以下と同等です
+これは以下と同等です:
 
 ```kotlin
 fun theAnswer(): Int {
@@ -298,7 +298,7 @@ fun theAnswer(): Int {
 }
 ```
 
-これは他のイディオムと効果的に組み合わせることができ、コードを短くすることができます。例えば、`when`式と組み合わせる場合：
+これは他のイディオムと効果的に組み合わせることで、より短いコードになります。例えば、`when`式と組み合わせる場合:
 
 ```kotlin
 fun transform(color: String): Int = when (color) {
@@ -309,7 +309,7 @@ fun transform(color: String): Int = when (color) {
 }
 ```
 
-## オブジェクトインスタンスの複数のメソッドを呼び出す (`with`を使用)
+## オブジェクトインスタンス上の複数のメソッドの呼び出し (`with`)
 
 ```kotlin
 class Turtle {
@@ -320,7 +320,7 @@ class Turtle {
 }
 
 val myTurtle = Turtle()
-with(myTurtle) { // 100ピクセルの正方形を描画
+with(myTurtle) { //100ピクセルの四角形を描画
     penDown()
     for (i in 1..4) {
         forward(100.0)
@@ -330,7 +330,7 @@ with(myTurtle) { // 100ピクセルの正方形を描画
 }
 ```
 
-## オブジェクトのプロパティを設定する (`apply`を使用)
+## オブジェクトのプロパティの構成 (`apply`)
 
 ```kotlin
 val myRectangle = Rectangle().apply {
@@ -340,7 +340,7 @@ val myRectangle = Rectangle().apply {
 }
 ```
 
-これは、オブジェクトコンストラクタに存在しないプロパティを設定するのに役立ちます。
+これは、オブジェクトのコンストラクタにないプロパティを設定する際に便利です。
 
 ## Java 7のtry-with-resources
 
@@ -362,7 +362,7 @@ stream.buffered().reader().use { reader ->
 inline fun <reified T: Any> Gson.fromJson(json: JsonElement): T = this.fromJson(json, T::class.java)
 ```
 
-## 2つの変数を交換する
+## 2つの変数の交換
 
 ```kotlin
 var a = 1
@@ -370,21 +370,21 @@ var b = 2
 a = b.also { b = a }
 ```
 
-## コードを未完了としてマークする (`TODO`)
+## 未完了コードのマーク付け (TODO)
  
-Kotlinの標準ライブラリには`TODO()`関数があり、これは常に`NotImplementedError`をスローします。
-その戻り値の型は`Nothing`であるため、期待される型に関係なく使用できます。
-理由パラメーターを受け入れるオーバーロードも存在します：
+Kotlinの標準ライブラリには、常に`NotImplementedError`をスローする`TODO()`関数があります。
+その戻り値の型は`Nothing`であるため、期待される型に関わらず使用できます。
+理由パラメータを受け入れるオーバーロードもあります:
 
 ```kotlin
 fun calcTaxes(): BigDecimal = TODO("Waiting for feedback from accounting")
 ```
 
-IntelliJ IDEAのKotlinプラグインは`TODO()`のセマンティクスを理解しており、TODOツールウィンドウにコードポインターを自動的に追加します。
+IntelliJ IDEAのKotlinプラグインは`TODO()`のセマンティクスを理解しており、TODOツールウィンドウにコードポインタを自動的に追加します。
 
-## 次のステップは？
+## 次のステップ
 
 *   イディオム的なKotlinスタイルを使用して[Advent of Codeのパズル](advent-of-code.md)を解く。
-*   [JavaとKotlinで文字列に関する一般的なタスク](java-to-kotlin-idioms-strings.md)を実行する方法を学ぶ。
-*   [JavaとKotlinでコレクションに関する一般的なタスク](java-to-kotlin-collections-guide.md)を実行する方法を学ぶ。
-*   [JavaとKotlinでnull許容性を扱う方法](java-to-kotlin-nullability-guide.md)を学ぶ。
+*   JavaとKotlinで[文字列の一般的なタスクを実行する方法](java-to-kotlin-idioms-strings.md)を学ぶ。
+*   JavaとKotlinで[コレクションの一般的なタスクを実行する方法](java-to-kotlin-collections-guide.md)を学ぶ。
+*   JavaとKotlinで[null可能性を扱う方法](java-to-kotlin-nullability-guide.md)を学ぶ。

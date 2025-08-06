@@ -1,17 +1,14 @@
 [//]: # (title: Swift/Objective-C ARCとの統合)
 
-KotlinとObjective-Cは異なるメモリ管理戦略を使用しています。Kotlinはトレース型ガベージコレクターを持ち、
-Objective-Cは自動参照カウント (ARC) に依存しています。
+KotlinとObjective-Cは異なるメモリ管理戦略を使用します。Kotlinはトラシングガベージコレクターを備えていますが、Objective-Cは自動参照カウント (ARC) に依存しています。
 
-これらの戦略間の統合は通常シームレスであり、一般に追加の作業は必要ありません。
-ただし、いくつかの留意すべき点があります。
+これらの戦略間の統合は通常シームレスであり、一般的に追加の作業は不要です。しかし、留意すべきいくつかの具体的な点があります。
 
 ## スレッド
 
-### デイニシャライザ
+### デイニシャライザー
 
-Swift/Objective-Cオブジェクト、およびそれらが参照するオブジェクトのデイニシャライズは、
-これらのオブジェクトがメインスレッドでKotlinに渡された場合、メインスレッドで呼び出されます。例：
+Swift/Objective-C オブジェクトおよびそれらが参照するオブジェクトのデイニシャライズは、これらのオブジェクトがメインスレッドでKotlinに渡された場合、メインスレッドで呼び出されます。例：
 
 ```kotlin
 // Kotlin
@@ -47,21 +44,18 @@ shared.SwiftExample
 deinit on <_NSMainThread: 0x600003bc0000>{number = 1, name = main}
 ```
 
-Swift/Objective-Cオブジェクトのデイニシャライズは、代わりに特別なGCスレッドで呼び出されます。以下の条件の場合です。
+Swift/Objective-C オブジェクトのデイニシャライズは、メインスレッドではなく特別なGCスレッドで呼び出されます。以下のいずれかの条件に該当する場合です。
 
-*   Swift/Objective-Cオブジェクトがメインスレッド以外のスレッドでKotlinに渡された場合。
-*   メインのディスパッチキューが処理されていない場合。
+*   Swift/Objective-C オブジェクトがメインスレッド以外のスレッドでKotlinに渡された場合。
+*   メインディスパッチキューが処理されない場合。
 
-特別なGCスレッドでデイニシャライズを明示的に呼び出したい場合は、
-`gradle.properties`で`kotlin.native.binary.objcDisposeOnMain=false`を設定します。このオプションは、
-Swift/Objective-CオブジェクトがメインスレッドでKotlinに渡された場合でも、特別なGCスレッドでのデイニシャライズを有効にします。
+特別なGCスレッドでデイニシャライズを明示的に呼び出したい場合は、`gradle.properties`ファイルで`kotlin.native.binary.objcDisposeOnMain=false`を設定してください。このオプションは、Swift/Objective-C オブジェクトがメインスレッドでKotlinに渡された場合でも、特別なGCスレッドでのデイニシャライズを有効にします。
 
-特別なGCスレッドはObjective-Cランタイムに準拠しており、これはランループを持ち、
-オートリリースプールをドレインすることを意味します。
+特別なGCスレッドはObjective-Cランタイムに準拠しており、実行ループを持ち、オートリリースプールをドレインします。
 
-### 完了ハンドラ
+### 完了ハンドラー
 
-Kotlinのsuspend関数をSwiftから呼び出す際、完了ハンドラはメインスレッド以外のスレッドで呼び出されることがあります。例：
+SwiftからKotlinのサスペンド関数を呼び出す際、完了ハンドラーはメインスレッド以外のスレッドで呼び出される場合があります。例：
 
 ```kotlin
 // Kotlin
@@ -96,9 +90,9 @@ Running completion handler on <NSThread: 0x600001b45bc0>{number = 7, name = (nul
 
 ## ガベージコレクションとライフサイクル
 
-### オブジェクトの回収
+### オブジェクトの再利用
 
-オブジェクトはガベージコレクション中にのみ回収されます。これは、相互運用境界を越えてKotlin/Nativeに入るSwift/Objective-Cオブジェクトにも当てはまります。例：
+オブジェクトはガベージコレクション中にのみ再利用されます。これは、相互運用境界を越えてKotlin/Nativeに入るSwift/Objective-Cオブジェクトにも適用されます。例：
 
 ```kotlin
 // Kotlin
@@ -146,12 +140,9 @@ SwiftExample deinit
 
 ### Objective-Cオブジェクトのライフサイクル
 
-Objective-Cオブジェクトは必要以上に長く存続する可能性があり、これがパフォーマンスの問題を引き起こすことがあります。たとえば、
-長いループが各イテレーションでSwift/Objective-C相互運用境界を越えるいくつかの一時オブジェクトを作成する場合などです。
+Objective-Cオブジェクトは、必要以上に長く存続する可能性があり、これがパフォーマンスの問題を引き起こすことがあります。例えば、長時間のループが、各イテレーションでSwift/Objective-Cの相互運用境界を越える一時的なオブジェクトを多数作成する場合などです。
 
-[GCログ](native-memory-manager.md#monitor-gc-performance)には、ルートセット内の安定参照の数が表示されます。
-この数が増え続ける場合、Swift/Objective-Cオブジェクトが解放されるべき時に解放されていないことを示す可能性があります。
-この場合、相互運用呼び出しを行うループ本体の周りに`autoreleasepool`ブロックを試してください。
+[GCログ](native-memory-manager.md#monitor-gc-performance)には、ルートセット内の安定参照の数が表示されます。この数が継続的に増加する場合、Swift/Objective-Cオブジェクトが本来解放されるべき時に解放されていないことを示している可能性があります。この場合、相互運用呼び出しを行うループ本体の周囲に`autoreleasepool`ブロックを試してみてください。
 
 ```kotlin
 // Kotlin
@@ -172,7 +163,7 @@ fun steadyMemoryUsage() {
 }
 ```
 
-### SwiftとKotlinオブジェクトチェーンのガベージコレクション
+### SwiftとKotlinオブジェクトのチェインのガベージコレクション
 
 次の例を考えてみましょう。
 
@@ -230,22 +221,19 @@ func test() {
 }
 ```
 
-ログに「deinit SwiftStorage first」と「deinit SwiftStorage second」のメッセージが表示されるまでには時間がかかります。
-その理由は、`firstKotlinStorage`と`secondKotlinStorage`が異なるGCサイクルで収集されるためです。
-イベントのシーケンスは次のとおりです。
+ログに"deinit SwiftStorage first"と"deinit SwiftStorage second"のメッセージが表示されるまでには、ある程度の時間がかかります。その理由は、`firstKotlinStorage`と`secondKotlinStorage`が異なるGCサイクルで回収されるためです。イベントのシーケンスは次のとおりです。
 
-1.  `KotlinExample.action`が完了します。`firstKotlinStorage`は何にも参照されていないため「デッド」と見なされますが、
-    `secondKotlinStorage`は`firstSwiftStorage`によって参照されているため「デッド」ではありません。
-2.  最初のGCサイクルが開始され、`firstKotlinStorage`が収集されます。
-3.  `firstSwiftStorage`への参照がないため、これも「デッド」となり、`deinit`が呼び出されます。
-4.  2番目のGCサイクルが開始されます。`firstSwiftStorage`が`secondKotlinStorage`を参照しなくなったため、`secondKotlinStorage`が収集されます。
-5.  `secondSwiftStorage`が最終的に回収されます。
+1.  `KotlinExample.action`が終了します。`firstKotlinStorage`は何も参照されていないため「デッド」と見なされますが、`secondKotlinStorage`は`firstSwiftStorage`によって参照されているため「デッド」ではありません。
+2.  最初のGCサイクルが開始され、`firstKotlinStorage`が回収されます。
+3.  `firstSwiftStorage`への参照がなくなるため、これも「デッド」となり、`deinit`が呼び出されます。
+4.  2番目のGCサイクルが開始されます。`firstSwiftStorage`が`secondKotlinStorage`を参照しなくなったため、`secondKotlinStorage`が回収されます。
+5.  最後に`secondSwiftStorage`が再利用されます。
 
-SwiftおよびObjective-CオブジェクトのデイニシャライズがGCサイクルの後に発生するため、これら4つのオブジェクトを収集するには2つのGCサイクルが必要です。この制限は、`deinit`が任意のコードを呼び出すことができることに起因しており、これにはGCポーズ中に実行できないKotlinコードも含まれます。
+SwiftおよびObjective-CオブジェクトのデイニシャライズがGCサイクルの後に発生するため、これら4つのオブジェクトを回収するには2つのGCサイクルが必要です。この制限は、任意のコード（GC一時停止中に実行できないKotlinコードを含む）を呼び出すことができる`deinit`に起因します。
 
-### 循環参照 (Retain cycles)
+### 参照サイクル
 
-_循環参照_では、複数のオブジェクトが強参照を使用して循環的に互いを参照します。
+_参照サイクル_では、複数のオブジェクトが強参照を使用して循環的に互いを参照します。
 
 ```mermaid
 graph TD
@@ -254,9 +242,9 @@ graph TD
     C --> A
 ```
 
-Kotlinのトレース型GCとObjective-CのARCは、循環参照の扱いが異なります。到達不能になったオブジェクトについて、KotlinのGCは適切にそのようなサイクルを回収できますが、Objective-CのARCはできません。したがって、Kotlinオブジェクトの循環参照は回収できますが、[Swift/Objective-Cオブジェクトの循環参照は回収できません](https://docs.swift.org/swift-book/documentation/the-swift-programming-language/automaticreferencecounting/#Strong-Reference-Cycles-Between-Class-Instances)。
+KotlinのトラシングGCとObjective-CのARCは、参照サイクルを異なる方法で処理します。オブジェクトが到達不能になった場合、KotlinのGCはそのようなサイクルを適切に回収できますが、Objective-CのARCはできません。したがって、Kotlinオブジェクトの参照サイクルは回収できますが、[Swift/Objective-Cオブジェクトの参照サイクルは回収できません](https://docs.swift.org/swift-book/documentation/the-swift-programming-language/automaticreferencecounting/#Strong-Reference-Cycles-Between-Class-Instances)。
 
-循環参照がObjective-CオブジェクトとKotlinオブジェクトの両方を含む場合を考えてみましょう。
+参照サイクルにObjective-CオブジェクトとKotlinオブジェクトの両方が含まれるケースを考えてみましょう。
 
 ```mermaid
 graph TD
@@ -264,23 +252,22 @@ graph TD
     ObjC.B --> Kotlin.A
 ```
 
-これは、KotlinとObjective-Cのメモリ管理モデルを組み合わせることを含み、それらが連携して循環参照を処理（回収）することはできません。つまり、少なくとも1つのObjective-Cオブジェクトが存在する場合、オブジェクトグラフ全体の循環参照は回収できず、Kotlin側からサイクルを破ることは不可能です。
+これは、参照サイクルを一緒に処理（回収）できないKotlinとObjective-Cのメモリ管理モデルを組み合わせることを意味します。つまり、Objective-Cオブジェクトが少なくとも1つ存在する場合、オブジェクトグラフ全体の参照サイクルは回収できず、Kotlin側からサイクルを破ることは不可能です。
 
-残念ながら、Kotlin/Nativeコードでの循環参照を自動的に検出するための特別なツールは現在利用できません。
-循環参照を避けるには、[弱参照または非所有参照](https://docs.swift.org/swift-book/documentation/the-swift-programming-language/automaticreferencecounting/#Resolving-Strong-Reference-Cycles-Between-Class-Instances)を使用してください。
+残念ながら、Kotlin/Nativeコードで参照サイクルを自動的に検出するための特別なツールは現在ありません。参照サイクルを回避するには、[weakまたはunowned参照](https://docs.swift.org/swift-book/documentation/the-swift-programming-language/automaticreferencecounting/#Resolving-Strong-Reference-Cycles-Between-Class-Instances)を使用してください。
 
-## バックグラウンド状態とApp Extensionのサポート
+## バックグラウンド状態とApp Extensionsのサポート
 
-現在のメモリマネージャーは、デフォルトではアプリケーションの状態を追跡せず、[App Extension](https://developer.apple.com/app-extensions/)とそのままでは統合されていません。
+現在のメモリマネージャーは、デフォルトではアプリケーションの状態を追跡せず、[App Extensions](https://developer.apple.com/app-extensions/)とそのままでは統合されません。
 
-これは、メモリマネージャーがGCの動作を適切に調整しないことを意味し、場合によっては有害になることがあります。この動作を変更するには、`gradle.properties`に次の[実験的 (Experimental)](components-stability.md)バイナリオプションを追加します。
+これは、メモリマネージャーがGCの動作をそれに応じて調整しないことを意味し、場合によっては有害となる可能性があります。この動作を変更するには、次の[実験的な (Experimental)](components-stability.md)バイナリオプションを`gradle.properties`に追加してください。
 
 ```none
 kotlin.native.binary.appStateTracking=enabled
 ```
 
-これにより、アプリケーションがバックグラウンドにある場合、タイマーベースのガベージコレクターの呼び出しがオフになり、メモリ消費量が過度に高くなった場合にのみGCが呼び出されるようになります。
+これにより、アプリケーションがバックグラウンドにある場合のタイマーベースのガベージコレクターの呼び出しがオフになり、メモリ消費量が過度に高くなった場合にのみGCが呼び出されるようになります。
 
 ## 次のステップ
 
-[Swift/Objective-Cの相互運用性](native-objc-interop.md)について、さらに詳しく学んでください。
+[Swift/Objective-Cの相互運用](native-objc-interop.md)についてさらに詳しく学びましょう。

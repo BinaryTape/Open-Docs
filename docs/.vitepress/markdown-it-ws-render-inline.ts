@@ -2,7 +2,7 @@ export default function markdownItWsRenderInline(md) {
     const originalHtmlBlockRule = md.renderer.rules.html_block;
 
     const componentRegex =
-        /^<(deflist |def |tldr |tabs |tab )([^>]*)>([\s\S]*?)<\/\1>\s*$/m;
+        /^<(deflist|def|tldr|tabs|tab|tr|td|topic|Var|include)([^>]*)>([\s\S]*?)<\/\1>\s*$/m;
 
     md.renderer.rules.html_block = (tokens, idx, options, env, self) => {
         const token = tokens[idx];

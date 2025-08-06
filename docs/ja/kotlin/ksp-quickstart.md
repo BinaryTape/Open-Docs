@@ -1,4 +1,4 @@
-[//]: # (title: KSPクイックスタート)
+[//]: # (title: KSP クイックスタート)
 
 クイックスタートとして、独自のプロセッサを作成するか、[サンプル](https://github.com/google/ksp/tree/main/examples/playground)を入手できます。
 
@@ -55,9 +55,9 @@
    </tab>
    </tabs>
 
-3. `./gradlew build` を実行します。生成されたコードは `build/generated/ksp` ディレクトリで見つけることができます。
+3. `./gradlew build` を実行します。生成されたコードは `build/generated/ksp` ディレクトリにあります。
 
-完全な例を以下に示します。
+完全な例を次に示します。
 
 <tabs group="build-script">
 <tab title="Kotlin" group-key="kotlin">
@@ -105,7 +105,7 @@ dependencies {
 ## 独自のプロセッサを作成する
 
 1. 空のGradleプロジェクトを作成します。
-2. ルートプロジェクトで、他のプロジェクトモジュールで使用するために、Kotlinプラグインのバージョン `%kspSupportedKotlinVersion%` を指定します。
+2. 他のプロジェクトモジュールで使用するために、ルートプロジェクトでKotlinプラグインのバージョン `%kspSupportedKotlinVersion%` を指定します。
 
    <tabs group="build-script">
    <tab title="Kotlin" group-key="kotlin">
@@ -181,25 +181,16 @@ dependencies {
    </tab>
    </tabs>
 
-5. [`com.google.devtools.ksp.processing.SymbolProcessor`](https://github.com/google/ksp/tree/main/api/src/main/kotlin/com/google/devtools/ksp/processing/SymbolProcessor.kt)
-   と [`com.google.devtools.ksp.processing.SymbolProcessorProvider`](https://github.com/google/ksp/tree/main/api/src/main/kotlin/com/google/devtools/ksp/processing/SymbolProcessorProvider.kt) を実装する必要があります。
-   `SymbolProcessorProvider` の実装は、実装した `SymbolProcessor` をインスタンス化するためのサービスとしてロードされます。
-   以下に注意してください：
-    * `SymbolProcessor` を作成するには、[`SymbolProcessorProvider.create()`](https://github.com/google/ksp/blob/master/api/src/main/kotlin/com/google/devtools/ksp/processing/SymbolProcessorProvider.kt)
-      を実装します。プロセッサが必要とする依存関係（`CodeGenerator`、プロセッサオプションなど）を
-      `SymbolProcessorProvider.create()` のパラメータを通じて渡します。
-    * メインロジックは [`SymbolProcessor.process()`](https://github.com/google/ksp/blob/master/api/src/main/kotlin/com/google/devtools/ksp/processing/SymbolProcessor.kt) メソッド内に置く必要があります。
-    * アノテーションの完全修飾名が与えられたときに、処理したいシンボルを取得するには
-      `resolver.getSymbolsWithAnnotation()` を使用します。
-    * KSPの一般的なユースケースは、シンボルを操作するためにカスタマイズされたビジタ（インターフェース `com.google.devtools.ksp.symbol.KSVisitor`）を実装することです。
-      シンプルなテンプレートビジタは `com.google.devtools.ksp.symbol.KSDefaultVisitor` です。
-    * `SymbolProcessorProvider` インターフェースと `SymbolProcessor` インターフェースのサンプル実装については、
-      サンプルプロジェクトの以下のファイルを参照してください。
+5. [`com.google.devtools.ksp.processing.SymbolProcessor`](https://github.com/google/ksp/tree/main/api/src/main/kotlin/com/google/devtools/ksp/processing/SymbolProcessor.kt) および [`com.google.devtools.ksp.processing.SymbolProcessorProvider`](https://github.com/google/ksp/tree/main/api/src/main/kotlin/com/google/devtools/ksp/processing/SymbolProcessorProvider.kt) を実装する必要があります。
+   あなたが実装する `SymbolProcessorProvider` の実装は、実装した `SymbolProcessor` をインスタンス化するためのサービスとしてロードされます。以下に注意してください。
+    * `SymbolProcessor` を作成するために [`SymbolProcessorProvider.create()`](https://github.com/google/ksp/blob/master/api/src/main/kotlin/com/google/devtools/ksp/processing/SymbolProcessorProvider.kt) を実装します。プロセッサが必要とする依存関係（`CodeGenerator`、プロセッサオプションなど）を `SymbolProcessorProvider.create()` のパラメータを通じて渡します。
+    * メインロジックは [`SymbolProcessor.process()`](https://github.com/google/ksp/blob/master/api/src/main/kotlin/com/google/devtools/ksp/processing/SymbolProcessor.kt) メソッドに記述する必要があります。
+    * アノテーションの完全修飾名を指定して、`resolver.getSymbolsWithAnnotation()` を使用して処理したいシンボルを取得します。
+    * KSPの一般的なユースケースは、シンボルを操作するためのカスタマイズされたビジター（インターフェース `com.google.devtools.ksp.symbol.KSVisitor`）を実装することです。シンプルなテンプレートビジターは `com.google.devtools.ksp.symbol.KSDefaultVisitor` です。
+    * `SymbolProcessorProvider` および `SymbolProcessor` インターフェースのサンプル実装については、サンプルプロジェクト内の以下のファイルを参照してください。
         * `src/main/kotlin/BuilderProcessor.kt`
         * `src/main/kotlin/TestProcessor.kt`
-    * 独自のプロセッサを記述した後、そのプロセッサプロバイダの完全修飾名を
-      `src/main/resources/META-INF/services/com.google.devtools.ksp.processing.SymbolProcessorProvider` に含めることで
-      パッケージに登録します。
+    * 独自のプロセッサを記述したら、`src/main/resources/META-INF/services/com.google.devtools.ksp.processing.SymbolProcessorProvider` にその完全修飾名を含めることによって、プロセッサプロバイダーをパッケージに登録します。
 
 ## プロジェクトで独自のプロセッサを使用する
 
@@ -230,8 +221,7 @@ dependencies {
    </tab>
    </tabs>
 
-2. モジュールのビルドスクリプトで、`com.google.devtools.ksp` プラグインを指定したバージョンで適用し、
-   プロセッサを依存関係のリストに追加します。
+2. モジュールのビルドスクリプトで、指定されたバージョンで `com.google.devtools.ksp` プラグインを適用し、プロセッサを依存関係のリストに追加します。
 
    <tabs group="build-script">
    <tab title="Kotlin" group-key="kotlin">
@@ -266,10 +256,9 @@ dependencies {
    </tab>
    </tabs>
 
-3. `./gradlew build` を実行します。生成されたコードは
-   `build/generated/ksp` の下にあります。
+3. `./gradlew build` を実行します。生成されたコードは `build/generated/ksp` にあります。
 
-ワークロードにKSPプラグインを適用するサンプルビルドスクリプトは以下の通りです。
+ワークロードにKSPプラグインを適用するサンプルのビルドスクリプトを次に示します。
 
 <tabs group="build-script">
 <tab title="Kotlin" group-key="kotlin">
@@ -314,9 +303,9 @@ dependencies {
 </tab>
 </tabs>
 
-## プロセッサへのオプションの受け渡し
+## プロセッサにオプションを渡す
 
-`SymbolProcessorEnvironment.options` のプロセッサオプションは、Gradleビルドスクリプトで指定されます。
+`SymbolProcessorEnvironment.options` 内のプロセッサオプションは、Gradleビルドスクリプトで指定します。
 
 ```none
 ksp {
@@ -328,26 +317,25 @@ ksp {
 
 ## IDEに生成されたコードを認識させる
 
-> 生成されたソースファイルはKSP 1.8.0-1.0.9以降、自動的に登録されます。
-> KSP 1.0.9以降を使用しており、生成されたリソースをIDEに認識させる必要がない場合は、
-> このセクションをスキップしても問題ありません。
+> KSP 1.8.0-1.0.9 以降、生成されたソースファイルは自動的に登録されます。
+> KSP 1.0.9 以降を使用しており、生成されたリソースをIDEに認識させる必要がない場合は、このセクションをスキップしても問題ありません。
 >
 {style="note"}
 
-デフォルトでは、IntelliJ IDEAやその他のIDEは生成されたコードについて認識しません。そのため、生成されたシンボルへの参照を解決できないものとしてマークします。IDEが生成されたシンボルを推論できるようにするには、以下のパスを生成されたソースルートとしてマークします。
+デフォルトでは、IntelliJ IDEAなどのIDEは生成されたコードを認識しません。そのため、生成されたシンボルへの参照が解決不能としてマークされます。IDEが生成されたシンボルを認識できるようにするには、以下のパスを生成されたソースルートとしてマークします。
 
 ```text
 build/generated/ksp/main/kotlin/
 build/generated/ksp/main/java/
 ```
 
-IDEがリソースディレクトリをサポートしている場合は、以下のディレクトリもマークしてください。
+IDEがリソースディレクトリをサポートしている場合、以下もマークします。
 
 ```text
 build/generated/ksp/main/resources/
 ```
 
-これらのディレクトリをKSPコンシューマーモジュールのビルドスクリプトで設定する必要がある場合もあります。
+KSPコンシューマーモジュールのビルドスクリプトでこれらのディレクトリを構成する必要がある場合もあります。
 
 <tabs group="build-script">
 <tab title="Kotlin" group-key="kotlin">
@@ -378,7 +366,7 @@ kotlin {
 </tab>
 </tabs>
 
-IntelliJ IDEAとGradleプラグインでKSPを使用している場合、上記のコードスニペットは以下の警告を表示します。
+IntelliJ IDEAとKSPをGradleプラグインで使用している場合、上記のスニペットでは以下の警告が表示されます。
 ```text
 Execution optimizations have been disabled for task ':publishPluginJar' to ensure correctness due to the following reasons:
 Gradle detected a problem with the following location: '../build/generated/ksp/main/kotlin'. 

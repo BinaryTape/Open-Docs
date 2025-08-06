@@ -5,26 +5,26 @@
 <tldr>
     <p><img src="icon-1-done.svg" width="20" alt="First step" /> <a href="kotlin-tour-intermediate-extension-functions.md">拡張関数</a><br />
         <img src="icon-2-done.svg" width="20" alt="Second step" /> <a href="kotlin-tour-intermediate-scope-functions.md">スコープ関数</a><br />
-        <img src="icon-3-done.svg" width="20" alt="Third step" /> <a href="kotlin-tour-intermediate-lambdas-receiver.md">レシーバ付きラムダ式</a><br /> 
+        <img src="icon-3-done.svg" width="20" alt="Third step" /> <a href="kotlin-tour-intermediate-lambdas-receiver.md">レシーバー付きラムダ式</a><br /> 
         <img src="icon-4-done.svg" width="20" alt="Fourth step" /> <a href="kotlin-tour-intermediate-classes-interfaces.md">クラスとインターフェース</a><br /> 
         <img src="icon-5.svg" width="20" alt="Fourth step" /> <strong>オブジェクト</strong><br />
-        <img src="icon-6-todo.svg" width="20" alt="Sixth step" /> <a href="kotlin-tour-intermediate-open-special-classes.md">`open`クラスと特殊クラス</a><br />
+        <img src="icon-6-todo.svg" width="20" alt="Sixth step" /> <a href="kotlin-tour-intermediate-open-special-classes.md">オープンクラスと特殊クラス</a><br />
         <img src="icon-7-todo.svg" width="20" alt="Seventh step" /> <a href="kotlin-tour-intermediate-properties.md">プロパティ</a><br />
         <img src="icon-8-todo.svg" width="20" alt="Eighth step" /> <a href="kotlin-tour-intermediate-null-safety.md">Null安全性</a><br />
         <img src="icon-9-todo.svg" width="20" alt="Ninth step" /> <a href="kotlin-tour-intermediate-libraries-and-apis.md">ライブラリとAPI</a></p>
 </tldr>
 
-この章では、オブジェクト宣言を探求することで、クラスの理解を深めます。この知識は、プロジェクト全体の動作を効率的に管理するのに役立ちます。
+この章では、オブジェクト宣言について掘り下げてクラスの理解を深めます。この知識は、プロジェクト全体で動作を効率的に管理するのに役立ちます。
 
 ## オブジェクト宣言
 
-Kotlinでは、**オブジェクト宣言**を使用して、単一のインスタンスを持つクラスを宣言できます。ある意味で、クラスを宣言すると同時に、その単一のインスタンスが作成されます。オブジェクト宣言は、プログラムの単一の参照点として使用するクラスを作成したり、システム全体の動作を調整したりする場合に役立ちます。
+Kotlinでは、**オブジェクト宣言**を使用して単一のインスタンスを持つクラスを宣言できます。ある意味、クラスを宣言すると同時に単一のインスタンスを作成します。オブジェクト宣言は、プログラムの単一の参照ポイントとして使用するクラスを作成したり、システム全体で動作を連携させたりする場合に便利です。
 
-> 簡単にアクセスできる単一のインスタンスのみを持つクラスは、**シングルトン**と呼ばれます。
+> 容易にアクセス可能な単一のインスタンスのみを持つクラスは、**シングルトン**と呼ばれます。
 >
 {style="tip"}
 
-Kotlinのオブジェクトは**遅延的**であり、アクセスされたときにのみ作成されます。Kotlinはまた、すべてのオブジェクトがスレッドセーフな方法で作成されることを保証するため、手動でこれを確認する必要はありません。
+Kotlinのオブジェクトは**遅延初期化**されます。つまり、アクセスされたときにのみ作成されます。また、Kotlinはすべてのオブジェクトがスレッドセーフな方法で作成されることを保証するため、手動でこれを確認する必要はありません。
 
 オブジェクト宣言を作成するには、`object`キーワードを使用します。
 
@@ -32,13 +32,13 @@ Kotlinのオブジェクトは**遅延的**であり、アクセスされたと�
 object DoAuth {}
 ```
 
-`object`の名前の後に、波括弧`{}`で定義されたオブジェクト本体内に任意のプロパティまたはメンバ関数を追加します。
+`object`名の後に、波括弧 `{}` で定義されたオブジェクト本体内にプロパティやメンバー関数を追加します。
 
-> オブジェクトはコンストラクタを持つことができないため、クラスのようなヘッダを持ちません。
+> オブジェクトはコンストラクタを持つことができないため、クラスのようにヘッダーを持ちません。
 >
 {style="note"}
 
-たとえば、認証を担当する`DoAuth`というオブジェクトを作成したいとします。
+例えば、認証を担当する`DoAuth`というオブジェクトを作成したいとします。
 
 ```kotlin
 object DoAuth {
@@ -48,14 +48,14 @@ object DoAuth {
 }
 
 fun main(){
-    // takeParams() 関数が呼び出されたときにオブジェクトが作成されます
+    // オブジェクトはtakeParams()関数が呼び出されたときに作成されます
     DoAuth.takeParams("coding_ninja", "N1njaC0ding!")
     // input Auth parameters = coding_ninja:N1njaC0ding!
 }
 ```
 {kotlin-runnable="true" id="kotlin-tour-object-declarations"}
 
-このオブジェクトには、`username`と`password`変数をパラメータとして受け取り、コンソールに文字列を返す`takeParams`というメンバ関数があります。`DoAuth`オブジェクトは、関数が最初に呼び出されたときにのみ作成されます。
+このオブジェクトには、`username`と`password`変数をパラメータとして受け取り、コンソールに文字列を出力する`takeParams`というメンバー関数があります。`DoAuth`オブジェクトは、この関数が初めて呼び出されたときにのみ作成されます。
 
 > オブジェクトはクラスやインターフェースを継承できます。例:
 > 
@@ -75,13 +75,13 @@ fun main(){
 
 #### データオブジェクト
 
-オブジェクト宣言の内容を簡単に表示できるようにするために、Kotlinには**データオブジェクト**があります。初心者ツアーで学習したデータクラスと同様に、データオブジェクトには`toString()`や`equals()`などの追加のメンバ関数が自動的に付属しています。
+オブジェクト宣言の内容をより簡単に表示できるように、Kotlinには**データ**オブジェクトがあります。入門ツアーで学習したデータクラスと同様に、データオブジェクトには`toString()`と`equals()`という追加のメンバー関数が自動的に付属します。
 
-> データクラスとは異なり、データオブジェクトは単一のインスタンスしか持たずコピーできないため、`copy()`メンバ関数は自動的に付属しません。
+> データクラスとは異なり、データオブジェクトにはコピーできない単一のインスタンスしかないため、`copy()`メンバー関数が自動的に付属することはありません。
 >
 {type ="note"}
 
-データオブジェクトを作成するには、オブジェクト宣言と同じ構文を使用しますが、`data`キーワードをプレフィックスとして付けます。
+データオブジェクトを作成するには、オブジェクト宣言と同じ構文を使用しますが、`data`キーワードを前に付けます。
 
 ```kotlin
 data object AppConfig {}
@@ -109,17 +109,17 @@ fun main() {
 
 #### コンパニオンオブジェクト
 
-Kotlinでは、クラスはオブジェクト、つまり**コンパニオンオブジェクト**を持つことができます。1つのクラスにつき**1つ**のコンパニオンオブジェクトしか持てません。コンパニオンオブジェクトは、そのクラスが最初に参照されたときにのみ作成されます。
+Kotlinでは、クラスはオブジェクト、すなわち**コンパニオン**オブジェクトを持つことができます。クラスごとに**1つだけ**コンパニオンオブジェクトを持つことができます。コンパニオンオブジェクトは、そのクラスが初めて参照されたときにのみ作成されます。
 
-コンパニオンオブジェクト内で宣言されたプロパティや関数は、すべてのクラスインスタンスで共有されます。
+コンパニオンオブジェクト内で宣言されたプロパティや関数は、すべてのクラスインスタンス間で共有されます。
 
-クラス内にコンパニオンオブジェクトを作成するには、オブジェクト宣言と同じ構文を使用しますが、`companion`キーワードをプレフィックスとして付けます。
+クラス内でコンパニオンオブジェクトを作成するには、オブジェクト宣言と同じ構文を使用しますが、`companion`キーワードを前に付けます。
 
 ```kotlin
 companion object Bonger {}
 ```
 
-> コンパニオンオブジェクトに名前を付ける必要はありません。名前を定義しない場合、デフォルトは`Companion`になります。
+> コンパニオンオブジェクトは名前を持つ必要はありません。定義しない場合、デフォルトは`Companion`です。
 > 
 {style="note"}
 
@@ -135,24 +135,24 @@ class BigBen {
     }
 
 fun main() {
-    // クラスが最初に参照されたときにコンパニオンオブジェクトが作成されます。
+    // コンパニオンオブジェクトは、クラスが初めて参照されたときに作成されます。
     BigBen.getBongs(12)
     // BONG BONG BONG BONG BONG BONG BONG BONG BONG BONG BONG BONG 
 }
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-tour-classes-companion-object"}
 
-この例では、`BigBen`というクラスを作成し、その中に`Bonger`というコンパニオンオブジェクトが含まれています。コンパニオンオブジェクトには、整数を受け取り、その整数の回数だけコンソールに`"BONG"`を出力する`getBongs()`というメンバ関数があります。
+この例では、`BigBen`というクラスを作成し、`Bonger`というコンパニオンオブジェクトを含んでいます。このコンパニオンオブジェクトには、整数を受け取り、その整数と同じ回数だけコンソールに`"BONG"`と出力する`getBongs()`というメンバー関数があります。
 
 `main()`関数では、クラス名を参照して`getBongs()`関数が呼び出されます。この時点でコンパニオンオブジェクトが作成されます。`getBongs()`関数はパラメータ`12`で呼び出されます。
 
 詳細については、[](object-declarations.md#companion-objects)を参照してください。
 
-## 練習
+## 演習
 
-### 演習 1 {initial-collapse-state="collapsed" collapsible="true" id="objects-exercise-1"}
+### 演習1 {initial-collapse-state="collapsed" collapsible="true" id="objects-exercise-1"}
 
-あなたはコーヒーショップを経営しており、顧客の注文を追跡するシステムを持っています。以下のコードを検討し、`main()`関数内の次のコードが正常に実行されるように、2番目のデータオブジェクトの宣言を完成させてください。
+あなたはコーヒーショップを経営しており、顧客の注文を追跡するシステムを持っています。以下のコードを考慮し、`main()`関数内の以下のコードが正常に実行されるように、2番目のデータオブジェクトの宣言を完成させてください。
 
 |---|---|
 
@@ -172,13 +172,13 @@ data object OrderOne: Order {
 data object // Write your code here
 
 fun main() {
-    // 各データオブジェクトの名前を出力
+    // Print the name of each data object
     println("Order name: $OrderOne")
     // Order name: OrderOne
     println("Order name: $OrderTwo")
     // Order name: OrderTwo
 
-    // 注文が同一であるかを確認
+    // Check if the orders are identical
     println("Are the two orders identical? ${OrderOne == OrderTwo}")
     // Are the two orders identical? false
 
@@ -216,13 +216,13 @@ data object OrderTwo: Order {
 }
 
 fun main() {
-    // 各データオブジェクトの名前を出力
+    // Print the name of each data object
     println("Order name: $OrderOne")
     // Order name: OrderOne
     println("Order name: $OrderTwo")
     // Order name: OrderTwo
 
-    // 注文が同一であるかを確認
+    // Check if the orders are identical
     println("Are the two orders identical? ${OrderOne == OrderTwo}")
     // Are the two orders identical? false
 
@@ -239,9 +239,9 @@ fun main() {
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="解答例" id="kotlin-tour-objects-solution-1"}
 
-### 演習 2 {initial-collapse-state="collapsed" collapsible="true" id="objects-exercise-2"}
+### 演習2 {initial-collapse-state="collapsed" collapsible="true" id="objects-exercise-2"}
 
-`Vehicle`インターフェースを継承するオブジェクト宣言を作成し、ユニークな車両タイプ`FlyingSkateboard`を作成してください。`main()`関数内の次のコードが正常に実行されるように、`name`プロパティと`move()`関数をオブジェクトに実装してください。
+`Vehicle`インターフェースを継承するオブジェクト宣言を作成し、`FlyingSkateboard`というユニークな乗り物の種類を作成してください。`main()`関数内の以下のコードが正常に実行されるように、オブジェクト内で`name`プロパティと`move()`関数を実装してください。
 
 |---|---|
 
@@ -285,9 +285,9 @@ fun main() {
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="解答例" id="kotlin-tour-objects-solution-2"}
 
-### 演習 3 {initial-collapse-state="collapsed" collapsible="true" id="objects-exercise-3"}
+### 演習3 {initial-collapse-state="collapsed" collapsible="true" id="objects-exercise-3"}
 
-温度を記録するアプリがあります。クラス自体は情報を摂氏で保存しますが、華氏でインスタンスを作成する簡単な方法も提供したいと考えています。`main()`関数内の次のコードが正常に実行されるように、データクラスを完成させてください。
+温度を記録するアプリがあるとします。クラス自体は情報を摂氏で保存しますが、華氏でもインスタンスを簡単に作成できる方法を提供したいと考えています。`main()`関数内の以下のコードが正常に実行されるように、データクラスを完成させてください。
 
 <deflist collapsible="true">
     <def title="ヒント">
@@ -333,4 +333,4 @@ fun main() {
 
 ## 次のステップ
 
-[中級: `open`クラスと特殊クラス](kotlin-tour-intermediate-open-special-classes.md)
+[中級: オープンクラスと特殊クラス](kotlin-tour-intermediate-open-special-classes.md)
