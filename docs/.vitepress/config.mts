@@ -154,7 +154,8 @@ export default defineConfig({
                     "/kotlin/": generateSidebar(SiteLocaleConfig['zh-Hans'], DocsTypeConfig.kotlin),
                     "/sqldelight/": generateSidebar(SiteLocaleConfig['zh-Hans'], DocsTypeConfig.sqldelight),
                     "/kmp/": generateSidebar(SiteLocaleConfig['zh-Hans'], DocsTypeConfig.kmp),
-                    "/koog/": generateSidebar(SiteLocaleConfig['zh-Hans'], DocsTypeConfig.koog)
+                    "/koog/": generateSidebar(SiteLocaleConfig['zh-Hans'], DocsTypeConfig.koog),
+                    "/ktor/": generateSidebar(SiteLocaleConfig['zh-Hans'], DocsTypeConfig.ktor)
                 },
             },
         },
@@ -172,7 +173,8 @@ export default defineConfig({
                     "/zh-Hant/kotlin/": generateSidebar(SiteLocaleConfig['zh-Hant'], DocsTypeConfig.kotlin),
                     "/zh-Hant/sqldelight/": generateSidebar(SiteLocaleConfig['zh-Hant'], DocsTypeConfig.sqldelight),
                     "/zh-Hant/kmp/": generateSidebar(SiteLocaleConfig['zh-Hant'], DocsTypeConfig.kmp),
-                    "/zh-Hant/koog/": generateSidebar(SiteLocaleConfig['zh-Hant'], DocsTypeConfig.koog)
+                    "/zh-Hant/koog/": generateSidebar(SiteLocaleConfig['zh-Hant'], DocsTypeConfig.koog),
+                    "/zh-Hant/ktor/": generateSidebar(SiteLocaleConfig['zh-Hant'], DocsTypeConfig.ktor)
                 },
                 lastUpdated: {text: '最後更新'},
                 editLink: {
@@ -212,7 +214,8 @@ export default defineConfig({
                     "/ja/kotlin/": generateSidebar(SiteLocaleConfig['ja'], DocsTypeConfig.kotlin),
                     "/ja/sqldelight/": generateSidebar(SiteLocaleConfig['ja'], DocsTypeConfig.sqldelight),
                     "/ja/kmp/": generateSidebar(SiteLocaleConfig['ja'], DocsTypeConfig.kmp),
-                    "/ja/koog/": generateSidebar(SiteLocaleConfig['ja'], DocsTypeConfig.koog)
+                    "/ja/koog/": generateSidebar(SiteLocaleConfig['ja'], DocsTypeConfig.koog),
+                    "/ja/ktor": generateSidebar(SiteLocaleConfig['ja'], DocsTypeConfig.ktor)
                 },
                 lastUpdated: {text: '最終更新日'},
                 editLink: {
@@ -255,7 +258,8 @@ export default defineConfig({
                     "/ko/kotlin/": generateSidebar(SiteLocaleConfig['ko'], DocsTypeConfig.kotlin),
                     "/ko/sqldelight/": generateSidebar(SiteLocaleConfig['ko'], DocsTypeConfig.sqldelight),
                     "/ko/kmp/": generateSidebar(SiteLocaleConfig['ko'], DocsTypeConfig.kmp),
-                    "/ko/koog/": generateSidebar(SiteLocaleConfig['ko'], DocsTypeConfig.koog)
+                    "/ko/koog/": generateSidebar(SiteLocaleConfig['ko'], DocsTypeConfig.koog),
+                    "/ko/ktor": generateSidebar(SiteLocaleConfig['ko'], DocsTypeConfig.ktor)
                 },
                 lastUpdated: {text: '마지막 업데이트'},
                 editLink: {

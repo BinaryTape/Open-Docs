@@ -3,6 +3,7 @@ import { sqlDelightStrategy } from "./strategy-sqldelight.mjs";
 import {kotlinStrategy} from "./strategy-kotlin.mjs";
 import {kmpStrategy} from "./strategy-kmp.mjs";
 import {koogStrategy} from "./strategy-koog.mjs";
+import {ktorStrategy} from "./strategy-ktor.mjs";
 
 export const REPOS = [
   {
@@ -100,6 +101,19 @@ export const REPOS = [
       dest: "docs/public/kotlin",
     },
     strategy: kotlinStrategy
+  },
+  {
+    name: "ktor",
+    repo: "ktorio/ktor-documentation",
+    branch: "origin/main",
+    path: "ktor-repo",
+    docPath: "./topics",
+    lastCheckFile: ".github/last_check_ktor.txt",
+    assets: {
+      src: "images",
+      dest: "docs/public/ktor",
+    },
+    strategy: ktorStrategy
   },
   {
     name: "kmp",
