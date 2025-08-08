@@ -1,18 +1,19 @@
 [//]: # (title: 测试页面)
-[//]: # (description: 本页面仅用于测试目的。)
+
+<web-summary>此页面仅用于测试。</web-summary>
 
 <no-index/>
 
 <tldr>
-   <p>这是一个包含图片的区块（摘自《<strong>Compose Multiplatform 入门</strong>》教程）。</p>
-   <p><img src="icon-1-done.svg" width="20" alt="第一步"/> <a href="jvm-create-project-with-spring-boot.md">使用 Kotlin 创建 Spring Boot 项目</a><br/>
-      <img src="icon-2-done.svg" width="20" alt="第二步"/> <a href="jvm-spring-boot-add-data-class.md">将数据类添加到 Spring Boot 项目</a><br/>
-      <img src="icon-3.svg" width="20" alt="第三步"/> <strong>为 Spring Boot 项目添加数据库支持</strong><br/>
-      <img src="icon-4-todo.svg" width="20" alt="第四步"/> 使用 Spring Data CrudRepository 进行数据库访问><br/>
+   <p>这是一个包含图片的区块（取自**Compose Multiplatform 入门**教程）。</p>
+   <p><img src="icon-1-done.svg" width="20" alt="First step"/> <a href="jvm-create-project-with-spring-boot.md">使用 Kotlin 创建 Spring Boot 项目</a><br/>
+      <img src="icon-2-done.svg" width="20" alt="Second step"/> <a href="jvm-spring-boot-add-data-class.md">向 Spring Boot 项目添加数据类</a><br/>
+      <img src="icon-3.svg" width="20" alt="Third step"/> <strong>为 Spring Boot 项目添加数据库支持</strong><br/>
+      <img src="icon-4-todo.svg" width="20" alt="Fourth step"/> 使用 Spring Data CrudRepository 进行数据库访问><br/>
     </p>
 </tldr>
 
-## 同步选项卡
+## 同步标签页
 
 <tabs group="build-script">
 <tab title="Kotlin" group-key="kotlin">
@@ -58,7 +59,7 @@ plugins {
 
 ## 章节
 
-### 折叠章节 {initial-collapse-state="collapsed" collapsible="true"}
+### 可折叠章节 {initial-collapse-state="collapsed" collapsible="true"}
 
 这里有一些文本和一个代码块：
 
@@ -70,7 +71,7 @@ plugins {
 
 ## 代码块
 
-一个简单的代码块：
+只是一个代码块：
 
 ```kotlin
     import java.util.*
@@ -90,7 +91,7 @@ class MessageService(val db: MessageRepository) {
 }
 ```
 
-### 可展开的代码块
+### 可展开代码块
 
 ```kotlin
 package com.example.demo
@@ -116,7 +117,7 @@ class MessageController {
 ```
 {initial-collapse-state="collapsed" collapsible="true"}
 
-### 可运行的代码块
+### 可运行代码块
 
 ```kotlin
 data class User(val name: String, val id: Int)
@@ -125,7 +126,7 @@ fun main() {
     val user = User("Alex", 1)
     
     //sampleStart
-    // Automatically uses toString() function so that output is easy to read
+    // 自动使用 toString() 函数，以便输出易于阅读
     println(user)            
     // User(name=Alex, id=1)
     //sampleEnd
@@ -137,7 +138,7 @@ fun main() {
 
 ### Markdown 表格
 
-| 原始类型数组                                                                  | 对应 Java 类型 |
+| 原语类型数组                                                                  | Java 中的等效项 |
 |---------------------------------------------------------------------------------------|--------------------|
 | [`BooleanArray`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean-array/) | `boolean[]`        |
 | [`ByteArray`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-byte-array/)       | `byte[]`           |
@@ -152,12 +153,12 @@ fun main() {
 
 <table>
     <tr>
-        <td><strong>最后修改于</strong></td>
-        <td><strong>December 2023</strong></td>
+        <td><strong>上次修改于</strong></td>
+        <td><strong>2023 年 12 月</strong></td>
     </tr>
     <tr>
         <td><strong>下次更新</strong></td>
-        <td><strong>June 2024</strong></td>
+        <td><strong>2024 年 6 月</strong></td>
     </tr>
 </table>
 
@@ -209,7 +210,7 @@ kotlin {
         <td>现在</td>
     </tr>
     <tr>
-        <td rowspan="2"><code>jvmMain</code> 编译的依赖项</td>
+        <td rowspan="2"><code>jvmMain</code> 编译项的依赖项</td>
 <td>
 
 ```kotlin
@@ -248,7 +249,7 @@ dependencies {
 </td>
     </tr>
     <tr>
-        <td><code>jvmMain</code> 源集的依赖项</td>
+        <td><code>jvmMain</code> 源代码集的依赖项</td>
 <td colspan="2">
 
 ```kotlin
@@ -258,7 +259,7 @@ jvmMain<Scope>
 </td>
     </tr>
     <tr>
-        <td><code>jvmTest</code> 编译的依赖项</td>
+        <td><code>jvmTest</code> 编译项的依赖项</td>
 <td>
 
 ```kotlin
@@ -275,7 +276,7 @@ jvmTestCompilation<Scope>
 </td>
     </tr>
     <tr>
-        <td><code>jvmTest</code> 源集的依赖项</td>
+        <td><code>jvmTest</code> 源代码集的依赖项</td>
 <td colspan="2">
 
 ```kotlin
@@ -296,8 +297,8 @@ jvmTest<Scope>
     1. 三点一
     2. 三点二
     3. 三点三
-        1. 三点一之一
-4. 包含代码块：
+        1. 三点一又一点一
+4. 内部包含一个代码块：
 
    ```kotlin
    jvmTest<Scope>
@@ -305,13 +306,13 @@ jvmTest<Scope>
 
 ### 无序列表
 
-* 第一个项目
-* 第二个项目
-* 第三个项目
-    * 再来一个
-    * 另一个
-        * 哇，再来一个
-* 包含代码块：
+* 第一个要点
+* 第二个要点
+* 第三个要点
+    * 再一个
+    * 又一个
+        * 哇，又一个
+* 内部包含一个代码块：
 
    ```kotlin
    jvmTest<Scope>
@@ -320,13 +321,13 @@ jvmTest<Scope>
 ### 定义列表
 
 <deflist collapsible="true">
-   <def title="可折叠项目 #1">
-      <p><code>CrudRepository</code> 接口中 <code>findById()</code> 函数的返回类型是 <code>Optional</code> 类的实例。然而，为了保持一致性，方便返回一个包含单个消息的 <code>List</code>。为此，如果 <code>Optional</code> 值存在，您需要将其解包，并返回一个包含该值的列表。这可以作为 <code>Optional</code> 类型的<a href="extensions.md#extension-functions">扩展函数</a>来实现。</p>
-      <p>在代码中，<code>Optional&lt;out T&gt;.toList()</code>，<code>.toList()</code> 是 <code>Optional</code> 的扩展函数。扩展函数允许您为任何类编写额外的函数，这在您想要扩展某个库类的功能时尤其有用。</p>
+   <def title="可折叠项 #1">
+      <p><code>CrudRepository</code> 接口中 <code>findById()</code> 函数的返回类型是 <code>Optional</code> 类的一个实例。然而，为了保持一致性，返回一个包含单个消息的 <code>List</code> 将会很方便。为此，你需要解包 <code>Optional</code> 值（如果它存在），并返回一个包含该值的列表。这可以作为 <code>Optional</code> 类型的一个<a href="extensions.md#extension-functions">扩展函数</a>来实现。</p>
+      <p>在代码中，<code>Optional&lt;out T&gt;.toList()</code> 中的 <code>.toList()</code> 是 <code>Optional</code> 的扩展函数。扩展函数允许你为任何类编写额外的函数，这在你想要扩展某个库类的功能时特别有用。</p>
    </def>
-   <def title="可折叠项目 #2">
-      <p><a href="https://docs.spring.io/spring-data/jdbc/docs/current/reference/html/#jdbc.entity-persistence">此函数在假设新对象在数据库中没有 ID 的情况下工作</a>。因此，ID 在插入时**应为 null**。</p>
-      <p> 如果 ID 不为 <i>null</i>，<code>CrudRepository</code> 会认为该对象已存在于数据库中，并且这是一个<i>更新</i>操作而非<i>插入</i>操作。插入操作后，ID 将由数据存储生成并重新赋值给 <code>Message</code> 实例。这就是为什么 ID 属性应使用 <code>var</code> 关键字声明的原因。</p>
+   <def title="可折叠项 #2">
+      <p><a href="https://docs.spring.io/spring-data/jdbc/docs/current/reference/html/#jdbc.entity-persistence">此函数基于一个假设工作</a>：新对象在数据库中没有 ID。因此，插入时 ID <b>应该为 null</b>。</p>
+      <p>如果 ID 不是 <i>null</i>，<code>CrudRepository</code> 假定该对象已存在于数据库中，并且这是一个更新操作，而不是插入操作。在插入操作之后，ID 将由数据存储生成并重新赋值给 <code>Message</code> 实例。这就是为什么 ID 属性应该使用 <code>var</code> 关键字声明的原因。</p>
       <p></p>
    </def>
 </deflist>
@@ -335,20 +336,20 @@ jvmTest<Scope>
 
 * **粗体文本**
 * _斜体文本_
-* `inline code`
+* `内联代码`
 * [内部锚点](#lists)
 * [内部链接](roadmap.md)
 * [外部链接](https://jetbrains.com)
-* 表情符号 ❌✅🆕
+* emojis ❌✅🆕
 
 ## 变量
 * 变量使用：最新 Kotlin 版本是 %kotlinVersion%
 
-## 嵌入式元素
+## 嵌入元素
 
-### 来自 YouTube 的视频
+### YouTube 视频
 
-<video src="https://www.youtube.com/v/Ol_96CHKqg8" title="Kotlin 1.9.20 新特性"/>
+<video src="https://www.youtube.com/v/Ol_96CHKqg8" title="Kotlin 1.9.20 的新特性"/>
 
 ### 图片
 
@@ -374,23 +375,23 @@ jvmTest<Scope>
    <img src="multiplatform-create-project-button.png" alt="创建项目" style="block"/>
 </a>
 
-## 注意事项
+## 注意
 
 警告：
 
 > kapt 编译器插件中对 K2 的支持是[实验性的](components-stability.md)。
-> 需要选择启用（详见下文），并且您应仅将其用于评估目的。
+> 需要选择启用（详见下文），你应仅将其用于求值目的。
 >
 {style="warning"}
 
 注意：
 
-> 对于 Kotlin/Native 附带的原生平台库（如 Foundation、UIKit 和 POSIX），只有部分 API 需要通过 `@ExperimentalForeignApi` 进行选择启用。在这种情况下，您会收到一个带有选择启用要求的警告。
+> 对于随 Kotlin/Native 附带的原生平台库（例如 Foundation、UIKit 和 POSIX），只有它们的部分 API 需要通过 `@ExperimentalForeignApi` 进行选择启用。在这种情况下，你会收到一个带有选择启用要求的警告。
 >
 {style="note"}
 
 提示：
 
-> 对于 Kotlin/Native 附带的原生平台库（如 Foundation、UIKit 和 POSIX），只有部分 API 需要通过 `@ExperimentalForeignApi` 进行选择启用。在这种情况下，您会收到一个带有选择启用要求的警告。
+> 对于随 Kotlin/Native 附带的原生平台库（例如 Foundation、UIKit 和 POSIX），只有它们的部分 API 需要通过 `@ExperimentalForeignApi` 进行选择启用。在这种情况下，你会收到一个带有选择启用要求的警告。
 >
 {style="tip"}

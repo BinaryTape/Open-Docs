@@ -1,8 +1,8 @@
 [//]: # (title: 위임)
 
-[위임 패턴(Delegation pattern)](https://en.wikipedia.org/wiki/Delegation_pattern)은 구현 상속의 좋은 대안임이 입증되었으며, 코틀린은 불필요한 상용구 코드 없이 이를 기본적으로 지원합니다.
+[위임 패턴(Delegation pattern)](https://en.wikipedia.org/wiki/Delegation_pattern)은 구현 상속(implementation inheritance)에 대한 좋은 대안임이 입증되었으며, Kotlin은 상용구 코드(boilerplate code)가 전혀 필요 없이 이를 기본적으로 지원합니다.
 
-`Derived` 클래스는 모든 공개 멤버를 지정된 객체에 위임함으로써 `Base` 인터페이스를 구현할 수 있습니다:
+`Derived` 클래스는 모든 퍼블릭 멤버를 지정된 객체에 위임하여 `Base` 인터페이스를 구현할 수 있습니다.
 
 ```kotlin
 interface Base {
@@ -22,11 +22,11 @@ fun main() {
 ```
 {kotlin-runnable="true"}
 
-`Derived`의 상위 타입 목록에 있는 `by` 절은 `b`가 `Derived` 객체 내부에 저장되며, 컴파일러가 `b`로 전달되는 `Base`의 모든 메서드를 생성함을 나타냅니다.
+`Derived`의 슈퍼타입 목록에 있는 `by` 절은 `b`가 `Derived` 객체 내부에 내부적으로 저장되며 컴파일러가 `Base`의 모든 메서드를 `b`로 전달하도록 생성한다는 것을 나타냅니다.
 
-## 위임을 통해 구현된 인터페이스 멤버 재정의
+## 위임으로 구현된 인터페이스 멤버 오버라이드하기
 
-[재정의](inheritance.md#overriding-methods)는 예상대로 작동합니다. 컴파일러는 위임 객체에 있는 구현 대신 사용자가 `override`한 구현을 사용합니다. `override fun printMessage() { print("abc") }`를 `Derived`에 추가하면, `printMessage`가 호출될 때 프로그램은 *10* 대신 *abc*를 출력할 것입니다:
+[오버라이드(Overrides)](inheritance.md#overriding-methods)는 예상대로 작동합니다. 컴파일러는 위임 객체에 있는 구현 대신 사용자의 `override` 구현을 사용합니다. 만약 `Derived`에 `override fun printMessage() { print("abc") }`를 추가한다면, `printMessage`가 호출될 때 프로그램은 `10` 대신 *abc*를 출력할 것입니다.
 
 ```kotlin
 interface Base {
@@ -51,7 +51,7 @@ fun main() {
 ```
 {kotlin-runnable="true"}
 
-하지만 이런 식으로 재정의된 멤버는 위임 객체의 멤버로부터 호출되지 않는다는 점에 유의하십시오. 위임 객체의 멤버는 인터페이스 멤버의 자체 구현에만 접근할 수 있습니다:
+그러나 이러한 방식으로 오버라이드된 멤버는 위임 객체의 멤버로부터 호출되지 않는다는 점에 유의하십시오. 위임 객체는 인터페이스 멤버에 대한 자체 구현에만 접근할 수 있기 때문입니다.
 
 ```kotlin
 interface Base {
@@ -78,4 +78,4 @@ fun main() {
 ```
 {kotlin-runnable="true"}
 
-[위임 프로퍼티](delegated-properties.md)에 대해 더 알아보세요.
+[위임된 프로퍼티](delegated-properties.md)에 대해 더 알아보세요.

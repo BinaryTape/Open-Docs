@@ -1,26 +1,26 @@
-[//]: # (title: Kotlin 元件的穩定性 (1.4 版之前))
+[//]: # (title: Kotlin 元件的穩定性 (1.4 版本前))
 
 <no-index/>
 
-穩定性模式會因元件演進的速度而有所不同：
+元件的穩定性模式可能有所不同，取決於其演進速度：
 
 <a name="moving-fast"/>
 
-*   **快速變動 (MF)**：即使在 [增量發行](kotlin-evolution-principles.md#language-and-tooling-releases) 之間，也不應預期有任何相容性；任何功能都可能在不發出警告的情況下被新增、移除或更改。
+*   **快速演進 (MF)**：即使在 [增量發佈版本](kotlin-evolution-principles.md#language-and-tooling-releases) 之間也不應期望有相容性，任何功能都可能在沒有警告的情況下被新增、移除或更改。
 
-*   **增量發行中可新增 (AIR)**：增量發行中可以新增內容；應避免移除和行為變更，如有必要，應在先前的增量發行中宣佈。
+*   **增量發佈版本中的新增功能 (AIR)**：可以在增量發佈版本中新增內容，應避免移除或更改行為，如有必要應在之前的增量發佈版本中宣佈。
 
-*   **穩定增量發行 (SIR)**：增量發行是完全相容的，只進行優化和錯誤修正。任何變更都可以在 [語言發行](kotlin-evolution-principles.md#language-and-tooling-releases) 中進行。
+*   **穩定增量發佈版本 (SIR)**：增量發佈版本完全相容，只會進行最佳化和錯誤修正。任何更改都可以在 [語言發佈版本](kotlin-evolution-principles.md#language-and-tooling-releases) 中進行。
 
 <a name="fully-stable"/>
 
-*   **完全穩定 (FS)**：增量發行是完全相容的，只進行優化和錯誤修正。功能發行是向後相容的。
+*   **完全穩定 (FS)**：增量發佈版本完全相容，只會進行最佳化和錯誤修正。功能發佈版本向下相容。
 
-原始碼和二進位檔相容性對於相同的元件可能會有不同的模式，例如，原始碼語言可能在二進位格式穩定之前達到完全穩定，反之亦然。
+對於同一個元件，源代碼（Source）和二進位（Binary）相容性可能會有不同的模式，例如，源代碼可以在二進位格式穩定之前達到完全穩定，反之亦然。
 
-[Kotlin 演進策略](kotlin-evolution-principles.md) 的條款僅完全適用於已達到完全穩定 (FS) 的元件。從那時起，不相容的變更必須經由語言委員會批准。
+[Kotlin 演進策略](kotlin-evolution-principles.md) 的條款僅完全適用於已達到完全穩定 (FS) 的元件。從那時起，不相容的更改必須經由語言委員會批准。
 
-|**元件**|**達到狀態的版本**|**原始碼模式**|**二進位檔模式**|
+|**元件**|**進入狀態版本**|**源代碼模式**|**二進位模式**|
 | --- | --- | --- | --- |
 |Kotlin/JVM|1.0|FS|FS|
 |kotlin-stdlib (JVM)|1.0|FS|FS|
@@ -37,4 +37,4 @@
 |Multiplatform Projects|1.2|MF|MF|
 |Inline classes|1.3|MF|MF|
 |Unsigned arithmetics|1.3|MF|MF|
-|**所有其他實驗性功能 (預設)**|N/A|**MF**|**MF**|
+|**所有其他實驗性功能，預設為**|N/A|**MF**|**MF**|

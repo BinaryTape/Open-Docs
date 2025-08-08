@@ -1,31 +1,27 @@
-[//]: # (title: Kotlin 1.1 の新機能)
+[//]: # (title: Kotlin 1.1の新機能)
 
-_公開日: 2016年2月15日_
+_リリース日: 2016年2月15日_
 
 ## 目次
 
 *   [コルーチン (実験的機能)](#coroutines-experimental)
 *   [その他の言語機能](#other-language-features)
 *   [標準ライブラリ](#standard-library)
-*   [JVM バックエンド](#jvm-backend)
-*   [JavaScript バックエンド](#javascript-backend)
+*   [JVMバックエンド](#jvm-backend)
+*   [JavaScriptバックエンド](#javascript-backend)
 
 ## JavaScript
 
-Kotlin 1.1 から、JavaScript ターゲットは実験的機能ではなくなりました。すべての言語機能がサポートされており、
-フロントエンド開発環境との統合のための新しいツールが多数追加されています。変更点の詳細については、
-[下記](#javascript-backend)をご覧ください。
+Kotlin 1.1から、JavaScriptターゲットはもはや実験的と見なされなくなりました。すべての言語機能がサポートされ、フロントエンド開発環境との統合のための多くの新しいツールが追加されています。変更点の詳細なリストについては、[以下](#javascript-backend)を参照してください。
 
 ## コルーチン (実験的機能)
 
-Kotlin 1.1 の主要な新機能は、`async`/`await`、`yield`、および類似のプログラミングパターンをサポートする*コルーチン*です。
-Kotlin の設計の重要な特徴は、コルーチン実行の実装が言語の一部ではなく、ライブラリの一部であるため、特定のプログラミングパラダイムや並行処理ライブラリに縛られないことです。
+Kotlin 1.1の主要な新機能は**コルーチン**であり、`async`/`await`、`yield`、および同様のプログラミングパターンをサポートします。Kotlinの設計における重要な特徴は、コルーチン実行の実装が言語の一部ではなく、ライブラリの一部であるため、特定のプログラミングパラダイムや並行処理ライブラリに縛られないことです。
 
-コルーチンは、本質的に軽量なスレッドであり、中断して後で再開できます。
-コルーチンは、_[サスペンド関数](coroutines-basics.md#extract-function-refactoring)_を通じてサポートされます。
-このような関数の呼び出しはコルーチンをサスペンドする可能性があり、新しいコルーチンを開始するには通常、匿名サスペンド関数 (つまりサスペンドラムダ) を使用します。
+コルーチンは実質的に、後で一時停止および再開できる軽量なスレッドです。
+コルーチンは_[中断関数 (suspending functions)](coroutines-basics.md#extract-function-refactoring)_を通じてサポートされます。このような関数への呼び出しは、コルーチンを一時停止させる可能性があり、新しいコルーチンを開始するには通常、匿名の中断関数 (つまり、中断ラムダ) を使用します。
 
-外部ライブラリである [kotlinx.coroutines](https://github.com/kotlin/kotlinx.coroutines) で実装されている `async`/`await` を見てみましょう。
+外部ライブラリである[kotlinx.coroutines](https://github.com/kotlin/kotlinx.coroutines)で実装されている`async`/`await`を見てみましょう。
 
 ```kotlin
 // runs the code in the background thread pool
@@ -46,10 +42,10 @@ launch(UI) {
 }
 ```
 
-ここで、`async { ... }` はコルーチンを開始し、`await()` を使用すると、待機している操作が実行されている間、コルーチンの実行がサスペンドされ、待機している操作が完了すると (おそらく別のスレッドで) 再開されます。
+ここでは、`async { ... }`がコルーチンを開始し、`await()`を使用すると、待機中の操作が実行されている間、コルーチンの実行が一時停止され、待機中の操作が完了すると (おそらく別のスレッドで) 再開されます。
 
-標準ライブラリは、`yield` および `yieldAll` 関数を使用して、*遅延生成シーケンス*をサポートするためにコルーチンを使用します。
-このようなシーケンスでは、シーケンス要素を返すコードブロックは、各要素が取得された後にサスペンドされ、次の要素が要求されたときに再開されます。以下に例を示します。
+標準ライブラリは、`yield`および`yieldAll`関数を使用して、*遅延生成されるシーケンス*をサポートするためにコルーチンを使用します。
+このようなシーケンスでは、シーケンス要素を返すコードブロックは、各要素が取得された後に一時停止され、次の要素が要求されたときに再開されます。以下に例を示します。
 
 ```kotlin
 import kotlin.coroutines.experimental.*
@@ -69,19 +65,19 @@ fun main(args: Array<String>) {
 }
 ```
 
-上記コードを実行して結果を確認してください。自由に編集して再度実行することもできます。
+上記コードを実行して結果を確認してください。自由に編集して再度実行できます！
 
-詳細については、[コルーチンに関するドキュメント](coroutines-overview.md)と[チュートリアル](coroutines-and-channels.md)を参照してください。
+詳細については、[コルーチンのドキュメント](coroutines-overview.md)と[チュートリアル](coroutines-and-channels.md)を参照してください。
 
-コルーチンは現在**実験的機能**と見なされており、最終的な 1.1 リリース後も Kotlin チームがこの機能の後方互換性をサポートすることを約束するものではないことに注意してください。
+コルーチンは現在、**実験的機能**と見なされていることに注意してください。これは、Kotlinチームが最終的な1.1リリース後もこの機能の後方互換性を保証するものではないことを意味します。
 
 ## その他の言語機能
 
-### 型エイリアス (Type aliases)
+### 型エイリアス
 
-型エイリアスを使用すると、既存の型に別の名前を定義できます。
-これは、コレクションなどのジェネリック型や、関数型で最も役立ちます。
-以下に例を示します。
+型エイリアスを使用すると、既存の型に対して代替名を定義できます。
+これは、コレクションのようなジェネリック型や関数型にとって最も役立ちます。
+例を次に示します。
 
 ```kotlin
 //sampleStart
@@ -114,12 +110,12 @@ fun main(args: Array<String>) {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-詳細については、[型エイリアスに関するドキュメント](type-aliases.md)と [KEEP](https://github.com/Kotlin/KEEP/blob/master/proposals/type-aliases.md) を参照してください。
+詳細については、[型エイリアスのドキュメント](type-aliases.md)と[KEEP](https://github.com/Kotlin/KEEP/blob/master/proposals/type-aliases.md)を参照してください。
 
-### バウンド呼び出し可能参照 (Bound callable references)
+### 束縛可能な参照 (Bound callable references)
 
-`::` 演算子を使用して、特定のオブジェクトインスタンスのメソッドまたはプロパティを指す[メンバー参照](reflection.md#function-references)を取得できるようになりました。以前はラムダでしか表現できませんでした。
-以下に例を示します。
+`::`演算子を使用して、特定のオブジェクトインスタンスのメソッドまたはプロパティを指す[メンバー参照 (member reference)](reflection.md#function-references)を取得できるようになりました。以前は、これはラムダでしか表現できませんでした。
+例を次に示します。
 
 ```kotlin
 //sampleStart
@@ -133,13 +129,13 @@ fun main(args: Array<String>) {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-詳細については、[ドキュメント](reflection.md)と [KEEP](https://github.com/Kotlin/KEEP/blob/master/proposals/bound-callable-references.md) を参照してください。
+詳細については、[ドキュメント](reflection.md)と[KEEP](https://github.com/Kotlin/KEEP/blob/master/proposals/bound-callable-references.md)を参照してください。
 
-### シールドクラスとデータクラス (Sealed and data classes)
+### SealedクラスとDataクラス
 
-Kotlin 1.1 では、Kotlin 1.0 に存在していたシールドクラスとデータクラスの制限の一部が削除されました。
-これで、トップレベルのシールドクラスのサブクラスを、シールドクラスのネストされたクラスとしてだけでなく、同じファイルのトップレベルで定義できるようになりました。
-データクラスは他のクラスを継承できるようになりました。
+Kotlin 1.1では、Kotlin 1.0に存在したsealedクラスとdataクラスに対するいくつかの制限が削除されました。
+現在、トップレベルのsealedクラスのサブクラスを、sealedクラスのネストされたクラスとしてだけでなく、同じファイルのトップレベルでも定義できるようになりました。
+また、dataクラスは他のクラスを継承できるようになりました。
 これは、式クラスの階層をきれいに明確に定義するために使用できます。
 
 ```kotlin
@@ -164,12 +160,12 @@ fun main(args: Array<String>) {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-詳細については、[シールドクラスに関するドキュメント](sealed-classes.md)または [シールドクラス](https://github.com/Kotlin/KEEP/blob/master/proposals/sealed-class-inheritance.md) および [データクラス](https://github.com/Kotlin/KEEP/blob/master/proposals/data-class-inheritance.md) の KEEPs を参照してください。
+詳細については、[sealedクラスのドキュメント](sealed-classes.md)または[sealed class](https://github.com/Kotlin/KEEP/blob/master/proposals/sealed-class-inheritance.md)および[data class](https://github.com/Kotlin/KEEP/blob/master/proposals/data-class-inheritance.md)のKEEPsを参照してください。
 
-### ラムダでの分解宣言 (Destructuring in lambdas)
+### ラムダにおける分割宣言 (Destructuring)
 
-[分解宣言](destructuring-declarations.md)構文を使用して、ラムダに渡される引数をアンパックできるようになりました。
-以下に例を示します。
+[分割宣言 (destructuring declaration)](destructuring-declarations.md)構文を使用して、ラムダに渡された引数をアンパックできるようになりました。
+例を次に示します。
 
 ```kotlin
 fun main(args: Array<String>) {
@@ -187,11 +183,11 @@ fun main(args: Array<String>) {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-詳細については、[分解宣言に関するドキュメント](destructuring-declarations.md)と [KEEP](https://github.com/Kotlin/KEEP/blob/master/proposals/destructuring-in-parameters.md) を参照してください。
+詳細については、[分割宣言のドキュメント](destructuring-declarations.md)と[KEEP](https://github.com/Kotlin/KEEP/blob/master/proposals/destructuring-in-parameters.md)を参照してください。
 
-### 未使用パラメータのアンダースコア (Underscores for unused parameters)
+### 未使用パラメータに対するアンダースコア
 
-複数のパラメータを持つラムダの場合、使用しないパラメータの名前を `_` 文字で置き換えることができます。
+複数のパラメータを持つラムダの場合、使用しないパラメータの名前を`_`文字で置き換えることができます。
 
 ```kotlin
 fun main(args: Array<String>) {
@@ -204,7 +200,7 @@ fun main(args: Array<String>) {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-これは[分解宣言](destructuring-declarations.md)でも機能します。
+これは[分割宣言 (destructuring declarations)](destructuring-declarations.md)でも機能します。
 
 ```kotlin
 data class Result(val value: Any, val status: String)
@@ -220,11 +216,11 @@ fun main(args: Array<String>) {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-詳細については、[KEEP](https://github.com/Kotlin/KEEP/blob/master/proposals/underscore-for-unused-parameters.md) を参照してください。
+詳細については、[KEEP](https://github.com/Kotlin/KEEP/blob/master/proposals/underscore-for-unused-parameters.md)を参照してください。
 
-### 数値リテラルでのアンダースコア (Underscores in numeric literals)
+### 数値リテラルにおけるアンダースコア
 
-Java 8 と同様に、Kotlin でも数値リテラルでアンダースコアを使用して数字のグループを区切ることができるようになりました。
+Java 8と同様に、Kotlinでも数値リテラルでアンダースコアを使用して桁のグループを区切ることが可能になりました。
 
 ```kotlin
 //sampleStart
@@ -241,9 +237,9 @@ fun main(args: Array<String>) {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-詳細については、[KEEP](https://github.com/Kotlin/KEEP/blob/master/proposals/underscores-in-numeric-literals.md) を参照してください。
+詳細については、[KEEP](https://github.com/Kotlin/KEEP/blob/master/proposals/underscores-in-numeric-literals.md)を参照してください。
 
-### プロパティの短い構文 (Shorter syntax for properties)
+### プロパティの短縮構文
 
 ゲッターが式本体として定義されているプロパティの場合、プロパティの型を省略できるようになりました。
 
@@ -260,9 +256,9 @@ fun main(args: Array<String>) {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-### インラインプロパティアクセサー (Inline property accessors)
+### インラインプロパティアクセサー
 
-バッキングフィールドを持たないプロパティの場合、プロパティアクセサーを `inline` 修飾子でマークできるようになりました。
+プロパティにバッキングフィールドがない場合、プロパティアクセサーを`inline`修飾子でマークできるようになりました。
 このようなアクセサーは、[インライン関数](inline-functions.md)と同じ方法でコンパイルされます。
 
 ```kotlin
@@ -279,14 +275,14 @@ fun main(args: Array<String>) {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-プロパティ全体を `inline` とマークすることもできます。その場合、修飾子は両方のアクセサーに適用されます。
+プロパティ全体を`inline`とマークすることもできます。その場合、修飾子は両方のアクセサーに適用されます。
 
-詳細については、[インライン関数に関するドキュメント](inline-functions.md#inline-properties)と [KEEP](https://github.com/Kotlin/KEEP/blob/master/proposals/inline-properties.md) を参照してください。
+詳細については、[インライン関数のドキュメント](inline-functions.md#inline-properties)と[KEEP](https://github.com/Kotlin/KEEP/blob/master/proposals/inline-properties.md)を参照してください。
 
-### ローカルデリゲートプロパティ (Local delegated properties)
+### ローカル委譲プロパティ
 
-ローカル変数で[デリゲートプロパティ](delegated-properties.md)構文を使用できるようになりました。
-1つの可能な使用法は、遅延評価されるローカル変数を定義することです。
+[委譲プロパティ (delegated property)](delegated-properties.md)構文をローカル変数で使用できるようになりました。
+考えられる用途の1つは、遅延評価されるローカル変数を定義することです。
 
 ```kotlin
 import java.util.Random
@@ -310,12 +306,12 @@ fun main(args: Array<String>) {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-詳細については、[KEEP](https://github.com/Kotlin/KEEP/blob/master/proposals/local-delegated-properties.md) を参照してください。
+詳細については、[KEEP](https://github.com/Kotlin/KEEP/blob/master/proposals/local-delegated-properties.md)を参照してください。
 
-### デリゲートプロパティのバインディングのインターセプト (Interception of delegated property binding)
+### 委譲プロパティバインディングのインターセプト
 
-[デリゲートプロパティ](delegated-properties.md)の場合、`provideDelegate` 演算子を使用して、デリゲートからプロパティへのバインディングをインターセプトできるようになりました。
-例えば、バインディングの前にプロパティ名をチェックしたい場合、次のように記述できます。
+[委譲プロパティ (delegated properties)](delegated-properties.md)の場合、`provideDelegate`演算子を使用して、デリゲートからプロパティへのバインディングをインターセプトできるようになりました。
+たとえば、バインディング前にプロパティ名をチェックしたい場合は、次のように記述できます。
 
 ```kotlin
 class ResourceLoader<T>(id: ResourceID<T>) {
@@ -335,13 +331,13 @@ class MyUI {
 }
 ```
 
-`provideDelegate` メソッドは `MyUI` インスタンスの作成中に各プロパティに対して呼び出され、必要な検証をすぐに行うことができます。
+`provideDelegate`メソッドは、`MyUI`インスタンスの作成中に各プロパティに対して呼び出され、必要な検証をすぐに実行できます。
 
-詳細については、[デリゲートプロパティに関するドキュメント](delegated-properties.md)を参照してください。
+詳細については、[委譲プロパティのドキュメント](delegated-properties.md)を参照してください。
 
-### ジェネリックな Enum 値へのアクセス (Generic enum value access)
+### ジェネリックなEnum値へのアクセス
 
-Enum クラスの値をジェネリックな方法で列挙できるようになりました。
+Enumクラスの値をジェネリックな方法で列挙できるようになりました。
 
 ```kotlin
 //sampleStart
@@ -358,10 +354,10 @@ fun main(args: Array<String>) {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-### DSL における暗黙のレシーバのスコープ制御 (Scope control for implicit receivers in DSLs)
+### DSLにおける暗黙的レシーバーのスコープ制御
 
-[`@DslMarker`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-dsl-marker/index.html) アノテーションを使用すると、DSL コンテキストで外部スコープからのレシーバの使用を制限できます。
-典型的な[HTML ビルダーの例](type-safe-builders.md)を考えてみましょう。
+[`@DslMarker`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-dsl-marker/index.html)アノテーションを使用すると、DSLコンテキストで外側のスコープからのレシーバーの使用を制限できます。
+典型的な[HTMLビルダーの例](type-safe-builders.md)を考えてみましょう。
 
 ```kotlin
 table {
@@ -371,33 +367,33 @@ table {
 }
 ```
 
-Kotlin 1.0 では、`td` に渡されるラムダ内のコードは、`table`、`tr`、`td` に渡される3つの暗黙的なレシーバにアクセスできました。これにより、コンテキストでは意味のないメソッドを呼び出すことが可能でした。たとえば、`td` の内部で `tr` を呼び出し、`<td>` タグの中に `<tr>` タグを配置してしまうようなケースです。
+Kotlin 1.0では、`td`に渡されるラムダ内のコードは、`table`、`tr`、`td`に渡された3つの暗黙的なレシーバーにアクセスできました。これにより、コンテキストでは意味のないメソッドを呼び出すことが可能でした。たとえば、`td`内で`tr`を呼び出し、`<td>`内に`<tr>`タグを配置するようなことです。
 
-Kotlin 1.1 では、これを制限できます。これにより、`td` に渡されるラムダ内では、`td` の暗黙的なレシーバに定義されたメソッドのみが利用可能になります。これは、`@DslMarker` メタアノテーションでマークされた独自のアノテーションを定義し、それをタグクラスの基底クラスに適用することで実現します。
+Kotlin 1.1では、これを制限できます。これにより、`td`に渡されるラムダ内では、`td`の暗黙的なレシーバーで定義されたメソッドのみが利用可能になります。これを行うには、`@DslMarker`メタアノテーションでマークされた独自のアノテーションを定義し、それをタグクラスの基底クラスに適用します。
 
-詳細については、[タイプセーフビルダーに関するドキュメント](type-safe-builders.md)と [KEEP](https://github.com/Kotlin/KEEP/blob/master/proposals/scope-control-for-implicit-receivers.md) を参照してください。
+詳細については、[タイプセーフビルダーのドキュメント](type-safe-builders.md)と[KEEP](https://github.com/Kotlin/KEEP/blob/master/proposals/scope-control-for-implicit-receivers.md)を参照してください。
 
-### rem 演算子 (rem operator)
+### rem演算子
 
-`mod` 演算子は非推奨となり、代わりに `rem` が使用されるようになりました。動機については、[このイシュー](https://youtrack.jetbrains.com/issue/KT-14650)を参照してください。
+`mod`演算子は非推奨となり、代わりに`rem`が使用されます。動機については、[このIssue](https://youtrack.jetbrains.com/issue/KT-14650)を参照してください。
 
 ## 標準ライブラリ
 
-### 文字列から数値への変換 (String to number conversions)
+### 文字列から数値への変換
 
-`String` クラスには、無効な数値で例外をスローせずに数値に変換するための新しい拡張関数が多数追加されました。
-`String.toIntOrNull(): Int?`、`String.toDoubleOrNull(): Double?` などです。
+Stringクラスに、無効な数値に対して例外をスローせずに数値を変換するための新しい拡張機能がいくつか追加されました。
+`String.toIntOrNull(): Int?`、`String.toDoubleOrNull(): Double?`などです。
 
 ```kotlin
 val port = System.getenv("PORT")?.toIntOrNull() ?: 80
 ```
 
-また、`Int.toString()`、`String.toInt()`、`String.toIntOrNull()` などの整数変換関数には、変換の基数 (2 から 36) を指定できる `radix` パラメータを持つオーバーロードが追加されました。
+また、`Int.toString()`、`String.toInt()`、`String.toIntOrNull()`などの整数変換関数には、変換の基数（2から36）を指定できる`radix`パラメータを持つオーバーロードが追加されました。
 
 ### onEach()
 
-`onEach` は、コレクションやシーケンスのための小さくも便利な拡張関数で、一連の操作でコレクション/シーケンスの各要素に対して、副作用を伴う可能性のあるアクションを実行できます。
-イテラブル (Iterable) では `forEach` のように動作しますが、さらにイテラブルインスタンス自体も返します。シーケンスでは、要素がイテレートされる際に指定されたアクションを遅延的に適用するラッパーシーケンスを返します。
+`onEach`は、コレクションやシーケンスの小規模ながら便利な拡張関数で、一連の操作の中で各要素に対して何らかのアクション（副作用を伴う可能性あり）を実行できるようにします。
+イテラブルでは`forEach`のように動作しますが、イテラブルインスタンスをさらに返します。シーケンスでは、ラッピングシーケンスを返し、要素がイテレートされるときに与えられたアクションを遅延的に適用します。
 
 ```kotlin
 inputDir.walk()
@@ -406,13 +402,13 @@ inputDir.walk()
         .forEach { moveFile(it, File(outputDir, it.toRelativeString(inputDir))) }
 ```
 
-### also()、takeIf()、および takeUnless()
+### also()、takeIf()、およびtakeUnless()
 
-これらは、任意のレシーバに適用できる3つの汎用拡張関数です。
+これらは、任意のレシーバーに適用できる3つの汎用拡張関数です。
 
-`also` は `apply` に似ています。レシーバを受け取り、それに対して何らかのアクションを実行し、そのレシーバを返します。
-違いは、`apply` 内のブロックではレシーバが `this` として利用できるのに対し、`also` 内のブロックでは `it` として利用できることです (必要に応じて別の名前を付けることもできます)。
-これは、外部スコープからの `this` をシャドウしたくない場合に便利です。
+`also`は`apply`に似ています。レシーバーを受け取り、それに対して何らかのアクションを実行し、そのレシーバーを返します。
+違いは、`apply`内のブロックではレシーバーが`this`として利用できるのに対し、`also`内のブロックでは`it`として利用できる点です（必要に応じて別の名前を付けることもできます）。
+これは、外側のスコープから`this`をシャドウしたくない場合に便利です。
 
 ```kotlin
 class Block {
@@ -439,9 +435,8 @@ fun main(args: Array<String>) {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-`takeIf` は単一値に対する `filter` のようなものです。レシーバが述語を満たすかどうかをチェックし、
-満たす場合はレシーバを返し、満たさない場合は `null` を返します。
-エルビス演算子 (`?:`) と早期リターンを組み合わせることで、次のような構文を記述できます。
+`takeIf`は、単一の値に対する`filter`のようなものです。レシーバーが述語を満たすかどうかをチェックし、満たす場合はレシーバーを返し、満たさない場合は`null`を返します。
+エルビス演算子（?:）と早期リターンと組み合わせることで、次のような構文を記述できます。
 
 ```kotlin
 val outDirFile = File(outputDir.path).takeIf { it.exists() } ?: return false
@@ -465,13 +460,13 @@ fun main(args: Array<String>) {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-`takeUnless` は `takeIf` と同じですが、述語が反転しています。述語を*満たさない*場合にレシーバを返し、それ以外の場合は `null` を返します。したがって、上記の例の1つは、`takeUnless` を使用して次のように書き換えることができます。
+`takeUnless`は`takeIf`と同じですが、反転した述語を取ります。述語を満たさない場合にレシーバーを返し、それ以外の場合は`null`を返します。したがって、上記の例の1つは、`takeUnless`を使用して次のように書き直すことができます。
 
 ```kotlin
 val index = input.indexOf(keyword).takeUnless { it < 0 } ?: error("keyword not found")
 ```
 
-ラムダの代わりに呼び出し可能参照を使用する場合にも便利です。
+ラムダの代わりに呼び出し可能な参照がある場合にも便利です。
 
 ```kotlin
 private fun testTakeUnless(string: String) {
@@ -491,7 +486,7 @@ fun main(args: Array<String>) {
 
 ### groupingBy()
 
-この API は、コレクションをキーでグループ化し、各グループを同時に集計するために使用できます。たとえば、各文字で始まる単語の数を数えるために使用できます。
+このAPIは、コレクションをキーでグループ化し、各グループを同時に畳み込むために使用できます。たとえば、各文字で始まる単語の数を数えるために使用できます。
 
 ```kotlin
 fun main(args: Array<String>) {
@@ -521,9 +516,8 @@ class ImmutablePropertyBag(map: Map<String, Any>) {
 
 ### Map.minus(key)
 
-`plus` 演算子は、読み取り専用マップにキーと値のペアを追加して新しいマップを生成する方法を提供しますが、その逆、つまりマップからキーを削除する簡単な方法はありませんでした。
-マップからキーを削除するには、`Map.filter()` や `Map.filterKeys()` のような、より単純ではない方法に頼る必要がありました。
-これで、`minus` 演算子がこのギャップを埋めます。単一のキー、キーのコレクション、キーのシーケンス、キーの配列を削除するための4つのオーバーロードが利用可能です。
+`plus`演算子は、キーと値のペアを読み取り専用マップに追加して新しいマップを生成する方法を提供しますが、その逆を行う簡単な方法はありませんでした。マップからキーを削除するには、`Map.filter()`や`Map.filterKeys()`のようなあまり直接的でない方法に頼る必要がありました。
+これで、`minus`演算子がこのギャップを埋めます。単一のキーを削除する場合、キーのコレクション、キーのシーケンス、キーの配列を削除する場合の4つのオーバーロードが利用可能です。
 
 ```kotlin
 fun main(args: Array<String>) {
@@ -540,8 +534,7 @@ fun main(args: Array<String>) {
 
 ### minOf() および maxOf()
 
-これらの関数は、2つまたは3つの与えられた値（プリミティブ数値または`Comparable`オブジェクト）のうち、最小値と最大値を見つけるために使用できます。
-比較可能ではないオブジェクトを比較したい場合は、追加の `Comparator` インスタンスを取る各関数のオーバーロードもあります。
+これらの関数は、2つまたは3つの指定された値（プリミティブな数値または`Comparable`オブジェクト）の中で最小値と最大値を見つけるために使用できます。また、それ自体が比較可能でないオブジェクトを比較したい場合は、追加の`Comparator`インスタンスを取るオーバーロードも各関数にあります。
 
 ```kotlin
 fun main(args: Array<String>) {
@@ -558,9 +551,9 @@ fun main(args: Array<String>) {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-### 配列ライクな List インスタンス化関数 (Array-like List instantiation functions)
+### 配列ライクなListインスタンス化関数
 
-`Array` コンストラクタと同様に、`List` および `MutableList` インスタンスを作成し、ラムダを呼び出すことで各要素を初期化する関数が追加されました。
+`Array`コンストラクタと同様に、`List`および`MutableList`インスタンスを作成し、ラムダを呼び出すことで各要素を初期化する関数が追加されました。
 
 ```kotlin
 fun main(args: Array<String>) {
@@ -577,8 +570,8 @@ fun main(args: Array<String>) {
 
 ### Map.getValue()
 
-この `Map` の拡張は、指定されたキーに対応する既存の値を返します。該当するキーが見つからない場合は例外をスローし、どのキーが見つからなかったかを伝えます。
-マップが `withDefault` で生成された場合、この関数は例外をスローする代わりにデフォルト値を返します。
+この`Map`に対する拡張機能は、指定されたキーに対応する既存の値を返すか、どのキーが見つからなかったかを明記して例外をスローします。
+マップが`withDefault`で生成された場合、この関数は例外をスローする代わりにデフォルト値を返します。
 
 ```kotlin
 fun main(args: Array<String>) {
@@ -600,19 +593,15 @@ fun main(args: Array<String>) {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-### 抽象コレクション (Abstract collections)
+### 抽象コレクション
 
-これらの抽象クラスは、Kotlin のコレクションクラスを実装する際の基底クラスとして使用できます。
-読み取り専用コレクションを実装するための `AbstractCollection`、`AbstractList`、`AbstractSet`、`AbstractMap` があり、
-ミュータブルコレクションを実装するための `AbstractMutableCollection`、`AbstractMutableList`、`AbstractMutableSet`、`AbstractMutableMap` があります。
-JVM 上では、これらの抽象ミュータブルコレクションは、ほとんどの機能を JDK の抽象コレクションから継承しています。
+これらの抽象クラスは、Kotlinコレクションクラスを実装する際の基底クラスとして使用できます。
+読み取り専用コレクションを実装するには、`AbstractCollection`、`AbstractList`、`AbstractSet`、`AbstractMap`があり、ミュータブルコレクションには`AbstractMutableCollection`、`AbstractMutableList`、`AbstractMutableSet`、`AbstractMutableMap`があります。
+JVMでは、これらの抽象ミュータブルコレクションは、ほとんどの機能をJDKの抽象コレクションから継承します。
 
-### 配列操作関数 (Array manipulation functions)
+### 配列操作関数
 
-標準ライブラリには、配列に対する要素ごとの操作を行う一連の関数が提供されるようになりました。これには、比較
-(`contentEquals` および `contentDeepEquals`)、ハッシュコードの計算 (`contentHashCode` および `contentDeepHashCode`)、
-文字列への変換 (`contentToString` および `contentDeepToString`) が含まれます。これらは JVM
-(ここで対応する `java.util.Arrays` の関数のエイリアスとして機能します) と JS (実装は Kotlin 標準ライブラリで提供されます) の両方でサポートされています。
+標準ライブラリには、配列に対する要素ごとの操作を行う一連の関数が提供されています。比較（`contentEquals`および`contentDeepEquals`）、ハッシュコード計算（`contentHashCode`および`contentDeepHashCode`）、文字列への変換（`contentToString`および`contentDeepToString`）です。これらはJVM（`java.util.Arrays`の対応する関数のエイリアスとして機能）とJS（Kotlin標準ライブラリに実装が提供されています）の両方でサポートされています。
 
 ```kotlin
 fun main(args: Array<String>) {
@@ -625,36 +614,34 @@ fun main(args: Array<String>) {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-## JVM バックエンド
+## JVMバックエンド
 
-### Java 8 バイトコードのサポート (Java 8 bytecode support)
+### Java 8バイトコードのサポート
 
-Kotlin は Java 8 バイトコードを生成するオプション (`-jvm-target 1.8` コマンドラインオプション、または Ant/Maven/Gradle の対応するオプション) を持つようになりました。
-現時点では、これはバイトコードのセマンティクスを変更しません (特に、インターフェースのデフォルトメソッドやラムダは Kotlin 1.0 とまったく同じように生成されます) が、将来的にはこれをさらに活用する予定です。
+KotlinはJava 8バイトコードを生成するオプション（コマンドラインオプション`-jvm-target 1.8`、またはAnt/Maven/Gradleの対応するオプション）を持つようになりました。現時点では、これによりバイトコードのセマンティクスは変更されませんが（特に、インターフェースのデフォルトメソッドとラムダはKotlin 1.0とまったく同じように生成されます）、後でこれをさらに活用する予定です。
 
-### Java 8 標準ライブラリのサポート (Java 8 standard library support)
+### Java 8標準ライブラリのサポート
 
-Java 7 および 8 で追加された新しい JDK API をサポートする標準ライブラリの個別のバージョンが利用可能になりました。
-新しい API へのアクセスが必要な場合は、標準の `kotlin-stdlib` の代わりに `kotlin-stdlib-jre7` および `kotlin-stdlib-jre8` Maven アーティファクトを使用してください。
-これらのアーティファクトは `kotlin-stdlib` の上に構築された小さな拡張であり、推移的な依存関係としてプロジェクトに取り込まれます。
+Java 7および8で追加された新しいJDK APIをサポートする標準ライブラリの別バージョンが利用可能になりました。
+新しいAPIにアクセスする必要がある場合は、標準の`kotlin-stdlib`の代わりに`kotlin-stdlib-jre7`および`kotlin-stdlib-jre8` Mavenアーティファクトを使用してください。
+これらのアーティファクトは`kotlin-stdlib`の小さな拡張であり、推移的な依存関係としてプロジェクトに取り込みます。
 
-### バイトコードにおけるパラメータ名 (Parameter names in the bytecode)
+### バイトコードにおけるパラメータ名
 
-Kotlin はバイトコードにパラメータ名を格納するようになりました。これは `-java-parameters` コマンドラインオプションを使用して有効にできます。
+Kotlinは、バイトコードにパラメータ名を保存することをサポートするようになりました。これは、コマンドラインオプション`-java-parameters`を使用して有効にできます。
 
-### 定数のインライン化 (Constant inlining)
+### 定数のインライン化
 
-コンパイラは `const val` プロパティの値を、それらが使用される場所にインライン化するようになりました。
+コンパイラは、`const val`プロパティの値を、それらが使用される場所にインライン化するようになりました。
 
-### 可変クロージャ変数 (Mutable closure variables)
+### ミュータブルなクロージャ変数
 
-ラムダで可変クロージャ変数をキャプチャするために使用されるボックスクラスは、もはや volatile フィールドを持ちません。この変更はパフォーマンスを向上させますが、まれな使用シナリオで新しい競合状態を引き起こす可能性があります。
-これに影響を受ける場合は、変数へのアクセスに対して独自の同期を提供する必要があります。
+ラムダでミュータブルなクロージャ変数をキャプチャするために使用されるボックスクラスは、もはや`volatile`フィールドを持ちません。この変更はパフォーマンスを向上させますが、まれな使用シナリオでは新しい競合状態につながる可能性があります。これに影響を受ける場合は、変数アクセスに対して独自の同期を提供する必要があります。
 
-### javax.script のサポート (javax.script support)
+### javax.scriptのサポート
 
-Kotlin は [javax.script API](https://docs.oracle.com/javase/8/docs/api/javax/script/package-summary.html) (JSR-223) と統合するようになりました。
-この API を使用すると、実行時にコードスニペットを評価できます。
+Kotlinは[javax.script API](https://docs.oracle.com/javase/8/docs/api/javax/script/package-summary.html) (JSR-223) と統合するようになりました。
+このAPIを使用すると、実行時にコードスニペットを評価できます。
 
 ```kotlin
 val engine = ScriptEngineManager().getEngineByExtension("kts")!!
@@ -662,30 +649,28 @@ engine.eval("val x = 3")
 println(engine.eval("x + 2"))  // Prints out 5
 ```
 
-この API を使用したより大きなプロジェクトの例は[こちら](https://github.com/JetBrains/kotlin/tree/1.1.0/libraries/examples/kotlin-jsr223-local-example)をご覧ください。
+このAPIを使用したより大きな例のプロジェクトは[こちら](https://github.com/JetBrains/kotlin/tree/1.1.0/libraries/examples/kotlin-jsr223-local-example)を参照してください。
 
 ### kotlin.reflect.full
 
-[Java 9 のサポート準備](https://blog.jetbrains.com/kotlin/2017/01/kotlin-1-1-whats-coming-in-the-standard-library/)のため、`kotlin-reflect.jar` ライブラリの拡張関数とプロパティは `kotlin.reflect.full` パッケージに移動されました。古いパッケージ (`kotlin.reflect`) の名前は非推奨となり、Kotlin 1.2 で削除される予定です。
-ただし、コアリフレクションインターフェース (`KClass` など) は Kotlin 標準ライブラリの一部であり、`kotlin-reflect` には含まれていないため、この移動の影響を受けません。
+[Java 9のサポートに備える](https://blog.jetbrains.com/kotlin/2017/01/kotlin-1-1-whats-coming-in-the-standard-library/)ため、`kotlin-reflect.jar`ライブラリ内の拡張関数とプロパティは、`kotlin.reflect.full`パッケージに移動されました。古いパッケージ（`kotlin.reflect`）の名前は非推奨となり、Kotlin 1.2で削除されます。ただし、コアリフレクションインターフェース（`KClass`など）は`kotlin-reflect`ではなくKotlin標準ライブラリの一部であり、移動の影響を受けません。
 
-## JavaScript バックエンド
+## JavaScriptバックエンド
 
-### 統一された標準ライブラリ (Unified standard library)
+### 統合された標準ライブラリ
 
-Kotlin 標準ライブラリのより多くの部分が、JavaScript にコンパイルされたコードから使用できるようになりました。
-特に、コレクション (`ArrayList`、`HashMap` など)、例外 (`IllegalArgumentException` など)、その他いくつかの重要なクラス (`StringBuilder`、`Comparator`) が `kotlin` パッケージの下で定義されるようになりました。
-JVM 上では、これらの名前は対応する JDK クラスの型エイリアスであり、JS 上では、これらのクラスは Kotlin 標準ライブラリで実装されています。
+Kotlin標準ライブラリのより多くの部分が、JavaScriptにコンパイルされたコードから使用できるようになりました。
+特に、コレクション（`ArrayList`、`HashMap`など）、例外（`IllegalArgumentException`など）、その他いくつかの主要なクラス（`StringBuilder`、`Comparator`）が`kotlin`パッケージの下で定義されるようになりました。JVMでは、これらの名前は対応するJDKクラスの型エイリアスであり、JSでは、これらのクラスはKotlin標準ライブラリに実装されています。
 
-### コード生成の改善 (Better code generation)
+### より良いコード生成
 
-JavaScript バックエンドは、より静的にチェック可能なコードを生成するようになり、ミニファイア、オプティマイザ、リンターなどの JS コード処理ツールにとってより使いやすくなりました。
+JavaScriptバックエンドは、より静的にチェック可能なコードを生成するようになり、ミニファイア、オプティマイザ、リンターなどのJSコード処理ツールにより適しています。
 
-### external 修飾子 (The external modifier)
+### external修飾子
 
-Kotlin から JavaScript で実装されたクラスに型安全な方法でアクセスする必要がある場合、`external` 修飾子を使用して Kotlin 宣言を記述できます。(Kotlin 1.0 では、代わりに `@native` アノテーションが使用されていました。)
-JVM ターゲットとは異なり、JS ターゲットではクラスとプロパティで `external` 修飾子を使用できます。
-例えば、DOM の `Node` クラスを宣言する方法を次に示します。
+KotlinからJavaScriptで実装されたクラスに型安全な方法でアクセスする必要がある場合、`external`修飾子を使用してKotlin宣言を記述できます（Kotlin 1.0では、代わりに`@native`アノテーションが使用されていました）。
+JVMターゲットとは異なり、JSターゲットではクラスとプロパティで`external`修飾子を使用することを許可します。
+たとえば、DOM `Node`クラスを宣言する方法は次のとおりです。
 
 ```kotlin
 external class Node {
@@ -699,13 +684,13 @@ external class Node {
 }
 ```
 
-### インポート処理の改善 (Improved import handling)
+### インポート処理の改善
 
-JavaScript モジュールからインポートすべき宣言をより正確に記述できるようになりました。
-外部宣言に `@JsModule("<module-name>")` アノテーションを追加すると、コンパイル時にモジュールシステム (CommonJS または AMD) に適切にインポートされます。例えば、CommonJS の場合、宣言は `require(...)` 関数を介してインポートされます。
-さらに、宣言をモジュールとして、またはグローバルな JavaScript オブジェクトとしてインポートしたい場合、`@JsNonModule` アノテーションを使用できます。
+JavaScriptモジュールからインポートすべき宣言をより正確に記述できるようになりました。
+外部宣言に`@JsModule("<module-name>")`アノテーションを追加すると、コンパイル中にモジュールシステム（CommonJSまたはAMDのいずれか）に適切にインポートされます。たとえば、CommonJSの場合、宣言は`require(...)`関数を介してインポートされます。
+さらに、宣言をモジュールとして、またはグローバルJavaScriptオブジェクトとしてインポートしたい場合は、`@JsNonModule`アノテーションを使用できます。
 
-例えば、JQuery を Kotlin モジュールにインポートする方法は次のとおりです。
+たとえば、JQueryをKotlinモジュールにインポートする方法は次のとおりです。
 
 ```kotlin
 external interface JQuery {
@@ -719,9 +704,9 @@ external interface JQuery {
 external fun jquery(selector: String): JQuery
 ```
 
-この場合、JQuery は `jquery` という名前のモジュールとしてインポートされます。あるいは、Kotlin コンパイラが使用するように設定されているモジュールシステムに応じて、`$` オブジェクトとして使用することもできます。
+この場合、JQueryは`jquery`という名前のモジュールとしてインポートされます。あるいは、Kotlinコンパイラが使用するように設定されているモジュールシステムに応じて、`-objectとして使用することもできます。
 
-これらの宣言はアプリケーションで次のように使用できます。
+これらの宣言は、アプリケーションで次のように使用できます。
 
 ```kotlin
 fun main(args: Array<String>) {
@@ -729,3 +714,4 @@ fun main(args: Array<String>) {
         jquery(".toggle-panel").toggle(300)
     }
 }
+```

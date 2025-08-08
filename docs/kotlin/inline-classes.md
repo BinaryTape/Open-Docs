@@ -1,16 +1,16 @@
 [//]: # (title: 内联值类)
 
-有时将值包装在一个类中以创建更具领域特定 (domain-specific) 的类型会很有用。然而，这会因为额外的堆分配而引入运行时开销。此外，如果被包装的类型是原始类型，性能损失会很显著，因为原始类型通常由运行时进行大量优化，而它们的包装器则得不到任何特殊处理。
+有时，将一个值封装在类中以创建更具领域特定性的类型会很有用。然而，这会由于额外的堆分配而引入运行时开销。此外，如果被封装的类型是基本类型，性能损失会非常显著，因为基本类型通常会通过运行时进行大量优化，而它们的封装器则得不到任何特殊处理。
 
-为了解决这些问题，Kotlin 引入了一种特殊的类，称为 _内联类_ (inline class)。内联类是 [基于值的类](https://github.com/Kotlin/KEEP/blob/master/notes/value-classes.md) 的一个子集。它们没有标识 (identity)，并且只能持有值。
+为了解决此类问题，Kotlin 引入了一种特殊类型的类，称为 _内联类_。内联类是 [值基类](https://github.com/Kotlin/KEEP/blob/master/notes/value-classes.md) 的一个子集。它们没有标识，并且只能持有值。
 
-要声明一个内联类，请在类名前使用 `value` 修饰符：
+要声明一个内联类，请在类名之前使用 `value` 修饰符：
 
 ```kotlin
 value class Password(private val s: String)
 ```
 
-对于 JVM 后端，要在类声明前使用 `value` 修饰符以及 `@JvmInline` 注解来声明一个内联类：
+要在 JVM 后端声明内联类，请在类声明之前使用 `value` 修饰符以及 `@JvmInline` 注解：
 
 ```kotlin
 // For JVM backends
@@ -18,7 +18,7 @@ value class Password(private val s: String)
 value class Password(private val s: String)
 ```
 
-内联类必须在主构造函数中初始化一个单一属性。在运行时，内联类的实例将使用这个单一属性来表示（详见 [下文](#representation) 关于运行时表示的说明）：
+内联类必须在主构造函数中初始化一个单一属性。在运行时，内联类的实例将使用此单一属性进行表示（有关运行时表示的详细信息请参见 [下方](#representation)）：
 
 ```kotlin
 // No actual instantiation of class 'Password' happens
@@ -26,11 +26,11 @@ value class Password(private val s: String)
 val securePassword = Password("Don't try this in production") 
 ```
 
-这是内联类的主要特性，也是 *inline* (内联) 这个名字的由来：类的数据被 *内联* 到其使用处（类似于 [内联函数](inline-functions.md) 的内容被内联到调用站点）。
+这是内联类的主要特性，它启发了 *inline* 这个名称：类的数据被 *内联* 到其用法中（类似于 [内联函数](inline-functions.md) 的内容被内联到调用点）。
 
 ## 成员
 
-内联类支持常规类的一些功能。具体而言，它们可以声明属性和函数，拥有 `init` 块和 [次构造函数](classes.md#secondary-constructors)：
+内联类支持普通类的某些功能。特别是，它们允许声明属性和函数，拥有 `init` 代码块和 [次构造函数](classes.md#secondary-constructors)：
 
 ```kotlin
 @JvmInline
@@ -64,7 +64,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.9"}
 
-内联类属性不能有 [幕后字段](properties.md#backing-fields)。它们只能拥有简单的可计算属性（没有 `lateinit`/委托属性）。
+内联类属性不能拥有 [幕后字段](properties.md#backing-fields)。它们只能拥有简单的可计算属性（没有 `lateinit`/委托属性）。
 
 ## 继承
 
@@ -90,9 +90,9 @@ fun main() {
 
 ## 表示
 
-在生成的代码中，Kotlin 编译器为每个内联类保留一个 *包装器* (wrapper)。内联类实例在运行时可以表示为包装器，也可以表示为底层类型。这类似于 `Int` 如何 [表示](numbers.md#boxing-and-caching-numbers-on-the-java-virtual-machine) 为原始的 `int` 或包装器 `Integer`。
+在生成的代码中，Kotlin 编译器会为每个内联类保留一个 *封装器*。内联类实例在运行时可以表示为封装器或底层类型。这类似于 `Int` 如何被 [表示](numbers.md#boxing-and-caching-numbers-on-the-java-virtual-machine) 为基本类型 `int` 或封装器 `Integer`。
 
-Kotlin 编译器会优先使用底层类型而不是包装器，以生成性能最佳和最优化的代码。然而，有时有必要保留包装器。根据经验法则，内联类在作为另一种类型使用时会被装箱 (boxed)。
+Kotlin 编译器将优先使用底层类型而不是封装器，以生成性能最佳且最优化的代码。然而，有时需要保留封装器。根据经验法则，只要内联类被用作另一种类型，它们就会被装箱。
 
 ```kotlin
 interface I
@@ -121,9 +121,9 @@ fun main() {
 }
 ```
 
-由于内联类既可以表示为底层值，也可以表示为包装器，因此对它们而言，[引用相等](equality.md#referential-equality) 是没有意义的，因此是被禁止的。
+因为内联类可以表示为底层值和封装器，所以 [引用相等性](equality.md#referential-equality) 对它们来说是毫无意义的，因此是被禁止的。
 
-内联类也可以将泛型类型参数作为底层类型。在这种情况下，编译器会将其映射到 `Any?`，或者通常映射到类型参数的上限。
+内联类还可以将泛型类型参数作为底层类型。在这种情况下，编译器将其映射到 `Any?` 或通常映射到类型参数的上界。
 
 ```kotlin
 @JvmInline
@@ -132,7 +132,7 @@ value class UserId<T>(val value: T)
 fun compute(s: UserId<String>) {} // compiler generates fun compute-<hashcode>(s: Any?)
 ```
 
-### 混淆
+### 名字修饰
 
 由于内联类被编译为它们的底层类型，这可能导致各种模糊的错误，例如意外的平台签名冲突：
 
@@ -147,11 +147,11 @@ fun compute(x: Int) { }
 fun compute(x: UInt) { }
 ```
 
-为了缓解此类问题，使用内联类的函数会通过在函数名称中添加一些稳定的哈希码来 _混淆_ (mangle)。因此，`fun compute(x: UInt)` 将被表示为 `public final void compute-<hashcode>(int x)`，这解决了冲突问题。
+为了缓解此类问题，使用内联类的函数会被 _名字修饰_，即在函数名称中添加一些稳定的哈希码。因此，`fun compute(x: UInt)` 将表示为 `public final void compute-<hashcode>(int x)`，这解决了冲突问题。
 
 ### 从 Java 代码调用
 
-您可以从 Java 代码中调用接受内联类的函数。为此，您应该手动禁用混淆 (mangling)：在函数声明前添加 `@JvmName` 注解：
+你可以从 Java 代码中调用接受内联类的函数。为此，你需要手动禁用名字修饰：在函数声明前添加 `@JvmName` 注解：
 
 ```kotlin
 @JvmInline
@@ -163,13 +163,15 @@ fun compute(x: Int) { }
 fun compute(x: UInt) { }
 ```
 
-## 内联类与类型别名对比
+默认情况下，Kotlin 使用**未装箱的表示**编译内联类，这使得它们难以从 Java 访问。要了解如何将内联类编译为可从 Java 访问的**装箱表示**，请参见 [从 Java 调用 Kotlin](java-to-kotlin-interop.md#inline-value-classes) 指南。
 
-乍一看，内联类与 [类型别名](type-aliases.md) 似乎非常相似。事实上，两者似乎都引入了一种新类型，并且在运行时都将表示为底层类型。
+## 内联类与类型别名
 
-然而，关键区别在于类型别名与其底层类型（以及与其他具有相同底层类型的类型别名）是 *赋值兼容* 的，而内联类则不是。
+初看起来，内联类与 [类型别名](type-aliases.md) 非常相似。确实，两者似乎都引入了一个新类型，并且在运行时都将表示为底层类型。
 
-换句话说，内联类引入了一种真正的 _新_ 类型，这与类型别名不同，类型别名仅为现有类型引入了一个替代名称（别名）：
+然而，关键区别在于类型别名与其底层类型（以及具有相同底层类型的其他类型别名）是 *赋值兼容的*，而内联类则不是。
+
+换句话说，内联类引入了一个真正 _新_ 的类型，这与类型别名只为现有类型引入一个替代名称（别名）不同：
 
 ```kotlin
 typealias NameTypeAlias = String
@@ -186,18 +188,18 @@ fun main() {
     val nameInlineClass: NameInlineClass = NameInlineClass("")
     val string: String = ""
 
-    acceptString(nameAlias) // OK: pass alias instead of underlying type
-    acceptString(nameInlineClass) // Not OK: can't pass inline class instead of underlying type
+    acceptString(nameAlias) // OK: 传递别名而非底层类型
+    acceptString(nameInlineClass) // 不正常：无法传递内联类而非底层类型
 
     // And vice versa:
-    acceptNameTypeAlias(string) // OK: pass underlying type instead of alias
-    acceptNameInlineClass(string) // Not OK: can't pass underlying type instead of inline class
+    acceptNameTypeAlias(string) // OK: 传递底层类型而非别名
+    acceptNameInlineClass(string) // 不正常：无法传递底层类型而非内联类
 }
 ```
 
 ## 内联类与委托
 
-内联类中通过委托给内联值来实现接口是允许的：
+允许通过将内联类的内联值委托给接口来实现：
 
 ```kotlin
 interface MyInterface {

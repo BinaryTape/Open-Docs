@@ -1,63 +1,64 @@
 [//]: # (title: Kotlin ハンズオン)
 
-Kotlinを使って、さまざまなテクノロジーを使用し、複数のプラットフォームをターゲットとするアプリケーションを作成できるハンズオンチュートリアルのシリーズです。各演習は一連のステップに分かれており、各セクションを順に進めていきます。
+Kotlin を使用して、さまざまなテクノロジーを活用し、複数のプラットフォームを対象としたアプリケーションを作成できる一連のハンズオンチュートリアルです。
+各演習は一連のステップに分かれており、各セクションを順を追って説明します。
 
-## KotlinコルーチンとRSocketでリアクティブなSpring Bootアプリケーションを構築する
+## Kotlin コルーチンと RSocket を使用したリアクティブな Spring Boot アプリケーションの構築
 
-Spring BootとKotlinを使ってシンプルなチャットアプリケーションを構築し、構文の観点からサーバーサイド開発にKotlinを使用する利点について学びます。
+Spring Boot と Kotlin を使用してシンプルなチャットアプリケーションを構築し、構文の観点からサーバーサイド開発で Kotlin を使用する利点について学びます。
 
 [**開始**](https://spring.io/guides/tutorials/spring-webflux-kotlin-rsocket/)
 
-## ReactとKotlin/JSでウェブアプリケーションを構築する
+## React と Kotlin/JS を使用した Web アプリケーションの構築
 
-Kotlin/JSを使ってReactアプリケーションを作成し、Kotlinの型システム、ライブラリエコシステム、相互運用性機能をどのように活用できるかを確認します。
+Kotlin/JS を使用して React アプリケーションを作成し、Kotlin の型システム、ライブラリエコシステム、相互運用性機能を活用する方法を確認します。
 
 [**開始**](js-react.md)
 
-## Spring BootとKotlinでウェブアプリケーションを構築する
+## Spring Boot と Kotlin を使用した Web アプリケーションの構築
 
-Spring BootとKotlinの力を組み合わせることで、シンプルなブログアプリケーションを構築します。
+Spring Boot と Kotlin の力を組み合わせて、シンプルなブログアプリケーションを構築します。
 
 [**開始**](https://spring.io/guides/tutorials/spring-boot-kotlin/)
 
-## KtorでHTTP APIを作成する
+## Ktor を使用した HTTP API の作成
 
-HTTPリクエストに応答する、アプリケーションのバックエンドAPIを作成します。
+HTTP リクエストに応答するアプリケーションのバックエンド API を作成します。
 
 [**開始**](https://ktor.io/docs/creating-http-apis.html)
 
-## KtorでWebSocketチャットを作成する
+## Ktor を使用した WebSocket チャットの作成
 
-Ktorを使って、JVMサーバーとJVMクライアントの両方を含むシンプルなチャットアプリケーションを作成します。
+JVM サーバーと JVM クライアントの両方を含むシンプルなチャットアプリケーションを Ktor を使用して作成します。
 
 [**開始**](https://ktor.io/docs/creating-web-socket-chat.html)
 
-## Ktorでインタラクティブなウェブサイトを作成する
+## Ktor を使用したインタラクティブな Web サイトの作成
 
-Ktorを使って、ファイルを配信する方法、Freemarkerやkotlinx.html DSLなどのテンプレートエンジンを使用する方法、フォーム入力を処理する方法について学びます。
+Ktor でファイルを配信する方法、Freemarker や kotlinx.html DSL のようなテンプレートエンジンを使用する方法、およびフォーム入力と連携する方法を学びます。
 
 [**開始**](https://ktor.io/docs/creating-interactive-website.html)
 
-## Kotlinコルーチンとチャネルの概要
+## Kotlin コルーチンとチャネルの概要
 
-Kotlinにおけるコルーチンについて、そしてチャネルを使ってコルーチン間でどのように通信できるかについて学びます。
+Kotlin のコルーチンについて、およびチャネルを使用してコルーチン間で通信する方法について学びます。
 
 [**開始**](coroutines-and-channels.md)
 
-## Kotlin/Nativeの概要
+## Kotlin/Native の概要
 
-Kotlin/Nativeとlibcurlを使って、複数のプラットフォームでネイティブに実行できるシンプルなHTTPクライアントを作成します。
+Kotlin/Native と libcurl を使用して、複数のプラットフォームでネイティブに実行できるシンプルな HTTP クライアントを作成します。
 
 [**開始**](native-app-with-c-and-libcurl.md)
 
-## Kotlin Multiplatform: ネットワークとデータストレージ
+## Kotlin Multiplatform: ネットワーキングとデータストレージ
 
-KtorとSQLDelightを使ったKotlin Multiplatformを使って、AndroidとiOS向けのモバイルアプリケーションを作成する方法について学びます。
+Ktor と SQLDelight を使用して Kotlin Multiplatform で Android および iOS 向けのモバイルアプリケーションを作成する方法を学びます。
 
 [**開始**](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-ktor-sqldelight.html)
 
-## Kotlin MultiplatformでiOSとAndroidをターゲットにする
+## Kotlin Multiplatform を使用して iOS と Android を対象とする
 
-Kotlin Multiplatformを使って、iOSとAndroidの両方をターゲットにできるモバイルアプリケーションを作成する方法を学びます。
+Kotlin Multiplatform を使用して、iOS と Android の両方を対象とするモバイルアプリケーションを作成する方法を学びます。
 
 [**開始**](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-create-first-app.html)

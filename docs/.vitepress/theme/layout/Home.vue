@@ -47,6 +47,38 @@ const { site } = useData();
                 </div>
             </a>
 
+            <a href="sqldelight/index" :class="['card', 'sqldelightCard']" data-aos="fade-up" data-aos-delay="400">
+                <div class="cardContent">
+                    <div>
+                        <h2 class="cardTitle">SQLDelight</h2>
+                        <p class="cardDescription">
+                            {{ $t('homepage.card.sqldelight.description') }}
+                        </p>
+                    </div>
+                    <div class="cardMeta">
+                        <span class="cardTag">{{ $t('homepage.card.sqldelight.tag.sql') }}</span>
+                        <span class="cardTag">{{ $t('homepage.card.sqldelight.tag.database') }}</span>
+                    </div>
+                    <div class="cardIcon"></div>
+                </div>
+            </a>
+
+            <a href="coil/overview" :class="['card', 'coilCard']" data-aos="fade-up" data-aos-delay="400">
+                <div class="cardContent">
+                    <div>
+                        <h2 class="cardTitle">Coil</h2>
+                        <p class="cardDescription">
+                            {{ $t('homepage.card.coil.description') }}
+                        </p>
+                    </div>
+                    <div class="cardMeta">
+                        <span class="cardTag">{{ $t('homepage.card.coil.tag.crossplatform') }}</span>
+                        <span class="cardTag">{{ $t('homepage.card.coil.tag.imageloadder') }}</span>
+                    </div>
+                    <div class="cardIcon"></div>
+                </div>
+            </a>
+
             <a href="" :class="['card', 'ktorCard']" data-aos="fade-up" data-aos-delay="300">
                 <div class="cardContent">
                     <div class="comingSoonBadge">
@@ -63,22 +95,6 @@ const { site } = useData();
                         </span>
                         <span class="cardTag"> {{ $t('homepage.card.ktor.tag.async') }}
                         </span>
-                    </div>
-                    <div class="cardIcon"></div>
-                </div>
-            </a>
-
-            <a href="sqldelight/index" :class="['card', 'sqldelightCard']" data-aos="fade-up" data-aos-delay="400">
-                <div class="cardContent">
-                    <div>
-                        <h2 class="cardTitle">SQLDelight</h2>
-                        <p class="cardDescription">
-                            {{ $t('homepage.card.sqldelight.description') }}
-                        </p>
-                    </div>
-                    <div class="cardMeta">
-                        <span class="cardTag">{{ $t('homepage.card.sqldelight.tag.sql') }}</span>
-                        <span class="cardTag">{{ $t('homepage.card.sqldelight.tag.database') }}</span>
                     </div>
                     <div class="cardIcon"></div>
                 </div>

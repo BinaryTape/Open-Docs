@@ -1,7 +1,7 @@
-[//]: # (title: Kotlin ドキュメント (PDF版))
+[//]: # (title: PDF版のKotlinドキュメント)
 
-こちらから、チュートリアルと API リファレンスを除くすべての内容を含む Kotlin ドキュメントの PDF 版をダウンロードできます。
+ここでは、チュートリアルとAPIリファレンスを除くすべての内容を含む、KotlinドキュメントのPDF版をダウンロードできます。
 
-**[Kotlin 2.1.20 ドキュメント (PDF) をダウンロード](https://kotlinlang.org/docs/kotlin-reference.pdf)**
+**[Kotlin 2.2.0ドキュメント (PDF) をダウンロード](https://kotlinlang.org/docs/kotlin-reference.pdf)**
 
-**[最新の Kotlin ドキュメントを閲覧 (オンライン)](home.topic)**
+**[最新のKotlinドキュメント (オンライン) を表示](home.topic)**

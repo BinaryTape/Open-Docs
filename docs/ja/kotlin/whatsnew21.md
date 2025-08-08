@@ -1,66 +1,66 @@
-[//]: # (title: Kotlin 2.1.0の新機能)
+[//]: # (title: Kotlin 2.1.0 の新機能)
 
-_[リリース日: 2024年11月27日](releases.md#release-details)_
+[リリース日: 2024年11月27日](releases.md#release-details)
 
-Kotlin 2.1.0がリリースされました！主なハイライトは以下の通りです。
+Kotlin 2.1.0 がリリースされました！主なハイライトは以下の通りです。
 
-*   **プレビュー版の新言語機能**: [主題付き`when`式におけるガード条件](#guard-conditions-in-when-with-a-subject)、
-    [非ローカルな`break`と`continue`](#non-local-break-and-continue)、および[複数ドル記号の文字列補間](#multi-dollar-string-interpolation)。
-*   **K2コンパイラの更新**: [コンパイラチェックの柔軟性向上](#extra-compiler-checks)と[kapt実装の改善](#improved-k2-kapt-implementation)。
-*   **Kotlin Multiplatform**: [Swiftエクスポートの基本サポート](#basic-support-for-swift-export)が導入され、
-    [コンパイラオプションの安定版Gradle DSL](#new-gradle-dsl-for-compiler-options-in-multiplatform-projects-promoted-to-stable)などが追加されました。
+*   **プレビュー版の新言語機能**: [when式でのガード条件（when with a subject）](#guard-conditions-in-when-with-a-subject)、
+    [非ローカルな `break` と `continue`](#non-local-break-and-continue)、および[複数ドル記号による文字列補間](#multi-dollar-string-interpolation)。
+*   **K2 コンパイラの更新**: [コンパイラチェックの柔軟性向上](#extra-compiler-checks)と [kapt実装の改善](#improved-k2-kapt-implementation)。
+*   **Kotlin Multiplatform**: [Swiftエクスポートの基本サポート](#basic-support-for-swift-export)の導入、
+    [コンパイラオプションの安定版Gradle DSL](#new-gradle-dsl-for-compiler-options-in-multiplatform-projects-promoted-to-stable)など。
 *   **Kotlin/Native**: [`iosArm64`のサポート改善](#iosarm64-promoted-to-tier-1)およびその他の更新。
 *   **Kotlin/Wasm**: [インクリメンタルコンパイルのサポート](#support-for-incremental-compilation)を含む複数の更新。
-*   **Gradleのサポート**: [新しいGradleバージョンおよびAndroid Gradleプラグインとの互換性向上](#gradle-improvements)、
-    さらに[Kotlin GradleプラグインAPIの更新](#new-api-for-kotlin-gradle-plugin-extensions)。
+*   **Gradle サポート**: [新しいバージョンのGradleおよびAndroid Gradleプラグインとの互換性向上](#gradle-improvements)、
+    [Kotlin GradleプラグインAPIの更新](#new-api-for-kotlin-gradle-plugin-extensions)。
 *   **ドキュメント**: [Kotlinドキュメントの大幅な改善](#documentation-updates)。
 
 ## IDEサポート
 
-2.1.0をサポートするKotlinプラグインは、最新のIntelliJ IDEAおよびAndroid Studioにバンドルされています。
-IDEのKotlinプラグインを更新する必要はありません。
-必要なのは、ビルドスクリプトでKotlinのバージョンを2.1.0に変更することだけです。
+2.1.0 をサポートする Kotlin プラグインは、最新の IntelliJ IDEA および Android Studio にバンドルされています。
+IDE 内の Kotlin プラグインを更新する必要はありません。
+ビルドスクリプトで Kotlin バージョンを 2.1.0 に変更するだけです。
 
-詳細は[新しいKotlinバージョンへの更新](releases.md#update-to-a-new-kotlin-version)を参照してください。
+詳細については、[新しい Kotlin バージョンへの更新](releases.md#update-to-a-new-kotlin-version)を参照してください。
 
 ## 言語
 
-K2コンパイラを搭載したKotlin 2.0.0のリリース後、JetBrainsチームは新機能による言語の改善に注力しています。
-このリリースでは、いくつかの新しい言語設計の改善点を発表できることを嬉しく思います。
+K2 コンパイラを搭載した Kotlin 2.0.0 のリリース後、JetBrains チームは新機能で言語の改善に注力しています。
+このリリースでは、いくつかの新しい言語設計の改善を発表できることを嬉しく思います。
 
-これらの機能はプレビュー版で利用可能ですので、ぜひお試しいただき、フィードバックをお寄せください。
+これらの機能はプレビュー版として利用可能であり、ぜひお試しいただき、フィードバックを共有してください。
 
-*   [主題付き`when`式におけるガード条件](#guard-conditions-in-when-with-a-subject)
-*   [非ローカルな`break`と`continue`](#non-local-break-and-continue)
-*   [複数ドル記号補間: 文字列リテラル内の`$`の取り扱い改善](#multi-dollar-string-interpolation)
+*   [when式でのガード条件（when with a subject）](#guard-conditions-in-when-with-a-subject)
+*   [非ローカルな `break` と `continue`](#non-local-break-and-continue)
+*   [複数ドル記号による文字列補間: 文字列リテラル内の`$`の処理を改善](#multi-dollar-string-interpolation)
 
-> {style="tip"}
-> すべての機能は、K2モードが有効になっている最新のIntelliJ IDEA 2024.3バージョンでIDEサポートが提供されています。
+> すべての機能は、K2 モードが有効になっている IntelliJ IDEA の最新バージョン 2024.3 で IDE サポートが提供されています。
 >
-> 詳細は[IntelliJ IDEA 2024.3ブログ投稿](https://blog.jetbrains.com/idea/2024/11/intellij-idea-2024-3/)でご確認ください。
+> 詳細については、[IntelliJ IDEA 2024.3 のブログ記事](https://blog.jetbrains.com/idea/2024/11/intellij-idea-2024-3/)を参照してください。
+>
+{style="tip"}
 
-[Kotlin言語設計の機能と提案の全リスト](kotlin-language-features-and-proposals.md)を参照してください。
+[Kotlin の言語設計機能と提案の全リストを参照](kotlin-language-features-and-proposals.md)。
 
-このリリースには、以下の言語更新も含まれています。
+このリリースでは、以下の言語更新も含まれています。
 
 *   [](#support-for-requiring-opt-in-to-extend-apis)
 *   [](#improved-overload-resolution-for-functions-with-generic-types)
 *   [](#improved-exhaustiveness-checks-for-when-expressions-with-sealed-classes)
 
-### 主題付き`when`式におけるガード条件
+### when式でのガード条件（when with a subject）
 
-> {style="warning"}
-> この機能は[プレビュー版](kotlin-evolution-principles.md#pre-stable-features)であり、
-> オプトインが必要です（詳細は下記参照）。
+> この機能は[プレビュー版](kotlin-evolution-principles.md#pre-stable-features)であり、オプトインが必要です（詳細は下記を参照）。
 >
-> [YouTrack](https://youtrack.jetbrains.com/issue/KT-71140)でフィードバックをお寄せいただけると幸いです。
+> [YouTrack](https://youtrack.jetbrains.com/issue/KT-71140)でフィードバックをいただけると幸いです。
+>
+{style="warning"}
 
-2.1.0以降、主題を持つ`when`式またはステートメントでガード条件を使用できます。
+2.1.0 から、`when` 式または `when` ステートメントでガード条件を使用できるようになりました。
 
-ガード条件を使用すると、`when`式のブランチに複数の条件を含めることができ、
-これにより、複雑な制御フローがより明示的かつ簡潔になり、コード構造もフラット化されます。
+ガード条件を使用すると、`when` 式のブランチに複数の条件を含めることができ、複雑な制御フローをより明示的かつ簡潔にし、コード構造をフラット化できます。
 
-ブランチにガード条件を含めるには、プライマリ条件の後に`if`で区切って配置します。
+ブランチにガード条件を含めるには、主要な条件の後に `if` で区切って配置します。
 
 ```kotlin
 sealed interface Animal {
@@ -75,20 +75,20 @@ sealed interface Animal {
 
 fun feedAnimal(animal: Animal) {
     when (animal) {
-        // プライマリ条件のみのブランチ。`animal`が`Dog`の場合に`feedDog()`を呼び出します。
+        // Branch with only the primary condition. Calls `feedDog()` when `animal` is `Dog`
         is Animal.Dog -> animal.feedDog()
-        // プライマリ条件とガード条件の両方を持つブランチ。`animal`が`Cat`で`mouseHunter`でない場合に`feedCat()`を呼び出します。
+        // Branch with both primary and guard conditions. Calls `feedCat()` when `animal` is `Cat` and is not `mouseHunter`
         is Animal.Cat if !animal.mouseHunter -> animal.feedCat()
-        // 上記の条件のいずれにも一致しない場合、「Unknown animal」を出力します。
+        // Prints "Unknown animal" if none of the above conditions match
         else -> println("Unknown animal")
     }
 }
 ```
 
-単一の`when`式で、ガード条件のあるブランチとないブランチを組み合わせることができます。
-ガード条件を持つブランチのコードは、プライマリ条件とガード条件の両方が`true`の場合にのみ実行されます。
-プライマリ条件が一致しない場合、ガード条件は評価されません。
-さらに、ガード条件は`else if`をサポートします。
+1つの `when` 式で、ガード条件があるブランチとないブランチを組み合わせることができます。
+ガード条件を持つブランチのコードは、主要な条件とガード条件の両方が `true` の場合にのみ実行されます。
+主要な条件が一致しない場合、ガード条件は評価されません。
+さらに、ガード条件は `else if` をサポートします。
 
 プロジェクトでガード条件を有効にするには、コマンドラインで以下のコンパイラオプションを使用します。
 
@@ -96,7 +96,7 @@ fun feedAnimal(animal: Animal) {
 kotlinc -Xwhen-guards main.kt
 ```
 
-または、Gradleビルドファイルの`compilerOptions {}`ブロックに追加します。
+または、Gradle ビルドファイルの `compilerOptions {}` ブロックに追加します。
 
 ```kotlin
 // build.gradle.kts
@@ -107,19 +107,19 @@ kotlin {
 }
 ```
 
-### 非ローカルな`break`と`continue`
+### 非ローカルなbreakとcontinue
 
-> {style="warning"}
-> この機能は[プレビュー版](kotlin-evolution-principles.md#pre-stable-features)であり、
-> オプトインが必要です（詳細は下記参照）。
+> この機能は[プレビュー版](kotlin-evolution-principles.md#pre-stable-features)であり、オプトインが必要です（詳細は下記を参照）。
 >
-> [YouTrack](https://youtrack.jetbrains.com/issue/KT-1436)でフィードバックをお寄せいただけると幸いです。
+> [YouTrack](https://youtrack.jetbrains.com/issue/KT-1436)でフィードバックをいただけると幸いです。
+>
+{style="warning"}
 
-Kotlin 2.1.0では、待望の別の機能、非ローカルな`break`と`continue`を使用する機能のプレビューが追加されます。
-この機能は、インライン関数のスコープ内で使用できるツールセットを拡張し、プロジェクトのボイラープレートコードを削減します。
+Kotlin 2.1.0 では、待望の機能である非ローカルな `break` および `continue` を使用できるプレビュー版が追加されました。
+この機能により、インライン関数のスコープ内で使用できるツールセットが拡張され、プロジェクト内のボイラープレートコードが削減されます。
 
-以前は、非ローカルリターンのみ使用できました。
-現在、Kotlinは`break`と`continue`の[ジャンプ式](returns.md)も非ローカルにサポートしています。
+以前は、非ローカルな `return` のみを使用できました。
+現在、Kotlin は `break` および `continue` [ジャンプ式](returns.md)の非ローカルな使用もサポートしています。
 これは、ループを囲むインライン関数に引数として渡されるラムダ内でそれらを適用できることを意味します。
 
 ```kotlin
@@ -129,19 +129,19 @@ fun processList(elements: List<Int>): Boolean {
             log.warning("Element is null or invalid, continuing...")
             continue
         }
-        if (variable == 0) return true // 変数がゼロの場合、trueを返します
+        if (variable == 0) return true // If variable is zero, return true
     }
     return false
 }
 ```
 
-プロジェクトでこの機能を試すには、コマンドラインで`-Xnon-local-break-continue`コンパイラオプションを使用します。
+プロジェクトでこの機能を試すには、コマンドラインで `-Xnon-local-break-continue` コンパイラオプションを使用します。
 
 ```bash
 kotlinc -Xnon-local-break-continue main.kt
 ```
 
-または、Gradleビルドファイルの`compilerOptions {}`ブロックに追加します。
+または、Gradle ビルドファイルの `compilerOptions {}` ブロックに追加します。
 
 ```kotlin
 // build.gradle.kts
@@ -152,26 +152,25 @@ kotlin {
 }
 ```
 
-将来のKotlinリリースでこの機能をStableにする予定です。
-非ローカルな`break`と`continue`の使用中に問題が発生した場合は、
-[課題トラッカー](https://youtrack.jetbrains.com/issue/KT-1436)にご報告ください。
+この機能は、将来の Kotlin リリースで安定版にする予定です。
+非ローカルな `break` および `continue` の使用中に問題が発生した場合は、[課題トラッカー](https://youtrack.jetbrains.com/issue/KT-1436)にご報告ください。
 
-### 複数ドル記号の文字列補間
+### 複数ドル記号による文字列補間
 
-> {style="warning"}
-> この機能は[プレビュー版](kotlin-evolution-principles.md#pre-stable-features)であり、
-> オプトインが必要です（詳細は下記参照）。
+> この機能は[プレビュー版](kotlin-evolution-principles.md#pre-stable-features)であり、オプトインが必要です（詳細は下記を参照）。
 >
-> [YouTrack](https://youtrack.jetbrains.com/issue/KT-2425)でフィードバックをお寄せいただけると幸いです。
+> [YouTrack](https://youtrack.jetbrains.com/issue/KT-2425)でフィードバックをいただけると幸いです。
+>
+{style="warning"}
 
-Kotlin 2.1.0では、複数ドル記号の文字列補間がサポートされ、文字列リテラル内でのドル記号 (`$`) の扱いが改善されました。
-この機能は、テンプレートエンジン、JSONスキーマ、その他のデータ形式など、複数のドル記号が必要な状況で役立ちます。
+Kotlin 2.1.0 は、複数ドル記号による文字列補間のサポートを導入し、文字列リテラル内でのドル記号 (`$`) の処理方法を改善します。
+この機能は、テンプレートエンジン、JSON スキーマ、その他のデータ形式など、複数のドル記号を必要とするコンテキストで役立ちます。
 
-Kotlinの文字列補間は、単一のドル記号を使用します。
-しかし、金融データやテンプレートシステムで一般的な文字列リテラルにドル記号を使用するには、`${'$'}`のような回避策が必要でした。
-複数ドル記号補間機能を有効にすると、いくつのドル記号で補間をトリガーするかを設定でき、少ないドル記号は文字列リテラルとして扱われます。
+Kotlin の文字列補間では、1つのドル記号を使用します。
+しかし、財務データやテンプレートシステムで一般的な文字列リテラルにドル記号を使用する場合、以前は`${'$'}`のような回避策が必要でした。
+複数ドル記号による補間機能が有効になると、いくつのドル記号で補間をトリガーするかを設定でき、より少ないドル記号は文字列リテラルとして扱われます。
 
-以下に、`$`を使用してプレースホルダーを持つJSONスキーマ複数行文字列を生成する方法の例を示します。
+以下は、`$` を使用してプレースホルダーを持つ JSON スキーマの複数行文字列を生成する例です。
 
 ```kotlin
 val KClass<*>.jsonSchema : String
@@ -186,10 +185,10 @@ val KClass<*>.jsonSchema : String
     """
 ```
 
-この例では、最初の`$`は補間をトリガーするために**2つのドル記号** (`$`) が必要であることを意味します。
-これにより、`$schema`、`$id`、`$dynamicAnchor`が補間マーカーとして解釈されるのを防ぎます。
+この例では、最初の `$` は、補間をトリガーするために **2つのドル記号** (`$`) が必要であることを意味します。
+これにより、`$schema`、`$id`、`$dynamicAnchor` が補間マーカーとして解釈されるのを防ぎます。
 
-このアプローチは、ドル記号をプレースホルダー構文に使用するシステムを扱う場合に特に役立ちます。
+このアプローチは、プレースホルダー構文にドル記号を使用するシステムと連携する場合に特に役立ちます。
 
 この機能を有効にするには、コマンドラインで以下のコンパイラオプションを使用します。
 
@@ -197,7 +196,7 @@ val KClass<*>.jsonSchema : String
 kotlinc -Xmulti-dollar-interpolation main.kt
 ```
 
-または、Gradleビルドファイルの`compilerOptions {}`ブロックを更新します。
+または、Gradle ビルドファイルの `compilerOptions {}` ブロックを更新します。
 
 ```kotlin
 // build.gradle.kts
@@ -208,16 +207,16 @@ kotlin {
 }
 ```
 
-コードがすでに単一のドル記号による標準の文字列補間を使用している場合、変更は不要です。
-文字列リテラルにドル記号が必要な場合は、いつでも`$`を使用できます。
+コードが既に単一ドル記号による標準の文字列補間を使用している場合、変更は必要ありません。
+文字列リテラルにドル記号が必要な場合はいつでも `$` を使用できます。
 
-### API拡張のためのオプトイン要求のサポート
+### APIを拡張するためのオプトイン必須化のサポート
 
-Kotlin 2.1.0では、[`@SubclassOptInRequired`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-subclass-opt-in-required/)アノテーションが導入されました。これにより、ライブラリ作者は、ユーザーが実験的なインターフェースを実装したり、実験的なクラスを拡張したりする前に、明示的なオプトインを要求できます。
+Kotlin 2.1.0 では、[`@SubclassOptInRequired`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-subclass-opt-in-required/) アノテーションが導入されました。これにより、ライブラリの作成者は、ユーザーが実験的なインターフェースを実装したり、実験的なクラスを拡張したりする前に、明示的なオプトインを要求できます。
 
-この機能は、ライブラリAPIが使用するには十分に安定しているものの、新しい抽象関数によって進化する可能性があり、継承に対して不安定になる場合に役立ちます。
+この機能は、ライブラリのAPIが使用するには十分安定しているが、新しい抽象関数によって進化する可能性があり、継承に対して不安定になる場合に役立ちます。
 
-API要素にオプトイン要求を追加するには、アノテーションクラスへの参照とともに`@SubclassOptInRequired`アノテーションを使用します。
+API要素にオプトイン要件を追加するには、アノテーションクラスへの参照と共に `@SubclassOptInRequired` アノテーションを使用します。
 
 ```kotlin
 @RequiresOptIn(
@@ -230,7 +229,7 @@ annotation class UnstableApi()
 interface CoreLibraryApi
 ```
 
-この例では、`CoreLibraryApi`インターフェースを実装する前に、ユーザーがオプトインする必要があります。
+この例では、`CoreLibraryApi` インターフェースは、ユーザーがそれを実装する前にオプトインすることを要求します。
 ユーザーは次のようにオプトインできます。
 
 ```kotlin
@@ -238,17 +237,18 @@ interface CoreLibraryApi
 interface MyImplementation: CoreLibraryApi
 ```
 
-> {style="note"}
-> `@SubclassOptInRequired`アノテーションを使用してオプトインを要求する場合、その要求は[内部クラスやネストされたクラス](nested-classes.md)には伝播しません。
+> `@SubclassOptInRequired` アノテーションを使用してオプトインを要求する場合、その要件は[インナーまたはネストされたクラス](nested-classes.md)には伝播されません。
+>
+{style="note"}
 
-APIで`@SubclassOptInRequired`アノテーションを使用する実際の例については、`kotlinx.coroutines`ライブラリの[`SharedFlow`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/-shared-flow/)インターフェースを参照してください。
+APIで `@SubclassOptInRequired` アノテーションを使用する実際の例については、`kotlinx.coroutines` ライブラリの [`SharedFlow`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/-shared-flow/) インターフェースを確認してください。
 
 ### ジェネリック型を持つ関数のオーバーロード解決の改善
 
-以前は、関数に複数のオーバーロードがあり、その一部がジェネリック型の値パラメータを持ち、他が同じ位置に関数型を持つ場合、解決動作が一貫しないことがありました。
+以前は、関数に複数のオーバーロードがあり、そのうちのいくつかがジェネリック型の値パラメータを持ち、他が同じ位置に関数型を持つ場合、解決動作が一貫しないことがありました。
 
-これは、オーバーロードがメンバー関数であるか拡張関数であるかによって異なる動作を引き起こしていました。
-例:
+これにより、オーバーロードがメンバ関数であるか拡張関数であるかによって、異なる動作が生じました。
+例：
 
 ```kotlin
 class KeyValueStore<K, V> {
@@ -260,29 +260,29 @@ fun <K, V> KeyValueStore<K, V>.storeExtension(key: K, value: V) {} // 1
 fun <K, V> KeyValueStore<K, V>.storeExtension(key: K, lazyValue: () -> V) {} // 2
 
 fun test(kvs: KeyValueStore<String, Int>) {
-    // メンバー関数
-    kvs.store("", 1)    // 1に解決
-    kvs.store("") { 1 } // 2に解決
+    // Member functions
+    kvs.store("", 1)    // Resolves to 1
+    kvs.store("") { 1 } // Resolves to 2
 
-    // 拡張関数
-    kvs.storeExtension("", 1)    // 1に解決
-    kvs.storeExtension("") { 1 } // 解決しない
+    // Extension functions
+    kvs.storeExtension("", 1)    // Resolves to 1
+    kvs.storeExtension("") { 1 } // Doesn't resolve
 }
 ```
 
-この例では、`KeyValueStore`クラスには`store()`関数の2つのオーバーロードがあり、一方はジェネリック型`K`と`V`を持つ関数パラメータを持ち、もう一方はジェネリック型`V`を返すラムダ関数を持っています。
-同様に、拡張関数`storeExtension()`にも2つのオーバーロードがあります。
+この例では、`KeyValueStore` クラスには `store()` 関数の2つのオーバーロードがあり、一方はジェネリック型 `K` と `V` を持つ関数パラメータを持ち、もう一方はジェネリック型 `V` を返すラムダ関数を持っています。
+同様に、拡張関数 `storeExtension()` にも2つのオーバーロードがあります。
 
-ラムダ関数を使用した場合と使用しない場合の両方で`store()`関数が呼び出されたとき、コンパイラは正しいオーバーロードを正常に解決しました。
-しかし、拡張関数`storeExtension()`がラムダ関数と共に呼び出されたとき、コンパイラは両方のオーバーロードが適用可能であると誤って判断したため、正しいオーバーロードを解決できませんでした。
+`store()` 関数がラムダ関数を使用する場合と使用しない場合で呼び出されたとき、コンパイラは正しいオーバーロードを正常に解決しました。
+しかし、拡張関数 `storeExtension()` がラムダ関数と共に呼び出された場合、コンパイラは両方のオーバーロードが適用可能であると誤って判断したため、正しいオーバーロードを解決できませんでした。
 
-この問題を解決するため、新しいヒューリスティックを導入しました。これにより、ジェネリック型を持つ関数パラメータが異なる引数からの情報に基づいてラムダ関数を受け入れられない場合、コンパイラは可能性のあるオーバーロードを破棄できるようになります。
-この変更により、メンバー関数と拡張関数の動作が一貫し、Kotlin 2.1.0ではデフォルトで有効になっています。
+この問題を解決するため、新しいヒューリスティックを導入しました。これにより、ジェネリック型を持つ関数パラメータが、別の引数からの情報に基づいてラムダ関数を受け入れられない場合、コンパイラは適用候補のオーバーロードを破棄できるようになります。
+この変更により、メンバ関数と拡張関数の動作が一貫し、Kotlin 2.1.0 ではデフォルトで有効になっています。
 
-### sealed classを持つ`when`式の網羅性チェックの改善
+### sealedクラスを持つwhen式の網羅性チェックの改善
 
-以前のバージョンのKotlinでは、`sealed class`階層のすべてのケースがカバーされている場合でも、sealedな上限を持つ型パラメータの`when`式では`else`ブランチが必要でした。
-この動作はKotlin 2.1.0で対処・改善され、網羅性チェックがより強力になり、冗長な`else`ブランチを削除して`when`式をよりクリーンで直感的に保つことができるようになりました。
+以前のバージョンの Kotlin では、`sealed class` 階層内のすべてのケースが網羅されている場合でも、コンパイラは sealed 型の上限を持つ型パラメータに対する `when` 式に `else` ブランチを要求していました。
+この動作は Kotlin 2.1.0 で対処・改善され、網羅性チェックがより強力になり、冗長な `else` ブランチを削除できるようになり、`when` 式がよりクリーンで直感的になりました。
 
 変更点を示す例を以下に示します。
 
@@ -294,41 +294,41 @@ class Success(val value: String): Result()
 fun <T : Result> render(result: T) = when (result) {
     Error -> "Error!"
     is Success -> result.value
-    // elseブランチは不要
+    // Requires no else branch
 }
 ```
 
 ## Kotlin K2コンパイラ
 
-Kotlin 2.1.0では、K2コンパイラは[コンパイラチェック](#extra-compiler-checks)や[警告](#global-warning-suppression)を扱う際のより高い柔軟性を提供し、さらに[kaptプラグインのサポートも改善](#improved-k2-kapt-implementation)しました。
+Kotlin 2.1.0 では、K2 コンパイラは、[コンパイラチェック](#extra-compiler-checks)や[警告](#global-warning-suppression)を扱う際の[柔軟性を高め](#extra-compiler-checks)、さらに [kapt プラグインのサポート](#improved-k2-kapt-implementation)も改善されました。
 
 ### 追加のコンパイラチェック
 
-Kotlin 2.1.0では、K2コンパイラで追加のチェックを有効にできるようになりました。
-これらは、通常コンパイルには不可欠ではありませんが、以下のケースを検証したい場合に役立つ、追加の宣言、式、型チェックです。
+Kotlin 2.1.0 では、K2 コンパイラで追加のチェックを有効にできるようになりました。
+これらは、通常コンパイルには不可欠ではないが、以下のケースを検証したい場合に役立つ追加の宣言、式、および型チェックです。
 
-| チェックタイプ | コメント |
-| :-------------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `REDUNDANT_NULLABLE` | `Boolean?`の代わりに`Boolean??`が使用されています |
-| `PLATFORM_CLASS_MAPPED_TO_KOTLIN` | `kotlin.String`の代わりに`java.lang.String`が使用されています |
-| `ARRAY_EQUALITY_OPERATOR_CAN_BE_REPLACED_WITH_EQUALS` | `arrayOf("").contentEquals(arrayOf(""))`の代わりに`arrayOf("") == arrayOf("")`が使用されています |
-| `REDUNDANT_CALL_OF_CONVERSION_METHOD` | `42`の代わりに`42.toInt()`が使用されています |
-| `USELESS_CALL_ON_NOT_NULL` | `""`の代わりに`"".orEmpty()`が使用されています |
-| `REDUNDANT_SINGLE_EXPRESSION_STRING_TEMPLATE` | `string`の代わりに`"$string"`が使用されています |
-| `UNUSED_ANONYMOUS_PARAMETER` | ラムダ式でパラメータが渡されているが、使用されていない |
-| `REDUNDANT_VISIBILITY_MODIFIER` | `class Klass`の代わりに`public class Klass`が使用されています |
-| `REDUNDANT_MODALITY_MODIFIER` | `class Klass`の代わりに`final class Klass`が使用されています |
-| `REDUNDANT_SETTER_PARAMETER_TYPE` | `set(value)`の代わりに`set(value: Int)`が使用されています |
-| `CAN_BE_VAL` | `var local = 0`が定義されているが、再割り当てされていないため、代わりに`val local = 42`にできます |
-| `ASSIGNED_VALUE_IS_NEVER_READ` | `val local = 42`が定義されているが、コード内で後で使用されていない |
-| `UNUSED_VARIABLE` | `val local = 0`が定義されているが、コード内で使用されていない |
-| `REDUNDANT_RETURN_UNIT_TYPE` | `fun foo() {}`の代わりに`fun foo(): Unit {}`が使用されています |
-| `UNREACHABLE_CODE` | コードステートメントが存在するが、実行されることはない |
+| チェックタイプ                                            | コメント                                                                                  |
+|:------------------------------------------------------|:-----------------------------------------------------------------------------------------|
+| `REDUNDANT_NULLABLE`                                  | `Boolean??` が `Boolean?` の代わりに使用されています                                        |
+| `PLATFORM_CLASS_MAPPED_TO_KOTLIN`                     | `java.lang.String` が `kotlin.String` の代わりに使用されています                           |
+| `ARRAY_EQUALITY_OPERATOR_CAN_BE_REPLACED_WITH_EQUALS` | `arrayOf("") == arrayOf("")` が `arrayOf("").contentEquals(arrayOf(""))` の代わりに使用されています |
+| `REDUNDANT_CALL_OF_CONVERSION_METHOD`                 | `42.toInt()` が `42` の代わりに使用されています                                           |
+| `USELESS_CALL_ON_NOT_NULL`                            | `"".orEmpty()` が `""` の代わりに使用されています                                         |
+| `REDUNDANT_SINGLE_EXPRESSION_STRING_TEMPLATE`         | `"$string"` が `string` の代わりに使用されています                                         |
+| `UNUSED_ANONYMOUS_PARAMETER`                          | ラムダ式でパラメータが渡されているが、使用されていません                                     |
+| `REDUNDANT_VISIBILITY_MODIFIER`                       | `public class Klass` が `class Klass` の代わりに使用されています                            |
+| `REDUNDANT_MODALITY_MODIFIER`                         | `final class Klass` が `class Klass` の代わりに使用されています                             |
+| `REDUNDANT_SETTER_PARAMETER_TYPE`                     | `set(value: Int)` が `set(value)` の代わりに使用されています                              |
+| `CAN_BE_VAL`                                          | `var local = 0` が定義されているが再割り当てされておらず、代わりに `val local = 42` が使用できます |
+| `ASSIGNED_VALUE_IS_NEVER_READ`                        | `val local = 42` が定義されているが、コード内でその後使用されていません                  |
+| `UNUSED_VARIABLE`                                     | `val local = 0` が定義されているが、コード内で使用されていません                           |
+| `REDUNDANT_RETURN_UNIT_TYPE`                          | `fun foo(): Unit {}` が `fun foo() {}` の代わりに使用されています                          |
+| `UNREACHABLE_CODE`                                    | コードステートメントが存在するが、実行されることはありません                                 |
 
-チェックが真の場合、問題を修正する方法の提案とともにコンパイラの警告が表示されます。
+チェックが `true` の場合、問題を修正するための提案を含むコンパイラ警告が表示されます。
 
 追加チェックはデフォルトで無効になっています。
-これらを有効にするには、コマンドラインで`-Wextra`コンパイラオプションを使用するか、Gradleビルドファイルの`compilerOptions {}`ブロックで`extraWarnings`を指定します。
+これらを有効にするには、コマンドラインで `-Wextra` コンパイラオプションを使用するか、Gradle ビルドファイルの `compilerOptions {}` ブロックで `extraWarnings` を指定します。
 
 ```kotlin
 // build.gradle.kts
@@ -339,15 +339,15 @@ kotlin {
 }
 ```
 
-コンパイラオプションの定義と使用方法の詳細については、[Kotlin Gradleプラグインのコンパイラオプション](gradle-compiler-options.md)を参照してください。
+コンパイラオプションの定義と使用方法の詳細については、[Kotlin Gradle プラグインのコンパイラオプション](gradle-compiler-options.md)を参照してください。
 
 ### グローバルな警告抑制
 
-2.1.0では、Kotlinコンパイラに待望の機能、すなわち警告をグローバルに抑制する機能が追加されました。
+2.1.0 では、Kotlin コンパイラは待望の機能である、警告をグローバルに抑制する機能を受け入れました。
 
-これで、コマンドラインで`-Xsuppress-warning=WARNING_NAME`構文を使用するか、ビルドファイルの`compilerOptions {}`ブロックで`freeCompilerArgs`属性を使用して、プロジェクト全体の特定の警告を抑制できます。
+コマンドラインで `-Xsuppress-warning=WARNING_NAME` 構文を使用するか、ビルドファイルの `compilerOptions {}` ブロックで `freeCompilerArgs` 属性を使用して、プロジェクト全体の特定の警告を抑制できるようになりました。
 
-例えば、プロジェクトで[追加のコンパイラチェック](#extra-compiler-checks)を有効にしているが、そのうちの1つを抑制したい場合は、次のように使用します。
+たとえば、プロジェクトで[追加のコンパイラチェック](#extra-compiler-checks)が有効になっているが、そのうちの1つを抑制したい場合は、次のように使用します。
 
 ```kotlin
 // build.gradle.kts
@@ -359,15 +359,15 @@ kotlin {
 }
 ```
 
-警告を抑制したいがその名前がわからない場合は、要素を選択し、電球アイコンをクリック（または<shortcut>Cmd + Enter</shortcut>/<shortcut>Alt + Enter</shortcut>を使用）します。
+警告を抑制したいが、その名前がわからない場合は、要素を選択して電球アイコンをクリックします（または <shortcut>Cmd + Enter</shortcut> / <shortcut>Alt + Enter</shortcut> を使用します）。
 
-![Warning name intention](warning-name-intention.png){width=500}
+![警告名のインテンション](warning-name-intention.png){width=500}
 
-新しいコンパイラオプションは現在[Experimental](components-stability.md#stability-levels-explained)です。
-以下の点にも注意してください。
+新しいコンパイラオプションは現在[実験的](components-stability.md#stability-levels-explained)です。
+以下の詳細も注目に値します。
 
 *   エラーの抑制は許可されていません。
-*   不明な警告名を渡すと、コンパイルエラーが発生します。
+*   不明な警告名を渡すと、コンパイルエラーになります。
 *   複数の警告を一度に指定できます。
 
 <tabs>
@@ -399,34 +399,34 @@ kotlin {
 
 ### K2 kapt実装の改善
 
-> {style="warning"}
-> K2コンパイラのkaptプラグイン (K2 kapt) は[Alpha](components-stability.md#stability-levels-explained)版です。
-> これはいつでも変更される可能性があります。
+> K2 コンパイラ用 kapt プラグイン (K2 kapt) は[アルファ版](components-stability.md#stability-levels-explained)です。これはいつでも変更される可能性があります。
 >
-> [YouTrack](https://youtrack.jetbrains.com/issue/KT-71439/K2-kapt-feedback)でフィードバックをお寄せいただけると幸いです。
+> [YouTrack](https://youtrack.jetbrains.com/issue/KT-71439/K2-kapt-feedback)でフィードバックをいただけると幸いです。
+>
+{style="warning"}
 
-現在、[kapt](kapt.md)プラグインを使用するプロジェクトは、デフォルトでK1コンパイラで動作し、Kotlinバージョン1.9までをサポートしています。
+現在、[kapt](kapt.md) プラグインを使用するプロジェクトは、デフォルトで K1 コンパイラを使用し、Kotlin 1.9 までのバージョンをサポートしています。
 
-Kotlin 1.9.20では、K2コンパイラを使用したkaptプラグインの実験的な実装（K2 kapt）をリリースしました。
-この度、技術的およびパフォーマンス上の問題を軽減するため、K2 kaptの内部実装を改善しました。
+Kotlin 1.9.20 では、K2 コンパイラを搭載した kapt プラグイン (K2 kapt) の実験的実装を公開しました。
+技術的およびパフォーマンスの問題を軽減するために、K2 kapt の内部実装を改善しました。
 
-新しいK2 kapt実装は新機能を導入していませんが、以前のK2 kapt実装と比較してパフォーマンスが大幅に向上しました。
-さらに、K2 kaptプラグインの動作はK1 kaptのそれに非常に近くなりました。
+新しい K2 kapt 実装は新機能を導入していませんが、以前の K2 kapt 実装と比較してパフォーマンスが大幅に向上しました。
+さらに、K2 kapt プラグインの動作は、K1 kapt の動作に非常に近くなりました。
 
-新しいK2 kaptプラグイン実装を使用するには、以前のK2 kaptプラグインと同様に有効にします。
-プロジェクトの`gradle.properties`ファイルに以下のオプションを追加します。
+新しい K2 kapt プラグイン実装を使用するには、以前の K2 kapt プラグインと同様に有効にします。
+プロジェクトの `gradle.properties` ファイルに以下のオプションを追加します。
 
 ```kotlin
 kapt.use.k2=true
 ```
 
-今後のリリースでは、K1 kaptの代わりにK2 kapt実装がデフォルトで有効になるため、手動で有効にする必要がなくなります。
+今後のリリースでは、K2 kapt 実装が K1 kapt の代わりにデフォルトで有効になるため、手動で有効にする必要がなくなります。
 
-新しい実装が安定化する前に、皆様からの[フィードバック](https://youtrack.jetbrains.com/issue/KT-71439/K2-kapt-feedback)を高く評価いたします。
+新しい実装が安定する前に、皆様からの[フィードバック](https://youtrack.jetbrains.com/issue/KT-71439/K2-kapt-feedback)を高く評価いたします。
 
 ### 符号なし型と非プリミティブ型間のオーバーロード競合の解決
 
-このリリースでは、以下の例のように、以前のバージョンで関数が符号なし型と非プリミティブ型でオーバーロードされた場合に発生する可能性があったオーバーロード競合の解決問題に対処します。
+このリリースでは、以下の例のように、関数が符号なし型と非プリミティブ型に対してオーバーロードされた場合に、以前のバージョンで発生する可能性があったオーバーロード競合の解決に対処します。
 
 #### オーバーロードされた拡張関数
 
@@ -436,11 +436,11 @@ fun UByte.doStuff() = "UByte"
 
 fun main() {
     val uByte: UByte = UByte.MIN_VALUE
-    uByte.doStuff() // Kotlin 2.1.0以前のオーバーロード解決の曖昧さ
+    uByte.doStuff() // Overload resolution ambiguity before Kotlin 2.1.0
 }
 ```
 
-以前のバージョンでは、`uByte.doStuff()`を呼び出すと、`Any`と`UByte`の両方の拡張が適用可能であったため、曖昧さが発生しました。
+以前のバージョンでは、`uByte.doStuff()` を呼び出すと、`Any` および `UByte` の両方の拡張が適用可能であったため、曖昧さが発生しました。
 
 #### オーバーロードされたトップレベル関数
 
@@ -450,32 +450,32 @@ fun doStuff(value: UByte) = "UByte"
 
 fun main() {
     val uByte: UByte = UByte.MIN_VALUE
-    doStuff(uByte) // Kotlin 2.1.0以前のオーバーロード解決の曖昧さ
+    doStuff(uByte) // Overload resolution ambiguity before Kotlin 2.1.0
 }
 ```
 
-同様に、`doStuff(uByte)`の呼び出しは、コンパイラが`Any`バージョンを使用するか`UByte`バージョンを使用するかを決定できなかったため、曖昧でした。
-2.1.0では、コンパイラはこれらのケースを正しく処理し、この場合`UByte`のようなより具体的な型に優先順位を付けることで曖昧さを解決します。
+同様に、`doStuff(uByte)` の呼び出しも、コンパイラが `Any` バージョンと `UByte` バージョンのどちらを使用するかを決定できなかったため、曖昧でした。
+2.1.0 では、コンパイラはこれらのケースを正しく処理し、より具体的な型（この場合は `UByte`）に優先順位を与えることで曖昧さを解決します。
 
 ## Kotlin/JVM
 
-バージョン2.1.0以降、コンパイラはJava 23バイトコードを含むクラスを生成できます。
+バージョン 2.1.0 から、コンパイラは Java 23 バイトコードを含むクラスを生成できるようになりました。
 
-### JSpecifyのnull許容性不一致診断の厳格度をstrictに変更
+### JSpecifyのnull許容性不一致診断の厳格化
 
-Kotlin 2.1.0では、`org.jspecify.annotations`からのnull許容性アノテーションの厳格な処理が強制され、Java相互運用における型安全性が向上します。
+Kotlin 2.1.0 は、`org.jspecify.annotations` からの null 許容性アノテーションの厳格な処理を強制し、Java 相互運用における型安全性を向上させます。
 
-以下のnull許容性アノテーションが影響を受けます。
+以下の null 許容性アノテーションが影響を受けます。
 
 *   `org.jspecify.annotations.Nullable`
 *   `org.jspecify.annotations.NonNull`
 *   `org.jspecify.annotations.NullMarked`
-*   `org.jspecify.nullness`のレガシーアノテーション（JSpecify 0.2以前）
+*   `org.jspecify.nullness` のレガシーアノテーション (JSpecify 0.2 以前)
 
-Kotlin 2.1.0以降、null許容性の不一致はデフォルトで警告からエラーに引き上げられます。
-これにより、型チェック中に`@NonNull`や`@Nullable`のようなアノテーションが強制され、実行時の予期しないnull許容性問題が防止されます。
+Kotlin 2.1.0 から、null 許容性の不一致はデフォルトで警告からエラーに引き上げられます。
+これにより、`@NonNull` や `@Nullable` などのアノテーションが型チェック中に強制され、実行時における予期せぬ null 許容性の問題を防止します。
 
-`@NullMarked`アノテーションは、そのスコープ内のすべてのメンバーのnull許容性にも影響を与え、アノテーション付きのJavaコードを扱う際の動作をより予測可能にします。
+`@NullMarked` アノテーションは、そのスコープ内のすべてのメンバの null 許容性にも影響を与え、アノテーション付き Java コードを扱う際の動作をより予測可能にします。
 
 新しいデフォルトの動作を示す例を以下に示します。
 
@@ -496,58 +496,60 @@ public class SomeJavaClass {
 ```kotlin
 // Kotlin
 fun test(sjc: SomeJavaClass) {
-    // nullではない結果にアクセスします（許可されています）
+    // Accesses a non-null result, which is allowed
     sjc.foo().length
 
-    // デフォルトのstrictモードでは結果がnull許容であるためエラーが発生します
-    // エラーを回避するには、代わりに?.lengthを使用します
+    // Raises an error in the default strict mode because the result is nullable
+    // To avoid the error, use ?.length instead
     sjc.bar().length
 }
 ```
 
 これらのアノテーションの診断の厳格度を手動で制御できます。
-それには、`-Xnullability-annotations`コンパイラオプションを使用してモードを選択します。
+そのためには、`-Xnullability-annotations` コンパイラオプションを使用してモードを選択します。
 
-*   `ignore`: null許容性の不一致を無視します。
-*   `warning`: null許容性の不一致について警告を報告します。
-*   `strict`: null許容性の不一致についてエラーを報告します（デフォルトモード）。
+*   `ignore`: Null許容性の不一致を無視する。
+*   `warning`: Null許容性の不一致について警告を報告する。
+*   `strict`: Null許容性の不一致についてエラーを報告する（デフォルトモード）。
 
 詳細については、[Null許容性アノテーション](java-interop.md#nullability-annotations)を参照してください。
 
 ## Kotlin Multiplatform
 
-Kotlin 2.1.0では、[Swiftエクスポートの基本サポート](#basic-support-for-swift-export)が導入され、[Kotlin Multiplatformライブラリの公開](#ability-to-publish-kotlin-libraries-from-any-host)がより簡単になります。
-また、[コンパイラオプションを設定するための新しいDSLを安定化](#new-gradle-dsl-for-compiler-options-in-multiplatform-projects-promoted-to-stable)し、[Isolated Projects機能のプレビュー](#preview-gradle-s-isolated-projects-in-kotlin-multiplatform)をもたらすGradle周辺の改善にも注力しています。
+Kotlin 2.1.0 は、[Swift エクスポートの基本サポート](#basic-support-for-swift-export)を導入し、[Kotlin Multiplatform ライブラリの公開](#ability-to-publish-kotlin-libraries-from-any-host)を容易にします。
+また、[コンパイラオプション設定用の新しい DSL](#new-gradle-dsl-for-compiler-options-in-multiplatform-projects-promoted-to-stable) を安定させ、[Isolated Projects 機能のプレビュー](#preview-gradle-s-isolated-projects-in-kotlin-multiplatform)を提供する Gradle 周りの改善にも焦点を当てています。
 
-### マルチプラットフォームプロジェクトのコンパイラオプション用新しいGradle DSLがStableに昇格
+### マルチプラットフォームプロジェクトにおけるコンパイラオプション用Gradle DSLの安定版への昇格
 
-Kotlin 2.0.0では、マルチプラットフォームプロジェクト全体でコンパイラオプションの設定を簡素化するために、[新しいExperimental Gradle DSLを導入](whatsnew20.md#new-gradle-dsl-for-compiler-options-in-multiplatform-projects)しました。
-Kotlin 2.1.0では、このDSLはStableに昇格しました。
+Kotlin 2.0.0 では、[新しい実験的な Gradle DSL](whatsnew20.md#new-gradle-dsl-for-compiler-options-in-multiplatform-projects) を導入し、マルチプラットフォームプロジェクト全体でコンパイラオプションの設定を簡素化しました。
+Kotlin 2.1.0 で、この DSL は安定版に昇格しました。
 
-プロジェクト全体の構成は、現在3つの層に分かれています。最も高い層は拡張レベル、次にターゲットレベル、最も低い層はコンパイル単位（通常はコンパイルタスク）です。
+プロジェクト全体の構成には、3つのレイヤーがあります。最も高いのは拡張レベル、次にターゲットレベル、そして最も低いのはコンパイルユニット（通常はコンパイルタスク）です。
 
-![Kotlin compiler options levels](compiler-options-levels.svg){width=700}
+![Kotlinコンパイラオプションのレベル](compiler-options-levels.svg){width=700}
 
-異なるレベルと、それらの間でコンパイラオプションをどのように設定できるかについては、[コンパイラオプション](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-dsl-reference.html#compiler-options)を参照してください。
+異なるレベルと、それらの間でコンパイラオプションをどのように構成できるかについて詳しく知るには、[コンパイラオプション](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-dsl-reference.html#compiler-options)を参照してください。
 
 ### Kotlin MultiplatformにおけるGradleのIsolated Projectsのプレビュー
 
-> {style="warning"}
-> この機能は[Experimental](components-stability.md#stability-levels-explained)であり、現在Gradleではプレアルファ状態です。
-> Gradleバージョン8.10でのみ、評価目的でご利用ください。この機能はいつでも削除または変更される可能性があります。
+> この機能は[実験的](components-stability.md#stability-levels-explained)であり、現在 Gradle ではプレアルファ版の状態です。
+> Gradle 8.10 でのみ、評価目的でのみ使用してください。この機能は、いつでも廃止または変更される可能性があります。
 >
-> [YouTrack](https://youtrack.jetbrains.com/issue/KT-57279/Support-Gradle-Project-Isolation-Feature-for-Kotlin-Multiplatform)でフィードバックをお寄せいただけると幸いです。オプトインが必要です（詳細は下記参照）。
+> [YouTrack](https://youtrack.jetbrains.com/issue/KT-57279/Support-Gradle-Project-Isolation-Feature-for-Kotlin-Multiplatform)でフィードバックをいただけると幸いです。
+> オプトインが必要です（詳細は下記を参照）。
+>
+{style="warning"}
 
-Kotlin 2.1.0では、マルチプラットフォームプロジェクトでGradleの[Isolated Projects](https://docs.gradle.org/current/userguide/isolated_projects.html)機能をプレビューできます。
+Kotlin 2.1.0 では、マルチプラットフォームプロジェクトで Gradle の [Isolated Projects](https://docs.gradle.org/current/userguide/isolated_projects.html) 機能をプレビューできます。
 
-GradleのIsolated Projects機能は、個々のGradleプロジェクトの設定を相互に「分離」することで、ビルドパフォーマンスを向上させます。
-各プロジェクトのビルドロジックは、他のプロジェクトの可変状態に直接アクセスすることを制限されており、それらを安全に並行して実行できるようになります。
-この機能をサポートするため、Kotlin Gradleプラグインのモデルにいくつかの変更を加えました。このプレビュー期間中の皆様の経験についてお聞かせいただくことに興味があります。
+Gradle の Isolated Projects 機能は、個々の Gradle プロジェクトの設定を相互に「分離」することで、ビルドパフォーマンスを向上させます。
+各プロジェクトのビルドロジックは、他のプロジェクトの変更可能な状態に直接アクセスすることを制限されており、それらを安全に並行して実行できます。
+この機能をサポートするために、Kotlin Gradle プラグインのモデルにいくつかの変更を加えました。このプレビュー期間中の皆様の経験についてお聞かせいただきたいと考えています。
 
-Kotlin Gradleプラグインの新しいモデルを有効にするには、2つの方法があります。
+Kotlin Gradle プラグインの新しいモデルを有効にするには、2つの方法があります。
 
 *   オプション1: **Isolated Projectsを有効にせずに互換性をテストする** –
-    Isolated Projects機能を有効にせずにKotlin Gradleプラグインの新しいモデルとの互換性を確認するには、プロジェクトの`gradle.properties`ファイルに以下のGradleプロパティを追加します。
+    Isolated Projects 機能を有効にせずに Kotlin Gradle プラグインの新しいモデルとの互換性をチェックするには、プロジェクトの `gradle.properties` ファイルに以下の Gradle プロパティを追加します。
 
     ```none
     # gradle.properties
@@ -555,27 +557,28 @@ Kotlin Gradleプラグインの新しいモデルを有効にするには、2つ
     ```
 
 *   オプション2: **Isolated Projectsを有効にしてテストする** –
-    GradleでIsolated Projects機能を有効にすると、Kotlin Gradleプラグインが新しいモデルを使用するように自動的に設定されます。
-    Isolated Projects機能を有効にするには、[システムプロパティを設定](https://docs.gradle.org/current/userguide/isolated_projects.html#how_do_i_use_it)します。
-    この場合、Kotlin Gradleプラグイン用のGradleプロパティをプロジェクトに追加する必要はありません。
+    Gradle で Isolated Projects 機能を有効にすると、Kotlin Gradle プラグインが自動的に新しいモデルを使用するように構成されます。
+    Isolated Projects 機能を有効にするには、[システムプロパティを設定します](https://docs.gradle.org/current/userguide/isolated_projects.html#how_do_i_use_it)。
+    この場合、Kotlin Gradle プラグイン用の Gradle プロパティをプロジェクトに追加する必要はありません。
 
 ### Swiftエクスポートの基本サポート
 
-> {style="warning"}
-> この機能は現在開発の初期段階にあります。これはいつでも削除または変更される可能性があります。
-> オプトインが必要です（詳細は下記参照）、評価目的でのみ使用してください。
-> [YouTrack](https://kotl.in/issue)でフィードバックをお寄せいただけると幸いです。
+> この機能は現在、開発の初期段階にあります。これはいつでも廃止または変更される可能性があります。
+> オプトインが必要です（詳細は下記を参照）。評価目的でのみ使用してください。
+> [YouTrack](https://kotl.in/issue)でフィードバックをいただけると幸いです。
+>
+{style="warning"}
 
-バージョン2.1.0では、KotlinでSwiftエクスポートのサポートを提供する第一歩を踏み出します。これにより、Objective-Cヘッダーを使用せずにKotlinソースを直接Swiftインターフェースにエクスポートできるようになります。
-これにより、Appleターゲット向けのマルチプラットフォーム開発が容易になるはずです。
+バージョン 2.1.0 は、Kotlin での Swift エクスポートサポートに向けた最初の一歩を踏み出し、Objective-C ヘッダーを使用せずに Kotlin ソースを Swift インターフェースに直接エクスポートできるようになります。
+これにより、Apple ターゲット向けのマルチプラットフォーム開発が容易になるはずです。
 
-現在の基本サポートには、以下の機能が含まれます。
+現在の基本的なサポートには、以下の機能が含まれます。
 
-*   複数のGradleモジュールをKotlinから直接Swiftにエクスポートする機能。
-*   `moduleName`プロパティでカスタムSwiftモジュール名を定義する機能。
-*   `flattenPackage`プロパティでパッケージ構造の折りたたみルールを設定する機能。
+*   複数の Gradle モジュールを Kotlin から Swift に直接エクスポートする。
+*   `moduleName` プロパティを使用してカスタム Swift モジュール名を定義する。
+*   `flattenPackage` プロパティを使用してパッケージ構造の折りたたみルールを設定する。
 
-Swiftエクスポートを設定するための出発点として、プロジェクトで以下のビルドファイルを使用できます。
+Swift エクスポートを設定するための出発点として、プロジェクトで以下のビルドファイルを使用できます。
 
 ```kotlin
 // build.gradle.kts 
@@ -587,110 +590,111 @@ kotlin {
 
     @OptIn(ExperimentalSwiftExportDsl::class)
     swiftExport {
-        // ルートモジュール名
+        // Root module name
         moduleName = "Shared"
 
-        // 折りたたみルール
-        // 生成されたSwiftコードからパッケージプレフィックスを削除します
+        // Collapse rule
+        // Removes package prefix from generated Swift code
         flattenPackage = "com.example.sandbox"
 
-        // 外部モジュールをエクスポートする
+        // Export external modules
         export(project(":subproject")) {
-            // エクスポートされたモジュール名
+            // Exported module name
             moduleName = "Subproject"
-            // エクスポートされた依存関係の折りたたみルール
+            // Collapse exported dependency rule
             flattenPackage = "com.subproject.library"
         }
     }
 }
 ```
 
-Swiftエクスポートがすでに設定されている[公開サンプル](https://github.com/Kotlin/swift-export-sample)をクローンすることもできます。
+Swift エクスポートが既に設定されている[公開サンプル](https://github.com/Kotlin/swift-export-sample)をクローンすることもできます。
 
-コンパイラは、必要なすべてのファイル（`swiftmodule`ファイル、静的`a`ライブラリ、ヘッダーファイル、`modulemap`ファイルを含む）を自動的に生成し、アプリのビルドディレクトリにコピーします。これはXcodeからアクセスできます。
+コンパイラは、必要なすべてのファイル（`swiftmodule` ファイル、静的 `a` ライブラリ、ヘッダーファイル、`modulemap` ファイルを含む）を自動的に生成し、アプリのビルドディレクトリにコピーします。これは Xcode からアクセスできます。
 
 #### Swiftエクスポートを有効にする方法
 
 この機能は現在、開発の初期段階にあることに留意してください。
 
-Swiftエクスポートは現在、iOSフレームワークをXcodeプロジェクトに接続するために[直接統合](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-direct-integration.html)を使用するプロジェクトで動作します。
-これは、Android Studioまたは[ウェブウィザード](https://kmp.jetbrains.com/)で作成されたKotlin Multiplatformプロジェクトの標準的な構成です。
+Swift エクスポートは現在、iOS フレームワークを Xcode プロジェクトに接続するために[直接統合](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-direct-integration.html)を使用するプロジェクトで動作します。
+これは、Android Studio または [Web ウィザード](https://kmp.jetbrains.com/)で作成された Kotlin Multiplatform プロジェクトの標準的な構成です。
 
-プロジェクトでSwiftエクスポートを試すには:
+プロジェクトで Swift エクスポートを試すには：
 
-1.  以下のGradleオプションを`gradle.properties`ファイルに追加します。
+1.  プロジェクトの `gradle.properties` ファイルに以下の Gradle オプションを追加します。
 
     ```none
     # gradle.properties
     kotlin.experimental.swift-export.enabled=true
     ```
 
-2.  Xcodeで、プロジェクト設定を開きます。
-3.  **Build Phases**タブで、`embedAndSignAppleFrameworkForXcode`タスクを含む**Run Script**フェーズを見つけます。
-4.  実行スクリプトフェーズで、代わりに`embedSwiftExportForXcode`タスクを特徴とするようにスクリプトを調整します。
+2.  Xcode でプロジェクト設定を開きます。
+3.  **Build Phases** タブで、`embedAndSignAppleFrameworkForXcode` タスクを含む **Run Script** フェーズを見つけます。
+4.  実行スクリプトフェーズで、スクリプトを `embedSwiftExportForXcode` タスクを使用するように調整します。
 
     ```bash
     ./gradlew :<Shared module name>:embedSwiftExportForXcode
     ```
 
-    ![Add the Swift export script](xcode-swift-export-run-script-phase.png){width=700}
+    ![Swiftエクスポートスクリプトを追加](xcode-swift-export-run-script-phase.png){width=700}
 
-#### Swiftエクスポートに関するフィードバックを残す
+#### Swiftエクスポートに関するフィードバック
 
-将来のKotlinリリースでSwiftエクスポートのサポートを拡張し、安定化する予定です。
-この[YouTrack課題](https://youtrack.jetbrains.com/issue/KT-64572)にフィードバックをお寄せください。
+今後の Kotlin リリースでは、Swift エクスポートのサポートを拡大し、安定化する予定です。
+この [YouTrack 課題](https://youtrack.jetbrains.com/issue/KT-64572)にフィードバックをお願いいたします。
 
 ### 任意のホストからKotlinライブラリを公開する機能
 
-> {style="warning"}
-> この機能は現在[Experimental](components-stability.md#stability-levels-explained)です。
-> オプトインが必要です（詳細は下記参照）、評価目的でのみ使用してください。
-> [YouTrack](https://youtrack.jetbrains.com/issue/KT-71290)でフィードバックをお寄せいただけると幸いです。
+> この機能は現在[実験的](components-stability.md#stability-levels-explained)です。
+> オプトインが必要です（詳細は下記を参照）。評価目的でのみ使用してください。
+> [YouTrack](https://youtrack.jetbrains.com/issue/KT-71290)でフィードバックをいただけると幸いです。
+>
+{style="warning"}
 
-Kotlinコンパイラは、Kotlinライブラリを公開するために`.klib`アーティファクトを生成します。
-以前は、Macマシンが必要なAppleプラットフォームターゲットを除き、どのホストからでも必要なアーティファクトを取得できました。
-これは、iOS、macOS、tvOS、watchOSターゲットを対象とするKotlin Multiplatformプロジェクトに特別な制約を課していました。
+Kotlin コンパイラは、Kotlin ライブラリを公開するために `.klib` アーティファクトを生成します。
+以前は、Mac マシンを必要とする Apple プラットフォームターゲットを除き、どのホストからでも必要なアーティファクトを取得できました。
+これは、iOS、macOS、tvOS、watchOS ターゲットを対象とする Kotlin Multiplatform プロジェクトに特別な制約を課していました。
 
-Kotlin 2.1.0ではこの制限を解除し、クロスコンパイルのサポートを追加しました。
-これで、どのホストからでも`.klib`アーティファクトを生成できるようになり、KotlinおよびKotlin Multiplatformライブラリの公開プロセスが大幅に簡素化されるはずです。
+Kotlin 2.1.0 はこの制限を解除し、クロスコンパイルのサポートを追加します。
+これにより、どのホストからでも `.klib` アーティファクトを生成できるようになり、Kotlin および Kotlin Multiplatform ライブラリの公開プロセスが大幅に簡素化されるはずです。
 
-#### 任意のホストからライブラリを公開する方法を有効にする
+#### 任意のホストからライブラリを公開する方法
 
-プロジェクトでクロスコンパイルを試すには、`gradle.properties`ファイルに以下のバイナリオプションを追加します。
+プロジェクトでクロスコンパイルを試すには、`gradle.properties` ファイルに以下のバイナリオプションを追加します。
 
 ```none
 # gradle.properties
 kotlin.native.enableKlibsCrossCompilation=true
 ```
 
-この機能は現在Experimentalであり、いくつかの制限があります。Macマシンを依然として使用する必要があるのは、以下の場合です。
+この機能は現在実験的であり、いくつかの制限があります。Mac マシンは、以下の場合は引き続き必要です。
 
-*   ライブラリに[cinteropの依存関係](native-c-interop.md)がある場合。
-*   プロジェクトに[CocoaPods統合](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-cocoapods-overview.html)が設定されている場合。
-*   Appleターゲット向けの[最終バイナリ](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-build-native-binaries.html)をビルドまたはテストする必要がある場合。
+*   ライブラリに [cinterop の依存関係](native-c-interop.md)がある場合。
+*   プロジェクトで [CocoaPods 統合](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-cocoapods-overview.html)が設定されている場合。
+*   Apple ターゲット向けの[最終バイナリ](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-build-native-binaries.html)をビルドまたはテストする必要がある場合。
 
-#### 任意のホストからのライブラリ公開に関するフィードバック
+#### 任意のホストからライブラリを公開することに関するフィードバック
 
-将来のKotlinリリースでこの機能を安定させ、ライブラリ公開をさらに改善する予定です。
-課題トラッカー[YouTrack](https://youtrack.jetbrains.com/issue/KT-71290)にフィードバックをお寄せください。
+この機能を安定させ、将来の Kotlin リリースでライブラリの公開をさらに改善する予定です。
+課題トラッカー[YouTrack](https://youtrack.jetbrains.com/issue/KT-71290)にフィードバックをお願いいたします。
 
 詳細については、[マルチプラットフォームライブラリの公開](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-publish-lib-setup.html)を参照してください。
 
 ### 非圧縮klibのサポート
 
-Kotlin 2.1.0では、非圧縮の`.klib`ファイルアーティファクトを生成できるようになりました。
-これにより、klibへの依存関係を最初に展開するのではなく、直接設定するオプションが提供されます。
+Kotlin 2.1.0 では、非圧縮 `.klib` ファイルアーティファクトの生成が可能になりました。
+これにより、klib を最初に解凍することなく、直接依存関係を設定するオプションが得られます。
 
-この変更は、Kotlin/Wasm、Kotlin/JS、Kotlin/Nativeプロジェクトのコンパイル時間とリンク時間を短縮し、パフォーマンスを向上させることもできます。
+この変更は、Kotlin/Wasm、Kotlin/JS、および Kotlin/Native プロジェクトにおけるコンパイル時間とリンク時間を短縮し、パフォーマンスを向上させる可能性もあります。
 
-例えば、当社のベンチマークでは、1つのリンクと10のコンパイルタスクを持つプロジェクト（9つの簡素化されたプロジェクトに依存する単一のネイティブ実行可能バイナリをビルドするプロジェクト）で、総ビルド時間が約3%改善されたことを示しています。
-ただし、ビルド時間への実際の影響は、サブプロジェクトの数とそのそれぞれのサイズに依存します。
+たとえば、当社のベンチマークでは、1つのリンクタスクと10のコンパイルタスクを持つプロジェクト（9つの簡素化されたプロジェクトに依存する単一のネイティブ実行可能バイナリをビルドするプロジェクト）で、総ビルド時間が約3%向上することが示されています。
+ただし、ビルド時間への実際の影響は、サブプロジェクトの数とそのそれぞれのサイズの両方に依存します。
 
 #### プロジェクトの設定方法
 
-デフォルトでは、Kotlinのコンパイルおよびリンクタスクは、新しい非圧縮アーティファクトを使用するように設定されています。
+デフォルトでは、Kotlin のコンパイルおよびリンクタスクは、新しい非圧縮アーティファクトを使用するように構成されています。
 
-klibを解決するためのカスタムビルドロジックを設定しており、新しい非圧縮アーティファクトを使用したい場合は、Gradleビルドファイルでklibパッケージ解決の優先バリアントを明示的に指定する必要があります。
+klib の解決のためにカスタムビルドロジックを設定しており、新しい解凍済みアーティファクトを使用したい場合は、Gradle ビルドファイルで klib パッケージ解決の優先するバリアントを明示的に指定する必要があります。
 
 ```kotlin
 // build.gradle.kts
@@ -698,129 +702,129 @@ import org.jetbrains.kotlin.gradle.plugin.attributes.KlibPackaging
 // ...
 val resolvableConfiguration = configurations.resolvable("resolvable") {
 
-    // 新しい非圧縮設定の場合:
+    // For the new non-packed configuration:
     attributes.attribute(KlibPackaging.ATTRIBUTE, project.objects.named(KlibPackaging.NON_PACKED))
 
-    // 以前の圧縮設定の場合:
+    // For the previous packed configuration:
     attributes.attribute(KlibPackaging.ATTRIBUTE, project.objects.named(KlibPackaging.PACKED))
 }
 ```
 
-非圧縮の`.klib`ファイルは、以前に圧縮されたファイルと同じパスでプロジェクトのビルドディレクトリに生成されます。
-一方、圧縮されたklibは現在`build/libs`ディレクトリに配置されています。
+非圧縮 `.klib` ファイルは、以前圧縮されていたものと同じパスのプロジェクトのビルドディレクトリに生成されます。
+一方、圧縮された klib は現在 `build/libs` ディレクトリにあります。
 
-属性が指定されていない場合、圧縮バリアントが使用されます。
-以下のコンソールコマンドで、利用可能な属性とバリアントのリストを確認できます。
+属性が指定されていない場合、圧縮されたバリアントが使用されます。
+利用可能な属性とバリアントのリストは、以下のコンソールコマンドで確認できます。
 
 ```shell
 ./gradlew outgoingVariants
 ```
 
-この機能に関するフィードバックを[YouTrack](https://kotl.in/issue)にお寄せいただけると幸いです。
+この機能に関するフィードバックを[YouTrack](https://kotl.in/issue)でいただけると幸いです。
 
 ### 古い`android`ターゲットのさらなる非推奨化
 
-Kotlin 2.1.0では、古い`android`ターゲット名の非推奨警告がエラーに引き上げられました。
+Kotlin 2.1.0 では、古い `android` ターゲット名の非推奨警告がエラーに引き上げられました。
 
-現在、AndroidをターゲットとするKotlin Multiplatformプロジェクトでは、`androidTarget`オプションを使用することを推奨しています。
-これは、GoogleからリリースされるAndroid/KMPプラグインのために`android`という名前を解放するために必要な一時的な解決策です。
+現在、Android を対象とする Kotlin Multiplatform プロジェクトでは、`androidTarget` オプションを使用することをお勧めします。
+これは、Google からの今後の Android/KMP プラグインのために `android` 名を解放するために必要な一時的な解決策です。
 
 新しいプラグインが利用可能になったら、さらなる移行手順を提供します。
-Googleからの新しいDSLが、Kotlin MultiplatformでのAndroidターゲットサポートの推奨オプションとなるでしょう。
+Google からの新しい DSL は、Kotlin Multiplatform の Android ターゲットサポートの推奨オプションとなります。
 
-詳細については、[Kotlin Multiplatform互換性ガイド](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-compatibility-guide.html#rename-of-android-target-to-androidtarget)を参照してください。
+詳細については、[Kotlin Multiplatform 互換性ガイド](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-compatibility-guide.html#rename-of-android-target-to-androidtarget)を参照してください。
 
-### 同じ型の複数ターゲット宣言のサポート終了
+### 同タイプの複数ターゲット宣言のサポート終了
 
-Kotlin 2.1.0以前は、マルチプラットフォームプロジェクトで同じ型の複数のターゲットを宣言できました。
-しかし、これによりターゲットを区別し、共有ソースセットを効果的にサポートすることが困難になっていました。
-ほとんどの場合、個別のGradleプロジェクトを使用するなど、よりシンプルなセットアップの方がうまく機能します。
-詳細なガイダンスと移行方法の例については、Kotlin Multiplatform互換性ガイドの[複数の類似ターゲットの宣言](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-compatibility-guide.html#declaring-several-similar-targets)を参照してください。
+Kotlin 2.1.0 以前は、マルチプラットフォームプロジェクトで同じタイプの複数のターゲットを宣言できました。
+しかし、これによりターゲット間の区別が難しくなり、共有ソースセットを効果的にサポートすることが困難になりました。
+ほとんどの場合、別々の Gradle プロジェクトを使用するなど、よりシンプルな設定の方がうまく機能します。
+詳細なガイダンスと移行方法の例については、Kotlin Multiplatform 互換性ガイドの[複数の類似ターゲットの宣言](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-compatibility-guide.html#declaring-several-similar-targets)を参照してください。
 
-Kotlin 1.9.20では、マルチプラットフォームプロジェクトで同じ型の複数のターゲットを宣言した場合、非推奨警告がトリガーされました。
-Kotlin 2.1.0では、この非推奨警告はKotlin/JSターゲットを除くすべてのターゲットでエラーとなりました。
-Kotlin/JSターゲットが例外である理由の詳細については、[YouTrack](https://youtrack.jetbrains.com/issue/KT-47038/KJS-MPP-Split-JS-target-into-JsBrowser-and-JsNode)のこの課題を参照してください。
+Kotlin 1.9.20 では、マルチプラットフォームプロジェクトで同じタイプの複数のターゲットを宣言した場合に非推奨警告がトリガーされました。
+Kotlin 2.1.0 では、この非推奨警告は Kotlin/JS ターゲットを除くすべてのターゲットでエラーとなりました。
+Kotlin/JS ターゲットが免除される理由の詳細については、[YouTrack](https://youtrack.jetbrains.com/issue/KT-47038/KJS-MPP-Split-JS-target-into-JsBrowser-and-JsNode)のこの課題を参照してください。
 
 ## Kotlin/Native
 
-Kotlin 2.1.0には、[`iosArm64`ターゲットサポートのアップグレード](#iosarm64-promoted-to-tier-1)、[cinteropキャッシングプロセスの改善](#changes-to-cinterop-caching)、およびその他の更新が含まれています。
+Kotlin 2.1.0 には、[`iosArm64` ターゲットサポートのアップグレード](#iosarm64-promoted-to-tier-1)、[cinterop キャッシュプロセスの改善](#changes-to-cinterop-caching)、およびその他の更新が含まれています。
 
-### `iosArm64`がTier 1に昇格
+### iosArm64がTier 1に昇格
 
-[Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html)開発に不可欠な`iosArm64`ターゲットがTier 1に昇格しました。
-これはKotlin/Nativeコンパイラにおける最高レベルのサポートです。
+[Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html) 開発にとって重要な `iosArm64` ターゲットが Tier 1 に昇格しました。
+これは Kotlin/Native コンパイラで最高レベルのサポートです。
 
-これは、ターゲットがCIパイプラインで定期的にテストされ、コンパイルと実行が可能であることを保証することを意味します。
-また、ターゲットのコンパイラリリース間でのソースおよびバイナリ互換性も提供します。
+これは、ターゲットがコンパイルおよび実行可能であることを保証するために、CI パイプラインで定期的にテストされることを意味します。
+また、ターゲットのコンパイラリリース間でソースおよびバイナリの互換性も提供します。
 
-ターゲットのティアの詳細については、[Kotlin/Nativeターゲットサポート](native-target-support.md)を参照してください。
+ターゲットのティアに関する詳細については、[Kotlin/Native ターゲットサポート](native-target-support.md)を参照してください。
 
-### LLVMの11.1.0から16.0.0への更新
+### LLVMの11.1.0から16.0.0へのアップデート
 
-Kotlin 2.1.0では、LLVMをバージョン11.1.0から16.0.0に更新しました。
-新しいバージョンにはバグ修正とセキュリティ更新が含まれています。
-特定のケースでは、コンパイラの最適化とコンパイル時間の高速化も提供します。
+Kotlin 2.1.0 では、LLVM をバージョン 11.1.0 から 16.0.0 に更新しました。
+新バージョンには、バグ修正とセキュリティ更新が含まれています。
+場合によっては、コンパイラの最適化とコンパイル速度の向上も提供されます。
 
-プロジェクトにLinuxターゲットがある場合、Kotlin/NativeコンパイラがすべてのLinuxターゲットに対してデフォルトで`lld`リンカーを使用することに注意してください。
+プロジェクトに Linux ターゲットがある場合は、Kotlin/Native コンパイラがすべての Linux ターゲットでデフォルトで `lld` リンカを使用することに注意してください。
 
-この更新はコードに影響を与えないはずですが、何か問題が発生した場合は、[課題トラッカー](http://kotl.in/issue)にご報告ください。
+この更新によってコードに影響はないはずですが、何か問題が発生した場合は、[課題トラッカー](http://kotl.in/issue)にご報告ください。
 
-### cinteropにおけるキャッシングの変更
+### cinteropにおけるキャッシュの変更
 
-Kotlin 2.1.0では、cinteropのキャッシングプロセスに変更を加えます。
-[`CacheableTask`](https://docs.gradle.org/current/javadoc/org/gradle/api/tasks/CacheableTask.html)アノテーション型は使用されなくなりました。
-新しい推奨アプローチは、[`cacheIf`](https://docs.gradle.org/current/kotlin-dsl/gradle/org.gradle.api.tasks/-task-outputs/cache-if.html)出力型を使用してタスクの結果をキャッシュすることです。
+Kotlin 2.1.0 では、cinterop キャッシュプロセスに変更を加えます。
+[`CacheableTask`](https://docs.gradle.org/current/javadoc/org/gradle/api/tasks/CacheableTask.html) アノテーション型はなくなりました。
+新しい推奨アプローチは、タスクの結果をキャッシュするために [`cacheIf`](https://docs.gradle.org/current/kotlin-dsl/gradle/org.gradle.api.tasks/-task-outputs/cache-if.html) 出力タイプを使用することです。
 
-これにより、[定義ファイル](native-definition-file.md)で指定されたヘッダーファイルの変更を`UP-TO-DATE`チェックが検出できなかった問題を解決し、ビルドシステムがコードを再コンパイルするのを防ぐことができます。
+これにより、[`definition file`](native-definition-file.md)で指定されたヘッダーファイルへの変更を `UP-TO-DATE` チェックが検出できなかった問題を解決し、ビルドシステムがコードを再コンパイルすることを防ぎます。
 
-### mimallocメモリ割り当ての非推奨化
+### mimallocメモリ割り当て機能の非推奨化
 
-Kotlin 1.9.0で新しいメモリ割り当てを導入し、Kotlin 1.9.20でデフォルトで有効にしました。
-新しい割り当ては、ガベージコレクションをより効率的にし、Kotlin/Nativeメモリマネージャーの実行時パフォーマンスを向上させるように設計されています。
+Kotlin 1.9.0 で新しいメモリ割り当て機能が導入され、Kotlin 1.9.20 でデフォルトで有効になりました。
+新しいアロケータは、ガベージコレクションをより効率的にし、Kotlin/Native メモリマネージャのランタイムパフォーマンスを向上させるように設計されています。
 
-新しいメモリ割り当ては、以前のデフォルトの割り当てである[mimalloc](https://github.com/microsoft/mimalloc)を置き換えました。
-今回、Kotlin/Nativeコンパイラでmimallocを非推奨にする時が来ました。
+新しいメモリ割り当て機能は、以前のデフォルトアロケータである [mimalloc](https://github.com/microsoft/mimalloc) に取って代わりました。
+これで、Kotlin/Native コンパイラにおける mimalloc を非推奨にする時期が来ました。
 
-ビルドスクリプトから`-Xallocator=mimalloc`コンパイラオプションを削除できるようになりました。
+ビルドスクリプトから `-Xallocator=mimalloc` コンパイラオプションを削除できるようになりました。
 何か問題が発生した場合は、[課題トラッカー](http://kotl.in/issue)にご報告ください。
 
-Kotlinのメモリ割り当てとガベージコレクションの詳細については、[Kotlin/Nativeメモリ管理](native-memory-manager.md)を参照してください。
+Kotlin のメモリ割り当て機能とガベージコレクションの詳細については、[Kotlin/Native メモリ管理](native-memory-manager.md)を参照してください。
 
 ## Kotlin/Wasm
 
-Kotlin/Wasmは、[インクリメンタルコンパイルのサポート](#support-for-incremental-compilation)を含む複数の更新を受け取りました。
+Kotlin/Wasm は、[インクリメンタルコンパイルのサポート](#support-for-incremental-compilation)を含む複数の更新を受けました。
 
 ### インクリメンタルコンパイルのサポート
 
-以前は、Kotlinコードに変更を加えるたびに、Kotlin/Wasmツールチェインはコードベース全体を再コンパイルする必要がありました。
+以前は、Kotlin コードに変更を加えるたびに、Kotlin/Wasm ツールチェーンはコードベース全体を再コンパイルする必要がありました。
 
-2.1.0以降、Wasmターゲットでインクリメンタルコンパイルがサポートされます。
-開発タスクにおいて、コンパイラは前回のコンパイルからの変更に関連するファイルのみを再コンパイルするようになり、コンパイル時間が著しく短縮されます。
+2.1.0 から、Wasm ターゲットでインクリメンタルコンパイルがサポートされるようになりました。
+開発タスクでは、コンパイラは前回のコンパイルからの変更に関連するファイルのみを再コンパイルするようになり、コンパイル時間を大幅に短縮します。
 
-この変更により、現在コンパイル速度が2倍になり、今後のリリースでさらに改善する計画があります。
+この変更により、現在のコンパイル速度は2倍になり、今後のリリースでさらに改善される予定です。
 
-現在の設定では、Wasmターゲットのインクリメンタルコンパイルはデフォルトで無効になっています。
-インクリメンタルコンパイルを有効にするには、プロジェクトの`local.properties`または`gradle.properties`ファイルに以下の行を追加します。
+現在の設定では、Wasm ターゲットのインクリメンタルコンパイルはデフォルトで無効になっています。
+インクリメンタルコンパイルを有効にするには、プロジェクトの `local.properties` または `gradle.properties` ファイルに以下の行を追加します。
 
 ```none
 # gradle.properties
 kotlin.incremental.wasm=true
 ```
 
-Kotlin/Wasmのインクリメンタルコンパイルを試して、[フィードバックをお寄せください](https://youtrack.jetbrains.com/issue/KT-72158/Kotlin-Wasm-incremental-compilation-feedback)。
-皆様の洞察は、この機能がより早くStableになり、デフォルトで有効になるのに役立ちます。
+Kotlin/Wasm のインクリメンタルコンパイルを試して、[フィードバック](https://youtrack.jetbrains.com/issue/KT-72158/Kotlin-Wasm-incremental-compilation-feedback)を共有してください。
+皆様の洞察は、この機能をより早く安定させ、デフォルトで有効にするのに役立ちます。
 
 ### ブラウザAPIがkotlinx-browserスタンドアロンライブラリに移動
 
-以前は、ウェブAPIと関連ターゲットユーティリティの宣言はKotlin/Wasm標準ライブラリの一部でした。
+以前は、Web API および関連ターゲットユーティリティの宣言は Kotlin/Wasm 標準ライブラリの一部でした。
 
-このリリースでは、`org.w3c.*`の宣言がKotlin/Wasm標準ライブラリから新しい[kotlinx-browserライブラリ](https://github.com/kotlin/kotlinx-browser)に移動されました。
-このライブラリには、`org.khronos.webgl`、`kotlin.dom`、`kotlinx.browser`などの他のウェブ関連パッケージも含まれています。
+このリリースでは、`org.w3c.*` の宣言が Kotlin/Wasm 標準ライブラリから新しい [kotlinx-browser ライブラリ](https://github.com/kotlin/kotlinx-browser)に移動されました。
+このライブラリには、`org.khronos.webgl`、`kotlin.dom`、`kotlinx.browser` などの他の Web 関連パッケージも含まれています。
 
-この分離によりモジュール性が提供され、Kotlinのリリースサイクルとは独立してウェブ関連APIを更新できるようになります。
-さらに、Kotlin/Wasm標準ライブラリには、任意のJavaScript環境で利用可能な宣言のみが含まれるようになりました。
+この分離によりモジュール性が提供され、Kotlin のリリースサイクルとは独立して Web 関連 API の更新が可能になります。
+さらに、Kotlin/Wasm 標準ライブラリには、任意の JavaScript 環境で利用可能な宣言のみが含まれるようになりました。
 
-移動されたパッケージからの宣言を使用するには、プロジェクトのビルド構成ファイルに`kotlinx-browser`の依存関係を追加する必要があります。
+移動されたパッケージからの宣言を使用するには、プロジェクトのビルド構成ファイルに `kotlinx-browser` の依存関係を追加する必要があります。
 
 ```kotlin
 // build.gradle.kts
@@ -833,28 +837,27 @@ val wasmJsMain by getting {
 
 ### Kotlin/Wasmのデバッグ体験の改善
 
-以前は、ウェブブラウザでKotlin/Wasmコードをデバッグする際、デバッグインターフェースで変数値が低レベルで表現されることがありました。
-これにより、アプリケーションの現在の状態を追跡するのが困難になることがよくありました。
+以前、Web ブラウザで Kotlin/Wasm コードをデバッグする際、デバッグインターフェースで変数値を低レベルで表現されることがあり、アプリケーションの現在の状態を追跡することが困難でした。
 
-![Kotlin/Wasm old debugger](wasm-old-debugger.png){width=700}
+![Kotlin/Wasm 旧デバッガー](wasm-old-debugger.png){width=700}
 
 この体験を改善するため、変数ビューにカスタムフォーマッタが追加されました。
-この実装は、FirefoxやChromiumベースの主要ブラウザでサポートされている[カスタムフォーマッタAPI](https://firefox-source-docs.mozilla.org/devtools-user/custom_formatters/index.html)を使用しています。
+この実装は、Firefox や Chromium ベースのブラウザなど、主要なブラウザでサポートされている[カスタムフォーマッタ API](https://firefox-source-docs.mozilla.org/devtools-user/custom_formatters/index.html) を使用しています。
 
-この変更により、変数をよりユーザーフレンドリーで理解しやすい方法で表示・特定できるようになりました。
+この変更により、変数値をよりユーザーフレンドリーで理解しやすい方法で表示および特定できるようになりました。
 
-![Kotlin/Wasm improved debugger](wasm-debugger-improved.png){width=700}
+![Kotlin/Wasm 改善されたデバッガー](wasm-debugger-improved.png){width=700}
 
-新しいデバッグ体験を試すには:
+新しいデバッグ体験を試すには：
 
-1.  以下のコンパイラオプションを`wasmJs {}`コンパイラオプションに追加します。
+1.  `wasmJs {}` コンパイラオプションに以下のコンパイラオプションを追加します。
 
     ```kotlin
     // build.gradle.kts
     kotlin {
         wasmJs {
             // ...
-
+    
             compilerOptions {
                 freeCompilerArgs.add("-Xwasm-debugger-custom-formatters")
             }
@@ -864,44 +867,44 @@ val wasmJsMain by getting {
 
 2.  ブラウザでカスタムフォーマッタを有効にします。
 
-    *   Chrome DevToolsでは、**Settings | Preferences | Console**から利用できます。
+    *   Chrome DevTools では、**Settings | Preferences | Console** から利用できます。
 
-        ![Enable custom formatters in Chrome](wasm-custom-formatters-chrome.png){width=700}
+        ![Chromeでカスタムフォーマッタを有効にする](wasm-custom-formatters-chrome.png){width=700}
 
-    *   Firefox DevToolsでは、**Settings | Advanced settings**から利用できます。
+    *   Firefox DevTools では、**Settings | Advanced settings** から利用できます。
 
-        ![Enable custom formatters in Firefox](wasm-custom-formatters-firefox.png){width=700}
+        ![Firefoxでカスタムフォーマッタを有効にする](wasm-custom-formatters-firefox.png){width=700}
 
-### Kotlin/Wasmバイナリのサイズ削減
+### Kotlin/Wasmバイナリサイズの縮小
 
-プロダクションビルドによって生成されるWasmバイナリのサイズが最大30%削減され、パフォーマンスが向上する可能性があります。
-これは、`--closed-world`、`--type-ssa`、`--type-merging`のBinaryenオプションがすべてのKotlin/Wasmプロジェクトで安全に使用できると見なされ、デフォルトで有効になったためです。
+プロダクションビルドによって生成される Wasm バイナリのサイズが最大 30% 削減され、パフォーマンスが向上する可能性があります。
+これは、`--closed-world`、`--type-ssa`、および `--type-merging` Binaryen オプションが、すべての Kotlin/Wasm プロジェクトで安全に使用できると見なされ、デフォルトで有効になったためです。
 
-### Kotlin/WasmにおけるJavaScript配列相互運用性の改善
+### Kotlin/WasmにおけるJavaScript配列の相互運用性改善
 
-Kotlin/Wasmの標準ライブラリはJavaScript配列に`JsArray<T>`型を提供しますが、`JsArray<T>`をKotlinのネイティブな`Array`型または`List`型に変換する直接的なメソッドはありませんでした。
+Kotlin/Wasm の標準ライブラリは JavaScript 配列用の `JsArray<T>` 型を提供していますが、`JsArray<T>` を Kotlin のネイティブな `Array` または `List` 型に変換する直接的なメソッドはありませんでした。
 
-このギャップにより、配列変換のためのカスタム関数を作成する必要があり、KotlinとJavaScriptコード間の相互運用が複雑になっていました。
+このギャップは、配列変換のためのカスタム関数を作成する必要があり、Kotlin コードと JavaScript コード間の相互運用性を複雑にしていました。
 
-このリリースでは、`JsArray<T>`を`Array<T>`に、またはその逆に自動変換するアダプター関数が導入され、配列操作が簡素化されます。
+このリリースでは、`JsArray<T>` を `Array<T>` に自動的に変換し、その逆も行うアダプター関数が導入され、配列操作が簡素化されます。
 
-ジェネリック型間の変換の例を示します: Kotlin `List<T>` および `Array<T>` から JavaScript `JsArray<T>` への変換。
+ジェネリック型間の変換の例を示します: Kotlin の `List<T>` と `Array<T>` から JavaScript の `JsArray<T>` へ。
 
 ```kotlin
 val list: List<JsString> =
     listOf("Kotlin", "Wasm").map { it.toJsString() }
 
-// .toJsArray()を使用してListまたはArrayをJsArrayに変換します
+// Uses .toJsArray() to convert List or Array to JsArray
 val jsArray: JsArray<JsString> = list.toJsArray()
 
-// .toArray()および.toList()を使用してKotlin型に変換し直します
+// Uses .toArray() and .toList() to convert it back to Kotlin types 
 val kotlinArray: Array<JsString> = jsArray.toArray()
 val kotlinList: List<JsString> = jsArray.toList()
 ```
 
-同様のメソッドは、型付き配列を対応するKotlin型（例: `IntArray`と`Int32Array`）に変換するためにも利用できます。詳細情報と実装については、[`kotlinx-browser`リポジトリ](https://github.com/Kotlin/kotlinx-browser/blob/dfbdceed314567983c98f1d66e8c2e10d99c5a55/src/wasmJsMain/kotlin/arrayCopy.kt)を参照してください。
+同様のメソッドは、型付き配列を対応する Kotlin の型に変換するためにも利用できます（例: `IntArray` と `Int32Array`）。詳細情報と実装については、[`kotlinx-browser` リポジトリ]( https://github.com/Kotlin/kotlinx-browser/blob/dfbdceed314567983c98f1d66e8c2e10d99c5a55/src/wasmJsMain/kotlin/arrayCopy.kt)を参照してください。
 
-型付き配列間の変換の例を示します: Kotlin `IntArray` から JavaScript `Int32Array` への変換。
+型付き配列間の変換の例を示します: Kotlin の `IntArray` から JavaScript の `Int32Array` へ。
 
 ```kotlin
 import org.khronos.webgl.*
@@ -910,27 +913,27 @@ import org.khronos.webgl.*
 
     val intArray: IntArray = intArrayOf(1, 2, 3)
     
-    // .toInt32Array()を使用してKotlin IntArrayをJavaScript Int32Arrayに変換します
+    // Uses .toInt32Array() to convert Kotlin IntArray to JavaScript Int32Array
     val jsInt32Array: Int32Array = intArray.toInt32Array()
     
-    // toIntArray()を使用してJavaScript Int32ArrayをKotlin IntArrayに変換し直します
+    // Uses toIntArray() to convert JavaScript Int32Array back to Kotlin IntArray
     val kotlinIntArray: IntArray = jsInt32Array.toIntArray()
 ```
 
 ### Kotlin/WasmにおけるJavaScript例外詳細へのアクセスサポート
 
-以前は、Kotlin/WasmでJavaScript例外が発生した場合、`JsException`型は元のJavaScriptエラーの詳細なしに一般的なメッセージのみを提供していました。
+以前、Kotlin/Wasm で JavaScript 例外が発生した場合、`JsException` 型は、元の JavaScript エラーの詳細を含まない汎用的なメッセージしか提供しませんでした。
 
-Kotlin 2.1.0以降、特定のコンパイラオプションを有効にすることで、`JsException`が元のエラーメッセージとスタックトレースを含むように設定できるようになりました。
-これにより、JavaScriptに起因する問題を診断するためのより多くのコンテキストが提供されます。
+Kotlin 2.1.0 から、特定のコンパイラオプションを有効にすることで、`JsException` に元のエラーメッセージとスタックトレースを含めるように設定できるようになりました。
+これにより、JavaScript に起因する問題を診断するためのより多くのコンテキストが提供されます。
 
-この動作は`WebAssembly.JSTag` APIに依存しており、これは特定のブラウザでのみ利用可能です。
+この動作は `WebAssembly.JSTag` API に依存しており、特定のブラウザでのみ利用可能です。
 
-*   **Chrome**: バージョン115以降でサポート
-*   **Firefox**: バージョン129以降でサポート
-*   **Safari**: 未サポート
+*   **Chrome**: バージョン 115 以降でサポート
+*   **Firefox**: バージョン 129 以降でサポート
+*   **Safari**: まだサポートされていません
 
-デフォルトで無効になっているこの機能を有効にするには、`build.gradle.kts`ファイルに以下のコンパイラオプションを追加します。
+デフォルトで無効になっているこの機能を有効にするには、`build.gradle.kts` ファイルに以下のコンパイラオプションを追加します。
 
 ```kotlin
 // build.gradle.kts
@@ -955,44 +958,44 @@ fun main() {
         JSON.parse("an invalid JSON")
     } catch (e: JsException) {
         println("Thrown value is: ${e.thrownValue}")
-        // SyntaxError: 予期しないトークン 'a', "an invalid JSON" は有効なJSONではありません
+        // SyntaxError: Unexpected token 'a', "an invalid JSON" is not valid JSON
 
         println("Message: ${e.message}")
-        // Message: 予期しないトークン 'a', "an invalid JSON" は有効なJSONではありません
+        // Message: Unexpected token 'a', "an invalid JSON" is not valid JSON
 
         println("Stacktrace:")
-        // スタックトレース:
+        // Stacktrace:
 
-        // 完全なJavaScriptスタックトレースを出力します
+        // Prints the full JavaScript stack trace 
         e.printStackTrace()
     }
 }
 ```
 
-`-Xwasm-attach-js-exception`オプションが有効な場合、`JsException`はJavaScriptエラーから特定の詳細を提供します。
-このオプションがない場合、`JsException`はJavaScriptコードの実行中に例外がスローされたことを示す一般的なメッセージのみを含みます。
+`-Xwasm-attach-js-exception` オプションが有効な場合、`JsException` は JavaScript エラーからの特定の詳細を提供します。
+このオプションがない場合、`JsException` は、JavaScript コードの実行中に例外がスローされたことを示す一般的なメッセージのみを含みます。
 
 ### デフォルトエクスポートの非推奨化
 
-名前付きエクスポートへの移行の一環として、以前はJavaScriptでKotlin/Wasmエクスポートにデフォルトインポートが使用された場合に、コンソールにエラーが出力されていました。
+名前付きエクスポートへの移行の一環として、以前は JavaScript で Kotlin/Wasm エクスポートにデフォルトインポートが使用された場合に、エラーがコンソールに表示されていました。
 
-2.1.0では、名前付きエクスポートを完全にサポートするために、デフォルトインポートが完全に削除されました。
+2.1.0 では、名前付きエクスポートを完全にサポートするために、デフォルトインポートが完全に削除されました。
 
-Kotlin/Wasmターゲット向けにJavaScriptでコーディングする場合、デフォルトインポートの代わりに、対応する名前付きインポートを使用する必要があります。
+Kotlin/Wasm ターゲット向けに JavaScript でコーディングする場合、デフォルトインポートの代わりに、対応する名前付きインポートを使用する必要があります。
 
-この変更は、名前付きエクスポートへの移行の非推奨化サイクルの最終段階を示します。
+この変更は、名前付きエクスポートへの移行に向けた非推奨化サイクルの最終段階を示します。
 
-**バージョン2.0.0:** デフォルトエクスポートを介してエンティティをエクスポートすることが非推奨であることを説明する警告メッセージがコンソールに表示されました。
+**バージョン 2.0.0:** コンソールに警告メッセージが表示され、デフォルトエクスポートによるエンティティのエクスポートが非推奨であることを説明しました。
 
-**バージョン2.0.20:** エラーが発生し、対応する名前付きインポートの使用が要求されました。
+**バージョン 2.0.20:** エラーが発生し、対応する名前付きインポートの使用が要求されました。
 
-**バージョン2.1.0:** デフォルトインポートの使用は完全に削除されました。
+**バージョン 2.1.0:** デフォルトインポートの使用は完全に削除されました。
 
 ### サブプロジェクト固有のNode.js設定
 
-プロジェクトのNode.js設定は、`rootProject`の`NodeJsRootPlugin`クラスのプロパティを定義することで構成できます。
-2.1.0では、新しいクラス`NodeJsPlugin`を使用して、各サブプロジェクトの設定を構成できます。
-サブプロジェクトに特定のNode.jsバージョンを設定する方法の例を以下に示します。
+プロジェクトの Node.js 設定は、`rootProject` 用の `NodeJsRootPlugin` クラスのプロパティを定義することで構成できます。
+2.1.0 では、新しいクラス `NodeJsPlugin` を使用して、これらの設定を各サブプロジェクトに対して構成できます。
+サブプロジェクトに対して特定の Node.js バージョンを設定する方法を示す例を以下に示します。
 
 ```kotlin
 // build.gradle.kts
@@ -1001,7 +1004,7 @@ project.plugins.withType<org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsPlu
 }
 ```
 
-プロジェクト全体で新しいクラスを使用するには、`allprojects {}`ブロックに同じコードを追加します。
+プロジェクト全体で新しいクラスを使用するには、`allprojects {}` ブロックに同じコードを追加します。
 
 ```kotlin
 // build.gradle.kts
@@ -1012,36 +1015,36 @@ allprojects {
 }
 ```
 
-Gradleのコンベンションプラグインを使用して、設定を特定のサブプロジェクトセットに適用することもできます。
+Gradle コンベンションプラグインを使用して、特定のサブプロジェクトセットに設定を適用することもできます。
 
 ## Kotlin/JS
 
 ### プロパティにおける非識別子文字のサポート
 
-Kotlin/JSでは以前、バッククォートで囲まれたスペースを含む[テストメソッド名](coding-conventions.md#names-for-test-methods)の使用は許可されていませんでした。
+Kotlin/JS では以前、バッククォートで囲まれたスペースを含む[テストメソッド名](coding-conventions.md#names-for-test-methods)を使用することができませんでした。
 
-同様に、ハイフンやスペースなど、Kotlin識別子で許可されていない文字を含むJavaScriptオブジェクトのプロパティにアクセスすることはできませんでした。
+同様に、ハイフンやスペースなど、Kotlin 識別子で許可されていない文字を含む JavaScript オブジェクトプロパティにアクセスすることはできませんでした。
 
 ```kotlin
 external interface Headers {
     var accept: String?
 
-    // ハイフンのためKotlin識別子として無効
+    // Invalid Kotlin identifier due to hyphen
     var `content-length`: String?
 }
 
 val headers: Headers = TODO("value provided by a JS library")
 val accept = headers.accept
-// プロパティ名にハイフンがあるためエラーが発生する
+// Causes error due to the hyphen in property name
 val length = headers.`content-length`
 ```
 
-この動作はJavaScriptやTypeScriptとは異なり、これらは非識別子文字を使用してそのようなプロパティにアクセスすることを許可しています。
+この動作は、非識別子文字を使用してそのようなプロパティにアクセスできる JavaScript および TypeScript とは異なりました。
 
-Kotlin 2.1.0以降、この機能はデフォルトで有効になっています。
-Kotlin/JSでは、バッククォート (``) と`@JsName`アノテーションを使用して、非識別子文字を含むJavaScriptプロパティを操作したり、テストメソッドに名前を付けたりできるようになりました。
+Kotlin 2.1.0 から、この機能はデフォルトで有効になっています。
+Kotlin/JS では、バッククォート (``) と `@JsName` アノテーションを使用して、非識別子文字を含む JavaScript プロパティと対話したり、テストメソッドに名前を付けたりできるようになりました。
 
-さらに、`@JsName`と`@JsQualifier`アノテーションを使用して、Kotlinのプロパティ名をJavaScriptの対応するものにマッピングできます。
+さらに、`@JsName` および `@JsQualifier` アノテーションを使用して、Kotlin のプロパティ名を JavaScript の同等なものにマッピングできます。
 
 ```kotlin
 object Bar {
@@ -1059,58 +1062,58 @@ object Baz {
 }
 
 fun main() {
-    // JavaScriptでは、これはBar.property_example_HASHにコンパイルされます
+    // In JavaScript, this is compiled into Bar.property_example_HASH
     println(Bar.`property example`)
-    // JavaScriptでは、これはfooNamespace["property example"]にコンパイルされます
+    // In JavaScript, this is compiled into fooNamespace["property example"]
     println(Foo.`property example`)
-    // JavaScriptでは、これはBaz["property example"]にコンパイルされます
+    // In JavaScript, this is compiled into Baz["property example"]
     println(Baz.`property example`)
 }
 ```
 
 ### ES2015アロー関数の生成サポート
 
-Kotlin 2.1.0では、Kotlin/JSは匿名関数の代わりに`(a, b) => expression`のようなES2015アロー関数の生成をサポートします。
+Kotlin 2.1.0 では、Kotlin/JS は、匿名関数の代わりに `(a, b) => expression` のような ES2015 アロー関数を生成するサポートを導入しました。
 
-アロー関数を使用すると、特に実験的な`-Xir-generate-inline-anonymous-functions`モードを使用している場合に、プロジェクトのバンドルサイズを削減できます。
-これにより、生成されるコードもよりモダンなJSに適合します。
+アロー関数を使用すると、特に実験的な `-Xir-generate-inline-anonymous-functions` モードを使用している場合に、プロジェクトのバンドルサイズを削減できます。
+これにより、生成されるコードも最新の JS とより一致するようになります。
 
-この機能は、ES2015をターゲットとする場合にデフォルトで有効になります。
-または、`-Xes-arrow-functions`コマンドライン引数を使用して有効にすることもできます。
+この機能は、ES2015 をターゲットとする場合にデフォルトで有効になります。
+または、`-Xes-arrow-functions` コマンドライン引数を使用することで有効にできます。
 
-[公式ドキュメントでES2015 (ECMAScript 2015, ES6) について詳しく学ぶ](https://262.ecma-international.org/6.0/)。
+[公式ドキュメントで ES2015 (ECMAScript 2015, ES6)](https://262.ecma-international.org/6.0/)について詳しく学びましょう。
 
 ## Gradleの改善
 
-Kotlin 2.1.0はGradle 7.6.3から8.6まで完全に互換性があります。
-Gradleバージョン8.7から8.10もサポートされていますが、1つの例外があります。
-Kotlin Multiplatform Gradleプラグインを使用している場合、マルチプラットフォームプロジェクトでJVMターゲットの`withJava()`関数を呼び出す際に非推奨警告が表示されることがあります。
+Kotlin 2.1.0 は Gradle 7.6.3 から 8.6 までと完全に互換性があります。
+Gradle バージョン 8.7 から 8.10 もサポートされていますが、1つの例外があります。
+Kotlin Multiplatform Gradle プラグインを使用している場合、JVM ターゲットで `withJava()` 関数を呼び出すマルチプラットフォームプロジェクトで非推奨警告が表示される可能性があります。
 この問題はできるだけ早く修正する予定です。
 
-詳細については、[YouTrack](https://youtrack.jetbrains.com/issue/KT-66542)の関連する課題を参照してください。
+詳細については、[YouTrack](https://youtrack.jetbrains.com/issue/KT-66542)の関連課題を参照してください。
 
-最新のGradleリリースまでのGradleバージョンを使用することもできますが、その場合、非推奨警告が表示されたり、一部の新しいGradle機能が動作しない可能性があることに注意してください。
+最新の Gradle リリースまでの Gradle バージョンも使用できますが、その場合は非推奨警告が表示されたり、新しい Gradle 機能の一部が動作しない可能性があることに留意してください。
 
 ### 最小サポートAGPバージョンが7.3.1に引き上げ
 
-Kotlin 2.1.0以降、最小サポートされるAndroid Gradleプラグインのバージョンは7.3.1です。
+Kotlin 2.1.0 から、サポートされる Android Gradle プラグインの最小バージョンは 7.3.1 となります。
 
 ### 最小サポートGradleバージョンが7.6.3に引き上げ
 
-Kotlin 2.1.0以降、最小サポートされるGradleのバージョンは7.6.3です。
+Kotlin 2.1.0 から、サポートされる Gradle の最小バージョンは 7.6.3 となります。
 
 ### Kotlin Gradleプラグイン拡張の新API
 
-Kotlin 2.1.0では、Kotlin Gradleプラグインを設定するための独自のプラグインをより簡単に作成できるようにする新しいAPIが導入されました。
-この変更により、`KotlinTopLevelExtension`および`KotlinTopLevelExtensionConfig`インターフェースは非推奨となり、プラグイン作者向けの以下のインターフェースが導入されました。
+Kotlin 2.1.0 では、Kotlin Gradle プラグインを設定するための独自のプラグインをより簡単に作成できる新しい API が導入されました。
+この変更により、`KotlinTopLevelExtension` および `KotlinTopLevelExtensionConfig` インターフェースが非推奨となり、プラグイン作成者向けに以下のインターフェースが導入されます。
 
-| 名前 | 説明 |
-| :----------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `KotlinBaseExtension` | プロジェクト全体に対する共通のKotlin JVM、Android、Multiplatformプラグインオプション（<li>`org.jetbrains.kotlin.jvm`</li><li>`org.jetbrains.kotlin.android`</li><li>`org.jetbrains.kotlin.multiplatform`</li>）を設定するためのプラグインDSL拡張タイプ。 |
-| `KotlinJvmExtension` | プロジェクト全体に対するKotlin **JVM**プラグインオプションを設定するためのプラグインDSL拡張タイプ。 |
-| `KotlinAndroidExtension` | プロジェクト全体に対するKotlin **Android**プラグインオプションを設定するためのプラグインDSL拡張タイプ。 |
+| 名前                     | 説明                                                                                                                                                                                                                                                          |
+|:-----------------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `KotlinBaseExtension`    | プロジェクト全体の共通 Kotlin JVM、Android、および Multiplatform プラグインオプションを設定するためのプラグイン DSL 拡張型。<list><li>`org.jetbrains.kotlin.jvm`</li><li>`org.jetbrains.kotlin.android`</li><li>`org.jetbrains.kotlin.multiplatform`</li></list> |
+| `KotlinJvmExtension`     | プロジェクト全体の Kotlin **JVM** プラグインオプションを設定するためのプラグイン DSL 拡張型。                                                                                                                                                                    |
+| `KotlinAndroidExtension` | プロジェクト全体の Kotlin **Android** プラグインオプションを設定するためのプラグイン DSL 拡張型。                                                                                                                                                                |
 
-例えば、JVMとAndroidの両方のプロジェクトでコンパイラオプションを設定したい場合は、`KotlinBaseExtension`を使用します。
+たとえば、JVM と Android の両方のプロジェクトでコンパイラオプションを設定したい場合は、`KotlinBaseExtension` を使用します。
 
 ```kotlin
 configure<KotlinBaseExtension> {
@@ -1124,9 +1127,9 @@ configure<KotlinBaseExtension> {
 }
 ```
 
-これは、JVMおよびAndroidプロジェクトの両方でJVMターゲットを17に設定します。
+これにより、JVM と Android の両方のプロジェクトで JVM ターゲットが 17 に設定されます。
 
-JVMプロジェクトに特化したコンパイラオプションを設定するには、`KotlinJvmExtension`を使用します。
+JVM プロジェクトに特化してコンパイラオプションを設定するには、`KotlinJvmExtension` を使用します。
 
 ```kotlin
 configure<KotlinJvmExtension> {
@@ -1142,31 +1145,31 @@ configure<KotlinJvmExtension> {
 }
 ```
 
-この例では、同様にJVMプロジェクトのJVMターゲットを17に設定します。
-また、プロジェクトのMaven公開も設定し、その出力がMavenリポジトリに公開されるようにします。
+この例も同様に、JVM プロジェクトの JVM ターゲットを 17 に設定します。
+また、プロジェクトの Maven 公開を設定し、その出力が Maven リポジトリに公開されるようにします。
 
-`KotlinAndroidExtension`もまったく同じように使用できます。
+`KotlinAndroidExtension` も全く同様に使用できます。
 
-### Kotlin GradleプラグインAPIから非表示になったコンパイラシンボル
+### Kotlin GradleプラグインAPIからコンパイラシンボルを隠蔽
 
-以前、KGPは`org.jetbrains.kotlin:kotlin-compiler-embeddable`をそのランタイム依存関係に含んでおり、内部コンパイラシンボルをビルドスクリプトのクラスパスで利用可能にしていました。
+以前、KGP (Kotlin Gradle Plugin) は `org.jetbrains.kotlin:kotlin-compiler-embeddable` をランタイム依存関係に含んでおり、これにより内部コンパイラシンボルがビルドスクリプトのクラスパスで利用可能になっていました。
 これらのシンボルは内部使用のみを目的としていました。
 
-Kotlin 2.1.0以降、KGPは`org.jetbrains.kotlin:kotlin-compiler-embeddable`のクラスファイルの一部をJARファイルにバンドルし、段階的に削除しています。
-この変更は、互換性問題を防止し、KGPのメンテナンスを簡素化することを目的としています。
+Kotlin 2.1.0 から、KGP は `org.jetbrains.kotlin:kotlin-compiler-embeddable` のクラスファイルのサブセットを JAR ファイルにバンドルし、徐々にそれらを削除していきます。
+この変更は、互換性の問題を防止し、KGP のメンテナンスを簡素化することを目的としています。
 
-`kotlinter`のようなプラグインなど、ビルドロジックの他の部分がKGPにバンドルされているものとは異なるバージョンの`org.jetbrains.kotlin:kotlin-compiler-embeddable`に依存している場合、競合やランタイム例外を引き起こす可能性があります。
+もし、`kotlinter` のようなプラグインなど、ビルドロジックの他の部分が KGP にバンドルされているものとは異なるバージョンの `org.jetbrains.kotlin:kotlin-compiler-embeddable` に依存している場合、衝突やランタイム例外を引き起こす可能性があります。
 
-このような問題を防止するため、KGPは現在、KGPと共にビルドクラスパスに`org.jetbrains.kotlin:kotlin-compiler-embeddable`が存在する場合に警告を表示します。
+このような問題を防止するため、KGP は現在、KGP と共に `org.jetbrains.kotlin:kotlin-compiler-embeddable` がビルドクラスパスに存在する場合に警告を表示します。
 
-長期的な解決策として、`org.jetbrains.kotlin:kotlin-compiler-embeddable`クラスを使用するプラグイン作者である場合は、それらを分離されたクラスローダーで実行することを推奨します。
-例えば、[Gradle Workers API](https://docs.gradle.org/current/userguide/worker_api.html)をクラスローダー分離またはプロセス分離で使用することで実現できます。
+長期的な解決策として、`org.jetbrains.kotlin:kotlin-compiler-embeddable` クラスを使用するプラグイン作成者である場合、それらを隔離されたクラスローダーで実行することをお勧めします。
+たとえば、[Gradle Workers API](https://docs.gradle.org/current/userguide/worker_api.html) をクラスローダーまたはプロセス分離で使用することで実現できます。
 
 #### Gradle Workers APIの使用
 
-この例は、Gradleプラグインを生成するプロジェクトでKotlinコンパイラを安全に使用する方法を示します。
+この例は、Gradle プラグインを生成するプロジェクトで Kotlin コンパイラを安全に使用する方法を示しています。
 まず、ビルドスクリプトにコンパイルのみの依存関係を追加します。
-これにより、シンボルはコンパイル時にのみ利用可能になります。
+これにより、シンボルはコンパイル時のみ利用可能になります。
 
 ```kotlin
 // build.gradle.kts
@@ -1175,7 +1178,7 @@ dependencies {
 }
 ```
 
-次に、Kotlinコンパイラのバージョンを出力するGradleワークアクションを定義します。
+次に、Kotlin コンパイラのバージョンを出力する Gradle 作業アクションを定義します。
 
 ```kotlin
 import org.gradle.workers.WorkAction
@@ -1188,7 +1191,7 @@ abstract class ActionUsingKotlinCompiler : WorkAction<WorkParameters.None> {
 }
 ```
 
-次に、このアクションをクラスローダー分離を使用してワーカーエクゼキュータに提出するタスクを作成します。
+次に、クラスローダー分離を使用してこのアクションをワーカーエグゼキュータに送信するタスクを作成します。
 
 ```kotlin
 import org.gradle.api.DefaultTask
@@ -1214,7 +1217,7 @@ abstract class TaskUsingKotlinCompiler: DefaultTask() {
 }
 ```
 
-最後に、GradleプラグインでKotlinコンパイラのクラスパスを設定します。
+最後に、Gradle プラグインで Kotlin コンパイラのクラスパスを構成します。
 
 ```kotlin
 import org.gradle.api.Plugin
@@ -1240,15 +1243,15 @@ abstract class MyPlugin: Plugin<Project> {
 
 ## Composeコンパイラの更新
 
-### 複数の安定性構成ファイルのサポート
+### 複数の安定性設定ファイルのサポート
 
-Composeコンパイラは複数の安定性構成ファイルを解釈できますが、以前はComposeコンパイラGradleプラグインの`stabilityConfigurationFile`オプションでは単一のファイルしか指定できませんでした。
-Kotlin 2.1.0では、この機能が再構築され、単一モジュールに対して複数の安定性構成ファイルを使用できるようになりました。
+Compose コンパイラは複数の安定性設定ファイルを解釈できますが、以前の Compose Compiler Gradle プラグインの `stabilityConfigurationFile` オプションでは、単一のファイルのみ指定可能でした。
+Kotlin 2.1.0 では、この機能が再設計され、単一のモジュールに複数の安定性設定ファイルを使用できるようになりました。
 
-*   `stabilityConfigurationFile`オプションは非推奨です。
-*   新しいオプション`stabilityConfigurationFiles`があり、型は`ListProperty<RegularFile>`です。
+*   `stabilityConfigurationFile` オプションは非推奨になりました。
+*   新しいオプション `stabilityConfigurationFiles` があり、型は `ListProperty<RegularFile>` です。
 
-新しいオプションを使用して、複数のファイルをComposeコンパイラに渡す方法を以下に示します。
+新しいオプションを使用して、複数のファイルを Compose コンパイラに渡す方法は以下の通りです。
 
 ```kotlin
 // build.gradle.kt
@@ -1262,11 +1265,11 @@ composeCompiler {
 
 ### 一時停止可能なコンポジション
 
-一時停止可能なコンポジションは、コンパイラがスキップ可能な関数を生成する方法を変更する新しいExperimental機能です。
-この機能を有効にすると、コンポジションは実行時にスキップポイントで一時停止でき、長時間実行されるコンポジションプロセスを複数のフレームに分割できます。
-一時停止可能なコンポジションは、レイジーリストやその他のパフォーマンスを重視するコンポーネントで、ブロッキング方式で実行された場合にフレーム落ちを引き起こす可能性のあるコンテンツをプリフェッチするために使用されます。
+一時停止可能なコンポジションは、コンパイラがスキップ可能な関数を生成する方法を変更する、新しい実験的な機能です。
+この機能を有効にすると、実行時にスキップポイントでコンポジションを中断できるため、長時間実行されるコンポジションプロセスを複数のフレームに分割できます。
+一時停止可能なコンポジションは、遅延リストやその他のパフォーマンスを重視するコンポーネントで使用され、ブロッキング方式で実行するとフレーム落ちを引き起こす可能性のあるコンテンツをプリフェッチします。
 
-一時停止可能なコンポジションを試すには、ComposeコンパイラのGradle構成に以下の機能フラグを追加します。
+一時停止可能なコンポジションを試すには、Compose コンパイラの Gradle 設定に以下の機能フラグを追加します。
 
 ```kotlin
 // build.gradle.kts
@@ -1277,109 +1280,107 @@ composeCompiler {
 }
 ```
 
-> {style="note"}
-> この機能のランタイムサポートは`androidx.compose.runtime`の1.8.0-alpha02バージョンで追加されました。
+> この機能のランタイムサポートは、`androidx.compose.runtime` の 1.8.0-alpha02 バージョンで追加されました。
 > 古いランタイムバージョンで使用した場合、この機能フラグは効果がありません。
+>
+{style="note"}
 
-### openおよびオーバーライドされた@Composable関数への変更
+### openおよびオーバーライドされた@Composable関数の変更
 
-仮想（open、abstract、およびオーバーライドされた）`@Composable`関数は、再起動可能ではなくなりました。
+仮想（オープン、抽象、およびオーバーライドされた）`@Composable` 関数は、再起動可能ではなくなりました。
 再起動可能なグループのコード生成は、継承で[正しく動作しない](https://issuetracker.google.com/329477544)呼び出しを生成し、ランタイムクラッシュを引き起こしていました。
 
-これは、仮想関数が再起動またはスキップされないことを意味します。状態が無効化されるたびに、ランタイムは代わりにそれらの親コンポーザブルを再コンポジションします。
-コードが再コンポジションに敏感な場合、ランタイム動作に変化が見られる可能性があります。
+これは、仮想関数が再起動またはスキップされないことを意味します。状態が無効になった場合、ランタイムは代わりにその親コンポーザブルを再コンポジションします。
+コードがリコンポジションに影響を受けやすい場合、ランタイムの動作に変化が見られる可能性があります。
 
 ### パフォーマンスの改善
 
-Composeコンパイラは以前、`@Composable`型を変換するためにモジュールのIRの完全なコピーを作成していました。
-Composeに関連しない要素をコピーする際のメモリ消費量の増加とは別に、この動作は[特定のコーナーケース](https://issuetracker.google.com/365066530)でダウンストリームのコンパイラプラグインを破壊することもありました。
+Compose コンパイラは以前、`@Composable` 型を変換するためにモジュールの IR の完全なコピーを作成していました。
+Compose に関連しない要素をコピーする際のメモリ消費量の増加とは別に、この動作は[特定のケース](https://issuetracker.google.com/365066530)で下流のコンパイラプラグインを破壊することもありました。
 
-このコピー操作は削除され、その結果、コンパイル時間が短縮される可能性があります。
+このコピー操作は削除され、コンパイル時間が高速化される可能性があります。
 
 ## 標準ライブラリ
 
 ### 標準ライブラリAPIの非推奨度の変更
 
-Kotlin 2.1.0では、いくつかの標準ライブラリAPIの非推奨度が警告からエラーに引き上げられます。
-これらのAPIに依存するコードがある場合は、互換性を確保するために更新する必要があります。
-最も注目すべき変更点は以下の通りです。
+Kotlin 2.1.0 では、いくつかの標準ライブラリ API の非推奨度が警告からエラーに引き上げられます。
+これらの API にコードが依存している場合、互換性を確保するために更新する必要があります。
+最も注目すべき変更は以下の通りです。
 
-*   **`Char`と`String`のロケール依存のケース変換関数が非推奨化:**
-    `Char.toLowerCase()`、`Char.toUpperCase()`、`String.toUpperCase()`、`String.toLowerCase()`などの関数は現在非推奨であり、使用するとエラーが発生します。
-    それらをロケールに依存しない関数代替または他のケース変換メカニズムに置き換えてください。
-    デフォルトのロケールを引き続き使用したい場合は、`String.toLowerCase()`のような呼び出しを`String.lowercase(Locale.getDefault())`に置き換え、明示的にロケールを指定してください。
-    ロケールに依存しない変換の場合は、デフォルトで不変ロケールを使用する`String.lowercase()`に置き換えてください。
+*   **`Char`および`String`のロケール依存のケース変換関数が非推奨に:** `Char.toLowerCase()`、`Char.toUpperCase()`、`String.toUpperCase()`、`String.toLowerCase()` などの関数が非推奨となり、使用するとエラーになります。
+    それらをロケールに依存しない関数の代替または他のケース変換メカニズムに置き換えてください。
+    デフォルトロケールを引き続き使用したい場合は、`String.toLowerCase()` のような呼び出しを、ロケールを明示的に指定して `String.lowercase(Locale.getDefault())` に置き換えてください。
+    ロケールに依存しない変換の場合は、デフォルトで不変ロケールを使用する `String.lowercase()` に置き換えてください。
 
-*   **Kotlin/NativeフリーズAPIが非推奨化:**
-    以前`@FreezingIsDeprecated`アノテーションでマークされていたフリーズ関連の宣言を使用すると、エラーが発生するようになりました。
-    この変更は、スレッド間でオブジェクトを共有するためにオブジェクトのフリーズを必要としたKotlin/Nativeのレガシーメモリマネージャーからの移行を反映しています。
-    新しいメモリモデルでフリーズ関連APIから移行する方法については、[Kotlin/Native移行ガイド](native-migration-guide.md#update-your-code)を参照してください。
-    詳細については、[フリーズの非推奨化に関するお知らせ](whatsnew1720.md#freezing)を参照してください。
+*   **Kotlin/NativeのフリージングAPIが非推奨に:** 以前 `@FreezingIsDeprecated` アノテーションでマークされていたフリージング関連の宣言を使用すると、エラーになります。
+    この変更は、Kotlin/Native におけるレガシーメモリマネージャからの移行を反映しており、スレッド間でオブジェクトを共有するためにオブジェクトのフリーズが必要でした。
+    新しいメモリモデルでフリージング関連 API から移行する方法については、[Kotlin/Native 移行ガイド](native-migration-guide.md#update-your-code)を参照してください。
+    詳細については、[フリージング非推奨化に関するお知らせ](whatsnew1720.md#freezing)を参照してください。
 
-*   **`appendln()`が`appendLine()`を優先して非推奨化:**
-    `StringBuilder.appendln()`および`Appendable.appendln()`関数は現在非推奨であり、使用するとエラーが発生します。
-    それらを置き換えるには、代わりに`StringBuilder.appendLine()`または`Appendable.appendLine()`関数を使用してください。
-    `appendln()`関数は非推奨化されています。これは、Kotlin/JVM上で、各OSで異なるデフォルト値を持つ`line.separator`システムプロパティを使用するためです。
-    Kotlin/JVMでは、このプロパティはWindowsではデフォルトで`\r
-` (CR LF) に、他のシステムでは`
+*   **`appendln()`が`appendLine()`に代わって非推奨に:** `StringBuilder.appendln()` および `Appendable.appendln()` 関数は非推奨となり、使用するとエラーになります。
+    それらを置き換えるには、代わりに `StringBuilder.appendLine()` または `Appendable.appendLine()` 関数を使用します。
+    `appendln()` 関数が非推奨となるのは、Kotlin/JVM 上で `line.separator` システムプロパティを使用するためで、これは OS ごとに異なるデフォルト値を持っています。
+    Kotlin/JVM では、このプロパティは Windows ではデフォルトで `\r
+` (CR LF) に、他のシステムでは `
 ` (LF) になります。
-    一方、`appendLine()`関数は一貫して`
-` (LF) を行区切り文字として使用するため、プラットフォーム間で一貫した動作を保証します。
+    一方、`appendLine()` 関数は行区切り文字として一貫して `
+` (LF) を使用し、プラットフォーム間で一貫した動作を保証します。
 
-このリリースで影響を受けるAPIの完全なリストについては、[KT-71628](https://youtrack.jetbrains.com/issue/KT-71628)のYouTrack課題を参照してください。
+このリリースで影響を受ける API の完全なリストについては、[KT-71628](https://youtrack.jetbrains.com/issue/KT-71628) YouTrack 課題を参照してください。
 
-### java.nio.file.Pathの安定版ファイルツリー走査拡張機能
+### java.nio.file.Pathの安定版ファイルツリー走査拡張
 
-Kotlin 1.7.20では、ファイルツリーを走査できる`java.nio.file.Path`クラスのExperimental[拡張関数](extensions.md#extension-functions)が導入されました。
-Kotlin 2.1.0では、以下のファイルツリー走査拡張機能が[Stable](components-stability.md#stability-levels-explained)になりました。
+Kotlin 1.7.20 で、`java.nio.file.Path` クラスの実験的な[拡張関数](extensions.md#extension-functions)が導入され、ファイルツリーを走査できるようになりました。
+Kotlin 2.1.0 では、以下のファイルツリー走査拡張が[安定版](components-stability.md#stability-levels-explained)になりました。
 
-*   `walk()`は、指定されたパスをルートとするファイルツリーを遅延的に走査します。
-*   `fileVisitor()`は、`FileVisitor`を個別に作成することを可能にします。
-    `FileVisitor`は、走査中にディレクトリとファイルに対して実行されるアクションを指定します。
-*   `visitFileTree(fileVisitor: FileVisitor, ...)`はファイルツリーを走査し、遭遇した各エントリで指定された`FileVisitor`を呼び出します。その内部では`java.nio.file.Files.walkFileTree()`関数を使用しています。
-*   `visitFileTree(..., builderAction: FileVisitorBuilder.() -> Unit)`は、提供された`builderAction`で`FileVisitor`を作成し、`visitFileTree(fileVisitor, ...)`関数を呼び出します。
-*   `sealed interface FileVisitorBuilder`は、カスタム`FileVisitor`実装を定義することを可能にします。
-*   `enum class PathWalkOption`は、`Path.walk()`関数の走査オプションを提供します。
+*   `walk()` は、指定されたパスをルートとするファイルツリーを遅延的に走査します。
+*   `fileVisitor()` を使用すると、`FileVisitor` を個別に作成できます。
+    `FileVisitor` は、走査中にディレクトリやファイルに対して実行されるアクションを指定します。
+*   `visitFileTree(fileVisitor: FileVisitor, ...)` は、ファイルツリーを走査し、遭遇した各エントリで指定された `FileVisitor` を呼び出します。内部的には `java.nio.file.Files.walkFileTree()` 関数を使用しています。
+*   `visitFileTree(..., builderAction: FileVisitorBuilder.() -> Unit)` は、提供された `builderAction` で `FileVisitor` を作成し、`visitFileTree(fileVisitor, ...)` 関数を呼び出します。
+*   `sealed interface FileVisitorBuilder` を使用すると、カスタムの `FileVisitor` 実装を定義できます。
+*   `enum class PathWalkOption` は、`Path.walk()` 関数の走査オプションを提供します。
 
-以下の例は、これらのファイル走査APIを使用してカスタム`FileVisitor`の動作を作成し、ファイルやディレクトリを訪問する際の特定の動作を定義する方法を示しています。
+以下の例は、これらのファイル走査 API を使用してカスタムの `FileVisitor` 動作を作成し、ファイルやディレクトリを訪れる際の特定のアクションを定義する方法を示しています。
 
-例えば、`FileVisitor`を明示的に作成し、後で使用することができます。
+例えば、`FileVisitor` を明示的に作成し、後で使用することができます。
 
 ```kotlin
 val cleanVisitor = fileVisitor {
     onPreVisitDirectory { directory, attributes ->
-        // プレースホルダー: ディレクトリ訪問時のロジックを追加
+        // Placeholder: Add logic on visiting directories
         FileVisitResult.CONTINUE
     }
 
     onVisitFile { file, attributes ->
-        // プレースホルダー: ファイル訪問時のロジックを追加
+        // Placeholder: Add logic on visiting files
         FileVisitResult.CONTINUE
     }
 }
 
-// プレースホルダー: 走査前の一般的なセットアップのロジックをここに追加
+// Placeholder: Add logic here for general setup before traversal
 projectDirectory.visitFileTree(cleanVisitor)
 ```
 
-また、`builderAction`で`FileVisitor`を作成し、すぐに走査に使用することもできます。
+また、`builderAction` を使用して `FileVisitor` を作成し、走査のためにすぐに使用することもできます。
 
 ```kotlin
 projectDirectory.visitFileTree {
-    // builderActionを定義:
+    // Defines the builderAction:
     onPreVisitDirectory { directory, attributes ->
-        // ディレクトリ訪問時のロジック
+        // Some logic on visiting directories
         FileVisitResult.CONTINUE
     }
 
     onVisitFile { file, attributes ->
-        // ファイル訪問時のロジック
+        // Some logic on visiting files
         FileVisitResult.CONTINUE
     }
 }
 ```
 
-さらに、`walk()`関数を使用して、指定されたパスをルートとするファイルツリーを走査することもできます。
+さらに、`walk()` 関数を使用して、指定されたパスをルートとするファイルツリーを走査することもできます。
 
 ```kotlin
 fun traverseFileTree() {
@@ -1393,7 +1394,7 @@ fun traverseFileTree() {
             }
         }
 
-        // .class拡張子を持つファイルを削除します
+        // Deletes files with the .class extension
         onVisitFile { file, _ ->
             if (file.extension == "class") {
                 file.deleteExisting()
@@ -1402,30 +1403,30 @@ fun traverseFileTree() {
         }
     }
 
-    // ルートディレクトリとファイルをセットアップ
+    // Sets up the root directory and files
     val rootDirectory = createTempDirectory("Project")
 
-    // A.ktとA.classファイルを持つsrcディレクトリを作成
+    // Creates the src directory with A.kt and A.class files
     rootDirectory.resolve("src").let { srcDirectory ->
         srcDirectory.createDirectory()
         srcDirectory.resolve("A.kt").createFile()
         srcDirectory.resolve("A.class").createFile()
     }
 
-    // Project.jarファイルを持つbuildディレクトリを作成
+    // Creates the build directory with a Project.jar file
     rootDirectory.resolve("build").let { buildDirectory ->
         buildDirectory.createDirectory()
         buildDirectory.resolve("Project.jar").createFile()
     }
 
-    // walk()関数を使用:
+    // Uses the walk() function:
     val directoryStructure = rootDirectory.walk(PathWalkOption.INCLUDE_DIRECTORIES)
         .map { it.relativeTo(rootDirectory).toString() }
         .toList().sorted()
     println(directoryStructure)
     // "[, build, build/Project.jar, src, src/A.class, src/A.kt]"
-
-    // cleanVisitorでファイルツリーを走査し、rootDirectory.visitFileTree(cleanVisitor)のクリーンアップルールを適用
+  
+    // Traverses the file tree with cleanVisitor, applying the rootDirectory.visitFileTree(cleanVisitor) cleanup rules
     val directoryStructureAfterClean = rootDirectory.walk(PathWalkOption.INCLUDE_DIRECTORIES)
         .map { it.relativeTo(rootDirectory).toString() }
         .toList().sorted()
@@ -1436,18 +1437,18 @@ fun traverseFileTree() {
 
 ## ドキュメントの更新
 
-Kotlinドキュメントにはいくつかの注目すべき変更が加えられました。
+Kotlin のドキュメントにはいくつかの注目すべき変更が加えられました。
 
 ### 言語の概念
 
-*   [Null安全](null-safety.md)ページの改善 – コードで`null`値を安全に処理する方法を学びます。
-*   [オブジェクトの宣言と式](object-declarations.md)ページの改善 – クラスを定義し、インスタンスを1ステップで作成する方法を学びます。
-*   [when式とステートメント](control-flow.md#when-expressions-and-statements)セクションの改善 – `when`条件とそれを使用する方法について学びます。
-*   [Kotlinロードマップ](roadmap.md)、[Kotlin進化の原則](kotlin-evolution-principles.md)、および[Kotlin言語機能と提案](kotlin-language-features-and-proposals.md)ページの更新 – Kotlinの計画、進行中の開発、および指導原則について学びます。
+*   改善された[Null安全性](null-safety.md)ページ – コード内で `null` 値を安全に処理する方法を学びます。
+*   改善された[オブジェクトの宣言と式](object-declarations.md)ページ – クラスを定義し、単一のステップでインスタンスを作成する方法を学びます。
+*   改善された[When式とステートメント](control-flow.md#when-expressions-and-statements)セクション – `when` 条件式とその使用方法について学びます。
+*   更新された[Kotlinロードマップ](roadmap.md)、[Kotlin進化の原則](kotlin-evolution-principles.md)、および[Kotlin言語機能と提案](kotlin-language-features-and-proposals.md)ページ – Kotlinの計画、進行中の開発、および指導原則について学びます。
 
 ### Composeコンパイラ
 
-*   [Composeコンパイラのドキュメント](compose-compiler-migration-guide.md)がコンパイラとプラグインのセクションに移動 – Composeコンパイラ、コンパイラオプション、および移行手順について学びます。
+*   [Composeコンパイラのドキュメント](compose-compiler-migration-guide.md)がコンパイラとプラグインセクションに移動 – Composeコンパイラ、コンパイラオプション、および移行手順について学びます。
 
 ### APIリファレンス
 
@@ -1455,24 +1456,24 @@ Kotlinドキュメントにはいくつかの注目すべき変更が加えら�
 
 ### マルチプラットフォーム開発
 
-*   新しい[マルチプラットフォーム向けKotlinライブラリの構築](https://kotlinlang.org/docs/api-guidelines-build-for-multiplatform.html)ページ – Kotlin Multiplatform向けにKotlinライブラリを設計する方法を学びます。
-*   新しい[Kotlin Multiplatformの概要](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html)ページ – Kotlin Multiplatformの主要な概念、依存関係、ライブラリなどについて学びます。
-*   更新された[Kotlin Multiplatform概要](multiplatform.topic)ページ – Kotlin Multiplatformの基本と一般的なユースケースをナビゲートします。
-*   新しい[iOS統合](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-ios-integration-overview.html)セクション – Kotlin Multiplatform共有モジュールをiOSアプリに統合する方法を学びます。
-*   新しい[Kotlin/Nativeの定義ファイル](native-definition-file.md)ページ – CおよびObjective-Cライブラリを使用するための定義ファイルの作成方法を学びます。
-*   [WASIを始める](wasm-wasi.md) – WASIを使用して様々なWebAssembly仮想マシンでシンプルなKotlin/Wasmアプリケーションを実行する方法を学びます。
+*   新しい[マルチプラットフォーム用Kotlinライブラリのビルド](https://kotlinlang.org/docs/api-guidelines-build-for-multiplatform.html)ページ – Kotlin Multiplatform 用に Kotlin ライブラリを設計する方法を学びます。
+*   新しい[Kotlin Multiplatformの紹介](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html)ページ – Kotlin Multiplatform の主要な概念、依存関係、ライブラリなどについて学びます。
+*   更新された[Kotlin Multiplatformの概要](multiplatform.topic)ページ – Kotlin Multiplatform の基本と一般的なユースケースをナビゲートします。
+*   新しい[iOS統合](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-ios-integration-overview.html)セクション – Kotlin Multiplatform 共有モジュールを iOS アプリに統合する方法を学びます。
+*   新しい[Kotlin/Nativeの定義ファイル](native-definition-file.md)ページ – C および Objective-C ライブラリを使用するための定義ファイルの作成方法を学びます。
+*   [WASIを使ってみる](wasm-wasi.md) – WASI を使用してさまざまな WebAssembly 仮想マシンでシンプルな Kotlin/Wasm アプリケーションを実行する方法を学びます。
 
 ### ツール
 
-*   [新しいDokka移行ガイド](dokka-migration.md) – Dokka Gradleプラグインv2への移行方法を学びます。
+*   [新しいDokka移行ガイド](dokka-migration.md) – Dokka Gradle プラグイン v2 への移行方法を学びます。
 
-## Kotlin 2.1.0互換性ガイド
+## Kotlin 2.1.0の互換性ガイド
 
-Kotlin 2.1.0は機能リリースであり、そのため、以前のバージョンの言語で書かれたコードと互換性のない変更をもたらす可能性があります。
-これらの変更の詳細なリストは、[Kotlin 2.1.0互換性ガイド](compatibility-guide-21.md)で見つけることができます。
+Kotlin 2.1.0 は機能リリースであるため、以前のバージョンの言語で書かれたコードと互換性のない変更をもたらす可能性があります。
+これらの変更の詳細なリストは、[Kotlin 2.1.0 の互換性ガイド](compatibility-guide-21.md)で確認できます。
 
 ## Kotlin 2.1.0のインストール
 
-IntelliJ IDEA 2023.3およびAndroid Studio Iguana (2023.2.1) Canary 15以降、KotlinプラグインはIDEにバンドルされたプラグインとして配布されます。これは、JetBrains Marketplaceからプラグインをインストールできなくなったことを意味します。
+IntelliJ IDEA 2023.3 および Android Studio Iguana (2023.2.1) Canary 15 以降、Kotlin プラグインは IDE にバンドルされたプラグインとして配布されます。これは、JetBrains Marketplace からプラグインをインストールできなくなったことを意味します。
 
-新しいKotlinバージョンに更新するには、ビルドスクリプトでKotlinのバージョンを2.1.0に[変更](releases.md#update-to-a-new-kotlin-version)します。
+新しい Kotlin バージョンに更新するには、ビルドスクリプトで Kotlin のバージョンを 2.1.0 に[変更](releases.md#update-to-a-new-kotlin-version)します。

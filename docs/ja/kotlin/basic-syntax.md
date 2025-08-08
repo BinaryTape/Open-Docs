@@ -1,12 +1,12 @@
 [//]: # (title: 基本構文)
 
-これは、基本的な構文要素とその例をまとめたものです。各セクションの最後には、関連トピックの詳細な説明へのリンクがあります。
+これは、基本的な構文要素の例を集めたものです。各セクションの終わりには、関連トピックの詳細な説明へのリンクがあります。
 
-JetBrains Academy の無料の [Kotlin Core track](https://hyperskill.org/tracks?category=4&utm_source=jbkotlin_hs&utm_medium=referral&utm_campaign=kotlinlang-docs&utm_content=button_1&utm_term=22.03.23) でも、Kotlin のすべての必須事項を学ぶことができます。
+また、JetBrains Academyが提供する無料の[Kotlin Coreトラック](https://hyperskill.org/tracks?category=4&utm_source=jbkotlin_hs&utm_medium=referral&utm_campaign=kotlinlang-docs&utm_content=button_1&utm_term=22.03.23)でKotlinの基礎をすべて学ぶこともできます。
 
-## パッケージ定義とインポート
+## パッケージの定義とインポート
 
-パッケージの指定は、ソースファイルの先頭に記述する必要があります。
+パッケージの指定はソースファイルの先頭に記述します。
 
 ```kotlin
 package my.demo
@@ -16,13 +16,13 @@ import kotlin.text.*
 // ...
 ```
 
-ディレクトリとパッケージが一致している必要はありません。ソースファイルはファイルシステム内の任意の場所に配置できます。
+ディレクトリとパッケージを一致させる必要はありません。ソースファイルはファイルシステム内の任意の場所に配置できます。
 
-詳細については、[パッケージ](packages.md)を参照してください。
+[パッケージ](packages.md)を参照してください。
 
-## プログラムのエントリポイント
+## プログラムのエントリーポイント
 
-Kotlin アプリケーションのエントリポイントは `main` 関数です。
+Kotlinアプリケーションのエントリーポイントは`main`関数です。
 
 ```kotlin
 fun main() {
@@ -31,7 +31,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-basic-syntax-hello-world"}
 
-`main` の別の形式では、可変個の `String` 引数を受け入れます。
+`main`の別の形式では、可変数の`String`引数を受け入れます。
 
 ```kotlin
 fun main(args: Array<String>) {
@@ -42,7 +42,7 @@ fun main(args: Array<String>) {
 
 ## 標準出力への出力
 
-`print` はその引数を標準出力に出力します。
+`print`は引数を標準出力に出力します。
 
 ```kotlin
 fun main() {
@@ -54,7 +54,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-basic-syntax-print"}
 
-`println` はその引数を出力し、改行を追加するため、次に出力するものは次の行に表示されます。
+`println`は引数を出力し、改行を追加するため、次に出力するものは次の行に表示されます。
 
 ```kotlin
 fun main() {
@@ -68,18 +68,18 @@ fun main() {
 
 ## 標準入力からの読み取り
 
-`readln()` 関数は標準入力から読み取ります。この関数は、ユーザーが入力した行全体を文字列として読み取ります。
+`readln()`関数は標準入力から読み取ります。この関数は、ユーザーが入力した行全体を文字列として読み取ります。
 
-`println()`、`readln()`、`print()` 関数を組み合わせて使用すると、ユーザー入力を要求し、表示するメッセージを出力できます。
+`println()`、`readln()`、`print()`関数を組み合わせて、ユーザー入力の要求と表示を行うメッセージを出力できます。
 
 ```kotlin
-// Prints a message to request input
+// 入力を要求するメッセージを出力します
 println("Enter any word: ")
 
-// Reads and stores the user input. For example: Happiness
+// ユーザー入力を読み取り、保存します。例: Happiness
 val yourWord = readln()
 
-// Prints a message with the input
+// 入力されたメッセージを出力します
 print("You entered the word: ")
 print(yourWord)
 // You entered the word: Happiness
@@ -89,7 +89,7 @@ print(yourWord)
 
 ## 関数
 
-2つの `Int` パラメータと `Int` 戻り値の型を持つ関数:
+2つの`Int`型パラメータと`Int`型戻り値を持つ関数：
 
 ```kotlin
 //sampleStart
@@ -105,7 +105,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-basic-syntax-return-int"}
 
-関数本体は式にできます。その戻り値の型は推論されます。
+関数本体は式にすることができます。その戻り値の型は推論されます。
 
 ```kotlin
 //sampleStart
@@ -118,7 +118,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-basic-syntax-function-expression"}
 
-意味のある値を返さない関数:
+意味のある値を返さない関数：
 
 ```kotlin
 //sampleStart
@@ -133,7 +133,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-basic-syntax-return-unit"}
 
-`Unit` 戻り値の型は省略できます。
+`Unit`戻り値の型は省略できます。
 
 ```kotlin
 //sampleStart
@@ -148,18 +148,18 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-basic-syntax-function-omit-unit"}
 
-詳細については、[関数](functions.md)を参照してください。
+[関数](functions.md)を参照してください。
 
 ## 変数
 
-Kotlin では、`val` または `var` というキーワードの後に変数名を続けて変数を宣言します。
+Kotlinでは、変数名の前に`val`または`var`キーワードを付けて変数を宣言します。
 
-値を一度だけ割り当てる変数を宣言するには、`val` キーワードを使用します。これらはイミュータブル (不変) な読み取り専用のローカル変数で、初期化後に別の値を再割り当てすることはできません。
+`val`キーワードを使用して、一度だけ値が代入される変数を宣言します。これらは不変の読み取り専用ローカル変数であり、初期化後に異なる値を再代入することはできません。
 
 ```kotlin
 fun main() {
 //sampleStart
-    // Declares the variable x and initializes it with the value of 5
+    // 変数xを宣言し、値5で初期化します
     val x: Int = 5
     // 5
 //sampleEnd
@@ -168,14 +168,14 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-basic-syntax-val"}
 
-再割り当てが可能な変数を宣言するには、`var` キーワードを使用します。これらはミュータブル (可変) な変数で、初期化後に値を変更できます。
+`var`キーワードを使用して、再代入可能な変数を宣言します。これらは可変変数であり、初期化後にその値を変更できます。
 
 ```kotlin
 fun main() {
 //sampleStart
-    // Declares the variable x and initializes it with the value of 5
+    // 変数xを宣言し、値5で初期化します
     var x: Int = 5
-    // Reassigns a new value of 6 to the variable x
+    // 変数xに新しい値6を再代入します
     x += 1
     // 6
 //sampleEnd
@@ -184,12 +184,12 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-basic-syntax-var"}
 
-Kotlin は型推論をサポートしており、宣言された変数のデータ型を自動的に識別します。変数を宣言するとき、変数名の後の型を省略できます。
+Kotlinは型推論をサポートしており、宣言された変数のデータ型を自動的に識別します。変数を宣言する際、変数名の後の型を省略できます。
 
 ```kotlin
 fun main() {
 //sampleStart
-    // Declares the variable x with the value of 5;`Int` type is inferred
+    // 値5で変数xを宣言します。`Int`型が推論されます
     val x = 5
     // 5
 //sampleEnd
@@ -198,18 +198,18 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-basic-syntax-inference"}
 
-変数は初期化後にのみ使用できます。変数を宣言時に初期化するか、最初に変数を宣言し、後で初期化することができます。後者の場合、データ型を指定する必要があります。
+変数は初期化後にのみ使用できます。変数を宣言時に初期化するか、先に宣言してから後で初期化することができます。後者の場合、データ型を指定する必要があります。
 
 ```kotlin
 fun main() {
 //sampleStart
-    // Initializes the variable x at the moment of declaration; type is not required
+    // 宣言時に変数xを初期化します。型は不要です
     val x = 5
-    // Declares the variable c without initialization; type is required
+    // 初期化せずに変数cを宣言します。型が必要です
     val c: Int
-    // Initializes the variable c after declaration 
+    // 宣言後に変数cを初期化します
     c = 3
-    // 5 
+    // 5
     // 3
 //sampleEnd
     println(x)
@@ -218,7 +218,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-basic-syntax-initialize"}
 
-変数はトップレベルで宣言できます。
+トップレベルで変数を宣言できます。
 
 ```kotlin
 //sampleStart
@@ -246,24 +246,24 @@ fun main() {
 
 ## クラスとインスタンスの作成
 
-クラスを定義するには、`class` キーワードを使用します。
+クラスを定義するには、`class`キーワードを使用します。
 ```kotlin
 class Shape
 ```
 
-クラスのプロパティは、その宣言または本体にリストできます。
+クラスのプロパティは、宣言または本体にリストできます。
 
 ```kotlin
 class Rectangle(val height: Double, val length: Double) {
-    val perimeter = (height + length) * 2 
+    val perimeter = (height + length) * 2
 }
 ```
 
-クラス宣言にリストされたパラメータを持つデフォルトコンストラクタは自動的に利用可能です。
+クラス宣言にリストされたパラメータを持つデフォルトコンストラクタは、自動的に利用できます。
 
 ```kotlin
 class Rectangle(val height: Double, val length: Double) {
-    val perimeter = (height + length) * 2 
+    val perimeter = (height + length) * 2
 }
 fun main() {
     val rectangle = Rectangle(5.0, 2.0)
@@ -272,38 +272,38 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-basic-syntax-class-constructor"}
 
-クラス間の継承はコロン (`:`) で宣言されます。クラスはデフォルトで `final` です。クラスを継承可能にするには、`open` とマークします。
+クラス間の継承はコロン (`:`) で宣言されます。クラスはデフォルトで`final`です。クラスを継承可能にするには、`open`とマークします。
 
 ```kotlin
 open class Shape
 
 class Rectangle(val height: Double, val length: Double): Shape() {
-    val perimeter = (height + length) * 2 
+    val perimeter = (height + length) * 2
 }
 ```
 
-コンストラクタと継承の詳細については、[クラス](classes.md)および[オブジェクトとインスタンス](object-declarations.md)を参照してください。
+コンストラクタと継承の詳細については、[クラス](classes.md)と[オブジェクトとインスタンス](object-declarations.md)を参照してください。
 
 ## コメント
 
-ほとんどの最新言語と同様に、Kotlin は単一行 (または _行末_) コメントと複数行 (または _ブロック_) コメントをサポートしています。
+ほとんどのモダンな言語と同様に、Kotlinは単一行（または_行末_）コメントと複数行（_ブロック_）コメントをサポートしています。
 
 ```kotlin
-// This is an end-of-line comment
+// これは行末コメントです
 
-/* This is a block comment
-   on multiple lines. */
+/* これは複数行にわたる
+   ブロックコメントです。 */
 ```
 
-Kotlin のブロックコメントはネストできます。
+Kotlinのブロックコメントはネストできます。
 
 ```kotlin
-/* The comment starts here
-/* contains a nested comment */     
-and ends here. */
+/* コメントはここから始まり
+/* ネストされたコメントが含まれ */
+ここで終わります。 */
 ```
 
-ドキュメントコメントの構文については、[Kotlin コードのドキュメント化](kotlin-doc.md)を参照してください。
+ドキュメントコメントの構文については、[Kotlinコードのドキュメント化](kotlin-doc.md)を参照してください。
 
 ## 文字列テンプレート
 
@@ -311,11 +311,11 @@ and ends here. */
 fun main() {
 //sampleStart
     var a = 1
-    // simple name in template:
-    val s1 = "a is $a" 
-    
+    // テンプレート内の単純な名前:
+    val s1 = "a is $a"
+
     a = 2
-    // arbitrary expression in template:
+    // テンプレート内の任意の式:
     val s2 = "${s1.replace("is", "was")}, but now is $a"
 //sampleEnd
     println(s2)
@@ -344,7 +344,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-basic-syntax-conditional-expressions"}
 
-Kotlin では、`if` は式としても使用できます。
+Kotlinでは、`if`は式としても使用できます。
 
 ```kotlin
 //sampleStart
@@ -357,9 +357,9 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-basic-syntax-if-expression"}
 
-詳細については、[`if`-式](control-flow.md#if-expression)を参照してください。
+[`if`式](control-flow.md#if-expression)を参照してください。
 
-## for ループ
+## forループ
 
 ```kotlin
 fun main() {
@@ -373,7 +373,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-basic-syntax-for-loop"}
 
-または:
+または：
 
 ```kotlin
 fun main() {
@@ -387,9 +387,9 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-basic-syntax-for-loop-indices"}
 
-詳細については、[for ループ](control-flow.md#for-loops)を参照してください。
+[forループ](control-flow.md#for-loops)を参照してください。
 
-## while ループ
+## whileループ
 
 ```kotlin
 fun main() {
@@ -405,9 +405,9 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-basic-syntax-while-loop"}
 
-詳細については、[while ループ](control-flow.md#while-loops)を参照してください。
+[whileループ](control-flow.md#while-loops)を参照してください。
 
-## when 式
+## when式
 
 ```kotlin
 //sampleStart
@@ -431,11 +431,11 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-basic-syntax-when-expression"}
 
-詳細については、[when 式とステートメント](control-flow.md#when-expressions-and-statements)を参照してください。
+[when式とwhen文](control-flow.md#when-expressions-and-statements)を参照してください。
 
-## 範囲 (Ranges)
+## 範囲
 
-`in` 演算子を使用して、数値が範囲内にあるかを確認します。
+`in`演算子を使用して、数値が範囲内にあるかを確認します。
 
 ```kotlin
 fun main() {
@@ -450,13 +450,13 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-basic-syntax-range-in"}
 
-数値が範囲外であるかを確認します。
+数値が範囲外にあるかを確認します。
 
 ```kotlin
 fun main() {
 //sampleStart
     val list = listOf("a", "b", "c")
-    
+
     if (-1 !in 0..list.lastIndex) {
         println("-1 is out of range")
     }
@@ -481,7 +481,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-basic-syntax-iterate-range"}
 
-または、等差数列 (プログレッション) を反復処理します。
+あるいは、プログレッションを反復処理します。
 
 ```kotlin
 fun main() {
@@ -498,7 +498,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-basic-syntax-iterate-progression"}
 
-詳細については、[範囲と等差数列](ranges.md)を参照してください。
+[範囲とプログレッション](ranges.md)を参照してください。
 
 ## コレクション
 
@@ -516,7 +516,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-basic-syntax-iterate-collection"}
 
-`in` 演算子を使用してコレクションにオブジェクトが含まれているかを確認します。
+`in`演算子を使用して、コレクションがオブジェクトを含むかを確認します。
 
 ```kotlin
 fun main() {
@@ -531,7 +531,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-basic-syntax-collection-in"}
 
-[ラムダ式](lambdas.md)を使用してコレクションをフィルタリングおよびマップします。
+[ラムダ式](lambdas.md)を使用してコレクションをフィルタリングおよびマッピングします。
 
 ```kotlin
 fun main() {
@@ -547,13 +547,13 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-basic-syntax-collection-filter-map"}
 
-詳細については、[コレクションの概要](collections-overview.md)を参照してください。
+[コレクションの概要](collections-overview.md)を参照してください。
 
-## ヌル許容値とヌルチェック
+## Nullableな値とNullチェック
 
-`null` 値が可能な場合、参照は明示的にヌル許容としてマークする必要があります。ヌル許容型の名前は末尾に `?` を持ちます。
+`null`値が許容される場合、参照は明示的にnullableとしてマークする必要があります。nullableな型名には末尾に`?`が付きます。
 
-`str` が整数を保持しない場合、`null` を返します。
+`str`が整数を保持しない場合、`null`を返します。
 
 ```kotlin
 fun parseInt(str: String): Int? {
@@ -561,7 +561,7 @@ fun parseInt(str: String): Int? {
 }
 ```
 
-ヌル許容値を返す関数を使用します。
+nullableな値を返す関数を使用します。
 
 ```kotlin
 fun parseInt(str: String): Int? {
@@ -573,14 +573,14 @@ fun printProduct(arg1: String, arg2: String) {
     val x = parseInt(arg1)
     val y = parseInt(arg2)
 
-    // Using `x * y` yields error because they may hold nulls.
+    // `x * y`を使用すると、nullを含む可能性があるためエラーになります。
     if (x != null && y != null) {
-        // x and y are automatically cast to non-nullable after null check
+        // nullチェック後、xとyは自動的に非nullableにキャストされます
         println(x * y)
     }
     else {
         println("'$arg1' or '$arg2' is not a number")
-    }    
+    }
 }
 //sampleEnd
 
@@ -592,7 +592,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-basic-syntax-function-nullable-value"}
 
-または:
+または：
 
 ```kotlin
 fun parseInt(str: String): Int? {
@@ -602,7 +602,7 @@ fun parseInt(str: String): Int? {
 fun printProduct(arg1: String, arg2: String) {
     val x = parseInt(arg1)
     val y = parseInt(arg2)
-    
+
 //sampleStart
     // ...
     if (x == null) {
@@ -614,7 +614,7 @@ fun printProduct(arg1: String, arg2: String) {
         return
     }
 
-    // x and y are automatically cast to non-nullable after null check
+    // nullチェック後、xとyは自動的に非nullableにキャストされます
     println(x * y)
 //sampleEnd
 }
@@ -627,22 +627,22 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-basic-syntax-function-null-check"}
 
-詳細については、[Null-safety](null-safety.md)を参照してください。
+[Null安全](null-safety.md)を参照してください。
 
 ## 型チェックと自動キャスト
 
-`is` 演算子は、式が特定の型のインスタンスであるかを確認します。
+`is`演算子は、式がある型のインスタンスであるかを確認します。
 不変のローカル変数またはプロパティが特定の型としてチェックされる場合、明示的にキャストする必要はありません。
 
 ```kotlin
 //sampleStart
 fun getStringLength(obj: Any): Int? {
     if (obj is String) {
-        // `obj` is automatically cast to `String` in this branch
+        // このブランチでは、`obj`は自動的に`String`にキャストされます
         return obj.length
     }
 
-    // `obj` is still of type `Any` outside of the type-checked branch
+    // 型チェックされたブランチの外では、`obj`は依然として`Any`型です
     return null
 }
 //sampleEnd
@@ -658,14 +658,14 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-basic-syntax-is-operator"}
 
-または:
+または：
 
 ```kotlin
 //sampleStart
 fun getStringLength(obj: Any): Int? {
     if (obj !is String) return null
 
-    // `obj` is automatically cast to `String` in this branch
+    // このブランチでは、`obj`は自動的に`String`にキャストされます
     return obj.length
 }
 //sampleEnd
@@ -681,12 +681,12 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-basic-syntax-is-operator-expression"}
 
-さらには:
+あるいはさらに：
 
 ```kotlin
 //sampleStart
 fun getStringLength(obj: Any): Int? {
-    // `obj` is automatically cast to `String` on the right-hand side of `&&`
+    // `&&`の右側では、`obj`は自動的に`String`にキャストされます
     if (obj is String && obj.length > 0) {
         return obj.length
     }
@@ -706,4 +706,4 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-basic-syntax-is-operator-logic"}
 
-詳細については、[クラス](classes.md)および[型キャスト](typecasts.md)を参照してください。
+[クラス](classes.md)と[型キャスト](typecasts.md)を参照してください。

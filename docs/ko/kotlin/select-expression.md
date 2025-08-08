@@ -1,17 +1,17 @@
 <!--- TEST_NAME SelectGuideTest -->
 <contribute-url>https://github.com/Kotlin/kotlinx.coroutines/edit/master/docs/topics/</contribute-url>
 
-[//]: # (title: Select 표현식 \(실험적 기능\))
+[//]: # (title: Select 표현식 (실험적))
 
-Select 표현식을 사용하면 여러 일시 중단 함수를 동시에 기다리고, 먼저 사용 가능해지는 함수를 *선택*할 수 있습니다.
+`Select` 표현식을 사용하면 여러 개의 `suspend` 함수를 동시에 기다리면서 사용 가능한 첫 번째 함수를 _선택_할 수 있습니다.
 
-> Select 표현식은 `kotlinx.coroutines`의 실험적 기능입니다. 해당 API는 `kotlinx.coroutines` 라이브러리의 향후 업데이트에서 호환성이 깨지는 변경 사항(potentially breaking changes)과 함께 발전할 것으로 예상됩니다.
+> `Select` 표현식은 `kotlinx.coroutines`의 실험적 기능입니다. 해당 API는 향후 `kotlinx.coroutines` 라이브러리 업데이트에서 잠재적으로 호환성을 깨는 변경과 함께 발전할 것으로 예상됩니다.
 >
 {style="note"}
 
 ## 채널에서 선택하기
 
-`fizz`와 `buzz`라는 두 개의 문자열 생산자(producer)가 있다고 가정해 봅시다. `fizz`는 500ms마다 "Fizz" 문자열을 생산합니다.
+문자열을 생성하는 두 개의 프로듀서인 `fizz`와 `buzz`가 있다고 가정해 봅시다. `fizz`는 500ms마다 "Fizz" 문자열을 생성합니다:
 
 ```kotlin
 fun CoroutineScope.fizz() = produce<String> {
@@ -22,7 +22,7 @@ fun CoroutineScope.fizz() = produce<String> {
 }
 ```
 
-그리고 `buzz`는 1000ms마다 "Buzz!" 문자열을 생산합니다.
+그리고 `buzz`는 1000ms마다 "Buzz!" 문자열을 생성합니다:
 
 ```kotlin
 fun CoroutineScope.buzz() = produce<String> {
@@ -33,7 +33,7 @@ fun CoroutineScope.buzz() = produce<String> {
 }
 ```
 
-[ReceiveChannel.receive] 일시 중단 함수를 사용하여 한 채널 또는 다른 채널 *둘 중 하나*에서 수신할 수 있습니다. 하지만 [select] 표현식은 [onReceive][ReceiveChannel.onReceive] 절(clause)을 사용하여 *두 채널 모두*에서 동시에 수신할 수 있도록 허용합니다.
+`[receive][ReceiveChannel.receive]` `suspend` 함수를 사용하면 한 채널 또는 다른 채널 중 _하나_로부터 수신할 수 있습니다. 하지만 `[select]` 표현식은 `[onReceive][ReceiveChannel.onReceive]` 절을 사용하여 _둘 다_ 동시에 수신할 수 있도록 해줍니다:
 
 ```kotlin
 suspend fun selectFizzBuzz(fizz: ReceiveChannel<String>, buzz: ReceiveChannel<String>) {
@@ -48,7 +48,7 @@ suspend fun selectFizzBuzz(fizz: ReceiveChannel<String>, buzz: ReceiveChannel<St
 }
 ```
 
-이것을 총 일곱 번 실행해 봅시다.
+이를 총 7번 실행해 봅시다:
 
 <!--- CLEAR -->
 
@@ -99,7 +99,7 @@ fun main() = runBlocking<Unit> {
 >
 {style="note"}
 
-이 코드의 결과는 다음과 같습니다.
+이 코드의 결과는 다음과 같습니다:
 
 ```text
 fizz -> 'Fizz'
@@ -115,7 +115,7 @@ fizz -> 'Fizz'
 
 ## 채널 닫힘 시 선택하기
 
-`select`의 [onReceive][ReceiveChannel.onReceive] 절은 채널이 닫힐 때 실패하여 해당 `select`가 예외를 발생시킵니다. 채널이 닫혔을 때 특정 작업을 수행하려면 [onReceiveCatching][ReceiveChannel.onReceiveCatching] 절을 사용할 수 있습니다. 다음 예제는 `select`가 선택된 절의 결과를 반환하는 표현식임을 보여줍니다.
+`select`의 `[onReceive][ReceiveChannel.onReceive]` 절은 채널이 닫히면 실패하여 해당 `select`가 예외를 발생시킵니다. 채널이 닫혔을 때 특정 작업을 수행하기 위해 `[onReceiveCatching][ReceiveChannel.onReceiveCatching]` 절을 사용할 수 있습니다. 다음 예제는 또한 `select`가 선택된 절의 결과를 반환하는 표현식임을 보여줍니다:
 
 ```kotlin
 suspend fun selectAorB(a: ReceiveChannel<String>, b: ReceiveChannel<String>): String =
@@ -139,7 +139,7 @@ suspend fun selectAorB(a: ReceiveChannel<String>, b: ReceiveChannel<String>): St
     }
 ```
 
-채널 `a`는 "Hello" 문자열을 네 번 생산하고, 채널 `b`는 "World"를 네 번 생산하는 경우에 이를 사용해 봅시다.
+"Hello" 문자열을 네 번 생성하는 채널 `a`와 "World"를 네 번 생성하는 채널 `b`와 함께 사용해 봅시다:
 
 <!--- CLEAR -->
 
@@ -189,7 +189,7 @@ fun main() = runBlocking<Unit> {
 >
 {style="note"}
 
-이 코드의 결과는 꽤 흥미롭기 때문에 더 자세히 분석해 보겠습니다.
+이 코드의 결과는 매우 흥미로우므로, 더 자세히 분석해 보겠습니다:
 
 ```text
 a -> 'Hello 0'
@@ -204,17 +204,17 @@ Channel 'a' is closed
 
 <!--- TEST -->
 
-여기서 몇 가지 관찰 사항이 있습니다.
+여기에서 몇 가지를 관찰할 수 있습니다.
 
-첫째, `select`는 첫 번째 절(clause)에 *편향되어* 있습니다. 동시에 여러 절을 선택할 수 있는 경우, 그 중 첫 번째 절이 선택됩니다. 여기서는 두 채널이 지속적으로 문자열을 생산하고 있으므로 `select`에서 첫 번째 절인 `a` 채널이 이깁니다. 그러나 버퍼링되지 않은 채널을 사용하고 있기 때문에 `a`는 [send][SendChannel.send] 호출에서 때때로 일시 중단되어 `b`에게도 전송할 기회를 줍니다.
+먼저, `select`는 첫 번째 절에 _편향되어_ 있습니다. 여러 절이 동시에 선택 가능한 경우, 그중 첫 번째 절이 선택됩니다. 여기서는 두 채널 모두 지속적으로 문자열을 생성하므로, `select`의 첫 번째 절인 `a` 채널이 우선합니다. 하지만 버퍼링되지 않은 채널을 사용하기 때문에 `a`는 `[send][SendChannel.send]` 호출에서 때때로 `suspend`되고, `b`도 전송할 기회를 얻습니다.
 
-둘째, [onReceiveCatching][ReceiveChannel.onReceiveCatching]는 채널이 이미 닫혔을 때 즉시 선택됩니다.
+두 번째 관찰은 채널이 이미 닫혔을 때 `[onReceiveCatching][ReceiveChannel.onReceiveCatching]`이 즉시 선택된다는 것입니다.
 
 ## 전송을 위한 선택
 
-Select 표현식에는 [onSend][SendChannel.onSend] 절이 있으며, 이는 선택의 편향된 특성과 함께 매우 유용하게 사용될 수 있습니다.
+`Select` 표현식에는 선택의 편향된 특성과 조합하여 매우 유용하게 사용될 수 있는 `[onSend][SendChannel.onSend]` 절이 있습니다.
 
-기본 채널의 소비자가 속도를 따라가지 못할 때 자신의 값을 `side` 채널로 보내는 정수 생산자(producer) 예제를 작성해 봅시다.
+기본 채널의 소비자가 속도를 따라가지 못할 때 자신의 값을 `side` 채널로 전송하는 정수 프로듀서의 예제를 작성해 봅시다:
 
 ```kotlin
 fun CoroutineScope.produceNumbers(side: SendChannel<Int>) = produce<Int> {
@@ -228,7 +228,7 @@ fun CoroutineScope.produceNumbers(side: SendChannel<Int>) = produce<Int> {
 }
 ```
 
-소비자는 각 숫자를 처리하는 데 250ms가 걸리므로 상당히 느릴 것입니다.
+소비자는 각 숫자를 처리하는 데 250ms가 걸리므로 꽤 느릴 것입니다:
 
 <!--- CLEAR -->
 
@@ -268,7 +268,7 @@ fun main() = runBlocking<Unit> {
 >
 {style="note"}
 
-그럼 어떤 일이 발생하는지 봅시다.
+그럼 어떤 일이 일어나는지 봅시다:
 
 ```text
 Consuming 1
@@ -286,9 +286,9 @@ Done consuming
 
 <!--- TEST -->
 
-## 지연된(Deferred) 값 선택
+## 지연된 값 선택하기
 
-지연된 값은 [onAwait][Deferred.onAwait] 절을 사용하여 선택할 수 있습니다. 먼저 무작위 지연 후에 지연된 문자열 값을 반환하는 비동기 함수로 시작해 봅시다.
+`Deferred` 값은 `[onAwait][Deferred.onAwait]` 절을 사용하여 선택될 수 있습니다. 임의의 지연 후에 `deferred` 문자열 값을 반환하는 `async` 함수부터 시작해 봅시다:
 
 ```kotlin
 fun CoroutineScope.asyncString(time: Int) = async {
@@ -297,7 +297,7 @@ fun CoroutineScope.asyncString(time: Int) = async {
 }
 ```
 
-이제 무작위 지연을 사용하여 그 중 열두 개를 시작해 봅시다.
+임의의 지연으로 12개의 `async` 함수를 시작해 봅시다.
 
 ```kotlin
 fun CoroutineScope.asyncStringsList(): List<Deferred<String>> {
@@ -306,7 +306,7 @@ fun CoroutineScope.asyncStringsList(): List<Deferred<String>> {
 }
 ```
 
-이제 메인 함수는 그 중 첫 번째가 완료될 때까지 기다리고, 여전히 활성화된 지연된 값의 개수를 셉니다. 여기서 `select` 표현식이 Kotlin DSL이라는 점을 활용했음을 주목하십시오. 따라서 임의의 코드를 사용하여 절을 제공할 수 있습니다. 이 경우에는 지연된 값 목록을 반복하여 각 지연된 값에 대한 `onAwait` 절을 제공합니다.
+이제 `main` 함수는 그중 첫 번째가 완료될 때까지 기다리고, 여전히 활성 상태인 `deferred` 값의 수를 계산합니다. `select` 표현식이 Kotlin DSL이라는 점을 여기서 활용했으므로, 임의의 코드를 사용하여 `select` 절을 제공할 수 있다는 점을 유의하세요. 이 경우, 각 `deferred` 값을 위한 `onAwait` 절을 제공하기 위해 `deferred` 값 리스트를 순회합니다.
 
 <!--- CLEAR -->
 
@@ -347,7 +347,7 @@ fun main() = runBlocking<Unit> {
 >
 {style="note"}
 
-결과는 다음과 같습니다.
+출력은 다음과 같습니다:
 
 ```text
 Deferred 4 produced answer 'Waited for 128 ms'
@@ -356,9 +356,9 @@ Deferred 4 produced answer 'Waited for 128 ms'
 
 <!--- TEST -->
 
-## 지연된 값 채널 전환
+## 지연된 값 채널 전환하기
 
-지연된 문자열 값 채널을 소비하고, 수신된 각 지연된 값을 기다리되, 다음 지연된 값이 도착하거나 채널이 닫힐 때까지만 기다리는 채널 생산자 함수를 작성해 봅시다. 이 예제는 동일한 `select` 내에서 [onReceiveCatching][ReceiveChannel.onReceiveCatching] 및 [onAwait][Deferred.onAwait] 절을 함께 사용합니다.
+`deferred` 문자열 값 채널을 소비하고, 수신된 각 `deferred` 값을 기다리되, 다음 `deferred` 값이 도착하거나 채널이 닫힐 때까지만 기다리는 채널 프로듀서 함수를 작성해 봅시다. 이 예제는 동일한 `select` 내에서 `[onReceiveCatching][ReceiveChannel.onReceiveCatching]`와 `[onAwait][Deferred.onAwait]` 절을 함께 사용합니다:
 
 ```kotlin
 fun CoroutineScope.switchMapDeferreds(input: ReceiveChannel<Deferred<String>>) = produce<String> {
@@ -383,7 +383,7 @@ fun CoroutineScope.switchMapDeferreds(input: ReceiveChannel<Deferred<String>>) =
 }
 ```
 
-이를 테스트하기 위해, 지정된 시간 후에 지정된 문자열로 확인되는 간단한 비동기 함수를 사용하겠습니다.
+이를 테스트하기 위해, 지정된 시간 후에 지정된 문자열로 해석되는 간단한 `async` 함수를 사용할 것입니다:
 
 ```kotlin
 fun CoroutineScope.asyncString(str: String, time: Long) = async {
@@ -392,7 +392,7 @@ fun CoroutineScope.asyncString(str: String, time: Long) = async {
 }
 ```
 
-메인 함수는 단순히 `switchMapDeferreds`의 결과를 출력할 코루틴을 시작하고, 일부 테스트 데이터를 보냅니다.
+`main` 함수는 `switchMapDeferreds`의 결과를 출력하는 코루틴을 시작하고, 일부 테스트 데이터를 보냅니다:
 
 <!--- CLEAR -->
 
@@ -453,7 +453,7 @@ fun main() = runBlocking<Unit> {
 >
 {style="note"}
 
-이 코드의 결과는 다음과 같습니다.
+이 코드의 결과:
 
 ```text
 BEGIN

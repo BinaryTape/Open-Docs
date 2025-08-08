@@ -4,7 +4,8 @@ import { defaultStrategy } from "./strategy.mjs";
 
 const extraFilesMapping = new Map([
   ["CHANGELOG.md", "docs/changelog.md"],
-  ["coil-test/READEME.md", "docs/testing.md"],
+  ["README.md", "docs/overview.md"],
+  ["coil-test/README.md", "docs/testing.md"],
   ["coil-video/README.md", "docs/videos.md"],
   ["coil-svg/README.md", "docs/svgs.md"],
   ["coil-gif/README.md", "docs/gifs.md"],
@@ -28,7 +29,6 @@ export const coilStrategy = {
   postDetect: async (repoConfig, task) => {
     console.log("  Running Coil postDetect: Copying root markdown files...");
     const repoPath = repoConfig.path;
-    const docsDir = path.join(repoPath, "docs");
     const mappedFiles = await Promise.all(
       task.files.map(async (file) => {
         if (extraFilesMapping.has(file)) {
@@ -55,7 +55,7 @@ export const coilStrategy = {
     if (await fs.pathExists(srcPath)) {
       await fs.ensureDir(dest);
       await fs.copy(srcPath, dest, { overwrite: true });
-      context.gitAddPaths.add(dest); // 将目标目录加入待提交列表
+      context.gitAddPaths.add(dest);
     } else {
       console.warn(
         `  ⚠️  Warning: Asset source directory not found: ${srcPath}`

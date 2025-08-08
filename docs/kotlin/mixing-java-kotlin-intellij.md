@@ -1,17 +1,16 @@
-[//]: # (title: 在一个项目中混合使用 Java 和 Kotlin – 教程)
+[//]: # (title: 在同一个项目中混合使用 Java 和 Kotlin – 教程)
 
-Kotlin 提供了与 Java 的一流互操作性，现代 IDE 使其表现更佳。
-在本教程中，您将学习如何在 IntelliJ IDEA 的同一个项目中同时使用 Kotlin 和 Java 源代码。要了解如何在 IntelliJ IDEA 中启动新的 Kotlin 项目，请参阅 [IntelliJ IDEA 入门](jvm-get-started.md)。
+Kotlin 提供了与 Java 的一流互操作性，现代 IDE 使其变得更好。在本教程中，你将学习如何在 IntelliJ IDEA 的同一个项目中同时使用 Kotlin 和 Java 源代码。关于在 IntelliJ IDEA 中启动新的 Kotlin 项目，请参见 [Getting started with IntelliJ IDEA](jvm-get-started.md)。
 
-## 将 Java 源代码添加到现有 Kotlin 项目
+## 添加 Java 源代码到现有 Kotlin 项目
 
-将 Java 类添加到 Kotlin 项目非常简单。您只需创建一个新的 Java 文件。选择项目中的目录或包，然后导航到 **File** | **New** | **Java Class**，或者使用 **Alt + Insert**/**Cmd + N** 快捷键。
+向 Kotlin 项目添加 Java 类非常简单直观。你只需创建一个新的 Java 文件。在你的项目内选择一个目录或包，然后转到 **File** | **New** | **Java Class** 或使用 **Alt + Insert**/**Cmd + N** 快捷键。
 
 ![添加新的 Java 类](new-java-class.png){width=400}
 
-如果您已经有 Java 类，可以直接将它们复制到项目目录中。
+如果你已经有 Java 类，你可以直接将它们复制到项目目录中。
 
-现在，您无需任何额外操作即可从 Kotlin 中使用 Java 类，反之亦然。
+你现在可以在 Kotlin 中使用 Java 类，反之亦然，无需任何进一步操作。
 
 例如，添加以下 Java 类：
 
@@ -38,7 +37,7 @@ public class Customer {
 }
 ```
 
-允许您像在 Kotlin 中调用任何其他类型一样从 Kotlin 调用它。
+让你可以像 Kotlin 中的任何其他类型一样从 Kotlin 调用它。
 
 ```kotlin
 val customer = Customer("Phase")
@@ -46,23 +45,22 @@ println(customer.name)
 println(customer.placeOrder())
 ```
 
-## 将 Kotlin 源代码添加到现有 Java 项目
+## 添加 Kotlin 源代码到现有 Java 项目
 
-将 Kotlin 文件添加到现有 Java 项目大致相同。
+向现有 Java 项目添加 Kotlin 文件几乎相同。
 
 ![添加新的 Kotlin 文件类](new-kotlin-file.png){width=400}
 
-如果这是您第一次将 Kotlin 文件添加到此项目，IntelliJ IDEA 将自动添加所需的 Kotlin 运行时。
+如果你是第一次向此项目添加 Kotlin 文件，IntelliJ IDEA 将自动添加所需的 Kotlin 运行时。
 
 ![捆绑 Kotlin 运行时](bundling-kotlin-option.png){width=350}
 
-您也可以从 **Tools** | **Kotlin** | **Configure Kotlin in Project** 手动打开 Kotlin 运行时配置。
+你也可以从 **Tools** | **Kotlin** | **Configure Kotlin in Project** 手动打开 Kotlin 运行时配置。
 
 ## 使用 J2K 将现有 Java 文件转换为 Kotlin
 
-Kotlin 插件还捆绑了一个 Java 到 Kotlin 的转换器 (J2K)，它可以自动将 Java 文件转换为 Kotlin。
-要在一个文件上使用 J2K，请在其上下文菜单或 IntelliJ IDEA 的 **Code** 菜单中点击 **Convert Java File to Kotlin File**。
+Kotlin 插件还捆绑了一个 Java 到 Kotlin 的转换器 (_J2K_)，它可以自动将 Java 文件转换为 Kotlin。要在一个文件上使用 J2K，请在其上下文菜单或 IntelliJ IDEA 的 **Code** 菜单中点击 **Convert Java File to Kotlin File**。
 
 ![将 Java 转换为 Kotlin](convert-java-to-kotlin.png){width=500}
 
-虽然此转换器并非万无一失，但它在将大部分 Java 样板代码转换为 Kotlin 方面做得相当不错。然而，有时需要一些手动调整。
+虽然这个转换器并非万无一失，但它在将大多数 Java 样板代码转换为 Kotlin 方面做得相当不错。但是，有时仍需要一些手动调整。

@@ -1,59 +1,62 @@
-[//]: # (title: Cのプリミティブデータ型のマッピング – チュートリアル)
+[//]: # (title: Cのプリミティブデータ型をマッピングする - チュートリアル)
 
 <tldr>
-    <p>これは<strong>KotlinとCのマッピング</strong>チュートリアルシリーズの最初のパートです。</p>
-    <p><img src="icon-1.svg" width="20" alt="最初のステップ"/> <strong>Cのプリミティブデータ型のマッピング</strong><br/>
-       <img src="icon-2-todo.svg" width="20" alt="2番目のステップ"/> <a href="mapping-struct-union-types-from-c.md">Cの構造体と共用体型のマッピング</a><br/>
-       <img src="icon-3-todo.svg" width="20" alt="3番目のステップ"/> <a href="mapping-function-pointers-from-c.md">関数ポインターのマッピング</a><br/>
-       <img src="icon-4-todo.svg" width="20" alt="4番目のステップ"/> <a href="mapping-strings-from-c.md">Cの文字列のマッピング</a><br/>
+    <p>これは、<strong>KotlinとCのマッピング</strong>チュートリアルシリーズの最初のパートです。</p>
+    <p><img src="icon-1.svg" width="20" alt="最初のステップ"/> <strong>Cのプリミティブデータ型をマッピングする</strong><br/>
+       <img src="icon-2-todo.svg" width="20" alt="2番目のステップ"/> <a href="mapping-struct-union-types-from-c.md">Cの構造体と共用体型をマッピングする</a><br/>
+       <img src="icon-3-todo.svg" width="20" alt="3番目のステップ"/> <a href="mapping-function-pointers-from-c.md">関数ポインタをマッピングする</a><br/>
+       <img src="icon-4-todo.svg" width="20" alt="4番目のステップ"/> <a href="mapping-strings-from-c.md">Cの文字列をマッピングする</a><br/>
     </p>
 </tldr>
 
-> Cライブラリのインポートは[実験的機能 (Experimental)](components-stability.md#stability-levels-explained)です。cinteropツールによってCライブラリから生成されるKotlinの宣言は、すべて`@ExperimentalForeignApi`アノテーションを持つ必要があります。
+> Cライブラリのインポートは[ベータ版](native-c-interop-stability.md)です。cinteropツールによってCライブラリから生成されたすべてのKotlin宣言には、`@ExperimentalForeignApi`アノテーションが必要です。
 >
 > Kotlin/Nativeに同梱されているネイティブプラットフォームライブラリ（Foundation、UIKit、POSIXなど）は、一部のAPIでのみオプトインが必要です。
 >
-{style="warning"}
+{style="note"}
 
-どのCデータ型がKotlin/Nativeで可視であるか、またその逆についても見ていきましょう。さらに、Kotlin/NativeのC言語との相互運用に関連する高度なユースケースや、[マルチプラットフォーム](gradle-configure-project.md#targeting-multiple-platforms)のGradleビルドについて詳しく見ていきます。
+どのCデータ型がKotlin/Nativeで可視になるか（またその逆も）を探り、Kotlin/Nativeと[マルチプラットフォーム](gradle-configure-project.md#targeting-multiple-platforms)Gradleビルドにおける高度なC相互運用関連のユースケースを調べましょう。
 
-このチュートリアルでは、次のことを行います:
+このチュートリアルでは、以下のことを行います。
 
-* [C言語のデータ型について学ぶ](#types-in-c-language)
-* [それらの型をエクスポートで使用するCライブラリを作成する](#create-a-c-library)
-* [Cライブラリから生成されたKotlin APIを検査する](#inspect-generated-kotlin-apis-for-a-c-library)
+*   [C言語のデータ型について学ぶ](#types-in-c-language)
+*   [それらの型をエクスポートで使用するCライブラリを作成する](#create-a-c-library)
+*   [Cライブラリから生成されたKotlin APIを調査する](#inspect-generated-kotlin-apis-for-a-c-library)
 
-コマンドラインを使用して、直接、またはスクリプトファイル（`.sh`や`.bat`ファイルなど）でKotlinライブラリを生成できます。しかし、このアプローチは、何百ものファイルやライブラリを持つ大規模なプロジェクトにはうまくスケールしません。ビルドシステムを使用すると、Kotlin/Nativeのコンパイラのバイナリと推移的依存関係を持つライブラリをダウンロードしてキャッシュし、コンパイラとテストを実行することでプロセスを簡素化できます。Kotlin/Nativeは、[Kotlin Multiplatformプラグイン](gradle-configure-project.md#targeting-multiple-platforms)を介して[Gradle](https://gradle.org)ビルドシステムを使用できます。
+コマンドラインを使用してKotlinライブラリを生成できます。これは直接、またはスクリプトファイル（`.sh`や`.bat`ファイルなど）を使用しても可能です。
+しかし、このアプローチは、何百ものファイルやライブラリを持つ大規模プロジェクトにはうまくスケールしません。
+ビルドシステムを使用すると、Kotlin/Nativeコンパイラのバイナリやライブラリ、および推移的依存関係のダウンロードとキャッシュ、コンパイラとテストの実行を自動化することでプロセスが簡素化されます。
+Kotlin/Nativeは、[Kotlin Multiplatformプラグイン](gradle-configure-project.md#targeting-multiple-platforms)を介して[Gradle](https://gradle.org)ビルドシステムを使用できます。
 
-## C言語のデータ型
+## C言語の型
 
-Cプログラミング言語には、以下の[データ型](https://en.wikipedia.org/wiki/C_data_types)があります:
+Cプログラミング言語には、以下の[データ型](https://en.wikipedia.org/wiki/C_data_types)があります。
 
-* 基本型: `char, int, float, double` （修飾子 `signed, unsigned, short, long` を伴う）
-* 構造体、共用体、配列
-* ポインター
-* 関数ポインター
+*   基本型: `char, int, float, double` と修飾子 `signed, unsigned, short, long`
+*   構造体、共用体、配列
+*   ポインタ
+*   関数ポインタ
 
-また、より具体的な型も存在します:
+さらに、より具体的な型もあります。
 
-* 真偽値型 (Boolean型)（[C99](https://en.wikipedia.org/wiki/C99)より）
-* `size_t` および `ptrdiff_t` （`ssize_t` も）
-* 固定幅整数型（`int32_t` や `uint64_t` など）（[C99](https://en.wikipedia.org/wiki/C99)より）
+*   真偽値型（[C99](https://en.wikipedia.org/wiki/C99)より）
+*   `size_t` と `ptrdiff_t`（`ssize_t`も）
+*   固定幅整数型（例: `int32_t` または `uint64_t`）（[C99](https://en.wikipedia.org/wiki/C99)より）
 
-C言語には、以下の型修飾子も存在します: `const`、`volatile`、`restrict`、`atomic`。
+C言語には、`const`、`volatile`、`restrict`、`atomic`という型修飾子もあります。
 
-どのCデータ型がKotlinで可視であるかを見ていきましょう。
+Cのデータ型がKotlinでどのように見えるかを見てみましょう。
 
 ## Cライブラリを作成する
 
-このチュートリアルでは、`lib.c`ソースファイルを作成しません。これはCライブラリをコンパイルして実行したい場合にのみ必要です。この設定では、[cinteropツール](native-c-interop.md)の実行に必要となる`.h`ヘッダーファイルのみが必要です。
+このチュートリアルでは、`lib.c`ソースファイルは作成しません。これはCライブラリをコンパイルして実行する場合にのみ必要です。この設定では、[cinteropツール](native-c-interop.md)の実行に必要な`.h`ヘッダーファイルのみが必要です。
 
-cinteropツールは、`.h`ファイルの各セットに対してKotlin/Nativeライブラリ（`.klib`ファイル）を生成します。生成されたライブラリは、Kotlin/NativeからCへの呼び出しを橋渡しするのに役立ちます。これには、`.h`ファイルからの定義に対応するKotlinの宣言が含まれています。
+cinteropツールは、各`.h`ファイルのセットに対してKotlin/Nativeライブラリ（`.klib`ファイル）を生成します。生成されたライブラリは、Kotlin/NativeからCへの呼び出しを橋渡しするのに役立ちます。これには、`.h`ファイルの定義に対応するKotlin宣言が含まれます。
 
-Cライブラリを作成するには:
+Cライブラリを作成するには：
 
-1. 今後のプロジェクトのために空のフォルダーを作成します。
-2. その中に、C関数がKotlinにどのようにマッピングされるかを確認するために、以下の内容で`lib.h`ファイルを作成します:
+1.  将来のプロジェクト用に空のフォルダを作成します。
+2.  その中に、C関数がKotlinにどのようにマッピングされるかを確認するために、以下の内容の`lib.h`ファイルを作成します。
 
    ```c
    #ifndef LIB2_H_INCLUDED
@@ -66,17 +69,17 @@ Cライブラリを作成するには:
    #endif
    ```
 
-   このファイルには`extern "C"`ブロックがありません。これはこの例では必要ありませんが、C++およびオーバーロードされた関数を使用する場合は必要になる場合があります。詳細は、この[Stackoverflowスレッド](https://stackoverflow.com/questions/1041866/what-is-the-effect-of-extern-c-in-c)を参照してください。
+   このファイルには`extern "C"`ブロックがありませんが、この例では必要ありません。ただし、C++とオーバーロード関数を使用する場合は必要になる場合があります。詳細については、この[Stackoverflowスレッド](https://stackoverflow.com/questions/1041866/what-is-the-effect-of-extern-c-in-c)を参照してください。
 
-3. 以下の内容で`lib.def`[定義ファイル](native-definition-file.md)を作成します:
+3.  以下の内容で`lib.def` [定義ファイル](native-definition-file.md)を作成します。
 
    ```c
    headers = lib.h
    ```
 
-4. cinteropツールによって生成されたコードに、マクロやその他のC定義を含めることは役立つ場合があります。これにより、メソッド本体もコンパイルされ、バイナリに完全に含まれます。この機能により、Cコンパイラを必要とせずに実行可能な例を作成できます。
+4.  cinteropツールによって生成されるコードにマクロやその他のC定義を含めることは役立つ場合があります。これにより、メソッド本体もコンパイルされ、バイナリに完全に含まれます。この機能を使用すると、Cコンパイラを必要とせずに実行可能な例を作成できます。
 
-   そのためには、`lib.h`ファイルからのC関数の実装を、`---`セパレーターの後で新しい`interop.def`ファイルに追加します:
+   これを行うには、`lib.h`ファイルからのC関数の実装を、`---`区切り文字の後に新しい`interop.def`ファイルに追加します。
 
    ```c
    
@@ -91,13 +94,13 @@ Cライブラリを作成するには:
 
 ## Kotlin/Nativeプロジェクトを作成する
 
-> 詳細な最初のステップについては、[Kotlin/Nativeを始める](native-get-started.md#using-gradle)チュートリアルを参照してください。および新しいKotlin/Nativeプロジェクトを作成し、IntelliJ IDEAで開く方法に関する指示についても記載されています。
+> 詳細な最初のステップと新しいKotlin/Nativeプロジェクトを作成してIntelliJ IDEAで開く方法については、[Kotlin/Nativeを始める](native-get-started.md#using-gradle)チュートリアルを参照してください。
 >
 {style="tip"}
 
-プロジェクトファイルを作成するには:
+プロジェクトファイルを作成するには：
 
-1. プロジェクトフォルダー内に、以下の内容で`build.gradle(.kts)`Gradleビルドファイルを作成します:
+1.  プロジェクトフォルダに、以下の内容の`build.gradle(.kts)` Gradleビルドファイルを作成します。
 
     <tabs group="build-script">
     <tab title="Kotlin" group-key="kotlin">
@@ -112,11 +115,11 @@ Cライブラリを作成するには:
     }
     
     kotlin {
-        macosArm64("native") {    // Apple Silicon上のmacOS
-        // macosX64("native") {   // x86_64プラットフォーム上のmacOS
-        // linuxArm64("native") { // ARM64プラットフォーム上のLinux 
-        // linuxX64("native") {   // x86_64プラットフォーム上のLinux
-        // mingwX64("native") {   // Windows上
+        macosArm64("native") {    // macOS on Apple Silicon
+        // macosX64("native") {   // macOS on x86_64 platforms
+        // linuxArm64("native") { // Linux on ARM64 platforms 
+        // linuxX64("native") {   // Linux on x86_64 platforms
+        // mingwX64("native") {   // on Windows
             val main by compilations.getting
             val interop by main.cinterops.creating
         
@@ -146,9 +149,9 @@ Cライブラリを作成するには:
     
     kotlin {
         macosArm64("native") {    // Apple Silicon macOS
-        // macosX64("native") {   // x86_64プラットフォーム上のmacOS
-        // linuxArm64("native") { // ARM64プラットフォーム上のLinux
-        // linuxX64("native") {   // x86_64プラットフォーム上のLinux
+        // macosX64("native") {   // macOS on x86_64 platforms
+        // linuxArm64("native") { // Linux on ARM64 platforms
+        // linuxX64("native") {   // Linux on x86_64 platforms
         // mingwX64("native") {   // Windows
             compilations.main.cinterops {
                 interop 
@@ -169,14 +172,15 @@ Cライブラリを作成するには:
     </tab>
     </tabs>
 
-   このプロジェクトファイルは、C相互運用をビルドの追加ステップとして構成します。さまざまな構成方法を学ぶために、[Multiplatform Gradle DSLリファレンス](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-dsl-reference.html)を確認してください。
+   このプロジェクトファイルは、C相互運用をビルドステップとして追加で設定します。
+   設定のさまざまな方法については、[Multiplatform Gradle DSL リファレンス](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-dsl-reference.html)を参照してください。
 
-2. `interop.def`、`lib.h`、`lib.def`ファイルを`src/nativeInterop/cinterop`ディレクトリに移動します。
-3. `src/nativeMain/kotlin`ディレクトリを作成します。これは、Gradleの規約を使用するという推奨事項に従って、すべてのソースファイルを配置するべき場所です。
+2.  `interop.def`、`lib.h`、`lib.def`ファイルを`src/nativeInterop/cinterop`ディレクトリに移動します。
+3.  `src/nativeMain/kotlin`ディレクトリを作成します。Gradleの規約に従い、ここにすべてのソースファイルを配置します。
 
    デフォルトでは、Cからのすべてのシンボルは`interop`パッケージにインポートされます。
 
-4. `src/nativeMain/kotlin`内に、以下の内容で`hello.kt`スタブファイルを作成します:
+4.  `src/nativeMain/kotlin`に、以下の内容の`hello.kt`スタブファイルを作成します。
 
     ```kotlin
     import interop.*
@@ -192,13 +196,13 @@ Cライブラリを作成するには:
     }
     ```
 
-Cのプリミティブ型宣言がKotlin側からどのように見えるかを学ぶにつれて、後でコードを完成させます。
+Cのプリミティブ型宣言がKotlin側からどのように見えるかを確認した後で、コードを完成させます。
 
-## Cライブラリから生成されたKotlin APIを検査する
+## Cライブラリの生成されたKotlin APIを調査する
 
 Cのプリミティブ型がKotlin/Nativeにどのようにマッピングされるかを見て、それに応じてサンプルプロジェクトを更新しましょう。
 
-IntelliJ IDEAの[宣言に移動](https://www.jetbrains.com/help/rider/Navigation_and_Search__Go_to_Declaration.html)コマンド（<shortcut>Cmd + B</shortcut>/<shortcut>Ctrl + B</shortcut>）を使用して、以下の生成されたAPI（C関数用）に移動します:
+IntelliJ IDEAの[Go to declaration](https://www.jetbrains.com/help/rider/Navigation_and_Search__Go_to_Declaration.html)コマンド（<shortcut>Cmd + B</shortcut>/<shortcut>Ctrl + B</shortcut>）を使用して、C関数用に生成された以下のAPIに移動します。
 
 ```kotlin
 fun ints(c: kotlin.Byte, d: kotlin.Short, e: kotlin.Int, f: kotlin.Long)
@@ -206,7 +210,7 @@ fun uints(c: kotlin.UByte, d: kotlin.UShort, e: kotlin.UInt, f: kotlin.ULong)
 fun doubles(a: kotlin.Float, b: kotlin.Double)
 ```
 
-C型は直接マッピングされますが、`char`型は通常8ビットの符号付き値であるため、`kotlin.Byte`にマッピングされます。
+Cの型は直接マッピングされますが、`char`型は通常8ビットの符号付き値であるため`kotlin.Byte`にマッピングされます。
 
 | C                  | Kotlin        |
 |--------------------|---------------|
@@ -223,7 +227,7 @@ C型は直接マッピングされますが、`char`型は通常8ビットの符
 
 ## Kotlinコードを更新する
 
-Cの定義を見たので、Kotlinコードを更新できます。`hello.kt`ファイルの最終的なコードはこのようになります:
+Cの定義を確認したところで、Kotlinコードを更新できます。`hello.kt`ファイルの最終コードは次のようになります。
 
 ```kotlin
 import interop.*
@@ -239,7 +243,7 @@ fun main() {
 }
 ```
 
-すべてが期待通りに動作することを確認するために、[IDE](native-get-started.md#build-and-run-the-application)で`runDebugExecutableNative`Gradleタスクを実行するか、以下のコマンドを使用してコードを実行します:
+すべてが期待通りに動作することを確認するには、[IDEで](native-get-started.md#build-and-run-the-application)`runDebugExecutableNative` Gradleタスクを実行するか、以下のコマンドを使用してコードを実行します。
 
 ```bash
 ./gradlew runDebugExecutableNative
@@ -247,10 +251,10 @@ fun main() {
 
 ## 次のステップ
 
-シリーズの次のパートでは、構造体と共用体型がKotlinとCの間でどのようにマッピングされるかを学びます:
+シリーズの次のパートでは、構造体と共用体型がKotlinとCの間でどのようにマッピングされるかについて学びます。
 
 **[次のパートに進む](mapping-struct-union-types-from-c.md)**
 
-### 参照
+### 関連項目
 
-より高度なシナリオをカバーする[Cとの相互運用](native-c-interop.md)ドキュメントで詳細を学びましょう。
+より高度なシナリオを扱う[Cとの相互運用](native-c-interop.md)ドキュメントで詳細を学びましょう。

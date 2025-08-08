@@ -1,0 +1,193 @@
+# 嵌入
+
+`embeddings` 模块提供了用于生成和比较文本与代码嵌入的功能。嵌入是捕获语义信息的向量表示，从而实现高效的相似度比较。
+
+## 概述
+
+该模块由两个主要组件组成：
+
+1.  **embeddings-base**：嵌入的核心接口和数据结构。
+2.  **embeddings-llm**：使用 Ollama 实现本地嵌入生成。
+
+## 开始使用
+
+以下部分包含如何通过以下方式使用嵌入的基本示例：
+
+-   通过 Ollama 使用本地嵌入模型
+-   使用 OpenAI 嵌入模型
+
+### 本地嵌入
+
+要将嵌入功能与本地模型一起使用，您需要在系统上安装并运行 Ollama。有关安装和运行说明，请参考 [Ollama 官方 GitHub 版本库](https://github.com/ollama/ollama)。
+
+```kotlin
+fun main() {
+    // Create an OllamaClient instance
+    val client = OllamaClient()
+    // Create an embedder
+    val embedder = LLMEmbedder(client, OllamaEmbeddingModels.NOMIC_EMBED_TEXT)
+    // Create embeddings
+    val embedding = embedder.embed("This is the text to embed")
+    // Print embeddings to the output
+    println(embedding)
+}
+```
+
+要使用 Ollama 嵌入模型，请确保满足以下先决条件：
+
+-   安装并运行 [Ollama](https://ollama.com/download)
+-   使用以下命令将嵌入模型下载到您的本地机器：
+    ```bash
+    ollama pull <ollama-model-id>
+    ```
+    将 `<ollama-model-id>` 替换为特定模型的 Ollama 标识符。有关可用嵌入模型及其标识符的更多信息，请参见 [Ollama 模型概述](#ollama-models-overview)。
+
+### Ollama 模型概述
+
+下表提供了可用 Ollama 嵌入模型的概述。
+
+| 模型 ID           | Ollama ID                 | 参数   | 维度   | 上下文长度 | 性能                                                            | 权衡                                                             |
+| :---------------- | :------------------------ | :----- | :----- | :--------- | :-------------------------------------------------------------- | :--------------------------------------------------------------- |
+| NOMIC_EMBED_TEXT  | nomic-embed-text          | 137M   | 768    | 8192       | 高质量嵌入，适用于语义搜索和文本相似度任务                      | 在质量和效率之间取得平衡                                         |
+| ALL_MINILM        | all-minilm                | 33M    | 384    | 512        | 推理速度快，适用于通用文本嵌入，质量良好                        | 模型尺寸更小，上下文长度缩短，但效率极高                         |
+| MULTILINGUAL_E5   | zylonai/multilingual-e5-large | 300M   | 768    | 512        | 在 100 多种语言中表现出色                                       | 模型尺寸更大，但提供出色的多语言能力                             |
+| BGE_LARGE         | bge-large                 | 335M   | 1024   | 512        | 非常适用于英文文本检索和语义搜索                                | 模型尺寸更大，但提供高质量嵌入                                   |
+| MXBAI_EMBED_LARGE | mxbai-embed-large         | -      | -      | -          | 文本数据的高维嵌入                                              | 专为创建高维嵌入而设计                                           |
+
+有关这些模型的更多信息，请参见 Ollama 的 [Embedding Models](https://ollama.com/blog/embedding-models) 博客文章。
+
+### 选择模型
+
+以下是根据您的需求选择 Ollama 嵌入模型的一些一般建议：
+
+-   对于通用文本嵌入，请使用 `NOMIC_EMBED_TEXT`。
+-   对于多语言支持，请使用 `MULTILINGUAL_E5`。
+-   对于最高质量（以牺牲性能为代价），请使用 `BGE_LARGE`。
+-   对于最高效率（以牺牲部分质量为代价），请使用 `ALL_MINILM`。
+-   对于高维嵌入，请使用 `MXBAI_EMBED_LARGE`。
+
+## OpenAI 嵌入
+
+要使用 OpenAI 嵌入模型创建嵌入，请使用 `OpenAILLMClient` 实例的 `embed` 方法，如下例所示。
+
+```kotlin
+suspend fun openAIEmbed(text: String) {
+    // Get the OpenAI API token from the OPENAI_KEY environment variable
+    val token = System.getenv("OPENAI_KEY") ?: error("Environment variable OPENAI_KEY is not set")
+    // Create an OpenAILLMClient instance
+    val client = OpenAILLMClient(token)
+    // Create an embedder
+    val embedder = LLMEmbedder(client, OpenAIModels.Embeddings.TextEmbeddingAda3Small)
+    // Create embeddings
+    val embedding = embedder.embed(text)
+    // Print embeddings to the output
+    println(embedding)
+}
+```
+
+## 示例
+
+以下示例展示了如何使用嵌入来比较代码与文本或其他代码片段。
+
+### 代码到文本比较
+
+比较代码片段与自然语言描述，以查找语义匹配项：
+
+```kotlin
+suspend fun compareCodeToText(embedder: Embedder) { // Embedder type
+    // Code snippet
+    val code = """
+        fun factorial(n: Int): Int {
+            return if (n <= 1) 1 else n * factorial(n - 1)
+        }
+    """.trimIndent()
+
+    // Text descriptions
+    val description1 = "A recursive function that calculates the factorial of a number"
+    val description2 = "A function that sorts an array of integers"
+
+    // Generate embeddings
+    val codeEmbedding = embedder.embed(code)
+    val desc1Embedding = embedder.embed(description1)
+    val desc2Embedding = embedder.embed(description2)
+
+    // Calculate differences (lower value means more similar)
+    val diff1 = embedder.diff(codeEmbedding, desc1Embedding)
+    val diff2 = embedder.diff(codeEmbedding, desc2Embedding)
+
+    println("Difference between code and description 1: $diff1")
+    println("Difference between code and description 2: $diff2")
+
+    // The code should be more similar to description1 than description2
+    if (diff1 < diff2) {
+        println("The code is more similar to: '$description1'")
+    } else {
+        println("The code is more similar to: '$description2'")
+    }
+}
+```
+
+### 代码到代码比较
+
+比较代码片段以查找语义相似性，无论语法差异如何：
+
+```kotlin
+suspend fun compareCodeToCode(embedder: Embedder) { // Embedder type
+    // Two implementations of the same algorithm in different languages
+    val kotlinCode = """
+        fun fibonacci(n: Int): Int {
+            return if (n <= 1) n else fibonacci(n - 1) + fibonacci(n - 2)
+        }
+    """.trimIndent()
+
+    val pythonCode = """
+        def fibonacci(n):
+            if n <= 1:
+                return n
+            else:
+                return fibonacci(n-1) + fibonacci(n-2)
+    """.trimIndent()
+
+    val javaCode = """
+        public static int bubbleSort(int[] arr) {
+            int n = arr.length;
+            for (int i = 0; i < n-1; i++) {
+                for (int j = 0; j < n-i-1; j++) {
+                    if (arr[j] > arr[j+1]) {
+                        int temp = arr[j];
+                        arr[j] = arr[j+1];
+                        arr[j+1] = temp;
+                    }
+                }
+            }
+            return arr;
+        }
+    """.trimIndent()
+
+    // Generate embeddings
+    val kotlinEmbedding = embedder.embed(kotlinCode)
+    val pythonEmbedding = embedder.embed(pythonCode)
+    val javaEmbedding = embedder.embed(javaCode)
+
+    // Calculate differences
+    val diffKotlinPython = embedder.diff(kotlinEmbedding, pythonEmbedding)
+    val diffKotlinJava = embedder.diff(kotlinEmbedding, javaEmbedding)
+
+    println("Difference between Kotlin and Python implementations: $diffKotlinPython")
+    println("Difference between Kotlin and Java implementations: $diffKotlinJava")
+
+    // The Kotlin and Python implementations should be more similar
+    if (diffKotlinPython < diffKotlinJava) {
+        println("The Kotlin code is more similar to the Python code")
+    } else {
+        println("The Kotlin code is more similar to the Java code")
+    }
+}
+```
+
+## API 文档
+
+有关与嵌入相关的完整 API 参考，请参见以下模块的参考文档：
+
+-   [embeddings-base](https://api.koog.ai/embeddings/embeddings-base/ai.koog.embeddings.base/index.html)：提供核心接口和数据结构，用于表示和比较文本与代码嵌入。
+-   [embeddings-llm](https://api.koog.ai/embeddings/embeddings-llm/index.html)：包括用于处理本地嵌入模型的实现。

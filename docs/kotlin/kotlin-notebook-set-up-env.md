@@ -2,9 +2,9 @@
 
 <tldr>
    <p>这是 **Kotlin Notebook 入门** 教程的第一部分：</p>
-   <p><img src="icon-1.svg" width="20" alt="第一步"/> <strong>设置环境</strong><br/>
-      <img src="icon-2-todo.svg" width="20" alt="第二步"/> 创建 Kotlin Notebook<br/>
-      <img src="icon-3-todo.svg" width="20" alt="第三步"/> 向 Kotlin Notebook 添加依赖<br/>
+   <p><img src="icon-1.svg" width="20" alt="First step"/> <strong>设置环境</strong><br/>
+      <img src="icon-2-todo.svg" width="20" alt="Second step"/> 创建 Kotlin Notebook<br/>
+      <img src="icon-3-todo.svg" width="20" alt="Third step"/> 向 Kotlin Notebook 添加依赖项<br/>
   </p>
 </tldr>
 
@@ -16,17 +16,17 @@ Kotlin Notebook 依赖于 [Kotlin Notebook 插件](https://plugins.jetbrains.com
 
 要使用 Kotlin Notebook，请下载并安装最新版本的 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/index.html)。
 
-如果 Kotlin Notebook 功能不可用，请确保插件已启用：
+如果 Kotlin Notebook 的特性不可用，请确保插件已启用：
 
-1. 在 IntelliJ IDEA 中，选择 **IntelliJ IDEA | 设置 | 插件**。
-2. 在 **已安装** 选项卡中，找到 **Kotlin Notebook** 插件，并勾选插件名称旁边的复选框。
+1. 在 IntelliJ IDEA 中，选择 **IntelliJ IDEA | Settings | Plugins**。
+2. 在**已安装**标签页中，找到 **Kotlin Notebook** 插件，并选择插件名称旁的复选框。
 
    ![安装 Kotlin Notebook](kotlin-notebook-plugin.png){width=700}
 
-3. 点击 **OK** 以应用更改，如果出现提示，请重新启动 IDE。
+3. 点击 **OK** 应用更改，如果出现提示则重启你的 IDE。
 
 ## 下一步
 
-在本教程的下一部分中，你将学习如何创建一个 Kotlin Notebook。
+在教程的下一部分中，你将学习如何创建 Kotlin Notebook。
 
-**[进入下一章](kotlin-notebook-create.md)**
+**[继续下一章节](kotlin-notebook-create.md)**

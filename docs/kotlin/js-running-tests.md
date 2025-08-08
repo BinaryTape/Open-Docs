@@ -1,8 +1,8 @@
 [//]: # (title: 在 Kotlin/JS 中运行测试)
 
-Kotlin 多平台 Gradle 插件允许您通过各种测试运行器运行测试，这些测试运行器可以通过 Gradle 配置指定。
+Kotlin 多平台 Gradle 插件允许你通过多种测试运行器运行测试，这些运行器可以通过 Gradle 配置来指定。
 
-当您创建多平台项目时，可以通过在 `commonTest` 中使用单个依赖项，将测试依赖项添加到所有源集，包括 JavaScript 目标：
+当你创建一个多平台项目时，你可以在 `commonTest` 中使用一个依赖项，从而向所有源代码集（包括 JavaScript 目标平台）添加测试依赖项：
 
 <tabs group="build-script">
 <tab title="Kotlin" group-key="kotlin">
@@ -13,7 +13,7 @@ Kotlin 多平台 Gradle 插件允许您通过各种测试运行器运行测试�
 kotlin {
     sourceSets {
          commonTest.dependencies {
-            implementation(kotlin("test")) // 这使得测试注解和功能在 JS 中可用
+            implementation(kotlin("test")) // 这使得测试注解和功能性在 JS 中可用
         }
     }
 }
@@ -29,7 +29,7 @@ kotlin {
     sourceSets {
         commonTest {
             dependencies {
-                implementation kotlin("test") // 这使得测试注解和功能在 JS 中可用
+                implementation kotlin("test") // 这使得测试注解和功能性在 JS 中可用
             }
         }
     }
@@ -39,7 +39,7 @@ kotlin {
 </tab>
 </tabs>
 
-您可以通过调整 Gradle 构建脚本中 `testTask` 块中的可用设置来调整 Kotlin/JS 中测试的执行方式。例如，将 Karma 测试运行器与无头 Chrome 实例和 Firefox 实例一起使用如下所示：
+你可以通过调整 Gradle 构建脚本中 `testTask` 代码块的可用设置，来调整 Kotlin/JS 中测试的执行方式。例如，将 Karma 测试运行器与一个无头 Chrome 实例和一个 Firefox 实例一起使用，示例如下：
 
 ```kotlin
 kotlin {
@@ -56,11 +56,11 @@ kotlin {
 }
 ```
 
-有关可用功能的详细说明，请查阅 Kotlin/JS 参考文档中关于[配置测试任务](js-project-setup.md#test-task)的部分。
+关于可用功能性的详细说明，请查阅 Kotlin/JS 参考文档中 [配置测试任务](js-project-setup.md#test-task) 部分。
 
-请注意，默认情况下，插件不捆绑任何浏览器。这意味着您必须确保它们在目标系统上可用。
+请注意，默认情况下，插件不捆绑任何浏览器。这意味着你需要确保它们在目标系统上可用。
 
-为了检查测试是否正确执行，请添加文件 `src/jsTest/kotlin/AppTest.kt` 并填充以下内容：
+要检测测试是否正确执行，请添加文件 `src/jsTest/kotlin/AppTest.kt` 并填充以下内容：
 
 ```kotlin
 import kotlin.test.Test
@@ -79,24 +79,24 @@ class AppTest {
 }
 ```
 
-要在浏览器中运行测试，请通过 IntelliJ IDEA 执行 `jsBrowserTest` 任务，或者使用边槽图标（gutter icons）来执行所有或单个测试：
+要在浏览器中运行测试，可以通过 IntelliJ IDEA 执行 `jsBrowserTest` 任务，或者使用边槽图标来执行所有测试或单个测试：
 
-![Gradle browserTest 任务](browsertest-task.png){width=700}
+![Gradle browserTest task](browsertest-task.png){width=700}
 
-或者，如果您想通过命令行运行测试，请使用 Gradle wrapper：
+或者，如果你想通过命令行运行测试，请使用 Gradle wrapper：
 
 ```bash
 ./gradlew jsBrowserTest
 ```
 
-从 IntelliJ IDEA 运行测试后，**运行 (Run)** 工具窗口将显示测试结果。您可以点击失败的测试以查看其堆栈跟踪，并通过双击导航到相应的测试实现。
+从 IntelliJ IDEA 运行测试后，“运行”工具窗口将显示测试结果。你可以点击失败的测试来查看它们的堆栈跟踪，并通过双击导航到相应的测试实现。
 
-![IntelliJ IDEA 中的测试结果](test-stacktrace-ide.png){width=700}
+![Test results in IntelliJ IDEA](test-stacktrace-ide.png){width=700}
 
-每次测试运行后，无论您如何执行测试，都可以在 `build/reports/tests/jsBrowserTest/index.html` 中找到 Gradle 生成的格式正确的测试报告。在浏览器中打开此文件以查看测试结果的另一个概览：
+每次测试运行后，无论你如何执行测试，都可以在 `build/reports/tests/jsBrowserTest/index.html` 中找到一份格式正确的 Gradle 测试报告。在浏览器中打开此文件以查看测试结果的另一个概览：
 
-![Gradle 测试摘要](test-summary.png){width=700}
+![Gradle test summary](test-summary.png){width=700}
 
-如果您使用上面代码片段中所示的示例测试集，其中一个测试通过，另一个测试失败，这使得总共有 50% 的测试成功。要获取有关单个测试用例的更多信息，您可以通过提供的超链接进行导航：
+如果你使用的是上面代码片段中所示的示例测试集，一个测试通过，一个测试失败，这使得成功测试的总百分比为 50%。要获取关于单个测试用例的更多信息，你可以通过提供的超链接进行导航：
 
-![Gradle 摘要中失败测试的堆栈跟踪](failed-test.png){width=700}
+![Stacktrace of failed test in the Gradle summary](failed-test.png){width=700}

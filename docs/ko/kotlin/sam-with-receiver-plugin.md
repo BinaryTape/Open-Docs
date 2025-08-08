@@ -1,6 +1,6 @@
 [//]: # (title: SAM-with-receiver 컴파일러 플러그인)
 
-*sam-with-receiver* 컴파일러 플러그인은 어노테이션이 적용된 Java의 "단일 추상 메서드"(SAM) 인터페이스 메서드의 첫 번째 매개변수를 Kotlin에서 리시버(receiver)로 만듭니다. 이 변환은 SAM 인터페이스가 Kotlin 람다로 전달될 때만 작동하며, SAM 어댑터와 SAM 생성자 모두에 적용됩니다. (자세한 내용은 [SAM 변환 문서](java-interop.md#sam-conversions)를 참조하십시오).
+*sam-with-receiver* 컴파일러 플러그인은 어노테이션이 지정된 자바의 "단일 추상 메서드(SAM)" 인터페이스 메서드의 첫 번째 파라미터를 코틀린에서 리시버로 만듭니다. 이 변환은 SAM 인터페이스가 코틀린 람다로 전달될 때만 작동하며, 이는 SAM 어댑터와 SAM 생성자 모두에 해당합니다 ([SAM 변환 문서](java-interop.md#sam-conversions)에서 자세한 내용을 확인하세요).
 
 다음은 예시입니다:
 
@@ -27,7 +27,7 @@ fun test(context: TaskContext) {
 
 ## Gradle
 
-사용법은 [all-open](all-open-plugin.md) 및 [no-arg](no-arg-plugin.md) 플러그인과 동일하지만, sam-with-receiver는 내장된 프리셋이 없으므로 특별히 처리할 어노테이션 목록을 직접 지정해야 합니다.
+사용법은 [all-open](all-open-plugin.md) 및 [no-arg](no-arg-plugin.md)와 동일하지만, sam-with-receiver는 내장 프리셋을 제공하지 않으므로 특별 처리되는 어노테이션 목록을 직접 지정해야 합니다.
 
 <tabs group="build-script">
 <tab title="Kotlin" group-key="kotlin">
@@ -88,7 +88,7 @@ samWithReceiver {
 </plugin>
 ```
 
-## 명령줄 컴파일러
+## 커맨드 라인 컴파일러
 
 플러그인 JAR 파일을 컴파일러 플러그인 클래스패스에 추가하고 sam-with-receiver 어노테이션 목록을 지정합니다:
 

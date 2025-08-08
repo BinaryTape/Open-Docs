@@ -1,29 +1,28 @@
 [//]: # (title: 範圍與進程)
 
-在 Kotlin 中，範圍（Ranges）和進程（Progressions）定義了數值序列，支援範圍運算子、迭代、自訂步長值以及等差進程。
+Kotlin 中的範圍與進程定義了值的序列，支援範圍運算子、迭代、自訂步長值以及算術進程。
 
 ## 範圍 {id="range"}
 
-Kotlin 讓您可以使用來自 `kotlin.ranges` 封裝的 [`.rangeTo()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.ranges/range-to.html) 和 [`.rangeUntil()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.ranges/range-until.html) 函式輕鬆建立數值範圍。
+Kotlin 讓您能使用來自 `kotlin.ranges` 套件的 [`.rangeTo()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.ranges/range-to.html) 和 [`.rangeUntil()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.ranges/range-until.html) 函式輕鬆建立值的範圍。
 
-範圍表示一個具有明確起始和結束的有序數值集合。預設情況下，它在每個步驟中遞增 1。
-例如，`1..4` 代表數值 1、2、3 和 4。
+範圍表示一組有序的值，具有定義的起點和終點。預設情況下，它在每一步遞增 1。例如，`1..4` 代表數字 1、2、3 和 4。
 
 若要建立：
 
-*   閉合範圍 (closed-ended range)，請使用 `..` 運算子呼叫 `.rangeTo()` 函式。這包括起始值和結束值。
-*   開放範圍 (open-ended range)，請使用 `..<` 運算子呼叫 `.rangeUntil()` 函式。這包括起始值但不包括結束值。
+* 封閉式範圍，請呼叫帶有 `..` 運算子的 `.rangeTo()` 函式。這包含起始值和結束值。
+* 開放式範圍，請呼叫帶有 `..<` 運算子的 `.rangeUntil()` 函式。這包含起始值但不包含結束值。
 
 例如：
 
 ```kotlin
 fun main() {
 //sampleStart
-    // Closed-ended range: includes both 1 and 4
+    // 封閉式範圍：包含 1 和 4
     println(4 in 1..4)
     // true
     
-    // Open-ended range: includes 1, excludes 4
+    // 開放式範圍：包含 1，排除 4
     println(4 in 1..<4)
     // false
 //sampleEnd
@@ -43,7 +42,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-ranges-for-loop"}
 
-若要以相反順序迭代數值，請使用 [`downTo`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.ranges/down-to.html) 函式而非 `..`。
+若要以反向順序迭代數字，請使用 [`downTo`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.ranges/down-to.html) 函式而不是 `..`。
 
 ```kotlin
 fun main() {
@@ -55,7 +54,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-ranges-downto"}
 
-您也可以使用 [`step()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.ranges/step.html) 函式以自訂步長來迭代數值，而非預設的遞增 1：
+您也可以透過使用 [`step()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.ranges/step.html) 函式以自訂步長迭代數字，而不是預設的遞增 1：
 
 ```kotlin
 fun main() {
@@ -75,12 +74,9 @@ fun main() {
 
 ## 進程
 
-整數類型（例如 `Int`、`Long` 和 `Char`）的範圍可以被視為 [等差進程](https://en.wikipedia.org/wiki/Arithmetic_progression)。
-在 Kotlin 中，這些進程由特殊類型定義：[`IntProgression`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.ranges/-int-progression/index.html)、[`LongProgression`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.ranges/-long-progression/index.html) 和 [`CharProgression`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.ranges/-char-progression/index.html)。
+諸如 `Int`、`Long` 和 `Char` 等整數類型的範圍可以被視為 [算術進程](https://en.wikipedia.org/wiki/Arithmetic_progression)。在 Kotlin 中，這些進程由特殊類型定義：[`IntProgression`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.ranges/-int-progression/index.html)、[`LongProgression`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.ranges/-long-progression/index.html) 和 [`CharProgression`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.ranges/-char-progression/index.html)。
 
-進程有三個基本屬性：`first` 元素、`last` 元素和一個非零的 `step` 步長。
-第一個元素是 `first`，後續元素是前一個元素加上 `step` 步長。
-以正數步長迭代進程，等同於 Java/JavaScript 中的帶索引 `for` 迴圈。
+進程有三個基本屬性：`first` 元素、`last` 元素和非零的 `step`。第一個元素是 `first`，後續元素是前一個元素加上一個 `step`。以正步長迭代進程等同於 Java/JavaScript 中帶索引的 `for` 迴圈。
 
 ```java
 for (int i = first; i <= last; i += step) {
@@ -88,7 +84,7 @@ for (int i = first; i <= last; i += step) {
 }
 ```
 
-當您透過迭代範圍隱式建立進程時，此進程的 `first` 和 `last` 元素是該範圍的端點，而 `step` 步長為 1。
+當您透過迭代範圍隱式建立進程時，這個進程的 `first` 和 `last` 元素是該範圍的端點，且 `step` 為 1。
 
 ```kotlin
 fun main() {
@@ -100,7 +96,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-ranges-progressions"}
 
-若要定義自訂的進程步長，請在範圍上使用 `step` 函式。
+若要定義自訂進程步長，請在範圍上使用 `step` 函式。
 
 ```kotlin
 
@@ -113,24 +109,24 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-ranges-progressions-step"}
 
-進程的 `last` 元素如此計算：
-*   對於正數步長：不大於結束值且滿足 `(last - first) % step == 0` 的最大值。
-*   對於負數步長：不小於結束值且滿足 `(last - first) % step == 0` 的最小值。
+進程的 `last` 元素是這樣計算的：
+* 對於正步長：不大於結束值的最大值，使得 `(last - first) % step == 0`。
+* 對於負步長：不小於結束值的最小值，使得 `(last - first) % step == 0`。
 
-因此，`last` 元素不總是與指定的結束值相同。
+因此，`last` 元素不一定與指定的結束值相同。
 
 ```kotlin
 
 fun main() {
 //sampleStart
-    for (i in 1..9 step 3) print(i) // the last element is 7
+    for (i in 1..9 step 3) print(i) // `last` 元素為 7
     // 147
 //sampleEnd
 }
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-ranges-progressions-last"}
 
-進程實作了 `Iterable<N>`，其中 `N` 分別是 `Int`、`Long` 或 `Char`，因此您可以在各種[集合函式](collection-operations.md)中使用它們，例如 `map`、`filter` 等。
+進程實作 `Iterable<N>`，其中 `N` 分別是 `Int`、`Long` 或 `Char`，因此您可以在各種 [集合函式](collection-operations.md) 中使用它們，例如 `map`、`filter` 等。
 
 ```kotlin
 

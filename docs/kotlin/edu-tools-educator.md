@@ -1,7 +1,7 @@
-[//]: # (title: 使用 JetBrains Academy 插件教学 Kotlin)
+[//]: # (title: 使用 JetBrains Academy plugin 教学 Kotlin)
 
-通过 [JetBrains Academy 插件](https://plugins.jetbrains.com/plugin/10081-jetbrains-academy)，你可以在 [Android Studio](https://developer.android.com/studio) 和 [IntelliJ IDEA](https://www.jetbrains.com/idea/) 中通过代码练习任务教授 Kotlin。
+你可以使用 [JetBrains Academy plugin](https://plugins.jetbrains.com/plugin/10081-jetbrains-academy) 在 [Android Studio](https://developer.android.com/studio) 和 [IntelliJ IDEA](https://www.jetbrains.com/idea/) 中，通过代码练习任务来教学 Kotlin。
 
-查看 [教育者入门指南](https://plugins.jetbrains.com/plugin/10081-jetbrains-academy/docs/educator-start-guide.html?section=Kotlin)，了解如何创建包含一系列编程任务和集成测试的简单 Kotlin 课程。
+关于如何创建包含一组编程任务和集成测试的简单 Kotlin 课程，请参阅 [Educator Start Guide](https://plugins.jetbrains.com/plugin/10081-jetbrains-academy/docs/educator-start-guide.html?section=Kotlin)。
 
-如果你想使用 JetBrains Academy 插件学习 Kotlin，请阅读 [使用 JetBrains Academy 插件学习 Kotlin](edu-tools-learner.md)。
+如果你想使用 JetBrains Academy plugin 来学习 Kotlin，请参阅 [Learning Kotlin with JetBrains Academy plugin](edu-tools-learner.md)。

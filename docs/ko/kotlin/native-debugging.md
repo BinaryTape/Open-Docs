@@ -6,13 +6,13 @@
 - 타입 정보 검사
 - 변수 검사
 
-> DWARF 2 명세를 지원한다는 것은 디버거 도구가 Kotlin을 C89로 인식한다는 것을 의미합니다. 이는 DWARF 5 명세 이전에는 명세에 Kotlin 언어 타입에 대한 식별자가 없기 때문입니다.
+>DWARF 2 명세를 지원한다는 것은 디버거 도구가 Kotlin을 C89로 인식한다는 것을 의미합니다. 이는 DWARF 5 명세 이전에는 명세에 Kotlin 언어 타입에 대한 식별자가 없기 때문입니다.
 >
 {style="note"}
 
-## Kotlin/Native 컴파일러로 디버그 정보 포함 바이너리 생성하기
+## Kotlin/Native 컴파일러로 디버그 정보가 포함된 바이너리 생성
 
-Kotlin/Native 컴파일러로 바이너리를 생성하려면 명령줄에서 `-g` 옵션을 사용하세요.
+Kotlin/Native 컴파일러로 바이너리를 생성하려면 명령줄에서 ``-g`` 옵션을 사용하세요.
 
 ```bash
 0:b-debugger-fixes:minamoto@unit-703(0)# cat - > hello.kt
@@ -50,7 +50,7 @@ Process 28473 stopped
 
 ## 중단점
 
-최신 디버거는 중단점을 설정하는 여러 방법을 제공합니다. 각 도구별 상세 내용은 아래를 참조하세요.
+최신 디버거는 중단점을 설정하는 여러 방법을 제공합니다. 아래에서 도구별 분류를 확인하세요:
 
 ### lldb
 
@@ -76,7 +76,7 @@ _``-n``은 선택 사항이며, 이 플래그는 기본적으로 적용됩니다
     Breakpoint 2: address = 0x00000001000012e4
     ```
 
-- 정규식으로, 람다 등 생성된 아티팩트(이름에 `#` 기호가 사용된 경우)를 디버깅하는 데 유용할 수 있습니다.
+- 정규식으로, 람다 등 생성된 아티팩트를 디버깅할 때 유용할 수 있습니다 (이름에 ``#`` 기호가 사용된 경우).
 
     ```bash
     3: regex = 'main\(', locations = 1
@@ -93,7 +93,7 @@ _``-n``은 선택 사항이며, 이 플래그는 기본적으로 적용됩니다
     struct ktype:kotlin.Unit &kfun:main(kotlin.Array<kotlin.String>);
     ```
 
-- 이름으로 __사용 불가__. `:`는 위치별 중단점의 구분자이기 때문입니다.
+- 이름으로 __사용 불가__, ``:``이 위치 기반 중단점의 구분자이기 때문에
 
     ```bash
     (gdb) b kfun:main(kotlin.Array<kotlin.String>)
@@ -119,12 +119,12 @@ _``-n``은 선택 사항이며, 이 플래그는 기본적으로 적용됩니다
 
 ## 단계 실행
 
-함수 단계 실행은 C/C++ 프로그램과 거의 동일하게 작동합니다.
+단계 실행 기능은 대부분 C/C++ 프로그램과 동일하게 작동합니다.
 
 ## 변수 검사
 
-`var` 변수에 대한 변수 검사는 원시 타입(primitive type)의 경우 별도 설정 없이 작동합니다.
-비원시 타입의 경우 `konan_lldb.py`에 lldb용 사용자 지정 pretty printer가 있습니다:
+`var` 변수에 대한 변수 검사는 기본 타입에 대해 즉시 작동합니다.
+비기본 타입의 경우, `konan_lldb.py`에 lldb를 위한 사용자 지정 프리티 프린터가 있습니다:
 
 ```bash
 λ cat main.kt | nl
@@ -171,7 +171,7 @@ Process 4985 launched: './program.kexe' (x86_64)
 (lldb)
 ```
 
-객체 변수(`var`)의 표현을 얻는 것은 내장 런타임 함수 `Konan_DebugPrint`를 사용해서도 가능합니다(이 접근 방식은 gdb에서도 명령 구문 모듈을 사용하여 작동합니다).
+객체 변수(`var`)의 표현을 얻는 것은 내장 런타임 함수 `Konan_DebugPrint`를 사용해서도 가능합니다 (이 접근 방식은 GDB에서도 명령 구문 모듈을 사용하여 작동합니다):
 
 ```bash
 0:b-debugger-fixes:minamoto@unit-703(0)# cat ../debugger-plugin/1.kt | nl -p
@@ -209,9 +209,8 @@ Process 80496 launched: './program.kexe' (x86_64)
 (lldb) expression -- (int32_t)Konan_DebugPrint(a_variable)
 (a_variable) one is 1(int32_t) $0 = 0
 (lldb)
-
 ```
 
 ## 알려진 문제
 
-- Python 바인딩의 성능.
+- Python 바인딩 성능.

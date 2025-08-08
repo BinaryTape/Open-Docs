@@ -1,34 +1,34 @@
 [//]: # (title: Kotlin/JSのリフレクション)
 
-Kotlin/JSは、Kotlinの[リフレクションAPI](reflection.md)に対する限定的なサポートを提供します。サポートされているAPIの機能は以下の通りです。
+Kotlin/JSは、Kotlinの[リフレクションAPI](reflection.md)に対する限定的なサポートを提供します。このAPIでサポートされているのは、以下の部分のみです。
 
 * [クラス参照](reflection.md#class-references) (`::class`)
-* [`KType`と`typeof()`](#ktype-and-typeof)
-* [`KClass`と`createInstance()`](#kclass-and-createinstance)
+* `KType`と`typeof()`
+* `KClass`と`createInstance()`
 
 ## クラス参照
 
 `::class`構文は、インスタンスのクラス、または指定された型に対応するクラスへの参照を返します。
-Kotlin/JSでは、`::class`式の値は、以下のメンバーのみをサポートする簡略化された[KClass](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/-k-class/)実装です。
-* [simpleName](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/-k-class/simple-name.html)と[isInstance()](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/-k-class/is-instance.html)メンバー。
-* [cast()](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/cast.html)と[safeCast()](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/safe-cast.html)拡張関数。
+Kotlin/JSでは、`::class`式の値は、以下の機能のみをサポートする簡略化された[KClass](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/-k-class/)実装です。
+* [simpleName](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/-k-class/simple-name.html)および[isInstance()](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/-k-class/is-instance.html)メンバー。
+* [cast()](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/cast.html)および[safeCast()](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/safe-cast.html)拡張関数。
 
 それに加えて、[KClass.js](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.js/js.html)を使用して、クラスに対応する[JsClass](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.js/-js-class/index.html)インスタンスにアクセスできます。
-`JsClass`インスタンスそれ自体は、コンストラクタ関数への参照です。
-これは、コンストラクタへの参照を期待するJS関数と連携するために使用できます。
+`JsClass`インスタンス自体は、コンストラクター関数への参照です。
+これは、コンストラクターへの参照を期待するJavaScript関数と連携するために使用できます。
 
-## KTypeとtypeof()
+## `KType`と`typeof()`
 
-[`typeof()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/type-of.html)関数は、指定された型に対して[`KType`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/-k-type/)のインスタンスを構築します。
+[`typeof()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/type-of.html)関数は、指定された型に対する[`KType`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/-k-type/)のインスタンスを構築します。
 `KType` APIは、Java固有の部分を除いて、Kotlin/JSで完全にサポートされています。
 
-## KClassとcreateInstance()
+## `KClass`と`createInstance()`
 
-[KClass](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/-k-class/)インターフェースの[`createInstance()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect.full/create-instance.html)関数は、指定されたクラスの新しいインスタンスを作成します。これは、Kotlinクラスのランタイム参照を取得するのに役立ちます。
+[KClass](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/-k-class/)インターフェースの[`createInstance()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect.full/create-instance.html)関数は、指定されたクラスの新しいインスタンスを作成します。これは、Kotlinクラスへの実行時参照を取得するのに役立ちます。
 
 ## 例
 
-以下は、Kotlin/JSにおけるリフレクションの使用例です。
+以下は、Kotlin/JSでのリフレクションの使用例です。
 
 ```kotlin
 open class Shape
@@ -51,3 +51,4 @@ fun main() {
 
     accessReifiedTypeArg<Rectangle>() // Accesses the type via typeOf(). Prints "Rectangle"
 }
+```

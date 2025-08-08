@@ -1,7 +1,7 @@
 import { execa } from "execa";
 import fs from "fs-extra";
 import { glob } from "glob";
-import { translateFiles } from "./translate.mjs";
+import { translateFiles, translateLocaleFiles } from "./translate.mjs";
 import { REPOS } from "./docs-repo-config.mjs";
 
 const Logger = {
@@ -135,11 +135,7 @@ async function translate(context) {
       `Translating ${filesToTranslate} files for ${repoConfig.name}...`
     );
 
-    const translatedPaths = await translateFiles(
-      repoConfig.name,
-      repoConfig.path,
-      filesToTranslate
-    );
+    const translatedPaths = await translateFiles(repoConfig, filesToTranslate);
     translatedPaths.forEach((p) => context.gitAddPaths.add(p));
 
     await repoConfig.strategy.postTranslate(context, repoConfig);
@@ -147,6 +143,19 @@ async function translate(context) {
     await fs.outputFile(repoConfig.lastCheckFile, task.newSha);
     context.gitAddPaths.add(repoConfig.lastCheckFile);
   }
+}
+
+// =================================================================
+// STAGE 3.1: TRANSLATE - Translate sidebar
+// =================================================================
+async function translateSidebar(context) {
+  Logger.step("STAGE 3.1: Translating sidebar...");
+  let localeFiles = await files.find("docs/.vitepress/locales", ["*.json"]);
+  localeFiles = localeFiles.filter((f) => !f.endsWith("en.json"));
+  context.gitAddPaths.add("docs/.vitepress/locales/en.json");
+
+  const translatedPaths = await translateLocaleFiles(localeFiles);
+  translatedPaths.forEach((p) => context.gitAddPaths.add(p));
 }
 
 // =================================================================
@@ -158,6 +167,11 @@ async function commit(context) {
     Logger.info("No file changes to commit.");
     return;
   }
+
+  const sidebarFiles = await files.find("docs/.vitepress/sidebar", ["*.json"]);
+  sidebarFiles.forEach((f) =>
+    context.gitAddPaths.add(`docs/.vitepress/sidebar/${f}`)
+  );
 
   const pathsToAdd = [...context.gitAddPaths];
   Logger.dim("Adding the following paths to git:");
@@ -202,6 +216,7 @@ async function main() {
     await sync(context);
     await detect(context);
     await translate(context);
+    await translateSidebar(context);
     await commit(context);
 
     Logger.info("Workflow completed successfully.");
@@ -219,7 +234,7 @@ async function main() {
     process.env.GIT_AUTHOR_EMAIL ||
     "github-actions[bot]@users.noreply.github.com";
   // Uncomment the next line to simulate a specific branch name for testing
-  // process.env.GITHUB_REF_NAME = "0.3";
+  // process.env.GITHUB_REF_NAME = "docs-update-branch";
   console.log("Starting documentation pipeline script...");
   if (!process.env.GOOGLE_API_KEY) {
     console.error("GOOGLE_API_KEY environment variable is not set.");

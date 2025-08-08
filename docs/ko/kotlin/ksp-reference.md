@@ -1,8 +1,8 @@
-[//]: # (title: Java 어노테이션 처리를 KSP로 매핑하기 위한 참조)
+[//]: # (title: Java 어노테이션 프로세싱에서 KSP 참조로)
 
 ## 프로그램 요소
 
-| **Java** | **KSP의 해당 기능** | **참고** |
+| **Java** | **KSP의 상응하는 기능** | **참고** |
 | -------- | --------------------------- | --------- |
 | `AnnotationMirror` | `KSAnnotation` | |
 | `AnnotationValue` | `KSValueArguments` | |
@@ -17,27 +17,27 @@
 
 ## 타입
 
-KSP는 명시적인 타입 분석을 요구하므로, Java의 일부 기능은 `KSType`과 분석 전 해당 요소들로만 수행될 수 있습니다.
+KSP는 명시적인 타입 해석(type resolution)을 요구하므로, Java의 일부 기능은 `KSType` 및 해석 전의 상응하는 요소들에 의해서만 수행될 수 있습니다.
 
-| **Java** | **KSP의 해당 기능** | **참고** |
+| **Java** | **KSP의 상응하는 기능** | **참고** |
 | -------- | --------------------------- | --------- |
 | `ArrayType` | `KSBuiltIns.arrayType` | |
 | `DeclaredType` | `KSType` / `KSClassifierReference` | |
 | `ErrorType` | `KSType.isError` | |
 | `ExecutableType` | `KSType` / `KSCallableReference` | |
 | `IntersectionType` | `KSType` / `KSTypeParameter` | |
-| `NoType` | `KSType.isError` | KSP에서 해당 없음 |
-| `NullType` | | KSP에서 해당 없음 |
-| `PrimitiveType` | `KSBuiltIns` | Java의 primitive type과 정확히 동일하지 않음 |
+| `NoType` | `KSType.isError` | KSP에서는 해당 없음 |
+| `NullType` | | KSP에서는 해당 없음 |
+| `PrimitiveType` | `KSBuiltIns` | Java의 primitive 타입과 정확히 같지는 않습니다. |
 | `ReferenceType` | `KSTypeReference` | |
 | `TypeMirror` | `KSType` | |
 | `TypeVariable` | `KSTypeParameter` | |
-| `UnionType` | N/A | Kotlin은 catch 블록당 하나의 타입만 가집니다. `UnionType`은 Java 어노테이션 프로세서에서도 관찰할 수 없습니다. |
+| `UnionType` | N/A | Kotlin은 catch 블록당 하나의 타입만 가집니다. `UnionType`은 Java 어노테이션 프로세서로도 관찰할 수 없습니다. |
 | `WildcardType` | `KSType` / `KSTypeArgument` | |
 
 ## 기타
 
-| **Java** | **KSP의 해당 기능** | **참고** |
+| **Java** | **KSP의 상응하는 기능** | **참고** |
 | -------- | --------------------------- | --------- |
 | `Name` | `KSName` | |
 | `ElementKind` | `ClassKind` / `FunctionKind` | |
@@ -47,70 +47,70 @@ KSP는 명시적인 타입 분석을 요구하므로, Java의 일부 기능은 `
 | `ElementVisitor` | `KSVisitor` | |
 | `AnnotatedConstruct` | `KSAnnotated` | |
 | `TypeVisitor` | | |
-| `TypeKind` | `KSBuiltIns` | 일부는 빌트인에서 찾을 수 있으며, 그렇지 않은 경우 `DeclaredType`에 대해서는 `KSClassDeclaration`을 확인하세요. |
+| `TypeKind` | `KSBuiltIns` | 일부는 빌트인(built-in)에서 찾을 수 있으며, 그렇지 않으면 `DeclaredType`에 대해 `KSClassDeclaration`을 확인하십시오. |
 | `ElementFilter` | `Collection.filterIsInstance` | |
 | `ElementKindVisitor` | `KSVisitor` | |
 | `ElementScanner` | `KSTopDownVisitor` | |
-| `SimpleAnnotationValueVisitor` | | KSP에서 필요 없음 |
+| `SimpleAnnotationValueVisitor` | | KSP에서는 필요하지 않습니다. |
 | `SimpleElementVisitor` | `KSVisitor` | |
 | `SimpleTypeVisitor` | | |
 | `TypeKindVisitor` | | |
-| `Types` | `Resolver` / `utils` | 일부 `utils`는 심볼 인터페이스에도 통합되어 있습니다. |
+| `Types` | `Resolver` / `utils` | 일부 유틸리티(utils)는 심볼 인터페이스에 통합되어 있습니다. |
 | `Elements` | `Resolver` / `utils` | |
 
-## 세부 사항
+## 상세 내용
 
-Java 어노테이션 처리 API의 기능을 KSP로 어떻게 수행할 수 있는지 알아보세요.
+Java 어노테이션 프로세싱 API의 기능들이 KSP에 의해 어떻게 수행될 수 있는지 확인하십시오.
 
 ### AnnotationMirror
 
-| **Java** | **KSP 대응** |
+| **Java** | **KSP 상응 항목** |
 | -------- | ------------------ |
 | `getAnnotationType` | `ksAnnotation.annotationType` |
 | `getElementValues` | `ksAnnotation.arguments` |
 
 ### AnnotationValue
 
-| **Java** | **KSP 대응** |
+| **Java** | **KSP 상응 항목** |
 | -------- | ------------------ |
 | `getValue` | `ksValueArgument.value` |
 
 ### Element
 
-| **Java** | **KSP 대응** |
+| **Java** | **KSP 상응 항목** |
 | -------- | ------------------ |
-| `asType` | `ksClassDeclaration.asType(...)`는 `KSClassDeclaration`에서만 사용할 수 있습니다. 타입 인수를 제공해야 합니다. |
+| `asType` | `ksClassDeclaration.asType(...)`는 `KSClassDeclaration`에만 사용 가능합니다. 타입 인자(type arguments)를 제공해야 합니다. |
 | `getAnnotation` | 구현 예정 |
 | `getAnnotationMirrors` | `ksDeclaration.annotations` |
 | `getEnclosedElements` | `ksDeclarationContainer.declarations` |
 | `getEnclosingElements` | `ksDeclaration.parentDeclaration` |
-| `getKind` | 타입 확인 후 `ClassKind` 또는 `FunctionKind`에 따라 캐스팅 |
+| `getKind` | `ClassKind` 또는 `FunctionKind`에 따라 타입 검사 및 캐스팅(casting)을 수행합니다. |
 | `getModifiers` | `ksDeclaration.modifiers` |
 | `getSimpleName` | `ksDeclaration.simpleName` |
 
 ### ExecutableElement
 
-| **Java** | **KSP 대응** |
+| **Java** | **KSP 상응 항목** |
 | -------- | ------------------ |
 | `getDefaultValue` | 구현 예정 |
 | `getParameters` | `ksFunctionDeclaration.parameters` |
 | `getReceiverType` | `ksFunctionDeclaration.parentDeclaration` |
 | `getReturnType` | `ksFunctionDeclaration.returnType` |
 | `getSimpleName` | `ksFunctionDeclaration.simpleName` |
-| `getThrownTypes` | Kotlin에서 필요 없음 |
+| `getThrownTypes` | Kotlin에서는 필요하지 않습니다. |
 | `getTypeParameters` | `ksFunctionDeclaration.typeParameters` |
-| `isDefault` | 상위 선언이 인터페이스인지 확인 |
+| `isDefault` | 부모 선언(parent declaration)이 인터페이스인지 확인합니다. |
 | `isVarArgs` | `ksFunctionDeclaration.parameters.any { it.isVarArg }` |
 
 ### Parameterizable
 
-| **Java** | **KSP 대응** |
+| **Java** | **KSP 상응 항목** |
 | -------- | ------------------ |
 | `getTypeParameters` | `ksFunctionDeclaration.typeParameters` |
 
 ### QualifiedNameable
 
-| **Java** | **KSP 대응** |
+| **Java** | **KSP 상응 항목** |
 | -------- | ------------------ |
 | `getQualifiedName` | `ksDeclaration.qualifiedName` |
 
@@ -119,7 +119,7 @@ Java 어노테이션 처리 API의 기능을 KSP로 어떻게 수행할 수 있�
 <table>
     <tr>
         <td><b>Java</b></td>
-        <td><b>KSP 대응</b></td>
+        <td><b>KSP 상응 항목</b></td>
     </tr>
     <tr>
         <td><code>getEnclosedElements</code></td>
@@ -134,7 +134,7 @@ Java 어노테이션 처리 API의 기능을 KSP로 어떻게 수행할 수 있�
 <td>
 
 ```kotlin
-// 분석 없이도 가능해야 함
+// 해석(resolution) 없이도 수행할 수 있어야 합니다.
 ksClassDeclaration.superTypes
     .map { it.resolve() }
     .filter { (it?.declaration as? KSClassDeclaration)?.classKind == ClassKind.INTERFACE }
@@ -144,7 +144,7 @@ ksClassDeclaration.superTypes
     </tr>
     <tr>
         <td><code>getNestingKind</code></td>
-        <td>`KSClassDeclaration.parentDeclaration`와 `inner` 한정자를 확인하세요.</td>
+        <td><code>KSClassDeclaration.parentDeclaration</code> 및 <code>inner</code> 변경자(modifier)를 확인합니다.</td>
     </tr>
     <tr>
         <td><code>getQualifiedName</code></td>
@@ -159,7 +159,7 @@ ksClassDeclaration.superTypes
 <td>
 
 ```kotlin
-// 분석 없이도 가능해야 함
+// 해석(resolution) 없이도 수행할 수 있어야 합니다.
 ksClassDeclaration.superTypes
     .map { it.resolve() }
     .filter { (it?.declaration as? KSClassDeclaration)?.classKind == ClassKind.CLASS }
@@ -175,7 +175,7 @@ ksClassDeclaration.superTypes
 
 ### TypeParameterElement
 
-| **Java** | **KSP 대응** |
+| **Java** | **KSP 상응 항목** |
 | -------- | ------------------ |
 | `getBounds` | `ksTypeParameter.bounds` |
 | `getEnclosingElement` | `ksTypeParameter.parentDeclaration` |
@@ -183,7 +183,7 @@ ksClassDeclaration.superTypes
 
 ### VariableElement
 
-| **Java** | **KSP 대응** |
+| **Java** | **KSP 상응 항목** |
 | -------- | ------------------ |
 | `getConstantValue` | 구현 예정 |
 | `getEnclosingElement` | `ksValueParameter.parentDeclaration` |
@@ -191,13 +191,13 @@ ksClassDeclaration.superTypes
 
 ### ArrayType
 
-| **Java** | **KSP 대응** |
+| **Java** | **KSP 상응 항목** |
 | -------- | ------------------ |
 | `getComponentType` | `ksType.arguments.first()` |
 
 ### DeclaredType
 
-| **Java** | **KSP 대응** |
+| **Java** | **KSP 상응 항목** |
 | -------- | ------------------ |
 | `asElement` | `ksType.declaration` |
 | `getEnclosingType` | `ksType.declaration.parentDeclaration` |
@@ -205,36 +205,36 @@ ksClassDeclaration.superTypes
 
 ### ExecutableType
 
-> 함수를 위한 `KSType`은 `FunctionN<R, T1, T2, ..., TN>` 계열로 표현되는 시그니처일 뿐입니다.
+> 함수에 대한 `KSType`은 `FunctionN<R, T1, T2, ..., TN>` 계열로 표현되는 시그니처(signature)일 뿐입니다.
 >
 {style="note"}
 
-| **Java** | **KSP 대응** |
+| **Java** | **KSP 상응 항목** |
 | -------- | ------------------ |
 | `getParameterTypes` | `ksType.declaration.typeParameters`, `ksFunctionDeclaration.parameters.map { it.type }` |
 | `getReceiverType` | `ksFunctionDeclaration.parentDeclaration.asType(...)` |
 | `getReturnType` | `ksType.declaration.typeParameters.last()` |
-| `getThrownTypes` | Kotlin에서 필요 없음 |
+| `getThrownTypes` | Kotlin에서는 필요하지 않습니다. |
 | `getTypeVariables` | `ksFunctionDeclaration.typeParameters` |
 
 ### IntersectionType
 
-| **Java** | **KSP 대응** |
+| **Java** | **KSP 상응 항목** |
 | -------- | ------------------ |
 | `getBounds` | `ksTypeParameter.bounds` |
 
 ### TypeMirror
 
-| **Java** | **KSP 대응** |
+| **Java** | **KSP 상응 항목** |
 | -------- | ------------------ |
-| `getKind` | 원시 타입, `Unit` 타입에 대해서는 `KSBuiltIns`의 타입들과 비교하고, 그렇지 않은 경우 선언된 타입들과 비교합니다. |
+| `getKind` | primitive 타입 및 `Unit` 타입에 대해서는 `KSBuiltIns`의 타입과 비교하고, 그렇지 않으면 선언된 타입(declared types)을 확인합니다. |
 
 ### TypeVariable
 
-| **Java** | **KSP 대응** |
+| **Java** | **KSP 상응 항목** |
 | -------- | ------------------ |
 | `asElement` | `ksType.declaration` |
-| `getLowerBound` | 결정 예정. 캡처가 제공되고 명시적인 바운드 검사가 필요한 경우에만 필요합니다. |
+| `getLowerBound` | 미정. 캡처(capture)가 제공되고 명시적인 바운드(bound) 검사가 필요한 경우에만 필요합니다. |
 | `getUpperBound` | `ksTypeParameter.bounds` |
 
 ### WildcardType
@@ -242,7 +242,7 @@ ksClassDeclaration.superTypes
 <table>
     <tr>
         <td><b>Java</b></td>
-        <td><b>KSP 대응</b></td>
+        <td><b>KSP 상응 항목</b></td>
     </tr>
     <tr>
         <td><code>getExtendsBound</code></td>
@@ -271,7 +271,7 @@ if (ksTypeArgument.variance == Variance.CONTRAVARIANT) ksTypeArgument.type else 
 <table>
     <tr>
         <td><b>Java</b></td>
-        <td><b>KSP 대응</b></td>
+        <td><b>KSP 상응 항목</b></td>
     </tr>
     <tr>
         <td><code>getAllAnnotationMirrors</code></td>
@@ -279,15 +279,15 @@ if (ksTypeArgument.variance == Variance.CONTRAVARIANT) ksTypeArgument.type else 
     </tr>
     <tr>
         <td><code>getAllMembers</code></td>
-        <td><code>getAllFunctions</code>, <code>getAllProperties</code>는 구현 예정</td>
+        <td><code>getAllFunctions</code>, <code>getAllProperties</code>는 구현 예정입니다.</td>
     </tr>
     <tr>
         <td><code>getBinaryName</code></td>
-        <td>결정 예정, <a href="https://docs.oracle.com/javase/specs/jls/se13/html/jls-13.html#jls-13.1">Java Specification</a>을 참조하세요.</td>
+        <td>미정, <a href="https://docs.oracle.com/javase/specs/jls/se13/html/jls-13.html#jls-13.1">Java Specification</a>을 참조하십시오.</td>
     </tr>
     <tr>
         <td><code>getConstantExpression</code></td>
-        <td>상수 값은 있지만 표현식은 없습니다.</td>
+        <td>상수 값(constant value)은 있지만 표현식(expression)은 없습니다.</td>
     </tr>
     <tr>
         <td><code>getDocComment</code></td>
@@ -303,11 +303,11 @@ if (ksTypeArgument.variance == Variance.CONTRAVARIANT) ksTypeArgument.type else 
     </tr>
     <tr>
         <td><code>getPackageElement</code></td>
-        <td>패키지는 지원되지 않지만, 패키지 정보는 가져올 수 있습니다. KSP에서는 패키지에 대한 작업이 불가능합니다.</td>
+        <td>패키지는 지원되지 않지만, 패키지 정보를 검색할 수는 있습니다. KSP에서는 패키지에 대한 작업이 불가능합니다.</td>
     </tr>
     <tr>
         <td><code>getPackageOf</code></td>
-        <td>패키지 지원 안 됨</td>
+        <td>패키지는 지원되지 않습니다.</td>
     </tr>
     <tr>
         <td><code>getTypeElement</code></td>
@@ -335,30 +335,30 @@ KsDeclaration.annotations.any {
     </tr>
     <tr>
         <td><code>printElements</code></td>
-        <td>KSP는 대부분의 클래스에 기본적인 <code>toString()</code> 구현을 제공합니다.</td>
+        <td>KSP는 대부분의 클래스에 기본 <code>toString()</code> 구현을 가지고 있습니다.</td>
     </tr>
 </table>
 
 ### Types
 {id="type-operations"}
 
-| **Java** | **KSP 대응** |
+| **Java** | **KSP 상응 항목** |
 | -------- | ------------------ |
 | `asElement` | `ksType.declaration` |
 | `asMemberOf` | `resolver.asMemberOf` |
-| `boxedClass` | 필요 없음 |
-| `capture` | 결정 예정 |
+| `boxedClass` | 필요하지 않습니다. |
+| `capture` | 미정 |
 | `contains` | `KSType.isAssignableFrom` |
 | `directSuperTypes` | `(ksType.declaration as KSClassDeclaration).superTypes` |
 | `erasure` | `ksType.starProjection()` |
 | `getArrayType` | `ksBuiltIns.arrayType.replace(...)` |
 | `getDeclaredType` | `ksClassDeclaration.asType` |
 | `getNoType` | `ksBuiltIns.nothingType` / `null` |
-| `getNullType` | 컨텍스트에 따라 `KSType.markNullable`이 유용할 수 있습니다. |
-| `getPrimitiveType` | 필요 없음, `KSBuiltins`를 확인하세요. |
-| `getWildcardType` | `KSTypeArgument`가 예상되는 곳에 `Variance`를 사용하세요. |
+| `getNullType` | 컨텍스트(context)에 따라 `KSType.markNullable`이 유용할 수 있습니다. |
+| `getPrimitiveType` | 필요하지 않습니다. `KSBuiltins`를 확인하십시오. |
+| `getWildcardType` | `KSTypeArgument`를 예상하는 곳에서는 `Variance`를 사용하십시오. |
 | `isAssignable` | `ksType.isAssignableFrom` |
 | `isSameType` | `ksType.equals` |
 | `isSubsignature` | `functionTypeA == functionTypeB` / `functionTypeA == functionTypeB.starProjection()` |
 | `isSubtype` | `ksType.isAssignableFrom` |
-| `unboxedType` | 필요 없음 |
+| `unboxedType` | 필요하지 않습니다. |

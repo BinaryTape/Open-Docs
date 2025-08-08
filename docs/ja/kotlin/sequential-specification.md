@@ -1,29 +1,28 @@
-[//]: # (title: シーケンシャル仕様)
+[//]: # (title: 逐次仕様)
 
-アルゴリズムが正しいシーケンシャルな動作を提供することを確認するには、テスト対象のデータ構造の簡潔なシーケンシャルな実装を記述することで、その_シーケンシャル仕様_を定義できます。
+アルゴリズムが正しい逐次的な動作を提供することを確実にするには、テスト対象のデータ構造を素直な逐次実装で記述することにより、その_逐次仕様_を定義できます。
 
-> この機能により、別々のシーケンシャルテストと並行テストを2つ書く代わりに、1つのテストで済ませることができます。
+> この機能により、2つの別々の逐次テストと並行テストの代わりに、単一のテストを作成することもできます。
 >
 {style="tip"}
 
-検証のためにアルゴリズムのシーケンシャル仕様を提供するには：
+アルゴリズムの検証のための逐次仕様を提供するには：
 
-1.  すべてのテストメソッドのシーケンシャルバージョンを実装します。
-2.  シーケンシャル実装を持つクラスを`sequentialSpecification()`オプションに渡します。
+1.  すべてのテストメソッドの逐次バージョンを実装します。
+2.  逐次実装を持つクラスを `sequentialSpecification()` オプションに渡します。
 
    ```kotlin
    StressOptions().sequentialSpecification(SequentialQueue::class)
    ```
 
-例えば、以下はJava標準ライブラリの`j.u.c.ConcurrentLinkedQueue`の正しさをチェックするテストです。
+たとえば、Java標準ライブラリの `j.u.c.ConcurrentLinkedQueue` の正しさをチェックするテストは次のとおりです。
 
 ```kotlin
-import org.jetbrains.kotlinx.lincheck.*
-import org.jetbrains.kotlinx.lincheck.annotations.*
-import org.jetbrains.kotlinx.lincheck.strategy.stress.*
-import org.junit.*
 import java.util.*
 import java.util.concurrent.*
+import org.jetbrains.lincheck.*
+import org.jetbrains.lincheck.datastructures.*
+import org.junit.*
 
 class ConcurrentLinkedQueueTest {
     private val s = ConcurrentLinkedQueue<Int>()
@@ -48,6 +47,6 @@ class SequentialQueue {
 }
 ```
 
-> [例の全コード](https://github.com/JetBrains/lincheck/blob/master/src/jvm/test/org/jetbrains/kotlinx/lincheck_test/guide/ConcurrentLinkedQueueTest.kt)を入手する。
+> [例の完全なコード](https://github.com/JetBrains/lincheck/blob/master/src/jvm/test-lincheck-integration/org/jetbrains/lincheck_test/guide/ConcurrentLinkedQueueTest.kt)を取得します。
 >
 {style="note"}

@@ -1,30 +1,28 @@
-[//]: # (title: Kotlin 메타데이터 JVM 라이브러리)
+[//]: # (title: Kotlin Metadata JVM 라이브러리)
 
 <primary-label ref="advanced"/>
 
-[`kotlin-metadata-jvm`](https://github.com/JetBrains/kotlin/tree/master/libraries/kotlinx-metadata/jvm) 라이브러리는 JVM용으로 컴파일된 Kotlin 클래스의 메타데이터를 읽고, 수정하고, 생성하는 도구를 제공합니다.
-`.class` 파일 내의 [`@Metadata`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-metadata/) 어노테이션에 저장된 이 메타데이터는
-[`kotlin-reflect`](reflection.md)와 같은 라이브러리 및 도구에서 프로퍼티, 함수, 클래스 등 Kotlin 관련 구성 요소를 런타임에 검사하는 데 사용됩니다.
+[`kotlin-metadata-jvm`](https://github.com/JetBrains/kotlin/tree/master/libraries/kotlinx-metadata/jvm) 라이브러리는 JVM용으로 컴파일된 Kotlin 클래스의 메타데이터를 읽고, 수정하고, 생성하는 도구를 제공합니다. `.class` 파일 내의 [`@Metadata`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-metadata/) 어노테이션에 저장된 이 메타데이터는 [`kotlin-reflect`](reflection.md)와 같은 라이브러리 및 도구에서 런타임에 프로퍼티, 함수, 클래스와 같은 Kotlin 특정 구문(constructs)을 검사하는 데 사용됩니다.
 
-> `kotlin-reflect` 라이브러리는 런타임에 Kotlin 관련 클래스 세부 정보를 가져오기 위해 메타데이터에 의존합니다.
-> 메타데이터와 실제 `.class` 파일 간에 불일치가 발생하면 리플렉션을 사용할 때 올바르지 않은 동작이 발생할 수 있습니다.
+> `kotlin-reflect` 라이브러리는 런타임에 Kotlin 특정 클래스 세부 정보를 검색하기 위해 메타데이터에 의존합니다.
+> 메타데이터와 실제 `.class` 파일 간의 불일치는 리플렉션 사용 시 잘못된 동작을 유발할 수 있습니다.
 > 
 {style="warning"}
 
-Kotlin Metadata JVM 라이브러리를 사용하여 가시성(visibility) 또는 모달리티(modality)와 같은 다양한 선언 속성(declaration attributes)을 검사하거나, 메타데이터를 생성하여 `.class` 파일에 내장할 수도 있습니다.
+Kotlin Metadata JVM 라이브러리를 사용하여 가시성(visibility) 또는 모달리티(modality)와 같은 다양한 선언 속성을 검사하거나, 메타데이터를 생성하고 `.class` 파일에 임베드할 수도 있습니다.
 
-## 프로젝트에 라이브러리 추가하기
+## 프로젝트에 라이브러리 추가
 
-프로젝트에 Kotlin Metadata JVM 라이브러리를 포함하려면 빌드 도구에 따라 해당 의존성 구성을 추가하세요.
+프로젝트에 Kotlin Metadata JVM 라이브러리를 포함하려면 빌드 도구에 따라 해당 종속성 구성을 추가하세요.
 
 > Kotlin Metadata JVM 라이브러리는 Kotlin 컴파일러 및 표준 라이브러리와 동일한 버전 관리를 따릅니다.
-> 사용하는 버전이 프로젝트의 Kotlin 버전과 일치하는지 확인하세요.
+> 사용하려는 버전이 프로젝트의 Kotlin 버전과 일치하는지 확인하세요.
 > 
 {style="note"}
 
 ### Gradle
 
-`build.gradle(.kts)` 파일에 다음 의존성을 추가하세요.
+다음 종속성을 `build.gradle(.kts)` 파일에 추가하세요:
 
 <tabs group="build-tool">
 <tab title="Kotlin" group-key="kotlin">
@@ -58,7 +56,7 @@ dependencies {
 
 ### Maven
 
-`pom.xml` 파일에 다음 의존성을 추가하세요.
+다음 종속성을 `pom.xml` 파일에 추가하세요.
 
 ```xml
 <project>
@@ -75,11 +73,11 @@ dependencies {
 
 ## 메타데이터 읽기 및 파싱
 
-`kotlin-metadata-jvm` 라이브러리는 컴파일된 Kotlin `.class` 파일에서 클래스 이름, 가시성, 시그니처 등 구조화된 정보를 추출합니다.
-컴파일된 Kotlin 선언을 분석해야 하는 프로젝트에서 이 라이브러리를 사용할 수 있습니다.
-예를 들어, [Binary Compatibility Validator (BCV)](https://github.com/Kotlin/binary-compatibility-validator)는 공개 API 선언을 출력하기 위해 `kotlin-metadata-jvm`에 의존합니다.
+`kotlin-metadata-jvm` 라이브러리는 컴파일된 Kotlin `.class` 파일에서 클래스 이름, 가시성(visibility), 시그니처와 같은 구조화된 정보를 추출합니다.
+컴파일된 Kotlin 선언을 분석해야 하는 프로젝트에서 사용할 수 있습니다.
+예를 들어, [바이너리 호환성 검증 도구(BCV)](https://github.com/Kotlin/binary-compatibility-validator)는 `kotlin-metadata-jvm`에 의존하여 공개 API 선언을 출력합니다.
 
-리플렉션을 사용하여 컴파일된 클래스에서 `@Metadata` 어노테이션을 가져옴으로써 Kotlin 클래스 메타데이터 탐색을 시작할 수 있습니다.
+리플렉션을 사용하여 컴파일된 클래스에서 `@Metadata` 어노테이션을 검색하여 Kotlin 클래스 메타데이터 탐색을 시작할 수 있습니다:
 
 ```kotlin
 fun main() {
@@ -98,24 +96,24 @@ fun main() {
 }
 ```
 
-`@Metadata` 어노테이션을 가져온 후, [`KotlinClassMetadata`](https://kotlinlang.org/api/kotlinx-metadata-jvm/kotlin-metadata-jvm/kotlin.metadata.jvm/-kotlin-class-metadata/) API의 [`readLenient()`](https://kotlinlang.org/api/kotlinx-metadata-jvm/kotlin-metadata-jvm/kotlin.metadata.jvm/-kotlin-class-metadata/-companion/read-lenient.html) 또는 [`readStrict()`](https://kotlinlang.org/api/kotlinx-metadata-jvm/kotlin-metadata-jvm/kotlin.metadata.jvm/-kotlin-class-metadata/-companion/read-strict.html) 함수 중 하나를 사용하여 파싱하세요.
-이 함수들은 다양한 호환성 요구 사항을 처리하면서 클래스 또는 파일에 대한 상세 정보를 추출합니다.
+`@Metadata` 어노테이션을 검색한 후, [`KotlinClassMetadata`](https://kotlinlang.org/api/kotlinx-metadata-jvm/kotlin-metadata-jvm/kotlin.metadata.jvm/-kotlin-class-metadata/) API의 [`readLenient()`](https://kotlinlang.org/api/kotlinx-metadata-jvm/kotlin-metadata-jvm/kotlin.metadata.jvm/-kotlin-class-metadata/-companion/read-lenient.html) 또는 [`readStrict()`](https://kotlinlang.org/api/kotlinx-metadata-jvm/kotlin-metadata-jvm/kotlin.metadata.jvm/-kotlin-class-metadata/-companion/read-strict.html) 함수를 사용하여 파싱하세요.
+이 함수들은 서로 다른 호환성 요구 사항을 처리하면서 클래스 또는 파일에 대한 자세한 정보를 추출합니다:
 
-*   `readLenient()`: 이 함수는 최신 Kotlin 컴파일러 버전으로 생성된 메타데이터를 포함하여 메타데이터를 읽는 데 사용합니다. 이 함수는 메타데이터 수정 또는 쓰기를 지원하지 않습니다.
-*   `readStrict()`: 이 함수는 메타데이터를 수정하고 써야 할 때 사용합니다. `readStrict()` 함수는 프로젝트에서 완전히 지원되는 Kotlin 컴파일러 버전으로 생성된 메타데이터에서만 작동합니다.
+*   `readLenient()`: 최신 Kotlin 컴파일러 버전에서 생성된 메타데이터를 포함하여 메타데이터를 읽는 데 이 함수를 사용하세요. 이 함수는 메타데이터를 수정하거나 쓰는 것을 지원하지 않습니다.
+*   `readStrict()`: 메타데이터를 수정하고 써야 할 때 이 함수를 사용하세요. `readStrict()` 함수는 프로젝트에서 완전히 지원되는 Kotlin 컴파일러 버전에서 생성된 메타데이터에서만 작동합니다.
 
-    > `readStrict()` 함수는 프로젝트에서 사용되는 최신 Kotlin 버전에 해당하는 [`JvmMetadataVersion.LATEST_STABLE_SUPPORTED`](https://kotlinlang.org/api/kotlinx-metadata-jvm/kotlin-metadata-jvm/kotlin.metadata.jvm/-jvm-metadata-version/-companion/-l-a-t-e-s-t_-s-t-a-b-l-e_-s-u-p-p-o-r-t-e-d.html)보다 한 버전 더 높은 메타데이터 형식을 지원합니다.
-    > 예를 들어, 프로젝트가 `kotlin-metadata-jvm:2.1.0`에 의존하는 경우, `readStrict()`는 Kotlin `2.2.x`까지의 메타데이터를 처리할 수 있습니다. 그렇지 않으면 알 수 없는 형식의 잘못된 처리를 방지하기 위해 오류를 발생시킵니다.
+    > `readStrict()` 함수는 프로젝트에서 사용되는 최신 Kotlin 버전에 해당하는 [`JvmMetadataVersion.LATEST_STABLE_SUPPORTED`](https://kotlinlang.org/api/kotlinx-metadata-jvm/kotlin-metadata-jvm/kotlin.metadata.jvm/-jvm-metadata-version/-companion/-l-a-t-e-s-t_-s-t-a-b-l-e_-s-u-p-p-o-r-t-e-d.html)를 넘어 한 버전까지의 메타데이터 형식을 지원합니다.
+    > 예를 들어, 프로젝트가 `kotlin-metadata-jvm:2.1.0`에 의존하는 경우, `readStrict()`는 Kotlin `2.2.x`까지의 메타데이터를 처리할 수 있습니다. 그렇지 않으면 알 수 없는 형식을 잘못 처리하는 것을 방지하기 위해 오류를 발생시킵니다.
     > 
-    > 자세한 내용은 [Kotlin Metadata GitHub 저장소](https://github.com/JetBrains/kotlin/blob/master/libraries/kotlinx-metadata/jvm/ReadMe.md#detailed-explanation)를 참조하세요. 
+    > 자세한 내용은 [Kotlin Metadata GitHub 리포지토리](https://github.com/JetBrains/kotlin/blob/master/libraries/kotlinx-metadata/jvm/ReadMe.md#detailed-explanation)를 참조하세요. 
     >
     {style="note"}
 
 메타데이터를 파싱할 때 `KotlinClassMetadata` 인스턴스는 클래스 또는 파일 수준 선언에 대한 구조화된 정보를 제공합니다.
-클래스의 경우, [`kmClass`](https://kotlinlang.org/api/kotlinx-metadata-jvm/kotlin-metadata-jvm/kotlin.metadata.jvm/-kotlin-class-metadata/-class/km-class.html) 프로퍼티를 사용하여 클래스 이름, 함수, 프로퍼티, 가시성(visibility)과 같은 속성 등 상세 클래스 수준 메타데이터를 분석합니다.
-파일 수준 선언의 경우, 메타데이터는 `kmPackage` 프로퍼티로 표현되며, 이는 Kotlin 컴파일러에 의해 생성된 파일 파사드(file facades)의 최상위 함수 및 프로퍼티를 포함합니다.
+클래스의 경우, [`kmClass`](https://kotlinlang.org/api/kotlinx-metadata-jvm/kotlin-metadata-jvm/kotlin.metadata.jvm/-kotlin-class-metadata/-class/km-class.html) 프로퍼티를 사용하여 클래스 이름, 함수, 프로퍼티, 가시성과 같은 속성 등 자세한 클래스 수준 메타데이터를 분석하는 데 사용하세요.
+파일 수준 선언의 경우, 메타데이터는 `kmPackage` 프로퍼티에 의해 표현되며, 여기에는 Kotlin 컴파일러가 생성한 파일 파사드(file facades)의 최상위 함수 및 프로퍼티가 포함됩니다.
 
-다음 코드 예제는 `readLenient()`를 사용하여 메타데이터를 파싱하고, `kmClass`로 클래스 수준 세부 정보를 분석하고, `kmPackage`로 파일 수준 선언을 가져오는 방법을 보여줍니다.
+다음 코드 예시는 `readLenient()`를 사용하여 메타데이터를 파싱하고, `kmClass`로 클래스 수준 세부 정보를 분석하며, `kmPackage`로 파일 수준 선언을 검색하는 방법을 보여줍니다:
 
 ```kotlin
 // Imports the necessary libraries
@@ -173,19 +171,88 @@ fun main() {
 }
 ```
 
+### 메타데이터에 어노테이션 작성 및 읽기
+<primary-label ref="experimental-general"/>
+
+Kotlin 메타데이터에 어노테이션을 저장하고 `kotlin-metadata-jvm` 라이브러리를 사용하여 접근할 수 있습니다.
+이렇게 하면 시그니처로 어노테이션을 일치시킬 필요가 없어지므로 오버로드된 선언에 대한 접근을 더 신뢰할 수 있게 만듭니다.
+
+컴파일된 파일의 메타데이터에서 어노테이션을 사용할 수 있도록 하려면 다음 컴파일러 옵션을 추가하세요:
+
+```kotlin
+-Xannotations-in-metadata
+```
+
+또는 Gradle 빌드 파일의 `compilerOptions {}` 블록에 추가하세요:
+
+```kotlin
+// build.gradle.kts
+kotlin {
+    compilerOptions {
+        freeCompilerArgs.add("-Xannotations-in-metadata")
+    }
+}
+```
+
+이 옵션을 활성화하면 Kotlin 컴파일러는 JVM 바이트코드와 함께 메타데이터에 어노테이션을 작성하여 `kotlin-metadata-jvm` 라이브러리가 이에 접근할 수 있게 만듭니다.
+
+이 라이브러리는 어노테이션에 접근하기 위한 다음 API를 제공합니다:
+
+*   `KmClass.annotations`
+*   `KmFunction.annotations`
+*   `KmProperty.annotations`
+*   `KmConstructor.annotations`
+*   `KmPropertyAccessorAttributes.annotations`
+*   `KmValueParameter.annotations`
+*   `KmFunction.extensionReceiverAnnotations`
+*   `KmProperty.extensionReceiverAnnotations`
+*   `KmProperty.backingFieldAnnotations`
+*   `KmProperty.delegateFieldAnnotations`
+*   `KmEnumEntry.annotations`
+
+이 API는 [실험적](components-stability.md#stability-levels-explained)입니다.
+옵트인하려면 `@OptIn(ExperimentalAnnotationsInMetadata::class)` 어노테이션을 사용하세요.
+
+다음은 Kotlin 메타데이터에서 어노테이션을 읽는 예시입니다:
+
+```kotlin
+@file:OptIn(ExperimentalAnnotationsInMetadata::class)
+
+import kotlin.metadata.ExperimentalAnnotationsInMetadata
+import kotlin.metadata.jvm.KotlinClassMetadata
+
+annotation class Label(val value: String)
+
+@Label("Message class")
+class Message
+
+fun main() {
+    val metadata = Message::class.java.getAnnotation(Metadata::class.java)
+    val kmClass = (KotlinClassMetadata.readStrict(metadata) as KotlinClassMetadata.Class).kmClass
+    println(kmClass.annotations)
+    // [@Label(value = StringValue("Message class"))]
+}
+```
+
+> 프로젝트에서 `kotlin-metadata-jvm` 라이브러리를 사용하는 경우, 어노테이션을 지원하도록 코드를 업데이트하고 테스트하는 것을 권장합니다.
+> 그렇지 않으면 향후 Kotlin 버전에서 메타데이터의 어노테이션이 [기본적으로 활성화](https://youtrack.jetbrains.com/issue/KT-75736)될 때 프로젝트에서 유효하지 않거나 불완전한 메타데이터를 생성할 수 있습니다.
+>
+> 문제가 발생하면 [이슈 트래커](https://youtrack.jetbrains.com/issue/KT-31857)에 보고해주세요.
+>
+{style="warning"}
+
 ### 바이트코드에서 메타데이터 추출
 
-리플렉션을 사용하여 메타데이터를 가져올 수 있지만, [ASM](https://asm.ow2.io/)과 같은 바이트코드 조작 프레임워크를 사용하여 바이트코드에서 직접 추출하는 다른 접근 방식도 있습니다.
+리플렉션을 사용하여 메타데이터를 검색할 수 있지만, 또 다른 접근 방식은 [ASM](https://asm.ow2.io/)과 같은 바이트코드 조작 프레임워크를 사용하여 바이트코드에서 이를 추출하는 것입니다.
 
-다음 단계를 따르면 이를 수행할 수 있습니다.
+다음 단계를 따르면 됩니다:
 
-1.  ASM 라이브러리의 `ClassReader` 클래스를 사용하여 `.class` 파일의 바이트코드를 읽습니다.
-    이 클래스는 컴파일된 파일을 처리하고 클래스 구조를 나타내는 `ClassNode` 객체를 채웁니다.
-2.  `ClassNode` 객체에서 `@Metadata`를 추출합니다. 아래 예제에서는 이를 위해 사용자 정의 확장 함수 `findAnnotation()`을 사용합니다.
+1.  ASM 라이브러리의 `ClassReader` 클래스를 사용하여 `.class` 파일의 바이트코드를 읽습니다. 이 클래스는 컴파일된 파일을 처리하고 클래스 구조를 나타내는 `ClassNode` 객체를 채웁니다.
+2.  `ClassNode` 객체에서 `@Metadata`를 추출합니다. 아래 예시는 이를 위해 사용자 지정 확장 함수 `findAnnotation()`을 사용합니다.
 3.  `KotlinClassMetadata.readLenient()` 함수를 사용하여 추출된 메타데이터를 파싱합니다.
-4.  `kmClass` 및 `kmPackage` 프로퍼티를 사용하여 파싱된 메타데이터를 검사합니다.
+4.  `kmClass` 및 `kmPackage` 프로퍼티로 파싱된 메타데이터를 검사합니다.
 
-다음은 예제입니다.
+예시입니다:
 
 ```kotlin
 // Imports the necessary libraries
@@ -270,16 +337,16 @@ fun main() {
 [ProGuard](https://github.com/Guardsquare/proguard)와 같은 도구를 사용하여 바이트코드를 축소하고 최적화할 때, 일부 선언이 `.class` 파일에서 제거될 수 있습니다.
 ProGuard는 수정된 바이트코드와 일관성을 유지하기 위해 메타데이터를 자동으로 업데이트합니다.
 
-하지만 유사한 방식으로 Kotlin 바이트코드를 수정하는 사용자 정의 도구를 개발하는 경우, 메타데이터도 그에 따라 조정되도록 해야 합니다.
+하지만 유사한 방식으로 Kotlin 바이트코드를 수정하는 사용자 지정 도구를 개발하는 경우, 메타데이터가 그에 따라 조정되는지 확인해야 합니다.
 `kotlin-metadata-jvm` 라이브러리를 사용하면 선언을 업데이트하고, 속성을 조정하고, 특정 요소를 제거할 수 있습니다.
 
-예를 들어, Java 클래스 파일에서 private 메서드를 삭제하는 JVM 도구를 사용하는 경우, 일관성을 유지하기 위해 Kotlin 메타데이터에서도 private 함수를 삭제해야 합니다.
+예를 들어, Java 클래스 파일에서 private 메서드를 삭제하는 JVM 도구를 사용하는 경우, 일관성을 유지하려면 Kotlin 메타데이터에서 private 함수도 삭제해야 합니다:
 
 1.  `readStrict()` 함수를 사용하여 `@Metadata` 어노테이션을 구조화된 `KotlinClassMetadata` 객체로 로드하여 메타데이터를 파싱합니다.
-2.  `kmClass` 또는 다른 메타데이터 구조 내에서 함수를 필터링하거나 속성을 변경하는 등 메타데이터를 조정하여 수정을 적용합니다.
-3.  [`write()`](https://kotlinlang.org/api/kotlinx-metadata-jvm/kotlin-metadata-jvm/kotlin.metadata.jvm/-kotlin-class-metadata/write.html) 함수를 사용하여 수정된 메타데이터를 새 `@Metadata` 어노테이션으로 인코딩합니다.
+2.  `kmClass` 또는 다른 메타데이터 구조 내에서 직접 함수를 필터링하거나 속성을 변경하는 등 메타데이터를 조정하여 수정 사항을 적용합니다.
+3.  [`write()`](https://kotlinlang.org/api/kotlinx-metadata-jvm/kotlin-metadata-jvm/kotlin.metadata.jvm/-kotlin-class-metadata/write.html) 함수를 사용하여 수정된 메타데이터를 새로운 `@Metadata` 어노테이션으로 인코딩합니다.
 
-다음은 클래스의 메타데이터에서 private 함수를 제거하는 예시입니다.
+다음은 클래스의 메타데이터에서 private 함수가 제거되는 예시입니다:
 
 ```kotlin
 // Imports the necessary libraries
@@ -329,27 +396,27 @@ fun main() {
 }
 ```
 
-> `readStrict()`와 `write()`를 별도로 호출하는 대신, [`transform()`](https://kotlinlang.org/api/kotlinx-metadata-jvm/kotlin-metadata-jvm/kotlin.metadata.jvm/-kotlin-class-metadata/-companion/transform.html) 함수를 사용할 수 있습니다.
+> `readStrict()`와 `write()`를 별도로 호출하는 대신 [`transform()`](https://kotlinlang.org/api/kotlinx-metadata-jvm/kotlin-metadata-jvm/kotlin.metadata.jvm/-kotlin-class-metadata/-companion/transform.html) 함수를 사용할 수 있습니다.
 > 이 함수는 메타데이터를 파싱하고, 람다를 통해 변환을 적용하며, 수정된 메타데이터를 자동으로 작성합니다.
 > 
 {style="tip"}
 
 ## 메타데이터를 처음부터 생성
 
-Kotlin Metadata JVM 라이브러리를 사용하여 Kotlin 클래스 파일에 대한 메타데이터를 처음부터 생성하려면:
+Kotlin Metadata JVM 라이브러리를 사용하여 Kotlin 클래스 파일을 처음부터 생성하려면:
 
-1.  생성하려는 메타데이터의 유형에 따라 `KmClass`, `KmPackage`, 또는 `KmLambda` 인스턴스를 생성합니다.
-2.  인스턴스에 클래스 이름, 가시성, 생성자, 함수 시그니처와 같은 속성을 추가합니다.
+1.  생성하려는 메타데이터 유형에 따라 `KmClass`, `KmPackage` 또는 `KmLambda` 인스턴스를 생성합니다.
+2.  클래스 이름, 가시성, 생성자, 함수 시그니처와 같은 속성을 인스턴스에 추가합니다.
 
-    > 속성을 설정하는 동안 `apply()` [스코프 함수](scope-functions.md)를 사용하여 상용구 코드를 줄일 수 있습니다.
+    > `apply()` [스코프 함수](scope-functions.md)를 사용하여 프로퍼티를 설정하는 동안 상용구 코드를 줄일 수 있습니다.
     >
     {style="tip"}
 
 3.  인스턴스를 사용하여 `@Metadata` 어노테이션을 생성할 수 있는 `KotlinClassMetadata` 객체를 생성합니다.
-4.  `JvmMetadataVersion.LATEST_STABLE_SUPPORTED`와 같은 메타데이터 버전을 지정하고, 플래그를 설정합니다(플래그 없음은 `0`으로, 또는 필요한 경우 기존 파일에서 플래그를 복사합니다).
-5.  [ASM](https://asm.ow2.io/)의 `ClassWriter` 클래스를 사용하여 `kind`, `data1`, `data2`와 같은 메타데이터 필드를 `.class` 파일에 내장합니다.
+4.  `JvmMetadataVersion.LATEST_STABLE_SUPPORTED`와 같은 메타데이터 버전을 지정하고, 플래그를 설정합니다(플래그 없음의 경우 `0` 또는 필요한 경우 기존 파일에서 플래그 복사).
+5.  [ASM](https://asm.ow2.io/)의 `ClassWriter` 클래스를 사용하여 `kind`, `data1`, `data2`와 같은 메타데이터 필드를 `.class` 파일에 임베드합니다.
 
-다음 예시는 간단한 Kotlin 클래스에 대한 메타데이터를 생성하는 방법을 보여줍니다.
+다음 예시는 간단한 Kotlin 클래스의 메타데이터를 생성하는 방법을 보여줍니다:
 
 ```kotlin
 // Imports the necessary libraries
@@ -407,12 +474,12 @@ fun main() {
 }
 ```
 
-> 더 자세한 예시는 [Kotlin Metadata JVM GitHub 저장소](https://github.com/JetBrains/kotlin/blob/50331fb1496378c82c862db04af597e4198ec645/libraries/kotlinx-metadata/jvm/test/kotlin/metadata/test/MetadataSmokeTest.kt#L43)를 참조하세요.
+> 더 자세한 예시는 [Kotlin Metadata JVM GitHub 리포지토리](https://github.com/JetBrains/kotlin/blob/50331fb1496378c82c862db04af597e4198ec645/libraries/kotlinx-metadata/jvm/test/kotlin/metadata/test/MetadataSmokeTest.kt#L43)를 참조하세요.
 > 
 {style="tip"}
 
 ## 다음 단계
 
-*   [Kotlin Metadata JVM 라이브러리 API 레퍼런스를 참조하세요](https://kotlinlang.org/api/kotlinx-metadata-jvm/).
-*   [Kotlin Metadata JVM GitHub 저장소를 확인하세요](https://github.com/JetBrains/kotlin/tree/master/libraries/kotlinx-metadata/jvm).
-*   [모듈 메타데이터 및 `.kotlin_module` 파일 작업에 대해 알아보세요](https://github.com/JetBrains/kotlin/blob/master/libraries/kotlinx-metadata/jvm/ReadMe.md#module-metadata).
+*   [Kotlin Metadata JVM 라이브러리 API 참조](https://kotlinlang.org/api/kotlinx-metadata-jvm/)를 참조하세요.
+*   [Kotlin Metadata JVM GitHub 리포지토리](https://github.com/JetBrains/kotlin/tree/master/libraries/kotlinx-metadata/jvm)를 확인하세요.
+*   [모듈 메타데이터 및 `.kotlin_module` 파일 작업](https://github.com/JetBrains/kotlin/blob/master/libraries/kotlinx-metadata/jvm/ReadMe.md#module-metadata)에 대해 알아보세요.

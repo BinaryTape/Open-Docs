@@ -1,64 +1,60 @@
-[//]: # (title: Cとの相互運用)
+[//]: # (title: C言語との相互運用)
 
-> Cライブラリのインポートは[実験的機能](components-stability.md#stability-levels-explained)です。
-> cinteropツールによってCライブラリから生成されるすべてのKotlin宣言には、
-> `@ExperimentalForeignApi` アノテーションが付与されます。
+> Cライブラリのインポートは[ベータ版](native-c-interop-stability.md)です。cinteropツールによってCライブラリから生成されるすべてのKotlin宣言には、`@ExperimentalForeignApi`アノテーションを付ける必要があります。
 >
-> Kotlin/Nativeに同梱されているネイティブプラットフォームライブラリ（Foundation、UIKit、POSIXなど）は、
-> 一部のAPIでのみオプトインが必要です。
->
-{style="warning"}
-
-このドキュメントでは、KotlinとCの相互運用の一般的な側面について説明します。Kotlin/Nativeにはcinteropツールが付属しており、これを使用すると、外部のCライブラリと連携するために必要なすべてを迅速に生成できます。
-
-このツールはCヘッダーを解析し、Cの型、関数、定数をKotlinに直接マッピングします。生成されたスタブはIDEにインポートでき、コード補完とナビゲーションが可能になります。
-
-> KotlinはObjective-Cとの相互運用も提供します。Objective-Cライブラリもcinteropツールを介してインポートされます。
-> 詳細については、[Swift/Objective-Cの相互運用](native-objc-interop.md)を参照してください。
->
-{style="tip"}
-
-## プロジェクトのセットアップ
-
-Cライブラリを使用する必要があるプロジェクトで作業する場合の一般的なワークフローは次のとおりです。
-
-1.  [定義ファイル](native-definition-file.md)を作成し、構成します。これはcinteropツールがKotlinの[バインディング](#bindings)に何を含めるべきかを記述します。
-2.  Gradleビルドファイルを設定して、ビルドプロセスにcinteropを含めます。
-3.  プロジェクトをコンパイルして実行し、最終的な実行可能ファイルを生成します。
-
-> 実践的な経験を積むには、[C interopを使用したアプリの作成](native-app-with-c-and-libcurl.md)チュートリアルを完了してください。
+> Kotlin/Nativeに付属のネイティブプラットフォームライブラリ（Foundation、UIKit、POSIXなど）は、一部のAPIでのみオプトインが必要です。
 >
 {style="note"}
 
-多くの場合、Cライブラリとのカスタム相互運用を構成する必要はありません。代わりに、[プラットフォームライブラリ](native-platform-libs.md)と呼ばれるプラットフォーム標準化されたバインディングで利用可能なAPIを使用できます。たとえば、Linux/macOSプラットフォームのPOSIX、WindowsプラットフォームのWin32、またはmacOS/iOSのAppleフレームワークは、この方法で利用可能です。
+このドキュメントでは、KotlinとC言語の相互運用の一般的な側面を扱います。Kotlin/Nativeにはcinteropツールが付属しており、これを使用すると外部のCライブラリと対話するために必要なすべてを迅速に生成できます。
+
+このツールはCヘッダーを解析し、Cの型、関数、文字列をKotlinに直接マッピングしたものを生成します。生成されたスタブはIDEにインポートでき、コード補完やナビゲーションを有効にできます。
+
+> KotlinはObjective-Cとの相互運用も提供します。Objective-Cライブラリもcinteropツールを介してインポートされます。詳細については、[Swift/Objective-Cの相互運用](native-objc-interop.md)を参照してください。
+>
+{style="tip"}
+
+## プロジェクトの設定
+
+Cライブラリを使用する必要があるプロジェクトでの一般的なワークフローは次のとおりです。
+
+1.  [定義ファイル](native-definition-file.md)を作成し、構成します。これは、cinteropツールがKotlinの[バインディング](#bindings)に何を含めるべきかを記述します。
+2.  Gradleビルドファイルを構成し、cinteropをビルドプロセスに含めます。
+3.  プロジェクトをコンパイルして実行し、最終的な実行可能ファイルを生成します。
+
+> 実践的な経験のために、[C言語相互運用を使用するアプリの作成](native-app-with-c-and-libcurl.md)チュートリアルを完了してください。
+>
+{style="note"}
+
+多くの場合、Cライブラリとのカスタムの相互運用を構成する必要はありません。代わりに、[プラットフォームライブラリ](native-platform-libs.md)と呼ばれるプラットフォームの標準化されたバインディングで利用可能なAPIを使用できます。たとえば、Linux/macOSプラットフォームのPOSIX、WindowsプラットフォームのWin32、macOS/iOSのAppleフレームワークなどがこの方法で利用できます。
 
 ## バインディング
 
 ### 基本的な相互運用型
 
-サポートされているすべてのC型には、Kotlinに対応する表現があります。
+サポートされているすべてのCの型は、Kotlinに対応する表現を持っています。
 
-*   符号付き整数型、符号なし整数型、および浮動小数点型は、同じ幅のKotlinの対応型にマッピングされます。
+*   符号付き、符号なし整数、および浮動小数点型は、同じ幅のKotlinの対応する型にマッピングされます。
 *   ポインタと配列は`CPointer<T>?`にマッピングされます。
-*   Enumは、ヒューリスティックおよび[定義ファイルの設定](native-definition-file.md#configure-enums-generation)に応じて、Kotlinのenumまたは整数値のいずれかにマッピングできます。
+*   列挙型は、ヒューリスティクスと[定義ファイルの設定](native-definition-file.md#configure-enums-generation)に応じて、Kotlinの列挙型または整数値にマッピングできます。
 *   構造体と共用体は、ドット表記（例: `someStructInstance.field1`）でフィールドにアクセスできる型にマッピングされます。
 *   `typedef`は`typealias`として表現されます。
 
-また、すべてのC型には、その型のlvalueを表すKotlin型があります。これは、単純な変更不能な自己完結型の値ではなく、メモリに存在する値を意味します。C++のリファレンスを類似の概念と考えてください。構造体（および構造体への`typedef`）の場合、この表現が主要なものであり、構造体自体と同じ名前を持ちます。Kotlinのenumの場合、`${type}.Var`という名前になり、`CPointer<T>`の場合、`CPointerVar<T>`となり、その他のほとんどの型の場合、`${type}Var`となります。
+また、任意のCの型は、その型の左辺値（lvalue）を表すKotlinの型を持っています。これは、単純な不変の自己完結型値ではなく、メモリに配置された値を意味します。類似の概念としてC++の参照を考えてみてください。構造体（および構造体への`typedef`）の場合、この表現が主要なものであり、構造体自体と同じ名前を持ちます。Kotlinの列挙型の場合、`${type}.Var`と名付けられます。`CPointer<T>`の場合、`CPointerVar<T>`と名付けられます。その他のほとんどの型では、`${type}Var`と名付けられます。
 
-両方の表現を持つ型の場合、lvalueを持つ表現は、値にアクセスするためのミュータブルな`.value`プロパティを持ちます。
+両方の表現を持つ型の場合、左辺値を持つ方は、値にアクセスするための可変な`.value`プロパティを持ちます。
 
 #### ポインタ型
 
-`CPointer<T>`の型引数`T`は、上記のlvalue型のいずれかである必要があります。たとえば、C型`struct S*`は`CPointer<S>`に、`int8_t*`は`CPointer<int_8tVar>`に、`char**`は`CPointer<CPointerVar<ByteVar>>`にマッピングされます。
+`CPointer<T>`の型引数`T`は、上記で説明した左辺値型（lvalue types）のいずれかである必要があります。たとえば、Cの型`struct S*`は`CPointer<S>`にマッピングされ、`int8_t*`は`CPointer<int_8tVar>`にマッピングされ、`char**`は`CPointer<CPointerVar<ByteVar>>`にマッピングされます。
 
-CのnullポインタはKotlinの`null`として表現され、ポインタ型`CPointer<T>`はnull許容ではありませんが、`CPointer<T>?`はnull許容です。この型の値は、`?:`、`?.`、`!!`など、`null`の処理に関連するすべてのKotlin演算をサポートします。
+CのヌルポインタはKotlinの`null`として表現され、ポインタ型`CPointer<T>`はnull許容ではありませんが、`CPointer<T>?`はnull許容です。この型の値は、`null`の処理に関連するすべてのKotlinの操作（例: `?:`、`?.`、`!!`など）をサポートします。
 
 ```kotlin
 val path = getenv("PATH")?.toKString() ?: ""
 ```
 
-配列も`CPointer<T>`にマッピングされるため、インデックスによる値へのアクセスに`[]`演算子をサポートします。
+配列も`CPointer<T>`にマッピングされるため、インデックスによる値へのアクセスに`[]`演算子をサポートしています。
 
 ```kotlin
 import kotlinx.cinterop.*
@@ -71,11 +67,11 @@ fun shift(ptr: CPointer<ByteVar>, length: Int) {
 }
 ```
 
-`CPointer<T>`の`.pointed`プロパティは、このポインタによって指される`T`型のlvalueを返します。逆の操作は`.ptr`で、lvalueを受け取り、それへのポインタを返します。
+`CPointer<T>`の`.pointed`プロパティは、このポインタが指す`T`型の左辺値（lvalue）を返します。逆の操作は`.ptr`で、これは左辺値を取り、それへのポインタを返します。
 
-`void*`は`COpaquePointer`にマッピングされます。これは、他のポインタ型のスーパタイプである特別なポインタ型です。したがって、C関数が`void*`を取る場合、Kotlinバインディングは任意の`CPointer`を受け入れます。
+`void*`は`COpaquePointer`にマッピングされます。これは、他のすべてのポインタ型のスーパータイプである特別なポインタ型です。したがって、C関数が`void*`を受け取る場合、Kotlinのバインディングは任意の`CPointer`を受け入れます。
 
-ポインタ（`COpaquePointer`を含む）のキャストは、`.reinterpret<T>`で行うことができます。例:
+ポインタ（`COpaquePointer`を含む）のキャストは、たとえば`.reinterpret<T>`を使用して行うことができます。
 
 ```kotlin
 import kotlinx.cinterop.*
@@ -84,7 +80,7 @@ import kotlinx.cinterop.*
 val intPtr = bytePtr.reinterpret<IntVar>()
 ```
 
-または:
+または：
 
 ```kotlin
 import kotlinx.cinterop.*
@@ -93,22 +89,22 @@ import kotlinx.cinterop.*
 val intPtr: CPointer<IntVar> = bytePtr.reinterpret()
 ```
 
-Cと同様に、これらの`.reinterpret`キャストは安全ではなく、アプリケーションで微妙なメモリ問題を引き起こす可能性があります。
+Cと同様に、これらの`.reinterpret`キャストは安全ではなく、アプリケーションで微妙なメモリの問題を引き起こす可能性があります。
 
-また、`CPointer<T>?`と`Long`の間で利用可能な安全でないキャストがあり、`.toLong()`と`.toCPointer<T>()`拡張メソッドによって提供されます。
+また、`.toLong()`および`.toCPointer<T>()`拡張メソッドによって提供される、`CPointer<T>?`と`Long`間の安全でないキャストも利用できます。
 
 ```kotlin
 val longValue = ptr.toLong()
 val originalPtr = longValue.toCPointer<T>()
 ```
 
-> 結果の型がコンテキストから既知の場合、型推論のおかげで型引数を省略できます。
+> 結果の型がコンテキストからわかる場合、型推論のおかげで型引数を省略できます。
 >
 {style="tip"}
 
 ### メモリ割り当て
 
-ネイティブメモリは、`NativePlacement`インターフェースを使用して割り当てることができます。例:
+ネイティブメモリは、たとえば`NativePlacement`インターフェースを使用して割り当てることができます。
 
 ```kotlin
 import kotlinx.cinterop.*
@@ -117,7 +113,7 @@ import kotlinx.cinterop.*
 val byteVar = placement.alloc<ByteVar>()
 ```
 
-または:
+または：
 
 ```kotlin
 import kotlinx.cinterop.*
@@ -126,7 +122,7 @@ import kotlinx.cinterop.*
 val bytePtr = placement.allocArray<ByteVar>(5)
 ```
 
-最も論理的なプレースメントは`nativeHeap`オブジェクト内です。これは`malloc`によるネイティブメモリの割り当てに対応し、割り当てられたメモリを解放するための追加の`.free()`操作を提供します。
+最も論理的な配置は、オブジェクト`nativeHeap`内です。これは`malloc`によるネイティブメモリの割り当てに対応し、割り当てられたメモリを解放するための追加の`.free()`操作を提供します。
 
 ```kotlin
 import kotlinx.cinterop.*
@@ -139,9 +135,9 @@ fun main() {
 }
 ```
 
-`nativeHeap`はメモリを手動で解放する必要があります。ただし、字句スコープに寿命が紐付けられたメモリを割り当てることは、しばしば有用です。このようなメモリが自動的に解放されると便利です。
+`nativeHeap`はメモリを手動で解放する必要があります。しかし、字句スコープに寿命が縛られたメモリを割り当てることはしばしば有用です。このようなメモリが自動的に解放されると便利です。
 
-これに対処するため、`memScoped { }`を使用できます。波括弧内では、一時的なプレースメントが暗黙のレシーバーとして利用できるため、`alloc`および`allocArray`でネイティブメモリを割り当てることができ、割り当てられたメモリはスコープを離れた後に自動的に解放されます。
+これに対処するため、`memScoped { }`を使用できます。波括弧の内側では、一時的なプレースメントが暗黙のレシーバーとして利用可能であるため、`alloc`および`allocArray`でネイティブメモリを割り当てることができ、割り当てられたメモリはスコープを離れた後に自動的に解放されます。
 
 たとえば、ポインタパラメータを介して値を返すC関数は次のように使用できます。
 
@@ -157,20 +153,20 @@ val fileSize = memScoped {
 }
 ```
 
-### バインディングへのポインタの引き渡し
+### バインディングにポインタを渡す
 
-Cポインタは`CPointer<T> type`にマッピングされますが、C関数のポインタ型パラメータは`CValuesRef<T>`にマッピングされます。`CPointer<T>`をこのようなパラメータの値として渡す場合、そのままC関数に渡されます。ただし、ポインタの代わりに値のシーケンスを渡すこともできます。この場合、シーケンスは「値渡し」され、つまり、C関数はシーケンスの一時的なコピーへのポインタを受け取ります。これは関数が戻るまでのみ有効です。
+Cポインタは`CPointer<T>`型にマッピングされますが、C関数のポインタ型パラメータは`CValuesRef<T>`にマッピングされます。そのようなパラメータの値として`CPointer<T>`を渡す場合、それはそのままC関数に渡されます。ただし、ポインタの代わりに値のシーケンスを渡すこともできます。この場合、シーケンスは「値渡し」され、C関数はそのシーケンスの一時的なコピーへのポインタを受け取りますが、これは関数が戻るまでのみ有効です。
 
-ポインタパラメータの`CValuesRef<T>`表現は、明示的なネイティブメモリ割り当てなしにC配列リテラルをサポートするように設計されています。C値の変更不能な自己完結型シーケンスを構築するために、次のメソッドが提供されています。
+ポインタパラメータの`CValuesRef<T>`表現は、明示的なネイティブメモリ割り当てなしでC配列リテラルをサポートするように設計されています。C値の不変の自己完結型シーケンスを構築するために、以下のメソッドが提供されています。
 
-*   `${type}Array.toCValues()`（`type`はKotlinのプリミティブ型）
+*   `${type}Array.toCValues()`、ここで`type`はKotlinのプリミティブ型です。
 *   `Array<CPointer<T>?>.toCValues()`、`List<CPointer<T>?>.toCValues()`
-*   `cValuesOf(vararg elements: ${type})`（`type`はプリミティブまたはポインタ）
+*   `cValuesOf(vararg elements: ${type})`、ここで`type`はプリミティブまたはポインタです。
 
-例:
+たとえば：
 
 ```c
-// C:
+// C言語:
 void foo(int* elements, int count);
 ...
 int elements[] = {1, 2, 3};
@@ -185,28 +181,28 @@ foo(cValuesOf(1, 2, 3), 3)
 
 ### 文字列
 
-他のポインタとは異なり、`const char*`型のパラメータはKotlinの`String`として表現されます。そのため、任意のKotlin文字列をC文字列を期待するバインディングに渡すことができます。
+他のポインタとは異なり、`const char*`型のパラメータはKotlinの`String`として表現されます。したがって、C文字列を期待するバインディングに任意のKotlin文字列を渡すことができます。
 
-Kotlin文字列とC文字列の間を手動で変換するためのツールもいくつか利用できます。
+KotlinとC文字列の間で手動で変換するためのツールもいくつか利用できます。
 
 *   `fun CPointer<ByteVar>.toKString(): String`
-*   `val String.cstr: CValuesRef<ByteVar>`。
+*   `val String.cstr: CValuesRef<ByteVar>`.
 
-ポインタを取得するには、`.cstr`をネイティブメモリに割り当てる必要があります。例:
+ポインタを取得するには、`.cstr`をネイティブメモリに割り当てる必要があります。たとえば、以下のようになります。
 
 ```kotlin
 val cString = kotlinString.cstr.getPointer(nativeHeap)
 ```
 
-すべての場合において、C文字列はUTF-8でエンコードされていると想定されています。
+すべてのケースにおいて、C文字列はUTF-8でエンコードされているものとみなされます。
 
-自動変換をスキップし、バインディングで生ポインタが使用されるようにするには、[`noStringConversion`プロパティ](native-definition-file.md#set-up-string-conversion)を`.def`ファイルに追加します。
+自動変換をスキップし、バインディングで生ポインタが使用されるようにするには、`.def`ファイルに[`noStringConversion`プロパティ](native-definition-file.md#set-up-string-conversion)を追加します。
 
 ```c
 noStringConversion = LoadCursorA LoadCursorW
 ```
 
-これにより、`CPointer<ByteVar>`型の任意の値が`const char*`型の引数として渡すことができます。Kotlin文字列を渡す必要がある場合、次のようなコードを使用できます。
+このようにして、`CPointer<ByteVar>`型の任意の値が`const char*`型の引数として渡すことができます。Kotlin文字列を渡す必要がある場合、次のようなコードを使用できます。
 
 ```kotlin
 import kotlinx.cinterop.*
@@ -220,7 +216,7 @@ memScoped {
 
 ### スコープローカルポインタ
 
-`memScoped {}`内で利用可能な`CValues<T>.ptr`拡張プロパティを使用して、`CValues<T>`インスタンスのC表現のスコープ安定ポインタを作成することができます。これにより、特定の`MemScope`に寿命が紐付けられたCポインタを必要とするAPIを使用できます。例:
+`memScoped {}`内で利用可能な`CValues<T>.ptr`拡張プロパティを使用して、`CValues<T>`インスタンスのC表現のスコープ安定ポインタを作成することが可能です。これにより、特定の`MemScope`に寿命が縛られたCポインタを必要とするAPIを使用できます。たとえば、次のようになります。
 
 ```kotlin
 import kotlinx.cinterop.*
@@ -236,32 +232,32 @@ memScoped {
 
 この例では、C API `new_menu()`に渡されるすべての値は、それが属する最も内側の`memScope`の寿命を持ちます。制御フローが`memScoped`スコープを離れると、Cポインタは無効になります。
 
-### 構造体を値として渡す・受け取る
+### 構造体を値渡し/値受けする
 
-C関数が構造体/共用体`T`を値として受け取ったり返したりする場合、対応する引数型または戻り値型は`CValue<T>`として表現されます。
+C関数が構造体/共用体`T`を値渡しまたは値受けする場合、対応する引数型または戻り型は`CValue<T>`として表現されます。
 
-`CValue<T>`は不透明な型であるため、構造体フィールドには適切なKotlinプロパティでアクセスできません。APIが構造体を不透明なハンドルとして使用している場合はこれで問題ありません。ただし、フィールドアクセスが必要な場合は、次の変換メソッドが利用可能です。
+`CValue<T>`は不透明な型であるため、適切なKotlinプロパティで構造体のフィールドにアクセスすることはできません。APIが構造体を不透明なハンドルとして使用している場合は問題ありません。しかし、フィールドへのアクセスが必要な場合は、以下の変換メソッドが利用可能です。
 
-*   [`fun T.readValue(): CValue<T>`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlinx.cinterop/read-value.html)は（lvalueの）`T`を`CValue<T>`に変換します。したがって、`CValue<T>`を構築するには、`T`を割り当てて、値を設定し、`CValue<T>`に変換することができます。
-*   [`CValue<T>.useContents(block: T.() -> R): R`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlinx.cinterop/use-contents.html)は、`CValue<T>`を一時的にメモリに格納し、その配置された値`T`をレシーバーとして渡されたラムダを実行します。したがって、単一のフィールドを読み取るには、次のコードを使用できます。
+*   [`fun T.readValue(): CValue<T>`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlinx.cinterop/read-value.html)は（左辺値）`T`を`CValue<T>`に変換します。したがって、`CValue<T>`を構築するには、`T`を割り当て、値を設定し、その後`CValue<T>`に変換できます。
+*   [`CValue<T>.useContents(block: T.() -> R): R`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlinx.cinterop/use-contents.html)は、`CValue<T>`を一時的にメモリに格納し、この配置された値`T`をレシーバーとして渡されたラムダを実行します。したがって、単一のフィールドを読み取るには、以下のコードを使用できます。
 
-  ```kotlin
-  val fieldValue = structValue.useContents { field }
-  ```
+    ```kotlin
+    val fieldValue = structValue.useContents { field }
+    ```
 
-*   [`fun cValue(initialize: T.() -> Unit): CValue<T>`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlinx.cinterop/c-value.html)は、指定された`initialize`関数を適用してメモリに`T`を割り当て、その結果を`CValue<T>`に変換します。
-*   [`fun CValue<T>.copy(modify: T.() -> Unit): CValue<T>`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlinx.cinterop/copy.html)は、既存の`CValue<T>`の変更されたコピーを作成します。元の値はメモリに配置され、`modify()`関数を使用して変更され、新しい`CValue<T>`に変換し直されます。
+*   [`fun cValue(initialize: T.() -> Unit): CValue<T>`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlinx.cinterop/c-value.html)は、提供された`initialize`関数を適用してメモリに`T`を割り当て、その結果を`CValue<T>`に変換します。
+*   [`fun CValue<T>.copy(modify: T.() -> Unit): CValue<T>`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlinx.cinterop/copy.html)は、既存の`CValue<T>`の変更されたコピーを作成します。元の値はメモリに配置され、`modify()`関数を使用して変更された後、新しい`CValue<T>`に変換し直されます。
 *   [`fun CValues<T>.placeTo(scope: AutofreeScope): CPointer<T>`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlinx.cinterop/place-to.html)は、`CValues<T>`を`AutofreeScope`に配置し、割り当てられたメモリへのポインタを返します。割り当てられたメモリは、`AutofreeScope`が破棄されるときに自動的に解放されます。
 
 ### コールバック
 
-Kotlin関数をC関数へのポインタに変換するには、`staticCFunction(::kotlinFunction)`を使用します。関数参照の代わりにラムダを指定することも可能です。関数またはラムダは値をキャプチャしてはいけません。
+Kotlin関数をC関数へのポインタに変換するには、`staticCFunction(::kotlinFunction)`を使用できます。関数参照の代わりにラムダを提供することも可能です。関数またはラムダは値をキャプチャしてはなりません。
 
-#### ユーザーデータをコールバックに渡す
+#### コールバックにユーザーデータを渡す
 
-しばしばC APIは、コールバックに何らかのユーザーデータを渡すことを許可します。そのようなデータは通常、コールバックを構成する際にユーザーによって提供されます。それは`void*`としてC関数に渡されたり（または構造体に書き込まれたり）します。しかし、Kotlinオブジェクトへの参照をCに直接渡すことはできません。そのため、コールバックを構成する前にラップし、Cの世界を安全にKotlinからKotlinへ移動できるように、コールバック自体でアンラップする必要があります。このようなラッピングは`StableRef`クラスで可能です。
+多くの場合、C APIはユーザーデータをコールバックに渡すことを許可します。このようなデータは通常、コールバックを設定する際にユーザーによって提供されます。たとえば、`void*`として何らかのC関数に渡されたり（または構造体に書き込まれたり）します。しかし、Kotlinオブジェクトへの参照はCに直接渡すことはできません。したがって、Cの世界を介してKotlinからKotlinへ安全に渡すためには、コールバックを設定する前にラップし、コールバック自体でアンラップする必要があります。このようなラッピングは`StableRef`クラスで可能です。
 
-参照をラップするには:
+参照をラップするには：
 
 ```kotlin
 import kotlinx.cinterop.*
@@ -273,7 +269,7 @@ val voidPtr = stableRef.asCPointer()
 
 ここで、`voidPtr`は`COpaquePointer`であり、C関数に渡すことができます。
 
-参照をアンラップするには:
+参照をアンラップするには：
 
 ```kotlin
 @OptIn(ExperimentalForeignApi::class)
@@ -283,17 +279,17 @@ val kotlinReference = stableRef.get()
 
 ここで、`kotlinReference`は元のラップされた参照です。
 
-作成された`StableRef`は、メモリリークを防ぐため、最終的に`.dispose()`メソッドを使用して手動で破棄する必要があります。
+作成された`StableRef`は、メモリリークを防ぐために、最終的には`.dispose()`メソッドを使用して手動で破棄される必要があります。
 
 ```kotlin
 stableRef.dispose()
 ```
 
-その後、無効になり、`voidPtr`をアンラップできなくなります。
+その後、無効になるため、`voidPtr`はもうアンラップできません。
 
 ### マクロ
 
-定数に展開されるすべてのCマクロは、Kotlinプロパティとして表現されます。
+定数に展開されるすべてのCマクロは、Kotlinのプロパティとして表現されます。
 
 パラメータのないマクロは、コンパイラが型を推論できる場合にサポートされます。
 
@@ -302,9 +298,9 @@ int foo(int);
 #define FOO foo(42)
 ```
 
-この場合、`FOO`はKotlinで利用できます。
+この場合、`FOO`はKotlinで利用可能です。
 
-他のマクロをサポートするには、サポートされている宣言でラップして手動で公開できます。たとえば、関数のようなマクロ`FOO`は、ライブラリに[カスタム宣言](native-definition-file.md#add-custom-declarations)を追加することで、関数`foo()`として公開できます。
+他のマクロをサポートするには、サポートされている宣言でラップすることで手動で公開できます。たとえば、関数のようなマクロ`FOO`は、ライブラリに[カスタム宣言を追加する](native-definition-file.md#add-custom-declarations)ことで関数`foo()`として公開できます。
 
 ```c
 headers = library/base.h
@@ -316,19 +312,19 @@ static inline int foo(int arg) {
 }
 ```
 
-### ポータビリティ
+### 可搬性
 
-Cライブラリには、`long`や`size_t`など、プラットフォーム依存の型の関数パラメータや構造体フィールドを持つ場合があります。Kotlin自体は暗黙の整数キャストやCスタイルの整数キャスト（例: `(size_t) intValue`）を提供しないため、そのような場合にポータブルなコードを書きやすくするために、`convert`メソッドが提供されています。
+Cライブラリには、`long`や`size_t`など、プラットフォーム依存の型の関数パラメータや構造体フィールドがある場合があります。Kotlin自体は、暗黙的な整数キャストやCスタイルの整数キャスト（例: `(size_t) intValue`）を提供しないため、そのような場合に可搬性のあるコードを書きやすくするために、`convert`メソッドが提供されています。
 
 ```kotlin
 fun ${type1}.convert<${type2}>(): ${type2}
 ```
 
-ここで、`type1`と`type2`のそれぞれは、符号付きまたは符号なしのいずれかの整数型である必要があります。
+ここで、`type1`と`type2`はそれぞれ、符号付きまたは符号なしの整数型である必要があります。
 
 `.convert<${type}>`は、`type`に応じて、`.toByte`、`.toShort`、`.toInt`、`.toLong`、`.toUByte`、`.toUShort`、`.toUInt`、または`.toULong`メソッドのいずれかと同じセマンティクスを持ちます。
 
-`convert`の使用例:
+`convert`の使用例：
 
 ```kotlin
 import kotlinx.cinterop.*
@@ -340,67 +336,67 @@ fun zeroMemory(buffer: COpaquePointer, size: Int) {
 }
 ```
 
-また、型パラメータは自動的に推論されるため、場合によっては省略できます。
+また、型パラメータは自動的に推論できるため、場合によっては省略することができます。
 
-### オブジェクトのピン止め
+### オブジェクトのピンニング
 
-Kotlinオブジェクトはピン止めできます。つまり、メモリ内の位置がアンピンされるまで安定していることが保証され、そのようなオブジェクトの内部データへのポインタをC関数に渡すことができます。
+Kotlinオブジェクトはピンニングできます。つまり、それらのメモリ上の位置はアンピンされるまで安定していることが保証され、そのようなオブジェクトの内部データへのポインタをC関数に渡すことができます。
 
-いくつかのアプローチがあります。
+いくつかの方法があります。
 
-*   [`usePinned`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlinx.cinterop/use-pinned.html)サービス関数を使用します。これはオブジェクトをピン止めし、ブロックを実行し、通常パスと例外パスでピン止めを解除します。
+*   オブジェクトをピンニングし、ブロックを実行し、通常のパスおよび例外パスでアンピンする[`.usePinned()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlinx.cinterop/use-pinned.html)拡張関数を使用します。
 
-  ```kotlin
-  import kotlinx.cinterop.*
-  import platform.posix.*
+    ```kotlin
+    import kotlinx.cinterop.*
+    import platform.posix.*
 
-  @OptIn(ExperimentalForeignApi::class)
-  fun readData(fd: Int) {
-      val buffer = ByteArray(1024)
-      buffer.usePinned { pinned ->
-          while (true) {
-              val length = recv(fd, pinned.addressOf(0), buffer.size.convert(), 0).toInt()
-              if (length <= 0) {
-                  break
-              }
-              // Now `buffer` has raw data obtained from the `recv()` call.
-          }
-      }
-  }
-  ```
+    @OptIn(ExperimentalForeignApi::class)
+    fun readData(fd: Int) {
+        val buffer = ByteArray(1024)
+        buffer.usePinned { pinned ->
+            while (true) {
+                val length = recv(fd, pinned.addressOf(0), buffer.size.convert(), 0).toInt()
+                if (length <= 0) {
+                    break
+                }
+                // Now `buffer` has raw data obtained from the `recv()` call.
+            }
+        }
+    }
+    ```
 
-  ここで、`pinned`は特殊な型`Pinned<T>`のオブジェクトです。これは、ピン止めされた配列本体のアドレスを取得できる`addressOf`のような便利な拡張機能を提供します。
+    ここで、`pinned`は特殊な型`Pinned<T>`のオブジェクトです。これは、ピンニングされた配列ボディのアドレスを取得できる[`.addressOf()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlinx.cinterop/address-of.html)のような便利な拡張機能を提供します。
 
-*   `refTo()`は、内部的に同様の機能を持っていますが、特定のケースでは、ボイラープレートコードを減らすのに役立つ場合があります。
+*   内部的には同様の機能を持つものの、場合によってはボイラープレートコードを削減できる[`.refTo()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlinx.cinterop/ref-to.html)拡張関数を使用します。
 
-  ```kotlin
-  import kotlinx.cinterop.*
-  import platform.posix.*
+    ```kotlin
+    import kotlinx.cinterop.*
+    import platform.posix.*
+    
+    @OptIn(ExperimentalForeignApi::class)
+    fun readData(fd: Int) { 
+        val buffer = ByteArray(1024)
+        while (true) {
+            val length = recv(fd, buffer.refTo(0), buffer.size.convert(), 0).toInt()
 
-  @OptIn(ExperimentalForeignApi::class)
-  fun readData(fd: Int) {
-      val buffer = ByteArray(1024)
-      while (true) {
-          val length = recv(fd, buffer.refTo(0), buffer.size.convert(), 0).toInt()
+            if (length <= 0) {
+                break
+            }
+            // Now `buffer` has raw data obtained from the `recv()` call.
+        }
+    }
+    ```
 
-          if (length <= 0) {
-              break
-          }
-          // Now `buffer` has raw data obtained from the `recv()` call.
-      }
-  }
-  ```
+    ここで、`buffer.refTo(0)`は`CValuesRef`型であり、`recv()`関数に入る前に配列をピンニングし、そのゼロ番目の要素のアドレスを関数に渡し、終了後に配列をアンピンします。
 
-  ここで、`buffer.refTo(0)`は`CValuesRef`型であり、`recv()`関数に入る前に配列をピン止めし、そのゼロ番目の要素のアドレスを関数に渡し、終了後に配列のピン止めを解除します。
+### 前方宣言
 
-### 順方向宣言
+前方宣言をインポートするには、`cnames`パッケージを使用します。たとえば、`library.package`を持つCライブラリで宣言された`cstructName`前方宣言をインポートするには、特別な前方宣言パッケージ`import cnames.structs.cstructName`を使用します。
 
-順方向宣言をインポートするには、`cnames`パッケージを使用します。たとえば、`library.package`を持つCライブラリで宣言された`cstructName`順方向宣言をインポートするには、特別な順方向宣言パッケージ`import cnames.structs.cstructName`を使用します。
+2つのcinteropライブラリを考えてみましょう。1つは構造体の前方宣言を持ち、もう1つは別のパッケージに実際の実装を持つものです。
 
-構造体の順方向宣言を持つライブラリと、別のパッケージに実際の実装を持つライブラリの2つのcinteropライブラリを考えてみましょう。
-
-```C
-// First C library
+```c
+// 最初のCライブラリ
 #include <stdio.h>
 
 struct ForwardDeclaredStruct;
@@ -411,16 +407,16 @@ void consumeStruct(struct ForwardDeclaredStruct* s) {
 }
 ```
 
-```C
-// Second C library
-// Header:
+```c
+// 2番目のCライブラリ
+// ヘッダー:
 #include <stdlib.h>
 
 struct ForwardDeclaredStruct {
     int data;
 };
 
-// Implementation:
+// 実装:
 struct ForwardDeclaredStruct* produceStruct() {
     struct ForwardDeclaredStruct* s = malloc(sizeof(struct ForwardDeclaredStruct));
     s->data = 42;
@@ -431,7 +427,7 @@ struct ForwardDeclaredStruct* produceStruct() {
 2つのライブラリ間でオブジェクトを転送するには、Kotlinコードで明示的な`as`キャストを使用します。
 
 ```kotlin
-// Kotlin code:
+// Kotlinコード:
 fun test() {
     consumeStruct(produceStruct() as CPointer<cnames.structs.ForwardDeclaredStruct>)
 }
@@ -439,9 +435,9 @@ fun test() {
 
 ## 次のステップ
 
-次のチュートリアルを完了して、KotlinとCの間で型、関数、定数がどのようにマッピングされるかを学びましょう。
+以下のチュートリアルを完了して、KotlinとCの間で型、関数、文字列がどのようにマッピングされるかを学びましょう。
 
-*   [Cからのプリミティブデータ型のマッピング](mapping-primitive-data-types-from-c.md)
-*   [Cからの構造体と共用体型のマッピング](mapping-function-pointers-from-c.md)
-*   [Cからの関数ポインタのマッピング](mapping-function-pointers-from-c.md)
-*   [Cからの文字列のマッピング](mapping-strings-from-c.md)
+*   [C言語からのプリミティブデータ型のマッピング](mapping-primitive-data-types-from-c.md)
+*   [C言語からの構造体および共用体型のマッピング](mapping-struct-union-types-from-c.md)
+*   [C言語からの関数ポインタのマッピング](mapping-function-pointers-from-c.md)
+*   [C言語からの文字列のマッピング](mapping-strings-from-c.md)

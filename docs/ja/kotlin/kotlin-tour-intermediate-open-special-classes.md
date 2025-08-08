@@ -1,4 +1,4 @@
-[//]: # (title: 中級: オープンクラスと特殊なクラス)
+[//]: # (title: Intermediate: open クラスと特殊クラス)
 
 <no-index/>
 
@@ -8,30 +8,24 @@
         <img src="icon-3-done.svg" width="20" alt="Third step" /> <a href="kotlin-tour-intermediate-lambdas-receiver.md">レシーバ付きラムダ式</a><br />
         <img src="icon-4-done.svg" width="20" alt="Fourth step" /> <a href="kotlin-tour-intermediate-classes-interfaces.md">クラスとインターフェース</a><br />
         <img src="icon-5-done.svg" width="20" alt="Fifth step" /> <a href="kotlin-tour-intermediate-objects.md">オブジェクト</a><br />
-        <img src="icon-6.svg" width="20" alt="Fourth step" /> <strong>オープンクラスと特殊なクラス</strong><br />
+        <img src="icon-6.svg" width="20" alt="Fourth step" /> <strong>open クラスと特殊クラス</strong><br />
         <img src="icon-7-todo.svg" width="20" alt="Seventh step" /> <a href="kotlin-tour-intermediate-properties.md">プロパティ</a><br />
-        <img src="icon-8-todo.svg" width="20" alt="Eighth step" /> <a href="kotlin-tour-intermediate-null-safety.md">Null安全性</a><br />
-        <img src="icon-9-todo.svg" width="20" alt="Ninth step" /> <a href="kotlin-tour-intermediate-libraries-and-apis.md">ライブラリとAPI</a></p>
+        <img src="icon-8-todo.svg" width="20" alt="Eighth step" /> <a href="kotlin-tour-intermediate-null-safety.md">Null 安全</a><br />
+        <img src="icon-9-todo.svg" width="20" alt="Ninth step" /> <a href="kotlin-tour-intermediate-libraries-and-apis.md">ライブラリと API</a></p>
 </tldr>
 
-この章では、オープンクラス、それがインターフェースとどのように連携するか、そしてKotlinで利用できるその他の特殊なクラスについて学びます。
+この章では、open クラス、open クラスがインターフェースとどのように連携するか、および Kotlin で利用できるその他の特殊な型のクラスについて学習します。
 
-## オープンクラス
+## open クラス
 
-インターフェースや抽象クラスを使用できない場合、クラスを**オープン**として宣言することで、明示的に継承可能にできます。これを行うには、クラス宣言の前に`open`キーワードを使用します。
-
-```kotlin
-open class Vehicle
-```
-
-別のクラスを継承するクラスを作成するには、クラスヘッダーの後にコロンを追加し、継承したい親クラスのコンストラクタを呼び出します。
+インターフェースや抽象クラスを使用できない場合は、クラスを `open` と宣言することで、明示的に継承可能にすることができます。
+これを行うには、クラス宣言の前に `open` キーワードを使用します。
 
 ```kotlin
-class Car : Vehicle
+open class Vehicle(val make: String, val model: String)
 ```
-{validate="false"}
 
-この例では、`Car`クラスが`Vehicle`クラスを継承しています。
+別のクラスから継承するクラスを作成するには、クラスヘッダーの後にコロンを追加し、継承したい親クラスのコンストラクタを呼び出します。この例では、`Car` クラスが `Vehicle` クラスから継承しています。
 
 ```kotlin
 open class Vehicle(val make: String, val model: String)
@@ -49,24 +43,24 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-tour-classes-open-class"}
 
-通常のクラスインスタンスを作成する場合と同様に、クラスが親クラスを継承する場合、親クラスのヘッダーで宣言されているすべてのパラメータを初期化する必要があります。したがって、この例では、`Car`クラスの`car`インスタンスは、親クラスのパラメータである`make`と`model`を初期化します。
+通常のクラスインスタンスを作成する場合と同様に、クラスが親クラスを継承している場合、親クラスヘッダーで宣言されたすべてのパラメータを初期化する必要があります。したがって、この例では、`Car` クラスの `car` インスタンスは親クラスのパラメータ `make` と `model` を初期化しています。
 
-### 継承された動作のオーバーライド
+### 継承した動作のオーバーライド
 
-クラスを継承しつつ、その一部の動作を変更したい場合、継承された動作をオーバーライドできます。
+クラスを継承しても一部の動作を変更したい場合は、継承した動作をオーバーライドできます。
 
-デフォルトでは、親クラスのメンバ関数やプロパティをオーバーライドすることはできません。抽象クラスと同様に、特別なキーワードを追加する必要があります。
+デフォルトでは、親クラスのメンバー関数やプロパティをオーバーライドすることはできません。抽象クラスと同様に、特別なキーワードを追加する必要があります。
 
-#### メンバ関数
+#### メンバー関数
 
-親クラスの関数をオーバーライド可能にするには、親クラスでの宣言の前に`open`キーワードを使用します。
+親クラスの関数をオーバーライドできるようにするには、親クラスでの宣言の前に `open` キーワードを使用します。
 
 ```kotlin
 open fun displayInfo() {}
 ```
 {validate="false"}
 
-継承されたメンバ関数をオーバーライドするには、子クラスの関数宣言の前に`override`キーワードを使用します。
+継承したメンバー関数をオーバーライドするには、子クラスの関数宣言の前に `override` キーワードを使用します。
 
 ```kotlin
 override fun displayInfo() {}
@@ -101,19 +95,19 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-tour-class-override-function"}
 
-この例では、
+この例では、以下を行います。
 
-*   `Vehicle`クラスを継承する`Car`クラスの2つのインスタンス`car1`と`car2`を作成します。
-*   `Car`クラスの`displayInfo()`関数をオーバーライドして、ドアの数も出力するようにします。
-*   `car1`と`car2`インスタンスでオーバーライドされた`displayInfo()`関数を呼び出します。
+*   `Vehicle` クラスを継承する `Car` クラスのインスタンスを `car1` と `car2` の2つ作成します。
+*   `Car` クラスの `displayInfo()` 関数をオーバーライドして、ドアの数も出力するようにします。
+*   `car1` と `car2` のインスタンスでオーバーライドされた `displayInfo()` 関数を呼び出します。
 
 #### プロパティ
 
-Kotlinでは、`open`キーワードを使用してプロパティを継承可能にし、後でオーバーライドすることは一般的なプラクティスではありません。ほとんどの場合、プロパティがデフォルトで継承可能である抽象クラスやインターフェースを使用します。
+Kotlin では、`open` キーワードを使用してプロパティを継承可能にし、後でオーバーライドすることは一般的なプラクティスではありません。ほとんどの場合、プロパティがデフォルトで継承される抽象クラスまたはインターフェースを使用します。
 
-オープンクラス内のプロパティは、その子クラスからアクセス可能です。一般的に、新しいプロパティでそれらをオーバーライドするよりも、直接アクセスする方が良いです。
+open クラス内のプロパティは子クラスからアクセス可能です。一般的に、新しいプロパティでオーバーライドするよりも、直接アクセスする方が良いです。
 
-たとえば、後でオーバーライドしたい`transmissionType`というプロパティがあるとします。プロパティをオーバーライドする構文は、メンバ関数をオーバーライドする場合とまったく同じです。次のようにできます。
+例えば、後でオーバーライドしたい `transmissionType` というプロパティがあるとします。プロパティをオーバーライドする構文は、メンバー関数をオーバーライドする構文とまったく同じです。次のようにすることができます。
 
 ```kotlin
 open class Vehicle(val make: String, val model: String) {
@@ -125,7 +119,7 @@ class Car(make: String, model: String, val numberOfDoors: Int) : Vehicle(make, m
 }
 ```
 
-しかし、これは良いプラクティスではありません。代わりに、継承可能なクラスのコンストラクタにプロパティを追加し、`Car`子クラスを作成するときにその値を宣言できます。
+しかし、これは良いプラクティスではありません。代わりに、プロパティを継承可能なクラスのコンストラクタに追加し、`Car` 子クラスを作成するときにその値を宣言できます。
 
 ```kotlin
 open class Vehicle(val make: String, val model: String, val transmissionType: String = "Manual")
@@ -133,13 +127,13 @@ open class Vehicle(val make: String, val model: String, val transmissionType: St
 class Car(make: String, model: String, val numberOfDoors: Int) : Vehicle(make, model, "Automatic")
 ```
 
-プロパティをオーバーライドするのではなく直接アクセスすることで、よりシンプルで読みやすいコードになります。プロパティを親クラスで一度宣言し、コンストラクタを通じてその値を渡すことで、子クラスでの不要なオーバーライドの必要がなくなります。
+プロパティをオーバーライドするのではなく直接アクセスすることで、よりシンプルで読みやすいコードになります。親クラスでプロパティを一度宣言し、コンストラクタを介してその値を渡すことで、子クラスで不要なオーバーライドを行う必要がなくなります。
 
 クラスの継承とクラスの動作のオーバーライドに関する詳細は、[継承](inheritance.md)を参照してください。
 
-### オープンクラスとインターフェース
+### open クラスとインターフェース
 
-クラスを継承し、**かつ**複数のインターフェースを実装するクラスを作成できます。この場合、コロンの後で、インターフェースを列挙する前に、まず親クラスを宣言する必要があります。
+クラスを継承し、**かつ**複数のインターフェースを実装するクラスを作成できます。この場合、コロンの後にまず親クラスを宣言し、その後にインターフェースをリストアップする必要があります。
 
 ```kotlin
 // Define interfaces
@@ -170,25 +164,25 @@ class ElectricCar(
 }
 ```
 
-## 特殊なクラス
+## 特殊クラス
 
-抽象クラス、オープンクラス、データクラスに加えて、Kotlinには特定の動作を制限したり、小さなオブジェクトを作成する際のパフォーマンスへの影響を軽減したりするなど、様々な目的のために設計された特殊な種類のクラスがあります。
+抽象、open、データクラスに加えて、Kotlin には、特定の動作を制限したり、小さなオブジェクトを作成する際のパフォーマンスへの影響を軽減したりするなど、さまざまな目的のために設計された特殊な型のクラスがあります。
 
-### Sealedクラス
+### シールドクラス
 
-継承を制限したい場合があります。これはsealedクラスで実現できます。sealedクラスは[抽象クラス](kotlin-tour-intermediate-classes-interfaces.md#abstract-classes)の特殊な型です。クラスをsealedとして宣言すると、同じパッケージ内でのみその子クラスを作成できます。このスコープ外からsealedクラスを継承することはできません。
+継承を制限したい場合があります。これはシールドクラス (sealed class) で行うことができます。シールドクラスは[抽象クラス](kotlin-tour-intermediate-classes-interfaces.md#abstract-classes)の特殊な型です。クラスがシールドと宣言されると、同じパッケージ内でのみ子クラスを作成できます。このスコープの外からシールドクラスを継承することはできません。
 
-> パッケージは、関連するクラスや関数を含むコードの集まりで、通常はディレクトリ内にあります。Kotlinのパッケージについて詳しくは、[パッケージとインポート](packages.md)を参照してください。
+> パッケージとは、通常はディレクトリ内に、関連するクラスと関数を含むコードのコレクションです。Kotlin のパッケージについて詳しくは、[パッケージとインポート](packages.md)を参照してください。
 >
 {style="tip"}
 
-sealedクラスを作成するには、`sealed`キーワードを使用します。
+シールドクラスを作成するには、`sealed` キーワードを使用します。
 
 ```kotlin
 sealed class Mammal
 ```
 
-sealedクラスは、`when`式と組み合わせると特に便利です。`when`式を使用すると、考えられるすべての子クラスの動作を定義できます。例:
+シールドクラスは、`when` 式と組み合わせると特に便利です。`when` 式を使用することで、考えられるすべての子クラスの動作を定義できます。例:
 
 ```kotlin
 sealed class Mammal(val name: String)
@@ -210,32 +204,32 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-tour-sealed-classes"}
 
-この例では、
+この例では、以下を行います。
 
-*   コンストラクタに`name`パラメータを持つ`Mammal`というsealedクラスがあります。
-*   `Cat`クラスは`Mammal` sealedクラスを継承し、`Mammal`クラスの`name`パラメータを自身のコンストラクタの`catName`パラメータとして使用します。
-*   `Human`クラスは`Mammal` sealedクラスを継承し、`Mammal`クラスの`name`パラメータを自身のコンストラクタの`humanName`パラメータとして使用します。また、自身のコンストラクタには`job`パラメータがあります。
-*   `greetMammal()`関数は`Mammal`型の引数を受け取り、文字列を返します。
-*   `greetMammal()`関数の本体内には、`when`式があり、[`is`演算子](typecasts.md#is-and-is-operators)を使用して`mammal`の型をチェックし、実行するアクションを決定します。
-*   `main()`関数は、`Cat`クラスのインスタンスと`Snowy`という`name`パラメータを指定して`greetMammal()`関数を呼び出します。
+*   コンストラクタに `name` パラメータを持つ `Mammal` というシールドクラスがあります。
+*   `Cat` クラスは `Mammal` シールドクラスから継承し、`Mammal` クラスの `name` パラメータを自身のコンストラクタの `catName` パラメータとして使用します。
+*   `Human` クラスは `Mammal` シールドクラスから継承し、`Mammal` クラスの `name` パラメータを自身のコンストラクタの `humanName` パラメータとして使用します。また、コンストラクタに `job` パラメータも持ちます。
+*   `greetMammal()` 関数は `Mammal` 型の引数を受け取り、文字列を返します。
+*   `greetMammal()` 関数の本体内には、[`is` 演算子](typecasts.md#is-and-is-operators)を使用して `mammal` の型をチェックし、実行するアクションを決定する `when` 式があります。
+*   `main()` 関数は、`Cat` クラスのインスタンスと `Snowy` という `name` パラメータを指定して `greetMammal()` 関数を呼び出します。
 
-> このツアーでは、[Null安全性](kotlin-tour-intermediate-null-safety.md)の章で`is`演算子について詳しく説明します。
+> このツアーでは、[Null 安全](kotlin-tour-intermediate-null-safety.md)の章で `is` 演算子について詳しく説明します。
 >
 {style ="tip"}
 
-sealedクラスとその推奨されるユースケースに関する詳細は、[Sealedクラスとインターフェース](sealed-classes.md)を参照してください。
+シールドクラスとその推奨されるユースケースに関する詳細は、[シールドクラスとインターフェース](sealed-classes.md)を参照してください。
 
-### Enumクラス
+### 列挙クラス
 
-Enumクラスは、クラス内で有限の異なる値のセットを表現したい場合に便利です。enumクラスにはenum定数が含まれており、それ自体がenumクラスのインスタンスです。
+列挙クラス (enum class) は、クラス内で有限の異なる値のセットを表現したい場合に便利です。列挙クラスには列挙定数 (enum constants) が含まれており、それ自体が列挙クラスのインスタンスです。
 
-enumクラスを作成するには、`enum`キーワードを使用します。
+列挙クラスを作成するには、`enum` キーワードを使用します。
 
 ```kotlin
 enum class State
 ```
 
-プロセスの異なる状態を含むenumクラスを作成したいとします。各enum定数はコンマ`,`で区切る必要があります。
+プロセスごとの異なる状態を含む列挙クラスを作成したいとします。各列挙定数はカンマ `,` で区切る必要があります。
 
 ```kotlin
 enum class State {
@@ -243,13 +237,13 @@ enum class State {
 }
 ```
 
-`State` enumクラスには、`IDLE`、`RUNNING`、`FINISHED`というenum定数があります。enum定数にアクセスするには、クラス名の後に`.`とenum定数の名前を使用します。
+`State` 列挙クラスには、`IDLE`、`RUNNING`、`FINISHED` という列挙定数があります。列挙定数にアクセスするには、クラス名の後に `.` と列挙定数の名前を使用します。
 
 ```kotlin
 val state = State.RUNNING
 ```
 
-このenumクラスを`when`式と組み合わせて使用​​すると、enum定数の値に応じて実行するアクションを定義できます。
+この列挙クラスを `when` 式で使用して、列挙定数の値に応じて実行するアクションを定義できます。
 
 ```kotlin
 enum class State {
@@ -269,9 +263,9 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-tour-enum-classes"}
 
-Enumクラスは、通常のクラスと同様にプロパティやメンバ関数を持つことができます。
+列挙クラスは、通常のクラスと同様にプロパティやメンバー関数を持つことができます。
 
-たとえば、HTMLを扱っていて、いくつかの色を含むenumクラスを作成したいとします。各色に、そのRGB値を16進数で含む`rgb`というプロパティを持たせたいとします。enum定数を作成する際には、このプロパティで初期化する必要があります。
+例えば、HTML を扱っていて、いくつかの色を含む列挙クラスを作成したいとします。各色に、その RGB 値を16進数で含む `rgb` というプロパティを持たせたいとします。列挙定数を作成する際には、このプロパティで初期化する必要があります。
 
 ```kotlin
 enum class Color(val rgb: Int) {
@@ -282,11 +276,11 @@ enum class Color(val rgb: Int) {
 }
 ```
 
-> Kotlinは16進数を整数として保存するため、`rgb`プロパティは`Int`型であり、`String`型ではありません。
+> Kotlin は16進数を整数として保存するため、`rgb` プロパティは `Int` 型であり、`String` 型ではありません。
 >
 {style="note"}
 
-このクラスにメンバ関数を追加するには、enum定数とセミコロン`;`で区切ります。
+このクラスにメンバー関数を追加するには、列挙定数とセミコロン `;` で区切ります。
 
 ```kotlin
 enum class Color(val rgb: Int) {
@@ -315,26 +309,26 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-tour-interface-enum-classes-members"}
 
-この例では、`containsRed()`メンバ関数は`this`キーワードを使用してenum定数の`rgb`プロパティの値にアクセスし、16進数値の最初のビットに`FF`が含まれているかどうかをチェックしてブール値を返します。
+この例では、`containsRed()` メンバー関数は、列挙定数の `rgb` プロパティの値を `this` キーワードを使用してアクセスし、16進数の値に `FF` が最初のビットとして含まれているかをチェックしてブール値を返します。
 
-詳細は、[Enumクラス](enum-classes.md)を参照してください。
+詳細については、[列挙クラス](enum-classes.md)を参照してください。
 
 ### インライン値クラス
 
-コードで、クラスから小さなオブジェクトを作成し、短期間だけ使用したい場合があります。このアプローチはパフォーマンスに影響を与える可能性があります。インライン値クラスは、このパフォーマンスへの影響を回避する特殊な型のクラスです。ただし、それらは値のみを含むことができます。
+コード内で、クラスから小さなオブジェクトを作成し、それを一時的にだけ使用したい場合があります。このアプローチはパフォーマンスに影響を与える可能性があります。インライン値クラス (inline value class) は、このパフォーマンスへの影響を回避する特殊な型のクラスです。ただし、値のみを含むことができます。
 
-インライン値クラスを作成するには、`value`キーワードと`@JvmInline`アノテーションを使用します。
+インライン値クラスを作成するには、`value` キーワードと `@JvmInline` アノテーションを使用します。
 
 ```kotlin
 @JvmInline
 value class Email
 ```
 
-> `@JvmInline`アノテーションは、コンパイル時にKotlinにコードを最適化するよう指示します。詳細については、[アノテーション](annotations.md)を参照してください。
+> `@JvmInline` アノテーションは、Kotlin がコンパイルされるときにコードを最適化するように指示します。詳細については、[アノテーション](annotations.md)を参照してください。
 >
 {style="tip"}
 
-インライン値クラスは、クラスヘッダーで初期化された単一のプロパティを**必ず**持たなければなりません。
+インライン値クラスは、クラスヘッダーで初期化される単一のプロパティを**持たなければなりません**。
 
 メールアドレスを収集するクラスを作成したいとします。
 
@@ -355,23 +349,23 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-tour-inline-value-class"}
 
-この例では、
+この例では、以下を行います。
 
-*   `Email`は、クラスヘッダーに`address`という1つのプロパティを持つインライン値クラスです。
-*   `sendEmail()`関数は`Email`型のオブジェクトを受け入れ、文字列を標準出力に出力します。
-*   `main()`関数は以下を実行します。
-    *   `email`という`Email`クラスのインスタンスを作成します。
-    *   `email`オブジェクトで`sendEmail()`関数を呼び出します。
+*   `Email` は、クラスヘッダーに `address` というプロパティを1つ持つインライン値クラスです。
+*   `sendEmail()` 関数は `Email` 型のオブジェクトを受け取り、標準出力に文字列を出力します。
+*   `main()` 関数は、以下を行います。
+    *   `myEmail` という `Email` クラスのインスタンスを作成します。
+    *   `myEmail` オブジェクトに対して `sendEmail()` 関数を呼び出します。
 
-インライン値クラスを使用することで、クラスがインライン化され、オブジェクトを作成せずにコードで直接使用できます。これにより、メモリフットプリントを大幅に削減し、コードの実行時パフォーマンスを向上させることができます。
+インライン値クラスを使用することで、クラスをインライン化し、オブジェクトを作成することなくコードで直接使用できるようになります。これにより、メモリフットプリントを大幅に削減し、コードのランタイムパフォーマンスを向上させることができます。
 
 インライン値クラスに関する詳細は、[インライン値クラス](inline-classes.md)を参照してください。
 
 ## 練習
 
-### 演習1 {initial-collapse-state="collapsed" collapsible="true" id="special-classes-exercise-1"}
+### 練習問題 1 {initial-collapse-state="collapsed" collapsible="true" id="special-classes-exercise-1"}
 
-配達サービスを管理しており、荷物のステータスを追跡する方法が必要です。`DeliveryStatus`というsealedクラスを作成し、`Pending`、`InTransit`、`Delivered`、`Canceled`の各ステータスを表すデータクラスを含めます。`main()`関数のコードが正常に実行されるように、`DeliveryStatus`クラスの宣言を完成させてください。
+配送サービスを管理しており、パッケージのステータスを追跡する方法が必要です。`DeliveryStatus` というシールドクラスを作成し、`Pending`、`InTransit`、`Delivered`、`Canceled` の各ステータスを表すデータクラスを含めます。`main()` 関数のコードが正常に実行されるように、`DeliveryStatus` クラスの宣言を完成させてください。
 
 |---|---|
 
@@ -457,9 +451,9 @@ fun main() {
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="解答例" id="kotlin-tour-special-classes-solution-1"}
 
-### 演習2 {initial-collapse-state="collapsed" collapsible="true" id="special-classes-exercise-2"}
+### 練習問題 2 {initial-collapse-state="collapsed" collapsible="true" id="special-classes-exercise-2"}
 
-プログラムで、さまざまなステータスとエラーの種類を処理できるようにしたいと考えています。データクラスまたはオブジェクトで宣言された異なるステータスをキャプチャするためのsealedクラスがあります。以下のコードを、異なる問題の種類である`NETWORK`、`TIMEOUT`、`UNKNOWN`を表す`Problem`というenumクラスを作成して完成させてください。
+プログラムで、さまざまなステータスと種類のエラーを処理できるようにしたいと考えています。データクラスまたはオブジェクトで宣言された異なるステータスを捕捉するためのシールドクラスがあります。以下のコードを完成させ、`NETWORK`、`TIMEOUT`、`UNKNOWN` の異なる問題タイプを表す `Problem` という列挙クラスを作成してください。
 
 |---|---|
 
@@ -538,4 +532,4 @@ fun main() {
 
 ## 次のステップ
 
-[中級: プロパティ](kotlin-tour-intermediate-properties.md)
+[Intermediate: プロパティ](kotlin-tour-intermediate-properties.md)

@@ -1,0 +1,246 @@
+[
+  {
+    "text": "koin.setup",
+    "collapsed": true,
+    "items": [
+      {
+        "text": "koin.setup.koin",
+        "link": "setup/koin"
+      },
+      {
+        "text": "koin.support.embedded",
+        "link": "support/embedded"
+      },
+      {
+        "text": "koin.setup.annotations",
+        "link": "setup/annotations"
+      },
+      {
+        "text": "koin.setup.why",
+        "link": "setup/why"
+      },
+      {
+        "text": "koin.support.releases",
+        "link": "support/releases"
+      },
+      {
+        "text": "koin.support.api-stability",
+        "link": "support/api-stability"
+      },
+      {
+        "text": "koin.support.index",
+        "link": "support/index"
+      }
+    ]
+  },
+  {
+    "text": "koin.tutorial",
+    "collapsed": true,
+    "items": [
+      {
+        "text": "koin.quickstart.kotlin",
+        "link": "quickstart/kotlin"
+      },
+      {
+        "text": "koin.quickstart.android",
+        "link": "quickstart/android"
+      },
+      {
+        "text": "koin.quickstart.android-viewmodel",
+        "link": "quickstart/android-viewmodel"
+      },
+      {
+        "text": "koin.quickstart.android-compose",
+        "link": "quickstart/android-compose"
+      },
+      {
+        "text": "koin.quickstart.android-annotations",
+        "link": "quickstart/android-annotations"
+      },
+      {
+        "text": "koin.quickstart.kmp",
+        "link": "quickstart/kmp"
+      },
+      {
+        "text": "koin.quickstart.cmp",
+        "link": "quickstart/cmp"
+      },
+      {
+        "text": "koin.quickstart.ktor",
+        "link": "quickstart/ktor"
+      },
+      {
+        "text": "koin.quickstart.ktor-annotations",
+        "link": "quickstart/ktor-annotations"
+      }
+    ]
+  },
+  {
+    "text": "koin.core.test",
+    "collapsed": true,
+    "items": [
+      {
+        "text": "koin.reference.introduction",
+        "link": "reference/introduction"
+      },
+      {
+        "text": "koin.reference.koin-core.dsl",
+        "link": "reference/koin-core/dsl"
+      },
+      {
+        "text": "koin.reference.koin-core.dsl-update",
+        "link": "reference/koin-core/dsl-update"
+      },
+      {
+        "text": "koin.reference.koin-core.definitions",
+        "link": "reference/koin-core/definitions"
+      },
+      {
+        "text": "koin.reference.koin-core.modules",
+        "link": "reference/koin-core/modules"
+      },
+      {
+        "text": "koin.reference.koin-core.extension-manager",
+        "link": "reference/koin-core/extension-manager"
+      },
+      {
+        "text": "koin.reference.koin-core.start-koin",
+        "link": "reference/koin-core/start-koin"
+      },
+      {
+        "text": "koin.reference.koin-core.koin-component",
+        "link": "reference/koin-core/koin-component"
+      },
+      {
+        "text": "koin.reference.koin-core.injection-parameters",
+        "link": "reference/koin-core/injection-parameters"
+      },
+      {
+        "text": "koin.reference.koin-core.context-isolation",
+        "link": "reference/koin-core/context-isolation"
+      },
+      {
+        "text": "koin.reference.koin-core.scopes",
+        "link": "reference/koin-core/scopes"
+      },
+      {
+        "text": "koin.reference.koin-test.testing",
+        "link": "reference/koin-test/testing"
+      },
+      {
+        "text": "koin.reference.koin-test.verify",
+        "link": "reference/koin-test/verify"
+      },
+      {
+        "text": "koin.reference.koin-test.checkmodules",
+        "link": "reference/koin-test/checkmodules"
+      }
+    ]
+  },
+  {
+    "text": "koin.android",
+    "collapsed": true,
+    "items": [
+      {
+        "text": "koin.reference.koin-android.start",
+        "link": "reference/koin-android/start"
+      },
+      {
+        "text": "koin.reference.koin-android.get-instances",
+        "link": "reference/koin-android/get-instances"
+      },
+      {
+        "text": "koin.reference.koin-android.dsl-update",
+        "link": "reference/koin-android/dsl-update"
+      },
+      {
+        "text": "koin.reference.koin-android.modules-android",
+        "link": "reference/koin-android/modules-android"
+      },
+      {
+        "text": "koin.reference.koin-android.viewmodel",
+        "link": "reference/koin-android/viewmodel"
+      },
+      {
+        "text": "koin.reference.koin-android.scope",
+        "link": "reference/koin-android/scope"
+      },
+      {
+        "text": "koin.reference.koin-android.fragment-factory",
+        "link": "reference/koin-android/fragment-factory"
+      },
+      {
+        "text": "koin.reference.koin-android.workmanager",
+        "link": "reference/koin-android/workmanager"
+      },
+      {
+        "text": "koin.reference.koin-android.instrumented-testing",
+        "link": "reference/koin-android/instrumented-testing"
+      }
+    ]
+  },
+  {
+    "text": "koin.compose",
+    "collapsed": true,
+    "items": [
+      {
+        "text": "koin.reference.koin-compose.compose",
+        "link": "reference/koin-compose/compose"
+      },
+      {
+        "text": "koin.reference.koin-compose.isolated-context",
+        "link": "reference/koin-compose/isolated-context"
+      }
+    ]
+  },
+  {
+    "text": "koin.annotation",
+    "collapsed": true,
+    "items": [
+      {
+        "text": "koin.reference.koin-annotations.start",
+        "link": "reference/koin-annotations/start"
+      },
+      {
+        "text": "koin.reference.koin-annotations.definitions",
+        "link": "reference/koin-annotations/definitions"
+      },
+      {
+        "text": "koin.reference.koin-annotations.modules",
+        "link": "reference/koin-annotations/modules"
+      },
+      {
+        "text": "koin.reference.koin-annotations.scope",
+        "link": "reference/koin-annotations/scope"
+      },
+      {
+        "text": "koin.reference.koin-annotations.kmp",
+        "link": "reference/koin-annotations/kmp"
+      }
+    ]
+  },
+  {
+    "text": "koin.multiplatform",
+    "collapsed": true,
+    "items": [
+      {
+        "text": "koin.reference.koin-mp.kmp",
+        "link": "reference/koin-mp/kmp"
+      }
+    ]
+  },
+  {
+    "text": "koin.ktor",
+    "collapsed": true,
+    "items": [
+      {
+        "text": "koin.reference.koin-ktor.ktor",
+        "link": "reference/koin-ktor/ktor"
+      },
+      {
+        "text": "koin.reference.koin-ktor.ktor-isolated",
+        "link": "reference/koin-ktor/ktor-isolated"
+      }
+    ]
+  }
+]

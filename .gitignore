@@ -57,3 +57,6 @@ koin-repo/
 koin-annotations-repo/
 sqldelight-repo/
 coil-repo/
+coroutines-repo/
+dokka-repo/
+kotlin-repo/

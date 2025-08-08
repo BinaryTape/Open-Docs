@@ -3,11 +3,14 @@
 
 [//]: # (title: 通道)
 
-延遲值 (Deferred values) 提供了一種在協程 (coroutines) 之間傳輸單個值的便捷方式。通道 (Channels) 則提供了一種傳輸值串流 (stream of values) 的方式。
+延遲值（Deferred values）提供了一種在協程（coroutines）之間傳輸單個值的便捷方式。
+通道（Channels）提供了一種傳輸值串流的方式。
 
 ## 通道基礎
 
-[通道 (Channel)] 在概念上與 `BlockingQueue` 非常相似。一個關鍵區別在於，它沒有阻塞的 `put` 操作，而是具備暫停 (suspending) 的 [send][SendChannel.send] 操作；它也沒有阻塞的 `take` 操作，而是具備暫停 (suspending) 的 [receive][ReceiveChannel.receive] 操作。
+一個 [Channel] 在概念上與 `BlockingQueue` 非常相似。一個主要區別是，
+它沒有阻塞的 `put` 操作，而是有掛起（suspending）的 [send][SendChannel.send] 操作；也沒有
+阻塞的 `take` 操作，而是有掛起（suspending）的 [receive][ReceiveChannel.receive] 操作。
 
 ```kotlin
 import kotlinx.coroutines.*
@@ -29,7 +32,7 @@ fun main() = runBlocking {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 <!--- KNIT example-channel-01.kt -->
-> 您可以在 [此處](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-channel-01.kt) 取得完整程式碼。
+> 您可以在[此處](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-channel-01.kt)獲取完整程式碼。
 >
 {style="note"}
 
@@ -46,11 +49,13 @@ Done!
 
 <!--- TEST -->
 
-## 關閉與迭代通道
+## 關閉通道和迭代通道
 
-與佇列不同，通道可以被關閉以表示不會再有更多元素傳入。在接收端，使用常規的 `for` 迴圈從通道接收元素是很方便的。
+與佇列（queue）不同，通道可以關閉以指示不再有元素進入。
+在接收端，使用常規的 `for` 迴圈從通道接收元素非常方便。
 
-從概念上講，[close][SendChannel.close] 就像向通道發送一個特殊的關閉符記 (close token)。一旦接收到此關閉符記，迭代就會停止，因此可以保證在關閉之前所有先前發送的元素都會被接收：
+概念上，[close][SendChannel.close] 就像是向通道發送一個特殊的關閉標記（token）。
+一旦接收到此關閉標記，迭代就會停止，因此保證在關閉之前發送的所有元素都已被接收：
 
 ```kotlin
 import kotlinx.coroutines.*
@@ -71,7 +76,7 @@ fun main() = runBlocking {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 <!--- KNIT example-channel-02.kt -->
-> 您可以在 [此處](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-channel-02.kt) 取得完整程式碼。
+> 您可以在[此處](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-channel-02.kt)獲取完整程式碼。
 >
 {style="note"}
 
@@ -86,9 +91,12 @@ Done!
 
 ## 建立通道生產者
 
-協程產生一系列元素的模式相當常見。這是併發程式碼中經常發現的 _生產者-消費者 (producer-consumer)_ 模式的一部分。您可以將此類生產者抽象為一個以通道作為其參數的函數，但這與「函數必須返回值」的常識相悖。
+協程產生元素序列的模式非常常見。
+這是並行程式碼中常見的「生產者-消費者」（_producer-consumer_）模式的一部分。
+您可以將這樣的生產者抽象為一個以通道作為參數的函數，但這與「函數必須返回值」的常識相悖。
 
-有一個名為 [produce] 的便捷協程建構器 (coroutine builder)，它使得在生產者端正確操作變得容易，還有一個擴展函數 [consumeEach]，它替換了消費者端的 `for` 迴圈：
+有一個方便的協程建構器名為 [produce]，它使得在生產者端正確操作變得容易，
+還有一個擴展函數 [consumeEach]，它取代了消費者端的 `for` 迴圈：
 
 ```kotlin
 import kotlinx.coroutines.*
@@ -108,7 +116,7 @@ fun main() = runBlocking {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 <!--- KNIT example-channel-03.kt -->
-> 您可以在 [此處](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-channel-03.kt) 取得完整程式碼。
+> 您可以在[此處](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-channel-03.kt)獲取完整程式碼。
 >
 {style="note"}
 
@@ -123,7 +131,7 @@ Done!
 
 ## 管線
 
-管線 (pipeline) 是一種模式，其中一個協程產生一個（可能是無限的）值串流：
+管線（pipeline）是一種模式，其中一個協程產生一個可能無限的值串流：
 
 ```kotlin
 fun CoroutineScope.produceNumbers() = produce<Int> {
@@ -132,7 +140,8 @@ fun CoroutineScope.produceNumbers() = produce<Int> {
 }
 ```
 
-另一個或多個協程消耗該串流，進行一些處理，並產生其他結果。在下面的範例中，數字只是被平方了：
+另一個或多個協程則消費該串流，進行一些處理，並產生其他結果。
+在下面的範例中，數字只是被平方：
 
 ```kotlin
 fun CoroutineScope.square(numbers: ReceiveChannel<Int>): ReceiveChannel<Int> = produce {
@@ -140,7 +149,7 @@ fun CoroutineScope.square(numbers: ReceiveChannel<Int>): ReceiveChannel<Int> = p
 }
 ```
 
-主程式碼啟動並連接了整個管線：
+主程式碼啟動並連接整個管線：
 
 <!--- CLEAR -->
 
@@ -171,7 +180,7 @@ fun CoroutineScope.square(numbers: ReceiveChannel<Int>): ReceiveChannel<Int> = p
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 <!--- KNIT example-channel-04.kt -->
-> 您可以在 [此處](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-channel-04.kt) 取得完整程式碼。
+> 您可以在[此處](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-channel-04.kt)獲取完整程式碼。
 >
 {style="note"}
 
@@ -184,13 +193,16 @@ fun CoroutineScope.square(numbers: ReceiveChannel<Int>): ReceiveChannel<Int> = p
 Done!
 -->
 
-> 所有建立協程的函數都被定義為 [CoroutineScope] 上的擴展，這樣我們就可以依賴 [結構化併發 (structured concurrency)](composing-suspending-functions.md#structured-concurrency-with-async) 來確保我們的應用程式中不會有殘留的全域協程 (lingering global coroutines)。
+> 所有建立協程的函數都定義為 [CoroutineScope] 的擴展，
+> 因此我們可以依靠[結構化並行](composing-suspending-functions.md#structured-concurrency-with-async)（structured concurrency）來確保我們的應用程式中沒有
+> 懸而未決的全域協程。
 >
 {style="note"}
 
 ## 使用管線生成質數
 
-讓我們以一個使用協程管線來生成質數 (prime numbers) 的範例，將管線推向極致。我們從一個無限的數字序列開始。
+讓我們透過一個使用協程管線生成質數的範例，將管線應用推向極致。
+我們從一個無限的數字序列開始。
 
 ```kotlin
 fun CoroutineScope.numbersFrom(start: Int) = produce<Int> {
@@ -199,7 +211,7 @@ fun CoroutineScope.numbersFrom(start: Int) = produce<Int> {
 }
 ```
 
-下一個管線階段會過濾傳入的數字串流，移除所有可被給定質數整除的數字：
+以下管線階段過濾傳入的數字串流，移除所有可被給定質數整除的數字：
 
 ```kotlin
 fun CoroutineScope.filter(numbers: ReceiveChannel<Int>, prime: Int) = produce<Int> {
@@ -207,13 +219,18 @@ fun CoroutineScope.filter(numbers: ReceiveChannel<Int>, prime: Int) = produce<In
 }
 ```
 
-現在我們透過從 2 開始一個數字串流，從當前通道中取一個質數，並為每個找到的質數啟動新的管線階段來建立我們的管線：
-
+現在我們透過從 2 開始一個數字串流、從當前通道獲取一個質數、並為每個找到的質數啟動一個新的管線階段來建立我們的管線：
+ 
 ```
 numbersFrom(2) -> filter(2) -> filter(3) -> filter(5) -> filter(7) ... 
 ```
-
-以下範例印出前十個質數，在主執行緒的上下文 (context) 中執行整個管線。由於所有協程都在主 [runBlocking] 協程的作用域 (scope) 內啟動，我們不必保留所有已啟動協程的明確列表。我們使用 [cancelChildren][kotlin.coroutines.CoroutineContext.cancelChildren] 擴展函數，在我們印出前十個質數後取消所有子協程。
+ 
+以下範例印出前十個質數，
+在主執行緒的上下文（context）中執行整個管線。由於所有協程都是在主 [runBlocking] 協程的
+作用域（scope）中啟動的，我們無需保留所有已啟動協程的明確列表。
+我們使用 [cancelChildren][kotlin.coroutines.CoroutineContext.cancelChildren]
+擴展函數來取消所有子協程，在印出
+前十個質數之後。
 
 <!--- CLEAR -->
 
@@ -244,7 +261,7 @@ fun CoroutineScope.filter(numbers: ReceiveChannel<Int>, prime: Int) = produce<In
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 <!--- KNIT example-channel-05.kt -->
-> 您可以在 [此處](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-channel-05.kt) 取得完整程式碼。
+> 您可以在[此處](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-channel-05.kt)獲取完整程式碼。
 >
 {style="note"}
 
@@ -265,13 +282,23 @@ fun CoroutineScope.filter(numbers: ReceiveChannel<Int>, prime: Int) = produce<In
 
 <!--- TEST -->
 
-請注意，您可以使用標準函式庫 (standard library) 中的 [`iterator`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.sequences/iterator.html) 協程建構器來建立相同的管線。將 `produce` 替換為 `iterator`，將 `send` 替換為 `yield`，將 `receive` 替換為 `next`，將 `ReceiveChannel` 替換為 `Iterator`，並擺脫協程作用域。您也不需要 `runBlocking`。然而，如上所示使用通道的管線的優勢在於，如果您在 [Dispatchers.Default] 上下文 (context) 中執行它，它實際上可以使用多個 CPU 核心。
+請注意，您可以使用標準函式庫中的
+[`iterator`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.sequences/iterator.html)
+協程建構器來建立相同的管線。
+將 `produce` 替換為 `iterator`，`send` 替換為 `yield`，`receive` 替換為 `next`，
+`ReceiveChannel` 替換為 `Iterator`，並去除協程作用域。您也無需 `runBlocking`。
+然而，如上所示，使用通道的管線的好處是，如果您在 [Dispatchers.Default] 上下文中運行它，它實際上可以使用
+多個 CPU 核心。
 
-總之，這是一種極其不實用的尋找質數的方法。實際上，管線確實涉及一些其他暫停調用 (suspending invocations)（例如對遠端服務的非同步 (asynchronous) 呼叫），而這些管線不能使用 `sequence`/`iterator` 建立，因為它們不允許任意暫停，不像 `produce`，它是完全非同步的。
+無論如何，這是一種極不實用的尋找質數的方法。實際上，管線確實涉及一些
+其他掛起調用（例如對遠端服務的非同步呼叫），並且這些管線無法使用
+`sequence`/`iterator` 建立，因為它們不允許任意掛起，這與
+完全非同步的 `produce` 不同。
 
-## 扇出 (Fan-out)
+## 扇出（Fan-out）
 
-多個協程可以從同一個通道接收，在它們之間分配工作。讓我們從一個定期產生整數（每秒十個數字）的生產者協程開始：
+多個協程可以從同一個通道接收，將工作分發給彼此。
+讓我們從一個定期產生整數（每秒十個數字）的生產者協程開始：
 
 ```kotlin
 fun CoroutineScope.produceNumbers() = produce<Int> {
@@ -283,7 +310,8 @@ fun CoroutineScope.produceNumbers() = produce<Int> {
 }
 ```
 
-然後我們可以有幾個處理器協程。在這個範例中，它們只是印出它們的 ID 和接收到的數字：
+然後我們可以有多個處理器協程。在這個範例中，它們只是印出自己的 ID 和
+接收到的數字：
 
 ```kotlin
 fun CoroutineScope.launchProcessor(id: Int, channel: ReceiveChannel<Int>) = launch {
@@ -293,7 +321,7 @@ fun CoroutineScope.launchProcessor(id: Int, channel: ReceiveChannel<Int>) = laun
 }
 ```
 
-現在讓我們啟動五個處理器，並讓它們工作將近一秒。看看會發生什麼：
+現在讓我們啟動五個處理器，讓它們工作近一秒。看看會發生什麼：
 
 <!--- CLEAR -->
 
@@ -326,11 +354,12 @@ fun CoroutineScope.launchProcessor(id: Int, channel: ReceiveChannel<Int>) = laun
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 <!--- KNIT example-channel-06.kt -->
-> 您可以在 [此處](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-channel-06.kt) 取得完整程式碼。
+> 您可以在[此處](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-channel-06.kt)獲取完整程式碼。
 >
 {style="note"}
 
-輸出將與以下類似，儘管接收每個特定整數的處理器 ID 可能會不同：
+輸出將類似於以下內容，儘管接收
+每個特定整數的處理器 ID 可能不同：
 
 ```text
 Processor #2 received 1
@@ -349,11 +378,14 @@ Processor #3 received 10
 
 請注意，取消生產者協程會關閉其通道，從而最終終止處理器協程正在進行的通道迭代。
 
-此外，請注意我們如何在 `launchProcessor` 程式碼中，使用 `for` 迴圈明確迭代通道來執行扇出。與 `consumeEach` 不同，這種 `for` 迴圈模式從多個協程使用是完全安全的。如果其中一個處理器協程失敗，那麼其他協程仍會處理通道，而透過 `consumeEach` 編寫的處理器在其正常或異常完成時，總是會消耗（取消）底層通道。
+此外，請注意我們如何在 `launchProcessor` 程式碼中明確使用 `for` 迴圈迭代通道以執行扇出（fan-out）。
+與 `consumeEach` 不同，這種 `for` 迴圈模式在多個協程中使用是完全安全的。如果其中一個處理器
+協程失敗，那麼其他協程仍會繼續處理通道，而透過 `consumeEach` 編寫的處理器在其正常或異常完成時總會消費（取消）底層通道。
 
-## 扇入 (Fan-in)
+## 扇入（Fan-in）
 
-多個協程可以向同一個通道發送。例如，讓我們有一個字串通道，以及一個重複地以指定延遲向此通道發送指定字串的暫停函數：
+多個協程可以向同一個通道發送。
+例如，讓我們有一個字串通道，以及一個重複以指定延遲向此通道發送指定字串的掛起函數：
 
 ```kotlin
 suspend fun sendString(channel: SendChannel<String>, s: String, time: Long) {
@@ -364,7 +396,7 @@ suspend fun sendString(channel: SendChannel<String>, s: String, time: Long) {
 }
 ```
 
-現在，讓我們看看如果我們啟動幾個發送字串的協程（在此範例中，我們將它們作為主協程的子項在主執行緒的上下文中啟動），會發生什麼：
+現在，讓我們看看如果我們啟動幾個發送字串的協程會發生什麼（在這個範例中，我們將它們作為主協程的子項在主執行緒的上下文（context）中啟動）：
 
 <!--- CLEAR -->
 
@@ -393,7 +425,7 @@ suspend fun sendString(channel: SendChannel<String>, s: String, time: Long) {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 <!--- KNIT example-channel-07.kt -->
-> 您可以在 [此處](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-channel-07.kt) 取得完整程式碼。
+> 您可以在[此處](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-channel-07.kt)獲取完整程式碼。
 >
 {style="note"}
 
@@ -410,11 +442,15 @@ BAR!
 
 <!--- TEST -->
 
-## 緩衝通道 (Buffered channels)
+## 緩衝通道
 
-迄今為止顯示的通道都沒有緩衝。無緩衝通道 (Unbuffered channels) 會在發送者和接收者相遇（即「約會 (rendezvous)」）時傳輸元素。如果 `send` 先被調用，它會暫停直到 `receive` 被調用；如果 `receive` 先被調用，它會暫停直到 `send` 被調用。
+到目前為止所示的通道都沒有緩衝區。無緩衝通道在發送者和接收者
+相遇（又稱會合，rendezvous）時傳輸元素。如果 `send` 先被調用，則會掛起直到 `receive` 被調用；
+如果 `receive` 先被調用，則會掛起直到 `send` 被調用。
 
-[Channel()] 工廠函數和 [produce] 建構器都接受一個可選的 `capacity` 參數，以指定 _緩衝區大小_ (buffer size)。緩衝區允許發送者在暫停之前發送多個元素，這類似於具有指定容量的 `BlockingQueue`，當緩衝區滿時會阻塞。
+[Channel()] 工廠函數和 [produce] 建構器都接受一個可選的 `capacity` 參數來
+指定「緩衝區大小」（_buffer size_）。緩衝區允許發送者在掛起之前發送多個元素，
+類似於具有指定容量的 `BlockingQueue`，當緩衝區滿時它會阻塞。
 
 看看以下程式碼的行為：
 
@@ -439,11 +475,11 @@ fun main() = runBlocking<Unit> {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 <!--- KNIT example-channel-08.kt -->
-> 您可以在 [此處](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-channel-08.kt) 取得完整程式碼。
+> 您可以在[此處](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-channel-08.kt)獲取完整程式碼。
 >
 {style="note"}
 
-它使用容量為 _四_ 的緩衝通道 (buffered channel)，印出「sending」_五_ 次：
+它使用容量為「四」的緩衝通道，印出「sending」字樣「五」次：
 
 ```text
 Sending 0
@@ -455,11 +491,13 @@ Sending 4
 
 <!--- TEST -->
 
-前四個元素被添加到緩衝區，當發送者嘗試發送第五個元素時，它會暫停。
+前四個元素被添加到緩衝區，發送者在嘗試發送第五個元素時會掛起。
 
-## 通道是公平的 (Channels are fair)
+## 通道是公平的
 
-對通道的發送和接收操作，根據其從多個協程調用的順序是 _公平的_ (fair)。它們以先進先出 (first-in first-out) 的順序服務，例如，第一個調用 `receive` 的協程會取得該元素。在下面的範例中，兩個協程「ping」和「pong」正在從共享的「table」通道接收「ball」物件。
+通道上的發送和接收操作對於來自多個協程的調用順序是「公平的」（_fair_）。
+它們以先進先出（first-in first-out）的順序服務，例如，第一個調用 `receive` 的協程會獲得該元素。
+在以下範例中，兩個協程「ping」和「pong」正從共享的「table」通道接收「ball」物件。
 
 ```kotlin
 import kotlinx.coroutines.*
@@ -489,11 +527,13 @@ suspend fun player(name: String, table: Channel<Ball>) {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 <!--- KNIT example-channel-09.kt -->
-> 您可以在 [此處](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-channel-09.kt) 取得完整程式碼。
+> 您可以在[此處](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-channel-09.kt)獲取完整程式碼。
 >
 {style="note"}
 
-「ping」協程首先啟動，所以它是第一個接收到球的。即使「ping」協程在將球發回桌子後立即再次開始接收球，球仍會被「pong」協程接收，因為它已經在等待它了：
+「ping」協程先啟動，所以它是第一個接收到球的。儘管「ping」
+協程在將球發回桌面後立即再次開始接收球，但球還是被「pong」協程接收了，
+因為它已經在等待了：
 
 ```text
 ping Ball(hits=1)
@@ -504,13 +544,17 @@ pong Ball(hits=4)
 
 <!--- TEST -->
 
-請注意，由於所使用的執行器 (executor) 的特性，通道有時可能會產生看起來不公平的執行。詳情請參閱 [此問題](https://github.com/Kotlin/kotlinx.coroutines/issues/111)。
+請注意，有時通道可能會產生看起來不公平的執行，這是由於所使用的執行器（executor）的性質所致。
+詳情請參閱[此問題](https://github.com/Kotlin/kotlinx.coroutines/issues/111)。
 
-## 計時器通道 (Ticker channels)
+## 時鐘通道（Ticker channels）
 
-計時器通道 (Ticker channel) 是一種特殊的約會 (rendezvous) 通道，自從上次從此通道消耗後，每當經過給定延遲時它會產生 `Unit`。儘管它單獨使用看起來可能沒用，但它是一個有用的建構區塊，可以用來建立複雜的基於時間的 [produce] 管線以及執行視窗化 (windowing) 和其他時間相關處理的運算子 (operators)。計時器通道可以在 [select] 中使用以執行「on tick」動作。
+「時鐘通道」（Ticker channel）是一種特殊的會合通道，它在每次從該通道消費後，經過給定延遲後產生 `Unit`。
+雖然它單獨看起來可能沒用，但它是建立複雜基於時間的 [produce] 管線以及執行視窗化（windowing）和其他時間相關處理的運算子（operators）的有用建構塊。
+時鐘通道可以用於 [select] 以執行「按時鐘脈衝」（on tick）動作。
 
-要建立此類通道，請使用工廠方法 [ticker]。為了表示不再需要更多元素，請在其上使用 [ReceiveChannel.cancel] 方法。
+若要建立此類通道，請使用工廠方法 [ticker]。
+為指示不再需要更多元素，請在其上使用 [ReceiveChannel.cancel] 方法。
 
 現在讓我們看看它在實踐中如何運作：
 
@@ -546,11 +590,11 @@ fun main() = runBlocking<Unit> {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 <!--- KNIT example-channel-10.kt -->
-> 您可以在 [此處](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-channel-10.kt) 取得完整程式碼。
+> 您可以在[此處](https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-channel-10.kt)獲取完整程式碼。
 >
 {style="note"}
 
-它印出以下行：
+它會印出以下幾行：
 
 ```text
 Initial element is available immediately: kotlin.Unit
@@ -563,9 +607,10 @@ Next element is ready in 100ms after consumer pause in 300ms: kotlin.Unit
 
 <!--- TEST -->
 
-請注意，[ticker] 知道可能的消費者暫停，並且預設情況下，如果發生暫停，會調整下一個產生元素的延遲，嘗試維持產生元素的固定速率。
-
-或者，可以指定一個等於 [TickerMode.FIXED_DELAY] 的 `mode` 參數，以維持元素之間的固定延遲。
+請注意，[ticker] 會意識到可能的消費者暫停，並且預設情況下，如果發生暫停，它會調整下一個產生元素的
+延遲，試圖維持固定的元素產生速率。
+ 
+（可選）可以指定一個等於 [TickerMode.FIXED_DELAY] 的 `mode` 參數，以維持元素之間固定的延遲。
 
 <!--- MODULE kotlinx-coroutines-core -->
 <!--- INDEX kotlinx.coroutines -->

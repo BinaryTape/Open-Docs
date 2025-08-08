@@ -1,16 +1,14 @@
 [//]: # (title: 从 Java 调用 Kotlin)
 
-Kotlin 代码可以轻松地从 Java 调用。例如，Kotlin 类的实例可以在 Java 方法中无缝创建和操作。
-然而，Java 和 Kotlin 之间存在某些差异，在将 Kotlin 代码集成到 Java 时需要注意。
-在此页面上，我们将介绍如何调整 Kotlin 代码与 Java 客户端的互操作性。
+Kotlin 代码可以轻松地从 Java 调用。例如，Kotlin 类的实例可以在 Java 方法中无缝创建和操作。然而，Java 和 Kotlin 之间存在某些差异，在将 Kotlin 代码集成到 Java 时需要注意。本页面将介绍如何调整 Kotlin 代码与其 Java 客户端的互操作性。
 
 ## 属性
 
 Kotlin 属性被编译为以下 Java 元素：
 
-*   一个 getter 方法，其名称通过在属性名前添加 `get` 前缀计算得出
-*   一个 setter 方法，其名称通过在属性名前添加 `set` 前缀计算得出（仅适用于 `var` 属性）
-*   一个私有字段，其名称与属性名相同（仅适用于带有幕后字段的属性）
+ * 一个 getter 方法，其名称通过在属性名称前添加 `get` 前缀计算得出。
+ * 一个 setter 方法，其名称通过在属性名称前添加 `set` 前缀计算得出（仅适用于 `var` 属性）。
+ * 一个私有字段，其名称与属性名称相同（仅适用于带有幕后字段的属性）。
 
 例如，`var firstName: String` 编译为以下 Java 声明：
 
@@ -26,11 +24,11 @@ public void setFirstName(String firstName) {
 }
 ```
 
-如果属性名称以 `is` 开头，则使用不同的名称映射规则：getter 的名称将与属性名称相同，而 setter 的名称将通过将 `is` 替换为 `set` 获得。例如，对于属性 `isOpen`，getter 将被称为 `isOpen()`，setter 将被称为 `setOpen()`。此规则适用于任何类型的属性，而不仅仅是 `Boolean`。
+如果属性名称以 `is` 开头，则使用不同的名称映射规则：getter 的名称与属性名称相同，而 setter 的名称通过将 `is` 替换为 `set` 获得。例如，对于属性 `isOpen`，getter 被称为 `isOpen()`，setter 被称为 `setOpen()`。此规则适用于任何类型的属性，而不仅仅是 `Boolean`。
 
 ## 包级别函数
 
-所有声明在 `org.example` 包内 `app.kt` 文件中的函数和属性，包括扩展函数，都被编译为名为 `org.example.AppKt` 的 Java 类的静态方法。
+在 `org.example` 包内的 `app.kt` 文件中声明的所有函数和属性，包括扩展函数，都将被编译为名为 `org.example.AppKt` 的 Java 类的静态方法。
 
 ```kotlin
 // app.kt
@@ -67,7 +65,7 @@ new org.example.Util();
 org.example.DemoUtils.getTime();
 ```
 
-通常情况下，多个文件具有相同的生成 Java 类名（相同的包名和文件名，或相同的 [`@JvmName`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.jvm/-jvm-name/index.html) 注解）会导致错误。然而，编译器可以生成一个单独的 Java 外观类 (facade class)，该类具有指定的名称，并包含所有具有该名称的文件中的所有声明。要启用此类外观类的生成，请在所有此类文件中使用 [`@JvmMultifileClass`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.jvm/-jvm-multifile-class/index.html) 注解。
+通常，多个文件具有相同的生成的 Java 类名（相同的包和相同的名称或相同的 [`@JvmName`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.jvm/-jvm-name/index.html) 注解）是一个错误。但是，编译器可以生成一个单独的 Java 外观类，该类具有指定的名称，并包含来自所有具有该名称的文件的所有声明。要启用此类外观的生成，请在所有这些文件中使用 [`@JvmMultifileClass`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.jvm/-jvm-multifile-class/index.html) 注解。
 
 ```kotlin
 // oldutils.kt
@@ -97,11 +95,11 @@ org.example.Utils.getDate();
 
 ## 实例字段
 
-如果你需要在 Java 中将 Kotlin 属性公开为字段，请使用 [`@JvmField`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.jvm/-jvm-field/index.html) 注解对其进行标注。该字段将具有与底层属性相同的可见性。你可以使用 `@JvmField` 注解属性，如果它满足以下条件：
-*   具有幕后字段
-*   不是私有的
-*   没有 `open`、`override` 或 `const` 修饰符
-*   不是委托属性
+如果需要将 Kotlin 属性作为 Java 中的字段公开，请使用 [`@JvmField`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.jvm/-jvm-field/index.html) 注解对其进行注解。该字段与底层属性具有相同的可见性。在以下情况下，你可以使用 `@JvmField` 注解属性：
+* 它具有幕后字段
+* 它不是私有的
+* 它不具有 `open`、`override` 或 `const` 修饰符
+* 它不是委托属性
 
 ```kotlin
 class User(id: String) {
@@ -119,19 +117,19 @@ class JavaClient {
 }
 ```
 
-[延迟初始化 (Late-Initialized)](properties.md#late-initialized-properties-and-variables) 属性也会被公开为字段。字段的可见性将与 `lateinit` 属性 setter 的可见性相同。
+[延迟初始化](properties.md#late-initialized-properties-and-variables)属性也会公开为字段。字段的可见性与 `lateinit` 属性 setter 的可见性相同。
 
 ## 静态字段
 
-在命名对象 (named object) 或伴生对象 (companion object) 中声明的 Kotlin 属性将在该命名对象或包含伴生对象的类中拥有静态幕后字段。
+在命名对象或伴生对象中声明的 Kotlin 属性，在其命名对象或包含伴生对象的类中具有静态幕后字段。
 
 通常这些字段是私有的，但可以通过以下方式之一公开：
 
--   [`@JvmField`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.jvm/-jvm-field/index.html) 注解
--   `lateinit` 修饰符
--   `const` 修饰符
-
-使用 `@JvmField` 注解此类属性会使其成为一个静态字段，具有与属性本身相同的可见性。
+ - [`@JvmField`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.jvm/-jvm-field/index.html) 注解
+ - `lateinit` 修饰符
+ - `const` 修饰符
+ 
+用 `@JvmField` 注解此类属性会使其成为静态字段，并具有与属性本身相同的可见性。
 
 ```kotlin
 class Key(val value: Int) {
@@ -148,7 +146,7 @@ Key.COMPARATOR.compare(key1, key2);
 // public static final field in Key class
 ```
 
-命名对象或伴生对象中的[延迟初始化](properties.md#late-initialized-properties-and-variables)属性具有静态幕后字段，其可见性与属性 setter 相同。
+对象或伴生对象中的[延迟初始化](properties.md#late-initialized-properties-and-variables)属性具有静态幕后字段，其可见性与属性 setter 的可见性相同。
 
 ```kotlin
 object Singleton {
@@ -203,17 +201,17 @@ class C {
 }
 ```
 
-现在，`callStatic()` 在 Java 中是静态的，而 `callNonStatic()` 不是：
+现在，`callStatic()` 在 Java 中是静态的，而 `callNonStatic()` 则不是：
 
 ```java
 
-C.callStatic(); // works fine
-C.callNonStatic(); // error: not a static method
-C.Companion.callStatic(); // instance method remains
-C.Companion.callNonStatic(); // the only way it works
+C.callStatic(); // 正常工作
+C.callNonStatic(); // 错误：不是静态方法
+C.Companion.callStatic(); // 实例方法仍然存在
+C.Companion.callNonStatic(); // 唯一可以工作的方式
 ```
 
-命名对象也是如此：
+同样，对于命名对象：
 
 ```kotlin
 object Obj {
@@ -226,13 +224,13 @@ object Obj {
 
 ```java
 
-Obj.callStatic(); // works fine
-Obj.callNonStatic(); // error
-Obj.INSTANCE.callNonStatic(); // works, a call through the singleton instance
-Obj.INSTANCE.callStatic(); // works too
+Obj.callStatic(); // 正常工作
+Obj.callNonStatic(); // 错误
+Obj.INSTANCE.callNonStatic(); // 正常工作，通过单例实例调用
+Obj.INSTANCE.callStatic(); // 也正常工作
 ```
 
-从 Kotlin 1.3 开始，`@JvmStatic` 也适用于接口伴生对象中定义的函数。这些函数编译为接口中的静态方法。请注意，接口中的静态方法是在 Java 1.8 中引入的，因此请确保使用相应的目标。
+从 Kotlin 1.3 开始，`@JvmStatic` 也适用于接口伴生对象中定义的函数。此类函数被编译为接口中的静态方法。请注意，接口中的静态方法是在 Java 1.8 中引入的，因此请确保使用相应的目标。
 
 ```kotlin
 interface ChatBot {
@@ -244,33 +242,27 @@ interface ChatBot {
 }
 ```
 
-`@JvmStatic` 注解也可以应用于对象或伴生对象的属性，使其 getter 和 setter 方法成为该对象或包含伴生对象的类中的静态成员。
+你还可以将 `@JvmStatic` 注解应用于对象或伴生对象的属性，使其 getter 和 setter 方法成为该对象或包含伴生对象的类中的静态成员。
 
 ## 接口中的默认方法
 
->默认方法仅适用于 JVM 1.8 及更高版本的目标。
->
-{style="note"}
-
-从 JDK 1.8 开始，Java 中的接口可以包含[默认方法](https://docs.oracle.com/javase/tutorial/java/IandI/defaultmethods.html)。要使 Kotlin 接口的所有非抽象成员成为实现它们的 Java 类的默认成员，请使用 `-Xjvm-default=all` 编译器选项编译 Kotlin 代码。
+当以 JVM 为目标平台时，Kotlin 将接口中声明的函数编译为 [默认方法](https://docs.oracle.com/javase/tutorial/java/IandI/defaultmethods.html)，除非另行[配置](#compatibility-modes-for-default-methods)。这些是接口中的具体方法，Java 类可以直接继承，无需重新实现。
 
 以下是带有默认方法的 Kotlin 接口示例：
 
 ```kotlin
-// compile with -Xjvm-default=all
-
 interface Robot {
-    fun move() { println("~walking~") }  // 在 Java 接口中将是默认方法
+    fun move() { println("~walking~") }  // 将成为 Java 接口中的默认方法
     fun speak(): Unit
 }
 ```
 
-默认实现可用于实现该接口的 Java 类。
+默认实现可供实现该接口的 Java 类使用。
 
 ```java
 //Java implementation
 public class C3PO implements Robot {
-    // move() implementation from Robot is available implicitly
+    // move() 的实现从 Robot 中隐式可用
     @Override
     public void speak() {
         System.out.println("I beg your pardon, sir");
@@ -280,7 +272,7 @@ public class C3PO implements Robot {
 
 ```java
 C3PO c3po = new C3PO();
-c3po.move(); // default implementation from the Robot interface
+c3po.move(); // 来自 Robot 接口的默认实现
 c3po.speak();
 ```
 
@@ -289,7 +281,7 @@ c3po.speak();
 ```java
 //Java
 public class BB8 implements Robot {
-    //own implementation of the default method
+    //默认方法的自有实现
     @Override
     public void move() {
         System.out.println("~rolling~");
@@ -302,74 +294,71 @@ public class BB8 implements Robot {
 }
 ```
 
-> 在 Kotlin 1.4 之前，要生成默认方法，你可以在这些方法上使用 `@JvmDefault` 注解。在 1.4+ 中使用 `-Xjvm-default=all` 进行编译通常与你在接口的所有非抽象方法上使用 `@JvmDefault` 并使用 `-Xjvm-default=enable` 进行编译的效果相同。然而，在某些情况下它们的行为会有所不同。有关 Kotlin 1.4 中默认方法生成更改的详细信息，请参阅 Kotlin 博客上的[这篇帖子](https://blog.jetbrains.com/kotlin/2020/07/kotlin-1-4-m3-generating-default-methods-in-interfaces/)。
+### 默认方法的兼容性模式
+
+Kotlin 提供了三种模式来控制接口中的函数如何编译为 JVM 默认方法。这些模式决定了编译器是否生成兼容性桥接和 `DefaultImpls` 类中的静态方法。
+
+你可以使用 `-jvm-default` 编译器选项控制此行为：
+
+> `-jvm-default` 编译器选项替换了已弃用的 `-Xjvm-default` 选项。
 >
 {style="note"}
 
-### 默认方法的兼容模式
+了解更多关于兼容性模式的信息：
 
-如果存在使用未带 `-Xjvm-default=all` 选项编译的 Kotlin 接口的客户端，则它们可能与带此选项编译的代码存在二进制不兼容性。为避免破坏与此类客户端的兼容性，请使用 `-Xjvm-default=all` 模式并使用 [`@JvmDefaultWithCompatibility`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.jvm/-jvm-default-with-compatibility/) 注解标记接口。这允许你一次性将此注解添加到公共 API 中的所有接口，并且新开发的非公共代码无需使用任何注解。
+#### enable {initial-collapse-state="collapsed" collapsible="true"}
 
-> 从 Kotlin 1.6.20 开始，你可以在默认模式（`-Xjvm-default=disable` 编译器选项）下编译模块，以兼容使用 `-Xjvm-default=all` 或 `-Xjvm-default=all-compatibility` 模式编译的模块。
+默认行为。
+在接口中生成默认实现，并包含兼容性桥接和 `DefaultImpls` 类。
+此模式保持与较旧的已编译 Kotlin 代码的兼容性。
+
+#### no-compatibility {initial-collapse-state="collapsed" collapsible="true"}
+
+仅在接口中生成默认实现。
+跳过兼容性桥接和 `DefaultImpls` 类。
+将此模式用于不与依赖 `DefaultImpls` 类的代码交互的新代码库。
+这可能会破坏与较旧 Kotlin 代码的二进制兼容性。
+
+> 如果使用接口委托，所有接口方法都将被委托。
 >
 {style="note"}
-
-了解更多兼容模式：
 
 #### disable {initial-collapse-state="collapsed" collapsible="true"}
 
-默认行为。不生成 JVM 默认方法并禁止使用 `@JvmDefault` 注解。
-
-#### all {initial-collapse-state="collapsed" collapsible="true"}
-
-为模块中所有带有方法体的接口声明生成 JVM 默认方法。不为带有方法体的接口声明生成 [`DefaultImpls`](https://blog.jetbrains.com/kotlin/2020/07/kotlin-1-4-m3-generating-default-methods-in-interfaces/) 存根 (stubs)，这些在 `disable` 模式下默认会生成。
-
-如果接口从 `disable` 模式下编译的接口继承了带方法体的方法且未对其进行覆盖，则会为其生成一个 `DefaultImpls` 存根。
-
-__破坏二进制兼容性__，如果某些客户端代码依赖于 `DefaultImpls` 类的存在。
-
-> 如果使用接口委托，所有接口方法都会被委托。唯一的例外是带有已废弃的 `@JvmDefault` 注解的方法。
->
-{style="note"}
-
-#### all-compatibility {initial-collapse-state="collapsed" collapsible="true"}
-
-除了 `all` 模式外，还在 [`DefaultImpls`](https://blog.jetbrains.com/kotlin/2020/07/kotlin-1-4-m3-generating-default-methods-in-interfaces/) 类中生成兼容性存根。兼容性存根对于库和运行时作者而言非常有用，可以保持现有客户端与旧版本库的向后二进制兼容性。`all` 和 `all-compatibility` 模式正在改变库的 ABI (Application Binary Interface) 表面，客户端在重新编译库后将使用该表面。从这个意义上讲，客户端可能与以前的库版本不兼容。这通常意味着你需要适当的库版本控制，例如，SemVer (Semantic Versioning) 中的主版本号增加。
-
-编译器会为 `DefaultImpls` 的所有成员生成 `@Deprecated` 注解：你不应该在 Java 代码中使用这些成员，因为编译器生成它们仅用于兼容性目的。
-
-如果从以 `all` 或 `all-compatibility` 模式编译的 Kotlin 接口继承，`DefaultImpls` 兼容性存根将以标准的 JVM 运行时解析语义调用接口的默认方法。
-
-对继承泛型接口的类执行额外的兼容性检查，在 `disable` 模式下，有时会生成带有特殊签名的额外隐式方法：与 `disable` 模式不同，如果你没有显式覆盖此类方法并且没有使用 `@JvmDefaultWithoutCompatibility` 注解该类，编译器将报告错误（有关更多详细信息，请参阅 [此 YouTrack issue](https://youtrack.jetbrains.com/issue/KT-39603)）。
+禁用接口中的默认实现。
+仅生成兼容性桥接和 `DefaultImpls` 类。
 
 ## 可见性
 
-Kotlin 的可见性修饰符以以下方式映射到 Java：
+Kotlin 可见性修饰符在 Java 中的映射方式如下：
 
-*   `private` 成员编译为 `private` 成员
-*   `private` 顶层声明编译为 `private` 顶层声明。如果从类内部访问，也包括包私有 (package-private) 访问器。
-*   `protected` 保持 `protected`（请注意，Java 允许从同一包中的其他类访问 `protected` 成员，而 Kotlin 不允许，因此 Java 类对代码的访问范围会更广）
-*   `internal` 声明在 Java 中变为 `public`。`internal` 类的成员会经过名称修饰 (name mangling)，以使其更难从 Java 中意外使用，并允许对根据 Kotlin 规则互不可见的具有相同签名的成员进行重载。
-*   `public` 保持 `public`
+* `private` 成员编译为 `private` 成员。
+* `private` 顶层声明编译为 `private` 顶层声明。如果从类内部访问，包私有访问器也会被包含在内。
+* `protected` 保持 `protected`。（请注意，Java 允许从同一包中的其他类访问受保护成员，而 Kotlin 不允许，因此 Java 类将对代码拥有更广泛的访问权限。）
+* `internal` 声明在 Java 中变为 `public`。`internal` 类的成员会经过名字修饰，以使其更难被 Java 意外使用，并允许对根据 Kotlin 规则互不可见的具有相同签名的成员进行重载。
+* `public` 保持 `public`。
 
 ## KClass
 
-有时你需要调用一个 Kotlin 方法，其参数类型为 `KClass`。没有从 `Class` 到 `KClass` 的自动转换，因此你必须通过调用等效于 `Class<T>.kotlin` 扩展属性的方式手动进行转换：
+有时你需要调用一个带有 `KClass` 类型形参的 Kotlin 方法。
+`Class` 到 `KClass` 没有自动转换，因此你必须通过调用 `Class<T>.kotlin` 扩展属性的等效方法手动完成：
 
 ```kotlin
 kotlin.jvm.JvmClassMappingKt.getKotlinClass(MainView.class)
 ```
 
-## 使用 @JvmName 处理签名冲突
+## 处理与 @JvmName 的签名冲突
 
-有时我们在 Kotlin 中有一个命名函数，但我们需要它在字节码中具有不同的 JVM 名称。最突出的例子是由于*类型擦除*而发生的：
+有时我们在 Kotlin 中有一个命名函数，但我们需要它在字节码中具有不同的 JVM 名称。
+最突出的例子是由于*类型擦除*而发生的：
 
 ```kotlin
 fun List<String>.filterValid(): List<String>
 fun List<Int>.filterValid(): List<Int>
 ```
 
-这两个函数不能并排定义，因为它们的 JVM 签名相同：`filterValid(Ljava/util/List;)Ljava/util/List;`。如果我们确实希望它们在 Kotlin 中具有相同的名称，我们可以使用 [`@JvmName`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.jvm/-jvm-name/index.html) 注解其中一个（或两个）函数，并指定一个不同的名称作为参数：
+这两个函数不能并排定义，因为它们的 JVM 签名相同：`filterValid(Ljava/util/List;)Ljava/util/List;`。
+如果我们真的希望它们在 Kotlin 中具有相同的名称，我们可以使用 [`@JvmName`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.jvm/-jvm-name/index.html) 注解其中一个（或两个），并指定一个不同的名称作为实参：
 
 ```kotlin
 fun List<String>.filterValid(): List<String>
@@ -378,9 +367,9 @@ fun List<String>.filterValid(): List<String>
 fun List<Int>.filterValid(): List<Int>
 ```
 
-从 Kotlin 中，它们将通过相同的名称 `filterValid` 访问，但从 Java 中，它们将是 `filterValid` 和 `filterValidInt`。
+从 Kotlin 中，它们可以通过相同的名称 `filterValid` 访问，但从 Java 中，它们是 `filterValid` 和 `filterValidInt`。
 
-当我们需要一个属性 `x` 以及一个函数 `getX()` 时，也适用相同的技巧：
+同样的技巧也适用于我们需要拥有属性 `x` 以及函数 `getX()` 的情况：
 
 ```kotlin
 val x: Int
@@ -390,7 +379,7 @@ val x: Int
 fun getX() = 10
 ```
 
-要更改未显式实现 getter 和 setter 的属性生成的访问器方法名称，可以使用 `@get:JvmName` 和 `@set:JvmName`：
+要更改未显式实现 getter 和 setter 的属性所生成的访问器方法的名称，可以使用 `@get:JvmName` 和 `@set:JvmName`：
 
 ```kotlin
 @get:JvmName("x")
@@ -400,9 +389,9 @@ var x: Int = 23
 
 ## 重载生成
 
-通常，如果你编写一个带有默认参数值的 Kotlin 函数，它在 Java 中将仅以完整签名可见，所有参数都存在。如果你希望向 Java 调用者公开多个重载，可以使用 [`@JvmOverloads`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.jvm/-jvm-overloads/index.html) 注解。
+通常，如果你编写一个带有默认形参值的 Kotlin 函数，它在 Java 中仅作为完整签名可见，所有形参都存在。如果你希望向 Java 调用者公开多个重载，可以使用 [`@JvmOverloads`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.jvm/-jvm-overloads/index.html) 注解。
 
-此注解也适用于构造函数、静态方法等。它不能用于抽象方法，包括接口中定义的方法。
+该注解也适用于构造函数、静态方法等。它不能用于抽象方法，包括接口中定义的方法。
 
 ```kotlin
 class Circle @JvmOverloads constructor(centerX: Int, centerY: Int, radius: Double = 1.0) {
@@ -410,7 +399,7 @@ class Circle @JvmOverloads constructor(centerX: Int, centerY: Int, radius: Doubl
 }
 ```
 
-对于每个带有默认值的参数，这将生成一个额外的重载，该重载移除了此参数以及参数列表中其右侧的所有参数。在此示例中，将生成以下内容：
+对于每个带有默认值的形参，这会生成一个额外的重载，该重载移除了此形参及其形参列表中右侧的所有形参。在此示例中，生成了以下内容：
 
 ```java
 // Constructors:
@@ -423,11 +412,13 @@ void draw(String label, int lineWidth) { }
 void draw(String label) { }
 ```
 
-请注意，如[次级构造函数](classes.md#secondary-constructors)中所述，如果一个类的所有构造函数参数都具有默认值，则会为其生成一个公共的无参数构造函数。即使未指定 `@JvmOverloads` 注解，这也有效。
+请注意，如[次级构造函数](classes.md#secondary-constructors)中所述，如果一个类为其所有构造函数形参都设置了默认值，则会为其生成一个无实参的公共构造函数。即使未指定 `@JvmOverloads` 注解，这也有效。
 
 ## 受检异常
 
-Kotlin 没有受检异常 (checked exceptions)。因此，通常 Kotlin 函数的 Java 签名不声明抛出的异常。因此，如果你有一个像这样的 Kotlin 函数：
+Kotlin 没有受检异常。
+因此，通常 Kotlin 函数的 Java 签名不声明抛出的异常。
+因此，如果你有一个像这样的 Kotlin 函数：
 
 ```kotlin
 // example.kt
@@ -452,7 +443,8 @@ try {
 }
 ```
 
-你会收到 Java 编译器的错误消息，因为 `writeToFile()` 没有声明 `IOException`。要解决此问题，请在 Kotlin 中使用 [`@Throws`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throws/index.html) 注解：
+你将收到来自 Java 编译器的错误消息，因为 `writeToFile()` 未声明 `IOException`。
+为了解决此问题，请在 Kotlin 中使用 [`@Throws`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throws/index.html) 注解：
 
 ```kotlin
 @Throws(IOException::class)
@@ -464,11 +456,13 @@ fun writeToFile() {
 
 ## 空安全
 
-从 Java 调用 Kotlin 函数时，没有人阻止我们传递 `null` 作为不可为空的参数。这就是为什么 Kotlin 会为所有期望非空值的公共函数生成运行时检查。这样我们就能立即在 Java 代码中得到 `NullPointerException`。
+从 Java 调用 Kotlin 函数时，没有人能阻止我们将 `null` 作为非空形参传递。
+这就是 Kotlin 为所有期望非空值的公共函数生成运行时检测的原因。
+这样，我们就会立即在 Java 代码中获得一个 `NullPointerException`。
 
-## 泛型变体
+## 型变泛型
 
-当 Kotlin 类使用[声明处变型 (declaration-site variance)](generics.md#declaration-site-variance) 时，它们的用法在 Java 代码中会以两种方式体现。例如，假设你有以下类和两个使用它的函数：
+当 Kotlin 类使用[声明处型变](generics.md#declaration-site-variance)时，它们的用法在 Java 代码中有两种查看方式。例如，假设你有一个以下类和两个使用它的函数：
 
 ```kotlin
 class Box<out T>(val value: T)
@@ -480,22 +474,22 @@ fun boxDerived(value: Derived): Box<Derived> = Box(value)
 fun unboxBase(box: Box<Base>): Base = box.value
 ```
 
-将这些函数翻译成 Java 的一种朴素方法是这样：
+将这些函数翻译为 Java 的朴素方法是这样的：
 
 ```java
 Box<Derived> boxDerived(Derived value) { ... }
 Base unboxBase(Box<Base> box) { ... }
 ```
 
-问题在于，在 Kotlin 中你可以编写 `unboxBase(boxDerived(Derived()))`，但在 Java 中这是不可能的，因为在 Java 中，`Box` 类在其参数 `T` 上是*不变*的，因此 `Box<Derived>` 不是 `Box<Base>` 的子类型。要在 Java 中使其工作，你必须将 `unboxBase` 定义如下：
+问题在于，在 Kotlin 中你可以编写 `unboxBase(boxDerived(Derived()))`，但在 Java 中这不可能，因为在 Java 中，类 `Box` 对其形参 `T` 来说是*不型变*的，因此 `Box<Derived>` 不是 `Box<Base>` 的子类型。为了使其在 Java 中工作，你必须如下定义 `unboxBase`：
 
 ```java
 Base unboxBase(Box<? extends Base> box) { ... }  
 ```
 
-此声明使用 Java 的*通配符类型* (`? extends Base`) 通过使用处变型 (use-site variance) 来模拟声明处变型，因为这是 Java 唯一拥有的方式。
+此声明使用 Java 的*通配符类型*（`? extends Base`）通过使用处型变来模拟声明处型变，因为 Java 只有这种方式。
 
-为了使 Kotlin API 在 Java 中工作，当 `Box<Super>` (协变定义的 `Box`) 或 `Foo<? super Bar>` (逆变定义的 `Foo`) *作为参数*出现时，编译器会将其生成为 `Box<? extends Super>`。当它是一个返回值时，不会生成通配符，因为否则 Java 客户端将不得不处理它们（这与常见的 Java 编码风格相悖）。因此，我们示例中的函数实际翻译如下：
+为了使 Kotlin API 在 Java 中工作，当 `Box<Super>`（或 `Foo<? super Bar>` 用于逆变定义的 `Foo`）作为形参出现时，编译器会将其生成为 `Box<? extends Super>`（用于协变定义的 `Box`）。当它是返回值时，不会生成通配符，因为否则 Java 客户端将不得不处理它们（这与常见的 Java 编码风格相悖）。因此，我们示例中的函数实际上翻译如下：
 
 ```java
 
@@ -506,11 +500,11 @@ Box<Derived> boxDerived(Derived value) { ... }
 Base unboxBase(Box<? extends Base> box) { ... }
 ```
 
-> 当参数类型是 final 时，通常没有必要生成通配符，因此无论 `Box<String>` 处于何种位置，它始终是 `Box<String>`。
+> 当实参类型是 final 时，通常没有必要生成通配符，因此 `Box<String>` 始终是 `Box<String>`，无论它处于什么位置。
 >
 {style="note"}
 
-如果需要在默认情况下未生成通配符的地方生成它们，请使用 `@JvmWildcard` 注解：
+如果你需要在默认情况下不生成通配符的地方生成通配符，请使用 `@JvmWildcard` 注解：
 
 ```kotlin
 fun boxDerived(value: Derived): Box<@JvmWildcard Derived> = Box(value)
@@ -518,7 +512,7 @@ fun boxDerived(value: Derived): Box<@JvmWildcard Derived> = Box(value)
 // Box<? extends Derived> boxDerived(Derived value) { ... }
 ```
 
-相反，如果你不需要生成通配符的地方出现它们，请使用 `@JvmSuppressWildcards`：
+在相反的情况下，如果你不需要生成通配符的地方生成通配符，请使用 `@JvmSuppressWildcards`：
 
 ```kotlin
 fun unboxBase(box: Box<@JvmSuppressWildcards Base>): Base = box.value
@@ -526,16 +520,93 @@ fun unboxBase(box: Box<@JvmSuppressWildcards Base>): Base = box.value
 // Base unboxBase(Box<Base> box) { ... }
 ```
 
->`@JvmSuppressWildcards` 不仅可以用于单个类型参数，还可以用于整个声明，例如函数或类，从而抑制其中所有的通配符。
+>`@JvmSuppressWildcards` 不仅可以用于单个类型实参，还可以用于整个声明，例如函数或类，导致它们内部的所有通配符都被抑制。
 >
 {style="note"}
 
-### Nothing 类型的转换
+### Nothing 类型的翻译
  
-类型 [`Nothing`](exceptions.md#the-nothing-type) 是特殊的，因为它在 Java 中没有自然的对应物。事实上，每个 Java 引用类型，包括 `java.lang.Void`，都接受 `null` 作为值，而 `Nothing` 甚至不接受 `null`。因此，这种类型无法在 Java 世界中准确表示。这就是为什么当使用 `Nothing` 类型的参数时，Kotlin 会生成一个原始类型 (raw type)：
+[`Nothing`](exceptions.md#the-nothing-type) 类型很特殊，因为它在 Java 中没有自然的对应物。事实上，每个 Java 引用类型，包括 `java.lang.Void`，都接受 `null` 作为值，而 `Nothing` 甚至不接受 `null`。因此，这种类型无法在 Java 世界中准确表示。这就是为什么当使用 `Nothing` 类型实参时，Kotlin 会生成一个原始类型：
 
 ```kotlin
 fun emptyList(): List<Nothing> = listOf()
 // is translated to
 // List emptyList() { ... }
 ```
+
+## 内联值类
+
+<primary-label ref="experimental-general"/>
+
+如果你希望 Java 代码与 Kotlin 的[内联值类](inline-classes.md)顺利协作，你可以使用 [`@JvmExposeBoxed`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.jvm/-jvm-expose-boxed/) 注解或 `-Xjvm-expose-boxed` 编译器选项。这些方法确保 Kotlin 为 Java 互操作性生成必要的装箱表示。
+
+默认情况下，Kotlin 将内联值类编译为使用**未装箱表示**，这通常无法从 Java 访问。
+例如，你不能从 Java 调用 `MyInt` 类的构造函数：
+
+```kotlin
+@JvmInline
+value class MyInt(val value: Int)
+```
+
+因此，以下 Java 代码会失败：
+
+```java
+MyInt input = new MyInt(5);
+```
+
+你可以使用 `@JvmExposeBoxed` 注解，以便 Kotlin 生成一个可以直接从 Java 调用的公共构造函数。
+你可以在以下级别应用该注解，以确保对公开给 Java 的内容进行细粒度控制：
+
+* 类
+* 构造函数
+* 函数
+
+在代码中使用 `@JvmExposeBoxed` 注解之前，你必须通过使用 `@OptIn(ExperimentalStdlibApi::class)` 来选择加入。
+例如：
+
+```kotlin
+@OptIn(ExperimentalStdlibApi::class)
+@JvmExposeBoxed
+@JvmInline
+value class MyInt(val value: Int)
+
+@OptIn(ExperimentalStdlibApi::class)
+@JvmExposeBoxed
+fun MyInt.timesTwoBoxed(): MyInt = MyInt(this.value * 2)
+```
+
+有了这些注解，Kotlin 会为 `MyInt` 类生成一个 Java 可访问的构造函数，**并且**为使用值类的装箱形式的扩展函数生成一个变体。因此，以下 Java 代码成功运行：
+
+```java
+MyInt input = new MyInt(5);
+MyInt output = ExampleKt.timesTwoBoxed(input);
+```
+
+要将此行为应用于模块内的所有内联值类以及使用它们的函数，请使用 `-Xjvm-expose-boxed` 选项进行编译。
+使用此选项编译具有与模块中每个声明都带有 `@JvmExposeBoxed` 注解相同的效果。
+
+### 继承的函数
+
+`@JvmExposeBoxed` 注解不会自动为继承的函数生成装箱表示。
+ 
+要为继承的函数生成必要的表示，请在实现或扩展类中覆盖它：
+ 
+```kotlin
+interface IdTransformer {
+    fun transformId(rawId: UInt): UInt = rawId
+}
+
+// 不会为 transformId() 函数生成装箱表示
+@OptIn(ExperimentalStdlibApi::class)
+@JvmExposeBoxed
+class LightweightTransformer : IdTransformer
+
+// 会为 transformId() 函数生成装箱表示
+@OptIn(ExperimentalStdlibApi::class)
+@JvmExposeBoxed
+class DefaultTransformer : IdTransformer {
+    override fun transformId(rawId: UInt): UInt = super.transformId(rawId)
+}
+```
+
+要了解 Kotlin 中的继承工作原理以及如何使用 `super` 关键字调用超类实现，请参阅[继承](inheritance.md#calling-the-superclass-implementation)。

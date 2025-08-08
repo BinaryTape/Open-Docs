@@ -14,7 +14,7 @@ fun KSDeclaration.isLocal(): Boolean =
     parentDeclaration != null && parentDeclaration !is KSClassDeclaration
 ```
 
-## 尋找型別別名所指向的實際類別或介面宣告
+## 尋找類型別名所指向的實際類別或介面宣告
 
 ```kotlin
 fun KSTypeAlias.findActualType(): KSClassDeclaration {
@@ -27,7 +27,7 @@ fun KSTypeAlias.findActualType(): KSClassDeclaration {
 }
 ```
 
-## 收集檔案註解中抑制的名稱
+## 在檔案註解中收集被抑制的名稱
 
 ```kotlin
 // @file:kotlin.Suppress("Example1", "Example2")
@@ -40,4 +40,3 @@ fun KSFile.suppressedNames(): Sequence<String> = annotations
             (it.value as Array<String>).toList()
         }
     }
-```

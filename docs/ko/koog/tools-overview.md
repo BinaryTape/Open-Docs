@@ -1,0 +1,125 @@
+# 개요
+
+에이전트는 특정 작업을 수행하거나 외부 시스템에 접근하기 위해 도구를 사용합니다.
+
+## 도구 워크플로
+
+Koog 프레임워크는 도구 작업을 위한 다음 워크플로를 제공합니다:
+
+1.  커스텀 도구를 생성하거나 내장 도구 중 하나를 사용합니다.
+2.  도구를 도구 레지스트리(tool registry)에 추가합니다.
+3.  도구 레지스트리를 에이전트에 전달합니다.
+4.  에이전트와 함께 도구를 사용합니다.
+
+### 사용 가능한 도구 유형
+
+Koog 프레임워크에는 세 가지 유형의 도구가 있습니다:
+
+-   에이전트-사용자 상호 작용 및 대화 관리를 위한 기능을 제공하는 내장 도구입니다. 자세한 내용은 [내장 도구](built-in-tools.md)를 참조하세요.
+-   함수를 LLM에 도구로 노출할 수 있는 어노테이션 기반 커스텀 도구입니다. 자세한 내용은 [어노테이션 기반 도구](annotation-based-tools.md)를 참조하세요.
+-   고급 API를 사용하여 생성되며 도구 매개변수, 메타데이터, 실행 로직, 그리고 도구가 등록되고 호출되는 방식을 제어할 수 있는 커스텀 도구입니다. 자세한 내용은 [고급 구현](advanced-tool-implementation.md)을 참조하세요.
+
+### 도구 레지스트리
+
+에이전트에서 도구를 사용하려면 먼저 도구 레지스트리에 추가해야 합니다.
+도구 레지스트리는 에이전트가 사용할 수 있는 모든 도구를 관리합니다.
+
+도구 레지스트리의 주요 기능:
+
+-   도구를 구성합니다.
+-   여러 도구 레지스트리 병합을 지원합니다.
+-   이름 또는 유형으로 도구를 검색하는 메서드를 제공합니다.
+
+더 자세한 내용은 [ToolRegistry](https://api.koog.ai/agents/agents-tools/ai.koog.agents.core.tools/-tool-registry/index.html)를 참조하세요.
+
+다음은 도구 레지스트리를 만들고 도구를 추가하는 방법의 예시입니다:
+
+```kotlin
+val toolRegistry = ToolRegistry {
+    tool(SayToUser)
+}
+```
+
+여러 도구 레지스트리를 병합하려면 다음과 같이 하세요:
+
+```kotlin
+val firstToolRegistry = ToolRegistry {
+    tool(FirstSampleTool())
+}
+
+val secondToolRegistry = ToolRegistry {
+    tool(SecondSampleTool())
+}
+
+val newRegistry = firstToolRegistry + secondToolRegistry
+```
+
+### 에이전트에 도구 전달하기
+
+에이전트가 도구를 사용할 수 있도록 하려면 에이전트를 생성할 때 해당 도구가 포함된 도구 레지스트리를 인자로 제공해야 합니다:
+
+```kotlin
+// Agent initialization
+val agent = AIAgent(
+    executor = simpleOpenAIExecutor(System.getenv("OPENAI_API_KEY")),
+    systemPrompt = "You are a helpful assistant with strong mathematical skills.",
+    llmModel = OpenAIModels.Chat.GPT4o,
+    // Pass your tool registry to the agent
+    toolRegistry = toolRegistry
+)
+```
+
+### 도구 호출하기
+
+에이전트 코드 내에서 도구를 호출하는 여러 가지 방법이 있습니다. 권장되는 접근 방식은 도구를 직접 호출하는 대신 에이전트 컨텍스트에서 제공되는 메서드를 사용하는 것입니다. 이는 에이전트 환경 내에서 도구 작업의 적절한 처리를 보장하기 때문입니다.
+
+!!! tip
+    에이전트 오류를 방지하려면 도구에 적절한 [오류 처리](agent-events.md)가 구현되었는지 확인하세요.
+
+도구는 `AIAgentLLMWriteSession`으로 표현되는 특정 세션 컨텍스트 내에서 호출됩니다.
+이는 도구 호출을 위한 여러 메서드를 제공하며, 따라서 다음을 수행할 수 있습니다:
+
+-   주어진 인수로 도구를 호출합니다.
+-   이름과 주어진 인수로 도구를 호출합니다.
+-   제공된 도구 클래스와 인수로 도구를 호출합니다.
+-   지정된 유형의 도구를 주어진 인수로 호출합니다.
+-   원시 문자열 결과를 반환하는 도구를 호출합니다.
+
+더 자세한 내용은 [API 참조](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.agent.session/-a-i-agent-l-l-m-write-session/index.html)를 참조하세요.
+
+#### 병렬 도구 호출
+
+또한 `toParallelToolCallsRaw` 확장 기능을 사용하여 도구를 병렬로 호출할 수 있습니다. 예를 들어:
+
+```kotlin
+@Serializable
+data class Book(
+    val bookName: String,
+    val author: String,
+    val description: String
+) : ToolArgs
+
+/*...*/
+
+val myNode by node<Unit, Unit> { _ ->
+    llm.writeSession {
+        flow {
+            emit(Book("Book 1", "Author 1", "Description 1"))
+        }.toParallelToolCallsRaw(BookTool::class).collect()
+    }
+}
+```
+
+#### 노드에서 도구 호출하기
+
+노드를 사용하여 에이전트 워크플로를 구축할 때, 도구를 호출하기 위해 특별한 노드를 사용할 수 있습니다:
+
+*   **nodeExecuteTool**: 단일 도구 호출을 수행하고 그 결과를 반환합니다. 자세한 내용은 [API 참조](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.dsl.extension/node-execute-tool.html)를 참조하세요.
+
+*   **nodeExecuteSingleTool**: 제공된 인수로 특정 도구를 호출합니다. 자세한 내용은 [API 참조](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.dsl.extension/node-execute-single-tool.html)를 참조하세요.
+
+*   **nodeExecuteMultipleTools**: 여러 도구 호출을 수행하고 그 결과를 반환합니다. 자세한 내용은 [API 참조](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.dsl.extension/node-execute-multiple-tools.html)를 참조하세요.
+
+*   **nodeLLMSendToolResult**: 도구 결과를 LLM에 보내고 응답을 받습니다. 자세한 내용은 [API 참조](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.dsl.extension/node-l-l-m-send-tool-result.html)를 참조하세요.
+
+*   **nodeLLMSendMultipleToolResults**: 여러 도구 결과를 LLM에 보냅니다. 자세한 내용은 [API 참조](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.dsl.extension/node-l-l-m-send-multiple-tool-results.html)를 참조하세요.

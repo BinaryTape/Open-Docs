@@ -1,22 +1,21 @@
 [//]: # (title: 進度保證)
 
-許多並行演算法提供非阻塞式進度保證，例如無鎖 (lock-freedom) 和無等待 (wait-freedom)。由於它們通常不簡單，很容易加入一個會阻塞演算法的錯誤。Lincheck 可以透過模型檢查策略 (model checking strategy) 幫助您找到活性錯誤 (liveness bugs)。
+許多並發演算法提供非阻塞的進度保證，例如鎖自由和等待自由。由於它們通常不平凡，因此很容易引入阻塞演算法的錯誤。Lincheck 可以透過模型檢查策略幫助您找到活性錯誤。
 
-若要檢查演算法的進度保證，請在 `ModelCheckingOptions()` 中啟用 `checkObstructionFreedom` 選項：
+要檢查演算法的進度保證，請在 `ModelCheckingOptions()` 中啟用 `checkObstructionFreedom` 選項：
 
 ```kotlin
 ModelCheckingOptions().checkObstructionFreedom()
 ```
 
 建立一個 `ConcurrentMapTest.kt` 檔案。
-然後加入以下測試，以偵測 Java 標準函式庫中的 `ConcurrentHashMap::put(key: K, value: V)` 是一個阻塞操作：
+然後新增以下測試，以偵測到來自 Java 標準函式庫的 `ConcurrentHashMap::put(key: K, value: V)` 是一個阻塞操作：
 
 ```kotlin
-import org.jetbrains.kotlinx.lincheck.*
-import org.jetbrains.kotlinx.lincheck.annotations.*
-import org.jetbrains.kotlinx.lincheck.strategy.managed.modelchecking.*
-import org.junit.*
 import java.util.concurrent.*
+import org.jetbrains.lincheck.*
+import org.jetbrains.lincheck.datastructures.*
+import org.junit.*
 
 class ConcurrentHashMapTest {
     private val map = ConcurrentHashMap<Int, Int>()
@@ -38,9 +37,9 @@ class ConcurrentHashMapTest {
 執行 `modelCheckingTest()`。您應該會得到以下結果：
 
 ```text
-= 需要無阻礙 (Obstruction-freedom)，但發現了鎖 =
+= Obstruction-freedom is required but a lock has been found =
 | ---------------------- |
-|  執行緒 1  | 執行緒 2  |
+|  Thread 1  | Thread 2  |
 | ---------------------- |
 | put(1, -1) |           |
 | ---------------------- |
@@ -48,10 +47,10 @@ class ConcurrentHashMapTest {
 | ---------------------- |
 
 ---
-水平線 | ----- | 上方的所有操作，發生在該線下方的操作之前
+All operations above the horizontal line | ----- | happen before those below the line
 ---
 
-以下交錯導致錯誤：
+The following interleaving leads to the error:
 | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 |                                         Thread 1                                         |                                         Thread 2                                         |
 | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -73,7 +72,7 @@ class ConcurrentHashMapTest {
 | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 ```
 
-現在，讓我們為非阻塞的 `ConcurrentSkipListMap<K, V>` 加入一個測試，預期測試能成功通過：
+現在我們來新增一個針對非阻塞的 `ConcurrentSkipListMap<K, V>` 的測試，預期該測試將成功通過：
 
 ```kotlin
 class ConcurrentSkipListMapTest {
@@ -89,21 +88,21 @@ class ConcurrentSkipListMapTest {
 }
 ```
 
-> 常見的非阻塞式進度保證（從最強到最弱）包括：
->
-> * **無等待 (wait-freedom)**：當每個操作無論其他執行緒如何運作，都能在有界步數內完成。
-> * **無鎖 (lock-freedom)**：保證系統範圍的進度，至少一個操作能在有界步數內完成，而特定操作可能會被卡住。
-> * **無阻礙 (obstruction-freedom)**：當所有其他執行緒暫停時，任何操作都能在有界步數內完成。
+> 常見的非阻塞進度保證（從最強到最弱）：
+> 
+> * **等待自由 (wait-freedom)**：當每個操作無論其他執行緒做什麼都能在有限步驟內完成時。
+> * **鎖自由 (lock-freedom)**：保證系統範圍的進度，使得至少一個操作在有限步驟內完成，而特定操作可能會被卡住。
+> * **阻礙自由 (obstruction-freedom)**：當所有其他執行緒暫停時，任何操作都能在有限步驟內完成。
 >
 {style="tip"}
 
-目前，Lincheck 僅支援無阻礙的進度保證。然而，大多數實際生活中的活性錯誤都加入了非預期的阻塞程式碼，因此無阻礙檢查也將有助於無鎖和無等待演算法。
+目前，Lincheck 只支援阻礙自由進度保證。然而，大多數實際的活性錯誤增加了意料之外的阻塞程式碼，因此阻礙自由檢查也將有助於鎖自由和等待自由演算法。
 
-> * 獲取範例的[完整程式碼](https://github.com/JetBrains/lincheck/blob/master/src/jvm/test/org/jetbrains/kotlinx/lincheck_test/guide/ConcurrentMapTest.kt)。
-> * 請參閱[另一個範例](https://github.com/JetBrains/lincheck/blob/master/src/jvm/test/org/jetbrains/kotlinx/lincheck_test/guide/ObstructionFreedomViolationTest.kt)，該範例測試了 Michael-Scott 佇列實作的進度保證。
+> * 取得[完整範例程式碼](https://github.com/JetBrains/lincheck/blob/master/src/jvm/test-lincheck-integration/org/jetbrains/lincheck_test/guide/ConcurrentMapTest.kt)。
+> * 請參閱[另一個範例](https://github.com/JetBrains/lincheck/blob/master/src/jvm/test-lincheck-integration/org/jetbrains/lincheck_test/guide/ObstructionFreedomViolationTest.kt)，其中 Michael-Scott 佇列的實作測試了進度保證。
 >
 {style="note"}
 
 ## 下一步
 
-了解如何明確[指定](sequential-specification.md)測試演算法的循序規格，以提高 Lincheck 測試的穩健性。
+學習如何[明確指定測試演算法的循序規範](sequential-specification.md)，以提高 Lincheck 測試的穩健性。

@@ -1,9 +1,9 @@
-[//]: # (title: セット固有の操作)
+[//]: # (title: Setにおける操作)
 
-Kotlinのコレクションパッケージには、セットに対するよく使われる操作（積集合の検索、結合、コレクション間の減算など）のための拡張関数が含まれています。
+Kotlinのコレクションパッケージには、セットにおける一般的な操作、すなわち交差の検出、マージ、コレクション間の差分を見つけるための拡張関数が含まれています。
 
-2つのコレクションを1つに結合するには、[`union()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/union.html) 関数を使用します。この関数は、`a union b` の中置記法で使用できます。
-順序付けられたコレクションの場合、オペランドの順序が重要であることに注意してください。結果のコレクションでは、最初のオペランドの要素が2番目の要素の前に配置されます。
+2つのコレクションを1つにマージするには、[`union()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/union.html)関数を使用します。これは中置形式`a union b`で記述できます。
+順序付けられたコレクションの場合、オペランドの順序が重要であることに注意してください。結果のコレクションでは、最初のオペランドの要素が2番目の要素の前に来ます。
 
 ```kotlin
 fun main() {
@@ -20,9 +20,9 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-2つのコレクション間の積集合（両方に存在する要素）を見つけるには、[`intersect()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/intersect.html) 関数を使用します。
-あるコレクションには存在するが別のコレクションには存在しない要素を見つけるには、[`subtract()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/subtract.html) 関数を使用します。
-これら両方の関数は、例えば `a intersect b` のように中置記法で呼び出すこともできます。
+2つのコレクション間の交差（両方に存在する要素）を見つけるには、[`intersect()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/intersect.html)関数を使用します。
+別のコレクションに存在しないコレクション要素を見つけるには、[`subtract()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/subtract.html)関数を使用します。
+これらの関数はどちらも中置形式で呼び出すことができます。例えば、`a intersect b`のように記述します。
 
 ```kotlin
 fun main() {
@@ -41,8 +41,8 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-2つのコレクションのいずれかには存在するが、それらの積集合には存在しない要素を見つけるには、`union()` 関数を使用することもできます。
-この操作（対象差として知られています）では、2つのコレクション間の差を計算し、その結果を結合します。
+2つのコレクションのいずれか一方には存在するが、その交差部分には存在しない要素を見つけるには、`union()`関数を使用することもできます。
+この操作（対象差として知られています）の場合、2つのコレクション間の差分を計算し、その結果をマージします。
 
 ```kotlin
 fun main() {
@@ -58,8 +58,8 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-`union()`、`intersect()`、`subtract()` 関数はリストにも適用できます。
-ただし、その結果は_常に_ `Set` になります。この結果では、すべての重複要素が1つに結合され、インデックスアクセスは利用できません。
+`union()`、`intersect()`、`subtract()`関数はリストにも適用できます。
+ただし、それらの結果は_常に_ `Set` となります。この結果では、すべての重複要素は1つにマージされ、インデックスによるアクセスは利用できません。
 
 ```kotlin
 fun main() {

@@ -1,34 +1,34 @@
-[//]: # (title: null安全性)
+[//]: # (title: Null safety)
 
 <no-index/>
 
 <tldr>
-    <p><img src="icon-1-done.svg" width="20" alt="最初のステップ" /> <a href="kotlin-tour-hello-world.md">Hello world</a><br />
-        <img src="icon-2-done.svg" width="20" alt="2番目のステップ" /> <a href="kotlin-tour-basic-types.md">基本型</a><br />
-        <img src="icon-3-done.svg" width="20" alt="3番目のステップ" /> <a href="kotlin-tour-collections.md">コレクション</a><br />
-        <img src="icon-4-done.svg" width="20" alt="4番目のステップ" /> <a href="kotlin-tour-control-flow.md">制御フロー</a><br />
-        <img src="icon-5-done.svg" width="20" alt="5番目のステップ" /> <a href="kotlin-tour-functions.md">関数</a><br />
-        <img src="icon-6-done.svg" width="20" alt="6番目のステップ" /> <a href="kotlin-tour-classes.md">クラス</a><br />
-        <img src="icon-7.svg" width="20" alt="最後のステップ" /> <strong>null安全性</strong><br /></p>
+    <p><img src="icon-1-done.svg" width="20" alt="First step" /> <a href="kotlin-tour-hello-world.md">Hello world</a><br />
+        <img src="icon-2-done.svg" width="20" alt="Second step" /> <a href="kotlin-tour-basic-types.md">基本型</a><br />
+        <img src="icon-3-done.svg" width="20" alt="Third step" /> <a href="kotlin-tour-collections.md">コレクション</a><br />
+        <img src="icon-4-done.svg" width="20" alt="Fourth step" /> <a href="kotlin-tour-control-flow.md">制御フロー</a><br />
+        <img src="icon-5-done.svg" width="20" alt="Fifth step" /> <a href="kotlin-tour-functions.md">関数</a><br />
+        <img src="icon-6-done.svg" width="20" alt="Sixth step" /> <a href="kotlin-tour-classes.md">クラス</a><br />
+        <img src="icon-7.svg" width="20" alt="Final step" /> <strong>Null safety</strong><br /></p>
 </tldr>
 
-Kotlinでは、`null`値を持つことが可能です。Kotlinは、何かが欠けている場合やまだ設定されていない場合に`null`値を使用します。
-[コレクション](kotlin-tour-collections.md#kotlin-tour-map-no-key)の章で、マップに存在しないキーを持つキーと値のペアにアクセスしようとしたときに、Kotlinが`null`値を返す例をすでに見てきました。このように`null`値を使用することは便利ですが、コードがそれらを処理する準備ができていない場合、問題が発生する可能性があります。
+Kotlinでは、`null`値を扱うことができます。Kotlinは、何かが不足している場合やまだ設定されていない場合に`null`値を使用します。
+[コレクション](kotlin-tour-collections.md#kotlin-tour-map-no-key)の章で、マップに存在しないキーを持つキーと値のペアにアクセスしようとした際に、Kotlinが`null`値を返す例をすでに見ています。このように`null`値を使用することは有用ですが、コードがそれらを処理する準備ができていない場合、問題が発生する可能性があります。
 
-プログラムでの`null`値に関する問題を防止するために、Kotlinにはnull安全性（null safety）が導入されています。null安全性は、`null`値に関する潜在的な問題を、実行時ではなくコンパイル時に検出します。
+プログラムでの`null`値による問題を防止するために、Kotlinにはnull safetyが備わっています。Null safetyは、実行時ではなく、コンパイル時に`null`値に関する潜在的な問題を検出します。
 
-null安全性は、以下のことを可能にする機能の組み合わせです。
+Null safetyは、以下のことを可能にする機能の組み合わせです。
 
-* プログラム内で`null`値が許可される場合を明示的に宣言する。
-* `null`値をチェックする。
-* `null`値を含む可能性のあるプロパティや関数に対して安全な呼び出しを使用する。
-* `null`値が検出された場合に実行するアクションを宣言する。
+*   プログラムで`null`値が許容される場合を明示的に宣言する。
+*   `null`値をチェックする。
+*   `null`値を含む可能性のあるプロパティや関数に対して安全な呼び出しを使用する。
+*   `null`値が検出された場合に実行するアクションを宣言する。
 
-## ヌル許容型
+## Null許容型
 
-Kotlinはヌル許容型（nullable types）をサポートしており、宣言された型が`null`値を持つ可能性を許容します。デフォルトでは、型は`null`値を受け入れることは**できません**。ヌル許容型は、型宣言の後に明示的に`?`を追加することによって宣言されます。
+KotlinはNull許容型をサポートしており、これにより宣言された型が`null`値を持つ可能性を許容します。デフォルトでは、型は`null`値を受け入れることは**できません**。Null許容型は、型宣言の後に明示的に`?`を追加することで宣言されます。
 
-例:
+例：
 
 ```kotlin
 fun main() {
@@ -65,9 +65,9 @@ fun main() {
 >
 {style="tip"}
 
-## null値のチェック
+## Null値のチェック
 
-条件式内で`null`値の存在をチェックできます。次の例では、`describeString()`関数は、`maybeString`が`null`で**なく**、その`length`がゼロよりも大きいかどうかをチェックする`if`文を持っています。
+条件式内で`null`値の存在をチェックできます。次の例では、`describeString()`関数には、`maybeString`が`null`では**なく**、その`length`が0より大きいかどうかをチェックする`if`ステートメントがあります。
 
 ```kotlin
 fun describeString(maybeString: String?): String {
@@ -86,11 +86,11 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-tour-check-nulls"}
 
-## セーフコール（Safe calls）の使用
+## 安全な呼び出しの使用
 
-`null`値を含む可能性のあるオブジェクトのプロパティに安全にアクセスするには、セーフコール演算子（safe call operator）`?.`を使用します。セーフコール演算子は、オブジェクトまたはアクセスされたプロパティのいずれかが`null`の場合に`null`を返します。これは、`null`値の存在によってコード内でエラーがトリガーされるのを避けたい場合に役立ちます。
+`null`値を含む可能性のあるオブジェクトのプロパティに安全にアクセスするには、安全な呼び出し演算子`?.`を使用します。安全な呼び出し演算子は、オブジェクトまたはアクセスされたプロパティのいずれかが`null`の場合に`null`を返します。これは、`null`値がコード内でエラーを引き起こすのを避けたい場合に役立ちます。
 
-次の例では、`lengthString()`関数は、文字列の長さまたは`null`を返すためにセーフコールを使用しています。
+次の例では、`lengthString()`関数は安全な呼び出しを使用して、文字列の長さまたは`null`のいずれかを返します。
 
 ```kotlin
 fun lengthString(maybeString: String?): Int? = maybeString?.length
@@ -103,7 +103,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-tour-safe-call-property"}
 
-> セーフコールは連鎖させることができ、オブジェクトのいずれかのプロパティが`null`値を含んでいる場合、エラーがスローされずに`null`が返されます。例:
+> 安全な呼び出しはチェーン化できるため、オブジェクトのプロパティに`null`値が含まれている場合、エラーをスローせずに`null`が返されます。例：
 >
 > ```kotlin
 >   person.company?.address?.country
@@ -111,7 +111,7 @@ fun main() {
 >
 {style="tip"}
 
-セーフコール演算子は、拡張関数やメンバー関数を安全に呼び出すためにも使用できます。この場合、関数が呼び出される前にnullチェックが実行されます。チェックが`null`値を検出した場合、その呼び出しはスキップされ、`null`が返されます。
+安全な呼び出し演算子は、拡張関数やメンバー関数を安全に呼び出すためにも使用できます。この場合、関数が呼び出される前にnullチェックが実行されます。チェックが`null`値を検出すると、呼び出しはスキップされ、`null`が返されます。
 
 次の例では、`nullString`が`null`であるため、[`.uppercase()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/uppercase.html)の呼び出しはスキップされ、`null`が返されます。
 
@@ -124,15 +124,14 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-tour-safe-call-function"}
 
-## エルビス演算子（Elvis operator）の使用
+## エルビス演算子の使用
 
-`null`値が検出された場合に返すデフォルト値を提供するには、**エルビス演算子（Elvis operator）**`?:`を使用します。
+`null`値が検出された場合に返すデフォルト値を、**エルビス演算子**`?:`を使用して提供できます。
 
 エルビス演算子の左側には、`null`値をチェックする対象を記述します。
-エルビス演算子の右側には、`null`値が検出された場合に何を返すかを記述します。
+エルビス演算子の右側には、`null`値が検出された場合に返す値を記述します。
 
-次の例では、`nullString`が`null`であるため、`length`プロパティにアクセスするためのセーフコールは`null`値を返します。
-その結果、エルビス演算子は`0`を返します。
+次の例では、`nullString`が`null`であるため、`length`プロパティにアクセスするための安全な呼び出しは`null`値を返します。その結果、エルビス演算子は`0`を返します。
 
 ```kotlin
 fun main() {
@@ -143,13 +142,13 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-tour-elvis-operator"}
 
-Kotlinのnull安全性に関する詳細については、[Null safety](null-safety.md)を参照してください。
+Kotlinのnull safetyに関する詳細は、[Null safety](null-safety.md)を参照してください。
 
-## 練習
+## 練習問題
 
-### 練習問題 {initial-collapse-state="collapsed" collapsible="true"}
+### 演習 {initial-collapse-state="collapsed" collapsible="true"}
 
-会社の従業員のデータベースにアクセスできる`employeeById`関数があります。残念ながら、この関数は`Employee?`型の値を返すため、結果は`null`になる可能性があります。あなたの目標は、従業員の`id`が提供されたときにその従業員の給与を返す関数、またはデータベースに従業員が存在しない場合は`0`を返す関数を作成することです。
+会社の従業員データベースにアクセスできる`employeeById`関数があります。残念ながら、この関数は`Employee?`型の値を返すため、結果が`null`になる可能性があります。あなたの目標は、従業員の`id`が提供されたときにその従業員の給与を返す関数を記述することです。従業員がデータベースに見つからない場合は`0`を返します。
 
 |---|---|
 ```kotlin
@@ -193,6 +192,6 @@ fun main() {
 
 ## 次のステップ
 
-おめでとうございます！初級ツアーを完了したところで、中級ツアーでKotlinの理解をさらに深めましょう:
+おめでとうございます！これで入門ツアーを完了しました。中級ツアーでKotlinの理解を次のレベルに引き上げましょう。
 
-<a href="kotlin-tour-intermediate-extension-functions.md"><img src="start-intermediate-tour.svg" width="700" alt="中級Kotlinツアーを開始する" style="block"/></a>
+<a href="kotlin-tour-intermediate-extension-functions.md"><img src="start-intermediate-tour.svg" width="700" alt="Kotlin中級ツアーを開始する" style="block"/></a>

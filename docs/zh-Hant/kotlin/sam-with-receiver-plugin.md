@@ -1,6 +1,6 @@
 [//]: # (title: SAM-with-receiver 編譯器外掛)
 
-*sam-with-receiver* 編譯器外掛將被註解的 Java「單一抽象方法」(SAM) 介面方法的第一個參數，在 Kotlin 中轉換為接收者。此轉換僅在 SAM 介面作為 Kotlin lambda 傳遞時有效，適用於 SAM 轉接器和 SAM 建構器（詳情請參閱 [SAM 轉換文件](java-interop.md#sam-conversions)）。
+*sam-with-receiver* 編譯器外掛會將帶註解的 Java「單一抽象方法」(SAM) 介面方法的第一個參數在 Kotlin 中變成一個接收者。此轉換僅在 SAM 介面作為 Kotlin lambda 傳遞時有效，無論是對於 SAM 轉接器還是 SAM 建構函式皆是如此 (詳情請參閱 [SAM 轉換文件](java-interop.md#sam-conversions))。
 
 以下是一個範例：
 
@@ -16,7 +16,7 @@ public interface TaskRunner {
 ```kotlin
 fun test(context: TaskContext) {
     val runner = TaskRunner {
-        // 在此 'this' 是 'Task' 的實例
+        // 在這裡，'this' 是 Task 的一個實例
 
         println("$name is started")
         context.executeTask(this)
@@ -27,7 +27,7 @@ fun test(context: TaskContext) {
 
 ## Gradle
 
-用法與 [all-open](all-open-plugin.md) 和 [no-arg](no-arg-plugin.md) 相同，不同之處在於 sam-with-receiver 沒有任何內建預設值，您需要指定自己的一組特殊處理註解清單。
+其用法與 [all-open](all-open-plugin.md) 和 [no-arg](no-arg-plugin.md) 相同，差別在於 sam-with-receiver 沒有任何內建預設值，且你需要指定自己特別處理的註解清單。
 
 <tabs group="build-script">
 <tab title="Kotlin" group-key="kotlin">
@@ -50,7 +50,7 @@ plugins {
 </tab>
 </tabs>
 
-然後指定 SAM-with-receiver 註解清單：
+然後指定 SAM-with-receiver 註解的清單：
 
 ```groovy
 samWithReceiver {
@@ -88,10 +88,11 @@ samWithReceiver {
 </plugin>
 ```
 
-## 命令列編譯器
+## Command-line compiler
 
-將外掛 JAR 檔案新增至編譯器外掛的類別路徑，並指定 SAM-with-receiver 註解清單：
+將外掛 JAR 檔案加入編譯器外掛的類別路徑，並指定 sam-with-receiver 註解的清單：
 
 ```bash
 -Xplugin=$KOTLIN_HOME/lib/sam-with-receiver-compiler-plugin.jar
 -P plugin:org.jetbrains.kotlin.samWithReceiver:annotation=com.my.SamWithReceiver
+```

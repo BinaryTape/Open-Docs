@@ -1,12 +1,12 @@
-[//]: # (title: Java 和 Kotlin 中的字串)
-[//]: # (description: 了解如何從 Java String 遷移到 Kotlin String。本指南涵蓋 Java StringBuilder、字串串接與分割字串、多行字串、串流 (streams) 及其他主題。)
+[//]: # (title: Java 與 Kotlin 中的字串)
 
-本指南包含如何在 Java 和 Kotlin 中執行字串常見任務的範例。
-這將幫助您從 Java 遷移到 Kotlin，並以地道的 Kotlin 方式編寫程式碼。
+<web-summary>學習如何從 Java String 遷移到 Kotlin String。本指南涵蓋了 Java StringBuilder、字串串接與分割、多行字串、串流及其他主題。</web-summary>
+
+本指南包含如何在 Java 和 Kotlin 中執行常見字串任務的範例。這將幫助您從 Java 遷移到 Kotlin，並以純正的 Kotlin 方式編寫程式碼。
 
 ## 串接字串
 
-在 Java 中，您可以透過以下方式來進行字串串接：
+在 Java 中，您可以透過以下方式來執行此操作：
 
 ```java
 // Java
@@ -16,7 +16,7 @@ System.out.println("Your name is " + name.length() + " characters long");
 ```
 {id="concatenate-strings-java"}
 
-在 Kotlin 中，請在變數名稱前使用美元符號 (`$`) 來將此變數的值插入您的字串中：
+在 Kotlin 中，在變數名稱前使用錢號符號 (`$`)，將此變數的值插入到您的字串中：
 
 ```kotlin
 fun main() {
@@ -30,8 +30,7 @@ fun main() {
 ```
 {kotlin-runnable="true" id="concatenate-strings-kotlin"}
 
-您可以透過將複雜的表達式用大括號 `{}` 包圍起來，例如 `${name.length}`，來插入其值。
-有關更多資訊，請參閱[字串模板 (string templates)](strings.md#string-templates)。
+您可以透過將其用花括號（例如 `${name.length}`）括起來，來插入複雜表達式的值。有關更多資訊，請參閱 [字串範本](strings.md#string-templates)。
 
 ## 建構字串
 
@@ -49,7 +48,7 @@ System.out.println(countDown);
 ```
 {id="build-string-java"}
 
-在 Kotlin 中，請使用 [buildString()](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/build-string.html) – 這是一個[內聯函數 (inline function)](inline-functions.md)，它將建構字串的邏輯作為 lambda 引數：
+在 Kotlin 中，使用 [buildString()](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/build-string.html) — 這是一個接受用於建構字串的邏輯作為 lambda 引數的 [內聯函數](inline-functions.md)：
 
 ```kotlin
 fun main() {
@@ -67,13 +66,13 @@ fun main() {
 ```
 {kotlin-runnable="true" id="build-string-kotlin"}
 
-在底層，`buildString` 使用與 Java 相同的 `StringBuilder` 類別，您可以透過[lambda (lambda)](lambdas.md#function-literals-with-receiver) 中的隱式 `this` 來存取它。
+在底層，`buildString` 使用與 Java 相同的 `StringBuilder` 類別，並且您可以在 [lambda](lambdas.md#function-literals-with-receiver) 內部透過隱式的 `this` 存取它。
 
-了解更多關於 [lambda 編碼慣例](coding-conventions.md#lambdas)的資訊。
+進一步了解 [lambda 編碼慣例](coding-conventions.md#lambdas)。
 
 ## 從集合項目建立字串
 
-在 Java 中，您使用 [Stream API](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/stream/package-summary.html) 來篩選、映射，然後收集項目：
+在 Java 中，您使用 [Stream API](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/stream/package-summary.html) 來過濾、映射，然後收集項目：
 
 ```java
 // Java
@@ -88,7 +87,7 @@ System.out.println(invertedOddNumbers);
 ```
 {id="create-string-from-collection-java"}
 
-在 Kotlin 中，請使用 [joinToString()](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/join-to-string.html) 函數，Kotlin 為每個 List 都定義了此函數：
+在 Kotlin 中，使用 [joinToString()](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/join-to-string.html) 函數，這是 Kotlin 為每個 List 定義的函數：
 
 ```kotlin
 fun main() {
@@ -104,15 +103,15 @@ fun main() {
 ```
 {kotlin-runnable="true"  id="create-string-from-collection-kotlin"}
 
-> 在 Java 中，如果您希望分隔符號和後續項目之間有空格，則需要明確地將空格新增到分隔符號中。
+> 在 Java 中，如果您希望分隔符號和其後的項目之間有空格，您需要明確地在分隔符號中加入空格。
 >
 {style="note"}
 
-了解更多關於 [joinToString()](collection-transformations.md#string-representation) 用法。
+進一步了解 [joinToString()](collection-transformations.md#string-representation) 的用法。
 
-## 若字串為空字元則設定預設值
+## 如果字串為空字元串，則設定預設值
 
-在 Java 中，您可以使用[三元運算符 (ternary operator)](https://en.wikipedia.org/wiki/%3F:)：
+在 Java 中，您可以使用 [三元運算子](https://en.wikipedia.org/wiki/%3F:)：
 
 ```java
 // Java
@@ -129,7 +128,7 @@ public String getName() {
 ```
 {id="set-default-value-if-blank-java"}
 
-Kotlin 提供了內聯函數 [ifBlank()](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/if-blank.html)，它接受預設值作為引數：
+Kotlin 提供了 [ifBlank()](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/if-blank.html) 內聯函數，它接受預設值作為引數：
 
 ```kotlin
 // Kotlin
@@ -149,8 +148,7 @@ fun getName(): String =
 
 ## 取代字串開頭和結尾的字元
 
-在 Java 中，您可以使用 [replaceAll()](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html#replaceAll(java.lang.String,java.lang.String)) 函數。
-在此情況下，`replaceAll()` 函數接受正規表達式 `^##` 和 `##$`，它們分別定義以 `##` 開頭和結尾的字串：
+在 Java 中，您可以使用 [replaceAll()](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html#replaceAll(java.lang.String,java.lang.String)) 函數。在此情況下，`replaceAll()` 函數接受正規表達式 `^##` 和 `##$`，它們分別定義了以 `##` 開始和結束的字串：
 
 ```java
 // Java
@@ -160,7 +158,7 @@ System.out.println(result);
 ```
 {id="replace-characters-java"}
 
-在 Kotlin 中，請使用 [removeSurrounding()](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/remove-surrounding.html) 函數，並將字串分隔符號設定為 `##`：
+在 Kotlin 中，使用 [removeSurrounding()](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/remove-surrounding.html) 函數，並將字串分隔符號設為 `##`：
 
 ```kotlin
 fun main() {
@@ -174,9 +172,9 @@ fun main() {
 ```
 {kotlin-runnable="true" id="replace-characters-kotlin"}
 
-## 取代所有出現的字元
+## 取代出現的內容
 
-在 Java 中，您可以使用 [Pattern](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/regex/Pattern.html) 和 [Matcher](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/regex/Matcher.html) 類別，例如，用來混淆 (obfuscate) 某些資料：
+在 Java 中，您可以使用 [Pattern](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/regex/Pattern.html) 和 [Matcher](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/regex/Matcher.html) 類別，例如，用來混淆一些資料：
 
 ```java
 // Java
@@ -189,8 +187,7 @@ System.out.println("Anonymized input: '" + replacementResult + "'");
 ```
 {id="replace-occurrences-java"}
 
-在 Kotlin 中，您使用 [Regex](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/-regex/) 類別，它簡化了正規表達式 (regular expressions) 的處理。
-此外，使用[多行字串 (multiline strings)](strings.md#multiline-strings) 可以減少反斜線的數量，從而簡化正規表達式模式：
+在 Kotlin 中，您使用 [Regex](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/-regex/) 類別，這簡化了正規表達式的使用。此外，使用 [多行字串](strings.md#multiline-strings) 可以透過減少反斜線的數量來簡化正規表達式模式：
 
 ```kotlin
 fun main() {
@@ -208,8 +205,7 @@ fun main() {
 
 ## 分割字串
 
-在 Java 中，要用句點字元 (`.`) 分割字串，您需要使用遮蔽 (shielding) (`\\`)。
-發生這種情況是因為 `String` 類別的 [split()](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html#split(java.lang.String)) 函數接受正規表達式作為引數：
+在 Java 中，若要使用句號字元 (`.`) 分割字串，您需要使用遮蔽 (`\\`)。這是因為 `String` 類別的 [split()](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html#split(java.lang.String)) 函數接受正規表達式作為引數：
 
 ```java
 // Java
@@ -217,7 +213,7 @@ System.out.println(Arrays.toString("Sometimes.text.should.be.split".split("\\.")
 ```
 {id="split-string-java"}
 
-在 Kotlin 中，請使用 Kotlin 函數 [split()](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/split.html)，它接受可變引數 (varargs) 的分隔符號作為輸入參數：
+在 Kotlin 中，使用 Kotlin 函數 [split()](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/split.html)，它接受不定數量 (varargs) 的分隔符號作為輸入參數：
 
 ```kotlin
 fun main() {
@@ -229,12 +225,11 @@ fun main() {
 ```
 {kotlin-runnable="true" id="split-string-kotlin"}
 
-如果您需要使用正規表達式進行分割，請使用接受 `Regex` 作為參數的重載 `split()` 版本。
+如果您需要使用正規表達式進行分割，請使用接受 `Regex` 作為參數的重載版 `split()`。
 
-## 取得子字串
+## 截取子字串
 
-在 Java 中，您可以使用 [substring()](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html#substring(int)) 函數，它接受一個包含字元起始索引的參數，從該索引處開始取子字串。
-要在這個字元之後取子字串，您需要遞增索引：
+在 Java 中，您可以使用 [substring()](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html#substring(int)) 函數，它接受一個字元（用於開始截取子字串）的包含性起始索引。若要在此字元之後截取子字串，您需要增加索引：
 
 ```java
 // Java
@@ -244,7 +239,7 @@ System.out.println(answer);
 ```
 {id="take-substring-java"}
 
-在 Kotlin 中，您使用 [substringAfter()](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/substring-after.html) 函數，無需計算您想要取子字串的字元索引：
+在 Kotlin 中，您使用 [substringAfter()](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/substring-after.html) 函數，並且不需要計算您想在其後截取子字串的字元索引：
 
 ```kotlin
 fun main() {
@@ -258,7 +253,7 @@ fun main() {
 ```
 {kotlin-runnable="true" id="take-substring-kotlin"}
 
-此外，您可以在字元最後一次出現之後取子字串：
+此外，您可以在字元的最後一次出現之後截取子字串：
 
 ```kotlin
 fun main() {
@@ -286,8 +281,7 @@ System.out.println(result);
 ```
 {id="join-strings-11-java"}
 
-在 Java 15 中，出現了[文字區塊 (text blocks)](https://docs.oracle.com/en/java/javase/15/text-blocks/index.html)。
-有一點需要注意：如果您列印多行字串且三引號 (triple-quote) 在下一行，則會多出一個空行：
+在 Java 15 中，[文字區塊](https://docs.oracle.com/en/java/javase/15/text-blocks/index.html) 出現了。有一點需要記住：如果您印出多行字串，並且三引號在下一行，則會多出一個空行：
 
 ```java
 // Java
@@ -305,9 +299,7 @@ System.out.println(result);
 
 如果您將三引號放在與最後一個單字相同的行上，這種行為差異就會消失。
 
-在 Kotlin 中，您可以將行格式化為引號在新行上，且輸出中不會有額外的空行。
-任何行的最左邊字元都標識著行的開頭。
-與 Java 的不同之處在於，Java 會自動修剪縮排，而在 Kotlin 中您應該明確地執行此操作：
+在 Kotlin 中，您可以將行與引號格式化在新行上，並且輸出中不會有額外的空行。任何行的最左側字元標識該行的開頭。與 Java 的不同之處在於，Java 會自動修剪縮排，而在 Kotlin 中您應該明確地執行此操作：
 
 ```kotlin
 fun main() {
@@ -327,9 +319,9 @@ fun main() {
 
 ![Kotlin multiline output](kotlin-multiline-output.png){width=700}
 
-若要有一個額外的空行，您應該明確地將此空行新增到您的多行字串中。
+若要有多一個空行，您應該明確地將此空行加入到您的多行字串中。
 
-在 Kotlin 中，您也可以使用 [trimMargin()](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/trim-margin.html) 函數來自訂縮排：
+在 Kotlin 中，您還可以使用 [trimMargin()](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/trim-margin.html) 函數來自訂縮排：
 
 ```kotlin
 // Kotlin
@@ -343,11 +335,11 @@ fun main() {
 ```
 {kotlin-runnable="true" id="join-strings-trim-margin-kotlin"}
 
-了解更多關於[多行字串 (multiline strings)](coding-conventions.md#strings) 的資訊。
+進一步了解 [多行字串](coding-conventions.md#strings)。
 
-## 接下來是什麼？
+## 接下來做什麼？
 
-* 瀏覽其他 [Kotlin 慣用語 (idioms)](idioms.md)。
-* 了解如何使用 [Java 到 Kotlin 轉換器](mixing-java-kotlin-intellij.md#converting-an-existing-java-file-to-kotlin-with-j2k) 將現有的 Java 程式碼轉換為 Kotlin。
+* 瀏覽其他 [Kotlin 慣用語](idioms.md)。
+* 學習如何使用 [Java 到 Kotlin 轉換器](mixing-java-kotlin-intellij.md#converting-an-existing-java-file-to-kotlin-with-j2k) 將現有的 Java 程式碼轉換為 Kotlin。
 
-如果您有喜歡的慣用語，我們邀請您透過傳送 pull request 來分享。
+如果您有喜歡的慣用語，歡迎您透過傳送 Pull Request 來分享。

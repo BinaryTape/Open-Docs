@@ -6,7 +6,7 @@ Kotlin 中的类使用 `class` 关键字声明：
 class Person { /*...*/ }
 ```
 
-类声明由类名、类头（指定其类型参数、主构造函数以及其他一些内容）和由花括号包围的类体组成。类头和类体都是可选的；如果类没有类体，则可以省略花括号。
+类声明由类名、类头（指定其类型形参、主构造函数及其他内容）和花括号包围的类体组成。类头和类体都是可选的；如果类没有体，则可以省略花括号。
 
 ```kotlin
 class Empty
@@ -14,7 +14,7 @@ class Empty
 
 ## 构造函数
 
-Kotlin 中的类有一个_主构造函数_，并且可能有一个或多个_次构造函数_。主构造函数在类头中声明，位于类名和可选的类型参数之后。
+Kotlin 中的类有一个_主构造函数_，并可能有一个或多个_次构造函数_。主构造函数在类头中声明，位于类名和可选的类型形参之后。
 
 ```kotlin
 class Person constructor(firstName: String) { /*...*/ }
@@ -26,7 +26,7 @@ class Person constructor(firstName: String) { /*...*/ }
 class Person(firstName: String) { /*...*/ }
 ```
 
-主构造函数在类头中初始化类实例及其属性。类头不能包含任何可运行的代码。如果要在对象创建期间运行某些代码，请使用类体内的_初始化块_。初始化块使用 `init` 关键字后跟花括号声明。将要运行的任何代码写入花括号内。
+主构造函数在类头中初始化类实例及其属性。类头不能包含任何可执行代码。如果要在对象创建期间运行一些代码，请在类体内部使用_初始化块_。初始化块使用 `init` 关键字声明，后跟花括号。将要运行的任何代码写入花括号内。
 
 在实例初始化期间，初始化块按照它们在类体中出现的顺序执行，并与属性初始化器交错执行：
 
@@ -53,7 +53,7 @@ fun main() {
 ```
 {kotlin-runnable="true"}
 
-主构造函数参数可以在初始化块中使用。它们也可以在类体中声明的属性初始化器中使用：
+主构造函数形参可以在初始化块中使用。它们也可以在类体中声明的属性初始化器中使用：
 
 ```kotlin
 class Customer(name: String) {
@@ -61,19 +61,19 @@ class Customer(name: String) {
 }
 ```
 
-Kotlin 提供了一种简洁的语法，用于声明属性并从主构造函数中初始化它们：
+Kotlin 有一种简洁的语法，用于声明属性并从主构造函数中初始化它们：
 
 ```kotlin
 class Person(val firstName: String, val lastName: String, var age: Int)
 ```
 
-此类声明也可以包含类属性的默认值：
+此类声明还可以包含类属性的默认值：
 
 ```kotlin
 class Person(val firstName: String, val lastName: String, var isEmployed: Boolean = true)
 ```
 
-在声明类属性时，可以使用[尾随逗号](coding-conventions.md#trailing-commas)：
+声明类属性时，可以使用[尾部逗号](coding-conventions.md#trailing-commas)：
 
 ```kotlin
 class Person(
@@ -83,15 +83,33 @@ class Person(
 ) { /*...*/ }
 ```
 
-与常规属性非常相似，在主构造函数中声明的属性可以是可变 (`var`) 或只读 (`val`) 的。
+与常规属性非常相似，在主构造函数中声明的属性可以是可变的（`var`）或只读的（`val`）。
 
-如果构造函数有注解或可见性修饰符，则 `constructor` 关键字是必需的，并且修饰符位于它之前：
+普通的构造函数形参（不是属性）可以在以下位置访问：
+* 类头。
+* 类体中已初始化的属性。
+* 初始化块。
+
+例如：
+
+```kotlin
+// width and height are plain constructor parameters
+class RectangleWithParameters(width: Int, height: Int) {
+    val perimeter = 2 * width + 2 * height
+
+    init {
+        println("Rectangle created with width = $width and height = $height")
+    }
+}
+```
+
+如果构造函数有注解或可见性修饰符，则需要 `constructor` 关键字，且修饰符位于其之前：
 
 ```kotlin
 class Customer public @Inject constructor(name: String) { /*...*/ }
 ```
 
-了解更多关于[可见性修饰符](visibility-modifiers.md#constructors)的信息。
+关于[可见性修饰符](visibility-modifiers.md#constructors)的更多信息。
 
 ### 次构造函数
 
@@ -118,9 +136,9 @@ class Person(val name: String) {
 }
 ```
 
-初始化块中的代码实际上成为主构造函数的一部分。对主构造函数的委托发生在访问次构造函数第一个语句时，因此所有初始化块和属性初始化器中的代码都在次构造函数体之前执行。
+初始化块中的代码实际上成为主构造函数的一部分。对主构造函数的委托发生在次构造函数第一个语句访问时，因此所有初始化块和属性初始化器中的代码在次构造函数体执行之前运行。
 
-即使类没有主构造函数，委托仍然隐式发生，并且初始化块仍然执行：
+即使类没有主构造函数，委托仍然隐式发生，并且初始化块仍然会执行：
 
 ```kotlin
 //sampleStart
@@ -141,15 +159,15 @@ fun main() {
 ```
 {kotlin-runnable="true"}
 
-如果一个非抽象类没有声明任何构造函数（主构造函数或次构造函数），它将有一个生成的无参数主构造函数。该构造函数的可见性将是 `public`。
+如果一个非抽象类没有声明任何构造函数（主构造函数或次构造函数），它将生成一个无实参的主构造函数。该构造函数的可见性将是公有的。
 
-如果你不希望你的类拥有公共构造函数，可以声明一个具有非默认可见性的空主构造函数：
+如果你不希望你的类拥有公有构造函数，请声明一个带有非默认可见性的空主构造函数：
 
 ```kotlin
 class DontCreateMe private constructor() { /*...*/ }
 ```
 
-> 在 JVM 上，如果所有主构造函数参数都具有默认值，编译器将生成一个额外的无参数构造函数，该构造函数将使用默认值。这使得 Kotlin 更容易与 Jackson 或 JPA 等通过无参数构造函数创建类实例的库一起使用。
+> On the JVM, if all of the primary constructor parameters have default values, the compiler will generate an additional parameterless constructor which will use the default values. This makes it easier to use Kotlin with libraries such as Jackson or JPA that create class instances through parameterless constructors.
 >
 > ```kotlin
 > class Customer(val customerName: String = "")
@@ -167,7 +185,7 @@ val invoice = Invoice()
 val customer = Customer("Joe Smith")
 ```
 
-> Kotlin 没有 `new` 关键字。
+> Kotlin 中没有 `new` 关键字。
 >
 {style="note"}
 
@@ -177,22 +195,22 @@ val customer = Customer("Joe Smith")
 
 类可以包含：
 
-*   [构造函数和初始化块](#constructors)
-*   [函数](functions.md)
-*   [属性](properties.md)
-*   [嵌套类和内部类](nested-classes.md)
-*   [对象声明](object-declarations.md)
+* [构造函数和初始化块](#constructors)
+* [函数](functions.md)
+* [属性](properties.md)
+* [嵌套类和内部类](nested-classes.md)
+* [对象声明](object-declarations.md)
 
 ## 继承
 
-类可以相互派生并形成继承层次结构。
-[在 Kotlin 中了解更多关于继承的信息](inheritance.md)。
+类可以相互派生并形成继承层级。
+[了解 Kotlin 中的更多继承信息](inheritance.md)。
 
 ## 抽象类
 
-类及其部分或所有成员可以声明为 `abstract`。
+一个类及其部分或所有成员可以声明为 `abstract`。
 抽象成员在其类中没有实现。
-你无需使用 `open` 注解抽象类或函数。
+你无需使用 `open` 标注抽象类或函数。
 
 ```kotlin
 abstract class Polygon {
@@ -224,6 +242,6 @@ abstract class WildShape : Polygon() {
 
 ## 伴生对象
 
-如果你需要编写一个可以在没有类实例的情况下调用的函数，但该函数需要访问类的内部（例如工厂方法），你可以将其作为该类内部的[对象声明](object-declarations.md)的成员来编写。
+如果你需要编写一个可以在没有类实例的情况下调用但需要访问类内部（例如工厂方法）的函数，你可以将其编写为该类中[对象声明](object-declarations.md)的成员。
 
-更具体地说，如果你在类中声明了[伴生对象](object-declarations.md#companion-objects)，你只需使用类名作为限定符即可访问其成员。
+更具体地说，如果你在类中声明一个[伴生对象](object-declarations.md#companion-objects)，你可以仅使用类名作为限定符来访问其成员。
