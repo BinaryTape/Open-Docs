@@ -55,7 +55,7 @@ export const coilStrategy = {
     if (await fs.pathExists(srcPath)) {
       await fs.ensureDir(dest);
       await fs.copy(srcPath, dest, { overwrite: true });
-      context.gitAddPaths.add(dest); // 将目标目录加入待提交列表
+      context.gitAddPaths.add(dest);
     } else {
       console.warn(
         `  ⚠️  Warning: Asset source directory not found: ${srcPath}`

@@ -234,7 +234,7 @@ async function main() {
     process.env.GIT_AUTHOR_EMAIL ||
     "github-actions[bot]@users.noreply.github.com";
   // Uncomment the next line to simulate a specific branch name for testing
-  // process.env.GITHUB_REF_NAME = "0.3";
+  // process.env.GITHUB_REF_NAME = "docs-update-branch";
   console.log("Starting documentation pipeline script...");
   if (!process.env.GOOGLE_API_KEY) {
     console.error("GOOGLE_API_KEY environment variable is not set.");
