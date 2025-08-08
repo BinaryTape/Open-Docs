@@ -1,0 +1,36 @@
+import {DOCS_TYPES} from "../docs.config";
+import {SITE_LOCALES} from "../locales.config";
+
+export function coilRewriteHref(env: any, href: string): string {
+    const parts = env.relativePath.split('/')
+    const docType = parts.find(p => DOCS_TYPES.includes(p))
+    const locale = parts.find(p => SITE_LOCALES.includes(p))
+
+    const readmeHref = rewriteReadme(href);
+    if (readmeHref) {
+        return readmeHref;
+    }
+    const localePath = locale === undefined ? '' : `/${locale}`
+    let rewriteHref = href;
+    console.log(`href: ${href}`);
+    if (href.startsWith('https://coil-kt.github.io/coil/api')) {
+        return href
+    }
+    if (href.startsWith("/coil/api")) {
+        return "https://coil-kt.github.io" + href
+    }
+    const isCoilMDFile = href.startsWith('https://coil-kt.github.io/')
+    if (isCoilMDFile) {
+        const coilMDUrl = new URL(href);
+        const coilMDPath = coilMDUrl.pathname;
+        rewriteHref = `${localePath}${coilMDPath}`
+    }
+    return rewriteHref;
+}
+
+function rewriteReadme(href: string) {
+    const originalMdHref = href.replace(/\.md$/, '');  // 去掉.md结尾
+    if (href.startsWith('README')) {
+        return `https://coil-kt.github.io/coil/${originalMdHref}/`
+    }
+}
