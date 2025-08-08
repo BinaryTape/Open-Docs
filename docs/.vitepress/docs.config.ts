@@ -1,8 +1,11 @@
+import { coilRewriteHref } from "./rewrite/coil-rewrite-strategy";
+
 export type DocsItemConfig = {
-    type: "koin" | "kotlin" | "sqldelight" | "ktor" | "kmp" | "koog";
+    type: "koin" | "kotlin" | "sqldelight" | "ktor" | "kmp" | "koog" |  "coil";
     title: string;
     path: string;
     framework: "Docusaurus" | "Writerside" | "MKDocs";
+    rewriteHref?: (env: any, href: string) => string;
 }
 export const DocsTypeConfig: { [key: string]: DocsItemConfig } = {
     koin: {
@@ -40,6 +43,13 @@ export const DocsTypeConfig: { [key: string]: DocsItemConfig } = {
         title: "Koog",
         path: "/koog/",
         framework: "MKDocs"
+    },
+    coil: {
+        type: "coil",
+        title: "Coil",
+        path: "/coil/",
+        framework: "MKDocs",
+        rewriteHref: coilRewriteHref
     }
 }
 

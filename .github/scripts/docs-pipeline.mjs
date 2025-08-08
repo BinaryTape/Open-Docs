@@ -1,7 +1,7 @@
 import { execa } from "execa";
 import fs from "fs-extra";
 import { glob } from "glob";
-import {translateFiles, translateLocaleFiles} from "./translate.mjs";
+import { translateFiles, translateLocaleFiles } from "./translate.mjs";
 import { REPOS } from "./docs-repo-config.mjs";
 
 const Logger = {
@@ -135,12 +135,7 @@ async function translate(context) {
       `Translating ${filesToTranslate} files for ${repoConfig.name}...`
     );
 
-    const translatedPaths = await translateFiles(
-      repoConfig.name,
-      repoConfig.path,
-      repoConfig.docPath,
-      filesToTranslate
-    );
+    const translatedPaths = await translateFiles(repoConfig, filesToTranslate);
     translatedPaths.forEach((p) => context.gitAddPaths.add(p));
 
     await repoConfig.strategy.postTranslate(context, repoConfig);
@@ -159,7 +154,7 @@ async function translateSidebar(context) {
   localeFiles = localeFiles.filter((f) => !f.endsWith("en.json"));
   context.gitAddPaths.add("docs/.vitepress/locales/en.json");
 
-  const translatedPaths = await translateLocaleFiles(localeFiles)
+  const translatedPaths = await translateLocaleFiles(localeFiles);
   translatedPaths.forEach((p) => context.gitAddPaths.add(p));
 }
 
@@ -174,7 +169,9 @@ async function commit(context) {
   }
 
   const sidebarFiles = await files.find("docs/.vitepress/sidebar", ["*.json"]);
-  sidebarFiles.forEach((f) => context.gitAddPaths.add(`docs/.vitepress/sidebar/${f}`));
+  sidebarFiles.forEach((f) =>
+    context.gitAddPaths.add(`docs/.vitepress/sidebar/${f}`)
+  );
 
   const pathsToAdd = [...context.gitAddPaths];
   Logger.dim("Adding the following paths to git:");

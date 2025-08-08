@@ -14,7 +14,7 @@ export const koogStrategy = {
     /**
      * @override
      */
-    onSyncEnd: async (repoPath) => {
+    postSync: async (repoPath) => {
         console.log(`  Running Koog onSyncEnd: Generate sidebar - ${repoPath}...`);
         const sidebarPath = path.join(repoPath, 'docs/mkdocs.yml');
         const docType = repoPath.replace("-repo", "");
@@ -27,7 +27,7 @@ export const koogStrategy = {
     /**
      * @override
      */
-    onTranslateEnd: async (context, repoConfig) => {
+    postTranslate: async (context, repoConfig) => {
         console.log(`  Handling Koog assets: Copying images - ${repoConfig.path}... `);
         const {src, dest} = repoConfig.assets;
         const srcPath = path.join(repoConfig.path, src);

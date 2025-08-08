@@ -16,7 +16,7 @@ export const kotlinStrategy = {
     /**
      * @override
      */
-    onSyncEnd: async (repoPath) => {
+    postSync: async (repoPath) => {
         console.log(`  Running Kotlin onSyncEnd: Flattening directory - ${repoPath}...`);
         const originDocsPath = path.join(repoPath, "docs/topics");
         const docsPath = path.join(repoPath, "docs");
@@ -77,7 +77,7 @@ export const kotlinStrategy = {
     /**
      * @override
      */
-    onTranslateEnd: async (context, repoConfig) => {
+    postTranslate: async (context, repoConfig) => {
         if (repoConfig.path === "kotlin-repo") {
             console.log(`  Copying Kotlin version file... `);
             const versionFile = "kotlin-repo/docs/v.list";

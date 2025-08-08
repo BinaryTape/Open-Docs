@@ -16,7 +16,7 @@ export const kmpStrategy = {
     /**
      * @override
      */
-    onSyncEnd: async (repoPath) => {
+    postSync: async (repoPath) => {
         console.log(`  Running KMP onSyncEnd: Flattening directory - ${repoPath}...`);
         const docsPath = path.join(repoPath, "topics");
         if (await fs.pathExists(docsPath)) {
@@ -46,7 +46,7 @@ export const kmpStrategy = {
     /**
      * @override
      */
-    onTranslateEnd: async (context, repoConfig) => {
+    postTranslate: async (context, repoConfig) => {
         console.log(`  Copying KMP version file... `);
         const versionFile = `${repoConfig.path}/v.list`;
         if (await fs.pathExists(versionFile)) {

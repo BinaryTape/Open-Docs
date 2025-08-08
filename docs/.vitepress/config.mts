@@ -1,4 +1,4 @@
-import {DefaultTheme, defineConfig} from 'vitepress'
+import { DefaultTheme, defineConfig } from 'vitepress'
 import markdownItContainer from 'markdown-it-container'
 import markdownItWsContainer from "./markdown-it-ws-container";
 import markdownItWsFrontmatter from "./markdown-it-ws-frontmatter";
@@ -14,7 +14,6 @@ import markdownItMkLinks from "./markdown-it-mk-links";
 import {DOCS_TYPES, DocsTypeConfig} from './docs.config';
 import {markdownItRewriteLinks} from './markdown-it-ws-inline-link';
 import {SiteLocaleConfig} from './locales.config';
-import generateSidebar from './config/sidebar.config';
 import markdownItDiffTitleWrapper from "./markdown-it-mk-diff-code-block";
 import {getSidebarTitle} from './utils/sidebar-utils';
 import {readFileSync, existsSync} from 'node:fs'
@@ -26,9 +25,10 @@ import markdownItRemoveScript from "./markdown-it-remove-script";
 import markdownItRemoveContributeUrl from "./markdown-it-remove-contribute-url";
 import markdownItWsClassstyles from "./markdown-it-ws-classstyles";
 import markdownItWsRenderInline from "./markdown-it-ws-render-inline";
-import {markdownItCollapsed} from "./markdownItCollapsed.mts";
 import markdownItWsRename from "./markdown-it-ws-rename";
 import markdownItWsTopicTitle from "./markdown-it-ws-topicTitle";
+import { markdownItCollapsed } from "./markdownItCollapsed.mts";
+import generateSidebar from "./config/sidebar.config";
 
 const mkDiffGrammarPath = resolve(__dirname, './shiki-mk-diff.json')
 const mkDiffGrammar = JSON.parse(readFileSync(mkDiffGrammarPath, 'utf-8'))
@@ -73,10 +73,10 @@ export default defineConfig({
     lang: 'zh-Hans',
     title: 'Open AIDoc',
     head: [
-        ['link', {rel: 'icon', href: '/img/favicon.ico'}],
+        ['link', { rel: 'icon', href: '/img/favicon.ico' }],
         [
             'script',
-            {async: '', src: 'https://www.googletagmanager.com/gtag/js?id=G-HLCXSW4HH1'}
+            { async: '', src: 'https://www.googletagmanager.com/gtag/js?id=G-HLCXSW4HH1' }
         ],
         [
             'script',
@@ -107,7 +107,7 @@ export default defineConfig({
             next: '下一页'
         },
         socialLinks: [
-            {icon: 'github', link: 'https://github.com/BinaryTape/Open-Docs'}
+            { icon: 'github', link: 'https://github.com/BinaryTape/Open-Docs' }
         ],
         footer: {
             copyright: 'Copyright © 2025 Open AIDoc.'
@@ -119,14 +119,14 @@ export default defineConfig({
                 ...baseAlgoliaSearchOptions.options,
                 placeholder: '搜索文档',
                 translations: {
-                    button: {buttonText: '搜索', buttonAriaLabel: '搜索'},
+                    button: { buttonText: '搜索', buttonAriaLabel: '搜索' },
                     modal: {
                         noResultsText: '没有找到相关结果',
                         resetButtonTitle: '清除查询',
                         resetButtonAriaLabel: '清除查询',
                         cancelButtonText: '取消',
                         cancelButtonAriaLabel: '取消',
-                        footer: {selectText: '选择', navigateText: '切换', closeText: '关闭'},
+                        footer: { selectText: '选择', navigateText: '切换', closeText: '关闭' },
                         startScreen: {
                             recentSearchesTitle: '最近搜索',
                             noRecentSearchesText: '无最近搜索',
@@ -145,16 +145,18 @@ export default defineConfig({
             ...SiteLocaleConfig['zh-Hans'],
             themeConfig: {
                 nav: [
-                    {text: 'Koin', link: '/koin/setup/koin'},
-                    {text: 'Kotlin', link: '/kotlin/getting-started'},
-                    {text: 'SQLDelight', link: '/sqldelight/index'}
+                    { text: 'Koin', link: '/koin/setup/koin' },
+                    { text: 'Kotlin', link: '/kotlin/getting-started' },
+                    { text: 'SQLDelight', link: '/sqldelight/index' },
+                    { text: 'Coil', link: '/coil/overview' },
                 ],
                 sidebar: {
                     "/koin/": generateSidebar(SiteLocaleConfig['zh-Hans'], DocsTypeConfig.koin),
                     "/kotlin/": generateSidebar(SiteLocaleConfig['zh-Hans'], DocsTypeConfig.kotlin),
                     "/sqldelight/": generateSidebar(SiteLocaleConfig['zh-Hans'], DocsTypeConfig.sqldelight),
                     "/kmp/": generateSidebar(SiteLocaleConfig['zh-Hans'], DocsTypeConfig.kmp),
-                    "/koog/": generateSidebar(SiteLocaleConfig['zh-Hans'], DocsTypeConfig.koog)
+                    "/koog/": generateSidebar(SiteLocaleConfig['zh-Hans'], DocsTypeConfig.koog),
+                    "/coil/": generateSidebar(SiteLocaleConfig['zh-Hans'], DocsTypeConfig.coil),
                 },
             },
         },
@@ -163,36 +165,38 @@ export default defineConfig({
             ...SiteLocaleConfig['zh-Hant'],
             themeConfig: {
                 nav: [
-                    {text: 'Koin', link: '/zh-Hant/koin/setup/koin'},
-                    {text: 'Kotlin', link: '/zh-Hant/kotlin/getting-started'},
-                    {text: 'SQLDelight', link: '/zh-Hant/sqldelight/index'}
+                    { text: 'Koin', link: '/zh-Hant/koin/setup/koin' },
+                    { text: 'Kotlin', link: '/zh-Hant/kotlin/getting-started' },
+                    { text: 'SQLDelight', link: '/zh-Hant/sqldelight/index' },
+                    { text: 'Coil', link: '/zh-Hant/coil/overview' },
                 ],
                 sidebar: {
                     "/zh-Hant/koin/": generateSidebar(SiteLocaleConfig['zh-Hant'], DocsTypeConfig.koin),
                     "/zh-Hant/kotlin/": generateSidebar(SiteLocaleConfig['zh-Hant'], DocsTypeConfig.kotlin),
                     "/zh-Hant/sqldelight/": generateSidebar(SiteLocaleConfig['zh-Hant'], DocsTypeConfig.sqldelight),
                     "/zh-Hant/kmp/": generateSidebar(SiteLocaleConfig['zh-Hant'], DocsTypeConfig.kmp),
-                    "/zh-Hant/koog/": generateSidebar(SiteLocaleConfig['zh-Hant'], DocsTypeConfig.koog)
+                    "/zh-Hant/koog/": generateSidebar(SiteLocaleConfig['zh-Hant'], DocsTypeConfig.koog),
+                    "/zh-Hant/coil/": generateSidebar(SiteLocaleConfig['zh-Hans'], DocsTypeConfig.coil),
                 },
-                lastUpdated: {text: '最後更新'},
+                lastUpdated: { text: '最後更新' },
                 editLink: {
                     pattern: 'https://github.com/BinaryTape/Open-Docs/blob/main/docs/zh-Hant/:path',
                     text: '編輯此頁'
                 },
-                docFooter: {prev: '上一頁', next: '下一頁'},
+                docFooter: { prev: '上一頁', next: '下一頁' },
                 search: {
                     ...baseAlgoliaSearchOptions,
                     options: {
                         ...baseAlgoliaSearchOptions.options,
                         placeholder: '搜尋文檔',
                         translations: {
-                            button: {buttonText: '搜尋', buttonAriaLabel: '搜尋'},
+                            button: { buttonText: '搜尋', buttonAriaLabel: '搜尋' },
                             modal: {
                                 noResultsText: '未找到相關結果',
                                 resetButtonTitle: '清除查詢',
                                 cancelButtonText: '取消',
-                                footer: {selectText: '選擇', navigateText: '切換', closeText: '關閉'},
-                                startScreen: {recentSearchesTitle: '最近搜尋', noRecentSearchesText: '無最近搜尋'}
+                                footer: { selectText: '選擇', navigateText: '切換', closeText: '關閉' },
+                                startScreen: { recentSearchesTitle: '最近搜尋', noRecentSearchesText: '無最近搜尋' }
                             }
                         }
                     }
@@ -203,35 +207,38 @@ export default defineConfig({
             ...SiteLocaleConfig['ja'],
             themeConfig: {
                 nav: [
-                    {text: 'Koin', link: '/ja/koin/setup/koin'},
-                    {text: 'Kotlin', link: '/ja/kotlin/getting-started'},
-                    {text: 'SQLDelight', link: '/ja/sqldelight/index'}
+                    { text: 'Koin', link: '/ja/koin/setup/koin' },
+                    { text: 'Kotlin', link: '/ja/kotlin/getting-started' },
+                    { text: 'SQLDelight', link: '/ja/sqldelight/index' },
+                    { text: 'Coil', link: '/zh-Hant/coil/overview' },
+
                 ],
                 sidebar: {
                     "/ja/koin/": generateSidebar(SiteLocaleConfig['ja'], DocsTypeConfig.koin),
                     "/ja/kotlin/": generateSidebar(SiteLocaleConfig['ja'], DocsTypeConfig.kotlin),
                     "/ja/sqldelight/": generateSidebar(SiteLocaleConfig['ja'], DocsTypeConfig.sqldelight),
                     "/ja/kmp/": generateSidebar(SiteLocaleConfig['ja'], DocsTypeConfig.kmp),
-                    "/ja/koog/": generateSidebar(SiteLocaleConfig['ja'], DocsTypeConfig.koog)
+                    "/ja/koog/": generateSidebar(SiteLocaleConfig['ja'], DocsTypeConfig.koog),
+                    "/ja/coil/": generateSidebar(SiteLocaleConfig['ja'], DocsTypeConfig.coil),
                 },
-                lastUpdated: {text: '最終更新日'},
+                lastUpdated: { text: '最終更新日' },
                 editLink: {
                     pattern: 'https://github.com/BinaryTape/Open-Docs/blob/main/docs/ja/:path',
                     text: 'このページを編集'
                 },
-                docFooter: {prev: '前のページ', next: '次のページ'},
+                docFooter: { prev: '前のページ', next: '次のページ' },
                 search: {
                     ...baseAlgoliaSearchOptions,
                     options: {
                         ...baseAlgoliaSearchOptions.options,
                         placeholder: 'ドキュメントを検索',
                         translations: {
-                            button: {buttonText: '検索', buttonAriaLabel: '検索'},
+                            button: { buttonText: '検索', buttonAriaLabel: '検索' },
                             modal: {
                                 noResultsText: '関連する結果が見つかりませんでした',
                                 resetButtonTitle: 'クエリをクリア',
                                 cancelButtonText: 'キャンセル',
-                                footer: {selectText: '選択', navigateText: '切り替え', closeText: '閉じる'},
+                                footer: { selectText: '選択', navigateText: '切り替え', closeText: '閉じる' },
                                 startScreen: {
                                     recentSearchesTitle: '最近の検索',
                                     noRecentSearchesText: '最近の検索はありません'
@@ -246,36 +253,39 @@ export default defineConfig({
             ...SiteLocaleConfig['ko'],
             themeConfig: {
                 nav: [
-                    {text: 'Koin', link: '/ko/koin/setup/koin'},
-                    {text: 'Kotlin', link: '/ko/kotlin/getting-started'},
-                    {text: 'SQLDelight', link: '/ko/sqldelight/index'}
+                    { text: 'Koin', link: '/ko/koin/setup/koin' },
+                    { text: 'Kotlin', link: '/ko/kotlin/getting-started' },
+                    { text: 'SQLDelight', link: '/ko/sqldelight/index' },
+                    { text: 'Coil', link: '/ko/coil/overview' },
+
                 ],
                 sidebar: {
                     "/ko/koin/": generateSidebar(SiteLocaleConfig['ko'], DocsTypeConfig.koin),
                     "/ko/kotlin/": generateSidebar(SiteLocaleConfig['ko'], DocsTypeConfig.kotlin),
                     "/ko/sqldelight/": generateSidebar(SiteLocaleConfig['ko'], DocsTypeConfig.sqldelight),
                     "/ko/kmp/": generateSidebar(SiteLocaleConfig['ko'], DocsTypeConfig.kmp),
-                    "/ko/koog/": generateSidebar(SiteLocaleConfig['ko'], DocsTypeConfig.koog)
+                    "/ko/koog/": generateSidebar(SiteLocaleConfig['ko'], DocsTypeConfig.koog),
+                    "/ko/coil/": generateSidebar(SiteLocaleConfig['ko'], DocsTypeConfig.coil),
                 },
-                lastUpdated: {text: '마지막 업데이트'},
+                lastUpdated: { text: '마지막 업데이트' },
                 editLink: {
                     pattern: 'https://github.com/BinaryTape/Open-Docs/blob/main/docs/ko/:path',
                     text: '이 페이지 편집'
                 },
-                docFooter: {prev: '이전 페이지', next: '다음 페이지'},
+                docFooter: { prev: '이전 페이지', next: '다음 페이지' },
                 search: {
                     ...baseAlgoliaSearchOptions,
                     options: {
                         ...baseAlgoliaSearchOptions.options,
                         placeholder: '문서 검색',
                         translations: {
-                            button: {buttonText: '검색', buttonAriaLabel: '검색'},
+                            button: { buttonText: '검색', buttonAriaLabel: '검색' },
                             modal: {
                                 noResultsText: '관련 결과를 찾을 수 없습니다',
                                 resetButtonTitle: '쿼리 지우기',
                                 cancelButtonText: '취소',
-                                footer: {selectText: '선택', navigateText: '전환', closeText: '닫기'},
-                                startScreen: {recentSearchesTitle: '최근 검색', noRecentSearchesText: '최근 검색 없음'}
+                                footer: { selectText: '선택', navigateText: '전환', closeText: '닫기' },
+                                startScreen: { recentSearchesTitle: '최근 검색', noRecentSearchesText: '최근 검색 없음' }
                             }
                         }
                     }
@@ -316,7 +326,7 @@ export default defineConfig({
             md.use(markdownItMkLinks)
             md.use(markdownItDiffTitleWrapper)
             md.use(markdownItCollapsed)
-            md.use(markdownItWsVars, {xmlFilePath: 'docs/.vitepress/v.list'});
+            md.use(markdownItWsVars, { xmlFilePath: 'docs/.vitepress/v.list' });
             md.use(markdownItMKVars);
 
             md.use(markdownItWsRename)

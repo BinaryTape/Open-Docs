@@ -1,6 +1,6 @@
 import type MarkdownIt from 'markdown-it'
 import { SITE_LOCALES } from './locales.config'
-import { DOCS_TYPES } from './docs.config'
+import { DOCS_TYPES, DocsTypeConfig } from './docs.config'
 import path from 'path'
 
 export interface RewriteLinkOptions {
@@ -11,19 +11,22 @@ export interface RewriteLinkOptions {
 // rewriteHref: Function to transform href URLs by adding locale and doc type paths
 const rewiteOptions: RewriteLinkOptions = {
   rewriteHref: (env, href) => {
+    const parts = env.relativePath.split('/')
+    const docType = parts.find(p => DOCS_TYPES.includes(p))
+    const docRewriteHref = DocsTypeConfig[docType].rewriteHref?.(env, href)
+    if (docRewriteHref) {
+      return docRewriteHref
+    }
     // 如果链接以 https:// 开头，则不进行处理
     if (href.startsWith('https://') || href.startsWith('http://')) {
       return href
     }
-    
+
     // 处理特殊链接，如 mailto: 链接
     if (href.startsWith('mailto:')) {
       return href
     }
-    
-    const parts = env.relativePath.split('/')
-    const docType = parts.find(p => DOCS_TYPES.includes(p))
-    
+
     // 检查是否为 Kotlin 文档以及链接是否以 .png 或 .svg 结尾
     if (docType === 'kotlin' && (href.endsWith('.png') || href.endsWith('.svg') || href.endsWith('.jpeg') || href.endsWith('.jpg') || href.endsWith('.gif'))) {
       // 提取文件名
@@ -47,9 +50,9 @@ const rewiteOptions: RewriteLinkOptions = {
       // 获取当前文档的目录路径
       const currentDir = env.relativePath.split('/')
       currentDir.pop() // 移除文件名
-      
+
       let pathSegments = []
-      
+
       if (href.startsWith('./')) {
         // 同级目录下的文件
         pathSegments = [...currentDir]
@@ -60,7 +63,7 @@ const rewiteOptions: RewriteLinkOptions = {
         pathSegments = [...currentDir]
         href = href.substring(3) // 移除 ../ 前缀
       }
-      
+
       // 构建完整路径
       return `/${pathSegments.join('/')}/${href}`
     }
@@ -103,7 +106,6 @@ const rewiteOptions: RewriteLinkOptions = {
         return `/${currentDir.join('/')}/${href}.md`;
       }
     }
-
     // 原有的链接处理逻辑（用于非相对路径的链接）
     const locale = parts.find(p => SITE_LOCALES.includes(p))
     const config = { locale, docType }
@@ -206,7 +208,7 @@ export function markdownItRewriteLinks(md: MarkdownIt) {
               }
             }
           }
-          
+
           // 同样处理图片标签
           if (child.type === 'image' && child.attrs) {
             for (const attr of child.attrs) {
