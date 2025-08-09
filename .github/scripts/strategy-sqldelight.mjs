@@ -14,9 +14,9 @@ export const sqlDelightStrategy = {
   /**
    * @override
    */
-  onSyncEnd: async (repoPath) => {
+  postSync: async (repoPath) => {
     console.log(
-      "  Running SQLDelight onSyncEnd: Copying root markdown files..."
+      "  Running SQLDelight postSync: Copying root markdown files..."
     );
     const docsDir = path.join(repoPath, "docs");
     const filesToCopy = {
@@ -42,7 +42,7 @@ export const sqlDelightStrategy = {
   /**
    * @override
    */
-  onTranslateEnd: async (context, repoConfig) => {
+  postTranslate: async (context, repoConfig) => {
     console.log("  Handling SQLDelight assets: Copying images...");
     const { src, dest } = repoConfig.assets;
     const srcPath = path.join(repoConfig.path, src);

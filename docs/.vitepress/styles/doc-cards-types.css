@@ -1,0 +1,70 @@
+.coil {
+  --card-color: #3b6bb4;
+  --card-gradient: linear-gradient(
+    135deg,
+    rgba(69, 223, 244, 0.16) 0%,
+    rgba(59, 107, 180, 0.16) 100%
+  );
+  --card-icon-url: url("/coil/coil_logo_colored.svg");
+}
+
+.koin {
+  --card-color: #f9b233;
+  --card-gradient: linear-gradient(
+    135deg,
+    rgba(249, 178, 51, 0.08) 0%,
+    rgba(249, 178, 51, 0.16) 100%
+  );
+  --card-icon-url: url("/img/koin_logo.png");
+}
+
+.kotlin {
+  --card-color: #b125ea;
+  --card-gradient: linear-gradient(
+    135deg,
+    rgba(177, 37, 234, 0.08) 0%,
+    rgba(177, 37, 234, 0.16) 100%
+  );
+  --card-icon-url: url("/img/kotlin_Icon.png");
+}
+
+.sqldelight {
+  --card-color: #d2522b;
+  --card-gradient: linear-gradient(
+    135deg,
+    rgba(210, 82, 43, 0.08) 0%,
+    rgba(210, 82, 43, 0.16) 100%
+  );
+  --card-icon-url: url("/img/sqldelight_logo.png");
+}
+
+.kmp {
+  --card-color: #b125ea;
+  --card-gradient: linear-gradient(
+    135deg,
+    rgba(177, 37, 234, 0.08) 0%,
+    rgba(177, 37, 234, 0.16) 100%
+  );
+  --card-icon-url: url("/img/kmp_logo.png");
+}
+
+.koog {
+  --card-color: #b125ea;
+  --card-gradient: linear-gradient(
+    135deg,
+    rgba(177, 37, 234, 0.08) 0%,
+    rgba(177, 37, 234, 0.16) 100%
+  );
+  --card-icon-url: url("/img/kotlin_Icon.png");
+}
+
+
+.ktor {
+  --card-color: #b125ea;
+  --card-gradient: linear-gradient(
+    135deg,
+    rgba(177, 37, 234, 0.08) 0%,
+    rgba(177, 37, 234, 0.16) 100%
+  );
+  --card-icon-url: url("/img/ktor_logo.png");
+}

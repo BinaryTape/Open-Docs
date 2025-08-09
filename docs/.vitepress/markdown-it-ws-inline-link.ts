@@ -1,6 +1,6 @@
 import type MarkdownIt from 'markdown-it'
 import { SITE_LOCALES } from './locales.config'
-import { DOCS_TYPES } from './docs.config'
+import { DOCS_TYPES, DocsTypeConfig } from './docs.config'
 import path from 'path'
 
 export interface RewriteLinkOptions {
@@ -11,19 +11,22 @@ export interface RewriteLinkOptions {
 // rewriteHref: Function to transform href URLs by adding locale and doc type paths
 const rewiteOptions: RewriteLinkOptions = {
   rewriteHref: (env, href) => {
+    const parts = env.relativePath.split('/')
+    const docType = parts.find(p => DOCS_TYPES.includes(p))
+    const docRewriteHref = DocsTypeConfig[docType].rewriteHref?.(env, href)
+    if (docRewriteHref) {
+      return docRewriteHref
+    }
     // 如果链接以 https:// 开头，则不进行处理
     if (href.startsWith('https://') || href.startsWith('http://')) {
       return href
     }
-    
+
     // 处理特殊链接，如 mailto: 链接
     if (href.startsWith('mailto:')) {
       return href
     }
-    
-    const parts = env.relativePath.split('/')
-    const docType = parts.find(p => DOCS_TYPES.includes(p))
-    
+
     // 检查是否为 Kotlin 文档以及链接是否以 .png 或 .svg 结尾
     if (docType === 'kotlin' && (href.endsWith('.png') || href.endsWith('.svg') || href.endsWith('.jpeg') || href.endsWith('.jpg') || href.endsWith('.gif'))) {
       // 提取文件名
@@ -47,9 +50,9 @@ const rewiteOptions: RewriteLinkOptions = {
       // 获取当前文档的目录路径
       const currentDir = env.relativePath.split('/')
       currentDir.pop() // 移除文件名
-      
+
       let pathSegments = []
-      
+
       if (href.startsWith('./')) {
         // 同级目录下的文件
         pathSegments = [...currentDir]
@@ -60,7 +63,7 @@ const rewiteOptions: RewriteLinkOptions = {
         pathSegments = [...currentDir]
         href = href.substring(3) // 移除 ../ 前缀
       }
-      
+
       // 构建完整路径
       return `/${pathSegments.join('/')}/${href}`
     }
@@ -103,7 +106,6 @@ const rewiteOptions: RewriteLinkOptions = {
         return `/${currentDir.join('/')}/${href}.md`;
       }
     }
-
     // 原有的链接处理逻辑（用于非相对路径的链接）
     const locale = parts.find(p => SITE_LOCALES.includes(p))
     const config = { locale, docType }
@@ -122,36 +124,11 @@ export function markdownItRewriteLinks(md: MarkdownIt) {
 
       // 查找HTML标签开始
       if (token.type === 'html_block') {
-        // 使用正则表达式查找并替换img标签中的src属性
-        token.content = token.content.replace(
-          /<img\s+([^>]*?)src\s*=\s*["']([^"']+)["']([^>]*?)>/gi,
-          (match, beforeSrc, srcValue, afterSrc) => {
-            // 不处理已经以/或http开头的路径
-            if (srcValue.startsWith('/') || srcValue.startsWith('http')) {
-              return match
-            }
-
-            // 使用与其他链接相同的逻辑处理src路径
-            const newSrc = rewiteOptions.rewriteHref(state.env, srcValue)
-            return `<img ${beforeSrc}src="${newSrc}"${afterSrc}>`
-          }
+        token.content = rewriteHtmlAttributes(
+          token.content,
+          ["src", "href"],
+          (val) => rewiteOptions.rewriteHref(state.env, val)
         )
-
-        // 处理a标签中的href属性
-        token.content = token.content.replace(
-          /<a\s+([^>]*?)href\s*=\s*["']([^"']+)["']([^>]*?)>/gi,
-          (match, beforeHref, hrefValue, afterHref) => {
-            // 不处理已经以/或http开头的路径
-            if (hrefValue.startsWith('/') || hrefValue.startsWith('http')) {
-              return match
-            }
-
-            // 使用与其他链接相同的逻辑处理href路径
-            const newHref = rewiteOptions.rewriteHref(state.env, hrefValue)
-            return `<a ${beforeHref}href="${newHref}"${afterHref}>`
-          }
-        )
-
       }
 
       // 处理行内HTML标签
@@ -206,7 +183,7 @@ export function markdownItRewriteLinks(md: MarkdownIt) {
               }
             }
           }
-          
+
           // 同样处理图片标签
           if (child.type === 'image' && child.attrs) {
             for (const attr of child.attrs) {
@@ -219,4 +196,23 @@ export function markdownItRewriteLinks(md: MarkdownIt) {
       }
     }
   });
+}
+
+function rewriteHtmlAttributes(content, attrNames, rewriteFn) {
+  return content.replace(
+    // 匹配任意标签中的指定属性
+    new RegExp(
+      `(<[^>]*?\\s)(?:${attrNames.join("|")})\\s*=\\s*["']([^"']+)["']`,
+      "gi"
+    ),
+    (match, before, value) => {
+      // 不处理已经以 / 或 http 开头的路径
+      if (/^(?:\/|https?:)/i.test(value)) {
+        return match
+      }
+      const newValue = rewriteFn(value)
+      // 保留原属性名
+      return match.replace(value, newValue)
+    }
+  )
 }

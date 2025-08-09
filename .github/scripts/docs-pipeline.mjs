@@ -1,7 +1,7 @@
 import { execa } from "execa";
 import fs from "fs-extra";
 import { glob } from "glob";
-import {translateFiles, translateLocaleFiles} from "./translate.mjs";
+import { translateFiles, translateLocaleFiles } from "./translate.mjs";
 import { REPOS } from "./docs-repo-config.mjs";
 
 const Logger = {
@@ -61,7 +61,7 @@ async function sync(context) {
       );
       await git.update(repoConfig.path, repoConfig.branch);
     }
-    await repoConfig.strategy.onSyncEnd(repoConfig.path);
+    await repoConfig.strategy.postSync(repoConfig.path);
   }
 }
 
@@ -98,11 +98,13 @@ async function detect(context) {
       if (changedDocs.length > 0) {
         Logger.dim(`Found ${changedDocs.length} changed document(s).`);
         Logger.dim(changedDocs.map((f) => `  - ${f}`).join("\n"));
-        context.tasks.push({
+        const task = {
           repoConfig,
           files: changedDocs,
           newSha: currentSha,
-        });
+        };
+        await repoConfig.strategy.postDetect(repoConfig, task);
+        context.tasks.push(task);
       } else {
         Logger.dim("No relevant documents changed, updating checkpoint.");
         await fs.outputFile(repoConfig.lastCheckFile, currentSha);
@@ -133,15 +135,10 @@ async function translate(context) {
       `Translating ${filesToTranslate} files for ${repoConfig.name}...`
     );
 
-    const translatedPaths = await translateFiles(
-      repoConfig.name,
-      repoConfig.path,
-      repoConfig.docPath,
-      filesToTranslate
-    );
+    const translatedPaths = await translateFiles(repoConfig, filesToTranslate);
     translatedPaths.forEach((p) => context.gitAddPaths.add(p));
 
-    await repoConfig.strategy.onTranslateEnd(context, repoConfig);
+    await repoConfig.strategy.postTranslate(context, repoConfig);
 
     await fs.outputFile(repoConfig.lastCheckFile, task.newSha);
     context.gitAddPaths.add(repoConfig.lastCheckFile);
@@ -157,7 +154,7 @@ async function translateSidebar(context) {
   localeFiles = localeFiles.filter((f) => !f.endsWith("en.json"));
   context.gitAddPaths.add("docs/.vitepress/locales/en.json");
 
-  const translatedPaths = await translateLocaleFiles(localeFiles)
+  const translatedPaths = await translateLocaleFiles(localeFiles);
   translatedPaths.forEach((p) => context.gitAddPaths.add(p));
 }
 
@@ -172,7 +169,9 @@ async function commit(context) {
   }
 
   const sidebarFiles = await files.find("docs/.vitepress/sidebar", ["*.json"]);
-  sidebarFiles.forEach((f) => context.gitAddPaths.add(`docs/.vitepress/sidebar/${f}`));
+  sidebarFiles.forEach((f) =>
+    context.gitAddPaths.add(`docs/.vitepress/sidebar/${f}`)
+  );
 
   const pathsToAdd = [...context.gitAddPaths];
   Logger.dim("Adding the following paths to git:");

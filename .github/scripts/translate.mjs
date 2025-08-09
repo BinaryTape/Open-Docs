@@ -12,13 +12,21 @@ const configPath = path.resolve(__dirname, "./translate-config.json");
 const config = JSON.parse(fs.readFileSync(configPath, "utf8"));
 
 // Google LLM API
-const genAI = new GoogleGenAI({ apiKey: process.env.GOOGLE_API_KEY });
+let genAI = (() => {
+  let instance;
+  return () => {
+    if (!instance) {
+      instance = new GoogleGenAI({ apiKey: process.env.GOOGLE_API_KEY });
+    }
+    return instance;
+  };
+})();
 
 // Load terminology database
-let terminology = '';
+let terminology = "";
 
 try {
-  terminology = fs.readFileSync(config.terminologyPath, "utf8")
+  terminology = fs.readFileSync(config.terminologyPath, "utf8");
 } catch (error) {
   terminology = { terms: {} };
 }
@@ -70,13 +78,12 @@ function loadPreviousTranslations(targetLang, currentFilePath) {
 // Prepare translation prompt
 function prepareTranslationPrompt(sourceText, targetLang, currentFilePath) {
   // Get relevant terminology
-  const relevantTerms = targetLang === "zh-Hans" ? terminology : ''
+  const relevantTerms = targetLang === "zh-Hans" ? terminology : "";
 
   // Get previously translated file with the same name as reference
-  const previousTranslations = currentFilePath.includes('locales') ? fs.readFileSync(currentFilePath, 'utf8') : loadPreviousTranslations(
-    targetLang,
-    currentFilePath
-  )
+  const previousTranslations = currentFilePath.includes("locales")
+    ? fs.readFileSync(currentFilePath, "utf8")
+    : loadPreviousTranslations(targetLang, currentFilePath);
 
   // Build reference translation section
   let translationReferences = "";
@@ -92,7 +99,9 @@ function prepareTranslationPrompt(sourceText, targetLang, currentFilePath) {
   }
 
   // Choose appropriate prompt template based on target language
-  const promptTemplate = currentFilePath.includes('locales') ? getLocalePromptTemplate(getLangDisplayName(targetLang)) : getPromptTemplate(targetLang, getLangDisplayName(targetLang));
+  const promptTemplate = currentFilePath.includes("locales")
+    ? getLocalePromptTemplate(getLangDisplayName(targetLang))
+    : getPromptTemplate(targetLang, getLangDisplayName(targetLang));
 
   // Insert variables into template
   return promptTemplate
@@ -345,7 +354,7 @@ async function translateWithLLM(text, targetLang, filePath) {
 // Call Gemini API
 async function callGemini(prompt, model) {
   try {
-    const response = await genAI.models.generateContent({
+    const response = await genAI().models.generateContent({
       model: model,
       contents: prompt,
       config: {
@@ -484,23 +493,25 @@ async function retry(fn, attempts = 3) {
   throw lastError;
 }
 
-export async function translateFiles(docType, repoPath, docPath, files) {
-  console.log(`Translating ${files.length} files for ${docType}...`);
+export async function translateFiles(repoConfig, files) {
+  console.log(`Translating ${files.length} files for ${repoConfig.name}...`);
 
   // Set environment variables
-  process.env.REPO_PATH = repoPath;
-  process.env.DOC_TYPE = docType;
-  process.env.DOC_PATH = docPath;
+  process.env.DOC_TYPE = repoConfig.name;
+  process.env.REPO_PATH = repoConfig.path;
+  process.env.DOC_PATH = repoConfig.docPath;
 
   const limit = pLimit(10);
-  const translationTasks = files.map((file) => limit(async () => {
-    try {
-      return await retry(() => translateFile(file), 3);
-    } catch (e) {
-      console.error(`❌ Failed translating ${file} after 3 attempts:`, e);
-      return [];
-    }
-  }));
+  const translationTasks = files.map((file) =>
+    limit(async () => {
+      try {
+        return await retry(() => translateFile(file), 3);
+      } catch (e) {
+        console.error(`❌ Failed translating ${file} after 3 attempts:`, e);
+        return [];
+      }
+    })
+  );
 
   const results = await Promise.all(translationTasks);
   return results.flat();
@@ -510,14 +521,16 @@ export async function translateLocaleFiles(files) {
   console.log(`Translating locale files...`);
 
   const limit = pLimit(10);
-  const translationTasks = files.map((file) => limit(async () => {
-    try {
-      return await retry(() => translateLocaleFile(file), 3);
-    } catch (e) {
-      console.error(`❌ Failed translating ${file} after 3 attempts:`, e);
-      return [];
-    }
-  }));
+  const translationTasks = files.map((file) =>
+    limit(async () => {
+      try {
+        return await retry(() => translateLocaleFile(file), 3);
+      } catch (e) {
+        console.error(`❌ Failed translating ${file} after 3 attempts:`, e);
+        return [];
+      }
+    })
+  );
 
   const results = await Promise.all(translationTasks);
   return results.flat();
@@ -525,7 +538,7 @@ export async function translateLocaleFiles(files) {
 
 async function translateLocaleFile(filePath) {
   console.log(`Translating locale file: ${filePath}`);
-  let targetTranslateFile = '';
+  let targetTranslateFile = "";
   const absoluteFilePath = path.resolve("docs/.vitepress/locales", filePath);
 
   if (!fs.existsSync(absoluteFilePath)) {
@@ -541,7 +554,11 @@ async function translateLocaleFile(filePath) {
     if (content && content.trim()) {
       const targetLang = filePath.split(".")[0];
       const modelConfig = config.modelConfigs[targetLang];
-      const prompt = prepareTranslationPrompt(content, targetLang, absoluteFilePath)
+      const prompt = prepareTranslationPrompt(
+        content,
+        targetLang,
+        absoluteFilePath
+      );
       translatedContent = await callGemini(prompt, modelConfig.model);
 
       // Clean up extra content in translation result
