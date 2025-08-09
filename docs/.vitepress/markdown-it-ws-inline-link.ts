@@ -124,36 +124,11 @@ export function markdownItRewriteLinks(md: MarkdownIt) {
 
       // 查找HTML标签开始
       if (token.type === 'html_block') {
-        // 使用正则表达式查找并替换img标签中的src属性
-        token.content = token.content.replace(
-          /<img\s+([^>]*?)src\s*=\s*["']([^"']+)["']([^>]*?)>/gi,
-          (match, beforeSrc, srcValue, afterSrc) => {
-            // 不处理已经以/或http开头的路径
-            if (srcValue.startsWith('/') || srcValue.startsWith('http')) {
-              return match
-            }
-
-            // 使用与其他链接相同的逻辑处理src路径
-            const newSrc = rewiteOptions.rewriteHref(state.env, srcValue)
-            return `<img ${beforeSrc}src="${newSrc}"${afterSrc}>`
-          }
+        token.content = rewriteHtmlAttributes(
+          token.content,
+          ["src", "href"],
+          (val) => rewiteOptions.rewriteHref(state.env, val)
         )
-
-        // 处理a标签中的href属性
-        token.content = token.content.replace(
-          /<a\s+([^>]*?)href\s*=\s*["']([^"']+)["']([^>]*?)>/gi,
-          (match, beforeHref, hrefValue, afterHref) => {
-            // 不处理已经以/或http开头的路径
-            if (hrefValue.startsWith('/') || hrefValue.startsWith('http')) {
-              return match
-            }
-
-            // 使用与其他链接相同的逻辑处理href路径
-            const newHref = rewiteOptions.rewriteHref(state.env, hrefValue)
-            return `<a ${beforeHref}href="${newHref}"${afterHref}>`
-          }
-        )
-
       }
 
       // 处理行内HTML标签
@@ -221,4 +196,23 @@ export function markdownItRewriteLinks(md: MarkdownIt) {
       }
     }
   });
+}
+
+function rewriteHtmlAttributes(content, attrNames, rewriteFn) {
+  return content.replace(
+    // 匹配任意标签中的指定属性
+    new RegExp(
+      `(<[^>]*?\\s)(?:${attrNames.join("|")})\\s*=\\s*["']([^"']+)["']`,
+      "gi"
+    ),
+    (match, before, value) => {
+      // 不处理已经以 / 或 http 开头的路径
+      if (/^(?:\/|https?:)/i.test(value)) {
+        return match
+      }
+      const newValue = rewriteFn(value)
+      // 保留原属性名
+      return match.replace(value, newValue)
+    }
+  )
 }

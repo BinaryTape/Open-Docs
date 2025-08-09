@@ -11,13 +11,13 @@ import markdownItMkLiquidCondition from "./markdown-it-mk-liquid-condition";
 import markdownItMkAdmonition from "./markdown-it-mk-admonitions";
 import markdownItMkCodeTabs from "./markdown-it-mk-code-tabs";
 import markdownItMkLinks from "./markdown-it-mk-links";
-import {DOCS_TYPES, DocsTypeConfig} from './docs.config';
-import {markdownItRewriteLinks} from './markdown-it-ws-inline-link';
-import {SiteLocaleConfig} from './locales.config';
+import { DOCS_TYPES, DocsTypeConfig } from './docs.config';
+import { markdownItRewriteLinks } from './markdown-it-ws-inline-link';
+import { SiteLocaleConfig } from './locales.config';
 import markdownItDiffTitleWrapper from "./markdown-it-mk-diff-code-block";
-import {getSidebarTitle} from './utils/sidebar-utils';
-import {readFileSync, existsSync} from 'node:fs'
-import {resolve, dirname} from 'node:path'
+import { getSidebarTitle } from './utils/sidebar-utils';
+import { readFileSync, existsSync } from 'node:fs'
+import { resolve, dirname } from 'node:path'
 import shikiRemoveDiffMarker from "./shiki-remove-diff-marker";
 import liquidIncludePlugin from "./vite-liquid-include";
 import markdownItMKInclude from "./markdown-it-mk-Include";

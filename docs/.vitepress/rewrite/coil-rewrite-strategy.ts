@@ -12,7 +12,6 @@ export function coilRewriteHref(env: any, href: string): string {
     }
     const localePath = locale === undefined ? '' : `/${locale}`
     let rewriteHref = href;
-    console.log(`href: ${href}`);
     if (href.startsWith('https://coil-kt.github.io/coil/api')) {
         return href
     }
@@ -25,7 +24,17 @@ export function coilRewriteHref(env: any, href: string): string {
         const coilMDPath = coilMDUrl.pathname;
         rewriteHref = `${localePath}${coilMDPath}`
     }
+    const rewriteAssetsHref = rewriteAssets(href);
+    if (rewriteAssetsHref) {
+        return rewriteAssetsHref;
+    }
     return rewriteHref;
+}
+
+function rewriteAssets(href: string): string {
+    if(href.startsWith("../images/")) {
+        return href.replace("../images/", "/coil/");
+    }
 }
 
 function rewriteReadme(href: string) {
