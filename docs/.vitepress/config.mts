@@ -88,6 +88,11 @@ export default defineConfig({
         ]
     ],
     vite: {
+        resolve: {
+            alias: {
+                '@': resolve(__dirname, '../.vitepress')
+            }
+        },
         plugins: [
             liquidIncludePlugin()
         ]
@@ -145,10 +150,13 @@ export default defineConfig({
             ...SiteLocaleConfig['zh-Hans'],
             themeConfig: {
                 nav: [
-                    { text: 'Koin', link: '/koin/setup/koin' },
                     { text: 'Kotlin', link: '/kotlin/getting-started' },
+                    { text: 'Kotlin Multiplatform', link: '/kmp/get-started' },
+                    { text: 'Koin', link: '/koin/setup/koin' },
                     { text: 'SQLDelight', link: '/sqldelight/index' },
                     { text: 'Coil', link: '/coil/overview' },
+                    { text: 'koog', link: '/koog/' },
+
                 ],
                 sidebar: {
                     "/koin/": generateSidebar(SiteLocaleConfig['zh-Hans'], DocsTypeConfig.koin),
@@ -165,10 +173,13 @@ export default defineConfig({
             ...SiteLocaleConfig['zh-Hant'],
             themeConfig: {
                 nav: [
-                    { text: 'Koin', link: '/zh-Hant/koin/setup/koin' },
                     { text: 'Kotlin', link: '/zh-Hant/kotlin/getting-started' },
+                    { text: 'Kotlin Multiplatform', link: '/zh-Hant/kmp/get-started' },
+                    { text: 'Koin', link: '/zh-Hant/koin/setup/koin' },
                     { text: 'SQLDelight', link: '/zh-Hant/sqldelight/index' },
                     { text: 'Coil', link: '/zh-Hant/coil/overview' },
+                    { text: 'koog', link: '/zh-Hant/koog/' },
+
                 ],
                 sidebar: {
                     "/zh-Hant/koin/": generateSidebar(SiteLocaleConfig['zh-Hant'], DocsTypeConfig.koin),
@@ -207,10 +218,12 @@ export default defineConfig({
             ...SiteLocaleConfig['ja'],
             themeConfig: {
                 nav: [
-                    { text: 'Koin', link: '/ja/koin/setup/koin' },
                     { text: 'Kotlin', link: '/ja/kotlin/getting-started' },
+                    { text: 'Kotlin Multiplatform', link: '/ja/kmp/get-started' },
+                    { text: 'Koin', link: '/ja/koin/setup/koin' },
                     { text: 'SQLDelight', link: '/ja/sqldelight/index' },
-                    { text: 'Coil', link: '/zh-Hant/coil/overview' },
+                    { text: 'Coil', link: '/ja/coil/overview' },
+                    { text: 'koog', link: '/ja/koog/' },
 
                 ],
                 sidebar: {
@@ -253,11 +266,12 @@ export default defineConfig({
             ...SiteLocaleConfig['ko'],
             themeConfig: {
                 nav: [
-                    { text: 'Koin', link: '/ko/koin/setup/koin' },
                     { text: 'Kotlin', link: '/ko/kotlin/getting-started' },
+                    { text: 'Kotlin Multiplatform', link: '/ko/kmp/get-started' },
+                    { text: 'Koin', link: '/ko/koin/setup/koin' },
                     { text: 'SQLDelight', link: '/ko/sqldelight/index' },
                     { text: 'Coil', link: '/ko/coil/overview' },
-
+                    { text: 'koog', link: '/ko/koog/' },
                 ],
                 sidebar: {
                     "/ko/koin/": generateSidebar(SiteLocaleConfig['ko'], DocsTypeConfig.koin),
