@@ -28,7 +28,7 @@ export function processTopicFile(inputFile, outputPath, isKtor = false) {
             }
 
             if (isKtor) {
-                topicContent = processTopicContent(topicContent)
+                topicContent = processTopicContent(outputPath, topicContent)
             }
 
             // Remove any empty lines from the extracted topic content
@@ -58,31 +58,18 @@ export function processTopicFile(inputFile, outputPath, isKtor = false) {
     });
 }
 
-export function processTopicContent(topicContent) {
+export function processTopicContent(docsPath, topicContent) {
+    const docName = docsPath.split('/')[0].split('-')[0]
+    const docRoot = `/${docName}/`
+
+    function docHref(href) {
+        return `${docRoot}${href.split('.')[0]}`
+    }
+
     // Replace <path> tags
     topicContent = topicContent.replace(/<path>([\s\S]*?)<\/path>/g, '<Path>$1</Path>');
 
-    topicContent = topicContent.replace(
-        /<include\s+from="([^"]+)"\s+element-id="([^"]+)"\s*\/?>/g,
-        (match, from, elementId) => {
-            let file = fs.readFileSync(`ktor-repo/topics/${from}`, 'utf8'); // TODO: 替换文件连接
-
-            let reg = ''
-            if (from.endsWith('.md')) {
-                reg = new RegExp(`<([^\\s>]+)(?:\\s+[^>]*?)?\\s+id="${elementId}">([\\s\\S]*?)<\\/\\1>$`, 'm');
-                const match = file.match(reg);
-                if (match) {
-                    return match[0];
-                }
-            } else {
-                reg = new RegExp(`<snippet\\b[^>]*\\bid="${elementId}"[^>]*>([\\s\\S]*?)<\\/snippet>`);
-                const match = file.match(reg);
-                if (match) {
-                    return match[1];
-                }
-            }
-        }
-    );
+    topicContent = replaceInclude(topicContent, docsPath);
 
     topicContent = topicContent.replace(
         /<card\s*([^>]*)\/>/g,
@@ -92,10 +79,11 @@ export function processTopicContent(topicContent) {
                 return match;
             }
 
-            const summary = getCardSummary(href);
-            const inner = getTopicTitle(href);
+            const topicPath = path.join(docsPath, href);
+            const summary = getCardSummary(topicPath);
+            const inner = getTopicTitle(topicPath);
 
-            return `<card href="${href}" summary="${summary}">${inner}</card>`;
+            return `<card href="${docHref(href)}" summary="${summary}">${inner}</card>`;
         }
     )
 
@@ -109,9 +97,10 @@ export function processTopicContent(topicContent) {
                 return match;
             }
 
-            const summary = summaryMatch ? summaryMatch[1] : getCardSummary(href);
+            const topicPath = path.join(docsPath, href);
+            const summary = summaryMatch ? summaryMatch[1] : getCardSummary(topicPath);
 
-            return `<card href="${href}" summary="${summary}">${inner}</card>`;
+            return `<card href="${docHref(href)}" summary="${summary}">${inner}</card>`;
         }
     )
 
@@ -120,6 +109,7 @@ export function processTopicContent(topicContent) {
         (match, attrs) => {
             const anchor = attrs.match(/anchor="([^"]+)"/);
             const href = attrs.match(/href="([^"]+)"/);
+
             if (anchor && href) {
                 return `<a href="${href[1]}#${anchor[1]}"></a>`;
             } else if (href) {
@@ -140,24 +130,27 @@ export function processTopicContent(topicContent) {
             const summaryMatch = attrs.match(/summary="([^"]+)"/);
             const href = attrs.match(/href="([^"]+)"/)[1];
             if (summaryMatch && summaryMatch[1] !== undefined) {
-                return `<card href="${href}" summary="${summaryMatch[1]}">${inner}</card>`;
+                return `<card href="${docHref(href)}" summary="${summaryMatch[1]}">${inner}</card>`;
             }
 
             if (href.startsWith('http')) {
                 return match;
             }
+
             if (href.includes('#')) {
-                inner = getChapterTitle(href.split('#')[0], href.split('#')[1]);
+                const topicPath = path.join(docsPath, href.split('#')[0]);
+                inner = getChapterTitle(topicPath, href.split('#')[1]);
                 return `<a href="${href}">${inner}</a>`;
             }
 
+            const topicPath = path.join(docsPath, href);
             if (inner === '') {
-                inner = getTopicTitle(href);
+                inner = getTopicTitle(topicPath);
             }
 
-            const summary = getLinkSummary(href);
+            const summary = getLinkSummary(topicPath);
 
-            return `<Links href="${href}" summary="${summary}">${inner}</Links>`;
+            return `<Links href="${docHref(href)}" summary="${summary}">${inner}</Links>`;
         }
     );
 
@@ -173,7 +166,8 @@ export function processTopicContent(topicContent) {
                 ranges = inc[1].split(',');
             }
 
-            let codeText = fetchSnippet(inputFile, srcPath, ranges);
+            const snippetsPath = path.join(docsPath.split('/')[0], 'codeSnippets');
+            let codeText = fetchSnippet(snippetsPath, srcPath, ranges);
 
             // trim blank lines
             codeText = codeText.replace(/^\s*\n/, '').replace(/\n\s*$/, '');
@@ -181,9 +175,9 @@ export function processTopicContent(topicContent) {
             const escaped = codeText
                 .replace(/</g, '&lt;')
                 .replace(/>/g, '&gt;')
-                .replace(/&/g,'&amp;')
-                .replace(/"/g,'&quot;')
-                .replace(/\n/g,'&#10;');
+                .replace(/&/g, '&amp;')
+                .replace(/"/g, '&quot;')
+                .replace(/\n/g, '&#10;');
 
             // rebuild attributes without src/include-lines
             const cleanAttrs = (beforeAttrs + afterAttrs)
@@ -209,7 +203,8 @@ export function processTopicContent(topicContent) {
                 const src = /src="([^"]+)"/.exec(rawAttrs);
                 const include_lines = /include-lines="([^"]+)"/.exec(rawAttrs);
                 const ranges = include_lines ? include_lines[1].split(',') : [];
-                rawCode = fetchSnippet(inputFile, src[1], ranges);
+                const snippetsPath = path.join(docsPath.split('/')[0], "codeSnippets");
+                rawCode = fetchSnippet(snippetsPath, src[1], ranges);
                 rawAttrs = rawAttrs.replace(/\s+src="[^"]+"/, '')
                     .replace(/\s+include-lines="[^"]+"/, '')
                     .trim();
@@ -238,11 +233,55 @@ export function processTopicContent(topicContent) {
     return topicContent;
 }
 
-function fetchSnippet(inputPath, srcPath, include_lines) {
+export function replaceInclude(source, docsPath) {
+    return source.replace(
+        /<include\s+from="([^"]+)"\s+element-id="([^"]+)"\s*\/?>/g,
+        (match, from, elementId) => {
+            let file = fs.readFileSync(`${docsPath}/${from}`, 'utf8');
+
+            let reg = ''
+            if (from.endsWith('.md')) {
+                reg = new RegExp(`<([^\\s>]+)(?:\\s+[^>]*?)?\\s+id="${elementId}">([\\s\\S]*?)<\\/\\1>$`, 'm');
+                const match = file.match(reg);
+                if (match) {
+                    return removeSingleIndention(match[0]);
+                }
+            } else {
+                reg = new RegExp(`<snippet\\b[^>]*\\bid="${elementId}"[^>]*>([\\s\\S]*?)<\\/snippet>`);
+                const match = file.match(reg);
+                if (match) {
+                    return removeSingleIndention(match[1]);
+                }
+            }
+        }
+    );
+}
+
+function removeSingleIndention(content) {
+    const lines = content.split('\n');
+
+    const dedentedLines = lines.map(line => {
+        if (line.trim().length === 0) {
+            return line;
+        }
+
+        if (line.startsWith('    ')) {
+            return line.slice(4);
+        } else if (line.startsWith('\t')) {
+            return line.slice(1);
+        } else {
+            return line;
+        }
+    });
+
+    return dedentedLines.join('\n');
+}
+
+export function fetchSnippet(snippetsPath, srcPath, include_lines) {
     // load external file
     let codeText;
     try {
-        const snippetFile = path.resolve(path.dirname(inputPath), srcPath);
+        const snippetFile = path.join(snippetsPath, srcPath);
         codeText = fs.readFileSync(snippetFile, 'utf8');
     } catch (e) {
         console.error('Failed loading snippet', srcPath, e);
@@ -254,10 +293,10 @@ function fetchSnippet(inputPath, srcPath, include_lines) {
         const sel = [];
         include_lines.forEach(r => {
             if (r.includes('-')) {
-                const [s,e] = r.split('-').map(n=>parseInt(n,10)-1);
-                sel.push(...lines.slice(s, e+1));
+                const [s, e] = r.split('-').map(n => parseInt(n, 10) - 1);
+                sel.push(...lines.slice(s, e + 1));
             } else {
-                const idx = parseInt(r,10)-1;
+                const idx = parseInt(r, 10) - 1;
                 if (lines[idx] !== undefined) sel.push(lines[idx]);
             }
         });

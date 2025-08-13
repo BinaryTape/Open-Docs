@@ -4,6 +4,7 @@ import path from "path";
 import fs from "fs-extra";
 import {processTopicFile} from "./TopicProcessor.mjs";
 import {generateSidebar} from "./SidebarProcessor.mjs";
+import {processMarkdownFile} from "./MarkdownProcessor.mjs";
 
 export const ktorStrategy = {
     ...defaultStrategy,
@@ -17,14 +18,22 @@ export const ktorStrategy = {
      * @override
      */
     onSyncEnd: async (repoPath) => {
-        console.log(` Running Ktor onSyncEnd: Convert topic files - ${repoPath}`);
         const docsPath = path.join(repoPath, "topics");
         const docs = await fs.readdir(docsPath);
-        const topicFiles = docs.filter(doc => doc.endsWith(".topic"));
+
+        console.log(` Running Ktor onSyncEnd: Process markdown files - ${repoPath}`);
+        const mdFiles = docs.filter(doc => doc.endsWith(".md"));
+        for (const md in mdFiles) {
+            const mdPath = path.join(docsPath, mdFiles[md]);
+            await processMarkdownFile(mdPath);
+        }
+        console.log(`  Process markdown files finished - ${repoPath}`);
+
+        console.log(` Running Ktor onSyncEnd: Convert topic files - ${repoPath}`);
+        const topicFiles = docs.filter(doc => doc.endsWith(".topic")); // exclude lib.topic !!!
         for (const topic in topicFiles) {
             const topicPath = path.join(docsPath, topicFiles[topic]);
             await processTopicFile(topicPath, docsPath, true)
-            await fs.remove(topicPath);
         }
         console.log(`  Convert topic files finished - ${repoPath}`);
 
