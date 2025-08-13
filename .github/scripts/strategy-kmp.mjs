@@ -17,14 +17,14 @@ export const kmpStrategy = {
      * @override
      */
     postSync: async (repoPath) => {
-        console.log(`  Running KMP onSyncEnd: Flattening directory - ${repoPath}...`);
+        console.log(`  Running KMP postSync: Flattening directory - ${repoPath}...`);
         const docsPath = path.join(repoPath, "topics");
         if (await fs.pathExists(docsPath)) {
             await copyFlatten(docsPath, docsPath);
         }
         console.log(`  Flattening finished - ${docsPath}`);
 
-        console.log(` Running KMP onSyncEnd: Convert topic files - ${repoPath}`);
+        console.log(` Running KMP postSync: Convert topic files - ${repoPath}`);
         const docs = await fs.readdir(docsPath);
         const topicFiles = docs.filter(doc => doc.endsWith(".topic"));
         for (const topic in topicFiles) {
@@ -34,7 +34,7 @@ export const kmpStrategy = {
         }
         console.log(`  Convert topic files finished - ${repoPath}`);
 
-        console.log(`  Running KMP onSyncEnd: Generate sidebar - ${repoPath}...`);
+        console.log(`  Running KMP postSync: Generate sidebar - ${repoPath}...`);
         const sidebarPath = path.join(repoPath, "mpd.tree");
         const docType = repoPath.replace("-repo", "");
         if (await fs.pathExists(sidebarPath)) {

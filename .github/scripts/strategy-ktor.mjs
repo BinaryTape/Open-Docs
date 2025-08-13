@@ -17,11 +17,11 @@ export const ktorStrategy = {
     /**
      * @override
      */
-    onSyncEnd: async (repoPath) => {
+    postSync: async (repoPath) => {
         const docsPath = path.join(repoPath, "topics");
         const docs = await fs.readdir(docsPath);
 
-        console.log(` Running Ktor onSyncEnd: Process markdown files - ${repoPath}`);
+        console.log(` Running Ktor postSync: Process markdown files - ${repoPath}`);
         const mdFiles = docs.filter(doc => doc.endsWith(".md"));
         for (const md in mdFiles) {
             const mdPath = path.join(docsPath, mdFiles[md]);
@@ -29,7 +29,7 @@ export const ktorStrategy = {
         }
         console.log(`  Process markdown files finished - ${repoPath}`);
 
-        console.log(` Running Ktor onSyncEnd: Convert topic files - ${repoPath}`);
+        console.log(` Running Ktor postSync: Convert topic files - ${repoPath}`);
         const topicFiles = docs.filter(doc => doc.endsWith(".topic")); // exclude lib.topic !!!
         for (const topic in topicFiles) {
             const topicPath = path.join(docsPath, topicFiles[topic]);
@@ -37,7 +37,7 @@ export const ktorStrategy = {
         }
         console.log(`  Convert topic files finished - ${repoPath}`);
 
-        console.log(`  Running Ktor onSyncEnd: Generate sidebar - ${repoPath}...`);
+        console.log(`  Running Ktor postSync: Generate sidebar - ${repoPath}...`);
         const sidebarPath = path.join(repoPath, "ktor.tree");
         const docType = repoPath.replace("-repo", "");
         if (await fs.pathExists(sidebarPath)) {
@@ -49,7 +49,7 @@ export const ktorStrategy = {
     /**
      * @override
      */
-    onTranslateEnd: async (context, repoConfig) => {
+    postTranslate: async (context, repoConfig) => {
         console.log(`  Copying Ktor version file... `);
         const versionFile = `${repoConfig.path}/v.list`;
         if (await fs.pathExists(versionFile)) {

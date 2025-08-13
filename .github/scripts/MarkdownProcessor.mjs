@@ -50,5 +50,3 @@ export function processMarkdownContent(filePath, content) {
 
     return content;
 }
-
-processMarkdownFile("ktor-repo/topics/client-engines.md")

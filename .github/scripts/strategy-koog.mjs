@@ -15,7 +15,7 @@ export const koogStrategy = {
      * @override
      */
     postSync: async (repoPath) => {
-        console.log(`  Running Koog onSyncEnd: Generate sidebar - ${repoPath}...`);
+        console.log(`  Running Koog postSync: Generate sidebar - ${repoPath}...`);
         const sidebarPath = path.join(repoPath, 'docs/mkdocs.yml');
         const docType = repoPath.replace("-repo", "");
         if (await fs.pathExists(sidebarPath)) {
