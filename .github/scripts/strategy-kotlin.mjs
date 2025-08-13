@@ -82,8 +82,8 @@ export const kotlinStrategy = {
             console.log(`  Copying Kotlin version file... `);
             const versionFile = "kotlin-repo/docs/v.list";
             if (await fs.pathExists(versionFile)) {
-                await fs.copy(versionFile, "docs/.vitepress/v.list", { overwrite: true });
-                context.gitAddPaths.add("docs/.vitepress/v.list")
+                await fs.copy(versionFile, "docs/.vitepress/kotlin.v.list", { overwrite: true });
+                context.gitAddPaths.add("docs/.vitepress/kotlin.v.list")
                 console.log(`  Copying Kotlin version file finished - ${repoConfig.path}`);
             }
         }

@@ -344,7 +344,7 @@ export default defineConfig({
             md.use(markdownItMkLinks)
             md.use(markdownItDiffTitleWrapper)
             md.use(markdownItCollapsed)
-            md.use(markdownItWsVars, { xmlFilePath: 'docs/.vitepress/v.list' });
+            md.use(markdownItWsVars);
             md.use(markdownItMKVars);
 
             md.use(markdownItWsRename)
