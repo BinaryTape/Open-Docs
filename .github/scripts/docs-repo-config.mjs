@@ -1,8 +1,9 @@
+import { coilStrategy } from "./strategy-coil.mjs";
 import { koinStrategy } from "./strategy-koin.mjs";
 import { sqlDelightStrategy } from "./strategy-sqldelight.mjs";
-import {kotlinStrategy} from "./strategy-kotlin.mjs";
-import {kmpStrategy} from "./strategy-kmp.mjs";
-import {koogStrategy} from "./strategy-koog.mjs";
+import { kotlinStrategy } from "./strategy-kotlin.mjs";
+import { kmpStrategy } from "./strategy-kmp.mjs";
+import { koogStrategy } from "./strategy-koog.mjs";
 
 export const REPOS = [
   {
@@ -126,5 +127,18 @@ export const REPOS = [
       dest: "docs/public/koog",
     },
     strategy: koogStrategy
-  }
+  },
+  {
+    name: "coil",
+    repo: "coil-kt/coil",
+    branch: "origin/main",
+    path: "coil-repo",
+    docPath: "./docs",
+    lastCheckFile: ".github/last_check_coil.txt",
+    assets: {
+      src: "docs/images",
+      dest: "docs/public/coil",
+    },
+    strategy: coilStrategy,
+  },
 ];
