@@ -9,12 +9,19 @@ export const defaultStrategy = {
    * On Sync finished.
    * @param {string} repoPath - Path to the cloned repository
    */
-  onSyncEnd: async (repoPath) => {},
+  postSync: async (repoPath) => {},
+
+  /**
+   * On Detect finished.
+   * @param {object} repoConfig 
+   * @param {object} task 
+   */
+  postDetect: async (repoConfig, task) => {},
 
   /**
    * On Translate finished.
    * @param {object} context - Stage context
    * @param {object} repoConfig - Configuration of the current repository
    */
-  onTranslateEnd: async (context, repoConfig) => {},
+  postTranslate: async (context, repoConfig) => {},
 };
