@@ -4,7 +4,7 @@ export default function markdownItWsContainer(md) {
   const originalParse = md.parse.bind(md);
 
   md.parse = function(src: string, env?: any): any[] {
-    const blockquoteStyleRegex = /^(\s*)(>\s*[\s\S]*?)(\s*\{style="([a-z0-9_-]+)"\}\s*)$/gm;
+    const blockquoteStyleRegex = /^(\s*)((?:>\s?.*(?:\r?\n)(?=\1(?:>|\{)))*>\s?.*)\r?\n\1\{(?:style|type)="([a-z0-9_-]+)"\}\s*$/gm;
 
     const processedSrc = src.replace(blockquoteStyleRegex, (
       match,
