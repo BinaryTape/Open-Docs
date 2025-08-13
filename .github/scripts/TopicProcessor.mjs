@@ -65,7 +65,7 @@ export function processTopicContent(topicContent) {
     topicContent = topicContent.replace(
         /<include\s+from="([^"]+)"\s+element-id="([^"]+)"\s*\/?>/g,
         (match, from, elementId) => {
-            let file = fs.readFileSync(`${from}`, 'utf8'); // TODO: 替换文件连接
+            let file = fs.readFileSync(`ktor-repo/topics/${from}`, 'utf8'); // TODO: 替换文件连接
 
             let reg = ''
             if (from.endsWith('.md')) {
