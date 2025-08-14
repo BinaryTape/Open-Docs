@@ -21,6 +21,11 @@
 
 ### 基本結構
 
+<!--- INCLUDE
+import ai.koog.agents.core.tools.annotations.LLMDescription
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
+-->
 ```kotlin
 @Serializable
 @SerialName("WeatherForecast")
@@ -34,6 +39,7 @@ data class WeatherForecast(
     val precipitation: Int
 )
 ```
+<!--- KNIT example-structured-data-01.kt -->
 
 ### 關鍵標註
 
@@ -47,6 +53,11 @@ data class WeatherForecast(
 
 #### 巢狀類別
 
+<!--- INCLUDE
+import ai.koog.agents.core.tools.annotations.LLMDescription
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
+-->
 ```kotlin
 @Serializable
 @SerialName("WeatherForecast")
@@ -65,9 +76,22 @@ data class WeatherForecast(
     )
 }
 ```
+<!--- KNIT example-structured-data-02.kt -->
 
 #### 集合 (清單與映射)
 
+<!--- INCLUDE
+import ai.koog.agents.core.tools.annotations.LLMDescription
+import io.ktor.http.*
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
+
+@Serializable
+data class WeatherNews(val temperature: Double)
+
+@Serializable
+data class WeatherSource(val url: Url)
+-->
 ```kotlin
 @Serializable
 @SerialName("WeatherForecast")
@@ -79,17 +103,28 @@ data class WeatherForecast(
     val sources: Map<String, WeatherSource>
 )
 ```
+<!--- KNIT example-structured-data-03.kt -->
 
 #### 列舉
 
+<!--- INCLUDE
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
+-->
 ```kotlin
 @Serializable
 @SerialName("Pollution")
 enum class Pollution { Low, Medium, High }
 ```
+<!--- KNIT example-structured-data-04.kt -->
 
 #### 具密封類別的多型
 
+<!--- INCLUDE
+import ai.koog.agents.core.tools.annotations.LLMDescription
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
+-->
 ```kotlin
 @Serializable
 @SerialName("WeatherAlert")
@@ -120,18 +155,25 @@ sealed class WeatherAlert {
     ) : WeatherAlert()
 }
 ```
+<!--- KNIT example-structured-data-05.kt -->
 
 ## 產生 JSON 綱要
 
 定義資料結構後，您可以使用 `JsonStructuredData` 類別從中產生 JSON 綱要：
 
+<!--- INCLUDE
+import ai.koog.agents.example.exampleStructuredData03.WeatherForecast
+import ai.koog.agents.example.exampleStructuredData07.exampleForecasts
+import ai.koog.prompt.structure.json.generator.BasicJsonSchemaGenerator
+import ai.koog.prompt.structure.json.JsonStructuredData
+-->
 ```kotlin
 val weatherForecastStructure = JsonStructuredData.createJsonStructure<WeatherForecast>(
-    schemaFormat = JsonSchemaGenerator.SchemaFormat.JsonSchema,
-    examples = exampleForecasts,
-    schemaType = JsonStructuredData.JsonSchemaType.SIMPLE
+    schemaGenerator = BasicJsonSchemaGenerator.Default,
+    examples = exampleForecasts
 )
 ```
+<!--- KNIT example-structured-data-06.kt -->
 
 ### 綱要格式選項
 
@@ -159,22 +201,33 @@ val weatherForecastStructure = JsonStructuredData.createJsonStructure<WeatherFor
 
 您可以提供範例以協助 LLM 了解預期的格式：
 
+<!--- INCLUDE
+import ai.koog.agents.example.exampleStructuredData03.WeatherForecast
+import ai.koog.agents.example.exampleStructuredData03.WeatherNews
+import ai.koog.agents.example.exampleStructuredData03.WeatherSource
+import io.ktor.http.*
+-->
 ```kotlin
 val exampleForecasts = listOf(
-    WeatherForecast(
-        temperature = 25,
-        conditions = "Sunny",
-        precipitation = 0,
-        // Other fields
-    ),
-    WeatherForecast(
-        temperature = 18,
-        conditions = "Cloudy",
-        precipitation = 30,
-        // Other fields
+  WeatherForecast(
+    news = listOf(WeatherNews(0.0), WeatherNews(5.0)),
+    sources = mutableMapOf(
+      "openweathermap" to WeatherSource(Url("https://api.openweathermap.org/data/2.5/weather")),
+      "googleweather" to WeatherSource(Url("https://weather.google.com"))
     )
+    // Other fields
+  ),
+  WeatherForecast(
+    news = listOf(WeatherNews(25.0), WeatherNews(35.0)),
+    sources = mutableMapOf(
+      "openweathermap" to WeatherSource(Url("https://api.openweathermap.org/data/2.5/weather")),
+      "googleweather" to WeatherSource(Url("https://weather.google.com"))
+    )
+  )
 )
+
 ```
+<!--- KNIT example-structured-data-07.kt -->
 
 ## 請求結構化回應
 
@@ -195,6 +248,24 @@ val exampleForecasts = listOf(
 
 以下是使用 `executeStructured` 方法的範例：
 
+<!--- INCLUDE
+import ai.koog.agents.example.exampleStructuredData06.weatherForecastStructure
+import ai.koog.prompt.dsl.prompt
+import ai.koog.prompt.executor.clients.openai.OpenAIModels
+import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
+import ai.koog.prompt.structure.executeStructured
+import ai.koog.prompt.structure.StructuredOutput
+import ai.koog.prompt.structure.StructuredOutputConfig
+import ai.koog.prompt.structure.StructureFixingParser
+import kotlinx.coroutines.runBlocking
+
+fun main() {
+    runBlocking {
+-->
+<!--- SUFFIX
+    }
+}
+-->
 ```kotlin
 // Define a simple, single-provider prompt executor
 val promptExecutor = simpleOpenAIExecutor(System.getenv("OPENAI_KEY"))
@@ -213,16 +284,19 @@ val structuredResponse = promptExecutor.executeStructured(
               "What is the weather forecast for Amsterdam?"
             )
         },
-        // Provide the expected data structure to the LLM
-        structure = weatherForecastStructure,
         // Define the main model that will execute the request
-        mainModel = OpenAIModels.CostOptimized.GPT4oMini,
-        // Set the maximum number of retries to get a proper structured response
-        retries = 5,
-        // Set the LLM used for output coercion (transformation of malformed outputs)
-        fixingModel = OpenAIModels.Chat.GPT4o
+        model = OpenAIModels.CostOptimized.GPT4oMini,
+        // Provide the structured data configuration
+        config = StructuredOutputConfig(
+            default = StructuredOutput.Manual(weatherForecastStructure),
+            fixingParser = StructureFixingParser(
+                fixingModel = OpenAIModels.Chat.GPT4o,
+                retries = 3
+            )
+        )
     )
 ```
+<!--- KNIT example-structured-data-08.kt -->
 
 該範例依賴於基於[已定義資料結構](#定義資料結構)和[範例](#提供範例)的，名為 `weatherForecastStructure` 的[已產生 JSON 綱要](#產生-JSON-綱要)。
 
@@ -230,7 +304,7 @@ val structuredResponse = promptExecutor.executeStructured(
 
 | 名稱          | 資料類型       | 必填 | 預設                      | 描述                                                                                                                                              |
 |---------------|----------------|------|---------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------|
-| `prompt`      | `Prompt`       | 是   |                           | 要執行的提示。如需更多資訊，請參閱 [提示 API](prompt-api.md)。                                                                                     |
+| `prompt`      | `Prompt`       | 是   |                           | 要執行的提示。如需更多資訊，請參閱 [Prompt API](prompt-api.md)。                                                                                     |
 | `structure`   | `StructuredData` | 是   |                           | 包含綱要和解析邏輯的結構化資料定義。如需更多資訊，請參閱 [定義資料結構](#定義資料結構)。                                                           |
 | `mainModel`   | `LLModel`      | 是   |                           | 執行提示的主要模型。                                                                                                                              |
 | `retries`     | `Integer`      | 否   | `1`                       | 將回應解析為正確結構化輸出的嘗試次數。                                                                                                            |
@@ -250,14 +324,35 @@ val structuredResponse = promptExecutor.executeStructured(
 
 若要從 LLM 請求結構化回應，請在 `writeSession` 中使用 `requestLLMStructured` 方法：
 
+<!--- INCLUDE
+import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.example.exampleStructuredData06.weatherForecastStructure
+import ai.koog.prompt.executor.clients.openai.OpenAIModels
+import ai.koog.prompt.structure.StructuredOutput
+import ai.koog.prompt.structure.StructuredOutputConfig
+import ai.koog.prompt.structure.StructureFixingParser
+
+val strategy = strategy<Unit, Unit>("strategy-name") {
+    val node by node<Unit, Unit> {
+-->
+<!--- SUFFIX
+    }
+}
+-->
 ```kotlin
 val structuredResponse = llm.writeSession {
     this.requestLLMStructured(
-        structure = weatherForecastStructure,
-        fixingModel = OpenAIModels.Chat.GPT4o,
+        config = StructuredOutputConfig(
+            default = StructuredOutput.Manual(weatherForecastStructure),
+            fixingParser = StructureFixingParser(
+                fixingModel = OpenAIModels.Chat.GPT4o,
+                retries = 3
+            )
+        )
     )
 }
 ```
+<!--- KNIT example-structured-data-09.kt -->
 
 `fixingModel` 參數指定了在重試期間用於重新解析或錯誤更正的語言模型。這有助於確保您始終獲得有效回應。
 
@@ -265,6 +360,17 @@ val structuredResponse = llm.writeSession {
 
 您可以將結構化資料處理整合到您的代理程式策略中：
 
+<!--- INCLUDE
+import ai.koog.agents.core.dsl.builder.forwardTo
+import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.extension.nodeLLMRequest
+import ai.koog.agents.example.exampleStructuredData06.weatherForecastStructure
+import ai.koog.prompt.executor.clients.openai.OpenAIModels
+import ai.koog.prompt.message.Message
+import ai.koog.prompt.structure.StructuredOutput
+import ai.koog.prompt.structure.StructuredOutputConfig
+import ai.koog.prompt.structure.StructureFixingParser
+-->
 ```kotlin
 val agentStrategy = strategy("weather-forecast") {
     val setup by nodeLLMRequest()
@@ -272,8 +378,13 @@ val agentStrategy = strategy("weather-forecast") {
     val getStructuredForecast by node<Message.Response, String> { _ ->
         val structuredResponse = llm.writeSession {
             this.requestLLMStructured(
-                structure = forecastStructure,
-                fixingModel = OpenAIModels.Chat.GPT4o,
+                config = StructuredOutputConfig(
+                    default = StructuredOutput.Manual(weatherForecastStructure),
+                    fixingParser = StructureFixingParser(
+                        fixingModel = OpenAIModels.Chat.GPT4o,
+                        retries = 3
+                    )
+                )
             )
         }
 
@@ -288,13 +399,32 @@ val agentStrategy = strategy("weather-forecast") {
     edge(getStructuredForecast forwardTo nodeFinish)
 }
 ```
+<!--- KNIT example-structured-data-10.kt -->
 
 #### 完整程式碼範例
 
 以下是使用結構化資料處理 API 的完整範例：
 
+<!--- INCLUDE
+import ai.koog.agents.core.agent.AIAgent
+import ai.koog.agents.core.agent.config.AIAgentConfig
+import ai.koog.agents.core.dsl.builder.forwardTo
+import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.extension.nodeLLMRequest
+import ai.koog.agents.core.tools.ToolRegistry
+import ai.koog.agents.core.tools.annotations.LLMDescription
+import ai.koog.prompt.dsl.prompt
+import ai.koog.prompt.executor.clients.openai.OpenAIModels
+import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
+import ai.koog.prompt.message.Message
+import ai.koog.prompt.structure.json.generator.BasicJsonSchemaGenerator
+import ai.koog.prompt.structure.json.JsonStructuredData
+import kotlinx.coroutines.runBlocking
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
+-->
 ```kotlin
-// 注意：為求簡潔，省略了 import 語句
+// Note: Import statements are omitted for brevity
 @Serializable
 @SerialName("SimpleWeatherForecast")
 @LLMDescription("Simple weather forecast for a location")
@@ -310,7 +440,7 @@ data class SimpleWeatherForecast(
 val token = System.getenv("OPENAI_KEY") ?: error("Environment variable OPENAI_KEY is not set")
 
 fun main(): Unit = runBlocking {
-    // 建立範例預報
+    // Create sample forecasts
     val exampleForecasts = listOf(
         SimpleWeatherForecast(
             location = "New York",
@@ -324,23 +454,19 @@ fun main(): Unit = runBlocking {
         )
     )
 
-    // 產生 JSON 綱要
+    // Generate JSON Schema
     val forecastStructure = JsonStructuredData.createJsonStructure<SimpleWeatherForecast>(
-        schemaFormat = JsonSchemaGenerator.SchemaFormat.JsonSchema,
-        examples = exampleForecasts,
-        schemaType = JsonStructuredData.JsonSchemaType.SIMPLE
+        schemaGenerator = BasicJsonSchemaGenerator.Default,
+        examples = exampleForecasts
     )
 
-    // 定義代理程式策略
+    // Define the agent strategy
     val agentStrategy = strategy("weather-forecast") {
         val setup by nodeLLMRequest()
   
         val getStructuredForecast by node<Message.Response, String> { _ ->
             val structuredResponse = llm.writeSession {
-                this.requestLLMStructured(
-                    structure = forecastStructure,
-                    fixingModel = OpenAIModels.Chat.GPT4o,
-                )
+                this.requestLLMStructured<SimpleWeatherForecast>()
             }
   
             """
@@ -354,7 +480,7 @@ fun main(): Unit = runBlocking {
         edge(getStructuredForecast forwardTo nodeFinish)
     }
 
-    // 配置並執行代理程式
+    // Configure and run the agent
     val agentConfig = AIAgentConfig(
         prompt = prompt("weather-forecast-prompt") {
             system(
@@ -378,6 +504,7 @@ fun main(): Unit = runBlocking {
     runner.run("Get weather forecast for Paris")
 }
 ```
+<!--- KNIT example-structured-data-11.kt -->
 
 ## 最佳實踐
 

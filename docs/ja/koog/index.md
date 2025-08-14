@@ -5,7 +5,7 @@ Koogは、AIエージェントを完全にKotlinのイディオムに沿って�
 このフレームワークは、以下の種類のエージェントをサポートしています。
 
 * 最小限の設定で単一の入力を処理し、応答を提供するシングルランエージェント。
-  このタイプのエージェントは、ツール呼び出しの単一サイクル内で動作し、タスクを完了して応答を提供します。
+  このタイプのエージェントは、タスクを完了して応答を提供するために、ツール呼び出しの単一サイクル内で動作します。
 * カスタム戦略と構成をサポートする高度な機能を備えた複雑なワークフローエージェント。
 
 ## 主な機能
@@ -24,7 +24,7 @@ Koogの主な機能は以下のとおりです。
 - **柔軟なグラフワークフロー**: 直感的なグラフベースのワークフローを使用して、複雑なエージェントの動作を設計します。
 - **モジュラー機能システム**: コンポーザブルなアーキテクチャを通じてエージェントの機能をカスタマイズします。
 - **スケーラブルなアーキテクチャ**: シンプルなチャットボットからエンタープライズアプリケーションまで、あらゆるワークロードを処理します。
-- **マルチプラットフォーム**: Kotlin Multiplatformを使用して、JVMとJSの両方のターゲットでエージェントを実行します。
+- **マルチプラットフォーム**: Kotlin Multiplatformを使用して、JVM、JS、WasmJSターゲットでエージェントを実行します。
 
 # 利用可能なLLMプロバイダーとプラットフォーム
 
@@ -38,11 +38,7 @@ Koogの主な機能は以下のとおりです。
 
 # インストール
 
-Koogフレームワークを使用するには、必要なすべての依存関係をビルド構成に含める必要があります。必要なパッケージは、以下のMavenリポジトリでホストされています。
-
-```
-https://packages.jetbrains.team/maven/p/grazi/grazie-platform-public
-```
+Koogを使用するには、ビルド構成に必要なすべての依存関係を含める必要があります。
 
 ## Gradle
 
@@ -91,18 +87,27 @@ AIエージェントの利用を始めるのに役立つよう、シングルラ
 !!! note
     例を実行する前に、対応するAPIキーを環境変数として割り当ててください。詳細については、[はじめに](single-run-agents.md)を参照してください。
 
+<!--- INCLUDE
+import ai.koog.agents.core.agent.AIAgent
+import ai.koog.prompt.executor.clients.openai.OpenAIModels
+import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
+import kotlinx.coroutines.runBlocking
+-->
 ```kotlin
-fun main() = runBlocking {
-    val apiKey = System.getenv("OPENAI_API_KEY") // or Anthropic, Google, OpenRouter, etc.
+fun main() {
+    runBlocking {
+        val apiKey = System.getenv("OPENAI_API_KEY") // or Anthropic, Google, OpenRouter, etc.
 
-    val agent = AIAgent(
-        executor = simpleOpenAIExecutor(apiKey), // or Anthropic, Google, OpenRouter, etc.
-        systemPrompt = "You are a helpful assistant. Answer user questions concisely.",
-        llmModel = OpenAIModels.Chat.GPT4o
-    )
-    
-    val result = agent.runAndGetResult("Hello! How can you help me?")
-    println(result)
+        val agent = AIAgent(
+            executor = simpleOpenAIExecutor(apiKey), // or Anthropic, Google, OpenRouter, etc.
+            systemPrompt = "You are a helpful assistant. Answer user questions concisely.",
+            llmModel = OpenAIModels.Chat.GPT4o
+        )
+
+        val result = agent.run("Hello! How can you help me?")
+        println(result)
+    }
 }
 ```
+<!--- KNIT example-index-01.kt -->
 詳細については、[はじめに](single-run-agents.md)を参照してください。

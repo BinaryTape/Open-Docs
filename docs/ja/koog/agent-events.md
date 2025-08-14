@@ -1,6 +1,6 @@
 # エージェントイベント
 
-エージェントイベントは、エージェントのワークフローの一部として発生するアクションまたはインタラクションです。これらには以下が含まれます。
+エージェントイベントは、エージェントのワークフローの一部として発生するアクションまたはインタラクションです。これには以下が含まれます。
 
 - エージェントライフサイクルイベント
 - ストラテジーイベント
@@ -35,41 +35,64 @@ The EventHandler entity consists of five main handler types:
 
 この機能をインストールし、エージェントのイベントハンドラーを設定するには、次のようにします。
 
+<!--- INCLUDE
+import ai.koog.agents.core.agent.AIAgent
+import ai.koog.agents.features.eventHandler.feature.handleEvents
+import ai.koog.prompt.executor.llms.all.simpleOllamaAIExecutor
+import ai.koog.prompt.llm.OllamaModels
+
+val agent = AIAgent(
+    executor = simpleOllamaAIExecutor(),
+    llmModel = OllamaModels.Meta.LLAMA_3_2,
+) {
+-->
+<!--- SUFFIX 
+} 
+-->
+
 ```kotlin
-{
-    install(EventHandler){
-        // ここにイベントハンドラーを定義します。
-        onToolCall = { stage, tool, toolArgs ->
-            // ツール呼び出しイベントを処理します。
-        }
-
-        onAgentFinished = { strategyName, result ->
-            // エージェントの実行が完了したときにトリガーされるイベントを処理します。
-        }
-
-        // その他のイベントハンドラーを定義します。
+handleEvents {
+    // ツール呼び出しを処理
+    onToolCall { eventContext ->
+        println("Tool called: ${eventContext.tool} with args ${eventContext.toolArgs}")
     }
+    // エージェントの実行が完了したときにトリガーされるイベントを処理
+    onAgentFinished { eventContext ->
+        println("Agent finished with result: ${eventContext.result}")
+    }
+
+    // その他のイベントハンドラー
 }
 ```
+<!--- KNIT example-events-01.kt -->
 
 イベントハンドラーの設定に関する詳細については、[API リファレンス](https://api.koog.ai/agents/agents-features/agents-features-event-handler/ai.koog.agents.local.features.eventHandler.feature/-event-handler-config/index.html)を参照してください。
 
 エージェントを作成する際に、`handleEvents` 拡張関数を使用してイベントハンドラーを設定することもできます。この関数もイベントハンドラー機能をインストールし、エージェントのイベントハンドラーを設定します。例を次に示します。
 
+<!--- INCLUDE
+import ai.koog.agents.core.agent.AIAgent
+import ai.koog.agents.features.eventHandler.feature.handleEvents
+import ai.koog.prompt.executor.llms.all.simpleOllamaAIExecutor
+import ai.koog.prompt.llm.OllamaModels
+-->
 ```kotlin
 val agent = AIAgent(
-    // Initialization options
+    executor = simpleOllamaAIExecutor(),
+    llmModel = OllamaModels.Meta.LLAMA_3_2,
 ){
     handleEvents {
         // ツール呼び出しを処理
-        onToolCall = { stage, tool, toolArgs ->
-            println("Tool called: ${tool.name} with args $toolArgs")
+        onToolCall { eventContext ->
+            println("Tool called: ${eventContext.tool} with args ${eventContext.toolArgs}")
         }
         // エージェントの実行が完了したときにトリガーされるイベントを処理
-        onAgentFinished = { strategyName, result ->
-            println("Agent finished with result: $result")
+        onAgentFinished { eventContext ->
+            println("Agent finished with result: ${eventContext.result}")
         }
 
         // その他のイベントハンドラー
     }
 }
+```
+<!--- KNIT example-events-02.kt -->

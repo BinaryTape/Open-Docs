@@ -44,8 +44,8 @@
             "link": "annotation-based-tools"
           },
           {
-            "text": "koog.advanced-implementation",
-            "link": "advanced-tool-implementation"
+            "text": "koog.class-based-tools",
+            "link": "class-based-tools"
           }
         ],
         "collapsed": true
@@ -55,12 +55,22 @@
         "link": "agent-events"
       },
       {
-        "text": "koog.custom-strategy-graphs",
-        "link": "custom-strategy-graphs"
-      },
-      {
-        "text": "koog.pre-defined-nodes-and-components",
-        "link": "nodes-and-components"
+        "text": "koog.agent-strategies",
+        "items": [
+          {
+            "text": "koog.custom-strategy-graphs",
+            "link": "custom-strategy-graphs"
+          },
+          {
+            "text": "koog.pre-defined-nodes-and-components",
+            "link": "nodes-and-components"
+          },
+          {
+            "text": "koog.parallel-node-execution",
+            "link": "parallel-node-execution"
+          }
+        ],
+        "collapsed": true
       },
       {
         "text": "koog.history-compression",
@@ -69,6 +79,14 @@
       {
         "text": "koog.model-context-protocol",
         "link": "model-context-protocol"
+      },
+      {
+        "text": "koog.model-capabilities",
+        "link": "model-capabilities"
+      },
+      {
+        "text": "koog.content-moderation",
+        "link": "content-moderation"
       },
       {
         "text": "koog.advanced-usage",
@@ -108,6 +126,10 @@
             "link": "embeddings"
           },
           {
+            "text": "koog.ranked-document-storage",
+            "link": "ranked-document-storage"
+          },
+          {
             "text": "koog.features",
             "items": [
               {
@@ -121,6 +143,14 @@
               {
                 "text": "koog.memory",
                 "link": "agent-memory"
+              },
+              {
+                "text": "koog.agent-persistency",
+                "link": "agent-persistency"
+              },
+              {
+                "text": "koog.opentelemetry",
+                "link": "opentelemetry-support"
               }
             ],
             "collapsed": true

@@ -1,0 +1,78 @@
+[//]: # (title: 多平台)
+
+<tldr>
+<p>
+程式碼範例：<a href="https://github.com/ktorio/ktor-samples/tree/main/client-mpp">client-mpp</a>
+</p>
+</tldr>
+
+<link-summary>
+Ktor 用戶端可用於多平台專案，並支援 Android、JavaScript 和 Native 平台。
+</link-summary>
+
+[Ktor HTTP 用戶端](client-create-and-configure.md) 可用於 [多平台專案](https://kotlinlang.org/docs/multiplatform.html) 並支援以下平台：
+* JVM
+* [Android](https://kotlinlang.org/docs/android-overview.html)
+* [JavaScript](https://kotlinlang.org/docs/js-overview.html)
+* [Native](https://kotlinlang.org/docs/native-overview.html)
+
+## 新增依賴項 {id="add-dependencies"}
+若要在專案中使用 Ktor HTTP 用戶端，您需要至少新增兩個依賴項：一個用戶端依賴項和一個 [引擎](client-engines.md) 依賴項。對於多平台專案，您需要按以下方式新增這些依賴項：
+1. 若要在通用程式碼中使用 Ktor 用戶端，請將 `ktor-client-core` 依賴項新增到 `commonMain` 原始碼集中的 `build.gradle` 或 `build.gradle.kts` 檔案：
+   <var name="platform_name" value="common"/>
+   <var name="artifact_name" value="ktor-client-core"/>
+   
+    <tabs group="languages">
+        <tab title="Gradle (Kotlin)" group-key="kotlin">
+            [object Promise]
+        </tab>
+        <tab title="Gradle (Groovy)" group-key="groovy">
+            [object Promise]
+        </tab>
+    </tabs>
+    
+1. 為所需平台新增一個 [引擎依賴項](client-engines.md#dependencies) 到對應的原始碼集。對於 Android，您可以將 [Android](client-engines.md#android) 引擎依賴項新增到 `androidMain` 原始碼集：
+   <var name="platform_name" value="android"/>
+   <var name="artifact_name" value="ktor-client-android"/>
+   
+    <tabs group="languages">
+        <tab title="Gradle (Kotlin)" group-key="kotlin">
+            [object Promise]
+        </tab>
+        <tab title="Gradle (Groovy)" group-key="groovy">
+            [object Promise]
+        </tab>
+    </tabs>
+    
+   
+   對於 iOS，您需要將 [Darwin](client-engines.md#darwin) 引擎依賴項新增到 `iosMain`：
+   <var name="platform_name" value="ios"/>
+   <var name="artifact_name" value="ktor-client-darwin"/>
+   
+    <tabs group="languages">
+        <tab title="Gradle (Kotlin)" group-key="kotlin">
+            [object Promise]
+        </tab>
+        <tab title="Gradle (Groovy)" group-key="groovy">
+            [object Promise]
+        </tab>
+    </tabs>
+    
+   
+   要了解每個平台支援哪些引擎，請參閱 [](client-engines.md#dependencies)。
+
+## 建立用戶端 {id="create-client"}
+若要在多平台專案中建立用戶端，請在專案的 [通用程式碼](https://kotlinlang.org/docs/mpp-discover-project.html#source-sets) 中呼叫 [HttpClient](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client/-http-client/index.html) 建構函式：
+
+[object Promise]
+
+在此程式碼片段中，`HttpClient` 建構函式不接受引擎作為參數：用戶端將根據所需平台選擇一個引擎，具體取決於 [建構腳本中新增的依賴項](#add-dependencies)。 
+
+如果您需要為特定平台調整引擎設定，請將對應的引擎類別作為參數傳遞給 `HttpClient` 建構函式，並使用 `engine` 方法設定引擎，例如：
+[object Promise]
+
+您可以從 [](client-engines.md) 了解如何設定所有引擎類型。
+
+## 程式碼範例 {id="code-example"}
+
+[mpp/client-mpp](https://github.com/ktorio/ktor-samples/tree/main/client-mpp) 專案展示了如何在多平台應用程式中使用 Ktor 用戶端。此應用程式可在以下平台運作：`Android`、`iOS`、`JavaScript` 和 `macosX64`。

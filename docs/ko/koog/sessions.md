@@ -1,10 +1,10 @@
 # LLM 세션 및 수동 기록 관리
 
-이 페이지에서는 LLM 세션에 대한 자세한 정보를 제공하며, 읽기 및 쓰기 세션 사용 방법, 대화 기록 관리 방법, 언어 모델에 요청을 보내는 방법을 포함합니다.
+이 페이지에서는 LLM 세션에 대한 자세한 정보를 제공하며, 읽기 및 쓰기 세션으로 작업하는 방법, 대화 기록을 관리하는 방법, 언어 모델에 요청을 보내는 방법을 포함합니다.
 
 ## 소개
 
-LLM 세션은 언어 모델(LLM)과 상호작용하는 구조화된 방법을 제공하는 기본 개념입니다. 이들은 대화 기록을 관리하고, LLM에 대한 요청을 처리하며, 도구 실행 및 응답 처리를 위한 일관된 인터페이스를 제공합니다.
+LLM 세션은 언어 모델(LLM)과 상호작용하는 구조화된 방법을 제공하는 기본적인 개념입니다. 이들은 대화 기록을 관리하고, LLM에 대한 요청을 처리하며, 도구를 실행하고 응답을 처리하기 위한 일관된 인터페이스를 제공합니다.
 
 ## LLM 세션 이해하기
 
@@ -16,15 +16,15 @@ LLM 세션은 언어 모델과 상호작용하기 위한 컨텍스트를 나타�
 - 대화 기록을 업데이트하는 메서드
 - 도구를 실행하는 메서드
 
-세션은 읽기 및 쓰기 세션을 생성하기 위한 메서드를 제공하는 `AIAgentLLMContext` 클래스에 의해 관리됩니다.
+세션은 `AIAgentLLMContext` 클래스에 의해 관리되며, 이 클래스는 읽기 및 쓰기 세션을 생성하기 위한 메서드를 제공합니다.
 
 ### 세션 유형
 
 Koog 프레임워크는 두 가지 유형의 세션을 제공합니다:
 
-1.  **쓰기 세션** (`AIAgentLLMWriteSession`): 프롬프트와 도구를 수정하고, LLM 요청을 보내고, 도구를 실행할 수 있습니다. 쓰기 세션에서 변경된 내용은 LLM 컨텍스트에 다시 유지됩니다.
+1.  **쓰기 세션** (`AIAgentLLMWriteSession`): 프롬프트와 도구를 수정하고, LLM 요청을 보내고, 도구를 실행할 수 있도록 허용합니다. 쓰기 세션에서 변경된 내용은 LLM 컨텍스트에 다시 유지됩니다.
 
-2.  **읽기 세션** (`AIAgentLLMReadSession`): 프롬프트와 도구에 대한 읽기 전용 접근을 제공합니다. 변경 없이 현재 상태를 검사하는 데 유용합니다.
+2.  **읽기 세션** (`AIAgentLLMReadSession`): 프롬프트와 도구에 대한 읽기 전용 접근을 제공합니다. 이는 변경 없이 현재 상태를 검사하는 데 유용합니다.
 
 주요 차이점은 쓰기 세션은 대화 기록을 수정할 수 있는 반면, 읽기 세션은 수정할 수 없다는 것입니다.
 
@@ -32,7 +32,7 @@ Koog 프레임워크는 두 가지 유형의 세션을 제공합니다:
 
 세션에는 정의된 라이프사이클이 있습니다:
 
-1.  **생성**: 세션은 `llm.writeSession { ... }` 또는 `llm.readSession { ... }`을 사용하여 생성됩니다.
+1.  **생성**: `llm.writeSession { ... }` 또는 `llm.readSession { ... }`을 사용하여 세션이 생성됩니다.
 2.  **활성 단계**: 람다 블록이 실행되는 동안 세션이 활성화됩니다.
 3.  **종료**: 람다 블록이 완료되면 세션이 자동으로 닫힙니다.
 
@@ -44,6 +44,16 @@ Koog 프레임워크는 두 가지 유형의 세션을 제공합니다:
 
 세션은 `AIAgentLLMContext` 클래스의 확장 함수를 사용하여 생성됩니다:
 
+<!--- INCLUDE
+import ai.koog.agents.core.dsl.builder.strategy
+
+val strategy = strategy<Unit, Unit>("strategy-name") {
+    val node by node<Unit, Unit> {
+-->
+<!--- SUFFIX
+   }
+}
+-->
 ```kotlin
 // Creating a write session
 llm.writeSession {
@@ -55,6 +65,7 @@ llm.readSession {
     // Session code here
 }
 ```
+<!--- KNIT example-sessions-01.kt -->
 
 이 함수들은 세션의 컨텍스트 내에서 실행되는 람다 블록을 받습니다. 블록이 완료되면 세션은 자동으로 닫힙니다.
 
@@ -72,15 +83,39 @@ llm.readSession {
 
 세션 내에서 프롬프트와 도구에 접근할 수 있습니다:
 
+<!--- INCLUDE
+import ai.koog.agents.core.dsl.builder.strategy
+
+val strategy = strategy<Unit, Unit>("strategy-name") {
+    val node by node<Unit, Unit> {
+-->
+<!--- SUFFIX
+   }
+}
+-->
 ```kotlin
 llm.readSession {
     val messageCount = prompt.messages.size
     val availableTools = tools.map { it.name }
 }
 ```
+<!--- KNIT example-sessions-02.kt -->
 
 쓰기 세션에서는 이러한 속성을 수정할 수도 있습니다:
 
+<!--- INCLUDE
+import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.tools.ToolDescriptor
+
+val newTools = listOf<ToolDescriptor>()
+
+val strategy = strategy<Unit, Unit>("strategy-name") {
+    val node by node<Unit, Unit> {
+-->
+<!--- SUFFIX
+   }
+}
+-->
 ```kotlin
 llm.writeSession {
     // Modify the prompt
@@ -92,6 +127,8 @@ llm.writeSession {
     tools = newTools
 }
 ```
+<!--- KNIT example-sessions-03.kt -->
+
 자세한 내용은 [AIAgentLLMReadSession](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.agent.session/-a-i-agent-l-l-m-read-session/index.html) 및 [AIAgentLLMWriteSession](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.agent.session/-a-i-agent-l-l-m-write-session/index.html)의 상세 API 레퍼런스를 참조하십시오.
 
 ## LLM 요청 보내기
@@ -112,6 +149,16 @@ LLM 요청을 보내는 가장 일반적인 메서드는 다음과 같습니다:
 
 예시:
 
+<!--- INCLUDE
+import ai.koog.agents.core.dsl.builder.strategy
+
+val strategy = strategy<Unit, Unit>("strategy-name") {
+    val node by node<Unit, Unit> {
+-->
+<!--- SUFFIX
+   }
+}
+-->
 ```kotlin
 llm.writeSession {
     // Make a request with tools enabled
@@ -124,6 +171,7 @@ llm.writeSession {
     val responses = requestLLMMultiple()
 }
 ```
+<!--- KNIT example-sessions-04.kt -->
 
 ### 요청 작동 방식
 
@@ -138,6 +186,17 @@ LLM 요청은 요청 메서드 중 하나를 명시적으로 호출할 때 이�
 
 도구를 활성화한 상태에서 요청을 보낼 때, LLM은 텍스트 응답 대신 도구 호출로 응답할 수 있습니다. 요청 메서드는 이를 투명하게 처리합니다:
 
+<!--- INCLUDE
+import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.prompt.message.Message
+
+val strategy = strategy<Unit, Unit>("strategy-name") {
+    val node by node<Unit, Unit> {
+-->
+<!--- SUFFIX
+   }
+}
+-->
 ```kotlin
 llm.writeSession {
     val response = requestLLM()
@@ -150,6 +209,7 @@ llm.writeSession {
     }
 }
 ```
+<!--- KNIT example-sessions-05.kt -->
 
 실제로 에이전트 그래프가 이 라우팅을 자동으로 처리하므로 응답 유형을 수동으로 확인할 필요는 없습니다.
 
@@ -165,10 +225,21 @@ llm.writeSession {
 
 예시:
 
+<!--- INCLUDE
+import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.example.exampleParallelNodeExecution07.JokeRating
+
+val strategy = strategy<Unit, Unit>("strategy-name") {
+    val node by node<Unit, Unit> {
+-->
+<!--- SUFFIX
+   }
+}
+-->
 ```kotlin
 llm.writeSession {
     // Make a structured request
-    val structuredResponse = requestLLMStructured(myStructure)
+    val structuredResponse = requestLLMStructured<JokeRating>()
 
     // Make a streaming request
     val responseStream = requestLLMStreaming()
@@ -177,6 +248,7 @@ llm.writeSession {
     }
 }
 ```
+<!--- KNIT example-sessions-06.kt -->
 
 ## 대화 기록 관리하기
 
@@ -184,6 +256,26 @@ llm.writeSession {
 
 쓰기 세션에서는 `updatePrompt` 메서드를 사용하여 프롬프트(대화 기록)를 업데이트할 수 있습니다:
 
+<!--- INCLUDE
+import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.prompt.message.Message
+import ai.koog.prompt.message.RequestMetaInfo
+import kotlinx.datetime.Clock
+
+val myToolResult = Message.Tool.Result(
+    id = "",
+    tool = "",
+    content = "",
+    metaInfo = RequestMetaInfo(Clock.System.now())
+)
+
+val strategy = strategy<Unit, Unit>("strategy-name") {
+    val node by node<Unit, Unit> {
+-->
+<!--- SUFFIX
+   }
+}
+-->
 ```kotlin
 llm.writeSession {
     updatePrompt {
@@ -203,9 +295,23 @@ llm.writeSession {
     }
 }
 ```
+<!--- KNIT example-sessions-07.kt -->
 
 또한 `rewritePrompt` 메서드를 사용하여 프롬프트를 완전히 다시 작성할 수도 있습니다:
 
+<!--- INCLUDE
+import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.prompt.message.Message
+
+val filteredMessages = emptyList<Message>()
+
+val strategy = strategy<Unit, Unit>("strategy-name") {
+    val node by node<Unit, Unit> {
+-->
+<!--- SUFFIX
+   }
+}
+-->
 ```kotlin
 llm.writeSession {
     rewritePrompt { oldPrompt ->
@@ -214,11 +320,22 @@ llm.writeSession {
     }
 }
 ```
+<!--- KNIT example-sessions-08.kt -->
 
 ### 응답 시 자동 기록 업데이트
 
 쓰기 세션에서 LLM 요청을 보내면 응답이 대화 기록에 자동으로 추가됩니다:
 
+<!--- INCLUDE
+import ai.koog.agents.core.dsl.builder.strategy
+
+val strategy = strategy<Unit, Unit>("strategy-name") {
+    val node by node<Unit, Unit> {
+-->
+<!--- SUFFIX
+   }
+}
+-->
 ```kotlin
 llm.writeSession {
     // Add a user message
@@ -232,6 +349,7 @@ llm.writeSession {
     // The prompt now includes both the user message and the model's response
 }
 ```
+<!--- KNIT example-sessions-09.kt -->
 
 이러한 자동 기록 업데이트는 쓰기 세션의 핵심 기능으로, 대화가 자연스럽게 흘러가도록 보장합니다.
 
@@ -239,12 +357,25 @@ llm.writeSession {
 
 장기 실행 대화의 경우, 기록이 커져 많은 토큰을 소비할 수 있습니다. 플랫폼은 기록 압축을 위한 메서드를 제공합니다:
 
+<!--- INCLUDE
+import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.extension.HistoryCompressionStrategy
+import ai.koog.agents.core.dsl.extension.replaceHistoryWithTLDR
+
+val strategy = strategy<Unit, Unit>("strategy-name") {
+    val node by node<Unit, Unit> {
+-->
+<!--- SUFFIX
+   }
+}
+-->
 ```kotlin
 llm.writeSession {
     // Compress the history using a TLDR approach
     replaceHistoryWithTLDR(HistoryCompressionStrategy.WholeHistory, preserveMemory = true)
 }
 ```
+<!--- KNIT example-sessions-10.kt -->
 
 또한 전략 그래프에서 `nodeLLMCompressHistory` 노드를 사용하여 특정 지점에서 기록을 압축할 수도 있습니다.
 
@@ -266,6 +397,22 @@ llm.writeSession {
 
 예시:
 
+<!--- INCLUDE
+import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.ext.tool.AskUser
+
+val myTool = AskUser
+val myArgs = AskUser.Args("this is a string")
+
+typealias MyTool = AskUser
+
+val strategy = strategy<Unit, Unit>("strategy-name") {
+    val node by node<Unit, Unit> {
+-->
+<!--- SUFFIX
+   }
+}
+-->
 ```kotlin
 llm.writeSession {
     // Call a tool by reference
@@ -281,11 +428,29 @@ llm.writeSession {
     val rawResult = callToolRaw("myToolName", myArgs)
 }
 ```
+<!--- KNIT example-sessions-11.kt -->
 
 ### 병렬 도구 실행
 
 여러 도구를 병렬로 실행하려면 쓰기 세션은 `Flow`에 대한 확장 함수를 제공합니다:
 
+<!--- INCLUDE
+import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.ext.tool.AskUser
+import kotlinx.coroutines.flow.flow
+
+typealias MyTool = AskUser
+
+val data = ""
+fun parseDataToArgs(data: String) = flow { emit(AskUser.Args(data)) }
+
+val strategy = strategy<Unit, Unit>("strategy-name") {
+    val node by node<Unit, Unit> {
+-->
+<!--- SUFFIX
+   }
+}
+-->
 ```kotlin
 llm.writeSession {
     // Run tools in parallel
@@ -299,6 +464,7 @@ llm.writeSession {
     }
 }
 ```
+<!--- KNIT example-sessions-12.kt -->
 
 이는 많은 양의 데이터를 효율적으로 처리하는 데 유용합니다.
 
@@ -332,11 +498,24 @@ LLM 세션을 사용할 때는 다음 모범 사례를 따르십시오:
 
 기록이 너무 커져 너무 많은 토큰을 소비하는 경우, 기록 압축 기술을 사용하십시오:
 
+<!--- INCLUDE
+import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.extension.HistoryCompressionStrategy
+import ai.koog.agents.core.dsl.extension.replaceHistoryWithTLDR
+
+val strategy = strategy<Unit, Unit>("strategy-name") {
+    val node by node<Unit, Unit> {
+-->
+<!--- SUFFIX
+   }
+}
+-->
 ```kotlin
 llm.writeSession {
     replaceHistoryWithTLDR(HistoryCompressionStrategy.FromLastNMessages(10), preserveMemory = true)
 }
 ```
+<!--- KNIT example-sessions-13.kt -->
 
 자세한 내용은 [기록 압축](history-compression.md)을 참조하십시오.
 

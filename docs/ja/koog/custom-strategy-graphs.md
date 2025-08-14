@@ -8,7 +8,7 @@
 
 大まかに見て、戦略グラフは以下のコンポーネントで構成されています。
 
--   **Strategy**: `strategy`関数を使用して作成される、グラフのトップレベルのコンテナ。
+-   **Strategy**: ジェネリックパラメータを使用して指定された入力および出力型で`strategy`関数を使って作成される、グラフのトップレベルのコンテナ。
 -   **Subgraphs**: 独自のツールセットとコンテキストを持つことができるグラフのセクション。
 -   **Nodes**: ワークフロー内の個々の操作または変換。
 -   **Edges**: ノード間の接続で、遷移条件と変換を定義します。
@@ -27,19 +27,32 @@ Koogフレームワークは事前定義されたノードを提供しており�
 
 ### エッジ
 
-エッジはノードを接続し、戦略グラフにおける操作のフローを定義します。エッジは`edge`関数と`forwardTo`中置関数を使用して作成されます。
+エッジはノードを接続し、戦略グラフにおける操作のフローを定義します。
+エッジは`edge`関数と`forwardTo`中置関数を使用して作成されます。
 
+<!--- INCLUDE
+import ai.koog.agents.core.dsl.builder.forwardTo
+import ai.koog.agents.core.dsl.builder.strategy
+
+val strategy = strategy<String, String>("strategy_name") {
+        val sourceNode by node<String, String> { input -> input }
+        val targetNode by node<String, String> { input -> input }
+-->
+<!--- SUFFIX
+}
+-->
 ```kotlin
 edge(sourceNode forwardTo targetNode)
 ```
+<!--- KNIT example-custom-strategy-graphs-01.kt -->
 
 #### 条件
 
-条件は、戦略グラフで特定のエッジをたどるタイミングを決定します。条件にはいくつかの種類があります。
+条件は、戦略グラフで特定のエッジをたどるタイミングを決定します。いくつかの種類の条件があり、一般的なものをいくつか紹介します。
 
 | 条件の種類          | 説明                                                                     |
 |:--------------------|:-------------------------------------------------------------------------|
-| onCondition         | 論理値を返すラムダ式を受け取る汎用条件。                                 |
+| onCondition         | 真偽値を返すラムダ式を受け取る汎用条件。                                 |
 | onToolCall          | LLMがツールを呼び出したときに一致する条件。                              |
 | onAssistantMessage  | LLMがメッセージで応答したときに一致する条件。                            |
 | onMultipleToolCalls | LLMが複数のツールを呼び出したときに一致する条件。                        |
@@ -47,32 +60,73 @@ edge(sourceNode forwardTo targetNode)
 
 `transformed`関数を使用すると、出力をターゲットノードに渡す前に変換できます。
 
+<!--- INCLUDE
+import ai.koog.agents.core.dsl.builder.forwardTo
+import ai.koog.agents.core.dsl.builder.strategy
+
+val strategy = strategy<String, String>("strategy_name") {
+        val sourceNode by node<String, String> { input -> input }
+        val targetNode by node<String, String> { input -> input }
+-->
+<!--- SUFFIX
+}
+-->
 ```kotlin
 edge(sourceNode forwardTo targetNode 
         onCondition { input -> input.length > 10 }
         transformed { input -> input.uppercase() }
 )
 ```
+<!--- KNIT example-custom-strategy-graphs-02.kt -->
 
 ### サブグラフ
 
-サブグラフは、独自のツールセットとコンテキストで動作する戦略グラフのセクションです。戦略グラフは複数のサブグラフを含むことができます。各サブグラフは`subgraph`関数を使用して定義されます。
+サブグラフは、独自のツールセットとコンテキストで動作する戦略グラフのセクションです。
+戦略グラフは複数のサブグラフを含むことができます。各サブグラフは`subgraph`関数を使用して定義されます。
 
+<!--- INCLUDE
+import ai.koog.agents.core.dsl.builder.strategy
+
+typealias Input = String
+typealias Output = Int
+
+typealias FirstInput = String
+typealias FirstOutput = Int
+
+typealias SecondInput = String
+typealias SecondOutput = Int
+-->
 ```kotlin
-val strategy = strategy("strategy-name") {
-    val firstSubgraph by subgraph("first") {
+val strategy = strategy<Input, Output>("strategy-name") {
+    val firstSubgraph by subgraph<FirstInput, FirstOutput>("first") {
         // Define nodes and edges for this subgraph
     }
-    val secondSubgraph by subgraph("second") {
+    val secondSubgraph by subgraph<SecondInput, SecondOutput>("second") {
         // Define nodes and edges for this subgraph
     }
 }
 ```
-サブグラフはツールレジストリから任意のツールを使用できます。ただし、そのレジストリからサブグラフで使用できるツールのサブセットを指定し、`subgraph`関数の引数として渡すこともできます。
+<!--- KNIT example-custom-strategy-graphs-03.kt -->
 
+サブグラフはツールレジストリから任意のツールを使用できます。
+ただし、そのレジストリからサブグラフで使用できるツールのサブセットを指定し、`subgraph`関数の引数として渡すこともできます。
+
+<!--- INCLUDE
+import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.ext.tool.SayToUser
+
+typealias Input = String
+typealias Output = Int
+
+typealias FirstInput = String
+typealias FirstOutput = Int
+
+val someTool = SayToUser
+
+-->
 ```kotlin
-val strategy = strategy("strategy-name") {
-    val firstSubgraph by subgraph(
+val strategy = strategy<Input, Output>("strategy-name") {
+    val firstSubgraph by subgraph<FirstInput, FirstOutput>(
         name = "first",
         tools = listOf(someTool)
     ) {
@@ -81,6 +135,7 @@ val strategy = strategy("strategy-name") {
    // Define other subgraphs
 }
 ```
+<!--- KNIT example-custom-strategy-graphs-04.kt -->
 
 ## 基本的な戦略グラフの作成
 
@@ -97,8 +152,18 @@ val strategy = strategy("strategy-name") {
 
 以下は基本的な戦略グラフの例です。
 
+<!--- INCLUDE
+import ai.koog.agents.core.dsl.builder.forwardTo
+import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.extension.nodeExecuteTool
+import ai.koog.agents.core.dsl.extension.nodeLLMRequest
+import ai.koog.agents.core.dsl.extension.nodeLLMSendToolResult
+import ai.koog.agents.core.dsl.extension.onAssistantMessage
+import ai.koog.agents.core.dsl.extension.onToolCall
+
+-->
 ```kotlin
-val myStrategy = strategy("my-strategy") {
+val myStrategy = strategy<String, String>("my-strategy") {
     val nodeCallLLM by nodeLLMRequest()
     val executeToolCall by nodeExecuteTool()
     val sendToolResult by nodeLLMSendToolResult()
@@ -111,6 +176,8 @@ val myStrategy = strategy("my-strategy") {
     edge(sendToolResult forwardTo executeToolCall onToolCall { true })
 }
 ```
+<!--- KNIT example-custom-strategy-graphs-05.kt -->
+
 ## 高度な戦略テクニック
 
 ### 履歴圧縮
@@ -121,6 +188,19 @@ val myStrategy = strategy("my-strategy") {
 
 複数のツールを並列で実行する必要があるワークフローでは、`nodeExecuteMultipleTools`ノードを使用できます。
 
+<!--- INCLUDE
+import ai.koog.agents.core.dsl.builder.forwardTo
+import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.extension.nodeExecuteMultipleTools
+import ai.koog.agents.core.dsl.extension.nodeLLMSendMultipleToolResults
+import ai.koog.prompt.message.Message
+
+val strategy = strategy<String, String>("strategy_name") {
+    val someNode by node<String, List<Message.Tool.Call>> { emptyList() }
+-->
+<!--- SUFFIX
+}
+-->
 ```kotlin
 val executeMultipleTools by nodeExecuteMultipleTools()
 val processMultipleResults by nodeLLMSendMultipleToolResults()
@@ -128,19 +208,68 @@ val processMultipleResults by nodeLLMSendMultipleToolResults()
 edge(someNode forwardTo executeMultipleTools)
 edge(executeMultipleTools forwardTo processMultipleResults)
 ```
+<!--- KNIT example-custom-strategy-graphs-06.kt -->
 
 ストリーミングデータには、`toParallelToolCallsRaw`拡張関数も使用できます。
 
+<!--- INCLUDE
+/*
+-->
+<!--- SUFFIX
+*/
+-->
 ```kotlin
 parseMarkdownStreamToBooks(markdownStream).toParallelToolCallsRaw(BookTool::class).collect()
 ```
+<!--- KNIT example-custom-strategy-graphs-07.kt -->
 
 詳細については、[ツール](tools-overview.md#parallel-tool-calls)を参照してください。
+
+### ノード並列実行
+
+ノード並列実行を使用すると、複数のノードを並行して実行できるため、パフォーマンスが向上し、複雑なワークフローが可能になります。
+
+並行ノード実行を開始するには、`parallel`メソッドを使用します。
+
+<!--- INCLUDE
+import ai.koog.agents.core.dsl.builder.strategy
+
+val strategy = strategy<String, String>("strategy_name") {
+    val nodeCalcTokens by node<String, Int> { 42 }
+    val nodeCalcSymbols by node<String, Int> { 42 }
+    val nodeCalcWords by node<String, Int> { 42 }
+
+-->
+<!--- SUFFIX
+}
+-->
+```kotlin
+val calc by parallel<String, Int>(
+    nodeCalcTokens, nodeCalcSymbols, nodeCalcWords,
+) {
+    selectByMax { it }
+}
+```
+<!--- KNIT example-custom-strategy-graphs-08.kt -->
+
+上記のコードは、`nodeCalcTokens`、`nodeCalcSymbols`、`nodeCalcWords`の各ノードを並行して実行し、結果を`AsyncParallelResult`のインスタンスとして返す`calc`という名前のノードを作成します。
+
+ノード並列実行および詳細なリファレンスについては、[ノード並列実行](parallel-node-execution.md)を参照してください。
 
 ### 条件分岐
 
 特定の条件に基づいて異なるパスを必要とする複雑なワークフローでは、条件分岐を使用できます。
 
+<!--- INCLUDE
+import ai.koog.agents.core.dsl.builder.forwardTo
+import ai.koog.agents.core.dsl.builder.strategy
+
+val strategy = strategy<String, String>("strategy_name") {
+    val someNode by node<String, String> { it }
+-->
+<!--- SUFFIX
+}
+-->
 ```kotlin
 val branchA by node<String, String> { input ->
     // Logic for branch A
@@ -161,6 +290,7 @@ edge(
             onCondition { input -> input.contains("B") }
 )
 ```
+<!--- KNIT example-custom-strategy-graphs-09.kt -->
 
 ## ベストプラクティス
 
@@ -181,13 +311,26 @@ edge(
 
 トーン分析戦略は、履歴圧縮を含むツールベースの戦略の良い例です。
 
+<!--- INCLUDE
+import ai.koog.agents.core.agent.entity.AIAgentStrategy
+import ai.koog.agents.core.dsl.builder.forwardTo
+import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.extension.nodeExecuteTool
+import ai.koog.agents.core.dsl.extension.nodeLLMCompressHistory
+import ai.koog.agents.core.dsl.extension.nodeLLMRequest
+import ai.koog.agents.core.dsl.extension.nodeLLMSendToolResult
+import ai.koog.agents.core.dsl.extension.onAssistantMessage
+import ai.koog.agents.core.dsl.extension.onToolCall
+import ai.koog.agents.core.environment.ReceivedToolResult
+import ai.koog.agents.core.tools.ToolRegistry
+-->
 ```kotlin
-fun toneStrategy(name: String, toolRegistry: ToolRegistry): AIAgentStrategy {
+fun toneStrategy(name: String, toolRegistry: ToolRegistry): AIAgentStrategy<String, String> {
     return strategy(name) {
         val nodeSendInput by nodeLLMRequest()
         val nodeExecuteTool by nodeExecuteTool()
         val nodeSendToolResult by nodeLLMSendToolResult()
-        val nodeCompressHistory by nodeLLMCompressHistory<Message.Tool.Result>()
+        val nodeCompressHistory by nodeLLMCompressHistory<ReceivedToolResult>()
 
         // Define the flow of the agent
         edge(nodeStart forwardTo nodeSendInput)
@@ -232,6 +375,7 @@ fun toneStrategy(name: String, toolRegistry: ToolRegistry): AIAgentStrategy {
     }
 }
 ```
+<!--- KNIT example-custom-strategy-graphs-10.kt -->
 
 この戦略は以下のことを行います。
 

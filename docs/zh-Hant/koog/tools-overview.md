@@ -17,7 +17,7 @@ Koog 框架中有三種類型的工具：
 
 - 內建工具，為代理程式與使用者互動以及對話管理提供功能。有關詳細資訊，請參閱 [內建工具](built-in-tools.md)。
 - 基於註解的自訂工具，可讓您將函數作為工具暴露給 LLM。有關詳細資訊，請參閱 [基於註解的工具](annotation-based-tools.md)。
-- 使用進階 API 建立的自訂工具，可讓您控制工具參數、中繼資料、執行邏輯以及其註冊和呼叫方式。有關詳細資訊，請參閱 [進階實作](advanced-tool-implementation.md)。
+- 自訂工具，可讓您控制工具參數、中繼資料、執行邏輯以及其註冊和呼叫方式。有關詳細資訊，請參閱 [基於類別的工具](class-based-tools.md)。
 
 ### 工具註冊表
 
@@ -34,40 +34,61 @@ Koog 框架中有三種類型的工具：
 
 以下是建立工具註冊表並將工具新增至其中的範例：
 
+<!--- INCLUDE
+import ai.koog.agents.core.tools.ToolRegistry
+import ai.koog.agents.ext.tool.SayToUser
+-->
 ```kotlin
 val toolRegistry = ToolRegistry {
     tool(SayToUser)
 }
 ```
+<!--- KNIT example-tools-overview-01.kt -->
 
 若要合併多個工具註冊表，請執行以下操作：
 
+<!--- INCLUDE
+import ai.koog.agents.core.tools.ToolRegistry
+import ai.koog.agents.ext.tool.AskUser
+import ai.koog.agents.ext.tool.SayToUser
+
+typealias FirstSampleTool = AskUser
+typealias SecondSampleTool = SayToUser
+-->
 ```kotlin
 val firstToolRegistry = ToolRegistry {
-    tool(FirstSampleTool())
+    tool(FirstSampleTool)
 }
 
 val secondToolRegistry = ToolRegistry {
-    tool(SecondSampleTool())
+    tool(SecondSampleTool)
 }
 
 val newRegistry = firstToolRegistry + secondToolRegistry
 ```
+<!--- KNIT example-tools-overview-02.kt -->
 
 ### 將工具傳遞給代理程式
 
 為了使代理程式能夠使用工具，您需要在建立代理程式時提供一個包含該工具的工具註冊表作為引數：
 
+<!--- INCLUDE
+import ai.koog.agents.core.agent.AIAgent
+import ai.koog.agents.example.exampleToolsOverview01.toolRegistry
+import ai.koog.prompt.executor.clients.openai.OpenAIModels
+import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
+-->
 ```kotlin
-// 代理程式初始化
+// Agent initialization
 val agent = AIAgent(
     executor = simpleOpenAIExecutor(System.getenv("OPENAI_API_KEY")),
     systemPrompt = "You are a helpful assistant with strong mathematical skills.",
     llmModel = OpenAIModels.Chat.GPT4o,
-    // 將您的工具註冊表傳遞給代理程式
+    // Pass your tool registry to the agent
     toolRegistry = toolRegistry
 )
 ```
+<!--- KNIT example-tools-overview-03.kt -->
 
 ### 呼叫工具
 
@@ -91,24 +112,62 @@ val agent = AIAgent(
 
 您還可以使用 `toParallelToolCallsRaw` 擴展函數來平行呼叫工具。例如：
 
+<!--- INCLUDE
+import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.tools.SimpleTool
+import ai.koog.agents.core.tools.ToolArgs
+import ai.koog.agents.core.tools.ToolDescriptor
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.flow
+import kotlinx.serialization.KSerializer
+import kotlinx.serialization.Serializable
+-->
 ```kotlin
 @Serializable
 data class Book(
-    val bookName: String,
+    val title: String,
     val author: String,
     val description: String
 ) : ToolArgs
 
-/*...*/
+class BookTool() : SimpleTool<Book>() {
+    companion object {
+        const val NAME = "book"
+    }
 
-val myNode by node<Unit, Unit> { _ ->
-    llm.writeSession {
-        flow {
-            emit(Book("Book 1", "Author 1", "Description 1"))
-        }.toParallelToolCallsRaw(BookTool::class).collect()
+    override suspend fun doExecute(args: Book): String {
+        println("${args.title} by ${args.author}:
+ ${args.description}")
+        return "Done"
+    }
+
+    override val argsSerializer: KSerializer<Book>
+        get() = Book.serializer()
+
+    override val descriptor: ToolDescriptor
+        get() = ToolDescriptor(
+            name = NAME,
+            description = "A tool to parse book information from Markdown",
+            requiredParameters = listOf(),
+            optionalParameters = listOf()
+        )
+}
+
+val strategy = strategy<Unit, Unit>("strategy-name") {
+
+    /*...*/
+
+    val myNode by node<Unit, Unit> { _ ->
+        llm.writeSession {
+            flow {
+                emit(Book("Book 1", "Author 1", "Description 1"))
+            }.toParallelToolCallsRaw(BookTool::class).collect()
+        }
     }
 }
+
 ```
+<!--- KNIT example-tools-overview-04.kt -->
 
 #### 從節點呼叫工具
 

@@ -2,7 +2,7 @@
 
 `AIAgent` 클래스는 Kotlin 애플리케이션에서 AI 에이전트를 생성할 수 있도록 해주는 핵심 구성 요소입니다.
 
-최소한의 설정으로 간단한 에이전트를 구축하거나, 사용자 지정 전략, 도구, 구성을 정의하여 고급 기능을 갖춘 정교한 에이전트를 만들 수 있습니다.
+최소한의 설정으로 간단한 에이전트를 구축하거나, 사용자 지정 전략, 도구, 구성, 그리고 사용자 지정 입/출력 유형을 정의하여 고급 기능을 갖춘 정교한 에이전트를 만들 수 있습니다.
 
 이 페이지에서는 사용자 지정 도구 및 구성으로 단일 실행 에이전트를 생성하는 데 필요한 단계를 안내합니다.
 
@@ -41,17 +41,28 @@ dependencies {
 
 에이전트를 생성하려면 `AIAgent` 클래스의 인스턴스를 생성하고 `executor` 및 `llmModel` 매개변수를 제공하세요.
 
+<!--- INCLUDE
+import ai.koog.agents.core.agent.AIAgent
+import ai.koog.prompt.executor.clients.openai.OpenAIModels
+import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
+-->
 ```kotlin
 val agent = AIAgent(
     executor = simpleOpenAIExecutor(System.getenv("OPENAI_API_KEY")),
     llmModel = OpenAIModels.Chat.GPT4o
 )
 ```
+<!--- KNIT example-single-run-01.kt -->
 
 ### 3. 시스템 프롬프트 추가
 
 시스템 프롬프트는 에이전트 동작을 정의하는 데 사용됩니다. 프롬프트를 제공하려면 `systemPrompt` 매개변수를 사용하세요.
 
+<!--- INCLUDE
+import ai.koog.agents.core.agent.AIAgent
+import ai.koog.prompt.executor.clients.openai.OpenAIModels
+import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
+-->
 ```kotlin
 val agent = AIAgent(
     executor = simpleOpenAIExecutor(System.getenv("YOUR_API_KEY")),
@@ -59,11 +70,17 @@ val agent = AIAgent(
     llmModel = OpenAIModels.Chat.GPT4o
 )
 ```
+<!--- KNIT example-single-run-02.kt -->
 
 ### 4. LLM 출력 구성
 
 `temperature` 매개변수를 사용하여 LLM 출력 생성의 온도를 제공하세요.
 
+<!--- INCLUDE
+import ai.koog.agents.core.agent.AIAgent
+import ai.koog.prompt.executor.clients.openai.OpenAIModels
+import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
+-->
 ```kotlin
 val agent = AIAgent(
     executor = simpleOpenAIExecutor(System.getenv("YOUR_API_KEY")),
@@ -72,6 +89,7 @@ val agent = AIAgent(
     temperature = 0.7
 )
 ```
+<!--- KNIT example-single-run-03.kt -->
 
 ### 5. 도구 추가
 
@@ -80,6 +98,13 @@ val agent = AIAgent(
 
 도구를 구성하려면 에이전트가 사용할 수 있는 도구를 정의하는 `toolRegistry` 매개변수를 사용하세요.
 
+<!--- INCLUDE
+import ai.koog.agents.core.agent.AIAgent
+import ai.koog.agents.core.tools.ToolRegistry
+import ai.koog.agents.ext.tool.SayToUser
+import ai.koog.prompt.executor.clients.openai.OpenAIModels
+import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
+-->
 ```kotlin
 val agent = AIAgent(
     executor = simpleOpenAIExecutor(System.getenv("YOUR_API_KEY")),
@@ -91,12 +116,20 @@ val agent = AIAgent(
     }
 )
 ```
+<!--- KNIT example-single-run-04.kt -->
 예시에서 `SayToUser`는 내장 도구입니다. 사용자 지정 도구를 생성하는 방법을 알아보려면 [도구](tools-overview.md)를 참조하세요.
 
 ### 6. 에이전트 반복 횟수 조정
 
 `maxIterations` 매개변수를 사용하여 에이전트가 강제로 중지되기 전에 수행할 수 있는 최대 단계 수를 제공하세요.
 
+<!--- INCLUDE
+import ai.koog.agents.core.agent.AIAgent
+import ai.koog.agents.core.tools.ToolRegistry
+import ai.koog.agents.ext.tool.SayToUser
+import ai.koog.prompt.executor.clients.openai.OpenAIModels
+import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
+-->
 ```kotlin
 val agent = AIAgent(
     executor = simpleOpenAIExecutor(System.getenv("YOUR_API_KEY")),
@@ -109,6 +142,7 @@ val agent = AIAgent(
     maxIterations = 30
 )
 ```
+<!--- KNIT example-single-run-05.kt -->
 
 ### 7. 에이전트 런타임 중 이벤트 처리
 
@@ -121,6 +155,14 @@ val agent = AIAgent(
 
 에이전트를 실행하려면 `run()` 함수를 사용하세요.
 
+<!--- INCLUDE
+import ai.koog.agents.core.agent.AIAgent
+import ai.koog.agents.core.tools.ToolRegistry
+import ai.koog.agents.ext.tool.SayToUser
+import ai.koog.prompt.executor.clients.openai.OpenAIModels
+import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
+import kotlinx.coroutines.runBlocking
+-->
 ```kotlin
 val agent = AIAgent(
     executor = simpleOpenAIExecutor(System.getenv("OPENAI_API_KEY")),
@@ -137,6 +179,7 @@ fun main() = runBlocking {
     val result = agent.run("Hello! How can you help me?")
 }
 ```
+<!--- KNIT example-single-run-06.kt -->
 
 에이전트는 다음 출력을 생성합니다.
 

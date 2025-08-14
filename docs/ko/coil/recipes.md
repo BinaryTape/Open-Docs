@@ -17,7 +17,7 @@ imageView.load("https://example.com/image.jpg") {
     listener(
         onSuccess = { _, result ->
             // 백그라운드 스레드에서 팔레트를 생성합니다.
-            Palette.Builder(result.drawable.toBitmap()).generate { palette ->
+            Palette.Builder(result.image.toBitmap()).generate { palette ->
                 // 팔레트를 사용합니다.
             }
         }
@@ -75,13 +75,13 @@ class RemoteViewsTarget(
     @IdRes private val imageViewResId: Int
 ) : Target {
 
-    override fun onStart(placeholder: Image?) = setDrawable(placeholder)
+    override fun onStart(placeholder: Image?) = setImage(placeholder)
 
-    override fun onError(error: Image?) = setDrawable(error)
+    override fun onError(error: Image?) = setImage(error)
 
-    override fun onSuccess(result: Image) = setDrawable(result)
+    override fun onSuccess(result: Image) = setImage(result)
 
-    private fun setDrawable(image: Image?) {
+    private fun setImage(image: Image?) {
         remoteViews.setImageViewBitmap(imageViewResId, image?.toBitmap())
         AppWidgetManager.getInstance(context).updateAppWidget(componentName, remoteViews)
     }
@@ -177,6 +177,6 @@ class UrlSizeInterceptor : Interceptor {
 ```kotlin
 ImageLoader.Builder(context)
     .components {
-        add(FastlyCoilInterceptor())
+        add(UrlSizeInterceptor())
     }
     .build()

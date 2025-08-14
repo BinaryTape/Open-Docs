@@ -1,4 +1,3 @@
-[//]: # (title: Kotlin/Native 作为 Apple framework – 教程)
 # 基于注解的工具
 
 基于注解的工具提供了一种声明式的方式，用于将函数作为工具暴露给大型语言模型（LLM）。通过使用注解，你可以将任何函数转换为 LLM 可以理解和使用的工具。
@@ -6,7 +5,7 @@
 当你需要将现有功能暴露给 LLM，而无需手动实现工具描述时，这种方法非常有用。
 
 !!! note
-    基于注解的工具仅适用于 JVM，不适用于其他平台。对于多平台支持，请使用 [高级工具 API](advanced-tool-implementation.md)。
+    基于注解的工具仅适用于 JVM，不适用于其他平台。对于多平台支持，请使用 [基于类的工具 API](class-based-tools.md)。
 
 ## 关键注解
 
@@ -23,10 +22,13 @@
 
 ### 定义
 
+<!--- INCLUDE
+-->
 ```kotlin
 @Target(AnnotationTarget.FUNCTION)
 public annotation class Tool(val customName: String = "")
 ```
+<!--- KNIT example-annotation-based-tools-01.kt -->
 
 ### 形参
 
@@ -37,7 +39,10 @@ public annotation class Tool(val customName: String = "")
 ### 用法
 
 要将函数标记为工具，请在实现了 `ToolSet` 接口的类中将 `@Tool` 注解应用于此函数：
-
+<!--- INCLUDE
+import ai.koog.agents.core.tools.annotations.Tool
+import ai.koog.agents.core.tools.reflect.ToolSet
+-->
 ```kotlin
 class MyToolSet : ToolSet {
     @Tool
@@ -53,6 +58,7 @@ class MyToolSet : ToolSet {
     }
 }
 ```
+<!--- KNIT example-annotation-based-tools-02.kt -->
 
 ## @LLMDescription 注解
 
@@ -60,6 +66,8 @@ class MyToolSet : ToolSet {
 
 ### 定义
 
+<!--- INCLUDE
+-->
 ```kotlin
 @Target(
     AnnotationTarget.PROPERTY,
@@ -71,6 +79,7 @@ class MyToolSet : ToolSet {
 )
 public annotation class LLMDescription(val description: String)
 ```
+<!--- KNIT example-annotation-based-tools-03.kt -->
 
 ### 形参
 
@@ -83,7 +92,10 @@ public annotation class LLMDescription(val description: String)
 `@LLMDescription` 注解可以应用于不同层级。例如：
 
 * 函数级别：
-
+<!--- INCLUDE
+import ai.koog.agents.core.tools.annotations.LLMDescription
+import ai.koog.agents.core.tools.annotations.Tool
+-->
 ```kotlin
 @Tool
 @LLMDescription("Performs a specific operation and returns the result")
@@ -92,9 +104,14 @@ fun myTool(): String {
     return "Result"
 }
 ```
+<!--- KNIT example-annotation-based-tools-04.kt -->
 
 * 形参级别：
 
+<!--- INCLUDE
+import ai.koog.agents.core.tools.annotations.LLMDescription
+import ai.koog.agents.core.tools.annotations.Tool
+-->
 ```kotlin
 @Tool
 @LLMDescription("Processes input data")
@@ -109,6 +126,7 @@ fun processTool(
     return "Processed: $input with config: $config"
 }
 ```
+<!--- KNIT example-annotation-based-tools-05.kt -->
 
 ## 创建工具
 
@@ -116,16 +134,24 @@ fun processTool(
 
 创建一个实现 [`ToolSet`](https://api.koog.ai/agents/agents-tools/ai.koog.agents.core.tools.reflect/-tool-set/index.html) 接口的类。此接口将你的类标记为工具的容器。
 
+<!--- INCLUDE
+import ai.koog.agents.core.tools.reflect.ToolSet
+-->
 ```kotlin
 class MyFirstToolSet : ToolSet {
     // Tools will go here
 }
 ```
+<!--- KNIT example-annotation-based-tools-06.kt -->
 
 ### 2. 添加工具函数
 
 向你的类添加函数，并用 `@Tool` 注解它们以将它们作为工具暴露：
 
+<!--- INCLUDE
+import ai.koog.agents.core.tools.annotations.Tool
+import ai.koog.agents.core.tools.reflect.ToolSet
+-->
 ```kotlin
 class MyFirstToolSet : ToolSet {
     @Tool
@@ -135,11 +161,16 @@ class MyFirstToolSet : ToolSet {
     }
 }
 ```
+<!--- KNIT example-annotation-based-tools-07.kt -->
 
 ### 3. 添加描述
 
 添加 `@LLMDescription` 注解以向 LLM 提供上下文：
-
+<!--- INCLUDE
+import ai.koog.agents.core.tools.reflect.ToolSet
+import ai.koog.agents.core.tools.annotations.LLMDescription
+import ai.koog.agents.core.tools.annotations.Tool
+-->
 ```kotlin
 @LLMDescription("Tools for getting weather information")
 class MyFirstToolSet : ToolSet {
@@ -154,31 +185,45 @@ class MyFirstToolSet : ToolSet {
     }
 }
 ```
+<!--- KNIT example-annotation-based-tools-08.kt -->
 
 ### 4. 将你的工具与代理一起使用
 
 现在你可以将你的工具与代理一起使用：
+<!--- INCLUDE
+import ai.koog.agents.core.agent.AIAgent
+import ai.koog.agents.core.tools.ToolRegistry
+import ai.koog.agents.core.tools.reflect.tools
+import ai.koog.agents.example.exampleAnnotationBasedTools06.MyFirstToolSet
+import ai.koog.prompt.executor.clients.openai.OpenAIModels
+import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
+import kotlinx.coroutines.runBlocking
 
+const val apiToken = ""
+-->
 ```kotlin
-fun main() = runBlocking {
-    // Create your tool set
-    val weatherTools = MyFirstToolSet()
+fun main() {
+    runBlocking {
+        // Create your tool set
+        val weatherTools = MyFirstToolSet()
 
-    // Create an agent with your tools
+        // Create an agent with your tools
 
-    val agent = AIAgent(
-        executor = simpleOpenAIExecutor(apiToken),
-        systemPrompt = "Provide weather information for a given location.",
-        llmModel = OpenAIModels.Chat.GPT4o,
-        toolRegistry = ToolRegistry {
-            tools(weatherTools())
-        }
-    )
+        val agent = AIAgent(
+            executor = simpleOpenAIExecutor(apiToken),
+            systemPrompt = "Provide weather information for a given location.",
+            llmModel = OpenAIModels.Chat.GPT4o,
+            toolRegistry = ToolRegistry {
+                tools(weatherTools)
+            }
+        )
 
-    // The agent can now use your weather tools
-    agent.run("What's the weather like in New York?")
+        // The agent can now use your weather tools
+        agent.run("What's the weather like in New York?")
+    }
 }
 ```
+<!--- KNIT example-annotation-based-tools-09.kt -->
 
 ## 使用示例
 
@@ -187,7 +232,21 @@ fun main() = runBlocking {
 ### 基本示例：开关控制器
 
 此示例展示了一个用于控制开关的简单工具集：
+<!--- INCLUDE
+import ai.koog.agents.core.tools.reflect.ToolSet
+import ai.koog.agents.core.tools.annotations.LLMDescription
+import ai.koog.agents.core.tools.annotations.Tool
 
+class Switch(private var state: Boolean) {
+    fun switch(state: Boolean) {
+        this.state = state
+    }
+    
+    fun isOn(): Boolean {
+        return state
+    }
+}
+-->
 ```kotlin
 @LLMDescription("Tools for controlling a switch")
 class SwitchTools(val switch: Switch) : ToolSet {
@@ -208,6 +267,7 @@ class SwitchTools(val switch: Switch) : ToolSet {
     }
 }
 ```
+<!--- KNIT example-annotation-based-tools-10.kt -->
 
 当 LLM 需要控制开关时，它可以从所提供的描述中理解以下信息：
 
@@ -219,7 +279,11 @@ class SwitchTools(val switch: Switch) : ToolSet {
 ### 高级示例：诊断工具
 
 此示例展示了一个用于设备诊断的更复杂的工具集：
-
+<!--- INCLUDE
+import ai.koog.agents.core.tools.reflect.ToolSet
+import ai.koog.agents.core.tools.annotations.LLMDescription
+import ai.koog.agents.core.tools.annotations.Tool
+-->
 ```kotlin
 @LLMDescription("Tools for performing diagnostics and troubleshooting on devices")
 class DiagnosticToolSet : ToolSet {
@@ -247,6 +311,7 @@ class DiagnosticToolSet : ToolSet {
     }
 }
 ```
+<!--- KNIT example-annotation-based-tools-11.kt -->
 
 ## 最佳实践
 

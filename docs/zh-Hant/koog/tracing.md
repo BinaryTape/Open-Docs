@@ -6,20 +6,19 @@
 
 追蹤功能是一個強大的監控與偵錯工具，它能擷取關於代理程式執行的詳細資訊，包括：
 
-*   代理程式的建立與初始化
 *   策略執行
 *   LLM 呼叫
 *   工具調用
 *   代理程式圖中的節點執行
 
-此功能透過攔截代理程式管線中的關鍵事件，並將其轉發給可設定的訊息處理器來運作。這些處理器可以將追蹤資訊輸出到各種目的地，例如紀錄檔或檔案系統，使開發者能夠深入瞭解代理程式的行為並有效地排解問題。
+此功能透過攔截代理程式管線中的關鍵事件，並將其轉發給可設定的訊息處理器。這些處理器可以將追蹤資訊輸出到各種目的地，例如紀錄檔或檔案系統中的其他類型檔案，使開發者能夠深入瞭解代理程式的行為並有效地排解問題。
 
 ### 事件流程
 
 1.  追蹤功能攔截代理程式管線中的事件。
 2.  事件會根據設定的訊息篩選器進行篩選。
 3.  篩選後的事件會傳遞給已註冊的訊息處理器。
-4.  訊息處理器會格式化事件並將其輸出到各自的目的地。
+4.  訊息處理器會格式化並將事件輸出到各自的目的地。
 
 ## 設定與初始化
 
@@ -32,61 +31,98 @@
 3.  設定訊息篩選器（可選）。
 4.  將訊息處理器添加到該功能中。
 
+<!--- INCLUDE
+import ai.koog.agents.core.agent.AIAgent
+import ai.koog.agents.core.feature.model.AfterLLMCallEvent
+import ai.koog.agents.core.feature.model.ToolCallEvent
+import ai.koog.agents.features.tracing.feature.Tracing
+import ai.koog.agents.features.tracing.writer.TraceFeatureMessageFileWriter
+import ai.koog.agents.features.tracing.writer.TraceFeatureMessageLogWriter
+import ai.koog.prompt.executor.llms.all.simpleOllamaAIExecutor
+import ai.koog.prompt.llm.OllamaModels
+import io.github.oshai.kotlinlogging.KotlinLogging
+import kotlinx.io.buffered
+import kotlinx.io.files.Path
+import kotlinx.io.files.SystemFileSystem
+-->
 ```kotlin
-// Defining a logger/file that will be used as a destination of trace messages 
-val logger = LoggerFactory.create("my.trace.logger")
-val fs = JVMFileSystemProvider.ReadWrite
-val path = Paths.get("/path/to/trace.log")
+// 定義將用作追蹤訊息目的地的紀錄器/檔案
+val logger = KotlinLogging.logger { }
+val outputPath = Path("/path/to/trace.log")
 
-// Creating an agent
-val agent = AIAgent(...) {
-    install(Tracing) {
-        // Configure message processors to handle trace events
-        addMessageProcessor(TraceFeatureMessageLogWriter(logger))
-        addMessageProcessor(TraceFeatureMessageFileWriter(outputPath, fileSystem::sink))
+// 建立一個代理程式
+val agent = AIAgent(
+   executor = simpleOllamaAIExecutor(),
+   llmModel = OllamaModels.Meta.LLAMA_3_2,
+) {
+   install(Tracing) {
+      // 配置訊息處理器以處理追蹤事件
+      addMessageProcessor(TraceFeatureMessageLogWriter(logger))
+      addMessageProcessor(
+         TraceFeatureMessageFileWriter(
+            outputPath,
+            { path: Path -> SystemFileSystem.sink(path).buffered() }
+         )
+      )
 
-        // Optionally filter messages
-        messageFilter = { message -> 
-            // Only trace LLM calls and tool calls
-            message is LLMCallStartEvent || message is ToolCallEvent 
-        }
-    }
+      // 可選地篩選訊息
+      messageFilter = { message ->
+         // 僅追蹤 LLM 呼叫和工具呼叫
+         message is AfterLLMCallEvent || message is ToolCallEvent
+      }
+   }
 }
 ```
+<!--- KNIT example-tracing-01.kt -->
 
 ### 訊息篩選
 
-您可以處理所有現有事件，或根據特定準則選擇其中一些。訊息篩選器可讓您控制哪些事件被處理。這對於專注於代理程式執行過程的特定方面非常有用：
+您可以處理所有現有事件，或根據特定準則選擇其中一些。訊息篩選器可讓您控制哪些事件被處理。這對於專注於代理程式執行的特定方面非常有用：
 
+<!--- INCLUDE
+import ai.koog.agents.core.agent.AIAgent
+import ai.koog.agents.core.feature.model.*
+import ai.koog.agents.features.tracing.feature.Tracing
+import ai.koog.prompt.executor.llms.all.simpleOllamaAIExecutor
+import ai.koog.prompt.llm.OllamaModels
+
+val agent = AIAgent(
+   executor = simpleOllamaAIExecutor(),
+   llmModel = OllamaModels.Meta.LLAMA_3_2,
+) {
+   install(Tracing) {
+-->
+<!--- SUFFIX
+   }
+}
+-->
 ```kotlin
-// Filter for LLM-related events only
+// 僅篩選與 LLM 相關的事件
 messageFilter = { message ->
-    message is LLMCallStartEvent ||
-            message is LLMCallEndEvent ||
-            message is LLMCallWithToolsStartEvent ||
-            message is LLMCallWithToolsEndEvent
+    message is BeforeLLMCallEvent || message is AfterLLMCallEvent
 }
 
-// Filter for tool-related events only
+// 僅篩選與工具相關的事件
 messageFilter = { message ->
-    message is ToolCallsEvent ||
-            message is ToolCallResultEvent ||
-            message is ToolValidationErrorEvent ||
-            message is ToolCallFailureEvent
+    message is ToolCallEvent ||
+           message is ToolCallResultEvent ||
+           message is ToolValidationErrorEvent ||
+           message is ToolCallFailureEvent
 }
 
-// Filter for node execution events only
+// 僅篩選節點執行事件
 messageFilter = { message ->
     message is AIAgentNodeExecutionStartEvent || message is AIAgentNodeExecutionEndEvent
 }
 ```
+<!--- KNIT example-tracing-02.kt -->
 
 ### 大量追蹤資料
 
 對於具有複雜策略或長時間執行的代理程式，追蹤事件的數量可能會非常龐大。考慮使用以下方法來管理事件量：
 
 *   使用特定的訊息篩選器來減少事件數量。
-*   實作自訂訊息處理器，並帶有緩衝或取樣功能。
+*   實作帶有緩衝或取樣功能的自訂訊息處理器。
 *   使用紀錄檔輪替來防止紀錄檔過大。
 
 ### 依賴關係圖
@@ -127,26 +163,43 @@ Tracing
 
 ### 基本追蹤到紀錄器
 
+<!--- INCLUDE
+import ai.koog.agents.core.agent.AIAgent
+import ai.koog.agents.features.tracing.feature.Tracing
+import ai.koog.agents.features.tracing.writer.TraceFeatureMessageLogWriter
+import ai.koog.prompt.executor.llms.all.simpleOllamaAIExecutor
+import ai.koog.prompt.llm.OllamaModels
+import io.github.oshai.kotlinlogging.KotlinLogging
+import kotlinx.coroutines.runBlocking
+-->
 ```kotlin
-// Create a logger
-val logger = LoggerFactory.create("my.agent.trace")
+// 建立一個紀錄器
+val logger = KotlinLogging.logger { }
 
-// Create an agent with tracing
-val agent = AIAgent(...) {
-    install(Tracing) {
-        addMessageProcessor(TraceFeatureMessageLogWriter(logger))
+fun main() {
+    runBlocking {
+       // 建立帶有追蹤功能的代理程式
+       val agent = AIAgent(
+          executor = simpleOllamaAIExecutor(),
+          llmModel = OllamaModels.Meta.LLAMA_3_2,
+       ) {
+          install(Tracing) {
+             addMessageProcessor(TraceFeatureMessageLogWriter(logger))
+          }
+       }
+
+       // 執行代理程式
+       agent.run("Hello, agent!")
     }
 }
-
-// Run the agent
-agent.run("Hello, agent!")
 ```
+<!--- KNIT example-tracing-03.kt -->
 
 ## 錯誤處理與邊緣情況
 
 ### 無訊息處理器
 
-如果沒有訊息處理器添加到追蹤功能中，將會紀錄一則警告：
+如果沒有訊息處理器添加到追蹤功能中，將會記錄一則警告：
 
 ```
 Tracing Feature. No feature out stream providers are defined. Trace streaming has no target.
@@ -158,76 +211,199 @@ Tracing Feature. No feature out stream providers are defined. Trace streaming ha
 
 訊息處理器可能會佔用需要適當釋放的資源（例如檔案控制代碼）。使用 `use` 擴充函數以確保適當的清理：
 
+<!--- INCLUDE
+import ai.koog.agents.core.agent.AIAgent
+import ai.koog.agents.example.exampleTracing01.outputPath
+import ai.koog.agents.features.tracing.feature.Tracing
+import ai.koog.agents.features.tracing.writer.TraceFeatureMessageFileWriter
+import ai.koog.prompt.executor.llms.all.simpleOllamaAIExecutor
+import ai.koog.prompt.llm.OllamaModels
+import kotlinx.coroutines.runBlocking
+import kotlinx.io.buffered
+import kotlinx.io.files.Path
+import kotlinx.io.files.SystemFileSystem
+
+const val input = "What's the weather like in New York?"
+
+fun main() {
+   runBlocking {
+-->
+<!--- SUFFIX
+   }
+}
+-->
 ```kotlin
-TraceFeatureMessageFileWriter(fs, path).use { writer ->
-    // Use the writer
+// 建立一個代理程式
+val agent = AIAgent(
+    executor = simpleOllamaAIExecutor(),
+    llmModel = OllamaModels.Meta.LLAMA_3_2,
+) {
+    val writer = TraceFeatureMessageFileWriter(
+        outputPath,
+        { path: Path -> SystemFileSystem.sink(path).buffered() }
+    )
+
     install(Tracing) {
         addMessageProcessor(writer)
     }
-
-    // Run the agent
-    agent.run(input)
-
-    // Writer will be automatically closed when the block exits
 }
+// 執行代理程式
+agent.run(input)
+// 當區塊退出時，寫入器將自動關閉
 ```
+<!--- KNIT example-tracing-04.kt -->
 
 ### 將特定事件追蹤到檔案
 
-```kotlin
-// Create a file writer
-val fs = JVMFileSystemProvider.ReadWrite
-val path = Paths.get("/path/to/llm-calls.log")
-val writer = TraceFeatureMessageFileWriter(fs, path)
+<!--- INCLUDE
+import ai.koog.agents.core.agent.AIAgent
+import ai.koog.agents.core.feature.model.AfterLLMCallEvent
+import ai.koog.agents.core.feature.model.BeforeLLMCallEvent
+import ai.koog.agents.example.exampleTracing01.outputPath
+import ai.koog.agents.features.tracing.feature.Tracing
+import ai.koog.agents.features.tracing.writer.TraceFeatureMessageFileWriter
+import ai.koog.prompt.executor.llms.all.simpleOllamaAIExecutor
+import ai.koog.prompt.llm.OllamaModels
+import kotlinx.coroutines.runBlocking
+import kotlinx.io.buffered
+import kotlinx.io.files.Path
+import kotlinx.io.files.SystemFileSystem
 
-// Create an agent with filtered tracing
-val agent = AIAgent(...) {
-    install(Tracing) {
-        // Only trace LLM calls
-        messageFilter = { message ->
-            message is LLMCallWithToolsStartEvent || message is LLMCallWithToolsEndEvent
+const val input = "What's the weather like in New York?"
+
+fun main() {
+    runBlocking {
+        // 建立一個代理程式
+        val agent = AIAgent(
+            executor = simpleOllamaAIExecutor(),
+            llmModel = OllamaModels.Meta.LLAMA_3_2,
+        ) {
+            val writer = TraceFeatureMessageFileWriter(
+                outputPath,
+                { path: Path -> SystemFileSystem.sink(path).buffered() }
+            )
+-->
+<!--- SUFFIX
         }
-        addMessageProcessor(writer)
     }
 }
-
-// Run the agent
-agent.run("Generate a story about a robot.")
+-->
+```kotlin
+install(Tracing) {
+    // 僅追蹤 LLM 呼叫
+    messageFilter = { message ->
+        message is BeforeLLMCallEvent || message is AfterLLMCallEvent
+    }
+    addMessageProcessor(writer)
+}
 ```
+<!--- KNIT example-tracing-05.kt -->
 
 ### 將特定事件追蹤到遠端端點
 
-```kotlin
-// Create a file writer
-val port = 8080
-val serverConfig = ServerConnectionConfig(port = port)
-val writer = TraceFeatureMessageRemoteWriter(connectionConfig = serverConfig)
+當您需要透過網路傳送事件資料時，可以使用追蹤到遠端端點。一旦啟動，追蹤到遠端端點會在指定的埠號啟動一個輕量型伺服器，並透過 Kotlin 伺服器傳送事件 (SSE) 傳送事件。
 
-// Create an agent with filtered tracing
-val agent = AIAgent(...) {
+<!--- INCLUDE
+import ai.koog.agents.core.agent.AIAgent
+import ai.koog.agents.core.feature.remote.server.config.AIAgentFeatureServerConnectionConfig
+import ai.koog.agents.features.tracing.feature.Tracing
+import ai.koog.agents.features.tracing.writer.TraceFeatureMessageRemoteWriter
+import ai.koog.prompt.executor.llms.all.simpleOllamaAIExecutor
+import ai.koog.prompt.llm.OllamaModels
+import kotlinx.coroutines.runBlocking
+
+const val input = "What's the weather like in New York?"
+const val port = 4991
+const val host = "localhost"
+
+fun main() {
+   runBlocking {
+-->
+<!--- SUFFIX
+   }
+}
+-->
+```kotlin
+// 建立一個代理程式
+val agent = AIAgent(
+    executor = simpleOllamaAIExecutor(),
+    llmModel = OllamaModels.Meta.LLAMA_3_2,
+) {
+    val connectionConfig = AIAgentFeatureServerConnectionConfig(host = host, port = port)
+    val writer = TraceFeatureMessageRemoteWriter(
+        connectionConfig = connectionConfig
+    )
+
     install(Tracing) {
-        // Only trace LLM calls
-        messageFilter = { message ->
-            message is LLMCallWithToolsStartEvent || message is LLMCallWithToolsEndEvent
-        }
         addMessageProcessor(writer)
     }
 }
-
-// Run the agent
-agent.run("Generate a story about a robot.")
+// 執行代理程式
+agent.run(input)
+// 當區塊退出時，寫入器將自動關閉
 ```
+<!--- KNIT example-tracing-06.kt -->
+
+在客戶端，您可以使用 `FeatureMessageRemoteClient` 來接收事件並將其反序列化。
+
+<!--- INCLUDE
+import ai.koog.agents.core.feature.model.AIAgentFinishedEvent
+import ai.koog.agents.core.feature.model.DefinedFeatureEvent
+import ai.koog.agents.core.feature.remote.client.config.AIAgentFeatureClientConnectionConfig
+import ai.koog.agents.core.feature.remote.client.FeatureMessageRemoteClient
+import ai.koog.agents.utils.use
+import io.ktor.http.*
+import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.consumeAsFlow
+
+const val input = "What's the weather like in New York?"
+const val port = 4991
+const val host = "localhost"
+
+fun main() {
+   runBlocking {
+-->
+<!--- SUFFIX
+   }
+}
+-->
+```kotlin
+val clientConfig = AIAgentFeatureClientConnectionConfig(host = host, port = port, protocol = URLProtocol.HTTP)
+val agentEvents = mutableListOf<DefinedFeatureEvent>()
+
+val clientJob = launch {
+    FeatureMessageRemoteClient(connectionConfig = clientConfig, scope = this).use { client ->
+        val collectEventsJob = launch {
+            client.receivedMessages.consumeAsFlow().collect { event ->
+                // 從伺服器收集事件
+                agentEvents.add(event as DefinedFeatureEvent)
+
+                // 在代理程式完成時停止收集事件
+                if (event is AIAgentFinishedEvent) {
+                    cancel()
+                }
+            }
+        }
+        client.connect()
+        collectEventsJob.join()
+        client.healthCheck()
+    }
+}
+
+listOf(clientJob).joinAll()
+```
+<!--- KNIT example-tracing-07.kt -->
 
 ## API 文件
 
 追蹤功能遵循模組化架構，包含以下關鍵元件：
 
-1.  [Tracing](https://api.koog.ai/agents/agents-features/agents-features-trace/ai.koog.agents.local.features.tracing.feature/-tracing/index.html)：主要功能類別，用於攔截代理程式管線中的事件。
-2.  [TraceFeatureConfig](https://api.koog.ai/agents/agents-features/agents-features-trace/ai.koog.agents.local.features.tracing.feature/-trace-feature-config/index.html)：用於自訂功能行為的設定類別。
+1.  [Tracing](https://api.koog.ai/agents/agents-features/agents-features-trace/ai.koog.agents.features.tracing.feature/-tracing/index.html)：主要功能類別，用於攔截代理程式管線中的事件。
+2.  [TraceFeatureConfig](https://api.koog.ai/agents/agents-features/agents-features-trace/ai.koog.agents.features.tracing.feature/-trace-feature-config/index.html)：用於自訂功能行為的設定類別。
 3.  訊息處理器：處理並輸出追蹤事件的元件：
-    *   [TraceFeatureMessageLogWriter](https://api.koog.ai/agents/agents-features/agents-features-trace/ai.koog.agents.local.features.tracing.writer/-trace-feature-message-log-writer/index.html)：將追蹤事件寫入紀錄器。
-    *   [TraceFeatureMessageFileWriter](https://api.koog.ai/agents/agents-features/agents-features-trace/ai.koog.agents.local.features.tracing.writer/-trace-feature-message-file-writer/index.html)：將追蹤事件寫入檔案。
-    *   [TraceFeatureMessageRemoteWriter](https://api.koog.ai/agents/agents-features/agents-features-trace/ai.koog.agents.local.features.tracing.writer/-trace-feature-message-remote-writer/index.html)：將追蹤事件傳送到遠端伺服器。
+    *   [TraceFeatureMessageLogWriter](https://api.koog.ai/agents/agents-features/agents-features-trace/ai.koog.agents.features.tracing.writer/-trace-feature-message-log-writer/index.html)：將追蹤事件寫入紀錄器。
+    *   [TraceFeatureMessageFileWriter](https://api.koog.ai/agents/agents-features/agents-features-trace/ai.koog.agents.features.tracing.writer/-trace-feature-message-file-writer/index.html)：將追蹤事件寫入檔案。
+    *   [TraceFeatureMessageRemoteWriter](https://api.koog.ai/agents/agents-features/agents-features-trace/ai.koog.agents.features.tracing.writer/-trace-feature-message-remote-writer/index.html)：將追蹤事件傳送到遠端伺服器。
 
 ## 常見問題與疑難排解
 
@@ -237,48 +413,330 @@ agent.run("Generate a story about a robot.")
 
 使用 `messageFilter` 屬性來篩選事件。例如，若要僅追蹤節點執行：
 
+<!--- INCLUDE
+import ai.koog.agents.core.agent.AIAgent
+import ai.koog.agents.core.feature.model.AfterLLMCallEvent
+import ai.koog.agents.core.feature.model.BeforeLLMCallEvent
+import ai.koog.agents.example.exampleTracing01.outputPath
+import ai.koog.agents.features.tracing.feature.Tracing
+import ai.koog.agents.features.tracing.writer.TraceFeatureMessageFileWriter
+import ai.koog.prompt.executor.llms.all.simpleOllamaAIExecutor
+import ai.koog.prompt.llm.OllamaModels
+import kotlinx.coroutines.runBlocking
+import kotlinx.io.buffered
+import kotlinx.io.files.Path
+import kotlinx.io.files.SystemFileSystem
+
+const val input = "What's the weather like in New York?"
+
+fun main() {
+    runBlocking {
+        // 建立一個代理程式
+        val agent = AIAgent(
+            executor = simpleOllamaAIExecutor(),
+            llmModel = OllamaModels.Meta.LLAMA_3_2,
+        ) {
+            val writer = TraceFeatureMessageFileWriter(
+                outputPath,
+                { path: Path -> SystemFileSystem.sink(path).buffered() }
+            )
+-->
+<!--- SUFFIX
+        }
+    }
+}
+-->
 ```kotlin
 install(Tracing) {
-    messageFilter = { message ->
-        message is AIAgentNodeExecutionStartEvent || message is AIAgentNodeExecutionEndEvent
-    }
-    addMessageProcessor(writer)
+   // 僅追蹤 LLM 呼叫
+   messageFilter = { message ->
+      message is BeforeLLMCallEvent || message is AfterLLMCallEvent
+   }
+   addMessageProcessor(writer)
 }
 ```
+<!--- KNIT example-tracing-08.kt -->
 
 ### 我可以使用多個訊息處理器嗎？
 
 可以，您可以添加多個訊息處理器以同時追蹤到不同的目的地：
 
+<!--- INCLUDE
+import ai.koog.agents.core.agent.AIAgent
+import ai.koog.agents.core.feature.remote.server.config.AIAgentFeatureServerConnectionConfig
+import ai.koog.agents.example.exampleTracing01.outputPath
+import ai.koog.agents.features.tracing.feature.Tracing
+import ai.koog.agents.features.tracing.writer.TraceFeatureMessageFileWriter
+import ai.koog.agents.features.tracing.writer.TraceFeatureMessageLogWriter
+import ai.koog.agents.features.tracing.writer.TraceFeatureMessageRemoteWriter
+import ai.koog.prompt.executor.llms.all.simpleOllamaAIExecutor
+import ai.koog.prompt.llm.OllamaModels
+import io.github.oshai.kotlinlogging.KotlinLogging
+import kotlinx.coroutines.runBlocking
+import kotlinx.io.buffered
+import kotlinx.io.files.Path
+import kotlinx.io.files.SystemFileSystem
+
+const val input = "What's the weather like in New York?"
+val syncOpener = { path: Path -> SystemFileSystem.sink(path).buffered() }
+val logger = KotlinLogging.logger {}
+val connectionConfig = AIAgentFeatureServerConnectionConfig(host = ai.koog.agents.example.exampleTracing06.host, port = ai.koog.agents.example.exampleTracing06.port)
+
+fun main() {
+   runBlocking {
+      // 建立一個代理程式
+      val agent = AIAgent(
+         executor = simpleOllamaAIExecutor(),
+         llmModel = OllamaModels.Meta.LLAMA_3_2,
+      ) {
+-->
+<!--- SUFFIX
+        }
+    }
+}
+-->
 ```kotlin
 install(Tracing) {
     addMessageProcessor(TraceFeatureMessageLogWriter(logger))
-    addMessageProcessor(TraceFeatureMessageFileWriter(fs, path))
+    addMessageProcessor(TraceFeatureMessageFileWriter(outputPath, syncOpener))
     addMessageProcessor(TraceFeatureMessageRemoteWriter(connectionConfig))
 }
 ```
+<!--- KNIT example-tracing-09.kt -->
 
 ### 如何建立自訂訊息處理器？
 
 實作 `FeatureMessageProcessor` 介面：
 
-```kotlin
-class CustomTraceProcessor : FeatureMessageProcessor {
-    override suspend fun onMessage(message: FeatureMessage) {
-        // Custom processing logic
-        when (message) {
-            is AIAgentNodeExecutionStartEvent -> {
-                // Process node start event
-            }
-            is LLMCallWithToolsEndEvent -> {
-                // Process LLM call end event
-            }
-            // Handle other event types
+<!--- INCLUDE
+import ai.koog.agents.core.agent.AIAgent
+import ai.koog.agents.core.feature.model.AIAgentNodeExecutionStartEvent
+import ai.koog.agents.core.feature.model.AfterLLMCallEvent
+import ai.koog.agents.core.feature.message.FeatureMessage
+import ai.koog.agents.core.feature.message.FeatureMessageProcessor
+import ai.koog.agents.features.tracing.feature.Tracing
+import ai.koog.prompt.executor.llms.all.simpleOllamaAIExecutor
+import ai.koog.prompt.llm.OllamaModels
+import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+
+fun main() {
+   runBlocking {
+      // 建立一個代理程式
+      val agent = AIAgent(
+         executor = simpleOllamaAIExecutor(),
+         llmModel = OllamaModels.Meta.LLAMA_3_2,
+      ) {
+-->
+<!--- SUFFIX
         }
     }
 }
+-->
+```kotlin
+class CustomTraceProcessor : FeatureMessageProcessor() {
 
-// Use your custom processor
+    // 處理器的目前開放狀態
+    private var _isOpen = MutableStateFlow(false)
+
+    override val isOpen: StateFlow<Boolean>
+        get() = _isOpen.asStateFlow()
+
+    override suspend fun processMessage(message: FeatureMessage) {
+        // 自訂處理邏輯
+        when (message) {
+            is AIAgentNodeExecutionStartEvent -> {
+                // 處理節點開始事件
+            }
+
+            is AfterLLMCallEvent -> {
+                // 處理 LLM 呼叫結束事件
+           }
+            // 處理其他事件類型
+        }
+    }
+
+    override suspend fun close() {
+        // 關閉已建立的連接
+    }
+}
+
+// 使用您的自訂處理器
 install(Tracing) {
     addMessageProcessor(CustomTraceProcessor())
 }
+```
+<!--- KNIT example-tracing-10.kt -->
+
+有關訊息處理器可以處理的現有事件類型的更多資訊，請參閱[預定義事件類型](#predefined-event-types)。
+
+## 預定義事件類型
+
+Koog 提供了可用於自訂訊息處理器的預定義事件類型。預定義事件可根據其相關實體分為多個類別：
+
+-   [代理程式事件](#agent-events)
+-   [策略事件](#strategy-events)
+-   [節點事件](#node-events)
+-   [LLM 呼叫事件](#llm-call-events)
+-   [工具呼叫事件](#tool-call-events)
+
+### 代理程式事件
+
+#### AIAgentStartedEvent
+
+表示代理程式執行的開始。包含以下欄位：
+
+| 名稱           | 資料類型 | 必填 | 預設值               | 說明                                       |
+|----------------|-----------|----------|-----------------------|--------------------------------------------|
+| `strategyName` | String    | 是      |                       | 代理程式應遵循的策略名稱。                    |
+| `eventId`      | String    | 否       | `AIAgentStartedEvent` | 事件的識別碼。通常是事件類別的 `simpleName`。 |
+
+#### AIAgentFinishedEvent
+
+表示代理程式執行的結束。包含以下欄位：
+
+| 名稱           | 資料類型 | 必填 | 預設值                | 說明                                       |
+|----------------|-----------|----------|------------------------|--------------------------------------------|
+| `strategyName` | String    | 是      |                        | 代理程式遵循的策略名稱。                    |
+| `result`       | String    | 是      |                        | 代理程式執行的結果。如果沒有結果，可以為 `null`。 |
+| `eventId`      | String    | 否       | `AIAgentFinishedEvent` | 事件的識別碼。通常是事件類別的 `simpleName`。 |
+
+#### AIAgentRunErrorEvent
+
+表示代理程式執行期間發生錯誤。包含以下欄位：
+
+| 名稱           | 資料類型    | 必填 | 預設值                | 說明                                                                                                     |
+|----------------|--------------|----------|------------------------|-----------------------------------------------------------------------------------------------------------------|
+| `strategyName` | String       | 是      |                        | 代理程式遵循的策略名稱。                                                                                        |
+| `error`        | AIAgentError | 是      |                        | 代理程式執行期間發生的特定錯誤。有關更多資訊，請參閱 [AIAgentError](#aiagenterror)。                           |
+| `eventId`      | String       | 否       | `AIAgentRunErrorEvent` | 事件的識別碼。通常是事件類別的 `simpleName`。                                                                   |
+
+<a id="aiagenterror"></a>
+`AIAgentError` 類別提供了關於代理程式執行期間發生錯誤的更多詳細訊息。包含以下欄位：
+
+| 名稱         | 資料類型 | 必填 | 預設值 | 說明                                          |
+|--------------|-----------|----------|---------|-----------------------------------------------|
+| `message`    | String    | 是      |         | 提供關於特定錯誤的更多詳細訊息。                   |
+| `stackTrace` | String    | 是      |         | 直到最後執行程式碼的堆疊記錄集合。                   |
+| `cause`      | String    | 否       | null    | 錯誤的原因，如果可用。                           |
+
+### 策略事件
+
+#### AIAgentStrategyStartEvent
+
+表示策略執行的開始。包含以下欄位：
+
+| 名稱           | 資料類型 | 必填 | 預設值                     | 說明                                       |
+|----------------|-----------|----------|-----------------------------|--------------------------------------------|
+| `strategyName` | String    | 是      |                             | 策略的名稱。                               |
+| `eventId`      | String    | 否       | `AIAgentStrategyStartEvent` | 事件的識別碼。通常是事件類別的 `simpleName`。 |
+
+#### AIAgentStrategyFinishedEvent
+
+表示策略執行的結束。包含以下欄位：
+
+| 名稱           | 資料類型 | 必填 | 預設值                        | 說明                                       |
+|----------------|-----------|----------|--------------------------------|--------------------------------------------|
+| `strategyName` | String    | 是      |                                | 策略的名稱。                               |
+| `result`       | String    | 是      |                                | 執行的結果。                               |
+| `eventId`      | String    | 否       | `AIAgentStrategyFinishedEvent` | 事件的識別碼。通常是事件類別的 `simpleName`。 |
+
+### 節點事件
+
+#### AIAgentNodeExecutionStartEvent
+
+表示節點執行的開始。包含以下欄位：
+
+| 名稱       | 資料類型 | 必填 | 預設值                          | 說明                                       |
+|------------|-----------|----------|----------------------------------|--------------------------------------------|
+| `nodeName` | String    | 是      |                                  | 開始執行的節點名稱。                        |
+| `input`    | String    | 是      |                                  | 節點的輸入值。                             |
+| `eventId`  | String    | 否       | `AIAgentNodeExecutionStartEvent` | 事件的識別碼。通常是事件類別的 `simpleName`。 |
+
+#### AIAgentNodeExecutionEndEvent
+
+表示節點執行的結束。包含以下欄位：
+
+| 名稱       | 資料類型 | 必填 | 預設值                        | 說明                                       |
+|------------|-----------|----------|--------------------------------|--------------------------------------------|
+| `nodeName` | String    | 是      |                                | 結束執行的節點名稱。                        |
+| `input`    | String    | 是      |                                | 節點的輸入值。                             |
+| `output`   | String    | 是      |                                | 節點產生的輸出值。                         |
+| `eventId`  | String    | 否       | `AIAgentNodeExecutionEndEvent` | 事件的識別碼。通常是事件類別的 `simpleName`。 |
+
+### LLM 呼叫事件
+
+#### LLMCallStartEvent
+
+表示 LLM 呼叫的開始。包含以下欄位：
+
+| 名稱      | 資料類型          | 必填 | 預設值             | 說明                                                               |
+|-----------|--------------------|----------|---------------------|--------------------------------------------------------------------|
+| `prompt`  | Prompt             | 是      |                     | 發送到模型的提示。有關更多資訊，請參閱 [Prompt](#prompt)。         |
+| `tools`   | List&lt;String&gt; | 是      |                     | 模型可以呼叫的工具列表。                                           |
+| `eventId` | String             | 否       | `LLMCallStartEvent` | 事件的識別碼。通常是事件類別的 `simpleName`。                      |
+
+<a id="prompt"></a>
+`Prompt` 類別表示提示的資料結構，由訊息列表、唯一識別碼以及用於語言模型設定的可選參數組成。包含以下欄位：
+
+| 名稱       | 資料類型           | 必填 | 預設值     | 說明                                   |
+|------------|---------------------|----------|-------------|----------------------------------------|
+| `messages` | List&lt;Message&gt; | 是      |             | 提示包含的訊息列表。                     |
+| `id`       | String              | 是      |             | 提示的唯一識別碼。                       |
+| `params`   | LLMParams           | 否       | LLMParams() | 控制 LLM 生成內容方式的設定。            |
+
+#### LLMCallEndEvent
+
+表示 LLM 呼叫的結束。包含以下欄位：
+
+| 名稱        | 資料類型                    | 必填 | 預設值           | 說明                                       |
+|-------------|------------------------------|----------|-------------------|--------------------------------------------|
+| `responses` | List&lt;Message.Response&gt; | 是      |                   | 模型返回的一或多個回應。                   |
+| `eventId`   | String                       | 否       | `LLMCallEndEvent` | 事件的識別碼。通常是事件類別的 `simpleName`。 |
+
+### 工具呼叫事件
+
+#### ToolCallEvent
+
+表示模型呼叫工具的事件。包含以下欄位：
+
+| 名稱       | 資料類型 | 必填 | 預設值         | 說明                                       |
+|------------|-----------|----------|-----------------|--------------------------------------------|
+| `toolName` | String    | 是      |                 | 工具的名稱。                               |
+| `toolArgs` | Tool.Args | 是      |                 | 提供給工具的參數。                         |
+| `eventId`  | String    | 否       | `ToolCallEvent` | 事件的識別碼。通常是事件類別的 `simpleName`。 |
+
+#### ToolValidationErrorEvent
+
+表示工具呼叫期間發生驗證錯誤。包含以下欄位：
+
+| 名稱           | 資料類型 | 必填 | 預設值                    | 說明                                       |
+|----------------|-----------|----------|----------------------------|--------------------------------------------|
+| `toolName`     | String    | 是      |                            | 驗證失敗的工具名稱。                        |
+| `toolArgs`     | Tool.Args | 是      |                            | 提供給工具的參數。                         |
+| `errorMessage` | String    | 是      |                            | 驗證錯誤訊息。                             |
+| `eventId`      | String    | 否       | `ToolValidationErrorEvent` | 事件的識別碼。通常是事件類別的 `simpleName`。 |
+
+#### ToolCallFailureEvent
+
+表示呼叫工具失敗。包含以下欄位：
+
+| 名稱       | 資料類型    | 必填 | 預設值                | 說明                                                                                                           |
+|------------|--------------|----------|------------------------|-----------------------------------------------------------------------------------------------------------------------|
+| `toolName` | String       | 是      |                        | 工具的名稱。                                                                                                       |
+| `toolArgs` | Tool.Args    | 是      |                        | 提供給工具的參數。                                                                                                 |
+| `error`    | AIAgentError | 是      |                        | 嘗試呼叫工具時發生的特定錯誤。有關更多資訊，請參閱 [AIAgentError](#aiagenterror)。                                   |
+| `eventId`  | String       | 否       | `ToolCallFailureEvent` | 事件的識別碼。通常是事件類別的 `simpleName`。                                                                         |
+
+#### ToolCallResultEvent
+
+表示成功的工具呼叫並返回結果。包含以下欄位：
+
+| 名稱       | 資料類型  | 必填 | 預設值               | 說明                                       |
+|------------|-----------|----------|-----------------------|--------------------------------------------|
+| `toolName` | String    | 是      |                       | 工具的名稱。                               |
+| `toolArgs` | Tool.Args | 是      |                       | 提供給工具的參數。                         |
+| `result`   | ToolResult | 是      |                       | 工具呼叫的結果。                           |
+| `eventId`  | String    | 否       | `ToolCallResultEvent` | 事件的識別碼。通常是事件類別的 `simpleName`。 |

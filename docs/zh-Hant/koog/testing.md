@@ -19,21 +19,35 @@
 ### 設定測試依賴
 
 在設定測試環境之前，請確保已新增以下依賴：
-   ```kotlin
-   // build.gradle.kts
-   dependencies {
-       testImplementation("ai.koog:agents-test:LATEST_VERSION")
-       testImplementation(kotlin("test"))
-   }
-   ```
-
+<!--- INCLUDE
+/*
+-->
+<!--- SUFFIX
+*/
+-->
+```kotlin
+// build.gradle.kts
+dependencies {
+   testImplementation("ai.koog:agents-test:LATEST_VERSION")
+   testImplementation(kotlin("test"))
+}
+```
+<!--- KNIT example-testing-01.kt -->
 ### 模擬 LLM 回應
 
 測試的基本形式涉及模擬 LLM 回應以確保確定性行為。您可以使用 `MockLLMBuilder` 和相關實用程式來執行此操作。
 
+<!--- INCLUDE
+import ai.koog.agents.core.tools.ToolRegistry
+import ai.koog.agents.testing.tools.getMockExecutor
+import ai.koog.agents.testing.tools.mockLLMAnswer
+
+val toolRegistry = ToolRegistry {}
+
+-->
 ```kotlin
 // Create a mock LLM executor
-val mockLLMApi = getMockExecutor(toolRegistry, eventHandler) {
+val mockLLMApi = getMockExecutor(toolRegistry) {
   // Mock a simple text response
   mockLLMAnswer("Hello!") onRequestContains "Hello"
 
@@ -41,11 +55,120 @@ val mockLLMApi = getMockExecutor(toolRegistry, eventHandler) {
   mockLLMAnswer("I don't know how to answer that.").asDefaultResponse
 }
 ```
+<!--- KNIT example-testing-02.kt -->
 
 ### 模擬工具呼叫
 
 您可以根據輸入模式模擬 LLM 呼叫特定的工具：
+<!--- INCLUDE
+import ai.koog.agents.core.tools.*
+import ai.koog.agents.ext.tool.AskUser
+import ai.koog.agents.ext.tool.SayToUser
+import ai.koog.agents.testing.tools.getMockExecutor
+import kotlinx.serialization.KSerializer
+import kotlinx.serialization.Serializable
 
+public object CreateTool : Tool<CreateTool.Args, CreateTool.Result>() {
+/**
+* Represents the arguments for the [AskUser] tool
+*
+* @property message The message to be used as an argument for the tool's execution.
+*/
+@Serializable
+public data class Args(val message: String) : ToolArgs
+
+    @Serializable
+    public data class Result(val message: String) : ToolResult {
+        override fun toStringDefault() = message
+    }
+
+    override val argsSerializer: KSerializer<Args> = Args.serializer()
+
+    override val descriptor: ToolDescriptor = ToolDescriptor(
+        name = "message",
+        description = "Service tool, used by the agent to talk with user",
+        requiredParameters = listOf(
+            ToolParameterDescriptor(
+                name = "message", description = "Message from the agent", type = ToolParameterType.String
+            )
+        )
+    )
+
+    override suspend fun execute(args: Args): Result {
+        return Result(args.message)
+    }
+}
+
+public object SearchTool : Tool<SearchTool.Args, SearchTool.Result>() {
+/**
+* Represents the arguments for the [AskUser] tool
+*
+* @property message The message to be used as an argument for the tool's execution.
+*/
+@Serializable
+public data class Args(val query: String) : ToolArgs
+
+    @Serializable
+    public data class Result(val message: String) : ToolResult {
+        override fun toStringDefault() = message
+    }
+
+    override val argsSerializer: KSerializer<Args> = Args.serializer()
+
+    override val descriptor: ToolDescriptor = ToolDescriptor(
+        name = "message",
+        description = "Service tool, used by the agent to talk with user",
+        requiredParameters = listOf(
+            ToolParameterDescriptor(
+                name = "message", description = "Message from the agent", type = ToolParameterType.String
+            )
+        )
+    )
+
+    override suspend fun execute(args: Args): Result {
+        return Result(args.query)
+    }
+}
+
+public object AnalyzeTool : Tool<AnalyzeTool.Args, AnalyzeTool.Result>() {
+/**
+* Represents the arguments for the [AskUser] tool
+*
+* @property message The message to be used as an argument for the tool's execution.
+*/
+@Serializable
+public data class Args(val message: String) : ToolArgs
+
+    @Serializable
+    public data class Result(val message: String) : ToolResult {
+        override fun toStringDefault() = message
+    }
+
+    override val argsSerializer: KSerializer<Args> = Args.serializer()
+
+    override val descriptor: ToolDescriptor = ToolDescriptor(
+        name = "message",
+        description = "Service tool, used by the agent to talk with user",
+        requiredParameters = listOf(
+            ToolParameterDescriptor(
+                name = "message", description = "Message from the agent", type = ToolParameterType.String
+            )
+        )
+    )
+
+    override suspend fun execute(args: Args): Result {
+        return Result(args.message)
+    }
+}
+
+typealias PositiveToneTool = SayToUser
+typealias NegativeToneTool = SayToUser
+
+val mockLLMApi = getMockExecutor {
+-->
+<!--- SUFFIX
+}
+-->
 ```kotlin
 // Mock a tool call response
 mockLLMToolCall(CreateTool, CreateTool.Args("solve")) onRequestEquals "Solve task"
@@ -70,6 +193,7 @@ mockTool(SearchTool) returns SearchTool.Result("Found results") onArgumentsMatch
   args.query.contains("important")
 }
 ```
+<!--- KNIT example-testing-03.kt -->
 
 上述範例展示了模擬工具的不同方式，從簡單到複雜：
 
@@ -82,19 +206,33 @@ mockTool(SearchTool) returns SearchTool.Result("Found results") onArgumentsMatch
 
 要在代理上啟用測試模式，請在 `AIAgent` 建構函式區塊內使用 `withTesting()` 函數：
 
+<!--- INCLUDE
+import ai.koog.agents.core.agent.AIAgent
+import ai.koog.agents.example.exampleTesting02.mockLLMApi
+import ai.koog.agents.example.exampleTesting02.toolRegistry
+import ai.koog.agents.testing.feature.withTesting
+import ai.koog.prompt.executor.clients.openai.OpenAIModels
+
+val llmModel = OpenAIModels.Chat.GPT4o
+
+// Create the agent with testing enabled
+fun main() {
+-->
+<!--- SUFFIX
+}
+-->
 ```kotlin
 // Create the agent with testing enabled
 AIAgent(
-    promptExecutor = mockLLMApi,
+    executor = mockLLMApi,
     toolRegistry = toolRegistry,
-    strategy = strategy,
-    eventHandler = eventHandler,
-    agentConfig = agentConfig,
+    llmModel = llmModel
 ) {
     // Enable testing mode
     withTesting()
 }
 ```
+<!--- KNIT example-testing-04.kt -->
 
 ## 進階測試
 
@@ -108,16 +246,33 @@ AIAgent(
 
 首先驗證代理圖的基本結構：
 
+<!--- INCLUDE
+
+import ai.koog.agents.core.agent.AIAgent
+import ai.koog.agents.core.tools.ToolResult
+import ai.koog.agents.example.exampleCustomNodes11.ToolArgs
+import ai.koog.agents.example.exampleTesting02.mockLLMApi
+import ai.koog.agents.example.exampleTesting02.toolRegistry
+import ai.koog.agents.testing.feature.testGraph
+import ai.koog.prompt.executor.clients.openai.OpenAIModels
+import ai.koog.prompt.message.Message
+
+val llmModel = OpenAIModels.Chat.GPT4o
+
+fun main() {
+
+-->
+<!--- SUFFIX
+}
+-->
 ```kotlin
 AIAgent(
     // Constructor arguments
+    executor = mockLLMApi,
     toolRegistry = toolRegistry,
-    strategy = strategy,
-    eventHandler = eventHandler,
-    agentConfig = agentConfig,
-    promptExecutor = mockLLMApi,
+    llmModel = llmModel
 ) {
-    testGraph("test") {
+    testGraph<String, String>("test") {
         val firstSubgraph = assertSubgraphByName<String, String>("first")
         val secondSubgraph = assertSubgraphByName<String, String>("second")
 
@@ -135,7 +290,7 @@ AIAgent(
 
             // Assert nodes by name
             val askLLM = assertNodeByName<String, Message.Response>("callLLM")
-            val callTool = assertNodeByName<ToolCall.Signature, ToolCall.Result>("executeTool")
+            val callTool = assertNodeByName<ToolArgs, ToolResult>("executeTool")
 
             // Assert node reachability
             assertReachable(start, askLLM)
@@ -144,6 +299,7 @@ AIAgent(
     }
 }
 ```
+<!--- KNIT example-testing-05.kt -->
 
 ### 測試節點行為
 
@@ -153,15 +309,49 @@ AIAgent(
 
 從單個節點的簡單輸入和輸出驗證開始：
 
+<!--- INCLUDE
+import ai.koog.agents.core.agent.AIAgent
+import ai.koog.agents.example.exampleTesting02.mockLLMApi
+import ai.koog.agents.example.exampleTesting02.toolRegistry
+import ai.koog.agents.example.exampleTesting03.CreateTool
+import ai.koog.agents.testing.feature.assistantMessage
+import ai.koog.agents.testing.feature.testGraph
+import ai.koog.agents.testing.feature.toolCallMessage
+import ai.koog.prompt.executor.clients.openai.OpenAIModels
+import ai.koog.prompt.message.Message
+
+val llmModel = OpenAIModels.Chat.GPT4o
+
+fun main() {
+
+    AIAgent(
+        // Constructor arguments
+        executor = mockLLMApi,
+        toolRegistry = toolRegistry,
+        llmModel = llmModel
+    ) {
+        testGraph<String, String>("test") {
+            assertNodes {
+                val askLLM = assertNodeByName<String, Message.Response>("callLLM")
+    
+-->
+<!--- SUFFIX
+            }
+        }
+    }
+}
+-->
 ```kotlin
 assertNodes {
+
     // Test basic text responses
-    askLLM withInput "Hello" outputs Message.Assistant("Hello!")
+    askLLM withInput "Hello" outputs assistantMessage("Hello!")
 
     // Test tool call responses
     askLLM withInput "Solve task" outputs toolCallMessage(CreateTool, CreateTool.Args("solve"))
 }
 ```
+<!--- KNIT example-testing-06.kt -->
 
 上面的範例展示了如何測試以下行為：
 1. 當 LLM 節點收到 `Hello` 作為輸入時，它會回應一個簡單的文字訊息。
@@ -171,41 +361,229 @@ assertNodes {
 
 您也可以測試執行工具的節點：
 
+<!--- INCLUDE
+import ai.koog.agents.core.agent.AIAgent
+import ai.koog.agents.core.environment.ReceivedToolResult
+import ai.koog.agents.core.tools.*
+import ai.koog.agents.example.exampleTesting02.mockLLMApi
+import ai.koog.agents.example.exampleTesting02.toolRegistry
+import ai.koog.agents.ext.tool.AskUser
+import ai.koog.agents.testing.feature.testGraph
+import ai.koog.agents.testing.feature.toolCallMessage
+import ai.koog.agents.testing.feature.toolResult
+import ai.koog.prompt.executor.clients.openai.OpenAIModels
+import ai.koog.prompt.message.Message
+import kotlinx.serialization.KSerializer
+import kotlinx.serialization.Serializable
+
+object SolveTool : SimpleTool<SolveTool.Args>() {
+    @Serializable
+    data class Args(val message: String) : ToolArgs
+
+    @Serializable
+    data class Result(val message: String) : ToolResult {
+        override fun toStringDefault() = message
+    }
+
+    override val argsSerializer: KSerializer<Args> = Args.serializer()
+
+    override val descriptor: ToolDescriptor = ToolDescriptor(
+        name = "message",
+        description = "Service tool, used by the agent to talk with user",
+        requiredParameters = listOf(
+            ToolParameterDescriptor(
+                name = "message", description = "Message from the agent", type = ToolParameterType.String
+            )
+        )
+    )
+
+    override suspend fun doExecute(args: Args): String {
+        return args.message
+    }
+}
+
+val llmModel = OpenAIModels.Chat.GPT4o
+
+fun main() {
+
+    AIAgent(
+        // Constructor arguments
+        executor = mockLLMApi,
+        toolRegistry = toolRegistry,
+        llmModel = llmModel
+    ) {
+        testGraph<String, String>("test") {
+            assertNodes {
+                val callTool = assertNodeByName<Message.Tool.Call, ReceivedToolResult>("executeTool")
+    
+-->
+<!--- SUFFIX
+            }
+        }
+    }
+}
+-->
 ```kotlin
 assertNodes {
     // Test tool runs with specific arguments
-    callTool withInput toolCallSignature(
+    callTool withInput toolCallMessage(
         SolveTool,
         SolveTool.Args("solve")
     ) outputs toolResult(SolveTool, "solved")
 }
 ```
+<!--- KNIT example-testing-07.kt -->
 
 這會驗證當工具執行節點收到特定的工具呼叫簽名時，它會產生預期的工具結果。
 
 #### 進階節點測試
 
 對於更複雜的情境，您可以測試具有結構化輸入和輸出的節點：
+<!--- INCLUDE
+import ai.koog.agents.core.agent.AIAgent
+import ai.koog.agents.core.tools.*
+import ai.koog.agents.example.exampleTesting02.mockLLMApi
+import ai.koog.agents.example.exampleTesting02.toolRegistry
+import ai.koog.agents.ext.tool.AskUser
+import ai.koog.agents.testing.feature.assistantMessage
+import ai.koog.agents.testing.feature.testGraph
+import ai.koog.agents.testing.feature.toolCallMessage
+import ai.koog.prompt.executor.clients.openai.OpenAIModels
+import ai.koog.prompt.message.Message
+import kotlinx.serialization.KSerializer
+import kotlinx.serialization.Serializable
 
+object AnalyzeTool : Tool<AnalyzeTool.Args, AnalyzeTool.Result>() {
+
+    @Serializable
+    data class Args(val query: String, val depth: Int) : ToolArgs
+
+    @Serializable
+    data class Result(val message: String) : ToolResult {
+        override fun toStringDefault() = message
+    }
+
+    override val argsSerializer: KSerializer<Args> = Args.serializer()
+
+    override val descriptor: ToolDescriptor = ToolDescriptor(
+        name = "message",
+        description = "Service tool, used by the agent to talk with user",
+        requiredParameters = listOf(
+            ToolParameterDescriptor(
+                name = "message", description = "Message from the agent", type = ToolParameterType.String
+            )
+        )
+    )
+
+    override suspend fun execute(args: Args): Result {
+        return Result(args.query)
+    }
+}
+
+val llmModel = OpenAIModels.Chat.GPT4o
+
+fun main() {
+
+    AIAgent(
+        // Constructor arguments
+        executor = mockLLMApi,
+        toolRegistry = toolRegistry,
+        llmModel = llmModel
+    ) {
+        testGraph<String, String>("test") {
+            assertNodes {
+                val askLLM = assertNodeByName<String, Message.Response>("callLLM")
+-->
+<!--- SUFFIX
+            }
+        }
+    }
+}
+-->
 ```kotlin
 assertNodes {
     // Test with different inputs to the same node
-    askLLM withInput "Simple query" outputs Message.Assistant("Simple response")
+    askLLM withInput "Simple query" outputs assistantMessage("Simple response")
 
     // Test with complex parameters
     askLLM withInput "Complex query with parameters" outputs toolCallMessage(
-        AnalyzeTool, 
+        AnalyzeTool,
         AnalyzeTool.Args(query = "parameters", depth = 3)
     )
 }
 ```
+<!--- KNIT example-testing-08.kt -->
 
 您也可以測試具有詳細結果結構的複雜工具呼叫情境：
 
+<!--- INCLUDE
+import ai.koog.agents.core.agent.AIAgent
+import ai.koog.agents.core.environment.ReceivedToolResult
+import ai.koog.agents.core.tools.*
+import ai.koog.agents.example.exampleTesting02.mockLLMApi
+import ai.koog.agents.example.exampleTesting02.toolRegistry
+import ai.koog.agents.testing.feature.testGraph
+import ai.koog.agents.testing.feature.toolCallMessage
+import ai.koog.agents.testing.feature.toolResult
+import ai.koog.prompt.executor.clients.openai.OpenAIModels
+import ai.koog.prompt.message.Message
+import kotlinx.serialization.KSerializer
+import kotlinx.serialization.Serializable
+
+object AnalyzeTool : Tool<AnalyzeTool.Args, AnalyzeTool.Result>() {
+    @Serializable
+    data class Args(val query: String, val depth: Int) : ToolArgs
+
+    @Serializable
+    data class Result(val analysis: String, val confidence: Double, val metadata: Map<String, String> = emptyMap()) :
+        ToolResult {
+        override fun toStringDefault() = serializer().toString()
+    }
+
+    override val argsSerializer: KSerializer<Args> = Args.serializer()
+
+    override val descriptor: ToolDescriptor = ToolDescriptor(
+        name = "message",
+        description = "Service tool, used by the agent to talk with user",
+        requiredParameters = listOf(
+            ToolParameterDescriptor(
+                name = "message", description = "Message from the agent", type = ToolParameterType.String
+            )
+        )
+    )
+
+    override suspend fun execute(args: Args): Result {
+        return Result(
+            args.query, 0.95,
+            mapOf("source" to "mock", "timestamp" to "2023-06-15")
+        )
+    }
+}
+
+val llmModel = OpenAIModels.Chat.GPT4o
+
+fun main() {
+
+    AIAgent(
+        // Constructor arguments
+        executor = mockLLMApi,
+        toolRegistry = toolRegistry,
+        llmModel = llmModel
+    ) {
+        testGraph<String, String>("test") {
+            assertNodes {
+                val callTool = assertNodeByName<Message.Tool.Call, ReceivedToolResult>("executeTool")
+-->
+<!--- SUFFIX
+            }
+        }
+    }
+}
+-->
 ```kotlin
 assertNodes {
     // Test a complex tool call with a structured result
-    callTool withInput toolCallSignature(
+    callTool withInput toolCallMessage(
         AnalyzeTool,
         AnalyzeTool.Args(query = "complex", depth = 5)
     ) outputs toolResult(AnalyzeTool, AnalyzeTool.Result(
@@ -215,6 +593,7 @@ assertNodes {
     ))
 }
 ```
+<!--- KNIT example-testing-09.kt -->
 
 這些進階測試有助於確保您的節點正確處理複雜的資料結構，這對於複雜的代理行為至關重要。
 
@@ -226,15 +605,53 @@ assertNodes {
 
 從簡單的邊緣連接測試開始：
 
+<!--- INCLUDE
+import ai.koog.agents.core.agent.AIAgent
+import ai.koog.agents.core.environment.ReceivedToolResult
+import ai.koog.agents.core.tools.*
+import ai.koog.agents.example.exampleTesting02.mockLLMApi
+import ai.koog.agents.example.exampleTesting02.toolRegistry
+import ai.koog.agents.example.exampleTesting03.CreateTool
+import ai.koog.agents.testing.feature.assistantMessage
+import ai.koog.agents.testing.feature.testGraph
+import ai.koog.agents.testing.feature.toolCallMessage
+import ai.koog.prompt.executor.clients.openai.OpenAIModels
+import ai.koog.prompt.message.Message
+import kotlinx.serialization.KSerializer
+import kotlinx.serialization.Serializable
+
+val llmModel = OpenAIModels.Chat.GPT4o
+
+fun main() {
+
+    AIAgent(
+        // Constructor arguments
+        executor = mockLLMApi,
+        toolRegistry = toolRegistry,
+        llmModel = llmModel
+    ) {
+        testGraph<String, String>("test") {
+            assertNodes {
+                val callTool = assertNodeByName<Message.Tool.Call, ReceivedToolResult>("executeTool")
+                val askLLM = assertNodeByName<String, Message.Response>("callLLM")
+                val giveFeedback = assertNodeByName<String, Message.Response>("giveFeedback")
+-->
+<!--- SUFFIX
+            }
+        }
+    }
+}
+-->
 ```kotlin
 assertEdges {
     // Test text message routing
-    askLLM withOutput Message.Assistant("Hello!") goesTo giveFeedback
+    askLLM withOutput assistantMessage("Hello!") goesTo giveFeedback
 
     // Test tool call routing
     askLLM withOutput toolCallMessage(CreateTool, CreateTool.Args("solve")) goesTo callTool
 }
 ```
+<!--- KNIT example-testing-10.kt -->
 
 此範例驗證了以下行為：
 1. 當 LLM 節點輸出簡單的文字訊息時，流程會導向 `giveFeedback` 節點。
@@ -244,18 +661,83 @@ assertEdges {
 
 您可以根據輸出的內容測試更複雜的路由邏輯：
 
+<!--- INCLUDE
+import ai.koog.agents.core.agent.AIAgent
+import ai.koog.agents.core.environment.ReceivedToolResult
+import ai.koog.agents.example.exampleTesting02.mockLLMApi
+import ai.koog.agents.example.exampleTesting02.toolRegistry
+import ai.koog.agents.testing.feature.assistantMessage
+import ai.koog.agents.testing.feature.testGraph
+import ai.koog.prompt.executor.clients.openai.OpenAIModels
+import ai.koog.prompt.message.Message
+
+val llmModel = OpenAIModels.Chat.GPT4o
+
+fun main() {
+
+    AIAgent(
+        // Constructor arguments
+        executor = mockLLMApi,
+        toolRegistry = toolRegistry,
+        llmModel = llmModel
+    ) {
+        testGraph<String, String>("test") {
+            assertNodes {
+                val askLLM = assertNodeByName<String, Message.Response>("callLLM")
+                val askForInfo = assertNodeByName<String, ReceivedToolResult>("askForInfo")
+                val processRequest = assertNodeByName<String, Message.Response>("processRequest")
+-->
+<!--- SUFFIX
+            }
+        }
+    }
+}
+-->
 ```kotlin
 assertEdges {
     // Different text responses can route to different nodes
-    askLLM withOutput Message.Assistant("Need more information") goesTo askForInfo
-    askLLM withOutput Message.Assistant("Ready to proceed") goesTo processRequest
+    askLLM withOutput assistantMessage("Need more information") goesTo askForInfo
+    askLLM withOutput assistantMessage("Ready to proceed") goesTo processRequest
 }
 ```
+<!--- KNIT example-testing-11.kt -->
 
 #### 進階邊緣測試
 
 對於複雜的代理，您可以根據工具結果中的結構化資料測試條件式路由：
 
+<!--- INCLUDE
+import ai.koog.agents.core.agent.AIAgent
+import ai.koog.agents.core.environment.ReceivedToolResult
+import ai.koog.agents.example.exampleTesting02.mockLLMApi
+import ai.koog.agents.example.exampleTesting02.toolRegistry
+import ai.koog.agents.example.exampleTesting09.AnalyzeTool
+import ai.koog.agents.testing.feature.testGraph
+import ai.koog.agents.testing.feature.toolResult
+import ai.koog.prompt.executor.clients.openai.OpenAIModels
+import ai.koog.prompt.message.Message
+
+val llmModel = OpenAIModels.Chat.GPT4o
+
+fun main() {
+
+    AIAgent(
+        // Constructor arguments
+        executor = mockLLMApi,
+        toolRegistry = toolRegistry,
+        llmModel = llmModel
+    ) {
+        testGraph<String, String>("test") {
+            assertNodes {
+                val callTool = assertNodeByName<Message.Tool.Call, ReceivedToolResult>("executeTool")
+                val processResult = assertNodeByName<String, Message.Response>("processResult")
+-->
+<!--- SUFFIX
+            }
+        }
+    }
+}
+-->
 ```kotlin
 assertEdges {
     // Test routing based on tool result content
@@ -265,9 +747,43 @@ assertEdges {
     ) goesTo processResult
 }
 ```
+<!--- KNIT example-testing-12.kt -->
 
 您也可以根據不同的結果屬性測試複雜的決策路徑：
 
+<!--- INCLUDE
+import ai.koog.agents.core.agent.AIAgent
+import ai.koog.agents.core.environment.ReceivedToolResult
+import ai.koog.agents.example.exampleTesting02.mockLLMApi
+import ai.koog.agents.example.exampleTesting02.toolRegistry
+import ai.koog.agents.example.exampleTesting09.AnalyzeTool
+import ai.koog.agents.testing.feature.testGraph
+import ai.koog.agents.testing.feature.toolResult
+import ai.koog.prompt.executor.clients.openai.OpenAIModels
+import ai.koog.prompt.message.Message
+
+val llmModel = OpenAIModels.Chat.GPT4o
+
+fun main() {
+
+    AIAgent(
+        // Constructor arguments
+        executor = mockLLMApi,
+        toolRegistry = toolRegistry,
+        llmModel = llmModel
+    ) {
+        testGraph<String, String>("test") {
+            assertNodes {
+                val callTool = assertNodeByName<Message.Tool.Call, ReceivedToolResult>("executeTool")
+                val finish = assertNodeByName<String, Message.Response>("finish")
+                val verifyResult = assertNodeByName<String, Message.Response>("verifyResult")
+-->
+<!--- SUFFIX
+            }
+        }
+    }
+}
+-->
 ```kotlin
 assertEdges {
     // Route to different nodes based on confidence level
@@ -282,6 +798,7 @@ assertEdges {
     ) goesTo verifyResult
 }
 ```
+<!--- KNIT example-testing-13.kt -->
 
 這些進階邊緣測試有助於確保您的代理根據節點輸出的內容和結構做出正確的決策，這對於建立智慧、上下文感知的工作流程至關重要。
 
@@ -293,6 +810,12 @@ assertEdges {
 
 您可以這樣測試此代理：
 
+<!--- INCLUDE
+/*
+-->
+<!--- SUFFIX
+*/
+-->
 ```kotlin
 @Test
 fun testToneAgent() = runTest {
@@ -412,9 +935,16 @@ ${it.stackTraceToString()}")
     assertEquals(3, toolCalls.size, "Three tools are expected to be called")
 }
 ```
+<!--- KNIT example-testing-14.kt -->
 
 對於具有多個子圖的更複雜代理，您還可以測試圖結構：
 
+<!--- INCLUDE
+/*
+-->
+<!--- SUFFIX
+*/
+-->
 ```kotlin
 @Test
 fun testMultiSubgraphAgentStructure() = runTest {
@@ -517,6 +1047,7 @@ fun testMultiSubgraphAgentStructure() = runTest {
     }
 }
 ```
+<!--- KNIT example-testing-15.kt -->
 
 ## API 參考
 
@@ -527,7 +1058,12 @@ fun testMultiSubgraphAgentStructure() = runTest {
 #### 如何模擬特定的工具回應？
 
 在 `MockLLMBuilder` 中使用 `mockTool` 方法：
-
+<!--- INCLUDE
+/*
+-->
+<!--- SUFFIX
+*/
+-->
 ```kotlin
 val mockExecutor = getMockExecutor {
     mockTool(myTool) alwaysReturns myResult
@@ -536,19 +1072,41 @@ val mockExecutor = getMockExecutor {
     mockTool(myTool) returns myResult onArguments myArgs
 }
 ```
+<!--- KNIT example-testing-16.kt -->
 
 #### 如何測試複雜的圖結構？
 
 使用子圖斷言、`verifySubgraph` 和節點參考：
 
+<!--- INCLUDE
+import ai.koog.agents.core.agent.AIAgent
+import ai.koog.agents.example.exampleTesting02.mockLLMApi
+import ai.koog.agents.example.exampleTesting02.toolRegistry
+import ai.koog.agents.testing.feature.testGraph
+import ai.koog.prompt.executor.clients.openai.OpenAIModels
+
+val llmModel = OpenAIModels.Chat.GPT4o
+
+fun main() {
+    AIAgent(
+        // Constructor arguments
+        executor = mockLLMApi,
+        toolRegistry = toolRegistry,
+        llmModel = llmModel
+    ) {
+-->
+<!--- SUFFIX
+    }
+}
+-->
 ```kotlin
-testGraph("test") {
+testGraph<Unit, String>("test") {
     val mySubgraph = assertSubgraphByName<Unit, String>("mySubgraph")
 
     verifySubgraph(mySubgraph) {
         // Get references to nodes
-        val nodeA = assertNodeByName("nodeA")
-        val nodeB = assertNodeByName("nodeB")
+        val nodeA = assertNodeByName<Unit, String>("nodeA")
+        val nodeB = assertNodeByName<String, String>("nodeB")
 
         // Assert reachability
         assertReachable(nodeA, nodeB)
@@ -560,11 +1118,18 @@ testGraph("test") {
     }
 }
 ```
+<!--- KNIT example-testing-17.kt -->
 
 #### 如何根據輸入模擬不同的 LLM 回應？
 
 使用模式匹配方法：
 
+<!--- INCLUDE
+import ai.koog.agents.testing.tools.getMockExecutor
+import ai.koog.agents.testing.tools.mockLLMAnswer
+
+val executor = 
+-->
 ```kotlin
 getMockExecutor {
     mockLLMAnswer("Response A") onRequestContains "topic A"
@@ -573,6 +1138,7 @@ getMockExecutor {
     mockLLMAnswer("Conditional response") onCondition { it.contains("keyword") && it.length > 10 }
 }
 ```
+<!--- KNIT example-testing-18.kt -->
 
 ### 故障排除
 

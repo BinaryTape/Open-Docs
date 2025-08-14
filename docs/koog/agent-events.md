@@ -35,41 +35,64 @@ EventHandler 特性通过 `EventHandler` 类集成到 Agent 工作流中，该�
 
 要为 Agent 安装该特性并配置事件处理程序，请执行以下操作：
 
+<!--- INCLUDE
+import ai.koog.agents.core.agent.AIAgent
+import ai.koog.agents.features.eventHandler.feature.handleEvents
+import ai.koog.prompt.executor.llms.all.simpleOllamaAIExecutor
+import ai.koog.prompt.llm.OllamaModels
+
+val agent = AIAgent(
+    executor = simpleOllamaAIExecutor(),
+    llmModel = OllamaModels.Meta.LLAMA_3_2,
+) {
+-->
+<!--- SUFFIX 
+} 
+-->
+
 ```kotlin
-{
-    install(EventHandler){
-        // Define event handlers here
-        onToolCall = { stage, tool, toolArgs ->
-            // Handle tool call event
-        }
-
-        onAgentFinished = { strategyName, result ->
-            // Handle event triggered when the agent completes its execution
-        }
-
-        // Define other event handlers
+handleEvents {
+    // 处理工具调用
+    onToolCall { eventContext ->
+        println("Tool called: ${eventContext.tool} with args ${eventContext.toolArgs}")
     }
+    // 处理 Agent 完成执行时触发的事件
+    onAgentFinished { eventContext ->
+        println("Agent finished with result: ${eventContext.result}")
+    }
+
+    // 其他事件处理程序
 }
 ```
+<!--- KNIT example-events-01.kt -->
 
 有关事件处理程序配置的更多详情，请参见 [API reference](https://api.koog.ai/agents/agents-features/agents-features-event-handler/ai.koog.agents.local.features.eventHandler.feature/-event-handler-config/index.html)。
 
 您还可以在创建 Agent 时使用 `handleEvents` 扩展函数来设置事件处理程序。此函数还会安装事件处理程序特性并为 Agent 配置事件处理程序。以下是一个示例：
 
+<!--- INCLUDE
+import ai.koog.agents.core.agent.AIAgent
+import ai.koog.agents.features.eventHandler.feature.handleEvents
+import ai.koog.prompt.executor.llms.all.simpleOllamaAIExecutor
+import ai.koog.prompt.llm.OllamaModels
+-->
 ```kotlin
 val agent = AIAgent(
-    // Initialization options
+    executor = simpleOllamaAIExecutor(),
+    llmModel = OllamaModels.Meta.LLAMA_3_2,
 ){
     handleEvents {
-        // Handle tool calls
-        onToolCall = { stage, tool, toolArgs ->
-            println("Tool called: ${tool.name} with args $toolArgs")
+        // 处理工具调用
+        onToolCall { eventContext ->
+            println("Tool called: ${eventContext.tool} with args ${eventContext.toolArgs}")
         }
-        // Handle event triggered when the agent completes its execution
-        onAgentFinished = { strategyName, result ->
-            println("Agent finished with result: $result")
+        // 处理 Agent 完成执行时触发的事件
+        onAgentFinished { eventContext ->
+            println("Agent finished with result: ${eventContext.result}")
         }
 
-        // Other event handlers
+        // 其他事件处理程序
     }
 }
+```
+<!--- KNIT example-events-02.kt -->

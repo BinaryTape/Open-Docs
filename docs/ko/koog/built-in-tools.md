@@ -14,22 +14,36 @@ Koog 프레임워크는 에이전트와 사용자 간의 일반적인 상호작�
 
 다른 모든 도구와 마찬가지로, 내장 도구는 에이전트가 사용할 수 있도록 도구 레지스트리에 추가되어야 합니다. 다음은 예시입니다:
 
+<!--- INCLUDE
+import ai.koog.agents.core.agent.AIAgent
+import ai.koog.agents.core.tools.ToolRegistry
+import ai.koog.agents.ext.tool.SayToUser
+import ai.koog.agents.ext.tool.AskUser
+import ai.koog.agents.ext.tool.ExitTool
+import ai.koog.prompt.executor.clients.openai.OpenAIModels
+import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
+
+const val apiToken = ""
+
+-->
 ```kotlin
-// Create a tool registry with all built-in tools
+// 모든 내장 도구를 포함하는 도구 레지스트리 생성
 val toolRegistry = ToolRegistry {
-    tool(SayToUser())
-    tool(AskUser())
-    tool(ExitTool())
+    tool(SayToUser)
+    tool(AskUser)
+    tool(ExitTool)
 }
 
-// Pass the registry when creating an agent
+// 에이전트 생성 시 레지스트리 전달
 val agent = AIAgent(
     executor = simpleOpenAIExecutor(apiToken),
     systemPrompt = "You are a helpful assistant.",
     llmModel = OpenAIModels.Chat.GPT4o,
     toolRegistry = toolRegistry
 )
+
 ```
+<!--- KNIT example-built-in-tools-01.kt -->
 
 내장 도구와 커스텀 도구를 동일한 레지스트리에서 결합하여 에이전트의 포괄적인 기능 세트를 만들 수 있습니다.
-커스텀 도구에 대해 더 자세히 알아보려면 [어노테이션 기반 도구](annotation-based-tools.md) 및 [고급 구현](advanced-tool-implementation.md)을 참조하세요.
+커스텀 도구에 대해 더 자세히 알아보려면 [어노테이션 기반 도구](annotation-based-tools.md) 및 [클래스 기반 도구](class-based-tools.md)를 참조하세요.

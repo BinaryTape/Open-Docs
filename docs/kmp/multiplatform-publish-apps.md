@@ -2,7 +2,7 @@
 
 一旦您的应用程序准备好发布，就可以将其交付给用户。
 
-对于移动应用程序，每个平台都有多个应用商店可用。然而，在本文中，我们将重点关注官方商店：[Google Play Store](https://play.google.com/store) 和 [Apple App Store](https://www.apple.com/ios/app-store/)。对于 Web 应用程序，我们将使用 [GitHub Pages](https://pages.github.com/)。
+对于移动应用程序，每个平台都有多个应用商店可用。然而，在本文中，我们将重点关注官方商店：[Google Play Store](https://play.google.com/store) 和 [Apple App Store](https://www.apple.com/ios/app-store/)。对于 Web 应用程序，我们将使用 [GitHub pages](https://pages.github.com/)。
 
 您将学习如何准备 Kotlin Multiplatform 应用程序以进行发布，我们将重点介绍此过程中值得特别注意的部分。
 
@@ -30,7 +30,7 @@ Kotlin Multiplatform 项目的特殊之处在于将共享 Kotlin 模块编译成
 *   使用 [Kotlin CocoaPods Gradle plugin](multiplatform-cocoapods-overview.md)，它允许您在 iOS 项目中使用带有原生目标的 Multiplatform 项目作为 CocoaPods 依赖项。
 *   手动配置您的 Multiplatform 项目以创建 iOS 框架，并配置 Xcode 项目以获取其最新版本。
     Kotlin Multiplatform 向导或 Kotlin Multiplatform plugin for Android Studio 通常会完成此配置。
-    有关如何直接在 Xcode 中添加框架的说明，请参阅[将框架连接到您的 iOS 项目](multiplatform-integrate-in-existing-app.md#configure-the-ios-project-to-use-a-kmp-framework)。
+    有关如何在 Xcode 中直接添加框架的说明，请参阅[将框架连接到您的 iOS 项目](multiplatform-integrate-in-existing-app.md#configure-the-ios-project-to-use-a-kmp-framework)。
 
 ### 配置您的 iOS 应用程序
 
@@ -55,11 +55,11 @@ Kotlin Multiplatform 项目的特殊之处在于将共享 Kotlin 模块编译成
 
 ### 符号化崩溃报告
 
-为了帮助开发者改进其应用程序，iOS 提供了一种分析应用程序崩溃的方法。为了进行详细的崩溃分析，它使用特殊的调试符号 (`.dSYM`) 文件，将崩溃报告中的内存地址与源代码中的位置（例如函数或行号）进行匹配。
+为了帮助开发者改进其应用程序，iOS 提供了一种分析应用程序崩溃的方法。为了进行详细的崩溃分析，它使用特殊的调试符号（`.dSYM`）文件，将崩溃报告中的内存地址与源代码中的位置（例如函数或行号）进行匹配。
 
 默认情况下，从共享 Kotlin 模块生成的 iOS 框架的发布版本都附带一个 `.dSYM` 文件。这有助于您分析共享模块代码中发生的崩溃。
 
-当 iOS 应用程序从 bitcode 重建时，其 `dSYM` 文件将失效。对于这种情况，您可以将共享模块编译为静态框架，该框架将调试信息存储在自身内部。有关设置 Kotlin 模块生成的二进制文件崩溃报告符号化的说明，请参阅 [Kotlin/Native 文档](https://kotlinlang.org/docs/native-ios-symbolication.html)。
+有关崩溃报告符号化的更多信息，请参阅 [Kotlin/Native 文档](https://kotlinlang.org/docs/native-debugging.html#debug-ios-applications)。
 
 ## Web 应用程序
 

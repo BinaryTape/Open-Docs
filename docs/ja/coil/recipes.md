@@ -17,7 +17,7 @@ imageView.load("https://example.com/image.jpg") {
     listener(
         onSuccess = { _, result ->
             // Create the palette on a background thread.
-            Palette.Builder(result.drawable.toBitmap()).generate { palette ->
+            Palette.Builder(result.image.toBitmap()).generate { palette ->
                 // Consume the palette.
             }
         }
@@ -53,7 +53,7 @@ detailImageView.load("https://example.com/image.jpg") {
 
 ## 共有要素遷移 (Shared Element Transitions)
 
-[Shared element transitions](https://developer.android.com/training/transitions/start-activity) を使用すると、`Activity` と `Fragment` 間でアニメーションできます。Coilでこれらを機能させるための推奨事項をいくつか示します。
+[Shared element transitions](https://developer.android.com/training/transitions/start-activity) を使用すると、`Activities` と `Fragments` 間でアニメーションできます。Coilでこれらを機能させるための推奨事項をいくつか示します。
 
 - **Shared element transitions はハードウェアビットマップと互換性がありません。** アニメーション元とアニメーション先の両方の `ImageView` でハードウェアビットマップを無効にするには、`allowHardware(false)` を設定する必要があります。設定しない場合、遷移時に `java.lang.IllegalArgumentException: Software rendering doesn't support hardware bitmaps` 例外がスローされます。
 
@@ -75,13 +75,13 @@ class RemoteViewsTarget(
     @IdRes private val imageViewResId: Int
 ) : Target {
 
-    override fun onStart(placeholder: Image?) = setDrawable(placeholder)
+    override fun onStart(placeholder: Image?) = setImage(placeholder)
 
-    override fun onError(error: Image?) = setDrawable(error)
+    override fun onError(error: Image?) = setImage(error)
 
-    override fun onSuccess(result: Image) = setDrawable(result)
+    override fun onSuccess(result: Image) = setImage(result)
 
-    private fun setDrawable(image: Image?) {
+    private fun setImage(image: Image?) {
         remoteViews.setImageViewBitmap(imageViewResId, image?.toBitmap())
         AppWidgetManager.getInstance(context).updateAppWidget(componentName, remoteViews)
     }
@@ -177,6 +177,6 @@ class UrlSizeInterceptor : Interceptor {
 ```kotlin
 ImageLoader.Builder(context)
     .components {
-        add(FastlyCoilInterceptor())
+        add(UrlSizeInterceptor())
     }
     .build()

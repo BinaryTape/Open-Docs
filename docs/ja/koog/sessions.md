@@ -44,6 +44,16 @@ Koogフレームワークは2種類のセッションを提供します。
 
 セッションは `AIAgentLLMContext` クラスの拡張関数を使用して作成されます。
 
+<!--- INCLUDE
+import ai.koog.agents.core.dsl.builder.strategy
+
+val strategy = strategy<Unit, Unit>("strategy-name") {
+    val node by node<Unit, Unit> {
+-->
+<!--- SUFFIX
+   }
+}
+-->
 ```kotlin
 // Creating a write session
 llm.writeSession {
@@ -55,6 +65,7 @@ llm.readSession {
     // Session code here
 }
 ```
+<!--- KNIT example-sessions-01.kt -->
 
 これらの関数は、セッションのコンテキスト内で実行されるラムダブロックを受け取ります。ブロックが完了すると、セッションは自動的に閉じられます。
 
@@ -72,15 +83,39 @@ llm.readSession {
 
 セッション内では、プロンプトとツールにアクセスできます。
 
+<!--- INCLUDE
+import ai.koog.agents.core.dsl.builder.strategy
+
+val strategy = strategy<Unit, Unit>("strategy-name") {
+    val node by node<Unit, Unit> {
+-->
+<!--- SUFFIX
+   }
+}
+-->
 ```kotlin
 llm.readSession {
     val messageCount = prompt.messages.size
     val availableTools = tools.map { it.name }
 }
 ```
+<!--- KNIT example-sessions-02.kt -->
 
 書き込みセッションでは、これらのプロパティを変更することもできます。
 
+<!--- INCLUDE
+import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.tools.ToolDescriptor
+
+val newTools = listOf<ToolDescriptor>()
+
+val strategy = strategy<Unit, Unit>("strategy-name") {
+    val node by node<Unit, Unit> {
+-->
+<!--- SUFFIX
+   }
+}
+-->
 ```kotlin
 llm.writeSession {
     // Modify the prompt
@@ -92,6 +127,8 @@ llm.writeSession {
     tools = newTools
 }
 ```
+<!--- KNIT example-sessions-03.kt -->
+
 詳細については、[AIAgentLLMReadSession](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.agent.session/-a-i-agent-l-l-m-read-session/index.html) および [AIAgentLLMWriteSession](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.agent.session/-a-i-agent-l-l-m-write-session/index.html) の詳細なAPIリファレンスを参照してください。
 
 ## LLMリクエストの作成
@@ -112,6 +149,16 @@ LLMリクエストを行うための最も一般的なメソッドは次のと�
 
 例:
 
+<!--- INCLUDE
+import ai.koog.agents.core.dsl.builder.strategy
+
+val strategy = strategy<Unit, Unit>("strategy-name") {
+    val node by node<Unit, Unit> {
+-->
+<!--- SUFFIX
+   }
+}
+-->
 ```kotlin
 llm.writeSession {
     // Make a request with tools enabled
@@ -124,6 +171,7 @@ llm.writeSession {
     val responses = requestLLMMultiple()
 }
 ```
+<!--- KNIT example-sessions-04.kt -->
 
 ### リクエストの仕組み
 
@@ -138,6 +186,17 @@ LLMリクエストは、リクエストメソッドのいずれかを明示的�
 
 ツールが有効な状態でリクエストを行うと、LLMはテキスト応答の代わりにツール呼び出しで応答する場合があります。リクエストメソッドはこれを透過的に処理します。
 
+<!--- INCLUDE
+import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.prompt.message.Message
+
+val strategy = strategy<Unit, Unit>("strategy-name") {
+    val node by node<Unit, Unit> {
+-->
+<!--- SUFFIX
+   }
+}
+-->
 ```kotlin
 llm.writeSession {
     val response = requestLLM()
@@ -150,6 +209,7 @@ llm.writeSession {
     }
 }
 ```
+<!--- KNIT example-sessions-05.kt -->
 
 実際には、エージェントグラフがこのルーティングを自動的に処理するため、通常は応答タイプを手動で確認する必要はありません。
 
@@ -165,10 +225,21 @@ llm.writeSession {
 
 例:
 
+<!--- INCLUDE
+import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.example.exampleParallelNodeExecution07.JokeRating
+
+val strategy = strategy<Unit, Unit>("strategy-name") {
+    val node by node<Unit, Unit> {
+-->
+<!--- SUFFIX
+   }
+}
+-->
 ```kotlin
 llm.writeSession {
     // Make a structured request
-    val structuredResponse = requestLLMStructured(myStructure)
+    val structuredResponse = requestLLMStructured<JokeRating>()
 
     // Make a streaming request
     val responseStream = requestLLMStreaming()
@@ -177,6 +248,7 @@ llm.writeSession {
     }
 }
 ```
+<!--- KNIT example-sessions-06.kt -->
 
 ## 会話履歴の管理
 
@@ -184,6 +256,26 @@ llm.writeSession {
 
 書き込みセッションでは、`updatePrompt` メソッドを使用してプロンプト（会話履歴）を更新できます。
 
+<!--- INCLUDE
+import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.prompt.message.Message
+import ai.koog.prompt.message.RequestMetaInfo
+import kotlinx.datetime.Clock
+
+val myToolResult = Message.Tool.Result(
+    id = "",
+    tool = "",
+    content = "",
+    metaInfo = RequestMetaInfo(Clock.System.now())
+)
+
+val strategy = strategy<Unit, Unit>("strategy-name") {
+    val node by node<Unit, Unit> {
+-->
+<!--- SUFFIX
+   }
+}
+-->
 ```kotlin
 llm.writeSession {
     updatePrompt {
@@ -203,9 +295,23 @@ llm.writeSession {
     }
 }
 ```
+<!--- KNIT example-sessions-07.kt -->
 
 また、`rewritePrompt` メソッドを使用してプロンプトを完全に書き換えることもできます。
 
+<!--- INCLUDE
+import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.prompt.message.Message
+
+val filteredMessages = emptyList<Message>()
+
+val strategy = strategy<Unit, Unit>("strategy-name") {
+    val node by node<Unit, Unit> {
+-->
+<!--- SUFFIX
+   }
+}
+-->
 ```kotlin
 llm.writeSession {
     rewritePrompt { oldPrompt ->
@@ -214,11 +320,22 @@ llm.writeSession {
     }
 }
 ```
+<!--- KNIT example-sessions-08.kt -->
 
 ### 応答時の履歴自動更新
 
 書き込みセッションでLLMリクエストを行うと、応答は会話履歴に自動的に追加されます。
 
+<!--- INCLUDE
+import ai.koog.agents.core.dsl.builder.strategy
+
+val strategy = strategy<Unit, Unit>("strategy-name") {
+    val node by node<Unit, Unit> {
+-->
+<!--- SUFFIX
+   }
+}
+-->
 ```kotlin
 llm.writeSession {
     // Add a user message
@@ -232,6 +349,7 @@ llm.writeSession {
     // The prompt now includes both the user message and the model's response
 }
 ```
+<!--- KNIT example-sessions-09.kt -->
 
 この自動履歴更新は書き込みセッションの主要な機能であり、会話が自然に流れることを保証します。
 
@@ -239,12 +357,25 @@ llm.writeSession {
 
 長時間実行される会話では、履歴が大きくなり、多くのトークンを消費する可能性があります。このプラットフォームは履歴を圧縮するためのメソッドを提供します。
 
+<!--- INCLUDE
+import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.extension.HistoryCompressionStrategy
+import ai.koog.agents.core.dsl.extension.replaceHistoryWithTLDR
+
+val strategy = strategy<Unit, Unit>("strategy-name") {
+    val node by node<Unit, Unit> {
+-->
+<!--- SUFFIX
+   }
+}
+-->
 ```kotlin
 llm.writeSession {
     // Compress the history using a TLDR approach
     replaceHistoryWithTLDR(HistoryCompressionStrategy.WholeHistory, preserveMemory = true)
 }
 ```
+<!--- KNIT example-sessions-10.kt -->
 
 また、戦略グラフの `nodeLLMCompressHistory` ノードを使用して、特定のポイントで履歴を圧縮することもできます。
 
@@ -266,6 +397,22 @@ llm.writeSession {
 
 例:
 
+<!--- INCLUDE
+import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.ext.tool.AskUser
+
+val myTool = AskUser
+val myArgs = AskUser.Args("this is a string")
+
+typealias MyTool = AskUser
+
+val strategy = strategy<Unit, Unit>("strategy-name") {
+    val node by node<Unit, Unit> {
+-->
+<!--- SUFFIX
+   }
+}
+-->
 ```kotlin
 llm.writeSession {
     // Call a tool by reference
@@ -281,11 +428,29 @@ llm.writeSession {
     val rawResult = callToolRaw("myToolName", myArgs)
 }
 ```
+<!--- KNIT example-sessions-11.kt -->
 
 ### 並行ツール実行
 
 複数のツールを並行して実行するために、書き込みセッションは `Flow` の拡張関数を提供します。
 
+<!--- INCLUDE
+import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.ext.tool.AskUser
+import kotlinx.coroutines.flow.flow
+
+typealias MyTool = AskUser
+
+val data = ""
+fun parseDataToArgs(data: String) = flow { emit(AskUser.Args(data)) }
+
+val strategy = strategy<Unit, Unit>("strategy-name") {
+    val node by node<Unit, Unit> {
+-->
+<!--- SUFFIX
+   }
+}
+-->
 ```kotlin
 llm.writeSession {
     // Run tools in parallel
@@ -299,6 +464,7 @@ llm.writeSession {
     }
 }
 ```
+<!--- KNIT example-sessions-12.kt -->
 
 これは、大量のデータを効率的に処理するのに役立ちます。
 
@@ -332,11 +498,24 @@ LLMセッションを操作する際は、次のベストプラクティスに�
 
 履歴が大きくなりすぎて多くのトークンを消費する場合、履歴圧縮技術を使用してください。
 
+<!--- INCLUDE
+import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.extension.HistoryCompressionStrategy
+import ai.koog.agents.core.dsl.extension.replaceHistoryWithTLDR
+
+val strategy = strategy<Unit, Unit>("strategy-name") {
+    val node by node<Unit, Unit> {
+-->
+<!--- SUFFIX
+   }
+}
+-->
 ```kotlin
 llm.writeSession {
     replaceHistoryWithTLDR(HistoryCompressionStrategy.FromLastNMessages(10), preserveMemory = true)
 }
 ```
+<!--- KNIT example-sessions-13.kt -->
 
 詳細については、[履歴の圧縮](history-compression.md) を参照してください。
 
