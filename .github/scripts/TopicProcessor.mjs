@@ -285,7 +285,7 @@ export function fetchSnippet(snippetsPath, srcPath, include_lines) {
         codeText = fs.readFileSync(snippetFile, 'utf8');
     } catch (e) {
         console.error('Failed loading snippet', srcPath, e);
-        return;
+        return '';
     }
 
     if (include_lines.length > 0) {

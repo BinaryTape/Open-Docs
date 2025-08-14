@@ -30,7 +30,7 @@ export const ktorStrategy = {
         console.log(`  Process markdown files finished - ${repoPath}`);
 
         console.log(` Running Ktor postSync: Convert topic files - ${repoPath}`);
-        const topicFiles = docs.filter(doc => doc.endsWith(".topic")); // exclude lib.topic !!!
+        const topicFiles = docs.filter(doc => doc.endsWith(".topic") && !doc.startsWith('lib'));
         for (const topic in topicFiles) {
             const topicPath = path.join(docsPath, topicFiles[topic]);
             await processTopicFile(topicPath, docsPath, true)
