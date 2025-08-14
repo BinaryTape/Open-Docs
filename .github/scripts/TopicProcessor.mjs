@@ -137,7 +137,9 @@ export function processTopicContent(docsPath, topicContent) {
                 return match;
             }
 
-            if (href.includes('#')) {
+            if (href.startsWith('#')) {
+                return match;
+            } else if (href.includes('#')) {
                 const topicPath = path.join(docsPath, href.split('#')[0]);
                 inner = getChapterTitle(topicPath, href.split('#')[1]);
                 return `<a href="${href}">${inner}</a>`;
@@ -157,7 +159,7 @@ export function processTopicContent(docsPath, topicContent) {
     // 1) Transform self-closing <code-block src="..." include-lines="..."/>
     topicContent = topicContent.replace(
         /<code-block\b([^>]*?)\s+src="([^"]+)"([^>]*)\/>/gi,
-        (match, beforeAttrs, srcPath, afterAttrs) => {
+        async (match, beforeAttrs, srcPath, afterAttrs) => {
 
             let ranges = [];
             // apply include-lines if present
@@ -167,7 +169,7 @@ export function processTopicContent(docsPath, topicContent) {
             }
 
             const snippetsPath = path.join(docsPath.split('/')[0], 'codeSnippets');
-            let codeText = fetchSnippet(snippetsPath, srcPath, ranges);
+            let codeText = await fetchSnippet(snippetsPath, srcPath, ranges);
 
             // trim blank lines
             codeText = codeText.replace(/^\s*\n/, '').replace(/\n\s*$/, '');
@@ -192,7 +194,7 @@ export function processTopicContent(docsPath, topicContent) {
 
     topicContent = topicContent.replace(
         /<code-block\b(?![^>]*\/>)\s*([^>]*)>([\s\S]*?)<\/code-block>/gi,
-        (match, rawAttrs, inner) => {
+        async (match, rawAttrs, inner) => {
 
             if (/\s+code="[\s\S]*?"/.test(rawAttrs)) {
                 return match;
@@ -204,7 +206,7 @@ export function processTopicContent(docsPath, topicContent) {
                 const include_lines = /include-lines="([^"]+)"/.exec(rawAttrs);
                 const ranges = include_lines ? include_lines[1].split(',') : [];
                 const snippetsPath = path.join(docsPath.split('/')[0], "codeSnippets");
-                rawCode = fetchSnippet(snippetsPath, src[1], ranges);
+                rawCode = await fetchSnippet(snippetsPath, src[1], ranges);
                 rawAttrs = rawAttrs.replace(/\s+src="[^"]+"/, '')
                     .replace(/\s+include-lines="[^"]+"/, '')
                     .trim();
@@ -277,15 +279,29 @@ function removeSingleIndention(content) {
     return dedentedLines.join('\n');
 }
 
-export function fetchSnippet(snippetsPath, srcPath, include_lines) {
-    // load external file
+export async function fetchSnippet(snippetsPath, srcPath, include_lines) {
+    // load external file //http file
     let codeText;
-    try {
-        const snippetFile = path.join(snippetsPath, srcPath);
-        codeText = fs.readFileSync(snippetFile, 'utf8');
-    } catch (e) {
-        console.error('Failed loading snippet', srcPath, e);
-        return '';
+
+    if (srcPath.startsWith('http')) {
+        try {
+            if (typeof fetch === "function") {
+                const res = await fetch(srcPath, {redirect: "follow"});
+                if (!res.ok) throw new Error(`HTTP ${res.status} ${res.statusText}`);
+                codeText = await res.text();
+            }
+        } catch (e) {
+            console.warn("Unable to load snippet from URL.", srcPath, e?.message || e);
+            return "";
+        }
+    } else {
+        try {
+            const snippetFile = path.join(snippetsPath, srcPath);
+            codeText = fs.readFileSync(snippetFile, 'utf8');
+        } catch (e) {
+            console.warn('Unable to load snippet from file.', srcPath);
+            return '';
+        }
     }
 
     if (include_lines.length > 0) {

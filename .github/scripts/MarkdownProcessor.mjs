@@ -12,7 +12,7 @@ export function processMarkdownFile(filePath) {
 export function processMarkdownContent(filePath, content) {
     content = content.replace(
         /```([^\n`]*)\n(\s*)```(?:\s*\n)?(\s*)\{([^}]*)\}/gm,
-        (_, language, indent, endIndent, attr) => {
+        async (_, language, indent, endIndent, attr) => {
             if (/\bsrc=/i.test(attr)) {
                 const src = /src="([^"]+)"/.exec(attr);
 
@@ -20,7 +20,7 @@ export function processMarkdownContent(filePath, content) {
                 const ranges = include_lines ? include_lines[1].split(',') : [];
                 const snippetsPath = path.join(filePath.split('/')[0], "codeSnippets");
 
-                let code = fetchSnippet(snippetsPath, src[1], ranges);
+                let code = await fetchSnippet(snippetsPath, src[1], ranges);
                 let lines = code.split("\n");
 
                 const minIndent = Math.min(
