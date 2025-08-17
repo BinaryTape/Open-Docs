@@ -358,3 +358,20 @@ img[type="joined"] {
   margin-top: 0;
   margin-bottom: 0;
 }
+
+.vp-doc blockquote {
+  border-color: var(--vp-custom-block-note-border);
+  color: var(--vp-custom-block-note-text);
+  background-color: var(--vp-custom-block-note-bg);
+  border: 1px solid transparent;
+  border-radius: 8px;
+  padding: 8px 16px;
+  margin: 16px 0;
+  line-height: 24px;
+}
+
+.vp-doc blockquote p {
+  font-size: var(--vp-custom-block-font-size);
+  margin: 8px 0;
+  line-height: 24px;
+}
