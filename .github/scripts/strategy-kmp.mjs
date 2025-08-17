@@ -2,7 +2,7 @@ import {defaultStrategy} from "./strategy.mjs";
 import {copyFlatten} from "./fsUtils.mjs";
 import path from "path";
 import fs from "fs-extra";
-import {processTopicFile} from "./TopicProcessor.mjs";
+import {processTopicFileAsync} from "./TopicProcessor.mjs";
 import {generateSidebar} from "./SidebarProcessor.mjs";
 
 export const kmpStrategy = {
@@ -29,7 +29,7 @@ export const kmpStrategy = {
         const topicFiles = docs.filter(doc => doc.endsWith(".topic"));
         for (const topic in topicFiles) {
             const topicPath = path.join(docsPath, topicFiles[topic]);
-            await processTopicFile(topicPath, docsPath)
+            await processTopicFileAsync(topicPath, docsPath)
             await fs.remove(topicPath);
         }
         console.log(`  Convert topic files finished - ${repoPath}`);

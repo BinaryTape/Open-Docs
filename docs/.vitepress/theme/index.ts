@@ -52,6 +52,8 @@ export default {
     app.component('tldr', TLDR)
     app.component('tabs', Tabs)
     app.component('tab', Tab)
+    app.component('Tabs', Tabs)
+    app.component('TabItem', Tab)
     app.component('code-block', CodeBlock)
 
     app.component('topic', Topic)

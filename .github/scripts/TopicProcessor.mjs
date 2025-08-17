@@ -1,23 +1,35 @@
 import fs from "fs";
 import path from "path";
 
-/**
- * Topic Processor
- * Extracts content from <topic> tags in .topic files and saves it to markdown files
- *
- * @param {string} inputFile - Input file path
- * @param {string} outputPath - Output file path
- * @param isKtor
- */
-export function processTopicFile(inputFile, outputPath, isKtor = false) {
-    // Read the .topic file content
-    fs.readFile(inputFile, 'utf8', (err, data) => {
-        if (err) {
-            console.error('Failed to read file:', err);
-            return;
-        }
+export async function replaceAsync(str, regex, asyncReplacer) {
+    const matches = [];
+    let match;
 
-        // Use regex to match <topic> tag and its content
+    regex.lastIndex = 0;
+
+    while ((match = regex.exec(str)) !== null) {
+        matches.push({
+            match: match[0],
+            index: match.index,
+            groups: match.slice(1)
+        });
+
+        if (!regex.global) break;
+    }
+
+    for (let i = matches.length - 1; i >= 0; i--) {
+        const matchInfo = matches[i];
+        const replacement = await asyncReplacer(matchInfo.match, ...matchInfo.groups);
+        str = str.substring(0, matchInfo.index) + replacement + str.substring(matchInfo.index + matchInfo.match.length);
+    }
+
+    return str;
+}
+
+export async function processTopicFileAsync(inputFile, outputPath, isKtor = false) {
+    try {
+        const data = await fs.promises.readFile(inputFile, 'utf8');
+
         const match = data.match(/<topic\s*([^>]*)>([\s\S]*?)<\/topic>/);
         if (match) {
             let topicContent = match[0];
@@ -28,46 +40,48 @@ export function processTopicFile(inputFile, outputPath, isKtor = false) {
             }
 
             if (isKtor) {
-                topicContent = processTopicContent(outputPath, topicContent)
+                topicContent = await processTopicContentAsync(inputFile, outputPath, topicContent);
             }
 
             // Remove any empty lines from the extracted topic content
             topicContent = topicContent
-                .split(/\r?\n/)       // split into lines
-                .filter(line => line.trim() !== '') // keep non-blank lines
-                .join('\n');          // join back without blanks
+                .split(/\r?\n/)
+                .filter(line => line.trim() !== '')
+                .join('\n');
 
             if (topicContent.includes('<section-starting-page>')) {
-                topicContent = "---\naside: false\n---\n" + topicContent
+                topicContent = "---\naside: false\n---\n" + topicContent;
             }
 
             const inputFileName = path.basename(inputFile).replace('.topic', '');
             const outputFile = path.join(outputPath, `${inputFileName}.md`);
 
-            // Write the extracted content to the output file
-            fs.writeFile(outputFile, topicContent, (err) => {
-                if (err) {
-                    console.error('Failed to write file:', err);
-                } else {
-                    console.log(`Successfully exported <topic> content to ${outputFile}`);
-                }
-            });
+            await fs.promises.writeFile(outputFile, topicContent);
+            console.log(`Successfully exported <topic> content to ${outputFile}`);
         } else {
             console.log('No <topic> tag found');
         }
-    });
+    } catch (err) {
+        console.error('Failed to process topic file:', err);
+    }
 }
 
-export function processTopicContent(docsPath, topicContent) {
-    const docName = docsPath.split('/')[0].split('-')[0]
-    const docRoot = `/${docName}/`
+export async function processTopicContentAsync(currentFilePath, docsPath, topicContent) {
+    const docName = docsPath.split('/')[0].split('-')[0];
+    const docRoot = `/${docName}/`;
 
     function docHref(href) {
-        return `${docRoot}${href.split('.')[0]}`
+        return `${docRoot}${href.split('.')[0]}`;
     }
 
-    // Replace <path> tags
-    topicContent = topicContent.replace(/<path>([\s\S]*?)<\/path>/g, '<Path>$1</Path>');
+    topicContent = topicContent.replace(
+        /<path>([\s\S]*?)<\/path>/g,
+        (match, content) => {
+            const escapedContent = content.replace(/\\/g, "\\\\");
+
+            return `<Path>${escapedContent}</Path>`
+        }
+    );
 
     topicContent = replaceInclude(topicContent, docsPath);
 
@@ -85,7 +99,7 @@ export function processTopicContent(docsPath, topicContent) {
 
             return `<card href="${docHref(href)}" summary="${summary}">${inner}</card>`;
         }
-    )
+    );
 
     topicContent = topicContent.replace(
         /<card\b\s*([^>]*)>([\s\S]*?)<\/card>/g,
@@ -102,7 +116,7 @@ export function processTopicContent(docsPath, topicContent) {
 
             return `<card href="${docHref(href)}" summary="${summary}">${inner}</card>`;
         }
-    )
+    );
 
     topicContent = topicContent.replace(
         /<a\s*([^>]*)\/>/g,
@@ -114,14 +128,16 @@ export function processTopicContent(docsPath, topicContent) {
                 return `<a href="${href[1]}#${anchor[1]}"></a>`;
             } else if (href) {
                 return `<a href="${href[1]}"></a>`;
+            } else if (anchor) {
+                const inner = getChapterTitle(currentFilePath, anchor[1])
+                return `<a anchor="${anchor[1]}">${inner}</a>`
             }
         }
-    )
+    );
 
     topicContent = topicContent.replace(
         /<a\b\s*([^>]*)>([\s\S]*?)<\/a>/g,
         (match, attrs, inner) => {
-
             const anchor = attrs.match(/anchor="([^"]+)"/);
             if (anchor) {
                 return `<a href="#${anchor[1]}">${inner}</a>`;
@@ -156,13 +172,11 @@ export function processTopicContent(docsPath, topicContent) {
         }
     );
 
-    // 1) Transform self-closing <code-block src="..." include-lines="..."/>
-    topicContent = topicContent.replace(
+    topicContent = await replaceAsync(
+        topicContent,
         /<code-block\b([^>]*?)\s+src="([^"]+)"([^>]*)\/>/gi,
         async (match, beforeAttrs, srcPath, afterAttrs) => {
-
             let ranges = [];
-            // apply include-lines if present
             const inc = /include-lines="([^"]+)"/.exec(beforeAttrs + afterAttrs);
             if (inc) {
                 ranges = inc[1].split(',');
@@ -171,31 +185,27 @@ export function processTopicContent(docsPath, topicContent) {
             const snippetsPath = path.join(docsPath.split('/')[0], 'codeSnippets');
             let codeText = await fetchSnippet(snippetsPath, srcPath, ranges);
 
-            // trim blank lines
             codeText = codeText.replace(/^\s*\n/, '').replace(/\n\s*$/, '');
-            // escape and encode newlines
             const escaped = codeText
+                .replace(/&/g, '&amp;')
                 .replace(/</g, '&lt;')
                 .replace(/>/g, '&gt;')
-                .replace(/&/g, '&amp;')
                 .replace(/"/g, '&quot;')
                 .replace(/\n/g, '&#10;');
 
-            // rebuild attributes without src/include-lines
             const cleanAttrs = (beforeAttrs + afterAttrs)
                 .replace(/\s+src="[^"]+"/, '')
                 .replace(/\s+include-lines="[^"]+"/, '')
                 .trim();
             const space = cleanAttrs ? ' ' : '';
-            return `<code-block${space}${cleanAttrs} code="${escaped}"/>`;
+                return `<code-block${space}${cleanAttrs} code="${escaped}"/>`;
         }
     );
-    // Transform <code-block ...>...</code-block>, skipping those with src attribute
 
-    topicContent = topicContent.replace(
+    topicContent = await replaceAsync(
+        topicContent,
         /<code-block\b(?![^>]*\/>)\s*([^>]*)>([\s\S]*?)<\/code-block>/gi,
         async (match, rawAttrs, inner) => {
-
             if (/\s+code="[\s\S]*?"/.test(rawAttrs)) {
                 return match;
             }
@@ -214,73 +224,69 @@ export function processTopicContent(docsPath, topicContent) {
                 rawCode = inner.replace(/^\s*<!\[CDATA\[/, '').replace(/\]\]>\s*$/, '');
             }
 
-            // Extract raw code, handle CDATA
-            // Remove leading/trailing blank lines inside code
             rawCode = rawCode.replace(/^\s*\n/, '').replace(/\n\s*$/, '');
 
-            // Escape HTML entities and encode newlines as &#10;
             const escaped = rawCode
+                .replace(/&/g, '&amp;')
                 .replace(/</g, '&lt;')
                 .replace(/>/g, '&gt;')
-                .replace(/&/g, '&amp;')
                 .replace(/"/g, '&quot;')
                 .replace(/\n/g, '&#10;');
 
-            // Rebuild self-closing tag
             const space = rawAttrs ? ' ' : '';
             return `<code-block${space}${rawAttrs} code="${escaped}"/>`;
         }
     );
 
+    topicContent = topicContent.replace(
+        /<!\[CDATA\[([\s\S]*?)]]>/g,
+        (match, inner) => {
+            return inner
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/\n/g, '&#10;');
+        }
+    )
+
     return topicContent;
 }
 
 export function replaceInclude(source, docsPath) {
+    const includeRegex = /([ \t]*)<include\s+from="([^"]+)"\s+element-id="([^"]+)"\s*\/?>/g;
     return source.replace(
-        /<include\s+from="([^"]+)"\s+element-id="([^"]+)"\s*\/?>/g,
-        (match, from, elementId) => {
+        includeRegex,
+        (match, indention, from, elementId) => {
             let file = fs.readFileSync(`${docsPath}/${from}`, 'utf8');
+            const reg = new RegExp(`<([^\\s>]+)(?:\\s+[^>]*?)?\\s+id="${elementId}"(?:\\s+[^>]*?)?>\\n([\\s\\S]*?)(\\s*)<\\/\\1>$`, 'm'); //！！！
 
-            let reg = ''
-            if (from.endsWith('.md')) {
-                reg = new RegExp(`<([^\\s>]+)(?:\\s+[^>]*?)?\\s+id="${elementId}">([\\s\\S]*?)<\\/\\1>$`, 'm');
-                const match = file.match(reg);
-                if (match) {
-                    return removeSingleIndention(match[0]);
-                }
-            } else {
-                reg = new RegExp(`<snippet\\b[^>]*\\bid="${elementId}"[^>]*>([\\s\\S]*?)<\\/snippet>`);
-                const match = file.match(reg);
-                if (match) {
-                    return removeSingleIndention(match[1]);
-                }
+            const contentMatch = file.match(reg);
+            if (contentMatch && contentMatch[2].match(includeRegex)) {
+                return replaceInclude(contentMatch[2], docsPath);
+            } else if (contentMatch) {
+                return removeMinimalIndention(contentMatch[2], indention);
             }
         }
     );
 }
 
-function removeSingleIndention(content) {
-    const lines = content.split('\n');
+function removeMinimalIndention(content, indention) {
+    let lines = content.split('\n');
 
-    const dedentedLines = lines.map(line => {
-        if (line.trim().length === 0) {
-            return line;
-        }
+    const minIndent = Math.min(
+        ...lines.filter(line => line.trim().length > 0).map(line => {
+            const match = line.match(/^(\s*)/);
+            return match ? match[1].length : 0;
+        })
+    );
 
-        if (line.startsWith('    ')) {
-            return line.slice(4);
-        } else if (line.startsWith('\t')) {
-            return line.slice(1);
-        } else {
-            return line;
-        }
-    });
+    lines = lines.map(line => indention + line.slice(minIndent));
 
-    return dedentedLines.join('\n');
+    return lines.join('\n');
 }
 
 export async function fetchSnippet(snippetsPath, srcPath, include_lines) {
-    // load external file //http file
     let codeText;
 
     if (srcPath.startsWith('http')) {
@@ -297,7 +303,7 @@ export async function fetchSnippet(snippetsPath, srcPath, include_lines) {
     } else {
         try {
             const snippetFile = path.join(snippetsPath, srcPath);
-            codeText = fs.readFileSync(snippetFile, 'utf8');
+            codeText = await fs.promises.readFile(snippetFile, 'utf8');
         } catch (e) {
             console.warn('Unable to load snippet from file.', srcPath);
             return '';
@@ -379,8 +385,8 @@ export function getLinkSummary(fileUrl) {
         } else {
             const match = file.match(/<tldr>([\s\S]*?)<\/tldr>/);
             if (match && match[1] !== undefined) {
-                match[1] = match[1].replace(/<([\s\S]*?)>/g, '')
-                return match[1].trim();
+                match[1] = match[1].replace(/<([\s\S]*?)>/g, '');
+                return match[1].split('\n').map(line => line.trim()).filter(line => line.length > 0).join(' ');
             }
         }
     } catch (e) {

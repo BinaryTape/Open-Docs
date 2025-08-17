@@ -2,7 +2,7 @@ import {defaultStrategy} from "./strategy.mjs";
 import { copyFlatten } from "./fsUtils.mjs";
 import path from "path";
 import fs from "fs-extra";
-import {processTopicFile} from "./TopicProcessor.mjs";
+import {processTopicFileAsync} from "./TopicProcessor.mjs";
 import {generateSidebar} from "./SidebarProcessor.mjs";
 import {processMarkdownFile} from "./MarkdownProcessor.mjs";
 
@@ -33,7 +33,7 @@ export const ktorStrategy = {
         const topicFiles = docs.filter(doc => doc.endsWith(".topic") && !doc.startsWith('lib'));
         for (const topic in topicFiles) {
             const topicPath = path.join(docsPath, topicFiles[topic]);
-            await processTopicFile(topicPath, docsPath, true)
+            await processTopicFileAsync(topicPath, docsPath, true)
         }
         console.log(`  Convert topic files finished - ${repoPath}`);
 
