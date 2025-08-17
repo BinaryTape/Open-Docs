@@ -65,7 +65,7 @@ const levelClass = computed(() => props.level ? `ws-topic-title--h${props.level}
 
 <template>
   <div class="ws-topic-title" :class="levelClass">
-    <div class="ws-topic-label">
+    <div v-if="labelRef" class="ws-topic-label">
       <div class="ws-topic-label-background" :style="{ '--ws-label-background': labelBackColor }"></div>
       <span class="ws-topic-label-text" :style="{ backgroundColor: bgColor }">{{ label }}</span>
     </div>
