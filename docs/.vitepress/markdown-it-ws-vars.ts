@@ -46,24 +46,63 @@ export default function markdownItWsVars(md) {
     let out = '';
     let last = 0;
     for (let m; (m = tokenRe.exec(currentSrc)) !== null; ) {
-      out += currentSrc.slice(last, m.index);
-      last = tokenRe.lastIndex;
+      const idx = m.index;
+      const endIdx = tokenRe.lastIndex;
+
+      const lineStart = currentSrc.lastIndexOf('\n', idx - 1) + 1;
+      let lineEnd = currentSrc.indexOf('\n', endIdx);
+      if (lineEnd === -1) lineEnd = currentSrc.length;
+
+      const before = currentSrc.slice(last, idx);
 
       if (m[1] != null) {
-        variables[m[1]] = m[2];
+        const name = m[1];
+        const value = m[2] ?? '';
+        variables[name] = value;
+
+        const lineText = currentSrc.slice(lineStart, lineEnd);
+        const left = lineText.slice(0, idx - lineStart);
+        const right = lineText.slice(idx - lineStart + (endIdx - idx));
+        if ((left + right).trim() === '') {
+          out += currentSrc.slice(last, lineStart); // 保留到行首之前
+          last = lineEnd < currentSrc.length ? lineEnd + 1 : lineEnd; // 跳过整行（含换行）
+          continue;
+        }
+
+        out += before;
+        last = endIdx;
         continue;
       }
 
       if (m[3] != null) {
         const name = m[3];
-        out += Object.prototype.hasOwnProperty.call(variables, name)
-          ? String(variables[name])
-          : `%${name}%`;
+
+        if (!Object.prototype.hasOwnProperty.call(variables, name)) {
+          out += before + `%${name}%`;
+          last = endIdx;
+          continue;
+        }
+
+        const replacement = String(variables[name] ?? '');
+
+        if (replacement === '') {
+          const lineText = currentSrc.slice(lineStart, lineEnd);
+          const left = lineText.slice(0, idx - lineStart);
+          const right = lineText.slice(idx - lineStart + (endIdx - idx));
+          if ((left + right).trim() === '') {
+            out += currentSrc.slice(last, lineStart);
+            last = lineEnd < currentSrc.length ? lineEnd + 1 : lineEnd;
+            continue;
+          }
+        }
+
+        out += before + replacement;
+        last = endIdx;
         continue;
       }
     }
-    out += currentSrc.slice(last);
 
+    out += currentSrc.slice(last);
     state.src = out;
   }
 
