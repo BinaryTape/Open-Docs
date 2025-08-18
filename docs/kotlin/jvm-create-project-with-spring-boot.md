@@ -187,7 +187,8 @@ fun main(args: Array<String>) {
       <p><code>args</code> 是 `main()` 函数的形参，被声明为 String 数组。
         由于它是一个字符串数组，并且您希望将其内容传递给函数，请使用展开操作符（在数组前加上星号 <code>*</code>）。
       </p>
-   </deflist>
+   </def>
+</deflist>
 
 ## 创建控制器
 
@@ -239,7 +240,8 @@ class MessageController {
       <p><code>Hello, $name!</code> 表达式在 Kotlin 中被称为<a href="strings.md#string-templates"><i>字符串模板</i></a>。</p>
       <p>字符串模板是包含嵌入表达式的字符串字面量。</p>
       <p>这是 String 拼接操作的便捷替代方案。</p>
-   </deflist>
+   </def>
+</deflist>
 
 ## 运行应用程序
 

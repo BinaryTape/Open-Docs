@@ -1,6 +1,6 @@
 [//]: # (title: 上下文選單)
 
-Compose Multiplatform for desktop 提供了對文字上下文選單的開箱即用支援，並允許您透過新增更多項目、設定主題和自訂文字，方便地客製化任何上下文選單。
+Compose Multiplatform 桌面版提供開箱即用的文字上下文選單支援，並允許您透過新增更多項目、設定主題和自訂文字來方便地調整任何上下文選單。
 
 ## 自訂區域中的上下文選單
 
@@ -40,7 +40,7 @@ fun main() = singleWindowApplication(title = "Context menu") {
 
 ## 設定主題
 
-您可以自訂上下文選單的顏色，以建立符合系統設定的響應式 UI，並避免在應用程式之間切換時發生劇烈的對比變化。對於預設的淺色和深色主題，有兩種內建實作：`LightDefaultContextMenuRepresentation` 和 `DarkDefaultContextMenuRepresentation`。它們不會自動套用於上下文選單的顏色，因此您需要透過 `LocalContextMenuRepresentation` 設定一個合適的主題：
+您可以自訂上下文選單的顏色，以建立響應式 UI，使其與系統設定相符，並避免在應用程式之間切換時出現劇烈的對比度變化。對於預設的亮色和深色主題，有兩種內建實作：`LightDefaultContextMenuRepresentation` 和 `DarkDefaultContextMenuRepresentation`。它們不會自動應用於上下文選單的顏色，因此您需要透過 `LocalContextMenuRepresentation` 設定一個合適的主題：
 
 ```kotlin
 import androidx.compose.foundation.DarkDefaultContextMenuRepresentation
@@ -88,11 +88,11 @@ fun main() = singleWindowApplication(title = "Dark theme") {
 
 ## 本地化選單項目
 
-依預設，上下文選單將以您系統設定中的首選語言顯示：
+依預設，上下文選單將以您系統設定中的偏好語言顯示：
 
-<img src="compose-desktop-context-menu-localization.png" alt="上下文選單：語系化" width="500"/>
+<img src="compose-desktop-context-menu-localization.png" alt="上下文選單：本地化" width="500"/>
 
-如果您想使用特定語言，請在執行應用程式之前，明確地將其指定為預設語言：
+如果您想使用特定語言，請在執行應用程式之前明確地將其指定為預設語言：
 
 ```Console
 java.util.Locale.setDefault(java.util.Locale("en"))
@@ -102,10 +102,9 @@ java.util.Locale.setDefault(java.util.Locale("en"))
 
 ### 預設文字上下文選單
 
-Compose Multiplatform for desktop 為 `TextField` 和可選取 `Text` 提供了內建的上下文選單。
+Compose Multiplatform 桌面版為 `TextField` 和可選取的 `Text` 提供內建的上下文選單。
 
-文字欄位的預設上下文選單包含以下動作，具體取決於游標位置和選取範圍：複製、剪下、貼上和全選。
-此標準上下文選單預設在 Material 設計的 `TextField` (`androidx.compose.material.TextField` 或 `androidx.compose.material3.TextField`) 和 Foundation 的 `BasicTextField` (`androidx.compose.foundation.text.BasicTextField`) 中可用。
+文字欄位的預設上下文選單包含以下動作，具體取決於游標位置和選取範圍：複製、剪下、貼上和全選。這個標準上下文選單預設在 Material `TextField`（`androidx.compose.material.TextField` 或 `androidx.compose.material3.TextField`）和 Foundation `BasicTextField`（`androidx.compose.foundation.text.BasicTextField`）中可用。
 
 ```kotlin
 import androidx.compose.material.Text
@@ -127,10 +126,9 @@ fun main() = singleWindowApplication(title = "Context menu") {
 
 <img src="compose-desktop-context-menu-textfield.png" alt="TextField 的預設上下文選單" width="500"/>
 
-詳情請參閱 [API 參考](https://kotlinlang.org/api/compose-multiplatform/material3/androidx.compose.material3/-text-field.html)。
+有關詳細資訊，請參閱 [API 參考](https://kotlinlang.org/api/compose-multiplatform/material3/androidx.compose.material3/-text-field.html)。
 
-簡單文字元素的預設上下文選單僅包含複製動作。
-若要為 `Text` 元件啟用上下文選單，請將文字包裹在 `SelectionContainer` 中，使其成為可選取的：
+簡單文字元素的預設上下文選單僅包含複製動作。若要為 `Text` 元件啟用上下文選單，請將文字包裹在 `SelectionContainer` 中以使其可選取：
 
 ```kotlin
 import androidx.compose.foundation.text.selection.SelectionContainer
@@ -202,7 +200,7 @@ fun main() = singleWindowApplication(title = "Context menu") {
 
 ### 覆寫預設文字上下文選單
 
-若要覆寫文字欄位和可選取文字元素的預設上下文選單，請覆寫 `TextContextMenu` 介面。在以下程式碼範例中，我們重複使用原始的 `TextContextMenu`，但在清單底部新增了一個額外項目。新項目會根據文字選取範圍進行調整：
+若要覆寫文字欄位和可選取文字元素的預設上下文選單，請覆寫 `TextContextMenu` 介面。在以下程式碼範例中，我們重用了原始的 `TextContextMenu`，但在列表底部新增了一個額外項目。新項目會根據文字選取進行調整：
 
 ```kotlin
 import androidx.compose.foundation.ContextMenuDataProvider
@@ -280,7 +278,7 @@ private fun AnnotatedString.crop() = if (length <= 5) toString() else "${take(5)
 
 ### Swing 互通性
 
-如果您要將 Compose 程式碼嵌入現有的 Swing 應用程式中，並且需要上下文選單與應用程式其他部分的外觀和行為相符，您可以使用 `JPopupTextMenu` 類別。在此類別中，`LocalTextContextMenu` 使用 Swing 的 `JPopupMenu` 作為 Compose 元件中的上下文選單。
+如果您將 Compose 程式碼嵌入到現有的 Swing 應用程式中，並需要上下文選單與應用程式的其他部分外觀和行為保持一致，您可以使用 `JPopupTextMenu` 類別。在此類別中，`LocalTextContextMenu` 使用 Swing 的 `JPopupMenu` 來處理 Compose 元件中的上下文選單。
 
 ```kotlin
 import androidx.compose.foundation.ExperimentalFoundationApi
@@ -408,6 +406,6 @@ private fun circleIcon(color: Color) = object : Icon {
 
 <img src="compose-desktop-context-menu-swing.png" alt="上下文選單：Swing 互通性" width="500"/>
 
-## 接下來
+## 下一步
 
 探索有關 [其他桌面元件](https://github.com/JetBrains/compose-multiplatform/tree/master/tutorials#desktop) 的教學。

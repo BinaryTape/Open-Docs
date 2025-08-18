@@ -35,11 +35,6 @@ const rewiteOptions: RewriteLinkOptions = {
       return `/kotlin/${fileName}`
     }
 
-    if (docType === 'ktor' && (href.endsWith('.png') || href.endsWith('.svg') || href.endsWith('.jpeg') || href.endsWith('.jpg') || href.endsWith('.gif'))) {
-      const fileName = path.basename(href)
-      return `/ktor/${fileName}`
-    }
-
     if (docType === 'sqldelight' && (href.endsWith('.png') || href.endsWith('.svg') || href.endsWith('.gif'))) {
       const fileName = path.basename(href)
       return `/sqldelight/${fileName}`
@@ -72,7 +67,7 @@ const rewiteOptions: RewriteLinkOptions = {
       href = href.replace('/docs', '')
     }
 
-    if ((docType === 'kotlin' || docType === 'ktor') && href.includes('.md')) {
+    if ((docType === 'kotlin') && href.includes('.md')) {
       href = href.replace('.md', '')
       href = `/${href}`
     }

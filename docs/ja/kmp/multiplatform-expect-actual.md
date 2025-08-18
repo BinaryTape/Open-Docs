@@ -1,65 +1,65 @@
-[//]: # (title: ExpectedとActualの宣言)
+[//]: # (title: Expected と Actual 宣言)
 
-ExpectedとActualの宣言を使用すると、Kotlin Multiplatformモジュールからプラットフォーム固有のAPIにアクセスできます。共通コードでプラットフォームに依存しないAPIを提供できます。
+Expected と Actual 宣言を使用すると、Kotlin Multiplatform モジュールからプラットフォーム固有の API にアクセスできます。共通コードでプラットフォームに依存しない API を提供できます。
 
-> この記事では、ExpectedとActualの宣言の言語メカニズムについて説明します。プラットフォーム固有のAPIを使用するさまざまな方法に関する一般的な推奨事項については、「[プラットフォーム固有のAPIの使用](multiplatform-connect-to-apis.md)」を参照してください。
+> この記事では、Expected と Actual 宣言の言語メカニズムについて説明します。プラットフォーム固有の API を使用するさまざまな方法に関する一般的な推奨事項については、[プラットフォーム固有の API の使用](multiplatform-connect-to-apis.md)を参照してください。
 >
 {style="tip"}
 
-## ExpectedとActualの宣言のルール
+## Expected と Actual 宣言のルール
 
-ExpectedとActualの宣言を定義するには、以下のルールに従います。
+Expected と Actual 宣言を定義するには、次のルールに従います。
 
-1.  共通ソースセットで、標準的なKotlinの構成要素を宣言します。これは、関数、プロパティ、クラス、インターフェース、列挙型、またはアノテーションです。
-2.  この構成要素を`expect`キーワードでマークします。これがあなたの_Expected宣言_です。これらの宣言は共通コードで使用できますが、実装を含めるべきではありません。代わりに、プラットフォーム固有のコードがこの実装を提供します。
-3.  各プラットフォーム固有のソースセットで、同じパッケージ内で同じ構成要素を宣言し、`actual`キーワードでマークします。これがあなたの_Actual宣言_であり、通常、プラットフォーム固有のライブラリを使用した実装が含まれます。
+1.  共通ソースセットで、標準の Kotlin 構成要素を宣言します。これは、関数、プロパティ、クラス、インターフェース、列挙型、またはアノテーションです。
+2.  この構成要素に `expect` キーワードを付けます。これが _expected宣言_ です。これらの宣言は共通コードで使用できますが、実装を含めるべきではありません。代わりに、プラットフォーム固有のコードがこの実装を提供します。
+3.  各プラットフォーム固有のソースセットで、同じパッケージ内に同じ構成要素を宣言し、`actual` キーワードを付けます。これが _actual宣言_ であり、通常、プラットフォーム固有のライブラリを使用した実装が含まれます。
 
-特定のターゲット向けにコンパイルする際、コンパイラは、見つかった_Actual_宣言のそれぞれを、共通コード内の対応する_Expected_宣言と照合しようとします。コンパイラは以下を保証します。
+特定のターゲット向けにコンパイルする際、コンパイラは、見つけた各 _actual_ 宣言を共通コード内の対応する _expected_ 宣言と照合しようとします。コンパイラは次のことを保証します。
 
-*   共通ソースセットのすべてのExpected宣言には、すべてのプラットフォーム固有のソースセットに対応するActual宣言があります。
-*   Expected宣言は実装を含みません。
-*   すべてのActual宣言は、`org.mygroup.myapp.MyType`のように、対応するExpected宣言と同じパッケージを共有します。
+*   共通ソースセット内のすべての expected宣言が、すべてのプラットフォーム固有ソースセットに対応する actual宣言を持つこと。
+*   expected宣言が実装を含まないこと。
+*   すべての actual宣言が、対応する expected宣言と同じパッケージ (例: `org.mygroup.myapp.MyType`) を共有すること。
 
-異なるプラットフォーム向けに結果のコードを生成する際、Kotlinコンパイラは互いに対応するExpectedとActualの宣言をマージします。各プラットフォームに対して、そのActual実装を持つ1つの宣言を生成します。共通コードにおけるExpected宣言のすべての使用は、結果として生成されるプラットフォームコード内の正しいActual宣言を呼び出します。
+異なるプラットフォーム向けの最終コードを生成する際、Kotlin コンパイラは互いに対応する expected と actual 宣言をマージします。各プラットフォームに対して、実際の__実装を持つ 1 つの宣言を生成します。共通コード内の expected宣言のすべての使用は、結果として得られるプラットフォームコード内の正しい actual宣言を呼び出します。
 
-異なるターゲットプラットフォーム間で共有される中間ソースセットを使用する場合にも、Actual宣言を定義できます。例えば、`iosX64Main`、`iosArm64Main`、`iosSimulatorArm64Main`のプラットフォームソースセット間で共有される中間ソースセットとして`iosMain`を考えてみましょう。通常、Actual宣言は`iosMain`にのみ含まれ、プラットフォームソースセットには含まれません。その後、KotlinコンパイラはこれらのActual宣言を使用して、対応するプラットフォーム向けの結果のコードを生成します。
+異なるターゲットプラットフォーム間で共有される中間ソースセットを使用する場合に、actual宣言を宣言できます。例えば、`iosX64Main`、`iosArm64Main`、`iosSimulatorArm64Main` のプラットフォームソースセット間で共有される中間ソースセットとして `iosMain` を考えてみましょう。通常、`iosMain` のみが actual宣言を含み、プラットフォームソースセットは含みません。Kotlin コンパイラは、これらの actual宣言を使用して、対応するプラットフォーム向けの最終コードを生成します。
 
-IDEは、次のような一般的な問題で役立ちます。
+IDE は、次のような一般的な問題に役立ちます。
 
-*   宣言の不足
-*   実装を含むExpected宣言
+*   宣言の欠落
+*   実装を含む expected宣言
 *   宣言シグネチャの不一致
 *   異なるパッケージ内の宣言
 
-IDEは、Expected宣言からActual宣言へ移動するためにも使用できます。ガターアイコンを選択してActual宣言を表示するか、[ショートカット](https://www.jetbrains.com/help/idea/navigating-through-the-source-code.html#go_to_implementation)を使用します。
+IDE を使用して、expected宣言から actual宣言へ移動することもできます。ガターアイコンを選択して actual宣言を表示するか、[ショートカット](https://www.jetbrains.com/help/idea/navigating-through-the-source-code.html#go_to_implementation)を使用してください。
 
-![Expected宣言からActual宣言へのIDEナビゲーション](expect-actual-gutter.png){width=500}
+![IDE navigation from expected to actual declarations](expect-actual-gutter.png){width=500}
 
-## ExpectedとActualの宣言を使用するさまざまなアプローチ
+## Expected と Actual 宣言を使用するさまざまなアプローチ
 
-プラットフォームAPIへのアクセスという問題を解決しつつ、共通コードでそれらを操作する方法も提供するために、expect/actualメカニズムを使用するさまざまな選択肢を探ってみましょう。
+expect/actual メカニズムを使用して、プラットフォーム API にアクセスしながら共通コードでそれらを操作する方法を提供するという問題を解決するためのさまざまなオプションを見てみましょう。
 
-ユーザーのログイン名と現在のプロセスIDを含む`Identity`型を実装する必要があるKotlin Multiplatformプロジェクトを考えてみましょう。このプロジェクトには、アプリケーションをJVMおよびiOSのようなネイティブ環境で動作させるための`commonMain`、`jvmMain`、`nativeMain`ソースセットがあります。
+ユーザーのログイン名と現在のプロセス ID を含む `Identity` 型を実装する必要がある Kotlin Multiplatform プロジェクトを考えてみましょう。このプロジェクトには、JVM と iOS のようなネイティブ環境でアプリケーションを動作させるために、`commonMain`、`jvmMain`、`nativeMain` のソースセットがあります。
 
-### ExpectedとActualの関数
+### Expected と Actual 関数
 
-`Identity`型と、共通ソースセットで宣言され、プラットフォームソースセットで異なる方法で実装されるファクトリ関数`buildIdentity()`を定義できます。
+`Identity` 型とファクトリ関数 `buildIdentity()` を定義できます。これは共通ソースセットで宣言され、プラットフォームソースセットで異なる方法で実装されます。
 
-1.  `commonMain`で、単純な型を宣言し、ファクトリ関数をexpectします。
+1.  `commonMain` で、シンプルな型を宣言し、ファクトリ関数を expectします。
 
     ```kotlin
     package identity
 
     class Identity(val userName: String, val processID: Long)
-   
+    
     expect fun buildIdentity(): Identity
     ```
 
-2.  `jvmMain`ソースセットで、標準Javaライブラリを使用してソリューションを実装します。
+2.  `jvmMain` ソースセットで、標準の Java ライブラリを使用してソリューションを実装します。
 
     ```kotlin
     package identity
-   
+    
     import java.lang.System
     import java.lang.ProcessHandle
 
@@ -69,11 +69,11 @@ IDEは、Expected宣言からActual宣言へ移動するためにも使用でき
     )
     ```
 
-3.  `nativeMain`ソースセットで、ネイティブ依存関係を使用して[POSIX](https://en.wikipedia.org/wiki/POSIX)によるソリューションを実装します。
+3.  `nativeMain` ソースセットで、ネイティブ依存関係を使用して [POSIX](https://en.wikipedia.org/wiki/POSIX) を使用したソリューションを実装します。
 
     ```kotlin
     package identity
-   
+    
     import kotlinx.cinterop.toKString
     import platform.posix.getlogin
     import platform.posix.getpid
@@ -84,19 +84,19 @@ IDEは、Expected宣言からActual宣言へ移動するためにも使用でき
     )
     ```
 
-   ここで、プラットフォーム関数はプラットフォーム固有の`Identity`インスタンスを返します。
+    ここでは、プラットフォーム関数がプラットフォーム固有の `Identity` インスタンスを返します。
 
-> Kotlin 1.9.0以降、`getlogin()`および`getpid()`関数を使用するには、`@OptIn`アノテーションが必要です。
+> Kotlin 1.9.0 以降、`getlogin()` および `getpid()` 関数を使用するには `@OptIn` アノテーションが必要です。
 >
 {style="note"}
 
-### ExpectedとActualの関数を持つインターフェース
+### Expected と Actual 関数を持つインターフェース
 
-ファクトリ関数が大きくなりすぎる場合は、共通の`Identity`インターフェースを使用し、それを異なるプラットフォームで異なる方法で実装することを検討してください。
+ファクトリ関数が大きくなりすぎる場合は、共通の `Identity` インターフェースを使用し、異なるプラットフォームで異なる方法で実装することを検討してください。
 
-`buildIdentity()`ファクトリ関数は`Identity`を返すべきですが、今回は共通インターフェースを実装するオブジェクトです。
+`buildIdentity()` ファクトリ関数は `Identity` を返すべきですが、今回は共通インターフェースを実装するオブジェクトです。
 
-1.  `commonMain`で、`Identity`インターフェースと`buildIdentity()`ファクトリ関数を定義します。
+1.  `commonMain` で、`Identity` インターフェースと `buildIdentity()` ファクトリ関数を定義します。
 
     ```kotlin
     // In the commonMain source set:
@@ -108,7 +108,7 @@ IDEは、Expected宣言からActual宣言へ移動するためにも使用でき
     }
     ```
 
-2.  ExpectedとActualの宣言をさらに使用せずに、インターフェースのプラットフォーム固有の実装を作成します。
+2.  Expected と Actual 宣言を_追加で使用せず_に、インターフェースのプラットフォーム固有の実装を作成します。
 
     ```kotlin
     // In the jvmMain source set:
@@ -123,20 +123,20 @@ IDEは、Expected宣言からActual宣言へ移動するためにも使用でき
     ```kotlin
     // In the nativeMain source set:
     actual fun buildIdentity(): Identity = NativeIdentity()
-   
+    
     class NativeIdentity(
         override val userName: String = getlogin()?.toKString() ?: "None",
         override val processID: Long = getpid().toLong()
     ) : Identity
     ```
 
-これらのプラットフォーム関数はプラットフォーム固有の`Identity`インスタンスを返します。これらは`JVMIdentity`および`NativeIdentity`というプラットフォーム型として実装されています。
+これらのプラットフォーム関数は、`JVMIdentity` および `NativeIdentity` プラットフォーム型として実装された、プラットフォーム固有の `Identity` インスタンスを返します。
 
-#### ExpectedとActualのプロパティ
+#### Expected と Actual プロパティ
 
-前の例を変更し、`Identity`を格納する`val`プロパティをexpectすることもできます。
+前の例を変更して、`Identity` を保存する `val` プロパティを expectできます。
 
-このプロパティを`expect val`としてマークし、その後プラットフォームソースセットでactualizeします。
+このプロパティを `expect val` としてマークし、プラットフォームソースセットで actual化します。
 
 ```kotlin
 //In commonMain source set:
@@ -168,9 +168,9 @@ class NativeIdentity(
 ) : Identity
 ```
 
-#### ExpectedとActualのオブジェクト
+#### Expected と Actual オブジェクト
 
-`IdentityBuilder`が各プラットフォームでシングルトンであると期待される場合、それをExpectedオブジェクトとして定義し、プラットフォームでactualizeさせることができます。
+`IdentityBuilder` が各プラットフォームでシングルトンとして期待される場合、それを expectedオブジェクトとして定義し、プラットフォームに actual化させることができます。
 
 ```kotlin
 // In the commonMain source set:
@@ -206,23 +206,23 @@ actual object IdentityBuilder {
 
 #### 依存性注入に関する推奨事項
 
-疎結合なアーキテクチャを構築するために、多くのKotlinプロジェクトは依存性注入（DI）フレームワークを採用しています。DIフレームワークを使用すると、現在の環境に基づいてコンポーネントに依存性を注入できます。
+疎結合アーキテクチャを作成するために、多くの Kotlin プロジェクトが依存性注入（DI）フレームワークを採用しています。DI フレームワークを使用すると、現在の環境に基づいてコンポーネントに依存関係を注入できます。
 
-例えば、テスト時と本番時で、あるいはクラウドにデプロイする場合とローカルでホストする場合とで、異なる依存性を注入することができます。依存性がインターフェースを通じて表現されている限り、コンパイル時または実行時に、いくらでも異なる実装を注入できます。
+たとえば、テスト時と本番環境、またはクラウドにデプロイする場合とローカルでホストする場合で、異なる依存関係を注入できます。依存関係がインターフェースを介して表現されている限り、コンパイル時または実行時に任意の数の異なる実装を注入できます。
 
-依存性がプラットフォーム固有である場合にも同じ原則が適用されます。共通コードでは、コンポーネントは通常の[Kotlinインターフェース](https://kotlinlang.org/docs/interfaces.html)を使用して依存性を表現できます。その後、DIフレームワークを構成して、プラットフォーム固有の実装（例えば、JVMまたはiOSモジュールからのもの）を注入できます。
+同じ原則が、依存関係がプラットフォーム固有の場合にも適用されます。共通コードでは、コンポーネントは通常の [Kotlin インターフェース](https://kotlinlang.org/docs/interfaces.html)を使用して依存関係を表現できます。DI フレームワークは、JVM や iOS モジュールなど、プラットフォーム固有の実装を注入するように構成できます。
 
-これは、ExpectedとActualの宣言がDIフレームワークの構成でのみ必要となることを意味します。例については、「[プラットフォーム固有のAPIの使用](multiplatform-connect-to-apis.md#dependency-injection-framework)」を参照してください。
+これは、expected と actual 宣言が DI フレームワークの構成にのみ必要であることを意味します。例については、[プラットフォーム固有の API の使用](multiplatform-connect-to-apis.md#dependency-injection-framework)を参照してください。
 
-このアプローチにより、インターフェースとファクトリ関数を使用するだけでKotlin Multiplatformを採用できます。すでにプロジェクトでDIフレームワークを使用して依存関係を管理している場合は、プラットフォーム依存関係の管理にも同じアプローチを使用することをお勧めします。
+このアプローチにより、インターフェースとファクトリ関数を使用するだけで Kotlin Multiplatform を採用できます。プロジェクトで依存関係を管理するためにすでに DI フレームワークを使用している場合は、プラットフォームの依存関係を管理するためにも同じアプローチを使用することをお勧めします。
 
-### ExpectedとActualのクラス
+### Expected と Actual クラス
 
-> ExpectedとActualのクラスは[ベータ版](supported-platforms.md#general-kotlin-stability-levels)です。これらはほぼ安定していますが、将来的に移行手順が必要になる場合があります。今後必要な変更を最小限に抑えるよう最善を尽くします。
+> Expected と Actual クラスは[ベータ版](supported-platforms.md#general-kotlin-stability-levels)です。これらはほぼ安定していますが、将来的に移行手順が必要になる場合があります。私たちは、皆様が行うべきさらなる変更を最小限に抑えるよう最善を尽くします。
 >
 {style="warning"}
 
-ExpectedとActualのクラスを使用して、同じソリューションを実装できます。
+Expected と Actual クラスを使用して、同じソリューションを実装できます。
 
 ```kotlin
 // In the commonMain source set:
@@ -248,13 +248,13 @@ actual class Identity {
 }
 ```
 
-このアプローチはデモンストレーション資料で既に見たことがあるかもしれません。しかし、インターフェースで十分な単純なケースでクラスを使用することは_推奨されません_。
+このアプローチは、デモンストレーション資料ですでに見たことがあるかもしれません。ただし、インターフェースで十分な簡単なケースでクラスを使用することは_推奨されません_。
 
-インターフェースを使用すると、ターゲットプラットフォームごとに1つの実装に設計を限定しません。また、テストで偽の実装を置き換えたり、単一のプラットフォームで複数の実装を提供したりすることがはるかに簡単になります。
+インターフェースを使用すると、ターゲットプラットフォームごとに 1 つの実装に設計を制限することはありません。また、テストでフェイク実装を代替したり、単一プラットフォームで複数の実装を提供したりすることがはるかに簡単になります。
 
-一般的なルールとして、ExpectedとActualの宣言を使用する代わりに、可能な限り標準的な言語構成要素に依拠してください。
+一般的なルールとして、可能な限り標準の言語構成要素に頼り、expected と actual 宣言の使用は避けてください。
 
-ExpectedとActualのクラスを使用することを決定した場合、Kotlinコンパイラは機能のベータ状態について警告します。この警告を抑制するには、以下のコンパイラオプションをGradleビルドファイルに追加します。
+expected と actual クラスを使用することを決定した場合、Kotlin コンパイラは機能のベータ状態について警告を発します。この警告を抑制するには、Gradle ビルドファイルに次のコンパイラオプションを追加します。
 
 ```kotlin
 kotlin {
@@ -267,7 +267,7 @@ kotlin {
 
 #### プラットフォームクラスからの継承
 
-クラスで`expect`キーワードを使用するのが最善のアプローチとなる特別なケースがあります。`Identity`型がすでにJVM上に存在するとします。
+クラスで `expect` キーワードを使用するのが最善のアプローチとなる特殊なケースがあります。`Identity` 型が JVM にすでに存在するとします。
 
 ```kotlin
 open class Identity {
@@ -276,9 +276,9 @@ open class Identity {
 }
 ```
 
-既存のコードベースやフレームワークに適合させるため、`Identity`型の実装は、この型から継承し、その機能を再利用できます。
+既存のコードベースとフレームワークに適合させるために、`Identity` 型の実装は、この型を継承してその機能を再利用できます。
 
-1.  この問題を解決するには、`commonMain`で`expect`キーワードを使用してクラスを宣言します。
+1.  この問題を解決するために、`commonMain` で `expect` キーワードを使用してクラスを宣言します。
 
     ```kotlin
     expect class CommonIdentity() {
@@ -287,7 +287,7 @@ open class Identity {
     }
     ```
 
-2.  `nativeMain`で、機能性を実装するActual宣言を提供します。
+2.  `nativeMain` で、機能を実装する actual宣言を提供します。
 
     ```kotlin
     actual class CommonIdentity {
@@ -296,7 +296,7 @@ open class Identity {
     }
     ```
 
-3.  `jvmMain`で、プラットフォーム固有の基底クラスから継承するActual宣言を提供します。
+3.  `jvmMain` で、プラットフォーム固有の基底クラスを継承する actual宣言を提供します。
 
     ```kotlin
     actual class CommonIdentity : Identity() {
@@ -305,15 +305,15 @@ open class Identity {
     }
     ```
 
-ここで、`CommonIdentity`型は、JVM上の既存の型を活用しながら、自身の設計と互換性があります。
+ここでは、`CommonIdentity` 型は、JVM 上の既存の型を活用しながら、自身の設計と互換性があります。
 
-#### フレームワークでの応用
+#### フレームワークでの適用
 
-フレームワークの作者として、ExpectedとActualの宣言が自身のフレームワークに役立つこともあります。
+フレームワークの作者として、expected と actual 宣言が自身のフレームワークに役立つことを見出すこともできます。
 
-上記の例がフレームワークの一部である場合、ユーザーは表示名を提供するために`CommonIdentity`から型を派生させる必要があります。
+上記の例がフレームワークの一部である場合、ユーザーは表示名を提供するために `CommonIdentity` から型を派生させる必要があります。
 
-この場合、Expected宣言は抽象的であり、抽象メソッドを宣言します。
+この場合、expected宣言は抽象であり、抽象メソッドを宣言します。
 
 ```kotlin
 // In commonMain of the framework codebase:
@@ -324,7 +324,7 @@ expect abstract class CommonIdentity() {
 }
 ```
 
-同様に、Actual実装も抽象的であり、`displayName`メソッドを宣言します。
+同様に、actual実装は抽象であり、`displayName` メソッドを宣言します。
 
 ```kotlin
 // In nativeMain of the framework codebase:
@@ -344,7 +344,7 @@ actual abstract class CommonIdentity : Identity() {
 }
 ```
 
-フレームワークのユーザーは、Expected宣言から継承し、不足しているメソッドを自身で実装する共通コードを記述する必要があります。
+フレームワークのユーザーは、expected宣言を継承し、欠落しているメソッドを自分で実装する共通コードを記述する必要があります。
 
 ```kotlin
 // In commonMain of the users' codebase:
@@ -360,13 +360,13 @@ for a detailed description of this example. -->
 
 ## 高度なユースケース
 
-ExpectedとActualの宣言には、いくつかの特別なケースがあります。
+Expected と Actual 宣言には、いくつかの特殊なケースがあります。
 
-### Actual宣言を満たすための型エイリアスの使用
+### 型エイリアスを使用して Actual 宣言を満たす
 
-Actual宣言の実装はゼロから記述される必要はありません。サードパーティライブラリによって提供されるクラスなど、既存の型を使用できます。
+Actual宣言の実装は、ゼロから記述する必要はありません。サードパーティライブラリによって提供されるクラスなど、既存の型を使用できます。
 
-この型は、Expected宣言に関連するすべての要件を満たしている限り使用できます。例えば、次の2つのExpected宣言を考えてみましょう。
+その型が expected宣言に関連付けられたすべての要件を満たしている限り、この型を使用できます。例えば、次の 2 つの expected宣言を考えてみましょう。
 
 ```kotlin
 expect enum class Month {
@@ -381,31 +381,31 @@ expect class MyDate {
 }
 ```
 
-JVMモジュール内では、`java.time.Month`列挙型を最初のExpected宣言の実装に、`java.time.LocalDate`クラスを2番目の実装に使用できます。しかし、これらの型に`actual`キーワードを直接追加する方法はありません。
+JVM モジュール内では、`java.time.Month` 列挙型を使用して最初の expected宣言を実装し、`java.time.LocalDate` クラスを使用して 2 番目の expected宣言を実装できます。ただし、これらの型に直接 `actual` キーワードを追加する方法はありません。
 
-代わりに、[型エイリアス](https://kotlinlang.org/docs/type-aliases.html)を使用してExpected宣言とプラットフォーム固有の型を接続できます。
+代わりに、[型エイリアス](https://kotlinlang.org/docs/type-aliases.html)を使用して、expected宣言とプラットフォーム固有の型を接続できます。
 
 ```kotlin
 actual typealias Month = java.time.Month
 actual typealias MyDate = java.time.LocalDate
 ```
 
-この場合、`typealias`宣言をExpected宣言と同じパッケージで定義し、参照されるクラスは別の場所に作成します。
+この場合、`typealias` 宣言は expected宣言と同じパッケージで定義し、参照されるクラスは別の場所に作成します。
 
-> `LocalDate`型が`Month`列挙型を使用するため、両方を共通コードでExpectedクラスとして宣言する必要があります。
+> `LocalDate` 型は `Month` 列挙型を使用するため、両方を共通コードで expectedクラスとして宣言する必要があります。
 >
 {style="note"}
 
 <!-- See [Using platform-specific APIs](multiplatform-connect-to-apis.md#actualizing-an-interface-or-a-class-with-an-existing-platform-class-using-typealiases)
 for an Android-specific example of this pattern. -->
 
-### Actual宣言における可視性の拡張
+### Actual 宣言での可視性の拡張
 
-Actual実装を対応するExpected宣言よりも可視性を高くすることができます。これは、共通クライアントに対してAPIを公開したくない場合に便利です。
+Actual実装を、対応する expected宣言よりも可視性を高くすることができます。これは、API を共通クライアントに公開したくない場合に役立ちます。
 
-現在、Kotlinコンパイラは可視性の変更がある場合にエラーを発行します。`@Suppress("ACTUAL_WITHOUT_EXPECT")`をActual型エイリアス宣言に適用することで、このエラーを抑制できます。Kotlin 2.0以降、この制限は適用されなくなります。
+現在、Kotlin コンパイラは可視性の変更の場合にエラーを発行します。`@Suppress("ACTUAL_WITHOUT_EXPECT")` を actual型エイリアス宣言に適用することで、このエラーを抑制できます。Kotlin 2.0 以降、この制限は適用されなくなります。
 
-例えば、共通ソースセットで以下のExpected宣言を宣言した場合:
+たとえば、共通ソースセットで次の expected宣言を宣言した場合：
 
 ```kotlin
 internal expect class Messenger {
@@ -413,27 +413,27 @@ internal expect class Messenger {
 }
 ```
 
-プラットフォーム固有のソースセットでも以下のActual実装を使用できます。
+プラットフォーム固有のソースセットでも、次の actual実装を使用できます。
 
 ```kotlin
 @Suppress("ACTUAL_WITHOUT_EXPECT")
 public actual typealias Messenger = MyMessenger
 ```
 
-ここで、internalなExpectedクラスは、型エイリアスを使用して既存のpublicな`MyMessenger`によるActual実装を持っています。
+ここでは、内部 expectedクラスが、型エイリアスを使用する既存の `public` な `MyMessenger` で actual実装を持っています。
 
-### Actual化における追加の列挙エントリ
+### Actual化時の追加の列挙型エントリ
 
-共通ソースセットで列挙型が`expect`で宣言されている場合、各プラットフォームモジュールには対応する`actual`宣言が必要です。これらの宣言は同じ列挙定数を含んでいる必要がありますが、追加の定数を持つこともできます。
+列挙型が共通ソースセットで `expect` で宣言されている場合、各プラットフォームモジュールは対応する `actual` 宣言を持つ必要があります。これらの宣言は同じ列挙型定数を含まなければなりませんが、追加の定数を持つこともできます。
 
-これは、既存のプラットフォーム列挙型でExpected列挙型をactualizeする場合に便利です。例えば、共通ソースセットの以下の列挙型を考えてみましょう。
+これは、既存のプラットフォーム列挙型で expected列挙型を actual化する場合に役立ちます。例えば、共通ソースセットの次の列挙型を考えてみましょう。
 
 ```kotlin
 // In the commonMain source set:
 expect enum class Department { IT, HR, Sales }
 ```
 
-プラットフォームソースセットで`Department`のActual宣言を提供する場合、追加の定数を追加できます。
+プラットフォームソースセットで `Department` の actual宣言を提供すると、追加の定数を追加できます。
 
 ```kotlin
 // In the jvmMain source set:
@@ -445,9 +445,9 @@ actual enum class Department { IT, HR, Sales, Legal }
 actual enum class Department { IT, HR, Sales, Marketing }
 ```
 
-しかし、この場合、プラットフォームソースセットのこれらの追加定数は、共通コードのものと一致しません。そのため、コンパイラは、すべての追加ケースを処理することを要求します。
+ただし、この場合、プラットフォームソースセットのこれらの追加定数は、共通コードの定数と一致しません。したがって、コンパイラは、すべての追加ケースを処理することを要求します。
 
-`Department`に対する`when`構造を実装する関数には、`else`句が必要です。
+`Department` で `when` 構成を実装する関数には `else` 句が必要です。
 
 ```kotlin
 // An else clause is required:
@@ -463,9 +463,9 @@ fun matchOnDepartment(dept: Department) {
 
 <!-- If you'd like to forbid adding new constants in the actual enum, please vote for this issue [TODO]. -->
 
-### Expectedアノテーションクラス
+### Expected アノテーションクラス
 
-ExpectedとActualの宣言はアノテーションと共に使用できます。例えば、`@XmlSerializable`アノテーションを宣言できます。これには、各プラットフォームソースセットに対応するActual宣言が必要です。
+Expected と Actual 宣言はアノテーションと共に使用できます。例えば、`@XmlSerializable` アノテーションを宣言できます。これは、各プラットフォームソースセットに対応する actual宣言を持つ必要があります。
 
 ```kotlin
 @Target(AnnotationTarget.CLASS)
@@ -476,7 +476,7 @@ expect annotation class XmlSerializable()
 class Person(val name: String, val age: Int)
 ```
 
-特定のプラットフォームで既存の型を再利用するのに役立つ場合があります。例えば、JVMでは、[JAXB仕様](https://javaee.github.io/jaxb-v2/)の既存の型を使用してアノテーションを定義できます。
+特定のプラットフォームで既存の型を再利用することは役立つ場合があります。例えば、JVM では、[JAXB 仕様](https://javaee.github.io/jaxb-v2/)の既存の型を使用してアノテーションを定義できます。
 
 ```kotlin
 import javax.xml.bind.annotation.XmlRootElement
@@ -484,11 +484,11 @@ import javax.xml.bind.annotation.XmlRootElement
 actual typealias XmlSerializable = XmlRootElement
 ```
 
-`expect`をアノテーションクラスと共に使用する場合、追加の考慮事項があります。アノテーションはコードにメタデータを付加するために使用され、シグネチャに型として現れません。Expectedアノテーションが、決して必要とされないプラットフォームでActualクラスを持つことは必須ではありません。
+アノテーションクラスで `expect` を使用する場合、追加の考慮事項があります。アノテーションはコードにメタデータを付加するために使用され、シグネチャに型として現れません。expectedアノテーションが、それが不要なプラットフォームで actualクラスを持つことは必須ではありません。
 
-アノテーションが使用されるプラットフォームでのみ`actual`宣言を提供する必要があります。この動作はデフォルトでは有効になっておらず、型が[`OptionalExpectation`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-optional-expectation/)でマークされている必要があります。
+アノテーションが使用されるプラットフォームでのみ `actual` 宣言を提供する必要があります。この動作はデフォルトでは有効になっておらず、型を [`OptionalExpectation`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-optional-expectation/) でマークする必要があります。
 
-上記で宣言した`@XmlSerializable`アノテーションに`OptionalExpectation`を追加します。
+上記で宣言した `@XmlSerializable` アノテーションに `OptionalExpectation` を追加してみましょう。
 
 ```kotlin
 @OptIn(ExperimentalMultiplatform::class)
@@ -498,8 +498,8 @@ actual typealias XmlSerializable = XmlRootElement
 expect annotation class XmlSerializable()
 ```
 
-必要とされないプラットフォームでActual宣言が欠落している場合、コンパイラはエラーを生成しません。
+不要なプラットフォームで actual宣言が欠落している場合でも、コンパイラはエラーを生成しません。
 
 ## 次のステップ
 
-プラットフォーム固有のAPIを使用するさまざまな方法に関する一般的な推奨事項については、「[プラットフォーム固有のAPIの使用](multiplatform-connect-to-apis.md)」を参照してください。
+プラットフォーム固有の API を使用するさまざまな方法に関する一般的な推奨事項については、[プラットフォーム固有の API の使用](multiplatform-connect-to-apis.md)を参照してください。

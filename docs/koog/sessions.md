@@ -4,7 +4,7 @@
 
 ## 简介
 
-LLM 会话是一个基本概念，它提供了一种与语言模型 (LLM) 交互的结构化方式。它们管理对话历史记录、处理 LLM 请求，并提供一致的接口来运行工具和处理响应。
+LLM 会话是一个基本概念，它提供了一种与语言模型 (LLMs) 交互的结构化方式。它们管理对话历史记录、处理 LLM 请求，并提供一致的接口来运行工具和处理响应。
 
 ## 理解 LLM 会话
 
@@ -44,6 +44,16 @@ Koog framework 提供了两种会话类型：
 
 会话是使用 `AIAgentLLMContext` 类的扩展函数创建的：
 
+<!--- INCLUDE
+import ai.koog.agents.core.dsl.builder.strategy
+
+val strategy = strategy<Unit, Unit>("strategy-name") {
+    val node by node<Unit, Unit> {
+-->
+<!--- SUFFIX
+   }
+}
+-->
 ```kotlin
 // Creating a write session
 llm.writeSession {
@@ -55,6 +65,7 @@ llm.readSession {
     // Session code here
 }
 ```
+<!--- KNIT example-sessions-01.kt -->
 
 这些函数接受一个 lambda 代码块，该代码块在会话的上下文中运行。当该代码块完成时，会话会自动关闭。
 
@@ -72,15 +83,39 @@ llm.readSession {
 
 在会话中，你可以访问 prompt 和工具：
 
+<!--- INCLUDE
+import ai.koog.agents.core.dsl.builder.strategy
+
+val strategy = strategy<Unit, Unit>("strategy-name") {
+    val node by node<Unit, Unit> {
+-->
+<!--- SUFFIX
+   }
+}
+-->
 ```kotlin
 llm.readSession {
     val messageCount = prompt.messages.size
     val availableTools = tools.map { it.name }
 }
 ```
+<!--- KNIT example-sessions-02.kt -->
 
 在写入会话中，你还可以修改这些属性：
 
+<!--- INCLUDE
+import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.tools.ToolDescriptor
+
+val newTools = listOf<ToolDescriptor>()
+
+val strategy = strategy<Unit, Unit>("strategy-name") {
+    val node by node<Unit, Unit> {
+-->
+<!--- SUFFIX
+   }
+}
+-->
 ```kotlin
 llm.writeSession {
     // Modify the prompt
@@ -92,6 +127,8 @@ llm.writeSession {
     tools = newTools
 }
 ```
+<!--- KNIT example-sessions-03.kt -->
+
 关于更多信息，请参见 [AIAgentLLMReadSession](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.agent.session/-a-i-agent-l-l-m-read-session/index.html) 和 [AIAgentLLMWriteSession](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.agent.session/-a-i-agent-l-l-m-write-session/index.html) 的详细 API 参考。
 
 ## 发送 LLM 请求
@@ -112,6 +149,16 @@ llm.writeSession {
 
 示例：
 
+<!--- INCLUDE
+import ai.koog.agents.core.dsl.builder.strategy
+
+val strategy = strategy<Unit, Unit>("strategy-name") {
+    val node by node<Unit, Unit> {
+-->
+<!--- SUFFIX
+   }
+}
+-->
 ```kotlin
 llm.writeSession {
     // Make a request with tools enabled
@@ -124,6 +171,7 @@ llm.writeSession {
     val responses = requestLLMMultiple()
 }
 ```
+<!--- KNIT example-sessions-04.kt -->
 
 ### 请求的工作原理
 
@@ -138,6 +186,17 @@ llm.writeSession {
 
 当发送带工具的请求时，LLM 可能会以工具调用而非文本响应进行回应。请求方法会透明地处理这种情况：
 
+<!--- INCLUDE
+import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.prompt.message.Message
+
+val strategy = strategy<Unit, Unit>("strategy-name") {
+    val node by node<Unit, Unit> {
+-->
+<!--- SUFFIX
+   }
+}
+-->
 ```kotlin
 llm.writeSession {
     val response = requestLLM()
@@ -150,6 +209,7 @@ llm.writeSession {
     }
 }
 ```
+<!--- KNIT example-sessions-05.kt -->
 
 在实践中，你通常无需手动检测响应类型，因为 agent 图会自动处理此路由。
 
@@ -165,10 +225,21 @@ llm.writeSession {
 
 示例：
 
+<!--- INCLUDE
+import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.example.exampleParallelNodeExecution07.JokeRating
+
+val strategy = strategy<Unit, Unit>("strategy-name") {
+    val node by node<Unit, Unit> {
+-->
+<!--- SUFFIX
+   }
+}
+-->
 ```kotlin
 llm.writeSession {
     // Make a structured request
-    val structuredResponse = requestLLMStructured(myStructure)
+    val structuredResponse = requestLLMStructured<JokeRating>()
 
     // Make a streaming request
     val responseStream = requestLLMStreaming()
@@ -177,6 +248,7 @@ llm.writeSession {
     }
 }
 ```
+<!--- KNIT example-sessions-06.kt -->
 
 ## 管理对话历史记录
 
@@ -184,6 +256,26 @@ llm.writeSession {
 
 在写入会话中，你可以使用 `updatePrompt` 方法更新 prompt（对话历史记录）：
 
+<!--- INCLUDE
+import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.prompt.message.Message
+import ai.koog.prompt.message.RequestMetaInfo
+import kotlinx.datetime.Clock
+
+val myToolResult = Message.Tool.Result(
+    id = "",
+    tool = "",
+    content = "",
+    metaInfo = RequestMetaInfo(Clock.System.now())
+)
+
+val strategy = strategy<Unit, Unit>("strategy-name") {
+    val node by node<Unit, Unit> {
+-->
+<!--- SUFFIX
+   }
+}
+-->
 ```kotlin
 llm.writeSession {
     updatePrompt {
@@ -203,9 +295,23 @@ llm.writeSession {
     }
 }
 ```
+<!--- KNIT example-sessions-07.kt -->
 
 你还可以使用 `rewritePrompt` 方法完全重写 prompt：
 
+<!--- INCLUDE
+import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.prompt.message.Message
+
+val filteredMessages = emptyList<Message>()
+
+val strategy = strategy<Unit, Unit>("strategy-name") {
+    val node by node<Unit, Unit> {
+-->
+<!--- SUFFIX
+   }
+}
+-->
 ```kotlin
 llm.writeSession {
     rewritePrompt { oldPrompt ->
@@ -214,11 +320,22 @@ llm.writeSession {
     }
 }
 ```
+<!--- KNIT example-sessions-08.kt -->
 
 ### 响应时自动更新历史记录
 
 当你在写入会话中发送 LLM 请求时，响应会自动添加到对话历史记录中：
 
+<!--- INCLUDE
+import ai.koog.agents.core.dsl.builder.strategy
+
+val strategy = strategy<Unit, Unit>("strategy-name") {
+    val node by node<Unit, Unit> {
+-->
+<!--- SUFFIX
+   }
+}
+-->
 ```kotlin
 llm.writeSession {
     // Add a user message
@@ -232,6 +349,7 @@ llm.writeSession {
     // The prompt now includes both the user message and the model's response
 }
 ```
+<!--- KNIT example-sessions-09.kt -->
 
 这种自动历史记录更新是写入会话的关键特性，确保对话自然流畅。
 
@@ -239,12 +357,25 @@ llm.writeSession {
 
 对于长时间运行的对话，历史记录可能会变得很大并消耗大量 token。平台提供了压缩历史记录的方法：
 
+<!--- INCLUDE
+import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.extension.HistoryCompressionStrategy
+import ai.koog.agents.core.dsl.extension.replaceHistoryWithTLDR
+
+val strategy = strategy<Unit, Unit>("strategy-name") {
+    val node by node<Unit, Unit> {
+-->
+<!--- SUFFIX
+   }
+}
+-->
 ```kotlin
 llm.writeSession {
     // Compress the history using a TLDR approach
     replaceHistoryWithTLDR(HistoryCompressionStrategy.WholeHistory, preserveMemory = true)
 }
 ```
+<!--- KNIT example-sessions-10.kt -->
 
 你还可以在策略图中（strategy graph）使用 `nodeLLMCompressHistory` 节点在特定点压缩历史记录。
 
@@ -266,6 +397,22 @@ llm.writeSession {
 
 示例：
 
+<!--- INCLUDE
+import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.ext.tool.AskUser
+
+val myTool = AskUser
+val myArgs = AskUser.Args("this is a string")
+
+typealias MyTool = AskUser
+
+val strategy = strategy<Unit, Unit>("strategy-name") {
+    val node by node<Unit, Unit> {
+-->
+<!--- SUFFIX
+   }
+}
+-->
 ```kotlin
 llm.writeSession {
     // Call a tool by reference
@@ -281,11 +428,29 @@ llm.writeSession {
     val rawResult = callToolRaw("myToolName", myArgs)
 }
 ```
+<!--- KNIT example-sessions-11.kt -->
 
 ### 并行工具运行
 
 要在并行运行多个工具，写入会话提供了 `Flow` 上的扩展函数：
 
+<!--- INCLUDE
+import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.ext.tool.AskUser
+import kotlinx.coroutines.flow.flow
+
+typealias MyTool = AskUser
+
+val data = ""
+fun parseDataToArgs(data: String) = flow { emit(AskUser.Args(data)) }
+
+val strategy = strategy<Unit, Unit>("strategy-name") {
+    val node by node<Unit, Unit> {
+-->
+<!--- SUFFIX
+   }
+}
+-->
 ```kotlin
 llm.writeSession {
     // Run tools in parallel
@@ -299,6 +464,7 @@ llm.writeSession {
     }
 }
 ```
+<!--- KNIT example-sessions-12.kt -->
 
 这对于高效处理大量数据很有用。
 
@@ -332,11 +498,24 @@ llm.writeSession {
 
 如果你的历史记录变得太大并消耗了过多的 token，请使用历史记录压缩技术：
 
+<!--- INCLUDE
+import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.extension.HistoryCompressionStrategy
+import ai.koog.agents.core.dsl.extension.replaceHistoryWithTLDR
+
+val strategy = strategy<Unit, Unit>("strategy-name") {
+    val node by node<Unit, Unit> {
+-->
+<!--- SUFFIX
+   }
+}
+-->
 ```kotlin
 llm.writeSession {
     replaceHistoryWithTLDR(HistoryCompressionStrategy.FromLastNMessages(10), preserveMemory = true)
 }
 ```
+<!--- KNIT example-sessions-13.kt -->
 
 关于更多信息，请参见[历史记录压缩](history-compression.md)
 

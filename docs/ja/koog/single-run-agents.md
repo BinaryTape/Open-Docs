@@ -2,7 +2,7 @@
 
 `AIAgent`クラスは、KotlinアプリケーションでAIエージェントを作成するためのコアコンポーネントです。
 
-最小限の構成でシンプルなエージェントを構築することも、カスタム戦略、ツール、構成を定義することで、高度な機能を備えた洗練されたエージェントを作成することもできます。
+最小限の構成でシンプルなエージェントを構築することも、カスタム戦略、ツール、構成、およびカスタム入出力タイプを定義することで、高度な機能を備えた洗練されたエージェントを作成することもできます。
 
 このページでは、カスタマイズ可能なツールと構成を備えたシングルランエージェント（single-run agent）を作成するために必要な手順を説明します。
 
@@ -41,17 +41,28 @@ dependencies {
 
 エージェントを作成するには、`AIAgent`クラスのインスタンスを作成し、`executor`および`llmModel`パラメータを指定します。
 
+<!--- INCLUDE
+import ai.koog.agents.core.agent.AIAgent
+import ai.koog.prompt.executor.clients.openai.OpenAIModels
+import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
+-->
 ```kotlin
 val agent = AIAgent(
     executor = simpleOpenAIExecutor(System.getenv("OPENAI_API_KEY")),
     llmModel = OpenAIModels.Chat.GPT4o
 )
 ```
+<!--- KNIT example-single-run-01.kt -->
 
 ### 3. システムプロンプトの追加
 
 システムプロンプトは、エージェントの動作を定義するために使用されます。プロンプトを提供するには、`systemPrompt`パラメータを使用します。
 
+<!--- INCLUDE
+import ai.koog.agents.core.agent.AIAgent
+import ai.koog.prompt.executor.clients.openai.OpenAIModels
+import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
+-->
 ```kotlin
 val agent = AIAgent(
     executor = simpleOpenAIExecutor(System.getenv("YOUR_API_KEY")),
@@ -59,11 +70,17 @@ val agent = AIAgent(
     llmModel = OpenAIModels.Chat.GPT4o
 )
 ```
+<!--- KNIT example-single-run-02.kt -->
 
 ### 4. LLM出力の構成
 
 `temperature`パラメータを使用して、LLM出力生成の温度を指定します。
 
+<!--- INCLUDE
+import ai.koog.agents.core.agent.AIAgent
+import ai.koog.prompt.executor.clients.openai.OpenAIModels
+import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
+-->
 ```kotlin
 val agent = AIAgent(
     executor = simpleOpenAIExecutor(System.getenv("YOUR_API_KEY")),
@@ -72,6 +89,7 @@ val agent = AIAgent(
     temperature = 0.7
 )
 ```
+<!--- KNIT example-single-run-03.kt -->
 
 ### 5. ツールの追加
 
@@ -80,6 +98,13 @@ val agent = AIAgent(
 
 ツールを構成するには、エージェントが利用できるツールを定義する`toolRegistry`パラメータを使用します。
 
+<!--- INCLUDE
+import ai.koog.agents.core.agent.AIAgent
+import ai.koog.agents.core.tools.ToolRegistry
+import ai.koog.agents.ext.tool.SayToUser
+import ai.koog.prompt.executor.clients.openai.OpenAIModels
+import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
+-->
 ```kotlin
 val agent = AIAgent(
     executor = simpleOpenAIExecutor(System.getenv("YOUR_API_KEY")),
@@ -91,12 +116,20 @@ val agent = AIAgent(
     }
 )
 ```
+<!--- KNIT example-single-run-04.kt -->
 この例では、`SayToUser`は組み込みツールです。カスタムツールの作成方法については、[Tools](tools-overview.md)を参照してください。
 
 ### 6. エージェントのイテレーションの調整
 
 エージェントが停止を余儀なくされるまでに実行できる最大ステップ数を、`maxIterations`パラメータを使用して指定します。
 
+<!--- INCLUDE
+import ai.koog.agents.core.agent.AIAgent
+import ai.koog.agents.core.tools.ToolRegistry
+import ai.koog.agents.ext.tool.SayToUser
+import ai.koog.prompt.executor.clients.openai.OpenAIModels
+import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
+-->
 ```kotlin
 val agent = AIAgent(
     executor = simpleOpenAIExecutor(System.getenv("YOUR_API_KEY")),
@@ -109,6 +142,7 @@ val agent = AIAgent(
     maxIterations = 30
 )
 ```
+<!--- KNIT example-single-run-05.kt -->
 
 ### 7. エージェント実行時のイベント処理
 
@@ -121,6 +155,14 @@ val agent = AIAgent(
 
 エージェントを実行するには、`run()`関数を使用します。
 
+<!--- INCLUDE
+import ai.koog.agents.core.agent.AIAgent
+import ai.koog.agents.core.tools.ToolRegistry
+import ai.koog.agents.ext.tool.SayToUser
+import ai.koog.prompt.executor.clients.openai.OpenAIModels
+import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
+import kotlinx.coroutines.runBlocking
+-->
 ```kotlin
 val agent = AIAgent(
     executor = simpleOpenAIExecutor(System.getenv("OPENAI_API_KEY")),
@@ -137,9 +179,9 @@ fun main() = runBlocking {
     val result = agent.run("Hello! How can you help me?")
 }
 ```
+<!--- KNIT example-single-run-06.kt -->
 
 エージェントは次の出力を生成します。
 
 ```
 Agent says: Hello! I'm here to assist you with a variety of tasks. Whether you have questions, need information, or require help with specific tasks, feel free to ask. How can I assist you today?
-```

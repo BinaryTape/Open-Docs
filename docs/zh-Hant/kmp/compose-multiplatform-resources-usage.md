@@ -2,15 +2,13 @@
 
 <show-structure depth="2"/>
 
-當您已[為專案設定資源](compose-multiplatform-resources-setup.md)後，
-建置專案以生成特殊的 `Res` 類別，該類別提供對資源的存取。
-若要重新生成 `Res` 類別和所有資源存取器，請再次建置專案或在 IDE 中重新匯入專案。
+當您已[為專案設定好資源](compose-multiplatform-resources-setup.md)後，請建置專案以產生特殊的 `Res` 類別，該類別提供資源存取。若要重新產生 `Res` 類別及所有資源存取器，請再次建置專案或在 IDE 中重新匯入專案。
 
-之後，您可以使用生成的類別從程式碼或外部函式庫存取配置的多平台資源。
+之後，您可以從程式碼或外部函式庫中使用產生的類別來存取已配置的多平台資源。
 
-## 匯入生成的類別
+## 匯入產生的類別
 
-若要使用準備好的資源，請匯入生成的類別，例如：
+若要使用已準備好的資源，請匯入產生的類別，例如：
 
 ```kotlin
 import project.composeapp.generated.resources.Res
@@ -18,18 +16,17 @@ import project.composeapp.generated.resources.example_image
 ```
 
 這裡：
-* `project` 是您專案的名稱
+* `project` 是您的專案名稱
 * `composeapp` 是您放置資源目錄的模組
-* `Res` 是生成類別的預設名稱
-* `example_image` 是 `composeResources/drawable` 目錄中影像檔案的名稱（例如 `example_image.png`）。
+* `Res` 是產生類別的預設名稱
+* `example_image` 是 `composeResources/drawable` 目錄中的影像檔案名稱（例如 `example_image.png`）。
 
-## 自訂存取器類別生成
+## 自訂存取器類別產生
 
-您可以使用 Gradle 設定自訂生成的 `Res` 類別以滿足您的需求。
+您可以使用 Gradle 設定來自訂產生的 `Res` 類別，以符合您的需求。
 
-在 `build.gradle.kts` 檔案的 `compose.resources {}` 區塊中，您可以指定多個設定，這些設定會影響
-您的專案生成 `Res` 類別的方式。
-範例配置如下所示：
+在 `build.gradle.kts` 檔案的 `compose.resources {}` 區塊中，您可以指定多項設定，這些設定會影響專案 `Res` 類別的產生方式。
+範例配置如下：
 
 ```kotlin
 compose.resources {
@@ -39,50 +36,44 @@ compose.resources {
 }
 ```
 
-* `publicResClass` 設定為 `true` 會使生成的 `Res` 類別公開。預設情況下，生成的類別是 [internal](https://kotlinlang.org/docs/visibility-modifiers.html)。
-* `packageOfResClass` 允許您將生成的 `Res` 類別指派給特定套件（以便在程式碼中存取，
-    以及在最終產物中進行隔離）。預設情況下，Compose Multiplatform 會將
-    `{group name}.{module name}.generated.resources` 套件指派給該類別。
-* `generateResClass` 設定為 `always` 會使專案無條件生成 `Res` 類別。當資源函式庫僅以遞移方式可用時，
-    這可能很有用。預設情況下，Compose Multiplatform 使用 `auto` 值
-    僅當目前專案對資源函式庫具有明確的 `implementation` 或 `api` 依賴時才生成 `Res` 類別。
+* 將 `publicResClass` 設定為 `true` 會使產生的 `Res` 類別為公開的。預設情況下，產生的類別為 [internal](https://kotlinlang.org/docs/visibility-modifiers.html)。
+* `packageOfResClass` 允許您將產生的 `Res` 類別指定給特定套件（以便在程式碼中存取，以及在最終成品中進行隔離）。預設情況下，Compose Multiplatform 會將 `{group name}.{module name}.generated.resources` 套件指定給該類別。
+* 將 `generateResClass` 設定為 `always` 會使專案無條件地產生 `Res` 類別。當資源函式庫僅以傳遞方式可用時，這可能很有用。預設情況下，Compose Multiplatform 使用 `auto` 值來產生 `Res` 類別，僅當目前專案對資源函式庫具有明確的 `implementation` 或 `api` 依賴時才會產生。
 
 ## 資源使用
 
 ### 影像
 
-您可以將可繪製資源作為簡單影像、點陣圖影像或 XML 向量圖存取。
-SVG 影像在所有平台（**除了** Android）上均受支援。
+您可以將 drawable 資源存取為簡單影像、點陣化影像或 XML 向量。
+除了 Android 之外，所有平台都支援 SVG 影像。
 
-* 若要將可繪製資源作為 `Painter` 影像存取，請使用 `painterResource()` 函式：
+* 若要將 drawable 資源存取為 `Painter` 影像，請使用 `painterResource()` 函數：
 
   ```kotlin
   @Composable
   fun painterResource(resource: DrawableResource): Painter {...}
   ```
 
-  `painterResource()` 函式接受資源路徑並返回 `Painter` 值。此函式在所有目標上同步工作，除了網頁目標。對於網頁目標，它會在第一次重組時返回一個空的 `Painter`，並在後續重組中替換為載入的影像。
+  `painterResource()` 函數會取得資源路徑並傳回 `Painter` 值。此函數在所有目標上同步運作，唯網路目標除外。對於網路目標，它會在第一次重新組合時傳回空的 `Painter`，並在隨後的重新組合中替換為載入的影像。
 
-  * `painterResource()` 載入點陣圖影像格式（例如 `.png`、`.jpg`、`.bmp`、`.webp`）的 `BitmapPainter`，
-    或 Android XML 向量可繪製格式的 `VectorPainter`。
-  * XML 向量可繪製與 [Android](https://developer.android.com/reference/android/graphics/drawable/VectorDrawable) 的格式相同，
-    但它們不支援對 Android 資源的外部參考。
+  * `painterResource()` 會載入 `BitmapPainter` 用於點陣化影像格式，例如 `.png`、`.jpg`、`.bmp`、`.webp`，或載入 `VectorPainter` 用於 Android XML 向量 drawable 格式。
+  * XML 向量 drawable 的格式與 [Android](https://developer.android.com/reference/android/graphics/drawable/VectorDrawable) 相同，唯不支援對 Android 資源的外部引用。
 
-* 若要將可繪製資源作為 `ImageBitmap` 點陣圖影像存取，請使用 `imageResource()` 函式：
+* 若要將 drawable 資源存取為 `ImageBitmap` 點陣化影像，請使用 `imageResource()` 函數：
 
   ```kotlin
   @Composable
   fun imageResource(resource: DrawableResource): ImageBitmap {...}
   ```
 
-* 若要將可繪製資源作為 `ImageVector` XML 向量圖存取，請使用 `vectorResource()` 函式：
+* 若要將 drawable 資源存取為 `ImageVector` XML 向量，請使用 `vectorResource()` 函數：
 
   ```kotlin
   @Composable
   fun vectorResource(resource: DrawableResource): ImageVector {...}
   ```
 
-以下是您如何在 Compose Multiplatform 程式碼中存取影像的範例：
+以下是如何在 Compose Multiplatform 程式碼中存取影像的範例：
 
 ```kotlin
 Image(
@@ -93,15 +84,14 @@ Image(
 
 ### 字串
 
-將所有字串資源儲存在 `composeResources/values` 目錄中的 XML 檔案中。
-每個檔案中的每個項目都會生成一個靜態存取器。
+將所有字串資源儲存在 `composeResources/values` 目錄中的 XML 檔案。
+每個檔案中的每個項目都會產生一個靜態存取器。
 
-有關如何為不同地區設定字串本地化的更多資訊，請參閱
-[字串本地化指南](compose-localize-strings.md)。
+有關如何為不同地區設定字串本地化的更多資訊，請參閱[字串本地化指南](compose-localize-strings.md)。
 
 #### 簡單字串
 
-若要儲存簡單字串，請將 `<string>` 元素新增到您的 XML 中：
+若要儲存簡單字串，請將 `<string>` 元素新增至您的 XML：
 
 ```XML
 <resources>
@@ -112,8 +102,8 @@ Image(
 
 若要將字串資源作為 `String` 取得，請使用以下程式碼：
 
-<tabs>
-<tab title= "從可組合程式碼中">
+<Tabs>
+<TabItem title= "從可組合程式碼">
 
 ```kotlin
 @Composable
@@ -129,8 +119,8 @@ fun stringResource(resource: StringResource, vararg formatArgs: Any): String {..
 Text(stringResource(Res.string.app_name))
 ```
 
-</tab>
-<tab title= "從不可組合程式碼中">
+</TabItem>
+<TabItem title= "從非可組合程式碼">
 
 ```kotlin
 suspend fun getString(resource: StringResource): String
@@ -146,23 +136,22 @@ coroutineScope.launch {
 }
 ```
 
-</tab>
-</tabs>
+</TabItem>
+</Tabs>
 
 您可以在字串資源中使用特殊符號：
 
 * `
-` – 表示換行符號
-* `\t` – 表示 Tab 符號
-* `\uXXXX` – 表示特定 Unicode 字元
+` – 用於新行
+* `\t` – 用於 tab 符號
+* `\uXXXX` – 用於特定 Unicode 字元
 
-您不需要像 [Android 字串](https://developer.android.com/guide/topics/resources/string-resource#escaping_quotes) 那樣逸出特殊的 XML 字元，例如 "@" 或 "?"。
+您無需像[針對 Android 字串](https://developer.android.com/guide/topics/resources/string-resource#escaping_quotes)那樣，逸脫特殊 XML 字元如 "@" 或 "?"。
 
 #### 字串範本
 
-目前，引數對字串資源有基本支援。
-建立範本時，使用 `%<number>` 格式將引數放在字串中，並包含 `$d` 或 `$s` 尾碼，
-以指示這是一個變數佔位符，而不是簡單的文字。
+目前，參數對字串資源有基本支援。
+建立範本時，使用 `%<number>` 格式將參數放置在字串內，並包含 `$d` 或 `$s` 後綴，以指示其為變數佔位符而非簡單文字。
 例如：
 
 ```XML
@@ -171,15 +160,14 @@ coroutineScope.launch {
 </resources>
 ```
 
-建立並匯入字串範本資源後，您可以參考它，同時
-以正確的順序傳遞佔位符的引數：
+建立並匯入字串範本資源後，您可以在傳遞佔位符參數時按正確順序引用它：
 
 ```kotlin
 Text(stringResource(Res.string.str_template, 100, "User_name"))
 ```
 
-`$s` 和 `$d` 尾碼之間沒有區別，也不支援其他尾碼。
-您可以將 `%1$s` 佔位符放入資源字串中，並用它來顯示小數，例如：
+`$s` 和 `$d` 後綴之間沒有區別，也不支援其他後綴。
+您可以將 `%1$s` 佔位符放入資源字串中，並使用它來顯示小數，例如：
 
 ```kotlin
 Text(stringResource(Res.string.str_template, "User_name", 100.1f))
@@ -187,7 +175,7 @@ Text(stringResource(Res.string.str_template, "User_name", 100.1f))
 
 #### 字串陣列
 
-您可以將相關字串分組到陣列中，並自動將它們作為 `List<String>` 物件存取：
+您可以將相關字串分組為陣列，並自動將其作為 `List<String>` 物件存取：
 
 ```XML
 <resources>
@@ -203,8 +191,8 @@ Text(stringResource(Res.string.str_template, "User_name", 100.1f))
 
 若要取得對應的列表，請使用以下程式碼：
 
-<tabs>
-<tab title= "從可組合程式碼中">
+<Tabs>
+<TabItem title= "從可組合程式碼">
 
 ```kotlin
 @Composable
@@ -218,8 +206,8 @@ val arr = stringArrayResource(Res.array.str_arr)
 if (arr.isNotEmpty()) Text(arr[0])
 ```
 
-</tab>
-<tab title= "從不可組合程式碼中">
+</TabItem>
+<TabItem title= "從非可組合程式碼">
 
 ```kotlin
 suspend fun getStringArray(resource: StringArrayResource): List<String>
@@ -233,23 +221,22 @@ coroutineScope.launch {
 }
 ```
 
-</tab>
-</tabs>
+</TabItem>
+</Tabs>
 
 #### 複數
 
-當您的 UI 顯示某物的數量時，您可能希望支援相同事物不同數量的文法一致性（一個 _書_，許多 _書_ 等），而無需以程式碼方式建立不相關的字串。
+當您的 UI 顯示某物的數量時，您可能希望在不建立程式上不相關的字串的情況下，支援相同事物的不同數量之間的語法一致性（例如，一本_書_，多本_書_等）。
 
 Compose Multiplatform 中的概念和基本實作與 Android 上的數量字串相同。
-有關在專案中使用複數的最佳實踐和細微差別，請參閱 [Android 文件](https://developer.android.com/guide/topics/resources/string-resource#Plurals)。
+請參閱 [Android 文件](https://developer.android.com/guide/topics/resources/string-resource#Plurals)，以了解在專案中使用複數的最佳實踐和細微差異。
 
-* 支援的變體有 `zero`、`one`、`two`、`few`、`many` 和 `other`。請注意，並非所有語言都考慮所有變體：例如，對於英語，`zero` 被忽略，因為除了 1 之外，它與任何其他複數相同。請依賴語言專家來了解該語言實際堅持的區別。
-* 通常可以透過使用數量中性表達方式（例如「書籍：1」）來避免數量字串。
-  如果這不會惡化使用者體驗，則可考慮採用。
+* 支援的變體有 `zero`、`one`、`two`、`few`、`many` 和 `other`。請注意，並非所有語言都考慮所有變體：例如，英語中會忽略 `zero`，因為它與除 1 之外的任何其他複數相同。請依賴語言專家來了解該語言實際堅持的區別。
+* 通常可以透過使用數量中性的表達方式來避免數量字串，例如「書本：1」。如果這不會惡化使用者體驗，
 
-若要定義複數，請在 `composeResources/values` 目錄中的任何 `.xml` 檔案中新增 `<plurals>` 元素。
-`plurals` 集合是一個簡單的資源，使用名稱屬性（而不是 XML 檔案的名稱）進行參考。
-因此，您可以在一個 XML 檔案中將 `plurals` 資源與其他簡單資源組合在一個 `<resources>` 元素下：
+若要定義複數，請將 `<plurals>` 元素新增至 `composeResources/values` 目錄中的任何 `.xml` 檔案。
+`plurals` 集合是使用 name 屬性（而非 XML 檔案名稱）引用的簡單資源。
+因此，您可以在一個 XML 檔案中，在一個 `<resources>` 元素下，將 `plurals` 資源與其他簡單資源結合：
 
 ```xml
 <resources>
@@ -264,8 +251,8 @@ Compose Multiplatform 中的概念和基本實作與 Android 上的數量字串�
 
 若要將複數作為 `String` 存取，請使用以下程式碼：
 
-<tabs>
-<tab title= "從可組合程式碼中">
+<Tabs>
+<TabItem title= "從可組合程式碼">
 
 ```kotlin
 @Composable
@@ -281,8 +268,8 @@ fun pluralStringResource(resource: PluralStringResource, quantity: Int, vararg f
 Text(pluralStringResource(Res.plurals.new_message, 1, 1))
 ```
 
-</tab>
-<tab title= "從不可組合程式碼中">
+</TabItem>
+<TabItem title= "從非可組合程式碼">
 
 ```kotlin
 suspend fun getPluralString(resource: PluralStringResource, quantity: Int): String
@@ -298,14 +285,14 @@ coroutineScope.launch {
 }
 ```
 
-</tab>
-</tabs>
+</TabItem>
+</Tabs>
 
 ### 字型
 
 將自訂字型儲存在 `composeResources/font` 目錄中，作為 `*.ttf` 或 `*.otf` 檔案。
 
-若要將字型載入為 `Font` 類型，請使用 `Font()` 可組合函式：
+若要將字型載入為 `Font` 類型，請使用 `Font()` 可組合函數：
 
 ```kotlin
 @Composable
@@ -350,15 +337,15 @@ private fun InterTypography(): Typography {
 
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="@Composable private fun InterTypography(): Typography { val interFont = FontFamily("}
 
-> 當 `Font` 是可組合項時，請確保其依賴的組件（例如 `TextStyle` 和 `Typography`）也是可組合項。
+> 當 `Font` 是可組合項時，請確保其依賴的組件，例如 `TextStyle` 和 `Typography`，也是可組合項。
 >
 {style="note"}
 
-若要在網頁目標中支援特殊字元（如表情符號或阿拉伯文字），您需要將相應的字型新增到資源中，並[使用 Compose Multiplatform 預載入 API 預載入備用字型](#preload-resources-using-the-compose-multiplatform-preload-api)。
+若要在網路目標中支援如表情符號或阿拉伯文腳本等特殊字元，您需要將相應的字型新增至資源，並[預載入後備字型](#preload-resources-using-the-compose-multiplatform-preload-api)。
 
 ### 原始檔案
 
-若要將任何原始檔案載入為位元組陣列，請使用 `Res.readBytes(path)` 函式：
+若要將任何原始檔案載入為位元組陣列，請使用 `Res.readBytes(path)` 函數：
 
 ```kotlin
 suspend fun readBytes(path: String): ByteArray
@@ -368,8 +355,8 @@ suspend fun readBytes(path: String): ByteArray
 
 例如，若要存取原始檔案，請使用以下程式碼：
 
-<tabs>
-<tab title= "從可組合程式碼中">
+<Tabs>
+<TabItem title= "從可組合程式碼">
 
 ```kotlin
 var bytes by remember {
@@ -381,8 +368,8 @@ LaunchedEffect(Unit) {
 Text(bytes.decodeToString())
 ```
 
-</tab>
-<tab title= "從不可組合程式碼中">
+</TabItem>
+<TabItem title= "從非可組合程式碼">
 
 ```kotlin
 coroutineScope.launch {
@@ -390,15 +377,14 @@ coroutineScope.launch {
 }
 ```
 
-</tab>
-</tabs>
+</TabItem>
+</Tabs>
 
 #### 將位元組陣列轉換為影像
 
-如果您讀取的檔案是位元圖（JPEG、PNG、BMP、WEBP）或 XML 向量圖影像，您可以使用以下函式
-將它們轉換為適合 `Image()` 可組合項的 `ImageBitmap` 或 `ImageVector` 物件。
+如果您正在讀取的檔案是點陣圖 (JPEG, PNG, BMP, WEBP) 或 XML 向量影像，您可以使用以下函數將它們轉換為適用於 `Image()` 可組合項的 `ImageBitmap` 或 `ImageVector` 物件。
 
-如[原始檔案](#raw-files)部分所示存取原始檔案，然後將結果傳遞給可組合項：
+依照[原始檔案](#raw-files)部分所示存取原始檔案，然後將結果傳遞給可組合項：
 
 ```kotlin
 // bytes = Res.readBytes("files/example.png")
@@ -408,17 +394,16 @@ Image(bytes.decodeToImageBitmap(), null)
 Image(bytes.decodeToImageVector(LocalDensity.current), null)
 ```
 
-除了 Android 之外的所有平台，您還可以將 SVG 檔案轉換為 `Painter` 物件：
+除了 Android 之外，在所有平台上，您還可以將 SVG 檔案轉換為 `Painter` 物件：
 
 ```kotlin
 // bytes = Res.readBytes("files/example.svg")
 Image(bytes.decodeToSvgPainter(LocalDensity.current), null)
 ```
 
-### 資源和字串 ID 的生成映射
+### 資源和字串 ID 的產生映射
 
-為了方便存取，Compose Multiplatform 還將資源與字串 ID 進行映射。您可以使用
-檔案名作為鍵來存取它們：
+為了便於存取，Compose Multiplatform 也會將資源與字串 ID 進行映射。您可以使用檔案名稱作為鍵來存取它們：
 
 ```kotlin
 val Res.allDrawableResources: Map<String, DrawableResource>
@@ -436,18 +421,17 @@ Image(painterResource(Res.allDrawableResources["compose_multiplatform"]!!), null
 
 ### Compose Multiplatform 資源作為 Android 資產
 
-從 Compose Multiplatform 1.7.0 開始，所有多平台資源都會打包到 Android 資產中。
-這使得 Android Studio 能夠為 Android 原始碼集中的 Compose Multiplatform 可組合項生成預覽。
+從 Compose Multiplatform 1.7.0 開始，所有多平台資源都打包到 Android 資產中。
+這使得 Android Studio 能夠為 Android 原始碼集中的 Compose Multiplatform 可組合項產生預覽。
 
 > Android Studio 預覽僅適用於 Android 原始碼集中的可組合項。
-> 它們還需要最新版本的 AGP 之一：8.5.2、8.6.0-rc01 或 8.7.0-alpha04。
+> 它們還需要最新版本的 AGP：8.5.2、8.6.0-rc01 或 8.7.0-alpha04。
 >
 {style="warning"}
 
-將多平台資源作為 Android 資產也使得從 WebViews 和媒體播放器組件在 Android 上直接存取成為可能，
-因為資源可以透過簡單的路徑到達，例如 `Res.getUri("files/index.html")`。
+將多平台資源用作 Android 資產也使得可以直接從 Android 上的 `WebView` 和媒體播放器組件進行存取，因為資源可以透過簡單的路徑到達，例如 `Res.getUri("files/index.html")`。
 
-一個 Android 可組合項的範例，顯示帶有指向資源影像連結的資源 HTML 頁面：
+Android 可組合項顯示資源 HTML 頁面並連結至資源影像的範例：
 
 ```kotlin
 // androidMain/kotlin/com/example/webview/App.kt
@@ -474,7 +458,7 @@ fun App() {
 ```
 {initial-collapse-state="collapsed" collapsible="true"  collapsed-title="AndroidView(factory = { WebView(it).apply"}
 
-該範例適用於這個簡單的 HTML 檔案：
+此範例適用於這個簡單的 HTML 檔案：
 
 ```html
 <html>
@@ -490,39 +474,33 @@ fun App() {
 ```
 {initial-collapse-state="collapsed" collapsible="true"  collapsed-title="<title>Cat Resource</title>"}
 
-此範例中的兩個資源檔案都位於 `commonMain` 原始碼集中：
+此範例中的兩個資源檔案都位於 `commonMain` 原始碼集：
 
-![File structure of the composeResources directory](compose-resources-android-webview.png){width="230"}
+![composeResources 目錄的檔案結構](compose-resources-android-webview.png){width="230"}
 
-## 網頁目標的資源預載入
+## 網路目標的資源預載入
 
-網頁資源（如字型和影像）使用 `fetch` API 非同步載入。在初始載入期間或網路連線較慢時，
-資源獲取可能導致視覺異常，例如 [FOUT](https://fonts.google.com/knowledge/glossary/fout)
-或顯示佔位符而非影像。
+諸如字型和影像之類的網路資源會使用 `fetch` API 進行非同步載入。在初始載入期間或網路連線較慢時，資源擷取可能會導致視覺故障，例如 [FOUT](https://fonts.google.com/knowledge/glossary/fout) 或顯示佔位符而不是影像。
 
-此問題的一個典型範例是當 `Text()` 組件包含自訂字型中的文字，但帶有必要字形的字型仍在載入中。
-在這種情況下，使用者可能會暫時看到預設字型中的文字，甚至空白框或問號而不是字元。
-同樣，對於影像或可繪製項，使用者可能會觀察到空白或黑框等佔位符，直到資源完全載入。
+此問題的典型範例是當 `Text()` 組件包含自訂字型的文字時，但包含所需字形的字型仍在載入中。在這種情況下，使用者可能會暫時看到預設字型的文字，甚至看到空框和問號而不是字元。同樣地，對於影像或 drawable，使用者可能會觀察到一個空白或黑色方框之類的佔位符，直到資源完全載入。
 
-為防止視覺異常，您可以使用內建的瀏覽器功能進行資源預載入、
-Compose Multiplatform 預載入 API，或兩者結合使用。
+為防止視覺故障，您可以使用內建瀏覽器功能進行資源預載入、Compose Multiplatform 預載入 API，或兩者結合使用。
 
 ### 使用瀏覽器功能預載入資源
 
-在現代瀏覽器中，您可以使用帶有 [`rel="preload"` 屬性](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/rel/preload) 的 `<link>` 標籤預載入資源。
-此屬性指示瀏覽器在應用程式啟動前優先下載和快取字型和影像等資源，
-確保這些資源盡早可用。
+在現代瀏覽器中，您可以使用帶有 [`rel="preload"` 屬性](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/rel/preload)的 `<link>` 標籤來預載入資源。
+此屬性會指示瀏覽器在應用程式啟動之前優先下載和快取字型和影像等資源，確保這些資源能夠提早可用。
 
-例如，要在瀏覽器中啟用字型預載入：
+例如，若要啟用瀏覽器內字型預載入：
 
-1. 建置應用程式的網頁發行版：
+1. 建置您的應用程式網路發佈版：
 
 ```console
    ./gradlew :composeApp:wasmJsBrowserDistribution
 ```
 
-2. 在生成的 `dist` 目錄中找到所需資源並儲存路徑。
-3. 開啟 `wasmJsMain/resources/index.html` 檔案並在 `<head>` 元素內新增 `<link>` 標籤。
+2. 在產生的 `dist` 目錄中找到所需的資源並儲存路徑。
+3. 開啟 `wasmJsMain/resources/index.html` 檔案並在 `<head>` 元素內新增一個 `<link>` 標籤。
 4. 將 `href` 屬性設定為資源路徑：
 
 ```html
@@ -532,18 +510,14 @@ Compose Multiplatform 預載入 API，或兩者結合使用。
 ### 使用 Compose Multiplatform 預載入 API 預載入資源
 <secondary-label ref="Experimental"/>
 
-即使您已在瀏覽器中預載入資源，它們仍會以原始位元組的形式快取，仍然需要轉換為適合渲染的格式，
-例如 `FontResource` 和 `DrawableResource`。當應用程式首次請求資源時，轉換是非同步完成的，
-這可能會再次導致閃爍。為了進一步最佳化使用者體驗，
-Compose Multiplatform 資源具有自己的內部快取，用於高階資源表示形式，也可以預載入。
+即使您已在瀏覽器中預載入資源，它們仍會以原始位元組形式快取，這些位元組仍需要轉換為適合呈現的格式，例如 `FontResource` 和 `DrawableResource`。當應用程式第一次請求資源時，轉換是異步完成的，這可能會再次導致閃爍。為了進一步最佳化體驗，Compose Multiplatform 資源擁有自己的內部快取，用於資源的更高層次表示，這也可以預載入。
 
-Compose Multiplatform 1.8.0 引入了一個實驗性 API，用於在網頁目標上預載入字型和影像資源：
-`preloadFont()`、`preloadImageBitmap()` 和 `preloadImageVector()`。
+Compose Multiplatform 1.8.0 引入了一個實驗性 API，用於在網路目標上預載入字型和影像資源：`preloadFont()`、`preloadImageBitmap()` 和 `preloadImageVector()`。
 
-此外，如果您需要特殊字元（如表情符號），您可以設定不同於預設捆綁選項的備用字型。
-若要指定備用字型，請使用 `FontFamily.Resolver.preload()` 方法。
+此外，如果您需要表情符號等特殊字元，您可以設定與預設捆綁選項不同的後備字型。
+若要指定後備字型，請使用 `FontFamily.Resolver.preload()` 方法。
 
-以下範例演示了如何使用預載入和備用字型：
+以下範例示範如何使用預載入和後備字型：
 
 ```kotlin
 import androidx.compose.foundation.background
@@ -572,7 +546,7 @@ import org.jetbrains.compose.resources.preloadFont
 @OptIn(ExperimentalComposeUiApi::class, ExperimentalResourceApi::class, InternalComposeUiApi::class)
 fun main() {
     configureWebResources {
-        // Overrides the resource location
+        // 覆寫資源位置
         resourcePathMapping { path -> "./$path" }
     }
     CanvasBasedWindow("Resources + K/Wasm") {
@@ -581,13 +555,13 @@ fun main() {
         val emojiFont = preloadFont(Res.font.NotoColorEmoji).value
         var fontsFallbackInitialized by remember { mutableStateOf(false) }
 
-        // Uses the preloaded resource for the app's content
+        // 使用預載入的資源作為應用程式內容
         UseResources()
 
         if (font1 != null && font2 != null && emojiFont != null && fontsFallbackInitialized) {
             println("Fonts are ready")
         } else {
-            // Displays the progress indicator to address a FOUT or the app being temporarily non-functional during loading
+            // 顯示進度指示器，以解決 FOUT 或應用程式在載入期間暫時無法運作的問題
             Box(modifier = Modifier.fillMaxSize().background(Color.White.copy(alpha = 0.8f)).clickable {  }) {
                 CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
             }
@@ -597,7 +571,7 @@ fun main() {
         val fontFamilyResolver = LocalFontFamilyResolver.current
         LaunchedEffect(fontFamilyResolver, emojiFont) {
             if (emojiFont != null) {
-                // Preloads a fallback font with emojis to render missing glyphs that are not supported by the bundled font
+                // 預載入包含表情符號的後備字型，以呈現捆綁字型不支援的缺失字形
                 fontFamilyResolver.preload(FontFamily(listOf(emojiFont)))
                 fontsFallbackInitialized = true
             }
@@ -607,13 +581,12 @@ fun main() {
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="fontFamilyResolver.preload(FontFamily(listOf(emojiFont)))"}
 
-## 與其他函式庫和資源的互動
+## 與其他函式庫和資源互動
 
 ### 從外部函式庫存取多平台資源
 
-如果您想使用專案中包含的其他函式庫來處理多平台資源，您可以將平台特定
-檔案路徑傳遞給這些其他 API。
-若要取得平台特定路徑，請呼叫 `Res.getUri()` 函式並傳入資源的專案路徑：
+如果您想使用專案中包含的其他函式庫來處理多平台資源，您可以將平台特定的檔案路徑傳遞給這些其他 API。
+若要取得平台特定路徑，請使用資源的專案路徑呼叫 `Res.getUri()` 函數：
 
 ```kotlin
 val uri = Res.getUri("files/my_video.mp4")
@@ -621,13 +594,13 @@ val uri = Res.getUri("files/my_video.mp4")
 
 現在 `uri` 變數包含檔案的絕對路徑，任何外部函式庫都可以使用該路徑以適合其方式存取檔案。
 
-對於 Android 特定用途，多平台資源也會[打包為 Android 資產](#compose-multiplatform-resources-as-android-assets)。
+對於 Android 特定用途，多平台資源也[打包為 Android 資產](#compose-multiplatform-resources-as-android-assets)。
 
 ### 遠端檔案
 
 在資源函式庫的上下文中，只有作為應用程式一部分的檔案才被視為資源。
 
-您可以使用專用函式庫從網際網路載入遠端檔案，透過其 URL：
+您可以使用專業函式庫透過其 URL 從網際網路載入遠端檔案：
 
 * [Compose ImageLoader](https://github.com/qdsfdhvh/compose-imageloader)
 * [Kamel](https://github.com/Kamel-Media/Kamel)
@@ -635,13 +608,11 @@ val uri = Res.getUri("files/my_video.mp4")
 
 ### 使用 Java 資源
 
-儘管您可以將 Java 資源與 Compose Multiplatform 結合使用，但它們無法受益於框架提供的
-擴充功能：生成的存取器、多模組支援、本地化等等。
-考慮完全過渡到多平台資源函式庫以釋放該潛力。
+儘管您可以在 Compose Multiplatform 中使用 Java 資源，但它們無法受益於框架提供的擴展功能：產生的存取器、多模組支援、本地化等等。
+考慮完全轉換到多平台資源函式庫以釋放該潛力。
 
-在 Compose Multiplatform 1.7.0 中，`compose.ui` 套件中可用的資源 API 已棄用。
-如果您仍然需要使用 Java 資源，請將以下實作複製到您的專案中，以確保您的程式碼
-在升級到 Compose Multiplatform 1.7.0 或更高版本後仍然有效：
+隨著 Compose Multiplatform 1.7.0 的發佈，`compose.ui` 套件中可用的資源 API 已被棄用。
+如果您仍然需要使用 Java 資源，請將以下實作複製到您的專案中，以確保您的程式碼在升級到 Compose Multiplatform 1.7.0 或更高版本後仍然有效：
 
 ```kotlin
 @Composable
@@ -679,6 +650,5 @@ private fun readResourceBytes(resourcePath: String) =
 
 ## 接下來是什麼？
 
-* 查看官方[示範專案](https://github.com/JetBrains/compose-multiplatform/tree/master/components/resources/demo)，
-該專案展示了如何在目標為 iOS、Android 和桌面的 Compose Multiplatform 專案中處理資源。
+* 查看官方[示範專案](https://github.com/JetBrains/compose-multiplatform/tree/master/components/resources/demo)，該專案展示了如何在針對 iOS、Android 和桌面的 Compose Multiplatform 專案中處理資源。
 * 了解如何管理應用程式的[資源環境](compose-resource-environment.md)，例如應用程式內主題和語言。

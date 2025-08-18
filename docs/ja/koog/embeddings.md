@@ -1,4 +1,4 @@
-# Embeddings
+# 埋め込み
 
 `embeddings` モジュールは、テキストとコードの埋め込みを生成・比較する機能を提供します。埋め込みは、セマンティックな意味合いを捉えるベクトル表現であり、効率的な類似性比較を可能にします。
 
@@ -21,18 +21,27 @@
 ローカルモデルで埋め込み機能を使用するには、システムにOllamaがインストールされ、実行されている必要があります。
 インストールと実行の手順については、[公式Ollama GitHubリポジトリ](https://github.com/ollama/ollama)を参照してください。
 
+<!--- INCLUDE
+import ai.koog.embeddings.local.LLMEmbedder
+import ai.koog.embeddings.local.OllamaEmbeddingModels
+import ai.koog.prompt.executor.ollama.client.OllamaClient
+import kotlinx.coroutines.runBlocking
+-->
 ```kotlin
 fun main() {
-    // Create an OllamaClient instance
-    val client = OllamaClient()
-    // Create an embedder
-    val embedder = LLMEmbedder(client, OllamaEmbeddingModels.NOMIC_EMBED_TEXT)
-    // Create embeddings
-    val embedding = embedder.embed("This is the text to embed")
-    // Print embeddings to the output
-    println(embedding)
+    runBlocking {
+        // OllamaClientインスタンスを作成
+        val client = OllamaClient()
+        // エンベッダーを作成
+        val embedder = LLMEmbedder(client, OllamaEmbeddingModels.NOMIC_EMBED_TEXT)
+        // 埋め込みを作成
+        val embedding = embedder.embed("This is the text to embed")
+        // 埋め込みを出力
+        println(embedding)
+    }
 }
 ```
+<!--- KNIT example-embeddings-01.kt -->
 
 Ollama埋め込みモデルを使用するには、以下の前提条件を満たしていることを確認してください。
 
@@ -71,20 +80,26 @@ Ollama埋め込みモデルを使用するには、以下の前提条件を満�
 
 OpenAI埋め込みモデルを使用して埋め込みを作成するには、以下の例に示すように、`OpenAILLMClient` インスタンスの `embed` メソッドを使用します。
 
+<!--- INCLUDE
+import ai.koog.embeddings.local.LLMEmbedder
+import ai.koog.prompt.executor.clients.openai.OpenAILLMClient
+import ai.koog.prompt.executor.clients.openai.OpenAIModels
+-->
 ```kotlin
 suspend fun openAIEmbed(text: String) {
-    // Get the OpenAI API token from the OPENAI_KEY environment variable
+    // OPENAI_KEY環境変数からOpenAI APIトークンを取得
     val token = System.getenv("OPENAI_KEY") ?: error("Environment variable OPENAI_KEY is not set")
-    // Create an OpenAILLMClient instance
+    // OpenAILLMClientインスタンスを作成
     val client = OpenAILLMClient(token)
-    // Create an embedder
-    val embedder = LLMEmbedder(client, OpenAIModels.Embeddings.TextEmbeddingAda3Small)
-    // Create embeddings
+    // エンベッダーを作成
+    val embedder = LLMEmbedder(client, OpenAIModels.Embeddings.TextEmbeddingAda002)
+    // 埋め込みを作成
     val embedding = embedder.embed(text)
-    // Print embeddings to the output
+    // 埋め込みを出力
     println(embedding)
 }
 ```
+<!--- KNIT example-embeddings-02.kt -->
 
 ## 例
 
@@ -94,32 +109,35 @@ suspend fun openAIEmbed(text: String) {
 
 コードスニペットを自然言語の説明と比較して、意味的な一致を見つけます。
 
+<!--- INCLUDE
+import ai.koog.embeddings.base.Embedder
+-->
 ```kotlin
-suspend fun compareCodeToText(embedder: Embedder) { // Embedder type
-    // Code snippet
+suspend fun compareCodeToText(embedder: Embedder) { // Embedder型
+    // コードスニペット
     val code = """
         fun factorial(n: Int): Int {
             return if (n <= 1) 1 else n * factorial(n - 1)
         }
     """.trimIndent()
 
-    // Text descriptions
+    // テキストの説明
     val description1 = "A recursive function that calculates the factorial of a number"
     val description2 = "A function that sorts an array of integers"
 
-    // Generate embeddings
+    // 埋め込みを生成
     val codeEmbedding = embedder.embed(code)
     val desc1Embedding = embedder.embed(description1)
     val desc2Embedding = embedder.embed(description2)
 
-    // Calculate differences (lower value means more similar)
+    // 差を計算（値が小さいほど類似性が高い）
     val diff1 = embedder.diff(codeEmbedding, desc1Embedding)
     val diff2 = embedder.diff(codeEmbedding, desc2Embedding)
 
     println("Difference between code and description 1: $diff1")
     println("Difference between code and description 2: $diff2")
 
-    // The code should be more similar to description1 than description2
+    // コードはdescription2よりもdescription1に似ているはずです。
     if (diff1 < diff2) {
         println("The code is more similar to: '$description1'")
     } else {
@@ -127,14 +145,18 @@ suspend fun compareCodeToText(embedder: Embedder) { // Embedder type
     }
 }
 ```
+<!--- KNIT example-embeddings-03.kt -->
 
 ### コードとコードの比較
 
 構文の違いにかかわらず、コードスニペットを比較して意味的な類似性を見つけます。
 
+<!--- INCLUDE
+import ai.koog.embeddings.base.Embedder
+-->
 ```kotlin
-suspend fun compareCodeToCode(embedder: Embedder) { // Embedder type
-    // Two implementations of the same algorithm in different languages
+suspend fun compareCodeToCode(embedder: Embedder) { // Embedder型
+    // 異なる言語で同じアルゴリズムの2つの実装
     val kotlinCode = """
         fun fibonacci(n: Int): Int {
             return if (n <= 1) n else fibonacci(n - 1) + fibonacci(n - 2)
@@ -165,19 +187,19 @@ suspend fun compareCodeToCode(embedder: Embedder) { // Embedder type
         }
     """.trimIndent()
 
-    // Generate embeddings
+    // 埋め込みを生成
     val kotlinEmbedding = embedder.embed(kotlinCode)
     val pythonEmbedding = embedder.embed(pythonCode)
     val javaEmbedding = embedder.embed(javaCode)
 
-    // Calculate differences
+    // 差を計算
     val diffKotlinPython = embedder.diff(kotlinEmbedding, pythonEmbedding)
     val diffKotlinJava = embedder.diff(kotlinEmbedding, javaEmbedding)
 
     println("Difference between Kotlin and Python implementations: $diffKotlinPython")
     println("Difference between Kotlin and Java implementations: $diffKotlinJava")
 
-    // The Kotlin and Python implementations should be more similar
+    // KotlinとPythonの実装の方がより類似しているはずです。
     if (diffKotlinPython < diffKotlinJava) {
         println("The Kotlin code is more similar to the Python code")
     } else {
@@ -185,6 +207,7 @@ suspend fun compareCodeToCode(embedder: Embedder) { // Embedder type
     }
 }
 ```
+<!--- KNIT example-embeddings-04.kt -->
 
 ## APIドキュメント
 

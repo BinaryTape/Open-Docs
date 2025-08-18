@@ -1,4 +1,4 @@
-# 事前定義されたノードとコンポーネント
+_# 事前定義されたノードとコンポーネント
 
 ノードは、Koogフレームワークにおけるエージェントワークフローの基本的な構成要素です。各ノードはワークフロー内の特定の操作または変換を表し、エッジを使用して接続することで実行フローを定義できます。
 
@@ -19,12 +19,23 @@
 
 以下に例を示します。
 
+<!--- INCLUDE
+import ai.koog.agents.core.dsl.builder.forwardTo
+import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.extension.nodeDoNothing
+
+val strategy = strategy<String, String>("strategy_name") {
+-->
+<!--- SUFFIX
+}
+-->
 ```kotlin
 val passthrough by nodeDoNothing<String>("passthrough")
 
-edge(someNode forwardTo passthrough)
-edge(passthrough forwardTo anotherNode)
+edge(nodeStart forwardTo passthrough)
+edge(passthrough forwardTo nodeFinish)
 ```
+<!--- KNIT example-nodes-and-component-01.kt -->
 
 ## LLMノード
 
@@ -40,12 +51,38 @@ edge(passthrough forwardTo anotherNode)
 
 以下に例を示します。
 
+<!--- INCLUDE
+import ai.koog.agents.core.dsl.builder.forwardTo
+import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.extension.nodeUpdatePrompt
+
+typealias Input = Unit
+typealias Output = Unit
+
+val strategy = strategy<String, String>("strategy_name") {
+-->
+<!--- SUFFIX
+}
+-->
 ```kotlin
-val setupContext by nodeUpdatePrompt("setupContext") {
+val firstNode by node<Input, Output> {
+    // Transform input to output
+}
+
+val secondNode by node<Output, Output> {
+    // Transform output to output
+}
+
+// Node will get the value of type Output as input from the previous node and path through it to the next node
+val setupContext by nodeUpdatePrompt<Output>("setupContext") {
     system("You are a helpful assistant specialized in Kotlin programming.")
     user("I need help with Kotlin coroutines.")
 }
+
+edge(firstNode forwardTo setupContext)
+edge(setupContext forwardTo secondNode)
 ```
+<!--- KNIT example-nodes-and-component-02.kt -->
 
 ### nodeLLMSendMessageOnlyCallingTools
 
@@ -65,10 +102,23 @@ val setupContext by nodeUpdatePrompt("setupContext") {
 
 以下に例を示します。
 
+<!--- INCLUDE
+import ai.koog.agents.core.dsl.builder.forwardTo
+import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.extension.nodeLLMRequest
+import ai.koog.agents.core.dsl.extension.nodeDoNothing
+
+val strategy = strategy<String, String>("strategy_name") {
+    val getUserQuestion by nodeDoNothing<String>()
+-->
+<!--- SUFFIX
+}
+-->
 ```kotlin
-val processQuery by nodeLLMRequest("processQuery", allowToolCalls = true)
-edge(someNode forwardTo processQuery)
+val requestLLM by nodeLLMRequest("requestLLM", allowToolCalls = true)
+edge(getUserQuestion forwardTo requestLLM)
 ```
+<!--- KNIT example-nodes-and-component-03.kt -->
 
 ### nodeLLMRequestStructured
 
@@ -90,10 +140,23 @@ edge(someNode forwardTo processQuery)
 
 以下に例を示します。
 
+<!--- INCLUDE
+import ai.koog.agents.core.dsl.builder.forwardTo
+import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.extension.nodeLLMRequestMultiple
+import ai.koog.agents.core.dsl.extension.nodeDoNothing
+
+val strategy = strategy<String, String>("strategy_name") {
+    val getComplexUserQuestion by nodeDoNothing<String>()
+-->
+<!--- SUFFIX
+}
+-->
 ```kotlin
-val processComplexQuery by nodeLLMRequestMultiple("processComplexQuery")
-edge(someNode forwardTo processComplexQuery)
+val requestLLMMultipleTools by nodeLLMRequestMultiple()
+edge(getComplexUserQuestion forwardTo requestLLMMultipleTools)
 ```
+<!--- KNIT example-nodes-and-component-04.kt -->
 
 ### nodeLLMCompressHistory
 
@@ -110,14 +173,28 @@ edge(someNode forwardTo processComplexQuery)
 
 以下に例を示します。
 
+<!--- INCLUDE
+import ai.koog.agents.core.dsl.builder.forwardTo
+import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.extension.nodeLLMCompressHistory
+import ai.koog.agents.core.dsl.extension.nodeDoNothing
+import ai.koog.agents.core.dsl.extension.HistoryCompressionStrategy
+
+val strategy = strategy<String, String>("strategy_name") {
+    val generateHugeHistory by nodeDoNothing<String>()
+-->
+<!--- SUFFIX
+}
+-->
 ```kotlin
 val compressHistory by nodeLLMCompressHistory<String>(
     "compressHistory",
     strategy = HistoryCompressionStrategy.FromLastNMessages(10),
     preserveMemory = true
 )
-edge(someNode forwardTo compressHistory)
+edge(generateHugeHistory forwardTo compressHistory)
 ```
+<!--- KNIT example-nodes-and-component-05.kt -->
 
 ## ツールノード
 
@@ -133,10 +210,24 @@ edge(someNode forwardTo compressHistory)
 
 以下に例を示します。
 
+<!--- INCLUDE
+import ai.koog.agents.core.dsl.builder.forwardTo
+import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.extension.nodeExecuteTool
+import ai.koog.agents.core.dsl.extension.nodeLLMRequest
+import ai.koog.agents.core.dsl.extension.onToolCall
+
+val strategy = strategy<String, String>("strategy_name") {
+-->
+<!--- SUFFIX
+}
+-->
 ```kotlin
-val executeToolCall by nodeExecuteTool("executeToolCall")
-edge(llmNode forwardTo executeToolCall onToolCall { true })
+val requestLLM by nodeLLMRequest()
+val executeTool by nodeExecuteTool()
+edge(requestLLM forwardTo executeTool onToolCall { true })
 ```
+<!--- KNIT example-nodes-and-component-06.kt -->
 
 ### nodeLLMSendToolResult
 
@@ -150,14 +241,27 @@ edge(llmNode forwardTo executeToolCall onToolCall { true })
 
 以下に例を示します。
 
+<!--- INCLUDE
+import ai.koog.agents.core.dsl.builder.forwardTo
+import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.extension.nodeExecuteTool
+import ai.koog.agents.core.dsl.extension.nodeLLMSendToolResult
+
+val strategy = strategy<String, String>("strategy_name") {
+-->
+<!--- SUFFIX
+}
+-->
 ```kotlin
-val processToolResult by nodeLLMSendToolResult("processToolResult")
-edge(executeToolCall forwardTo processToolResult)
+val executeTool by nodeExecuteTool()
+val sendToolResultToLLM by nodeLLMSendToolResult()
+edge(executeTool forwardTo sendToolResultToLLM)
 ```
+<!--- KNIT example-nodes-and-component-07.kt -->
 
 ### nodeExecuteMultipleTools
 
-複数のツール呼び出しを実行するノードです。これらの呼び出しはオプションで並行して実行できます。詳細については、[APIリファレンス](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.dsl.extension/node-execute-multiple-tools.html)を参照してください。
+複数のツール呼び出しを実行するノードです。これらの呼び出しはオプションで並行して実行できます。詳細については、[APIリファレンス](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.dsl.extension/node-l-l-m-send-multiple-tool-results.html)を参照してください。
 
 このノードは次の目的で使用できます。
 
@@ -167,10 +271,24 @@ edge(executeToolCall forwardTo processToolResult)
 
 以下に例を示します。
 
+<!--- INCLUDE
+import ai.koog.agents.core.dsl.builder.forwardTo
+import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.extension.nodeLLMRequestMultiple
+import ai.koog.agents.core.dsl.extension.nodeExecuteMultipleTools
+import ai.koog.agents.core.dsl.extension.onMultipleToolCalls
+
+val strategy = strategy<String, String>("strategy_name") {
+-->
+<!--- SUFFIX
+}
+-->
 ```kotlin
-val executeMultipleTools by nodeExecuteMultipleTools("executeMultipleTools")
-edge(llmNode forwardTo executeMultipleTools)
+val requestLLMMultipleTools by nodeLLMRequestMultiple()
+val executeMultipleTools by nodeExecuteMultipleTools()
+edge(requestLLMMultipleTools forwardTo executeMultipleTools onMultipleToolCalls { true })
 ```
+<!--- KNIT example-nodes-and-component-08.kt -->
 
 ### nodeLLMSendMultipleToolResults
 
@@ -184,10 +302,23 @@ edge(llmNode forwardTo executeMultipleTools)
 
 以下に例を示します。
 
+<!--- INCLUDE
+import ai.koog.agents.core.dsl.builder.forwardTo
+import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.extension.nodeLLMSendMultipleToolResults
+import ai.koog.agents.core.dsl.extension.nodeExecuteMultipleTools
+
+val strategy = strategy<String, String>("strategy_name") {
+-->
+<!--- SUFFIX
+}
+-->
 ```kotlin
-val processMultipleToolResults by nodeLLMSendMultipleToolResults("processMultipleToolResults")
-edge(executeMultipleTools forwardTo processMultipleToolResults)
+val executeMultipleTools by nodeExecuteMultipleTools()
+val sendMultipleToolResultsToLLM by nodeLLMSendMultipleToolResults()
+edge(executeMultipleTools forwardTo sendMultipleToolResultsToLLM)
 ```
+<!--- KNIT example-nodes-and-component-09.kt -->
 
 ## 事前定義されたサブグラフ
 
@@ -214,11 +345,25 @@ edge(executeMultipleTools forwardTo processMultipleToolResults)
 
 サブグラフにタスクをテキストとして提供し、必要に応じてLLMを設定し、必要なツールを提供すると、サブグラフがそのタスクを処理して解決します。以下に例を示します。
 
+<!--- INCLUDE
+import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.ext.tool.SayToUser
+import ai.koog.prompt.executor.clients.openai.OpenAIModels
+import ai.koog.agents.ext.agent.subgraphWithTask
+
+val searchTool = SayToUser
+val calculatorTool = SayToUser
+val weatherTool = SayToUser
+
+val strategy = strategy<String, String>("strategy_name") {
+-->
+<!--- SUFFIX
+}
+-->
 ```kotlin
 val processQuery by subgraphWithTask<String>(
     tools = listOf(searchTool, calculatorTool, weatherTool),
-    model = OpenAIModels.Chat.GPT4o,
-    shouldTLDRHistory = true
+    llmModel = OpenAIModels.Chat.GPT4o,
 ) { userQuery ->
     """
     You are a helpful assistant that can answer questions about various topics.
@@ -227,6 +372,7 @@ val processQuery by subgraphWithTask<String>(
     """
 }
 ```
+<!--- KNIT example-nodes-and-component-10.kt -->
 
 ### subgraphWithVerification
 
@@ -242,10 +388,25 @@ val processQuery by subgraphWithTask<String>(
 このサブグラフは、LLMがワークフローの最後に検証ツールを呼び出し、タスクが正常に完了したかどうかをチェックすることを保証します。この検証が最終ステップとして実行されることを保証し、タスクが正常に完了したかどうかを示す`VerifiedSubgraphResult`と詳細なフィードバックを返します。
 以下に例を示します。
 
+<!--- INCLUDE
+import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.ext.tool.SayToUser
+import ai.koog.prompt.executor.clients.anthropic.AnthropicModels
+import ai.koog.agents.ext.agent.subgraphWithVerification
+
+val runTestsTool = SayToUser
+val analyzeTool = SayToUser
+val readFileTool = SayToUser
+
+val strategy = strategy<String, String>("strategy_name") {
+-->
+<!--- SUFFIX
+}
+-->
 ```kotlin
-val verifyCode by subgraphWithVerification(
+val verifyCode by subgraphWithVerification<String>(
     tools = listOf(runTestsTool, analyzeTool, readFileTool),
-    model = AnthropicModels.Sonnet_3_7
+    llmModel = AnthropicModels.Sonnet_3_7
 ) { codeToVerify ->
     """
     You are a code reviewer. Please verify that the following code meets all requirements:
@@ -258,6 +419,7 @@ val verifyCode by subgraphWithVerification(
     """
 }
 ```
+<!--- KNIT example-nodes-and-component-11.kt -->
 
 ## 事前定義された戦略と一般的な戦略パターン
 
@@ -271,8 +433,16 @@ val verifyCode by subgraphWithVerification(
 
 この戦略は、複雑なロジックを必要としない単純なプロセスを実行する必要がある場合に使用できます。
 
+<!--- INCLUDE
+import ai.koog.agents.core.agent.entity.AIAgentStrategy
+import ai.koog.agents.core.dsl.builder.forwardTo
+import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.extension.*
+
+-->
 ```kotlin
-public fun singleRunStrategy(): AIAgentStrategy = strategy("single_run") {
+
+public fun singleRunStrategy(): AIAgentStrategy<String, String> = strategy("single_run") {
     val nodeCallLLM by nodeLLMRequest("sendInput")
     val nodeExecuteTool by nodeExecuteTool("nodeExecuteTool")
     val nodeSendToolResult by nodeLLMSendToolResult("nodeSendToolResult")
@@ -285,13 +455,22 @@ public fun singleRunStrategy(): AIAgentStrategy = strategy("single_run") {
     edge(nodeSendToolResult forwardTo nodeExecuteTool onToolCall { true })
 }
 ```
+<!--- KNIT example-nodes-and-component-12.kt -->
 
 ### ツールベース戦略
 
 ツールベース戦略は、特定の操作を実行するためにツールに大きく依存するワークフロー向けに設計されています。通常、LLMの決定に基づいてツールを実行し、結果を処理します。
 
+<!--- INCLUDE
+import ai.koog.agents.core.agent.entity.AIAgentStrategy
+import ai.koog.agents.core.dsl.builder.forwardTo
+import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.extension.*
+import ai.koog.agents.core.tools.ToolRegistry
+
+-->
 ```kotlin
-fun toolBasedStrategy(name: String, toolRegistry: ToolRegistry): AIAgentStrategy {
+fun toolBasedStrategy(name: String, toolRegistry: ToolRegistry): AIAgentStrategy<String, String> {
     return strategy(name) {
         val nodeSendInput by nodeLLMRequest()
         val nodeExecuteTool by nodeExecuteTool()
@@ -329,28 +508,42 @@ fun toolBasedStrategy(name: String, toolRegistry: ToolRegistry): AIAgentStrategy
     }
 }
 ```
+<!--- KNIT example-nodes-and-component-13.kt -->
 
 ### ストリーミングデータ戦略
 
 ストリーミングデータ戦略は、LLMからのストリーミングデータを処理するために設計されています。通常、ストリーミングデータを要求し、それを処理し、処理されたデータとともにツールを呼び出す可能性があります。
 
+<!--- INCLUDE
+import ai.koog.agents.core.dsl.builder.forwardTo
+import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.example.exampleStreamingApi08.Book
+import ai.koog.agents.example.exampleStreamingApi04.markdownBookDefinition
+import ai.koog.agents.example.exampleStreamingApi06.parseMarkdownStreamToBooks
+-->
 ```kotlin
-fun streamingDataStrategy(): AIAgentStrategy = strategy("streaming-data") {
-    val processStreamingData by node<Unit, String> { _ ->
+val agentStrategy = strategy<String, List<Book>>("library-assistant") {
+    // Describe the node containing the output stream parsing
+    val getMdOutput by node<String, List<Book>> { booksDescription ->
         val books = mutableListOf<Book>()
         val mdDefinition = markdownBookDefinition()
 
         llm.writeSession {
+            updatePrompt { user(booksDescription) }
+            // Initiate the response stream in the form of the definition `mdDefinition`
             val markdownStream = requestLLMStreaming(mdDefinition)
+            // Call the parser with the result of the response stream and perform actions with the result
             parseMarkdownStreamToBooks(markdownStream).collect { book ->
                 books.add(book)
-                println("Parsed Book: ${book.bookName} by ${book.author}")
+                println("Parsed Book: ${book.title} by ${book.author}")
             }
         }
 
-        formatOutput(books)
+        books
     }
-
-    edge(nodeStart forwardTo processStreamingData)
-    edge(processStreamingData forwardTo nodeFinish)
+    // Describe the agent's graph making sure the node is accessible
+    edge(nodeStart forwardTo getMdOutput)
+    edge(getMdOutput forwardTo nodeFinish)
 }
+```
+<!--- KNIT example-nodes-and-component-14.kt -->

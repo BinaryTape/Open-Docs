@@ -1,33 +1,33 @@
-# 使用 RTL 語言
+# 處理從右到左 (RTL) 語言
 
-Compose Multiplatform 提供對從右至左 (RTL) 語言的支援，例如阿拉伯語、希伯來語和波斯語。當使用 RTL 語言時，該框架會根據系統的地區設定自動處理大多數 RTL 要求，並調整佈局、對齊方式和文字輸入行為。
+Compose Multiplatform 支援從右到左 (RTL) 的語言，例如阿拉伯語、希伯來語和波斯語。當使用 RTL 語言時，此框架會自動處理大部分 RTL 要求，並根據系統的地區設定調整佈局、對齊和文字輸入行為。
 
 ## 佈局鏡像
 
-當系統地區設定配置為 RTL 語言時，Compose Multiplatform 會自動鏡像大多數 UI 元件。調整內容包括內邊距、對齊方式和元件位置的變更：
+當系統地區設定配置為 RTL 語言時，Compose Multiplatform 會自動鏡像大部分 UI 元件。調整包括對內邊距、對齊和元件位置的變更：
 
-*   **內邊距、外邊距和對齊方式**  
-    預設的內邊距和對齊方式會被反轉。例如，在 `Modifier.padding(start: Dp, top: Dp, end: Dp, bottom: Dp)` 中，LTR 的 `start` 內邊距對應左側，`end` 內邊距對應右側；而在 RTL 語言中，`start` 對應右側，`end` 對應左側。
+*   **內邊距、外邊距和對齊**  
+    預設的內邊距和對齊會被反轉。例如，在 `Modifier.padding(start: Dp, top: Dp, end: Dp, bottom: Dp)` 中，從左到右 (LTR) 的 `start` 內邊距對應於左側，`end` 內邊距對應於右側；而在 RTL 語言中，`start` 對應於右側，`end` 對應於左側。
 
 *   **元件對齊**  
-    對於文字、導覽項目和圖示等 UI 元素，在 RTL 模式下，預設的 `Start` 對齊方式會變為 `End`。
+    對於文字、導覽項目和圖示等 UI 元素，預設的 `Start` 對齊在 RTL 模式下會變成 `End`。
 
-*   **水平可捲動列表**  
-    水平列表會反轉其項目對齊方式和捲動方向。
+*   **水平捲動列表**  
+    水平列表會反轉其項目對齊和捲動方向。
 
 *   **按鈕定位**  
-    常見的 UI 模式，例如 **取消** 和 **確認** 按鈕的位置，會調整以符合 RTL 的預期。
+    常見的 UI 模式，例如**取消**和**確認**按鈕的位置，會調整以符合 RTL 預期。
 
 ## 強制佈局方向
 
-您可能需要保持某些 UI 元素（例如標誌或圖示）的原始方向，而無論佈局方向為何。您可以明確設定整個應用程式或單個元件的佈局方向，覆寫系統預設基於地區的佈局行為。
+您可能需要保持某些 UI 元素（例如標誌或圖示）的原始方向，而不論佈局方向如何。您可以為整個應用程式或個別元件明確設定佈局方向，以覆寫系統預設的基於地區設定的佈局行為。
 
-若要將元素排除在自動鏡像之外並強制執行特定方向，您可以使用 `LayoutDirection.Rtl` 或 `LayoutDirection.Ltr`。要在特定範圍內指定佈局方向，請使用 `CompositionLocalProvider()`，這可確保佈局方向套用於組合中的所有子元件：
+要將元素排除於自動鏡像之外並強制特定方向，您可以使用 `LayoutDirection.Rtl` 或 `LayoutDirection.Ltr`。要在特定範圍內指定佈局方向，請使用 `CompositionLocalProvider()`，這可確保佈局方向應用於組合物中的所有子元件：
 
 ```kotlin
 CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Ltr) {
     Column(modifier = Modifier.fillMaxWidth()) {
-        // Components in this block will be laid out left-to-right
+        // 此區塊中的元件將會從左到右佈局
         Text("LTR Latin")
         TextField("Hello world
 Hello world")
@@ -39,22 +39,22 @@ Hello world")
 
 Compose Multiplatform 支援 RTL 佈局中各種文字輸入情境，包括混合方向內容、特殊字元、數字和表情符號。
 
-當您設計支援 RTL 佈局的應用程式時，請考慮以下方面。測試這些方面有助於您識別潛在的本地化問題。
+當您設計支援 RTL 佈局的應用程式時，請考慮以下方面。測試這些方面可以幫助您識別潛在的在地化問題。
 
 ### 游標行為
 
-游標在 RTL 佈局中應直觀地運作，與字元的邏輯方向保持一致。例如：
+游標應在 RTL 佈局中直覺地運作，與字元的邏輯方向對齊。例如：
 
-*   當輸入阿拉伯語時，游標從右向左移動，但插入 LTR 內容時則遵循從左向右的行為。
-*   文字選取、刪除和插入等操作均遵守文字的自然方向流。
+*   當輸入阿拉伯文時，游標從右到左移動，但插入 LTR 內容則遵循從左到右的行為。
+*   文字選取、刪除和插入等操作會尊重文字的自然方向流動。
 
 ### 雙向文字
 
-Compose Multiplatform 使用 [Unicode 雙向演算法](https://www.w3.org/International/articles/inline-bidi-markup/uba-basics) 來管理和渲染雙向 (BiDi) 文字，對齊標點符號和數字。
+Compose Multiplatform 使用 [Unicode 雙向演算法](https://www.w3.org/International/articles/inline-bidi-markup/uba-basics)來管理及渲染雙向 (BiDi) 文字，並對齊標點符號和數字。
 
-文字應以預期的視覺順序顯示：標點符號和數字正確對齊，阿拉伯文字從右向左流動，而英文文字則從左向右流動。
+文字應以預期的視覺順序顯示：標點符號和數字正確對齊，阿拉伯文腳本從右到左流動，英文從左到右流動。
 
-以下測試範例包含拉丁字母和阿拉伯字母的文字，以及它們的雙向組合：
+以下測試範例包含拉丁和阿拉伯字母的文字，以及它們的雙向組合：
 
 ```kotlin
 import androidx.compose.foundation.border
@@ -78,10 +78,10 @@ import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
-// Arabic text for "Hello World"
+// 阿拉伯文的「Hello World」
 private val helloWorldArabic = "مرحبا بالعالم"
 
-// Bidirectional text
+// 雙向文字
 private val bidiText = "Hello $helloWorldArabic world"
 
 @Composable
@@ -116,7 +116,7 @@ fun App() {
     }
 }
 
-// Wrap function for BasicTextField() to reduce code duplication
+// BasicTextField() 的包裝函數，以減少程式碼重複
 @Composable
 internal fun TextField(
     text: String = ""
@@ -135,15 +135,15 @@ internal fun TextField(
 ```
 {default-state="collapsed" collapsible="true" collapsed-title="item { CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Rtl) {"}
 
-<img src="compose-rtl-bidi.png" alt="BiDi text" width="600"/>
+<img src="compose-rtl-bidi.png" alt="雙向文字" width="600"/>
 
-Compose Multiplatform 還能確保複雜雙向情境下的正確對齊和間距，包括多行換行和雙向內容的巢狀結構。
+Compose Multiplatform 還可確保在複雜的 BiDi 情境中，包括多行換行和 BiDi 內容的巢狀結構，都能正確對齊和間距。
 
 ### 數字和表情符號
 
-數字應根據周圍文字的方向一致顯示。東阿拉伯數字在 RTL 文字中自然對齊，而西阿拉伯數字則遵循典型的 LTR 行為。
+數字應根據周圍文字的方向一致地顯示。東阿拉伯數字在 RTL 文字中自然對齊，而西阿拉伯數字則遵循典型的 LTR 行為。
 
-表情符號應適應 RTL 和 LTR 環境，在文字中保持正確的對齊和間距。
+表情符號應適應 RTL 和 LTR 環境，保持文字內的正確對齊和間距。
 
 以下測試範例包含表情符號、東阿拉伯數字和西阿拉伯數字，以及雙向文字：
 
@@ -168,10 +168,10 @@ import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
-// Arabic text for "Hello World" with emojis
+// 帶有表情符號的阿拉伯文「Hello World」
 private val helloWorldArabic = "مرحبا بالعالم 🌎👋"
 
-// Bidirectional text with numbers and emojis
+// 帶有數字和表情符號的雙向文字
 private val bidiText = "67890 Hello $helloWorldArabic 🎉"
 
 @Composable
@@ -206,7 +206,7 @@ fun App() {
     }
 }
 
-// Wrap function for BasicTextField() to reduce code duplication
+// BasicTextField() 的包裝函數，以減少程式碼重複
 @Composable
 internal fun TextField(
     text: String = ""
@@ -225,13 +225,13 @@ internal fun TextField(
 ```
 {default-state="collapsed" collapsible="true" collapsed-title="item { CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Rtl) {"}
 
-<img src="compose-rtl-emoji.png" alt="Numbers and emojis" width="600"/>
+<img src="compose-rtl-emoji.png" alt="數字和表情符號" width="600"/>
 
-## 網頁目標字型
+## 網頁目標字體
 
-網頁目標缺乏用於渲染某些地區（例如阿拉伯語和中文）字元的內建字型。為了解決這個問題，您需要將自訂備用字型新增到資源中並預載入它們，因為它們不會自動啟用。
+網頁目標缺乏內建字體來渲染某些地區設定（例如阿拉伯語和中文）的字元。為了解決此問題，您需要將自訂備用字體新增至資源並預載入它們，因為它們不會自動啟用。
 
-若要預載入備用字型，請使用 `FontFamily.Resolver.preload()` 方法。例如：
+要預載入備用字體，請使用 `FontFamily.Resolver.preload()` 方法。例如：
 
 ```kotlin
 val fontFamilyResolver = LocalFontFamilyResolver.current
@@ -249,36 +249,36 @@ LaunchedEffect(Unit) {
 }
 ```
 
-有關網頁目標資源預載入的詳細資訊，請參閱 [preload API](compose-multiplatform-resources-usage.md#preload-resources-using-the-compose-multiplatform-preload-api) 相關章節。
+有關預載入網頁目標資源的詳細資訊，請參考有關[預載入 API](compose-multiplatform-resources-usage.md#preload-resources-using-the-compose-multiplatform-preload-api) 的章節。
 
 ## RTL 佈局中的輔助功能
 
-Compose Multiplatform 支援 RTL 佈局的輔助功能，包括螢幕閱讀器的正確文字方向和順序以及手勢處理。
+Compose Multiplatform 支援 RTL 佈局的輔助功能，包括螢幕閱讀器正確的文字方向和順序以及手勢處理。
 
 ### 螢幕閱讀器
 
 螢幕閱讀器會自動適應 RTL 佈局，為使用者保持邏輯閱讀順序：
 
-*   RTL 文字從右向左閱讀，混合方向文字則遵循標準的雙向 (BiDi) 規則。
-*   標點符號和數字會按正確的順序宣告。
+*   RTL 文字從右到左讀取，混合方向文字遵循標準 BiDi 規則。
+*   標點符號和數字以正確的順序宣讀。
 
-在複雜的佈局中，需要定義遍歷語意，以確保螢幕閱讀器的正確閱讀順序。
+在複雜佈局中，需要定義遍歷語義以確保螢幕閱讀器正確的閱讀順序。
 
 ### 基於焦點的導覽
 
 RTL 佈局中的焦點導覽遵循佈局的鏡像結構：
 
-*   焦點從右向左、從上到下移動，遵循 RTL 內容的自然流向。
-*   輕掃或輕觸等手勢會自動調整以適應鏡像佈局。
+*   焦點從右到左、從上到下移動，遵循 RTL 內容的自然流動。
+*   滑動或點擊等手勢會自動調整以適應鏡像佈局。
 
-您還可以定義遍歷語意，以確保使用向上或向下輕掃輔助功能手勢時，不同遍歷組之間的正確導覽。
+您還可以定義遍歷語義，以確保透過向上滑動或向下滑動的輔助功能手勢在不同遍歷組之間正確導覽。
 
-有關如何定義遍歷語意和設定遍歷索引的詳細資訊，請參閱 [輔助功能](compose-accessibility.md#traversal-order) 章節。
+有關如何定義遍歷語義和設定遍歷索引的詳細資訊，請參考[輔助功能](compose-accessibility.md#traversal-order)章節。
 
 ## 已知問題
 
-我們正在持續改進對 RTL 語言的支援，並計畫解決以下已知問題：
+我們持續改進對 RTL 語言的支援，並計劃解決以下已知問題：
 
-*   修正在 RTL 佈局中輸入非 RTL 字元時游標位置的問題 ([CMP-3096](https://youtrack.jetbrains.com/issue/CMP-3096))
-*   修正阿拉伯數字的游標位置問題 ([CMP-2772](https://youtrack.jetbrains.com/issue/CMP-2772))
-*   修正 `TextDirection.Content` 的問題 ([CMP-2446](https://youtrack.jetbrains.com/issue/CMP-2446))
+*   修正於 RTL 佈局中輸入非 RTL 字元時插入點的位置 ([CMP-3096](https://youtrack.jetbrains.com/issue/CMP-3096))
+*   修正阿拉伯數字的插入點位置 ([CMP-2772](https://youtrack.jetbrains.com/issue/CMP-2772))
+*   修正 `TextDirection.Content` ([CMP-2446](https://youtrack.jetbrains.com/issue/CMP-2446))

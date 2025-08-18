@@ -1,12 +1,12 @@
-# 本地化字串
+# 字串在地化
 
-本地化是將您的應用程式調整為不同語言、地區和文化習慣的過程。本指南解釋如何設定翻譯目錄、[處理特定地區格式](compose-regional-format.md)、[處理由右至左 (RTL) 語言](compose-rtl.md)，以及跨平台[測試本地化](compose-localization-tests.md)。
+在地化是調整應用程式以適應不同語言、地區和文化習俗的過程。本指南說明如何設定翻譯目錄、[處理區域特定格式](compose-regional-format.md)、[處理由右至左 (RTL) 語言](compose-rtl.md)，以及在不同平台[測試在地化](compose-localization-tests.md)。
 
-若要在 Compose Multiplatform 中本地化字串，您需要為應用程式的使用者介面元素提供所有支援語言的翻譯文本。Compose Multiplatform 透過提供一個共同的資源管理函式庫和程式碼產生功能，簡化了此過程，讓您能輕鬆存取翻譯。
+為了在 Compose Multiplatform 中在地化字串，您需要為應用程式的使用者介面元素提供所有支援語言的翻譯文本。Compose Multiplatform 透過提供一個通用的資源管理函式庫和程式碼生成來簡化此過程，以便輕鬆存取翻譯。
 
 ## 設定翻譯目錄
 
-將所有字串資源儲存在您的共享原始碼集中的專用 `composeResources` 目錄內。將預設文本放置在 `values` 目錄中，並為每種語言建立對應的目錄。使用以下結構：
+將所有字串資源儲存在您的 common source set 內專用的 `composeResources` 目錄中。將預設文本放置在 `values` 目錄中，並為每種語言建立對應的目錄。使用以下結構：
 
 ```
 commonMain/composeResources/
@@ -19,7 +19,7 @@ commonMain/composeResources/
 └── ... (other locale directories)
 ```
 
-在 `values` 目錄及其本地化變體中，使用鍵值對在 `strings.xml` 檔案中定義字串資源。例如，將英文文本新增至 `commonMain/composeResources/values/strings.xml`：
+在 `values` 目錄及其在地化變體中，使用鍵值對在 `strings.xml` 檔案中定義字串資源。例如，將英文文本新增至 `commonMain/composeResources/values/strings.xml`：
 
 ```xml
 <resources>
@@ -29,7 +29,7 @@ commonMain/composeResources/
 </resources>
 ```
 
-然後，為翻譯建立對應的本地化檔案。例如，將西班牙文翻譯新增至 `commonMain/composeResources/values-es/strings.xml`：
+然後，為翻譯建立對應的在地化檔案。例如，將西班牙文翻譯新增至 `commonMain/composeResources/values-es/strings.xml`：
 
 ```xml
 <resources>
@@ -39,11 +39,11 @@ commonMain/composeResources/
 </resources>
 ```
 
-## 產生用於靜態存取的類別
+## 生成用於靜態存取的類別
 
-在您新增所有翻譯後，建置專案以產生一個提供資源存取的特殊類別。Compose Multiplatform 會處理 `composeResources` 中的 `strings.xml` 資源檔案，並為每個字串資源建立靜態存取器屬性。
+一旦您新增了所有翻譯，建置專案以生成一個特殊類別，該類別提供對資源的存取。Compose Multiplatform 處理 `composeResources` 中的 `strings.xml` 資源檔案，並為每個字串資源建立靜態存取器屬性。
 
-產生的 `Res.strings` 物件允許您從共享程式碼中安全地存取本地化字串。若要在應用程式的使用者介面中顯示字串，請使用 `stringResource()` 可組合函數。此函數會根據使用者的當前地區設定來檢索正確的文本：
+結果 `Res.strings` 物件讓您可以安全地從您的共享程式碼中存取在地化字串。若要在應用程式的使用者介面中顯示字串，請使用 `stringResource()` 可組合函式。此函式根據使用者的當前地區設定來檢索正確的文本：
 
 ```kotlin
 import project.composeapp.generated.resources.Res
@@ -56,9 +56,9 @@ fun MyApp() {
 }
 ```
 
-在上述範例中，`welcome_message` 字串包含一個用於動態值的佔位符 (`%s`)。產生的存取器和 `stringResource()` 函數都支援傳遞此類參數。
+在上面的範例中，`welcome_message` 字串包含一個佔位符 (`%s`) 用於動態值。生成的存取器和 `stringResource()` 函式都支援傳遞此類參數。
 
-## 接下來
+## 下一步
 
-*   [了解如何管理地區格式](compose-regional-format.md)
-*   [閱讀有關處理由右至左語言的資訊](compose-rtl.md)
+* [學習如何管理區域格式](compose-regional-format.md)
+* [閱讀有關處理由右至左語言的資訊](compose-rtl.md)

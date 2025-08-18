@@ -18,62 +18,146 @@
 
 在图中实现自定义节点并定义自己的自定义逻辑的最简单方法是使用以下模式：
 
+<!--- INCLUDE
+import ai.koog.agents.core.dsl.builder.strategy
+
+typealias Input = String
+typealias Output = Int
+
+val returnValue = 42
+
+val str = strategy<Input, Output>("my-strategy") {
+-->
+<!--- SUFFIX
+}
+-->
 ```kotlin
 val myNode by node<Input, Output>("node_name") { input ->
     // Processing
     returnValue
 }
 ```
+<!--- KNIT example-custom-nodes-01.kt -->
 
 上述代码表示一个名为 `myNode` 的自定义节点，它具有预定义的 `Input` 和 `Output` 类型，以及可选的名称字符串形参（`node_name`）。在实际示例中，这是一个接受字符串输入并返回其长度的简单节点：
 
+<!--- INCLUDE
+import ai.koog.agents.core.dsl.builder.strategy
+
+val str = strategy<String, Int>("my-strategy") {
+-->
+<!--- SUFFIX
+}
+-->
 ```kotlin
 val myNode by node<String, Int>("node_name") { input ->
     // Processing
     input.length
 }
 ```
+<!--- KNIT example-custom-nodes-02.kt -->
 
-创建自定义节点的另一种方法是在 `AIAgentSubgraphBuilder` 上定义一个调用 `node` 函数的扩展函数：
+创建自定义节点的另一种方法是在 `AIAgentSubgraphBuilderBase` 上定义一个调用 `node` 函数的扩展函数：
 
+<!--- INCLUDE
+import ai.koog.agents.core.dsl.builder.AIAgentNodeDelegate
+import ai.koog.agents.core.dsl.builder.AIAgentSubgraphBuilderBase
+import ai.koog.agents.core.dsl.builder.strategy
+
+typealias Input = String
+typealias Output = String
+
+val strategy = strategy<String, String>("strategy_name") {
+-->
+<!--- SUFFIX
+}
+-->
 ```kotlin
-fun <T> AIAgentSubgraphBuilder<*, *>.myCustomNode(
+fun AIAgentSubgraphBuilderBase<*, *>.myCustomNode(
     name: String? = null
-): AIAgentNodeDelegateBase<T, T> = node(name) { input ->
+): AIAgentNodeDelegate<Input, Output> = node(name) { input ->
     // Custom logic
     input // Return the input as output (pass-through)
 }
 
 val myCustomNode by myCustomNode("node_name")
 ```
+<!--- KNIT example-custom-nodes-03.kt -->
 
 这会创建一个直通节点，它执行一些自定义逻辑，但将输入作为输出返回，不进行修改。
 
-### 参数化节点
+### 带有额外实参的节点
 
-您可以创建接受形参以自定义其行为的节点：
+您可以创建接受实参以自定义其行为的节点：
 
+<!--- INCLUDE
+import ai.koog.agents.core.dsl.builder.AIAgentNodeDelegate
+import ai.koog.agents.core.dsl.builder.AIAgentSubgraphBuilderBase
+import ai.koog.agents.core.dsl.builder.strategy
+
+typealias Input = String
+typealias Output = String
+
+val strategy = strategy<String, String>("strategy_name") {
+-->
+<!--- SUFFIX
+}
+-->
 ```kotlin
-fun <T> AIAgentSubgraphBuilder<*, *>.myParameterizedNode(
+    fun AIAgentSubgraphBuilderBase<*, *>.myNodeWithArguments(
     name: String? = null,
-    param1: String,
-    param2: Int
-): AIAgentNodeDelegateBase<T, T> = node(name) { input ->
-    // Use param1 and param2 in your custom logic
+    arg1: String,
+    arg2: Int
+): AIAgentNodeDelegate<Input, Output> = node(name) { input ->
+    // Use arg1 and arg2 in your custom logic
     input // Return the input as the output
 }
 
-val myCustomNode by myParameterizedNode("node_name")
+val myCustomNode by myNodeWithArguments("node_name", arg1 = "value1", arg2 = 42)
 ```
+<!--- KNIT example-custom-nodes-04.kt -->
+
+### 参数化节点
+
+您可以定义具有输入和输出形参的节点：
+
+<!--- INCLUDE
+import ai.koog.agents.core.dsl.builder.AIAgentNodeDelegate
+import ai.koog.agents.core.dsl.builder.AIAgentSubgraphBuilderBase
+import ai.koog.agents.core.dsl.builder.strategy
+-->
+
+```kotlin
+inline fun <reified T> AIAgentSubgraphBuilderBase<*, *>.myParameterizedNode(
+    name: String? = null,
+): AIAgentNodeDelegate<T, T> = node(name) { input ->
+    // Do some additional actions
+    // Return the input as the output
+    input
+}
+
+val strategy = strategy<String, String>("strategy_name") {
+    val myCustomNode by myParameterizedNode<String>("node_name")
+}
+```
+<!--- KNIT example-custom-nodes-05.kt -->
 
 ### 有状态节点
 
 如果您的节点需要在运行之间维护状态，您可以使用闭包变量：
 
+<!--- INCLUDE
+import ai.koog.agents.core.dsl.builder.AIAgentNodeDelegate
+import ai.koog.agents.core.dsl.builder.AIAgentSubgraphBuilderBase
+
+typealias Input = Unit
+typealias Output = Unit
+
+-->
 ```kotlin
-fun <T> AIAgentSubgraphBuilder<*, *>.myStatefulNode(
+fun AIAgentSubgraphBuilderBase<*, *>.myStatefulNode(
     name: String? = null
-): AIAgentNodeDelegateBase<T, T> {
+): AIAgentNodeDelegate<Input, Output> {
     var counter = 0
 
     return node(name) { input ->
@@ -83,17 +167,27 @@ fun <T> AIAgentSubgraphBuilder<*, *>.myStatefulNode(
     }
 }
 ```
+<!--- KNIT example-custom-nodes-06.kt -->
 
 ## 节点输入和输出类型
 
 节点可以具有不同的输入和输出类型，它们被指定为泛型形参：
 
+<!--- INCLUDE
+import ai.koog.agents.core.dsl.builder.strategy
+
+val strategy = strategy<String, String>("strategy_name") {
+-->
+<!--- SUFFIX
+}
+-->
 ```kotlin
 val stringToIntNode by node<String, Int>("node_name") { input: String ->
     // Processing
     input.toInt() // Convert string to integer
 }
 ```
+<!--- KNIT example-custom-nodes-07.kt -->
 
 !!! note
     输入和输出类型决定了节点如何连接到工作流中的其他节点。只有当源节点的输出类型与目标节点的输入类型兼容时，节点才能连接。
@@ -118,6 +212,14 @@ val stringToIntNode by node<String, Int>("node_name") { input: String ->
 
 执行操作但将输入作为输出返回的节点。
 
+<!--- INCLUDE
+import ai.koog.agents.core.dsl.builder.strategy
+
+val strategy = strategy<String, String>("strategy_name") {
+-->
+<!--- SUFFIX
+}
+-->
 ```kotlin
 
 val loggingNode by node<String, String>("node_name") { input ->
@@ -125,22 +227,40 @@ val loggingNode by node<String, String>("node_name") { input ->
     input // Return the input as the output
 }
 ```
+<!--- KNIT example-custom-nodes-08.kt -->
 
 ### 转换节点
 
 将输入转换为不同输出的节点。
 
+<!--- INCLUDE
+import ai.koog.agents.core.dsl.builder.strategy
+
+val strategy = strategy<String, String>("strategy_name") {
+-->
+<!--- SUFFIX
+}
+-->
 ```kotlin
 val upperCaseNode by node<String, String>("node_name") { input ->
     println("Processing input: $input")
     input.uppercase() // Transform the input to uppercase
 }
 ```
+<!--- KNIT example-custom-nodes-09.kt -->
 
 ### LLM 交互节点
 
 与 LLM 交互的节点。
 
+<!--- INCLUDE
+import ai.koog.agents.core.dsl.builder.strategy
+
+val strategy = strategy<String, String>("strategy_name") {
+-->
+<!--- SUFFIX
+}
+-->
 ```kotlin
 val summarizeTextNode by node<String, String>("node_name") { input ->
     llm.writeSession {
@@ -153,17 +273,42 @@ val summarizeTextNode by node<String, String>("node_name") { input ->
     }
 }
 ```
+<!--- KNIT example-custom-nodes-10.kt -->
 
 ### 工具运行节点
 
+<!--- INCLUDE
+import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.environment.executeTool
+import ai.koog.prompt.message.Message
+import ai.koog.prompt.message.ResponseMetaInfo
+import kotlinx.datetime.Clock
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.json.Json
+import java.util.*
+
+val toolName = "my-custom-tool"
+
+@Serializable
+data class ToolArgs(val arg1: String, val arg2: Int)
+
+val strategy = strategy<String, String>("strategy_name") {
+
+-->
+<!--- SUFFIX
+}
+-->
 ```kotlin
 val nodeExecuteCustomTool by node<String, String>("node_name") { input ->
     val toolCall = Message.Tool.Call(
         id = UUID.randomUUID().toString(),
         tool = toolName,
-        args = mapOf("input" to input) // Use the input as tool arguments
+        metaInfo = ResponseMetaInfo.create(Clock.System),
+        content = Json.encodeToString(ToolArgs(arg1 = input, arg2 = 42)) // Use the input as tool arguments
     )
 
     val result = environment.executeTool(toolCall)
     result.content
 }
+```
+<!--- KNIT example-custom-nodes-11.kt -->

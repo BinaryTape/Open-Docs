@@ -1,17 +1,18 @@
 [//]: # (title: 鍵盤事件)
 
-在 Compose Multiplatform 桌面版中，您可以透過在兩種不同的範圍內設定事件處理器來管理鍵盤事件：
+在適用於桌面的 Compose Multiplatform 中，您可以透過在兩種不同範圍內設定事件處理器來管理鍵盤事件：
 
-* 基於聚焦元素的事件處理器。
-* 視窗範圍內的事件處理器。
+*   基於聚焦元素的事件處理器。
+*   視窗範圍內的事件處理器。
 
-## 聚焦元件中的事件
+## 聚焦組件中的事件
 
-此方法表示，在鍵盤上按下按鍵會觸發目前聚焦元件的事件處理器。
+這種方法意味著按下鍵盤上的按鍵會觸發目前聚焦組件的事件處理器。
 
-一個典型的場景是為像 `TextField` 這樣的活動控制項定義鍵盤處理器。要在鍵盤事件觸發預設動作之前攔截它，您可以使用 `onKeyEvent` 和 `onPreviewKeyEvent` 這兩個修飾符。使用 `onKeyEvent` 修飾符，您可以處理單個按鍵操作，而 `onPreviewKeyEvent` 更適合定義快捷鍵。
+一個典型的場景是為 `TextField` 等活動控制項定義鍵盤處理器。若要在按鍵事件觸發預設動作之前攔截它，您可以使用 `onKeyEvent` 和 `onPreviewKeyEvent` 修飾符。
+使用 `onKeyEvent` 修飾符，您可以處理單次按鍵輸入，而 `onPreviewKeyEvent` 更適合用於定義快捷鍵。
 
-以下範例展示了 `TextField` 互動，其動作根據您按住 <shortcut>Ctrl</shortcut> 時按下的鍵而異：
+以下範例演示了 `TextField` 互動，其中根據按住 <shortcut>Ctrl</shortcut> 時所按下的按鍵，執行不同的動作：
 
 ```kotlin
 import androidx.compose.foundation.layout.fillMaxSize
@@ -65,13 +66,14 @@ fun main() = singleWindowApplication (title = "Key events") {
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="modifier = Modifier.onPreviewKeyEvent { when"}
 
-<img src="compose-desktop-key-focus.animated.gif" alt="聚焦元件中的鍵盤事件" width="600" preview-src="compose-desktop-key-focus.png"/>
+<img src="compose-desktop-key-focus.animated.gif" alt="Keyboard events in a focused component" width="600" preview-src="compose-desktop-key-focus.png"/>
 
 ## 視窗範圍中的事件
 
-要在當前視窗內定義始終處於活動狀態的鍵盤事件處理器，請使用 `onPreviewKeyEvent` 和 `onKeyEvent` 參數，這些參數適用於 `Window`、`singleWindowApplication` 和 `Dialog` 函數。它們的區別在於事件未被消耗時的分派方式：`onPreviewKeyEvent` 將事件分派給其第一個子項，而 `onKeyEvent` 則將事件分派給組合式函數的父項。通常，`onPreviewKeyEvent` 更適合攔截事件，因為它甚至可以實現全螢幕的鍵盤快捷鍵。
+若要定義在目前視窗中始終處於活動狀態的鍵盤事件處理器，請使用 `Window`、`singleWindowApplication` 和 `Dialog` 函數可用的 `onPreviewKeyEvent` 和 `onKeyEvent` 參數。
+它們的區別在於事件未被消耗時的分派方式：`onPreviewKeyEvent` 將事件分派給其第一個子項，而 `onKeyEvent` 將事件分派給可組合項的父項。通常，`onPreviewKeyEvent` 更適合用於攔截事件，因為它甚至允許實作全螢幕鍵盤快捷鍵。
 
-以下範例展示了視窗互動，例如透過按下 `Escape` 鍵關閉彈出式對話框，以及透過按下 <shortcut>Ctrl+Shift+C</shortcut> 快捷鍵變更視窗內容：
+以下範例演示了視窗互動，例如透過按下 `Escape` 鍵關閉彈出式對話框，以及透過按下 <shortcut>Ctrl+Shift+C</shortcut> 快捷鍵更改視窗內容：
 
 ```kotlin
 import androidx.compose.foundation.layout.Arrangement
@@ -155,9 +157,9 @@ fun App() {
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="if (it.isCtrlPressed && it.isShiftPressed && it.key == Key.C && "}
 
-<img src="compose-desktop-key-window.animated.gif" alt="視窗範圍中的鍵盤事件" width="600" preview-src="compose-desktop-key-window.png"/>
+<img src="compose-desktop-key-window.animated.gif" alt="Keyboard events in a window scope" width="600" preview-src="compose-desktop-key-window.png"/>
 
-## 接下來呢？
+## 接下來是什麼？
 
-* 請參閱 [API 參考文件](https://developer.android.com/reference/kotlin/androidx/compose/ui/input/key/package-summary#keyinputfilter) 以了解詳情。
-* 探索關於 [其他桌面元件](https://github.com/JetBrains/compose-multiplatform/tree/master/tutorials#desktop) 的教學課程。
+*   有關詳細資訊，請參閱 [API 參考](https://developer.android.com/reference/kotlin/androidx/compose/ui/input/key/package-summary#keyinputfilter)。
+*   探索有關 [其他桌面組件](https://github.com/JetBrains/compose-multiplatform/tree/master/tutorials#desktop) 的教學。

@@ -1,11 +1,11 @@
 [//]: # (title: 스크롤바)
 
-스크롤바는 스크롤 가능한 컴포넌트에 적용할 수 있습니다. 스크롤바와 스크롤 가능한 컴포넌트는 서로 동기화하기 위해 공통 상태를 공유합니다.
+스크롤 가능한 컴포넌트에 스크롤바를 적용할 수 있습니다. 스크롤바와 스크롤 가능한 컴포넌트는 서로 동기화하기 위해 공통 상태를 공유합니다.
 
-## 스크롤 모디파이어
+## 스크롤 수정자
 
-`verticalScroll` 및 `horizontalScroll` 모디파이어는 콘텐츠의 경계가 최대 크기 제약 조건보다 클 때 사용자가 요소를 스크롤할 수 있도록 하는 가장 간단한 방법을 제공합니다.
-`verticalScroll` 모디파이어가 있는 스크롤 가능한 컴포넌트에 `VerticalScrollbar` 컴포저블을 연결하고, `horizontalScroll` 모디파이어가 있는 스크롤 가능한 컴포넌트에 `HorizontalScrollbar` 컴포저블을 연결할 수 있습니다.
+`verticalScroll` 및 `horizontalScroll` 수정자는 내용의 경계가 최대 크기 제약보다 클 때 사용자가 요소를 스크롤할 수 있도록 하는 가장 간단한 방법을 제공합니다.
+`verticalScroll` 수정자가 적용된 스크롤 가능한 컴포넌트에는 `VerticalScrollbar` 컴포저블을, `horizontalScroll` 수정자가 적용된 스크롤 가능한 컴포넌트에는 `HorizontalScrollbar` 컴포저블을 연결할 수 있습니다.
 
 ```kotlin
 import androidx.compose.foundation.HorizontalScrollbar
@@ -90,14 +90,14 @@ fun TextBox(text: String = "Item") {
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="VerticalScrollbar(modifier = Modifier.align(Alignment.CenterEnd) "}
 
-스크롤바는 막대를 드래그하고 마우스 휠 또는 터치패드를 사용하여 이동할 수 있습니다. 마우스로 가로 스크롤바를 이동하려면 휠을 측면 클릭하거나 <shortcut>Shift</shortcut> 키를 누르고 있으면 됩니다.
+스크롤바는 바를 드래그하거나 마우스 휠 또는 터치패드를 사용하여 이동할 수 있습니다. 마우스로 가로 스크롤바를 이동하려면 휠을 옆으로 클릭하거나 <shortcut>Shift</shortcut> 키를 누릅니다.
 
-<img src="compose-desktop-scrollbar.animated.gif" alt="스크롤바" width="289" preview-src="compose-desktop-scrollbar.png"/>
+<img src="compose-desktop-scrollbar.animated.gif" alt="Scrollbar" width="289" preview-src="compose-desktop-scrollbar.png"/>
 
-## 지연 스크롤 컴포넌트
+## 레이지 스크롤 가능한 컴포넌트
 
-`LazyColumn` 및 `LazyRow`와 같은 지연 스크롤 컴포넌트에서도 스크롤바를 사용할 수 있습니다.
-지연 컴포넌트는 목록에 많은 항목이 있을 것으로 예상될 때 항목이 필요할 때만 구성하므로 훨씬 더 효율적입니다.
+`LazyColumn` 및 `LazyRow`와 같은 레이지 스크롤 가능한 컴포넌트에서도 스크롤바를 사용할 수 있습니다.
+레이지 컴포넌트는 필요한 경우에만 항목을 구성하기 때문에 목록에 많은 항목이 있을 것으로 예상할 때 훨씬 더 효율적입니다.
 
 ```kotlin
 import androidx.compose.foundation.VerticalScrollbar
@@ -172,15 +172,15 @@ fun TextBox(text: String = "Item") {
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="VerticalScrollbar(modifier = Modifier.align(Alignment.CenterEnd) "}
 
-<img src="compose-desktop-lazy-scrollbar.animated.gif" alt="지연 스크롤바" width="289" preview-src="compose-desktop-lazy-scrollbar.png"/>
+<img src="compose-desktop-lazy-scrollbar.animated.gif" alt="Lazy scrollbar" width="289" preview-src="compose-desktop-lazy-scrollbar.png"/>
 
-## 알려진 제한사항
+## 알려진 제한 사항
 
-현재 터치스크린, 터치패드, 트랙패드를 이용한 스크롤링은 마우스 이벤트로 처리되어 글리치(glitches)가 발생하거나 핀치 투 줌(pinch-to-zoom) 기능 부재와 같은 제한사항이 발생할 수 있습니다. JetBrains는 입력 및 제스처 처리를 지속적으로 개선하고 있으며, 이러한 입력 장치에 대한 기본 지원을 도입할 계획입니다.
+현재 터치스크린, 터치패드, 트랙패드를 사용한 스크롤링은 마우스 이벤트로 처리되며, 이로 인해 결함 및 핀치 투 줌(pinch-to-zoom) 기능의 부재와 같은 제한 사항이 발생할 수 있습니다. 당사는 입력 및 제스처 처리를 지속적으로 개선하고 있으며, 이러한 입력 장치에 대한 기본 지원을 도입할 계획입니다.
 
 *   터치스크린 기본 지원 ([CMP-1609](https://youtrack.jetbrains.com/issue/CMP-1609/))
 *   터치패드 및 트랙패드 기본 지원 ([CMP-1610](https://youtrack.jetbrains.com/issue/CMP-1610/))
 
-## 다음은 무엇인가요?
+## 다음 단계는?
 
 [다른 데스크톱 컴포넌트](https://github.com/JetBrains/compose-multiplatform/tree/master/tutorials#desktop)에 대한 튜토리얼을 살펴보세요.

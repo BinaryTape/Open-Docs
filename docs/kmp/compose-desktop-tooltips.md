@@ -1,12 +1,12 @@
 [//]: # (title: 工具提示)
 
-你可以使用 `TooltipArea` 可组合函数为任何组件添加工具提示。`TooltipArea` 类似于 `Box` 组件，可以显示工具提示。
+您可以使用 `TooltipArea` 可组合项为任何组件添加工具提示。`TooltipArea` 类似于 `Box` 组件，可以显示工具提示。
 
-`TooltipArea` 可组合函数具有以下主要参数：
+`TooltipArea` 可组合项具有以下主要参数：
 
-* `tooltip`，工具提示的可组合内容。
-* `tooltipPlacement`，定义工具提示的位置。你可以指定一个锚点（鼠标光标或组件）、一个偏移和一种对齐方式。
-* `delayMillis`，工具提示显示前的延迟毫秒数。默认值为 500 毫秒。
+*   `tooltip`，工具提示的可组合内容。
+*   `tooltipPlacement`，定义工具提示的位置。您可以指定一个锚点（鼠标光标或组件）、一个偏移量和一个对齐方式。
+*   `delayMillis`，工具提示显示前的毫秒时间。默认值为 500 毫秒。
 
 ```kotlin
 import androidx.compose.foundation.ExperimentalFoundationApi
@@ -72,6 +72,6 @@ fun main() = singleWindowApplication(
 
 <img src="compose-desktop-tooltips.animated.gif" alt="工具提示" width="288" preview-src="compose-desktop-tooltips.png"/>
 
-## 接下来？
+## 下一步？
 
-探索 [其他桌面组件](https://github.com/JetBrains/compose-multiplatform/tree/master/tutorials#desktop) 的教程。
+探索关于 [其他桌面组件](https://github.com/JetBrains/compose-multiplatform/tree/master/tutorials#desktop) 的教程。

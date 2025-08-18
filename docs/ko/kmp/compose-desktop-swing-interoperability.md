@@ -1,48 +1,48 @@
 [//]: # (title: Swing 상호 운용성)
 
-여기서는 Compose Multiplatform 애플리케이션에서 Swing 컴포넌트를 사용하는 방법과 그 역의 경우, 이 상호 운용성(interoperability)의 한계와 장점, 그리고 이 접근 방식을 언제 사용해야 하고 언제 사용하지 말아야 하는지에 대해 배우게 됩니다.
+여기서는 Compose Multiplatform 애플리케이션에서 Swing 컴포넌트를 사용하고, 그 반대로도 사용하는 방법, 이러한 상호 운용성의 제약 사항과 장점, 그리고 이 접근 방식을 언제 사용하거나 사용하지 않아야 하는지에 대해 알아봅니다.
 
-Compose Multiplatform와 Swing 간의 상호 운용성은 다음을 돕는 것을 목표로 합니다:
-* Swing 애플리케이션을 Compose Multiplatform로 마이그레이션하는 프로세스를 간소화하고 원활하게 합니다.
-* Compose 대응 컴포넌트(analogue)가 없는 경우 Swing 컴포넌트를 사용하여 Compose Multiplatform 애플리케이션을 향상시킵니다.
+Compose Multiplatform와 Swing 간의 상호 운용성은 다음과 같은 목표를 달성하는 데 도움이 됩니다:
+* Swing 애플리케이션을 Compose Multiplatform로 마이그레이션하는 과정을 단순화하고 원활하게 만듭니다.
+* Compose에 상응하는 컴포넌트가 없을 때 Swing 컴포넌트를 사용하여 Compose Multiplatform 애플리케이션을 향상시킵니다.
 
-많은 경우에, Compose Multiplatform 애플리케이션 내에서 Swing 컴포넌트를 사용하는 것보다 누락된 컴포넌트를 Compose Multiplatform에서 직접 구현(그리고 커뮤니티에 기여하는 것)하는 것이 더 효과적입니다.
+대부분의 경우, Compose Multiplatform 애플리케이션 내에서 Swing 컴포넌트를 사용하는 것보다 누락된 컴포넌트를 Compose Multiplatform에서 직접 구현(및 커뮤니티에 기여)하는 것이 더 효과적입니다.
 
-## Swing 상호 운용(interop) 사용 사례 및 한계
+## Swing 상호 운용성 사용 사례 및 제약 사항
 
-### Swing 앱의 Compose Multiplatform 컴포넌트
+### Swing 앱 내 Compose Multiplatform 컴포넌트
 
-첫 번째 사용 사례는 Compose Multiplatform 컴포넌트를 Swing 애플리케이션에 추가하는 것입니다. 애플리케이션의 Compose Multiplatform 부분을 렌더링하기 위해 `ComposePanel` Swing 컴포넌트를 사용하여 이를 달성할 수 있습니다. Swing의 관점에서 `ComposePanel`은 또 다른 Swing 컴포넌트이며, 그에 따라 처리됩니다.
+첫 번째 사용 사례는 Swing 애플리케이션에 Compose Multiplatform 컴포넌트를 추가하는 것입니다. 애플리케이션의 Compose Multiplatform 부분을 렌더링하려면 `ComposePanel` Swing 컴포넌트를 사용하면 됩니다. Swing 관점에서 `ComposePanel`은 또 다른 Swing 컴포넌트이며, 이에 따라 처리됩니다.
 
-참고로, 팝업(popup), 툴팁(tooltip), 컨텍스트 메뉴(context menu)를 포함한 모든 Compose Multiplatform 컴포넌트는 Swing의 `ComposePanel` 내에서 렌더링되며 그 안에서 위치가 지정되고 크기가 조정됩니다. 따라서 이러한 컴포넌트를 Swing 기반 구현으로 교체하는 것을 고려하거나, 두 가지 새로운 실험적 기능(experimental features)을 시도해 보세요:
+팝업, 툴팁, 상황별 메뉴를 포함한 모든 Compose Multiplatform 컴포넌트가 Swing의 `ComposePanel` 내에 렌더링되며 그 안에서 위치 지정 및 크기 조정이 된다는 점에 유의하십시오. 따라서 이러한 컴포넌트를 Swing 기반 구현으로 대체하거나 두 가지 새로운 실험적 기능을 시도해 볼 수 있습니다:
 
 [오프스크린 렌더링](#experimental-off-screen-rendering)
-: 컴포즈 패널을 Swing 컴포넌트에 직접 렌더링할 수 있도록 합니다.
+: Compose 패널을 Swing 컴포넌트에 직접 렌더링할 수 있습니다.
 
-[팝업, 대화 상자, 드롭다운을 위한 개별 플랫폼 뷰](#experimental-separate-views-for-popups)
-: 팝업이 더 이상 초기 컴포저블 캔버스나 앱 창에 의해 제한되지 않습니다.
+[팝업, 다이얼로그 및 드롭다운을 위한 별도의 플랫폼 뷰](#experimental-separate-views-for-popups)
+: 팝업은 더 이상 초기 컴포저블 캔버스나 앱 창에 의해 제한되지 않습니다.
 
 `ComposePanel`을 사용하는 몇 가지 시나리오는 다음과 같습니다:
-* 애니메이션 객체 또는 애니메이션 객체 전체 패널을 애플리케이션에 삽입합니다(예: 이모티콘 선택 또는 이벤트에 애니메이션 반응이 있는 툴바).
-* 그래픽 또는 인포그래픽과 같은 대화형 렌더링 영역을 애플리케이션에 구현합니다. 이는 Compose Multiplatform를 사용하여 더 쉽고 편리하게 달성할 수 있습니다.
-* (잠재적으로 애니메이션될 수도 있는) 복잡한 렌더링 영역을 애플리케이션에 통합합니다. 이는 Compose Multiplatform로 더 간단합니다.
-* Swing 기반 애플리케이션의 사용자 인터페이스에서 복잡한 부분을 교체합니다. Compose Multiplatform는 편리한 컴포넌트 레이아웃 시스템과 광범위한 내장 컴포넌트 및 사용자 정의 컴포넌트를 빠르게 생성하기 위한 옵션을 제공하기 때문입니다.
+* 애니메이션 객체 또는 애니메이션 객체 전체 패널을 애플리케이션에 임베드합니다(예: 이모티콘 선택 또는 이벤트에 애니메이션 반응이 있는 툴바).
+* Compose Multiplatform를 사용하여 더 쉽고 편리하게 구현할 수 있는 그래픽 또는 인포그래픽과 같은 대화형 렌더링 영역을 애플리케이션에 구현합니다.
+* Compose Multiplatform로 더 간단하게 복잡한 렌더링 영역(잠재적으로 애니메이션 포함)을 애플리케이션에 통합합니다.
+* Compose Multiplatform는 편리한 컴포넌트 레이아웃 시스템과 내장 컴포넌트 및 사용자 지정 컴포넌트를 빠르게 생성할 수 있는 다양한 옵션을 제공하므로 Swing 기반 애플리케이션의 복잡한 사용자 인터페이스 부분을 대체합니다.
 
-### Compose Multiplatform 앱의 Swing 컴포넌트
+### Compose Multiplatform 앱 내 Swing 컴포넌트
 
-또 다른 사용 사례는 Swing에는 존재하지만 Compose Multiplatform에는 대응 컴포넌트가 없는 컴포넌트를 사용해야 할 때입니다. 새로운 구현을 처음부터 만드는 것이 너무 시간이 많이 걸린다면, `SwingPanel`을 시도해 보세요. `SwingPanel` 함수는 Compose Multiplatform 컴포넌트 위에 배치된 Swing 컴포넌트의 크기, 위치 및 렌더링을 관리하는 래퍼(wrapper) 역할을 합니다.
+또 다른 사용 사례는 Swing에 존재하지만 Compose Multiplatform에는 상응하는 컴포넌트가 없는 컴포넌트를 사용해야 하는 경우입니다. 처음부터 새로운 구현을 만드는 데 너무 많은 시간이 소요된다면 `SwingPanel`을 시도해 보십시오. `SwingPanel` 함수는 Compose Multiplatform 컴포넌트 위에 배치된 Swing 컴포넌트의 크기, 위치 및 렌더링을 관리하는 래퍼 역할을 합니다.
 
-참고로, `SwingPanel` 내의 Swing 컴포넌트는 항상 Compose Multiplatform 컴포넌트 위에 계층화되므로, `SwingPanel` 아래에 위치한 모든 것은 Swing 컴포넌트에 의해 잘릴 것입니다. 잘림(clipping) 및 겹침(overlapping) 문제를 피하려면 [실험적 상호 운용 블렌딩(interop blending)](#experimental-interop-blending)을 시도해 보세요. 여전히 잘못된 렌더링의 위험이 있다면, 그에 따라 UI를 재설계하거나 `SwingPanel` 사용을 피하고 누락된 컴포넌트를 구현하여 기술 발전에 기여할 수 있습니다.
+`SwingPanel` 내의 Swing 컴포넌트는 항상 Compose Multiplatform 컴포넌트 위에 계층화되므로, `SwingPanel` 아래에 위치한 모든 것이 Swing 컴포넌트에 의해 잘린다는 점에 유의하십시오. 잘림 및 겹침 문제를 방지하려면 [실험적 상호 운용성 블렌딩](#experimental-interop-blending)을 시도해 보십시오. 여전히 잘못된 렌더링 위험이 있는 경우, 그에 따라 UI를 재설계하거나 `SwingPanel` 사용을 피하고 누락된 컴포넌트를 구현하여 기술 발전에 기여할 수 있습니다.
 
 `SwingPanel`을 사용하는 시나리오는 다음과 같습니다:
-* 애플리케이션에 팝업, 툴팁 또는 컨텍스트 메뉴가 필요하지 않거나, 적어도 `SwingPanel` 내부에 있지 않은 경우.
-* `SwingPanel`이 고정된 위치에 유지되는 경우. 이 경우, Swing 컴포넌트의 위치가 변경될 때 발생하는 글리치(glitch) 및 아티팩트(artifact)의 위험을 줄일 수 있습니다. 그러나 이 조건은 필수 사항이 아니며 각 특정 사례에 대해 테스트해야 합니다.
+* 애플리케이션에 팝업, 툴팁 또는 상황별 메뉴가 필요하지 않거나, 적어도 `SwingPanel` 내에 있지 않은 경우.
+* `SwingPanel`이 고정된 위치에 유지됩니다. 이 경우, Swing 컴포넌트의 위치가 변경될 때 발생하는 글리치 및 아티팩트 위험을 줄일 수 있습니다. 그러나 이 조건은 필수가 아니며 각 특정 사례에 대해 테스트해야 합니다.
 
-Compose Multiplatform와 Swing은 두 가지 방식으로 모두 결합될 수 있어 유연한 UI 디자인이 가능합니다. `SwingPanel`을 `ComposePanel` 안에 배치할 수 있으며, 이 `ComposePanel`은 또 다른 `SwingPanel` 안에 있을 수도 있습니다. 그러나 이러한 중첩된 조합을 사용하기 전에 잠재적인 렌더링 글리치를 고려해야 합니다. 코드 샘플은 [중첩된 `SwingPanel` 및 `ComposePanel`을 사용한 레이아웃](#layout-with-nested-swing-and-compose-multiplatform-components)을 참조하세요.
+Compose Multiplatform와 Swing은 양방향으로 결합될 수 있어 유연한 UI 디자인이 가능합니다. `SwingPanel`을 `ComposePanel` 안에 배치할 수 있으며, 이는 또한 다른 `SwingPanel` 안에 있을 수도 있습니다. 그러나 이러한 중첩된 조합을 사용하기 전에 잠재적인 렌더링 결함을 고려하십시오. 코드 샘플은 [중첩된 `SwingPanel` 및 `ComposePanel`을 사용한 레이아웃](#layout-with-nested-swing-and-compose-multiplatform-components)을 참조하십시오.
 
 ## Swing 애플리케이션에서 Compose Multiplatform 사용
 
-`ComposePanel`을 사용하면 Swing 기반 애플리케이션 내에서 Compose Multiplatform로 UI를 생성할 수 있습니다. Swing 레이아웃에 `ComposePanel` 인스턴스를 추가하고 `setContent` 내에서 컴포지션(composition)을 정의하세요:
+`ComposePanel`을 사용하면 Swing 기반 애플리케이션 내에서 Compose Multiplatform로 UI를 생성할 수 있습니다. Swing 레이아웃에 `ComposePanel` 인스턴스를 추가하고 `setContent` 내에서 컴포지션을 정의하십시오:
 
 ```kotlin
 import androidx.compose.foundation.layout.Box
@@ -167,20 +167,19 @@ fun Counter(text: String, counter: MutableState<Int>) {
 
 ### 실험적 오프스크린 렌더링
 
-실험적 모드는 컴포즈 패널을 Swing 컴포넌트에 직접 렌더링할 수 있도록 합니다. 이는 패널이 표시되거나, 숨겨지거나, 크기가 조정될 때 발생하는 과도기적 렌더링 문제를 방지합니다. 또한 Swing 컴포넌트와 컴포즈 패널을 결합할 때 적절한 계층화를 가능하게 합니다. 즉, Swing 컴포넌트가 `ComposePanel` 위 또는 아래에 표시될 수 있습니다.
+실험적 모드를 통해 Compose 패널을 Swing 컴포넌트에 직접 렌더링할 수 있습니다. 이는 패널이 표시되거나, 숨겨지거나, 크기가 조정될 때 발생하는 과도기적 렌더링 문제를 방지합니다. 또한 Swing 컴포넌트와 Compose 패널을 결합할 때 적절한 계층화를 가능하게 합니다. 즉, Swing 컴포넌트가 `ComposePanel` 위 또는 아래에 표시될 수 있습니다.
 
-> 오프스크린 렌더링은 [실험적](supported-platforms.md#compose-multiplatform-ui-framework-stability-levels)입니다.
-> 따라서 평가 목적으로만 사용해야 합니다.
+> 오프스크린 렌더링은 [실험적](supported-platforms.md#compose-multiplatform-ui-framework-stability-levels) 기능이며, 평가 목적으로만 사용해야 합니다.
 >
 {style="warning"}
 
-오프스크린 렌더링을 활성화하려면 `compose.swing.render.on.graphics` 시스템 속성을 사용하세요. 이 속성은 애플리케이션에서 Compose 코드를 실행하기 전에 설정되어야 하므로, 시작 시 `-D` 명령줄 JVM 인수를 사용하여 활성화하는 것이 좋습니다:
+오프스크린 렌더링을 활성화하려면 `compose.swing.render.on.graphics` 시스템 속성을 사용하십시오. 이 속성은 애플리케이션에서 Compose 코드를 실행하기 전에 설정해야 하므로, 시작 시 `-D` 명령줄 JVM 인수를 사용하여 활성화하는 것이 좋습니다:
 
 ```Console
 -Dcompose.swing.render.on.graphics=true
 ```
 
-또는 진입점에서 `System.setProperty()`를 사용하세요:
+또는 진입점에서 `System.setProperty()`를 사용하십시오:
 
 ```kotlin
 fun main() {
@@ -189,20 +188,19 @@ fun main() {
 }
 ```
 
-### 팝업을 위한 실험적 개별 뷰
+### 실험적 팝업용 별도 뷰
 
-툴팁 및 드롭다운 메뉴와 같은 팝업 요소가 초기 컴포저블 캔버스나 앱 창에 의해 제한되지 않는 것이 중요할 수 있습니다. 예를 들어, 컴포저블 뷰가 전체 화면을 차지하지 않지만 경고 대화 상자(alert dialog)를 생성해야 하는 경우입니다.
+툴팁 및 드롭다운 메뉴와 같은 팝업 요소가 초기 컴포저블 캔버스 또는 앱 창에 의해 제한되지 않는 것이 중요할 수 있습니다. 예를 들어, 컴포저블 뷰가 전체 화면을 차지하지 않지만 알림 대화 상자를 띄워야 하는 경우입니다.
 
-> 팝업을 위한 개별 뷰 또는 창을 생성하는 것은 [실험적](supported-platforms.md#compose-multiplatform-ui-framework-stability-levels)입니다. 옵트인(Opt-in)이 필요하며(자세한 내용은 아래 참조),
-> 평가 목적으로만 사용해야 합니다.
+> 팝업용 별도 뷰 또는 창을 생성하는 것은 [실험적](supported-platforms.md#compose-multiplatform-ui-framework-stability-levels) 기능입니다. 옵트인(Opt-in)이 필요하며(자세한 내용은 아래 참조), 평가 목적으로만 사용해야 합니다.
 >
 {style="warning"}
 
-데스크톱에서 팝업을 위한 개별 뷰 또는 창을 생성하려면, `compose.layers.type` 시스템 속성을 설정하세요. 지원되는 값은 다음과 같습니다:
-* `WINDOW`는 `Popup` 및 `Dialog` 컴포넌트를 별도의 장식 없는 창으로 생성합니다.
-* `COMPONENT`는 `Popup` 또는 `Dialog`를 동일한 창 내의 별도 Swing 컴포넌트로 생성합니다. 이 설정은 오프스크린 렌더링 활성화가 필요하며([실험적 오프스크린 렌더링](#experimental-off-screen-rendering) 섹션 참조), 오프스크린 렌더링은 `ComposePanel` 컴포넌트에만 작동하고 전체 창 애플리케이션에는 작동하지 않습니다.
+데스크톱에서 팝업용 별도 뷰 또는 창을 생성하려면 `compose.layers.type` 시스템 속성을 설정하십시오. 지원되는 값은 다음과 같습니다:
+* `WINDOW`는 `Popup` 및 `Dialog` 컴포넌트를 별도의 비장식 창으로 생성합니다.
+* `COMPONENT`는 `Popup` 또는 `Dialog`를 동일한 창 내 별도의 Swing 컴포넌트로 생성합니다. 이 설정은 오프스크린 렌더링이 활성화되어 있어야 하며( [실험적 오프스크린 렌더링](#experimental-off-screen-rendering) 섹션 참조), 오프스크린 렌더링은 전체 창 애플리케이션이 아닌 `ComposePanel` 컴포넌트에만 작동한다는 점에 유의하십시오.
 
-참고로, 팝업과 대화 상자는 여전히 자체 경계 외부(예: 최상위 컨테이너의 그림자)에 아무것도 그릴 수 없습니다.
+팝업과 다이얼로그는 여전히 자체 경계 외부에는 아무것도 그릴 수 없다는 점에 유의하십시오(예: 최상위 컨테이너의 그림자).
 
 다음은 `COMPONENT` 속성을 사용하는 코드 예시입니다:
 
@@ -262,7 +260,7 @@ fun ComposeContent() {
 
 ## Compose Multiplatform 애플리케이션에서 Swing 사용
 
-`SwingPanel`을 사용하면 Compose Multiplatform 애플리케이션 내에서 Swing으로 UI를 생성할 수 있습니다. `SwingPanel`의 `factory` 파라미터를 사용하여 Swing `JPanel`을 생성하세요:
+`SwingPanel`을 사용하면 Compose Multiplatform 애플리케이션 내에서 Swing으로 UI를 생성할 수 있습니다. `SwingPanel`의 `factory` 파라미터를 사용하여 Swing `JPanel`을 생성하십시오:
 
 ```kotlin
 import androidx.compose.foundation.layout.Box
@@ -346,7 +344,7 @@ fun actionButton(
     action: () -> Unit
 ): JButton {
     val button = JButton(text)
-    button.alignmentX = Component.CENTER_ALIGNment
+    button.alignmentX = Component.CENTER_ALIGNMENT
     button.addActionListener { action() }
 
     return button
@@ -358,7 +356,7 @@ fun actionButton(
 
 ### Compose 상태 변경 시 Swing 컴포넌트 업데이트
 
-Swing 컴포넌트를 최신 상태로 유지하려면, `update: (T) -> Unit` 콜백(callback)을 제공하세요. 이 콜백은 컴포저블(composable) 상태가 변경되거나 레이아웃이 인플레이트될 때마다 호출됩니다. 다음 코드 샘플은 컴포저블 상태가 변경될 때마다 `SwingPanel` 내에서 Swing 컴포넌트를 업데이트하는 방법을 보여줍니다:
+Swing 컴포넌트를 최신 상태로 유지하려면 컴포저블(composable) 상태가 변경되거나 레이아웃이 확장될 때마다 호출되는 `update: (T) -> Unit` 콜백을 제공하십시오. 다음 코드 샘플은 컴포저블 상태가 변경될 때마다 `SwingPanel` 내에서 Swing 컴포넌트를 업데이트하는 방법을 보여줍니다:
 
 ```kotlin
 import androidx.compose.foundation.layout.Column
@@ -429,16 +427,15 @@ fun main() = application {
 
 <img src="compose-desktop-swinglabel.animated.gif" alt="SwingLabel" preview-src="compose-desktop-swinglabel.png" width="600"/>
 
-### 실험적 상호 운용 블렌딩
+### 실험적 상호 운용성 블렌딩
 
-기본적으로 `SwingPanel` 래퍼(wrapper)를 사용하여 구현된 상호 운용 뷰는 직사각형 모양이며, 모든 Compose Multiplatform 컴포넌트 위에 전경으로 표시됩니다. 팝업 요소를 더 쉽게 사용하기 위해, 상호 운용 블렌딩에 대한 실험적 지원을 도입했습니다.
+기본적으로 `SwingPanel` 래퍼를 사용하여 구현된 상호 운용성 뷰는 사각형이며, 모든 Compose Multiplatform 컴포넌트 위에 전경으로 표시됩니다. 팝업 요소를 더 쉽게 사용하기 위해 상호 운용성 블렌딩에 대한 실험적 지원을 도입했습니다.
 
-> 상호 운용 블렌딩은 [실험적](supported-platforms.md#compose-multiplatform-ui-framework-stability-levels)입니다.
-> 따라서 평가 목적으로만 사용해야 합니다.
+> 상호 운용성 블렌딩은 [실험적](supported-platforms.md#compose-multiplatform-ui-framework-stability-levels) 기능이며, 평가 목적으로만 사용해야 합니다.
 >
 {style="warning"}
 
-이 실험적 기능을 활성화하려면 `compose.interop.blending` 시스템 속성을 `true`로 설정하세요. 이 속성은 애플리케이션에서 Compose 코드를 실행하기 전에 활성화되어야 하므로, `-Dcompose.interop.blending=true` 명령줄 JVM 인수를 통해 설정하거나 진입점(entry point)에서 `System.setProperty()`를 사용하세요:
+이 실험적 기능을 활성화하려면 `compose.interop.blending` 시스템 속성을 `true`로 설정하십시오. 이 속성은 애플리케이션에서 Compose 코드를 실행하기 전에 활성화되어야 하므로, `-Dcompose.interop.blending=true` 명령줄 JVM 인수를 통해 설정하거나 진입점에서 `System.setProperty()`를 사용하십시오:
 
 ```kotlin
 fun main() {
@@ -447,18 +444,18 @@ fun main() {
 }
 ```
 
-상호 운용 블렌딩이 활성화되면, 다음 사용 사례에서 Swing을 활용할 수 있습니다:
+상호 운용성 블렌딩이 활성화되면 다음 사용 사례에서 Swing을 사용할 수 있습니다:
 
-* **잘림(Clipping)**. 더 이상 직사각형 모양에 제한되지 않습니다. `clip` 및 `shadow` 수정자(modifier)는 `SwingPanel`과 함께 올바르게 작동합니다.
-* **겹침(Overlapping)**. `SwingPanel` 위에 Compose Multiplatform 콘텐츠를 그리고 평소처럼 상호 작용하는 것이 가능합니다.
+*   **클리핑**. 더 이상 사각형 모양에 국한되지 않습니다. `clip` 및 `shadow` 수정자는 `SwingPanel`과 함께 올바르게 작동합니다.
+*   **오버래핑(겹침)**. `SwingPanel` 위에 모든 Compose Multiplatform 콘텐츠를 그릴 수 있으며 평소와 같이 상호 작용할 수 있습니다.
 
-자세한 내용 및 알려진 제한 사항은 [GitHub 설명](https://github.com/JetBrains/compose-multiplatform-core/pull/915)을 참조하세요.
+자세한 내용 및 알려진 제약 사항은 [GitHub 설명](https://github.com/JetBrains/compose-multiplatform-core/pull/915)을 참조하십시오.
 
-## 중첩된 Swing 및 Compose Multiplatform 컴포넌트가 있는 레이아웃
+## 중첩된 Swing 및 Compose Multiplatform 컴포넌트를 사용한 레이아웃
 
-상호 운용성을 통해 Swing과 Compose Multiplatform를 두 가지 방식으로 모두 결합할 수 있습니다: Compose Multiplatform 애플리케이션에 Swing 컴포넌트를 추가하고, Swing 애플리케이션에 Compose Multiplatform 컴포넌트를 추가하는 방식입니다. 여러 컴포넌트를 중첩하고 접근 방식을 자유롭게 결합하려는 경우에도 이 시나리오가 지원됩니다.
+상호 운용성을 통해 Swing 및 Compose Multiplatform를 양방향으로 결합할 수 있습니다: Compose Multiplatform 애플리케이션에 Swing 컴포넌트를 추가하고, Swing 애플리케이션에 Compose Multiplatform 컴포넌트를 추가하는 방식입니다. 여러 컴포넌트를 중첩하고 접근 방식을 자유롭게 결합하려는 경우, 이 시나리오도 지원됩니다.
 
-다음 코드 샘플은 `SwingPanel`을 이미 다른 `SwingPanel` 안에 있는 `ComposePanel`에 추가하여 Swing-Compose Multiplatform-Swing 구조를 생성하는 방법을 보여줍니다:
+다음 코드 샘플은 `SwingPanel`을 `ComposePanel`에 추가하고, 이 `ComposePanel`이 이미 다른 `SwingPanel` 안에 있어 Swing-Compose Multiplatform-Swing 구조를 생성하는 방법을 보여줍니다:
 
 ```kotlin
 import androidx.compose.foundation.*
@@ -635,6 +632,6 @@ fun SelectableItem(
 
 <img src="compose-desktop-swing-layout.animated.gif" alt="Swing layout" preview-src="compose-desktop-swing-layout.png" width="600"/>
 
-## 다음 단계는 무엇인가요?
+## 다음 단계는?
 
-[다른 데스크톱 전용 컴포넌트](https://github.com/JetBrains/compose-multiplatform/tree/master/tutorials#desktop)에 대한 튜토리얼을 살펴보세요.
+[다른 데스크톱 전용 컴포넌트](https://github.com/JetBrains/compose-multiplatform/tree/master/tutorials#desktop)에 대한 튜토리얼을 살펴보십시오.

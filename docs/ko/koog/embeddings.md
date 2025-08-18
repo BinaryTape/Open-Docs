@@ -21,18 +21,27 @@
 로컬 모델로 임베딩 기능을 사용하려면 시스템에 Ollama가 설치되어 실행 중이어야 합니다.
 설치 및 실행 지침은 [Ollama 공식 GitHub 저장소](https://github.com/ollama/ollama)를 참조하세요.
 
+<!--- INCLUDE
+import ai.koog.embeddings.local.LLMEmbedder
+import ai.koog.embeddings.local.OllamaEmbeddingModels
+import ai.koog.prompt.executor.ollama.client.OllamaClient
+import kotlinx.coroutines.runBlocking
+-->
 ```kotlin
 fun main() {
-    // Create an OllamaClient instance
-    val client = OllamaClient()
-    // Create an embedder
-    val embedder = LLMEmbedder(client, OllamaEmbeddingModels.NOMIC_EMBED_TEXT)
-    // Create embeddings
-    val embedding = embedder.embed("This is the text to embed")
-    // Print embeddings to the output
-    println(embedding)
+    runBlocking {
+        // Create an OllamaClient instance
+        val client = OllamaClient()
+        // Create an embedder
+        val embedder = LLMEmbedder(client, OllamaEmbeddingModels.NOMIC_EMBED_TEXT)
+        // Create embeddings
+        val embedding = embedder.embed("This is the text to embed")
+        // Print embeddings to the output
+        println(embedding)
+    }
 }
 ```
+<!--- KNIT example-embeddings-01.kt -->
 
 Ollama 임베딩 모델을 사용하려면 다음 전제 조건을 확인하세요:
 
@@ -72,6 +81,11 @@ Ollama 임베딩 모델을 사용하려면 다음 전제 조건을 확인하세�
 
 OpenAI 임베딩 모델을 사용하여 임베딩을 생성하려면 아래 예시와 같이 `OpenAILLMClient` 인스턴스의 `embed` 메서드를 사용하세요.
 
+<!--- INCLUDE
+import ai.koog.embeddings.local.LLMEmbedder
+import ai.koog.prompt.executor.clients.openai.OpenAILLMClient
+import ai.koog.prompt.executor.clients.openai.OpenAIModels
+-->
 ```kotlin
 suspend fun openAIEmbed(text: String) {
     // Get the OpenAI API token from the OPENAI_KEY environment variable
@@ -79,13 +93,14 @@ suspend fun openAIEmbed(text: String) {
     // Create an OpenAILLMClient instance
     val client = OpenAILLMClient(token)
     // Create an embedder
-    val embedder = LLMEmbedder(client, OpenAIModels.Embeddings.TextEmbeddingAda3Small)
+    val embedder = LLMEmbedder(client, OpenAIModels.Embeddings.TextEmbeddingAda002)
     // Create embeddings
     val embedding = embedder.embed(text)
     // Print embeddings to the output
     println(embedding)
 }
 ```
+<!--- KNIT example-embeddings-02.kt -->
 
 ## 예시
 
@@ -95,6 +110,9 @@ suspend fun openAIEmbed(text: String) {
 
 코드 스니펫을 자연어 설명과 비교하여 의미론적 일치를 찾으세요:
 
+<!--- INCLUDE
+import ai.koog.embeddings.base.Embedder
+-->
 ```kotlin
 suspend fun compareCodeToText(embedder: Embedder) { // Embedder type
     // 코드 스니펫
@@ -128,11 +146,15 @@ suspend fun compareCodeToText(embedder: Embedder) { // Embedder type
     }
 }
 ```
+<!--- KNIT example-embeddings-03.kt -->
 
 ### 코드-코드 비교
 
 구문 차이에 관계없이 코드 스니펫을 비교하여 의미론적 유사성을 찾으세요:
 
+<!--- INCLUDE
+import ai.koog.embeddings.base.Embedder
+-->
 ```kotlin
 suspend fun compareCodeToCode(embedder: Embedder) { // Embedder type
     // 다른 언어로 구현된 동일한 알고리즘의 두 가지 구현
@@ -186,6 +208,7 @@ suspend fun compareCodeToCode(embedder: Embedder) { // Embedder type
     }
 }
 ```
+<!--- KNIT example-embeddings-04.kt -->
 
 ## API 문서
 

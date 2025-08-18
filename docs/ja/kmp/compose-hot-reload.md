@@ -1,64 +1,64 @@
-[//]: # (title: Compose ホットリロード)
+[//]: # (title: Compose Hot Reload)
 
 <primary-label ref="alpha"/>
 
-[Compose ホットリロード](https://github.com/JetBrains/compose-hot-reload)は、Compose Multiplatformプロジェクトで作業中にUIの変更を視覚化し、試すのに役立ちます。
+[Compose Hot Reload](https://github.com/JetBrains/compose-hot-reload)は、Compose Multiplatformプロジェクトでの作業中にUIの変更を視覚化し、試すのに役立ちます。
 
-現時点では、Compose ホットリロードは、Multiplatformプロジェクトにデスクトップターゲットを含める場合にのみ利用可能です。
-将来的には他のターゲットのサポートも検討しています。それまでの間、デスクトップアプリをサンドボックスとして使用することで、開発フローを中断することなく、共通コードでのUI変更を迅速に試すことができます。
+現時点では、Compose Hot Reloadは、マルチプラットフォームプロジェクトにデスクトップターゲットを含めた場合にのみ利用可能です。
+今後、他のターゲットに対するサポートを追加することを検討しています。その間、デスクトップアプリをサンドボックスとして使用することで、作業の流れを中断することなく共通コードでのUIの変更を素早く試すことができます。
 
-![Compose ホットリロード](compose-hot-reload.gif){width=500}
+![Compose Hot Reload](compose-hot-reload.gif){width=500}
 
-## プロジェクトにCompose ホットリロードを追加する
+## プロジェクトにCompose Hot Reloadを追加する
 
-Compose ホットリロードは、次の2つの方法で追加できます。
+Compose Hot Reloadは、以下の2つの方法で追加できます。
 
-*   [IntelliJ IDEAまたはAndroid Studioでプロジェクトをゼロから作成する](#from-scratch)
-*   [既存プロジェクトにGradleプラグインとして追加する](#to-an-existing-project)
+*   [IntelliJ IDEAまたはAndroid Studioでプロジェクトを最初から作成する](#from-scratch)
+*   [既存のプロジェクトにGradleプラグインとして追加する](#to-an-existing-project)
 
-### ゼロから作成する
+### 最初から
 
-このセクションでは、IntelliJ IDEAとAndroid Studioでデスクトップターゲットを含むMultiplatformプロジェクトを作成する手順を説明します。プロジェクトが作成されると、Compose ホットリロードが自動的に追加されます。
+このセクションでは、IntelliJ IDEAおよびAndroid Studioでデスクトップターゲットを含むマルチプラットフォームプロジェクトを作成する手順を説明します。プロジェクトが作成されると、Compose Hot Reloadが自動的に追加されます。
 
-1.  [クイックスタート](quickstart.md)で、[Kotlin Multiplatform開発用の環境をセットアップする](quickstart.md#set-up-the-environment)の手順を完了します。
+1.  [クイックスタート](quickstart.md)で、[Kotlin Multiplatform開発の環境をセットアップする](quickstart.md#set-up-the-environment)の手順を完了します。
 2.  IntelliJ IDEAで、**File** | **New** | **Project**を選択します。
 3.  左側のパネルで、**Kotlin Multiplatform**を選択します。
-4.  **New Project**ウィンドウで、**Name**、**Group**、**Artifact**フィールドを指定します。
+4.  **新規プロジェクト**ウィンドウで、**Name**、**Group**、および**Artifact**フィールドを指定します。
 5.  **Desktop**ターゲットを選択し、**Create**をクリックします。
-    ![デスクトップターゲットを含むMultiplatformプロジェクトを作成する](create-desktop-project.png){width=700}
+    ![Create multiplatform project with desktop target](create-desktop-project.png){width=700}
 
-### 既存プロジェクトに追加する
+### 既存のプロジェクトに
 
-このセクションでは、既存のMultiplatformプロジェクトにCompose ホットリロードを追加する手順を説明します。この手順は、[共有ロジックとUIを持つアプリを作成する](compose-multiplatform-create-first-app.md)チュートリアルのプロジェクトを参照としています。
+このセクションでは、既存のマルチプラットフォームプロジェクトにCompose Hot Reloadを追加する手順を説明します。これらの手順は、[共有ロジックとUIを持つアプリを作成する](compose-multiplatform-create-first-app.md)チュートリアルのプロジェクトを参照としています。
 
-> Compose ホットリロードの最新バージョンを見つけるには、[リリース](https://github.com/JetBrains/compose-hot-reload/releases)を参照してください。
+> Compose Hot Reloadの最新バージョンについては、[Releases](https://github.com/JetBrains/compose-hot-reload/releases)を参照してください。
 >
 {style="tip"}
 
-1.  プロジェクトでバージョンカタログを更新します。`gradle/libs.versions.toml`に、以下のコードを追加します。
+1.  プロジェクトで、バージョンカタログを更新します。`gradle/libs.versions.toml`に、以下のコードを追加します。
     ```kotlin
     composeHotReload = { id = "org.jetbrains.compose.hot-reload", version.ref = "composeHotReload"}
     ```
 
-    > バージョンカタログを使用してプロジェクト全体の依存関係を一元管理する方法について詳しくは、[Gradleのベストプラクティス](https://kotlinlang.org/gradle-best-practices.html)を参照してください。
+    > バージョンカタログを使用してプロジェクト全体の依存関係を一元的に管理する方法の詳細については、当社の[Gradleのベストプラクティス](https://kotlinlang.org/gradle-best-practices.html)を参照してください。
 
-2.  親プロジェクトの`build.gradle.kts` (`ComposeDemo/build.gradle.kts`)に、`plugins {}`ブロックに以下のコードを追加します。
+2.  親プロジェクトの`build.gradle.kts` (`ComposeDemo/build.gradle.kts`)で、`plugins {}`ブロックに以下のコードを追加します。
     ```kotlin
     plugins {
         alias(libs.plugins.composeHotReload) apply false
     }
     ```
-    これにより、Compose ホットリロードプラグインが各サブプロジェクトで複数回ロードされるのを防ぎます。
+    これにより、Compose Hot Reloadプラグインが各サブプロジェクトで複数回ロードされることを防ぎます。
 
-3.  Multiplatformアプリケーションを含むサブプロジェクトの`build.gradle.kts` (`ComposeDemo/composeApp/build.gradle.kts`)に、`plugins {}`ブロックに以下のコードを追加します。
+3.  マルチプラットフォームアプリケーションを含むサブプロジェクトの`build.gradle.kts` (`ComposeDemo/composeApp/build.gradle.kts`)で、`plugins {}`ブロックに以下のコードを追加します。
     ```kotlin
     plugins {
         alias(libs.plugins.composeHotReload)
     }
     ```
 
-4.  Compose ホットリロードの全機能を使用するには、プロジェクトは[JetBrains Runtime](https://github.com/JetBrains/JetBrainsRuntime) (JBR)上で実行される必要があります。JBRは、強化されたクラス再定義をサポートするOpenJDKのフォークです。
-    Compose ホットリロードは、プロジェクト用の互換性のあるJBRを自動的にプロビジョニングできます。
+4.  Compose Hot Reloadの全ての機能を使用するには、プロジェクトは拡張されたクラス再定義をサポートするOpenJDKのフォークである[JetBrains Runtime](https://github.com/JetBrains/JetBrainsRuntime) (JBR)で実行される必要があります。
+    Compose Hot Reloadは、プロジェクトのために互換性のあるJBRを自動的にプロビジョニングできます。
     これを許可するには、`settings.gradle.kts`ファイルに以下のGradleプラグインを追加します。
 
     ```kotlin
@@ -67,9 +67,9 @@ Compose ホットリロードは、次の2つの方法で追加できます。
     }
     ```
 
-5.  **Sync Gradle Changes**ボタンをクリックしてGradleファイルを同期します。 ![Gradleファイルを同期する](gradle-sync.png){width=50}
+5.  **Sync Gradle Changes**ボタンをクリックしてGradleファイルを同期します: ![Synchronize Gradle files](gradle-sync.png){width=50}
 
-## Compose ホットリロードを使用する
+## Compose Hot Reloadを使用する
 
 1.  `desktopMain`ディレクトリで、`main.kt`ファイルを開き、`main()`関数を更新します。
     ```kotlin
@@ -83,7 +83,7 @@ Compose ホットリロードは、次の2つの方法で追加できます。
         }
     }
     ```
-    `alwaysOnTop`変数を`true`に設定することで、生成されたデスクトップアプリがすべてのウィンドウの上に表示され、コードを編集して変更をライブで確認しやすくなります。
+    `alwaysOnTop`変数を`true`に設定することで、生成されたデスクトップアプリが全てのウィンドウの手前に表示され続け、コードを編集して変更をライブで確認しやすくなります。
 
 2.  `commonMain`ディレクトリで、`App.kt`ファイルを開き、`Button`コンポーザブルを更新します。
     ```kotlin
@@ -102,19 +102,19 @@ Compose ホットリロードは、次の2つの方法で追加できます。
      }
     ```
 
-4.  `desktopMain`ディレクトリで、`main.kt`ファイルを開き、ガターにある**Run**アイコンをクリックします。
+4.  `desktopMain`ディレクトリで、`main.kt`ファイルを開き、ガターの**実行**アイコンをクリックします。
     **Run 'composeApp [desktop]' with Compose Hot Reload (Alpha)**を選択します。
 
-    ![ガターからCompose ホットリロードを実行](compose-hot-reload-gutter-run.png){width=350}
+    ![Run Compose Hot Reload from gutter](compose-hot-reload-gutter-run.png){width=350}
 
-    ![デスクトップアプリでの最初のCompose ホットリロード](compose-hot-reload-hello.png){width=500}
+    ![First Compose Hot Reload on desktop app](compose-hot-reload-hello.png){width=500}
 
-5.  `greet()`関数から返される文字列を更新し、ファイルを保存すると、デスクトップアプリが自動的に更新されます。
+5.  `greet()`関数から返される文字列を更新し、その後ファイルを保存すると、デスクトップアプリが自動的に更新されるのを確認できます。
 
-    ![Compose ホットリロード](compose-hot-reload.gif){width=500}
+    ![Compose Hot Reload](compose-hot-reload.gif){width=500}
 
-おめでとうございます！Compose ホットリロードが動作しているのを確認できました。これで、変更のたびにデスクトップ実行構成を再起動する必要なく、テキスト、画像、フォーマット、UI構造などを変更して試すことができます。
+おめでとうございます！Compose Hot Reloadが動作しているのを確認できました。これで、変更のたびにデスクトップ実行構成を再起動することなく、テキスト、画像、書式設定、UI構造などの変更を試すことができます。
 
 ## ヘルプ
 
-Compose ホットリロードの使用中に問題が発生した場合は、[GitHub Issueを作成](https://github.com/JetBrains/compose-hot-reload/issues)してお知らせください。
+Compose Hot Reloadの使用中に何らかの問題に遭遇した場合は、[GitHub issueを作成](https://github.com/JetBrains/compose-hot-reload/issues)してお知らせください。

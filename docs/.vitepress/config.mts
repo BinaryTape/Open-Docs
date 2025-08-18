@@ -29,6 +29,7 @@ import markdownItWsRename from "./markdown-it-ws-rename";
 import markdownItWsTopicTitle from "./markdown-it-ws-topicTitle";
 import { markdownItCollapsed } from "./markdownItCollapsed.mts";
 import generateSidebar from "./config/sidebar.config";
+import markdownItWsRemoveCodeAttr from "./markdown-it-ws-remove-code-attr";
 
 const mkDiffGrammarPath = resolve(__dirname, './shiki-mk-diff.json')
 const mkDiffGrammar = JSON.parse(readFileSync(mkDiffGrammarPath, 'utf-8'))
@@ -150,13 +151,13 @@ export default defineConfig({
             ...SiteLocaleConfig['zh-Hans'],
             themeConfig: {
                 nav: [
-                    { text: 'Kotlin', link: '/kotlin/getting-started' },
+                    { text: 'Kotlin', link: '/kotlin/home' },
                     { text: 'Kotlin Multiplatform', link: '/kmp/get-started' },
+                    { text: 'Ktor', link: '/ktor/welcome'},
+                    { text: 'Koog', link: '/koog/' },
                     { text: 'Koin', link: '/koin/setup/koin' },
                     { text: 'SQLDelight', link: '/sqldelight/index' },
                     { text: 'Coil', link: '/coil/overview' },
-                    { text: 'koog', link: '/koog/' },
-
                 ],
                 sidebar: {
                     "/koin/": generateSidebar(SiteLocaleConfig['zh-Hans'], DocsTypeConfig.koin),
@@ -174,13 +175,13 @@ export default defineConfig({
             ...SiteLocaleConfig['zh-Hant'],
             themeConfig: {
                 nav: [
-                    { text: 'Kotlin', link: '/zh-Hant/kotlin/getting-started' },
-                    { text: 'Kotlin Multiplatform', link: '/zh-Hant/kmp/get-started' },
-                    { text: 'Koin', link: '/zh-Hant/koin/setup/koin' },
-                    { text: 'SQLDelight', link: '/zh-Hant/sqldelight/index' },
-                    { text: 'Coil', link: '/zh-Hant/coil/overview' },
-                    { text: 'koog', link: '/zh-Hant/koog/' },
-
+                    { text: 'Kotlin', link: '/zh-Hant/kotlin/home' },
+                    { text: 'Kotlin Multiplatform', link: '/zh-Hantkmp/get-started' },
+                    { text: 'Ktor', link: '/zh-Hantktor/welcome'},
+                    { text: 'Koog', link: '/zh-Hantkoog/' },
+                    { text: 'Koin', link: '/zh-Hantkoin/setup/koin' },
+                    { text: 'SQLDelight', link: '/zh-Hantsqldelight/index' },
+                    { text: 'Coil', link: '/zh-Hantcoil/overview' },
                 ],
                 sidebar: {
                     "/zh-Hant/koin/": generateSidebar(SiteLocaleConfig['zh-Hant'], DocsTypeConfig.koin),
@@ -220,14 +221,13 @@ export default defineConfig({
             ...SiteLocaleConfig['ja'],
             themeConfig: {
                 nav: [
-                    { text: 'Kotlin', link: '/ja/kotlin/getting-started' },
+                    { text: 'Kotlin', link: '/ja/kotlin/home' },
                     { text: 'Kotlin Multiplatform', link: '/ja/kmp/get-started' },
+                    { text: 'Ktor', link: '/ja/ktor/welcome'},
+                    { text: 'Koog', link: '/ja/koog/' },
                     { text: 'Koin', link: '/ja/koin/setup/koin' },
                     { text: 'SQLDelight', link: '/ja/sqldelight/index' },
-                    { text: 'Coil', link: '/ja/coil/overview' },
-                    { text: 'koog', link: '/ja/koog/' },
-
-                ],
+                    { text: 'Coil', link: '/ja/coil/overview' },],
                 sidebar: {
                     "/ja/koin/": generateSidebar(SiteLocaleConfig['ja'], DocsTypeConfig.koin),
                     "/ja/kotlin/": generateSidebar(SiteLocaleConfig['ja'], DocsTypeConfig.kotlin),
@@ -269,12 +269,13 @@ export default defineConfig({
             ...SiteLocaleConfig['ko'],
             themeConfig: {
                 nav: [
-                    { text: 'Kotlin', link: '/ko/kotlin/getting-started' },
+                    { text: 'Kotlin', link: '/ko/kotlin/home' },
                     { text: 'Kotlin Multiplatform', link: '/ko/kmp/get-started' },
+                    { text: 'Ktor', link: '/ko/ktor/welcome'},
+                    { text: 'Koog', link: '/ko/koog/' },
                     { text: 'Koin', link: '/ko/koin/setup/koin' },
                     { text: 'SQLDelight', link: '/ko/sqldelight/index' },
                     { text: 'Coil', link: '/ko/coil/overview' },
-                    { text: 'koog', link: '/ko/koog/' },
                 ],
                 sidebar: {
                     "/ko/koin/": generateSidebar(SiteLocaleConfig['ko'], DocsTypeConfig.koin),
@@ -344,11 +345,12 @@ export default defineConfig({
             md.use(markdownItMkLinks)
             md.use(markdownItDiffTitleWrapper)
             md.use(markdownItCollapsed)
-            md.use(markdownItWsVars, { xmlFilePath: 'docs/.vitepress/v.list' });
+            md.use(markdownItWsVars);
             md.use(markdownItMKVars);
 
             md.use(markdownItWsRename)
             md.use(markdownItWsTopicTitle)
+            md.use(markdownItWsRemoveCodeAttr)
 
 
             // Use the helper function to create containers cleanly

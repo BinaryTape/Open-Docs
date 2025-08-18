@@ -1,52 +1,19 @@
 [//]: # (title: デスクトップ専用API)
 
-Compose Multiplatform を使用して、macOS、Linux、Windows のデスクトップアプリケーションを作成できます。このページでは、デスクトップ固有のコンポーネントとイベントについて簡単に説明します。各セクションには、詳細なチュートリアルへのリンクが含まれています。
+Compose Multiplatformを使用すると、macOS、Linux、Windowsのデスクトップアプリケーションを作成できます。このページでは、デスクトップ固有のコンポーネントとイベントの概要を簡単に説明します。各セクションには、詳細なチュートリアルへのリンクが含まれています。
 
 ## コンポーネント
 
-<!-- * [Images and icons](#images-and-icons) -->
-* [ウィンドウとダイアログ](compose-desktop-top-level-windows-management.md)
-* [コンテキストメニュー](compose-desktop-context-menus.md)
-* [システムトレイ](#the-system-tray)
-* [メニューバー](#menu-bar)
-* [スクロールバー](compose-desktop-scrollbars.md)
-* [ツールチップ](compose-desktop-tooltips.md)
-
-<!-- ### Images and icons
-
-You can use the `Image` composable and the `painterResource()` function to display images stored as resources in your
-application:
-
-```kotlin
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.window.singleWindowApplication
-
-fun main() = singleWindowApplication {
-    Image(
-        painter = painterResource("sample.png"),
-        contentDescription = "Sample",
-        modifier = Modifier.fillMaxSize()
-    )
-}
-```
-
-`painterResource()` supports rasterized image formats, such as `.png`, `.jpg`, `.bmp`, `.webp`, and the Android XML vector
-drawable format. You can also use images stored in the device memory, load images from the network,
-or create them in your project using `Canvas()`.
-
-With Compose Multiplatform, you can set the application window icon and the application tray icon as well.
-
-* For more information on working with images using Compose Multiplatform in desktop projects, see
-  the [Image and in-app icon manipulations](https://github.com/JetBrains/compose-multiplatform/tree/master/tutorials/Image_And_Icons_Manipulations)
-  tutorial.
-* For more information on using resources in common code in Compose Multiplatform projects, see [Images and resources](compose-multiplatform-resources.md). -->
+*   [ウィンドウとダイアログ](compose-desktop-top-level-windows-management.md)
+*   [コンテキストメニュー](compose-desktop-context-menus.md)
+*   [システムトレイ](#the-system-tray)
+*   [メニューバー](#menu-bar)
+*   [スクロールバー](compose-desktop-scrollbars.md)
+*   [ツールチップ](compose-desktop-tooltips.md)
 
 ### システムトレイ
 
-`Tray` コンポーザブルを使用して、システムトレイにユーザーへ通知を送信できます。
+`Tray`コンポーザブルを使用して、システムトレイにユーザーへの通知を送信できます。
 
 ```kotlin
 import androidx.compose.foundation.layout.Box
@@ -139,11 +106,11 @@ object TrayIcon : Painter() {
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="Tray(state = trayState, icon = TrayIcon, menu = { Item( "}
 
-通知には3つのタイプがあります。
+通知には3つの種類があります。
 
-*   `notify`：シンプルな通知。
-*   `warn`：警告通知。
-*   `error`：エラー通知。
+*   `notify`: シンプルな通知。
+*   `warn`: 警告通知。
+*   `error`: エラー通知。
 
 アプリケーションアイコンをシステムトレイに追加することもできます。
 
@@ -151,7 +118,7 @@ object TrayIcon : Painter() {
 
 ### メニューバー
 
-`MenuBar` コンポーザブルを使用して、特定のウィンドウのメニューバーを作成およびカスタマイズできます。
+`MenuBar`コンポーザブルを使用して、特定のウィンドウのメニューバーを作成およびカスタマイズできます。
 
 ```kotlin
 import androidx.compose.foundation.layout.Box
@@ -238,15 +205,15 @@ object AboutIcon : Painter() {
 
 *   [マウスイベント](compose-desktop-mouse-events.md)
 *   [キーボードイベント](compose-desktop-keyboard.md)
-*   [コンポーネント間のタブ移動](#tabbing-navigation-between-components)
+*   [コンポーネント間のタブナビゲーション](#tabbing-navigation-between-components)
 
-### コンポーネント間のタブ移動
+### コンポーネント間のタブナビゲーション
 
-<shortcut>Tab</shortcut> キーボードショートカットで次のコンポーネントへ、<shortcut>⇧ + Tab</shortcut> で前のコンポーネントへ、コンポーネント間のナビゲーションを設定できます。
+<shortcut>Tab</shortcut>キーボードショートカットで次のコンポーネントへ、<shortcut>⇧ + Tab</shortcut>で前のコンポーネントへのナビゲーションを設定できます。
 
-デフォルトでは、タブ移動はフォーカス可能なコンポーネント間を、それらが表示される順序で移動できます。フォーカス可能なコンポーネントには、`TextField`、`OutlinedTextField`、`BasicTextField` コンポーザブル、および `Button`、`IconButton`、`MenuItem` など `Modifier.clickable` を使用するコンポーネントが含まれます。
+デフォルトでは、タブナビゲーションは、フォーカス可能なコンポーネント間を、それらの表示順に移動できます。フォーカス可能なコンポーネントには、`TextField`、`OutlinedTextField`、および`BasicTextField`コンポーザブルのほか、`Button`、`IconButton`、`MenuItem`など、`Modifier.clickable`を使用するコンポーネントが含まれます。
 
-たとえば、ユーザーが標準ショートカットを使用して5つのテキストフィールド間を移動できるウィンドウを次に示します。
+たとえば、ユーザーが標準のショートカットを使用して5つのテキストフィールド間を移動できるウィンドウを次に示します。
 
 ```kotlin
 import androidx.compose.ui.window.application
@@ -294,14 +261,14 @@ fun main() = application {
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="Column() { for (x in 1..5) { OutlinedTextField("}
 
-フォーカスできないコンポーネントをフォーカス可能にしたり、タブ移動の順序をカスタマイズしたり、コンポーネントにフォーカスを当てたりすることもできます。
+また、フォーカスできないコンポーネントをフォーカス可能にしたり、タブナビゲーションの順序をカスタマイズしたり、コンポーネントにフォーカスを当てたりすることもできます。
 
-詳細については、[タブ移動とキーボードフォーカス](https://github.com/JetBrains/compose-multiplatform/tree/master/tutorials/Tab_Navigation)チュートリアルを参照してください。
+詳細については、[タブナビゲーションとキーボードフォーカス](https://github.com/JetBrains/compose-multiplatform/tree/master/tutorials/Tab_Navigation)チュートリアルを参照してください。
 
 ## 次のステップ
 
-*   [Compose Multiplatform デスクトップアプリケーション](https://github.com/JetBrains/compose-multiplatform-desktop-template#readme)チュートリアルを完了します。
-*   [Compose Multiplatform デスクトッププロジェクトの単体テストを作成する](compose-desktop-ui-testing.md)方法を学びます。
-*   [デスクトッププラットフォーム用のネイティブディストリビューション、インストーラー、およびパッケージを作成する](compose-native-distribution.md)方法を学びます。
-*   [Swing との相互運用性をセットアップし、Swing アプリケーションを Compose Multiplatform に移行する](compose-desktop-swing-interoperability.md)方法を学びます。
-*   [異なるプラットフォームでのアクセシビリティサポート](compose-desktop-accessibility.md)について学びます。
+*   [Compose Multiplatformデスクトップアプリケーション](https://github.com/JetBrains/compose-multiplatform-desktop-template#readme)チュートリアルを完了します。
+*   [Compose Multiplatformデスクトッププロジェクトのユニットテストを作成する方法](compose-desktop-ui-testing.md)を学習します。
+*   [デスクトッププラットフォーム用のネイティブディストリビューション、インストーラー、およびパッケージを作成する方法](compose-native-distribution.md)を学習します。
+*   [Swingとの相互運用を設定し、SwingアプリケーションをCompose Multiplatformに移行します](compose-desktop-swing-interoperability.md)。
+*   [さまざまなプラットフォームでのアクセシビリティサポート](compose-desktop-accessibility.md)について学習します。

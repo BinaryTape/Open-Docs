@@ -1,7 +1,7 @@
 # 管理本地资源环境
 
-您可能需要管理应用内设置，以允许用户自定义其体验，例如更改语言或主题。
-为了动态更新应用程序的资源环境，您可以配置应用程序使用的以下与资源相关的设置：
+你可能需要在应用程序中管理设置，以允许用户自定义他们的体验，例如更改语言或主题。
+要动态更新应用程序的资源环境，你可以配置应用程序使用的以下资源相关设置：
 
 *   [区域设置（语言和地区）](#locale)
 *   [主题](#theme)
@@ -9,7 +9,7 @@
 
 ## 区域设置
 
-每个平台处理区域设置（例如语言和地区）的方式不同。作为一种临时解决方案，在实现公共 API 之前，您需要在共享代码中定义一个公共入口点。然后，使用平台特有的 API 为每个平台提供对应的声明：
+每个平台处理区域设置（例如语言和地区）的方式都不同。作为一种临时解决方案，在公共 API 实现之前，你需要在共享代码中定义一个公共入口点。然后，使用平台特有的 API 为每个平台提供相应的声明：
 
 *   **Android**: [`context.resources.configuration.locale`](https://developer.android.com/reference/android/content/res/Configuration#setLocale(java.util.Locale))
 *   **iOS**: [`NSLocale.preferredLanguages`](https://developer.apple.com/documentation/foundation/nslocale/preferredlanguages)
@@ -37,7 +37,7 @@
     }
     ```
 
-2.  在 Android 源代码集中，添加使用 `context.resources.configuration.locale` 的 `actual` 实现：
+2.  在 Android 源代码集中，添加使用 `context.resources.configuration.locale` 的实际实现：
 
     ```kotlin
     actual object LocalAppLocale {
@@ -67,7 +67,7 @@
     }
     ```
 
-3.  在 iOS 源代码集中，添加修改 `NSLocale.preferredLanguages` 的 `actual` 实现：
+3.  在 iOS 源代码集中，添加修改 `NSLocale.preferredLanguages` 的实际实现：
  
     ```kotlin
     @OptIn(InternalComposeUiApi::class)
@@ -91,7 +91,7 @@
     }
     ```
 
-4.  在桌面源代码集中，添加使用 `Locale.getDefault()` 更新 JVM 默认区域设置的 `actual` 实现：
+4.  在桌面源代码集中，添加使用 `Locale.getDefault()` 更新 JVM 默认区域设置的实际实现：
 
     ```kotlin
     actual object LocalAppLocale {
@@ -115,7 +115,7 @@
     }
     ```
 
-5.  对于 Web 平台，绕过 `window.navigator.languages` 属性的只读限制以引入自定义区域设置逻辑：
+5.  对于 Web 平台，绕过 `window.navigator.languages` 属性的只读限制，引入自定义区域设置逻辑：
 
     ```kotlin
     external object window {
@@ -135,7 +135,7 @@
     }
     ```
 
-    然后，在浏览器的 `index.html` 中，在加载应用程序脚本之前放置以下代码：
+    然后，在你的浏览器 `index.html` 中，在加载应用程序脚本之前放入以下代码：
 
     ```html    
     <html lang="en">
@@ -164,20 +164,19 @@
     </html>
     ```  
 
-## 主题
+## 主题 
 
-Compose Multiplatform 通过 `isSystemInDarkTheme()` 定义当前主题。
-主题在不同平台上的处理方式不同：
+Compose Multiplatform 通过 `isSystemInDarkTheme()` 定义当前主题。主题在不同平台上的处理方式不同：
 
-*   Android 通过以下位操作定义主题： 
+*   Android 通过以下位操作定义主题：
     ```kotlin
         Resources.getConfiguration().uiMode and Configuration.UI_MODE_NIGHT_MASK
     ```
 *   iOS、桌面和 Web 平台使用 `LocalSystemTheme.current`。
 
-作为一种临时解决方案，在实现公共 API 之前，您可以使用 `expect-actual` 机制来管理平台特有的主题自定义以解决这种差异：
+作为一种临时解决方案，在公共 API 实现之前，你可以使用 `expect-actual` 机制来解决此差异，从而管理平台特有的主题自定义：
 
-1.  在公共代码中，使用 `expect` 关键字定义预期的 `LocalAppTheme` 对象：
+1.  在共享代码中，使用 `expect` 关键字定义预期的 `LocalAppTheme` 对象：
  
     ```kotlin
     var customAppThemeIsDark by mutableStateOf<Boolean?>(null)
@@ -198,7 +197,7 @@ Compose Multiplatform 通过 `isSystemInDarkTheme()` 定义当前主题。
     }
     ```
 
-2.  在 Android 代码中，添加使用 `LocalConfiguration` API 的 `actual` 实现：
+2.  在 Android 代码中，添加使用 `LocalConfiguration` API 的实际实现：
 
    ```kotlin
     actual object LocalAppTheme {
@@ -222,7 +221,7 @@ Compose Multiplatform 通过 `isSystemInDarkTheme()` 定义当前主题。
     }
     ```
 
-3.  在 iOS、桌面和 Web 平台上，您可以直接更改 `LocalSystemTheme`：
+3.  在 iOS、桌面和 Web 平台上，你可以直接更改 `LocalSystemTheme`：
 
     ```kotlin
     @OptIn(InternalComposeUiApi::class)
@@ -243,9 +242,9 @@ Compose Multiplatform 通过 `isSystemInDarkTheme()` 定义当前主题。
     }
     ```
 
-## 分辨率密度
+## 密度
 
-要更改应用程序的分辨率 `Density`，您可以使用所有平台均支持的公共 `LocalDensity` API：
+要更改应用程序的分辨率 `Density`，你可以使用在所有平台上都支持的公共 `LocalDensity` API：
 
 ```kotlin
 var customAppDensity by mutableStateOf<Density?>(null)
@@ -274,5 +273,5 @@ fun AppEnvironment(content: @Composable () -> Unit) {
 
 ## 接下来？
 
-*   获取更多关于 [资源限定符](compose-multiplatform-resources-setup.md#qualifiers) 的详细信息。
-*   了解如何 [本地化资源](compose-localize-strings.md)。
+*   关于[资源限定符](compose-multiplatform-resources-setup.md#qualifiers)的更多详细信息。
+*   了解如何[本地化资源](compose-localize-strings.md)。

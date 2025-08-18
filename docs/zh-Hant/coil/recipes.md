@@ -1,24 +1,24 @@
-# 實用秘訣
+# 範例
 
-本頁提供了關於如何使用 Coil 處理一些常見使用案例的指南。您可能需要修改這些程式碼以符合您的確切需求，但希望它們能為您提供正確的方向！
+本頁提供如何使用 Coil 處理一些常見使用案例的指南。您可能需要修改這些程式碼以符合您的確切需求，但希望它能為您指引正確的方向！
 
-看到未涵蓋的常見使用案例？請隨時提交一個包含新章節的 PR (Pull Request)。
+看到未涵蓋的常見使用案例？歡迎提交包含新章節的 PR (Pull Request)。
 
 ## Palette
 
-[Palette](https://developer.android.com/training/material/palette-colors?hl=en) 允許您從圖片中提取主要顏色。要建立一個 `Palette`，您需要存取圖片的 `Bitmap` (位元圖)。這可以透過多種方式完成：
+[Palette](https://developer.android.com/training/material/palette-colors?hl=en) 允許您從圖片中提取主要顏色。要建立一個 `Palette`，您需要存取圖片的 `Bitmap`。這可以透過多種方式完成：
 
 您可以透過設定 `ImageRequest.Listener` 並將 `ImageRequest` 加入佇列來存取圖片的位元圖：
 
 ```kotlin
 imageView.load("https://example.com/image.jpg") {
-    // Disable hardware bitmaps as Palette needs to read the image's pixels.
+    // 禁用硬體位元圖，因為 Palette 需要讀取圖片的像素。
     allowHardware(false)
     listener(
         onSuccess = { _, result ->
-            // Create the palette on a background thread.
-            Palette.Builder(result.drawable.toBitmap()).generate { palette ->
-                // Consume the palette.
+            // 在背景執行緒上建立 Palette。
+            Palette.Builder(result.image.toBitmap()).generate { palette ->
+                // 使用 Palette。
             }
         }
     )
@@ -42,10 +42,10 @@ imageView.load("https://example.com/image.jpg") {
 為了實現此效果，請將第一個請求的 `MemoryCache.Key` 用作第二個請求的 `ImageRequest.placeholderMemoryCacheKey`。以下是一個範例：
 
 ```kotlin
-// First request
+// 第一個請求
 listImageView.load("https://example.com/image.jpg")
 
-// Second request (once the first request finishes)
+// 第二個請求（一旦第一個請求完成）
 detailImageView.load("https://example.com/image.jpg") {
     placeholderMemoryCacheKey(listImageView.result.memoryCacheKey)
 }
@@ -75,13 +75,13 @@ class RemoteViewsTarget(
     @IdRes private val imageViewResId: Int
 ) : Target {
 
-    override fun onStart(placeholder: Image?) = setDrawable(placeholder)
+    override fun onStart(placeholder: Image?) = setImage(placeholder)
 
-    override fun onError(error: Image?) = setDrawable(error)
+    override fun onError(error: Image?) = setImage(error)
 
-    override fun onSuccess(result: Image) = setDrawable(result)
+    override fun onSuccess(result: Image) = setImage(result)
 
-    private fun setDrawable(image: Image?) {
+    private fun setImage(image: Image?) {
         remoteViews.setImageViewBitmap(imageViewResId, image?.toBitmap())
         AppWidgetManager.getInstance(context).updateAppWidget(componentName, remoteViews)
     }
@@ -100,7 +100,7 @@ imageLoader.enqueue(request)
 
 ## 轉換 Painter
 
-`AsyncImage` 和 `AsyncImagePainter` 都具有接受 `Painter` 的 `placeholder`／`error`／`fallback` 參數。Painter 不如 composable 靈活，但由於 Coil 不需要使用子組合 (subcomposition)，因此速度更快。儘管如此，可能需要內嵌、拉伸、著色或轉換您的 painter 以獲得所需的 UI。為了實現此目的，[將此 Gist 複製到您的專案中](https://gist.github.com/colinrtwhite/c2966e0b8584b4cdf0a5b05786b20ae1)，並像這樣包裝 (wrap) painter：
+`AsyncImage` 和 `AsyncImagePainter` 都具有接受 `Painter` 的 `placeholder`／`error`／`fallback` 參數。Painter 不如 composable 靈活，但由於 Coil 不需要使用 subcomposition，因此速度更快。儘管如此，可能需要內嵌、拉伸、著色或轉換您的 painter 以獲得所需的 UI。為了實現此目的，[將此 Gist 複製到您的專案中](https://gist.github.com/colinrtwhite/c2966e0b8584b4cdf0a5b05786b20ae1)，並像這樣包裝 (wrap) painter：
 
 ```kotlin
 AsyncImage(
@@ -114,7 +114,7 @@ AsyncImage(
 )
 ```
 
-`onDraw` 可以使用尾隨 lambda (trailing lambda) 覆寫：
+`onDraw` 可以使用尾隨 lambda 覆寫：
 
 ```kotlin
 AsyncImage(
@@ -142,7 +142,7 @@ class UrlSizeInterceptor : Interceptor {
         val uri = request.uri
 
         if (uri == null || uri.scheme !in setOf("https", "http")) {
-            // Ignore non-HTTP requests.
+            // 忽略非 HTTP 請求。
             return chain.proceed()
         }
 
@@ -157,7 +157,7 @@ class UrlSizeInterceptor : Interceptor {
                 .build()
             return chain.withRequest(transformedRequest).proceed()
         } else {
-            // Width & height aren't available, i.e. because of infinite constraints.
+            // 寬度與高度不可用，例如因為無限約束。
             chain.proceed()
         }
     }
@@ -177,6 +177,6 @@ class UrlSizeInterceptor : Interceptor {
 ```kotlin
 ImageLoader.Builder(context)
     .components {
-        add(FastlyCoilInterceptor())
+        add(UrlSizeInterceptor())
     }
     .build()

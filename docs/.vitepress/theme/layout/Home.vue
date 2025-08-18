@@ -5,7 +5,7 @@ import { t } from '../../utils/i18n-utils';
 const { site } = useData();
 const docCardConfig = [
     {
-        href: 'kotlin/getting-started',
+        href: 'kotlin/home',
         docType: 'kotlin',
         title: 'Kotlin',
         description: t('homepage.card.kotlin.description'),
@@ -19,13 +19,26 @@ const docCardConfig = [
         tags: [t('homepage.card.kmp.tag.1'), t('homepage.card.kmp.tag.2')],
     },
     {
+      href: 'ktor/welcome',
+      docType: 'ktor',
+      title: 'Ktor',
+      description: t('homepage.card.ktor.description'),
+      tags: [t('homepage.card.ktor.tag.web'), t('homepage.card.ktor.tag.async')]
+    },
+    {
+      href: 'koog/',
+      docType: 'koog',
+      title: 'Koog',
+      description: t('homepage.card.koog.description'),
+      tags: [t('homepage.card.koog.tag.1'), t('homepage.card.koog.tag.2')],
+    },
+    {
         href: 'koin/setup/koin',
         docType: 'koin',
         title: 'Koin',
         description: t('homepage.card.koin.description'),
         tags: ['DI', 'Kotlin'],
     },
-
     {
         href: 'sqldelight/index',
         docType: 'sqldelight',
@@ -40,22 +53,6 @@ const docCardConfig = [
         description: t('homepage.card.coil.description'),
         tags: [t('homepage.card.coil.tag.crossplatform'), t('homepage.card.coil.tag.imageloadder')],
     },
-
-    {
-        href: 'koog/',
-        docType: 'koog',
-        title: 'Koog',
-        description: t('homepage.card.koog.description'),
-        tags: [t('homepage.card.koog.tag.1'), t('homepage.card.koog.tag.2')],
-    },
-    {
-        href: '',
-        docType: 'ktor',
-        title: 'Ktor',
-        description: t('homepage.card.ktor.description'),
-        tags: [t('homepage.card.ktor.tag.web'), t('homepage.card.ktor.tag.async')],
-        comingSoon: true
-    }
 ]
 </script>
 

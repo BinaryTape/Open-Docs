@@ -8,7 +8,7 @@
 
 높은 수준에서 전략 그래프는 다음 구성 요소로 이루어집니다.
 
--   **Strategy**: `strategy` 함수를 사용하여 생성되는 그래프의 최상위 컨테이너입니다.
+-   **Strategy**: `strategy` 함수를 사용하여 생성되는 그래프의 최상위 컨테이너이며, 제네릭 매개변수를 사용하여 지정된 입력 및 출력 타입을 가집니다.
 -   **Subgraphs**: 자체 도구 및 컨텍스트 세트를 가질 수 있는 그래프 섹션입니다.
 -   **Nodes**: 워크플로우의 개별 작업 또는 변환입니다.
 -   **Edges**: 노드 간 연결로, 전환 조건과 변환을 정의합니다.
@@ -29,13 +29,25 @@ Koog 프레임워크는 미리 정의된 노드를 제공하며, `node` 함수�
 
 엣지는 노드를 연결하고 전략 그래프에서 작업 흐름을 정의합니다. 엣지는 `edge` 함수와 `forwardTo` 중위 함수를 사용하여 생성됩니다.
 
+<!--- INCLUDE
+import ai.koog.agents.core.dsl.builder.forwardTo
+import ai.koog.agents.core.dsl.builder.strategy
+
+val strategy = strategy<String, String>("strategy_name") {
+        val sourceNode by node<String, String> { input -> input }
+        val targetNode by node<String, String> { input -> input }
+-->
+<!--- SUFFIX
+}
+-->
 ```kotlin
 edge(sourceNode forwardTo targetNode)
 ```
+<!--- KNIT example-custom-strategy-graphs-01.kt -->
 
 #### 조건
 
-조건은 전략 그래프에서 특정 엣지를 따라갈 시기를 결정합니다. 몇 가지 유형의 조건이 있습니다.
+조건은 전략 그래프에서 특정 엣지를 따라갈 시기를 결정합니다. 몇 가지 유형의 조건이 있으며, 다음은 일반적인 조건들입니다.
 
 | 조건 유형           | 설명                                                         |
 | :------------------ | :----------------------------------------------------------- |
@@ -45,34 +57,73 @@ edge(sourceNode forwardTo targetNode)
 | onMultipleToolCalls | LLM이 여러 도구를 호출할 때 일치하는 조건입니다.             |
 | onToolNotCalled     | LLM이 도구를 호출하지 않을 때 일치하는 조건입니다.           |
 
-`transformed` 함수를 사용하여 출력을 대상 노드로 전달하기 전에 변환할 수 있습니다.
+대상 노드로 전달하기 전에 `transformed` 함수를 사용하여 출력을 변환할 수 있습니다.
 
+<!--- INCLUDE
+import ai.koog.agents.core.dsl.builder.forwardTo
+import ai.koog.agents.core.dsl.builder.strategy
+
+val strategy = strategy<String, String>("strategy_name") {
+        val sourceNode by node<String, String> { input -> input }
+        val targetNode by node<String, String> { input -> input }
+-->
+<!--- SUFFIX
+}
+-->
 ```kotlin
 edge(sourceNode forwardTo targetNode 
         onCondition { input -> input.length > 10 }
         transformed { input -> input.uppercase() }
 )
 ```
+<!--- KNIT example-custom-strategy-graphs-02.kt -->
 
 ### 서브그래프
 
 서브그래프는 자체 도구 및 컨텍스트 세트로 작동하는 전략 그래프의 섹션입니다. 전략 그래프는 여러 서브그래프를 포함할 수 있습니다. 각 서브그래프는 `subgraph` 함수를 사용하여 정의됩니다.
 
+<!--- INCLUDE
+import ai.koog.agents.core.dsl.builder.strategy
+
+typealias Input = String
+typealias Output = Int
+
+typealias FirstInput = String
+typealias FirstOutput = Int
+
+typealias SecondInput = String
+typealias SecondOutput = Int
+-->
 ```kotlin
-val strategy = strategy("strategy-name") {
-    val firstSubgraph by subgraph("first") {
+val strategy = strategy<Input, Output>("strategy-name") {
+    val firstSubgraph by subgraph<FirstInput, FirstOutput>("first") {
         // Define nodes and edges for this subgraph
     }
-    val secondSubgraph by subgraph("second") {
+    val secondSubgraph by subgraph<SecondInput, SecondOutput>("second") {
         // Define nodes and edges for this subgraph
     }
 }
 ```
+<!--- KNIT example-custom-strategy-graphs-03.kt -->
+
 서브그래프는 도구 레지스트리의 모든 도구를 사용할 수 있습니다. 그러나 이 레지스트리에서 서브그래프에서 사용할 수 있는 도구의 하위 집합을 지정하고 이를 `subgraph` 함수의 인수로 전달할 수 있습니다.
 
+<!--- INCLUDE
+import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.ext.tool.SayToUser
+
+typealias Input = String
+typealias Output = Int
+
+typealias FirstInput = String
+typealias FirstOutput = Int
+
+val someTool = SayToUser
+
+-->
 ```kotlin
-val strategy = strategy("strategy-name") {
-    val firstSubgraph by subgraph(
+val strategy = strategy<Input, Output>("strategy-name") {
+    val firstSubgraph by subgraph<FirstInput, FirstOutput>(
         name = "first",
         tools = listOf(someTool)
     ) {
@@ -81,10 +132,11 @@ val strategy = strategy("strategy-name") {
    // Define other subgraphs
 }
 ```
+<!--- KNIT example-custom-strategy-graphs-04.kt -->
 
 ## 기본 전략 그래프 생성
 
-기본 전략 그래프는 다음과 같이 작동합니다.
+기본 전략 그래프는 다음과 같이 작동합니다:
 
 1.  LLM에 입력을 보냅니다.
 2.  LLM이 메시지로 응답하면 프로세스를 마칩니다.
@@ -97,8 +149,18 @@ val strategy = strategy("strategy-name") {
 
 다음은 기본 전략 그래프의 예시입니다.
 
+<!--- INCLUDE
+import ai.koog.agents.core.dsl.builder.forwardTo
+import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.extension.nodeExecuteTool
+import ai.koog.agents.core.dsl.extension.nodeLLMRequest
+import ai.koog.agents.core.dsl.extension.nodeLLMSendToolResult
+import ai.koog.agents.core.dsl.extension.onAssistantMessage
+import ai.koog.agents.core.dsl.extension.onToolCall
+
+-->
 ```kotlin
-val myStrategy = strategy("my-strategy") {
+val myStrategy = strategy<String, String>("my-strategy") {
     val nodeCallLLM by nodeLLMRequest()
     val executeToolCall by nodeExecuteTool()
     val sendToolResult by nodeLLMSendToolResult()
@@ -111,6 +173,7 @@ val myStrategy = strategy("my-strategy") {
     edge(sendToolResult forwardTo executeToolCall onToolCall { true })
 }
 ```
+<!--- KNIT example-custom-strategy-graphs-05.kt -->
 
 ## 고급 전략 기술
 
@@ -122,6 +185,19 @@ val myStrategy = strategy("my-strategy") {
 
 여러 도구를 병렬로 실행해야 하는 워크플로우의 경우 `nodeExecuteMultipleTools` 노드를 사용할 수 있습니다.
 
+<!--- INCLUDE
+import ai.koog.agents.core.dsl.builder.forwardTo
+import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.extension.nodeExecuteMultipleTools
+import ai.koog.agents.core.dsl.extension.nodeLLMSendMultipleToolResults
+import ai.koog.prompt.message.Message
+
+val strategy = strategy<String, String>("strategy_name") {
+    val someNode by node<String, List<Message.Tool.Call>> { emptyList() }
+-->
+<!--- SUFFIX
+}
+-->
 ```kotlin
 val executeMultipleTools by nodeExecuteMultipleTools()
 val processMultipleResults by nodeLLMSendMultipleToolResults()
@@ -129,19 +205,68 @@ val processMultipleResults by nodeLLMSendMultipleToolResults()
 edge(someNode forwardTo executeMultipleTools)
 edge(executeMultipleTools forwardTo processMultipleResults)
 ```
+<!--- KNIT example-custom-strategy-graphs-06.kt -->
 
 또한 스트리밍 데이터의 경우 `toParallelToolCallsRaw` 확장 함수를 사용할 수도 있습니다.
 
+<!--- INCLUDE
+/*
+-->
+<!--- SUFFIX
+*/
+-->
 ```kotlin
 parseMarkdownStreamToBooks(markdownStream).toParallelToolCallsRaw(BookTool::class).collect()
 ```
+<!--- KNIT example-custom-strategy-graphs-07.kt -->
 
 자세한 내용은 [도구](tools-overview.md#parallel-tool-calls)를 참조하세요.
+
+### 병렬 노드 실행
+
+병렬 노드 실행을 통해 여러 노드를 동시에 실행하여 성능을 향상시키고 복잡한 워크플로우를 구현할 수 있습니다.
+
+병렬 노드 실행을 시작하려면 `parallel` 메서드를 사용하세요:
+
+<!--- INCLUDE
+import ai.koog.agents.core.dsl.builder.strategy
+
+val strategy = strategy<String, String>("strategy_name") {
+    val nodeCalcTokens by node<String, Int> { 42 }
+    val nodeCalcSymbols by node<String, Int> { 42 }
+    val nodeCalcWords by node<String, Int> { 42 }
+
+-->
+<!--- SUFFIX
+}
+-->
+```kotlin
+val calc by parallel<String, Int>(
+    nodeCalcTokens, nodeCalcSymbols, nodeCalcWords,
+) {
+    selectByMax { it }
+}
+```
+<!--- KNIT example-custom-strategy-graphs-08.kt -->
+
+위 코드는 `calc`라는 노드를 생성하여 `nodeCalcTokens`, `nodeCalcSymbols`, `nodeCalcWords` 노드를 병렬로 실행하고, 그 결과를 `AsyncParallelResult` 인스턴스로 반환합니다.
+
+병렬 노드 실행과 관련된 더 자세한 정보 및 상세한 참조는 [병렬 노드 실행](parallel-node-execution.md)을 참조하세요.
 
 ### 조건부 분기
 
 특정 조건에 따라 다른 경로가 필요한 복잡한 워크플로우의 경우 조건부 분기를 사용할 수 있습니다.
 
+<!--- INCLUDE
+import ai.koog.agents.core.dsl.builder.forwardTo
+import ai.koog.agents.core.dsl.builder.strategy
+
+val strategy = strategy<String, String>("strategy_name") {
+    val someNode by node<String, String> { it }
+-->
+<!--- SUFFIX
+}
+-->
 ```kotlin
 val branchA by node<String, String> { input ->
     // Logic for branch A
@@ -162,6 +287,7 @@ edge(
             onCondition { input -> input.contains("B") }
 )
 ```
+<!--- KNIT example-custom-strategy-graphs-09.kt -->
 
 ## 모범 사례
 
@@ -182,13 +308,26 @@ edge(
 
 어조 분석 전략은 기록 압축을 포함하는 도구 기반 전략의 좋은 예시입니다.
 
+<!--- INCLUDE
+import ai.koog.agents.core.agent.entity.AIAgentStrategy
+import ai.koog.agents.core.dsl.builder.forwardTo
+import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.extension.nodeExecuteTool
+import ai.koog.agents.core.dsl.extension.nodeLLMCompressHistory
+import ai.koog.agents.core.dsl.extension.nodeLLMRequest
+import ai.koog.agents.core.dsl.extension.nodeLLMSendToolResult
+import ai.koog.agents.core.dsl.extension.onAssistantMessage
+import ai.koog.agents.core.dsl.extension.onToolCall
+import ai.koog.agents.core.environment.ReceivedToolResult
+import ai.koog.agents.core.tools.ToolRegistry
+-->
 ```kotlin
-fun toneStrategy(name: String, toolRegistry: ToolRegistry): AIAgentStrategy {
+fun toneStrategy(name: String, toolRegistry: ToolRegistry): AIAgentStrategy<String, String> {
     return strategy(name) {
         val nodeSendInput by nodeLLMRequest()
         val nodeExecuteTool by nodeExecuteTool()
         val nodeSendToolResult by nodeLLMSendToolResult()
-        val nodeCompressHistory by nodeLLMCompressHistory<Message.Tool.Result>()
+        val nodeCompressHistory by nodeLLMCompressHistory<ReceivedToolResult>()
 
         // Define the flow of the agent
         edge(nodeStart forwardTo nodeSendInput)
@@ -233,8 +372,9 @@ fun toneStrategy(name: String, toolRegistry: ToolRegistry): AIAgentStrategy {
     }
 }
 ```
+<!--- KNIT example-custom-strategy-graphs-10.kt -->
 
-이 전략은 다음을 수행합니다.
+이 전략은 다음을 수행합니다:
 
 1.  LLM에 입력을 보냅니다.
 2.  LLM이 메시지로 응답하면 전략이 프로세스를 마칩니다.
@@ -250,7 +390,7 @@ fun toneStrategy(name: String, toolRegistry: ToolRegistry): AIAgentStrategy {
 
 ### 그래프가 종료 노드에 도달하지 못함
 
-그래프가 종료 노드에 도달하지 못하는 경우 다음을 확인하세요.
+그래프가 종료 노드에 도달하지 못하는 경우 다음을 확인하세요:
 
 -   시작 노드부터의 모든 경로가 최종적으로 종료 노드로 이어지는지 확인하세요.
 -   조건이 너무 제한적이어서 엣지가 따라가지 못하는 경우가 없는지 확인하세요.
@@ -258,14 +398,14 @@ fun toneStrategy(name: String, toolRegistry: ToolRegistry): AIAgentStrategy {
 
 ### 도구 호출이 실행되지 않음
 
-도구 호출이 실행되지 않는 경우 다음을 확인하세요.
+도구 호출이 실행되지 않는 경우 다음을 확인하세요:
 
 -   도구가 도구 레지스트리에 제대로 등록되어 있는지 확인하세요.
 -   LLM 노드에서 도구 실행 노드로 가는 엣지에 올바른 조건(`onToolCall { true }`)이 있는지 확인하세요.
 
 ### 기록이 너무 커짐
 
-기록이 너무 커져 많은 토큰을 소비하는 경우 다음을 고려하세요.
+기록이 너무 커져 많은 토큰을 소비하는 경우 다음을 고려하세요:
 
 -   기록 압축 노드를 추가하세요.
 -   조건을 사용하여 기록 크기를 확인하고 너무 커지면 압축하세요.
@@ -273,7 +413,7 @@ fun toneStrategy(name: String, toolRegistry: ToolRegistry): AIAgentStrategy {
 
 ### 그래프가 예상치 않게 동작함
 
-그래프가 예상치 못한 분기를 따르는 경우 다음을 확인하세요.
+그래프가 예상치 못한 분기를 따르는 경우 다음을 확인하세요:
 
 -   조건이 올바르게 정의되었는지 확인하세요.
 -   조건이 예상된 순서로 평가되는지 확인하세요(엣지는 정의된 순서대로 확인됩니다).
@@ -281,7 +421,7 @@ fun toneStrategy(name: String, toolRegistry: ToolRegistry): AIAgentStrategy {
 
 ### 성능 문제가 발생함
 
-그래프에 성능 문제가 있는 경우 다음을 고려하세요.
+그래프에 성능 문제가 있는 경우 다음을 고려하세요:
 
 -   불필요한 노드와 엣지를 제거하여 그래프를 단순화하세요.
 -   독립적인 작업에는 병렬 도구 실행을 사용하세요.

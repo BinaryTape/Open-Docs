@@ -1,10 +1,10 @@
-[//]: # (title: トップレベルウィンドウ管理)
+[//]: # (title: トップレベルウィンドウの管理)
 
-デスクトップ版Compose Multiplatformは、ウィンドウを管理するための様々な機能を提供します。ウィンドウをトレイに隠したり、ドラッグ可能にしたり、サイズを調整したり、位置を変更したりできます。
+デスクトップ版Compose Multiplatformは、ウィンドウを管理するためのさまざまな機能を提供します。ウィンドウをシステムトレイに隠したり、ドラッグ可能にしたり、サイズを調整したり、位置を変更したりできます。
 
-## ウィンドウを開閉する
+## ウィンドウを開く・閉じる
 
-`Window()` 関数を使って通常のウィンドウを作成できます。コンポーザブルスコープ内に配置するには、`application` エントリポイントで `Window()` を使用します。
+`Window()`関数を使用して通常のウィンドウを作成できます。コンポーザブルスコープに配置するには、`application`エントリーポイントで`Window()`を使用します。
 
 ```kotlin
 import androidx.compose.ui.window.Window
@@ -18,7 +18,7 @@ fun main() = application {
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="application { Window(onCloseRequest = ::exitApplication)"}
 
-`Window()` はコンポーザブル関数なので、そのプロパティを宣言的に変更できます。例えば、あるタイトルでウィンドウを開き、後でタイトルを変更できます。
+`Window()`はコンポーザブル関数であるため、そのプロパティを宣言的に変更できます。たとえば、1つのタイトルでウィンドウを開き、後でタイトルを変更できます。
 
 ```kotlin
 import androidx.compose.material.Button
@@ -42,11 +42,11 @@ fun main() = application {
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="Window(onCloseRequest = ::exitApplication, title = "}
 
-<img src="compose-window-properties.animated.gif" alt="Window properties: change title" preview-src="compose-window-properties.png" width="600"/>
+<img src="compose-window-properties.animated.gif" alt="ウィンドウのプロパティ: タイトルの変更" preview-src="compose-window-properties.png" width="600"/>
 
 ### 条件を追加する
 
-単純な `if` 条件を使用してウィンドウを開閉することもできます。以下のコードサンプルでは、タスクの完了後にアプリケーションウィンドウが自動的に閉じられます。
+単純な`if`条件を使用してウィンドウを開閉することもできます。以下のコードサンプルでは、タスクの完了後にアプリケーションウィンドウが自動的に閉じられます。
 
 ```kotlin
 import androidx.compose.material.Text
@@ -87,10 +87,10 @@ fun main() = application {
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="if (isPerformingTask) { Window(onCloseRequest = ::exitApplication,"}
 
-<img src="compose-window-condition.animated.gif" alt="Windows with conditions" preview-src="compose-window-condition.png" width="600"/>
+<img src="compose-window-condition.animated.gif" alt="条件付きウィンドウ" preview-src="compose-window-condition.png" width="600"/>
 
-アプリケーション終了時にカスタムロジック（ダイアログの表示など）を使用したい場合は、`onCloseRequest` コールバックをオーバーライドすることで閉じるアクションを上書きできます。
-以下のコードサンプルでは、命令的なアプローチ (`window.close()`) の代わりに、宣言的なアプローチを使用して状態の変化 (`isOpen = false`) に応じてウィンドウを閉じています。
+アプリケーション終了時に、ダイアログ表示などのカスタムロジックを使用したい場合は、`onCloseRequest`コールバックを使用してクローズアクションをオーバーライドできます。
+以下のコードサンプルでは、命令型のアプローチ (`window.close()`) の代わりに、宣言型のアプローチを使用し、状態変更 (`isOpen = false`) に応答してウィンドウを閉じます。
 
 ```kotlin
 import androidx.compose.material.Button
@@ -130,11 +130,11 @@ fun main() = application {
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="Window(onCloseRequest = { isAskingToClose = true }"}
 
-<img src="compose-window-ask-to-close.animated.gif" alt="Close with confirmation" preview-src="compose-window-ask-to-close.png" width="600"/>
+<img src="compose-window-ask-to-close.animated.gif" alt="確認付きで閉じる" preview-src="compose-window-ask-to-close.png" width="600"/>
 
-## 複数のウィンドウを操作する
+## 複数ウィンドウの操作
 
-アプリケーションに複数のウィンドウがある場合、アプリケーションの状態に別のクラスを作成し、`mutableStateListOf` の変更に応じてウィンドウを開閉できます。
+アプリケーションに複数のウィンドウがある場合、アプリケーションの状態のために個別のクラスを作成し、`mutableStateListOf`の変更に応答してウィンドウを開閉できます。
 
 ```kotlin
 import androidx.compose.runtime.Composable
@@ -203,13 +203,13 @@ private class MyWindowState(
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="MyApplicationState { val windows = mutableStateListOf<MyWindowState>()"}
 
-<img src="compose-multiple-windows.animated.gif" alt="Multiple windows" preview-src="compose-multiple-windows.png" width="600"/>
+<img src="compose-multiple-windows.animated.gif" alt="複数ウィンドウ" preview-src="compose-multiple-windows.png" width="600"/>
 
-より複雑な例については、[notepad](https://github.com/JetBrains/compose-multiplatform/tree/master/examples/notepad) サンプルを参照してください。
+より複雑な例については、[notepad](https://github.com/JetBrains/compose-multiplatform/tree/master/examples/notepad)サンプルを参照してください。
 
 ## ウィンドウをシステムトレイに最小化する
 
-ウィンドウを閉じる代わりに非表示にするには、`windowState.isVisible` 状態を変更します。
+ウィンドウを閉じる代わりに非表示にするには、`windowState.isVisible`の状態を変更します。
 
 ```kotlin
 import androidx.compose.material.Text
@@ -267,15 +267,15 @@ object TrayIcon : Painter() {
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="Window(onCloseRequest = { isVisible = false },"}
 
-<img src="compose-window-hide-tray.animated.gif" alt="Hide instead of closing" preview-src="compose-window-hide-tray.png" width="600"/>
+<img src="compose-window-hide-tray.animated.gif" alt="閉じずに非表示にする" preview-src="compose-window-hide-tray.png" width="600"/>
 
-## singleWindowApplication() 関数
+## `singleWindowApplication()` 関数
 
-`singleWindowApplication()` 関数を呼び出すことで、単一ウィンドウアプリケーションを作成できます。
+`singleWindowApplication()`関数を呼び出すことで、シングルウィンドウアプリケーションを作成できます。
 
-`singleWindowApplication()` 関数は使いやすいですが、以下の制限があります。
-* アプリケーションは1つのウィンドウしか持てません。
-* カスタムの閉じるロジックを追加できません。
+`singleWindowApplication()`関数は使いやすいですが、以下の制限があります。
+* アプリケーションはウィンドウを1つしか持てません。
+* カスタムのクローズロジックを追加できません。
 * 実行時にウィンドウの属性を変更できません。
 
 ```kotlin
@@ -286,11 +286,11 @@ fun main() = singleWindowApplication {
 }
 ```
 
-代替案として、`application` エントリポイントで [`Window()` コンポーザブル](#open-and-close-windows)を使用できます。
+代替案として、`application`エントリーポイントで[`Window()`コンポーザブル](#open-and-close-windows)を使用できます。
 
 ## 適応型ウィンドウサイズ
 
-期待されるコンテンツのサイズが不明で、最適なウィンドウの寸法を事前に指定できない場合、`WindowSize` の1つまたは両方の寸法を `Dp.Unspecified` に設定できます。デスクトップ版Compose Multiplatformは、コンテンツに合わせてウィンドウの初期サイズを自動的に調整します。
+期待されるコンテンツのサイズが不明で、最適なウィンドウの寸法を事前に指定できない場合、`WindowSize`の寸法を1つまたは両方`Dp.Unspecified`に設定できます。デスクトップ版Compose Multiplatformは、コンテンツに合わせてウィンドウの初期サイズを自動的に調整します。
 
 ```kotlin
 import androidx.compose.foundation.background
@@ -326,12 +326,12 @@ fun main() = application {
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="state = rememberWindowState(width = Dp.Unspecified, height = Dp.Unspecified)"}
 
-<img src="compose-window-adaptive-size.png" alt="Adaptive window size" width="451"/>
+<img src="compose-window-adaptive-size.png" alt="適応型ウィンドウサイズ" width="451"/>
 
 ## ウィンドウの状態を変更する
 
-`WindowState` は、ウィンドウの配置、現在の位置、サイズのAPIクラスです。`placement` 属性を使用すると、ウィンドウが画面にどのように配置されるか（フローティング、最大化/最小化、またはフルスクリーン）を指定できます。
-状態の変更は自動的に再コンポジションをトリガーします。ウィンドウの状態を変更するには、コールバックを使用するか、コンポーザブル内でそれを監視します。
+`WindowState`は、ウィンドウの配置、現在の位置、およびサイズのための個別のAPIクラスです。`placement`属性を使用すると、ウィンドウが画面上にどのように配置されるか (フローティング、最大化/最小化、またはフルスクリーン) を指定できます。
+状態の変更はすべて自動的な再コンポジションをトリガーします。ウィンドウの状態を変更するには、コールバックを使用するか、コンポーザブル内でオブザーブします。
 
 ```kotlin
 import androidx.compose.foundation.clickable
@@ -408,11 +408,11 @@ fun main() = application {
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="val state = rememberWindowState(placement = WindowPlacement.Maximized)"}
 
-<img src="compose-window-minimize.animated.gif" alt="Changing the state" preview-src="compose-window-minimize.png" width="600"/>
+<img src="compose-window-minimize.animated.gif" alt="状態の変更" preview-src="compose-window-minimize.png" width="600"/>
 
-## ウィンドウの状態を監視する
+## ウィンドウの状態をリッスンする
 
-状態の変化に反応し、その値をデータベースに書き込むなど、コンポーザブルではないアプリケーションレベルに送信する必要がある場合は、`snapshotFlow()` 関数を使用できます。この関数は、コンポーザブルの状態の現在の値をキャプチャします。
+状態の変更に反応し、値を別の非コンポーザブルなアプリケーションレベル（たとえば、データベースに書き込むなど）に送信する必要がある場合は、`snapshotFlow()`関数を使用できます。この関数は、コンポーザブルの状態の現在の値をキャプチャします。
 
 ```kotlin
 import androidx.compose.runtime.LaunchedEffect
@@ -455,7 +455,7 @@ private fun onWindowRelocate(position: WindowPosition) {
 
 ## ダイアログ
 
-`Window()` コンポーザブルを使用して通常のウィンドウを作成でき、`DialogWindow()` コンポーザブルは、ユーザーがモーダルウィンドウを閉じるまでその親ウィンドウをロックするモーダルウィンドウを作成するために使用できます。
+`Window()`コンポーザブルを使用して通常のウィンドウを作成し、`DialogWindow()`コンポーザブルを使用して、ユーザーがモーダルウィンドウを閉じるまで親をロックするモーダルウィンドウを作成できます。
 
 以下のコードサンプルは、これらのコンポーザブルを組み合わせて通常のウィンドウとモーダルウィンドウを作成する方法を示しています。
 
@@ -498,7 +498,7 @@ fun main() = application {
 
 ## ドラッグ可能なウィンドウ領域
 
-装飾なしのウィンドウにカスタムのドラッグ可能なタイトルバーを追加したり、ウィンドウ全体をドラッグ可能にしたりするには、`WindowDraggableArea()` コンポーザブルを使用します。
+装飾なしのウィンドウにカスタムのドラッグ可能なタイトルバーを追加したり、ウィンドウ全体をドラッグ可能にしたりするには、`WindowDraggableArea()`コンポーザブルを使用できます。
 
 ```kotlin
 import androidx.compose.foundation.background
@@ -522,7 +522,7 @@ fun main() = application {
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="WindowDraggableArea { Box(Modifier.fillMaxWidth().height(48.dp).background(Color.DarkGray))}"}
 
-`WindowDraggableArea()` は、`singleWindowApplication()`、`Window()`、`DialogWindow()` コンポーザブル内でのみ使用できます。他のコンポーザブル関数で呼び出すには、レシーバースコープとして `WindowScope` を使用します。
+`WindowDraggableArea()`は、`singleWindowApplication()`、`Window()`、および`DialogWindow()`コンポーザブル内でのみ使用できます。他のコンポーザブル関数で呼び出すには、`WindowScope`を受信側スコープとして使用します。
 
 ```kotlin
 import androidx.compose.foundation.background
@@ -551,13 +551,13 @@ private fun WindowScope.AppWindowTitleBar() = WindowDraggableArea {
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="private fun WindowScope.AppWindowTitleBar() = WindowDraggableArea {"}
 
-<img src="compose-window-draggable-area.animated.gif" alt="Draggable area" preview-src="compose-window-draggable-area.png" width="600"/>
+<img src="compose-window-draggable-area.animated.gif" alt="ドラッグ可能な領域" preview-src="compose-window-draggable-area.png" width="600"/>
 
-## 透明なウィンドウとその他のカスタマイズ
+## 透過ウィンドウとその他のカスタマイズ
 
-透明なウィンドウを作成するには、`Window()` 関数に `transparent=true` と `undecorated=true` の2つのパラメータを渡します。透明なウィンドウを装飾することはできないため、ウィンドウは装飾なしでなければなりません。
+透過ウィンドウを作成するには、`Window()`関数に`transparent=true`と`undecorated=true`の2つのパラメータを渡します。透過ウィンドウは装飾できないため、装飾なしである必要があります。
 
-以下のコードサンプルは、コンポーザブルを組み合わせて角の丸い透明なウィンドウを作成する方法を示しています。
+以下のコードサンプルは、コンポーザブルを組み合わせて角の丸い透過ウィンドウを作成する方法を示しています。
 
 ```kotlin
 import androidx.compose.foundation.layout.fillMaxSize
@@ -599,7 +599,7 @@ fun main() = application {
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="Modifier.fillMaxSize().padding(5.dp).shadow(3.dp, RoundedCornerShape(20.dp))"}
 
-## Swingとの相互運用
+## Swingの相互運用性
 
 デスクトップ版Compose Multiplatformは内部でSwingを使用しているため、Swingを直接使用してウィンドウを作成できます。
 
@@ -622,7 +622,7 @@ fun main() = SwingUtilities.invokeLater {
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="SwingUtilities.invokeLater { ComposeWindow().apply {"}
 
-また、`Window()` コンポーザブルのスコープを使用することもできます。以下のコードサンプルでは、`window` は `Window()` 内で作成された `ComposeWindow` です。
+`Window()`コンポーザブルのスコープも使用できます。以下のコードサンプルでは、`window`は`Window()`内で作成された`ComposeWindow`です。
 
 ```kotlin
 import androidx.compose.runtime.LaunchedEffect
@@ -695,6 +695,6 @@ private fun FileDialog(
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="@Composable private fun FileDialog( parent: Frame? = null, "}
 
-## 次のステップ
+## 次に行うこと
 
-[他のデスクトップコンポーネント](https://github.com/JetBrains/compose-multiplatform/tree/master/tutorials#desktop)に関するチュートリアルを参照してください。
+[その他のデスクトップコンポーネント](https://github.com/JetBrains/compose-multiplatform/tree/master/tutorials#desktop)に関するチュートリアルを探索してください。

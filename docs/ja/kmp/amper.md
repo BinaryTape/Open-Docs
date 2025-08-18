@@ -1,24 +1,24 @@
-[//]: # (title: Amperによるプロジェクト構成)
+[//]: # (title: Amperでのプロジェクト設定)
 
-[Amper](https://github.com/JetBrains/amper/tree/HEAD)は、プロジェクトのビルド、パッケージング、公開などの構成を支援するためにJetBrainsが開発した新しいツールです。Amperを使用すると、ビルドシステムの対応に費やす時間を減らし、代わりに実際のビジネス課題の解決に集中できます。
+[Amper](https://github.com/JetBrains/amper/tree/HEAD)は、JetBrainsが開発した新しいツールで、プロジェクトのビルド、パッケージング、公開などの設定に役立ちます。Amperを使用すると、ビルドシステムの扱いに費やす時間を削減し、代わりに実際のビジネス課題の解決に集中できます。
 
-Amperを使用すると、JVM、Android、iOS、macOS、Linuxで動作するKotlinマルチプラットフォームアプリケーション、およびこれらすべてのサポートされているターゲットで動作するマルチプラットフォームライブラリの構成ファイルを作成できます。
+Amperを使用すると、JVM、Android、iOS、macOS、Linuxで動作するKotlin Multiplatformアプリケーション、およびこれらすべてのサポートされているターゲットで動作するマルチプラットフォームライブラリの構成ファイルを作成できます。
 
 > Amperは現在[実験的 (Experimental)](supported-platforms.md#general-kotlin-stability-levels)です。
-> ご自身のKotlinマルチプラットフォームプロジェクトでぜひお試しください。
-> [YouTrack](https://youtrack.jetbrains.com/issues/AMPER)へのフィードバックをお待ちしております。
+> Kotlin Multiplatformプロジェクトでお試しいただけます。
+> [YouTrack](https://youtrack.jetbrains.com/issues/AMPER)でのフィードバックをお待ちしております。
 >
 {style="warning"}
 
 ## Amperの仕組み
 
-Amperは現在、バックエンドとしてGradleを、プロジェクト構成を定義するフロントエンドとしてYAMLを使用しています。カスタムタスク、CocoaPods、Mavenへのライブラリ公開、およびGradle連携を通じたデスクトップアプリケーションのパッケージングをサポートしています。
+Amperは現在、バックエンドとしてGradleを、プロジェクト構成を定義するフロントエンドとしてYAMLを使用しています。カスタムタスク、CocoaPods、Mavenへのライブラリ公開、およびGradleの相互運用を介したデスクトップアプリケーションのパッケージングをサポートしています。
 
-Amperを使用すると、プラットフォーム固有のアプリケーションと共有Kotlinライブラリの構成を設定できます。これらは、特殊な宣言型DSLを使用して、`.yaml`モジュールマニフェストファイル内でモジュールとして宣言されます。
+Amperを使用すると、プラットフォーム固有のアプリケーションと共有Kotlinライブラリの構成を設定できます。これらは、特別な宣言型DSLを使用して、`.yaml`モジュールマニフェストファイル内でモジュールとして宣言されます。
 
-このDSLの核となるコンセプトはKotlin Multiplatformです。Amperを使用すると、複雑なGradleの概念に深く踏み込むことなく、Kotlinマルチプラットフォームプロジェクトを素早く簡単に構成できます。Amper DSLは、依存関係、設定などを含むマルチプラットフォーム構成を扱うための特殊な構文を提供します。
+このDSLの核となるコンセプトはKotlin Multiplatformです。Amperを使用すると、複雑なGradleの概念に深く踏み込むことなく、Kotlin Multiplatformプロジェクトを迅速かつ簡単に構成できます。Amper DSLは、依存関係や設定など、マルチプラットフォーム構成を扱うための特別な構文を提供します。
 
-以下は、JVM、Android、iOSアプリケーションで使用できるKotlinマルチプラットフォーム共有ライブラリのAmperマニフェストファイルの例です。
+以下は、JVM、Android、iOSアプリケーションで使用できるKotlin Multiplatform共有ライブラリのAmperマニフェストファイルの例です。
 
 ```yaml
 product:
@@ -51,7 +51,7 @@ settings:
   compose: enabled
 ```
 
-*   `product`セクションは、プロジェクトタイプとターゲットプラットフォームのリストを定義します。
+*   `product`セクションは、プロジェクトの種類とターゲットプラットフォームのリストを定義します。
 *   `dependencies`セクションは、KotlinおよびMavenの依存関係だけでなく、CocoaPodsやSwift Package Managerなどのプラットフォーム固有のパッケージマネージャーも追加します。
 *   `@platform`修飾子は、依存関係や設定を含むプラットフォーム固有のセクションを示します。
 
@@ -59,15 +59,15 @@ settings:
 
 Amperは以下のいずれかの方法で試すことができます。
 
-*   JVMおよびAndroidプロジェクト向けに[IntelliJ IDEA](https://www.jetbrains.com/idea/nextversion/) 2023.3以降（ビルド233.11555から）を使用します。
-*   コマンドラインまたはCI/CDツールからAmperプロジェクトをビルドするために[Gradle](https://docs.gradle.org/current/userguide/userguide.html)を使用します。
+*   JVMおよびAndroidプロジェクトでは、[IntelliJ IDEA](https://www.jetbrains.com/idea/nextversion/) 2023.3以降（ビルド233.11555以降）を使用する。
+*   コマンドラインまたはCI/CDツールからAmperプロジェクトをビルドするには、[Gradle](https://docs.gradle.org/current/userguide/userguide.html)を使用する。
 
-[このチュートリアル](https://github.com/JetBrains/amper/tree/HEAD/docs/Tutorial.md)に従って、Amperで最初のKotlinマルチプラットフォームプロジェクトを作成してください。[ドキュメント](https://github.com/JetBrains/amper/tree/HEAD/docs/Documentation.md)を探索して、Amperの機能と設計について詳しく学んでください。
+[このチュートリアル](https://github.com/JetBrains/amper/tree/HEAD/docs/Tutorial.md)に従って、Amperで最初のKotlin Multiplatformプロジェクトを作成してください。Amperの機能と設計についてさらに学ぶには、[ドキュメント](https://github.com/JetBrains/amper/tree/HEAD/docs/Documentation.md)を参照してください。
 
-お持ちのフィードバックは、[イシュートラッカー](https://youtrack.jetbrains.com/issues/AMPER)までお気軽にお寄せください。皆様のご意見は、Amperの未来を形作るのに役立ちます。
+ご意見がございましたら、お気軽に[課題トラッカー](https://youtrack.jetbrains.com/issues/AMPER)にご提出ください。皆様からのご意見は、Amperの将来を形作る上で役立ちます。
 
 ## 次のステップ
 
-*   [JetBrainsブログ](https://blog.jetbrains.com/blog/2023/11/09/amper-improving-the-build-tooling-user-experience)で、Amperを開発した動機、ユースケース、プロジェクトの現状、そして将来について詳しく確認してください。
-*   [Amper FAQ](https://github.com/JetBrains/amper/tree/HEAD/docs/FAQ.md)で、よくある質問に対する回答を見つけてください。
-*   Amperの機能と設計のさまざまな側面を網羅した[Amperドキュメント](https://github.com/JetBrains/amper/tree/HEAD/docs/Documentation.md)を読んでください。
+*   Amper開発の動機、ユースケース、プロジェクトの現状、将来についてさらに詳しく知るには、[JetBrainsブログ](https://blog.jetbrains.com/blog/2023/11/09/amper-improving-the-build-tooling-user-experience)をご覧ください。
+*   よくある質問への回答を見つけるには、[Amper FAQ](https://github.com/JetBrains/amper/tree/HEAD/docs/FAQ.md)を参照してください。
+*   Amperの機能と設計のさまざまな側面をカバーする[Amperドキュメント](https://github.com/JetBrains/amper/tree/HEAD/docs/Documentation.md)をお読みください。

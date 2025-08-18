@@ -1,22 +1,22 @@
-# ローカルリソース環境を管理する
+# ローカルリソース環境の管理
 
-ユーザーが言語やテーマの変更など、アプリ内でのエクスペリエンスをカスタマイズできるように、アプリ内設定を管理する必要があるかもしれません。
-アプリケーションのリソース環境を動的に更新するには、アプリケーションで使用される以下のリソース関連設定を構成できます。
+ユーザーが言語やテーマを変更するなど、エクスペリエンスをカスタマイズできるアプリ内設定を管理する必要がある場合があります。
+アプリケーションのリソース環境を動的に更新するには、アプリケーションで使用される次のリソース関連設定を構成できます。
 
-*   [ロケール（言語と地域）](#locale)
-*   [テーマ](#theme)
-*   [解像度密度](#density)
+* [ロケール（言語と地域）](#locale)
+* [テーマ](#theme)
+* [解像度密度](#density)
 
 ## ロケール
 
-各プラットフォームは、言語や地域などのロケール設定を異なる方法で処理します。共通のパブリックAPIが実装されるまでの一時的な回避策として、共通コードで共通のエントリーポイントを定義する必要があります。その後、プラットフォーム固有のAPIを使用して、各プラットフォームに対応する宣言を提供します。
+各プラットフォームは、言語や地域などのロケール設定を異なる方法で処理します。共通の公開APIが実装されるまでの暫定的な回避策として、共有コードに共通のエントリポイントを定義する必要があります。次に、プラットフォーム固有のAPIを使用して、各プラットフォームに対応する宣言を提供します。
 
-*   **Android**: [`context.resources.configuration.locale`](https://developer.android.com/reference/android/content/res/Configuration#setLocale(java.util.Locale))
-*   **iOS**: [`NSLocale.preferredLanguages`](https://developer.apple.com/documentation/foundation/nslocale/preferredlanguages)
-*   **デスクトップ**: [`Locale.getDefault()`](https://developer.android.com/reference/java/util/Locale#getDefault(java.util.Locale.Category))
-*   **Web**: [`window.navigator.languages`](https://developer.mozilla.org/en-US/docs/Web/API/Navigator/languages)
+* **Android**: [`context.resources.configuration.locale`](https://developer.android.com/reference/android/content/res/Configuration#setLocale(java.util.Locale))
+* **iOS**: [`NSLocale.preferredLanguages`](https://developer.apple.com/documentation/foundation/nslocale/preferredlanguages)
+* **デスクトップ**: [`Locale.getDefault()`](https://developer.android.com/reference/java/util/Locale#getDefault(java.util.Locale.Category))
+* **Web**: [`window.navigator.languages`](https://developer.mozilla.org/en-US/docs/Web/API/Navigator/languages)
 
-1.  共通ソースセットで、`expect`キーワードを使用して予期される`LocalAppLocale`オブジェクトを定義します。
+1. 共通ソースセットで、`expect`キーワードを使用して予期される `LocalAppLocale` オブジェクトを定義します。
 
     ```kotlin
     var customAppLocale by mutableStateOf<String?>(null)
@@ -37,7 +37,7 @@
     }
     ```
 
-2.  Androidソースセットで、`context.resources.configuration.locale`を使用する`actual`実装を追加します。
+2. Androidソースセットで、`context.resources.configuration.locale`を使用する`actual`実装を追加します。
 
     ```kotlin
     actual object LocalAppLocale {
@@ -67,8 +67,8 @@
     }
     ```
 
-3.  iOSソースセットで、`NSLocale.preferredLanguages`を変更する`actual`実装を追加します。
-
+3. iOSソースセットで、`NSLocale.preferredLanguages`を変更する`actual`実装を追加します。
+ 
     ```kotlin
     @OptIn(InternalComposeUiApi::class)
     actual object LocalAppLocale {
@@ -91,7 +91,7 @@
     }
     ```
 
-4.  デスクトップソースセットで、`Locale.getDefault()`を使用してJVMのデフォルトロケールを更新する`actual`実装を追加します。
+4. デスクトップソースセットで、`Locale.getDefault()`を使用してJVMのデフォルトロケールを更新する`actual`実装を追加します。
 
     ```kotlin
     actual object LocalAppLocale {
@@ -115,7 +115,7 @@
     }
     ```
 
-5.  Webプラットフォームでは、`window.navigator.languages`プロパティの読み取り専用制限を回避して、カスタムロケールロジックを導入します。
+5. Webプラットフォームの場合、`window.navigator.languages`プロパティの読み取り専用の制限をバイパスして、カスタムロケールロジックを導入します。
 
     ```kotlin
     external object window {
@@ -135,7 +135,7 @@
     }
     ```
 
-    その後、ブラウザの`index.html`で、アプリケーションスクリプトをロードする前に以下のコードを配置します。
+    次に、ブラウザの`index.html`に、アプリケーションスクリプトをロードする前に以下のコードを配置します。
 
     ```html    
     <html lang="en">
@@ -164,21 +164,21 @@
     </html>
     ```  
 
-## テーマ
+## テーマ 
 
 Compose Multiplatformは、`isSystemInDarkTheme()`を介して現在のテーマを定義します。
 テーマはプラットフォームによって異なる方法で処理されます。
 
-*   Androidは、以下のビット演算によってテーマを定義します。
+* Androidは、以下のビット演算によってテーマを定義します。 
     ```kotlin
         Resources.getConfiguration().uiMode and Configuration.UI_MODE_NIGHT_MASK
     ```
-*   iOS、デスクトップ、およびWebプラットフォームは`LocalSystemTheme.current`を使用します。
+* iOS、デスクトップ、およびWebプラットフォームは、`LocalSystemTheme.current`を使用します。
 
-共通のパブリックAPIが実装されるまでの一時的な回避策として、`expect-actual`メカニズムを使用して、プラットフォーム固有のテーマのカスタマイズを管理することで、この違いに対処できます。
+共通の公開APIが実装されるまでの暫定的な回避策として、`expect-actual`メカニズムを使用してこの違いに対処し、プラットフォーム固有のテーマのカスタマイズを管理できます。
 
-1.  共通コードで、`expect`キーワードを使用して予期される`LocalAppTheme`オブジェクトを定義します。
-
+1. 共通コードで、`expect`キーワードを使用して予期される`LocalAppTheme`オブジェクトを定義します。
+ 
     ```kotlin
     var customAppThemeIsDark by mutableStateOf<Boolean?>(null)
     expect object LocalAppTheme {
@@ -198,9 +198,9 @@ Compose Multiplatformは、`isSystemInDarkTheme()`を介して現在のテーマ
     }
     ```
 
-2.  Androidコードで、`LocalConfiguration` APIを使用する`actual`実装を追加します。
+2. Androidコードで、`LocalConfiguration` APIを使用する`actual`実装を追加します。
 
-    ```kotlin
+   ```kotlin
     actual object LocalAppTheme {
         actual val current: Boolean
             @Composable get() = (LocalConfiguration.current.uiMode and UI_MODE_NIGHT_MASK) == UI_MODE_NIGHT_YES
@@ -222,7 +222,7 @@ Compose Multiplatformは、`isSystemInDarkTheme()`を介して現在のテーマ
     }
     ```
 
-3.  iOS、デスクトップ、およびWebプラットフォームでは、`LocalSystemTheme`を直接変更できます。
+3. iOS、デスクトップ、およびWebプラットフォームでは、`LocalSystemTheme`を直接変更できます。
 
     ```kotlin
     @OptIn(InternalComposeUiApi::class)
@@ -274,5 +274,5 @@ fun AppEnvironment(content: @Composable () -> Unit) {
 
 ## 次のステップ
 
-*   [リソース修飾子](compose-multiplatform-resources-setup.md#qualifiers)の詳細を確認する。
-*   [リソースをローカライズ](compose-localize-strings.md)する方法を学ぶ。
+* [リソース修飾子](compose-multiplatform-resources-setup.md#qualifiers)の詳細を確認してください。
+* [リソースをローカライズする方法](compose-localize-strings.md)を学習してください。

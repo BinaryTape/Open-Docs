@@ -14,22 +14,36 @@ Koogフレームワークは、エージェントとユーザーの一般的な�
 
 他のツールと同様に、ビルトインツールもエージェントが利用できるようにするためにツールレジストリに追加する必要があります。以下に例を示します:
 
+<!--- INCLUDE
+import ai.koog.agents.core.agent.AIAgent
+import ai.koog.agents.core.tools.ToolRegistry
+import ai.koog.agents.ext.tool.SayToUser
+import ai.koog.agents.ext.tool.AskUser
+import ai.koog.agents.ext.tool.ExitTool
+import ai.koog.prompt.executor.clients.openai.OpenAIModels
+import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
+
+const val apiToken = ""
+
+-->
 ```kotlin
-// Create a tool registry with all built-in tools
+// すべてのビルトインツールでツールレジストリを作成
 val toolRegistry = ToolRegistry {
-    tool(SayToUser())
-    tool(AskUser())
-    tool(ExitTool())
+    tool(SayToUser)
+    tool(AskUser)
+    tool(ExitTool)
 }
 
-// Pass the registry when creating an agent
+// エージェント作成時にレジストリを渡す
 val agent = AIAgent(
     executor = simpleOpenAIExecutor(apiToken),
     systemPrompt = "You are a helpful assistant.",
     llmModel = OpenAIModels.Chat.GPT4o,
     toolRegistry = toolRegistry
 )
+
 ```
+<!--- KNIT example-built-in-tools-01.kt -->
 
 同じレジストリ内でビルトインツールとカスタムツールを組み合わせることで、エージェント向けの包括的な機能セットを作成できます。
-カスタムツールの詳細については、[アノテーションベースのツール](annotation-based-tools.md)および[高度な実装](advanced-tool-implementation.md)を参照してください。
+カスタムツールの詳細については、[アノテーションベースのツール](annotation-based-tools.md)および[クラスベースのツール](class-based-tools.md)を参照してください。

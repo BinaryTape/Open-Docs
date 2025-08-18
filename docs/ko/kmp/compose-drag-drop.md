@@ -1,23 +1,23 @@
-[//]: # (title: 끌어서 놓기 작업)
+[//]: # (title: 드래그 앤 드롭 작업)
 
-> 현재 웹용 Compose Multiplatform에서는 끌어서 놓기 작업이 지원되지 않습니다.
+> 현재 Compose Multiplatform 웹 버전에서는 드래그 앤 드롭 작업이 지원되지 않습니다.
 > 향후 릴리스를 기대해 주세요.
 >
 {style="note"}
 
-Compose Multiplatform 앱이 사용자가 다른 애플리케이션에서 앱으로 끌어온 데이터를 받거나 사용자가 앱에서 데이터를 끌어낼 수 있도록 할 수 있습니다.
-이를 구현하려면 `dragAndDropSource` 및 `dragAndDropTarget` 한정자를 사용하여 특정 컴포저블을 끌기 작업의 잠재적인 소스 또는 대상으로 지정하세요.
+Compose Multiplatform 앱에서 사용자가 다른 애플리케이션에서 끌어온 데이터를 수락하거나, 앱에서 데이터를 끌어낼 수 있도록 설정할 수 있습니다.
+이를 구현하려면, 특정 컴포저블을 드래그 작업의 잠재적인 소스 또는 대상으로 지정하기 위해 `dragAndDropSource` 및 `dragAndDropTarget` 모디파이어를 사용하세요.
 
-> 두 `dragAndDropSource` 및 `dragAndDropTarget` 한정자는 실험적이며, 변경될 수 있으며, 옵트인 어노테이션이 필요합니다.
->
+> `dragAndDropSource` 및 `dragAndDropTarget` 모디파이어는 모두 실험적이며, 변경될 수 있고, 옵트인(opt-in) 주석이 필요합니다.
+> 
 {style="warning"}
 
-## 끌기 소스 생성
+## 드래그 소스 생성
 
-컴포저블이 끌기 소스가 되도록 준비하려면:
-1. `detectDragGestures()` 함수를 사용하여 끌기 이벤트에 대한 트리거를 선택하세요(예: `onDragStart`).
-2. `startTransfer()` 함수를 호출하고 `DragAndDropTransferData()` 호출로 끌어서 놓기 세션을 설명하세요.
-3. `DragAndDropTransferable()` 호출로 대상으로 끌어질 데이터를 설명하세요.
+컴포저블을 드래그 소스로 준비하려면:
+1. `detectDragGestures()` 함수(`onDragStart`와 같은)를 사용하여 드래그 이벤트의 트리거를 선택합니다.
+2. `startTransfer()` 함수를 호출하고 `DragAndDropTransferData()` 호출로 드래그 앤 드롭 세션을 설명합니다.
+3. `DragAndDropTransferable()` 호출로 대상에 끌어올 데이터를 설명합니다.
 
 사용자가 문자열을 끌어낼 수 있도록 하는 `Box()` 컴포저블의 예시:
 
@@ -88,13 +88,13 @@ Box(Modifier
 
 ## 드롭 대상 생성
 
-컴포저블이 끌어서 놓기 대상이 되도록 준비하려면:
+컴포저블을 드래그 앤 드롭 대상으로 준비하려면:
 
-1. `shouldStartDragAndDrop` 람다에서 컴포저블이 드롭의 대상이 되기 위한 조건을 설명하세요.
-2. `DragAndDropTarget` 객체를 생성하고 (`remember`하고) 끌기 이벤트 핸들러에 대한 재정의를 포함하세요.
-3. 필요한 재정의를 작성하세요. 예를 들어, 수신된 데이터를 파싱하기 위한 `onDrop` 또는 끌 수 있는 객체가 컴포저블에 진입할 때의 `onEntered`를 작성하세요.
+1. `shouldStartDragAndDrop` 람다에서 컴포저블이 드롭 대상이 되기 위한 조건을 설명합니다.
+2. 드래그 이벤트 핸들러에 대한 오버라이드를 포함할 `DragAndDropTarget` 객체를 생성(`remember`도 사용하여)합니다.
+3. 필요한 오버라이드를 작성합니다. 예를 들어, 수신된 데이터를 파싱하는 `onDrop` 또는 드래그 가능한 객체가 컴포저블에 진입할 때의 `onEntered`와 같은 오버라이드를 작성합니다.
 
-그 안에 드롭된 텍스트를 표시할 준비가 된 `Box()` 컴포저블의 예시:
+끌어온 텍스트를 표시할 준비가 된 `Box()` 컴포저블의 예시:
 
 ```kotlin
 var showTargetBorder by remember { mutableStateOf(false) }
@@ -161,4 +161,4 @@ Box(Modifier
 
 ## 다음 단계
 
-구현 및 일반적인 사용 사례에 대한 자세한 내용은 Jetpack Compose 문서에서 해당 한정자에 대한 [끌어서 놓기](https://developer.android.com/develop/ui/compose/touch-input/user-interactions/drag-and-drop) 문서를 참조하세요.
+구현 및 일반적인 사용 사례에 대한 자세한 내용은 Jetpack Compose 문서의 해당 모디파이어에 대한 [드래그 앤 드롭](https://developer.android.com/develop/ui/compose/touch-input/user-interactions/drag-and-drop) 문서를 참조하세요.

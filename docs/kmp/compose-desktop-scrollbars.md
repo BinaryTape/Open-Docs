@@ -1,10 +1,11 @@
 [//]: # (title: 滚动条)
 
-您可以将滚动条应用于可滚动组件。滚动条和可滚动组件共享一个公共状态以相互同步。
+你可以将滚动条应用于可滚动组件。滚动条和可滚动组件共享共同状态以彼此同步。
 
 ## 滚动修饰符
 
-`verticalScroll` 和 `horizontalScroll` 修饰符提供了最简单的方式，允许用户在其内容边界大于其最大尺寸约束时滚动元素。您可以将 `VerticalScrollbar` 可组合项附加到带有 `verticalScroll` 修饰符的可滚动组件，并将 `HorizontalScrollbar` 可组合项附加到带有 `horizontalScroll` 修饰符的可滚动组件：
+`verticalScroll` 和 `horizontalScroll` 修饰符提供了最简单的方式，允许用户在内容边界大于其最大尺寸约束时滚动元素。
+你可以将 `VerticalScrollbar` 可组合项附加到使用 `verticalScroll` 修饰符的可滚动组件，并将 `HorizontalScrollbar` 可组合项附加到使用 `horizontalScroll` 修饰符的可滚动组件：
 
 ```kotlin
 import androidx.compose.foundation.HorizontalScrollbar
@@ -89,13 +90,14 @@ fun TextBox(text: String = "Item") {
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="VerticalScrollbar(modifier = Modifier.align(Alignment.CenterEnd) "}
 
-您可以通过拖动滚动条、使用鼠标滚轮或触控板来移动滚动条。要用鼠标移动水平滚动条，请侧击滚轮或按住 <shortcut>Shift</shortcut> 键。
+你可以通过拖动滚动条和使用鼠标滚轮或触控板来移动滚动条。要用鼠标移动水平滚动条，请侧击滚轮或按住 <shortcut>Shift</shortcut>。
 
-<img src="compose-desktop-scrollbar.animated.gif" alt="Scrollbar" width="289" preview-src="compose-desktop-scrollbar.png"/>
+<img src="compose-desktop-scrollbar.animated.gif" alt="滚动条" width="289" preview-src="compose-desktop-scrollbar.png"/>
 
 ## 惰性可滚动组件
 
-您还可以将滚动条与 `LazyColumn` 和 `LazyRow` 等惰性可滚动组件一起使用。惰性组件在您预计列表中有大量项时效率更高，因为它们只在需要时组合这些项。
+你还可以将滚动条与惰性可滚动组件一起使用，例如 `LazyColumn` 和 `LazyRow`。
+当列表项很多时，惰性组件的效率会高得多，因为它们只在需要时才组合这些项。
 
 ```kotlin
 import androidx.compose.foundation.VerticalScrollbar
@@ -170,15 +172,15 @@ fun TextBox(text: String = "Item") {
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="VerticalScrollbar(modifier = Modifier.align(Alignment.CenterEnd) "}
 
-<img src="compose-desktop-lazy-scrollbar.animated.gif" alt="Lazy scrollbar" width="289" preview-src="compose-desktop-lazy-scrollbar.png"/>
+<img src="compose-desktop-lazy-scrollbar.animated.gif" alt="惰性滚动条" width="289" preview-src="compose-desktop-lazy-scrollbar.png"/>
 
-## 已知限制
+## 已知局限
 
-当前，使用触摸屏、触控板和轨迹板的滚动操作被视为鼠标事件，这可能导致故障以及缺少捏拉缩放等限制。我们正在持续改进输入和手势处理，并计划为这些输入设备引入原生支持：
+目前，使用触摸屏、触控板和轨迹板的滚动被视为鼠标事件，这可能导致故障和局限，例如缺乏捏拉缩放。我们正在持续改进输入和手势处理，并计划为这些输入设备引入原生支持：
 
 *   原生支持触摸屏 ([CMP-1609](https://youtrack.jetbrains.com/issue/CMP-1609/))
 *   原生支持触控板和轨迹板 ([CMP-1610](https://youtrack.jetbrains.com/issue/CMP-1610/))
 
-## 接下来是什么？
+## 后续内容
 
 探索关于[其他桌面组件](https://github.com/JetBrains/compose-multiplatform/tree/master/tutorials#desktop)的教程。

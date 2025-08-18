@@ -1,58 +1,65 @@
-[//]: # (title: 專案收尾)
+[//]: # (title: 總結你的專案)
 
 <tldr>
-    <p>這是「**建立具備共享邏輯和原生 UI 的 Kotlin Multiplatform 應用程式**」教學課程的最後一部分。在繼續之前，請確保您已完成先前的步驟。</p>
-    <p><img src="icon-1-done.svg" width="20" alt="第一步"/> <a href="multiplatform-create-first-app.md">建立您的 Kotlin Multiplatform 應用程式</a><br/>
-       <img src="icon-2-done.svg" width="20" alt="第二步"/> <a href="multiplatform-update-ui.md">更新使用者介面</a><br/>
-       <img src="icon-3-done.svg" width="20" alt="第三步"/> <a href="multiplatform-dependencies.md">新增依賴項</a><br/>
-       <img src="icon-4-done.svg" width="20" alt="第四步"/> <a href="multiplatform-upgrade-app.md">共享更多邏輯</a><br/>
-       <img src="icon-5.svg" width="20" alt="第五步"/> <strong>完成您的專案</strong><br/>
+    <p>這是《<strong>建立一個帶有共用邏輯和原生 UI 的 Kotlin Multiplatform 應用程式</strong>》教學的最後一部分。在繼續之前，請確保您已完成先前的步驟。</p>
+    <p><img src="icon-1-done.svg" width="20" alt="第一步"/> <Links href="/kmp/multiplatform-create-first-app" summary="This tutorial uses IntelliJ IDEA, but you can also follow it in Android Studio – both IDEs share the same core functionality and Kotlin Multiplatform support. This is the first part of the Create a Kotlin Multiplatform app with shared logic and native UI tutorial. Create your Kotlin Multiplatform app Update the user interface Add dependencies Share more logic Wrap up your project">建立你的 Kotlin Multiplatform 應用程式</Links><br/>
+       <img src="icon-2-done.svg" width="20" alt="第二步"/> <Links href="/kmp/multiplatform-update-ui" summary="This tutorial uses IntelliJ IDEA, but you can also follow it in Android Studio – both IDEs share the same core functionality and Kotlin Multiplatform support. This is the second part of the Create a Kotlin Multiplatform app with shared logic and native UI tutorial. Before proceeding, make sure you've completed previous steps. Create your Kotlin Multiplatform app Update the user interface Add dependencies Share more logic Wrap up your project">更新使用者介面</Links><br/>
+       <img src="icon-3-done.svg" width="20" alt="第三步"/> <Links href="/kmp/multiplatform-dependencies" summary="This tutorial uses IntelliJ IDEA, but you can also follow it in Android Studio – both IDEs share the same core functionality and Kotlin Multiplatform support. This is the third part of the Create a Kotlin Multiplatform app with shared logic and native UI tutorial. Before proceeding, make sure you've completed previous steps. Create your Kotlin Multiplatform app Update the user interface Add dependencies Share more logic Wrap up your project">新增依賴項</Links><br/>
+       <img src="icon-4-done.svg" width="20" alt="第四步"/> <Links href="/kmp/multiplatform-upgrade-app" summary="This tutorial uses IntelliJ IDEA, but you can also follow it in Android Studio – both IDEs share the same core functionality and Kotlin Multiplatform support. This is the fourth part of the Create a Kotlin Multiplatform app with shared logic and native UI tutorial. Before proceeding, make sure you've completed previous steps. Create your Kotlin Multiplatform app Update the user interface Add dependencies Share more logic Wrap up your project">分享更多邏輯</Links><br/>
+       <img src="icon-5.svg" width="20" alt="第五步"/> <strong>總結你的專案</strong><br/>
     </p>
 </tldr>
 
-您已經建立了第一個同時適用於 iOS 和 Android 的 Kotlin Multiplatform 應用程式！現在，您已了解如何設定跨平台行動開發環境、在 IntelliJ IDEA 中建立專案、在裝置上執行應用程式，並擴展其功能。
+您已經建立了第一個同時適用於 iOS 和 Android 的 Kotlin Multiplatform 應用程式！現在您知道如何設定跨平台行動開發環境、在 IntelliJ IDEA 中建立專案、在裝置上執行應用程式以及擴展其功能。
 
-既然您已累積了一些 Kotlin Multiplatform 的經驗，您可以進一步探索一些進階主題，並承擔額外的跨平台行動開發任務：
+既然您已經獲得了一些 Kotlin Multiplatform 的經驗，您可以看看一些進階主題並承擔額外的跨平台行動開發任務：
 
 <table>
-   <tr>
-      <th>後續步驟</th>
+   
+<tr>
+<th>後續步驟</th>
       <th>深入探討</th>
-   </tr>
-   <tr>
-   <td>
+</tr>
+
+   
+<tr>
+<td>
      <list>
-        <li><a href="multiplatform-run-tests.md">將測試新增至您的 Kotlin Multiplatform 專案</a></li>
-        <li><a href="multiplatform-publish-apps.md">將您的行動應用程式發佈至應用程式商店</a></li>
-        <li><a href="multiplatform-introduce-your-team.md">將跨平台行動開發引入您的團隊</a></li>
-        <li><a href="https://klibs.io/">瀏覽適用於您目標平台的 Kotlin Multiplatform 函式庫</a></li>
+        <li><Links href="/kmp/multiplatform-run-tests" summary="This tutorial uses IntelliJ IDEA, but you can also follow it in Android Studio – both IDEs share the same core functionality and Kotlin Multiplatform support.">新增測試到你的 Kotlin Multiplatform 專案</Links></li>
+        <li><Links href="/kmp/multiplatform-publish-apps" summary="undefined">將你的行動應用程式發佈到應用程式商店</Links></li>
+        <li><Links href="/kmp/multiplatform-introduce-your-team" summary="undefined">向你的團隊介紹跨平台行動開發</Links></li>
+        <li><a href="https://klibs.io/">瀏覽適用於你的目標平台的 Kotlin Multiplatform 函式庫</a></li>
         <li><a href="https://github.com/terrakok/kmm-awesome">查看實用工具和資源列表</a></li>
      </list>
    </td>
     <td>
      <list>
-        <li><a href="multiplatform-discover-project.md">Kotlin Multiplatform 專案結構</a></li>
+        <li><Links href="/kmp/multiplatform-discover-project" summary="undefined">Kotlin Multiplatform 專案結構</Links></li>
         <li><a href="https://kotlinlang.org/docs/native-objc-interop.html">與 Objective-C 框架和函式庫的互通性</a></li>
-        <li><a href="multiplatform-add-dependencies.md">新增對多平台函式庫的依賴項</a></li>        
-        <li><a href="multiplatform-android-dependencies.md">新增 Android 依賴項</a></li>
-        <li><a href="multiplatform-ios-dependencies.md">新增 iOS 依賴項</a></li>
+        <li><Links href="/kmp/multiplatform-add-dependencies" summary="undefined">新增多平台函式庫的依賴項</Links></li>        
+        <li><Links href="/kmp/multiplatform-android-dependencies" summary="undefined">新增 Android 依賴項</Links></li>
+        <li><Links href="/kmp/multiplatform-ios-dependencies" summary="undefined">新增 iOS 依賴項</Links></li>
      </list>
    </td>
-   </tr>
+</tr>
+
 </table>
 
 <table>
-   <tr>
-      <th>教學課程和範例</th>
-      <th>社群和意見回饋</th>
-   </tr>
-   <tr>
-   <td>
+   
+<tr>
+<th>教學和範例</th>
+      <th>社群與回饋</th>
+</tr>
+
+   
+<tr>
+<td>
      <list>
-        <li><a href="multiplatform-integrate-in-existing-app.md">讓您的 Android 應用程式跨平台</a></li>
-        <li><a href="multiplatform-ktor-sqldelight.md">使用 Ktor 和 SQLDelight 建立多平台應用程式</a></li>
-        <li><a href="compose-multiplatform-create-first-app.md">使用 Compose Multiplatform 在 iOS 和 Android 之間共享 UI</a></li>
-        <li><a href="multiplatform-samples.md">查看精選的範例專案列表</a></li>
+        <li><Links href="/kmp/multiplatform-integrate-in-existing-app" summary="This tutorial uses Android Studio, but you can also follow it in IntelliJ IDEA. When set up properly, both IDEs share the same core functionality and Kotlin Multiplatform support.">讓你的 Android 應用程式跨平台化</Links></li>
+        <li><Links href="/kmp/multiplatform-ktor-sqldelight" summary="This tutorial uses IntelliJ IDEA, but you can also follow it in Android Studio – both IDEs share the same core functionality and Kotlin Multiplatform support.">使用 Ktor 和 SQLDelight 建立多平台應用程式</Links></li>
+        <li><Links href="/kmp/compose-multiplatform-create-first-app" summary="This tutorial uses IntelliJ IDEA, but you can also follow it in Android Studio – both IDEs share the same core functionality and Kotlin Multiplatform support. This is the first part of the Create a Compose Multiplatform app with shared logic and UI tutorial. Create your Compose Multiplatform app Explore composable code Modify the project Create your own application">使用 Compose Multiplatform 在 iOS 和 Android 之間共用 UI</Links></li>
+        <li><Links href="/kmp/multiplatform-samples" summary="undefined">查看精選範例專案列表</Links></li>
      </list>
    </td>
     <td>
@@ -63,5 +70,6 @@
         <li><a href="https://youtrack.jetbrains.com/newIssue?project=KT">向我們的問題追蹤器回報問題</a></li>
      </list>
    </td>
-   </tr>
+</tr>
+
 </table>

@@ -30,7 +30,7 @@ export const sqlDelightStrategy = {
       }
     }
 
-    console.log(`  Running SQLDelight onSyncEnd: Generate sidebar...`);
+    console.log(`  Running SQLDelight postSync: Generate sidebar...`);
     const sidebarPath = path.join(repoPath, 'mkdocs.yml');
     const docType = repoPath.replace("-repo", "");
     if (await fs.pathExists(sidebarPath)) {

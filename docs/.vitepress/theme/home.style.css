@@ -213,21 +213,21 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: radial-gradient(
-      circle at 10% 10%,
-      rgba(77, 108, 250, 0.05) 0%,
-      transparent 50%
-    ),
-    radial-gradient(
-      circle at 90% 30%,
-      rgba(127, 82, 255, 0.05) 0%,
-      transparent 40%
-    ),
-    radial-gradient(
-      circle at 50% 80%,
-      rgba(177, 37, 234, 0.05) 0%,
-      transparent 40%
-    );
+  /*background: radial-gradient(*/
+  /*    circle at 10% 10%,*/
+  /*    rgba(77, 108, 250, 0.05) 0%,*/
+  /*    transparent 50%*/
+  /*  ),*/
+  /*  radial-gradient(*/
+  /*    circle at 90% 30%,*/
+  /*    rgba(127, 82, 255, 0.05) 0%,*/
+  /*    transparent 40%*/
+  /*  ),*/
+  /*  radial-gradient(*/
+  /*    circle at 50% 80%,*/
+  /*    rgba(177, 37, 234, 0.05) 0%,*/
+  /*    transparent 40%*/
+  /*  );*/
   pointer-events: none;
   z-index: -1;
 }

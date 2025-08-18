@@ -1,16 +1,16 @@
-[//]: # (title: デスクトップのアクセシビリティ機能のサポート)
+[//]: # (title: デスクトップアクセシビリティ機能のサポート)
 
-Compose Multiplatformは[Jetpack Compose](https://developer.android.com/jetpack/compose)をベースとしており、ほとんどのアクセシビリティ機能をすべてのプラットフォームで共通コードとして利用可能にしています。デスクトップにおけるアクセシビリティサポートの現状は以下の通りです。
+Compose Multiplatformは[Jetpack Compose](https://developer.android.com/jetpack/compose)を基盤として構築されており、ほとんどのアクセシビリティ機能を全てのプラットフォームにわたる共通コードで利用可能にします。デスクトップにおけるアクセシビリティサポートの現在の状況は以下の通りです。
 
-| プラットフォーム | アクセシビリティのステータス     |
-|--------------|------------------------------|
-| MacOS        | 完全サポート                 |
-| Windows      | Java Access Bridge経由でサポート |
-| Linux        | サポート対象外               |
+| プラットフォーム | アクセシビリティのステータス |
+|----------|----------------------------------|
+| macOS    | 完全にサポート                  |
+| Windows  | Java Access Bridgeを介してサポート |
+| Linux    | サポートされていません            | 
 
 ## Windowsでのアクセシビリティの有効化
 
-WindowsでのアクセシビリティはJava Access Bridgeを介して提供されますが、これはデフォルトで無効になっています。
+Windows上のアクセシビリティはJava Access Bridgeを介して提供されますが、これはデフォルトで無効になっています。
 Windowsでアクセシビリティ機能を開発するには、以下のコマンドでJava Access Bridgeを有効にします。
 
 ```Console
@@ -19,7 +19,7 @@ Windowsでアクセシビリティ機能を開発するには、以下のコマ�
 
 [//]: # (TODO: CMP-373が修正されたらこの回避策を削除する)
 
-アクセシビリティ機能を含むネイティブディストリビューションを作成するには、`modules` DSLメソッドを使用して`jdk.accessibility`モジュールを追加します。
+アクセシビリティ機能を含むネイティブ配布を作成するには、`modules` DSLメソッドを使用して`jdk.accessibility`モジュールを追加します。
 
 ```kotlin
 compose.desktop {
@@ -34,7 +34,7 @@ compose.desktop {
 ## 例: セマンティックルールを持つカスタムボタン
 
 カスタムボタンを持つシンプルなアプリを作成し、スクリーンリーダーツール用の説明テキストを指定してみましょう。
-スクリーンリーダーを有効にすると、ボタンの説明から「Click to increment value」というテキストが読み上げられます。
+スクリーンリーダーが有効になっていると、ボタンの説明から「Click to increment value」というテキストが聞こえます。
 
 ```kotlin
 import androidx.compose.foundation.*
@@ -77,16 +77,17 @@ fun main() = singleWindowApplication(
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title=".clickable { count += 1 } .semantics(mergeDescendants = true)"}
 
-macOSアプリケーションの要素のアクセシビリティ情報をテストするには、[Accessibility Inspector](https://developer.apple.com/documentation/accessibility/accessibility-inspector)（**Xcode** | **Open Developer Tool** | **Accessibility Inspector**）を使用できます。
+macOS上でアプリケーション内の要素のアクセシビリティ情報をテストするには、[Accessibility Inspector](https://developer.apple.com/documentation/accessibility/accessibility-inspector)を使用できます
+（**Xcode** | **開発者ツールを開く** | **アクセシビリティインスペクタ**）。
 
-<img src="compose-desktop-accessibility-macos.png" alt="macOS上のAccessibility Inspector" width="700"/>
+<img src="compose-desktop-accessibility-macos.png" alt="macOS上のアクセシビリティインスペクター" width="700"/>
 
-Windowsでは、[JAWS](https://www.freedomscientific.com/Products/Blindness/JAWS)の**Show Speech History**機能、または[NVDA](https://www.nvaccess.org/)の**Speech Viewer**を使用できます。
+Windowsでは、[JAWS](https://www.freedomscientific.com/Products/Blindness/JAWS)の**スピーチ履歴の表示**機能、または[NVDA](https://www.nvaccess.org/)の**スピーチビューアー**を使用できます。
 
 <img src="compose-desktop-accessibility.png" alt="Windows上のアクセシビリティ" width="600"/>
 
 その他の例については、[Jetpack Composeにおけるアクセシビリティ](https://developer.android.com/develop/ui/compose/accessibility)ガイドを参照してください。
 
-## 次に
+## 次は何ですか？
 
-[他のデスクトップコンポーネント](https://github.com/JetBrains/compose-multiplatform/tree/master/tutorials#desktop)に関するチュートリアルを探索してください。
+[その他のデスクトップコンポーネント](https://github.com/JetBrains/compose-multiplatform/tree/master/tutorials#desktop)に関するチュートリアルを探索してください。

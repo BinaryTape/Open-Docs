@@ -1,23 +1,23 @@
 # アダプティブレイアウト
 
-あらゆる種類のデバイスで一貫したユーザーエクスペリエンスを提供するために、アプリのUIをさまざまなディスプレイサイズ、向き、入力モードに適応させます。
+すべての種類のデバイスで一貫したユーザーエクスペリエンスを提供するために、アプリのUIを異なる表示サイズ、向き、入力モードに適応させます。
 
 ## アダプティブレイアウトの設計
 
 アダプティブレイアウトを設計する際は、以下の主要なガイドラインに従ってください。
 
-*   [カノニカルレイアウト](https://developer.android.com/develop/ui/compose/layouts/adaptive/canonical-layouts)のパターン（リスト/詳細、フィード、補助ペインなど）を推奨します。
-*   パディング、タイポグラフィ、その他のデザイン要素に共通のスタイルを再利用して、一貫性を維持します。プラットフォーム固有のガイドラインに従いながら、デバイス間でナビゲーションパターンの一貫性を保ちます。
-*   複雑なレイアウトを再利用可能なコンポーザブルに分割し、柔軟性とモジュール性を高めます。
+*   リスト-詳細、フィード、サポーティングペインといった[カノニカルレイアウト](https://developer.android.com/develop/ui/compose/layouts/adaptive/canonical-layouts)のパターンを優先します。
+*   パディング、タイポグラフィ、その他のデザイン要素に共通のスタイルを再利用することで一貫性を保ちます。プラットフォーム固有のガイドラインに従いつつ、デバイス間でナビゲーションパターンの一貫性を維持します。
+*   複雑なレイアウトを再利用可能なComposableに分割し、柔軟性とモジュール性を高めます。
 *   画面密度と向きを調整します。
 
 ## ウィンドウサイズクラスの使用
 
-ウィンドウサイズクラスは、ブレークポイントとも呼ばれる事前定義されたしきい値であり、さまざまな画面サイズを分類して、アダプティブレイアウトの設計、開発、テストに役立ちます。
+ウィンドウサイズクラスは、アダプティブレイアウトの設計、開発、テストを支援するために、異なる画面サイズを分類する事前定義されたしきい値であり、ブレークポイントとも呼ばれます。
 
-ウィンドウサイズクラスは、アプリで利用可能な表示領域を、幅と高さの両方について compact (コンパクト)、medium (ミディアム)、expanded (展開) の3つのカテゴリに分類します。レイアウトを変更する際は、すべてのウィンドウサイズ、特に異なるブレークポイントのしきい値でレイアウトの動作をテストしてください。
+ウィンドウサイズクラスは、アプリが利用できる表示領域を、幅と高さの両方でコンパクト、ミディアム、展開の3つのカテゴリに分類します。レイアウトを変更する際は、特に異なるブレークポイントのしきい値で、すべてのウィンドウサイズでのレイアウト動作をテストしてください。
 
-`WindowSizeClass` クラスを使用するには、モジュールの `build.gradle.kts` ファイルで `material3.adaptive` 依存関係を共通ソースセットに追加します。
+`WindowSizeClass` クラスを使用するには、モジュールの `build.gradle.kts` ファイルにある共通ソースセットに `material3.adaptive` の依存関係を追加します。
 
 ```kotlin
 commonMain.dependencies {
@@ -25,7 +25,7 @@ commonMain.dependencies {
 }
 ```
 
-`WindowSizeClass` API を使用すると、利用可能な表示スペースに基づいてアプリのレイアウトを変更できます。たとえば、ウィンドウの高さに応じてトップアプリバーの表示を管理できます。
+`WindowSizeClass` API を使用すると、利用可能な表示スペースに基づいてアプリのレイアウトを変更できます。たとえば、ウィンドウの高さに応じてトップアプリバーの可視性を管理できます。
 
 ```kotlin
 @Composable
@@ -35,7 +35,7 @@ fun MyApp(
     // トップアプリバーを表示するかどうかを決定します
     val showTopAppBar = windowSizeClass.isHeightAtLeastBreakpoint(WindowSizeClass.HEIGHT_DP_MEDIUM_LOWER_BOUND)
 
-    // バーの表示状態を使用してUIを定義します
+    // バーの可視性を使用してUIを定義します
     MyScreen(
         showTopAppBar = showTopAppBar,
         /* ... */
@@ -53,6 +53,6 @@ We have three different @Preview:
 * Common annotation, also supported in Android Studio, works for Android only but from common code.
 -->
 
-## 次へ
+## 次にすること
 
-アダプティブレイアウトの詳細については、[Jetpack Compose ドキュメント](https://developer.android.com/develop/ui/compose/layouts/adaptive)を参照してください。
+アダプティブレイアウトについては、[Jetpack Compose ドキュメント](https://developer.android.com/develop/ui/compose/layouts/adaptive)で詳細を確認してください。

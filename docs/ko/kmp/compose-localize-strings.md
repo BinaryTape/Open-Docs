@@ -1,12 +1,13 @@
-# 문자열 현지화
+# 문자열 지역화
 
-현지화(Localization)는 앱을 다양한 언어, 지역 및 문화적 관습에 맞게 조정하는 과정입니다. 이 가이드에서는 번역 디렉토리를 설정하고, [지역별 형식으로 작업](compose-regional-format.md)하며, [오른쪽에서 왼쪽으로 쓰는 언어(RTL)를 처리](compose-rtl.md)하고, 플랫폼 전반에서 [현지화를 테스트](compose-localization-tests.md)하는 방법을 설명합니다.
+지역화는 앱을 다양한 언어, 지역, 문화적 관습에 맞게 조정하는 과정입니다. 이 가이드는 번역 디렉터리를 설정하고, [지역별 형식으로 작업](compose-regional-format.md)하고, [오른쪽에서 왼쪽 (RTL)으로 쓰는 언어를 처리](compose-rtl.md)하며, [플랫폼 전반에서 지역화를 테스트](compose-localization-tests.md)하는 방법을 설명합니다.
 
-Compose Multiplatform에서 문자열을 현지화하려면, 지원되는 모든 언어로 애플리케이션의 사용자 인터페이스 요소에 대한 번역된 텍스트를 제공해야 합니다. Compose Multiplatform은 공통 리소스 관리 라이브러리와 코드 생성을 제공하여 이러한 과정을 단순화하고 번역에 쉽게 접근할 수 있도록 돕습니다.
+Compose Multiplatform에서 문자열을 지역화하려면, 지원되는 모든 언어로 애플리케이션 사용자 인터페이스 요소에 대한 번역된 텍스트를 제공해야 합니다. Compose Multiplatform은 공통 리소스 관리 라이브러리와 코드 생성을 제공하여 이러한 번역에 쉽게 접근할 수 있도록 이 과정을 간소화합니다.
 
-## 번역 디렉토리 설정
+## 번역 디렉터리 설정
 
-모든 문자열 리소스는 공용 소스 세트(common source set) 내의 전용 `composeResources` 디렉토리에 저장합니다. 기본 텍스트는 `values` 디렉토리에 배치하고, 각 언어에 해당하는 디렉토리를 생성합니다. 다음 구조를 사용합니다:
+모든 문자열 리소스는 공통 소스 세트 내의 전용 `composeResources` 디렉터리에 저장합니다. 기본 텍스트는 `values` 디렉터리에 배치하고, 각 언어에 해당하는 디렉터리를 생성합니다.
+다음 구조를 사용하세요.
 
 ```
 commonMain/composeResources/
@@ -19,7 +20,8 @@ commonMain/composeResources/
 └── ... (other locale directories)
 ```
 
-`values` 디렉토리와 그 현지화된 변형 내에서 `strings.xml` 파일에 키-값 쌍을 사용하여 문자열 리소스를 정의합니다. 예를 들어, 영어 텍스트를 `commonMain/composeResources/values/strings.xml`에 추가합니다:
+`values` 디렉터리와 그 지역화된 변형 내에서 `strings.xml` 파일을 사용하여 키-값 쌍으로 문자열 리소스를 정의합니다.
+예를 들어, 영어 텍스트를 `commonMain/composeResources/values/strings.xml`에 추가합니다.
 
 ```xml
 <resources>
@@ -29,7 +31,7 @@ commonMain/composeResources/
 </resources>
 ```
 
-그 다음, 번역을 위한 해당 현지화 파일을 생성합니다. 예를 들어, 스페인어 번역을 `commonMain/composeResources/values-es/strings.xml`에 추가합니다:
+그런 다음, 번역을 위한 해당 지역화된 파일을 생성합니다. 예를 들어, 스페인어 번역을 `commonMain/composeResources/values-es/strings.xml`에 추가합니다.
 
 ```xml
 <resources>
@@ -41,9 +43,11 @@ commonMain/composeResources/
 
 ## 정적 접근을 위한 클래스 생성
 
-모든 번역을 추가했으면, 프로젝트를 빌드하여 리소스에 접근할 수 있는 특별한 클래스를 생성합니다. Compose Multiplatform은 `composeResources` 내의 `strings.xml` 리소스 파일을 처리하고, 각 문자열 리소스에 대한 정적 접근자 속성(static accessor properties)을 생성합니다.
+모든 번역을 추가했으면, 프로젝트를 빌드하여 리소스에 접근할 수 있는 특수 클래스를 생성합니다.
+Compose Multiplatform은 `composeResources` 내의 `strings.xml` 리소스 파일을 처리하고 각 문자열 리소스에 대한 정적 접근자 속성을 생성합니다.
 
-결과로 생성되는 `Res.strings` 객체를 사용하면 공유 코드에서 현지화된 문자열에 안전하게 접근할 수 있습니다. 앱 UI에 문자열을 표시하려면 `stringResource()` 컴포저블 함수를 사용합니다. 이 함수는 사용자의 현재 로케일(locale)에 따라 올바른 텍스트를 검색합니다:
+결과적으로 생성된 `Res.strings` 객체를 사용하면 공유 코드에서 지역화된 문자열에 안전하게 접근할 수 있습니다.
+앱 UI에 문자열을 표시하려면 `stringResource()` 컴포저블 함수를 사용하세요. 이 함수는 사용자의 현재 로케일을 기반으로 올바른 텍스트를 가져옵니다.
 
 ```kotlin
 import project.composeapp.generated.resources.Res
@@ -56,9 +60,9 @@ fun MyApp() {
 }
 ```
 
-위 예시에서 `welcome_message` 문자열에는 동적인 값을 위한 플레이스홀더(`%s`)가 포함되어 있습니다. 생성된 접근자와 `stringResource()` 함수 모두 이러한 파라미터 전달을 지원합니다.
+위 예시에서 `welcome_message` 문자열은 동적 값을 위한 자리표시자(`%s`)를 포함합니다. 생성된 접근자와 `stringResource()` 함수 모두 이러한 매개변수 전달을 지원합니다.
 
 ## 다음 단계
 
-*   [지역 형식 관리 방법 배우기](compose-regional-format.md)
-*   [오른쪽에서 왼쪽으로 쓰는 언어 처리 알아보기](compose-rtl.md)
+*   [지역별 형식 관리 방법 배우기](compose-regional-format.md)
+*   [오른쪽에서 왼쪽 (RTL)으로 쓰는 언어 처리 읽어보기](compose-rtl.md)

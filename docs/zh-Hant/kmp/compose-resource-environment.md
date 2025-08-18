@@ -1,22 +1,22 @@
 # 管理本地資源環境
 
-你可能需要在應用程式中管理應用程式內設定，允許使用者自訂其體驗，例如變更語言或主題。
-為了動態更新應用程式的資源環境，你可以配置應用程式使用的以下資源相關設定：
+您可能需要管理應用程式內設定，以允許使用者客製化其體驗，例如變更語言或主題。
+為了動態更新應用程式的資源環境，您可以配置應用程式使用的以下資源相關設定：
 
-*   [地區設定 (語言和區域)](#locale)
+*   [語系 (語言與地區)](#locale)
 *   [主題](#theme)
 *   [解析度密度](#density)
 
-## 地區設定
+## 語系
 
-每個平台處理語言和區域等地區設定的方式不同。作為臨時解決方案，在通用公共 API 實作之前，你需要在共用程式碼中定義一個共同的進入點。然後，使用平台特定的 API 為每個平台提供相應的宣告：
+每個平台處理語系設定 (例如語言和地區) 的方式都不同。作為一個暫時性解決方案，在通用公共 API 實作之前，您需要在共享程式碼中定義一個共同進入點。然後，針對每個平台使用平台特定 API 提供對應的宣告：
 
 *   **Android**: [`context.resources.configuration.locale`](https://developer.android.com/reference/android/content/res/Configuration#setLocale(java.util.Locale))
 *   **iOS**: [`NSLocale.preferredLanguages`](https://developer.apple.com/documentation/foundation/nslocale/preferredlanguages)
 *   **desktop**: [`Locale.getDefault()`](https://developer.android.com/reference/java/util/Locale#getDefault(java.util.Locale.Category))
 *   **web**: [`window.navigator.languages`](https://developer.mozilla.org/en-US/docs/Web/API/Navigator/languages)
 
-1.  在通用原始碼集合中，使用 `expect` 關鍵字定義預期的 `LocalAppLocale` 物件：
+1.  在共同來源集中，使用 `expect` 關鍵字定義預期的 `LocalAppLocale` 物件：
 
     ```kotlin
     var customAppLocale by mutableStateOf<String?>(null)
@@ -37,7 +37,7 @@
     }
     ```
 
-2.  在 Android 原始碼集合中，新增使用 `context.resources.configuration.locale` 的 `actual` 實作：
+2.  在 Android 來源集中，新增使用 `context.resources.configuration.locale` 的 `actual` 實作：
 
     ```kotlin
     actual object LocalAppLocale {
@@ -67,8 +67,8 @@
     }
     ```
 
-3.  在 iOS 原始碼集合中，新增修改 `NSLocale.preferredLanguages` 的 `actual` 實作：
- 
+3.  在 iOS 來源集中，新增修改 `NSLocale.preferredLanguages` 的 `actual` 實作：
+
     ```kotlin
     @OptIn(InternalComposeUiApi::class)
     actual object LocalAppLocale {
@@ -91,7 +91,7 @@
     }
     ```
 
-4.  在桌面原始碼集合中，新增使用 `Locale.getDefault()` 更新 JVM 預設地區設定的 `actual` 實作：
+4.  在桌面來源集中，新增使用 `Locale.getDefault()` 更新 JVM 預設語系的 `actual` 實作：
 
     ```kotlin
     actual object LocalAppLocale {
@@ -115,7 +115,7 @@
     }
     ```
 
-5.  對於 Web 平台，繞過 `window.navigator.languages` 屬性的唯讀限制以引入自訂地區設定邏輯：
+5.  對於 Web 平台，繞過 `window.navigator.languages` 屬性的唯讀限制，以引入自訂語系邏輯：
 
     ```kotlin
     external object window {
@@ -167,7 +167,7 @@
 ## 主題 
 
 Compose Multiplatform 透過 `isSystemInDarkTheme()` 定義目前主題。
-各個平台處理主題的方式不同：
+主題在不同平台上的處理方式不同：
 
 *   Android 透過以下位元運算定義主題：
     ```kotlin
@@ -175,10 +175,10 @@ Compose Multiplatform 透過 `isSystemInDarkTheme()` 定義目前主題。
     ```
 *   iOS、桌面和 Web 平台使用 `LocalSystemTheme.current`。
 
-作為臨時解決方案，在通用公共 API 實作之前，你可以使用 `expect-actual` 機制來管理平台特定主題自訂，以解決此差異：
+作為一個暫時性解決方案，在通用公共 API 實作之前，您可以利用 `expect-actual` 機制來處理這種差異，以管理平台特定主題客製化：
 
-1.  在通用程式碼中，使用 `expect` 關鍵字定義預期的 `LocalAppTheme` 物件：
- 
+1.  在共同程式碼中，使用 `expect` 關鍵字定義預期的 `LocalAppTheme` 物件：
+
     ```kotlin
     var customAppThemeIsDark by mutableStateOf<Boolean?>(null)
     expect object LocalAppTheme {
@@ -200,7 +200,7 @@ Compose Multiplatform 透過 `isSystemInDarkTheme()` 定義目前主題。
 
 2.  在 Android 程式碼中，新增使用 `LocalConfiguration` API 的 `actual` 實作：
 
-   ```kotlin
+    ```kotlin
     actual object LocalAppTheme {
         actual val current: Boolean
             @Composable get() = (LocalConfiguration.current.uiMode and UI_MODE_NIGHT_MASK) == UI_MODE_NIGHT_YES
@@ -222,7 +222,7 @@ Compose Multiplatform 透過 `isSystemInDarkTheme()` 定義目前主題。
     }
     ```
 
-3.  在 iOS、桌面和 Web 平台上，你可以直接變更 `LocalSystemTheme`：
+3.  在 iOS、桌面和 Web 平台上，您可以直接變更 `LocalSystemTheme`：
 
     ```kotlin
     @OptIn(InternalComposeUiApi::class)
@@ -243,9 +243,9 @@ Compose Multiplatform 透過 `isSystemInDarkTheme()` 定義目前主題。
     }
     ```
 
-## 密度
+## 解析度密度
 
-若要變更應用程式的解析度 `Density`，你可以使用所有平台支援的通用 `LocalDensity` API：
+要變更應用程式的解析度 `Density`，您可以使用共同的 `LocalDensity` API，所有平台均支援：
 
 ```kotlin
 var customAppDensity by mutableStateOf<Density?>(null)
@@ -272,7 +272,7 @@ fun AppEnvironment(content: @Composable () -> Unit) {
 }
 ```
 
-## 接下來呢？
+## 接下來是什麼？
 
-*   取得有關 [資源限定詞](compose-multiplatform-resources-setup.md#qualifiers) 的更多詳細資訊。
-*   了解如何 [本地化資源](compose-localize-strings.md)。
+*   取得更多關於[資源限定符](compose-multiplatform-resources-setup.md#qualifiers)的詳細資訊。
+*   了解如何[本地化資源](compose-localize-strings.md)。

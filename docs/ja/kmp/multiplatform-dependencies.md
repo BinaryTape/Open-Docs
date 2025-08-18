@@ -4,32 +4,32 @@
 <secondary-label ref="Android Studio"/>
 
 <tldr>
-    <p>このチュートリアルではIntelliJ IDEAを使用しますが、Android Studioでも同様に進めることができます。どちらのIDEもコア機能とKotlin Multiplatformのサポートは共通しています。</p>
+    <p>このチュートリアルではIntelliJ IDEAを使用していますが、Android Studioでも同様に進めることができます。どちらのIDEもコア機能とKotlin Multiplatformのサポートを共有しています。</p>
     <br/>   
-    <p>これは「<strong>共有ロジックとネイティブUIを持つKotlin Multiplatformアプリを作成する</strong>」チュートリアルの第3部です。進む前に、前の手順を完了していることを確認してください。</p>
-    <p><img src="icon-1-done.svg" width="20" alt="First step"/> <a href="multiplatform-create-first-app.md">Kotlin Multiplatformアプリを作成する</a><br/>
-        <img src="icon-2-done.svg" width="20" alt="Second step"/> <a href="multiplatform-update-ui.md">ユーザーインターフェースを更新する</a><br/>
+    <p>これは「<strong>共有ロジックとネイティブUIを備えたKotlin Multiplatformアプリを作成する</strong>」チュートリアルの第3部です。進む前に、前の手順を完了していることを確認してください。</p>
+    <p><img src="icon-1-done.svg" width="20" alt="First step"/> <Links href="/kmp/multiplatform-create-first-app" summary="This tutorial uses IntelliJ IDEA, but you can also follow it in Android Studio – both IDEs share the same core functionality and Kotlin Multiplatform support. This is the first part of the Create a Kotlin Multiplatform app with shared logic and native UI tutorial. Create your Kotlin Multiplatform app Update the user interface Add dependencies Share more logic Wrap up your project">Kotlin Multiplatformアプリを作成する</Links><br/>
+        <img src="icon-2-done.svg" width="20" alt="Second step"/> <Links href="/kmp/multiplatform-update-ui" summary="This tutorial uses IntelliJ IDEA, but you can also follow it in Android Studio – both IDEs share the same core functionality and Kotlin Multiplatform support. This is the second part of the Create a Kotlin Multiplatform app with shared logic and native UI tutorial. Before proceeding, make sure you've completed previous steps. Create your Kotlin Multiplatform app Update the user interface Add dependencies Share more logic Wrap up your project">ユーザーインターフェースを更新する</Links><br/>
         <img src="icon-3.svg" width="20" alt="Third step"/> <strong>依存関係を追加する</strong><br/>
-        <img src="icon-4-todo.svg" width="20" alt="Fourth step"/> さらにロジックを共有する<br/>
-        <img src="icon-5-todo.svg" width="20" alt="Fifth step"/> プロジェクトをまとめる<br/>
+        <img src="icon-4-todo.svg" width="20" alt="Fourth step"/> より多くのロジックを共有する<br/>
+        <img src="icon-5-todo.svg" width="20" alt="Fifth step"/> プロジェクトを完了する<br/>
     </p>
 </tldr>
 
-最初のクロスプラットフォームKotlin Multiplatformプロジェクトはすでに作成しましたね！次に、サードパーティライブラリに依存関係を追加する方法を学びましょう。これは、成功するクロスプラットフォームアプリケーションを構築するために必要です。
+最初のクロスプラットフォームKotlin Multiplatformプロジェクトはすでに作成しましたね！ここでは、成功するクロスプラットフォームアプリケーションを構築するために不可欠な、サードパーティライブラリへの依存関係の追加方法を学びましょう。
 
 ## 依存関係の種類
 
-Kotlin Multiplatformプロジェクトで使用できる依存関係には、次の2種類があります。
+Kotlin Multiplatformプロジェクトで利用できる依存関係には、次の2種類があります。
 
-*   _マルチプラットフォーム依存関係_。これらは複数のターゲットをサポートするマルチプラットフォームライブラリであり、共通ソースセットである`commonMain`で使用できます。
+* _Multiplatform依存関係_。これらは、複数のターゲットをサポートし、共通ソースセット `commonMain` で使用できるマルチプラットフォームライブラリです。
 
-    多くの最新のAndroidライブラリは、[Koin](https://insert-koin.io/)、[Apollo](https://www.apollographql.com/)、[Okio](https://square.github.io/okio/)のようにすでにマルチプラットフォーム対応しています。Kotlin Multiplatformライブラリを見つけるためのJetBrainsによる実験的な検索サービスである[klibs.io](https://klibs.io/)で、さらに多くのマルチプラットフォームライブラリを見つけることができます。
+  多くの最新のAndroidライブラリは、すでに[Koin](https://insert-koin.io/)、[Apollo](https://www.apollographql.com/)、[Okio](https://square.github.io/okio/)のようにマルチプラットフォームをサポートしています。JetBrainsが提供するKotlin Multiplatformライブラリ発見のための実験的な検索サービスである[klibs.io](https://klibs.io/)で、さらに多くのマルチプラットフォームライブラリを見つけることができます。
 
-*   _ネイティブ依存関係_。これらは関連するエコシステムの通常のライブラリです。ネイティブプロジェクトでは、AndroidにはGradle、iOSにはCocoaPodsまたは他の依存関係マネージャーを使用して、これらを扱います。
-    
-    共有モジュールを扱う場合、通常、セキュリティストレージなどのプラットフォームAPIを使用したい場合には、ネイティブ依存関係が必要になります。ネイティブ依存関係は、ネイティブソースセットである`androidMain`および`iosMain`に追加できます。
+* _ネイティブ依存関係_。これらは関連するエコシステムの通常のライブラリです。ネイティブプロジェクトでは、AndroidではGradleを、iOSではCocoaPodsまたは別の依存関係マネージャーを使用して作業するのが一般的です。
+  
+  共有モジュールで作業する場合、通常、セキュリティストレージなどのプラットフォームAPIを使用したい場合は、依然としてネイティブ依存関係が必要です。ネイティブ依存関係は、ネイティブソースセット `androidMain` および `iosMain` に追加できます。
 
-どちらの種類の依存関係に対しても、ローカルリポジトリと外部リポジトリを使用できます。
+どちらのタイプの依存関係でも、ローカルおよび外部リポジトリを使用できます。
 
 ## マルチプラットフォーム依存関係を追加する
 
@@ -37,10 +37,10 @@ Kotlin Multiplatformプロジェクトで使用できる依存関係には、次
 >
 {style="tip"}
 
-アプリに戻り、挨拶をもう少し祝祭的なものにしましょう。デバイス情報に加えて、元日まで残りの日数を表示する機能を追加します。完全なマルチプラットフォームサポートを持つ`kotlinx-datetime`ライブラリは、共有コードで日付を扱う最も便利な方法です。
+アプリに戻って、挨拶を少しお祝いムードにしてみましょう。デバイス情報に加えて、新年までの残り日数を表示する関数を追加します。`kotlinx-datetime`ライブラリは、完全にマルチプラットフォームをサポートしており、共有コードで日付を扱う最も便利な方法です。
 
-1.  `shared`ディレクトリにある`build.gradle.kts`ファイルを開きます。
-2.  次の依存関係とKotlin timeオプトインを`commonMain`ソースセットの依存関係に追加します。
+1. `shared`ディレクトリにある`build.gradle.kts`ファイルを開きます。
+2. 次の依存関係とKotlin time opt-inを`commonMain`ソースセットの依存関係に追加します。
 
     ```kotlin
     kotlin {
@@ -54,9 +54,9 @@ Kotlin Multiplatformプロジェクトで使用できる依存関係には、次
     }
     ```
 
-3.  **Gradleの変更を同期**ボタンをクリックして、Gradleファイルを同期します。 ![Synchronize Gradle files](gradle-sync.png){width=50}
-4.  `shared/src/commonMain/kotlin`にある、`Greeting.kt`ファイルと同じプロジェクトディレクトリに、新しいファイル`NewYear.kt`を作成します。
-5.  `date-time`日付演算を使用して、今日から新年までの日数を計算する短い関数でファイルを更新します。
+3. **Sync Gradle Changes**ボタンをクリックして、Gradleファイルを同期します。 ![Synchronize Gradle files](gradle-sync.png){width=50}
+4. `shared/src/commonMain/kotlin`内で、`Greeting.kt`ファイルがあるプロジェクトディレクトリに、新しいファイル`NewYear.kt`を作成します。
+5. `date-time`の日付計算を使用して、今日から新年までの日数を計算する短い関数でファイルを更新します。
    
    ```kotlin
    import kotlinx.datetime.*
@@ -71,7 +71,7 @@ Kotlin Multiplatformプロジェクトで使用できる依存関係には、次
    fun daysPhrase(): String = "There are only ${daysUntilNewYear()} days left until New Year! 🎆"
    ```
 
-6.  `Greeting.kt`で、結果を確認するために`Greeting`クラスを更新します。
+6. `Greeting.kt`で、結果を確認するために`Greeting`クラスを更新します。
     
     ```kotlin
     class Greeting {
@@ -85,7 +85,7 @@ Kotlin Multiplatformプロジェクトで使用できる依存関係には、次
     }
     ```
 
-7.  結果を確認するには、IntelliJ IDEAから**composeApp**および**iosApp**の構成を再実行します。
+7. 結果を確認するには、IntelliJ IDEAから**composeApp**と**iosApp**の構成を再実行します。
 
 ![Updated mobile multiplatform app with external dependencies](first-multiplatform-project-3.png){width=500}
 
@@ -95,13 +95,13 @@ Kotlin Multiplatformプロジェクトで使用できる依存関係には、次
 
 **[次のパートに進む](multiplatform-upgrade-app.md)**
 
-### 参照
+### 関連項目
 
-*   あらゆる種類のマルチプラットフォーム依存関係（[Kotlinライブラリ、Kotlin Multiplatformライブラリ、その他のマルチプラットフォームプロジェクト](multiplatform-add-dependencies.md)）を扱う方法について学ぶ。
-*   プラットフォーム固有のソースセットで使用する[Android依存関係](multiplatform-android-dependencies.md)および[CocoaPodsを使用するか否かに関わらずiOS依存関係](multiplatform-ios-dependencies.md)を追加する方法について学ぶ。
-*   サンプルプロジェクトで[AndroidおよびiOSライブラリを使用する方法](multiplatform-samples.md)の例を確認する。
+* あらゆる種類のマルチプラットフォーム依存関係の操作方法について説明します：[Kotlinライブラリ、Kotlin Multiplatformライブラリ、その他のマルチプラットフォームプロジェクト](multiplatform-add-dependencies.md)。
+* プラットフォーム固有のソースセットで使用するための[Android依存関係の追加方法](multiplatform-android-dependencies.md)と、[CocoaPodsを使用するかどうかにかかわらずiOS依存関係の追加方法](multiplatform-ios-dependencies.md)を学びます。
+* サンプルプロジェクトで[AndroidおよびiOSライブラリを使用する方法](multiplatform-samples.md)の例を確認します。
 
 ## ヘルプ
 
-*   **Kotlin Slack**。[招待を受け取り](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up)、[#multiplatform](https://kotlinlang.slack.com/archives/C3PQML5NU)チャンネルに参加してください。
-*   **Kotlin課題トラッカー**。[新しい問題を報告する](https://youtrack.jetbrains.com/newIssue?project=KT)。
+* **Kotlin Slack**。[招待を受け取り](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up)、[#multiplatform](https://kotlinlang.slack.com/archives/C3PQML5NU)チャンネルに参加してください。
+* **Kotlinイシュートラッカー**。[新しいイシューを報告する](https://youtrack.jetbrains.com/newIssue?project=KT)。

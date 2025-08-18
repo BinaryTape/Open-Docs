@@ -8,7 +8,7 @@
 
 從高層次來看，策略圖包含以下組件：
 
-- **策略 (Strategy)**：圖的頂層容器，使用 `strategy` 函數建立。
+- **策略 (Strategy)**：圖的頂層容器，使用 `strategy` 函數建立，並透過泛型參數指定輸入和輸出類型。
 - **子圖 (Subgraphs)**：圖的區段，可以有自己的工具集和上下文。
 - **節點 (Nodes)**：工作流程中的個別操作或轉換。
 - **邊緣 (Edges)**：定義轉換條件和轉換的節點之間的連接。
@@ -29,13 +29,25 @@ Koog 框架提供了預定義的節點，也允許您使用 `node` 函數建立�
 
 邊緣連接節點並定義策略圖中的操作流程。邊緣使用 `edge` 函數和 `forwardTo` 中綴函數建立：
 
+<!--- INCLUDE
+import ai.koog.agents.core.dsl.builder.forwardTo
+import ai.koog.agents.core.dsl.builder.strategy
+
+val strategy = strategy<String, String>("strategy_name") {
+        val sourceNode by node<String, String> { input -> input }
+        val targetNode by node<String, String> { input -> input }
+-->
+<!--- SUFFIX
+}
+-->
 ```kotlin
 edge(sourceNode forwardTo targetNode)
 ```
+<!--- KNIT example-custom-strategy-graphs-01.kt -->
 
 #### 條件 (Conditions)
 
-條件決定何時遵循策略圖中的特定邊緣。條件有幾種類型：
+條件決定何時遵循策略圖中的特定邊緣。條件有幾種類型，以下是一些常見的類型：
 
 | 條件類型            | 描述                                                                           |
 |---------------------|--------------------------------------------------------------------------------|
@@ -47,32 +59,71 @@ edge(sourceNode forwardTo targetNode)
 
 您可以使用 `transformed` 函數在將輸出傳遞給目標節點之前對其進行轉換：
 
+<!--- INCLUDE
+import ai.koog.agents.core.dsl.builder.forwardTo
+import ai.koog.agents.core.dsl.builder.strategy
+
+val strategy = strategy<String, String>("strategy_name") {
+        val sourceNode by node<String, String> { input -> input }
+        val targetNode by node<String, String> { input -> input }
+-->
+<!--- SUFFIX
+}
+-->
 ```kotlin
 edge(sourceNode forwardTo targetNode 
         onCondition { input -> input.length > 10 }
         transformed { input -> input.uppercase() }
 )
 ```
+<!--- KNIT example-custom-strategy-graphs-02.kt -->
 
 ### 子圖 (Subgraphs)
 
 子圖是策略圖的區段，它們擁有自己的工具集和上下文。策略圖可以包含多個子圖。每個子圖都使用 `subgraph` 函數定義：
 
+<!--- INCLUDE
+import ai.koog.agents.core.dsl.builder.strategy
+
+typealias Input = String
+typealias Output = Int
+
+typealias FirstInput = String
+typealias FirstOutput = Int
+
+typealias SecondInput = String
+typealias SecondOutput = Int
+-->
 ```kotlin
-val strategy = strategy("strategy-name") {
-    val firstSubgraph by subgraph("first") {
+val strategy = strategy<Input, Output>("strategy-name") {
+    val firstSubgraph by subgraph<FirstInput, FirstOutput>("first") {
         // Define nodes and edges for this subgraph
     }
-    val secondSubgraph by subgraph("second") {
+    val secondSubgraph by subgraph<SecondInput, SecondOutput>("second") {
         // Define nodes and edges for this subgraph
     }
 }
 ```
+<!--- KNIT example-custom-strategy-graphs-03.kt -->
+
 子圖可以使用工具註冊表中的任何工具。但是，您可以指定此註冊表中可用於子圖的工具子集，並將其作為參數傳遞給 `subgraph` 函數：
 
+<!--- INCLUDE
+import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.ext.tool.SayToUser
+
+typealias Input = String
+typealias Output = Int
+
+typealias FirstInput = String
+typealias FirstOutput = Int
+
+val someTool = SayToUser
+
+-->
 ```kotlin
-val strategy = strategy("strategy-name") {
-    val firstSubgraph by subgraph(
+val strategy = strategy<Input, Output>("strategy-name") {
+    val firstSubgraph by subgraph<FirstInput, FirstOutput>(
         name = "first",
         tools = listOf(someTool)
     ) {
@@ -81,6 +132,7 @@ val strategy = strategy("strategy-name") {
    // Define other subgraphs
 }
 ```
+<!--- KNIT example-custom-strategy-graphs-04.kt -->
 
 ## 基本策略圖建立
 
@@ -97,8 +149,18 @@ val strategy = strategy("strategy-name") {
 
 以下是一個基本策略圖的範例：
 
+<!--- INCLUDE
+import ai.koog.agents.core.dsl.builder.forwardTo
+import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.extension.nodeExecuteTool
+import ai.koog.agents.core.dsl.extension.nodeLLMRequest
+import ai.koog.agents.core.dsl.extension.nodeLLMSendToolResult
+import ai.koog.agents.core.dsl.extension.onAssistantMessage
+import ai.koog.agents.core.dsl.extension.onToolCall
+
+-->
 ```kotlin
-val myStrategy = strategy("my-strategy") {
+val myStrategy = strategy<String, String>("my-strategy") {
     val nodeCallLLM by nodeLLMRequest()
     val executeToolCall by nodeExecuteTool()
     val sendToolResult by nodeLLMSendToolResult()
@@ -111,6 +173,8 @@ val myStrategy = strategy("my-strategy") {
     edge(sendToolResult forwardTo executeToolCall onToolCall { true })
 }
 ```
+<!--- KNIT example-custom-strategy-graphs-05.kt -->
+
 ## 進階策略技巧
 
 ### 歷史壓縮 (History compression)
@@ -121,6 +185,19 @@ val myStrategy = strategy("my-strategy") {
 
 對於需要並行執行多個工具的工作流程，您可以使用 `nodeExecuteMultipleTools` 節點：
 
+<!--- INCLUDE
+import ai.koog.agents.core.dsl.builder.forwardTo
+import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.extension.nodeExecuteMultipleTools
+import ai.koog.agents.core.dsl.extension.nodeLLMSendMultipleToolResults
+import ai.koog.prompt.message.Message
+
+val strategy = strategy<String, String>("strategy_name") {
+    val someNode by node<String, List<Message.Tool.Call>> { emptyList() }
+-->
+<!--- SUFFIX
+}
+-->
 ```kotlin
 val executeMultipleTools by nodeExecuteMultipleTools()
 val processMultipleResults by nodeLLMSendMultipleToolResults()
@@ -128,19 +205,68 @@ val processMultipleResults by nodeLLMSendMultipleToolResults()
 edge(someNode forwardTo executeMultipleTools)
 edge(executeMultipleTools forwardTo processMultipleResults)
 ```
+<!--- KNIT example-custom-strategy-graphs-06.kt -->
 
 您還可以使用 `toParallelToolCallsRaw` 擴充函數來串流資料：
 
+<!--- INCLUDE
+/*
+-->
+<!--- SUFFIX
+*/
+-->
 ```kotlin
 parseMarkdownStreamToBooks(markdownStream).toParallelToolCallsRaw(BookTool::class).collect()
 ```
+<!--- KNIT example-custom-strategy-graphs-07.kt -->
 
 要了解更多，請參閱 [工具](tools-overview.md#parallel-tool-calls)。
+
+### 並行節點執行 (Parallel node execution)
+
+並行節點執行可讓您同時執行多個節點，從而提高效能並實現複雜的工作流程。
+
+若要啟動並行節點執行，請使用 `parallel` 方法：
+
+<!--- INCLUDE
+import ai.koog.agents.core.dsl.builder.strategy
+
+val strategy = strategy<String, String>("strategy_name") {
+    val nodeCalcTokens by node<String, Int> { 42 }
+    val nodeCalcSymbols by node<String, Int> { 42 }
+    val nodeCalcWords by node<String, Int> { 42 }
+
+-->
+<!--- SUFFIX
+}
+-->
+```kotlin
+val calc by parallel<String, Int>(
+    nodeCalcTokens, nodeCalcSymbols, nodeCalcWords,
+) {
+    selectByMax { it }
+}
+```
+<!--- KNIT example-custom-strategy-graphs-08.kt -->
+
+上面的程式碼建立了一個名為 `calc` 的節點，它會並行執行 `nodeCalcTokens`、`nodeCalcSymbols` 和 `nodeCalcWords` 節點，並將結果作為 `AsyncParallelResult` 的實例返回。
+
+有關並行節點執行以及詳細參考的更多資訊，請參閱 [並行節點執行](parallel-node-execution.md)。
 
 ### 條件分支 (Conditional branching)
 
 對於需要根據特定條件採取不同路徑的複雜工作流程，您可以使用條件分支：
 
+<!--- INCLUDE
+import ai.koog.agents.core.dsl.builder.forwardTo
+import ai.koog.agents.core.dsl.builder.strategy
+
+val strategy = strategy<String, String>("strategy_name") {
+    val someNode by node<String, String> { it }
+-->
+<!--- SUFFIX
+}
+-->
 ```kotlin
 val branchA by node<String, String> { input ->
     // Logic for branch A
@@ -161,6 +287,7 @@ edge(
             onCondition { input -> input.contains("B") }
 )
 ```
+<!--- KNIT example-custom-strategy-graphs-09.kt -->
 
 ## 最佳實踐
 
@@ -181,13 +308,26 @@ edge(
 
 語氣分析策略是包含歷史壓縮的基於工具策略的一個好範例：
 
+<!--- INCLUDE
+import ai.koog.agents.core.agent.entity.AIAgentStrategy
+import ai.koog.agents.core.dsl.builder.forwardTo
+import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.extension.nodeExecuteTool
+import ai.koog.agents.core.dsl.extension.nodeLLMCompressHistory
+import ai.koog.agents.core.dsl.extension.nodeLLMRequest
+import ai.koog.agents.core.dsl.extension.nodeLLMSendToolResult
+import ai.koog.agents.core.dsl.extension.onAssistantMessage
+import ai.koog.agents.core.dsl.extension.onToolCall
+import ai.koog.agents.core.environment.ReceivedToolResult
+import ai.koog.agents.core.tools.ToolRegistry
+-->
 ```kotlin
-fun toneStrategy(name: String, toolRegistry: ToolRegistry): AIAgentStrategy {
+fun toneStrategy(name: String, toolRegistry: ToolRegistry): AIAgentStrategy<String, String> {
     return strategy(name) {
         val nodeSendInput by nodeLLMRequest()
         val nodeExecuteTool by nodeExecuteTool()
         val nodeSendToolResult by nodeLLMSendToolResult()
-        val nodeCompressHistory by nodeLLMCompressHistory<Message.Tool.Result>()
+        val nodeCompressHistory by nodeLLMCompressHistory<ReceivedToolResult>()
 
         // Define the flow of the agent
         edge(nodeStart forwardTo nodeSendInput)
@@ -232,6 +372,7 @@ fun toneStrategy(name: String, toolRegistry: ToolRegistry): AIAgentStrategy {
     }
 }
 ```
+<!--- KNIT example-custom-strategy-graphs-10.kt -->
 
 此策略執行以下操作：
 

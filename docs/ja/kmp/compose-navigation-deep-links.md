@@ -1,26 +1,26 @@
 [//]: # (title: ディープリンク)
 
-ディープリンクは、オペレーティングシステムがカスタムリンクを処理し、ユーザーを対応するアプリの特定の宛先に誘導できるようにするナビゲーションメカニズムです。
+ディープリンクは、オペレーティングシステムがカスタムリンクを処理し、ユーザーを対応するアプリ内の特定の宛先に誘導できるようにするナビゲーションメカニズムです。
 
-ディープリンクは、アプリリンク（Androidでの名称）やユニバーサルリンク（iOSでの用語）のより一般的なケースです。これらは、アプリと特定のWebアドレスとの検証済みの接続です。詳細については、[Android App Links](https://developer.android.com/training/app-links)および[iOS universal links](https://developer.apple.com/documentation/xcode/allowing-apps-and-websites-to-link-to-your-content/)のドキュメントを参照してください。
+ディープリンクは、アプリリンク（Androidでの呼び方）やユニバーサルリンク（iOSの用語）のより一般的なケースです。これらは、アプリと特定のWebアドレスとの間の検証済み接続です。これらについて具体的に学ぶには、[Androidアプリリンク](https://developer.android.com/training/app-links)および[iOSユニバーサルリンク](https://developer.apple.com/documentation/xcode/allowing-apps-and-websites-to-link-to-your-content/)に関するドキュメントを参照してください。
 
-ディープリンクは、アプリに外部入力を取得するためにも役立ちます。例えば、OAuth認証の場合です。ユーザーを視覚的にナビゲートすることなく、ディープリンクをパースしてOAuthトークンを取得できます。
+ディープリンクは、アプリに外部入力を取得するためにも役立ちます。たとえば、OAuth認証の場合です。ユーザーを視覚的にナビゲートすることなく、ディープリンクを解析してOAuthトークンを取得できます。
 
 > 外部入力は悪意のあるものである可能性があるため、生のディープリンクURIの処理に関連するリスクを適切に軽減するために、[セキュリティガイドライン](https://developer.android.com/privacy-and-security/risks/unsafe-use-of-deeplinks)に必ず従ってください。
->
+> 
 {style="warning"}
 
 Compose Multiplatformでディープリンクを実装するには：
 
-1.  [ディープリンクスキーマをアプリの設定に登録する](#register-deep-links-schemas-in-the-operating-system)
-2.  [特定のディープリンクをナビゲーショングラフの宛先に割り当てる](#assign-deep-links-to-destinations)
-3.  [アプリで受信したディープリンクを処理する](#handle-received-deep-links)
+1.  [アプリ構成でディープリンクスキーマを登録する](#register-deep-links-schemas-in-the-operating-system)
+2.  [ナビゲーショングラフ内の宛先に特定のディープリンクを割り当てる](#assign-deep-links-to-destinations)
+3.  [アプリが受信したディープリンクを処理する](#handle-received-deep-links)
 
 ## セットアップ
 
 Compose Multiplatformでディープリンクを使用するには、以下のように依存関係を設定します。
 
-これらのバージョン、ライブラリ、およびプラグインをGradleカタログにリストします。
+これらのバージョン、ライブラリ、およびプラグインをGradleカタログにリストアップします。
 
 ```ini
 [versions]
@@ -48,7 +48,7 @@ kotlinx-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", vers
 android-application = { id = "com.android.application", version.ref = "agp" }
 ```
 
-`build.gradle.kts`の共有モジュールに以下の追加依存関係を追加します。
+`build.gradle.kts` の共有モジュールに以下の追加依存関係を追加します。
 
 ```kotlin
 plugins {
@@ -70,60 +70,46 @@ kotlin {
 }
 ```
 
-## オペレーティングシステムでのディープリンクスキーマの登録
+## オペレーティングシステムにディープリンクスキーマを登録する
 
-各オペレーティングシステムは、ディープリンクの独自の処理方法を持っています。
-特定のターゲットのドキュメントを参照する方が確実です。
+各オペレーティングシステムには、ディープリンクを処理する方法が独自にあります。特定のターゲットに関するドキュメントを参照するのがより確実です。
 
-*   Androidアプリの場合、ディープリンクスキーマは`AndroidManifest.xml`ファイルでインテントフィルターとして宣言されます。
-    インテントフィルターを適切に設定する方法については、[Androidドキュメント](https://developer.android.com/training/app-links/deep-linking?hl=en#adding-filters)を参照してください。
-*   iOSおよびmacOSアプリの場合、ディープリンクスキーマは`Info.plist`ファイルで、[`CFBundleURLTypes`](https://developer.apple.com/documentation/bundleresources/information-property-list/cfbundleurltypes)キー内に宣言されます。
+*   Androidアプリの場合、ディープリンクスキーマは `AndroidManifest.xml` ファイルのインテントフィルターとして宣言されます。インテントフィルターを適切に設定する方法については、[Androidドキュメント](https://developer.android.com/training/app-links/deep-linking?hl=en#adding-filters)を参照してください。
+*   iOSおよびmacOSアプリの場合、ディープリンクスキーマは `Info.plist` ファイルの[`CFBundleURLTypes`](https://developer.apple.com/documentation/bundleresources/information-property-list/cfbundleurltypes)キー内に宣言されます。
 
-    > Compose Multiplatformは、macOSアプリの`Info.plist`に値を追加するための[Gradle DSL](compose-native-distribution.md#information-property-list-on-macos)を提供します。
-    > iOSの場合、KMPプロジェクトでファイルを直接編集するか、[Xcode GUIを使用してスキーマを登録](https://developer.apple.com/documentation/xcode/defining-a-custom-url-scheme-for-your-app#Register-your-URL-scheme)できます。
+    > Compose Multiplatformは、macOSアプリの `Info.plist` に値を追加するための[Gradle DSL](compose-native-distribution.md#information-property-list-on-macos)を提供します。iOSの場合、KMPプロジェクトでファイルを直接編集するか、[Xcode GUIを使用してスキーマを登録](https://developer.apple.com/documentation/xcode/defining-a-custom-url-scheme-for-your-app#Register-your-URL-scheme)できます。
     >
     {style="note"}
-*   Windowsアプリの場合、ディープリンクスキーマは、[必要な情報を含むキーをWindowsレジストリに追加](https://learn.microsoft.com/en-us/previous-versions/windows/internet-explorer/ie-developer/platform-apis/aa767914(v=vs.85))する（Windows 8以前の場合）、
-    または[パッケージマニフェストで拡張機能を指定](https://learn.microsoft.com/en-us/windows/apps/develop/launch/handle-uri-activation)する（Windows 10および11の場合）ことで宣言できます。
-    これは、インストールスクリプトまたは[Hydraulic Conveyor](https://conveyor.hydraulic.dev/)のようなサードパーティの配布パッケージジェネレーターを使用して実行できます。
-    Compose Multiplatformは、プロジェクト内でこれを設定することをサポートしていません。
-
+*   Windowsアプリの場合、ディープリンクスキーマは、[必要な情報をWindowsレジストリに追加するキー](https://learn.microsoft.com/en-us/previous-versions/windows/internet-explorer/ie-developer/platform-apis/aa767914(v=vs.85))（Windows 8以前の場合）または[パッケージマニフェストで拡張機能を指定する](https://learn.microsoft.com/en-us/windows/apps/develop/launch/handle-uri-activation)（Windows 10および11の場合）ことによって宣言できます。これは、インストールスクリプトまたは[Hydraulic Conveyor](https://conveyor.hydraulic.dev/)などのサードパーティの配布パッケージジェネレーターを使用して実行できます。Compose Multiplatformは、プロジェクト自体内でこれを構成することをサポートしていません。
+    
     > [Windowsによって予約されているスキーマ](https://learn.microsoft.com/en-us/windows/apps/develop/launch/reserved-uri-scheme-names#reserved-uri-scheme-names)のいずれかを使用していないことを確認してください。
     >
     {style="tip"}
-*   Linuxの場合、ディープリンクスキーマは配布物に含まれる`.desktop`ファイルに登録できます。
+*   Linuxの場合、ディープリンクスキーマは配布物に含まれる `.desktop` ファイルに登録できます。
 
-## ディープリンクの宛先への割り当て
+## 宛先にディープリンクを割り当てる
 
-ナビゲーショングラフの一部として宣言された宛先には、対応する`NavDeepLink`オブジェクトのリストを保持できるオプションの`deepLinks`パラメータがあります。
-各`NavDeeplink`は、宛先に一致する必要があるURIパターンを記述します。同じ画面に誘導する複数のURIパターンを定義できます。
+ナビゲーショングラフの一部として宣言された宛先には、対応する `NavDeepLink` オブジェクトのリストを保持できるオプションの `deepLinks` パラメーターがあります。各 `NavDeepLink` は、宛先に一致するURIパターンを記述します。同じ画面につながる複数のURIパターンを定義できます。
 
 ルートに対して定義できるディープリンクの数に制限はありません。
 
 ### ディープリンクの一般的なURIパターン
 
-一般的なURIパターンは、URI全体と一致する必要があります。
-宛先内で受信したURIからパラメータを抽出するために、パラメータのプレースホルダーを使用できます。
+一般的なURIパターンは、URI全体に一致する必要があります。宛先内で受信したURIからパラメーターを抽出するために、パラメーターのプレースホルダーを使用できます。
 
 一般的なURIパターンのルール：
 
-*   スキーマのないURIは、`http://`または`https://`で始まるものとみなされます。
-    したがって、`uriPattern = "example.com"`は`http://example.com`および`https://example.com`と一致します。
-*   `{placeholder}`は1文字以上と一致します（`example.com/name={name}`は`https://example.com/name=Bob`と一致します）。
-    0文字以上と一致させるには、`.*`ワイルドカードを使用します（`example.com/name={.*}`は`https://example.com/name=`および`name`の任意の値と一致します）。
-*   パスプレースホルダーのパラメータは必須ですが、クエリプレースホルダーとの一致はオプションです。
-    例えば、パターン`example.com/users/{id}?arg1={arg1}&arg2={arg2}`では：
-    *   `http://www.example.com/users?arg1=one&arg2=two`とは一致しません。パスの必須部分（`id`）が不足しているためです。
-    *   `http://www.example.com/users/4?arg2=two`と`http://www.example.com/users/4?arg1=one`の両方と一致します。
-    *   `http://www.example.com/users/4?other=random`とも一致します。余分なクエリパラメータはマッチングに影響しないためです。
-*   複数のコンポーザブルに、受信したURIと一致する`navDeepLink`がある場合、動作は不定です。
-    ディープリンクパターンが交差しないようにしてください。
-    複数のコンポーザブルが同じディープリンクパターンを処理する必要がある場合は、パスまたはクエリパラメータの追加を検討するか、中間的な宛先を使用してユーザーを予測可能な方法でルーティングしてください。
+*   スキームのないURIは、`http://` または `https://` で始まると見なされます。そのため、`uriPattern = "example.com"` は `http://example.com` および `https://example.com` に一致します。
+*   `{placeholder}` は1文字以上に一致します（`example.com/name={name}` は `https://example.com/name=Bob` に一致します）。0文字以上に一致させるには、`.*` ワイルドカードを使用します（`example.com/name={.*}` は `https://example.com/name=` および任意の `name` の値に一致します）。
+*   パスプレースホルダーのパラメーターは必須ですが、クエリプレースホルダーのマッチングはオプションです。たとえば、パターン `example.com/users/{id}?arg1={arg1}&arg2={arg2}` は：
+    *   必須のパスの一部（`id`）が不足しているため、`http://www.example.com/users?arg1=one&arg2=two` には一致しません。
+    *   `http://www.example.com/users/4?arg2=two` と `http://www.example.com/users/4?arg1=one` の両方に一致します。
+    *   余分なクエリパラメーターはマッチングに影響しないため、`http://www.example.com/users/4?other=random` にも一致します。
+*   複数のコンポーザブルが受信したURIに一致する `navDeepLink` を持っている場合、動作は不定です。ディープリンクパターンが交差しないようにしてください。同じディープリンクパターンを複数のコンポーザブルで処理する必要がある場合は、パスまたはクエリパラメーターを追加するか、中間宛先を使用してユーザーを予測可能にルーティングすることを検討してください。
 
-### ルートタイプのために生成されるURIパターン
+### ルートタイプの生成されたURIパターン
 
-URIパターンを完全に記述するのを避けることができます。
-Navigationライブラリは、ルートのパラメータに基づいてURIパターンを自動的に生成できます。
+URIパターンを完全に記述するのを避けることができます。Navigationライブラリは、ルートのパラメーターに基づいてURIパターンを自動的に生成できます。
 
 このアプローチを使用するには、次のようにディープリンクを定義します。
 
@@ -135,16 +121,16 @@ composable<PlantDetail>(
 ) { ... }
 ```
 
-ここで`PlantDetail`は宛先に使用しているルートタイプであり、`basePath`の「plant」は`PlantDetail`データクラスのシリアル名です。
+ここで `PlantDetail` は宛先に使用しているルートタイプであり、`basePath` の "plant" は `PlantDetail` データクラスのシリアル名です。
 
-URIの残りの部分は次のように生成されます。
+URIの残りの部分は、次のように生成されます。
 
-*   必須パラメータはパスパラメータとして追加されます（例: `/{id}`)
-*   デフォルト値を持つパラメータ（オプションパラメータ）はクエリパラメータとして追加されます（例: `?name={name}`）
-*   コレクションはクエリパラメータとして追加されます（例: `?items={value1}&items={value2}`）
-*   パラメータの順序は、ルート定義のフィールドの順序と一致します。
+*   必須パラメーターはパスパラメーターとして追加されます（例：`/{id}`)
+*   デフォルト値を持つパラメーター（オプションパラメーター）はクエリパラメーターとして追加されます（例：`?name={name}`)
+*   コレクションはクエリパラメーターとして追加されます（例：`?items={value1}&items={value2}`)
+*   パラメーターの順序は、ルート定義のフィールドの順序と一致します。
 
-したがって、例えば、このルートタイプは次のようになります。
+したがって、たとえばこのルートタイプ：
 
 ```kotlin
 @Serializable data class PlantDetail(
@@ -155,15 +141,15 @@ URIの残りの部分は次のように生成されます。
 )
 ```
 
-ライブラリによって次のURIパターンが生成されます。
+は、ライブラリによって以下の生成されたURIパターンを持ちます。
 
 ```none
 <basePath>/{id}/{name}/?colors={color1}&colors={color2}&latinName={latinName}
 ```
 
-### 宛先へのディープリンクの追加例
+### 宛先にディープリンクを追加する例
 
-この例では、複数のディープリンクを宛先に割り当て、受信したURIからパラメータ値を抽出します。
+この例では、複数のディープリンクを宛先に割り当て、受信したURIからパラメーター値を抽出します。
 
 ```kotlin
 @Serializable @SerialName("dlscreen") data class DeepLinkScreen(val name: String)
@@ -204,12 +190,9 @@ NavHost(
 }
 ```
 
-Webの場合、ディープリンクは少し異なります。Compose Multiplatform for Webはシングルページアプリを作成するため、
-ディープリンクURIパターンのすべてのパラメータをURLフラグメント（`#`文字の後）に配置し、
-すべてのパラメータがURLエンコードされていることを確認する必要があります。
+ウェブの場合、ディープリンクは少し異なります。Compose Multiplatform for Webはシングルページアプリを作成するため、ディープリンクURIパターンのすべてのパラメーターをURLフラグメント（`#` 文字の後）に配置し、すべてのパラメーターがURLエンコードされていることを確認する必要があります。
 
-URLフラグメントがURIパターンルールに準拠している場合でも、`backStackEntry.toRoute()`メソッドを使用してパラメータをパースできます。
-WebアプリでのURLへのアクセスとパースの詳細、およびブラウザでのナビゲーションの特殊性については、[](compose-navigation-routing.md#support-for-browser-navigation-in-web-apps)を参照してください。
+URLフラグメントがURIパターンルールに準拠している場合でも、`backStackEntry.toRoute()` メソッドを使用してパラメーターを解析できます。WebアプリでURLにアクセスして解析する方法、およびブラウザでのナビゲーションの詳細については、[未定義](compose-navigation-routing.md#support-for-browser-navigation-in-web-apps)を参照してください。
 
 ```kotlin
 composable<DeepLinkScreen>(
@@ -221,25 +204,23 @@ composable<DeepLinkScreen>(
     ) { ... }
 ```
 
-> 他のシングルページWebアプリと同様に、WebでURLフラグメントを使用しないようにすることも可能です。
-> そのためには、Webサーバーを構成して適切なリクエストをアプリにリダイレクトし、[ナビゲーションルートとブラウザアドレスのデフォルトのマッピングを書き換える](compose-navigation-routing.md#full-url-customization)必要があります。
+> 他のシングルページWebアプリと同様に、Web上でURLフラグメントの使用を避けることができます。そのためには、Webサーバーを構成して適切なリクエストをアプリにリダイレクトさせ、[ナビゲーションルートのブラウザアドレスへのデフォルトマッピング](compose-navigation-routing.md#full-url-customization)を書き換える必要があります。
 >
 {style="tip"}
 
-## 受信したディープリンクの処理
+## 受信したディープリンクを処理する
 
-Androidでは、アプリに送信されたディープリンクURIは、ディープリンクをトリガーした`Intent`の一部として利用できます。
-クロスプラットフォームの実装には、ディープリンクをリッスンするための普遍的な方法が必要です。
+Androidでは、アプリに送信されるディープリンクURIは、ディープリンクをトリガーした `Intent` の一部として利用できます。クロスプラットフォームの実装には、ディープリンクをリッスンするための普遍的な方法が必要です。
 
-最小限の実装を作成しましょう。
+最小限の実装を作成しましょう：
 
-1.  外部URIのリスナーを持つURIを保存およびキャッシュするためのシングルトンを共通コードで宣言します。
+1.  共通コードで、URIの保存とキャッシュを行うシングルトンと、外部URIのリスナーを宣言します。
 2.  必要に応じて、オペレーティングシステムから受信したURIを送信するプラットフォーム固有の呼び出しを実装します。
 3.  メインのコンポーザブルで新しいディープリンクのリスナーをセットアップします。
 
-### URIリスナーを持つシングルトンの宣言
+### URIリスナーを持つシングルトンを宣言する
 
-`commonMain`で、シングルトンオブジェクトをトップレベルで宣言します。
+`commonMain` で、トップレベルにシングルトンオブジェクトを宣言します。
 
 ```kotlin
 object ExternalUriHandler {
@@ -269,11 +250,11 @@ object ExternalUriHandler {
 }
 ```
 
-### シングルトンへのプラットフォーム固有の呼び出しの実装
+### シングルトンへのプラットフォーム固有の呼び出しを実装する
 
 デスクトップJVMとiOSの両方で、システムから受信したURIを明示的に渡す必要があります。
 
-`jvmMain/.../main.kt`で、必要なすべてのオペレーティングシステムのコマンドライン引数をパースし、受信したURIをシングルトンに渡します。
+`jvmMain/.../main.kt` で、必要な各オペレーティングシステムのコマンドライン引数を解析し、受信したURIをシングルトンに渡します。
 
 ```kotlin
 // Import the singleton
@@ -295,7 +276,7 @@ fun main() {
 }
 ```
 
-iOSでは、Swiftコードで受信URIを処理する`application()`バリアントを追加します。
+iOSでは、Swiftコードで、受信URIを処理する `application()` バリアントを追加します。
 
 ```swift
 // Imports the KMP module to access the singleton
@@ -313,13 +294,12 @@ func application(
 ```
 
 > Swiftからシングルトンにアクセスするための命名規則については、[Kotlin/Nativeドキュメント](https://kotlinlang.org/docs/native-objc-interop.html#kotlin-singletons)を参照してください。
->
+> 
 {style="tip"}
 
-### リスナーのセットアップ
+### リスナーをセットアップする
 
-`DisposableEffect(Unit)`を使用してリスナーをセットアップし、コンポーザブルがアクティブでなくなった後にクリーンアップできます。
-例：
+`DisposableEffect(Unit)` を使用してリスナーをセットアップし、コンポーザブルがアクティブでなくなった後にクリーンアップできます。例：
 
 ```kotlin
 internal fun App(navController: NavHostController = rememberNavController()) = AppTheme {
@@ -358,11 +338,6 @@ internal fun App(navController: NavHostController = rememberNavController()) = A
 
 ## 結果
 
-これで全体のワークフローを確認できます。
-ユーザーが`demo://` URIを開くと、オペレーティングシステムはそれを登録されたスキーマと一致させます。
-そして：
-*   ディープリンクを処理するアプリが閉じている場合、シングルトンがURIを受信してキャッシュします。
-    メインのコンポーザブル関数が開始すると、
-    シングルトンを呼び出し、キャッシュされたURIに一致するディープリンクにナビゲートします。
-*   ディープリンクを処理するアプリが開いている場合、リスナーはすでにセットアップされているため、シングルトンがURIを受信すると
-    アプリはすぐにそれにナビゲートします。
+これで、完全なワークフローを確認できます。ユーザーが `demo://` URIを開くと、オペレーティングシステムはそれを登録されたスキーマと照合します。その後：
+  *   ディープリンクを処理するアプリが閉じている場合、シングルトンはURIを受信してキャッシュします。メインのコンポーザブル関数が開始すると、シングルトンを呼び出し、キャッシュされたURIに一致するディープリンクにナビゲートします。
+  *   ディープリンクを処理するアプリが開いている場合、リスナーはすでにセットアップされているため、シングルトンがURIを受信すると、アプリは直ちにそれにナビゲートします。

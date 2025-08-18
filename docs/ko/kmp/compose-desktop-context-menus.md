@@ -1,10 +1,10 @@
 [//]: # (title: 컨텍스트 메뉴)
 
-데스크톱용 Compose Multiplatform은 텍스트 컨텍스트 메뉴에 대한 기본 제공 지원을 제공하며, 항목 추가, 테마 설정, 텍스트 사용자 정의를 통해 모든 컨텍스트 메뉴를 편리하게 맞춤 설정할 수 있습니다.
+데스크톱용 Compose Multiplatform은 텍스트 컨텍스트 메뉴를 기본적으로 지원하며, 더 많은 항목을 추가하고, 테마를 설정하고, 텍스트를 사용자 지정하여 모든 컨텍스트 메뉴를 편리하게 조정할 수 있도록 합니다.
 
 ## 사용자 지정 영역의 컨텍스트 메뉴
 
-애플리케이션의 임의의 영역에 대한 컨텍스트 메뉴를 만들 수 있습니다. `ContextMenuArea`를 사용하여 마우스 오른쪽 클릭 시 컨텍스트 메뉴가 표시되는 컨테이너를 정의하세요.
+애플리케이션의 임의 영역에 컨텍스트 메뉴를 생성할 수 있습니다. `ContextMenuArea`를 사용하여 마우스 오른쪽 클릭 시 컨텍스트 메뉴가 나타나도록 하는 컨테이너를 정의하세요.
 
 ```kotlin
 import androidx.compose.foundation.ContextMenuArea
@@ -22,25 +22,26 @@ fun main() = singleWindowApplication(title = "Context menu") {
     ContextMenuArea(items = {
         listOf(
             ContextMenuItem("User-defined action") {
-                // Custom action
+                // 사용자 지정 액션
             },
             ContextMenuItem("Another user-defined action") {
-                // Another custom action
+                // 또 다른 사용자 지정 액션
             }
         )
     }) {
-        // Blue box where context menu will be available
+        // 컨텍스트 메뉴를 사용할 수 있는 파란색 상자
         Box(modifier = Modifier.background(Color.Blue).height(100.dp).width(100.dp))
     }
 }
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="ContextMenuArea(items = { listOf( ContextMenuItem( "}
 
-<img src="compose-desktop-context-menu-custom-area.png" alt="컨텍스트 메뉴: ContextMenuArea" width="500"/>
+<img src="compose-desktop-context-menu-custom-area.png" alt="Context menu: ContextMenuArea" width="500"/>
 
 ## 테마 설정
 
-시스템 설정과 일치하는 반응형 UI를 생성하고 애플리케이션 간 전환 시 급격한 대비 변화를 방지하기 위해 컨텍스트 메뉴 색상을 사용자 정의할 수 있습니다. 기본 밝은 테마 및 어두운 테마에는 `LightDefaultContextMenuRepresentation`과 `DarkDefaultContextMenuRepresentation` 두 가지 내장 구현이 있습니다. 이들은 컨텍스트 메뉴 색상에 자동으로 적용되지 않으므로, `LocalContextMenuRepresentation`을 통해 적절한 테마를 설정해야 합니다.
+시스템 설정과 일치하는 반응형 UI를 만들고 애플리케이션 간 전환 시 급격한 대비 변화를 피하기 위해 컨텍스트 메뉴 색상을 사용자 지정할 수 있습니다. 기본 밝은 테마와 어두운 테마에는 두 가지 내장 구현이 있습니다: `LightDefaultContextMenuRepresentation` 및 `DarkDefaultContextMenuRepresentation`.
+이들은 컨텍스트 메뉴 색상에 자동으로 적용되지 않으므로, `LocalContextMenuRepresentation`을 통해 적절한 테마를 설정해야 합니다.
 
 ```kotlin
 import androidx.compose.foundation.DarkDefaultContextMenuRepresentation
@@ -84,15 +85,15 @@ fun main() = singleWindowApplication(title = "Dark theme") {
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="MaterialTheme( colors = if (isSystemInDarkTheme()) darkColors() else "}
 
-<img src="compose-desktop-context-menu-dark-mode.png" alt="컨텍스트 메뉴: 다크 테마" width="500"/>
+<img src="compose-desktop-context-menu-dark-mode.png" alt="Context menu: Dark theme" width="500"/>
 
-## 메뉴 항목 현지화
+## 메뉴 항목 지역화
 
-기본적으로 컨텍스트 메뉴는 시스템 설정의 기본 언어로 표시됩니다.
+기본적으로 컨텍스트 메뉴는 시스템 설정의 기본 언어로 나타납니다.
 
-<img src="compose-desktop-context-menu-localization.png" alt="컨텍스트 메뉴: 현지화" width="500"/>
+<img src="compose-desktop-context-menu-localization.png" alt="Context menu: Localization" width="500"/>
 
-특정 언어를 사용하려면 애플리케이션을 실행하기 전에 해당 언어를 기본 언어로 명시적으로 지정하세요.
+특정 언어를 사용하려면 애플리케이션을 실행하기 전에 명시적으로 기본 언어로 지정하세요.
 
 ```Console
 java.util.Locale.setDefault(java.util.Locale("en"))
@@ -102,9 +103,10 @@ java.util.Locale.setDefault(java.util.Locale("en"))
 
 ### 기본 텍스트 컨텍스트 메뉴
 
-데스크톱용 Compose Multiplatform은 `TextField` 및 선택 가능한 `Text`에 대한 내장 컨텍스트 메뉴를 제공합니다.
+데스크톱용 Compose Multiplatform은 `TextField` 및 선택 가능한 `Text`를 위한 내장 컨텍스트 메뉴를 제공합니다.
 
-텍스트 필드의 기본 컨텍스트 메뉴는 커서 위치와 선택 범위에 따라 복사, 잘라내기, 붙여넣기, 모두 선택과 같은 작업을 포함합니다. 이 표준 컨텍스트 메뉴는 머티리얼 `TextField` (`androidx.compose.material.TextField` 또는 `androidx.compose.material3.TextField`) 및 파운데이션 `BasicTextField` (`androidx.compose.foundation.text.BasicTextField`)에서 기본적으로 제공됩니다.
+텍스트 필드의 기본 컨텍스트 메뉴에는 커서 위치와 선택 범위에 따라 복사, 잘라내기, 붙여넣기, 모두 선택과 같은 액션이 포함됩니다.
+이 표준 컨텍스트 메뉴는 Material `TextField`(`androidx.compose.material.TextField` 또는 `androidx.compose.material3.TextField`) 및 Foundation `BasicTextField`(`androidx.compose.foundation.text.BasicTextField`)에서 기본적으로 사용 가능합니다.
 
 ```kotlin
 import androidx.compose.material.Text
@@ -124,11 +126,12 @@ fun main() = singleWindowApplication(title = "Context menu") {
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="TextField( value = text.value, onValueChange ="}
 
-<img src="compose-desktop-context-menu-textfield.png" alt="TextField의 기본 컨텍스트 메뉴" width="500"/>
+<img src="compose-desktop-context-menu-textfield.png" alt="Default context menu for TextField" width="500"/>
 
 자세한 내용은 [API 레퍼런스](https://kotlinlang.org/api/compose-multiplatform/material3/androidx.compose.material3/-text-field.html)를 참조하세요.
 
-간단한 텍스트 요소의 기본 컨텍스트 메뉴는 복사 작업만 포함합니다. `Text` 컴포넌트에 대한 컨텍스트 메뉴를 활성화하려면 `SelectionContainer`로 텍스트를 감싸서 선택 가능하게 만드세요.
+간단한 텍스트 요소의 기본 컨텍스트 메뉴에는 복사 액션만 포함됩니다.
+`Text` 컴포넌트의 컨텍스트 메뉴를 활성화하려면, 텍스트를 `SelectionContainer`로 감싸서 선택 가능하게 만드세요.
 
 ```kotlin
 import androidx.compose.foundation.text.selection.SelectionContainer
@@ -143,11 +146,11 @@ fun main() = singleWindowApplication(title = "Context menu") {
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="SelectionContainer { Text( "}
 
-<img src="compose-desktop-context-menu-text.png" alt="Text의 기본 컨텍스트 메뉴" width="500"/>
+<img src="compose-desktop-context-menu-text.png" alt="Default context menu for Text" width="500"/>
 
 ### 사용자 지정 항목 추가
 
-`TextField` 및 `Text` 컴포넌트에 사용자 지정 컨텍스트 메뉴 작업을 추가하려면 `ContextMenuItem`을 통해 새 항목을 지정하고 `ContextMenuDataProvider`를 통해 컨텍스트 메뉴 항목 계층에 추가하세요. 예를 들어, 다음 코드 샘플은 텍스트 필드 및 간단한 선택 가능한 텍스트 요소의 기본 컨텍스트 메뉴에 두 가지 새로운 사용자 지정 작업을 추가하는 방법을 보여줍니다.
+`TextField` 및 `Text` 컴포넌트에 사용자 지정 컨텍스트 메뉴 액션을 추가하려면, `ContextMenuItem`을 통해 새 항목을 지정하고 `ContextMenuDataProvider`를 통해 컨텍스트 메뉴 항목 계층에 추가하세요. 예를 들어, 다음 코드 샘플은 텍스트 필드와 간단한 선택 가능한 텍스트 요소의 기본 컨텍스트 메뉴에 두 개의 새로운 사용자 지정 액션을 추가하는 방법을 보여줍니다.
 
 ```kotlin
 import androidx.compose.foundation.ContextMenuDataProvider
@@ -171,10 +174,10 @@ fun main() = singleWindowApplication(title = "Context menu") {
             items = {
                 listOf(
                     ContextMenuItem("User-defined action") {
-                        // Custom action
+                        // 사용자 지정 액션
                     },
                     ContextMenuItem("Another user-defined action") {
-                        // Another custom action
+                        // 또 다른 사용자 지정 액션
                     }
                 )
             }
@@ -196,11 +199,12 @@ fun main() = singleWindowApplication(title = "Context menu") {
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="ContextMenuDataProvider( items = { listOf( ContextMenuItem( "}
 
-<img src="compose-desktop-context-menu-custom-actions.png" alt="사용자 지정 작업이 포함된 컨텍스트 메뉴" width="500"/>
+<img src="compose-desktop-context-menu-custom-actions.png" alt="Context menu with custom actions" width="500"/>
 
 ### 기본 텍스트 컨텍스트 메뉴 재정의
 
-텍스트 필드 및 선택 가능한 텍스트 요소의 기본 컨텍스트 메뉴를 재정의하려면 `TextContextMenu` 인터페이스를 재정의하세요. 다음 코드 샘플에서는 원본 `TextContextMenu`를 재사용하지만, 목록 하단에 항목 하나를 추가합니다. 이 새 항목은 텍스트 선택에 따라 조정됩니다.
+텍스트 필드 및 선택 가능한 텍스트 요소의 기본 컨텍스트 메뉴를 재정의하려면 `TextContextMenu` 인터페이스를 재정의하세요.
+다음 코드 샘플에서는 원본 `TextContextMenu`를 재사용하되, 목록 하단에 하나의 추가 항목을 추가합니다. 새 항목은 텍스트 선택에 맞춰 조정됩니다.
 
 ```kotlin
 import androidx.compose.foundation.ContextMenuDataProvider
@@ -250,7 +254,7 @@ fun CustomTextMenuProvider(content: @Composable () -> Unit) {
                 state: ContextMenuState,
                 content: @Composable () -> Unit
             ) {
-                // Reuses original TextContextMenu and adds a new item
+                // 원본 TextContextMenu를 재사용하고 새 항목을 추가
                 ContextMenuDataProvider({
                     val shortText = textManager.selectedText.crop()
                     if (shortText.isNotEmpty()) {
@@ -274,11 +278,11 @@ private fun AnnotatedString.crop() = if (length <= 5) toString() else "${take(5)
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="CompositionLocalProvider( LocalTextContextMenu provides object : TextContextMenu { "}
 
-<img src="compose-desktop-context-menu-custom-text.png" alt="컨텍스트 메뉴: LocalTextContextMenu" width="500"/>
+<img src="compose-desktop-context-menu-custom-text.png" alt="Context menu: LocalTextContextMenu" width="500"/>
 
 ### Swing 상호 운용성
 
-기존 Swing 애플리케이션에 Compose 코드를 임베딩하고 애플리케이션의 다른 부분과 모양 및 동작이 일치하는 컨텍스트 메뉴가 필요한 경우, `JPopupTextMenu` 클래스를 사용할 수 있습니다. 이 클래스에서 `LocalTextContextMenu`는 Compose 컴포넌트의 컨텍스트 메뉴에 Swing의 `JPopupMenu`를 사용합니다.
+기존 Swing 애플리케이션에 Compose 코드를 임베딩하고 컨텍스트 메뉴가 애플리케이션의 다른 부분의 모양과 동작과 일치해야 하는 경우 `JPopupTextMenu` 클래스를 사용할 수 있습니다. 이 클래스에서 `LocalTextContextMenu`는 Compose 컴포넌트의 컨텍스트 메뉴에 Swing의 `JPopupMenu`를 사용합니다.
 
 ```kotlin
 import androidx.compose.foundation.ExperimentalFoundationApi
@@ -404,7 +408,7 @@ private fun circleIcon(color: Color) = object : Icon {
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="fun JPopupTextMenuProvider(owner: Component, content: @Composable () -> Unit) "}
 
-<img src="compose-desktop-context-menu-swing.png" alt="컨텍스트 메뉴: Swing 상호 운용성" width="500"/>
+<img src="compose-desktop-context-menu-swing.png" alt="Context menu: Swing interoperability" width="500"/>
 
 ## 다음 단계
 

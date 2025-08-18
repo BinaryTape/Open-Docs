@@ -56,6 +56,9 @@ MCPサーバーはエージェントと通信するためにstdioとSSEトラン
 
 このプロトコルは、MCPサーバーが別個のプロセスとして実行される場合に使用されます。stdioトランスポートを使用してMCP接続をセットアップする例を以下に示します。
 
+<!--- INCLUDE
+import ai.koog.agents.mcp.McpToolRegistryProvider
+-->
 ```kotlin
 // Start an MCP server (for example, as a process)
 val process = ProcessBuilder("path/to/mcp/server").start()
@@ -63,15 +66,20 @@ val process = ProcessBuilder("path/to/mcp/server").start()
 // Create the stdio transport 
 val transport = McpToolRegistryProvider.defaultStdioTransport(process)
 ```
+<!--- KNIT example-model-context-protocol-01.kt -->
 
 #### SSEで接続する
 
 このプロトコルは、MCPサーバーがウェブサービスとして実行される場合に使用されます。SSEトランスポートを使用してMCP接続をセットアップする例を以下に示します。
 
+<!--- INCLUDE
+import ai.koog.agents.mcp.McpToolRegistryProvider
+-->
 ```kotlin
 // Create the SSE transport
 val transport = McpToolRegistryProvider.defaultSseTransport("http://localhost:8931")
 ```
+<!--- KNIT example-model-context-protocol-02.kt -->
 
 ### 2. ツールレジストリを作成する
 
@@ -79,40 +87,90 @@ MCP接続が確立されたら、以下のいずれかの方法でMCPサーバ�
 
 *   通信のために提供されたトランスポートメカニズムを使用します。例：
 
-    ```kotlin
-    // Create a tool registry with tools from the MCP server
-    val toolRegistry = McpToolRegistryProvider.fromTransport(
-        transport = transport,
-        name = "my-client",
-        version = "1.0.0"
-    )
-    ```
+<!--- INCLUDE
+import ai.koog.agents.example.exampleModelContextProtocol01.transport
+import ai.koog.agents.mcp.McpToolRegistryProvider
+import kotlinx.coroutines.runBlocking
+
+fun main() {
+    runBlocking {
+-->
+<!--- SUFFIX
+    }
+}
+-->
+```kotlin
+// Create a tool registry with tools from the MCP server
+val toolRegistry = McpToolRegistryProvider.fromTransport(
+    transport = transport,
+    name = "my-client",
+    version = "1.0.0"
+)
+```
+<!--- KNIT example-model-context-protocol-03.kt -->
 
 *   MCPサーバーに接続されたMCPクライアントを使用します。例：
+<!--- INCLUDE
+import ai.koog.agents.mcp.McpToolRegistryProvider
+import io.modelcontextprotocol.kotlin.sdk.Implementation
+import io.modelcontextprotocol.kotlin.sdk.client.Client
+import kotlinx.coroutines.runBlocking
 
-    ```kotlin
-    // Create a tool registry from an existing MCP client
-    val toolRegistry = McpToolRegistryProvider.fromClient(
-        mcpClient = existingMcpClient
-    )
-    ```
+val existingMcpClient =  Client(clientInfo = Implementation(name = "mcpClient", version = "dev"))
+
+fun main() {
+    runBlocking {
+-->
+<!--- SUFFIX
+    }
+}
+-->
+```kotlin
+// Create a tool registry from an existing MCP client
+val toolRegistry = McpToolRegistryProvider.fromClient(
+    mcpClient = existingMcpClient
+)
+```
+<!--- KNIT example-model-context-protocol-04.kt -->
 
 ### 3. エージェントと統合する
 
 KoogエージェントでMCPツールを使用するには、ツールレジストリをエージェントに登録する必要があります。
+<!--- INCLUDE
+import ai.koog.agents.core.agent.AIAgent
+import ai.koog.agents.core.agent.singleRunStrategy
+import ai.koog.prompt.executor.clients.openai.OpenAIModels
+import ai.koog.prompt.executor.llms.all.simpleOllamaAIExecutor
+import kotlinx.coroutines.runBlocking
+import ai.koog.agents.mcp.McpToolRegistryProvider
+import ai.koog.agents.example.exampleModelContextProtocol04.existingMcpClient
 
+val executor = simpleOllamaAIExecutor()
+val strategy = singleRunStrategy()
+
+fun main() {
+    runBlocking {
+        val toolRegistry = McpToolRegistryProvider.fromClient(
+            mcpClient = existingMcpClient
+        )
+-->
+<!--- SUFFIX
+    }
+}
+-->
 ```kotlin
 // Create an agent with the tools
 val agent = AIAgent(
-    promptExecutor = executor,
+    executor = executor,
     strategy = strategy,
-    agentConfig = agentConfig,
+    llmModel = OpenAIModels.Chat.GPT4o,
     toolRegistry = toolRegistry
 )
 
 // Run the agent with a task that uses an MCP tool
 val result = agent.run("MCPツールを使用してタスクを実行")
 ```
+<!--- KNIT example-model-context-protocol-05.kt -->
 
 ## MCPツールを直接操作する
 
@@ -123,6 +181,17 @@ val result = agent.run("MCPツールを使用してタスクを実行")
 
 以下に例を示します。
 
+<!--- INCLUDE
+import ai.koog.agents.mcp.McpTool
+import kotlinx.serialization.json.JsonPrimitive
+import kotlinx.serialization.json.buildJsonObject
+import ai.koog.agents.mcp.McpToolRegistryProvider
+import ai.koog.agents.example.exampleModelContextProtocol04.existingMcpClient
+
+val toolRegistry = McpToolRegistryProvider.fromClient(
+    mcpClient = existingMcpClient
+)
+-->
 ```kotlin
 // Get a tool 
 val tool = toolRegistry.getTool("tool-name") as McpTool
@@ -139,13 +208,30 @@ val toolResult = tool.execute(args)
 // Print the result
 println(toolResult)
 ```
+<!--- KNIT example-model-context-protocol-06.kt -->
 
 利用可能なすべてのMCPツールをレジストリから取得することもできます。
 
+<!--- INCLUDE
+import ai.koog.agents.mcp.McpToolRegistryProvider
+import ai.koog.agents.example.exampleModelContextProtocol04.existingMcpClient
+import kotlinx.coroutines.runBlocking
+
+fun main() {
+    runBlocking {
+        val toolRegistry = McpToolRegistryProvider.fromClient(
+            mcpClient = existingMcpClient
+        )
+-->
+<!--- SUFFIX
+    }
+}
+-->
 ```kotlin
 // Get all tools
 val tools = toolRegistry.tools
 ```
+<!--- KNIT example-model-context-protocol-07.kt -->
 
 ## 使用例
 
@@ -153,6 +239,22 @@ val tools = toolRegistry.tools
 
 この例は、MCPを使用して地理データのために[Google Maps](https://mcp.so/server/google-maps/modelcontextprotocol) サーバーに接続する方法を示しています。
 
+<!--- INCLUDE
+import ai.koog.agents.core.agent.AIAgent
+import ai.koog.agents.mcp.McpToolRegistryProvider
+import ai.koog.prompt.executor.clients.openai.OpenAIModels
+import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
+import kotlinx.coroutines.runBlocking
+
+const val googleMapsApiKey = ""
+const val openAIApiToken = ""
+fun main() {
+    runBlocking { 
+-->
+<!--- SUFFIX
+    }
+}
+-->
 ```kotlin
 // Start the Docker container with the Google Maps MCP server
 val process = ProcessBuilder(
@@ -174,11 +276,28 @@ val agent = AIAgent(
 )
 agent.run("ドイツ、ミュンヘンのJetbrains Officeの標高を取得できますか？")
 ```
+<!--- KNIT example-model-context-protocol-06.kt -->
 
 ### Playwright MCP統合
 
 この例は、MCPを使用してウェブ自動化のために[Playwright](https://mcp.so/server/playwright-mcp/microsoft) サーバーに接続する方法を示しています。
 
+<!--- INCLUDE
+import ai.koog.agents.core.agent.AIAgent
+import ai.koog.agents.mcp.McpToolRegistryProvider
+import ai.koog.prompt.executor.clients.openai.OpenAIModels
+import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
+import kotlinx.coroutines.runBlocking
+
+val openAIApiToken = ""
+
+fun main() {
+    runBlocking { 
+-->
+<!--- SUFFIX
+    }
+}
+-->
 ```kotlin
 // Start the Playwright MCP server
 val process = ProcessBuilder(
@@ -198,3 +317,4 @@ val agent = AIAgent(
 )
 agent.run("ブラウザを開き、jetbrains.comに移動し、すべてのCookieを受け入れ、ツールバーのAIをクリック")
 ```
+<!--- KNIT example-model-context-protocol-07.kt -->

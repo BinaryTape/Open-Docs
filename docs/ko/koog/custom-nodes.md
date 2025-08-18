@@ -18,62 +18,146 @@
 
 그래프에서 커스텀 노드를 구현하고 자신만의 커스텀 로직을 정의하는 가장 간단한 방법은 다음 패턴을 사용하는 것입니다.
 
+<!--- INCLUDE
+import ai.koog.agents.core.dsl.builder.strategy
+
+typealias Input = String
+typealias Output = Int
+
+val returnValue = 42
+
+val str = strategy<Input, Output>("my-strategy") {
+-->
+<!--- SUFFIX
+}
+-->
 ```kotlin
 val myNode by node<Input, Output>("node_name") { input ->
     // Processing
     returnValue
 }
 ```
+<!--- KNIT example-custom-nodes-01.kt -->
 
 위 코드는 미리 정의된 `Input` 및 `Output` 타입을 가진 커스텀 노드 `myNode`를 나타내며, 선택적 이름 문자열 매개변수(`node_name`)를 가집니다. 실제 예시로, 문자열 입력을 받아 해당 길이(length)를 반환하는 간단한 노드는 다음과 같습니다.
 
+<!--- INCLUDE
+import ai.koog.agents.core.dsl.builder.strategy
+
+val str = strategy<String, Int>("my-strategy") {
+-->
+<!--- SUFFIX
+}
+-->
 ```kotlin
 val myNode by node<String, Int>("node_name") { input ->
     // Processing
     input.length
 }
 ```
+<!--- KNIT example-custom-nodes-02.kt -->
 
-커스텀 노드를 생성하는 또 다른 방법은 `node` 함수를 호출하는 `AIAgentSubgraphBuilder`에 대한 확장 함수를 정의하는 것입니다.
+커스텀 노드를 생성하는 또 다른 방법은 `node` 함수를 호출하는 `AIAgentSubgraphBuilderBase`에 대한 확장 함수를 정의하는 것입니다.
 
+<!--- INCLUDE
+import ai.koog.agents.core.dsl.builder.AIAgentNodeDelegate
+import ai.koog.agents.core.dsl.builder.AIAgentSubgraphBuilderBase
+import ai.koog.agents.core.dsl.builder.strategy
+
+typealias Input = String
+typealias Output = String
+
+val strategy = strategy<String, String>("strategy_name") {
+-->
+<!--- SUFFIX
+}
+-->
 ```kotlin
-fun <T> AIAgentSubgraphBuilder<*, *>.myCustomNode(
+fun AIAgentSubgraphBuilderBase<*, *>.myCustomNode(
     name: String? = null
-): AIAgentNodeDelegateBase<T, T> = node(name) { input ->
+): AIAgentNodeDelegate<Input, Output> = node(name) { input ->
     // Custom logic
     input // Return the input as output (pass-through)
 }
 
 val myCustomNode by myCustomNode("node_name")
 ```
+<!--- KNIT example-custom-nodes-03.kt -->
 
 이렇게 하면 일부 커스텀 로직을 수행하지만 입력을 수정하지 않고 출력으로 반환하는 패스스루(pass-through) 노드가 생성됩니다.
 
-### 매개변수화된 노드
+### 추가 인수를 가진 노드
 
-매개변수를 받아 동작을 사용자 정의할 수 있는 노드를 생성할 수 있습니다.
+동작을 사용자 정의하기 위해 인수를 허용하는 노드를 생성할 수 있습니다.
 
+<!--- INCLUDE
+import ai.koog.agents.core.dsl.builder.AIAgentNodeDelegate
+import ai.koog.agents.core.dsl.builder.AIAgentSubgraphBuilderBase
+import ai.koog.agents.core.dsl.builder.strategy
+
+typealias Input = String
+typealias Output = String
+
+val strategy = strategy<String, String>("strategy_name") {
+-->
+<!--- SUFFIX
+}
+-->
 ```kotlin
-fun <T> AIAgentSubgraphBuilder<*, *>.myParameterizedNode(
+    fun AIAgentSubgraphBuilderBase<*, *>.myNodeWithArguments(
     name: String? = null,
-    param1: String,
-    param2: Int
-): AIAgentNodeDelegateBase<T, T> = node(name) { input ->
-    // Use param1 and param2 in your custom logic
+    arg1: String,
+    arg2: Int
+): AIAgentNodeDelegate<Input, Output> = node(name) { input ->
+    // Use arg1 and arg2 in your custom logic
     input // Return the input as the output
 }
 
-val myCustomNode by myParameterizedNode("node_name")
+val myCustomNode by myNodeWithArguments("node_name", arg1 = "value1", arg2 = 42)
 ```
+<!--- KNIT example-custom-nodes-04.kt -->
+
+### 매개변수화된 노드
+
+입력 및 출력 매개변수를 가진 노드를 정의할 수 있습니다.
+
+<!--- INCLUDE
+import ai.koog.agents.core.dsl.builder.AIAgentNodeDelegate
+import ai.koog.agents.core.dsl.builder.AIAgentSubgraphBuilderBase
+import ai.koog.agents.core.dsl.builder.strategy
+-->
+
+```kotlin
+inline fun <reified T> AIAgentSubgraphBuilderBase<*, *>.myParameterizedNode(
+    name: String? = null,
+): AIAgentNodeDelegate<T, T> = node(name) { input ->
+    // Do some additional actions
+    // Return the input as the output
+    input
+}
+
+val strategy = strategy<String, String>("strategy_name") {
+    val myCustomNode by myParameterizedNode<String>("node_name")
+}
+```
+<!--- KNIT example-custom-nodes-05.kt -->
 
 ### 상태 유지 노드
 
 노드가 실행 간에 상태를 유지해야 하는 경우 클로저 변수를 사용할 수 있습니다.
 
+<!--- INCLUDE
+import ai.koog.agents.core.dsl.builder.AIAgentNodeDelegate
+import ai.koog.agents.core.dsl.builder.AIAgentSubgraphBuilderBase
+
+typealias Input = Unit
+typealias Output = Unit
+
+-->
 ```kotlin
-fun <T> AIAgentSubgraphBuilder<*, *>.myStatefulNode(
+fun AIAgentSubgraphBuilderBase<*, *>.myStatefulNode(
     name: String? = null
-): AIAgentNodeDelegateBase<T, T> {
+): AIAgentNodeDelegate<Input, Output> {
     var counter = 0
 
     return node(name) { input ->
@@ -83,17 +167,27 @@ fun <T> AIAgentSubgraphBuilder<*, *>.myStatefulNode(
     }
 }
 ```
+<!--- KNIT example-custom-nodes-06.kt -->
 
 ## 노드 입력 및 출력 타입
 
 노드는 제네릭 매개변수로 지정되는 다양한 입력 및 출력 타입을 가질 수 있습니다.
 
+<!--- INCLUDE
+import ai.koog.agents.core.dsl.builder.strategy
+
+val strategy = strategy<String, String>("strategy_name") {
+-->
+<!--- SUFFIX
+}
+-->
 ```kotlin
 val stringToIntNode by node<String, Int>("node_name") { input: String ->
     // Processing
     input.toInt() // Convert string to integer
 }
 ```
+<!--- KNIT example-custom-nodes-07.kt -->
 
 !!! note
     입력 및 출력 타입은 노드가 워크플로의 다른 노드와 어떻게 연결될 수 있는지 결정합니다. 노드는 소스 노드의 출력 타입이 대상 노드의 입력 타입과 호환되는 경우에만 연결될 수 있습니다.
@@ -118,6 +212,14 @@ val stringToIntNode by node<String, Int>("node_name") { input: String ->
 
 작업을 수행하지만 입력을 출력으로 반환하는 노드입니다.
 
+<!--- INCLUDE
+import ai.koog.agents.core.dsl.builder.strategy
+
+val strategy = strategy<String, String>("strategy_name") {
+-->
+<!--- SUFFIX
+}
+-->
 ```kotlin
 
 val loggingNode by node<String, String>("node_name") { input ->
@@ -125,22 +227,40 @@ val loggingNode by node<String, String>("node_name") { input ->
     input // Return the input as the output
 }
 ```
+<!--- KNIT example-custom-nodes-08.kt -->
 
 ### 변환 노드
 
 입력을 다른 출력으로 변환하는 노드입니다.
 
+<!--- INCLUDE
+import ai.koog.agents.core.dsl.builder.strategy
+
+val strategy = strategy<String, String>("strategy_name") {
+-->
+<!--- SUFFIX
+}
+-->
 ```kotlin
 val upperCaseNode by node<String, String>("node_name") { input ->
     println("Processing input: $input")
     input.uppercase() // Transform the input to uppercase
 }
 ```
+<!--- KNIT example-custom-nodes-09.kt -->
 
 ### LLM 상호작용 노드
 
 LLM과 상호작용하는 노드입니다.
 
+<!--- INCLUDE
+import ai.koog.agents.core.dsl.builder.strategy
+
+val strategy = strategy<String, String>("strategy_name") {
+-->
+<!--- SUFFIX
+}
+-->
 ```kotlin
 val summarizeTextNode by node<String, String>("node_name") { input ->
     llm.writeSession {
@@ -153,17 +273,42 @@ val summarizeTextNode by node<String, String>("node_name") { input ->
     }
 }
 ```
+<!--- KNIT example-custom-nodes-10.kt -->
 
 ### 도구 실행 노드
 
+<!--- INCLUDE
+import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.environment.executeTool
+import ai.koog.prompt.message.Message
+import ai.koog.prompt.message.ResponseMetaInfo
+import kotlinx.datetime.Clock
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.json.Json
+import java.util.*
+
+val toolName = "my-custom-tool"
+
+@Serializable
+data class ToolArgs(val arg1: String, val arg2: Int)
+
+val strategy = strategy<String, String>("strategy_name") {
+
+-->
+<!--- SUFFIX
+}
+-->
 ```kotlin
 val nodeExecuteCustomTool by node<String, String>("node_name") { input ->
     val toolCall = Message.Tool.Call(
         id = UUID.randomUUID().toString(),
         tool = toolName,
-        args = mapOf("input" to input) // Use the input as tool arguments
+        metaInfo = ResponseMetaInfo.create(Clock.System),
+        content = Json.encodeToString(ToolArgs(arg1 = input, arg2 = 42)) // Use the input as tool arguments
     )
 
     val result = environment.executeTool(toolCall)
     result.content
 }
+```
+<!--- KNIT example-custom-nodes-11.kt -->

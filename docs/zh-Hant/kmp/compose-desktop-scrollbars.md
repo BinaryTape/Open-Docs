@@ -1,11 +1,10 @@
 [//]: # (title: 捲軸)
 
-您可以將捲軸應用於可捲動組件。捲軸和可捲動組件共享一個共同狀態以彼此同步。
+您可以將捲軸應用於可捲動元件。捲軸和可捲動元件共用一個通用狀態以彼此同步。
 
 ## 捲動修飾符
 
-`verticalScroll` 和 `horizontalScroll` 修飾符提供了最簡單的方式，讓使用者在元素內容的邊界大於其最大尺寸限制時能夠捲動該元素。
-您可以將 `VerticalScrollbar` 可組合項附加到帶有 `verticalScroll` 修飾符的可捲動組件，並將 `HorizontalScrollbar` 可組合項附加到帶有 `horizontalScroll` 修飾符的可捲動組件：
+`verticalScroll` 和 `horizontalScroll` 修飾符提供了最簡單的方式，讓使用者在元素內容的邊界大於其最大尺寸限制時捲動元素。您可以將 `VerticalScrollbar` 可組合項附加到使用 `verticalScroll` 修飾符的可捲動元件，並將 `HorizontalScrollbar` 可組合項附加到使用 `horizontalScroll` 修飾符的可捲動元件：
 
 ```kotlin
 import androidx.compose.foundation.HorizontalScrollbar
@@ -90,14 +89,13 @@ fun TextBox(text: String = "Item") {
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="VerticalScrollbar(modifier = Modifier.align(Alignment.CenterEnd) "}
 
-您可以透過拖曳捲軸條並使用滑鼠滾輪或觸控板來移動捲軸。若要使用滑鼠移動水平捲軸，請側擊滾輪或按住 <shortcut>Shift</shortcut>。
+您可以透過拖曳捲軸、使用滑鼠滾輪或觸控板來移動捲軸。若要用滑鼠移動水平捲軸，請側按滑鼠滾輪或按住 <shortcut>Shift</shortcut>。
 
-<img src="compose-desktop-scrollbar.animated.gif" alt="捲軸" width="289" preview-src="compose-desktop-scrollbar.png"/>
+<img src="compose-desktop-scrollbar.animated.gif" alt="Scrollbar" width="289" preview-src="compose-desktop-scrollbar.png"/>
 
-## 惰性可捲動組件
+## 惰性可捲動元件
 
-您也可以將捲軸與惰性可捲動組件一起使用，例如 `LazyColumn` 和 `LazyRow`。
-當您預期列表中會有大量項目時，惰性組件的效率會高得多，因為它們只在需要時組合這些項目。
+您也可以搭配 `LazyColumn` 和 `LazyRow` 等惰性可捲動元件使用捲軸。惰性元件在預期列表中包含大量項目時效率更高，因為它們僅在需要時才組合這些項目。
 
 ```kotlin
 import androidx.compose.foundation.VerticalScrollbar
@@ -172,15 +170,15 @@ fun TextBox(text: String = "Item") {
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="VerticalScrollbar(modifier = Modifier.align(Alignment.CenterEnd) "}
 
-<img src="compose-desktop-lazy-scrollbar.animated.gif" alt="惰性捲軸" width="289" preview-src="compose-desktop-lazy-scrollbar.png"/>
+<img src="compose-desktop-lazy-scrollbar.animated.gif" alt="Lazy scrollbar" width="289" preview-src="compose-desktop-lazy-scrollbar.png"/>
 
 ## 已知限制
 
-目前，使用觸控螢幕、觸控板和軌跡板進行捲動被視為滑鼠事件，這可能導致故障和限制，例如缺乏捏合縮放功能。我們正在持續改進輸入和手勢處理，並計劃為這些輸入設備引入原生支援：
+目前，使用觸控螢幕、觸控板和軌跡板的捲動操作被視為滑鼠事件，這可能導致故障和限制，例如缺乏捏合縮放功能。我們正在持續改進輸入和手勢處理，並計劃為這些輸入裝置引入原生支援：
 
-*   原生支援觸控螢幕 ([CMP-1609](https://youtrack.jetbrains.com/issue/CMP-1609/))
-*   原生支援觸控板和軌跡板 ([CMP-1610](https://youtrack.jetbrains.com/issue/CMP-1610/))
+* 原生支援觸控螢幕 ([CMP-1609](https://youtrack.jetbrains.com/issue/CMP-1609/))
+* 原生支援觸控板和軌跡板 ([CMP-1610](https://youtrack.jetbrains.com/issue/CMP-1610/))
 
-## 下一步？
+## 接下來呢？
 
-探索關於[其他桌面組件](https://github.com/JetBrains/compose-multiplatform/tree/master/tutorials#desktop)的教程。
+探索關於 [其他桌面元件](https://github.com/JetBrains/compose-multiplatform/tree/master/tutorials#desktop) 的教學。

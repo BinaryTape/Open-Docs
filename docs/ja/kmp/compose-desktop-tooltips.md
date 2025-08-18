@@ -2,11 +2,11 @@
 
 `TooltipArea`コンポーザブルを使用すると、任意のコンポーネントにツールチップを追加できます。`TooltipArea`は`Box`コンポーネントに似ており、ツールチップを表示できます。
 
-`TooltipArea`コンポーザブルには、以下の主なパラメータがあります。
+`TooltipArea`コンポーザブルには、以下の主要なパラメータがあります。
 
-*   `tooltip`、ツールチップのコンポーザブルコンテンツ。
-*   `tooltipPlacement`、ツールチップの位置を定義します。アンカー（マウスポインタまたはコンポーネント）、オフセット、およびアラインメントを指定できます。
-*   `delayMillis`、ツールチップが表示されるまでのミリ秒単位の時間。デフォルト値は500msです。
+*   `tooltip`：ツールチップのコンポーザブルコンテンツ。
+*   `tooltipPlacement`：ツールチップの位置を定義します。アンカー（マウスカーソルまたはコンポーネント）、オフセット、およびアラインメントを指定できます。
+*   `delayMillis`：ツールチップが表示されるまでの時間（ミリ秒単位）。デフォルト値は500ミリ秒です。
 
 ```kotlin
 import androidx.compose.foundation.ExperimentalFoundationApi
@@ -70,8 +70,8 @@ fun main() = singleWindowApplication(
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="TooltipArea(tooltip = { Surface( "}
 
-<img src="compose-desktop-tooltips.animated.gif" alt="ツールチップ" width="288" preview-src="compose-desktop-tooltips.png"/>
+<img src="compose-desktop-tooltips.animated.gif" alt="Tooltips" width="288" preview-src="compose-desktop-tooltips.png"/>
 
-## 次は何をしますか？
+## 次のステップ
 
-[他のデスクトップコンポーネント](https://github.com/JetBrains/compose-multiplatform/tree/master/tutorials#desktop)に関するチュートリアルを確認してください。
+[その他のデスクトップコンポーネント](https://github.com/JetBrains/compose-multiplatform/tree/master/tutorials#desktop)に関するチュートリアルを参照してください。

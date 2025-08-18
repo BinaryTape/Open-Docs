@@ -1,36 +1,36 @@
 [//]: # (title: ドラッグ＆ドロップ操作)
 
-> 現在、Compose Multiplatform for web ではドラッグ＆ドロップ操作はサポートされていません。
+> 現在、Web版Compose Multiplatformではドラッグ＆ドロップ操作はサポートされていません。
 > 今後のリリースにご期待ください。
 >
 {style="note"}
 
-Compose Multiplatformアプリで、ユーザーが他のアプリケーションからドラッグしてくるデータを受け入れたり、アプリからデータをドラッグして持ち出したりできるようにすることができます。
+Compose Multiplatformアプリで、ユーザーが他のアプリケーションからドラッグしてきたデータを受け入れたり、ユーザーがアプリからデータをドラッグして持ち出せるようにしたりすることができます。
 これを実装するには、`dragAndDropSource` および `dragAndDropTarget` 修飾子を使用して、特定のコンポーザブルをドラッグ操作の潜在的なソースまたはターゲットとして指定します。
 
-> `dragAndDropSource` および `dragAndDropTarget` の両方の修飾子は実験的であり、変更される可能性があり、オプトインアノテーションが必要です。
->
+> `dragAndDropSource` および `dragAndDropTarget` 修飾子はどちらも実験的なものであり、変更される可能性があり、オプトインアノテーションが必要です。
+> 
 {style="warning"}
 
 ## ドラッグソースの作成
 
 コンポーザブルをドラッグソースとして準備するには：
-1. `detectDragGestures()` 関数（例：`onDragStart`）でドラッグイベントのトリガーを選択します。
-2. `startTransfer()` 関数を呼び出し、`DragAndDropTransferData()` を使ってドラッグ＆ドロップセッションを記述します。
-3. `DragAndDropTransferable()` を使ってターゲットにドラッグされるデータを記述します。
+1. `detectDragGestures()` 関数（例: `onDragStart`）でドラッグイベントのトリガーを選択します。
+2. `startTransfer()` 関数を呼び出し、`DragAndDropTransferData()` を呼び出してドラッグ＆ドロップセッションを記述します。
+3. `DragAndDropTransferable()` を呼び出して、ターゲットにドラッグされるデータを記述します。
 
-ユーザーが文字列をドラッグできるようにする `Box()` コンポーザブルの例：
+ユーザーが文字列をドラッグできる`Box()` コンポーザブルの例を次に示します。
 
 ```kotlin
 val exportedText = "Hello, drag and drop!"
 
 Box(Modifier
     .dragAndDropSource(
-        // ドラッグ中のデータの視覚的な表現を作成します
-        // （exportedText 文字列が中央に配置された白い四角形）。
+        // ドラッグされているデータの視覚的表現を作成します。
+        // （exportedText文字列が中央に配置された白い四角形）
         drawDragDecoration = {
             drawRect(
-                color = Color.White,
+                color = Color.White, 
                 topLeft = Offset(x = 0f, y = size.height/4),
                 size = Size(size.width, size.height/2)
             )
@@ -52,24 +52,23 @@ Box(Modifier
             onDragStart = { offset ->
                 startTransfer(
                     // 転送可能なデータとサポートされる転送アクションを定義します。
-                    // アクションが完了すると、onTransferCompleted() を使用して
-                    // システム出力に結果を表示します。
+                    // アクションが完了すると、onTransferCompleted() でシステム出力に結果が表示されます。    
                     DragAndDropTransferData(
                         transferable = DragAndDropTransferable(
                             StringSelection(exportedText)
                         ),
 
-                        // このドラッグソースがサポートするアクションのリスト。アクションのタイプは、
-                        // データと共にドロップターゲットに渡されます。
+                        // このドラッグソースでサポートされるアクションのリスト。
+                        // アクションの種類はデータとともにドロップターゲットに渡されます。
                         // ターゲットはこれを使用して、不適切なドロップ操作を拒否したり、
-                        // ユーザーの期待を解釈したりできます。
+                        // ユーザーの意図を解釈したりできます。
                         supportedActions = listOf(
                             DragAndDropTransferAction.Copy,
                             DragAndDropTransferAction.Move,
                             DragAndDropTransferAction.Link,
                         ),
                         dragDecorationOffset = offset,
-                        onTransferCompleted = { action ->
+                        onTransferCompleted = { action -> 
                             println("Action at the source: $action")
                         }
                     )
@@ -94,7 +93,7 @@ Box(Modifier
 2. ドラッグイベントハンドラのオーバーライドを含む `DragAndDropTarget` オブジェクトを作成し（そして `remember` し）ます。
 3. 必要なオーバーライドを記述します。例えば、受信したデータを解析するための `onDrop` や、ドラッグ可能なオブジェクトがコンポーザブルに入ったときの `onEntered` などです。
 
-ドロップされたテキストを表示する準備ができている `Box()` コンポーザブルの例：
+ドロップされたテキストを表示する準備ができている `Box()` コンポーザブルの例を次に示します。
 
 ```kotlin
 var showTargetBorder by remember { mutableStateOf(false) }
@@ -103,7 +102,7 @@ val coroutineScope = rememberCoroutineScope()
 val dragAndDropTarget = remember {
     object: DragAndDropTarget {
 
-        // 潜在的なドロップターゲットの境界線を強調表示します
+        // 潜在的なドロップターゲットの境界線を強調表示します。
         override fun onStarted(event: DragAndDropEvent) {
             showTargetBorder = true
         }
@@ -113,12 +112,12 @@ val dragAndDropTarget = remember {
         }
 
         override fun onDrop(event: DragAndDropEvent): Boolean {
-            // ドラグ＆ドロップ操作が完了するたびに、アクションのタイプをシステム出力に表示します。
+            // ドラッグ＆ドロップ操作が完了するたびに、アクションの種類をシステム出力に表示します。
             println("Action at the target: ${event.action}")
 
             val result = (targetText == "Drop here")
 
-            // ドロップされた値にテキストを変更します。
+            // コンポーザブルにドロップされた値にテキストを変更します。
             targetText = event.awtTransferable.let {
                 if (it.isDataFlavorSupported(DataFlavor.stringFlavor))
                     it.getTransferData(DataFlavor.stringFlavor) as String
@@ -126,8 +125,7 @@ val dragAndDropTarget = remember {
                     it.transferDataFlavors.first().humanPresentableName
             }
 
-            // ドロップターゲットのテキストを、2秒後に初期値に
-            // 戻します。
+            // 2秒後にドロップターゲットのテキストを初期値に戻します。
             coroutineScope.launch {
                 delay(2000)
                 targetText = "Drop here"
@@ -148,7 +146,7 @@ Box(Modifier
     )
     .dragAndDropTarget(
         // shouldStartDragAndDrop の値を "true" にすると、
-        // ドラッグ＆ドロップ操作が無条件で有効になります。
+        // ドラッグ＆ドロップ操作が無条件で有効になります。    
         shouldStartDragAndDrop = { true },
         target = dragAndDropTarget
     )
@@ -160,4 +158,4 @@ Box(Modifier
 
 ## 次のステップ
 
-実装と一般的な使用例の詳細については、Jetpack Compose ドキュメントの対応する修飾子に関する [ドラッグ＆ドロップ](https://developer.android.com/develop/ui/compose/touch-input/user-interactions/drag-and-drop) の記事を参照してください。
+実装と一般的なユースケースの詳細については、Jetpack Compose ドキュメントの対応する修飾子に関する[ドラッグ＆ドロップ](https://developer.android.com/develop/ui/compose/touch-input/user-interactions/drag-and-drop)の記事を参照してください。

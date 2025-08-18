@@ -1,30 +1,30 @@
-[//]: # (title: Compose Multiplatform UI のテスト)
+[//]: # (title: Compose Multiplatform UIのテスト)
 
-Compose Multiplatform における UI テストは、Jetpack Compose のテスト API と同じファインダー、アサーション、アクション、マッチャーを使用して実装されます。これらの使用に慣れていない場合は、この記事を読み進める前に [Jetpack Compose ガイド](https://developer.android.com/jetpack/compose/testing) を参照してください。
+Compose MultiplatformにおけるUIテストは、Jetpack ComposeのテストAPIと同じ**ファインダー**、**アサーション**、**アクション**、および**マッチャー**を使用して実装されます。これらに馴染みがない場合は、この記事を読み進める前に[Jetpack Composeガイド](https://developer.android.com/jetpack/compose/testing)を参照してください。
 
-> この API は [実験的 (Experimental)](supported-platforms.md#compose-multiplatform-ui-framework-stability-levels) です。
-> 将来的に変更される可能性があります。
+> APIは[実験的](supported-platforms.md#compose-multiplatform-ui-framework-stability-levels)です。
+> 今後変更される可能性があります。
 >
 {style="warning"}
 
-## Compose Multiplatform のテストが Jetpack Compose と異なる点
+## Compose MultiplatformテストとJetpack Composeテストの違い
 
-Compose Multiplatform の共通テスト API は、JUnit の `TestRule` クラスに依存していません。代わりに、`runComposeUiTest` 関数を呼び出し、`ComposeUiTest` レシーバー上でテスト関数を呼び出します。
+Compose Multiplatformの共通テストAPIは、JUnitの`TestRule`クラスに依存しません。代わりに、`runComposeUiTest`関数を呼び出し、`ComposeUiTest`レシーバー上でテスト関数を呼び出します。
 
-ただし、JUnit ベースの API は [デスクトップターゲット](compose-desktop-ui-testing.md) で利用可能です。
+ただし、JUnitベースのAPIは[デスクトップターゲット](compose-desktop-ui-testing.md)で利用できます。
 
-## Compose Multiplatform でテストを記述して実行する
+## Compose Multiplatformでテストを記述および実行する
 
-まず、テスト用のソースセットと必要な依存関係をモジュールに追加します。その後、サンプルテストを記述して実行し、カスタマイズを試みます。
+まず、テスト用のソースセットと必要な依存関係をモジュールに追加します。次に、サンプルテストを記述して実行し、カスタマイズを試します。
 
 ### テストソースセットを作成し、テストライブラリを依存関係に追加する
 
-具体的な例を示すため、このページの手順は [Kotlin Multiplatform ウィザード](https://kmp.jetbrains.com/) によって生成されたプロジェクト構造に従っています。既存のプロジェクトにテストを追加する場合は、パスやコマンド内の `composeApp` をテスト対象のモジュール名（例: `shared`）に置き換える必要があるかもしれません。
+具体的な例を示すために、このページの指示は[Kotlin Multiplatform wizard](https://kmp.jetbrains.com/)によって生成されたプロジェクト構造に従っています。既存のプロジェクトにテストを追加する場合、パスやコマンド内の`composeApp`を、テスト対象のモジュール名（例: `shared`）に置き換える必要があるかもしれません。
 
 共通テストソースセットを作成し、必要な依存関係を追加します。
 
-1.  共通テストソースセットのディレクトリを作成します: `composeApp/src/commonTest/kotlin`。
-2.  `composeApp/build.gradle.kts` ファイルに、以下の依存関係を追加します。
+1.  共通テストソースセット用のディレクトリを作成します: `composeApp/src/commonTest/kotlin`。
+2.  `composeApp/build.gradle.kts`ファイルに、以下の依存関係を追加します。
 
     ```kotlin
     kotlin {
@@ -48,8 +48,8 @@ Compose Multiplatform の共通テスト API は、JUnit の `TestRule` クラ�
     }
     ```
 
-3.  Android のインストゥルメンテッド (エミュレーター) テストを実行する必要がある場合は、Gradle 設定を次のように修正します。
-    1.  `androidTarget {}` ブロックに以下のコードを追加して、インストゥルメンテッドテストソースセットが共通テストソースセットに依存するように構成します。その後、IDE の提案に従って不足しているインポートを追加します。
+3.  Android向けのインストルメンテッド（エミュレーター）テストを実行する必要がある場合は、Gradle設定を以下のように修正してください。
+    1.  `androidTarget {}`ブロックに以下のコードを追加して、インストルメンテッドテストソースセットが共通テストソースセットに依存するように設定します。その後、IDEの提案に従って不足しているインポートを追加してください。
 
         ```kotlin
         kotlin {
@@ -63,7 +63,7 @@ Compose Multiplatform の共通テスト API は、JUnit の `TestRule` クラ�
         }
         ```
 
-    2.  `android.defaultConfig {}` ブロックに以下のコードを追加して、Android テストインストゥルメンテーションランナーを設定します。
+    2.  `android.defaultConfig {}`ブロックに以下のコードを追加して、Androidテストインストルメンテーションランナーを設定します。
 
         ```kotlin
         android {
@@ -75,26 +75,26 @@ Compose Multiplatform の共通テスト API は、JUnit の `TestRule` クラ�
         }
         ```
 
-    3.  `androidTarget` に必要な依存関係を追加します。
+    3.  `androidTarget`に必要な依存関係を追加します。
 
         ```kotlin
         kotlin {
-             // ...
-             androidTarget {
-                 // ...
-                 dependencies { 
-                     androidTestImplementation("androidx.compose.ui:ui-test-junit4-android:%androidx.compose%")
-                     debugImplementation("androidx.compose.ui:ui-test-manifest:%androidx.compose%")
-                 }
-             }
-         }
+            // ...
+            androidTarget {
+                // ...
+                dependencies { 
+                    androidTestImplementation("androidx.compose.ui:ui-test-junit4-android:%androidx.compose%")
+                    debugImplementation("androidx.compose.ui:ui-test-manifest:%androidx.compose%")
+                }
+            }
+        }
         ```
 
-これで、Compose Multiplatform UI の共通テストを記述して実行する準備が整いました。
+これで、Compose Multiplatform UIの共通テストを記述し、実行する準備ができました。
 
-### 共通テストを記述して実行する
+### 共通テストを記述および実行する
 
-`composeApp/src/commonTest/kotlin` ディレクトリに `ExampleTest.kt` という名前のファイルを作成し、以下のコードをコピーします。
+`composeApp/src/commonTest/kotlin`ディレクトリに`ExampleTest.kt`という名前のファイルを作成し、以下のコードをコピーします。
 
 ```kotlin
 import androidx.compose.material.*
@@ -134,57 +134,57 @@ class ExampleTest {
 }
 ```
 
-テストを実行するには：
+テストを実行するには:
 
-<tabs>
-<tab title="iOSシミュレーター">
+<Tabs>
+<TabItem title="iOSシミュレーター">
 
-2つの選択肢があります。
-* Android Studio で、`myTest()` 関数の隣にあるガターの緑色の実行アイコンをクリックし、**Run** とテストの iOS ターゲットを選択します。
-* ターミナルで以下のコマンドを実行します。
+2つのオプションがあります:
+* Android Studioで、`myTest()`関数の隣のガターにある緑色の実行アイコンをクリックし、**Run**とテスト用のiOSターゲットを選択します。
+* ターミナルで以下のコマンドを実行します:
 
    ```shell
    ./gradlew :composeApp:iosSimulatorArm64Test
    ```
 
-</tab>
-<tab title="Androidエミュレーター">
+</TabItem>
+<TabItem title="Androidエミュレーター">
 
-ターミナルでこのコマンドを実行します。
+ターミナルでこのコマンドを実行します:
 
 ```shell
 ./gradlew :composeApp:connectedAndroidTest
 ```
 
-現在、`android (local)` テスト設定を使用して共通の Compose Multiplatform テストを実行することはできません。そのため、例えば Android Studio のガターアイコンは役に立ちません。
+現在、`android (local)`テスト構成を使用して共通のCompose Multiplatformテストを実行することはできません。そのため、例えばAndroid Studioのガターアイコンは役立ちません。
 
-</tab>
-<tab title="デスクトップ">
+</TabItem>
+<TabItem title="デスクトップ">
 
-2つの選択肢があります。
-* `myTest()` 関数の隣にあるガターの緑色の実行アイコンをクリックし、**Run&nbsp;|&nbsp;desktop** を選択します。
-* ターミナルで以下のコマンドを実行します。
+2つのオプションがあります:
+* `myTest()`関数の隣のガターにある緑色の実行アイコンをクリックし、**Run&nbsp;|&nbsp;desktop**を選択します。
+* ターミナルで以下のコマンドを実行します:
 
    ```shell
    ./gradlew :composeApp:desktopTest
    ```
 
-</tab>
-<tab title="Wasm (ヘッドレスブラウザ)">
+</TabItem>
+<TabItem title="Wasm（ヘッドレスブラウザ）">
 
-ターミナルでこのコマンドを実行します。
+ターミナルでこのコマンドを実行します:
 
 ```shell
 ./gradlew :composeApp:wasmJsTest
 ```
 
-</tab>
-</tabs>
+</TabItem>
+</Tabs>
 
 ## 次のステップ
 
-Compose Multiplatform UI テストのコツを掴んだところで、さらにテスト関連のリソースを確認することをお勧めします。
-* Kotlin Multiplatform プロジェクトでのテストの概要については、「[基本的なプロジェクト構造を理解する](multiplatform-discover-project.md#integration-with-tests)」と「[マルチプラットフォームアプリをテストする](multiplatform-run-tests.md)」チュートリアルを参照してください。
-* デスクトップターゲットの JUnit ベースのテストの設定と実行の詳細については、「[](compose-desktop-ui-testing.md)」を参照してください。
-* ローカライゼーションテストについては、「[](compose-localization-tests.md#testing-locales-on-different-platforms)」を参照してください。
-* 自動化を含む Android Studio でのより高度なテストについては、Android Studio ドキュメントの「[アプリをテストする](https://developer.android.com/studio/test)」記事で説明されています。
+Compose Multiplatform UIテストのコツを掴んだところで、さらにテスト関連のリソースをチェックすることをお勧めします:
+* Kotlin Multiplatformプロジェクトにおけるテストの概要については、[基本的なプロジェクト構造を理解する](multiplatform-discover-project.md#integration-with-tests)と[マルチプラットフォームアプリをテストする](multiplatform-run-tests.md)チュートリアルを参照してください。
+* デスクトップターゲット向けのJUnitベースのテストの設定と実行の詳細については、[JUnitでCompose Multiplatform UIをテストする](compose-desktop-ui-testing.md)を参照してください。
+* ローカライゼーションテストについては、[undefined](compose-localization-tests.md#testing-locales-on-different-platforms)を参照してください。
+* 自動化を含むAndroid Studioでのより高度なテストについては、Android Studioドキュメントの[アプリをテストする](https://developer.android.com/studio/test)記事で説明されています。

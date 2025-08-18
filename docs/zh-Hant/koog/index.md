@@ -23,7 +23,7 @@ Koog 的主要功能包括：
 -   **彈性圖形工作流程**：使用直觀的圖形化工作流程設計複雜的代理行為。
 -   **模組化功能系統**：透過可組合架構自訂代理功能。
 -   **可擴展架構**：處理從簡單聊天機器人到企業應用程式的工作負載。
--   **多平台**：透過 Kotlin Multiplatform 在 JVM 和 JS 目標上執行代理。
+-   **多平台**：透過 Kotlin Multiplatform 在 JVM、JS、WasmJS 目標上執行代理。
 
 # 可用的 LLM 提供者和平台
 
@@ -37,11 +37,7 @@ Koog 的主要功能包括：
 
 # 安裝
 
-要使用 Koog 框架，您需要在建置設定中包含所有必要的依賴項。所需的套件託管在以下 Maven 儲存庫中：
-
-```
-https://packages.jetbrains.team/maven/p/grazi/grazie-platform-public
-```
+要使用 Koog，您需要在建置設定中包含所有必要的依賴項。
 
 ## Gradle
 
@@ -90,18 +86,27 @@ https://packages.jetbrains.team/maven/p/grazi/grazie-platform-public
 !!! note
     在執行範例之前，請將相應的 API 金鑰設定為環境變數。詳細資訊請參閱 [開始使用](single-run-agents.md)。
 
+<!--- INCLUDE
+import ai.koog.agents.core.agent.AIAgent
+import ai.koog.prompt.executor.clients.openai.OpenAIModels
+import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
+import kotlinx.coroutines.runBlocking
+-->
 ```kotlin
-fun main() = runBlocking {
-    val apiKey = System.getenv("OPENAI_API_KEY") // or Anthropic, Google, OpenRouter, etc.
+fun main() {
+    runBlocking {
+        val apiKey = System.getenv("OPENAI_API_KEY") // or Anthropic, Google, OpenRouter, etc.
 
-    val agent = AIAgent(
-        executor = simpleOpenAIExecutor(apiKey), // or Anthropic, Google, OpenRouter, etc.
-        systemPrompt = "You are a helpful assistant. Answer user questions concisely.",
-        llmModel = OpenAIModels.Chat.GPT4o
-    )
-    
-    val result = agent.runAndGetResult("Hello! How can you help me?")
-    println(result)
+        val agent = AIAgent(
+            executor = simpleOpenAIExecutor(apiKey), // or Anthropic, Google, OpenRouter, etc.
+            systemPrompt = "You are a helpful assistant. Answer user questions concisely.",
+            llmModel = OpenAIModels.Chat.GPT4o
+        )
+
+        val result = agent.run("Hello! How can you help me?")
+        println(result)
+    }
 }
 ```
+<!--- KNIT example-index-01.kt -->
 更多詳細資訊，請參閱 [開始使用](single-run-agents.md)。

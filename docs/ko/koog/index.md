@@ -1,8 +1,8 @@
 # 개요
 
-Koog는 **Kotlin**을 사용하여 AI 에이전트를 빌드하고 실행하도록 설계된 Kotlin 기반 프레임워크입니다. 이 프레임워크를 통해 도구와 상호작용하고, 복잡한 워크플로를 처리하며, 사용자와 소통할 수 있는 에이전트를 생성할 수 있습니다.
+Koog는 완전히 관용적인 Kotlin으로 AI 에이전트를 빌드하고 실행하도록 설계된 Kotlin 기반 프레임워크입니다. 이 프레임워크를 통해 도구와 상호작용하고, 복잡한 워크플로를 처리하며, 사용자와 소통할 수 있는 에이전트를 생성할 수 있습니다.
 
-Koog 프레임워크는 다음 유형의 에이전트를 지원합니다.
+이 프레임워크는 다음 유형의 에이전트를 지원합니다.
 
 *   최소한의 구성으로 단일 입력을 처리하고 응답을 제공하는 단일 실행 에이전트입니다. 이 유형의 에이전트는 작업을 완료하고 응답을 제공하기 위해 단일 도구 호출 주기 내에서 작동합니다.
 *   사용자 지정 전략 및 구성을 지원하는 고급 기능을 갖춘 복잡한 워크플로 에이전트입니다.
@@ -23,11 +23,11 @@ Koog의 주요 기능은 다음과 같습니다.
 -   **유연한 그래프 워크플로**: 직관적인 그래프 기반 워크플로를 사용하여 복잡한 에이전트 동작을 설계합니다.
 -   **모듈형 기능 시스템**: 구성 가능한 아키텍처를 통해 에이전트 기능을 사용자 지정합니다.
 -   **확장 가능한 아키텍처**: 간단한 챗봇부터 엔터프라이즈 애플리케이션까지 워크로드를 처리합니다.
--   **멀티플랫폼**: Kotlin Multiplatform을 사용하여 JVM 및 JS 타겟 모두에서 에이전트를 실행합니다.
+-   **멀티플랫폼**: Kotlin Multiplatform을 사용하여 JVM, JS, WasmJS 타겟 모두에서 에이전트를 실행합니다.
 
 # 사용 가능한 LLM 제공업체 및 플랫폼
 
-에이전트 기능에 사용할 수 있는 LLM 제공업체 및 플랫폼은 다음과 같습니다.
+에이전트 기능을 구현하는 데 사용할 수 있는 LLM 제공업체 및 플랫폼은 다음과 같습니다.
 
 -   Google
 -   OpenAI
@@ -37,11 +37,7 @@ Koog의 주요 기능은 다음과 같습니다.
 
 # 설치
 
-Koog 프레임워크를 사용하려면 빌드 구성에 필요한 모든 종속성을 포함해야 합니다. 필수 패키지는 다음 Maven 저장소에 호스팅됩니다.
-
-```
-https://packages.jetbrains.team/maven/p/grazi/grazie-platform-public
-```
+Koog를 사용하려면 빌드 구성에 필요한 모든 종속성을 포함해야 합니다.
 
 ## Gradle
 
@@ -90,18 +86,27 @@ AI 에이전트를 시작하는 데 도움이 되도록 단일 실행 에이전�
 !!! note
     예시를 실행하기 전에 해당 API 키를 환경 변수로 할당하세요. 자세한 내용은 [시작하기](single-run-agents.md)를 참조하세요.
 
+<!--- INCLUDE
+import ai.koog.agents.core.agent.AIAgent
+import ai.koog.prompt.executor.clients.openai.OpenAIModels
+import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
+import kotlinx.coroutines.runBlocking
+-->
 ```kotlin
-fun main() = runBlocking {
-    val apiKey = System.getenv("OPENAI_API_KEY") // or Anthropic, Google, OpenRouter, etc.
+fun main() {
+    runBlocking {
+        val apiKey = System.getenv("OPENAI_API_KEY") // or Anthropic, Google, OpenRouter, etc.
 
-    val agent = AIAgent(
-        executor = simpleOpenAIExecutor(apiKey), // or Anthropic, Google, OpenRouter, etc.
-        systemPrompt = "You are a helpful assistant. Answer user questions concisely.",
-        llmModel = OpenAIModels.Chat.GPT4o
-    )
-    
-    val result = agent.runAndGetResult("Hello! How can you help me?")
-    println(result)
+        val agent = AIAgent(
+            executor = simpleOpenAIExecutor(apiKey), // or Anthropic, Google, OpenRouter, etc.
+            systemPrompt = "You are a helpful assistant. Answer user questions concisely.",
+            llmModel = OpenAIModels.Chat.GPT4o
+        )
+
+        val result = agent.run("Hello! How can you help me?")
+        println(result)
+    }
 }
 ```
+<!--- KNIT example-index-01.kt -->
 자세한 내용은 [시작하기](single-run-agents.md)를 참조하세요.

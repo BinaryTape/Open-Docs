@@ -2,7 +2,7 @@ import {defaultStrategy} from "./strategy.mjs";
 import { copyFlatten } from "./fsUtils.mjs";
 import path from "path";
 import fs from "fs-extra";
-import {processTopicFile} from "./TopicProcessor.mjs";
+import {processTopicFileAsync} from "./TopicProcessor.mjs";
 import {generateSidebar} from "./SidebarProcessor.mjs";
 
 export const kotlinStrategy = {
@@ -17,7 +17,7 @@ export const kotlinStrategy = {
      * @override
      */
     postSync: async (repoPath) => {
-        console.log(`  Running Kotlin onSyncEnd: Flattening directory - ${repoPath}...`);
+        console.log(`  Running Kotlin postSync: Flattening directory - ${repoPath}...`);
         const originDocsPath = path.join(repoPath, "docs/topics");
         const docsPath = path.join(repoPath, "docs");
         if (await fs.pathExists(originDocsPath)) {
@@ -25,7 +25,7 @@ export const kotlinStrategy = {
         }
         console.log(`  Flattening finished - ${repoPath}`);
 
-        console.log(`  Running Kotlin onSyncEnd: Remove redundant files - ${repoPath}...`);
+        console.log(`  Running Kotlin postSync: Remove redundant files - ${repoPath}...`);
         const redundantFiles = ["kotlin-mascot.md", "debugging.md"];
         for (const file of redundantFiles) {
             const filePath = path.join(docsPath, file);
@@ -35,17 +35,17 @@ export const kotlinStrategy = {
         }
         console.log(`  Remove redundant files finished - ${repoPath}`);
 
-        console.log(` Running Kotlin onSyncEnd: Convert topic files - ${repoPath}`);
+        console.log(` Running Kotlin postSync: Convert topic files - ${repoPath}`);
         const docs = await fs.readdir(docsPath);
         const topicFiles = docs.filter(doc => doc.endsWith(".topic"));
         for (const topic in topicFiles) {
             const topicPath = path.join(docsPath, topicFiles[topic]);
-            await processTopicFile(topicPath, docsPath)
+            await processTopicFileAsync(topicPath, docsPath)
             await fs.remove(topicPath);
         }
         console.log(`  Convert topic files finished - ${repoPath}`);
 
-        console.log(`  Running Kotlin onSyncEnd: Generate sidebar - ${repoPath}...`);
+        console.log(`  Running Kotlin postSync: Generate sidebar - ${repoPath}...`);
         const sidebarFile = docs.filter(doc => doc.endsWith(".tree"));
         const sidebarPath = path.join(docsPath, sidebarFile[0]);
         const docType = repoPath.replace("-repo", "");
@@ -55,7 +55,7 @@ export const kotlinStrategy = {
         console.log(`  Generate sidebar finished - ${repoPath}`);
 
         if (repoPath === "kotlin-repo") {
-            console.log(`  Running Kotlin onSyncEnd: Resolve includes`);
+            console.log(`  Running Kotlin postSync: Resolve includes`);
             const includeMD = path.join(docsPath, "kotlin-language-features-and-proposals.md");
             let content = await fs.readFile(includeMD, "utf8");
             const includeFilterRe = /<include\s+element-id="([^"]+)"\s+use-filter="([^"]+)"\s+from="([^"]+)"\s*\/?>/g;
@@ -66,7 +66,7 @@ export const kotlinStrategy = {
                 if (!trMatch) return '';
 
                 const tr = trMatch.join('\n\n');
-                return `<table>\n<tbody>\n${tr}\n</tbody>\n</table>`
+                return `<table>\n${tr}\n</table>`
             })
 
             await fs.writeFile(includeMD, content, "utf8");
@@ -82,8 +82,8 @@ export const kotlinStrategy = {
             console.log(`  Copying Kotlin version file... `);
             const versionFile = "kotlin-repo/docs/v.list";
             if (await fs.pathExists(versionFile)) {
-                await fs.copy(versionFile, "docs/.vitepress/v.list", { overwrite: true });
-                context.gitAddPaths.add("docs/.vitepress/v.list")
+                await fs.copy(versionFile, "docs/.vitepress/kotlin.v.list", { overwrite: true });
+                context.gitAddPaths.add("docs/.vitepress/kotlin.v.list")
                 console.log(`  Copying Kotlin version file finished - ${repoConfig.path}`);
             }
         }

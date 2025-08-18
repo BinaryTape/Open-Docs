@@ -480,8 +480,6 @@ JetBrains 遵循 [Kotlin 语言演进原则](kotlin-evolution-principles.md)演�
 
 </td>
 </tr>
-</tbody>
-</table>
 
 <!-- END OF STABLE BLOCK -->
 
@@ -530,7 +528,6 @@ JetBrains 遵循 [Kotlin 语言演进原则](kotlin-evolution-principles.md)演�
 <tab id="exploration-and-design" title="探索与设计">
 
 <table>
-<tbody>
 <tr filter="exploration-and-design">
 <td width="200">
 
@@ -578,7 +575,6 @@ JetBrains 遵循 [Kotlin 语言演进原则](kotlin-evolution-principles.md)演�
 
 </td>
 </tr>
-</tbody>
 </table>
 
 </tab>
@@ -586,7 +582,6 @@ JetBrains 遵循 [Kotlin 语言演进原则](kotlin-evolution-principles.md)演�
 <tab id="keep-preparation" title="KEEP 讨论">
 
 <table>
-<tbody>
 <tr filter="keep">
 <td width="200">
 
@@ -697,7 +692,6 @@ JetBrains 遵循 [Kotlin 语言演进原则](kotlin-evolution-principles.md)演�
 
 </td>
 </tr>
-</tbody>
 </table>
 
 </tab>
@@ -705,7 +699,6 @@ JetBrains 遵循 [Kotlin 语言演进原则](kotlin-evolution-principles.md)演�
 <tab id="in-preview" title="预览中">
 
 <table>
-<tbody>
 <tr filter="in-preview">
 <td width="200">
 
@@ -857,7 +850,6 @@ JetBrains 遵循 [Kotlin 语言演进原则](kotlin-evolution-principles.md)演�
 
 </td>
 </tr>
-</tbody>
 </table>
 
 </tab>
@@ -865,7 +857,6 @@ JetBrains 遵循 [Kotlin 语言演进原则](kotlin-evolution-principles.md)演�
 <tab id="stable" title="稳定">
 
 <table>
-<tbody>
 <tr filter="stable">
 <td width="200">
 
@@ -1001,7 +992,6 @@ JetBrains 遵循 [Kotlin 语言演进原则](kotlin-evolution-principles.md)演�
 
 </td>
 </tr>
-</tbody>
 </table>
 
 </tab>
@@ -1009,7 +999,6 @@ JetBrains 遵循 [Kotlin 语言演进原则](kotlin-evolution-principles.md)演�
 <tab id="revoked" title="已撤销">
 
 <table>
-<tbody>
 <tr filter="revoked">
 <td width="200">
 
@@ -1042,7 +1031,6 @@ JetBrains 遵循 [Kotlin 语言演进原则](kotlin-evolution-principles.md)演�
 
 </td>
 </tr>
-</tbody>
 </table>
 
 </tab>

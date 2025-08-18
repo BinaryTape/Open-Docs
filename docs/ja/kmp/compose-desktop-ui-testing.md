@@ -1,35 +1,36 @@
-[//]: # (title: JUnit を使用した Compose Multiplatform UI のテスト)
+[//]: # (title: Compose Multiplatform UI を JUnit でテストする)
 
-デスクトップ版 Compose Multiplatform は、JUnit と Jetpack Compose テスト API に基づくテスト API を提供します。
-実装の詳細については、Jetpack Compose ドキュメントの [Compose レイアウトをテストする](https://developer.android.com/develop/ui/compose/testing) ガイドを参照してください。
+デスクトップ版Compose Multiplatformは、JUnitおよびJetpack ComposeテストAPIに基づいたテストAPIを提供します。
+実装の詳細については、Jetpack Composeドキュメント内の「[Test your Compose layout](https://developer.android.com/develop/ui/compose/testing)」ガイドを参照してください。
 
-> すべてのサポート対象プラットフォームで利用可能な UI テスト機能については、[Compose Multiplatform UI のテスト](compose-test.md) の記事を参照してください。
+> サポートされているすべてのプラットフォームで利用可能なUIテスト機能については、「[Testing Compose Multiplatform UI](compose-test.md)」の記事を参照してください。
 >
 {style="tip"}
 
-JUnit ベースのテストが動作するのを見るために、[Kotlin Multiplatform wizard](https://kmp.jetbrains.com/) で生成されたプロジェクトから始めましょう。既存のプロジェクトにテストを追加する場合、パスやコマンドの `composeApp` を、テスト対象のモジュール名（例: `shared`）に置き換える必要があるかもしれません。
+JUnitベースのテストを実際に見てみるには、[Kotlin Multiplatform wizard](https://kmp.jetbrains.com/)で生成されたプロジェクトから始めましょう。
+既存のプロジェクトにテストを追加する場合、パスやコマンド内の`composeApp`を、テストしているモジュール名（例えば`shared`）に置き換える必要があるかもしれません。
 
 テストソースセットを作成し、必要な依存関係を追加します。
 
-1. テスト用のディレクトリ `composeApp/src/desktopTest/kotlin` を作成します。
-2. `composeApp/build.gradle.kts` ファイルに、次の依存関係を追加します。
+1.  テスト用のディレクトリを作成します: `composeApp/src/desktopTest/kotlin`。
+2.  `composeApp/build.gradle.kts`ファイルに、以下の依存関係を追加します。
 
-   ```kotlin
-   kotlin { 
-       //...
-       sourceSets { 
-           //...
-           val desktopTest by getting { 
-               dependencies {
-                   implementation(compose.desktop.uiTestJUnit4)
-                   implementation(compose.desktop.currentOs)
-               }
-           }
-       }
-   }
-   ```
+    ```kotlin
+    kotlin { 
+        //...
+        sourceSets { 
+            //...
+            val desktopTest by getting { 
+                dependencies {
+                    implementation(compose.desktop.uiTestJUnit4)
+                    implementation(compose.desktop.currentOs)
+                }
+            }
+        }
+    }
+    ```
 
-3. `ExampleTest.kt` というテストファイルを作成し、次のコードをコピーします。
+3.  `ExampleTest.kt`というテストファイルを作成し、以下のコードをコピーします。
 
     ```kotlin
     import androidx.compose.material.*
@@ -73,13 +74,13 @@ JUnit ベースのテストが動作するのを見るために、[Kotlin Multip
     }
     ```
 
-4. テストを実行するには、`myTest()` 関数の横のガターにある実行アイコンをクリックするか、ターミナルで次のコマンドを実行します。
+4.  テストを実行するには、`myTest()`関数の隣のガターにある実行アイコンをクリックするか、ターミナルで以下のコマンドを実行します。
 
-   ```shell
-   ./gradlew desktopTest
-   ```
-   
-## 次に
+    ```shell
+    ./gradlew desktopTest
+    ```
+    
+## 次のステップ
 
-* [マルチプラットフォームテストを作成および実行する](multiplatform-run-tests.md) 方法を参照してください。
-* Kotlin プロジェクトでの JUnit ベースのテストの概要については、[JVM で JUnit を使用してコードをテストする](https://kotlinlang.org/docs/jvm-test-using-junit.html) チュートリアルを参照してください。
+*   [マルチプラットフォームテストの作成と実行方法](multiplatform-run-tests.md)を参照してください。
+*   KotlinプロジェクトでのJUnitベースのテストの概要については、「[JVMでJUnitを使用してコードをテストする](https://kotlinlang.org/docs/jvm-test-using-junit.html)」チュートリアルを参照してください。

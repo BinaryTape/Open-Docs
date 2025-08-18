@@ -16,8 +16,8 @@ Koogフレームワークは、ツールを扱うための以下のワークフ�
 Koogフレームワークには、3種類のツールがあります。
 
 *   エージェントとユーザーの対話、および会話管理の機能を提供する組み込みツール。詳細は、[組み込みツール](built-in-tools.md)を参照してください。
-*   アノテーションベースのカスタムツールで、関数をLLMにツールとして公開できます。詳細は、[アノテーションベースのツール](annotation-based-tools.md)を参照してください。
-*   高度なAPIを使用して作成されるカスタムツールで、ツールパラメーター、メタデータ、実行ロジック、および登録・呼び出し方法を制御できます。詳細は、[高度な実装](advanced-tool-implementation.md)を参照してください。
+*   関数をLLMにツールとして公開できるアノテーションベースのカスタムツール。詳細は、[アノテーションベースのツール](annotation-based-tools.md)を参照してください。
+*   ツールパラメーター、メタデータ、実行ロジック、および登録・呼び出し方法を制御できるカスタムツール（クラスベースのツール）。詳細は、[クラスベースのツール](class-based-tools.md)を参照してください。
 
 ### ツールレジストリ
 
@@ -32,32 +32,52 @@ Koogフレームワークには、3種類のツールがあります。
 
 詳細については、[ToolRegistry](https://api.koog.ai/agents/agents-tools/ai.koog.agents.core.tools/-tool-registry/index.html)を参照してください。
 
-ツールレジストリを作成し、ツールを追加する例を以下に示します。
+以下に、ツールレジストリを作成し、ツールを追加する例を示します。
 
+<!--- INCLUDE
+import ai.koog.agents.core.tools.ToolRegistry
+import ai.koog.agents.ext.tool.SayToUser
+-->
 ```kotlin
 val toolRegistry = ToolRegistry {
     tool(SayToUser)
 }
 ```
+<!--- KNIT example-tools-overview-01.kt -->
 
 複数のツールレジストリをマージするには、次のようにします。
 
+<!--- INCLUDE
+import ai.koog.agents.core.tools.ToolRegistry
+import ai.koog.agents.ext.tool.AskUser
+import ai.koog.agents.ext.tool.SayToUser
+
+typealias FirstSampleTool = AskUser
+typealias SecondSampleTool = SayToUser
+-->
 ```kotlin
 val firstToolRegistry = ToolRegistry {
-    tool(FirstSampleTool())
+    tool(FirstSampleTool)
 }
 
 val secondToolRegistry = ToolRegistry {
-    tool(SecondSampleTool())
+    tool(SecondSampleTool)
 }
 
 val newRegistry = firstToolRegistry + secondToolRegistry
 ```
+<!--- KNIT example-tools-overview-02.kt -->
 
 ### エージェントへのツールの受け渡し
 
 エージェントがツールを使用できるようにするには、エージェントを作成する際に、このツールを含むツールレジストリを引数として提供する必要があります。
 
+<!--- INCLUDE
+import ai.koog.agents.core.agent.AIAgent
+import ai.koog.agents.example.exampleToolsOverview01.toolRegistry
+import ai.koog.prompt.executor.clients.openai.OpenAIModels
+import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
+-->
 ```kotlin
 // Agent initialization
 val agent = AIAgent(
@@ -68,6 +88,7 @@ val agent = AIAgent(
     toolRegistry = toolRegistry
 )
 ```
+<!--- KNIT example-tools-overview-03.kt -->
 
 ### ツールの呼び出し
 
@@ -91,24 +112,62 @@ val agent = AIAgent(
 
 `toParallelToolCallsRaw`拡張機能を使用して、ツールを並列で呼び出すこともできます。例：
 
+<!--- INCLUDE
+import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.tools.SimpleTool
+import ai.koog.agents.core.tools.ToolArgs
+import ai.koog.agents.core.tools.ToolDescriptor
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.flow
+import kotlinx.serialization.KSerializer
+import kotlinx.serialization.Serializable
+-->
 ```kotlin
 @Serializable
 data class Book(
-    val bookName: String,
+    val title: String,
     val author: String,
     val description: String
 ) : ToolArgs
 
-/*...*/
+class BookTool() : SimpleTool<Book>() {
+    companion object {
+        const val NAME = "book"
+    }
 
-val myNode by node<Unit, Unit> { _ ->
-    llm.writeSession {
-        flow {
-            emit(Book("Book 1", "Author 1", "Description 1"))
-        }.toParallelToolCallsRaw(BookTool::class).collect()
+    override suspend fun doExecute(args: Book): String {
+        println("${args.title} by ${args.author}:
+ ${args.description}")
+        return "Done"
+    }
+
+    override val argsSerializer: KSerializer<Book>
+        get() = Book.serializer()
+
+    override val descriptor: ToolDescriptor
+        get() = ToolDescriptor(
+            name = NAME,
+            description = "A tool to parse book information from Markdown",
+            requiredParameters = listOf(),
+            optionalParameters = listOf()
+        )
+}
+
+val strategy = strategy<Unit, Unit>("strategy-name") {
+
+    /*...*/
+
+    val myNode by node<Unit, Unit> { _ ->
+        llm.writeSession {
+            flow {
+                emit(Book("Book 1", "Author 1", "Description 1"))
+            }.toParallelToolCallsRaw(BookTool::class).collect()
+        }
     }
 }
+
 ```
+<!--- KNIT example-tools-overview-04.kt -->
 
 #### ノードからのツール呼び出し
 

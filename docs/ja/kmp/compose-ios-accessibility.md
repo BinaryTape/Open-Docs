@@ -1,21 +1,21 @@
-[//]: # (title: iOSアクセシビリティ機能のサポート)
+[//]: # (title: iOSアクセシビリティ機能への対応)
 
-Compose Multiplatformのアクセシビリティサポートにより、障がいのある方もネイティブのiOS UIと同じくらい快適にCompose Multiplatform UIを操作できます。
+Compose Multiplatformのアクセシビリティ対応により、障がいのある方々がCompose Multiplatform UIをネイティブのiOS UIと同じくらい快適に操作できるようになります。
 
-*   スクリーンリーダーとVoiceOverは、Compose Multiplatform UIのコンテンツにアクセスできます。
-*   Compose Multiplatform UIは、ネイティブのiOS UIと同じジェスチャーをサポートし、ナビゲーションや操作が可能です。
+* スクリーンリーダーとVoiceOverは、Compose Multiplatform UIのコンテンツにアクセスできます。
+* Compose Multiplatform UIは、ナビゲーションと操作のためにネイティブのiOS UIと同じジェスチャーをサポートします。
 
-これは、Compose APIによって生成されたセマンティクスデータが、iOSアクセシビリティサービスによって利用されるネイティブオブジェクトとプロパティにマッピングされるようになったためです。Materialウィジェットで構築されたほとんどのインターフェースでは、これは自動的に行われます。
+これは、Compose APIによって生成されるセマンティクスデータが、iOSアクセシビリティサービスによって利用されるネイティブのオブジェクトとプロパティにマッピングされるようになったためです。Materialウィジェットで構築されたほとんどのインターフェースでは、これは自動的に行われるはずです。
 
-このセマンティクスデータは、テストやその他の自動化でも使用できます。`testTag`などのプロパティは、`accessibilityIdentifier`のようなネイティブのアクセシビリティプロパティに正しくマッピングされます。これにより、Compose MultiplatformからのセマンティクスデータがアクセシビリティサービスとXCTestフレームワークで利用可能になります。
+このセマンティックデータは、テストやその他の自動化にも利用できます。`testTag`のようなプロパティは、`accessibilityIdentifier`のようなネイティブのアクセシビリティプロパティに正確にマッピングされます。これにより、Compose MultiplatformからのセマンティックデータがアクセシビリティサービスとXCTestフレームワークで利用可能になります。
 
 ## ハイコントラストテーマ
 
-Compose MultiplatformはMaterial3ライブラリの[`ColorScheme`](https://kotlinlang.org/api/compose-multiplatform/material3/androidx.compose.material3/-color-scheme/)クラスを使用しており、現在、ハイコントラストカラーの既製サポートは不足しています。iOSでハイコントラストテーマを使用するには、アプリケーションパレットに追加のカラーセットを追加する必要があります。各カスタムカラーに対して、そのハイコントラストバージョンを手動で指定する必要があります。
+Compose Multiplatformは、Material3ライブラリの[`ColorScheme`](https://kotlinlang.org/api/compose-multiplatform/material3/androidx.compose.material3/-color-scheme/)クラスを使用しており、現状ではハイコントラストカラーの標準サポートがありません。iOSでハイコントラストテーマを実装するには、アプリケーションのカラーパレットに追加のカラーセットを追加する必要があります。各カスタムカラーについて、そのハイコントラストバージョンを手動で指定する必要があります。
 
-iOSには**コントラストを上げる**アクセシビリティ設定があり、これは`UIAccessibilityDarkerSystemColorsEnabled`の値をチェックすることで検出できます。また、`UIAccessibilityDarkerSystemColorsStatusDidChangeNotification`を追跡することもできます。これらのAPIを使用すると、システムアクセシビリティ設定が有効になったときに、ハイコントラストカラーパレットに切り替えることができます。
+iOSには**コントラストを上げる**アクセシビリティ設定があり、これは`UIAccessibilityDarkerSystemColorsEnabled`の値をチェックすることで検出できます。`UIAccessibilityDarkerSystemColorsStatusDidChangeNotification`を監視することもできます。これらのAPIを使用すると、システムアクセシビリティ設定が有効になっているときにハイコントラストのカラーパレットに切り替えることができます。
 
-カラーパレットを定義する際は、WCAG準拠のコントラストチェッカーツールを使用して、選択した`onPrimary`カラーがプライマリカラーと、`onSurface`がサーフェスカラーと、その他も同様に十分なコントラストを持っていることを確認してください。カラー間のコントラスト比は少なくとも4.5:1であることを確認してください。カスタムの前景と背景の色の場合、特に小さいテキストではコントラスト比が7:1である必要があります。これは、`lightColorScheme`と`darkColorScheme`の両方に適用されます。
+カラーパレットを定義する際には、WCAG準拠のコントラストチェッカーツールを使用して、選択した`onPrimary`カラーが`primary`カラーに対して、`onSurface`が`surface`カラーに対して、その他も同様に十分なコントラストを持っていることを確認してください。カラー間のコントラスト比が少なくとも4.5:1であることを確認してください。カスタムの前景色と背景色の場合、特に小さいテキストでは、コントラスト比は7:1にする必要があります。これは、`lightColorScheme`と`darkColorScheme`の両方に適用されます。
 
 このコードは、テーマパッケージでハイコントラストのライトおよびダークカラーパレットを定義する方法を示しています。
 
@@ -113,20 +113,20 @@ val DarkHighContrastPalette =
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="val LightHighContrastPalette = HighContrastColors( primary = RoyalBlue,"}
 
-## トラックパッドとキーボードによる制御
+## トラックパッドとキーボードによる操作
 
-iOS用Compose Multiplatformは、デバイスを制御するための追加の入力方法をサポートしています。タッチスクリーンに依存する代わりに、AssistiveTouchを有効にしてマウスやトラックパッドを使用したり、フルキーボードアクセスを有効にしてキーボードを使用したりできます。
+iOS用Compose Multiplatformは、デバイスを操作するための追加の入力方法をサポートしています。タッチスクリーンに頼る代わりに、AssistiveTouchを有効にしてマウスまたはトラックパッドを使用するか、またはフルキーボードアクセスを有効にしてキーボードを使用することができます。
 
-*   AssistiveTouch（**設定** | **アクセシビリティ** | **タッチ** | **AssistiveTouch**）を使用すると、接続されたマウスまたはトラックパッドのポインタでiPhoneを制御できます。ポインタを使用して画面上のアイコンをクリックしたり、AssistiveTouchメニューをナビゲートしたり、オンスクリーンキーボードを使用して入力したりできます。
+* AssistiveTouch（**設定** | **アクセシビリティ** | **タッチ** | **AssistiveTouch**）を使用すると、接続されたマウスまたはトラックパッドのポインターでiPhoneを操作できます。ポインターを使用して、画面上のアイコンをクリックしたり、AssistiveTouchメニューをナビゲートしたり、オンスクリーンキーボードを使用して入力したりできます。
 
-    iPadでは、マウスまたはトラックパッドを接続すると、基本的な使用はすぐにできます。ただし、ポインタのサイズを調整したり、トラッキング速度を変更したり、特定の操作をボタンに割り当てたりする場合は、AssistiveTouchを有効にする必要があります。
-*   フルキーボードアクセス（**設定** | **アクセシビリティ** | **キーボード** | **フルキーボードアクセス**）は、接続されたキーボードでデバイスを制御できるようにします。**Tab**キーでナビゲートし、**Space**キーで項目をアクティブにできます。
+  iPadでは、マウスまたはトラックパッドの接続は基本的な使用には標準で利用できます。ただし、ポインターのサイズを調整したり、トラッキング速度を変更したり、特定の操作をボタンに割り当てたりしたい場合は、それでもAssistiveTouchを有効にする必要があります。
+* フルキーボードアクセス（**設定** | **アクセシビリティ** | **キーボード** | **フルキーボードアクセス**）は、接続されたキーボードでのデバイス操作を可能にします。**Tab**キーなどを使ってナビゲートし、**Space**キーを使ってアイテムをアクティブにできます。
 
 ## XCTestフレームワークでアクセシビリティをテストする
 
-セマンティックアクセシビリティデータは、テストやその他の自動化で使用できます。`testTag`などのプロパティは、`accessibilityIdentifier`のようなネイティブのアクセシビリティプロパティに正しくマッピングされます。これにより、Compose MultiplatformからのセマンティックデータがアクセシビリティサービスとXCTestフレームワークで利用可能になります。
+セマンティックアクセシビリティデータは、テストやその他の自動化に利用できます。`testTag`のようなプロパティは、`accessibilityIdentifier`のようなネイティブのアクセシビリティプロパティに正確にマッピングされます。これにより、Compose MultiplatformからのセマンティックデータがアクセシビリティサービスとXCTestフレームワークで利用可能になります。
 
-UIテストで自動化されたアクセシビリティ監査を使用できます。`XCUIApplication`に対して`performAccessibilityAudit()`を呼び出すと、Accessibility Inspectorと同様に、現在のビューのアクセシビリティの問題が監査されます。
+UIテストで自動アクセシビリティ監査を利用できます。`XCUIApplication`に対して`performAccessibilityAudit()`を呼び出すと、アクセシビリティインスペクターが行うのと同様に、現在のビューのアクセシビリティ問題を監査します。
 
 ```swift
 func testAccessibilityTabView() throws {
@@ -141,25 +141,24 @@ func testAccessibilityTabView() throws {
 ## アクセシビリティツリーの同期をカスタマイズする
 
 デフォルト設定では：
-*   iOSアクセシビリティツリーは、アクセシビリティサービスが実行されている場合にのみUIと同期されます。
-*   同期イベントはログに記録されません。
+* iOSアクセシビリティツリーは、アクセシビリティサービスが実行されている場合にのみUIと同期されます。
+* 同期イベントはログに記録されません。
 
-新しいCompose Multiplatform APIを使用して、これらの設定をカスタマイズできます。
+これらの設定は、新しいCompose Multiplatform APIでカスタマイズできます。
 
 ### ツリー同期オプションを選択する
 
-> Compose Multiplatform 1.8.0では、[このオプションは削除されました](whats-new-compose-180.md#loading-accessibility-tree-on-demand)。
-> アクセシビリティツリーは遅延同期されるため、追加の設定は不要になりました。
+> [!TIP]
+> Compose Multiplatform 1.8.0では、アクセシビリティツリーは遅延同期されるため追加の設定が不要になったため、[このオプションは削除されました](whats-new-compose-180.md#loading-accessibility-tree-on-demand)。
 >
-{style="tip"}
 
 イベントとインタラクションをデバッグおよびテストするために、同期モードを次のように変更できます。
-*   ツリーをUIと同期しない（例: アクセシビリティマッピングを一時的に無効にする）。
-*   ツリーを常に同期する（UIが更新されるたびにツリーが書き換えられ、アクセシビリティ統合を徹底的にテストできる）。
+* ツリーをUIと同期しない（例えば、アクセシビリティマッピングを一時的に無効にするため）。
+* 常にツリーを同期する（UIが更新されるたびにツリーが書き換えられるようにし、アクセシビリティの統合を徹底的にテストするため）。
 
-> UIイベントごとにツリーを同期することは、デバッグやテストには非常に役立ちますが、アプリのパフォーマンスを低下させる可能性があることを覚えておいてください。
+> [!NOTE]
+> 各UIイベント後にツリーを同期することは、デバッグやテストには非常に役立ちますが、アプリのパフォーマンスを低下させる可能性があることに注意してください。
 >
-{style="note"}
 
 アクセシビリティツリーを常に同期するオプションを有効にする例：
 
@@ -196,7 +195,7 @@ sealed class AccessibilitySyncOptions {
 
 ### ロギングインターフェースを実装する
 
-`AccessibilityDebugLogger`インターフェースを実装することで、選択した出力にカスタムメッセージを書き込むことができます。
+`AccessibilityDebugLogger`インターフェースを実装することで、任意の出力にカスタムメッセージを書き込むことができます。
 
 ```kotlin
 ComposeUIViewController(configure = {
@@ -216,5 +215,5 @@ ComposeUIViewController(configure = {
 
 ## 次のステップ
 
-*   [Appleのアクセシビリティ](https://developer.apple.com/accessibility/)ガイドで詳細を学びましょう。
-*   [Kotlin Multiplatformウィザード](https://kmp.jetbrains.com/)によって生成されたプロジェクトを、通常のiOSアクセシビリティワークフローで試してみてください。
+* [Appleアクセシビリティ](https://developer.apple.com/accessibility/)ガイドで詳細を確認してください。
+* 通常のiOSアクセシビリティワークフローで、[Kotlin Multiplatformウィザード](https://kmp.jetbrains.com/)によって生成されたプロジェクトを試してみてください。

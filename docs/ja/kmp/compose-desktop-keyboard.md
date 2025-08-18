@@ -1,18 +1,18 @@
 [//]: # (title: キーボードイベント)
 
-Compose Multiplatform for desktop では、2つの異なるスコープでイベントハンドラーを設定することにより、キーボードイベントを管理できます。
+Compose Multiplatform for Desktop では、キーボードイベントを2つの異なるスコープでイベントハンドラーを設定することで管理できます。
 
-*   フォーカスされた要素に基づくイベントハンドラー。
-*   ウィンドウスコープでのイベントハンドラー。
+* フォーカスされた要素に基づくイベントハンドラー。
+* ウィンドウスコープのイベントハンドラー。
 
 ## フォーカスされたコンポーネントでのイベント
 
-このアプローチは、キーボードでキーを押すと、現在フォーカスされているコンポーネントのイベントハンドラーがトリガーされることを意味します。
+このアプローチは、キーボードのキーを押すと、現在フォーカスされているコンポーネントのイベントハンドラーがトリガーされることを意味します。
 
-一般的なシナリオは、`TextField` のようなアクティブなコントロールに対してキーボードハンドラーを定義することです。キーイベントがデフォルトのアクションをトリガーする前にそれをインターセプトするには、`onKeyEvent` と `onPreviewKeyEvent` の両方のモディファイアを使用できます。
-`onKeyEvent` モディファイアを使用すると、個々のキーストロークを処理でき、`onPreviewKeyEvent` はショートカットの定義に適しています。
+典型的なシナリオは、`TextField` のようなアクティブなコントロールにキーボードハンドラーを定義することです。キーイベントがデフォルトのアクションをトリガーする前にインターセプトするには、`onKeyEvent` と `onPreviewKeyEvent` の両方のモディファイアを使用できます。
+`onKeyEvent` モディファイアを使用すると個々のキーストロークを処理でき、`onPreviewKeyEvent` はショートカットを定義するのに適しています。
 
-以下のサンプルは、<shortcut>Ctrl</shortcut> を押しながらどのキーが押されたかによって異なるアクションを伴う `TextField` のインタラクションを示しています。
+次のサンプルは、<shortcut>Ctrl</shortcut> を押しながら、どのキーが押されたかに応じて異なるアクションを実行する `TextField` のインタラクションを示しています。
 
 ```kotlin
 import androidx.compose.foundation.layout.fillMaxSize
@@ -70,10 +70,10 @@ fun main() = singleWindowApplication (title = "Key events") {
 
 ## ウィンドウスコープでのイベント
 
-現在のウィンドウ内で常にアクティブなキーボードイベントハンドラーを定義するには、`Window`、`singleWindowApplication`、および `Dialog` 関数で利用可能な `onPreviewKeyEvent` と `onKeyEvent` パラメーターを使用します。
-これらは、イベントが消費されなかった場合のディスパッチ方法が異なります。`onPreviewKeyEvent` はイベントを最初のチャイルドにディスパッチし、`onKeyEvent` はイベントをコンポーザブルの親にディスパッチします。通常、`onPreviewKeyEvent` はイベントのインターセプトに適しており、画面全体のキーボードショートカットの実装も可能です。
+現在のウィンドウ内で常にアクティブなキーボードイベントハンドラーを定義するには、`Window`、`singleWindowApplication`、`Dialog` 関数で利用可能な `onPreviewKeyEvent` および `onKeyEvent` パラメーターを使用します。
+これらは、イベントが消費されなかった場合のディスパッチ方法が異なります。`onPreviewKeyEvent` はイベントを最初の子にディスパッチし、`onKeyEvent` はイベントをコンポーザブルの親にディスパッチします。通常、`onPreviewKeyEvent` はイベントのインターセプトに推奨されます。これは、画面全体のキーボードショートカットさえも実装できるためです。
 
-以下のサンプルは、`Escape` を押してポップアップダイアログを閉じたり、<shortcut>Ctrl+Shift+C</shortcut> ショートカットを押してウィンドウコンテンツを変更したりするような、ウィンドウのインタラクションを示しています。
+次のサンプルは、`Escape` キーを押してポップアップダイアログを閉じたり、<shortcut>Ctrl+Shift+C</shortcut> ショートカットを押してウィンドウの内容を変更したりするなど、ウィンドウのインタラクションを示しています。
 
 ```kotlin
 import androidx.compose.foundation.layout.Arrangement
@@ -159,7 +159,7 @@ fun App() {
 
 <img src="compose-desktop-key-window.animated.gif" alt="Keyboard events in a window scope" width="600" preview-src="compose-desktop-key-window.png"/>
 
-## 次にすること
+## 次のステップ
 
-*   詳細については、[APIリファレンス](https://developer.android.com/reference/kotlin/androidx/compose/ui/input/key/package-summary#keyinputfilter)を参照してください。
-*   [他のデスクトップコンポーネント](https://github.com/JetBrains/compose-multiplatform/tree/master/tutorials#desktop)に関するチュートリアルを探索してください。
+* 詳細については、[APIリファレンス](https://developer.android.com/reference/kotlin/androidx/compose/ui/input/key/package-summary#keyinputfilter)を参照してください。
+* [他のデスクトップコンポーネント](https://github.com/JetBrains/compose-multiplatform/tree/master/tutorials#desktop)に関するチュートリアルを探索してください。

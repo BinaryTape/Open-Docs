@@ -1,43 +1,53 @@
 [//]: # (title: iOSアプリのプライバシーマニフェスト)
 
-アプリをApple App Store向けに開発していて、[必須理由API](https://developer.apple.com/documentation/bundleresources/describing-use-of-required-reason-api)を使用している場合、App Store Connectから、アプリに正しいプライバシーマニフェストがないという警告が表示されることがあります。
+Apple App Storeを対象とし、[必須理由API (required reasons API)](https://developer.apple.com/documentation/bundleresources/describing-use-of-required-reason-api)を使用しているアプリの場合、
+App Store Connectは、アプリに正しいプライバシーマニフェスト (privacy manifest) がないという警告を発行する可能性があります。
 
 ![Required reasons warning](app-store-required-reasons-warning.png){width=700}
 
-これは、ネイティブまたはマルチプラットフォームを問わず、あらゆるAppleエコシステムアプリに影響を与える可能性があります。アプリがサードパーティのライブラリやSDKを介して必須理由APIを使用している可能性があり、これは明らかではないかもしれません。Kotlin Multiplatformも、あなたが認識していないAPIを使用しているフレームワークの一つである可能性があります。
+これは、ネイティブまたはマルチプラットフォームを問わず、あらゆるAppleエコシステムアプリに影響を与える可能性があります。あなたのアプリは、
+サードパーティライブラリまたはSDKを介して必須理由APIを使用している可能性があり、それが明らかではない場合もあります。Kotlin Multiplatformも、
+あなたが認識していないAPIを使用しているフレームワークの一つである可能性があります。
 
-このページでは、この問題の詳細な説明と、それに対処するための推奨事項を説明します。
+このページでは、問題の詳細な説明と、それに対処するための推奨事項を記載しています。
 
-> このページは、Kotlinチームによるこの問題に対する現在の理解を反映しています。
-> 承認されたアプローチと回避策に関するより多くのデータと知識が得られ次第、このページを更新していきます。
+> このページは、Kotlinチームがこの問題について現在理解している内容を反映しています。
+> 承認されたアプローチと回避策に関するより多くのデータと知識が得られ次第、ページを更新して反映します。
 >
 {style="tip"}
 
 ## 問題点
 
-AppleのApp Storeへの申請要件は、[2024年春に変更されました](https://developer.apple.com/news/?id=r1henawx)。[App Store Connect](https://appstoreconnect.apple.com)は、プライバシーマニフェストで必須理由APIを使用する理由が指定されていないアプリを受け入れなくなりました。
+App Store提出物に関するAppleの要件は、[2024年春に変更されました](https://developer.apple.com/news/?id=r1henawx)。
+[App Store Connect](https://appstoreconnect.apple.com)は、プライバシーマニフェストで必須理由APIの使用理由を指定していないアプリを受け入れなくなりました。
 
-これは手動でのモデレーションではなく、自動チェックです。アプリのコードが分析され、問題点のリストがメールで送られてきます。そのメールには、「ITMS-91053: Missing API declaration (API宣言の欠如)」という問題が記載され、アプリ内で使用されている[必須理由](https://developer.apple.com/documentation/bundleresources/describing-use-of-required-reason-api)カテゴリに該当するすべてのAPIカテゴリがリストアップされます。
+これは手動によるモデレーションではなく、自動チェックです。アプリのコードが分析され、メールで問題のリストが届きます。
+そのメールには「ITMS-91053: Missing API declaration」という問題が参照され、アプリで使用されているAPIカテゴリのうち、
+[必須理由](https://developer.apple.com/documentation/bundleresources/describing-use-of-required-reason-api)カテゴリに該当するすべてのAPIがリストアップされます。
 
-理想的には、アプリが使用するすべてのSDKが独自のプライバシーマニフェストを提供しており、そのことを心配する必要はありません。しかし、一部の依存関係がこれを行わない場合、App Storeへの申請が指摘される可能性があります。
+理想的には、アプリが使用するすべてのSDKが独自のプライバシーマニフェストを提供し、それについて心配する必要はありません。
+しかし、一部の依存関係がこれを行わない場合、App Storeへの提出がフラグ付けされる可能性があります。
 
 ## 解決方法
 
-アプリを申請してみてApp Storeから詳細な問題リストを受け取った後、Appleのドキュメントに従ってマニフェストを作成することができます。
+アプリを提出してApp Storeから詳細な問題リストを受け取った後、Appleのドキュメントに従ってマニフェストを作成できます。
 
 *   [プライバシーマニフェストファイルの概要](https://developer.apple.com/documentation/bundleresources/privacy-manifest-files)
-*   [プライバシーマニフェストにおけるデータ使用の記述](https://developer.apple.com/documentation/bundleresources/describing-data-use-in-privacy-manifests)
+*   [プライバシーマニフェストでのデータ使用の記述](https://developer.apple.com/documentation/bundleresources/describing-data-use-in-privacy-manifests)
 *   [必須理由APIの使用の記述](https://developer.apple.com/documentation/bundleresources/describing-use-of-required-reason-api)
 
-生成されるファイルはディクショナリの集合です。アクセスするAPIタイプごとに、提供されたリストから使用する理由を1つ以上選択します。Xcodeは、視覚的なレイアウトと各フィールドの有効な値を含むドロップダウンリストを提供することで、`.xcprivacy`ファイルの編集を支援します。
+結果のファイルはディクショナリの集合体です。アクセスされたAPIタイプごとに、提供されたリストから1つ以上の使用理由を選択します。
+Xcodeは、`.xcprivacy` ファイルの編集を支援するために、ビジュアルレイアウトと各フィールドの有効な値を含むドロップダウンリストを提供します。
 
-[特別なツール](#find-usages-of-required-reason-apis)を使用してKotlinフレームワークの依存関係における必須理由APIの使用箇所を見つけ、[個別のプラグイン](#place-the-xcprivacy-file-in-your-kotlin-artifacts)を使用して`.xcprivacy`ファイルをKotlinアーティファクトにバンドルすることができます。
+[特殊なツール](#find-usages-of-required-reason-apis)を使用して、Kotlinフレームワークの依存関係における必須理由APIの使用箇所を見つけ、
+[別のプラグイン](#place-the-xcprivacy-file-in-your-kotlin-artifacts)を使用して、`.xcprivacy` ファイルをKotlinアーティファクトとバンドルできます。
 
-新しいプライバシーマニフェストがApp Storeの要件を満たすのに役立たない場合、または手順がわからない場合は、[このYouTrackイシュー](https://youtrack.jetbrains.com/issue/KT-67603)でケースを共有して当社にご連絡ください。
+新しいプライバシーマニフェストがApp Storeの要件を満たすのに役立たない場合、または手順を進める方法がわからない場合は、
+[このYouTrack課題](https://youtrack.jetbrains.com/issue/KT-67603)でお問い合わせいただき、ケースを共有してください。
 
 ## 必須理由APIの使用箇所を見つける
 
-アプリ内のKotlinコードまたは依存関係のいずれかが、`platform.posix`などのライブラリから必須理由API（例: `fstat`）にアクセスする場合があります。
+アプリのKotlinコードまたは依存関係の1つが、`platform.posix` などのライブラリから `fstat` などの必須理由APIにアクセスする場合があります。
 
 ```kotlin
 import platform.posix.fstat
@@ -47,19 +57,21 @@ fun useRequiredReasonAPI() {
 }
 ```
 
-場合によっては、どの依存関係が必須理由APIを使用しているかを特定するのが難しいことがあります。それらを見つけるのに役立つシンプルなツールを作成しました。
+場合によっては、どの依存関係が必須理由APIを使用しているかを特定するのが難しいことがあります。
+それらを見つけるのに役立つシンプルなツールを作成しました。
 
-それを使用するには、プロジェクト内でKotlinフレームワークが宣言されているディレクトリで以下のコマンドを実行します。
+使用するには、Kotlinフレームワークがプロジェクトで宣言されているディレクトリで次のコマンドを実行します。
 
 ```shell
 /usr/bin/python3 -c "$(curl -fsSL https://github.com/JetBrains/kotlin/raw/rrf_v0.0.1/libraries/tools/required-reason-finder/required_reason_finder.py)"
 ```
 
-このスクリプトは個別に[ダウンロード](https://github.com/JetBrains/kotlin/blob/rrf_v0.0.1/libraries/tools/required-reason-finder/required_reason_finder.py)して、内容を確認し、`python3`で実行することもできます。
+このスクリプトを[個別にダウンロード](https://github.com/JetBrains/kotlin/blob/rrf_v0.0.1/libraries/tools/required-reason-finder/required_reason_finder.py)し、
+検査してから `python3` を使用して実行することもできます。
 
 ## .xcprivacyファイルをKotlinアーティファクトに配置する
 
-`PrivacyInfo.xcprivacy`ファイルをKotlinアーティファクトにバンドルする必要がある場合は、`apple-privacy-manifests`プラグインを使用します。
+`PrivacyInfo.xcprivacy` ファイルをKotlinアーティファクトにバンドルする必要がある場合は、`apple-privacy-manifests` プラグインを使用します。
 
 ```kotlin
 plugins {
@@ -82,16 +94,21 @@ kotlin {
 
 ### Compose Multiplatform
 
-Compose Multiplatformを使用すると、バイナリ内で`fstat`、`stat`、`mach_absolute_time`が使用される可能性があります。これらの関数はトラッキングやフィンガープリンティングには使用されず、デバイスから送信されることもありませんが、Appleは依然としてそれらを必須理由が不足しているAPIとして指摘する可能性があります。
+Compose Multiplatformを使用すると、バイナリで `fstat`、`stat`、および `mach_absolute_time` の使用が発生する可能性があります。
+これらの関数はトラッキングやフィンガープリンティングには使用されず、デバイスから送信されることもありませんが、
+Appleはそれらを必須理由が不足しているAPIとしてフラグを立てる可能性があります。
 
-`stat`および`fstat`の使用に対して理由を指定する必要がある場合は、`0A2A.1`を使用します。`mach_absolute_time`の場合は、`35F9.1`を使用します。
+`stat` および `fstat` の使用理由を指定する必要がある場合は、`0A2A.1` を使用してください。
+`mach_absolute_time` の場合は、`35F9.1` を使用してください。
 
-Compose Multiplatformで使用される必須理由APIに関するさらなる更新については、[このイシュー](https://github.com/JetBrains/compose-multiplatform/issues/4738)をフォローしてください。
+Compose Multiplatformで使用される必須理由APIに関するさらなる更新については、[この課題](https://github.com/JetBrains/compose-multiplatform/issues/4738)をフォローしてください。
 
 ### Kotlin/Nativeランタイム バージョン1.9.10以前
 
-`mach_absolute_time` APIは、Kotlin/Nativeランタイムの`mimalloc`アロケータで使用されています。これはKotlin 1.9.10以前のバージョンでのデフォルトアロケータでした。
+`mach_absolute_time` APIは、Kotlin/Nativeランタイムの `mimalloc` アロケータで使用されています。これは、Kotlin 1.9.10以前のバージョンにおけるデフォルトのアロケータでした。
 
-Kotlin 1.9.20以降のバージョンへのアップグレードをお勧めします。アップグレードが不可能な場合は、メモリのアロケータを変更してください。そのためには、現在のKotlinアロケータに対してGradleビルドスクリプトで`-Xallocator=custom`コンパイルオプションを設定するか、システムアロケータに対して`-Xallocator=std`を設定します。
+Kotlin 1.9.20以降のバージョンにアップグレードすることをお勧めします。アップグレードが不可能な場合は、メモリアロケータを変更してください。
+これを行うには、Gradleビルドスクリプトで現在のKotlinアロケータに対して `-Xallocator=custom` コンパイルオプションを設定するか、
+システムアロケータに対して `-Xallocator=std` を設定します。
 
-詳細については、[Kotlin/Nativeのメモリ管理](https://kotlinlang.org/docs/native-memory-manager.html)を参照してください。
+詳細については、[Kotlin/Nativeメモリ管理](https://kotlinlang.org/docs/native-memory-manager.html)を参照してください。

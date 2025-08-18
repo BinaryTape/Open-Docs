@@ -689,7 +689,7 @@ Kotlin 1.5.30에서는 Kotlin 데몬의 JVM 인수에 대한 새로운 로직이
 
 *   `kotlin` 확장으로 인수를 지정할 수 있습니다:
 
-  <tabs group="build-script">
+    <tabs group="build-script">
     <tab title="Kotlin" group-key="kotlin">
 
     ```kotlin

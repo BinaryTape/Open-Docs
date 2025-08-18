@@ -1,0 +1,766 @@
+[
+  {
+    "text": "ktor.welcome",
+    "link": "welcome"
+  },
+  {
+    "text": "ktor.ktor-server",
+    "items": [
+      {
+        "text": "ktor.getting-started-with-ktor-server",
+        "items": [
+          {
+            "text": "ktor.server-create-a-new-project",
+            "link": "server-create-a-new-project"
+          },
+          {
+            "text": "ktor.server-requests-and-responses",
+            "link": "server-requests-and-responses"
+          },
+          {
+            "text": "ktor.server-create-restful-apis",
+            "link": "server-create-restful-apis"
+          },
+          {
+            "text": "ktor.server-create-website",
+            "link": "server-create-website"
+          },
+          {
+            "text": "ktor.server-create-websocket-application",
+            "link": "server-create-websocket-application"
+          },
+          {
+            "text": "ktor.server-integrate-database",
+            "link": "server-integrate-database"
+          }
+        ],
+        "collapsed": true
+      },
+      {
+        "text": "ktor.developing-applications",
+        "items": [
+          {
+            "text": "ktor.creating-and-configuring-a-server",
+            "items": [
+              {
+                "text": "ktor.server-platforms",
+                "link": "server-platforms"
+              },
+              {
+                "text": "ktor.server-dependencies",
+                "link": "server-dependencies",
+                "items": [
+                  {
+                    "text": "ktor.server-native",
+                    "link": "server-native"
+                  }
+                ],
+                "collapsed": true
+              },
+              {
+                "text": "ktor.server-create-and-configure",
+                "link": "server-create-and-configure"
+              },
+              {
+                "text": "ktor.server-engines",
+                "link": "server-engines"
+              },
+              {
+                "text": "ktor.server-configuration-code",
+                "link": "server-configuration-code"
+              },
+              {
+                "text": "ktor.server-configuration-file",
+                "link": "server-configuration-file"
+              },
+              {
+                "text": "ktor.server-modules",
+                "link": "server-modules"
+              },
+              {
+                "text": "ktor.server-dependency-injection",
+                "link": "server-dependency-injection"
+              },
+              {
+                "text": "ktor.server-plugins",
+                "link": "server-plugins"
+              },
+              {
+                "text": "ktor.server-ssl",
+                "link": "server-ssl"
+              },
+              {
+                "text": "ktor.server-http2",
+                "link": "server-http2"
+              },
+              {
+                "text": "ktor.server-development-mode",
+                "link": "server-development-mode"
+              },
+              {
+                "text": "ktor.server-logging",
+                "link": "server-logging"
+              }
+            ],
+            "collapsed": true
+          },
+          {
+            "text": "ktor.routing",
+            "items": [
+              {
+                "text": "ktor.server-routing",
+                "link": "server-routing"
+              },
+              {
+                "text": "ktor.server-resources",
+                "link": "server-resources"
+              },
+              {
+                "text": "ktor.server-application-structure",
+                "link": "server-application-structure"
+              },
+              {
+                "text": "ktor.server-autoheadresponse",
+                "link": "server-autoheadresponse"
+              },
+              {
+                "text": "ktor.server-method-override",
+                "link": "server-method-override"
+              }
+            ],
+            "collapsed": true
+          },
+          {
+            "text": "ktor.requests",
+            "items": [
+              {
+                "text": "ktor.server-requests",
+                "link": "server-requests"
+              },
+              {
+                "text": "ktor.server-request-validation",
+                "link": "server-request-validation"
+              },
+              {
+                "text": "ktor.server-rate-limit",
+                "link": "server-rate-limit"
+              },
+              {
+                "text": "ktor.server-double-receive",
+                "link": "server-double-receive"
+              }
+            ],
+            "collapsed": true
+          },
+          {
+            "text": "ktor.responses",
+            "items": [
+              {
+                "text": "ktor.server-responses",
+                "link": "server-responses"
+              },
+              {
+                "text": "ktor.server-status-pages",
+                "link": "server-status-pages"
+              }
+            ],
+            "collapsed": true
+          },
+          {
+            "text": "ktor.server-serialization",
+            "link": "server-serialization"
+          },
+          {
+            "text": "ktor.serving-content",
+            "items": [
+              {
+                "text": "ktor.server-static-content",
+                "link": "server-static-content"
+              },
+              {
+                "text": "ktor.server-serving-spa",
+                "link": "server-serving-spa"
+              },
+              {
+                "text": "ktor.server-webjars",
+                "link": "server-webjars"
+              }
+            ],
+            "collapsed": true
+          },
+          {
+            "text": "ktor.server-templating",
+            "link": "server-templating",
+            "items": [
+              {
+                "text": "ktor.server-html-dsl",
+                "link": "server-html-dsl"
+              },
+              {
+                "text": "ktor.server-css-dsl",
+                "link": "server-css-dsl"
+              },
+              {
+                "text": "ktor.server-freemarker",
+                "link": "server-freemarker"
+              },
+              {
+                "text": "ktor.server-velocity",
+                "link": "server-velocity"
+              },
+              {
+                "text": "ktor.server-mustache",
+                "link": "server-mustache"
+              },
+              {
+                "text": "ktor.server-thymeleaf",
+                "link": "server-thymeleaf"
+              },
+              {
+                "text": "ktor.server-pebble",
+                "link": "server-pebble"
+              },
+              {
+                "text": "ktor.server-jte",
+                "link": "server-jte"
+              }
+            ],
+            "collapsed": true
+          },
+          {
+            "text": "ktor.server-auth",
+            "link": "server-auth",
+            "items": [
+              {
+                "text": "ktor.server-basic-auth",
+                "link": "server-basic-auth"
+              },
+              {
+                "text": "ktor.server-digest-auth",
+                "link": "server-digest-auth"
+              },
+              {
+                "text": "ktor.server-bearer-auth",
+                "link": "server-bearer-auth"
+              },
+              {
+                "text": "ktor.server-form-based-auth",
+                "link": "server-form-based-auth"
+              },
+              {
+                "text": "ktor.server-session-auth",
+                "link": "server-session-auth"
+              },
+              {
+                "text": "ktor.server-ldap",
+                "link": "server-ldap"
+              },
+              {
+                "text": "ktor.server-jwt",
+                "link": "server-jwt",
+                "items": [
+                  {
+                    "text": "ktor.rsa-keys-generation",
+                    "link": "rsa-keys-generation"
+                  }
+                ],
+                "collapsed": true
+              },
+              {
+                "text": "ktor.server-oauth",
+                "link": "server-oauth"
+              }
+            ],
+            "collapsed": true
+          },
+          {
+            "text": "ktor.server-sessions",
+            "link": "server-sessions"
+          },
+          {
+            "text": "ktor.http",
+            "items": [
+              {
+                "text": "ktor.server-swagger-ui",
+                "link": "server-swagger-ui"
+              },
+              {
+                "text": "ktor.server-openapi",
+                "link": "server-openapi"
+              },
+              {
+                "text": "ktor.server-default-headers",
+                "link": "server-default-headers"
+              },
+              {
+                "text": "ktor.server-compression",
+                "link": "server-compression"
+              },
+              {
+                "text": "ktor.server-caching-headers",
+                "link": "server-caching-headers"
+              },
+              {
+                "text": "ktor.server-conditional-headers",
+                "link": "server-conditional-headers"
+              },
+              {
+                "text": "ktor.server-cors",
+                "link": "server-cors"
+              },
+              {
+                "text": "ktor.server-forward-headers",
+                "link": "server-forward-headers"
+              },
+              {
+                "text": "ktor.server-hsts",
+                "link": "server-hsts"
+              },
+              {
+                "text": "ktor.server-https-redirect",
+                "link": "server-https-redirect"
+              },
+              {
+                "text": "ktor.server-partial-content",
+                "link": "server-partial-content"
+              },
+              {
+                "text": "ktor.server-data-conversion",
+                "link": "server-data-conversion"
+              }
+            ],
+            "collapsed": true
+          },
+          {
+            "text": "ktor.server-websockets",
+            "link": "server-websockets",
+            "items": [
+              {
+                "text": "ktor.server-websocket-serialization",
+                "link": "server-websocket-serialization"
+              },
+              {
+                "text": "ktor.server-websocket-deflate",
+                "link": "server-websocket-deflate"
+              },
+              {
+                "text": "ktor.server-websocket-extensions",
+                "link": "server-websocket-extensions"
+              }
+            ],
+            "collapsed": true
+          },
+          {
+            "text": "ktor.server-server-sent-events",
+            "link": "server-server-sent-events"
+          },
+          {
+            "text": "ktor.server-sockets",
+            "link": "server-sockets"
+          },
+          {
+            "text": "ktor.monitoring",
+            "items": [
+              {
+                "text": "ktor.server-call-logging",
+                "link": "server-call-logging"
+              },
+              {
+                "text": "ktor.server-call-id",
+                "link": "server-call-id"
+              },
+              {
+                "text": "ktor.server-metrics-micrometer",
+                "link": "server-metrics-micrometer"
+              },
+              {
+                "text": "ktor.server-metrics-dropwizard",
+                "link": "server-metrics-dropwizard"
+              }
+            ],
+            "collapsed": true
+          },
+          {
+            "text": "ktor.administration",
+            "items": [
+              {
+                "text": "ktor.server-shutdown-url",
+                "link": "server-shutdown-url"
+              }
+            ],
+            "collapsed": true
+          }
+        ],
+        "collapsed": true
+      },
+      {
+        "text": "ktor.running-and-debugging",
+        "items": [
+          {
+            "text": "ktor.server-run",
+            "link": "server-run"
+          },
+          {
+            "text": "ktor.server-auto-reload",
+            "link": "server-auto-reload"
+          }
+        ],
+        "collapsed": true
+      },
+      {
+        "text": "ktor.server-testing",
+        "link": "server-testing"
+      },
+      {
+        "text": "ktor.server-deployment",
+        "link": "server-deployment",
+        "items": [
+          {
+            "text": "ktor.packaging",
+            "items": [
+              {
+                "text": "ktor.creating-fat-jars",
+                "items": [
+                  {
+                    "text": "ktor.server-fatjar",
+                    "link": "server-fatjar"
+                  },
+                  {
+                    "text": "ktor.maven-assembly-plugin",
+                    "link": "maven-assembly-plugin"
+                  }
+                ],
+                "collapsed": true
+              },
+              {
+                "text": "ktor.server-packaging",
+                "link": "server-packaging"
+              },
+              {
+                "text": "ktor.server-war",
+                "link": "server-war"
+              },
+              {
+                "text": "ktor.graalvm",
+                "link": "graalvm"
+              }
+            ],
+            "collapsed": true
+          },
+          {
+            "text": "ktor.containerizing",
+            "items": [
+              {
+                "text": "ktor.docker",
+                "link": "docker"
+              },
+              {
+                "text": "ktor.docker-compose",
+                "link": "docker-compose"
+              }
+            ],
+            "collapsed": true
+          },
+          {
+            "text": "ktor.publishing",
+            "items": [
+              {
+                "text": "ktor.google-app-engine",
+                "link": "google-app-engine"
+              },
+              {
+                "text": "ktor.heroku",
+                "link": "heroku"
+              },
+              {
+                "text": "ktor.elastic-beanstalk",
+                "link": "elastic-beanstalk"
+              }
+            ],
+            "collapsed": true
+          }
+        ],
+        "collapsed": true
+      },
+      {
+        "text": "ktor.extending-ktor",
+        "items": [
+          {
+            "text": "ktor.server-custom-plugins",
+            "link": "server-custom-plugins"
+          },
+          {
+            "text": "ktor.server-custom-plugins-base-api",
+            "link": "server-custom-plugins-base-api"
+          },
+          {
+            "text": "ktor.server-events",
+            "link": "server-events"
+          }
+        ],
+        "collapsed": true
+      }
+    ],
+    "collapsed": true
+  },
+  {
+    "text": "ktor.ktor-client",
+    "items": [
+      {
+        "text": "ktor.getting-started-with-ktor-client",
+        "items": [
+          {
+            "text": "ktor.client-create-new-application",
+            "link": "client-create-new-application"
+          },
+          {
+            "text": "ktor.client-create-multiplatform-application",
+            "link": "client-create-multiplatform-application"
+          }
+        ],
+        "collapsed": true
+      },
+      {
+        "text": "ktor.developing-applications",
+        "items": [
+          {
+            "text": "ktor.setting-up-a-client",
+            "items": [
+              {
+                "text": "ktor.client-supported-platforms",
+                "link": "client-supported-platforms"
+              },
+              {
+                "text": "ktor.client-dependencies",
+                "link": "client-dependencies"
+              },
+              {
+                "text": "ktor.client-create-and-configure",
+                "link": "client-create-and-configure"
+              },
+              {
+                "text": "ktor.client-engines",
+                "link": "client-engines"
+              },
+              {
+                "text": "ktor.client-plugins",
+                "link": "client-plugins"
+              },
+              {
+                "text": "ktor.client-ssl",
+                "link": "client-ssl"
+              },
+              {
+                "text": "ktor.client-proxy",
+                "link": "client-proxy"
+              }
+            ],
+            "collapsed": true
+          },
+          {
+            "text": "ktor.requests",
+            "items": [
+              {
+                "text": "ktor.client-requests",
+                "link": "client-requests"
+              },
+              {
+                "text": "ktor.client-resources",
+                "link": "client-resources"
+              },
+              {
+                "text": "ktor.client-default-request",
+                "link": "client-default-request"
+              },
+              {
+                "text": "ktor.client-user-agent",
+                "link": "client-user-agent"
+              },
+              {
+                "text": "ktor.client-request-retry",
+                "link": "client-request-retry"
+              },
+              {
+                "text": "ktor.client-http-send",
+                "link": "client-http-send"
+              }
+            ],
+            "collapsed": true
+          },
+          {
+            "text": "ktor.responses",
+            "items": [
+              {
+                "text": "ktor.client-responses",
+                "link": "client-responses"
+              },
+              {
+                "text": "ktor.client-response-validation",
+                "link": "client-response-validation"
+              },
+              {
+                "text": "ktor.client-redirect",
+                "link": "client-redirect"
+              }
+            ],
+            "collapsed": true
+          },
+          {
+            "text": "ktor.client-serialization",
+            "link": "client-serialization"
+          },
+          {
+            "text": "ktor.client-auth",
+            "link": "client-auth",
+            "items": [
+              {
+                "text": "ktor.client-basic-auth",
+                "link": "client-basic-auth"
+              },
+              {
+                "text": "ktor.client-digest-auth",
+                "link": "client-digest-auth"
+              },
+              {
+                "text": "ktor.client-bearer-auth",
+                "link": "client-bearer-auth"
+              }
+            ],
+            "collapsed": true
+          },
+          {
+            "text": "ktor.client-cookies",
+            "link": "client-cookies"
+          },
+          {
+            "text": "ktor.client-content-encoding",
+            "link": "client-content-encoding"
+          },
+          {
+            "text": "ktor.client-bom-remover",
+            "link": "client-bom-remover"
+          },
+          {
+            "text": "ktor.client-caching",
+            "link": "client-caching"
+          },
+          {
+            "text": "ktor.client-text-and-charsets",
+            "link": "client-text-and-charsets"
+          },
+          {
+            "text": "ktor.client-timeout",
+            "link": "client-timeout"
+          },
+          {
+            "text": "ktor.client-logging",
+            "link": "client-logging"
+          },
+          {
+            "text": "ktor.client-websockets",
+            "link": "client-websockets",
+            "items": [
+              {
+                "text": "ktor.client-websocket-serialization",
+                "link": "client-websocket-serialization"
+              }
+            ],
+            "collapsed": true
+          },
+          {
+            "text": "ktor.client-server-sent-events",
+            "link": "client-server-sent-events"
+          },
+          {
+            "text": "ktor.monitoring",
+            "items": [
+              {
+                "text": "ktor.client-call-id",
+                "link": "client-call-id"
+              }
+            ],
+            "collapsed": true
+          },
+          {
+            "text": "ktor.client-custom-plugins",
+            "link": "client-custom-plugins"
+          }
+        ],
+        "collapsed": true
+      },
+      {
+        "text": "ktor.client-testing",
+        "link": "client-testing"
+      }
+    ],
+    "collapsed": true
+  },
+  {
+    "text": "ktor.integrations",
+    "items": [
+      {
+        "text": "ktor.full-stack-development-with-kotlin-multiplatform",
+        "link": "full-stack-development-with-kotlin-multiplatform"
+      },
+      {
+        "text": "ktor.htmx-integration",
+        "link": "htmx-integration"
+      },
+      {
+        "text": "ktor.tutorial-first-steps-with-kotlin-rpc",
+        "link": "tutorial-first-steps-with-kotlin-rpc"
+      }
+    ],
+    "collapsed": true
+  },
+  {
+    "text": "ktor.releases",
+    "items": [
+      {
+        "text": "ktor.releases",
+        "link": "releases"
+      },
+      {
+        "text": "ktor.whats-new-320",
+        "link": "whats-new-320"
+      },
+      {
+        "text": "ktor.migration-to-20x",
+        "link": "migration-to-20x"
+      },
+      {
+        "text": "ktor.migration-to-22x",
+        "link": "migration-to-22x"
+      },
+      {
+        "text": "ktor.migrating-3",
+        "link": "migrating-3"
+      }
+    ],
+    "collapsed": true
+  },
+  {
+    "text": "ktor.migrating-from-other-frameworks",
+    "items": [
+      {
+        "text": "ktor.migration-from-express-js",
+        "link": "migration-from-express-js"
+      }
+    ],
+    "collapsed": true
+  },
+  {
+    "text": "ktor.FAQ",
+    "link": "FAQ"
+  },
+  {
+    "text": "ktor.other-resources",
+    "items": [
+      {
+        "text": "ktor.community-resources",
+        "href": "https://github.com/mjovanc/awesome-ktor"
+      }
+    ],
+    "collapsed": true
+  }
+]

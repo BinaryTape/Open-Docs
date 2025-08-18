@@ -6,15 +6,15 @@
 이 접근 방식은 수동으로 도구 설명을 구현하지 않고도 기존 기능을 LLM에 노출해야 할 때 유용합니다.
 
 !!! note
-    어노테이션 기반 도구는 JVM 전용이며 다른 플랫폼에서는 사용할 수 없습니다. 멀티플랫폼 지원을 위해서는 [고급 도구 API](advanced-tool-implementation.md)를 사용하세요.
+    어노테이션 기반 도구는 JVM 전용이며 다른 플랫폼에서는 사용할 수 없습니다. 멀티플랫폼 지원을 위해서는 [클래스 기반 도구 API](class-based-tools.md)를 사용하세요.
 
 ## 주요 어노테이션
 
 프로젝트에서 어노테이션 기반 도구를 사용하려면 다음 주요 어노테이션을 이해해야 합니다:
 
-| 어노테이션        | 설명                                                             |
-|-------------------|-------------------------------------------------------------------------|
-| `@Tool`           | LLM에 도구로 노출되어야 하는 함수를 표시합니다.                |
+| 어노테이션        | 설명                                     |
+|-------------------|------------------------------------------|
+| `@Tool`           | LLM에 도구로 노출되어야 하는 함수를 표시합니다. |
 | `@LLMDescription` | 도구 및 해당 구성 요소에 대한 설명 정보를 제공합니다. |
 
 ## @Tool 어노테이션
@@ -24,10 +24,13 @@
 
 ### 정의
 
+<!--- INCLUDE
+-->
 ```kotlin
 @Target(AnnotationTarget.FUNCTION)
 public annotation class Tool(val customName: String = "")
 ```
+<!--- KNIT example-annotation-based-tools-01.kt -->
 
 ### 매개변수
 
@@ -38,7 +41,10 @@ public annotation class Tool(val customName: String = "")
 ### 사용법
 
 함수를 도구로 표시하려면, `ToolSet` 인터페이스를 구현하는 클래스의 해당 함수에 `@Tool` 어노테이션을 적용하세요:
-
+<!--- INCLUDE
+import ai.koog.agents.core.tools.annotations.Tool
+import ai.koog.agents.core.tools.reflect.ToolSet
+-->
 ```kotlin
 class MyToolSet : ToolSet {
     @Tool
@@ -54,6 +60,7 @@ class MyToolSet : ToolSet {
     }
 }
 ```
+<!--- KNIT example-annotation-based-tools-02.kt -->
 
 ## @LLMDescription 어노테이션
 
@@ -62,6 +69,8 @@ class MyToolSet : ToolSet {
 
 ### 정의
 
+<!--- INCLUDE
+-->
 ```kotlin
 @Target(
     AnnotationTarget.PROPERTY,
@@ -73,6 +82,7 @@ class MyToolSet : ToolSet {
 )
 public annotation class LLMDescription(val description: String)
 ```
+<!--- KNIT example-annotation-based-tools-03.kt -->
 
 ### 매개변수
 
@@ -85,7 +95,10 @@ public annotation class LLMDescription(val description: String)
 `@LLMDescription` 어노테이션은 다양한 수준에 적용할 수 있습니다. 예를 들어:
 
 *   함수 레벨:
-
+<!--- INCLUDE
+import ai.koog.agents.core.tools.annotations.LLMDescription
+import ai.koog.agents.core.tools.annotations.Tool
+-->
 ```kotlin
 @Tool
 @LLMDescription("Performs a specific operation and returns the result")
@@ -94,9 +107,14 @@ fun myTool(): String {
     return "Result"
 }
 ```
+<!--- KNIT example-annotation-based-tools-04.kt -->
 
 *   매개변수 레벨:
 
+<!--- INCLUDE
+import ai.koog.agents.core.tools.annotations.LLMDescription
+import ai.koog.agents.core.tools.annotations.Tool
+-->
 ```kotlin
 @Tool
 @LLMDescription("Processes input data")
@@ -111,6 +129,7 @@ fun processTool(
     return "Processed: $input with config: $config"
 }
 ```
+<!--- KNIT example-annotation-based-tools-05.kt -->
 
 ## 도구 생성하기
 
@@ -119,16 +138,24 @@ fun processTool(
 [`ToolSet`](https://api.koog.ai/agents/agents-tools/ai.koog.agents.core.tools.reflect/-tool-set/index.html) 인터페이스를 구현하는 클래스를 생성하세요.
 이 인터페이스는 클래스를 도구 컨테이너로 표시합니다.
 
+<!--- INCLUDE
+import ai.koog.agents.core.tools.reflect.ToolSet
+-->
 ```kotlin
 class MyFirstToolSet : ToolSet {
     // Tools will go here
 }
 ```
+<!--- KNIT example-annotation-based-tools-06.kt -->
 
 ### 2. 도구 함수 추가
 
 클래스에 함수를 추가하고 `@Tool` 어노테이션을 적용하여 도구로 노출하세요:
 
+<!--- INCLUDE
+import ai.koog.agents.core.tools.annotations.Tool
+import ai.koog.agents.core.tools.reflect.ToolSet
+-->
 ```kotlin
 class MyFirstToolSet : ToolSet {
     @Tool
@@ -138,11 +165,16 @@ class MyFirstToolSet : ToolSet {
     }
 }
 ```
+<!--- KNIT example-annotation-based-tools-07.kt -->
 
 ### 3. 설명 추가
 
 LLM에 컨텍스트를 제공하기 위해 `@LLMDescription` 어노테이션을 추가하세요:
-
+<!--- INCLUDE
+import ai.koog.agents.core.tools.reflect.ToolSet
+import ai.koog.agents.core.tools.annotations.LLMDescription
+import ai.koog.agents.core.tools.annotations.Tool
+-->
 ```kotlin
 @LLMDescription("Tools for getting weather information")
 class MyFirstToolSet : ToolSet {
@@ -157,31 +189,45 @@ class MyFirstToolSet : ToolSet {
     }
 }
 ```
+<!--- KNIT example-annotation-based-tools-08.kt -->
 
 ### 4. 에이전트와 함께 도구 사용
 
 이제 에이전트와 함께 도구를 사용할 수 있습니다:
+<!--- INCLUDE
+import ai.koog.agents.core.agent.AIAgent
+import ai.koog.agents.core.tools.ToolRegistry
+import ai.koog.agents.core.tools.reflect.tools
+import ai.koog.agents.example.exampleAnnotationBasedTools06.MyFirstToolSet
+import ai.koog.prompt.executor.clients.openai.OpenAIModels
+import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
+import kotlinx.coroutines.runBlocking
 
+const val apiToken = ""
+-->
 ```kotlin
-fun main() = runBlocking {
-    // Create your tool set
-    val weatherTools = MyFirstToolSet()
+fun main() {
+    runBlocking {
+        // Create your tool set
+        val weatherTools = MyFirstToolSet()
 
-    // Create an agent with your tools
+        // Create an agent with your tools
 
-    val agent = AIAgent(
-        executor = simpleOpenAIExecutor(apiToken),
-        systemPrompt = "Provide weather information for a given location.",
-        llmModel = OpenAIModels.Chat.GPT4o,
-        toolRegistry = ToolRegistry {
-            tools(weatherTools())
-        }
-    )
+        val agent = AIAgent(
+            executor = simpleOpenAIExecutor(apiToken),
+            systemPrompt = "Provide weather information for a given location.",
+            llmModel = OpenAIModels.Chat.GPT4o,
+            toolRegistry = ToolRegistry {
+                tools(weatherTools)
+            }
+        )
 
-    // The agent can now use your weather tools
-    agent.run("What's the weather like in New York?")
+        // The agent can now use your weather tools
+        agent.run("What's the weather like in New York?")
+    }
 }
 ```
+<!--- KNIT example-annotation-based-tools-09.kt -->
 
 ## 사용 예시
 
@@ -190,7 +236,21 @@ fun main() = runBlocking {
 ### 기본 예시: 스위치 컨트롤러
 
 이 예시는 스위치를 제어하기 위한 간단한 도구 세트를 보여줍니다:
+<!--- INCLUDE
+import ai.koog.agents.core.tools.reflect.ToolSet
+import ai.koog.agents.core.tools.annotations.LLMDescription
+import ai.koog.agents.core.tools.annotations.Tool
 
+class Switch(private var state: Boolean) {
+    fun switch(state: Boolean) {
+        this.state = state
+    }
+    
+    fun isOn(): Boolean {
+        return state
+    }
+}
+-->
 ```kotlin
 @LLMDescription("Tools for controlling a switch")
 class SwitchTools(val switch: Switch) : ToolSet {
@@ -211,6 +271,7 @@ class SwitchTools(val switch: Switch) : ToolSet {
     }
 }
 ```
+<!--- KNIT example-annotation-based-tools-10.kt -->
 
 LLM이 스위치를 제어해야 할 때, 제공된 설명에서 다음 정보를 이해할 수 있습니다:
 
@@ -222,7 +283,11 @@ LLM이 스위치를 제어해야 할 때, 제공된 설명에서 다음 정보�
 ### 고급 예시: 진단 도구
 
 이 예시는 장치 진단을 위한 더 복잡한 도구 세트를 보여줍니다:
-
+<!--- INCLUDE
+import ai.koog.agents.core.tools.reflect.ToolSet
+import ai.koog.agents.core.tools.annotations.LLMDescription
+import ai.koog.agents.core.tools.annotations.Tool
+-->
 ```kotlin
 @LLMDescription("Tools for performing diagnostics and troubleshooting on devices")
 class DiagnosticToolSet : ToolSet {
@@ -250,6 +315,7 @@ class DiagnosticToolSet : ToolSet {
     }
 }
 ```
+<!--- KNIT example-annotation-based-tools-11.kt -->
 
 ## 모범 사례
 

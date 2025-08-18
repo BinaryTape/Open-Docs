@@ -1,11 +1,11 @@
 [//]: # (title: スクロールバー)
 
-スクロール可能なコンポーネントにスクロールバーを適用できます。スクロールバーとスクロール可能なコンポーネントは共通のステートを共有し、互いに同期します。
+スクロール可能なコンポーネントにスクロールバーを適用できます。スクロールバーとスクロール可能なコンポーネントは、互いに同期するために共通のステートを共有します。
 
 ## スクロール修飾子
 
-`verticalScroll` 修飾子と `horizontalScroll` 修飾子は、コンテンツの境界が最大サイズ制約よりも大きい場合に、ユーザーが要素をスクロールできるようにする最も簡単な方法を提供します。
-`verticalScroll` 修飾子を使用するスクロール可能なコンポーネントには `VerticalScrollbar` コンポーザブルを、`horizontalScroll` 修飾子を使用するスクロール可能なコンポーネントには `HorizontalScrollbar` コンポーザブルを適用できます。
+`verticalScroll` および `horizontalScroll` 修飾子は、コンテンツの境界が最大サイズ制約よりも大きい場合に、ユーザーが要素をスクロールできるようにする最も簡単な方法を提供します。
+`verticalScroll` 修飾子を持つスクロール可能なコンポーネントには `VerticalScrollbar` コンポーザブルを、`horizontalScroll` 修飾子を持つスクロール可能なコンポーネントには `HorizontalScrollbar` コンポーザブルをアタッチできます。
 
 ```kotlin
 import androidx.compose.foundation.HorizontalScrollbar
@@ -90,14 +90,14 @@ fun TextBox(text: String = "Item") {
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="VerticalScrollbar(modifier = Modifier.align(Alignment.CenterEnd) "}
 
-スクロールバーは、バーをドラッグしたり、マウスホイールやタッチパッドを使用したりして移動できます。マウスで水平スクロールバーを移動するには、ホイールをサイドクリックするか、<shortcut>Shift</shortcut> キーを押しながら操作します。
+スクロールバーは、バーをドラッグしたり、マウスホイールやタッチパッドを使用したりして移動できます。マウスで水平スクロールバーを移動するには、ホイールをサイドクリックするか、<shortcut>Shift</shortcut> キーを押したままにします。
 
-<img src="compose-desktop-scrollbar.animated.gif" alt="Scrollbar" width="289" preview-src="compose-desktop-scrollbar.png"/>
+<img src="compose-desktop-scrollbar.animated.gif" alt="スクロールバー" width="289" preview-src="compose-desktop-scrollbar.png"/>
 
-## Lazy スクロール可能コンポーネント
+## Lazyスクロール可能なコンポーネント
 
-`LazyColumn` や `LazyRow` のような Lazy スクロール可能コンポーネントでもスクロールバーを使用できます。
-Lazy コンポーネントは、リストに多数の項目がある場合に、必要に応じてのみ項目をコンポーズするため、はるかに効率的です。
+`LazyColumn` や `LazyRow` のようなLazyスクロール可能なコンポーネントでもスクロールバーを使用できます。
+Lazyコンポーネントは、リストに多数のアイテムが予想される場合に、必要に応じてのみアイテムをコンポーズするため、はるかに効率的です。
 
 ```kotlin
 import androidx.compose.foundation.VerticalScrollbar
@@ -172,15 +172,15 @@ fun TextBox(text: String = "Item") {
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="VerticalScrollbar(modifier = Modifier.align(Alignment.CenterEnd) "}
 
-<img src="compose-desktop-lazy-scrollbar.animated.gif" alt="Lazy scrollbar" width="289" preview-src="compose-desktop-lazy-scrollbar.png"/>
+<img src="compose-desktop-lazy-scrollbar.animated.gif" alt="Lazyスクロールバー" width="289" preview-src="compose-desktop-lazy-scrollbar.png"/>
 
 ## 既知の制限事項
 
-現在、タッチスクリーン、タッチパッド、トラックパッドを使用したスクロールはマウスイベントとして扱われるため、不具合やピンチズーム機能の欠如などの制限につながる可能性があります。JetBrainsは入力とジェスチャーの処理を継続的に改善しており、これらの入力デバイスに対するネイティブサポートの導入を計画しています。
+現在、タッチスクリーン、タッチパッド、トラックパッドを使用したスクロールはマウスイベントとして扱われるため、グリッチやピンチイン・ピンチアウトの欠如などの制限が発生する可能性があります。弊社では入力とジェスチャーのハンドリングを継続的に改善しており、これらの入力デバイスのネイティブサポートを導入する予定です。
 
-*   タッチスクリーンをネイティブでサポート ([CMP-1609](https://youtrack.jetbrains.com/issue/CMP-1609/))
-*   タッチパッドとトラックパッドをネイティブでサポート ([CMP-1610](https://youtrack.jetbrains.com/issue/CMP-1610/))
+*   タッチスクリーンをネイティブでサポートする ([CMP-1609](https://youtrack.jetbrains.com/issue/CMP-1609/))
+*   タッチパッドとトラックパッドをネイティブでサポートする ([CMP-1610](https://youtrack.jetbrains.com/issue/CMP-1610/))
 
 ## 次のステップ
 
-[他のデスクトップコンポーネント](https://github.com/JetBrains/compose-multiplatform/tree/master/tutorials#desktop)についてのチュートリアルも参照してください。
+[他のデスクトップコンポーネントに関するチュートリアル] (https://github.com/JetBrains/compose-multiplatform/tree/master/tutorials#desktop) を探索してください。

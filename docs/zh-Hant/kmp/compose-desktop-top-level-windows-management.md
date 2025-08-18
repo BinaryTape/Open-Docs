@@ -1,10 +1,10 @@
 [//]: # (title: 頂層視窗管理)
 
-Compose Multiplatform for desktop 提供多種視窗管理功能。您可以將視窗隱藏在托盤中、使其可拖曳、調整大小、改變位置等等。
+Compose Multiplatform for desktop 提供了多種用於管理視窗的功能。您可以將視窗隱藏到系統匣中、使其可拖曳、調整大小、變更位置等等。
 
-## 開啟與關閉視窗
+## 開啟和關閉視窗
 
-您可以使用 `Window()` 函式建立一般視窗。若要將其置於可組合範圍內，請在 `application` 進入點使用 `Window()`：
+您可以使用 `Window()` 函式建立一個常規視窗。若要將其置於可組合的作用域中，請在 `application` 進入點中使用 `Window()`：
 
 ```kotlin
 import androidx.compose.ui.window.Window
@@ -12,13 +12,13 @@ import androidx.compose.ui.window.application
 
 fun main() = application {
     Window(onCloseRequest = ::exitApplication) {
-        // Content of the window
+        // 視窗內容
     }
 }
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="application { Window(onCloseRequest = ::exitApplication)"}
 
-作為一個可組合函式，`Window()` 允許您以宣告式方式更改其屬性。例如，您可以開啟一個帶有某個標題的視窗，然後再更改標題：
+作為一個可組合函式，`Window()` 允許您以宣告式的方式變更其屬性。例如，您可以開啟一個具有特定標題的視窗，然後再變更該標題：
 
 ```kotlin
 import androidx.compose.material.Button
@@ -42,11 +42,11 @@ fun main() = application {
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="Window(onCloseRequest = ::exitApplication, title = "}
 
-<img src="compose-window-properties.animated.gif" alt="視窗屬性：更改標題" preview-src="compose-window-properties.png" width="600"/>
+<img src="compose-window-properties.animated.gif" alt="Window properties: change title" preview-src="compose-window-properties.png" width="600"/>
 
-### 新增條件
+### 加入條件
 
-您也可以使用簡單的 `if` 條件來開啟和關閉視窗。在以下程式碼範例中，應用程式視窗在完成任務後會自動關閉：
+您還可以使用簡單的 `if` 條件來開啟和關閉視窗。在以下程式碼範例中，應用程式視窗在完成任務後會自動關閉：
 
 ```kotlin
 import androidx.compose.material.Text
@@ -63,7 +63,7 @@ fun main() = application {
     var isPerformingTask by remember { mutableStateOf(true) }
 
     LaunchedEffect(Unit) {
-        // Do some heavy lifting
+        // 執行一些繁重的工作
         delay(2000) 
         isPerformingTask = false
     }
@@ -87,9 +87,10 @@ fun main() = application {
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="if (isPerformingTask) { Window(onCloseRequest = ::exitApplication,"}
 
-<img src="compose-window-condition.animated.gif" alt="帶有條件的視窗" preview-src="compose-window-condition.png" width="600"/>
+<img src="compose-window-condition.animated.gif" alt="Windows with conditions" preview-src="compose-window-condition.png" width="600"/>
 
-如果您想在應用程式退出時使用自訂邏輯，例如顯示對話方塊，可以使用 `onCloseRequest` 回呼來覆寫關閉動作。在以下程式碼範例中，我們不使用命令式方法 (`window.close()`)，而是使用宣告式方法，並根據狀態變更 (`isOpen = false`) 關閉視窗。
+如果您想在應用程式退出時使用自訂邏輯，例如顯示對話方塊，您可以透過 `onCloseRequest` 回呼來覆寫關閉動作。
+在以下程式碼範例中，我們使用宣告式方法來關閉視窗以回應狀態變更 (`isOpen = false`)，而不是使用命令式方法 (`window.close()`)。
 
 ```kotlin
 import androidx.compose.material.Button
@@ -129,11 +130,11 @@ fun main() = application {
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="Window(onCloseRequest = { isAskingToClose = true }"}
 
-<img src="compose-window-ask-to-close.animated.gif" alt="關閉並確認" preview-src="compose-window-ask-to-close.png" width="600"/>
+<img src="compose-window-ask-to-close.animated.gif" alt="Close with confirmation" preview-src="compose-window-ask-to-close.png" width="600"/>
 
 ## 使用多個視窗
 
-如果一個應用程式有多個視窗，您可以為應用程式狀態建立一個單獨的類別，並根據 `mutableStateListOf` 的變更來開啟或關閉視窗：
+如果應用程式有多個視窗，您可以為應用程式狀態建立一個單獨的類別，並根據 `mutableStateListOf` 的變更來開啟或關閉視窗：
 
 ```kotlin
 import androidx.compose.runtime.Composable
@@ -202,13 +203,13 @@ private class MyWindowState(
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="MyApplicationState { val windows = mutableStateListOf<MyWindowState>()"}
 
-<img src="compose-multiple-windows.animated.gif" alt="多個視窗" preview-src="compose-multiple-windows.png" width="600"/>
+<img src="compose-multiple-windows.animated.gif" alt="Multiple windows" preview-src="compose-multiple-windows.png" width="600"/>
 
-如需更複雜的範例，請參閱 [notepad](https://github.com/JetBrains/compose-multiplatform/tree/master/examples/notepad) 範例。
+有關更複雜的範例，請參閱 [notepad](https://github.com/JetBrains/compose-multiplatform/tree/master/examples/notepad) 範例。
 
-## 將視窗最小化至系統托盤
+## 將視窗最小化到系統匣
 
-若要隱藏視窗而不是關閉它，您可以更改 `windowState.isVisible` 狀態：
+若要隱藏視窗而不是關閉它，您可以變更 `windowState.isVisible` 狀態：
 
 ```kotlin
 import androidx.compose.material.Text
@@ -266,7 +267,7 @@ object TrayIcon : Painter() {
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="Window(onCloseRequest = { isVisible = false },"}
 
-<img src="compose-window-hide-tray.animated.gif" alt="隱藏而非關閉" preview-src="compose-window-hide-tray.png" width="600"/>
+<img src="compose-window-hide-tray.animated.gif" alt="Hide instead of closing" preview-src="compose-window-hide-tray.png" width="600"/>
 
 ## singleWindowApplication() 函式
 
@@ -275,21 +276,22 @@ object TrayIcon : Painter() {
 `singleWindowApplication()` 函式使用起來更簡單，但有以下限制：
 *   應用程式只能有一個視窗。
 *   您無法新增自訂關閉邏輯。
-*   您無法在執行時更改視窗的屬性。
+*   您無法在執行時變更視窗的屬性。
 
 ```kotlin
 import androidx.compose.ui.window.singleWindowApplication
 
 fun main() = singleWindowApplication {
-    // Content of the window
+    // 視窗內容
 }
 ```
 
 作為替代方案，您可以在 `application` 進入點中使用 [`Window()` 可組合項](#open-and-close-windows)。
 
-## 自適應視窗大小
+## 視窗自適應大小
 
-當您不知道預期內容的大小且無法預先指定最佳視窗尺寸時，可以將 `WindowSize` 的一個或兩個維度設定為 `Dp.Unspecified`。Compose Multiplatform for desktop 將自動調整視窗的初始大小以適應內容：
+當您不知道預期內容的大小，也無法預先指定最佳視窗尺寸時，
+您可以將 `WindowSize` 的一個或兩個維度設定為 `Dp.Unspecified`。Compose Multiplatform for desktop 會自動調整視窗的初始大小以適應內容：
 
 ```kotlin
 import androidx.compose.foundation.background
@@ -325,11 +327,12 @@ fun main() = application {
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="state = rememberWindowState(width = Dp.Unspecified, height = Dp.Unspecified)"}
 
-<img src="compose-window-adaptive-size.png" alt="自適應視窗大小" width="451"/>
+<img src="compose-window-adaptive-size.png" alt="Adaptive window size" width="451"/>
 
-## 更改視窗狀態
+## 變更視窗狀態
 
-`WindowState` 是一個獨立的 API 類別，用於視窗的放置、目前位置和大小。放置屬性允許您指定視窗在螢幕上的位置：浮動、最大化/最小化或全螢幕。狀態的任何變更都會觸發自動重組。若要更改視窗狀態，請使用回呼或在可組合項中觀察它：
+`WindowState` 是一個獨立的 API 類別，用於視窗的放置方式、目前位置和大小。放置方式屬性允許您指定視窗在螢幕上的放置方式：浮動、最大化/最小化或全螢幕。
+任何狀態變更都會觸發自動重新組合。若要變更視窗狀態，請使用回呼或在可組合項中觀察它：
 
 ```kotlin
 import androidx.compose.foundation.clickable
@@ -406,11 +409,12 @@ fun main() = application {
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="val state = rememberWindowState(placement = WindowPlacement.Maximized)"}
 
-<img src="compose-window-minimize.animated.gif" alt="更改狀態" preview-src="compose-window-minimize.png" width="600"/>
+<img src="compose-window-minimize.animated.gif" alt="Changing the state" preview-src="compose-window-minimize.png" width="600"/>
 
 ## 監聽視窗狀態
 
-如果您需要回應狀態變更並將值發送到另一個非可組合的應用程式層級（例如，將其寫入資料庫），您可以使用 `snapshotFlow()` 函式。此函式會捕獲可組合項狀態的當前值。
+如果您需要回應狀態變更並將值傳送到另一個非可組合的應用程式層級，例如將其寫入資料庫，您可以使用 `snapshotFlow()` 函式。
+此函式會擷取可組合項狀態的目前值。
 
 ```kotlin
 import androidx.compose.runtime.LaunchedEffect
@@ -453,9 +457,9 @@ private fun onWindowRelocate(position: WindowPosition) {
 
 ## 對話方塊
 
-您可以使用 `Window()` 可組合項建立一般視窗，並使用 `DialogWindow()` 可組合項建立一個模態視窗，該視窗會鎖定其父級直到使用者關閉該模態視窗為止。
+您可以使用 `Window()` 可組合項來建立一個常規視窗，並使用 `DialogWindow()` 可組合項來建立一個模態視窗，該視窗會鎖定其父級直到使用者關閉該模態視窗。
 
-以下程式碼範例演示了如何使用這些可組合項來結合一般視窗和模態視窗：
+以下程式碼範例示範了如何使用這些可組合項來組合常規視窗和模態視窗：
 
 ```kotlin
 import androidx.compose.material.Button
@@ -486,7 +490,7 @@ fun main() = application {
                 onCloseRequest = { isDialogOpen = false },
                 state = rememberDialogState(position = WindowPosition(Alignment.Center))
             ) {
-                // Content of the window
+                // 視窗內容
             }
         }
     }
@@ -494,9 +498,9 @@ fun main() = application {
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="if (isDialogOpen) { DialogWindow(onCloseRequest = { isDialogOpen = false },"}
 
-## 可拖曳視窗區域
+## 可拖曳的視窗區域
 
-若要為未裝飾的視窗新增自訂的可拖曳標題列，或使整個視窗可拖曳，您可以使用 `WindowDraggableArea()` 可組合項：
+若要為無邊框視窗新增自訂的可拖曳標題列，或使整個視窗可拖曳，您可以使用 `WindowDraggableArea()` 可組合項：
 
 ```kotlin
 import androidx.compose.foundation.background
@@ -520,7 +524,7 @@ fun main() = application {
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="WindowDraggableArea { Box(Modifier.fillMaxWidth().height(48.dp).background(Color.DarkGray))}"}
 
-`WindowDraggableArea()` 只能在 `singleWindowApplication()`、`Window()` 和 `DialogWindow()` 可組合項內部使用。若要在另一個可組合函式中呼叫它，請使用 `WindowScope` 作為接收者範圍：
+`WindowDraggableArea()` 只能在 `singleWindowApplication()`、`Window()` 和 `DialogWindow()` 可組合項內部使用。若要在另一個可組合函式中呼叫它，請使用 `WindowScope` 作為接收器作用域：
 
 ```kotlin
 import androidx.compose.foundation.background
@@ -549,13 +553,14 @@ private fun WindowScope.AppWindowTitleBar() = WindowDraggableArea {
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="private fun WindowScope.AppWindowTitleBar() = WindowDraggableArea {"}
 
-<img src="compose-window-draggable-area.animated.gif" alt="可拖曳區域" preview-src="compose-window-draggable-area.png" width="600"/>
+<img src="compose-window-draggable-area.animated.gif" alt="Draggable area" preview-src="compose-window-draggable-area.png" width="600"/>
 
-## 透明視窗與其他自訂
+## 透明視窗及其他自訂
 
-若要建立透明視窗，請向 `Window()` 函式傳遞兩個參數：`transparent=true` 和 `undecorated=true`。視窗必須是未裝飾的，因為無法裝飾透明視窗。
+若要建立透明視窗，請將兩個參數傳遞給 `Window()` 函式：`transparent=true` 和 `undecorated=true`。
+視窗必須是無邊框的，因為透明視窗不可能有邊框。
 
-以下程式碼範例演示了如何結合可組合項來建立一個帶有圓角的透明視窗：
+以下程式碼範例示範了如何組合可組合項以建立具有圓角的透明視窗：
 
 ```kotlin
 import androidx.compose.foundation.layout.fillMaxSize
@@ -580,13 +585,13 @@ fun main() = application {
             onCloseRequest = { isOpen = false },
             title = "Transparent Window Example",
             transparent = true, 
-            // Transparent window must be undecorated
+            // 透明視窗必須是無邊框的
             undecorated = true, 
         ) {
             Surface(
                 modifier = Modifier.fillMaxSize().padding(5.dp).shadow(3.dp, RoundedCornerShape(20.dp)), 
                 color = Color.Transparent,
-                // Window with rounded corners
+                // 具有圓角的視窗
                 shape = RoundedCornerShape(20.dp) 
             ) {
                 Text("Hello World!", color = Color.White)
@@ -599,7 +604,7 @@ fun main() = application {
 
 ## Swing 互通性
 
-Compose Multiplatform for desktop 在底層使用 Swing，因此您可以直接使用 Swing 建立視窗：
+Compose Multiplatform for desktop 在底層使用了 Swing，因此您可以直接使用 Swing 建立視窗：
 
 ```kotlin
 import androidx.compose.ui.awt.ComposeWindow
@@ -612,7 +617,7 @@ fun main() = SwingUtilities.invokeLater {
         size = Dimension(300, 300)
         defaultCloseOperation = JFrame.DISPOSE_ON_CLOSE
         setContent {
-            // Content of the window
+            // 視窗內容
         }
         isVisible = true
     }
@@ -620,7 +625,7 @@ fun main() = SwingUtilities.invokeLater {
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="SwingUtilities.invokeLater { ComposeWindow().apply {"}
 
-您也可以使用 `Window()` 可組合項的範圍。在以下程式碼範例中，`window` 是在 `Window()` 內部建立的 `ComposeWindow`：
+您還可以使用 `Window()` 可組合項的作用域。在以下程式碼範例中，`window` 是在 `Window()` 內部建立的 `ComposeWindow`：
 
 ```kotlin
 import androidx.compose.runtime.LaunchedEffect
@@ -647,7 +652,7 @@ fun main() = singleWindowApplication {
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="LaunchedEffect(Unit) { window.dropTarget = DropTarget().apply"}
 
-如果您需要在 Swing 中實作的對話方塊，可以將其包裝到一個可組合函式中：
+如果您需要使用在 Swing 中實作的對話方塊，可以將其包裝到一個可組合函式中：
 
 ```kotlin
 import androidx.compose.runtime.Composable
@@ -695,4 +700,4 @@ private fun FileDialog(
 
 ## 下一步
 
-探索有關 [其他桌面組件](https://github.com/JetBrains/compose-multiplatform/tree/master/tutorials#desktop) 的教學。
+探索有關 [其他桌面元件](https://github.com/JetBrains/compose-multiplatform/tree/master/tutorials#desktop) 的教學課程。

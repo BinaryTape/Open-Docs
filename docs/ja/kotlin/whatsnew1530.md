@@ -690,7 +690,7 @@ Kotlin 1.5.30では、KotlinデーモンのJVM引数に新しいロジックが�
 
 *   `kotlin`拡張機能で引数を指定できます。
 
-  <tabs group="build-script">
+    <tabs group="build-script">
     <tab title="Kotlin" group-key="kotlin">
 
     ```kotlin

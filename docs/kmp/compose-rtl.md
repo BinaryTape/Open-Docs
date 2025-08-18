@@ -1,30 +1,28 @@
-[//]: # (title: Kotlin/Native 作为 Apple 框架 – 教程)
-
 # 处理 RTL 语言
 
-Compose Multiplatform 提供对从右到左（RTL）语言的支持，例如阿拉伯语、希伯来语和波斯语。当使用 RTL 语言时，该框架会自动处理大多数 RTL 需求，并根据系统的区域设置调整布局、对齐方式和文本输入行为。
+Compose Multiplatform 提供对阿拉伯语、希伯来语和波斯语等从右到左（RTL）语言的支持。当使用 RTL 语言时，该框架会自动处理大多数 RTL 要求，并根据系统的区域设置调整布局、对齐和文本输入行为。
 
 ## 布局镜像
 
-当系统区域设置配置为 RTL 语言时，Compose Multiplatform 会自动镜像大多数 UI 组件。调整包括内边距、对齐方式和组件位置的更改：
+当系统区域设置为 RTL 语言时，Compose Multiplatform 会自动镜像大多数 UI 组件。调整内容包括内边距、对齐方式和组件位置的更改：
 
 *   **内边距、外边距和对齐方式**  
-    默认内边距和对齐方式会被反转。例如，在 `Modifier.padding(start: Dp, top: Dp, end: Dp, bottom: Dp)` 中，从左到右 (LTR) 的 `start` 内边距对应于左侧，`end` 内边距对应于右侧；而在 RTL 语言中，`start` 对应于右侧，`end` 对应于左侧。
+    默认的内边距和对齐方式会反转。例如，在 `Modifier.padding(start: Dp, top: Dp, end: Dp, bottom: Dp)` 中，从左到右（LTR）的 `start` 内边距对应左侧，`end` 内边距对应右侧；而在 RTL 语言中，`start` 对应右侧，`end` 对应左侧。
 
 *   **组件对齐**  
-    对于诸如文本、导航项和图标等 UI 元素，默认的 `Start` 对齐方式在 RTL 模式下变为 `End`。
+    对于文本、导航项和图标等 UI 元素，在 RTL 模式下，默认的 `Start` 对齐方式会变为 `End`。
 
-*   **水平可滚动列表**  
-    水平列表会反转它们的项对齐方式和滚动方向。
+*   **水平滚动列表**  
+    水平列表会反转其项对齐方式和滚动方向。
 
 *   **按钮定位**  
-    常见的 UI 模式，例如**取消**和**确认**按钮的位置，会适应 RTL 预期。
+    常见的 UI 模式，例如 **Cancel** 和 **Confirm** 按钮的位置，会根据 RTL 的预期进行调整。
 
 ## 强制布局方向
 
-您可能需要保持某些 UI 元素（例如徽标或图标）的原始方向，无论布局方向如何。您可以显式地为整个应用或单个组件设置布局方向，从而覆盖系统默认的基于区域设置的布局行为。
+您可能需要保持某些 UI 元素（例如徽标或图标）的原始方向，无论布局方向如何。您可以为整个应用或单个组件显式设置布局方向，从而覆盖系统默认的基于区域的布局行为。
 
-要将元素从自动镜像中排除并强制使用特定方向，可以使用 `LayoutDirection.Rtl` 或 `LayoutDirection.Ltr`。要在某个作用域内指定布局方向，请使用 `CompositionLocalProvider()`，这可确保布局方向应用于组合中的所有子组件：
+要将某个元素从自动镜像中排除并强制特定方向，您可以使用 `LayoutDirection.Rtl` 或 `LayoutDirection.Ltr`。要在特定作用域内指定布局方向，请使用 `CompositionLocalProvider()`，这可确保布局方向应用于组合中的所有子组件：
 
 ```kotlin
 CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Ltr) {
@@ -39,24 +37,24 @@ Hello world")
 
 ## 处理 RTL 布局中的文本输入
 
-Compose Multiplatform 提供对 RTL 布局中各种文本输入场景的支持，包括混合方向内容、特殊字符、数字和表情符号。
+Compose Multiplatform 为 RTL 布局中的各种文本输入场景提供支持，包括混合方向内容、特殊字符、数字和表情符号。
 
-在设计支持 RTL 布局的应用程序时，请考虑以下方面。对它们进行测试可以帮助您识别潜在的本地化问题。
+在设计支持 RTL 布局的应用程序时，请考虑以下方面。测试这些方面有助于您识别潜在的本地化问题。
 
 ### 光标行为
 
-光标在 RTL 布局中应直观地表现，与字符的逻辑方向对齐。例如：
+光标在 RTL 布局中应直观地行为，与字符的逻辑方向对齐。例如：
 
-*   输入阿拉伯语时，光标从右向左移动，但插入 LTR 内容时遵循从左向右的行为。
-*   诸如文本选择、删除和插入等操作会遵循文本的自然方向流。
+*   在输入阿拉伯语时，光标从右向左移动，但插入 LTR 内容时则遵循从左向右的行为。
+*   文本选择、删除和插入等操作遵循文本的自然方向流。
 
 ### 双向文本
 
-Compose Multiplatform 使用 [Unicode 双向算法](https://www.w3.org/International/articles/inline-bidi-markup/uba-basics) 来管理和渲染双向（BiDi）文本，同时对齐标点符号和数字。
+Compose Multiplatform 使用 [Unicode 双向算法](https://www.w3.org/International/articles/inline-bidi-markup/uba-basics)来管理和渲染双向（BiDi）文本，同时对齐标点符号和数字。
 
-文本应以预期的视觉顺序显示：标点符号和数字正确对齐，阿拉伯语文字从右向左流动，英语从左向右流动。
+文本应以预期的视觉顺序显示：标点符号和数字正确对齐，阿拉伯语文字从右到左流动，英语从左到右流动。
 
-以下测试示例包括拉丁字母和阿拉伯字母，以及它们的双向组合：
+以下测试样本包含拉丁语和阿拉伯语字母，以及它们的双向组合：
 
 ```kotlin
 import androidx.compose.foundation.border
@@ -139,15 +137,15 @@ internal fun TextField(
 
 <img src="compose-rtl-bidi.png" alt="BiDi text" width="600"/>
 
-Compose Multiplatform 还确保在复杂的双向文本情况下有正确的对齐和间距，包括多行换行和双向内容的嵌套。
+Compose Multiplatform 还确保在复杂的双向（BiDi）情况下（包括多行换行和双向内容嵌套）的正确对齐和间距。
 
 ### 数字和表情符号
 
-数字应根据周围文本的方向一致显示。东阿拉伯数字在 RTL 文本中自然对齐，而西阿拉伯数字遵循典型的 LTR 行为。
+数字的显示应与周围文本的方向保持一致。东阿拉伯数字在 RTL 文本中自然对齐，而西阿拉伯数字则遵循典型的 LTR 行为。
 
-表情符号应适应 RTL 和 LTR 环境，在文本中保持正确的对齐和间距。
+表情符号应适应 RTL 和 LTR 上下文，在文本中保持正确的对齐和间距。
 
-以下测试示例包括表情符号、东阿拉伯数字和西阿拉伯数字，以及双向文本：
+以下测试样本包含表情符号、东阿拉伯数字和西阿拉伯数字，以及双向文本：
 
 ```kotlin
 import androidx.compose.foundation.border
@@ -231,7 +229,7 @@ internal fun TextField(
 
 ## Web 目标平台的字体
 
-Web 目标平台缺少用于渲染某些区域设置（例如阿拉伯语和中文）字符的内置字体。为此，您需要将自定义备用字体添加到资源中并预加载它们，因为它们不会自动启用。
+Web 目标平台缺少用于渲染某些区域设置（例如阿拉伯语和中文）字符的内置字体。为了解决这个问题，您需要将自定义备用字体添加到资源并预加载它们，因为它们不会自动启用。
 
 要预加载备用字体，请使用 `FontFamily.Resolver.preload()` 方法。例如：
 
@@ -251,36 +249,36 @@ LaunchedEffect(Unit) {
 }
 ```
 
-有关预加载 Web 目标平台资源的详细信息，请参考关于 [preload API](compose-multiplatform-resources-usage.md#preload-resources-using-the-compose-multiplatform-preload-api) 的部分。
+关于 Web 目标平台资源预加载的详细信息，请参见[关于 Compose Multiplatform 预加载 API 的章节](compose-multiplatform-resources-usage.md#preload-resources-using-the-compose-multiplatform-preload-api)。
 
-## RTL 布局中的辅助功能
+## RTL 布局中的可访问性
 
-Compose Multiplatform 支持 RTL 布局的辅助功能特性，包括屏幕阅读器正确的文本方向和顺序以及手势处理。
+Compose Multiplatform 支持 RTL 布局的可访问性特性，包括屏幕阅读器的正确文本方向和顺序，以及手势处理。
 
 ### 屏幕阅读器
 
 屏幕阅读器会自动适应 RTL 布局，为用户保持逻辑阅读顺序：
 
-*   RTL 文本从右向左阅读，混合方向文本遵循标准的双向文本规则。
-*   标点符号和数字以正确的顺序播报。
+*   RTL 文本从右向左读取，混合方向文本遵循标准的双向（BiDi）规则。
+*   标点符号和数字按正确顺序播报。
 
-在复杂的布局中，需要定义遍历语义，以确保屏幕阅读器的正确阅读顺序。
+在复杂的布局中，需要定义遍历语义以确保屏幕阅读器的正确阅读顺序。
 
 ### 基于焦点的导航
 
 RTL 布局中的焦点导航遵循布局的镜像结构：
 
-*   焦点从右到左、从上到下移动，遵循 RTL 内容的自然流。
-*   诸如轻扫或点击等手势会自动调整以适应镜像布局。
+*   焦点从右向左、从上向下移动，遵循 RTL 内容的自然流。
+*   轻扫或点按等手势会自动调整以适应镜像布局。
 
-您还可以定义遍历语义，以确保通过向上或向下轻扫的辅助功能手势，在不同遍历组之间进行正确导航。
+您还可以定义遍历语义，以确保通过向上或向下轻扫可访问性手势在不同的遍历组之间进行正确导航。
 
-有关如何定义遍历语义和设置遍历索引的详细信息，请参考 [辅助功能](compose-accessibility.md#traversal-order) 部分。
+关于如何定义遍历语义和设置遍历索引的详细信息，请参见[可访问性](compose-accessibility.md#traversal-order)章节。
 
 ## 已知问题
 
-我们正在不断改进对 RTL 语言的支持，并计划解决以下已知问题：
+我们正在持续改进对 RTL 语言的支持，并计划解决以下已知问题：
 
-*   修复在 RTL 布局中输入非 RTL 字符时插入符的位置 ([CMP-3096](https://youtrack.jetbrains.com/issue/CMP-3096))
-*   修复阿拉伯数字的插入符位置 ([CMP-2772](https://youtrack.jetbrains.com/issue/CMP-2772))
+*   修复在 RTL 布局中输入非 RTL 字符时插入符号的位置 ([CMP-3096](https://youtrack.jetbrains.com/issue/CMP-3096))
+*   修复阿拉伯数字的插入符号位置 ([CMP-2772](https://youtrack.jetbrains.com/issue/CMP-2772))
 *   修复 `TextDirection.Content` ([CMP-2446](https://youtrack.jetbrains.com/issue/CMP-2446))

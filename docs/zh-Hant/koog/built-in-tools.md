@@ -14,12 +14,24 @@ Koog 框架提供內建工具，用於處理代理程式與使用者互動的常
 
 如同任何其他工具，內建工具必須加入到工具註冊表才能供代理程式使用。以下是一個範例：
 
+<!--- INCLUDE
+import ai.koog.agents.core.agent.AIAgent
+import ai.koog.agents.core.tools.ToolRegistry
+import ai.koog.agents.ext.tool.SayToUser
+import ai.koog.agents.ext.tool.AskUser
+import ai.koog.agents.ext.tool.ExitTool
+import ai.koog.prompt.executor.clients.openai.OpenAIModels
+import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
+
+const val apiToken = ""
+
+-->
 ```kotlin
 // 建立一個包含所有內建工具的工具註冊表
 val toolRegistry = ToolRegistry {
-    tool(SayToUser())
-    tool(AskUser())
-    tool(ExitTool())
+    tool(SayToUser)
+    tool(AskUser)
+    tool(ExitTool)
 }
 
 // 在建立代理程式時傳入註冊表
@@ -29,7 +41,9 @@ val agent = AIAgent(
     llmModel = OpenAIModels.Chat.GPT4o,
     toolRegistry = toolRegistry
 )
+
 ```
+<!--- KNIT example-built-in-tools-01.kt -->
 
 您可以透過在同一個註冊表中結合內建工具和自訂工具，為您的代理程式建立一套全面的功能。
-若要深入了解自訂工具，請參閱 [基於註解的工具](annotation-based-tools.md) 和 [進階實作](advanced-tool-implementation.md)。
+若要深入了解自訂工具，請參閱 [基於註解的工具](annotation-based-tools.md) 和 [基於類別的工具](class-based-tools.md)。

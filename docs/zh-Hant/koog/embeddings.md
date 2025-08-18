@@ -20,18 +20,27 @@
 
 若要搭配本地模型使用嵌入功能，您需要在系統上安裝並執行 Ollama。有關安裝和執行說明，請參閱 [官方 Ollama GitHub 儲存庫](https://github.com/ollama/ollama)。
 
+<!--- INCLUDE
+import ai.koog.embeddings.local.LLMEmbedder
+import ai.koog.embeddings.local.OllamaEmbeddingModels
+import ai.koog.prompt.executor.ollama.client.OllamaClient
+import kotlinx.coroutines.runBlocking
+-->
 ```kotlin
 fun main() {
-    // Create an OllamaClient instance
-    val client = OllamaClient()
-    // Create an embedder
-    val embedder = LLMEmbedder(client, OllamaEmbeddingModels.NOMIC_EMBED_TEXT)
-    // Create embeddings
-    val embedding = embedder.embed("This is the text to embed")
-    // Print embeddings to the output
-    println(embedding)
+    runBlocking {
+        // Create an OllamaClient instance
+        val client = OllamaClient()
+        // Create an embedder
+        val embedder = LLMEmbedder(client, OllamaEmbeddingModels.NOMIC_EMBED_TEXT)
+        // Create embeddings
+        val embedding = embedder.embed("This is the text to embed")
+        // Print embeddings to the output
+        println(embedding)
+    }
 }
 ```
+<!--- KNIT example-embeddings-01.kt -->
 
 若要使用 Ollama 嵌入模型，請確保滿足以下前提條件：
 
@@ -70,6 +79,11 @@ fun main() {
 
 若要使用 OpenAI 嵌入模型建立嵌入，請使用 `OpenAILLMClient` 實例的 `embed` 方法，如下方範例所示。
 
+<!--- INCLUDE
+import ai.koog.embeddings.local.LLMEmbedder
+import ai.koog.prompt.executor.clients.openai.OpenAILLMClient
+import ai.koog.prompt.executor.clients.openai.OpenAIModels
+-->
 ```kotlin
 suspend fun openAIEmbed(text: String) {
     // Get the OpenAI API token from the OPENAI_KEY environment variable
@@ -77,13 +91,14 @@ suspend fun openAIEmbed(text: String) {
     // Create an OpenAILLMClient instance
     val client = OpenAILLMClient(token)
     // Create an embedder
-    val embedder = LLMEmbedder(client, OpenAIModels.Embeddings.TextEmbeddingAda3Small)
+    val embedder = LLMEmbedder(client, OpenAIModels.Embeddings.TextEmbeddingAda002)
     // Create embeddings
     val embedding = embedder.embed(text)
     // Print embeddings to the output
     println(embedding)
 }
 ```
+<!--- KNIT example-embeddings-02.kt -->
 
 ## 範例
 
@@ -93,6 +108,9 @@ suspend fun openAIEmbed(text: String) {
 
 比較程式碼片段與自然語言描述，以尋找語義匹配：
 
+<!--- INCLUDE
+import ai.koog.embeddings.base.Embedder
+-->
 ```kotlin
 suspend fun compareCodeToText(embedder: Embedder) { // Embedder type
     // 程式碼片段
@@ -126,11 +144,15 @@ suspend fun compareCodeToText(embedder: Embedder) { // Embedder type
     }
 }
 ```
+<!--- KNIT example-embeddings-03.kt -->
 
 ### 程式碼到程式碼比較
 
 比較程式碼片段以尋找語義相似性，不論語法差異：
 
+<!--- INCLUDE
+import ai.koog.embeddings.base.Embedder
+-->
 ```kotlin
 suspend fun compareCodeToCode(embedder: Embedder) { // Embedder type
     // 相同演算法在不同語言中的兩種實作
@@ -184,6 +206,7 @@ suspend fun compareCodeToCode(embedder: Embedder) { // Embedder type
     }
 }
 ```
+<!--- KNIT example-embeddings-04.kt -->
 
 ## API 文件
 

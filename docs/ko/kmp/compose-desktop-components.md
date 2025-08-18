@@ -1,15 +1,15 @@
 [//]: # (title: 데스크톱 전용 API)
 
-Compose Multiplatform을 사용하여 macOS, Linux, Windows 데스크톱 애플리케이션을 만들 수 있습니다. 이 페이지에서는 데스크톱 전용 컴포넌트와 이벤트에 대한 간략한 개요를 제공합니다. 각 섹션에는 상세 튜토리얼 링크가 포함되어 있습니다.
+Compose Multiplatform을 사용하여 macOS, Linux, Windows 데스크톱 애플리케이션을 만들 수 있습니다. 이 페이지에서는 데스크톱 전용 컴포넌트 및 이벤트에 대한 간략한 개요를 제공합니다. 각 섹션에는 자세한 튜토리얼 링크가 포함되어 있습니다.
 
 ## 컴포넌트
 
 <!-- * [Images and icons](#images-and-icons) -->
-* [창 및 대화 상자](compose-desktop-top-level-windows-management.md)
+* [창 및 다이얼로그](compose-desktop-top-level-windows-management.md)
 * [컨텍스트 메뉴](compose-desktop-context-menus.md)
 * [시스템 트레이](#the-system-tray)
 * [메뉴 바](#menu-bar)
-* [스크롤 바](compose-desktop-scrollbars.md)
+* [스크롤바](compose-desktop-scrollbars.md)
 * [툴팁](compose-desktop-tooltips.md)
 
 <!-- ### Images and icons
@@ -46,7 +46,7 @@ With Compose Multiplatform, you can set the application window icon and the appl
 
 ### 시스템 트레이
 
-`Tray` 컴포저블을 사용하여 시스템 트레이에서 사용자에게 알림을 보낼 수 있습니다:
+`Tray` 컴포저블을 사용하여 시스템 트레이에 사용자에게 알림을 보낼 수 있습니다.
 
 ```kotlin
 import androidx.compose.foundation.layout.Box
@@ -139,19 +139,19 @@ object TrayIcon : Painter() {
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="Tray(state = trayState, icon = TrayIcon, menu = { Item( "}
 
-알림에는 세 가지 유형이 있습니다:
+알림에는 세 가지 유형이 있습니다.
 
-*   `notify`, 일반 알림.
-*   `warn`, 경고 알림.
-*   `error`, 오류 알림.
+*   `notify`: 간단한 알림.
+*   `warn`: 경고 알림.
+*   `error`: 오류 알림.
 
-시스템 트레이에 애플리케이션 아이콘을 추가할 수도 있습니다.
+애플리케이션 아이콘을 시스템 트레이에 추가할 수도 있습니다.
 
-자세한 내용은 [메뉴, 트레이, 알림](https://github.com/JetBrains/compose-multiplatform/tree/master/tutorials/Tray_Notifications_MenuBar_new#tray) 튜토리얼을 참조하세요.
+자세한 내용은 [메뉴, 트레이 및 알림](https://github.com/JetBrains/compose-multiplatform/tree/master/tutorials/Tray_Notifications_MenuBar_new#tray) 튜토리얼을 참조하세요.
 
 ### 메뉴 바
 
-`MenuBar` 컴포저블을 사용하여 특정 창의 메뉴 바를 생성하고 사용자 지정할 수 있습니다:
+`MenuBar` 컴포저블을 사용하여 특정 창의 메뉴 바를 생성하고 사용자 지정할 수 있습니다.
 
 ```kotlin
 import androidx.compose.foundation.layout.Box
@@ -232,7 +232,7 @@ object AboutIcon : Painter() {
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="Window(MenuBar { Menu( "}
 
-자세한 내용은 [메뉴, 트레이, 알림](https://github.com/JetBrains/compose-multiplatform/tree/master/tutorials/Tray_Notifications_MenuBar_new#menubar) 튜토리얼을 참조하세요.
+자세한 내용은 [메뉴, 트레이 및 알림](https://github.com/JetBrains/compose-multiplatform/tree/master/tutorials/Tray_Notifications_MenuBar_new#menubar) 튜토리얼을 참조하세요.
 
 ## 이벤트
 
@@ -242,11 +242,11 @@ object AboutIcon : Painter() {
 
 ### 컴포넌트 간 탭 탐색
 
-<shortcut>Tab</shortcut> 키보드 단축키로 다음 컴포넌트로 이동하고 <shortcut>⇧ + Tab</shortcut> 키보드 단축키로 이전 컴포넌트로 이동하여 컴포넌트 간 탐색을 설정할 수 있습니다.
+<shortcut>Tab</shortcut> 키보드 단축키를 사용하여 다음 컴포넌트로, <shortcut>⇧ + Tab</shortcut> 키보드 단축키를 사용하여 이전 컴포넌트로 탐색하도록 설정할 수 있습니다.
 
-기본적으로 탭 탐색은 나타나는 순서대로 포커스 가능한 컴포넌트 사이를 이동할 수 있게 해줍니다. 포커스 가능한 컴포넌트에는 `TextField`, `OutlinedTextField`, `BasicTextField` 컴포저블뿐만 아니라 `Button`, `IconButton`, `MenuItem`과 같이 `Modifier.clickable`을 사용하는 컴포넌트가 포함됩니다.
+기본적으로 탭 탐색을 사용하면 포커스 가능한 컴포넌트(예: `TextField`, `OutlinedTextField`, `BasicTextField` 컴포저블 및 `Button`, `IconButton`, `MenuItem`과 같이 `Modifier.clickable`를 사용하는 컴포넌트) 사이를 나타나는 순서대로 이동할 수 있습니다.
 
-예를 들어, 다음은 사용자가 표준 단축키를 사용하여 다섯 개의 텍스트 필드 사이를 탐색할 수 있는 창입니다:
+예를 들어, 사용자가 표준 단축키를 사용하여 5개의 텍스트 필드 사이를 탐색할 수 있는 창은 다음과 같습니다.
 
 ```kotlin
 import androidx.compose.ui.window.application
@@ -294,14 +294,14 @@ fun main() = application {
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="Column() { for (x in 1..5) { OutlinedTextField("}
 
-또한, 포커스 불가능한 컴포넌트를 포커스 가능하게 만들고, 탭 탐색 순서를 사용자 지정하고, 컴포넌트에 포커스를 둘 수 있습니다.
+포커스 불가능한 컴포넌트를 포커스 가능하게 만들고, 탭 탐색 순서를 사용자 지정하고, 컴포넌트를 포커스할 수도 있습니다.
 
 자세한 내용은 [탭 탐색 및 키보드 포커스](https://github.com/JetBrains/compose-multiplatform/tree/master/tutorials/Tab_Navigation) 튜토리얼을 참조하세요.
 
 ## 다음 단계
 
 *   [Compose Multiplatform 데스크톱 애플리케이션](https://github.com/JetBrains/compose-multiplatform-desktop-template#readme) 튜토리얼을 완료하세요.
-*   [Compose Multiplatform 데스크톱 프로젝트의 단위 테스트를 생성하는 방법](compose-desktop-ui-testing.md)을 배우세요.
-*   [데스크톱 플랫폼을 위한 네이티브 배포판, 설치 프로그램, 패키지를 생성하는 방법](compose-native-distribution.md)을 배우세요.
-*   [Swing과의 상호 운용성을 설정하고 Swing 애플리케이션을 Compose Multiplatform으로 마이그레이션하세요](compose-desktop-swing-interoperability.md).
-*   [다양한 플랫폼에서의 접근성 지원](compose-desktop-accessibility.md)에 대해 알아보세요.
+*   Compose Multiplatform 데스크톱 프로젝트의 [단위 테스트 생성 방법](compose-desktop-ui-testing.md)을 알아보세요.
+*   데스크톱 플랫폼용 [네이티브 배포, 설치 프로그램 및 패키지 생성 방법](compose-native-distribution.md)을 알아보세요.
+*   [Swing과의 상호 운용성을 설정하고 Swing 애플리케이션을 Compose Multiplatform로 마이그레이션](compose-desktop-swing-interoperability.md)하세요.
+*   다양한 플랫폼의 [접근성 지원](compose-desktop-accessibility.md)에 대해 알아보세요.

@@ -1,12 +1,12 @@
 [//]: # (title: 工具提示)
 
-您可以使用 `TooltipArea` 可組合項為任何元件加入工具提示。`TooltipArea` 類似於 `Box` 元件，可以顯示工具提示。
+您可以利用 `TooltipArea` composable 將工具提示新增至任何元件。`TooltipArea` 與 `Box` 元件類似，可以顯示工具提示。
 
-`TooltipArea` 可組合項具有以下主要參數：
+`TooltipArea` composable 具有以下主要參數：
 
-* `tooltip`，工具提示的可組合內容。
-* `tooltipPlacement`，定義工具提示的位置。您可以指定一個錨點（滑鼠游標或元件）、一個位移和一個對齊方式。
-* `delayMillis`，工具提示顯示前的毫秒數。預設值為 500 毫秒。
+* `tooltip`，工具提示的 composable 內容。
+* `tooltipPlacement`，定義工具提示的位置。您可以指定錨點（滑鼠游標或元件）、偏移量及對齊方式。
+* `delayMillis`，工具提示顯示後的毫秒延遲時間。預設值為 500 ms。
 
 ```kotlin
 import androidx.compose.foundation.ExperimentalFoundationApi
@@ -68,10 +68,10 @@ fun main() = singleWindowApplication(
     }
 }
 ```
-{initial-collapse-state="collapsed" collapsible="true" collapsed-title="TooltipArea(tooltip = { Surface( "}
+{initial-collapse-state="collapsed" collapsible="true" collapsed-title="工具提示區域 (tooltip = { Surface( "}
 
 <img src="compose-desktop-tooltips.animated.gif" alt="工具提示" width="288" preview-src="compose-desktop-tooltips.png"/>
 
 ## 接下來呢？
 
-探索有關[其他桌面元件](https://github.com/JetBrains/compose-multiplatform/tree/master/tutorials#desktop)的教學。
+探索關於 [其他桌面元件](https://github.com/JetBrains/compose-multiplatform/tree/master/tutorials#desktop) 的教學課程。

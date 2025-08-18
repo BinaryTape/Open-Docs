@@ -1,23 +1,23 @@
 # 自适应布局
 
-为了在所有类型的设备上提供一致的用户体验，请根据不同的显示尺寸、屏幕方向和输入模式调整应用的 UI。
+为了在所有类型的设备上提供一致的用户体验，请将您的应用 UI 调整为不同的显示尺寸、方向和输入模式。
 
 ## 设计自适应布局
 
-设计自适应布局时，请遵循以下关键指南：
+设计自适应布局时请遵循以下关键准则：
 
-* 优先选择 [规范布局](https://developer.android.com/develop/ui/compose/layouts/adaptive/canonical-layouts) 模式，例如列表-详情、信息流和辅助面板。
-* 通过复用用于内边距、排版和其他设计元素的共享样式来保持一致性。在遵循平台特有的指南的同时，在不同设备上保持导航模式一致。
-* 将复杂布局拆分为可复用的 Composables，以提高灵活性和模块化。
-* 调整以适应屏幕密度和屏幕方向。
+* 优先使用 [规范布局](https://developer.android.com/develop/ui/compose/layouts/adaptive/canonical-layouts) 模式，例如 list-detail、feed 和 supporting pane。
+* 通过重用内边距、排版和其他设计元素的共享样式来保持一致性。在遵循平台特有的准则的同时，保持跨设备导航模式的一致性。
+* 将复杂的布局分解为可重用的 composable，以实现灵活性和模块化。
+* 调整屏幕密度和方向。
 
 ## 使用窗口尺寸类别
 
-窗口尺寸类别是预定义的阈值，也称为断点，它们对不同的屏幕尺寸进行分类，以帮助您设计、开发和测试自适应布局。
+窗口尺寸类别是预定义的阈值，也称为断点，它们将不同的屏幕尺寸分类，以帮助您设计、开发和测试自适应布局。
 
-窗口尺寸类别将应用可用的显示区域在宽度和高度上分为三类：紧凑型、中等型和扩展型。在进行布局更改时，请测试布局在所有窗口尺寸下的行为，尤其是在不同的断点阈值处。
+窗口尺寸类别将应用可用的显示区域分为宽度和高度各三个类别：compact、medium 和 expanded。当您进行布局更改时，请测试所有窗口尺寸的布局行为，尤其是在不同的断点阈值处。
 
-要使用 `WindowSizeClass` 类，请将 `material3.adaptive` 依赖项添加到模块的 `build.gradle.kts` 文件中的公共源代码集：
+要使用 `WindowSizeClass` 类别，请将 `material3.adaptive` 依赖项添加到模块的 `build.gradle.kts` 文件中的公共源代码集：
 
 ```kotlin
 commonMain.dependencies {
@@ -43,16 +43,16 @@ fun MyApp(
 }
 ```
 
-<!--- waiting for a page about @Preview and hot reload
-## Previewing layouts
+<!--- 等待关于 @Preview 和热重载的页面
+## 预览布局
 
-We have three different @Preview:
+我们有三种不同的 @Preview：
 
-* Android-specific, for `androidMain`, from Android Studio.
-* Separate desktop annotation plugin with our own implementation (only for desktop source set) + uiTooling plugin.
-* Common annotation, also supported in Android Studio, works for Android only but from common code.
+* Android 特有的，用于 `androidMain`，来自 Android Studio。
+* 带有我们自己实现的独立桌面注解插件（仅适用于桌面源代码集）+ uiTooling plugin。
+* 公共注解，也在 Android Studio 中支持，仅适用于 Android，但来自公共代码。
 -->
 
-## 后续步骤
+## 接下来
 
-在 [Jetpack Compose 文档](https://developer.android.com/develop/ui/compose/layouts/adaptive) 中了解更多关于自适应布局的信息。
+在 [Jetpack Compose 文档](https://developer.android.com/develop/ui/compose/layouts/adaptive) 中了解有关自适应布局的更多信息。

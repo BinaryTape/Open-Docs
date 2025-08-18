@@ -1,4 +1,4 @@
-[//]: # (title: 環境をセットアップする)
+[//]: # (title: 環境設定)
 
 初めてのKotlin Multiplatformアプリケーションを作成する前に、KMP開発のための環境をセットアップする必要があります。
 
@@ -7,107 +7,120 @@
 互換性とパフォーマンス向上のため、最新の安定バージョンをインストールすることをお勧めします。
 
 <table>
-   <tr>
-      <td>ツール</td>
+   
+<tr>
+<td>ツール</td>
       <td>コメント</td>
-   </tr>
-    <tr>
-        <td><a href="https://developer.android.com/studio">Android Studio</a></td>
-        <td>Android Studioを使用して、マルチプラットフォームアプリケーションを作成し、シミュレーターまたは実機で実行します。</td>
-    </tr>
-    <tr>
-        <td>
+</tr>
+
+    
+<tr>
+<td><a href="https://developer.android.com/studio">Android Studio</a></td>
+        <td>Android Studioを使用してマルチプラットフォームアプリケーションを作成し、シミュレートされたデバイスまたはハードウェアデバイスで実行します。</td>
+</tr>
+
+    
+<tr>
+<td>
           <p><a href="https://apps.apple.com/us/app/xcode/id497799835">Xcode</a></p>
-          <p>iOSアプリケーションをシミュレーターまたは実機で実行する場合、Xcodeが必要です。別のオペレーティングシステムを使用している場合は、このツールをスキップしてください。</p>
+          <p>iOSアプリケーションをシミュレートされたデバイスまたは実機で実行したい場合、Xcodeが必要です。異なるオペレーティングシステムを使用している場合は、このツールをスキップしてください。</p>
         </td>
         <td>
-          <p>Xcodeを別のウィンドウで起動し、ライセンス条項に同意して、必要な初期タスクを実行できるようにします。</p>
-          <p>ほとんどの場合、Xcodeはバックグラウンドで動作します。iOSアプリケーションにSwiftまたはObjective-Cコードを追加する際に使用します。</p>
+          <p>別のウィンドウでXcodeを起動し、ライセンス条項に同意し、必要な初期タスクを実行できるようにします。</p>
+          <p>ほとんどの場合、Xcodeはバックグラウンドで動作します。iOSアプリケーションにSwiftまたはObjective-Cのコードを追加するために使用します。</p>
             <note>
               <p>
-                通常、すべてのツールは最新の安定バージョンを使用することをお勧めします。ただし、Kotlin/Nativeは最新のXcodeにすぐに対応しない場合があります。サポートされているバージョンは<a href="multiplatform-compatibility-guide.md#version-compatibility">互換性ガイド</a>で確認でき、必要に応じて<a href="https://developer.apple.com/download/all/?q=Xcode">以前のバージョンのXcodeをインストール</a>できます。
+                通常、すべてのツールで最新の安定バージョンを使用することをお勧めします。ただし、Kotlin/Nativeは、最新のXcodeにすぐには対応しない場合があります。サポートされているバージョンは<a href="multiplatform-compatibility-guide.md#version-compatibility">互換性ガイド</a>で確認できます。必要に応じて、<a href="https://developer.apple.com/download/all/?q=Xcode">以前のバージョンのXcodeをインストール</a>してください。
               </p>
             </note>   
       </td>
-   </tr>
-   <tr>
-        <td><a href="https://www.oracle.com/java/technologies/javase-downloads.html">JDK</a></td>
-        <td>Javaがインストールされているかを確認するには、Android Studioのターミナルまたはコマンドラインで次のコマンドを実行します: <code style="block"
+</tr>
+
+   
+<tr>
+<td><a href="https://www.oracle.com/java/technologies/javase-downloads.html">JDK</a></td>
+        <td>Javaがインストールされているか確認するには、Android Studioターミナルまたはコマンドラインで次のコマンドを実行します: <code style="block"
             lang="bash">java -version</code></td>
-   </tr>
-   <tr>
-        <td><a href="multiplatform-plugin-releases.md">Kotlin Multiplatform plugin</a></td>
-        <td><p>Android Studioで、<strong>Settings</strong> (<strong>Preferences</strong>) を開き、<strong>Plugins</strong>ページを探します。<strong>Marketplace</strong>タブで<i>Kotlin Multiplatform</i>を検索し、インストールします。</p>
+</tr>
+
+   
+<tr>
+<td><Links href="/kmp/multiplatform-plugin-releases" summary="undefined">Kotlin Multiplatformプラグイン</Links></td>
+        <td><p>Android Studioで、**設定** (**Preferences**) を開き、**Plugins**ページを見つけます。**Marketplace**タブで<i>Kotlin Multiplatform</i>を検索し、インストールします。</p>
 </td>
-   </tr>
-   <tr>
-        <td><a href="https://kotlinlang.org/docs/releases.html#update-to-a-new-release">Kotlin plugin</a></td>
+</tr>
+
+   
+<tr>
+<td><a href="https://kotlinlang.org/docs/releases.html#update-to-a-new-release">Kotlinプラグイン</a></td>
         <td>
-            <p>Kotlinプラグインは、Android Studioの各リリースにバンドルされており、自動的に更新されます。</p>
+            <p>Kotlinプラグインは、Android Studioのリリースごとにバンドルされ、自動的に更新されます。</p>
         </td>
-   </tr>
+</tr>
+
 </table>
 
-## 環境を確認する
+## 環境の確認
 
-すべてが期待どおりに動作することを確認するために、KDoctorツールをインストールして実行します。
+すべてが期待通りに動作するか確認するために、KDoctorツールをインストールして実行します:
 
-> KDoctorはmacOSでのみ動作します。別のオペレーティングシステムを使用している場合は、このステップをスキップしてください。
+> KDoctorはmacOSでのみ動作します。異なるオペレーティングシステムを使用している場合は、このステップをスキップしてください。
 >
 {style="note"}
 
-1. Android Studioのターミナルまたはコマンドラインツールで、Homebrewを使用してツールをインストールするために次のコマンドを実行します。
+1. Android Studioターミナルまたはコマンドラインツールで、Homebrewを使用してツールをインストールするために次のコマンドを実行します:
 
     ```bash
     brew install kdoctor
     ```
 
-   まだHomebrewをお持ちでない場合は、[インストール](https://brew.sh/)するか、KDoctorの[README](https://github.com/Kotlin/kdoctor#installation)で他のインストール方法を参照してください。
-2. インストールが完了したら、コンソールでKDoctorを実行します。
+   Homebrewがまだない場合は、[インストール](https://brew.sh/)するか、他のインストール方法についてはKDoctorの[README](https://github.com/Kotlin/kdoctor#installation)を参照してください。
+2. インストールが完了したら、コンソールでKDoctorを呼び出します: 
 
     ```bash
     kdoctor
     ```
 
-3. KDoctorが環境の確認中に何らかの問題を診断した場合は、出力を見て問題と解決策を確認してください。
+3. KDoctorが環境チェック中に何らかの問題を診断した場合、出力を見て問題と可能な解決策を確認してください:
 
-   * 失敗したチェック (`[x]`) を修正します。問題の説明と潜在的な解決策は`*`記号の後に記載されています。
+   * 失敗したチェック (`[x]`) を修正します。問題の説明と潜在的な解決策は、`*`記号の後に記載されています。
    * 警告 (`[!]`) と成功メッセージ (`[v]`) を確認します。これらにも役立つメモやヒントが含まれている場合があります。
-
+   
    > CocoaPodsのインストールに関するKDoctorの警告は無視して構いません。最初のプロジェクトでは、別のiOSフレームワーク配布オプションを使用します。
    >
    {style="tip"}
 
-## 発生しうる問題と解決策
+## 考えられる問題と解決策
 
 <deflist collapsible="true">
    <def title="KotlinとAndroid Studio">
       <list>
-         <li>Android Studioがインストールされていることを確認してください。これは<a href="https://developer.android.com/studio">公式ウェブサイト</a>から入手できます。</li>
-         <li>`Kotlin not configured` エラーに遭遇する場合があります。これはAndroid Studio Giraffe 2022.3の既知の問題であり、プロジェクトのビルドや実行には影響しません。エラーを回避するには、<strong>Ignore</strong>をクリックするか、Android Studio Hedgehog 2023.1にアップグレードしてください。</li>
-         <li>最新のCompose Multiplatformを使用してUIコードを共有するには、プロジェクトに少なくともKotlin 2.1.0 (現在のバージョンは%kotlinVersion%) を使用し、少なくともKotlin 2.1.0向けにコンパイルされたライブラリにも依存してください。そうしないと、リンクエラーが発生する可能性があります。</li>
+         <li>Android Studioがインストールされていることを確認してください。<a href="https://developer.android.com/studio">公式サイト</a>から入手できます。</li>
+         <li>`Kotlin not configured`エラーに遭遇する可能性があります。これはAndroid Studio Giraffe 2022.3における既知の問題であり、プロジェクトのビルドと実行には影響しません。このエラーを回避するには、**Ignore**をクリックするか、Android Studio Hedgehog 2023.1にアップグレードしてください。</li>
+         <li>最新のCompose Multiplatformを使用してUIコードを共有するには、プロジェクトでKotlin 2.1.0以上を使用し (現在のバージョンは%kotlinVersion%)、Kotlin 2.1.0以上でコンパイルされたライブラリにも依存する必要があります。そうしないと、リンクエラーが発生する可能性があります。
+         </li>
       </list>
    </def>
    <def title="JavaとJDK">
          <list>
-           <li>JDKがインストールされていることを確認してください。これは<a href="https://www.oracle.com/java/technologies/javase-downloads.html">公式ウェブサイト</a>から入手できます。</li>
-           <li>Android StudioはバンドルされたJDKを使用してGradleタスクを実行します。Android StudioでGradle JDKを構成するには、<strong>Settings/Preferences | Build, Execution, Deployment | Build Tools | Gradle</strong>を選択します。</li>
-           <li>`JAVA_HOME`に関連する問題に遭遇する場合があります。この環境変数は、XcodeとGradleに必要なJavaバイナリの場所を指定します。その場合は、KDoctorのヒントに従って問題を修正してください。</li>
+           <li>JDKがインストールされていることを確認してください。<a href="https://www.oracle.com/java/technologies/javase-downloads.html">公式サイト</a>から入手できます。</li>
+           <li>Android StudioはバンドルされたJDKを使用してGradleタスクを実行します。Android StudioでGradle JDKを設定するには、**Settings/Preferences | Build, Execution, Deployment | Build Tools | Gradle**を選択します。</li>
+           <li>`JAVA_HOME`に関連する問題に遭遇する可能性があります。この環境変数は、XcodeとGradleに必要なJavaバイナリの場所を指定します。その場合は、KDoctorのヒントに従って問題を修正してください。</li>
          </list>
    </def>
    <def title="Xcode">
       <list>
-         <li>Xcodeがインストールされていることを確認してください。これは<a href="https://developer.apple.com/xcode/">公式ウェブサイト</a>から入手できます。</li>
+         <li>Xcodeがインストールされていることを確認してください。<a href="https://developer.apple.com/xcode/">公式サイト</a>から入手できます。</li>
          <li>まだXcodeを起動していない場合は、別のウィンドウで開いてください。ライセンス条項に同意し、必要な初期タスクを実行できるようにします。</li>
-         <li><p><code>Error: can't grab Xcode schemes</code> またはコマンドラインツールの選択に関するその他の問題に遭遇する場合があります。この場合、次のいずれかを実行してください。</p>
+         <li><p>`Error: can't grab Xcode schemes`や、コマンドラインツールの選択に関するその他の問題に遭遇する可能性があります。この場合、次のいずれかを実行してください:</p>
              <list>
-               <li><p>ターミナルで次を実行します。</p>
+               <li><p>ターミナルで、以下を実行します:</p>
                    <code style="block"
                          lang="bash">sudo xcode-select --switch /Applications/Xcode.app</code>
                </li>
-               <li>または、Xcodeで<strong>Settings | Locations</strong>を選択します。<strong>Command Line Tools</strong>フィールドで、ご使用のXcodeバージョンを選択します。
+               <li>または、Xcodeで、**Settings | Locations**を選択します。**Command Line Tools**フィールドで、Xcodeのバージョンを選択します。
                    <img src="xcode-schemes.png" alt="Xcode schemes" width="500"/>
-                   <p>`Xcode.app`へのパスが選択されていることを確認します。必要に応じて別のウィンドウでアクションを確定します。</p>
+                   <p>`Xcode.app`へのパスが選択されていることを確認してください。必要に応じて、別のウィンドウでアクションを確定します。</p>
                </li>
              </list>
          </li>
@@ -117,29 +130,29 @@
          <snippet>
             <p><strong>Kotlin Multiplatformプラグイン</strong></p>
                <list>
-                  <li>Kotlin Multiplatformプラグインがインストールされ、有効になっていることを確認します。Android Studioのウェルカム画面で、<strong>Plugins | Installed</strong>を選択します。プラグインが有効になっていることを確認します。<strong>Installed</strong>リストにない場合は、<strong>Marketplace</strong>で検索してインストールします。</li>
-                  <li>プラグインが古い場合は、プラグイン名の横にある<strong>Update</strong>をクリックします。同じことを<strong>Settings/Preferences | Tools | Plugins</strong>セクションでも行えます。</li>
-                  <li><a href="multiplatform-plugin-releases.md#release-details">リリース詳細</a>テーブルで、Kotlin Multiplatformプラグインとご使用のKotlinバージョンの互換性を確認してください。</li>
+                  <li>Kotlin Multiplatformプラグインがインストールされ、有効になっていることを確認してください。Android Studioのようこそ画面で、**Plugins | Installed**を選択します。プラグインが有効になっていることを確認します。**Installed**リストにない場合は、**Marketplace**で検索してプラグインをインストールします。</li>
+                  <li>プラグインが古い場合は、プラグイン名の横にある**Update**をクリックします。**Settings/Preferences | Tools | Plugins**セクションでも同様に操作できます。</li>
+                  <li>Kotlin Multiplatformプラグインと使用しているKotlinのバージョンの互換性は、<a href="multiplatform-plugin-releases.md#release-details">リリース詳細</a>テーブルで確認してください。</li>
                </list>
          </snippet>
          <snippet>
             <p><strong>Kotlinプラグイン</strong></p>
-            <p>Kotlinプラグインが最新バージョンに更新されていることを確認します。これを行うには、Android Studioのウェルカム画面で、<strong>Plugins | Installed</strong>を選択します。Kotlinの横にある<strong>Update</strong>をクリックします。</p>
+            <p>Kotlinプラグインが最新バージョンに更新されていることを確認してください。そのためには、Android Studioのようこそ画面で、**Plugins | Installed**を選択します。Kotlinの横にある**Update**をクリックします。</p>
          </snippet>
    </def>
    <def title="コマンドライン">
-            <p>必要なツールがすべてインストールされていることを確認してください。</p>
+            <p>必要なツールがすべてインストールされていることを確認してください:</p>
             <list>
-              <li>`command not found: brew` – <a href="https://brew.sh/">Homebrewをインストール</a>します。</li>
-              <li>`command not found: java` – <a href="https://www.oracle.com/java/technologies/javase-downloads.html">Javaをインストール</a>します。</li>
+              <li>`command not found: brew` – <a href="https://brew.sh/">Homebrewをインストール</a>。</li>
+              <li>`command not found: java` – <a href="https://www.oracle.com/java/technologies/javase-downloads.html">Javaをインストール</a>。</li>
            </list>
     </def>
    <def title="まだ問題がありますか？">
-            <p><a href="https://kotl.in/issue">YouTrackイシューを作成</a>して、チームと問題を共有してください。</p>
+            <p><a href="https://kotl.in/issue">YouTrack issueを作成</a>して、チームに問題を共有してください。</p>
    </def>
 </deflist>
 
-## ヘルプを参照する
+## ヘルプ
 
-*   **Kotlin Slack**。<a href="https://surveys.jetbrains.com/s3/kotlin-slack-sign-up">招待を受け取り</a>、[#multiplatform](https://kotlinlang.slack.com/archives/C3PQML5NU)チャンネルに参加してください。
-*   **Kotlin課題トラッカー**。<a href="https://youtrack.jetbrains.com/newIssue?project=KT">新しい課題を報告</a>してください。
+*   **Kotlin Slack**。[招待](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up)を受けて、[#multiplatform](https://kotlinlang.slack.com/archives/C3PQML5NU)チャンネルに参加してください。
+*   **Kotlin issue tracker**。[新しいissueを報告](https://youtrack.jetbrains.com/newIssue?project=KT)してください。

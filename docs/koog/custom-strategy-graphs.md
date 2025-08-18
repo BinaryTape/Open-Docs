@@ -8,10 +8,10 @@
 
 从高层视角看，策略图由以下组件构成：
 
--   **Strategy**：图的顶层容器，使用 `strategy` 函数创建。
--   **Subgraphs**：图中可以拥有自己工具集和上下文的部分。
--   **Nodes**：工作流中的单个操作或转换。
--   **Edges**：定义转换条件和转换的节点间连接。
+-   **Strategy**：图的顶层容器，使用 `strategy` 函数创建，并使用泛型参数指定输入和输出类型。
+-   **子图**：图中可以拥有自己工具集和上下文的部分。
+-   **节点**：工作流中的单个操作或转换。
+-   **边**：定义转换条件和转换的节点间连接。
 
 策略图从一个名为 `nodeStart` 的特殊节点开始，到 `nodeFinish` 结束。这些节点之间的路径由图中指定的边和条件决定。
 
@@ -29,13 +29,25 @@ Koog framework 提供了预定义节点，也允许你使用 `node` 函数创建
 
 边连接节点并定义策略图中的操作流。边通过 `edge` 函数和 `forwardTo` 中缀函数创建：
 
+<!--- INCLUDE
+import ai.koog.agents.core.dsl.builder.forwardTo
+import ai.koog.agents.core.dsl.builder.strategy
+
+val strategy = strategy<String, String>("strategy_name") {
+        val sourceNode by node<String, String> { input -> input }
+        val targetNode by node<String, String> { input -> input }
+-->
+<!--- SUFFIX
+}
+-->
 ```kotlin
 edge(sourceNode forwardTo targetNode)
 ```
+<!--- KNIT example-custom-strategy-graphs-01.kt -->
 
 #### 条件
 
-条件决定了何时跟随策略图中的特定边。条件有以下几种类型：
+条件决定了何时跟随策略图中的特定边。条件有以下几种类型，这里列出一些常见的：
 
 | 条件类型         | 描述                                                                           |
 | :--------------- | :----------------------------------------------------------------------------- |
@@ -47,40 +59,80 @@ edge(sourceNode forwardTo targetNode)
 
 你可以使用 `transformed` 函数在将输出传递给目标节点之前对其进行转换：
 
+<!--- INCLUDE
+import ai.koog.agents.core.dsl.builder.forwardTo
+import ai.koog.agents.core.dsl.builder.strategy
+
+val strategy = strategy<String, String>("strategy_name") {
+        val sourceNode by node<String, String> { input -> input }
+        val targetNode by node<String, String> { input -> input }
+-->
+<!--- SUFFIX
+}
+-->
 ```kotlin
 edge(sourceNode forwardTo targetNode 
         onCondition { input -> input.length > 10 }
         transformed { input -> input.uppercase() }
 )
 ```
+<!--- KNIT example-custom-strategy-graphs-02.kt -->
 
 ### 子图
 
 子图是策略图的一部分，它们使用自己的一套工具和上下文进行操作。策略图可以包含多个子图。每个子图通过 `subgraph` 函数定义：
 
+<!--- INCLUDE
+import ai.koog.agents.core.dsl.builder.strategy
+
+typealias Input = String
+typealias Output = Int
+
+typealias FirstInput = String
+typealias FirstOutput = Int
+
+typealias SecondInput = String
+typealias SecondOutput = Int
+-->
 ```kotlin
-val strategy = strategy("strategy-name") {
-    val firstSubgraph by subgraph("first") {
+val strategy = strategy<Input, Output>("strategy-name") {
+    val firstSubgraph by subgraph<FirstInput, FirstOutput>("first") {
         // Define nodes and edges for this subgraph
     }
-    val secondSubgraph by subgraph("second") {
+    val secondSubgraph by subgraph<SecondInput, SecondOutput>("second") {
         // Define nodes and edges for this subgraph
     }
 }
 ```
+<!--- KNIT example-custom-strategy-graphs-03.kt -->
+
 子图可以使用工具注册表中的任何工具。但是，你可以从该注册表中指定一个工具子集，并将其作为实参传递给 `subgraph` 函数，以供子图使用：
 
+<!--- INCLUDE
+import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.ext.tool.SayToUser
+
+typealias Input = String
+typealias Output = Int
+
+typealias FirstInput = String
+typealias FirstOutput = Int
+
+val someTool = SayToUser
+
+-->
 ```kotlin
-val strategy = strategy("strategy-name") {
-    val firstSubgraph by subgraph(
+val strategy = strategy<Input, Output>("strategy-name") {
+    val firstSubgraph by subgraph<FirstInput, FirstOutput>(
         name = "first",
         tools = listOf(someTool)
     ) {
         // Define nodes and edges for this subgraph
     }
-   // 定义其他子图
+   // Define other subgraphs
 }
 ```
+<!--- KNIT example-custom-strategy-graphs-04.kt -->
 
 ## 基本策略图创建
 
@@ -97,13 +149,23 @@ val strategy = strategy("strategy-name") {
 
 以下是基本策略图的示例：
 
+<!--- INCLUDE
+import ai.koog.agents.core.dsl.builder.forwardTo
+import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.extension.nodeExecuteTool
+import ai.koog.agents.core.dsl.extension.nodeLLMRequest
+import ai.koog.agents.core.dsl.extension.nodeLLMSendToolResult
+import ai.koog.agents.core.dsl.extension.onAssistantMessage
+import ai.koog.agents.core.dsl.extension.onToolCall
+
+-->
 ```kotlin
-val myStrategy = strategy("my-strategy") {
+val myStrategy = strategy<String, String>("my-strategy") {
     val nodeCallLLM by nodeLLMRequest()
     val executeToolCall by nodeExecuteTool()
     val sendToolResult by nodeLLMSendToolResult()
 
-    edge(nodeStart forwardTo nodeCallLLM)
+    edge(nodeStart forwardTo nodeCallLLLLM)
     edge(nodeCallLLM forwardTo nodeFinish onAssistantMessage { true })
     edge(nodeCallLLM forwardTo executeToolCall onToolCall { true })
     edge(executeToolCall forwardTo sendToolResult)
@@ -111,6 +173,7 @@ val myStrategy = strategy("my-strategy") {
     edge(sendToolResult forwardTo executeToolCall onToolCall { true })
 }
 ```
+<!--- KNIT example-custom-strategy-graphs-05.kt -->
 
 ## 高级策略技术
 
@@ -122,6 +185,19 @@ val myStrategy = strategy("my-strategy") {
 
 对于需要并行执行多个工具的工作流，你可以使用 `nodeExecuteMultipleTools` 节点：
 
+<!--- INCLUDE
+import ai.koog.agents.core.dsl.builder.forwardTo
+import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.extension.nodeExecuteMultipleTools
+import ai.koog.agents.core.dsl.extension.nodeLLMSendMultipleToolResults
+import ai.koog.prompt.message.Message
+
+val strategy = strategy<String, String>("strategy_name") {
+    val someNode by node<String, List<Message.Tool.Call>> { emptyList() }
+-->
+<!--- SUFFIX
+}
+-->
 ```kotlin
 val executeMultipleTools by nodeExecuteMultipleTools()
 val processMultipleResults by nodeLLMSendMultipleToolResults()
@@ -129,27 +205,76 @@ val processMultipleResults by nodeLLMSendMultipleToolResults()
 edge(someNode forwardTo executeMultipleTools)
 edge(executeMultipleTools forwardTo processMultipleResults)
 ```
+<!--- KNIT example-custom-strategy-graphs-06.kt -->
 
 你也可以使用 `toParallelToolCallsRaw` 扩展函数处理流式数据：
 
+<!--- INCLUDE
+/*
+-->
+<!--- SUFFIX
+*/
+-->
 ```kotlin
 parseMarkdownStreamToBooks(markdownStream).toParallelToolCallsRaw(BookTool::class).collect()
 ```
+<!--- KNIT example-custom-strategy-graphs-07.kt -->
 
 要了解更多信息，请参见 [工具](tools-overview.md#parallel-tool-calls)。
+
+### 并行节点执行
+
+并行节点执行允许你并发地运行多个节点，从而提高性能并启用复杂的工作流。
+
+要启动并行节点运行，请使用 `parallel` 方法：
+
+<!--- INCLUDE
+import ai.koog.agents.core.dsl.builder.strategy
+
+val strategy = strategy<String, String>("strategy_name") {
+    val nodeCalcTokens by node<String, Int> { 42 }
+    val nodeCalcSymbols by node<String, Int> { 42 }
+    val nodeCalcWords by node<String, Int> { 42 }
+
+-->
+<!--- SUFFIX
+}
+-->
+```kotlin
+val calc by parallel<String, Int>(
+    nodeCalcTokens, nodeCalcSymbols, nodeCalcWords,
+) {
+    selectByMax { it }
+}
+```
+<!--- KNIT example-custom-strategy-graphs-08.kt -->
+
+上述代码创建了一个名为 `calc` 的节点，该节点并行运行 `nodeCalcTokens`、`nodeCalcSymbols` 和 `nodeCalcWords` 节点，并将结果作为 `AsyncParallelResult` 的一个实例返回。
+
+关于并行节点执行和详细参考的更多信息，请参见 [并行节点执行](parallel-node-execution.md)。
 
 ### 条件分支
 
 对于需要根据特定条件采取不同路径的复杂工作流，你可以使用条件分支：
 
+<!--- INCLUDE
+import ai.koog.agents.core.dsl.builder.forwardTo
+import ai.koog.agents.core.dsl.builder.strategy
+
+val strategy = strategy<String, String>("strategy_name") {
+    val someNode by node<String, String> { it }
+-->
+<!--- SUFFIX
+}
+-->
 ```kotlin
 val branchA by node<String, String> { input ->
-    // 分支 A 的逻辑
+    // Logic for branch A
     "Branch A: $input"
 }
 
 val branchB by node<String, String> { input ->
-    // 分支 B 的逻辑
+    // Logic for branch B
     "Branch B: $input"
 }
 
@@ -162,6 +287,7 @@ edge(
             onCondition { input -> input.contains("B") }
 )
 ```
+<!--- KNIT example-custom-strategy-graphs-09.kt -->
 
 ## 最佳实践
 
@@ -182,30 +308,43 @@ edge(
 
 语气分析策略是基于工具的策略的一个很好的示例，它包括历史记录压缩：
 
+<!--- INCLUDE
+import ai.koog.agents.core.agent.entity.AIAgentStrategy
+import ai.koog.agents.core.dsl.builder.forwardTo
+import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.extension.nodeExecuteTool
+import ai.koog.agents.core.dsl.extension.nodeLLMCompressHistory
+import ai.koog.agents.core.dsl.extension.nodeLLMRequest
+import ai.koog.agents.core.dsl.extension.nodeLLMSendToolResult
+import ai.koog.agents.core.dsl.extension.onAssistantMessage
+import ai.koog.agents.core.dsl.extension.onToolCall
+import ai.koog.agents.core.environment.ReceivedToolResult
+import ai.koog.agents.core.tools.ToolRegistry
+-->
 ```kotlin
-fun toneStrategy(name: String, toolRegistry: ToolRegistry): AIAgentStrategy {
+fun toneStrategy(name: String, toolRegistry: ToolRegistry): AIAgentStrategy<String, String> {
     return strategy(name) {
         val nodeSendInput by nodeLLMRequest()
         val nodeExecuteTool by nodeExecuteTool()
         val nodeSendToolResult by nodeLLMSendToolResult()
-        val nodeCompressHistory by nodeLLMCompressHistory<Message.Tool.Result>()
+        val nodeCompressHistory by nodeLLMCompressHistory<ReceivedToolResult>()
 
-        // 定义代理的流程
+        // Define the flow of the agent
         edge(nodeStart forwardTo nodeSendInput)
 
-        // 如果 LLM 响应消息，则结束
+        // If the LLM responds with a message, finish
         edge(
             (nodeSendInput forwardTo nodeFinish)
                     onAssistantMessage { true }
         )
 
-        // 如果 LLM 调用工具，则执行它
+        // If the LLM calls a tool, execute it
         edge(
             (nodeSendInput forwardTo nodeExecuteTool)
                     onToolCall { true }
         )
 
-        // 如果历史记录过大，则压缩它
+        // If the history gets too large, compress it
         edge(
             (nodeExecuteTool forwardTo nodeCompressHistory)
                     onCondition { _ -> llm.readSession { prompt.messages.size > 100 } }
@@ -213,19 +352,19 @@ fun toneStrategy(name: String, toolRegistry: ToolRegistry): AIAgentStrategy {
 
         edge(nodeCompressHistory forwardTo nodeSendToolResult)
 
-        // 否则，直接发送工具结果
+        // Otherwise, send the tool result directly
         edge(
             (nodeExecuteTool forwardTo nodeSendToolResult)
                     onCondition { _ -> llm.readSession { prompt.messages.size <= 100 } }
         )
 
-        // 如果 LLM 调用另一个工具，则执行它
+        // If the LLM calls another tool, execute it
         edge(
             (nodeSendToolResult forwardTo nodeExecuteTool)
                     onToolCall { true }
         )
 
-        // 如果 LLM 响应消息，则结束
+        // If the LLM responds with a message, finish
         edge(
             (nodeSendToolResult forwardTo nodeFinish)
                     onAssistantMessage { true }
@@ -233,6 +372,7 @@ fun toneStrategy(name: String, toolRegistry: ToolRegistry): AIAgentStrategy {
     }
 }
 ```
+<!--- KNIT example-custom-strategy-graphs-10.kt -->
 
 此策略执行以下操作：
 

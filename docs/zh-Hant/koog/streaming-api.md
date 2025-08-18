@@ -27,6 +27,17 @@ Koog framework 中的流式 API 讓您可以在大型語言模型 (LLMs) 的結�
 
 以下是帶有輸出結構 Markdown 定義的原始字串流：
 
+<!--- INCLUDE
+import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.prompt.structure.markdown.MarkdownStructuredDataDefinition
+
+val strategy = strategy<String, String>("strategy_name") {
+    val node by node<Unit, Unit> {
+-->
+<!--- SUFFIX
+   }
+}
+-->
 ```kotlin
 fun markdownBookDefinition(): MarkdownStructuredDataDefinition {
     return MarkdownStructuredDataDefinition("name", schema = { /*...*/ })
@@ -43,9 +54,21 @@ llm.writeSession {
     }
 }
 ```
+<!--- KNIT example-streaming-api-01.kt -->
 
 這是一個沒有定義的原始字串流範例：
 
+<!--- INCLUDE
+import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.prompt.structure.markdown.MarkdownStructuredDataDefinition
+
+val strategy = strategy<String, String>("strategy_name") {
+    val node by node<Unit, Unit> {
+-->
+<!--- SUFFIX
+   }
+}
+-->
 ```kotlin
 llm.writeSession {
     val stream = requestLLMStreaming()
@@ -56,6 +79,7 @@ llm.writeSession {
     }
 }
 ```
+<!--- KNIT example-streaming-api-02.kt -->
 
 ## 使用結構化資料流
 
@@ -72,24 +96,32 @@ llm.writeSession {
 
 首先，定義一個資料類別來表示您的結構化資料：
 
+<!--- INCLUDE
+import kotlinx.serialization.Serializable
+-->
 ```kotlin
 @Serializable
 data class Book(
-    val bookName: String,
+    val title: String,
     val author: String,
     val description: String
 )
 ```
+<!--- KNIT example-streaming-api-03.kt -->
 
 ### 2. 定義 Markdown 結構
 
 使用 `MarkdownStructuredDataDefinition` 類別創建一個定義，指定您的資料應如何在 Markdown 中結構化：
 
+<!--- INCLUDE
+import ai.koog.prompt.markdown.markdown
+import ai.koog.prompt.structure.markdown.MarkdownStructuredDataDefinition
+-->
 ```kotlin
 fun markdownBookDefinition(): MarkdownStructuredDataDefinition {
     return MarkdownStructuredDataDefinition("bookList", schema = {
         markdown {
-            header(1, "bookName")
+            header(1, "title")
             bulleted {
                 item("author")
                 item("description")
@@ -106,11 +138,25 @@ fun markdownBookDefinition(): MarkdownStructuredDataDefinition {
     })
 }
 ```
+<!--- KNIT example-streaming-api-04.kt -->
 
 ### 3. 為您的資料結構建立解析器
 
 `markdownStreamingParser` 為不同的 Markdown 元素提供了多個處理器：
 
+<!--- INCLUDE
+import ai.koog.agents.example.exampleStreamingApi03.Book
+import ai.koog.prompt.structure.markdown.markdownStreamingParser
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
+
+fun parseMarkdownStreamToBooks(markdownStream: Flow<String>): Flow<Book> {
+    return flow {
+-->
+<!--- SUFFIX
+   }
+}
+-->
 ```kotlin
 markdownStreamingParser {
     // Handle level 1 headings
@@ -140,75 +186,92 @@ markdownStreamingParser {
     }
 }
 ```
+<!--- KNIT example-streaming-api-05.kt -->
 
 使用定義的處理器，您可以實作一個函數，該函數使用 `markdownStreamingParser` 函數解析 Markdown 流並發出您的資料物件。
 
+<!--- INCLUDE
+import ai.koog.agents.example.exampleStreamingApi08.Book
+import ai.koog.prompt.structure.markdown.markdownStreamingParser
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
+
+-->
 ```kotlin
 fun parseMarkdownStreamToBooks(markdownStream: Flow<String>): Flow<Book> {
-    return flow {
-        markdownStreamingParser {
-            var currentBookName = ""
-            val bulletPoints = mutableListOf<String>()
+   return flow {
+      markdownStreamingParser {
+         var currentBookTitle = ""
+         val bulletPoints = mutableListOf<String>()
 
-            // Handle the event of receiving the Markdown header in the response stream
-            onHeader(1) { headerText ->
-                // If there was a previous book, emit it
-                if (currentBookName.isNotEmpty() && bulletPoints.isNotEmpty()) {
-                    val author = bulletPoints.getOrNull(0) ?: ""
-                    val description = bulletPoints.getOrNull(1) ?: ""
-                    emit(Book(currentBookName, author, description))
-                }
-
-                currentBookName = headerText
-                bulletPoints.clear()
+         // Handle the event of receiving the Markdown header in the response stream
+         onHeader(1) { headerText ->
+            // If there was a previous book, emit it
+            if (currentBookTitle.isNotEmpty() && bulletPoints.isNotEmpty()) {
+               val author = bulletPoints.getOrNull(0) ?: ""
+               val description = bulletPoints.getOrNull(1) ?: ""
+               emit(Book(currentBookTitle, author, description))
             }
 
-            // Handle the event of receiving the Markdown bullets list in the response stream
-            onBullet { bulletText ->
-                bulletPoints.add(bulletText)
-            }
+            currentBookTitle = headerText
+            bulletPoints.clear()
+         }
 
-            // Handle the end of the response stream
-            onFinishStream {
-                // Emit the last book, if present
-                if (currentBookName.isNotEmpty() && bulletPoints.isNotEmpty()) {
-                    val author = bulletPoints.getOrNull(0) ?: ""
-                    val description = bulletPoints.getOrNull(1) ?: ""
-                    emit(Book(currentBookName, author, description))
-                }
+         // Handle the event of receiving the Markdown bullets list in the response stream
+         onBullet { bulletText ->
+            bulletPoints.add(bulletText)
+         }
+
+         // Handle the end of the response stream
+         onFinishStream {
+            // Emit the last book, if present
+            if (currentBookTitle.isNotEmpty() && bulletPoints.isNotEmpty()) {
+               val author = bulletPoints.getOrNull(0) ?: ""
+               val description = bulletPoints.getOrNull(1) ?: ""
+               emit(Book(currentBookTitle, author, description))
             }
-        }.parseStream(markdownStream)
-    }
+         }
+      }.parseStream(markdownStream)
+   }
 }
 ```
+<!--- KNIT example-streaming-api-06.kt -->
 
 ### 4. 在您的代理策略中使用解析器
 
+<!--- INCLUDE
+import ai.koog.agents.core.dsl.builder.forwardTo
+import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.example.exampleStreamingApi08.Book
+import ai.koog.agents.example.exampleStreamingApi04.markdownBookDefinition
+import ai.koog.agents.example.exampleStreamingApi06.parseMarkdownStreamToBooks
+-->
 ```kotlin
-val agentStrategy = strategy("library-assistant") {
-     // Describe the node containing the output stream parsing
-     val getMdOutput by node<String, String> { input ->
-         val books = mutableListOf<Book>()
-         val mdDefinition = markdownBookDefinition()
+val agentStrategy = strategy<String, List<Book>>("library-assistant") {
+   // Describe the node containing the output stream parsing
+   val getMdOutput by node<String, List<Book>> { booksDescription ->
+      val books = mutableListOf<Book>()
+      val mdDefinition = markdownBookDefinition()
 
-         llm.writeSession {
-             updatePrompt { user(input) }
-             // Initiate the response stream in the form of the definition `mdDefinition`
-             val markdownStream = requestLLMStreaming(mdDefinition)
-             // Call the parser with the result of the response stream and perform actions with the result
-             parseMarkdownStreamToBooks(markdownStream).collect { book ->
-                 books.add(book)
-                 println("Parsed Book: ${book.bookName} by ${book.author}")
-             }
+      llm.writeSession {
+         updatePrompt { user(booksDescription) }
+         // Initiate the response stream in the form of the definition `mdDefinition`
+         val markdownStream = requestLLMStreaming(mdDefinition)
+         // Call the parser with the result of the response stream and perform actions with the result
+         parseMarkdownStreamToBooks(markdownStream).collect { book ->
+            books.add(book)
+            println("Parsed Book: ${book.title} by ${book.author}")
          }
-         // A custom function for output formatting
-         formatOutput(books)
-     }
-     // Describe the agent's graph making sure the node is accessible
-     edge(nodeStart forwardTo getMdOutput)
-     edge(getMdOutput forwardTo nodeFinish)
- }
+      }
+
+      books
+   }
+   // Describe the agent's graph making sure the node is accessible
+   edge(nodeStart forwardTo getMdOutput)
+   edge(getMdOutput forwardTo nodeFinish)
+}
 ```
+<!--- KNIT example-streaming-api-07.kt -->
 
 ## 進階用法：搭配工具進行流式處理
 
@@ -216,79 +279,116 @@ val agentStrategy = strategy("library-assistant") {
 
 ### 1. 為您的資料結構定義工具
 
+<!--- INCLUDE
+import ai.koog.agents.core.tools.SimpleTool
+import ai.koog.agents.core.tools.ToolArgs
+import ai.koog.agents.core.tools.ToolDescriptor
+import kotlinx.serialization.KSerializer
+import kotlinx.serialization.Serializable
+-->
 ```kotlin
+@Serializable
+data class Book(
+   val title: String,
+   val author: String,
+   val description: String
+) : ToolArgs
+
 class BookTool(): SimpleTool<Book>() {
-    companion object {
-        const val NAME = "book"
-    }
+   companion object {
+      const val NAME = "book"
+   }
 
-    override suspend fun doExecute(args: Book): String {
-        println("${args.bookName} by ${args.author}:
+   override suspend fun doExecute(args: Book): String {
+      println("${args.title} by ${args.author}:
  ${args.description}")
-        return "Done"
-    }
+      return "Done"
+   }
 
-    override val argsSerializer: KSerializer<Book>
-        get() = Book.serializer()
-    override val descriptor: ToolDescriptor
-        get() = ToolDescriptor(
-            name = NAME,
-            description = "A tool to parse book information from Markdown",
-            requiredParameters = listOf(),
-            optionalParameters = listOf()
-        )
+   override val argsSerializer: KSerializer<Book>
+      get() = Book.serializer()
+   override val descriptor: ToolDescriptor
+      get() = ToolDescriptor(
+         name = NAME,
+         description = "A tool to parse book information from Markdown",
+         requiredParameters = listOf(),
+         optionalParameters = listOf()
+      )
 }
 ```
+<!--- KNIT example-streaming-api-08.kt -->
 
 ### 2. 將工具與流式資料結合使用
 
+<!--- INCLUDE
+import ai.koog.agents.core.dsl.builder.forwardTo
+import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.tools.ToolArgs
+import ai.koog.agents.example.exampleStreamingApi04.markdownBookDefinition
+import ai.koog.agents.example.exampleStreamingApi06.parseMarkdownStreamToBooks
+import ai.koog.agents.example.exampleStreamingApi08.BookTool
+
+-->
 ```kotlin
-val agentStrategy = strategy("library-assistant") {
-     val getMdOutput by node<String, String> { input ->
-         val mdDefinition = markdownBookDefinition()
+val agentStrategy = strategy<String, Unit>("library-assistant") {
+   val getMdOutput by node<String, Unit> { input ->
+      val mdDefinition = markdownBookDefinition()
 
-         llm.writeSession {
-             updatePrompt { user(input) }
-             val markdownStream = requestLLMStreaming(mdDefinition)
+      llm.writeSession {
+         updatePrompt { user(input) }
+         val markdownStream = requestLLMStreaming(mdDefinition)
 
-             parseMarkdownStreamToBooks(markdownStream).collect { book ->
-                 callToolRaw(BookTool.NAME, book)
-                 /* Other possible options:
-                     callTool(BookTool::class, book)
-                     callTool<BookTool>(book)
-                     findTool(BookTool::class).execute(book)
-                 */
-             }
-
-             // We can make parallel tool calls
-             parseMarkdownStreamToBooks(markdownStream).toParallelToolCallsRaw(BookTool::class).collect()
+         parseMarkdownStreamToBooks(markdownStream).collect { book ->
+            callToolRaw(BookTool.NAME, book as ToolArgs)
+            /* Other possible options:
+                callTool(BookTool::class, book)
+                callTool<BookTool>(book)
+                findTool(BookTool::class).execute(book)
+            */
          }
-         ""
-     }
 
-     edge(nodeStart forwardTo getMdOutput)
-     edge(getMdOutput forwardTo nodeFinish)
+         // We can make parallel tool calls
+         parseMarkdownStreamToBooks(markdownStream).toParallelToolCallsRaw(toolClass=BookTool::class).collect {
+            println("Tool call result: $it")
+         }
+      }
+   }
+
+   edge(nodeStart forwardTo getMdOutput)
+   edge(getMdOutput forwardTo nodeFinish)
  }
 ```
+<!--- KNIT example-streaming-api-09.kt -->
 
 ### 3. 在您的代理配置中註冊工具
 
+<!--- INCLUDE
+import ai.koog.agents.core.agent.AIAgent
+import ai.koog.agents.core.tools.ToolRegistry
+import ai.koog.agents.example.exampleComplexWorkflowAgents01.token
+import ai.koog.agents.example.exampleComplexWorkflowAgents06.agentStrategy
+import ai.koog.agents.example.exampleComplexWorkflowAgents07.agentConfig
+import ai.koog.agents.example.exampleStreamingApi08.BookTool
+import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
+
+-->
 ```kotlin
 val toolRegistry = ToolRegistry {
-    tool(BookTool())
+   tool(BookTool())
 }
 
 val runner = AIAgent(
-    promptExecutor = simpleOpenAIExecutor(token),
-    toolRegistry = toolRegistry,
-    strategy = agentStrategy,
-    agentConfig = agentConfig
+   promptExecutor = simpleOpenAIExecutor(token),
+   toolRegistry = toolRegistry,
+   strategy = agentStrategy,
+   agentConfig = agentConfig
 )
 ```
+<!--- KNIT example-streaming-api-10.kt -->
 
 ## 最佳實踐
 
-1.  **定義清晰的結構**：為您的資料建立清晰且無誤的 Markdown 結構。
+1.  **定義清晰的結構**：為您的資料建立清晰且無歧義的 Markdown 結構。
 
 2.  **提供良好的範例**：在您的 `MarkdownStructuredDataDefinition` 中包含全面的範例，以指導 LLM。
 

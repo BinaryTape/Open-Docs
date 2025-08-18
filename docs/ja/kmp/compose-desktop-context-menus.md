@@ -1,6 +1,6 @@
 [//]: # (title: コンテキストメニュー)
 
-デスクトップ版Compose Multiplatformは、テキストコンテキストメニューの組み込みサポートを提供しており、アイテムの追加、テーマの設定、テキストのカスタマイズによって、あらゆるコンテキストメニューを柔軟に調整できます。
+デスクトップ版のCompose Multiplatformは、テキストコンテキストメニューを標準でサポートしており、アイテムの追加、テーマの設定、テキストのカスタマイズなどにより、あらゆるコンテキストメニューを簡単に調整できます。
 
 ## カスタム領域でのコンテキストメニュー
 
@@ -40,8 +40,8 @@ fun main() = singleWindowApplication(title = "Context menu") {
 
 ## テーマの設定
 
-コンテキストメニューの色をカスタマイズして、システム設定に合ったレスポンシブUIを作成し、アプリケーション切り替え時の著しいコントラストの変化を避けることができます。デフォルトのライトテーマとダークテーマには、`LightDefaultContextMenuRepresentation`と`DarkDefaultContextMenuRepresentation`の2つの組み込み実装があります。
-これらはコンテキストメニューの色に自動的に適用されないため、`LocalContextMenuRepresentation`を通じて適切なテーマを設定する必要があります。
+コンテキストメニューの色をカスタマイズして、システム設定に合ったレスポンシブなUIを作成し、アプリケーションを切り替える際の過度なコントラストの変化を避けることができます。デフォルトのライトテーマとダークテーマには、`LightDefaultContextMenuRepresentation`と`DarkDefaultContextMenuRepresentation`という2つの組み込み実装があります。
+これらはコンテキストメニューの色に自動的に適用されないため、`LocalContextMenuRepresentation`を介して適切なテーマを設定する必要があります。
 
 ```kotlin
 import androidx.compose.foundation.DarkDefaultContextMenuRepresentation
@@ -93,7 +93,7 @@ fun main() = singleWindowApplication(title = "Dark theme") {
 
 <img src="compose-desktop-context-menu-localization.png" alt="Context menu: Localization" width="500"/>
 
-特定の言語を使用したい場合は、アプリケーションを実行する前に明示的にデフォルト言語として指定します。
+特定の言語を使用したい場合は、アプリケーションを実行する前に、それをデフォルト言語として明示的に指定します。
 
 ```Console
 java.util.Locale.setDefault(java.util.Locale("en"))
@@ -103,10 +103,10 @@ java.util.Locale.setDefault(java.util.Locale("en"))
 
 ### デフォルトのテキストコンテキストメニュー
 
-デスクトップ版Compose Multiplatformは、`TextField`および選択可能な`Text`に組み込みのコンテキストメニューを提供します。
+デスクトップ版のCompose Multiplatformは、`TextField`および選択可能な`Text`に組み込みのコンテキストメニューを提供します。
 
-テキストフィールドのデフォルトコンテキストメニューには、カーソルの位置と選択範囲に応じて、コピー、切り取り、貼り付け、すべて選択などの操作が含まれます。
-この標準コンテキストメニューは、マテリアルの`TextField` (`androidx.compose.material.TextField` または `androidx.compose.material3.TextField`) およびファンデーションの`BasicTextField` (`androidx.compose.foundation.text.BasicTextField`) でデフォルトで利用可能です。
+テキストフィールドのデフォルトのコンテキストメニューには、カーソルの位置と選択範囲に応じて、コピー、切り取り、貼り付け、すべて選択のアクションが含まれます。
+この標準コンテキストメニューは、マテリアルの`TextField` (`androidx.compose.material.TextField`または`androidx.compose.material3.TextField`) と、基盤となる`BasicTextField` (`androidx.compose.foundation.text.BasicTextField`) でデフォルトで利用できます。
 
 ```kotlin
 import androidx.compose.material.Text
@@ -130,8 +130,8 @@ fun main() = singleWindowApplication(title = "Context menu") {
 
 詳細については、[APIリファレンス](https://kotlinlang.org/api/compose-multiplatform/material3/androidx.compose.material3/-text-field.html)を参照してください。
 
-単純なテキスト要素のデフォルトコンテキストメニューには、コピー操作のみが含まれます。
-`Text`コンポーネントでコンテキストメニューを有効にするには、`SelectionContainer`でテキストを囲んで選択可能にします。
+単純なテキスト要素のデフォルトのコンテキストメニューには、コピーアクションのみが含まれます。
+`Text`コンポーネントのコンテキストメニューを有効にするには、`SelectionContainer`でテキストを囲んで選択可能にします。
 
 ```kotlin
 import androidx.compose.foundation.text.selection.SelectionContainer
@@ -150,7 +150,7 @@ fun main() = singleWindowApplication(title = "Context menu") {
 
 ### カスタムアイテムの追加
 
-`TextField`および`Text`コンポーネントにカスタムコンテキストメニューアクションを追加するには、`ContextMenuItem`を介して新しいアイテムを指定し、`ContextMenuDataProvider`を介してコンテキストメニューアイテムの階層に追加します。たとえば、次のコードサンプルは、テキストフィールドと単純な選択可能なテキスト要素のデフォルトコンテキストメニューに2つの新しいカスタムアクションを追加する方法を示しています。
+`TextField`および`Text`コンポーネントにカスタムコンテキストメニューアクションを追加するには、`ContextMenuItem`を介して新しいアイテムを指定し、`ContextMenuDataProvider`を介してそれらをコンテキストメニューアイテムの階層に追加します。たとえば、次のコードサンプルは、テキストフィールドと単純な選択可能テキスト要素のデフォルトコンテキストメニューに2つの新しいカスタムアクションを追加する方法を示しています。
 
 ```kotlin
 import androidx.compose.foundation.ContextMenuDataProvider
@@ -203,8 +203,9 @@ fun main() = singleWindowApplication(title = "Context menu") {
 
 ### デフォルトのテキストコンテキストメニューのオーバーライド
 
-テキストフィールドおよび選択可能なテキスト要素のデフォルトコンテキストメニューをオーバーライドするには、`TextContextMenu`インターフェースをオーバーライドします。
-次のコードサンプルでは、元の`TextContextMenu`を再利用していますが、リストの最後にアイテムを1つ追加しています。新しいアイテムはテキスト選択に連動します。
+テキストフィールドおよび選択可能なテキスト要素のデフォルトのコンテキストメニューをオーバーライドするには、`TextContextMenu`インターフェースをオーバーライドします。
+次のコードサンプルでは、元の`TextContextMenu`を再利用していますが、リストの最後にアイテムを1つ追加しています。
+新しいアイテムはテキストの選択内容に合わせて調整されます。
 
 ```kotlin
 import androidx.compose.foundation.ContextMenuDataProvider
@@ -282,7 +283,7 @@ private fun AnnotatedString.crop() = if (length <= 5) toString() else "${take(5)
 
 ### Swingの相互運用性
 
-既存のSwingアプリケーションにComposeコードを埋め込んでいて、コンテキストメニューをアプリケーションの他の部分の外観や動作に合わせる必要がある場合は、`JPopupTextMenu`クラスを使用できます。このクラスでは、`LocalTextContextMenu`がComposeコンポーネント内のコンテキストメニューにSwingの`JPopupMenu`を使用します。
+既存のSwingアプリケーションにComposeコードを埋め込み、コンテキストメニューをアプリケーションの他の部分の外観と動作に合わせる必要がある場合は、`JPopupTextMenu`クラスを使用できます。このクラスでは、`LocalTextContextMenu`がComposeコンポーネントのコンテキストメニューにSwingの`JPopupMenu`を使用します。
 
 ```kotlin
 import androidx.compose.foundation.ExperimentalFoundationApi
@@ -412,4 +413,4 @@ private fun circleIcon(color: Color) = object : Icon {
 
 ## 次のステップ
 
-[その他のデスクトップコンポーネント](https://github.com/JetBrains/compose-multiplatform/tree/master/tutorials#desktop)に関するチュートリアルをご覧ください。
+[その他のデスクトップコンポーネント](https://github.com/JetBrains/compose-multiplatform/tree/master/tutorials#desktop)に関するチュートリアルを参照してください。

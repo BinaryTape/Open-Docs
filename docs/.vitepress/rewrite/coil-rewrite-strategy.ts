@@ -35,6 +35,10 @@ function rewriteAssets(href: string): string {
     if(href.startsWith("../images/")) {
         return href.replace("../images/", "/coil/");
     }
+
+    if (href.endsWith('.png') || href.endsWith('.svg') || href.endsWith('.jpeg') || href.endsWith('.jpg') || href.endsWith('.gif')) {
+        return `/coil/${href}`
+    }
 }
 
 function rewriteReadme(href: string) {
