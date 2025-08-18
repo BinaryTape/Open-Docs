@@ -68,7 +68,7 @@
 4.  これを修正するには、`composeApp/src/desktopMain/kotlin`にある`main.kt`ファイルを次のように更新します。
 
     ```kotlin
-   fun main() = application {
+    fun main() = application {
        val state = rememberWindowState(
            size = DpSize(400.dp, 250.dp),
            position = WindowPosition(300.dp, 300.dp)
@@ -81,7 +81,7 @@
        ) {
            App()
        }
-   }
+    }
     ```
 
     ここでは、ウィンドウのタイトルを設定し、`WindowState`型を使用してウィンドウの初期サイズと画面上の位置を設定しています。
@@ -176,13 +176,13 @@
 3.  `App`コンポーザブルを調整して`currentTimeAt()`を呼び出します。
 
     ```kotlin
-   @Composable
-   @Preview
-   fun App() {
-   MaterialTheme {
-       var location by remember { mutableStateOf("Europe/Paris") }
-       var timeAtLocation by remember { mutableStateOf("No location selected") }
-   
+    @Composable
+    @Preview
+    fun App() {
+    MaterialTheme {
+    var location by remember { mutableStateOf("Europe/Paris") }
+    var timeAtLocation by remember { mutableStateOf("No location selected") }
+
        Column(
            modifier = Modifier
                .safeContentPadding()
@@ -195,7 +195,7 @@
                }
            }
        }
-   }
+    }
     ```
 
 4.  `wasmJsMain/kotlin/main.kt`ファイルで、Web用のタイムゾーンサポートを初期化するために、`main()`関数の前に以下のコードを追加します。

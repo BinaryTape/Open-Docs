@@ -1,4 +1,3 @@
-```xml
 <topic xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:noNamespaceSchemaLocation="https://resources.jetbrains.com/writerside/1.0/topic.v2.xsd"
        id="server-server-sent-events" title="Ktor 伺服器中的伺服器傳送事件 (Server-Sent Events)" help-id="sse_server">

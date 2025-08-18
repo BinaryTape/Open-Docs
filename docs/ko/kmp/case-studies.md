@@ -257,5 +257,6 @@
             <img src="android.svg" style="inline" alt="안드로이드" width="28"/><img src="ios.svg" style="inline" alt="iOS" width="28"/><img src="desktop.svg" style="inline" alt="데스크톱" width="28"/>
             <p><b>Meituan</b>은 2020년부터 Android, iOS, Windows 플랫폼 전반에 걸쳐 레스토랑 관리 시스템의 클라이언트 애플리케이션을 개발하기 위해 KMP를 사용합니다. 이 접근 방식은 데이터, 도메인 및 프레젠테이션 계층에 대한 코드 공유를 가능하게 하여 새로운 기능의 개발 효율성을 개선하고 저사양 기기에서도 원활한 사용자 상호 작용을 보장했습니다.</p>
             <a href="https://www.bilibili.com/video/BV1es421T71C">전체 영상 시청하기</a>.
+        </li>
     </list>
 </topic>

@@ -68,20 +68,20 @@
 4.  要解决此问题，在 `composeApp/src/desktopMain/kotlin` 中，按如下方式更新 `main.kt` 文件：
 
     ```kotlin
-   fun main() = application {
-       val state = rememberWindowState(
-           size = DpSize(400.dp, 250.dp),
-           position = WindowPosition(300.dp, 300.dp)
-       )
-       Window(
-           title = "Local Time App", 
-           onCloseRequest = ::exitApplication, 
-           state = state,
-           alwaysOnTop = true
-       ) {
-           App()
-       }
-   }
+    fun main() = application {
+        val state = rememberWindowState(
+            size = DpSize(400.dp, 250.dp),
+            position = WindowPosition(300.dp, 300.dp)
+        )
+        Window(
+            title = "Local Time App", 
+            onCloseRequest = ::exitApplication, 
+            state = state,
+            alwaysOnTop = true
+        ) {
+            App()
+        }
+    }
     ```
 
     在这里，你设置了窗口的标题，并使用 `WindowState` 类型为窗口提供屏幕上的初始大小和位置。
@@ -176,26 +176,26 @@
 3.  调整你的 `App` 可组合项以调用 `currentTimeAt()`：
 
     ```kotlin
-   @Composable
-   @Preview
-   fun App() {
-   MaterialTheme { 
-       var location by remember { mutableStateOf("Europe/Paris") }
-       var timeAtLocation by remember { mutableStateOf("No location selected") }
-   
-       Column(
-           modifier = Modifier
-               .safeContentPadding()
-               .fillMaxSize()
-           ) {
-               Text(timeAtLocation)
-               TextField(value = location, onValueChange = { location = it })
-               Button(onClick = { timeAtLocation = currentTimeAt(location) ?: "Invalid Location" }) {
-                   Text("Show Time At Location")
-               }
-           }
-       }
-   }
+    @Composable
+    @Preview
+    fun App() {
+    MaterialTheme { 
+        var location by remember { mutableStateOf("Europe/Paris") }
+        var timeAtLocation by remember { mutableStateOf("No location selected") }
+    
+        Column(
+            modifier = Modifier
+                .safeContentPadding()
+                .fillMaxSize()
+            ) {
+                Text(timeAtLocation)
+                TextField(value = location, onValueChange = { location = it })
+                Button(onClick = { timeAtLocation = currentTimeAt(location) ?: "Invalid Location" }) {
+                    Text("Show Time At Location")
+                }
+            }
+        }
+    }
     ```
 
 4.  在 `wasmJsMain/kotlin/main.kt` 文件中，在 `main()` 函数之前添加以下代码以初始化 Web 的时区支持：
@@ -408,7 +408,7 @@ Compose Multiplatform 提供了一个库，用于通过公共代码跨所有平�
     import compose.project.demo.generated.resources.jp
     import compose.project.demo.generated.resources.mx
    
-   data class Country(val name: String, val zone: TimeZone, val image: DrawableResource)
+    data class Country(val name: String, val zone: TimeZone, val image: DrawableResource)
 
     fun currentTimeAt(location: String, zone: TimeZone): String {
         fun LocalTime.formatted() = "$hour:$minute:$second"

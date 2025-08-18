@@ -495,6 +495,7 @@ Compose Multiplatform은 모든 플랫폼에서 공통 코드를 통해 리소�
     <TabItem id="desktop-flags" title="데스크톱">
         <img src="first-compose-project-on-desktop-9.png" alt="The country flags in the Compose Multiplatform app on desktop" width="350"/>
     </TabItem>
+</Tabs>
 
 > 프로젝트의 최종 상태는 [GitHub 저장소](https://github.com/kotlin-hands-on/get-started-with-cm/)에서 찾을 수 있습니다.
 >

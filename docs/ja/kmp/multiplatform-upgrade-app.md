@@ -339,21 +339,21 @@ data class RocketLaunch (
 4.  View Modelの`init`関数で、`Greeting().greet()`フローからすべての文字列を収集します。
 
     ```kotlin
-   import androidx.lifecycle.viewModelScope
-   import kotlinx.coroutines.launch
-   
-   class MainViewModel : ViewModel() {
-       private val _greetingList = MutableStateFlow<List<String>>(listOf())
-       val greetingList: StateFlow<List<String>> get() = _greetingList
-       
-       init {
-           viewModelScope.launch {
-               Greeting().greet().collect { phrase ->
-                    //...
-               }
-           }
-       }
-    }
+    import androidx.lifecycle.viewModelScope
+    import kotlinx.coroutines.launch
+    
+    class MainViewModel : ViewModel() {
+        private val _greetingList = MutableStateFlow<List<String>>(listOf())
+        val greetingList: StateFlow<List<String>> get() = _greetingList
+        
+        init {
+            viewModelScope.launch {
+                Greeting().greet().collect { phrase ->
+                     //...
+                }
+            }
+        }
+     }
     ```
 
     `collect()`関数はサスペンドされるため、ビューモデルのスコープ内で`launch`コルーチンが使用されます。
@@ -532,7 +532,7 @@ struct ListView: View {
 1.  `shared/src/commonMain/kotlin`ディレクトリの`Greeting.kt`ファイルを開きます。
 2.  `greet()`関数に`@NativeCoroutines`アノテーションを追加します。これにより、プラグインがiOSでの正しいFlow処理をサポートするための適切なコードを生成することを保証します。
 
-   ```kotlin
+    ```kotlin
     import com.rickclephas.kmp.nativecoroutines.NativeCoroutines
     
     class Greeting {

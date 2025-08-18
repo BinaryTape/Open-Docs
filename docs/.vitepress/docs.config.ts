@@ -1,4 +1,7 @@
 import { coilRewriteHref } from "./rewrite/coil-rewrite-strategy";
+import {koogRewriteHref} from "./rewrite/koog-rewrite-strategy";
+import {ktorRewriteHref} from "./rewrite/ktor-rewrite-strategy";
+import {kmpRewriteHref} from "./rewrite/kmp-rewrite-strategy";
 
 export type DocsItemConfig = {
     type: "koin" | "kotlin" | "sqldelight" | "ktor" | "kmp" | "koog" |  "coil";
@@ -24,7 +27,8 @@ export const DocsTypeConfig: { [key: string]: DocsItemConfig } = {
         type: "ktor",
         title: "Ktor",
         path: "/ktor/",
-        framework: "Writerside"
+        framework: "Writerside",
+        rewriteHref: ktorRewriteHref
     },
     sqldelight: {
         type: "sqldelight",
@@ -36,13 +40,15 @@ export const DocsTypeConfig: { [key: string]: DocsItemConfig } = {
         type: "kmp",
         title: "KMP",
         path: "/kmp/",
-        framework: "Writerside"
+        framework: "Writerside",
+        rewriteHref: kmpRewriteHref
     },
     koog: {
         type: "koog",
         title: "Koog",
         path: "/koog/",
-        framework: "MKDocs"
+        framework: "MKDocs",
+        rewriteHref: koogRewriteHref
     },
     coil: {
         type: "coil",
