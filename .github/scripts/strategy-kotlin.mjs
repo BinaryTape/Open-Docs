@@ -66,7 +66,7 @@ export const kotlinStrategy = {
                 if (!trMatch) return '';
 
                 const tr = trMatch.join('\n\n');
-                return `<table>\n<tbody>\n${tr}\n</tbody>\n</table>`
+                return `<table>\n${tr}\n</table>`
             })
 
             await fs.writeFile(includeMD, content, "utf8");

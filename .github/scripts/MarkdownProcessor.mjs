@@ -64,7 +64,10 @@ export async function processMarkdownContent(filePath, content) {
     content = content.replace(
         /<code>([\s\S]*?)(<\/code>|<\/code-block>)/g,
         (match, content, closing) => {
-            const escapedContent = content.replace(/\*/g, "&#42;");
+            const escapedContent = content
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/\*/g, "&#42;");
             return `<code>${escapedContent}</code>`;
         }
     );
@@ -95,21 +98,25 @@ export async function processMarkdownContent(filePath, content) {
         }
     );
 
-    // Special matching case
     content = content.replace(
-        /\n```Console\n(--> onRequest\n--> on\(Send\)\n--> on\(SendingRequest\)\n<-- onResponse\n--> on\(SendingRequest\)\n<-- onResponse)\n```\n/mg,
+        /<table>([\s\S]*?)<\/table>/g,
         (match, content) => {
-            const code = content
-                .replace(/^\s*\n/, '')
-                .replace(/\n\s*$/, '')
-                .replace(/&/g, '&amp;')
-                .replace(/</g, '&lt;')
-                .replace(/>/g, '&gt;')
-                .replace(/"/g, '&quot;')
-                .replace(/\n/g, '&#10;');
-            return `<code-block lang="Console" code="${code}"/>`;
+            return match.replace(
+                /\n```([^\n`]*)\n([\s\S]*?)```\n/gm,
+                (match, lang, content) => {
+                    const code = content
+                        .replace(/^\s*\n/, '')
+                        .replace(/\n\s*$/, '')
+                        .replace(/&/g, '&amp;')
+                        .replace(/</g, '&lt;')
+                        .replace(/>/g, '&gt;')
+                        .replace(/"/g, '&quot;')
+                        .replace(/\n/g, '&#10;');
+                    return `<code-block lang="${lang}" code="${code}"/>`;
+                }
+            )
         }
-    )
+    );
 
     return content;
 }

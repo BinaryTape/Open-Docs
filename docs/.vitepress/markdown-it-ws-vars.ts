@@ -41,7 +41,7 @@ export default function markdownItWsVars(md) {
       }
     }
 
-    const tokenRe = /<var\s+name="([^"]+)"\s+value="([^"]+)"[^>]*\/?>|%([a-zA-Z0-9_-]+)%/gi;
+    const tokenRe = /<var\s+name="([^"]+)"\s+value="([^"]+)"[^>]*\/?>|%([\w.-]+)%/gi;
 
     let out = '';
     let last = 0;

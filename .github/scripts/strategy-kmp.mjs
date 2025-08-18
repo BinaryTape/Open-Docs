@@ -4,6 +4,7 @@ import path from "path";
 import fs from "fs-extra";
 import {processTopicFileAsync} from "./TopicProcessor.mjs";
 import {generateSidebar} from "./SidebarProcessor.mjs";
+import {processMarkdownFile} from "./MarkdownProcessor.mjs";
 
 export const kmpStrategy = {
     ...defaultStrategy,
@@ -24,8 +25,16 @@ export const kmpStrategy = {
         }
         console.log(`  Flattening finished - ${docsPath}`);
 
-        console.log(` Running KMP postSync: Convert topic files - ${repoPath}`);
+        console.log(` Running Ktor postSync: Process markdown files - ${repoPath}`);
         const docs = await fs.readdir(docsPath);
+        const mdFiles = docs.filter(doc => doc.endsWith(".md"));
+        for (const md in mdFiles) {
+            const mdPath = path.join(docsPath, mdFiles[md]);
+            await processMarkdownFile(mdPath);
+        }
+        console.log(`  Process markdown files finished - ${repoPath}`);
+
+        console.log(` Running KMP postSync: Convert topic files - ${repoPath}`);
         const topicFiles = docs.filter(doc => doc.endsWith(".topic"));
         for (const topic in topicFiles) {
             const topicPath = path.join(docsPath, topicFiles[topic]);

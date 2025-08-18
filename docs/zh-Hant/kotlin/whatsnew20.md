@@ -1,7 +1,6 @@
----
 [//]: # (title: Kotlin 2.0.0 有哪些新功能)
 
-[發佈日期：2024 年 5 月 21 日](releases.md#release-details)
+_[發佈日期：2024 年 5 月 21 日](releases.md#release-details)_
 
 Kotlin 2.0.0 版本已推出，且 [新的 Kotlin K2 編譯器](#kotlin-k2-compiler) 已穩定！此外，還有以下重點：
 

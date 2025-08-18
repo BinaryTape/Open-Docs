@@ -15,51 +15,51 @@
 2.  `build.gradle(.kts)` 파일을 열고 `testImplementation` 의존성이 있는지 확인합니다.
     이 의존성은 `kotlin.test` 및 `JUnit`과 함께 작업할 수 있도록 합니다.
 
-    <tabs group="build-script">
-    <tab title="Kotlin" group-key="kotlin">
+     <tabs group="build-script">
+     <tab title="Kotlin" group-key="kotlin">
 
-   ```kotlin
-   dependencies {
-       // Other dependencies.
-       testImplementation(kotlin("test"))
-   }
-   ```
+    ```kotlin
+    dependencies {
+        // Other dependencies.
+        testImplementation(kotlin("test"))
+    }
+    ```
+
+     </tab>
+     <tab title="Groovy" group-key="groovy">
+
+    ```groovy
+    dependencies {
+        // Other dependencies.
+        testImplementation 'org.jetbrains.kotlin:kotlin-test'
+    }
+    ```
 
     </tab>
-    <tab title="Groovy" group-key="groovy">
-
-   ```groovy
-   dependencies {
-       // Other dependencies.
-       testImplementation 'org.jetbrains.kotlin:kotlin-test'
-   }
-   ```
-
-   </tab>
-   </tabs>
+    </tabs>
 
 3.  `test` 태스크를 `build.gradle(.kts)` 파일에 추가합니다.
 
-    <tabs group="build-script">
-    <tab title="Kotlin" group-key="kotlin">
+     <tabs group="build-script">
+     <tab title="Kotlin" group-key="kotlin">
 
-   ```kotlin
-   tasks.test {
-       useJUnitPlatform()
-   }
-   ```
+    ```kotlin
+    tasks.test {
+        useJUnitPlatform()
+    }
+    ```
+
+     </tab>
+     <tab title="Groovy" group-key="groovy">
+
+    ```groovy
+    test {
+        useJUnitPlatform()
+    }
+    ```
 
     </tab>
-    <tab title="Groovy" group-key="groovy">
-
-   ```groovy
-   test {
-       useJUnitPlatform()
-   }
-   ```
-
-   </tab>
-   </tabs>
+    </tabs>
 
    > 빌드 스크립트에서 `useJUnitPlatform()` 함수를 사용하면,
    > `kotlin-test` 라이브러리가 JUnit 5를 자동으로 의존성으로 포함합니다.

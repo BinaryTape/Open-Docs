@@ -230,7 +230,7 @@
     </p>
     <code-block lang="kotlin" code="            staticResources(&quot;/static&quot;, &quot;static&quot;)"/>
     <p>
-        这意味着，<for example>例如</for example>，对 <code>/static/index.html</code> 的请求将从以下路径提供内容：
+        这意味着，例如，对 <code>/static/index.html</code> 的请求将从以下路径提供内容：
     </p>
     <code>src/main/resources/static/index.html</code>
     <p>
@@ -264,7 +264,7 @@
                 请注意，当你按 <code>name</code> 或 <code>priority</code> 过滤<task>任务</task>时，你是通过 GET 请求提交 HTML 表单。这意味着<parameter>形参</parameter>将添加到 URL 后的查询字符串中。
             </p>
             <p>
-                <for example>例如</for example>，如果你搜索 <code>Medium</code> 优先级的<task>任务</task>，这将是发送到服务器的请求：
+                例如，如果你搜索 <code>Medium</code> 优先级的<task>任务</task>，这将是发送到服务器的请求：
             </p>
             <code>http://localhost:8080/tasks/byPriority?priority=Medium</code>
         </step>

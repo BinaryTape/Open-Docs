@@ -200,7 +200,7 @@ post("/login") {
 </Tabs>
 
 1. <code>post("/login")</code>は、<code>POST</code>リクエストを受信するための認証[ルート](server-routing.md)を定義します。
-2. <code>call.receive<User>()</code>は、JSONオブジェクトとして送信されたユーザー認証情報を[受信し](server-serialization.md#receive_data)、それを<code>User</code>クラスオブジェクトに変換します。
+2. <code>call.receive&lt;User&gt;()</code>は、JSONオブジェクトとして送信されたユーザー認証情報を[受信し](server-serialization.md#receive_data)、それを<code>User</code>クラスオブジェクトに変換します。
 3. <code>JWT.create()</code>は、指定されたJWT設定でトークンを生成し、受信したユーザー名を含むカスタムクレームを追加し、指定されたアルゴリズムでトークンに署名します。
    * <code>HS256</code>の場合、共有シークレットがトークンの署名に使用されます。
    * <code>RS256</code>の場合、公開/秘密鍵ペアが使用されます。

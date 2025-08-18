@@ -4,7 +4,7 @@ export default function markdownItWsContainer(md) {
   const originalParse = md.parse.bind(md);
 
   md.parse = function(src: string, env?: any): any[] {
-    const blockquoteStyleRegex = /^([ \t]*)((?:[ \t]*>\s*.*\r\n)*[ \t]*>\s*.*)\r\n([ \t]*\{(?:style|type)="([a-z0-9_-]+)"\}\s*)$/gm;
+    const blockquoteStyleRegex = /^([ \t]*)((?:[ \t]*>[^\r\n]*\r\n)*[ \t]*>[^\r\n]*)\r\n([ \t]*\{(?:style|type)="([a-z0-9_-]+)"\}\s*)$/gm;
 
     const processedSrc = src.replace(blockquoteStyleRegex, (
       match,
@@ -13,7 +13,7 @@ export default function markdownItWsContainer(md) {
       styleAttribute,
       styleName
     ) => {
-      const cleanedContent = blockquoteContent.replace(/^\s*>\s?/gm, '').replace('\r', ' ');
+      const cleanedContent = blockquoteContent.replace(/^\s*>\s?/gm, '').split('\r').join(' ');
 
       const containerizedBlock = `::: ${styleName}\n${cleanedContent.trim()}\n:::`;
 

@@ -13,3 +13,4 @@
 我们非常乐意并感激您发现任何安全问题。要报告您在 Kotlin 中发现的漏洞，请直接向我们的 [问题追踪器](https://youtrack.jetbrains.com/newIssue?project=KT&c=Type%20Security%20Problem) 发布消息，或向我们发送 [电子邮件](mailto:security@jetbrains.org)。
 
 有关我们负责任披露流程的更多信息，请查阅 [JetBrains 协同披露政策](https://www.jetbrains.com/legal/docs/terms/coordinated-disclosure/)。
+

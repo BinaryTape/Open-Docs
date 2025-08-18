@@ -97,6 +97,8 @@ export default {
     // Use our custom i18n implementation
     app.use(createI18n())
 
+    // Only for testing
+    // document.addEventListener('keydown', handleKeyPress)
     router.onAfterRouteChange = () => {
       setupInterceptor()
 
@@ -120,6 +122,8 @@ export default {
 } satisfies Theme
 
 function setupInterceptor() {
+  if (typeof document === 'undefined') return
+
   // 移除旧的监听器
   document.removeEventListener('click', interceptLinks, true)
 
@@ -167,4 +171,40 @@ function interceptLinks(event) {
       window.location.href = newPath
     }
   }
+}
+
+function handleKeyPress(event) {
+    if (event.target.tagName === 'INPUT' ||
+        event.target.tagName === 'TEXTAREA' ||
+        event.target.contentEditable === 'true') {
+        return
+    }
+
+    switch(event.key) {
+        case 'ArrowRight':
+        case 'j':
+            event.preventDefault()
+            clickNextButton()
+            break
+
+        case 'ArrowLeft':
+        case 'k':
+            event.preventDefault()
+            clickPrevButton()
+            break
+    }
+}
+
+function clickNextButton() {
+    const nextButton = document.querySelector('.pager-link.next, .VPDocFooter .next')
+    if (nextButton && nextButton instanceof HTMLElement) {
+        nextButton.click()
+    }
+}
+
+function clickPrevButton() {
+    const prevButton = document.querySelector('.pager-link.prev, .VPDocFooter .prev')
+    if (prevButton && prevButton instanceof HTMLElement) {
+        prevButton.click()
+    }
 }

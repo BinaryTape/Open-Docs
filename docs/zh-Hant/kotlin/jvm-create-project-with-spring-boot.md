@@ -178,7 +178,7 @@ fun main(args: Array<String>) {
    </def>
    <def title="程式進入點 – main()">
       <p><a href="basic-syntax.md#program-entry-point"><code>main()</code></a> 函數是應用程式的進入點。</p>
-      <p它被宣告為 <code>DemoApplication</code> 類別之外的<a href="functions.md#function-scope">頂層函數 (top-level function)</a>。<code>main()</code> 函數呼叫 Spring 的 <code>runApplication(*args)</code> 函數，以啟動 Spring Framework 應用程式。</p>
+      <p>它被宣告為 <code>DemoApplication</code> 類別之外的<a href="functions.md#function-scope">頂層函數 (top-level function)</a>。<code>main()</code> 函數呼叫 Spring 的 <code>runApplication(*args)</code> 函數，以啟動 Spring Framework 應用程式。</p>
    </def>
    <def title="可變引數 – args: Array&lt;String&gt;">
       <p>如果您檢查 <code>runApplication()</code> 函數的宣告，您會看到函數的參數被標記為 <a href="functions.md#variable-number-of-arguments-varargs"><code>vararg</code> 修飾符</a>：<code>vararg args: String</code>。
@@ -187,7 +187,7 @@ fun main(args: Array<String>) {
    </def>
    <def title="展開運算子 – (*args)">
       <p><code>args</code> 是 <code>main()</code> 函數的一個參數，宣告為 String 陣列。
-        由於這是一個 String 陣列，並且您想將其內容傳遞給函數，因此請使用展開運算子 (spread operator)（在陣列前加上星號 <code>*</code>）。
+        由於這是一個 String 陣列，並且您想將其內容傳遞給函數，因此請使用展開運算子 (spread operator)（在陣列前加上星號 <code>&#42;</code>）。
       </p>
    </def>
 </deflist>

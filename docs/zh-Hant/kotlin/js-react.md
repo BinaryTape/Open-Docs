@@ -62,7 +62,7 @@
     ```
     {validate="false"}
 
-    Kotlin/JS 專案在建置時會自動將所有程式碼及其依賴項捆綁到一個單一的 JavaScript 檔案中，該檔案與專案同名，即 `confexplorer.js`。作為一個典型的 [JavaScript 慣例](https://faqs.skillcrush.com/article/176-where-should-js-script-tags-be-linked-in-html-documents)，<body> 的內容（包括 `root` div）會優先載入，以確保瀏覽器在腳本之前載入所有頁面元素。
+    Kotlin/JS 專案在建置時會自動將所有程式碼及其依賴項捆綁到一個單一的 JavaScript 檔案中，該檔案與專案同名，即 `confexplorer.js`。作為一個典型的 [JavaScript 慣例](https://faqs.skillcrush.com/article/176-where-should-js-script-tags-be-linked-in-html-documents)，`body` 的內容（包括 `root` div）會優先載入，以確保瀏覽器在腳本之前載入所有頁面元素。
 
 *   `src/jsMain/kotlin/Main.kt` 中的程式碼片段：
 

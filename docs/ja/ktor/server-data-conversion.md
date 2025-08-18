@@ -70,7 +70,7 @@ Ktorサーバー用の`%plugin_name%`プラグインを使用すると、値の�
 
 ## コンバーターを追加する {id="add-converters"}
 
-`%plugin_name%`の設定内で型変換を定義できます。指定された型に対して<code>convert<T></code>メソッドを提供し、利用可能な関数を使用して値のリストをシリアライズおよびデシリアライズします。
+`%plugin_name%`の設定内で型変換を定義できます。指定された型に対して<code>convert&lt;T&gt;</code>メソッドを提供し、利用可能な関数を使用して値のリストをシリアライズおよびデシリアライズします。
 
 * `decode()`関数を使用して値のリストをデシリアライズします。これは、URL内の繰り返し値を表す文字列のリストを受け取り、デコードされた値を返します。
 
@@ -88,9 +88,7 @@ Ktorサーバー用の`%plugin_name%`プラグインを使用すると、値の�
       }
   ```
 
-## サービスにアクセスする
-
-{id="service"}
+## サービスにアクセスする {id="service"}
 
 現在のコンテキストから`%plugin_name%`サービスにアクセスできます。
 
@@ -100,7 +98,7 @@ val dataConversion = application.conversionService
 
 その後、コンバーターサービスを使用してコールバック関数を呼び出すことができます。
 
-* <code>fromValues(values: List<String>, type: TypeInfo)</code>コールバック関数は、<code>values</code>を文字列のリストとして、および値を変換するための<code>TypeInfo</code>を受け入れ、デコードされた値を返します。
+* <code>fromValues(values: List&lt;String&gt;, type: TypeInfo)</code>コールバック関数は、<code>values</code>を文字列のリストとして、および値を変換するための<code>TypeInfo</code>を受け入れ、デコードされた値を返します。
 * <code>toValues(value: Any?)</code>コールバック関数は、任意の値をとり、それを表す文字列のリストを返します。
 
 ## 例

@@ -60,5 +60,6 @@ function getWritersideTitle(content: string) {
         return topicTitleMatch ? topicTitleMatch[1] : null;
     }
     const markdownTitleMatch = content.match(/\[\/\/\]: # \(title:\s*(.*?)\)/i)
-    return markdownTitleMatch ? markdownTitleMatch[1] : null;
+    const markdownHeaderMatch = content.match(/^# (.+)$/m)
+    return markdownTitleMatch ? markdownTitleMatch[1] : markdownHeaderMatch ? markdownHeaderMatch[1] : null;
 }

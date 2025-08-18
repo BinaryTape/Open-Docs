@@ -73,7 +73,7 @@ fun shift(ptr: CPointer<ByteVar>, length: Int) {
 }
 ```
 
-CPointer<T>` 的 `.pointed` 属性返回由该指针指向的类型 `T` 的左值。反向操作是 `.ptr`，它接收左值并返回指向它的指针。
+`CPointer<T>` 的 `.pointed` 属性返回由该指针指向的类型 `T` 的左值。反向操作是 `.ptr`，它接收左值并返回指向它的指针。
 
 `void*` 映射到 `COpaquePointer` —— 这个特殊指针类型是任何其他指针类型的超类型。
 因此，如果 C 函数接收 `void*`，Kotlin 绑定会接受任何 `CPointer`。

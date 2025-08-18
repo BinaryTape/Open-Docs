@@ -4,7 +4,7 @@
 
 ## 檔案格式
 
-在 Markdown 檔案中，整個模組及個別套件的文件由對應的一級標題引入。模組的標題文字**必須**是 **Module \`<module name>\`**，而套件的標題文字則**必須**是 **Package \`<package qualified name>\`**。
+在 Markdown 檔案中，整個模組及個別套件的文件由對應的一級標題引入。模組的標題文字**必須**是 **Module `<module name>`**，而套件的標題文字則**必須**是 **Package `<package qualified name>`**。
 
 該檔案不必同時包含模組與套件的文件。您可以只包含套件或模組文件的檔案。您甚至可以為每個模組或套件建立一個 Markdown 檔案。
 

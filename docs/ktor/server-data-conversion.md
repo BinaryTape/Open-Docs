@@ -107,7 +107,7 @@ val dataConversion = application.conversionService
 
 然后您可以使用转换器服务来调用回调函数：
 
-*   <code>fromValues(values: List<String>, type: TypeInfo)</code> 回调函数接受作为字符串列表的 <code>values</code>，以及要转换的值的 <code>TypeInfo</code>，
+*   <code>fromValues(values: List String , type: TypeInfo)</code> 回调函数接受作为字符串列表的 <code>values</code>，以及要转换的值的 <code>TypeInfo</code>，
     并返回解码后的值。
 *   <code>toValues(value: Any?)</code> 回调函数接受任意值，并返回表示它的字符串列表。
 
