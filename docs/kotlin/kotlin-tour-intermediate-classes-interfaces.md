@@ -1,34 +1,34 @@
-[//]: # (title: 中级：类和接口)
+[//]: # (title: 中级: 类与接口)
 
 <no-index/>
 
 <tldr>
     <p><img src="icon-1-done.svg" width="20" alt="First step" /> <a href="kotlin-tour-intermediate-extension-functions.md">扩展函数</a><br />
         <img src="icon-2-done.svg" width="20" alt="Second step" /> <a href="kotlin-tour-intermediate-scope-functions.md">作用域函数</a><br />
-        <img src="icon-3-done.svg" width="20" alt="Third step" /> <a href="kotlin-tour-intermediate-lambdas-receiver.md">带接收者的 Lambda 表达式</a><br />
-        <img src="icon-4.svg" width="20" alt="Fourth step" /> <strong>类和接口</strong><br />
+        <img src="icon-3-done.svg" width="20" alt="Third step" /> <a href="kotlin-tour-intermediate-lambdas-receiver.md">带接收者的 lambda 表达式</a><br />
+        <img src="icon-4.svg" width="20" alt="Fourth step" /> <strong>类与接口</strong><br />
         <img src="icon-5-todo.svg" width="20" alt="Fifth step" /> <a href="kotlin-tour-intermediate-objects.md">对象</a><br />
-        <img src="icon-6-todo.svg" width="20" alt="Sixth step" /> <a href="kotlin-tour-intermediate-open-special-classes.md">开放类和特殊类</a><br />
+        <img src="icon-6-todo.svg" width="20" alt="Sixth step" /> <a href="kotlin-tour-intermediate-open-special-classes.md">open 和特殊类</a><br />
         <img src="icon-7-todo.svg" width="20" alt="Seventh step" /> <a href="kotlin-tour-intermediate-properties.md">属性</a><br />
         <img src="icon-8-todo.svg" width="20" alt="Eighth step" /> <a href="kotlin-tour-intermediate-null-safety.md">空安全</a><br />
-        <img src="icon-9-todo.svg" width="20" alt="Ninth step" /> <a href="kotlin-tour-intermediate-libraries-and-apis.md">库和 API</a></p>
+        <img src="icon-9-todo.svg" width="20" alt="Ninth step" /> <a href="kotlin-tour-intermediate-libraries-and-apis.md">库与 API</a></p>
 </tldr>
 
-在初级教程中，你学习了如何使用类和数据类来存储数据并维护一组可以在代码中共享的特性。最终，你将希望创建一个层次结构，以便在项目中高效地共享代码。本章解释了 Kotlin 提供的共享代码的选项，以及它们如何使你的代码更安全、更易于维护。
+在初级教程中，你学习了如何使用类和数据类来存储数据并维护一组可在代码中共享的特性。最终，你将希望创建一个层次结构，以便在项目内高效地共享代码。本章将解释 Kotlin 为共享代码提供的选项，以及它们如何使你的代码更安全、更易维护。
 
 ## 类继承
 
-在之前的章节中，我们介绍了如何使用扩展函数来扩展类而无需修改原始源代码。但是，如果你正在处理一个复杂的问题，并且在类**之间**共享代码会很有用呢？在这种情况下，你可以使用类继承。
+在上一章中，我们介绍了如何使用扩展函数来扩展类，而无需修改原始源代码。但是，如果你正在处理一些复杂任务，并且在类**之间**共享代码会很有用，该怎么办呢？在这种情况下，你可以使用类继承。
 
-默认情况下，Kotlin 中的类不能被继承。Kotlin 这样设计是为了防止意外继承，并使你的类更易于维护。
+默认情况下，Kotlin 中的类无法被继承。Kotlin 的这种设计是为了防止意外的继承，并使你的类更易于维护。
 
-Kotlin 类只支持**单一继承**，这意味着一次只能继承**一个类**。这个类被称为**父类**。
+Kotlin 类只支持**单一继承**，这意味着一次只能继承**一个类**。此类的名称为**父类**。
 
-一个类的父类会继承自另一个类（祖父类），从而形成一个层次结构。在 Kotlin 的类层次结构的最顶层是共同的父类：`Any`。所有类最终都继承自 `Any` 类：
+一个类的父类会继承另一个类（祖父类），从而形成一个层次结构。在 Kotlin 的类层次结构的顶层是共同的父类：`Any`。所有类最终都继承自 `Any` 类：
 
-![Any 类型类层次结构的示例](any-type-class.png){width="200"}
+![An example of the class hierarchy with Any type](any-type-class.png){width="200"}
 
-`Any` 类会自动提供 `toString()` 函数作为成员函数。因此，你可以在你的任何类中使用这个继承的函数。例如：
+`Any` 类自动提供 `toString()` 函数作为成员函数。因此，你可以在任何类中使用这个继承的函数。例如：
 
 ```kotlin
 class Car(val make: String, val model: String, val numberOfDoors: Int)
@@ -37,7 +37,7 @@ fun main() {
     //sampleStart
     val car1 = Car("Toyota", "Corolla", 4)
 
-    // 使用字符串模板通过 .toString() 函数打印类属性
+    // Uses the .toString() function via string templates to print class properties
     println("Car1: make=${car1.make}, model=${car1.model}, numberOfDoors=${car1.numberOfDoors}")
     // Car1: make=Toyota, model=Corolla, numberOfDoors=4
     //sampleEnd
@@ -45,17 +45,17 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-tour-any-class"}
 
-如果你想使用继承来在类之间共享一些代码，首先考虑使用抽象类。
+如果你想使用继承在类之间共享某些代码，请首先考虑使用抽象类。
 
 ### 抽象类
 
-抽象类默认可以被继承。抽象类的目的是提供其他类可以继承或实现的成员。因此，它们有构造函数，但你不能从中创建实例。在子类中，你使用 `override` 关键字定义父类的属性和函数的行为。通过这种方式，你可以说子类“覆盖”了父类的成员。
+抽象类默认可以被继承。抽象类的目的是提供其他类可继承或实现的成员。因此，它们有构造函数，但你无法从它们创建实例。在子类中，你使用 `override` 关键字定义父类属性和函数的行为。通过这种方式，你可以说子类“覆盖”了父类的成员。
 
-> 当你定义继承的函数或属性的行为时，我们称之为**实现**。
+> 当你定义继承函数或属性的行为时，我们称之为**实现**。
 >
 {style="tip"}
 
-抽象类可以包含**带有**实现的函数和属性，也可以包含**没有**实现的函数和属性，后者被称为抽象函数和属性。
+抽象类可以包含**带有**实现以及**没有**实现的函数和属性，后者称为抽象函数和属性。
 
 要创建抽象类，请使用 `abstract` 关键字：
 
@@ -63,7 +63,7 @@ fun main() {
 abstract class Animal
 ```
 
-要声明**没有**实现的函数或属性，你也要使用 `abstract` 关键字：
+要声明一个**没有**实现的函数或属性，你也要使用 `abstract` 关键字：
 
 ```kotlin
 abstract fun makeSound()
@@ -74,21 +74,21 @@ abstract val sound: String
 
 ```kotlin
 abstract class Product(val name: String, var price: Double) {
-    // 产品的抽象属性
+    // Abstract property for the product category
     abstract val category: String
 
-    // 所有产品都可以共享的函数
+    // A function that can be shared by all products
     fun productInfo(): String {
         return "Product: $name, Category: $category, Price: $price"
     }
 }
 ```
 
-在这个抽象类中：
+在抽象类中：
 
-*   构造函数有两个参数，分别用于产品的 `name` 和 `price`。
-*   有一个抽象属性，包含产品类别作为字符串。
-*   有一个函数，用于打印产品信息。
+*   构造函数有两个用于产品 `name` 和 `price` 的形参。
+*   有一个抽象属性，它以字符串形式包含产品类别。
+*   有一个打印产品信息的函数。
 
 让我们为电子产品创建一个子类。在子类中定义 `category` 属性的实现之前，你必须使用 `override` 关键字：
 
@@ -101,17 +101,17 @@ class Electronic(name: String, price: Double, val warranty: Int) : Product(name,
 `Electronic` 类：
 
 *   继承自 `Product` 抽象类。
-*   构造函数中有一个额外的参数：`warranty`，这是电子产品特有的。
-*   覆盖了 `category` 属性，使其包含字符串 `"Electronic"`。
+*   在构造函数中有一个附加形参：`warranty`，它是电子产品特有的。
+*   覆盖 `category` 属性以包含字符串 `"Electronic"`。
 
-现在，你可以这样使用这些类：
+现在，你可以像这样使用这些类：
 
 ```kotlin
 abstract class Product(val name: String, var price: Double) {
-    // 产品的抽象属性
+    // Abstract property for the product category
     abstract val category: String
 
-    // 所有产品都可以共享的函数
+    // A function that can be shared by all products
     fun productInfo(): String {
         return "Product: $name, Category: $category, Price: $price"
     }
@@ -123,7 +123,7 @@ class Electronic(name: String, price: Double, val warranty: Int) : Product(name,
 
 //sampleStart
 fun main() {
-    // 创建 Electronic 类的实例
+    // Creates an instance of the Electronic class
     val laptop = Electronic(name = "Laptop", price = 1000.0, warranty = 2)
 
     println(laptop.productInfo())
@@ -133,23 +133,23 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-tour-abstract-class"}
 
-尽管抽象类以这种方式共享代码非常有用，但它们受到限制，因为 Kotlin 中的类只支持单一继承。如果你需要从多个来源继承，请考虑使用接口。
+尽管抽象类非常适合以这种方式共享代码，但它们受到限制，因为 Kotlin 中的类只支持单一继承。如果你需要从多个来源继承，请考虑使用接口。
 
 ## 接口
 
 接口与类相似，但它们有一些不同之处：
 
-*   你不能创建接口的实例。它们没有构造函数或头部。
-*   它们的函数和属性默认是隐式可继承的。在 Kotlin 中，我们说它们是“开放的”。
-*   如果你不给它们的函数实现，你不需要将它们标记为 `abstract`。
+*   你无法创建接口的实例。它们没有构造函数或头部。
+*   它们的函数和属性默认是隐式可继承的。在 Kotlin 中，我们称它们为“open”。
+*   如果你不给它们的函数提供实现，则无需将其标记为 `abstract`。
 
-与抽象类类似，你使用接口来定义一组函数和属性，这些函数和属性可以在以后由类继承和实现。这种方法有助于你专注于接口所描述的抽象，而不是具体的实现细节。使用接口可以使你的代码：
+与抽象类类似，你使用接口来定义一组函数和属性，这些函数和属性可以在以后由类继承和实现。这种方法有助于你专注于接口所描述的抽象，而不是具体的实现细节。使用接口使你的代码：
 
 *   更模块化，因为它隔离了不同的部分，允许它们独立演进。
-*   通过将相关函数分组到一个内聚的集合中，更容易理解。
-*   更易于测试，因为你可以快速用模拟对象替换实现进行测试。
+*   更易于理解，通过将相关函数分组为内聚集合。
+*   更易于测试，因为你可以快速用模拟实现替换以进行测试。
 
-要声明接口，请使用 `interface` 关键字：
+要声明一个接口，请使用 `interface` 关键字：
 
 ```kotlin
 interface PaymentMethod
@@ -159,7 +159,7 @@ interface PaymentMethod
 
 接口支持多重继承，因此一个类可以同时实现多个接口。首先，让我们考虑一个类实现**一个**接口的场景。
 
-要创建一个实现接口的类，在类头部后添加冒号，然后是要实现的接口名称。你不需要在接口名称后面使用括号 `()`，因为接口没有构造函数：
+要创建一个实现接口的类，请在你的类头部后面添加一个冒号，然后是你要实现的接口名称。你不需要在接口名称后面使用圆括号 `()`，因为接口没有构造函数：
 
 ```kotlin
 class CreditCardPayment : PaymentMethod
@@ -169,13 +169,13 @@ class CreditCardPayment : PaymentMethod
 
 ```kotlin
 interface PaymentMethod {
-    // 函数默认可继承
+    // Functions are inheritable by default
     fun initiatePayment(amount: Double): String
 }
 
 class CreditCardPayment(val cardNumber: String, val cardHolderName: String, val expiryDate: String) : PaymentMethod {
     override fun initiatePayment(amount: Double): String {
-        // 模拟使用信用卡处理支付
+        // Simulate processing payment with credit card
         return "Payment of $amount initiated using Credit Card ending in ${cardNumber.takeLast(4)}."
     }
 }
@@ -190,13 +190,13 @@ fun main() {
 
 在此示例中：
 
-*   `PaymentMethod` 是一个接口，它有一个没有实现的 `initiatePayment()` 函数。
+*   `PaymentMethod` 是一个没有实现的 `initiatePayment()` 函数的接口。
 *   `CreditCardPayment` 是一个实现 `PaymentMethod` 接口的类。
 *   `CreditCardPayment` 类覆盖了继承的 `initiatePayment()` 函数。
 *   `paymentMethod` 是 `CreditCardPayment` 类的一个实例。
-*   在 `paymentMethod` 实例上调用了被覆盖的 `initiatePayment()` 函数，参数为 `100.0`。
+*   在 `paymentMethod` 实例上调用了被覆盖的 `initiatePayment()` 函数，其形参为 `100.0`。
 
-要创建一个实现**多个**接口的类，在类头部后添加冒号，然后是用逗号分隔的要实现的接口名称：
+要创建一个实现**多个**接口的类，请在你的类头部后面添加一个冒号，然后是你想要实现的接口名称，用逗号分隔：
 
 ```kotlin
 class CreditCardPayment : PaymentMethod, PaymentType
@@ -216,7 +216,7 @@ interface PaymentType {
 class CreditCardPayment(val cardNumber: String, val cardHolderName: String, val expiryDate: String) : PaymentMethod,
     PaymentType {
     override fun initiatePayment(amount: Double): String {
-        // 模拟使用信用卡处理支付
+        // Simulate processing payment with credit card
         return "Payment of $amount initiated using Credit Card ending in ${cardNumber.takeLast(4)}."
     }
 
@@ -236,21 +236,21 @@ fun main() {
 
 在此示例中：
 
-*   `PaymentMethod` 是一个接口，它有一个没有实现的 `initiatePayment()` 函数。
-*   `PaymentType` 是一个接口，它有一个未初始化的 `paymentType` 属性。
+*   `PaymentMethod` 是一个没有实现的 `initiatePayment()` 函数的接口。
+*   `PaymentType` 是一个具有未初始化的 `paymentType` 属性的接口。
 *   `CreditCardPayment` 是一个实现 `PaymentMethod` 和 `PaymentType` 接口的类。
 *   `CreditCardPayment` 类覆盖了继承的 `initiatePayment()` 函数和 `paymentType` 属性。
 *   `paymentMethod` 是 `CreditCardPayment` 类的一个实例。
-*   在 `paymentMethod` 实例上调用了被覆盖的 `initiatePayment()` 函数，参数为 `100.0`。
+*   在 `paymentMethod` 实例上调用了被覆盖的 `initiatePayment()` 函数，其形参为 `100.0`。
 *   在 `paymentMethod` 实例上访问了被覆盖的 `paymentType` 属性。
 
-有关接口和接口继承的更多信息，请参阅[接口](interfaces.md)。
+关于接口和接口继承的更多信息，请参见 [接口](interfaces.md)。
 
 ## 委托
 
-接口很有用，但如果你的接口包含许多函数，子类最终可能会有很多样板代码。当你只想覆盖父类行为的一小部分时，你需要重复编写很多代码。
+接口很有用，但如果你的接口包含许多函数，子类可能会产生大量样板代码。当你只想覆盖父类行为的一小部分时，你需要大量重复自己。
 
-> 样板代码是软件项目中重复使用很少或没有修改的代码块。
+> 样板代码是在软件项目的多个部分中重复使用，几乎没有或完全没有修改的代码块。
 >
 {style="tip"}
 
@@ -264,7 +264,7 @@ interface Drawable {
 }
 ```
 
-你创建了一个名为 `Circle` 的类，它实现了 `Drawable` 接口并为其所有成员提供了实现：
+你创建一个名为 `Circle` 的类，它实现 `Drawable` 接口并为其所有成员提供实现：
 
 ```kotlin
 class Circle : Drawable {
@@ -279,12 +279,12 @@ class Circle : Drawable {
 }
 ```
 
-如果你想创建一个 `Circle` 类的子类，它除了 `color` 属性的值外，具有相同的行为，你仍然需要为 `Circle` 类的每个成员函数添加实现：
+如果你想创建一个 `Circle` 类的子类，它除了 `color` 属性的值外**都**具有相同的行为，你仍然需要为 `Circle` 类的每个成员函数添加实现：
 
 ```kotlin
 class RedCircle(val circle: Circle) : Circle {
 
-    // 样板代码开始
+    // Start of boilerplate code
     override fun draw() {
         circle.draw()
     }
@@ -293,14 +293,14 @@ class RedCircle(val circle: Circle) : Circle {
         circle.resize()
     }
 
-    // 样板代码结束
+    // End of boilerplate code
     override val color = "red"
 }
 ```
 
-你可以看到，如果 `Drawable` 接口中有大量成员函数，`RedCircle` 类中的样板代码量会非常大。然而，还有另一种选择。
+你可以看到，如果 `Drawable` 接口中有大量的成员函数，`RedCircle` 类中的样板代码量可能会非常大。然而，还有另一种选择。
 
-在 Kotlin 中，你可以使用委托将接口实现委托给类的实例。例如，你可以创建 `Circle` 类的一个实例，并将 `Circle` 类的成员函数的实现委托给这个实例。为此，请使用 `by` 关键字。例如：
+在 Kotlin 中，你可以使用委托将接口实现委托给一个类的实例。例如，你可以创建 `Circle` 类的一个实例，并将 `Circle` 类的成员函数的实现委托给这个实例。为此，请使用 `by` 关键字。例如：
 
 ```kotlin
 class RedCircle(param: Circle) : Drawable by param
@@ -308,32 +308,32 @@ class RedCircle(param: Circle) : Drawable by param
 
 在这里，`param` 是 `Circle` 类实例的名称，成员函数的实现被委托给了它。
 
-现在你不需要在 `RedCircle` 类中为成员函数添加实现。编译器会自动从 `Circle` 类为你完成这项工作。这可以让你免于编写大量样板代码。相反，你只为你想要改变的子类行为添加代码。
+现在你无需在 `RedCircle` 类中添加成员函数的实现。编译器会自动为你从 `Circle` 类中完成此操作。这省去了你编写大量样板代码的麻烦。相反，你只需为你想要更改的行为添加代码。
 
-例如，如果你想改变 `color` 属性的值：
+例如，如果你想更改 `color` 属性的值：
 
 ```kotlin
 class RedCircle(param : Circle) : Drawable by param {
-    // 没有样板代码！
+    // No boilerplate code!
     override val color = "red"
 }
 ```
 
-如果你愿意，你也可以在 `RedCircle` 类中覆盖继承的成员函数的行为，但现在你不需要为每个继承的成员函数添加新行代码。
+如果你愿意，你也可以在 `RedCircle` 类中覆盖继承成员函数的行为，但现在你无需为每个继承的成员函数添加新的代码行。
 
-更多信息，请参见[委托](delegation.md)。
+关于更多信息，请参见 [委托](delegation.md)。
 
 ## 练习
 
 ### 练习 1 {initial-collapse-state="collapsed" collapsible="true" id="classes-interfaces-exercise-1"}
 
-假设你正在开发一个智能家居系统。智能家居通常有不同类型的设备，它们都具有一些基本功能，但也有独特的行为。在下面的代码示例中，完成名为 `SmartDevice` 的 `abstract` 类，以便子类 `SmartLight` 能够成功编译。
+设想你正在开发一个智能家居系统。智能家居通常有不同类型的设备，它们都具有一些基本特性，但也具有独特的行为。在下面的代码示例中，完成名为 `SmartDevice` 的 `abstract` 类，以便子类 `SmartLight` 能够成功编译。
 
-然后，创建另一个名为 `SmartThermostat` 的子类，它继承自 `SmartDevice` 类并实现 `turnOn()` 和 `turnOff()` 函数，这些函数返回打印语句，描述哪个恒温器正在加热或已关闭。最后，添加另一个名为 `adjustTemperature()` 的函数，它接受一个温度测量作为输入并打印：`$name thermostat set to $temperature°C.`
+然后，创建另一个名为 `SmartThermostat` 的子类，它继承自 `SmartDevice` 类并实现 `turnOn()` 和 `turnOff()` 函数，这些函数返回描述哪个恒温器正在加热或已关闭的打印语句。最后，添加另一个名为 `adjustTemperature()` 的函数，它接受一个温度测量值作为输入并打印：`$name thermostat set to $temperature°C.`
 
 <deflist collapsible="true">
     <def title="提示">
-        在 <code>SmartDevice</code> 类中，添加 <code>turnOn()</code> 和 <code>turnOff()</code> 函数，以便稍后可以在 <code>SmartThermostat</code> 类中覆盖它们的行为。
+        在 <code>SmartDevice</code> 类中，添加 <code>turnOn()</code> 和 <code>turnOff()</code> 函数，以便你可以在 <code>SmartThermostat</code> 类中稍后覆盖它们的行为。
     </def>
 </deflist>
 
@@ -442,11 +442,11 @@ fun main() {
 *   一个名为 `title` 的属性，用于表示媒体的标题。
 *   一个名为 `play()` 的函数，用于播放媒体。
 
-然后，创建一个名为 `Audio` 的类，实现 `Media` 接口。`Audio` 类必须在其构造函数中使用 `title` 属性，并额外拥有一个名为 `composer` 的 `String` 类型属性。在该类中，实现 `play()` 函数以打印以下内容：`"Playing audio: $title, composed by $composer"`。
+然后，创建一个名为 `Audio` 的类，它实现 `Media` 接口。`Audio` 类必须在其构造函数中使用 `title` 属性，并且还有一个名为 `composer` 的附加属性，其类型为 `String`。在该类中，实现 `play()` 函数以打印以下内容：`"Playing audio: $title, composed by $composer"`。
 
 <deflist collapsible="true">
     <def title="提示">
-        你可以在类头中使用 <code>override</code> 关键字在构造函数中实现接口的属性。
+        你可以在类头部中使用 <code>override</code> 关键字，在构造函数中实现来自接口的属性。
     </def>
 </deflist>
 
@@ -487,7 +487,7 @@ fun main() {
 
 ### 练习 3 {initial-collapse-state="collapsed" collapsible="true" id="classes-interfaces-exercise-3"}
 
-你正在为电子商务应用程序构建一个支付处理系统。每种支付方式都需要能够授权支付并处理交易。某些支付还需要能够处理退款。
+你正在为电子商务应用程序构建一个支付处理系统。每种支付方式都需要能够授权支付和处理交易。有些支付还需要能够处理退款。
 
 1.  在 `Refundable` 接口中，添加一个名为 `refund()` 的函数来处理退款。
 
@@ -495,7 +495,7 @@ fun main() {
     *   添加一个名为 `authorize()` 的函数，它接受一个金额并打印包含该金额的消息。
     *   添加一个名为 `processPayment()` 的抽象函数，它也接受一个金额。
 
-3.  创建一个名为 `CreditCard` 的类，它实现 `Refundable` 接口和 `PaymentMethod` 抽象类。在该类中，为 `refund()` 和 `processPayment()` 函数添加实现，以便它们打印以下语句：
+3.  创建一个名为 `CreditCard` 的类，它实现 `Refundable` 接口和 `PaymentMethod` 抽象类。在该类中，为 `refund()` 和 `processPayment()` 函数添加实现，使它们打印以下语句：
     *   `"Refunding $amount to the credit card."`
     *   `"Processing credit card payment of $amount."`
 
@@ -563,9 +563,9 @@ fun main() {
 
 ### 练习 4 {initial-collapse-state="collapsed" collapsible="true" id="classes-interfaces-exercise-4"}
 
-你有一个简单的消息应用程序，它有一些基本功能，但你希望为_智能_消息添加一些功能，而无需大量重复代码。
+你有一个简单的消息应用，它有一些基本功能性，但你想为_智能_消息添加一些功能性，而无需大量复制你的代码。
 
-在下面的代码中，定义一个名为 `SmartMessenger` 的类，它继承自 `BasicMessenger` 类，但将实现委托给 `BasicMessenger` 类的一个实例。
+在下面的代码中，定义一个名为 `SmartMessenger` 的类，它继承自 `Messenger` 接口，但将实现委托给 `BasicMessenger` 类的一个实例。
 
 在 `SmartMessenger` 类中，覆盖 `sendMessage()` 函数以发送智能消息。该函数必须接受一个 `message` 作为输入，并返回一个打印语句：`"Sending a smart message: $message"`。此外，调用 `BasicMessenger` 类中的 `sendMessage()` 函数，并在消息前加上 `[smart]`。
 
@@ -649,4 +649,4 @@ fun main() {
 
 ## 下一步
 
-[中级：对象](kotlin-tour-intermediate-objects.md)
+[中级: 对象](kotlin-tour-intermediate-objects.md)

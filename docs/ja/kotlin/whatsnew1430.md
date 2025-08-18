@@ -1,57 +1,59 @@
-[//]: # (title: Kotlin 1.4.30の新機能)
+[//]: # (title: Kotlin 1.4.30 の新機能)
 
 _[リリース日: 2021年2月3日](releases.md#release-details)_
 
-Kotlin 1.4.30では、新しい言語機能のプレビュー版が提供され、Kotlin/JVMコンパイラの新しいIRバックエンドがベータ版に昇格し、様々なパフォーマンスと機能の改善が施されています。
+Kotlin 1.4.30 では、新しい言語機能のプレビュー版が提供され、Kotlin/JVM コンパイラの新しい IR バックエンドがベータ版に昇格し、さまざまなパフォーマンスと機能の改善が導入されています。
 
-新機能については、[こちらのブログ記事](https://blog.jetbrains.com/kotlin/2021/01/kotlin-1-4-30-released/)でも学ぶことができます。
+新機能については、[こちらのブログ記事](https://blog.jetbrains.com/kotlin/2021/01/kotlin-1-4-30-released/)でも詳しく説明されています。
 
 ## 言語機能
 
-Kotlin 1.5.0では、JVM recordsサポート、シールドインターフェース、Stableなインラインクラスといった新しい言語機能が提供される予定です。Kotlin 1.4.30では、これらの機能と改善をプレビューモードで試すことができます。1.5.0のリリース前に対応できるよう、該当のYouTrackチケットでフィードバックを共有していただけると幸いです。
+Kotlin 1.5.0 では、JVM レコードのサポート、シールドインターフェース、安定版インラインクラスといった新しい言語機能が導入される予定です。
+Kotlin 1.4.30 では、これらの機能と改善点をプレビューモードで試すことができます。1.5.0 のリリース前に皆様からのフィードバックを反映できるよう、対応する YouTrack チケットでご意見をお聞かせいただけると幸いです。
 
-*   [JVM recordsサポート](#jvm-records-support)
+*   [JVM レコードのサポート](#jvm-records-support)
 *   [シールドインターフェース](#sealed-interfaces)と[シールドクラスの改善](#package-wide-sealed-class-hierarchies)
 *   [インラインクラスの改善](#improved-inline-classes)
 
-これらの言語機能と改善をプレビューモードで有効にするには、特定のコンパイラオプションを追加してオプトインする必要があります。詳細については以下のセクションを参照してください。
+これらの言語機能と改善点をプレビューモードで有効にするには、特定のコンパイラオプションを追加してオプトインする必要があります。
+詳細は以下のセクションを参照してください。
 
-新機能プレビューの詳細については、[こちらのブログ記事](https://blog.jetbrains.com/kotlin/2021/01/new-language-features-preview-in-kotlin-1-4-30)をご覧ください。
+新機能のプレビューについては、[こちらのブログ記事](https://blog.jetbrains.com/kotlin/2021/01/new-language-features-preview-in-kotlin-1-4-30)で詳しく説明されています。
 
-### JVM recordsサポート
+### JVM レコードのサポート
 
-> JVM records機能は[実験的](components-stability.md)です。これはいつでも廃止または変更される可能性があります。
-> オプトインが必要です（詳細については以下を参照してください）。評価目的でのみ使用してください。[YouTrack](https://youtrack.jetbrains.com/issue/KT-42430)でフィードバックをいただけると幸いです。
+> JVM レコード機能は[実験的 (Experimental)](components-stability.md) です。この機能は、将来廃止または変更される可能性があります。
+> オプトインが必要です (詳細は下記を参照)。評価目的でのみ使用してください。この機能に関するフィードバックを [YouTrack](https://youtrack.jetbrains.com/issue/KT-42430) でいただけると幸いです。
 >
 {style="warning"}
 
-[JDK 16のリリース](https://openjdk.java.net/projects/jdk/16/)には、[record](https://openjdk.java.net/jeps/395)と呼ばれる新しいJavaクラス型を安定化する計画が含まれています。Kotlinのすべての利点を提供し、Javaとの相互運用性を維持するために、Kotlinは実験的なrecordクラスサポートを導入しています。
+[JDK 16 のリリース](https://openjdk.java.net/projects/jdk/16/)には、[レコード](https://openjdk.java.net/jeps/395)と呼ばれる新しい Java クラス型を安定化する計画が含まれています。Kotlin のすべての利点を提供し、Java との相互運用性を維持するために、Kotlin は実験的なレコードクラスのサポートを導入しています。
 
-Javaで宣言されたrecordクラスは、Kotlinのプロパティを持つクラスとまったく同じように使用できます。追加の手順は必要ありません。
+Java で宣言されたレコードクラスは、Kotlin のプロパティを持つクラスと同様に利用できます。追加のステップは不要です。
 
-1.4.30以降、[データクラス](data-classes.md)に`@JvmRecord`アノテーションを使用することで、Kotlinでrecordクラスを宣言できます。
+1.4.30 以降、[データクラス](data-classes.md)に `@JvmRecord` アノテーションを使用することで、Kotlin でレコードクラスを宣言できるようになりました。
 
 ```kotlin
 @JvmRecord
 data class User(val name: String, val age: Int)
 ```
 
-JVM recordsのプレビュー版を試すには、コンパイラオプション`-Xjvm-enable-preview`と`-language-version 1.5`を追加してください。
+JVM レコードのプレビュー版を試すには、コンパイラオプション `-Xjvm-enable-preview` と `-language-version 1.5` を追加します。
 
-JVM recordsサポートの作業は継続しており、[こちらのYouTrackチケット](https://youtrack.jetbrains.com/issue/KT-42430)でフィードバックを共有していただけると幸いです。
+JVM レコードのサポートについては引き続き作業を進めており、[この YouTrack チケット](https://youtrack.jetbrains.com/issue/KT-42430)を使用してフィードバックをお寄せいただけると幸いです。
 
-実装、制限、構文の詳細については、[KEEP](https://github.com/Kotlin/KEEP/blob/master/proposals/jvm-records.md)をご覧ください。
+実装、制限、構文に関する詳細は [KEEP](https://github.com/Kotlin/KEEP/blob/master/proposals/jvm-records.md) で確認できます。
 
 ### シールドインターフェース
 
-> シールドインターフェースは[実験的](components-stability.md)です。これはいつでも廃止または変更される可能性があります。
-> オプトインが必要です（詳細については以下を参照してください）。これは評価目的でのみ使用してください。[YouTrack](https://youtrack.jetbrains.com/issue/KT-42433)でフィードバックをいただけると幸いです。
+> シールドインターフェースは[実験的 (Experimental)](components-stability.md) です。これらは、将来廃止または変更される可能性があります。
+> オプトインが必要です (詳細は下記を参照)。評価目的でのみ使用してください。これらの機能に関するフィードバックを [YouTrack](https://youtrack.jetbrains.com/issue/KT-42433) でいただけると幸いです。
 >
 {style="warning"}
 
-Kotlin 1.4.30では、_シールドインターフェース_のプロトタイプをリリースします。これらはシールドクラスを補完し、より柔軟な制限されたクラス階層を構築することを可能にします。
+Kotlin 1.4.30 では、_シールドインターフェース_のプロトタイプが提供されます。これらはシールドクラスを補完し、より柔軟な制限されたクラス階層を構築することを可能にします。
 
-これらは、同じモジュール外では実装できない「内部」インターフェースとして機能できます。例えば、網羅的な`when`式を記述するために、この事実に頼ることができます。
+これらは、同じモジュール外では実装できない「内部」インターフェースとして機能します。例えば、網羅的な `when` 式を記述する際に、この事実を利用できます。
 
 ```kotlin
 sealed interface Polygon
@@ -59,8 +61,8 @@ sealed interface Polygon
 class Rectangle(): Polygon
 class Triangle(): Polygon
 
-// when()は網羅的です: モジュールがコンパイルされた後、
-// 他のポリゴンの実装が出現することはありません
+// when() is exhaustive: no other polygon implementations can appear
+// after the module is compiled
 fun draw(polygon: Polygon) = when (polygon) {
     is Rectangle -> // ...
     is Triangle -> // ...
@@ -68,7 +70,7 @@ fun draw(polygon: Polygon) = when (polygon) {
 
 ```
 
-もう一つのユースケースとして、シールドインターフェースを使用すると、クラスを2つ以上のシールドスーパークラスから継承できます。
+別のユースケースとして、シールドインターフェースを使用すると、2つ以上のシールドスーパークラスからクラスを継承できます。
 
 ```kotlin
 sealed interface Fillable {
@@ -83,36 +85,38 @@ class Rectangle(override val vertices: List<Point>): Fillable, Polygon {
 }
 ```
 
-シールドインターフェースのプレビュー版を試すには、コンパイラオプション`-language-version 1.5`を追加してください。このバージョンに切り替えると、インターフェースで`sealed`修飾子を使用できるようになります。[こちらのYouTrackチケット](https://youtrack.jetbrains.com/issue/KT-42433)でフィードバックを共有していただけると幸いです。
+シールドインターフェースのプレビュー版を試すには、コンパイラオプション `-language-version 1.5` を追加します。このバージョンに切り替えると、インターフェースに `sealed` 修飾子を使用できるようになります。[この YouTrack チケット](https://youtrack.jetbrains.com/issue/KT-42433)を使用してフィードバックをお寄せいただけると幸いです。
 
-[シールドインターフェースについてさらに詳しく](sealed-classes.md)。
+[シールドインターフェースについて詳しくはこちら](sealed-classes.md)。
 
-### パッケージ全体にわたるシールドクラス階層
+### パッケージ全体のシールドクラス階層
 
-> シールドクラスのパッケージ全体にわたる階層は[実験的](components-stability.md)です。これはいつでも廃止または変更される可能性があります。
-> オプトインが必要です（詳細については以下を参照してください）。これは評価目的でのみ使用してください。[YouTrack](https://youtrack.jetbrains.com/issue/KT-42433)でフィードバックをいただけると幸いです。
+> シールドクラスのパッケージ全体の階層は[実験的 (Experimental)](components-stability.md) です。これらは、将来廃止または変更される可能性があります。
+> オプトインが必要です (詳細は下記を参照)。評価目的でのみ使用してください。これらの機能に関するフィードバックを [YouTrack](https://youtrack.jetbrains.com/issue/KT-42433) でいただけると幸いです。
 >
 {style="warning"}
 
-シールドクラスは、より柔軟な階層を形成できるようになりました。同じコンパイルユニットおよび同じパッケージのすべてのファイル内にサブクラスを持つことができます。以前は、すべてのサブクラスは同じファイル内に存在する必要がありました。
+シールドクラスは、より柔軟な階層を形成できるようになりました。同じコンパイル単位および同じパッケージ内のすべてのファイルにサブクラスを持つことができます。以前は、すべてのサブクラスが同じファイル内に存在する必要がありました。
 
-直接のサブクラスは、トップレベルであるか、任意の数の名前付きクラス、名前付きインターフェース、または名前付きオブジェクト内にネストすることができます。シールドクラスのサブクラスは、適切に修飾された名前を持つ必要があります。ローカルオブジェクトや匿名オブジェクトであってはなりません。
+直接のサブクラスは、トップレベルであるか、任意の数の他の名前付きクラス、名前付きインターフェース、または名前付きオブジェクト内にネストされている場合があります。
+シールドクラスのサブクラスは、適切に修飾された名前を持たなければなりません。ローカルオブジェクトや匿名オブジェクトにすることはできません。
 
-シールドクラスのパッケージ全体にわたる階層を試すには、コンパイラオプション`-language-version 1.5`を追加してください。[こちらのYouTrackチケット](https://youtrack.jetbrains.com/issue/KT-42433)でフィードバックを共有していただけると幸いです。
+シールドクラスのパッケージ全体の階層を試すには、コンパイラオプション `-language-version 1.5` を追加します。[この YouTrack チケット](https://youtrack.jetbrains.com/issue/KT-42433)を使用してフィードバックをお寄せいただけると幸いです。
 
-[パッケージ全体にわたるシールドクラス階層についてさらに詳しく](sealed-classes.md#inheritance)。
+[シールドクラスのパッケージ全体の階層について詳しくはこちら](sealed-classes.md#inheritance)。
 
 ### インラインクラスの改善
 
-> インライン値クラス (Inline value classes) は[ベータ版](components-stability.md)です。これらはほぼ安定していますが、将来的に移行手順が必要になる場合があります。私たちは、お客様が行う必要のある変更を最小限に抑えるよう最善を尽くします。[YouTrack](https://youtrack.jetbrains.com/issue/KT-42434)でインラインクラス機能に関するフィードバックをいただけると幸いです。
+> インライン値クラスは[ベータ版 (Beta)](components-stability.md) です。ほぼ安定していますが、将来的に移行手順が必要になる場合があります。変更を最小限に抑えるよう最善を尽くします。インラインクラス機能に関するフィードバックを [YouTrack](https://youtrack.jetbrains.com/issue/KT-42434) でいただけると幸いです。
 >
 {style="warning"}
 
-Kotlin 1.4.30では、[インラインクラス](inline-classes.md)が[ベータ版](components-stability.md)に昇格し、以下の機能と改善がもたらされています。
+Kotlin 1.4.30 では、[インラインクラス](inline-classes.md)が[ベータ版 (Beta)](components-stability.md) に昇格し、以下の機能と改善がもたらされました。
 
-*   インラインクラスは[値ベース](https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/doc-files/ValueBased.html)であるため、`value`修飾子を使用して定義できます。`inline`と`value`の修飾子は互いに等価になりました。将来のKotlinバージョンでは、`inline`修飾子を非推奨にする予定です。
+*   インラインクラスは[値ベース (value-based)](https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/doc-files/ValueBased.html) であるため、`value` 修飾子を使用して定義できます。`inline` と `value` の修飾子は現在同等です。
+    将来の Kotlin バージョンでは、`inline` 修飾子を非推奨にする予定です。
 
-    今後、JVMバックエンドでは、クラス宣言の前に`@JvmInline`アノテーションが必要です。
+    今後、JVM バックエンドの場合、クラス宣言の前に `@JvmInline` アノテーションが必須となります。
 
     ```kotlin
     inline class Name(private val s: String)
@@ -124,7 +128,7 @@ Kotlin 1.4.30では、[インラインクラス](inline-classes.md)が[ベータ
     value class Name(private val s: String)
     ```
 
-*   インラインクラスは`init`ブロックを持つことができます。クラスがインスタンス化された直後に実行されるコードを追加できます。
+*   インラインクラスは `init` ブロックを持つことができます。クラスがインスタンス化された直後に実行されるコードを追加できます。
 
     ```kotlin
     @JvmInline
@@ -135,8 +139,8 @@ Kotlin 1.4.30では、[インラインクラス](inline-classes.md)が[ベータ
     }
     ```
 
-*   Javaコードからインラインクラスを持つ関数を呼び出す：Kotlin 1.4.30より前では、マングリングのため、Javaからインラインクラスを受け入れる関数を呼び出すことができませんでした。
-    今後、手動でマングリングを無効にできます。Javaコードからそのような関数を呼び出すには、関数宣言の前に`@JvmName`アノテーションを追加する必要があります。
+*   Java コードからインラインクラスを持つ関数を呼び出す: Kotlin 1.4.30 以前では、マングリングのため、インラインクラスを受け入れる関数を Java から呼び出すことはできませんでした。
+    今後は、マングリングを手動で無効にできます。Java コードからそのような関数を呼び出すには、関数宣言の前に `@JvmName` アノテーションを追加する必要があります。
 
     ```kotlin
     inline class UInt(val x: Int)
@@ -147,28 +151,28 @@ Kotlin 1.4.30では、[インラインクラス](inline-classes.md)が[ベータ
     fun compute(x: UInt) { }
     ```
 
-*   今回のリリースでは、不正な動作を修正するために、関数のマングルスキームを変更しました。これらの変更はABI (Application Binary Interface) の変更につながりました。
+*   このリリースでは、不正確な動作を修正するために、関数のマングリングスキームを変更しました。これらの変更は ABI の変更につながりました。
 
-    1.4.30以降、Kotlinコンパイラはデフォルトで新しいマングルスキームを使用します。コンパイラに古い1.4.0マングルスキームの使用を強制し、バイナリ互換性を維持するには、`-Xuse-14-inline-classes-mangling-scheme`コンパイラフラグを使用してください。
+    1.4.30 以降、Kotlin コンパイラはデフォルトで新しいマングリングスキームを使用します。古い 1.4.0 のマングリングスキームを強制的に使用し、バイナリ互換性を維持するには、`-Xuse-14-inline-classes-mangling-scheme` コンパイラフラグを使用します。
 
-Kotlin 1.4.30ではインラインクラスがベータ版に昇格し、将来のリリースでStableにする予定です。[こちらのYouTrackチケット](https://youtrack.jetbrains.com/issue/KT-42434)でフィードバックを共有していただけると幸いです。
+Kotlin 1.4.30 ではインラインクラスがベータ版に昇格し、将来のリリースで安定版にする予定です。[この YouTrack チケット](https://youtrack.jetbrains.com/issue/KT-42434)を使用してフィードバックをお寄せいただけると幸いです。
 
-インラインクラスのプレビュー版を試すには、コンパイラオプション`-Xinline-classes`または`-language-version 1.5`を追加してください。
+インラインクラスのプレビュー版を試すには、コンパイラオプション `-Xinline-classes` または `-language-version 1.5` を追加します。
 
-マングルアルゴリズムの詳細については、[KEEP](https://github.com/Kotlin/KEEP/blob/master/proposals/inline-classes.md)をご覧ください。
+マングリングアルゴリズムに関する詳細は [KEEP](https://github.com/Kotlin/KEEP/blob/master/proposals/inline-classes.md) で確認できます。
 
-[インラインクラスについてさらに詳しく](inline-classes.md)。
+[インラインクラスについて詳しくはこちら](inline-classes.md)。
 
 ## Kotlin/JVM
 
-### JVM IRコンパイラバックエンドがベータ版に到達
+### JVM IR コンパイラバックエンドがベータ版に到達
 
-Kotlin/JVM用の[IRベースのコンパイラバックエンド](whatsnew14.md#unified-backends-and-extensibility)は、1.4.0で[アルファ版](components-stability.md)として発表されていましたが、ベータ版に到達しました。これは、IRバックエンドがKotlin/JVMコンパイラのデフォルトになる前の最後の安定版前のレベルです。
+Kotlin/JVM 用の [IR ベースのコンパイラバックエンド](whatsnew14.md#unified-backends-and-extensibility)は、1.4.0 で[アルファ版 (Alpha)](components-stability.md) として発表されましたが、ベータ版に到達しました。これは、IR バックエンドが Kotlin/JVM コンパイラのデフォルトになる前の最後のプレ安定レベルです。
 
-IRコンパイラによって生成されたバイナリの消費に関する制限を解除しました。以前は、新しいJVM IRバックエンドによってコンパイルされたコードは、新しいバックエンドを有効にしている場合にのみ使用できました。1.4.30以降、そのような制限はないため、新しいバックエンドを使用して、ライブラリなど、サードパーティが使用するコンポーネントを構築できます。新しいバックエンドのベータ版を試して、[イシュートラッカー](https://kotl.in/issue)でフィードバックを共有してください。
+IR コンパイラによって生成されたバイナリの利用に関する制限を撤廃します。以前は、新しい JVM IR バックエンドでコンパイルされたコードは、新しいバックエンドを有効にした場合にのみ使用できました。1.4.30 以降、そのような制限はなくなり、新しいバックエンドを使用してライブラリなどのサードパーティ向けコンポーネントをビルドできます。新しいバックエンドのベータ版を試して、[課題トラッカー](https://kotl.in/issue)でフィードバックをお寄せください。
 
-新しいJVM IRバックエンドを有効にするには、プロジェクトの構成ファイルに以下の行を追加します。
-*   Gradleの場合:
+新しい JVM IR バックエンドを有効にするには、プロジェクトの設定ファイルに以下の行を追加します。
+*   Gradle の場合:
 
     <tabs group="build-script">
     <tab title="Kotlin" group-key="kotlin">
@@ -191,7 +195,7 @@ IRコンパイラによって生成されたバイナリの消費に関する制
     </tab>
     </tabs>
 
-*   Mavenの場合:
+*   Maven の場合:
 
     ```xml
     <configuration>
@@ -201,56 +205,59 @@ IRコンパイラによって生成されたバイナリの消費に関する制
     </configuration>
     ```
 
-JVM IRバックエンドがもたらす変更の詳細については、[こちらのブログ記事](https://blog.jetbrains.com/kotlin/2021/01/the-jvm-backend-is-in-beta-let-s-make-it-stable-together)をご覧ください。
+JVM IR バックエンドがもたらす変更については、[こちらのブログ記事](https://blog.jetbrains.com/kotlin/2021/01/the-jvm-backend-is-in-beta-let-s-make-it-stable-together)で詳しく説明されています。
 
 ## Kotlin/Native
 
 ### パフォーマンスの改善
 
-Kotlin/Nativeは1.4.30で様々なパフォーマンス改善が施され、コンパイル時間の高速化につながりました。例えば、[Networking and data storage with Kotlin Multiplatform Mobile](https://github.com/kotlin-hands-on/kmm-networking-and-data-storage/tree/final)サンプルでフレームワークを再構築するのに必要な時間は、9.5秒（1.4.10）から4.5秒（1.4.30）に短縮されました。
+Kotlin/Native は 1.4.30 でさまざまなパフォーマンス改善が施され、コンパイル時間の短縮が実現しました。
+例えば、[Kotlin Multiplatform Mobile を使用したネットワークとデータストレージ](https://github.com/kotlin-hands-on/kmm-networking-and-data-storage/tree/final) サンプルのフレームワークをリビルドするのにかかる時間は、9.5 秒 (1.4.10) から 4.5 秒 (1.4.30) に短縮されました。
 
-### Apple watchOS 64ビットシミュレータターゲット
+### Apple watchOS 64ビットシミュレーターターゲット
 
-x86シミュレータターゲットは、watchOSバージョン7.0以降で非推奨になりました。最新のwatchOSバージョンに対応するため、Kotlin/Nativeには64ビットアーキテクチャでシミュレータを実行するための新しいターゲット`watchosX64`が追加されました。
+x86 シミュレーターターゲットは watchOS バージョン 7.0 以降で非推奨となりました。最新の watchOS バージョンに対応するため、Kotlin/Native は 64ビットアーキテクチャでシミュレーターを実行するための新しいターゲット `watchosX64` をサポートしました。
 
-### Xcode 12.2ライブラリのサポート
+### Xcode 12.2 ライブラリのサポート
 
-Xcode 12.2で提供される新しいライブラリのサポートを追加しました。Kotlinコードからそれらを使用できるようになりました。
+Xcode 12.2 に同梱されている新しいライブラリのサポートを追加しました。Kotlin コードからこれらを使用できるようになりました。
 
 ## Kotlin/JS
 
 ### トップレベルプロパティの遅延初期化
 
-> トップレベルプロパティの遅延初期化は[実験的](components-stability.md)です。これはいつでも廃止または変更される可能性があります。
-> オプトインが必要です（詳細については以下を参照してください）。これは評価目的でのみ使用してください。[YouTrack](https://youtrack.com/issue/KT-44320)でフィードバックをいただけると幸いです。
+> トップレベルプロパティの遅延初期化は[実験的 (Experimental)](components-stability.md) です。この機能は、将来廃止または変更される可能性があります。
+> オプトインが必要です (詳細は下記を参照)。評価目的でのみ使用してください。この機能に関するフィードバックを [YouTrack](https://youtrack.jetbrains.com/issue/KT-44320) でいただけると幸いです。
 >
 {style="warning"}
 
-Kotlin/JS用の[IRバックエンド](js-ir-compiler.md)では、トップレベルプロパティの遅延初期化のプロトタイプ実装が導入されています。これにより、アプリケーション起動時にすべてのトップレベルプロパティを初期化する必要性が減少し、アプリケーションの起動時間が大幅に改善されるはずです。
+Kotlin/JS の [IR バックエンド](js-ir-compiler.md)では、トップレベルプロパティの遅延初期化のプロトタイプ実装が導入されています。これにより、アプリケーション起動時にすべてのトップレベルプロパティを初期化する必要が減り、アプリケーションの起動時間が大幅に改善されるはずです。
 
-私たちは遅延初期化の作業を継続しており、現在のプロトタイプを試して、[こちらのYouTrackチケット](https://youtrack.jetbrains.com/issue/KT-44320)または公式[Kotlin Slack](https://kotlinlang.slack.com)（招待状は[こちら](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up)から入手）の[`#javascript`](https://kotlinlang.slack.com/archives/C0B8L3U69)チャネルでご意見や結果を共有していただければ幸いです。
+遅延初期化については引き続き作業を進めます。現在のプロトタイプをお試しいただき、[この YouTrack チケット](https://youtrack.jetbrains.com/issue/KT-44320) または公式の [Kotlin Slack](https://kotlinlang.slack.com) の [`#javascript`](https://kotlinlang.slack.com/archives/C0B8L3U69) チャンネル ([こちら](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up)から招待を取得) でご意見や結果を共有していただけると幸いです。
 
-遅延初期化を使用するには、JS IRコンパイラでコードをコンパイルする際に、`-Xir-property-lazy-initialization`コンパイラオプションを追加してください。
+遅延初期化を使用するには、JS IR コンパイラでコードをコンパイルする際に `-Xir-property-lazy-initialization` コンパイラオプションを追加します。
 
-## Gradleプロジェクトの改善
+## Gradle プロジェクトの改善
 
-### Gradle構成キャッシュのサポート
+### Gradle コンフィグレーションキャッシュのサポート
 
-1.4.30以降、Kotlin Gradleプラグインは[構成キャッシュ](https://docs.gradle.org/current/userguide/configuration_cache.html)機能をサポートしています。これによりビルドプロセスが高速化されます。コマンドを実行すると、Gradleは構成フェーズを実行し、タスクグラフを計算します。Gradleはその結果をキャッシュし、後続のビルドで再利用します。
+1.4.30 以降、Kotlin Gradle プラグインは[コンフィグレーションキャッシュ](https://docs.gradle.org/current/userguide/configuration_cache.html)機能をサポートします。これによりビルドプロセスが高速化されます。コマンドを実行すると、Gradle はコンフィグレーションフェーズを実行し、タスクグラフを計算します。Gradle はその結果をキャッシュし、その後のビルドで再利用します。
 
-この機能の使用を開始するには、[Gradleコマンドを使用する](https://docs.gradle.org/current/userguide/configuration_cache.html#config_cache:usage)か、[IntelliJベースのIDEを設定する](https://docs.gradle.org/current/userguide/configuration_cache.html#config_cache:ide:intellij)ことができます。
+この機能を使用するには、[Gradle コマンドを使用](https://docs.gradle.org/current/userguide/configuration_cache.html#config_cache:usage)するか、[IntelliJ ベースの IDE を設定](https://docs.gradle.org/current/userguide/configuration_cache.html#config_cache:ide:intellij)します。
 
 ## 標準ライブラリ
 
-### テキストの大文字/小文字変換のためのロケールに依存しないAPI
+### テキストの大文字/小文字変換用ロケール非依存 API
 
-> ロケールに依存しないAPI機能は[実験的](components-stability.md)です。これはいつでも廃止または変更される可能性があります。
+> ロケール非依存 API 機能は[実験的 (Experimental)](components-stability.stabilitäts) です。この機能は、将来廃止または変更される可能性があります。
 > 評価目的でのみ使用してください。
-> [YouTrack](https://youtrack.jetbrains.com/issue/KT-42437)でフィードバックをいただけると幸いです。
+> この機能に関するフィードバックを [YouTrack](https://youtrack.jetbrains.com/issue/KT-42437) でいただけると幸いです。
 >
 {style="warning"}
 
-このリリースでは、文字列と文字のケースを変更するための実験的なロケールに依存しないAPIが導入されています。現在の`toLowerCase()`、`toUpperCase()`、`capitalize()`、`decapitalize()`のAPI関数はロケールに依存します。これは、プラットフォームのロケール設定が異なると、コードの動作に影響を与える可能性があることを意味します。例えば、トルコ語ロケールでは、文字列「kotlin」を`toUpperCase`で変換すると、「KOTLIN」ではなく「KOTLİN」になります。
+このリリースでは、文字列と文字のケースを変更するための実験的なロケール非依存 API を導入します。
+現在の `toLowerCase()`、`toUpperCase()`、`capitalize()`、`decapitalize()` API 関数はロケールに依存しています。
+これは、異なるプラットフォームのロケール設定がコードの動作に影響を与える可能性があることを意味します。例えば、トルコ語ロケールでは、文字列「kotlin」が `toUpperCase` を使用して変換されると、「KOTLIN」ではなく「KOTLİN」になります。
 
 ```kotlin
 // current API
@@ -260,50 +267,50 @@ println("Needs to be capitalized".toUpperCase()) // NEEDS TO BE CAPITALIZED
 println("Needs to be capitalized".uppercase()) // NEEDS TO BE CAPITALIZED
 ```
 
-Kotlin 1.4.30では、以下の代替機能を提供します。
+Kotlin 1.4.30 では、以下の代替手段が提供されます。
 
-*   `String`関数について:
+*   `String` 関数用:
 
-    |**以前のバージョン**|**1.4.30での代替**|
-    |---|---|
+    |**以前のバージョン**|**1.4.30 の代替**|
+    | --- | --- |
     |`String.toUpperCase()`|`String.uppercase()`|
     |`String.toLowerCase()`|`String.lowercase()`|
     |`String.capitalize()`|`String.replaceFirstChar { it.uppercase() }`|
     |`String.decapitalize()`|`String.replaceFirstChar { it.lowercase() }`|
 
-*   `Char`関数について:
+*   `Char` 関数用:
 
-    |**以前のバージョン**|**1.4.30での代替**|
-    |---|---|
+    |**以前のバージョン**|**1.4.30 の代替**|
+    | --- | --- |
     |`Char.toUpperCase()`|`Char.uppercaseChar(): Char`<br/>`Char.uppercase(): String`|
     |`Char.toLowerCase()`|`Char.lowercaseChar(): Char`<br/>`Char.lowercase(): String`|
     |`Char.toTitleCase()`|`Char.titlecaseChar(): Char`<br/>`Char.titlecase(): String`|
 
-> Kotlin/JVMの場合、明示的な`Locale`パラメータを持つオーバーロードされた`uppercase()`、`lowercase()`、`titlecase()`関数もあります。
+> Kotlin/JVM には、明示的な `Locale` パラメーターを持つオーバーロードされた `uppercase()`、`lowercase()`、`titlecase()` 関数もあります。
 >
 {style="note"}
 
-テキスト処理関数の変更点の全リストについては、[KEEP](https://github.com/Kotlin/KEEP/blob/master/proposals/stdlib/locale-agnostic-string-conversions.md)をご覧ください。
+テキスト処理関数の変更点の完全なリストは [KEEP](https://github.com/Kotlin/KEEP/blob/master/proposals/stdlib/locale-agnostic-string-conversions.md) で確認できます。
 
-### Charからコードへの変換とCharから数値への変換の明確化
+### Char からコードへの変換、Char から数字への変換を明確化
 
-> `Char`変換のための曖昧さのないAPI機能は[実験的](components-stability.md)です。これはいつでも廃止または変更される可能性があります。
+> `Char` 変換機能の明確な API は[実験的 (Experimental)](components-stability.md) です。この機能は、将来廃止または変更される可能性があります。
 > 評価目的でのみ使用してください。
-> [YouTrack](https://youtrack.jetbrains.com/issue/KT-44333)でフィードバックをいただけると幸いです。
+> この機能に関するフィードバックを [YouTrack](https://youtrack.jetbrains.com/issue/KT-44333) でいただけると幸いです。
 >
 {style="warning"}
 
-現在の`Char`から数値への変換関数（異なる数値型で表現されたUTF-16コードを返す）は、文字列の数値表現を返す似たようなStringからIntへの変換と混同されがちです。
+現在の `Char` から数値への変換関数は、異なる数値型で表現された UTF-16 コードを返しますが、これは文字列の数値表現を返す類似の String-to-Int 変換と混同されがちです。
 
 ```kotlin
 "4".toInt() // returns 4
 '4'.toInt() // returns 52
-// また、Char '4' に対して数値 4 を返す共通の関数はありませんでした
+// and there was no common function that would return the numeric value 4 for Char '4'
 ```
 
-この混乱を避けるため、`Char`変換を以下の2つの明確に命名された関数セットに分離することを決定しました。
+この混同を避けるため、`Char` の変換を、以下の2つの明確に命名された関数群に分離することを決定しました。
 
-*   `Char`の整数コードを取得し、指定されたコードから`Char`を構築する関数:
+*   `Char` の整数コードを取得する関数と、指定されたコードから `Char` を構築する関数:
 
     ```kotlin
     fun Char(code: Int): Char
@@ -311,47 +318,47 @@ Kotlin 1.4.30では、以下の代替機能を提供します。
     val Char.code: Int
     ```
 
-*   `Char`が表す数字の数値に変換する関数:
+*   `Char` が表す数字の数値に変換する関数:
 
     ```kotlin
     fun Char.digitToInt(radix: Int): Int
     fun Char.digitToIntOrNull(radix: Int): Int?
     ```
-*   `Int`の拡張関数で、それが表す負でない1桁の数値を対応する`Char`表現に変換する関数:
+*   `Int` の拡張関数で、それが表す非負の1桁の数字を対応する `Char` 表現に変換します:
 
     ```kotlin
     fun Int.digitToChar(radix: Int): Char
     ```
 
-詳細については、[KEEP](https://github.com/Kotlin/KEEP/blob/master/proposals/stdlib/char-int-conversions.md)をご覧ください。
+詳細については [KEEP](https://github.com/Kotlin/KEEP/blob/master/proposals/stdlib/char-int-conversions.md) で確認できます。
 
 ## シリアライゼーションの更新
 
-Kotlin 1.4.30と同時に、`kotlinx.serialization` [1.1.0-RC](https://github.com/Kotlin/kotlinx.serialization/releases/tag/v1.1.0-RC)をリリースします。これにはいくつかの新機能が含まれています。
+Kotlin 1.4.30 と共に、`kotlinx.serialization` の [1.1.0-RC](https://github.com/Kotlin/kotlinx.serialization/releases/tag/v1.1.0-RC) をリリースします。これにはいくつかの新機能が含まれています。
 
 *   インラインクラスのシリアライゼーションサポート
 *   符号なしプリミティブ型のシリアライゼーションサポート
 
 ### インラインクラスのシリアライゼーションサポート
 
-Kotlin 1.4.30以降、インラインクラスを[シリアライズ可能](serialization.md)にできます。
+Kotlin 1.4.30 以降、インラインクラスを[シリアライズ可能](serialization.md)にできます。
 
 ```kotlin
 @Serializable
 inline class Color(val rgb: Int)
 ```
 
-> この機能には、新しい1.4.30 IRコンパイラが必要です。
+> この機能には、新しい 1.4.30 IR コンパイラが必要です。
 >
 {style="note"}
 
-シリアライゼーションフレームワークは、シリアライズ可能なインラインクラスが他のシリアライズ可能なクラスで使用される場合、それらをボックス化しません。
+シリアライゼーションフレームワークは、シリアライズ可能なインラインクラスが他のシリアライズ可能なクラスで使用される場合でも、ボックス化しません。
 
-詳細については、`kotlinx.serialization`の[ドキュメント](https://github.com/Kotlin/kotlinx.serialization/blob/master/docs/inline-classes.md#serializable-inline-classes)をご覧ください。
+`kotlinx.serialization` の[ドキュメント](https://github.com/Kotlin/kotlinx.serialization/blob/master/docs/inline-classes.md#serializable-inline-classes)で詳しく説明されています。
 
 ### 符号なしプリミティブ型のシリアライゼーションサポート
 
-1.4.30以降、[kotlinx.serialization](https://github.com/Kotlin/kotlinx.serialization)の標準JSONシリアライザを、`UInt`、`ULong`、`UByte`、`UShort`といった符号なしプリミティブ型に使用できるようになりました。
+1.4.30 以降、[kotlinx.serialization](https://github.com/Kotlin/kotlinx.serialization) の標準 JSON シリアライザを、`UInt`、`ULong`、`UByte`、`UShort` などの符号なしプリミティブ型に使用できるようになりました。
 
 ```kotlin
 @Serializable
@@ -362,4 +369,4 @@ fun main() {
 }
 ```
 
-詳細については、`kotlinx.serialization`の[ドキュメント](https://github.com/Kotlin/kotlinx.serialization/blob/master/docs/inline-classes.md#unsigned-types-support-json-only)をご覧ください。
+`kotlinx.serialization` の[ドキュメント](https://github.com/Kotlin/kotlinx.serialization/blob/master/docs/inline-classes.md#unsigned-types-support-json-only)で詳しく説明されています。

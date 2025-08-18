@@ -2,7 +2,7 @@
 title: Android ViewModel 및 Navigation
 ---
 
-`koin-android` Gradle 모듈은 `single` 및 `factory`에 더해 새로운 `viewModel` DSL 키워드를 도입합니다. 이 키워드는 ViewModel 컴포넌트를 선언하고 이를 Android 컴포넌트 생명주기에 바인딩하는 데 도움을 줍니다. `viewModelOf` 키워드 또한 ViewModel을 생성자와 함께 선언할 수 있도록 제공됩니다.
+`koin-android` Gradle 모듈은 `single` 및 `factory`에 더해 새로운 `viewModel` DSL 키워드를 도입하여 ViewModel 컴포넌트를 선언하고 이를 Android 컴포넌트 생명주기에 바인딩하는 데 도움을 줍니다. `viewModelOf` 키워드 또한 ViewModel을 생성자와 함께 선언할 수 있도록 제공됩니다.
 
 ```kotlin
 val appModule = module {
@@ -97,7 +97,7 @@ class WeatherListFragment : Fragment() {
 
 ## 생성자로 매개변수 전달
 
-`viewModel` 키워드와 주입 API는 매개변수 주입과 호환됩니다.
+The `viewModel` 키워드 API는 매개변수 주입과 호환됩니다.
 
 모듈에서:
 
@@ -180,7 +180,7 @@ ViewModel 및 스코프에 사용되는 모든 API는 다음을 참조하십시�
 
 ## ViewModel 일반 API
 
-Koin은 ViewModel 인스턴스를 직접 조정할 수 있는 "내부" API를 제공합니다. `ComponentActivity` 및 `Fragment`에 사용할 수 있는 함수는 `viewModelForClass`입니다.
+Koin은 ViewModel 인스턴스를 직접 조정할 수 있는 "내부" API를 제공합니다. `ComponentActivity` 및 `Fragment`에 사용할 수 있는 함수는 `viewModelForClass`입니다:
 
 ```kotlin
 ComponentActivity.viewModelForClass(
@@ -220,7 +220,7 @@ Java 호환성은 의존성에 추가되어야 합니다.
 implementation "io.insert-koin:koin-android-compat:$koin_version"
 ```
 
-`ViewModelCompat`의 `viewModel()` 또는 `getViewModel()` 정적 함수를 사용하여 ViewModel 인스턴스를 Java 코드베이스에 주입할 수 있습니다.
+ViewModel 인스턴스를 Java 코드베이스에 주입할 수 있습니다. `ViewModelCompat`의 `viewModel()` 또는 `getViewModel()` 정적 함수를 사용하여 주입할 수 있습니다.
 
 ```kotlin
 @JvmOverloads

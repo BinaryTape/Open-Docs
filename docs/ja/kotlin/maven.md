@@ -1,12 +1,12 @@
 [//]: # (title: Maven)
 
-Maven は、あらゆる Java ベースのプロジェクトをビルドおよび管理するために使用できるビルドシステムです。
+Mavenは、あらゆるJavaベースのプロジェクトをビルドおよび管理するために使用できるビルドシステムです。
 
 ## プラグインの構成と有効化
 
-`kotlin-maven-plugin` は Kotlin のソースとモジュールをコンパイルします。現在、Maven v3 のみがサポートされています。
+`kotlin-maven-plugin` はKotlinのソースとモジュールをコンパイルします。現在、Maven v3のみがサポートされています。
 
-`pom.xml` ファイルで、使用したい Kotlin のバージョンを `kotlin.version` プロパティに定義します。
+`pom.xml` ファイルで、使用したいKotlinのバージョンを `kotlin.version` プロパティに定義します。
 
 ```xml
 <properties>
@@ -28,7 +28,7 @@ Maven は、あらゆる Java ベースのプロジェクトをビルドおよ�
 
 ### JDK 17の使用
 
-JDK 17 を使用するには、`.mvn/jvm.config` ファイルに以下を追加します。
+JDK 17を使用するには、`.mvn/jvm.config` ファイルに以下を追加します。
 
 ```none
 --add-opens=java.base/java.lang=ALL-UNNAMED
@@ -37,7 +37,7 @@ JDK 17 を使用するには、`.mvn/jvm.config` ファイルに以下を追加�
 
 ## リポジトリの宣言
 
-デフォルトでは、`mavenCentral` リポジトリはすべての Maven プロジェクトで利用可能です。他のリポジトリのアーティファクトにアクセスするには、`<repositories>` 要素で各リポジトリの ID と URL を指定します。
+デフォルトでは、`mavenCentral` リポジトリはすべてのMavenプロジェクトで利用可能です。他のリポジトリ内のアーティファクトにアクセスするには、`<repositories>` 要素内で各リポジトリのIDとURLを指定します。
 
 ```xml
 <repositories>
@@ -48,13 +48,13 @@ JDK 17 を使用するには、`.mvn/jvm.config` ファイルに以下を追加�
 </repositories>
 ```
 
-> Gradle プロジェクトで `mavenLocal()` をリポジトリとして宣言すると、Gradle プロジェクトと Maven プロジェクトを切り替える際に問題が発生する可能性があります。詳細については、[リポジトリの宣言](gradle-configure-project.md#declare-repositories)を参照してください。
+> Gradleプロジェクトで`mavenLocal()`をリポジトリとして宣言すると、GradleプロジェクトとMavenプロジェクトを切り替える際に問題が発生する可能性があります。詳細については、[リポジトリの宣言](gradle-configure-project.md#declare-repositories)を参照してください。
 >
 {style="note"}
 
 ## 依存関係の設定
 
-Kotlin には、アプリケーションで使用できる豊富な標準ライブラリがあります。プロジェクトで標準ライブラリを使用するには、以下の依存関係を `pom.xml` ファイルに追加します。
+Kotlinには、アプリケーションで使用できる広範な標準ライブラリがあります。プロジェクトで標準ライブラリを使用するには、`pom.xml` ファイルに以下の依存関係を追加します。
 
 ```xml
 <dependencies>
@@ -66,17 +66,17 @@ Kotlin には、アプリケーションで使用できる豊富な標準ライ�
 </dependencies>
 ```
 
-> Kotlin のバージョンが以下のものより古い場合、JDK 7 または 8 をターゲットにしている場合：
-> * 1.8 より古い場合は、それぞれ `kotlin-stdlib-jdk7` または `kotlin-stdlib-jdk8` を使用します。
-> * 1.2 より古い場合は、それぞれ `kotlin-stdlib-jre7` または `kotlin-stdlib-jre8` を使用します。
+> Kotlinのバージョンが以下のものより古い場合にJDK 7または8をターゲットとする場合：
+> * 1.8より古い場合は、それぞれ `kotlin-stdlib-jdk7` または `kotlin-stdlib-jdk8` を使用します。
+> * 1.2より古い場合は、それぞれ `kotlin-stdlib-jre7` または `kotlin-stdlib-jre8` を使用します。
 >
-{style="note"}
+{style="note"} 
 
-プロジェクトが [Kotlin リフレクション](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect.full/index.html)またはテスト機能を使用する場合、対応する依存関係も追加する必要があります。リフレクションライブラリのアーティファクト ID は `kotlin-reflect` で、テストライブラリのアーティファクト ID は `kotlin-test` と `kotlin-test-junit` です。
+プロジェクトが[Kotlinリフレクション](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect.full/index.html)またはテスト機能を使用する場合は、対応する依存関係も追加する必要があります。アーティファクトIDは、リフレクションライブラリには`kotlin-reflect`、テストライブラリには`kotlin-test`および`kotlin-test-junit`です。
 
 ## Kotlinのみのソースコードのコンパイル
 
-ソースコードをコンパイルするには、`<build>` タグでソースディレクトリを指定します。
+ソースコードをコンパイルするには、`<build>` タグ内でソースディレクトリを指定します。
 
 ```xml
 <build>
@@ -85,7 +85,7 @@ Kotlin には、アプリケーションで使用できる豊富な標準ライ�
 </build>
 ```
 
-ソースをコンパイルするには、Kotlin Maven Plugin を参照する必要があります。
+ソースをコンパイルするには、Kotlin Maven Pluginを参照する必要があります。
 
 ```xml
 <build>
@@ -115,17 +115,17 @@ Kotlin には、アプリケーションで使用できる豊富な標準ライ�
 </build>
 ```
 
-Kotlin 1.8.20 以降では、上記の `<executions>` 要素全体を `<extensions>true</extensions>` で置き換えることができます。拡張機能を有効にすると、`compile`、`test-compile`、`kapt`、`test-kapt` の各実行がビルドに自動的に追加され、それぞれの適切な[ライフサイクルフェーズ](https://maven.apache.org/guides/introduction/introduction-to-the-lifecycle.html)にバインドされます。実行を構成する必要がある場合は、その ID を指定する必要があります。この例は次のセクションにあります。
+Kotlin 1.8.20以降、上記の`<executions>`要素全体を`<extensions>true</extensions>`に置き換えることができます。エクステンションを有効にすると、`compile`、`test-compile`、`kapt`、`test-kapt` の各実行がビルドに自動的に追加され、それぞれの適切な[ライフサイクルフェーズ](https://maven.apache.org/guides/introduction/introduction-to-the-lifecycle.html)にバインドされます。実行を構成する必要がある場合は、そのIDを指定する必要があります。これの例は次のセクションで確認できます。
 
-> 複数のビルドプラグインがデフォルトのライフサイクルを上書きし、`extensions` オプションも有効にしている場合、`<build>` セクションの最後のプラグインがライフサイクル設定に関して優先されます。以前のライフサイクル設定への変更はすべて無視されます。
->
+> 複数のビルドプラグインがデフォルトのライフサイクルを上書きし、`extensions` オプションも有効にしている場合、`<build>` セクションの最後のプラグインがライフサイクル設定に関して優先されます。それ以前のライフサイクル設定への変更はすべて無視されます。
+> 
 {style="note"}
 
-<!-- The following header is used in the Mari link service. If you wish to change it here, change the link there too -->
+<!-- 以下のヘッダーはMariリンクサービスで使用されています。ここで変更する場合は、そちらのリンクも変更してください -->
 
-## KotlinとJavaのソースのコンパイル
+## KotlinおよびJavaソースのコンパイル
 
-Kotlin と Java のソースコードを含むプロジェクトをコンパイルするには、Java コンパイラの前に Kotlin コンパイラを呼び出します。Maven の用語では、これは `kotlin-maven-plugin` が `maven-compiler-plugin` の前に実行されるべきであることを意味します。以下の方法で、`pom.xml` ファイル内で `kotlin` プラグインが `maven-compiler-plugin` の前に来るようにします。
+KotlinとJavaのソースコードを含むプロジェクトをコンパイルするには、Javaコンパイラより前にKotlinコンパイラを呼び出します。Mavenの用語では、これは`kotlin-maven-plugin`が`maven-compiler-plugin`より先に実行されるべきであることを意味します。具体的には、`pom.xml` ファイルで `kotlin` プラグインが `maven-compiler-plugin` より前に来るように、以下の方法を使用します。
 
 ```xml
 <build>
@@ -134,12 +134,12 @@ Kotlin と Java のソースコードを含むプロジェクトをコンパイ�
             <groupId>org.jetbrains.kotlin</groupId>
             <artifactId>kotlin-maven-plugin</artifactId>
             <version>${kotlin.version}</version>
-            <extensions>true</extensions> <!-- ライフサイクルに関する情報を自動的に取得するようにこのオプションを設定できます -->
+            <extensions>true</extensions> <!-- このオプションを設定すると、ライフサイクルに関する情報が自動的に取得されます -->
             <executions>
                 <execution>
                     <id>compile</id>
                     <goals>
-                        <goal>compile</goal> <!-- プラグインの拡張機能を有効にする場合、<goals>要素を省略できます -->
+                        <goal>compile</goal> <!-- プラグインのエクステンションを有効にしている場合、<goals>要素をスキップできます -->
                     </goals>
                     <configuration>
                         <sourceDirs>
@@ -150,8 +150,8 @@ Kotlin と Java のソースコードを含むプロジェクトをコンパイ�
                 </execution>
                 <execution>
                     <id>test-compile</id>
-                    <goals>
-                        <goal>test-compile</goal> <!-- プラグインの拡張機能を有効にする場合、<goals>要素を省略できます -->
+                    <goals> 
+                        <goal>test-compile</goal> <!-- プラグインのエクステンションを有効にしている場合、<goals>要素をスキップできます -->
                     </goals>
                     <configuration>
                         <sourceDirs>
@@ -167,12 +167,12 @@ Kotlin と Java のソースコードを含むプロジェクトをコンパイ�
             <artifactId>maven-compiler-plugin</artifactId>
             <version>3.5.1</version>
             <executions>
-                <!-- Mavenで特別に扱われるためdefault-compileを置き換える -->
+                <!-- Mavenによって特別に扱われるdefault-compileを置き換える -->
                 <execution>
                     <id>default-compile</id>
                     <phase>none</phase>
                 </execution>
-                <!-- Mavenで特別に扱われるためdefault-testCompileを置き換える -->
+                <!-- Mavenによって特別に扱われるdefault-testCompileを置き換える -->
                 <execution>
                     <id>default-testCompile</id>
                     <phase>none</phase>
@@ -199,7 +199,7 @@ Kotlin と Java のソースコードを含むプロジェクトをコンパイ�
 
 ## インクリメンタルコンパイルの有効化
 
-ビルドを高速化するには、`kotlin.compiler.incremental` プロパティを追加することでインクリメンタルコンパイルを有効にすることができます。
+ビルドを高速化するには、`kotlin.compiler.incremental` プロパティを追加することでインクリメンタルコンパイルを有効にできます。
 
 ```xml
 <properties>
@@ -207,7 +207,7 @@ Kotlin と Java のソースコードを含むプロジェクトをコンパイ�
 </properties>
 ```
 
-または、`-Dkotlin.compiler.incremental=true` オプションを付けてビルドを実行します。
+あるいは、`-Dkotlin.compiler.incremental=true` オプションを付けてビルドを実行します。
 
 ## アノテーション処理の構成
 
@@ -215,7 +215,7 @@ Kotlin と Java のソースコードを含むプロジェクトをコンパイ�
 
 ## JARファイルの作成
 
-モジュールのコードのみを含む小さな JAR ファイルを作成するには、Maven の `pom.xml` ファイルの `build->plugins` に以下を含めます。ここで `main.class` はプロパティとして定義され、メインの Kotlin または Java クラスを指します。
+モジュールからのコードのみを含む小さなJARファイルを作成するには、Mavenの`pom.xml`ファイルの`build->plugins`の下に以下を含めます。ここで`main.class`はプロパティとして定義され、メインのKotlinまたはJavaクラスを指します。
 
 ```xml
 <plugin>
@@ -235,7 +235,7 @@ Kotlin と Java のソースコードを含むプロジェクトをコンパイ�
 
 ## 自己完結型JARファイルの作成
 
-モジュールのコードとその依存関係を含む自己完結型 JAR ファイルを作成するには、Maven の `pom.xml` ファイルの `build->plugins` に以下を含めます。ここで `main.class` はプロパティとして定義され、メインの Kotlin または Java クラスを指します。
+モジュールからのコードとその依存関係を含む自己完結型のJARファイルを作成するには、Mavenの`pom.xml`ファイルの`build->plugins`の下に以下を含めます。ここで`main.class`はプロパティとして定義され、メインのKotlinまたはJavaクラスを指します。
 
 ```xml
 <plugin>
@@ -262,7 +262,7 @@ Kotlin と Java のソースコードを含むプロジェクトをコンパイ�
 </plugin>
 ```
 
-この自己完結型 JAR ファイルは、アプリケーションを実行するために JRE に直接渡すことができます。
+この自己完結型のJARファイルは、アプリケーションを実行するためにJREに直接渡すことができます。
 
 ```bash
 java -jar target/mymodule-0.0.1-SNAPSHOT-jar-with-dependencies.jar
@@ -270,14 +270,14 @@ java -jar target/mymodule-0.0.1-SNAPSHOT-jar-with-dependencies.jar
 
 ## コンパイラオプションの指定
 
-コンパイラ用の追加オプションと引数は、Maven プラグインノードの `<configuration>` 要素下のタグとして指定できます。
+コンパイラ用の追加オプションと引数は、Mavenプラグインノードの`<configuration>`要素の下にタグとして指定できます。
 
 ```xml
 <plugin>
     <groupId>org.jetbrains.kotlin</groupId>
     <artifactId>kotlin-maven-plugin</artifactId>
     <version>${kotlin.version}</version>
-    <extensions>true</extensions> <!-- ビルドに実行を自動的に追加したい場合 -->
+    <extensions>true</extensions> <!-- ビルドへの実行の自動追加を有効にしたい場合 -->
     <executions>...</executions>
     <configuration>
         <nowarn>true</nowarn>  <!-- 警告を無効にする -->
@@ -289,7 +289,7 @@ java -jar target/mymodule-0.0.1-SNAPSHOT-jar-with-dependencies.jar
 </plugin>
 ```
 
-オプションの多くは、プロパティを通じて構成することもできます。
+多くのオプションは、プロパティを介して構成することもできます。
 
 ```xml
 <project ...>
@@ -303,25 +303,25 @@ java -jar target/mymodule-0.0.1-SNAPSHOT-jar-with-dependencies.jar
 
 ### JVM固有の属性
 
-| 名前              | プロパティ名                   | 説明                                                                                          | 使用可能な値                                 | デフォルト値                |
-|-------------------|---------------------------------|------------------------------------------------------------------------------------------------------|--------------------------------------------------|-----------------------------|
-| `nowarn`          |                                 | 警告を生成しない                                                                                 | true, false                                      | false                       |
-| `languageVersion` | kotlin.compiler.languageVersion | 指定されたKotlinのバージョンとのソース互換性を提供します                                    | "1.8", "1.9", "2.0", "2.1", "2.2" (EXPERIMENTAL) |                             |
-| `apiVersion`      | kotlin.compiler.apiVersion      | 指定されたバージョンのバンドルライブラリからの宣言のみを許可します                        | "1.8", "1.9", "2.0", "2.1", "2.2" (EXPERIMENTAL) |                             |
-| `sourceDirs`      |                                 | コンパイルするソースファイルを含むディレクトリ                                               |                                                  | プロジェクトのソースルート    |
-| `compilerPlugins` |                                 | 有効なコンパイラプラグイン                                                                             |                                                  | []                          |
-| `pluginOptions`   |                                 | コンパイラプラグインのオプション                                                                         |                                                  | []                          |
-| `args`            |                                 | 追加のコンパイラ引数                                                                        |                                                  | []                          |
-| `jvmTarget`       | `kotlin.compiler.jvmTarget`     | 生成されるJVMバイトコードのターゲットバージョン                                                         | "1.8", "9", "10", ..., "23"                      | "%defaultJvmTargetVersion%" |
-| `jdkHome`         | `kotlin.compiler.jdkHome`       | デフォルトのJAVA_HOMEの代わりに、指定された場所からカスタムJDKをクラスパスに含めます |                                                  |                             |
+| 名前              | プロパティ名                   | 説明                                                                                | 可能な値                                     | デフォルト値                |
+|-------------------|---------------------------------|-------------------------------------------------------------------------------------|----------------------------------------------|-----------------------------|
+| `nowarn`          |                                 | 警告を生成しない                                                                    | true, false                                  | false                       |
+| `languageVersion` | kotlin.compiler.languageVersion | 指定されたKotlinバージョンとのソース互換性を提供します                               | "1.8", "1.9", "2.0", "2.1", "2.2" (EXPERIMENTAL) |                             |
+| `apiVersion`      | kotlin.compiler.apiVersion      | 指定されたバージョンのバンドルされたライブラリからの宣言のみを使用できるようにします | "1.8", "1.9", "2.0", "2.1", "2.2" (EXPERIMENTAL) |                             |
+| `sourceDirs`      |                                 | コンパイルするソースファイルを含むディレクトリ                                      |                                              | プロジェクトのソースルート    |
+| `compilerPlugins` |                                 | 有効なコンパイラプラグイン                                                          |                                              | []                          |
+| `pluginOptions`   |                                 | コンパイラプラグインのオプション                                                    |                                              | []                          |
+| `args`            |                                 | 追加のコンパイラ引数                                                                |                                              | []                          |
+| `jvmTarget`       | `kotlin.compiler.jvmTarget`     | 生成されるJVMバイトコードのターゲットバージョン                                     | "1.8", "9", "10", ..., "24"                  | "%defaultJvmTargetVersion%" |
+| `jdkHome`         | `kotlin.compiler.jdkHome`       | デフォルトのJAVA_HOMEの代わりに、指定された場所からカスタムJDKをクラスパスに含めます |                                              |                             |
 
 ## BOMの使用
 
-Kotlin の [Bill of Materials (BOM)](https://maven.apache.org/guides/introduction/introduction-to-dependency-mechanism.html#bill-of-materials-bom-poms) を使用するには、[`kotlin-bom`](https://mvnrepository.com/artifact/org.jetbrains.kotlin/kotlin-bom) への依存関係を記述します。
+Kotlinの[Bill of Materials (BOM)](https://maven.apache.org/guides/introduction/introduction-to-dependency-mechanism.html#bill-of-materials-bom-poms)を使用するには、[`kotlin-bom`](https://mvnrepository.com/artifact/org.jetbrains.kotlin/kotlin-bom)への依存関係を記述します。
 
 ```xml
 <dependencyManagement>
-    <dependencies>
+    <dependencies>  
         <dependency>
             <groupId>org.jetbrains.kotlin</groupId>
             <artifactId>kotlin-bom</artifactId>
@@ -335,8 +335,8 @@ Kotlin の [Bill of Materials (BOM)](https://maven.apache.org/guides/introductio
 
 ## ドキュメントの生成
 
-標準の Javadoc 生成プラグイン (`maven-javadoc-plugin`) は Kotlin コードをサポートしていません。Kotlin プロジェクトのドキュメントを生成するには、[Dokka](https://github.com/Kotlin/dokka) を使用します。Dokka は多言語プロジェクトをサポートし、標準 Javadoc を含む複数の形式で出力を生成できます。Maven プロジェクトで Dokka を構成する方法の詳細については、[Maven](dokka-maven.md) を参照してください。
+標準のJavadoc生成プラグイン(`maven-javadoc-plugin`)はKotlinコードをサポートしていません。Kotlinプロジェクトのドキュメントを生成するには、[Dokka](https://github.com/Kotlin/dokka)を使用します。Dokkaは混在言語プロジェクトをサポートし、標準Javadocを含む複数の形式で出力を生成できます。MavenプロジェクトでDokkaを構成する方法の詳細については、[Maven](dokka-maven.md)を参照してください。
 
 ## OSGiサポートの有効化
 
-[Maven プロジェクトで OSGi サポートを有効にする方法](kotlin-osgi.md#maven)を学びましょう。
+[MavenプロジェクトでOSGiサポートを有効にする方法](kotlin-osgi.md#maven)を学びましょう。

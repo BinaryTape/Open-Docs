@@ -1,22 +1,21 @@
 [//]: # (title: 진행 보장)
 
-많은 동시성 알고리즘은 락-프리(lock-freedom) 및 대기-프리(wait-freedom)와 같은 논블로킹(non-blocking) 진행 보장을 제공합니다. 이러한 알고리즘은 일반적으로 간단하지 않기 때문에, 알고리즘을 블로킹하는 버그를 추가하기 쉽습니다. Lincheck은 모델 검증 전략을 사용하여 활성(liveness) 버그를 찾는 데 도움을 줄 수 있습니다.
+많은 동시성 알고리즘은 락-프리(lock-freedom) 및 웨이트-프리(wait-freedom)와 같은 논블로킹 진행 보장(non-blocking progress guarantees)을 제공합니다. 이러한 알고리즘은 대개 간단하지 않으므로, 알고리즘을 차단(block)하는 버그를 쉽게 추가할 수 있습니다. Lincheck은 모델 검사(model checking) 전략을 사용하여 라이브니스(liveness) 버그를 찾는 데 도움을 줄 수 있습니다.
 
-알고리즘의 진행 보장을 확인하려면 `ModelCheckingOptions()`에서 `checkObstructionFreedom` 옵션을 활성화하십시오.
+알고리즘의 진행 보장을 확인하려면, `ModelCheckingOptions()`에서 `checkObstructionFreedom` 옵션을 활성화하십시오:
 
 ```kotlin
 ModelCheckingOptions().checkObstructionFreedom()
 ```
 
-`ConcurrentMapTest.kt` 파일을 생성하세요.
-그런 다음 다음 테스트를 추가하여 자바 표준 라이브러리의 `ConcurrentHashMap::put(key: K, value: V)`가 블로킹 연산임을 감지할 수 있습니다.
+`ConcurrentMapTest.kt` 파일을 생성합니다.
+그런 다음 자바 표준 라이브러리의 `ConcurrentHashMap::put(key: K, value: V)`가 블로킹(blocking) 연산임을 감지하기 위해 다음 테스트를 추가합니다:
 
 ```kotlin
-import org.jetbrains.kotlinx.lincheck.*
-import org.jetbrains.kotlinx.lincheck.annotations.*
-import org.jetbrains.kotlinx.lincheck.strategy.managed.modelchecking.*
-import org.junit.*
 import java.util.concurrent.*
+import org.jetbrains.lincheck.*
+import org.jetbrains.lincheck.datastructures.*
+import org.junit.*
 
 class ConcurrentHashMapTest {
     private val map = ConcurrentHashMap<Int, Int>()
@@ -35,7 +34,7 @@ class ConcurrentHashMapTest {
 }
 ```
 
-`modelCheckingTest()`를 실행하세요. 다음 결과가 나타날 것입니다.
+`modelCheckingTest()`를 실행합니다. 다음 결과가 나타날 것입니다:
 
 ```text
 = Obstruction-freedom is required but a lock has been found =
@@ -73,7 +72,7 @@ The following interleaving leads to the error:
 | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 ```
 
-이제 논블로킹 `ConcurrentSkipListMap<K, V>`에 대한 테스트를 추가하고, 이 테스트가 성공적으로 통과할 것으로 예상합니다.
+이제 논블로킹(non-blocking) `ConcurrentSkipListMap<K, V>`에 대한 테스트를 추가하여, 테스트가 성공적으로 통과할 것으로 예상해 봅시다:
 
 ```kotlin
 class ConcurrentSkipListMapTest {
@@ -89,21 +88,21 @@ class ConcurrentSkipListMapTest {
 }
 ```
 
-> 일반적인 논블로킹 진행 보장은 다음과 같습니다 (강도 순):
+> 일반적인 논블로킹 진행 보장(non-blocking progress guarantees)은 (강도 순으로 가장 강한 것부터 가장 약한 것까지) 다음과 같습니다:
 >
-> * **대기-프리(wait-freedom)**: 다른 스레드가 무엇을 하든 각 연산이 유한한 단계 내에서 완료되는 경우.
-> * **락-프리(lock-freedom)**: 특정 연산은 멈출 수 있지만, 시스템 전체의 진행을 보장하여 최소한 하나의 연산이 유한한 단계 내에서 완료되는 경우.
-> * **방해-프리(obstruction-freedom)**: 다른 모든 스레드가 일시 중지될 경우 어떤 연산이든 유한한 단계 내에서 완료되는 경우.
+> *   **웨이트-프리(wait-freedom)**: 다른 스레드가 무엇을 하든 각 연산이 유한한 단계 내에 완료됩니다.
+> *   **락-프리(lock-freedom)**: 특정 연산이 정체될 수 있는 동안에도 최소한 하나의 연산이 유한한 단계 내에 완료되도록 시스템 전반의 진행을 보장합니다.
+> *   **옵스트럭션-프리(obstruction-freedom)**: 다른 모든 스레드가 일시 중지될 경우 어떤 연산이든 유한한 단계 내에 완료됩니다.
 >
 {style="tip"}
 
-현재로서는 Lincheck은 방해-프리 진행 보장만 지원합니다. 그러나 대부분의 실제 활성 버그는 예상치 못한 블로킹 코드를 추가하므로, 방해-프리 검사는 락-프리 및 대기-프리 알고리즘에도 도움이 될 것입니다.
+현재로서는 Lincheck은 옵스트럭션-프리(obstruction-freedom) 진행 보장만을 지원합니다. 그러나 대부분의 실제 라이브니스(liveness) 버그는 예상치 못한 블로킹(blocking) 코드를 추가하므로, 옵스트럭션-프리 검사는 락-프리(lock-free) 및 웨이트-프리(wait-free) 알고리즘에도 도움이 될 것입니다.
 
-> * [예제 전체 코드](https://github.com/JetBrains/lincheck/blob/master/src/jvm/test/org/jetbrains/kotlinx/lincheck_test/guide/ConcurrentMapTest.kt)를 확인하세요.
-> * [다른 예제](https://github.com/JetBrains/lincheck/blob/master/src/jvm/test/org/jetbrains/kotlinx/lincheck_test/guide/ObstructionFreedomViolationTest.kt)를 확인하세요. 여기서는 Michael-Scott 큐 구현의 진행 보장을 테스트합니다.
+> *   [예제 전체 코드](https://github.com/JetBrains/lincheck/blob/master/src/jvm/test-lincheck-integration/org/jetbrains/lincheck_test/guide/ConcurrentMapTest.kt)를 확인해 보세요.
+> *   마이클-스콧 큐(Michael-Scott queue) 구현의 진행 보장을 테스트하는 [다른 예제](https://github.com/JetBrains/lincheck/blob/master/src/jvm/test-lincheck-integration/org/jetbrains/lincheck_test/guide/ObstructionFreedomViolationTest.kt)를 확인해 보세요.
 >
 {style="note"}
 
 ## 다음 단계
 
-테스트 알고리즘의 [순차 사양](sequential-specification.md)을 명시적으로 지정하는 방법을 알아보세요. 이를 통해 Lincheck 테스트의 견고성을 향상시킬 수 있습니다.
+Lincheck 테스트의 견고성을 향상시키기 위해, 테스트 알고리즘의 [순차적 사양(sequential specification)을 명시적으로 지정](sequential-specification.md)하는 방법을 알아보세요.

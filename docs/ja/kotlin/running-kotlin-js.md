@@ -1,7 +1,8 @@
-[//]: # (title: Kotlin/JSを実行する)
+[//]: # (title: Kotlin/JS の実行)
 
-Kotlin/JSプロジェクトはKotlin Multiplatform Gradleプラグインで管理されているため、適切なタスクを使用してプロジェクトを実行できます。空のプロジェクトから始める場合は、実行するサンプルコードを確実に用意してください。
-`src/jsMain/kotlin/App.kt` ファイルを作成し、小さな「Hello, World」タイプのコードスニペットを記入してください。
+Kotlin/JS プロジェクトは Kotlin Multiplatform Gradle プラグインで管理されているため、適切なタスクを使用してプロジェクトを実行できます。
+空のプロジェクトから開始する場合は、実行するためのサンプルコードがあることを確認してください。
+`src/jsMain/kotlin/App.kt` ファイルを作成し、小さな「Hello, World」型のコードスニペットを入力してください。
 
 ```kotlin
 fun main() {
@@ -9,28 +10,31 @@ fun main() {
 }
 ```
 
-ターゲットプラットフォームによっては、コードを初めて実行するためにプラットフォーム固有の追加設定が必要になる場合があります。
+ターゲットプラットフォームによっては、初めてコードを実行するためにプラットフォーム固有の追加セットアップが必要になる場合があります。
 
-## Node.jsターゲットを実行する
+## Node.jsターゲットの実行
 
-Kotlin/JSでNode.jsをターゲットにする場合、`jsNodeDevelopmentRun` Gradleタスクを単に実行できます。これは例えば、Gradleラッパーを使用してコマンドラインから実行できます。
+Kotlin/JS で Node.js をターゲットにする場合、`jsNodeDevelopmentRun` Gradle タスクを実行するだけで済みます。
+これは、たとえば Gradle wrapper を使用してコマンドラインから実行できます。
 
 ```bash
 ./gradlew jsNodeDevelopmentRun
 ```
 
-IntelliJ IDEAを使用している場合、`jsNodeDevelopmentRun` アクションはGradleツールウィンドウで見つけることができます。
+IntelliJ IDEA を使用している場合、`jsNodeDevelopmentRun` アクションは Gradle ツールウィンドウにあります。
 
 ![Gradle Run task in IntelliJ IDEA](run-gradle-task.png){width=700}
 
-初回起動時に、`kotlin.multiplatform` Gradleプラグインは、実行を開始するために必要なすべての依存関係をダウンロードします。ビルドが完了すると、プログラムが実行され、ターミナルでロギング出力を確認できます。
+最初の起動時に、`kotlin.multiplatform` Gradle プラグインが必要な依存関係をすべてダウンロードし、すぐに開始できるようにします。
+ビルドが完了するとプログラムが実行され、ターミナルでログ出力が表示されます。
 
 ![Executing the JS target in a Kotlin Multiplatform project in IntelliJ IDEA](cli-output.png){width=700}
 
-## ブラウザターゲットを実行する
+## ブラウザターゲットの実行
 
-ブラウザをターゲットにする場合、プロジェクトにはHTMLページが必要です。このページは、アプリケーションの作業中に開発サーバーによって提供され、コンパイルされたKotlin/JSファイルを埋め込む必要があります。
-`/src/jsMain/resources/index.html` というHTMLファイルを作成し、記入してください。
+ブラウザをターゲットにする場合、プロジェクトには HTML ページが必要です。
+このページは、アプリケーションの作業中に開発サーバーによって提供され、コンパイルされた Kotlin/JS ファイルを埋め込む必要があります。
+HTML ファイル `/src/jsMain/resources/index.html` を作成し、入力してください。
 
 ```html
 <!DOCTYPE html>
@@ -45,20 +49,22 @@ IntelliJ IDEAを使用している場合、`jsNodeDevelopmentRun` アクショ�
 </html>
 ```
 
-デフォルトでは、参照する必要があるプロジェクトの生成された成果物(webpackを通じて作成される)の名前はプロジェクト名です(この場合、`js-tutorial`)。プロジェクトを`followAlong`という名前で作成した場合、`js-tutorial.js`の代わりに`followAlong.js`を埋め込むようにしてください。
+デフォルトでは、参照する必要があるプロジェクトの生成されたアーティファクト（webpack を介して作成されます）の名前は、プロジェクト名（この場合は `js-tutorial`）です。
+プロジェクト名を `followAlong` とした場合、`js-tutorial.js` の代わりに `followAlong.js` を埋め込むようにしてください。
 
-これらの調整を行った後、統合開発サーバーを起動します。これは、Gradleラッパーを通じてコマンドラインから実行できます。
+これらの調整を行った後、統合開発サーバーを起動します。これは、Gradle wrapper を介してコマンドラインから実行できます。
 
 ```bash
 ./gradlew jsBrowserDevelopmentRun
 ```
 
-IntelliJ IDEAから作業している場合、`jsBrowserDevelopmentRun` アクションはGradleツールウィンドウで見つけることができます。
+IntelliJ IDEA から作業する場合、`jsBrowserDevelopmentRun` アクションは Gradle ツールウィンドウにあります。
 
-プロジェクトがビルドされると、埋め込まれた`webpack-dev-server`が実行を開始し、以前に指定したHTMLファイルを指す(一見すると空の)ブラウザウィンドウが開きます。プログラムが正しく実行されていることを検証するには、ブラウザの開発者ツール(例えば右クリックして_Inspect_アクションを選択する)を開きます。
-開発者ツール内で、コンソールに移動すると、実行されたJavaScriptコードの結果を確認できます。
+プロジェクトがビルドされた後、組み込みの `webpack-dev-server` が起動し、以前に指定した HTML ファイルを指す（一見空の）ブラウザウィンドウが開きます。
+プログラムが正しく実行されていることを検証するには、ブラウザの開発者ツールを開きます（たとえば、右クリックして _Inspect_ アクションを選択します）。
+開発者ツール内でコンソールに移動すると、実行された JavaScript コードの結果が表示されます。
 
 ![Console output in browser developer tools](browser-console-output.png){width=700}
 
-この設定により、コード変更後にプロジェクトを再コンパイルして変更を確認できます。Kotlin/JSはまた、開発中にアプリケーションを自動的に再構築するより便利な方法もサポートしています。
-この_継続モード_を設定する方法については、[対応するチュートリアル](dev-server-continuous-compilation.md)を確認してください。
+このセットアップを使用すると、コードを変更するたびにプロジェクトを再コンパイルして変更を確認できます。Kotlin/JS は、開発中にアプリケーションを自動的にリビルドするより便利な方法もサポートしています。
+この _継続モード_ の設定方法については、[対応するチュートリアル](dev-server-continuous-compilation.md) を確認してください。

@@ -1,7 +1,6 @@
 import { DocsTypeConfig } from '../docs.config';
 import { SiteLocaleConfig } from '../locales.config';
-import generateSidebarItems from '../config/sidebar.config';
-import { resolve } from 'path';
+import generateSidebar from '../config/sidebar.config';
 
 /**
  * 根据相对路径获取侧栏标题
@@ -53,7 +52,7 @@ export function getSidebarTitle(relativePath: string): string | undefined {
   }
 
   // 获取对应语言和区域的侧栏配置
-  const sidebarConfig = generateSidebarItems(SiteLocaleConfig[locale], docType);
+  const sidebarConfig = generateSidebar(SiteLocaleConfig[locale], docType);
   
   // 在侧栏配置中查找匹配的项
   return findTitleInSidebar(sidebarConfig, pathWithoutExt.substring(section.length + 1));

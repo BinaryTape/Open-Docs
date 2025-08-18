@@ -1,15 +1,15 @@
-[//]: # (title: Enumクラス)
+[//]: # (title: 列挙型クラス)
 
-enumクラスの最も基本的なユースケースは、型安全な列挙型の実装です。
+列挙型クラスの最も基本的なユースケースは、型安全な列挙型の実装です。
 
 ```kotlin
 enum class Direction {
     NORTH, SOUTH, WEST, EAST
 }
 ```
-各列挙定数はオブジェクトです。列挙定数はコンマで区切られます。
+各列挙定数はオブジェクトです。列挙定数はカンマで区切られます。
 
-各列挙型はenumクラスのインスタンスであるため、次のように初期化できます。
+各列挙型は列挙型クラスのインスタンスであるため、次のように初期化できます。
 
 ```kotlin
 enum class Color(val rgb: Int) {
@@ -21,7 +21,7 @@ enum class Color(val rgb: Int) {
 
 ## 匿名クラス
 
-列挙定数は、対応するメソッドを持つ独自の匿名クラスを宣言したり、基底メソッドをオーバーライドしたりできます。
+列挙定数は、対応するメソッドだけでなく、基底メソッドのオーバーライドも伴う独自の匿名クラスを宣言できます。
 
 ```kotlin
 enum class ProtocolState {
@@ -37,11 +37,12 @@ enum class ProtocolState {
 }
 ```
 
-enumクラスがメンバーを定義する場合、定数の定義とメンバーの定義はセミコロンで区切ります。
+列挙型クラスがメンバを定義する場合、定数定義とメンバ定義をセミコロンで区切ります。
 
-## enumクラスでのインターフェースの実装
+## 列挙型クラスでのインターフェースの実装
 
-enumクラスはインターフェースを実装できます（ただし、クラスから派生することはできません）。その際、すべてのエントリに対してインターフェースメンバーの共通の実装を提供するか、各エントリの匿名クラス内で個別の実装を提供できます。これは、実装したいインターフェースを次のようにenumクラス宣言に追加することで行われます。
+列挙型クラスはインターフェースを実装できます（ただし、クラスから派生することはできません）。その際、すべてのエントリに対して共通のインターフェースメンバの実装を提供することも、各エントリの匿名クラス内で個別の実装を提供することも可能です。
+これは、実装したいインターフェースを列挙型クラスの宣言に次のように追加することで行います。
 
 ```kotlin
 import java.util.function.BinaryOperator
@@ -70,18 +71,18 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.9"}
 
-すべてのenumクラスは、デフォルトで[Comparable](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-comparable/index.html)インターフェースを実装します。enumクラスの定数は自然順序で定義されます。詳細については、[Ordering](collection-ordering.md)を参照してください。
+すべての列挙型クラスは、デフォルトで [Comparable](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-comparable/index.html) インターフェースを実装します。列挙型クラスの定数は、自然な順序で定義されます。詳細については、[Ordering (順序付け)](collection-ordering.md) を参照してください。
 
 ## 列挙定数の操作
 
-Kotlinのenumクラスには、定義された列挙定数をリスト化したり、名前で列挙定数を取得したりするための合成プロパティとメソッドがあります。これらのメソッドのシグネチャは次のとおりです（enumクラスの名前が`EnumClass`であると仮定します）。
+Kotlin の列挙型クラスには、定義された列挙定数を列挙したり、名前で列挙定数を取得したりするための合成プロパティとメソッドがあります。これらのメソッドのシグネチャは次のとおりです（列挙型クラスの名前が `EnumClass` であると仮定して）。
 
 ```kotlin
 EnumClass.valueOf(value: String): EnumClass
 EnumClass.entries: EnumEntries<EnumClass> // specialized List<EnumClass>
 ```
 
-以下に、それらが実際に動作する例を示します。
+以下に、それらの動作例を示します。
 
 ```kotlin
 enum class RGB { RED, GREEN, BLUE }
@@ -93,11 +94,11 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.9" id="rgb-enums-kotlin"}
 
-`valueOf()`メソッドは、指定された名前がクラスで定義された列挙定数のいずれにも一致しない場合、`IllegalArgumentException`をスローします。
+`valueOf()` メソッドは、指定された名前がクラスで定義された列挙定数のいずれにも一致しない場合、`IllegalArgumentException` をスローします。
 
-Kotlin 1.9.0で`entries`が導入される前は、`values()`関数が列挙定数の配列を取得するために使用されていました。
+Kotlin 1.9.0 で `entries` が導入される以前は、`values()` 関数が列挙定数の配列を取得するために使用されていました。
 
-すべての列挙定数には、その名前とenumクラス宣言での位置（0から始まる）を取得するためのプロパティ[`name`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-enum/name.html)と[`ordinal`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-enum/ordinal.html)もあります。
+各列挙定数には、列挙型クラス宣言におけるその名前と位置（0から始まる）を取得するための、[`name`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-enum/name.html) および [`ordinal`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-enum/ordinal.html) プロパティも存在します。
 
 ```kotlin
 enum class RGB { RED, GREEN, BLUE }
@@ -111,9 +112,17 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="rgb-enums-properties-kotlin"}
 
-[`enumValues<T>()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/enum-values.html)関数と[`enumValueOf<T>()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/enum-value-of.html)関数を使用すると、enumクラスの定数にジェネリックな方法でアクセスできます。Kotlin 2.0.0では、[`enumValues<T>()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/enum-values.html)関数の代替として[`enumEntries<T>()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.enums/enum-entries.html)関数が導入されました。`enumEntries<T>()`関数は、指定されたenum型`T`のすべての列挙エントリのリストを返します。
+> 列挙エントリを扱う際の繰り返しを減らすために、コンテキスト依存の解決（現在プレビュー中）を試してみてください。
+> この機能を使用すると、`when` 式や型付けされた変数への代入など、期待される型が既知の場合に列挙型クラス名を省略できます。
+>
+> 詳細については、[コンテキスト依存の解決のプレビュー](whatsnew22.md#preview-of-context-sensitive-resolution) または関連する [KEEP提案](https://github.com/Kotlin/KEEP/blob/improved-resolution-expected-type/proposals/context-sensitive-resolution.md) を参照してください。
+>
+{style="tip"}
 
-`enumValues<T>()`関数はまだサポートされていますが、パフォーマンスへの影響が少ないため、代わりに`enumEntries<T>()`関数を使用することをお勧めします。`enumValues<T>()`を呼び出すたびに新しい配列が作成されるのに対し、`enumEntries<T>()`を呼び出すたびに毎回同じリストが返されるため、はるかに効率的です。
+[`enumValues<T>()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/enum-values.html) および [`enumValueOf<T>()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/enum-value-of.html) 関数を使用して、列挙型クラスの定数にジェネリックな方法でアクセスできます。
+Kotlin 2.0.0 では、[`enumValues<T>()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/enum-values.html) 関数の代替として [`enumEntries<T>()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.enums/enum-entries.html) 関数が導入されました。`enumEntries<T>()` 関数は、指定された列挙型 `T` のすべての列挙エントリのリストを返します。
+
+`enumValues<T>()` 関数は引き続きサポートされていますが、`enumEntries<T>()` 関数の方がパフォーマンスへの影響が少ないため、代わりに使用することをお勧めします。`enumValues<T>()` を呼び出すたびに新しい配列が作成されますが、`enumEntries<T>()` を呼び出す場合は毎回同じリストが返され、はるかに効率的です。
 
 例:
 
@@ -127,6 +136,6 @@ inline fun <reified T : Enum<T>> printAllValues() {
 printAllValues<RGB>() 
 // RED, GREEN, BLUE
 ```
-> インライン関数と実体化された型パラメータに関する詳細については、[インライン関数](inline-functions.md)を参照してください。
+> インライン関数と実体化された型パラメータの詳細については、[インライン関数](inline-functions.md) を参照してください。
 >
 > {style="tip"}

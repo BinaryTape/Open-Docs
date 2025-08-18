@@ -2,29 +2,29 @@
 
 <primary-label ref="advanced"/>
 
-`kotlin-metadata-jvm`ライブラリは、JVM向けにコンパイルされたKotlinクラスからメタデータを読み取り、変更し、生成するためのツールを提供します。
-このメタデータは、`.class`ファイル内の[`@Metadata`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-metadata/)アノテーションに保存されており、
-[`kotlin-reflect`](reflection.md)などのライブラリやツールによって、プロパティ、関数、クラスといったKotlin固有の構造を実行時に検査するために使用されます。
+[`kotlin-metadata-jvm`](https://github.com/JetBrains/kotlin/tree/master/libraries/kotlinx-metadata/jvm)ライブラリは、JVM向けにコンパイルされたKotlinクラスからメタデータを読み取り、変更し、生成するためのツールを提供します。
+`.class`ファイル内の[`@Metadata`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-metadata/)アノテーションに格納されているこのメタデータは、
+[`kotlin-reflect`](reflection.md)などのライブラリやツールによって、プロパティ、関数、クラスといったKotlin固有の構成要素をランタイムで検査するために使用されます。
 
-> `kotlin-reflect`ライブラリは、実行時にKotlin固有のクラス詳細を取得するためにメタデータに依存しています。
-> メタデータと実際の`.class`ファイルとの間に不整合があると、リフレクションを使用する際に誤った動作につながる可能性があります。
+> `kotlin-reflect`ライブラリは、ランタイムでKotlin固有のクラス詳細を取得するためにメタデータに依存しています。
+> メタデータと実際の`.class`ファイルとの間に不整合があると、リフレクション使用時に誤った動作を引き起こす可能性があります。
 > 
 {style="warning"}
 
-Kotlin Metadata JVMライブラリを使用して、可視性やモダリティなど、さまざまな宣言属性を検査したり、メタデータを生成して`.class`ファイルに埋め込んだりすることもできます。
+Kotlin Metadata JVMライブラリを使用して、可視性やモダリティなどのさまざまな宣言属性を検査したり、メタデータを生成して`.class`ファイルに組み込んだりすることもできます。
 
 ## プロジェクトにライブラリを追加する
 
-Kotlin Metadata JVMライブラリをプロジェクトに含めるには、使用するビルドツールに基づいて対応する依存関係設定を追加します。
+Kotlin Metadata JVMライブラリをプロジェクトに含めるには、使用しているビルドツールに基づいて対応する依存関係の構成を追加します。
 
 > Kotlin Metadata JVMライブラリは、Kotlinコンパイラおよび標準ライブラリと同じバージョン管理に従います。
-> 使用するバージョンが、プロジェクトのKotlinバージョンと一致していることを確認してください。
+> 使用するバージョンがプロジェクトのKotlinバージョンと一致していることを確認してください。
 > 
 {style="note"}
 
 ### Gradle
 
-`build.gradle(.kts)`ファイルに次の依存関係を追加します。
+以下の依存関係を`build.gradle(.kts)`ファイルに追加します。
 
 <tabs group="build-tool">
 <tab title="Kotlin" group-key="kotlin">
@@ -58,7 +58,7 @@ dependencies {
 
 ### Maven
 
-`pom.xml`ファイルに次の依存関係を追加します。
+以下の依存関係を`pom.xml`ファイルに追加します。
 
 ```xml
 <project>
@@ -73,13 +73,13 @@ dependencies {
 </project>
 ```
 
-## メタデータを読み取り、解析する
+## メタデータを読み取り、パースする
 
-`kotlin-metadata-jvm`ライブラリは、コンパイルされたKotlin `.class`ファイルから、クラス名、可視性、シグネチャなどの構造化された情報を抽出します。
-これは、コンパイルされたKotlin宣言を分析する必要があるプロジェクトで使用できます。
-例えば、[Binary Compatibility Validator (BCV)](https://github.com/Kotlin/binary-compatibility-validator)は、公開API宣言を出力するために`kotlin-metadata-jvm`に依存しています。
+`kotlin-metadata-jvm`ライブラリは、コンパイルされたKotlinの`.class`ファイルから、クラス名、可視性、シグネチャなどの構造化された情報を抽出します。
+コンパイルされたKotlinの宣言を分析する必要があるプロジェクトでこれを使用できます。
+例えば、[Binary Compatibility Validator (BCV)](https://github.com/Kotlin/binary-compatibility-validator)は、`kotlin-metadata-jvm`に依存して公開API宣言を出力します。
 
-コンパイルされたクラスからリフレクションを使用して`@Metadata`アノテーションを取得することで、Kotlinクラスメタデータの探索を開始できます。
+コンパイルされたクラスからリフレクションを使用して`@Metadata`アノテーションを取得することで、Kotlinクラスのメタデータの調査を開始できます。
 
 ```kotlin
 fun main() {
@@ -98,24 +98,24 @@ fun main() {
 }
 ```
 
-`@Metadata`アノテーションを取得した後、[`KotlinClassMetadata`](https://kotlinlang.org/api/kotlinx-metadata-jvm/kotlin-metadata-jvm/kotlin.metadata.jvm/-kotlin-class-metadata/) APIの[`readLenient()`](https://kotlinlang.org/api/kotlinx-metadata-jvm/kotlin-metadata-jvm/kotlin.metadata.jvm/-kotlin-class-metadata/-companion/read-lenient.html)関数または[`readStrict()`](https://kotlinlang.org/api/kotlinx-metadata-jvm/kotlin-metadata-jvm/kotlin.metadata.jvm/-kotlin-class-metadata/-companion/read-strict.html)関数を使用して解析します。
-これらの関数は、さまざまな互換性要件に対応しながら、クラスやファイルに関する詳細な情報を抽出します。
+`@Metadata`アノテーションを取得したら、[`KotlinClassMetadata`](https://kotlinlang.org/api/kotlinx-metadata-jvm/kotlin-metadata-jvm/kotlin.metadata.jvm/-kotlin-class-metadata/) APIの[`readLenient()`](https://kotlinlang.org/api/kotlinx-metadata-jvm/kotlin-metadata-jvm/kotlin.metadata.jvm/-kotlin-class-metadata/-companion/read-lenient.html)または[`readStrict()`](https://kotlinlang.org/api/kotlinx-metadata-jvm/kotlin-metadata-jvm/kotlin.metadata.jvm/-kotlin-class-metadata/-companion/read-strict.html)関数のいずれかを使用してそれをパースします。
+これらの関数は、異なる互換性要件に対応しながら、クラスやファイルに関する詳細情報を抽出します。
 
-*   `readLenient()`: この関数は、より新しいKotlinコンパイラバージョンによって生成されたメタデータを含め、メタデータを読み取るために使用します。この関数は、メタデータの変更や書き込みをサポートしていません。
-*   `readStrict()`: メタデータを変更および書き込む必要がある場合、この関数を使用します。`readStrict()`関数は、プロジェクトで完全にサポートされているKotlinコンパイラバージョンによって生成されたメタデータでのみ動作します。
+*   `readLenient()`: この関数は、新しいKotlinコンパイラバージョンによって生成されたメタデータを含むメタデータを読み取るために使用します。この関数はメタデータの変更や書き込みをサポートしていません。
+*   `readStrict()`: この関数は、メタデータを変更および書き込む必要がある場合に使用します。`readStrict()`関数は、プロジェクトによって完全にサポートされているKotlinコンパイラバージョンによって生成されたメタデータでのみ動作します。
 
-    > `readStrict()`関数は、プロジェクトで使用されている最新のKotlinバージョンに対応する[`JvmMetadataVersion.LATEST_STABLE_SUPPORTED`](https://kotlinlang.org/api/kotlinx-metadata-jvm/kotlin-metadata-jvm/kotlin.metadata.jvm/-jvm-metadata-version/-companion/-l-a-t-e-s-t_-s-t-a-b-l-e_-s-u-p-p-o-r-t-e-d.html)の1バージョン先までのメタデータ形式をサポートします。
-    > 例えば、プロジェクトが`kotlin-metadata-jvm:2.1.0`に依存している場合、`readStrict()`はKotlin `2.2.x`までのメタデータを処理できます。そうでない場合、未知の形式の誤処理を防ぐためにエラーをスローします。
+    > `readStrict()`関数は、プロジェクトで使用されている最新のKotlinバージョンに対応する[`JvmMetadataVersion.LATEST_STABLE_SUPPORTED`](https://kotlinlang.org/api/kotlinx-metadata-jvm/kotlin-metadata-jvm/kotlin.metadata.jvm/-jvm-metadata-version/-companion/-l-a-t-e-s-t_-s-t-a-b-l-e_-s-u-p-p-o-r-t-e-d.html)より1つ先のバージョンまでのメタデータ形式をサポートしています。
+    > 例えば、プロジェクトが`kotlin-metadata-jvm:2.1.0`に依存している場合、`readStrict()`はKotlin `2.2.x`までのメタデータを処理できます。そうでない場合、不明な形式の誤処理を防ぐためにエラーをスローします。
     > 
-    > 詳細については、[Kotlin Metadata GitHubリポジトリ](https://github.com/JetBrains/kotlin/blob/master/libraries/kotlinx-metadata/jvm/ReadMe.md#detailed-explanation)を参照してください。 
+    > 詳細については、[Kotlin Metadata GitHubリポジトリ](https://github.com/JetBrains/kotlin/blob/master/libraries/kotlinx-metadata/jvm/ReadMe.md#detailed-explanation)を参照してください。
     >
     {style="note"}
 
-メタデータを解析する際、`KotlinClassMetadata`インスタンスは、クラスまたはファイルレベルの宣言に関する構造化された情報を提供します。
+メタデータをパースする際、`KotlinClassMetadata`インスタンスはクラスまたはファイルレベルの宣言に関する構造化された情報を提供します。
 クラスの場合、[`kmClass`](https://kotlinlang.org/api/kotlinx-metadata-jvm/kotlin-metadata-jvm/kotlin.metadata.jvm/-kotlin-class-metadata/-class/km-class.html)プロパティを使用して、クラス名、関数、プロパティ、可視性などの属性といった詳細なクラスレベルのメタデータを分析します。
-ファイルレベルの宣言の場合、メタデータは`kmPackage`プロパティによって表現され、これにはKotlinコンパイラによって生成されたファイルファサードからのトップレベル関数とプロパティが含まれます。
+ファイルレベルの宣言の場合、メタデータは`kmPackage`プロパティによって表され、Kotlinコンパイラによって生成されたファイルファサードのトップレベルの関数とプロパティが含まれます。
 
-次のコード例は、`readLenient()`を使用してメタデータを解析し、`kmClass`でクラスレベルの詳細を分析し、`kmPackage`でファイルレベルの宣言を取得する方法を示しています。
+次のコード例は、`readLenient()`を使用してメタデータをパースし、`kmClass`でクラスレベルの詳細を分析し、`kmPackage`でファイルレベルの宣言を取得する方法を示しています。
 
 ```kotlin
 // Imports the necessary libraries
@@ -173,18 +173,88 @@ fun main() {
 }
 ```
 
+### メタデータ内のアノテーションの書き込みと読み取り
+<primary-label ref="experimental-general"/>
+
+Kotlinメタデータにアノテーションを格納し、`kotlin-metadata-jvm`ライブラリを使用してそれらにアクセスできます。
+これにより、シグネチャによるアノテーションの一致の必要がなくなり、オーバーロードされた宣言へのアクセスがより信頼性の高いものになります。
+
+コンパイルされたファイルのメタデータでアノテーションを利用できるようにするには、以下のコンパイラオプションを追加します。
+
+```kotlin
+-Xannotations-in-metadata
+```
+
+あるいは、Gradleビルドファイルの`compilerOptions {}`ブロックに追加することもできます。
+
+```kotlin
+// build.gradle.kts
+kotlin {
+    compilerOptions {
+        freeCompilerArgs.add("-Xannotations-in-metadata")
+    }
+}
+```
+
+このオプションを有効にすると、KotlinコンパイラはJVMバイトコードと並行してメタデータにアノテーションを書き込み、それらが`kotlin-metadata-jvm`ライブラリからアクセス可能になります。
+
+ライブラリは、アノテーションにアクセスするための以下のAPIを提供します。
+
+*   `KmClass.annotations`
+*   `KmFunction.annotations`
+*   `KmProperty.annotations`
+*   `KmConstructor.annotations`
+*   `KmPropertyAccessorAttributes.annotations`
+*   `KmValueParameter.annotations`
+*   `KmFunction.extensionReceiverAnnotations`
+*   `KmProperty.extensionReceiverAnnotations`
+*   `KmProperty.backingFieldAnnotations`
+*   `KmProperty.delegateFieldAnnotations`
+*   `KmEnumEntry.annotations`
+
+これらのAPIは[実験的](components-stability.md#stability-levels-explained)です。
+オプトインするには、`@OptIn(ExperimentalAnnotationsInMetadata::class)`アノテーションを使用します。
+
+以下は、Kotlinメタデータからアノテーションを読み取る例です。
+
+```kotlin
+@file:OptIn(ExperimentalAnnotationsInMetadata::class)
+
+import kotlin.metadata.ExperimentalAnnotationsInMetadata
+import kotlin.metadata.jvm.KotlinClassMetadata
+
+annotation class Label(val value: String)
+
+@Label("Message class")
+class Message
+
+fun main() {
+    val metadata = Message::class.java.getAnnotation(Metadata::class.java)
+    val kmClass = (KotlinClassMetadata.readStrict(metadata) as KotlinClassMetadata.Class).kmClass
+    println(kmClass.annotations)
+    // [@Label(value = StringValue("Message class"))]
+}
+```
+
+> プロジェクトで`kotlin-metadata-jvm`ライブラリを使用している場合は、アノテーションをサポートするためにコードを更新およびテストすることをお勧めします。
+> そうしないと、将来のKotlinバージョンでメタデータ内のアノテーションが[デフォルトで有効](https://youtrack.jetbrains.com/issue/KT-75736)になった場合、プロジェクトが無効なまたは不完全なメタデータを生成する可能性があります。
+>
+> 問題が発生した場合は、[課題トラッカー](https://youtrack.jetbrains.com/issue/KT-31857)にご報告ください。
+>
+{style="warning"}
+
 ### バイトコードからメタデータを抽出する
 
-リフレクションを使用してメタデータを取得できる一方で、もう1つのアプローチは、[ASM](https://asm.ow2.io/)のようなバイトコード操作フレームワークを使用してバイトコードからメタデータを抽出することです。
+リフレクションを使用してメタデータを取得することもできますが、別の方法として、[ASM](https://asm.ow2.io/)などのバイトコード操作フレームワークを使用してバイトコードから抽出する方法があります。
 
-次のステップに従って、これを行うことができます。
+これを行うには、以下の手順に従います。
 
-1.  ASMライブラリの`ClassReader`クラスを使用して、`.class`ファイルのバイトコードを読み取ります。このクラスはコンパイルされたファイルを処理し、クラス構造を表す`ClassNode`オブジェクトを生成します。
-2.  `ClassNode`オブジェクトから`@Metadata`を抽出します。以下の例では、このためにカスタム拡張関数`findAnnotation()`を使用しています。
-3.  抽出されたメタデータを`KotlinClassMetadata.readLenient()`関数を使用して解析します。
-4.  `kmClass`および`kmPackage`プロパティで解析されたメタデータを検査します。
+1.  ASMライブラリの`ClassReader`クラスを使用して、`.class`ファイルのバイトコードを読み取ります。このクラスは、コンパイルされたファイルを処理し、クラス構造を表す`ClassNode`オブジェクトを生成します。
+2.  `ClassNode`オブジェクトから`@Metadata`を抽出します。以下の例では、これにカスタム拡張関数`findAnnotation()`を使用しています。
+3.  抽出されたメタデータを`KotlinClassMetadata.readLenient()`関数を使用してパースします。
+4.  パースされたメタデータを`kmClass`および`kmPackage`プロパティで検査します。
 
-例を次に示します。
+以下に例を示します。
 
 ```kotlin
 // Imports the necessary libraries
@@ -266,19 +336,19 @@ fun main() {
 
 ## メタデータを変更する
 
-[ProGuard](https://github.com/Guardsquare/proguard)のようなツールを使用してバイトコードを縮小および最適化する際、一部の宣言が`.class`ファイルから削除される可能性があります。
-ProGuardは、変更されたバイトコードと一貫性を保つためにメタデータを自動的に更新します。
+[ProGuard](https://github.com/Guardsquare/proguard)のようなツールを使用してバイトコードを縮小および最適化する場合、一部の宣言が`.class`ファイルから削除されることがあります。
+ProGuardは、変更されたバイトコードと整合性を保つためにメタデータを自動的に更新します。
 
-しかし、同様の方法でKotlinバイトコードを変更するカスタムツールを開発している場合、メタデータがそれに応じて調整されることを確認する必要があります。
-`kotlin-metadata-jvm`ライブラリを使用すると、宣言の更新、属性の調整、特定の要素の削除が可能です。
+ただし、Kotlinバイトコードを同様の方法で変更するカスタムツールを開発している場合、メタデータがそれに応じて調整されることを確認する必要があります。
+`kotlin-metadata-jvm`ライブラリを使用すると、宣言を更新したり、属性を調整したり、特定の要素を削除したりできます。
 
-例えば、Javaクラスファイルからプライベートメソッドを削除するJVMツールを使用する場合、一貫性を保つためにKotlinメタデータからもプライベート関数を削除する必要があります。
+例えば、Javaクラスファイルからprivateメソッドを削除するJVMツールを使用する場合、整合性を維持するためにKotlinメタデータからもprivate関数を削除する必要があります。
 
-1.  `readStrict()`関数を使用して`@Metadata`アノテーションを構造化された`KotlinClassMetadata`オブジェクトにロードし、メタデータを解析します。
-2.  関数をフィルタリングしたり、属性を変更したりするなど、`kmClass`または他のメタデータ構造内で直接メタデータを調整して変更を適用します。
+1.  `readStrict()`関数を使用してメタデータをパースし、`@Metadata`アノテーションを構造化された`KotlinClassMetadata`オブジェクトにロードします。
+2.  `kmClass`またはその他のメタデータ構造内で直接、関数をフィルタリングしたり属性を変更したりするなど、メタデータを調整して変更を適用します。
 3.  [`write()`](https://kotlinlang.org/api/kotlinx-metadata-jvm/kotlin-metadata-jvm/kotlin.metadata.jvm/-kotlin-class-metadata/write.html)関数を使用して、変更されたメタデータを新しい`@Metadata`アノテーションにエンコードします。
 
-クラスのメタデータからプライベート関数を削除する例を次に示します。
+以下に、クラスのメタデータからprivate関数を削除する例を示します。
 
 ```kotlin
 // Imports the necessary libraries
@@ -329,7 +399,7 @@ fun main() {
 ```
 
 > `readStrict()`と`write()`を個別に呼び出す代わりに、[`transform()`](https://kotlinlang.org/api/kotlinx-metadata-jvm/kotlin-metadata-jvm/kotlin.metadata.jvm/-kotlin-class-metadata/-companion/transform.html)関数を使用できます。
-> この関数は、メタデータを解析し、ラムダを通じて変換を適用し、変更されたメタデータを自動的に書き込みます。
+> この関数はメタデータをパースし、ラムダを介して変換を適用し、変更されたメタデータを自動的に書き込みます。
 > 
 {style="tip"}
 
@@ -338,17 +408,17 @@ fun main() {
 Kotlin Metadata JVMライブラリを使用してKotlinクラスファイルのメタデータをゼロから作成するには：
 
 1.  生成したいメタデータの種類に応じて、`KmClass`、`KmPackage`、または`KmLambda`のインスタンスを作成します。
-2.  インスタンスに、クラス名、可視性、コンストラクタ、関数シグネチャなどの属性を追加します。
+2.  クラス名、可視性、コンストラクタ、関数シグネチャなどの属性をインスタンスに追加します。
 
-    > プロパティを設定する際に、`apply()` [スコープ関数](scope-functions.md)を使用してボイラープレートコードを削減できます。
+    > プロパティを設定する際に、ボイラープレートコードを減らすために`apply()`[スコープ関数](scope-functions.md)を使用できます。
     >
     {style="tip"}
 
-3.  インスタンスを使用して`KotlinClassMetadata`オブジェクトを作成し、`@Metadata`アノテーションを生成します。
-4.  例えば`JvmMetadataVersion.LATEST_STABLE_SUPPORTED`のようなメタデータバージョンを指定し、フラグを設定します（フラグなしの場合は`0`、必要に応じて既存のファイルからフラグをコピー）。
+3.  インスタンスを使用して`KotlinClassMetadata`オブジェクトを作成し、`@Metadata`アノテーションを生成できるようにします。
+4.  `JvmMetadataVersion.LATEST_STABLE_SUPPORTED`などのメタデータバージョンを指定し、フラグを設定します（フラグなしの場合は`0`、必要に応じて既存のファイルからフラグをコピーします）。
 5.  [ASM](https://asm.ow2.io/)の`ClassWriter`クラスを使用して、`kind`、`data1`、`data2`などのメタデータフィールドを`.class`ファイルに埋め込みます。
 
-次の例は、シンプルなKotlinクラスのメタデータを作成する方法を示しています。
+次の例は、単純なKotlinクラスのメタデータを作成する方法を示しています。
 
 ```kotlin
 // Imports the necessary libraries
@@ -413,5 +483,5 @@ fun main() {
 ## 次のステップ
 
 *   [Kotlin Metadata JVMライブラリのAPIリファレンスを参照する](https://kotlinlang.org/api/kotlinx-metadata-jvm/)。
-*   [Kotlin Metadata JVM GitHubリポジトリをチェックする](https://github.com/JetBrains/kotlin/tree/master/libraries/kotlinx-metadata/jvm)。
+*   [Kotlin Metadata JVM GitHubリポジトリを確認する](https://github.com/JetBrains/kotlin/tree/master/libraries/kotlinx-metadata/jvm)。
 *   [モジュールメタデータと`.kotlin_module`ファイルの操作について学ぶ](https://github.com/JetBrains/kotlin/blob/master/libraries/kotlinx-metadata/jvm/ReadMe.md#module-metadata)。

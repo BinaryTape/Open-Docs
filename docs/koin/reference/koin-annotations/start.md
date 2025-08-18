@@ -49,7 +49,7 @@ fun main() {
 
 Koin 编译器提供了一些配置选项。遵循官方文档，你可以为你的项目添加以下选项：[Ksp 快速入门文档](https://kotlinlang.org/docs/ksp-quickstart.html#pass-options-to-processors)
 
-### 编译时安全 (Compile Safety) - 在编译时检查你的 Koin 配置（自 1.3.0 起）
+### 编译时安全 - 在编译时检查你的 Koin 配置（自 1.3.0 起）
 
 Koin 注解允许编译器插件在编译时验证你的 Koin 配置。可以通过以下 KSP 选项激活此功能，将其添加到你的 Gradle 模块中：
 
@@ -93,3 +93,15 @@ ksp {
 请按照官方文档中描述的 KSP 设置进行操作：[KSP 与 Kotlin Multiplatform](https://kotlinlang.org/docs/ksp-multiplatform.html)
 
 你还可以查看 [Hello Koin KMP](https://github.com/InsertKoinIO/hello-kmp/tree/annotations) 项目，它包含了 Koin 注解的基本设置。
+
+### Pro-Guard
+
+如果你打算将 Koin 注解应用程序嵌入为 SDK，请查阅以下 ProGuard 规则：
+
+```
+# 保留注解定义
+-keep class org.koin.core.annotation.** { *; }
+
+# 保留使用 Koin 注解标记的类
+-keep @org.koin.core.annotation.* class * { *; }
+```

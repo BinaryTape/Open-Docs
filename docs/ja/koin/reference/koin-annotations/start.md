@@ -93,3 +93,14 @@ ksp {
 公式ドキュメントに記載されているKSPのセットアップに従ってください：[KSP with Kotlin Multiplatform](https://kotlinlang.org/docs/ksp-multiplatform.html)
 
 Koin Annotationsの基本的なセットアップが施された[Hello Koin KMP](https://github.com/InsertKoinIO/hello-kmp/tree/annotations)プロジェクトも参照できます。
+
+### Pro-Guard
+
+Koin AnnotationsアプリケーションをSDKとして組み込む場合は、次のPro-Guardルールを参照してください。
+
+```
+# アノテーション定義を保持
+-keep class org.koin.core.annotation.** { *; }
+
+# Koinアノテーションが付与されたクラスを保持  
+-keep @org.koin.core.annotation.* class * { *; }

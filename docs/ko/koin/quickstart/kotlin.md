@@ -2,7 +2,7 @@
 title: Kotlin
 ---
 
-> 이 튜토리얼에서는 Kotlin 애플리케이션을 작성하고 Koin 의존성 주입을 사용하여 컴포넌트를 가져오는 방법을 설명합니다.
+> 이 튜토리얼에서는 Kotlin 애플리케이션을 작성하고 Koin 의존성 주입을 사용하여 컴포넌트를 가져올 수 있습니다.
 > 이 튜토리얼을 완료하는 데 약 __10분__이 소요됩니다.
 
 :::note
@@ -23,13 +23,13 @@ title: Kotlin
 dependencies {
     
     // Koin for Kotlin apps
-    compile "io.insert-koin:koin-core:$koin_version"
+    implementation "io.insert-koin:koin-core:$koin_version"
 }
 ```
 
 ## 애플리케이션 개요
 
-이 애플리케이션의 아이디어는 사용자 목록을 관리하고, 이를 `UserApplication` 클래스에 표시하는 것입니다.
+이 애플리케이션의 아이디어는 사용자 목록을 관리하고, 이를 우리의 `UserApplication` 클래스에 표시하는 것입니다:
 
 > Users -> UserRepository -> UserService -> UserApplication
 
@@ -41,7 +41,7 @@ dependencies {
 data class User(val name : String)
 ```
 
-사용자 목록을 관리하는 "리포지토리" 컴포넌트를 생성합니다 (사용자 추가 또는 이름으로 사용자 찾기). 아래는 `UserRepository` 인터페이스와 그 구현입니다:
+사용자 목록을 관리하는 (사용자 추가 또는 이름으로 사용자 찾기) "`리포지토리`" 컴포넌트를 생성합니다. 아래는 `UserRepository` 인터페이스와 그 구현입니다:
 
 ```kotlin
 interface UserRepository {
@@ -165,3 +165,4 @@ val appModule = module {
     singleOf(::UserRepositoryImpl) { bind<UserRepository>() }
     singleOf(::UserService)
 }
+```

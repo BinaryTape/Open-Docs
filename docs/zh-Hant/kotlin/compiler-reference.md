@@ -1,55 +1,43 @@
 [//]: # (title: Kotlin 編譯器選項)
 
-Kotlin 的每個發行版都包含對應支援目標的編譯器：JVM、JavaScript 以及適用於[支援平台](native-overview.md#target-platforms)的原生二進位檔。
+每個 Kotlin 版本都包含針對其支援目標的編譯器：JVM、JavaScript，以及針對 [支援平台](native-overview.md#target-platforms) 的原生二進位檔。
 
-這些編譯器用於：
-*   當您點擊 Kotlin 專案的 **Compile**（編譯）或 **Run**（執行）按鈕時，由 IDE 使用。
-*   當您在主控台或 IDE 中呼叫 `gradle build` 時，由 Gradle 使用。
-*   當您在主控台或 IDE 中呼叫 `mvn compile` 或 `mvn test-compile` 時，由 Maven 使用。
+這些編譯器由以下工具使用：
+* IDE，當您點擊 Kotlin 專案的 __編譯__ 或 __執行__ 按鈕時。
+* Gradle，當您在命令列或 IDE 中呼叫 `gradle build` 時。
+* Maven，當您在命令列或 IDE 中呼叫 `mvn compile` 或 `mvn test-compile` 時。
 
-您也可以依照[使用命令列編譯器](command-line.md)教學中所述，從命令列手動執行 Kotlin 編譯器。
+您也可以從命令列手動執行 Kotlin 編譯器，詳情請參閱 [使用命令列編譯器](command-line.md) 教學。
 
 ## 編譯器選項
 
-Kotlin 編譯器有多種選項，用於調整編譯過程。不同目標的編譯器選項及其描述列於此頁。
+Kotlin 編譯器有許多選項可用於客製化編譯過程。本頁面列出了針對不同目標的編譯器選項及其說明。
 
-設定編譯器選項及其值（*編譯器參數*）有幾種方法：
-*   在 IntelliJ IDEA 中，於 **Settings/Preferences**（設定/偏好設定） | **Build, Execution, Deployment**（建置、執行、部署） | **Compiler**（編譯器） | **Kotlin Compiler**（Kotlin 編譯器）中的 **Additional command line parameters**（額外命令列參數）文字方塊中寫入編譯器參數。
-*   如果您使用 Gradle，請在 Kotlin 編譯任務的 `compilerOptions` 屬性中指定編譯器參數。詳情請參閱 [Gradle 編譯器選項](gradle-compiler-options.md#how-to-define-options)。
-*   如果您使用 Maven，請在 Maven 外掛程式節點的 `<configuration>` 元素中指定編譯器參數。詳情請參閱 [Maven](maven.md#specify-compiler-options)。
-*   如果您執行命令列編譯器，請將編譯器參數直接加入公用程式呼叫中，或將其寫入 [引數檔](#argfile)。
+有幾種方法可以設定編譯器選項及其值（_編譯器引數_）：
+* 在 IntelliJ IDEA 中，於 **設定/偏好設定** | **建置、執行、部署** | **編譯器** | **Kotlin 編譯器** 中的 **額外命令列參數** 文字方塊中輸入編譯器引數。
+* 如果您使用 Gradle，請在 Kotlin 編譯任務的 `compilerOptions` 屬性中指定編譯器引數。詳情請參閱 [Gradle 編譯器選項](gradle-compiler-options.md#how-to-define-options)。
+* 如果您使用 Maven，請在 Maven 插件節點的 `<configuration>` 元素中指定編譯器引數。詳情請參閱 [Maven](maven.md#specify-compiler-options)。
+* 如果您執行命令列編譯器，請直接將編譯器引數新增到公用程式呼叫中，或將它們寫入 [argfile](#argfile)。
 
-    例如：
+  例如：
 
-    ```bash
-    $ kotlinc hello.kt -include-runtime -d hello.jar
-    ```
+  ```bash
+  $ kotlinc hello.kt -include-runtime -d hello.jar
+  ```
 
-    > 在 Windows 上，當您傳遞包含分隔字元（空白字元、`=`、`;`、`,`）的編譯器參數時，請使用雙引號 (`"`) 將這些參數括起來。
-    > ```
-    > $ kotlinc.bat hello.kt -include-runtime -d "My Folder\hello.jar"
-    > ```
-    {style="note"}
+  > 在 Windows 上，當您傳遞包含分隔字元（空白、`=`、`;`、`,`）的編譯器引數時，請使用雙引號 (`"`) 將這些引數括起來。
+  > ```
+  > $ kotlinc.bat hello.kt -include-runtime -d "My Folder\hello.jar"
+  > ```
+  {style="note"}
 
-## 通用選項
+## 共用選項
 
-以下選項對於所有 Kotlin 編譯器都是通用的。
+以下選項適用於所有 Kotlin 編譯器。
 
 ### -version
 
 顯示編譯器版本。
-
-### -nowarn
-
-在編譯期間抑制編譯器顯示警告。
-
-### -Werror
-
-將任何警告轉為編譯錯誤。
-
-### -Wextra
-
-啟用[額外宣告、表達式和型別編譯器檢查](whatsnew21.md#extra-compiler-checks)，如果為真，則會發出警告。
 
 ### -verbose
 
@@ -57,25 +45,25 @@ Kotlin 編譯器有多種選項，用於調整編譯過程。不同目標的編�
 
 ### -script
 
-評估 Kotlin 指令碼檔。當使用此選項呼叫時，編譯器會執行給定參數中的第一個 Kotlin 指令碼（`*.kts`）檔。
+評估 Kotlin 腳本檔案。當使用此選項呼叫時，編譯器會執行所給引數中第一個 Kotlin 腳本 (`*.kts`) 檔案。
 
 ### -help (-h)
 
-顯示使用資訊並退出。僅顯示標準選項。
-要顯示進階選項，請使用 `-X`。
+顯示使用資訊並退出。僅顯示標準選項。若要顯示進階選項，請使用 `-X`。
 
 ### -X
 
-顯示進階選項的資訊並退出。這些選項目前不穩定：其名稱和行為可能在不另行通知的情況下更改。
+<primary-label ref="experimental-general"/>
+
+顯示有關進階選項的資訊並退出。這些選項目前不穩定：其名稱和行為可能會在不另行通知的情況下更改。
 
 ### -kotlin-home _path_
 
-指定 Kotlin 編譯器的自訂路徑，用於探索執行階段程式庫。
+指定 Kotlin 編譯器的自訂路徑，用於尋找執行期函式庫。
 
 ### -P plugin:pluginId:optionName=value
 
-將選項傳遞給 Kotlin 編譯器外掛程式。
-核心外掛程式及其選項列於文件中的[核心編譯器外掛程式](components-stability.md#core-compiler-plugins)部分。
+將選項傳遞給 Kotlin 編譯器插件。核心插件及其選項列於文件中 [核心編譯器插件](components-stability.md#core-compiler-plugins) 章節。
 
 ### -language-version _version_
 
@@ -83,35 +71,34 @@ Kotlin 編譯器有多種選項，用於調整編譯過程。不同目標的編�
 
 ### -api-version _version_
 
-僅允許使用來自指定 Kotlin 捆綁程式庫版本的宣告。
+僅允許使用來自指定版本 Kotlin 綁定函式庫的宣告。
 
 ### -progressive
 
-為編譯器啟用[漸進模式](whatsnew13.md#progressive-mode)。
+為編譯器啟用 [漸進模式](whatsnew13.md#progressive-mode)。
 
-在漸進模式下，對不穩定程式碼的棄用和錯誤修正會立即生效，而無需經歷平穩的遷移週期。
-以漸進模式編寫的程式碼向後相容；但是，以非漸進模式編寫的程式碼可能會在漸進模式下導致編譯錯誤。
+在漸進模式下，不穩定程式碼的棄用和錯誤修復會立即生效，而無需經歷平穩的遷移週期。以漸進模式編寫的程式碼向後相容；然而，以非漸進模式編寫的程式碼可能會在漸進模式下導致編譯錯誤。
 
 ### @argfile
 
-從給定檔案讀取編譯器選項。此類檔案可以包含帶有值和原始檔路徑的編譯器選項。選項和路徑應由空白字元分隔。例如：
+從指定檔案讀取編譯器選項。此類檔案可以包含帶有值和原始碼路徑的編譯器選項。選項和路徑應以空白字元分隔。例如：
 
 ```
 -include-runtime -d hello.jar hello.kt
 ```
 
-若要傳遞包含空白字元的值，請使用單引號（**'**）或雙引號（**"**）將其括起來。如果值中包含引號，請使用反斜線（**\\**）逸出它們。
+若要傳遞包含空白字元的值，請使用單引號 (**'**) 或雙引號 (**"**) 將其括起來。如果值中包含引號，請使用反斜線 (**\\**) 對其進行跳脫。
 ```
 -include-runtime -d 'My folder'
 ```
 
-您也可以傳遞多個引數檔，例如，將編譯器選項與原始檔分開。
+您也可以傳遞多個引數檔案，例如，將編譯器選項與原始碼檔案分開。
 
 ```bash
 $ kotlinc @compiler.options @classes
 ```
 
-如果檔案位於與目前目錄不同的位置，請使用相對路徑。
+如果檔案位於與當前目錄不同的位置，請使用相對路徑。
 
 ```bash
 $ kotlinc @options/compiler.options hello.kt
@@ -119,89 +106,164 @@ $ kotlinc @options/compiler.options hello.kt
 
 ### -opt-in _annotation_
 
-啟用使用[需要選擇性加入 (opt-in)](opt-in-requirements.md) 的 API，並帶有給定完整限定名稱的需求註解。
+啟用對 [需要選擇啟用](opt-in-requirements.md) 的 API 的使用，並使用指定完整限定名稱的要求註解。
 
-### -Xsuppress-warning
+### -Xrepl
 
-[在整個專案中全域抑制](whatsnew21.md#global-warning-suppression)特定警告，例如：
+<primary-label ref="experimental-general"/>
+
+啟用 Kotlin REPL。
 
 ```bash
-kotlinc -Xsuppress-warning=NOTHING_TO_INLINE -Xsuppress-warning=NO_TAIL_CALLS_FOUND main.kt
+kotlinc -Xrepl
 ```
+
+### -Xannotation-target-all
+
+<primary-label ref="experimental-general"/>
+
+啟用實驗性 [`all` 註解使用點目標](annotations.md#all-meta-target)：
+
+```bash
+kotlinc -Xannotation-target-all
+```
+
+### -Xannotation-default-target=param-property
+
+<primary-label ref="experimental-general"/>
+
+啟用新的實驗性 [註解使用點目標預設規則](annotations.md#defaults-when-no-use-site-targets-are-specified)：
+
+```bash
+kotlinc -Xannotation-default-target=param-property
+```
+
+### 警告管理
+
+#### -nowarn
+
+在編譯期間抑制所有警告。
+
+#### -Werror
+
+將所有警告視為編譯錯誤。
+
+#### -Wextra
+
+啟用 [額外的宣告、表達式和型別編譯器檢查](whatsnew21.md#extra-compiler-checks)，若為真則發出警告。
+
+#### -Xwarning-level
+<primary-label ref="experimental-general"/>
+
+設定特定編譯器警告的嚴重程度：
+
+```bash
+kotlinc -Xwarning-level=DIAGNOSTIC_NAME:(error|warning|disabled)
+```
+
+* `error`: 僅將指定的警告提升為錯誤。
+* `warning`: 對於指定的診斷發出警告，並預設啟用。
+* `disabled`: 僅在模組範圍內抑制指定的警告。
+
+您可以透過將模組範圍規則與特定規則結合來調整專案中的警告報告：
+
+| 命令 | 描述 |
+|---|---|
+| `-nowarn -Xwarning-level=DIAGNOSTIC_NAME:warning` | 抑制所有警告，但指定的警告除外。 |
+| `-Werror -Xwarning-level=DIAGNOSTIC_NAME:warning` | 將所有警告提升為錯誤，但指定的警告除外。 |
+| `-Wextra -Xwarning-level=DIAGNOSTIC_NAME:disabled` | 啟用所有額外檢查，但指定的檢查除外。 |
+
+如果您有許多警告要從一般規則中排除，您可以使用 [`@argfile`](#argfile) 將它們列在單獨的檔案中。
 
 ## Kotlin/JVM 編譯器選項
 
-Kotlin 適用於 JVM 的編譯器將 Kotlin 原始檔編譯成 Java 類別檔。用於 Kotlin 到 JVM 編譯的命令列工具是 `kotlinc` 和 `kotlinc-jvm`。您也可以使用它們來執行 Kotlin 指令碼檔。
+用於 JVM 的 Kotlin 編譯器將 Kotlin 原始碼檔案編譯為 Java 類別檔案。用於 Kotlin 到 JVM 編譯的命令列工具是 `kotlinc` 和 `kotlinc-jvm`。您也可以使用它們來執行 Kotlin 腳本檔案。
 
-除了[通用選項](#common-options)外，Kotlin/JVM 編譯器還具有以下選項。
+除了 [共用選項](#common-options) 之外，Kotlin/JVM 編譯器還有以下選項。
 
 ### -classpath _path_ (-cp _path_)
 
-在指定路徑中搜尋類別檔。使用系統路徑分隔符號（Windows 上為 **;**，macOS/Linux 上為 **:**）分隔類別路徑中的元素。類別路徑可以包含檔案和目錄路徑、ZIP 或 JAR 檔。
+在指定路徑中搜尋類別檔案。使用系統路徑分隔符（Windows 上為 **;**，macOS/Linux 上為 **:**）分隔類別路徑的元素。類別路徑可以包含檔案和目錄路徑、ZIP 或 JAR 檔案。
 
 ### -d _path_
 
-將產生出的類別檔放置到指定位置。該位置可以是目錄、ZIP 或 JAR 檔。
+將生成的類別檔案放置到指定位置。該位置可以是目錄、ZIP 或 JAR 檔案。
 
 ### -include-runtime
 
-將 Kotlin 執行階段包含到產生出的 JAR 檔中。使產生出的歸檔可在任何支援 Java 的環境中執行。
+將 Kotlin 執行期包含在生成的 JAR 檔案中。使生成的歸檔檔案可在任何啟用 Java 的環境中運行。
 
 ### -jdk-home _path_
 
-如果自訂 JDK 主目錄與預設的 `JAVA_HOME` 不同，則使用它並將其包含到類別路徑中。
+如果與預設的 `JAVA_HOME` 不同，則使用自訂的 JDK 主目錄包含到類別路徑中。
 
 ### -Xjdk-release=version
 
-指定產生出的 JVM 位元碼的目標版本。將類別路徑中 JDK 的 API 限制為指定的 Java 版本。自動設定 [`-jvm-target version`](#jvm-target-version)。
-可能的值為 `1.8`、`9`、`10`、...、`21`。
+<primary-label ref="experimental-general"/>
 
-> 此選項[不保證](https://youtrack.jetbrains.com/issue/KT-29974)對每個 JDK 發行版都有效。
+指定生成的 JVM 位元組碼的目標版本。將類別路徑中 JDK 的 API 限制為指定的 Java 版本。自動設定 [`-jvm-target version`](#jvm-target-version)。可能的值為 `1.8`、`9`、`10`、...、`24`。
+
+> 此選項 [不保證](https://youtrack.jetbrains.com/issue/KT-29974) 對每個 JDK 發行版都有效。
 >
 {style="note"}
 
 ### -jvm-target _version_
 
-指定產生出的 JVM 位元碼的目標版本。可能的值為 `1.8`、`9`、`10`、...、`21`。
-預設值為 `%defaultJvmTargetVersion%`。
+指定生成的 JVM 位元組碼的目標版本。可能的值為 `1.8`、`9`、`10`、...、`24`。預設值為 `%defaultJvmTargetVersion%`。
 
 ### -java-parameters
 
-為 Java 1.8 方法參數上的反射產生中繼資料 (metadata)。
+為 Java 1.8 方法參數上的反射生成中繼資料。
 
 ### -module-name _name_ (JVM)
 
-為產生出的 `.kotlin_module` 檔設定自訂名稱。
+為生成的 `.kotlin_module` 檔案設定自訂名稱。
 
 ### -no-jdk
 
-不要自動包含 Java 執行階段到類別路徑中。
+不要自動將 Java 執行期包含在類別路徑中。
 
 ### -no-reflect
 
-不要自動包含 Kotlin 反射 (`kotlin-reflect.jar`) 到類別路徑中。
+不要自動將 Kotlin 反射 (`kotlin-reflect.jar`) 包含在類別路徑中。
 
 ### -no-stdlib (JVM)
 
-不要自動包含 Kotlin/JVM 標準程式庫 (`kotlin-stdlib.jar`) 和 Kotlin 反射 (`kotlin-reflect.jar`) 到類別路徑中。
+不要自動將 Kotlin/JVM 標準函式庫 (`kotlin-stdlib.jar`) 和 Kotlin 反射 (`kotlin-reflect.jar`) 包含在類別路徑中。
 
-### -script-templates _classnames[,]_
+### -script-templates _classnames[,] _
 
-指令碼定義範本類別。使用完整限定類別名稱並用逗號（**，**）分隔。
+腳本定義範本類別。使用完整限定類別名稱並以逗號 (**,**) 分隔。
+
+### -Xjvm-expose-boxed
+
+<primary-label ref="experimental-general"/>
+
+生成模組中所有內聯值類別的裝箱版本，以及使用它們的函式的裝箱變體，使兩者都可以從 Java 存取。更多資訊請參閱《從 Java 呼叫 Kotlin 指南》中的 [內聯值類別](java-to-kotlin-interop.md#inline-value-classes)。
+
+### -jvm-default _mode_
+
+控制介面中宣告的函式如何在 JVM 上編譯為預設方法。
+
+| 模式 | 描述 |
+|---|---|
+| `enable` | 在介面中生成預設實作，並在子類別和 `DefaultImpls` 類別中包含橋接函式。（預設） |
+| `no-compatibility` | 僅在介面中生成預設實作，跳過相容性橋接和 `DefaultImpls` 類別。 |
+| `disable` | 僅生成相容性橋接和 `DefaultImpls` 類別，跳過預設方法。 |
 
 ## Kotlin/JS 編譯器選項
 
-Kotlin 適用於 JS 的編譯器將 Kotlin 原始檔編譯成 JavaScript 程式碼。用於 Kotlin 到 JS 編譯的命令列工具是 `kotlinc-js`。
+用於 JS 的 Kotlin 編譯器將 Kotlin 原始碼檔案編譯為 JavaScript 程式碼。用於 Kotlin 到 JS 編譯的命令列工具是 `kotlinc-js`。
 
-除了[通用選項](#common-options)外，Kotlin/JS 編譯器還具有以下選項。
+除了 [共用選項](#common-options) 之外，Kotlin/JS 編譯器還有以下選項。
 
 ### -target {es5|es2015}
 
-為指定的 ECMA 版本產生 JS 檔。
+為指定的 ECMA 版本生成 JS 檔案。
 
 ### -libraries _path_
 
-Kotlin 程式庫的路徑，包含 `.meta.js` 和 `.kjsm` 檔，並由系統路徑分隔符號分隔。
+包含 `.meta.js` 和 `.kjsm` 檔案的 Kotlin 函式庫路徑，以系統路徑分隔符分隔。
 
 ### -main _{call|noCall}_
 
@@ -209,94 +271,94 @@ Kotlin 程式庫的路徑，包含 `.meta.js` 和 `.kjsm` 檔，並由系統路�
 
 ### -meta-info
 
-產生包含中繼資料 (metadata) 的 `.meta.js` 和 `.kjsm` 檔。在建立 JS 程式庫時使用此選項。
+生成帶有中繼資料的 `.meta.js` 和 `.kjsm` 檔案。在建立 JS 函式庫時使用此選項。
 
 ### -module-kind {umd|commonjs|amd|plain}
 
-編譯器產生的 JS 模組類型：
+編譯器生成的 JS 模組類型：
 
-- `umd` - [通用模組定義 (Universal Module Definition)](https://github.com/umdjs/umd) 模組
+- `umd` - [通用模組定義](https://github.com/umdjs/umd) 模組
 - `commonjs` - [CommonJS](http://www.commonjs.org/) 模組
-- `amd` - [非同步模組定義 (Asynchronous Module Definition)](https://en.wikipedia.org/wiki/Asynchronous_module_definition) 模組
+- `amd` - [非同步模組定義](https://en.wikipedia.org/wiki/Asynchronous_module_definition) 模組
 - `plain` - 純 JS 模組
-
-要了解更多關於不同類型的 JS 模組及其區別，請參閱[此](https://www.davidbcalhoun.com/2014/what-is-amd-commonjs-and-umd/)文章。
+    
+若要了解更多有關不同類型 JS 模組及其區別的資訊，請參閱 [這篇](https://www.davidbcalhoun.com/2014/what-is-amd-commonjs-and-umd/) 文章。
 
 ### -no-stdlib (JS)
 
-不要自動將預設的 Kotlin/JS 標準程式庫 (stdlib) 包含到編譯依賴項中。
+不要自動將預設的 Kotlin/JS 標準函式庫包含到編譯依賴項中。
 
 ### -output _filepath_
 
-設定編譯結果的目標檔。該值必須是包含檔名的 `.js` 檔路徑。
+設定編譯結果的目標檔案。該值必須是包含其名稱的 `.js` 檔案路徑。
 
 ### -output-postfix _filepath_
 
-將指定檔案的內容加入輸出檔的結尾。
+將指定檔案的內容新增到輸出檔案的末尾。
 
 ### -output-prefix _filepath_
 
-將指定檔案的內容加入輸出檔的開頭。
+將指定檔案的內容新增到輸出檔案的開頭。
 
 ### -source-map
 
-產生原始碼映射 (Source Map)。
+生成原始碼對應 (source map)。
 
 ### -source-map-base-dirs _path_
 
-使用指定的路徑作為基礎目錄。基礎目錄用於計算原始碼映射中的相對路徑。
+使用指定路徑作為基礎目錄。基礎目錄用於計算原始碼對應中的相對路徑。
 
 ### -source-map-embed-sources _{always|never|inlining}_
 
-將原始檔嵌入原始碼映射 (Source Map)。
+將原始碼檔案嵌入到原始碼對應中。
 
 ### -source-map-names-policy _{simple-names|fully-qualified-names|no}_
 
-將您在 Kotlin 程式碼中宣告的變數和函式名稱加入原始碼映射 (Source Map)。
+將您在 Kotlin 程式碼中宣告的變數和函式名稱新增到原始碼對應中。
 
 | 設定 | 描述 | 範例輸出 |
 |---|---|---|
-| `simple-names` | 加入變數名稱和簡單函式名稱。（預設） | `main` |
-| `fully-qualified-names` | 加入變數名稱和完整限定函式名稱。 | `com.example.kjs.playground.main` |
-| `no` | 不加入任何變數或函式名稱。 | 不適用 |
+| `simple-names` | 新增變數名稱和簡單函式名稱。（預設） | `main` |
+| `fully-qualified-names` | 新增變數名稱和完整限定函式名稱。 | `com.example.kjs.playground.main` |
+| `no` | 不新增變數或函式名稱。 | N/A |
 
 ### -source-map-prefix
 
-將指定的字首加入原始碼映射中的路徑。
+將指定的字首新增到原始碼對應中的路徑。
 
 ## Kotlin/Native 編譯器選項
 
-Kotlin/Native 編譯器將 Kotlin 原始檔編譯成適用於[支援平台](native-overview.md#target-platforms)的原生二進位檔。用於 Kotlin/Native 編譯的命令列工具是 `kotlinc-native`。
+Kotlin/Native 編譯器將 Kotlin 原始碼檔案編譯為針對 [支援平台](native-overview.md#target-platforms) 的原生二進位檔。用於 Kotlin/Native 編譯的命令列工具是 `kotlinc-native`。
 
-除了[通用選項](#common-options)外，Kotlin/Native 編譯器還具有以下選項。
+除了 [共用選項](#common-options) 之外，Kotlin/Native 編譯器還有以下選項。
 
 ### -enable-assertions (-ea)
 
-在產生出的程式碼中啟用執行階段斷言。
+在生成的程式碼中啟用執行期斷言。
 
 ### -g
 
-啟用發出除錯資訊。此選項會降低最佳化層級，不應與 [`-opt`](#opt) 選項結合使用。
+啟用發出偵錯資訊。此選項會降低最佳化級別，不應與 [`-opt`](#opt) 選項結合使用。
 
 ### -generate-test-runner (-tr)
 
-產生用於執行專案中單元測試的應用程式。
+生成用於從專案運行單元測試的應用程式。
 
 ### -generate-no-exit-test-runner (-trn)
 
-產生用於執行單元測試且無明確程序退出的應用程式。
+生成用於運行單元測試而無需顯式程序退出的應用程式。
 
 ### -include-binary _path_ (-ib _path_)
 
-將外部二進位檔打包到產生出的 klib 檔中。
+將外部二進位檔打包到生成的 klib 檔案中。
 
 ### -library _path_ (-l _path_)
 
-連結程式庫。要了解如何在 Kotlin/Native 專案中使用程式庫，請參閱 [Kotlin/Native 程式庫](native-libraries.md)。
+與函式庫連結。若要了解如何在 Kotlin/native 專案中使用函式庫，請參閱 [Kotlin/Native 函式庫](native-libraries.md)。
 
 ### -library-version _version_ (-lv _version_)
 
-設定程式庫版本。
+設定函式庫版本。
 
 ### -list-targets
 
@@ -304,49 +366,47 @@ Kotlin/Native 編譯器將 Kotlin 原始檔編譯成適用於[支援平台](nati
 
 ### -manifest _path_
 
-提供 manifest 附加檔。
+提供一個清單附加檔案。
 
 ### -module-name _name_ (Native)
 
-為編譯模組指定名稱。
-此選項也可用於為匯出到 Objective-C 的宣告指定名稱字首：
-[如何為我的 Kotlin 框架指定自訂的 Objective-C 字首/名稱？](native-faq.md#how-do-i-specify-a-custom-objective-c-prefix-name-for-my-kotlin-framework)
+指定編譯模組的名稱。此選項也可用於指定匯出到 Objective-C 的宣告的名稱字首：[如何為我的 Kotlin 框架指定自訂 Objective-C 字首/名稱？](native-faq.md#how-do-i-specify-a-custom-objective-c-prefix-name-for-my-kotlin-framework)
 
 ### -native-library _path_ (-nl _path_)
 
-包含原生位元碼程式庫。
+包含原生位元碼函式庫。
 
 ### -no-default-libs
 
-禁用將使用者程式碼與隨編譯器散佈的預建[平台程式庫](native-platform-libs.md)連結。
+禁用使用者程式碼與編譯器分發的預建 [平台函式庫](native-platform-libs.md) 的連結。
 
 ### -nomain
 
-假設 `main` 進入點由外部程式庫提供。
+假定 `main` 進入點由外部函式庫提供。
 
 ### -nopack
 
-不要將程式庫打包成 klib 檔。
+不要將函式庫打包成 klib 檔案。
 
 ### -linker-option
 
-在二進位建置期間將引數傳遞給連結器。這可用於連結到某些原生程式庫。
+在二進位建置期間向連結器傳遞一個引數。這可用於連結某些原生函式庫。
 
 ### -linker-options _args_
 
-在二進位建置期間將多個引數傳遞給連結器。以空白字元分隔引數。
+在二進位建置期間向連結器傳遞多個引數。以空白字元分隔引數。
 
 ### -nostdlib
 
-不要連結標準程式庫 (stdlib)。
+不連結標準函式庫 (stdlib)。
 
 ### -opt
 
-啟用編譯最佳化並產生具有更好執行階段效能的二進位檔。不建議將其與 [`-g`](#g) 選項結合使用，後者會降低最佳化層級。
+啟用編譯最佳化並生成具有更好執行期效能的二進位檔。不建議將其與降低最佳化級別的 [`-g`](#g) 選項結合使用。
 
 ### -output _name_ (-o _name_)
 
-設定輸出檔的名稱。
+設定輸出檔案的名稱。
 
 ### -entry _name_ (-e _name_)
 
@@ -354,19 +414,19 @@ Kotlin/Native 編譯器將 Kotlin 原始檔編譯成適用於[支援平台](nati
 
 ### -produce _output_ (-p _output_)
 
-指定輸出檔類型：
+指定輸出檔案類型：
 
-- `program` (程式)
-- `static` (靜態)
-- `dynamic` (動態)
-- `framework` (框架)
-- `library` (程式庫)
-- `bitcode` (位元碼)
+- `program`
+- `static`
+- `dynamic`
+- `framework`
+- `library`
+- `bitcode`
 
 ### -repo _path_ (-r _path_)
 
-程式庫搜尋路徑。有關更多資訊，請參閱[程式庫搜尋順序](native-libraries.md#library-search-sequence)。
+函式庫搜尋路徑。更多資訊請參閱 [函式庫搜尋順序](native-libraries.md#library-search-sequence)。
 
 ### -target _target_
 
-設定硬體目標。要查看可用目標列表，請使用 [`-list-targets`](#list-targets) 選項。
+設定硬體目標。若要查看可用目標列表，請使用 [`-list-targets`](#list-targets) 選項。

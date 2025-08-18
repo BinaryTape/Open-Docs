@@ -20,10 +20,9 @@ unzip artifacts.zip
 -Xplugin=/path/to/symbol-processing-cmdline-%kspSupportedKotlinVersion%-%kspVersion%.jar
 ```
 
-這與 `symbol-processing-%kspSupportedKotlinVersion%-%kspVersion%.jar` 不同，後者設計用於在使用 Gradle 執行時與 `kotlin-compiler-embeddable` 搭配使用。
-命令列的 `kotlinc` 需要 `symbol-processing-cmdline-%kspSupportedKotlinVersion%-%kspVersion%.jar`。
+這與 `symbol-processing-%kspSupportedKotlinVersion%-%kspVersion%.jar` 不同，後者旨在搭配 `kotlin-compiler-embeddable` 在使用 Gradle 執行時使用。命令列 `kotlinc` 需要 `symbol-processing-cmdline-%kspSupportedKotlinVersion%-%kspVersion%.jar`。
 
-您還需要 API jar。
+您還需要 API JAR 檔。
 
 ```
 -Xplugin=/path/to/symbol-processing-api-%kspSupportedKotlinVersion%-%kspVersion%.jar
@@ -60,4 +59,3 @@ $KOTLINC \
         -P $KSP_PLUGIN_OPT:apoption=key1=value1 \
         -P $KSP_PLUGIN_OPT:apoption=key2=value2 \
         $*
-```

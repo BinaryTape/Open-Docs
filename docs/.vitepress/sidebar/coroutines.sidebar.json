@@ -1,0 +1,54 @@
+[
+  {
+    "text": "coroutines.coroutines-guide",
+    "link": "coroutines-guide"
+  },
+  {
+    "text": "coroutines.coroutines-basics",
+    "link": "coroutines-basics"
+  },
+  {
+    "text": "coroutines.coroutines-and-channels",
+    "link": "coroutines-and-channels"
+  },
+  {
+    "text": "coroutines.cancellation-and-timeouts",
+    "link": "cancellation-and-timeouts"
+  },
+  {
+    "text": "coroutines.composing-suspending-functions",
+    "link": "composing-suspending-functions"
+  },
+  {
+    "text": "coroutines.coroutine-context-and-dispatchers",
+    "link": "coroutine-context-and-dispatchers"
+  },
+  {
+    "text": "coroutines.flow",
+    "link": "flow"
+  },
+  {
+    "text": "coroutines.channels",
+    "link": "channels"
+  },
+  {
+    "text": "coroutines.exception-handling",
+    "link": "exception-handling"
+  },
+  {
+    "text": "coroutines.shared-mutable-state-and-concurrency",
+    "link": "shared-mutable-state-and-concurrency"
+  },
+  {
+    "text": "coroutines.select-expression",
+    "link": "select-expression"
+  },
+  {
+    "text": "coroutines.debug-coroutines-with-idea",
+    "link": "debug-coroutines-with-idea"
+  },
+  {
+    "text": "coroutines.debug-flow-with-idea",
+    "link": "debug-flow-with-idea"
+  }
+]

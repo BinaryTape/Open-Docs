@@ -1,23 +1,24 @@
-[//]: # (title: Spring Data CrudRepository を使用したデータベースアクセス)
-[//]: # (description: Kotlinで書かれたSpring BootプロジェクトでSpring Dataインターフェースを使用する方法。)
+[//]: # (title: Spring Data CrudRepositoryを使用したデータベースアクセス)
+
+<web-summary>Kotlinで書かれたSpring BootプロジェクトでSpring Dataインターフェースを使用します。</web-summary>
 
 <tldr>
-    <p>これは、<strong>Spring BootとKotlinの始め方</strong>チュートリアルの最終パートです。先に進む前に、以前のステップを完了していることを確認してください。</p><br/>
-    <p><img src="icon-1-done.svg" width="20" alt="First step"/> <a href="jvm-create-project-with-spring-boot.md">KotlinでSpring Bootプロジェクトを作成する</a><br/><img src="icon-2-done.svg" width="20" alt="Second step"/> <a href="jvm-spring-boot-add-data-class.md">Spring Bootプロジェクトにデータクラスを追加する</a><br/><img src="icon-3-done.svg" width="20" alt="Third step"/> <a href="jvm-spring-boot-add-db-support.md">Spring Bootプロジェクトにデータベースサポートを追加する</a><br/><img src="icon-4.svg" width="20" alt="Fourth step"/> <strong>Spring Data CrudRepository を使用したデータベースアクセス</strong></p>
+    <p>これは、<strong>Spring BootとKotlin入門</strong>チュートリアルの最終パートです。先に進む前に、前のステップが完了していることを確認してください。</p><br/>
+    <p><img src="icon-1-done.svg" width="20" alt="最初のステップ"/> <a href="jvm-create-project-with-spring-boot.md">KotlinでSpring Bootプロジェクトを作成する</a><br/><img src="icon-2-done.svg" width="20" alt="2番目のステップ"/> <a href="jvm-spring-boot-add-data-class.md">Spring Bootプロジェクトにデータクラスを追加する</a><br/><img src="icon-3-done.svg" width="20" alt="3番目のステップ"/> <a href="jvm-spring-boot-add-db-support.md">Spring Bootプロジェクトにデータベースサポートを追加する</a><br/><img src="icon-4.svg" width="20" alt="4番目のステップ"/> <strong>Spring Data CrudRepositoryを使用したデータベースアクセス</strong></p>
 </tldr>
 
-このパートでは、データベースアクセスのために `JdbcTemplate` の代わりに [Spring Data](https://docs.spring.io/spring-data/commons/docs/current/api/org/springframework/data/repository/CrudRepository.html) の `CrudRepository` を使用するようにサービス層を移行します。
-_CrudRepository_ は、特定のタイプのリポジトリに対する汎用的な [CRUD](https://en.wikipedia.org/wiki/Create,_read,_update_and_delete) 操作のためのSpring Dataインターフェースです。
-データベースとやり取りするためのいくつかのメソッドが標準で提供されています。
+このパートでは、データベースアクセスに`JdbcTemplate`の代わりに[Spring Data](https://docs.spring.io/spring-data/commons/docs/current/api/org/springframework/data/repository/CrudRepository.html)の`CrudRepository`を使用するようにサービス層を移行します。
+_CrudRepository_は、特定の型のリポジトリに対する汎用的な[CRUD](https://en.wikipedia.org/wiki/Create,_read,_update_and_delete)操作のためのSpring Dataインターフェースです。
+データベースとのやり取りに必要なメソッドがいくつか最初から提供されています。
 
 ## アプリケーションを更新する
 
-まず、`CrudRepository` API で動作するように `Message` クラスを調整する必要があります。
+まず、`CrudRepository` APIを使用するために`Message`クラスを調整する必要があります。
 
-1.  `Message` クラスに `@Table` アノテーションを追加して、データベーステーブルへのマッピングを宣言します。
-    `id` フィールドの前に `@Id` アノテーションを追加します。
+1.  データベーステーブルへのマッピングを宣言するために、`Message`クラスに`@Table`アノテーションを追加します。
+    `id`フィールドの前に`@Id`アノテーションを追加します。
 
-    > これらのアノテーションには、追加のインポートも必要です。
+    > これらのアノテーションには追加のインポートも必要です。
     >
     {style="note"}
 
@@ -32,21 +33,21 @@ _CrudRepository_ は、特定のタイプのリポジトリに対する汎用的
     data class Message(@Id val id: String?, val text: String)
     ```
 
-    さらに、`Message` クラスの使用をよりKotlinらしい書き方にするために、
-    `id` プロパティのデフォルト値を `null` に設定し、データクラスプロパティの順序を入れ替えることができます。
+    さらに、`Message`クラスの使用をよりKotlinらしい書き方にするために、
+    `id`プロパティのデフォルト値をnullに設定し、データクラスのプロパティの順序を入れ替えることができます。
 
     ```kotlin
     @Table("MESSAGES")
     data class Message(val text: String, @Id val id: String? = null)
     ```
 
-    これで、`Message` クラスの新しいインスタンスを作成する必要がある場合、`text` プロパティのみをパラメータとして指定できます。
+    これで、`Message`クラスの新しいインスタンスを作成する必要がある場合、`text`プロパティのみをパラメータとして指定できます。
 
     ```kotlin
     val message = Message("Hello") // id is null
     ```
 
-2.  `Message` データクラスで動作する `CrudRepository` のインターフェースを宣言します。`MessageRepository.kt` ファイルを作成し、以下のコードを追加します。
+2.  `Message`データクラスを操作する`CrudRepository`のインターフェースを宣言します。`MessageRepository.kt`ファイルを作成し、以下のコードを追加します。
 
     ```kotlin
     // MessageRepository.kt
@@ -57,7 +58,7 @@ _CrudRepository_ は、特定のタイプのリポジトリに対する汎用的
     interface MessageRepository : CrudRepository<Message, String>
     ```
 
-3.  `MessageService` クラスを更新します。このクラスは、SQLクエリを実行する代わりに `MessageRepository` を使用するようになります。
+3.  `MessageService`クラスを更新します。これにより、SQLクエリを実行する代わりに`MessageRepository`を使用するようになります。
 
     ```kotlin
     // MessageService.kt
@@ -78,16 +79,16 @@ _CrudRepository_ は、特定のタイプのリポジトリに対する汎用的
 
     <deflist collapsible="true">
        <def title="拡張関数">
-          <p><code>findByIdOrNull()</code> 関数は、Spring Data JDBC の <code>CrudRepository</code> インターフェースに対する<a href="extensions.md#extension-functions">拡張関数</a>です。</p>
+          <p><code>findByIdOrNull()</code>関数は、Spring Data JDBCにおける<code>CrudRepository</code>インターフェースの<a href="extensions.md#extension-functions">拡張関数</a>です。</p>
        </def>
-       <def title="CrudRepository の save() 関数">
-          <p><a href="https://docs.spring.io/spring-data/jdbc/docs/current/reference/html/#jdbc.entity-persistence">この関数は</a>、新しいオブジェクトがデータベースにIDを持たないという前提で動作します。したがって、挿入時にはIDが<b>nullであるべきです</b>。</p>
-          <p> IDが<i>null</i>でない場合、<code>CrudRepository</code> はそのオブジェクトがすでにデータベースに存在するとみなし、これは挿入操作とは対照的に<i>更新</i>操作であると判断します。挿入操作後、<code>id</code> はデータストアによって生成され、<code>Message</code> インスタンスに割り当て直されます。このため、<code>id</code> プロパティは <code>var</code> キーワードを使用して宣言されるべきです。</p>
+       <def title="CrudRepository save()関数">
+          <p><a href="https://docs.spring.io/spring-data/jdbc/docs/current/reference/html/#jdbc.entity-persistence">この関数は</a>、新しいオブジェクトがデータベースにIDを持たないという前提で動作します。したがって、挿入の場合、IDは<b>nullであるべき</b>です。</p>
+          <p>IDが<i>null</i>でない場合、<code>CrudRepository</code>はオブジェクトがすでにデータベースに存在し、これは<i>挿入</i>操作ではなく<i>更新</i>操作であると仮定します。挿入操作後、<code>id</code>はデータストアによって生成され、<code>Message</code>インスタンスに割り当てられます。これが、<code>id</code>プロパティが<code>var</code>キーワードを使用して宣言されるべき理由です。</p>
           <p></p>
        </def>
     </deflist>
 
-4.  挿入されたオブジェクトのIDを生成するようにメッセージテーブルの定義を更新します。`id` は文字列なので、`RANDOM_UUID()` 関数を使用してデフォルトでID値を生成できます。
+4.  挿入されたオブジェクトのIDを生成するようにメッセージテーブルの定義を更新します。`id`は文字列であるため、デフォルトでID値を生成するために`RANDOM_UUID()`関数を使用できます。
 
     ```sql
     -- schema.sql 
@@ -97,7 +98,7 @@ _CrudRepository_ は、特定のタイプのリポジトリに対する汎用的
     );
     ```
 
-5.  `src/main/resources` フォルダにある `application.properties` ファイル内のデータベース名を更新します。
+5.  `src/main/resources`フォルダにある`application.properties`ファイルのデータベース名を更新します。
 
    ```none
    spring.application.name=demo
@@ -109,7 +110,7 @@ _CrudRepository_ は、特定のタイプのリポジトリに対する汎用的
    spring.sql.init.mode=always
    ```
 
-アプリケーションの完全なコードは次のとおりです。
+以下に、アプリケーションの完全なコードを示します。
 
 ```kotlin
 // DemoApplication.kt
@@ -205,22 +206,22 @@ class MessageController(private val service: MessageService) {
 
 ## アプリケーションを実行する
 
-おめでとうございます！アプリケーションは再び実行準備が整いました。
-`JdbcTemplate` を `CrudRepository` に置き換えた後も、機能は同じままであるため、アプリケーションは以前とまったく同じように動作します。
+おめでとうございます！アプリケーションを再度実行する準備ができました。
+`JdbcTemplate`を`CrudRepository`に置き換えても、機能は同じままで、アプリケーションは以前と同じように動作します。
 
-これで、`requests.http` ファイルから [POSTおよびGET HTTPリクエストを実行](jvm-spring-boot-add-db-support.md#add-messages-to-database-via-http-request)して、同じ結果を得ることができます。
+これで、`requests.http`ファイルから[POSTおよびGET HTTPリクエストを実行](jvm-spring-boot-add-db-support.md#add-messages-to-database-via-http-request)して、同じ結果を得ることができます。
 
 ## 次のステップ
 
-Kotlinの機能を探求し、学習の進捗を追跡するのに役立つパーソナル言語マップを入手しましょう。
+Kotlinの機能を知り、学習の進捗を追跡するのに役立つパーソナル言語マップを入手しましょう。
 
 <a href="https://resources.jetbrains.com/storage/products/kotlin/docs/Kotlin_Language_Features_Map.pdf">
-   <img src="get-kotlin-language-map.png" width="700" alt="Get the Kotlin language map" style="block"/>
+   <img src="get-kotlin-language-map.png" width="700" alt="Kotlin言語マップを入手" style="block"/>
 </a>
 
-*   [KotlinコードからJavaを呼び出す](java-interop.md)方法と[JavaコードからKotlinを呼び出す](java-to-kotlin-interop.md)方法について詳しく学ぶ。
-*   [Java-to-Kotlinコンバーター](mixing-java-kotlin-intellij.md#converting-an-existing-java-file-to-kotlin-with-j2k)を使用して、既存のJavaコードをKotlinに変換する方法を学ぶ。
-*   JavaからKotlinへの移行ガイドを確認する:
-    *   [JavaとKotlinの文字列](java-to-kotlin-idioms-strings.md)。
-    *   [JavaとKotlinのコレクション](java-to-kotlin-collections-guide.md)。
-    *   [JavaとKotlinのNull許容性](java-to-kotlin-nullability-guide.md)。
+*   [KotlinコードからJavaを呼び出す](java-interop.md)方法と[JavaコードからKotlinを呼び出す](java-to-kotlin-interop.md)方法について詳しく学習します。
+*   [Java-to-Kotlinコンバーター](mixing-java-kotlin-intellij.md#converting-an-existing-java-file-to-kotlin-with-j2k)を使用して、既存のJavaコードをKotlinに変換する方法を学習します。
+*   JavaからKotlinへの移行ガイドを確認してください。
+    *   [JavaとKotlinにおける文字列](java-to-kotlin-idioms-strings.md)。
+    *   [JavaとKotlinにおけるコレクション](java-to-kotlin-collections-guide.md)。
+    *   [JavaとKotlinにおけるヌル許容性](java-to-kotlin-nullability-guide.md)。

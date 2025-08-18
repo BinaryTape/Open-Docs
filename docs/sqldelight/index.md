@@ -14,7 +14,7 @@ CREATE TABLE hockey_player (
 );
 ```
 
-并生成类型安全的 Kotlin 代码来运行您的 SQL 语句和查询。
+并生成类型安全代码来运行您的 SQL 语句和查询。
 
 ![intro.gif](images/intro.gif)
 

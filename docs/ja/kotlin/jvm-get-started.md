@@ -1,37 +1,41 @@
-[//]: # (title: Kotlin/JVM を使ってみる)
+[//]: # (title: Kotlin/JVMを使ってみる)
 
-このチュートリアルでは、IntelliJ IDEA を使用してコンソールアプリケーションを作成する方法を説明します。
+このチュートリアルでは、IntelliJ IDEAを使ってコンソールアプリケーションを作成する方法を説明します。
 
-始めるには、まず [IntelliJ IDEA](https://www.jetbrains.com/idea/download/index.html) の最新バージョンをダウンロードしてインストールしてください。
+まず、始めるには、[IntelliJ IDEA](https://www.jetbrains.com/idea/download/index.html)の最新バージョンをダウンロードしてインストールしてください。
 
 ## プロジェクトを作成する
 
-1. IntelliJ IDEA で、**File** | **New** | **Project** を選択します。
+1. IntelliJ IDEAで、**File** | **New** | **Project** を選択します。
 2. 左側のリストで、**Kotlin** を選択します。
 3. 新しいプロジェクトに名前を付け、必要であればその場所を変更します。
 
-   > 新しいプロジェクトをバージョン管理下に置くには、**Create Git repository** チェックボックスを選択します。これは後でいつでも実行できます。
+   > **Create Git repository** チェックボックスを選択して、新しいプロジェクトをバージョン管理下に置きます。これはいつでも後から行うことができます。
    >
    {style="tip"}
    
-   ![コンソールアプリケーションを作成](jvm-new-project.png){width=700}
+   ![Create a console application](jvm-new-project.png){width=700}
 
-4. **IntelliJ** ビルドシステムを選択します。これは、追加のアーティファクトをダウンロードする必要がないネイティブビルダーです。
+4. **IntelliJ** ビルドシステムを選択します。これは追加のアーティファクトのダウンロードを必要としないネイティブビルダーです。
 
-   さらに設定が必要なより複雑なプロジェクトを作成したい場合は、Maven または Gradle を選択します。Gradle の場合は、ビルドスクリプトの言語として Kotlin または Groovy を選択します。
-5. **JDK** リストから、プロジェクトで使用する [JDK](https://www.oracle.com/java/technologies/downloads/) を選択します。
-   * JDK がコンピュータにインストールされていても、IDE で定義されていない場合は、**Add JDK** を選択し、JDK のホームディレクトリへのパスを指定します。
-   * 必要な JDK がコンピュータにない場合は、**Download JDK** を選択します。
+   さらに設定が必要な、より複雑なプロジェクトを作成したい場合は、MavenまたはGradleを選択します。Gradleの場合、ビルドスクリプトの言語としてKotlinまたはGroovyを選択します。
+5. **JDK** リストから、プロジェクトで使用したい[JDK](https://www.oracle.com/java/technologies/downloads/)を選択します。
+   * JDKがコンピューターにインストールされているものの、IDEで定義されていない場合は、**Add JDK** を選択し、JDKホームディレクトリへのパスを指定します。 
+   * 必要なJDKがコンピューターにない場合は、**Download JDK** を選択します。
 
-6. サンプル `"Hello World!"` アプリケーションのファイルを作成するために、**Add sample code** オプションを有効にします。
+6. **Add sample code** オプションを有効にして、サンプル「`Hello World!`」アプリケーションを含むファイルを作成します。
 
-    > また、**Generate code with onboarding tips** オプションを有効にして、サンプルコードにさらに役立つコメントを追加することもできます。
+    > また、**Generate code with onboarding tips** オプションを有効にすると、サンプルコードに役立つコメントを追加できます。
     >
     {style="tip"}
 
 7. **Create** をクリックします。
 
-    > Gradle ビルドシステムを選択した場合、プロジェクト内にビルドスクリプトファイル `build.gradle(.kts)` があります。これには、`kotlin("jvm")` プラグインとコンソールアプリケーションに必要な依存関係が含まれています。プラグインの最新バージョンを使用していることを確認してください。
+    > Gradleビルドシステムを選択した場合、プロジェクトにはビルドスクリプトファイル `build.gradle(.kts)` があります。
+    > これには、コンソールアプリケーションに必要な`kotlin("jvm")`プラグインと依存関係が含まれています。プラグインの最新バージョンを使用していることを確認してください。
+    > 
+    > <tabs group="build-script">
+    > <tab title="Kotlin" group-key="kotlin">
     > 
     > ```kotlin
     > plugins {
@@ -40,19 +44,32 @@
     > }
     > ```
     > 
+    > </tab>
+    > <tab title="Groovy" group-key="groovy">
+    > 
+    > ```groovy
+    > plugins {
+    >     id 'org.jetbrains.kotlin.jvm' version '%kotlinVersion%'
+    >     id 'application'
+    > }
+    > ```
+    > 
+    > </tab>
+    > </tabs>
+    > 
     {style="note"}
 
 ## アプリケーションを作成する
 
-1. `src/main/kotlin` 内の `Main.kt` ファイルを開きます。
-   `src` ディレクトリには Kotlin のソースファイルとリソースが含まれています。`Main.kt` ファイルには、`Hello, Kotlin!` とサイクルのイテレータの値をいくつか出力するサンプルコードが含まれています。
+1. `src/main/kotlin` 内の `Main.kt` ファイルを開きます。  
+   `src` ディレクトリにはKotlinのソースファイルとリソースが含まれています。`Main.kt` ファイルには、`Hello, Kotlin!` を出力するサンプルコードと、サイクルイテレータの値を含むいくつかの行が含まれています。
 
-   ![main fun を含む Main.kt](jvm-main-kt-initial.png){width=700}
+   ![Main.kt with main fun](jvm-main-kt-initial.png){width=700}
 
-2. コードを修正して、あなたの名前を尋ね、`Hello` と挨拶するようにします。
+2. コードを修正して、あなたの名前を尋ね、「Hello」と挨拶するようにします。
 
-   * 入力プロンプトを作成し、[`readln()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.io/readln.html) 関数によって返された値を `name` 変数に割り当てます。
-   * 結合ではなく文字列テンプレートを使用し、テキスト出力で変数名の前にドル記号 `$` を直接追加します。例：`$name`。
+   * 入力プロンプトを作成し、[`readln()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.io/readln.html)関数によって返される値を`name`変数に割り当てます。
+   * 文字列の連結の代わりに、テキスト出力で変数名の前にドル記号`$`を直接追加して、`$name` のように文字列テンプレートを使用しましょう。
    
    ```kotlin
    fun main() {
@@ -66,23 +83,23 @@
 
 ## アプリケーションを実行する
 
-これでアプリケーションを実行する準備ができました。最も簡単な方法は、ガターにある緑色の**実行**アイコンをクリックし、**Run 'MainKt'** を選択することです。
+これでアプリケーションを実行する準備ができました。最も簡単な方法は、ガターにある緑色の**Run**アイコンをクリックし、**Run 'MainKt'** を選択することです。
 
-![コンソールアプリを実行中](jvm-run-app.png){width=350}
+![Running a console app](jvm-run-app.png){width=350}
 
-結果は**実行**ツールウィンドウで確認できます。
+結果は**Run**ツールウィンドウで確認できます。
 
-![Kotlin 実行出力](jvm-output-1.png){width=600}
+![Kotlin run output](jvm-output-1.png){width=600}
    
-名前を入力し、アプリケーションからの挨拶を受け取ってください！ 
+あなたの名前を入力し、アプリケーションからの挨拶を受け取ってください！ 
 
-![Kotlin 実行出力](jvm-output-2.png){width=600}
+![Kotlin run output](jvm-output-2.png){width=600}
 
-おめでとうございます！初めての Kotlin アプリケーションを実行しました。
+おめでとうございます！初めてのKotlinアプリケーションを実行しましたね。
 
-## 次のステップは？
+## 次のステップ
 
-このアプリケーションを作成したら、Kotlin の構文をさらに深く掘り下げてみましょう。
+このアプリケーションを作成したら、Kotlinの構文をさらに深く掘り下げることができます。
 
-* [Kotlin の例](https://play.kotlinlang.org/byExample/overview) からサンプルコードを追加する
-* IDEA 用の [JetBrains Academy プラグイン](https://plugins.jetbrains.com/plugin/10081-jetbrains-academy) をインストールし、[Kotlin Koans コース](https://plugins.jetbrains.com/plugin/10081-jetbrains-academy/docs/learner-start-guide.html?section=Kotlin%20Koans) の演習を完了する
+* [Kotlin examples](https://play.kotlinlang.org/byExample/overview) からサンプルコードを追加する 
+* IDEA 用の[JetBrains Academy プラグイン](https://plugins.jetbrains.com/plugin/10081-jetbrains-academy)をインストールし、[Kotlin Koans コース](https://plugins.jetbrains.com/plugin/10081-jetbrains-academy/docs/learner-start-guide.html?section=Kotlin%20Koans)の演習を完了する

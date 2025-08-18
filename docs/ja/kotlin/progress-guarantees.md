@@ -1,8 +1,8 @@
 [//]: # (title: 進行保証)
 
-多くの並行アルゴリズムは、ロックフリーや待機フリーなどの非ブロッキングな進行保証を提供します。これらは通常、自明ではないため、アルゴリズムをブロックするバグを混入させやすいです。Lincheckは、モデル検査戦略を使用して活性バグを見つけるのに役立ちます。
+多くの並行アルゴリズムは、ロックフリーや待機フリーといったノンブロッキングな進行保証を提供します。これらのアルゴリズムは通常自明ではないため、アルゴリズムをブロックするバグを簡単に組み込んでしまう可能性があります。Lincheckは、モデル検査戦略を用いて活性バグを見つけるのに役立ちます。
 
-アルゴリズムの進行保証をチェックするには、`ModelCheckingOptions()` で `checkObstructionFreedom` オプションを有効にします。
+アルゴリズムの進行保証を確認するには、`ModelCheckingOptions()` で `checkObstructionFreedom` オプションを有効にします。
 
 ```kotlin
 ModelCheckingOptions().checkObstructionFreedom()
@@ -12,11 +12,10 @@ ModelCheckingOptions().checkObstructionFreedom()
 次に、Java標準ライブラリの `ConcurrentHashMap::put(key: K, value: V)` がブロッキング操作であることを検出するために、以下のテストを追加します。
 
 ```kotlin
-import org.jetbrains.kotlinx.lincheck.*
-import org.jetbrains.kotlinx.lincheck.annotations.*
-import org.jetbrains.kotlinx.lincheck.strategy.managed.modelchecking.*
-import org.junit.*
 import java.util.concurrent.*
+import org.jetbrains.lincheck.*
+import org.jetbrains.lincheck.datastructures.*
+import org.junit.*
 
 class ConcurrentHashMapTest {
     private val map = ConcurrentHashMap<Int, Int>()
@@ -35,7 +34,7 @@ class ConcurrentHashMapTest {
 }
 ```
 
-`modelCheckingTest()` を実行します。以下の結果が得られます。
+`modelCheckingTest()` を実行します。以下の結果が得られるはずです。
 
 ```text
 = Obstruction-freedom is required but a lock has been found =
@@ -65,7 +64,7 @@ The following interleaving leads to the error:
 |                                                                                          |       next.READ: null at ConcurrentHashMap.putVal(ConcurrentHashMap.java:1046)           |
 |                                                                                          |       switch                                                                             |
 | put(2, -2)                                                                               |                                                                                          |
-|   put(2,-2) at ConcurrentHashMapTest.put(ConcurrentMap.kt:11)                        |                                                                                          |
+|   put(2,-2) at ConcurrentHashMapTest.put(ConcurrentMapTest.kt:11)                        |                                                                                          |
 |     putVal(2,-2,false) at ConcurrentHashMap.put(ConcurrentHashMap.java:1006)             |                                                                                          |
 |       table.READ: Node[]@1 at ConcurrentHashMap.putVal(ConcurrentHashMap.java:1014)      |                                                                                          |
 |       tabAt(Node[]@1,0): Node@1 at ConcurrentHashMap.putVal(ConcurrentHashMap.java:1018) |                                                                                          |
@@ -73,7 +72,7 @@ The following interleaving leads to the error:
 | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 ```
 
-次に、非ブロッキングな `ConcurrentSkipListMap<K, V>` のテストを追加しましょう。このテストは正常にパスすることを期待します。
+さて、ノンブロッキングな `ConcurrentSkipListMap<K, V>` のテストを追加し、テストが正常にパスすることを期待しましょう。
 
 ```kotlin
 class ConcurrentSkipListMapTest {
@@ -89,21 +88,21 @@ class ConcurrentSkipListMapTest {
 }
 ```
 
-> 一般的な非ブロッキング進行保証は（強いものから弱いものへ）以下の通りです。
+> 一般的なノンブロッキング進行保証は（強い順から弱い順に）次のとおりです。
 >
-> *   **待機フリー (wait-freedom)**: 他のスレッドが何をしていても、各操作が限られたステップ数で完了します。
-> *   **ロックフリー (lock-freedom)**: システム全体での進行を保証し、特定の操作が停止している可能性がある場合でも、少なくとも1つの操作が限られたステップ数で完了します。
-> *   **障害フリー (obstruction-freedom)**: 他のすべてのスレッドが一時停止した場合に、任意の操作が限られたステップ数で完了します。
+> *   **待機フリー**：他のスレッドが何をしていても、各操作が有限のステップ数で完了します。
+> *   **ロックフリー**：システム全体の進行を保証し、特定の操作が停止している可能性がある間でも、少なくとも1つの操作が有限のステップ数で完了します。
+> *   **閉塞フリー**：他のすべてのスレッドが一時停止した場合、任意の操作が有限のステップ数で完了します。
 >
 {style="tip"}
 
-現時点では、Lincheckは障害フリーの進行保証のみをサポートしています。しかし、ほとんどの実際の活性バグは予期せぬブロッキングコードを混入させるため、障害フリーチェックはロックフリーおよび待機フリーのアルゴリズムにも役立ちます。
+現時点では、Lincheckは閉塞フリーの進行保証のみをサポートしています。しかし、ほとんどの実際の活性バグは予期せぬブロッキングコードを追加するため、閉塞フリーのチェックはロックフリーおよび待機フリーのアルゴリズムにも役立ちます。
 
-> *   [例の完全なコード](https://github.com/JetBrains/lincheck/blob/master/src/jvm/test/org/jetbrains/kotlinx/lincheck_test/guide/ConcurrentMapTest.kt)を取得する。
-> *   Michael-Scottキューの実装が進行保証のためにテストされている[別の例](https://github.com/JetBrains/lincheck/blob/master/src/jvm/test/org/jetbrains/kotlinx/lincheck_test/guide/ObstructionFreedomViolationTest.kt)を見る。
+> *   [サンプルの完全なコード](https://github.com/JetBrains/lincheck/blob/master/src/jvm/test-lincheck-integration/org/jetbrains/lincheck_test/guide/ConcurrentMapTest.kt)を入手してください。
+> *   Michael-Scottキューの実装が進行保証のためにテストされている[別の例](https://github.com/JetBrains/lincheck/blob/master/src/jvm/test-lincheck-integration/org/jetbrains/lincheck_test/guide/ObstructionFreedomViolationTest.kt)を参照してください。
 >
 {style="note"}
 
 ## 次のステップ
 
-Lincheckテストの堅牢性を向上させるために、テスト対象アルゴリズムの[順次仕様](sequential-specification.md)を明示的に指定する方法を学びましょう。
+テストアルゴリズムの[シーケンシャル仕様](sequential-specification.md)を明示的に指定してLincheckテストの堅牢性を向上させる方法を学びましょう。

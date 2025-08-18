@@ -1,0 +1,718 @@
+[
+  {
+    "text": "sqldelight.sqldelight",
+    "items": [
+      {
+        "text": "sqldelight.overview",
+        "link": "index.md"
+      },
+      {
+        "text": "sqldelight.upgrading-to-2-0",
+        "link": "upgrading-2.0"
+      },
+      {
+        "text": "sqldelight.changelog",
+        "link": "changelog"
+      },
+      {
+        "text": "sqldelight.contributing",
+        "link": "contributing"
+      },
+      {
+        "text": "sqldelight.code-of-conduct",
+        "link": "code_of_conduct"
+      }
+    ],
+    "collapsed": true
+  },
+  {
+    "text": "sqldelight.sqlite-android",
+    "items": [
+      {
+        "text": "sqldelight.getting-started",
+        "link": "android_sqlite/index"
+      },
+      {
+        "text": "sqldelight.sql",
+        "items": [
+          {
+            "text": "sqldelight.foreign-keys",
+            "link": "android_sqlite/foreign_keys"
+          },
+          {
+            "text": "sqldelight.type-projections",
+            "link": "android_sqlite/custom_projections"
+          },
+          {
+            "text": "sqldelight.arguments",
+            "link": "android_sqlite/query_arguments"
+          },
+          {
+            "text": "sqldelight.types",
+            "link": "android_sqlite/types"
+          },
+          {
+            "text": "sqldelight.transactions",
+            "link": "android_sqlite/transactions"
+          },
+          {
+            "text": "sqldelight.grouping-statements",
+            "link": "android_sqlite/grouping_statements"
+          }
+        ],
+        "collapsed": true
+      },
+      {
+        "text": "sqldelight.extensions",
+        "items": [
+          {
+            "text": "sqldelight.rxjava",
+            "link": "android_sqlite/rxjava"
+          },
+          {
+            "text": "sqldelight.coroutines",
+            "link": "android_sqlite/coroutines"
+          },
+          {
+            "text": "sqldelight.androidx-paging",
+            "link": "android_sqlite/androidx_paging"
+          }
+        ],
+        "collapsed": true
+      },
+      {
+        "text": "sqldelight.migrations",
+        "link": "android_sqlite/migrations"
+      },
+      {
+        "text": "sqldelight.testing",
+        "link": "android_sqlite/testing"
+      },
+      {
+        "text": "sqldelight.intellij-plugin",
+        "link": "android_sqlite/intellij_plugin"
+      },
+      {
+        "text": "sqldelight.gradle",
+        "link": "android_sqlite/gradle"
+      },
+      {
+        "text": "sqldelight._2-x-api",
+        "items": [
+          {
+            "text": "sqldelight.coroutines-extensions",
+            "href": "https://sqldelight.github.io/sqldelight/2.1.0/2.x/extensions/coroutines-extensions/index.html"
+          },
+          {
+            "text": "sqldelight.rxjava2-extensions",
+            "href": "https://sqldelight.github.io/sqldelight/2.1.0/2.x/extensions/rxjava2-extensions/index.html"
+          },
+          {
+            "text": "sqldelight.rxjava3-extensions",
+            "href": "https://sqldelight.github.io/sqldelight/2.1.0/2.x/extensions/rxjava3-extensions/index.html"
+          },
+          {
+            "text": "sqldelight.androidx-paging3",
+            "href": "https://sqldelight.github.io/sqldelight/2.1.0/2.x/extensions/androidx-paging3/index.html"
+          },
+          {
+            "text": "sqldelight.android-driver",
+            "href": "https://sqldelight.github.io/sqldelight/2.1.0/2.x/drivers/android-driver/index.html"
+          },
+          {
+            "text": "sqldelight.runtime",
+            "href": "https://sqldelight.github.io/sqldelight/2.1.0/2.x/runtime/index.html"
+          }
+        ],
+        "collapsed": true
+      },
+      {
+        "text": "sqldelight.resources",
+        "link": "android_sqlite/resources"
+      }
+    ],
+    "collapsed": true
+  },
+  {
+    "text": "sqldelight.sqlite-multiplatform",
+    "items": [
+      {
+        "text": "sqldelight.getting-started",
+        "link": "multiplatform_sqlite/index"
+      },
+      {
+        "text": "sqldelight.sql",
+        "items": [
+          {
+            "text": "sqldelight.foreign-keys",
+            "link": "multiplatform_sqlite/foreign_keys"
+          },
+          {
+            "text": "sqldelight.type-projections",
+            "link": "multiplatform_sqlite/custom_projections"
+          },
+          {
+            "text": "sqldelight.arguments",
+            "link": "multiplatform_sqlite/query_arguments"
+          },
+          {
+            "text": "sqldelight.types",
+            "link": "multiplatform_sqlite/types"
+          },
+          {
+            "text": "sqldelight.transactions",
+            "link": "multiplatform_sqlite/transactions"
+          },
+          {
+            "text": "sqldelight.grouping-statements",
+            "link": "multiplatform_sqlite/grouping_statements"
+          }
+        ],
+        "collapsed": true
+      },
+      {
+        "text": "sqldelight.extensions",
+        "items": [
+          {
+            "text": "sqldelight.coroutines",
+            "link": "multiplatform_sqlite/coroutines"
+          },
+          {
+            "text": "sqldelight.androidx-paging",
+            "link": "multiplatform_sqlite/androidx_paging"
+          }
+        ],
+        "collapsed": true
+      },
+      {
+        "text": "sqldelight.migrations",
+        "link": "multiplatform_sqlite/migrations"
+      },
+      {
+        "text": "sqldelight.intellij-plugin",
+        "link": "multiplatform_sqlite/intellij_plugin"
+      },
+      {
+        "text": "sqldelight.gradle",
+        "link": "multiplatform_sqlite/gradle"
+      },
+      {
+        "text": "sqldelight.resources",
+        "link": "multiplatform_sqlite/resources"
+      },
+      {
+        "text": "sqldelight._2-x-api",
+        "items": [
+          {
+            "text": "sqldelight.coroutines-extensions",
+            "href": "https://sqldelight.github.io/sqldelight/2.1.0/2.x/extensions/coroutines-extensions/index.html"
+          },
+          {
+            "text": "sqldelight.runtime",
+            "href": "https://sqldelight.github.io/sqldelight/2.1.0/2.x/runtime/index.html"
+          }
+        ],
+        "collapsed": true
+      }
+    ],
+    "collapsed": true
+  },
+  {
+    "text": "sqldelight.mysql-jvm",
+    "items": [
+      {
+        "text": "sqldelight.getting-started",
+        "link": "jvm_mysql/index"
+      },
+      {
+        "text": "sqldelight.sql",
+        "items": [
+          {
+            "text": "sqldelight.type-projections",
+            "link": "jvm_mysql/custom_projections"
+          },
+          {
+            "text": "sqldelight.arguments",
+            "link": "jvm_mysql/query_arguments"
+          },
+          {
+            "text": "sqldelight.types",
+            "link": "jvm_mysql/types"
+          },
+          {
+            "text": "sqldelight.transactions",
+            "link": "jvm_mysql/transactions"
+          },
+          {
+            "text": "sqldelight.grouping-statements",
+            "link": "jvm_mysql/grouping_statements"
+          }
+        ],
+        "collapsed": true
+      },
+      {
+        "text": "sqldelight.extensions",
+        "items": [
+          {
+            "text": "sqldelight.androidx-paging",
+            "link": "jvm_mysql/androidx_paging"
+          }
+        ],
+        "collapsed": true
+      },
+      {
+        "text": "sqldelight.migrations",
+        "link": "jvm_mysql/migrations"
+      },
+      {
+        "text": "sqldelight.intellij-plugin",
+        "link": "jvm_mysql/intellij_plugin"
+      },
+      {
+        "text": "sqldelight.gradle",
+        "link": "jvm_mysql/gradle"
+      },
+      {
+        "text": "sqldelight._2-x-api",
+        "items": [
+          {
+            "text": "sqldelight.jdbc-driver",
+            "href": "https://sqldelight.github.io/sqldelight/2.1.0/2.x/drivers/jdbc-driver/index.html"
+          },
+          {
+            "text": "sqldelight.runtime",
+            "href": "https://sqldelight.github.io/sqldelight/2.1.0/2.x/runtime/index.html"
+          }
+        ],
+        "collapsed": true
+      }
+    ],
+    "collapsed": true
+  },
+  {
+    "text": "sqldelight.postgresql-jvm",
+    "items": [
+      {
+        "text": "sqldelight.getting-started",
+        "link": "jvm_postgresql/index"
+      },
+      {
+        "text": "sqldelight.sql",
+        "items": [
+          {
+            "text": "sqldelight.type-projections",
+            "link": "jvm_postgresql/custom_projections"
+          },
+          {
+            "text": "sqldelight.arguments",
+            "link": "jvm_postgresql/query_arguments"
+          },
+          {
+            "text": "sqldelight.types",
+            "link": "jvm_postgresql/types"
+          },
+          {
+            "text": "sqldelight.transactions",
+            "link": "jvm_postgresql/transactions"
+          },
+          {
+            "text": "sqldelight.grouping-statements",
+            "link": "jvm_postgresql/grouping_statements"
+          }
+        ],
+        "collapsed": true
+      },
+      {
+        "text": "sqldelight.extensions",
+        "items": [
+          {
+            "text": "sqldelight.androidx-paging",
+            "link": "jvm_postgresql/androidx_paging"
+          }
+        ],
+        "collapsed": true
+      },
+      {
+        "text": "sqldelight.migrations",
+        "link": "jvm_postgresql/migrations"
+      },
+      {
+        "text": "sqldelight.intellij-plugin",
+        "link": "jvm_postgresql/intellij_plugin"
+      },
+      {
+        "text": "sqldelight.gradle",
+        "link": "jvm_postgresql/gradle"
+      },
+      {
+        "text": "sqldelight._2-x-api",
+        "items": [
+          {
+            "text": "sqldelight.jdbc-driver",
+            "href": "https://sqldelight.github.io/sqldelight/2.1.0/2.x/drivers/jdbc-driver/index.html"
+          },
+          {
+            "text": "sqldelight.runtime",
+            "href": "https://sqldelight.github.io/sqldelight/2.1.0/2.x/runtime/index.html"
+          }
+        ],
+        "collapsed": true
+      }
+    ],
+    "collapsed": true
+  },
+  {
+    "text": "sqldelight.hsql-jvm",
+    "items": [
+      {
+        "text": "sqldelight.getting-started",
+        "link": "jvm_h2/index"
+      },
+      {
+        "text": "sqldelight.sql",
+        "items": [
+          {
+            "text": "sqldelight.type-projections",
+            "link": "jvm_h2/custom_projections"
+          },
+          {
+            "text": "sqldelight.arguments",
+            "link": "jvm_h2/query_arguments"
+          },
+          {
+            "text": "sqldelight.types",
+            "link": "jvm_h2/types"
+          },
+          {
+            "text": "sqldelight.transactions",
+            "link": "jvm_h2/transactions"
+          },
+          {
+            "text": "sqldelight.grouping-statements",
+            "link": "jvm_h2/grouping_statements"
+          }
+        ],
+        "collapsed": true
+      },
+      {
+        "text": "sqldelight.extensions",
+        "items": [
+          {
+            "text": "sqldelight.androidx-paging",
+            "link": "jvm_h2/androidx_paging"
+          }
+        ],
+        "collapsed": true
+      },
+      {
+        "text": "sqldelight.migrations",
+        "link": "jvm_h2/migrations"
+      },
+      {
+        "text": "sqldelight.intellij-plugin",
+        "link": "jvm_h2/intellij_plugin"
+      },
+      {
+        "text": "sqldelight.gradle",
+        "link": "jvm_h2/gradle"
+      },
+      {
+        "text": "sqldelight._2-x-api",
+        "items": [
+          {
+            "text": "sqldelight.jdbc-driver",
+            "href": "https://sqldelight.github.io/sqldelight/2.1.0/2.x/drivers/jdbc-driver/index.html"
+          },
+          {
+            "text": "sqldelight.runtime",
+            "href": "https://sqldelight.github.io/sqldelight/2.1.0/2.x/runtime/index.html"
+          }
+        ],
+        "collapsed": true
+      }
+    ],
+    "collapsed": true
+  },
+  {
+    "text": "sqldelight.sqlite-native",
+    "items": [
+      {
+        "text": "sqldelight.getting-started",
+        "link": "native_sqlite/index"
+      },
+      {
+        "text": "sqldelight.sql",
+        "items": [
+          {
+            "text": "sqldelight.foreign-keys",
+            "link": "native_sqlite/foreign_keys"
+          },
+          {
+            "text": "sqldelight.type-projections",
+            "link": "native_sqlite/custom_projections"
+          },
+          {
+            "text": "sqldelight.arguments",
+            "link": "native_sqlite/query_arguments"
+          },
+          {
+            "text": "sqldelight.types",
+            "link": "native_sqlite/types"
+          },
+          {
+            "text": "sqldelight.transactions",
+            "link": "native_sqlite/transactions"
+          },
+          {
+            "text": "sqldelight.grouping-statements",
+            "link": "native_sqlite/grouping_statements"
+          }
+        ],
+        "collapsed": true
+      },
+      {
+        "text": "sqldelight.extensions",
+        "items": [
+          {
+            "text": "sqldelight.coroutines",
+            "link": "native_sqlite/coroutines"
+          },
+          {
+            "text": "sqldelight.androidx-paging",
+            "link": "native_sqlite/androidx_paging"
+          }
+        ],
+        "collapsed": true
+      },
+      {
+        "text": "sqldelight.migrations",
+        "link": "native_sqlite/migrations"
+      },
+      {
+        "text": "sqldelight.intellij-plugin",
+        "link": "native_sqlite/intellij_plugin"
+      },
+      {
+        "text": "sqldelight.gradle",
+        "link": "native_sqlite/gradle"
+      },
+      {
+        "text": "sqldelight._2-x-api",
+        "items": [
+          {
+            "text": "sqldelight.coroutines-extensions",
+            "href": "https://sqldelight.github.io/sqldelight/2.1.0/2.x/extensions/coroutines-extensions/index.html"
+          },
+          {
+            "text": "sqldelight.native-driver",
+            "href": "https://sqldelight.github.io/sqldelight/2.1.0/2.x/drivers/native-driver/index.html"
+          },
+          {
+            "text": "sqldelight.runtime",
+            "href": "https://sqldelight.github.io/sqldelight/2.1.0/2.x/runtime/index.html"
+          }
+        ],
+        "collapsed": true
+      }
+    ],
+    "collapsed": true
+  },
+  {
+    "text": "sqldelight.sqlite-jvm",
+    "items": [
+      {
+        "text": "sqldelight.getting-started",
+        "link": "jvm_sqlite/index"
+      },
+      {
+        "text": "sqldelight.sql",
+        "items": [
+          {
+            "text": "sqldelight.foreign-keys",
+            "link": "jvm_sqlite/foreign_keys"
+          },
+          {
+            "text": "sqldelight.type-projections",
+            "link": "jvm_sqlite/custom_projections"
+          },
+          {
+            "text": "sqldelight.arguments",
+            "link": "jvm_sqlite/query_arguments"
+          },
+          {
+            "text": "sqldelight.types",
+            "link": "jvm_sqlite/types"
+          },
+          {
+            "text": "sqldelight.transactions",
+            "link": "jvm_sqlite/transactions"
+          },
+          {
+            "text": "sqldelight.grouping-statements",
+            "link": "jvm_sqlite/grouping_statements"
+          }
+        ],
+        "collapsed": true
+      },
+      {
+        "text": "sqldelight.extensions",
+        "items": [
+          {
+            "text": "sqldelight.rxjava",
+            "link": "jvm_sqlite/rxjava"
+          },
+          {
+            "text": "sqldelight.coroutines",
+            "link": "jvm_sqlite/coroutines"
+          },
+          {
+            "text": "sqldelight.androidx-paging",
+            "link": "jvm_sqlite/androidx_paging"
+          }
+        ],
+        "collapsed": true
+      },
+      {
+        "text": "sqldelight.migrations",
+        "link": "jvm_sqlite/migrations"
+      },
+      {
+        "text": "sqldelight.intellij-plugin",
+        "link": "jvm_sqlite/intellij_plugin"
+      },
+      {
+        "text": "sqldelight.gradle",
+        "link": "jvm_sqlite/gradle"
+      },
+      {
+        "text": "sqldelight._2-x-api",
+        "items": [
+          {
+            "text": "sqldelight.coroutines-extensions",
+            "href": "https://sqldelight.github.io/sqldelight/2.1.0/2.x/extensions/coroutines-extensions/index.html"
+          },
+          {
+            "text": "sqldelight.rxjava2-extensions",
+            "href": "https://sqldelight.github.io/sqldelight/2.1.0/2.x/extensions/rxjava2-extensions/index.html"
+          },
+          {
+            "text": "sqldelight.rxjava3-extensions",
+            "href": "https://sqldelight.github.io/sqldelight/2.1.0/2.x/extensions/rxjava3-extensions/index.html"
+          },
+          {
+            "text": "sqldelight.sqlite-driver",
+            "href": "https://sqldelight.github.io/sqldelight/2.1.0/2.x/drivers/sqlite-driver/index.html"
+          },
+          {
+            "text": "sqldelight.runtime",
+            "href": "https://sqldelight.github.io/sqldelight/2.1.0/2.x/runtime/index.html"
+          }
+        ],
+        "collapsed": true
+      }
+    ],
+    "collapsed": true
+  },
+  {
+    "text": "sqldelight.sqlite-js",
+    "items": [
+      {
+        "text": "sqldelight.getting-started",
+        "link": "js_sqlite/index"
+      },
+      {
+        "text": "sqldelight.multiplatform",
+        "link": "js_sqlite/multiplatform"
+      },
+      {
+        "text": "sqldelight.web-workers",
+        "items": [
+          {
+            "text": "sqldelight.sql-js-worker",
+            "link": "js_sqlite/sqljs_worker"
+          },
+          {
+            "text": "sqldelight.custom-workers",
+            "link": "js_sqlite/custom_worker"
+          }
+        ],
+        "collapsed": true
+      },
+      {
+        "text": "sqldelight.sql",
+        "items": [
+          {
+            "text": "sqldelight.type-projections",
+            "link": "js_sqlite/custom_projections"
+          },
+          {
+            "text": "sqldelight.arguments",
+            "link": "js_sqlite/query_arguments"
+          },
+          {
+            "text": "sqldelight.types",
+            "link": "js_sqlite/types"
+          },
+          {
+            "text": "sqldelight.transactions",
+            "link": "js_sqlite/transactions"
+          },
+          {
+            "text": "sqldelight.grouping-statements",
+            "link": "js_sqlite/grouping_statements"
+          }
+        ],
+        "collapsed": true
+      },
+      {
+        "text": "sqldelight.extensions",
+        "items": [
+          {
+            "text": "sqldelight.coroutines",
+            "link": "js_sqlite/coroutines"
+          },
+          {
+            "text": "sqldelight.androidx-paging",
+            "link": "js_sqlite/androidx_paging"
+          }
+        ],
+        "collapsed": true
+      },
+      {
+        "text": "sqldelight.migrations",
+        "link": "js_sqlite/migrations"
+      },
+      {
+        "text": "sqldelight.intellij-plugin",
+        "link": "js_sqlite/intellij_plugin"
+      },
+      {
+        "text": "sqldelight.gradle",
+        "link": "js_sqlite/gradle"
+      },
+      {
+        "text": "sqldelight._2-x-api",
+        "items": [
+          {
+            "text": "sqldelight.coroutines-extensions",
+            "href": "https://sqldelight.github.io/sqldelight/2.1.0/2.x/extensions/coroutines-extensions/index.html"
+          },
+          {
+            "text": "sqldelight.sqljs-driver",
+            "href": "https://sqldelight.github.io/sqldelight/2.1.0/2.x/drivers/sqljs-driver/index.html"
+          },
+          {
+            "text": "sqldelight.runtime",
+            "href": "https://sqldelight.github.io/sqldelight/2.1.0/2.x/runtime/index.html"
+          }
+        ],
+        "collapsed": true
+      }
+    ],
+    "collapsed": true
+  },
+  {
+    "text": "sqldelight._2-x-api",
+    "href": "https://sqldelight.github.io/sqldelight/2.1.0/2.x/index.html"
+  }
+]

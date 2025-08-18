@@ -6,7 +6,7 @@ Koin을 사용하면 모듈에서 정의를 선언합니다. 이 섹션에서는
 
 ## 모듈 작성하기
 
-Koin 모듈은 *모든 컴포넌트를 선언하는 공간*입니다. Koin 모듈을 선언하려면 `module` 함수를 사용하세요:
+Koin 모듈은 *모든 컴포넌트를 선언하는 공간*입니다. `module` 함수를 사용하여 Koin 모듈을 선언하세요:
 
 ```kotlin
 val myModule = module {
@@ -25,7 +25,7 @@ class MyService()
 
 val myModule = module {
 
-    // declare single instance for MyService class
+    // MyService 클래스에 대한 싱글톤 인스턴스 선언
     single { MyService() }
 }
 ```
@@ -34,7 +34,7 @@ val myModule = module {
 
 `single`, `factory`, `scoped` 키워드는 람다 표현식을 통해 컴포넌트를 선언하는 데 도움을 줍니다. 이 람다는 컴포넌트를 빌드하는 방식을 설명합니다. 일반적으로는 생성자를 통해 컴포넌트를 인스턴스화하지만, 어떤 표현식이든 사용할 수 있습니다.
 
-`single { Class constructor // Kotlin 표현식 }`
+`single { Class constructor // Kotlin expression }`
 
 람다의 결과 타입은 컴포넌트의 주요 타입입니다.
 
@@ -47,13 +47,13 @@ class Controller()
 
 val myModule = module {
 
-    // declare factory instance for Controller class
+    // Controller 클래스에 대한 팩토리 인스턴스 선언
     factory { Controller() }
 }
 ```
 
 :::info
-Koin 컨테이너는 팩토리 인스턴스를 유지하지 않습니다. 정의가 요청될 때마다 새로운 인스턴스를 제공하기 때문입니다.
+ Koin 컨테이너는 팩토리 인스턴스를 유지하지 않습니다. 정의가 요청될 때마다 새로운 인스턴스를 제공하기 때문입니다.
 :::
 
 ## 의존성 해결 및 주입
@@ -61,7 +61,7 @@ Koin 컨테이너는 팩토리 인스턴스를 유지하지 않습니다. 정의
 이제 컴포넌트 정의를 선언할 수 있으므로, 의존성 주입을 통해 인스턴스를 연결하고자 합니다. Koin 모듈에서 *인스턴스를 해결*하려면, 필요한 컴포넌트 인스턴스를 요청하기 위해 `get()` 함수를 사용하기만 하면 됩니다. 이 `get()` 함수는 일반적으로 생성자에 사용되어 생성자 값을 주입합니다.
 
 :::info
-Koin 컨테이너로 의존성 주입을 하려면, *생성자 주입* 스타일로 작성해야 합니다. 즉, 클래스 생성자에서 의존성을 해결해야 합니다. 이렇게 하면 Koin으로부터 주입된 인스턴스와 함께 인스턴스가 생성됩니다.
+ Koin 컨테이너로 의존성 주입을 하려면, *생성자 주입* 스타일로 작성해야 합니다. 즉, 클래스 생성자에서 의존성을 해결해야 합니다. 이렇게 하면 Koin으로부터 주입된 인스턴스와 함께 인스턴스가 생성됩니다.
 :::
 
 몇 가지 클래스를 사용한 예시를 살펴보겠습니다:
@@ -73,9 +73,9 @@ class Controller(val view : View)
 
 val myModule = module {
 
-    // declare Service as single instance
+    // Service를 싱글톤 인스턴스로 선언
     single { Service() }
-    // declare Controller as single instance, resolving View instance with get()
+    // Controller를 싱글톤 인스턴스로 선언, get()으로 View 인스턴스 해결
     single { Controller(get()) }
 }
 ```
@@ -88,13 +88,13 @@ val myModule = module {
 클래스와 구현된 인터페이스를 사용한 예시를 살펴보겠습니다:
 
 ```kotlin
-// Service interface
+// Service 인터페이스
 interface Service{
 
     fun doSomething()
 }
 
-// Service Implementation
+// Service 구현
 class ServiceImp() : Service {
 
     fun doSomething() { ... }
@@ -106,10 +106,10 @@ Koin 모듈에서는 다음과 같이 `as` 캐스트 Kotlin 연산자를 사용�
 ```kotlin
 val myModule = module {
 
-    // Will match type ServiceImp only
+    // ServiceImp 타입만 일치
     single { ServiceImp() }
 
-    // Will match type Service only
+    // Service 타입만 일치
     single { ServiceImp() as Service }
 
 }
@@ -120,17 +120,17 @@ val myModule = module {
 ```kotlin
 val myModule = module {
 
-    // Will match type ServiceImp only
+    // ServiceImp 타입만 일치
     single { ServiceImp() }
 
-    // Will match type Service only
+    // Service 타입만 일치
     single<Service> { ServiceImp() }
 
 }
 ```
 
 :::note
-이 두 번째 스타일 선언 방식이 선호되며, 이 문서의 나머지 부분에서 사용될 것입니다.
+ 이 두 번째 스타일 선언 방식이 선호되며, 이 문서의 나머지 부분에서 사용될 것입니다.
 :::
 
 ## 추가 타입 바인딩
@@ -140,13 +140,13 @@ val myModule = module {
 클래스와 인터페이스를 사용한 예시를 살펴보겠습니다:
 
 ```kotlin
-// Service interface
+// Service 인터페이스
 interface Service{
 
     fun doSomething()
 }
 
-// Service Implementation
+// Service 구현
 class ServiceImp() : Service{
 
     fun doSomething() { ... }
@@ -158,7 +158,7 @@ class ServiceImp() : Service{
 ```kotlin
 val myModule = module {
 
-    // Will match types ServiceImp & Service
+    // ServiceImp 및 Service 타입과 일치
     single { ServiceImp() } bind Service::class
 }
 ```
@@ -225,7 +225,7 @@ val presenter : Presenter by inject { parametersOf(view) }
 class Presenter(val view : View)
 
 val myModule = module {
-    factory { (view : View) -> Presenter(view) } onClose { // closing callback - it is Presenter }
+    factory { (view : View) -> Presenter(view) } onClose { // 종료 콜백 - Presenter입니다 }
 }
 ```
 
@@ -247,7 +247,7 @@ val myModuleA = module {
 
 val myModuleB = module {
 
-    // eager creation for this definition
+    // 이 정의에 대한 즉시 생성
     single<Service>(createdAtStart=true) { TestServiceImp() }
 }
 ```
@@ -269,7 +269,7 @@ val myModuleB = module(createdAtStart=true) {
 `startKoin` 함수는 `createdAtStart` 플래그가 지정된 정의 인스턴스를 자동으로 생성합니다.
 
 ```kotlin
-// Start Koin modules
+// Koin 모듈 시작
 startKoin {
     modules(myModuleA,myModuleB)
 }

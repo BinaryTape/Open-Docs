@@ -1,14 +1,14 @@
-[//]: # (title: Power-assert コンパイラプラグイン)
+[//]: # (title: Power-assert コンパイラープラグイン)
 
-> Power-assert コンパイラプラグインは[実験的](components-stability.md)です。
-> これはいつでも変更される可能性があります。評価目的のみで使用してください。
+> Power-assert コンパイラープラグインは[実験的](components-stability.md)な機能です。
+> これはいつでも変更される可能性があります。評価目的でのみ使用してください。
 > [YouTrack](https://kotl.in/issue)でのフィードバックをお待ちしております。
 >
 {style="warning"}
 
-Kotlin Power-assert コンパイラプラグインは、コンテキスト情報を含む詳細な失敗メッセージを提供することで、デバッグ体験を向上させます。
+Kotlin Power-assert コンパイラープラグインは、コンテキスト情報を含む詳細な失敗メッセージを提供することで、デバッグ体験を向上させます。
 失敗メッセージに中間値を自動生成することで、テスト記述のプロセスを簡素化します。
-複雑なアサーションライブラリを必要とせずに、テストが失敗した理由を理解するのに役立ちます。
+これにより、複雑なアサーションライブラリを必要とせずに、テストがなぜ失敗したのかを理解するのに役立ちます。
 
 以下は、プラグインによって提供されるメッセージの例です。
 
@@ -24,11 +24,11 @@ assert(hello.length == world.substring(1, 4).length) { "Incorrect length" }
        Hello
 ```
 
-Power-assert プラグインの主な機能は次のとおりです。
+Power-assert プラグインの主な機能：
 
 *   **強化されたエラーメッセージ**: プラグインは、アサーション内の変数やサブ式の値をキャプチャして表示し、失敗の原因を明確に特定します。
-*   **テストの簡素化**: 有益な失敗メッセージを自動的に生成し、複雑なアサーションライブラリの必要性を減らします。
-*   **複数の関数をサポート**: デフォルトでは、`assert()` 関数の呼び出しを変換しますが、`require()`、`check()`、`assertTrue()` などの他の関数も変換できます。
+*   **テストの簡素化**: 有益な失敗メッセージを自動生成し、複雑なアサーションライブラリの必要性を減らします。
+*   **複数の関数のサポート**: デフォルトでは `assert()` 関数呼び出しを変換しますが、`require()`、`check()`、`assertTrue()` などの他の関数も変換できます。
 
 ## プラグインの適用
 
@@ -63,10 +63,10 @@ plugins {
 
 Power-assert プラグインは、その動作をカスタマイズするためのいくつかのオプションを提供します。
 
-*   **`functions`**: 完全修飾関数パスのリストです。Power-assert プラグインは、これらの関数への呼び出しを変換します。指定しない場合、デフォルトで `kotlin.assert()` 呼び出しのみが変換されます。
-*   **`includedSourceSets`**: Power-assert プラグインが変換するGradleソースセットのリストです。指定しない場合、デフォルトで _すべてのテストソースセット_ が変換されます。
+*   **`functions`**: 完全修飾関数パスのリストです。Power-assert プラグインは、これらの関数への呼び出しを変換します。指定しない場合、デフォルトでは `kotlin.assert()` 呼び出しのみが変換されます。
+*   **`includedSourceSets`**: Power-assert プラグインが変換する Gradle ソースセットのリストです。指定しない場合、デフォルトではすべての _テストソースセット_ が変換されます。
 
-動作をカスタマイズするには、`powerAssert {}` ブロックをビルドスクリプトファイルに追加します。
+動作をカスタマイズするには、ビルドスクリプトファイルに `powerAssert {}` ブロックを追加します。
 
 <tabs group="build-script">
 <tab title="Kotlin" group-key="kotlin">
@@ -93,7 +93,7 @@ powerAssert {
 </tab>
 </tabs>
 
-このプラグインは実験的であるため、アプリをビルドするたびに警告が表示されます。
+このプラグインは実験的なため、アプリをビルドするたびに警告が表示されます。
 これらの警告を除外するには、`powerAssert {}` ブロックを宣言する前にこの `@OptIn` アノテーションを追加します。
 
 ```kotlin
@@ -107,9 +107,9 @@ powerAssert {
 
 ## プラグインの使用
 
-このセクションでは、Power-assert コンパイラプラグインの使用例を説明します。
+このセクションでは、Power-assert コンパイラープラグインの使用例をいくつか示します。
 
-これらのすべての例のビルドスクリプトファイル `build.gradle.kts` の完全なコードについては、以下を参照してください。
+これらのすべての例について、ビルドスクリプトファイル `build.gradle.kts` の完全なコードを参照してください。
 
 ```kotlin
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
@@ -141,9 +141,9 @@ powerAssert {
 ```
 {initial-collapse-state="collapsed" collapsible="true"}
 
-### `assert`関数
+### assert 関数
 
-`assert()` 関数を使用した次のテストを考えてみましょう。
+`assert()` 関数を使用した次のテストを検討してください。
 
 ```kotlin
 import kotlin.test.Test
@@ -173,8 +173,8 @@ assert(hello.length == world.substring(1, 4).length) { "Incorrect length" }
        Hello
 ```
 
-より完全なエラーメッセージを取得するには、常に変数をテスト関数の引数にインライン化してください。
-次のテスト関数を考えてみましょう。
+より完全なエラーメッセージを取得するには、変数を常にテスト関数パラメーターにインライン化してください。
+次のテスト関数を検討してください。
 
 ```kotlin
 class ComplexExampleTest {
@@ -216,7 +216,7 @@ class ComplexExampleTest {
 }
 ```
 
-実行後、何が問題だったかについてのより明示的な情報が得られます。
+実行後、何がうまくいかなかったかについて、より明示的な情報が得られます。
 
 ```text
 Assertion failed
@@ -234,13 +234,13 @@ assert(person.name.startsWith("A") && person.name.length > 3 && person.age > 20 
        Person(name=Alice, age=10)
 ```
 
-### `assert`関数以外のサポート
+### assert 関数以外
 
-Power-assert プラグインは、デフォルトで変換される `assert` 以外のさまざまな関数を変換できます。
-`require()`、`check()`、`assertTrue()`、`assertEqual()` などの関数も、最後の引数として `String` または `() -> String` の値を取る形式であれば変換できます。
+Power-assert プラグインは、デフォルトで変換される `assert` 以外にもさまざまな関数を変換できます。
+`require()`、`check()`、`assertTrue()`、`assertEqual()` などの関数も、最後のパラメーターとして `String` または `() -> String` の値を受け取る形式であれば変換できます。
 
-テストで新しい関数を使用する前に、ビルドスクリプトファイルの `powerAssert {}` ブロックでその関数を指定します。
-たとえば、`require()` 関数を考えます。
+テストで新しい関数を使用する前に、ビルドスクリプトファイルの `powerAssert {}` ブロックで関数を指定します。
+たとえば、`require()` 関数です。
 
 ```kotlin
 // build.gradle.kts
@@ -265,7 +265,7 @@ class RequireExampleTest {
 }
 ```
 
-この例の出力では、Power-assert プラグインが失敗したテストに関する詳細情報を提供します。
+この例の出力は、Power-assert プラグインを使用して、失敗したテストに関する詳細情報を提供します。
 
 ```text
 Value should not be empty
@@ -275,12 +275,12 @@ require(value.isNotEmpty()) { "Value should not be empty" }
         
 ```
 
-このメッセージは、失敗につながった中間値を示しており、デバッグを容易にします。
+このメッセージは、失敗につながる中間値を示しており、デバッグを容易にします。
 
-<!-- ### Function call tracing
+<!-- ### 関数呼び出しのトレース
 
-The plugin supports function call tracing, which is similar to Rust's `dbg!` macro.
-Use it to trace and print function calls and their results:
+このプラグインは、Rust の `dbg!` マクロに似た関数呼び出しのトレースをサポートしています。
+これを使用して、関数呼び出しとその結果をトレースして出力します。
 
 ```kotlin
 class FunctionTrailingExampleTest {
@@ -296,7 +296,7 @@ class FunctionTrailingExampleTest {
 }
 ```
 
-The output shows the intermediate results of functions calls:
+出力は関数呼び出しの中間結果を示します。
 
 ```text
 Assertion failed
@@ -313,8 +313,8 @@ assert(exampleFunction(2, 3) + exampleFunction(1, 2) == 9)
 
 ### ソフトアサーション
 
-Power-assert プラグインはソフトアサーションをサポートしており、これはテストを即座に失敗させるのではなく、アサーションの失敗を収集し、テスト実行の最後にまとめて報告します。
-これは、最初の失敗で停止することなく、単一の実行ですべてのアサーションの失敗を確認したい場合に役立ちます。
+Power-assert プラグインはソフトアサーションをサポートしています。これはテストをすぐに失敗させるのではなく、アサーションの失敗を収集し、テスト実行の最後に報告します。
+これは、最初の失敗で停止することなく、1回の実行ですべてのアサーションの失敗を確認したい場合に役立ちます。
 
 ソフトアサーションを有効にするには、エラーメッセージを収集する方法を実装します。
 
@@ -385,7 +385,7 @@ class SoftAssertExampleTest1 {
 }
 ```
 
-出力では、すべての `assert()` 関数のエラーメッセージが連続して出力されます。
+出力では、すべての `assert()` 関数のエラーメッセージが次々に表示されます。
 
 ```text
 Charlie has an invalid salary: 40000
@@ -402,6 +402,6 @@ assert(employee.age < 100) { "${employee.name} has an invalid age: ${employee.ag
        Employee(name=Dave, age=150, salary=70000)
 ```
 
-## 次のステップ
+## 次にすること
 
-*   [プラグインを有効にしたシンプルなプロジェクト](https://github.com/JetBrains/kotlin/tree/master/libraries/tools/kotlin-gradle-plugin-integration-tests/src/test/resources/testProject/powerAssertSourceSets)と、[複数のソースセットを持つより複雑なプロジェクト](https://github.com/JetBrains/kotlin/tree/master/libraries/tools/kotlin-gradle-plugin-integration-tests/src/test/resources/testProject/powerAssertSimple)を参照してください。
+*   プラグインが有効になっている[シンプルなプロジェクト](https://github.com/JetBrains/kotlin/tree/master/libraries/tools/kotlin-gradle-plugin-integration-tests/src/test/resources/testProject/powerAssertSourceSets)と、[複数のソースセットを持つより複雑なプロジェクト](https://github.com/JetBrains/kotlin/tree/master/libraries/tools/kotlin-gradle-plugin-integration-tests/src/test/resources/testProject/powerAssertSimple)を参照してください。

@@ -1,22 +1,22 @@
-[//]: # (title: モジュールドキュメント)
+[//]: # (title: モジュール ドキュメント)
 
-モジュール全体のドキュメント、およびそのモジュール内のパッケージのドキュメントは、個別のMarkdownファイルとして提供できます。
+モジュール全体、およびそのモジュール内のパッケージに関するドキュメントは、個別のMarkdownファイルとして提供できます。
 
 ## ファイル形式
 
-Markdownファイル内では、モジュール全体および個々のパッケージのドキュメントは、対応する第一レベルの見出しによって導入されます。見出しのテキストは、モジュールの場合**Module `<module name>`**、パッケージの場合**Package `<package qualified name>`**である**必要があります**。
+Markdownファイル内では、モジュール全体および個々のパッケージに関するドキュメントは、対応する第1レベルの見出しによって導入されます。見出しのテキストは、モジュールの場合は**Module `<module name>`**、パッケージの場合は**Package `<package qualified name>`**である**必要があります**。
 
-ファイルは、モジュールとパッケージの両方のドキュメントを含む必要はありません。パッケージのみ、またはモジュールのみのドキュメントを含むファイルを持つことができます。モジュールまたはパッケージごとにMarkdownファイルを持つことさえできます。
+ファイルには、モジュールとパッケージの両方のドキュメントを含める必要はありません。パッケージまたはモジュールのみを含むファイルを持つことができます。モジュールまたはパッケージごとにMarkdownファイルを持つことさえ可能です。
 
 [Markdown構文](https://www.markdownguide.org/basic-syntax/)を使用して、以下を追加できます。
 * レベル6までの見出し
-* 太字またはイタリックによる強調表示
+* 太字または斜体による強調
 * リンク
 * インラインコード
 * コードブロック
 * 引用ブロック
 
-モジュールとパッケージの両方のドキュメントを含むファイルの例を以下に示します。
+モジュールとパッケージの両方のドキュメントを含むファイルの例を次に示します。
 
 ```text
 # Module kotlin-demo
@@ -42,7 +42,7 @@ It also appears under the first-level heading on your package's page.
 Content after this heading is also part of documentation for `org.jetbrains.kotlin.demo2`
 ```
 
-Gradleを使用したプロジェクトの例を見るには、[Dokka gradle example](https://github.com/Kotlin/dokka/tree/%dokkaVersion%/examples/gradle/dokka-gradle-example)を参照してください。
+Gradleを使用したサンプルプロジェクトについては、[Dokka Gradleの例](https://github.com/Kotlin/dokka/tree/%dokkaVersion%/examples/gradle/dokka-gradle-example)を参照してください。
 
 ## ファイルをDokkaに渡す
 
@@ -51,13 +51,13 @@ Gradleを使用したプロジェクトの例を見るには、[Dokka gradle exa
 <tabs group="build-script">
 <tab title="Gradle" group-key="gradle">
 
-[ソースセット構成](dokka-gradle.md#source-set-configuration)で、[includes](dokka-gradle.md#includes)オプションを使用します。
+[ソースセット設定](dokka-gradle.md#source-set-configuration)で[includes](dokka-gradle.md#includes)オプションを使用します。
 
 </tab>
 
 <tab title="Maven" group-key="mvn">
 
-[一般設定](dokka-maven.md#general-configuration)で、[includes](dokka-maven.md#includes)オプションを使用します。
+[一般設定](dokka-maven.md#general-configuration)で[includes](dokka-maven.md#includes)オプションを使用します。
 
 </tab>
 

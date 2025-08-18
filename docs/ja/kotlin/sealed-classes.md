@@ -1,24 +1,24 @@
 [//]: # (title: シールドクラスとインターフェース)
 
-_シールド_クラスとインターフェースは、クラス階層の継承を制御する機能を提供します。シールドクラスのすべての直接のサブクラスはコンパイル時に認識されます。それ以外のサブクラスは、シールドクラスが定義されているモジュールおよびパッケージの外には出現できません。同じ論理がシールドインターフェースとその実装にも適用されます。シールドインターフェースを含むモジュールがコンパイルされると、新しい実装を作成することはできません。
+_sealed_クラスとインターフェースは、クラス階層の継承を制御します。シールドクラスの直接のサブクラスはすべてコンパイル時に既知となります。シールドクラスが定義されているモジュールおよびパッケージの外では、他のサブクラスを宣言することはできません。シールドインターフェースとその実装にも同じ論理が適用されます。シールドインターフェースを含むモジュールがコンパイルされると、新しい実装を作成することはできません。
 
 > 直接のサブクラスとは、スーパークラスから直接継承するクラスです。
 >
-> 間接のサブクラスとは、スーパークラスから複数レベル下位で継承するクラスです。
+> 間接的なサブクラスとは、スーパークラスから複数レベル下位で継承するクラスです。
 >
 {style="note"}
 
-シールドクラスとインターフェースを `when` 式と組み合わせると、考えられるすべてのサブクラスの振る舞いを網羅し、新しいサブクラスが作成されてコードに悪影響を与えることがないように保証できます。
+シールドクラスとインターフェースを`when`式と組み合わせると、可能なすべてのサブクラスの振る舞いを網羅し、新しいサブクラスが作成されてコードに悪影響を与えることがないようにすることができます。
 
-シールドクラスは、次のシナリオで最もよく使用されます。
+シールドクラスは次のようなシナリオで最もよく使用されます。
 
-*   **クラス継承が限定されていることが望ましい場合:** クラスを拡張する、事前定義された有限のサブクラスのセットがあり、そのすべてがコンパイル時に認識される場合。
-*   **型安全な設計が必要な場合:** 安全性とパターンマッチングがプロジェクトで重要となる場合。特に状態管理や複雑な条件ロジックの処理において。例については、[`when` 式でシールドクラスを使用する](#use-sealed-classes-with-when-expression)を参照してください。
-*   **閉じたAPIを扱う場合:** ライブラリの堅牢で保守しやすい公開APIが必要で、サードパーティクライアントが意図したとおりにAPIを使用することを保証したい場合。
+*   **クラス継承を制限したい場合:** クラスを拡張する、事前に定義された有限のサブクラスセットがあり、そのすべてがコンパイル時に既知である。
+*   **型安全な設計が必要な場合:** プロジェクトにおいて安全性とパターンマッチングが重要である。特に状態管理や複雑な条件ロジックの処理において。例については、「[when式でのシールドクラスの使用](#use-sealed-classes-with-when-expression)」を参照してください。
+*   **クローズドなAPIを扱う場合:** サードパーティのクライアントがAPIを意図したとおりに使用することを保証する、堅牢で保守しやすい公開APIをライブラリで提供したい。
 
-より詳細な実用的なアプリケーションについては、[ユースケースシナリオ](#use-case-scenarios)を参照してください。
+より詳細な実用例については、「[ユースケースのシナリオ](#use-case-scenarios)」を参照してください。
 
-> Java 15では[同様の概念](https://docs.oracle.com/en/java/javase/15/language/sealed-classes-and-interfaces.html#GUID-0C709461-CC33-419A-82BF-61461336E65F)が導入され、シールドクラスは`sealed`キーワードを`permits`句とともに使用して制限された階層を定義します。
+> Java 15では、[同様の概念](https://docs.oracle.com/en/java/javase/15/language/sealed-classes-and-interfaces.html#GUID-0C709461-CC33-419A-82BF-61461336E65F)が導入されました。そこでは、シールドクラスは`sealed`キーワードと`permits`句を使用して、制限された階層を定義します。
 >
 {style="tip"}
 
@@ -27,21 +27,21 @@ _シールド_クラスとインターフェースは、クラス階層の継承
 シールドクラスまたはインターフェースを宣言するには、`sealed`修飾子を使用します。
 
 ```kotlin
-// Create a sealed interface
+// シールドインターフェースを作成
 sealed interface Error
 
-// Create a sealed class that implements sealed interface Error
+// シールドインターフェースErrorを実装するシールドクラスを作成
 sealed class IOError(): Error
 
-// Define subclasses that extend sealed class 'IOError'
+// シールドクラス'IOError'を拡張するサブクラスを定義
 class FileReadError(val file: File): IOError()
 class DatabaseError(val source: DataSource): IOError()
 
-// Create a singleton object implementing the 'Error' sealed interface 
+// 'Error'シールドインターフェースを実装するシングルトンオブジェクトを作成
 object RuntimeError : Error
 ```
 
-この例は、ライブラリユーザーがスローされる可能性のあるエラーを処理できるように、エラークラスを含むライブラリのAPIを表すことができます。もしそのようなエラークラスの階層が公開APIで可視のインターフェースや抽象クラスを含む場合、他の開発者がクライアントコードでそれらを実装または拡張することを妨げるものはありません。ライブラリは外部で宣言されたエラーについて知らないため、自身のクラスと一貫してそれらを扱うことができません。しかし、エラークラスの**シールド**階層を使用すると、ライブラリの作者は、すべての可能なエラー型を把握していることを確信でき、他のエラー型が後から出現しないことを保証できます。
+この例は、ライブラリがスローするエラーをライブラリユーザーが処理できるように、エラークラスを含むライブラリのAPIを表すことができます。このようなエラークラスの階層が公開APIで可視なインターフェースや抽象クラスを含む場合、他の開発者がクライアントコードでそれらを実装または拡張することを妨げるものはありません。ライブラリは外部で宣言されたエラーを知らないため、それらを自身のクラスと一貫して扱うことはできません。しかし、**シールド**されたエラークラスの階層を使用すると、ライブラリの作成者は、すべての可能なエラータイプを知っており、他のエラータイプが後から現れることがないことを確信できます。
 
 この例の階層は次のようになります。
 
@@ -49,7 +49,7 @@ object RuntimeError : Error
 
 ### コンストラクタ
 
-シールドクラスそれ自体は常に[抽象クラス](classes.md#abstract-classes)であり、その結果、直接インスタンス化することはできません。しかし、コンストラクタを含む、または継承することができます。これらのコンストラクタは、シールドクラス自体のインスタンスを作成するためではなく、そのサブクラスのためです。`Error`というシールドクラスと、それをインスタンス化するいくつかのサブクラスを含む次の例を考えてみましょう。
+シールドクラス自体は常に[抽象クラス](classes.md#abstract-classes)であり、結果として直接インスタンス化することはできません。ただし、コンストラクタを含むか、継承することができます。これらのコンストラクタは、シールドクラス自体のインスタンスを作成するためではなく、そのサブクラスのために使用されます。`Error`というシールドクラスと、それをインスタンス化するいくつかのサブクラスの次の例を考えてみましょう。
 
 ```kotlin
 sealed class Error(val message: String) {
@@ -68,7 +68,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.5"}
 
-シールドクラス内で[`enum`](enum-classes.md)クラスを使用し、列挙定数で状態を表現し、追加の詳細情報を提供できます。各列挙定数は**単一の**インスタンスとしてのみ存在しますが、シールドクラスのサブクラスは**複数の**インスタンスを持つことができます。この例では、`sealed class Error`とそれに続くいくつかのサブクラスが、エラーの深刻度を示すために`enum`を利用しています。各サブクラスのコンストラクタは`severity`を初期化し、その状態を変更できます。
+シールドクラス内で[`enum`クラス](enum-classes.md)を使用して、enum定数で状態を表し、追加の詳細を提供できます。各enum定数は**単一**のインスタンスとしてのみ存在しますが、シールドクラスのサブクラスは**複数**のインスタンスを持つことができます。この例では、`sealed class Error`とそのいくつかのサブクラスは、`enum`を使用してエラーの深刻度を示します。各サブクラスのコンストラクタは`severity`を初期化し、その状態を変更できます。
 
 ```kotlin
 enum class ErrorSeverity { MINOR, MAJOR, CRITICAL }
@@ -77,38 +77,38 @@ sealed class Error(val severity: ErrorSeverity) {
     class FileReadError(val file: File): Error(ErrorSeverity.MAJOR)
     class DatabaseError(val source: DataSource): Error(ErrorSeverity.CRITICAL)
     object RuntimeError : Error(ErrorSeverity.CRITICAL)
-    // Additional error types can be added here
+    // 追加のエラータイプをここに追加できます
 }
 ```
 
-シールドクラスのコンストラクタは、2つの[可視性](visibility-modifiers.md)のうちの1つを持つことができます: `protected` (デフォルト) または `private`。
+シールドクラスのコンストラクタは、2つの[可視性](visibility-modifiers.md)のいずれかを持つことができます。`protected` (デフォルト) または`private`です。
 
 ```kotlin
 sealed class IOError {
-    // A sealed class constructor has protected visibility by default. It's visible inside this class and its subclasses 
+    // シールドクラスのコンストラクタはデフォルトでprotected可視性を持ちます。このクラスとそのサブクラス内で可視です。
     constructor() { /*...*/ }
 
-    // Private constructor, visible inside this class only. 
-    // Using a private constructor in a sealed class allows for even stricter control over instantiation, enabling specific initialization procedures within the class.
+    // privateコンストラクタ。このクラス内でのみ可視です。
+    // シールドクラスでprivateコンストラクタを使用すると、インスタンス化をさらに厳密に制御でき、クラス内で特定の初期化プロシージャを有効にできます。
     private constructor(description: String): this() { /*...*/ }
 
-    // This will raise an error because public and internal constructors are not allowed in sealed classes
+    // publicおよびinternalコンストラクタはシールドクラスで許可されていないため、エラーが発生します。
     // public constructor(code: Int): this() {} 
 }
 ```
 
 ## 継承
 
-シールドクラスおよびインターフェースの直接のサブクラスは、同じパッケージ内で宣言する必要があります。それらはトップレベルであるか、任意の数の他の名前付きクラス、名前付きインターフェース、または名前付きオブジェクト内にネストされていても構いません。サブクラスは、Kotlinの通常の継承ルールと互換性がある限り、任意の[可視性](visibility-modifiers.md)を持つことができます。
+シールドクラスおよびインターフェースの直接のサブクラスは、同じパッケージ内で宣言する必要があります。これらはトップレベルでも、任意の数の他の名前付きクラス、名前付きインターフェース、または名前付きオブジェクト内にネストされていても構いません。サブクラスは、Kotlinの通常の継承ルールと互換性がある限り、任意の[可視性](visibility-modifiers.md)を持つことができます。
 
-シールドクラスのサブクラスは、適切に修飾された名前を持つ必要があります。それらはローカルオブジェクトや匿名オブジェクトであってはいけません。
+シールドクラスのサブクラスは、適切な完全修飾名を持つ必要があります。これらはローカルオブジェクトまたは匿名オブジェクトにすることはできません。
 
-> `enum`クラスはシールドクラス、または他のどのクラスも拡張できません。しかし、シールドインターフェースを実装することはできます。
+> `enum`クラスはシールドクラスやその他のクラスを拡張できません。ただし、シールドインターフェースを実装することはできます。
 >
 > ```kotlin
 > sealed interface Error
 > 
-> // enum class extending the sealed interface Error
+> // シールドインターフェースErrorを拡張するenumクラス
 > enum class ErrorType : Error {
 >     FILE_ERROR, DATABASE_ERROR
 > }
@@ -117,33 +117,33 @@ sealed class IOError {
 > 
 {style="note"}
 
-これらの制限は間接的なサブクラスには適用されません。シールドクラスの直接のサブクラスがsealedとしてマークされていない場合、その修飾子が許可するいかなる方法でも拡張できます。
+これらの制限は、間接的なサブクラスには適用されません。シールドクラスの直接のサブクラスがsealedとしてマークされていない場合、その修飾子が許可するあらゆる方法で拡張できます。
 
 ```kotlin
-// Sealed interface 'Error' has implementations only in the same package and module
+// シールドインターフェース'Error'は同じパッケージとモジュール内でのみ実装を持ちます。
 sealed interface Error
 
-// Sealed class 'IOError' extends 'Error' and is extendable only within the same package
+// シールドクラス'IOError'は'Error'を拡張し、同じパッケージ内でのみ拡張可能です。
 sealed class IOError(): Error
 
-// Open class 'CustomError' extends 'Error' and can be extended anywhere it's visible
+// openクラス'CustomError'は'Error'を拡張し、可視範囲であればどこでも拡張可能です。
 open class CustomError(): Error
 ```
 
 ### マルチプラットフォームプロジェクトにおける継承
 
-[マルチプラットフォームプロジェクト](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html)にはもう1つの継承の制限があります。シールドクラスの直接のサブクラスは同じ[ソースセット](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-discover-project.html#source-sets)内に存在する必要があります。これは、[expectおよびactual修飾子](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-expect-actual.html)を持たないシールドクラスに適用されます。
+[マルチプラットフォームプロジェクト](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html)にはもう1つの継承制限があります。シールドクラスの直接のサブクラスは、同じ[ソースセット](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-discover-project.html#source-sets)に存在する必要があります。これは、[expectedおよびactual修飾子](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-expect-actual.html)を持たないシールドクラスに適用されます。
 
-シールドクラスが共通ソースセットで`expect`として宣言され、プラットフォームソースセットに`actual`実装がある場合、`expect`と`actual`の両方のバージョンが、それぞれのソースセットにサブクラスを持つことができます。さらに、階層構造を使用している場合、`expect`宣言と`actual`宣言の間の任意のソースセットにサブクラスを作成できます。
+シールドクラスが共通ソースセットで`expect`として宣言され、プラットフォームソースセットで`actual`実装を持つ場合、`expect`と`actual`の両方のバージョンがそれぞれのソースセットにサブクラスを持つことができます。さらに、階層構造を使用する場合、`expect`と`actual`の宣言間の任意のソースセットにサブクラスを作成できます。
 
 [マルチプラットフォームプロジェクトの階層構造について詳しく学ぶ](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-hierarchy.html)。
 
 ## `when`式でのシールドクラスの使用
 
-`when`式でシールドクラスを使用するときに、その主な利点が発揮されます。シールドクラスと共に使用される`when`式は、Kotlinコンパイラが考えられるすべてのケースが網羅されているかを網羅的にチェックすることを可能にします。そのような場合、`else`句を追加する必要はありません。
+シールドクラスを使用する主要な利点は、[`when`式](control-flow.md#when-expressions-and-statements)で使用する際に発揮されます。シールドクラスとともに使用される`when`式は、Kotlinコンパイラがすべての可能なケースが網羅されていることを徹底的にチェックすることを可能にします。そのような場合、`else`句を追加する必要はありません。
 
 ```kotlin
-// Sealed class and its subclasses
+// シールドクラスとそのサブクラス
 sealed class Error {
     class FileReadError(val file: String): Error()
     class DatabaseError(val source: String): Error()
@@ -151,16 +151,16 @@ sealed class Error {
 }
 
 //sampleStart
-// Function to log errors
+// エラーをログに記録する関数
 fun log(e: Error) = when(e) {
     is Error.FileReadError -> println("Error while reading file ${e.file}")
     is Error.DatabaseError -> println("Error while reading from database ${e.source}")
     Error.RuntimeError -> println("Runtime error")
-    // No `else` clause is required because all the cases are covered
+    // すべてのケースが網羅されているため、`else`句は必要ありません。
 }
 //sampleEnd
 
-// List all errors
+// すべてのエラーをリストする
 fun main() {
     val errors = listOf(
         Error.FileReadError("example.txt"),
@@ -173,19 +173,25 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.5"}
 
-`when`式でシールドクラスを使用する場合、ガード条件を追加して、単一のブランチに追加のチェックを含めることもできます。詳細については、[`when`式におけるガード条件](control-flow.md#guard-conditions-in-when-expressions)を参照してください。
+> `when`式の繰り返しを減らすには、コンテキスト依存の解決（現在プレビュー中）を試してください。この機能により、期待される型が既知の場合、シールドクラスのメンバーをマッチングする際に型名を省略できます。
+>
+> 詳細については、「[コンテキスト依存の解決のプレビュー](whatsnew22.md#preview-of-context-sensitive-resolution)」または関連する「[KEEP提案](https://github.com/Kotlin/KEEP/blob/improved-resolution-expected-type/proposals/context-sensitive-resolution.md)」を参照してください。
+> 
+{style="tip"}
 
-> マルチプラットフォームプロジェクトにおいて、共通コードに[期待される宣言](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-expect-actual.html)として`when`式を持つシールドクラスがある場合、それでも`else`ブランチが必要になります。これは、`actual`プラットフォーム実装のサブクラスが、共通コードでは認識されていないシールドクラスを拡張する可能性があるためです。
+`when`式でシールドクラスを使用する場合、単一のブランチに追加のチェックを含めるためのガード条件を追加することもできます。詳細については、「[`when`式のガード条件](control-flow.md#guard-conditions-in-when-expressions)」を参照してください。
+
+> マルチプラットフォームプロジェクトでは、共通コードに[`expected宣言`](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-expect-actual.html)として`when`式を持つシールドクラスがある場合でも、`else`ブランチが必要です。これは、`actual`プラットフォーム実装のサブクラスが、共通コードで既知ではないシールドクラスを拡張する可能性があるためです。
 >
 {style="note"}
 
-## ユースケースシナリオ
+## ユースケースのシナリオ
 
-シールドクラスとインターフェースが特に役立つ実用的なシナリオをいくつか見ていきましょう。
+シールドクラスとインターフェースが特に役立つ、いくつかの実用的なシナリオを探ってみましょう。
 
 ### UIアプリケーションにおける状態管理
 
-アプリケーションにおける異なるUI状態を表現するために、シールドクラスを使用できます。このアプローチにより、UI変更の構造化された安全な処理が可能になります。この例は、さまざまなUI状態を管理する方法を示しています。
+シールドクラスを使用して、アプリケーション内のさまざまなUI状態を表すことができます。このアプローチにより、UI変更の構造化された安全な処理が可能になります。この例は、さまざまなUI状態を管理する方法を示します。
 
 ```kotlin
 sealed class UIState { 
@@ -205,7 +211,7 @@ fun updateUI(state: UIState) {
 
 ### 支払い方法の処理
 
-実際のビジネスアプリケーションでは、さまざまな支払い方法を効率的に処理することが一般的な要件です。そのようなビジネスロジックを実装するために、`when`式を持つシールドクラスを使用できます。異なる支払い方法をシールドクラスのサブクラスとして表現することで、トランザクションを処理するための明確で管理しやすい構造を確立します。
+実用的なビジネスアプリケーションでは、さまざまな支払い方法を効率的に処理することが一般的な要件です。シールドクラスと`when`式を使用して、そのようなビジネスロジックを実装できます。異なる支払い方法をシールドクラスのサブクラスとして表すことにより、トランザクションを処理するための明確で管理しやすい構造を確立します。
 
 ```kotlin
 sealed class Payment {
@@ -223,22 +229,22 @@ fun processPayment(payment: Payment) {
 }
 ```
 
-`Payment`は、eコマースシステムにおける異なる支払い方法、`CreditCard`、`PayPal`、および`Cash`を表すシールドクラスです。各サブクラスは、`CreditCard`の`number`や`expiryDate`、`PayPal`の`email`など、独自のプロパティを持つことができます。
+`Payment`は、Eコマースシステムにおけるさまざまな支払い方法（`CreditCard`、`PayPal`、`Cash`）を表すシールドクラスです。各サブクラスは独自の特定のプロパティを持つことができます。たとえば、`CreditCard`には`number`と`expiryDate`、`PayPal`には`email`などです。
 
-`processPayment()`関数は、異なる支払い方法を処理する方法を示しています。このアプローチにより、考えられるすべての支払いタイプが考慮されることが保証され、将来的に新しい支払い方法が追加されてもシステムが柔軟に対応できるようになります。
+`processPayment()`関数は、さまざまな支払い方法を処理する方法を示しています。このアプローチにより、可能なすべての支払いタイプが考慮され、将来新しい支払い方法が追加されてもシステムは柔軟に対応できます。
 
-### APIリクエストとレスポンスの処理
+### APIリクエスト・レスポンスの処理
 
-APIリクエストとレスポンスを処理するユーザー認証システムを実装するために、シールドクラスとシールドインターフェースを使用できます。ユーザー認証システムには、ログインとログアウトの機能があります。`ApiRequest`シールドインターフェースは、ログイン用の`LoginRequest`、ログアウト操作用の`LogoutRequest`といった特定のリクエストタイプを定義します。シールドクラス`ApiResponse`は、ユーザーデータを含む`UserSuccess`、ユーザーがいない場合の`UserNotFound`、およびあらゆる失敗の場合の`Error`という異なるレスポンスシナリオをカプセル化します。`handleRequest`関数は、`when`式を使用してこれらのリクエストを型安全な方法で処理し、`getUserById`はユーザー取得をシミュレートします。
+シールドクラスとシールドインターフェースを使用して、APIリクエストとレスポンスを処理するユーザー認証システムを実装できます。ユーザー認証システムにはログインとログアウトの機能があります。`ApiRequest`シールドインターフェースは、ログイン用の`LoginRequest`とログアウト操作用の`LogoutRequest`という特定の要求タイプを定義します。シールドクラス`ApiResponse`は、ユーザーデータを含む`UserSuccess`、ユーザーが存在しない場合の`UserNotFound`、およびあらゆる失敗の場合の`Error`など、異なる応答シナリオをカプセル化します。`handleRequest`関数は`when`式を使用してこれらのリクエストを型安全な方法で処理し、`getUserById`はユーザー検索をシミュレートします。
 
 ```kotlin
-// Import necessary modules
+// 必要なモジュールをインポート
 import io.ktor.server.application.*
 import io.ktor.server.resources.*
 
 import kotlinx.serialization.*
 
-// Define the sealed interface for API requests using Ktor resources
+// Ktorリソースを使用してAPIリクエストのシールドインターフェースを定義
 @Resource("api")
 sealed interface ApiRequest
 
@@ -250,23 +256,23 @@ data class LoginRequest(val username: String, val password: String) : ApiRequest
 @Resource("logout")
 object LogoutRequest : ApiRequest
 
-// Define the ApiResponse sealed class with detailed response types
+// 詳細なレスポンスタイプを持つApiResponseシールドクラスを定義
 sealed class ApiResponse {
     data class UserSuccess(val user: UserData) : ApiResponse()
     data object UserNotFound : ApiResponse()
     data class Error(val message: String) : ApiResponse()
 }
 
-// User data class to be used in the success response
+// 成功レスポンスで使用されるユーザーデータクラス
 data class UserData(val userId: String, val name: String, val email: String)
 
-// Function to validate user credentials (for demonstration purposes)
+// ユーザー認証情報を検証する関数（デモンストレーション目的）
 fun isValidUser(username: String, password: String): Boolean {
-    // Some validation logic (this is just a placeholder)
+    // いくつかの検証ロジック（これはプレースホルダーです）
     return username == "validUser" && password == "validPass"
 }
 
-// Function to handle API requests with detailed responses
+// 詳細なレスポンスでAPIリクエストを処理する関数
 fun handleRequest(request: ApiRequest): ApiResponse {
     return when (request) {
         is LoginRequest -> {
@@ -277,23 +283,23 @@ fun handleRequest(request: ApiRequest): ApiResponse {
             }
         }
         is LogoutRequest -> {
-            // Assuming logout operation always succeeds for this example
-            ApiResponse.UserSuccess(UserData("userId", "userName", "userEmail")) // For demonstration
+            // この例ではログアウト操作は常に成功すると仮定
+            ApiResponse.UserSuccess(UserData("userId", "userName", "userEmail")) // デモンストレーションのため
         }
     }
 }
 
-// Function to simulate a getUserById call
+// getUserById呼び出しをシミュレートする関数
 fun getUserById(userId: String): ApiResponse {
     return if (userId == "validUserId") {
         ApiResponse.UserSuccess(UserData("validUserId", "John Doe", "john@example.com"))
     } else {
         ApiResponse.UserNotFound
     }
-    // Error handling would also result in an Error response.
+    // エラー処理もErrorレスポンスになります。
 }
 
-// Main function to demonstrate the usage
+// 使用方法を示すメイン関数
 fun main() {
     val loginResponse = handleRequest(LoginRequest("user", "pass"))
     println(loginResponse)

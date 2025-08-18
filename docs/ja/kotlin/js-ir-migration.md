@@ -1,21 +1,21 @@
-[//]: # (title: Kotlin/JS プロジェクトを IR コンパイラに移行する)
+[//]: # (title: Kotlin/JSプロジェクトのIRコンパイラへの移行)
 
-私たちは、すべてのプラットフォームでKotlinの挙動を統一し、新しいJS固有の最適化を実装することなどを目的として、古いKotlin/JSコンパイラを[IRベースのコンパイラ](js-ir-compiler.md)に置き換えました。
-これら2つのコンパイラの内部的な違いについては、Sebastian Aigner氏によるブログ記事[Migrating our Kotlin/JS app to the new IR compiler](https://dev.to/kotlin/migrating-our-kotlin-js-app-to-the-new-ir-compiler-3o6i)で詳しく学ぶことができます。
+すべてのプラットフォームでKotlinの動作を統一し、新しいJS固有の最適化を実装できるようにするため、従来のKotlin/JSコンパイラは[IRベースのコンパイラ](js-ir-compiler.md)に置き換えられました。
+両コンパイラの内部的な違いについては、Sebastian Aigner氏によるブログ記事「[Kotlin/JSアプリを新しいIRコンパイラに移行する](https://dev.to/kotlin/migrating-our-kotlin-js-app-to-the-new-ir-compiler-3o6i)」で詳しく知ることができます。
 
-コンパイラ間の著しい違いにより、Kotlin/JSプロジェクトを古いバックエンドから新しいバックエンドに切り替えるには、コードの調整が必要になる場合があります。このページでは、既知の移行問題とその解決策のリストをまとめました。
+コンパイラ間の大きな違いにより、Kotlin/JSプロジェクトを従来のバックエンドから新しいバックエンドに切り替えるには、コードの調整が必要になる場合があります。このページでは、既知の移行に関する問題と、その提案される解決策をまとめました。
 
-> [Kotlin/JS Inspection pack](https://plugins.jetbrains.com/plugin/17183-kotlin-js-inspection-pack/)プラグインをインストールすると、移行中に発生する問題の一部を修正するための役立つヒントが得られます。
+> 移行中に発生する問題の一部を修正するための貴重なヒントを得るには、[Kotlin/JS Inspection pack](https://plugins.jetbrains.com/plugin/17183-kotlin-js-inspection-pack/)プラグインをインストールしてください。
 >
 {style="tip"}
 
-このガイドは、問題の修正や新しい問題の発見に伴い、時間の経過とともに変更される可能性があることに注意してください。このガイドを完全な状態に保つため、ご協力をお願いします。IRコンパイラへの切り替え時に遭遇した問題は、課題トラッカー[YouTrack](https://kotl.in/issue)に提出するか、[このフォーム](https://surveys.jetbrains.com/s3/ir-be-migration-issue)に記入して報告してください。
+このガイドは、問題の修正や新しい問題の発見に伴い、時間とともに変更される可能性があります。このガイドを完全なものに保つためにご協力ください。IRコンパイラへの切り替え時に遭遇した問題は、イシュートラッカーの[YouTrack](https://kotl.in/issue)に提出するか、[このフォーム](https://surveys.jetbrains.com/s3/ir-be-migration-issue)に記入して報告してください。
 
-## JSおよびReact関連のクラスとインターフェースをexternalインターフェースに変換する
+## JSおよびReact関連のクラスとインターフェースをexternal interfaceに変換する
 
-**問題**: Reactの`State`や`Props`など、純粋なJSクラスから派生したKotlinインターフェースおよびクラス（データクラスを含む）を使用すると、`ClassCastException`が発生する可能性があります。このような例外は、実際にはJSから来ているにもかかわらず、コンパイラがこれらのクラスのインスタンスをKotlinオブジェクトであるかのように扱おうとするために発生します。
+**問題**: Reactの`State`や`Props`のような純粋なJSクラスから派生するKotlinインターフェースやクラス（データクラスを含む）を使用すると、`ClassCastException`が発生する可能性があります。このような例外は、コンパイラがこれらのクラスのインスタンスをKotlinオブジェクトであるかのように扱おうとするために発生します。実際には、これらのインスタンスはJSから来ています。
 
-**解決策**: 純粋なJSクラスから派生するすべてのクラスとインターフェースを[externalインターフェース](js-interop.md#external-interfaces)に変換します。
+**解決策**: 純粋なJSクラスから派生するすべてのクラスとインターフェースを[external interface](js-interop.md#external-interfaces)に変換します。
 
 ```kotlin
 // Replace this
@@ -33,13 +33,13 @@ external interface CustomComponentState : State {
 }
 ```
 
-IntelliJ IDEAでは、これらの[構造検索と置換](https://www.jetbrains.com/help/idea/structural-search-and-replace.html)テンプレートを使用して、インターフェースを自動的に`external`としてマークできます。
-* [Template for `State`](https://gist.github.com/SebastianAigner/62119536f24597e630acfdbd14001b98)
-* [Template for `Props`](https://gist.github.com/SebastianAigner/a47a77f5e519fc74185c077ba12624f9)
+IntelliJ IDEAでは、これらの[構造的検索と置換](https://www.jetbrains.com/help/idea/structural-search-and-replace.html)テンプレートを使用して、インターフェースを自動的に`external`としてマークできます。
+*   [`State`用のテンプレート](https://gist.github.com/SebastianAigner/62119536f24597e630acfdbd14001b98)
+*   [`Props`用のテンプレート](https://gist.github.com/SebastianAigner/a47a77f5e519fc74185c077ba12624f9)
 
-## externalインターフェースのプロパティをvarに変換する
+## external interfaceのプロパティをvarに変換する
 
-**問題**: Kotlin/JSコードのexternalインターフェースのプロパティは、読み取り専用（`val`）プロパティにすることはできません。なぜなら、それらの値は`js()`または`jso()`（[`kotlin-wrappers`](https://github.com/JetBrains/kotlin-wrappers)のヘルパー関数）でオブジェクトが作成された後にのみ代入できるためです。
+**問題**: Kotlin/JSコード内の`external interface`のプロパティは、読み取り専用 (`val`) プロパティにできません。これは、それらの値が`js()`または`jso()`（[`kotlin-wrappers`](https://github.com/JetBrains/kotlin-wrappers)のヘルパー関数）でオブジェクトが作成された後にのみ割り当てられるためです。
 
 ```kotlin
 import kotlinx.js.jso
@@ -48,7 +48,7 @@ val myState = jso<CustomComponentState>()
 myState.name = "name"
 ```
 
-**解決策**: externalインターフェースのすべてのプロパティを`var`に変換します。
+**解決策**: `external interface`のすべてのプロパティを`var`に変換します。
 
 ```kotlin
 // Replace this
@@ -64,9 +64,9 @@ external interface CustomComponentState : State {
 }
 ```
 
-## externalインターフェース内のレシーバー付き関数を通常の関数に変換する
+## external interface内のレシーバーを持つ関数を通常の関数に変換する
 
-**問題**: external宣言は、拡張関数や対応する関数型を持つプロパティなど、レシーバー付き関数を含むことはできません。
+**問題**: 外部宣言には、拡張関数や対応する関数型を持つプロパティなど、レシーバーを持つ関数を含めることはできません。
 
 **解決策**: そのような関数とプロパティを、レシーバーオブジェクトを引数として追加することで、通常の関数に変換します。
 
@@ -85,12 +85,12 @@ external interface ButtonProps : Props {
 
 ## 相互運用性のためにプレーンなJSオブジェクトを作成する
 
-**問題**: externalインターフェースを実装するKotlinオブジェクトのプロパティは、_列挙可能_ではありません。これは、たとえば以下のような、オブジェクトのプロパティを反復処理する操作に対してそれらが見えないことを意味します。
-* `for (var name in obj)`
-* `console.log(obj)`
-* `JSON.stringify(obj)`
+**問題**: `external interface`を実装するKotlinオブジェクトのプロパティは、_列挙可能ではない_です。これは、たとえば次のような、オブジェクトのプロパティを反復処理する操作でそれらが可視にならないことを意味します。
+*   `for (var name in obj)`
+*   `console.log(obj)`
+*   `JSON.stringify(obj)`
 
-しかし、それらは名前（例：`obj.myProperty`）でアクセスすることは引き続き可能です。
+ただし、それらは名前によって引き続きアクセス可能です: `obj.myProperty`
 
 ```kotlin
 external interface AppProps { var name: String }
@@ -107,7 +107,7 @@ fun main() {
 }
 ```
 
-**解決策1**: `js()`または`jso()`（[`kotlin-wrappers`](https://github.com/JetBrains/kotlin-wrappers)のヘルパー関数）を使用して、プレーンなJavaScriptオブジェクトを作成します。
+**解決策1**: `js()`または`jso()`（[`kotlin-wrappers`](https://github.com/JetBrains/kotlin-wrappers)のヘルパー関数）でプレーンなJavaScriptオブジェクトを作成します。
 
 ```kotlin
 external interface AppProps { var name: String }
@@ -133,7 +133,7 @@ val jsonApp = kotlin.js.json(Pair("name", "App1")) as AppProps
 
 ## 関数参照に対するtoString()呼び出しを.nameに置き換える
 
-**問題**: IRバックエンドでは、関数参照に対して`toString()`を呼び出しても一意の値が生成されません。
+**問題**: IRバックエンドでは、関数参照に対して`toString()`を呼び出しても一意な値が生成されません。
 
 **解決策**: `toString()`の代わりに`name`プロパティを使用します。
 
@@ -141,7 +141,7 @@ val jsonApp = kotlin.js.json(Pair("name", "App1")) as AppProps
 
 **問題**: コンパイラが実行可能な`.js`ファイルを生成しません。
 
-これは、デフォルトのコンパイラはデフォルトでJavaScript実行可能ファイルを生成する一方で、IRコンパイラはこれを行うための明示的な指示を必要とするために発生する可能性があります。詳細については、[Kotlin/JSプロジェクトセットアップ手順](js-project-setup.md#execution-environments)を参照してください。
+これは、デフォルトのコンパイラがデフォルトでJavaScript実行可能ファイルを生成するのに対し、IRコンパイラはこれを行うための明示的な指示を必要とするため、発生する可能性があります。詳細については、[Kotlin/JSプロジェクトのセットアップ手順](js-project-setup.md#execution-environments)を参照してください。
 
 **解決策**: プロジェクトの`build.gradle(.kts)`に`binaries.executable()`の行を追加します。
 
@@ -155,13 +155,13 @@ kotlin {
 }
 ```
 
-## Kotlin/JS IRコンパイラを使用する際のその他のトラブルシューティングのヒント
+## Kotlin/JS IRコンパイラでの追加のトラブルシューティングのヒント
 
-これらのヒントは、Kotlin/JS IRコンパイラを使用しているプロジェクトで問題のトラブルシューティングを行う際に役立つかもしれません。
+これらのヒントは、Kotlin/JS IRコンパイラを使用しているプロジェクトで問題をトラブルシューティングする際に役立つかもしれません。
 
-### externalインターフェースのブーリアンプロパティをnull許容にする
+### external interfaceのBooleanプロパティをNullableにする
 
-**問題**: externalインターフェースの`Boolean`に対して`toString`を呼び出すと、`Uncaught TypeError: Cannot read properties of undefined (reading 'toString')`のようなエラーが発生します。JavaScriptはブーリアン変数の`null`または`undefined`の値を`false`として扱います。もし（例えば、制御できないJavaScriptコードからコードが呼び出される場合など）`null`または`undefined`である可能性がある`Boolean`に対して`toString`を呼び出すことに依存している場合、これに注意してください。
+**問題**: `external interface`の`Boolean`に対して`toString`を呼び出すと、`Uncaught TypeError: Cannot read properties of undefined (reading 'toString')`のようなエラーが発生します。JavaScriptは、boolean変数の`null`または`undefined`値を`false`として扱います。`null`または`undefined`である可能性がある`Boolean`に対して`toString`を呼び出すことに依存している場合（たとえば、制御できないJavaScriptコードからコードが呼び出される場合）、これに注意してください。
 
 ```kotlin
 external interface SomeExternal {
@@ -174,7 +174,7 @@ fun main() {
 }
 ```
 
-**解決策**: externalインターフェースの`Boolean`プロパティをnull許容（`Boolean?`）にすることができます。
+**解決策**: `external interface`の`Boolean`プロパティをNullable (`Boolean?`) にすることができます。
 
 ```kotlin
 // Replace this

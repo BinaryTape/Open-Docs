@@ -1,6 +1,6 @@
-[//]: # (title: コマンドラインからKSPを実行する)
+[//]: # (title: KSPをコマンドラインから実行する)
 
-KSPはKotlinコンパイラプラグインであり、Kotlinコンパイラと共に実行する必要があります。それらをダウンロードして展開してください。
+KSPはKotlinコンパイラのプラグインであり、Kotlinコンパイラと一緒に実行する必要があります。これらをダウンロードして展開してください。
 
 ```bash
 #!/bin/bash
@@ -14,22 +14,21 @@ wget https://github.com/google/ksp/releases/download/%kspSupportedKotlinVersion%
 unzip artifacts.zip
 ```
 
-KSPを`kotlinc`で実行するには、`-Xplugin`オプションを`kotlinc`に渡します。
+`kotlinc`でKSPを実行するには、`-Xplugin`オプションを`kotlinc`に渡します。
 
 ```
 -Xplugin=/path/to/symbol-processing-cmdline-%kspSupportedKotlinVersion%-%kspVersion%.jar
 ```
 
-これは、Gradleで実行する際に`kotlin-compiler-embeddable`と共に使用するために設計された`symbol-processing-%kspSupportedKotlinVersion%-%kspVersion%.jar`とは異なります。
-コマンドライン版`kotlinc`は`symbol-processing-cmdline-%kspSupportedKotlinVersion%-%kspVersion%.jar`を必要とします。
+これは`symbol-processing-%kspSupportedKotlinVersion%-%kspVersion%.jar`とは異なります。後者はGradleで実行する際に`kotlin-compiler-embeddable`と共に使用するように設計されています。コマンドラインの`kotlinc`には`symbol-processing-cmdline-%kspSupportedKotlinVersion%-%kspVersion%.jar`が必要です。
 
-API jarも必要です。
+API JARも必要です。
 
 ```
 -Xplugin=/path/to/symbol-processing-api-%kspSupportedKotlinVersion%-%kspVersion%.jar
 ```
 
-完全な例をご覧ください：
+完全な例を参照してください。
 
 ```bash
 #!/bin/bash

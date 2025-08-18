@@ -1,0 +1,570 @@
+[
+  {
+    "text": "kmp.get-started",
+    "link": "get-started"
+  },
+  {
+    "text": "kmp.kotlin-multiplatform-overview",
+    "items": [
+      {
+        "text": "kmp.why-kotlin-multiplatform",
+        "href": "https://www.jetbrains.com/kotlin-multiplatform/"
+      },
+      {
+        "text": "kmp.supported-platforms",
+        "link": "supported-platforms"
+      },
+      {
+        "text": "kmp.case-studies",
+        "link": "case-studies"
+      },
+      {
+        "text": "kmp.multiplatform-samples",
+        "link": "multiplatform-samples"
+      },
+      {
+        "text": "kmp.faq",
+        "link": "faq"
+      },
+      {
+        "text": "kmp.kotlin-multiplatform-roadmap",
+        "link": "kotlin-multiplatform-roadmap"
+      }
+    ],
+    "collapsed": true
+  },
+  {
+    "text": "kmp.quickstart",
+    "link": "quickstart"
+  },
+  {
+    "text": "kmp.compose-multiplatform-ui-framework",
+    "items": [
+      {
+        "text": "kmp.compose-multiplatform",
+        "link": "compose-multiplatform"
+      },
+      {
+        "text": "kmp.what-s-new-in-compose-multiplatform",
+        "items": [
+          {
+            "text": "kmp.whats-new-compose-190",
+            "link": "whats-new-compose-190"
+          },
+          {
+            "text": "kmp.whats-new-compose-180",
+            "link": "whats-new-compose-180"
+          },
+          {
+            "text": "kmp.whats-new-compose-170",
+            "link": "whats-new-compose-170"
+          },
+          {
+            "text": "kmp.whats-new-compose-1610",
+            "link": "whats-new-compose-1610"
+          },
+          {
+            "text": "kmp.whats-new-compose-160",
+            "link": "whats-new-compose-160"
+          }
+        ],
+        "collapsed": true
+      },
+      {
+        "text": "kmp.compose-multiplatform-and-jetpack-compose",
+        "link": "compose-multiplatform-and-jetpack-compose"
+      },
+      {
+        "text": "kmp.compose-platform-specifics",
+        "link": "compose-platform-specifics"
+      },
+      {
+        "text": "kmp.implementing-layouts",
+        "items": [
+          {
+            "text": "kmp.compose-layout",
+            "link": "compose-layout"
+          },
+          {
+            "text": "kmp.compose-layout-modifiers",
+            "link": "compose-layout-modifiers"
+          },
+          {
+            "text": "kmp.compose-adaptive-layouts",
+            "link": "compose-adaptive-layouts"
+          }
+        ],
+        "collapsed": true
+      },
+      {
+        "text": "kmp.multiplatform-resources",
+        "items": [
+          {
+            "text": "kmp.compose-multiplatform-resources",
+            "link": "compose-multiplatform-resources"
+          },
+          {
+            "text": "kmp.compose-multiplatform-resources-setup",
+            "link": "compose-multiplatform-resources-setup"
+          },
+          {
+            "text": "kmp.compose-multiplatform-resources-usage",
+            "link": "compose-multiplatform-resources-usage"
+          },
+          {
+            "text": "kmp.compose-resource-environment",
+            "link": "compose-resource-environment"
+          }
+        ],
+        "collapsed": true
+      },
+      {
+        "text": "kmp.compose-lifecycle",
+        "link": "compose-lifecycle"
+      },
+      {
+        "text": "kmp.compose-viewmodel",
+        "link": "compose-viewmodel"
+      },
+      {
+        "text": "kmp.navigation",
+        "items": [
+          {
+            "text": "kmp.compose-navigation",
+            "link": "compose-navigation"
+          },
+          {
+            "text": "kmp.compose-navigation-routing",
+            "link": "compose-navigation-routing"
+          },
+          {
+            "text": "kmp.compose-navigation-deep-links",
+            "link": "compose-navigation-deep-links"
+          }
+        ],
+        "collapsed": true
+      },
+      {
+        "text": "kmp.compose-drag-drop",
+        "link": "compose-drag-drop"
+      },
+      {
+        "text": "kmp.compose-test",
+        "link": "compose-test"
+      },
+      {
+        "text": "kmp.localization",
+        "items": [
+          {
+            "text": "kmp.compose-localize-strings",
+            "link": "compose-localize-strings"
+          },
+          {
+            "text": "kmp.compose-regional-format",
+            "link": "compose-regional-format"
+          },
+          {
+            "text": "kmp.compose-rtl",
+            "link": "compose-rtl"
+          },
+          {
+            "text": "kmp.compose-localization-tests",
+            "link": "compose-localization-tests"
+          }
+        ],
+        "collapsed": true
+      },
+      {
+        "text": "kmp.compose-accessibility",
+        "link": "compose-accessibility"
+      },
+      {
+        "text": "kmp.ios-specific-features",
+        "items": [
+          {
+            "text": "kmp.compose-swiftui-integration",
+            "link": "compose-swiftui-integration"
+          },
+          {
+            "text": "kmp.compose-uikit-integration",
+            "link": "compose-uikit-integration"
+          },
+          {
+            "text": "kmp.compose-ios-touch",
+            "link": "compose-ios-touch"
+          },
+          {
+            "text": "kmp.compose-ios-accessibility",
+            "link": "compose-ios-accessibility"
+          },
+          {
+            "text": "kmp.compose-ios-migration",
+            "link": "compose-ios-migration"
+          }
+        ],
+        "collapsed": true
+      },
+      {
+        "text": "kmp.compose-android-only-components",
+        "link": "compose-android-only-components"
+      },
+      {
+        "text": "kmp.desktop-specific-components",
+        "items": [
+          {
+            "text": "kmp.compose-desktop-components",
+            "link": "compose-desktop-components"
+          },
+          {
+            "text": "kmp.compose-desktop-top-level-windows-management",
+            "link": "compose-desktop-top-level-windows-management"
+          },
+          {
+            "text": "kmp.compose-desktop-scrollbars",
+            "link": "compose-desktop-scrollbars"
+          },
+          {
+            "text": "kmp.compose-desktop-tooltips",
+            "link": "compose-desktop-tooltips"
+          },
+          {
+            "text": "kmp.compose-desktop-context-menus",
+            "link": "compose-desktop-context-menus"
+          },
+          {
+            "text": "kmp.compose-desktop-mouse-events",
+            "link": "compose-desktop-mouse-events"
+          },
+          {
+            "text": "kmp.compose-desktop-keyboard",
+            "link": "compose-desktop-keyboard"
+          },
+          {
+            "text": "kmp.compose-native-distribution",
+            "link": "compose-native-distribution"
+          },
+          {
+            "text": "kmp.compose-desktop-accessibility",
+            "link": "compose-desktop-accessibility"
+          },
+          {
+            "text": "kmp.compose-desktop-ui-testing",
+            "link": "compose-desktop-ui-testing"
+          },
+          {
+            "text": "kmp.compose-desktop-swing-interoperability",
+            "link": "compose-desktop-swing-interoperability"
+          }
+        ],
+        "collapsed": true
+      },
+      {
+        "text": "kmp.compose-multiplatform-for-web",
+        "href": "https://kotlinlang.org/docs/wasm-get-started.html"
+      },
+      {
+        "text": "kmp.compose-compiler",
+        "link": "compose-compiler"
+      },
+      {
+        "text": "kmp.compose-compatibility-and-versioning",
+        "link": "compose-compatibility-and-versioning"
+      },
+      {
+        "text": "kmp.releases",
+        "href": "https://github.com/JetBrains/compose-multiplatform/blob/master/CHANGELOG.md"
+      }
+    ],
+    "collapsed": true
+  },
+  {
+    "text": "kmp.choose-your-use-case",
+    "items": [
+      {
+        "text": "kmp.create-an-app-with-shared-logic-and-ui",
+        "items": [
+          {
+            "text": "kmp.compose-multiplatform-create-first-app",
+            "link": "compose-multiplatform-create-first-app"
+          },
+          {
+            "text": "kmp.compose-multiplatform-explore-composables",
+            "link": "compose-multiplatform-explore-composables"
+          },
+          {
+            "text": "kmp.compose-multiplatform-modify-project",
+            "link": "compose-multiplatform-modify-project"
+          },
+          {
+            "text": "kmp.compose-multiplatform-new-project",
+            "link": "compose-multiplatform-new-project"
+          }
+        ],
+        "collapsed": true
+      },
+      {
+        "text": "kmp.create-an-app-with-shared-logic-and-native-ui",
+        "items": [
+          {
+            "text": "kmp.multiplatform-create-first-app",
+            "link": "multiplatform-create-first-app"
+          },
+          {
+            "text": "kmp.multiplatform-update-ui",
+            "link": "multiplatform-update-ui"
+          },
+          {
+            "text": "kmp.multiplatform-dependencies",
+            "link": "multiplatform-dependencies"
+          },
+          {
+            "text": "kmp.multiplatform-upgrade-app",
+            "link": "multiplatform-upgrade-app"
+          },
+          {
+            "text": "kmp.multiplatform-wrap-up",
+            "link": "multiplatform-wrap-up"
+          }
+        ],
+        "collapsed": true
+      },
+      {
+        "text": "kmp.multiplatform-integrate-in-existing-app",
+        "link": "multiplatform-integrate-in-existing-app"
+      },
+      {
+        "text": "kmp.multiplatform-ktor-sqldelight",
+        "link": "multiplatform-ktor-sqldelight"
+      },
+      {
+        "text": "kmp.create-kotlin-multiplatform-library",
+        "link": "create-kotlin-multiplatform-library"
+      }
+    ],
+    "collapsed": true
+  },
+  {
+    "text": "kmp.explore-project-structure",
+    "items": [
+      {
+        "text": "kmp.multiplatform-discover-project",
+        "link": "multiplatform-discover-project"
+      },
+      {
+        "text": "kmp.multiplatform-advanced-project-structure",
+        "link": "multiplatform-advanced-project-structure"
+      },
+      {
+        "text": "kmp.multiplatform-project-configuration",
+        "link": "multiplatform-project-configuration"
+      }
+    ],
+    "collapsed": true
+  },
+  {
+    "text": "kmp.share-code",
+    "items": [
+      {
+        "text": "kmp.multiplatform-share-on-platforms",
+        "link": "multiplatform-share-on-platforms"
+      },
+      {
+        "text": "kmp.multiplatform-expect-actual",
+        "link": "multiplatform-expect-actual"
+      },
+      {
+        "text": "kmp.multiplatform-connect-to-apis",
+        "link": "multiplatform-connect-to-apis"
+      },
+      {
+        "text": "kmp.multiplatform-hierarchy",
+        "link": "multiplatform-hierarchy"
+      }
+    ],
+    "collapsed": true
+  },
+  {
+    "text": "kmp.add-dependencies",
+    "items": [
+      {
+        "text": "kmp.multiplatform-add-dependencies",
+        "link": "multiplatform-add-dependencies"
+      },
+      {
+        "text": "kmp.multiplatform-android-dependencies",
+        "link": "multiplatform-android-dependencies"
+      },
+      {
+        "text": "kmp.multiplatform-ios-dependencies",
+        "link": "multiplatform-ios-dependencies"
+      }
+    ],
+    "collapsed": true
+  },
+  {
+    "text": "kmp.set-up-ios-integration",
+    "items": [
+      {
+        "text": "kmp.multiplatform-ios-integration-overview",
+        "link": "multiplatform-ios-integration-overview"
+      },
+      {
+        "text": "kmp.multiplatform-direct-integration",
+        "link": "multiplatform-direct-integration"
+      },
+      {
+        "text": "kmp.multiplatform-spm-export",
+        "link": "multiplatform-spm-export"
+      },
+      {
+        "text": "kmp.cocoapods-integration",
+        "items": [
+          {
+            "text": "kmp.multiplatform-cocoapods-overview",
+            "link": "multiplatform-cocoapods-overview"
+          },
+          {
+            "text": "kmp.multiplatform-cocoapods-libraries",
+            "link": "multiplatform-cocoapods-libraries"
+          },
+          {
+            "text": "kmp.multiplatform-cocoapods-xcode",
+            "link": "multiplatform-cocoapods-xcode"
+          },
+          {
+            "text": "kmp.multiplatform-cocoapods-dsl-reference",
+            "link": "multiplatform-cocoapods-dsl-reference"
+          }
+        ],
+        "collapsed": true
+      },
+      {
+        "text": "kmp.multiplatform-spm-local-integration",
+        "link": "multiplatform-spm-local-integration"
+      }
+    ],
+    "collapsed": true
+  },
+  {
+    "text": "kmp.compile-artifacts",
+    "items": [
+      {
+        "text": "kmp.multiplatform-configure-compilations",
+        "link": "multiplatform-configure-compilations"
+      },
+      {
+        "text": "kmp.multiplatform-build-native-binaries",
+        "link": "multiplatform-build-native-binaries"
+      }
+    ],
+    "collapsed": true
+  },
+  {
+    "text": "kmp.multiplatform-run-tests",
+    "link": "multiplatform-run-tests"
+  },
+  {
+    "text": "kmp.publish-your-multiplatform-project",
+    "items": [
+      {
+        "text": "kmp.multiplatform-publish-apps",
+        "link": "multiplatform-publish-apps"
+      },
+      {
+        "text": "kmp.multiplatform-publish-lib-setup",
+        "link": "multiplatform-publish-lib-setup"
+      },
+      {
+        "text": "kmp.multiplatform-publish-libraries",
+        "link": "multiplatform-publish-libraries"
+      },
+      {
+        "text": "kmp.multiplatform-privacy-manifest",
+        "link": "multiplatform-privacy-manifest"
+      }
+    ],
+    "collapsed": true
+  },
+  {
+    "text": "kmp.tools",
+    "items": [
+      {
+        "text": "kmp.recommended-ides",
+        "link": "recommended-ides"
+      },
+      {
+        "text": "kmp.compose-hot-reload",
+        "link": "compose-hot-reload"
+      },
+      {
+        "text": "kmp.multiplatform-dsl-reference",
+        "link": "multiplatform-dsl-reference"
+      },
+      {
+        "text": "kmp.amper",
+        "link": "amper"
+      }
+    ],
+    "collapsed": true
+  },
+  {
+    "text": "kmp.compatibility",
+    "items": [
+      {
+        "text": "kmp.multiplatform-compatibility-guide",
+        "link": "multiplatform-compatibility-guide"
+      },
+      {
+        "text": "kmp.multiplatform-android-layout",
+        "link": "multiplatform-android-layout"
+      },
+      {
+        "text": "kmp.multiplatform-plugin-releases",
+        "link": "multiplatform-plugin-releases"
+      }
+    ],
+    "collapsed": true
+  },
+  {
+    "text": "kmp.multiplatform-journal",
+    "items": [
+      {
+        "text": "kmp.cross-platform-mobile-development",
+        "link": "cross-platform-mobile-development"
+      },
+      {
+        "text": "kmp.native-and-cross-platform",
+        "link": "native-and-cross-platform"
+      },
+      {
+        "text": "kmp.cross-platform-frameworks",
+        "link": "cross-platform-frameworks"
+      },
+      {
+        "text": "kmp.multiplatform-introduce-your-team",
+        "link": "multiplatform-introduce-your-team"
+      },
+      {
+        "text": "kmp.use-cases-examples",
+        "link": "use-cases-examples"
+      },
+      {
+        "text": "kmp.multiplatform-reasons-to-try",
+        "link": "multiplatform-reasons-to-try"
+      },
+      {
+        "text": "kmp.kotlin-multiplatform-flutter",
+        "link": "kotlin-multiplatform-flutter"
+      },
+      {
+        "text": "kmp.programming-languages-cross-platform",
+        "link": "programming-languages-cross-platform"
+      },
+      {
+        "text": "kmp.choosing-web-target",
+        "link": "choosing-web-target"
+      }
+    ],
+    "collapsed": true
+  }
+]

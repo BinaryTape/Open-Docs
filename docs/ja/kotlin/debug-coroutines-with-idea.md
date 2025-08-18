@@ -1,10 +1,10 @@
 <contribute-url>https://github.com/Kotlin/kotlinx.coroutines/edit/master/docs/topics/</contribute-url>
 
-[//]: # (title: IntelliJ IDEA を使ってコルーチンをデバッグする – チュートリアル)
+[//]: # (title: IntelliJ IDEA でコルーチンをデバッグする – チュートリアル)
 
-このチュートリアルでは、Kotlin コルーチンの作成方法と、IntelliJ IDEA を使ってデバッグする方法を説明します。
+このチュートリアルでは、Kotlinコルーチンの作成方法と、IntelliJ IDEA を使用したデバッグ方法を説明します。
 
-このチュートリアルは、「コルーチン」の概念について既にご存知であることを前提としています。
+このチュートリアルは、[コルーチン](coroutines-guide.md)の概念について事前に知識があることを前提としています。
 
 ## コルーチンの作成
 
@@ -34,16 +34,16 @@
 
    その他のビルドシステムについては、[`kotlinx.coroutines` README](https://github.com/Kotlin/kotlinx.coroutines#using-in-your-projects) の手順を参照してください。
    
-3. `src/main/kotlin` にある `Main.kt` ファイルを開きます。
+3. `src/main/kotlin` 内の `Main.kt` ファイルを開きます。
 
     `src` ディレクトリには Kotlin ソースファイルとリソースが含まれています。`Main.kt` ファイルには、`Hello World!` を出力するサンプルコードが含まれています。
 
-4. `main()` 関数内のコードを変更します。
+4. `main()` 関数のコードを変更します。
 
-    * コルーチンをラップするには、[`runBlocking()`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/run-blocking.html) ブロックを使用します。
-    * 遅延値 `a` と `b` を計算するコルーチンを作成するには、[`async()`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/async.html) 関数を使用します。
-    * 計算結果を待機するには、[`await()`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-deferred/await.html) 関数を使用します。
-    * 計算のステータスと乗算の結果を出力に表示するには、[`println()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.io/println.html) 関数を使用します。
+    * コルーチンをラップするために、[`runBlocking()`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/run-blocking.html) ブロックを使用します。
+    * 遅延値 `a` と `b` を計算するコルーチンを作成するために、[`async()`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/async.html) 関数を使用します。
+    * 計算結果を待機するために、[`await()`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-deferred/await.html) 関数を使用します。
+    * 計算ステータスと乗算結果を出力に表示するために、[`println()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.io/println.html) 関数を使用します。
 
     ```kotlin
     import kotlinx.coroutines.*
@@ -67,52 +67,52 @@
 
 ## コルーチンのデバッグ
 
-1. `println()` 関数の呼び出しがある行にブレークポイントを設定します。
+1. `println()` 関数呼び出しのある行にブレークポイントを設定します。
 
     ![コンソールアプリケーションをビルドする](coroutine-breakpoint.png)
 
-2. 画面上部の実行構成の横にある **Debug** をクリックして、コードをデバッグモードで実行します。
+2. 画面上部の実行構成の横にある **Debug** をクリックして、デバッグモードでコードを実行します。
 
     ![コンソールアプリケーションをビルドする](flow-debug-project.png)
 
     **Debug** ツールウィンドウが表示されます。
-    * **Frames** タブにはコールスタックが含まれています。
-    * **Variables** タブには現在のコンテキストの変数が含まれています。
-    * **Coroutines** タブには、実行中または中断されたコルーチンに関する情報が含まれています。ここには3つのコルーチンがあることが示されています。
-    最初のコルーチンは **RUNNING** ステータスであり、他の2つは **CREATED** ステータスです。
+    * **Frames** タブには、コールスタックが含まれています。
+    * **Variables** タブには、現在のコンテキストの変数が含まれています。
+    * **Coroutines** タブには、実行中または中断中のコルーチンに関する情報が含まれています。ここには3つのコルーチンが表示されています。
+    最初のコルーチンは **RUNNING** ステータスで、他の2つは **CREATED** ステータスです。
 
     ![コルーチンをデバッグする](coroutine-debug-1.png)
 
-3. **Debug** ツールウィンドウで **Resume Program** をクリックして、デバッガーセッションを再開します。
+3. **Debug** ツールウィンドウで **Resume Program** をクリックしてデバッガーセッションを再開します。
 
     ![コルーチンをデバッグする](coroutine-debug-2.png)
     
-    現在、**Coroutines** タブには以下が表示されています。
-    * 最初のコルーチンは **SUSPENDED** ステータスであり、乗算できるように値を待機しています。
+    現在、**Coroutines** タブには次のように表示されます。
+    * 最初のコルーチンは **SUSPENDED** ステータスです – 値を乗算するために待機しています。
     * 2番目のコルーチンは `a` の値を計算しており、**RUNNING** ステータスです。
-    * 3番目のコルーチンは **CREATED** ステータスであり、`b` の値はまだ計算していません。
+    * 3番目のコルーチンは **CREATED** ステータスで、`b` の値は計算していません。
 
-4. **Debug** ツールウィンドウで **Resume Program** をクリックして、デバッガーセッションを再開します。
+4. **Debug** ツールウィンドウで **Resume Program** をクリックしてデバッガーセッションを再開します。
 
     ![コンソールアプリケーションをビルドする](coroutine-debug-3.png)
 
-    現在、**Coroutines** タブには以下が表示されています。
-    * 最初のコルーチンは **SUSPENDED** ステータスであり、乗算できるように値を待機しています。
-    * 2番目のコルーチンは値を計算し終え、消えました。
+    現在、**Coroutines** タブには次のように表示されます。
+    * 最初のコルーチンは **SUSPENDED** ステータスです – 値を乗算するために待機しています。
+    * 2番目のコルーチンは値を計算し終え、表示されなくなりました。
     * 3番目のコルーチンは `b` の値を計算しており、**RUNNING** ステータスです。
 
-IntelliJ IDEA のデバッガーを使用すると、各コルーチンをより深く掘り下げてコードをデバッグできます。
+IntelliJ IDEA デバッガーを使用すると、各コルーチンを深く掘り下げてコードをデバッグできます。
 
-### 最適化によって除去された変数
+### 最適化によって除外された変数
 
-`suspend` 関数を使用すると、デバッガーで、変数の名前の横に「was optimized out」というテキストが表示される場合があります。
+`suspend` 関数を使用している場合、デバッガーで変数の名前の横に「was optimized out」というテキストが表示されることがあります。
 
-![変数「a」が最適化によって除去されました](variable-optimised-out.png){width=480}
+![変数 "a" は最適化により除外されました](variable-optimised-out.png){width=480}
 
-このテキストは、変数のライフタイムが短縮され、その変数はもう存在しないことを意味します。
-最適化された変数を含むコードをデバッグすることは、その値が表示されないため困難です。
-この動作は、`-Xdebug` コンパイラオプションを使用して無効にできます。
+このテキストは、変数の寿命が短縮され、変数がもはや存在しないことを意味します。
+最適化された変数を含むコードは、その値が見えないためデバッグが困難です。
+この動作は、`-Xdebug` コンパイラオプションで無効にできます。
 
-> __このフラグを本番環境で使用しないでください__:`-Xdebug` は[メモリリークを引き起こす](https://youtrack.jetbrains.com/issue/KT-48678/Coroutine-debugger-disable-was-optimised-out-compiler-feature#focus=Comments-27-6015585.0-0)可能性があります。
+> **本番環境でこのフラグを絶対に使用しないでください**: `-Xdebug` は[メモリリークを引き起こす可能性があります](https://youtrack.jetbrains.com/issue/KT-48678/Coroutine-debugger-disable-was-optimised-out-compiler-feature#focus=Comments-27-6015585.0-0)。
 >
 {style="warning"}

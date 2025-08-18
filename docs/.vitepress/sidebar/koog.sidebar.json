@@ -1,0 +1,176 @@
+[
+  {
+    "text": "koog.documentation",
+    "items": [
+      {
+        "text": "koog.overview",
+        "link": "index.md"
+      },
+      {
+        "text": "koog.key-concepts",
+        "link": "key-concepts"
+      },
+      {
+        "text": "koog.getting-started",
+        "items": [
+          {
+            "text": "koog.single-run-agents",
+            "link": "single-run-agents"
+          },
+          {
+            "text": "koog.complex-workflow-agents",
+            "link": "complex-workflow-agents"
+          }
+        ],
+        "collapsed": true
+      },
+      {
+        "text": "koog.prompt-api",
+        "link": "prompt-api"
+      },
+      {
+        "text": "koog.tools",
+        "items": [
+          {
+            "text": "koog.overview",
+            "link": "tools-overview"
+          },
+          {
+            "text": "koog.built-in-tools",
+            "link": "built-in-tools"
+          },
+          {
+            "text": "koog.annotation-based-tools",
+            "link": "annotation-based-tools"
+          },
+          {
+            "text": "koog.class-based-tools",
+            "link": "class-based-tools"
+          }
+        ],
+        "collapsed": true
+      },
+      {
+        "text": "koog.agent-events",
+        "link": "agent-events"
+      },
+      {
+        "text": "koog.agent-strategies",
+        "items": [
+          {
+            "text": "koog.custom-strategy-graphs",
+            "link": "custom-strategy-graphs"
+          },
+          {
+            "text": "koog.pre-defined-nodes-and-components",
+            "link": "nodes-and-components"
+          },
+          {
+            "text": "koog.parallel-node-execution",
+            "link": "parallel-node-execution"
+          }
+        ],
+        "collapsed": true
+      },
+      {
+        "text": "koog.history-compression",
+        "link": "history-compression"
+      },
+      {
+        "text": "koog.model-context-protocol",
+        "link": "model-context-protocol"
+      },
+      {
+        "text": "koog.model-capabilities",
+        "link": "model-capabilities"
+      },
+      {
+        "text": "koog.content-moderation",
+        "link": "content-moderation"
+      },
+      {
+        "text": "koog.advanced-usage",
+        "items": [
+          {
+            "text": "koog.structured-data",
+            "link": "structured-data"
+          },
+          {
+            "text": "koog.streaming-api",
+            "link": "streaming-api"
+          },
+          {
+            "text": "koog.custom-nodes",
+            "link": "custom-nodes"
+          },
+          {
+            "text": "koog.llm-sessions-and-manual-history-management",
+            "link": "sessions"
+          },
+          {
+            "text": "koog.subgraphs",
+            "items": [
+              {
+                "text": "koog.overview",
+                "link": "subgraphs-overview"
+              },
+              {
+                "text": "koog.custom-subgraphs",
+                "link": "custom-subgraphs"
+              }
+            ],
+            "collapsed": true
+          },
+          {
+            "text": "koog.embeddings",
+            "link": "embeddings"
+          },
+          {
+            "text": "koog.ranked-document-storage",
+            "link": "ranked-document-storage"
+          },
+          {
+            "text": "koog.features",
+            "items": [
+              {
+                "text": "koog.overview",
+                "link": "features-overview"
+              },
+              {
+                "text": "koog.tracing",
+                "link": "tracing"
+              },
+              {
+                "text": "koog.memory",
+                "link": "agent-memory"
+              },
+              {
+                "text": "koog.agent-persistency",
+                "link": "agent-persistency"
+              },
+              {
+                "text": "koog.opentelemetry",
+                "link": "opentelemetry-support"
+              }
+            ],
+            "collapsed": true
+          }
+        ],
+        "collapsed": true
+      },
+      {
+        "text": "koog.testing",
+        "link": "testing"
+      }
+    ],
+    "collapsed": true
+  },
+  {
+    "text": "koog.examples",
+    "link": "examples"
+  },
+  {
+    "text": "koog.api-reference",
+    "href": "https://api.koog.ai/"
+  }
+]

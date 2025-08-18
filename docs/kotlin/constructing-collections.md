@@ -1,21 +1,27 @@
 [//]: # (title: 构建集合)
 
-## 从元素构建集合
+## 从元素构建
 
-创建集合最常见的方式是使用标准库函数 [`listOf<T>()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/list-of.html)、[`setOf<T>()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/set-of.html)、[`mutableListOf<T>()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/mutable-list-of.html) 和 [`mutableSetOf<T>()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/mutable-set-of.html)。如果您提供逗号分隔的集合元素列表作为参数，编译器会自动检测元素类型。创建空集合时，请明确指定类型。
+创建集合最常见的方式是使用标准库函数 [`listOf<T>()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/list-of.html)、
+[`setOf<T>()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/set-of.html)、
+[`mutableListOf<T>()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/mutable-list-of.html)、
+[`mutableSetOf<T>()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/mutable-set-of.html)。
+如果你提供一个逗号分隔的集合元素列表作为实参，编译器会自动检测元素类型。创建空集合时，请显式指定类型。
 
 ```kotlin
 val numbersSet = setOf("one", "two", "three", "four")
 val emptySet = mutableSetOf<String>()
 ```
 
-对于映射 (maps)，同样可以使用函数 [`mapOf()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/map-of.html) 和 [`mutableMapOf()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/mutable-map-of.html)。映射的键和值作为 `Pair` 对象传入（通常使用 `to` 中缀函数创建）。
+Map 也有类似的函数：[`mapOf()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/map-of.html)
+和 [`mutableMapOf()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/mutable-map-of.html)。Map 的
+键和值作为 `Pair` 对象（通常使用 `to` 中缀函数创建）传递。
 
 ```kotlin
 val numbersMap = mapOf("key1" to 1, "key2" to 2, "key3" to 3, "key4" to 1)
 ```
 
-请注意，`to` 符号会创建一个短生命周期的 `Pair` 对象，因此建议仅在性能不关键时使用。为避免过多的内存使用，请使用其他方式。例如，您可以创建一个可变映射 (mutable map) 并使用写入操作 (write operations) 填充它。[`apply()`](scope-functions.md#apply) 函数可以帮助在此处保持初始化流畅。
+请注意，`to` 符号会创建一个短生命周期的 `Pair` 对象，因此建议仅在性能不关键时使用它。为避免过多的内存使用，请使用其他方式。例如，你可以创建一个可变 map 并使用写入操作填充它。[`apply()`](scope-functions.md#apply) 函数在此处有助于保持初始化流畅。
 
 ```kotlin
 val numbersMap = mutableMapOf<String, String>().apply { this["one"] = "1"; this["two"] = "2" }
@@ -23,7 +29,10 @@ val numbersMap = mutableMapOf<String, String>().apply { this["one"] = "1"; this[
 
 ## 使用集合构建器函数创建
 
-创建集合的另一种方式是调用构建器函数（builder function）—— [`buildList()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/build-list.html)、[`buildSet()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/build-set.html) 或 [`buildMap()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/build-map.html)。它们会创建一个新的、对应类型的可变集合 (mutable collection)，使用 [写入操作](collection-write.md) 填充它，并返回一个包含相同元素的只读集合 (read-only collection)：
+创建集合的另一种方式是调用构建器函数——
+[`buildList()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/build-list.html)、[`buildSet()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/build-set.html)
+或 [`buildMap()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/build-map.html)。它们会创建相应类型的新可变集合，
+使用[写入操作](collection-write.md)填充它，并返回一个包含相同元素的只读集合：
 
 ```kotlin
 val map = buildMap { // this is MutableMap<String, Int>, types of key and value are inferred from the `put()` calls below
@@ -37,15 +46,18 @@ println(map) // {a=1, b=0, c=4}
 
 ## 空集合
 
-也有用于创建不含任何元素的集合的函数：[`emptyList()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/empty-list.html)、[`emptySet()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/empty-set.html) 和 [`emptyMap()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/empty-map.html)。创建空集合时，您应该指定集合将持有的元素的类型。
+还有一些用于创建不包含任何元素的集合的函数：[`emptyList()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/empty-list.html)、
+[`emptySet()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/empty-set.html) 和
+[`emptyMap()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/empty-map.html)。
+创建空集合时，应指定集合将包含的元素的类型。
 
 ```kotlin
 val empty = emptyList<String>()
 ```
 
-## 列表的初始化器函数
+## List 的初始化函数
 
-对于列表 (lists)，有一个类似构造函数的函数，它接受列表大小和一个初始化器函数，该函数根据元素的索引定义其值。
+对于 list，有一个类似构造函数的函数，它接受 list 大小和初始化函数，该初始化函数根据元素的索引定义元素值。
 
 ```kotlin
 fun main() {
@@ -59,7 +71,7 @@ fun main() {
 
 ## 具体类型构造函数
 
-要创建具体类型的集合 (collection)，例如 `ArrayList` 或 `LinkedList`，您可以使用这些类型可用的构造函数。`Set` 和 `Map` 的实现也提供了类似的构造函数。
+要创建具体类型的集合，例如 `ArrayList` 或 `LinkedList`，你可以使用这些类型可用的构造函数。`Set` 和 `Map` 的实现也有类似的构造函数。
 
 ```kotlin
 val linkedList = LinkedList<String>(listOf("one", "two", "three"))
@@ -68,9 +80,14 @@ val presizedSet = HashSet<Int>(32)
 
 ## 复制
 
-要创建一个与现有集合包含相同元素的集合，您可以使用复制函数 (copying functions)。标准库中的集合复制函数创建的是 _浅层_ 复制 (shallow copy) 集合，其中包含对相同元素的引用。因此，对集合元素所做的更改会反映在其所有副本中。
+要创建与现有集合包含相同元素的集合，你可以使用复制函数。标准库中的集合复制函数创建的是引用相同元素的_浅拷贝_集合。
+因此，对集合元素所做的更改会反映在所有副本中。
 
-集合复制函数，例如 [`toList()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/to-list.html)、[`toMutableList()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/to-mutable-list.html)、[`toSet()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/to-set.html) 等，会在特定时刻创建集合的快照 (snapshot)。它们的结果是一个包含相同元素的新集合。如果您从原始集合中添加或删除元素，这不会影响副本。副本也可以独立于源进行更改。
+集合复制函数，例如 [`toList()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/to-list.html)、
+[`toMutableList()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/to-mutable-list.html)、
+[`toSet()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/to-set.html) 等，会在特定时刻创建集合的快照。
+它们的结果是包含相同元素的新集合。
+如果你从原始集合中添加或移除元素，这不会影响副本。副本也可以独立于源进行更改。
 
 ```kotlin
 class Person(var name: String)
@@ -88,7 +105,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-这些函数也可以用于将集合转换为其他类型，例如，从列表构建集合，反之亦然。
+这些函数也可以用于将集合转换为其他类型，例如，从 list 构建 set，反之亦然。
 
 ```kotlin
 fun main() {
@@ -103,7 +120,8 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-另外，您可以创建指向相同集合实例的新引用 (references)。当您使用现有集合初始化集合变量时，会创建新的引用。因此，当集合实例通过某个引用被修改时，这些更改会反映在其所有引用中。
+或者，你可以创建对同一集合实例的新引用。当你使用现有集合初始化集合变量时，就会创建新引用。
+因此，当集合实例通过某个引用被修改时，更改会反映在所有引用中。
 
 ```kotlin
 fun main() {
@@ -117,7 +135,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-集合初始化可用于限制可变性 (mutability)。例如，如果您创建了一个指向 `MutableList` 的 `List` 引用，当您尝试通过此引用修改集合时，编译器将报错。
+集合初始化可以用于限制可变性。例如，如果你创建了一个 `List` 引用来指向一个 `MutableList`，那么当你尝试通过此引用修改集合时，编译器会报错。
 
 ```kotlin
 fun main() {
@@ -132,9 +150,10 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-## 在其他集合上调用函数
+## 对其他集合调用函数
 
-集合可以作为对其他集合进行各种操作的结果而创建。例如，[过滤](collection-filtering.md) 列表会创建一个与过滤器匹配的新元素列表：
+集合可以通过对其他集合进行各种操作而创建。例如，[过滤](collection-filtering.md)
+一个 list 会创建一个与过滤器匹配的新 list：
 
 ```kotlin
 fun main() {
@@ -147,7 +166,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-[映射](collection-transformations.md#map) 根据转换结果生成列表：
+[映射](collection-transformations.md#map) 从转换结果中生成 list：
 
 ```kotlin
 fun main() {
@@ -160,7 +179,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-[关联](collection-transformations.md#associate) 生成映射：
+[关联](collection-transformations.md#associate) 生成 map：
 
 ```kotlin
 fun main() {

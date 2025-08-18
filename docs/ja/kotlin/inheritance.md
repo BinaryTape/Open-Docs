@@ -1,17 +1,17 @@
 [//]: # (title: 継承)
 
-Kotlinのすべてのクラスは共通の親クラス `Any` を持ちます。これは、スーパークラスが宣言されていないクラスのデフォルトの親クラスです。
+Kotlinのすべてのクラスは共通のスーパータイプである`Any`を持ちます。これは、スーパークラスが明示的に宣言されていないクラスのデフォルトのスーパータイプです。
 
 ```kotlin
-class Example // 暗黙的にAnyを継承します
+class Example // Implicitly inherits from Any
 ```
 
-`Any` には `equals()`、`hashCode()`、`toString()` の3つのメソッドがあります。したがって、これらのメソッドはすべてのKotlinクラスで定義されます。
+`Any`には`equals()`、`hashCode()`、`toString()`の3つのメソッドがあります。したがって、これらのメソッドはすべてのKotlinクラスで定義されています。
 
-デフォルトでは、Kotlinのクラスは`final`であり、継承できません。クラスを継承可能にするには、`open`キーワードでマークします。
+デフォルトでは、Kotlinのクラスは`final`です。つまり、継承できません。クラスを継承可能にするには、`open`キーワードでマークします。
 
 ```kotlin
-open class Base // クラスは継承のためにopenです
+open class Base // Class is open for inheritance
 
 ```
 
@@ -23,9 +23,9 @@ open class Base(p: Int)
 class Derived(p: Int) : Base(p)
 ```
 
-派生クラスにプライマリコンストラクタがある場合、基底クラスはそのパラメータに従って、そのプライマリコンストラクタで初期化できます（そして初期化しなければなりません）。
+派生クラスがプライマリコンストラクタを持つ場合、基底クラスはそのプライマリコンストラクタ内で、そのパラメータに従って初期化できます（そして初期化する必要があります）。
 
-派生クラスにプライマリコンストラクタがない場合、各セカンダリコンストラクタは`super`キーワードを使用して基底型を初期化するか、それを行う別のコンストラクタに委譲する必要があります。この場合、異なるセカンダリコンストラクタが基底型の異なるコンストラクタを呼び出すことができることに注意してください。
+派生クラスがプライマリコンストラクタを持たない場合、各セカンダリコンストラクタは`super`キーワードを使用して基底クラスを初期化するか、初期化を行う別のコンストラクタに処理を委譲する必要があります。この場合、異なるセカンダリコンストラクタが基底クラスの異なるコンストラクタを呼び出すことができる点に注意してください。
 
 ```kotlin
 class MyView : View {
@@ -50,9 +50,9 @@ class Circle() : Shape() {
 }
 ```
 
-`Circle.draw()`には`override`修飾子が必要です。それが欠落している場合、コンパイラがエラーを報告します。`Shape.fill()`のように、関数に`open`修飾子がない場合、`override`があってもなくても、サブクラスで同じシグネチャを持つメソッドを宣言することは許可されません。`open`修飾子のないクラスである`final`クラスのメンバーに追加された場合、`open`修飾子には効果がありません。
+`Circle.draw()`には`override`修飾子が必要です。これが欠落している場合、コンパイラはエラーを報告します。`Shape.fill()`のように関数に`open`修飾子がない場合、サブクラスで同じシグネチャを持つメソッドを宣言することは、`override`があってもなくても許可されません。`open`修飾子のないクラスである`final`クラスのメンバーに追加されても、`open`修飾子は何の効果もありません。
 
-`override`とマークされたメンバーはそれ自体が`open`なので、サブクラスでオーバーライドされる可能性があります。再度オーバーライドすることを禁止したい場合は、`final`を使用します。
+`override`とマークされたメンバーはそれ自体が`open`であるため、サブクラスでオーバーライドできます。再オーバーライドを禁止したい場合は、`final`を使用します。
 
 ```kotlin
 open class Rectangle() : Shape() {
@@ -62,7 +62,7 @@ open class Rectangle() : Shape() {
 
 ## プロパティのオーバーライド
 
-オーバーライドメカニズムは、メソッドと同様にプロパティにも適用されます。スーパークラスで宣言され、その後派生クラスで再宣言されるプロパティは、`override`を前に付ける必要があり、互換性のある型を持つ必要があります。各宣言されたプロパティは、初期化子を持つプロパティ、または`get`メソッドを持つプロパティによってオーバーライドできます。
+オーバーライドのメカニズムは、メソッドと同様にプロパティにも適用されます。スーパークラスで宣言され、派生クラスで再宣言されるプロパティは、`override`で修飾される必要があり、互換性のある型でなければなりません。宣言された各プロパティは、初期化子を持つプロパティ、または`get`メソッドを持つプロパティによってオーバーライドできます。
 
 ```kotlin
 open class Shape {
@@ -74,82 +74,82 @@ class Rectangle : Shape() {
 }
 ```
 
-`val`プロパティを`var`プロパティでオーバーライドすることはできますが、その逆はできません。これは、`val`プロパティが本質的に`get`メソッドを宣言し、それを`var`としてオーバーライドすることで、派生クラスに追加で`set`メソッドを宣言するためです。
+`val`プロパティを`var`プロパティでオーバーライドすることはできますが、その逆はできません。これは、`val`プロパティが本質的に`get`メソッドを宣言し、それを`var`としてオーバーライドすることで、派生クラスに追加で`set`メソッドを宣言するため、許可されています。
 
-プライマリコンストラクタのプロパティ宣言の一部として`override`キーワードを使用できることに注意してください。
+プライマリコンストラクタのプロパティ宣言の一部として`override`キーワードを使用できる点に注意してください。
 
 ```kotlin
 interface Shape {
     val vertexCount: Int
 }
 
-class Rectangle(override val vertexCount: Int = 4) : Shape // 常に4つの頂点を持ちます
+class Rectangle(override val vertexCount: Int = 4) : Shape // Always has 4 vertices
 
 class Polygon : Shape {
-    override var vertexCount: Int = 0  // 後で任意の数値に設定できます
+    override var vertexCount: Int = 0  // Can be set to any number later
 }
 ```
 
 ## 派生クラスの初期化順序
 
-派生クラスの新しいインスタンスを構築する際、基底クラスの初期化が最初に行われます（基底クラスコンストラクタの引数の評価のみが先行します）。これは、派生クラスの初期化ロジックが実行される前に基底クラスの初期化が行われることを意味します。
+派生クラスの新しいインスタンスを構築する際、基底クラスの初期化が最初のステップとして実行されます（基底クラスコンストラクタの引数評価のみが先行します）。これは、派生クラスの初期化ロジックが実行される前に基底クラスの初期化が行われることを意味します。
 
 ```kotlin
 //sampleStart
 open class Base(val name: String) {
 
-    init { println("基底クラスを初期化中") }
+    init { println("Initializing a base class") }
 
     open val size: Int = 
-        name.length.also { println("基底クラスでsizeを初期化中: $it") }
+        name.length.also { println("Initializing size in the base class: $it") }
 }
 
 class Derived(
     name: String,
     val lastName: String,
-) : Base(name.replaceFirstChar { it.uppercase() }.also { println("基底クラスへの引数: $it") }) {
+) : Base(name.replaceFirstChar { it.uppercase() }.also { println("Argument for the base class: $it") }) {
 
-    init { println("派生クラスを初期化中") }
+    init { println("Initializing a derived class") }
 
     override val size: Int =
-        (super.size + lastName.length).also { println("派生クラスでsizeを初期化中: $it") }
+        (super.size + lastName.length).also { println("Initializing size in the derived class: $it") }
 }
 //sampleEnd
 
 fun main() {
-    println("派生クラス(\"hello\", \"world\")を構築中")
+    println("Constructing the derived class(\"hello\", \"world\")")
     Derived("hello", "world")
 }
 ```
 {kotlin-runnable="true"}
 
-これは、基底クラスのコンストラクタが実行されるとき、派生クラスで宣言またはオーバーライドされたプロパティがまだ初期化されていないことを意味します。基底クラスの初期化ロジックでそれらのプロパティのいずれかを使用すると（直接的または別のオーバーライドされた`open`メンバーの実装を介して間接的に）、不正な動作やランタイムエラーにつながる可能性があります。したがって、基底クラスを設計する際は、コンストラクタ、プロパティ初期化子、または`init`ブロックで`open`メンバーを使用することを避けるべきです。
+これは、基底クラスのコンストラクタが実行される時点で、派生クラスで宣言またはオーバーライドされたプロパティがまだ初期化されていないことを意味します。基底クラスの初期化ロジックでこれらのプロパティのいずれかを使用すると（直接的または別のオーバーライドされた`open`メンバーの実装を介して間接的に）、不正な動作やランタイムエラーにつながる可能性があります。したがって、基底クラスを設計する際は、コンストラクタ、プロパティ初期化子、または`init`ブロックで`open`メンバーを使用することは避けるべきです。
 
 ## スーパークラスの実装の呼び出し
 
-派生クラスのコードは、`super`キーワードを使用してスーパークラスの関数やプロパティアクセッサの実装を呼び出すことができます。
+派生クラスのコードは、`super`キーワードを使用してスーパークラスの関数やプロパティアクセスの実装を呼び出すことができます。
 
 ```kotlin
 open class Rectangle {
-    open fun draw() { println("長方形を描画中") }
+    open fun draw() { println("Drawing a rectangle") }
     val borderColor: String get() = "black"
 }
 
 class FilledRectangle : Rectangle() {
     override fun draw() {
         super.draw()
-        println("長方形を塗りつぶし中")
+        println("Filling the rectangle")
     }
 
     val fillColor: String get() = super.borderColor
 }
 ```
 
-内部クラス内では、外側のクラスのスーパークラスへのアクセスは、外側のクラス名で修飾された`super`キーワード、すなわち`super@Outer`を使用して行われます。
+内部クラス内で、外部クラスのスーパークラスにアクセスするには、外部クラス名で修飾された`super`キーワード、つまり`super@Outer`を使用します。
 
 ```kotlin
 open class Rectangle {
-    open fun draw() { println("長方形を描画中") }
+    open fun draw() { println("Drawing a rectangle") }
     val borderColor: String get() = "black"
 }
 
@@ -161,11 +161,11 @@ class FilledRectangle: Rectangle() {
     }
     
     inner class Filler {
-        fun fill() { println("塗りつぶし中") }
+        fun fill() { println("Filling") }
         fun drawAndFill() {
-            super@FilledRectangle.draw() // Rectangleのdraw()の実装を呼び出します
+            super@FilledRectangle.draw() // Calls Rectangle's implementation of draw()
             fill()
-            println("色 ${super@FilledRectangle.borderColor} の塗りつぶされた長方形が描画されました") // RectangleのborderColorのget()実装を使用します
+            println("Drawn a filled rectangle with color ${super@FilledRectangle.borderColor}") // Uses Rectangle's implementation of borderColor's get()
         }
     }
 }
@@ -180,9 +180,9 @@ fun main() {
 
 ## オーバーライドのルール
 
-Kotlinでは、実装の継承は次のルールによって規定されています。クラスがその直接のスーパークラスから同じメンバーの複数の実装を継承する場合、そのメンバーをオーバーライドし、独自の（おそらく、継承されたもののいずれかを使用する）実装を提供しなければなりません。
+Kotlinでは、実装の継承は以下の規則によって規定されています。あるクラスが、直接のスーパークラスから同じメンバーの複数の実装を継承する場合、そのクラスはこのメンバーをオーバーライドし、独自の（おそらく継承された実装のいずれかを使用した）実装を提供する必要があります。
 
-継承された実装が取得されるスーパークラスを示すには、山括弧で囲まれたスーパークラス名で修飾された`super`（例: `super<Base>`)を使用します。
+継承された実装がどのスーパークラスから取られたかを示すには、山括弧でスーパークラス名を修飾した`super`、例えば`super<Base>`を使用します。
 
 ```kotlin
 open class Rectangle {
@@ -190,16 +190,16 @@ open class Rectangle {
 }
 
 interface Polygon {
-    fun draw() { /* ... */ } // インターフェースメンバーはデフォルトで'open'です
+    fun draw() { /* ... */ } // interface members are 'open' by default
 }
 
 class Square() : Rectangle(), Polygon {
-    // コンパイラはdraw()がオーバーライドされることを要求します:
+    // The compiler requires draw() to be overridden:
     override fun draw() {
-        super<Rectangle>.draw() // Rectangle.draw()の呼び出し
-        super<Polygon>.draw() // Polygon.draw()の呼び出し
+        super<Rectangle>.draw() // call to Rectangle.draw()
+        super<Polygon>.draw() // call to Polygon.draw()
     }
 }
 ```
 
-`Rectangle`と`Polygon`の両方から継承することは問題ありませんが、どちらも`draw()`の実装を持っているため、`Square`で`draw()`をオーバーライドし、曖昧さを解消するために個別の実装を提供する必要があります。
+`Rectangle`と`Polygon`の両方から継承することは問題ありませんが、どちらも`draw()`の実装を持つため、曖昧さを解消するために`Square`で`draw()`をオーバーライドし、別の実装を提供する必要があります。

@@ -1,10 +1,10 @@
-[//]: # (title: 無參數編譯器插件)
+[//]: # (title: 無參數編譯器外掛程式)
 
-*無參數*編譯器插件會為具有特定註解的類別生成一個額外的零參數建構函式。
+*no-arg* 編譯器外掛程式會為帶有特定註解的類別產生一個額外的零參數建構函式。
 
-生成的建構函式是合成的 (synthetic)，因此無法直接從 Java 或 Kotlin 呼叫，但可以透過反射呼叫。
+這個產生的建構函式是合成的，因此無法直接從 Java 或 Kotlin 呼叫，但可以使用反射來呼叫。
 
-這允許 Java Persistence API (JPA) 在類別本身從 Kotlin 或 Java 的角度來看沒有零參數建構函式的情況下，仍能實例化該類別（詳情請參閱下方關於 `kotlin-jpa` 插件的描述：[JPA 支援](#jpa-support)）。
+這使得 Java Persistence API (JPA) 能夠實例化一個類別，即使從 Kotlin 或 Java 的觀點來看，該類別沒有零參數建構函式 (請參閱下方關於 `kotlin-jpa` 外掛程式的說明)。
 
 ## 在您的 Kotlin 檔案中
 
@@ -18,7 +18,7 @@ annotation class Annotation
 
 ## Gradle
 
-使用 Gradle 的插件 DSL 新增插件：
+使用 Gradle 的外掛程式 DSL 新增此外掛程式：
 
 <tabs group="build-script">
 <tab title="Kotlin" group-key="kotlin">
@@ -41,7 +41,7 @@ plugins {
 </tab>
 </tabs>
 
-然後指定無參數註解的列表，這些註解必須導致為被註解的類別生成無參數建構函式：
+然後指定必須為帶註解的類別產生 no-arg 建構函式的 no-arg 註解列表：
 
 ```groovy
 noArg {
@@ -49,7 +49,7 @@ noArg {
 }
 ```
 
-如果您希望插件從合成建構函式運行初始化邏輯，請啟用 `invokeInitializers` 選項。預設情況下，它是禁用的。
+如果您希望此外掛程式從合成建構函式執行初始化邏輯，請啟用 `invokeInitializers` 選項。預設情況下，它是停用的。
 
 ```groovy
 noArg {
@@ -67,7 +67,7 @@ noArg {
 
     <configuration>
         <compilerPlugins>
-            <!-- 或針對 JPA 支援使用 "jpa" -->
+            <!-- 或 "jpa" 用於 JPA 支援 -->
             <plugin>no-arg</plugin>
         </compilerPlugins>
 
@@ -90,9 +90,9 @@ noArg {
 
 ## JPA 支援
 
-如同建立在 `all-open` 之上的 `kotlin-spring` 插件，`kotlin-jpa` 也是建立在 `no-arg` 之上。該插件會自動指定 [`@Entity`](https://docs.oracle.com/javaee/7/api/javax/persistence/Entity.html)、[`@Embeddable`](https://docs.oracle.com/javaee/7/api/javax/persistence/Embeddable.html) 和 [`@MappedSuperclass`](https://docs.oracle.com/javaee/7/api/javax/persistence/MappedSuperclass.html) 無參數註解。
+如同 `kotlin-spring` 外掛程式包裝在 `all-open` 之上，`kotlin-jpa` 則包裝在 `no-arg` 之上。此外掛程式會自動指定 [`@Entity`](https://docs.oracle.com/javaee/7/api/javax/persistence/Entity.html)、[`@Embeddable`](https://docs.oracle.com/javaee/7/api/javax/persistence/Embeddable.html) 和 [`@MappedSuperclass`](https://docs.oracle.com/javaee/7/api/javax/persistence/MappedSuperclass.html) *no-arg* 註解。
 
-使用 Gradle 插件 DSL 新增插件：
+使用 Gradle 的外掛程式 DSL 新增此外掛程式：
 
 <tabs group="build-script">
 <tab title="Kotlin" group-key="kotlin">
@@ -115,7 +115,7 @@ plugins {
 </tab>
 </tabs>
 
-在 Maven 中，啟用 `jpa` 插件：
+在 Maven 中，啟用 `jpa` 外掛程式：
 
 ```xml
 <compilerPlugins>
@@ -125,7 +125,7 @@ plugins {
 
 ## 命令列編譯器
 
-將插件 JAR 檔案新增至編譯器插件類別路徑，並指定註解或預設集：
+將外掛程式 JAR 檔案新增至編譯器外掛程式類別路徑，並指定註解或預設集：
 
 ```bash
 -Xplugin=$KOTLIN_HOME/lib/noarg-compiler-plugin.jar

@@ -1,14 +1,14 @@
-[//]: # (title: No-arg 컴파일러 플러그인)
+[//]: # (title: no-arg 컴파일러 플러그인)
 
-*no-arg* 컴파일러 플러그인은 특정 어노테이션이 있는 클래스에 대해 인자 없는 생성자(zero-argument constructor)를 추가로 생성합니다.
+*no-arg* 컴파일러 플러그인은 특정 어노테이션이 있는 클래스에 추가적인 인자 없는 생성자를 생성합니다.
 
-생성된 생성자는 합성(synthetic)이므로 Java나 Kotlin에서 직접 호출할 수는 없지만, 리플렉션(reflection)을 사용하여 호출할 수 있습니다.
+생성된 생성자는 합성(synthetic)이므로 Java 또는 Kotlin에서 직접 호출할 수 없지만, 리플렉션을 사용하여 호출할 수 있습니다.
 
-이를 통해 Java Persistence API (JPA)는 Kotlin 또는 Java 관점에서 인자 없는 생성자가 없더라도 클래스를 인스턴스화할 수 있습니다 (`kotlin-jpa` 플러그인에 대한 설명은 [아래](#jpa-support)를 참조하세요).
+이를 통해 Java Persistence API(JPA)는 Kotlin 또는 Java 관점에서 인자 없는 생성자가 없어도 클래스를 인스턴스화할 수 있습니다(`kotlin-jpa` 플러그인에 대한 설명은 [아래](#jpa-support)를 참조하십시오).
 
 ## Kotlin 파일에서
 
-인자 없는 생성자가 필요한 코드를 표시하기 위해 새 어노테이션을 추가하세요.
+인자 없는 생성자가 필요한 코드를 표시하기 위해 새 어노테이션을 추가합니다.
 
 ```kotlin
 package com.my
@@ -41,7 +41,7 @@ plugins {
 </tab>
 </tabs>
 
-그런 다음 어노테이션이 적용된 클래스에 대해 no-arg 생성자를 생성해야 하는 no-arg 어노테이션 목록을 지정합니다.
+그런 다음 어노테이션이 지정된 클래스에 대해 no-arg 생성자를 생성하도록 유도해야 하는 no-arg 어노테이션 목록을 지정합니다.
 
 ```groovy
 noArg {
@@ -49,7 +49,7 @@ noArg {
 }
 ```
 
-합성(synthetic) 생성자에서 초기화 로직을 실행하려면 `invokeInitializers` 옵션을 활성화하세요. 기본적으로 비활성화되어 있습니다.
+플러그인이 합성 생성자에서 초기화 로직을 실행하도록 하려면 `invokeInitializers` 옵션을 활성화합니다. 기본적으로 비활성화되어 있습니다.
 
 ```groovy
 noArg {
@@ -73,7 +73,7 @@ noArg {
 
         <pluginOptions>
             <option>no-arg:annotation=com.my.Annotation</option>
-            <!-- 합성(synthetic) 생성자에서 인스턴스 초기화자를 호출합니다 -->
+            <!-- 합성 생성자에서 인스턴스 초기화자를 호출합니다 -->
             <!-- <option>no-arg:invokeInitializers=true</option> -->
         </pluginOptions>
     </configuration>
@@ -115,7 +115,7 @@ plugins {
 </tab>
 </tabs>
 
-Maven에서 `jpa` 플러그인을 활성화합니다.
+Maven에서는 `jpa` 플러그인을 활성화합니다.
 
 ```xml
 <compilerPlugins>

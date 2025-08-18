@@ -179,7 +179,7 @@ class NavFragment : Fragment() {
 
 ## ViewModel 通用 API
 
-Koin 提供了一些「幕後 (under the hood)」API，可以直接調整您的 ViewModel 實例。可用的函式是 `ComponentActivity` 和 `Fragment` 的 `viewModelForClass`：
+Koin 提供了一些「幕後 (under the hood)」API，可以直接調整您的 ViewModel 實例。可用的函式是 `viewModelForClass` 用於 `ComponentActivity` 和 `Fragment`：
 
 ```kotlin
 ComponentActivity.viewModelForClass(
@@ -210,7 +210,7 @@ fun <T : ViewModel> getLazyViewModelForClass(
 ): Lazy<T>
 ```
 
-## ViewModel API - Java 相容性 (Compat)
+## ViewModel API - Java 相容性 (Compat) 
 
 Java 相容性必須添加到您的依賴 (dependencies) 中：
 

@@ -1,45 +1,51 @@
 [//]: # (title: 擴充功能)
 
-Kotlin 提供了擴充類別或介面以新增功能的能力，而無需繼承該類別或使用諸如 _裝飾器 (Decorator)_ 等設計模式。這是透過稱為 _擴充功能 (extensions)_ 的特殊宣告來完成的。
+Kotlin 提供了為類別或介面擴充新功能的能力，而無需繼承該類別或使用諸如 _裝飾器模式_ 之類的設計模式。
+這透過稱為 _擴充功能_ 的特殊宣告來完成。
 
-例如，你可以為一個無法修改的第三方函式庫中的類別或介面編寫新函式。這些函式可以像原始類別的方法一樣，以慣常方式呼叫。此機制稱為 _擴充函式 (extension function)_。還有 _擴充屬性 (extension properties)_，它們讓你能夠為現有類別定義新屬性。
+例如，您可以為您無法修改的第三方函式庫中的類別或介面撰寫新函式。
+這些函式可以像原始類別的方法一樣，以通常的方式呼叫。
+這種機制稱為 _擴充函式_。還存在 _擴充屬性_，讓您可以為現有類別定義新屬性。
 
 ## 擴充函式
 
-要宣告擴充函式，請在其名稱前加上一個 _接收者類型 (receiver type)_，這指的是被擴充的類型。以下為 `MutableList<Int>` 新增了一個 `swap` 函式：
+要宣告一個擴充函式，請在其名稱前加上一個 _接收者類型_，它指的是被擴充的類型。
+以下將 `swap` 函式新增到 `MutableList<Int>`：
 
 ```kotlin
 fun MutableList<Int>.swap(index1: Int, index2: Int) {
-    val tmp = this[index1] // 'this' 對應於該列表
+    val tmp = this[index1] // 'this' corresponds to the list
     this[index1] = this[index2]
     this[index2] = tmp
 }
 ```
 
-擴充函式內的 `this` 關鍵字對應於接收者物件（即在點號前傳遞的物件）。現在，你可以在任何 `MutableList<Int>` 上呼叫此類函式：
+擴充函式內的 `this` 關鍵字對應於接收者物件（即點號前傳遞的物件）。
+現在，您可以在任何 `MutableList<Int>` 上呼叫此類函式：
 
 ```kotlin
 val list = mutableListOf(1, 2, 3)
-list.swap(0, 2) // 'this' 在 'swap()' 內部將會持有 'list' 的值
+list.swap(0, 2) // 'this' inside 'swap()' will hold the value of 'list'
 ```
 
-此函式適用於任何 `MutableList<T>`，你可以將其泛型化：
+此函式適用於任何 `MutableList<T>`，您可以使其泛型化：
 
 ```kotlin
 fun <T> MutableList<T>.swap(index1: Int, index2: Int) {
-    val tmp = this[index1] // 'this' 對應於該列表
+    val tmp = this[index1] // 'this' corresponds to the list
     this[index1] = this[index2]
     this[index2] = tmp
 }
 ```
 
-你需要將泛型類型參數宣告在函式名稱之前，以使其在接收者類型表達式中可用。有關泛型的更多資訊，請參閱[泛型函式](generics.md)。
+您需要將泛型類型參數宣告在函式名稱之前，以使其在接收者類型表達式中可用。
+有關泛型的更多資訊，請參閱 [泛型函式](generics.md)。
 
-## 擴充功能是 _靜態 (statically)_ 解析的
+## 擴充功能是 _靜態_ 解析的
 
-擴充功能實際上並未修改它們所擴充的類別。透過定義擴充功能，你並不是將新成員插入類別中，而只是讓新函式能夠透過點號表示法 (dot-notation) 在此類型的變數上呼叫。
+擴充功能並未真正修改它們所擴充的類別。透過定義擴充功能，您並非在類別中插入新成員，而僅是使該類型的變數能夠透過點符號呼叫新函式。
 
-擴充函式是 _靜態_ 派發的。因此，哪個擴充函式被呼叫已在編譯時根據接收者類型得知。例如：
+擴充函式是 _靜態分派_ 的。因此，哪個擴充函式被呼叫在編譯時就已根據接收者類型確定。例如：
 
 ```kotlin
 fun main() {
@@ -60,9 +66,9 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-此範例印出 _Shape_，因為被呼叫的擴充函式僅取決於參數 `s` 的宣告類型，即 `Shape` 類別。
+這個範例印出 _Shape_，因為被呼叫的擴充函式僅取決於參數 `s` 的宣告類型，即 `Shape` 類別。
 
-如果一個類別有一個成員函式，並且定義了一個具有相同接收者類型、相同名稱且適用於給定引數的擴充函式，那麼 _成員永遠勝出_。例如：
+如果一個類別有一個成員函式，並且定義了一個具有相同接收者類型、相同名稱且適用於給定引數的擴充函式，那麼 _成員函式總是優先_。例如：
 
 ```kotlin
 fun main() {
@@ -79,9 +85,9 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-這段程式碼印出 _Class method_。
+此程式碼印出 _Class method_。
 
-然而，擴充函式多載具有相同名稱但不同簽章的成員函式是完全沒問題的：
+然而，擴充函式可以完全正常地重載與成員函式同名但簽名不同的函式：
 
 ```kotlin
 fun main() {
@@ -98,17 +104,17 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-## 可為 null 的接收者
+## 可空接收者
 
-請注意，擴充功能可以定義為可為 null 的接收者類型。即使其值為 null，這些擴充功能也可以在物件變數上呼叫。如果接收者為 `null`，則 `this` 也為 `null`。因此，當定義具有可為 null 的接收者類型的擴充功能時，我們建議在函式主體內執行 `this == null` 檢查，以避免編譯器錯誤。
+請注意，擴充功能可以定義為可空接收者類型。即使物件變數的值為 null，也可以呼叫這些擴充功能。如果接收者為 `null`，則 `this` 也為 `null`。因此，在定義具有可空接收者類型的擴充功能時，我們建議在函式主體內執行 `this == null` 檢查，以避免編譯器錯誤。
 
-在 Kotlin 中，你無需檢查 `null` 即可呼叫 `toString()`，因為檢查已在擴充函式內部發生：
+在 Kotlin 中，您可以直接呼叫 `toString()` 而無需檢查 `null`，因為檢查已在擴充函式內部進行：
 
 ```kotlin
 fun Any?.toString(): String {
     if (this == null) return "null"
-    // 在 null 檢查之後，'this' 被自動轉型為非 null 類型，因此下面的 toString()
-    // 解析為 Any 類別的成員函式
+    // After the null check, 'this' is autocast to a non-nullable type, so the toString() below
+    // resolves to the member function of the Any class
     return toString()
 }
 ```
@@ -122,23 +128,23 @@ val <T> List<T>.lastIndex: Int
     get() = size - 1
 ```
 
-> 由於擴充功能實際上並未將成員插入類別中，因此擴充屬性無法有效率地擁有[支援欄位](properties.md#backing-fields)。這就是為什麼_擴充屬性不允許使用初始化器 (initializers)_。它們的行為只能透過明確提供 getter/setter 來定義。
+> 由於擴充功能並未真正將成員插入類別中，因此擴充屬性沒有有效的方法來擁有 [支援欄位](properties.md#backing-fields)。這就是為什麼 _擴充屬性不允許使用初始化器_。它們的行為只能透過明確提供 getter/setter 來定義。
 >
 {style="note"}
 
 範例：
 
 ```kotlin
-val House.number = 1 // 錯誤：擴充屬性不允許使用初始化器
+val House.number = 1 // error: initializers are not allowed for extension properties
 ```
 
-## 伴隨物件擴充功能
+## 伴動物件擴充
 
-如果一個類別定義了[伴隨物件](object-declarations.md#companion-objects)，你也可以為伴隨物件定義擴充函式和屬性。就像伴隨物件的常規成員一樣，它們可以僅使用類別名稱作為限定符呼叫：
+如果一個類別定義了 [伴動物件](object-declarations.md#companion-objects)，您也可以為該伴動物件定義擴充函式和屬性。就像伴動物件的常規成員一樣，它們可以使用類別名稱作為限定符來呼叫：
 
 ```kotlin
 class MyClass {
-    companion object { }  // 將被稱為 "Companion"
+    companion object { }  // will be called "Companion"
 }
 
 fun MyClass.Companion.printCompanion() { println("companion") }
@@ -149,17 +155,17 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-## 擴充功能的作用域
+## 擴充的範圍
 
-在大多數情況下，你在頂層，直接在套件 (packages) 下定義擴充功能：
+在大多數情況下，您在頂層（直接在套件下）定義擴充功能：
 
 ```kotlin
 package org.example.declarations
 
-fun List<String>.getLongestString() { /*...*/ }
+fun List<String>.getLongestString() { /*...*/}
 ```
 
-要在其宣告的套件外部使用擴充功能，請在呼叫處匯入 (import) 它：
+要在其宣告套件之外使用擴充功能，請在呼叫點匯入它：
 
 ```kotlin
 package org.example.usage
@@ -172,11 +178,11 @@ fun main() {
 }
 ```
 
-有關更多資訊，請參閱[匯入](packages.md#imports)。
+有關更多資訊，請參閱 [匯入](packages.md#imports)。
 
 ## 將擴充功能宣告為成員
 
-你可以在另一個類別內部為一個類別宣告擴充功能。在此類擴充功能內部，有多個 _隱式接收者 (implicit receivers)_——無需限定符即可存取其成員的物件。宣告擴充功能的類別實例稱為 _派發接收者 (dispatch receiver)_，而擴充方法的接收者類型實例稱為 _擴充接收者 (extension receiver)_。
+您可以在一個類別內部宣告另一個類別的擴充功能。在此類擴充功能內部，存在多個 _隱式接收者_ ——它們的成員無需限定符即可存取。宣告擴充功能的類別的實例稱為 _分派接收者_，而擴充方法的接收者類型的實例稱為 _擴充接收者_。
 
 ```kotlin
 class Host(val hostname: String) {
@@ -187,36 +193,36 @@ class Connection(val host: Host, val port: Int) {
     fun printPort() { print(port) }
 
     fun Host.printConnectionString() {
-        printHostname()   // 呼叫 Host.printHostname()
+        printHostname()   // calls Host.printHostname()
         print(":")
-        printPort()   // 呼叫 Connection.printPort()
+        printPort()   // calls Connection.printPort()
     }
 
     fun connect() {
         /*...*/
-        host.printConnectionString()   // 呼叫擴充函式
+        host.printConnectionString()   // calls the extension function
     }
 }
 
 fun main() {
     Connection(Host("kotl.in"), 443).connect()
-    //Host("kotl.in").printConnectionString()  // 錯誤，擴充函式在 Connection 外部不可用
+    //Host("kotl.in").printConnectionString()  // error, the extension function is unavailable outside Connection
 }
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-如果派發接收者和擴充接收者的成員之間存在名稱衝突，則擴充接收者優先。要引用派發接收者的成員，你可以使用[限定的 `this` 語法](this-expressions.md#qualified-this)。
+如果分派接收者和擴充接收者的成員之間存在名稱衝突，則擴充接收者優先。要引用分派接收者的成員，您可以使用 [限定的 `this` 語法](this-expressions.md#qualified-this)。
 
 ```kotlin
 class Connection {
     fun Host.getConnectionString() {
-        toString()         // 呼叫 Host.toString()
-        this@Connection.toString()  // 呼叫 Connection.toString()
+        toString()         // calls Host.toString()
+        this@Connection.toString()  // calls Connection.toString()
     }
 }
 ```
 
-宣告為成員的擴充功能可以宣告為 `open` 並在子類別中覆寫。這表示此類函式的派發對於派發接收者類型是虛擬的，但對於擴充接收者類型是靜態的。
+宣告為成員的擴充功能可以宣告為 `open` 並在子類別中覆寫。這意味著此類函式的分派對於分派接收者類型是虛擬的，但對於擴充接收者類型是靜態的。
 
 ```kotlin
 open class Base { }
@@ -233,7 +239,7 @@ open class BaseCaller {
     }
 
     fun call(b: Base) {
-        b.printFunctionInfo()   // 呼叫擴充函式
+        b.printFunctionInfo()   // call the extension function
     }
 }
 
@@ -249,15 +255,16 @@ class DerivedCaller: BaseCaller() {
 
 fun main() {
     BaseCaller().call(Base())   // "Base extension function in BaseCaller"
-    DerivedCaller().call(Base())  // "Base extension function in DerivedCaller" - 派發接收者虛擬解析
-    DerivedCaller().call(Derived())  // "Base extension function in DerivedCaller" - 擴充接收者靜態解析
+    DerivedCaller().call(Base())  // "Base extension function in DerivedCaller" - dispatch receiver is resolved virtually
+    DerivedCaller().call(Derived())  // "Base extension function in DerivedCaller" - extension receiver is resolved statically
 }
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-## 可見性注意事項
+## 可見性說明
 
-擴充功能利用與在相同作用域 (scope) 中宣告的常規函式相同的[可見性修飾符 (visibility modifiers)]。例如：
+擴充功能利用與在相同範圍內宣告的常規函式相同的 [可見性修飾符](visibility-modifiers.md)。
+例如：
 
-* 宣告在檔案頂層的擴充功能可以存取同一檔案中其他 `private` 頂層宣告。
-* 如果擴充功能在其接收者類型外部宣告，則無法存取接收者的 `private` 或 `protected` 成員。
+* 宣告在檔案頂層的擴充功能可以存取同檔案中的其他 `private` 頂層宣告。
+* 如果擴充功能宣告在其接收者類型之外，則它無法存取接收者的 `private` 或 `protected` 成員。

@@ -1,8 +1,8 @@
-[//]: # (title: 操作参数)
+[//]: # (title: 操作实参)
 
-在本教程中，你将学习如何配置操作参数。
+在本教程中，你将学习如何配置操作实参。
 
-考虑下面这个简单的 `MultiMap` 实现。它基于 `ConcurrentHashMap`，内部存储一个值列表：
+考虑下面这个简单的 `MultiMap` 实现。它基于 `ConcurrentHashMap`，内部存储着一个 list 值：
 
 ```kotlin
 import java.util.concurrent.*
@@ -10,8 +10,7 @@ import java.util.concurrent.*
 class MultiMap<K, V> {
     private val map = ConcurrentHashMap<K, List<V>>()
    
-    // Maintains a list of values 
-    // associated with the specified key.
+    // 维护与指定 key 关联的 list 值。
     fun add(key: K, value: V) {
         val list = map[key]
         if (list == null) {
@@ -25,32 +24,27 @@ class MultiMap<K, V> {
 }
 ```
 
-这个 `MultiMap` 实现是 可线性化 (linearizable) 的吗？如果不是，在访问小范围的键时，更有可能检测到不正确的 交错 (interleaving)，从而增加并发处理同一个键的可能性。
+这个 `MultiMap` 实现是线性化的吗？如果不是，那么在访问小区间 key 时，更容易检测到不正确的交错，从而增加了并发处理同一个 key 的可能性。
 
-为此，请为 `key: Int` 参数配置生成器：
+为此，请为 `key: Int` 形参配置生成器：
 
 1.  声明 `@Param` 注解。
-2.  指定整数生成器类：`@Param(gen = IntGen::class)`。
-    Lincheck 开箱即用地支持几乎所有基本类型和字符串的随机参数生成器。
-3.  使用字符串配置 `@Param(conf = "1:2")` 定义生成值的范围。
-4.  指定参数配置名称 (`@Param(name = "key")`)，以便在多个操作中共享。
+2.  指定整型生成器类：`@Param(gen = IntGen::class)`。Lincheck 开箱即用地支持几乎所有原生类型和字符串的随机形参生成器。
+3.  使用字符串配置 `@Param(conf = "1:2")` 定义生成的值的区间。
+4.  指定形参配置名称（`@Param(name = "key")`）以将其共享给多个操作。
 
-    下面是 `MultiMap` 的压力测试，它为 `add(key, value)` 和 `get(key)` 操作生成范围为 `[1..2]` 的键：
+    下面是 `MultiMap` 的压力测试，它在 `[1..2]` 区间内为 `add(key, value)` 和 `get(key)` 操作生成 key：
 
     ```kotlin
     import java.util.concurrent.*
-    import org.jetbrains.kotlinx.lincheck.annotations.*
-    import org.jetbrains.kotlinx.lincheck.check
-    import org.jetbrains.kotlinx.lincheck.paramgen.*
-    import org.jetbrains.kotlinx.lincheck.strategy.stress.*
-    import org.jetbrains.kotlinx.lincheck.strategy.managed.modelchecking.*
+    import org.jetbrains.lincheck.check
+    import org.jetbrains.lincheck.datastructures.*
     import org.junit.*
     
     class MultiMap<K, V> {
         private val map = ConcurrentHashMap<K, List<V>>()
     
-        // Maintains a list of values 
-        // associated with the specified key.
+        // 维护与指定 key 关联的 list 值。
         fun add(key: K, value: V) {
             val list = map[key]
             if (list == null) {
@@ -94,7 +88,7 @@ class MultiMap<K, V> {
     | ---------------------------------- |
     ```
 
-6.  最后，运行 `modelCheckingTest()`。它会失败并显示以下输出：
+6.  最后，运行 `modelCheckingTest()`。它失败并显示以下输出：
 
     ```text
     = Invalid execution results =
@@ -107,10 +101,10 @@ class MultiMap<K, V> {
     | ---------------------------------- |
     
     ---
-    All operations above the horizontal line | ----- | happen before those below the line
+    水平线 | ----- | 上方的所有操作都发生在水平线 | ----- | 下方的操作之前
     ---
 
-    The following interleaving leads to the error:
+    以下交错导致错误：
     | ---------------------------------------------------------------------- |
     |    Thread 1     |                       Thread 2                       |
     | ---------------------------------------------------------------------- |
@@ -124,8 +118,8 @@ class MultiMap<K, V> {
     | ---------------------------------------------------------------------- |
     ```
 
-由于键的范围很小，Lincheck 很快揭示了 竞争条件 (race condition)：当两个值由同一个键并发添加时，其中一个值可能会被覆盖并丢失。
+由于 key 的区间较小，Lincheck 迅速揭示了竞争条件：当两个值被同一个 key 并发添加时，其中一个值可能会被覆盖并丢失。
 
 ## 下一步
 
-了解如何测试对执行设置 [访问约束](constraints.md) 的数据结构，例如单生产者单消费者队列。
+了解如何测试对执行设置[访问约束](constraints.md)的数据结构，例如单生产者单消费者队列。

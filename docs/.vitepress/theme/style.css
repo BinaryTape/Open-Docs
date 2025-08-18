@@ -210,106 +210,43 @@ html:not(.dark) .vp-doc [class*="language-text"] code {
   font-weight: 700;
   cursor: pointer;
   user-select: none;
-  font-size: 1.1em;
+  font-size: 1.2em;
 }
 
 /**
- * Component: Writerside tldr
+ * Component: Writerside
  * -------------------------------------------------------------------------- */
-
-.ws-tldr {
-  display: inline-flex;
-  flex-flow: column nowrap;
-  padding: 16px;
-  border: 1px solid #d1d1d2;
-  border-radius: 6px;
-}
-
-.ws-tldr img {
-  vertical-align: middle !important;
-  display: inline-block !important;
-}
-
-.ws-tldr p {
-  margin: 0;
-}
-
-/**
- * Component: Writerside tabs
- * -------------------------------------------------------------------------- */
-
-.ws-tabs-container .ws-tablist input {
-  position: fixed;
-  opacity: 0;
-  pointer-events: none;
-}
-
-.ws-tabs-container input:checked + label::after {
-  background-color: var(--vp-code-tab-active-bar-color);
-}
-
-.ws-tabs-container .ws-tablist label::after {
-  position: absolute;
-  right: 8px;
-  bottom: -1px;
-  left: 8px;
-  z-index: 1;
-  height: 2px;
-  border-radius: 2px;
-  content: "";
-  background-color: transparent;
-  transition: background-color 0.25s;
-}
-
-.ws-tabs-container .ws-tablist label:hover {
-  color: var(--vp-code-tab-hover-text-color);
-}
-
-.ws-tabs-container input:checked + label {
-  color: var(--vp-code-tab-active-text-color);
-}
-
-.ws-tab {
-  cursor: pointer;
-  position: relative;
-  display: inline-block;
-  border-bottom: 1px solid transparent;
-  padding: 0 12px;
-  line-height: 48px;
-  font-size: 14px;
-  font-weight: 500;
-  color: var(--vp-code-tab-text-color);
-  white-space: nowrap;
-  transition: color 0.25s;
-}
-
-.ws-tabs-container .ws-tabcontents .ws-tabcontent {
-  display: none;
-  margin-top: 0 !important;
-  border-top-left-radius: 0 !important;
-  border-top-right-radius: 0 !important;
-}
-
-.ws-tabs-container .ws-tabcontents .ws-tabcontent.active {
-  display: block;
-}
-
-.ws-tabcontents {
-  padding: 0 12px;
-}
 
 img[type="joined"] {
   vertical-align: middle !important;
   display: inline-block !important;
 }
 
-.ws-def-content {
-  padding: 0 16px;
+[class*="ws-col-"] {
+  --ws-horizontal-layout-gutter: 16px;
+  flex-basis: calc(((100% / 12) * var(--ws-col-count)) - var(--ws-horizontal-layout-gutter));
+  max-width: calc(((100% / 12) * var(--ws-col-count)) - var(--ws-horizontal-layout-gutter));
+  box-sizing: border-box;
 }
 
-.ws-def-content i {
-  font-style: normal;
-  font-weight: bold;
+.ws-col-1 { --ws-col-count: 1; }
+.ws-col-2 { --ws-col-count: 2; }
+.ws-col-3 { --ws-col-count: 3; }
+.ws-col-4 { --ws-col-count: 4; }
+.ws-col-6 { --ws-col-count: 6; }
+.ws-col-7 { --ws-col-count: 7; }
+.ws-col-8 { --ws-col-count: 8; }
+.ws-col-9 { --ws-col-count: 9; }
+.ws-col-10 { --ws-col-count: 10; }
+.ws-col-11 { --ws-col-count: 11; }
+.ws-col-12 { --ws-col-count: 12; }
+
+.vp-doc tr:nth-child(2n) pre {
+  background: var(--vp-c-bg);
+}
+
+.dark .vp-doc tr:nth-child(2n) pre {
+  background: transparent;
 }
 
 /**
@@ -394,4 +331,47 @@ img[type="joined"] {
 .language-diff {
   border-radius: 0 0 8px 8px !important;
   margin: 0 !important;
+}
+
+/*
+ * 目标：选中 <tldr> 元素内 <p> 元素中的 <img> 标签
+ */
+.ws-tldr p img {
+  /*
+   * 1. 关键修复：将图片设置为行内块元素 (inline-block)。
+   */
+  display: inline-block !important;
+
+  /*
+   * 2. 垂直对齐：让图片和旁边的文字垂直居中对齐，看起来更美观。
+   */
+  vertical-align: middle;
+
+  /*
+   * 3. 增加右边距：在图标和文字之间留出一点空隙。
+   */
+  margin-right: 8px;
+
+  /*
+   * 4. 避免其他边距影响：重置上下的 margin，以防万一。
+   */
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.vp-doc blockquote {
+  border-color: var(--vp-custom-block-note-border);
+  color: var(--vp-custom-block-note-text);
+  background-color: var(--vp-custom-block-note-bg);
+  border: 1px solid transparent;
+  border-radius: 8px;
+  padding: 8px 16px;
+  margin: 16px 0;
+  line-height: 24px;
+}
+
+.vp-doc blockquote p {
+  font-size: var(--vp-custom-block-font-size);
+  margin: 8px 0;
+  line-height: 24px;
 }

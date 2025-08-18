@@ -93,3 +93,15 @@ ksp {
 請按照官方文件所述的 KSP 設定：[KSP 與 Kotlin Multiplatform](https://kotlinlang.org/docs/ksp-multiplatform.html)
 
 您也可以查看 [Hello Koin KMP](https://github.com/InsertKoinIO/hello-kmp/tree/annotations) 專案，其中包含 Koin 註解的基本設定。
+
+### ProGuard
+
+如果您打算將 Koin 註解應用程式作為 SDK 嵌入，請查看這些 ProGuard 規則：
+
+```
+# Keep annotation definitions
+-keep class org.koin.core.annotation.** { *; }
+
+# Keep classes annotated with Koin annotations  
+-keep @org.koin.core.annotation.* class * { *; }
+```

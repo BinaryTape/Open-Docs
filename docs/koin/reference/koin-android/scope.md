@@ -1,5 +1,5 @@
 ---
-title: 管理 Android Scope
+title: Android Scope
 ---
 
 ## 处理 Android 生命周期
@@ -10,9 +10,9 @@ Android 组件主要由其生命周期管理：我们无法直接实例化 Activ
 
 那么我们有：
 
-*   长生命周期组件（服务、数据仓库等）- 由多个屏幕使用，永不销毁。
-*   中生命周期组件（用户会话等）- 由多个屏幕使用，必须在一段时间后销毁。
-*   短生命周期组件（视图）- 仅由一个屏幕使用，必须在屏幕结束时销毁。
+*   长生命周期组件（服务、数据仓库等）- 由多个屏幕使用，永不销毁
+*   中生命周期组件（用户会话等）- 由多个屏幕使用，必须在一段时间后销毁
+*   短生命周期组件（视图）- 仅由一个屏幕使用，必须在屏幕结束时销毁
 
 长生命周期组件可以很容易地描述为 `single` 定义。对于中生命周期和短生命周期组件，我们可以有几种方法。
 
@@ -29,7 +29,7 @@ class DetailActivity : AppCompatActivity() {
 
 我们可以将其描述在一个模块中：
 
-*   作为 `factory` - 每次调用 `by inject()` 或 `get()` 时生成一个新实例。
+*   作为 `factory` - 每次调用 `by inject()` 或 `get()` 时生成一个新实例
 
 ```kotlin
 val androidModule = module {
@@ -39,7 +39,7 @@ val androidModule = module {
 }
 ```
 
-*   作为 `scope` - 生成一个绑定到 scope 的实例。
+*   作为 `scope` - 生成一个绑定到 scope 的实例
 
 ```kotlin
 val androidModule = module {
@@ -51,7 +51,7 @@ val androidModule = module {
 ```
 
 :::note
- 大多数 Android 内存泄漏都来自于从非 Android 组件引用 UI/Android 组件。系统会保留对其的引用，并且无法通过垃圾回收完全释放它。
+大多数 Android 内存泄漏都来自于从非 Android 组件引用 UI/Android 组件。系统会保留对其的引用，并且无法通过垃圾回收完全释放它。
 :::
 
 ## Android 组件的 Scope (自 3.2.1 版本起)
@@ -67,9 +67,15 @@ class MyAdapter(val presenter : MyPresenter)
 module {
   // Declare scope for MyActivity
   scope<MyActivity> {
-    // get MyPresenter instance from current scope 
-    scoped { MyAdapter(get()) }
-    scoped { MyPresenter() }
+   // get MyPresenter instance from current scope 
+   scoped { MyAdapter(get()) }
+   scoped { MyPresenter() }
+  }
+ 
+  // or
+  activityScope {
+   scoped { MyAdapter(get()) }
+   scoped { MyPresenter() }
   }
 }
 ```
@@ -158,78 +164,123 @@ class MyActivity() : AppCompatActivity(contentLayoutId), AndroidScopeComponent {
 如果您尝试从 `onDestroy()` 函数访问 Scope，scope 将已经关闭。
 :::
 
-### ViewModel Scope (自 3.5.4 版本起)
+### Scope 原型 (4.1.0)
+
+作为一项新功能，您现在可以通过**原型**声明 scope：您不再需要针对特定类型定义 scope，而是针对一个“原型”（一种 scope 类）进行定义。您可以为“Activity”、“Fragment”或“ViewModel”声明 scope。
+您现在可以使用以下 DSL 部分：
+
+```kotlin
+module {
+ activityScope {
+  // scoped instances for an activity
+ }
+
+ activityRetainedScope {
+  // scoped instances for an activity, retained scope
+ }
+
+ fragmentScope {
+  // scoped instances for Fragment
+ }
+
+ viewModelScope {
+  // scoped instances for ViewModel
+ }
+}
+```
+
+这允许在 scope 之间更轻松地重用定义。除了需要在精确对象上使用 scope 的情况外，不再需要使用 `scope<>{ }` 这样的特定类型。
+
+:::info
+请参阅 [Android Scope API](#android-scope-api) 以了解如何使用 `by activityScope()`、`by activityRetainedScope()` 和 `by fragmentScope()` 函数来激活您的 Android scope。这些函数将触发 scope 原型。
+:::
+
+例如，您可以使用 Scope 原型轻松地将定义限定到 Activity 中，如下所示：
+
+```kotlin
+// declare Class Session in Activity scope
+module {
+ activityScope {
+    scopedOf(::Session)
+ }
+}
+
+// Inject the scoped Session object to the activity:
+class MyActivity : AppCompatActivity(), AndroidScopeComponent {
+    
+    // create Activity's scope
+    val scope: Scope by activityScope() 
+    
+    // inject from scope above
+    val session: Session by inject()
+}
+```
+
+### ViewModel Scope (在 4.1.0 中更新)
 
 ViewModel 仅针对根 scope 创建，以避免任何泄漏（如 Activity 或 Fragment 泄漏）。这可以防止可见性问题，即 ViewModel 可能会访问不兼容的 scope。
 
 :::warn
 ViewModel 无法访问 Activity 或 Fragment 的 scope。为什么？因为 ViewModel 的生命周期比 Activity 和 Fragment 更长，因此它会将依赖项泄漏到适当的 scope 之外。
-:::
-
-:::note
 如果您**确实**需要从 ViewModel scope 外部桥接一个依赖项，您可以使用“注入参数”将一些对象传递给您的 ViewModel：`viewModel { p -> }`
 :::
 
-`ScopeViewModel` 是一个新类，用于帮助处理 ViewModel scope。它处理 ViewModel 的 scope 创建，并提供 `scope` 属性以允许使用 `by scope.inject()` 进行注入：
+请如下声明您的 ViewModel scope，将其绑定到您的 ViewModel 类或使用 `viewModelScope` DSL 部分：
 
 ```kotlin
 module {
     viewModelOf(::MyScopeViewModel)
+    // scope for MyScopeViewModel only
     scope<MyScopeViewModel> {
         scopedOf(::Session)
-    }    
-}
-
-class MyScopeViewModel : ScopeViewModel() {
-
-    // on onCleared, scope is closed
-    
-    // injected from current MyScopeViewModel's scope
-    val session by scope.inject<Session>()
-
+    }
+    // ViewModel Archetype scope - Scope for all ViewModel 
+    viewModelScope {
+        scopedOf(::Session)
+    }
 }
 ```
 
-通过使用 `ScopeViewModel`，您还可以重写 `onCloseScope()` 函数，以便在 scope 关闭之前运行代码。
+声明您的 ViewModel 和范围限定的组件后，您可以_选择_：
+- 手动 API - 手动使用 `KoinScopeComponent` 和 `viewModelScope` 函数。这将处理创建和销毁您的 ViewModel scope。但您必须通过字段注入您范围限定的定义，因为您需要依赖 `scope` 属性来注入您范围限定的定义：
+```kotlin
+class MyScopeViewModel : ViewModel(), KoinScopeComponent {
+    
+    // create ViewModel scope
+    override val scope: Scope = viewModelScope()
+    
+    // uses scope above to inject session
+    val session: Session by inject()
+}
+```
+- 自动 Scope 创建
+    - 激活 `viewModelScopeFactory` 选项（参见 [Koin 选项](../koin-core/start-koin.md#koin-options---feature-flagging)），以自动动态创建 ViewModel scope。
+    - 这允许使用构造函数注入
+```kotlin
+// activate ViewModel Scope factory
+startKoin {
+    options(
+        viewModelScopeFactory()
+    )
+}
 
-:::note
-ViewModel scope 内的所有实例都具有相同的可见性，并将存活于 ViewModel 实例的整个生命周期，直到调用 ViewModel 的 `onCleared` 函数。
-:::
+// Scope being created at factory level, automatically before injection
+class MyScopeViewModel(val session: Session) : ViewModel()
+```
 
-例如，一旦 Activity 或 fragment 创建了 ViewModel，相关的 scope 就会被创建：
+现在只需从您的 Activity 或 Fragment 调用您的 ViewModel：
 
 ```kotlin
 class MyActivity : AppCompatActivity() {
-
-    // Create ViewModel and its scope
-    val myViewModel by viewModel<MyScopeViewModel>()
-
-}
-```
-
-一旦您的 ViewModel 被创建，此 scope 内的所有相关依赖项都可以被创建和注入。
-
-要不使用 `ScopeViewModel` 类手动实现您的 ViewModel scope，请按以下步骤操作：
-
-```kotlin
-class MyScopeViewModel : ViewModel(), KoinScopeComponent {
-
-    override val scope: Scope = createScope(this)
-
-    // inject your dependency
-    val session by scope.inject<Session>()
-
-    // clear scope
-    override fun onCleared() {
-        super.onCleared()
-        scope.close()
-    }
+    
+    // create MyScopeViewModel instance, and allocate MyScopeViewModel's scope
+    val vieModel: MyScopeViewModel by viewModel()
 }
 ```
 
 ## Scope 链接
 
-Scope 链接允许在具有自定义 scope 的组件之间共享实例。
+Scope 链接允许在具有自定义 scope 的组件之间共享实例。默认情况下，Fragment 的 scope 链接到父 Activity scope。
 
 在更广泛的用法中，您可以在组件之间使用 `Scope` 实例。例如，如果我们需要共享一个 `UserSession` 实例。
 
@@ -253,7 +304,7 @@ val ourSession = getKoin().createScope("ourSession",named("session"))
 scope.linkTo(ourSession)
 ```
 
-然后，在任何你需要的地方使用它：
+然后在任何你需要的地方使用它：
 
 ```kotlin
 class MyActivity1 : ScopeActivity() {

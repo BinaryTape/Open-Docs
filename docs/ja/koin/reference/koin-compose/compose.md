@@ -2,7 +2,7 @@
 title: Jetpack Compose および Compose Multiplatform 向けの Koin
 ---
 
-このページでは、[Android Jetpack Compose](https://developer.android.com/jetpack/compose) または [Multiplatform Compose](https://www.jetbrains.com/lp/compose-mpp/) アプリケーションで依存関係を注入する方法について説明します。
+このページでは、[Android Jetpack Compose](https://developer.developer.android.com/jetpack/compose) または [Multiplatform Compose](https://www.jetbrains.com/lp/compose-mpp/) アプリケーションで依存関係を注入する方法について説明します。
 
 ## Koin Compose Multiplatform と Koin Android Jetpack Compose の比較
 
@@ -19,34 +19,18 @@ Android/Multiplatform アプリケーションの場合、以下のパッケー�
 - `koin-compose-viewmodel` - Compose ViewModel API
 - `koin-compose-viewmodel-navigation` - Navigation API 統合による Compose ViewModel API
 
-## 既存の Koin コンテキストから開始する (Koin が既に起動している場合)
+## 既存の Koin コンテキストから開始する
 
-`startKoin` 関数がアプリケーション内で既に Koin を起動するために使用されている場合があります（例えば、Android のメインアプリクラスである `Application` クラスなど）。その場合、`KoinContext` または `KoinAndroidContext` を使用して、現在の Koin コンテキストを Compose アプリケーションに知らせる必要があります。これらの関数は既存の Koin コンテキストを再利用し、それを Compose アプリケーションにバインドします。
-
-```kotlin
-@Composable
-fun App() {
-    // 現在の Koin インスタンスを Compose コンテキストに設定
-    KoinContext() {
-
-        MyScreen()
-    }
-}
-```
-
-:::info
-`KoinAndroidContext` と `KoinContext` の違い:
-- `KoinAndroidContext` は、Koin インスタンスのために現在の Android アプリのコンテキストを探します。
-- `KoinContext` は、Koin インスタンスのために現在の GlobalContext を探します。
-:::
+Composeアプリケーションの前に`startKoin`関数を使用することで、アプリケーションはKoinインジェクションを受け入れる準備ができています。ComposeでKoinコンテキストを設定するために、これ以上何も必要ありません。
 
 :::note
-Composable から `ClosedScopeException` が発生した場合、Composable で `KoinContext` を使用するか、[Android コンテキストでの適切な Koin の起動設定](/docs/reference/koin-android/start.md#from-your-application-class)がされていることを確認してください。
+`KoinContext` と `KoinAndroidContext` は非推奨です
 :::
 
-## Compose アプリケーションで Koin を起動する - KoinApplication
+## Compose アプリで Koin を起動する - KoinApplication
+`startKoin` 関数を実行できる場所にアクセスできない場合、Compose と Koin に頼って Koin の設定を開始できます。
 
-`KoinApplication` 関数は、Koin アプリケーションインスタンスを Composable として作成するのに役立ちます:
+`KoinApplication` というコンポーズ関数は、KoinアプリケーションインスタンスをComposableとして作成するのに役立ちます:
 
 ```kotlin
 @Composable
@@ -68,29 +52,29 @@ Android アプリケーションでは、`KoinApplication` は設定変更や Ac
 :::
 
 :::note
-これは、従来の `startKoin` アプリケーション関数の使用を置き換えるものです。
+(実験的API)
+`KoinMultiplatformApplication` を使用してマルチプラットフォームのエントリポイントを置き換えることができます。これは`KoinApplication`と同じですが、自動的に`androidContext`と`androidLogger`を注入します。
 :::
 
-### Koin を使用した Compose プレビュー
+## KoinApplicationPreview を使用した Compose プレビュー
 
-`KoinApplication` 関数は、プレビュー用の専用コンテキストを開始するのに興味深いものです。これは Compose プレビューを支援するためにも使用できます:
+`KoinApplicationPreview` コンポーズ関数は、Composableをプレビューするために特化されています:
 
 ```kotlin
+@Preview(name = "1 - Pixel 2 XL", device = Devices.PIXEL_2_XL, locale = "en")
+@Preview(name = "2 - Pixel 5", device = Devices.PIXEL_5, locale = "en", uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Preview(name = "3 - Pixel 7 ", device = Devices.PIXEL_7, locale = "ru", uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
-@Preview
-fun App() {
-    KoinApplication(application = {
-        // your preview config here
-        modules(previewModule)
-    }) {
-        // Compose to preview with Koin
+fun previewVMComposable(){
+    KoinApplicationPreview(application = { modules(appModule) }) {
+        ViewModelComposable()
     }
 }
 ```
 
 ## @Composable への注入
 
-Composable 関数を記述する際、Koin コンテナからインスタンスを注入するための Koin API である `koinInject()` にアクセスできます。
+コンポーザブル関数を記述する際、Koinコンテナからインスタンスを注入するために、以下のKoin APIである`koinInject()`にアクセスできます。
 
 'MyService' コンポーネントを宣言するモジュールの場合:
 
@@ -139,7 +123,7 @@ Koin のバージョン 4.0.2 から、パラメーターを最も効率的な�
 
 ## @Composable 用の ViewModel
 
-従来の single/factory インスタンスにアクセスするのと同様に、以下の Koin ViewModel API にアクセスできます:
+従来のsingle/factoryインスタンスにアクセスするのと同様に、以下のKoin ViewModel APIにアクセスできます:
 
 *   `koinViewModel()` - ViewModel インスタンスを注入
 *   `koinNavViewModel()` - ViewModel インスタンス + Navigation 引数データ（`Navigation` API を使用している場合）を注入
@@ -176,10 +160,22 @@ fun App(vm : MyViewModel = koinViewModel()) {
 Jetpack Compose の更新では Lazy API はサポートされていません。
 :::
 
+### 共有 Activity ViewModel (4.1 - Android)
+
+`koinActivityViewModel()` を使用して、同じViewModelホスト（Activity）からViewModelを注入できるようになりました。
+
+```kotlin
+@Composable
+fun App() {
+    // hold ViewModel instance at Activity level
+    val vm = koinActivityViewModel<MyViewModel>()
+}
+```
+
 ### @Composable 用の ViewModel と SavedStateHandle
 
 `SavedStateHandle` コンストラクターパラメーターを持つことができ、それは Compose 環境（Navigation の BackStack または ViewModel）に応じて注入されます。
-ViewModel の `CreationExtras` 経由で注入されるか、Navigation の `BackStackEntry` 経由で注入されます:
+ViewModelの`CreationExtras`経由で注入されるか、Navigationの`BackStackEntry`経由で注入されます:
 
 ```kotlin
 // Setting objectId argument in Navhost
@@ -211,6 +207,24 @@ class DetailViewModel(
 SavedStateHandle の注入の違いに関する詳細: https://github.com/InsertKoinIO/koin/issues/1935#issuecomment-2362335705
 :::
 
+### 共有 ViewModel と Navigation (実験的)
+
+Koin Compose Navigation には、現在の `NavBackEntry` に既に保存されているViewModelを取得できる `NavBackEntry.sharedKoinViewModel()` 関数が追加されました。ナビゲーション部分では、単に `sharedKoinViewModel` を使用します:
+
+```kotlin
+navigation<Route.BookGraph>(
+                startDestination = Route.BookList
+            ) {
+                composable<Route.BookList>(
+                    exitTransition = { slideOutHorizontally() },
+                    popEnterTransition = { slideInHorizontally() }
+                ) {
+                    // Use SharedViewModel here ...
+
+                    val selectedBookViewModel =
+                        it.sharedKoinViewModel<SelectedBookViewModel>(navController)
+```
+
 ## Composable に紐付けられたモジュールのロードとアンロード
 
 Koin は、特定の Composable 関数用に特定のモジュールをロードする方法を提供します。`rememberKoinModules` 関数は、Koin モジュールをロードし、現在の Composable 上でそれらを記憶します:
@@ -219,12 +233,12 @@ Koin は、特定の Composable 関数用に特定のモジュールをロード
 @Composable
 @Preview
 fun MyComponentComposable() {
-    // このコンポーネントが最初に呼び出されたときにモジュールをロード
+    // load module at first call of this component
     rememberKoinModules(myModule)
 }
 ```
 
-2つの側面でモジュールをアンロードするために、以下の機能を使用できます:
+2つの側面でモジュールをアンロードするために、いずれかの放棄関数を使用できます:
 - `onForgotten` - コンポジションがドロップされた後
 - `onAbandoned` - コンポジションが失敗した場合
 

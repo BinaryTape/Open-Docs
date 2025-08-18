@@ -1,21 +1,21 @@
-[//]: # (title: 관용구)
+[//]: # (title: 관용 표현)
 
-Kotlin에서 무작위로 자주 사용되는 관용구(idiom) 모음입니다. 좋아하는 관용구가 있다면 풀 리퀘스트를 보내 기여해주세요.
+Kotlin에서 자주 사용되는 다양한 관용 표현 모음입니다. 좋아하는 관용 표현이 있다면 풀 리퀘스트를 보내 기여해주세요.
 
-## DTO (POJO/POCO) 생성
+## DTO (POJO/POCO) 생성하기
 
 ```kotlin
 data class Customer(val name: String, val email: String)
 ```
 
-위 코드는 다음 기능을 제공하는 `Customer` 클래스를 제공합니다:
+`Customer` 클래스에 다음 기능을 제공합니다.
 
-*   모든 프로퍼티에 대한 게터(및 `var`의 경우 세터)
+*   모든 프로퍼티에 대한 getter (및 `var`의 경우 setter)
 *   `equals()`
 *   `hashCode()`
 *   `toString()`
 *   `copy()`
-*   모든 프로퍼티에 대한 `component1()`, `component2()`, ... (자세한 내용은 [데이터 클래스](data-classes.md) 참조)
+*   `component1()`, `component2()`, ..., 모든 프로퍼티에 대한 (참고: [데이터 클래스](data-classes.md))
 
 ## 함수 파라미터의 기본값
 
@@ -23,7 +23,7 @@ data class Customer(val name: String, val email: String)
 fun foo(a: Int = 0, b: String = "") { ... }
 ```
 
-## 리스트 필터링
+## 리스트 필터링하기
 
 ```kotlin
 val positives = list.filter { x -> x > 0 }
@@ -35,9 +35,9 @@ val positives = list.filter { x -> x > 0 }
 val positives = list.filter { it > 0 }
 ```
 
-[Java와 Kotlin 필터링](java-to-kotlin-collections-guide.md#filter-elements)의 차이점을 알아보세요.
+[Java와 Kotlin의 필터링](java-to-kotlin-collections-guide.md#filter-elements) 차이점을 알아보세요.
 
-## 컬렉션에 요소 존재 여부 확인
+## 컬렉션에 요소 존재 여부 확인하기
 
 ```kotlin
 if ("john@example.com" in emailsList) { ... }
@@ -51,12 +51,12 @@ if ("jane@example.com" !in emailsList) { ... }
 println("Name $name")
 ```
 
-[Java와 Kotlin 문자열 연결](java-to-kotlin-idioms-strings.md#concatenate-strings)의 차이점을 알아보세요.
+[Java와 Kotlin의 문자열 연결](java-to-kotlin-idioms-strings.md#concatenate-strings) 차이점을 알아보세요.
 
 ## 표준 입력 안전하게 읽기
 
 ```kotlin
-// 문자열을 읽고 입력이 정수로 변환될 수 없으면 null을 반환합니다. 예시: Hi there!
+// 문자열을 읽고, 입력이 정수로 변환될 수 없으면 null을 반환합니다. 예시: Hi there!
 val wrongInt = readln().toIntOrNull()
 println(wrongInt)
 // null
@@ -67,9 +67,9 @@ println(correctInt)
 // 13
 ```
 
-자세한 내용은 [표준 입력 읽기](read-standard-input.md)를 참조하세요.
+더 자세한 내용은 [표준 입력 읽기](read-standard-input.md)를 참조하세요.
 
-## 인스턴스 확인
+## 인스턴스 검사
 
 ```kotlin
 when (x) {
@@ -90,14 +90,14 @@ val list = listOf("a", "b", "c")
 val map = mapOf("a" to 1, "b" to 2, "c" to 3)
 ```
 
-## 맵 항목 접근
+## 맵 항목 접근하기
 
 ```kotlin
 println(map["key"])
 map["key"] = value
 ```
 
-## 맵 또는 페어 리스트 순회
+## 맵 또는 쌍 리스트 순회하기
 
 ```kotlin
 for ((k, v) in map) {
@@ -105,9 +105,9 @@ for ((k, v) in map) {
 }
 ```
 
-`k`와 `v`는 `name`과 `age`처럼 편리한 이름으로 사용할 수 있습니다.
+`k`와 `v`는 `name`과 `age`처럼 원하는 어떤 이름이든 될 수 있습니다.
 
-## 범위 반복
+## 범위 순회하기
 
 ```kotlin
 for (i in 1..100) { ... }  // 닫힌 범위: 100 포함
@@ -133,7 +133,7 @@ fun String.spaceToCamelCase() { ... }
 "Convert this to camelcase".spaceToCamelCase()
 ```
 
-## 싱글톤 생성
+## 싱글턴 생성하기
 
 ```kotlin
 object Resource {
@@ -141,7 +141,7 @@ object Resource {
 }
 ```
 
-## 타입 안전 값을 위한 인라인 값 클래스 사용
+## 타입 안전한 값에 인라인 값 클래스 사용하기
 
 ```kotlin
 @JvmInline
@@ -151,13 +151,13 @@ value class EmployeeId(private val id: String)
 value class CustomerId(private val id: String)
 ```
 
-`EmployeeId`와 `CustomerId`를 실수로 혼동하면 컴파일 오류가 발생합니다.
+`EmployeeId`와 `CustomerId`를 실수로 혼용하면 컴파일 오류가 발생합니다.
 
-> `@JvmInline` 어노테이션은 JVM 백엔드에만 필요합니다.
+> `@JvmInline` 어노테이션은 JVM 백엔드에서만 필요합니다.
 >
 {style="note"}
 
-## 추상 클래스 인스턴스화
+## 추상 클래스 인스턴스화하기
 
 ```kotlin
 abstract class MyAbstractClass {
@@ -178,23 +178,23 @@ fun main() {
 }
 ```
 
-## null이 아닐 때의 단축 표현
+## 널이 아닐 경우 단축 표현
 
 ```kotlin
 val files = File("Test").listFiles()
 
-println(files?.size) // files가 null이 아니면 size가 출력됩니다.
+println(files?.size) // 파일이 널이 아니면 size가 출력됩니다.
 ```
 
-## null이 아닐 때 또는 그 외의 단축 표현
+## 널이 아닐 경우-그 외 단축 표현
 
 ```kotlin
 val files = File("Test").listFiles()
 
-// 간단한 대체 값을 위해:
-println(files?.size ?: "empty") // files가 null이면 "empty"를 출력합니다.
+// 간단한 폴백 값의 경우:
+println(files?.size ?: "empty") // 파일이 널이면, "empty"가 출력됩니다.
 
-// 코드 블록에서 더 복잡한 대체 값을 계산하려면 `run`을 사용하세요
+// 코드 블록에서 더 복잡한 폴백 값을 계산하려면 `run`을 사용하세요.
 val filesSize = files?.size ?: run { 
     val someSize = getSomeSize()
     someSize * 2
@@ -202,42 +202,42 @@ val filesSize = files?.size ?: run {
 println(filesSize)
 ```
 
-## null일 경우 구문 실행
+## 널일 경우 표현식 실행
 
 ```kotlin
 val values = ...
 val email = values["email"] ?: throw IllegalStateException("Email is missing!")
 ```
 
-## 비어 있을 수 있는 컬렉션의 첫 번째 항목 가져오기
+## 비어있을 수 있는 컬렉션의 첫 번째 항목 가져오기
 
 ```kotlin
-val emails = ... // 비어 있을 수 있습니다.
+val emails = ... // 비어있을 수 있음
 val mainEmail = emails.firstOrNull() ?: ""
 ```
 
-[Java와 Kotlin에서 비어 있을 수 있는 컬렉션의 첫 번째 및 마지막 항목 가져오기](java-to-kotlin-collections-guide.md#get-the-first-and-the-last-items-of-a-possibly-empty-collection)의 차이점을 알아보세요.
+[Java와 Kotlin의 첫 번째 항목 가져오기](java-to-kotlin-collections-guide.md#get-the-first-and-the-last-items-of-a-possibly-empty-collection) 차이점을 알아보세요.
 
-## null이 아닐 경우 실행
+## 널이 아닐 경우 실행
 
 ```kotlin
 val value = ...
 
 value?.let {
-    ... // null이 아니면 이 블록을 실행합니다.
+    ... // 널이 아니면 이 블록을 실행합니다.
 }
 ```
 
-## null이 아닐 경우 null 허용 값 매핑
+## 널이 아닐 경우 널러블 값 매핑
 
 ```kotlin
 val value = ...
 
 val mapped = value?.let { transformValue(it) } ?: defaultValue 
-// 값 또는 변환 결과가 null이면 defaultValue가 반환됩니다.
+// 값 또는 변환 결과가 널이면 defaultValue가 반환됩니다.
 ```
 
-## `when` 구문에서 반환
+## when 문에서 반환
 
 ```kotlin
 fun transform(color: String): Int {
@@ -260,7 +260,7 @@ fun test() {
         throw IllegalStateException(e)
     }
 
-    // 결과 작업
+    // 결과 사용
 }
 ```
 
@@ -276,7 +276,7 @@ val y = if (x == 1) {
 }
 ```
 
-## `Unit`을 반환하는 메서드의 빌더 스타일 사용
+## Unit을 반환하는 메서드의 빌더 스타일 사용법
 
 ```kotlin
 fun arrayOfMinusOnes(size: Int): IntArray {
@@ -290,7 +290,7 @@ fun arrayOfMinusOnes(size: Int): IntArray {
 fun theAnswer() = 42
 ```
 
-이는 다음과 같습니다.
+다음과 같습니다.
 
 ```kotlin
 fun theAnswer(): Int {
@@ -298,7 +298,7 @@ fun theAnswer(): Int {
 }
 ```
 
-이는 다른 관용구와 효과적으로 결합되어 더 짧은 코드를 작성할 수 있습니다. 예를 들어, `when` 표현식과 함께:
+이는 다른 관용 표현과 효과적으로 결합하여 더 짧은 코드를 만들 수 있습니다. 예를 들어, `when` 표현식과 함께 사용하면 다음과 같습니다:
 
 ```kotlin
 fun transform(color: String): Int = when (color) {
@@ -309,7 +309,7 @@ fun transform(color: String): Int = when (color) {
 }
 ```
 
-## 객체 인스턴스에 여러 메서드 호출 (`with`)
+## 객체 인스턴스에서 여러 메서드 호출하기 (with)
 
 ```kotlin
 class Turtle {
@@ -330,7 +330,7 @@ with(myTurtle) { // 100픽셀 정사각형 그리기
 }
 ```
 
-## 객체의 프로퍼티 구성 (`apply`)
+## 객체 프로퍼티 구성하기 (apply)
 
 ```kotlin
 val myRectangle = Rectangle().apply {
@@ -340,7 +340,7 @@ val myRectangle = Rectangle().apply {
 }
 ```
 
-이는 객체 생성자에 없는 프로퍼티를 구성하는 데 유용합니다.
+이것은 객체 생성자에 없는 프로퍼티를 구성할 때 유용합니다.
 
 ## Java 7의 try-with-resources
 
@@ -362,7 +362,7 @@ stream.buffered().reader().use { reader ->
 inline fun <reified T: Any> Gson.fromJson(json: JsonElement): T = this.fromJson(json, T::class.java)
 ```
 
-## 두 변수 교환
+## 두 변수 교환하기
 
 ```kotlin
 var a = 1
@@ -370,21 +370,19 @@ var b = 2
 a = b.also { b = a }
 ```
 
-## 코드 불완전 표시 (TODO)
+## 코드를 미완성으로 표시하기 (TODO)
  
-Kotlin의 표준 라이브러리에는 항상 `NotImplementedError`를 던지는 `TODO()` 함수가 있습니다.
-이 함수의 반환 타입은 `Nothing`이므로 예상되는 타입에 관계없이 사용할 수 있습니다.
-또한 이유 파라미터를 받는 오버로드도 있습니다:
+Kotlin의 표준 라이브러리에는 항상 `NotImplementedError`를 던지는 `TODO()` 함수가 있습니다. 이 함수의 반환 타입은 `Nothing`이므로 예상되는 타입과 관계없이 사용될 수 있습니다. 이유 파라미터를 받는 오버로드도 있습니다:
 
 ```kotlin
 fun calcTaxes(): BigDecimal = TODO("Waiting for feedback from accounting")
 ```
 
-IntelliJ IDEA의 Kotlin 플러그인은 `TODO()`의 의미를 이해하고 TODO 도구 창에 코드 포인터를 자동으로 추가합니다. 
+IntelliJ IDEA의 Kotlin 플러그인은 `TODO()`의 의미를 이해하고 TODO 도구 창에 자동으로 코드 포인터를 추가합니다. 
 
-## 다음은 무엇인가요?
+## 다음 단계는?
 
-*   관용적인 Kotlin 스타일을 사용하여 [Advent of Code 퍼즐](advent-of-code.md)을 풀어보세요.
-*   [Java 및 Kotlin에서 문자열로 일반적인 작업 수행](java-to-kotlin-idioms-strings.md) 방법을 알아보세요.
-*   [Java 및 Kotlin에서 컬렉션으로 일반적인 작업 수행](java-to-kotlin-collections-guide.md) 방법을 알아보세요.
-*   [Java 및 Kotlin에서 null 허용 처리](java-to-kotlin-nullability-guide.md) 방법을 알아보세요.
+*   관용적인 Kotlin 스타일을 사용하여 [Advent of Code 퍼즐](advent-of-code.md) 풀기.
+*   [Java와 Kotlin에서 문자열로 일반적인 작업 수행 방법](java-to-kotlin-idioms-strings.md) 배우기.
+*   [Java와 Kotlin에서 컬렉션으로 일반적인 작업 수행 방법](java-to-kotlin-collections-guide.md) 배우기.
+*   [Java와 Kotlin에서 널러빌리티 처리 방법](java-to-kotlin-nullability-guide.md) 배우기.

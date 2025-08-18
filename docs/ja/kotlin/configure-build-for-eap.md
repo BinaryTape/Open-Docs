@@ -1,36 +1,38 @@
-[//]: # (title: EAP版のビルドを構成する)
+[//]: # (title: EAPビルドの構成)
 
 <tldr>
-    <!-- <p>No preview versions are currently available</p> -->
+    <!--  
+    <p>No preview versions are currently currently available.</p>
+    -->
     <p>最新のKotlin EAPリリース: <strong>%kotlinEapVersion%</strong></p>
-    <p><a href="eap.md#build-details">Kotlin EAPリリースの詳細を見る</a></p>
+    <p><a href="eap.md#build-details">Kotlin EAP リリースの詳細を確認する</a></p>
 </tldr>
 
-EAP版のKotlinを使用するようにビルドを構成するには、次の手順を実行します。
+KotlinのEAPバージョンを使用するようにビルドを構成するには、以下を行う必要があります。
 
 * KotlinのEAPバージョンを指定します。[利用可能なEAPバージョンはこちらに記載されています](eap.md#build-details)。
-* 依存関係のバージョンをEAP版に変更します。
-KotlinのEAPバージョンは、以前にリリースされたバージョンのライブラリと互換性がない場合があります。
+* 依存関係のバージョンをEAPバージョンに変更します。
+KotlinのEAPバージョンは、以前にリリースされたバージョンのライブラリとは互換性がない場合があります。
 
-以下の手順では、GradleとMavenでビルドを構成する方法について説明します。
+以下の手順で、GradleおよびMavenでのビルド構成方法を説明します。
 
-* [Gradleで構成する](#configure-in-gradle)
-* [Mavenで構成する](#configure-in-maven)
+* [Gradleでの構成](#configure-in-gradle)
+* [Mavenでの構成](#configure-in-maven)
 
-## Gradleで構成する
+## Gradleでの構成
 
 このセクションでは、次の方法について説明します。
 
-* [Kotlinバージョンを調整する](#adjust-the-kotlin-version)
+* [Kotlinのバージョンを調整する](#adjust-the-kotlin-version)
 * [依存関係のバージョンを調整する](#adjust-versions-in-dependencies)
 
-### Kotlinバージョンを調整する
+### Kotlinのバージョンを調整する
 
-`build.gradle(.kts)` 内の `plugins` ブロックで、`KOTLIN-EAP-VERSION` を `%kotlinEapVersion%` のような実際のEAPバージョンに変更します。[利用可能なEAPバージョンはこちらに記載されています](eap.md#build-details)。
+`build.gradle(.kts)`内の`plugins`ブロックで、`KOTLIN-EAP-VERSION`を実際のEAPバージョン（例: `%kotlinEapVersion%`）に変更します。[利用可能なEAPバージョンはこちらに記載されています](eap.md#build-details)。
 
-または、`settings.gradle(.kts)` の `pluginManagement` ブロックでEAPバージョンを指定することもできます。詳細については、[Gradleドキュメント](https://docs.gradle.org/current/userguide/plugins.html#sec:plugin_version_management)を参照してください。
+あるいは、`settings.gradle(.kts)`の`pluginManagement`ブロックでEAPバージョンを指定することもできます。詳細は[Gradleドキュメント](https://docs.gradle.org/current/userguide/plugins.html#sec:plugin_version_management)を参照してください。
 
-以下に、マルチプラットフォームプロジェクトの例を示します。
+Multiplatformプロジェクトの例を次に示します。
 
 <tabs group="build-script">
 <tab title="Kotlin" group-key="kotlin">
@@ -65,19 +67,19 @@ repositories {
 
 ### 依存関係のバージョンを調整する
 
-プロジェクトでkotlinxライブラリを使用している場合、それらのライブラリのバージョンがKotlinのEAPバージョンと互換性がない場合があります。
+プロジェクトでkotlinxライブラリを使用している場合、ライブラリのバージョンがKotlinのEAPバージョンと互換性がない場合があります。
 
-この問題を解決するには、互換性のあるライブラリのバージョンを依存関係で指定する必要があります。互換性のあるライブラリのリストについては、[EAPビルドの詳細](eap.md#build-details)を参照してください。
+この問題を解決するには、依存関係で互換性のあるライブラリのバージョンを指定する必要があります。互換性のあるライブラリのリストは、[EAPビルドの詳細](eap.md#build-details)を参照してください。
 
-> ほとんどの場合、特定のリリースの最初のEAPバージョンに対してのみライブラリを作成し、それらのライブラリはそのリリースの以降のEAPバージョンでも動作します。
->
-> 次のEAPバージョンで互換性のない変更がある場合は、ライブラリの新しいバージョンをリリースします。
+> ほとんどの場合、特定のリリース向けのライブラリは最初のEAPバージョンでのみ作成され、これらのライブラリはそのリリースの後続のEAPバージョンでも動作します。
+> 
+> 次のEAPバージョンで互換性のない変更がある場合は、新しいバージョンのライブラリをリリースします。
 >
 {style="note"}
 
-以下に例を示します。
+例を次に示します。
 
-**kotlinx.coroutines**ライブラリの場合、`%kotlinEapVersion%` と互換性のあるバージョン番号 `%coroutinesEapVersion%` を追加します。
+`**kotlinx.coroutines**`ライブラリの場合、`%kotlinEapVersion%`と互換性のあるバージョン番号（`%coroutinesEapVersion%`）を追加します。
 
 <tabs group="build-script">
 <tab title="Kotlin" group-key="kotlin">
@@ -100,9 +102,9 @@ dependencies {
 </tab>
 </tabs>
 
-## Mavenで構成する
+## Mavenでの構成
 
-Mavenプロジェクトのサンプル定義で、`KOTLIN-EAP-VERSION` を `%kotlinEapVersion%` のような実際のバージョンに置き換えます。[利用可能なEAPバージョンはこちらに記載されています](eap.md#build-details)。
+Mavenのサンプルプロジェクト定義で、`KOTLIN-EAP-VERSION`を実際のバージョン（例: `%kotlinEapVersion%`）に置き換えます。[利用可能なEAPバージョンはこちらに記載されています](eap.md#build-details)。
 
 ```xml
 <project ...>
@@ -147,6 +149,6 @@ Mavenプロジェクトのサンプル定義で、`KOTLIN-EAP-VERSION` を `%kot
 
 ## 問題が発生した場合
 
-* [弊社の課題トラッカー YouTrack](https://kotl.in/issue)に問題を報告してください。
-* Kotlin Slackの [#eap チャネル](https://app.slack.com/client/T09229ZC6/C0KLZSCHF)でヘルプを見つけてください（[招待を受ける](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up)）。
-* 最新の安定版にロールバックする: [ビルドスクリプトファイルを変更する](#adjust-the-kotlin-version)。
+* [KotlinのIssueトラッカーであるYouTrack](https://kotl.in/issue)に問題を報告してください。
+* Kotlin Slackの[#eapチャンネル](https://app.slack.com/client/T09229ZC6/C0KLZSCHF)でヘルプを見つけてください ([招待を受ける](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up))。
+* 最新の安定版にロールバックする: [ビルドスクリプトファイルで変更します](#adjust-the-kotlin-version)。

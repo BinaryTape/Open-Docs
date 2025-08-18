@@ -1,8 +1,8 @@
 [//]: # (title: データ構造の制約)
 
-一部のデータ構造では、単一プロデューサー単一コンシューマーキューのように、一部の操作が並行して実行されないことが要求される場合があります。Lincheckはこのような制約を標準でサポートしており、制限に従って並行シナリオを生成します。
+一部のデータ構造では、単一プロデューサー・単一コンシューマーキューのように、一部の操作を並行して実行してはならない場合があります。Lincheckは、このような契約に対して組み込みのサポートを提供し、制約に従って並行シナリオを生成します。
 
-[JCToolsライブラリ](https://github.com/JCTools/JCTools)の[単一コンシューマーキュー](https://github.com/JCTools/JCTools/blob/66e6cbc9b88e1440a597c803b7df9bd1d60219f6/jctools-core/src/main/java/org/jctools/queues/atomic/MpscLinkedAtomicQueue.java)を考えてみましょう。その`poll()`、`peek()`、および`offer(x)`操作の正しさを検証するためのテストを書きましょう。
+[JCToolsライブラリ](https://github.com/JCTools/JCTools)の[単一コンシューマーキュー](https://github.com/JCTools/JCTools/blob/66e6cbc9b88e1440a597c803b7df9bd1d60219f6/jctools-core/src/main/java/org/jctools/queues/atomic/MpscLinkedAtomicQueue.java)について考えてみましょう。その`poll()`、`peek()`、および`offer(x)`操作の正確性を確認するためのテストを記述します。
 
 `build.gradle(.kts)`ファイルに、JCToolsの依存関係を追加します。
 
@@ -11,7 +11,7 @@
 
    ```kotlin
    dependencies {
-       // jctools依存関係
+       // jctools dependency
        testImplementation("org.jctools:jctools-core:%jctoolsVersion%")
    }
    ```
@@ -21,23 +21,21 @@
 
    ```groovy
    dependencies {
-       // jctools依存関係
+       // jctools dependency
        testImplementation "org.jctools:jctools-core:%jctoolsVersion%"
    }
    ```
    </tab>
    </tabs>
 
-単一コンシューマーの制限を満たすためには、すべての`poll()`および`peek()`の消費操作が単一スレッドから呼び出されることを保証します。そのためには、対応する`@Operation`アノテーションの`nonParallelGroup`パラメーターを、例えば`"consumers"`のような同じ値に設定します。
+単一コンシューマーの制約を満たすには、すべての`poll()`および`peek()`消費操作が単一のスレッドから呼び出されるようにします。そのためには、対応する`@Operation`アノテーションの`nonParallelGroup`パラメーターを、例えば`"consumers"`のように同じ値に設定します。
 
-以下に結果のテストを示します。
+以下が、そのテストです。
 
 ```kotlin
 import org.jctools.queues.atomic.*
-import org.jetbrains.kotlinx.lincheck.annotations.*
-import org.jetbrains.kotlinx.lincheck.check
-import org.jetbrains.kotlinx.lincheck.strategy.managed.modelchecking.*
-import org.jetbrains.kotlinx.lincheck.strategy.stress.*
+import org.jetbrains.lincheck.*
+import org.jetbrains.lincheck.datastructures.*
 import org.junit.*
 
 class MPSCQueueTest {
@@ -46,7 +44,7 @@ class MPSCQueueTest {
     @Operation
     fun offer(x: Int) = queue.offer(x)
 
-    @Operation(nonParallelGroup = "consumers")
+    @Operation(nonParallelGroup = "consumers") 
     fun poll(): Int? = queue.poll()
 
     @Operation(nonParallelGroup = "consumers")
@@ -60,7 +58,7 @@ class MPSCQueueTest {
 }
 ```
 
-以下に、このテストのために生成されたシナリオの例を示します。
+このテスト用に生成されたシナリオの例を以下に示します。
 
 ```text
 = Iteration 15 / 100 =
@@ -87,12 +85,12 @@ class MPSCQueueTest {
 | --------------------- |
 ```
 
-注目すべきは、すべての消費操作である`poll()`および`peek()`の呼び出しが単一スレッドから実行されるため、「単一コンシューマー」の制限を満たしている点です。
+すべての消費`poll()`および`peek()`呼び出しが単一スレッドから実行されているため、「単一コンシューマー」の制約を満たしていることに注意してください。
 
-> [完全なコードはこちら](https://github.com/JetBrains/lincheck/blob/master/src/jvm/test/org/jetbrains/kotlinx/lincheck_test/guide/MPSCQueueTest.kt)。
+> [完全なコードを取得する](https://github.com/JetBrains/lincheck/blob/master/src/jvm/test-lincheck-integration/org/jetbrains/lincheck_test/guide/MPSCQueueTest.kt)。
 >
 {style="note"}
 
 ## 次のステップ
 
-モデル検査戦略を用いて[アルゴリズムの進行保証をチェックする方法](progress-guarantees.md)を学びましょう。
+モデルチェック戦略を使用して、[アルゴリズムの進行保証をチェックする方法](progress-guarantees.md)を学習します。

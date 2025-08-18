@@ -1,18 +1,18 @@
 [//]: # (title: 调试 Kotlin/Native)
 
-目前，Kotlin/Native 编译器能生成与 DWARF 2 规范兼容的调试信息，因此现代调试工具可以执行以下操作：
+目前，Kotlin/Native 编译器生成兼容 DWARF 2 规范的调试信息，因此现代调试器工具可以执行以下操作：
 - 断点
 - 单步执行
-- 类型信息检查
-- 变量检查
+- 类型信息探查
+- 变量探查
 
->支持 DWARF 2 规范意味着调试工具将 Kotlin 识别为 C89，因为在 DWARF 5 规范之前，规范中没有针对 Kotlin 语言类型的标识符。
+>支持 DWARF 2 规范意味着调试器工具将 Kotlin 识别为 C89，因为在 DWARF 5 规范之前，规范中没有针对 Kotlin 语言类型的标识符。
 >
 {style="note"}
 
-## 使用 Kotlin/Native 编译器生成带调试信息的二进制文件
+## 使用 Kotlin/Native 编译器生成包含调试信息的二进制文件
 
-要使用 Kotlin/Native 编译器生成二进制文件，请在命令行中使用 ``-g`` 选项。
+要使用 Kotlin/Native 编译器生成二进制文件，请在命令行上使用 ``-g`` 选项。
 
 ```bash
 0:b-debugger-fixes:minamoto@unit-703(0)# cat - > hello.kt
@@ -50,7 +50,7 @@ Process 28473 stopped
 
 ## 断点
 
-现代调试器提供了多种设置断点的方式，详情请参阅下面的逐工具细分：
+现代调试器提供了几种设置断点的方式，请参阅下文的按工具分类的详细说明：
 
 ### lldb
 
@@ -61,8 +61,8 @@ Process 28473 stopped
     Breakpoint 4: where = terminator.kexe`kfun:main(kotlin.Array<kotlin.String>) + 4 at hello.kt:2, address = 0x00000001000012e4
     ```
 
-_``-n`` 是可选的，此标志默认启用_
-- 按位置（文件名，行号）
+*``-n`` 是可选的，此标志默认应用*
+- 按位置（文件名、行号）
 
     ```bash
     (lldb) b -f hello.kt -l 1
@@ -76,7 +76,7 @@ _``-n`` 是可选的，此标志默认启用_
     Breakpoint 2: address = 0x00000001000012e4
     ```
 
-- 按正则表达式，这对于调试生成的构件（例如 lambda 等）可能很有用（名称中使用了 ``#`` 符号）。
+- 按正则表达式，你可能会发现它在调试生成的构件（例如 lambda 等，名称中使用了 ``#`` 符号的地方）时很有用。
 
     ```bash
     3: regex = 'main\(', locations = 1
@@ -93,7 +93,7 @@ _``-n`` 是可选的，此标志默认启用_
     struct ktype:kotlin.Unit &kfun:main(kotlin.Array<kotlin.String>);
     ```
 
-- 按名称 __无法使用__，因为 ``:`` 是按位置设置断点的分隔符
+- 按名称 __不可用__，因为 ``:`` 是按位置设置断点的分隔符
     
     ```bash
     (gdb) b kfun:main(kotlin.Array<kotlin.String>)
@@ -119,11 +119,12 @@ _``-n`` 是可选的，此标志默认启用_
 
 ## 单步执行
 
-函数的单步执行方式与 C/C++ 程序基本相同。
+函数的单步执行方式与 C/C++ 程序大致相同。
 
-## 变量检查
+## 变量探查
 
-对 `var` 变量的检查对于原始类型而言是开箱即用的。对于非原始类型，`konan_lldb.py` 中有针对 lldb 的自定义美化打印器 (pretty printers)：
+对 `var` 变量的探查对于原生类型是开箱即用的。
+对于非原生类型，`konan_lldb.py` 中有适用于 lldb 的自定义格式化打印器：
 
 ```bash
 λ cat main.kt | nl
@@ -170,7 +171,7 @@ Process 4985 launched: './program.kexe' (x86_64)
 (lldb) 
 ```
 
-获取对象变量 (var) 的表示形式也可以通过使用内置的运行时函数 `Konan_DebugPrint` 来完成（此方法也适用于 gdb，通过使用命令语法模块）。
+获取对象变量（`var`）的表示也可以通过使用内建的运行时函数 `Konan_DebugPrint` 来完成（这种方法也适用于 gdb，使用命令语法模块）：
 
 ```bash
 0:b-debugger-fixes:minamoto@unit-703(0)# cat ../debugger-plugin/1.kt | nl -p
@@ -208,8 +209,9 @@ Process 80496 launched: './program.kexe' (x86_64)
 (lldb) expression -- (int32_t)Konan_DebugPrint(a_variable)
 (a_variable) one is 1(int32_t) $0 = 0
 (lldb)
+
 ```
 
 ## 已知问题
 
-- Python 绑定 (Python bindings) 的性能。
+- Python 绑定的性能。

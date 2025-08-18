@@ -1,15 +1,15 @@
-[//]: # (title: This 表達式)
+[//]: # (title: This 表示式)
 
-為了表示當前的 _接收者_，您可以使用 `this` 表達式：
+為了表示當前的 _接收者_，您可以使用 `this` 表示式：
 
-*   在[類別](classes.md#inheritance)的成員中，`this` 參照到該類別的當前物件。
-*   在[擴充函式](extensions.md)或[帶接收者的函式常值](lambdas.md#function-literals-with-receiver)中，`this` 表示作為點號左側傳遞的_接收者_參數。
+* 在 [類別](classes.md#inheritance) 的成員中，`this` 指的是該類別的當前物件。
+* 在 [擴充函數](extensions.md) 或 [帶有接收者的函數字面值](lambdas.md#function-literals-with-receiver) 中，`this` 表示在點號左側傳遞的 _接收者_ 參數。
 
-如果 `this` 沒有限定符 (qualifiers)，它會參照到_最內層的封裝作用域 (innermost enclosing scope)_。要參照其他作用域中的 `this`，則使用_標籤限定符 (label qualifiers)_：
+如果 `this` 沒有限定符，它指向最內層的封閉作用域。為了在其他作用域中引用 `this`，會使用 _標籤限定符_：
 
-## 限定 this
+## 限定的 this
 
-要從外部作用域（一個[類別](classes.md)、[擴充函式](extensions.md)或帶標籤的[帶接收者的函式常值](lambdas.md#function-literals-with-receiver)）存取 `this`，您可以寫作 `this@label`，其中 `@label` 是 `this` 所屬作用域的一個[標籤](returns.md)：
+為了從外部作用域（一個 [類別](classes.md)、[擴充函數](extensions.md) 或帶標籤的 [帶有接收者的函數字面值](lambdas.md#function-literals-with-receiver)）存取 `this`，您可以寫作 `this@label`，其中 `@label` 是 `this` 所指的作用域上的 [標籤](returns.md)：
 
 ```kotlin
 class A { // implicit label @A
@@ -35,9 +35,9 @@ class A { // implicit label @A
 }
 ```
 
-## 隱式 this
+## 隱式的 this
 
-當您在 `this` 上呼叫成員函式時，可以省略 `this.` 部分。如果您有一個同名的非成員函式，請謹慎使用此功能，因為在某些情況下它可能會被呼叫來取代：
+當您在 `this` 上呼叫成員函數時，您可以省略 `this.` 部分。如果您有一個同名的非成員函數，請謹慎使用此特性，因為在某些情況下，它可能會被呼叫而非成員函數：
 
 ```kotlin
 fun main() {
@@ -55,5 +55,5 @@ fun main() {
     A().invokePrintLine() // Member function
     A().invokePrintLine(omitThis = true) // Local function
 }
-```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
+```

@@ -1,15 +1,15 @@
-[//]: # (title: this 表达式)
+[//]: # (title: This 表达式)
 
-为了表示当前的 _接收者_，你可以使用 `this` 表达式：
+为了表示当前_接收者_，你使用 `this` 表达式：
 
-* 在 [类](classes.md#inheritance) 的成员中，`this` 指代该类的当前对象。
-* 在 [扩展函数](extensions.md) 或 [带接收者的函数字面量](lambdas.md#function-literals-with-receiver) 中，`this` 表示在点号左侧传递的 _接收者_ 参数。
+* 在[类](classes.md#inheritance)的成员中，`this` 指的是该类的当前对象。
+* 在[扩展函数](extensions.md)或[带接收者的函数字面量](lambdas.md#function-literals-with-receiver)中，`this` 表示在圆点操作符左侧传递的_接收者_ 形参。
 
-如果 `this` 没有限定符，它指代 _最内层封闭作用域_。要在其他作用域中引用 `this`，可以使用 _标签限定符_：
+如果 `this` 没有限定符，它指向_最内层封闭作用域_。要引用其他作用域中的 `this`，需要使用_标签限定符_：
 
 ## 带限定符的 this
 
-要从外部作用域（[类](classes.md)、[扩展函数](extensions.md) 或带标签的 [带接收者的函数字面量](lambdas.md#function-literals-with-receiver)）访问 `this`，你可以写 `this@label`，其中 `@label` 是 `this` 所指代作用域上的一个 [标签](returns.md)：
+要从外部作用域（[类](classes.md)、[扩展函数](extensions.md)或带标签的[带接收者的函数字面量](lambdas.md#function-literals-with-receiver)）访问 `this`，你可以写成 `this@label`，其中 `@label` 是 `this` 所属作用域的[标签](returns.md)：
 
 ```kotlin
 class A { // 隐式标签 @A
@@ -37,7 +37,7 @@ class A { // 隐式标签 @A
 
 ## 隐式 this
 
-当你在 `this` 上调用成员函数时，你可以省略 `this.` 部分。如果你有一个同名的非成员函数，请谨慎使用，因为在某些情况下，它可能会被调用：
+当你调用 `this` 上的成员函数时，可以省略 `this.` 部分。如果你有一个同名的非成员函数，请谨慎使用此特性，因为在某些情况下它可能会被调用：
 
 ```kotlin
 fun main() {

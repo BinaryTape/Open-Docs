@@ -1,8 +1,8 @@
-[//]: # (title: 委派)
+[//]: # (title: 委託)
 
-[委派模式](https://en.wikipedia.org/wiki/Delegation_pattern)已被證明是實作繼承的一個良好替代方案，而 Kotlin 原生支援此模式，無需任何樣板程式碼。
+[委託模式](https://en.wikipedia.org/wiki/Delegation_pattern) 已被證明是實作繼承的一個良好替代方案，Kotlin 原生支援此模式，無需任何樣板程式碼。
 
-`Derived` 類別可以透過將其所有公開成員委派給指定物件來實作 `Base` 介面：
+類別 `Derived` 可以透過將其所有公開成員委託給一個指定物件來實作介面 `Base`：
 
 ```kotlin
 interface Base {
@@ -22,11 +22,11 @@ fun main() {
 ```
 {kotlin-runnable="true"}
 
-`Derived` 類別父類型列表中的 `by` 子句表示 `b` 將會內部儲存在 `Derived` 的物件中，並且編譯器將會生成所有轉發給 `b` 的 `Base` 方法。
+`Derived` 的超類型列表中的 `by` 子句表示 `b` 將在 `Derived` 的物件內部儲存，且編譯器會產生所有將 `Base` 的方法轉發給 `b` 的程式碼。
 
-## 覆寫透過委派實作的介面成員
+## 覆寫透過委託實作的介面成員
 
-[覆寫](inheritance.md#overriding-methods)如您預期般運作：編譯器將會使用您的 `override` 實作，而非委派物件中的實作。如果您想將 `override fun printMessage() { print("abc") }` 新增至 `Derived`，當呼叫 `printMessage` 時，程式將會印出 *abc* 而非 *10*：
+[覆寫](inheritance.md#overriding-methods) 如你所預期地運作：編譯器將使用你的 `override` 實作，而非委託物件中的實作。如果你想將 `override fun printMessage() { print("abc") }` 加入 `Derived`，當呼叫 `printMessage` 時，程式將印出 *abc* 而非 *10*：
 
 ```kotlin
 interface Base {
@@ -51,7 +51,7 @@ fun main() {
 ```
 {kotlin-runnable="true"}
 
-然而，請注意，以這種方式覆寫的成員不會從委派物件的成員中呼叫，因為委派物件只能存取其自身對介面成員的實作：
+然而請注意，以此方式覆寫的成員不會被委託物件的成員呼叫，因為委託物件只能存取其自身對介面成員的實作：
 
 ```kotlin
 interface Base {
@@ -78,4 +78,4 @@ fun main() {
 ```
 {kotlin-runnable="true"}
 
-進一步了解[委派屬性](delegated-properties.md)。
+深入了解 [委託屬性](delegated-properties.md)。

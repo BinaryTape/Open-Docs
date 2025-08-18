@@ -1,14 +1,14 @@
-[//]: # (title: Javaのアノテーション処理からKSPへのリファレンス)
+[//]: # (title: Javaアノテーション処理からKSPへの対応表)
 
 ## プログラム要素
 
-| **Java** | **KSPにおける最も近い機能** | **備考** |
+| **Java** | **KSPで最も近い機能** | **備考** |
 | -------- | --------------------------- | --------- |
 | `AnnotationMirror` | `KSAnnotation` | |
 | `AnnotationValue` | `KSValueArguments` | |
 | `Element` | `KSDeclaration` / `KSDeclarationContainer` | |
 | `ExecutableElement` | `KSFunctionDeclaration` | |
-| `PackageElement` | `KSFile` | KSPはパッケージをプログラム要素としてモデル化しない |
+| `PackageElement` | `KSFile` | KSPはパッケージをプログラム要素としてモデル化しません |
 | `Parameterizable` | `KSDeclaration` | |
 | `QualifiedNameable` | `KSDeclaration` | |
 | `TypeElement` | `KSClassDeclaration` | |
@@ -17,100 +17,100 @@
 
 ## 型
 
-KSPは明示的な型解決を必要とするため、Javaの一部の機能は`KSType`と、解決前の対応する要素によってのみ実行できます。
+KSPは明示的な型解決を必要とするため、Javaの一部の機能は、`KSType` と、解決前の対応する要素によってのみ実行できます。
 
-| **Java** | **KSPにおける最も近い機能** | **備考** |
+| **Java** | **KSPで最も近い機能** | **備考** |
 | -------- | --------------------------- | --------- |
 | `ArrayType` | `KSBuiltIns.arrayType` | |
 | `DeclaredType` | `KSType` / `KSClassifierReference` | |
 | `ErrorType` | `KSType.isError` | |
 | `ExecutableType` | `KSType` / `KSCallableReference` | |
 | `IntersectionType` | `KSType` / `KSTypeParameter` | |
-| `NoType` | `KSType.isError` | KSPには存在しない |
-| `NullType` | | KSPには存在しない |
-| `PrimitiveType` | `KSBuiltIns` | Javaのプリミティブ型とは完全に同じではない |
+| `NoType` | `KSType.isError` | KSPでは該当なし |
+| `NullType` | | KSPでは該当なし |
+| `PrimitiveType` | `KSBuiltIns` | Javaのプリミティブ型と全く同じではありません |
 | `ReferenceType` | `KSTypeReference` | |
 | `TypeMirror` | `KSType` | |
 | `TypeVariable` | `KSTypeParameter` | |
-| `UnionType` | N/A | Kotlinはcatchブロックごとに1つの型しか持ちません。`UnionType`はJavaのアノテーションプロセッサでも観測できません。 |
+| `UnionType` | N/A | Kotlinではcatchブロックごとに1つの型しかありません。`UnionType`はJavaのアノテーションプロセッサーでも観測できません。 |
 | `WildcardType` | `KSType` / `KSTypeArgument` | |
 
 ## その他
 
-| **Java** | **KSPにおける最も近い機能** | **備考** |
+| **Java** | **KSPで最も近い機能** | **備考** |
 | -------- | --------------------------- | --------- |
 | `Name` | `KSName` | |
 | `ElementKind` | `ClassKind` / `FunctionKind` | |
 | `Modifier` | `Modifier` | |
 | `NestingKind` | `ClassKind` / `FunctionKind` | |
-| `AnnotationValueVisitor` | | |
+| `AnnotationValueVisitor` |  | |
 | `ElementVisitor` | `KSVisitor` | |
 | `AnnotatedConstruct` | `KSAnnotated` | |
-| `TypeVisitor` | | |
-| `TypeKind` | `KSBuiltIns` | いくつかは組み込み型で見つけられます。それ以外は`DeclaredType`のために`KSClassDeclaration`を確認してください。 |
+| `TypeVisitor` |  | |
+| `TypeKind` | `KSBuiltIns` | 一部は組み込み型で見つかりますが、それ以外は`DeclaredType`について`KSClassDeclaration`を確認してください |
 | `ElementFilter` | `Collection.filterIsInstance` | |
 | `ElementKindVisitor` | `KSVisitor` | |
 | `ElementScanner` | `KSTopDownVisitor` | |
-| `SimpleAnnotationValueVisitor` | | KSPでは不要 |
+| `SimpleAnnotationValueVisitor` |  | KSPでは不要です |
 | `SimpleElementVisitor` | `KSVisitor` | |
-| `SimpleTypeVisitor` | | |
-| `TypeKindVisitor` | | |
-| `Types` | `Resolver` / `utils` | `utils`の一部はシンボルインターフェースにも統合されています。 |
+| `SimpleTypeVisitor` |  | |
+| `TypeKindVisitor` |  | |
+| `Types` | `Resolver` / `utils` | 一部の`utils`はシンボルインターフェースにも統合されています |
 | `Elements` | `Resolver` / `utils` | |
 
 ## 詳細
 
-Javaのアノテーション処理APIの機能がKSPによってどのように実行できるかをご覧ください。
+Javaアノテーション処理APIの機能がKSPでどのように実行できるかをご覧ください。
 
 ### AnnotationMirror
 
-| **Java** | **KSPでの同等なもの** |
+| **Java** | **KSP同等** |
 | -------- | ------------------ |
 | `getAnnotationType` | `ksAnnotation.annotationType` |
 | `getElementValues` | `ksAnnotation.arguments` |
 
 ### AnnotationValue
 
-| **Java** | **KSPでの同等なもの** |
+| **Java** | **KSP同等** |
 | -------- | ------------------ |
 | `getValue` | `ksValueArgument.value` |
 
 ### Element
 
-| **Java** | **KSPでの同等なもの** |
+| **Java** | **KSP同等** |
 | -------- | ------------------ |
-| `asType` | `ksClassDeclaration.asType(...)`は`KSClassDeclaration`でのみ利用可能です。型引数を指定する必要があります。 |
+| `asType` | `ksClassDeclaration.asType(...)` は `KSClassDeclaration` のみに利用可能です。型引数を指定する必要があります。 |
 | `getAnnotation` | 実装予定 |
 | `getAnnotationMirrors` | `ksDeclaration.annotations` |
 | `getEnclosedElements` | `ksDeclarationContainer.declarations` |
 | `getEnclosingElements` | `ksDeclaration.parentDeclaration` |
-| `getKind` | `ClassKind`または`FunctionKind`に従った型チェックとキャスト |
+| `getKind` | `ClassKind` または `FunctionKind` に従った型チェックとキャスト |
 | `getModifiers` | `ksDeclaration.modifiers` |
 | `getSimpleName` | `ksDeclaration.simpleName` |
 
 ### ExecutableElement
 
-| **Java** | **KSPでの同等なもの** |
+| **Java** | **KSP同等** |
 | -------- | ------------------ |
 | `getDefaultValue` | 実装予定 |
 | `getParameters` | `ksFunctionDeclaration.parameters` |
 | `getReceiverType` | `ksFunctionDeclaration.parentDeclaration` |
 | `getReturnType` | `ksFunctionDeclaration.returnType` |
 | `getSimpleName` | `ksFunctionDeclaration.simpleName` |
-| `getThrownTypes` | Kotlinでは不要 |
+| `getThrownTypes` | Kotlinでは不要です |
 | `getTypeParameters` | `ksFunctionDeclaration.typeParameters` |
-| `isDefault` | 親の宣言がインターフェースであるかどうかを確認 |
+| `isDefault` | 親宣言がインターフェースであるかどうかを確認 |
 | `isVarArgs` | `ksFunctionDeclaration.parameters.any { it.isVarArg }` |
 
 ### Parameterizable
 
-| **Java** | **KSPでの同等なもの** |
+| **Java** | **KSP同等** |
 | -------- | ------------------ |
 | `getTypeParameters` | `ksFunctionDeclaration.typeParameters` |
 
 ### QualifiedNameable
 
-| **Java** | **KSPでの同等なもの** |
+| **Java** | **KSP同等** |
 | -------- | ------------------ |
 | `getQualifiedName` | `ksDeclaration.qualifiedName` |
 
@@ -119,7 +119,7 @@ Javaのアノテーション処理APIの機能がKSPによってどのように�
 <table>
     <tr>
         <td><b>Java</b></td>
-        <td><b>KSPでの同等なもの</b></td>
+        <td><b>KSP同等</b></td>
     </tr>
     <tr>
         <td><code>getEnclosedElements</code></td>
@@ -134,7 +134,7 @@ Javaのアノテーション処理APIの機能がKSPによってどのように�
 <td>
 
 ```kotlin
-// 解決なしで実行できるはず
+// 解決なしで実行できるはずです
 ksClassDeclaration.superTypes
     .map { it.resolve() }
     .filter { (it?.declaration as? KSClassDeclaration)?.classKind == ClassKind.INTERFACE }
@@ -144,7 +144,7 @@ ksClassDeclaration.superTypes
     </tr>
     <tr>
         <td><code>getNestingKind</code></td>
-        <td><code>KSClassDeclaration.parentDeclaration</code>と<code>inner</code>修飾子を確認</td>
+        <td><code>KSClassDeclaration.parentDeclaration</code> と <code>inner</code> 修飾子を確認</td>
     </tr>
     <tr>
         <td><code>getQualifiedName</code></td>
@@ -159,7 +159,7 @@ ksClassDeclaration.superTypes
 <td>
 
 ```kotlin
-// 解決なしで実行できるはず
+// 解決なしで実行できるはずです
 ksClassDeclaration.superTypes
     .map { it.resolve() }
     .filter { (it?.declaration as? KSClassDeclaration)?.classKind == ClassKind.CLASS }
@@ -175,7 +175,7 @@ ksClassDeclaration.superTypes
 
 ### TypeParameterElement
 
-| **Java** | **KSPでの同等なもの** |
+| **Java** | **KSP同等** |
 | -------- | ------------------ |
 | `getBounds` | `ksTypeParameter.bounds` |
 | `getEnclosingElement` | `ksTypeParameter.parentDeclaration` |
@@ -183,7 +183,7 @@ ksClassDeclaration.superTypes
 
 ### VariableElement
 
-| **Java** | **KSPでの同等なもの** |
+| **Java** | **KSP同等** |
 | -------- | ------------------ |
 | `getConstantValue` | 実装予定 |
 | `getEnclosingElement` | `ksValueParameter.parentDeclaration` |
@@ -191,13 +191,13 @@ ksClassDeclaration.superTypes
 
 ### ArrayType
 
-| **Java** | **KSPでの同等なもの** |
+| **Java** | **KSP同等** |
 | -------- | ------------------ |
 | `getComponentType` | `ksType.arguments.first()` |
 
 ### DeclaredType
 
-| **Java** | **KSPでの同等なもの** |
+| **Java** | **KSP同等** |
 | -------- | ------------------ |
 | `asElement` | `ksType.declaration` |
 | `getEnclosingType` | `ksType.declaration.parentDeclaration` |
@@ -205,36 +205,36 @@ ksClassDeclaration.superTypes
 
 ### ExecutableType
 
-> 関数の`KSType`は、`FunctionN<R, T1, T2, ..., TN>`ファミリーで表現される単なるシグネチャです。
+> 関数における `KSType` は、単に `FunctionN<R, T1, T2, ..., TN>` ファミリーによって表されるシグネチャです。
 >
 {style="note"}
 
-| **Java** | **KSPでの同等なもの** |
+| **Java** | **KSP同等** |
 | -------- | ------------------ |
 | `getParameterTypes` | `ksType.declaration.typeParameters`, `ksFunctionDeclaration.parameters.map { it.type }` |
 | `getReceiverType` | `ksFunctionDeclaration.parentDeclaration.asType(...)` |
 | `getReturnType` | `ksType.declaration.typeParameters.last()` |
-| `getThrownTypes` | Kotlinでは不要 |
+| `getThrownTypes` | Kotlinでは不要です |
 | `getTypeVariables` | `ksFunctionDeclaration.typeParameters` |
 
 ### IntersectionType
 
-| **Java** | **KSPでの同等なもの** |
+| **Java** | **KSP同等** |
 | -------- | ------------------ |
 | `getBounds` | `ksTypeParameter.bounds` |
 
 ### TypeMirror
 
-| **Java** | **KSPでの同等なもの** |
+| **Java** | **KSP同等** |
 | -------- | ------------------ |
-| `getKind` | プリミティブ型、`Unit`型のために`KSBuiltIns`内の型と比較し、それ以外の場合は宣言された型として確認する |
+| `getKind` | プリミティブ型、`Unit`型については `KSBuiltIns` の型と比較し、それ以外の場合は宣言された型と比較します |
 
 ### TypeVariable
 
-| **Java** | **KSPでの同等なもの** |
+| **Java** | **KSP同等** |
 | -------- | ------------------ |
 | `asElement` | `ksType.declaration` |
-| `getLowerBound` | 決定予定。キャプチャが提供され、明示的な境界チェックが必要な場合にのみ必要。 |
+| `getLowerBound` | 検討中。キャプチャが提供され、明示的な境界チェックが必要な場合にのみ必要です。 |
 | `getUpperBound` | `ksTypeParameter.bounds` |
 
 ### WildcardType
@@ -242,7 +242,7 @@ ksClassDeclaration.superTypes
 <table>
     <tr>
         <td><b>Java</b></td>
-        <td><b>KSPでの同等なもの</b></td>
+        <td><b>KSP同等</b></td>
     </tr>
     <tr>
         <td><code>getExtendsBound</code></td>
@@ -271,7 +271,7 @@ if (ksTypeArgument.variance == Variance.CONTRAVARIANT) ksTypeArgument.type else 
 <table>
     <tr>
         <td><b>Java</b></td>
-        <td><b>KSPでの同等なもの</b></td>
+        <td><b>KSP同等</b></td>
     </tr>
     <tr>
         <td><code>getAllAnnotationMirrors</code></td>
@@ -279,11 +279,11 @@ if (ksTypeArgument.variance == Variance.CONTRAVARIANT) ksTypeArgument.type else 
     </tr>
     <tr>
         <td><code>getAllMembers</code></td>
-        <td><code>getAllFunctions</code>、<code>getAllProperties</code>は実装予定</td>
+        <td><code>getAllFunctions</code>、<code>getAllProperties</code> は実装予定です</td>
     </tr>
     <tr>
         <td><code>getBinaryName</code></td>
-        <td>決定予定。<a href="https://docs.oracle.com/javase/specs/jls/se13/html/jls-13.html#jls-13.1">Java Specification</a>を参照</td>
+        <td>検討中、<a href="https://docs.oracle.com/javase/specs/jls/se13/html/jls-13.html#jls-13.1">Java Specification</a>を参照</td>
     </tr>
     <tr>
         <td><code>getConstantExpression</code></td>
@@ -303,7 +303,7 @@ if (ksTypeArgument.variance == Variance.CONTRAVARIANT) ksTypeArgument.type else 
     </tr>
     <tr>
         <td><code>getPackageElement</code></td>
-        <td>パッケージはサポートされていませんが、パッケージ情報は取得できます。KSPではパッケージに対する操作はできません。</td>
+        <td>パッケージはサポートされていませんが、パッケージ情報は取得可能です。KSPではパッケージに対する操作はできません</td>
     </tr>
     <tr>
         <td><code>getPackageOf</code></td>
@@ -331,34 +331,34 @@ KsDeclaration.annotations.any {
     </tr>
     <tr>
         <td><code>overrides</code></td>
-        <td><code>KSFunctionDeclaration.overrides</code> / <code>KSPropertyDeclaration.overrides</code>（それぞれのクラスのメンバー関数）</td>
+        <td><code>KSFunctionDeclaration.overrides</code> / <code>KSPropertyDeclaration.overrides</code> (それぞれのクラスのメンバー関数)</td>
     </tr>
     <tr>
         <td><code>printElements</code></td>
-        <td>KSPはほとんどのクラスで基本的な<code>toString()</code>実装を持っています</td>
+        <td>KSPはほとんどのクラスで基本的な <code>toString()</code> 実装を持っています</td>
     </tr>
 </table>
 
 ### Types
 {id="type-operations"}
 
-| **Java** | **KSPでの同等なもの** |
+| **Java** | **KSP同等** |
 | -------- | ------------------ |
 | `asElement` | `ksType.declaration` |
 | `asMemberOf` | `resolver.asMemberOf` |
-| `boxedClass` | 不要 |
-| `capture` | 決定予定 |
+| `boxedClass` | 不要です |
+| `capture` | 検討中 |
 | `contains` | `KSType.isAssignableFrom` |
 | `directSuperTypes` | `(ksType.declaration as KSClassDeclaration).superTypes` |
 | `erasure` | `ksType.starProjection()` |
 | `getArrayType` | `ksBuiltIns.arrayType.replace(...)` |
 | `getDeclaredType` | `ksClassDeclaration.asType` |
 | `getNoType` | `ksBuiltIns.nothingType` / `null` |
-| `getNullType` | コンテキストに応じて、`KSType.markNullable`が役立つことがあります |
-| `getPrimitiveType` | 不要、`KSBuiltins`を確認 |
-| `getWildcardType` | `KSTypeArgument`を期待する場所で`Variance`を使用 |
+| `getNullType` | コンテキストによりますが、`KSType.markNullable` が役立つ場合があります |
+| `getPrimitiveType` | 不要です、`KSBuiltins` を確認してください |
+| `getWildcardType` | `KSTypeArgument` を期待する箇所で `Variance` を使用 |
 | `isAssignable` | `ksType.isAssignableFrom` |
 | `isSameType` | `ksType.equals` |
 | `isSubsignature` | `functionTypeA == functionTypeB` / `functionTypeA == functionTypeB.starProjection()` |
 | `isSubtype` | `ksType.isAssignableFrom` |
-| `unboxedType` | 不要 |
+| `unboxedType` | 不要です |

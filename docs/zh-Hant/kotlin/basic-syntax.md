@@ -1,12 +1,12 @@
 [//]: # (title: 基本語法)
 
-這是一個包含基本語法元素及範例的集合。在每個章節的末尾，您會找到指向相關主題詳細描述的連結。
+這是一系列包含範例的基本語法元素。在每個章節的末尾，您都會找到一個指向相關主題詳細描述的連結。
 
-您也可以透過 JetBrains Academy 的免費 [Kotlin 核心軌跡](https://hyperskill.org/tracks?category=4&utm_source=jbkotlin_hs&utm_medium=referral&utm_campaign=kotlinlang-docs&utm_content=button_1&utm_term=22.03.23) 學習所有 Kotlin 的基礎知識。
+您也可以透過 JetBrains Academy 的免費 [Kotlin Core track](https://hyperskill.org/tracks?category=4&utm_source=jbkotlin_hs&utm_medium=referral&utm_campaign=kotlinlang-docs&utm_content=button_1&utm_term=22.03.23) 學習所有 Kotlin 的基礎知識。
 
-## 套件定義與匯入
+## 套件定義與引入
 
-套件規範應位於原始碼檔案的頂部：
+套件定義應位於原始碼檔案的頂部：
 
 ```kotlin
 package my.demo
@@ -16,9 +16,9 @@ import kotlin.text.*
 // ...
 ```
 
-檔案目錄不需與套件名稱相符：原始碼檔案可以任意放置在檔案系統中。
+目錄與套件之間不需要匹配：原始碼檔案可以任意放置於檔案系統中。
 
-請參閱 [套件](packages.md)。
+詳見 [Packages](packages.md)。
 
 ## 程式進入點
 
@@ -31,7 +31,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-basic-syntax-hello-world"}
 
-`main` 的另一種形式接受可變數量的 `String` 引數：
+`main` 的另一種形式接受可變數量的 `String` 引數： 
 
 ```kotlin
 fun main(args: Array<String>) {
@@ -54,7 +54,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-basic-syntax-print"}
 
-`println` 列印其引數並新增一個換行符號，以便您列印的下一個內容出現在下一行：
+`println` 列印其引數並新增一個換行符號，這樣您列印的下一個內容就會顯示在下一行：
 
 ```kotlin
 fun main() {
@@ -68,24 +68,24 @@ fun main() {
 
 ## 從標準輸入讀取
 
-`readln()` 函數從標準輸入讀取。此函數會將使用者輸入的整行內容讀取為字串。
+`readln()` 函數從標準輸入讀取。此函數將使用者輸入的整行內容作為字串讀取。
 
 您可以將 `println()`、`readln()` 和 `print()` 函數一起使用，以列印請求和顯示使用者輸入的訊息：
 
 ```kotlin
-// Prints a message to request input
+// 列印訊息以請求輸入
 println("Enter any word: ")
 
-// Reads and stores the user input. For example: Happiness
+// 讀取並儲存使用者輸入。例如：Happiness
 val yourWord = readln()
 
-// Prints a message with the input
+// 列印包含輸入的訊息
 print("You entered the word: ")
 print(yourWord)
-// You entered the word: Happiness
+// 您輸入的單字：Happiness
 ```
 
-更多資訊請參閱 [讀取標準輸入](read-standard-input.md)。
+更多資訊，請參閱 [Read standard input](read-standard-input.md)。
 
 ## 函數
 
@@ -105,7 +105,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-basic-syntax-return-int"}
 
-函數主體可以是表達式。其回傳型別會被推斷 (inferred)：
+函數主體可以是運算式。其回傳型別會被推斷：
 
 ```kotlin
 //sampleStart
@@ -118,7 +118,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-basic-syntax-function-expression"}
 
-一個不回傳有意義值的函數：
+一個不回傳任何有意義值的函數：
 
 ```kotlin
 //sampleStart
@@ -148,18 +148,18 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-basic-syntax-function-omit-unit"}
 
-請參閱 [函數](functions.md)。
+詳見 [Functions](functions.md)。
 
 ## 變數
 
-在 Kotlin 中，您使用關鍵字 `val` 或 `var` 宣告變數，後跟變數名稱。
+在 Kotlin 中，您可以使用關鍵字 `val` 或 `var` 宣告變數，後接變數的名稱。
 
-使用 `val` 關鍵字來宣告只被賦值一次的變數。這些是不可變的 (immutable)、唯讀的 (read-only) 局部變數，初始化後不能重新賦予不同的值：
+使用 `val` 關鍵字來宣告只賦值一次的變數。這些是不可變的、唯讀的局部變數，在初始化後無法重新賦予不同的值： 
 
 ```kotlin
 fun main() {
 //sampleStart
-    // Declares the variable x and initializes it with the value of 5
+    // 宣告變數 x 並將其初始化為值 5
     val x: Int = 5
     // 5
 //sampleEnd
@@ -168,14 +168,14 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-basic-syntax-val"}
 
-使用 `var` 關鍵字來宣告可以重新賦值的變數。這些是可變的 (mutable) 變數，您可以在初始化後更改其值：
+使用 `var` 關鍵字來宣告可以重新賦值的變數。這些是可變變數，您可以在初始化後改變它們的值：
 
 ```kotlin
 fun main() {
 //sampleStart
-    // Declares the variable x and initializes it with the value of 5
+    // 宣告變數 x 並將其初始化為值 5
     var x: Int = 5
-    // Reassigns a new value of 6 to the variable x
+    // 將新值 6 重新賦予變數 x
     x += 1
     // 6
 //sampleEnd
@@ -184,12 +184,12 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-basic-syntax-var"}
 
-Kotlin 支援型別推斷 (type inference)，並自動識別已宣告變數的資料型別。宣告變數時，您可以在變數名稱後省略型別：
+Kotlin 支援型別推斷，並自動識別已宣告變數的資料型別。當宣告變數時，您可以在變數名稱後省略型別：
 
 ```kotlin
 fun main() {
 //sampleStart
-    // Declares the variable x with the value of 5;`Int` type is inferred
+    // 宣告變數 x 值為 5；推斷為 `Int` 型別
     val x = 5
     // 5
 //sampleEnd
@@ -198,16 +198,16 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-basic-syntax-inference"}
 
-您只能在初始化變數後使用它們。您可以選擇在宣告時初始化變數，或者先宣告變數，然後再進行初始化。在後一種情況下，您必須指定資料型別：
+您只能在初始化後使用變數。您可以選擇在宣告時初始化變數，或者先宣告變數再初始化。在後一種情況下，您必須指定資料型別：
 
 ```kotlin
 fun main() {
 //sampleStart
-    // Initializes the variable x at the moment of declaration; type is not required
+    // 在宣告時初始化變數 x；不需要型別
     val x = 5
-    // Declares the variable c without initialization; type is required
+    // 宣告變數 c 但不初始化；需要型別
     val c: Int
-    // Initializes the variable c after declaration 
+    // 在宣告後初始化變數 c 
     c = 3
     // 5 
     // 3
@@ -218,7 +218,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-basic-syntax-initialize"}
 
-您可以在頂層 (top level) 宣告變數：
+您可以在頂層宣告變數：
 
 ```kotlin
 //sampleStart
@@ -242,16 +242,16 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-basic-syntax-variable-top-level"}
 
-有關宣告屬性 (properties) 的資訊，請參閱 [屬性](properties.md)。
+有關宣告屬性的資訊，請參閱 [Properties](properties.md)。
 
 ## 建立類別與實例
 
-若要定義一個類別 (class)，請使用 `class` 關鍵字：
+要定義一個類別，請使用 `class` 關鍵字：
 ```kotlin
 class Shape
 ```
 
-類別的屬性 (properties) 可以在其宣告或主體中列出：
+類別的屬性可以列在其宣告或主體中： 
 
 ```kotlin
 class Rectangle(val height: Double, val length: Double) {
@@ -259,7 +259,7 @@ class Rectangle(val height: Double, val length: Double) {
 }
 ```
 
-類別宣告中列出的預設建構函數 (constructor) 會自動可用：
+類別宣告中列出參數的預設建構函數會自動可用：
 
 ```kotlin
 class Rectangle(val height: Double, val length: Double) {
@@ -272,7 +272,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-basic-syntax-class-constructor"}
 
-類別之間的繼承 (inheritance) 以冒號 (`:`) 宣告。類別預設為 `final`；若要讓類別可繼承，請將其標記為 `open`：
+類別之間的繼承以冒號 (`:`) 宣告。類別預設為 `final`；要使類別可繼承，請將其標記為 `open`：
 
 ```kotlin
 open class Shape
@@ -282,40 +282,40 @@ class Rectangle(val height: Double, val length: Double): Shape() {
 }
 ```
 
-更多有關建構函數和繼承的資訊，請參閱 [類別](classes.md) 和 [物件與實例](object-declarations.md)。
+有關建構函數和繼承的更多資訊，請參閱 [Classes](classes.md) 和 [Objects and instances](object-declarations.md)。
 
-## 註解
+## 註釋
 
-就像大多數現代語言一樣，Kotlin 支援單行（或稱 *行尾*）和多行（*區塊*）註解：
-
-```kotlin
-// This is an end-of-line comment
-
-/* This is a block comment
-   on multiple lines. */
-```
-
-Kotlin 中的區塊註解可以巢狀 (nested) 存在：
+與大多數現代語言一樣，Kotlin 支援單行（或*行尾*）和多行（*區塊*）註釋：
 
 ```kotlin
-/* The comment starts here
-/* contains a nested comment */     
-and ends here. */
+// 這是一個行尾註釋
+
+/* 這是一個區塊註釋
+   多行。 */
 ```
 
-有關文件註解語法 (documentation comment syntax) 的資訊，請參閱 [文件化 Kotlin 程式碼](kotlin-doc.md)。
+Kotlin 中的區塊註釋可以巢狀：
 
-## 字串樣板
+```kotlin
+/* 註釋從這裡開始
+/* 包含一個巢狀註釋 */     
+並在這裡結束。 */
+```
+
+有關文件註釋語法的資訊，請參閱 [Documenting Kotlin Code](kotlin-doc.md)。
+
+## 字串模板
 
 ```kotlin
 fun main() {
 //sampleStart
     var a = 1
-    // simple name in template:
+    // 模板中的簡單名稱：
     val s1 = "a is $a" 
     
     a = 2
-    // arbitrary expression in template:
+    // 模板中的任意運算式：
     val s2 = "${s1.replace("is", "was")}, but now is $a"
 //sampleEnd
     println(s2)
@@ -323,9 +323,9 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-basic-syntax-string-templates"}
 
-詳情請參閱 [字串樣板](strings.md#string-templates)。
+詳情請參閱 [String templates](strings.md#string-templates)。
 
-## 條件表達式
+## 條件運算式
 
 ```kotlin
 //sampleStart
@@ -344,7 +344,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-basic-syntax-conditional-expressions"}
 
-在 Kotlin 中，`if` 也可以用作表達式：
+在 Kotlin 中，`if` 也可以作為運算式使用：
 
 ```kotlin
 //sampleStart
@@ -357,7 +357,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-basic-syntax-if-expression"}
 
-請參閱 [`if`-表達式](control-flow.md#if-expression)。
+詳見 [`if`-expressions](control-flow.md#if-expression)。
 
 ## for 迴圈
 
@@ -373,7 +373,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-basic-syntax-for-loop"}
 
-或：
+或者：
 
 ```kotlin
 fun main() {
@@ -387,7 +387,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-basic-syntax-for-loop-indices"}
 
-請參閱 [for 迴圈](control-flow.md#for-loops)。
+詳見 [for loop](control-flow.md#for-loops)。
 
 ## while 迴圈
 
@@ -405,9 +405,9 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-basic-syntax-while-loop"}
 
-請參閱 [while 迴圈](control-flow.md#while-loops)。
+詳見 [while loop](control-flow.md#while-loops)。
 
-## when 表達式
+## when 運算式
 
 ```kotlin
 //sampleStart
@@ -431,7 +431,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-basic-syntax-when-expression"}
 
-請參閱 [when 表達式和陳述式](control-flow.md#when-expressions-and-statements)。
+詳見 [when expressions and statements](control-flow.md#when-expressions-and-statements)。
 
 ## 範圍
 
@@ -468,7 +468,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-basic-syntax-out-of-range"}
 
-迭代 (iterate) 一個範圍：
+迭代一個範圍：
 
 ```kotlin
 fun main() {
@@ -481,7 +481,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-basic-syntax-iterate-range"}
 
-或迭代一個序列 (progression)：
+或者在一個進程上：
 
 ```kotlin
 fun main() {
@@ -498,11 +498,11 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-basic-syntax-iterate-progression"}
 
-請參閱 [範圍與序列](ranges.md)。
+詳見 [Ranges and progressions](ranges.md)。
 
 ## 集合
 
-迭代 (iterate) 一個集合 (collection)：
+迭代一個集合：
 
 ```kotlin
 fun main() {
@@ -516,7 +516,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-basic-syntax-iterate-collection"}
 
-使用 `in` 運算子檢查集合是否包含物件：
+使用 `in` 運算子檢查集合是否包含一個物件：
 
 ```kotlin
 fun main() {
@@ -531,7 +531,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-basic-syntax-collection-in"}
 
-使用 [lambda 表達式](lambdas.md) 來過濾 (filter) 和映射 (map) 集合：
+使用 [lambda expressions](lambdas.md) 來過濾和映射集合：
 
 ```kotlin
 fun main() {
@@ -547,11 +547,11 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-basic-syntax-collection-filter-map"}
 
-請參閱 [集合概覽](collections-overview.md)。
+詳見 [Collections overview](collections-overview.md)。
 
 ## 可空值與空值檢查
 
-當 `null` 值可能出現時，引用必須明確標記為可空 (nullable)。可空型別名稱末尾帶有 `?`。
+當 `null` 值可能時，引用必須明確標記為可空。可空型別名稱末尾帶有 `?`。
 
 如果 `str` 不包含整數，則回傳 `null`：
 
@@ -573,9 +573,9 @@ fun printProduct(arg1: String, arg2: String) {
     val x = parseInt(arg1)
     val y = parseInt(arg2)
 
-    // Using `x * y` yields error because they may hold nulls.
+    // 使用 `x * y` 會產生錯誤，因為它們可能為空值。
     if (x != null && y != null) {
-        // x and y are automatically cast to non-nullable after null check
+        // 經過空值檢查後，x 和 y 會自動轉型為非可空型別
         println(x * y)
     }
     else {
@@ -592,7 +592,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-basic-syntax-function-nullable-value"}
 
-或：
+或者：
 
 ```kotlin
 fun parseInt(str: String): Int? {
@@ -614,7 +614,7 @@ fun printProduct(arg1: String, arg2: String) {
         return
     }
 
-    // x and y are automatically cast to non-nullable after null check
+    // 經過空值檢查後，x 和 y 會自動轉型為非可空型別
     println(x * y)
 //sampleEnd
 }
@@ -627,22 +627,21 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-basic-syntax-function-null-check"}
 
-請參閱 [空值安全](null-safety.md)。
+詳見 [Null-safety](null-safety.md)。
 
-## 型別檢查與自動轉換
+## 型別檢查與自動轉型
 
-`is` 運算子檢查一個表達式是否是某種類型 (type) 的實例 (instance)。
-如果一個不可變的局部變數或屬性被檢查是否為特定型別，則無需顯式地轉換 (cast) 它：
+`is` 運算子檢查運算式是否為某個型別的實例。如果不可變的局部變數或屬性被檢查為特定型別，則不需要明確地轉型：
 
 ```kotlin
 //sampleStart
 fun getStringLength(obj: Any): Int? {
     if (obj is String) {
-        // `obj` is automatically cast to `String` in this branch
+        // 在此分支中，`obj` 會自動轉型為 `String`
         return obj.length
     }
 
-    // `obj` is still of type `Any` outside of the type-checked branch
+    // 在此型別檢查分支之外，`obj` 仍為 `Any` 型別
     return null
 }
 //sampleEnd
@@ -658,14 +657,14 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-basic-syntax-is-operator"}
 
-或：
+或者：
 
 ```kotlin
 //sampleStart
 fun getStringLength(obj: Any): Int? {
     if (obj !is String) return null
 
-    // `obj` is automatically cast to `String` in this branch
+    // 在此分支中，`obj` 會自動轉型為 `String`
     return obj.length
 }
 //sampleEnd
@@ -686,7 +685,7 @@ fun main() {
 ```kotlin
 //sampleStart
 fun getStringLength(obj: Any): Int? {
-    // `obj` is automatically cast to `String` on the right-hand side of `&&`
+    // 在 `&&` 的右側，`obj` 會自動轉型為 `String`
     if (obj is String && obj.length > 0) {
         return obj.length
     }
@@ -706,4 +705,4 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-basic-syntax-is-operator-logic"}
 
-請參閱 [類別](classes.md) 和 [型別轉換](typecasts.md)。
+詳見 [Classes](classes.md) 和 [Type casts](typecasts.md)。

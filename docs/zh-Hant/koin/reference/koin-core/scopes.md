@@ -165,7 +165,7 @@ class BofA(val a : A)
 module {
     single { A() }
     scope<A> {
-        scoped { BofA(getSource() /* or even get() */) }
+        scoped { BofA(getSource() /* 或甚至 get() */) }
 
     }
 }
@@ -212,3 +212,24 @@ val b = a.scope.get<B>()
 a.scope.linkTo(b.scope)
 // 我們從 A 或 B 作用域取得了相同的 C 實例
 assertTrue(a.scope.get<C>() == b.scope.get<C>())
+```
+
+### 作用域原型
+
+作用域「原型」是為通用類別而設計的作用域空間。例如，您可以為 Android (Activity, Fragment, ViewModel) 甚至 Ktor (RequestScope) 定義作用域原型。
+作用域原型是 Koin 的 `TypeQualifier`，傳遞給不同的 API，以請求給定類型的作用域空間。
+
+一個原型包含：
+- 模組 DSL 擴充功能，用於為給定類型宣告作用域：
+```kotlin
+// 為 ActivityScopeArchetype (TypeQualifier(AppCompatActivity::class) 宣告一個作用域原型
+fun Module.activityScope(scopeSet: ScopeDSL.() -> Unit) {
+    val qualifier = ActivityScopeArchetype
+    ScopeDSL(qualifier, this).apply(scopeSet)
+}
+```
+- 一個請求作用域的 API，帶有給定的特定作用域原型 `TypeQualifier`：
+```kotlin
+// 使用 ActivityScopeArchetype 原型建立作用域
+val scope = getKoin().createScope(getScopeId(), getScopeName(), this, ActivityScopeArchetype)
+```

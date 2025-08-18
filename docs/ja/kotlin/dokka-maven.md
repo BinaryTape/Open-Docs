@@ -1,14 +1,15 @@
 [//]: # (title: Maven)
 
-Mavenベースのプロジェクトのドキュメントを生成するには、DokkaのMavenプラグインを使用できます。
+Mavenベースのプロジェクトのドキュメントを生成するには、Dokka用Mavenプラグインを使用します。
 
-> [DokkaのGradleプラグイン](dokka-gradle.md)と比較して、Mavenプラグインは基本的な機能のみを持ち、マルチモジュールビルドのサポートは提供しません。
+> [Dokka用Gradleプラグイン](dokka-gradle.md)と比較して、Mavenプラグインは基本的な機能しか持たず、
+> マルチモジュールビルドをサポートしていません。
 > 
 {style="note"}
 
-Dokkaを試してMavenプロジェクト向けにどのように設定できるかを確認するには、[Mavenサンプル](https://github.com/Kotlin/dokka/tree/%dokkaVersion%/examples/maven)プロジェクトをご覧ください。
+[Mavenの例](https://github.com/Kotlin/dokka/tree/%dokkaVersion%/examples/maven)プロジェクトにアクセスして、Dokkaを試したり、Mavenプロジェクト用に設定する方法を確認できます。
 
-## Dokkaを適用する
+## Dokkaの適用
 
 Dokkaを適用するには、POMファイルの`plugins`セクションに`dokka-maven-plugin`を追加する必要があります。
 
@@ -34,26 +35,26 @@ Dokkaを適用するには、POMファイルの`plugins`セクションに`dokka
 
 ## ドキュメントの生成
 
-Mavenプラグインによって次のゴールが提供されます。
+Mavenプラグインによって提供されるゴールは以下の通りです。
 
 | **ゴール**      | **説明**                                                                        |
 |---------------|----------------------------------------------------------------------------------------|
-| `dokka:dokka` | Dokkaプラグインが適用されたドキュメントを生成します。デフォルトで[HTML](dokka-html.md)形式です。 |
+| `dokka:dokka` | Dokkaプラグインが適用されたドキュメントを生成します。デフォルトのフォーマットは[HTML](dokka-html.md)です。 |
 
-### 実験的機能
+### 実験的機能 (Experimental)
 
 | **ゴール**           | **説明**                                                                             |
 |--------------------|---------------------------------------------------------------------------------------------|
-| `dokka:javadoc`    | [Javadoc](dokka-javadoc.md)形式でドキュメントを生成します。                                    |
-| `dokka:javadocJar` | [Javadoc](dokka-javadoc.md)形式のドキュメントを含む`javadoc.jar`ファイルを生成します。 |
+| `dokka:javadoc`    | [Javadoc](dokka-javadoc.md)フォーマットでドキュメントを生成します。                                    |
+| `dokka:javadocJar` | [Javadoc](dokka-javadoc.md)フォーマットのドキュメントを含む`javadoc.jar`ファイルを生成します。 |
 
-### その他の出力形式
+### その他の出力フォーマット
 
-デフォルトでは、DokkaのMavenプラグインは[HTML](dokka-html.md)出力形式でドキュメントをビルドします。
+デフォルトでは、Dokka用Mavenプラグインは[HTML](dokka-html.md)出力フォーマットでドキュメントをビルドします。
 
-他のすべての出力形式は[Dokkaプラグイン](dokka-plugins.md)として実装されています。目的の形式でドキュメントを生成するには、Dokkaプラグインとして設定に追加する必要があります。
+他のすべての出力フォーマットは[Dokkaプラグイン](dokka-plugins.md)として実装されています。目的のフォーマットでドキュメントを生成するには、それをDokkaプラグインとして設定に追加する必要があります。
 
-例えば、実験的な[GFM](dokka-markdown.md#gfm)形式を使用するには、`gfm-plugin`アーティファクトを追加する必要があります。
+例えば、実験的な[GFM](dokka-markdown.md#gfm)フォーマットを使用するには、`gfm-plugin`アーティファクトを追加する必要があります。
 
 ```xml
 <plugin>
@@ -72,19 +73,19 @@ Mavenプラグインによって次のゴールが提供されます。
 </plugin>
 ```
 
-この設定で`dokka:dokka`ゴールを実行すると、GFM形式でドキュメントが生成されます。
+この設定で`dokka:dokka`ゴールを実行すると、GFMフォーマットでドキュメントが生成されます。
 
-Dokkaプラグインの詳細については、[Dokkaプラグイン](dokka-plugins.md)を参照してください。
+Dokkaプラグインについて詳しく知るには、[Dokkaプラグイン](dokka-plugins.md)を参照してください。
 
 ## javadoc.jarのビルド
 
-ライブラリをリポジトリに公開する場合、ライブラリのAPIリファレンスドキュメントを含む`javadoc.jar`ファイルを提供する必要があるかもしれません。
+ライブラリをリポジトリに公開したい場合、ライブラリのAPIリファレンスドキュメントを含む`javadoc.jar`ファイルを提供する必要がある場合があります。
 
-例えば、[Maven Central](https://central.sonatype.org/)に公開する場合、プロジェクトと一緒に`javadoc.jar`を提供[しなければなりません](https://central.sonatype.org/publish/requirements/)。ただし、すべてのリポジトリにそのルールがあるわけではありません。
+例えば、[Maven Central](https://central.sonatype.org/)に公開する場合、プロジェクトと一緒に`javadoc.jar`を提供することが[必須](https://central.sonatype.org/publish/requirements/)です。ただし、すべてのリポジトリにこのルールがあるわけではありません。
 
-[DokkaのGradleプラグイン](dokka-gradle.md#build-javadoc-jar)とは異なり、Mavenプラグインにはすぐに使える`dokka:javadocJar`ゴールが付属しています。デフォルトでは、`target`フォルダーに[Javadoc](dokka-javadoc.md)出力形式でドキュメントを生成します。
+[Dokka用Gradleプラグイン](dokka-gradle.md#build-javadoc-jar)とは異なり、Mavenプラグインにはすぐに使える`dokka:javadocJar`ゴールが付属しています。デフォルトでは、`target`フォルダに[Javadoc](dokka-javadoc.md)出力フォーマットでドキュメントを生成します。
 
-組み込みゴールに満足しない場合や、出力をカスタマイズしたい場合（例えば、Javadocではなく[HTML](dokka-html.md)形式でドキュメントを生成したい場合）は、次の設定でMaven JARプラグインを追加することで同様の動作を実現できます。
+組み込みのゴールに満足できない場合、または出力をカスタマイズしたい場合（例えば、Javadocではなく[HTML](dokka-html.md)フォーマットでドキュメントを生成したい場合）、以下の設定でMaven JARプラグインを追加することで同様の動作を実現できます。
 
 ```xml
 <plugin>
@@ -113,21 +114,24 @@ Dokkaプラグインの詳細については、[Dokkaプラグイン](dokka-plug
 </plugin>
 ```
 
-ドキュメントとそれに対応する`.jar`アーカイブは、`dokka:dokka`および`jar:jar@dokka-jar`ゴールを実行することで生成されます。
+ドキュメントとそれに対応する`.jar`アーカイブは、`dokka:dokka`と`jar:jar@dokka-jar`ゴールを実行することで生成されます。
 
 ```Bash
 mvn dokka:dokka jar:jar@dokka-jar
 ```
 
-> ライブラリをMaven Centralに公開する場合、[javadoc.io](https://javadoc.io/)のようなサービスを利用すると、ライブラリのAPIドキュメントを無料で、セットアップなしでホストできます。これは`javadoc.jar`から直接ドキュメントページを取得します。[この例](https://javadoc.io/doc/com.trib3/server/latest/index.html)で示されているように、HTML形式でうまく動作します。
+> Maven Centralにライブラリを公開する場合、[javadoc.io](https://javadoc.io/)のようなサービスを利用して、
+> ライブラリのAPIドキュメントを無料で、かつセットアップなしでホストできます。
+> これは`javadoc.jar`から直接ドキュメントページを取得します。
+> [この例](https://javadoc.io/doc/com.trib3/server/latest/index.html)で示されているように、HTMLフォーマットとうまく機能します。
 >
 {style="tip"}
 
 ## 設定例
 
-Mavenのプラグイン設定ブロックは、Dokkaの設定に使用できます。
+Mavenのプラグイン設定ブロックはDokkaを設定するために使用できます。
 
-これは、ドキュメントの出力場所のみを変更する基本的な設定の例です。
+以下は、ドキュメントの出力場所のみを変更する基本的な設定の例です。
 
 ```xml
 <plugin>
@@ -142,11 +146,11 @@ Mavenのプラグイン設定ブロックは、Dokkaの設定に使用できま�
 
 ## 設定オプション
 
-Dokkaには、読者とあなたのエクスペリエンスを調整するための多くの設定オプションがあります。
+Dokkaには、あなたと読者のエクスペリエンスを調整するための多くの設定オプションがあります。
 
-以下に、各設定セクションの例と詳細な説明を示します。また、ページ下部には、[すべての設定オプション](#complete-configuration)が適用された例もあります。
+以下に、各設定セクションの例と詳細な説明を示します。ページの最下部には、[すべての設定オプション](#complete-configuration)が適用された例も記載されています。
 
-### 一般設定
+### 一般的な設定
 
 ```xml
 <plugin>
@@ -203,36 +207,38 @@ Dokkaには、読者とあなたのエクスペリエンスを調整するため
 
 <deflist collapsible="true">
     <def title="skip">
-        <p>ドキュメント生成をスキップするかどうか。</p>
+        <p>ドキュメントの生成をスキップするかどうか。</p>
         <p>デフォルト: <code>false</code></p>
     </def>
     <def title="moduleName">
-        <p>プロジェクト/モジュールを参照するために使用される表示名です。目次、ナビゲーション、ロギングなどに使用されます。</p>
+        <p>プロジェクト/モジュールを参照するために使用される表示名。目次、ナビゲーション、ログなどに使用されます。</p>
         <p>デフォルト: <code>{project.artifactId}</code></p>
     </def>
     <def title="outputDir">
-        <p>フォーマットに関係なく、ドキュメントが生成されるディレクトリです。</p>
+        <p>フォーマットに関わらず、ドキュメントが生成されるディレクトリ。</p>
         <p>デフォルト: <code>{project.basedir}/target/dokka</code></p>
     </def>
     <def title="failOnWarning">
         <p>
-            Dokkaが警告またはエラーを発した場合に、ドキュメント生成を失敗させるかどうか。プロセスは、すべてのエラーと警告が最初に出力されるまで待機します。
+            Dokkaが警告またはエラーを出力した場合に、ドキュメントの生成を失敗させるかどうか。
+            プロセスは、すべてのエラーと警告が出力されるまで待機します。
         </p>
-        <p>この設定は<code>reportUndocumented</code>と組み合わせてうまく機能します。</p>
+        <p>この設定は<code>reportUndocumented</code>と組み合わせるとうまく機能します。</p>
         <p>デフォルト: <code>false</code></p>
     </def>
     <def title="suppressObviousFunctions">
-        <p>明らかな関数を抑制するかどうか。</p>
+        <p>自明な関数を抑制するかどうか。</p>
         <p>
-            関数は次の場合に明らかと見なされます。</p>
+            以下の関数は自明であるとみなされます。</p>
             <list>
                 <li>
-                    <code>kotlin.Any</code>、<code>Kotlin.Enum</code>、<code>java.lang.Object</code>または
-                    <code>java.lang.Enum</code>から継承されたもの（例: <code>equals</code>、<code>hashCode</code>、<code>toString</code>）。
+                    <code>equals</code>、<code>hashCode</code>、<code>toString</code>のように、
+                    <code>kotlin.Any</code>、<code>Kotlin.Enum</code>、<code>java.lang.Object</code>、
+                    または<code>java.lang.Enum</code>から継承された関数。
                 </li>
                 <li>
-                    合成されたもの（コンパイラによって生成されたもの）で、ドキュメントがないもの（例:
-                    <code>dataClass.componentN</code>または<code>dataClass.copy</code>）。
+                    <code>dataClass.componentN</code>や<code>dataClass.copy</code>のように、
+                    コンパイラによって生成され（合成された）、ドキュメントがない関数。
                 </li>
             </list>
         <p>デフォルト: <code>true</code></p>
@@ -240,25 +246,25 @@ Dokkaには、読者とあなたのエクスペリエンスを調整するため
     <def title="suppressInheritedMembers">
         <p>特定のクラスで明示的にオーバーライドされていない継承メンバーを抑制するかどうか。</p>
         <p>
-            注意: これは<code>equals</code>/<code>hashCode</code>/<code>toString</code>のような関数を抑制できますが、
+            注意: これにより<code>equals</code>/<code>hashCode</code>/<code>toString</code>のような関数を抑制できますが、
             <code>dataClass.componentN</code>や<code>dataClass.copy</code>のような合成関数は抑制できません。
-            そのためには<code>suppressObviousFunctions</code>を使用してください。
+            それには<code>suppressObviousFunctions</code>を使用してください。
         </p>
         <p>デフォルト: <code>false</code></p>
     </def>
     <def title="offlineMode">
         <p>ネットワーク経由でリモートファイル/リンクを解決するかどうか。</p>
         <p>
-            これには、外部ドキュメントリンクを生成するために使用されるパッケージリストが含まれます。
-            例えば、標準ライブラリのクラスをクリック可能にするためです。
+            これには、外部ドキュメントリンク生成に使用されるパッケージリストが含まれます。
+            例えば、標準ライブラリのクラスをクリック可能にするためなどです。
         </p>
         <p>
-            これを<code>true</code>に設定すると、特定のケースでビルド時間を大幅に短縮できますが、
-            ドキュメントの品質とユーザーエクスペリエンスを悪化させる可能性もあります。例えば、
-            標準ライブラリを含む依存関係からのクラス/メンバーリンクが解決されなくなるなどです。
+            これを<code>true</code>に設定すると、特定のケースではビルド時間を大幅に短縮できますが、
+            ドキュメントの品質やユーザーエクスペリエンスを低下させる可能性もあります。例えば、
+            標準ライブラリを含む依存関係からのクラス/メンバーリンクを解決しないことなどです。
         </p>
         <p>
-            注意: 取得したファイルをローカルにキャッシュし、それらをDokkaにローカルパスとして提供することができます。
+            注意: フェッチしたファイルをローカルにキャッシュし、それらをローカルパスとしてDokkaに提供できます。
             <code>externalDocumentationLinks</code>セクションを参照してください。
         </p>
         <p>デフォルト: <code>false</code></p>
@@ -266,111 +272,115 @@ Dokkaには、読者とあなたのエクスペリエンスを調整するため
     <def title="sourceDirectories">
         <p>
             分析およびドキュメント化されるソースコードルート。
-            ディレクトリと個々の<code>.kt</code> / <code>.java</code>ファイルが入力として受け入れられます。
+            受け入れられる入力は、ディレクトリおよび個々の<code>.kt</code> / <code>.java</code>ファイルです。
         </p>
         <p>デフォルト: <code>{project.compileSourceRoots}</code></p>
     </def>
     <def title="documentedVisibilities">
-        <p>ドキュメント化されるべき可視性修飾子のセットです。</p>
+        <p>ドキュメント化すべき可視性修飾子のセット。</p>
         <p>
-            これは、<code>protected</code>/<code>internal</code>/<code>private</code>な宣言をドキュメント化したい場合、
-            または<code>public</code>な宣言を除外して内部APIのみをドキュメント化したい場合に使用できます。
+            これは、<code>protected</code>/<code>internal</code>/<code>private</code>宣言をドキュメント化したい場合や、
+            <code>public</code>宣言を除外して内部APIのみをドキュメント化したい場合に使用できます。
         </p>
         <p>パッケージごとに設定可能です。</p>
         <p>デフォルト: <code>PUBLIC</code></p>
     </def>
     <def title="reportUndocumented">
         <p>
-            <code>documentedVisibilities</code>やその他のフィルターによってフィルタリングされた後、
-            可視でKDocsのない宣言、つまり未ドキュメント化された宣言について警告を発するかどうか。
+            <code>documentedVisibilities</code>やその他のフィルターによってフィルターされた後、
+            表示可能なドキュメント化されていない宣言（KDocsがない宣言）について警告を発するかどうか。
         </p>
-        <p>この設定は<code>failOnWarning</code>と組み合わせてうまく機能します。</p>
-        <p>これはパッケージレベルでオーバーライドできます。</p>
+        <p>この設定は<code>failOnWarning</code>と組み合わせるとうまく機能します。</p>
+        <p>これはパッケージレベルで上書きできます。</p>
         <p>デフォルト: <code>false</code></p>
     </def>
     <def title="skipDeprecated">
-        <p><code>@Deprecated</code>でアノテーションされた宣言をドキュメント化するかどうか。</p>
-        <p>これはパッケージレベルでオーバーライドできます。</p>
+        <p><code>@Deprecated</code>で注釈付けされた宣言をドキュメント化するかどうか。</p>
+        <p>これはパッケージレベルで上書きできます。</p>
         <p>デフォルト: <code>false</code></p>
     </def>
     <def title="skipEmptyPackages">
         <p>
-            さまざまなフィルターが適用された後、可視な宣言を含まないパッケージをスキップするかどうか。
+            様々なフィルターが適用された後、表示可能な宣言を含まないパッケージをスキップするかどうか。
         </p>
         <p>
-            例えば、<code>skipDeprecated</code>が<code>true</code>に設定されており、パッケージに非推奨の宣言のみが
-            含まれている場合、それは空であると見なされます。
+            例えば、<code>skipDeprecated</code>が<code>true</code>に設定されており、
+            パッケージに非推奨の宣言のみが含まれている場合、そのパッケージは空であるとみなされます。
         </p>
         <p>デフォルト: <code>true</code></p>
     </def>
     <def title="suppressedFiles">
         <p>
-            抑制されるべきディレクトリまたは個々のファイル。つまり、それらからの宣言はドキュメント化されません。
+            抑制すべきディレクトリまたは個々のファイル。つまり、そこからの宣言はドキュメント化されません。
         </p>
     </def>
     <def title="jdkVersion">
         <p>Java型用の外部ドキュメントリンクを生成する際に使用するJDKバージョン。</p>
         <p>
-            例えば、ある公開宣言のシグネチャで<code>java.util.UUID</code>を使用し、
+            例えば、何らかのpublic宣言のシグネチャで<code>java.util.UUID</code>を使用しており、
             このオプションが<code>8</code>に設定されている場合、Dokkaはそれに対する
-            <a href="https://docs.oracle.com/javase/8/docs/api/java/util/UUID.html">JDK 8 Javadocs</a>への外部ドキュメントリンクを生成します。
+            <a href="https://docs.oracle.com/javase/8/docs/api/java/util/UUID.html">JDK 8 Javadoc</a>への外部ドキュメントリンクを生成します。
         </p>
         <p>デフォルト: JDK 8</p>
     </def>
     <def title="languageVersion">
         <p>
-            <a href="https://kotlinlang.org/docs/compatibility-modes.html">分析および<a href="https://kotlinlang.org/docs/kotlin-doc.html#sample-identifier">@sample</a>環境の設定に使用されるKotlin言語バージョン</a>。
+            分析および<a href="https://kotlinlang.org/docs/kotlin-doc.html#sample-identifier">@sample</a>
+            環境を設定するために使用される<a href="https://kotlinlang.org/docs/compatibility-modes.html">Kotlin言語バージョン</a>。
         </p>
-        <p>デフォルトでは、Dokkaの組み込みコンパイラが利用可能な最新の言語バージョンが使用されます。</p>
+        <p>デフォルトでは、Dokkaに組み込まれているコンパイラで利用可能な最新の言語バージョンが使用されます。</p>
     </def>
     <def title="apiVersion">
         <p>
-            <a href="https://kotlinlang.org/docs/compatibility-modes.html">分析および<a href="https://kotlinlang.org/docs/kotlin-doc.html#sample-identifier">@sample</a>環境の設定に使用されるKotlin APIバージョン</a>。
+            分析および<a href="https://kotlinlang.org/docs/kotlin-doc.html#sample-identifier">@sample</a>
+            環境を設定するために使用される<a href="https://kotlinlang.org/docs/compatibility-modes.html">Kotlin APIバージョン</a>。
         </p>
-        <p>デフォルトでは、<code>languageVersion</code>から推論されます。</p>
+        <p>デフォルトでは、<code>languageVersion</code>から推測されます。</p>
     </def>
     <def title="noStdlibLink">
         <p>
-            Kotlinの標準ライブラリのAPIリファレンスドキュメントへつながる外部ドキュメントリンクを生成するかどうか。
+            Kotlinの標準ライブラリのAPIリファレンスドキュメントに繋がる外部ドキュメントリンクを生成するかどうか。
         </p>
-        <p>注意: <code>noStdLibLink</code>が<code>false</code>に設定されている場合、リンクは<b>生成されます</b>。</p>
+        <p>注意: <code>noStdLibLink</code>が<code>false</code>に設定されている場合、リンクは**生成されます**。</p>
         <p>デフォルト: <code>false</code></p>
     </def>
     <def title="noJdkLink">
     <anchor name="includes"/>
         <p>JDKのJavadocへの外部ドキュメントリンクを生成するかどうか。</p>
-        <p>JDK Javadocのバージョンは、<code>jdkVersion</code>オプションによって決定されます。</p>
-        <p>注意: <code>noJdkLink</code>が<code>false</code>に設定されている場合、リンクは<b>生成されます</b>。</p>
+        <p>JDK Javadocのバージョンは<code>jdkVersion</code>オプションによって決定されます。</p>
+        <p>注意: <code>noJdkLink</code>が<code>false</code>に設定されている場合、リンクは**生成されます**。</p>
         <p>デフォルト: <code>false</code></p>
     </def>
     <def title="includes">
         <p>
-            <a href="dokka-module-and-package-docs.md">モジュールおよびパッケージドキュメント</a>を含むMarkdownファイルのリスト。
+            <a href="dokka-module-and-package-docs.md">モジュールおよびパッケージのドキュメント</a>を
+            含むMarkdownファイルの一覧。
         </p>
         <p>指定されたファイルの内容は解析され、モジュールおよびパッケージの説明としてドキュメントに埋め込まれます。</p>
     </def>
     <def title="classpath">
         <p>分析およびインタラクティブなサンプル用のクラスパス。</p>
         <p>
-            これは、依存関係から来る一部の型が自動的に解決/認識されない場合に役立ちます。
-            このオプションは<code>.jar</code>と<code>.klib</code>の両方のファイルを受け入れます。
+            これは、依存関係から来るいくつかの型が自動的に解決/認識されない場合に役立ちます。
+            このオプションは、<code>.jar</code>および<code>.klib</code>ファイルの両方を受け入れます。
         </p>
         <p>デフォルト: <code>{project.compileClasspathElements}</code></p>
     </def>
     <def title="samples">
         <p>
-            <a href="https://kotlinlang.org/docs/kotlin-doc.html#sample-identifier"><code>@sample</code> KDocタグ</a>を介して参照されるサンプル関数を含むディレクトリまたはファイルのリスト。
+            <a href="https://kotlinlang.org/docs/kotlin-doc.html#sample-identifier">@sample KDocタグ</a>を介して参照される
+            サンプル関数を含むディレクトリまたはファイルの一覧。
         </p>
     </def>
 </deflist>
 
-### ソースリンク設定
+### ソースリンクの設定
 
-`sourceLinks`設定ブロックを使用すると、特定の行番号を含む`url`へつながる`source`リンクを各シグネチャに追加できます（行番号は`lineSuffix`を設定することで構成可能です）。
+`sourceLinks`設定ブロックを使用すると、各シグネチャに特定の行番号を含む`url`への`source`リンクを追加できます。（行番号は`lineSuffix`を設定することで構成可能です。）
 
-これは読者が各宣言のソースコードを見つけるのに役立ちます。
+これにより、読者は各宣言のソースコードを見つけることができます。
 
-例については、`kotlinx.coroutines`の[`count()`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/count.html)関数のドキュメントを参照してください。
+例として、`kotlinx.coroutines`の[`count()`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/count.html)関数のドキュメントを参照してください。
 
 ```xml
 <plugin>
@@ -392,26 +402,26 @@ Dokkaには、読者とあなたのエクスペリエンスを調整するため
 <deflist collapsible="true">
     <def title="path">
         <p>
-            ローカルソースディレクトリへのパス。パスは現在のモジュールのルートからの相対パスである必要があります。
+            ローカルのソースディレクトリへのパス。パスは現在のモジュールのルートからの相対パスでなければなりません。
         </p>
         <p>
-            注意: Unixベースのパスのみが許可されており、Windowsスタイルのパスはエラーをスローします。
+            注意: Unixベースのパスのみが許可されており、Windows形式のパスはエラーをスローします。
         </p>
     </def>
     <def title="url">
         <p>
-            ドキュメント読者がアクセスできるソースコードホスティングサービス（GitHub、GitLab、Bitbucketなど）のURL。
-            このURLは、宣言のソースコードリンクを生成するために使用されます。
+            GitHub、GitLab、Bitbucketなど、ドキュメント読者がアクセスできるソースコードホスティングサービスのURL。
+            このURLは宣言のソースコードリンクを生成するために使用されます。
         </p>
     </def>
     <def title="lineSuffix">
         <p>
             ソースコードの行番号をURLに追加するために使用されるサフィックス。
-            これは読者がファイルだけでなく、宣言の特定の行番号にも移動するのに役立ちます。
+            これにより、読者はファイルだけでなく、宣言の特定の行番号にもナビゲートできます。
         </p>
         <p>
-            番号自体は指定されたサフィックスに追加されます。例えば、このオプションが
-            <code>#L</code>に設定され、行番号が10の場合、結果のURLサフィックスは<code>#L10</code>になります。
+            番号自体は指定されたサフィックスに追加されます。例えば、このオプションが<code>#L</code>に設定され、
+            行番号が10の場合、結果のURLサフィックスは<code>#L10</code>になります。
         </p>
         <p>
             一般的なサービスで使用されるサフィックス:</p>
@@ -423,13 +433,13 @@ Dokkaには、読者とあなたのエクスペリエンスを調整するため
     </def>
 </deflist>
 
-### 外部ドキュメントリンク設定
+### 外部ドキュメントリンクの設定
 
-`externalDocumentationLinks`ブロックを使用すると、依存関係の外部ホストされているドキュメントへつながるリンクを作成できます。
+`externalDocumentationLinks`ブロックを使用すると、依存関係の外部ホストされているドキュメントに繋がるリンクを作成できます。
 
-例えば、`kotlinx.serialization`の型を使用している場合、デフォルトではドキュメント内で未解決であるかのようにクリックできません。しかし、`kotlinx.serialization`のAPIリファレンスドキュメントはDokkaによってビルドされ、[kotlinlang.orgで公開されている](https://kotlinlang.org/api/kotlinx.serialization/)ため、それに対して外部ドキュメントリンクを設定できます。これにより、Dokkaはライブラリの型へのリンクを生成し、それらを正常に解決してクリック可能にします。
+例えば、`kotlinx.serialization`の型を使用している場合、デフォルトではそれらはドキュメントでクリックできない、あたかも未解決であるかのように表示されます。しかし、`kotlinx.serialization`のAPIリファレンスドキュメントはDokkaによってビルドされ、[kotlinlang.orgに公開されている](https://kotlinlang.org/api/kotlinx.serialization/)ため、それに対する外部ドキュメントリンクを設定できます。これによりDokkaがライブラリの型へのリンクを生成できるようになり、それらが正常に解決され、クリック可能になります。
 
-デフォルトでは、Kotlin標準ライブラリおよびJDKの外部ドキュメントリンクは設定されています。
+デフォルトでは、Kotlin標準ライブラリおよびJDK用の外部ドキュメントリンクが設定されています。
 
 ```xml
 <plugin>
@@ -449,30 +459,30 @@ Dokkaには、読者とあなたのエクスペリエンスを調整するため
 
 <deflist collapsible="true">
     <def title="url">
-        <p>リンクするドキュメントのルートURL。末尾のスラッシュを<b>含める必要があります</b>。</p>
+        <p>リンク先のドキュメントのルートURL。末尾のスラッシュを**含める必要があります**。</p>
         <p>
-            Dokkaは、指定されたURLの<code>package-list</code>を自動的に見つけ出し、
-            宣言をリンクするために最善を尽くします。
+            Dokkaは、与えられたURLの<code>package-list</code>を自動的に見つけ出し、
+            宣言を相互にリンクするために最善を尽くします。
         </p>
         <p>
-            自動解決に失敗した場合、または代わりにローカルキャッシュファイルを使用したい場合は、
+            自動解決が失敗した場合、または代わりにローカルキャッシュファイルを使用したい場合は、
             <code>packageListUrl</code>オプションの設定を検討してください。
         </p>
     </def>
     <def title="packageListUrl">
         <p>
-            <code>package-list</code>の正確な場所。これはDokkaが自動的に解決することに依存する代わりに選択できる方法です。
+            <code>package-list</code>の正確な場所。これはDokkaが自動的に解決することに依存する代替手段です。
         </p>
         <p>
-            パッケージリストには、モジュール名やパッケージ名など、ドキュメントとプロジェクト自体に関する情報が含まれています。
+            パッケージリストには、モジュール名やパッケージ名など、ドキュメントおよびプロジェクト自体に関する情報が含まれています。
         </p>
-        <p>これは、ネットワーク呼び出しを避けるためにローカルにキャッシュされたファイルでも構いません。</p>
+        <p>これはネットワーク呼び出しを避けるために、ローカルにキャッシュされたファイルでも構いません。</p>
     </def>
 </deflist>
 
 ### パッケージオプション
 
-`perPackageOptions`設定ブロックを使用すると、`matchingRegex`によって一致する特定のパッケージにいくつかのオプションを設定できます。
+`perPackageOptions`設定ブロックを使用すると、`matchingRegex`でマッチする特定のパッケージにいくつかのオプションを設定できます。
 
 ```xml
 <plugin>
@@ -501,39 +511,39 @@ Dokkaには、読者とあなたのエクスペリエンスを調整するため
 
 <deflist collapsible="true">
     <def title="matchingRegex">
-        <p>パッケージを一致させるために使用される正規表現。</p>
+        <p>パッケージを照合するために使用される正規表現。</p>
         <p>デフォルト: <code>.*</code></p>
  </def>
     <def title="suppress">
-        <p>ドキュメント生成時にこのパッケージをスキップするかどうか。</p>
+        <p>このパッケージをドキュメント生成時にスキップすべきかどうか。</p>
         <p>デフォルト: <code>false</code></p>
     </def>
     <def title="documentedVisibilities">
-        <p>ドキュメント化されるべき可視性修飾子のセット。</p>
+        <p>ドキュメント化すべき可視性修飾子のセット。</p>
         <p>
-            これは、このパッケージ内の<code>protected</code>/<code>internal</code>/<code>private</code>宣言をドキュメント化したい場合、
-            または<code>public</code>宣言を除外して内部APIのみをドキュメント化したい場合に使用できます。
+            これは、このパッケージ内の<code>protected</code>/<code>internal</code>/<code>private</code>宣言をドキュメント化したい場合や、
+            <code>public</code>宣言を除外して内部APIのみをドキュメント化したい場合に使用できます。
         </p>
         <p>デフォルト: <code>PUBLIC</code></p>
     </def>
     <def title="skipDeprecated">
-        <p><code>@Deprecated</code>でアノテーションされた宣言をドキュメント化するかどうか。</p>
+        <p><code>@Deprecated</code>で注釈付けされた宣言をドキュメント化するかどうか。</p>
         <p>これはプロジェクト/モジュールレベルで設定できます。</p>
         <p>デフォルト: <code>false</code></p>
     </def>
     <def title="reportUndocumented">
         <p>
-            <code>documentedVisibilities</code>やその他のフィルターによってフィルタリングされた後、
-            可視でKDocsのない宣言、つまり未ドキュメント化された宣言について警告を発するかどうか。
+            <code>documentedVisibilities</code>やその他のフィルターによってフィルターされた後、
+            表示可能なドキュメント化されていない宣言（KDocsがない宣言）について警告を発するかどうか。
         </p>
-        <p>この設定は<code>failOnWarning</code>と組み合わせてうまく機能します。</p>
+        <p>この設定は<code>failOnWarning</code>と組み合わせるとうまく機能します。</p>
         <p>デフォルト: <code>false</code></p>
     </def>
 </deflist>
 
 ### 完全な設定
 
-以下に、すべての可能な設定オプションが同時に適用されている例を示します。
+以下に、適用可能なすべての設定オプションを同時に示した例を示します。
 
 ```xml
 <plugin>
@@ -608,3 +618,4 @@ Dokkaには、読者とあなたのエクスペリエンスを調整するため
         </perPackageOptions>
     </configuration>
 </plugin>
+```

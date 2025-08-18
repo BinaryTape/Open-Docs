@@ -11,7 +11,6 @@ export default function markdownItMKVars(md) {
       if (fs.existsSync(resolvedPath)) {
         const jsonContent = fs.readFileSync(resolvedPath, 'utf-8');
         jsonData = JSON.parse(jsonContent);
-        console.log(`Successfully read JSON variables from ${resolvedPath}`);
       } else {
         console.warn(`JSON variable file not found at ${resolvedPath}. Unable to load variables.`);
       }

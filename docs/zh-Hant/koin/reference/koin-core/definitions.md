@@ -297,3 +297,4 @@ module {
     single(named("Ints")) { ArrayList<Int>() }
     single(named("Strings")) { ArrayList<String>() }
 }
+```

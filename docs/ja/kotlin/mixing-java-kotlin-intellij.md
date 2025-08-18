@@ -1,21 +1,21 @@
-[//]: # (title: 1つのプロジェクトでJavaとKotlinを混在させる – チュートリアル)
+[//]: # (title: JavaとKotlinを1つのプロジェクトで混在させる – チュートリアル)
 
 KotlinはJavaとの優れた相互運用性を提供し、最新のIDEはそれをさらに向上させます。
-このチュートリアルでは、IntelliJ IDEAで同じプロジェクト内にKotlinとJavaのソースコードを両方使用する方法を学びます。
-IntelliJ IDEAで新しいKotlinプロジェクトを開始する方法については、「[IntelliJ IDEAを始める](jvm-get-started.md)」を参照してください。
+このチュートリアルでは、IntelliJ IDEAでKotlinとJavaの両方のソースコードを同じプロジェクトで使う方法を学習します。
+IntelliJ IDEAで新しいKotlinプロジェクトを開始する方法については、[IntelliJ IDEAでの開始方法](jvm-get-started.md)を参照してください。
 
 ## 既存のKotlinプロジェクトにJavaソースコードを追加する
 
 KotlinプロジェクトにJavaクラスを追加するのは非常に簡単です。新しいJavaファイルを作成するだけです。
-プロジェクト内のディレクトリまたはパッケージを選択し、**File** | **New** | **Java Class** に移動するか、**Alt + Insert**/**Cmd + N** のショートカットを使用します。
+プロジェクト内のディレクトリまたはパッケージを選択し、**File** | **New** | **Java Class** に移動するか、**Alt + Insert**/**Cmd + N** ショートカットを使用します。
 
-![Add new Java class](new-java-class.png){width=400}
+![新しいJavaクラスの追加](new-java-class.png){width=400}
 
-すでにJavaクラスを持っている場合は、それらをプロジェクトディレクトリにコピーするだけで済みます。
+すでにJavaクラスがある場合は、それらをプロジェクトディレクトリにコピーするだけでかまいません。
 
-これで、KotlinからJavaクラスを利用したり、その逆も追加の操作なしに行うことができます。
+これで、追加の操作なしでKotlinからJavaクラスを利用したり、その逆を行ったりすることができます。
 
-例えば、以下のJavaクラスを追加すると:
+例えば、以下のJavaクラスを追加すると：
 
 ``` java
 public class Customer {
@@ -40,7 +40,7 @@ public class Customer {
 }
 ```
 
-Kotlin内の他の型と同様に、Kotlinから呼び出すことができます。
+Kotlinから、他のKotlinの型と同様に呼び出すことができます。
 
 ```kotlin
 val customer = Customer("Phase")
@@ -50,21 +50,21 @@ println(customer.placeOrder())
 
 ## 既存のJavaプロジェクトにKotlinソースコードを追加する
 
-既存のJavaプロジェクトにKotlinファイルを追加する方法もほぼ同じです。
+既存のJavaプロジェクトにKotlinファイルを追加するのもほぼ同じです。
 
-![Add new Kotlin file class](new-kotlin-file.png){width=400}
+![新しいKotlinファイルクラスの追加](new-kotlin-file.png){width=400}
 
 このプロジェクトにKotlinファイルを初めて追加する場合、IntelliJ IDEAは必要なKotlinランタイムを自動的に追加します。
 
-![Bundling Kotlin runtime](bundling-kotlin-option.png){width=350}
+![Kotlinランタイムのバンドル](bundling-kotlin-option.png){width=350}
 
-また、**Tools** | **Kotlin** | **Configure Kotlin in Project** からKotlinランタイムの設定を手動で開くこともできます。
+また、**Tools** | **Kotlin** | **Configure Kotlin in Project** から手動でKotlinランタイム設定を開くこともできます。
 
-## J2Kを使用して既存のJavaファイルをKotlinに変換する
+## J2Kで既存のJavaファイルをKotlinに変換する
 
-Kotlinプラグインには、JavaファイルをKotlinに自動的に変換するJava to Kotlin変換ツール（_J2K_）も付属しています。
+Kotlinプラグインには、JavaファイルをKotlinに自動変換するJavaからKotlinへのコンバーター（_J2K_）も同梱されています。
 ファイルでJ2Kを使用するには、そのコンテキストメニューまたはIntelliJ IDEAの**Code**メニューで**Convert Java File to Kotlin File**をクリックします。
 
-![Convert Java to Kotlin](convert-java-to-kotlin.png){width=500}
+![JavaからKotlinへ変換](convert-java-to-kotlin.png){width=500}
 
-この変換ツールは完璧ではありませんが、ほとんどのJavaのボイラープレートコードをKotlinに変換する上で、かなりうまく機能します。しかし、手動での調整が時々必要になります。
+このコンバーターは完璧ではありませんが、ほとんどのJavaのボイラープレートコードをKotlinに変換するのに十分な働きをします。ただし、手動での調整が時々必要になります。

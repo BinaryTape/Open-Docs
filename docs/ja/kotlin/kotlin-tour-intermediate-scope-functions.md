@@ -5,12 +5,12 @@
 <tldr>
     <p><img src="icon-1-done.svg" width="20" alt="最初のステップ" /> <a href="kotlin-tour-intermediate-extension-functions.md">拡張関数</a><br />
         <img src="icon-2.svg" width="20" alt="2番目のステップ" /> <strong>スコープ関数</strong><br />
-        <img src="icon-3-todo.svg" width="20" alt="3番目のステップ" /> <a href="kotlin-tour-intermediate-lambdas-receiver.md">レシーバ付きラムダ式</a><br />
+        <img src="icon-3-todo.svg" width="20" alt="3番目のステップ" /> <a href="kotlin-tour-intermediate-lambdas-receiver.md">レシーバー付きラムダ式</a><br />
         <img src="icon-4-todo.svg" width="20" alt="4番目のステップ" /> <a href="kotlin-tour-intermediate-classes-interfaces.md">クラスとインターフェース</a><br />
         <img src="icon-5-todo.svg" width="20" alt="5番目のステップ" /> <a href="kotlin-tour-intermediate-objects.md">オブジェクト</a><br />
-        <img src="icon-6-todo.svg" width="20" alt="6番目のステップ" /> <a href="kotlin-tour-intermediate-open-special-classes.md">オープンクラスと特殊クラス</a><br />
+        <img src="icon-6-todo.svg" width="20" alt="6番目のステップ" /> <a href="kotlin-tour-intermediate-open-special-classes.md">open クラスと特殊なクラス</a><br />
         <img src="icon-7-todo.svg" width="20" alt="7番目のステップ" /> <a href="kotlin-tour-intermediate-properties.md">プロパティ</a><br />
-        <img src="icon-8-todo.svg" width="20" alt="8番目のステップ" /> <a href="kotlin-tour-intermediate-null-safety.md">null安全性</a><br />
+        <img src="icon-8-todo.svg" width="20" alt="8番目のステップ" /> <a href="kotlin-tour-intermediate-null-safety.md">Null安全性</a><br />
         <img src="icon-9-todo.svg" width="20" alt="9番目のステップ" /> <a href="kotlin-tour-intermediate-libraries-and-apis.md">ライブラリとAPI</a></p>
 </tldr>
 
@@ -18,28 +18,28 @@
 
 ## スコープ関数
 
-プログラミングにおいて、スコープとは、変数やオブジェクトが認識される領域のことです。最も一般的に参照されるスコープは、グローバルスコープとローカルスコープです。
+プログラミングにおいて、スコープとは変数またはオブジェクトが認識される範囲を指します。最も一般的に参照されるスコープは、グローバルスコープとローカルスコープです。
 
-*   **グローバルスコープ** – プログラムのどこからでもアクセスできる変数またはオブジェクト。
-*   **ローカルスコープ** – 定義されたブロックまたは関数内でのみアクセスできる変数またはオブジェクト。
+*   **グローバルスコープ** – プログラム内のどこからでもアクセス可能な変数またはオブジェクト。
+*   **ローカルスコープ** – 定義されているブロックまたは関数内でのみアクセス可能な変数またはオブジェクト。
 
-Kotlinには、オブジェクトの周りに一時的なスコープを作成し、コードを実行できるスコープ関数も存在します。
+Kotlinには、オブジェクトの周囲に一時的なスコープを作成し、一部のコードを実行できるスコープ関数もあります。
 
-スコープ関数を使用すると、一時的なスコープ内でオブジェクトの名前を参照する必要がないため、コードをより簡潔にすることができます。スコープ関数によっては、`this` キーワードで参照するか、`it` キーワードで引数として使用することで、オブジェクトにアクセスできます。
+スコープ関数を使用すると、一時的なスコープ内でオブジェクトの名前を参照する必要がないため、コードをより簡潔にできます。スコープ関数に応じて、`this` キーワードを介してオブジェクトを参照するか、`it` キーワードを介して引数として使用することでオブジェクトにアクセスできます。
 
 Kotlinには、`let`、`apply`、`run`、`also`、`with` の合計5つのスコープ関数があります。
 
-各スコープ関数はラムダ式を受け取り、オブジェクトまたはラムダ式の結果を返します。このツアーでは、各スコープ関数とその使用方法を説明します。
+各スコープ関数はラムダ式を受け取り、オブジェクトまたはラムダ式の結果のいずれかを返します。このツアーでは、各スコープ関数と、その使用方法を説明します。
 
-> また、KotlinデベロッパーアドボケートであるSebastian Aignerによるスコープ関数に関する[Back to the Stdlib: Making the Most of Kotlin's Standard Library](https://youtu.be/DdvgvSHrN9g?feature=shared&t=1511)のトークも視聴できます。
-> 
+> Sebastian Aigner 氏（Kotlin開発者アドボケイト）によるスコープ関数に関するトーク、[Back to the Stdlib: Making the Most of Kotlin's Standard Library](https://youtu.be/DdvgvSHrN9g?feature=shared&t=1511) もご覧いただけます。
+>
 {style="tip"}
 
-### let
+### `let`
 
-`let` スコープ関数は、コードでnullチェックを実行し、後で返されたオブジェクトに対してさらなるアクションを実行したい場合に使用します。
+`let` スコープ関数は、コードで null チェックを実行し、後で返されたオブジェクトに対してさらにアクションを実行したい場合に使用します。
 
-例を考えてみましょう。
+例を見てみましょう。
 
 ```kotlin
 fun sendNotification(recipientAddress: String): String {
@@ -62,13 +62,13 @@ fun main() {
 *   `sendNotification()`: 関数パラメータ `recipientAddress` を持ち、文字列を返します。
 *   `getNextAddress()`: 関数パラメータを持たず、文字列を返します。
 
-この例では、null許容な `String` 型を持つ変数 `address` を作成します。しかし、`sendNotification()` 関数を呼び出す際に問題が発生します。この関数は、`address` が `null` 値である可能性を想定していないためです。その結果、コンパイラはエラーを報告します。
+この例では、nullable な `String` 型の変数 `address` を作成します。しかし、`sendNotification()` 関数を呼び出す際に問題が発生します。この関数は `address` が `null` 値である可能性を想定していないためです。結果として、コンパイラはエラーを報告します。
 
 ```text
-Type mismatch: inferred type is String? but String was expected
+Argument type mismatch: actual type is 'String?', but 'String' was expected.
 ```
 
-初心者ツアーから、if条件でnullチェックを実行できること、または[Elvis演算子 `?:`](kotlin-tour-null-safety.md#use-elvis-operator)を使用できることをすでに知っています。しかし、返されたオブジェクトを後でコードで使用したい場合はどうでしょうか？これは、if条件とelseブランチを**両方**使用することで実現できます。
+入門ツアーから、if 条件を使って null チェックを実行したり、[Elvis演算子 `?:`](kotlin-tour-null-safety.md#use-elvis-operator) を使用できることをすでに知っています。しかし、返されたオブジェクトを後でコードで使用したい場合はどうでしょうか？これは、if 条件 **と** else ブランチを使用することで実現できます。
 
 ```kotlin
 fun sendNotification(recipientAddress: String): String {
@@ -80,7 +80,7 @@ fun getNextAddress(): String {
     return "sebastian@jetbrains.com"
 }
 
-fun main() { 
+fun main() {
     //sampleStart
     val address: String? = getNextAddress()
     val confirm = if(address != null) {
@@ -114,21 +114,21 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-tour-scope-function-let-non-null"}
 
-この例では次のことを行います。
-*   `confirm` という名前の変数を作成します。
-*   `address` 変数に対して `let` スコープ関数のセーフコールを使用します。
+この例では、次のことを行っています。
+*   `confirm` という変数を作成します。
+*   `address` 変数に対して `let` スコープ関数を安全呼び出しで使用します。
 *   `let` スコープ関数内に一時的なスコープを作成します。
 *   `sendNotification()` 関数をラムダ式として `let` スコープ関数に渡します。
-*   一時的なスコープを使用して、`it` 経由で `address` 変数を参照します。
+*   一時的なスコープを使用して、`it` を介して `address` 変数を参照します。
 *   結果を `confirm` 変数に代入します。
 
-このアプローチにより、`address` 変数が `null` 値である可能性をコードで処理でき、後で `confirm` 変数をコードで使用できます。
+このアプローチにより、コードは `address` 変数が `null` 値である可能性を処理でき、後でコードで `confirm` 変数を使用できます。
 
-### apply
+### `apply`
 
-`apply` スコープ関数は、クラスインスタンスのようなオブジェクトを、コードの後の方ではなく、作成時に初期化するために使用します。このアプローチにより、コードの読みやすさと管理が容易になります。
+`apply` スコープ関数は、クラスインスタンスのようなオブジェクトを、コードの後の方ではなく、作成時に初期化するために使用します。このアプローチにより、コードが読みやすく、管理しやすくなります。
 
-例を考えてみましょう。
+例を見てみましょう。
 
 ```kotlin
 class Client() {
@@ -151,11 +151,11 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-tour-scope-function-apply-before"}
 
-この例には、`token` というプロパティと、`connect()`、`authenticate()`、`getData()` の3つのメンバー関数を含む `Client` クラスがあります。
+この例には、`token` という1つのプロパティと、`connect()`、`authenticate()`、`getData()` の3つのメンバー関数を持つ `Client` クラスがあります。
 
-この例では、`Client` クラスのインスタンスとして `client` を作成し、その `token` プロパティを初期化し、`main()` 関数でそのメンバー関数を呼び出しています。
+この例では、`main()` 関数で `client` を `Client` クラスのインスタンスとして作成し、その `token` プロパティを初期化し、メンバー関数を呼び出しています。
 
-この例はコンパクトですが、実際のところ、クラスインスタンス（およびそのメンバー関数）を作成してから設定して使用できるようになるまでには時間がかかることがあります。しかし、`apply` スコープ関数を使用すると、クラスインスタンスの作成、設定、およびメンバー関数の使用を、コードの同じ場所で行うことができます。
+この例は簡潔ですが、実際には、クラスインスタンスを作成してから設定して使用する（およびそのメンバー関数を呼び出す）までに時間がかかる場合があります。しかし、`apply` スコープ関数を使用すると、クラスインスタンスの作成、設定、およびメンバー関数の使用をすべてコードの同じ場所で行うことができます。
 
 ```kotlin
 class Client() {
@@ -180,21 +180,21 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-tour-scope-function-apply-after"}
 
-この例では次のことを行います。
+この例では、次のことを行っています。
 
-*   `Client` クラスのインスタンスとして `client` を作成します。
+*   `client` を `Client` クラスのインスタンスとして作成します。
 *   `client` インスタンスに対して `apply` スコープ関数を使用します。
-*   `apply` スコープ関数内に一時的なスコープを作成し、プロパティや関数にアクセスする際に `client` インスタンスを明示的に参照する必要がないようにします。
-*   `apply` スコープ関数にラムダ式を渡し、`token` プロパティを更新し、`connect()` および `authenticate()` 関数を呼び出します。
+*   `apply` スコープ関数内に一時的なスコープを作成し、そのプロパティや関数にアクセスする際に `client` インスタンスを明示的に参照する必要がないようにします。
+*   `token` プロパティを更新し、`connect()` および `authenticate()` 関数を呼び出すラムダ式を `apply` スコープ関数に渡します。
 *   `main()` 関数で `client` インスタンスの `getData()` メンバー関数を呼び出します。
 
-ご覧のように、この戦略は大規模なコードを扱う場合に便利です。
+ご覧のとおり、この戦略は大規模なコードを扱う場合に便利です。
 
-### run
+### `run`
 
-`apply` と同様に、`run` スコープ関数を使用してオブジェクトを初期化できますが、コードの特定の時点でオブジェクトを初期化し、**かつ**すぐに結果を計算したい場合は、`run` を使用する方が適しています。
+`apply` と同様に、`run` スコープ関数を使用してオブジェクトを初期化できますが、コードの特定の瞬間にオブジェクトを初期化 **し**、すぐに結果を計算したい場合は `run` を使用する方が良いです。
 
-`apply` 関数の前の例を続けますが、今回は `connect()` と `authenticate()` 関数をグループ化して、すべてのリクエストで呼び出されるようにします。
+`apply` 関数の前の例を続けますが、今回は `connect()` 関数と `authenticate()` 関数をグループ化し、すべてのリクエストで呼び出されるようにしたいとします。
 
 例:
 
@@ -224,28 +224,28 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-tour-scope-function-run"}
 
-この例では次のことを行います。
+この例では、次のことを行っています。
 
-*   `Client` クラスのインスタンスとして `client` を作成します。
+*   `client` を `Client` クラスのインスタンスとして作成します。
 *   `client` インスタンスに対して `apply` スコープ関数を使用します。
-*   `apply` スコープ関数内に一時的なスコープを作成し、プロパティや関数にアクセスする際に `client` インスタンスを明示的に参照する必要がないようにします。
-*   `apply` スコープ関数にラムダ式を渡し、`token` プロパティを更新します。
+*   `apply` スコープ関数内に一時的なスコープを作成し、そのプロパティや関数にアクセスする際に `client` インスタンスを明示的に参照する必要がないようにします。
+*   `token` プロパティを更新するラムダ式を `apply` スコープ関数に渡します。
 
-`main()` 関数では次のことを行います。
+`main()` 関数は、次のことを行います。
 
 *   `String` 型の `result` 変数を作成します。
 *   `client` インスタンスに対して `run` スコープ関数を使用します。
-*   `run` スコープ関数内に一時的なスコープを作成し、プロパティや関数にアクセスする際に `client` インスタンスを明示的に参照する必要がないようにします。
-*   `run` スコープ関数にラムダ式を渡し、`connect()`、`authenticate()`、`getData()` 関数を呼び出します。
+*   `run` スコープ関数内に一時的なスコープを作成し、そのプロパティや関数にアクセスする際に `client` インスタンスを明示的に参照する必要がないようにします。
+*   `connect()`、`authenticate()`、および `getData()` 関数を呼び出すラムダ式を `run` スコープ関数に渡します。
 *   結果を `result` 変数に代入します。
 
-これで、返された結果をコードでさらに使用できます。
+これで、返された結果をコード内でさらに使用できます。
 
-### also
+### `also`
 
-ログの書き込みのように、オブジェクトで追加のアクションを完了し、そのオブジェクトを返してコードで引き続き使用したい場合は、`also` スコープ関数を使用します。
+`also` スコープ関数は、オブジェクトに対して追加のアクションを完了し、そのオブジェクトを返してコード内で引き続き使用する（例えばログを書き込むなど）場合に使用します。
 
-例を考えてみましょう。
+例を見てみましょう。
 
 ```kotlin
 fun main() {
@@ -261,19 +261,19 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-tour-scope-function-also-before"}
 
-この例では次のことを行います。
+この例では、次のことを行っています。
 
 *   文字列のリストを含む `medals` 変数を作成します。
 *   `List<String>` 型の `reversedLongUpperCaseMedals` 変数を作成します。
 *   `medals` 変数に対して `.map()` 拡張関数を使用します。
-*   `.map()` 関数にラムダ式を渡し、`it` キーワードを介して `medals` を参照し、それに対して `.uppercase()` 拡張関数を呼び出します。
+*   `it` キーワードを介して `medals` を参照し、その上で `.uppercase()` 拡張関数を呼び出すラムダ式を `.map()` 関数に渡します。
 *   `medals` 変数に対して `.filter()` 拡張関数を使用します。
-*   `.filter()` 関数に述語としてラムダ式を渡し、`it` キーワードを介して `medals` を参照し、`medals` 変数に含まれるリストの長さが4項目より長いかどうかをチェックします。
+*   `it` キーワードを介して `medals` を参照し、`medals` 変数に含まれるリストの長さが4項目よりも長いかどうかをチェックするラムダ式を述語として `.filter()` 関数に渡します。
 *   `medals` 変数に対して `.reversed()` 拡張関数を使用します。
 *   結果を `reversedLongUpperCaseMedals` 変数に代入します。
 *   `reversedLongUpperCaseMedals` 変数に含まれるリストを出力します。
 
-関数呼び出しの間にログを追加して、`medals` 変数に何が起きているかを確認すると便利です。`also` 関数がこれに役立ちます。
+関数呼び出しの間にログを追加して、`medals` 変数に何が起きているかを確認できると便利です。`also` 関数はこれに役立ちます。
 
 ```kotlin
 fun main() {
@@ -293,21 +293,21 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-tour-scope-function-also-after"}
 
-この例では次のことを行います。
+この例では、次のことを行っています。
 
 *   `medals` 変数に対して `also` スコープ関数を使用します。
-*   `also` スコープ関数内に一時的なスコープを作成し、関数パラメータとして使用する際に `medals` 変数を明示的に参照する必要がないようにします。
-*   `also` スコープ関数にラムダ式を渡し、`it` キーワードを介して `medals` 変数を関数パラメータとして使用して `println()` 関数を呼び出します。
+*   `also` スコープ関数内に一時的なスコープを作成し、`medals` 変数を関数パラメータとして使用する際に明示的に参照する必要がないようにします。
+*   `it` キーワードを介して `medals` 変数を関数パラメータとして使用して `println()` 関数を呼び出すラムダ式を `also` スコープ関数に渡します。
 
-`also` 関数はオブジェクトを返すため、ログ記録だけでなく、デバッグ、複数の操作の連鎖、およびコードの主要な流れに影響を与えないその他の副作用操作の実行に役立ちます。
+`also` 関数はオブジェクトを返すため、ログ記録だけでなく、デバッグ、複数の操作のチェイン、およびコードのメインフローに影響を与えないその他の副作用操作の実行にも役立ちます。
 
-### with
+### `with`
 
-他のスコープ関数とは異なり、`with` は拡張関数ではないため、構文が異なります。`with` にレシーバオブジェクトを引数として渡します。
+他のスコープ関数とは異なり、`with` は拡張関数ではないため、構文が異なります。レシーバーオブジェクトを引数として `with` に渡します。
 
 オブジェクトに対して複数の関数を呼び出したい場合は、`with` スコープ関数を使用します。
 
-この例を考えてみましょう。
+この例を見てみましょう。
 
 ```kotlin
 class Canvas {
@@ -335,9 +335,9 @@ fun main() {
 
 この例では、`rect()`、`circ()`、`text()` の3つのメンバー関数を持つ `Canvas` クラスを作成します。これらの各メンバー関数は、提供された関数パラメータから構築されたステートメントを出力します。
 
-この例では、`mainMonitorPrimaryBufferBackedCanvas` を `Canvas` クラスのインスタンスとして作成し、異なる関数パラメータを持つ一連のメンバー関数をそのインスタンスで呼び出す前に使用します。
+この例では、`mainMonitorPrimaryBufferBackedCanvas` を `Canvas` クラスのインスタンスとして作成し、そのインスタンスで異なる関数パラメータを持つ一連のメンバー関数を呼び出しています。
 
-このコードは読みにくいことがわかります。`with` 関数を使用すると、コードが効率化されます。
+このコードは読みにくいことがわかります。`with` 関数を使用すると、コードは効率化されます。
 
 ```kotlin
 class Canvas {
@@ -366,37 +366,36 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-tour-scope-function-with-after"}
 
-この例では次のことを行います。
-*   `mainMonitorSecondaryBufferBackedCanvas` インスタンスをレシーバオブジェクトとして、`with` スコープ関数を使用します。
-*   `with` スコープ関数内に一時的なスコープを作成し、メンバー関数を呼び出す際に `mainMonitorSecondaryBufferBackedCanvas` インスタンスを明示的に参照する必要がないようにします。
-*   `with` スコープ関数にラムダ式を渡し、異なる関数パラメータを持つ一連のメンバー関数を呼び出します。
+この例では、次のことを行っています。
+*   `mainMonitorSecondaryBufferBackedCanvas` インスタンスをレシーバーオブジェクトとして `with` スコープ関数を使用します。
+*   `with` スコープ関数内に一時的なスコープを作成し、そのメンバー関数を呼び出す際に `mainMonitorSecondaryBufferBackedCanvas` インスタンスを明示的に参照する必要がないようにします。
+*   異なる関数パラメータを持つ一連のメンバー関数を呼び出すラムダ式を `with` スコープ関数に渡します。
 
-このコードははるかに読みやすくなったため、間違いを犯す可能性が低くなります。
+このコードがはるかに読みやすくなったため、間違いを犯す可能性が低くなります。
 
 ## ユースケースの概要
 
-このセクションでは、Kotlinで利用できるさまざまなスコープ関数と、コードをよりイディオマティックにするための主なユースケースについて説明しました。この表をクイックリファレンスとして使用できます。これらの関数の動作を完全に理解していなくても、コードでそれらを使用できることに注意することが重要です。
+このセクションでは、Kotlinで利用できるさまざまなスコープ関数と、コードをよりイディオマティックにするための主要なユースケースについて説明しました。この表をクイックリファレンスとして使用できます。これらの関数がどのように機能するかを完全に理解していなくても、コードで使用できることに注意することが重要です。
 
-| 関数   | `x` へのアクセス方法 | 戻り値     | ユースケース                                                                         |
-|--------|----------------------|------------|--------------------------------------------------------------------------------------|
-| `let`  | `it`                 | ラムダの結果 | コードでnullチェックを実行し、後で返されたオブジェクトに対してさらなるアクションを実行します。 |
-| `apply`| `this`               | `x`        | 作成時にオブジェクトを初期化します。                                                  |
-| `run`  | `this`               | ラムダの結果 | 作成時にオブジェクトを初期化し、**かつ**結果を計算します。                             |
-| `also` | `it`                 | `x`        | オブジェクトを返す前に追加のアクションを完了します。                                   |
-| `with` | `this`               | ラムダの結果 | オブジェクトに対して複数の関数を呼び出します。                                        |
+| 関数    | `x`へのアクセス方法 | 戻り値        | ユースケース                                                           |
+|---------|-------------------|---------------|------------------------------------------------------------------------|
+| `let`   | `it`              | ラムダの結果  | コードで null チェックを実行し、後で返されたオブジェクトに対してさらにアクションを実行する。 |
+| `apply` | `this`            | `x`           | オブジェクトを作成時に初期化する。                                         |
+| `run`   | `this`            | ラムダの結果  | オブジェクトを作成時に初期化 **し**、結果を計算する。                        |
+| `also`  | `it`              | `x`           | オブジェクトを返す前に追加のアクションを完了する。                             |
+| `with`  | `this`            | ラムダの結果  | オブジェクトに対して複数の関数を呼び出す。                                 |
 
-スコープ関数の詳細については、[スコープ関数](scope-functions.md)を参照してください。
+スコープ関数の詳細については、[スコープ関数](scope-functions.md) を参照してください。
 
-## 練習
+## 練習問題
 
 ### 演習 1 {initial-collapse-state="collapsed" collapsible="true" id="scope-functions-exercise-1"}
 
-`.getPriceInEuros()` 関数を、セーフコール演算子 `?.` と `let` スコープ関数を使用する単一式関数として書き換えてください。
+`.getPriceInEuros()` 関数を、安全呼び出し演算子 `?.` と `let` スコープ関数を使用する単一式関数として書き直してください。
 
 <deflist collapsible="true">
     <def title="ヒント">
-        セーフコール演算子 <code>?.</code> を使用して、<code>getProductInfo()</code> 関数から <code>priceInDollars</code> プロパティに安全にアクセスします。
-        次に、<code>let</code> スコープ関数を使用して、<code>priceInDollars</code> の値をユーロに変換します。
+        安全呼び出し演算子 <code>?.</code> を使用して、<code>getProductInfo()</code> 関数から <code>priceInDollars</code> プロパティに安全にアクセスします。その後、<code>let</code> スコープ関数を使用して、<code>priceInDollars</code> の値をユーロに変換します。
     </def>
 </deflist>
 
@@ -410,7 +409,7 @@ class Product {
     }
 }
 
-// この関数を書き換えてください
+// Rewrite this function
 fun Product.getPriceInEuros(): Double? {
     val info = getProductInfo()
     if (info == null) return null
@@ -475,7 +474,7 @@ fun main() {
 ```kotlin
 data class User(val id: Int, var email: String)
 
-fun updateEmail(user: User, newEmail: String): User = // ここにコードを記述してください
+fun updateEmail(user: User, newEmail: String): User = // Write your code here
 
 fun main() {
     val user = User(1, "old_email@example.com")
@@ -509,4 +508,4 @@ fun main() {
 
 ## 次のステップ
 
-[中級: レシーバ付きラムダ式](kotlin-tour-intermediate-lambdas-receiver.md)
+[中級: レシーバー付きラムダ式](kotlin-tour-intermediate-lambdas-receiver.md)

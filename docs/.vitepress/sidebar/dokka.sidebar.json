@@ -1,0 +1,58 @@
+[
+  {
+    "text": "dokka.dokka-introduction",
+    "link": "dokka-introduction"
+  },
+  {
+    "text": "dokka.dokka-get-started",
+    "link": "dokka-get-started"
+  },
+  {
+    "text": "dokka.run-dokka",
+    "items": [
+      {
+        "text": "dokka.dokka-gradle",
+        "link": "dokka-gradle"
+      },
+      {
+        "text": "dokka.dokka-migration",
+        "link": "dokka-migration"
+      },
+      {
+        "text": "dokka.dokka-maven",
+        "link": "dokka-maven"
+      },
+      {
+        "text": "dokka.dokka-cli",
+        "link": "dokka-cli"
+      }
+    ],
+    "collapsed": true
+  },
+  {
+    "text": "dokka.output-formats",
+    "items": [
+      {
+        "text": "dokka.dokka-html",
+        "link": "dokka-html"
+      },
+      {
+        "text": "dokka.dokka-markdown",
+        "link": "dokka-markdown"
+      },
+      {
+        "text": "dokka.dokka-javadoc",
+        "link": "dokka-javadoc"
+      }
+    ],
+    "collapsed": true
+  },
+  {
+    "text": "dokka.dokka-plugins",
+    "link": "dokka-plugins"
+  },
+  {
+    "text": "dokka.dokka-module-and-package-docs",
+    "link": "dokka-module-and-package-docs"
+  }
+]

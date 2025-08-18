@@ -1,21 +1,21 @@
 [//]: # (title: 繼承)
 
-Kotlin 中的所有類別都擁有一個共同的超類別 `Any`，它是一個未宣告任何超型別的類別的預設超類別：
+Kotlin 中的所有類別都有一個共同的超類別 `Any`，它是一個沒有宣告超類型之類別的預設超類別：
 
 ```kotlin
-class Example // 隱含地繼承自 Any
+class Example // 隱式繼承自 Any
 ```
 
-`Any` 具有三個方法：`equals()`、`hashCode()` 和 `toString()`。因此，所有 Kotlin 類別都定義了這些方法。
+`Any` 有三個方法：`equals()`、`hashCode()` 和 `toString()`。因此，這些方法是為所有 Kotlin 類別定義的。
 
-預設情況下，Kotlin 類別是最終的（final）—— 它們無法被繼承。要使一個類別可繼承，請使用 `open` 關鍵字標記它：
+預設情況下，Kotlin 類別是 `final` 的，這表示它們不能被繼承。要使一個類別可被繼承，請使用 `open` 關鍵字標記它：
 
 ```kotlin
-open class Base // 該類別開放供繼承
+open class Base // 類別開放供繼承
 
 ```
 
-要宣告一個明確的超型別，請在類別標頭中的冒號後放置該型別：
+若要宣告一個明確的超類型，請在類別標頭中的冒號後放置該類型：
 
 ```kotlin
 open class Base(p: Int)
@@ -23,9 +23,9 @@ open class Base(p: Int)
 class Derived(p: Int) : Base(p)
 ```
 
-如果衍生類別具有主要建構函式，基底類別可以（並且必須）根據其參數在該主要建構函式中初始化。
+如果衍生類別有一個主要建構函式，基礎類別可以（並且必須）根據其參數在該主要建構函式中初始化。
 
-如果衍生類別沒有主要建構函式，那麼每個次要建構函式都必須使用 `super` 關鍵字初始化基底型別，或者必須委派給另一個執行此操作的建構函式。請注意，在這種情況下，不同的次要建構函式可以呼叫基底型別的不同建構函式：
+如果衍生類別沒有主要建構函式，那麼每個次要建構函式都必須使用 `super` 關鍵字來初始化基礎類型，或者它必須委派給另一個這樣做的建構函式。請注意，在這種情況下，不同的次要建構函式可以呼叫基礎類型的不同建構函式：
 
 ```kotlin
 class MyView : View {
@@ -37,7 +37,7 @@ class MyView : View {
 
 ## 覆寫方法
 
-Kotlin 對於可覆寫的成員和覆寫項要求明確的修飾符：
+Kotlin 要求對可覆寫成員和覆寫提供明確的修飾符：
 
 ```kotlin
 open class Shape {
@@ -50,9 +50,9 @@ class Circle() : Shape() {
 }
 ```
 
-`Circle.draw()` 必須使用 `override` 修飾符。如果它缺失，編譯器將會報錯。如果一個函式（例如 `Shape.fill()`）上沒有 `open` 修飾符，那麼在子類別中宣告具有相同簽章的方法是不允許的，無論是否使用 `override`。當 `open` 修飾符被加入到最終類別（即沒有 `open` 修飾符的類別）的成員時，它沒有任何效果。
+`Circle.draw()` 必須使用 `override` 修飾符。如果缺少它，編譯器會發出錯誤。如果一個函式沒有 `open` 修飾符，例如 `Shape.fill()`，則不允許在子類別中宣告具有相同簽章的方法，無論有無 `override` 修飾符皆是。`open` 修飾符加到 `final` 類別（即沒有 `open` 修飾符的類別）的成員時，沒有任何效果。
 
-標記為 `override` 的成員本身是開放的（open），因此它可以在子類別中被覆寫。如果您想禁止再次覆寫，請使用 `final`：
+被標記為 `override` 的成員本身是 `open` 的，因此它可以在子類別中被覆寫。如果您想禁止再次覆寫，請使用 `final`：
 
 ```kotlin
 open class Rectangle() : Shape() {
@@ -62,7 +62,7 @@ open class Rectangle() : Shape() {
 
 ## 覆寫屬性
 
-覆寫機制在屬性上的運作方式與在方法上相同。在超類別上宣告的屬性，然後在衍生類別上重新宣告時，必須以 `override` 為前綴，並且它們必須具有相容的型別。每個宣告的屬性都可以被帶有初始化器或帶有 `get` 方法的屬性覆寫：
+覆寫機制在屬性上的運作方式與在方法上相同。在超類別上宣告的屬性，如果隨後在衍生類別上重新宣告，則必須以 `override` 為前綴，並且它們必須具有相容的類型。每個宣告的屬性都可以被一個帶有初始化器或帶有 `get` 方法的屬性覆寫：
 
 ```kotlin
 open class Shape {
@@ -74,7 +74,7 @@ class Rectangle : Shape() {
 }
 ```
 
-您還可以用 `var` 屬性覆寫 `val` 屬性，但反之則不行。這是允許的，因為 `val` 屬性本質上宣告了一個 `get` 方法，而將其覆寫為 `var` 則額外地在衍生類別中宣告了一個 `set` 方法。
+您還可以使用 `var` 屬性覆寫 `val` 屬性，但反之則不行。這是允許的，因為 `val` 屬性本質上宣告了一個 `get` 方法，而將其覆寫為 `var` 會在衍生類別中額外宣告一個 `set` 方法。
 
 請注意，您可以在主要建構函式中將 `override` 關鍵字作為屬性宣告的一部分使用：
 
@@ -83,7 +83,7 @@ interface Shape {
     val vertexCount: Int
 }
 
-class Rectangle(override val vertexCount: Int = 4) : Shape // 始終有 4 個頂點
+class Rectangle(override val vertexCount: Int = 4) : Shape // 總是具有 4 個頂點
 
 class Polygon : Shape {
     override var vertexCount: Int = 0  // 稍後可以設定為任何數字
@@ -92,38 +92,38 @@ class Polygon : Shape {
 
 ## 衍生類別初始化順序
 
-在建構衍生類別的新實例時，基底類別的初始化是第一步完成的（僅在基底類別建構函式的參數評估之後發生），這意味著它在衍生類別的初始化邏輯執行之前發生。
+在衍生類別的新實例建構期間，基礎類別的初始化是第一步（僅在評估基礎類別建構函式的引數之前進行），這表示它發生在衍生類別的初始化邏輯運行之前。
 
 ```kotlin
 //sampleStart
 open class Base(val name: String) {
 
-    init { println("Initializing a base class") }
+    init { println("Initializing a base class") } // 初始化基礎類別
 
     open val size: Int = 
-        name.length.also { println("Initializing size in the base class: $it") }
+        name.length.also { println("Initializing size in the base class: $it") } // 在基礎類別中初始化 size
 }
 
 class Derived(
     name: String,
     val lastName: String,
-) : Base(name.replaceFirstChar { it.uppercase() }.also { println("Argument for the base class: $it") }) {
+) : Base(name.replaceFirstChar { it.uppercase() }.also { println("Argument for the base class: $it") }) { // 基礎類別的引數
 
-    init { println("Initializing a derived class") }
+    init { println("Initializing a derived class") } // 初始化衍生類別
 
     override val size: Int =
-        (super.size + lastName.length).also { println("Initializing size in the derived class: $it") }
+        (super.size + lastName.length).also { println("Initializing size in the derived class: $it") } // 在衍生類別中初始化 size
 }
 //sampleEnd
 
 fun main() {
-    println("Constructing the derived class(\"hello\", \"world\")")
+    println("Constructing the derived class(\"hello\", \"world\")") // 正在建構衍生類別("hello", "world")
     Derived("hello", "world")
 }
 ```
 {kotlin-runnable="true"}
 
-這表示當基底類別建構函式執行時，在衍生類別中宣告或覆寫的屬性尚未被初始化。在基底類別初始化邏輯中（無論是直接還是間接通過另一個覆寫的 `open` 成員實作）使用這些屬性中的任何一個，都可能導致不正確的行為或執行時失敗。因此，在設計基底類別時，您應該避免在建構函式、屬性初始化器或 `init` 區塊中使用 `open` 成員。
+這表示當基礎類別建構函式執行時，在衍生類別中宣告或覆寫的屬性尚未初始化。在基礎類別初始化邏輯中（無論是直接還是間接透過另一個覆寫的 `open` 成員實作）使用這些屬性中的任何一個都可能導致不正確的行為或執行時失敗。因此，在設計基礎類別時，應避免在建構函式、屬性初始化器或 `init` 區塊中使用 `open` 成員。
 
 ## 呼叫超類別實作
 
@@ -131,26 +131,26 @@ fun main() {
 
 ```kotlin
 open class Rectangle {
-    open fun draw() { println("Drawing a rectangle") }
-    val borderColor: String get() = "black"
+    open fun draw() { println("Drawing a rectangle") } // 繪製矩形
+    val borderColor: String get() = "black" // 黑色
 }
 
 class FilledRectangle : Rectangle() {
     override fun draw() {
         super.draw()
-        println("Filling the rectangle")
+        println("Filling the rectangle") // 正在填充矩形
     }
 
     val fillColor: String get() = super.borderColor
 }
 ```
 
-在內部類別中，存取外部類別的超類別是通過使用以外部類別名稱限定的 `super` 關鍵字來完成的：`super@Outer`：
+在內部類別中，存取外部類別的超類別是使用 `super` 關鍵字並限定外部類別名稱來完成的：`super@Outer`：
 
 ```kotlin
 open class Rectangle {
-    open fun draw() { println("Drawing a rectangle") }
-    val borderColor: String get() = "black"
+    open fun draw() { println("Drawing a rectangle") } // 繪製矩形
+    val borderColor: String get() = "black" // 黑色
 }
 
 //sampleStart
@@ -161,11 +161,11 @@ class FilledRectangle: Rectangle() {
     }
     
     inner class Filler {
-        fun fill() { println("Filling") }
+        fun fill() { println("Filling") } // 正在填充
         fun drawAndFill() {
             super@FilledRectangle.draw() // 呼叫 Rectangle 的 draw() 實作
             fill()
-            println("Drawn a filled rectangle with color ${super@FilledRectangle.borderColor}") // 使用 Rectangle 的 borderColor 屬性的 get() 實作
+            println("Drawn a filled rectangle with color ${super@FilledRectangle.borderColor}") // 使用 Rectangle 的 borderColor 的 get() 實作繪製了一個帶有顏色的實心矩形
         }
     }
 }
@@ -180,9 +180,9 @@ fun main() {
 
 ## 覆寫規則
 
-在 Kotlin 中，實作繼承受以下規則約束：如果一個類別從其直接超類別繼承了相同成員的多個實作，它必須覆寫此成員並提供自己的實作（或許使用其中一個繼承來的實作）。
+在 Kotlin 中，實作繼承受以下規則約束：如果一個類別從其直接超類別繼承了相同成員的多個實作，它必須覆寫此成員並提供自己的實作（或許，使用其中一個繼承的實作）。
 
-為了表示繼承實作來源的超型別，請使用尖括號中指定的超型別名稱來限定 `super`，例如 `super<Base>`：
+為了表示繼承實作的超類型，請使用帶有尖括號中超類型名稱的 `super` 關鍵字，例如 `super<Base>`：
 
 ```kotlin
 open class Rectangle {
@@ -190,11 +190,11 @@ open class Rectangle {
 }
 
 interface Polygon {
-    fun draw() { /* ... */ } // 介面成員依預設為 'open'
+    fun draw() { /* ... */ } // 介面成員預設為 'open'
 }
 
 class Square() : Rectangle(), Polygon {
-    // 編譯器要求覆寫 draw():
+    // 編譯器要求覆寫 draw()：
     override fun draw() {
         super<Rectangle>.draw() // 呼叫 Rectangle.draw()
         super<Polygon>.draw() // 呼叫 Polygon.draw()
@@ -202,4 +202,4 @@ class Square() : Rectangle(), Polygon {
 }
 ```
 
-同時繼承自 `Rectangle` 和 `Polygon` 是沒問題的，但它們都具有各自的 `draw()` 實作，因此您需要在 `Square` 中覆寫 `draw()` 並為其提供一個單獨的實作以消除歧義。
+從 `Rectangle` 和 `Polygon` 繼承是沒有問題的，但它們都有自己的 `draw()` 實作，因此您需要在 `Square` 中覆寫 `draw()` 並為其提供一個單獨的實作以消除歧義。

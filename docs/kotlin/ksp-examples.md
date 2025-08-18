@@ -7,7 +7,7 @@ fun KSClassDeclaration.getDeclaredFunctions(): Sequence<KSFunctionDeclaration> =
     declarations.filterIsInstance<KSFunctionDeclaration>()
 ```
 
-## 检查类或函数是否为局部
+## 检测类或函数是否为局部
 
 ```kotlin
 fun KSDeclaration.isLocal(): Boolean =

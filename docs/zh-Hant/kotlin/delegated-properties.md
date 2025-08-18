@@ -1,12 +1,12 @@
 [//]: # (title: 委託屬性)
 
-對於一些常見的屬性種類，即使您每次需要時都可以手動實作它們，但更有效的方法是實作一次，將其加入函式庫中，然後在以後重複使用。例如：
+對於一些常見的屬性類型，即使您每次需要時都可以手動實作它們，但將它們實作一次、加入函式庫中並日後重複使用會更有幫助。例如：
 
-*   *延遲載入屬性 (Lazy properties)*：該值僅在首次存取時計算。
-*   *可觀察屬性 (Observable properties)*：監聽器會收到此屬性變更的通知。
-*   將屬性儲存在 *映射 (map)* 中，而非為每個屬性獨立建立欄位。
+*   延遲屬性 (Lazy properties)：值只在首次存取時計算。
+*   可觀察屬性 (Observable properties)：監聽器會在屬性變更時收到通知。
+*   將屬性儲存在映射 (map) 中，而不是為每個屬性單獨建立欄位。
 
-為了涵蓋這些（以及其他）情況，Kotlin 支援 *委託屬性 (delegated properties)*：
+為了解決這些（以及其他）情況，Kotlin 支援委託屬性 (delegated properties)：
 
 ```kotlin
 class Example {
@@ -14,7 +14,7 @@ class Example {
 }
 ```
 
-語法為：`val/var <property name>: <Type> by <expression>`。`by` 之後的表達式是一個 *委託 (delegate)*，因為與屬性相對應的 `get()`（以及 `set()`）將會委託給其 `getValue()` 和 `setValue()` 方法。屬性委託不必實作介面，但它們必須提供一個 `getValue()` 函式（對於 `var` 來說還要提供 `setValue()`）。
+語法是：`val/var <property name>: <Type> by <expression>`。`by` 後面的表達式是一個委託 (delegate)，因為對應於該屬性的 `get()`（以及 `set()`）將委託給其 `getValue()` 和 `setValue()` 方法。屬性委託 (Property delegates) 不需要實作介面，但它們必須提供 `getValue()` 函數（以及 `var` 的 `setValue()`）。
 
 例如：
 
@@ -32,42 +32,42 @@ class Delegate {
 }
 ```
 
-當您從 `p` 讀取時（`p` 委託給 `Delegate` 的一個實例），`Delegate` 中的 `getValue()` 函式會被呼叫。它的第一個參數是您讀取 `p` 的物件，而第二個參數則包含 `p` 本身的描述（例如，您可以取得它的名稱）。
+當您從委託給 `Delegate` 實例的 `p` 讀取時，會呼叫 `Delegate` 中的 `getValue()` 函數。其第一個參數是您從中讀取 `p` 的物件，第二個參數則包含 `p` 本身的描述（例如，您可以取得其名稱）。
 
 ```kotlin
 val e = Example()
 println(e.p)
 ```
 
-這會印出：
+這將印出：
 
 ```
 Example@33a17727, thank you for delegating 'p' to me!
 ```
 
-同樣地，當您對 `p` 進行賦值時，`setValue()` 函式會被呼叫。前兩個參數是相同的，而第三個參數則包含被賦予的值：
+同樣地，當您為 `p` 賦值時，`setValue()` 函數會被呼叫。前兩個參數相同，第三個參數則包含被賦予的值：
 
 ```kotlin
 e.p = "NEW"
 ```
 
-這會印出：
+這將印出：
  
 ```
 NEW has been assigned to 'p' in Example@33a17727.
 ```
 
-關於委託物件的要求規範，請參閱[下方](#property-delegate-requirements)。
+委託物件的需求規格可在[下方](#property-delegate-requirements)找到。
 
-您可以在函式或程式碼區塊內宣告委託屬性；它不一定是類別的成員。您可以在[下方](#local-delegated-properties)找到一個範例。
+您可以在函數或程式碼區塊內宣告委託屬性；它不必是類別的成員。您可以在[下方](#local-delegated-properties)找到一個範例。
 
 ## 標準委託
 
-Kotlin 標準函式庫提供了多種實用委託的工廠方法。
+Kotlin 標準函式庫為幾種有用的委託類型提供了工廠方法。
 
-### 延遲載入屬性 (Lazy properties)
+### 延遲屬性
 
-[`lazy()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/lazy.html) 是一個函式，它接受一個 lambda 函式並回傳 `Lazy<T>` 的實例，此實例可用作實作延遲載入屬性的委託。首次呼叫 `get()` 會執行傳遞給 `lazy()` 的 lambda 函式並記住結果。隨後的 `get()` 呼叫只會回傳已記住的結果。
+[`lazy()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/lazy.html) 是一個接受 Lambda 並返回 `Lazy<T>` 實例的函數，該實例可用作實作延遲屬性的委託。首次呼叫 `get()` 會執行傳遞給 `lazy()` 的 Lambda 並記住結果。隨後的 `get()` 呼叫只會返回記住的結果。
 
 ```kotlin
 val lazyValue: String by lazy {
@@ -82,15 +82,15 @@ fun main() {
 ```
 {kotlin-runnable="true"}
 
-預設情況下，延遲載入屬性的評估是 *同步 (synchronized)* 的：該值僅在一個執行緒中計算，但所有執行緒都會看到相同的值。如果不需要初始化委託的同步處理，以允許多個執行緒同時執行它，請將 `LazyThreadSafetyMode.PUBLICATION` 作為參數傳遞給 `lazy()`。
+預設情況下，延遲屬性的評估是**同步的 (synchronized)**：值只在一個執行緒中計算，但所有執行緒都會看到相同的值。如果不需要初始化委託的同步處理來允許多個執行緒同時執行它，則將 `LazyThreadSafetyMode.PUBLICATION` 作為參數傳遞給 `lazy()`。
 
-如果您確定初始化總是在使用屬性的同一個執行緒中發生，則可以使用 `LazyThreadSafetyMode.NONE`。它不涉及任何執行緒安全保證和相關的開銷。
+如果您確定初始化始終會發生在您使用該屬性的同一個執行緒中，則可以使用 `LazyThreadSafetyMode.NONE`。它不會產生任何執行緒安全保證和相關的開銷。
 
-### 可觀察屬性 (Observable properties)
+### 可觀察屬性
 
-[`Delegates.observable()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.properties/-delegates/observable.html) 接受兩個參數：初始值和修改處理器。
+[`Delegates.observable()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.properties/-delegates/observable.html) 接受兩個參數：初始值和一個用於修改的處理器。
 
-每次您對屬性進行賦值時（*在*賦值完成之後），處理器都會被呼叫。它有三個參數：被賦值的屬性、舊值和新值：
+處理器會在每次您為屬性賦值時（**在**賦值操作執行**之後**）被呼叫。它有三個參數：正在被賦值的屬性、舊值和新值：
 
 ```kotlin
 import kotlin.properties.Delegates
@@ -110,16 +110,16 @@ fun main() {
 ```
 {kotlin-runnable="true"}
 
-如果您想攔截賦值並 *否決 (veto)* 它們，請使用 [`vetoable()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.properties/-delegates/vetoable.html) 而非 `observable()`。傳遞給 `vetoable` 的處理器會在新屬性值賦值 *之前* 被呼叫。
+如果您想攔截賦值並**否決 (veto)** 它們，請使用 [`vetoable()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.properties/-delegates/vetoable.html) 而不是 `observable()`。傳遞給 `vetoable` 的處理器將在新的屬性值賦值**之前**被呼叫。
 
 ## 委託給另一個屬性
 
-屬性可以將其 getter 和 setter 委託給另一個屬性。這種委託適用於頂層屬性以及類別屬性（成員和擴充）。委託屬性可以是：
+一個屬性可以將其 getter 和 setter 委託給另一個屬性。此類委託適用於頂層屬性 (top-level properties) 和類別屬性（成員屬性 (member properties) 和擴充屬性 (extension properties)）。委託屬性可以是：
 *   頂層屬性
-*   同一個類別的成員或擴充屬性
-*   另一個類別的成員或擴充屬性
+*   同一個類別的成員屬性或擴充屬性
+*   另一個類別的成員屬性或擴充屬性
 
-要將屬性委託給另一個屬性，請在委託名稱中使用 `::` 限定符，例如 `this::delegate` 或 `MyClass::delegate`。
+要將一個屬性委託給另一個屬性，請在委託名稱中使用 `::` 限定符，例如 `this::delegate` 或 `MyClass::delegate`。
 
 ```kotlin
 var topLevelInt: Int = 0
@@ -134,7 +134,7 @@ class MyClass(var memberInt: Int, val anotherClassInstance: ClassWithDelegate) {
 var MyClass.extDelegated: Int by ::topLevelInt
 ```
 
-這可能很有用，例如，當您想以向後相容的方式重新命名屬性時：引入一個新屬性，使用 `@Deprecated` 註解標註舊屬性，然後委託其實作。
+這可能很有用，例如，當您想要以向後相容的方式重新命名屬性時：引入一個新屬性，使用 `@Deprecated` 註解標記舊屬性，並委託其實作。
 
 ```kotlin
 class MyClass {
@@ -152,9 +152,9 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.4"}
 
-## 將屬性儲存在映射 (map) 中
+## 將屬性儲存在映射中
 
-一個常見的使用案例是將屬性值儲存在映射 (map) 中。這在解析 JSON 或執行其他動態任務的應用程式中經常出現。在這種情況下，您可以將映射實例本身用作委託屬性 (delegated property) 的委託。
+一個常見的用例是將屬性值儲存在映射 (map) 中。這經常出現在解析 JSON 或執行其他動態任務等應用程式中。在這種情況下，您可以將映射實例本身用作委託屬性的委託。
 
 ```kotlin
 class User(val map: Map<String, Any?>) {
@@ -163,7 +163,7 @@ class User(val map: Map<String, Any?>) {
 }
 ```
 
-在此範例中，建構函式接受一個映射 (map)：
+在此範例中，建構函數接受一個映射：
 
 ```kotlin
 val user = User(mapOf(
@@ -172,7 +172,7 @@ val user = User(mapOf(
 ))
 ```
 
-委託屬性透過字串鍵從此映射中取值，這些字串鍵與屬性名稱相關聯：
+委託屬性透過字串鍵從此映射中獲取值，這些字串鍵與屬性名稱相關聯：
 
 ```kotlin
 class User(val map: Map<String, Any?>) {
@@ -193,7 +193,7 @@ fun main() {
 ```
 {kotlin-runnable="true"}
 
-如果您使用 `MutableMap` 而非唯讀的 `Map`，這也適用於 `var` 屬性：
+如果您使用 `MutableMap` 而非唯讀 `Map`，這也適用於 `var` 屬性：
 
 ```kotlin
 class MutableUser(val map: MutableMap<String, Any?>) {
@@ -202,9 +202,9 @@ class MutableUser(val map: MutableMap<String, Any?>) {
 }
 ```
 
-## 局部委託屬性
+## 區域委託屬性
 
-您可以將局部變數宣告為委託屬性。例如，您可以使局部變數延遲載入 (lazy)：
+您可以將區域變數宣告為委託屬性 (Local delegated properties)。例如，您可以讓一個區域變數延遲載入 (lazy)：
 
 ```kotlin
 fun example(computeFoo: () -> Foo) {
@@ -216,16 +216,16 @@ fun example(computeFoo: () -> Foo) {
 }
 ```
 
-`memoizedFoo` 變數將僅在首次存取時計算。如果 `someCondition` 失敗，該變數將完全不會被計算。
+`memoizedFoo` 變數只會在首次存取時計算。如果 `someCondition` 失敗，該變數將完全不會被計算。
 
 ## 屬性委託要求
 
-對於 *唯讀* 屬性 (`val`)，委託應提供一個 `getValue()` 運算子函式，並帶有以下參數：
+對於唯讀屬性 (`val`)，委託應提供一個帶有以下參數的 `operator` 函數 `getValue()`：
 
-*   `thisRef` 必須與 *屬性擁有者 (property owner)* 類型相同或為其超類型（對於擴充屬性，它應為被擴充的類型）。
+*   `thisRef` 必須與**屬性擁有者 (property owner)** 的類型相同或為其超類型（對於擴充屬性，它應該是被擴充的類型）。
 *   `property` 必須是 `KProperty<*>` 類型或其超類型。
 
-`getValue()` 必須回傳與屬性相同的類型（或其子類型）。
+`getValue()` 必須返回與屬性相同類型（或其子類型）的值。
 
 ```kotlin
 class Resource
@@ -241,11 +241,11 @@ class ResourceDelegate {
 }
 ```
 
-對於 *可變* 屬性 (`var`)，委託必須額外提供一個 `setValue()` 運算子函式，並帶有以下參數：
+對於可變屬性 (`var`)，委託必須額外提供一個帶有以下參數的 `operator` 函數 `setValue()`：
 
-*   `thisRef` 必須與 *屬性擁有者 (property owner)* 類型相同或為其超類型（對於擴充屬性，它應為被擴充的類型）。
+*   `thisRef` 必須與**屬性擁有者 (property owner)** 的類型相同或為其超類型（對於擴充屬性，它應該是被擴充的類型）。
 *   `property` 必須是 `KProperty<*>` 類型或其超類型。
-*   `value` 必須與屬性類型相同（或其超類型）。
+*   `value` 必須與屬性相同類型（或其超類型）。
  
 ```kotlin
 class Resource
@@ -266,9 +266,9 @@ class ResourceDelegate(private var resource: Resource = Resource()) {
 }
 ```
 
-`getValue()` 和/或 `setValue()` 函式可以作為委託類別的成員函式或擴充函式提供。後者在您需要將屬性委託給一個最初不提供這些函式的物件時非常方便。這兩個函式都需要用 `operator` 關鍵字標註。
+`getValue()` 和/或 `setValue()` 函數可以作為委託類別的成員函數或作為擴充函數提供。後者在您需要將屬性委託給一個原本不提供這些函數的物件時很方便。這兩個函數都需要用 `operator` 關鍵字標記。
 
-您可以透過使用 Kotlin 標準函式庫中的 `ReadOnlyProperty` 和 `ReadWriteProperty` 介面，將委託建立為匿名物件而無需建立新類別。它們提供了所需的方法：`getValue()` 宣告在 `ReadOnlyProperty` 中；`ReadWriteProperty` 擴充了它並新增了 `setValue()`。這表示只要預期 `ReadOnlyProperty` 的地方，您都可以傳遞 `ReadWriteProperty`。
+您可以使用 Kotlin 標準函式庫中的 `ReadOnlyProperty` 和 `ReadWriteProperty` 介面，將委託建立為匿名物件，而無需建立新類別。它們提供了所需的方法：`getValue()` 在 `ReadOnlyProperty` 中宣告；`ReadWriteProperty` 則擴充它並添加 `setValue()`。這表示只要預期 `ReadOnlyProperty`，您就可以傳遞一個 `ReadWriteProperty`。
 
 ```kotlin
 fun resourceDelegate(resource: Resource = Resource()): ReadWriteProperty<Any?, Resource> =
@@ -284,16 +284,16 @@ val readOnlyResource: Resource by resourceDelegate()  // ReadWriteProperty as va
 var readWriteResource: Resource by resourceDelegate()
 ```
 
-## 委託屬性的轉換規則
+## 委託屬性的轉譯規則
 
-在底層，Kotlin 編譯器會為某些類型的委託屬性產生輔助屬性，然後委託給它們。
+在底層，Kotlin 編譯器會為某些類型的委託屬性生成輔助屬性 (auxiliary properties)，然後將其委託給這些輔助屬性。
 
-> {style="note"}
-> 為了最佳化目的，編譯器在某些情況下*不會*產生輔助屬性。
+> 為了最佳化目的，編譯器在幾種情況下**不會 (does not)** 生成輔助屬性 (auxiliary properties)。
 > 透過[委託給另一個屬性](#translation-rules-when-delegating-to-another-property)的範例了解最佳化。
 >
+{style="note"}
 
-例如，對於屬性 `prop`，它會產生隱藏屬性 `prop$delegate`，並且存取器的程式碼會直接委託給這個額外的屬性：
+例如，對於屬性 `prop`，它會生成隱藏屬性 `prop$delegate`，並且存取器的程式碼會直接委託給這個額外的屬性：
 
 ```kotlin
 class C {
@@ -309,12 +309,12 @@ class C {
 }
 ```
 
-Kotlin 編譯器在參數中提供了關於 `prop` 的所有必要資訊：第一個參數 `this` 指的是外部類別 `C` 的實例，而 `this::prop` 則是描述 `prop` 本身的 `KProperty` 類型的反射物件。
+Kotlin 編譯器在參數中提供了關於 `prop` 的所有必要資訊：第一個參數 `this` 指的是外部類別 `C` 的實例，而 `this::prop` 是一個 `KProperty` 類型的反射物件，描述了 `prop` 本身。
 
-### 委託屬性的最佳化案例
+### 委託屬性的最佳化情況
 
-如果委託是以下情況，`$delegate` 欄位將會被省略：
-*   被引用的屬性：
+如果委託是以下情況，則會省略 `$delegate` 欄位：
+*   一個被引用的屬性：
 
   ```kotlin
   class C<Type> {
@@ -323,7 +323,7 @@ Kotlin 編譯器在參數中提供了關於 `prop` 的所有必要資訊：第�
   }
   ```
 
-*   命名物件：
+*   一個具名物件 (named object)：
 
   ```kotlin
   object NamedObject {
@@ -333,7 +333,7 @@ Kotlin 編譯器在參數中提供了關於 `prop` 的所有必要資訊：第�
   val s: String by NamedObject
   ```
 
-*   在同一模組中具有支援欄位和預設 getter 的最終 `val` 屬性：
+*   同一個模組中具有支援欄位 (backing field) 和預設 getter 的最終 `val` 屬性：
 
   ```kotlin
   val impl: ReadOnlyProperty<Any?, String> = ...
@@ -343,7 +343,7 @@ Kotlin 編譯器在參數中提供了關於 `prop` 的所有必要資訊：第�
   }
   ```
 
-*   常數表達式、列舉成員、`this`、`null`。`this` 的範例：
+*   常數表達式 (constant expression)、列舉條目 (enum entry)、`this`、`null`。`this` 的範例：
 
   ```kotlin
   class A {
@@ -353,11 +353,11 @@ Kotlin 編譯器在參數中提供了關於 `prop` 的所有必要資訊：第�
   }
   ```
 
-### 委託給另一個屬性時的轉換規則
+### 委託給另一個屬性時的轉譯規則
 
-當委託給另一個屬性時，Kotlin 編譯器會產生對引用屬性的直接存取。這意味著編譯器不會產生 `prop$delegate` 欄位。這種最佳化有助於節省記憶體。
+當委託給另一個屬性時，Kotlin 編譯器會生成對被引用屬性的直接存取。這表示編譯器不會生成 `prop$delegate` 欄位。此最佳化有助於節省記憶體。
 
-例如，考慮以下程式碼：
+以下列程式碼為例：
 
 ```kotlin
 class C<Type> {
@@ -366,9 +366,9 @@ class C<Type> {
 }
 ```
 
-變數 `prop` 的屬性存取器會直接呼叫 `impl` 變數，跳過委託屬性的 `getValue` 和 `setValue` 運算子，因此不需要 `KProperty` 參考物件。
+`prop` 變數的屬性存取器會直接呼叫 `impl` 變數，跳過委託屬性的 `getValue` 和 `setValue` 運算子，因此不需要 `KProperty` 參考物件。
 
-對於上面的程式碼，編譯器會產生以下程式碼：
+對於上述程式碼，編譯器會生成以下程式碼：
 
 ```kotlin
 class C<Type> {
@@ -380,17 +380,17 @@ class C<Type> {
             impl = value
         }
     
-    fun getProp$delegate(): Type = impl // This method is needed only for reflection
+    fun getProp$delegate(): Type = impl // 此方法僅用於反射
 }
 ```
 
 ## 提供委託
 
-透過定義 `provideDelegate` 運算子，您可以擴展用於建立委託屬性實作的物件的邏輯。如果 `by` 右側使用的物件將 `provideDelegate` 定義為成員函式或擴充函式，則會呼叫該函式來建立屬性委託實例。
+透過定義 `provideDelegate` 運算子，您可以擴展用於建立屬性實作所委託物件的邏輯。如果 `by` 右側使用的物件將 `provideDelegate` 定義為成員或擴充函數，該函數將被呼叫以建立屬性委託實例。
 
-`provideDelegate` 可能的用例之一是在屬性初始化時檢查其一致性。
+`provideDelegate` 的其中一個可能用例是在屬性初始化時檢查其一致性。
 
-例如，要在綁定之前檢查屬性名稱，您可以這樣寫：
+例如，要在綁定前檢查屬性名稱，您可以這樣寫：
 
 ```kotlin
 class ResourceDelegate<T> : ReadOnlyProperty<MyUI, T> {
@@ -403,7 +403,7 @@ class ResourceLoader<T>(id: ResourceID<T>) {
             prop: KProperty<*>
     ): ReadOnlyProperty<MyUI, T> {
         checkProperty(thisRef, prop.name)
-        // create delegate
+        // 建立委託
         return ResourceDelegate()
     }
 
@@ -420,15 +420,15 @@ class MyUI {
 
 `provideDelegate` 的參數與 `getValue` 的參數相同：
 
-*   `thisRef` 必須與 *屬性擁有者 (property owner)* 類型相同或為其超類型（對於擴充屬性，它應為被擴充的類型）；
+*   `thisRef` 必須與**屬性擁有者 (property owner)** 的類型相同或為其超類型（對於擴充屬性，它應該是被擴充的類型）；
 *   `property` 必須是 `KProperty<*>` 類型或其超類型。
 
-在建立 `MyUI` 實例期間，會為每個屬性呼叫 `provideDelegate` 方法，並立即執行必要的驗證。
+在建立 `MyUI` 實例期間，`provideDelegate` 方法會為每個屬性呼叫，並立即執行必要的驗證。
 
 如果沒有這種攔截屬性及其委託之間綁定的能力，要實現相同的功能，您必須明確傳遞屬性名稱，這不是很方便：
 
 ```kotlin
-// Checking the property name without "provideDelegate" functionality
+// 無需 "provideDelegate" 功能檢查屬性名稱
 class MyUI {
     val image by bindResource(ResourceID.image_id, "image")
     val text by bindResource(ResourceID.text_id, "text")
@@ -439,11 +439,11 @@ fun <T> MyUI.bindResource(
         propertyName: String
 ): ReadOnlyProperty<MyUI, T> {
     checkProperty(this, propertyName)
-    // create delegate
+    // 建立委託
 }
 ```
 
-在生成的程式碼中，`provideDelegate` 方法被呼叫來初始化輔助屬性 `prop$delegate`。將屬性宣告 `val prop: Type by MyDelegate()` 的生成程式碼與[上方](#translation-rules-for-delegated-properties)（當 `provideDelegate` 方法不存在時）的生成程式碼進行比較：
+在生成的程式碼中，會呼叫 `provideDelegate` 方法來初始化輔助屬性 `prop$delegate`。比較屬性宣告 `val prop: Type by MyDelegate()` 的生成程式碼與[上方](#translation-rules-for-delegated-properties)（當 `provideDelegate` 方法不存在時）的生成程式碼：
 
 ```kotlin
 class C {
@@ -453,7 +453,7 @@ class C {
 // this code is generated by the compiler 
 // when the 'provideDelegate' function is available:
 class C {
-    // calling "provideDelegate" to create the additional "delegate" property
+    // 呼叫 "provideDelegate" 以建立額外的 "delegate" 屬性
     private val prop$delegate = MyDelegate().provideDelegate(this, this::prop)
     var prop: Type
         get() = prop$delegate.getValue(this, this::prop)
@@ -461,7 +461,7 @@ class C {
 }
 ```
 
-請注意，`provideDelegate` 方法僅影響輔助屬性的建立，不影響為 getter 或 setter 生成的程式碼。
+請注意，`provideDelegate` 方法只影響輔助屬性的建立，不影響 getter 或 setter 所生成的程式碼。
 
 透過標準函式庫中的 `PropertyDelegateProvider` 介面，您可以無需建立新類別即可建立委託提供者。
 
@@ -470,3 +470,4 @@ val provider = PropertyDelegateProvider { thisRef: Any?, property ->
     ReadOnlyProperty<Any?, Int> {_, property -> 42 }
 }
 val delegate: Int by provider
+```

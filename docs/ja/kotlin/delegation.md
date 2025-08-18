@@ -1,8 +1,8 @@
 [//]: # (title: デリゲーション)
 
-[デリゲーションパターン](https://en.wikipedia.org/wiki/Delegation_pattern)は、実装継承に代わる優れた方法であることが証明されており、Kotlinはボイラープレートコードを一切必要とせずにこれをネイティブにサポートしています。
+[デリゲーションパターン](https://en.wikipedia.org/wiki/Delegation_pattern)は、実装継承の良い代替手段であることが証明されており、Kotlin はボイラープレートコードを一切必要とせずにこれをネイティブにサポートしています。
 
-`Derived`クラスは、すべてのパブリックメンバーを指定されたオブジェクトにデリゲートすることで、`Base`インターフェースを実装できます。
+`Derived` クラスは、すべてのパブリックメンバーを特定のオブジェクトにデリゲートすることで、`Base` インターフェースを実装できます。
 
 ```kotlin
 interface Base {
@@ -22,11 +22,11 @@ fun main() {
 ```
 {kotlin-runnable="true"}
 
-`Derived`のスーパタイプリストにある`by`句は、`b`が`Derived`のオブジェクト内部に格納され、コンパイラが`b`に転送する`Base`のすべてのメソッドを生成することを示しています。
+`Derived` のスーパタイプリストにある `by` 句は、`b` が `Derived` オブジェクトの内部に格納され、コンパイラが `Base` のすべてのメソッドを `b` に転送するように生成することを示しています。
 
 ## デリゲーションによって実装されたインターフェースのメンバーをオーバーライドする
 
-[オーバーライド](inheritance.md#overriding-methods)は期待どおりに機能します。コンパイラはデリゲートオブジェクト内の実装ではなく、あなたの`override`実装を使用します。`Derived`に`override fun printMessage() { print("abc") }`を追加すると、`printMessage`が呼び出されたときにプログラムは*10*の代わりに*abc*を出力します。
+[オーバーライド](inheritance.md#overriding-methods)は期待通りに動作します。コンパイラはデリゲートオブジェクトの実装ではなく、あなたの `override` 実装を使用します。`Derived` に `override fun printMessage() { print("abc") }` を追加すると、`printMessage` が呼び出されたときにプログラムは *10* ではなく *abc* を出力します。
 
 ```kotlin
 interface Base {
@@ -51,7 +51,7 @@ fun main() {
 ```
 {kotlin-runnable="true"}
 
-ただし、この方法でオーバーライドされたメンバーは、デリゲートオブジェクトのメンバーからは呼び出されないことに注意してください。デリゲートオブジェクトは、インターフェースメンバーの自身の実装にのみアクセスできるためです。
+ただし、このようにオーバーライドされたメンバーは、デリゲートオブジェクトのメンバーからは呼び出されないことに注意してください。デリゲートオブジェクトは、インターフェースメンバーの自身の実装にのみアクセスできます。
 
 ```kotlin
 interface Base {
@@ -78,4 +78,4 @@ fun main() {
 ```
 {kotlin-runnable="true"}
 
-[デリゲートプロパティ](delegated-properties.md)の詳細については、こちらをご覧ください。
+[デリゲートプロパティ](delegated-properties.md)について詳しくはこちら。

@@ -1,0 +1,298 @@
+{
+  "do_not_translate": [
+    {
+      "term": "list",
+      "context": "当指编程语言中的类型 List 时",
+      "else_translate": "其他场景译为“列表/列出”"
+    },
+    {
+      "term": "set",
+      "context": "当指 Set 类型时",
+      "else_translate": "其他场景可译“集合/设置”"
+    },
+    {
+      "term": "map",
+      "context": "当指 Map 类型时",
+      "else_translate": "其他场景可译“映射”等"
+    },
+    {
+      "term": "future",
+      "context": "编程语义，如 Java 的 Future / 其他语言 future 概念",
+      "note": "保持单词原形：如 futures → future"
+    },
+    {
+      "term": "promise",
+      "context": "JavaScript 的 Promise"
+    },
+    {
+      "term": "Kotlin/Native",
+      "context": "专有名词不译；单独出现 native 常译作“原生”"
+    },
+    {
+      "term": "framework",
+      "context": "当指苹果平台的 framework 名称时不译",
+      "else_translate": "其他场景译为“框架”"
+    },
+    {
+      "term": "artifact",
+      "context": "保留英文以避免与“构建”混淆",
+      "else_translate": "允许按需中文化为“构件”（见翻译术语中同名项）"
+    },
+    {
+      "term": "getter",
+      "context": "属性读取方法"
+    },
+    {
+      "term": "setter",
+      "context": "属性写入方法"
+    }
+  ],
+  "translate": [
+    { "en": "Early Access Preview", "zh": "抢先体验预览" },
+    {
+      "en": "evaluate / evaluation",
+      "zh": "求值",
+      "note": "如 lazy evaluation → 惰性求值"
+    },
+    {
+      "en": "experimental",
+      "zh": "实验性的",
+      "dont_translate_as": ["试验性的"]
+    },
+    {
+      "en": "feature",
+      "zh": "特性",
+      "dont_translate_as": ["功能"]
+    },
+    { "en": "functionality", "zh": "功能/功能性" },
+    {
+      "en": "functional programming",
+      "zh": "函数式编程",
+      "dont_translate_as": ["功能性编程"]
+    },
+    {
+      "en": "function",
+      "zh": "函数",
+      "dont_translate_as": ["功能", "方法"]
+    },
+    { "en": "method", "zh": "方法", "note": "与 function 区分，按原文用词" },
+    {
+      "en": "delegate",
+      "zh": "委托",
+      "dont_translate_as": ["代理"]
+    },
+    { "en": "proxy", "zh": "代理", "note": "与 delegate 区分，按上下文判断" },
+    {
+      "en": "range",
+      "zh": "区间",
+      "dont_translate_as": ["范围"]
+    },
+    {
+      "en": "scope",
+      "zh": "作用域",
+      "dont_translate_as": ["范围"]
+    },
+    { "en": "declare / declaration", "zh": "声明" },
+    { "en": "define / definition", "zh": "定义" },
+    { "en": "constructor", "zh": "构造函数", "note": "统一用“构造函数”，不写“构造器”" },
+    {
+      "en": "check",
+      "zh": "检测",
+      "note": "表示“判断是否符合某条件”时用“检测”，不是“检查”"
+    },
+    { "en": "inspect", "zh": "探查" },
+    { "en": "native", "zh": "原生 / native", "note": "Kotlin/Native 不译；其他多译作“原生/原生平台”" },
+    {
+      "en": "primitive",
+      "zh": "原语/原生类型",
+      "note": "在协程上下文多指“原语”；在类型系统指基本类型"
+    },
+    { "en": "raw type", "zh": "原始类型", "note": "Java 中忽略泛型的类型" },
+    { "en": "progression", "zh": "数列" },
+    {
+      "en": "builder",
+      "zh": "构建器",
+      "dont_translate_as": ["构造器"]
+    },
+    { "en": "build", "zh": "构建/构建项", "note": "动词：构建；名词：构建项（构建过程除外）" },
+    { "en": "compilation", "zh": "编译项" },
+    { "en": "dependency", "zh": "依赖项" },
+    {
+      "en": "Kotlin Koan",
+      "zh": "Kotlin 心印",
+      "dont_translate_as": ["公案"]
+    },
+    {
+      "en": "suspend function",
+      "zh": "挂起函数",
+      "dont_translate_as": ["暂停函数"]
+    },
+    { "en": "lambda / lambda expression", "zh": "lambda 表达式" },
+    { "en": "null safety", "zh": "空安全" },
+    { "en": "nullable / nullability", "zh": "可空的/可空性" },
+    { "en": "non-null", "zh": "非空的" },
+    {
+      "en": "parenthesis / parentheses",
+      "zh": "圆括号/括号",
+      "dont_translate_as": ["小括号"]
+    },
+    {
+      "en": "bracket",
+      "zh": "方括号",
+      "dont_translate_as": ["中括号"]
+    },
+    {
+      "en": "brace",
+      "zh": "花括号",
+      "dont_translate_as": ["大括号"]
+    },
+    { "en": "open parenthesis / bracket / brace", "zh": "左圆/方/花括号" },
+    { "en": "close parenthesis / bracket / brace", "zh": "右圆/方/花括号" },
+    { "en": "infix function", "zh": "中缀函数" },
+    {
+      "en": "contract",
+      "zh": "契约",
+      "note": "契约式设计/编程之“契约”，非“合同”"
+    },
+    { "en": "destructure", "zh": "解构" },
+    { "en": "string interpolation", "zh": "字符串内插" },
+    {
+      "en": "operator",
+      "zh": "操作符",
+      "note": "不译作“运算符”，因 Kotlin 中部分并非运算符（如 iterator、getValue）"
+    },
+    { "en": "extension", "zh": "扩展", "dont_translate_as": ["拓展"] },
+    { "en": "receiver", "zh": "接收者", "note": "receive=接收；accept=接受" },
+    { "en": "variance", "zh": "型变" },
+    {
+      "en": "invariant / invariance",
+      "zh": "不型变",
+      "note": "泛型语境用“不型变”；在 native 文档中亦可能指“不变式”"
+    },
+    { "en": "covariant / covariance", "zh": "协变" },
+    { "en": "contravariant / contravariance", "zh": "逆变" },
+    {
+      "en": "artifact",
+      "zh": "构件",
+      "dont_translate_as": ["工件"],
+      "note": "口语与“构建”区分：‘构件’读作‘构件儿’"
+    },
+    {
+      "en": "target",
+      "zh": "目标/目标平台/面向",
+      "note": "名词：目标平台；动词：面向…/以…为目标平台"
+    },
+    {
+      "en": "top level",
+      "zh": "顶层",
+      "note": "顶层作用域，如顶层函数/协程"
+    },
+    { "en": "see ... for", "zh": "关于……请参见……" },
+    { "en": "read ... for", "zh": "关于……请参阅……" },
+    { "en": "refer to ... for", "zh": "关于……请参考……" },
+    {
+      "en": "inference",
+      "zh": "推断",
+      "note": "避免“推导”，因列表推导（comprehension）语义不同"
+    },
+    {
+      "en": "override",
+      "zh": "覆盖",
+      "dont_translate_as": ["重写"]
+    },
+    { "en": "overload", "zh": "重载" },
+    { "en": "backing field", "zh": "幕后字段" },
+    {
+      "en": "assign(ment)",
+      "zh": "赋值",
+      "dont_translate_as": ["分配"]
+    },
+    { "en": "reassign(ment)", "zh": "重新赋值/重复赋值" },
+    { "en": "pipe", "zh": "管道" },
+    { "en": "pipeline", "zh": "流水线" },
+    { "en": "pipe stage", "zh": "流水线阶段" },
+    { "en": "supervision", "zh": "监督" },
+    { "en": "task", "zh": "任务" },
+    { "en": "job", "zh": "作业" },
+    {
+      "en": "explicit",
+      "zh": "显式",
+      "note": "如显式类型、显式指定，勿译“明确”"
+    },
+    {
+      "en": "inherit",
+      "zh": "继承/承袭",
+      "note": "类继承/父子线程：继承；其他语境可用承袭"
+    },
+    { "en": "extensible / extendible", "zh": "可扩展的" },
+    {
+      "en": "scalable",
+      "zh": "可伸缩的",
+      "note": "scalability：可伸缩性；勿译“可扩展”"
+    },
+    {
+      "en": "common module",
+      "zh": "公共模块",
+      "dont_translate_as": ["通用模块"]
+    },
+    { "en": "interaction", "zh": "交互" },
+    { "en": "interop / interoperate", "zh": "互操作" },
+    { "en": "mangling / name mangling / name decoration", "zh": "名字修饰" },
+    { "en": "block", "zh": "代码块", "note": "多数情况为代码块；少数场景可为“块”" },
+    { "en": "runtime", "zh": "运行时" },
+    { "en": "continuation", "zh": "续体" },
+    { "en": "continuation passing style", "zh": "续体传递风格" },
+    { "en": "coroutine intrinsics", "zh": "协程内建函数" },
+    {
+      "en": "repository",
+      "zh": "版本库/仓库",
+      "note": "代码版本库：版本库；其他如数据仓库：仓库"
+    },
+    {
+      "en": "DCE (dead code elimination)",
+      "zh": "无用代码消除",
+      "dont_translate_as": ["死代码消除"]
+    },
+    {
+      "en": "compile-time",
+      "zh": "编译期",
+      "dont_translate_as": ["编译时"]
+    },
+    { "en": "qualifier", "zh": "限定符" },
+    {
+      "en": "for example",
+      "zh": "例如",
+      "dont_translate_as": ["比如", "譬如"]
+    },
+    { "en": "paradigm", "zh": "范式", "note": "programming paradigms：编程范式" },
+    { "en": "boilerplate code", "zh": "样板代码" },
+    {
+      "en": "project",
+      "zh": "项目",
+      "dont_translate_as": ["工程"]
+    },
+    {
+      "en": "reactive",
+      "zh": "反应式",
+      "dont_translate_as": ["响应式"],
+      "note": "responsive 对应“响应式（Web）”，reactive 源自 reactor=反应堆"
+    },
+    { "en": "source set", "zh": "源代码集" },
+    { "en": "application", "zh": "应用程序" },
+    { "en": "app", "zh": "应用" },
+    {
+      "en": "XXX specific",
+      "zh": "XXX 特有的",
+      "note": "如 platform-specific → 平台特有的（非“特定于平台的”）"
+    },
+    {
+      "en": "top-level",
+      "zh": "顶层",
+      "dont_translate_as": ["顶级"]
+    },
+    { "en": "trailing commas", "zh": "尾部逗号" },
+    { "en": "argument", "zh": "实参" },
+    { "en": "parameter", "zh": "形参" },
+    { "en": "review", "zh": "审阅，评审" }
+  ]
+}

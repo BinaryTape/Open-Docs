@@ -1,12 +1,12 @@
-[//]: # (title: All-openコンパイラプラグイン)
+[//]: # (title: All-open コンパイラプラグイン)
 
-Kotlin のクラスとそのメンバーはデフォルトで`final`であり、クラスが`open`である必要がある Spring AOP のようなフレームワークやライブラリを使用する上で不便です。`all-open`コンパイラプラグインは、そのようなフレームワークの要件に Kotlin を適合させ、特定の アノテーション が付与されたクラスとそのメンバーを、明示的な`open`キーワードなしで`open`にします。
+Kotlinでは、クラスとそのメンバーはデフォルトで`final`です。このため、Spring AOPのようにクラスが`open`であることを要求するフレームワークやライブラリを使用するのが不便になります。`all-open`コンパイラプラグインは、Kotlinをこれらのフレームワークの要件に適合させ、特定のAノテーションが付与されたクラスとそのメンバーを、明示的な`open`キーワードなしで`open`にします。
 
-例えば、Spring を使用する場合、すべてのクラスを`open`にする必要はなく、`@Configuration`や`@Service`のような特定の アノテーション が付与されたクラスのみでよいです。`all-open`プラグインを使用すると、そのような アノテーション を指定できます。
+例えば、Springを使用する場合、全てのクラスを`open`にする必要はなく、`@Configuration`や`@Service`のような特定のアノテーションが付与されたクラスのみで十分です。`all-open`プラグインを使用すると、そのようなアノテーションを指定できます。
 
-Kotlin は、Gradle と Maven の両方で`all-open`プラグインのサポートを、完全なIDE統合とともに提供しています。
+Kotlinは、完全なIDE統合と共に、GradleとMavenの両方で`all-open`プラグインのサポートを提供します。
 
-> Spring の場合、[`kotlin-spring`コンパイラプラグイン](#spring-support)を使用できます。
+> Springの場合、[`kotlin-spring`コンパイラプラグイン](#spring-support)を使用できます。
 >
 {style="note"}
 
@@ -35,7 +35,7 @@ plugins {
 </tab>
 </tabs>
 
-次に、クラスを`open`にする アノテーション のリストを指定します。
+次に、クラスを`open`にするアノテーションのリストを指定します。
 
 <tabs group="build-script">
 <tab title="Kotlin" group-key="kotlin">
@@ -60,19 +60,19 @@ allOpen {
 </tab>
 </tabs>
 
-クラス (またはそのスーパークラスのいずれか) に`com.my.Annotation`が付けられている場合、クラス自体とそのすべてのメンバーが`open`になります。
+クラス（またはそのいずれかのスーパークラス）に`com.my.Annotation`が付与されている場合、クラス自体と全てのメンバーが`open`になります。
 
-これはメタアノテーション (meta-annotations) でも機能します。
+これはメタアノテーションでも機能します。
 
 ```kotlin
 @com.my.Annotation
 annotation class MyFrameworkAnnotation
 
 @MyFrameworkAnnotation
-class MyClass // all-open になります
+class MyClass // will be all-open
 ```
 
-`MyFrameworkAnnotation`には`all-open`メタアノテーションである`com.my.Annotation`が付与されているため、それ自体も`all-open`アノテーションになります。
+`MyFrameworkAnnotation`にはall-openメタアノテーション`com.my.Annotation`が付与されており、そのためそれ自体もall-openアノテーションになります。
 
 ## Maven
 
@@ -107,11 +107,11 @@ class MyClass // all-open になります
 </plugin>
 ```
 
-`all-open`アノテーションの動作に関する詳細については、[Gradle セクション](#gradle)を参照してください。
+all-openアノテーションがどのように機能するかについての詳細は、[Gradleセクション](#gradle)を参照してください。
 
-## Spring サポート
+## Springサポート
 
-Spring を使用している場合、Spring アノテーションを手動で指定する代わりに、`kotlin-spring`コンパイラプラグインを有効にできます。`kotlin-spring`は`all-open`のラッパーであり、まったく同じように動作します。
+Springを使用している場合、Springアノテーションを手動で指定する代わりに、`kotlin-spring`コンパイラプラグインを有効にできます。`kotlin-spring`は`all-open`のラッパーであり、全く同じように動作します。
 
 `build.gradle(.kts)`ファイルに`spring`プラグインを追加します。
 
@@ -136,7 +136,7 @@ plugins {
 </tab>
 </tabs>
 
-Maven では、`spring`プラグインは`kotlin-maven-allopen`プラグインの依存関係によって提供されます。そのため、`pom.xml`ファイルで有効にするには、以下のように記述します。
+Mavenでは、`spring`プラグインは`kotlin-maven-allopen`プラグインの依存関係によって提供されます。そのため、`pom.xml`ファイルで有効にするには、以下のように記述します。
 
 ```xml
 <compilerPlugins>
@@ -152,14 +152,19 @@ Maven では、`spring`プラグインは`kotlin-maven-allopen`プラグイン�
 </dependencies>
 ```
 
-このプラグインは次の アノテーション を指定します。
+このプラグインは以下のAノテーションを指定します。
 * [`@Component`](https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/stereotype/Component.html)
 * [`@Async`](https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/scheduling/annotation/Async.html)
 * [`@Transactional`](https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/transaction/annotation/Transactional.html)
 * [`@Cacheable`](https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/cache/annotation/Cacheable.html)
 * [`@SpringBootTest`](https://docs.spring.io/spring-boot/docs/current/api/org/springframework/boot/test/context/SpringBootTest.html)
 
-メタアノテーション (meta-annotations) のサポートにより、[`@Component`](https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/stereotype/Component.html)がメタアノテーションとして付与されているため、[`@Configuration`](https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/context/annotation/Configuration.html)、[`@Controller`](https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/stereotype/Controller.html)、[`@RestController`](https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/bind/annotation/RestController.html)、[`@Service`](https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/stereotype/Service.html)、または [`@Repository`](https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/stereotype/Repository.html)が付与されたクラスは自動的に`open`になります。
+メタアノテーションのサポートにより、[`@Configuration`](https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/context/annotation/Configuration.html)、
+[`@Controller`](https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/stereotype/Controller.html)、
+[`@RestController`](https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/bind/annotation/RestController.html)、
+[`@Service`](https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/stereotype/Service.html)、
+[`@Repository`](https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/stereotype/Repository.html)
+が付与されたクラスは、これらのアノテーションに[`@Component`](https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/stereotype/Component.html)がメタアノテーションとして付与されているため、自動的に`open`になります。
 
 もちろん、同じプロジェクトで`kotlin-allopen`と`kotlin-spring`の両方を使用できます。
 
@@ -169,17 +174,17 @@ Maven では、`spring`プラグインは`kotlin-maven-allopen`プラグイン�
 
 ## コマンドラインコンパイラ
 
-All-open コンパイラプラグインのJARは、Kotlin コンパイラのバイナリディストリビューションで利用できます。プラグインをアタッチするには、`kotlinc`の`-Xplugin`オプションを使用して、そのJARファイルへのパスを渡します。
+All-openコンパイラプラグインのJARは、Kotlinコンパイラのバイナリ配布版で利用可能です。`-Xplugin` kotlincオプションを使用してJARファイルへのパスを提供することで、プラグインをアタッチできます。
 
 ```bash
 -Xplugin=$KOTLIN_HOME/lib/allopen-compiler-plugin.jar
 ```
 
-`annotation`プラグインオプションを使用して`all-open`アノテーションを直接指定することも、_プリセット_を有効にすることもできます。
+`annotation`プラグインオプションを使用してall-openアノテーションを直接指定するか、_プリセット_を有効にできます。
 
 ```bash
 # プラグインオプションの形式は "-P plugin:<plugin id>:<key>=<value>" です。
-# オプションは繰り返すことができます。
+# オプションは繰り返し指定できます。
 
 -P plugin:org.jetbrains.kotlin.allopen:annotation=com.my.Annotation
 -P plugin:org.jetbrains.kotlin.allopen:preset=spring

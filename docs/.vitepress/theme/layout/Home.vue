@@ -1,6 +1,59 @@
 <script setup lang="ts">
 import { useData } from 'vitepress';
+import DocCard from '../../component/DocCard.vue';
+import { t } from '../../utils/i18n-utils';
 const { site } = useData();
+const docCardConfig = [
+    {
+        href: 'kotlin/home',
+        docType: 'kotlin',
+        title: 'Kotlin',
+        description: t('homepage.card.kotlin.description'),
+        tags: [t('homepage.card.kotlin.tag.language'), t('homepage.card.kotlin.tag.crossplatform')],
+    },
+    {
+        href: 'kmp/get-started',
+        docType: 'kmp',
+        title: 'Kotlin Multiplatform',
+        description: t('homepage.card.kmp.description'),
+        tags: [t('homepage.card.kmp.tag.1'), t('homepage.card.kmp.tag.2')],
+    },
+    {
+      href: 'ktor/welcome',
+      docType: 'ktor',
+      title: 'Ktor',
+      description: t('homepage.card.ktor.description'),
+      tags: [t('homepage.card.ktor.tag.web'), t('homepage.card.ktor.tag.async')]
+    },
+    {
+      href: 'koog/',
+      docType: 'koog',
+      title: 'Koog',
+      description: t('homepage.card.koog.description'),
+      tags: [t('homepage.card.koog.tag.1'), t('homepage.card.koog.tag.2')],
+    },
+    {
+        href: 'koin/setup/koin',
+        docType: 'koin',
+        title: 'Koin',
+        description: t('homepage.card.koin.description'),
+        tags: ['DI', 'Kotlin'],
+    },
+    {
+        href: 'sqldelight/index',
+        docType: 'sqldelight',
+        title: 'SQLDelight',
+        description: t('homepage.card.sqldelight.description'),
+        tags: [t('homepage.card.sqldelight.tag.sql'), t('homepage.card.sqldelight.tag.database')],
+    },
+    {
+        href: 'coil/overview',
+        docType: 'coil',
+        title: 'Coil',
+        description: t('homepage.card.coil.description'),
+        tags: [t('homepage.card.coil.tag.crossplatform'), t('homepage.card.coil.tag.imageloadder')],
+    },
+]
 </script>
 
 <template>
@@ -13,76 +66,9 @@ const { site } = useData();
         </div>
 
         <div class="cardsContainer">
-            <a href="koin/setup/koin" :class="['card', 'koinCard']" data-aos="fade-up" data-aos-delay="100">
-                <div class="cardContent">
-                    <div>
-                        <h2 class="cardTitle">Koin</h2>
-                        <p class="cardDescription">
-                            {{ $t('homepage.card.koin.description') }}
-                        </p>
-                    </div>
-                    <div class="cardMeta">
-                        <span class="cardTag">DI</span>
-                        <span class="cardTag">Kotlin</span>
-                    </div>
-                    <div class="cardIcon"></div>
-                </div>
-            </a>
-
-            <a href="kotlin/getting-started" :class="['card', 'kotlinCard']" data-aos="fade-up" data-aos-delay="200">
-                <div class="cardContent">
-                    <div>
-                        <h2 class="cardTitle">Kotlin</h2>
-                        <p class="cardDescription">
-                            {{ $t('homepage.card.kotlin.description') }}
-                        </p>
-                    </div>
-                    <div class="cardMeta">
-                        <span class="cardTag"> {{ $t('homepage.card.kotlin.tag.language') }}
-                        </span>
-                        <span class="cardTag"> {{ $t('homepage.card.kotlin.tag.crossplatform') }}
-                        </span>
-                    </div>
-                    <div class="cardIcon"></div>
-                </div>
-            </a>
-
-            <a href="" :class="['card', 'ktorCard']" data-aos="fade-up" data-aos-delay="300">
-                <div class="cardContent">
-                    <div class="comingSoonBadge">
-                        {{ $t('homepage.badge.comingSoon') }}
-                    </div>
-                    <div>
-                        <h2 class="cardTitle">Ktor</h2>
-                        <p class="cardDescription">
-                            {{ $t('homepage.card.ktor.description') }}
-                        </p>
-                    </div>
-                    <div class="cardMeta">
-                        <span class="cardTag"> {{ $t('homepage.card.ktor.tag.web') }}
-                        </span>
-                        <span class="cardTag"> {{ $t('homepage.card.ktor.tag.async') }}
-                        </span>
-                    </div>
-                    <div class="cardIcon"></div>
-                </div>
-            </a>
-
-            <a href="sqldelight/index" :class="['card', 'sqldelightCard']" data-aos="fade-up" data-aos-delay="400">
-                <div class="cardContent">
-                    <div>
-                        <h2 class="cardTitle">SQLDelight</h2>
-                        <p class="cardDescription">
-                            {{ $t('homepage.card.sqldelight.description') }}
-                        </p>
-                    </div>
-                    <div class="cardMeta">
-                        <span class="cardTag">{{ $t('homepage.card.sqldelight.tag.sql') }}</span>
-                        <span class="cardTag">{{ $t('homepage.card.sqldelight.tag.database') }}</span>
-                    </div>
-                    <div class="cardIcon"></div>
-                </div>
-            </a>
+            <DocCard v-for="(card, index) in docCardConfig" :key="index" :href="card.href" :docType="card.docType"
+                :title="card.title" :description="card.description" :tags="card.tags" :coming-soon="card.comingSoon"
+                :aosDelay="(index + 1 % 2) * 100"></DocCard>
         </div>
 
         <div class="footerBanner">
