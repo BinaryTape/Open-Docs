@@ -27,9 +27,10 @@ import markdownItWsClassstyles from "./markdown-it-ws-classstyles";
 import markdownItWsRenderInline from "./markdown-it-ws-render-inline";
 import markdownItWsRename from "./markdown-it-ws-rename";
 import markdownItWsTopicTitle from "./markdown-it-ws-topicTitle";
-import { markdownItCollapsed } from "./markdownItCollapsed.mts";
+import { markdownItWsCollapsed } from "./markdown-it-ws-collapsed.mts";
 import generateSidebar from "./config/sidebar.config";
 import markdownItWsRemoveCodeAttr from "./markdown-it-ws-remove-code-attr";
+import {markdownItRemoveExtraSpaces, markdownItTrimBrSpaces} from "./markdown-it-trim-br-spaces";
 
 const mkDiffGrammarPath = resolve(__dirname, './shiki-mk-diff.json')
 const mkDiffGrammar = JSON.parse(readFileSync(mkDiffGrammarPath, 'utf-8'))
@@ -345,7 +346,8 @@ export default defineConfig({
             md.use(markdownItMkCodeTabs)
             md.use(markdownItMkLinks)
             md.use(markdownItDiffTitleWrapper)
-            md.use(markdownItCollapsed)
+            md.use(markdownItWsCollapsed)
+            md.use(markdownItTrimBrSpaces)
             md.use(markdownItWsVars);
             md.use(markdownItMKVars);
 

@@ -72,7 +72,7 @@ function formatForVitePress(text) {
 /**
  * A markdown-it plugin to transform custom collapsible blocks into VitePress details containers.
  */
-export const markdownItCollapsed: MarkdownIt.PluginSimple = (md: MarkdownIt) => {
+export const markdownItWsCollapsed: MarkdownIt.PluginSimple = (md: MarkdownIt) => {
     // 保存原始的 parse 方法
     const originalParse = md.parse;
 
