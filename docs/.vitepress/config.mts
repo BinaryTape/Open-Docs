@@ -176,12 +176,12 @@ export default defineConfig({
             themeConfig: {
                 nav: [
                     { text: 'Kotlin', link: '/zh-Hant/kotlin/home' },
-                    { text: 'Kotlin Multiplatform', link: '/zh-Hantkmp/get-started' },
-                    { text: 'Ktor', link: '/zh-Hantktor/welcome'},
-                    { text: 'Koog', link: '/zh-Hantkoog/' },
-                    { text: 'Koin', link: '/zh-Hantkoin/setup/koin' },
-                    { text: 'SQLDelight', link: '/zh-Hantsqldelight/index' },
-                    { text: 'Coil', link: '/zh-Hantcoil/overview' },
+                    { text: 'Kotlin Multiplatform', link: '/zh-Hant/kmp/get-started' },
+                    { text: 'Ktor', link: '/zh-Hant/ktor/welcome'},
+                    { text: 'Koog', link: '/zh-Hant/koog/' },
+                    { text: 'Koin', link: '/zh-Hant/koin/setup/koin' },
+                    { text: 'SQLDelight', link: '/zh-Hant/sqldelight/index' },
+                    { text: 'Coil', link: '/zh-Hant/coil/overview' },
                 ],
                 sidebar: {
                     "/zh-Hant/koin/": generateSidebar(SiteLocaleConfig['zh-Hant'], DocsTypeConfig.koin),
