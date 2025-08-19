@@ -1,1 +1,0 @@
-const t="/kotlin/jvm-new-gradle-project.png",n="/kotlin/jvm-new-gradle-project-advanced.png",o="/kotlin/jvm-gradle-view-build.png",p="/kotlin/jvm-run-app-gradle.png",s="/kotlin/jvm-output-gradle.png";export{t as _,n as a,o as b,p as c,s as d};

@@ -1,1 +1,0 @@
-const o="/kmp/icon-1.svg",s="/kmp/icon-2-todo.svg",n="/kmp/compose-run-android.png",p="/kmp/compose-run-ios.png",i="/kmp/ios-edit-configurations.png",t="/kmp/ios-new-configuration.png";export{o as _,s as a,i as b,t as c,n as d,p as e};

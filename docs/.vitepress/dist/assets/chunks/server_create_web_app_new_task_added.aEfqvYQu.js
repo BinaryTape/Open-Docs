@@ -1,1 +1,0 @@
-const _="/ktor/server_create_web_app_generator_project_artifact.png",e="/ktor/server_create_web_app_generator_plugins.png",r="/ktor/server_create_web_app_all_tasks.png",t="/ktor/server_create_web_app_tasks_form.png",s="/ktor/server_create_web_app_new_task.png",a="/ktor/server_create_web_app_new_task_added.png";export{_,e as a,r as b,t as c,s as d,a as e};

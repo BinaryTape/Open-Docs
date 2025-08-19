@@ -1,1 +1,0 @@
-const t="/kmp/create-first-multiplatform-app.png",s="/kmp/basic-project-structure.svg",p="/kmp/basic-project-structure-2.png",o="/kmp/modules-structure.png",r="/kmp/first-multiplatform-project-on-android-1.png",m="/kmp/first-multiplatform-project-on-ios-1.png";export{t as _,s as a,p as b,o as c,r as d,m as e};
