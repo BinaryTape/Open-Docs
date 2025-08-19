@@ -1,1 +1,0 @@
-const t="/kotlin/script-deps-create-root-project.png",s="/kotlin/script-deps-module-definition.png",o="/kotlin/script-deps-project-structure.png",p="/kotlin/script-deps-run-config.png";export{t as _,s as a,o as b,p as c};

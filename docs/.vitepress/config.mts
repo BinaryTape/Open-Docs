@@ -69,8 +69,9 @@ function createContainer(md, name, className, defaultTitle) {
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
     cleanUrls: true,
-    lastUpdated: true,
+    lastUpdated: false,
     ignoreDeadLinks: true,
+    metaChunk: true,
     lang: 'zh-Hans',
     title: 'Open AIDoc',
     head: [

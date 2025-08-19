@@ -1,1 +1,0 @@
-const s="/kmp/compose-desktop-swing-composepanel.animated.gif",o="/kmp/compose-desktop-swingpanel.animated.gif",p="/kmp/compose-desktop-swinglabel.animated.gif",t="/kmp/compose-desktop-swing-layout.animated.gif";export{s as _,o as a,p as b,t as c};

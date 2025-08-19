@@ -1,1 +1,0 @@
-const o="/kotlin/wasm-compose-web-wizard.png",s="/kotlin/wasm-gradle-task-window.png",p="/kotlin/wasm-composeapp-browser-clickme.png",a="/kotlin/wasm-composeapp-browser.png";export{o as _,s as a,p as b,a as c};

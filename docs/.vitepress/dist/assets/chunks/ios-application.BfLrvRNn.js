@@ -1,1 +1,0 @@
-const p="/kmp/android-and-ios.png",o="/kmp/create-ktor-sqldelight-multiplatform-project.png",t="/kmp/theme-directory.png",s="/kmp/android-application.png",i="/kmp/ios-application.png";export{p as _,o as a,t as b,s as c,i as d};
