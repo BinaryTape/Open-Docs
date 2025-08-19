@@ -1,0 +1,1 @@
+const n="/kotlin/create-spring-ai-project.png",t="/kotlin/spring-ai-dependencies.png",s="/kotlin/spring-ai-project-view.png",i="/kotlin/qdrant-collections.png",o="/kotlin/spring-ai-get-results.png",p="/kotlin/open-ai-chat-endpoint.png";export{n as _,t as a,s as b,i as c,o as d,p as e};

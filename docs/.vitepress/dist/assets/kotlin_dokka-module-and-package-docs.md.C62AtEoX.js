@@ -1,0 +1,21 @@
+import{_ as i,C as t,c as r,o as d,ag as c,G as e,w as l,j as a,a as n}from"./chunks/framework.Bksy39di.js";const v=JSON.parse('{"title":"模块文档","description":"","frontmatter":{},"headers":[],"relativePath":"kotlin/dokka-module-and-package-docs.md","filePath":"kotlin/dokka-module-and-package-docs.md","lastUpdated":1754307826000}'),k={name:"kotlin/dokka-module-and-package-docs.md"};function u(g,s,m,f,h,b){const o=t("tab"),p=t("tabs");return d(),r("div",null,[s[3]||(s[3]=c(`<h1 id="模块文档" tabindex="-1">模块文档 <a class="header-anchor" href="#模块文档" aria-label="Permalink to &quot;模块文档&quot;">​</a></h1><p>模块的整体文档以及该模块中的包的文档可以作为独立的 Markdown 文件提供。</p><h2 id="文件格式" tabindex="-1">文件格式 <a class="header-anchor" href="#文件格式" aria-label="Permalink to &quot;文件格式&quot;">​</a></h2><p>在 Markdown 文件中，整个模块和各个包的文档由相应的一级标题引入。标题文本<strong>必须</strong>是模块的 <strong>Module <code>&lt;module name&gt;</code></strong>，以及包的 <strong>Package <code>&lt;package qualified name&gt;</code></strong>。</p><p>文件不必同时包含模块和包文档。您可以拥有只包含包或模块文档的文件。甚至可以为每个模块或包提供一个 Markdown 文件。</p><p>使用 <a href="https://www.markdownguide.org/basic-syntax/" target="_blank" rel="noreferrer">Markdown 语法</a>，您可以添加：</p><ul><li>标题，最高可达 6 级</li><li>使用粗体或斜体格式进行强调</li><li>链接</li><li>内联代码</li><li>代码块</li><li>引用块</li></ul><p>这是一个包含模块和包文档的示例文件：</p><div class="language-text vp-adaptive-theme"><button title="Copy Code" class="copy"></button><span class="lang">text</span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span># Module kotlin-demo</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>此内容将显示在您的模块名称下方。</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span># Package org.jetbrains.kotlin.demo</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>此内容将显示在包列表中您的包名称下方。</span></span>
+<span class="line"><span>它还会显示在包页面的*一级标题*下方。</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>## Level 2 heading for package org.jetbrains.kotlin.demo</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>此标题之后的内容也是 \`org.jetbrains.kotlin.demo\` 文档的一部分。</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span># Package org.jetbrains.kotlin.demo2</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>此内容将显示在包列表中您的包名称下方。</span></span>
+<span class="line"><span>它还会显示在包页面的*一级标题*下方。</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>## Level 2 heading for package org.jetbrains.kotlin.demo2</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>此标题之后的内容也是 \`org.jetbrains.kotlin.demo2\` 文档的一部分。</span></span></code></pre></div><p>要查看一个使用 Gradle 的示例项目，请参见 <a href="https://github.com/Kotlin/dokka/tree/2.0.0/examples/gradle/dokka-gradle-example" target="_blank" rel="noreferrer">Dokka gradle example</a>。</p><h2 id="将文件传递给-dokka" tabindex="-1">将文件传递给 Dokka <a class="header-anchor" href="#将文件传递给-dokka" aria-label="Permalink to &quot;将文件传递给 Dokka&quot;">​</a></h2><p>要将这些文件传递给 Dokka，您需要为 Gradle、Maven 或 CLI 使用相关的 <strong>includes</strong> 选项：</p>`,12)),e(p,{group:"build-script"},{default:l(()=>[e(o,{title:"Gradle","group-key":"gradle"},{default:l(()=>s[0]||(s[0]=[a("p",null,[n("请使用 "),a("a",{href:"/kotlin/dokka-gradle#source-set-configuration"},"Source set configuration"),n(" 中的 "),a("a",{href:"/kotlin/dokka-gradle#includes"},"includes"),n(" 选项。")],-1)])),_:1}),e(o,{title:"Maven","group-key":"mvn"},{default:l(()=>s[1]||(s[1]=[a("p",null,[n("请使用 "),a("a",{href:"/kotlin/dokka-maven#general-configuration"},"General configuration"),n(" 中的 "),a("a",{href:"/kotlin/dokka-maven#includes"},"includes"),n(" 选项。")],-1)])),_:1}),e(o,{title:"CLI","group-key":"cli"},{default:l(()=>s[2]||(s[2]=[a("p",null,[n("如果您正在使用命令行配置，请使用 "),a("a",{href:"/kotlin/dokka-cli#source-set-options"},"Source set options"),n(" 中的 "),a("a",{href:"/kotlin/dokka-cli#includes-cli"},"includes"),n(" 选项。")],-1),a("p",null,[n("如果您正在使用 JSON 配置，请使用 "),a("a",{href:"/kotlin/dokka-cli#general-configuration"},"General configuration"),n(" 中的 "),a("a",{href:"/kotlin/dokka-cli#includes-json"},"includes"),n(" 选项。")],-1)])),_:1})]),_:1})])}const x=i(k,[["render",u]]);export{v as __pageData,x as default};

@@ -1,0 +1,1 @@
+const t="/kotlin/jvm-new-project.png",n="/kotlin/jvm-main-kt-initial.png",o="/kotlin/jvm-run-app.png",p="/kotlin/jvm-output-1.png",s="/kotlin/jvm-output-2.png";export{t as _,n as a,o as b,p as c,s as d};

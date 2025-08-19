@@ -1,0 +1,1 @@
+const t="/kotlin/spring-boot-create-project-with-initializr.png",o="/kotlin/spring-boot-project-structure.png",n="/kotlin/spring-boot-run-the-application.png",s="/kotlin/spring-boot-output.png",p="/kotlin/spring-boot-sql-scheme.png",i="/kotlin/spring-boot-run-http-request.png",r="/kotlin/spring-boot-output-2.png";export{t as _,o as a,n as b,s as c,p as d,i as e,r as f};

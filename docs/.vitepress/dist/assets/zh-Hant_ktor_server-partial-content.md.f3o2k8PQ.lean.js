@@ -1,0 +1,21 @@
+import{_ as v,C as l,c as f,o as g,G as n,ag as c,j as e,w as r,a as o}from"./chunks/framework.Bksy39di.js";const N=JSON.parse('{"title":"","description":"","frontmatter":{},"headers":[],"relativePath":"zh-Hant/ktor/server-partial-content.md","filePath":"zh-Hant/ktor/server-partial-content.md","lastUpdated":1755457140000}'),b={name:"zh-Hant/ktor/server-partial-content.md"};function T(P,t,_,C,y,S){const p=l("TopicTitle"),u=l("primary-label"),d=l("Links"),m=l("tldr"),i=l("code-block"),a=l("TabItem"),s=l("Tabs"),k=l("list");return g(),f("div",null,[n(p,{labelRef:"server-plugin",title:"部分內容"}),n(u,{ref:"server-plugin"},null,512),n(m,null,{default:r(()=>[t[3]||(t[3]=e("p",null,[e("b",null,"所需依賴項"),o(": "),e("code",null,"io.ktor:ktor-server-partial-content")],-1)),t[4]||(t[4]=e("p",null,[e("b",null,"伺服器範例"),o(": "),e("a",{href:"https://github.com/ktorio/ktor-documentation/tree/3.2.3/codeSnippets/snippets/download-file"},"download-file"),o(", "),e("b",null,"客戶端範例"),o(": "),e("a",{href:"https://github.com/ktorio/ktor-documentation/tree/3.2.3/codeSnippets/snippets/client-download-file-range"},"client-download-file-range")],-1)),e("p",null,[e("b",null,[n(d,{href:"/ktor/server-native",summary:"Ktor 支援 Kotlin/Native，並允許您在沒有額外運行時或虛擬機器的情況下運行伺服器。"},{default:r(()=>t[0]||(t[0]=[o("原生伺服器")])),_:1}),t[1]||(t[1]=o("支援"))]),t[2]||(t[2]=o(": ✅ "))])]),_:1}),t[17]||(t[17]=c("",5)),n(s,{group:"languages"},{default:r(()=>[n(a,{title:"Gradle (Kotlin)","group-key":"kotlin"},{default:r(()=>[n(i,{lang:"Kotlin",code:'            implementation("io.ktor:ktor-server-partial-content:$ktor_version")'})]),_:1}),n(a,{title:"Gradle (Groovy)","group-key":"groovy"},{default:r(()=>[n(i,{lang:"Groovy",code:'            implementation "io.ktor:ktor-server-partial-content:$ktor_version"'})]),_:1}),n(a,{title:"Maven","group-key":"maven"},{default:r(()=>[n(i,{lang:"XML",code:`            <dependency>
+                <groupId>io.ktor</groupId>
+                <artifactId>ktor-server-partial-content-jvm</artifactId>
+                <version>\${ktor_version}</version>
+            </dependency>`})]),_:1})]),_:1}),t[18]||(t[18]=e("h2",{id:"install_plugin",tabindex:"-1"},[o("安裝 PartialContent "),e("a",{class:"header-anchor",href:"#install_plugin","aria-label":'Permalink to "安裝 PartialContent {id="install_plugin"}"'},"​")],-1)),e("p",null,[t[6]||(t[6]=o(" 若要將 ")),t[7]||(t[7]=e("code",null,"PartialContent",-1)),t[8]||(t[8]=o(" 外掛程式")),t[9]||(t[9]=e("a",{href:"#install"},"安裝",-1)),t[10]||(t[10]=o("到應用程式中， 將其傳遞給指定")),n(d,{href:"/ktor/server-modules",summary:"Modules allow you to structure your application by grouping routes."},{default:r(()=>t[5]||(t[5]=[o("模組")])),_:1}),t[11]||(t[11]=o("中的 ")),t[12]||(t[12]=e("code",null,"install",-1)),t[13]||(t[13]=o(" 函數。 以下程式碼片段展示了如何安裝 ")),t[14]||(t[14]=e("code",null,"PartialContent",-1)),t[15]||(t[15]=o(" ... "))]),n(k,null,{default:r(()=>t[16]||(t[16]=[e("li",null,[o(" ... 在 "),e("code",null,"embeddedServer"),o(" 函數呼叫內部。 ")],-1),e("li",null,[o(" ... 在明確定義的 "),e("code",null,"module"),o(" 內部，它是 "),e("code",null,"Application"),o(" 類別的擴展函數。 ")],-1)])),_:1}),n(s,null,{default:r(()=>[n(a,{title:"embeddedServer"},{default:r(()=>[n(i,{lang:"kotlin",code:`            import io.ktor.server.engine.*
+            import io.ktor.server.netty.*
+            import io.ktor.server.application.*
+            import io.ktor.server.plugins.partialcontent.*
+
+            fun main() {
+                embeddedServer(Netty, port = 8080) {
+                    install(PartialContent)
+                    // ...
+                }.start(wait = true)
+            }`})]),_:1}),n(a,{title:"module"},{default:r(()=>[n(i,{lang:"kotlin",code:`            import io.ktor.server.application.*
+            import io.ktor.server.plugins.partialcontent.*
+            // ...
+            fun Application.module() {
+                install(PartialContent)
+                // ...
+            }`})]),_:1})]),_:1}),t[19]||(t[19]=e("p",null,[e("code",null,"PartialContent"),o(" 外掛程式也可以"),e("a",{href:"#install-route"},"安裝到特定路由"),o("。 如果您需要針對不同的應用程式資源使用不同的 "),e("code",null,"PartialContent"),o(" 組態，這可能會很有用。 ")],-1)),t[20]||(t[20]=e("p",null,[o("若要了解如何使用 "),e("code",null,"PartialContent"),o(" 透過 HTTP 範圍請求提供檔案，請參閱"),e("a",{href:"./server-responses#file"},"檔案"),o("部分。")],-1))])}const H=v(b,[["render",T]]);export{N as __pageData,H as default};

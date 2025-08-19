@@ -1,0 +1,21 @@
+import{_ as F,C as t,c as b,o as m,G as a,ag as o,j as i,w as n,a as e}from"./chunks/framework.Bksy39di.js";const x=JSON.parse('{"title":"","description":"","frontmatter":{},"headers":[],"relativePath":"ko/ktor/server-websockets.md","filePath":"ko/ktor/server-websockets.md","lastUpdated":1755457140000}'),v={name:"ko/ktor/server-websockets.md"};function C(f,s,S,B,w,q){const r=t("TopicTitle"),d=t("show-structure"),E=t("primary-label"),p=t("Links"),c=t("tldr"),g=t("link-summary"),y=t("snippet"),l=t("code-block"),k=t("TabItem"),h=t("Tabs"),u=t("list");return m(),b("div",null,[a(r,{labelRef:"server-plugin",title:"Ktor 서버에서 WebSockets"}),a(d,{for:"chapter",depth:"2"}),a(E,{ref:"server-plugin"},null,512),a(c,null,{default:n(()=>[s[3]||(s[3]=i("p",null,[i("b",null,"필수 종속성"),e(": "),i("code",null,"io.ktor:ktor-server-websockets")],-1)),s[4]||(s[4]=i("p",null,[i("b",null,"코드 예시"),e(": "),i("a",{href:"https://github.com/ktorio/ktor-documentation/tree/3.2.3/codeSnippets/snippets/server-websockets"}," server-websockets ")],-1)),i("p",null,[i("b",null,[a(p,{href:"/ktor/server-native",summary:"Ktor는 Kotlin/Native를 지원하며 추가 런타임이나 가상 머신 없이 서버를 실행할 수 있습니다."},{default:n(()=>s[0]||(s[0]=[e("네이티브 서버")])),_:1}),s[1]||(s[1]=e(" 지원"))]),s[2]||(s[2]=e(": ✅ "))])]),_:1}),a(g,null,{default:n(()=>s[5]||(s[5]=[e(" WebSockets 플러그인을 사용하면 서버와 클라이언트 간의 다방향 통신 세션을 생성할 수 있습니다. ")])),_:1}),a(y,{id:"websockets-description"},{default:n(()=>s[6]||(s[6]=[i("p",null,"WebSocket은 단일 TCP 연결을 통해 사용자의 브라우저와 서버 간에 전이중 통신 세션을 제공하는 프로토콜입니다. 서버로/부터 실시간 데이터 전송이 필요한 애플리케이션을 생성하는 데 특히 유용합니다.",-1),i("p",null,"Ktor는 서버 및 클라이언트 측 모두에서 WebSocket 프로토콜을 지원합니다.",-1)])),_:1}),s[19]||(s[19]=o("",6)),a(h,{group:"languages"},{default:n(()=>[a(k,{title:"Gradle (Kotlin)","group-key":"kotlin"},{default:n(()=>[a(l,{lang:"Kotlin",code:'            implementation("io.ktor:ktor-server-websockets:$ktor_version")'})]),_:1}),a(k,{title:"Gradle (Groovy)","group-key":"groovy"},{default:n(()=>[a(l,{lang:"Groovy",code:'            implementation "io.ktor:ktor-server-websockets:$ktor_version"'})]),_:1}),a(k,{title:"Maven","group-key":"maven"},{default:n(()=>[a(l,{lang:"XML",code:`            <dependency>
+                <groupId>io.ktor</groupId>
+                <artifactId>ktor-server-websockets-jvm</artifactId>
+                <version>\${ktor_version}</version>
+            </dependency>`})]),_:1})]),_:1}),s[20]||(s[20]=i("h2",{id:"install_plugin",tabindex:"-1"},[e("WebSockets 설치 "),i("a",{class:"header-anchor",href:"#install_plugin","aria-label":'Permalink to "WebSockets 설치 {id="install_plugin"}"'},"​")],-1)),i("p",null,[s[8]||(s[8]=e(" 애플리케이션에 ")),s[9]||(s[9]=i("code",null,"WebSockets",-1)),s[10]||(s[10]=e(" 플러그인을 ")),s[11]||(s[11]=i("a",{href:"#install"},"설치",-1)),s[12]||(s[12]=e("하려면 지정된 ")),a(p,{href:"/ktor/server-modules",summary:"모듈을 사용하면 라우트를 그룹화하여 애플리케이션을 구성할 수 있습니다."},{default:n(()=>s[7]||(s[7]=[e("모듈")])),_:1}),s[13]||(s[13]=e("의 ")),s[14]||(s[14]=i("code",null,"install",-1)),s[15]||(s[15]=e(" 함수에 전달하세요. 아래 코드 스니펫은 ")),s[16]||(s[16]=i("code",null,"WebSockets",-1)),s[17]||(s[17]=e("을(를) 설치하는 방법을 보여줍니다... "))]),a(u,null,{default:n(()=>s[18]||(s[18]=[i("li",null,[e(" ... "),i("code",null,"embeddedServer"),e(" 함수 호출 내에서. ")],-1),i("li",null,[e(" ... "),i("code",null,"Application"),e(" 클래스의 확장 함수인 명시적으로 정의된 "),i("code",null,"module"),e(" 내에서. ")],-1)])),_:1}),a(h,null,{default:n(()=>[a(k,{title:"embeddedServer"},{default:n(()=>[a(l,{lang:"kotlin",code:`            import io.ktor.server.engine.*
+            import io.ktor.server.netty.*
+            import io.ktor.server.application.*
+            import io.ktor.server.websocket.*
+
+            fun main() {
+                embeddedServer(Netty, port = 8080) {
+                    install(WebSockets)
+                    // ...
+                }.start(wait = true)
+            }`})]),_:1}),a(k,{title:"module"},{default:n(()=>[a(l,{lang:"kotlin",code:`            import io.ktor.server.application.*
+            import io.ktor.server.websocket.*
+            // ...
+            fun Application.module() {
+                install(WebSockets)
+                // ...
+            }`})]),_:1})]),_:1}),s[21]||(s[21]=o("",35))])}const _=F(v,[["render",C]]);export{x as __pageData,_ as default};

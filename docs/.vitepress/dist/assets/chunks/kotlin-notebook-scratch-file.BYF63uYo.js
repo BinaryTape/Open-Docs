@@ -1,0 +1,1 @@
+const o="/kotlin/new-notebook-project.png",t="/kotlin/new-notebook.png",n="/kotlin/run-cell-and-select-below.png",s="/kotlin/run-all-button.png",i="/kotlin/first-notebook.png",e="/kotlin/kotlin-notebook-scratch-file.png";export{o as _,t as a,n as b,s as c,i as d,e};
