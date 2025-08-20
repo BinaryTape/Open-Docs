@@ -30,7 +30,8 @@ import markdownItWsTopicTitle from "./markdown-it-ws-topicTitle";
 import { markdownItWsCollapsed } from "./markdown-it-ws-collapsed.mts";
 import generateSidebar from "./config/sidebar.config";
 import markdownItWsRemoveCodeAttr from "./markdown-it-ws-remove-code-attr";
-import {markdownItRemoveExtraSpaces, markdownItTrimBrSpaces} from "./markdown-it-trim-br-spaces";
+import {markdownItTrimBrSpaces} from "./markdown-it-trim-br-spaces";
+import {markdownItKtorAutoPicture} from "./markdown-it-ktor-auto-picture";
 
 const mkDiffGrammarPath = resolve(__dirname, './shiki-mk-diff.json')
 const mkDiffGrammar = JSON.parse(readFileSync(mkDiffGrammarPath, 'utf-8'))
@@ -350,6 +351,7 @@ export default defineConfig({
             md.use(markdownItTrimBrSpaces)
             md.use(markdownItWsVars);
             md.use(markdownItMKVars);
+            md.use(markdownItKtorAutoPicture);
 
             md.use(markdownItWsRename)
             md.use(markdownItWsTopicTitle)

@@ -33,6 +33,7 @@ import Highlight from "../component/Highlight.vue";
 import Note from "../component/Note.vue";
 import Tip from "../component/Tip.vue";
 import YouTubeVideo from "../component/YouTubeVideo.vue";
+import { installImageSwitcher } from './image-switcher.js';
 
 export default {
   extends: DefaultTheme,
@@ -93,6 +94,8 @@ export default {
     app.component('tip', Tip)
 
     app.component('YouTubeVideo', YouTubeVideo)
+
+    installImageSwitcher();
 
     // Use our custom i18n implementation
     app.use(createI18n())
