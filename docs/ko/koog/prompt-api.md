@@ -1,14 +1,27 @@
 # 프롬프트 API
 
-프롬프트 API를 사용하면 Kotlin DSL을 통해 잘 구성된 프롬프트를 생성하고, 다양한 LLM 제공자에 대해 실행하며, 여러 형식으로 응답을 처리할 수 있습니다.
+프롬프트 API는 프로덕션 애플리케이션에서 대규모 언어 모델(LLM)과 상호작용하기 위한 포괄적인 툴킷을 제공합니다. 다음을 제공합니다:
+
+- 타입 안전성을 갖춘 구조화된 프롬프트를 생성하기 위한 **Kotlin DSL**
+- OpenAI, Anthropic, Google 및 다른 LLM 제공자를 위한 **다중 제공자 지원**
+- 재시도 로직, 오류 처리, 타임아웃 구성과 같은 **프로덕션 기능**
+- 텍스트, 이미지, 오디오 및 문서 작업을 위한 **멀티모달 기능**
+
+## 아키텍처 개요
+
+프롬프트 API는 세 가지 주요 계층으로 구성됩니다:
+
+1.  **LLM 클라이언트** - 특정 제공자(OpenAI, Anthropic 등)에 대한 저수준 인터페이스
+2.  **데코레이터** - 재시도 로직과 같은 기능을 추가하는 선택적 래퍼
+3.  **프롬프트 실행기** - 클라이언트 라이프사이클을 관리하고 사용을 간소화하는 고수준 추상화
 
 ## 프롬프트 생성
 
 프롬프트 API는 Kotlin DSL을 사용하여 프롬프트를 생성합니다. 다음 유형의 메시지를 지원합니다:
 
-- `system`: LLM의 컨텍스트와 지시사항을 설정합니다.
-- `user`: 사용자 입력을 나타냅니다.
-- `assistant`: LLM 응답을 나타냅니다.
+-   `system`: LLM의 컨텍스트와 지시사항을 설정합니다.
+-   `user`: 사용자 입력을 나타냅니다.
+-   `assistant`: LLM 응답을 나타냅니다.
 
 다음은 간단한 프롬프트의 예시입니다:
 
@@ -37,7 +50,7 @@ val prompt = prompt("prompt_name", LLMParams()) {
 
 특정 LLM으로 프롬프트를 실행하려면 다음을 수행해야 합니다:
 
-1. 애플리케이션과 LLM 제공자 간의 연결을 처리하는 해당 LLM 클라이언트를 생성합니다. 예를 들면 다음과 같습니다:
+1.  애플리케이션과 LLM 제공자 간의 연결을 처리하는 해당 LLM 클라이언트를 생성합니다. 예를 들면 다음과 같습니다:
 <!--- INCLUDE
 import ai.koog.prompt.executor.clients.openai.OpenAILLMClient
 const val apiKey = "apikey"
@@ -48,7 +61,7 @@ val client = OpenAILLMClient(apiKey)
 ```
 <!--- KNIT example-prompt-api-02.kt -->
 
-2. `execute` 메서드를 프롬프트와 LLM을 인수로 사용하여 호출합니다.
+2.  `execute` 메서드를 프롬프트와 LLM을 인수로 사용하여 호출합니다.
 <!--- INCLUDE
 import ai.koog.agents.example.examplePromptApi01.prompt
 import ai.koog.agents.example.examplePromptApi02.client
@@ -73,12 +86,12 @@ val response = client.execute(
 
 다음 LLM 클라이언트를 사용할 수 있습니다:
 
-* [OpenAILLMClient](https://api.koog.ai/prompt/prompt-executor/prompt-executor-clients/prompt-executor-openai-client/ai.koog.prompt.executor.clients.openai/-open-a-i-l-l-m-client/index.html)
-* [AnthropicLLMClient](https://api.koog.ai/prompt/prompt-executor/prompt-executor-clients/prompt-executor-anthropic-client/ai.koog.prompt.executor.clients.anthropic/-anthropic-l-l-m-client/index.html)
-* [GoogleLLMClient](https://api.koog.ai/prompt/prompt-executor/prompt-executor-clients/prompt-executor-google-client/ai.koog.prompt.executor.clients.google/-google-l-l-m-client/index.html)
-* [OpenRouterLLMClient](https://api.koog.ai/prompt/prompt-executor/prompt-executor-clients/prompt-executor-openrouter-client/ai.koog.prompt.executor.clients.openrouter/-open-router-l-l-m-client/index.html)
-* [OllamaClient](https://api.koog.ai/prompt/prompt-executor/prompt-executor-clients/prompt-executor-ollama-client/ai.koog.prompt.executor.ollama.client/-ollama-client/index.html)
-* [BedrockLLMClient](https://api.koog.ai/prompt/prompt-executor/prompt-executor-clients/prompt-executor-bedrock-client/ai.koog.prompt.executor.clients.bedrock/-bedrock-l-l-m-client/index.html) (JVM 전용)
+*   [OpenAILLMClient](https://api.koog.ai/prompt/prompt-executor/prompt-executor-clients/prompt-executor-openai-client/ai.koog.prompt.executor.clients.openai/-open-a-i-l-l-m-client/index.html)
+*   [AnthropicLLMClient](https://api.koog.ai/prompt/prompt-executor/prompt-executor-clients/prompt-executor-anthropic-client/ai.koog.prompt.executor.clients.anthropic/-anthropic-l-l-m-client/index.html)
+*   [GoogleLLMClient](https://api.koog.ai/prompt/prompt-executor/prompt-executor-clients/prompt-executor-google-client/ai.koog.prompt.executor.clients.google/-google-l-l-m-client/index.html)
+*   [OpenRouterLLMClient](https://api.koog.ai/prompt/prompt-executor/prompt-executor-clients/prompt-executor-openrouter-client/ai.koog.prompt.executor.clients.openrouter/-open-router-l-l-m-client/index.html)
+*   [OllamaClient](https://api.koog.ai/prompt/prompt-executor/prompt-executor-clients/prompt-executor-ollama-client/ai.koog.prompt.executor.ollama.client/-ollama-client/index.html)
+*   [BedrockLLMClient](https://api.koog.ai/prompt/prompt-executor/prompt-executor-clients/prompt-executor-bedrock-client/ai.koog.prompt.executor.clients.bedrock/-bedrock-l-l-m-client/index.html) (JVM 전용)
 
 다음은 프롬프트 API 사용의 간단한 예시입니다:
 
@@ -120,6 +133,275 @@ fun main() {
 ```
 <!--- KNIT example-prompt-api-04.kt -->
 
+## 재시도 기능
+
+LLM 제공자와 작업할 때, 속도 제한 또는 일시적인 서비스 사용 불가와 같은 일시적인 오류가 발생할 수 있습니다. `RetryingLLMClient` 데코레이터는 모든 LLM 클라이언트에 자동 재시도 로직을 추가합니다.
+
+### 기본 사용법
+
+기존 클라이언트를 재시도 기능으로 래핑(Wrap)합니다:
+
+<!--- INCLUDE
+import ai.koog.prompt.executor.clients.openai.OpenAILLMClient
+import ai.koog.prompt.executor.clients.openai.OpenAIModels
+import ai.koog.prompt.executor.clients.retry.RetryingLLMClient
+import ai.koog.prompt.dsl.prompt
+import kotlinx.coroutines.runBlocking
+
+fun main() {
+    runBlocking {
+        val apiKey = System.getenv("OPENAI_API_KEY")
+        val prompt = prompt("test") {
+            user("Hello")
+        }
+-->
+<!--- SUFFIX
+    }
+}
+-->
+```kotlin
+// 모든 클라이언트를 재시도 기능으로 래핑합니다.
+val client = OpenAILLMClient(apiKey)
+val resilientClient = RetryingLLMClient(client)
+
+// 이제 모든 작업은 일시적인 오류 발생 시 자동으로 재시도됩니다.
+val response = resilientClient.execute(prompt, OpenAIModels.Chat.GPT4o)
+```
+<!--- KNIT example-prompt-api-05.kt -->
+
+#### 재시도 동작 구성
+
+Koog는 몇 가지 사전 정의된 재시도 구성을 제공합니다:
+
+| 구성       | 최대 시도 횟수 | 초기 지연 | 최대 지연 | 사용 사례          |
+|------------|----------------|-----------|-----------|--------------------|
+| `DISABLED` | 1 (재시도 없음) | -         | -         | 개발/테스트        |
+| `CONSERVATIVE` | 3              | 2초       | 30초      | 일반적인 프로덕션 사용 |
+| `AGGRESSIVE` | 5              | 500ms     | 20초      | 중요 작업          |
+| `PRODUCTION` | 3              | 1초       | 20초      | 권장 기본값        |
+
+직접 사용하거나 사용자 정의 구성을 생성합니다:
+
+<!--- INCLUDE
+import ai.koog.prompt.executor.clients.openai.OpenAILLMClient
+import ai.koog.prompt.executor.clients.retry.RetryConfig
+import ai.koog.prompt.executor.clients.retry.RetryingLLMClient
+import kotlin.time.Duration.Companion.seconds
+
+val apiKey = System.getenv("OPENAI_API_KEY")
+val client = OpenAILLMClient(apiKey)
+-->
+```kotlin
+// 사전 정의된 구성 사용
+val conservativeClient = RetryingLLMClient(
+    delegate = client,
+    config = RetryConfig.CONSERVATIVE
+)
+
+// 또는 사용자 정의 구성 생성
+val customClient = RetryingLLMClient(
+    delegate = client,
+    config = RetryConfig(
+        maxAttempts = 5,
+        initialDelay = 1.seconds,
+        maxDelay = 30.seconds,
+        backoffMultiplier = 2.0,
+        jitterFactor = 0.2
+    )
+)
+```
+<!--- KNIT example-prompt-api-06.kt -->
+
+#### 재시도 가능한 오류 패턴
+
+기본적으로 재시도 메커니즘은 일반적인 일시적 오류를 인식합니다:
+
+-   **HTTP 상태 코드**: 429 (속도 제한), 500, 502, 503, 504
+-   **오류 키워드**: "rate limit", "timeout", "connection reset", "overloaded"
+
+특정 요구 사항에 맞게 사용자 정의 패턴을 정의할 수 있습니다:
+
+<!--- INCLUDE
+import ai.koog.prompt.executor.clients.retry.RetryConfig
+import ai.koog.prompt.executor.clients.retry.RetryablePattern
+-->
+```kotlin
+val config = RetryConfig(
+    retryablePatterns = listOf(
+        RetryablePattern.Status(429),           // 특정 상태 코드
+        RetryablePattern.Keyword("quota"),      // 오류 메시지의 키워드
+        RetryablePattern.Regex(Regex("ERR_\\d+")), // 사용자 정의 정규 표현식 패턴
+        RetryablePattern.Custom { error ->      // 사용자 정의 로직
+            error.contains("temporary") && error.length > 20
+        }
+    )
+)
+```
+<!--- KNIT example-prompt-api-07.kt -->
+
+#### 프롬프트 실행기와 함께 재시도
+
+프롬프트 실행기를 사용할 때, 실행기를 생성하기 전에 기본 클라이언트를 래핑합니다:
+
+<!--- INCLUDE
+import ai.koog.prompt.executor.clients.anthropic.AnthropicLLMClient
+import ai.koog.prompt.executor.clients.bedrock.BedrockLLMClient
+import ai.koog.prompt.executor.clients.openai.OpenAILLMClient
+import ai.koog.prompt.executor.clients.retry.RetryConfig
+import ai.koog.prompt.executor.clients.retry.RetryingLLMClient
+import ai.koog.prompt.executor.llms.MultiLLMPromptExecutor
+import ai.koog.prompt.executor.llms.SingleLLMPromptExecutor
+import ai.koog.prompt.llm.LLMProvider
+
+-->
+```kotlin
+// 재시도 기능을 갖춘 단일 제공자 실행기
+val resilientClient = RetryingLLMClient(
+    OpenAILLMClient(System.getenv("OPENAI_API_KEY")),
+    RetryConfig.PRODUCTION
+)
+val executor = SingleLLMPromptExecutor(resilientClient)
+
+// 유연한 클라이언트 구성을 갖춘 다중 제공자 실행기
+val multiExecutor = MultiLLMPromptExecutor(
+    LLMProvider.OpenAI to RetryingLLMClient(
+        OpenAILLMClient(System.getenv("OPENAI_API_KEY")),
+        RetryConfig.CONSERVATIVE
+    ),
+    LLMProvider.Anthropic to RetryingLLMClient(
+        AnthropicLLMClient(System.getenv("ANTHROPIC_API_KEY")),
+        RetryConfig.AGGRESSIVE  
+    ),
+    // Bedrock 클라이언트는 이미 AWS SDK 재시도 기능이 내장되어 있습니다.
+    LLMProvider.Bedrock to BedrockLLMClient(
+        awsAccessKeyId = System.getenv("AWS_ACCESS_KEY_ID"),
+        awsSecretAccessKey = System.getenv("AWS_SECRET_ACCESS_KEY"),
+        awsSessionToken = System.getenv("AWS_SESSION_TOKEN"),
+    ))
+```
+<!--- KNIT example-prompt-api-08.kt -->
+
+#### 재시도 기능을 갖춘 스트리밍
+
+스트리밍 작업은 선택적으로 재시도될 수 있습니다 (기본적으로 비활성화됨):
+
+<!--- INCLUDE
+import ai.koog.prompt.executor.clients.openai.OpenAILLMClient
+import ai.koog.prompt.executor.clients.openai.OpenAIModels
+import ai.koog.prompt.executor.clients.retry.RetryConfig
+import ai.koog.prompt.executor.clients.retry.RetryingLLMClient
+import ai.koog.prompt.dsl.prompt
+import kotlinx.coroutines.runBlocking
+
+fun main() {
+    runBlocking {
+        val baseClient = OpenAILLMClient(System.getenv("OPENAI_API_KEY"))
+        val prompt = prompt("test") {
+            user("Generate a story")
+        }
+-->
+<!--- SUFFIX
+    }
+}
+-->
+```kotlin
+val config = RetryConfig(
+    maxAttempts = 3
+)
+
+val client = RetryingLLMClient(baseClient, config)
+val stream = client.executeStreaming(prompt, OpenAIModels.Chat.GPT4o)
+```
+<!--- KNIT example-prompt-api-09.kt -->
+
+> **참고**: 스트리밍 재시도는 첫 번째 토큰을 받기 전의 연결 실패에만 적용됩니다. 스트리밍이 시작되면 오류는 콘텐츠 무결성을 보존하기 위해 전달됩니다.
+
+### 타임아웃 구성
+
+모든 LLM 클라이언트는 지연되는 요청을 방지하기 위해 타임아웃 구성을 지원합니다:
+
+<!--- INCLUDE
+import ai.koog.prompt.executor.clients.ConnectionTimeoutConfig
+import ai.koog.prompt.executor.clients.openai.OpenAIClientSettings
+import ai.koog.prompt.executor.clients.openai.OpenAILLMClient
+
+val apiKey = System.getenv("OPENAI_API_KEY")
+-->
+```kotlin
+val client = OpenAILLMClient(
+    apiKey = apiKey,
+    settings = OpenAIClientSettings(
+        timeoutConfig = ConnectionTimeoutConfig(
+            connectTimeoutMillis = 5000,    // 연결 설정에 5초
+            requestTimeoutMillis = 60000    // 전체 요청에 60초
+        )
+    )
+)
+```
+<!--- KNIT example-prompt-api-10.kt -->
+
+### 오류 처리 모범 사례
+
+프로덕션 환경에서 LLM과 작업할 때:
+
+1.  예상치 못한 오류를 처리하기 위해 **항상 try-catch 블록으로 작업을 래핑합니다.**
+2.  디버깅을 위해 **컨텍스트와 함께 오류를 로깅합니다.**
+3.  중요 작업에 대한 **대체 전략을 구현합니다.**
+4.  시스템적 문제를 식별하기 위해 **재시도 패턴을 모니터링합니다.**
+
+포괄적인 오류 처리 예시:
+
+<!--- INCLUDE
+import ai.koog.prompt.executor.clients.openai.OpenAILLMClient
+import ai.koog.prompt.executor.clients.openai.OpenAIModels
+import ai.koog.prompt.executor.clients.retry.RetryingLLMClient
+import ai.koog.prompt.dsl.prompt
+import kotlinx.coroutines.runBlocking
+import org.slf4j.LoggerFactory
+
+fun main() {
+    runBlocking {
+        val logger = LoggerFactory.getLogger("Example")
+        val resilientClient = RetryingLLMClient(
+            OpenAILLMClient(System.getenv("OPENAI_API_KEY"))
+        )
+        val prompt = prompt("test") { user("Hello") }
+        val model = OpenAIModels.Chat.GPT4o
+        
+        fun processResponse(response: Any) { /* ... */ }
+        fun scheduleRetryLater() { /* ... */ }
+        fun notifyAdministrator() { /* ... */ }
+        fun useDefaultResponse() { /* ... */ }
+-->
+<!--- SUFFIX
+    }
+}
+-->
+```kotlin
+try {
+    val response = resilientClient.execute(prompt, model)
+    processResponse(response)
+} catch (e: Exception) {
+    logger.error("LLM operation failed", e)
+    
+    when {
+        e.message?.contains("rate limit") == true -> {
+            // 속도 제한을 구체적으로 처리합니다.
+            scheduleRetryLater()
+        }
+        e.message?.contains("invalid api key") == true -> {
+            // 인증 오류를 처리합니다.
+            notifyAdministrator()
+        }
+        else -> {
+            // 대체 솔루션으로 폴백(fallback)합니다.
+            useDefaultResponse()
+        }
+    }
+}
+```
+<!--- KNIT example-prompt-api-11.kt -->
+
 ## 멀티모달 입력
 
 프롬프트 내에서 텍스트 메시지를 제공하는 것 외에도, Koog는 `user` 메시지와 함께 이미지, 오디오, 비디오, 파일을 LLM으로 보낼 수 있도록 합니다. 표준 텍스트 전용 프롬프트와 마찬가지로, 프롬프트 구성 시 DSL 구조를 사용하여 미디어를 프롬프트에 추가할 수 있습니다.
@@ -142,7 +424,7 @@ val prompt = prompt("multimodal_input") {
     }
 }
 ```
-<!--- KNIT example-prompt-api-05.kt -->
+<!--- KNIT example-prompt-api-12.kt -->
 
 ### 텍스트 프롬프트 내용
 
@@ -166,7 +448,7 @@ user(
     )
 )
 ```
-<!--- KNIT example-prompt-api-06.kt -->
+<!--- KNIT example-prompt-api-13.kt -->
 
 ### 파일 첨부
 
@@ -195,14 +477,14 @@ user(
     )
 )
 ```
-<!--- KNIT example-prompt-api-07.kt -->
+<!--- KNIT example-prompt-api-14.kt -->
 
 `attachments` 파라미터는 파일 입력 목록을 취하며, 각 항목은 다음 클래스 중 하나의 인스턴스입니다:
 
-- `Attachment.Image`: `jpg` 또는 `png` 파일과 같은 이미지 첨부 파일.
-- `Attachment.Audio`: `mp3` 또는 `wav` 파일과 같은 오디오 첨부 파일.
-- `Attachment.Video`: `mpg` 또는 `avi` 파일과 같은 비디오 첨부 파일.
-- `Attachment.File`: `pdf` 또는 `txt` 파일과 같은 일반 파일 첨부 파일.
+-   `Attachment.Image`: `jpg` 또는 `png` 파일과 같은 이미지 첨부 파일.
+-   `Attachment.Audio`: `mp3` 또는 `wav` 파일과 같은 오디오 첨부 파일.
+-   `Attachment.Video`: `mpg` 또는 `avi` 파일과 같은 비디오 첨부 파일.
+-   `Attachment.File`: `pdf` 또는 `txt` 파일과 같은 일반 파일 첨부 파일.
 
 각 클래스는 다음 파라미터를 사용합니다:
 
@@ -271,33 +553,36 @@ val prompt = prompt("mixed_content") {
     }
 }
 ```
-<!--- KNIT example-prompt-api-08.kt -->
+<!--- KNIT example-prompt-api-15.kt -->
 
 ## 프롬프트 실행기
 
-프롬프트 실행기는 LLM과 상호작용하는 더 높은 수준의 방법을 제공하며, 클라이언트 생성 및 관리의 세부 사항을 처리합니다.
+LLM 클라이언트가 제공자에 대한 직접적인 접근을 제공하는 반면, **프롬프트 실행기**는 일반적인 사용 사례를 간소화하고 클라이언트 라이프사이클 관리를 처리하는 더 높은 수준의 추상화를 제공합니다. 다음을 원할 때 이상적입니다:
 
-프롬프트 실행기를 사용하여 프롬프트를 관리하고 실행할 수 있습니다.
-사용하려는 LLM 제공자에 따라 프롬프트 실행기를 선택하거나, 사용 가능한 LLM 클라이언트 중 하나를 사용하여 커스텀 프롬프트 실행기를 생성할 수 있습니다.
+-   클라이언트 구성 관리 없이 신속하게 프로토타입을 만들 때
+-   통합 인터페이스를 통해 여러 제공자와 작업할 때
+-   대규모 애플리케이션에서 의존성 주입을 간소화할 때
+-   제공자별 세부 정보를 추상화할 때
+
+### 실행기 유형
 
 Koog 프레임워크는 여러 프롬프트 실행기를 제공합니다:
 
-- **단일 제공자 실행기**:
-    - `simpleOpenAIExecutor`: OpenAI 모델로 프롬프트를 실행하기 위한 실행기.
-    - `simpleAnthropicExecutor`: Anthropic 모델로 프롬프트를 실행하기 위한 실행기.
-    - `simpleGoogleExecutor`: Google 모델로 프롬프트를 실행하기 위한 실행기.
-    - `simpleOpenRouterExecutor`: OpenRouter로 프롬프트를 실행하기 위한 실행기.
-    - `simpleOllamaExecutor`: Ollama로 프롬프트를 실행하기 위한 실행기.
+-   **단일 제공자 실행기**:
+    -   `simpleOpenAIExecutor`: OpenAI 모델로 프롬프트를 실행하기 위한 실행기.
+    -   `simpleAnthropicExecutor`: Anthropic 모델로 프롬프트를 실행하기 위한 실행기.
+    -   `simpleGoogleExecutor`: Google 모델로 프롬프트를 실행하기 위한 실행기.
+    -   `simpleOpenRouterExecutor`: OpenRouter로 프롬프트를 실행하기 위한 실행기.
+    -   `simpleOllamaExecutor`: Ollama로 프롬프트를 실행하기 위한 실행기.
 
-- **다중 제공자 실행기**:
-    - `DefaultMultiLLMPromptExecutor`: 여러 LLM 제공자와 함께 작업하기 위한 실행기.
+-   **다중 제공자 실행기**:
+    -   `DefaultMultiLLMPromptExecutor`: 여러 LLM 제공자와 함께 작업하기 위한 실행기
 
 ### 단일 제공자 실행기 생성
 
-특정 LLM 제공자를 위한 프롬프트 실행기를 생성하려면 해당 함수를 사용합니다.
-예를 들어, OpenAI 프롬프트 실행기를 생성하려면 `simpleOpenAIExecutor` 함수를 호출하고 OpenAI 서비스 인증에 필요한 API 키를 제공해야 합니다:
+특정 LLM 제공자를 위한 프롬프트 실행기를 생성하려면 해당 함수를 사용합니다. 예를 들어, OpenAI 프롬프트 실행기를 생성하려면 `simpleOpenAIExecutor` 함수를 호출하고 OpenAI 서비스 인증에 필요한 API 키를 제공해야 합니다:
 
-1. 프롬프트 실행기 생성:
+1.  프롬프트 실행기 생성:
 <!--- INCLUDE
 import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
 const val apiToken = "YOUR_API_TOKEN"
@@ -306,14 +591,13 @@ const val apiToken = "YOUR_API_TOKEN"
 // OpenAI 실행기 생성
 val promptExecutor = simpleOpenAIExecutor(apiToken)
 ```
-<!--- KNIT example-prompt-api-09.kt -->
+<!--- KNIT example-prompt-api-16.kt -->
 
-2. 특정 LLM으로 프롬프트 실행:
+2.  특정 LLM으로 프롬프트 실행:
 <!--- INCLUDE
-import ai.koog.agents.example.examplePromptApi08.prompt
-import ai.koog.agents.example.examplePromptApi09.promptExecutor
+import ai.koog.agents.example.examplePromptApi12.prompt
+import ai.koog.agents.example.examplePromptApi16.promptExecutor
 import ai.koog.prompt.executor.clients.openai.OpenAIModels
-import ai.koog.prompt.executor.model.PromptExecutorExt.execute
 import kotlinx.coroutines.runBlocking
 
 fun main() {
@@ -328,15 +612,15 @@ fun main() {
 val response = promptExecutor.execute(
     prompt = prompt,
     model = OpenAIModels.Chat.GPT4o
-)
+).single()
 ```
-<!--- KNIT example-prompt-api-10.kt -->
+<!--- KNIT example-prompt-api-17.kt -->
 
 ### 다중 제공자 실행기 생성
 
 여러 LLM 제공자와 함께 작동하는 프롬프트 실행기를 생성하려면 다음을 수행합니다:
 
-1. 필요한 LLM 제공자를 위한 클라이언트를 해당 API 키로 구성합니다. 예를 들면 다음과 같습니다:
+1.  필요한 LLM 제공자를 위한 클라이언트를 해당 API 키로 구성합니다. 예를 들면 다음과 같습니다:
 <!--- INCLUDE
 import ai.koog.prompt.executor.clients.anthropic.AnthropicLLMClient
 import ai.koog.prompt.executor.clients.google.GoogleLLMClient
@@ -347,26 +631,25 @@ val openAIClient = OpenAILLMClient(System.getenv("OPENAI_KEY"))
 val anthropicClient = AnthropicLLMClient(System.getenv("ANTHROPIC_KEY"))
 val googleClient = GoogleLLMClient(System.getenv("GOOGLE_KEY"))
 ```
-<!--- KNIT example-prompt-api-11.kt -->
+<!--- KNIT example-prompt-api-18.kt -->
 
-2. 구성된 클라이언트들을 `DefaultMultiLLMPromptExecutor` 클래스 생성자에 전달하여 여러 LLM 제공자를 지원하는 프롬프트 실행기를 생성합니다:
+2.  구성된 클라이언트들을 `DefaultMultiLLMPromptExecutor` 클래스 생성자에 전달하여 여러 LLM 제공자를 지원하는 프롬프트 실행기를 생성합니다:
 <!--- INCLUDE
-import ai.koog.agents.example.examplePromptApi11.anthropicClient
-import ai.koog.agents.example.examplePromptApi11.googleClient
-import ai.koog.agents.example.examplePromptApi11.openAIClient
+import ai.koog.agents.example.examplePromptApi18.anthropicClient
+import ai.koog.agents.example.examplePromptApi18.googleClient
+import ai.koog.agents.example.examplePromptApi18.openAIClient
 import ai.koog.prompt.executor.llms.all.DefaultMultiLLMPromptExecutor
 -->
 ```kotlin
 val multiExecutor = DefaultMultiLLMPromptExecutor(openAIClient, anthropicClient, googleClient)
 ```
-<!--- KNIT example-prompt-api-12.kt -->
+<!--- KNIT example-prompt-api-19.kt -->
 
-3. 특정 LLM으로 프롬프트 실행:
+3.  특정 LLM으로 프롬프트 실행:
 <!--- INCLUDE
-import ai.koog.agents.example.examplePromptApi08.prompt
-import ai.koog.agents.example.examplePromptApi12.multiExecutor
+import ai.koog.agents.example.examplePromptApi12.prompt
+import ai.koog.agents.example.examplePromptApi19.multiExecutor
 import ai.koog.prompt.executor.clients.openai.OpenAIModels
-import ai.koog.prompt.executor.model.PromptExecutorExt.execute
 import kotlinx.coroutines.runBlocking
 
 fun main() {
@@ -380,6 +663,6 @@ fun main() {
 val response = multiExecutor.execute(
     prompt = prompt,
     model = OpenAIModels.Chat.GPT4o
-)
+).single()
 ```
-<!--- KNIT example-prompt-api-13.kt -->
+<!--- KNIT example-prompt-api-20.kt -->

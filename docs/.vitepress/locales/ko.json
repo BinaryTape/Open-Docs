@@ -85,7 +85,7 @@
   "kotlin.kotlin-overview": "Kotlin 개요",
   "kotlin.what-s-new-in-kotlin": "Kotlin의 새로운 기능",
   "kotlin.whatsnew22": "Kotlin 2.2.0",
-  "kotlin.whatsnew-eap": "Kotlin 2.2.20-Beta2",
+  "kotlin.whatsnew-eap": "Kotlin 2.2.20-RC",
   "kotlin.earlier-versions": "이전 버전",
   "kotlin.whatsnew2120": "Kotlin 2.1.20",
   "kotlin.whatsnew21": "Kotlin 2.1.0",
@@ -458,5 +458,6 @@
   "koog.content-moderation": "콘텐츠 조정",
   "koog.ranked-document-storage": "순위별 문서 저장소",
   "koog.agent-persistency": "에이전트 영속성",
-  "koog.opentelemetry": "OpenTelemetry"
+  "koog.opentelemetry": "OpenTelemetry",
+  "kotlin.native-binary-options": "바이너리 옵션"
 }

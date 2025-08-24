@@ -6,8 +6,9 @@ Ktor HTTP 클라이언트는 Kotlin이 지원하는 다양한 플랫폼에서 �
 - [Native](https://kotlinlang.org/docs/native-overview.html)
 undefined
 - [JavaScript](https://kotlinlang.org/docs/js-overview.html)
+- [WasmJs](https://kotlinlang.org/docs/wasm-overview.html)
 
-이는 [멀티플랫폼 프로젝트](https://kotlinlang.org/docs/multiplatform.html)에서 사용할 수 있으며, 멀티플랫폼 모바일 애플리케이션이든 풀스택 웹 애플리케이션이든 상관없습니다. 멀티플랫폼 프로젝트에 대해 다음 [타겟](https://kotlinlang.org/docs/multiplatform-dsl-reference.html#targets)이 지원됩니다:
+[멀티플랫폼 프로젝트](https://kotlinlang.org/docs/multiplatform.html)에서 멀티플랫폼 모바일 또는 풀스택 웹 애플리케이션으로 사용할 수 있습니다. 멀티플랫폼 프로젝트에 대해 다음 [타겟](https://kotlinlang.org/docs/multiplatform-dsl-reference.html#targets)이 지원됩니다:
 
 <table>
 
@@ -41,6 +42,19 @@ undefined
         <list>
             <li>
                 <code>js</code>
+            </li>
+        </list>
+    </td>
+</tr>
+
+<tr>
+<td>
+        Kotlin/Wasm
+    </td>
+    <td>
+        <list>
+            <li>
+                <code>wasmJs</code>
             </li>
         </list>
     </td>

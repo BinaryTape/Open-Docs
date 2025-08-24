@@ -1,6 +1,6 @@
 # OpenTelemetryのサポート
 
-このページでは、KoogエージェントフレームワークにおけるOpenTelemetryのサポートについて、AIエージェントのトレースと監視のために詳しく説明します。
+このページでは、AIエージェントのトレースと監視のために、KoogエージェントフレームワークにおけるOpenTelemetryのサポートについて詳しく説明します。
 
 ## 概要
 
@@ -473,7 +473,7 @@ fun main() {
     runBlocking {
         val agent = AIAgent(
             executor = simpleOpenAIExecutor(openAIApiKey),
-            llmModel = OpenAIModels.Reasoning.GPT4oMini,
+            llmModel = OpenAIModels.Reasoning.O4Mini,
             systemPrompt = "You are a code assistant. Provide concise code examples."
         ) {
             install(OpenTelemetry) {

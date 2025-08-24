@@ -3,6 +3,8 @@
 Ktor 伺服器可在 Kotlin 支援的以下平台使用：
 - JVM
 - [Native](server-native.md)
+- [JavaScript](https://kotlinlang.org/docs/js-overview.html)
+- [WasmJs](https://kotlinlang.org/docs/wasm-overview.html)
 
 支援以下 [targets](https://kotlinlang.org/docs/multiplatform-dsl-reference.html#targets)：
 
@@ -25,6 +27,32 @@ Ktor 伺服器可在 Kotlin 支援的以下平台使用：
         <list>
             <li>
                 <code>jvm</code>
+            </li>
+        </list>
+    </td>
+</tr>
+
+<tr>
+<td>
+        Kotlin/Wasm
+    </td>
+    <td>
+        <list>
+            <li>
+                <code>wasmJs</code>
+            </li>
+        </list>
+    </td>
+</tr>
+
+<tr>
+<td>
+        Kotlin/JS
+    </td>
+    <td>
+        <list>
+            <li>
+                <code>js</code>
             </li>
         </list>
     </td>

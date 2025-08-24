@@ -51,7 +51,7 @@
   "kotlin.kotlin-overview": "Kotlin overview",
   "kotlin.what-s-new-in-kotlin": "What's new in Kotlin",
   "kotlin.whatsnew22": "Kotlin 2.2.0",
-  "kotlin.whatsnew-eap": "Kotlin 2.2.20-Beta2",
+  "kotlin.whatsnew-eap": "Kotlin 2.2.20-RC",
   "kotlin.earlier-versions": "Earlier versions",
   "kotlin.whatsnew2120": "Kotlin 2.1.20",
   "kotlin.whatsnew21": "Kotlin 2.1.0",
@@ -425,5 +425,6 @@
   "koog.content-moderation": "Content moderation",
   "koog.ranked-document-storage": "Ranked document storage",
   "koog.agent-persistency": "Agent Persistency",
-  "koog.opentelemetry": "OpenTelemetry"
+  "koog.opentelemetry": "OpenTelemetry",
+  "kotlin.native-binary-options": "Binary options"
 }

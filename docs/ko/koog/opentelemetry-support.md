@@ -118,8 +118,8 @@ install(OpenTelemetry) {
 
 외부 시스템으로 텔레메트리 데이터를 전송할 스팬 익스포터를 추가합니다. 다음 인수를 사용합니다:
 
-| 이름       | 데이터 유형      | 필수 | 기본값 | 설명                                                     |
-|:-----------|:---------------|:---|:-----|:---------------------------------------------------------|
+| 이름       | 데이터 유형      | 필수 | 기본값 | 설명                                                                   |
+|:-----------|:---------------|:---|:-----|:-----------------------------------------------------------------------|
 | `exporter` | `SpanExporter` | 예 |      | 사용자 정의 스팬 익스포터 목록에 추가될 `SpanExporter` 인스턴스입니다. |
 
 #### addSpanProcessor
@@ -299,14 +299,14 @@ OpenTelemetry의 [생성형 AI 이벤트에 대한 시맨틱 컨벤션](https://
 -   **ChoiceEvent**: 모델의 응답 메시지.
 
 !!! note
-    `optentelemetry-java` SDK는 이벤트를 추가할 때 이벤트 본문 필드 매개변수를 지원하지 않습니다. 따라서 Koog의 OpenTelemetry 지원에서는 이벤트 본문 필드가 키가 `body`이고 값 유형이 문자열인 별도의 속성으로 처리됩니다. 이 문자열에는 일반적으로 JSON과 같은 객체인 이벤트 본문 필드의 내용 또는 페이로드가 포함됩니다. 이벤트 본문 필드의 예시는 [OpenTelemetry 문서](https://opentelemetry.io/docs/specs/semconv/gen-ai/gen-ai-events/#examples)를 참조하세요. `opentelemetry-java`의 이벤트 본문 필드 지원 상태는 관련 [GitHub 이슈](https://github.com/open-telemetry/semantic-conventions/issues/1870)를 참조하세요.
+    `optentelemetry-java` SDK는 이벤트를 추가할 때 이벤트 본문 필드 매개변수를 지원하지 않습니다. 따라서 Koog의 OpenTelemetry 지원에서는 이벤트 본문 필드가 키가 `body`이고 값 유형이 문자열인 별도의 속성으로 처리됩니다. 이 문자열에는 일반적으로 JSON과 같은 객체인 이벤트 본문 필드의 내용 또는 페이로드가 포함됩니다. 이벤트 본문 필드의 예시는 [OpenTelemetry 문서](https://opentelemetry.io/docs/specs/semconv/gen-ai/gen-ai-events/#examples)를 참조하세요. `opentelemetry-java`의 이벤트 본문 필드 지원 상태는 관련 [GitHub 이슈](https://github.ol.com/open-telemetry/semantic-conventions/issues/1870)를 참조하세요.
 
 ## 익스포터
 
 익스포터는 수집된 텔레메트리 데이터를 OpenTelemetry 컬렉터 또는 다른 유형의 대상이나 백엔드 구현으로 전송합니다. 익스포터를 추가하려면 OpenTelemetry 기능을 설치할 때 `addSpanExporter()` 메서드를 사용하세요. 이 메서드는 다음 인수를 사용합니다:
 
-| 이름       | 데이터 유형    | 필수 | 기본값 | 설명                                                     |
-|:-----------|:-------------|:---|:-----|:---------------------------------------------------------|
+| 이름       | 데이터 유형    | 필수 | 기본값 | 설명                                                                   |
+|:-----------|:-------------|:---|:-----|:-----------------------------------------------------------------------|
 | `exporter` | SpanExporter | 예 |      | 사용자 정의 스팬 익스포터 목록에 추가될 `SpanExporter` 인스턴스입니다. |
 
 아래 섹션에서는 `opentelemetry-java` SDK에서 가장 일반적으로 사용되는 익스포터 중 일부에 대한 정보를 제공합니다.
@@ -346,7 +346,7 @@ install(OpenTelemetry) {
 
 ### OpenTelemetry HTTP 익스포터
 
-OpenTelemetry HTTP 익스포터(`OtlpHttpSpanExporter`)는 `opentelemetry-java` SDK(`io.opentelemetry.exporter.otlp.http.trace.OtlpHttpSpanExporter`)의 일부이며, HTTP를 통해 스팬 데이터를 백엔드로 전송합니다.
+OpenTelemetry HTTP 익스포터(`OtlpHttpSpanExporter`)는 `opentelemetry-java` SDK (`io.opentelemetry.exporter.otlp.http.trace.OtlpHttpSpanExporter`)의 일부이며, HTTP를 통해 스팬 데이터를 백엔드로 전송합니다.
 
 <!--- INCLUDE
 import ai.koog.agents.core.agent.AIAgent
@@ -387,7 +387,7 @@ install(OpenTelemetry) {
 
 ### OpenTelemetry gRPC 익스포터
 
-OpenTelemetry gRPC 익스포터(`OtlpGrpcSpanExporter`)는 `opentelemetry-java` SDK(`io.opentelemetry.exporter.otlp.trace.OtlpGrpcSpanExporter`)의 일부입니다. gRPC를 통해 텔레메트리 데이터를 백엔드로 내보내며, 데이터를 수신하는 백엔드, 컬렉터 또는 엔드포인트의 호스트와 포트를 정의할 수 있습니다. 기본 포트는 `4317`입니다.
+OpenTelemetry gRPC 익스포터(`OtlpGrpcSpanExporter`)는 `opentelemetry-java` SDK (`io.opentelemetry.exporter.otlp.trace.OtlpGrpcSpanExporter`)의 일부입니다. gRPC를 통해 텔레메트리 데이터를 백엔드로 내보내며, 데이터를 수신하는 백엔드, 컬렉터 또는 엔드포인트의 호스트와 포트를 정의할 수 있습니다. 기본 포트는 `4317`입니다.
 
 <!--- INCLUDE
 import ai.koog.agents.core.agent.AIAgent
@@ -473,7 +473,7 @@ fun main() {
     runBlocking {
         val agent = AIAgent(
             executor = simpleOpenAIExecutor(openAIApiKey),
-            llmModel = OpenAIModels.Reasoning.GPT4oMini,
+            llmModel = OpenAIModels.Reasoning.O4Mini,
             systemPrompt = "You are a code assistant. Provide concise code examples."
         ) {
             install(OpenTelemetry) {

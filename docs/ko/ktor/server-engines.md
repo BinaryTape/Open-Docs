@@ -8,22 +8,22 @@
 
 Ktor 서버 애플리케이션을 실행하려면 먼저 서버를 [생성](server-create-and-configure.topic)하고 구성해야 합니다.
 서버 구성에는 다음과 같은 다양한 설정이 포함됩니다.
-- 네트워크 요청 처리를 위한 [엔진](#supported-engines);
-- 서버에 접근하는 데 사용되는 호스트 및 포트 값;
-- SSL 설정;
-- ... 등.
 
-## 지원되는 엔진 {id="supported-engines"}
+- 네트워크 요청 처리를 위한 [엔진](#supported-engines).
+- 서버에 접근하는 데 사용되는 호스트 및 포트 값.
+- SSL 설정.
 
-아래 표는 Ktor가 지원하는 엔진과 지원되는 플랫폼을 나열합니다.
+## 지원되는 플랫폼 {id="supported-engines"}
 
-| 엔진                                  | 플랫폼                                             | HTTP/2 |
-|-----------------------------------------|------------------------------------------------------|--------|
-| `Netty`                                 | JVM                                                  | ✅      |
-| `Jetty`                                 | JVM                                                  | ✅      |
-| `Tomcat`                                | JVM                                                  | ✅      |
-| `CIO` (Coroutine-based I/O)             | JVM, [Native](server-native.md), [GraalVM](graalvm.md) | ✖️     |
-| [ServletApplicationEngine](server-war.md) | JVM                                                  | ✅      |
+아래 표는 각 엔진이 지원하는 플랫폼을 나열합니다.
+
+| 엔진                                    | 플랫폼                                                                  | HTTP/2 |
+|-------------------------------------------|----------------------------------------------------------------------------|--------|
+| `Netty`                                   | JVM                                                                        | ✅      |
+| `Jetty`                                   | JVM                                                                        | ✅      |
+| `Tomcat`                                  | JVM                                                                        | ✅      |
+| `CIO` (Coroutine-based I/O)               | JVM, [Native](server-native.md), [GraalVM](graalvm.md), JavaScript, WasmJs | ✖️     |
+| [`ServletApplicationEngine`](server-war.md) | JVM                                                                        | ✅      |
 
 ## 의존성 추가 {id="dependencies"}
 
@@ -50,11 +50,12 @@ Ktor 서버 애플리케이션을 실행하려면 먼저 서버를 [생성](serv
 </Tabs>
 
 ## 서버 생성 방법 선택 {id="choose-create-server"}
+
 Ktor 서버 애플리케이션은 [두 가지 방법](server-create-and-configure.topic#embedded)으로 [생성 및 실행]할 수 있습니다. 코드에서 서버 매개변수를 빠르게 전달하는 [embeddedServer](#embeddedServer)를 사용하거나, 외부 `application.conf` 또는 `application.yaml` 파일에서 구성을 로드하는 [EngineMain](#EngineMain)을 사용하는 방법입니다.
 
 ### embeddedServer {id="embeddedServer"}
 
-[embeddedServer](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.engine/embedded-server.html) 함수는 특정 유형의 엔진을 생성하는 데 사용되는 엔진 팩토리를 받습니다. 아래 예시에서는 [Netty](https://api.ktor.io/ktor-server/ktor-server-netty/io.ktor.server.netty/-netty/index.html) 팩토리를 전달하여 Netty 엔진으로 서버를 실행하고 `8080` 포트에서 수신 대기합니다.
+[`embeddedServer()`](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.engine/embedded-server.html) 함수는 특정 유형의 엔진을 생성하는 데 사용되는 엔진 팩토리를 받습니다. 아래 예시에서는 [`Netty`](https://api.ktor.io/ktor-server/ktor-server-netty/io.ktor.server.netty/-netty/index.html) 팩토리를 전달하여 Netty 엔진으로 서버를 실행하고 `8080` 포트에서 수신 대기합니다.
 
 ```kotlin
 import io.ktor.server.response.*
@@ -177,10 +178,11 @@ mainClassName = "io.ktor.server.netty.EngineMain"
     <code>embeddedServer</code> 함수는 <code>configure</code> 매개변수를 사용하여 엔진별 옵션을 전달할 수 있도록 합니다. 이 매개변수에는 모든 엔진에 공통적이며
     <a href="https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.engine/-application-engine/-configuration/index.html">
         ApplicationEngine.Configuration
-    </a> 클래스에 의해 노출되는 옵션이 포함됩니다.
+    </a>
+    클래스에 의해 노출되는 옵션이 포함됩니다.
 </p>
 <p>
-    아래 예시는 <code>Netty</code> 엔진을 사용하여 서버를 구성하는 방법을 보여줍니다. <code>configure</code> 블록 내에서 호스트와 포트를 지정하기 위한 <code>connector</code>를 정의하고 다양한 서버 매개변수를 사용자 지정합니다.
+    아래 예시는 <code>Netty</code> 엔진을 사용하여 서버를 구성하는 방법을 보여줍니다. <code>configure</code> 블록 내에서 <code>connector</code>를 정의하여 호스트와 포트를 지정하고, 다양한 서버 매개변수를 사용자 지정합니다.
 </p>
 <code-block lang="kotlin" code="import io.ktor.server.response.*&#10;import io.ktor.server.routing.*&#10;import io.ktor.server.engine.*&#10;import io.ktor.server.netty.*&#10;&#10;fun main(args: Array&lt;String&gt;) {&#10;    embeddedServer(Netty, configure = {&#10;        connectors.add(EngineConnectorBuilder().apply {&#10;            host = &quot;127.0.0.1&quot;&#10;            port = 8080&#10;        })&#10;        connectionGroupSize = 2&#10;        workerGroupSize = 5&#10;        callGroupSize = 10&#10;        shutdownGracePeriod = 2000&#10;        shutdownTimeout = 3000&#10;    }) {&#10;        routing {&#10;            get(&quot;/&quot;) {&#10;                call.respondText(&quot;Hello, world!&quot;)&#10;            }&#10;        }&#10;    }.start(wait = true)&#10;}"/>
 <p>

@@ -8,31 +8,31 @@
 
 Ktorサーバーアプリケーションを実行するには、まずサーバーを[作成](server-create-and-configure.topic)し、設定する必要があります。
 サーバーの設定にはさまざまなものが含まれます。
+
 - ネットワークリクエストを処理するための[エンジン](#supported-engines)
 - サーバーにアクセスするために使用されるホストとポートの値
 - SSL設定
-- ...など
 
-## サポートされているエンジン {id="supported-engines"}
+## サポートされているプラットフォーム {id="supported-engines"}
 
-以下の表は、Ktorがサポートするエンジンと、サポートされるプラットフォームをリストしています。
+以下の表は、各エンジンがサポートするプラットフォームをリストしています。
 
-| Engine                                  | Platforms                                            | HTTP/2 |
-|-----------------------------------------|------------------------------------------------------|--------|
-| `Netty`                                 | JVM                                                  | ✅      |
-| `Jetty`                                 | JVM                                                  | ✅      |
-| `Tomcat`                                | JVM                                                  | ✅      |
-| `CIO` (Coroutine-based I/O)             | JVM, [Native](server-native.md), [GraalVM](graalvm.md) | ✖️     |
-| [ServletApplicationEngine](server-war.md) | JVM                                                  | ✅      |
+| Engine                                    | Platforms                                                                  | HTTP/2 |
+|-------------------------------------------|----------------------------------------------------------------------------|--------|
+| `Netty`                                   | JVM                                                                        | ✅      |
+| `Jetty`                                   | JVM                                                                        | ✅      |
+| `Tomcat`                                  | JVM                                                                        | ✅      |
+| `CIO` (Coroutine-based I/O)               | JVM, [Native](server-native.md), [GraalVM](graalvm.md), JavaScript, WasmJs | ✖️     |
+| [`ServletApplicationEngine`](server-war.md) | JVM                                                                        | ✅      |
 
 ## 依存関係の追加 {id="dependencies"}
 
 使用したいエンジンを使用する前に、対応する依存関係を[ビルドスクリプト](server-dependencies.topic)に追加する必要があります。
 
-*   `ktor-server-netty`
-*   `ktor-server-jetty-jakarta`
-*   `ktor-server-tomcat-jakarta`
-*   `ktor-server-cio`
+* `ktor-server-netty`
+* `ktor-server-jetty-jakarta`
+* `ktor-server-tomcat-jakarta`
+* `ktor-server-cio`
 
 以下は、Nettyの依存関係を追加する例です。
 
@@ -50,6 +50,7 @@ Ktorサーバーアプリケーションを実行するには、まずサーバ�
 </Tabs>
 
 ## サーバーの作成方法を選択する {id="choose-create-server"}
+
 Ktorサーバーアプリケーションは、[2つの方法](server-create-and-configure.topic#embedded)で作成および実行できます。[embeddedServer](#embeddedServer)を使用してコード内でサーバーパラメータを迅速に渡す方法、または[EngineMain](#EngineMain)を使用して外部の`application.conf`または`application.yaml`ファイルから設定を読み込む方法です。
 
 ### embeddedServer {id="embeddedServer"}
@@ -77,10 +78,10 @@ fun main(args: Array<String>) {
 
 `EngineMain`は、サーバーを実行するためのエンジンを表します。以下のエンジンを使用できます。
 
-*   `io.ktor.server.netty.EngineMain`
-*   `io.ktor.server.jetty.jakarta.EngineMain`
-*   `io.ktor.server.tomcat.jakarta.EngineMain`
-*   `io.ktor.server.cio.EngineMain`
+* `io.ktor.server.netty.EngineMain`
+* `io.ktor.server.jetty.jakarta.EngineMain`
+* `io.ktor.server.tomcat.jakarta.EngineMain`
+* `io.ktor.server.cio.EngineMain`
 
 `EngineMain.main`関数は、選択されたエンジンでサーバーを起動し、外部[設定ファイル](server-configuration-file.topic)で指定された[アプリケーションモジュール](server-modules.md)を読み込みます。以下の例では、アプリケーションの`main`関数からサーバーを起動しています。
 

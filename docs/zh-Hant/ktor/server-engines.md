@@ -8,22 +8,22 @@
 
 為了執行 Ktor 伺服器應用程式，您需要先 [建立](server-create-and-configure.topic) 並設定伺服器。
 伺服器設定包含不同的設定：
-- 一個用於處理網路請求的 [引擎](#supported-engines)；
-- 用於存取伺服器的主機和連接埠值；
-- SSL 設定；
-- ……等等。
 
-## 支援的引擎 {id="supported-engines"}
+- 一個用於處理網路請求的 [引擎](#supported-engines)。
+- 用於存取伺服器的主機和連接埠值。
+- SSL 設定。
 
-下表列出了 Ktor 支援的引擎，以及支援的平台：
+## 支援的平台 {id="supported-engines"}
 
-| Engine                                  | Platforms                                            | HTTP/2 |
-|-----------------------------------------|------------------------------------------------------|--------|
-| `Netty`                                 | JVM                                                  | ✅      |
-| `Jetty`                                 | JVM                                                  | ✅      |
-| `Tomcat`                                | JVM                                                  | ✅      |
-| `CIO` (Coroutine-based I/O)             | JVM, [Native](server-native.md), [GraalVM](graalvm.md) | ✖️     |
-| [ServletApplicationEngine](server-war.md) | JVM                                                  | ✅      |
+下表列出了每個引擎支援的平台：
+
+| Engine                                    | Platforms                                                                  | HTTP/2 |
+|-------------------------------------------|----------------------------------------------------------------------------|--------|
+| `Netty`                                   | JVM                                                                        | ✅      |
+| `Jetty`                                   | JVM                                                                        | ✅      |
+| `Tomcat`                                  | JVM                                                                        | ✅      |
+| `CIO` (Coroutine-based I/O)               | JVM, [Native](server-native.md), [GraalVM](graalvm.md), JavaScript, WasmJs | ✖️     |
+| [`ServletApplicationEngine`](server-war.md) | JVM                                                                        | ✅      |
 
 ## 新增依賴項 {id="dependencies"}
 
@@ -50,11 +50,12 @@
 </Tabs>
 
 ## 選擇如何建立伺服器 {id="choose-create-server"}
+
 Ktor 伺服器應用程式可以透過 [兩種方式建立和執行](server-create-and-configure.topic#embedded)：使用 [embeddedServer](#embeddedServer) 在程式碼中快速傳遞伺服器參數，或使用 [EngineMain](#EngineMain) 從外部的 `application.conf` 或 `application.yaml` 檔案載入設定。
 
 ### embeddedServer {id="embeddedServer"}
 
-[embeddedServer](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.engine/embedded-server.html) 函式接受一個引擎工廠，用於建立特定類型的引擎。在下面的範例中，我們傳遞 [Netty](https://api.ktor.io/ktor-server/ktor-server-netty/io.ktor.server.netty/-netty/index.html) 工廠以 Netty 引擎執行伺服器並監聽 `8080` 連接埠：
+[`embeddedServer()`](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.engine/embedded-server.html) 函式接受一個引擎工廠，用於建立特定類型的引擎。在下面的範例中，我們傳遞 [`Netty`](https://api.ktor.io/ktor-server/ktor-server-netty/io.ktor.server.netty/-netty/index.html) 工廠以 Netty 引擎執行伺服器並監聽 `8080` 連接埠：
 
 ```kotlin
 import io.ktor.server.response.*

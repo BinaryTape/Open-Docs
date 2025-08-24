@@ -72,7 +72,7 @@ Koog를 사용하려면 빌드 구성에 필요한 모든 종속성을 포함해
     ```
     <dependency>
         <groupId>ai.koog</groupId>
-        <artifactId>koog-agents</artifactId>
+        <artifactId>koog-agents-jvm</artifactId>
         <version>LATEST_VERSION</version>
     </dependency>
     ```

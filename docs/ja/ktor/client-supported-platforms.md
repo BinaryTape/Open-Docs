@@ -5,6 +5,7 @@ Ktor HTTPクライアントは、Kotlinがサポートするさまざまなプ�
 - [Android](https://kotlinlang.org/docs/android-overview.html)
 - [Native](https://kotlinlang.org/docs/native-overview.html)
 - [JavaScript](https://kotlinlang.org/docs/js-overview.html)
+- [WasmJs](https://kotlinlang.org/docs/wasm-overview.html)
 
 これは、[マルチプラットフォームプロジェクト](https://kotlinlang.org/docs/multiplatform.html)（マルチプラットフォームモバイルまたはフルスタックWebアプリケーション）で使用できます。マルチプラットフォームプロジェクトでは、以下の[ターゲット](https://kotlinlang.org/docs/multiplatform-dsl-reference.html#targets)がサポートされています。
 
@@ -40,6 +41,19 @@ Ktor HTTPクライアントは、Kotlinがサポートするさまざまなプ�
         <list>
             <li>
                 <code>js</code>
+            </li>
+        </list>
+    </td>
+</tr>
+
+<tr>
+<td>
+        Kotlin/Wasm
+    </td>
+    <td>
+        <list>
+            <li>
+                <code>wasmJs</code>
             </li>
         </list>
     </td>

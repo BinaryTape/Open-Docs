@@ -14,19 +14,19 @@ OpenTelemetry 是一個可觀測性框架，提供工具用於從您的應用程
 
 ## OpenTelemetry 關鍵概念
 
-- **Spans**: Span 代表分散式追蹤中的獨立工作單元或操作。它們指示應用程式中特定活動的開始與結束，例如代理執行、函數呼叫、大型語言模型 (LLM) 呼叫或工具呼叫。
-- **Attributes**: Attribute 提供關於遙測相關項目（例如 Span）的元資料。Attribute 以鍵值對的形式表示。
-- **Events**: Event 是 Span 生命週期中在特定時間點發生的事件，代表了可能值得注意的事情。
-- **Exporters**: Exporter 是負責將已收集的遙測資料發送到各種後端或目的地的元件。
-- **Collectors**: Collector 接收、處理和匯出遙測資料。它們在您的應用程式和您的可觀測性後端之間充當中介者。
-- **Samplers**: Sampler 根據採樣策略決定是否應記錄追蹤。它們用於管理遙測資料的量。
-- **Resources**: Resource 代表產生遙測資料的實體。它們由資源屬性識別，資源屬性是提供關於資源資訊的鍵值對。
+- **Span**: Span 代表分散式追蹤中的獨立工作單元或操作。它們指示應用程式中特定活動的開始與結束，例如代理執行、函數呼叫、大型語言模型 (LLM) 呼叫或工具呼叫。
+- **Attribute**: Attribute 提供關於遙測相關項目（例如 Span）的元資料。Attribute 以鍵值對的形式表示。
+- **Event**: Event 是 Span 生命週期中在特定時間點發生的事件，代表了可能值得注意的事情。
+- **Exporter**: Exporter 是負責將已收集的遙測資料發送到各種後端或目的地的元件。
+- **Collector**: Collector 接收、處理和匯出遙測資料。它們在您的應用程式和您的可觀測性後端之間充當中介者。
+- **Sampler**: Sampler 根據採樣策略決定是否應記錄追蹤。它們用於管理遙測資料的量。
+- **Resource**: Resource 代表產生遙測資料的實體。它們由 Resource Attribute 識別，Resource Attribute 是提供關於 Resource 資訊的鍵值對。
 
 Koog 中的 OpenTelemetry 功能會自動為各種代理事件建立 Span，包括：
 
 - 代理執行開始與結束
 - 節點執行
-- 大型語言模型 (LLM) 呼叫
+- LLM 呼叫
 - 工具呼叫
 
 ## 安裝
@@ -48,7 +48,7 @@ val agent = AIAgent(
     systemPrompt = "You are a helpful assistant.",
     installFeatures = {
         install(OpenTelemetry) {
-            // Configuration options go here
+            // 配置選項在此處
         }
     }
 )
@@ -72,7 +72,7 @@ val agent = AIAgent(
 !!! note
     `sdk` 和 `tracer` 屬性是您可以存取的公共屬性，但您只能使用下方列出的公共方法來設定它們。
 
-OpenTelemetryConfig 類別還包含代表與不同配置項目相關動作的方法。以下是使用一組基本配置項目安裝 OpenTelemetry 功能的範例：
+`OpenTelemetryConfig` 類別還包含代表與不同配置項目相關動作的方法。以下是使用一組基本配置項目安裝 OpenTelemetry 功能的範例：
 
 <!--- INCLUDE
 import ai.koog.agents.core.agent.AIAgent
@@ -116,23 +116,23 @@ install(OpenTelemetry) {
 
 #### addSpanExporter
 
-添加一個 Span 匯出器，用於將遙測資料發送到外部系統。接受以下引數：
+添加一個 Span Exporter，用於將遙測資料發送到外部系統。接受以下引數：
 
 | 名稱       | 資料型別      | 必需 | 預設值 | 描述                                                                   |
 |------------|----------------|----------|---------------|-------------------------------------------------------------------------------|
-| `exporter` | `SpanExporter` | 是       |               | 要添加到自訂 Span 匯出器列表中的 `SpanExporter` 實例。 |
+| `exporter` | `SpanExporter` | 是       |               | 要添加到自訂 Span Exporter 列表中的 `SpanExporter` 實例。 |
 
 #### addSpanProcessor
 
-添加一個 Span 處理器，用於在匯出 Span 之前處理它們。接受以下引數：
+添加一個 Span Processor，用於在匯出 Span 之前處理它們。接受以下引數：
 
 | 名稱        | 資料型別       | 必需 | 預設值 | 描述                                                                                |
 |-------------|-----------------|----------|---------------|--------------------------------------------------------------------------------------------|
-| `processor` | `SpanProcessor` | 是       |               | 包含自訂邏輯的 Span 處理器，用於在匯出前處理遙測資料。                                    |
+| `processor` | `SpanProcessor` | 是       |               | 包含自訂邏輯的 Span Processor，用於在匯出前處理遙測資料。                                    |
 
 #### addResourceAttributes
 
-添加資源屬性以提供關於服務的額外上下文。接受以下引數：
+添加 Resource Attribute 以提供關於服務的額外上下文。接受以下引數：
 
 | 名稱         | 資料型別                 | 必需 | 預設值 | 描述                                                            |
 |--------------|---------------------------|----------|---------------|------------------------------------------------------------------------|
@@ -144,7 +144,7 @@ install(OpenTelemetry) {
 
 | 名稱      | 資料型別 | 必需 | 預設值 | 描述                                                      |
 |-----------|-----------|----------|---------------|------------------------------------------------------------------|
-| `sampler` | `Sampler` | 是       |               | 要為 OpenTelemetry 配置設定的採樣器實例。                      |
+| `sampler` | `Sampler` | 是       |               | 要為 OpenTelemetry 配置設定的 Sampler 實例。                      |
 
 #### setVerbose
 
@@ -158,8 +158,8 @@ install(OpenTelemetry) {
 
 對於更進階的配置，您還可以自訂以下配置選項：
 
-- Sampler (採樣器): 配置採樣策略以調整收集資料的頻率和數量。
-- Resource attributes (資源屬性): 添加更多關於產生遙測資料的程序的資訊。
+- Sampler: 配置採樣策略以調整收集資料的頻率和數量。
+- Resource Attribute: 添加更多關於產生遙測資料的程序的資訊。
 
 <!--- INCLUDE
 import ai.koog.agents.core.agent.AIAgent
@@ -202,17 +202,17 @@ install(OpenTelemetry) {
 
 #### Sampler
 
-若要定義採樣器，請使用 `opentelemetry-java` SDK 中 `Sampler` 類別 (`io.opentelemetry.sdk.trace.samplers.Sampler`) 的對應方法，該方法代表您想要使用的採樣策略。
+若要定義 Sampler，請使用 `opentelemetry-java` SDK 中 `Sampler` 類別 (`io.opentelemetry.sdk.trace.samplers.Sampler`) 的對應方法，該方法代表您想要使用的採樣策略。
 
 預設採樣策略如下：
 
 - `Sampler.alwaysOn()`: 預設採樣策略，其中每個 Span (追蹤) 都會被採樣。
 
-有關可用採樣器和採樣策略的更多資訊，請參閱 OpenTelemetry [Sampler](https://opentelemetry.io/docs/languages/java/sdk/#sampler) 文件。
+有關可用 Sampler 和採樣策略的更多資訊，請參閱 OpenTelemetry [Sampler](https://opentelemetry.io/docs/languages/java/sdk/#sampler) 文件。
 
-#### Resource attributes
+#### Resource Attribute
 
-資源屬性代表關於產生遙測資料的程序的額外資訊。Koog 包含一組預設設定的資源屬性：
+Resource Attribute 代表關於產生遙測資料的程序的額外資訊。Koog 包含一組預設設定的 Resource Attribute：
 
 - `service.name`
 - `service.version`
@@ -221,9 +221,9 @@ install(OpenTelemetry) {
 - `os.version`
 - `os.arch`
 
-`service.name` 屬性的預設值為 `ai.koog`，而 `service.version` 的預設值為目前使用的 Koog 函式庫版本。
+`service.name` Attribute 的預設值為 `ai.koog`，而預設的 `service.version` 值是目前使用的 Koog 函式庫版本。
 
-除了預設的資源屬性外，您還可以添加自訂屬性。要在 Koog 的 OpenTelemetry 配置中添加自訂屬性，請使用 OpenTelemetry 配置中的 `addResourceAttributes()` 方法，該方法接受一個鍵和一個值作為其引數。
+除了預設的 Resource Attribute 外，您還可以添加自訂 Attribute。要在 Koog 的 OpenTelemetry 配置中添加自訂 Attribute，請使用 OpenTelemetry 配置中的 `addResourceAttributes()` 方法，該方法接受一個鍵和一個值作為其引數。
 
 <!--- INCLUDE
 import ai.koog.agents.core.agent.AIAgent
@@ -259,7 +259,7 @@ OpenTelemetry 功能會自動建立不同類型的 Span，以追蹤代理中的�
 - **CreateAgentSpan**: 在您運行代理時建立，在代理關閉或程序終止時關閉。
 - **InvokeAgentSpan**: 代理的調用。
 - **NodeExecuteSpan**: 代理策略中節點的執行。這是一個自訂的、Koog 特定的 Span。
-- **InferenceSpan**: 大型語言模型 (LLM) 呼叫。
+- **InferenceSpan**: LLM 呼叫。
 - **ExecuteToolSpan**: 工具呼叫。
 
 Span 以巢狀的、階層式的結構組織。以下是一個 Span 結構的範例：
@@ -275,22 +275,22 @@ CreateAgentSpan
             InferenceSpan    
 ```
 
-### Span 屬性
+### Span Attribute
 
-Span 屬性提供與 Span 相關的元資料。每個 Span 都有其自己的一組屬性，而某些 Span 也可以重複屬性。
+Span Attribute 提供與 Span 相關的元資料。每個 Span 都有其自己的一組 Attribute，而某些 Span 也可以重複 Attribute。
 
-Koog 支援一組預定義的屬性，這些屬性遵循 OpenTelemetry 的 [生成式 AI 事件語義約定](https://opentelemetry.io/docs/specs/semconv/gen-ai/gen-ai-spans/)。例如，約定定義了一個名為 `gen_ai.conversation.id` 的屬性，這通常是 Span 的必需屬性。在 Koog 中，此屬性的值是代理運行 (run) 的唯一識別碼，在您呼叫 `agent.run()` 方法時自動設定。
+Koog 支援一組預定義的 Attribute，這些 Attribute 遵循 OpenTelemetry 的 [生成式 AI 事件語義約定](https://opentelemetry.io/docs/specs/semconv/gen-ai/gen-ai-spans/)。例如，約定定義了一個名為 `gen_ai.conversation.id` 的 Attribute，這通常是 Span 的必需 Attribute。在 Koog 中，此 Attribute 的值是代理運行 (run) 的唯一識別碼，在您呼叫 `agent.run()` 方法時自動設定。
 
-此外，Koog 還包含自訂的、Koog 特定的屬性。您可以透過 `koog.` 前綴識別這些屬性中的大多數。以下是可用的自訂屬性：
+此外，Koog 還包含自訂的、Koog 特定的 Attribute。您可以透過 `koog.` 前綴識別這些 Attribute 中的大多數。以下是可用的自訂 Attribute：
 
 - `koog.agent.strategy.name`: 代理策略的名稱。策略是一個與 Koog 相關的實體，描述代理的目的。用於 `InvokeAgentSpan` Span。
 - `koog.node.name`: 正在運行的節點名稱。用於 `NodeExecuteSpan` Span。
 
-### 事件
+### Event
 
-Span 還可以有一個附加到其上的「事件」。事件描述了在特定時間點發生的相關事情。例如，當大型語言模型 (LLM) 呼叫開始或完成時。事件也具有屬性，並且還包含事件「主體欄位」。
+Span 還可以有一個附加到其上的「Event」。Event 描述了在特定時間點發生的相關事情。例如，當 LLM 呼叫開始或完成時。Event 也具有 Attribute，並且還包含 Event 「主體欄位」。
 
-以下事件類型遵循 OpenTelemetry 的 [生成式 AI 事件語義約定](https://opentelemetry.io/docs/specs/semconv/gen-ai/gen-ai-events/) 獲得支援：
+以下 Event 類型遵循 OpenTelemetry 的 [生成式 AI 事件語義約定](https://opentelemetry.io/docs/specs/semconv/gen-ai/gen-ai-events/) 獲得支援：
 
 - **SystemMessageEvent**: 傳遞給模型的系統指令。
 - **UserMessageEvent**: 傳遞給模型的使用者訊息。
@@ -298,22 +298,23 @@ Span 還可以有一個附加到其上的「事件」。事件描述了在特定
 - **ToolMessageEvent**: 傳遞給模型的來自工具或函數呼叫的回應。
 - **ChoiceEvent**: 來自模型的回應訊息。
 
-!!! note
-    `opentelemetry-java` SDK 在添加事件時不支援事件主體欄位參數。因此，在 Koog 的 OpenTelemetry 支援中，事件主體欄位是一個單獨的屬性，其鍵為 `body`，值類型為字串。該字串包含事件主體欄位的內容或負載，通常是一個類似 JSON 的物件。有關事件主體欄位的範例，請參閱 [OpenTelemetry 文件](https://opentelemetry.io/docs/specs/semconv/gen-ai/gen-ai-events/#examples)。有關 `opentelemetry-java` 中事件主體欄位支援狀態，請參閱相關的 [GitHub issue](https://github.com/open-telemetry/semantic-conventions/issues/1870)。
+!!! note   
+    `optentelemetry-java` SDK 在添加 Event 時不支援 Event 主體欄位參數。因此，在 Koog 的 OpenTelemetry 支援中，Event 主體欄位是一個單獨的 Attribute，其鍵為 `body` 且值類型為字串。該字串包含 Event 主體欄位的內容或負載，通常是一個類似 JSON 的物件。有關 Event 主體欄位的範例，請參閱 [OpenTelemetry 文件](https://opentelemetry.io/docs/specs/semconv/gen-ai/gen-ai-events/#examples)。有關 `opentelemetry-java` 中 Event 主體欄位支援狀態，請參閱相關的 [GitHub issue](https://github.com/open-telemetry/semantic-conventions/issues/1870)。
 
-## 匯出器
+## Exporter
 
-匯出器將收集到的遙測資料發送到 OpenTelemetry Collector 或其他類型的目的地或後端實作。若要添加匯出器，請在安裝 OpenTelemetry 功能時使用 `addSpanExporter()` 方法。該方法接受以下引數：
+Exporter 將收集到的遙測資料發送到 OpenTelemetry Collector 或其他類型的目的地或後端實作。若要添加 Exporter，請在安裝 OpenTelemetry 功能時使用 `addSpanExporter()` 方法。該方法接受以下引數：
 
 | 名稱       | 資料型別    | 必需 | 預設值 | 描述                                                                 |
 |------------|--------------|----------|---------|-----------------------------------------------------------------------------|
-| `exporter` | SpanExporter | 是       |         | 要添加到自訂 Span 匯出器列表中的 `SpanExporter` 實例。 |
+| `exporter` | SpanExporter | 是       |         | 要添加到自訂 Span Exporter 列表中的 `SpanExporter` 實例。 |
 
-以下章節提供了關於 `opentelemetry-java` SDK 中一些最常用匯出器的資訊。
+以下章節提供了關於 `opentelemetry-java` SDK 中一些最常用 Exporter 的資訊。  
 
-### 日誌匯出器
+### 日誌 Exporter
 
-將追蹤資訊輸出到控制台的日誌匯出器。`LoggingSpanExporter` (`io.opentelemetry.exporter.logging.LoggingSpanExporter`) 是 `opentelemetry-java` SDK 的一部分。
+將追蹤資訊輸出到控制台的日誌 Exporter。`LoggingSpanExporter` 
+(`io.opentelemetry.exporter.logging.LoggingSpanExporter`) 是 `opentelemetry-java` SDK 的一部分。
 
 這種匯出類型對於開發和調試目的非常有用。
 
@@ -344,9 +345,10 @@ install(OpenTelemetry) {
 ```
 <!--- KNIT example-opentelemetry-support-05.kt -->
 
-### OpenTelemetry HTTP 匯出器
+### OpenTelemetry HTTP Exporter
 
-OpenTelemetry HTTP 匯出器 (`OtlpHttpSpanExporter`) 是 `opentelemetry-java` SDK (`io.opentelemetry.exporter.otlp.http.trace.OtlpHttpSpanExporter`) 的一部分，透過 HTTP 將 Span 資料發送到後端。
+OpenTelemetry HTTP Exporter (`OtlpHttpSpanExporter`) 是 `opentelemetry-java` SDK 
+(`io.opentelemetry.exporter.otlp.http.trace.OtlpHttpSpanExporter`) 的一部分，透過 HTTP 將 Span 資料發送到後端。
 
 <!--- INCLUDE
 import ai.koog.agents.core.agent.AIAgent
@@ -385,9 +387,10 @@ install(OpenTelemetry) {
 ```
 <!--- KNIT example-opentelemetry-support-06.kt -->
 
-### OpenTelemetry gRPC 匯出器
+### OpenTelemetry gRPC Exporter
 
-OpenTelemetry gRPC 匯出器 (`OtlpGrpcSpanExporter`) 是 `opentelemetry-java` SDK (`io.opentelemetry.exporter.otlp.trace.OtlpGrpcSpanExporter`) 的一部分。它透過 gRPC 將遙測資料匯出到後端，並允許您定義接收資料的後端、收集器或端點的主機和連接埠。預設連接埠為 `4317`。
+OpenTelemetry gRPC Exporter (`OtlpGrpcSpanExporter`) 是 `opentelemetry-java` SDK 
+(`io.opentelemetry.exporter.otlp.trace.OtlpGrpcSpanExporter`) 的一部分。它透過 gRPC 將遙測資料匯出到後端，並允許您定義接收資料的後端、Collector 或端點的主機和連接埠。預設連接埠為 `4317`。
 
 <!--- INCLUDE
 import ai.koog.agents.core.agent.AIAgent
@@ -451,12 +454,15 @@ services:
 
 ### 範例
 
-若要匯出遙測資料以在 Jaeger 中使用，此範例使用 `opentelemetry-java` SDK 中的 `LoggingSpanExporter` (`io.opentelemetry.exporter.logging.LoggingSpanExporter`) 和 `OtlpGrpcSpanExporter` (`io.opentelemetry.exporter.otlp.trace.OtlpGrpcSpanExporter`)。
+若要匯出遙測資料以在 Jaeger 中使用，此範例使用 `opentelemetry-java` SDK 中的 `LoggingSpanExporter` 
+(`io.opentelemetry.exporter.logging.LoggingSpanExporter`) 和 `OtlpGrpcSpanExporter` 
+(`io.opentelemetry.exporter.otlp.trace.OtlpGrpcSpanExporter`)。
 
 以下是完整的程式碼範例：
 
 <!--- INCLUDE
 import ai.koog.agents.core.agent.AIAgent
+import ai.koog.agents.features.opentelemetry.feature.OpenTelemetry
 import ai.koog.agents.utils.use
 import ai.koog.prompt.executor.clients.openai.OpenAIModels
 import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
@@ -472,7 +478,7 @@ fun main() {
     runBlocking {
         val agent = AIAgent(
             executor = simpleOpenAIExecutor(openAIApiKey),
-            llmModel = OpenAIModels.Reasoning.GPT4oMini,
+            llmModel = OpenAIModels.Reasoning.O4Mini,
             systemPrompt = "You are a code assistant. Provide concise code examples."
         ) {
             install(OpenTelemetry) {
@@ -508,10 +514,10 @@ Check Jaeger UI at http://localhost:16686 to view traces")
 
 1. **Jaeger 或 Langfuse 中沒有出現追蹤**
     - 確保服務正在運行，並且 OpenTelemetry 連接埠 (4317) 可存取。
-    - 檢查 OpenTelemetry 匯出器是否配置了正確的端點。
+    - 檢查 OpenTelemetry Exporter 是否配置了正確的端點。
     - 確保在代理執行後等待幾秒鐘，以便追蹤匯出。
 
-2. **Span 缺失或追蹤不完整**
+2. **Span 缺失或不完整追蹤**
     - 驗證代理執行是否成功完成。
     - 確保您沒有在代理執行後過快關閉應用程式。
     - 在代理執行後添加延遲，以便為 Span 匯出留出時間。

@@ -72,7 +72,7 @@ Koog 的主要功能包括：
     ```
     <dependency>
         <groupId>ai.koog</groupId>
-        <artifactId>koog-agents</artifactId>
+        <artifactId>koog-agents-jvm</artifactId>
         <version>LATEST_VERSION</version>
     </dependency>
     ```
@@ -95,10 +95,10 @@ import kotlinx.coroutines.runBlocking
 ```kotlin
 fun main() {
     runBlocking {
-        val apiKey = System.getenv("OPENAI_API_KEY") // or Anthropic, Google, OpenRouter, etc.
+        val apiKey = System.getenv("OPENAI_API_KEY") // 或 Anthropic, Google, OpenRouter 等。
 
         val agent = AIAgent(
-            executor = simpleOpenAIExecutor(apiKey), // or Anthropic, Google, OpenRouter, etc.
+            executor = simpleOpenAIExecutor(apiKey), // 或 Anthropic, Google, OpenRouter 等。
             systemPrompt = "You are a helpful assistant. Answer user questions concisely.",
             llmModel = OpenAIModels.Chat.GPT4o
         )

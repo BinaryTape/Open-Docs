@@ -8,26 +8,26 @@
 
 要运行 Ktor 服务器应用程序，您需要先[创建](server-create-and-configure.topic)和配置服务器。
 服务器配置包括不同的设置：
+
 - 用于处理网络请求的[引擎](#supported-engines)；
 - 用于访问服务器的主机和端口值；
-- SSL 设置；
-- ……等等。
+- SSL 设置。
 
-## 支持的引擎 {id="supported-engines"}
+## 支持的平台 {id="supported-engines"}
 
-下表列出了 Ktor 支持的引擎以及支持的平台：
+下表列出了各引擎支持的平台：
 
-| 引擎 | 平台 | HTTP/2 |
-|---|---|---|
-| `Netty` | JVM | ✅ |
-| `Jetty` | JVM | ✅ |
-| `Tomcat` | JVM | ✅ |
-| `CIO` (基于协程的 I/O) | JVM, [原生](server-native.md), [GraalVM](graalvm.md) | ✖️ |
-| [ServletApplicationEngine](server-war.md) | JVM | ✅ |
+| Engine                                    | Platforms                                                                  | HTTP/2 |
+|-------------------------------------------|----------------------------------------------------------------------------|--------|
+| `Netty`                                   | JVM                                                                        | ✅      |
+| `Jetty`                                   | JVM                                                                        | ✅      |
+| `Tomcat`                                  | JVM                                                                        | ✅      |
+| `CIO` (基于协程的 I/O)                     | JVM, [原生](server-native.md), [GraalVM](graalvm.md), JavaScript, WasmJs | ✖️     |
+| [`ServletApplicationEngine`](server-war.md) | JVM                                                                        | ✅      |
 
 ## 添加依赖项 {id="dependencies"}
 
-在使用所需的引擎之前，您需要将相应的[依赖项](server-dependencies.topic)添加到您的构建脚本中：
+在使用所需的引擎之前，您需要将相应的依赖项添加到您的[构建脚本](server-dependencies.topic)中：
 
 * `ktor-server-netty`
 * `ktor-server-jetty-jakarta`
@@ -50,11 +50,12 @@
 </Tabs>
 
 ## 选择如何创建服务器 {id="choose-create-server"}
-Ktor 服务器应用程序可以通过[两种方式创建和运行](server-create-and-configure.topic#embedded)：使用[embeddedServer](#embeddedServer) 在代码中快速传递服务器形参，或者使用[EngineMain](#EngineMain) 从外部的 `application.conf` 或 `application.yaml` 文件加载配置。
+
+Ktor 服务器应用程序可以通过[两种方式创建和运行](server-create-and-configure.topic#embedded)：使用 [embeddedServer](#embeddedServer) 在代码中快速传递服务器形参，或者使用 [EngineMain](#EngineMain) 从外部的 `application.conf` 或 `application.yaml` 文件加载配置。
 
 ### embeddedServer {id="embeddedServer"}
 
-[embeddedServer](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.engine/embedded-server.html) 函数接受一个引擎工厂，用于创建特定类型的引擎。在以下示例中，我们传入 [Netty](https://api.ktor.io/ktor-server/ktor-server-netty/io.ktor.server.netty/-netty/index.html) 工厂，以 Netty 引擎运行服务器并监听 `8080` 端口：
+[`embeddedServer()`](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.engine/embedded-server.html) 函数接受一个引擎工厂，用于创建特定类型的引擎。在以下示例中，我们传入 [`Netty`](https://api.ktor.io/ktor-server/ktor-server-netty/io.ktor.server.netty/-netty/index.html) 工厂，以 Netty 引擎运行服务器并监听 `8080` 端口：
 
 ```kotlin
 import io.ktor.server.response.*

@@ -5,6 +5,7 @@ Ktor HTTP 客戶端可用於 Kotlin 支援的不同平台：
 - [Android](https://kotlinlang.org/docs/android-overview.html)
 - [Native](https://kotlinlang.org/docs/native-overview.html)
 - [JavaScript](https://kotlinlang.org/docs/js-overview.html)
+- [WasmJs](https://kotlinlang.org/docs/wasm-overview.html)
 
 您可以將它用於[多平台專案](https://kotlinlang.org/docs/multiplatform.html)，無論是多平台行動應用程式還是全端網路應用程式。多平台專案支援以下[目標](https://kotlinlang.org/docs/multiplatform-dsl-reference.html#targets)：
 
@@ -40,6 +41,19 @@ Ktor HTTP 客戶端可用於 Kotlin 支援的不同平台：
         <list>
             <li>
                 <code>js</code>
+            </li>
+        </list>
+    </td>
+</tr>
+
+<tr>
+<td>
+        Kotlin/Wasm
+    </td>
+    <td>
+        <list>
+            <li>
+                <code>wasmJs</code>
             </li>
         </list>
     </td>

@@ -85,7 +85,7 @@
   "kotlin.kotlin-overview": "Kotlin 概覽",
   "kotlin.what-s-new-in-kotlin": "Kotlin 新功能",
   "kotlin.whatsnew22": "Kotlin 2.2.0",
-  "kotlin.whatsnew-eap": "Kotlin 2.2.20-Beta2",
+  "kotlin.whatsnew-eap": "Kotlin 2.2.20-RC",
   "kotlin.earlier-versions": "更早版本",
   "kotlin.whatsnew2120": "Kotlin 2.1.20",
   "kotlin.whatsnew21": "Kotlin 2.1.0",
@@ -115,7 +115,7 @@
   "kotlin.kotlin-by-example": "Kotlin 範例教學",
   "kotlin.concepts": "概念",
   "kotlin.types": "類型",
-  "kotlin.basic-types": "概覽",
+  "kotlin.basic-types": "基本類型",
   "kotlin.control-flow": "控制流",
   "kotlin.classes-and-objects": "類別與物件",
   "kotlin.functions": "函數",
@@ -459,5 +459,6 @@
   "koog.content-moderation": "內容審核",
   "koog.ranked-document-storage": "排序文件儲存",
   "koog.agent-persistency": "代理持久性",
-  "koog.opentelemetry": "OpenTelemetry"
+  "koog.opentelemetry": "OpenTelemetry",
+  "kotlin.native-binary-options": "二進制選項"
 }

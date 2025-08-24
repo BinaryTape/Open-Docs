@@ -473,7 +473,7 @@ fun main() {
     runBlocking {
         val agent = AIAgent(
             executor = simpleOpenAIExecutor(openAIApiKey),
-            llmModel = OpenAIModels.Reasoning.GPT4oMini,
+            llmModel = OpenAIModels.Reasoning.O4Mini,
             systemPrompt = "You are a code assistant. Provide concise code examples."
         ) {
             install(OpenTelemetry) {
@@ -520,5 +520,3 @@ fun main() {
 3. **Span 数量过多**
     - 考虑通过配置 `sampler` 属性来使用不同的采样策略。
     - 例如，使用 `Sampler.traceIdRatioBased(0.1)` 仅对 10% 的跟踪进行采样。
-
-    ```

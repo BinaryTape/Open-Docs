@@ -1,6 +1,7 @@
 # 概要
 
-Koogは、AIエージェントを完全にKotlinのイディオムに沿って構築および実行するために設計された、Kotlinベースのフレームワークです。これにより、ツールと対話し、複雑なワークフローを処理し、ユーザーと通信できるエージェントを作成できます。
+Koogは、AIエージェントを完全にKotlinのイディオムに沿って構築および実行するために設計された、Kotlinベースのフレームワークです。
+これにより、ツールと対話し、複雑なワークフローを処理し、ユーザーと通信できるエージェントを作成できます。
 
 このフレームワークは、以下の種類のエージェントをサポートしています。
 
@@ -73,7 +74,7 @@ Koogを使用するには、ビルド構成に必要なすべての依存関係�
     ```
     <dependency>
         <groupId>ai.koog</groupId>
-        <artifactId>koog-agents</artifactId>
+        <artifactId>koog-agents-jvm</artifactId>
         <version>LATEST_VERSION</version>
     </dependency>
     ```

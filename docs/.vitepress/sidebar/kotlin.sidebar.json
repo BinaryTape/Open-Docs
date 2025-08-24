@@ -682,6 +682,10 @@
             "collapsed": true
           },
           {
+            "text": "kotlin.native-binary-options",
+            "link": "native-binary-options"
+          },
+          {
             "text": "kotlin.native-debugging",
             "link": "native-debugging"
           },

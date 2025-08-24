@@ -4,11 +4,12 @@ Koog 프레임워크는 에이전트와 사용자 간의 일반적인 상호작�
 
 다음 내장 도구들을 사용할 수 있습니다:
 
-| 도구      | <div style="width:115px">이름</div> | 설명                                                                                                           |
-|-----------|-------------------------------------|-----------------------------------------------------------------------------------------------------------------------|
-| SayToUser | `__say_to_user__`                   | 에이전트가 사용자에게 메시지를 보낼 수 있도록 합니다. 에이전트 메시지를 `Agent says: ` 접두사와 함께 콘솔에 출력합니다. |
-| AskUser   | `__ask_user__`                      | 에이전트가 사용자에게 입력을 요청할 수 있도록 합니다. 에이전트 메시지를 콘솔에 출력하고 사용자 응답을 기다립니다.        |
-| ExitTool  | `__exit__`                          | 에이전트가 대화를 종료하고 세션을 마칠 수 있도록 합니다.                                                     |
+| 도구         | <div style="width:115px">이름</div> | 설명                                                                                                           |
+|--------------|-------------------------------------|-----------------------------------------------------------------------------------------------------------------------|
+| SayToUser    | `__say_to_user__`                   | 에이전트가 사용자에게 메시지를 보낼 수 있도록 합니다. 에이전트 메시지를 `Agent says: ` 접두사와 함께 콘솔에 출력합니다. |
+| AskUser      | `__ask_user__`                      | 에이전트가 사용자에게 입력을 요청할 수 있도록 합니다. 에이전트 메시지를 콘솔에 출력하고 사용자 응답을 기다립니다.        |
+| ExitTool     | `__exit__`                          | 에이전트가 대화를 종료하고 세션을 마칠 수 있도록 합니다.                                                     |
+| ReadFileTool | `__read_file__`                     | 선택적 줄 범위 선택 기능으로 텍스트 파일을 읽습니다. 0 기반 줄 인덱싱을 사용하여 메타데이터와 함께 서식 있는 콘텐츠를 반환합니다. |
 
 ## 내장 도구 등록하기
 
@@ -20,8 +21,10 @@ import ai.koog.agents.core.tools.ToolRegistry
 import ai.koog.agents.ext.tool.SayToUser
 import ai.koog.agents.ext.tool.AskUser
 import ai.koog.agents.ext.tool.ExitTool
+import ai.koog.agents.file.tools.ReadFileTool
 import ai.koog.prompt.executor.clients.openai.OpenAIModels
 import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
+import ai.koog.rag.base.files.JVMFileSystemProvider
 
 const val apiToken = ""
 
@@ -32,6 +35,7 @@ val toolRegistry = ToolRegistry {
     tool(SayToUser)
     tool(AskUser)
     tool(ExitTool)
+    tool(ReadFileTool(JVMFileSystemProvider.ReadOnly))
 }
 
 // 에이전트 생성 시 레지스트리 전달

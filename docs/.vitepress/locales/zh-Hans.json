@@ -85,7 +85,7 @@
   "kotlin.kotlin-overview": "Kotlin 概览",
   "kotlin.what-s-new-in-kotlin": "Kotlin 新特性",
   "kotlin.whatsnew22": "Kotlin 2.2.0",
-  "kotlin.whatsnew-eap": "Kotlin 2.2.20-Beta2",
+  "kotlin.whatsnew-eap": "Kotlin 2.2.20-RC",
   "kotlin.earlier-versions": "更早版本",
   "kotlin.whatsnew2120": "Kotlin 2.1.20",
   "kotlin.whatsnew21": "Kotlin 2.1.0",
@@ -128,7 +128,7 @@
   "kotlin.kotlin-notebook-create": "2. 创建你的第一个 Kotlin Notebook",
   "kotlin.kotlin-notebook-add-dependencies": "3. 为你的 Kotlin Notebook 添加依赖项",
   "kotlin.kotlin-notebook-share": "分享你的 Kotlin Notebook",
-  "kotlin.data-analysis-notebooks-output-formats": "Kotlin notebooks 中的输出格式",
+  "kotlin.data-analysis-notebooks-output-formats": "Kotlin Notebooks 中的输出格式",
   "kotlin.working-with-data-sources": "使用数据源",
   "kotlin.data-analysis-visualization": "Kotlin Notebook 中的数据可视化",
   "kotlin.data-analysis-libraries": "数据分析库",
@@ -260,7 +260,7 @@
   "kmp.kotlin-multiplatform-overview": "Kotlin Multiplatform 概览",
   "kmp.why-kotlin-multiplatform": "为何选择 Kotlin Multiplatform",
   "kmp.supported-platforms": "支持的平台",
-  "kmp.multiplatform-samples": "示例",
+  "kmp.multiplatform-samples": "多平台示例",
   "kmp.kotlin-multiplatform-roadmap": "KMP 路线图",
   "kmp.compose-multiplatform-ui-framework": "Compose Multiplatform UI 框架",
   "kmp.what-s-new-in-compose-multiplatform": "Compose Multiplatform 新特性",
@@ -459,5 +459,6 @@
   "koog.content-moderation": "内容审核",
   "koog.ranked-document-storage": "排序文档存储",
   "koog.agent-persistency": "代理持久性",
-  "koog.opentelemetry": "OpenTelemetry"
+  "koog.opentelemetry": "OpenTelemetry",
+  "kotlin.native-binary-options": "二进制选项"
 }

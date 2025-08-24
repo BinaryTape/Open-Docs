@@ -4,11 +4,12 @@ Koog 框架提供內建工具，用於處理代理程式與使用者互動的常
 
 以下是可用的內建工具：
 
-| 工具      | <div style="width:115px">名稱</div> | 說明                                                                                                           |
-|-----------|-------------------------------------|-----------------------------------------------------------------------------------------------------------------------|
-| SayToUser | `__say_to_user__`                   | 讓代理程式傳送訊息給使用者。它會將代理程式訊息以 `Agent says: ` 前綴印出至控制台。 |
-| AskUser   | `__ask_user__`                      | 讓代理程式向使用者請求輸入。它會將代理程式訊息印出至控制台並等待使用者回應。        |
-| ExitTool  | `__exit__`                          | 讓代理程式結束對話並終止會話。                                                     |
+| 工具         | <div style="width:115px">名稱</div> | 說明                                                                                                           |
+|--------------|-------------------------------------|--------------------------------------------------------------------------------------------------------------------------|
+| SayToUser    | `__say_to_user__`                   | 讓代理程式傳送訊息給使用者。它會將代理程式訊息以 `Agent says: ` 前綴印出至控制台。 |
+| AskUser      | `__ask_user__`                      | 讓代理程式向使用者請求輸入。它會將代理程式訊息印出至控制台並等待使用者回應。        |
+| ExitTool     | `__exit__`                          | 讓代理程式結束對話並終止會話。                                                     |
+| ReadFileTool | `__read_file__`                     | 讀取文字檔，可選行數範圍。傳回格式化內容，其中包含使用 0 基底行索引的後設資料。 |
 
 ## 註冊內建工具
 
@@ -20,8 +21,10 @@ import ai.koog.agents.core.tools.ToolRegistry
 import ai.koog.agents.ext.tool.SayToUser
 import ai.koog.agents.ext.tool.AskUser
 import ai.koog.agents.ext.tool.ExitTool
+import ai.koog.agents.file.tools.ReadFileTool
 import ai.koog.prompt.executor.clients.openai.OpenAIModels
 import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
+import ai.koog.rag.base.files.JVMFileSystemProvider
 
 const val apiToken = ""
 
@@ -32,6 +35,7 @@ val toolRegistry = ToolRegistry {
     tool(SayToUser)
     tool(AskUser)
     tool(ExitTool)
+    tool(ReadFileTool(JVMFileSystemProvider.ReadOnly))
 }
 
 // 在建立代理程式時傳入註冊表

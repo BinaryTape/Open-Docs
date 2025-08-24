@@ -4,8 +4,8 @@ Ktor HTTP 客户端可在 Kotlin 支持的不同平台上使用：
 - JVM
 - [Android](https://kotlinlang.org/docs/android-overview.html)
 - [Kotlin/Native](https://kotlinlang.org/docs/native-overview.html)
-undefined
 - [JavaScript](https://kotlinlang.org/docs/js-overview.html)
+- [WasmJs](https://kotlinlang.org/docs/wasm-overview.html)
 
 您可以在[多平台项目](https://kotlinlang.org/docs/multiplatform.html)中使用它，无论是多平台移动应用还是全栈 Web 应用程序。多平台项目支持以下[目标平台](https://kotlinlang.org/docs/multiplatform-dsl-reference.html#targets)：
 
@@ -41,6 +41,19 @@ undefined
         <list>
             <li>
                 <code>js</code>
+            </li>
+        </list>
+    </td>
+</tr>
+
+<tr>
+<td>
+        Kotlin/Wasm
+    </td>
+    <td>
+        <list>
+            <li>
+                <code>wasmJs</code>
             </li>
         </list>
     </td>
