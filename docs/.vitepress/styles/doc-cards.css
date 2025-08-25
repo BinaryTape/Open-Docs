@@ -33,7 +33,8 @@
   transition: var(--global-transition);
   text-decoration: none;
   color: inherit;
-  height: 260px;
+  min-height: 260px;
+  height: auto;
   position: relative;
   box-shadow: var(--global-shadow);
   width: 100%;
@@ -94,6 +95,7 @@
 
   font-size: 2.2rem;
   font-weight: 800;
+  line-height: 1.2;
   margin-bottom: 0.5rem;
   transition: all 0.3s ease;
   letter-spacing: -0.02em;
@@ -202,4 +204,34 @@
   z-index: 10;
   text-transform: uppercase;
   border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* 当屏幕宽度小于或等于 768px 时（覆盖大部分平板和手机） */
+@media (max-width: 768px) {
+  .cardContent {
+    /* 将大内边距缩小，为内容腾出空间 */
+    padding: 1.5rem;
+  }
+
+  .card:hover .cardContent {
+    /* 相应地调整 hover 效果的内边距，虽然在移动端不常用 */
+    padding-left: 2rem;
+  }
+
+  .cardDescription {
+    font-size: 1rem;
+    max-width: 100%; /* 在移动端允许描述占据更多宽度 */
+  }
+}
+
+/* 当屏幕宽度小于或等于 480px 时（针对更小的手机屏幕） */
+@media (max-width: 480px) {
+  .cardContent {
+    /* 在非常小的屏幕上可以进一步减小内边距 */
+    padding: 1.5rem 1.2rem; /* 上下 1.5rem, 左右 1.2rem */
+  }
+
+  .card .cardTitle {
+    font-size: 1.6rem;
+  }
 }
