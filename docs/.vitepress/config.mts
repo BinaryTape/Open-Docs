@@ -27,9 +27,11 @@ import markdownItWsClassstyles from "./markdown-it-ws-classstyles";
 import markdownItWsRenderInline from "./markdown-it-ws-render-inline";
 import markdownItWsRename from "./markdown-it-ws-rename";
 import markdownItWsTopicTitle from "./markdown-it-ws-topicTitle";
-import { markdownItCollapsed } from "./markdownItCollapsed.mts";
+import { markdownItWsCollapsed } from "./markdown-it-ws-collapsed.mts";
 import generateSidebar from "./config/sidebar.config";
 import markdownItWsRemoveCodeAttr from "./markdown-it-ws-remove-code-attr";
+import {markdownItTrimBrSpaces} from "./markdown-it-trim-br-spaces";
+import {markdownItKtorAutoPicture} from "./markdown-it-ktor-auto-picture";
 
 const mkDiffGrammarPath = resolve(__dirname, './shiki-mk-diff.json')
 const mkDiffGrammar = JSON.parse(readFileSync(mkDiffGrammarPath, 'utf-8'))
@@ -69,8 +71,9 @@ function createContainer(md, name, className, defaultTitle) {
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
     cleanUrls: true,
-    lastUpdated: true,
+    lastUpdated: false,
     ignoreDeadLinks: true,
+    metaChunk: true,
     lang: 'zh-Hans',
     title: 'Open AIDoc',
     head: [
@@ -176,12 +179,12 @@ export default defineConfig({
             themeConfig: {
                 nav: [
                     { text: 'Kotlin', link: '/zh-Hant/kotlin/home' },
-                    { text: 'Kotlin Multiplatform', link: '/zh-Hantkmp/get-started' },
-                    { text: 'Ktor', link: '/zh-Hantktor/welcome'},
-                    { text: 'Koog', link: '/zh-Hantkoog/' },
-                    { text: 'Koin', link: '/zh-Hantkoin/setup/koin' },
-                    { text: 'SQLDelight', link: '/zh-Hantsqldelight/index' },
-                    { text: 'Coil', link: '/zh-Hantcoil/overview' },
+                    { text: 'Kotlin Multiplatform', link: '/zh-Hant/kmp/get-started' },
+                    { text: 'Ktor', link: '/zh-Hant/ktor/welcome'},
+                    { text: 'Koog', link: '/zh-Hant/koog/' },
+                    { text: 'Koin', link: '/zh-Hant/koin/setup/koin' },
+                    { text: 'SQLDelight', link: '/zh-Hant/sqldelight/index' },
+                    { text: 'Coil', link: '/zh-Hant/coil/overview' },
                 ],
                 sidebar: {
                     "/zh-Hant/koin/": generateSidebar(SiteLocaleConfig['zh-Hant'], DocsTypeConfig.koin),
@@ -344,9 +347,11 @@ export default defineConfig({
             md.use(markdownItMkCodeTabs)
             md.use(markdownItMkLinks)
             md.use(markdownItDiffTitleWrapper)
-            md.use(markdownItCollapsed)
+            md.use(markdownItWsCollapsed)
+            md.use(markdownItTrimBrSpaces)
             md.use(markdownItWsVars);
             md.use(markdownItMKVars);
+            md.use(markdownItKtorAutoPicture);
 
             md.use(markdownItWsRename)
             md.use(markdownItWsTopicTitle)
