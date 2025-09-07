@@ -99,12 +99,12 @@ val agent = AIAgent(
 -->
 ```kotlin
 // LLM関連イベントのみをフィルタリング
-messageFilter = { message ->
+messageFilter = { message -> 
     message is BeforeLLMCallEvent || message is AfterLLMCallEvent
 }
 
 // ツール関連イベントのみをフィルタリング
-messageFilter = { message ->
+messageFilter = { message -> 
     message is ToolCallEvent ||
            message is ToolCallResultEvent ||
            message is ToolValidationErrorEvent ||
@@ -112,7 +112,7 @@ messageFilter = { message ->
 }
 
 // ノード実行イベントのみをフィルタリング
-messageFilter = { message ->
+messageFilter = { message -> 
     message is AIAgentNodeExecutionStartEvent || message is AIAgentNodeExecutionEndEvent
 }
 ```
@@ -132,7 +132,7 @@ Tracing機能には以下の依存関係があります。
 
 ```
 Tracing
-├── AIAgentPipeline (for intercepting events)
+├── AIAgentPipeline (イベント傍受用)
 ├── TraceFeatureConfig
 │   └── FeatureConfig
 ├── Message Processors
@@ -142,7 +142,7 @@ Tracing
 │   │   └── FeatureMessageFileWriter
 │   └── TraceFeatureMessageRemoteWriter
 │       └── FeatureMessageRemoteWriter
-└── Event Types (from ai.koog.agents.core.feature.model)
+└── Event Types (ai.koog.agents.core.feature.modelから)
     ├── AIAgentStartedEvent
     ├── AIAgentFinishedEvent
     ├── AIAgentRunErrorEvent
@@ -217,6 +217,7 @@ import ai.koog.agents.core.agent.AIAgent
 import ai.koog.agents.example.exampleTracing01.outputPath
 import ai.koog.agents.features.tracing.feature.Tracing
 import ai.koog.agents.features.tracing.writer.TraceFeatureMessageFileWriter
+import ai.koog.agents.features.tracing.writer.TraceFeatureMessageLogWriter
 import ai.koog.prompt.executor.llms.all.simpleOllamaAIExecutor
 import ai.koog.prompt.llm.OllamaModels
 import kotlinx.coroutines.runBlocking
@@ -306,7 +307,7 @@ install(Tracing) {
 
 <!--- INCLUDE
 import ai.koog.agents.core.agent.AIAgent
-import ai.koog.agents.core.feature.remote.server.config.AIAgentFeatureServerConnectionConfig
+import ai.koog.agents.core.feature.remote.server.config.DefaultServerConnectionConfig
 import ai.koog.agents.features.tracing.feature.Tracing
 import ai.koog.agents.features.tracing.writer.TraceFeatureMessageRemoteWriter
 import ai.koog.prompt.executor.llms.all.simpleOllamaAIExecutor
@@ -330,7 +331,7 @@ val agent = AIAgent(
     executor = simpleOllamaAIExecutor(),
     llmModel = OllamaModels.Meta.LLAMA_3_2,
 ) {
-    val connectionConfig = AIAgentFeatureServerConnectionConfig(host = host, port = port)
+    val connectionConfig = DefaultServerConnectionConfig(host = host, port = port)
     val writer = TraceFeatureMessageRemoteWriter(
         connectionConfig = connectionConfig
     )
@@ -350,7 +351,7 @@ agent.run(input)
 <!--- INCLUDE
 import ai.koog.agents.core.feature.model.AIAgentFinishedEvent
 import ai.koog.agents.core.feature.model.DefinedFeatureEvent
-import ai.koog.agents.core.feature.remote.client.config.AIAgentFeatureClientConnectionConfig
+import ai.koog.agents.core.feature.remote.client.config.DefaultClientConnectionConfig
 import ai.koog.agents.core.feature.remote.client.FeatureMessageRemoteClient
 import ai.koog.agents.utils.use
 import io.ktor.http.*
@@ -369,7 +370,7 @@ fun main() {
 }
 -->
 ```kotlin
-val clientConfig = AIAgentFeatureClientConnectionConfig(host = host, port = port, protocol = URLProtocol.HTTP)
+val clientConfig = DefaultClientConnectionConfig(host = host, port = port, protocol = URLProtocol.HTTP)
 val agentEvents = mutableListOf<DefinedFeatureEvent>()
 
 val clientJob = launch {
@@ -464,7 +465,7 @@ install(Tracing) {
 
 <!--- INCLUDE
 import ai.koog.agents.core.agent.AIAgent
-import ai.koog.agents.core.feature.remote.server.config.AIAgentFeatureServerConnectionConfig
+import ai.koog.agents.core.feature.remote.server.config.DefaultServerConnectionConfig
 import ai.koog.agents.example.exampleTracing01.outputPath
 import ai.koog.agents.features.tracing.feature.Tracing
 import ai.koog.agents.features.tracing.writer.TraceFeatureMessageFileWriter
@@ -481,7 +482,7 @@ import kotlinx.io.files.SystemFileSystem
 const val input = "What's the weather like in New York?"
 val syncOpener = { path: Path -> SystemFileSystem.sink(path).buffered() }
 val logger = KotlinLogging.logger {}
-val connectionConfig = AIAgentFeatureServerConnectionConfig(host = ai.koog.agents.example.exampleTracing06.host, port = ai.koog.agents.example.exampleTracing06.port)
+val connectionConfig = DefaultServerConnectionConfig(host = ai.koog.agents.example.exampleTracing06.host, port = ai.koog.agents.example.exampleTracing06.port)
 
 fun main() {
    runBlocking {
@@ -544,7 +545,7 @@ class CustomTraceProcessor : FeatureMessageProcessor() {
 
     override val isOpen: StateFlow<Boolean>
         get() = _isOpen.asStateFlow()
-
+    
     override suspend fun processMessage(message: FeatureMessage) {
         // カスタム処理ロジック
         when (message) {
@@ -740,4 +741,4 @@ LLM呼び出しの終了を表します。以下のフィールドが含まれ�
 | `toolName` | String    | Yes  |                         | ツールの名前。                                   |
 | `toolArgs` | Tool.Args | Yes  |                         | ツールに提供される引数。                         |
 | `result`   | ToolResult| Yes  |                         | ツール呼び出しの結果。                           |
-| `eventId`  | String    | No   | `ToolCallResultEvent`   | イベントの識別子。通常、イベントクラスの`simpleName`です。 |
+| `eventId`  | String      | No   | `ToolCallResultEvent`   | イベントの識別子。通常、イベントクラスの`simpleName`です。 |

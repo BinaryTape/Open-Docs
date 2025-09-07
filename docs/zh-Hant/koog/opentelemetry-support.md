@@ -9,12 +9,12 @@ OpenTelemetry 是一個可觀測性框架，提供工具用於從您的應用程
 - 監控代理效能與行為
 - 調試複雜代理工作流程中的問題
 - 可視化代理的執行流程
-- 追蹤大型語言模型 (LLM) 呼叫和工具使用
+- 追蹤 LLM 呼叫和工具使用
 - 分析代理行為模式
 
 ## OpenTelemetry 關鍵概念
 
-- **Span**: Span 代表分散式追蹤中的獨立工作單元或操作。它們指示應用程式中特定活動的開始與結束，例如代理執行、函數呼叫、大型語言模型 (LLM) 呼叫或工具呼叫。
+- **Span**: Span 代表分散式追蹤中的獨立工作單元或操作。它們指示應用程式中特定活動的開始與結束，例如代理執行、函數呼叫、LLM 呼叫或工具呼叫。
 - **Attribute**: Attribute 提供關於遙測相關項目（例如 Span）的元資料。Attribute 以鍵值對的形式表示。
 - **Event**: Event 是 Span 生命週期中在特定時間點發生的事件，代表了可能值得注意的事情。
 - **Exporter**: Exporter 是負責將已收集的遙測資料發送到各種後端或目的地的元件。
@@ -48,7 +48,7 @@ val agent = AIAgent(
     systemPrompt = "You are a helpful assistant.",
     installFeatures = {
         install(OpenTelemetry) {
-            // 配置選項在此處
+            // Configuration options go here
         }
     }
 )
@@ -124,11 +124,11 @@ install(OpenTelemetry) {
 
 #### addSpanProcessor
 
-添加一個 Span Processor，用於在匯出 Span 之前處理它們。接受以下引數：
+添加一個 Span Processor 工廠，用於在匯出 Span 之前處理它們。接受以下引數：
 
-| 名稱        | 資料型別       | 必需 | 預設值 | 描述                                                                                |
-|-------------|-----------------|----------|---------------|--------------------------------------------------------------------------------------------|
-| `processor` | `SpanProcessor` | 是       |               | 包含自訂邏輯的 Span Processor，用於在匯出前處理遙測資料。                                    |
+| 名稱        | 資料型別                         | 必需 | 預設值 | 描述                                                                                   |
+|-------------|-----------------------------------|----------|---------------|----------------------------------------------------------------------------------------------------------------|
+| `processor` | `(SpanExporter) -> SpanProcessor` | 是       |               | 一個函式，用於為給定的 Exporter 建立 Span Processor。它允許您為每個 Exporter 自訂處理過程。 |
 
 #### addResourceAttributes
 
@@ -153,6 +153,17 @@ install(OpenTelemetry) {
 | 名稱      | 資料型別 | 必需 | 預設值 | 描述                                                     |
 |-----------|-----------|----------|---------------|-----------------------------------------------------------------|
 | `verbose` | `Boolean` | 是       | `false`       | 如果為 true，應用程式會收集更詳細的遙測資料。 |
+
+#### setSdk
+
+注入預先配置的 `OpenTelemetrySdk` 實例。
+
+- 當您呼叫 `setSdk(sdk)` 時，所提供的 SDK 會按原樣使用，並且透過 `addSpanExporter`、`addSpanProcessor`、`addResourceAttributes` 或 `setSampler` 應用的任何自訂配置都將被忽略。
+- Tracer 的檢測範圍名稱/版本會與您的服務資訊對齊。
+
+| 名稱 | 資料型別         | 必需 | 描述                           |
+|------|-------------------|----------|---------------------------------------|
+| `sdk`| `OpenTelemetrySdk`| 是       | 要在代理中使用的 SDK 實例。 |
 
 ### 進階配置
 
@@ -297,19 +308,23 @@ Span 還可以有一個附加到其上的「Event」。Event 描述了在特定�
 - **AssistantMessageEvent**: 傳遞給模型的助手訊息。
 - **ToolMessageEvent**: 傳遞給模型的來自工具或函數呼叫的回應。
 - **ChoiceEvent**: 來自模型的回應訊息。
+- **ModerationResponseEvent**: 模型審核結果或訊號。
 
 !!! note   
-    `optentelemetry-java` SDK 在添加 Event 時不支援 Event 主體欄位參數。因此，在 Koog 的 OpenTelemetry 支援中，Event 主體欄位是一個單獨的 Attribute，其鍵為 `body` 且值類型為字串。該字串包含 Event 主體欄位的內容或負載，通常是一個類似 JSON 的物件。有關 Event 主體欄位的範例，請參閱 [OpenTelemetry 文件](https://opentelemetry.io/docs/specs/semconv/gen-ai/gen-ai-events/#examples)。有關 `opentelemetry-java` 中 Event 主體欄位支援狀態，請參閱相關的 [GitHub issue](https://github.com/open-telemetry/semantic-conventions/issues/1870)。
+    `opentelemetry-java` SDK 在添加 Event 時不支援 Event 主體欄位參數。因此，在 Koog 的 OpenTelemetry 支援中，Event 主體欄位是一個單獨的 Attribute，其鍵為 `body` 且值類型為字串。該字串包含 Event 主體欄位的內容或負載，通常是一個類似 JSON 的物件。有關 Event 主體欄位的範例，請參閱 [OpenTelemetry 文件](https://opentelemetry.io/docs/specs/semconv/gen-ai/gen-ai-events/#examples)。有關 `opentelemetry-java` 中 Event 主體欄位支援狀態，請參閱相關的 [GitHub issue](https://github.com/open-telemetry/semantic-conventions/issues/1870)。
 
 ## Exporter
 
 Exporter 將收集到的遙測資料發送到 OpenTelemetry Collector 或其他類型的目的地或後端實作。若要添加 Exporter，請在安裝 OpenTelemetry 功能時使用 `addSpanExporter()` 方法。該方法接受以下引數：
 
 | 名稱       | 資料型別    | 必需 | 預設值 | 描述                                                                 |
-|------------|--------------|----------|---------|-----------------------------------------------------------------------------|
-| `exporter` | SpanExporter | 是       |         | 要添加到自訂 Span Exporter 列表中的 `SpanExporter` 實例。 |
+|------------|--------------|----------|---------------|-----------------------------------------------------------------------------|
+| `exporter` | SpanExporter | 是       |               | 要添加到自訂 Span Exporter 列表中的 `SpanExporter` 實例。 |
 
-以下章節提供了關於 `opentelemetry-java` SDK 中一些最常用 Exporter 的資訊。  
+以下章節提供了關於 `opentelemetry-java` SDK 中一些最常用 Exporter 的資訊。
+
+!!! note
+    如果您未配置任何自訂 Exporter，Koog 將預設使用主控台 LoggingSpanExporter。這有助於本地開發和調試。
 
 ### 日誌 Exporter
 
@@ -423,6 +438,79 @@ install(OpenTelemetry) {
 ```
 <!--- KNIT example-opentelemetry-support-07.kt -->
 
+## 與 Langfuse 整合
+
+Langfuse 為 LLM/代理工作負載提供追蹤視覺化和分析。
+
+您可以配置 Koog，使用輔助函式將 OpenTelemetry 追蹤直接匯出到 Langfuse：
+
+<!--- INCLUDE
+import ai.koog.agents.core.agent.AIAgent
+import ai.koog.agents.features.opentelemetry.feature.OpenTelemetry
+import ai.koog.agents.features.opentelemetry.integration.langfuse.addLangfuseExporter
+import ai.koog.prompt.executor.clients.openai.OpenAIModels
+import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
+
+const val apiKey = ""
+
+val agent = AIAgent(
+    executor = simpleOpenAIExecutor(apiKey),
+    llmModel = OpenAIModels.Chat.GPT4o,
+    systemPrompt = "You are a helpful assistant."
+) {
+-->
+<!--- SUFFIX
+}
+-->
+```kotlin
+install(OpenTelemetry) {
+    addLangfuseExporter(
+        langfuseUrl = "https://cloud.langfuse.com",
+        langfusePublicKey = "...",
+        langfuseSecretKey = "..."
+    )
+}
+```
+<!--- KNIT example-opentelemetry-support-08.kt -->
+
+請參閱關於與 Langfuse 整合的 [完整文件](opentelemetry-langfuse-exporter.md)。
+
+## 與 W&B Weave 整合
+
+W&B Weave 為 LLM/代理工作負載提供追蹤視覺化和分析。與 W&B Weave 的整合可以透過預定義的 Exporter 進行配置：
+
+<!--- INCLUDE
+import ai.koog.agents.core.agent.AIAgent
+import ai.koog.agents.features.opentelemetry.feature.OpenTelemetry
+import ai.koog.agents.features.opentelemetry.integration.weave.addWeaveExporter
+import ai.koog.prompt.executor.clients.openai.OpenAIModels
+import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
+
+const val apiKey = ""
+
+val agent = AIAgent(
+    executor = simpleOpenAIExecutor(apiKey),
+    llmModel = OpenAIModels.Chat.GPT4o,
+    systemPrompt = "You are a helpful assistant."
+) {
+-->
+<!--- SUFFIX
+}
+-->
+```kotlin
+install(OpenTelemetry) {
+    addWeaveExporter(
+        weaveOtelBaseUrl = "https://trace.wandb.ai",
+        weaveEntity = "my-team",
+        weaveProjectName = "my-project",
+        weaveApiKey = "..."
+    )
+}
+```
+<!--- KNIT example-opentelemetry-support-09.kt -->
+
+請參閱關於與 W&B Weave 整合的 [完整文件](opentelemetry-weave-exporter.md)。
+
 ## 與 Jaeger 整合
 
 Jaeger 是一個流行的分散式追蹤系統，可與 OpenTelemetry 協同工作。Koog 儲存庫中 `examples` 目錄下的 `opentelemetry` 目錄包含一個將 OpenTelemetry 與 Jaeger 和 Koog 代理一起使用的範例。
@@ -506,13 +594,13 @@ Check Jaeger UI at http://localhost:16686 to view traces")
     }
 }
 ```
-<!--- KNIT example-opentelemetry-support-08.kt -->
+<!--- KNIT example-opentelemetry-support-10.kt -->
 
 ## 疑難排解
 
 ### 常見問題
 
-1. **Jaeger 或 Langfuse 中沒有出現追蹤**
+1. **Jaeger、Langfuse 或 W&B Weave 中沒有出現追蹤**
     - 確保服務正在運行，並且 OpenTelemetry 連接埠 (4317) 可存取。
     - 檢查 OpenTelemetry Exporter 是否配置了正確的端點。
     - 確保在代理執行後等待幾秒鐘，以便追蹤匯出。
@@ -525,3 +613,6 @@ Check Jaeger UI at http://localhost:16686 to view traces")
 3. **過多的 Span 數量**
     - 考慮透過配置 `sampler` 屬性來使用不同的採樣策略。
     - 例如，使用 `Sampler.traceIdRatioBased(0.1)` 來僅採樣 10% 的追蹤。
+
+4. **Span 適配器相互覆蓋**
+    - 目前，OpenTelemetry 代理功能不支援應用多個 Span 適配器 [KG-265](https://youtrack.jetbrains.com/issue/KG-265/Adding-Weave-exporter-breaks-Langfuse-exporter)。

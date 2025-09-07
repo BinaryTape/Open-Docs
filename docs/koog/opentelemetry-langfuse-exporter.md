@@ -1,0 +1,85 @@
+# Langfuse 导出器
+
+Koog 内置支持将代理跟踪导出到 [Langfuse](https://langfuse.com/)，一个用于 AI 应用程序可观测性和分析的平台。
+通过 Langfuse 集成，您可以可视化、分析和调试您的 Koog 代理如何与 LLM、API 和其他组件进行交互。
+
+关于 Koog 的 OpenTelemetry 支持的背景信息，请参见 [OpenTelemetry 支持](https://docs.koog.ai/opentelemetry-support/)。
+
+---
+
+### 设置说明
+
+1.  创建一个 Langfuse 项目。请遵循以下设置指南：[在 Langfuse 中创建新项目](https://langfuse.com/docs/get-started#create-new-project-in-langfuse)。
+2.  获取 API 凭据。按照 [Langfuse API 密钥在哪里？](https://langfuse.com/faq/all/where-are-langfuse-api-keys) 中所述，检索您的 Langfuse `public key` 和 `secret key`。
+3.  将 Langfuse host、private key 和 secret key 传递给 Langfuse 导出器。这可以通过将它们作为实参传递给 `addLangfuseExporter()` 函数，或者通过设置环境变量（如下所示）来完成：
+
+```bash
+   export LANGFUSE_HOST="https://cloud.langfuse.com"
+   export LANGFUSE_PUBLIC_KEY="<your-public-key>"
+   export LANGFUSE_SECRET_KEY="<your-secret-key>"
+```
+
+## 配置
+
+要启用 Langfuse 导出，请安装 **OpenTelemetry 特性** 并添加 `LangfuseExporter`。该导出器在底层使用 `OtlpHttpSpanExporter` 将跟踪发送到 Langfuse 的 OpenTelemetry 端点。
+
+### 示例：带有 Langfuse 跟踪的代理
+
+<!--- INCLUDE
+import ai.koog.agents.core.agent.AIAgent
+import ai.koog.agents.features.opentelemetry.feature.OpenTelemetry
+import ai.koog.agents.features.opentelemetry.integration.langfuse.addLangfuseExporter
+import ai.koog.prompt.executor.clients.openai.OpenAIModels
+import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
+import kotlinx.coroutines.runBlocking
+-->
+```kotlin
+fun main() = runBlocking {
+    val apiKey = "api-key"
+    
+    val agent = AIAgent(
+        executor = simpleOpenAIExecutor(apiKey),
+        llmModel = OpenAIModels.CostOptimized.GPT4oMini,
+        systemPrompt = "You are a code assistant. Provide concise code examples."
+    ) {
+        install(OpenTelemetry) {
+            addLangfuseExporter()
+        }
+    }
+
+    println("Running agent with Langfuse tracing")
+
+    val result = agent.run("Tell me a joke about programming")
+
+    println("Result: $result
+See traces on the Langfuse instance")
+}
+```
+<!--- KNIT example-langfuse-exporter-01.kt -->
+
+## 跟踪内容
+
+启用后，Langfuse 导出器会捕获与 Koog 的通用 OpenTelemetry 集成相同的 span，包括：
+
+-   **代理生命周期事件**：代理启动、停止、错误
+-   **LLM 交互**：提示、响应、token 使用量、延迟
+-   **工具调用**：工具调用的执行跟踪
+-   **系统上下文**：元数据，例如模型名称、环境、Koog 版本
+
+Koog 还会捕获 Langfuse 所需的 span 属性，以显示 [代理图](https://langfuse.com/docs/observability/features/agent-graphs)。
+
+在 Langfuse 中可视化时，跟踪显示如下：
+![Langfuse traces](img/opentelemetry-langfuse-exporter-light.png#only-light)
+![Langfuse traces](img/opentelemetry-langfuse-exporter-dark.png#only-dark)
+
+关于 Langfuse OpenTelemetry 跟踪的更多详细信息，请参见：
+[Langfuse OpenTelemetry 文档](https://langfuse.com/integrations/native/opentelemetry#opentelemetry-endpoint)。
+
+---
+
+## 故障排除
+
+### Langfuse 中未出现跟踪
+-   仔细检查 `LANGFUSE_HOST`、`LANGFUSE_PUBLIC_KEY` 和 `LANGFUSE_SECRET_KEY` 是否已在您的环境中设置。
+-   如果是在自托管的 Langfuse 上运行，请确认 `LANGFUSE_HOST` 可从您的应用程序环境中访问。
+-   验证 public/secret 密钥对是否属于正确的项目。

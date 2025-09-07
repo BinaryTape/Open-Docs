@@ -54,7 +54,7 @@ val promptExecutor = simpleOpenAIExecutor(token)
 
 要创建与多个 LLM 提供商协作的提示执行器，请执行以下操作：
 
-1. 使用相应的 API 密钥配置所需 LLM 提供商的客户端。例如：
+1) 使用相应的 API 密钥配置所需 LLM 提供商的客户端。例如：
 <!--- INCLUDE
 import ai.koog.prompt.executor.clients.openai.OpenAILLMClient
 import ai.koog.prompt.executor.clients.anthropic.AnthropicLLMClient
@@ -66,7 +66,7 @@ val anthropicClient = AnthropicLLMClient(System.getenv("ANTHROPIC_KEY"))
 val googleClient = GoogleLLMClient(System.getenv("GOOGLE_KEY"))
 ```
 <!--- KNIT example-complex-workflow-agents-02.kt -->
-2. 将配置好的客户端传递给 `DefaultMultiLLMPromptExecutor` 类构造函数，以创建支持多个 LLM 提供商的提示执行器：
+2) 将配置好的客户端传递给 `DefaultMultiLLMPromptExecutor` 类构造函数，以创建支持多个 LLM 提供商的提示执行器：
 <!--- INCLUDE
 import ai.koog.agents.example.exampleComplexWorkflowAgents02.anthropicClient
 import ai.koog.agents.example.exampleComplexWorkflowAgents02.googleClient
@@ -83,7 +83,7 @@ val multiExecutor = DefaultMultiLLMPromptExecutor(openAIClient, anthropicClient,
 策略通过使用节点和边定义代理的工作流。它可以拥有任意的输入和输出类型，这些类型可以在 `strategy` 函数的泛型形参中指定。这些也将是 `AIAgent` 的输入/输出类型。输入和输出的默认类型为 `String`。
 
 !!! tip
-    欲了解更多关于策略的信息，请参见 [自定义策略图](custom-strategy-graphs.md)。
+    欲了解更多关于策略的信息，请参见 [自定义策略图](custom-strategy-graphs.md)
 
 #### 3.1. 理解节点和边
 
@@ -105,9 +105,9 @@ val strategy = strategy<InputType, OutputType>("Simple calculator") {
 -->
 ```kotlin
 val processNode by node<InputType, OutputType> { input ->
-    // 处理输入并返回输出
-    // 您可以使用 llm.writeSession 与 LLM 交互
-    // 您可以使用 callTool, callToolRaw 等调用工具
+    // Process the input and return an output
+    // You can use llm.writeSession to interact with the LLM
+    // You can call tools using callTool, callToolRaw, etc.
     transformedOutput
 }
 ```

@@ -1,19 +1,19 @@
 [//]: # (title: 将你的库发布到 Maven Central – 教程)
 
-本教程将介绍如何将你的 Kotlin Multiplatform 库发布到 [Maven Central](https://central.sonatype.com/) 版本库。
+在本教程中，你将学习如何将你的 Kotlin Multiplatform 库发布到 [Maven Central](https://central.sonatype.com/) 版本库。
 
 要发布你的库，你需要：
 
 1.  设置凭据，包括 Maven Central 账户和用于签名的 PGP 密钥。
 2.  在库的项目中配置发布插件。
-3.  向发布插件提供你的凭据，以便它可以签署和上传你的 artifact。
+3.  向发布插件提供你的凭据，以便它可以签署和上传你的构件。
 4.  运行发布任务，无论是在本地还是使用持续集成。
 
 本教程假设你：
 
 *   正在创建一个开源库。
 *   将库的代码存储在 GitHub 版本库中。
-*   使用的是 macOS 或 Linux。如果你是 Windows 用户，请使用 [GnuPG 或 Gpg4win](https://gnupg.org/download) 生成密钥对。
+*   正在使用的是 macOS 或 Linux。如果你是 Windows 用户，请使用 [GnuPG 或 Gpg4win](https://gnupg.org/download) 生成密钥对。
 *   尚未在 Maven Central 注册，或者已有一个适合[发布到 Central Portal](https://central.sonatype.org/publish-ea/publish-ea-guide/) 的现有账户（在 2024 年 3 月 12 日之后创建，或已由其支持迁移到 Central Portal）。
 *   使用 GitHub Actions 进行持续集成。
 
@@ -36,15 +36,15 @@
 
 ### 选择并验证命名空间
 
-你需要一个已验证的命名空间，以唯一标识你的库在 Maven Central 上的 artifact。
+你需要一个已验证的命名空间，以唯一标识你的库在 Maven Central 上的构件。
 
-Maven artifact 通过其[坐标](https://central.sonatype.org/publish/requirements/#correct-coordinates)进行标识，例如 `com.example:fibonacci-library:1.0.0`。这些坐标由三个部分组成，以冒号分隔：
+Maven 构件通过其[坐标](https://central.sonatype.org/publish/requirements/#correct-coordinates)进行标识，例如 `com.example:fibonacci-library:1.0.0`。这些坐标由三个部分组成，以冒号分隔：
 
 *   `groupId` 以反向 DNS 形式表示，例如 `com.example`
 *   `artifactId`：库本身的唯一名称，例如 `fibonacci-library`
 *   `version`：版本字符串，例如 `1.0.0`。版本可以是任何字符串，但不能以 `-SNAPSHOT` 结尾
 
-你注册的命名空间允许你设置 Maven Central 上 `groupId` 的格式。例如，如果你注册 `com.example` 命名空间，则可以发布 `groupId` 设置为 `com.example`、`com.example.libraryname`、`com.example.module.feature` 等的 artifact。
+你注册的命名空间允许你设置 Maven Central 上 `groupId` 的格式。例如，如果你注册 `com.example` 命名空间，则可以发布 `groupId` 设置为 `com.example`、`com.example.libraryname`、`com.example.module.feature` 等的构件。
 
 登录 Maven Central 后，导航到[命名空间](https://central.sonatype.com/publishing/namespaces)页面。
 然后，点击 **Add Namespace** 按钮并注册你的命名空间：
@@ -76,12 +76,12 @@ Maven artifact 通过其[坐标](https://central.sonatype.org/publish/requiremen
 
 #### 生成密钥对
 
-在发布内容到 Maven Central 之前，你需要使用 [PGP 签名](https://central.sonatype.org/publish/requirements/gpg/)签署你的 artifact，这允许用户验证 artifact 的来源。
+在发布内容到 Maven Central 之前，你需要使用 [PGP 签名](https://central.sonatype.org/publish/requirements/gpg/)签署你的构件，这允许用户验证构件的来源。
 
 要开始签名，你需要生成一个密钥对：
 
-*   _私钥_ 用于签署你的 artifact，绝不应与他人共享。
-*   _公钥_ 可以与他人共享，以便他们可以验证你的 artifact 的签名。
+*   _私钥_ 用于签署你的构件，绝不应与他人共享。
+*   _公钥_ 可以与他人共享，以便他们可以验证你的构件的签名。
 
 用于管理签名的 `gpg` 工具可在 [GnuPG 网站](https://gnupg.org/download/index.html)上获取。
 你也可以使用 [Homebrew](https://brew.sh/) 等包管理器安装它：
@@ -153,7 +153,7 @@ brew install gpg
 
 5.  输入密码短语来加密密钥，并在提示时重复输入。
 
-   请妥善安全地保管此密码短语。稍后签署 artifact 时，你需要它来访问私钥。
+   请妥善安全地保管此密码短语。稍后签署构件时，你需要它来访问私钥。
 
 6.  使用以下命令查看你创建的密钥：
 
@@ -229,7 +229,7 @@ android {
 // <module directory>/build.gradle.kts
 
 plugins {
-    id("com.vanniktech.maven.publish") version "0.30.0" 
+    id("com.vanniktech.maven.publish") version "%vanniktechPublishPlugin%" 
 }
 ```
 
@@ -243,7 +243,7 @@ plugins {
 // <module directory>/build.gradle.kts
 
 mavenPublishing {
-    publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL)
+    publishToMavenCentral()
     
     signAllPublications()
     
@@ -374,7 +374,7 @@ jobs:
 
 ### 在 GitHub 上创建发布
 
-设置好工作流和密钥后，你现在可以[创建发布](https://docs.github.com/en/repositories/releasing-projects-on-github/managing-releases-in-a-repository#creating-a-release)，这将触发你的库的发布。
+设置好工作流和密钥后，你现在可以[创建发布](https://docs.github.com/en/repositories/releasing-projects-on-github/managing-releases-in-a-repository#creating-a-release)来触发你的库的发布。
 
 1.  确保你的库的 `build.gradle.kts` 文件中指定的版本号是你想要发布的版本。
 2.  进入你的 GitHub 版本库主页。
@@ -398,16 +398,16 @@ jobs:
 
     在 Maven Central 执行检测时，此部署可能会在 _pending_ 或 _validating_ 状态下停留一段时间。
 
-11. 一旦你的部署进入 _validated_ 状态，检查它是否包含你上传的所有 artifact。
-    如果一切看起来正确，点击 **Publish** 按钮以发布这些 artifact。
+11. 一旦你的部署进入 _validated_ 状态，检查它是否包含你上传的所有构件。
+    如果一切看起来正确，点击 **Publish** 按钮以发布这些构件。
 
     ![发布设置](published_on_maven_central.png){width=700}
 
-    > 发布后，artifact 需要一些时间（通常约为 15-30 分钟）才能在 Maven Central 版本库中公开可用。它们可能需要更长时间才能被索引并在 [Maven Central 网站](https://central.sonatype.com/)上可搜索。
+    > 发布后，构件需要一些时间（通常约为 15-30 分钟）才能在 Maven Central 版本库中公开可用。它们可能需要更长时间才能被索引并在 [Maven Central 网站](https://central.sonatype.com/)上可搜索。
     >
     {style="tip"}
 
-要一旦部署验证完成就自动发布 artifact，请将工作流中的 `publishToMavenCentral` 任务替换为 `publishAndReleaseToMavenCentral`。
+要一旦部署验证完成就自动发布构件，请将工作流中的 `publishToMavenCentral` 任务替换为 `publishAndReleaseToMavenCentral`。
 
 ## 下一步
 

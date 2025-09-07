@@ -54,7 +54,7 @@ val promptExecutor = simpleOpenAIExecutor(token)
 
 若要建立一個可與多個 LLM 提供者配合使用的提示執行器，請執行以下操作：
 
-1. 使用相應的 API 金鑰為所需的 LLM 提供者配置用戶端。例如：
+1) 使用相應的 API 金鑰為所需的 LLM 提供者配置用戶端。例如：
 <!--- INCLUDE
 import ai.koog.prompt.executor.clients.openai.OpenAILLMClient
 import ai.koog.prompt.executor.clients.anthropic.AnthropicLLMClient
@@ -66,7 +66,7 @@ val anthropicClient = AnthropicLLMClient(System.getenv("ANTHROPIC_KEY"))
 val googleClient = GoogleLLMClient(System.getenv("GOOGLE_KEY"))
 ```
 <!--- KNIT example-complex-workflow-agents-02.kt -->
-2. 將配置好的用戶端傳遞給 `DefaultMultiLLMPromptExecutor` 類別建構函數，以建立具有多個 LLM 提供者的提示執行器：
+2) 將配置好的用戶端傳遞給 `DefaultMultiLLMPromptExecutor` 類別建構函數，以建立具有多個 LLM 提供者的提示執行器：
 <!--- INCLUDE
 import ai.koog.agents.example.exampleComplexWorkflowAgents02.anthropicClient
 import ai.koog.agents.example.exampleComplexWorkflowAgents02.googleClient
@@ -105,9 +105,9 @@ val strategy = strategy<InputType, OutputType>("Simple calculator") {
 -->
 ```kotlin
 val processNode by node<InputType, OutputType> { input ->
-    // 處理輸入並回傳輸出
-    // 您可以使用 llm.writeSession 與 LLM 互動
-    // 您可以使用 callTool、callToolRaw 等呼叫工具
+    // Process the input and return an output
+    // You can use llm.writeSession to interact with the LLM
+    // You can call tools using callTool, callToolRaw, etc.
     transformedOutput
 }
 ```
@@ -313,6 +313,7 @@ val toolRegistry = ToolRegistry {
 import ai.koog.agents.core.agent.AIAgent
 import ai.koog.agents.core.feature.handler.AgentFinishedContext
 import ai.koog.agents.core.feature.handler.AgentStartContext
+import ai.koog.agents.features.eventHandler.feature.EventHandler
 import ai.koog.prompt.executor.llms.all.simpleOllamaAIExecutor
 import ai.koog.prompt.llm.OllamaModels
 

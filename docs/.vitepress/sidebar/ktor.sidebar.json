@@ -473,6 +473,10 @@
                 "link": "heroku"
               },
               {
+                "text": "ktor.sevalla",
+                "link": "sevalla"
+              },
+              {
                 "text": "ktor.elastic-beanstalk",
                 "link": "elastic-beanstalk"
               }

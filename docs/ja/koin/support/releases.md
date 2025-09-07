@@ -21,25 +21,36 @@ custom_edit_url: null
 
 ## 4.1.1
 
+:::note
+Kotlin `2.1.21` を使用
+:::
+
 ### New 🎉
 
-`koin-ktor`
-- 統合 - Ktor 3.2のデフォルトDIエンジンを統合するための`KtorDIExtension`を提供
-```kotlin
-fun Application.setupDatabase(config: DbConfig) {
-    // ...
-    dependencies {
-        provide<Database> { database }
-    }
-}
+`koin-compose-viewmodel-navigation`
+- `sharedKoinViewModel` をオプションの `navGraphRoute` パラメータで強化し、Compose Navigationのサポートを向上
 
-class CustomerRepositoryImpl(private val database: Database) : CustomerRepository
-fun Application.customerDataModule() {
-    koinModule {
-        singleOf(::CustomerRepositoryImpl) bind CustomerRepository::class
-    }
-}
-```
+`koin-core`
+- コアリゾルバのパフォーマンス最適化 - 単一スコープの解決で不要なフラット化を回避
+- リンクされたスコープID表示によるスコープデバッグの強化
+
+### Library Updates 📚
+
+- `Kotlin` 2.1.21（2.1.20から）
+- `Ktor` 3.2.3（3.1.3から）
+- `Jetbrains Compose` 1.8.2（1.8.0から）
+- `AndroidX`: Fragment 1.8.9, WorkManager 2.10.3, Lifecycle 2.9.3, Navigation 2.9.3
+- `Testing`: Robolectric 4.15.1, Benchmark 0.4.14
+- `Build`: Binary Validator 0.18.1, NMCP 1.1.0
+
+### Bug Fixes 🐛
+
+`koin-core`
+- 互換性エラーを引き起こしていたロガー制約を元に戻しました
+- `LocalKoinApplication`/`LocalKoinScope` コンテキスト処理の改善により、Composeスコープの解決を修正
+
+`koin-build`
+- Maven Centralでの公開問題を修正
 
 ## 4.1.0
 

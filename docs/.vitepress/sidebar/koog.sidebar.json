@@ -58,16 +58,24 @@
         "text": "koog.agent-strategies",
         "items": [
           {
-            "text": "koog.custom-strategy-graphs",
-            "link": "custom-strategy-graphs"
-          },
-          {
             "text": "koog.pre-defined-nodes-and-components",
             "link": "nodes-and-components"
           },
           {
+            "text": "koog.predefined-strategies",
+            "link": "predefined-agent-strategies"
+          },
+          {
+            "text": "koog.custom-strategy-graphs",
+            "link": "custom-strategy-graphs"
+          },
+          {
             "text": "koog.parallel-node-execution",
             "link": "parallel-node-execution"
+          },
+          {
+            "text": "koog.data-transfer-between-nodes",
+            "link": "data-transfer-between-nodes"
           }
         ],
         "collapsed": true
@@ -87,6 +95,20 @@
       {
         "text": "koog.content-moderation",
         "link": "content-moderation"
+      },
+      {
+        "text": "koog.backend-framework-integrations",
+        "items": [
+          {
+            "text": "koog.ktor",
+            "link": "ktor-plugin"
+          },
+          {
+            "text": "koog.spring-boot",
+            "link": "spring-boot"
+          }
+        ],
+        "collapsed": true
       },
       {
         "text": "koog.advanced-usage",
@@ -150,7 +172,21 @@
               },
               {
                 "text": "koog.opentelemetry",
-                "link": "opentelemetry-support"
+                "items": [
+                  {
+                    "text": "koog.overview",
+                    "link": "opentelemetry-support"
+                  },
+                  {
+                    "text": "koog.langfuse-exporter",
+                    "link": "opentelemetry-langfuse-exporter"
+                  },
+                  {
+                    "text": "koog.weave-exporter",
+                    "link": "opentelemetry-weave-exporter"
+                  }
+                ],
+                "collapsed": true
               }
             ],
             "collapsed": true
@@ -167,7 +203,65 @@
   },
   {
     "text": "koog.examples",
-    "link": "examples"
+    "items": [
+      {
+        "text": "koog.overview",
+        "link": "examples"
+      },
+      {
+        "text": "koog.attachments",
+        "link": "examples/Attachments"
+      },
+      {
+        "text": "koog.banking",
+        "link": "examples/Banking"
+      },
+      {
+        "text": "koog.bedrockagent",
+        "link": "examples/BedrockAgent"
+      },
+      {
+        "text": "koog.calculator",
+        "link": "examples/Calculator"
+      },
+      {
+        "text": "koog.chess",
+        "link": "examples/Chess"
+      },
+      {
+        "text": "koog.guesser",
+        "link": "examples/Guesser"
+      },
+      {
+        "text": "koog.langfuse",
+        "link": "examples/Langfuse"
+      },
+      {
+        "text": "koog.mcp-google-maps",
+        "link": "examples/GoogleMapsMcp"
+      },
+      {
+        "text": "koog.mcp-playwright",
+        "link": "examples/PlaywrightMcp"
+      },
+      {
+        "text": "koog.mcp-unity",
+        "link": "examples/UnityMcp"
+      },
+      {
+        "text": "koog.opentelemetry",
+        "link": "examples/OpenTelemetry"
+      },
+      {
+        "text": "koog.vaccumagent",
+        "link": "examples/VaccumAgent"
+      },
+      {
+        "text": "koog.weave",
+        "link": "examples/Weave"
+      }
+    ],
+    "collapsed": true
   },
   {
     "text": "koog.api-reference",

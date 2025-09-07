@@ -4,8 +4,8 @@ Koog 是一個基於 Kotlin 的框架，旨在完全以慣用 Kotlin 語法建�
 
 該框架支援以下類型的代理：
 
-*   單次執行代理：具有最少設定，處理單一輸入並提供回應。此類代理在單一工具呼叫週期內運作，以完成其任務並提供回應。
-*   複雜工作流程代理：具有進階功能，支援自訂策略和設定。
+*   單次執行代理，具有最少設定，處理單一輸入並提供回應。此類代理在單一工具呼叫週期內運作，以完成其任務並提供回應。
+*   複雜工作流程代理，具有進階功能，支援自訂策略和設定。
 
 ## 主要功能
 
@@ -23,25 +23,29 @@ Koog 的主要功能包括：
 -   **彈性圖形工作流程**：使用直觀的圖形化工作流程設計複雜的代理行為。
 -   **模組化功能系統**：透過可組合架構自訂代理功能。
 -   **可擴展架構**：處理從簡單聊天機器人到企業應用程式的工作負載。
--   **多平台**：透過 Kotlin Multiplatform 在 JVM、JS、WasmJS 目標上執行代理。
+-   **多平台**：透過 Kotlin Multiplatform 在 JVM、JS、WasmJS 和 iOS 目標上執行代理。
 
-# 可用的 LLM 提供者和平台
+## 可用的 LLM 提供者和平台
 
 您可以用來為代理功能提供動力的 LLM 提供者和平台：
 
 -   Google
 -   OpenAI
 -   Anthropic
+-   DeepSeek
 -   OpenRouter
 -   Ollama
+-   Bedrock
 
-# 安裝
+如需有關如何將這些提供者與專用 LLM 用戶端搭配使用的詳細指南，請參閱 [使用 LLM 用戶端執行提示](prompt-api.md#running-prompts-with-llm-clients)。
+
+## 安裝
 
 要使用 Koog，您需要在建置設定中包含所有必要的依賴項。
 
-## Gradle
+### Gradle
 
-### Gradle (Kotlin DSL)
+#### Gradle (Kotlin DSL)
 
 1.  將依賴項新增至 `build.gradle.kts` 檔案：
 
@@ -53,7 +57,7 @@ Koog 的主要功能包括：
 
 2.  確保您的儲存庫列表中包含 `mavenCentral()`。
 
-### Gradle (Groovy)
+#### Gradle (Groovy)
 
 1.  將依賴項新增至 `build.gradle` 檔案：
 
@@ -65,7 +69,7 @@ Koog 的主要功能包括：
 
 2.  確保您的儲存庫列表中包含 `mavenCentral()`。
 
-## Maven
+### Maven
 
 1.  將依賴項新增至 `pom.xml` 檔案：
 
@@ -79,7 +83,7 @@ Koog 的主要功能包括：
 
 2.  確保您的儲存庫列表中包含 `mavenCentral`。
 
-# 快速入門範例
+## 快速入門範例
 
 為了幫助您開始使用 AI 代理，這是一個單次執行代理的快速範例：
 
@@ -95,11 +99,11 @@ import kotlinx.coroutines.runBlocking
 ```kotlin
 fun main() {
     runBlocking {
-        val apiKey = System.getenv("OPENAI_API_KEY") // 或 Anthropic, Google, OpenRouter 等。
+        val apiKey = System.getenv("OPENAI_API_KEY") // 或 Anthropic、Google、OpenRouter 等。
 
         val agent = AIAgent(
-            executor = simpleOpenAIExecutor(apiKey), // 或 Anthropic, Google, OpenRouter 等。
-            systemPrompt = "You are a helpful assistant. Answer user questions concisely.",
+            executor = simpleOpenAIExecutor(apiKey), // 或 Anthropic、Google、OpenRouter 等。
+            systemPrompt = "您是一個樂於助人的助手。簡潔地回答用戶問題。",
             llmModel = OpenAIModels.Chat.GPT4o
         )
 

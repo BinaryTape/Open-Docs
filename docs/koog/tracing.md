@@ -134,14 +134,14 @@ Tracing
 ├── AIAgentPipeline (用于拦截事件)
 ├── TraceFeatureConfig
 │   └── FeatureConfig
-├── Message Processors (消息处理器)
+├── Message Processors
 │   ├── TraceFeatureMessageLogWriter
 │   │   └── FeatureMessageLogWriter
 │   ├── TraceFeatureMessageFileWriter
 │   │   └── FeatureMessageFileWriter
 │   └── TraceFeatureMessageRemoteWriter
 │       └── FeatureMessageRemoteWriter
-└── Event Types (事件类型) (from ai.koog.agents.core.feature.model)
+└── Event Types (from ai.koog.agents.core.feature.model)
     ├── AIAgentStartedEvent
     ├── AIAgentFinishedEvent
     ├── AIAgentRunErrorEvent
@@ -305,7 +305,7 @@ install(Tracing) {
 
 <!--- INCLUDE
 import ai.koog.agents.core.agent.AIAgent
-import ai.koog.agents.core.feature.remote.server.config.AIAgentFeatureServerConnectionConfig
+import ai.koog.agents.core.feature.remote.server.config.DefaultServerConnectionConfig
 import ai.koog.agents.features.tracing.feature.Tracing
 import ai.koog.agents.features.tracing.writer.TraceFeatureMessageRemoteWriter
 import ai.koog.prompt.executor.llms.all.simpleOllamaAIExecutor
@@ -329,7 +329,7 @@ val agent = AIAgent(
     executor = simpleOllamaAIExecutor(),
     llmModel = OllamaModels.Meta.LLAMA_3_2,
 ) {
-    val connectionConfig = AIAgentFeatureServerConnectionConfig(host = host, port = port)
+    val connectionConfig = DefaultServerConnectionConfig(host = host, port = port)
     val writer = TraceFeatureMessageRemoteWriter(
         connectionConfig = connectionConfig
     )
@@ -349,7 +349,7 @@ agent.run(input)
 <!--- INCLUDE
 import ai.koog.agents.core.feature.model.AIAgentFinishedEvent
 import ai.koog.agents.core.feature.model.DefinedFeatureEvent
-import ai.koog.agents.core.feature.remote.client.config.AIAgentFeatureClientConnectionConfig
+import ai.koog.agents.core.feature.remote.client.config.DefaultClientConnectionConfig
 import ai.koog.agents.core.feature.remote.client.FeatureMessageRemoteClient
 import ai.koog.agents.utils.use
 import io.ktor.http.*
@@ -368,7 +368,7 @@ fun main() {
 }
 -->
 ```kotlin
-val clientConfig = AIAgentFeatureClientConnectionConfig(host = host, port = port, protocol = URLProtocol.HTTP)
+val clientConfig = DefaultClientConnectionConfig(host = host, port = port, protocol = URLProtocol.HTTP)
 val agentEvents = mutableListOf<DefinedFeatureEvent>()
 
 val clientJob = launch {
@@ -463,7 +463,7 @@ install(Tracing) {
 
 <!--- INCLUDE
 import ai.koog.agents.core.agent.AIAgent
-import ai.koog.agents.core.feature.remote.server.config.AIAgentFeatureServerConnectionConfig
+import ai.koog.agents.core.feature.remote.server.config.DefaultServerConnectionConfig
 import ai.koog.agents.example.exampleTracing01.outputPath
 import ai.koog.agents.features.tracing.feature.Tracing
 import ai.koog.agents.features.tracing.writer.TraceFeatureMessageFileWriter
@@ -480,7 +480,7 @@ import kotlinx.io.files.SystemFileSystem
 const val input = "What's the weather like in New York?"
 val syncOpener = { path: Path -> SystemFileSystem.sink(path).buffered() }
 val logger = KotlinLogging.logger {}
-val connectionConfig = AIAgentFeatureServerConnectionConfig(host = ai.koog.agents.example.exampleTracing06.host, port = ai.koog.agents.example.exampleTracing06.port)
+val connectionConfig = DefaultServerConnectionConfig(host = ai.koog.agents.example.exampleTracing06.host, port = ai.koog.agents.example.exampleTracing06.port)
 
 fun main() {
    runBlocking {
@@ -739,4 +739,4 @@ Koog 提供了可在自定义消息处理器中使用的预定义事件类型。
 | `toolName` | String   | 是  |                    | 工具名称。                                                         |
 | `toolArgs` | Tool.Args | 是  |                    | 提供给工具的实参。                                                   |
 | `result`   | ToolResult | 是  |                    | 工具调用的结果。                                                     |
-| `eventId`  | String   | 否  | `ToolCallResultEvent` | 事件的标识符。通常是事件类的 `simpleName`。                           |
+| `eventId`  | String     | 否  | `ToolCallResultEvent` | 事件的标识符。通常是事件类的 `simpleName`。                           |

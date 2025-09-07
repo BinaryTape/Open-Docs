@@ -2,7 +2,7 @@
 
 ## 機能概要
 
-AgentMemory機能は、Koogフレームワークのコンポーネントであり、AIエージェントが会話を通じて情報を保存、取得、利用できるようにします。
+AgentMemory機能はKoogフレームワークのコンポーネントであり、AIエージェントが会話を通じて情報を保存、取得、利用できるようにします。
 
 ### 目的
 
@@ -18,7 +18,7 @@ AgentMemory機能は、AIエージェントのインタラクションにおけ�
 AgentMemory機能は階層構造に基づいて構築されています。
 この構造の要素は、以下のセクションでリストアップされ、説明されています。
 
-#### ファクト 
+#### ファクト
 
 ***ファクト***は、メモリに保存される個々の情報です。
 ファクトは、実際に保存された情報を表します。
@@ -64,7 +64,7 @@ val languagesFact = MultipleFacts(
 ```
 <!--- KNIT example-agent-memory-02.kt -->
 
-#### コンセプト 
+#### コンセプト
 
 ***コンセプト***は、関連するメタデータを持つ情報のカテゴリです。
 
@@ -117,7 +117,7 @@ object MemorySubjects {
 ```
 <!--- KNIT example-agent-memory-03.kt -->
 
-#### スコープ 
+#### スコープ
 
 ***メモリースコープ***は、ファクトが関連するコンテキストです。
 
@@ -186,7 +186,7 @@ val agent = AIAgent(
 
 以下のコードスニペットは、メモリストレージの基本的な設定と、ファクトがメモリに保存されロードされる方法を示しています。
 
-1. メモリストレージを設定する
+1) メモリストレージを設定する
 <!--- INCLUDE
 import ai.koog.agents.memory.providers.LocalFileMemoryProvider
 import ai.koog.agents.memory.providers.LocalMemoryConfig
@@ -205,7 +205,7 @@ val memoryProvider = LocalFileMemoryProvider(
 ```
 <!--- KNIT example-agent-memory-06.kt -->
 
-2. ファクトをメモリに保存する
+2) ファクトをメモリに保存する
 <!--- INCLUDE
 import ai.koog.agents.example.exampleAgentMemory03.MemorySubjects
 import ai.koog.agents.example.exampleAgentMemory06.memoryProvider
@@ -233,7 +233,7 @@ memoryProvider.save(
 ```
 <!--- KNIT example-agent-memory-07.kt -->
 
-3. ファクトを取得する
+3) ファクトを取得する
 <!--- INCLUDE
 import ai.koog.agents.example.exampleAgentMemory03.MemorySubjects
 import ai.koog.agents.example.exampleAgentMemory06.memoryProvider
@@ -432,19 +432,40 @@ val saveAutoDetect by nodeSaveToMemoryAutoDetectFacts<Unit>(
     - 関連情報を同じサブジェクトの下に保持する
 
 3.  **エラーを処理する**
-   <!--- INCLUDE
-    import ai.koog.agents.core.agent.AIAgent
-    -->
-   ```kotlin
-    try {
-        memoryProvider.save(fact, subject)
-    } catch (e: Exception) {
-        println("Oops! Couldn't save: ${e.message}")
-    }
-   ```
-   <!--- KNIT example-agent-memory-14.kt -->
+<!--- INCLUDE
+import ai.koog.agents.example.exampleAgentMemory03.MemorySubjects
+import ai.koog.agents.example.exampleAgentMemory06.memoryProvider
+import ai.koog.agents.memory.model.Concept
+import ai.koog.agents.memory.model.DefaultTimeProvider
+import ai.koog.agents.memory.model.FactType
+import ai.koog.agents.memory.model.MemoryScope
+import ai.koog.agents.memory.model.SingleFact
+import kotlinx.coroutines.runBlocking
 
-   エラー処理の詳細については、「[エラー処理とエッジケース](#error-handling-and-edge-cases)」を参照してください。
+fun main() {
+    runBlocking {
+        val fact = SingleFact(
+            concept = Concept("preferred-language", "What programming language is preferred by the user?", FactType.SINGLE),
+            value = "Kotlin",
+            timestamp = DefaultTimeProvider.getCurrentTimestamp()
+        )
+        val subject = MemorySubjects.User
+        val scope = MemoryScope.Product("my-app")
+-->
+<!--- SUFFIX
+    }
+}
+-->
+```kotlin
+try {
+    memoryProvider.save(fact, subject, scope)
+} catch (e: Exception) {
+    println("Oops! Couldn't save: ${e.message}")
+}
+```
+<!--- KNIT example-agent-memory-14.kt -->
+
+エラー処理の詳細については、「[エラー処理とエッジケース](#error-handling-and-edge-cases)」を参照してください。
 
 ## エラー処理とエッジケース
 
@@ -516,7 +537,7 @@ class MyCustomMemoryProvider : AgentMemoryProvider {
     }
 }
 ```
-<!--- KNIT example-agent-memory-14.kt -->
+<!--- KNIT example-agent-memory-15.kt -->
 
 ### 複数のサブジェクトからロードする際、ファクトはどのように優先されますか？
 
@@ -536,6 +557,6 @@ val concept = Concept(
     factType = FactType.MULTIPLE
 )
 ```
-<!--- KNIT example-agent-memory-15.kt -->
+<!--- KNIT example-agent-memory-16.kt -->
 
 これにより、コンセプトに複数の値を保存でき、それらはリストとして取得されます。

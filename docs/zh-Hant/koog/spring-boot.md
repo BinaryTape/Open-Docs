@@ -1,0 +1,288 @@
+# Spring Boot 整合
+
+Koog 透過其自動配置啟動器，提供無縫的 Spring Boot 整合，讓您能夠以最少的設定輕鬆將 AI 代理整合到您的 Spring Boot 應用程式中。
+
+## 概述
+
+`koog-spring-boot-starter` 會根據您的應用程式屬性自動配置 LLM 用戶端，並提供現成的 bean 供依賴注入。它支援所有主要的 LLM 提供者，包括 OpenAI、Anthropic、Google、OpenRouter、DeepSeek 和 Ollama。
+
+## 入門
+
+### 1. 加入依賴
+
+將 Spring Boot starter 加入您的 `build.gradle.kts`：
+
+```kotlin
+dependencies {
+    implementation("ai.koog:koog-spring-boot-starter:$koogVersion")
+}
+```
+
+### 2. 配置提供者
+
+在 `application.properties` 中配置您偏好的 LLM 提供者：
+
+```properties
+# OpenAI 配置
+ai.koog.openai.api-key=${OPENAI_API_KEY}
+ai.koog.openai.base-url=https://api.openai.com
+# Anthropic 配置  
+ai.koog.anthropic.api-key=${ANTHROPIC_API_KEY}
+ai.koog.anthropic.base-url=https://api.anthropic.com
+# Google 配置
+ai.koog.google.api-key=${GOOGLE_API_KEY}
+ai.koog.google.base-url=https://generativelanguage.googleapis.com
+# OpenRouter 配置
+ai.koog.openrouter.api-key=${OPENROUTER_API_KEY}
+ai.koog.openrouter.base-url=https://openrouter.ai
+# DeepSeek 配置
+ai.koog.deepseek.api-key=${DEEPSEEK_API_KEY}
+ai.koog.deepseek.base-url=https://api.deepseek.com
+# Ollama 配置（本地 - 無需 API 金鑰）
+ai.koog.ollama.base-url=http://localhost:11434
+```
+
+或使用 YAML 格式 (`application.yml`)：
+
+```yaml
+ai:
+    koog:
+        openai:
+            api-key: ${OPENAI_API_KEY}
+            base-url: https://api.openai.com
+        anthropic:
+            api-key: ${ANTHROPIC_API_KEY}
+            base-url: https://api.anthropic.com
+        google:
+            api-key: ${GOOGLE_API_KEY}
+            base-url: https://generativelanguage.googleapis.com
+        openrouter:
+            api-key: ${OPENROUTER_API_KEY}
+            base-url: https://openrouter.ai
+        deepseek:
+            api-key: ${DEEPSEEK_API_KEY}
+            base-url: https://api.deepseek.com
+        ollama:
+            base-url: http://localhost:11434
+```
+
+!!! tip "環境變數"
+建議為 API 金鑰使用環境變數，以確保其安全並避免納入版本控制。
+
+### 3. 注入與使用
+
+將自動配置的執行器注入到您的服務中：
+
+```kotlin
+@Service
+class AIService(
+    private val openAIExecutor: SingleLLMPromptExecutor?,
+    private val anthropicExecutor: SingleLLMPromptExecutor?
+) {
+
+    suspend fun generateResponse(input: String): String {
+        val prompt = prompt {
+            system("You are a helpful AI assistant")
+            user(input)
+        }
+
+        return when {
+            openAIExecutor != null -> {
+                val result = openAIExecutor.execute(prompt)
+                result.text
+            }
+            anthropicExecutor != null -> {
+                val result = anthropicExecutor.execute(prompt)
+                result.text
+            }
+            else -> throw IllegalStateException("No LLM provider configured")
+        }
+    }
+}
+```
+
+## 進階用法
+
+### REST 控制器範例
+
+使用自動配置的執行器建立一個聊天端點：
+
+```kotlin
+@RestController
+@RequestMapping("/api/chat")
+class ChatController(
+    private val anthropicExecutor: SingleLLMPromptExecutor?
+) {
+
+    @PostMapping
+    suspend fun chat(@RequestBody request: ChatRequest): ResponseEntity<ChatResponse> {
+        return if (anthropicExecutor != null) {
+            try {
+                val prompt = prompt {
+                    system("You are a helpful assistant")
+                    user(request.message)
+                }
+
+                val result = anthropicExecutor.execute(prompt)
+                ResponseEntity.ok(ChatResponse(result.text))
+            } catch (e: Exception) {
+                ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(ChatResponse("Error processing request"))
+            }
+        } else {
+            ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE)
+                .body(ChatResponse("AI service not configured"))
+        }
+    }
+}
+
+data class ChatRequest(val message: String)
+data class ChatResponse(val response: String)
+```
+
+### 多個提供者支援
+
+處理具有備援邏輯的多個提供者：
+
+```kotlin
+@Service
+class RobustAIService(
+    private val openAIExecutor: SingleLLMPromptExecutor?,
+    private val anthropicExecutor: SingleLLMPromptExecutor?,
+    private val openRouterExecutor: SingleLLMPromptExecutor?
+) {
+
+    suspend fun generateWithFallback(input: String): String {
+        val prompt = prompt {
+            system("You are a helpful AI assistant")
+            user(input)
+        }
+
+        val executors = listOfNotNull(openAIExecutor, anthropicExecutor, openRouterExecutor)
+
+        for (executor in executors) {
+            try {
+                val result = executor.execute(prompt)
+                return result.text
+            } catch (e: Exception) {
+                logger.warn("Executor failed, trying next: ${e.message}")
+                continue
+            }
+        }
+
+        throw IllegalStateException("All AI providers failed")
+    }
+
+    companion object {
+        private val logger = LoggerFactory.getLogger(RobustAIService::class.java)
+    }
+}
+```
+
+### 配置屬性
+
+您也可以注入配置屬性以實現自訂邏輯：
+
+```kotlin
+@Service
+class ConfigurableAIService(
+    private val openAIExecutor: SingleLLMPromptExecutor?,
+    @Value("\${ai.koog.openai.api-key:}") private val openAIKey: String
+) {
+
+    fun isOpenAIConfigured(): Boolean = openAIKey.isNotBlank() && openAIExecutor != null
+
+    suspend fun processIfConfigured(input: String): String? {
+        return if (isOpenAIConfigured()) {
+            val result = openAIExecutor!!.execute(prompt { user(input) })
+            result.text
+        } else {
+            null
+        }
+    }
+}
+```
+
+## 配置參考
+
+### 可用屬性
+
+| 屬性                            | 描述              | Bean 條件                                                   | 預設值                                      |
+|-------------------------------|-------------------|-------------------------------------------------------------|---------------------------------------------|
+| `ai.koog.openai.api-key`      | OpenAI API 金鑰   | `openAIExecutor` bean 所必需                                | -                                           |
+| `ai.koog.openai.base-url`     | OpenAI 基礎 URL   | 選用                                                        | `https://api.openai.com`                    |
+| `ai.koog.anthropic.api-key`   | Anthropic API 金鑰| `anthropicExecutor` bean 所必需                             | -                                           |
+| `ai.koog.anthropic.base-url`  | Anthropic 基礎 URL| 選用                                                        | `https://api.anthropic.com`                 |
+| `ai.koog.google.api-key`      | Google API 金鑰   | `googleExecutor` bean 所必需                                | -                                           |
+| `ai.koog.google.base-url`     | Google 基礎 URL   | 選用                                                        | `https://generativelanguage.googleapis.com` |
+| `ai.koog.openrouter.api-key`  | OpenRouter API 金鑰| `openRouterExecutor` bean 所必需                            | -                                           |
+| `ai.koog.openrouter.base-url` | OpenRouter 基礎 URL| 選用                                                        | `https://openrouter.ai`                     |
+| `ai.koog.deepseek.api-key`    | DeepSeek API 金鑰 | `deepSeekExecutor` bean 所必需                              | -                                           |
+| `ai.koog.deepseek.base-url`   | DeepSeek 基礎 URL | 選用                                                        | `https://api.deepseek.com`                  |
+| `ai.koog.ollama.base-url`     | Ollama 基礎 URL   | 任何 `ai.koog.ollama.*` 屬性都會啟用 `ollamaExecutor` bean | `http://localhost:11434`                    |
+
+### Bean 名稱
+
+自動配置會在以下情況下建立對應的 bean（當配置時）：
+
+- `openAIExecutor` - OpenAI 執行器（需要 `ai.koog.openai.api-key`）
+- `anthropicExecutor` - Anthropic 執行器（需要 `ai.koog.anthropic.api-key`）
+- `googleExecutor` - Google 執行器（需要 `ai.koog.google.api-key`）
+- `openRouterExecutor` - OpenRouter 執行器（需要 `ai.koog.openrouter.api-key`）
+- `deepSeekExecutor` - DeepSeek 執行器（需要 `ai.koog.deepseek.api-key`）
+- `ollamaExecutor` - Ollama 執行器（需要任何 `ai.koog.ollama.*` 屬性）
+
+## 疑難排解
+
+### 常見問題
+
+**找不到 Bean 錯誤：**
+
+```
+No qualifying bean of type 'SingleLLMPromptExecutor' available
+```
+
+**解決方案：** 請確保您已在屬性檔中配置至少一個提供者。
+
+**多個 Bean 錯誤：**
+
+```
+Multiple qualifying beans of type 'SingleLLMPromptExecutor' available
+```
+
+**解決方案：** 使用 `@Qualifier` 來指定您想要的 bean：
+
+```kotlin
+@Service
+class MyService(
+    @Qualifier("openAIExecutor") private val openAIExecutor: SingleLLMPromptExecutor,
+    @Qualifier("anthropicExecutor") private val anthropicExecutor: SingleLLMPromptExecutor
+) {
+    // ...
+}
+```
+
+**API 金鑰未載入：**
+
+```
+API key is required but not provided
+```
+
+**解決方案：** 檢查您的環境變數是否已正確設定，並可供您的 Spring Boot 應用程式存取。
+
+## 最佳實踐
+
+1.  **環境變數**：始終使用環境變數來儲存 API 金鑰
+2.  **可為空的注入**：使用可為空的型別 (`SingleLLMPromptExecutor?`) 來處理未配置提供者的情況
+3.  **備援邏輯**：在使用多個提供者時實作備援機制
+4.  **錯誤處理**：在生產環境程式碼中，始終將執行器呼叫包裝在 try-catch 區塊中
+5.  **測試**：在測試中使用模擬物件 (mocks) 以避免實際的 API 呼叫
+6.  **配置驗證**：在使用執行器之前檢查其是否可用
+
+## 後續步驟
+
+- 了解 [單次執行代理](single-run-agents.md) 以建立基本的 AI 工作流程
+- 探索 [複雜工作流程代理](complex-workflow-agents.md) 以用於進階使用案例
+- 查看 [工具概述](tools-overview.md) 以擴展您的代理功能
+- 查閱 [範例](examples.md) 以了解實際應用
+- 閱讀 [核心概念](key-concepts.md) 以更好地理解該框架

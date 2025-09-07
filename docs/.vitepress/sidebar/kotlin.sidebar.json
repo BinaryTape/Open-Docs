@@ -195,10 +195,6 @@
         "link": "idioms"
       },
       {
-        "text": "kotlin.kotlin-by-example",
-        "href": "https://play.kotlinlang.org/byExample/overview"
-      },
-      {
         "text": "kotlin.coding-conventions",
         "link": "coding-conventions"
       }
@@ -768,12 +764,16 @@
             "link": "js-running-tests"
           },
           {
+            "text": "kotlin.js-frameworks",
+            "link": "js-frameworks"
+          },
+          {
             "text": "kotlin.js-ir-compiler",
             "link": "js-ir-compiler"
           },
           {
-            "text": "kotlin.js-ir-migration",
-            "link": "js-ir-migration"
+            "text": "kotlin.js-plain-objects",
+            "link": "js-plain-objects"
           },
           {
             "text": "kotlin.kotlin-for-the-js-platform",
@@ -1250,8 +1250,8 @@
         "link": "learning-materials-overview"
       },
       {
-        "text": "kotlin.kotlin-by-example",
-        "href": "https://play.kotlinlang.org/byExample/overview"
+        "text": "kotlin.kotlin-tour",
+        "href": "kotlin-tour-welcome.md"
       },
       {
         "text": "kotlin.koans",

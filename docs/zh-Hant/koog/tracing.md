@@ -28,7 +28,7 @@
 
 1.  擁有一或多個訊息處理器（您可以使用現有的或建立自己的）。
 2.  在您的代理程式中安裝 `Tracing`。
-3.  設定訊息篩選器（可選）。
+3.  配置訊息篩選器（可選）。
 4.  將訊息處理器添加到該功能中。
 
 <!--- INCLUDE
@@ -98,12 +98,12 @@ val agent = AIAgent(
 -->
 ```kotlin
 // 僅篩選與 LLM 相關的事件
-messageFilter = { message ->
+messageFilter = { message -> 
     message is BeforeLLMCallEvent || message is AfterLLMCallEvent
 }
 
 // 僅篩選與工具相關的事件
-messageFilter = { message ->
+messageFilter = { message -> 
     message is ToolCallEvent ||
            message is ToolCallResultEvent ||
            message is ToolValidationErrorEvent ||
@@ -111,7 +111,7 @@ messageFilter = { message ->
 }
 
 // 僅篩選節點執行事件
-messageFilter = { message ->
+messageFilter = { message -> 
     message is AIAgentNodeExecutionStartEvent || message is AIAgentNodeExecutionEndEvent
 }
 ```
@@ -305,7 +305,7 @@ install(Tracing) {
 
 <!--- INCLUDE
 import ai.koog.agents.core.agent.AIAgent
-import ai.koog.agents.core.feature.remote.server.config.AIAgentFeatureServerConnectionConfig
+import ai.koog.agents.core.feature.remote.server.config.DefaultServerConnectionConfig
 import ai.koog.agents.features.tracing.feature.Tracing
 import ai.koog.agents.features.tracing.writer.TraceFeatureMessageRemoteWriter
 import ai.koog.prompt.executor.llms.all.simpleOllamaAIExecutor
@@ -329,7 +329,7 @@ val agent = AIAgent(
     executor = simpleOllamaAIExecutor(),
     llmModel = OllamaModels.Meta.LLAMA_3_2,
 ) {
-    val connectionConfig = AIAgentFeatureServerConnectionConfig(host = host, port = port)
+    val connectionConfig = DefaultServerConnectionConfig(host = host, port = port)
     val writer = TraceFeatureMessageRemoteWriter(
         connectionConfig = connectionConfig
     )
@@ -349,7 +349,7 @@ agent.run(input)
 <!--- INCLUDE
 import ai.koog.agents.core.feature.model.AIAgentFinishedEvent
 import ai.koog.agents.core.feature.model.DefinedFeatureEvent
-import ai.koog.agents.core.feature.remote.client.config.AIAgentFeatureClientConnectionConfig
+import ai.koog.agents.core.feature.remote.client.config.DefaultClientConnectionConfig
 import ai.koog.agents.core.feature.remote.client.FeatureMessageRemoteClient
 import ai.koog.agents.utils.use
 import io.ktor.http.*
@@ -368,7 +368,7 @@ fun main() {
 }
 -->
 ```kotlin
-val clientConfig = AIAgentFeatureClientConnectionConfig(host = host, port = port, protocol = URLProtocol.HTTP)
+val clientConfig = DefaultClientConnectionConfig(host = host, port = port, protocol = URLProtocol.HTTP)
 val agentEvents = mutableListOf<DefinedFeatureEvent>()
 
 val clientJob = launch {
@@ -463,7 +463,7 @@ install(Tracing) {
 
 <!--- INCLUDE
 import ai.koog.agents.core.agent.AIAgent
-import ai.koog.agents.core.feature.remote.server.config.AIAgentFeatureServerConnectionConfig
+import ai.koog.agents.core.feature.remote.server.config.DefaultServerConnectionConfig
 import ai.koog.agents.example.exampleTracing01.outputPath
 import ai.koog.agents.features.tracing.feature.Tracing
 import ai.koog.agents.features.tracing.writer.TraceFeatureMessageFileWriter
@@ -480,7 +480,7 @@ import kotlinx.io.files.SystemFileSystem
 const val input = "What's the weather like in New York?"
 val syncOpener = { path: Path -> SystemFileSystem.sink(path).buffered() }
 val logger = KotlinLogging.logger {}
-val connectionConfig = AIAgentFeatureServerConnectionConfig(host = ai.koog.agents.example.exampleTracing06.host, port = ai.koog.agents.example.exampleTracing06.port)
+val connectionConfig = DefaultServerConnectionConfig(host = ai.koog.agents.example.exampleTracing06.host, port = ai.koog.agents.example.exampleTracing06.port)
 
 fun main() {
    runBlocking {
@@ -543,7 +543,7 @@ class CustomTraceProcessor : FeatureMessageProcessor() {
 
     override val isOpen: StateFlow<Boolean>
         get() = _isOpen.asStateFlow()
-
+    
     override suspend fun processMessage(message: FeatureMessage) {
         // 自訂處理邏輯
         when (message) {
@@ -554,7 +554,7 @@ class CustomTraceProcessor : FeatureMessageProcessor() {
             is AfterLLMCallEvent -> {
                 // 處理 LLM 呼叫結束事件
            }
-            // 處理其他事件類型
+            // 處理其他事件類型 
         }
     }
 

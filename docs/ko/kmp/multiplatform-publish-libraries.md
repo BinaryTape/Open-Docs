@@ -66,7 +66,7 @@ GitHub 계정을 사용하여 네임스페이스를 생성하는 것은 도메�
 2.  표시된 **Verification Key**를 복사합니다.
 3.  인증 키를 내용으로 하는 새 TXT DNS 레코드를 생성합니다.
 
-    다양한 도메인 등록기관에서 이 작업을 수행하는 방법에 대한 자세한 내용은 [Maven Central의 FAQ](https://central.sonatype.org/faq/how-to-set-txt-record/)를 참조하세요.
+    다양한 도메인 등록기관에서 이 작업을 수행하는 방법에 대한 자세한 내용은 [Maven Central의 FAQ](https://central.sonatype.com/faq/how-to-set-txt-record/)를 참조하세요.
 4.  Maven Central로 돌아가서 **Verify Namespace** 버튼을 클릭합니다. 확인에 성공하면 생성했던 TXT 레코드를 삭제할 수 있습니다.
 
 </TabItem>
@@ -220,7 +220,7 @@ android {
 // <module directory>/build.gradle.kts
 
 plugins {
-    id("com.vanniktech.maven.publish") version "0.30.0"
+    id("com.vanniktech.maven.publish") version "%vanniktechPublishPlugin%" 
 }
 ```
 
@@ -234,7 +234,7 @@ plugins {
 // <module directory>/build.gradle.kts
 
 mavenPublishing {
-    publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL)
+    publishToMavenCentral()
     
     signAllPublications()
     
@@ -275,9 +275,9 @@ mavenPublishing {
 여기서 가장 중요한 설정은 다음과 같습니다.
 
 *   `coordinates`: 라이브러리의 `groupId`, `artifactId`, `version`을 지정합니다.
-*   [license](https://central.sonatype.org/publish/requirements/#license-information): 라이브러리가 게시되는 라이선스입니다.
-*   [developer information](https://central.sonatype.org/publish/requirements/#developer-information): 라이브러리 저자를 나열합니다.
-*   [SCM (Source Code Management) information](https://central.sonatype.org/publish/requirements/#scm-information): 라이브러리의 소스 코드가 호스팅되는 위치를 지정합니다.
+*   [license](https://central.sonatype.com/publish/requirements/#license-information): 라이브러리가 게시되는 라이선스입니다.
+*   [developer information](https://central.sonatype.com/publish/requirements/#developer-information): 라이브러리 저자를 나열합니다.
+*   [SCM (Source Code Management) information](https://central.sonatype.com/publish/requirements/#scm-information): 라이브러리의 소스 코드가 호스팅되는 위치를 지정합니다.
 
 ## 지속적 통합을 사용하여 Maven Central에 게시
 
@@ -307,7 +307,7 @@ GitHub Actions 워크플로에서 게시하는 데 필요한 키와 자격 증�
     *   `SIGNING_PASSWORD`는 GPG 키를 생성할 때 제공한 암호입니다.
     *   `GPG_KEY_CONTENTS`에는 [사용자의 `key.gpg` 파일](#export-your-private-key)의 전체 내용이 포함되어야 합니다.
 
-    ![Add secrets to GitHub](github_secrets.png){width=700}
+    ![GitHub에 시크릿 추가](github_secrets.png){width=700}
 
 다음 단계에서 CI 구성에 이러한 시크릿의 이름을 사용할 것입니다.
 
@@ -372,7 +372,7 @@ jobs:
 
     이 값들은 `build.gradle.kts` 파일에 지정한 라이브러리 버전 번호와 동일하게 하는 것이 좋습니다.
 
-    ![Create a release on GitHub](create_release_and_tag.png){width=700}
+    ![GitHub에서 릴리스 생성](create_release_and_tag.png){width=700}
 
 6.  릴리스 대상으로 지정하려는 브랜치(특히 기본 브랜치가 아닌 경우)를 다시 확인하고 새 버전에 대한 적절한 릴리스 노트를 추가합니다.
 7.  설명 아래의 체크박스를 사용하여 릴리스를 사전 릴리스(알파, 베타 또는 RC와 같은 초기 접근 버전에 유용)로 표시합니다.
@@ -388,7 +388,7 @@ jobs:
 
 11. 배포가 _validated_ 상태가 되면 업로드한 모든 아티팩트가 포함되어 있는지 확인합니다. 모든 것이 올바르다면 **Publish** 버튼을 클릭하여 이러한 아티팩트를 릴리스합니다.
 
-    ![Publishing settings](published_on_maven_central.png){width=700}
+    ![게시 설정](published_on_maven_central.png){width=700}
 
     > 아티팩트가 Maven Central 저장소에 공개적으로 사용 가능하게 되려면 릴리스 후 시간이 걸립니다(일반적으로 15-30분). [Maven Central 웹사이트](https://central.sonatype.com/)에서 색인화되어 검색 가능하게 되는 데는 더 오래 걸릴 수 있습니다.
     >

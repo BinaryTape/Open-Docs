@@ -100,6 +100,67 @@ Decoders は `ImageSource` を読み取り、`Image` を返します。このイ
 
 詳細については、[Decoder](/coil/api/coil-core/coil3.decode/-decoder) を参照してください。
 
+## カスタム `ImageLoader` と `ImageRequest` のプロパティ
+
+Coil は、`ImageRequest` と `ImageLoader` の `Extras` を介してカスタムデータを付加することをサポートしています。`Extras` は、`Extras.Key` を介して参照される追加プロパティのマップです。
+
+例えば、各 `ImageRequest` にカスタムタイムアウトをサポートしたいとします。そのためのカスタム拡張関数を次のように追加できます:
+
+```kotlin
+fun ImageRequest.Builder.timeout(timeout: Duration) = apply {
+    extras[timeoutKey] = timeout
+}
+
+fun ImageLoader.Builder.timeout(timeout: Duration) = apply {
+    extras[timeoutKey] = timeout
+}
+
+val ImageRequest.timeout: Duration
+    get() = getExtra(timeoutKey)
+
+val Options.timeout: Duration
+    get() = getExtra(timeoutKey)
+
+// NOTE: Extras.Key instances should be declared statically as they're compared with instance equality.
+private val timeoutKey = Extras.Key(default = Duration.INFINITE)
+```
+
+その後、`ImageLoader` に登録するカスタム `Interceptor` 内でそのプロパティを読み取ることができます:
+
+```kotlin
+class TimeoutInterceptor : Interceptor {
+    override suspend fun intercept(chain: Interceptor.Chain): ImageResult {
+        val timeout = chain.request.timeout
+        if (timeout.isFinite()) {
+            return withTimeout(timeout) {
+                chain.proceed(chain.request)
+            }
+        } else {
+            return chain.proceed(chain.request)
+        }
+    }
+}
+```
+
+最後に、`ImageRequest` を作成する際にそのプロパティを設定できます:
+
+```kotlin
+AsyncImage(
+    model = ImageRequest.Builder(PlatformContext.current)
+        .data("https://example.com/image.jpg")
+        .timeout(10.seconds)
+        .build(),
+    contentDescription = null,
+)
+```
+
+加えて:
+
+- 定義した `ImageLoader.Builder.timeout` 拡張関数を介してデフォルトのタイムアウト値を設定できます。
+- 定義した `Options.timeout` 拡張関数を介して、`Mapper`、`Fetcher`、`Decoder` 内でタイムアウトを読み取ることができます。
+
+[Coil 自体もこのパターンを使用しています](https://github.com/coil-kt/coil/blob/main/coil-gif/src/main/java/coil3/gif/imageRequests.kt) 。これは、`coil-gif` における GIF のカスタムリクエストプロパティや、他の拡張ライブラリをサポートするためです。
+
 ## Chaining components
 
 Coil のイメージローダーコンポーネントの便利な特性は、それらが内部的にチェーンできることです。例えば、ロードされる画像URLを取得するためにネットワークリクエストを実行する必要があるとします。
@@ -128,10 +189,10 @@ class PartialUrlFetcher(
             .build()
         val response = callFactory.newCall(request).await()
 
-        // 画像URLを読み取る。
+        // Read the image URL.
         val imageUrl: String = readImageUrl(response.body)
 
-        // これは内部ネットワークフェッチャーに委譲されます。
+        // This will delegate to the internal network fetcher.
         val data = imageLoader.components.map(imageUrl, options)
         val output = imageLoader.components.newFetcher(data, options, imageLoader)
         val (fetcher) = checkNotNull(output) { "no supported fetcher" }

@@ -23,25 +23,29 @@ Koog 的主要特性包括：
 -   **灵活的图工作流**：使用直观的基于图的工作流来设计复杂的智能体行为。
 -   **模块化特性系统**：通过可组合架构自定义智能体功能。
 -   **可伸缩架构**：处理从简单聊天机器人到企业应用程序的各种工作负载。
--   **多平台**：通过 Kotlin Multiplatform 在 JVM、JS、WasmJS 目标平台运行智能体。
+-   **多平台**：通过 Kotlin Multiplatform 在 JVM、JS、WasmJS 和 iOS 目标平台运行智能体。
 
-# 可用的 LLM 提供商和平台
+## 可用的 LLM 提供商和平台
 
 你可以使用以下 LLM 提供商和平台的 LLM 来为你的智能体功能提供支持：
 
--   Google
--   OpenAI
--   Anthropic
--   OpenRouter
--   Ollama
+- Google
+- OpenAI
+- Anthropic
+- DeepSeek
+- OpenRouter
+- Ollama
+- Bedrock
 
-# 安装
+关于将这些提供商与专用 LLM 客户端一起使用的详细指导，请参考 [运行带 LLM 客户端的提示词](prompt-api.md#running-prompts-with-llm-clients)。
+
+## 安装
 
 要使用 Koog，你需要将所有必要的依赖项包含在你的构建配置中。
 
-## Gradle
+### Gradle
 
-### Gradle (Kotlin DSL)
+#### Gradle (Kotlin DSL)
 
 1.  将依赖项添加到 `build.gradle.kts` 文件：
 
@@ -53,7 +57,7 @@ Koog 的主要特性包括：
 
 2.  确保在仓库列表中包含 `mavenCentral()`。
 
-### Gradle (Groovy)
+#### Gradle (Groovy)
 
 1.  将依赖项添加到 `build.gradle` 文件：
 
@@ -65,7 +69,7 @@ Koog 的主要特性包括：
 
 2.  确保在仓库列表中包含 `mavenCentral()`。
 
-## Maven
+### Maven
 
 1.  将依赖项添加到 `pom.xml` 文件：
 
@@ -79,7 +83,7 @@ Koog 的主要特性包括：
 
 2.  确保在仓库列表中包含 `mavenCentral`。
 
-# 快速开始示例
+## 快速开始示例
 
 为了帮助你快速开始使用 AI 智能体，以下是一个单次运行智能体的快速示例：
 

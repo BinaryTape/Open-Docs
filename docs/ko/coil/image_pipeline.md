@@ -2,7 +2,7 @@
 
 안드로이드는 기본적으로 많은 [이미지 형식](https://developer.android.com/guide/topics/media/media-formats#image-formats)을 지원하지만, GIF, SVG, MP4 등 지원하지 않는 형식도 많습니다.
 
-다행히도, [ImageLoader](image_loaders.md)는 새로운 캐시 계층, 새로운 데이터 타입, 새로운 가져오기 동작, 새로운 이미지 인코딩을 추가하거나 기본 이미지 로딩 동작을 덮어쓸 수 있는 플러그인 컴포넌트를 지원합니다. Coil의 이미지 파이프라인은 다음 순서로 실행되는 다섯 가지 주요 부분으로 구성됩니다: [Interceptor](/coil/api/coil-core/coil3.intercept/-interceptor), [Mapper](/coil/api/coil-core/coil3.map/-mapper), [Keyer](/coil/api/coil-core/coil3.key/-keyer), [Fetcher](/coil/api/coil-core/coil3.fetch/-fetcher), 그리고 [Decoder](/coil/api/coil-core/coil3.decode/-decoder).
+다행히도, [ImageLoader](image_loaders.md)는 새로운 캐시 계층, 새로운 데이터 타입, 새로운 가져오기 동작, 새로운 이미지 인코딩을 추가하거나 기본 이미지 로딩 동작을 덮어쓸 수 있는 플러그형 컴포넌트를 지원합니다. Coil의 이미지 파이프라인은 다음 순서로 실행되는 다섯 가지 주요 부분으로 구성됩니다: [Interceptors](/coil/api/coil-core/coil3.intercept/-interceptor), [Mappers](/coil/api/coil-core/coil3.map/-mapper), [Keyers](/coil/api/coil-core/coil3.key/-keyer), [Fetchers](/coil/api/coil-core/coil3.fetch/-fetcher), 그리고 [Decoders](/coil/api/coil-core/coil3.decode/-decoder).
 
 커스텀 컴포넌트는 `ImageLoader`를 [ComponentRegistry](/coil/api/coil-core/coil3/-component-registry)를 통해 생성할 때 추가해야 합니다:
 
@@ -83,7 +83,7 @@ imageLoader.enqueue(request)
 
 키어는 데이터를 캐시 키의 일부로 변환합니다. 이 값은 이 요청의 출력이 `MemoryCache`에 기록될 때 `MemoryCache.Key.key`로 사용됩니다.
 
-자세한 내용은 [Keyer](/coil/api/coil-core/coil3.key/-keyer)를 참조하세요.
+자세한 내용은 [Keyers](/coil/api/coil-core/coil3.key/-keyer)를 참조하세요.
 
 ## 페처
 
@@ -99,6 +99,67 @@ imageLoader.enqueue(request)
 디코더는 `ImageSource`를 읽고 `Image`를 반환합니다. 이 인터페이스를 사용하여 커스텀 파일 형식(예: GIF, SVG, TIFF 등)에 대한 지원을 추가하세요.
 
 자세한 내용은 [Decoder](/coil/api/coil-core/coil3.decode/-decoder)를 참조하세요.
+
+## 커스텀 ImageLoader 및 ImageRequest 속성
+
+Coil은 `ImageRequest`와 `ImageLoader`의 `Extras`를 통해 커스텀 데이터를 첨부하는 것을 지원합니다. `Extras`는 `Extras.Key`를 통해 참조되는 추가 속성의 맵입니다.
+
+예를 들어, 각 `ImageRequest`에 대해 커스텀 타임아웃을 지원하고 싶다고 가정해 봅시다. 다음과 같이 커스텀 확장 함수를 추가할 수 있습니다:
+
+```kotlin
+fun ImageRequest.Builder.timeout(timeout: Duration) = apply {
+    extras[timeoutKey] = timeout
+}
+
+fun ImageLoader.Builder.timeout(timeout: Duration) = apply {
+    extras[timeoutKey] = timeout
+}
+
+val ImageRequest.timeout: Duration
+    get() = getExtra(timeoutKey)
+
+val Options.timeout: Duration
+    get() = getExtra(timeoutKey)
+
+// NOTE: Extras.Key 인스턴스는 인스턴스 동등성으로 비교되므로 정적으로 선언되어야 합니다.
+private val timeoutKey = Extras.Key(default = Duration.INFINITE)
+```
+
+그런 다음 `ImageLoader`에 등록할 커스텀 `Interceptor` 내부에서 속성을 읽을 수 있습니다:
+
+```kotlin
+class TimeoutInterceptor : Interceptor {
+    override suspend fun intercept(chain: Interceptor.Chain): ImageResult {
+        val timeout = chain.request.timeout
+        if (timeout.isFinite()) {
+            return withTimeout(timeout) {
+                chain.proceed(chain.request)
+            }
+        } else {
+            return chain.proceed(chain.request)
+        }
+    }
+}
+```
+
+마지막으로, `ImageRequest`를 생성할 때 속성을 설정할 수 있습니다:
+
+```kotlin
+AsyncImage(
+    model = ImageRequest.Builder(PlatformContext.current)
+        .data("https://example.com/image.jpg")
+        .timeout(10.seconds)
+        .build(),
+    contentDescription = null,
+)
+```
+
+추가적으로:
+
+- 우리가 정의한 `ImageLoader.Builder.timeout` 확장 함수를 통해 기본 타임아웃 값을 설정할 수 있습니다.
+- 우리가 정의한 `Options.timeout` 확장 함수를 통해 `Mapper`, `Fetcher`, `Decoder` 내부에서 타임아웃을 읽을 수 있습니다.
+
+[Coil은 이 패턴을 자체적으로 사용합니다](https://github.com/coil-kt/coil/blob/main/coil-gif/src/main/java/coil3/gif/imageRequests.kt) `coil-gif` 및 다른 확장 라이브러리에서 GIF에 대한 커스텀 요청 속성을 지원하기 위해.
 
 ## 컴포넌트 연결
 

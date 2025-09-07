@@ -15,7 +15,7 @@
 
 -   AI 에이전트를 구현하는 데 사용되는 LLM 제공자의 유효한 API 키가 있어야 합니다. 사용 가능한 모든 제공자 목록은 [개요](index.md)를 참조하세요.
 
-!!! 팁
+!!! tip
     환경 변수 또는 보안 구성 관리 시스템을 사용하여 API 키를 저장하세요.
     소스 코드에 API 키를 직접 하드코딩하지 마세요.
 
@@ -54,7 +54,7 @@ val promptExecutor = simpleOpenAIExecutor(token)
 
 여러 LLM 제공자와 함께 작동하는 프롬프트 실행기를 생성하려면 다음을 수행하세요.
 
-1.  필요한 LLM 제공자를 위한 클라이언트를 해당 API 키로 구성합니다. 예를 들어:
+1)  필요한 LLM 제공자를 위한 클라이언트를 해당 API 키로 구성합니다. 예를 들어:
 <!--- INCLUDE
 import ai.koog.prompt.executor.clients.openai.OpenAILLMClient
 import ai.koog.prompt.executor.clients.anthropic.AnthropicLLMClient
@@ -66,7 +66,7 @@ val anthropicClient = AnthropicLLMClient(System.getenv("ANTHROPIC_KEY"))
 val googleClient = GoogleLLMClient(System.getenv("GOOGLE_KEY"))
 ```
 <!--- KNIT example-complex-workflow-agents-02.kt -->
-2.  여러 LLM 제공자와 함께 작동하는 프롬프트 실행기를 생성하기 위해 구성된 클라이언트를 `DefaultMultiLLMPromptExecutor` 클래스 생성자에 전달합니다.
+2)  구성된 클라이언트를 `DefaultMultiLLMPromptExecutor` 클래스 생성자에 전달하여 여러 LLM 제공자와 함께 작동하는 프롬프트 실행기를 생성합니다.
 <!--- INCLUDE
 import ai.koog.agents.example.exampleComplexWorkflowAgents02.anthropicClient
 import ai.koog.agents.example.exampleComplexWorkflowAgents02.googleClient
@@ -83,7 +83,7 @@ val multiExecutor = DefaultMultiLLMPromptExecutor(openAIClient, anthropicClient,
 전략은 노드와 엣지를 사용하여 에이전트의 워크플로를 정의합니다. 이 전략은 임의의 입력 및 출력 타입을 가질 수 있으며, 이는 `strategy` 함수 제네릭 매개변수로 지정될 수 있습니다. 이들은 또한 `AIAgent`의 입/출력 타입이 됩니다.
 입력과 출력 모두의 기본 타입은 `String`입니다.
 
-!!! 팁
+!!! tip
     전략에 대해 더 자세히 알아보려면 [사용자 지정 전략 그래프](custom-strategy-graphs.md)를 참조하세요.
 
 #### 3.1. 노드와 엣지 이해하기
@@ -113,7 +113,7 @@ val processNode by node<InputType, OutputType> { input ->
 }
 ```
 <!--- KNIT example-complex-workflow-agents-04.kt -->
-!!! 팁
+!!! tip
     에이전트 전략에서 사용할 수 있는 사전 정의된 노드도 있습니다. 더 자세히 알아보려면 [사전 정의된 노드 및 컴포넌트](nodes-and-components.md)를 참조하세요.
 
 엣지는 노드 간의 연결을 정의합니다.
@@ -208,7 +208,7 @@ val agentStrategy = strategy("Simple calculator") {
 }
 ```
 <!--- KNIT example-complex-workflow-agents-06.kt -->
-!!! 팁
+!!! tip
     `strategy` 함수를 사용하면 여러 서브그래프를 정의할 수 있으며, 각 서브그래프는 자체 노드 및 엣지 세트를 포함합니다.
     이 접근 방식은 간소화된 전략 빌더를 사용하는 것보다 더 많은 유연성과 기능을 제공합니다.
     서브그래프에 대해 더 자세히 알아보려면 [서브그래프](subgraphs-overview.md)를 참조하세요.
@@ -313,6 +313,7 @@ val toolRegistry = ToolRegistry {
 import ai.koog.agents.core.agent.AIAgent
 import ai.koog.agents.core.feature.handler.AgentFinishedContext
 import ai.koog.agents.core.feature.handler.AgentStartContext
+import ai.koog.agents.features.eventHandler.feature.EventHandler
 import ai.koog.prompt.executor.llms.all.simpleOllamaAIExecutor
 import ai.koog.prompt.llm.OllamaModels
 

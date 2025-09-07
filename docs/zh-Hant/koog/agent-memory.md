@@ -15,11 +15,14 @@ AgentMemory 功能透過以下方式解決了在 AI 代理程式互動中維持�
 
 ### 架構
 
-AgentMemory 功能建立在一個階層式結構上。該結構的元素在以下各節中列出並解釋。
+AgentMemory 功能建立在一個階層式結構上。
+該結構的元素在以下各節中列出並解釋。
 
 #### 事實
 
-***事實 (Facts)*** 是儲存在記憶體中的獨立資訊片段。事實代表實際儲存的資訊。事實有兩種型別：
+***事實 (Facts)*** 是儲存在記憶體中的獨立資訊片段。
+事實代表實際儲存的資訊。
+事實有兩種型別：
 
 - **SingleFact**：與概念相關聯的單一值。例如，IDE 使用者目前偏好的主題：
 <!--- INCLUDE
@@ -29,7 +32,7 @@ import ai.koog.agents.memory.model.FactType
 import ai.koog.agents.memory.model.SingleFact
 -->
 ```kotlin
-// 儲存最喜歡的 IDE 主題（單一值）
+// Storing favorite IDE theme (single value)
 val themeFact = SingleFact(
     concept = Concept(
         "ide-theme", 
@@ -48,7 +51,7 @@ import ai.koog.agents.memory.model.FactType
 import ai.koog.agents.memory.model.MultipleFacts
 -->
 ```kotlin
-// 儲存程式語言（多個值）
+// Storing programming languages (multiple values)
 val languagesFact = MultipleFacts(
     concept = Concept(
         "programming-languages",
@@ -87,8 +90,8 @@ import kotlinx.serialization.Serializable
 ```kotlin
 object MemorySubjects {
     /**
-     * 與本地機器環境相關的資訊
-     * 範例：已安裝的工具、SDK、作業系統配置、可用指令
+     * Information specific to the local machine environment
+     * Examples: Installed tools, SDKs, OS configuration, available commands
      */
     @Serializable
     data object Machine : MemorySubject() {
@@ -99,8 +102,8 @@ object MemorySubjects {
     }
 
     /**
-     * 與使用者相關的資訊
-     * 範例：對話偏好、問題歷史、聯絡資訊
+     * Information specific to the user
+     * Examples: Conversation preferences, issue history, contact information
      */
     @Serializable
     data object User : MemorySubject() {
@@ -182,7 +185,7 @@ val agent = AIAgent(
 
 以下程式碼片段展示了記憶體儲存的基本設定，以及事實如何儲存到記憶體中和從記憶體中載入。
 
-1. 設定記憶體儲存
+1) 設定記憶體儲存
 <!--- INCLUDE
 import ai.koog.agents.memory.providers.LocalFileMemoryProvider
 import ai.koog.agents.memory.providers.LocalMemoryConfig
@@ -191,7 +194,7 @@ import ai.koog.rag.base.files.JVMFileSystemProvider
 import kotlin.io.path.Path
 -->
 ```kotlin
-// 建立一個記憶體提供者
+// Create a memory provider
 val memoryProvider = LocalFileMemoryProvider(
     config = LocalMemoryConfig("customer-support-memory"),
     storage = SimpleStorage(JVMFileSystemProvider.ReadWrite),
@@ -201,7 +204,7 @@ val memoryProvider = LocalFileMemoryProvider(
 ```
 <!--- KNIT example-agent-memory-06.kt -->
 
-2. 將事實儲存到記憶體中
+2) 將事實儲存到記憶體中
 <!--- INCLUDE
 import ai.koog.agents.example.exampleAgentMemory03.MemorySubjects
 import ai.koog.agents.example.exampleAgentMemory06.memoryProvider
@@ -229,7 +232,7 @@ memoryProvider.save(
 ```
 <!--- KNIT example-agent-memory-07.kt -->
 
-3. 檢索事實
+3) 檢索事實
 <!--- INCLUDE
 import ai.koog.agents.example.exampleAgentMemory03.MemorySubjects
 import ai.koog.agents.example.exampleAgentMemory06.memoryProvider
@@ -243,7 +246,7 @@ suspend fun main() {
 }
 -->
 ```kotlin
-// 取得儲存的資訊
+// Get the stored information
 val greeting = memoryProvider.load(
     concept = Concept("greeting", "User's name", FactType.SINGLE),
     subject = MemorySubjects.User,
@@ -279,12 +282,12 @@ import ai.koog.agents.memory.model.FactType
 -->
 ```kotlin
 val strategy = strategy("example-agent") {
-    // 用於自動偵測和儲存事實的節點
+    // Node to automatically detect and save facts
     val detectFacts by nodeSaveToMemoryAutoDetectFacts<Unit>(
         subjects = listOf(MemorySubjects.User, MemorySubjects.Machine)
     )
 
-    // 用於載入特定事實的節點
+    // Node to load specific facts
     val loadPreferences by node<Unit, Unit> {
         withMemory {
             loadFactsToAgent(
@@ -294,7 +297,7 @@ val strategy = strategy("example-agent") {
         }
     }
 
-    // 在策略中連接節點
+    // Connect nodes in the strategy
     edge(nodeStart forwardTo detectFacts)
     edge(detectFacts forwardTo loadPreferences)
     edge(loadPreferences forwardTo nodeFinish)
@@ -312,7 +315,7 @@ import ai.koog.rag.base.files.JVMFileSystemProvider
 import ai.koog.agents.memory.storage.Aes256GCMEncryptor
 -->
 ```kotlin
-// 簡單加密儲存設定
+// Simple encrypted storage setup
 val secureStorage = EncryptedStorage(
     fs = JVMFileSystemProvider.ReadWrite,
     encryption = Aes256GCMEncryptor("your-secret-key")
@@ -428,19 +431,40 @@ val saveAutoDetect by nodeSaveToMemoryAutoDetectFacts<Unit>(
     - 將相關資訊保留在相同主題下
 
 3. **處理錯誤**
-   <!--- INCLUDE
-    import ai.koog.agents.core.agent.AIAgent
-    -->
-   ```kotlin
-    try {
-        memoryProvider.save(fact, subject)
-    } catch (e: Exception) {
-        println("糟糕！無法儲存：${e.message}")
-    }
-   ```
-   <!--- KNIT example-agent-memory-14.kt -->
+<!--- INCLUDE
+import ai.koog.agents.example.exampleAgentMemory03.MemorySubjects
+import ai.koog.agents.example.exampleAgentMemory06.memoryProvider
+import ai.koog.agents.memory.model.Concept
+import ai.koog.agents.memory.model.DefaultTimeProvider
+import ai.koog.agents.memory.model.FactType
+import ai.koog.agents.memory.model.MemoryScope
+import ai.koog.agents.memory.model.SingleFact
+import kotlinx.coroutines.runBlocking
 
-   有關錯誤處理的更多詳細資訊，請參閱 [錯誤處理與邊緣情況](#error-handling-and-edge-cases)。
+fun main() {
+    runBlocking {
+        val fact = SingleFact(
+            concept = Concept("preferred-language", "What programming language is preferred by the user?", FactType.SINGLE),
+            value = "Kotlin",
+            timestamp = DefaultTimeProvider.getCurrentTimestamp()
+        )
+        val subject = MemorySubjects.User
+        val scope = MemoryScope.Product("my-app")
+-->
+<!--- SUFFIX
+    }
+}
+-->
+```kotlin
+try {
+    memoryProvider.save(fact, subject, scope)
+} catch (e: Exception) {
+    println("糟糕！無法儲存：${e.message}")
+}
+```
+<!--- KNIT example-agent-memory-14.kt -->
+
+有關錯誤處理的更多詳細資訊，請參閱 [錯誤處理與邊緣情況](#error-handling-and-edge-cases)。
 
 ## 錯誤處理與邊緣情況
 
@@ -492,15 +516,15 @@ import ai.koog.agents.memory.providers.AgentMemoryProvider
 ```kotlin
 class MyCustomMemoryProvider : AgentMemoryProvider {
     override suspend fun save(fact: Fact, subject: MemorySubject, scope: MemoryScope) {
-        // 儲存事實的實作
+        // Implementation for saving facts
     }
 
     override suspend fun load(concept: Concept, subject: MemorySubject, scope: MemoryScope): List<Fact> {
-        // 按概念載入事實的實作
+        // Implementation for loading facts by concept
     }
 
     override suspend fun loadAll(subject: MemorySubject, scope: MemoryScope): List<Fact> {
-        // 載入所有事實的實作
+        // Implementation for loading all facts
     }
 
     override suspend fun loadByDescription(
@@ -508,11 +532,11 @@ class MyCustomMemoryProvider : AgentMemoryProvider {
         subject: MemorySubject,
         scope: MemoryScope
     ): List<Fact> {
-        // 按描述載入事實的實作
+        // Implementation for loading facts by description
     }
 }
 ```
-<!--- KNIT example-agent-memory-14.kt -->
+<!--- KNIT example-agent-memory-15.kt -->
 
 ### 從多個主題載入時，事實如何優先排序？
 
@@ -532,6 +556,6 @@ val concept = Concept(
     factType = FactType.MULTIPLE
 )
 ```
-<!--- KNIT example-agent-memory-15.kt -->
+<!--- KNIT example-agent-memory-16.kt -->
 
 這讓您可以為該概念儲存多個值，這些值將作為列表檢索。

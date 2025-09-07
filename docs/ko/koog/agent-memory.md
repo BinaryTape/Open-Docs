@@ -18,7 +18,7 @@ AgentMemory 기능은 다음과 같은 방법으로 AI 에이전트 상호 작�
 AgentMemory 기능은 계층적 구조로 구축됩니다.
 구조의 요소는 아래 섹션에 나열되고 설명되어 있습니다.
 
-#### 팩트 (Facts)
+#### 팩트
 
 ***팩트(Facts)***는 메모리에 저장되는 개별 정보 조각입니다.
 팩트는 실제로 저장된 정보를 나타냅니다.
@@ -64,7 +64,7 @@ val languagesFact = MultipleFacts(
 ```
 <!--- KNIT example-agent-memory-02.kt -->
 
-#### 개념 (Concepts)
+#### 개념
 
 ***개념(Concepts)***은 관련 메타데이터가 있는 정보 카테고리입니다.
 
@@ -72,7 +72,7 @@ val languagesFact = MultipleFacts(
 - **Description**: 개념이 무엇을 나타내는지에 대한 상세 설명.
 - **FactType**: 개념이 단일 또는 다중 팩트(`FactType.SINGLE` 또는 `FactType.MULTIPLE`)를 저장하는지 여부.
 
-#### 주제 (Subjects)
+#### 주제
 
 ***주제(Subjects)***는 팩트를 연관시킬 수 있는 엔티티입니다.
 
@@ -117,7 +117,7 @@ object MemorySubjects {
 ```
 <!--- KNIT example-agent-memory-03.kt -->
 
-#### 범위 (Scopes)
+#### 범위
 
 ***메모리 범위(Memory scopes)***는 팩트가 관련성을 가지는 컨텍스트입니다:
 
@@ -186,7 +186,7 @@ val agent = AIAgent(
 
 다음 코드 스니펫은 메모리 저장소의 기본 설정과 팩트가 메모리에 저장되고 로드되는 방법을 보여줍니다.
 
-1.  메모리 저장소 설정
+1) 메모리 저장소 설정
 <!--- INCLUDE
 import ai.koog.agents.memory.providers.LocalFileMemoryProvider
 import ai.koog.agents.memory.providers.LocalMemoryConfig
@@ -205,7 +205,7 @@ val memoryProvider = LocalFileMemoryProvider(
 ```
 <!--- KNIT example-agent-memory-06.kt -->
 
-2.  메모리에 팩트 저장
+2) 메모리에 팩트 저장
 <!--- INCLUDE
 import ai.koog.agents.example.exampleAgentMemory03.MemorySubjects
 import ai.koog.agents.example.exampleAgentMemory06.memoryProvider
@@ -233,7 +233,7 @@ memoryProvider.save(
 ```
 <!--- KNIT example-agent-memory-07.kt -->
 
-3.  팩트 검색
+3) 팩트 검색
 <!--- INCLUDE
 import ai.koog.agents.example.exampleAgentMemory03.MemorySubjects
 import ai.koog.agents.example.exampleAgentMemory06.memoryProvider
@@ -432,19 +432,40 @@ val saveAutoDetect by nodeSaveToMemoryAutoDetectFacts<Unit>(
     -   관련 정보를 동일한 주제(Subject) 아래에 유지
 
 3.  **오류 처리**
-   <!--- INCLUDE
-    import ai.koog.agents.core.agent.AIAgent
-    -->
-   ```kotlin
-    try {
-        memoryProvider.save(fact, subject)
-    } catch (e: Exception) {
-        println("Oops! Couldn't save: ${e.message}")
-    }
-   ```
-   <!--- KNIT example-agent-memory-14.kt -->
+<!--- INCLUDE
+import ai.koog.agents.example.exampleAgentMemory03.MemorySubjects
+import ai.koog.agents.example.exampleAgentMemory06.memoryProvider
+import ai.koog.agents.memory.model.Concept
+import ai.koog.agents.memory.model.DefaultTimeProvider
+import ai.koog.agents.memory.model.FactType
+import ai.koog.agents.memory.model.MemoryScope
+import ai.koog.agents.memory.model.SingleFact
+import kotlinx.coroutines.runBlocking
 
-   오류 처리에 대한 자세한 내용은 [오류 처리 및 예외 상황](#error-handling-and-edge-cases)을 참조하십시오.
+fun main() {
+    runBlocking {
+        val fact = SingleFact(
+            concept = Concept("preferred-language", "What programming language is preferred by the user?", FactType.SINGLE),
+            value = "Kotlin",
+            timestamp = DefaultTimeProvider.getCurrentTimestamp()
+        )
+        val subject = MemorySubjects.User
+        val scope = MemoryScope.Product("my-app")
+-->
+<!--- SUFFIX
+    }
+}
+-->
+```kotlin
+try {
+    memoryProvider.save(fact, subject, scope)
+} catch (e: Exception) {
+    println("Oops! Couldn't save: ${e.message}")
+}
+```
+<!--- KNIT example-agent-memory-14.kt -->
+
+오류 처리에 대한 자세한 내용은 [오류 처리 및 예외 상황](#error-handling-and-edge-cases)을 참조하십시오.
 
 ## 오류 처리 및 예외 상황
 
@@ -516,7 +537,7 @@ class MyCustomMemoryProvider : AgentMemoryProvider {
     }
 }
 ```
-<!--- KNIT example-agent-memory-14.kt -->
+<!--- KNIT example-agent-memory-15.kt -->
 
 ### 여러 주제에서 로드할 때 팩트는 어떻게 우선순위가 정해지나요?
 
@@ -536,6 +557,6 @@ val concept = Concept(
     factType = FactType.MULTIPLE
 )
 ```
-<!--- KNIT example-agent-memory-15.kt -->
+<!--- KNIT example-agent-memory-16.kt -->
 
 이를 통해 개념에 대한 여러 값을 저장할 수 있으며, 이 값은 목록으로 검색됩니다.

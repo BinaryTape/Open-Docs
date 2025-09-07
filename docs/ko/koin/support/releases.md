@@ -21,25 +21,36 @@ custom_edit_url: null
 
 ## 4.1.1
 
+:::note
+Kotlin `2.1.21` 버전을 사용합니다.
+:::
+
 ### New 🎉
 
-`koin-ktor`
-- 통합 - Ktor 3.2 기본 DI 엔진과 통합하기 위한 `KtorDIExtension`을 제공합니다.
-```kotlin
-fun Application.setupDatabase(config: DbConfig) {
-    // ...
-    dependencies {
-        provide<Database> { database }
-    }
-}
+`koin-compose-viewmodel-navigation`
+- Compose Navigation 지원 향상을 위한 선택적 `navGraphRoute` 매개변수를 포함하여 `sharedKoinViewModel` 개선
 
-class CustomerRepositoryImpl(private val database: Database) : CustomerRepository
-fun Application.customerDataModule() {
-    koinModule {
-        singleOf(::CustomerRepositoryImpl) bind CustomerRepository::class
-    }
-}
-```
+`koin-core`
+- 코어 리졸버 성능 최적화 - 단일 스코프 확인 시 불필요한 평면화 방지
+- 연결된 스코프 ID 표시를 통한 스코프 디버깅 강화
+
+### Library Updates 📚
+
+- **Kotlin** 2.1.21 (2.1.20에서)
+- **Ktor** 3.2.3 (3.1.3에서)
+- **Jetbrains Compose** 1.8.2 (1.8.0에서)
+- **AndroidX**: Fragment 1.8.9, WorkManager 2.10.3, Lifecycle 2.9.3, Navigation 2.9.3
+- **Testing**: Robolectric 4.15.1, Benchmark 0.4.14
+- **Build**: Binary Validator 0.18.1, NMCP 1.1.0
+
+### Bug Fixes 🐛
+
+`koin-core`
+- 호환성 오류를 유발하던 로거 제약 조건 롤백
+- 향상된 `LocalKoinApplication`/`LocalKoinScope` 컨텍스트 처리를 통해 Compose 스코프 확인 문제 해결
+
+`koin-build`
+- Maven Central 배포 문제 해결
 
 ## 4.1.0
 
@@ -273,8 +284,8 @@ Kotlin `2.0.21` 버전을 사용합니다.
 - `koin-android`
     - `koin-core`의 새로운 중앙 집중식 DSL을 선호하여 ViewModel DSL
     - 모든 상태 ViewModel API는 오류 수준에서 더 이상 사용되지 않습니다:
-        - `stateViewModel()`, `getStateViewModel()` 대신 `viewModel()`을 사용하세요.
-        - `getSharedStateViewModel()`, `sharedStateViewModel()` 대신 공유 인스턴스를 위해 `viewModel()` 또는 `activityViewModel()`을 사용하세요.
+        - `stateViewModel()`,`getStateViewModel()`, 대신 `viewModel()`을 사용하세요.
+        - `getSharedStateViewModel()`, `sharedStateViewModel()`, 대신 공유 인스턴스를 위해 `viewModel()` 또는 `activityViewModel()`을 사용하세요.
 
 `koin-compose`
 - 오래된 Compose API 함수는 오류 수준에서 더 이상 사용되지 않습니다:
@@ -366,7 +377,7 @@ Kotlin `1.9.22` 버전을 사용합니다.
 `koin-core`
 - `Koin.loadModules(modules: List<Module>, allowOverride: Boolean = true, createEagerInstances : Boolean = false)`가 `Koin.loadModules(modules: List<Module>, allowOverride: Boolean = true)`를 대체합니다.
 - 속성 `KoinExtension.koin`이 함수 `KoinExtension.onRegister()`로 이동되었습니다.
-- iOS - `MutableGlobalContext`를 사용하기 위한 `internal fun globalContextByMemoryModel(): KoinContext`
+- iOS - `internal fun globalContextByMemoryModel(): KoinContext`를 `MutableGlobalContext`를 사용하도록 변경합니다.
 
 `koin-compose`
 - 함수 `KoinApplication(moduleList: () -> List<Module>, content: @Composable () -> Unit)`는 `KoinContext` 및 `KoinAndroidContext`를 선호하여 제거되었습니다.

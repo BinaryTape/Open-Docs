@@ -27,8 +27,8 @@
         "link": "faq"
       },
       {
-        "text": "kmp.kotlin-multiplatform-roadmap",
-        "link": "kotlin-multiplatform-roadmap"
+        "text": "kmp.what-s-next-for-kmp",
+        "href": "https://blog.jetbrains.com/kotlin/2025/08/kmp-roadmap-aug-2025/"
       }
     ],
     "collapsed": true
@@ -45,7 +45,7 @@
         "link": "compose-multiplatform"
       },
       {
-        "text": "kmp.what-s-new-in-compose-multiplatform",
+        "text": "kmp.what-s-new",
         "items": [
           {
             "text": "kmp.whats-new-compose-190",

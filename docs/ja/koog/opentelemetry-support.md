@@ -124,11 +124,11 @@ install(OpenTelemetry) {
 
 #### addSpanProcessor
 
-スパンがエクスポートされる前に処理するためのスパンプロセッサーを追加します。以下の引数を取ります。
+スパンがエクスポートされる前に処理するためのスパンプロセッサーファクトリを追加します。以下の引数を取ります。
 
-| Name        | Data type       | Required | Default value | Description                                                                                |
-|:------------|:----------------|:---------|:--------------|:-------------------------------------------------------------------------------------------|
-| `processor` | `SpanProcessor` | Yes      |               | エクスポート前にテレメトリーデータを処理するためのカスタムロジックを含むスパンプロセッサー。 |
+| Name        | Data type                         | Required | Default value | Description                                                                                |
+|:------------|:----------------------------------|:---------|:--------------|:-------------------------------------------------------------------------------------------|
+| `processor` | `(SpanExporter) -> SpanProcessor` | Yes      |               | 指定されたエクスポーター用のスパンプロセッサーを作成する関数。エクスポーターごとに処理をカスタマイズできます。 |
 
 #### addResourceAttributes
 
@@ -153,6 +153,17 @@ OpenTelemetry設定のデバッグ用の詳細ログを有効または無効に�
 | Name      | Data type | Required | Default value | Description                                                     |
 |:----------|:----------|:---------|:--------------|:----------------------------------------------------------------|
 | `verbose` | `Boolean` | Yes      | `false`       | trueの場合、アプリケーションはより詳細なテレメトリーデータを収集します。 |
+
+#### setSdk
+
+事前設定された`OpenTelemetrySdk`インスタンスを注入します。
+
+- `setSdk(sdk)`を呼び出すと、提供されたSDKがそのまま使用され、`addSpanExporter`、`addSpanProcessor`、`addResourceAttributes`、または`setSampler`を介して適用されたカスタム設定はすべて無視されます。
+- トレーサーの計装スコープ名/バージョンは、サービス情報と同期されます。
+
+| Name | Data type         | Required | Description                           |
+|:-----|:------------------|:---------|:--------------------------------------|
+| `sdk`| `OpenTelemetrySdk`| Yes      | エージェントで使用するSDKインスタンス。 |
 
 ### 高度な設定
 
@@ -297,6 +308,7 @@ OpenTelemetryの[生成AIイベントのセマンティック規約](https://ope
 - **AssistantMessageEvent**: モデルに渡されるアシスタントメッセージ。
 - **ToolMessageEvent**: モデルに渡されるツールまたは関数呼び出しからの応答。
 - **ChoiceEvent**: モデルからの応答メッセージ。
+- **ModerationResponseEvent**: モデルのモデレーション結果またはシグナル。
 
 !!! note   
     `optentelemetry-java` SDKは、イベントを追加する際にイベント本体フィールドパラメータをサポートしていません。したがって、KoogのOpenTelemetryサポートでは、イベント本体フィールドはキーが`body`で値の型が文字列である個別の属性です。この文字列には、イベント本体フィールドのコンテンツまたはペイロードが含まれており、通常はJSONのようなオブジェクトです。イベント本体フィールドの例については、[OpenTelemetryドキュメント](https://opentelemetry.io/docs/specs/semconv/gen-ai/gen-ai-events/#examples)を参照してください。`opentelemetry-java`におけるイベント本体フィールドのサポート状況については、関連する[GitHubイシュー](https://github.com/open-telemetry/semantic-conventions/issues/1870)を参照してください。
@@ -310,6 +322,9 @@ OpenTelemetryの[生成AIイベントのセマンティック規約](https://ope
 | `exporter` | SpanExporter | Yes      |         | カスタムスパンエクスポーターのリストに追加する`SpanExporter`インスタンス。 |
 
 以下のセクションでは、`opentelemetry-java` SDKの最も一般的に使用されるエクスポーターのいくつかについて説明します。
+
+!!! note
+    カスタムエクスポーターを何も設定しない場合、Koogはデフォルトでコンソール用の`LoggingSpanExporter`を使用します。これはローカル開発とデバッグに役立ちます。
 
 ### ロギングエクスポーター
 
@@ -420,6 +435,79 @@ install(OpenTelemetry) {
 ```
 <!--- KNIT example-opentelemetry-support-07.kt -->
 
+## Langfuseとの統合
+
+Langfuseは、LLM/エージェントのワークロードのためのトレース可視化と分析を提供します。
+
+ヘルパー関数を使用して、KoogがOpenTelemetryトレースをLangfuseに直接エクスポートするように設定できます。
+
+<!--- INCLUDE
+import ai.koog.agents.core.agent.AIAgent
+import ai.koog.agents.features.opentelemetry.feature.OpenTelemetry
+import ai.koog.agents.features.opentelemetry.integration.langfuse.addLangfuseExporter
+import ai.koog.prompt.executor.clients.openai.OpenAIModels
+import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
+
+const val apiKey = ""
+
+val agent = AIAgent(
+    executor = simpleOpenAIExecutor(apiKey),
+    llmModel = OpenAIModels.Chat.GPT4o,
+    systemPrompt = "You are a helpful assistant."
+) {
+-->
+<!--- SUFFIX
+}
+-->
+```kotlin
+install(OpenTelemetry) {
+    addLangfuseExporter(
+        langfuseUrl = "https://cloud.langfuse.com",
+        langfusePublicKey = "...",
+        langfuseSecretKey = "..."
+    )
+}
+```
+<!--- KNIT example-opentelemetry-support-08.kt -->
+
+Langfuseとの統合に関する[完全なドキュメント](opentelemetry-langfuse-exporter.md)をご覧ください。
+
+## W&B Weaveとの統合
+
+W&B Weaveは、LLM/エージェントのワークロードのためのトレース可視化と分析を提供します。W&B Weaveとの統合は、事前定義されたエクスポーターを介して設定できます。
+
+<!--- INCLUDE
+import ai.koog.agents.core.agent.AIAgent
+import ai.koog.agents.features.opentelemetry.feature.OpenTelemetry
+import ai.koog.agents.features.opentelemetry.integration.weave.addWeaveExporter
+import ai.koog.prompt.executor.clients.openai.OpenAIModels
+import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
+
+const val apiKey = ""
+
+val agent = AIAgent(
+    executor = simpleOpenAIExecutor(apiKey),
+    llmModel = OpenAIModels.Chat.GPT4o,
+    systemPrompt = "You are a helpful assistant."
+) {
+-->
+<!--- SUFFIX
+}
+-->
+```kotlin
+install(OpenTelemetry) {
+    addWeaveExporter(
+        weaveOtelBaseUrl = "https://trace.wandb.ai",
+        weaveEntity = "my-team",
+        weaveProjectName = "my-project",
+        weaveApiKey = "..."
+    )
+}
+```
+<!--- KNIT example-opentelemetry-support-09.kt -->
+
+W&B Weaveとの統合に関する[完全なドキュメント](opentelemetry-weave-exporter.md)をご覧ください。
+
 ## Jaegerとの統合
 
 Jaegerは、OpenTelemetryと連携する人気の分散トレースシステムです。Koogリポジトリの`examples`内の`opentelemetry`ディレクトリには、JaegerとKoogエージェントでOpenTelemetryを使用する例が含まれています。
@@ -501,13 +589,13 @@ Check Jaeger UI at http://localhost:16686 to view traces")
     }
 }
 ```
-<!--- KNIT example-opentelemetry-support-08.kt -->
+<!--- KNIT example-opentelemetry-support-10.kt -->
 
 ## トラブルシューティング
 
 ### よくある問題
 
-1.  **JaegerまたはLangfuseにトレースが表示されない**
+1.  **Jaeger、Langfuse、またはW&B Weaveにトレースが表示されない**
     -   サービスが実行されており、OpenTelemetryポート（4317）にアクセス可能であることを確認してください。
     -   OpenTelemetryエクスポーターが正しいエンドポイントで設定されていることを確認してください。
     -   トレースがエクスポートされるまで、エージェントの実行後に数秒待つようにしてください。
@@ -520,3 +608,6 @@ Check Jaeger UI at http://localhost:16686 to view traces")
 3.  **過剰な数のスパン**
     -   `sampler`プロパティを設定して、別のサンプリング戦略の使用を検討してください。
     -   たとえば、`Sampler.traceIdRatioBased(0.1)`を使用して、トレースの10%のみをサンプリングします。
+
+4.  **スパンアダプターが互いに上書きされる**
+    -   現在、OpenTelemetryエージェント機能は複数のスパンアダプターの適用をサポートしていません [KG-265](https://youtrack.jetbrains.com/issue/KG-265/Adding-Weave-exporter-breaks-Langfuse-exporter)。

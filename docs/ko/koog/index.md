@@ -23,25 +23,29 @@ Koog의 주요 기능은 다음과 같습니다.
 -   **유연한 그래프 워크플로**: 직관적인 그래프 기반 워크플로를 사용하여 복잡한 에이전트 동작을 설계합니다.
 -   **모듈형 기능 시스템**: 구성 가능한 아키텍처를 통해 에이전트 기능을 사용자 지정합니다.
 -   **확장 가능한 아키텍처**: 간단한 챗봇부터 엔터프라이즈 애플리케이션까지 워크로드를 처리합니다.
--   **멀티플랫폼**: Kotlin Multiplatform을 사용하여 JVM, JS, WasmJS 타겟 모두에서 에이전트를 실행합니다.
+-   **멀티플랫폼**: Kotlin Multiplatform을 사용하여 JVM, JS, WasmJS 및 iOS 타겟 모두에서 에이전트를 실행합니다.
 
-# 사용 가능한 LLM 제공업체 및 플랫폼
+## 사용 가능한 LLM 제공업체 및 플랫폼
 
 에이전트 기능을 구현하는 데 사용할 수 있는 LLM 제공업체 및 플랫폼은 다음과 같습니다.
 
 -   Google
 -   OpenAI
 -   Anthropic
+-   DeepSeek
 -   OpenRouter
 -   Ollama
+-   Bedrock
 
-# 설치
+전용 LLM 클라이언트와 함께 이러한 제공업체를 사용하는 방법에 대한 자세한 지침은 [Runnning prompts with LLM clients](prompt-api.md#running-prompts-with-llm-clients)를 참조하세요.
+
+## 설치
 
 Koog를 사용하려면 빌드 구성에 필요한 모든 종속성을 포함해야 합니다.
 
-## Gradle
+### Gradle
 
-### Gradle (Kotlin DSL)
+#### Gradle (Kotlin DSL)
 
 1.  `build.gradle.kts` 파일에 종속성을 추가합니다.
 
@@ -53,7 +57,7 @@ Koog를 사용하려면 빌드 구성에 필요한 모든 종속성을 포함해
 
 2.  저장소 목록에 `mavenCentral()`이 있는지 확인하세요.
 
-### Gradle (Groovy)
+#### Gradle (Groovy)
 
 1.  `build.gradle` 파일에 종속성을 추가합니다.
 
@@ -65,7 +69,7 @@ Koog를 사용하려면 빌드 구성에 필요한 모든 종속성을 포함해
 
 2.  저장소 목록에 `mavenCentral()`이 있는지 확인하세요.
 
-## Maven
+### Maven
 
 1.  `pom.xml` 파일에 종속성을 추가합니다.
 
@@ -79,7 +83,7 @@ Koog를 사용하려면 빌드 구성에 필요한 모든 종속성을 포함해
 
 2.  저장소 목록에 `mavenCentral`이 있는지 확인하세요.
 
-# 빠른 시작 예시
+## 빠른 시작 예시
 
 AI 에이전트를 시작하는 데 도움이 되도록 단일 실행 에이전트의 간단한 예시가 있습니다.
 

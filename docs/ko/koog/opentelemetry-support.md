@@ -4,7 +4,7 @@
 
 ## 개요
 
-OpenTelemetry는 애플리케이션에서 텔레메트리 데이터(추적)를 생성, 수집 및 내보내기 위한 도구를 제공하는 관측 가능성 프레임워크입니다. Koog OpenTelemetry 기능을 사용하면 AI 에이전트에 계측(instrument)을 적용하여 텔레메트리 데이터를 수집할 수 있으며, 이는 다음을 돕습니다:
+OpenTelemetry는 애플리케이션에서 텔레메트리 데이터(추적)를 생성, 수집 및 내보내기 위한 도구를 제공하는 관측 가능성 프레임워크입니다. Koog OpenTelemetry 기능은 AI 에이전트에 계측(instrument)을 적용하여 텔레메트리 데이터를 수집할 수 있도록 하며, 이는 다음을 돕습니다:
 
 - 에이전트 성능 및 동작 모니터링
 - 복잡한 에이전트 워크플로우에서 문제 디버깅
@@ -124,11 +124,11 @@ install(OpenTelemetry) {
 
 #### addSpanProcessor
 
-스팬이 내보내지기 전에 처리할 스팬 프로세서를 추가합니다. 다음 인수를 사용합니다:
+스팬이 내보내지기 전에 처리할 스팬 프로세서 팩토리를 추가합니다. 다음 인수를 사용합니다:
 
-| 이름        | 데이터 유형       | 필수 | 기본값 | 설명                                                                   |
-|:------------|:----------------|:---|:-----|:-----------------------------------------------------------------------|
-| `processor` | `SpanProcessor` | 예 |      | 내보내기 전에 텔레메트리 데이터를 처리하는 사용자 정의 로직을 포함하는 스팬 프로세서입니다. |
+| 이름        | 데이터 유형                       | 필수 | 기본값 | 설명                                                                         |
+|:------------|:----------------------------------|:---|:-----|:-----------------------------------------------------------------------------|
+| `processor` | `(SpanExporter) -> SpanProcessor` | 예 |      | 주어진 익스포터에 대한 스팬 프로세서를 생성하는 함수입니다. 익스포터별 처리를 사용자 정의할 수 있습니다. |
 
 #### addResourceAttributes
 
@@ -154,12 +154,23 @@ OpenTelemetry 구성 디버깅을 위한 상세 로깅을 활성화 또는 비�
 |:----------|:----------|:---|:------|:-------------------------------------------------------------|
 | `verbose` | `Boolean` | 예 | `false` | true인 경우 애플리케이션은 더 상세한 텔레메트리 데이터를 수집합니다. |
 
+#### setSdk
+
+사전 구성된 `OpenTelemetrySdk` 인스턴스를 주입합니다.
+
+-   `setSdk(sdk)`를 호출하면 제공된 SDK가 그대로 사용되며, `addSpanExporter`, `addSpanProcessor`, `addResourceAttributes`, `setSampler`를 통해 적용된 모든 사용자 정의 구성은 무시됩니다.
+-   트레이서의 계측 범위 이름/버전은 서비스 정보와 일치합니다.
+
+| 이름 | 데이터 유형        | 필수 | 설명                                |
+|:-----|:-------------------|:---|:------------------------------------|
+| `sdk`| `OpenTelemetrySdk` | 예 | 에이전트에서 사용할 SDK 인스턴스입니다. |
+
 ### 고급 구성
 
 더 고급 구성을 위해서는 다음 구성 옵션을 사용자 정의할 수도 있습니다:
 
-- 샘플러(Sampler): 수집된 데이터의 빈도와 양을 조정하기 위한 샘플링 전략을 구성합니다.
-- 리소스 속성(Resource attributes): 텔레메트리 데이터를 생성하는 프로세스에 대한 추가 정보를 추가합니다.
+-   샘플러(Sampler): 수집된 데이터의 빈도와 양을 조정하기 위한 샘플링 전략을 구성합니다.
+-   리소스 속성(Resource attributes): 텔레메트리 데이터를 생성하는 프로세스에 대한 추가 정보를 추가합니다.
 
 <!--- INCLUDE
 import ai.koog.agents.core.agent.AIAgent
@@ -206,7 +217,7 @@ install(OpenTelemetry) {
 
 기본 샘플링 전략은 다음과 같습니다:
 
-- `Sampler.alwaysOn()`: 모든 스팬(추적)이 샘플링되는 기본 샘플링 전략입니다.
+-   `Sampler.alwaysOn()`: 모든 스팬(추적)이 샘플링되는 기본 샘플링 전략입니다.
 
 사용 가능한 샘플러 및 샘플링 전략에 대한 자세한 내용은 OpenTelemetry [Sampler](https://opentelemetry.io/docs/languages/java/sdk/#sampler) 문서를 참조하세요.
 
@@ -214,12 +225,12 @@ install(OpenTelemetry) {
 
 리소스 속성은 텔레메트리 데이터를 생성하는 프로세스에 대한 추가 정보를 나타냅니다. Koog는 기본적으로 설정되는 리소스 속성 집합을 포함합니다:
 
-- `service.name`
-- `service.version`
-- `service.instance.time`
-- `os.type`
-- `os.version`
-- `os.arch`
+-   `service.name`
+-   `service.version`
+-   `service.instance.time`
+-   `os.type`
+-   `os.version`
+-   `os.arch`
 
 `service.name` 속성의 기본값은 `ai.koog`이며, `service.version`의 기본값은 현재 사용 중인 Koog 라이브러리 버전입니다.
 
@@ -297,9 +308,10 @@ OpenTelemetry의 [생성형 AI 이벤트에 대한 시맨틱 컨벤션](https://
 -   **AssistantMessageEvent**: 모델에 전달된 어시스턴트 메시지.
 -   **ToolMessageEvent**: 모델에 전달된 도구 또는 함수 호출의 응답.
 -   **ChoiceEvent**: 모델의 응답 메시지.
+-   **ModerationResponseEvent**: 모델의 조정 결과 또는 신호.
 
 !!! note
-    `optentelemetry-java` SDK는 이벤트를 추가할 때 이벤트 본문 필드 매개변수를 지원하지 않습니다. 따라서 Koog의 OpenTelemetry 지원에서는 이벤트 본문 필드가 키가 `body`이고 값 유형이 문자열인 별도의 속성으로 처리됩니다. 이 문자열에는 일반적으로 JSON과 같은 객체인 이벤트 본문 필드의 내용 또는 페이로드가 포함됩니다. 이벤트 본문 필드의 예시는 [OpenTelemetry 문서](https://opentelemetry.io/docs/specs/semconv/gen-ai/gen-ai-events/#examples)를 참조하세요. `opentelemetry-java`의 이벤트 본문 필드 지원 상태는 관련 [GitHub 이슈](https://github.ol.com/open-telemetry/semantic-conventions/issues/1870)를 참조하세요.
+    `optentelemetry-java` SDK는 이벤트를 추가할 때 이벤트 본문 필드 매개변수를 지원하지 않습니다. 따라서 Koog의 OpenTelemetry 지원에서는 이벤트 본문 필드가 키가 `body`이고 값 유형이 문자열인 별도의 속성으로 처리됩니다. 이 문자열에는 일반적으로 JSON과 같은 객체인 이벤트 본문 필드의 내용 또는 페이로드가 포함됩니다. 이벤트 본문 필드의 예시는 [OpenTelemetry 문서](https://opentelemetry.io/docs/specs/semconv/gen-ai/gen-ai-events/#examples)를 참조하세요. `opentelemetry-java`의 이벤트 본문 필드 지원 상태는 관련 [GitHub 이슈](https://github.com/open-telemetry/semantic-conventions/issues/1870)를 참조하세요.
 
 ## 익스포터
 
@@ -310,6 +322,9 @@ OpenTelemetry의 [생성형 AI 이벤트에 대한 시맨틱 컨벤션](https://
 | `exporter` | SpanExporter | 예 |      | 사용자 정의 스팬 익스포터 목록에 추가될 `SpanExporter` 인스턴스입니다. |
 
 아래 섹션에서는 `opentelemetry-java` SDK에서 가장 일반적으로 사용되는 익스포터 중 일부에 대한 정보를 제공합니다.
+
+!!! note
+    사용자 정의 익스포터를 구성하지 않으면 Koog는 기본적으로 콘솔 `LoggingSpanExporter`를 사용합니다. 이는 로컬 개발 및 디버깅에 도움이 됩니다.
 
 ### 로깅 익스포터
 
@@ -420,6 +435,79 @@ install(OpenTelemetry) {
 ```
 <!--- KNIT example-opentelemetry-support-07.kt -->
 
+## Langfuse와 통합
+
+Langfuse는 LLM/에이전트 워크로드에 대한 추적 시각화 및 분석을 제공합니다.
+
+헬퍼 함수를 사용하여 Koog가 OpenTelemetry 추적을 Langfuse로 직접 내보내도록 구성할 수 있습니다:
+
+<!--- INCLUDE
+import ai.koog.agents.core.agent.AIAgent
+import ai.koog.agents.features.opentelemetry.feature.OpenTelemetry
+import ai.koog.agents.features.opentelemetry.integration.langfuse.addLangfuseExporter
+import ai.koog.prompt.executor.clients.openai.OpenAIModels
+import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
+
+const val apiKey = ""
+
+val agent = AIAgent(
+    executor = simpleOpenAIExecutor(apiKey),
+    llmModel = OpenAIModels.Chat.GPT4o,
+    systemPrompt = "You are a helpful assistant."
+) {
+-->
+<!--- SUFFIX
+}
+-->
+```kotlin
+install(OpenTelemetry) {
+    addLangfuseExporter(
+        langfuseUrl = "https://cloud.langfuse.com",
+        langfusePublicKey = "...",
+        langfuseSecretKey = "..."
+    )
+}
+```
+<!--- KNIT example-opentelemetry-support-08.kt -->
+
+Langfuse와의 통합에 대한 [전체 문서](opentelemetry-langfuse-exporter.md)를 참조하세요.
+
+## W&B Weave와 통합
+
+W&B Weave는 LLM/에이전트 워크로드에 대한 추적 시각화 및 분석을 제공합니다. W&B Weave와의 통합은 사전 정의된 익스포터를 통해 구성할 수 있습니다:
+
+<!--- INCLUDE
+import ai.koog.agents.core.agent.AIAgent
+import ai.koog.agents.features.opentelemetry.feature.OpenTelemetry
+import ai.koog.agents.features.opentelemetry.integration.weave.addWeaveExporter
+import ai.koog.prompt.executor.clients.openai.OpenAIModels
+import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
+
+const val apiKey = ""
+
+val agent = AIAgent(
+    executor = simpleOpenAIExecutor(apiKey),
+    llmModel = OpenAIModels.Chat.GPT4o,
+    systemPrompt = "You are a helpful assistant."
+) {
+-->
+<!--- SUFFIX
+}
+-->
+```kotlin
+install(OpenTelemetry) {
+    addWeaveExporter(
+        weaveOtelBaseUrl = "https://trace.wandb.ai",
+        weaveEntity = "my-team",
+        weaveProjectName = "my-project",
+        weaveApiKey = "..."
+    )
+}
+```
+<!--- KNIT example-opentelemetry-support-09.kt -->
+
+W&B Weave와의 통합에 대한 [전체 문서](opentelemetry-weave-exporter.md)를 참조하세요.
+
 ## Jaeger와 통합
 
 Jaeger는 OpenTelemetry와 연동되는 인기 있는 분산 추적 시스템입니다. Koog 리포지토리의 `examples` 내 `opentelemetry` 디렉터리에는 Jaeger 및 Koog 에이전트와 함께 OpenTelemetry를 사용하는 예시가 포함되어 있습니다.
@@ -494,20 +582,20 @@ fun main() {
 
             val result = agent.run("Tell me a joke about programming")
 
-            println("에이전트 실행이 결과: '$result'와 함께 완료되었습니다." +
+            println("에이전트 실행이 결과: '$result'와(과) 함께 완료되었습니다." +
                     "
 추적을 보려면 http://localhost:16686에서 Jaeger UI를 확인하세요")
         }
     }
 }
 ```
-<!--- KNIT example-opentelemetry-support-08.kt -->
+<!--- KNIT example-opentelemetry-support-10.kt -->
 
 ## 문제 해결
 
 ### 일반적인 문제
 
-1.  **Jaeger 또는 Langfuse에 추적이 나타나지 않음**
+1.  **Jaeger, Langfuse 또는 W&B Weave에 추적이 나타나지 않음**
     -   서비스가 실행 중이고 OpenTelemetry 포트(4317)에 접근 가능한지 확인하십시오.
     -   OpenTelemetry 익스포터가 올바른 엔드포인트로 구성되었는지 확인하십시오.
     -   추적을 내보내기 위해 에이전트 실행 후 몇 초 정도 기다려야 합니다.
@@ -520,3 +608,6 @@ fun main() {
 3.  **과도한 수의 스팬**
     -   `sampler` 속성을 구성하여 다른 샘플링 전략을 사용하는 것을 고려하십시오.
     -   예를 들어, 추적의 10%만 샘플링하려면 `Sampler.traceIdRatioBased(0.1)`을 사용하십시오.
+
+4.  **스팬 어댑터가 서로를 재정의합니다**
+    -   현재 OpenTelemetry 에이전트 기능은 여러 스팬 어댑터를 적용하는 것을 지원하지 않습니다 [KG-265](https://youtrack.jetbrains.com/issue/KG-265/Adding-Weave-exporter-breaks-Langfuse-exporter).

@@ -182,3 +182,88 @@ val strategy = strategy<Unit, Unit>("strategy-name") {
 *   **nodeLLMSendToolResult**: 도구 결과를 LLM에 보내고 응답을 받습니다. 자세한 내용은 [API 참조](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.dsl.extension/node-l-l-m-send-tool-result.html)를 참조하세요.
 
 *   **nodeLLMSendMultipleToolResults**: 여러 도구 결과를 LLM에 보냅니다. 자세한 내용은 [API 참조](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.dsl.extension/node-l-l-m-send-multiple-tool-results.html)를 참조하세요.
+
+## 에이전트를 도구로 사용하기
+
+이 프레임워크는 모든 AI 에이전트를 다른 에이전트가 사용할 수 있는 도구로 변환하는 기능을 제공합니다. 이 강력한 기능을 통해 전문 에이전트가 상위 수준의 오케스트레이션 에이전트에 의해 도구로 호출될 수 있는 계층적 에이전트 아키텍처를 생성할 수 있습니다.
+
+### 에이전트를 도구로 변환하기
+
+에이전트를 도구로 변환하려면 `asTool()` 확장 함수를 사용하세요:
+
+<!--- INCLUDE
+import ai.koog.agents.core.agent.AIAgent
+import ai.koog.agents.core.agent.asTool
+import ai.koog.agents.core.tools.ToolParameterDescriptor
+import ai.koog.agents.core.tools.ToolParameterType
+import ai.koog.agents.core.tools.ToolRegistry
+import ai.koog.prompt.executor.clients.openai.OpenAIModels
+import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
+
+const val apiKey = ""
+val analysisToolRegistry = ToolRegistry {}
+
+-->
+```kotlin
+// Create a specialized agent
+val analysisAgent = AIAgent(
+    executor = simpleOpenAIExecutor(apiKey),
+    llmModel = OpenAIModels.Chat.GPT4o,
+    systemPrompt = "You are a financial analysis specialist.",
+    toolRegistry = analysisToolRegistry
+)
+
+// Convert the agent to a tool
+val analysisAgentTool = analysisAgent.asTool(
+    agentName = "analyzeTransactions",
+    agentDescription = "Performs financial transaction analysis",
+    inputDescriptor = ToolParameterDescriptor(
+        name = "request",
+        description = "Transaction analysis request",
+        type = ToolParameterType.String
+    )
+)
+```
+<!--- KNIT example-tools-overview-05.kt -->
+
+### 다른 에이전트에서 에이전트 도구 사용하기
+
+도구로 변환되면, 에이전트 도구를 다른 에이전트의 도구 레지스트리에 추가할 수 있습니다:
+
+<!--- INCLUDE
+import ai.koog.agents.core.agent.AIAgent
+import ai.koog.agents.core.tools.ToolRegistry
+import ai.koog.agents.example.exampleToolsOverview05.analysisAgentTool
+import ai.koog.prompt.executor.clients.openai.OpenAIModels
+import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
+
+const val apiKey = ""
+
+-->
+```kotlin
+// Create a coordinator agent that can use specialized agents as tools
+val coordinatorAgent = AIAgent(
+    executor = simpleOpenAIExecutor(apiKey),
+    llmModel = OpenAIModels.Chat.GPT4o,
+    systemPrompt = "You coordinate different specialized services.",
+    toolRegistry = ToolRegistry {
+        tool(analysisAgentTool)
+        // Add other tools as needed
+    }
+)
+```
+<!--- KNIT example-tools-overview-06.kt -->
+
+### 에이전트 도구 실행
+
+에이전트 도구가 호출될 때:
+
+1.  입력 디스크립터에 따라 인자가 역직렬화됩니다.
+2.  역직렬화된 입력으로 래핑된 에이전트가 실행됩니다.
+3.  에이전트의 출력이 직렬화되어 도구 결과로 반환됩니다.
+
+### 에이전트를 도구로 사용하는 이점
+
+-   **모듈성**: 복잡한 워크플로를 전문 에이전트로 분할합니다.
+-   **재사용성**: 여러 코디네이터 에이전트에서 동일한 전문 에이전트를 재사용할 수 있습니다.
+-   **관심사 분리**: 각 에이전트는 특정 도메인에 집중할 수 있습니다.

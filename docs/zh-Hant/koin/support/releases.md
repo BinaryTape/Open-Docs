@@ -21,25 +21,36 @@ custom_edit_url: null
 
 ## 4.1.1
 
+:::note
+使用 Kotlin `2.1.21`
+:::
+
 ### 新功能 🎉
 
-`koin-ktor`
-- 整合 – 提供 `KtorDIExtension` 以整合 Ktor 3.2 預設的 DI 引擎
-```kotlin
-fun Application.setupDatabase(config: DbConfig) {
-    // ...
-    dependencies {
-        provide<Database> { database }
-    }
-}
+`koin-compose-viewmodel-navigation`
+- 增強 `sharedKoinViewModel`，新增可選的 `navGraphRoute` 參數，以提供更好的 Compose Navigation 支援
 
-class CustomerRepositoryImpl(private val database: Database) : CustomerRepository
-fun Application.customerDataModule() {
-    koinModule {
-        singleOf(::CustomerRepositoryImpl) bind CustomerRepository::class
-    }
-}
-```
+`koin-core`
+- 核心解析器性能優化 – 透過單一作用域解析避免不必要的扁平化
+- 增強作用域偵錯，顯示連結的作用域 ID
+
+### 函式庫更新 📚
+
+- **Kotlin** 2.1.21 (從 2.1.20)
+- **Ktor** 3.2.3 (從 3.1.3)
+- **Jetbrains Compose** 1.8.2 (從 1.8.0)
+- **AndroidX**：Fragment 1.8.9、WorkManager 2.10.3、Lifecycle 2.9.3、Navigation 2.9.3
+- **Testing**：Robolectric 4.15.1、Benchmark 0.4.14
+- **Build**：Binary Validator 0.18.1、NMCP 1.1.0
+
+### 錯誤修復 🐛
+
+`koin-core`
+- 恢復導致相容性錯誤的記錄器限制
+- 修正 Compose 作用域解析，改進了 `LocalKoinApplication` / `LocalKoinScope` context 處理
+
+`koin-build`
+- 修正 Maven Central 發佈問題
 
 ## 4.1.0
 

@@ -17,7 +17,7 @@ Koogフレームワークには、3種類のツールがあります。
 
 *   エージェントとユーザーの対話、および会話管理の機能を提供する組み込みツール。詳細は、[組み込みツール](built-in-tools.md)を参照してください。
 *   関数をLLMにツールとして公開できるアノテーションベースのカスタムツール。詳細は、[アノテーションベースのツール](annotation-based-tools.md)を参照してください。
-*   ツールパラメーター、メタデータ、実行ロジック、および登録・呼び出し方法を制御できるカスタムツール（クラスベースのツール）。詳細は、[クラスベースのツール](class-based-tools.md)を参照してください。
+*   ツールパラメーター、メタデータ、実行ロジック、および登録・呼び出し方法を制御できるカスタムツール。詳細は、[クラスベースのツール](class-based-tools.md)を参照してください。
 
 ### ツールレジストリ
 
@@ -182,3 +182,89 @@ val strategy = strategy<Unit, Unit>("strategy-name") {
 *   **nodeLLMSendToolResult**: ツール結果をLLMに送信し、応答を取得します。詳細は、[APIリファレンス](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.dsl.extension/node-l-l-m-send-tool-result.html)を参照してください。
 
 *   **nodeLLMSendMultipleToolResults**: 複数のツール結果をLLMに送信します。詳細は、[APIリファレンス](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.dsl.extension/node-l-l-m-send-multiple-tool-results.html)を参照してください。
+
+## ツールとしてのエージェントの利用
+
+このフレームワークは、あらゆるAIエージェントを他のエージェントが使用できるツールに変換する機能を提供します。
+この強力な機能により、専門化されたエージェントがより上位のオーケストレーションエージェントによってツールとして呼び出される階層型エージェントアーキテクチャを作成できます。
+
+### エージェントをツールに変換する
+
+エージェントをツールに変換するには、`asTool()`拡張関数を使用します。
+
+<!--- INCLUDE
+import ai.koog.agents.core.agent.AIAgent
+import ai.koog.agents.core.agent.asTool
+import ai.koog.agents.core.tools.ToolParameterDescriptor
+import ai.koog.agents.core.tools.ToolParameterType
+import ai.koog.agents.core.tools.ToolRegistry
+import ai.koog.prompt.executor.clients.openai.OpenAIModels
+import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
+
+const val apiKey = ""
+val analysisToolRegistry = ToolRegistry {}
+
+-->
+```kotlin
+// 専門のエージェントを作成
+val analysisAgent = AIAgent(
+    executor = simpleOpenAIExecutor(apiKey),
+    llmModel = OpenAIModels.Chat.GPT4o,
+    systemPrompt = "あなたは財務分析のスペシャリストです。",
+    toolRegistry = analysisToolRegistry
+)
+
+// エージェントをツールに変換
+val analysisAgentTool = analysisAgent.asTool(
+    agentName = "analyzeTransactions",
+    agentDescription = "金融取引分析を実行します",
+    inputDescriptor = ToolParameterDescriptor(
+        name = "request",
+        description = "取引分析リクエスト",
+        type = ToolParameterType.String
+    )
+)
+```
+<!--- KNIT example-tools-overview-05.kt -->
+
+### 他のエージェントでエージェントツールを使用する
+
+ツールに変換した後、エージェントツールを他のエージェントのツールレジストリに追加できます。
+
+<!--- INCLUDE
+import ai.koog.agents.core.agent.AIAgent
+import ai.koog.agents.core.tools.ToolRegistry
+import ai.koog.agents.example.exampleToolsOverview05.analysisAgentTool
+import ai.koog.prompt.executor.clients.openai.OpenAIModels
+import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
+
+const val apiKey = ""
+
+-->
+```kotlin
+// 専門のエージェントをツールとして使用できるコーディネーターエージェントを作成
+val coordinatorAgent = AIAgent(
+    executor = simpleOpenAIExecutor(apiKey),
+    llmModel = OpenAIModels.Chat.GPT4o,
+    systemPrompt = "あなたはさまざまな専門サービスを調整します。",
+    toolRegistry = ToolRegistry {
+        tool(analysisAgentTool)
+        // 必要に応じて他のツールを追加
+    }
+)
+```
+<!--- KNIT example-tools-overview-06.kt -->
+
+### エージェントツールの実行
+
+エージェントツールが呼び出されると：
+
+1.  引数は入力ディスクリプターに従って逆シリアル化されます。
+2.  ラップされたエージェントは、逆シリアル化された入力で実行されます。
+3.  エージェントの出力はシリアル化され、ツール結果として返されます。
+
+### ツールとしてのエージェントの利点
+
+-   **モジュール性**: 複雑なワークフローを専門化されたエージェントに分割します。
+-   **再利用性**: 複数のコーディネーターエージェントで同じ専門化されたエージェントを使用します。
+-   **関心の分離**: 各エージェントは自身の特定のドメインに集中できます。
