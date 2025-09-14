@@ -1,6 +1,6 @@
 # 事前定義されたエージェント戦略
 
-Koogは、一般的なエージェントのユースケース向けに事前定義されたエージェント戦略を提供することで、エージェントの実装を容易にします。
+エージェントの実装を容易にするため、Koogは一般的なエージェントのユースケース向けに事前定義されたエージェント戦略を提供します。
 以下の事前定義された戦略が利用可能です。
 
 - [チャットエージェント戦略](#chat-agent-strategy)
@@ -41,13 +41,13 @@ import ai.koog.agents.core.tools.ToolRegistry
 import ai.koog.prompt.executor.clients.openai.OpenAIModels
 
 val apiKey = System.getenv("OPENAI_API_KEY") ?: error("Please set OPENAI_API_KEY environment variable")
-val promptExecutor = simpleOpenAIExecutor(apiKey)
+val promptExecutor =simpleOpenAIExecutor(apiKey)
 val toolRegistry = ToolRegistry.EMPTY
 val model =  OpenAIModels.Reasoning.O4Mini
 -->
 ```kotlin
 val chatAgent = AIAgent(
-    executor = promptExecutor,
+    promptExecutor = promptExecutor,
     toolRegistry = toolRegistry,
     llmModel = model,
     // chatAgentStrategyをエージェント戦略として設定
@@ -82,13 +82,13 @@ typealias searchTool = AskUser
 typealias weatherTool = SayToUser
 
 val apiKey = System.getenv("OPENAI_API_KEY") ?: error("Please set OPENAI_API_KEY environment variable")
-val promptExecutor = simpleOpenAIExecutor(apiKey)
+val promptExecutor =simpleOpenAIExecutor(apiKey)
 val toolRegistry = ToolRegistry.EMPTY
 val model =  OpenAIModels.Reasoning.O4Mini
 -->
 ```kotlin
 val chatAgent = AIAgent(
-    executor = promptExecutor,
+    promptExecutor = promptExecutor,
     llmModel = model,
     // chatAgentStrategyをエージェント戦略として使用
     strategy = chatAgentStrategy(),
@@ -153,7 +153,7 @@ val model =  OpenAIModels.Reasoning.O4Mini
 -->
 ```kotlin hl_lines="5-10"
 val reActAgent = AIAgent(
-    executor = promptExecutor,
+    promptExecutor = promptExecutor,
     toolRegistry = toolRegistry,
     llmModel = model,
     // reActStrategyをエージェント戦略として設定
@@ -281,7 +281,7 @@ val model =  OpenAIModels.Reasoning.O4Mini
 -->
 ```kotlin
 val bankingAgent = AIAgent(
-    executor = promptExecutor,
+    promptExecutor = promptExecutor,
     llmModel = model,
     // reActStrategyをエージェント戦略として使用
     strategy = reActStrategy(

@@ -34,7 +34,7 @@ KNIT ignore this example
 -->
 ```kotlin
 require(ctx.strategy.metadata.uniqueNames) {
-    "Checkpoint feature requires unique node names in the strategy metadata"
+    "檢查點功能要求策略中所有節點都具有唯一名稱"
 }
 ```
 
@@ -58,7 +58,7 @@ val executor = simpleOllamaAIExecutor()
 
 ```kotlin
 val agent = AIAgent(
-    executor = executor,
+    promptExecutor = executor,
     llmModel = OllamaModels.Meta.LLAMA_3_2,
 ) {
     install(Persistency) {
@@ -91,7 +91,7 @@ import ai.koog.prompt.executor.llms.all.simpleOllamaAIExecutor
 import ai.koog.prompt.llm.OllamaModels
 
 val agent = AIAgent(
-    executor = simpleOllamaAIExecutor(),
+    promptExecutor = simpleOllamaAIExecutor(),
     llmModel = OllamaModels.Meta.LLAMA_3_2,
 ) {
 -->
@@ -129,7 +129,7 @@ import ai.koog.prompt.executor.llms.all.simpleOllamaAIExecutor
 import ai.koog.prompt.llm.OllamaModels
 
 val agent = AIAgent(
-    executor = simpleOllamaAIExecutor(),
+    promptExecutor = simpleOllamaAIExecutor(),
     llmModel = OllamaModels.Meta.LLAMA_3_2,
 ) {
 -->
@@ -145,7 +145,8 @@ install(Persistency) {
 
 <!--- KNIT example-agent-persistency-04.kt -->
 
-啟用後，代理程式將在每個節點執行後自動建立檢查點，從而實現細粒度恢復。
+啟用後，代理程式將在每個節點執行後自動建立檢查點，
+從而實現細粒度恢復。
 
 ## 基本用法
 
@@ -154,7 +155,7 @@ install(Persistency) {
 要了解如何在代理程式執行的特定點建立檢查點，請參閱下面的程式碼範例：
 
 <!--- INCLUDE
-import ai.koog.agents.core.agent.context.AIAgentContextBase
+import ai.koog.agents.core.agent.context.AIAgentContext
 import ai.koog.agents.snapshot.feature.persistency
 import kotlin.reflect.typeOf
 
@@ -163,7 +164,7 @@ val inputType = typeOf<String>()
 -->
 
 ```kotlin
-suspend fun example(context: AIAgentContextBase) {
+suspend fun example(context: AIAgentContext) {
     // 使用當前狀態建立檢查點
     val checkpoint = context.persistency().createCheckpoint(
         agentContext = context,
@@ -185,12 +186,12 @@ suspend fun example(context: AIAgentContextBase) {
 要從特定檢查點還原代理程式的狀態，請按照下面的程式碼範例操作：
 
 <!--- INCLUDE
-import ai.koog.agents.core.agent.context.AIAgentContextBase
+import ai.koog.agents.core.agent.context.AIAgentContext
 import ai.koog.agents.snapshot.feature.persistency
 -->
 
 ```kotlin
-suspend fun example(context: AIAgentContextBase, checkpointId: String) {
+suspend fun example(context: AIAgentContext, checkpointId: String) {
     // 回溯到特定檢查點
     context.persistency().rollbackToCheckpoint(checkpointId, context)
 
@@ -206,7 +207,7 @@ suspend fun example(context: AIAgentContextBase, checkpointId: String) {
 代理程式持久性功能提供方便的擴充函數，用於處理檢查點：
 
 <!--- INCLUDE
-import ai.koog.agents.core.agent.context.AIAgentContextBase
+import ai.koog.agents.core.agent.context.AIAgentContext
 import ai.koog.agents.example.exampleAgentPersistency05.inputData
 import ai.koog.agents.example.exampleAgentPersistency05.inputType
 import ai.koog.agents.snapshot.feature.persistency
@@ -214,7 +215,7 @@ import ai.koog.agents.snapshot.feature.withPersistency
 -->
 
 ```kotlin
-suspend fun example(context: AIAgentContextBase) {
+suspend fun example(context: AIAgentContext) {
     // 存取檢查點功能
     val checkpointFeature = context.persistency()
 
@@ -292,7 +293,7 @@ class MyCustomStorageProvider : PersistencyStorageProvider {
 }
 
 val agent = AIAgent(
-    executor = simpleOllamaAIExecutor(),
+    promptExecutor = simpleOllamaAIExecutor(),
     llmModel = OllamaModels.Meta.LLAMA_3_2,
 ) {
 -->
@@ -313,7 +314,7 @@ install(Persistency) {
 為了進行進階控制，您可以直接設定代理程式的執行點：
 
 <!--- INCLUDE
-import ai.koog.agents.core.agent.context.AIAgentContextBase
+import ai.koog.agents.core.agent.context.AIAgentContext
 import ai.koog.agents.snapshot.feature.persistency
 import ai.koog.prompt.message.Message.User
 import kotlinx.serialization.json.JsonPrimitive
@@ -323,7 +324,7 @@ val customMessageHistory = emptyList<User>()
 -->
 
 ```kotlin
-fun example(context: AIAgentContextBase) {
+fun example(context: AIAgentContext) {
     context.persistency().setExecutionPoint(
         agentContext = context,
         nodeId = "target-node-id",

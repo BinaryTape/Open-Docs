@@ -1,6 +1,7 @@
-# 사전 정의된 노드 및 컴포넌트
+_# 사전 정의된 노드 및 컴포넌트
 
-노드는 Koog 프레임워크의 에이전트 워크플로를 구성하는 근본적인 빌딩 블록입니다. 각 노드는 워크플로 내에서 특정 작업이나 변환을 나타내며, 엣지를 사용하여 연결되어 실행 흐름을 정의합니다.
+노드는 Koog 프레임워크의 에이전트 워크플로를 구성하는 근본적인 빌딩 블록입니다.
+각 노드는 워크플로 내에서 특정 작업이나 변환을 나타내며, 엣지를 사용하여 연결되어 실행 흐름을 정의합니다.
 
 일반적으로 노드를 사용하면 복잡한 로직을 재사용 가능한 컴포넌트로 캡슐화하여 다양한 에이전트 워크플로에 쉽게 통합할 수 있습니다. 이 가이드에서는 에이전트 전략에서 사용할 수 있는 기존 노드에 대해 설명합니다.
 
@@ -41,7 +42,8 @@ edge(passthrough forwardTo nodeFinish)
 
 ### nodeUpdatePrompt
 
-제공된 프롬프트 빌더를 사용하여 LLM 프롬프트에 메시지를 추가하는 노드입니다. 이는 실제 LLM 요청을 하기 전에 대화 컨텍스트를 수정하는 데 유용합니다. 자세한 내용은 [API 레퍼런스](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.dsl.extension/node-update-prompt.html)를 참조하세요.
+제공된 프롬프트 빌더를 사용하여 LLM 프롬프트에 메시지를 추가하는 노드입니다.
+이는 실제 LLM 요청을 하기 전에 대화 컨텍스트를 수정하는 데 유용합니다. 자세한 내용은 [API 레퍼런스](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.dsl.extension/node-update-prompt.html)를 참조하세요.
 
 이 노드는 다음 목적으로 사용할 수 있습니다:
 
@@ -66,14 +68,14 @@ val strategy = strategy<String, String>("strategy_name") {
 -->
 ```kotlin
 val firstNode by node<Input, Output> {
-    // Transform input to output
+    // 입력을 출력으로 변환
 }
 
 val secondNode by node<Output, Output> {
-    // Transform output to output
+    // 출력을 출력으로 변환
 }
 
-// Node will get the value of type Output as input from the previous node and path through it to the next node
+// 노드는 이전 노드에서 Output 타입의 값을 입력으로 받아 다음 노드로 전달합니다.
 val setupContext by nodeUpdatePrompt<Output>("setupContext") {
     system("You are a helpful assistant specialized in Kotlin programming.")
     user("I need help with Kotlin coroutines.")
@@ -94,7 +96,7 @@ LLM 프롬프트에 사용자 메시지를 추가하고 LLM이 특정 도구를 
 
 ### nodeLLMRequest
 
-LLM 프롬프트에 사용자 메시지를 추가하고 선택적 도구 사용과 함께 응답을 받는 노드입니다. 노드 설정은 메시지 처리 중에 도구 호출이 허용되는지 여부를 결정합니다. 자세한 내용은 [API 레퍼런스](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.dsl.extension/node-l-l-m-request.html)를 참조하세요.
+LLM 프롬프트에 사용자 메시지를 추가하고 선택적 도구 사용과 함께 응답을 받는 노드입니다. 노드 설정은 메시지 처리 중에 도구 호출이 허용되는지 여부를 결정합니다. 자세한 내용은 [API 레퍼런스](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.dsl.extension/node-l-l-m-request.html).
 
 이 노드는 다음 목적으로 사용할 수 있습니다:
 
@@ -160,7 +162,8 @@ edge(getComplexUserQuestion forwardTo requestLLMMultipleTools)
 
 ### nodeLLMCompressHistory
 
-현재 LLM 프롬프트(메시지 기록)를 요약으로 압축하여 메시지를 간결한 요약(TL;DR)으로 대체하는 노드입니다. 자세한 내용은 [API 레퍼런스](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.dsl.extension/node-l-l-m-compress-history.html)를 참조하세요. 이는 기록을 압축하여 토큰 사용량을 줄임으로써 긴 대화를 관리하는 데 유용합니다.
+현재 LLM 프롬프트(메시지 기록)를 요약으로 압축하여 메시지를 간결한 요약(TL;DR)으로 대체하는 노드입니다. 자세한 내용은 [API 레퍼런스](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.dsl.extension/node-l-l-m-compress-history.html).
+이는 기록을 압축하여 토큰 사용량을 줄임으로써 긴 대화를 관리하는 데 유용합니다.
 
 기록 압축에 대한 자세한 내용은 [기록 압축](history-compression.md)을 참조하세요.
 
@@ -421,7 +424,8 @@ val verifyCode by subgraphWithVerification<String>(
 
 ## 사전 정의된 전략 및 일반적인 전략 패턴
 
-프레임워크는 다양한 노드를 결합한 사전 정의된 전략을 제공합니다. 노드는 엣지를 사용하여 작업의 흐름을 정의하며, 각 엣지를 따라야 할 시점을 지정하는 조건이 함께 제공됩니다.
+프레임워크는 다양한 노드를 결합한 사전 정의된 전략을 제공합니다.
+노드는 엣지를 사용하여 작업의 흐름을 정의하며, 각 엣지를 따라야 할 시점을 지정하는 조건이 함께 제공됩니다.
 
 필요한 경우 이러한 전략을 에이전트 워크플로에 통합할 수 있습니다.
 
@@ -432,7 +436,7 @@ val verifyCode by subgraphWithVerification<String>(
 복잡한 로직이 필요하지 않은 간단한 프로세스를 실행해야 할 때 이 전략을 사용할 수 있습니다.
 
 <!--- INCLUDE
-import ai.koog.agents.core.agent.entity.AIAgentStrategy
+import ai.koog.agents.core.agent.entity.AIAgentGraphStrategy
 import ai.koog.agents.core.dsl.builder.forwardTo
 import ai.koog.agents.core.dsl.builder.strategy
 import ai.koog.agents.core.dsl.extension.*
@@ -440,7 +444,7 @@ import ai.koog.agents.core.dsl.extension.*
 -->
 ```kotlin
 
-public fun singleRunStrategy(): AIAgentStrategy<String, String> = strategy("single_run") {
+public fun singleRunStrategy(): AIAgentGraphStrategy<String, String> = strategy("single_run") {
     val nodeCallLLM by nodeLLMRequest("sendInput")
     val nodeExecuteTool by nodeExecuteTool("nodeExecuteTool")
     val nodeSendToolResult by nodeLLMSendToolResult("nodeSendToolResult")
@@ -457,10 +461,11 @@ public fun singleRunStrategy(): AIAgentStrategy<String, String> = strategy("sing
 
 ### 도구 기반 전략
 
-도구 기반 전략은 특정 작업을 수행하기 위해 도구에 크게 의존하는 워크플로를 위해 설계되었습니다. 일반적으로 LLM 결정에 따라 도구를 실행하고 결과를 처리합니다.
+도구 기반 전략은 특정 작업을 수행하기 위해 도구에 크게 의존하는 워크플로를 위해 설계되었습니다.
+일반적으로 LLM 결정에 따라 도구를 실행하고 결과를 처리합니다.
 
 <!--- INCLUDE
-import ai.koog.agents.core.agent.entity.AIAgentStrategy
+import ai.koog.agents.core.agent.entity.AIAgentGraphStrategy
 import ai.koog.agents.core.dsl.builder.forwardTo
 import ai.koog.agents.core.dsl.builder.strategy
 import ai.koog.agents.core.dsl.extension.*
@@ -468,37 +473,37 @@ import ai.koog.agents.core.tools.ToolRegistry
 
 -->
 ```kotlin
-fun toolBasedStrategy(name: String, toolRegistry: ToolRegistry): AIAgentStrategy<String, String> {
+fun toolBasedStrategy(name: String, toolRegistry: ToolRegistry): AIAgentGraphStrategy<String, String> {
     return strategy(name) {
         val nodeSendInput by nodeLLMRequest()
         val nodeExecuteTool by nodeExecuteTool()
         val nodeSendToolResult by nodeLLMSendToolResult()
 
-        // Define the flow of the agent
+        // 에이전트의 흐름 정의
         edge(nodeStart forwardTo nodeSendInput)
 
-        // If the LLM responds with a message, finish
+        // LLM이 메시지로 응답하면 종료
         edge(
             (nodeSendInput forwardTo nodeFinish)
                     onAssistantMessage { true }
         )
 
-        // If the LLM calls a tool, execute it
+        // LLM이 도구를 호출하면 실행
         edge(
             (nodeSendInput forwardTo nodeExecuteTool)
                     onToolCall { true }
         )
 
-        // Send the tool result back to the LLM
+        // 도구 결과를 LLM에 다시 전송
         edge(nodeExecuteTool forwardTo nodeSendToolResult)
 
-        // If the LLM calls another tool, execute it
+        // LLM이 다른 도구를 호출하면 실행
         edge(
             (nodeSendToolResult forwardTo nodeExecuteTool)
                     onToolCall { true }
         )
 
-        // If the LLM responds with a message, finish
+        // LLM이 메시지로 응답하면 종료
         edge(
             (nodeSendToolResult forwardTo nodeFinish)
                     onAssistantMessage { true }
@@ -521,16 +526,16 @@ import ai.koog.agents.example.exampleStreamingApi06.parseMarkdownStreamToBooks
 -->
 ```kotlin
 val agentStrategy = strategy<String, List<Book>>("library-assistant") {
-    // Describe the node containing the output stream parsing
+    // 출력 스트림 파싱을 포함하는 노드 설명
     val getMdOutput by node<String, List<Book>> { booksDescription ->
         val books = mutableListOf<Book>()
         val mdDefinition = markdownBookDefinition()
 
         llm.writeSession {
             updatePrompt { user(booksDescription) }
-            // Initiate the response stream in the form of the definition `mdDefinition`
+            // 정의 `mdDefinition` 형태로 응답 스트림 시작
             val markdownStream = requestLLMStreaming(mdDefinition)
-            // Call the parser with the result of the response stream and perform actions with the result
+            // 응답 스트림 결과로 파서를 호출하고 결과에 따라 작업 수행
             parseMarkdownStreamToBooks(markdownStream).collect { book ->
                 books.add(book)
                 println("Parsed Book: ${book.title} by ${book.author}")
@@ -539,7 +544,7 @@ val agentStrategy = strategy<String, List<Book>>("library-assistant") {
 
         books
     }
-    // Describe the agent's graph making sure the node is accessible
+    // 노드가 접근 가능한지 확인하며 에이전트 그래프 설명
     edge(nodeStart forwardTo getMdOutput)
     edge(getMdOutput forwardTo nodeFinish)
 }

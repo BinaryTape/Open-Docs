@@ -58,6 +58,7 @@ MCP 服务器支持 stdio 和 SSE 传输机制与智能体通信，因此你可�
 
 <!--- INCLUDE
 import ai.koog.agents.mcp.McpToolRegistryProvider
+import ai.koog.agents.mcp.defaultStdioTransport
 -->
 ```kotlin
 // 启动一个 MCP 服务器（例如，作为进程）
@@ -161,7 +162,7 @@ fun main() {
 ```kotlin
 // 创建带有工具的智能体
 val agent = AIAgent(
-    executor = executor,
+    promptExecutor = executor,
     strategy = strategy,
     llmModel = OpenAIModels.Chat.GPT4o,
     toolRegistry = toolRegistry
@@ -292,6 +293,7 @@ import ai.koog.agents.core.agent.AIAgent
 import ai.koog.agents.mcp.McpToolRegistryProvider
 import ai.koog.prompt.executor.clients.openai.OpenAIModels
 import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
+import ai.koog.agents.mcp.defaultStdioTransport
 import kotlinx.coroutines.runBlocking
 
 const val googleMapsApiKey = ""
@@ -318,7 +320,7 @@ val toolRegistry = McpToolRegistryProvider.fromTransport(
 
 // 创建并运行智能体
 val agent = AIAgent(
-    executor = simpleOpenAIExecutor(openAIApiToken),
+    promptExecutor = simpleOpenAIExecutor(openAIApiToken),
     llmModel = OpenAIModels.Chat.GPT4o,
     toolRegistry = toolRegistry,
 )
@@ -359,7 +361,7 @@ val toolRegistry = McpToolRegistryProvider.fromTransport(
 
 // 创建并运行智能体
 val agent = AIAgent(
-    executor = simpleOpenAIExecutor(openAIApiToken),
+    promptExecutor = simpleOpenAIExecutor(openAIApiToken),
     llmModel = OpenAIModels.Chat.GPT4o,
     toolRegistry = toolRegistry,
 )

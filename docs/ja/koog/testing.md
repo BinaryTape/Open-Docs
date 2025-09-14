@@ -2,17 +2,17 @@
 
 ## 概要
 
-テスト機能は、KoogフレームワークにおけるAIエージェントのパイプライン、サブグラフ、およびツール連携をテストするための包括的なフレームワークを提供します。これにより、開発者はモックLLM (大規模言語モデル) エグゼキューター、ツールレジストリ、エージェント環境を備えた、制御されたテスト環境を構築できます。
+テスト機能は、KoogフレームワークにおけるAIエージェントのパイプライン、サブグラフ、およびツール連携をテストするための包括的なフレームワークを提供します。これにより、開発者はモックLLM (大規模言語モデル) エグゼキューター、ツールレジストリ、およびエージェント環境を備えた、制御されたテスト環境を構築できます。
 
 ### 目的
 
 この機能の主な目的は、以下の方法でエージェントベースのAI機能のテストを容易にすることです。
 
-- 特定のプロンプトに対するLLMの応答をモックする
-- ツール呼び出しとその結果をシミュレートする
-- エージェントパイプラインのサブグラフとその構造をテストする
-- エージェントノードを介したデータの正しいフローを検証する
-- 期待される動作に対するアサーションを提供する
+-   特定のプロンプトに対するLLMの応答をモックする
+-   ツール呼び出しとその結果をシミュレートする
+-   エージェントパイプラインのサブグラフとその構造をテストする
+-   エージェントノードを介したデータの正しいフローを検証する
+-   期待される動作に対するアサーションを提供する
 
 ## 設定と初期化
 
@@ -224,7 +224,7 @@ fun main() {
 ```kotlin
 // Create the agent with testing enabled
 AIAgent(
-    executor = mockLLMApi,
+    promptExecutor = mockLLMApi,
     toolRegistry = toolRegistry,
     llmModel = llmModel
 ) {
@@ -268,7 +268,7 @@ fun main() {
 ```kotlin
 AIAgent(
     // Constructor arguments
-    executor = mockLLMApi,
+    promptExecutor = mockLLMApi,
     toolRegistry = toolRegistry,
     llmModel = llmModel
 ) {
@@ -326,7 +326,7 @@ fun main() {
 
     AIAgent(
         // Constructor arguments
-        executor = mockLLMApi,
+        promptExecutor = mockLLMApi,
         toolRegistry = toolRegistry,
         llmModel = llmModel
     ) {
@@ -408,7 +408,7 @@ fun main() {
 
     AIAgent(
         // Constructor arguments
-        executor = mockLLMApi,
+        promptExecutor = mockLLMApi,
         toolRegistry = toolRegistry,
         llmModel = llmModel
     ) {
@@ -486,7 +486,7 @@ fun main() {
 
     AIAgent(
         // Constructor arguments
-        executor = mockLLMApi,
+        promptExecutor = mockLLMApi,
         toolRegistry = toolRegistry,
         llmModel = llmModel
     ) {
@@ -566,7 +566,7 @@ fun main() {
 
     AIAgent(
         // Constructor arguments
-        executor = mockLLMApi,
+        promptExecutor = mockLLMApi,
         toolRegistry = toolRegistry,
         llmModel = llmModel
     ) {
@@ -626,7 +626,7 @@ fun main() {
 
     AIAgent(
         // Constructor arguments
-        executor = mockLLMApi,
+        promptExecutor = mockLLMApi,
         toolRegistry = toolRegistry,
         llmModel = llmModel
     ) {
@@ -677,7 +677,7 @@ fun main() {
 
     AIAgent(
         // Constructor arguments
-        executor = mockLLMApi,
+        promptExecutor = mockLLMApi,
         toolRegistry = toolRegistry,
         llmModel = llmModel
     ) {
@@ -723,7 +723,7 @@ fun main() {
 
     AIAgent(
         // Constructor arguments
-        executor = mockLLMApi,
+        promptExecutor = mockLLMApi,
         toolRegistry = toolRegistry,
         llmModel = llmModel
     ) {
@@ -768,7 +768,7 @@ fun main() {
 
     AIAgent(
         // Constructor arguments
-        executor = mockLLMApi,
+        promptExecutor = mockLLMApi,
         toolRegistry = toolRegistry,
         llmModel = llmModel
     ) {
@@ -1090,7 +1090,7 @@ val llmModel = OpenAIModels.Chat.GPT4o
 fun main() {
     AIAgent(
         // Constructor arguments
-        executor = mockLLMApi,
+        promptExecutor = mockLLMApi,
         toolRegistry = toolRegistry,
         llmModel = llmModel
     ) {
@@ -1128,7 +1128,7 @@ testGraph<Unit, String>("test") {
 import ai.koog.agents.testing.tools.getMockExecutor
 import ai.koog.agents.testing.tools.mockLLMAnswer
 
-val executor = 
+val promptExecutor = 
 -->
 ```kotlin
 getMockExecutor {

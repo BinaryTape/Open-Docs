@@ -1,10 +1,10 @@
 # 歷史記錄壓縮
 
-AI 代理維護一個包含使用者訊息、助理回應、工具呼叫和工具回應的訊息記錄。
+AI 代理維護一個訊息記錄，其中包含使用者訊息、助理回應、工具呼叫和工具回應。
 隨著代理依循其策略進行每次互動，此記錄會不斷增長。
 
 對於長期對話，記錄可能會變得龐大並消耗大量 Token。
-歷史記錄壓縮有助於減少此情況，它將完整的訊息列表摘要成一個或多個僅包含代理進一步運作所需重要資訊的訊息。
+歷史記錄壓縮有助於減少此情況，它將完整的訊息列表摘要成一個或多或少包含代理進一步運作所需重要資訊的訊息。
 
 歷史記錄壓縮解決了代理系統中的關鍵挑戰：
 
@@ -35,7 +35,7 @@ AI 代理維護一個包含使用者訊息、助理回應、工具呼叫和工�
 *   當歷史記錄變得太長時壓縮歷史記錄，您可以定義一個輔助函數並將 `nodeLLMCompressHistory` 節點新增到您的策略圖中，其邏輯如下：
 
 <!--- INCLUDE
-import ai.koog.agents.core.agent.context.AIAgentContextBase
+import ai.koog.agents.core.agent.context.AIAgentContext
 import ai.koog.agents.core.dsl.builder.forwardTo
 import ai.koog.agents.core.dsl.builder.strategy
 import ai.koog.agents.core.dsl.extension.nodeExecuteTool
@@ -47,25 +47,25 @@ import ai.koog.agents.core.dsl.extension.onToolCall
 import ai.koog.agents.core.environment.ReceivedToolResult
 -->
 ```kotlin
-// Define that the history is too long if there are more than 100 messages
-private suspend fun AIAgentContextBase.historyIsTooLong(): Boolean = llm.readSession { prompt.messages.size > 100 }
+// 定義歷史記錄超過 100 條訊息時視為太長
+private suspend fun AIAgentContext.historyIsTooLong(): Boolean = llm.readSession { prompt.messages.size > 100 }
 
 val strategy = strategy<String, String>("execute-with-history-compression") {
     val callLLM by nodeLLMRequest()
     val executeTool by nodeExecuteTool()
     val sendToolResult by nodeLLMSendToolResult()
 
-    // Compress the LLM history and keep the current ReceivedToolResult for the next node
+    // 壓縮 LLM 歷史記錄並為下一個節點保留目前的 ReceivedToolResult
     val compressHistory by nodeLLMCompressHistory<ReceivedToolResult>()
 
     edge(nodeStart forwardTo callLLM)
     edge(callLLM forwardTo nodeFinish onAssistantMessage { true })
     edge(callLLM forwardTo executeTool onToolCall { true })
 
-    // Compress history after executing any tool if the history is too long 
+    // 如果歷史記錄太長，則在執行任何工具後壓縮歷史記錄
     edge(executeTool forwardTo compressHistory onCondition { historyIsTooLong() })
     edge(compressHistory forwardTo sendToolResult)
-    // Otherwise, proceed to the next LLM request
+    // 否則，繼續執行下一個 LLM 請求
     edge(executeTool forwardTo sendToolResult onCondition { !historyIsTooLong() })
 
     edge(sendToolResult forwardTo executeTool onToolCall { true })
@@ -134,7 +134,7 @@ llm.writeSession {
 ### WholeHistory (預設)
 
 此為預設策略，它將整個歷史記錄壓縮成一條 TLDR 訊息，總結到目前為止已完成的內容。
-此策略適用於大多數通用使用情境，在這些情境中您希望維持對整個對話上下文的感知，同時減少 Token 使用量。
+此策略適用於大多數通用使用情境，在這些情境中您希望維持對整個交談上下文的感知，同時減少 Token 使用量。
 
 您可以如下使用它：
 
@@ -318,23 +318,23 @@ val compressHistory by nodeLLMCompressHistory<ProcessedInput>(
     strategy = RetrieveFactsFromHistory(
         Concept(
             keyword = "user_preferences",
-            // Description to the LLM -- what specifically to search for
+            // 對 LLM 的描述 – 具體要搜尋什麼
             description = "User's preferences for the recommendation system, including the preferred conversation style, theme in the application, etc.",
-            // LLM would search for multiple relevant facts related to this concept:
+            // LLM 會搜尋與此概念相關的多個事實：
             factType = FactType.MULTIPLE
         ),
         Concept(
             keyword = "product_details",
-            // Description to the LLM -- what specifically to search for
+            // 對 LLM 的描述 – 具體要搜尋什麼
             description = "Brief details about products in the catalog the user has been checking",
-            // LLM would search for multiple relevant facts related to this concept:
+            // LLM 會搜尋與此概念相關的多個事實：
             factType = FactType.MULTIPLE
         ),
         Concept(
             keyword = "issue_solved",
-            // Description to the LLM -- what specifically to search for
+            // 對 LLM 的描述 – 具體要搜尋什麼
             description = "Was the initial user's issue resolved?",
-            // LLM would search for a single answer to the question:
+            // LLM 會搜尋該問題的單一答案：
             factType = FactType.SINGLE
         )
     )
@@ -366,23 +366,23 @@ llm.writeSession {
         strategy = RetrieveFactsFromHistory(
             Concept(
                 keyword = "user_preferences", 
-                // Description to the LLM -- what specifically to search for
+                // 對 LLM 的描述 – 具體要搜尋什麼
                 description = "User's preferences for the recommendation system, including the preferred conversation style, theme in the application, etc.",
-                // LLM would search for multiple relevant facts related to this concept:
+                // LLM 會搜尋與此概念相關的多個事實：
                 factType = FactType.MULTIPLE
             ),
             Concept(
                 keyword = "product_details",
-                // Description to the LLM -- what specifically to search for
+                // 對 LLM 的描述 – 具體要搜尋什麼
                 description = "Brief details about products in the catalog the user has been checking",
-                // LLM would search for multiple relevant facts related to this concept:
+                // LLM 會搜尋與此概念相關的多個事實：
                 factType = FactType.MULTIPLE
             ),
             Concept(
                 keyword = "issue_solved",
-                // Description to the LLM -- what specifically to search for
+                // 對 LLM 的描述 – 具體要搜尋什麼
                 description = "Was the initial user's issue resolved?",
-                // LLM would search for a single answer to the question:
+                // LLM 會搜尋該問題的單一答案：
                 factType = FactType.SINGLE
             )
         )
@@ -409,20 +409,19 @@ class MyCustomCompressionStrategy : HistoryCompressionStrategy() {
         preserveMemory: Boolean,
         memoryMessages: List<Message>
     ) {
-        // 1. Process the current history in llmSession.prompt.messages
-        // 2. Create new compressed messages
-        // 3. Update the prompt with the compressed messages
+        // 1. 處理 llmSession.prompt.messages 中的目前歷史記錄
+        // 2. 建立新的壓縮訊息
+        // 3. 使用壓縮訊息更新 prompt
 
-        // Example implementation:
+        // 範例實作：
         val importantMessages = llmSession.prompt.messages.filter {
-            // Your custom filtering logic
+            // 您的自訂篩選邏輯
             it.content.contains("important")
         }.filterIsInstance<Message.Response>()
         
-        // Note: you can also make LLM requests using the `llmSession` and ask the LLM to do some job for you using, for example, `llmSession.requestLLMWithoutTools()`
-        // Or you can change the current model: `llmSession.model = AnthropicModels.Sonnet_3_7` and ask some other LLM model -- but don't forget to change it back after
-
-        // Compose the prompt with the filtered messages
+        // 注意：您也可以使用 `llmSession` 提出 LLM 請求，並要求 LLM 替您執行某些任務，例如使用 `llmSession.requestLLMWithoutTools()`
+        // 或者您可以變更目前模型：`llmSession.model = AnthropicModels.Sonnet_3_7` 並詢問其他 LLM 模型 – 但之後別忘了將其改回
+        // 使用篩選後的訊息構成 prompt
         composePromptWithRequiredMessages(
             llmSession,
             importantMessages,

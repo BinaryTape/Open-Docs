@@ -1,6 +1,7 @@
 # アノテーションベースのツール
 
-アノテーションベースのツールは、大規模言語モデル（LLM）に機能をツールとして公開するための宣言的な方法を提供します。アノテーションを使用することで、任意の関数をLLMが理解し、利用できるツールに変換できます。
+アノテーションベースのツールは、大規模言語モデル（LLM）に機能をツールとして公開するための宣言的な方法を提供します。
+アノテーションを使用することで、任意の関数をLLMが理解し、利用できるツールに変換できます。
 
 このアプローチは、ツール記述を手動で実装することなく、既存の機能をLLMに公開する必要がある場合に役立ちます。
 
@@ -48,13 +49,13 @@ import ai.koog.agents.core.tools.reflect.ToolSet
 class MyToolSet : ToolSet {
     @Tool
     fun myTool(): String {
-        // Tool implementation
+        // ツール実装
         return "Result"
     }
 
     @Tool(customName = "customToolName")
     fun anotherTool(): String {
-        // Tool implementation
+        // ツール実装
         return "Result"
     }
 }
@@ -102,7 +103,7 @@ import ai.koog.agents.core.tools.annotations.Tool
 @Tool
 @LLMDescription("Performs a specific operation and returns the result")
 fun myTool(): String {
-    // Function implementation
+    // 関数実装
     return "Result"
 }
 ```
@@ -124,7 +125,7 @@ fun processTool(
     @LLMDescription("Optional configuration parameters")
     config: String = ""
 ): String {
-    // Function implementation
+    // 関数実装
     return "Processed: $input with config: $config"
 }
 ```
@@ -142,7 +143,7 @@ import ai.koog.agents.core.tools.reflect.ToolSet
 -->
 ```kotlin
 class MyFirstToolSet : ToolSet {
-    // Tools will go here
+    // ここにツールを追加します
 }
 ```
 <!--- KNIT example-annotation-based-tools-06.kt -->
@@ -159,7 +160,7 @@ import ai.koog.agents.core.tools.reflect.ToolSet
 class MyFirstToolSet : ToolSet {
     @Tool
     fun getWeather(location: String): String {
-        // In a real implementation, you would call a weather API
+        // 実際の実装では、天気APIを呼び出すことになります
         return "The weather in $location is sunny and 72°F"
     }
 }
@@ -183,7 +184,7 @@ class MyFirstToolSet : ToolSet {
         @LLMDescription("The city and state/country")
         location: String
     ): String {
-        // In a real implementation, you would call a weather API
+        // 実際の実装では、天気APIを呼び出すことになります
         return "The weather in $location is sunny and 72°F"
     }
 }
@@ -207,13 +208,13 @@ const val apiToken = ""
 ```kotlin
 fun main() {
     runBlocking {
-        // Create your tool set
+        // ツールセットを作成します
         val weatherTools = MyFirstToolSet()
 
-        // Create an agent with your tools
+        // ツールを使用してエージェントを作成します
 
         val agent = AIAgent(
-            executor = simpleOpenAIExecutor(apiToken),
+            promptExecutor = simpleOpenAIExecutor(apiToken),
             systemPrompt = "Provide weather information for a given location.",
             llmModel = OpenAIModels.Chat.GPT4o,
             toolRegistry = ToolRegistry {
@@ -221,7 +222,7 @@ fun main() {
             }
         )
 
-        // The agent can now use your weather tools
+        // エージェントが天気ツールを使用できるようになります
         agent.run("What's the weather like in New York?")
     }
 }
@@ -299,7 +300,7 @@ class DiagnosticToolSet : ToolSet {
         @LLMDescription("Additional information for the diagnostic (optional)")
         additionalInfo: String = ""
     ): String {
-        // Implementation
+        // 実装
         return "Diagnostic results for device $deviceId"
     }
 
@@ -309,7 +310,7 @@ class DiagnosticToolSet : ToolSet {
         @LLMDescription("The error code to analyze (e.g., 'E1001')")
         errorCode: String
     ): String {
-        // Implementation
+        // 実装
         return "Analysis of error code $errorCode"
     }
 }

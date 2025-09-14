@@ -58,7 +58,7 @@ val executor = simpleOllamaAIExecutor()
 
 ```kotlin
 val agent = AIAgent(
-    executor = executor,
+    promptExecutor = executor,
     llmModel = OllamaModels.Meta.LLAMA_3_2,
 ) {
     install(Persistency) {
@@ -91,7 +91,7 @@ import ai.koog.prompt.executor.llms.all.simpleOllamaAIExecutor
 import ai.koog.prompt.llm.OllamaModels
 
 val agent = AIAgent(
-    executor = simpleOllamaAIExecutor(),
+    promptExecutor = simpleOllamaAIExecutor(),
     llmModel = OllamaModels.Meta.LLAMA_3_2,
 ) {
 -->
@@ -129,7 +129,7 @@ import ai.koog.prompt.executor.llms.all.simpleOllamaAIExecutor
 import ai.koog.prompt.llm.OllamaModels
 
 val agent = AIAgent(
-    executor = simpleOllamaAIExecutor(),
+    promptExecutor = simpleOllamaAIExecutor(),
     llmModel = OllamaModels.Meta.LLAMA_3_2,
 ) {
 -->
@@ -154,7 +154,7 @@ install(Persistency) {
 エージェントの実行中の特定ポイントでチェックポイントを作成する方法については、以下のコードサンプルを参照してください。
 
 <!--- INCLUDE
-import ai.koog.agents.core.agent.context.AIAgentContextBase
+import ai.koog.agents.core.agent.context.AIAgentContext
 import ai.koog.agents.snapshot.feature.persistency
 import kotlin.reflect.typeOf
 
@@ -163,7 +163,7 @@ val inputType = typeOf<String>()
 -->
 
 ```kotlin
-suspend fun example(context: AIAgentContextBase) {
+suspend fun example(context: AIAgentContext) {
     // 現在の状態でチェックポイントを作成
     val checkpoint = context.persistency().createCheckpoint(
         agentContext = context,
@@ -185,12 +185,12 @@ suspend fun example(context: AIAgentContextBase) {
 特定チェックポイントからエージェントの状態を復元するには、以下のコードサンプルに従ってください。
 
 <!--- INCLUDE
-import ai.koog.agents.core.agent.context.AIAgentContextBase
+import ai.koog.agents.core.agent.context.AIAgentContext
 import ai.koog.agents.snapshot.feature.persistency
 -->
 
 ```kotlin
-suspend fun example(context: AIAgentContextBase, checkpointId: String) {
+suspend fun example(context: AIAgentContext, checkpointId: String) {
     // 特定のチェックポイントにロールバック
     context.persistency().rollbackToCheckpoint(checkpointId, context)
 
@@ -206,7 +206,7 @@ suspend fun example(context: AIAgentContextBase, checkpointId: String) {
 エージェントの永続化機能は、チェックポイントを操作するための便利な拡張関数を提供します。
 
 <!--- INCLUDE
-import ai.koog.agents.core.agent.context.AIAgentContextBase
+import ai.koog.agents.core.agent.context.AIAgentContext
 import ai.koog.agents.example.exampleAgentPersistency05.inputData
 import ai.koog.agents.example.exampleAgentPersistency05.inputType
 import ai.koog.agents.snapshot.feature.persistency
@@ -214,7 +214,7 @@ import ai.koog.agents.snapshot.feature.withPersistency
 -->
 
 ```kotlin
-suspend fun example(context: AIAgentContextBase) {
+suspend fun example(context: AIAgentContext) {
     // チェックポイント機能にアクセス
     val checkpointFeature = context.persistency()
 
@@ -292,7 +292,7 @@ class MyCustomStorageProvider : PersistencyStorageProvider {
 }
 
 val agent = AIAgent(
-    executor = simpleOllamaAIExecutor(),
+    promptExecutor = simpleOllamaAIExecutor(),
     llmModel = OllamaModels.Meta.LLAMA_3_2,
 ) {
 -->
@@ -313,7 +313,7 @@ install(Persistency) {
 高度な制御のために、エージェントの実行ポイントを直接設定できます。
 
 <!--- INCLUDE
-import ai.koog.agents.core.agent.context.AIAgentContextBase
+import ai.koog.agents.core.agent.context.AIAgentContext
 import ai.koog.agents.snapshot.feature.persistency
 import ai.koog.prompt.message.Message.User
 import kotlinx.serialization.json.JsonPrimitive
@@ -323,7 +323,7 @@ val customMessageHistory = emptyList<User>()
 -->
 
 ```kotlin
-fun example(context: AIAgentContextBase) {
+fun example(context: AIAgentContext) {
     context.persistency().setExecutionPoint(
         agentContext = context,
         nodeId = "target-node-id",

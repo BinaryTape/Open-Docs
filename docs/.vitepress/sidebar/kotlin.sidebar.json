@@ -57,12 +57,12 @@
     "text": "kotlin.what-s-new-in-kotlin",
     "items": [
       {
-        "text": "kotlin.whatsnew22",
-        "link": "whatsnew22"
+        "text": "kotlin.whatsnew2220",
+        "link": "whatsnew2220"
       },
       {
-        "text": "kotlin.whatsnew-eap",
-        "link": "whatsnew-eap"
+        "text": "kotlin.whatsnew22",
+        "link": "whatsnew22"
       },
       {
         "text": "kotlin.earlier-versions",
@@ -652,6 +652,10 @@
             "collapsed": true
           },
           {
+            "text": "kotlin.native-swift-export",
+            "link": "native-swift-export"
+          },
+          {
             "text": "kotlin.native-libraries",
             "link": "native-libraries"
           },
@@ -734,8 +738,8 @@
             "link": "wasm-js-interop"
           },
           {
-            "text": "kotlin.wasm-troubleshooting",
-            "link": "wasm-troubleshooting"
+            "text": "kotlin.wasm-configuration",
+            "link": "wasm-configuration"
           }
         ],
         "collapsed": true
@@ -1076,6 +1080,10 @@
           {
             "text": "kotlin.build-tools-api",
             "link": "build-tools-api"
+          },
+          {
+            "text": "kotlin.kotlin-daemon",
+            "link": "kotlin-daemon"
           },
           {
             "text": "kotlin.ant",

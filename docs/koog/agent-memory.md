@@ -18,7 +18,7 @@ AgentMemory 特性通过以下方式解决在 AI 代理交互中保持上下文�
 AgentMemory 特性建立在分层结构之上。
 该结构的元素在以下章节中列出并解释。
 
-#### 事实
+#### 事实 
 
 ***事实 (Facts)*** 是存储在内存中的独立信息片段。
 事实代表实际存储的信息。
@@ -64,7 +64,7 @@ val languagesFact = MultipleFacts(
 ```
 <!--- KNIT example-agent-memory-02.kt -->
 
-#### 概念
+#### 概念 
 
 ***概念 (Concepts)*** 是带有相关元信息的信息类别。
 
@@ -117,7 +117,7 @@ object MemorySubjects {
 ```
 <!--- KNIT example-agent-memory-03.kt -->
 
-#### 作用域
+#### 作用域 
 
 ***内存作用域 (Memory scopes)*** 是事实相关的上下文：
 
@@ -166,7 +166,7 @@ import ai.koog.prompt.llm.OllamaModels
 -->
 ```kotlin
 val agent = AIAgent(
-    executor = simpleOllamaAIExecutor(),
+    promptExecutor = simpleOllamaAIExecutor(),
     llmModel = OllamaModels.Meta.LLAMA_3_2,
 ) {
     install(AgentMemory) {

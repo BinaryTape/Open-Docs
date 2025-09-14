@@ -24,7 +24,7 @@ export WEAVE_PROJECT_NAME="koog-tracing"
 
 若要啟用 Weave 匯出，請安裝 **OpenTelemetry 功能** 並加入 `WeaveExporter`。此匯出工具透過 `OtlpHttpSpanExporter` 使用 Weave 的 OpenTelemetry 端點。
 
-### 範例：具有 Weave 追蹤的代理程式
+### 範例：帶有 Weave 追蹤的代理程式
 
 <!--- INCLUDE
 import ai.koog.agents.core.agent.AIAgent
@@ -41,7 +41,7 @@ fun main() = runBlocking {
     val projectName = System.getenv()["WEAVE_PROJECT_NAME"] ?: "koog-tracing"
     
     val agent = AIAgent(
-        executor = simpleOpenAIExecutor(apiKey),
+        promptExecutor = simpleOpenAIExecutor(apiKey),
         llmModel = OpenAIModels.CostOptimized.GPT4oMini,
         systemPrompt = "You are a code assistant. Provide concise code examples."
     ) {

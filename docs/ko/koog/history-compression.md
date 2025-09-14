@@ -35,7 +35,7 @@ AI 에이전트는 사용자 메시지, 어시스턴트 응답, 도구 호출, �
 * 히스토리가 너무 길어질 때 압축하려면 헬퍼 함수를 정의하고 다음 로직으로 `nodeLLMCompressHistory` 노드를 전략 그래프에 추가할 수 있습니다:
 
 <!--- INCLUDE
-import ai.koog.agents.core.agent.context.AIAgentContextBase
+import ai.koog.agents.core.agent.context.AIAgentContext
 import ai.koog.agents.core.dsl.builder.forwardTo
 import ai.koog.agents.core.dsl.builder.strategy
 import ai.koog.agents.core.dsl.extension.nodeExecuteTool
@@ -48,7 +48,7 @@ import ai.koog.agents.core.environment.ReceivedToolResult
 -->
 ```kotlin
 // 히스토리가 메시지 100개 이상이면 너무 길다고 정의
-private suspend fun AIAgentContextBase.historyIsTooLong(): Boolean = llm.readSession { prompt.messages.size > 100 }
+private suspend fun AIAgentContext.historyIsTooLong(): Boolean = llm.readSession { prompt.messages.size > 100 }
 
 val strategy = strategy<String, String>("execute-with-history-compression") {
     val callLLM by nodeLLMRequest()

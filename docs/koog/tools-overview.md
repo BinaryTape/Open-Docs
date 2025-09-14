@@ -6,18 +6,18 @@
 
 Koog 框架提供了以下用于处理工具的工作流：
 
-1.  创建自定义工具或使用内置工具之一。
-2.  将工具添加到工具注册表。
-3.  将工具注册表传递给代理。
-4.  将工具与代理一起使用。
+1. 创建自定义工具或使用内置工具之一。
+2. 将工具添加到工具注册表。
+3. 将工具注册表传递给代理。
+4. 将工具与代理一起使用。
 
 ### 可用的工具类型
 
 Koog 框架中有三种类型的工具：
 
--   内置工具，提供代理与用户交互和对话管理功能。有关详细信息，请参见 [内置工具](built-in-tools.md)。
--   基于注解的自定义工具，允许您将函数公开为 LLM 的工具。有关详细信息，请参见 [基于注解的工具](annotation-based-tools.md)。
--   基于类的自定义工具，允许您控制工具形参、元数据、执行逻辑以及如何注册和调用它。有关详细信息，请参见 [基于类的工具](class-based-tools.md)。
+- 内置工具，提供代理与用户交互和对话管理功能。有关详细信息，请参见 [内置工具](built-in-tools.md)。
+- 基于注解的自定义工具，允许您将函数公开为 LLM 的工具。有关详细信息，请参见 [基于注解的工具](annotation-based-tools.md)。
+- 基于类的自定义工具，允许您控制工具参数、元数据、执行逻辑以及如何注册和调用它。有关详细信息，请参见 [基于类的工具](class-based-tools.md)。
 
 ### 工具注册表
 
@@ -26,9 +26,9 @@ Koog 框架中有三种类型的工具：
 
 工具注册表的主要特性：
 
--   组织工具。
--   支持合并多个工具注册表。
--   提供按名称或类型检索工具的方法。
+- 组织工具。
+- 支持合并多个工具注册表。
+- 提供按名称或类型检索工具的方法。
 
 要了解更多信息，请参见 [ToolRegistry](https://api.koog.ai/agents/agents-tools/ai.koog.agents.core.tools/-tool-registry/index.html)。
 
@@ -79,12 +79,12 @@ import ai.koog.prompt.executor.clients.openai.OpenAIModels
 import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
 -->
 ```kotlin
-// 代理初始化
+// Agent initialization
 val agent = AIAgent(
-    executor = simpleOpenAIExecutor(System.getenv("OPENAI_API_KEY")),
+    promptExecutor = simpleOpenAIExecutor(System.getenv("OPENAI_API_KEY")),
     systemPrompt = "You are a helpful assistant with strong mathematical skills.",
     llmModel = OpenAIModels.Chat.GPT4o,
-    // 将您的工具注册表传递给代理
+    // Pass your tool registry to the agent
     toolRegistry = toolRegistry
 )
 ```
@@ -99,11 +99,11 @@ val agent = AIAgent(
 
 工具在由 `AIAgentLLMWriteSession` 表示的特定会话上下文中被调用。它提供了几种调用工具的方法，以便您可以：
 
--   使用给定实参调用工具。
--   按其名称和给定实参调用工具。
--   按提供的工具类和实参调用工具。
--   使用给定实参调用指定类型的工具。
--   调用返回原始字符串结果的工具。
+- 使用给定实参调用工具。
+- 按其名称和给定实参调用工具。
+- 按提供的工具类和实参调用工具。
+- 使用给定实参调用指定类型的工具。
+- 调用返回原始字符串结果的工具。
 
 有关更多详细信息，请参见 [API reference](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.agent.session/-a-i-agent-l-l-m-write-session/index.html)。
 
@@ -172,15 +172,15 @@ val strategy = strategy<Unit, Unit>("strategy-name") {
 
 当使用节点构建代理工作流时，您可以使用特殊节点来调用工具：
 
-*   **nodeExecuteTool**：调用单个工具调用并返回其结果。有关详细信息，请参见 [API reference](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.dsl.extension/node-execute-tool.html)。
+* **nodeExecuteTool**：调用单个工具调用并返回其结果。有关详细信息，请参见 [API reference](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.dsl.extension/node-execute-tool.html)。
 
-*   **nodeExecuteSingleTool**：它使用提供的实参调用特定工具。有关详细信息，请参见 [API reference](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.dsl.extension/node-execute-single-tool.html)。
+* **nodeExecuteSingleTool**：它使用提供的实参调用特定工具。有关详细信息，请参见 [API reference](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.dsl.extension/node-execute-single-tool.html)。
 
-*   **nodeExecuteMultipleTools**：它执行多个工具调用并返回其结果。有关详细信息，请参见 [API reference](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.dsl.extension/node-execute-multiple-tools.html)。
+* **nodeExecuteMultipleTools**：它执行多个工具调用并返回其结果。有关详细信息，请参见 [API reference](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.dsl.extension/node-execute-multiple-tools.html)。
 
-*   **nodeLLMSendToolResult**：它向 LLM 发送工具结果并获取响应。有关详细信息，请参见 [API reference](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.dsl.extension/node-l-l-m-send-tool-result.html)。
+* **nodeLLMSendToolResult**：它向 LLM 发送工具结果并获取响应。有关详细信息，请参见 [API reference](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.dsl.extension/node-l-l-m-send-tool-result.html)。
 
-*   **nodeLLMSendMultipleToolResults**：它向 LLM 发送多个工具结果。有关详细信息，请参见 [API reference](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.dsl.extension/node-l-l-m-send-multiple-tool-results.html)。
+* **nodeLLMSendMultipleToolResults**：它向 LLM 发送多个工具结果。有关详细信息，请参见 [API reference](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.dsl.extension/node-l-l-m-send-multiple-tool-results.html)。
 
 ## 将代理用作工具
 
@@ -204,21 +204,21 @@ val analysisToolRegistry = ToolRegistry {}
 
 -->
 ```kotlin
-// 创建一个专门的代理
+// Create a specialized agent
 val analysisAgent = AIAgent(
-    executor = simpleOpenAIExecutor(apiKey),
+    promptExecutor = simpleOpenAIExecutor(apiKey),
     llmModel = OpenAIModels.Chat.GPT4o,
     systemPrompt = "You are a financial analysis specialist.",
     toolRegistry = analysisToolRegistry
 )
 
-// 将代理转换为工具
+// Convert the agent to a tool
 val analysisAgentTool = analysisAgent.asTool(
     agentName = "analyzeTransactions",
     agentDescription = "Performs financial transaction analysis",
     inputDescriptor = ToolParameterDescriptor(
         name = "request",
-        description = "Transaction analysis request",
+        description = "交易分析请求",
         type = ToolParameterType.String
     )
 )
@@ -240,9 +240,9 @@ const val apiKey = ""
 
 -->
 ```kotlin
-// 创建一个协调代理，该代理可以使用专门的代理作为工具
+// Create a coordinator agent that can use specialized agents as tools
 val coordinatorAgent = AIAgent(
-    executor = simpleOpenAIExecutor(apiKey),
+    promptExecutor = simpleOpenAIExecutor(apiKey),
     llmModel = OpenAIModels.Chat.GPT4o,
     systemPrompt = "You coordinate different specialized services.",
     toolRegistry = ToolRegistry {
@@ -257,12 +257,12 @@ val coordinatorAgent = AIAgent(
 
 当调用代理工具时：
 
-1.  实参根据输入描述符进行反序列化。
-2.  包装的代理使用反序列化的输入执行。
-3.  代理的输出被序列化并作为工具结果返回。
+1. 实参根据输入描述符进行反序列化。
+2. 包装的代理使用反序列化的输入执行。
+3. 代理的输出被序列化并作为工具结果返回。
 
 ### 将代理用作工具的优势
 
--   **模块化**：将复杂的工作流分解为专门的代理。
--   **可重用性**：在多个协调代理中重用相同的专门代理。
--   **关注点分离**：每个代理可以专注于其特定的领域。
+- **模块化**：将复杂的工作流分解为专门的代理。
+- **可重用性**：在多个协调代理中重用相同的专门代理。
+- **关注点分离**：每个代理可以专注于其特定的领域。

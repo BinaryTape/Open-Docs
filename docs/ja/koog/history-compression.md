@@ -1,7 +1,7 @@
 # 履歴圧縮
 
-AIエージェントは、ユーザーメッセージ、アシスタントの応答、ツール呼び出し、ツール応答を含むメッセージ履歴を保持します。
-エージェントが戦略に従うにつれて、この履歴は各対話で増加します。
+AIエージェントは、ユーザーメッセージ、アシスタントの応答、ツール呼び出し、およびツール応答を含むメッセージ履歴を保持します。
+この履歴は、エージェントが戦略に従うにつれて、各対話で増加します。
 
 長期間にわたる会話では、履歴が肥大化し、多くのトークンを消費する可能性があります。
 履歴圧縮は、メッセージの完全なリストを、さらなるエージェント操作に必要な重要な情報のみを含む1つまたは複数のメッセージに要約することで、これを削減するのに役立ちます。
@@ -35,7 +35,7 @@ AIエージェントは、ユーザーメッセージ、アシスタントの応
 *   履歴が長くなりすぎたときに圧縮するには、ヘルパー関数を定義し、次のロジックで`nodeLLMCompressHistory`ノードを戦略グラフに追加します。
 
 <!--- INCLUDE
-import ai.koog.agents.core.agent.context.AIAgentContextBase
+import ai.koog.agents.core.agent.context.AIAgentContext
 import ai.koog.agents.core.dsl.builder.forwardTo
 import ai.koog.agents.core.dsl.builder.strategy
 import ai.koog.agents.core.dsl.extension.nodeExecuteTool
@@ -47,25 +47,25 @@ import ai.koog.agents.core.dsl.extension.onToolCall
 import ai.koog.agents.core.environment.ReceivedToolResult
 -->
 ```kotlin
-// Define that the history is too long if there are more than 100 messages
-private suspend fun AIAgentContextBase.historyIsTooLong(): Boolean = llm.readSession { prompt.messages.size > 100 }
+// 履歴が100メッセージを超える場合に長すぎると定義します
+private suspend fun AIAgentContext.historyIsTooLong(): Boolean = llm.readSession { prompt.messages.size > 100 }
 
 val strategy = strategy<String, String>("execute-with-history-compression") {
     val callLLM by nodeLLMRequest()
     val executeTool by nodeExecuteTool()
     val sendToolResult by nodeLLMSendToolResult()
 
-    // Compress the LLM history and keep the current ReceivedToolResult for the next node
+    // LLM履歴を圧縮し、現在のReceivedToolResultを次のノードに保持します
     val compressHistory by nodeLLMCompressHistory<ReceivedToolResult>()
 
     edge(nodeStart forwardTo callLLM)
     edge(callLLM forwardTo nodeFinish onAssistantMessage { true })
     edge(callLLM forwardTo executeTool onToolCall { true })
 
-    // Compress history after executing any tool if the history is too long 
+    // 履歴が長すぎる場合、任意のツール実行後に履歴を圧縮します 
     edge(executeTool forwardTo compressHistory onCondition { historyIsTooLong() })
     edge(compressHistory forwardTo sendToolResult)
-    // Otherwise, proceed to the next LLM request
+    // そうでない場合は、次のLLMリクエストに進みます
     edge(executeTool forwardTo sendToolResult onCondition { !historyIsTooLong() })
 
     edge(sendToolResult forwardTo executeTool onToolCall { true })
@@ -86,11 +86,11 @@ import ai.koog.agents.core.dsl.extension.nodeLLMCompressHistory
 ```kotlin
 val strategy = strategy<String, String>("execute-with-history-compression") {
     val collectInformation by subgraph<String, String> {
-        // Some steps to collect the information
+        // 情報を収集するためのいくつかのステップ
     }
     val compressHistory by nodeLLMCompressHistory<String>()
     val makeTheDecision by subgraph<String, String> {
-        // Some steps to make the decision based on the current compressed history and collected information
+        // 現在の圧縮された履歴と収集された情報に基づいて意思決定を行うためのいくつかのステップ
     }
     
     nodeStart then collectInformation then compressHistory then makeTheDecision
@@ -318,23 +318,23 @@ val compressHistory by nodeLLMCompressHistory<ProcessedInput>(
     strategy = RetrieveFactsFromHistory(
         Concept(
             keyword = "user_preferences",
-            // Description to the LLM -- what specifically to search for
+            // LLMへの説明 -- 具体的に何を検索するか
             description = "User's preferences for the recommendation system, including the preferred conversation style, theme in the application, etc.",
-            // LLM would search for multiple relevant facts related to this concept:
+            // LLMはこの概念に関連する複数の関連事実を検索します:
             factType = FactType.MULTIPLE
         ),
         Concept(
             keyword = "product_details",
-            // Description to the LLM -- what specifically to search for
+            // LLMへの説明 -- 具体的に何を検索するか
             description = "Brief details about products in the catalog the user has been checking",
-            // LLM would search for multiple relevant facts related to this concept:
+            // LLMはこの概念に関連する複数の関連事実を検索します:
             factType = FactType.MULTIPLE
         ),
         Concept(
             keyword = "issue_solved",
-            // Description to the LLM -- what specifically to search for
+            // LLMへの説明 -- 具体的に何を検索するか
             description = "Was the initial user's issue resolved?",
-            // LLM would search for a single answer to the question:
+            // LLMはこの質問に対する単一の回答を検索します:
             factType = FactType.SINGLE
         )
     )
@@ -366,23 +366,23 @@ llm.writeSession {
         strategy = RetrieveFactsFromHistory(
             Concept(
                 keyword = "user_preferences", 
-                // Description to the LLM -- what specifically to search for
+                // LLMへの説明 -- 具体的に何を検索するか
                 description = "User's preferences for the recommendation system, including the preferred conversation style, theme in the application, etc.",
-                // LLM would search for multiple relevant facts related to this concept:
+                // LLMはこの概念に関連する複数の関連事実を検索します:
                 factType = FactType.MULTIPLE
             ),
             Concept(
                 keyword = "product_details",
-                // Description to the LLM -- what specifically to search for
+                // LLMへの説明 -- 具体的に何を検索するか
                 description = "Brief details about products in the catalog the user has been checking",
-                // LLM would search for multiple relevant facts related to this concept:
+                // LLMはこの概念に関連する複数の関連事実を検索します:
                 factType = FactType.MULTIPLE
             ),
             Concept(
                 keyword = "issue_solved",
-                // Description to the LLM -- what specifically to search for
+                // LLMへの説明 -- 具体的に何を検索するか
                 description = "Was the initial user's issue resolved?",
-                // LLM would search for a single answer to the question:
+                // LLMはこの質問に対する単一の回答を検索します:
                 factType = FactType.SINGLE
             )
         )
@@ -409,20 +409,20 @@ class MyCustomCompressionStrategy : HistoryCompressionStrategy() {
         preserveMemory: Boolean,
         memoryMessages: List<Message>
     ) {
-        // 1. Process the current history in llmSession.prompt.messages
-        // 2. Create new compressed messages
-        // 3. Update the prompt with the compressed messages
+        // 1. llmSession.prompt.messages内の現在の履歴を処理します
+        // 2. 新しい圧縮されたメッセージを作成します
+        // 3. 圧縮されたメッセージでプロンプトを更新します
 
-        // Example implementation:
+        // 例の実装:
         val importantMessages = llmSession.prompt.messages.filter {
-            // Your custom filtering logic
+            // カスタムフィルタリングロジック
             it.content.contains("important")
         }.filterIsInstance<Message.Response>()
         
-        // Note: you can also make LLM requests using the `llmSession` and ask the LLM to do some job for you using, for example, `llmSession.requestLLMWithoutTools()`
-        // Or you can change the current model: `llmSession.model = AnthropicModels.Sonnet_3_7` and ask some other LLM model -- but don't forget to change it back after
+        // 注: `llmSession`を使用してLLMリクエストを行い、たとえば`llmSession.requestLLMWithoutTools()`を使用してLLMにいくつかのタスクを実行させることもできます
+        // あるいは、現在のモデルを変更することもできます: `llmSession.model = AnthropicModels.Sonnet_3_7` として他のLLMモデルに依頼することもできますが、後で元に戻すことを忘れないでください
 
-        // Compose the prompt with the filtered messages
+        // フィルタリングされたメッセージでプロンプトを構成します
         composePromptWithRequiredMessages(
             llmSession,
             importantMessages,

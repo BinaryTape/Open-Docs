@@ -41,16 +41,16 @@ import ai.koog.agents.core.tools.ToolRegistry
 import ai.koog.prompt.executor.clients.openai.OpenAIModels
 
 val apiKey = System.getenv("OPENAI_API_KEY") ?: error("Please set OPENAI_API_KEY environment variable")
-val promptExecutor = simpleOpenAIExecutor(apiKey)
+val promptExecutor =simpleOpenAIExecutor(apiKey)
 val toolRegistry = ToolRegistry.EMPTY
 val model =  OpenAIModels.Reasoning.O4Mini
 -->
 ```kotlin
 val chatAgent = AIAgent(
-    executor = promptExecutor,
+    promptExecutor = promptExecutor,
     toolRegistry = toolRegistry,
     llmModel = model,
-    // 將 chatAgentStrategy 設定為代理策略
+    // Set chatAgentStrategy as the agent strategy
     strategy = chatAgentStrategy()
 )
 ```
@@ -82,17 +82,17 @@ typealias searchTool = AskUser
 typealias weatherTool = SayToUser
 
 val apiKey = System.getenv("OPENAI_API_KEY") ?: error("Please set OPENAI_API_KEY environment variable")
-val promptExecutor = simpleOpenAIExecutor(apiKey)
+val promptExecutor =simpleOpenAIExecutor(apiKey)
 val toolRegistry = ToolRegistry.EMPTY
 val model =  OpenAIModels.Reasoning.O4Mini
 -->
 ```kotlin
 val chatAgent = AIAgent(
-    executor = promptExecutor,
+    promptExecutor = promptExecutor,
     llmModel = model,
-    // 使用 chatAgentStrategy 作為代理策略
+    // Use chatAgentStrategy as the agent strategy
     strategy = chatAgentStrategy(),
-    // 新增代理可以使用的工具
+    // Add tools the agent can use
     toolRegistry = ToolRegistry {
         tool(searchTool)
         tool(weatherTool)
@@ -100,7 +100,7 @@ val chatAgent = AIAgent(
 )
 
 suspend fun main() { 
-    // 使用使用者查詢執行代理
+    // Run the agent with a user query
     val result = chatAgent.run("What's the weather like today and should I bring an umbrella?")
 }
 ```
@@ -153,12 +153,12 @@ val model =  OpenAIModels.Reasoning.O4Mini
 -->
 ```kotlin hl_lines="5-10"
 val reActAgent = AIAgent(
-    executor = promptExecutor,
+    promptExecutor = promptExecutor,
     toolRegistry = toolRegistry,
     llmModel = model,
-    // 將 reActStrategy 設定為代理策略
+    // Set reActStrategy as the agent strategy
     strategy = reActStrategy(
-        // 設定選用參數值
+        // Set optional parameter values
         reasoningInterval = 1,
         name = "react_agent"
     )
@@ -281,14 +281,14 @@ val model =  OpenAIModels.Reasoning.O4Mini
 -->
 ```kotlin
 val bankingAgent = AIAgent(
-    executor = promptExecutor,
+    promptExecutor = promptExecutor,
     llmModel = model,
-    // 使用 reActStrategy 作為代理策略
+    // Use reActStrategy as the agent strategy
     strategy = reActStrategy(
         reasoningInterval = 1,
         name = "banking_agent"
     ),
-    // 新增代理可以使用的工具
+    // Add tools the agent can use
     toolRegistry = ToolRegistry {
         tool(getTransactions)
         tool(calculateSum)
@@ -296,7 +296,7 @@ val bankingAgent = AIAgent(
 )
 
 suspend fun main() { 
-    // 使用使用者查詢執行代理
+    // Run the agent with a user query
     val result = bankingAgent.run("How much did I spend last month?")
 }
 ```

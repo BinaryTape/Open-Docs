@@ -58,6 +58,7 @@ MCPサーバーはエージェントと通信するためにstdioとSSEトラン
 
 <!--- INCLUDE
 import ai.koog.agents.mcp.McpToolRegistryProvider
+import ai.koog.agents.mcp.defaultStdioTransport
 -->
 ```kotlin
 // Start an MCP server (for example, as a process)
@@ -159,79 +160,126 @@ fun main() {
 }
 -->
 ```kotlin
-// Create an agent with the tools
+// ツールでエージェントを作成
 val agent = AIAgent(
-    executor = executor,
+    promptExecutor = executor,
     strategy = strategy,
     llmModel = OpenAIModels.Chat.GPT4o,
     toolRegistry = toolRegistry
 )
 
-// Run the agent with a task that uses an MCP tool
+// MCPツールを使用するタスクでエージェントを実行
 val result = agent.run("MCPツールを使用してタスクを実行")
 ```
 <!--- KNIT example-model-context-protocol-05.kt -->
 
-## MCPツールを直接操作する
+[//]: # (## MCPツールを直接操作する)
 
-エージェントを介してツールを実行するだけでなく、直接実行することもできます。
+[//]: # ()
+[//]: # (エージェントを介してツールを実行するだけでなく、直接実行することもできます。)
 
-1.  ツールレジストリから特定のツールを取得します。
-2.  標準のKoogメカニズムを使用して、特定の引数でツールを実行します。
+[//]: # ()
+[//]: # (1. ツールレジストリから特定のツールを取得します。)
 
-以下に例を示します。
+[//]: # (2. 標準のKoogメカニズムを使用して、特定の引数でツールを実行します。)
 
-<!--- INCLUDE
-import ai.koog.agents.mcp.McpTool
-import kotlinx.serialization.json.JsonPrimitive
-import kotlinx.serialization.json.buildJsonObject
-import ai.koog.agents.mcp.McpToolRegistryProvider
-import ai.koog.agents.example.exampleModelContextProtocol04.existingMcpClient
+[//]: # ()
+[//]: # (以下に例を示します。)
 
-val toolRegistry = McpToolRegistryProvider.fromClient(
-    mcpClient = existingMcpClient
-)
--->
-```kotlin
-// Get a tool 
-val tool = toolRegistry.getTool("tool-name") as McpTool
+[//]: # (<!--- INCLUDE)
 
-// Create arguments for the tool
-val args = McpTool.Args(buildJsonObject { 
-    put("parameter1", "value1")
-    put("parameter2", "value2")
-})
+[//]: # (import ai.koog.agents.mcp.McpTool)
 
-// Run the tool with the given arguments
-val toolResult = tool.execute(args)
+[//]: # (import kotlinx.serialization.json.JsonPrimitive)
 
-// Print the result
-println(toolResult)
-```
-<!--- KNIT example-model-context-protocol-06.kt -->
+[//]: # (import kotlinx.serialization.json.buildJsonObject)
 
-利用可能なすべてのMCPツールをレジストリから取得することもできます。
+[//]: # (import ai.koog.agents.mcp.McpToolRegistryProvider)
 
-<!--- INCLUDE
-import ai.koog.agents.mcp.McpToolRegistryProvider
-import ai.koog.agents.example.exampleModelContextProtocol04.existingMcpClient
-import kotlinx.coroutines.runBlocking
+[//]: # (import ai.koog.agents.example.exampleModelContextProtocol04.existingMcpClient)
 
-fun main() {
-    runBlocking {
-        val toolRegistry = McpToolRegistryProvider.fromClient(
-            mcpClient = existingMcpClient
-        )
--->
-<!--- SUFFIX
-    }
-}
--->
-```kotlin
-// Get all tools
-val tools = toolRegistry.tools
-```
-<!--- KNIT example-model-context-protocol-07.kt -->
+[//]: # ()
+[//]: # ()
+[//]: # (val toolRegistry = McpToolRegistryProvider.fromClient&#40;)
+
+[//]: # (    mcpClient = existingMcpClient)
+
+[//]: # (&#41;)
+
+[//]: # (-->)
+
+[//]: # (```kotlin)
+
+[//]: # (// Get a tool )
+
+[//]: # (val tool = toolRegistry.getTool&#40;"tool-name"&#41; as McpTool)
+
+[//]: # ()
+[//]: # (// Create arguments for the tool)
+
+[//]: # (val args = McpTool.Args&#40;buildJsonObject { )
+
+[//]: # (    put&#40;"parameter1", "value1"&#41;)
+[//]: # (    put&#40;"parameter2", "value2"&#41;)
+
+[//]: # (}&#41;)
+
+[//]: # ()
+[//]: # (// Run the tool with the given arguments)
+
+[//]: # (val toolResult = tool.execute&#40;args&#41;)
+
+[//]: # ()
+[//]: # (// Print the result)
+
+[//]: # (println&#40;toolResult&#41;)
+
+[//]: # (```)
+
+[//]: # (<!--- KNIT example-model-context-protocol-06.kt -->)
+
+[//]: # ()
+[//]: # (利用可能なすべてのMCPツールをレジストリから取得することもできます。)
+
+[//]: # ()
+[//]: # (<!--- INCLUDE)
+
+[//]: # (import ai.koog.agents.mcp.McpToolRegistryProvider)
+
+[//]: # (import ai.koog.agents.example.exampleModelContextProtocol04.existingMcpClient)
+
+[//]: # (import kotlinx.coroutines.runBlocking)
+
+[//]: # ()
+[//]: # (fun main&#40;&#41; {)
+
+[//]: # (    runBlocking {)
+
+[//]: # (        val toolRegistry = McpToolRegistryProvider.fromClient&#40;)
+
+[//]: # (            mcpClient = existingMcpClient)
+
+[//]: # (        &#41;)
+
+[//]: # (-->)
+
+[//]: # (<!--- SUFFIX)
+
+[//]: # (    })
+
+[//]: # (})
+
+[//]: # (-->)
+
+[//]: # (```kotlin)
+
+[//]: # (// Get all tools)
+
+[//]: # (val tools = toolRegistry.tools)
+
+[//]: # (```)
+
+[//]: # (<!--- KNIT example-model-context-protocol-07.kt -->)
 
 ## 使用例
 
@@ -244,6 +292,7 @@ import ai.koog.agents.core.agent.AIAgent
 import ai.koog.agents.mcp.McpToolRegistryProvider
 import ai.koog.prompt.executor.clients.openai.OpenAIModels
 import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
+import ai.koog.agents.mcp.defaultStdioTransport
 import kotlinx.coroutines.runBlocking
 
 const val googleMapsApiKey = ""
@@ -256,21 +305,21 @@ fun main() {
 }
 -->
 ```kotlin
-// Start the Docker container with the Google Maps MCP server
+// Google Maps MCPサーバーでDockerコンテナを起動
 val process = ProcessBuilder(
     "docker", "run", "-i",
     "-e", "GOOGLE_MAPS_API_KEY=$googleMapsApiKey",
     "mcp/google-maps"
 ).start()
 
-// Create the ToolRegistry with tools from the MCP server
+// MCPサーバーのツールでToolRegistryを作成
 val toolRegistry = McpToolRegistryProvider.fromTransport(
     transport = McpToolRegistryProvider.defaultStdioTransport(process)
 )
 
-// Create and run the agent
+// エージェントを作成して実行
 val agent = AIAgent(
-    executor = simpleOpenAIExecutor(openAIApiToken),
+    promptExecutor = simpleOpenAIExecutor(openAIApiToken),
     llmModel = OpenAIModels.Chat.GPT4o,
     toolRegistry = toolRegistry,
 )
@@ -299,19 +348,19 @@ fun main() {
 }
 -->
 ```kotlin
-// Start the Playwright MCP server
+// Playwright MCPサーバーを起動
 val process = ProcessBuilder(
     "npx", "@playwright/mcp@latest", "--port", "8931"
 ).start()
 
-// Create the ToolRegistry with tools from the MCP server
+// MCPサーバーのツールでToolRegistryを作成
 val toolRegistry = McpToolRegistryProvider.fromTransport(
     transport = McpToolRegistryProvider.defaultSseTransport("http://localhost:8931")
 )
 
-// Create and run the agent
+// エージェントを作成して実行
 val agent = AIAgent(
-    executor = simpleOpenAIExecutor(openAIApiToken),
+    promptExecutor = simpleOpenAIExecutor(openAIApiToken),
     llmModel = OpenAIModels.Chat.GPT4o,
     toolRegistry = toolRegistry,
 )

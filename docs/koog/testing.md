@@ -23,7 +23,6 @@ Koog 框架中的测试特性为 AI 智能体流水线、子图和工具交互�
 <!--- SUFFIX
 */
 -->
-在设置测试环境之前，请确保已添加以下依赖项：
 ```kotlin
 // build.gradle.kts
 dependencies {
@@ -32,6 +31,7 @@ dependencies {
 }
 ```
 <!--- KNIT example-testing-01.kt -->
+在设置测试环境之前，请确保已添加以下依赖项：
 ### 模拟 LLM 响应
 
 基本的测试形式涉及模拟 LLM 响应以确保确定性行为。您可以使用 `MockLLMBuilder` 和相关实用工具来完成此操作。
@@ -196,10 +196,10 @@ mockTool(SearchTool) returns SearchTool.Result("Found results") onArgumentsMatch
 
 上述示例演示了模拟工具的不同方式，从简单到复杂：
 
-1. `alwaysReturns`: 最简单的形式，直接返回一个值，不带 lambda 表达式。
-2. `alwaysTells`: 当您需要执行额外操作时使用 lambda 表达式。
-3. `returns...onArguments`: 对精确的实参匹配返回特定结果。
-4. `returns...onArgumentsMatching`: 根据自定义实参条件返回结果。
+1.  `alwaysReturns`: 最简单的形式，直接返回一个值，不带 lambda 表达式。
+2.  `alwaysTells`: 当您需要执行额外操作时使用 lambda 表达式。
+3.  `returns...onArguments`: 对精确的实参匹配返回特定结果。
+4.  `returns...onArgumentsMatching`: 根据自定义实参条件返回结果。
 
 ### 启用测试模式
 
@@ -223,7 +223,7 @@ fun main() {
 ```kotlin
 // Create the agent with testing enabled
 AIAgent(
-    executor = mockLLMApi,
+    promptExecutor = mockLLMApi,
     toolRegistry = toolRegistry,
     llmModel = llmModel
 ) {
@@ -267,7 +267,7 @@ fun main() {
 ```kotlin
 AIAgent(
     // Constructor arguments
-    executor = mockLLMApi,
+    promptExecutor = mockLLMApi,
     toolRegistry = toolRegistry,
     llmModel = llmModel
 ) {
@@ -325,7 +325,7 @@ fun main() {
 
     AIAgent(
         // Constructor arguments
-        executor = mockLLMApi,
+        promptExecutor = mockLLMApi,
         toolRegistry = toolRegistry,
         llmModel = llmModel
     ) {
@@ -353,8 +353,8 @@ assertNodes {
 <!--- KNIT example-testing-06.kt -->
 
 上面的示例展示了如何测试以下行为：
-1. 当 LLM 节点接收到 `Hello` 作为输入时，它会回复一条简单的文本消息。
-2. 当它接收到 `Solve task` 时，它会回复一个工具调用。
+1.  当 LLM 节点接收到 `Hello` 作为输入时，它会回复一条简单的文本消息。
+2.  当它接收到 `Solve task` 时，它会回复一个工具调用。
 
 #### 测试工具运行节点
 
@@ -407,7 +407,7 @@ fun main() {
 
     AIAgent(
         // Constructor arguments
-        executor = mockLLMApi,
+        promptExecutor = mockLLMApi,
         toolRegistry = toolRegistry,
         llmModel = llmModel
     ) {
@@ -485,7 +485,7 @@ fun main() {
 
     AIAgent(
         // Constructor arguments
-        executor = mockLLMApi,
+        promptExecutor = mockLLMApi,
         toolRegistry = toolRegistry,
         llmModel = llmModel
     ) {
@@ -565,7 +565,7 @@ fun main() {
 
     AIAgent(
         // Constructor arguments
-        executor = mockLLMApi,
+        promptExecutor = mockLLMApi,
         toolRegistry = toolRegistry,
         llmModel = llmModel
     ) {
@@ -625,7 +625,7 @@ fun main() {
 
     AIAgent(
         // Constructor arguments
-        executor = mockLLMApi,
+        promptExecutor = mockLLMApi,
         toolRegistry = toolRegistry,
         llmModel = llmModel
     ) {
@@ -653,8 +653,8 @@ assertEdges {
 <!--- KNIT example-testing-10.kt -->
 
 此示例验证了以下行为：
-1. 当 LLM 节点输出简单文本消息时，流会定向到 `giveFeedback` 节点。
-2. 当它输出工具调用时，流会定向到 `callTool` 节点。
+1.  当 LLM 节点输出简单文本消息时，流会定向到 `giveFeedback` 节点。
+2.  当它输出工具调用时，流会定向到 `callTool` 节点。
 
 #### 测试条件路由
 
@@ -676,7 +676,7 @@ fun main() {
 
     AIAgent(
         // Constructor arguments
-        executor = mockLLMApi,
+        promptExecutor = mockLLMApi,
         toolRegistry = toolRegistry,
         llmModel = llmModel
     ) {
@@ -722,7 +722,7 @@ fun main() {
 
     AIAgent(
         // Constructor arguments
-        executor = mockLLMApi,
+        promptExecutor = mockLLMApi,
         toolRegistry = toolRegistry,
         llmModel = llmModel
     ) {
@@ -767,7 +767,7 @@ fun main() {
 
     AIAgent(
         // Constructor arguments
-        executor = mockLLMApi,
+        promptExecutor = mockLLMApi,
         toolRegistry = toolRegistry,
         llmModel = llmModel
     ) {
@@ -1089,7 +1089,7 @@ val llmModel = OpenAIModels.Chat.GPT4o
 fun main() {
     AIAgent(
         // Constructor arguments
-        executor = mockLLMApi,
+        promptExecutor = mockLLMApi,
         toolRegistry = toolRegistry,
         llmModel = llmModel
     ) {
@@ -1127,7 +1127,7 @@ testGraph<Unit, String>("test") {
 import ai.koog.agents.testing.tools.getMockExecutor
 import ai.koog.agents.testing.tools.mockLLMAnswer
 
-val executor = 
+val promptExecutor = 
 -->
 ```kotlin
 getMockExecutor {
@@ -1149,12 +1149,12 @@ getMockExecutor {
 
 请确保：
 
-1. 工具注册表已正确设置。
-2. 工具名称完全匹配。
-3. 工具动作已正确配置。
+1.  工具注册表已正确设置。
+2.  工具名称完全匹配。
+3.  工具动作已正确配置。
 
 #### 图断言失败
 
-1. 验证节点名称是否正确。
-2. 检测图结构是否符合您的预期。
-3. 使用 `startNode()` 和 `finishNode()` 方法获取正确的入口和出口点。
+1.  验证节点名称是否正确。
+2.  检测图结构是否符合您的预期。
+3.  使用 `startNode()` 和 `finishNode()` 方法获取正确的入口和出口点。

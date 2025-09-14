@@ -43,26 +43,26 @@ import ai.koog.prompt.executor.llms.all.simpleOllamaAIExecutor
 import ai.koog.prompt.llm.OllamaModels
 
 val agent = AIAgent(
-    executor = simpleOllamaAIExecutor(),
+    promptExecutor = simpleOllamaAIExecutor(),
     llmModel = OllamaModels.Meta.LLAMA_3_2,
 ) {
 -->
-<!--- SUFFIX
-}
+<!--- SUFFIX 
+} 
 -->
 
 ```kotlin
 handleEvents {
-    // Handle tool calls
+    // 處理工具呼叫
     onToolCall { eventContext ->
         println("Tool called: ${eventContext.tool} with args ${eventContext.toolArgs}")
     }
-    // Handle event triggered when the agent completes its execution
+    // 處理 agent 完成執行時觸發的事件
     onAgentFinished { eventContext ->
         println("Agent finished with result: ${eventContext.result}")
     }
 
-    // Other event handlers
+    // 其他事件處理器
 }
 ```
 <!--- KNIT example-events-01.kt -->
@@ -79,20 +79,20 @@ import ai.koog.prompt.llm.OllamaModels
 -->
 ```kotlin
 val agent = AIAgent(
-    executor = simpleOllamaAIExecutor(),
+    promptExecutor = simpleOllamaAIExecutor(),
     llmModel = OllamaModels.Meta.LLAMA_3_2,
 ){
     handleEvents {
-        // Handle tool calls
+        // 處理工具呼叫
         onToolCall { eventContext ->
             println("Tool called: ${eventContext.tool} with args ${eventContext.toolArgs}")
         }
-        // Handle event triggered when the agent completes its execution
+        // 處理 agent 完成執行時觸發的事件
         onAgentFinished { eventContext ->
             println("Agent finished with result: ${eventContext.result}")
         }
 
-        // Other event handlers
+        // 其他事件處理器
     }
 }
 ```

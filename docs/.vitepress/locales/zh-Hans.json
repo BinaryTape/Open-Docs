@@ -487,5 +487,13 @@
   "koog.mcp-playwright": "MCP - Playwright",
   "koog.mcp-unity": "MCP - Unity",
   "koog.vaccumagent": "VaccumAgent",
-  "koog.weave": "Weave"
+  "koog.weave": "Weave",
+  "kotlin.whatsnew2220": "Kotlin 2.2.20",
+  "kotlin.native-swift-export": "Swift 互操作",
+  "ktor.server-opentelemetry": "使用 OpenTelemetry 进行分布式追踪",
+  "ktor.client-opentelemetry": "使用 OpenTelemetry 进行分布式追踪",
+  "kmp.kotlin-multiplatform-react-native": "Kotlin Multiplatform 与 React Native",
+  "koog.act-agent-api": "Act Agent API",
+  "koog.structured-output": "结构化输出",
+  "koog.why-koog": "为何选择 Koog"
 }

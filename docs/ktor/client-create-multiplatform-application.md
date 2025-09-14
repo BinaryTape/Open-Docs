@@ -136,7 +136,8 @@ kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-c
 3. 然后，打开 `androidApp/build.gradle.kts` 并添加 `kotlinx-coroutines-android` 依赖项：
 
 ```kotlin
-    implementation(libs.compose.ui)
+dependencies {
+    implementation(libs.kotlinx.coroutines.android)
 }
 ```
 
@@ -308,12 +309,12 @@ fun DefaultPreview() {
 <Tabs>
 <TabItem title="Android">
 
-![Android simulator](tutorial_client_kmm_android.png){width="381"}
+![Android 模拟器](tutorial_client_kmm_android.png){width="381"}
 
 </TabItem>
 <TabItem title="iOS">
 
-![iOS simulator](tutorial_client_kmm_ios.png){width="351"}
+![iOS 模拟器](tutorial_client_kmm_ios.png){width="351"}
 
 </TabItem>
 </Tabs>

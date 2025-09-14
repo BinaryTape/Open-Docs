@@ -102,7 +102,7 @@ fun main() {
         val apiKey = System.getenv("OPENAI_API_KEY") // 或 Anthropic、Google、OpenRouter 等。
 
         val agent = AIAgent(
-            executor = simpleOpenAIExecutor(apiKey), // 或 Anthropic、Google、OpenRouter 等。
+            promptExecutor = simpleOpenAIExecutor(apiKey), // 或 Anthropic、Google、OpenRouter 等。
             systemPrompt = "您是一個樂於助人的助手。簡潔地回答用戶問題。",
             llmModel = OpenAIModels.Chat.GPT4o
         )

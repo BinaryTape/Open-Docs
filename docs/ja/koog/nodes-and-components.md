@@ -1,6 +1,7 @@
 _# 事前定義されたノードとコンポーネント
 
-ノードは、Koogフレームワークにおけるエージェントワークフローの基本的な構成要素です。各ノードはワークフロー内の特定の操作または変換を表し、エッジを使用して接続することで実行フローを定義できます。
+ノードは、Koogフレームワークにおけるエージェントワークフローの基本的な構成要素です。
+各ノードはワークフロー内の特定の操作または変換を表し、エッジを使用して接続することで実行フローを定義できます。
 
 一般的に、ノードを使用すると、複雑なロジックを再利用可能なコンポーネントとしてカプセル化し、さまざまなエージェントワークフローに簡単に統合できます。このガイドでは、エージェント戦略で使用できる既存のノードについて説明します。
 
@@ -41,7 +42,8 @@ edge(passthrough forwardTo nodeFinish)
 
 ### nodeUpdatePrompt
 
-提供されたプロンプトビルダーを使用して、LLMプロンプトにメッセージを追加するノードです。これは、実際のLLMリクエストを行う前に会話コンテキストを変更する場合に役立ちます。詳細については、[APIリファレンス](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.dsl.extension/node-update-prompt.html)を参照してください。
+提供されたプロンプトビルダーを使用して、LLMプロンプトにメッセージを追加するノードです。
+これは、実際のLLMリクエストを行う前に会話コンテキストを変更する場合に役立ちます。詳細については、[APIリファレンス](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.dsl.extension/node-update-prompt.html)を参照してください。
 
 このノードは次の目的で使用できます。
 
@@ -261,7 +263,7 @@ edge(executeTool forwardTo sendToolResultToLLM)
 
 ### nodeExecuteMultipleTools
 
-複数のツール呼び出しを実行するノードです。これらの呼び出しはオプションで並行して実行できます。詳細については、[APIリファレンス](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.dsl.extension/node-l-l-m-send-multiple-tool-results.html)を参照してください。
+複数のツール呼び出しを実行するノードです。これらの呼び出しはオプションで並行して実行できます。詳細については、[APIリファレンス](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.dsl.extension/node-execute-multiple-tools.html)を参照してください。
 
 このノードは次の目的で使用できます。
 
@@ -423,7 +425,8 @@ val verifyCode by subgraphWithVerification<String>(
 
 ## 事前定義された戦略と一般的な戦略パターン
 
-このフレームワークは、さまざまなノードを組み合わせた事前定義された戦略を提供します。ノードはエッジを使用して接続され、操作のフローを定義し、各エッジをたどるタイミングを特定する条件が含まれます。
+このフレームワークは、さまざまなノードを組み合わせた事前定義された戦略を提供します。
+ノードはエッジを使用して接続され、操作のフローを定義し、各エッジをたどるタイミングを特定する条件が含まれます。
 
 必要に応じて、これらの戦略をエージェントワークフローに統合できます。
 
@@ -434,7 +437,7 @@ val verifyCode by subgraphWithVerification<String>(
 この戦略は、複雑なロジックを必要としない単純なプロセスを実行する必要がある場合に使用できます。
 
 <!--- INCLUDE
-import ai.koog.agents.core.agent.entity.AIAgentStrategy
+import ai.koog.agents.core.agent.entity.AIAgentGraphStrategy
 import ai.koog.agents.core.dsl.builder.forwardTo
 import ai.koog.agents.core.dsl.builder.strategy
 import ai.koog.agents.core.dsl.extension.*
@@ -442,7 +445,7 @@ import ai.koog.agents.core.dsl.extension.*
 -->
 ```kotlin
 
-public fun singleRunStrategy(): AIAgentStrategy<String, String> = strategy("single_run") {
+public fun singleRunStrategy(): AIAgentGraphStrategy<String, String> = strategy("single_run") {
     val nodeCallLLM by nodeLLMRequest("sendInput")
     val nodeExecuteTool by nodeExecuteTool("nodeExecuteTool")
     val nodeSendToolResult by nodeLLMSendToolResult("nodeSendToolResult")
@@ -459,10 +462,11 @@ public fun singleRunStrategy(): AIAgentStrategy<String, String> = strategy("sing
 
 ### ツールベース戦略
 
-ツールベース戦略は、特定の操作を実行するためにツールに大きく依存するワークフロー向けに設計されています。通常、LLMの決定に基づいてツールを実行し、結果を処理します。
+ツールベース戦略は、特定の操作を実行するためにツールに大きく依存するワークフロー向けに設計されています。
+通常、LLMの決定に基づいてツールを実行し、結果を処理します。
 
 <!--- INCLUDE
-import ai.koog.agents.core.agent.entity.AIAgentStrategy
+import ai.koog.agents.core.agent.entity.AIAgentGraphStrategy
 import ai.koog.agents.core.dsl.builder.forwardTo
 import ai.koog.agents.core.dsl.builder.strategy
 import ai.koog.agents.core.dsl.extension.*
@@ -470,7 +474,7 @@ import ai.koog.agents.core.tools.ToolRegistry
 
 -->
 ```kotlin
-fun toolBasedStrategy(name: String, toolRegistry: ToolRegistry): AIAgentStrategy<String, String> {
+fun toolBasedStrategy(name: String, toolRegistry: ToolRegistry): AIAgentGraphStrategy<String, String> {
     return strategy(name) {
         val nodeSendInput by nodeLLMRequest()
         val nodeExecuteTool by nodeExecuteTool()
@@ -512,7 +516,8 @@ fun toolBasedStrategy(name: String, toolRegistry: ToolRegistry): AIAgentStrategy
 
 ### ストリーミングデータ戦略
 
-ストリーミングデータ戦略は、LLMからのストリーミングデータを処理するために設計されています。通常、ストリーミングデータを要求し、それを処理し、処理されたデータとともにツールを呼び出す可能性があります。
+ストリーミングデータ戦略は、LLMからのストリーミングデータを処理するために設計されています。通常、
+ストリーミングデータを要求し、それを処理し、処理されたデータとともにツールを呼び出す可能性があります。
 
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.forwardTo

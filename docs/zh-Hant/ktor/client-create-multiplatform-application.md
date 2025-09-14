@@ -19,7 +19,7 @@
 學習如何建立 Kotlin Multiplatform Mobile 應用程式。
 </link-summary>
 
-Ktor HTTP 客戶端可用於多平台專案。在本教程中，我們將建立一個簡單的 Kotlin Multiplatform Mobile 應用程式，它會發送請求並以純 HTML 文字形式接收響應主體。
+Ktor HTTP 客戶端可用於多平台專案。在本教學中，我們將建立一個簡單的 Kotlin Multiplatform Mobile 應用程式，它會發送請求並以純 HTML 文字形式接收響應主體。
 
 > 若要了解如何建立您的第一個 Kotlin Multiplatform Mobile 應用程式，請參閱 [建立您的第一個跨平台行動應用程式](https://kotlinlang.org/docs/multiplatform-mobile-create-first-app.html)。
 
@@ -27,7 +27,7 @@ Ktor HTTP 客戶端可用於多平台專案。在本教程中，我們將建立�
 
 首先，您需要透過在合適的作業系統上安裝必要工具，來設定跨平台行動開發環境。請參閱 [設定環境](https://kotlinlang.org/docs/multiplatform-mobile-setup.html) 部分，了解如何執行此操作。
 
-> 您將需要一台搭載 macOS 的 Mac 以完成本教程中的某些步驟，其中包括編寫 iOS 特有程式碼和執行 iOS 應用程式。
+> 您將需要一台搭載 macOS 的 Mac 以完成本教學中的某些步驟，其中包括編寫 iOS 特有程式碼和執行 iOS 應用程式。
 >
 {style="note"}
 
@@ -38,11 +38,11 @@ Ktor HTTP 客戶端可用於多平台專案。在本教程中，我們將建立�
 - 您可以在 Android Studio 中從範本建立專案。
 - 另外，您可以使用 [Kotlin Multiplatform Wizard](https://kmp.jetbrains.com/) 來產生一個新專案。該 Wizard 提供了自訂專案設定的選項，例如允許您排除 Android 支援或包含 Ktor Server。
 
-為了本教程的目的，我們將示範從範本建立專案的過程：
+為了本教學的目的，我們將示範從範本建立專案的過程：
 
 1. 在 Android Studio 中，選擇 **File | New | New Project**。
 2. 在專案範本清單中選擇 **Kotlin Multiplatform App**，然後點擊 **Next**。
-3. 指定應用程式的名稱，然後點擊 **Next**。在本教程中，應用程式名稱為 `KmmKtor`。
+3. 指定應用程式的名稱，然後點擊 **Next**。在本教學中，應用程式名稱為 `KmmKtor`。
 4. 在下一頁上，保留預設設定並點擊 **Finish** 建立新專案。
    現在，請等待您的專案設定完成。首次執行此操作時，下載和設定所需組件可能需要一些時間。
    > 若要檢視所產生的多平台專案的完整結構，請在 [Project view](https://developer.android.com/studio/projects#ProjectView) 中從 **Android** 切換到 **Project**。
@@ -56,8 +56,6 @@ Ktor HTTP 客戶端可用於多平台專案。在本教程中，我們將建立�
 ```kotlin
 kotlin = "2.1.20"
 ```
-
-undefined
 
 ### 新增 Ktor 依賴項 {id="ktor-dependencies"}
 
@@ -139,7 +137,8 @@ kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-c
 3. 然後，開啟 `androidApp/build.gradle.kts` 並新增 `kotlinx-coroutines-android` 依賴項：
 
 ```kotlin
-    implementation(libs.compose.ui)
+dependencies {
+    implementation(libs.kotlinx.coroutines.android)
 }
 ```
 
@@ -173,7 +172,7 @@ class Greeting {
 
 ### Android 程式碼 {id="android-activity"}
 
-若要從 Android 程式碼呼叫掛起函式 `greeting`，我們將使用 `rememberCoroutineScope`。
+若要從 Android 程式碼呼叫掛起函式 `greeting`，我們將使用 [rememberCoroutineScope](https://developer.android.com/reference/kotlin/androidx/compose/runtime/package-summary#rememberCoroutineScope(kotlin.Function0))。
 
 開啟 `androidApp/src/main/java/com/example/kmmktor/android/MainActivity.kt` 檔案並按如下方式更新 `MainActivity` 程式碼：
 
@@ -236,7 +235,6 @@ fun DefaultPreview() {
         GreetingView("Hello, Android!")
     }
 }
-
 ```
 
 在建立的作用域內，我們可以呼叫共享的 `greeting` 函式並處理可能的異常。

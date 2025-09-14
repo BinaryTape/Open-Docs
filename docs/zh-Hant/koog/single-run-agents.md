@@ -2,7 +2,7 @@
 
 `AIAgent` 類別是核心元件，可讓您在 Kotlin 應用程式中建立 AI 代理程式。
 
-您可以透過最少配置建立簡單的代理程式，或透過定義自訂策略、工具、配置和自訂輸入/輸出類型來建立具備進階功能的精密代理程式。
+您可以透過最少配置建立簡單的代理程式，或透過定義自訂策略、工具、配置和自訂輸入/輸出類型，來建立具備進階功能的精密代理程式。
 
 本頁將引導您完成建立具備可自訂工具和配置的單次運行代理程式所需的步驟。
 
@@ -39,7 +39,7 @@ dependencies {
 
 ### 2. 建立代理程式
 
-若要建立代理程式，請建立 `AIAgent` 類別的實例，並提供 `executor` 和 `llmModel` 參數：
+若要建立代理程式，請建立 `AIAgent` 類別的實例，並提供 `promptExecutor` 和 `llmModel` 參數：
 
 <!--- INCLUDE
 import ai.koog.agents.core.agent.AIAgent
@@ -48,7 +48,7 @@ import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
 -->
 ```kotlin
 val agent = AIAgent(
-    executor = simpleOpenAIExecutor(System.getenv("OPENAI_API_KEY")),
+    promptExecutor = simpleOpenAIExecutor(System.getenv("OPENAI_API_KEY")),
     llmModel = OpenAIModels.Chat.GPT4o
 )
 ```
@@ -65,7 +65,7 @@ import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
 -->
 ```kotlin
 val agent = AIAgent(
-    executor = simpleOpenAIExecutor(System.getenv("YOUR_API_KEY")),
+    promptExecutor = simpleOpenAIExecutor(System.getenv("YOUR_API_KEY")),
     systemPrompt = "You are a helpful assistant. Answer user questions concisely.",
     llmModel = OpenAIModels.Chat.GPT4o
 )
@@ -83,7 +83,7 @@ import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
 -->
 ```kotlin
 val agent = AIAgent(
-    executor = simpleOpenAIExecutor(System.getenv("YOUR_API_KEY")),
+    promptExecutor = simpleOpenAIExecutor(System.getenv("YOUR_API_KEY")),
     systemPrompt = "You are a helpful assistant. Answer user questions concisely.",
     llmModel = OpenAIModels.Chat.GPT4o,
     temperature = 0.7
@@ -107,7 +107,7 @@ import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
 -->
 ```kotlin
 val agent = AIAgent(
-    executor = simpleOpenAIExecutor(System.getenv("YOUR_API_KEY")),
+    promptExecutor = simpleOpenAIExecutor(System.getenv("YOUR_API_KEY")),
     systemPrompt = "You are a helpful assistant. Answer user questions concisely.",
     llmModel = OpenAIModels.Chat.GPT4o,
     temperature = 0.7,
@@ -132,7 +132,7 @@ import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
 -->
 ```kotlin
 val agent = AIAgent(
-    executor = simpleOpenAIExecutor(System.getenv("YOUR_API_KEY")),
+    promptExecutor = simpleOpenAIExecutor(System.getenv("YOUR_API_KEY")),
     systemPrompt = "You are a helpful assistant. Answer user questions concisely.",
     llmModel = OpenAIModels.Chat.GPT4o,
     temperature = 0.7,
@@ -165,7 +165,7 @@ import kotlinx.coroutines.runBlocking
 -->
 ```kotlin
 val agent = AIAgent(
-    executor = simpleOpenAIExecutor(System.getenv("OPENAI_API_KEY")),
+    promptExecutor = simpleOpenAIExecutor(System.getenv("OPENAI_API_KEY")),
     systemPrompt = "You are a helpful assistant. Answer user questions concisely.",
     llmModel = OpenAIModels.Chat.GPT4o,
     temperature = 0.7,

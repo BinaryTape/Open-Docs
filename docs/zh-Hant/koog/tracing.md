@@ -4,7 +4,7 @@
 
 ## 功能概述
 
-追蹤功能是一個強大的監控與偵錯工具，它能擷取關於代理程式執行的詳細資訊，包括：
+追蹤功能是一個強大的監控與偵錯工具，它能擷取關於代理程式執行過程的詳細資訊，包括：
 
 *   策略執行
 *   LLM 呼叫
@@ -52,7 +52,7 @@ val outputPath = Path("/path/to/trace.log")
 
 // 建立一個代理程式
 val agent = AIAgent(
-   executor = simpleOllamaAIExecutor(),
+   promptExecutor = simpleOllamaAIExecutor(),
    llmModel = OllamaModels.Meta.LLAMA_3_2,
 ) {
    install(Tracing) {
@@ -87,7 +87,7 @@ import ai.koog.prompt.executor.llms.all.simpleOllamaAIExecutor
 import ai.koog.prompt.llm.OllamaModels
 
 val agent = AIAgent(
-   executor = simpleOllamaAIExecutor(),
+   promptExecutor = simpleOllamaAIExecutor(),
    llmModel = OllamaModels.Meta.LLAMA_3_2,
 ) {
    install(Tracing) {
@@ -180,7 +180,7 @@ fun main() {
     runBlocking {
        // 建立帶有追蹤功能的代理程式
        val agent = AIAgent(
-          executor = simpleOllamaAIExecutor(),
+          promptExecutor = simpleOllamaAIExecutor(),
           llmModel = OllamaModels.Meta.LLAMA_3_2,
        ) {
           install(Tracing) {
@@ -235,7 +235,7 @@ fun main() {
 ```kotlin
 // 建立一個代理程式
 val agent = AIAgent(
-    executor = simpleOllamaAIExecutor(),
+    promptExecutor = simpleOllamaAIExecutor(),
     llmModel = OllamaModels.Meta.LLAMA_3_2,
 ) {
     val writer = TraceFeatureMessageFileWriter(
@@ -275,7 +275,7 @@ fun main() {
     runBlocking {
         // 建立一個代理程式
         val agent = AIAgent(
-            executor = simpleOllamaAIExecutor(),
+            promptExecutor = simpleOllamaAIExecutor(),
             llmModel = OllamaModels.Meta.LLAMA_3_2,
         ) {
             val writer = TraceFeatureMessageFileWriter(
@@ -326,7 +326,7 @@ fun main() {
 ```kotlin
 // 建立一個代理程式
 val agent = AIAgent(
-    executor = simpleOllamaAIExecutor(),
+    promptExecutor = simpleOllamaAIExecutor(),
     llmModel = OllamaModels.Meta.LLAMA_3_2,
 ) {
     val connectionConfig = DefaultServerConnectionConfig(host = host, port = port)
@@ -431,9 +431,9 @@ const val input = "What's the weather like in New York?"
 
 fun main() {
     runBlocking {
-        // 建立一個代理程式
+        // Creating an agent
         val agent = AIAgent(
-            executor = simpleOllamaAIExecutor(),
+            promptExecutor = simpleOllamaAIExecutor(),
             llmModel = OllamaModels.Meta.LLAMA_3_2,
         ) {
             val writer = TraceFeatureMessageFileWriter(
@@ -486,7 +486,7 @@ fun main() {
    runBlocking {
       // 建立一個代理程式
       val agent = AIAgent(
-         executor = simpleOllamaAIExecutor(),
+         promptExecutor = simpleOllamaAIExecutor(),
          llmModel = OllamaModels.Meta.LLAMA_3_2,
       ) {
 -->
@@ -526,7 +526,7 @@ fun main() {
    runBlocking {
       // 建立一個代理程式
       val agent = AIAgent(
-         executor = simpleOllamaAIExecutor(),
+         promptExecutor = simpleOllamaAIExecutor(),
          llmModel = OllamaModels.Meta.LLAMA_3_2,
       ) {
 -->

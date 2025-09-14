@@ -4,13 +4,15 @@ Koogフレームワークは、エージェントとユーザーの一般的な�
 
 以下のビルトインツールが利用可能です:
 
-| ツール         | <div style="width:115px">名前</div> | 説明                                                                                                          |
-|--------------|-------------------------------------|--------------------------------------------------------------------------------------------------------------------------|
-| SayToUser    | `__say_to_user__`                   | エージェントがユーザーにメッセージを送信できるようにします。`Agent says: `プレフィックス付きでエージェントのメッセージをコンソールに出力します。 |
-| AskUser      | `__ask_user__`                      | エージェントがユーザーに入力を求められるようにします。エージェントのメッセージをコンソールに出力し、ユーザーの応答を待ちます。 |
-| ExitTool     | `__exit__`                          | エージェントが会話を終了し、セッションを終了できるようにします。 |
-| ReadFileTool | `__read_file__`                     | テキストファイルを読み込みます（オプションで行範囲選択可能）。0から始まる行インデックスを使用して、フォーマットされた内容とメタデータを返します。 |
-| EditFileTool | `__edit_file__`                     | ファイル内で単一の特定テキスト置換を行い、新しいファイルを作成したり、内容を完全に置き換えたりすることもできます。 |
+| ツール              | <div style="width:115px">名前</div> | 説明                                                                                                          |
+|-------------------|-------------------------------------|--------------------------------------------------------------------------------------------------------------------------|
+| SayToUser         | `__say_to_user__`                   | エージェントがユーザーにメッセージを送信できるようにします。`Agent says: `プレフィックス付きでエージェントのメッセージをコンソールに出力します。 |
+| AskUser           | `__ask_user__`                      | エージェントがユーザーに入力を求められるようにします。エージェントのメッセージをコンソールに出力し、ユーザーの応答を待ちます。 |
+| ExitTool          | `__exit__`                          | エージェントが会話を終了し、セッションを終了できるようにします。 |
+| ReadFileTool      | `__read_file__`                     | テキストファイルを読み込みます（オプションで行範囲選択可能）。0から始まる行インデックスを使用して、フォーマットされた内容とメタデータを返します。 |
+| EditFileTool      | `__edit_file__`                     | ファイル内で単一の特定テキスト置換を行い、新しいファイルを作成したり、内容を完全に置き換えたりすることもできます。 |
+| ListDirectoryTool | `__list_directory__`                | ディレクトリの内容を、オプションの深さ制御とグロブフィルタリングを使用して、階層ツリーとして一覧表示します。 |
+| WriteFileTool     | `__write_file__`                    | テキストコンテンツをファイルに書き込みます（必要に応じて親ディレクトリを作成します）。 |
 
 ## ビルトインツールの登録
 
@@ -22,7 +24,9 @@ import ai.koog.agents.core.tools.ToolRegistry
 import ai.koog.agents.ext.tool.SayToUser
 import ai.koog.agents.ext.tool.AskUser
 import ai.koog.agents.ext.tool.ExitTool
-import ai.koog.agents.file.tools.ReadFileTool
+import ai.koog.agents.ext.tool.file.ListDirectoryTool
+import ai.koog.agents.ext.tool.file.ReadFileTool
+import ai.koog.agents.ext.tool.file.WriteFileTool
 import ai.koog.prompt.executor.clients.openai.OpenAIModels
 import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
 import ai.koog.rag.base.files.JVMFileSystemProvider
@@ -37,11 +41,13 @@ val toolRegistry = ToolRegistry {
     tool(AskUser)
     tool(ExitTool)
     tool(ReadFileTool(JVMFileSystemProvider.ReadOnly))
+    tool(ListDirectoryTool(JVMFileSystemProvider.ReadOnly))
+    tool(WriteFileTool(JVMFileSystemProvider.ReadWrite))
 }
 
 // エージェント作成時にレジストリを渡す
 val agent = AIAgent(
-    executor = simpleOpenAIExecutor(apiToken),
+    promptExecutor = simpleOpenAIExecutor(apiToken),
     systemPrompt = "You are a helpful assistant.",
     llmModel = OpenAIModels.Chat.GPT4o,
     toolRegistry = toolRegistry

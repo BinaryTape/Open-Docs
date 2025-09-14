@@ -60,32 +60,32 @@ fun main() {
 }
 -->
 ```kotlin
-// Create an embedder using Ollama
+// 使用 Ollama 创建一个嵌入器
 val embedder = LLMEmbedder(OllamaClient(), OllamaEmbeddingModels.NOMIC_EMBED_TEXT)
-// You may also use OpenAI embeddings with:
+// 你也可以使用 OpenAI 嵌入，代码如下：
 // val embedder = LLMEmbedder(OpenAILLMClient("API_KEY"), OpenAIModels.Embeddings.TextEmbeddingAda3Large)
 
-// Create a JVM-specific document embedder
+// 创建一个 JVM 特有的文档嵌入器
 val documentEmbedder = JVMTextDocumentEmbedder(embedder)
 
-// Create a ranked document storage using in-memory vector storage
+// 使用内存向量存储创建一个排序后的文档存储
 val rankedDocumentStorage = EmbeddingBasedDocumentStorage(documentEmbedder, InMemoryVectorStorage())
 
-// Store documents in the storage
+// 将文档存储到存储中
 rankedDocumentStorage.store(Path.of("./my/documents/doc1.txt"))
 rankedDocumentStorage.store(Path.of("./my/documents/doc2.txt"))
 rankedDocumentStorage.store(Path.of("./my/documents/doc3.txt"))
-// ... store more documents as needed
+// ... 根据需要存储更多文档
 rankedDocumentStorage.store(Path.of("./my/documents/doc100.txt"))
 
-// Find the most relevant documents for a user query
+// 查找用户查询最相关的文档
 val query = "I want to open a bank account but I'm getting a 404 when I open your website. I used to be your client with a different account 5 years ago before you changed your firm name"
 val relevantFiles = rankedDocumentStorage.mostRelevantDocuments(query, count = 3)
 
-// Process the relevant files
+// 处理相关文件
 relevantFiles.forEach { file ->
     println("Relevant file: ${file.toAbsolutePath()}")
-    // Process the file content as needed
+    // 根据需要处理文件内容
 }
 ```
 <!--- KNIT example-ranked-document-storage-01.kt -->
@@ -127,10 +127,10 @@ const val apiKey = "apikey"
 -->
 ```kotlin
 suspend fun solveUserRequest(query: String) {
-    // Retrieve top-5 documents from the document provider
+    // 从文档提供程序中检索前 5 个文档
     val relevantDocuments = rankedDocumentStorage.mostRelevantDocuments(query, count = 5)
 
-    // Create an AI Agent with the relevant context
+    // 使用相关上下文创建一个 AI 代理
     val agentConfig = AIAgentConfig(
         prompt = prompt("context") {
             system("You are a helpful assistant. Use the provided context to answer the user's question accurately.")
@@ -143,19 +143,19 @@ suspend fun solveUserRequest(query: String) {
                 }
             }
         },
-        model = OpenAIModels.Chat.GPT4o, // Or a different model of your choice
+        model = OpenAIModels.Chat.GPT4o, // 或者你选择的其他模型
         maxAgentIterations = 100,
     )
 
     val agent = AIAgent(
-        executor = simpleOpenAIExecutor(apiKey),
+        promptExecutor = simpleOpenAIExecutor(apiKey),
         llmModel = OpenAIModels.Chat.GPT4o
     )
 
-    // Run the agent to get a response
+    // 运行代理以获取响应
     val response = agent.run(query)
 
-    // Return or process the response
+    // 返回或处理响应
     println("Agent response: $response")
 }
 ```
@@ -237,7 +237,7 @@ fun main() {
 
         val agent = AIAgent(
             toolRegistry = tools,
-            executor = simpleOpenAIExecutor(apiKey),
+            promptExecutor = simpleOpenAIExecutor(apiKey),
             llmModel = OpenAIModels.Chat.GPT4o
         )
 
@@ -484,7 +484,7 @@ import java.nio.file.Path
 // 定义一个 PDFDocument 类
 class PDFDocument(private val path: Path) {
     fun readText(): String {
-        // Use a PDF library to extract text from the PDF
+        // 使用 PDF 库从 PDF 中提取文本
         return "Text extracted from PDF at $path"
     }
 }

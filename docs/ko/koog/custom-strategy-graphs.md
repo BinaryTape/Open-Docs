@@ -8,10 +8,10 @@
 
 높은 수준에서 전략 그래프는 다음 구성 요소로 이루어집니다.
 
--   **Strategy**: `strategy` 함수를 사용하여 생성되는 그래프의 최상위 컨테이너이며, 제네릭 매개변수를 사용하여 지정된 입력 및 출력 타입을 가집니다.
+-   **Strategy**: 제네릭 매개변수를 사용하여 지정된 입력 및 출력 타입을 가지며, `strategy` 함수를 사용하여 생성되는 그래프의 최상위 컨테이너입니다.
 -   **Subgraphs**: 자체 도구 및 컨텍스트 세트를 가질 수 있는 그래프 섹션입니다.
 -   **Nodes**: 워크플로우의 개별 작업 또는 변환입니다.
--   **Edges**: 노드 간 연결로, 전환 조건과 변환을 정의합니다.
+-   **Edges**: 전환 조건과 변환을 정의하는 노드 간 연결입니다.
 
 전략 그래프는 `nodeStart`라는 특수 노드에서 시작하여 `nodeFinish`에서 끝납니다. 이 노드들 사이의 경로는 그래프에 지정된 엣지와 조건에 의해 결정됩니다.
 
@@ -27,7 +27,8 @@ Koog 프레임워크는 미리 정의된 노드를 제공하며, `node` 함수�
 
 ### 엣지
 
-엣지는 노드를 연결하고 전략 그래프에서 작업 흐름을 정의합니다. 엣지는 `edge` 함수와 `forwardTo` 중위 함수를 사용하여 생성됩니다.
+엣지는 노드를 연결하고 전략 그래프에서 작업 흐름을 정의합니다.
+엣지는 `edge` 함수와 `forwardTo` 중위 함수를 사용하여 생성됩니다.
 
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.forwardTo
@@ -80,7 +81,8 @@ edge(sourceNode forwardTo targetNode
 
 ### 서브그래프
 
-서브그래프는 자체 도구 및 컨텍스트 세트로 작동하는 전략 그래프의 섹션입니다. 전략 그래프는 여러 서브그래프를 포함할 수 있습니다. 각 서브그래프는 `subgraph` 함수를 사용하여 정의됩니다.
+서브그래프는 자체 도구 및 컨텍스트 세트로 작동하는 전략 그래프의 섹션입니다.
+전략 그래프는 여러 서브그래프를 포함할 수 있습니다. 각 서브그래프는 `subgraph` 함수를 사용하여 정의됩니다.
 
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
@@ -106,7 +108,8 @@ val strategy = strategy<Input, Output>("strategy-name") {
 ```
 <!--- KNIT example-custom-strategy-graphs-03.kt -->
 
-서브그래프는 도구 레지스트리의 모든 도구를 사용할 수 있습니다. 그러나 이 레지스트리에서 서브그래프에서 사용할 수 있는 도구의 하위 집합을 지정하고 이를 `subgraph` 함수의 인수로 전달할 수 있습니다.
+서브그래프는 도구 레지스트리의 모든 도구를 사용할 수 있습니다.
+그러나 이 레지스트리에서 서브그래프에서 사용할 수 있는 도구의 하위 집합을 지정하고 이를 `subgraph` 함수의 인수로 전달할 수 있습니다.
 
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
@@ -309,7 +312,7 @@ edge(
 어조 분석 전략은 기록 압축을 포함하는 도구 기반 전략의 좋은 예시입니다.
 
 <!--- INCLUDE
-import ai.koog.agents.core.agent.entity.AIAgentStrategy
+import ai.koog.agents.core.agent.entity.AIAgentGraphStrategy
 import ai.koog.agents.core.dsl.builder.forwardTo
 import ai.koog.agents.core.dsl.builder.strategy
 import ai.koog.agents.core.dsl.extension.nodeExecuteTool
@@ -322,7 +325,7 @@ import ai.koog.agents.core.environment.ReceivedToolResult
 import ai.koog.agents.core.tools.ToolRegistry
 -->
 ```kotlin
-fun toneStrategy(name: String, toolRegistry: ToolRegistry): AIAgentStrategy<String, String> {
+fun toneStrategy(name: String, toolRegistry: ToolRegistry): AIAgentGraphStrategy<String, String> {
     return strategy(name) {
         val nodeSendInput by nodeLLMRequest()
         val nodeExecuteTool by nodeExecuteTool()
@@ -364,7 +367,7 @@ fun toneStrategy(name: String, toolRegistry: ToolRegistry): AIAgentStrategy<Stri
                     onToolCall { true }
         )
 
-        // If the LLM responds with a message, finish
+        // If the LLM responds with a message, the strategy finishes the process.
         edge(
             (nodeSendToolResult forwardTo nodeFinish)
                     onAssistantMessage { true }

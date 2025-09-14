@@ -309,7 +309,7 @@ edge(
 語氣分析策略是包含歷史壓縮的基於工具策略的一個好範例：
 
 <!--- INCLUDE
-import ai.koog.agents.core.agent.entity.AIAgentStrategy
+import ai.koog.agents.core.agent.entity.AIAgentGraphStrategy
 import ai.koog.agents.core.dsl.builder.forwardTo
 import ai.koog.agents.core.dsl.builder.strategy
 import ai.koog.agents.core.dsl.extension.nodeExecuteTool
@@ -322,7 +322,7 @@ import ai.koog.agents.core.environment.ReceivedToolResult
 import ai.koog.agents.core.tools.ToolRegistry
 -->
 ```kotlin
-fun toneStrategy(name: String, toolRegistry: ToolRegistry): AIAgentStrategy<String, String> {
+fun toneStrategy(name: String, toolRegistry: ToolRegistry): AIAgentGraphStrategy<String, String> {
     return strategy(name) {
         val nodeSendInput by nodeLLMRequest()
         val nodeExecuteTool by nodeExecuteTool()

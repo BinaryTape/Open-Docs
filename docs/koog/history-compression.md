@@ -32,7 +32,7 @@ AI 代理会维护一个消息历史，其中包括用户消息、助手响应�
 * 当历史过长时压缩历史，你可以定义一个辅助函数并将 `nodeLLMCompressHistory` 节点添加到你的策略图，采用以下逻辑：
 
 <!--- INCLUDE
-import ai.koog.agents.core.agent.context.AIAgentContextBase
+import ai.koog.agents.core.agent.context.AIAgentContext
 import ai.koog.agents.core.dsl.builder.forwardTo
 import ai.koog.agents.core.dsl.builder.strategy
 import ai.koog.agents.core.dsl.extension.nodeExecuteTool
@@ -45,7 +45,7 @@ import ai.koog.agents.core.environment.ReceivedToolResult
 -->
 ```kotlin
 // Define that the history is too long if there are more than 100 messages
-private suspend fun AIAgentContextBase.historyIsTooLong(): Boolean = llm.readSession { prompt.messages.size > 100 }
+private suspend fun AIAgentContext.historyIsTooLong(): Boolean = llm.readSession { prompt.messages.size > 100 }
 
 val strategy = strategy<String, String>("execute-with-history-compression") {
     val callLLM by nodeLLMRequest()
@@ -126,7 +126,7 @@ llm.writeSession {
 
 你可以通过向 `nodeLLMCompressHistory(strategy=...)` 或 `replaceHistoryWithTLDR(strategy=...)` 传递一个可选的 `strategy` 形参来自定义压缩过程。该框架提供了几种内置策略。
 
-### WholeHistory (Default)
+### WholeHistory (默认)
 
 此默认策略将整个历史压缩为一条 TLDR 消息，总结了迄今为止已完成的工作。此策略适用于大多数通用用例，在这些用例中，你希望保持对整个对话上下文的了解，同时减少 token 使用量。
 

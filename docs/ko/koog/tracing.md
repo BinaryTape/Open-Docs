@@ -4,7 +4,7 @@
 
 ## 기능 개요
 
-트레이싱 기능은 에이전트 실행에 대한 상세 정보를 캡처하는 강력한 모니터링 및 디버깅 도구입니다. 포함하는 정보는 다음과 같습니다:
+트레이싱 기능은 에이전트 실행에 대한 상세 정보를 캡처하는 강력한 모니터링 및 디버깅 도구이며, 포함하는 정보는 다음과 같습니다:
 
 - 전략 실행
 - LLM 호출
@@ -52,7 +52,7 @@ val outputPath = Path("/path/to/trace.log")
 
 // 에이전트 생성
 val agent = AIAgent(
-   executor = simpleOllamaAIExecutor(),
+   promptExecutor = simpleOllamaAIExecutor(),
    llmModel = OllamaModels.Meta.LLAMA_3_2,
 ) {
    install(Tracing) {
@@ -77,7 +77,7 @@ val agent = AIAgent(
 
 ### 메시지 필터링
 
-모든 기존 이벤트를 처리하거나 특정 기준에 따라 일부 이벤트를 선택할 수 있습니다. 메시지 필터를 사용하면 처리할 이벤트를 제어할 수 있습니다. 이는 에이전트 실행의 특정 측면에 집중하는 데 유용합니다:
+모든 기존 이벤트를 처리하거나 특정 기준에 따라 일부 이벤트를 선택할 수 있습니다. 메시지 필터는 처리할 이벤트를 제어할 수 있도록 합니다. 이는 에이전트 실행의 특정 측면에 집중하는 데 유용합니다:
 
 <!--- INCLUDE
 import ai.koog.agents.core.agent.AIAgent
@@ -87,7 +87,7 @@ import ai.koog.prompt.executor.llms.all.simpleOllamaAIExecutor
 import ai.koog.prompt.llm.OllamaModels
 
 val agent = AIAgent(
-   executor = simpleOllamaAIExecutor(),
+   promptExecutor = simpleOllamaAIExecutor(),
    llmModel = OllamaModels.Meta.LLAMA_3_2,
 ) {
    install(Tracing) {
@@ -180,7 +180,7 @@ fun main() {
     runBlocking {
        // 트레이싱을 사용하여 에이전트 생성
        val agent = AIAgent(
-          executor = simpleOllamaAIExecutor(),
+          promptExecutor = simpleOllamaAIExecutor(),
           llmModel = OllamaModels.Meta.LLAMA_3_2,
        ) {
           install(Tracing) {
@@ -235,7 +235,7 @@ fun main() {
 ```kotlin
 // 에이전트 생성
 val agent = AIAgent(
-    executor = simpleOllamaAIExecutor(),
+    promptExecutor = simpleOllamaAIExecutor(),
     llmModel = OllamaModels.Meta.LLAMA_3_2,
 ) {
     val writer = TraceFeatureMessageFileWriter(
@@ -275,7 +275,7 @@ fun main() {
     runBlocking {
         // 에이전트 생성
         val agent = AIAgent(
-            executor = simpleOllamaAIExecutor(),
+            promptExecutor = simpleOllamaAIExecutor(),
             llmModel = OllamaModels.Meta.LLAMA_3_2,
         ) {
             val writer = TraceFeatureMessageFileWriter(
@@ -326,7 +326,7 @@ fun main() {
 ```kotlin
 // 에이전트 생성
 val agent = AIAgent(
-    executor = simpleOllamaAIExecutor(),
+    promptExecutor = simpleOllamaAIExecutor(),
     llmModel = OllamaModels.Meta.LLAMA_3_2,
 ) {
     val connectionConfig = DefaultServerConnectionConfig(host = host, port = port)
@@ -433,7 +433,7 @@ fun main() {
     runBlocking {
         // 에이전트 생성
         val agent = AIAgent(
-            executor = simpleOllamaAIExecutor(),
+            promptExecutor = simpleOllamaAIExecutor(),
             llmModel = OllamaModels.Meta.LLAMA_3_2,
         ) {
             val writer = TraceFeatureMessageFileWriter(
@@ -486,7 +486,7 @@ fun main() {
    runBlocking {
       // 에이전트 생성
       val agent = AIAgent(
-         executor = simpleOllamaAIExecutor(),
+         promptExecutor = simpleOllamaAIExecutor(),
          llmModel = OllamaModels.Meta.LLAMA_3_2,
       ) {
 -->
@@ -526,7 +526,7 @@ fun main() {
    runBlocking {
       // 에이전트 생성
       val agent = AIAgent(
-         executor = simpleOllamaAIExecutor(),
+         promptExecutor = simpleOllamaAIExecutor(),
          llmModel = OllamaModels.Meta.LLAMA_3_2,
       ) {
 -->

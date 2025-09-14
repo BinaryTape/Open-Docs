@@ -9,9 +9,9 @@ Koog 内置支持将代理跟踪导出到 [Langfuse](https://langfuse.com/)，�
 
 ### 设置说明
 
-1.  创建一个 Langfuse 项目。请遵循以下设置指南：[在 Langfuse 中创建新项目](https://langfuse.com/docs/get-started#create-new-project-in-langfuse)。
+1.  创建一个 Langfuse 项目。请遵循以下设置指南：[在 Langfuse 中创建新项目](https://langfuse.com/docs/get-started#create-new-project-in-langfuse)
 2.  获取 API 凭据。按照 [Langfuse API 密钥在哪里？](https://langfuse.com/faq/all/where-are-langfuse-api-keys) 中所述，检索您的 Langfuse `public key` 和 `secret key`。
-3.  将 Langfuse host、private key 和 secret key 传递给 Langfuse 导出器。这可以通过将它们作为实参传递给 `addLangfuseExporter()` 函数，或者通过设置环境变量（如下所示）来完成：
+3.  将 Langfuse host、public key 和 secret key 传递给 Langfuse 导出器。这可以通过将它们作为实参传递给 `addLangfuseExporter()` 函数，或者通过设置环境变量（如下所示）来完成：
 
 ```bash
    export LANGFUSE_HOST="https://cloud.langfuse.com"
@@ -21,7 +21,8 @@ Koog 内置支持将代理跟踪导出到 [Langfuse](https://langfuse.com/)，�
 
 ## 配置
 
-要启用 Langfuse 导出，请安装 **OpenTelemetry 特性** 并添加 `LangfuseExporter`。该导出器在底层使用 `OtlpHttpSpanExporter` 将跟踪发送到 Langfuse 的 OpenTelemetry 端点。
+要启用 Langfuse 导出，请安装 **OpenTelemetry 特性** 并添加 `LangfuseExporter`。
+该导出器在底层使用 `OtlpHttpSpanExporter` 将跟踪发送到 Langfuse 的 OpenTelemetry 端点。
 
 ### 示例：带有 Langfuse 跟踪的代理
 
@@ -38,7 +39,7 @@ fun main() = runBlocking {
     val apiKey = "api-key"
     
     val agent = AIAgent(
-        executor = simpleOpenAIExecutor(apiKey),
+        promptExecutor = simpleOpenAIExecutor(apiKey),
         llmModel = OpenAIModels.CostOptimized.GPT4oMini,
         systemPrompt = "You are a code assistant. Provide concise code examples."
     ) {
@@ -70,7 +71,7 @@ Koog 还会捕获 Langfuse 所需的 span 属性，以显示 [代理图](https:/
 
 在 Langfuse 中可视化时，跟踪显示如下：
 ![Langfuse traces](img/opentelemetry-langfuse-exporter-light.png#only-light)
-![Langfuse traces](img/opentelemetry-langfuse-exporter-dark.png#only-dark)
+![Langfuse traces](img/opricemetry-langfuse-exporter-dark.png#only-dark)
 
 关于 Langfuse OpenTelemetry 跟踪的更多详细信息，请参见：
 [Langfuse OpenTelemetry 文档](https://langfuse.com/integrations/native/opentelemetry#opentelemetry-endpoint)。

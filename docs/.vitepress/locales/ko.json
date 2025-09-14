@@ -460,9 +460,9 @@
   "koog.agent-persistency": "에이전트 영속성",
   "koog.opentelemetry": "OpenTelemetry",
   "kotlin.native-binary-options": "바이너리 옵션",
-  "kotlin.kotlin-tour": "Kotlin tour",
-  "kmp.what-s-next-for-kmp": "What's next for KMP",
-  "kmp.what-s-new": "What's new",
+  "kotlin.kotlin-tour": "Kotlin 둘러보기",
+  "kmp.what-s-next-for-kmp": "KMP의 다음 단계",
+  "kmp.what-s-new": "새로운 기능",
   "kmp.whats-new-compose-190": "Compose Multiplatform 1.9.0",
   "kmp.whats-new-compose-180": "Compose Multiplatform 1.8.2",
   "kmp.whats-new-compose-170": "Compose Multiplatform 1.7.3",
@@ -486,5 +486,13 @@
   "koog.mcp-playwright": "MCP - Playwright",
   "koog.mcp-unity": "MCP - Unity",
   "koog.vaccumagent": "VaccumAgent",
-  "koog.weave": "Weave"
+  "koog.weave": "Weave",
+  "kotlin.whatsnew2220": "Kotlin 2.2.20",
+  "kotlin.native-swift-export": "Swift 상호 운용",
+  "ktor.server-opentelemetry": "OpenTelemetry를 사용한 분산 추적",
+  "ktor.client-opentelemetry": "OpenTelemetry를 사용한 분산 추적",
+  "kmp.kotlin-multiplatform-react-native": "Kotlin Multiplatform 및 React Native",
+  "koog.act-agent-api": "Act Agent API",
+  "koog.structured-output": "구조화된 출력",
+  "koog.why-koog": "Koog를 선택하는 이유"
 }

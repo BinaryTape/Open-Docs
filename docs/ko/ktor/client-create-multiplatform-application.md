@@ -19,7 +19,7 @@
 Kotlin Multiplatform Mobile 앱을 생성하는 방법을 알아보세요.
 </link-summary>
 
-Ktor HTTP 클라이언트는 멀티플랫폼 프로젝트에서 사용할 수 있습니다. 이 튜토리얼에서는 간단한 Kotlin Multiplatform Mobile 애플리케이션을 만들어 요청을 보내고 응답 본문을 일반 HTML 텍스트로 받는 방법을 설명합니다.
+Ktor HTTP 클라이언트는 멀티플랫폼 프로젝트에서 사용할 수 있습니다. 이 튜토리얼에서는 요청을 보내고 응답 본문을 일반 HTML 텍스트로 받는 간단한 Kotlin Multiplatform Mobile 애플리케이션을 만들 것입니다.
 
 > 첫 번째 Kotlin Multiplatform Mobile 애플리케이션을 만드는 방법을 알아보려면, [첫 번째 크로스 플랫폼 모바일 앱 만들기](https://kotlinlang.org/docs/multiplatform-mobile-create-first-app.html)를 참조하세요.
 
@@ -137,7 +137,8 @@ kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-c
 3. 그런 다음, `androidApp/build.gradle.kts`를 열고 `kotlinx-coroutines-android` 종속성을 추가합니다:
 
 ```kotlin
-    implementation(libs.compose.ui)
+dependencies {
+    implementation(libs.kotlinx.coroutines.android)
 }
 ```
 

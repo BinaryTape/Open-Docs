@@ -32,7 +32,7 @@ import ai.koog.agents.memory.model.FactType
 import ai.koog.agents.memory.model.SingleFact
 -->
 ```kotlin
-// Storing favorite IDE theme (single value)
+// 儲存常用 IDE 主題 (單一值)
 val themeFact = SingleFact(
     concept = Concept(
         "ide-theme", 
@@ -51,7 +51,7 @@ import ai.koog.agents.memory.model.FactType
 import ai.koog.agents.memory.model.MultipleFacts
 -->
 ```kotlin
-// Storing programming languages (multiple values)
+// 儲存程式語言 (多個值)
 val languagesFact = MultipleFacts(
     concept = Concept(
         "programming-languages",
@@ -90,26 +90,26 @@ import kotlinx.serialization.Serializable
 ```kotlin
 object MemorySubjects {
     /**
-     * Information specific to the local machine environment
-     * Examples: Installed tools, SDKs, OS configuration, available commands
+     * 與本機環境相關的資訊
+     * 範例：已安裝的工具、SDK、作業系統配置、可用指令
      */
     @Serializable
     data object Machine : MemorySubject() {
         override val name: String = "machine"
         override val promptDescription: String =
-            "Technical environment (installed tools, package managers, packages, SDKs, OS, etc.)"
+            "技術環境（已安裝的工具、套件管理器、套件、SDK、作業系統等）"
         override val priorityLevel: Int = 1
     }
 
     /**
-     * Information specific to the user
-     * Examples: Conversation preferences, issue history, contact information
+     * 與使用者相關的資訊
+     * 範例：對話偏好、問題歷史紀錄、聯絡資訊
      */
     @Serializable
     data object User : MemorySubject() {
         override val name: String = "user"
         override val promptDescription: String =
-            "User information (conversation preferences, issue history, contact details, etc.)"
+            "使用者資訊（對話偏好、問題歷史紀錄、聯絡詳細資訊等）"
         override val priorityLevel: Int = 1
     }
 }
@@ -165,7 +165,7 @@ import ai.koog.prompt.llm.OllamaModels
 -->
 ```kotlin
 val agent = AIAgent(
-    executor = simpleOllamaAIExecutor(),
+    promptExecutor = simpleOllamaAIExecutor(),
     llmModel = OllamaModels.Meta.LLAMA_3_2,
 ) {
     install(AgentMemory) {
@@ -194,7 +194,7 @@ import ai.koog.rag.base.files.JVMFileSystemProvider
 import kotlin.io.path.Path
 -->
 ```kotlin
-// Create a memory provider
+// 建立記憶體提供者
 val memoryProvider = LocalFileMemoryProvider(
     config = LocalMemoryConfig("customer-support-memory"),
     storage = SimpleStorage(JVMFileSystemProvider.ReadWrite),
@@ -246,7 +246,7 @@ suspend fun main() {
 }
 -->
 ```kotlin
-// Get the stored information
+// 取得儲存的資訊
 val greeting = memoryProvider.load(
     concept = Concept("greeting", "User's name", FactType.SINGLE),
     subject = MemorySubjects.User,
@@ -282,12 +282,12 @@ import ai.koog.agents.memory.model.FactType
 -->
 ```kotlin
 val strategy = strategy("example-agent") {
-    // Node to automatically detect and save facts
+    // 自動偵測並儲存事實的節點
     val detectFacts by nodeSaveToMemoryAutoDetectFacts<Unit>(
         subjects = listOf(MemorySubjects.User, MemorySubjects.Machine)
     )
 
-    // Node to load specific facts
+    // 載入特定事實的節點
     val loadPreferences by node<Unit, Unit> {
         withMemory {
             loadFactsToAgent(
@@ -297,7 +297,7 @@ val strategy = strategy("example-agent") {
         }
     }
 
-    // Connect nodes in the strategy
+    // 在策略中連接節點
     edge(nodeStart forwardTo detectFacts)
     edge(detectFacts forwardTo loadPreferences)
     edge(loadPreferences forwardTo nodeFinish)
@@ -315,7 +315,7 @@ import ai.koog.rag.base.files.JVMFileSystemProvider
 import ai.koog.agents.memory.storage.Aes256GCMEncryptor
 -->
 ```kotlin
-// Simple encrypted storage setup
+// 簡單的加密儲存設定
 val secureStorage = EncryptedStorage(
     fs = JVMFileSystemProvider.ReadWrite,
     encryption = Aes256GCMEncryptor("your-secret-key")

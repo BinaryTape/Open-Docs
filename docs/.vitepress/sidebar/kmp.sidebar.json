@@ -557,6 +557,10 @@
         "link": "kotlin-multiplatform-flutter"
       },
       {
+        "text": "kmp.kotlin-multiplatform-react-native",
+        "link": "kotlin-multiplatform-react-native"
+      },
+      {
         "text": "kmp.programming-languages-cross-platform",
         "link": "programming-languages-cross-platform"
       },

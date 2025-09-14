@@ -1,7 +1,7 @@
 # W&B Weave 导出器
 
 Koog 提供内置支持，可将智能体追踪导出到 [W&B Weave](https://wandb.ai/site/weave/)，
-W&B Weave 是 Weights & Biases 提供的一款开发者工具，用于 AI 应用程序的可观测性和分析。
+Weights & Biases 提供的这款开发者工具专用于 AI 应用程序的可观测性和分析。
 通过 Weave 集成，你可以捕获提示、补全、系统上下文和执行追踪，并将其直接可视化到你的 W&B 工作区中。
 
 关于 Koog 的 OpenTelemetry 支持的背景信息，请参见 [OpenTelemetry 支持](https://docs.koog.ai/opentelemetry-support/)。
@@ -12,7 +12,8 @@ W&B Weave 是 Weights & Biases 提供的一款开发者工具，用于 AI 应用
 
 1.  在 [https://wandb.ai](https://wandb.ai) 注册一个 W&B 账户。
 2.  从 [https://wandb.ai/authorize](https://wandb.ai/authorize) 获取你的 API 密钥。
-3.  访问你的 W&B 仪表盘 [https://wandb.ai/home](https://wandb.ai/home) 查找你的 `entity` 名称。如果这是个人账户，你的 `entity` 通常是你的用户名；如果是团队/组织账户，则是你的团队/组织名称。
+3.  访问你的 W&B 仪表盘 [https://wandb.ai/home](https://wandb.ai/home) 查找你的 `entity` 名称。
+    如果这是个人账户，你的 `entity` 通常是你的用户名；如果是团队/组织账户，则是你的团队/组织名称。
 4.  为你的项目定义一个名称。你无需提前创建项目，当第一个追踪被发送时，它将自动创建。
 5.  将 Weave `entity`、项目名称和 API 密钥传递给 Weave 导出器。
     这可以通过将它们作为形参传递给 `addWeaveExporter()` 函数来完成，
@@ -46,7 +47,7 @@ fun main() = runBlocking {
     val projectName = System.getenv()["WEAVE_PROJECT_NAME"] ?: "koog-tracing"
     
     val agent = AIAgent(
-        executor = simpleOpenAIExecutor(apiKey),
+        promptExecutor = simpleOpenAIExecutor(apiKey),
         llmModel = OpenAIModels.CostOptimized.GPT4oMini,
         systemPrompt = "You are a code assistant. Provide concise code examples."
     ) {
@@ -93,4 +94,4 @@ See traces on https://wandb.ai/$entity/$projectName/weave/traces")
 -   API 密钥必须具有写入选定 `entity` 的追踪的权限。
 
 ### 连接问题
--   确保你的环境具有访问 W&B OpenTelemetry 摄入端点的网络权限。
+-   确保你的环境具有访问 W&B 的 OpenTelemetry 摄入端点的网络权限。

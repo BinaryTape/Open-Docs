@@ -148,7 +148,7 @@ suspend fun solveUserRequest(query: String) {
     )
 
     val agent = AIAgent(
-        executor = simpleOpenAIExecutor(apiKey),
+        promptExecutor = simpleOpenAIExecutor(apiKey),
         llmModel = OpenAIModels.Chat.GPT4o
     )
 
@@ -237,7 +237,7 @@ fun main() {
 
         val agent = AIAgent(
             toolRegistry = tools,
-            executor = simpleOpenAIExecutor(apiKey),
+            promptExecutor = simpleOpenAIExecutor(apiKey),
             llmModel = OpenAIModels.Chat.GPT4o
         )
 

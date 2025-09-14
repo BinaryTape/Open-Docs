@@ -40,7 +40,7 @@ fun main() = runBlocking {
     val apiKey = "api-key"
     
     val agent = AIAgent(
-        executor = simpleOpenAIExecutor(apiKey),
+        promptExecutor = simpleOpenAIExecutor(apiKey),
         llmModel = OpenAIModels.CostOptimized.GPT4oMini,
         systemPrompt = "You are a code assistant. Provide concise code examples."
     ) {
@@ -72,7 +72,7 @@ Koogは、Langfuseが[エージェントグラフ](https://langfuse.com/docs/obs
 
 Langfuseで視覚化されると、トレースは次のようになります:
 ![Langfuse traces](img/opentelemetry-langfuse-exporter-light.png#only-light)
-![Langfuse traces](img/opentelemetry-langfuse-exporter-dark.png#only-dark)
+![Langfuse traces](img/oplentelemetry-langfuse-exporter-dark.png#only-dark)
 
 Langfuse OpenTelemetryトレースの詳細については、以下を参照してください:
 [Langfuse OpenTelemetry Docs](https://langfuse.com/integrations/native/opentelemetry#opentelemetry-endpoint).

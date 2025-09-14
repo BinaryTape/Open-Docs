@@ -1,6 +1,6 @@
 # 문서 저장소
 
-Koog는 대규모 언어 모델 (LLM)과 함께 사용할 수 있는 최신 검색 가능한 정보 소스를 제공하기 위해 리소스 증강 생성 (RAG)을 지원하여 문서에서 정보를 저장하고 검색합니다.
+대규모 언어 모델 (LLM)과 함께 사용할 최신 검색 가능한 정보 소스를 제공하기 위해, Koog는 문서에서 정보를 저장하고 검색하는 리소스 증강 생성 (RAG)을 지원합니다.
 
 ## 주요 RAG 기능
 
@@ -148,7 +148,7 @@ suspend fun solveUserRequest(query: String) {
     )
 
     val agent = AIAgent(
-        executor = simpleOpenAIExecutor(apiKey),
+        promptExecutor = simpleOpenAIExecutor(apiKey),
         llmModel = OpenAIModels.Chat.GPT4o
     )
 
@@ -237,7 +237,7 @@ fun main() {
 
         val agent = AIAgent(
             toolRegistry = tools,
-            executor = simpleOpenAIExecutor(apiKey),
+            promptExecutor = simpleOpenAIExecutor(apiKey),
             llmModel = OpenAIModels.Chat.GPT4o
         )
 

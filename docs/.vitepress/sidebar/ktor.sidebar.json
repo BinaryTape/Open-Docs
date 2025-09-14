@@ -374,6 +374,10 @@
                 "link": "server-metrics-micrometer"
               },
               {
+                "text": "ktor.server-opentelemetry",
+                "link": "server-opentelemetry"
+              },
+              {
                 "text": "ktor.server-metrics-dropwizard",
                 "link": "server-metrics-dropwizard"
               }
@@ -681,6 +685,10 @@
               {
                 "text": "ktor.client-call-id",
                 "link": "client-call-id"
+              },
+              {
+                "text": "ktor.client-opentelemetry",
+                "link": "client-opentelemetry"
               }
             ],
             "collapsed": true

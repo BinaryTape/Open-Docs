@@ -1,10 +1,10 @@
 # OpenTelemetry 支持
 
-本页面详细介绍了 Koog 代理框架对 OpenTelemetry 的支持，用于跟踪和监控您的 AI 代理。
+本页面详细介绍了 Koog 代理 framework 对 OpenTelemetry 的支持，用于跟踪和监控您的 AI 代理。
 
 ## 概述
 
-OpenTelemetry 是一个可观测性框架，它提供工具用于从应用程序生成、收集和导出遥测数据（跟踪）。Koog 的 OpenTelemetry 特性允许您对 AI 代理进行插桩以收集遥测数据，这可以帮助您：
+OpenTelemetry 是一个可观测性 framework，它提供工具用于从应用程序生成、收集和导出遥测数据（跟踪）。Koog 的 OpenTelemetry 特性允许您对 AI 代理进行插桩以收集遥测数据，这可以帮助您：
 
 - 监控代理性能和行为
 - 调试复杂代理工作流中的问题
@@ -43,12 +43,12 @@ const val apiKey = ""
 -->
 ```kotlin
 val agent = AIAgent(
-    executor = simpleOpenAIExecutor(apiKey),
+    promptExecutor = simpleOpenAIExecutor(apiKey),
     llmModel = OpenAIModels.Chat.GPT4o,
     systemPrompt = "You are a helpful assistant.",
     installFeatures = {
         install(OpenTelemetry) {
-            // 配置选项在此处
+            // Configuration options go here
         }
     }
 )
@@ -61,7 +61,7 @@ val agent = AIAgent(
 
 以下是在代理中配置 OpenTelemetry 特性时可设置的全部可用属性列表：
 
-| Name             | 数据类型          | 默认值                | 描述                                                                  |
+| Name             | Data type          | Default value                | Description                                                                  |
 |------------------|--------------------|------------------------------|------------------------------------------------------------------------------|
 | `serviceName`    | `String`           | `ai.koog`                    | 正在插桩的服务名称。                                  |
 | `serviceVersion` | `String`           | 当前 Koog 库版本 | 正在插桩的服务版本。                               |
@@ -84,7 +84,7 @@ import io.opentelemetry.exporter.logging.LoggingSpanExporter
 const val apiKey = ""
 
 val agent = AIAgent(
-    executor = simpleOpenAIExecutor(apiKey),
+    promptExecutor = simpleOpenAIExecutor(apiKey),
     llmModel = OpenAIModels.Chat.GPT4o,
     systemPrompt = "You are a helpful assistant."
 ) {
@@ -94,22 +94,22 @@ val agent = AIAgent(
 -->
 ```kotlin
 install(OpenTelemetry) {
-    // 设置您的服务配置
+    // Set your service configuration
     setServiceInfo("my-agent-service", "1.0.0")
     
-    // 添加日志记录导出器
+    // Add the Logging exporter
     addSpanExporter(LoggingSpanExporter.create())
 }
 ```
 <!--- KNIT example-opentelemetry-support-02.kt -->
 
-有关可用方法的参考，请参阅以下章节。
+有关可用方法的参考，请参见以下章节。
 
 #### setServiceInfo
 
 设置服务信息，包括名称和版本。接受以下实参：
 
-| Name               | 数据类型 | 必需的 | 默认值 | 描述                                                 |
+| Name               | Data type | Required | Default value | Description                                                 |
 |--------------------|-----------|----------|---------------|-------------------------------------------------------------|
 | `serviceName`      | String    | Yes      |               | 正在插桩的服务名称。                 |
 | `serviceVersion`   | String    | Yes      |               | 正在插桩的服务版本。              |
@@ -118,15 +118,15 @@ install(OpenTelemetry) {
 
 添加 Span 导出器以将遥测数据发送到外部系统。接受以下实参：
 
-| Name       | 数据类型      | 必需的 | 默认值 | 描述                                                                   |
+| Name       | Data type      | Required | Default value | Description                                                                   |
 |------------|----------------|----------|---------------|-------------------------------------------------------------------------------|
-| `exporter` | `SpanExporter` | Yes      |               | 要添加到自定义 Span 导出器列表的 `SpanExporter` 实例。 |
+| `exporter` | `SpanExporter` | Yes      |               | 要添加到自定义 Span 导出器 list 的 `SpanExporter` 实例。 |
 
 #### addSpanProcessor
 
 添加 Span 处理器工厂以在导出 Span 之前对其进行处理。接受以下实参：
 
-| Name        | 数据类型                         | 必需的 | 默认值 | 描述                                                                                                  |
+| Name        | Data type                         | Required | Default value | Description                                                                                                  |
 |-------------|-----------------------------------|----------|---------------|--------------------------------------------------------------------------------------------------------------|
 | `processor` | `(SpanExporter) -> SpanProcessor` | Yes      |               | 一个函数，为给定的导出器创建 Span 处理器。它允许您针对每个导出器自定义处理。   |
 
@@ -134,7 +134,7 @@ install(OpenTelemetry) {
 
 添加资源属性以提供有关服务的额外上下文。接受以下实参：
 
-| Name         | 数据类型                 | 必需的 | 默认值 | 描述                                                            |
+| Name         | Data type                 | Required | Default value | Description                                                            |
 |--------------|---------------------------|----------|---------------|------------------------------------------------------------------------|
 | `attributes` | `Map<AttributeKey<T>, T>` | Yes      |               | 提供有关服务的额外详细信息的键值对。 |
 
@@ -142,7 +142,7 @@ install(OpenTelemetry) {
 
 设置采样策略以控制收集哪些 Span。接受以下实参：
 
-| Name      | 数据类型 | 必需的 | 默认值 | 描述                                                      |
+| Name      | Data type | Required | Default value | Description                                                      |
 |-----------|-----------|----------|---------------|------------------------------------------------------------------|
 | `sampler` | `Sampler` | Yes      |               | 为 OpenTelemetry 配置设置的采样器实例。 |
 
@@ -150,7 +150,7 @@ install(OpenTelemetry) {
 
 启用或禁用用于调试 OpenTelemetry 配置的详细日志记录。接受以下实参：
 
-| Name      | 数据类型 | 必需的 | 默认值 | 描述                                                     |
+| Name      | Data type | Required | Default value | Description                                                     |
 |-----------|-----------|----------|---------------|-----------------------------------------------------------------|
 | `verbose` | `Boolean` | Yes      | `false`       | 如果为 true，应用程序将收集更详细的遥测数据。 |
 
@@ -161,7 +161,7 @@ install(OpenTelemetry) {
 - 当您调用 `setSdk(sdk)` 时，提供的 SDK 将按原样使用，并且通过 `addSpanExporter`、`addSpanProcessor`、`addResourceAttributes` 或 `setSampler` 应用的任何自定义配置都将被忽略。
 - tracer 的插桩作用域名称/版本与您的服务信息保持一致。
 
-| Name | 数据类型         | 必需的 | 描述                           |
+| Name | Data type         | Required | Description                           |
 |------|-------------------|----------|---------------------------------------|
 | `sdk`| `OpenTelemetrySdk`| Yes      | 要在代理中使用的 SDK 实例。 |
 
@@ -184,7 +184,7 @@ import io.opentelemetry.sdk.trace.samplers.Sampler
 const val apiKey = ""
 
 val agent = AIAgent(
-    executor = simpleOpenAIExecutor(apiKey),
+    promptExecutor = simpleOpenAIExecutor(apiKey),
     llmModel = OpenAIModels.Chat.GPT4o,
     systemPrompt = "You are a helpful assistant."
 ) {
@@ -194,16 +194,16 @@ val agent = AIAgent(
 -->
 ```kotlin
 install(OpenTelemetry) {
-    // 设置您的服务配置
+    // Set your service configuration
     setServiceInfo("my-agent-service", "1.0.0")
     
-    // 添加日志记录导出器
+    // Add the Logging exporter
     addSpanExporter(LoggingSpanExporter.create())
     
-    // 设置采样器 
+    // Set the sampler 
     setSampler(Sampler.traceIdRatioBased(0.5)) 
 
-    // 添加资源属性
+    // Add resource attributes
     addResourceAttributes(mapOf(
         AttributeKey.stringKey("custom.attribute") to "custom-value")
     )
@@ -245,7 +245,7 @@ import io.opentelemetry.api.common.AttributeKey
 
 const val apiKey = "api-key"
 val agent = AIAgent(
-    executor = simpleOpenAIExecutor(apiKey),
+    promptExecutor = simpleOpenAIExecutor(apiKey),
     llmModel = OpenAIModels.Chat.GPT4o,
     systemPrompt = "You are a helpful assistant.",
     installFeatures = {
@@ -290,7 +290,7 @@ CreateAgentSpan
 
 Span 属性提供与 Span 相关的元数据。每个 Span 都有自己的一组属性，而有些 Span 也可以重复属性。
 
-Koog 支持遵循 OpenTelemetry [生成式 AI 事件语义约定](https://opentelemetry.io/docs/specs/semconv/gen-ai/gen-ai-spans/)的预定义属性列表。例如，这些约定定义了一个名为 `gen_ai.conversation.id` 的属性，这通常是 Span 的必需属性。在 Koog 中，此属性的值是代理运行的唯一标识符，当您调用 `agent.run()` 方法时会自动设置。
+Koog 支持遵循 OpenTelemetry [生成式 AI 事件语义约定](https://opentelemetry.io/docs/specs/semconv/gen-ai/gen-ai-spans/)的预定义属性 list。例如，这些约定定义了一个名为 `gen_ai.conversation.id` 的属性，这通常是 Span 的必需属性。在 Koog 中，此属性的值是代理运行的唯一标识符，当您调用 `agent.run()` 方法时会自动设置。
 
 此外，Koog 还包括自定义的、Koog 特有的属性。您可以通过 `koog.` 前缀识别其中大多数属性。以下是可用的自定义属性：
 
@@ -311,20 +311,20 @@ Span 也可以附加一个_事件_。事件描述了在特定时间点发生的�
 - **ModerationResponseEvent**：模型审核结果或信号。
 
 !!! note   
-    `optentelemetry-java` SDK 在添加事件时不支持事件正文字段实参。因此，在 Koog 的 OpenTelemetry 支持中，事件正文字段是一个单独的属性，其键为 `body`，值类型为字符串。该字符串包含事件正文字段的内容或载荷，通常是类似 JSON 的对象。有关事件正文字段的示例，请参阅 [OpenTelemetry 文档](https://opentelemetry.io/docs/specs/semconv/gen-ai/gen-ai-events/#examples)。有关 `opentelemetry-java` 中事件正文字段支持状态的信息，请参阅相关的 [GitHub 议题](https://github.com/open-telemetry/semantic-conventions/issues/1870)。
+    `optentelemetry-java` SDK 在添加事件时不支持事件正文字段形参。因此，在 Koog 的 OpenTelemetry 支持中，事件正文字段是一个单独的属性，其键为 `body`，值类型为 string。该 string 包含事件正文字段的内容或载荷，通常是类似 JSON 的 object。有关事件正文字段的示例，请参阅 [OpenTelemetry 文档](https://opentelemetry.io/docs/specs/semconv/gen-ai/gen-ai-events/#examples)。有关 `opentelemetry-java` 中事件正文字段支持状态的信息，请参阅相关的 [GitHub 议题](https://github.com/open-telemetry/semantic-conventions/issues/1870)。
 
 ## 导出器
 
 导出器将收集到的遥测数据发送到 OpenTelemetry Collector 或其他类型的目标位置或后端实现。要添加导出器，请在安装 OpenTelemetry 特性时使用 `addSpanExporter()` 方法。该方法接受以下实参：
 
-| Name       | 数据类型    | 必需的 | 默认值 | 描述                                                                 |
+| Name       | Data type    | Required | Default | Description                                                                 |
 |------------|--------------|----------|---------|-----------------------------------------------------------------------------|
-| `exporter` | SpanExporter | Yes      |         | 要添加到自定义 Span 导出器列表的 SpanExporter 实例。 |
+| `exporter` | SpanExporter | Yes      |         | 要添加到自定义 Span 导出器 list 的 SpanExporter 实例。 |
 
 以下章节提供了有关 `opentelemetry-java` SDK 中一些最常用导出器的信息。
 
 !!! note
-    如果您未配置任何自定义导出器，Koog 将默认使用控制台 LoggingSpanExporter。这有助于本地开发和调试。
+    如果您未配置任何自定义导出器，Koog 将默认使用控制台 `LoggingSpanExporter`。这有助于本地开发和调试。
 
 ### 日志记录导出器
 
@@ -342,7 +342,7 @@ import io.opentelemetry.exporter.logging.LoggingSpanExporter
 const val apiKey = ""
 
 val agent = AIAgent(
-    executor = simpleOpenAIExecutor(apiKey),
+    promptExecutor = simpleOpenAIExecutor(apiKey),
     llmModel = OpenAIModels.Chat.GPT4o,
     systemPrompt = "You are a helpful assistant."
 ) {
@@ -352,9 +352,9 @@ val agent = AIAgent(
 -->
 ```kotlin
 install(OpenTelemetry) {
-    // 添加日志记录导出器
+    // Add the logging exporter
     addSpanExporter(LoggingSpanExporter.create())
-    // 根据需要添加更多导出器
+    // Add more exporters as needed
 }
 ```
 <!--- KNIT example-opentelemetry-support-05.kt -->
@@ -375,7 +375,7 @@ const val apiKey = ""
 const val AUTH_STRING = ""
 
 val agent = AIAgent(
-    executor = simpleOpenAIExecutor(apiKey),
+    promptExecutor = simpleOpenAIExecutor(apiKey),
     llmModel = OpenAIModels.Chat.GPT4o,
     systemPrompt = "You are a helpful assistant."
 ) {
@@ -385,14 +385,14 @@ val agent = AIAgent(
 -->
 ```kotlin
 install(OpenTelemetry) {
-   // 添加 OpenTelemetry HTTP 导出器 
+   // Add OpenTelemetry HTTP exporter 
    addSpanExporter(
       OtlpHttpSpanExporter.builder()
-         // 设置等待收集器处理导出的 Span 批次的最长时间 
+         // Set the maximum time to wait for the collector to process an exported batch of spans 
          .setTimeout(30, TimeUnit.SECONDS)
-         // 设置要连接的 OpenTelemetry 端点
+         // Set the OpenTelemetry endpoint to connect to
          .setEndpoint("http://localhost:3000/api/public/otel/v1/traces")
-         // 添加授权请求头
+         // Add the authorization header
          .addHeader("Authorization", "Basic $AUTH_STRING")
          .build()
    )
@@ -414,7 +414,7 @@ import io.opentelemetry.exporter.otlp.trace.OtlpGrpcSpanExporter
 const val apiKey = ""
 
 val agent = AIAgent(
-    executor = simpleOpenAIExecutor(apiKey),
+    promptExecutor = simpleOpenAIExecutor(apiKey),
     llmModel = OpenAIModels.Chat.GPT4o,
     systemPrompt = "You are a helpful assistant."
 ) {
@@ -424,10 +424,10 @@ val agent = AIAgent(
 -->
 ```kotlin
 install(OpenTelemetry) {
-   // 添加 OpenTelemetry gRPC 导出器 
+   // Add OpenTelemetry gRPC exporter 
    addSpanExporter(
       OtlpGrpcSpanExporter.builder()
-          // 设置主机和端口
+          // Set the host and the port
          .setEndpoint("http://localhost:4317")
          .build()
    )
@@ -451,7 +451,7 @@ import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
 const val apiKey = ""
 
 val agent = AIAgent(
-    executor = simpleOpenAIExecutor(apiKey),
+    promptExecutor = simpleOpenAIExecutor(apiKey),
     llmModel = OpenAIModels.Chat.GPT4o,
     systemPrompt = "You are a helpful assistant."
 ) {
@@ -486,7 +486,7 @@ import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
 const val apiKey = ""
 
 val agent = AIAgent(
-    executor = simpleOpenAIExecutor(apiKey),
+    promptExecutor = simpleOpenAIExecutor(apiKey),
     llmModel = OpenAIModels.Chat.GPT4o,
     systemPrompt = "You are a helpful assistant."
 ) {
@@ -560,15 +560,15 @@ const val openAIApiKey = "open-ai-api-key"
 fun main() {
     runBlocking {
         val agent = AIAgent(
-            executor = simpleOpenAIExecutor(openAIApiKey),
+            promptExecutor = simpleOpenAIExecutor(openAIApiKey),
             llmModel = OpenAIModels.Reasoning.O4Mini,
             systemPrompt = "You are a code assistant. Provide concise code examples."
         ) {
             install(OpenTelemetry) {
-                // 添加用于本地调试的控制台日志记录器
+                // Add a console logger for local debugging
                 addSpanExporter(LoggingSpanExporter.create())
 
-                // 将跟踪发送到 OpenTelemetry 收集器
+                // Send traces to OpenTelemetry collector
                 addSpanExporter(
                     OtlpGrpcSpanExporter.builder()
                         .setEndpoint("http://localhost:4317")
@@ -597,7 +597,7 @@ fun main() {
 
 1. **Jaeger、Langfuse 或 W&B Weave 中未出现跟踪**
     - 确保服务正在运行且 OpenTelemetry 端口 (4317) 可访问。
-    - 检查 OpenTelemetry 导出器是否配置了正确的端点。
+    - 检测 OpenTelemetry 导出器是否配置了正确的端点。
     - 确保在代理执行后等待几秒钟，以便导出跟踪。
 
 2. **Span 缺失或跟踪不完整**

@@ -31,7 +31,8 @@ The EventHandler entity consists of five main handler types:
 
 ### インストールと設定
 
-`EventHandler` 機能は、`EventHandler` クラスを介してエージェントのワークフローに統合されます。このクラスは、異なるエージェントイベントのコールバックを登録する方法を提供し、エージェント設定の機能としてインストールできます。詳細については、[API リファレンス](https://api.koog.ai/agents/agents-features/agents-features-event-handler/ai.koog.agents.local.features.eventHandler.feature/-event-handler/index.html)を参照してください。
+`EventHandler` 機能は、`EventHandler` クラスを介してエージェントのワークフローに統合されます。
+このクラスは、異なるエージェントイベントのコールバックを登録する方法を提供し、エージェント設定の機能としてインストールできます。詳細については、[API リファレンス](https://api.koog.ai/agents/agents-features/agents-features-event-handler/ai.koog.agents.local.features.eventHandler.feature/-event-handler/index.html)を参照してください。
 
 この機能をインストールし、エージェントのイベントハンドラーを設定するには、次のようにします。
 
@@ -42,12 +43,12 @@ import ai.koog.prompt.executor.llms.all.simpleOllamaAIExecutor
 import ai.koog.prompt.llm.OllamaModels
 
 val agent = AIAgent(
-    executor = simpleOllamaAIExecutor(),
+    promptExecutor = simpleOllamaAIExecutor(),
     llmModel = OllamaModels.Meta.LLAMA_3_2,
 ) {
 -->
-<!--- SUFFIX 
-} 
+<!--- SUFFIX
+}
 -->
 
 ```kotlin
@@ -68,7 +69,8 @@ handleEvents {
 
 イベントハンドラーの設定に関する詳細については、[API リファレンス](https://api.koog.ai/agents/agents-features/agents-features-event-handler/ai.koog.agents.local.features.eventHandler.feature/-event-handler-config/index.html)を参照してください。
 
-エージェントを作成する際に、`handleEvents` 拡張関数を使用してイベントハンドラーを設定することもできます。この関数もイベントハンドラー機能をインストールし、エージェントのイベントハンドラーを設定します。例を次に示します。
+エージェントを作成する際に、`handleEvents` 拡張関数を使用してイベントハンドラーを設定することもできます。
+この関数もイベントハンドラー機能をインストールし、エージェントのイベントハンドラーを設定します。例を次に示します。
 
 <!--- INCLUDE
 import ai.koog.agents.core.agent.AIAgent
@@ -78,7 +80,7 @@ import ai.koog.prompt.llm.OllamaModels
 -->
 ```kotlin
 val agent = AIAgent(
-    executor = simpleOllamaAIExecutor(),
+    promptExecutor = simpleOllamaAIExecutor(),
     llmModel = OllamaModels.Meta.LLAMA_3_2,
 ){
     handleEvents {

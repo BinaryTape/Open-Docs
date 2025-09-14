@@ -1,8 +1,10 @@
 # 預定義節點與元件
 
-節點是 Koog 框架中代理工作流程的基本構成要素。每個節點代表工作流程中的一個特定操作或轉換，它們可以透過邊 (edge) 連接，以定義執行流程。
+節點是 Koog 框架中代理工作流程的基本構成要素。
+每個節點代表工作流程中的一個特定操作或轉換，它們可以透過邊 (edge) 連接，以定義執行流程。
 
-一般來說，它們允許您將複雜的邏輯封裝到可重複使用的元件中，以便輕鬆整合到不同的代理工作流程。本指南將引導您了解可以在代理策略中使用的現有節點。
+一般來說，它們允許您將複雜的邏輯封裝到可重複使用的元件中，以便輕鬆整合到
+不同的代理工作流程。本指南將引導您了解可以在代理策略中使用的現有節點。
 
 如需更詳細的參考文件，請參閱 [API reference](https://api.koog.ai/index.html)。
 
@@ -41,7 +43,8 @@ edge(passthrough forwardTo nodeFinish)
 
 ### nodeUpdatePrompt
 
-一個使用提供的提示詞建構器 (prompt builder) 將訊息新增到 LLM 提示詞的節點。這對於在發出實際 LLM 請求之前修改對話上下文非常有用。如需詳細資訊，請參閱 [API reference](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.dsl.extension/node-update-prompt.html)。
+一個使用提供的提示詞建構器 (prompt builder) 將訊息新增到 LLM 提示詞的節點。
+這對於在發出實際 LLM 請求之前修改對話上下文非常有用。如需詳細資訊，請參閱 [API reference](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.dsl.extension/node-update-prompt.html)。
 
 您可以將此節點用於以下目的：
 
@@ -94,7 +97,8 @@ edge(setupContext forwardTo secondNode)
 
 ### nodeLLMRequest
 
-一個將使用者訊息附加到 LLM 提示詞，並獲得帶有可選工具使用功能的回應的節點。節點配置決定了在處理訊息期間是否允許工具呼叫。如需詳細資訊，請參閱 [API reference](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.dsl.extension/node-l-l-m-request.html)。
+一個將使用者訊息附加到 LLM 提示詞，並獲得帶有可選工具使用功能的回應的節點。節點配置決定了在處理訊息期間是否允許
+工具呼叫。如需詳細資訊，請參閱 [API reference](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.dsl.extension/node-l-l-m-request.html)。
 
 您可以將此節點用於以下目的：
 
@@ -324,7 +328,7 @@ edge(executeMultipleTools forwardTo sendMultipleToolResultsToLLM)
 
 該框架提供了預定義的子圖，用於封裝常用模式和工作流程。這些子圖透過自動處理基本節點和邊的建立，簡化了複雜代理策略的開發。
 
-透過使用預定義的子圖，您可以實作各種流行的管道 (pipeline)。以下是一個範例：
+透過使用預定義的子圖，您可以實作各種流行管道。以下是一個範例：
 
 1. 準備資料。
 2. 執行任務。
@@ -435,7 +439,7 @@ val verifyCode by subgraphWithVerification<String>(
 當您需要運行不需要複雜邏輯的直接流程時，可以使用此策略。
 
 <!--- INCLUDE
-import ai.koog.agents.core.agent.entity.AIAgentStrategy
+import ai.koog.agents.core.agent.entity.AIAgentGraphStrategy
 import ai.koog.agents.core.dsl.builder.forwardTo
 import ai.koog.agents.core.dsl.builder.strategy
 import ai.koog.agents.core.dsl.extension.*
@@ -443,7 +447,7 @@ import ai.koog.agents.core.dsl.extension.*
 -->
 ```kotlin
 
-public fun singleRunStrategy(): AIAgentStrategy<String, String> = strategy("single_run") {
+public fun singleRunStrategy(): AIAgentGraphStrategy<String, String> = strategy("single_run") {
     val nodeCallLLM by nodeLLMRequest("sendInput")
     val nodeExecuteTool by nodeExecuteTool("nodeExecuteTool")
     val nodeSendToolResult by nodeLLMSendToolResult("nodeSendToolResult")
@@ -464,7 +468,7 @@ public fun singleRunStrategy(): AIAgentStrategy<String, String> = strategy("sing
 它通常根據 LLM 決策執行工具並處理結果。
 
 <!--- INCLUDE
-import ai.koog.agents.core.agent.entity.AIAgentStrategy
+import ai.koog.agents.core.agent.entity.AIAgentGraphStrategy
 import ai.koog.agents.core.dsl.builder.forwardTo
 import ai.koog.agents.core.dsl.builder.strategy
 import ai.koog.agents.core.dsl.extension.*
@@ -472,7 +476,7 @@ import ai.koog.agents.core.tools.ToolRegistry
 
 -->
 ```kotlin
-fun toolBasedStrategy(name: String, toolRegistry: ToolRegistry): AIAgentStrategy<String, String> {
+fun toolBasedStrategy(name: String, toolRegistry: ToolRegistry): AIAgentGraphStrategy<String, String> {
     return strategy(name) {
         val nodeSendInput by nodeLLMRequest()
         val nodeExecuteTool by nodeExecuteTool()
@@ -514,7 +518,8 @@ fun toolBasedStrategy(name: String, toolRegistry: ToolRegistry): AIAgentStrategy
 
 ### 串流資料策略
 
-串流資料策略專為處理來自 LLM 的串流資料而設計。它通常請求串流資料，處理它，並可能使用處理後的資料呼叫工具。
+串流資料策略專為處理來自 LLM 的串流資料而設計。它通常請求
+串流資料，處理它，並可能使用處理後的資料呼叫工具。
 
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.forwardTo

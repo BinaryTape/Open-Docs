@@ -58,6 +58,7 @@ MCP 서버는 에이전트와 통신하기 위해 stdio 및 SSE 전송 메커니
 
 <!--- INCLUDE
 import ai.koog.agents.mcp.McpToolRegistryProvider
+import ai.koog.agents.mcp.defaultStdioTransport
 -->
 ```kotlin
 // MCP 서버 시작 (예: 프로세스로)
@@ -161,7 +162,7 @@ fun main() {
 ```kotlin
 // 도구를 포함한 에이전트 생성
 val agent = AIAgent(
-    executor = executor,
+    promptExecutor = executor,
     strategy = strategy,
     llmModel = OpenAIModels.Chat.GPT4o,
     toolRegistry = toolRegistry
@@ -292,6 +293,7 @@ import ai.koog.agents.core.agent.AIAgent
 import ai.koog.agents.mcp.McpToolRegistryProvider
 import ai.koog.prompt.executor.clients.openai.OpenAIModels
 import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
+import ai.koog.agents.mcp.defaultStdioTransport
 import kotlinx.coroutines.runBlocking
 
 const val googleMapsApiKey = ""
@@ -318,7 +320,7 @@ val toolRegistry = McpToolRegistryProvider.fromTransport(
 
 // 에이전트 생성 및 실행
 val agent = AIAgent(
-    executor = simpleOpenAIExecutor(openAIApiToken),
+    promptExecutor = simpleOpenAIExecutor(openAIApiToken),
     llmModel = OpenAIModels.Chat.GPT4o,
     toolRegistry = toolRegistry,
 )
@@ -359,7 +361,7 @@ val toolRegistry = McpToolRegistryProvider.fromTransport(
 
 // 에이전트 생성 및 실행
 val agent = AIAgent(
-    executor = simpleOpenAIExecutor(openAIApiToken),
+    promptExecutor = simpleOpenAIExecutor(openAIApiToken),
     llmModel = OpenAIModels.Chat.GPT4o,
     toolRegistry = toolRegistry,
 )

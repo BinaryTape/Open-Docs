@@ -57,7 +57,7 @@ edge(sourceNode forwardTo targetNode)
 | onMultipleToolCalls | 当 LLM 调用多个工具时匹配的条件。                                              |
 | onToolNotCalled  | 当 LLM 未调用工具时匹配的条件。                                                |
 
-你可以使用 `transformed` 函数在将输出传递给目标节点之前对其进行转换：
+你可以在将输出传递给目标节点之前，使用 `transformed` 函数对其进行转换：
 
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.forwardTo
@@ -165,7 +165,7 @@ val myStrategy = strategy<String, String>("my-strategy") {
     val executeToolCall by nodeExecuteTool()
     val sendToolResult by nodeLLMSendToolResult()
 
-    edge(nodeStart forwardTo nodeCallLLLLM)
+    edge(nodeStart forwardTo nodeCallLLM)
     edge(nodeCallLLM forwardTo nodeFinish onAssistantMessage { true })
     edge(nodeCallLLM forwardTo executeToolCall onToolCall { true })
     edge(executeToolCall forwardTo sendToolResult)
@@ -309,7 +309,7 @@ edge(
 语气分析策略是基于工具的策略的一个很好的示例，它包括历史记录压缩：
 
 <!--- INCLUDE
-import ai.koog.agents.core.agent.entity.AIAgentStrategy
+import ai.koog.agents.core.agent.entity.AIAgentGraphStrategy
 import ai.koog.agents.core.dsl.builder.forwardTo
 import ai.koog.agents.core.dsl.builder.strategy
 import ai.koog.agents.core.dsl.extension.nodeExecuteTool
@@ -322,7 +322,7 @@ import ai.koog.agents.core.environment.ReceivedToolResult
 import ai.koog.agents.core.tools.ToolRegistry
 -->
 ```kotlin
-fun toneStrategy(name: String, toolRegistry: ToolRegistry): AIAgentStrategy<String, String> {
+fun toneStrategy(name: String, toolRegistry: ToolRegistry): AIAgentGraphStrategy<String, String> {
     return strategy(name) {
         val nodeSendInput by nodeLLMRequest()
         val nodeExecuteTool by nodeExecuteTool()

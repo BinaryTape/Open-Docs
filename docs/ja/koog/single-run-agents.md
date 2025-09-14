@@ -4,7 +4,7 @@
 
 最小限の構成でシンプルなエージェントを構築することも、カスタム戦略、ツール、構成、およびカスタム入出力タイプを定義することで、高度な機能を備えた洗練されたエージェントを作成することもできます。
 
-このページでは、カスタマイズ可能なツールと構成を備えたシングルランエージェント（single-run agent）を作成するために必要な手順を説明します。
+このページでは、カスタマイズ可能なツールと構成を備えたシングルランエージェントを作成するために必要な手順を説明します。
 
 シングルランエージェントは、単一の入力を処理し、応答を提供します。
 そのタスクを完了し、応答を提供するために、ツール呼び出しの単一サイクル内で動作します。
@@ -39,7 +39,7 @@ dependencies {
 
 ### 2. エージェントの作成
 
-エージェントを作成するには、`AIAgent`クラスのインスタンスを作成し、`executor`および`llmModel`パラメータを指定します。
+エージェントを作成するには、`AIAgent`クラスのインスタンスを作成し、`promptExecutor`および`llmModel`パラメータを指定します。
 
 <!--- INCLUDE
 import ai.koog.agents.core.agent.AIAgent
@@ -48,7 +48,7 @@ import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
 -->
 ```kotlin
 val agent = AIAgent(
-    executor = simpleOpenAIExecutor(System.getenv("OPENAI_API_KEY")),
+    promptExecutor = simpleOpenAIExecutor(System.getenv("OPENAI_API_KEY")),
     llmModel = OpenAIModels.Chat.GPT4o
 )
 ```
@@ -65,7 +65,7 @@ import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
 -->
 ```kotlin
 val agent = AIAgent(
-    executor = simpleOpenAIExecutor(System.getenv("YOUR_API_KEY")),
+    promptExecutor = simpleOpenAIExecutor(System.getenv("YOUR_API_KEY")),
     systemPrompt = "You are a helpful assistant. Answer user questions concisely.",
     llmModel = OpenAIModels.Chat.GPT4o
 )
@@ -83,7 +83,7 @@ import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
 -->
 ```kotlin
 val agent = AIAgent(
-    executor = simpleOpenAIExecutor(System.getenv("YOUR_API_KEY")),
+    promptExecutor = simpleOpenAIExecutor(System.getenv("YOUR_API_KEY")),
     systemPrompt = "You are a helpful assistant. Answer user questions concisely.",
     llmModel = OpenAIModels.Chat.GPT4o,
     temperature = 0.7
@@ -107,7 +107,7 @@ import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
 -->
 ```kotlin
 val agent = AIAgent(
-    executor = simpleOpenAIExecutor(System.getenv("YOUR_API_KEY")),
+    promptExecutor = simpleOpenAIExecutor(System.getenv("YOUR_API_KEY")),
     systemPrompt = "You are a helpful assistant. Answer user questions concisely.",
     llmModel = OpenAIModels.Chat.GPT4o,
     temperature = 0.7,
@@ -132,7 +132,7 @@ import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
 -->
 ```kotlin
 val agent = AIAgent(
-    executor = simpleOpenAIExecutor(System.getenv("YOUR_API_KEY")),
+    promptExecutor = simpleOpenAIExecutor(System.getenv("YOUR_API_KEY")),
     systemPrompt = "You are a helpful assistant. Answer user questions concisely.",
     llmModel = OpenAIModels.Chat.GPT4o,
     temperature = 0.7,
@@ -165,7 +165,7 @@ import kotlinx.coroutines.runBlocking
 -->
 ```kotlin
 val agent = AIAgent(
-    executor = simpleOpenAIExecutor(System.getenv("OPENAI_API_KEY")),
+    promptExecutor = simpleOpenAIExecutor(System.getenv("OPENAI_API_KEY")),
     systemPrompt = "You are a helpful assistant. Answer user questions concisely.",
     llmModel = OpenAIModels.Chat.GPT4o,
     temperature = 0.7,

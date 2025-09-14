@@ -1,6 +1,7 @@
 # 基於註解的工具
 
-基於註解的工具提供了一種宣告式的方法，將函式公開為大型語言模型 (LLM) 的工具。透過使用註解，您可以將任何函式轉換為 LLM 可以理解和使用的工具。
+基於註解的工具提供了一種宣告式的方法，將函式公開為大型語言模型 (LLM) 的工具。
+透過使用註解，您可以將任何函式轉換為 LLM 可以理解和使用的工具。
 
 當您需要將現有功能公開給 LLM 而無需手動實作工具描述時，此方法非常有用。
 
@@ -11,7 +12,7 @@
 
 若要在專案中開始使用基於註解的工具，您需要了解以下主要註解：
 
-| Annotation        | 描述                                                             |
+| Annotation        | Description                                                             |
 |-------------------|-------------------------------------------------------------------------|
 | `@Tool`           | 標記應作為工具公開給 LLM 的函式。                |
 | `@LLMDescription` | 提供有關工具及其元件的描述性資訊。 |
@@ -33,7 +34,7 @@ public annotation class Tool(val customName: String = "")
 
 ### 參數
 
-| <div style="width:100px">Name</div> | 必填 | 描述                                                                              |
+| <div style="width:100px">名稱</div> | 必填 | 描述                                                                              |
 |-------------------------------------|----------|------------------------------------------------------------------------------------------|
 | `customName`                        | 否       | 為工具指定一個自訂名稱。如果未提供，則使用函式的名稱。 |
 
@@ -85,7 +86,7 @@ public annotation class LLMDescription(val description: String)
 
 ### 參數
 
-| Name          | 必填 | 描述                                    |
+| 名稱          | 必填 | 描述                                    |
 |---------------|----------|------------------------------------------------|
 | `description` | 是       | 描述被註解元素的字串。 |
 
@@ -213,7 +214,7 @@ fun main() {
         // 建立一個帶有您工具的代理程式
 
         val agent = AIAgent(
-            executor = simpleOpenAIExecutor(apiToken),
+            promptExecutor = simpleOpenAIExecutor(apiToken),
             systemPrompt = "Provide weather information for a given location.",
             llmModel = OpenAIModels.Chat.GPT4o,
             toolRegistry = ToolRegistry {

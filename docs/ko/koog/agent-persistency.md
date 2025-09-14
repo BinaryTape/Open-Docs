@@ -3,9 +3,9 @@
 에이전트 영속성은 Koog 프레임워크의 AI 에이전트에 체크포인트 기능을 제공하는 기능입니다.
 이 기능은 실행 중 특정 시점에서 에이전트의 상태를 저장하고 복원하여 다음과 같은 기능을 가능하게 합니다.
 
--   특정 지점부터 에이전트 실행 재개
--   이전 상태로 롤백
--   세션 간 에이전트 상태 영속화
+- 특정 지점부터 에이전트 실행 재개
+- 이전 상태로 롤백
+- 세션 간 에이전트 상태 영속화
 
 ## 주요 개념
 
@@ -13,10 +13,10 @@
 
 체크포인트는 에이전트 실행 중 특정 시점의 전체 상태를 캡처하며, 다음을 포함합니다.
 
--   메시지 기록 (사용자, 시스템, 어시스턴트, 도구 간의 모든 상호작용)
--   현재 실행 중인 노드
--   현재 노드에 대한 입력 데이터
--   생성 타임스탬프
+- 메시지 기록 (사용자, 시스템, 어시스턴트, 도구 간의 모든 상호작용)
+- 현재 실행 중인 노드
+- 현재 노드에 대한 입력 데이터
+- 생성 타임스탬프
 
 체크포인트는 고유 ID로 식별되며 특정 에이전트와 연결됩니다.
 
@@ -58,7 +58,7 @@ val executor = simpleOllamaAIExecutor()
 
 ```kotlin
 val agent = AIAgent(
-    executor = executor,
+    promptExecutor = executor,
     llmModel = OllamaModels.Meta.LLAMA_3_2,
 ) {
     install(Persistency) {
@@ -91,7 +91,7 @@ import ai.koog.prompt.executor.llms.all.simpleOllamaAIExecutor
 import ai.koog.prompt.llm.OllamaModels
 
 val agent = AIAgent(
-    executor = simpleOllamaAIExecutor(),
+    promptExecutor = simpleOllamaAIExecutor(),
     llmModel = OllamaModels.Meta.LLAMA_3_2,
 ) {
 -->
@@ -129,7 +129,7 @@ import ai.koog.prompt.executor.llms.all.simpleOllamaAIExecutor
 import ai.koog.prompt.llm.OllamaModels
 
 val agent = AIAgent(
-    executor = simpleOllamaAIExecutor(),
+    promptExecutor = simpleOllamaAIExecutor(),
     llmModel = OllamaModels.Meta.LLAMA_3_2,
 ) {
 -->
@@ -155,7 +155,7 @@ install(Persistency) {
 에이전트 실행 중 특정 시점에서 체크포인트를 생성하는 방법을 알아보려면 아래 코드 샘플을 참조하세요.
 
 <!--- INCLUDE
-import ai.koog.agents.core.agent.context.AIAgentContextBase
+import ai.koog.agents.core.agent.context.AIAgentContext
 import ai.koog.agents.snapshot.feature.persistency
 import kotlin.reflect.typeOf
 
@@ -164,7 +164,7 @@ val inputType = typeOf<String>()
 -->
 
 ```kotlin
-suspend fun example(context: AIAgentContextBase) {
+suspend fun example(context: AIAgentContext) {
     // 현재 상태로 체크포인트를 생성합니다.
     val checkpoint = context.persistency().createCheckpoint(
         agentContext = context,
@@ -186,12 +186,12 @@ suspend fun example(context: AIAgentContextBase) {
 특정 체크포인트에서 에이전트의 상태를 복원하려면 아래 코드 샘플을 따르세요.
 
 <!--- INCLUDE
-import ai.koog.agents.core.agent.context.AIAgentContextBase
+import ai.koog.agents.core.agent.context.AIAgentContext
 import ai.koog.agents.snapshot.feature.persistency
 -->
 
 ```kotlin
-suspend fun example(context: AIAgentContextBase, checkpointId: String) {
+suspend fun example(context: AIAgentContext, checkpointId: String) {
     // 특정 체크포인트로 롤백합니다.
     context.persistency().rollbackToCheckpoint(checkpointId, context)
 
@@ -207,7 +207,7 @@ suspend fun example(context: AIAgentContextBase, checkpointId: String) {
 에이전트 영속성 기능은 체크포인트 작업을 위한 편리한 확장 함수를 제공합니다.
 
 <!--- INCLUDE
-import ai.koog.agents.core.agent.context.AIAgentContextBase
+import ai.koog.agents.core.agent.context.AIAgentContext
 import ai.koog.agents.example.exampleAgentPersistency05.inputData
 import ai.koog.agents.example.exampleAgentPersistency05.inputType
 import ai.koog.agents.snapshot.feature.persistency
@@ -215,7 +215,7 @@ import ai.koog.agents.snapshot.feature.withPersistency
 -->
 
 ```kotlin
-suspend fun example(context: AIAgentContextBase) {
+suspend fun example(context: AIAgentContext) {
     // 체크포인트 기능에 접근합니다.
     val checkpointFeature = context.persistency()
 
@@ -293,7 +293,7 @@ class MyCustomStorageProvider : PersistencyStorageProvider {
 }
 
 val agent = AIAgent(
-    executor = simpleOllamaAIExecutor(),
+    promptExecutor = simpleOllamaAIExecutor(),
     llmModel = OllamaModels.Meta.LLAMA_3_2,
 ) {
 -->
@@ -314,7 +314,7 @@ install(Persistency) {
 고급 제어를 위해 에이전트의 실행 지점을 직접 설정할 수 있습니다.
 
 <!--- INCLUDE
-import ai.koog.agents.core.agent.context.AIAgentContextBase
+import ai.koog.agents.core.agent.context.AIAgentContext
 import ai.koog.agents.snapshot.feature.persistency
 import ai.koog.prompt.message.Message.User
 import kotlinx.serialization.json.JsonPrimitive
@@ -324,7 +324,7 @@ val customMessageHistory = emptyList<User>()
 -->
 
 ```kotlin
-fun example(context: AIAgentContextBase) {
+fun example(context: AIAgentContext) {
     context.persistency().setExecutionPoint(
         agentContext = context,
         nodeId = "target-node-id",

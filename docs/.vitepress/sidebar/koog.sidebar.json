@@ -18,6 +18,10 @@
             "link": "single-run-agents"
           },
           {
+            "text": "koog.act-agent-api",
+            "link": "act-ai-agent"
+          },
+          {
             "text": "koog.complex-workflow-agents",
             "link": "complex-workflow-agents"
           }
@@ -114,8 +118,8 @@
         "text": "koog.advanced-usage",
         "items": [
           {
-            "text": "koog.structured-data",
-            "link": "structured-data"
+            "text": "koog.structured-output",
+            "link": "structured-output"
           },
           {
             "text": "koog.streaming-api",
@@ -200,6 +204,10 @@
       }
     ],
     "collapsed": true
+  },
+  {
+    "text": "koog.why-koog",
+    "link": "why-koog"
   },
   {
     "text": "koog.examples",

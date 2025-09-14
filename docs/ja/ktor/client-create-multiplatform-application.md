@@ -96,19 +96,19 @@ kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-c
 
 2.  必要な各プラットフォームの[エンジン依存関係](client-engines.md)を対応するソースセットに追加します。
     -   Androidの場合、`androidMain`ソースセットに`ktor-client-okhttp`の依存関係を追加します。
-        ```kotlin
-        androidMain.dependencies {
-            implementation(libs.ktor.client.okhttp)
-        }
-        ```
+      ```kotlin
+      androidMain.dependencies {
+          implementation(libs.ktor.client.okhttp)
+      }
+      ```
 
         Androidでは、[他のエンジンタイプ](client-engines.md#jvm-android)も使用できます。
     -   iOSの場合、`iosMain`に`ktor-client-darwin`の依存関係を追加します。
-        ```kotlin
-        iosMain.dependencies {
-            implementation(libs.ktor.client.darwin)
-        }
-        ```
+      ```kotlin
+      iosMain.dependencies {
+          implementation(libs.ktor.client.darwin)
+      }
+      ```
 
 ### コルーチンを追加する {id="coroutines"}
 
@@ -139,7 +139,8 @@ kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-c
 3.  次に、`androidApp/build.gradle.kts`を開き、`kotlinx-coroutines-android`の依存関係を追加します。
 
 ```kotlin
-    implementation(libs.compose.ui)
+dependencies {
+    implementation(libs.kotlinx.coroutines.android)
 }
 ```
 

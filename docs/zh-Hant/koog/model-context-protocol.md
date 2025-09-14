@@ -23,7 +23,7 @@ MCP 伺服器支援以下傳輸協議與代理通訊：
 
 Koog 框架透過 [MCP SDK](https://github.com/modelcontextprotocol/kotlin-sdk) 與 MCP 整合，並在 `agent-mcp` 模組中提供了額外的 API 擴展。
 
-此整合使 Koog 代理能夠執行以下操作：
+此整合讓 Koog 代理能夠執行以下操作：
 
 *   透過各種傳輸機制 (stdio, SSE) 連接到 MCP 伺服器。
 *   從 MCP 伺服器中檢索可用工具。
@@ -58,12 +58,13 @@ MCP 伺服器支援 stdio 和 SSE 傳輸機制與代理通訊，因此您可以�
 
 <!--- INCLUDE
 import ai.koog.agents.mcp.McpToolRegistryProvider
+import ai.koog.agents.mcp.defaultStdioTransport
 -->
 ```kotlin
-// 啟動一個 MCP 伺服器（例如，作為一個程序）
+// Start an MCP server (for example, as a process)
 val process = ProcessBuilder("path/to/mcp/server").start()
 
-// 建立 stdio 傳輸
+// Create the stdio transport 
 val transport = McpToolRegistryProvider.defaultStdioTransport(process)
 ```
 <!--- KNIT example-model-context-protocol-01.kt -->
@@ -76,7 +77,7 @@ val transport = McpToolRegistryProvider.defaultStdioTransport(process)
 import ai.koog.agents.mcp.McpToolRegistryProvider
 -->
 ```kotlin
-// 建立 SSE 傳輸
+// Create the SSE transport
 val transport = McpToolRegistryProvider.defaultSseTransport("http://localhost:8931")
 ```
 <!--- KNIT example-model-context-protocol-02.kt -->
@@ -100,7 +101,7 @@ fun main() {
 }
 -->
 ```kotlin
-// 建立一個帶有 MCP 伺服器中工具的工具註冊表
+// Create a tool registry with tools from the MCP server
 val toolRegistry = McpToolRegistryProvider.fromTransport(
     transport = transport,
     name = "my-client",
@@ -126,7 +127,7 @@ fun main() {
 }
 -->
 ```kotlin
-// 從現有 MCP 客戶端建立工具註冊表
+// Create a tool registry from an existing MCP client
 val toolRegistry = McpToolRegistryProvider.fromClient(
     mcpClient = existingMcpClient
 )
@@ -159,79 +160,127 @@ fun main() {
 }
 -->
 ```kotlin
-// 建立一個帶有工具的代理
+// Create an agent with the tools
 val agent = AIAgent(
-    executor = executor,
+    promptExecutor = executor,
     strategy = strategy,
     llmModel = OpenAIModels.Chat.GPT4o,
     toolRegistry = toolRegistry
 )
 
-// 運行代理以執行使用 MCP 工具的任務
+// Run the agent with a task that uses an MCP tool
 val result = agent.run("Use the MCP tool to perform a task")
 ```
 <!--- KNIT example-model-context-protocol-05.kt -->
 
-## 直接使用 MCP 工具
+[//]: # (## Working directly with MCP tools)
 
-除了透過代理執行工具外，您也可以直接執行它們：
+[//]: # ()
+[//]: # (In addition to running tools through the agent, you can also run them directly:)
 
-1.  從工具註冊表中檢索特定工具。
-2.  使用標準 Koog 機制和特定參數執行工具。
+[//]: # ()
+[//]: # (1. Retrieve a specific tool from the tool registry.)
 
-以下是一個範例：
+[//]: # (2. Run the tool with specific arguments using the standard Koog mechanism.)
 
-<!--- INCLUDE
-import ai.koog.agents.mcp.McpTool
-import kotlinx.serialization.json.JsonPrimitive
-import kotlinx.serialization.json.buildJsonObject
-import ai.koog.agents.mcp.McpToolRegistryProvider
-import ai.koog.agents.example.exampleModelContextProtocol04.existingMcpClient
+[//]: # ()
+[//]: # (Here is an example:)
 
-val toolRegistry = McpToolRegistryProvider.fromClient(
-    mcpClient = existingMcpClient
-)
--->
-```kotlin
-// 取得工具
-val tool = toolRegistry.getTool("tool-name") as McpTool
+[//]: # (<!--- INCLUDE)
 
-// 為工具建立參數
-val args = McpTool.Args(buildJsonObject { 
-    put("parameter1", JsonPrimitive("value1"))
-    put("parameter2", JsonPrimitive("value2"))
-})
+[//]: # (import ai.koog.agents.mcp.McpTool)
 
-// 使用給定參數運行工具
-val toolResult = tool.execute(args)
+[//]: # (import kotlinx.serialization.json.JsonPrimitive)
 
-// 印出結果
-println(toolResult)
-```
-<!--- KNIT example-model-context-protocol-06.kt -->
+[//]: # (import kotlinx.serialization.json.buildJsonObject)
 
-您也可以從註冊表中檢索所有可用的 MCP 工具：
+[//]: # (import ai.koog.agents.mcp.McpToolRegistryProvider)
 
-<!--- INCLUDE
-import ai.koog.agents.mcp.McpToolRegistryProvider
-import ai.koog.agents.example.exampleModelContextProtocol04.existingMcpClient
-import kotlinx.coroutines.runBlocking
+[//]: # (import ai.koog.agents.example.exampleModelContextProtocol04.existingMcpClient)
 
-fun main() {
-    runBlocking {
-        val toolRegistry = McpToolRegistryProvider.fromClient(
-            mcpClient = existingMcpClient
-        )
--->
-<!--- SUFFIX
-    }
-}
--->
-```kotlin
-// 取得所有工具
-val tools = toolRegistry.tools
-```
-<!--- KNIT example-model-context-protocol-07.kt -->
+[//]: # ()
+[//]: # ()
+[//]: # (val toolRegistry = McpToolRegistryProvider.fromClient&#40;)
+
+[//]: # (    mcpClient = existingMcpClient)
+
+[//]: # (&#41;)
+
+[//]: # (-->)
+
+[//]: # (```kotlin)
+
+[//]: # (// Get a tool )
+
+[//]: # (val tool = toolRegistry.getTool&#40;"tool-name"&#41; as McpTool)
+
+[//]: # ()
+[//]: # (// Create arguments for the tool)
+
+[//]: # (val args = McpTool.Args&#40;buildJsonObject { )
+
+[//]: # (    put&#40;"parameter1", JsonPrimitive&#40;"value1"&#41;&#41;)
+
+[//]: # (    put&#40;"parameter2", JsonPrimitive&#40;"value2"&#41;&#41;)
+
+[//]: # (}&#41;)
+
+[//]: # ()
+[//]: # (// Run the tool with the given arguments)
+
+[//]: # (val toolResult = tool.execute&#40;args&#41;)
+
+[//]: # ()
+[//]: # (// Print the result)
+
+[//]: # (println&#40;toolResult&#41;)
+
+[//]: # (```)
+
+[//]: # (<!--- KNIT example-model-context-protocol-06.kt -->)
+
+[//]: # ()
+[//]: # (You can also retrieve all available MCP tools from the registry:)
+
+[//]: # ()
+[//]: # (<!--- INCLUDE)
+
+[//]: # (import ai.koog.agents.mcp.McpToolRegistryProvider)
+
+[//]: # (import ai.koog.agents.example.exampleModelContextProtocol04.existingMcpClient)
+
+[//]: # (import kotlinx.coroutines.runBlocking)
+
+[//]: # ()
+[//]: # (fun main&#40;&#41; {)
+
+[//]: # (    runBlocking {)
+
+[//]: # (        val toolRegistry = McpToolRegistryProvider.fromClient&#40;)
+
+[//]: # (            mcpClient = existingMcpClient)
+
+[//]: # (        &#41;)
+
+[//]: # (-->)
+
+[//]: # (<!--- SUFFIX)
+
+[//]: # (    })
+
+[//]: # (})
+
+[//]: # (-->)
+
+[//]: # (```kotlin)
+
+[//]: # (// Get all tools)
+
+[//]: # (val tools = toolRegistry.tools)
+
+[//]: # (```)
+
+[//]: # (<!--- KNIT example-model-context-protocol-07.kt -->)
 
 ## 使用範例
 
@@ -244,6 +293,7 @@ import ai.koog.agents.core.agent.AIAgent
 import ai.koog.agents.mcp.McpToolRegistryProvider
 import ai.koog.prompt.executor.clients.openai.OpenAIModels
 import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
+import ai.koog.agents.mcp.defaultStdioTransport
 import kotlinx.coroutines.runBlocking
 
 const val googleMapsApiKey = ""
@@ -256,21 +306,21 @@ fun main() {
 }
 -->
 ```kotlin
-// 啟動帶有 Google 地圖 MCP 伺服器的 Docker 容器
+// Start the Docker container with the Google Maps MCP server
 val process = ProcessBuilder(
     "docker", "run", "-i",
     "-e", "GOOGLE_MAPS_API_KEY=$googleMapsApiKey",
     "mcp/google-maps"
 ).start()
 
-// 建立帶有 MCP 伺服器中工具的 ToolRegistry
+// Create the ToolRegistry with tools from the MCP server
 val toolRegistry = McpToolRegistryProvider.fromTransport(
     transport = McpToolRegistryProvider.defaultStdioTransport(process)
 )
 
-// 建立並運行代理
+// Create and run the agent
 val agent = AIAgent(
-    executor = simpleOpenAIExecutor(openAIApiToken),
+    promptExecutor = simpleOpenAIExecutor(openAIApiToken),
     llmModel = OpenAIModels.Chat.GPT4o,
     toolRegistry = toolRegistry,
 )
@@ -299,19 +349,19 @@ fun main() {
 }
 -->
 ```kotlin
-// 啟動 Playwright MCP 伺服器
+// Start the Playwright MCP server
 val process = ProcessBuilder(
     "npx", "@playwright/mcp@latest", "--port", "8931"
 ).start()
 
-// 建立帶有 MCP 伺服器中工具的 ToolRegistry
+// Create the ToolRegistry with tools from the MCP server
 val toolRegistry = McpToolRegistryProvider.fromTransport(
     transport = McpToolRegistryProvider.defaultSseTransport("http://localhost:8931")
 )
 
-// 建立並運行代理
+// Create and run the agent
 val agent = AIAgent(
-    executor = simpleOpenAIExecutor(openAIApiToken),
+    promptExecutor = simpleOpenAIExecutor(openAIApiToken),
     llmModel = OpenAIModels.Chat.GPT4o,
     toolRegistry = toolRegistry,
 )

@@ -16,7 +16,7 @@ OpenTelemetry 是一個可觀測性框架，提供工具用於從您的應用程
 
 - **Span**: Span 代表分散式追蹤中的獨立工作單元或操作。它們指示應用程式中特定活動的開始與結束，例如代理執行、函數呼叫、LLM 呼叫或工具呼叫。
 - **Attribute**: Attribute 提供關於遙測相關項目（例如 Span）的元資料。Attribute 以鍵值對的形式表示。
-- **Event**: Event 是 Span 生命週期中在特定時間點發生的事件，代表了可能值得注意的事情。
+- **Event**: Event 是 Span 生命週期中在特定時間點發生的事件（與 Span 相關的事件），代表了可能值得注意的事情。
 - **Exporter**: Exporter 是負責將已收集的遙測資料發送到各種後端或目的地的元件。
 - **Collector**: Collector 接收、處理和匯出遙測資料。它們在您的應用程式和您的可觀測性後端之間充當中介者。
 - **Sampler**: Sampler 根據採樣策略決定是否應記錄追蹤。它們用於管理遙測資料的量。
@@ -43,7 +43,7 @@ const val apiKey = ""
 -->
 ```kotlin
 val agent = AIAgent(
-    executor = simpleOpenAIExecutor(apiKey),
+    promptExecutor = simpleOpenAIExecutor(apiKey),
     llmModel = OpenAIModels.Chat.GPT4o,
     systemPrompt = "You are a helpful assistant.",
     installFeatures = {
@@ -84,7 +84,7 @@ import io.opentelemetry.exporter.logging.LoggingSpanExporter
 const val apiKey = ""
 
 val agent = AIAgent(
-    executor = simpleOpenAIExecutor(apiKey),
+    promptExecutor = simpleOpenAIExecutor(apiKey),
     llmModel = OpenAIModels.Chat.GPT4o,
     systemPrompt = "You are a helpful assistant."
 ) {
@@ -184,7 +184,7 @@ import io.opentelemetry.sdk.trace.samplers.Sampler
 const val apiKey = ""
 
 val agent = AIAgent(
-    executor = simpleOpenAIExecutor(apiKey),
+    promptExecutor = simpleOpenAIExecutor(apiKey),
     llmModel = OpenAIModels.Chat.GPT4o,
     systemPrompt = "You are a helpful assistant."
 ) {
@@ -245,7 +245,7 @@ import io.opentelemetry.api.common.AttributeKey
 
 const val apiKey = "api-key"
 val agent = AIAgent(
-    executor = simpleOpenAIExecutor(apiKey),
+    promptExecutor = simpleOpenAIExecutor(apiKey),
     llmModel = OpenAIModels.Chat.GPT4o,
     systemPrompt = "You are a helpful assistant.",
     installFeatures = {
@@ -343,7 +343,7 @@ import io.opentelemetry.exporter.logging.LoggingSpanExporter
 const val apiKey = ""
 
 val agent = AIAgent(
-    executor = simpleOpenAIExecutor(apiKey),
+    promptExecutor = simpleOpenAIExecutor(apiKey),
     llmModel = OpenAIModels.Chat.GPT4o,
     systemPrompt = "You are a helpful assistant."
 ) {
@@ -377,7 +377,7 @@ const val apiKey = ""
 const val AUTH_STRING = ""
 
 val agent = AIAgent(
-    executor = simpleOpenAIExecutor(apiKey),
+    promptExecutor = simpleOpenAIExecutor(apiKey),
     llmModel = OpenAIModels.Chat.GPT4o,
     systemPrompt = "You are a helpful assistant."
 ) {
@@ -417,7 +417,7 @@ import io.opentelemetry.exporter.otlp.trace.OtlpGrpcSpanExporter
 const val apiKey = ""
 
 val agent = AIAgent(
-    executor = simpleOpenAIExecutor(apiKey),
+    promptExecutor = simpleOpenAIExecutor(apiKey),
     llmModel = OpenAIModels.Chat.GPT4o,
     systemPrompt = "You are a helpful assistant."
 ) {
@@ -454,7 +454,7 @@ import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
 const val apiKey = ""
 
 val agent = AIAgent(
-    executor = simpleOpenAIExecutor(apiKey),
+    promptExecutor = simpleOpenAIExecutor(apiKey),
     llmModel = OpenAIModels.Chat.GPT4o,
     systemPrompt = "You are a helpful assistant."
 ) {
@@ -489,7 +489,7 @@ import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
 const val apiKey = ""
 
 val agent = AIAgent(
-    executor = simpleOpenAIExecutor(apiKey),
+    promptExecutor = simpleOpenAIExecutor(apiKey),
     llmModel = OpenAIModels.Chat.GPT4o,
     systemPrompt = "You are a helpful assistant."
 ) {
@@ -565,7 +565,7 @@ const val openAIApiKey = "open-ai-api-key"
 fun main() {
     runBlocking {
         val agent = AIAgent(
-            executor = simpleOpenAIExecutor(openAIApiKey),
+            promptExecutor = simpleOpenAIExecutor(openAIApiKey),
             llmModel = OpenAIModels.Reasoning.O4Mini,
             systemPrompt = "You are a code assistant. Provide concise code examples."
         ) {
@@ -600,19 +600,19 @@ Check Jaeger UI at http://localhost:16686 to view traces")
 
 ### 常見問題
 
-1. **Jaeger、Langfuse 或 W&B Weave 中沒有出現追蹤**
-    - 確保服務正在運行，並且 OpenTelemetry 連接埠 (4317) 可存取。
-    - 檢查 OpenTelemetry Exporter 是否配置了正確的端點。
-    - 確保在代理執行後等待幾秒鐘，以便追蹤匯出。
+1.  **Jaeger、Langfuse 或 W&B Weave 中沒有出現追蹤**
+    -   確保服務正在運行，並且 OpenTelemetry 連接埠 (4317) 可存取。
+    -   檢查 OpenTelemetry Exporter 是否配置了正確的端點。
+    -   確保在代理執行後等待幾秒鐘，以便追蹤匯出。
 
-2. **Span 缺失或不完整追蹤**
-    - 驗證代理執行是否成功完成。
-    - 確保您沒有在代理執行後過快關閉應用程式。
-    - 在代理執行後添加延遲，以便為 Span 匯出留出時間。
+2.  **Span 缺失或不完整追蹤**
+    -   驗證代理執行是否成功完成。
+    -   確保您沒有在代理執行後過快關閉應用程式。
+    -   在代理執行後添加延遲，以便為 Span 匯出留出時間。
 
-3. **過多的 Span 數量**
-    - 考慮透過配置 `sampler` 屬性來使用不同的採樣策略。
-    - 例如，使用 `Sampler.traceIdRatioBased(0.1)` 來僅採樣 10% 的追蹤。
+3.  **過多的 Span 數量**
+    -   考慮透過配置 `sampler` 屬性來使用不同的採樣策略。
+    -   例如，使用 `Sampler.traceIdRatioBased(0.1)` 來僅採樣 10% 的追蹤。
 
-4. **Span 適配器相互覆蓋**
-    - 目前，OpenTelemetry 代理功能不支援應用多個 Span 適配器 [KG-265](https://youtrack.jetbrains.com/issue/KG-265/Adding-Weave-exporter-breaks-Langfuse-exporter)。
+4.  **Span 適配器相互覆蓋**
+    -   目前，OpenTelemetry 代理功能不支援應用多個 Span 適配器 [KG-265](https://youtrack.jetbrains.com/issue/KG-265/Adding-Weave-exporter-breaks-Langfuse-exporter)。

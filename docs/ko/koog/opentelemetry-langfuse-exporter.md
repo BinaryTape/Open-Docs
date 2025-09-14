@@ -11,7 +11,7 @@ Koog의 OpenTelemetry 지원에 대한 배경 정보는 [OpenTelemetry 지원](h
 
 1.  Langfuse 프로젝트를 생성합니다. [Langfuse에서 새 프로젝트 생성](https://langfuse.com/docs/get-started#create-new-project-in-langfuse) 설정 가이드를 따르세요.
 2.  API 자격 증명을 얻습니다. [Langfuse API 키는 어디에 있나요?](https://langfuse.com/faq/all/where-are-langfuse-api-keys)에 설명된 대로 Langfuse `public key`와 `secret key`를 검색합니다.
-3.  Langfuse 호스트, 공개 키 및 비밀 키를 Langfuse 익스포터에 전달합니다.  
+3.  Langfuse 호스트, 공개 키, 및 비밀 키를 Langfuse 익스포터에 전달합니다.  
     이는 `addLangfuseExporter()` 함수의 매개변수로 제공하거나, 아래와 같이 환경 변수를 설정하여 수행할 수 있습니다.
 
 ```bash
@@ -40,7 +40,7 @@ fun main() = runBlocking {
     val apiKey = "api-key"
     
     val agent = AIAgent(
-        executor = simpleOpenAIExecutor(apiKey),
+        promptExecutor = simpleOpenAIExecutor(apiKey),
         llmModel = OpenAIModels.CostOptimized.GPT4oMini,
         systemPrompt = "You are a code assistant. Provide concise code examples."
     ) {

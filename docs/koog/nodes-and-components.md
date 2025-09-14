@@ -425,7 +425,7 @@ val verifyCode by subgraphWithVerification<String>(
 
 ## 预定义策略和常见策略模式
 
-框架提供了组合各种 node 的预定义策略。
+框架提供了预定义的策略，它们组合了各种 node。
 node 使用 edge 连接起来以定义操作流，并带指定何时遵循每个 edge 的条件。
 
 如果需要，你可以将这些策略集成到你的 agent 工作流中。
@@ -437,7 +437,7 @@ node 使用 edge 连接起来以定义操作流，并带指定何时遵循每个
 当你需要运行不需要复杂逻辑的直接流程时，可以使用此策略。
 
 <!--- INCLUDE
-import ai.koog.agents.core.agent.entity.AIAgentStrategy
+import ai.koog.agents.core.agent.entity.AIAgentGraphStrategy
 import ai.koog.agents.core.dsl.builder.forwardTo
 import ai.koog.agents.core.dsl.builder.strategy
 import ai.koog.agents.core.dsl.extension.*
@@ -445,7 +445,7 @@ import ai.koog.agents.core.dsl.extension.*
 -->
 ```kotlin
 
-public fun singleRunStrategy(): AIAgentStrategy<String, String> = strategy("single_run") {
+public fun singleRunStrategy(): AIAgentGraphStrategy<String, String> = strategy("single_run") {
     val nodeCallLLM by nodeLLMRequest("sendInput")
     val nodeExecuteTool by nodeExecuteTool("nodeExecuteTool")
     val nodeSendToolResult by nodeLLMSendToolResult("nodeSendToolResult")
@@ -466,7 +466,7 @@ public fun singleRunStrategy(): AIAgentStrategy<String, String> = strategy("sing
 它通常根据 LLM 决策执行 tool 并处理结果。
 
 <!--- INCLUDE
-import ai.koog.agents.core.agent.entity.AIAgentStrategy
+import ai.koog.agents.core.agent.entity.AIAgentGraphStrategy
 import ai.koog.agents.core.dsl.builder.forwardTo
 import ai.koog.agents.core.dsl.builder.strategy
 import ai.koog.agents.core.dsl.extension.*
@@ -474,7 +474,7 @@ import ai.koog.agents.core.tools.ToolRegistry
 
 -->
 ```kotlin
-fun toolBasedStrategy(name: String, toolRegistry: ToolRegistry): AIAgentStrategy<String, String> {
+fun toolBasedStrategy(name: String, toolRegistry: ToolRegistry): AIAgentGraphStrategy<String, String> {
     return strategy(name) {
         val nodeSendInput by nodeLLMRequest()
         val nodeExecuteTool by nodeExecuteTool()

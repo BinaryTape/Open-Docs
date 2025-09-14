@@ -76,7 +76,7 @@ import io.ktor.server.sessions.*
 //...
 install(Authentication) {
     session<UserSession> {
-        // 配置会话认证
+        // Configure session authentication
     }
 }
 ```
@@ -96,11 +96,12 @@ install(Authentication) {
 data class UserSession(val name: String, val count: Int)
 ```
 
-### 步骤 2：安装并配置会话 {id="install-session"}
+### 2. 安装并配置会话 {id="install-session"}
 
 创建数据类后，你需要安装并配置 `Sessions` 插件。以下示例安装并配置了一个 cookie 会话，带有指定的 cookie 路径和过期时间。
 
 ```kotlin
+install(Sessions) {
     cookie<UserSession>("user_session") {
         cookie.path = "/"
         cookie.maxAgeInSeconds = 60

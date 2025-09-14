@@ -79,12 +79,12 @@ import ai.koog.prompt.executor.clients.openai.OpenAIModels
 import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
 -->
 ```kotlin
-// Agent initialization
+// エージェントの初期化
 val agent = AIAgent(
-    executor = simpleOpenAIExecutor(System.getenv("OPENAI_API_KEY")),
+    promptExecutor = simpleOpenAIExecutor(System.getenv("OPENAI_API_KEY")),
     systemPrompt = "You are a helpful assistant with strong mathematical skills.",
     llmModel = OpenAIModels.Chat.GPT4o,
-    // Pass your tool registry to the agent
+    // ツールレジストリをエージェントに渡します
     toolRegistry = toolRegistry
 )
 ```
@@ -208,19 +208,19 @@ val analysisToolRegistry = ToolRegistry {}
 ```kotlin
 // 専門のエージェントを作成
 val analysisAgent = AIAgent(
-    executor = simpleOpenAIExecutor(apiKey),
+    promptExecutor = simpleOpenAIExecutor(apiKey),
     llmModel = OpenAIModels.Chat.GPT4o,
-    systemPrompt = "あなたは財務分析のスペシャリストです。",
+    systemPrompt = "You are a financial analysis specialist.",
     toolRegistry = analysisToolRegistry
 )
 
 // エージェントをツールに変換
 val analysisAgentTool = analysisAgent.asTool(
     agentName = "analyzeTransactions",
-    agentDescription = "金融取引分析を実行します",
+    agentDescription = "Performs financial transaction analysis",
     inputDescriptor = ToolParameterDescriptor(
         name = "request",
-        description = "取引分析リクエスト",
+        description = "Transaction analysis request",
         type = ToolParameterType.String
     )
 )
@@ -244,9 +244,9 @@ const val apiKey = ""
 ```kotlin
 // 専門のエージェントをツールとして使用できるコーディネーターエージェントを作成
 val coordinatorAgent = AIAgent(
-    executor = simpleOpenAIExecutor(apiKey),
+    promptExecutor = simpleOpenAIExecutor(apiKey),
     llmModel = OpenAIModels.Chat.GPT4o,
-    systemPrompt = "あなたはさまざまな専門サービスを調整します。",
+    systemPrompt = "You coordinate different specialized services.",
     toolRegistry = ToolRegistry {
         tool(analysisAgentTool)
         // 必要に応じて他のツールを追加

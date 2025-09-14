@@ -4,16 +4,16 @@
 
 建立和配置此類代理程式的過程通常包括以下步驟：
 
-1. 提供提示執行器以與 LLM 溝通。
-2. 定義控制代理程式工作流程的策略。
-3. 配置代理程式行為。
-4. 實作供代理程式使用的工具。
-5. 新增事件處理、記憶體或追蹤等可選功能。
-6. 使用者輸入執行代理程式。
+1.  提供提示執行器以與 LLM 溝通。
+2.  定義控制代理程式工作流程的策略。
+3.  配置代理程式行為。
+4.  實作供代理程式使用的工具。
+5.  新增事件處理、記憶體或追蹤等可選功能。
+6.  使用者輸入執行代理程式。
 
 ## 先決條件
 
-- 您擁有來自用於實作 AI 代理程式的 LLM 提供者的有效 API 金鑰。有關所有可用提供者的列表，請參閱 [概述](index.md)。
+-   您擁有來自用於實作 AI 代理程式的 LLM 提供者的有效 API 金鑰。有關所有可用提供者的列表，請參閱 [概述](index.md)。
 
 !!! tip
     使用環境變數或安全的組態管理系統來儲存您的 API 金鑰。
@@ -303,9 +303,9 @@ val toolRegistry = ToolRegistry {
 並在代理程式執行時記錄和監控事件。
 提供以下功能：
 
-- EventHandler
-- AgentMemory
-- Tracing
+-   EventHandler
+-   AgentMemory
+-   Tracing
 
 若要安裝該功能，請呼叫 `install` 函數並將該功能作為引數提供。
 例如，若要安裝事件處理器功能，您需要執行以下操作：
@@ -318,7 +318,7 @@ import ai.koog.prompt.executor.llms.all.simpleOllamaAIExecutor
 import ai.koog.prompt.llm.OllamaModels
 
 val agent = AIAgent(
-    executor = simpleOllamaAIExecutor(),
+    promptExecutor = simpleOllamaAIExecutor(),
     llmModel = OllamaModels.Meta.LLAMA_3_2,
 -->
 <!--- SUFFIX
@@ -329,7 +329,7 @@ val agent = AIAgent(
 installFeatures = {
     install(EventHandler) {
         onBeforeAgentStarted { eventContext: AgentStartContext<*> ->
-            println("正在啟動策略：${eventContext.strategy.name}")
+            println("正在啟動代理程式：${eventContext.agent.id}")
         }
         onAgentFinished { eventContext: AgentFinishedContext ->
             println("結果：${eventContext.result}")
@@ -364,7 +364,7 @@ val agent = AIAgent(
     installFeatures = {
         install(EventHandler) {
             onBeforeAgentStarted { eventContext: AgentStartContext<*> ->
-                println("正在啟動策略：${eventContext.strategy.name}")
+                println("正在啟動代理程式：${eventContext.agent.id}")
             }
             onAgentFinished { eventContext: AgentFinishedContext ->
                 println("結果：${eventContext.result}")
@@ -507,7 +507,7 @@ val agent = AIAgent(
     installFeatures = {
         install(EventHandler) {
             onBeforeAgentStarted { eventContext: AgentStartContext<*> ->
-                println("正在啟動策略：${eventContext.strategy.name}")
+                println("正在啟動代理程式：${eventContext.agent.id}")
             }
             onAgentFinished { eventContext: AgentFinishedContext ->
                 println("結果：${eventContext.result}")

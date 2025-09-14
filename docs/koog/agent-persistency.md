@@ -1,6 +1,6 @@
 # 智能体持久化
 
-智能体持久化是 Koog 框架中的一个特性，为 AI 智能体提供了检查点功能。
+Agent Persistency 是 Koog 框架中的一个特性，为 AI 智能体提供了检查点功能。
 它允许你在执行过程中的特定点保存和恢复智能体的状态，从而实现以下功能，例如：
 
 - 从特定点恢复智能体执行
@@ -58,7 +58,7 @@ val executor = simpleOllamaAIExecutor()
 
 ```kotlin
 val agent = AIAgent(
-    executor = executor,
+    promptExecutor = executor,
     llmModel = OllamaModels.Meta.LLAMA_3_2,
 ) {
     install(Persistency) {
@@ -91,7 +91,7 @@ import ai.koog.prompt.executor.llms.all.simpleOllamaAIExecutor
 import ai.koog.prompt.llm.OllamaModels
 
 val agent = AIAgent(
-    executor = simpleOllamaAIExecutor(),
+    promptExecutor = simpleOllamaAIExecutor(),
     llmModel = OllamaModels.Meta.LLAMA_3_2,
 ) {
 -->
@@ -129,7 +129,7 @@ import ai.koog.prompt.executor.llms.all.simpleOllamaAIExecutor
 import ai.koog.prompt.llm.OllamaModels
 
 val agent = AIAgent(
-    executor = simpleOllamaAIExecutor(),
+    promptExecutor = simpleOllamaAIExecutor(),
     llmModel = OllamaModels.Meta.LLAMA_3_2,
 ) {
 -->
@@ -155,7 +155,7 @@ install(Persistency) {
 要了解如何在智能体执行过程中的特定点创建检查点，请参见下面的代码示例：
 
 <!--- INCLUDE
-import ai.koog.agents.core.agent.context.AIAgentContextBase
+import ai.koog.agents.core.agent.context.AIAgentContext
 import ai.koog.agents.snapshot.feature.persistency
 import kotlin.reflect.typeOf
 
@@ -164,7 +164,7 @@ val inputType = typeOf<String>()
 -->
 
 ```kotlin
-suspend fun example(context: AIAgentContextBase) {
+suspend fun example(context: AIAgentContext) {
     // 使用当前状态创建检查点
     val checkpoint = context.persistency().createCheckpoint(
         agentContext = context,
@@ -186,12 +186,12 @@ suspend fun example(context: AIAgentContextBase) {
 要从特定检查点恢复智能体的状态，请遵循以下代码示例：
 
 <!--- INCLUDE
-import ai.koog.agents.core.agent.context.AIAgentContextBase
+import ai.koog.agents.core.agent.context.AIAgentContext
 import ai.koog.agents.snapshot.feature.persistency
 -->
 
 ```kotlin
-suspend fun example(context: AIAgentContextBase, checkpointId: String) {
+suspend fun example(context: AIAgentContext, checkpointId: String) {
     // 回滚到特定检查点
     context.persistency().rollbackToCheckpoint(checkpointId, context)
 
@@ -207,7 +207,7 @@ suspend fun example(context: AIAgentContextBase, checkpointId: String) {
 Agent Persistency 特性提供了用于处理检查点的便捷扩展函数：
 
 <!--- INCLUDE
-import ai.koog.agents.core.agent.context.AIAgentContextBase
+import ai.koog.agents.core.agent.context.AIAgentContext
 import ai.koog.agents.example.exampleAgentPersistency05.inputData
 import ai.koog.agents.example.exampleAgentPersistency05.inputType
 import ai.koog.agents.snapshot.feature.persistency
@@ -215,7 +215,7 @@ import ai.koog.agents.snapshot.feature.withPersistency
 -->
 
 ```kotlin
-suspend fun example(context: AIAgentContextBase) {
+suspend fun example(context: AIAgentContext) {
     // 访问检查点特性
     val checkpointFeature = context.persistency()
 
@@ -293,7 +293,7 @@ class MyCustomStorageProvider : PersistencyStorageProvider {
 }
 
 val agent = AIAgent(
-    executor = simpleOllamaAIExecutor(),
+    promptExecutor = simpleOllamaAIExecutor(),
     llmModel = OllamaModels.Meta.LLAMA_3_2,
 ) {
 -->
@@ -314,7 +314,7 @@ install(Persistency) {
 为了高级控制，你可以直接设置智能体的执行点：
 
 <!--- INCLUDE
-import ai.koog.agents.core.agent.context.AIAgentContextBase
+import ai.koog.agents.core.agent.context.AIAgentContext
 import ai.koog.agents.snapshot.feature.persistency
 import ai.koog.prompt.message.Message.User
 import kotlinx.serialization.json.JsonPrimitive
@@ -324,7 +324,7 @@ val customMessageHistory = emptyList<User>()
 -->
 
 ```kotlin
-fun example(context: AIAgentContextBase) {
+fun example(context: AIAgentContext) {
     context.persistency().setExecutionPoint(
         agentContext = context,
         nodeId = "target-node-id",

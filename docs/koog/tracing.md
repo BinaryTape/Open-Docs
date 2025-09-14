@@ -6,10 +6,10 @@
 
 Tracing 特性是一个强大的监控和调试工具，它捕获有关代理运行的详细信息，包括：
 
--   策略执行
--   LLM 调用
--   工具调用
--   代理图中的节点执行
+- 策略执行
+- LLM 调用
+- 工具调用
+- 代理图中的节点执行
 
 此特性通过拦截代理流水线中的关键事件并将其转发给可配置的消息处理器来运行。这些处理器可以将追踪信息输出到各种目标，例如日志文件或文件系统中的其他类型文件，使开发者能够深入了解代理行为并有效排查问题。
 
@@ -52,7 +52,7 @@ val outputPath = Path("/path/to/trace.log")
 
 // 创建代理
 val agent = AIAgent(
-   executor = simpleOllamaAIExecutor(),
+   promptExecutor = simpleOllamaAIExecutor(),
    llmModel = OllamaModels.Meta.LLAMA_3_2,
 ) {
    install(Tracing) {
@@ -87,7 +87,7 @@ import ai.koog.prompt.executor.llms.all.simpleOllamaAIExecutor
 import ai.koog.prompt.llm.OllamaModels
 
 val agent = AIAgent(
-   executor = simpleOllamaAIExecutor(),
+   promptExecutor = simpleOllamaAIExecutor(),
    llmModel = OllamaModels.Meta.LLAMA_3_2,
 ) {
    install(Tracing) {
@@ -180,7 +180,7 @@ fun main() {
     runBlocking {
        // 创建一个带追踪功能的代理
        val agent = AIAgent(
-          executor = simpleOllamaAIExecutor(),
+          promptExecutor = simpleOllamaAIExecutor(),
           llmModel = OllamaModels.Meta.LLAMA_3_2,
        ) {
           install(Tracing) {
@@ -235,7 +235,7 @@ fun main() {
 ```kotlin
 // 创建代理
 val agent = AIAgent(
-    executor = simpleOllamaAIExecutor(),
+    promptExecutor = simpleOllamaAIExecutor(),
     llmModel = OllamaModels.Meta.LLAMA_3_2,
 ) {
     val writer = TraceFeatureMessageFileWriter(
@@ -249,7 +249,7 @@ val agent = AIAgent(
 }
 // 运行代理
 agent.run(input)
-// Writer will be automatically closed when the block exits
+// 当代码块退出时，writer 将自动关闭
 ```
 <!--- KNIT example-tracing-04.kt -->
 
@@ -275,7 +275,7 @@ fun main() {
     runBlocking {
         // 创建代理
         val agent = AIAgent(
-            executor = simpleOllamaAIExecutor(),
+            promptExecutor = simpleOllamaAIExecutor(),
             llmModel = OllamaModels.Meta.LLAMA_3_2,
         ) {
             val writer = TraceFeatureMessageFileWriter(
@@ -326,7 +326,7 @@ fun main() {
 ```kotlin
 // 创建代理
 val agent = AIAgent(
-    executor = simpleOllamaAIExecutor(),
+    promptExecutor = simpleOllamaAIExecutor(),
     llmModel = OllamaModels.Meta.LLAMA_3_2,
 ) {
     val connectionConfig = DefaultServerConnectionConfig(host = host, port = port)
@@ -340,7 +340,7 @@ val agent = AIAgent(
 }
 // 运行代理
 agent.run(input)
-// Writer will be automatically closed when the block exits
+// 当代码块退出时，writer 将自动关闭
 ```
 <!--- KNIT example-tracing-06.kt -->
 
@@ -433,7 +433,7 @@ fun main() {
     runBlocking {
         // 创建代理
         val agent = AIAgent(
-            executor = simpleOllamaAIExecutor(),
+            promptExecutor = simpleOllamaAIExecutor(),
             llmModel = OllamaModels.Meta.LLAMA_3_2,
         ) {
             val writer = TraceFeatureMessageFileWriter(
@@ -486,7 +486,7 @@ fun main() {
    runBlocking {
       // 创建代理
       val agent = AIAgent(
-         executor = simpleOllamaAIExecutor(),
+         promptExecutor = simpleOllamaAIExecutor(),
          llmModel = OllamaModels.Meta.LLAMA_3_2,
       ) {
 -->
@@ -526,7 +526,7 @@ fun main() {
    runBlocking {
       // 创建代理
       val agent = AIAgent(
-         executor = simpleOllamaAIExecutor(),
+         promptExecutor = simpleOllamaAIExecutor(),
          llmModel = OllamaModels.Meta.LLAMA_3_2,
       ) {
 -->

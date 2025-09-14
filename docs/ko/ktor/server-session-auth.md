@@ -4,7 +4,7 @@
 
 <tldr>
 <p>
-<b>필수 의존성</b>: <code>io.ktor:ktor-server-auth</code>, <code>io.ktor:ktor-server-sessions</code>
+<b>필수 의존성</b>: `io.ktor:ktor-server-auth`, `io.ktor:ktor-server-sessions`
 </p>
 <var name="example_name" value="auth-form-session"/>
 <p>
@@ -61,10 +61,10 @@ Ktor에서 이미 연결된 세션을 가진 사용자는 `session` 프로바이
 
 세션을 이용한 인증 흐름은 애플리케이션에서 사용자가 인증되는 방식에 따라 달라질 수 있습니다. [폼 기반 인증](server-form-based-auth.md)에서는 어떻게 작동하는지 살펴보겠습니다:
 
-1. 클라이언트가 웹 폼 데이터(사용자 이름과 비밀번호 포함)가 담긴 요청을 서버로 보냅니다.
-2. 서버는 클라이언트가 보낸 자격 증명을 검증하고, 사용자 이름을 쿠키 세션에 저장하며, 요청된 콘텐츠와 사용자 이름이 포함된 쿠키로 응답합니다.
-3. 클라이언트가 쿠키를 포함하여 보호된 리소스에 대한 후속 요청을 보냅니다.
-4. 수신된 쿠키 데이터를 기반으로 Ktor는 이 사용자에 대한 쿠키 세션이 존재하는지 확인하고, 선택적으로 수신된 세션 데이터에 대해 추가적인 유효성 검사를 수행합니다. 유효성 검사가 성공하면 서버는 요청된 콘텐츠로 응답합니다.
+1.  클라이언트가 웹 폼 데이터(사용자 이름과 비밀번호 포함)가 담긴 요청을 서버로 보냅니다.
+2.  서버는 클라이언트가 보낸 자격 증명을 검증하고, 사용자 이름을 쿠키 세션에 저장하며, 요청된 콘텐츠와 사용자 이름이 포함된 쿠키로 응답합니다.
+3.  클라이언트가 쿠키를 포함하여 보호된 리소스에 대한 후속 요청을 보냅니다.
+4.  수신된 쿠키 데이터를 기반으로 Ktor는 이 사용자에 대한 쿠키 세션이 존재하는지 확인하고, 선택적으로 수신된 세션 데이터에 대해 추가적인 유효성 검사를 수행합니다. 유효성 검사가 성공하면 서버는 요청된 콘텐츠로 응답합니다.
 
 ## 세션 인증 설치 {id="install"}
 `session` 인증 프로바이더를 설치하려면 `install` 블록 내에서 필요한 세션 타입과 함께 [session](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-auth/io.ktor.server.auth/session.html) 함수를 호출합니다:
@@ -101,6 +101,7 @@ data class UserSession(val name: String, val count: Int)
 데이터 클래스를 생성한 후, `Sessions` 플러그인을 설치하고 구성해야 합니다. 아래 예시는 지정된 쿠키 경로와 만료 시간으로 쿠키 세션을 설치하고 구성합니다.
 
 ```kotlin
+install(Sessions) {
     cookie<UserSession>("user_session") {
         cookie.path = "/"
         cookie.maxAgeInSeconds = 60
@@ -114,8 +115,8 @@ data class UserSession(val name: String, val count: Int)
 
 `session` 인증 프로바이더는 [`SessionAuthenticationProvider.Config`](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-auth/io.ktor.server.auth/-session-authentication-provider/-config/index.html) 클래스를 통해 설정을 노출합니다. 아래 예시에서는 다음 설정들이 지정됩니다:
 
-* `validate()` 함수는 [세션 인스턴스](#data-class)를 확인하고, 인증 성공 시 `Any` 타입의 Principal을 반환합니다.
-* `challenge()` 함수는 인증 실패 시 수행될 동작을 지정합니다. 예를 들어, 로그인 페이지로 리디렉션하거나 [`UnauthorizedResponse`](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-auth/io.ktor.server.auth/-unauthorized-response/index.html)를 보낼 수 있습니다.
+*   `validate()` 함수는 [세션 인스턴스](#data-class)를 확인하고, 인증 성공 시 `Any` 타입의 Principal을 반환합니다.
+*   `challenge()` 함수는 인증 실패 시 수행될 동작을 지정합니다. 예를 들어, 로그인 페이지로 리디렉션하거나 [`UnauthorizedResponse`](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-auth/io.ktor.server.auth/-unauthorized-response/index.html)를 보낼 수 있습니다.
 
 ```kotlin
 install(Authentication) {

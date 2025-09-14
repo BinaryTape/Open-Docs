@@ -24,20 +24,20 @@ RAG 解決了傳統 LLM 的多項限制：
 
 此流程涉及：
 
-1. **文件嵌入**：將文件轉換為捕捉其語義含義的向量表示。
-2. **向量儲存**：高效儲存這些嵌入以實現快速檢索。
-3. **相似度搜尋**：尋找其嵌入與查詢嵌入最相似的文件。
-4. **排名**：依據其相關性分數對文件進行排序。
+1.  **文件嵌入**：將文件轉換為捕捉其語義含義的向量表示。
+2.  **向量儲存**：高效儲存這些嵌入以實現快速檢索。
+3.  **相似度搜尋**：尋找其嵌入與查詢嵌入最相似的文件。
+4.  **排名**：依據其相關性分數對文件進行排序。
 
 ## 在 Koog 中實作 RAG 系統
 
 要在 Koog 中實作 RAG 系統，請遵循以下步驟：
 
-1. 使用 Ollama 或 OpenAI 建立嵌入器。嵌入器是 `LLMEmbedder` 類別的一個實例，它將 LLM 用戶端實例和模型作為參數。有關更多資訊，請參閱 [嵌入](embeddings.md)。
-2. 根據已建立的通用嵌入器建立一個文件嵌入器。
-3. 建立文件儲存。
-4. 將文件新增至儲存。
-5. 使用定義的查詢尋找最相關文件。
+1.  使用 Ollama 或 OpenAI 建立嵌入器。嵌入器是 `LLMEmbedder` 類別的一個實例，它將 LLM 用戶端實例和模型作為參數。有關更多資訊，請參閱 [嵌入](embeddings.md)。
+2.  根據已建立的通用嵌入器建立一個文件嵌入器。
+3.  建立文件儲存。
+4.  將文件新增至儲存。
+5.  使用定義的查詢尋找最相關文件。
 
 此步驟序列代表一個「*相關性搜尋*」流程，它會針對給定的使用者查詢傳回最相關的文件。以下是展示如何實作上述整個步驟序列的程式碼範例：
 
@@ -143,7 +143,7 @@ suspend fun solveUserRequest(query: String) {
                 }
             }
         },
-        model = OpenAIModels.Chat.GPT4o, // Or a different model of your choice
+        model = OpenAIModels.Chat.GPT4o, // 或您選擇的其他模型
         maxAgentIterations = 100,
     )
 
@@ -211,7 +211,7 @@ suspend fun searchDocuments(
     val relevantDocuments =
         rankedDocumentStorage.mostRelevantDocuments(query, count = count, similarityThreshold = 0.9).toList()
 
-    if (!relevantDocuments.isEmpty()) {
+    if (relevantDocuments.isEmpty()) { // Corrected from !relevantDocuments.isEmpty() based on logical flow
         return "找不到與查詢：$query 相關的文件"
     }
 

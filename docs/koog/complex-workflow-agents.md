@@ -284,7 +284,7 @@ class CalculatorTools : ToolSet {
         num2: Int
     ): String {
         val sum = num1 + num2
-        return "The sum of $num1 and $num2 is: $sum"
+        return "$num1 和 $num2 的和是：$sum"
     }
 }
 
@@ -312,11 +312,12 @@ val toolRegistry = ToolRegistry {
 import ai.koog.agents.core.agent.AIAgent
 import ai.koog.agents.core.feature.handler.AgentFinishedContext
 import ai.koog.agents.core.feature.handler.AgentStartContext
+import ai.koog.agents.features.eventHandler.feature.EventHandler
 import ai.koog.prompt.executor.llms.all.simpleOllamaAIExecutor
 import ai.koog.prompt.llm.OllamaModels
 
 val agent = AIAgent(
-    executor = simpleOllamaAIExecutor(),
+    promptExecutor = simpleOllamaAIExecutor(),
     llmModel = OllamaModels.Meta.LLAMA_3_2,
 -->
 <!--- SUFFIX
@@ -327,7 +328,7 @@ val agent = AIAgent(
 installFeatures = {
     install(EventHandler) {
         onBeforeAgentStarted { eventContext: AgentStartContext<*> ->
-            println("正在启动策略: ${eventContext.strategy.name}")
+            println("正在启动代理: ${eventContext.agent.id}")
         }
         onAgentFinished { eventContext: AgentFinishedContext ->
             println("结果: ${eventContext.result}")
@@ -362,7 +363,7 @@ val agent = AIAgent(
     installFeatures = {
         install(EventHandler) {
             onBeforeAgentStarted { eventContext: AgentStartContext<*> ->
-                println("正在启动策略: ${eventContext.strategy.name}")
+                println("正在启动代理: ${eventContext.agent.id}")
             }
             onAgentFinished { eventContext: AgentFinishedContext ->
                 println("结果: ${eventContext.result}")
@@ -487,7 +488,7 @@ class CalculatorTools : ToolSet {
         num2: Int
     ): String {
         val sum = num1 + num2
-        return "The sum of $num1 and $num2 is: $sum"
+        return "$num1 和 $num2 的和是：$sum"
     }
 }
 
@@ -505,7 +506,7 @@ val agent = AIAgent(
     installFeatures = {
         install(EventHandler) {
             onBeforeAgentStarted { eventContext: AgentStartContext<*> ->
-                println("正在启动策略: ${eventContext.strategy.name}")
+                println("正在启动代理: ${eventContext.agent.id}")
             }
             onAgentFinished { eventContext: AgentFinishedContext ->
                 println("结果: ${eventContext.result}")

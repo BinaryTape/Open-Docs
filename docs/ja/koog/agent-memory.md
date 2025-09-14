@@ -166,7 +166,7 @@ import ai.koog.prompt.llm.OllamaModels
 -->
 ```kotlin
 val agent = AIAgent(
-    executor = simpleOllamaAIExecutor(),
+    promptExecutor = simpleOllamaAIExecutor(),
     llmModel = OllamaModels.Meta.LLAMA_3_2,
 ) {
     install(AgentMemory) {
@@ -254,9 +254,9 @@ val greeting = memoryProvider.load(
     scope = MemoryScope.Product("my-app")
 )
 if (greeting.size > 1) {
-    println("メモリが見つかりました: ${greeting.joinToString(", ")}")
+    println("Memories found: ${greeting.joinToString(", ")}")
 } else {
-    println("情報が見つかりません。初めてですか？")
+    println("Information not found. First time here?")
 }
 ```
 <!--- KNIT example-agent-memory-08.kt -->

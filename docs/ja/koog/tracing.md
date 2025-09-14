@@ -52,7 +52,7 @@ val outputPath = Path("/path/to/trace.log")
 
 // エージェントを作成しています
 val agent = AIAgent(
-   executor = simpleOllamaAIExecutor(),
+   promptExecutor = simpleOllamaAIExecutor(),
    llmModel = OllamaModels.Meta.LLAMA_3_2,
 ) {
    install(Tracing) {
@@ -88,7 +88,7 @@ import ai.koog.prompt.executor.llms.all.simpleOllamaAIExecutor
 import ai.koog.prompt.llm.OllamaModels
 
 val agent = AIAgent(
-   executor = simpleOllamaAIExecutor(),
+   promptExecutor = simpleOllamaAIExecutor(),
    llmModel = OllamaModels.Meta.LLAMA_3_2,
 ) {
    install(Tracing) {
@@ -132,7 +132,7 @@ Tracing機能には以下の依存関係があります。
 
 ```
 Tracing
-├── AIAgentPipeline (イベント傍受用)
+├── AIAgentPipeline (for intercepting events)
 ├── TraceFeatureConfig
 │   └── FeatureConfig
 ├── Message Processors
@@ -142,7 +142,7 @@ Tracing
 │   │   └── FeatureMessageFileWriter
 │   └── TraceFeatureMessageRemoteWriter
 │       └── FeatureMessageRemoteWriter
-└── Event Types (ai.koog.agents.core.feature.modelから)
+└── Event Types (from ai.koog.agents.core.feature.model)
     ├── AIAgentStartedEvent
     ├── AIAgentFinishedEvent
     ├── AIAgentRunErrorEvent
@@ -181,7 +181,7 @@ fun main() {
     runBlocking {
        // トレーシング機能付きエージェントを作成します
        val agent = AIAgent(
-          executor = simpleOllamaAIExecutor(),
+          promptExecutor = simpleOllamaAIExecutor(),
           llmModel = OllamaModels.Meta.LLAMA_3_2,
        ) {
           install(Tracing) {
@@ -217,7 +217,6 @@ import ai.koog.agents.core.agent.AIAgent
 import ai.koog.agents.example.exampleTracing01.outputPath
 import ai.koog.agents.features.tracing.feature.Tracing
 import ai.koog.agents.features.tracing.writer.TraceFeatureMessageFileWriter
-import ai.koog.agents.features.tracing.writer.TraceFeatureMessageLogWriter
 import ai.koog.prompt.executor.llms.all.simpleOllamaAIExecutor
 import ai.koog.prompt.llm.OllamaModels
 import kotlinx.coroutines.runBlocking
@@ -237,7 +236,7 @@ fun main() {
 ```kotlin
 // エージェントを作成しています
 val agent = AIAgent(
-    executor = simpleOllamaAIExecutor(),
+    promptExecutor = simpleOllamaAIExecutor(),
     llmModel = OllamaModels.Meta.LLAMA_3_2,
 ) {
     val writer = TraceFeatureMessageFileWriter(
@@ -277,7 +276,7 @@ fun main() {
     runBlocking {
         // エージェントを作成しています
         val agent = AIAgent(
-            executor = simpleOllamaAIExecutor(),
+            promptExecutor = simpleOllamaAIExecutor(),
             llmModel = OllamaModels.Meta.LLAMA_3_2,
         ) {
             val writer = TraceFeatureMessageFileWriter(
@@ -328,7 +327,7 @@ fun main() {
 ```kotlin
 // エージェントを作成しています
 val agent = AIAgent(
-    executor = simpleOllamaAIExecutor(),
+    promptExecutor = simpleOllamaAIExecutor(),
     llmModel = OllamaModels.Meta.LLAMA_3_2,
 ) {
     val connectionConfig = DefaultServerConnectionConfig(host = host, port = port)
@@ -435,7 +434,7 @@ fun main() {
     runBlocking {
         // エージェントを作成しています
         val agent = AIAgent(
-            executor = simpleOllamaAIExecutor(),
+            promptExecutor = simpleOllamaAIExecutor(),
             llmModel = OllamaModels.Meta.LLAMA_3_2,
         ) {
             val writer = TraceFeatureMessageFileWriter(
@@ -488,7 +487,7 @@ fun main() {
    runBlocking {
       // エージェントを作成しています
       val agent = AIAgent(
-         executor = simpleOllamaAIExecutor(),
+         promptExecutor = simpleOllamaAIExecutor(),
          llmModel = OllamaModels.Meta.LLAMA_3_2,
       ) {
 -->
@@ -528,7 +527,7 @@ fun main() {
    runBlocking {
       // エージェントを作成しています
       val agent = AIAgent(
-         executor = simpleOllamaAIExecutor(),
+         promptExecutor = simpleOllamaAIExecutor(),
          llmModel = OllamaModels.Meta.LLAMA_3_2,
       ) {
 -->

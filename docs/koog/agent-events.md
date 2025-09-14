@@ -31,7 +31,8 @@ The EventHandler entity consists of five main handler types:
 
 ### 安装与配置
 
-EventHandler 特性通过 `EventHandler` 类集成到 Agent 工作流中，该类提供了一种为不同 Agent 事件注册回调的方式，并且可以作为一项特性安装到 Agent 配置中。有关详情，请参见 [API reference](https://api.koog.ai/agents/agents-features/agents-features-event-handler/ai.koog.agents.local.features.eventHandler.feature/-event-handler/index.html)。
+EventHandler 特性通过 `EventHandler` 类集成到 Agent 工作流中，该类提供了一种为不同 Agent 事件注册回调的方式，并且可以作为一项特性安装到 Agent 配置中。有关详情，请参见 [API reference](https://api.koog.
+ai/agents/agents-features/agents-features-event-handler/ai.koog.agents.local.features.eventHandler.feature/-event-handler/index.html)。
 
 要为 Agent 安装该特性并配置事件处理程序，请执行以下操作：
 
@@ -42,7 +43,7 @@ import ai.koog.prompt.executor.llms.all.simpleOllamaAIExecutor
 import ai.koog.prompt.llm.OllamaModels
 
 val agent = AIAgent(
-    executor = simpleOllamaAIExecutor(),
+    promptExecutor = simpleOllamaAIExecutor(),
     llmModel = OllamaModels.Meta.LLAMA_3_2,
 ) {
 -->
@@ -78,7 +79,7 @@ import ai.koog.prompt.llm.OllamaModels
 -->
 ```kotlin
 val agent = AIAgent(
-    executor = simpleOllamaAIExecutor(),
+    promptExecutor = simpleOllamaAIExecutor(),
     llmModel = OllamaModels.Meta.LLAMA_3_2,
 ){
     handleEvents {

@@ -1,6 +1,6 @@
 # 预定义代理策略
 
-为了简化代理实现，Koog 提供了预定义的代理策略，以应对常见的代理用例。
+为简化代理实现，Koog 提供了预定义的代理策略，以应对常见的代理用例。
 以下是可用的预定义策略：
 
 - [Chat 代理策略](#chat-agent-strategy)
@@ -41,13 +41,13 @@ import ai.koog.agents.core.tools.ToolRegistry
 import ai.koog.prompt.executor.clients.openai.OpenAIModels
 
 val apiKey = System.getenv("OPENAI_API_KEY") ?: error("Please set OPENAI_API_KEY environment variable")
-val promptExecutor = simpleOpenAIExecutor(apiKey)
+val promptExecutor =simpleOpenAIExecutor(apiKey)
 val toolRegistry = ToolRegistry.EMPTY
 val model =  OpenAIModels.Reasoning.O4Mini
 -->
 ```kotlin
 val chatAgent = AIAgent(
-    executor = promptExecutor,
+    promptExecutor = promptExecutor,
     toolRegistry = toolRegistry,
     llmModel = model,
     // Set chatAgentStrategy as the agent strategy
@@ -82,13 +82,13 @@ typealias searchTool = AskUser
 typealias weatherTool = SayToUser
 
 val apiKey = System.getenv("OPENAI_API_KEY") ?: error("Please set OPENAI_API_KEY environment variable")
-val promptExecutor = simpleOpenAIExecutor(apiKey)
+val promptExecutor =simpleOpenAIExecutor(apiKey)
 val toolRegistry = ToolRegistry.EMPTY
 val model =  OpenAIModels.Reasoning.O4Mini
 -->
 ```kotlin
 val chatAgent = AIAgent(
-    executor = promptExecutor,
+    promptExecutor = promptExecutor,
     llmModel = model,
     // Use chatAgentStrategy as the agent strategy
     strategy = chatAgentStrategy(),
@@ -153,7 +153,7 @@ val model =  OpenAIModels.Reasoning.O4Mini
 -->
 ```kotlin hl_lines="5-10"
 val reActAgent = AIAgent(
-    executor = promptExecutor,
+    promptExecutor = promptExecutor,
     toolRegistry = toolRegistry,
     llmModel = model,
     // Set reActStrategy as the agent strategy
@@ -170,10 +170,10 @@ val reActAgent = AIAgent(
 
 `reActStrategy` 函数接受以下参数：
 
-| 参数                | 类型   | 默认值   | 描述                                     |
-|---------------------|--------|----------|------------------------------------------|
-| `reasoningInterval` | Int    | 1        | 指定推理步骤的间隔。必须大于 0。 |
-| `name`              | String | `re_act` | 策略的名称。                             |
+| 参数 | 类型 | 默认值 | 描述 |
+|---|---|---|---|
+| `reasoningInterval` | Int | 1 | 指定推理步骤的间隔。必须大于 0。 |
+| `name` | String | `re_act` | 策略的名称。 |
 
 ### 用例示例
 
@@ -281,7 +281,7 @@ val model =  OpenAIModels.Reasoning.O4Mini
 -->
 ```kotlin
 val bankingAgent = AIAgent(
-    executor = promptExecutor,
+    promptExecutor = promptExecutor,
     llmModel = model,
     // Use reActStrategy as the agent strategy
     strategy = reActStrategy(

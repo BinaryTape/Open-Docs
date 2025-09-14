@@ -54,7 +54,7 @@ val promptExecutor = simpleOpenAIExecutor(token)
 
 複数のLLMプロバイダーで動作するプロンプトエグゼキュータを作成するには、以下を実行します。
 
-1.  必要なLLMプロバイダーのクライアントを、対応するAPIキーで構成します。たとえば、
+1) 必要なLLMプロバイダーのクライアントを、対応するAPIキーで構成します。たとえば、
 <!--- INCLUDE
 import ai.koog.prompt.executor.clients.openai.OpenAILLMClient
 import ai.koog.prompt.executor.clients.anthropic.AnthropicLLMClient
@@ -66,7 +66,7 @@ val anthropicClient = AnthropicLLMClient(System.getenv("ANTHROPIC_KEY"))
 val googleClient = GoogleLLMClient(System.getenv("GOOGLE_KEY"))
 ```
 <!--- KNIT example-complex-workflow-agents-02.kt -->
-2.  構成されたクライアントを `DefaultMultiLLMPromptExecutor` クラスのコンストラクタに渡して、複数のLLMプロバイダーを持つプロンプトエグゼキュータを作成します。
+2) 構成されたクライアントを `DefaultMultiLLMPromptExecutor` クラスのコンストラクタに渡して、複数のLLMプロバイダーを持つプロンプトエグゼキュータを作成します。
 <!--- INCLUDE
 import ai.koog.agents.example.exampleComplexWorkflowAgents02.anthropicClient
 import ai.koog.agents.example.exampleComplexWorkflowAgents02.googleClient
@@ -276,12 +276,12 @@ import ai.koog.agents.core.tools.reflect.tools
 @LLMDescription("Tools for performing basic arithmetic operations")
 class CalculatorTools : ToolSet {
     @Tool
-    @LLMDescription("Add two numbers together and return their sum")
+    @LLMDescription("2つの数値を加算し、その合計を返す")
     fun add(
-        @LLMDescription("First number to add (integer value)")
+        @LLMDescription("加算する最初の数値（整数値）")
         num1: Int,
 
-        @LLMDescription("Second number to add (integer value)")
+        @LLMDescription("加算する2番目の数値（整数値）")
         num2: Int
     ): String {
         val sum = num1 + num2
@@ -318,7 +318,7 @@ import ai.koog.prompt.executor.llms.all.simpleOllamaAIExecutor
 import ai.koog.prompt.llm.OllamaModels
 
 val agent = AIAgent(
-    executor = simpleOllamaAIExecutor(),
+    promptExecutor = simpleOllamaAIExecutor(),
     llmModel = OllamaModels.Meta.LLAMA_3_2,
 -->
 <!--- SUFFIX
@@ -329,7 +329,7 @@ val agent = AIAgent(
 installFeatures = {
     install(EventHandler) {
         onBeforeAgentStarted { eventContext: AgentStartContext<*> ->
-            println("戦略の開始: ${eventContext.strategy.name}")
+            println("エージェントの開始: ${eventContext.agent.id}")
         }
         onAgentFinished { eventContext: AgentFinishedContext ->
             println("結果: ${eventContext.result}")
@@ -364,7 +364,7 @@ val agent = AIAgent(
     installFeatures = {
         install(EventHandler) {
             onBeforeAgentStarted { eventContext: AgentStartContext<*> ->
-                println("戦略の開始: ${eventContext.strategy.name}")
+                println("エージェントの開始: ${eventContext.agent.id}")
             }
             onAgentFinished { eventContext: AgentFinishedContext ->
                 println("結果: ${eventContext.result}")
@@ -480,12 +480,12 @@ val agentConfig = AIAgentConfig(
 @LLMDescription("Tools for performing basic arithmetic operations")
 class CalculatorTools : ToolSet {
     @Tool
-    @LLMDescription("Add two numbers together and return their sum")
+    @LLMDescription("2つの数値を加算し、その合計を返す")
     fun add(
-        @LLMDescription("First number to add (integer value)")
+        @LLMDescription("加算する最初の数値（整数値）")
         num1: Int,
 
-        @LLMDescription("Second number to add (integer value)")
+        @LLMDescription("加算する2番目の数値（整数値）")
         num2: Int
     ): String {
         val sum = num1 + num2
@@ -507,7 +507,7 @@ val agent = AIAgent(
     installFeatures = {
         install(EventHandler) {
             onBeforeAgentStarted { eventContext: AgentStartContext<*> ->
-                println("戦略の開始: ${eventContext.strategy.name}")
+                println("エージェントの開始: ${eventContext.agent.id}")
             }
             onAgentFinished { eventContext: AgentFinishedContext ->
                 println("結果: ${eventContext.result}")

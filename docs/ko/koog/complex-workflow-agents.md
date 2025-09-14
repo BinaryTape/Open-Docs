@@ -52,7 +52,7 @@ val promptExecutor = simpleOpenAIExecutor(token)
 ```
 <!--- KNIT example-complex-workflow-agents-01.kt -->
 
-여러 LLM 제공자와 함께 작동하는 프롬프트 실행기를 생성하려면 다음을 수행하세요.
+여러 LLM 제공자와 함께 작동하는 프롬프트 실행기를 생성하려면 다음을 수행하세요:
 
 1)  필요한 LLM 제공자를 위한 클라이언트를 해당 API 키로 구성합니다. 예를 들어:
 <!--- INCLUDE
@@ -318,7 +318,7 @@ import ai.koog.prompt.executor.llms.all.simpleOllamaAIExecutor
 import ai.koog.prompt.llm.OllamaModels
 
 val agent = AIAgent(
-    executor = simpleOllamaAIExecutor(),
+    promptExecutor = simpleOllamaAIExecutor(),
     llmModel = OllamaModels.Meta.LLAMA_3_2,
 -->
 <!--- SUFFIX
@@ -329,7 +329,7 @@ val agent = AIAgent(
 installFeatures = {
     install(EventHandler) {
         onBeforeAgentStarted { eventContext: AgentStartContext<*> ->
-            println("Starting strategy: ${eventContext.strategy.name}")
+            println("Starting agent: ${eventContext.agent.id}")
         }
         onAgentFinished { eventContext: AgentFinishedContext ->
             println("Result: ${eventContext.result}")
@@ -364,7 +364,7 @@ val agent = AIAgent(
     installFeatures = {
         install(EventHandler) {
             onBeforeAgentStarted { eventContext: AgentStartContext<*> ->
-                println("Starting strategy: ${eventContext.strategy.name}")
+                println("Starting agent: ${eventContext.agent.id}")
             }
             onAgentFinished { eventContext: AgentFinishedContext ->
                 println("Result: ${eventContext.result}")
@@ -377,7 +377,7 @@ fun main() {
     runBlocking {
         println("Enter two numbers to add (e.g., 'add 5 and 7' or '5 + 7'):")
 
-        // Read the user input and send it to the agent
+        // 사용자 입력을 읽어 에이전트로 보냅니다.
         val userInput = readlnOrNull() ?: ""
         val agentResult = agent.run(userInput)
         println("The agent returned: $agentResult")
@@ -420,37 +420,37 @@ import kotlinx.coroutines.runBlocking
 
 -->
 ```kotlin
-// Use the OpenAI executor with an API key from an environment variable
+// 환경 변수에서 API 키를 사용하여 OpenAI 실행기를 사용합니다.
 val promptExecutor = simpleOpenAIExecutor(System.getenv("OPENAI_API_KEY"))
 
-// Create a simple strategy
+// 간단한 전략을 생성합니다.
 val agentStrategy = strategy("Simple calculator") {
-    // Define nodes for the strategy
+    // 전략에 대한 노드를 정의합니다.
     val nodeSendInput by nodeLLMRequest()
     val nodeExecuteTool by nodeExecuteTool()
     val nodeSendToolResult by nodeLLMSendToolResult()
 
-    // Define edges between nodes
-    // Start -> Send input
+    // 노드 간의 엣지를 정의합니다.
+    // 시작 -> 입력 전송
     edge(nodeStart forwardTo nodeSendInput)
 
-    // Send input -> Finish
+    // 입력 전송 -> 완료
     edge(
         (nodeSendInput forwardTo nodeFinish)
                 transformed { it }
                 onAssistantMessage { true }
     )
 
-    // Send input -> Execute tool
+    // 입력 전송 -> 도구 실행
     edge(
         (nodeSendInput forwardTo nodeExecuteTool)
                 onToolCall { true }
     )
 
-    // Execute tool -> Send the tool result
+    // 도구 실행 -> 도구 결과 전송
     edge(nodeExecuteTool forwardTo nodeSendToolResult)
 
-    // Send the tool result -> finish
+    // 도구 결과 전송 -> 완료
     edge(
         (nodeSendToolResult forwardTo nodeFinish)
                 transformed { it }
@@ -458,7 +458,7 @@ val agentStrategy = strategy("Simple calculator") {
     )
 }
 
-// Configure the agent
+// 에이전트를 구성합니다.
 val agentConfig = AIAgentConfig(
     prompt = Prompt.build("simple-calculator") {
         system(
@@ -476,7 +476,7 @@ val agentConfig = AIAgentConfig(
     maxAgentIterations = 10
 )
 
-// Implement a simple calculator tool that can add two numbers
+// 두 숫자를 더할 수 있는 간단한 계산기 도구를 구현합니다.
 @LLMDescription("Tools for performing basic arithmetic operations")
 class CalculatorTools : ToolSet {
     @Tool
@@ -493,12 +493,12 @@ class CalculatorTools : ToolSet {
     }
 }
 
-// Add the tool to the tool registry
+// 도구를 도구 레지스트리에 추가합니다.
 val toolRegistry = ToolRegistry {
     tools(CalculatorTools())
 }
 
-// Create the agent
+// 에이전트를 생성합니다.
 val agent = AIAgent(
     promptExecutor = promptExecutor,
     toolRegistry = toolRegistry,
@@ -507,7 +507,7 @@ val agent = AIAgent(
     installFeatures = {
         install(EventHandler) {
             onBeforeAgentStarted { eventContext: AgentStartContext<*> ->
-                println("Starting strategy: ${eventContext.strategy.name}")
+                println("Starting agent: ${eventContext.agent.id}")
             }
             onAgentFinished { eventContext: AgentFinishedContext ->
                 println("Result: ${eventContext.result}")
@@ -520,7 +520,7 @@ fun main() {
     runBlocking {
         println("Enter two numbers to add (e.g., 'add 5 and 7' or '5 + 7'):")
 
-        // Read the user input and send it to the agent
+        // 사용자 입력을 읽어 에이전트로 보냅니다.
         val userInput = readlnOrNull() ?: ""
         val agentResult = agent.run(userInput)
         println("The agent returned: $agentResult")
