@@ -375,3 +375,23 @@ img[type="joined"] {
   margin: 8px 0;
   line-height: 24px;
 }
+
+.md-button {
+    text-align: center;
+    text-decoration: none !important;
+    white-space: nowrap;
+    border: 1px solid #0000;
+    font-weight: 600;
+    transition: color .25s,border-color .25s,background-color .25s !important;
+    display: inline-block;
+    border-radius: 20px;
+    padding: 0 20px;
+    margin-right: 8px;
+    line-height: 38px;
+    border-color: var(--vp-button-brand-bg);
+}
+
+.md-button--primary {
+    color: var(--vp-button-brand-text) !important;
+    background-color: var(--vp-button-brand-bg);
+}

@@ -12,67 +12,62 @@ export default function markdownItMkLinks(md) {
     ["simple-cockroachlabs", "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\"><path d=\"M17.645 16.155a13.013 13.013 0 0 0-4.479-13.287 11.617 11.617 0 0 1 5.815-1.546c.774 0 1.545.075 2.304.226l.32-1.282A13.092 13.092 0 0 0 18.98 0 12.93 12.93 0 0 0 12 2.03 12.933 12.933 0 0 0 5.021 0C4.139 0 3.26.089 2.396.266l.319 1.282a11.83 11.83 0 0 1 2.306-.226 11.64 11.64 0 0 1 5.817 1.544 13.01 13.01 0 0 0 .792 20.877l.375.257.373-.257c2.624-1.801 4.5-4.5 5.27-7.588zm-6.305 5.7A11.687 11.687 0 0 1 7.825 9.519a13.08 13.08 0 0 0 2.457 2.977 3.202 3.202 0 0 1 1.058 2.383zm.661-9.657a11.717 11.717 0 0 1-2.343-2.315 3.23 3.23 0 0 1 0-3.912 11.67 11.67 0 0 1 2.347-2.333c.9.671 1.697 1.468 2.37 2.366a3.197 3.197 0 0 1 0 3.832 11.816 11.816 0 0 1-2.374 2.362zm.659 9.657v-6.976a3.202 3.202 0 0 1 1.06-2.383 13.026 13.026 0 0 0 2.455-2.977 11.694 11.694 0 0 1-3.515 12.336Z\"></path></svg>"],
     ["simple-ibm", "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\"><path d=\"M23.544 15.993c.038 0 .06-.017.06-.053v-.036c0-.035-.022-.052-.06-.052h-.09v.14zm-.09.262h-.121v-.498h.225c.112 0 .169.066.169.157 0 .079-.036.129-.09.15l.111.19h-.133l-.092-.17h-.07zm.434-.222v-.062c0-.2-.157-.357-.363-.357a.355.355 0 0 0-.363.357v.062c0 .2.156.358.363.358a.355.355 0 0 0 .363-.358zm-.838-.03c0-.28.212-.492.475-.492.264 0 .475.213.475.491a.477.477 0 0 1-.475.491.477.477 0 0 1-.475-.49zM16.21 8.13l-.216-.624h-3.56v.624zm.413 1.19-.216-.623h-3.973v.624zm2.65 7.147h3.107v-.624h-3.108zm0-1.192h3.107v-.623h-3.108zm0-1.19h1.864v-.624h-1.865zm0-1.191h1.864v-.624h-1.865zm0-1.191h1.864v-.624h-3.555l-.175.504-.175-.504h-3.555v.624h1.865v-.574l.2.574h3.33l.2-.574zm1.864-1.815h-3.142l-.217.624h3.359zm-7.46 3.006h1.865v-.624h-1.865zm0 1.19h1.865v-.623h-1.865zm-1.243 1.191h3.108v-.623h-3.108zm0 1.192h3.108v-.624h-3.108zm6.386-8.961-.216.624h3.776v-.624zm-.629 1.815h4.19v-.624h-3.974zm-4.514 1.19h3.359l-.216-.623h-3.143zm2.482 2.383h2.496l.218-.624h-2.932zm.417 1.19h1.662l.218-.623h-2.098zm.416 1.191h.83l.218-.623h-1.266zm.414 1.192.217-.624h-.432zm-12.433-.006 4.578.006c.622 0 1.18-.237 1.602-.624h-6.18zm4.86-3v.624h2.092c0-.216-.03-.425-.083-.624zm-3.616.624h1.865v-.624H6.217zm3.617-3.573h2.008c.053-.199.083-.408.083-.624H9.834zm-3.617 0h1.865v-.624H6.217zM9.55 7.507H4.973v.624h6.18a2.36 2.36 0 0 0-1.602-.624zm2.056 1.191H4.973v.624h6.884a2.382 2.382 0 0 0-.25-.624zm-5.39 2.382v.624h4.87c.207-.176.382-.387.519-.624zm4.87 1.191h-4.87v.624h5.389a2.39 2.39 0 0 0-.519-.624zm-6.114 3.006h6.634c.11-.193.196-.402.25-.624H4.973zM0 8.13h4.352v-.624H0zm0 1.191h4.352v-.624H0zm1.243 1.191h1.865v-.624H1.243zm0 1.191h1.865v-.624H1.243zm0 1.19h1.865v-.623H1.243zm0 1.192h1.865v-.624H1.243zM0 15.276h4.352v-.623H0zm0 1.192h4.352v-.624H0Z\"></path></svg>"],
     ["simple-oracle", "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\"><path d=\"M16.412 4.412h-8.82a7.588 7.588 0 0 0-.008 15.176h8.828a7.588 7.588 0 0 0 0-15.176zm-.193 12.502H7.786a4.915 4.915 0 0 1 0-9.828h8.433a4.914 4.914 0 1 1 0 9.828z\"></path></svg>"],
-    ["material-test-tube", "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\"><path d=\"M7 2v2h1v14a4 4 0 0 0 4 4 4 4 0 0 0 4-4V4h1V2H7m4 14c-.6 0-1-.4-1-1s.4-1 1-1 1 .4 1 1-.4 1-1 1m2-4c-.6 0-1-.4-1-1s.4-1 1-1 1 .4 1 1-.4 1-1 1m1-5h-4V4h4v3Z\"></path></svg>"]
+    ["material-test-tube", "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\"><path d=\"M7 2v2h1v14a4 4 0 0 0 4 4 4 4 0 0 0 4-4V4h1V2H7m4 14c-.6 0-1-.4-1-1s.4-1 1-1 1 .4 1 1-.4 1-1 1m2-4c-.6 0-1-.4-1-1s.4-1 1-1 1 .4 1 1-.4 1-1 1m1-5h-4V4h4v3Z\"></path></svg>"],
+    ["material-github", "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\"><path d=\"M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33s1.71.11 2.5.33c1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2\"></path></svg>"],
+    ["material-download", "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\"><path d=\"M5 20h14v-2H5m14-9h-4V3H9v6H5l7 7z\"></path></svg>"]
   ]);
 
-  // 使用 inline 级别的规则来处理标题内的 emoji
-  md.core.ruler.after('inline', 'process_heading_emoji', function(state) {
+  // 使用 inline 级别的规则来处理任意行内的 emoji（包含链接文本、段落、标题等）
+  md.core.ruler.after('inline', 'process_inline_emoji', function(state) {
     for (let i = 0; i < state.tokens.length; i++) {
       const token = state.tokens[i];
 
-      if (token.type === 'heading_open') {
-        // 找到对应的内联标记
-        const inlineToken = state.tokens[i + 1];
-        if (inlineToken && inlineToken.type === 'inline' && inlineToken.children) {
-          // 处理内联标记中的文本标记
-          for (let j = 0; j < inlineToken.children.length; j++) {
-            const child = inlineToken.children[j];
-            if (child.type === 'text' && child.content) {
-              // 检查是否包含 emoji 语法
-              if (child.content.includes(':')) {
-                const emojiRegex = /:([a-zA-Z0-9-]+):/g;
-                let match;
-                let lastIndex = 0;
-                const newTokens = [];
+      // 处理所有 inline token 的 children（避免局限于标题）
+      if (token.type === 'inline' && token.children) {
+        for (let j = 0; j < token.children.length; j++) {
+          const child = token.children[j];
+          if (child.type === 'text' && child.content && child.content.includes(':')) {
+            const emojiRegex = /:([a-zA-Z0-9-]+):/g;
+            let match;
+            let lastIndex = 0;
+            const newTokens = [];
 
-                while ((match = emojiRegex.exec(child.content)) !== null) {
-                  // 添加 emoji 前的文本
-                  if (match.index > lastIndex) {
-                    const textToken = new state.Token('text', '', 0);
-                    textToken.content = child.content.substring(lastIndex, match.index);
-                    newTokens.push(textToken);
-                  }
-
-                  // 添加 emoji HTML
-                  const emojiName = match[1];
-                  const svg = emojiMap.get(emojiName);
-                  if (svg) {
-                    const htmlToken = new state.Token('html_inline', '', 0);
-                    htmlToken.content = `<span class="emoji">${svg}</span>`;
-                    newTokens.push(htmlToken);
-                  } else {
-                    // 如果没有找到对应的 emoji，保持原样
-                    const textToken = new state.Token('text', '', 0);
-                    textToken.content = match[0];
-                    newTokens.push(textToken);
-                  }
-
-                  lastIndex = emojiRegex.lastIndex;
-                }
-
-                // 添加剩余的文本
-                if (lastIndex < child.content.length) {
-                  const textToken = new state.Token('text', '', 0);
-                  textToken.content = child.content.substring(lastIndex);
-                  newTokens.push(textToken);
-                }
-
-                // 如果有新的标记，替换原来的标记
-                if (newTokens.length > 0) {
-                  inlineToken.children.splice(j, 1, ...newTokens);
-                  j += newTokens.length - 1; // 调整索引
-                }
+            while ((match = emojiRegex.exec(child.content)) !== null) {
+              // 添加 emoji 前的文本
+              if (match.index > lastIndex) {
+                const textToken = new state.Token('text', '', 0);
+                textToken.content = child.content.substring(lastIndex, match.index);
+                newTokens.push(textToken);
               }
+
+              // 添加 emoji HTML
+              const emojiName = match[1];
+              const svg = emojiMap.get(emojiName);
+              if (svg) {
+                const htmlToken = new state.Token('html_inline', '', 0);
+                htmlToken.content = `<span class="emoji">${svg}</span>`;
+                newTokens.push(htmlToken);
+              } else {
+                // 如果没有找到对应的 emoji，保持原样
+                const textToken = new state.Token('text', '', 0);
+                textToken.content = match[0];
+                newTokens.push(textToken);
+              }
+
+              lastIndex = emojiRegex.lastIndex;
+            }
+
+            // 添加剩余的文本
+            if (lastIndex < child.content.length) {
+              const textToken = new state.Token('text', '', 0);
+              textToken.content = child.content.substring(lastIndex);
+              newTokens.push(textToken);
+            }
+
+            // 如果有新的标记，替换原来的标记
+            if (newTokens.length > 0) {
+              token.children.splice(j, 1, ...newTokens);
+              j += newTokens.length - 1; // 调整索引
             }
           }
         }

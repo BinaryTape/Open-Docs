@@ -14,10 +14,13 @@ export const ktorStrategy = {
      */
     getDocPatterns: () => ["topics/*.md"],
 
+    postSync: async (repoPath) => {},
+
     /**
      * @override
      */
-    postSync: async (repoPath) => {
+    postDetect: async (repoConfig, task) => {
+        const repoPath = repoConfig.path;
         const docsPath = path.join(repoPath, "topics");
         const docs = await fs.readdir(docsPath);
 
@@ -36,6 +39,19 @@ export const ktorStrategy = {
             await processTopicFileAsync(topicPath, docsPath, true)
         }
         console.log(`  Convert topic files finished - ${repoPath}`);
+
+        console.log(` Running Ktor postDetect: Change file extension - ${repoPath}`);
+        // Map to flattened doc path, convert .topic -> .md
+        task.files = await Promise.all(
+            task.files.map(async (file) => {
+                if (file.endsWith('.topic')) {
+                    file = file.replace('.topic', '.md');
+                }
+                return file;
+            })
+        );
+        console.log(`  Mapped files: ${task.files.join("\n")}`);
+        console.log(`  Change file extension finished - ${repoPath}`);
 
         console.log(`  Running Ktor postSync: Generate sidebar - ${repoPath}...`);
         const sidebarPath = path.join(repoPath, "ktor.tree");
