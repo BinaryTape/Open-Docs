@@ -9,17 +9,20 @@ export const koogStrategy = {
     /**
      * @override
      */
-    getDocPatterns: () => ["docs/docs/*.md"],
+    getDocPatterns: () => ["docs/docs/**/*.md"],
+
+    postSync: async (repoPath) => {},
 
     /**
      * @override
      */
-    postSync: async (repoPath) => {
+    postDetect: async (repoConfig, task) => {
+        const repoPath = repoConfig.path;
         console.log(`  Running Koog postSync: Generate sidebar - ${repoPath}...`);
         const sidebarPath = path.join(repoPath, 'docs/mkdocs.yml');
         const docType = repoPath.replace("-repo", "");
         if (await fs.pathExists(sidebarPath)) {
-            await generateSidebar(sidebarPath, docType, 'https://sqldelight.github.io/sqldelight/2.1.0/');
+            await generateSidebar(sidebarPath, docType);
         }
         console.log(`  Generate sidebar finished - ${repoPath}`);
     },
