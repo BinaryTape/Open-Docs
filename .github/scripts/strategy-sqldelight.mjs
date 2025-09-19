@@ -14,7 +14,7 @@ export const sqlDelightStrategy = {
     /**
      * @override
      */
-    getDocPatterns: () => ["docs/**/*.md", extraFilesMapping.keys()],
+    getDocPatterns: () => ["docs/**/*.md", ...extraFilesMapping.keys()],
 
     postSync: async (repoPath) => {},
 
