@@ -539,7 +539,6 @@ JetBrains 遵循 [Kotlin 语言演进原则](kotlin-evolution-principles.md)演�
 
 </td>
 </tr>
-</table>
 
 <!-- END OF STABLE BLOCK -->
 

@@ -145,11 +145,11 @@ strategy<String, String>("my-strategy") {
 
     val str = strategy<String, String>("my-strategy") {
         val node by node<Unit, Unit>("node_name") {
--->
+    -->
     <!--- SUFFIX
         }
     }
--->
+    -->
     ```kotlin
     // ツールのセットを作成します
     this.llm.writeSession {

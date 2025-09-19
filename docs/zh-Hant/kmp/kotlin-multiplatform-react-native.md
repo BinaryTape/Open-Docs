@@ -2,45 +2,6 @@
        xsi:noNamespaceSchemaLocation="https://resources.jetbrains.com/writerside/1.0/topic.v2.xsd"
        id="kotlin-multiplatform-react-native"
        title="Kotlin Multiplatform 對比 React Native：跨平台比較">
-<include-in-head>
-<![CDATA[
-        <script type="application/ld+json">
-        {
-          "@context": "https://schema.org",
-          "@type": "FAQPage",
-          "mainEntity": [{
-            "@type": "Question",
-            "name": "Kotlin Multiplatform 是否已可用於正式環境？",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "<p>Kotlin Multiplatform 是一項穩定技術，已可用於正式環境。這意味著您可以在生產環境中，跨 Android、iOS、桌面 (JVM)、伺服器端 (JVM) 和網頁共享程式碼，即使在最保守的使用情境下也無妨。Compose Multiplatform 是一個用於跨平台構建共享 UI 的框架 (由 Kotlin Multiplatform 和 Google 的 Jetpack Compose 提供支援)，在 iOS、Android 和桌面端已穩定。網頁支援目前處於 Beta 階段。</p>"
-            }
-          }, {
-            "@type": "Question",
-            "name": "Kotlin Multiplatform 比 React Native 更好嗎？",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Kotlin Multiplatform 和 React Native 各有其優點，選擇取決於您專案的特定目標、技術要求和團隊專業知識。在上述比較中，我們概述了程式碼共享、建構工具、編譯和生態系統等方面的關鍵差異，以幫助您決定哪種選項最適合您的使用情境。"
-            }
-          }, {
-            "@type": "Question",
-            "name": "Google 是否支援 Kotlin Multiplatform？",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "在 Google I/O 2024 上，Google 宣布正式支援在 Android 上使用 Kotlin Multiplatform，以在 Android 和 iOS 之間共享業務邏輯。"
-            }
-          }, {
-            "@type": "Question",
-            "name": "學習 Kotlin Multiplatform 值得嗎？",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "如果您有興趣在 Android、iOS、桌面和網頁之間共享程式碼，同時保留原生效能和彈性，那麼學習 Kotlin Multiplatform 是值得的。它由 JetBrains 支持，並由 Google 在 Android 上正式支援，以在 Android 和 iOS 之間共享業務邏輯。此外，KMP 與 Compose Multiplatform 正日益被構建多平台應用程式的公司用於正式環境中。"
-            }
-          }]
-        }
-        </script>
-]]>
-</include-in-head>
 <web-summary>探索 Kotlin Multiplatform 搭配 Compose Multiplatform 與 React Native 在程式碼共享、生態系統和 UI 渲染方面的比較 — 了解哪種工具組合最適合您的團隊。
     </web-summary>
 <tip>

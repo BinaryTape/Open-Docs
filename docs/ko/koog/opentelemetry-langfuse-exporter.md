@@ -72,7 +72,7 @@ Koog는 [에이전트 그래프](https://langfuse.com/docs/observability/feature
 
 Langfuse에서 시각화될 때, 트레이스는 다음과 같이 나타납니다:
 ![Langfuse traces](img/opentelemetry-langfuse-exporter-light.png#only-light)
-![Langfuse traces](img/opnetelemetry-langfuse-exporter-dark.png#only-dark)
+![Langfuse traces](img/opentelemetry-langfuse-exporter-dark.png#only-dark)
 
 Langfuse OpenTelemetry 트레이싱에 대한 자세한 내용은 다음을 참조하세요:  
 [Langfuse OpenTelemetry 문서](https://langfuse.com/integrations/native/opentelemetry#opentelemetry-endpoint).

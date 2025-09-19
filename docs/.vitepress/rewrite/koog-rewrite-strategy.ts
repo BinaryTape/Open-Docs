@@ -14,7 +14,7 @@ export function koogRewriteHref(env: any, href: string): string {
 }
 
 function rewriteAssets(href: string): string {
-    if (href.endsWith('.png') || href.endsWith('.svg') || href.endsWith('.jpeg') || href.endsWith('.jpg') || href.endsWith('.gif')) {
-        return href.replace("img/", "/koog/");
+    if (href.endsWith('.png') || href.endsWith('.svg') || href.endsWith('.jpeg') || href.endsWith('.jpg') || href.endsWith('.gif') || href.startsWith("img/")) {
+        return href.replace("img/", "/koog/").replace("#only-light", "").replace("#only-dark", "");
     }
 }

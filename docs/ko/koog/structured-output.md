@@ -265,7 +265,7 @@ val structuredResponse = promptExecutor.executeStructured<WeatherForecast>(
 |----------------|-------------------------|------|---------------|-----------------------------------------------------------------------------------------------------------------|
 | `prompt`       | Prompt                  | 예   |               | 실행할 프롬프트입니다. 자세한 내용은 [프롬프트 API](prompt-api.md)를 참조하세요.                                   |
 | `model`        | LLModel                 | 예   |               | 프롬프트를 실행할 주 모델입니다.                                                                           |
-| `examples`     | List<T>                 | 아니요 | `emptyList()` | 모델이 예상되는 형식을 이해하는 데 도움이 되는 선택적 예시 목록입니다.                                     |
+| `examples`     | List&lt;T&gt;                 | 아니요 | `emptyList()` | 모델이 예상되는 형식을 이해하는 데 도움이 되는 선택적 예시 목록입니다.                                     |
 | `fixingParser` | StructureFixingParser?  | 아니요 | `null`        | 구문 분석 오류를 지능적으로 수정하기 위해 보조 LLM을 사용하여 형식이 잘못된 응답을 처리하는 선택적 파서입니다. |
 
 이 메서드는 성공적으로 구문 분석된 구조화된 데이터 또는 오류를 포함하는 `Result<StructuredResponse<T>>`를 반환합니다.

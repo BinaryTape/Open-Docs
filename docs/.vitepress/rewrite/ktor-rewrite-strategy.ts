@@ -20,6 +20,6 @@ export function ktorRewriteHref(env: any, href: string): string {
 
 function rewriteAssets(href: string): string {
     if (href.endsWith('.png') || href.endsWith('.svg') || href.endsWith('.jpeg') || href.endsWith('.jpg') || href.endsWith('.gif')) {
-        return `/ktor/${href}`
+        return `/ktor/${href.replace("../images/", "")}`
     }
 }

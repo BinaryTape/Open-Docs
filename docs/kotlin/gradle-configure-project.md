@@ -990,15 +990,15 @@ kotlin.stdlib.jdk.variants.version.alignment=false
   }
   ```
 
-</tab>
-<tab title="Groovy" group-key="groovy">
+  </tab>
+  <tab title="Groovy" group-key="groovy">
 
-```groovy
+  ```groovy
   plugins {
       // 将 `<...>` 替换为插件名称
       id "org.jetbrains.kotlin.<...>" version "%kotlinVersion%"
   }
-```
+  ```
 
   </tab>
   </tabs>
