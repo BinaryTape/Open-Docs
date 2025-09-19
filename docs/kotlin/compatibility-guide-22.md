@@ -212,7 +212,7 @@ _[保持语言现代性](kotlin-evolution-principles.md)_ 和 _[舒适的更新]
 
 ## 工具
 
-### 修正 `KotlinCompileTool` 中的 `setSource()` 函数以替换源代码
+### 修正 `setSource()` 函数在 `KotlinCompileTool` 中以替换源代码
 
 > **问题**：[KT-59632](https://youtrack.jetbrains.com/issue/KT-59632)
 >

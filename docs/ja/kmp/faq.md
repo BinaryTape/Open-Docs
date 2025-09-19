@@ -1,6 +1,6 @@
 [//]: # (title: よくある質問)
 
-## Kotlin Multiplatformについて
+## Kotlin Multiplatform
 
 ### Kotlin Multiplatformとは何ですか？
 
@@ -74,7 +74,7 @@ Kotlin/Nativeは、主に組み込みデバイスやiOSのように、仮想マ�
 
 [Kotlin/Nativeのコンパイル時間を改善するためのヒント](https://kotlinlang.org/docs/native-improving-compilation-time.html)を参照してください。
 
-## Compose Multiplatformについて
+## Compose Multiplatform
 
 ### Compose Multiplatformとは何ですか？
 
@@ -94,7 +94,7 @@ Android、iOS、デスクトップ（Linux、macOS、Windows）、ウェブ（Wa
 
 Compose MultiplatformのAndroid、iOS、デスクトップターゲットはStableです。これらは本番環境で使用できます。
 
-WebAssemblyをベースとしたWeb版のCompose MultiplatformはAlpha段階であり、活発に開発中であることを意味します。注意して使用し、移行に関する問題が発生する可能性があります。これは、iOS、Android、デスクトップ向けのCompose Multiplatformと同じUIを持っています。
+WebAssemblyをベースとしたWeb版のCompose MultiplatformはBeta段階であり、ほぼ完成していることを意味します。使用できますが、移行に関する問題が発生する可能性があります。これは、iOS、Android、デスクトップ向けのCompose Multiplatformと同じUIを持っています。
 
 ### 新しいCompose Multiplatformプロジェクトを作成するにはどうすればよいですか？
 
@@ -157,7 +157,7 @@ JetBrainsでは、マルチプラットフォーム開発で最高の体験を�
 
 ### Compose MultiplatformはいつStableになりますか？
 
-Compose MultiplatformはAndroid、iOS、デスクトップではStableですが、ウェブプラットフォームのサポートはAlpha段階です。ウェブプラットフォームの安定版リリースに向けて取り組んでおり、正確な日付は追って発表されます。
+Compose MultiplatformはAndroid、iOS、デスクトップではStableですが、ウェブプラットフォームのサポートはBeta段階です。ウェブプラットフォームの安定版リリースに向けて取り組んでおり、正確な日付は追って発表されます。
 
 安定性のステータスの詳細については、[サポートされているプラットフォーム](supported-platforms.md)を参照してください。
 

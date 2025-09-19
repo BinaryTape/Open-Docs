@@ -57,7 +57,7 @@ fun main() {
     val a = 1
     val b = 2
 
-    println(if (a > b) a else b) // Returns a value: 2
+    println(if (a > b) a else b) // 返回值：2
 //sampleEnd
 }
 ```
@@ -113,6 +113,7 @@ fun main() {
         // 如果 obj 等于 "1"，则将 result 设置为 "one"
         "1" -> "One"
         // 如果 obj 等于 "Hello"，则将 result 设置为 "Greeting"
+        "Hello" -> "Greeting"
         // 如果没有条件满足，则将 result 设置为 "Unknown"
         else -> "Unknown"
     }
@@ -188,7 +189,7 @@ import kotlin.random.Random
 fun main() {
     val firstResult = Random.nextInt(6)
     val secondResult = Random.nextInt(6)
-    // Write your code here
+    // 在这里编写你的代码
 }
 ```
 {validate="false" kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-tour-control-flow-conditional-exercise-1"}
@@ -226,7 +227,7 @@ fun main() {
     val button = "A"
 
     println(
-        // Write your code here
+        // 在这里编写你的代码
     )
 }
 ```
@@ -457,7 +458,7 @@ fun main() {
 |---|---|
 ```kotlin
 fun main() {
-    // Write your code here
+    // 在这里编写你的代码
 }
 ```
 {validate="false" kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-tour-control-flow-loops-exercise-2"}
@@ -493,7 +494,7 @@ fun main() {
 ```kotlin
 fun main() {
     val words = listOf("dinosaur", "limousine", "magazine", "language")
-    // Write your code here
+    // 在这里编写你的代码
 }
 ```
 {validate="false" kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-tour-control-flow-loops-exercise-3"}

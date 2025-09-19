@@ -10,7 +10,7 @@ Kotlin 标准库提供了一种机制，用于要求并明确同意使用某些 
 
 ### 局部显式选择加入
 
-为了在代码中使用特定 API 元素时局部显式选择加入，请使用 [`@OptIn`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-opt-in/) 注解并引用实验性 API 标记。例如，假设您想使用 `DateProvider` 类，它需要显式选择加入：
+为了在您的代码中使用特定 API 元素时局部显式选择加入，请使用 [`@OptIn`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-opt-in/) 注解并引用实验性 API 标记。例如，假设您想使用 `DateProvider` 类，它需要显式选择加入：
 
 ```kotlin
 // 库代码
@@ -162,7 +162,7 @@ fun displayDate() {
 >
 {style="note"}
 
-如果您不想为每个需要显式选择加入的 API 用法添加注解，您可以为整个模块显式选择加入它们。为了显式选择加入模块中的 API，请使用参数 `-opt-in` 编译它，指定您使用的 API 的显式选择加入要求注解的完全限定名：`-opt-in=org.mylibrary.OptInAnnotation`。使用此参数编译的效果与模块中的每个声明都带有注解 `@OptIn(OptInAnnotation::class)` 相同。
+如果您不想为每个需要显式选择加入的 API 用法添加注解，您可以为整个模块显式选择加入它们。为了显式选择加入模块中的 API，请使用参数 `-opt-in` 编译它，指定您使用的 API 的显式选择加入要求注解的完全限定名：`-opt-in=org.mylibrary.OptInAnnotation`。使用此参数编译的效果与模块中的每个声明都带有注解`@OptIn(OptInAnnotation::class)` 相同。
 
 如果您使用 Gradle 构建模块，可以像这样添加参数：
 
@@ -246,7 +246,7 @@ kotlin {
 
 ### 显式选择加入以继承类或接口
 
-有时，库作者提供 API，但希望要求用户在扩展它之前明确选择加入。例如，库 API 可能对于使用来说是稳定的，但对于继承则不是，因为它未来可能通过新的抽象函数进行扩展。库作者可以通过使用 [`@SubclassOptInRequired`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-subclass-opt-in-required/) 注解标记 [开放类](inheritance.md) 或 [抽象类](classes.md#abstract-classes) 以及 [非函数式接口](interfaces.md) 来强制执行此要求。
+有时，库作者提供 API 但希望要求用户在扩展它之前明确选择加入。例如，库 API 可能对于使用来说是稳定的，但对于继承则不是，因为它未来可能通过新的抽象函数进行扩展。库作者可以通过使用 [`@SubclassOptInRequired`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-subclass-opt-in-required/) 注解标记 [开放类](inheritance.md) 或 [抽象类](classes.md#abstract-classes) 以及 [非函数式接口](interfaces.md) 来强制执行此要求。
 
 为了显式选择加入以使用此类 API 元素并在您的代码中扩展它，请使用 `@SubclassOptInRequired` 注解并引用该注解类。例如，假设您想使用 `CoreLibraryApi` 接口，它需要显式选择加入：
 
@@ -365,7 +365,7 @@ fun getTime(): Time {}
 
 ## 要求显式选择加入才能扩展 API
 
-有时，您可能希望对 API 的哪些特定部分可以被使用和扩展进行更细粒度的控制。例如，当您有一些 API 在使用上是稳定的，但：
+有时，您可能希望对您的 API 的哪些特定部分可以被使用和扩展进行更细粒度的控制。例如，当您有一些 API 在使用上是稳定的，但：
 
 * 由于持续演进而导致**实现不稳定**，例如当您拥有一系列接口，并且期望在不提供默认实现的情况下添加新的抽象函数时。
 * **实现微妙或脆弱**，例如需要协同行为的独立函数。

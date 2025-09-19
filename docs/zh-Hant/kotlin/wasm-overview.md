@@ -1,22 +1,23 @@
 [//]: # (title: Kotlin/Wasm)
 
-> Kotlin/Wasm 處於 [Alpha 階段](components-stability.md)。
-> 它可能隨時變更。您可以在非生產環境中使用它。我們歡迎您透過 [YouTrack](https://youtrack.jetbrains.com/issue/KT-56492) 提供回饋。
->
-> [加入 Kotlin/Wasm 社群](https://slack-chats.kotlinlang.org/c/webassembly)。
->
-{style="note"}
+<primary-label ref="beta"/> 
 
-Kotlin/Wasm 能夠將您的 Kotlin 程式碼編譯成 [WebAssembly (Wasm)](https://webassembly.org/) 格式。
+Kotlin/Wasm 能夠將您的 Kotlin 程式碼編譯為 [WebAssembly (Wasm)](https://webassembly.org/) 格式。
 透過 Kotlin/Wasm，您可以建立在支援 Wasm 並符合 Kotlin 要求的不同環境與裝置上執行的應用程式。
 
 Wasm 是一種基於堆疊虛擬機器的二進位指令格式。這種格式與平台無關，因為它在自己的虛擬機器上執行。Wasm 為 Kotlin 和其他語言提供了編譯目標。
 
 您可以在不同的目標環境中使用 Kotlin/Wasm，例如瀏覽器，用於開發基於 [Compose Multiplatform](https://www.jetbrains.com/lp/compose-multiplatform/) 的網頁應用程式，或者在瀏覽器外部的獨立 Wasm 虛擬機器中。在瀏覽器外部的情況下，[WebAssembly System Interface (WASI)](https://wasi.dev/) 提供了對平台 API 的存取權，您也可以利用這些 API。
 
+> 若要在瀏覽器中執行使用 Kotlin/Wasm 建置的應用程式，您的使用者需要支援
+> WebAssembly 垃圾收集和傳統例外處理提案的
+> [瀏覽器版本](wasm-configuration.md#browser-versions)。若要檢查瀏覽器支援狀態，請參閱 [WebAssembly 路線圖](https://webassembly.org/roadmap/)。
+>
+{style="tip"}
+
 ## Kotlin/Wasm 與 Compose Multiplatform
 
-透過 Kotlin，您可以透過 Compose Multiplatform 和 Kotlin/Wasm，建立應用程式並在您的網頁專案中重複使用行動裝置與桌面使用者介面 (UI)。
+透過 Kotlin，您可以透過 Compose Multiplatform 和 Kotlin/Wasm，在您的網頁專案中建立應用程式並重複使用行動裝置與桌面使用者介面 (UI)。
 
 [Compose Multiplatform](https://www.jetbrains.com/lp/compose-multiplatform/) 是一個基於 Kotlin 和 [Jetpack Compose](https://developer.android.com/jetpack/compose) 的宣告式框架，它允許您一次實作 UI 並在所有目標平台之間共用。
 
@@ -25,10 +26,6 @@ Wasm 是一種基於堆疊虛擬機器的二進位指令格式。這種格式與
 [探索我們使用 Compose Multiplatform 和 Kotlin/Wasm 建置的應用程式線上示範](https://zal.im/wasm/jetsnack/)
 
 ![Kotlin/Wasm 示範](wasm-demo.png){width=700}
-
-> 若要在瀏覽器中執行使用 Kotlin/Wasm 建置的應用程式，您需要支援新的垃圾收集和傳統例外處理提案的瀏覽器版本。若要檢查瀏覽器支援狀態，請參閱 [WebAssembly 路線圖](https://webassembly.org/roadmap/)。
->
-{style="tip"}
 
 此外，您可以在 Kotlin/Wasm 中直接使用最受歡迎的 Kotlin 函式庫。如同在其他 Kotlin 和多平台專案中一樣，您可以在建置指令碼中包含依賴宣告。如需更多資訊，請參閱 [新增多平台函式庫的依賴](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-add-dependencies.html)。
 
@@ -50,7 +47,7 @@ WASI 提供一個安全的標準介面，用於在不同環境中執行編譯為
 
 ## Kotlin/Wasm 效能
 
-儘管 Kotlin/Wasm 仍處於 Alpha 階段，但在 Kotlin/Wasm 上執行的 Compose Multiplatform 已展現出令人鼓舞的效能特徵。您可以看到它的執行速度超越了 JavaScript，並且正在接近 JVM 的速度：
+儘管 Kotlin/Wasm 仍處於 Beta 階段，但在 Kotlin/Wasm 上執行的 Compose Multiplatform 已展現出令人鼓舞的效能特性。您可以看到它的執行速度超越了 JavaScript，並且正在接近 JVM 的速度：
 
 ![Kotlin/Wasm 效能](wasm-performance-compose.png){width=700}
 
@@ -58,7 +55,8 @@ WASI 提供一個安全的標準介面，用於在不同環境中執行編譯為
 
 ## 瀏覽器 API 支援
 
-Kotlin/Wasm 標準函式庫提供了瀏覽器 API 的宣告，包括 DOM API。透過這些宣告，您可以直接使用 Kotlin API 來存取和利用各種瀏覽器功能。例如，在您的 Kotlin/Wasm 應用程式中，您可以使用 DOM 元素的操縱或擷取 API，而無需從頭定義這些宣告。若要了解更多，請參閱我們的 [Kotlin/Wasm 瀏覽器範例](https://github.com/Kotlin/kotlin-wasm-examples/tree/main/browser-example)。
+Kotlin/Wasm 標準函式庫提供了瀏覽器 API 的宣告，包括 DOM API。
+透過這些宣告，您可以直接使用 Kotlin API 來存取和利用各種瀏覽器功能。例如，在您的 Kotlin/Wasm 應用程式中，您可以使用 DOM 元素的操縱或擷取 API，而無需從頭定義這些宣告。若要了解更多，請參閱我們的 [Kotlin/Wasm 瀏覽器範例](https://github.com/Kotlin/kotlin-wasm-examples/tree/main/browser-example)。
 
 瀏覽器 API 支援的宣告是使用 JavaScript [互通性功能](wasm-js-interop.md) 來定義的。您可以使用相同的功能來定義您自己的宣告。此外，Kotlin/Wasm–JavaScript 互通性允許您從 JavaScript 使用 Kotlin 程式碼。如需更多資訊，請參閱 [在 JavaScript 中使用 Kotlin 程式碼](wasm-js-interop.md#use-kotlin-code-in-javascript)。
 

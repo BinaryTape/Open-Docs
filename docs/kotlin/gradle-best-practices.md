@@ -1,6 +1,6 @@
 [//]: # (title: Gradle 最佳实践)
 
-[Gradle](https://docs.gradle.org/current/userguide/userguide.html) 是许多 Kotlin 项目用于自动化和管理构建过程的构建系统。
+[Gradle](https://docs.gradle.org/current/userguide/userguide.html) 是一个构建系统，许多 Kotlin 项目使用它来自动化和管理构建过程。
 
 充分利用 Gradle 至关重要，它能帮助你减少管理和等待构建的时间，将更多时间用于编码。本文将一套最佳实践分为两个主要领域：**组织**和**优化**你的项目。
 
@@ -108,6 +108,7 @@ dependencies {
 关于 [使用 Gradle 构建项目](https://docs.gradle.org/current/userguide/multi_project_builds.html)，请参阅 Gradle 的文档。
 
 ### 设置 CI/CD
+
 <primary-label ref="advanced"/>
 
 设置 CI/CD 流程可显著减少构建时间，方法是使用增量构建和缓存依赖项。添加持久化存储或使用远程构建缓存即可获得这些优势。此过程不必耗时，因为像 [GitHub](https://github.com/features/actions) 这样的某些提供商几乎提供开箱即用的此项服务。
@@ -115,6 +116,7 @@ dependencies {
 请查阅 Gradle 社区手册中关于 [将 Gradle 与持续集成系统结合使用](https://cookbook.gradle.org/ci/) 的内容。
 
 ### 使用远程构建缓存
+
 <primary-label ref="advanced"/>
 
 与 [本地构建缓存](#use-local-build-cache) 类似，远程构建缓存通过重用其他构建的输出帮助你节省时间。它不仅可以从上次运行的构建中检索任务输出，还可以从任何人已运行过的任何早期构建中检索。

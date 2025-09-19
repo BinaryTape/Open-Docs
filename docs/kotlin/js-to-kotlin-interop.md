@@ -1,80 +1,5 @@
 [//]: # (title: 在 JavaScript 中使用 Kotlin 代码)
 
-根据所选的 [JavaScript Module](js-modules.md) 系统，Kotlin/JS 编译器会生成不同的输出。但通常情况下，Kotlin 编译器会生成正常的 JavaScript 类、函数和属性，你可以从 JavaScript 代码中自由使用它们。不过，有些微妙之处你需要记住。
-
-## plain 模式下在单独的 JavaScript 对象中隔离声明
-
-如果你已将模块类型显式设置为 `plain`，Kotlin 会创建一个对象，其中包含当前模块的所有 Kotlin 声明。这样做是为了防止污染全局对象。这意味着对于 `myModule` 模块，所有声明都可以通过 `myModule` 对象在 JavaScript 中访问。例如：
-
-```kotlin
-fun foo() = "Hello"
-```
-
-可以像这样从 JavaScript 中调用：
-
-```javascript
-alert(myModule.foo());
-```
-
-当你将 Kotlin 模块编译为 UMD（`browser` 和 `nodejs` 目标平台的默认设置）、CommonJS 或 AMD 等 JavaScript 模块时，此规则不适用。在这种情况下，你的声明将以你所选的 JavaScript 模块系统指定的格式暴露。例如，当使用 UMD 或 CommonJS 时，你的调用处可能如下所示：
-
-```javascript
-alert(require('myModule').foo());
-```
-
-关于 JavaScript 模块系统的主题，请参见 [JavaScript Modules](js-modules.md) 一文以获取更多信息。
-
-## 包结构
-
-Kotlin 将其包结构暴露给 JavaScript，因此除非你在根包中定义声明，否则你必须在 JavaScript 中使用完全限定名。例如：
-
-```kotlin
-package my.qualified.packagename
-
-fun foo() = "Hello"
-```
-
-例如，当使用 UMD 或 CommonJS 时，你的调用处可能如下所示：
-
-```javascript
-alert(require('myModule').my.qualified.packagename.foo())
-```
-
-或者，在将 `plain` 用作模块系统设置的情况下：
-
-```javascript
-alert(myModule.my.qualified.packagename.foo());
-```
-
-### @JsName 注解
-
-在某些情况下（例如，为了支持重载），Kotlin 编译器会修饰生成到 JavaScript 代码中的函数和属性的名称。要控制生成的名称，你可以使用 `@JsName` 注解：
-
-```kotlin
-// Module 'kjs'
-class Person(val name: String) {
-    fun hello() {
-        println("Hello $name!")
-    }
-
-    @JsName("helloWithGreeting")
-    fun hello(greeting: String) {
-        println("$greeting $name!")
-    }
-}
-```
-
-现在你可以通过以下方式从 JavaScript 中使用此类别：
-
-```javascript
-// If necessary, import 'kjs' according to chosen module system
-var person = new kjs.Person("Dmitry");   // refers to module 'kjs'
-person.hello();                          // prints "Hello Dmitry!"
-person.helloWithGreeting("Servus");      // prints "Servus Dmitry!"
-```
-
-如果我们没有指定 `@JsName` 注解，则对应函数的名称将包含根据函数签名计算出的后缀，例如 `hello_61zpoe`。
-
 请注意，在某些情况下 Kotlin 编译器不会进行名字修饰：
 - `external` 声明不会被修饰。
 - 继承自 `external` 类的非 `external` 类中的任何覆盖函数都不会被修饰。
@@ -135,48 +60,91 @@ C.Companion.callNonStatic(); // The only way it works
 
 还可以将 `@JsStatic` 注解应用于对象或伴生对象的属性，使其 getter 和 setter 方法成为该对象或包含伴生对象的类中的静态成员。
 
+### 使用 `BigInt` 类型表示 Kotlin 的 `Long` 类型
+<primary-label ref="experimental-general"/>
+
+当编译为现代 JavaScript (ES2020) 时，Kotlin/JS 使用 JavaScript 的内置 `BigInt` 类型来表示 Kotlin 的 `Long` 值。
+
+要启用对 `BigInt` 类型的支持，你需要将以下编译器选项添加到你的 `build.gradle(.kts)` 文件中：
+
+```kotlin
+// build.gradle.kts
+kotlin {
+    js {
+        ...
+        compilerOptions {
+            freeCompilerArgs.add("-Xes-long-as-bigint")
+        }
+    }
+}
+```
+
+此特性是[实验性的](components-stability.md#stability-levels-explained)。请在我们的问题跟踪器 [YouTrack](https://youtrack.jetbrains.com/issue/KT-57128/KJS-Use-BigInt-to-represent-Long-values-in-ES6-mode) 中分享你的反馈。
+
+#### 在导出的声明中使用 `Long`
+
+由于 Kotlin 的 `Long` 类型可以编译为 JavaScript 的 `BigInt` 类型，Kotlin/JS 支持将 `Long` 值导出到 JavaScript。
+
+要启用此特性：
+
+1. 允许在 Kotlin/JS 中导出 `Long`。将以下编译器选项添加到你的 `build.gradle(.kts)` 文件中的 `freeCompilerArgs` 属性：
+
+ ```kotlin
+// build.gradle.kts
+kotlin {
+    js {
+        ...
+        compilerOptions {
+            freeCompilerArgs.add("-XXLanguage:+JsAllowLongInExportedDeclarations")
+        }
+    }
+}
+```
+
+2. 启用 `BigInt` 类型。有关如何启用它，请参见[使用 `BigInt` 类型表示 Kotlin 的 `Long` 类型](#use-bigint-type-to-represent-kotlin-s-long-type)。
+
 ## JavaScript 中的 Kotlin 类型
 
 请查看 Kotlin 类型如何映射到 JavaScript 类型：
 
-| Kotlin                                                           | JavaScript                | Comments                                                                                   |
-|------------------------------------------------------------------|---------------------------|--------------------------------------------------------------------------------------------|
-| `Byte`, `Short`, `Int`, `Float`, `Double`                        | `Number`                  |                                                                                            |
-| `Char`                                                           | `Number`                  | 数字表示字符的代码。                                                |
-| `Long`                                                           | Not supported             | JavaScript 中没有 64 位整型数字类型，因此它由 Kotlin 类模拟。 |
-| `Boolean`                                                        | `Boolean`                 |                                                                                            |
-| `String`                                                         | `String`                  |                                                                                            |
-| `Array`                                                          | `Array`                   |                                                                                            |
-| `ByteArray`                                                      | `Int8Array`               |                                                                                            |
-| `ShortArray`                                                     | `Int16Array`              |                                                                                            |
-| `IntArray`                                                       | `Int32Array`              |                                                                                            |
-| `CharArray`                                                      | `UInt16Array`             | 带有属性 `$type$ == "CharArray"`。                                              |
-| `FloatArray`                                                     | `Float32Array`            |                                                                                            |
-| `DoubleArray`                                                    | `Float64Array`            |                                                                                            |
-| `LongArray`                                                      | `Array<kotlin.Long>`      | 带有属性 `$type$ == "LongArray"`。另请参见 Kotlin 的 `Long` 类型注释。         |
-| `BooleanArray`                                                   | `Int8Array`               | 带有属性 `$type$ == "BooleanArray"`。                                           |
-| `List`, `MutableList`                                            | `KtList`, `KtMutableList` | 通过 `KtList.asJsReadonlyArrayView` 或 `KtMutableList.asJsArrayView` 暴露一个 `Array`。    |
-| `Map`, `MutableMap`                                              | `KtMap`, `KtMutableMap`   | 通过 `KtMap.asJsReadonlyMapView` 或 `KtMutableMap.asJsMapView` 暴露一个 ES2015 `Map`。     |
-| `Set`, `MutableSet`                                              | `KtSet`, `KtMutableSet`   | 通过 `KtSet.asJsReadonlySetView` 或 `KtMutableSet.asJsSetView` 暴露一个 ES2015 `Set`。     |
-| `Unit`                                                           | Undefined                 | 当用作返回类型时可导出，但当用作形参类型时不可导出。                  |
-| `Any`                                                            | `Object`                  |                                                                                            |
-| `Throwable`                                                      | `Error`                   |                                                                                            |
-| `enum class Type`                                                | `Type`                    | 枚举条目以静态类属性的形式暴露（`Type.ENTRY`）。                        |
-| Nullable `Type?`                                                 | `Type | null | undefined` |                                                                                            |
-| All other Kotlin types, except for those marked with `@JsExport` | Not supported             | 包括 Kotlin 的[无符号整型](unsigned-integer-types.md)。                     |
+| Kotlin                                                           | JavaScript                | Comments                                                                              |
+|------------------------------------------------------------------|---------------------------|---------------------------------------------------------------------------------------|
+| `Byte`, `Short`, `Int`, `Float`, `Double`                        | `Number`                  |                                                                                       |
+| `Char`                                                           | `Number`                  | 数字表示字符的代码。                                           |
+| `Long`                                                           | `BigInt`                  | 需要配置 [`-Xes-long-as-bigint` 编译器选项](compiler-reference.md#xes-long-as-bigint)。 |
+| `Boolean`                                                        | `Boolean`                 |                                                                                       |
+| `String`                                                         | `String`                  |                                                                                       |
+| `Array`                                                          | `Array`                   |                                                                                       |
+| `ByteArray`                                                      | `Int8Array`               |                                                                                       |
+| `ShortArray`                                                     | `Int16Array`              |                                                                                       |
+| `IntArray`                                                       | `Int32Array`              |                                                                                       |
+| `CharArray`                                                      | `UInt16Array`             | 带有属性 `$type$ == "CharArray"`。                                         |
+| `FloatArray`                                                     | `Float32Array`            |                                                                                       |
+| `DoubleArray`                                                    | `Float64Array`            |                                                                                       |
+| `LongArray`                                                      | `Array<kotlin.Long>`      | 带有属性 `$type$ == "LongArray"`。另请参见 Kotlin 的 `Long` 类型注释。    |
+| `BooleanArray`                                                   | `Int8Array`               | 带有属性 `$type$ == "BooleanArray"`。                                      |
+| `List`, `MutableList`                                            | `KtList`, `KtMutableList` | 通过 `KtList.asJsReadonlyArrayView` 或 `KtMutableList.asJsArrayView` 暴露一个 `Array`。 |
+| `Map`, `MutableMap`                                              | `KtMap`, `KtMutableMap`   | 通过 `KtMap.asJsReadonlyMapView` 或 `KtMutableMap.asJsMapView` 暴露一个 ES2015 `Map`。 |
+| `Set`, `MutableSet`                                              | `KtSet`, `KtMutableSet`   | 通过 `KtSet.asJsReadonlySetView` 或 `KtMutableSet.asJsSetView` 暴露一个 ES2015 `Set`。 |
+| `Unit`                                                           | Undefined                 | 当用作返回类型时可导出，但当用作形参类型时不可导出。             |
+| `Any`                                                            | `Object`                  |                                                                                       |
+| `Throwable`                                                      | `Error`                   |                                                                                       |
+| `enum class Type`                                                | `Type`                    | 枚举条目以静态类属性的形式暴露（`Type.ENTRY`）。                   |
+| Nullable `Type?`                                                 | `Type                     | null                                                                                  | undefined` |                                                                                            |
+| All other Kotlin types, except for those marked with `@JsExport` | Not supported             | 包括 Kotlin 的[无符号整型](unsigned-integer-types.md)。               |
 
 此外，重要的是要了解：
 
-*   Kotlin 为 `kotlin.Int`、`kotlin.Byte`、`kotlin.Short`、`kotlin.Char` 和 `kotlin.Long` 保留溢出语义。
-*   Kotlin 在运行时无法区分数值类型（`kotlin.Long` 除外），因此以下代码有效：
+* Kotlin 为 `kotlin.Int`、`kotlin.Byte`、`kotlin.Short`、`kotlin.Char` 和 `kotlin.Long` 保留溢出语义。
+* Kotlin 在运行时无法区分数值类型（`kotlin.Long` 除外），因此以下代码有效：
 
-    ```kotlin
-    fun f() {
-        val x: Int = 23
-        val y: Any = x
-        println(y as Float)
-    }
-    ```
+  ```kotlin
+  fun f() {
+      val x: Int = 23
+      val y: Any = x
+      println(y as Float)
+  }
+  ```
 
-*   Kotlin 在 JavaScript 中保留惰性对象初始化。
-*   Kotlin 不在 JavaScript 中实现顶层属性的惰性初始化。
+* Kotlin 在 JavaScript 中保留惰性对象初始化。
+* Kotlin 不在 JavaScript 中实现顶层属性的惰性初始化。

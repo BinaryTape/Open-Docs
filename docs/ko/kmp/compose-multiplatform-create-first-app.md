@@ -46,14 +46,14 @@
     {style="note"}
 
 5.  **Android**, **iOS**, **Desktop**, **Web** 타겟을 선택합니다.
-    iOS에 대해 **Share UI** 옵션이 선택되어 있는지 확인합니다.
+    iOS 및 웹에 대해 **Share UI** 옵션이 선택되어 있는지 확인합니다.
 6.  모든 필드와 타겟을 지정했으면 **Create**를 클릭합니다 (웹 위자드에서는 **Download**).
 
    ![Create Compose Multiplatform project](create-compose-multiplatform-project.png){width=800}
 
 ## 프로젝트 구조 살펴보기
 
-IntelliJ IDEA에서 "ComposeDemo" 폴더로 이동합니다.
+IntelliJ IDEA에서 `ComposeDemo` 폴더로 이동합니다.
 위자드에서 iOS를 선택하지 않았다면, "ios" 또는 "apple"로 시작하는 폴더가 없을 것입니다.
 
 > IntelliJ IDEA가 프로젝트의 Android Gradle 플러그인을 최신 버전으로 업그레이드하도록 자동으로 제안할 수 있습니다.
@@ -67,12 +67,13 @@ IntelliJ IDEA에서 "ComposeDemo" 폴더로 이동합니다.
 *   _composeApp_은 Android, 데스크톱, iOS, 웹 애플리케이션 간에 공유되는 로직(모든 플랫폼에 사용하는 코드)을 포함하는 Kotlin 모듈입니다. 빌드 프로세스를 자동화하는 데 도움이 되는 [Gradle](https://kotlinlang.org/docs/gradle.html)을 빌드 시스템으로 사용합니다.
 *   _iosApp_은 iOS 애플리케이션으로 빌드되는 Xcode 프로젝트입니다. 공유 모듈에 의존하며 이를 iOS 프레임워크로 사용합니다.
 
-  ![Compose Multiplatform project structure](compose-project-structure.png){width=350}
+  ![Compose Multiplatform project structure](compose-project-structure.png)
 
-**composeApp** 모듈은 다음 소스 세트로 구성됩니다: `androidMain`, `commonMain`, `desktopMain`, `iosMain`, `wasmJsMain`.
+**composeApp** 모듈은 다음 소스 세트로 구성됩니다: `androidMain`, `commonMain`, `jvmMain`, `iosMain`, `wasmJsMain` (테스트 포함을 선택한 경우 `commonTest`).
 _소스 세트_는 논리적으로 함께 그룹화된 파일들의 집합에 대한 Gradle 개념으로, 각 그룹은 자체 종속성을 가집니다. Kotlin Multiplatform에서 서로 다른 소스 세트는 다른 플랫폼을 타겟팅할 수 있습니다.
 
-`commonMain` 소스 세트는 공통 Kotlin 코드를 사용하고, 플랫폼 소스 세트는 각 타겟에 특정한 Kotlin 코드를 사용합니다. `androidMain` 및 `desktopMain`에는 Kotlin/JVM이 사용됩니다. `iosMain`에는 Kotlin/Native가 사용됩니다. 반면 `wasmJsMain`에는 Kotlin/Wasm이 사용됩니다.
+`commonMain` 소스 세트는 공통 Kotlin 코드를 사용하고, 플랫폼 소스 세트는 각 타겟에 특정한 Kotlin 코드를 사용합니다.
+`androidMain` 및 `jvmMain`에는 Kotlin/JVM이 사용됩니다. `iosMain`에는 Kotlin/Native가 사용됩니다. `wasmJsMain`에는 Kotlin/Wasm이 사용됩니다.
 
 공유 모듈이 Android 라이브러리로 빌드될 때, 공통 Kotlin 코드는 Kotlin/JVM으로 처리됩니다. iOS 프레임워크로 빌드될 때, 공통 Kotlin 코드는 Kotlin/Native로 처리됩니다. 공유 모듈이 웹 앱으로 빌드될 때, 공통 Kotlin 코드는 Kotlin/Wasm으로 처리됩니다.
 

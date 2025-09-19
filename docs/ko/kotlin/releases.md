@@ -2,7 +2,7 @@
 
 <tldr>
     <p>최신 Kotlin 버전: <strong>%kotlinVersion%</strong></p>
-    <p>자세한 내용은 <a href="%kotlinLatestWhatsnew%">Kotlin %kotlinVersion%의 새로운 기능</a>을 참조하세요</p>
+    <p><a href="%kotlinLatestWhatsnew%">Kotlin 2.2.20의 새로운 기능</a>을 참조하세요.</p>
 </tldr>
 
 Kotlin 2.0.0부터 다음과 같은 유형의 릴리스를 제공합니다.
@@ -37,11 +37,11 @@ Kotlin %kotlinVersion%으로 업데이트하려면 `build.gradle(.kts)` 파일�
 
 ```kotlin
 plugins {
-    // Replace `<...>` with the plugin name appropriate for your target environment
+    // <...>를 타겟 환경에 적합한 플러그인 이름으로 바꾸세요
     kotlin("<...>") version "%kotlinVersion%"
-    // For example, if your target environment is JVM:
+    // 예를 들어, 타겟 환경이 JVM인 경우:
     // kotlin("jvm") version "%kotlinVersion%"
-    // If your target is Kotlin Multiplatform:
+    // 타겟이 Kotlin Multiplatform인 경우:
     // kotlin("multiplatform") version "%kotlinVersion%"
 }
 ```
@@ -51,11 +51,11 @@ plugins {
 
 ```groovy
 plugins {
-    // Replace `<...>` with the plugin name appropriate for your target environment
+    // <...>를 타겟 환경에 적합한 플러그인 이름으로 바꾸세요
     id 'org.jetbrains.kotlin.<...>' version '%kotlinVersion%'
-    // For example, if your target environment is JVM: 
+    // 예를 들어, 타겟 환경이 JVM인 경우: 
     // id 'org.jetbrains.kotlin.jvm' version '%kotlinVersion%'
-    // If your target is Kotlin Multiplatform:
+    // 타겟이 Kotlin Multiplatform인 경우:
     // id 'org.jetbrains.kotlin.multiplatform' version '%kotlinVersion%'
 }
 ```
@@ -130,6 +130,26 @@ K2 모드에 대한 자세한 내용은 [저희 블로그](https://blog.jetbrain
     <tr>
         <th>빌드 정보</th>
         <th>빌드 하이라이트</th>
+    </tr>
+    <tr>
+        <td><strong>2.2.20</strong>
+            <p>릴리스됨: <strong>2025년 9월 10일</strong></p>
+            <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.2.20" target="_blank">GitHub에서 릴리스</a></p>
+        </td>
+        <td>
+            <p>웹 개발을 위한 중요한 변경 사항 및 기타 개선 사항을 포함하는 Kotlin 2.2.0의 툴링 릴리스입니다.</p>
+            <p>자세한 내용은 <a href="https://github.com/JetBrains/kotlin/releases/tag/v2.2.20">변경 로그</a>를 참조하세요.</p>
+        </td>
+    </tr>
+    <tr>
+        <td><strong>2.2.10</strong>
+            <p>릴리스됨: <strong>2025년 8월 14일</strong></p>
+            <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.2.10" target="_blank">GitHub에서 릴리스</a></p>
+        </td>
+        <td>
+            <p>Kotlin 2.2.0의 버그 수정 릴리스입니다.</p>
+            <p>자세한 내용은 <a href="https://github.com/JetBrains/kotlin/releases/tag/v2.2.10">변경 로그</a>를 참조하세요.</p>
+        </td>
     </tr>
     <tr>
         <td><strong>2.2.0</strong>

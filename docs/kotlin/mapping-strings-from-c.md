@@ -1,10 +1,10 @@
 [//]: # (title: 从 C 语言映射字符串 – 教程)
 
 <tldr>
-    <p>这是 **映射 Kotlin 和 C** 教程系列的最后一部分。在继续之前，请确保你已完成之前的步骤。</p>
+    <p>这是 **Kotlin 和 C 语言映射**教程系列的最后一部分。在继续之前，请确保你已完成之前的步骤。</p>
     <p><img src="icon-1-done.svg" width="20" alt="第一步"/> <a href="mapping-primitive-data-types-from-c.md">从 C 语言映射原生数据类型</a><br/>
         <img src="icon-2-done.svg" width="20" alt="第二步"/> <a href="mapping-struct-union-types-from-c.md">从 C 语言映射结构体和联合体类型</a><br/>
-      <img src="icon-3-done.svg" width="20" alt="第三步"/> <a href="mapping-function-pointers-from-c.md">映射函数指针</a><br/>
+      <img src="icon-3-done.svg" width="20" alt="第三步"/> <a href="mapping-function-pointers-from-c.md">从 C 语言映射函数指针</a><br/>
       <img src="icon-4.svg" width="20" alt="第四步"/> <strong>从 C 语言映射字符串</strong><br/>
     </p>
 </tldr>

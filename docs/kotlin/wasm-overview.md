@@ -1,11 +1,6 @@
 [//]: # (title: Kotlin/Wasm)
 
-> Kotlin/Wasm 处于 [Alpha](components-stability.md) 阶段。
-> 它可能随时发生变化。您可以在生产环境前的场景中使用它。我们欢迎您在 [YouTrack](https://youtrack.jetbrains.com/issue/KT-56492) 中提供反馈。
->
-> [加入 Kotlin/Wasm 社区](https://slack-chats.kotlinlang.org/c/webassembly)。
->
-{style="note"}
+<primary-label ref="beta"/> 
 
 Kotlin/Wasm 能够将您的 Kotlin 代码编译为 [WebAssembly (Wasm)](https://webassembly.org/) 格式。
 借助 Kotlin/Wasm，您可以创建可在不同环境和设备上运行的应用程序，这些环境和设备支持 Wasm 并满足 Kotlin 的要求。
@@ -14,6 +9,10 @@ Wasm 是一种用于基于栈的虚拟机的二进制指令格式。
 这种格式是平台无关的，因为它在其自己的虚拟机上运行。Wasm 为 Kotlin 和其他语言提供了编译目标。
 
 您可以在不同的目标环境中使用 Kotlin/Wasm，例如在浏览器中开发使用 [Compose Multiplatform](https://www.jetbrains.com/lp/compose-multiplatform/) 构建的 Web 应用程序，或在浏览器外部的独立 Wasm 虚拟机中运行。在浏览器外部的情况下，[WebAssembly System Interface (WASI)](https://wasi.dev/) 提供平台 API 访问，您也可以利用这些 API。
+
+> 要在浏览器中运行使用 Kotlin/Wasm 构建的应用程序，您的用户需要一个支持 WebAssembly 垃圾回收和旧式异常处理提案的 [浏览器版本](wasm-configuration.md#browser-versions)。要查看浏览器支持状态，请参阅 [WebAssembly 路线图](https://webassembly.org/roadmap/)。
+>
+{style="tip"}
 
 ## Kotlin/Wasm 与 Compose Multiplatform
 
@@ -25,11 +24,7 @@ Wasm 是一种用于基于栈的虚拟机的二进制指令格式。
 
 [探索我们使用 Compose Multiplatform 和 Kotlin/Wasm 构建的应用程序在线演示](https://zal.im/wasm/jetsnack/)
 
-![Kotlin/Wasm 演示](wasm-demo.png){width=700}
-
-> 要在浏览器中运行使用 Kotlin/Wasm 构建的应用程序，您需要一个支持新的垃圾回收和旧式异常处理提案的浏览器版本。要查看浏览器支持状态，请参阅 [WebAssembly 路线图](https://webassembly.org/roadmap/)。
->
-{style="tip"}
+![Kotlin/Wasm demo](wasm-demo.png){width=700}
 
 此外，您可以开箱即用地在 Kotlin/Wasm 中使用最流行的 Kotlin 库。与其他 Kotlin 和多平台项目一样，您可以在构建脚本中添加依赖项声明。更多信息，请参阅 [添加多平台库依赖项](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-add-dependencies.html)。
 
@@ -55,7 +50,7 @@ WASI 提供了一个安全的标准接口，用于在不同环境中运行编译
 尽管 Kotlin/Wasm 仍处于 Alpha 阶段，但运行在 Kotlin/Wasm 上的 Compose Multiplatform 已经展现出令人鼓舞的性能特性。
 您可以看到其执行速度优于 JavaScript 并正在接近 JVM 的性能：
 
-![Kotlin/Wasm 性能](wasm-performance-compose.png){width=700}
+![Kotlin/Wasm performance](wasm-performance-compose.png){width=700}
 
 我们定期运行 Kotlin/Wasm 的基准测试，这些结果来自我们在最新版 Google Chrome 中的测试。
 

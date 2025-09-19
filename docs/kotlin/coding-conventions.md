@@ -17,8 +17,8 @@ Kotlin 最流行的两个 IDE——[IntelliJ IDEA](https://www.jetbrains.com/ide
 ### 验证代码是否遵循风格指南
 
 1.  前往 **Settings/Preferences | Editor | Inspections | General**。
-2.  开启 **Incorrect formatting** 检查。
-其他用于验证风格指南中描述的其他问题（例如命名约定）的检查默认是启用的。
+2.  开启 **Incorrect formatting** 检测。
+其他用于验证风格指南中描述的其他问题（例如命名约定）的检测默认是启用的。
 
 ## 源代码组织
 
@@ -167,9 +167,9 @@ fun Foo(): Foo { return FooImpl() }
 
 ```kotlin
 class MyTestCase {
-     @Test fun `ensure everything works`() { /*...*/ }
+    @Test fun `ensure everything works`() { /*...*/ }
 
-     @Test fun ensureEverythingWorks_onAndroid() { /*...*/ }
+    @Test fun ensureEverythingWorks_onAndroid() { /*...*/ }
 }
 ```
 
@@ -207,7 +207,7 @@ class C {
     private val _elementList = mutableListOf<Element>()
 
     val elementList: List<Element>
-         get() = _elementList
+        get() = _elementList
 }
 ```
 
@@ -598,10 +598,10 @@ appendCommaSeparated(properties) { prop ->
 
 ```kotlin
 foo {
-   context: Context,
-   environment: Env
-   ->
-   context.configureEnv(environment)
+    context: Context,
+    environment: Env
+    ->
+    context.configureEnv(environment)
 }
 ```
 
@@ -844,7 +844,7 @@ fun abs(number: Int): Int { /*...*/ }
 如果函数返回 Unit，则应省略返回类型：
 
 ```kotlin
-fun foo() { // ": Unit" is omitted here
+fun foo() { // 此处省略了 ": Unit"
 
 }
 ```
@@ -866,15 +866,15 @@ println("$name has ${children.size} children")
 
 ```kotlin
 val KClass<*>.jsonSchema : String
-get() = $"""
-    {
-      "$schema": "https://json-schema.org/draft/2020-12/schema",
-      "$id": "https://example.com/product.schema.json",
-      "$dynamicAnchor": "meta",
-      "title": "${simpleName ?: qualifiedName ?: "unknown"}",
-      "type": "object"
-    }
-    """
+    get() = $"""
+        {
+            "$schema": "https://json-schema.org/draft/2020-12/schema",
+            "$id": "https://example.com/product.schema.json",
+            "$dynamicAnchor": "meta",
+            "title": "${simpleName ?: qualifiedName ?: "unknown"}",
+            "type": "object"
+        }
+        """
 ```
 
 ## 语言特性的惯用用法
@@ -887,16 +887,16 @@ get() = $"""
 当使用工厂函数创建集合实例时，尽可能始终使用返回不可变集合类型的函数：
 
 ```kotlin
-// Bad: use of a mutable collection type for value which will not be mutated
+// 糟糕：对不会改变的值使用了可变集合类型
 fun validateValue(actualValue: String, allowedValues: HashSet<String>) { ... }
 
-// Good: immutable collection type used instead
+// 良好：改用不可变集合类型
 fun validateValue(actualValue: String, allowedValues: Set<String>) { ... }
 
-// Bad: arrayListOf() returns ArrayList<T>, which is a mutable collection type
+// 糟糕：arrayListOf() 返回 ArrayList<T>，这是一个可变集合类型
 val allowedValues = arrayListOf("a", "b", "c")
 
-// Good: listOf() returns List<T>
+// 良好：listOf() 返回 List<T>
 val allowedValues = listOf("a", "b", "c")
 ```
 
@@ -905,11 +905,11 @@ val allowedValues = listOf("a", "b", "c")
 优先声明带有默认形参值的函数，而不是声明重载函数。
 
 ```kotlin
-// Bad
+// 糟糕
 fun foo() = foo("a")
 fun foo(a: String) { /*...*/ }
 
-// Good
+// 良好
 fun foo(a: String = "a") { /*...*/ }
 ```
 
@@ -1015,7 +1015,7 @@ when (status) {
 
 ### 条件中的可空布尔值
 
-如果你需要在条件语句中使用可空的 `Boolean`，请使用 `if (value == true)` 或 `if (value == false)` 检查。
+如果你需要在条件语句中使用可空的 `Boolean`，请使用 `if (value == true)` 或 `if (value == false)` 检测。
 
 ### 循环
 
@@ -1029,8 +1029,8 @@ when (status) {
 使用 `..<` 操作符来循环遍历开区间：
 
 ```kotlin
-for (i in 0..n - 1) { /*...*/ }  // bad
-for (i in 0..<n) { /*...*/ }  // good
+for (i in 0..n - 1) { /*...*/ }  // 糟糕
+for (i in 0..<n) { /*...*/ }  // 良好
 ```
 
 ### 字符串
@@ -1046,25 +1046,25 @@ for (i in 0..<n) { /*...*/ }  // good
 ```kotlin
 fun main() {
 //sampleStart
-   println("""
-    Not
-    trimmed
-    text
-    """
-   )
+    println("""
+     Not
+     trimmed
+     text
+     """
+    )
 
-   println("""
-    Trimmed
-    text
-    """.trimIndent()
-   )
+    println("""
+     Trimmed
+     text
+     """.trimIndent()
+    )
 
-   println()
+    println()
 
-   val a = """Trimmed to margin text:
-          |if(a > 1) {
-          |    return a
-          |}""".trimMargin()
+    val a = """Trimmed to margin text:
+            |if(a > 1) {
+            |    return a
+            |}""".trimMargin()
 
    println(a)
 //sampleEnd

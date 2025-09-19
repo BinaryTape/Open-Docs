@@ -50,7 +50,7 @@ val chatAgent = AIAgent(
     promptExecutor = promptExecutor,
     toolRegistry = toolRegistry,
     llmModel = model,
-    // Set chatAgentStrategy as the agent strategy
+    // chatAgentStrategy를 에이전트 전략으로 설정
     strategy = chatAgentStrategy()
 )
 ```
@@ -90,9 +90,9 @@ val model =  OpenAIModels.Reasoning.O4Mini
 val chatAgent = AIAgent(
     promptExecutor = promptExecutor,
     llmModel = model,
-    // Use chatAgentStrategy as the agent strategy
+    // chatAgentStrategy를 에이전트 전략으로 사용
     strategy = chatAgentStrategy(),
-    // Add tools the agent can use
+    // 에이전트가 사용할 수 있는 도구 추가
     toolRegistry = ToolRegistry {
         tool(searchTool)
         tool(weatherTool)
@@ -100,7 +100,7 @@ val chatAgent = AIAgent(
 )
 
 suspend fun main() { 
-    // Run the agent with a user query
+    // 사용자 쿼리로 에이전트 실행
     val result = chatAgent.run("What's the weather like today and should I bring an umbrella?")
 }
 ```
@@ -156,9 +156,9 @@ val reActAgent = AIAgent(
     promptExecutor = promptExecutor,
     toolRegistry = toolRegistry,
     llmModel = model,
-    // Set reActStrategy as the agent strategy
+    // reActStrategy를 에이전트 전략으로 설정
     strategy = reActStrategy(
-        // Set optional parameter values
+        // 선택적 매개변수 값 설정
         reasoningInterval = 1,
         name = "react_agent"
     )
@@ -283,12 +283,12 @@ val model =  OpenAIModels.Reasoning.O4Mini
 val bankingAgent = AIAgent(
     promptExecutor = promptExecutor,
     llmModel = model,
-    // Use reActStrategy as the agent strategy
+    // reActStrategy를 에이전트 전략으로 사용
     strategy = reActStrategy(
         reasoningInterval = 1,
         name = "banking_agent"
     ),
-    // Add tools the agent can use
+    // 에이전트가 사용할 수 있는 도구 추가
     toolRegistry = ToolRegistry {
         tool(getTransactions)
         tool(calculateSum)
@@ -296,7 +296,7 @@ val bankingAgent = AIAgent(
 )
 
 suspend fun main() { 
-    // Run the agent with a user query
+    // 사용자 쿼리로 에이전트 실행
     val result = bankingAgent.run("How much did I spend last month?")
 }
 ```

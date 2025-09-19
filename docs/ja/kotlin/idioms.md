@@ -8,14 +8,14 @@ Kotlinで頻繁に使用される、さまざまなイディオムのコレク�
 data class Customer(val name: String, val email: String)
 ```
 
-上記のコードは、以下の機能を持つ`Customer`クラスを提供します:
+は、以下の機能を持つ`Customer`クラスを提供します:
 
 *   すべてのプロパティに対するゲッター (および`var`の場合のセッター)
 *   `equals()`
 *   `hashCode()`
 *   `toString()`
 *   `copy()`
-*   すべてのプロパティに対する`component1()`、`component2()`など (「データクラス」を参照)
+*   すべてのプロパティに対する`component1()`、`component2()`など (「[データクラス](data-classes.md)」を参照)
 
 ## 関数パラメータのデフォルト値
 
@@ -121,7 +121,7 @@ for (x in 10 downTo 1) { ... }
 
 ```kotlin
 val p: String by lazy { // 値は最初のアクセス時にのみ計算されます
-    // compute the string
+    // 文字列を計算
 }
 ```
 

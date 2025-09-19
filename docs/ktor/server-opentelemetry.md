@@ -1,4 +1,4 @@
-[//]: # (title: 使用 OpenTelemetry 在 Ktor 服务器中实现分布式追踪)
+[//]: # (title: Ktor 服务器中的 OpenTelemetry 分布式追踪)
 
 <show-structure for="chapter" depth="2"/>
 <primary-label ref="server-plugin"/>
@@ -21,7 +21,7 @@
 
 <snippet id="opentelemetry-description">
 
-Ktor 与 [OpenTelemetry](https://opentelemetry.io/) 集成 — 这是一个开源可观测性框架，用于收集追踪、指标和日志等遥测数据。它提供了一种标准方式来为应用程序植入探针并将其数据导出到 Grafana 或 Jaeger 等监控和可观测性工具。
+Ktor 集成了 [OpenTelemetry](https://opentelemetry.io/) —— 这是一个开源可观测性框架，用于收集追踪、指标和日志等遥测数据。它提供了一种标准方式来为应用程序植入探针并将其数据导出到 Grafana 或 Jaeger 等监控和可观测性工具。
 
 </snippet>
 
@@ -73,6 +73,7 @@ fun getOpenTelemetry(serviceName: String): OpenTelemetry {
             .build()
     }.build().openTelemetrySdk
 }
+
 ```
 
 ### 编程方式配置
@@ -108,7 +109,7 @@ fun configureOpenTelemetry(): OpenTelemetry {
 
 如果你需要完全控制遥测设置，或者你的部署环境无法依赖自动配置，请使用这种方法。
 
-> 关于 OpenTelemetry SDK 组件的更多信息，请参见 [OpenTelemetry SDK components documentation](https://opentelemetry.io/docs/languages/java/sdk/#sdk-components)。
+> 关于更多信息，请参见 [OpenTelemetry SDK components documentation](https://opentelemetry.io/docs/languages/java/sdk/#sdk-components)。
 >
 {style="tip"}
 

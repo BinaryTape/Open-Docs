@@ -1,4 +1,4 @@
-[//]: # (title: Kotlin에서 자바 레코드 사용하기)
+[//]: # (title: 코틀린에서 자바 레코드 사용하기)
 
 _레코드(Records)_는 불변 데이터를 저장하기 위한 자바의 [클래스](https://openjdk.java.net/jeps/395)입니다. 레코드는 _레코드 컴포넌트(records components)_라는 고정된 값 집합을 가집니다.
 레코드는 자바에서 간결한 문법을 제공하여 상용구 코드(boilerplate code)를 작성할 필요가 없습니다.
@@ -108,7 +108,7 @@ data class Person(val name: String, @all:Positive val age: Int)
 ```kotlin
 @Target(AnnotationTarget.CLASS, AnnotationTarget.PROPERTY)
 @java.lang.annotation.Target(ElementType.CLASS, ElementType.RECORD_COMPONENT)
-annotation class exampleClass
+annotation class ExampleClass
 ```
 
 이제 `@ExampleClass`를 코틀린 클래스 및 프로퍼티뿐만 아니라 자바 클래스 및 레코드 컴포넌트에도 적용할 수 있습니다.

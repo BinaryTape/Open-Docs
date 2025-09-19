@@ -1,11 +1,11 @@
-[//]: # (title: 最佳化 LLVM 後端的秘訣)
+[//]: # (title: 自訂 LLVM 後端的秘訣)
 <primary-label ref="advanced"/>
 
 Kotlin/Native 編譯器使用 [LLVM](https://llvm.org/) 來優化並為不同目標平台生成二進位執行檔。
-編譯時間中有很大一部分也花費在 LLVM 上，對於大型應用程式而言，這可能導致
+編譯時間中有很大部分也花費在 LLVM 上，對於大型應用程式而言，這可能導致
 無法接受的長時間。
 
-您可以自訂 Kotlin/Native 如何使用 LLVM，並調整優化遍歷 (optimization passes) 的清單。
+您可以自訂 Kotlin/Native 如何使用 LLVM，並調整優化遍歷的清單。
 
 ## 檢查建置日誌
 
@@ -80,7 +80,7 @@ LTOBitcodeOptimization: 1399 msec
 ...
 ```
 
-Kotlin/Native 編譯器執行兩組獨立的 LLVM 優化序列：模組遍歷 (module passes) 和連結時遍歷 (link-time passes)。對於典型編譯，這兩個管線會接續執行，唯一的實際區別在於它們執行哪些 LLVM 優化遍歷。
+Kotlin/Native 編譯器執行兩組獨立的 LLVM 優化序列：模組遍歷和連結時遍歷。對於典型編譯，這兩個管線會接續執行，唯一的實際區別在於它們執行哪些 LLVM 優化遍歷。
 
 在上面的日誌中，這兩個 LLVM 優化是 `ModuleBitcodeOptimization` 和 `LTOBitcodeOptimization`。
 格式化的表格是優化的輸出，其中包含每個遍歷的時間。

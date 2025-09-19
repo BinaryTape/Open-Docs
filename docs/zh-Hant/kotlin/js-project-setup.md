@@ -39,6 +39,8 @@ kotlin {
 
 * [目標執行環境](#execution-environments)：瀏覽器或 Node.js 
 * [支援 ES2015 功能](#support-for-es2015-features)：類別、模組和產生器
+* [配置輸出粒度](#configure-output-granularity)
+* [生成 TypeScript 宣告檔案（d.ts）](#generation-of-typescript-declaration-files-d-ts)
 * [專案相依性](#dependencies)：Maven 和 npm
 * [執行配置](#run-task)
 * [測試配置](#test-task)
@@ -82,19 +84,65 @@ Kotlin 為以下 ES2015 功能提供[實驗性](components-stability.md#stabilit
 
 * 模組：簡化您的程式碼庫並提高可維護性。
 * 類別：允許納入 OOP 原則，產生更簡潔、更直觀的程式碼。
-* 產生器：用於編譯[暫停函式](composing-suspending-functions.md)，可改善最終綁定（bundle）大小並有助於偵錯。
+* 產生器：用於編譯[暫停函式](https://kotlinlang.org/docs/composing-suspending-functions.html)，可改善最終綁定（bundle）大小並有助於偵錯。
 
 您可以透過將 `es2015` 編譯目標新增到您的 `build.gradle(.kts)` 檔案中，一次性啟用所有支援的 ES2015 功能：
 
 ```kotlin
 tasks.withType<KotlinJsCompile>().configureEach {
-    kotlinOptions {
+    compilerOptions {
         target = "es2015"
     }
 }
 ```
 
 [在官方文件中了解更多關於 ES2015 (ECMAScript 2015, ES6) 的資訊](https://262.ecma-international.org/6.0/)。
+
+## 配置輸出粒度
+
+您可以選擇編譯器如何在專案中輸出 `.js` 檔案：
+
+* **每個模組一個**。預設情況下，JS 編譯器會為每個專案模組輸出單獨的 `.js` 檔案作為編譯結果。
+* **每個專案一個**。您可以透過將以下行新增到 `gradle.properties` 檔案中，將整個專案編譯成一個單一的 `.js` 檔案：
+
+  ```none
+  kotlin.js.ir.output.granularity=whole-program // 'per-module' is the default
+  ```
+
+* **每個檔案一個**。您可以設定更細粒度的輸出，為每個 Kotlin 檔案生成一個 (或兩個，如果檔案包含匯出的宣告) JavaScript 檔案。若要啟用每個檔案的編譯模式：
+  1. 將 `es2015` 設定為[編譯目標](#support-for-es2015-features)，以支援專案中的 ES2015 功能。
+  2. 將以下行新增到 `gradle.properties` 檔案中：
+     ```none
+     kotlin.js.ir.output.granularity=per-file // 'per-module' is the default
+     ```
+
+## 生成 TypeScript 宣告檔案（d.ts）
+<primary-label ref="experimental-opt-in"/>
+
+Kotlin/JS 編譯器可以從您的 Kotlin 程式碼生成 TypeScript 定義。這些定義可供 JavaScript 工具和 IDE 在處理混合應用程式時使用，以：
+
+* 提供自動完成
+* 支援靜態分析器
+* 簡化 JavaScript 和 TypeScript 專案中 Kotlin 程式碼的添加
+
+生成 TypeScript 定義對於[業務邏輯共享用例](js-overview.md#use-cases-for-kotlin-js)特別有價值。
+
+編譯器會收集所有標記為 [`@JsExport`](js-to-kotlin-interop.md#jsexport-annotation) 的頂層宣告，並自動生成 TypeScript 定義到一個 `.d.ts` 檔案中。
+
+若要生成 TypeScript 定義，請在您的 Gradle 建置檔案中明確配置。將 `generateTypeScriptDefinitions()` 函式新增到您的 `build.gradle.kts` 檔案中，位於 [`js {}` 區塊](js-project-setup.md#execution-environments)內部：
+
+```kotlin
+kotlin {
+    js {
+        binaries.executable()
+        browser {
+        }
+        generateTypeScriptDefinitions()
+    }
+}
+```
+
+您可以在 `build/js/packages/<package_name>/kotlin` 目錄中找到這些定義，與相應的未經 webpack 處理的 JavaScript 程式碼並列。
 
 ## 相依性
 
@@ -360,20 +408,7 @@ kotlin {
 Kotlin Multiplatform Gradle 插件會在建置時自動生成 Karma 配置檔案，其中包含您在 `build.gradle(.kts)` 中 [`kotlin.js.browser.testTask.useKarma {}` 區塊](#test-task)的設定。您可以在 `build/js/packages/projectName-test/karma.conf.js` 找到該檔案。 
 若要對 Karma 使用的配置進行調整，請將您的額外配置檔案放置在專案根目錄下名為 `karma.config.d` 的目錄中。此目錄中的所有 `.js` 配置檔案將會被自動讀取並在建置時合併到生成的 `karma.conf.js` 中。
 
-例如，若要新增一個 [webpack loader](https://webpack.js.org/loaders/)，請將以下內容新增到 `webpack.config.d` 目錄中的 `.js` 檔案中：
-
-> 在這種情況下，配置物件是全域的 `config` 物件。您需要在腳本中修改它。
->
-{style="note"}
-
-```groovy
-config.module.rules.push({
-    test: /\.extension$/,
-    loader: 'loader-name'
-});
-```
-
-所有 webpack 配置功能在其[文件](https://webpack.js.org/concepts/configuration/)中都有詳細說明。
+所有 Karma 配置功能在其[文件](https://karma-runner.github.io/5.0/config/configuration-file.html)中都有詳細說明。
 
 ## webpack 綁定
 
@@ -850,11 +885,11 @@ kotlin {
 
 ## 模組名稱
 
-若要調整 JavaScript 模組（在 `build/js/packages/myModuleName` 中生成），包括相應的 `.js` 和 `.d.ts` 檔案的名稱，請使用 `moduleName` 選項：
+若要調整 JavaScript _模組_（在 `build/js/packages/myModuleName` 中生成），包括相應的 `.js` 和 `.d.ts` 檔案的名稱，請使用 `outputModuleName` 選項：
 
 ```groovy
 js {
-    moduleName = "myModuleName"
+    outputModuleName = "myModuleName"
 }
 ```
 

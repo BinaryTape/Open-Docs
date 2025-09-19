@@ -54,9 +54,9 @@
     
     ```
 
-    *   대상은 macOS, Linux 및 Windows용 `macosArm64`, `macosX64`, `linuxArm64`, `linuxX64`, `mingwX64`를 사용하여 정의됩니다. [지원되는 플랫폼](native-target-support.md)의 전체 목록을 참조하십시오.
-    *   `binaries {}` 블록은 바이너리가 생성되는 방식과 애플리케이션의 진입점을 정의합니다. 이 값들은 기본값으로 유지할 수 있습니다.
-    *   C 상호 운용은 빌드에서 추가 단계로 구성됩니다. 기본적으로 C의 모든 심볼은 `interop` 패키지로 임포트됩니다. `.kt` 파일에서 전체 패키지를 임포트할 수도 있습니다. [구성 방법](gradle-configure-project.md#targeting-multiple-platforms)에 대해 자세히 알아보세요.
+   *   대상은 macOS, Linux 및 Windows용 `macosArm64`, `macosX64`, `linuxArm64`, `linuxX64`, `mingwX64`를 사용하여 정의됩니다. [지원되는 플랫폼](native-target-support.md)의 전체 목록을 참조하십시오.
+   *   `binaries {}` 블록은 바이너리가 생성되는 방식과 애플리케이션의 진입점을 정의합니다. 이 값들은 기본값으로 유지할 수 있습니다.
+   *   C 상호 운용은 빌드에서 추가 단계로 구성됩니다. 기본적으로 C의 모든 심볼은 `interop` 패키지로 임포트됩니다. `.kt` 파일에서 전체 패키지를 임포트할 수도 있습니다. [구성 방법](gradle-configure-project.md#targeting-multiple-platforms)에 대해 자세히 알아보세요.
 
 ## 정의 파일 생성
 
@@ -84,12 +84,12 @@ Kotlin/Native는 표준 C 라이브러리를 소비하는 데 도움을 주어, 
     linkerOpts.linux = -L/usr/lib/x86_64-linux-gnu -lcurl
     ```
 
-    *   `headers`는 Kotlin 스텁을 생성할 헤더 파일 목록입니다. 여기에 여러 파일을 공백으로 구분하여 추가할 수 있습니다. 이 경우 `curl.h`만 해당됩니다. 참조된 파일은 지정된 경로(이 경우 `/usr/include/curl`)에 있어야 합니다.
-    *   `headerFilter`는 정확히 무엇이 포함되는지 보여줍니다. C에서는 하나의 파일이 `#include` 지시어를 사용하여 다른 파일을 참조할 때 모든 헤더도 포함됩니다. 때로는 필요하지 않은 경우도 있으며, [glob 패턴](https://en.wikipedia.org/wiki/Glob_(programming))을 사용하여 이 매개변수를 추가하여 조정할 수 있습니다.
+   *   `headers`는 Kotlin 스텁을 생성할 헤더 파일 목록입니다. 여기에 여러 파일을 공백으로 구분하여 추가할 수 있습니다. 이 경우 `curl.h`만 해당됩니다. 참조된 파일은 지정된 경로(이 경우 `/usr/include/curl`)에 있어야 합니다.
+   *   `headerFilter`는 정확히 무엇이 포함되는지 보여줍니다. C에서는 하나의 파일이 `#include` 지시어를 사용하여 다른 파일을 참조할 때 모든 헤더도 포함됩니다. 때로는 필요하지 않은 경우도 있으며, [glob 패턴](https://en.wikipedia.org/wiki/Glob_(programming))을 사용하여 이 매개변수를 추가하여 조정할 수 있습니다.
 
     `headerFilter`는 (시스템 `stdint.h` 헤더와 같은) 외부 의존성을 상호 운용 라이브러리로 가져오고 싶지 않을 때 사용할 수 있습니다. 또한 라이브러리 크기 최적화 및 시스템과 제공된 Kotlin/Native 컴파일 환경 간의 잠재적 충돌을 해결하는 데 유용할 수 있습니다.
 
-    *   특정 플랫폼에 대한 동작을 수정해야 하는 경우, `compilerOpts.osx` 또는 `compilerOpts.linux`와 같은 형식을 사용하여 옵션에 플랫폼별 값을 제공할 수 있습니다. 이 경우 macOS(`.osx` 접미사) 및 Linux(`.linux` 접미사)에 해당합니다. 접미사가 없는 매개변수(예: `linkerOpts=`)도 가능하며 모든 플랫폼에 적용됩니다.
+   *   특정 플랫폼에 대한 동작을 수정해야 하는 경우, `compilerOpts.osx` 또는 `compilerOpts.linux`와 같은 형식을 사용하여 옵션에 플랫폼별 값을 제공할 수 있습니다. 이 경우 macOS(`.osx` 접미사) 및 Linux(`.linux` 접미사)에 해당합니다. 접미사가 없는 매개변수(예: `linkerOpts=`)도 가능하며 모든 플랫폼에 적용됩니다.
 
     사용 가능한 옵션의 전체 목록은 [정의 파일](native-definition-file.md#properties)을 참조하십시오.
 

@@ -4,7 +4,7 @@
     <p>이 문서는 <strong>Kotlin과 C 매핑</strong> 튜토리얼 시리즈의 세 번째 부분입니다. 진행하기 전에 이전 단계를 완료했는지 확인하세요.</p>
     <p><img src="icon-1-done.svg" width="20" alt="First step"/> <a href="mapping-primitive-data-types-from-c.md">C의 기본 데이터 타입 매핑</a><br/>
         <img src="icon-2-done.svg" width="20" alt="Second step"/> <a href="mapping-struct-union-types-from-c.md">C의 구조체 및 유니온 타입 매핑</a><br/>
-        <img src="icon-3.svg" width="20" alt="Third step"/> <strong>함수 포인터 매핑</strong><br/>
+        <img src="icon-3.svg" width="20" alt="Third step"/> <strong>C의 함수 포인터 매핑</strong><br/>
         <img src="icon-4-todo.svg" width="20" alt="Fourth step"/> <a href="mapping-strings-from-c.md">C의 문자열 매핑</a><br/>
     </p>
 </tldr>

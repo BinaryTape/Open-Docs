@@ -2,13 +2,13 @@
 
 <primary-label ref="advanced"/>
 
-[`kotlin-metadata-jvm`](https://github.com/JetBrains/kotlin/tree/master/libraries/kotlinx-metadata/jvm) 库提供用于读取、修改和生成针对 JVM 编译的 Kotlin 类的元数据工具。此元数据存储在 `.class` 文件中的 [`@Metadata`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-metadata/) 注解内，被 [`kotlin-reflect`](reflection.md) 等库和工具用于在运行时探查 Kotlin 特有的结构，例如属性、函数和类。
+[`kotlin-metadata-jvm`](https://github.com/JetBrains/kotlin/tree/master/libraries/kotlinx-metadata/jvm) 库提供了用于读取、修改和生成从为 JVM 编译的 Kotlin 类中提取的元数据的工具。此元数据存储在 `.class` 文件中的 [`@Metadata`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-metadata/) 注解内，被 [`kotlin-reflect`](reflection.md) 等库和工具用于在运行时探查 Kotlin 特有的结构，例如属性、函数和类。
 
-> `kotlin-reflect` 库在运行时依赖元数据来检索 Kotlin 特有的类详情。元数据与实际的 `.class` 文件之间的任何不一致都可能导致使用反射时出现不正确的行为。
+> `kotlin-reflect` 库依赖元数据在运行时检索 Kotlin 特有的类详情。元数据与实际的 `.class` 文件之间的任何不一致都可能导致使用反射时出现不正确的行为。
 > 
 {style="warning"}
 
-你也可以使用 Kotlin Metadata JVM 库来探查各种声明属性，例如可见性或模块性，或者生成并将元数据嵌入到 `.class` 文件中。
+你也可以使用 Kotlin Metadata JVM 库来探查各种声明属性，例如可见性或模式，或者生成并将元数据嵌入到 `.class` 文件中。
 
 ## 将库添加到你的项目中
 
@@ -185,7 +185,7 @@ kotlin {
 }
 ```
 
-启用此选项后，Kotlin 编译器会将注解与 JVM 字节码一起写入元数据中，使其可供 `kotlin-metadata-jvm` 库访问。
+当你启用此选项后，Kotlin 编译器会将注解与 JVM 字节码一起写入元数据中，使其可供 `kotlin-metadata-jvm` 库访问。
 
 该库提供了以下用于访问注解的 API：
 
@@ -323,7 +323,7 @@ fun main() {
 
 ## 修改元数据
 
-使用 [ProGuard](https://github.com/Guardsquare/proguard) 等工具来压缩和优化字节码时，某些声明可能会从 `.class` 文件中删除。ProGuard 会自动更新元数据，使其与修改后的字节码保持一致。
+当使用 [ProGuard](https://github.com/Guardsquare/proguard) 等工具来压缩和优化字节码时，某些声明可能会从 `.class` 文件中删除。ProGuard 会自动更新元数据，使其与修改后的字节码保持一致。
 
 但是，如果你正在开发一个以类似方式修改 Kotlin 字节码的自定义工具，你需要确保元数据也进行相应的调整。借助 `kotlin-metadata-jvm` 库，你可以更新声明、调整属性和删除特定元素。
 

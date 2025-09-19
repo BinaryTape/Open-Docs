@@ -15,7 +15,7 @@ annotation class Fancy
 
 ```kotlin
 @Target(AnnotationTarget.CLASS, AnnotationTarget.FUNCTION,
-        AnnotationTarget.TYPE_PARAMETER, AnnotationTarget.VALUE_PARAMETER, 
+        AnnotationTarget.TYPE_PARAMETER, AnnotationTarget.VALUE_PARAMETER,
         AnnotationTarget.EXPRESSION)
 @Retention(AnnotationRetention.SOURCE)
 @MustBeDocumented
@@ -59,7 +59,7 @@ annotation class Special(val why: String)
 
 允许的形参类型有：
 
- * 对应 Java 原生类型（Int、Long 等）的类型
+ * 对应 Java 原生类型的类型（Int、Long 等）
  * 字符串
  * 类 (`Foo::class`)
  * 枚举
@@ -125,9 +125,9 @@ val f = @Suspendable { Fiber.sleep(10) }
 当你注解属性或主构造函数形参时，有多个从相应 Kotlin 元素生成的 Java 元素，因此在生成的 Java 字节码中注解可能有多个位置。要精确指定注解应如何生成，请使用以下语法：
 
 ```kotlin
-class Example(@field:Ann val foo,    // annotate only the Java field
-              @get:Ann val bar,      // annotate only the Java getter
-              @param:Ann val quux)   // annotate only the Java constructor parameter
+class Example(@field:Ann val foo,    // 仅注解 Java 字段
+              @get:Ann val bar,      // 仅注解 Java getter
+              @param:Ann val quux)   // 仅注解 Java 构造函数形参
 ```
 
 相同的语法可以用来注解整个文件。为此，请在文件的顶层，包指令之前或（如果文件在默认包中）所有导入之前，放置一个目标为 `file` 的注解：
@@ -154,7 +154,7 @@ class Example {
   * `property`（具有此目标的注解在 Java 中不可见）
   * `get`（属性 getter）
   * `set`（属性 setter）
-  * `all`（属性的实验性元目标，请参见[下文](#all-meta-target)了解其目的和用法）
+  * `all`（属性的实验性的元目标，请参见[下文](#all-meta-target)了解其目的和用法）
   * `receiver`（扩展函数或属性的接收者形参）
 
     要注解扩展函数的接收者形参，请使用以下语法：
@@ -162,7 +162,7 @@ class Example {
     ```kotlin
     fun @receiver:Fancy String.myExtension() { ... }
     ```
-    
+
   * `param`（构造函数形参）
   * `setparam`（属性 setter 形参）
   * `delegate`（用于委托属性的委托实例的字段）
@@ -186,9 +186,9 @@ public @interface Email { }
 
 ```kotlin
 data class User(val username: String,
-                // @Email is equivalent to @param:Email
+                // @Email 等效于 @param:Email
                 @Email val email: String) {
-    // @Email is equivalent to @field:Email
+    // @Email 等效于 @field:Email
     @Email val secondaryEmail: String? = null
 }
 ```
@@ -205,9 +205,9 @@ Kotlin 2.2.0 引入了一个实验性的默认规则，该规则应该能使注�
 
 ```kotlin
 data class User(val username: String,
-                // @Email is now equivalent to @param:Email @field:Email
+                // @Email 现在等效于 @param:Email @field:Email
                 @Email val email: String) {
-    // @Email is still equivalent to @field:Email
+    // @Email 仍然等效于 @field:Email
     @Email val secondaryEmail: String? = null
 }
 ```
@@ -268,7 +268,7 @@ data class User(
     val username: String,
     // 将 `@Email` 应用于 `param`、`field` 和 `get`
     @all:Email val email: String,
-    // 将 `@Email` 应用于 `param`、`field`、`get` 和 `set_param`
+    // 将 `@Email` 应用于 `param`、`field`、`get` 和 `setparam`
     @all:Email var name: String,
 ) {
     // 将 `@Email` 应用于 `field` 和 `getter`（没有 `param`，因为它不在构造函数中）
@@ -292,7 +292,7 @@ data class User(
 
 #### 如何启用
 
-要在你的项目中启用 `all` 元目标，请在命令行中使用以下编译器选项：
+要在你的项目中启用 `all` 元目标，请在命令行中使用以下编译器实参：
 
 ```Bash
 -Xannotation-target-all
@@ -385,7 +385,7 @@ public @interface AnnWithArrayMethod {
 ```
 
 ```kotlin
-@AnnWithArrayMethod(names = ["abc", "foo", "bar"]) 
+@AnnWithArrayMethod(names = ["abc", "foo", "bar"])
 class C
 ```
 
@@ -437,4 +437,4 @@ annotation class Tags(val value: Array<Tag>)
 
 要通过反射提取 Kotlin 或 Java 可重复注解，请使用 [`KAnnotatedElement.findAnnotations()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect.full/find-annotations.html) 函数。
 
-有关 Kotlin 可重复注解的更多信息，请参见[此 KEEP](https://github.com/Kotlin/KEEP/blob/master/proposals/repeatable-annotations.md)。
+有关系列可重复注解的更多信息，请参见[此 KEEP](https://github.com/Kotlin/KEEP/blob/master/proposals/repeatable-annotations.md)。

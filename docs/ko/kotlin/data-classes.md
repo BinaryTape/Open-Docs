@@ -89,6 +89,30 @@ val jack = User(name = "Jack", age = 1)
 val olderJack = jack.copy(age = 2)
 ```
 
+`copy()` 함수는 인스턴스의 _얕은 복사(shallow copy)_를 생성합니다. 즉, 구성 요소를 재귀적으로 복사하지 않습니다.
+결과적으로, 다른 객체에 대한 참조는 공유됩니다.
+
+예를 들어, 프로퍼티가 변경 가능한 리스트를 가지고 있다면, "원본" 값을 통해 이루어진 변경 사항은 복사본을 통해서도 볼 수 있으며, 복사본을 통해 이루어진 변경 사항은 원본을 통해서도 볼 수 있습니다.
+
+```kotlin
+data class Employee(val name: String, val roles: MutableList<String>)
+
+fun main() {
+    val original = Employee("Jamie", mutableListOf("developer"))
+    val duplicate = original.copy()
+
+    duplicate.roles.add("team lead")
+
+    println(original) 
+    // Employee(name=Jamie, roles=[developer, team lead])
+    println(duplicate) 
+    // Employee(name=Jamie, roles=[developer, team lead])
+}
+```
+{kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
+
+보시다시피, `duplicate.roles` 프로퍼티를 수정하면 `original.roles` 프로퍼티도 변경되는데, 이는 두 프로퍼티가 동일한 리스트 참조를 공유하기 때문입니다.
+
 ## 데이터 클래스와 구조 분해 선언
 
 데이터 클래스용으로 생성된 _컴포넌트 함수_는 [구조 분해 선언](destructuring-declarations.md)에서 사용할 수 있게 합니다.

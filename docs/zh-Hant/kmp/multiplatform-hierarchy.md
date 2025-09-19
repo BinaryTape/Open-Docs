@@ -1,7 +1,6 @@
 [//]: # (title: 層級式專案結構)
 
-Kotlin Multiplatform 專案支援層級式原始碼集結構。
-這表示您可以安排一個中介原始碼集的層級結構，以便在部分（而非所有）[支援的目標平台](multiplatform-dsl-reference.md#targets)之間共用通用程式碼。使用中介原始碼集有助於您：
+Kotlin Multiplatform 專案支援層級式原始碼集結構。這表示您可以安排中介原始碼集的層級結構，以便在部分（而非所有）[支援的目標平台](multiplatform-dsl-reference.md#targets)之間共用通用程式碼。使用中介原始碼集有助於您：
 
 *   為某些目標平台提供特定的 API。例如，函式庫可以在中介原始碼集中為 Kotlin/Native 目標平台添加原生特定 API，但不是為 Kotlin/JVM 目標平台。
 *   為某些目標平台使用特定的 API。例如，您可以從 Kotlin Multiplatform 函式庫為形成中介原始碼集的一些目標平台提供的豐富 API 中獲益。
@@ -9,15 +8,11 @@ Kotlin Multiplatform 專案支援層級式原始碼集結構。
 
 Kotlin 工具鏈確保每個原始碼集只能存取適用於該原始碼集編譯的所有目標平台的 API。這可以防止諸如使用 Windows 特定 API 然後將其編譯到 macOS 的情況，導致連結錯誤或執行時的未定義行為。
 
-設定原始碼集層級的建議方式是使用[預設層級範本](#default-hierarchy-template)。
-該範本涵蓋了最常見的用例。如果您有更進階的專案，可以[手動配置](#manual-configuration)它。
-這是一種更底層的方法：它更靈活，但需要更多的努力和知識。
+設定原始碼集層級的建議方式是使用[預設層級範本](#default-hierarchy-template)。該範本涵蓋了最常見的用例。如果您有更進階的專案，可以[手動配置](#manual-configuration)它。這是一種更底層的方法：它更靈活，但需要更多的努力和知識。
 
 ## 預設層級範本
 
-Kotlin Gradle 外掛程式具有內建的預設[層級範本](#see-the-full-hierarchy-template)。
-它包含了一些常見用例的預定義中介原始碼集。
-該外掛程式會根據您專案中指定的目標平台自動設定這些原始碼集。
+Kotlin Gradle 外掛程式具有內建的預設[層級範本](#see-the-full-hierarchy-template)。它包含了一些常見用例的預定義中介原始碼集。該外掛程式會根據您專案中指定的目標平台自動設定這些原始碼集。
 
 考慮專案模組中包含共用程式碼的 `build.gradle(.kts)` 檔案：
 
@@ -202,8 +197,7 @@ Learn more about hierarchy templates: https://kotl.in/hierarchy-template
 
 **情境**。您已經擁有與範本產生之原始碼集名稱完全相同，但在專案中於不同目標平台集之間共用的原始碼集。例如，一個 `nativeMain` 原始碼集僅在桌面特定目標平台之間共用：`linuxX64`、`mingwX64` 和 `macosX64`。
 
-**解決方案**。目前無法修改範本原始碼集之間的預設 `dependsOn` 關聯。
-同樣重要的是，原始碼集（例如 `nativeMain`）的實作和意義在所有專案中都應相同。
+**解決方案**。目前無法修改範本原始碼集之間的預設 `dependsOn` 關聯。同樣重要的是，原始碼集（例如 `nativeMain`）的實作和意義在所有專案中都應相同。
 
 但是，您仍然可以執行以下其中一項：
 
@@ -228,13 +222,12 @@ Learn more about hierarchy templates: https://kotl.in/hierarchy-template
 
 ## 手動配置
 
-您可以在原始碼集結構中手動引入中介原始碼集。
-它將存放多個目標平台的共用程式碼。
+您可以在原始碼集結構中手動引入中介原始碼集。它將存放多個目標平台的共用程式碼。
 
 例如，如果您想在原生 Linux、Windows 和 macOS 目標平台（`linuxX64`、`mingwX64` 和 `macosX64`）之間共用程式碼，請執行以下操作：
 
-1.  在共用模組的 `build.gradle(.kts)` 檔案中，新增中介原始碼集 `desktopMain`，它將存放這些目標平台的共用邏輯。
-2.  使用 `dependsOn` 關聯，設定原始碼集層級。將 `commonMain` 與 `desktopMain` 連接，然後將 `desktopMain` 與每個目標原始碼集連接：
+1.  在共用模組的 `build.gradle(.kts)` 檔案中，新增中介原始碼集 `myDesktopMain`，它將存放這些目標平台的共用邏輯。
+2.  使用 `dependsOn` 關聯，設定原始碼集層級。將 `commonMain` 與 `myDesktopMain` 連接，然後將 `myDesktopMain` 與每個目標原始碼集連接：
 
     <Tabs group="build-script">
     <TabItem title="Kotlin" group-key="kotlin">
@@ -246,13 +239,13 @@ Learn more about hierarchy templates: https://kotl.in/hierarchy-template
         macosX64()
     
         sourceSets {
-            val desktopMain by creating {
+            val myDesktopMain by creating {
                 dependsOn(commonMain.get())
             }
     
-            linuxX64Main.get().dependsOn(desktopMain)
-            mingwX64Main.get().dependsOn(desktopMain)
-            macosX64Main.get().dependsOn(desktopMain)
+            linuxX64Main.get().dependsOn(myDesktopMain)
+            mingwX64Main.get().dependsOn(myDesktopMain)
+            macosX64Main.get().dependsOn(myDesktopMain)
         }
     }
     ```
@@ -267,17 +260,17 @@ Learn more about hierarchy templates: https://kotl.in/hierarchy-template
         macosX64()
     
         sourceSets {
-            desktopMain {
+            myDesktopMain {
                 dependsOn(commonMain.get())
             }
             linuxX64Main {
-                dependsOn(desktopMain)
+                dependsOn(myDesktopMain)
             }
             mingwX64Main {
-                dependsOn(desktopMain)
+                dependsOn(myDesktopMain)
             }
             macosX64Main {
-                dependsOn(desktopMain)
+                dependsOn(myDesktopMain)
             }
         }
     }
@@ -292,10 +285,10 @@ Learn more about hierarchy templates: https://kotl.in/hierarchy-template
 
 您可以為以下目標平台組合擁有一個共用原始碼集：
 
-*   JVM or Android + JS + Native
+*   JVM or Android + Web + Native
 *   JVM or Android + Native
-*   JS + Native
-*   JVM or Android + JS
+*   Web + Native
+*   JVM or Android + Web
 *   Native
 
 Kotlin 目前不支援為這些組合共用原始碼集：
@@ -304,5 +297,4 @@ Kotlin 目前不支援為這些組合共用原始碼集：
 *   JVM + Android 目標平台
 *   多個 JS 目標平台
 
-如果您需要從共用的原生原始碼集存取特定平台 API，IntelliJ IDEA 將幫助您偵測可以在共用原生程式碼中使用的通用宣告。
-對於其他情況，請使用 Kotlin 的[預期與實際宣告](multiplatform-expect-actual.md)機制。
+如果您需要從共用的原生原始碼集存取特定平台 API，IntelliJ IDEA 將幫助您偵測可以在共用原生程式碼中使用的通用宣告。對於其他情況，請使用 Kotlin 的[預期與實際宣告](multiplatform-expect-actual.md)機制。

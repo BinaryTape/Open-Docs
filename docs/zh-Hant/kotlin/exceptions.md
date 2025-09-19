@@ -9,8 +9,8 @@
 
 處理例外主要包含兩個動作：
 
-* **拋出例外 (Throwing exceptions)：** 指示問題發生時。
-* **捕獲例外 (Catching exceptions)：** 透過解決問題或通知開發者或應用程式使用者來手動處理非預期的例外。
+*   **拋出例外 (Throwing exceptions)：** 指示問題發生時。
+*   **捕獲例外 (Catching exceptions)：** 透過解決問題或通知開發者或應用程式使用者來手動處理非預期的例外。
 
 例外由 [`Exception`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-exception/) 類別的子類別表示，而 `Exception` 類別又是 [`Throwable`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/) 類別的子類別。有關其繼承結構的更多資訊，請參閱 [例外繼承結構](#exception-hierarchy) 一節。由於 `Exception` 是一個 [`open class`](inheritance.md) (開放類別)，您可以建立 [自訂例外](#create-custom-exceptions) 來滿足您應用程式的特定需求。
 
@@ -29,8 +29,8 @@ throw IllegalArgumentException()
 ```kotlin
 val cause = IllegalStateException("Original cause: illegal state")
 
-// Throws an IllegalArgumentException if userInput is negative
-// Additionally, it shows the original cause, represented by the cause IllegalStateException
+// 如果 userInput 為負值，則拋出 IllegalArgumentException
+// 此外，它顯示原始原因，由 cause IllegalStateException 表示
 if (userInput < 0) {
     throw IllegalArgumentException("Input must be non-negative", cause)
 }
@@ -63,10 +63,10 @@ fun getIndices(count: Int): List<Int> {
 }
 
 fun main() {
-    // This fails with an IllegalArgumentException
+    // 這會導致 IllegalArgumentException 失敗
     println(getIndices(-1))
-
-    // Uncomment the line below to see a working example
+    
+    // 解除註解下方行以查看工作範例
     // println(getIndices(3))
     // [1, 2, 3]
 }
@@ -80,8 +80,8 @@ fun main() {
 > ```kotlin
 > fun printNonNullString(str: String?) {
 >     // Nullability check
->     require(str != null)
->     // After this successful check, 'str' is guaranteed to be
+>     require(str != null) 
+>     // After this successful check, 'str' is guaranteed to be 
 >     // non-null and is automatically smart cast to non-nullable String
 >     println(str.length)
 > }
@@ -105,16 +105,16 @@ fun main() {
         check(state.isNotEmpty()) { "State must be non-empty!" }
         return state
     }
-    // If you uncomment the line below then the program fails with IllegalStateException
+    // 如果您解除註解下方行，程式將因 IllegalStateException 而失敗
     // getStateValue()
 
     someState = ""
 
-    // If you uncomment the line below then the program fails with IllegalStateException
-    // getStateValue()
+    // 如果您解除註解下方行，程式將因 IllegalStateException 而失敗
+    // getStateValue() 
     someState = "non-empty-state"
 
-    // This prints "non-empty-state"
+    // 這會列印 "non-empty-state"
     println(getStateValue())
 }
 ```
@@ -127,8 +127,8 @@ fun main() {
 > ```kotlin
 > fun printNonNullString(str: String?) {
 >     // Nullability check
->     check(str != null)
->     // After this successful check, 'str' is guaranteed to be
+>     check(str != null) 
+>     // After this successful check, 'str' is guaranteed to be 
 >     // non-null and is automatically smart cast to non-nullable String
 >     println(str.length)
 > }
@@ -155,12 +155,12 @@ fun processUserRole(user: User) {
 }
 
 fun main() {
-    // This works as expected
+    // 這會按預期工作
     val user1 = User("Alice", "admin")
     processUserRole(user1)
     // Alice is an admin.
 
-    // This throws an IllegalStateException
+    // 這會拋出一個 IllegalStateException
     val user2 = User("Bob", "guest")
     processUserRole(user2)
 }
@@ -175,9 +175,9 @@ fun main() {
 
 ```kotlin
 try {
-    // Code that may throw an exception
+    // 可能拋出例外的程式碼
 } catch (e: SomeException) {
-    // Code for handling the exception
+    // 處理例外的程式碼
 }
 ```
 
@@ -187,24 +187,24 @@ try {
 fun main() {
     val num: Int = try {
 
-        // If count() completes successfully, its return value is assigned to num
+        // 如果 count() 成功完成，其返回值將賦予 num
         count()
-
+        
     } catch (e: ArithmeticException) {
-
-        // If count() throws an exception, the catch block returns -1,
-        // which is assigned to num
+        
+        // 如果 count() 拋出例外，catch 區塊將返回 -1，
+        // 並賦予 num
         -1
     }
     println("Result: $num")
 }
 
-// Simulates a function that might throw ArithmeticException
+// 模擬可能拋出 ArithmeticException 的函式
 fun count(): Int {
-
-    // Change this value to return a different value to num
+    
+    // 更改此值以返回不同的值給 num
     val a = 0
-
+    
     return 10 / a
 }
 ```
@@ -231,13 +231,13 @@ fun processWithdrawal(amount: Double, availableFunds: Double) {
 fun main() {
     val availableFunds = 500.0
 
-    // Change this value to test different scenarios
+    // 更改此值以測試不同情境
     val withdrawalAmount = 500.5
 
     try {
         processWithdrawal(withdrawalAmount.toDouble(), availableFunds)
 
-    // The order of catch blocks is important!
+    // catch 區塊的順序很重要！
     } catch (e: InsufficientFundsException) {
         println("Caught an InsufficientFundsException: ${e.message}")
     } catch (e: WithdrawalException) {
@@ -257,13 +257,13 @@ fun main() {
 
 ```kotlin
 try {
-    // Code that may throw an exception
+    // 可能拋出例外的程式碼
 }
 catch (e: YourException) {
-    // Exception handler
+    // 例外處理器
 }
 finally {
-    // Code that is always executed
+    // 總是會執行的程式碼
 }
 ```
 
@@ -273,16 +273,16 @@ finally {
 
 ```kotlin
 fun divideOrNull(a: Int): Int {
-
-    // The try block is always executed
-    // An exception here (division by zero) causes an immediate jump to the catch block
+    
+    // try 區塊總是會執行
+    // 這裡的例外 (除以零) 會導致立即跳轉到 catch 區塊
     try {
         val b = 44 / a
         println("try block: Executing division: $b")
         return b
     }
-
-    // The catch block is executed due to the ArithmeticException (division by zero if a ==0)
+    
+    // 由於 ArithmeticException (如果 a == 0 則除以零)，catch 區塊會執行
     catch (e: ArithmeticException) {
         println("catch block: Encountered ArithmeticException $e")
         return -1
@@ -293,8 +293,8 @@ fun divideOrNull(a: Int): Int {
 }
 
 fun main() {
-
-    // Change this value to get a different result. An ArithmeticException will return: -1
+    
+    // 更改此值以獲得不同的結果。ArithmeticException 將返回：-1
     divideOrNull(0)
 }
 ```
@@ -306,47 +306,47 @@ fun main() {
 >
 > ```kotlin
 > FileWriter("test.txt").use { writer ->
-> writer.write("some text")
+> writer.write("some text") 
 > // After this block, the .use function automatically calls writer.close(), similar to a finally block
 > }
 > ```
->
+> 
 {style="note"}
 
 如果您的程式碼需要資源清理而不處理例外，您也可以單獨使用 `try` 與 `finally` 區塊，而無需 `catch` 區塊：
 
 ```kotlin
-class MockResource {
-    fun use() {
-        println("Resource being used")
-        // Simulate a resource being used
-        // This throws an ArithmeticException if division by zero occurs
+class MockResource { 
+    fun use() { 
+        println("Resource being used") 
+        // 模擬資源正在使用 
+        // 如果發生除以零，這會拋出 ArithmeticException
         val result = 100 / 0
-
-        // This line is not executed if an exception is thrown
-        println("Result: $result")
+        
+        // 如果拋出例外，則此行不執行
+        println("Result: $result") 
     }
-
-    fun close() {
-        println("Resource closed")
+    
+    fun close() { 
+        println("Resource closed") 
     }
 }
 
-fun main() {
+fun main() { 
     val resource = MockResource()
-//sampleStart
+//sampleStart 
     try {
-
-        // Attempts to use the resource
+        
+        // 嘗試使用資源 
         resource.use()
-
+        
     } finally {
-
-        // Ensures that the resource is always closed, even if an exception occurs
+        
+        // 確保資源總是關閉，即使發生例外 
         resource.close()
     }
 
-    // This line is not printed if an exception is thrown
+    // 如果拋出例外，則此行不列印
     println("End of the program")
 //sampleEnd
 }
@@ -408,8 +408,8 @@ fun myFunction(number: Int) {
 }
 
 fun main() {
-
-    // Change the value in this function to a get a different exception
+    
+    // 更改此函式中的值以獲得不同的例外
     myFunction(1)
 }
 ```
@@ -421,26 +421,26 @@ fun main() {
 
 ```kotlin
 //sampleStart
-// Creates a sealed class as the base for an exception hierarchy for account-related errors
+// 建立一個密封類別作為帳戶相關錯誤的例外繼承結構的基礎
 sealed class AccountException(message: String, cause: Throwable? = null):
 Exception(message, cause)
 
-// Creates a subclass of AccountException
+// 建立 AccountException 的子類別
 class InvalidAccountCredentialsException : AccountException("Invalid account credentials detected")
 
-// Creates a subclass of AccountException, which allows the addition of custom messages and causes
+// 建立 AccountException 的子類別，它允許添加自訂訊息和原因
 class APIKeyExpiredException(message: String = "API key expired", cause: Throwable? = null)	: AccountException(message, cause)
 
-// Change values of placeholder functions to get different results
+// 更改佔位符函式的值以獲得不同的結果
 fun areCredentialsValid(): Boolean = true
 fun isAPIKeyExpired(): Boolean = true
 //sampleEnd
 
-// Validates account credentials and API key
+// 驗證帳戶憑證和 API 金鑰
 fun validateAccount() {
     if (!areCredentialsValid()) throw InvalidAccountCredentialsException()
     if (isAPIKeyExpired()) {
-        // Example of throwing APIKeyExpiredException with a specific cause
+        // 拋出 APIKeyExpiredException 並帶有特定原因的範例
         val cause = RuntimeException("API key validation failed due to network error")
         throw APIKeyExpiredException(cause = cause)
     }
@@ -471,17 +471,17 @@ class Person(val name: String?)
 
 fun fail(message: String): Nothing {
     throw IllegalArgumentException(message)
-    // This function will never return successfully.
-    // It will always throw an exception.
+    // 此函式將永不成功返回。
+    // 它將總是拋出例外。
 }
 
 fun main() {
-    // Creates an instance of Person with 'name' as null
+    // 建立一個 Person 實例，其中 'name' 為 null
     val person = Person(name = null)
-
+    
     val s: String = person.name ?: fail("Name required")
 
-    // 's' is guaranteed to be initialized at this point
+    // 於此時，'s' 保證已初始化
     println(s)
 }
 ```
@@ -496,7 +496,7 @@ fun notImplementedFunction(): Int {
 
 fun main() {
     val result = notImplementedFunction()
-    // This throws a NotImplementedError
+    // 這會拋出一個 NotImplementedError
     println(result)
 }
 ```
@@ -508,13 +508,13 @@ fun main() {
 
 讓我們探討一些 Kotlin 中常見的例外型別，它們都是 [`RuntimeException`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-runtime-exception/) 類別的子類別：
 
-* [`ArithmeticException`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-arithmetic-exception/)：此例外發生於算術運算無法執行時，例如除以零。
+*   [`ArithmeticException`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-arithmetic-exception/)：此例外發生於算術運算無法執行時，例如除以零。
 
     ```kotlin
     val example = 2 / 0 // throws ArithmeticException
     ```
 
-* [`IndexOutOfBoundsException`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-index-out-of-bounds-exception/)：拋出此例外表示某種索引（例如陣列或字串的索引）超出範圍。
+*   [`IndexOutOfBoundsException`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-index-out-of-bounds-exception/)：拋出此例外表示某種索引（例如陣列或字串的索引）超出範圍。
 
     ```kotlin
     val myList = mutableListOf(1, 2, 3)
@@ -522,17 +522,17 @@ fun main() {
     ```
 
     > 為了避免此例外，請使用更安全的替代方案，例如 [`getOrNull()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/get-or-null.html) 函式：
-    >
+    > 
     > ```kotlin
     > val myList = listOf(1, 2, 3)
     > // Returns null, instead of IndexOutOfBoundsException
     > val element = myList.getOrNull(3)
     > println("Element at index 3: $element")
     > ```
-    >
+    > 
 {style="note"}
 
-* [`NoSuchElementException`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-no-such-element-exception/)：當存取特定集合中不存在的元素時，會拋出此例外。它在使用預期特定元素的方法（例如 [`first()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/first.html) 或 [`last()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/last.html)）時發生。
+*   [`NoSuchElementException`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-no-such-element-exception/)：當存取特定集合中不存在的元素時，會拋出此例外。它在使用預期特定元素的方法（例如 [`first()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/first.html) 或 [`last()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/last.html)）時發生。
 
     ```kotlin
     val emptyList = listOf<Int>()
@@ -550,13 +550,13 @@ fun main() {
     >
 {style="note"}
 
-* [`NumberFormatException`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-number-format-exception/)：當嘗試將字串轉換為數值型別，但字串格式不正確時，會發生此例外。
+*   [`NumberFormatException`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-number-format-exception/)：當嘗試將字串轉換為數值型別，但字串格式不正確時，會發生此例外。
 
     ```kotlin
     val string = "This is not a number"
     val number = string.toInt() // throws NumberFormatException
     ```
-
+    
     > 為了避免此例外，請使用更安全的替代方案，例如 [`toIntOrNull()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/to-int-or-null.html) 函式：
     >
     > ```kotlin
@@ -568,7 +568,7 @@ fun main() {
     >
 {style="note"}
 
-* [`NullPointerException`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-null-pointer-exception/)：當應用程式嘗試使用值為 `null` 的物件引用時，會拋出此例外。即使 Kotlin 的空值安全功能顯著降低了 `NullPointerException` 的風險，但它們仍可能透過刻意使用 `!!` 運算符或與缺乏 Kotlin 空值安全的 Java 互動時發生。
+*   [`NullPointerException`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-null-pointer-exception/)：當應用程式嘗試使用值為 `null` 的物件引用時，會拋出此例外。即使 Kotlin 的空值安全功能顯著降低了 `NullPointerException` 的風險，但它們仍可能透過刻意使用 `!!` 運算符或與缺乏 Kotlin 空值安全的 Java 互動時發生。
 
     ```kotlin
     val text: String? = null
@@ -581,9 +581,9 @@ fun main() {
 
 Kotlin 例外繼承結構的根是 [`Throwable`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/) 類別。它有兩個直接子類別：[`Error`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-error/) 和 [`Exception`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-exception/)：
 
-* `Error` 子類別代表應用程式本身可能無法恢復的嚴重基本問題。這些是您通常不會嘗試處理的問題，例如 [`OutOfMemoryError`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-out-of-memory-error/) 或 `StackOverflowError`。
+*   `Error` 子類別代表應用程式本身可能無法恢復的嚴重基本問題。這些是您通常不會嘗試處理的問題，例如 [`OutOfMemoryError`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-out-of-memory-error/) 或 `StackOverflowError`。
 
-* `Exception` 子類別用於您可能希望處理的條件。`Exception` 型別的子型別，例如 [`RuntimeException`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-runtime-exception/) 和 `IOException` (輸入/輸出例外)，處理應用程式中的例外事件。
+*   `Exception` 子類別用於您可能希望處理的條件。`Exception` 型別的子型別，例如 [`RuntimeException`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-runtime-exception/) 和 `IOException` (輸入/輸出例外)，處理應用程式中的例外事件。
 
 ![Exception hierarchy - the Throwable class](throwable.svg){width=700}
 
@@ -599,9 +599,9 @@ _堆疊追蹤 (stack trace)_ 是運行時環境生成的一份報告，用於除
 
 ```kotlin
 fun main() {
-//sampleStart
+//sampleStart    
     throw ArithmeticException("This is an arithmetic exception!")
-//sampleEnd
+//sampleEnd    
 }
 ```
 {kotlin-runnable="true"}
@@ -616,17 +616,15 @@ Exception in thread "main" java.lang.ArithmeticException: This is an arithmetic 
 
 第一行是例外描述，其中包括：
 
-* 例外型別：`java.lang.ArithmeticException`
-* 執行緒：`main`
-* 例外訊息：`"This is an arithmetic exception!"`
+*   例外型別：`java.lang.ArithmeticException`
+*   執行緒：`main`
+*   例外訊息：`"This is an arithmetic exception!"`
 
 例外描述之後，每行以 `at` 開頭的都是堆疊追蹤。單行稱為 _堆疊追蹤元素_ 或 _堆疊框架_：
 
-* `at MainKt.main (Main.kt:3)`：這顯示了方法名稱 (`MainKt.main`) 以及呼叫該方法的原始檔案和行號 (`Main.kt:3`)。
-* `at MainKt.main (Main.kt)`：這表示例外發生在 `Main.kt` 檔案的 `main()` 函式中。
+*   `at MainKt.main (Main.kt:3)`：這顯示了方法名稱 (`MainKt.main`) 以及呼叫該方法的原始檔案和行號 (`Main.kt:3`)。
+*   `at MainKt.main (Main.kt)`：這表示例外發生在 `Main.kt` 檔案的 `main()` 函式中。
 
 ## 與 Java、Swift 和 Objective-C 的例外互通性
 
 由於 Kotlin 將所有例外視為 unchecked (非檢查式)，當從區分檢查式與非檢查式例外的語言呼叫這些例外時，可能會導致複雜性。為了彌補 Kotlin 與 Java、Swift 和 Objective-C 等語言之間例外處理的差異，您可以使用 [`@Throws`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throws/) 註解。此註解會提醒呼叫者可能的例外。更多資訊請參閱 [從 Java 呼叫 Kotlin](java-to-kotlin-interop.md#checked-exceptions) 和 [與 Swift/Objective-C 的互通性](native-objc-interop.md#errors-and-exceptions)。
-
-```

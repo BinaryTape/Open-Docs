@@ -6,27 +6,27 @@
 
 在你的 `build.gradle(.kts)` 文件中，添加 JCTools 依赖项：
 
-<tabs group="build-script">
-<tab title="Kotlin" group-key="kotlin">
+   <tabs group="build-script">
+   <tab title="Kotlin" group-key="kotlin">
 
-```kotlin
-dependencies {
-    // jctools 依赖项
-    testImplementation("org.jctools:jctools-core:%jctoolsVersion%")
-}
-```
+   ```kotlin
+   dependencies {
+       // jctools dependency
+       testImplementation("org.jctools:jctools-core:%jctoolsVersion%")
+   }
+   ```
 
-</tab>
-<tab title="Groovy" group-key="groovy">
+   </tab>
+   <tab title="Groovy" group-key="groovy">
 
-```groovy
-dependencies {
-    // jctools 依赖项
-    testImplementation "org.jctools:jctools-core:%jctoolsVersion%"
-}
-```
-</tab>
-</tabs>
+   ```groovy
+   dependencies {
+       // jctools dependency
+       testImplementation "org.jctools:jctools-core:%jctoolsVersion%"
+   }
+   ```
+   </tab>
+   </tabs>
 
 为了满足单消费者限制，请确保所有 `poll()` 和 `peek()` 消费操作都从单个线程中调用。为此，我们可以将对应的 `@Operation` 注解的 `nonParallelGroup` 形参设置为相同的值，例如 `"consumers"`。
 

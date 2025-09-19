@@ -30,10 +30,10 @@ Kotlinには、コードを簡潔かつ表現豊かにするための必須の�
 fun main() {
     val text = "emosewa si niltoK"
     
-   // Use the reversed() function from the standard library
+   // 標準ライブラリのreversed()関数を使用
     val reversedText = text.reversed()
 
-    // Use the print() function from the standard library
+    // 標準ライブラリのprint()関数を使用
     print(reversedText)
     // Kotlin is awesome
 }
@@ -96,7 +96,7 @@ fun main() {
 import kotlinx.datetime.*
 
 fun main() {
-    val now = Clock.System.now() // Get current instant
+    val now = Clock.System.now() // 現在のインスタントを取得
     println("Current instant: $now")
 
     val zone = TimeZone.of("America/New_York")
@@ -148,10 +148,10 @@ inline fun uintArrayOf(vararg elements: UInt): UIntArray
 ```kotlin
 @OptIn(ExperimentalUnsignedTypes::class)
 fun main() {
-    // Create an unsigned integer array
+    // 符号なし整数配列を作成
     val unsignedArray: UIntArray = uintArrayOf(1u, 2u, 3u, 4u, 5u)
 
-    // Modify an element
+    // 要素を変更
     unsignedArray[2] = 42u
     println("Updated array: ${unsignedArray.joinToString()}")
     // Updated array: 1, 2, 42, 4, 5
@@ -235,16 +235,16 @@ fun main() {
 
 fun main() {
     val timeTaken = /* Write your code here */ {
-    // Simulate some data processing
-    val data = List(1000) { it * 2 }
-    val filteredData = data.filter { it % 3 == 0 }
+        // データ処理をシミュレート
+        val data = List(1000) { it * 2 }
+        val filteredData = data.filter { it % 3 == 0 }
 
-    // Simulate processing the filtered data
-    val processedData = filteredData.map { it / 2 }
-    println("Processed data")
-}
+        // フィルタリングされたデータの処理をシミュレート
+        val processedData = filteredData.map { it / 2 }
+        println("Processed data")
+    }
 
-println("Time taken: $timeTaken") // e.g. 16 ms
+    println("Time taken: $timeTaken") // e.g. 16 ms
 }
 ```
 {validate="false" kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-tour-libraries-exercise-2"}
@@ -255,11 +255,11 @@ import kotlin.time.measureTime
 
 fun main() {
     val timeTaken = measureTime {
-        // Simulate some data processing
+        // データ処理をシミュレート
         val data = List(1000) { it * 2 }
         val filteredData = data.filter { it % 3 == 0 }
 
-        // Simulate processing the filtered data
+        // フィルタリングされたデータの処理をシミュレート
         val processedData = filteredData.map { it / 2 }
         println("Processed data")
     }

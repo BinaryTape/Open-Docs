@@ -4,20 +4,20 @@ _[發佈日期：2025 年 3 月 20 日](releases.md#release-details)_
 
 Kotlin 2.1.20 版本發佈啦！以下是主要亮點：
 
-* **K2 編譯器更新**：[新 kapt 和 Lombok 外掛的更新](#kotlin-k2-compiler)
-* **Kotlin Multiplatform**：[用於取代 Gradle 的 Application 外掛的新 DSL](#kotlin-multiplatform-new-dsl-to-replace-gradle-s-application-plugin)
-* **Kotlin/Native**：[支援 Xcode 16.3 及新的內聯最佳化](#kotlin-native)
-* **Kotlin/Wasm**：[預設自訂格式器、支援 DWARF 及遷移至 Provider API](#kotlin-wasm)
-* **Gradle 支援**：[與 Gradle 的 Isolated Projects 及自訂發佈變體相容](#gradle)
-* **標準函式庫**：[通用原子型別、改進的 UUID 支援及新的時間追蹤功能](#standard-library)
-* **Compose 編譯器**：[放寬對 `@Composable` 函數的限制及其他更新](#compose-compiler)
-* **文件**：[Kotlin 文件顯著改進](#documentation-updates)。
+*   **K2 編譯器更新**：[新 kapt 和 Lombok 外掛的更新](#kotlin-k2-compiler)
+*   **Kotlin Multiplatform**：[用於取代 Gradle 的 Application 外掛的新 DSL](#kotlin-multiplatform-new-dsl-to-replace-gradle-s-application-plugin)
+*   **Kotlin/Native**：[支援 Xcode 16.3 及新的內聯最佳化](#kotlin-native)
+*   **Kotlin/Wasm**：[預設自訂格式器、支援 DWARF 及遷移至 Provider API](#kotlin-wasm)
+*   **Gradle 支援**：[與 Gradle 的 Isolated Projects 及自訂發佈變體相容](#gradle)
+*   **標準函式庫**：[通用原子型別、改進的 UUID 支援及新的時間追蹤功能](#standard-library)
+*   **Compose 編譯器**：[放寬對 `@Composable` 函數的限制及其他更新](#compose-compiler)
+*   **文件**：[Kotlin 文件顯著改進](#documentation-updates)。
 
 ## IDE 支援
 
 支援 2.1.20 的 Kotlin 外掛已與最新版 IntelliJ IDEA 和 Android Studio 綁定。
 您不需要在 IDE 中更新 Kotlin 外掛。
-您只需在建置指令稿中將 Kotlin 版本更改為 2.1.20。
+您只需在建置指令碼中將 Kotlin 版本更改為 2.1.20。
 
 有關詳細資訊，請參閱[更新到新版本](releases.md#update-to-a-new-kotlin-version)。
 
@@ -28,7 +28,8 @@ IntelliJ IDEA 能夠下載這些來源，以提供 Kotlin 符號的文件並改�
 
 ## Kotlin K2 編譯器
 
-我們正持續改進對新 Kotlin K2 編譯器的外掛支援。此版本帶來了對新 kapt 和 Lombok 外掛的更新。
+我們正持續改進對新 Kotlin K2 編譯器的外掛支援。此版本帶來了對新 kapt
+和 Lombok 外掛的更新。
 
 ### 新的預設 kapt 外掛
 <primary-label ref="beta"/>
@@ -50,7 +51,7 @@ kapt.use.k2=false
 
 請將任何問題回報到我們的[問題追蹤器](https://youtrack.jetbrains.com/issue/KT-71439/K2-kapt-feedback)。
 
-### Lombok 編譯器外掛：支援 @SuperBuilder 及 @Builder 的更新
+### Lombok 編譯器外掛：支援 `@SuperBuilder` 及 `@Builder` 的更新
 <primary-label ref="experimental-general"/>
 
 [Kotlin Lombok 編譯器外掛](lombok.md)現在支援 `@SuperBuilder` 註解，使得為類別層次結構建立建構器變得更容易。過去，在 Kotlin 中使用 Lombok 的開發人員在處理繼承時必須手動定義建構器。透過 `@SuperBuilder`，建構器會自動繼承超類別欄位，讓您在建構物件時初始化這些欄位。
@@ -67,7 +68,7 @@ kapt.use.k2=false
 
 從 Gradle 8.7 開始，[Application](https://docs.gradle.org/current/userguide/application_plugin.html) 外掛不再與 Kotlin Multiplatform Gradle 外掛相容。Kotlin 2.1.20 引入了一個實驗性 DSL 來實現類似的功能。新的 `executable {}` 區塊為 JVM 目標設定執行任務和 Gradle [發佈](https://docs.gradle.org/current/userguide/distribution_plugin.html#distribution_plugin)。
 
-在您的建置指令稿中的 `executable {}` 區塊之前，新增以下 `@OptIn` 註解：
+在您的建置指令碼中的 `executable {}` 區塊之前，新增以下 `@OptIn` 註解：
 
 ```kotlin
 @OptIn(ExperimentalKotlinGradlePluginApi::class)
@@ -344,7 +345,7 @@ import java.util.concurrent.atomic.*
 //sampleStart
 @OptIn(ExperimentalAtomicApi::class)
 fun main() {
-    // Converts Kotlin AtomicInt to Java's AtomicInteger
+    // Converts Kotlin's AtomicInt to Java's AtomicInteger
     val kotlinAtomic = AtomicInt(42)
     val javaAtomic: AtomicInteger = kotlinAtomic.asJavaAtomic()
     println("Java atomic value: ${javaAtomic.get()}")
@@ -448,7 +449,7 @@ fun main() {
 
 在 2.1.20 中，Compose 編譯器放寬了先前版本中引入的 `@Composable` 函數的一些限制。此外，Compose 編譯器 Gradle 外掛預設設定為包含來源資訊，使所有平台上的行為與 Android 對齊。
 
-### 支援開放式 @Composable 函數中帶有預設值的參數
+### 支援開放式 `@Composable` 函數中帶有預設值的參數
 
 編譯器先前限制了開放式 `@Composable` 函數中帶有預設值的參數，因為不正確的編譯器輸出會導致執行時崩潰。底層問題現已解決，當與 Kotlin 2.1.20 或更高版本一起使用時，帶有預設值的參數將得到完全支援。
 
@@ -477,7 +478,7 @@ Compose 編譯器 Gradle 外掛在 Android 上已預設啟用[包含來源資訊
 
 ## 重大變更與棄用
 
-*   為了使 Kotlin Multiplatform 與 Gradle 即將推出的變更保持一致，我們正在逐步淘汰 `withJava()` 函數。[Java 原始碼集現在預設建立](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-compatibility-guide.html#java-source-sets-created-by-default)。如果您使用 [Java 測試夾具](https://docs.gradle.org/current/userguide/java_testing.html#sec:java_test_fixtures) Gradle 外掛，請直接升級到 [Kotlin 2.1.21](releases.md#release-details) 以避免相容性問題。
+*   為了使 Kotlin Multiplatform 與 Gradle 即將推出的變更保持一致，我們正在逐步淘汰 `withJava()` 函數。[Java 原始碼集現在預設建立](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-compatibility-guide.html#java-source-sets-created-by-default)。如果您使用 [Java test fixtures](https://docs.gradle.org/current/userguide/java_testing.html#sec:java_test_fixtures) Gradle 外掛，請直接升級到 [Kotlin 2.1.21](releases.md#release-details) 以避免相容性問題。
 *   JetBrains 團隊正在推進 `kotlin-android-extensions` 外掛的棄用。如果您嘗試在專案中使用它，現在將會收到配置錯誤，並且不會執行任何外掛程式碼。
 *   舊版 `kotlin.incremental.classpath.snapshot.enabled` 屬性已從 Kotlin Gradle 外掛中移除。該屬性過去提供了在 JVM 上回退到內建 ABI 快照的機會。該外掛現在使用其他方法來偵測和避免不必要的重新編譯，使得該屬性變得多餘。
 

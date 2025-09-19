@@ -1,6 +1,6 @@
 [//]: # (title: 列舉類別)
 
-列舉類別最基本的用例是實作類型安全的列舉：
+列舉類別最基本的用例是實作型別安全的列舉：
 
 ```kotlin
 enum class Direction {
@@ -97,7 +97,7 @@ fun main() {
 
 在 Kotlin 1.9.0 引入 `entries` 之前，`values()` 函式用於檢索列舉常數的陣列。
 
-每個列舉常數也具有屬性：[`name`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-enum/name.html) 和 [`ordinal`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-enum/ordinal.html)，用於取得其名稱和在列舉類別宣告中的位置（從 0 開始）。
+每個列舉常數也具有屬性：[`name`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-enum/name.html) 和 [`ordinal`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-enum/ordinal.html)，用於取得其名稱和在列舉類別宣告中的位置（從 0 開始）：
 
 ```kotlin
 enum class RGB { RED, GREEN, BLUE }

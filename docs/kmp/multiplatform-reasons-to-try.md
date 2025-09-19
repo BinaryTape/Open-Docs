@@ -43,7 +43,7 @@
 
 ### 2. Kotlin Multiplatform 支持广泛的平台列表
 
-Kotlin Multiplatform 的主要优势之一是其对各种平台的广泛支持，使其成为开发者多功能的选择。这些平台包括 Android、iOS、桌面、Web（JavaScript 和 WebAssembly）以及服务器（Java 虚拟机）。
+Kotlin Multiplatform 的主要优势之一是其对各种平台的广泛支持，使其成为开发者多功能的选择。这些平台包括 Android、iOS、桌面、Web（JavaScript 和 WebAssembly）以及服务器（Java Virtual Machine）。
 
 _Quizlet_ 是一个通过测验辅助学习和练习的流行教育平台，它为 Kotlin Multiplatform 的优势提供了另一个案例研究。该平台每月约有 5000 万活跃用户，其中 1000 万来自 Android。该应用程序在 Apple App Store 的教育类别中排名前 10 位。
 
@@ -83,17 +83,17 @@ Quizlet 团队尝试了 JavaScript、React Native、C++、Rust 和 Go 等技术�
 
 在 Kotlin Multiplatform 出现之前，开发者必须原生编写所有内容。
 
-![Before Kotlin Multiplatform: writing all code natively](before-kotlin-multiplatform.svg){width=700}
+![Before Kotlin Multiplatform: writing all code natively](before-kotlin-multiplatform.svg){width="700"}
 
 得益于 [Compose Multiplatform](https://www.jetbrains.com/lp/compose-multiplatform/)，Kotlin Multiplatform 允许开发者共享业务逻辑、表示逻辑，甚至 UI 逻辑。
 
-![With Kotlin Multiplatform and Compose Multiplatform: developers can share business logic, presentation logic, or even UI logic](with-compose-multiplatform.svg){width=700}
+![With Kotlin Multiplatform and Compose Multiplatform: developers can share business logic, presentation logic, or even UI logic](with-compose-multiplatform.svg){width="700"}
 
 现在，除了平台特有的代码外，您可以共享几乎所有内容。
 
 ### 5. 借助 Kotlin Multiplatform 解决方案，您可以共享 UI 代码
 
-JetBrains 提供了 [Compose Multiplatform](https://www.jetbrains.com/lp/compose-multiplatform/)，这是一个基于 Kotlin 和 Jetpack Compose 的声明式框架，用于在多个平台（包括 Android（通过 Jetpack Compose）、iOS、桌面和 Web（Alpha 版））上共享用户界面。
+JetBrains 提供了 [Compose Multiplatform](https://www.jetbrains.com/lp/compose-multiplatform/)，这是一个基于 Kotlin 和 Jetpack Compose 的声明式框架，用于在多个平台（包括 Android（通过 Jetpack Compose）、iOS、桌面和 Web（Beta 版））上共享用户界面。
 
 _Instabee_，一个专门为电子商务企业提供最后一公里物流服务的平台，在其 Android 和 iOS 应用程序中开始使用 Compose Multiplatform 共享 UI 逻辑，当时该技术仍处于 Alpha 阶段。
 
@@ -129,7 +129,7 @@ KMP 已被全球许多大型公司使用，包括 Forbes、Philips、Cash App、
 
 ### 9. Kotlin Multiplatform 提供强大的工具支持
 
-使用 Kotlin Multiplatform 项目时，您拥有强大的工具支持。
+当使用 Kotlin Multiplatform 项目时，您拥有强大的工具支持。
 
 *   **Android Studio**。这个集成开发环境 (IDE) 基于 IntelliJ Community Edition 构建，被广泛认为是 Android 开发的行业标准。Android Studio 提供一套全面的特性，用于编码、调试和性能监控。
 *   **Xcode**。Apple 的 IDE 可用于创建 Kotlin Multiplatform 应用程序的 iOS 部分。Xcode 是 iOS 应用程序开发的标准，提供丰富的工具用于编码、调试和配置。然而，Xcode 仅限 Mac 使用。
@@ -145,7 +145,7 @@ Kotlin 和 Kotlin Multiplatform 拥有一个非常支持性的社区。以下是
 
 Kotlin Multiplatform 生态系统正在蓬勃发展。它由全球众多 Kotlin 开发者热情培育。以下是每年创建的 Kotlin Multiplatform 库数量图表：
 
-![The number of Kotlin Multiplatform libraries over the years.](kmp-libs-over-years.png){width=700}
+![The number of Kotlin Multiplatform libraries over the years.](kmp-libs-over-years.png){width="700"}
 
 如您所见，2021 年出现了明显的增长，此后库的数量持续增加。
 

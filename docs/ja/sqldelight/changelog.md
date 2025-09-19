@@ -2,8 +2,28 @@
 
 ## 未リリース
 
--   [SQLite Dialect] Sqlite 3.18 で不足していた関数を修正 (#5759 by [Griffio][griffio])
+### 追加
+-   [PostgreSQL Dialect] SQL式がJSONとして解析できるかをチェックする述語を追加 (#5843 by [Griffio][griffio])
+-   [PostgreSQL Dialect] PostgreSqlのComment Onステートメントに対する限定的なサポートを追加 (#5808 by [Griffio][griffio])
+-   [MySQL Dialect] インデックス可視性オプションのサポートを追加 (#5785 by [Oren Kislev][orenkislev-faire])
+-   [PostgreSql Dialect] TSQUERYデータ型のサポートを追加 (#5779 by [Griffio][griffio])
 -   [Gradle Plugin] モジュール追加時のバージョンカタログのサポートを追加 (#5755 by [Michael Rittmeister][DRSchlaubi])
+
+### 変更
+-   開発中のスナップショットは、https://central.sonatype.com/repository/maven-snapshots/ のCentral Portal Snapshotsリポジトリに公開されるようになりました。
+-   [Compiler] コンストラクタ参照を使用して、デフォルトで生成されるクエリを簡素化 (#5814 by [Jon Poulton][jonapoul])
+
+### 修正
+-   [Compiler] 共通テーブル式を含むViewを使用する際のスタックオーバーフローを修正 (#5928 by [Griffio][griffio])
+-   [Gradle Plugin] SqlDelightツールウィンドウで「新しい接続」を追加する際のクラッシュを修正 (#5906 by [Griffio][griffio])
+-   [IntelliJ Plugin] コピー・トゥ・SQLiteガターアクションにおけるスレッド関連のクラッシュを回避 (#5901 by [Griffio][griffio])
+-   [IntelliJ Plugin] CREATE INDEXおよびCREATE VIEWスキーマステートメント使用時のPostgreSql Dialectの修正 (#5772 by [Griffio][griffio])
+-   [Compiler] 列参照時のFTSスタックオーバーフローを修正 (#5896 by [Griffio][griffio])
+-   [Compiler] WITH RECURSIVEスタックオーバーフローを修正 (#5892 by [Griffio][griffio])
+-   [Compiler] INSERT|UPDATE|DELETE RETURNINGステートメントの通知を修正 (#5851 by [Griffio][griffio])
+-   [Compiler] Longを返すトランザクションブロックの非同期結果型を修正 (#5836 by [Griffio][griffio])
+-   [Compiler] SQLパラメータバインディングの複雑度をO(n²)からO(n)に最適化 (#5898 by [Chen Frenkel][chenf7])
+-   [SQLite Dialect] Sqlite 3.18で不足していた関数を修正 (#5759 by [Griffio][griffio])
 
 ## [2.1.0] - 2025-05-16
 
@@ -470,7 +490,7 @@ sqldelight {
 ### 破壊的変更点
 
 -   まず、`com.squareup.sqldelight`のすべての出現箇所を`app.cash.sqldelight`に置き換える必要があります。
--   次に、`app.cash.sqldelight.android`のすべての出現箇所を`app.cash.sqldelight.driver.android`に置き換える必要があります。
+-   第二に、`app.cash.sqldelight.android`のすべての出現箇所を`app.cash.sqldelight.driver.android`に置き換える必要があります。
 -   第三に、`app.cash.sqldelight.sqlite.driver`のすべての出現箇所を`app.cash.sqldelight.driver.jdbc.sqlite`に置き換える必要があります。
 -   第四に、`app.cash.sqldelight.drivers.native`のすべての出現箇所を`app.cash.sqldelight.driver.native`に置き換える必要があります。
 -   IDEプラグインは、[アルファまたはEAPチャンネル](https://plugins.jetbrains.com/plugin/8191-sqldelight/versions/alpha)で利用可能な2.Xバージョンに更新する必要があります。
@@ -511,7 +531,7 @@ sqldelight {
 -   [Runtime] デフォルトの列アダプターを別のモジュールに抽出 (#2056, #2060)
 -   [Compiler] モジュールがクエリ実装を生成するようにし、各モジュールで再実行しないように変更
 -   [Compiler] 生成されたデータクラスのカスタム`toString`生成を削除 (by [Paul Woitaschek][PaulWoitaschek])
--   [JS Driver] `sqljs-driver`から`sql.js`の依存関係を削除 (by [Derek Ellis][dellisd])
+-   [JS Driver] `sql.js`の依存関係を`sqljs-driver`から削除 (by [Derek Ellis][dellisd])
 -   [Paging] Android Paging 2拡張を削除
 -   [IDE Plugin] SQLDelightの同期中にエディタバナーを表示するように変更 (#2511)
 -   [IDE Plugin] サポートされるIntelliJの最小バージョンは2021.1になりました。
@@ -689,7 +709,7 @@ sqldelight {
 -   [IDE Plugin] Windowsでのパス区切り文字のバグによる`GoToDeclaration`/`FindUsages`の破損を修正 (#2054 by [Angus Holder][AngusH])
 -   [IDE Plugin] Gradleエラーを無視し、IDEでクラッシュしないように修正。
 -   [IDE Plugin] `sqldelight`ファイルが`non-sqldelight`モジュールに移動された場合、コード生成を試みないように修正
--   [IDE Plugin] IDEでのコード生成エラーを無視
+-   [IDE Plugin] IDEでコード生成エラーを無視
 -   [IDE Plugin] 負のサブストリングを試みないように保証 (#2068)
 -   [IDE Plugin] Gradleアクション実行前にプロジェクトが破棄されていないことを保証 (#2155)
 -   [IDE Plugin] null許容型に対する算術演算もnull許容であるべき
@@ -1140,3 +1160,4 @@ sqldelight {
 [orenkislev-faire]: https://github.com/orenkislev-faire
 [janbina]: https://github.com/janbina
 [DRSchlaubi]: https://github.com/DRSchlaubi
+[jonapoul]: https://github.com/jonapoul

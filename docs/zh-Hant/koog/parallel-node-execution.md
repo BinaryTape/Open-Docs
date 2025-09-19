@@ -172,7 +172,7 @@ val nodeBestJoke by parallel<String, String>(
    nodeOpenAI, nodeAnthropicSonnet, nodeAnthropicOpus,
 ) {
    selectByIndex { jokes ->
-      // 使用另一個大型語言模型 (LLM) 來判斷最佳笑話
+      // Use another LLM to determine the best joke
       llm.writeSession {
          model = OpenAIModels.Chat.GPT4o
          updatePrompt {

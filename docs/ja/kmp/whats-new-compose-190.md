@@ -1,44 +1,38 @@
-[//]: # (title: Compose Multiplatform %org.jetbrains.compose-eap% の新機能)
+`[//]: # (title: Compose Multiplatform 1.9.0 の新機能)`
 
-本 EAP (早期アクセスプログラム) 機能リリースの主な変更点は以下のとおりです。
+本機能リリースの主な変更点は以下のとおりです。
 
-*   [Material 3 Expressive テーマ](#new-material-3-expressive-theme)
-*   [カスタマイズ可能なシャドウ](#customizable-shadows)
 *   [`@Preview` アノテーションのパラメータ](#parameters-for-the-preview-annotation)
+*   [カスタマイズ可能なシャドウ](#customizable-shadows)
+*   [新しいコンテキストメニュー API](#new-context-menu-api)
+*   [Material 3 Expressive テーマ](#material-3-expressive-theme)
 *   [iOS でのフレームレート設定](#frame-rate-configuration)
+*   [Web 版 Compose Multiplatform がベータ版に](#compose-multiplatform-for-web-in-beta)
 *   [ウェブターゲットでのアクセシビリティサポート](#accessibility-support)
 *   [HTML コンテンツ埋め込み用の新しい API](#new-api-for-embedding-html-content)
 
 このリリースでの変更点の完全なリストは [GitHub](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.9.0-beta01) を参照してください。
 
-## Dependencies
+## 依存関係
 
-*   Gradle プラグイン `org.jetbrains.compose`、バージョン %org.jetbrains.compose-eap%。Jetpack Compose ライブラリに基づいています。
-    *   [Runtime 1.9.0-rc01](https://developer.android.com/jetpack/androidx/releases/compose-runtime#1.9.0-rc01)
-    *   [UI 1.9.0-rc01](https://developer.android.com/jetpack/androidx/releases/compose-ui#1.9.0-rc01)
-    *   [Foundation 1.9.0-rc01](https://developer.android.com/jetpack/androidx/releases/compose-foundation#1.9.0-rc01)
-    *   [Material 1.9.0-rc01](https://developer.android.com/jetpack/androidx/releases/compose-material#1.9.0-rc01)
+*   Gradle プラグイン `org.jetbrains.compose`、バージョン 1.9.0。Jetpack Compose ライブラリに基づいています。
+    *   [Runtime 1.9.0](https://developer.android.com/jetpack/androidx/releases/compose-runtime#1.9.0)
+    *   [UI 1.9.0](https://developer.android.com/jetpack/androidx/releases/compose-ui#1.9.0)
+    *   [Foundation 1.9.0](https://developer.android.com/jetpack/androidx/releases/compose-foundation#1.9.0)
+    *   [Material 1.9.0](https://developer.android.com/jetpack/androidx/releases/compose-material#1.9.0)
     *   [Material3 1.3.2](https://developer.android.com/jetpack/androidx/releases/compose-material3#1.3.2)
-*   Compose Material3 ライブラリ `org.jetbrains.compose.material3:1.9.0-beta03`。 [Jetpack Material3 1.4.0-beta01](https://developer.android.com/jetpack/androidx/releases/compose-material3#1.4.0-beta01) に基づいています。
 
-    共通の Material3 ライブラリの安定版は Jetpack Compose Material3 1.3.2 に基づいていますが、Compose Multiplatform と Material3 の[バージョン管理の分離](#decoupled-material3-versioning)により、プロジェクトでより新しいプレリリースバージョンを選択できます。
-*   Compose Material3 Adaptive ライブラリ `org.jetbrains.compose.material3.adaptive:adaptive*:1.2.0-alpha05`。 [Jetpack Material3 Adaptive 1.2.0-alpha10](https://developer.android.com/jetpack/androidx/releases/compose-material3-adaptive#1.2.0-alpha10) に基づいています。
-*   Lifecycle ライブラリ `org.jetbrains.androidx.lifecycle:lifecycle-*:2.9.2`。 [Jetpack Lifecycle 2.9.2](https://developer.android.com/jetpack/androidx/releases/lifecycle#2.9.2) に基づいています。
-*   Navigation ライブラリ `org.jetbrains.androidx.navigation:navigation-*:2.9.0-beta05`。 [Jetpack Navigation 2.9.1](https://developer.android.com/jetpack/androidx/releases/navigation#2.9.1) に基づいています。
-*   Savedstate ライブラリ `org.jetbrains.androidx.savedstate:savedstate:1.3.2`。 [Jetpack Savedstate 1.3.1](https://developer.android.com/jetpack/androidx/releases/savedstate#1.3.1) に基づいています。
-*   WindowManager Core ライブラリ `org.jetbrains.androidx.window:window-core:1.4.0-beta01`。 [Jetpack WindowManager 1.4.0](https://developer.android.com/jetpack/androidx/releases/window#1.4.0) に基づいています。
+*   Compose Material3 ライブラリ `org.jetbrains.compose.material3:1.9.0-beta06`。 [Jetpack Material3 1.4.0-beta03](https://developer.android.com/jetpack/androidx/releases/compose-material3#1.4.0-beta03) に基づいています。
 
-## Breaking changes
+    共通の Material3 ライブラリの安定版は Jetpack Compose Material3 1.3.2 に基づいていますが、Compose Multiplatform と Material3 の
+    [バージョン管理の分離](#decoupled-material3-versioning)により、プロジェクトでより新しいプレリリースバージョンを選択できます。
+*   Compose Material3 Adaptive ライブラリ `org.jetbrains.compose.material3.adaptive:adaptive*:1.2.0-alpha06`。 [Jetpack Material3 Adaptive 1.2.0-alpha11](https://developer.android.com/jetpack/androidx/releases/compose-material3-adaptive#1.2.0-alpha11) に基づいています。
+*   Lifecycle ライブラリ `org.jetbrains.androidx.lifecycle:lifecycle-*:2.9.4`。 [Jetpack Lifecycle 2.9.2](https://developer.android.com/jetpack/androidx/releases/lifecycle#2.9.2) に基づいています。
+*   Navigation ライブラリ `org.jetbrains.androidx.navigation:navigation-*:2.9.0`。 [Jetpack Navigation 2.9.1](https://developer.android.com/jetpack/androidx/releases/navigation#2.9.1) に基づいています。
+*   Savedstate ライブラリ `org.jetbrains.androidx.savedstate:savedstate:1.3.4`。 [Jetpack Savedstate 1.3.1](https://developer.android.com/jetpack/androidx/releases/savedstate#1.3.1) に基づいています。
+*   WindowManager Core ライブラリ `org.jetbrains.androidx.window:window-core:1.4.0`。 [Jetpack WindowManager 1.4.0](https://developer.android.com/jetpack/androidx/releases/window#1.4.0) に基づいています。
 
-Jetpack Material3 の [1.4.0-beta01 リリース](https://developer.android.com/jetpack/androidx/releases/compose-material3#1.4.0-beta01)に合わせて、Compose Multiplatform は `ExperimentalMaterial3ExpressiveApi` および `ExperimentalMaterial3ComponentOverrideApi` タグが付けられたすべての公開 API を削除しました。
-
-これらの実験的な機能を引き続き使用したい場合は、以前の Material3 アルファバージョンを明示的に含めることができます。
-
-```kotlin
-implementation("org.jetbrains.compose.material3:material3:1.9.0-alpha04")
-```
-
-## Across platforms
+## クロスプラットフォーム
 
 ### `@Preview` アノテーションのパラメータ
 
@@ -56,7 +50,7 @@ Compose Multiplatform の `@Preview` アノテーションには、デザイン�
 
 ### カスタマイズ可能なシャドウ
 
-Compose Multiplatform %org.jetbrains.compose-eap% では、Jetpack Compose の新しいシャドウプリミティブと API を採用し、カスタマイズ可能なシャドウを導入しました。以前からサポートされていた `shadow` モディファイアに加えて、新しい API を使用して、より高度で柔軟なシャドウ効果を作成できるようになりました。
+Compose Multiplatform 1.9.0 では、Jetpack Compose の新しいシャドウプリミティブと API を採用し、カスタマイズ可能なシャドウを導入しました。以前からサポートされていた `shadow` モディファイアに加えて、新しい API を使用して、より高度で柔軟なシャドウ効果を作成できるようになりました。
 
 異なる種類のシャドウを作成するために、2 つの新しいプリミティブが利用可能です。
 `DropShadowPainter()` と `InnerShadowPainter()`。
@@ -74,14 +68,37 @@ Compose Multiplatform %org.jetbrains.compose-eap% では、Jetpack Compose の�
 
 詳細については、[shadow API リファレンス](https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/shadow/package-summary.html)を参照してください。
 
-### 新しい Material 3 Expressive テーマ
+### 新しいコンテキストメニュー API
+
+Jetpack Compose の新しいカスタムコンテキストメニュー API を `SelectionContainer` および `BasicTextField` に採用しました。iOS と Web の実装は完了しており、デスクトップでは初期サポートが提供されています。
+
+<list columns="2">
+   <li><img src="compose_basic_text_field.png" type="inline" alt="Context menu for BasicTextField" width="420"/></li>
+   <li><img src="compose_selection_container.png" type="inline" alt="Context menu for SelectionContainer" width="440"/></li>
+</list>
+
+この新しい API を有効にするには、アプリケーションのエントリポイントで次の設定を使用します。
+
+```kotlin
+ComposeFoundationFlags.isNewContextMenuEnabled = true
+```
+
+詳細については、[コンテキストメニュー API リファレンス](https://developer.android.com/reference/kotlin/androidx/compose/foundation/text/contextmenu/data/package-summary)を参照してください。
+
+### Material 3 Expressive テーマ
 <secondary-label ref="Experimental"/>
 
 Compose Multiplatform は、Material 3 ライブラリの実験的な [`MaterialExpressiveTheme`](https://developer.android.com/reference/kotlin/androidx/compose/material3/package-summary?hl=en#MaterialExpressiveTheme(androidx.compose.material3.ColorScheme,androidx.compose.material3.MotionScheme,androidx.compose.material3.Shapes,androidx.compose.material3.Typography,kotlin.Function0)) をサポートするようになりました。Expressive テーマを使用すると、Material Design アプリをカスタマイズして、よりパーソナライズされたエクスペリエンスを実現できます。
 
+>Jetpack Material3 の [1.4.0-beta01 リリース](https://developer.android.com/jetpack/androidx/releases/compose-material3#1.4.0-beta01)に合わせて、
+> `ExperimentalMaterial3ExpressiveApi` および `ExperimentalMaterial3ComponentOverrideApi` タグが付けられたすべての公開 API は削除されました。
+>
+>これらの実験的な機能を引き続き使用したい場合は、以前の Material3 アルファバージョンを明示的に含める必要があります。
+{style="note"}
+
 Expressive テーマを使用するには:
 
-1.  最新バージョンの Material 3 を含めます。
+1.  最新の Material 3 の実験版を含めます。
 
     ```kotlin
     implementation("org.jetbrains.compose.material3:material3:1.9.0-alpha04")
@@ -126,7 +143,39 @@ Modifier.preferredFrameRate(FrameRateCategory.High)
 Modifier.preferredFrameRate(30f)
 ```
 
+同じ `@Composable` ツリー内で `preferredFrameRate` を複数回適用した場合、指定された値のうち最も高い値が適用されます。
+ただし、デバイスのハードウェアによってサポートされるフレームレートは制限される場合があり、通常は最大 120 Hz です。
+
+### IME オプション
+
+Compose Multiplatform 1.9.0 では、テキスト入力コンポーネント向けの iOS 固有の IME カスタマイズのサポートが導入されました。
+これで、`PlatformImeOptions` を使用して、キーボードタイプ、自動修正、リターンキーの動作などのネイティブ UIKit テキスト入力特性をテキストフィールドコンポーネントで直接設定できます。
+
+```kotlin
+BasicTextField(
+    value = "",
+    onValueChange = {},
+    keyboardOptions = KeyboardOptions(
+        platformImeOptions = PlatformImeOptions {
+            keyboardType(UIKeyboardTypeEmailAddress)
+        }
+    )
+)
+```
+
 ## Web
+
+### Web 版 Compose Multiplatform がベータ版に
+
+Web 版 Compose Multiplatform がベータ版になりました。ぜひお試しください。
+<!-- Check out [our blog post]()  to learn more about the progress made to reach this milestone.
+-->
+
+安定版のリリースに向けて、ロードマップには以下が含まれます。
+
+*   モバイルブラウザでのドラッグアンドドロップ機能のサポート実装。
+*   アクセシビリティサポートの改善。
+*   `TextField` コンポーネントに関連する問題への対処。
 
 ### アクセシビリティサポート
 
@@ -191,20 +240,6 @@ fun Map() {
 
 この関数は `ComposeViewport` エントリポイントでのみ使用できます。`CanvasBasedWindow` は非推奨です。
 
-### コンテキストメニュー
-
-Compose Multiplatform %org.jetbrains.compose-eap% は、ウェブコンテキストメニューに関して以下の更新をもたらします。
-
-*   テキストコンテキストメニュー: 標準の Compose テキストコンテキストメニューが、モバイルモードとデスクトップモードの両方で完全にサポートされるようになりました。
-*   新しいカスタマイズ可能なコンテキストメニュー: カスタムウェブコンテキストメニュー用の Jetpack Compose の新しい API を採用しました。
-    今のところ、デスクトップモードでのみ利用可能です。
-
-    この新しい API を有効にするには、アプリケーションのエントリポイントで次の設定を使用します。
-
-    ```kotlin
-    ComposeFoundationFlags.isNewContextMenuEnabled = true
-    ```
-
 ### ナビゲーショングラフへのバインディングのための簡易化された API
 
 Compose Multiplatform は、ブラウザのナビゲーション状態を `NavController` にバインドするための新しい API を導入しました。
@@ -235,13 +270,33 @@ LaunchedEffect(Unit) {
 }
 ```
 
-## Gradle plugin
+## Desktop
+
+### ディスプレイ前のウィンドウ設定
+
+Compose Multiplatform には、新しい `SwingFrame()` および `SwingDialog()` コンポーザブルが追加されました。
+これらは既存の `Window()` および `DialogWindow()` 関数に似ていますが、`init` ブロックが含まれています。
+
+以前は、ディスプレイ前に設定する必要がある特定のウィンドウプロパティを設定できませんでした。
+新しい `init` ブロックは、ウィンドウまたはダイアログが画面に表示される前に実行されるため、`java.awt.Window.setType` のようなプロパティを設定したり、早期に準備が必要なイベントリスナーを追加したりすることができます。
+
+ウィンドウまたはダイアログが表示された後に変更できないプロパティにのみ `init` ブロックを使用することをお勧めします。
+その他のすべての設定については、コードが互換性を保ち、将来のアップデートで正しく機能するように、`LaunchedEffect(window)` パターンを引き続き使用してください。
+
+## Gradle プラグイン
 
 ### Material3 のバージョン管理の分離
 
-Material3 ライブラリと Compose Multiplatform Gradle プラグインのバージョンと安定性レベルを合わせる必要がなくなりました。`compose.material3` DSL エイリアスは、以前の Jetpack Compose の安定版リリースからの Material3 1.8.2 を参照するようになりました。
+Material3 ライブラリと Compose Multiplatform Gradle プラグインのバージョンと安定性レベルを合わせる必要がなくなりました。
+`compose.material3` DSL エイリアスは、以前の Jetpack Compose の安定版リリースからの Material3 1.8.2 を参照するようになりました。
 
 Expressive デザインサポート付きのより新しい Material3 バージョンを使用したい場合は、`build.gradle.kts` の Material 3 依存関係を以下に置き換えてください。
 
 ```kotlin
 implementation("org.jetbrains.compose.material3:material3:1.9.0-alpha04")
+```
+
+### 統合されたウェブディストリビューション
+
+新しい `composeCompatibilityBrowserDistribution` Gradle タスクは、Kotlin/JS と Kotlin/Wasm ディストリビューションを単一のパッケージに結合します。
+これにより、最新の Wasm 機能がブラウザでサポートされていない場合でも、Wasm アプリケーションが JS ターゲットにフォールバックできるようになります。

@@ -1,14 +1,8 @@
 [//]: # (title: Kotlin/Wasm)
 
-> Kotlin/Wasm은 [알파(Alpha)](components-stability.md) 단계에 있습니다.
-> 언제든지 변경될 수 있습니다. 프로덕션 이전 시나리오에서 사용할 수 있습니다. [YouTrack](https://youtrack.jetbrains.com/issue/KT-56492)을 통해 피드백을 주시면 감사하겠습니다.
->
-> [Kotlin/Wasm 커뮤니티에 참여하세요](https://slack-chats.kotlinlang.org/c/webassembly).
->
-{style="note"}
+<primary-label ref="beta"/>
 
-Kotlin/Wasm은 Kotlin 코드를 [웹어셈블리(WebAssembly, Wasm)](https://webassembly.org/) 형식으로 컴파일할 수 있는 기능을 제공합니다.
-Kotlin/Wasm을 사용하면 Wasm을 지원하고 Kotlin의 요구 사항을 충족하는
+Kotlin/Wasm은 Kotlin 코드를 [웹어셈블리(WebAssembly, Wasm)](https://webassembly.org/) 형식으로 컴파일할 수 있는 기능을 제공합니다. Kotlin/Wasm을 사용하면 Wasm을 지원하고 Kotlin의 요구 사항을 충족하는
 다양한 환경과 장치에서 실행되는 애플리케이션을 만들 수 있습니다.
 
 Wasm은 스택 기반 가상 머신을 위한 바이너리 명령어 형식입니다. 이
@@ -19,6 +13,12 @@ Kotlin/Wasm은 브라우저와 같은 다양한 타겟 환경에서 사용할 �
 빌드된 웹 애플리케이션을 개발하거나, 브라우저 외부의
 독립형 Wasm 가상 머신에서도 사용할 수 있습니다. 브라우저 외부의 경우,
 [웹어셈블리 시스템 인터페이스(WebAssembly System Interface, WASI)](https://wasi.dev/)가 플랫폼 API에 대한 액세스를 제공하며, 이를 활용할 수도 있습니다.
+
+> Kotlin/Wasm으로 빌드된 애플리케이션을 브라우저에서 실행하려면 사용자는 웹어셈블리의 가비지 컬렉션 및
+> 레거시 예외 처리 제안을 지원하는 [브라우저 버전](wasm-configuration.md#browser-versions)이 필요합니다. 브라우저 지원 상태를 확인하려면 [웹어셈블리
+> 로드맵(WebAssembly roadmap)](https://webassembly.org/roadmap/)을 참조하세요.
+>
+{style="tip"}
 
 ## Kotlin/Wasm 및 Compose Multiplatform
 
@@ -37,12 +37,6 @@ Kotlin/Wasm을 컴파일 타겟으로 사용합니다. Kotlin/Wasm 및 Compose M
 
 ![Kotlin/Wasm demo](wasm-demo.png){width=700}
 
-> Kotlin/Wasm으로 빌드된 애플리케이션을 브라우저에서 실행하려면 새로운 가비지 컬렉션 및
-> 레거시 예외 처리 제안을 지원하는 브라우저 버전이 필요합니다. 브라우저 지원 상태를 확인하려면 [웹어셈블리
-> 로드맵(WebAssembly roadmap)](https://webassembly.org/roadmap/)을 참조하세요.
->
-{style="tip"}
-
 또한 Kotlin/Wasm에서 가장 인기 있는 Kotlin 라이브러리를 바로 사용할 수 있습니다. 다른 Kotlin 및 멀티플랫폼
 프로젝트와 마찬가지로 빌드 스크립트에 의존성 선언을 포함할 수 있습니다. 자세한 내용은
 [멀티플랫폼 라이브러리에 의존성 추가](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-add-dependencies.html)를 참조하세요.
@@ -53,7 +47,7 @@ Kotlin/Wasm을 컴파일 타겟으로 사용합니다. Kotlin/Wasm 및 Compose M
 
 ## Kotlin/Wasm 및 WASI
 
-Kotlin/Wasm은 서버측 애플리케이션에 [웹어셈블리 시스템 인터페이스(WASI)](https://wasi.dev/)를 사용합니다.
+Kotlin/Wasm은 서버측 애플리케이션에 [웹어셈블리 시스템 인터페이스(WebAssembly System Interface, WASI)](https://wasi.dev/)를 사용합니다.
 Kotlin/Wasm 및 WASI로 빌드된 애플리케이션은 Wasm-WASI 타겟을 사용하여 WASI API를 호출하고
 브라우저 환경 외부에서 애플리케이션을 실행할 수 있습니다.
 
@@ -69,7 +63,7 @@ WASI는 웹어셈블리로 컴파일된 Kotlin 애플리케이션을 다양한 �
 
 ## Kotlin/Wasm 성능
 
-Kotlin/Wasm은 아직 알파 단계에 있지만, Kotlin/Wasm에서 실행되는 Compose Multiplatform은 이미 고무적인 성능
+Kotlin/Wasm은 아직 베타(Beta) 단계에 있지만, Kotlin/Wasm에서 실행되는 Compose Multiplatform은 이미 고무적인 성능
 특성을 보여줍니다. 실행 속도가 자바스크립트(JavaScript)보다 뛰어나고 JVM에 근접하고 있음을 확인할 수 있습니다.
 
 ![Kotlin/Wasm performance](wasm-performance-compose.png){width=700}

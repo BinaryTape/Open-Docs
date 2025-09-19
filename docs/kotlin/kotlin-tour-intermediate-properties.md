@@ -22,8 +22,8 @@
 
 在以下任一情况为真时，幕后字段存在：
 
-* 你使用了属性的默认 `get()` 或 `set()` 函数。
-* 你尝试通过使用 `field` 关键字在代码中访问属性值。
+*   你使用了属性的默认 `get()` 或 `set()` 函数。
+*   你尝试通过使用 `field` 关键字在代码中访问属性值。
 
 > `get()` 和 `set()` 函数也称为 getter 和 setter。
 >
@@ -33,7 +33,7 @@
 
 ```kotlin
 class Contact(val id: Int, var email: String) {
-    val category: String = ""
+    var category: String = ""
 }
 ```
 
@@ -41,7 +41,7 @@ class Contact(val id: Int, var email: String) {
 
 ```kotlin
 class Contact(val id: Int, var email: String) {
-    val category: String = ""
+    var category: String = ""
         get() = field
         set(value) {
             field = value
@@ -52,8 +52,8 @@ class Contact(val id: Int, var email: String) {
 
 在此示例中：
 
-* `get()` 函数从字段中检索属性值：`""`。
-* `set()` 函数接受 `value` 作为形参并将其赋值给字段，其中 `value` 是 `""`。
+*   `get()` 函数从字段中检索属性值：`""`。
+*   `set()` 函数接受 `value` 作为形参并将其赋值给字段，其中 `value` 是 `""`。
 
 当你想在 `get()` 或 `set()` 函数中添加额外逻辑而不引起无限循环时，访问幕后字段很有用。例如，你有一个包含 `name` 属性的 `Person` 类：
 
@@ -69,7 +69,7 @@ class Person {
 class Person {
     var name: String = ""
         set(value) {
-            // This causes a runtime error
+            // 这会导致运行时错误
             name = value.replaceFirstChar { firstChar -> firstChar.uppercase() }
         }
 }
@@ -81,7 +81,7 @@ fun main() {
     // Exception in thread "main" java.lang.StackOverflowError
 }
 ```
-{validate ="false" kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-tour-properties-stackoverflow"}
+{validate="false" kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-tour-properties-stackoverflow"}
 
 为了解决这个问题，你可以在 `set()` 函数中改用幕后字段，通过 `field` 关键字引用它：
 
@@ -104,7 +104,7 @@ fun main() {
 
 幕后字段在以下场景也很有用：添加日志记录、在属性值改变时发送通知，或者使用比较新旧属性值的额外逻辑。
 
-关于幕后字段的更多信息，请参阅 [幕后字段](properties.md#backing-fields)。
+关于幕后字段的更多信息，请参见 [幕后字段](properties.md#backing-fields)。
 
 ## 扩展属性
 
@@ -130,14 +130,14 @@ data class Person(val firstName: String, val lastName: String)
 ```kotlin
 data class Person(val firstName: String, val lastName: String)
 
-// Extension property to get the full name
+// 获取全名的扩展属性
 val Person.fullName: String
     get() = "$firstName $lastName"
 
 fun main() {
     val person = Person(firstName = "John", lastName = "Doe")
 
-    // Use the extension property
+    // 使用扩展属性
     println(person.fullName)
     // John Doe
 }
@@ -175,9 +175,9 @@ operator fun setValue(thisRef: Any?, property: KProperty<*>, value: String) {}
 
 在这些函数中：
 
-* `operator` 关键字将这些函数标记为操作符函数，使其能够重载 `get()` 和 `set()` 函数。
-* `thisRef` 形参引用了**包含**委托属性的对象。默认情况下，类型设置为 `Any?`，但你可能需要声明一个更具体的类型。
-* `property` 形参引用了其值被访问或更改的属性。你可以使用此形参访问属性的名称或类型等信息。默认情况下，类型设置为 `Any?`。你无需担心在代码中更改此项。
+*   `operator` 关键字将这些函数标记为操作符函数，使其能够重载 `get()` 和 `set()` 函数。
+*   `thisRef` 形参引用了**包含**委托属性的对象。默认情况下，类型设置为 `Any?`，但你可能需要声明一个更具体的类型。
+*   `property` 形参引用了其值被访问或更改的属性。你可以使用此形参访问属性的名称或类型等信息。默认情况下，类型设置为 `KProperty<*>`。你无需担心在代码中更改此项。
 
 `getValue()` 函数默认返回类型为 `String`，但你可以根据需要进行调整。
 
@@ -237,14 +237,14 @@ class User(val firstName: String, val lastName: String) {
 fun main() {
     val user = User("John", "Doe")
 
-    // First access computes and caches the value
+    // 首次访问计算并缓存值
     println(user.displayName)
-    // Computed and cached: John Doe
+    // 已计算并缓存：John Doe
     // John Doe
 
-    // Subsequent accesses retrieve the value from cache
+    // 后续访问从缓存中检索值
     println(user.displayName)
-    // Accessed from cache: John Doe
+    // 已从缓存访问：John Doe
     // John Doe
 }
 ```
@@ -252,10 +252,10 @@ fun main() {
 
 本示例：
 
-* 创建了一个 `User` 类，该类在头部包含两个属性 `firstName` 和 `lastName`，在类体中包含一个属性 `displayName`。
-* 将 `displayName` 属性委托给 `CachedStringDelegate` 类的一个实例。
-* 创建了一个名为 `user` 的 `User` 类实例。
-* 打印访问 `user` 实例上 `displayName` 属性的结果。
+*   创建了一个 `User` 类，该类在头部包含两个属性 `firstName` 和 `lastName`，在类体中包含一个属性 `displayName`。
+*   将 `displayName` 属性委托给 `CachedStringDelegate` 类的一个实例。
+*   创建了一个名为 `user` 的 `User` 类实例。
+*   打印访问 `user` 实例上 `displayName` 属性的结果。
 
 请注意，在 `getValue()` 函数中，`thisRef` 形参的类型从 `Any?` 类型缩小为对象类型：`User`。这样编译器就可以访问 `User` 类的 `firstName` 和 `lastName` 属性。
 
@@ -294,12 +294,12 @@ fun fetchData() {
 }
 
 fun main() {
-    // First time accessing databaseConnection
+    // 首次访问 databaseConnection
     fetchData()
-    // Connecting to the database...
+    // 正在连接到数据库...
     // Data: [Data1, Data2, Data3]
 
-    // Subsequent access uses the existing connection
+    // 后续访问使用现有连接
     fetchData()
     // Data: [Data1, Data2, Data3]
 }
@@ -308,22 +308,22 @@ fun main() {
 
 在此示例中：
 
-* 有一个 `Database` 类，它包含 `connect()` 和 `query()` 成员函数。
-* `connect()` 函数向控制台打印一个字符串，`query()` 函数接受一个 SQL 查询并返回一个 `list`。
-* 有一个 `databaseConnection` 属性，它是一个惰性属性。
-* 提供给 `lazy()` 函数的 lambda 表达式：
-  * 创建 `Database` 类的一个实例。
-  * 调用此实例 (`db`) 上的 `connect()` 成员函数。
-  * 返回该实例。
-* 有一个 `fetchData()` 函数：
-  * 通过调用 `databaseConnection` 属性上的 `query()` 函数来创建 SQL 查询。
-  * 将 SQL 查询赋值给 `data` 变量。
-  * 将 `data` 变量打印到控制台。
-* `main()` 函数调用 `fetchData()` 函数。首次调用时，惰性属性被初始化。第二次调用时，返回与首次调用相同的结果。
+*   有一个 `Database` 类，它包含 `connect()` 和 `query()` 成员函数。
+*   `connect()` 函数向控制台打印一个字符串，`query()` 函数接受一个 SQL 查询并返回一个 list。
+*   有一个 `databaseConnection` 属性，它是一个惰性属性。
+*   提供给 `lazy()` 函数的 lambda 表达式：
+    *   创建 `Database` 类的一个实例。
+    *   调用此实例 (`db`) 上的 `connect()` 成员函数。
+    *   返回该实例。
+*   有一个 `fetchData()` 函数：
+    *   通过调用 `databaseConnection` 属性上的 `query()` 函数来创建 SQL 查询。
+    *   将 SQL 查询赋值给 `data` 变量。
+    *   将 `data` 变量打印到控制台。
+*   `main()` 函数调用 `fetchData()` 函数。首次调用时，惰性属性被初始化。第二次调用时，返回与首次调用相同的结果。
 
 惰性属性不仅在初始化资源密集型时有用，而且当属性可能在你的代码中不被使用时也很有用。此外，惰性属性默认是线程安全的，这在你并发环境中工作时尤其有益。
 
-关于惰性属性的更多信息，请参阅 [惰性属性](delegated-properties.md#lazy-properties)。
+关于惰性属性的更多信息，请参见 [惰性属性](delegated-properties.md#lazy-properties)。
 
 #### 可观察属性
 
@@ -349,40 +349,40 @@ class Thermostat {
 fun main() {
     val thermostat = Thermostat()
     thermostat.temperature = 22.5
-    // Temperature updated: 20.0°C -> 22.5°C
+    // 温度已更新：20.0°C -> 22.5°C
 
     thermostat.temperature = 27.0
-    // Warning: Temperature is too high! (22.5°C -> 27.0°C)
+    // 警告：温度过高！(22.5°C -> 27.0°C)
 }
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-tour-properties-observable"}
 
 在此示例中：
 
-* 有一个 `Thermostat` 类，其中包含一个可观察属性：`temperature`。
-* `observable()` 函数接受 `20.0` 作为形参，并用它来初始化属性。
-* 提供给 `observable()` 函数的 lambda 表达式：
-  * 包含三个形参：
-    * `_`，它引用属性本身。
-    * `old`，它是属性的旧值。
-    * `new`，它是属性的新值。
-  * 检测 `new` 形参是否大于 `25`，并根据结果向控制台打印一个字符串。
-* `main()` 函数：
-  * 创建了一个名为 `thermostat` 的 `Thermostat` 类实例。
-  * 将实例的 `temperature` 属性值更新为 `22.5`，这会触发一个带有温度更新的打印语句。
-  * 将实例的 `temperature` 属性值更新为 `27.0`，这会触发一个带有警告的打印语句。
+*   有一个 `Thermostat` 类，其中包含一个可观察属性：`temperature`。
+*   `observable()` 函数接受 `20.0` 作为形参，并用它来初始化属性。
+*   提供给 `observable()` 函数的 lambda 表达式：
+    *   包含三个形参：
+        *   `_`，它引用属性本身。
+        *   `old`，它是属性的旧值。
+        *   `new`，它是属性的新值。
+    *   检测 `new` 形参是否大于 `25`，并根据结果向控制台打印一个字符串。
+*   `main()` 函数：
+    *   创建了一个名为 `thermostat` 的 `Thermostat` 类实例。
+    *   将实例的 `temperature` 属性值更新为 `22.5`，这会触发一个带有温度更新的打印语句。
+    *   将实例的 `temperature` 属性值更新为 `27.0`，这会触发一个带有警告的打印语句。
 
 可观察属性不仅用于日志记录和调试目的。你也可以将它们用于更新 UI 或执行额外检测的用例，例如验证数据的有效性。
 
-关于可观察属性的更多信息，请参阅 [可观察属性](delegated-properties.md#observable-properties)。
+关于可观察属性的更多信息，请参见 [可观察属性](delegated-properties.md#observable-properties)。
 
 ## 实践
 
 ### 练习 1 {initial-collapse-state="collapsed" collapsible="true" id="properties-exercise-1"}
 
-你管理着一家书店的库存系统。库存存储在一个 `list` 中，其中每个项代表特定书籍的数量。例如，`listOf(3, 0, 7, 12)` 表示书店有第一本书的 3 本副本，第二本书的 0 本，第三本书的 7 本，第四本书的 12 本。
+你管理着一家书店的库存系统。库存存储在一个 list 中，其中每个项代表特定书籍的数量。例如，`listOf(3, 0, 7, 12)` 表示书店有第一本书的 3 本副本，第二本书的 0 本，第三本书的 7 本，第四本书的 12 本。
 
-编写一个名为 `findOutOfStockBooks()` 的函数，该函数返回所有缺货书籍的索引 `list`。
+编写一个名为 `findOutOfStockBooks()` 的函数，该函数返回所有缺货书籍的索引 list。
 
 <deflist collapsible="true">
     <def title="提示 1">
@@ -400,7 +400,7 @@ fun main() {
 
 ```kotlin
 fun findOutOfStockBooks(inventory: List<Int>): List<Int> {
-    // Write your code here
+    // 在此处编写你的代码
 }
 
 fun main() {
@@ -466,7 +466,7 @@ fun main() {
 |---|---|
 
 ```kotlin
-val // Write your code here
+val // 在此处编写你的代码
 
 fun main() {
     val distanceKm = 5.0
@@ -515,7 +515,7 @@ fun checkDatabase(): Boolean {
 }
 
 fun main() {
-    // Write your code here
+    // 在此处编写你的代码
 
     when {
         isAppServerHealthy -> println("Application server is online and healthy")
@@ -555,12 +555,12 @@ fun main() {
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="示例解决方案" id="kotlin-tour-properties-solution-3"}
 
-### 练习 4 {initial-collapse-state="collapsed" collapsible="true" id="properties-exercise-4"}
+### 4 练习 {initial-collapse-state="collapsed" collapsible="true" id="properties-exercise-4"}
 
 你正在构建一个简单的预算跟踪应用。该应用需要观察用户剩余预算的变化，并在预算低于某个阈值时通知他们。你有一个 `Budget` 类，它使用 `totalBudget` 属性进行初始化，该属性包含初始预算金额。在类中，创建一个名为 `remainingBudget` 的可观察属性，它会打印：
 
-* 当值低于初始预算的 20% 时发出警告。
-* 当预算从先前的值增加时发出鼓励信息。
+*   当值低于初始预算的 20% 时发出警告。
+*   当预算从先前的值增加时发出鼓励信息。
 
 |---|---|
 
@@ -568,7 +568,7 @@ fun main() {
 import kotlin.properties.Delegates.observable
 
 class Budget(val totalBudget: Int) {
-    var remainingBudget: Int // Write your code here
+    var remainingBudget: Int // 在此处编写你的代码
 }
 
 fun main() {

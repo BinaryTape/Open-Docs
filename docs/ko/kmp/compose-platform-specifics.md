@@ -25,13 +25,10 @@
 
 각 플랫폼은 텍스트 필드가 활성화될 때 키보드가 나타나는 방식을 포함하여 소프트웨어 키보드를 약간 다르게 처리할 수 있습니다.
 
-컴포즈 멀티플랫폼은 [컴포즈 창 인셋 방식 (Compose window insets approach)](https://developer.android.com/develop/ui/compose/system/insets)을 채택하고
-iOS에서는 [안전 영역 (safe areas)](https://developer.apple.com/documentation/UIKit/positioning-content-relative-to-the-safe-area)을 고려하여 이를 모방합니다.
+컴포즈 멀티플랫폼은 [컴포즈 창 인셋 방식](https://developer.android.com/develop/ui/compose/system/insets)을 채택하고
+[안전 영역](https://developer.apple.com/documentation/UIKit/positioning-content-relative-to-the-safe-area)을 고려하기 위해 iOS에서 이를 모방합니다.
 구현 방식에 따라 소프트웨어 키보드가 iOS에서 약간 다르게 배치될 수 있습니다.
 키보드가 두 플랫폼에서 중요한 UI 요소를 가리지 않는지 확인하십시오.
-
-컴포즈 멀티플랫폼은 현재 기본 IME 액션 변경을 지원하지 않습니다. 예를 들어,
-일반적인 `&crarr;` 아이콘 대신 돋보기나 체크 표시를 표시하는 것을 지원하지 않습니다.
 
 ### 터치 및 마우스 지원
 
@@ -48,7 +45,7 @@ iOS에서는 [안전 영역 (safe areas)](https://developer.apple.com/documentat
 따라서, 이들은 플랫폼마다 다르게 보일 수 있습니다.
 
 네이티브 팝업 뷰가 그 예시입니다:
-컴포즈 멀티플랫폼 텍스트 필드에서 텍스트를 선택하면 **복사 (Copy)** 또는 **번역 (Translate)**과 같은 기본 추천 작업은
+컴포즈 멀티플랫폼 텍스트 필드에서 텍스트를 선택하면 **복사** 또는 **번역**과 같은 기본 추천 작업은
 앱이 실행되는 플랫폼에 따라 달라집니다.
 
 ### 스크롤 물리
@@ -114,7 +111,7 @@ IntelliJ IDEA와 Android Studio 모두에서 현재 파일에 `@Preview` 어노�
 
 ### 핫 리로드
 
-_핫 리로드 (Hot reload)_는 추가 입력 없이 앱이 즉석에서 코드 변경 사항을 반영하는 것을 의미합니다.
+_핫 리로드 (Hot reload)_는 앱이 즉석에서 코드 변경 사항을 반영하는 것을 의미합니다.
 컴포즈 멀티플랫폼에서는 핫 리로드 기능이 JVM (데스크톱) 타겟에서만 사용할 수 있습니다.
 그러나 의도한 플랫폼으로 전환하여 미세 조정하기 전에 문제를 빠르게 해결하는 데 사용할 수 있습니다.
 

@@ -109,9 +109,9 @@ class D : A, B {
 
 在 JVM 上，介面中宣告的函式會被編譯為預設方法。您可以使用 `-jvm-default` 編譯器選項和以下值來控制此行為：
 
-* `enable` (預設值)：在介面中生成預設實作，並在子類別和 `DefaultImpls` 類別中包含橋接函式。使用此模式可保持與舊版 Kotlin 的二進位相容性。
-* `no-compatibility`：僅在介面中生成預設實作。此模式會跳過相容性橋接和 `DefaultImpls` 類別，使其適用於新的 Kotlin 程式碼。
-* `disable`：跳過預設方法，並僅生成相容性橋接和 `DefaultImpls` 類別。
+*   `enable` (預設值)：在介面中生成預設實作，並在子類別和 `DefaultImpls` 類別中包含橋接函式。使用此模式可保持與舊版 Kotlin 的二進位相容性。
+*   `no-compatibility`：僅在介面中生成預設實作。此模式會跳過相容性橋接和 `DefaultImpls` 類別，使其適用於新的 Kotlin 程式碼。
+*   `disable`：跳過預設方法，並僅生成相容性橋接和 `DefaultImpls` 類別。
 
 要配置 `-jvm-default` 編譯器選項，請在您的 Gradle Kotlin DSL 中設定 `jvmDefault` 屬性：
 

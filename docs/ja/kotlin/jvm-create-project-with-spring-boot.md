@@ -72,7 +72,7 @@ IntelliJ IDEA Ultimate Editionのプロジェクトウィザードを使用し�
 
 7.  その後、**Project view**で以下の構造を確認できます。
 
-   ![Spring Bootプロジェクトのビュー](spring-boot-project-view.png){width=400}
+   ![Set up Spring Boot project](spring-boot-project-view.png){width=400}
 
    生成されたGradleプロジェクトは、Mavenの標準ディレクトリレイアウトに対応しています。
    *   `main/kotlin`フォルダーの下には、アプリケーションに属するパッケージとクラスがあります。

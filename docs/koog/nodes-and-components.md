@@ -1,9 +1,10 @@
-# 预定义 node 和组件
+_# 预定义 node 和组件
 
 Node 是 Koog 框架中 agent 工作流的基本构建块。
 每个 node 代表工作流中的特定操作或转换，它们可以使用 edge 连接起来以定义执行流。
 
-通常，它们让你可以将复杂逻辑封装到可重用组件中，这些组件可以轻松集成到不同的 agent 工作流中。本指南将引导你了解可用于 agent 策略的现有 node。
+通常，它们让你可以将复杂逻辑封装到可重用组件中，这些组件可以轻松集成到
+不同的 agent 工作流中。本指南将引导你了解可用于你的 agent 策略的现有 node。
 
 关于更详细的参考文档，请参见 [API reference](https://api.koog.ai/index.html)。
 
@@ -138,7 +139,7 @@ edge(getUserQuestion forwardTo requestLLM)
 
 - 处理需要多次 tool 调用的复杂查询。
 - 生成多个 tool 调用。
-- 实现需要多个并行操作的工作流。
+- 实现一个需要多个并行操作的工作流。
 
 例如：
 
@@ -326,7 +327,7 @@ edge(executeMultipleTools forwardTo sendMultipleToolResultsToLLM)
 
 框架提供了预定义的 subgraph，它们封装了常用模式和工作流。这些 subgraph 通过自动处理基础 node 和 edge 的创建来简化复杂 agent 策略的开发。
 
-通过使用预定义的 subgraph，你可以实现各种流行的 pipeline。例如：
+通过使用预定义的 subgraph，你可以实现各种流行的流水线。例如：
 
 1.  准备数据。
 2.  运行任务。
@@ -342,7 +343,7 @@ edge(executeMultipleTools forwardTo sendMultipleToolResultsToLLM)
 - 封装具有清晰输入和输出接口的复杂逻辑。
 - 配置任务特有的 tool、模型和 prompt。
 - 通过自动压缩管理对话 history。
-- 开发结构化 agent 工作流和任务执行 pipeline。
+- 开发结构化 agent 工作流和任务执行流水线。
 - 从 LLM 任务执行生成结构化结果。
 
 你可以以文本形式向 subgraph 提供任务，并在需要时配置 LLM 并提供必要的 tool，subgraph 将处理并解决该任务。例如：
@@ -434,7 +435,7 @@ node 使用 edge 连接起来以定义操作流，并带指定何时遵循每个
 
 单次运行策略专为非交互式用例而设计，其中 agent 一次处理输入并返回结果。
 
-当你需要运行不需要复杂逻辑的直接流程时，可以使用此策略。
+当你需要运行不需要复杂逻辑的直接流程时，你可以使用此策略。
 
 <!--- INCLUDE
 import ai.koog.agents.core.agent.entity.AIAgentGraphStrategy
@@ -521,7 +522,7 @@ fun toolBasedStrategy(name: String, toolRegistry: ToolRegistry): AIAgentGraphStr
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.forwardTo
 import ai.koog.agents.core.dsl.builder.strategy
-import ai.koog.agents.example.exampleStreamingApi08.Book
+import ai.koog.agents.example.exampleStreamingApi03.Book
 import ai.koog.agents.example.exampleStreamingApi04.markdownBookDefinition
 import ai.koog.agents.example.exampleStreamingApi06.parseMarkdownStreamToBooks
 -->

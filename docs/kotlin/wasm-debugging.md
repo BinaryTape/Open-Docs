@@ -1,151 +1,109 @@
 [//]: # (title: 调试 Kotlin/Wasm 代码)
 
-> Kotlin/Wasm 处于 [Alpha](components-stability.md) 阶段。它可能随时更改。
->
-{style="note"}
+<primary-label ref="beta"/> 
 
-本教程演示如何使用浏览器调试你通过 Kotlin/Wasm 构建的 [Compose Multiplatform](https://www.jetbrains.com/lp/compose-multiplatform/) 应用程序。
+本教程演示如何使用 IntelliJ IDEA 和浏览器调试你通过 Kotlin/Wasm 构建的 [Compose Multiplatform](https://www.jetbrains.com/lp/compose-multiplatform/) 应用程序。
 
 ## 开始之前
 
-使用 Kotlin Multiplatform 向导创建一个项目：
+1.  [为 Kotlin Multiplatform 开发设置环境](https://www.jetbrains.com/help/kotlin-multiplatform-dev/quickstart.html#set-up-the-environment)。
+2.  按照说明[创建一个面向 Kotlin/Wasm 的 Kotlin Multiplatform 项目](wasm-get-started.md#create-a-project)。
 
-1. 打开 [Kotlin Multiplatform 向导](https://kmp.jetbrains.com/#newProject)。
-2. 在 **新建项目** 选项卡中，将项目名称和 ID 更改为你偏好的值。在本教程中，我们将名称设置为 "WasmDemo"，将 ID 设置为 "wasm.project.demo"。
+> *   在 IntelliJ IDEA 中调试 Kotlin/Wasm 代码从 IDE 2025.3 版本开始提供，目前处于 [抢先体验计划 (EAP)](https://www.jetbrains.com/resources/eap/) 阶段，并正在走向稳定。如果你是在不同版本的 IntelliJ IDEA 中创建的 `WasmDemo` 项目，请切换到 2025.3 版本并在其中打开项目，以继续本教程。
+> *   要在 IntelliJ IDEA 中调试 Kotlin/Wasm 代码，必须安装 JavaScript Debugger 插件。[了解更多关于该插件以及如何安装的信息。](https://www.jetbrains.com/help/idea/debugging-javascript-in-chrome.html#ws_js_debugging_chrome_before_you_start)
+>
+{style="note"}
 
-   > 这些是项目目录的名称和 ID。你也可以保留它们不变。
-   >
-   {style="tip"}
+## 在 IntelliJ IDEA 中调试
 
-3. 选择 **Web** 选项。确保没有选择其他选项。
-4. 点击 **下载** 按钮并解压生成的归档文件。
+你创建的 Kotlin Multiplatform 项目包含一个由 Kotlin/Wasm 提供支持的 Compose Multiplatform 应用程序。你可以[开箱即用](https://www.techtarget.com/whatis/definition/out-of-the-box-OOTB)地在 IntelliJ IDEA 中调试此应用程序，无需额外配置。
 
-   ![Kotlin Multiplatform 向导](wasm-compose-web-wizard.png){width=450}
+1.  在 IntelliJ IDEA 中，打开要调试的 Kotlin 文件。在本教程中，我们将使用 Kotlin Multiplatform 项目以下目录中的 `Greeting.kt` 文件：
 
-## 在 IntelliJ IDEA 中打开项目
+    `WasmDemo/composeApp/src/wasmJsMain/kotlin/wasm.project.demo.wasmdemo`
 
-1. 下载并安装最新版本的 [IntelliJ IDEA](https://www.jetbrains.com/idea/)。
-2. 在 IntelliJ IDEA 的欢迎界面，点击 **打开** 或在菜单栏中选择 **文件 | 打开**。
-3. 导航到解压后的 "WasmDemo" 文件夹并点击 **打开**。
+2.  点击行号以在你想要探查的代码上设置断点。
 
-## 运行应用程序
+    ![设置断点](wasm-breakpoints-intellij.png){width=650}
 
-1. 在 IntelliJ IDEA 中，通过选择 **视图** | **工具窗口** | **Gradle** 来打开 **Gradle** 工具窗口。
+3.  在运行配置列表中，选择 **composeApp[wasmJs]**。
+4.  点击屏幕顶部的调试图标，以调试模式运行代码。
 
-   > 你需要使用至少 Java 11 作为 Gradle JVM，任务才能成功加载。
-   >
-   {style="note"}
+    ![以调试模式运行](wasm-debug-run-configurations.png){width=600}
 
-2. 在 **composeApp** | **任务** | **kotlin browser** 中，选择并运行 **wasmJsBrowserDevelopmentRun** 任务。
+    应用程序启动后，它会在新的浏览器窗口中打开。
 
-   ![运行 Gradle 任务](wasm-gradle-task-window.png){width=450}
+    ![浏览器中的 Compose 应用程序](wasm-composeapp-browser.png){width=600}
 
-   此外，你也可以在 `WasmDemo` 根目录中从终端运行以下命令：
+    同时，**Debug** 面板会在 IntelliJ IDEA 中自动打开。
 
-   ```bash
-   ./gradlew wasmJsBrowserDevelopmentRun
-   ```
+    ![Compose 应用程序调试器](wasm-debug-pane.png){width=600}
 
-3. 应用程序启动后，在浏览器中打开以下 URL：
+### 探查你的应用程序
 
-   ```bash
-   http://localhost:8080/
-   ```
+> 如果你正在[浏览器中调试](#debug-in-your-browser)，你可以按照相同的步骤来探查你的应用程序。
+>
+{style="note"}
 
-   > 端口号可能不同，因为 8080 端口可能不可用。你可以在 Gradle 构建控制台中找到实际的端口号。
-   >
-   {style="tip"}
+1.  在应用程序的浏览器窗口中，点击“点击我！”按钮与应用程序进行交互。此操作会触发代码执行，当执行到达断点时，调试器会暂停。
 
-   你会看到一个“点击我！”按钮。点击它：
+2.  在调试窗格中，使用调试控制按钮在断点处探查变量和代码执行：
+    *   ![步过](wasm-debug-step-over.png){width=30}{type="joined"} 步过以执行当前行并在下一行暂停。
+    *   ![步入](wasm-debug-step-into.png){width=30}{type="joined"} 步入以更深入地探究函数。
+    *   ![步出](wasm-debug-step-out.png){width=30}{type="joined"} 步出以执行代码直到退出当前函数。
 
-   ![点击我](wasm-composeapp-browser-clickme.png){width=550}
+3.  检查 **Threads & Variables** 窗格。它有助于你追溯函数调用序列，并找出任何错误的位置。
 
-   现在你看到 Compose Multiplatform 标志：
+    ![检查线程与变量](wasm-debug-panes-intellij.png){width=700}
 
-   ![浏览器中的 Compose 应用程序](wasm-composeapp-browser.png){width=550}
+4.  更改你的代码并再次运行应用程序以验证其工作情况。
+5.  完成调试后，点击带有断点的行号以移除断点。
 
 ## 在浏览器中调试
 
-> 目前，仅能在浏览器中进行调试。将来，你将能够在 [IntelliJ IDEA](https://youtrack.jetbrains.com/issue/KT-64683/Kotlin-Wasm-debugging-in-IntelliJ-IDEA) 中调试你的代码。
+你也可以在浏览器中调试这个 Compose Multiplatform 应用程序，无需额外配置。
+
+当你运行开发 Gradle 任务 (`*DevRun`) 时，Kotlin 会自动将源代码文件提供给浏览器，从而允许你设置断点、探查变量并单步调试 Kotlin 代码。
+
+用于在浏览器中提供 Kotlin/Wasm 项目源代码的配置现在已包含在 Kotlin Gradle 插件中。如果你之前已将此配置添加到 `build.gradle.kts` 文件中，则应将其移除以避免冲突。
+
+> 本教程使用 Chrome 浏览器，但你应该能够使用其他浏览器遵循这些步骤。有关更多信息，请参见 [浏览器版本](wasm-configuration.md#browser-versions)。
 >
-{style="note"}
+{style="tip"}
 
-你可以直接在浏览器中调试这个 Compose Multiplatform 应用程序，无需额外配置。
+1.  按照说明[运行 Compose Multiplatform 应用程序](wasm-get-started.md#run-the-application)。
 
-但是，对于其他项目，你可能需要在 Gradle 构建文件中配置额外的设置。有关如何配置浏览器以进行调试的更多信息，请展开下一节。
+2.  在应用程序的浏览器窗口中，右键单击并选择 **检查** 操作以访问开发者工具。此外，你也可以使用 **F12** 快捷键或选择 **视图** | **开发者** | **开发者工具**。
 
-### 配置浏览器进行调试 {initial-collapse-state="collapsed" collapsible="true"}
+3.  切换到 **源代码** 选项卡并选择要调试的 Kotlin 文件。在本教程中，我们将使用 `Greeting.kt` 文件。
 
-#### 启用对项目源代码的访问
+4.  点击行号以在你想要探查的代码上设置断点。只有数字颜色较深的行才能设置断点 — 在此示例中为 4、7、8 和 9。
 
-默认情况下，浏览器无法访问调试所必需的项目部分源代码。为了提供访问权限，你可以配置 Webpack DevServer 来提供这些源代码。在 `ComposeApp` 目录中，将以下代码片段添加到你的 `build.gradle.kts` 文件中。
+    ![设置断点](wasm-breakpoints-browser.png){width=700}
 
-将此导入作为顶层声明添加：
+5.  探查你的应用程序，类似于[在 IntelliJ IDEA 中调试](#inspect-your-application)。
 
-```kotlin
-import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpackConfig
-```
+    在浏览器中调试时，用于追溯函数调用序列并找出任何错误的窗格是 **Scope** 和 **Call Stack**。
 
-将此代码片段添加到 `commonWebpackConfig{}` 代码块中，该代码块位于 `kotlin{}` 中的 `wasmJs{}` 目标 DSL 和 `browser{}` 平台 DSL 内：
+    ![检查调用堆栈](wasm-debug-scope.png){width=450}
 
-```kotlin
-devServer = (devServer ?: KotlinWebpackConfig.DevServer()).apply {
-    static = (static ?: mutableListOf()).apply {
-        // 提供源代码以便在浏览器中调试
-        add(project.rootDir.path)
-        add(project.projectDir.path)
-    }
-}
-```
+### 使用自定义格式化器
 
-生成的文件块如下所示：
+自定义格式化器有助于在浏览器中调试 Kotlin/Wasm 代码时，以更用户友好和易于理解的方式显示和定位变量值。
 
-```kotlin
-kotlin {
-    @OptIn(ExperimentalWasmDsl::class)
-    wasmJs {
-        moduleName = "composeApp"
-        browser {
-            commonWebpackConfig {
-                outputFileName = "composeApp.js"
-                devServer = (devServer ?: KotlinWebpackConfig.DevServer()).apply {
-                    static = (static ?: mutableListOf()).apply {
-                        // 提供源代码以便在浏览器中调试
-                        add(project.rootDir.path)
-                        add(project.projectDir.path)
-                    }
-                }
-            }
-        }
-    }
-}
-```
-{initial-collapse-state="collapsed" collapsible="true"}
+自定义格式化器在 Kotlin/Wasm 开发构建中默认已启用，但你仍需确保在浏览器的开发者工具中启用了自定义格式化器：
 
-> 目前，无法调试库源代码。
-> [将来我们会支持此功能](https://youtrack.jetbrains.com/issue/KT-64685)。
->
-{style="note"}
+*   在 Chrome DevTools 中，在 **设置 | 偏好设置 | 控制台** 中找到 **Custom formatters** 复选框：
 
-#### 使用自定义格式化器
+    ![在 Chrome 中启用自定义格式化器](wasm-custom-formatters-chrome.png){width=400}
 
-自定义格式化器有助于在调试 Kotlin/Wasm 代码时，以更用户友好和易于理解的方式显示和定位变量值。
+*   在 Firefox DevTools 中，在 **设置 | 高级设置** 中找到 **Enable custom formatters** 复选框：
 
-自定义格式化器在开发构建中默认已启用，因此你不需要额外的 Gradle 配置。
+    ![在 Firefox 中启用自定义格式化器](wasm-custom-formatters-firefox.png){width=400}
 
-此特性在 Firefox 和基于 Chromium 的浏览器中受支持，因为它使用了 [自定义格式化器 API](https://firefox-source-docs.mozilla.org/devtools-user/custom_formatters/index.html)。
+此特性使用了 [自定义格式化器 API](https://firefox-source-docs.mozilla.org/devtools-user/custom_formatters/index.html)，并在 Firefox 和基于 Chromium 的浏览器中受支持。
 
-要使用此特性，请确保已启用自定义格式化器在你的浏览器开发者工具中：
-
-* 在 Chrome DevTools 中，在 **设置 | 偏好设置 | 控制台** 中找到自定义格式化器复选框：
-
-  ![在 Chrome 中启用自定义格式化器](wasm-custom-formatters-chrome.png){width=400}
-
-* 在 Firefox DevTools 中，在 **设置 | 高级设置** 中找到自定义格式化器复选框：
-
-  ![在 Firefox 中启用自定义格式化器](wasm-custom-formatters-firefox.png){width=400}
-
-自定义格式化器适用于 Kotlin/Wasm 开发构建。如果你对生产构建有特定要求，你需要相应地调整你的 Gradle 配置。将以下编译器选项添加到 `wasmJs {}` 代码块中：
+鉴于自定义格式化器默认仅适用于 Kotlin/Wasm 开发构建，如果你想在生产构建中使用它们，则需要调整你的 Gradle 配置。将以下编译器选项添加到 `wasmJs {}` 代码块中：
 
 ```kotlin
 // build.gradle.kts
@@ -160,53 +118,20 @@ kotlin {
 }
 ```
 
-启用自定义格式化器后，你可以继续调试教程。
-
-### 调试你的 Kotlin/Wasm 应用程序
-
-> 本教程使用 Chrome 浏览器，但你应该能够使用其他浏览器遵循这些步骤。有关更多信息，请参见 [浏览器版本](wasm-troubleshooting.md#browser-versions)。
->
-{style="tip"}
-
-1. 在应用程序的浏览器窗口中，右键单击并选择 **检查** 操作以访问开发者工具。此外，你也可以使用 **F12** 快捷键或选择 **视图 | 开发者 | 开发者工具**。
-
-2. 切换到 **源代码** 选项卡并选择要调试的 Kotlin 文件。在本教程中，我们将使用 `Greeting.kt` 文件。
-
-3. 点击行号以在你想要探查的代码上设置断点。只有数字颜色较深的行才能设置断点。
-
-   ![设置断点](wasm-breakpoints.png){width=700}
-
-4. 点击“点击我！”按钮以与应用程序进行交互。此操作会触发代码执行，当执行到达断点时，调试器会暂停。
-
-5. 在调试窗格中，使用调试控制按钮在断点处探查变量和代码执行：
-   * ![步入](wasm-step-into.png){width=30}{type="joined"} 步入以更深入地探究函数。
-   * ![步过](wasm-step-over.png){width=30}{type="joined"} 步过以执行当前行并在下一行暂停。
-   * ![步出](wasm-step-out.png){width=30}{type="joined"} 步出以执行代码直到退出当前函数。
-
-   ![调试控制](wasm-debug-controls.png){width=450}
-
-6. 检查 **调用堆栈** 和 **作用域** 窗格以追溯函数调用序列，并找出任何错误的位置。
-
-   ![检查调用堆栈](wasm-debug-scope.png){width=450}
-
-   为了更好地可视化变量值，请参见 [配置浏览器进行调试](#configure-your-browser-for-debugging) 部分中的 _使用自定义格式化器_。
-
-7. 更改你的代码并再次 [运行应用程序](#run-the-application) 以验证一切是否按预期工作。
-8. 点击带有断点的行号以移除断点。
-
 ## 留下反馈
 
 我们非常感谢你对调试体验的任何反馈！
 
-* ![Slack](slack.svg){width=25}{type="joined"} Slack: [获取 Slack 邀请](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up) 并直接向我们的 [#webassembly](https://kotlinlang.slack.com/archives/CDFP59223) 频道中的开发者提供反馈。
-* 在 [YouTrack](https://youtrack.jetbrains.com/issue/KT-56492) 中提供你的反馈。
+*   ![Slack](slack.svg){width=25}{type="joined"} Slack: [获取 Slack 邀请](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up) 并直接向我们的 [#webassembly](https://kotlinlang.slack.com/archives/CDFP59223) 频道中的开发者提供反馈。
+*   在 [YouTrack](https://youtrack.jetbrains.com/issue/KT-56492) 中提供你的反馈。
 
 ## 接下来？
 
-* 观看此 [YouTube 视频](https://www.youtube.com/watch?v=t3FUWfJWrjU&t=2703s) 中的 Kotlin/Wasm 调试实际操作。
-* 尝试来自我们的 `kotlin-wasm-examples` 版本库的 Kotlin/Wasm 示例：
-   * [Compose 图片查看器](https://github.com/Kotlin/kotlin-wasm-examples/tree/main/compose-imageviewer)
-   * [Jetsnack 应用程序](https://github.com/Kotlin/kotlin-wasm-examples/tree/main/compose-jetsnack)
-   * [Node.js 示例](https://github.com/Kotlin/kotlin-wasm-examples/tree/main/nodejs-example)
-   * [WASI 示例](https://github.com/Kotlin/kotlin-wasm-examples/tree/main/wasi-example)
-   * [Compose 示例](https://github.com/Kotlin/kotlin-wasm-examples/tree/main/compose-example)
+*   观看此 [YouTube 视频](https://www.youtube.com/watch?v=t3FUWfJWrjU&t=2703s) 中的 Kotlin/Wasm 调试实际操作。
+*   尝试更多 Kotlin/Wasm 示例：
+    *   [KotlinConf 应用程序](https://github.com/JetBrains/kotlinconf-app)
+    *   [Compose 图片查看器](https://github.com/JetBrains/compose-multiplatform/tree/master/examples/imageviewer)
+    *   [Jetsnack 应用程序](https://github.com/JetBrains/compose-multiplatform/tree/master/examples/jetsnack)
+    *   [Node.js 示例](https://github.com/Kotlin/kotlin-wasm-nodejs-template)
+    *   [WASI 示例](https://github.com/Kotlin/kotlin-wasm-wasi-template)
+    *   [Compose 示例](https://github.com/Kotlin/kotlin-wasm-compose-template)

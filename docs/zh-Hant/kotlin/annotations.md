@@ -15,7 +15,7 @@ annotation class Fancy
 
 ```kotlin
 @Target(AnnotationTarget.CLASS, AnnotationTarget.FUNCTION,
-        AnnotationTarget.TYPE_PARAMETER, AnnotationTarget.VALUE_PARAMETER, 
+        AnnotationTarget.TYPE_PARAMETER, AnnotationTarget.VALUE_PARAMETER,
         AnnotationTarget.EXPRESSION)
 @Retention(AnnotationRetention.SOURCE)
 @MustBeDocumented
@@ -162,7 +162,7 @@ class Example {
     ```kotlin
     fun @receiver:Fancy String.myExtension() { ... }
     ```
-    
+
   * `param` (建構函式參數)
   * `setparam` (屬性設置器參數)
   * `delegate` (儲存委託屬性委託實例的欄位)
@@ -267,12 +267,12 @@ public @interface Email { }
 ```kotlin
 data class User(
     val username: String,
-    // 將 `@Email` 應用於 `param`、`field` 和 `get`
+    // 將 @Email 應用於 param、field 和 get
     @all:Email val email: String,
-    // 將 `@Email` 應用於 `param`、`field`、`get` 和 `set_param`
+    // 將 @Email 應用於 param、field、get 和 setparam
     @all:Email var name: String,
 ) {
-    // 將 `@Email` 應用於 `field` 和 `getter` (沒有 `param` 因為它不在建構函式中)
+    // 將 @Email 應用於 field 和 getter (沒有 param 因為它不在建構函式中)
     @all:Email val secondaryEmail: String? = null
 }
 ```
@@ -286,7 +286,7 @@ data class User(
 * 它不會將註解傳播到型別、潛在的擴充接收器，或上下文接收器或參數。
 * 它不能與多個註解一起使用：
     ```kotlin
-    @all:[A B] // 禁止，請使用 `@all:A @all:B`
+    @all:[A B] // 禁止，請使用 @all:A @all:B
     val x: Int = 5
     ```
 * 它不能與[委託屬性](delegated-properties.md)一起使用。
@@ -386,7 +386,7 @@ public @interface AnnWithArrayMethod {
 ```
 
 ```kotlin
-@AnnWithArrayMethod(names = ["abc", "foo", "bar"]) 
+@AnnWithArrayMethod(names = ["abc", "foo", "bar"])
 class C
 ```
 

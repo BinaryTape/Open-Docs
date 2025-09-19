@@ -97,9 +97,9 @@ fun main() {
 
 此範例：
 
-* 建立 `Car` 類別的兩個實例 `car1` 和 `car2`，它們繼承自 `Vehicle` 類別。
-* 覆寫 `Car` 類別中的 `displayInfo()` 函式，使其也列印門的數量。
-* 在 `car1` 和 `car2` 實例上呼叫覆寫的 `displayInfo()` 函式。
+*   建立 `Car` 類別的兩個實例 `car1` 和 `car2`，它們繼承自 `Vehicle` 類別。
+*   覆寫 `Car` 類別中的 `displayInfo()` 函式，使其也列印門的數量。
+*   在 `car1` 和 `car2` 實例上呼叫覆寫的 `displayInfo()` 函式。
 
 #### 屬性
 
@@ -206,12 +206,12 @@ fun main() {
 
 在此範例中：
 
-* 有一個名為 `Mammal` 的密封類別，其建構函式中帶有 `name` 參數。
-* `Cat` 類別繼承自 `Mammal` 密封類別，並使用 `Mammal` 類別的 `name` 參數作為其自身建構函式中的 `catName` 參數。
-* `Human` 類別繼承自 `Mammal` 密封類別，並使用 `Mammal` 類別的 `name` 參數作為其自身建構函式中的 `humanName` 參數。它在建構函式中也有 `job` 參數。
-* `greetMammal()` 函式接受 `Mammal` 類型的引數並回傳一個字串。
-* 在 `greetMammal()` 函式主體中，有一個 `when` 表達式，它使用 [`is` 運算子](typecasts.md#is-and-is-operators) 來檢查 `mammal` 的類型並決定要執行的動作。
-* `main()` 函式以 `Cat` 類別的實例和名為 `Snowy` 的 `name` 參數呼叫 `greetMammal()` 函式。
+*   有一個名為 `Mammal` 的密封類別，其建構函式中帶有 `name` 參數。
+*   `Cat` 類別繼承自 `Mammal` 密封類別，並使用其自身建構函式中的 `catName` 參數作為 `Mammal` 類別的 `name` 參數。
+*   `Human` 類別繼承自 `Mammal` 密封類別，並使用其自身建構函式中的 `humanName` 參數作為 `Mammal` 類別的 `name` 參數。它在建構函式中也有 `job` 參數。
+*   `greetMammal()` 函式接受 `Mammal` 類型的引數並回傳一個字串。
+*   在 `greetMammal()` 函式主體中，有一個 `when` 表達式，它使用 [`is` 運算子](typecasts.md#is-and-is-operators) 來檢查 `mammal` 的類型並決定要執行的動作。
+*   `main()` 函式以 `Cat` 類別的實例和名為 `Snowy` 的 `name` 參數呼叫 `greetMammal()` 函式。
 
 > 本導覽在 [空值安全性](kotlin-tour-intermediate-null-safety.md) 章節中更詳細地討論了 `is` 運算子。
 > 
@@ -351,11 +351,11 @@ fun main() {
 
 在此範例中：
 
-* `Email` 是一個行內值類別，其類別標頭中包含一個屬性：`address`。
-* `sendEmail()` 函式接受 `Email` 類型的物件並將字串列印到標準輸出。
-* `main()` 函式：
-    * 建立一個名為 `myEmail` 的 `Email` 類別實例。
-    * 在 `myEmail` 物件上呼叫 `sendEmail()` 函式。
+*   `Email` 是一個行內值類別，其類別標頭中包含一個屬性：`address`。
+*   `sendEmail()` 函式接受 `Email` 類型的物件並將字串列印到標準輸出。
+*   `main()` 函式：
+    *   建立一個名為 `myEmail` 的 `Email` 類別實例。
+    *   在 `myEmail` 物件上呼叫 `sendEmail()` 函式。
 
 透過使用行內值類別，您可以使類別行內化，並在程式碼中直接使用它而無需建立物件。這可以顯著減少記憶體佔用並提高程式碼的執行時效能。
 
@@ -449,7 +449,7 @@ fun main() {
     // The delivery was canceled due to: Address not found.
 }
 ```
-{initial-collapse-state="collapsed" collapsible="true" collapsed-title="Example solution" id="kotlin-tour-special-classes-solution-1"}
+{initial-collapse-state="collapsed" collapsible="true" collapsed-title="範例解答" id="kotlin-tour-special-classes-solution-1"}
 
 ### 練習 2 {initial-collapse-state="collapsed" collapsible="true" id="special-classes-exercise-2"}
 
@@ -528,7 +528,7 @@ fun main() {
     // Data received: [Data1, Data2]
 }
 ```
-{initial-collapse-state="collapsed" collapsible="true" collapsed-title="Example solution" id="kotlin-tour-special-classes-solution-2"}
+{initial-collapse-state="collapsed" collapsible="true" collapsed-title="範例解答" id="kotlin-tour-special-classes-solution-2"}
 
 ## 下一步
 

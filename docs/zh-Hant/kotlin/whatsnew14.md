@@ -7,7 +7,7 @@ _[發布日期：2020 年 8 月 17 日](releases.md#release-details)_
 
 ## 語言功能與改進
 
-Kotlin 1.4.0 帶來了各種不同的語言功能與改進，其中包括：
+Kotlin 1.4.0 帶來了各種不同的語言功能與改進。它們包括：
 
 * [Kotlin 介面的 SAM 轉換](#sam-conversions-for-kotlin-interfaces)
 * [函式庫作者的顯式 API 模式](#explicit-api-mode-for-library-authors)
@@ -730,7 +730,7 @@ kotlin {
 }
 ```
 
-[了解更多關於崩潰報告符號化的資訊](native-ios-symbolication.md)。
+[了解更多關於崩潰報告符號化的資訊](native-debugging.md#debug-ios-applications)。
 
 ### 效能改進
 
@@ -977,24 +977,24 @@ Kotlin Gradle 外掛程式將根據您的 Gradle 建置腳本的 `kotlinOptions.
   ![*.gradle.kts – Load Configuration](gradle-kts-load-config.png)
 
   在 Gradle 6.0 及更高版本中，您可以透過點擊 **Load Gradle Changes** 或重新匯入 Gradle 專案來顯式應用更改。
-
+ 
   我們在 IntelliJ IDEA 2020.1 中為 Gradle 6.0 及更高版本添加了另一個動作 – **Load Script Configurations**，
   它載入腳本配置的更改，而無需更新整個專案。這比重新匯入整個專案花費的時間少得多。
 
   ![*.gradle.kts – Load Script Changes and Load Gradle Changes](gradle-kts.png)
 
   對於新建立的腳本或首次使用新的 Kotlin 外掛程式開啟專案時，您也應該**Load Script Configurations**。
-
+  
   使用 Gradle 6.0 及更高版本，您現在可以一次載入所有腳本，而不是以前的單獨載入實作。
   由於每個請求都需要執行 Gradle 配置階段，這對於大型 Gradle 專案來說可能資源密集。
-
+  
   目前，此類載入僅限於 `build.gradle.kts` 和 `settings.gradle.kts` 檔案 (請投票支持相關[問題](https://github.com/gradle/gradle/issues/12640))。
   要啟用 `init.gradle.kts` 或已應用[腳本外掛程式](https://docs.gradle.org/current/userguide/plugins.html#sec:script_plugins)的亮點顯示，
   請使用舊機制 – 將它們添加到獨立腳本中。這些腳本的配置將在您需要時單獨載入。
   您還可以為此類腳本啟用自動重新載入。
-
+    
   ![*.gradle.kts – Add to standalone scripts](gradle-kts-standalone.png)
-
+  
 - _更好的錯誤報告_。以前，您只能在單獨的日誌檔案中查看 Gradle Daemon 的錯誤。現在，
 Gradle Daemon 直接返回有關錯誤的所有資訊，並將其顯示在 Build 工具視窗中。這為您節省了時間和精力。
 
@@ -1131,7 +1131,7 @@ Gradle Daemon 直接返回有關錯誤的所有資訊，並將其顯示在 Build
 * 新的 `minOf()` 和 `maxOf()` 擴展函式返回給定選擇器函式在集合項目上的最小值和最大值。
 
     ```kotlin
-    data class OrderItem(val name: String, val price = 10.0, count: Int)
+    data class OrderItem(val name: String, val price: Double, val count: Int)
     
     fun main() {
     //sampleStart

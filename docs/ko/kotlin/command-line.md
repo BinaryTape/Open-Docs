@@ -26,7 +26,8 @@ Kotlin 컴파일러를 수동으로 설치하려면 다음을 수행하세요.
 
 ### SDKMAN!
 
-macOS, Linux, Cygwin, FreeBSD, Solaris와 같은 UNIX 기반 시스템에 Kotlin을 설치하는 더 쉬운 방법은 [SDKMAN!](https://sdkman.io)입니다. 이는 Bash 및 ZSH 셸에서도 작동합니다. [SDKMAN! 설치 방법](https://sdkman.io/install)을 알아보세요.
+macOS, Linux, Cygwin, FreeBSD, Solaris와 같은 UNIX 기반 시스템에 Kotlin을 설치하는 더 쉬운 방법은
+[SDKMAN!](https://sdkman.io)입니다. 이는 Bash 및 ZSH 셸에서도 작동합니다. [SDKMAN! 설치 방법](https://sdkman.io/install)을 알아보세요.
 
 SDKMAN!을 통해 Kotlin 컴파일러를 설치하려면 터미널에서 다음 명령을 실행합니다.
 

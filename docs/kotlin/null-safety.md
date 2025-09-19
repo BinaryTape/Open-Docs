@@ -10,15 +10,15 @@ Kotlin 的空安全通过在编译期而不是运行时捕获潜在的空值相�
 
 在 Kotlin 中，NPE 唯一可能的原因是：
 
-* 显式调用 [`throw NullPointerException()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-null-pointer-exception/)。
-* 使用[非空断言操作符 `!!`](#not-null-assertion-operator)。
-* 初始化期间的数据不一致，例如：
-  * 构造函数中可用的未初始化 `this` 在其他地方被使用（[“this 泄漏”](https://youtrack.jetbrains.com/issue/KTIJ-9751)）。
-  * 超类构造函数调用[开放成员](inheritance.md#derived-class-initialization-order)，而该成员在派生类中的实现使用了未初始化状态。
-* Java 互操作：
-  * 尝试访问[平台类型](java-interop.md#null-safety-and-platform-types)的空引用的成员。
-  * 泛型方面可空性问题。例如，一段 Java 代码将 `null` 添加到 Kotlin 的 `MutableList<String>` 中，而这需要 `MutableList<String?>` 才能正确处理。
-  * 外部 Java 代码引起的其他问题。
+*   显式调用 [`throw NullPointerException()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-null-pointer-exception/)。
+*   使用[非空断言操作符 `!!`](#not-null-assertion-operator)。
+*   初始化期间的数据不一致，例如：
+    *   构造函数中可用的未初始化 `this` 在其他地方被使用（[“this 泄漏”](https://youtrack.jetbrains.com/issue/KTIJ-9751)）。
+    *   超类构造函数调用[开放成员](inheritance.md#derived-class-initialization-order)，而该成员在派生类中的实现使用了未初始化状态。
+*   Java 互操作：
+    *   尝试访问[平台类型](java-interop.md#null-safety-and-platform-types)的 `null` 引用的成员。
+    *   泛型方面可空性问题。例如，一段 Java 代码将 `null` 添加到 Kotlin 的 `MutableList<String>` 中，而这需要 `MutableList<String?>` 才能正确处理。
+    *   外部 Java 代码引起的其他问题。
 
 > 除了 NPE，另一个与空安全相关的异常是 [`UninitializedPropertyAccessException`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-uninitialized-property-access-exception/)。当你尝试访问尚未初始化的属性时，Kotlin 会抛出此异常，确保非空属性在使用前已准备就绪。这通常发生在 [`lateinit` 属性](properties.md#late-initialized-properties-and-variables)中。
 >
@@ -36,7 +36,7 @@ fun main() {
     // 尝试将 null 重新赋值给非空变量
     a = null
     print(a)
-    // Null 不能是非空类型 String 的值
+    // Null can not be a value of a non-null type String
 //sampleEnd
 }
 ```
@@ -58,6 +58,22 @@ fun main() {
 ```
 {kotlin-runnable="true" validate="false"}
 
+若要允许 `null` 值，请在变量类型后紧跟 `?` 符号来声明变量。例如，你可以通过编写 `String?` 来声明一个可空字符串。此表达式使 `String` 成为可以接受 `null` 的类型：
+
+```kotlin
+fun main() {
+//sampleStart
+    // 将可空字符串赋值给变量
+    var b: String? = "abc"
+    // 成功将 null 重新赋值给可空变量
+    b = null
+    print(b)
+    // null
+//sampleEnd
+}
+```
+{kotlin-runnable="true"}
+
 如果你尝试直接访问 `b` 上的 `length`，编译器会报告错误。这是因为 `b` 被声明为可空变量，可以持有 `null` 值。直接尝试访问可空变量的属性会导致 NPE：
 
 ```kotlin
@@ -70,7 +86,7 @@ fun main() {
     // 尝试直接返回可空变量的长度
     val l = b.length
     print(l)
-    // 只有安全（?.）或非空断言（!!.）调用允许在 String? 类型的可空接收者上使用
+    // Only safe (?.) or non-null asserted (!!.) calls are allowed on a nullable receiver of type String? 
 //sampleEnd
 }
 ```
@@ -78,14 +94,14 @@ fun main() {
 
 在上面的例子中，编译器要求你在访问属性或执行操作之前，使用安全调用来检测可空性。有几种处理可空类型的方法：
 
-* [使用 `if` 条件语句检测 `null`](#check-for-null-with-the-if-conditional)
-* [安全调用操作符 `?.`](#safe-call-operator)
-* [Elvis 操作符 `?:`](#elvis-operator)
-* [非空断言操作符 `!!`](#not-null-assertion-operator)
-* [可空接收者](#nullable-receiver)
-* [`let` 函数](#let-function)
-* [安全转换 `as?`](#safe-casts)
-* [可空类型集合](#collections-of-a-nullable-type)
+*   [使用 `if` 条件语句检测 `null`](#check-for-null-with-the-if-conditional)
+*   [安全调用操作符 `?.`](#safe-call-operator)
+*   [Elvis 操作符 `?:`](#elvis-operator)
+*   [非空断言操作符 `!!`](#not-null-assertion-operator)
+*   [可空接收者](#nullable-receiver)
+*   [`let` 函数](#let-function)
+*   [安全转换 `as?`](#safe-casts)
+*   [可空类型集合](#collections-of-a-nullable-type)
 
 关于 `null` 处理工具和技术的详细信息和示例，请参阅后续章节。
 
@@ -160,8 +176,8 @@ fun main() {
 
 在 Kotlin 中，你可以将 `?.` 操作符与 [`var` 和 `val` 变量](basic-syntax.md#variables)一起使用：
 
-* 可空 `var` 可以持有 `null`（例如，`var nullableValue: String? = null`）或非空值（例如，`var nullableValue: String? = "Kotlin"`）。如果它是一个非空值，你可以在任何时候将其更改为 `null`。
-* 可空 `val` 可以持有 `null`（例如，`val nullableValue: String? = null`）或非空值（例如，`val nullableValue: String? = "Kotlin"`）。如果它是一个非空值，你之后不能将其更改为 `null`。
+*   可空 `var` 可以持有 `null`（例如，`var nullableValue: String? = null`）或非空值（例如，`var nullableValue: String? = "Kotlin"`）。如果它是一个非空值，你可以在任何时候将其更改为 `null`。
+*   可空 `val` 可以持有 `null`（例如，`val nullableValue: String? = null`）或非空值（例如，`val nullableValue: String? = "Kotlin"`）。如果它是一个非空值，你之后不能将其更改为 `null`。
 
 安全调用在链式调用中很有用。例如，Bob 是一名员工，他可能被分配到某个部门（也可能没有）。该部门反过来可能有一位员工作为部门主管。若要获取 Bob 的部门主管的姓名（如果存在），你可以这样编写：
 
@@ -192,7 +208,7 @@ if (person != null && person.department != null) {
 ```kotlin
 fun main() {
 //sampleStart
-    // 将 null 赋值给可空变量
+    // 将 null 赋值给可空变量  
     val b: String? = null
     // 检测可空性。如果非空，则返回长度。如果为 null，则返回 0
     val l: Int = if (b != null) b.length else 0
@@ -208,7 +224,7 @@ fun main() {
 ```kotlin
 fun main() {
 //sampleStart
-    // 将 null 赋值给可空变量
+    // 将 null 赋值给可空变量  
     val b: String? = null
     // 检测可空性。如果非空，则返回长度。如果为 null，则返回一个非空值
     val l = b?.length ?: 0
@@ -260,7 +276,7 @@ fun main() {
 ```kotlin
 fun main() {
 //sampleStart
-    // 将 null 赋值给可空变量
+    // 将 null 赋值给可空变量  
     val b: String? = null
     // 将 b 视为非空并尝试访问其长度
     val l = b!!.length
@@ -333,10 +349,10 @@ data class Person(val name: String)
 ```kotlin
 fun main() {
 //sampleStart
-    // 声明一个包含可空字符串的 List
+    // 声明一个包含可空字符串的 list
     val listWithNulls: List<String?> = listOf("Kotlin", null)
 
-    // 遍历 List 中的每个项
+    // 遍历 list 中的每个项
     for (item in listWithNulls) {
         // 检测项是否为 null，并且只打印非空值
         item?.let { println(it) }
@@ -397,5 +413,5 @@ fun main() {
 
 ## 下一步？
 
-* 了解如何[在 Java 和 Kotlin 中处理可空性](java-to-kotlin-nullability-guide.md)。
-* 了解[确定非空的](generics.md#definitely-non-nullable-types)泛型。
+*   了解如何[在 Java 和 Kotlin 中处理可空性](java-to-kotlin-nullability-guide.md)。
+*   了解[确定非空的](generics.md#definitely-non-nullable-types)泛型。

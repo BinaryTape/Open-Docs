@@ -178,7 +178,7 @@ fun main(args: Array<String>) {
 
 `curl_easy_perform` の呼び出しが結果を標準出力にプリントするため、実際の出力を見ることができます。`curl_easy_setopt` を使用してこれを非表示にすることもできます。
 
-> プロジェクトの完全なコードは、弊社の [GitHub リポジトリ](https://github.com/Kotlin/kotlin-hands-on-intro-kotlin-native)で入手できます。
+> プロジェクトの完全なコードは、弊社の [GitHub リポジトリ](https://github.com/kotlin-hands-on/intro-kotlin-native)で入手できます。
 >
 {style="note"}
 

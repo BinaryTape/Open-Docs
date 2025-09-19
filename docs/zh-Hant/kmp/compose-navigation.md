@@ -52,18 +52,11 @@ kotlin {
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="org.jetbrains.androidx.navigation:navigation-compose:%org.jetbrains.androidx.navigation%"}
 
-> Compose Multiplatform %org.jetbrains.compose% 需要 Navigation 函式庫版本 %org.jetbrains.androidx.navigation%。
->
-{style="note"}
-
 設定導航所需步驟的順序如下：
 
-1.  定義您的路由。
-    為每個目的地建立一個[可序列化](https://kotlinlang.org/docs/serialization.html)的物件或資料類別，以容納對應目的地所需的引數。
-2.  建立一個 `NavController`，它將是您的導航介面，在 Composable 階層中足夠高，以便所有 Composable 都能存取它。
-    `NavController` 負責維護應用程式的返回堆疊，並提供在導航圖中目的地之間轉換的方法。
-3.  設計您的導航圖，選擇其中一個路由作為起始目的地。
-    為此，建立一個 `NavHost` Composable，它包含導航圖（描述所有可導航的目的地）。
+1.  定義您的路由。為每個目的地建立一個[可序列化](https://kotlinlang.org/docs/serialization.html)的物件或資料類別，以容納對應目的地所需的引數。
+2.  建立一個 `NavController`，它將是您的導航介面，在 Composable 階層中足夠高，以便所有 Composable 都能存取它。`NavController` 負責維護應用程式的返回堆疊，並提供在導航圖中目的地之間轉換的方法。
+3.  設計您的導航圖，選擇其中一個路由作為起始目的地。為此，建立一個 `NavHost` Composable，它包含導航圖（描述所有可導航的目的地）。
 
 以下是在應用程式內導航基礎的簡單範例：
 
@@ -89,16 +82,13 @@ NavHost(navController = navController, startDestination = Profile) {
 
 Navigation 函式庫提供以下核心型別：
 
-*   `NavController`。
-    提供核心導航功能的 API：目的地之間的轉換、處理深度連結、管理返回堆疊等。
+*   `NavController`。提供核心導航功能的 API：目的地之間的轉換、處理深度連結、管理返回堆疊等。
     <!--You should create the `NavController` high in your composable hierarchy, high enough that all the composables
     that need to reference it can do so.
     This way, you can use the `NavController` as the single source of truth for updating composables outside of your screens.
     [NB: This doesn't seem to be useful to people who are trying to cover the basics.]-->
-*   `NavHost`。根據導航圖顯示目前目的地內容的 Composable。
-    每個 `NavHost` 都有一個必需的 `startDestination` 參數：此目的地對應於使用者啟動應用程式時應看到的第一個畫面。
-*   `NavGraph`。
-    描述應用程式中所有可能的目的地以及它們之間的連接。導航圖通常定義為返回 `NavGraph` 的建構器 lambda，例如在 `NavHost` 宣告中。
+*   `NavHost`。根據導航圖顯示目前目的地內容的 Composable。每個 `NavHost` 都有一個必需的 `startDestination` 參數：此目的地對應於使用者啟動應用程式時應看到的第一個畫面。
+*   `NavGraph`。描述應用程式中所有可能的目的地以及它們之間的連接。導航圖通常定義為返回 `NavGraph` 的建構器 lambda，例如在 `NavHost` 宣告中。
 
 除了核心型別功能之外，Navigation 元件提供動畫和轉場效果、深度連結支援、型別安全、`ViewModel` 支援，以及其他用於處理應用程式導航的品質生活功能。
 

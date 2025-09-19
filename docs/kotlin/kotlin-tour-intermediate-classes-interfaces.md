@@ -3,22 +3,22 @@
 <no-index/>
 
 <tldr>
-    <p><img src="icon-1-done.svg" width="20" alt="First step" /> <a href="kotlin-tour-intermediate-extension-functions.md">扩展函数</a><br />
-        <img src="icon-2-done.svg" width="20" alt="Second step" /> <a href="kotlin-tour-intermediate-scope-functions.md">作用域函数</a><br />
-        <img src="icon-3-done.svg" width="20" alt="Third step" /> <a href="kotlin-tour-intermediate-lambdas-receiver.md">带接收者的 lambda 表达式</a><br />
-        <img src="icon-4.svg" width="20" alt="Fourth step" /> <strong>类与接口</strong><br />
-        <img src="icon-5-todo.svg" width="20" alt="Fifth step" /> <a href="kotlin-tour-intermediate-objects.md">对象</a><br />
-        <img src="icon-6-todo.svg" width="20" alt="Sixth step" /> <a href="kotlin-tour-intermediate-open-special-classes.md">open 和特殊类</a><br />
-        <img src="icon-7-todo.svg" width="20" alt="Seventh step" /> <a href="kotlin-tour-intermediate-properties.md">属性</a><br />
-        <img src="icon-8-todo.svg" width="20" alt="Eighth step" /> <a href="kotlin-tour-intermediate-null-safety.md">空安全</a><br />
-        <img src="icon-9-todo.svg" width="20" alt="Ninth step" /> <a href="kotlin-tour-intermediate-libraries-and-apis.md">库与 API</a></p>
+    <p><img src="icon-1-done.svg" width="20" alt="第一步" /> <a href="kotlin-tour-intermediate-extension-functions.md">扩展函数</a><br />
+        <img src="icon-2-done.svg" width="20" alt="第二步" /> <a href="kotlin-tour-intermediate-scope-functions.md">作用域函数</a><br />
+        <img src="icon-3-done.svg" width="20" alt="第三步" /> <a href="kotlin-tour-intermediate-lambdas-receiver.md">带接收者的 lambda 表达式</a><br /> 
+        <img src="icon-4.svg" width="20" alt="第四步" /> <strong>类与接口</strong><br />
+        <img src="icon-5-todo.svg" width="20" alt="第五步" /> <a href="kotlin-tour-intermediate-objects.md">对象</a><br />
+        <img src="icon-6-todo.svg" width="20" alt="第六步" /> <a href="kotlin-tour-intermediate-open-special-classes.md">open 和特殊类</a><br />
+        <img src="icon-7-todo.svg" width="20" alt="第七步" /> <a href="kotlin-tour-intermediate-properties.md">属性</a><br />
+        <img src="icon-8-todo.svg" width="20" alt="第八步" /> <a href="kotlin-tour-intermediate-null-safety.md">空安全</a><br />
+        <img src="icon-9-todo.svg" width="20" alt="第九步" /> <a href="kotlin-tour-intermediate-libraries-and-apis.md">库与 API</a></p>
 </tldr>
 
 在初级教程中，你学习了如何使用类和数据类来存储数据并维护一组可在代码中共享的特性。最终，你将希望创建一个层次结构，以便在项目内高效地共享代码。本章将解释 Kotlin 为共享代码提供的选项，以及它们如何使你的代码更安全、更易维护。
 
 ## 类继承
 
-在上一章中，我们介绍了如何使用扩展函数来扩展类，而无需修改原始源代码。但是，如果你正在处理一些复杂任务，并且在类**之间**共享代码会很有用，该怎么办呢？在这种情况下，你可以使用类继承。
+在上一章中，我们介绍了如何使用扩展函数来扩展类，而无需修改原始源代码。但是，如果你正在处理一些复杂任务，并且在类**之间**共享代码会很有用，那该怎么办呢？在这种情况下，你可以使用类继承。
 
 默认情况下，Kotlin 中的类无法被继承。Kotlin 的这种设计是为了防止意外的继承，并使你的类更易于维护。
 
@@ -26,7 +26,7 @@ Kotlin 类只支持**单一继承**，这意味着一次只能继承**一个类*
 
 一个类的父类会继承另一个类（祖父类），从而形成一个层次结构。在 Kotlin 的类层次结构的顶层是共同的父类：`Any`。所有类最终都继承自 `Any` 类：
 
-![An example of the class hierarchy with Any type](any-type-class.png){width="200"}
+![一个带有 Any 类型的类层次结构示例](any-type-class.png){width="200"}
 
 `Any` 类自动提供 `toString()` 函数作为成员函数。因此，你可以在任何类中使用这个继承的函数。例如：
 
@@ -37,7 +37,7 @@ fun main() {
     //sampleStart
     val car1 = Car("Toyota", "Corolla", 4)
 
-    // Uses the .toString() function via string templates to print class properties
+    // 通过字符串模板使用 .toString() 函数打印类属性
     println("Car1: make=${car1.make}, model=${car1.model}, numberOfDoors=${car1.numberOfDoors}")
     // Car1: make=Toyota, model=Corolla, numberOfDoors=4
     //sampleEnd
@@ -49,10 +49,10 @@ fun main() {
 
 ### 抽象类
 
-抽象类默认可以被继承。抽象类的目的是提供其他类可继承或实现的成员。因此，它们有构造函数，但你无法从它们创建实例。在子类中，你使用 `override` 关键字定义父类属性和函数的行为。通过这种方式，你可以说子类“覆盖”了父类的成员。
+抽象类默认可以被继承。抽象类的目的是提供其他类可继承或实现的成员。因此，它们有构造函数，但你无法从它们创建实例。在子类中，你使用 `override` 关键字定义父类的属性和函数的行为。通过这种方式，你可以说子类“覆盖”了父类的成员。
 
 > 当你定义继承函数或属性的行为时，我们称之为**实现**。
->
+> 
 {style="tip"}
 
 抽象类可以包含**带有**实现以及**没有**实现的函数和属性，后者称为抽象函数和属性。
@@ -74,10 +74,10 @@ abstract val sound: String
 
 ```kotlin
 abstract class Product(val name: String, var price: Double) {
-    // Abstract property for the product category
+    // 用于产品类别的抽象属性
     abstract val category: String
 
-    // A function that can be shared by all products
+    // 所有产品都可以共享的函数
     fun productInfo(): String {
         return "Product: $name, Category: $category, Price: $price"
     }
@@ -108,10 +108,10 @@ class Electronic(name: String, price: Double, val warranty: Int) : Product(name,
 
 ```kotlin
 abstract class Product(val name: String, var price: Double) {
-    // Abstract property for the product category
+    // 用于产品类别的抽象属性
     abstract val category: String
 
-    // A function that can be shared by all products
+    // 所有产品都可以共享的函数
     fun productInfo(): String {
         return "Product: $name, Category: $category, Price: $price"
     }
@@ -123,7 +123,7 @@ class Electronic(name: String, price: Double, val warranty: Int) : Product(name,
 
 //sampleStart
 fun main() {
-    // Creates an instance of the Electronic class
+    // 创建 `Electronic` 类的一个实例
     val laptop = Electronic(name = "Laptop", price = 1000.0, warranty = 2)
 
     println(laptop.productInfo())
@@ -169,13 +169,13 @@ class CreditCardPayment : PaymentMethod
 
 ```kotlin
 interface PaymentMethod {
-    // Functions are inheritable by default
+    // 函数默认可继承
     fun initiatePayment(amount: Double): String
 }
 
 class CreditCardPayment(val cardNumber: String, val cardHolderName: String, val expiryDate: String) : PaymentMethod {
     override fun initiatePayment(amount: Double): String {
-        // Simulate processing payment with credit card
+        // 模拟使用信用卡处理支付
         return "Payment of $amount initiated using Credit Card ending in ${cardNumber.takeLast(4)}."
     }
 }
@@ -216,7 +216,7 @@ interface PaymentType {
 class CreditCardPayment(val cardNumber: String, val cardHolderName: String, val expiryDate: String) : PaymentMethod,
     PaymentType {
     override fun initiatePayment(amount: Double): String {
-        // Simulate processing payment with credit card
+        // 模拟使用信用卡处理支付
         return "Payment of $amount initiated using Credit Card ending in ${cardNumber.takeLast(4)}."
     }
 
@@ -248,78 +248,176 @@ fun main() {
 
 ## 委托
 
-接口很有用，但如果你的接口包含许多函数，子类可能会产生大量样板代码。当你只想覆盖父类行为的一小部分时，你需要大量重复自己。
+接口很有用，但如果你的接口包含许多函数，子类可能会产生大量样板代码。当你只想覆盖类行为的一小部分时，你需要大量重复自己。
 
 > 样板代码是在软件项目的多个部分中重复使用，几乎没有或完全没有修改的代码块。
->
+> 
 {style="tip"}
 
-例如，假设你有一个名为 `Drawable` 的接口，它包含许多函数和一个名为 `color` 的属性：
+例如，假设你有一个名为 `DrawingTool` 的接口，它包含许多函数和一个名为 `color` 的属性：
 
 ```kotlin
-interface Drawable {
-    fun draw()
-    fun resize()
-    val color: String?
+interface DrawingTool {
+    val color: String
+    fun draw(shape: String)
+    fun erase(area: String)
+    fun getToolInfo(): String
 }
 ```
 
-你创建一个名为 `Circle` 的类，它实现 `Drawable` 接口并为其所有成员提供实现：
+你创建一个名为 `PenTool` 的类，它实现 `DrawingTool` 接口并为其所有成员提供实现：
 
 ```kotlin
-class Circle : Drawable {
-    override fun draw() {
-        TODO("An example implementation")
+class PenTool : DrawingTool {
+    override val color: String = "black"
+
+    override fun draw(shape: String) {
+        println("Drawing $shape using a pen in $color")
     }
 
-    override fun resize() {
-        TODO("An example implementation")
+    override fun erase(area: String) {
+        println("Erasing $area with pen tool")
     }
-   override val color = null
+
+    override fun getToolInfo(): String {
+        return "PenTool(color=$color)"
+    }
 }
 ```
 
-如果你想创建一个 `Circle` 类的子类，它除了 `color` 属性的值外**都**具有相同的行为，你仍然需要为 `Circle` 类的每个成员函数添加实现：
+你想创建一个像 `PenTool` 这样具有相同行为但 `color` 值不同的类。一种方法是创建一个新类，它期望一个实现 `DrawingTool` 接口的对象作为形参，比如一个 `PenTool` 类实例。然后，在类内部，你可以覆盖 `color` 属性。
+
+但在这种场景中，你需要为 `DrawingTool` 接口的每个成员添加实现：
 
 ```kotlin
-class RedCircle(val circle: Circle) : Circle {
+interface DrawingTool {
+    val color: String
+    fun draw(shape: String)
+    fun erase(area: String)
+    fun getToolInfo(): String
+}
 
-    // Start of boilerplate code
-    override fun draw() {
-        circle.draw()
+class PenTool : DrawingTool {
+    override val color: String = "black"
+
+    override fun draw(shape: String) {
+        println("Drawing $shape using a pen in $color")
     }
 
-    override fun resize() {
-        circle.resize()
+    override fun erase(area: String) {
+        println("Erasing $area with pen tool")
     }
 
-    // End of boilerplate code
-    override val color = "red"
+    override fun getToolInfo(): String {
+        return "PenTool(color=$color)"
+    }
+}
+//sampleStart
+class CanvasSession(val tool: DrawingTool) : DrawingTool {
+    override val color: String = "blue"
+
+    override fun draw(shape: String) {
+        tool.draw(shape)
+    }
+
+    override fun erase(area: String) {
+        tool.erase(area)
+    }
+
+    override fun getToolInfo(): String {
+        return tool.getToolInfo()
+    }
+}
+//sampleEnd
+fun main() {
+    val pen = PenTool()
+    val session = CanvasSession(pen)
+
+    println("Pen color: ${pen.color}")
+    // Pen color: black
+
+    println("Session color: ${session.color}")
+    // Session color: blue
+
+    session.draw("circle")
+    // Drawing circle with pen in black
+
+    session.erase("top-left corner")
+    // Erasing top-left corner with pen tool
+
+    println(session.getToolInfo())
+    // PenTool(color=black)
 }
 ```
+{kotlin-runnable="true" id="kotlin-tour-interface-non-delegation"}
 
-你可以看到，如果 `Drawable` 接口中有大量的成员函数，`RedCircle` 类中的样板代码量可能会非常大。然而，还有另一种选择。
+你可以看到，如果 `DrawingTool` 接口中有大量的成员函数，`CanvasSession` 类中的样板代码量可能会非常大。然而，还有另一种选择。
 
-在 Kotlin 中，你可以使用委托将接口实现委托给一个类的实例。例如，你可以创建 `Circle` 类的一个实例，并将 `Circle` 类的成员函数的实现委托给这个实例。为此，请使用 `by` 关键字。例如：
+在 Kotlin 中，你可以使用 `by` 关键字将接口实现委托给一个类的实例。例如：
 
 ```kotlin
-class RedCircle(param: Circle) : Drawable by param
+class CanvasSession(val tool: DrawingTool) : DrawingTool by tool
 ```
 
-在这里，`param` 是 `Circle` 类实例的名称，成员函数的实现被委托给了它。
+在这里，`tool` 是 `PenTool` 类实例的名称，成员函数的实现被委托给了它。
 
-现在你无需在 `RedCircle` 类中添加成员函数的实现。编译器会自动为你从 `Circle` 类中完成此操作。这省去了你编写大量样板代码的麻烦。相反，你只需为你想要更改的行为添加代码。
+现在你无需在 `CanvasSession` 类中添加成员函数的实现。编译器会自动为你从 `PenTool` 类中完成此操作。这省去了你编写大量样板代码的麻烦。相反，你只需为你想要更改的行为添加代码。
 
 例如，如果你想更改 `color` 属性的值：
 
 ```kotlin
-class RedCircle(param : Circle) : Drawable by param {
-    // No boilerplate code!
-    override val color = "red"
+interface DrawingTool {
+    val color: String
+    fun draw(shape: String)
+    fun erase(area: String)
+    fun getToolInfo(): String
+}
+
+class PenTool : DrawingTool {
+    override val color: String = "black"
+
+    override fun draw(shape: String) {
+        println("Drawing $shape using a pen in $color")
+    }
+
+    override fun erase(area: String) {
+        println("Erasing $area with pen tool")
+    }
+
+    override fun getToolInfo(): String {
+        return "PenTool(color=$color)"
+    }
+}
+
+//sampleStart
+class CanvasSession(val tool: DrawingTool) : DrawingTool by tool {
+    // 无样板代码！
+    override val color: String = "blue"
+}
+//sampleEnd
+fun main() {
+    val pen = PenTool()
+    val session = CanvasSession(pen)
+
+    println("Pen color: ${pen.color}")
+    // Pen color: black
+
+    println("Session color: ${session.color}")
+    // Session color: blue
+
+    session.draw("circle")
+    // Drawing circle with pen in black
+
+    session.erase("top-left corner")
+    // Erasing top-left corner with pen tool
+
+    println(session.getToolInfo())
+    // PenTool(color=black)
 }
 ```
+{kotlin-runnable="true" id="kotlin-tour-interface-delegation"}
 
-如果你愿意，你也可以在 `RedCircle` 类中覆盖继承成员函数的行为，但现在你无需为每个继承的成员函数添加新的代码行。
+如果你愿意，你也可以在 `CanvasSession` 类中覆盖继承成员函数的行为，但现在你无需为每个继承的成员函数添加新的代码行。
 
 关于更多信息，请参见 [委托](delegation.md)。
 
@@ -340,7 +438,7 @@ class RedCircle(param : Circle) : Drawable by param {
 |--|--|
 
 ```kotlin
-abstract class // Write your code here
+abstract class // 在此处编写你的代码
 
 class SmartLight(name: String) : SmartDevice(name) {
     override fun turnOn() {
@@ -356,12 +454,12 @@ class SmartLight(name: String) : SmartDevice(name) {
     }
 }
 
-class SmartThermostat // Write your code here
+class SmartThermostat // 在此处编写你的代码
 
 fun main() {
     val livingRoomLight = SmartLight("Living Room Light")
     val bedroomThermostat = SmartThermostat("Bedroom Thermostat")
-
+    
     livingRoomLight.turnOn()
     // Living Room Light is now ON.
     livingRoomLight.adjustBrightness(10)
@@ -417,7 +515,7 @@ class SmartThermostat(name: String) : SmartDevice(name) {
 fun main() {
     val livingRoomLight = SmartLight("Living Room Light")
     val bedroomThermostat = SmartThermostat("Bedroom Thermostat")
-
+    
     livingRoomLight.turnOn()
     // Living Room Light is now ON.
     livingRoomLight.adjustBrightness(10)
@@ -452,9 +550,9 @@ fun main() {
 
 |---|---|
 ```kotlin
-interface // Write your code here
+interface // 在此处编写你的代码
 
-class // Write your code here
+class // 在此处编写你的代码
 
 fun main() {
     val audio = Audio("Symphony No. 5", "Beethoven")
@@ -502,18 +600,18 @@ fun main() {
 |---|---|
 ```kotlin
 interface Refundable {
-    // Write your code here
+    // 在此处编写你的代码
 }
 
 abstract class PaymentMethod(val name: String) {
-    // Write your code here
+    // 在此处编写你的代码
 }
 
-class CreditCard // Write your code here
+class CreditCard // 在此处编写你的代码
 
 fun main() {
     val visa = CreditCard("Visa")
-
+    
     visa.authorize(100.0)
     // Authorizing payment of $100.0.
     visa.processPayment(100.0)
@@ -550,7 +648,7 @@ class CreditCard(name: String) : PaymentMethod(name), Refundable {
 
 fun main() {
     val visa = CreditCard("Visa")
-
+    
     visa.authorize(100.0)
     // Authorizing payment of $100.0.
     visa.processPayment(100.0)
@@ -570,7 +668,7 @@ fun main() {
 在 `SmartMessenger` 类中，覆盖 `sendMessage()` 函数以发送智能消息。该函数必须接受一个 `message` 作为输入，并返回一个打印语句：`"Sending a smart message: $message"`。此外，调用 `BasicMessenger` 类中的 `sendMessage()` 函数，并在消息前加上 `[smart]`。
 
 > 你不需要在 `SmartMessenger` 类中重写 `receiveMessage()` 函数。
->
+> 
 {style="note"}
 
 |--|--|
@@ -591,12 +689,12 @@ class BasicMessenger : Messenger {
     }
 }
 
-class SmartMessenger // Write your code here
+class SmartMessenger // 在此处编写你的代码
 
 fun main() {
     val basicMessenger = BasicMessenger()
     val smartMessenger = SmartMessenger(basicMessenger)
-
+    
     basicMessenger.sendMessage("Hello!")
     // Sending message: Hello!
     println(smartMessenger.receiveMessage())
@@ -635,7 +733,7 @@ class SmartMessenger(val basicMessenger: BasicMessenger) : Messenger by basicMes
 fun main() {
     val basicMessenger = BasicMessenger()
     val smartMessenger = SmartMessenger(basicMessenger)
-
+    
     basicMessenger.sendMessage("Hello!")
     // Sending message: Hello!
     println(smartMessenger.receiveMessage())

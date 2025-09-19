@@ -1,10 +1,10 @@
-[//]: # (title: Spring Data CrudRepositoryを使用したデータベースアクセス)
+[//]: # (title: データベースアクセスにSpring Data CrudRepositoryを使用する)
 
-<web-summary>Kotlinで書かれたSpring BootプロジェクトでSpring Dataインターフェースを使用します。</web-summary>
+<web-summary>Kotlinで書かれたSpring BootプロジェクトでSpring Dataインターフェースを扱います。</web-summary>
 
 <tldr>
     <p>これは、<strong>Spring BootとKotlin入門</strong>チュートリアルの最終パートです。先に進む前に、前のステップが完了していることを確認してください。</p><br/>
-    <p><img src="icon-1-done.svg" width="20" alt="最初のステップ"/> <a href="jvm-create-project-with-spring-boot.md">KotlinでSpring Bootプロジェクトを作成する</a><br/><img src="icon-2-done.svg" width="20" alt="2番目のステップ"/> <a href="jvm-spring-boot-add-data-class.md">Spring Bootプロジェクトにデータクラスを追加する</a><br/><img src="icon-3-done.svg" width="20" alt="3番目のステップ"/> <a href="jvm-spring-boot-add-db-support.md">Spring Bootプロジェクトにデータベースサポートを追加する</a><br/><img src="icon-4.svg" width="20" alt="4番目のステップ"/> <strong>Spring Data CrudRepositoryを使用したデータベースアクセス</strong></p>
+    <p><img src="icon-1-done.svg" width="20" alt="First step"/> <a href="jvm-create-project-with-spring-boot.md">KotlinでSpring Bootプロジェクトを作成する</a><br/><img src="icon-2-done.svg" width="20" alt="Second step"/> <a href="jvm-spring-boot-add-data-class.md">Spring Bootプロジェクトにデータクラスを追加する</a><br/><img src="icon-3-done.svg" width="20" alt="Third step"/> <a href="jvm-spring-boot-add-db-support.md">Spring Bootプロジェクトにデータベースサポートを追加する</a><br/><img src="icon-4.svg" width="20" alt="Fourth step"/> <strong>データベースアクセスにSpring Data CrudRepositoryを使用する</strong></p>
 </tldr>
 
 このパートでは、データベースアクセスに`JdbcTemplate`の代わりに[Spring Data](https://docs.spring.io/spring-data/commons/docs/current/api/org/springframework/data/repository/CrudRepository.html)の`CrudRepository`を使用するようにサービス層を移行します。
@@ -13,7 +13,7 @@ _CrudRepository_は、特定の型のリポジトリに対する汎用的な[CRU
 
 ## アプリケーションを更新する
 
-まず、`CrudRepository` APIを使用するために`Message`クラスを調整する必要があります。
+まず、`CrudRepository` APIを扱うために`Message`クラスを調整する必要があります。
 
 1.  データベーステーブルへのマッピングを宣言するために、`Message`クラスに`@Table`アノテーションを追加します。
     `id`フィールドの前に`@Id`アノテーションを追加します。
@@ -40,7 +40,7 @@ _CrudRepository_は、特定の型のリポジトリに対する汎用的な[CRU
     @Table("MESSAGES")
     data class Message(val text: String, @Id val id: String? = null)
     ```
-
+ 
     これで、`Message`クラスの新しいインスタンスを作成する必要がある場合、`text`プロパティのみをパラメータとして指定できます。
 
     ```kotlin

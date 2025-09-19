@@ -63,12 +63,12 @@ Kotlin コンパイラは、ライブラリ作者向けに _明示的 API モー
 <tab title="Kotlin" group-key="kotlin">
 
 ```kotlin
-kotlin {
+kotlin {    
     // for strict mode
-    explicitApi()
+    explicitApi() 
     // or
     explicitApi = ExplicitApiMode.Strict
-
+    
     // for warning mode
     explicitApiWarning()
     // or
@@ -80,12 +80,12 @@ kotlin {
 <tab title="Groovy" group-key="groovy">
 
 ```groovy
-kotlin {
+kotlin {    
     // for strict mode
-    explicitApi()
+    explicitApi() 
     // or
     explicitApi = 'strict'
-
+    
     // for warning mode
     explicitApiWarning()
     // or
@@ -178,7 +178,7 @@ fun main() {
 
 ```kotlin
 // some new overload
-fun applyInt(func: (Int) -> String): String = func(0)
+fun applyInt(func: (Int) -> String): String = func(0) 
 ```
 
 #### Unit を返す関数における関数参照
@@ -209,9 +209,9 @@ fun use1(f: (Int, String) -> Unit) {}
 fun use2(f: (Int, String, String) -> Unit) {}
 
 fun test() {
-    use0(::foo)
-    use1(::foo)
-    use2(::foo)
+    use0(::foo) 
+    use1(::foo) 
+    use2(::foo) 
 }
 ```
 
@@ -468,7 +468,7 @@ import java.lang.Runnable
 
 fun foo(r: Runnable) {}
 
-fun test() {
+fun test() { 
     foo { } // OK
 }
 ```
@@ -488,7 +488,7 @@ Kotlin には、実行可能ファイルを生成するバックエンドが 3 �
 ## Kotlin/JVM
 
 Kotlin 1.4.0 には、JVM 固有の改善がいくつか含まれています。
-
+ 
 *   [新しい JVM IR バックエンド](#new-jvm-ir-backend)
 *   [インターフェースのデフォルトメソッド生成の新しいモード](#new-modes-for-generating-default-methods)
 *   [null チェックの例外型の統一](#unified-exception-type-for-null-checks)
@@ -598,7 +598,7 @@ kotlin {
 
 新しいバックエンドの構成方法に関する詳細については、[Kotlin/JS IR コンパイラドキュメント](js-ir-compiler.md)を参照してください。
 
-新しい [`@JsExport`](js-to-kotlin-interop.md#jsexport-annotation) アノテーションと、**[Kotlin コードから TypeScript 定義 (.d.ts) を生成する機能](js-ir-compiler.md#preview-generation-of-typescript-declaration-files-d-ts)** により、Kotlin/JS IR コンパイラバックエンドは JavaScript & TypeScript の相互運用性を向上させます。これにより、Kotlin/JS コードを既存のツールと統合したり、**ハイブリッドアプリケーション**を作成したり、マルチプラットフォームプロジェクトでコード共有機能を活用したりすることも容易になります。
+新しい [`@JsExport`](js-to-kotlin-interop.md#jsexport-annotation) アノテーションと、**[Kotlin コードから TypeScript 定義 (.d.ts) を生成する機能](js-project-setup.md#generation-of-typescript-declaration-files-d-ts)** により、Kotlin/JS IR コンパイラバックエンドは JavaScript & TypeScript の相互運用性を向上させます。これにより、Kotlin/JS コードを既存のツールと統合したり、**ハイブリッドアプリケーション**を作成したり、マルチプラットフォームプロジェクトでコード共有機能を活用したりすることも容易になります。
 
 [Kotlin/JS IR コンパイラバックエンドで利用可能な機能の詳細はこちら](js-ir-compiler.md)。
 
@@ -675,7 +675,7 @@ kotlin {
 }
 ```
 
-[クラッシュレポートのシンボル化の詳細についてはこちら](native-ios-symbolication.md)。
+[クラッシュレポートのシンボル化の詳細についてはこちら](native-debugging.md#debug-ios-applications)。
 
 ### パフォーマンスの改善
 
@@ -895,21 +895,21 @@ Kotlin プロジェクトで新機能を利用するには、Gradle を[最新�
     ![*.gradle.kts – Load Configuration](gradle-kts-load-config.png)
 
     Gradle 6.0 以降では、**Gradle の変更を読み込む**をクリックするか、Gradle プロジェクトを再インポートすることで、変更を明示的に適用できます。
-
+ 
     IntelliJ IDEA 2020.1 以降と Gradle 6.0 以降では、さらに**スクリプト設定を読み込む**アクションが追加されました。これは、プロジェクト全体を更新することなくスクリプト設定への変更を読み込みます。これにより、プロジェクト全体を再インポートするよりもはるかに時間が短縮されます。
 
     ![*.gradle.kts – Load Script Changes and Load Gradle Changes](gradle-kts.png)
 
     新しく作成されたスクリプト、または新しい Kotlin プラグインでプロジェクトを初めて開く場合も、**スクリプト設定を読み込む**必要があります。
-
+    
     Gradle 6.0 以降では、以前の実装で個別に読み込まれていたのとは対照的に、すべてのスクリプトを一度に読み込むことができるようになりました。各リクエストで Gradle 設定フェーズが実行される必要があるため、大規模な Gradle プロジェクトではリソースを大量に消費する可能性があります。
-
+    
     現在、このような読み込みは `build.gradle.kts` と `settings.gradle.kts` ファイルに限定されています（関連する[課題](https://github.com/gradle/gradle/issues/12640)に投票してください）。
     `init.gradle.kts` または適用された[スクリプトプラグイン](https://docs.gradle.org/current/userguide/plugins.html#sec:script_plugins)のハイライトを有効にするには、古いメカニズム（スタンドアロンスクリプトへの追加）を使用してください。それらのスクリプトの設定は、必要なときに個別に読み込まれます。
     また、そのようなスクリプトの自動リロードを有効にすることもできます。
-
+      
     ![*.gradle.kts – Add to standalone scripts](gradle-kts-standalone.png)
-
+    
 -   _エラー報告の改善_。以前は、Gradle Daemon からのエラーは別のログファイルでしか確認できませんでした。現在は、Gradle Daemon がエラーに関するすべての情報を直接返し、ビルドツールウィンドウに表示します。これにより、時間と労力の両方を節約できます。
 
 ## 標準ライブラリ
@@ -976,10 +976,10 @@ Kotlin 1.4.0 における Kotlin 標準ライブラリの最も重要な変更�
         listOf("a", "b", "c", "d").onEachIndexed {
             index, item -> println(index.toString() + ":" + item)
         }
-
+    
        val list = listOf("hello", "kot", "lin", "world")
               val kotlin = list.flatMapIndexed { index, item ->
-                  if (index in 1..2) item.toList() else emptyList()
+                  if (index in 1..2) item.toList() else emptyList() 
               }
     //sampleEnd
               println(kotlin)
@@ -1022,14 +1022,14 @@ Kotlin 1.4.0 における Kotlin 標準ライブラリの最も重要な変更�
 
     ```kotlin
     data class OrderItem(val name: String, val price: Double, val count: Int)
-
+    
     fun main() {
     //sampleStart
         val order = listOf<OrderItem>(
             OrderItem("Cake", price = 10.0, count = 1),
             OrderItem("Coffee", price = 2.5, count = 3),
             OrderItem("Tea", price = 1.5, count = 2))
-
+    
         val total = order.sumOf { it.price * it.count } // Double
         val count = order.sumOf { it.count } // Int
     //sampleEnd
@@ -1043,7 +1043,7 @@ Kotlin 1.4.0 における Kotlin 標準ライブラリの最も重要な変更�
 
     ```kotlin
     data class OrderItem(val name: String, val price: Double, val count: Int)
-
+    
     fun main() {
     //sampleStart
         val order = listOf<OrderItem>(
@@ -1068,7 +1068,7 @@ Kotlin 1.4.0 における Kotlin 標準ライブラリの最も重要な変更�
     //sampleStart
         val list = listOf("kot", "lin")
         val lettersList = list.flatMap { it.asSequence() }
-        val lettersSeq = list.asSequence().flatMap { it.toList() }
+        val lettersSeq = list.asSequence().flatMap { it.toList() }    
     //sampleEnd
         println(lettersList)
         println(lettersSeq.toList())
@@ -1187,11 +1187,11 @@ fun main() {
 ### ビット操作
 
 ビット操作のための新しい関数です。
-*   `countOneBits()`
+*   `countOneBits()` 
 *   `countLeadingZeroBits()`
 *   `countTrailingZeroBits()`
 *   `takeHighestOneBit()`
-*   `takeLowestOneBit()`
+*   `takeLowestOneBit()` 
 *   `rotateLeft()` および `rotateRight()` (実験的)
 
 ```kotlin
@@ -1237,7 +1237,7 @@ fun main() {
    accessReifiedTypeArg<String>()
    // Kotlin type: kotlin.String
    // Java type: class java.lang.String
-
+  
    accessReifiedTypeArg<List<String>>()
    // Kotlin type: kotlin.collections.List<kotlin.String>
    // Java type: java.util.List<java.lang.String>
@@ -1337,7 +1337,7 @@ Kotlin Scripting API は、コンパイル済みスクリプトキャッシュ�
 Kotlin プラグインの移行ツールは、プロジェクトを以前のバージョンの Kotlin から 1.4.0 に移行するのに役立ちます。
 
 Kotlin のバージョンを `1.4.0` に変更し、Gradle または Maven プロジェクトを再インポートするだけです。すると、IDE から移行に関する問い合わせがあります。
-
+ 
 同意すると、移行コードインスペクションが実行され、コードがチェックされ、動作しない、または 1.4.0 で推奨されないものに対する修正が提案されます。
 
 ![Run migration](run-migration-wn.png){width=300}

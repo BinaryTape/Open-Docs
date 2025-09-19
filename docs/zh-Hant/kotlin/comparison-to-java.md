@@ -8,9 +8,9 @@ Kotlin 解決了 Java 遇到的一系列問題：
 *   [無裸類型](java-interop.md#java-generics-in-kotlin)
 *   Kotlin 中的陣列是[不變的](arrays.md)
 *   Kotlin 具有適當的[函式類型](lambdas.md#function-types)，而非 Java 的 SAM 轉換。
-*   [使用處變數 (Use-site variance)](generics.md#use-site-variance-type-projections) 而無萬用字元 (wildcards)。
-*   Kotlin 沒有受檢查的[例外](exceptions.md)。
-*   [讀取專用與可變集合的獨立介面](collections-overview.md)。
+*   [使用處變數 (Use-site variance)](generics.md#use-site-variance-type-projections) 而無萬用字元 (wildcards)
+*   Kotlin 沒有受檢查的[例外](exceptions.md)
+*   [讀取專用與可變集合的獨立介面](collections-overview.md)
 
 ## Java 擁有但 Kotlin 沒有的功能
 
@@ -29,7 +29,7 @@ Kotlin 解決了 Java 遇到的一系列問題：
 *   [擴充函式](extensions.md)
 *   [空值安全](null-safety.md)
 *   [智慧型轉型 (Smart casts)](typecasts.md) (**Java 16**: `instanceof` 的模式比對)
-*   [字串模板 (String templates)](strings.md) (**Java 21**: 字串模板 (預覽))
+*   [字串模板 (String templates)](strings.md)
 *   [屬性](properties.md)
 *   [主要建構函式](classes.md)
 *   [一級委託](delegation.md)

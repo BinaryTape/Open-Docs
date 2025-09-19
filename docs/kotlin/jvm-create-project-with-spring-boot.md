@@ -87,8 +87,8 @@
 ```kotlin
 // build.gradle.kts
 plugins {
-    kotlin("jvm") version "%springBootSupportedKotlinVersion%" // The version of Kotlin to use
-    kotlin("plugin.spring") version "%springBootSupportedKotlinVersion%" // The Kotlin Spring plugin
+    kotlin("jvm") version "%springBootSupportedKotlinVersion%" // 要使用的 Kotlin 版本
+    kotlin("plugin.spring") version "%springBootSupportedKotlinVersion%" // Kotlin Spring 插件
     id("org.springframework.boot") version "%springBootVersion%"
     id("io.spring.dependency-management") version "1.1.7"
 }
@@ -109,8 +109,8 @@ repositories {
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-jdbc")
     implementation("org.springframework.boot:spring-boot-starter-web")
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin") // Jackson extensions for Kotlin for working with JSON
-    implementation("org.jetbrains.kotlin:kotlin-reflect") // Kotlin reflection library, required for working with Spring
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin") // Jackson 的 Kotlin 扩展，用于处理 JSON
+    implementation("org.jetbrains.kotlin:kotlin-reflect") // Kotlin 反射库，Spring 需要
     runtimeOnly("com.h2database:h2")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
@@ -119,7 +119,7 @@ dependencies {
 
 kotlin {
     compilerOptions {
-        freeCompilerArgs.addAll("-Xjsr305=strict") // `-Xjsr305=strict` enables the strict mode for JSR-305 annotations
+        freeCompilerArgs.addAll("-Xjsr305=strict") // `-Xjsr305=strict` 启用 JSR-305 注解的严格模式
     }
 }
 

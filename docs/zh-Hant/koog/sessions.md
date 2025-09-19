@@ -278,20 +278,18 @@ val strategy = strategy<Unit, Unit>("strategy-name") {
 -->
 ```kotlin
 llm.writeSession {
-    updatePrompt {
-        // Add a system message
-        system("You are a helpful assistant.")
+    // Add a system message
+    system("You are a helpful assistant.")
 
-        // Add a user message
-        user("Hello, can you help me with a coding question?")
+    // Add a user message
+    user("Hello, can you help me with a coding question?")
 
-        // Add an assistant message
-        assistant("Of course! What's your question?")
+    // Add an assistant message
+    assistant("Of course! What's your question?")
 
-        // Add a tool result
-        tool {
-            result(myToolResult)
-        }
+    // Add a tool result
+    tool {
+        result(myToolResult)
     }
 }
 ```

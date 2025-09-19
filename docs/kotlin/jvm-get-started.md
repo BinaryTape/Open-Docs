@@ -67,8 +67,8 @@
 
 2.  修改代码，使其请求您的姓名并向您问好：
 
-    *   创建一个输入提示，并将 `readln()` 函数返回的值赋值给 `name` 变量。
-    *   让我们使用字符串内插而不是字符串连接，方法是在文本输出中直接在变量名前添加美元符号 `$`，例如这样 – `$name`。
+    *   创建一个输入提示，并将 [`readln()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.io/readln.html) 函数返回的值赋值给 `name` 变量。
+    *   让我们使用字符串模板而不是字符串连接，方法是在文本输出中直接在变量名前添加美元符号，例如这样 – `$name`。
 
     ```kotlin
     fun main() {
@@ -84,15 +84,15 @@
 
 现在应用程序已准备好运行。最简单的方法是点击边槽中的绿色 **Run** 图标，然后选择 **Run 'MainKt'**。
 
-![Running a console app](jvm-run-app.png){width=350}
+![运行控制台应用](jvm-run-app.png){width=350}
 
 您可以在 **Run** 工具窗口中查看结果。
 
-![Kotlin run output](jvm-output-1.png){width=600}
+![Kotlin 运行输出](jvm-output-1.png){width=600}
 
 输入您的姓名，并接收来自应用程序的问候！
 
-![Kotlin run output](jvm-output-2.png){width=600}
+![Kotlin 运行输出](jvm-output-2.png){width=600}
 
 恭喜！您刚刚运行了第一个 Kotlin 应用程序。
 
@@ -100,5 +100,5 @@
 
 创建此应用程序后，您可以开始深入了解 Kotlin 语法：
 
-*   从 [Kotlin examples](https://play.kotlinlang.org/byExample/overview) 添加示例代码
+*   了解 [Kotlin 教程](kotlin-tour-welcome.md)
 *   为 IDEA 安装 [JetBrains Academy 插件](https://plugins.jetbrains.com/plugin/10081-jetbrains-academy) 并完成 [Kotlin 心印课程](https://plugins.jetbrains.com/plugin/10081-jetbrains-academy/docs/learner-start-guide.html?section=Kotlin%20Koans) 中的练习

@@ -26,7 +26,7 @@ Kotlin 1.5.20 在 JVM 9+ 目標上將字串串接編譯為[動態呼叫](https:/
 
 ### 支援 JSpecify nullability 註解
 
-Kotlin 編譯器可以讀取各種類型的[nullability 註解](java-interop.md#nullability-annotations)，以將 nullability 資訊從 Java 傳遞給 Kotlin。1.5.20 版本引入了對 [JSpecify 專案](https://jspecify.dev/)的支援，該專案包含了一組標準統一的 Java nullability 註解。
+Kotlin 編譯器可以讀取各種類型的[nullability 註解](java-interop.md#nullability-annotations)，以將 nullability 資訊從 Java 傳遞給 Kotlin。1.5.20 版本引入了對 [JSpecify 專案](https://jspecify.dev/)的支援，該專案包含了一組標準統一的 Java nullness 註解。
 
 透過 JSpecify，您可以提供更詳細的 nullability 資訊，幫助 Kotlin 維護與 Java 的 null 安全互通。您可以為宣告、套件或模組範圍設定預設 nullability，指定參數化 nullability 等。您可以在 [JSpecify 使用者指南](https://jspecify.dev/docs/user-guide)中找到更多詳細資訊。
 
@@ -206,7 +206,7 @@ kapt.include.compile.classpath=false
 
 Kotlin 1.5.20 變更了數個處理字元函式的平台特定實作，從而實現了跨平台的統一：
 * [Kotlin/Native 和 Kotlin/JS 中 Char.digitToInt() 支援所有 Unicode 數字](#support-for-all-unicode-digits-in-char-digittoint-in-kotlin-native-and-kotlin-js)。
-* [Char.isLowerCase()/isUpperCase() 實作在跨平台上的統一](#unification-of-char-islowercase-isuppercase-imlementations-across-platforms)。
+* [Char.isLowerCase()/isUpperCase() 實作在跨平台上的統一](#unification-of-char-islowercase-isuppercase-implementations-across-platforms)。
 
 ### Kotlin/Native 和 Kotlin/JS 中 Char.digitToInt() 支援所有 Unicode 數字
 

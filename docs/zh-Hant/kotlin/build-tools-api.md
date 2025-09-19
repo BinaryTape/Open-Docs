@@ -8,7 +8,7 @@ Kotlin 2.2.0 引入了實驗性的建置工具 API (Build Tools API, BTA)，簡�
 
 以前，在建置系統中加入完整的 Kotlin 支援（例如增量編譯、Kotlin 編譯器外掛、守護行程和 Kotlin 多平台）需要付出巨大的努力。BTA 旨在透過提供建置系統和 Kotlin 編譯器生態系之間的統一 API 來降低這種複雜性。
 
-BTA 定義了一個建置系統可以實作的單一進入點。這消除了深度整合內部編譯器細節的需求。
+BTA 定義了一個單一進入點，建置系統可以實作。這消除了深度整合內部編譯器細節的需求。
 
 > BTA 本身尚未公開可用，無法直接在您自己的建置工具整合中使用。
 > 如果您對此提案感興趣或想分享回饋，請參閱 [KEEP](https://github.com/Kotlin/KEEP/issues/421)。
@@ -46,20 +46,20 @@ import org.jetbrains.kotlin.buildtools.api.ExperimentalBuildToolsApi
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 
 plugins {
-	kotlin("jvm") version "2.2.0"
+    kotlin("jvm") version "2.2.0"
 }
 
 group = "org.jetbrains.example"
 version = "1.0-SNAPSHOT"
 
 repositories {
-	mavenCentral()
+    mavenCentral()
 }
 
 kotlin {
-	jvmToolchain(8)
-	@OptIn(ExperimentalBuildToolsApi::class, ExperimentalKotlinGradlePluginApi::class)
-	compilerVersion.set("2.1.21") // <-- different version than 2.2.0
+    jvmToolchain(8)
+    @OptIn(ExperimentalBuildToolsApi::class, ExperimentalKotlinGradlePluginApi::class)
+    compilerVersion.set("2.1.21") // <-- different version than 2.2.0
 }
 ```
 
@@ -84,7 +84,7 @@ BTA 支援：
 
 ### 啟用「in process」策略的增量編譯
 
-KGP 支援三種[編譯器執行策略](gradle-compilation-and-caches.md#defining-kotlin-compiler-execution-strategy)。通常，「in-process」策略（它在 Gradle 守護行程中執行編譯器）不支援增量編譯。
+KGP 支援三種 [編譯器執行策略](gradle-compilation-and-caches.md#defining-kotlin-compiler-execution-strategy)。通常，「in-process」策略（它在 Gradle 守護行程中執行編譯器）不支援增量編譯。
 
 透過 BTA，「in-process」策略現在支援增量編譯。若要啟用它，請將以下屬性加入到您的 `gradle.properties` 檔案中：
 
@@ -94,9 +94,6 @@ kotlin.compiler.execution.strategy=in-process
 
 ## 與 Maven 整合
 
-從 Kotlin 2.2.0 開始，BTA 在 [`kotlin-maven-plugin`](maven.md) 中預設啟用。
+BTA 使 [`kotlin-maven-plugin`](maven.md) 能夠支援 [Kotlin 守護行程](kotlin-daemon.md)，這是預設的 [編譯器執行策略](maven.md#configure-kotlin-compiler-execution-strategy)。`kotlin-maven-plugin` 預設使用 BTA，因此無需進行任何配置。
 
-儘管 BTA 尚未為 Maven 用戶提供直接好處，但它為開發以下功能提供了堅實的基礎：
-
-* [Kotlin 守護行程支援](https://youtrack.jetbrains.com/issue/KT-77587)
-* [增量編譯穩定化](https://youtrack.jetbrains.com/issue/KT-77086)
+BTA 使得未來能夠提供更多功能，例如 [增量編譯穩定化](https://youtrack.jetbrains.com/issue/KT-77086)。

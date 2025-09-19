@@ -5,11 +5,12 @@
 JetBrains 為以下 IDE 和程式碼編輯器提供官方 Kotlin 支援：
 [IntelliJ IDEA](#intellij-idea) 和 [Android Studio](#android-studio)。
 
-其他 IDE 和程式碼編輯器僅有社群支援的 Kotlin 外掛程式。
+其他 IDE 和程式碼編輯器僅有 Kotlin 社群支援的外掛程式。
 
 ## IntelliJ IDEA
 
-[IntelliJ IDEA](https://www.jetbrains.com/idea/download/) 是一款專為 JVM 語言（例如 Kotlin 和 Java）設計的 IDE，旨在最大限度地提高開發人員的生產力。
+[IntelliJ IDEA](https://www.jetbrains.com/idea/download/) 是一款專為 JVM 語言（例如 Kotlin 和 Java）設計的 IDE，
+旨在最大限度地提高開發人員的生產力。
 它透過提供智慧的程式碼補齊、靜態程式碼分析和重構，為您處理日常和重複的任務。
 它讓您專注於軟體開發的優點，使其不僅高生產力，而且也是一次愉快的體驗。
 
@@ -21,7 +22,8 @@ Kotlin 外掛程式與每個 IntelliJ IDEA 版本捆綁在一起。
 
 ## Android Studio
 
-[Android Studio](https://developer.android.com/studio) 是官方用於 Android 應用程式開發的 IDE，基於 [IntelliJ IDEA](https://www.jetbrains.com/idea/)。
+[Android Studio](https://developer.android.com/studio) 是官方用於 Android 應用程式開發的 IDE，
+基於 [IntelliJ IDEA](https://www.jetbrains.com/idea/)。
 除了 IntelliJ 強大的程式碼編輯器和開發人員工具之外，Android Studio 還提供更多功能，可在建構 Android 應用程式時提高您的生產力。
 
 Kotlin 外掛程式與每個 Android Studio 版本捆綁在一起。
@@ -30,7 +32,9 @@ Kotlin 外掛程式與每個 Android Studio 版本捆綁在一起。
 
 ## Eclipse
 
-[Eclipse](https://eclipseide.org/release/) 允許開發人員使用不同的程式語言（包括 Kotlin）編寫其應用程式。它也有 Kotlin 外掛程式：最初由 JetBrains 開發，現在 Kotlin 外掛程式由 Kotlin 社群貢獻者支援。
+[Eclipse](https://eclipseide.org/release/) 允許開發人員使用不同的程式語言，
+包括 Kotlin。它也有 Kotlin 外掛程式：最初由 JetBrains 開發，
+現在 Kotlin 外掛程式由 Kotlin 社群貢獻者支援。
 
 您可以從 [Marketplace 手動安裝 Kotlin 外掛程式](https://marketplace.eclipse.org/content/kotlin-plugin-eclipse)。
 

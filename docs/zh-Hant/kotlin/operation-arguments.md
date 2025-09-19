@@ -29,7 +29,8 @@ class MultiMap<K, V> {
 為此，請為 `key: Int` 參數配置產生器：
 
 1. 宣告 `@Param` 註解。
-2. 指定整數產生器類別：`@Param(gen = IntGen::class)`。Lincheck 支援隨機參數產生器，適用於幾乎所有基本型別和字串，開箱即用。
+2. 指定整數產生器類別：`@Param(gen = IntGen::class)`。
+   Lincheck 支援隨機參數產生器，適用於幾乎所有基本型別和字串，開箱即用。
 3. 使用字串配置 `@Param(conf = "1:2")` 定義產生值的範圍。
 4. 指定參數配置名稱（`@Param(name = "key")`），以便多個操作共用。
 

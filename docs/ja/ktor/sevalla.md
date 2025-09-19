@@ -4,11 +4,11 @@
 
 <link-summary>Ktorアプリケーションを準備し、Sevallaにデプロイする方法を学びます。</link-summary>
 
-このチュートリアルでは、Ktorアプリケーションを[Sevalla](https://sevalla.com/)に準備してデプロイする方法を学びます。Ktorサーバーの作成方法([Ktorサーバーの作成と設定](server-create-and-configure.topic)を参照)に応じて、以下のいずれかの初期プロジェクトを使用できます。
+このチュートリアルでは、Ktorアプリケーションを[Sevalla](https://sevalla.com/)に準備してデプロイする方法を学びます。[Ktorサーバーの作成](server-create-and-configure.topic)方法に応じて、以下のいずれかの初期プロジェクトを使用できます。
 
-* [embedded-server](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/embedded-server)
+*   [embedded-server](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/embedded-server)
 
-* [Engine-main](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/engine-main)
+*   [Engine-main](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/engine-main)
 
 ## 前提条件 {id="prerequisites"}
 
@@ -18,9 +18,9 @@
 
 サンプルアプリケーションを開くには、以下の手順に従ってください。
 
-1. [Ktorドキュメントリポジトリ](https://github.com/ktorio/ktor-documentation)をクローンします。
-2. [codeSnippets](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets)プロジェクトを開きます。
-3. [embedded-server](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/embedded-server)または[engine-main](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/engine-main)サンプルを開きます。これは、Ktorサーバーを設定するための2つの異なるアプローチ（コード内で直接設定するか、外部設定ファイルを使用するか）を示すものです。これらのプロジェクトをデプロイする上での唯一の違いは、受信リクエストをリッスンするために使用するポートの指定方法です。
+1.  [Ktorドキュメントリポジトリ](https://github.com/ktorio/ktor-documentation)をクローンします。
+2.  [codeSnippets](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets)プロジェクトを開きます。
+3.  [embedded-server](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/embedded-server)または[engine-main](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/engine-main)サンプルを開きます。これらは、Ktorサーバーを設定するための2つの異なるアプローチ（コード内で直接設定するか、外部設定ファイルを使用するか）を示すものです。これらのプロジェクトをデプロイする上での唯一の違いは、受信リクエストをリッスンするために使用するポートの指定方法です。
 
 ## アプリケーションを準備する {id="prepare-app"}
 
@@ -84,17 +84,17 @@ Sevallaは、接続されたGitリポジトリからアプリケーションを�
 
 アプリケーションをデプロイするには、[Sevalla](https://sevalla.com/)にサインインし、以下の手順に従ってください。
 
-1. **Applications -> Create an app** をクリックします。
-  ![Sevalla add app](../images/sevalla-add-app.jpg)
-2. Gitリポジトリを選択し、適切なブランチ（通常は`main`または`master`）を選択します。
-3. **アプリケーション名**を設定し、**リージョン**を選択し、**ポッドサイズ**を選択します（0.5 CPU / 1GB RAMから開始できます）。
-4. **Create**をクリックしますが、デプロイ手順は今はスキップします。
-  ![Sevalla create app](../images/sevalla-deployment-create-app.png)
-5. **Settings -> Build** に移動し、**Build environment**カードの下にある**Update Settings**をクリックします。
-  ![Sevalla update build settings](../images/sevalla-deployment-update-build-settings.png)
-6. ビルド方法を**Dockerfile**に設定します。
-  ![Sevalla Dockerfile settings](../images/sevalla-deployment-docker-settings.png)
-7. **Dockerfile path**が`Dockerfile`であり、**Context**が`.`であることを確認します。
-8. アプリケーションの**Deployment**タブに戻り、**Deploy**をクリックします。
+1.  **Applications -> Create an app** をクリックします。
+    ![Sevalla add app](../images/sevalla-add-app.jpg)
+2.  Gitリポジトリを選択し、適切なブランチ（通常は`main`または`master`）を選択します。
+3.  **アプリケーション名**を設定し、**リージョン**を選択し、**ポッドサイズ**を選択します（0.5 CPU / 1GB RAMから開始できます）。
+4.  **Create**をクリックしますが、デプロイ手順は今はスキップします。
+    ![Sevalla create app](../images/sevalla-deployment-create-app.png)
+5.  **Settings -> Build** に移動し、**Build environment**カードの下にある**Update Settings**をクリックします。
+    ![Sevalla update build settings](../images/sevalla-deployment-update-build-settings.png)
+6.  ビルド方法を**Dockerfile**に設定します。
+    ![Sevalla Dockerfile settings](../images/sevalla-deployment-docker-settings.png)
+7.  **Dockerfile path**が`Dockerfile`であり、**Context**が`.`であることを確認します。
+8.  アプリケーションの**Deployment**タブに戻り、**Deploy**をクリックします。
 
 Sevallaは、Gitリポジトリをクローンし、Dockerfileを使用してDockerイメージをビルドし、`PORT`環境変数を注入し、アプリケーションを実行します。すべてが正しく構成されていれば、Ktorアプリは`https://<your-app>.sevalla.app`で公開されます。

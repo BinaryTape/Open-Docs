@@ -93,29 +93,24 @@ sudo gem install cocoapods
 
 ## 建立專案
 
-當您的環境設定完成後，您可以建立一個新的 Kotlin Multiplatform 專案。為此，請使用 Kotlin Multiplatform 網路精靈或 Android Studio 的 Kotlin Multiplatform 外掛程式。
+當您的 CocoaPods 環境設定完成後，您可以配置您的 Kotlin Multiplatform 專案以使用 Pods。以下步驟說明如何在一個全新生成的專案上進行配置：
 
-### 使用網路精靈
+1. 使用 [Kotlin Multiplatform IDE 外掛程式](https://plugins.jetbrains.com/plugin/14936-kotlin-multiplatform)（在 macOS 上）或 [Kotlin Multiplatform 網路精靈](https://kmp.jetbrains.com) 產生一個新的 Android 和 iOS 專案。
+   如果使用網路精靈，請解壓縮壓縮檔並將專案匯入您的 IDE。
+2. 在 `gradle/libs.versions.toml` 檔案中，將 Kotlin CocoaPods Gradle 外掛程式添加到 
+   `[plugins]` 區塊：
 
-若要使用網路精靈建立專案並配置 CocoaPods 整合：
-
-1. 開啟 [Kotlin Multiplatform 精靈](https://kmp.jetbrains.com) 並為您的專案選擇目標平台。
-2. 點擊 **Download** 按鈕並解壓縮下載的壓縮檔。
-3. 在 Android Studio 中，從選單中選擇 **File | Open**。
-4. 導航到已解壓縮的專案資料夾，然後點擊 **Open**。
-5. 將 Kotlin CocoaPods Gradle 外掛程式添加到版本目錄（version catalog）中。在 `gradle/libs.versions.toml` 檔案中，將以下宣告添加到 `[plugins]` 區塊：
- 
    ```text
    kotlinCocoapods = { id = "org.jetbrains.kotlin.native.cocoapods", version.ref = "kotlin" }
    ```
-   
-6. 導航到您專案的根目錄 `build.gradle.kts` 檔案，並將以下別名添加到 `plugins {}` 區塊：
+
+3. 導航到您專案的根目錄 `build.gradle.kts` 檔案，並將以下別名添加到 `plugins {}` 區塊：
 
    ```kotlin
    alias(libs.plugins.kotlinCocoapods) apply false
    ```
 
-7. 開啟您想要整合 CocoaPods 的模組，例如 `composeApp` 模組，並將以下別名添加到 `plugins {}` 區塊：
+4. 開啟您想要整合 CocoaPods 的模組，例如 `composeApp` 模組，並將以下別名添加到 `build.gradle.kts` 檔案的 `plugins {}` 區塊：
 
    ```kotlin
    alias(libs.plugins.kotlinCocoapods)
@@ -123,29 +118,13 @@ sudo gem install cocoapods
 
 現在您已準備好[在您的 Kotlin Multiplatform 專案中配置 CocoaPods](#configure-the-project)。
 
-### 在 Android Studio 中
-
-若要在 Android Studio 中建立具有 CocoaPods 整合的專案：
-
-1. 在 Android Studio 中安裝 [Kotlin Multiplatform 外掛程式](https://plugins.jetbrains.com/plugin/14936-kotlin-multiplatform)。
-2. 在 Android Studio 中，從選單中選擇 **File** | **New** | **New Project**。
-3. 在專案範本清單中，選擇 **Kotlin Multiplatform App**，然後點擊 **Next**。
-4. 命名您的應用程式並點擊 **Next**。
-5. 選擇 **CocoaPods Dependency Manager** 作為 iOS 框架發行選項。
-
-   ![Android Studio wizard with the Kotlin Multiplatform plugin](as-project-wizard.png){width=700}
-
-6. 保持所有其他選項為預設值。點擊 **Finish**。
-
-   此外掛程式將自動產生已設定 CocoaPods 整合的專案。
-
 ## 配置專案
 
-若要配置 Kotlin CocoaPods Gradle 外掛程式在您的多平台專案中：
+若要在您的多平台專案中配置 Kotlin CocoaPods Gradle 外掛程式：
 
 1. 在您專案的共享模組的 `build.gradle(.kts)` 中，應用 CocoaPods 外掛程式以及 Kotlin Multiplatform 外掛程式。
 
-   > 如果您是使用 [網路精靈](#using-web-wizard) 或 [Android Studio 的 Kotlin Multiplatform 外掛程式](#in-android-studio) 建立專案，請跳過此步驟。
+   > 如果您是使用 [IDE 外掛程式或網路精靈](#create-a-project) 建立專案，請跳過此步驟。
    > 
    {style="note"}
     
@@ -170,8 +149,8 @@ sudo gem install cocoapods
             // 在此處指定所需的 Pod 版本
             // 否則，將使用 Gradle 專案版本
             version = "1.0"
-            summary = "Some description for a Kotlin/Native module"
-            homepage = "Link to a Kotlin/Native module homepage"
+            summary = "Kotlin/Native 模組的某些描述"
+            homepage = "Kotlin/Native 模組首頁連結"
    
             // 可選屬性
             // 在此處配置 Pod 名稱，而非更改 Gradle 專案名稱
@@ -224,7 +203,7 @@ sudo gem install cocoapods
 
      ```ruby
      target 'ios-app' do
-        # ... 其他依賴項 ...
+        # ... other dependencies ...
         pod 'podspecWithFilesExample', :path => 'cocoapods/externalSources/url/podspecWithFilesExample' 
      end
      ```
@@ -237,7 +216,7 @@ sudo gem install cocoapods
      source 'https://github.com/Kotlin/kotlin-cocoapods-spec.git'
 
      target 'kotlin-cocoapods-xcproj' do
-         # ... 其他依賴項 ...
+         # ... other dependencies ...
          pod 'example'
      end
      ```
@@ -286,7 +265,7 @@ CocoaPods 安裝的某些變體可能導致 Xcode 中的建置錯誤。通常，
 
 ### 找不到模組或框架 {initial-collapse-state="collapsed" collapsible="true"}
 
-安裝 Pods 時，您可能會遇到與 [C 互通（interop）](https://kotlinlang.org/docs/native-c-interop.html) 問題相關的 `module 'SomeSDK' not found` 或 `framework 'SomeFramework' not found` 錯誤。若要解決此類錯誤，請嘗試以下解決方案：
+安裝 Pods 時，您可能會遇到與 [C 互通（interop）](https://kotlinlang.org/docs/native-c-interop.html) 問題相關的 `找不到模組 'SomeSDK'` 或 `找不到框架 'SomeFramework'` 錯誤。若要解決此類錯誤，請嘗試以下解決方案：
 
 #### 更新套件
 

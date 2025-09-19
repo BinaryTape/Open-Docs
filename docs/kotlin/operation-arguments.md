@@ -34,89 +34,89 @@ class MultiMap<K, V> {
 4.  指定形参配置名称（`@Param(name = "key")`）以将其共享给多个操作。
 
     下面是 `MultiMap` 的压力测试，它在 `[1..2]` 区间内为 `add(key, value)` 和 `get(key)` 操作生成 key：
+   
+   ```kotlin
+   import java.util.concurrent.*
+   import org.jetbrains.lincheck.check
+   import org.jetbrains.lincheck.datastructures.*
+   import org.junit.*
+   
+   class MultiMap<K, V> {
+       private val map = ConcurrentHashMap<K, List<V>>()
+   
+       // 维护与指定 key 关联的 list 值。
+       fun add(key: K, value: V) {
+           val list = map[key]
+           if (list == null) {
+               map[key] = listOf(value)
+           } else {
+               map[key] = list + value
+           }
+       }
 
-    ```kotlin
-    import java.util.concurrent.*
-    import org.jetbrains.lincheck.check
-    import org.jetbrains.lincheck.datastructures.*
-    import org.junit.*
-    
-    class MultiMap<K, V> {
-        private val map = ConcurrentHashMap<K, List<V>>()
-    
-        // 维护与指定 key 关联的 list 值。
-        fun add(key: K, value: V) {
-            val list = map[key]
-            if (list == null) {
-                map[key] = listOf(value)
-            } else {
-                map[key] = list + value
-            }
-        }
-
-        fun get(key: K): List<V> = map[key] ?: emptyList()
-    }
-    
-    @Param(name = "key", gen = IntGen::class, conf = "1:2")
-    class MultiMapTest {
-        private val map = MultiMap<Int, Int>()
-    
-        @Operation
-        fun add(@Param(name = "key") key: Int, value: Int) = map.add(key, value)
-    
-        @Operation
-        fun get(@Param(name = "key") key: Int) = map.get(key)
-    
-        @Test
-        fun stressTest() = StressOptions().check(this::class)
-    
-        @Test
-        fun modelCheckingTest() = ModelCheckingOptions().check(this::class)
-    }
-    ```
+       fun get(key: K): List<V> = map[key] ?: emptyList()
+   }
+   
+   @Param(name = "key", gen = IntGen::class, conf = "1:2")
+   class MultiMapTest {
+       private val map = MultiMap<Int, Int>()
+   
+       @Operation
+       fun add(@Param(name = "key") key: Int, value: Int) = map.add(key, value)
+   
+       @Operation
+       fun get(@Param(name = "key") key: Int) = map.get(key)
+   
+       @Test
+       fun stressTest() = StressOptions().check(this::class)
+   
+       @Test
+       fun modelCheckingTest() = ModelCheckingOptions().check(this::class)
+   }
+   ```
 
 5.  运行 `stressTest()` 并查看以下输出：
 
-    ```text
-    = Invalid execution results =
-    | ---------------------------------- |
-    |    Thread 1     |     Thread 2     |
-    | ---------------------------------- |
-    | add(2, 0): void | add(2, -1): void |
-    | ---------------------------------- |
-    | get(2): [0]     |                  |
-    | ---------------------------------- |
-    ```
-
+   ```text
+   = Invalid execution results =
+   | ---------------------------------- |
+   |    Thread 1     |     Thread 2     |
+   | ---------------------------------- |
+   | add(2, 0): void | add(2, -1): void |
+   | ---------------------------------- |
+   | get(2): [0]     |                  |
+   | ---------------------------------- |
+   ```
+   
 6.  最后，运行 `modelCheckingTest()`。它失败并显示以下输出：
 
-    ```text
-    = Invalid execution results =
-    | ---------------------------------- |
-    |    Thread 1     |     Thread 2     |
-    | ---------------------------------- |
-    | add(2, 0): void | add(2, -1): void |
-    | ---------------------------------- |
-    | get(2): [-1]    |                  |
-    | ---------------------------------- |
-    
-    ---
-    水平线 | ----- | 上方的所有操作都发生在水平线 | ----- | 下方的操作之前
-    ---
+   ```text
+   = Invalid execution results =
+   | ---------------------------------- |
+   |    Thread 1     |     Thread 2     |
+   | ---------------------------------- |
+   | add(2, 0): void | add(2, -1): void |
+   | ---------------------------------- |
+   | get(2): [-1]    |                  |
+   | ---------------------------------- |
+   
+   ---
+   水平线 | ----- | 上方的所有操作都发生在水平线 | ----- | 下方的操作之前
+   ---
 
-    以下交错导致错误：
-    | ---------------------------------------------------------------------- |
-    |    Thread 1     |                       Thread 2                       |
-    | ---------------------------------------------------------------------- |
-    |                 | add(2, -1)                                           |
-    |                 |   add(2,-1) at MultiMapTest.add(MultiMap.kt:31)      |
-    |                 |     get(2): null at MultiMap.add(MultiMap.kt:15)     |
-    |                 |     switch                                           |
-    | add(2, 0): void |                                                      |
-    |                 |     put(2,[-1]): [0] at MultiMap.add(MultiMap.kt:17) |
-    |                 |   result: void                                       |
-    | ---------------------------------------------------------------------- |
-    ```
+   以下交错导致错误：
+   | ---------------------------------------------------------------------- |
+   |    Thread 1     |                       Thread 2                       |
+   | ---------------------------------------------------------------------- |
+   |                 | add(2, -1)                                           |
+   |                 |   add(2,-1) at MultiMapTest.add(MultiMap.kt:31)      |
+   |                 |     get(2): null at MultiMap.add(MultiMap.kt:15)     |
+   |                 |     switch                                           |
+   | add(2, 0): void |                                                      |
+   |                 |     put(2,[-1]): [0] at MultiMap.add(MultiMap.kt:17) |
+   |                 |   result: void                                       |
+   | ---------------------------------------------------------------------- |
+   ```
 
 由于 key 的区间较小，Lincheck 迅速揭示了竞争条件：当两个值被同一个 key 并发添加时，其中一个值可能会被覆盖并丢失。
 

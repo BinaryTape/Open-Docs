@@ -46,8 +46,9 @@ plugins {
 
 | KGP version   | Gradle min and max versions           | AGP min and max versions                            |
 |---------------|---------------------------------------|-----------------------------------------------------|
-| 2.2.0         | %minGradleVersion%–%maxGradleVersion% | %minAndroidGradleVersion%–%maxAndroidGradleVersion% |
-| 2.1.20–2.1.21 | 7.6.3–8.12.1                          | 7.3.1–8.7.2                                         |
+| 2.2.20        | %minGradleVersion%–%maxGradleVersion% | %minAndroidGradleVersion%–%maxAndroidGradleVersion% |
+| 2.2.0-2.2.10  | 7.6.3-8.14                            | 7.3.1-8.10.0                                        |
+| 2.1.20-2.1.21 | 7.6.3–8.12.1                          | 7.3.1–8.7.2                                         |
 | 2.1.0–2.1.10  | 7.6.3–8.10*                           | 7.3.1–8.7.2                                         |
 | 2.0.20–2.0.21 | 6.8.3–8.8*                            | 7.1.3–8.5                                           |
 | 2.0.0         | 6.8.3–8.5                             | 7.1.3–8.3.1                                         |
@@ -277,7 +278,7 @@ Java 工具鏈：
   如果使用者沒有配置工具鏈，`jvmTarget` 欄位將使用預設值。
   了解更多關於 [JVM 目標相容性](#check-for-jvm-target-compatibility-of-related-compile-tasks)的資訊。
 * 設定要由任何 Java 編譯、測試和 javadoc 任務使用的工具鏈。
-* 影響 [`kapt` worker](kapt.md#run-kapt-tasks-in-parallel) 運行的 JDK。
+* 影響 [`kapt` 工作者](kapt.md#run-kapt-tasks-in-parallel) 運行的 JDK。
 
 使用以下程式碼設定工具鏈。將佔位符 `<MAJOR_JDK_VERSION>` 替換為您要使用的 JDK 版本：
 
@@ -369,19 +370,19 @@ plugins {
 
 請在 [Gradle 網站](https://docs.gradle.org/current/userguide/toolchains.html#sub:download_repositories)上檢查 `foojay-resolver-convention` 的版本是否與您的 Gradle 版本對應。
 
-> 要了解 Gradle 使用哪個工具鏈，請以 [log level `--info`](https://docs.gradle.org/current/userguide/logging.html#sec:choosing_a_log_level) 運行您的 Gradle 建構，
+> 要了解 Gradle 使用哪個工具鏈，請以 [日誌級別 `--info`](https://docs.gradle.org/current/userguide/logging.html#sec:choosing_a_log_level) 運行您的 Gradle 建構，
 > 並在輸出中尋找以 `[KOTLIN] Kotlin compilation 'jdkHome' argument:` 開頭的字串。
 > 冒號後面的部分將是工具鏈的 JDK 版本。
 >
 {style="note"}
 
-要為特定任務設定任何 JDK（甚至是本地的），請使用 [Task DSL](#set-jdk-version-with-the-task-dsl)。
+要為特定任務設定任何 JDK（甚至是本地的），請使用 [任務 DSL](#set-jdk-version-with-the-task-dsl)。
 
 了解更多關於 [Kotlin 外掛程式中 Gradle JVM 工具鏈支援](https://blog.jetbrains.com/kotlin/2021/11/gradle-jvm-toolchain-support-in-the-kotlin-plugin/)的資訊。
 
-### 使用 Task DSL 設定 JDK 版本
+### 使用任務 DSL 設定 JDK 版本
 
-Task DSL 允許為任何實現 `UsesKotlinJavaToolchain` 介面的任務設定任何 JDK 版本。
+任務 DSL 允許為任何實現 `UsesKotlinJavaToolchain` 介面的任務設定任何 JDK 版本。
 目前，這些任務是 `KotlinCompile` 和 `KaptTask`。
 如果您希望 Gradle 搜尋主要 JDK 版本，請在您的建構指令碼中替換 `<MAJOR_JDK_VERSION>` 佔位符：
 
@@ -597,9 +598,26 @@ plugins {
 
 建議使用 Android Studio 建立 Android 應用程式。[了解如何使用 Android Gradle 外掛程式](https://developer.android.com/studio/releases/gradle-plugin)。
 
-## 針對 JavaScript
+## 針對 Web
 
-針對 JavaScript 時，也要使用 `kotlin-multiplatform` 外掛程式。[了解更多關於設定 Kotlin/JS 專案的資訊](js-project-setup.md)
+Kotlin 透過 Kotlin Multiplatform，為 Web 開發提供了兩種方法：
+
+* 基於 JavaScript (使用 Kotlin/JS 編譯器)
+* 基於 WebAssembly (使用 Kotlin/Wasm 編譯器)
+
+這兩種方法都使用 Kotlin Multiplatform 外掛程式，但支援不同的使用情境。
+以下章節說明如何在您的 Gradle 建構中配置每個目標以及何時使用它們。
+
+### 針對 JavaScript
+
+如果您的目標是以下情況，請使用 Kotlin/JS：
+
+* 與 JavaScript/TypeScript 程式碼庫共用業務邏輯
+* 使用 Kotlin 建構不可共用的 Web 應用程式
+
+更多資訊請參閱 [為 Kotlin Multiplatform 專案選擇合適的 Web 目標](https://www.jetbrains.com/help/kotlin-multiplatform-dev/choosing-web-target.html)。
+
+針對 JavaScript 時，請使用 `kotlin-multiplatform` 外掛程式：
 
 <tabs group="build-script">
 <tab title="Kotlin" group-key="kotlin">
@@ -622,9 +640,84 @@ plugins {
 </tab>
 </tabs>
 
-### 適用於 JavaScript 的 Kotlin 和 Java 原始碼
+透過指定 JavaScript 目標應在瀏覽器還是 Node.js 環境中運行來配置它：
 
-此外掛程式僅適用於 Kotlin 檔案，因此建議您將 Kotlin 和 Java 檔案分開存放（如果專案包含 Java 檔案）。如果您不將它們分開存放，請在 `sourceSets{}` 區塊中指定原始碼資料夾：
+```kotlin
+kotlin {
+    js().browser {  // or js().nodejs
+        /* ... */
+    }
+}
+```
+
+> 請參閱 [更多關於 JavaScript 的 Gradle 配置細節](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-dsl-reference.html#web-targets) 並了解更多關於 [設定 Kotlin/JS 專案](js-project-setup.md) 的資訊。
+>
+{style="note"}
+
+### 針對 WebAssembly
+
+如果您想在多個平台之間共用邏輯和 UI，請使用 Kotlin/Wasm。更多資訊請參閱
+[為 Kotlin Multiplatform 專案選擇合適的 Web 目標](https://www.jetbrains.com/help/kotlin-multiplatform-dev/choosing-web-target.html)。
+
+與 JavaScript 一樣，針對 WebAssembly (Wasm) 時，請使用 `kotlin-multiplatform` 外掛程式：
+
+<tabs group="build-script">
+<tab title="Kotlin" group-key="kotlin">
+
+```kotlin
+plugins {
+    kotlin("multiplatform") version "%kotlinVersion%"
+}
+```
+
+</tab>
+<tab title="Groovy" group-key="groovy">
+
+```groovy
+plugins {
+    id 'org.jetbrains.kotlin.multiplatform' version '%kotlinVersion%'
+}
+```
+
+</tab>
+</tabs>
+
+根據您的需求，您可以針對：
+
+* **`wasmJs`**：用於在瀏覽器或 Node.js 中運行
+* **`wasmWasi`**：用於在支援 [WASI (WebAssembly System Interface)](https://wasi.dev/) 的 Wasm 環境中運行，例如 Wasmtime、WasmEdge 等。
+
+配置用於網頁瀏覽器或 Node.js 的 `wasmJs` 目標：
+
+```kotlin
+kotlin {
+    wasmJs {
+        browser { // or nodejs
+            /* ... */
+        }
+    }
+}
+```
+
+對於 WASI 環境，配置 `wasmWasi` 目標：
+
+```kotlin
+kotlin {
+    wasmWasi {
+        nodejs {
+            /* ... */
+        }
+    }
+}
+```
+
+> [請參閱更多關於 Wasm 的 Gradle 配置細節](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-dsl-reference.html#web-targets)。
+>
+{style="note"}
+
+### 針對 Web 目標的 Kotlin 和 Java 原始碼
+
+KGP 僅適用於 Kotlin 檔案，因此建議您將 Kotlin 和 Java 檔案分開存放（如果專案包含 Java 檔案）。如果您不將它們分開存放，請在 `sourceSets{}` 區塊中指定原始碼資料夾：
 
 <tabs group="build-script">
 <tab title="Kotlin" group-key="kotlin">
@@ -720,7 +813,43 @@ kotlin {
 </tab>
 </tabs>
 
-或者，您可以在[頂層設定依賴項](#set-dependencies-at-top-level)。
+### 在頂層配置依賴項
+<primary-label ref="experimental-opt-in"/>
+
+您可以使用頂層的 `dependencies {}` 區塊在多平台專案中配置通用依賴項。
+此處聲明的依賴項其行為如同已新增到 `commonMain` 或 `commonTest` 原始碼集。
+
+要使用頂層 `dependencies {}` 區塊，請在該區塊之前新增 `@OptIn(ExperimentalKotlinGradlePluginApi::class)` 註解以啟用選擇性加入：
+
+<tabs group="build-script">
+<tab title="Kotlin" group-key="kotlin">
+
+```kotlin
+kotlin {
+    @OptIn(ExperimentalKotlinGradlePluginApi::class)
+    dependencies {
+        implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:%coroutinesVersion%")
+    }
+}
+```
+
+</tab>
+<tab title="Groovy" group-key="groovy">
+
+```groovy
+kotlin {
+    dependencies {
+        implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:%coroutinesVersion%'
+    }
+}
+```
+
+</tab>
+</tabs>
+
+在對應目標的 `sourceSets {}` 區塊內新增平台特定依賴項。
+
+您可以在 [YouTrack](https://youtrack.jetbrains.com/issue/KT-76446) 上分享對此功能的回饋。
 
 ### 依賴項類型
 
@@ -1113,31 +1242,6 @@ kotlin {
 </tab>
 </tabs>
 
-### 在頂層設定依賴項
-
-或者，您可以在頂層指定依賴項，使用以下配置名稱模式：`<sourceSetName><DependencyType>`。這對於某些 Gradle 內建依賴項（例如 `gradleApi()`、`localGroovy()` 或 `gradleTestKit()`）很有用，這些依賴項在原始碼集依賴 DSL 中不可用。
-
-<tabs group="build-script">
-<tab title="Kotlin" group-key="kotlin">
-
-```kotlin
-dependencies {
-    "commonMainImplementation"("com.example:my-library:1.0")
-}
-```
-
-</tab>
-<tab title="Groovy" group-key="groovy">
-
-```groovy
-dependencies {
-    commonMainImplementation 'com.example:my-library:1.0'
-}
-```
-
-</tab>
-</tabs>
-
 ## 宣告儲存庫
 
 您可以宣告一個公開可用的儲存庫以使用其開源依賴項。在 `repositories{}` 區塊中，設定儲存庫的名稱：
@@ -1182,7 +1286,7 @@ dependencyResolutionManagement {
 </tab>
 <tab title="Groovy" group-key="groovy">
 
-```kotlin
+```groovy
 dependencyResolutionManagement {
     repositories {
         mavenCentral()

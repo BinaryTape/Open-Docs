@@ -120,7 +120,7 @@
    spring.ai.vectorstore.qdrant.collection-name=kotlinDocs
    spring.ai.vectorstore.qdrant.initialize-schema=true
    ```
-   
+
    > 将你的 OpenAI API 密钥设置到 `spring.ai.openai.api-key` 属性。
    >
    {style="note"}
@@ -137,7 +137,7 @@
 
     ```kotlin
     package org.example.springaidemo
-    
+
     // 导入所需的 Spring 和工具类
     import org.slf4j.LoggerFactory
     import org.springframework.ai.document.Document
@@ -155,10 +155,10 @@
     @RestController
     @RequestMapping("/kotlin")
     class KotlinSTDController(
-    private val restTemplate: RestTemplate,
-    private val vectorStore: VectorStore,
+        private val restTemplate: RestTemplate,
+        private val vectorStore: VectorStore,
     ) {
-    private val logger = LoggerFactory.getLogger(this::class.java)
+        private val logger = LoggerFactory.getLogger(this::class.java)
 
         @OptIn(ExperimentalUuidApi::class)
         @PostMapping("/load-docs")
@@ -208,41 +208,40 @@
 
 2.  更新 `SpringAiDemoApplication.kt` 文件以声明一个 `RestTemplate` bean：
 
-   ```kotlin
-   package org.example.springaidemo
-   
-   import org.springframework.boot.autoconfigure.SpringBootApplication
-   import org.springframework.boot.runApplication
-   import org.springframework.context.annotation.Bean
-   import org.springframework.web.client.RestTemplate
-   
-   @SpringBootApplication
-   class SpringAiDemoApplication {
-   
-       @Bean
-       fun restTemplate(): RestTemplate = RestTemplate()
-   }
-   
-   fun main(args: Array<String>) {
-       runApplication<SpringAiDemoApplication>(*args)
-   }
-   ```
+    ```kotlin
+    package org.example.springaidemo
+
+    import org.springframework.boot.autoconfigure.SpringBootApplication
+    import org.springframework.boot.runApplication
+    import org.springframework.context.annotation.Bean
+    import org.springframework.web.client.RestTemplate
+
+    @SpringBootApplication
+    class SpringAiDemoApplication {
+        @Bean
+        fun restTemplate(): RestTemplate = RestTemplate()
+    }
+
+    fun main(args: Array<String>) {
+        runApplication<SpringAiDemoApplication>(*args)
+    }
+    ```
    {collapsible="true"}
 
 3.  运行应用程序。
 4.  在终端中，向 `/kotlin/load-docs` 端点发送 POST 请求以加载文档：
 
-   ```bash
-   curl -X POST http://localhost:8080/kotlin/load-docs
-   ```
+    ```bash
+    curl -X POST http://localhost:8080/kotlin/load-docs
+    ```
 
 5.  文档加载后，你可以通过 GET 请求搜索它们：
 
-   ```Bash
-   curl -X GET http://localhost:8080/kotlin/docs
-   ```
+    ```Bash
+    curl -X GET http://localhost:8080/kotlin/docs
+    ```
 
-   ![GET 请求结果](spring-ai-get-results.png){width="700"}
+   ![GET request results](spring-ai-get-results.png){width="700"}
 
 > 你也可以在 [Qdrant collections](http://localhost:6333/dashboard#/collections) 页面上查看结果。
 >
@@ -254,85 +253,85 @@
 
 1.  打开 `KotlinSTDController.kt` 文件，并导入以下类：
 
-   ```kotlin
-   import org.springframework.ai.chat.client.ChatClient
-   import org.springframework.ai.chat.client.advisor.SimpleLoggerAdvisor
-   import org.springframework.ai.chat.client.advisor.vectorstore.QuestionAnswerAdvisor
-   import org.springframework.ai.chat.prompt.Prompt
-   import org.springframework.ai.chat.prompt.PromptTemplate
-   import org.springframework.web.bind.annotation.RequestBody
-   ```
+    ```kotlin
+    import org.springframework.ai.chat.client.ChatClient
+    import org.springframework.ai.chat.client.advisor.SimpleLoggerAdvisor
+    import org.springframework.ai.chat.client.advisor.vectorstore.QuestionAnswerAdvisor
+    import org.springframework.ai.chat.prompt.Prompt
+    import org.springframework.ai.chat.prompt.PromptTemplate
+    import org.springframework.web.bind.annotation.RequestBody
+    ```
 
 2.  定义一个 `ChatRequest` 数据类：
 
-   ```kotlin
-   // 表示聊天查询的请求负载
-   data class ChatRequest(val query: String, val topK: Int = 3)
-   ```
+    ```kotlin
+    // 表示聊天查询的请求负载
+    data class ChatRequest(val query: String, val topK: Int = 3)
+    ```
 
 3.  将 `ChatClient.Builder` 添加到控制器的构造函数形参中：
 
-   ```kotlin
-   class KotlinSTDController(
-       private val chatClientBuilder: ChatClient.Builder,
-       private val restTemplate: RestTemplate,
-       private val vectorStore: VectorStore,
-   )
-   ```
+    ```kotlin
+    class KotlinSTDController(
+        private val chatClientBuilder: ChatClient.Builder,
+        private val restTemplate: RestTemplate,
+        private val vectorStore: VectorStore,
+    )
+    ```
 
 4.  在控制器类内部，创建一个 `ChatClient` 实例：
 
-   ```kotlin
-   // 使用简单的日志通知器构建聊天客户端
-   private val chatClient = chatClientBuilder.defaultAdvisors(SimpleLoggerAdvisor()).build()
-   ```
+    ```kotlin
+    // 使用简单的日志通知器构建聊天客户端
+    private val chatClient = chatClientBuilder.defaultAdvisors(SimpleLoggerAdvisor()).build()
+    ```
 
 5.  在你的 `KotlinSTDController.kt` 文件底部，添加一个新的 `chatAsk()` 端点，包含以下逻辑：
 
-   ```kotlin
-   @PostMapping("/chat/ask")
-   fun chatAsk(@RequestBody request: ChatRequest): String? {
-       // 定义带有占位符的提示模板
-       val promptTemplate = PromptTemplate(
-           """
-           {query}.
-           Please provide a concise answer based on the "Kotlin standard library" documentation.
-       """.trimIndent()
-       )
+    ```kotlin
+    @PostMapping("/chat/ask")
+    fun chatAsk(@RequestBody request: ChatRequest): String? {
+        // 定义带有占位符的提示模板
+        val promptTemplate = PromptTemplate(
+            """
+            {query}.
+            Please provide a concise answer based on the "Kotlin standard library" documentation.
+        """.trimIndent()
+        )
 
-       // 通过将占位符替换为实际值来创建提示
-       val prompt: Prompt =
-           promptTemplate.create(mapOf("query" to request.query))
+        // 通过将占位符替换为实际值来创建提示
+        val prompt: Prompt =
+            promptTemplate.create(mapOf("query" to request.query))
 
-       // 配置检索通知器以使用相关文档增强查询
-       val retrievalAdvisor = QuestionAnswerAdvisor.builder(vectorStore)
-           .searchRequest(
-               SearchRequest.builder()
-                   .similarityThreshold(0.7)
-                   .topK(request.topK)
-                   .build()
-           )
-           .promptTemplate(promptTemplate)
-           .build()
+        // 配置检索通知器以使用相关文档增强查询
+        val retrievalAdvisor = QuestionAnswerAdvisor.builder(vectorStore)
+            .searchRequest(
+                SearchRequest.builder()
+                    .similarityThreshold(0.7)
+                    .topK(request.topK)
+                    .build()
+            )
+            .promptTemplate(promptTemplate)
+            .build()
 
-       // 将提示发送到带有检索通知器的 LLM 并检索生成的内容
-       val response = chatClient.prompt(prompt)
-           .advisors(retrievalAdvisor)
-           .call()
-           .content()
-       logger.info("Chat response generated for query: '${request.query}'")
-       return response
-   }
-   ```
+        // 将提示发送到带有检索通知器的 LLM 并检索生成的内容
+        val response = chatClient.prompt(prompt)
+            .advisors(retrievalAdvisor)
+            .call()
+            .content()
+        logger.info("Chat response generated for query: '${request.query}'")
+        return response
+    }
+    ```
 
 6.  运行应用程序。
 7.  在终端中，向新端点发送 POST 请求以查看结果：
 
-   ```bash
-   curl -X POST "http://localhost:8080/kotlin/chat/ask" \
-        -H "Content-Type: application/json" \
-        -d '{"query": "What are the performance implications of using lazy sequences in Kotlin for large datasets?", "topK": 3}'
-   ```
+    ```bash
+    curl -X POST "http://localhost:8080/kotlin/chat/ask" \
+         -H "Content-Type: application/json" \
+         -d '{"query": "What are the performance implications of using lazy sequences in Kotlin for large datasets?", "topK": 3}'
+    ```
 
    ![OpenAI 对聊天请求的回答](open-ai-chat-endpoint.png){width="700"}
 

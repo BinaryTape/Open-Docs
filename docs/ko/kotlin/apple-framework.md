@@ -127,15 +127,15 @@ Kotlin/Native 컴파일러는 Kotlin 코드로부터 macOS 및 iOS용 프레임�
 
     `binaries {}` 블록은 동적 라이브러리 또는 공유 라이브러리를 생성하도록 프로젝트를 구성합니다.
 
-    Kotlin/Native는 iOS용 `iosArm64`, `iosX64`, `iosSimulatorArm64` 타겟과 macOS용 `macosX64`, `macosArm64` 타겟을 지원합니다. 따라서 `iosArm64()`를 해당 타겟 플랫폼에 맞는 Gradle 함수로 대체할 수 있습니다.
+    Kotlin/Native는 iOS용 `iosArm64`, `iosX64`, `iosSimulatorArm64` 타겟과 macOS용 `macosArm64`, `macosX64` 타겟을 지원합니다. 따라서 `iosArm64()`를 해당 타겟 플랫폼에 맞는 Gradle 함수로 대체할 수 있습니다.
 
     | 타겟 플랫폼/장치       | Gradle 함수           |
     |------------------------|-----------------------|
-    | macOS x86_64           | `macosX64()`          |
     | macOS ARM64            | `macosArm64()`        |
+    | macOS x86_64           | `macosX64()`          |
     | iOS ARM64              | `iosArm64()`          |
-    | iOS 시뮬레이터 (x86_64) | `iosX64()`            |
     | iOS 시뮬레이터 (ARM64)  | `iosSimulatorArm64()` |
+    | iOS 시뮬레이터 (x86_64) | `iosX64()`            |
 
     다른 지원되는 Apple 타겟에 대한 자세한 정보는 [Kotlin/Native 타겟 지원](native-target-support.md)을 참조하십시오.
 
@@ -349,7 +349,7 @@ Kotlin 소스의 전역 선언은 Objective-C의 `DemoLibKt` 클래스 아래에
 
 ## Swift에서 코드 사용
 
-생성한 프레임워크에는 Swift에서 더 쉽게 사용할 수 있도록 헬퍼 속성이 있습니다. [이전 Objective-C 예제](#use-code-from-objective-c)를 Swift로 변환해 보겠습니다.
+생성한 프레임워크에는 Swift에서 더 쉽게 사용할 수 있도록 헬퍼 속성(attributes)이 있습니다. [이전 Objective-C 예제](#use-code-from-objective-c)를 Swift로 변환해 보겠습니다.
 
 프레임워크 디렉터리에 다음 코드를 포함하는 `main.swift` 파일을 생성합니다.
 

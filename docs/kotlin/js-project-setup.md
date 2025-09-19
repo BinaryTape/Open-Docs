@@ -39,6 +39,8 @@ kotlin {
 
 *   [目标执行环境](#execution-environments)：浏览器或 Node.js
 *   [对 ES2015 特性的支持](#support-for-es2015-features)：类、模块和生成器
+*   [配置输出粒度](#configure-output-granularity)
+*   [TypeScript 声明文件（`d.ts`）的生成](#generation-of-typescript-declaration-files-d-ts)
 *   [项目依赖项](#dependencies)：Maven 和 npm
 *   [运行配置](#run-task)
 *   [测试配置](#test-task)
@@ -65,7 +67,7 @@ kotlin {
 }
 ```
 
-`binaries.executable()` 指令显式地指示 Kotlin 编译器输出可执行的 `.js` 文件。
+`binaries.executable()` 指令明确指示 Kotlin 编译器输出可执行的 `.js` 文件。
 省略 `binaries.executable()` 将导致编译器只生成 Kotlin 内部库文件，这些文件可用于其他项目，但不能单独运行。
 
 > 这通常比创建可执行文件更快，并且在处理项目的非叶子模块时，可以作为一种可能的优化。
@@ -79,20 +81,67 @@ Kotlin Multiplatform 插件自动为所选环境配置其任务。这包括下�
 Kotlin 为以下 ES2015 特性提供[实验性的](components-stability.md#stability-levels-explained)支持：
 
 *   模块：简化你的代码库并提高可维护性。
-*   类：允许整合 OOP 原则，从而产生更清晰、更直观的代码。
-*   生成器：用于编译[挂起函数](composing-suspending-functions.md)，可减小最终 bundle 大小并有助于调试。
+*   类：允许整合面向对象编程 (OOP) 原则，从而产生更清晰、更直观的代码。
+*   生成器：用于编译[挂起函数](https://kotlinlang.org/docs/composing-suspending-functions.html)，可减小最终 bundle 大小并有助于调试。
 
 你可以通过在 `build.gradle(.kts)` 文件中添加 `es2015` 编译目标，一次性启用所有受支持的 ES2015 特性：
 
 ```kotlin
 tasks.withType<KotlinJsCompile>().configureEach {
-    kotlinOptions {
+    compilerOptions {
         target = "es2015"
     }
 }
 ```
 
 [在官方文档中了解更多关于 ES2015 (ECMAScript 2015, ES6) 的信息](https://262.ecma-international.org/6.0/)。
+
+## 配置输出粒度
+
+你可以选择编译器在项目中输出 `.js` 文件的方式：
+
+*   **每个模块一个文件**。默认情况下，JS 编译器为每个项目模块输出单独的 `.js` 文件作为编译结果。
+*   **每个项目一个文件**。你可以通过在 `gradle.properties` 文件中添加以下行，将整个项目编译成单个 `.js` 文件：
+
+    ```none
+    kotlin.js.ir.output.granularity=whole-program // 'per-module' is the default
+    ```
+
+*   **每个文件一个文件**。你可以设置更细粒度的输出，为每个 Kotlin 文件生成一个（或两个，如果文件包含导出的声明）JavaScript 文件。要启用按文件编译模式：
+    1.  设置 `es2015` 作为[编译目标](#support-for-es2015-features)，以在项目中支持 ES2015 特性。
+    2.  在 `gradle.properties` 文件中添加以下行：
+        ```none
+        kotlin.js.ir.output.granularity=per-file // 'per-module' is the default
+        ```
+
+## TypeScript 声明文件（`d.ts`）的生成
+<primary-label ref="experimental-opt-in"/>
+
+Kotlin/JS 编译器可以从你的 Kotlin 代码生成 TypeScript 定义。这些定义可供 JavaScript 工具和 IDE 在处理混合应用程序时使用，以：
+
+*   提供自动补全
+*   支持静态分析器
+*   简化在 JavaScript 和 TypeScript 项目中添加 Kotlin 代码
+
+生成 TypeScript 定义对于[业务逻辑共享用例](js-overview.md#use-cases-for-kotlin-js)尤其有价值。
+
+编译器会收集任何标记有 [`@JsExport`](js-to-kotlin-interop.md#jsexport-annotation) 的顶层声明，并自动在 `.d.ts` 文件中生成 TypeScript 定义。
+
+要生成 TypeScript 定义，请在 Gradle 构建文件中显式配置。
+在 `js {}` 代码块中，将 `generateTypeScriptDefinitions()` 函数添加到你的 `build.gradle.kts` 文件中（参见 [js 项目设置](#execution-environments)）：
+
+```kotlin
+kotlin {
+    js {
+        binaries.executable()
+        browser {
+        }
+        generateTypeScriptDefinitions()
+    }
+}
+```
+
+你可以在 `build/js/packages/<package_name>/kotlin` 目录中找到这些定义，与相应的未 webpack 打包的 JavaScript 代码放在一起。
 
 ## 依赖项
 
@@ -666,11 +715,11 @@ rootProject.plugins.withType(org.jetbrains.kotlin.gradle.targets.js.yarn.YarnPlu
 >
 {style="note"}
 
-项目根目录下的 `kotlin-js-store` 目录由 Kotlin Multiplatform Gradle 插件自动生成，用于存放 `yarn.lock` 文件，该文件是版本锁定所必需的。lockfile 完全由 Yarn 插件管理，并在执行 `kotlinNpmInstall` Gradle 任务期间更新。
+项目根目录下的 `kotlin-js-store` 目录由 Kotlin Multiplatform Gradle 插件自动生成，用于存放 `yarn.lock` 文件，该文件是版本锁定所必需的。锁定文件完全由 Yarn 插件管理，并在执行 `kotlinNpmInstall` Gradle 任务期间更新。
 
 为了遵循[推荐做法](https://classic.yarnpkg.com/blog/2016/11/24/lockfiles-for-all/)，请将 `kotlin-js-store` 及其内容提交到你的版本控制系统。这确保了你的应用程序在所有机器上都使用完全相同的依赖项树进行构建。
 
-如果需要，你可以在 `build.gradle(.kts)` 中更改目录和 lockfile 名称：
+如果需要，你可以在 `build.gradle(.kts)` 中更改目录和锁定文件名称：
 
 <tabs group="build-script">
 <tab title="Kotlin" group-key="kotlin">
@@ -697,7 +746,7 @@ rootProject.plugins.withType(org.jetbrains.kotlin.gradle.targets.js.yarn.YarnPlu
 </tab>
 </tabs>
 
-> 更改 lockfile 的名称可能会导致依赖项探查工具无法再识别该文件。
+> 更改锁定文件的名称可能会导致依赖项探查工具无法再识别该文件。
 >
 {style="warning"}
 
@@ -705,7 +754,7 @@ rootProject.plugins.withType(org.jetbrains.kotlin.gradle.targets.js.yarn.YarnPlu
 
 ### 报告 yarn.lock 已更新
 
-Kotlin/JS 提供 Gradle 设置，可以通知你 `yarn.lock` 文件是否已更新。当你想在 CI 构建过程中安静地更改 `yarn.lock` 时，可以使用这些设置：
+Kotlin/JS 提供 Gradle 设置，可以通知你 `yarn.lock` 文件是否已更新。当你想在 CI 构建过程中悄悄更改 `yarn.lock` 时，可以使用这些设置：
 
 *   `YarnLockMismatchReport`：指定如何报告 `yarn.lock` 文件的更改。你可以使用以下值之一：
     *   `FAIL`：使相应的 Gradle 任务失败。这是默认值。
@@ -829,11 +878,11 @@ kotlin {
 
 ## 模块名称
 
-要调整 JavaScript _模块_的名称（该模块生成在 `build/js/packages/myModuleName` 中），包括相应的 `.js` 和 `.d.ts` 文件，请使用 `moduleName` 选项：
+要调整 JavaScript _模块_的名称（该模块生成在 `build/js/packages/myModuleName` 中），包括相应的 `.js` 和 `.d.ts` 文件，请使用 `outputModuleName` 选项：
 
 ```groovy
 js {
-    moduleName = "myModuleName"
+    outputModuleName = "myModuleName"
 }
 ```
 
@@ -841,7 +890,7 @@ js {
 
 ## package.json 自定义
 
-`package.json` 文件包含 JavaScript 包的元数据。npm 等流行的包仓库要求所有发布的包都拥有此类文件。它们使用它来跟踪和管理包发布。
+`package.json` 文件包含 JavaScript 包的元数据。npm 等流行包仓库要求所有发布的包都拥有此类文件。它们使用它来跟踪和管理包发布。
 
 Kotlin Multiplatform Gradle 插件在构建时自动为 Kotlin/JS 项目生成 `package.json`。默认情况下，该文件包含基本数据：名称、版本、许可证、依赖项以及一些其他包属性。
 

@@ -213,7 +213,7 @@ install(Koog) {
 - Ollama: ollama.meta.llama3.2, ollama.alibaba.qwq:32b, ollama.groq.llama3-grok-tool-use:8b
 
 注意
-- 對於 OpenAI，您必須包含類別（chat, reasoning, costoptimized, audio, embeddings, moderation）。
+- 對於 OpenAI，您必須包含類別 (chat, reasoning, costoptimized, audio, embeddings, moderation)。
 - 對於 Ollama，`ollama.model` 和 `ollama.<maker>.<model>` 都受支援。
 
 ## MCP 工具（僅限 JVM）

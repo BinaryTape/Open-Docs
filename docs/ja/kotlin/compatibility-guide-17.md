@@ -1,4 +1,4 @@
-[//]: # (title: Kotlin 1.7 互換性ガイド)
+[//]: # (title: Kotlin 1.7 の互換性ガイド)
 
 _[言語をモダンに保つ](kotlin-evolution-principles.md)_ と _[快適なアップデート](kotlin-evolution-principles.md)_ は、
 Kotlin言語設計の基本原則です。前者は、言語の進化を妨げる構成要素は削除されるべきであると述べ、
@@ -426,7 +426,7 @@ Kotlin言語設計の基本原則です。前者は、言語の進化を妨げ�
 >
 > **概要**: `noStdlib`コンパイラオプションを削除します。Gradleプラグインは、Kotlin標準ライブラリが存在するかどうかを制御するために`kotlin.stdlib.default.dependency=true`プロパティを使用します。
 >
-> **非推奨化サイクル:**
+> **非推奨化サイクル**:
 >
 > - 1.5.0: 非推奨レベルを警告に昇格させる
 > - 1.7.0: オプションを削除する
@@ -441,7 +441,7 @@ Kotlin言語設計の基本原則です。前者は、言語の進化を妨げ�
 >
 > **概要**: `kotlin2js` および `kotlin-dce-plugin` プラグインを削除します。`kotlin2js`の代わりに、新しい`org.jetbrains.kotlin.js`プラグインを使用してください。デッドコード削除（DCE）は、Kotlin/JS Gradleプラグインが適切に設定されている場合に機能します。
 >
-> **非推奨化サイクル:**
+> **非推奨化サイクル**:
 >
 > - 1.4.0: 非推奨レベルを警告に昇格させる
 > - 1.7.0: プラグインを削除する
@@ -456,6 +456,6 @@ Kotlin言語設計の基本原則です。前者は、言語の進化を妨げ�
 >
 > **概要**: Kotlinのコンパイルタスクは、Gradleの`AbstractCompile`タスクを継承しなくなったため、Kotlinユーザーのスクリプトでは`sourceCompatibility`および`targetCompatibility`入力が利用できなくなります。`SourceTask.stableSources`入力は利用できなくなりました。`sourceFilesExtensions`入力は削除されました。非推奨の`Gradle destinationDir: File`出力は`destinationDirectory: DirectoryProperty`出力に置き換えられました。`KotlinCompile`タスクの`classpath`プロパティは非推奨です。
 >
-> **非推奨化サイクル:**
+> **非推奨化サイクル**:
 >
 > - 1.7.0: 入力は利用できなくなり、出力は置き換えられ、`classpath`プロパティは非推奨となる

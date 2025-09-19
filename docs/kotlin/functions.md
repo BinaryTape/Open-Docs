@@ -78,7 +78,7 @@ fun foo(
 foo(baz = 1) // The default value bar = 0 is used
 ```
 
-如果所有带默认值的形参后的最后一个形参是函数类型，那么你可以将对应的 [lambda 表达式](lambdas.md#lambda-expression-syntax)实参作为具名实参传递，或者[在圆括号外](lambdas.md#passing-trailing-lambdas)传递：
+如果所有带默认值的形参后的最后一个形参是函数类型，那么你可以将对应的 [lambda 表达式](lambdas.md#lambda-expression-syntax)实参作为具名实参传递，或者[在圆括号外](lambbas.md#passing-trailing-lambdas)传递：
 
 ```kotlin
 fun foo(

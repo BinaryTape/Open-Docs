@@ -72,7 +72,7 @@ Koogは、Langfuseが[エージェントグラフ](https://langfuse.com/docs/obs
 
 Langfuseで視覚化されると、トレースは次のようになります:
 ![Langfuse traces](img/opentelemetry-langfuse-exporter-light.png#only-light)
-![Langfuse traces](img/oplentelemetry-langfuse-exporter-dark.png#only-dark)
+![Langfuse traces](img/opelentelmetry-langfuse-exporter-dark.png#only-dark)
 
 Langfuse OpenTelemetryトレースの詳細については、以下を参照してください:
 [Langfuse OpenTelemetry Docs](https://langfuse.com/integrations/native/opentelemetry#opentelemetry-endpoint).

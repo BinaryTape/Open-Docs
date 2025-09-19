@@ -89,7 +89,7 @@ Kotlin Multiplatform (KMP) 项目需要特定的环境，但大多数要求都�
     *   对于 iOS，你可以选择两种实现之一：
         *   共享 UI 代码，使用 Compose Multiplatform，
         *   完全原生的 UI，使用 SwiftUI 构建并与共享逻辑的 Kotlin 模块连接。
-    *   桌面目标包含 [Compose Hot Reload](compose-hot-reload.md) 功能的 Alpha 版本，它允许你在更改相应代码后立即看到 UI 更改。
+    *   桌面目标包含 [Compose Hot Reload](compose-hot-reload.md) 功能的 Beta 版本，它允许你在更改相应代码后立即看到 UI 更改。
         即使你没有计划制作桌面应用程序，你也可能希望使用桌面版本来加速编写 UI 代码。
 
 选择完平台后，点击 **Create** 按钮，等待 IDE 生成并导入项目。
@@ -115,7 +115,7 @@ Kotlin Multiplatform IDE 插件高度依赖 K2 功能，如果没有 K2 功能�
     *   对于 iOS，你可以选择两种实现之一：
         *   共享 UI 代码，使用 Compose Multiplatform，
         *   完全原生的 UI，使用 SwiftUI 构建并与共享逻辑的 Kotlin 模块连接。
-    *   桌面目标包含 hot reload 功能的 alpha 版本，它允许你在更改相应代码后立即看到 UI 更改。
+    *   桌面目标包含 [Compose Hot Reload](compose-hot-reload.md) 功能的 Beta 版本，它允许你在更改相应代码后立即看到 UI 更改。
         即使你没有计划制作桌面应用程序，你也可能希望使用桌面版本来加速编写 UI 代码。
 5.  项目生成后，我们建议选择一个版本的 [JetBrains Runtime](https://github.com/JetBrains/JetBrainsRuntime) (JBR) 作为项目的 JDK，因为它提供了重要的修复，特别是为了提高桌面 KMP 应用程序的兼容性。
     每个 IntelliJ IDEA 发行版都包含相关版本的 JBR，因此无需额外设置。

@@ -33,7 +33,7 @@
 
 ```kotlin
 class Contact(val id: Int, var email: String) {
-    val category: String = ""
+    var category: String = ""
 }
 ```
 
@@ -41,7 +41,7 @@ class Contact(val id: Int, var email: String) {
 
 ```kotlin
 class Contact(val id: Int, var email: String) {
-    val category: String = ""
+    var category: String = ""
         get() = field
         set(value) {
             field = value
@@ -81,7 +81,7 @@ fun main() {
     // Exception in thread "main" java.lang.StackOverflowError
 }
 ```
-{validate ="false" kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-tour-properties-stackoverflow"}
+{validate="false" kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-tour-properties-stackoverflow"}
 
 為了修復這個問題，您可以在 `set()` 函式中使用支持欄位，透過 `field` 關鍵字引用它：
 
@@ -110,7 +110,7 @@ fun main() {
 
 就像擴充函式一樣，也存在擴充屬性。擴充屬性允許您在不修改現有類別原始碼的情況下，向其添加新屬性。然而，Kotlin 中的擴充屬性**沒有**支持欄位。這表示您需要自行編寫 `get()` 和 `set()` 函式。此外，由於缺乏支持欄位，它們無法持有任何狀態。
 
-要宣告擴充屬性，請寫下您要擴充的類別名稱，後跟一個 `.` 和您的屬性名稱。就像普通的類別屬性一樣，您需要為您的屬性宣告一個接收者類型。例如：
+要宣告擴充屬性，請寫下您要擴充的類別名稱，後跟一個 `.` 和您的屬性名稱。就像普通的類別屬性一樣，您需要為您的屬性宣告一個類型。例如：
 
 ```kotlin
 val String.lastChar: Char
@@ -177,7 +177,7 @@ operator fun setValue(thisRef: Any?, property: KProperty<*>, value: String) {}
 
 *   `operator` 關鍵字將這些函式標記為運算子函式，使其能夠重載 `get()` 和 `set()` 函式。
 *   `thisRef` 參數指向**包含**委託屬性的物件。預設情況下，類型設定為 `Any?`，但您可能需要宣告更具體的類型。
-*   `property` 參數指向其值被存取或變更的屬性。您可以使用此參數存取諸如屬性名稱或類型等資訊。預設情況下，類型設定為 `Any?`。您無需擔心在程式碼中更改此項。
+*   `property` 參數指向其值被存取或變更的屬性。您可以使用此參數存取諸如屬性名稱或類型等資訊。預設情況下，類型設定為 `KProperty<*>` 但您也可以使用 `Any?`。您無需擔心在程式碼中更改此項。
 
 `getValue()` 函式預設的傳回類型為 `String`，但您可以根據需要進行調整。
 

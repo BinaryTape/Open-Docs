@@ -96,7 +96,7 @@ fun main() {
 import kotlinx.datetime.*
 
 fun main() {
-    val now = Clock.System.now() // Get current instant
+    val now = Clock.System.now() // 현재 Instant 가져오기
     println("Current instant: $now")
 
     val zone = TimeZone.of("America/New_York")
@@ -255,11 +255,11 @@ import kotlin.time.measureTime
 
 fun main() {
     val timeTaken = measureTime {
-        // Simulate some data processing
+        // 데이터 처리 시뮬레이션
         val data = List(1000) { it * 2 }
         val filteredData = data.filter { it % 3 == 0 }
 
-        // Simulate processing the filtered data
+        // 필터링된 데이터 처리 시뮬레이션
         val processedData = filteredData.map { it / 2 }
         println("Processed data")
     }

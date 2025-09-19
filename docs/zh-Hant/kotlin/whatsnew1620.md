@@ -1,6 +1,6 @@
 [//]: # (title: Kotlin 1.6.20 有什麼新功能)
 
-[發佈日期：2022 年 4 月 4 日](releases.md#release-details)
+_[發佈日期：2022 年 4 月 4 日](releases.md#release-details)_
 
 Kotlin 1.6.20 揭示了未來語言功能的預覽，將階層式結構設定為多平台專案的預設值，並為其他元件帶來了演進式改進。
 
@@ -31,19 +31,19 @@ Kotlin 1.6.20 揭示了未來語言功能的預覽，將階層式結構設定為
 
 ```kotlin
 interface LoggingContext {
-    val log: Logger // This context provides a reference to a logger 
+    val log: Logger // 此情境提供對記錄器的參考 
 }
 
 context(LoggingContext)
 fun startBusinessOperation() {
-    // You can access the log property since LoggingContext is an implicit receiver
+    // 您可以存取 log 屬性，因為 LoggingContext 是隱式接收器
     log.info("Operation has started")
 }
 
 fun test(loggingContext: LoggingContext) {
     with(loggingContext) {
-        // You need to have LoggingContext in a scope as an implicit receiver
-        // to call startBusinessOperation()
+        // 您需要將 LoggingContext 作為隱式接收器置於作用域中
+        // 才能呼叫 startBusinessOperation()
         startBusinessOperation()
     }
 }
@@ -144,13 +144,13 @@ Kotlin 1.6.20 引入了新註解 [`@JvmDefaultWithCompatibility`](https://kotlin
 現在，您可以使用 `-Xjvm-default=all` 模式並使用 `@JvmDefaultWithCompatibility` 註解標記介面。
 這允許您一次將此註解新增到公共應用程式介面中的所有介面，並且您無需為新的非公開程式碼使用任何註解。
 
-請在此 [YouTrack 問題](https://youtrack.jetbrains.com/issue/KT-48217)中留下您對此新註解的意見回饋。
+請在此 [YouTrack 問題](https://youtrack.jetbrains.com/issue/KT-48217) 中留下您對此新註解的意見回饋。
 
 ### -Xjvm-default 模式中的相容性變更
 
 Kotlin 1.6.20 增加了將預設模式（`-Xjvm-default=disable` 編譯器選項）中的模組與使用 `-Xjvm-default=all` 或 `-Xjvm-default=all-compatibility` 模式編譯的模組進行編譯的選項。
 一如既往，如果所有模組都使用 `-Xjvm-default=all` 或 `-Xjvm-default=all-compatibility` 模式，編譯也會成功。
-您可以在此 [YouTrack 問題](https://youtrack.jetbrains.com/issue/KT-47000)中留下您的意見回饋。
+您可以在此 [YouTrack 問題](https://youtrack.jetbrains.com/issue/KT-47000) 中留下您的意見回饋。
 
 Kotlin 1.6.20 棄用了編譯器選項 `-Xjvm-default` 的 `compatibility` 和 `enable` 模式。
 其他模式的描述中關於相容性的變更，但整體邏輯保持不變。
@@ -278,7 +278,7 @@ Kotlin/Native 1.6.20 標誌著其新元件的持續發展。我們在與 Kotlin 
 -Xgc=cms 
 ```
 
-請隨時在此 [YouTrack 問題](https://youtrack.jetbrains.com/issue/KT-48526)中分享您對新記憶體管理器效能的意見回饋。
+請隨時在此 [YouTrack 問題](https://youtrack.jetbrains.com/issue/KT-48526) 中分享您對新記憶體管理器效能的意見回饋。
 
 ### 註解類別的實例化
 
@@ -472,7 +472,7 @@ Kotlin 1.6.20 預設啟用階層式結構支援。
 這消除了複雜的建置設定和必須使用變通方法才能獲得對原生目標之間共享原始碼集的 IDE 支援。
 它還有助於防止針對不同目標的不安全應用程式介面使用。
 
-此技術對於[函式庫作者](#more-opportunities-for-library-authors)也將很有用，因為階層式專案結構允許他們發佈和使用針對目標子集的通用應用程式介面的函式庫。
+此技術對於[函式庫作者](#more-opportunities-for-library-authors)也將很有用，因為階層式專案結構允許他們發佈和使用針對目標子集的通用應用程式介面函式庫。
 
 預設情況下，使用階層式專案結構發佈的函式庫僅與階層式結構專案相容。
 
@@ -509,7 +509,7 @@ Kotlin 工具鏈提供正確的預設依賴項，例如 Kotlin/Native 標準函�
     ```none
     # gradle.properties
     kotlin.mpp.enableGranularSourceSetsMetadata=true
-    kotlin.native.enableDependencyPropagation=false // or 'true', depending on your previous setup
+    kotlin.native.enableDependencyPropagation=false // 或 'true'，取決於您之前的設定
     ```
 
 *   對於 Kotlin 1.6.20，我們建議使用 [Android Studio 2021.1.1](https://developer.android.com/studio) (Bumblebee) 或更高版本以獲得最佳體驗。
@@ -582,12 +582,12 @@ Kotlin/JS 1.6.20 中的改進主要影響 IR 編譯器：
 
 ```none
 # gradle.properties
-kotlin.incremental.js.ir=true // false by default
+kotlin.incremental.js.ir=true // 預設為 false
 ```
 
 在我們的測試專案中，新模式使增量編譯速度提高了 30%。然而，在此模式下進行清理建置會變慢，因為需要建立和填充快取。
 
-請在此 [YouTrack 問題](https://youtrack.jetbrains.com/issue/KT-50203)中告訴我們您使用增量編譯與您的 Kotlin/JS 專案的體驗。
+請在此 [YouTrack 問題](https://youtrack.jetbrains.com/issue/KT-50203) 中告訴我們您使用增量編譯與您的 Kotlin/JS 專案的體驗。
 
 ### 預設情況下頂層屬性的惰性初始化 (IR 編譯器)
 
@@ -598,12 +598,12 @@ kotlin.incremental.js.ir=true // false by default
 現在，經過完善和適當測試此機制，我們將惰性初始化設為 IR 編譯器中頂層屬性的預設值。
 
 ```kotlin
-// lazy initialization
+// 惰性初始化
 val a = run {
-    val result = // intensive computations
+    val result = // 密集的計算
         println(result)
     result
-} // run is executed upon the first usage of the variable
+} // run 在變數首次使用時執行
 ```
 
 如果由於某種原因您需要急切地初始化屬性（在應用程式啟動時），請使用 [`@EagerInitialization`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.native/-eager-initialization/) 註解標記它。
@@ -621,7 +621,7 @@ val a = run {
 
 ```none
 # gradle.properties
-kotlin.js.ir.output.granularity=whole-program // `per-module` is the default
+kotlin.js.ir.output.granularity=whole-program // `per-module` 是預設值
 ```
 
 在以前的版本中，實驗性的每模組模式（透過 `-Xir-per-module=true` 旗標可用）會呼叫每個模組中的 `main()` 函數。這與常規的單一 `.js` 模式不一致。從 1.6.20 開始，`main()` 函數將僅在主模組中呼叫，無論是哪種情況。如果您確實需要在載入模組時執行某些程式碼，您可以使用帶有 `@EagerInitialization` 註解的頂層屬性。請參閱[預設情況下頂層屬性的惰性初始化 (IR)](#lazy-initialization-of-top-level-properties-by-default-with-ir-compiler)。
@@ -635,7 +635,7 @@ kotlin.js.ir.output.granularity=whole-program // `per-module` is the default
 
 ### 匯出和 TypeScript 宣告產生改進
 
-Kotlin 1.6.20 為匯出機制（[`@JsExport`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.js/-js-export/) 註解）帶來了多個修正和改進，包括 [TypeScript 宣告檔（`.d.ts`）的產生](js-ir-compiler.md#preview-generation-of-typescript-declaration-files-d-ts)。
+Kotlin 1.6.20 為匯出機制（[`@JsExport`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.js/-js-export/) 註解）帶來了多個修正和改進，包括 [TypeScript 宣告檔（`.d.ts`）的產生](js-project-setup.md#generation-of-typescript-declaration-files-d-ts)。
 我們新增了匯出介面和列舉的能力，並修正了先前向我們報告的一些邊緣情況下的匯出行為。
 有關更多詳細資訊，請參閱 [YouTrack 中匯出改進的清單](https://youtrack.jetbrains.com/issues?q=Project:%20Kotlin%20issue%20id:%20KT-45434,%20KT-44494,%20KT-37916,%20KT-43191,%20KT-46961,%20KT-40236)。
 
@@ -666,7 +666,7 @@ Kotlin 1.6.20 引入了幾項功能來改善您程式碼的安全性：
 
 ```kotlin
 tasks.withType(org.jetbrains.kotlin.gradle.dsl.KotlinCompile::class).configureEach {
-    // $base is a base path of source files
+    // $base 是原始檔的基本路徑
     kotlinOptions.freeCompilerArgs += "-Xklib-relative-path-base=$base"
 }
 ```
@@ -677,11 +677,11 @@ tasks.withType(org.jetbrains.kotlin.gradle.dsl.KotlinCompile::class).configureEa
 ```groovy
 tasks.withType(org.jetbrains.kotlin.gradle.dsl.KotlinCompile).configureEach {
     kotlinOptions {
-        // $base is a base path of source files
+        // $base 是原始檔的基本路徑
         freeCompilerArgs += "-Xklib-relative-path-base=$base"
     }
 }
-``` 
+```
 
 </tab>
 </tabs>
@@ -724,7 +724,7 @@ rootProject.plugins.withType(org.jetbrains.kotlin.gradle.targets.js.yarn.YarnPlu
         file("my-kotlin-js-store")
     rootProject.extensions.getByType(org.jetbrains.kotlin.gradle.targets.js.yarn.YarnRootExtension).lockFileName = 'my-yarn.lock'
 }
-``` 
+```
 
 </tab>
 </tabs>
@@ -733,7 +733,7 @@ rootProject.plugins.withType(org.jetbrains.kotlin.gradle.targets.js.yarn.YarnPlu
 > 
 {style="warning"}
 
-### 預設情況下使用 --ignore-scripts 安裝 npm 依賴項
+### 預設情況下使用 `--ignore-scripts` 安裝 npm 依賴項
 
 > 此功能已回溯移植到 Kotlin 1.6.10。
 >
@@ -760,7 +760,7 @@ rootProject.plugins.withType<org.jetbrains.kotlin.gradle.targets.js.yarn.YarnPlu
 rootProject.plugins.withType(org.jetbrains.kotlin.gradle.targets.js.yarn.YarnPlugin) {
     rootProject.extensions.getByType(org.jetbrains.kotlin.gradle.targets.js.yarn.YarnRootExtension).ignoreScripts = false
 }
-``` 
+```
 
 </tab>
 </tabs>
@@ -827,7 +827,7 @@ tasks.withType<KotlinCompile>().configureEach {
 }
 ```
 
-請在此 [YouTrack 任務](https://youtrack.jetbrains.com/issue/KT-49299)中留下您的意見回饋。
+請在此 [YouTrack 任務](https://youtrack.jetbrains.com/issue/KT-49299) 中留下您的意見回饋。
 
 ### 棄用 kapt 和協程的建置選項
 
@@ -843,7 +843,7 @@ tasks.withType<KotlinCompile>().configureEach {
     
     在[協程指南](coroutines-guide.md)中了解有關協程的更多資訊。
 
-### 移除 kotlin.parallel.tasks.in.project 建置選項
+### 移除 `kotlin.parallel.tasks.in.project` 建置選項
 
 在 Kotlin 1.5.20 中，我們[宣布棄用建置選項 `kotlin.parallel.tasks.in.project`](whatsnew1520.md#deprecation-of-the-kotlin-parallel-tasks-in-project-build-property)。
 此選項已在 Kotlin 1.6.20 中移除。

@@ -48,7 +48,7 @@
 ```kotlin
 compose.resources {
     customDirectory(
-        sourceSetName = "desktopMain",
+        sourceSetName = "jvmMain",
         directoryProvider = provider { layout.projectDirectory.dir("desktopResources") }
     )
 }
@@ -75,6 +75,25 @@ compose.resources {
 ```
 {initial-collapse-state="collapsed" collapsible="true"  collapsed-title="directoryProvider = tasks.register<DownloadRemoteFiles>"}
 
+### 自訂網頁資源路徑
+
+您可以使用 `configureWebResources()` 函式指定網頁資源的路徑與 URL：
+
+*   使用相對路徑（以 `/` 開頭）來引用網域根目錄下的資源。
+*   使用絕對 URL（以 `http://` 或 `https://` 開頭）來引用託管在外部網域或 CDN 上的資源。
+
+```kotlin
+// Maps resources to an application-specific path
+configureWebResources {
+    resourcePathMapping { path -> "/myApp/resources/$path" }
+}
+
+// Maps resources to an external CDN
+configureWebResources {
+    resourcePathMapping { path -> "https://mycdn.com/myApp/res/$path" }
+}
+```
+
 ### `androidLibrary` 目標中的資源
 <secondary-label ref="Experimental"/>
 
@@ -91,7 +110,7 @@ kotlin {
 
 ## 限定詞
 
-有時，相同的資源應根據環境（例如語系、螢幕密度或介面主題）以不同方式呈現。例如，您可能需要為不同語言本地化文字或為深色主題調整影像。為此，函式庫提供了特殊的限定詞。
+有時，相同的資源應根據環境（例如語系、螢幕密度或 UI 主題）以不同方式呈現。例如，您可能需要為不同語言本地化文字或為深色主題調整影像。為此，函式庫提供了特殊的限定詞。
 
 > 了解如何在 [管理本地資源環境](compose-resource-environment.md) 教學中處理資源相關設定。
 >

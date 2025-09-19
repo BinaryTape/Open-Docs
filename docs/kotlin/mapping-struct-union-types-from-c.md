@@ -14,7 +14,7 @@
 > 随 Kotlin/Native 提供的原生平台库（例如 Foundation、UIKit 和 POSIX）仅对部分 API 需要选择启用。
 > {style="note"}
 
-让我们探究从 Kotlin 中哪些 C 结构体和联合体声明是可见的，并探究 Kotlin/Native 和 [多平台](gradle-configure-project.md#targeting-multiple-platforms) Gradle 构建中与 C 互操作相关的进阶用例。
+让我们探究哪些 C 结构体和联合体声明在 Kotlin 中可见，并探究 Kotlin/Native 和 [多平台](gradle-configure-project.md#targeting-multiple-platforms) Gradle 构建中与 C 互操作相关的进阶用例。
 
 在本教程中，你将学习：
 

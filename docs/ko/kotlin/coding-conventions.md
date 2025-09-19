@@ -7,7 +7,7 @@
 
 Kotlin을 위한 가장 인기 있는 두 가지 IDE인 [IntelliJ IDEA](https://www.jetbrains.com/idea/)와 [Android Studio](https://developer.android.com/studio/)는
 코드 스타일링에 강력한 지원을 제공합니다. 이를 구성하여 주어진 코드 스타일에 맞춰 코드를 자동으로 포맷할 수 있습니다.
-
+ 
 ### 스타일 가이드 적용하기
 
 1. **Settings/Preferences | Editor | Code Style | Kotlin**으로 이동합니다.
@@ -17,15 +17,15 @@ Kotlin을 위한 가장 인기 있는 두 가지 IDE인 [IntelliJ IDEA](https://
 ### 코드가 스타일 가이드를 따르는지 확인하기
 
 1. **Settings/Preferences | Editor | Inspections | General**로 이동합니다.
-2. **Incorrect formatting** 검사를 켈니다.
+2. **Incorrect formatting** 검사를 켭니다.
 스타일 가이드에 설명된 다른 문제(예: 명명 규칙)를 확인하는 추가 검사는 기본적으로 활성화되어 있습니다.
 
 ## 소스 코드 구성
 
 ### 디렉토리 구조
 
-순수 Kotlin 프로젝트에서 권장되는 디렉토리 구조는 공통 루트 패키지를 생략한 패키지 구조를 따릅니다. 예를 들어, 프로젝트의 모든 코드가 `org.example.kotlin` 패키지 및 그 하위 패키지에 있다면,
-`org.example.kotlin` 패키지의 파일은 소스 루트 바로 아래에 배치되어야 하며,
+순수 Kotlin 프로젝트에서 권장되는 디렉토리 구조는 공통 루트 패키지를 생략한 패키지 구조를 따릅니다. 예를 들어, 프로젝트의 모든 코드가 `org.example.kotlin` 패키지 및 그
+하위 패키지에 있다면, `org.example.kotlin` 패키지의 파일은 소스 루트 바로 아래에 배치되어야 하며,
 `org.example.kotlin.network.socket`의 파일은 소스 루트의 `network/socket` 하위 디렉토리에 있어야 합니다.
 
 >JVM에서: Kotlin이 Java와 함께 사용되는 프로젝트에서는 Kotlin 소스 파일이 Java 소스 파일과 동일한
@@ -122,7 +122,7 @@ object EmptyDeclarationProcessor : DeclarationProcessor() { /*...*/ }
 ```
 
 ### 함수 이름
-
+ 
 함수, 프로퍼티 및 지역 변수의 이름은 소문자로 시작하며 밑줄 없이 카멜 케이스를 사용합니다.
 
 ```kotlin
@@ -147,9 +147,9 @@ fun Foo(): Foo { return FooImpl() }
 
 ```kotlin
 class MyTestCase {
-     @Test fun `ensure everything works`() { /*...*/ }
-     
-     @Test fun ensureEverythingWorks_onAndroid() { /*...*/ }
+    @Test fun `ensure everything works`() { /*...*/ }
+
+    @Test fun ensureEverythingWorks_onAndroid() { /*...*/ }
 }
 ```
 
@@ -175,7 +175,7 @@ val PersonComparator: Comparator<Person> = /*...*/
 ```
 
 enum 상수에는 사용법에 따라 모든 대문자, 밑줄로 구분된 이름([스크리밍 스네이크 케이스(screaming snake case)](https://en.wikipedia.org/wiki/Snake_case))(`enum class Color { RED, GREEN }`) 또는 어퍼 카멜 케이스 이름을 사용하는 것이 좋습니다.
-
+   
 ### 배킹 프로퍼티(Backing properties) 이름
 
 클래스에 개념적으로 동일하지만 하나는 public API의 일부이고 다른 하나는 구현 세부 사항인 두 개의 프로퍼티가 있는 경우, private 프로퍼티 이름에 밑줄을 접두사로 사용합니다.
@@ -185,7 +185,7 @@ class C {
     private val _elementList = mutableListOf<Element>()
 
     val elementList: List<Element>
-         get() = _elementList
+        get() = _elementList
 }
 ```
 
@@ -256,9 +256,9 @@ fun bar() {
 * 타입과 슈퍼타입을 구분하는 데 사용될 때.
 * 슈퍼클래스 생성자 또는 동일 클래스의 다른 생성자에 위임할 때.
 * `object` 키워드 뒤에.
-
+    
 선언과 해당 타입을 구분할 때는 `:` 앞에 공백을 넣지 마십시오.
-
+ 
 `:` 뒤에는 항상 공백을 넣으십시오.
 
 ```kotlin
@@ -268,9 +268,9 @@ abstract class Foo<out T : Any> : IFoo {
 
 class FooImpl : Foo() {
     constructor(x: String) : this(x) { /*...*/ }
-    
+
     val x = object : IFoo { /*...*/ } 
-} 
+}
 ```
 
 ### 클래스 헤더
@@ -282,7 +282,7 @@ class Person(id: Int, name: String)
 ```
 
 헤더가 긴 클래스는 각 주 생성자 매개변수가 들여쓰기와 함께 별도의 줄에 있도록 포맷해야 합니다.
-또한, 닫는 괄호는 새 줄에 있어야 합니다. 상속을 사용하는 경우, 슈퍼클래스 생성자 호출 또는
+또한, 닫는 괄호는 새 줄에 있어야 합니다. 상속을 사용하는 경우, 슈퍼클래스 생성자 호출 또는 
 구현된 인터페이스 목록은 괄호와 같은 줄에 위치해야 합니다.
 
 ```kotlin
@@ -466,7 +466,7 @@ if (!component.isSyncing &&
 }
 ```
 
-이는 조건과 문 본문을 정렬하는 데 도움이 됩니다.
+이는 조건과 문 본문을 정렬하는 데 도움이 됩니다. 
 
 `else`, `catch`, `finally` 키워드와 `do-while` 루프의 `while` 키워드는 이전 중괄호와 같은 줄에 배치합니다.
 
@@ -509,7 +509,7 @@ when (foo) {
 
 ### 메서드 호출
 
-긴 인수 목록에서는 여는 괄호 뒤에 줄 바꿈을 넣습니다. 인수를 네 칸 들여씁니다.
+긴 인수 목록에서는 여는 괄호 뒤에 줄 바꿈을 넣습니다. 인수를 네 칸 들여씁니다. 
 밀접하게 관련된 여러 인수는 같은 줄에 그룹화합니다.
 
 ```kotlin
@@ -565,10 +565,10 @@ appendCommaSeparated(properties) { prop ->
 
 ```kotlin
 foo {
-   context: Context,
-   environment: Env
-   ->
-   context.configureEnv(environment)
+    context: Context,
+    environment: Env
+    ->
+    context.configureEnv(environment)
 }
 ```
 
@@ -828,15 +828,15 @@ println("$name has ${children.size} children")
 
 ```kotlin
 val KClass<*>.jsonSchema : String
-get() = $"""
-    {
-      "$schema": "https://json-schema.org/draft/2020-12/schema",
-      "$id": "https://example.com/product.schema.json",
-      "$dynamicAnchor": "meta",
-      "title": "${simpleName ?: qualifiedName ?: "unknown"}",
-      "type": "object"
-    }
-    """
+    get() = $"""
+        {
+            "$schema": "https://json-schema.org/draft/2020-12/schema",
+            "$id": "https://example.com/product.schema.json",
+            "$dynamicAnchor": "meta",
+            "title": "${simpleName ?: qualifiedName ?: "unknown"}",
+            "type": "object"
+        }
+        """
 ```
 
 ## 언어 기능의 관용적 사용
@@ -931,7 +931,7 @@ else
 when(x) {
     0 -> return "zero"
     else -> return "nonzero"
-}    
+}
 ```
 
 ### if 대 when
@@ -1003,25 +1003,25 @@ for (i in 0..<n) { /*...*/ }  // good
 ```kotlin
 fun main() {
 //sampleStart
-   println("""
-    Not
-    trimmed
-    text
-    """
-   )
+    println("""
+     Not
+     trimmed
+     text
+     """
+    )
 
-   println("""
-    Trimmed
-    text
-    """.trimIndent()
-   )
+    println("""
+     Trimmed
+     text
+     """.trimIndent()
+    )
 
-   println()
+    println()
 
-   val a = """Trimmed to margin text:
-          |if(a > 1) {
-          |    return a
-          |}""".trimMargin()
+    val a = """Trimmed to margin text:
+            |if(a > 1) {
+            |    return a
+            |}""".trimMargin()
 
    println(a)
 //sampleEnd

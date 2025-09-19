@@ -48,7 +48,7 @@ kotlin {
 
 コードで`androidTarget`、`iosArm64`、`iosSimulatorArm64`ターゲットを宣言すると、Kotlin Gradleプラグインはテンプレートから適切な共有ソースセットを見つけ、それらを作成します。結果の階層は次のようになります。
 
-![An example of using the default hierarchy template](default-hierarchy-example.svg)
+![デフォルト階層テンプレートの使用例](default-hierarchy-example.svg)
 
 色付きのソースセットは実際に作成されプロジェクトに存在しますが、デフォルトテンプレートからの灰色のソースセットは無視されます。例えば、Kotlin Gradleプラグインは、プロジェクトにwatchOSターゲットがないため、`watchos`ソースセットを作成しませんでした。
 
@@ -71,7 +71,7 @@ kotlin {
         iosMain.dependencies {
             implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:%coroutinesVersion%")
         }
-        // Warning: accessing source set without declaring the target
+        // Warning: ターゲットを宣言せずにソースセットにアクセスしています
         linuxX64Main { }
     }
 }
@@ -92,7 +92,7 @@ kotlin {
                 implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:%coroutinesVersion%'
             }
         }
-        // Warning: accessing source set without declaring the target
+        // Warning: ターゲットを宣言せずにソースセットにアクセスしています
         linuxX64Main { }
     }
 }
@@ -154,11 +154,11 @@ Learn more about hierarchy templates: https://kotl.in/hierarchy-template
         iosArm64()
         iosSimulatorArm64()
     
-        // Apply the default hierarchy again. It'll create, for example, the iosMain source set:
+        // デフォルト階層を再度適用します。これにより、例えば`iosMain`ソースセットが作成されます。
         applyDefaultHierarchyTemplate()
     
         sourceSets {
-            // Create an additional jvmAndMacos source set:
+            // `jvmAndMacos`ソースセットを追加で作成します。
             val jvmAndMacos by creating {
                 dependsOn(commonMain.get())
             }
@@ -179,11 +179,11 @@ Learn more about hierarchy templates: https://kotl.in/hierarchy-template
         iosArm64()
         iosSimulatorArm64()
     
-        // Apply the default hierarchy again. It'll create, for example, the iosMain source set:
+        // デフォルト階層を再度適用します。これにより、例えば`iosMain`ソースセットが作成されます。
         applyDefaultHierarchyTemplate()
     
         sourceSets {
-            // Create an additional jvmAndMacos source set:
+            // `jvmAndMacos`ソースセットを追加で作成します。
             jvmAndMacos {
                 dependsOn(commonMain.get())
             }
@@ -225,7 +225,7 @@ Learn more about hierarchy templates: https://kotl.in/hierarchy-template
 プロジェクトがコンパイルするターゲットを宣言すると、
 プラグインはテンプレートから指定されたターゲットに基づいて共有ソースセットを選択し、それらをプロジェクト内に作成します。
 
-![Default hierarchy template](full-template-hierarchy.svg)
+![デフォルト階層テンプレート](full-template-hierarchy.svg)
 
 > この例は、プロジェクトのプロダクション部分のみを示しており、`Main`サフィックスは省略されています
 > （例えば、`commonMain`の代わりに`common`を使用しています）。ただし、すべて`*Test`ソースについても同様です。
@@ -239,8 +239,8 @@ Learn more about hierarchy templates: https://kotl.in/hierarchy-template
 
 例えば、ネイティブLinux、Windows、macOSターゲット（`linuxX64`、`mingwX64`、および`macosX64`）間でコードを共有したい場合の対処法は次のとおりです。
 
-1.  共有モジュールの`build.gradle(.kts)`ファイルで、これらのターゲットの共有ロジックを保持する中間ソースセット`desktopMain`を追加します。
-2.  `dependsOn`関係を使用して、ソースセットの階層を設定します。`commonMain`を`desktopMain`に接続し、次に`desktopMain`を各ターゲットソースセットに接続します。
+1.  共有モジュールの`build.gradle(.kts)`ファイルで、これらのターゲットの共有ロジックを保持する中間ソースセット`myDesktopMain`を追加します。
+2.  `dependsOn`関係を使用して、ソースセットの階層を設定します。`commonMain`を`myDesktopMain`に接続し、次に`myDesktopMain`を各ターゲットソースセットに接続します。
 
     <Tabs group="build-script">
     <TabItem title="Kotlin" group-key="kotlin">
@@ -252,13 +252,13 @@ Learn more about hierarchy templates: https://kotl.in/hierarchy-template
         macosX64()
     
         sourceSets {
-            val desktopMain by creating {
+            val myDesktopMain by creating {
                 dependsOn(commonMain.get())
             }
     
-            linuxX64Main.get().dependsOn(desktopMain)
-            mingwX64Main.get().dependsOn(desktopMain)
-            macosX64Main.get().dependsOn(desktopMain)
+            linuxX64Main.get().dependsOn(myDesktopMain)
+            mingwX64Main.get().dependsOn(myDesktopMain)
+            macosX64Main.get().dependsOn(myDesktopMain)
         }
     }
     ```
@@ -273,17 +273,17 @@ Learn more about hierarchy templates: https://kotl.in/hierarchy-template
         macosX64()
     
         sourceSets {
-            desktopMain {
+            myDesktopMain {
                 dependsOn(commonMain.get())
             }
             linuxX64Main {
-                dependsOn(desktopMain)
+                dependsOn(myDesktopMain)
             }
             mingwX64Main {
-                dependsOn(desktopMain)
+                dependsOn(myDesktopMain)
             }
             macosX64Main {
-                dependsOn(desktopMain)
+                dependsOn(myDesktopMain)
             }
         }
     }
@@ -294,7 +294,7 @@ Learn more about hierarchy templates: https://kotl.in/hierarchy-template
 
 結果の階層構造は次のようになります。
 
-![Manually configured hierarchical structure](manual-hierarchical-structure.svg)
+![手動で設定された階層構造](manual-hierarchical-structure.svg)
 
 以下のターゲットの組み合わせに対して、共有ソースセットを持つことができます。
 

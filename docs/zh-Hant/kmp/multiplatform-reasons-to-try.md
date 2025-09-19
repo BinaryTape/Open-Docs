@@ -128,7 +128,7 @@ Kotlin Multiplatform 允許開發人員共享業務邏輯、呈現邏輯，甚�
 ### 5. 使用 Kotlin Multiplatform 解決方案，您可以共享 UI 程式碼
 
 JetBrains 提供了 [Compose Multiplatform](https://www.jetbrains.com/lp/compose-multiplatform/)，這是一個宣告式框架，用於在多個平台之間共享使用者介面，
-包括 Android (透過 Jetpack Compose)、iOS、桌面和網頁 (Alpha)，基於 Kotlin 和 Jetpack Compose。
+包括 Android (透過 Jetpack Compose)、iOS、桌面和網頁 (Beta)，基於 Kotlin 和 Jetpack Compose。
 
 _Instabee_ 是一個專為電子商務企業提供最後一哩物流服務的平台，
 他們在技術仍處於 Alpha 階段時，就開始在其 Android 和 iOS 應用程式中使用 Compose Multiplatform，
@@ -206,7 +206,7 @@ Kotlin 和 Kotlin Multiplatform 擁有一個非常支援度高的社群。以下
 Kotlin Multiplatform 生態系統正在蓬勃發展。它受到全球眾多 Kotlin 開發人員的熱情培育。
 以下是顯示每年建立的 Kotlin Multiplatform 函式庫數量的圖表：
 
-![歷年來 Kotlin Multiplatform 函式庫的數量。](kmp-libs-over-years.png){width="700"}
+![歷年來 Kotlin Multiplatform 函式庫的數量。](kmp-libs-over-years.png){width=700}
 
 如您所見，2021 年明顯增加，此後函式庫數量不斷增長。
 

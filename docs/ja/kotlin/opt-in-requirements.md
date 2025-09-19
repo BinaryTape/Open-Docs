@@ -13,24 +13,24 @@ Kotlin標準ライブラリは、特定のAPI要素を使用するための明�
 コードで特定のAPI要素にオプトインするには、[`@OptIn`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-opt-in/)アノテーションと実験的なAPIマーカーへの参照を使用します。たとえば、オプトインが必要な`DateProvider`クラスを使用するとします。
 
 ```kotlin
-// Library code
+// ライブラリコード
 @RequiresOptIn(message = "This API is experimental. It could change in the future without notice.")
 @Retention(AnnotationRetention.BINARY)
 @Target(AnnotationTarget.CLASS, AnnotationTarget.FUNCTION)
 annotation class MyDateTime
 
 @MyDateTime
-// A class requiring opt-in
+// オプトインが必要なクラス
 class DateProvider
 ```
 
 コードでは、`DateProvider`クラスを使用する関数を宣言する前に、`MyDateTime`アノテーションクラスへの参照とともに`@OptIn`アノテーションを追加します。
 
 ```kotlin
-// Client code
+// クライアントコード
 @OptIn(MyDateTime::class)
 
-// Uses DateProvider
+// DateProviderを使用
 fun getDate(): Date {
     val dateProvider: DateProvider
     // ...
@@ -40,17 +40,17 @@ fun getDate(): Date {
 このアプローチでは、`getDate()`関数がコードの別の場所で呼び出されたり、他の開発者によって使用されたりした場合、オプトインは不要であることに注意することが重要です。
 
 ```kotlin
-// Client code
+// クライアントコード
 @OptIn(MyDateTime::class)
 
-// Uses DateProvider
+// DateProviderを使用
 fun getDate(): Date {
     val dateProvider: DateProvider
     // ...
 }
 
 fun displayDate() {
-    // OK: No opt-in is required
+    // OK: オプトインは不要
     println(getDate()) 
 }
 ```
@@ -64,17 +64,17 @@ fun displayDate() {
 たとえば、`DateProvider`クラスを使用する関数を宣言する前に、`@MyDateTime`アノテーションを追加します。
 
 ```kotlin
-// Client code
+// クライアントコード
 @MyDateTime
 fun getDate(): Date {
-    // OK: the function requires opt-in as well
+    // OK: この関数もオプトインが必要です
     val dateProvider: DateProvider
     // ...
 }
 
 fun displayDate() {
     println(getDate())
-    // Error: getDate() requires opt-in
+    // エラー: getDate()にはオプトインが必要
 }
 ```
 
@@ -83,13 +83,13 @@ fun displayDate() {
 API要素のシグネチャにオプトインが必要な型が含まれる場合、シグネチャ自体もオプトインを要求する必要があります。そうでない場合、API要素がオプトインを要求しないが、そのシグネチャにオプトインを要求する型が含まれる場合、それを使用するとエラーが発生します。
 
 ```kotlin
-// Client code
+// クライアントコード
 @MyDateTime
 fun getDate(dateProvider: DateProvider = DateProvider()): Date
 
 @MyDateTime
 fun displayDate() {
-    // OK: the function requires opt-in as well
+    // OK: この関数もオプトインが必要です
     println(getDate())
 }
 ```
@@ -97,22 +97,22 @@ fun displayDate() {
 同様に、シグネチャにオプトインが必要な型が含まれる宣言に`@OptIn`を適用した場合でも、オプトイン要件は伝播します。
 
 ```kotlin
-// Client code
+// クライアントコード
 @OptIn(MyDateTime::class)
-// Propagates opt-in due to DateProvider in the signature
+// シグネチャ内のDateProviderによりオプトインを伝播
 fun getDate(dateProvider: DateProvider = DateProvider()): Date
 
 fun displayDate() {
     println(getDate())
-    // Error: getDate() requires opt-in
+    // エラー: getDate()にはオプトインが必要
 }
 ```
 
-オプトイン要件を伝播する際、API要素が安定してオプトイン要件がなくなった場合でも、オプトイン要件が残っている他のAPI要素は引き続き実験的なままであることを理解することが重要です。たとえば、ライブラリの作者が`getDate()`関数が安定したため、そのオプトイン要件を削除したとします。
+オプトイン要件を伝播する際、API要素が安定してオプトイン要件がなくなった場合でも、オプトイン要件が残っている他のAPI要素は引き続き実験的なままです。たとえば、ライブラリの作者が`getDate()`関数が安定したため、そのオプトイン要件を削除したとします。
 
 ```kotlin
-// Library code
-// No opt-in requirement
+// ライブラリコード
+// オプトイン要件なし
 fun getDate(): Date {
     val dateProvider: DateProvider
     // ...
@@ -122,12 +122,12 @@ fun getDate(): Date {
 `displayDate()`関数をオプトインアノテーションを削除せずに使用した場合、オプトインが不要になったとしても、それは実験的なままです。
 
 ```kotlin
-// Client code
+// クライアントコード
 
-// Still experimental!
+// まだ実験的！
 @MyDateTime 
 fun displayDate() {
-    // Uses a stable library function
+    // 安定したライブラリ関数を使用
     println(getDate())
 }
 ```
@@ -152,7 +152,7 @@ fun displayDate() {
 ファイル内のすべての関数とクラスに対してオプトインが必要なAPIを使用するには、パッケージ指定とインポートの前に、ファイルレベルのアノテーション`@file:OptIn`をファイルの先頭に追加します。
 
  ```kotlin
- // Client code
+ // クライアントコード
  @file:OptIn(MyDateTime::class)
  ```
 
@@ -250,7 +250,7 @@ Mavenの場合は、次を使用します。
 そのようなAPI要素を使用し、コードでそれを拡張するためにオプトインするには、アノテーションクラスへの参照とともに`@SubclassOptInRequired`アノテーションを使用します。たとえば、オプトインが必要な`CoreLibraryApi`インターフェースを使用するとします。
 
 ```kotlin
-// Library code
+// ライブラリコード
 @RequiresOptIn(
  level = RequiresOptIn.Level.WARNING,
  message = "Interfaces in this library are experimental"
@@ -258,14 +258,14 @@ Mavenの場合は、次を使用します。
 annotation class UnstableApi()
 
 @SubclassOptInRequired(UnstableApi::class)
-// An interface requiring opt-in to extend
+// 拡張にオプトインが必要なインターフェース
 interface CoreLibraryApi 
 ```
 
 コードでは、`CoreLibraryApi`インターフェースを継承する新しいインターフェースを作成する前に、`UnstableApi`アノテーションクラスへの参照とともに`@SubclassOptInRequired`アノテーションを追加します。
 
 ```kotlin
-// Client code
+// クライアントコード
 @SubclassOptInRequired(UnstableApi::class)
 interface SomeImplementation : CoreLibraryApi
 ```
@@ -273,7 +273,7 @@ interface SomeImplementation : CoreLibraryApi
 クラスに`@SubclassOptInRequired`アノテーションを使用する場合、オプトイン要件は[インナークラスまたはネストされたクラス](nested-classes.md)には伝播しないことに注意してください。
 
 ```kotlin
-// Library code
+// ライブラリコード
 @RequiresOptIn
 annotation class ExperimentalFeature
 
@@ -282,26 +282,26 @@ open class FileSystem {
     open class File
 }
 
-// Client code
+// クライアントコード
 
-// Opt-in is required
+// オプトインが必要
 class NetworkFileSystem : FileSystem()
 
-// Nested class
-// No opt-in required
+// ネストされたクラス
+// オプトインは不要
 class TextFile : FileSystem.File()
 ```
 
 あるいは、`@OptIn`アノテーションを使用してオプトインすることもできます。また、実験的なマーカーアノテーションを使用して、コード内のそのクラスのすべての使用箇所に要件をさらに伝播させることもできます。
 
 ```kotlin
-// Client code
-// With @OptIn annotation
+// クライアントコード
+// @OptInアノテーションを使用
 @OptInRequired(UnstableApi::class)
 interface SomeImplementation : CoreLibraryApi
 
-// With annotation referencing annotation class
-// Propagates the opt-in requirement further
+// アノテーションクラスを参照するアノテーションを使用
+// オプトイン要件をさらに伝播
 @UnstableApi
 interface SomeImplementation : CoreLibraryApi
 ```
@@ -382,7 +382,7 @@ API要素にオプトイン要件を追加するには、アノテーション�
 annotation class UnstableApi()
 
 @SubclassOptInRequired(UnstableApi::class)
-// An interface requiring opt-in to extend
+// 拡張にオプトインが必要なインターフェース
 interface CoreLibraryApi 
 ```
 

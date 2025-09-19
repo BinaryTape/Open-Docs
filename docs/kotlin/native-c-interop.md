@@ -20,7 +20,7 @@
 
 以下是使用需要消耗 C 库的项目的通用工作流：
 
-1.  创建并配置一个[定义文件](native-definition-file.md)。它描述了 cinterop 工具应将哪些内容包含到 Kotlin[绑定](#bindings)中。
+1.  创建并配置一个[定义文件](native-definition-file.md)。它描述了 cinterop 工具应将哪些内容包含到 Kotlin [绑定](#bindings)中。
 2.  配置你的 Gradle 构建文件，以在构建过程中包含 cinterop。
 3.  编译并运行项目以生成最终的可执行文件。
 
@@ -106,7 +106,7 @@ val originalPtr = longValue.toCPointer<T>()
 ```
 
 > 如果结果类型从上下文中已知，则可以借助类型推断省略类型实参。
->
+> 
 {style="tip"}
 
 ### 内存分配
@@ -163,7 +163,7 @@ val fileSize = memScoped {
 
 ### 向绑定传递指针
 
-尽管 C 指针映射到 `CPointer<T> 类型`，但 C 函数的指针类型形参映射到 `CValuesRef<T>`。
+尽管 C 指针映射到 `CPointer<T> type`，但 C 函数的指针类型形参映射到 `CValuesRef<T>`。
 当将 `CPointer<T>` 作为此类形参的值传递时，它会按原样传递给 C 函数。
 然而，可以传递值序列而不是指针。在这种情况下，该序列是“按值”传递的，
 即 C 函数接收指向该序列临时副本的指针，该副本仅在函数返回前有效。
@@ -263,7 +263,7 @@ memScoped {
     ```kotlin
     val fieldValue = structValue.useContents { field }
     ```
-
+    
 *   [`fun cValue(initialize: T.() -> Unit): CValue<T>`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlinx.cinterop/c-value.html)
     应用所提供的 `initialize` 函数在内存中分配 `T`，并将结果转换为 `CValue<T>`。
 *   [`fun CValue<T>.copy(modify: T.() -> Unit): CValue<T>`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlinx.cinterop/copy.html)
@@ -406,9 +406,9 @@ Kotlin 对象可以被固定，即它们在内存中的位置被保证是稳定�
     ```kotlin
     import kotlinx.cinterop.*
     import platform.posix.*
-
+    
     @OptIn(ExperimentalForeignApi::class)
-    fun readData(fd: Int) {
+    fun readData(fd: Int) { 
         val buffer = ByteArray(1024)
         while (true) {
             val length = recv(fd, buffer.refTo(0), buffer.size.convert(), 0).toInt()

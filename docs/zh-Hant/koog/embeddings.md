@@ -29,13 +29,13 @@ import kotlinx.coroutines.runBlocking
 ```kotlin
 fun main() {
     runBlocking {
-        // Create an OllamaClient instance
+        // 建立一個 OllamaClient 實例
         val client = OllamaClient()
-        // Create an embedder
+        // 建立一個嵌入器
         val embedder = LLMEmbedder(client, OllamaEmbeddingModels.NOMIC_EMBED_TEXT)
-        // Create embeddings
+        // 建立嵌入
         val embedding = embedder.embed("This is the text to embed")
-        // Print embeddings to the output
+        // 將嵌入輸出到控制台
         println(embedding)
     }
 }
@@ -55,7 +55,7 @@ fun main() {
 
 以下表格提供了可用 Ollama 嵌入模型的概述。
 
-| Model ID          | Ollama ID         | Parameters | Dimensions | Context Length | Performance                                                           | Tradeoffs                                                          |
+| 模型 ID           | Ollama ID         | 參數     | 維度     | 上下文長度   | 效能                                                              | 取捨                                                              |
 |-------------------|-------------------|------------|------------|----------------|-----------------------------------------------------------------------|--------------------------------------------------------------------|
 | NOMIC_EMBED_TEXT  | nomic-embed-text  | 137M       | 768        | 8192           | 適用於語義搜尋和文字相似性任務的高品質嵌入                        | 在品質和效率之間取得平衡                                           |
 | ALL_MINILM        | all-minilm        | 33M        | 384        | 512            | 針對一般文字嵌入提供快速推論與良好品質                            | 模型較小，上下文長度較短，但效率極高                               |
@@ -86,15 +86,15 @@ import ai.koog.prompt.executor.clients.openai.OpenAIModels
 -->
 ```kotlin
 suspend fun openAIEmbed(text: String) {
-    // Get the OpenAI API token from the OPENAI_KEY environment variable
+    // 從 OPENAI_KEY 環境變數取得 OpenAI API 權杖
     val token = System.getenv("OPENAI_KEY") ?: error("Environment variable OPENAI_KEY is not set")
-    // Create an OpenAILLMClient instance
+    // 建立一個 OpenAILLMClient 實例
     val client = OpenAILLMClient(token)
-    // Create an embedder
+    // 建立一個嵌入器
     val embedder = LLMEmbedder(client, OpenAIModels.Embeddings.TextEmbeddingAda002)
-    // Create embeddings
+    // 建立嵌入
     val embedding = embedder.embed(text)
-    // Print embeddings to the output
+    // 將嵌入輸出到控制台
     println(embedding)
 }
 ```

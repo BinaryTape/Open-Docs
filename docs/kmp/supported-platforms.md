@@ -38,7 +38,7 @@ Kotlin Multiplatform 允许您为各种平台创建应用程序，并在这些�
 | iOS                      | Stable          |
 | Desktop (JVM)            | Stable          |
 | Server-side (JVM)        | Stable          |
-| Web based on Kotlin/Wasm | Alpha           |
+| Web based on Kotlin/Wasm | Beta            |
 | Web based on Kotlin/JS   | Stable          |
 | watchOS                  | Beta            |
 | tvOS                     | Beta            |
@@ -78,7 +78,7 @@ Kotlin Multiplatform 允许您为各种平台创建应用程序，并在这些�
 | Android                  | Stable          |
 | iOS                      | Stable          |
 | Desktop (JVM)            | Stable          |
-| Web based on Kotlin/Wasm | Alpha           |
+| Web based on Kotlin/Wasm | Beta            |
 
 ## 后续步骤
 

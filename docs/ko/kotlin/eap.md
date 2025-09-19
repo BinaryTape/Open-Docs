@@ -1,8 +1,10 @@
 [//]: # (title: Kotlin 얼리 액세스 프리뷰 참여)
 
+<!--
 <tldr>
-    <p>최신 Kotlin EAP 릴리스: <strong>%kotlinEapVersion%</strong></p>
+    <p>Latest Kotlin EAP release: <strong>%kotlinEapVersion%</strong></p>
 </tldr>
+-->
 
 Kotlin 얼리 액세스 프리뷰(EAP)에 참여하여 최신 Kotlin 기능을 릴리스 전에 미리 사용해 볼 수 있습니다.
 
@@ -32,31 +34,23 @@ Kotlin 얼리 액세스 프리뷰(EAP)에 참여하여 최신 Kotlin 기능을 �
 
 ## 빌드 세부 정보
 
-<!-- _현재 미리 보기 버전은 없습니다._ -->
+ _현재 미리 보기 버전은 없습니다._ 
 
+<!--
 <table>
     <tr>
-        <th>빌드 정보</th>
-        <th>빌드 주요 내용</th>
+        <th>Build info</th>
+        <th>Build highlights</th>
     </tr>
     <tr>
-        <td><strong>2.2.20-Beta2</strong>
-            <p>릴리스 날짜: <strong>2025년 7월 29일</strong></p>
-            <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.2.20-Beta2" target="_blank">GitHub에서 릴리스</a></p>
+        <td><strong>2.2.20-RC2</strong>
+            <p>Released: <strong>September 1, 2025</strong></p>
+            <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.2.20-RC2" target="_blank">Release on GitHub</a></p>
         </td>
         <td>
-            <p>개선 사항 및 버그 수정을 포함하는 툴링 릴리스입니다.</p>
-            <p>자세한 내용은 <a href="https://github.com/JetBrains/kotlin/releases/tag/v2.2.20-Beta2">변경 로그</a> 또는 <a href="whatsnew-eap.md">Kotlin 2.2.20-Beta2의 새로운 기능</a>을 참조하세요.</p>
-        </td>
-    </tr>
-    <tr>
-        <td><strong>2.2.10-RC</strong>
-            <p>릴리스 날짜: <strong>2025년 7월 18일</strong></p>
-            <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.2.10-RC" target="_blank">GitHub에서 릴리스</a></p>
-        </td>
-        <td>
-            <p>Kotlin 2.2.0의 버그 수정 릴리스입니다.</p>
-            <p>자세한 내용은 <a href="https://github.com/JetBrains/kotlin/releases/tag/v2.2.10-RC">변경 로그</a>를 참조하세요.</p>
+            <p>A tooling release containing improvements and bug fixes.</p>
+            <p>For more details, please refer to the <a href="https://github.com/JetBrains/kotlin/releases/tag/v2.2.20-RC2">changelog</a> or <a href="whatsnew-eap.md">What's new in Kotlin 2.2.20-RC2</a>.</p>
         </td>
     </tr>
 </table>
+-->

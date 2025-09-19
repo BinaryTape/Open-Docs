@@ -2,30 +2,76 @@
 
 ## 简介
 
-Koog 框架中的流式 API 允许您在大型语言模型 (LLM) 的结构化数据到达时立即处理它们，而无需等待整个响应。
-本页解释了如何使用流式 API 来高效处理 Markdown 格式的结构化数据。
+Koog 的 **流式 API** 允许您以 `Flow<StreamFrame>` 的形式**增量地消费 LLM 输出**。您的代码无需等待完整响应，即可：
+
+- 在助手文本到达时进行渲染，
+- 实时检测**工具调用**并对其进行操作，
+- 了解流何时**结束**以及结束的原因。
+
+该流携带着**类型化的帧**：
+
+- `StreamFrame.Append(text: String)` — 增量助手文本
+- `StreamFrame.ToolCall(id: String?, name: String, content: String)` — 工具调用（安全地合并）
+- `StreamFrame.End(finishReason: String?)` — 流结束标记
+
+提供了辅助函数来提取纯文本、将帧转换为 `Message.Response` 对象，以及安全地**合并分块的工具调用**。
+
+---
 
 ## 流式 API 概述
 
-流式 API 实现了对 LLM 响应中结构化数据的实时处理。您无需等待完整响应，即可：
+借助流式处理，您可以：
 
-- 在数据块到达时进行处理
-- 即时解析结构化信息
-- 在结构化对象完成时发出它们
-- 立即处理这些对象（收集或传递给工具）
+- 处理到达的数据（提高 UI 响应能力）
+- 即时解析结构化信息（Markdown/JSON 等）
+- 在对象完成时发出它们
+- 实时触发工具
 
-这种方法特别有用，因为它提供了以下优势：
+您可以操作**帧**本身，也可以操作从帧派生的**纯文本**。
 
-- 提高用户界面的响应能力
-- 高效处理大型响应
-- 实现实时数据处理流水线
+---
+## 用法
 
-流式 API 允许将输出解析为 .md 格式的*结构化数据*，或者解析为一系列*纯文本*数据块。
+### 直接处理帧
 
-## 使用原始字符串流
+这是最通用的方法：对每种帧类型做出反应。
 
-值得注意的是，您可以通过直接使用原始字符串流来解析输出。
-这种方法使您对解析过程具有更大的灵活性和控制力。
+<!--- INCLUDE
+import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.prompt.streaming.StreamFrame
+import ai.koog.prompt.structure.markdown.MarkdownStructuredDataDefinition
+
+val strategy = strategy<String, String>("strategy_name") {
+    val node by node<Unit, Unit> {
+-->
+<!--- SUFFIX
+   }
+}
+-->
+```kotlin
+llm.writeSession {
+    updatePrompt { user("Tell me a joke, then call a tool with JSON args.") }
+
+    val stream = requestLLMStreaming() // Flow<StreamFrame>
+
+    stream.collect { frame ->
+        when (frame) {
+            is StreamFrame.Append -> print(frame.text)
+            is StreamFrame.ToolCall -> {
+                println("
+🔧 Tool call: ${frame.name} args=${frame.content}")
+                // Optionally parse lazily:
+                // val json = frame.contentJson
+            }
+            is StreamFrame.End -> println("
+[END] reason=${frame.finishReason}")
+        }
+    }
+}
+```
+<!--- KNIT example-streaming-api-01.kt -->
+
+值得注意的是，您可以通过直接使用原始字符串流来解析输出。这种方法使您对解析过程具有更大的灵活性和控制力。
 
 以下是一个带有输出结构 Markdown 定义的原始字符串流：
 
@@ -56,13 +102,16 @@ llm.writeSession {
     }
 }
 ```
-<!--- KNIT example-streaming-api-01.kt -->
+<!--- KNIT example-streaming-api-02.kt -->
 
-以下是一个没有定义的原始字符串流的示例：
+### 处理原始文本流（派生）
+
+如果您有期望 `Flow<String>` 的现有流式解析器，可以通过 `filterTextOnly()` 派生文本块，或使用 `collectText()` 收集它们。
 
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
-import ai.koog.prompt.structure.markdown.MarkdownStructuredDataDefinition
+import ai.koog.prompt.streaming.filterTextOnly
+import ai.koog.prompt.streaming.collectText
 
 val strategy = strategy<String, String>("strategy_name") {
     val node by node<Unit, Unit> {
@@ -73,19 +122,70 @@ val strategy = strategy<String, String>("strategy_name") {
 -->
 ```kotlin
 llm.writeSession {
-    val stream = requestLLMStreaming()
-    // Access the raw string chunks directly
-    stream.collect { chunk ->
-        // Process each chunk of text as it arrives
-        println("Received chunk: $chunk") // The chunks will not be structured in a specific way
+    val frames = requestLLMStreaming()
+
+    // Stream text chunks as they come:
+    frames.filterTextOnly().collect { chunk -> print(chunk) }
+
+    // Or, gather all text into one String after End:
+    val fullText = frames.collectText()
+    println("
+---
+$fullText")
+}
+```
+<!--- KNIT example-streaming-api-02-01.kt -->
+
+### 在事件处理程序中监听流事件
+
+您可以在[代理事件](agent-events.md)中监听流事件。
+
+<!--- INCLUDE
+import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.agent.GraphAIAgent
+import ai.koog.agents.features.eventHandler.feature.handleEvents
+import ai.koog.prompt.streaming.StreamFrame
+
+fun GraphAIAgent.FeatureContext.installStreamingApi() {
+-->
+<!--- SUFFIX
+}
+-->
+```kotlin
+handleEvents {
+    onToolCall { context ->
+        println("
+🔧 Using ${context.tool.name} with ${context.toolArgs}... ")
+    }
+    onStreamFrame { context ->
+        (context.streamFrame as? StreamFrame.Append)?.let { frame ->
+            print(frame.text)
+        }
+    }
+    onStreamError { context ->
+        println("❌ Error: ${context.error}")
+    }
+    onAfterStream {
+        println("🏁 Done")
     }
 }
 ```
-<!--- KNIT example-streaming-api-02.kt -->
+<!--- KNIT example-streaming-api-02-02.kt -->
 
-## 使用结构化数据流
+### 将帧转换为 `Message.Response`
 
-尽管可以使用原始字符串流，但通常使用[结构化数据](structured-data.md)更方便。
+您可以将收集到的帧列表转换为标准消息对象：
+- `toAssistantMessageOrNull()`
+- `toToolCallMessages()`
+- `toMessageResponses()`
+
+---
+
+## 示例
+
+### 流式传输时的结构化数据（Markdown 示例）
+
+尽管可以使用原始字符串流，但通常使用[结构化数据](structured-output.md)更方便。
 
 结构化数据方法包括以下关键组件：
 
@@ -94,11 +194,12 @@ llm.writeSession {
 
 以下部分提供了处理结构化数据流的分步说明和代码示例。
 
-### 1. 定义你的数据结构
+#### 1. 定义你的数据结构
 
 首先，定义一个 data class 来表示您的结构化数据：
 
 <!--- INCLUDE
+import ai.koog.agents.core.tools.ToolArgs
 import kotlinx.serialization.Serializable
 -->
 ```kotlin
@@ -107,11 +208,11 @@ data class Book(
     val title: String,
     val author: String,
     val description: String
-)
+): ToolArgs
 ```
 <!--- KNIT example-streaming-api-03.kt -->
 
-### 2. 定义 Markdown 结构
+#### 2. 定义 Markdown 结构
 
 使用 `MarkdownStructuredDataDefinition` 类创建一个定义，用于指定您的数据应如何在 Markdown 中进行结构化：
 
@@ -142,7 +243,7 @@ fun markdownBookDefinition(): MarkdownStructuredDataDefinition {
 ```
 <!--- KNIT example-streaming-api-04.kt -->
 
-### 3. 为你的数据结构创建解析器
+#### 3. 为你的数据结构创建解析器
 
 `markdownStreamingParser` 为不同的 Markdown 元素提供了多个处理程序：
 
@@ -161,31 +262,16 @@ fun parseMarkdownStreamToBooks(markdownStream: Flow<String>): Flow<Book> {
 -->
 ```kotlin
 markdownStreamingParser {
-    // Handle level 1 headings
-    // The heading level can be from 1 to 6
-    onHeader(1) { headerText ->
-        // Process heading text
-    }
-
+    // Handle level 1 headings (level ranges from 1 to 6)
+    onHeader(1) { headerText -> }
     // Handle bullet points
-    onBullet { bulletText ->
-        // Process bullet text
-    }
-
+    onBullet { bulletText -> }
     // Handle code blocks
-    onCodeBlock { codeBlockContent ->
-        // Process code block content
-    }
-
+    onCodeBlock { codeBlockContent -> }
     // Handle lines matching a regex pattern
-    onLineMatching(Regex("pattern")) { line ->
-        // Process matching lines
-    }
-
+    onLineMatching(Regex("pattern")) { line -> }
     // Handle the end of the stream
-    onFinishStream { remainingText ->
-        // Process any remaining text or perform cleanup
-    }
+    onFinishStream { remainingText -> }
 }
 ```
 <!--- KNIT example-streaming-api-05.kt -->
@@ -193,14 +279,16 @@ markdownStreamingParser {
 使用已定义处理程序，您可以实现一个函数，该函数使用 `markdownStreamingParser` 函数解析 Markdown 流并发出您的数据对象。
 
 <!--- INCLUDE
-import ai.koog.agents.example.exampleStreamingApi08.Book
+import ai.koog.agents.example.exampleStreamingApi03.Book
 import ai.koog.prompt.structure.markdown.markdownStreamingParser
+import ai.koog.prompt.streaming.StreamFrame
+import ai.koog.prompt.streaming.filterTextOnly
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
 -->
 ```kotlin
-fun parseMarkdownStreamToBooks(markdownStream: Flow<String>): Flow<Book> {
+fun parseMarkdownStreamToBooks(markdownStream: Flow<StreamFrame>): Flow<Book> {
    return flow {
       markdownStreamingParser {
          var currentBookTitle = ""
@@ -233,18 +321,18 @@ fun parseMarkdownStreamToBooks(markdownStream: Flow<String>): Flow<Book> {
                emit(Book(currentBookTitle, author, description))
             }
          }
-      }.parseStream(markdownStream)
+      }.parseStream(markdownStream.filterTextOnly())
    }
 }
 ```
 <!--- KNIT example-streaming-api-06.kt -->
 
-### 4. 在你的代理策略中使用解析器
+#### 4. 在你的代理策略中使用解析器
 
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.forwardTo
 import ai.koog.agents.core.dsl.builder.strategy
-import ai.koog.agents.example.exampleStreamingApi08.Book
+import ai.koog.agents.example.exampleStreamingApi03.Book
 import ai.koog.agents.example.exampleStreamingApi04.markdownBookDefinition
 import ai.koog.agents.example.exampleStreamingApi06.parseMarkdownStreamToBooks
 -->
@@ -275,7 +363,7 @@ val agentStrategy = strategy<String, List<Book>>("library-assistant") {
 ```
 <!--- KNIT example-streaming-api-07.kt -->
 
-## 高级用法：使用工具进行流式处理
+### 高级用法：使用工具进行流式处理
 
 您还可以将流式 API 与工具结合使用，以在数据到达时进行处理。以下部分简要介绍了如何定义工具并将其与流式数据一起使用。
 
@@ -283,39 +371,32 @@ val agentStrategy = strategy<String, List<Book>>("library-assistant") {
 
 <!--- INCLUDE
 import ai.koog.agents.core.tools.SimpleTool
-import ai.koog.agents.core.tools.ToolArgs
 import ai.koog.agents.core.tools.ToolDescriptor
+import ai.koog.agents.example.exampleStreamingApi03.Book
 import kotlinx.serialization.KSerializer
-import kotlinx.serialization.Serializable
+
 -->
 ```kotlin
-@Serializable
-data class Book(
-   val title: String,
-   val author: String,
-   val description: String
-) : ToolArgs
-
 class BookTool(): SimpleTool<Book>() {
-   companion object {
-      const val NAME = "book"
-   }
+    
+    companion object { const val NAME = "book" }
 
-   override suspend fun doExecute(args: Book): String {
-      println("${args.title} by ${args.author}:
+    override suspend fun doExecute(args: Book): String {
+        println("${args.title} by ${args.author}:
  ${args.description}")
-      return "Done"
-   }
+        return "Done"
+    }
 
-   override val argsSerializer: KSerializer<Book>
-      get() = Book.serializer()
-   override val descriptor: ToolDescriptor
-      get() = ToolDescriptor(
-         name = NAME,
-         description = "A tool to parse book information from Markdown",
-         requiredParameters = listOf(),
-         optionalParameters = listOf()
-      )
+    override val argsSerializer: KSerializer<Book>
+        get() = Book.serializer()
+    
+    override val descriptor: ToolDescriptor
+        get() = ToolDescriptor(
+            name = NAME,
+            description = "A tool to parse book information from Markdown",
+            requiredParameters = listOf(),
+            optionalParameters = listOf()
+        )
 }
 ```
 <!--- KNIT example-streaming-api-08.kt -->

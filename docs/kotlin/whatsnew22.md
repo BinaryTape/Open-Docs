@@ -217,7 +217,7 @@ data class User(
 
 *   **`get`**：getter 方法。
 
-*   **`set_param`**：setter 方法的形参，如果属性定义为 `var`。
+*   **`setparam`**：setter 方法的形参，如果属性定义为 `var`。
 
 *   **`RECORD_COMPONENT`**：如果类是 `@JvmRecord`，则注解应用于 [Java 记录组件](#improved-support-for-annotating-jvm-records)。此行为模仿了 Java 处理记录组件注解的方式。
 
@@ -230,10 +230,10 @@ data class User(
     val username: String,
 
     // 将 @Email 应用于 param、property、field、
-    // get 和 set_param (如果为 var)
+    // get 和 setparam (如果为 var)
     @all:Email val email: String,
 ) {
-    // 将 @Email 应用于 property、field 和 getter 
+    // 将 @Email 应用于 property、field 和 get
     // (没有 param，因为它不在构造函数中)
     @all:Email val secondaryEmail: String? = null
 }
@@ -361,9 +361,9 @@ kotlin {
 在 Kotlin 2.1.0 中，引入了几个新的语言特性作为预览版。
 我们很高兴地宣布，以下语言特性在此版本中已[稳定](components-stability.md#stability-levels-explained)：
 
-*   [`when` 表达式中带有主体的守卫条件](whatsnew21.md#guard-conditions-in-when-with-a-subject)
-*   [非局部 `break` 和 `continue`](whatsnew21.md#non-local-break-and-continue)
-*   [多美元符号内插：改进了字符串字面值中 `$var` 表达式的处理](whatsnew21.md#multi-dollar-string-interpolation)
+*   [`when` 表达式中带有主体的守卫条件](control-flow.md#guard-conditions-in-when-expressions)
+*   [非局部 `break` 和 `continue`](inline-functions.md#break-and-continue)
+*   [多美元符号内插：改进了字符串字面值中 `$var` 表达式的处理](strings.md#multi-dollar-string-interpolation)
 
 [请参见 Kotlin 语言设计特性和提案的完整列表](kotlin-language-features-and-proposals.md)。
 
@@ -1197,7 +1197,7 @@ composeCompiler {
 它不应导致运行时出现任何可观察到的行为更改。
 
 如果你遇到任何问题，可以通过禁用此特性标志来验证此更改是否导致了问题。
-请将任何问题报告到 [Jetpack Compose 问题跟踪器](https://issuetracker.google.com/issues/new?component=610764&template=1424126)。
+请将任何问题报告到 [Jetpack Compose 问题跟踪器](https://issuetracker.box.com/m/610764/jetpack_compose_issue_tracker?template=1424126)。
 
 要禁用 `OptimizeNonSkippingGroups` 标志，请将以下内容添加到你的 Gradle 配置中：
 
@@ -1210,7 +1210,7 @@ composeCompiler {
 ### 已弃用的特性标志
 
 `StrongSkipping` 和 `IntrinsicRemember` 特性标志现在已弃用，并将在未来的版本中删除。
-如果你遇到任何导致你禁用这些特性标志的问题，请将其报告到 [Jetpack Compose 问题跟踪器](https://issuetracker.google.com/issues/new?component=610764&template=1424126)。
+如果你遇到任何导致你禁用这些特性标志的问题，请将其报告到 [Jetpack Compose 问题跟踪器](https://issuetracker.box.com/m/610764/jetpack_compose_issue_tracker?template=1424126)。
 
 ## 破坏性变更与弃用
 

@@ -17,21 +17,12 @@
 
 iOSアプリからKotlin Multiplatform共有モジュールを使用するには、まずこの共有モジュールから[iOSフレームワーク](https://developer.apple.com/library/archive/documentation/MacOSX/Conceptual/BPFrameworks/Concepts/WhatAreFrameworks.html)を生成する必要があります。その後、それをiOSプロジェクトへの依存関係として追加します。
 
-![Kotlin Multiplatform shared module](kmp-shared-module.svg){width=700}
+一般的に、異なる実装を持つ2つのオプションがあります。
 
-このフレームワークは、ローカルまたはリモートの依存関係として利用できます。
+* ローカル依存関係。KotlinビルドがiOSビルドと直接やり取りします。
+* リモート依存関係。KotlinビルドはiOSフレームワークを生成し、それをパッケージマネージャーを使用してiOSプロジェクトに接続します。
 
-iOSプロジェクトにKotlin Multiplatformモジュールのフレームワークへの依存関係を追加するには、以下のいずれかの方法があります。
-
-* **直接統合 (Direct integration)**。iOSアプリのビルドに新しい「スクリプト実行フェーズ (run script phase)」を追加することで、フレームワークを直接接続します。[Connect the framework to your iOS project](multiplatform-integrate-in-existing-app.md#configure-the-ios-project-to-use-a-kmp-framework)でXcodeでの設定方法を確認してください。
-
-  Android Studioウィザードでプロジェクトを作成する際に、この設定を自動的に生成するには**Regular framework**オプションを選択します。
-
-* **CocoaPods統合 (CocoaPods integration)**。[CocoaPods](https://cocoapods.org/)を介してフレームワークを接続します。CocoaPodsは、SwiftおよびObjective-Cプロジェクトで広く利用されている依存関係マネージャーです。これはローカル依存関係またはリモート依存関係のどちらでも構いません。詳細は、[Use a Kotlin Gradle project as a CocoaPods dependency](multiplatform-cocoapods-xcode.md)を参照してください。
-
-  ローカルのCocoaPods依存関係を持つワークフローを設定するには、ウィザードでプロジェクトを生成するか、スクリプトを手動で編集できます。
-
-* **SPMの使用 (Using SPM)**。Swiftコードの配布を管理するためのAppleのツールであるSwift Package Manager (SPM)を使用してフレームワークを接続します。JetBrainsは[SPMの公式サポートに取り組んでいます](https://youtrack.jetbrains.com/issue/KT-53877)。現在、XCFrameworksを使用してSwiftパッケージへの依存関係を設定できます。詳細は、[Swift package export setup](multiplatform-spm-export.md)を参照してください。
+iOS統合の利用可能なすべてのオプションを確認するには、[iOS統合メソッド](multiplatform-ios-integration-overview.md)を参照してください。
 
 ## モジュール構成
 
@@ -212,7 +203,7 @@ iOSアプリは、Kotlin Multiplatform共有モジュールから生成された
 
 ローカル配布とは、iOSアプリがKotlin Multiplatformモジュールのフレームワークを公開することなく利用する形式です。iOSアプリは、フレームワークを直接統合するか、CocoaPodsを使用できます。
 
-このワークフローは、通常、AndroidおよびiOSチームのメンバーが共有のKotlin Multiplatformコードを編集したい場合に使用されます。iOS開発者はAndroid Studioをインストールし、KotlinとGradleの基本的な知識が必要です。
+このワークフローは、通常、AndroidおよびiOSチームのメンバーが共有のKotlin Multiplatformコードを編集したい場合に使用されます。iOS開発者はIntelliJ IDEAまたはAndroid Studioをインストールし、KotlinとGradleの基本的な知識が必要です。
 
 ローカル配布方式では、iOSアプリのビルドがiOSフレームワークの生成をトリガーします。これにより、iOS開発者はKotlin Multiplatformコードへの変更をすぐに確認できます。
 
@@ -220,7 +211,7 @@ iOSアプリは、Kotlin Multiplatform共有モジュールから生成された
 
 このシナリオは通常、2つのケースで使用されます。1つ目は、アーティファクトを公開する必要がないため、モノレポプロジェクト構成のデフォルトのワークフローとして使用できます。2つ目は、リモートワークフローに加えて、ローカル開発用に使用できます。詳細については、[ローカル開発のためのローカル依存関係のセットアップ](#setting-up-a-local-dependency-for-local-development)を参照してください。
 
-このワークフローは、すべてのチームメンバーがプロジェクト全体のコードを編集する準備ができている場合に最も効果的です。これには、共通部分への変更を行った後、AndroidとiOSの両方の部分が含まれます。理想的には、すべてのチームメンバーがAndroid StudioとXcodeをインストールし、共通コードに変更を加えた後に両方のアプリを開いて実行できるようにすることです。
+このワークフローは、すべてのチームメンバーがプロジェクト全体のコードを編集する準備ができている場合に最も効果的です。これには、共通部分への変更を行った後、AndroidとiOSの両方の部分が含まれます。理想的には、すべてのチームメンバーがIntelliJ IDEA/Android StudioとXcodeをインストールし、共通コードに変更を加えた後に両方のアプリを開いて実行できるようにすることです。
 
 <table>
   
@@ -239,11 +230,11 @@ iOSアプリは、Kotlin Multiplatform共有モジュールから生成された
    </list>
 </td>
 <td>
-<list>
-  <li>チームメンバーは、自分のマシンに完全な開発環境をセットアップする必要があります。</li>
-  <li>iOS開発者は、Android StudioとGradleの使用方法を学ぶ必要があります。</li>
-  <li>共有コードが増え、チームが成長するにつれて、変更の管理が難しくなります。</li>
-</list>
+  <list>
+    <li>チームメンバーは、自分のマシンに完全な開発環境をセットアップする必要があります。</li>
+    <li>iOS開発者は、IntelliJ IDEAまたはAndroid StudioとGradleの使用方法を学ぶ必要があります。</li>
+    <li>共有コードが増え、チームが成長するにつれて、変更の管理が難しくなります。</li>
+  </list>
 </td>
 </tr>
 
@@ -251,7 +242,7 @@ iOSアプリは、Kotlin Multiplatform共有モジュールから生成された
 
 ### リモート：アーティファクト配布
 
-リモート配布とは、フレームワークアーティファクトがCocoaPodまたはSPMを使用してSwiftパッケージとして公開され、iOSアプリによって利用されることを意味します。Androidアプリはバイナリ依存関係をローカルまたはリモートで利用できます。
+リモート配布とは、フレームワークアーティファクトがSwift Package ManagerまたはCocoaPodとして公開され、iOSアプリによって利用されることを意味します。Androidアプリはバイナリ依存関係をローカルまたはリモートで利用できます。
 
 リモート配布は、既存のプロジェクトにテクノロジーを徐々に導入するためによく使用されます。これはiOS開発者のワークフローやビルドプロセスを大きく変えません。2つ以上のリポジトリを持つチームは、主にプロジェクトコードを格納するためにリモート配布を使用します。
 
@@ -268,7 +259,7 @@ iOSアプリは、Kotlin Multiplatform共有モジュールから生成された
 
   
 <tr>
-<td>参加していないiOSチームメンバーは、Kotlinでコーディングしたり、Android StudioやGradleのようなツールの使用方法を学ぶ必要がありません。これにより、チームへの参入障壁が大幅に下がります。</td>
+<td>参加していないiOSチームメンバーは、Kotlinでコーディングしたり、IntelliJ IDEA/Android StudioやGradleのようなツールの使用方法を学ぶ必要がありません。これにより、チームへの参入障壁が大幅に下がります。</td>
 <td>
   <list>
     <li>共有コードの編集とビルドのプロセスには公開とバージョン管理が含まれるため、iOS開発者にとってワークフローが遅くなります。</li>
@@ -284,12 +275,11 @@ iOSアプリは、Kotlin Multiplatform共有モジュールから生成された
 #### ローカル開発のためのローカル依存関係のセットアップ
 
 多くのチームは、Kotlin Multiplatformテクノロジーを採用する際、iOS開発者にとって開発プロセスを同じに保つためにリモート配布ワークフローを選択します。しかし、このワークフローではKotlin Multiplatformコードの変更が困難です。
-
 Kotlin Multiplatformモジュールから生成されたフレームワークへのローカル依存関係を持つ追加の「ローカル開発」ワークフローをセットアップすることをお勧めします。
 
 開発者が新しい機能を追加する際には、Kotlin Multiplatformモジュールをローカル依存関係として利用するように切り替えます。これにより、共通のKotlinコードに変更を加え、iOSからその動作をすぐに確認し、Kotlinコードをデバッグすることができます。機能が準備できたら、リモート依存関係に戻し、それに応じて変更を公開できます。まず共有モジュールへの変更を公開し、その後でアプリに変更を加えます。
 
-リモート配布ワークフローではCocoaPods統合またはSPMを使用し、ローカル配布ワークフローではフレームワークを直接統合します。
+リモート配布ワークフローではSwift Package Managerを使用します。ローカル配布ワークフローでは、フレームワークを直接統合します。
 
 <!-- This tutorial [TODO] describes how to switch workflows by choosing the corresponding scheme in Xcode:
 [TODO screenshot] -->

@@ -7,13 +7,13 @@
     <p><img src="icon-1-done.svg" width="20" alt="First step"/> <a href="jvm-create-project-with-spring-boot.md">KotlinでSpring Bootプロジェクトを作成する</a><br/><img src="icon-2-done.svg" width="20" alt="Second step"/> <a href="jvm-spring-boot-add-data-class.md">Spring Bootプロジェクトにデータクラスを追加する</a><br/><img src="icon-3.svg" width="20" alt="Third step"/> <strong>Spring Bootプロジェクトにデータベースのサポートを追加する</strong><br/><img src="icon-4-todo.svg" width="20" alt="Fourth step"/> データベースアクセスにSpring Data CrudRepositoryを使用する</p>
 </tldr>
 
-このチュートリアルのパートでは、Java Database Connectivity (JDBC) を使用して、データベースをプロジェクトに追加し、設定します。
+このチュートリアルのパートでは、_Java Database Connectivity_ (JDBC) を使用して、データベースをプロジェクトに追加し、設定します。
 JVMアプリケーションでは、JDBCを使用してデータベースと対話します。
 Spring Frameworkは、利便性のために `JdbcTemplate` クラスを提供しており、JDBCの使用を簡素化し、よくあるエラーを回避するのに役立ちます。
 
 ## データベースサポートを追加する
 
-Spring Frameworkベースのアプリケーションでは、データベースアクセスロジックをいわゆるサービス層 (service layer) —ビジネスロジックが存在する場所— の中に実装するのが一般的な慣習です。
+Spring Frameworkベースのアプリケーションでは、データベースアクセスロジックをいわゆる_サービス層_ (service layer) —ビジネスロジックが存在する場所— の中に実装するのが一般的な慣習です。
 Springでは、クラスがアプリケーションのサービス層に属することを意味するために、`@Service` アノテーションでクラスをマークする必要があります。
 このアプリケーションでは、この目的のために `MessageService` クラスを作成します。
 
@@ -170,7 +170,7 @@ class MessageService(private val db: JdbcTemplate) {
 
 1.  `src/main/resources` ディレクトリに `schema.sql` ファイルを作成します。このファイルにはデータベースオブジェクトの定義が格納されます。
 
-    ![Create database schema](create-database-schema.png){width=400}
+    ![データベーススキーマを作成する](create-database-schema.png){width=400}
 
 2.  `src/main/resources/schema.sql` ファイルを次のコードで更新します。
 
@@ -241,11 +241,11 @@ class MessageService(private val db: JdbcTemplate) {
 3.  すべてのPOSTリクエストを実行します。リクエスト宣言の横にあるガターの緑色の**実行**アイコンを使用します。
     これらのリクエストは、テキストメッセージをデータベースに書き込みます。
 
-    ![Execute POST request](execute-post-requests.png)
+    ![POSTリクエストを実行](execute-post-requests.png)
 
 4.  GETリクエストを実行し、**Run**ツールウィンドウで結果を確認します。
 
-    ![Execute GET requests](execute-get-requests.png)
+    ![GETリクエストを実行](execute-get-requests.png)
 
 ### リクエストを実行する別の方法 {initial-collapse-state="collapsed" collapsible="true"}
 
@@ -489,7 +489,7 @@ Springアプリケーションを実行する準備ができました。
 
 5.  GETリクエストを実行し、**Run**ツールウィンドウで結果を確認します。
 
-    ![Retrieve message by its id](retrieve-message-by-its-id.png){width=706}
+    ![idでメッセージを取得](retrieve-message-by-its-id.png){width=706}
 
 ## 次のステップ
 

@@ -76,9 +76,9 @@ JetBrains 的 Kotlin 团队持续稳定 K2 编译器，而 1.9.0 版本引入了
 
 [Gradle 构建报告](gradle-compilation-and-caches.md#build-reports)现在显示是使用了当前编译器还是 K2 编译器来编译代码。在 Kotlin 1.9.0 中，你可以在 [Gradle 构建扫描](https://scans.gradle.com/)中查看此信息：
 
-![Gradle 构建扫描 - K1](gradle-build-scan-k1.png){width=700}
+![Gradle build scan - K1](gradle-build-scan-k1.png){width=700}
 
-![Gradle 构建扫描 - K2](gradle-build-scan-k2.png){width=700}
+![Gradle build scan - K2](gradle-build-scan-k2.png){width=700}
 
 你还可以在构建报告中找到项目中使用的 Kotlin 版本：
 
@@ -444,7 +444,7 @@ Kotlin 团队继续试验新的 Kotlin/Wasm 目标平台。此版本引入了一
 
 Kotlin 1.9.0 为 WebAssembly (Wasm) 项目引入了显著的大小改进。比较两个“Hello World”项目，Kotlin 1.9.0 中 Wasm 的代码占用空间现在比 Kotlin 1.8.20 小 10 倍以上。
 
-![Kotlin/Wasm 大小相关优化](wasm-1-9-0-size-improvements.png){width=700}
+![Kotlin/Wasm size-related optimizations](wasm-1-9-0-size-improvements.png){width=700}
 
 这些大小优化带来了更有效的资源利用和在使用 Kotlin 代码面向 Wasm 平台时的改进性能。
 
@@ -959,7 +959,7 @@ fun main() {
 
 ### 创建父目录的新路径工具
 
-在 1.9.0 中，有一个新的 `createParentDirectories()` 扩展函数，你可以使用它来创建具有所有必要父目录的新文件。当你向 `createParentDirectories()` 提供文件路径时，它会检查父目录是否已存在。如果存在，它不执行任何操作。但是，如果不存在，它会为你创建它们。
+在 1.9.0 中，有一个新的 `createParentDirectories()` 扩展函数，你可以使用它来创建具有所有必要父目录的新文件。当你向 `createParentDirectories()` 提供文件路径时，它会检测父目录是否已存在。如果存在，它不执行任何操作。但是，如果不存在，它会为你创建它们。
 
 `createParentDirectories()` 在复制文件时特别有用。例如，你可以将其与 `copyToRecursively()` 函数结合使用：
 

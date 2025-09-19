@@ -11,7 +11,7 @@ Kotlin 1.7.20 版本已發佈！以下是此版本的一些重點功能：
 * [新的 Kotlin K2 編譯器支援 `all-open`、帶接收者的 SAM、Lombok 和其他編譯器外掛程式](#support-for-kotlin-k2-compiler-plugins)
 * [我們引入了預覽版的 `..<` 運算子，用於建立開放式範圍](#preview-of-the-operator-for-creating-open-ended-ranges)
 * [新的 Kotlin/Native 記憶體管理器現已預設啟用](#the-new-kotlin-native-memory-manager-enabled-by-default)
-* [我們為 JVM 引入了一個新的實驗性功能：具有泛型基礎類型的內聯類別](#generic-inline-classes)
+* [我們為 JVM 引入了一個新的實驗性功能：具有泛型基礎型別的內聯類別](#generic-inline-classes)
 
 您也可以在此影片中找到這些變更的簡要概述：
 
@@ -105,17 +105,17 @@ Kotlin 1.7.20 引入了新語言功能的預覽版本，並對建構器型別推
 
 ```kotlin
 when (value) {
-    in 0.0..<0.25 -> // 第一季
-    in 0.25..<0.5 -> // 第二季
-    in 0.5..<0.75 -> // 第三季
-    in 0.75..1.0 ->  // 最後一季 <- 請注意此處為閉合範圍
+    in 0.0..<0.25 -> // First quarter
+    in 0.25..<0.5 -> // Second quarter
+    in 0.5..<0.75 -> // Third quarter
+    in 0.75..1.0 ->  // Last quarter  <- Note closed range here
 }
 ```
 {validate="false"}
 
 #### 標準函式庫 API 變更
 
-以下新類型和操作將被引入通用 Kotlin 標準函式庫中的 `kotlin.ranges` 軟體包中：
+以下新類型和操作將被引入通用 Kotlin 標準函式庫中的 `kotlin.ranges` 套件中：
 
 ##### 新的 `OpenEndRange<T>` 介面
 
@@ -123,9 +123,9 @@ when (value) {
 
 ```kotlin
 interface OpenEndRange<T : Comparable<T>> {
-    // 下限
+    // Lower bound
     val start: T
-    // 上限，不包含在範圍內
+    // Upper bound, not included in the range
     val endExclusive: T
     operator fun contains(value: T): Boolean = value >= start && value < endExclusive
     fun isEmpty(): Boolean = start >= endExclusive
@@ -164,7 +164,7 @@ class IntRange : IntProgression(...), ClosedRange<Int>, OpenEndRange<Int> {
 >
 {style="warning"}
 
-此版本引入了一種新的 `object` 宣告型別供您使用：`data object`。[資料物件](https://youtrack.jetbrains.com/issue/KT-4107) 在概念上與常規 `object` 宣告行為相同，但預設提供簡潔的 `toString` 表示。
+此版本引入了一種新的 `object` 宣告型別供您使用：`data object`。[資料物件](https://youtrack.com/issue/KT-4107) 在概念上與常規 `object` 宣告行為相同，但預設提供簡潔的 `toString` 表示。
 
 <video src="https://www.youtube.com/v/ovAqcwFhEGc" title="Data objects in Kotlin 1.7.20"/>
 
@@ -229,7 +229,7 @@ Kotlin 1.7.20 對 [建構器型別推斷的使用](using-builders-with-builder-i
 
 這是一個破壞性變更，但我們的研究表明，這些情況非常罕見，這些限制不應影響您的程式碼。如果它們確實影響了您，請考慮以下情況：
 
-* 帶有隱藏成員的擴充功能的建構器推斷。
+* 帶有隱藏成員的擴充功能 (extension) 的建構器推斷。
 
   如果您的程式碼包含一個與建構器推斷期間將使用的擴充函式同名的擴充函式，編譯器將顯示錯誤：
 
@@ -243,7 +243,7 @@ Kotlin 1.7.20 對 [建構器型別推斷的使用](using-builders-with-builder-i
     fun test() {
         buildList {
             this.add(Data())
-            this.get(0).doSmth() // 解析為 2 並導致錯誤
+            this.get(0).doSmth() // Resolves to 2 and leads to error
         }
     }
     ```
@@ -259,9 +259,9 @@ Kotlin 1.7.20 對 [建構器型別推斷的使用](using-builders-with-builder-i
     fun <T> T.doSmth() {} // 2
     
     fun test() {
-        buildList<Data> { // 型別引數！
+        buildList<Data> { // Type argument!
             this.add(Data())
-            this.get(0).doSmth() // 解析為 1
+            this.get(0).doSmth() // Resolves to 1
         }
     }
     ```
@@ -430,7 +430,7 @@ Kotlin 1.7.20 隨附預設啟用的新 Kotlin/Native 記憶體管理器，並提
 
 如果您已經手動啟用它，您可以從 `gradle.properties` 或 `build.gradle(.kts)` 檔案中移除 `kotlin.native.binary.memoryModel=experimental` 或 `binaryOptions["memoryModel"] = "experimental"` 選項。
 
-如有必要，您可以使用 `gradle.properties` 中的 `kotlin.native.binary.memoryModel=strict` 選項切換回舊版記憶體管理器。然而，舊版記憶體管理器不再支援編譯器快取，因此編譯時間可能會變長。
+如有必要，您可以使用 `gradle.properties` 中的 `kotlin.native.binary.memoryModel=strict` 選項切換回舊版記憶體管理器。然而，編譯器快取支援已不再適用於舊版記憶體管理器，因此編譯時間可能會變長。
 
 #### 凍結
 
@@ -446,7 +446,7 @@ Kotlin 1.7.20 隨附預設啟用的新 Kotlin/Native 記憶體管理器，並提
 
 新的記憶體管理器仍然限制從 Swift 和 Objective-C 呼叫 Kotlin `suspend` 函式（僅限於主執行緒），但您可以使用新的 Gradle 選項來解除此限制。
 
-此限制最初是在舊版記憶體管理器中引入的，因為某些情況下程式碼將一個延續分派到原始執行緒上恢復執行。如果此執行緒沒有支援的事件迴圈，任務將永遠不會執行，協程也永遠不會恢復。
+此限制最初是在舊版記憶體管理器中引入的，因為某些情況下程式碼會將一個延續分派到原始執行緒上恢復執行。如果此執行緒沒有支援的事件迴圈，任務將永遠不會執行，協程也永遠不會恢復。
 
 在某些情況下，此限制不再是必需的，但所有必要條件的檢查無法輕易實作。因此，我們決定在新記憶體管理器中保留此功能，同時引入一個供您禁用的選項。為此，請將以下選項新增到您的 `gradle.properties` 中：
 
@@ -577,17 +577,17 @@ Kotlin 1.7.20 為 `java.nio.file.Path` 類別提供了新的 [擴充函式](exte
   ```kotlin
   val cleanVisitor = fileVisitor {
       onPreVisitDirectory { directory, attributes ->
-          // 處理目錄的一些邏輯
+          // Some logic on visiting directories
           FileVisitResult.CONTINUE
       }
   
       onVisitFile { file, attributes ->
-          // 處理檔案的一些邏輯
+          // Some logic on visiting files
           FileVisitResult.CONTINUE
       }
   }
   
-  // 其他邏輯可能在此處
+  // Some logic may go here
   
   projectDirectory.visitFileTree(cleanVisitor)
   ```
@@ -596,14 +596,14 @@ Kotlin 1.7.20 為 `java.nio.file.Path` 類別提供了新的 [擴充函式](exte
 
   ```kotlin
   projectDirectory.visitFileTree {
-  // builderAction 的定義：
+  // Definition of the builderAction:
       onPreVisitDirectory { directory, attributes ->
-          // 處理目錄的一些邏輯
+          // Some logic on visiting directories
           FileVisitResult.CONTINUE
       }
   
       onVisitFile { file, attributes ->
-          // 處理檔案的一些邏輯
+          // Some logic on visiting files
           FileVisitResult.CONTINUE
       }
   }
@@ -646,7 +646,7 @@ Kotlin 1.7.20 為 `java.nio.file.Path` 類別提供了新的 [擴充函式](exte
       }
   
    
-  // 使用 walk 函式：
+  // Use walk function:
       val directoryStructure = rootDirectory.walk(PathWalkOption.INCLUDE_DIRECTORIES)
           .map { it.relativeTo(rootDirectory).toString() }
           .toList().sorted()

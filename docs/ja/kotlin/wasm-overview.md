@@ -1,11 +1,6 @@
 [//]: # (title: Kotlin/Wasm)
 
-> Kotlin/Wasmは[アルファ版](components-stability.md)です。
-> いつでも変更される可能性があります。プロダクション前のシナリオでご利用いただけます。[YouTrack](https://youtrack.jetbrains.com/issue/KT-56492)にてフィードバックをいただけると幸いです。
->
-> [Kotlin/Wasmコミュニティに参加](https://slack-chats.kotlinlang.org/c/webassembly)しましょう。
->
-{style="note"}
+<primary-label ref="beta"/> 
 
 Kotlin/Wasmは、Kotlinコードを[WebAssembly (Wasm)](https://webassembly.org/)形式にコンパイルする機能を提供します。
 Kotlin/Wasmを使用すると、Wasmをサポートし、Kotlinの要件を満たす様々な環境やデバイスで動作するアプリケーションを作成できます。
@@ -17,23 +12,24 @@ Kotlin/Wasmは、ブラウザなどの様々なターゲット環境で利用で
 Webアプリケーションの開発や、ブラウザ外のスタンドアロンWasm仮想マシンで利用可能です。ブラウザ外のケースでは、
 [WebAssembly System Interface (WASI)](https://wasi.dev/)がプラットフォームAPIへのアクセスを提供し、これも利用できます。
 
+> Kotlin/Wasmで構築されたアプリケーションをブラウザで実行するには、ユーザーの皆様には、WebAssemblyのガベージコレクションとレガシー例外処理のプロポーザルをサポートする[ブラウザバージョン](wasm-configuration.md#browser-versions)が必要です。ブラウザのサポート状況を確認するには、[WebAssembly
+> roadmap](https://webassembly.org/roadmap/)を参照してください。
+>
+{style="tip"}
+
 ## Kotlin/WasmとCompose Multiplatform
 
-Kotlinを使用すると、Compose MultiplatformとKotlin/Wasmを介して、モバイルおよびデスクトップのユーザーインターフェース (UI) をWebプロジェクトで再利用し、アプリケーションを構築する能力が得られます。
+Kotlinを使用すると、Compose MultiplatformとKotlin/Wasmを介して、Webプロジェクトでモバイルおよびデスクトップのユーザーインターフェース (UI) を構築し再利用する能力が得られます。
 
 [Compose Multiplatform](https://www.jetbrains.com/lp/compose-multiplatform/)は、Kotlinと[Jetpack Compose](https://developer.android.com/jetpack/compose)に基づく宣言型フレームワークであり、UIを一度実装するだけで、ターゲットとするすべてのプラットフォームで共有できます。
 
 Webプラットフォーム向けには、Compose MultiplatformはKotlin/Wasmをコンパイルターゲットとして使用します。Kotlin/WasmとCompose Multiplatformで構築されたアプリケーションは、`wasm-js`ターゲットを使用し、ブラウザで動作します。
 
-[Compose MultiplatformとKotlin/Wasmで構築されたアプリケーションのオンラインデモを体験](https://zal.im/wasm/jetsnack/)してください
+[Compose MultiplatformとKotlin/Wasmで構築されたアプリケーションのオンラインデモをご覧ください](https://zal.im/wasm/jetsnack/)
 
 ![Kotlin/Wasm demo](wasm-demo.png){width=700}
 
-> Kotlin/Wasmで構築されたアプリケーションをブラウザで実行するには、新しいガベージコレクションとレガシー例外処理のプロポーザルをサポートするブラウザバージョンが必要です。ブラウザのサポート状況を確認するには、[WebAssembly roadmap](https://webassembly.org/roadmap/)を参照してください。
->
-{style="tip"}
-
-さらに、Kotlin/Wasmでは、最も人気のあるKotlinライブラリをすぐに利用できます。他のKotlinおよびMultiplatformプロジェクトと同様に、ビルドスクリプトに依存関係宣言を含めることができます。詳細については、[マルチプラットフォームライブラリへの依存関係の追加](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-add-dependencies.html)を参照してください。
+さらに、最も人気のあるKotlinライブラリをKotlin/Wasmですぐに利用できます。他のKotlinおよびMultiplatformプロジェクトと同様に、ビルドスクリプトに依存関係宣言を含めることができます。詳細については、[マルチプラットフォームライブラリへの依存関係の追加](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-add-dependencies.html)を参照してください。
 
 ご自身で試してみませんか？
 

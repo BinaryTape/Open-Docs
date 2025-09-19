@@ -123,7 +123,6 @@ print(
         implementation 'org.jetbrains.kotlin:kotlin-scripting-dependencies-maven'
         // 此特定定义需要 coroutines 依赖项
         implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:%coroutinesVersion%'
-
     }
     ```
 

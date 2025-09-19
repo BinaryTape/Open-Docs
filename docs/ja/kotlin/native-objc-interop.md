@@ -1,9 +1,11 @@
 [//]: # (title: Swift/Objective-C との相互運用)
 
 > Objective-Cライブラリのインポートは[ベータ版](native-c-interop-stability.md)です。
-> cinteropツールによってObjective-Cライブラリから生成されるすべてのKotlin宣言には、`@ExperimentalForeignApi`アノテーションが付与されている必要があります。
+> Objective-Cライブラリからcinteropツールによって生成されるすべてのKotlin宣言には、
+> `@ExperimentalForeignApi`アノテーションを付与する必要があります。
 >
-> Kotlin/Nativeに同梱されているネイティブプラットフォームライブラリ（Foundation、UIKit、POSIXなど）は、一部のAPIでのみオプトインが必要です。
+> Kotlin/Nativeに同梱されているネイティブプラットフォームライブラリ（Foundation、UIKit、POSIXなど）は、
+> 一部のAPIでのみオプトインが必要です。
 >
 {style="note"}
 
@@ -34,9 +36,7 @@ Kotlinモジュールは、フレームワークにコンパイルされてい�
 
 ### Objective-CとSwiftからKotlin宣言を隠す
 
-> `@HiddenFromObjC`アノテーションは[実験的](components-stability.md#stability-levels-explained)であり、[オプトイン](opt-in-requirements.md)が必要です。
->
-{style="warning"}
+<primary-label ref="experimental-opt-in"/>
 
 KotlinコードをSwift/Objective-Cによりフレンドリーにするには、`@HiddenFromObjC`アノテーションを使用してKotlin宣言をObjective-CおよびSwiftから隠します。これは、関数またはプロパティのObjective-Cへのエクスポートを無効にします。
 
@@ -46,9 +46,7 @@ KotlinコードをSwift/Objective-Cによりフレンドリーにするには、
 
 ### Swiftでのリファインの使用
 
-> `@ShouldRefineInSwift`アノテーションは[実験的](components-stability.md#stability-levels-explained)であり、[オプトイン](opt-in-requirements.md)が必要です。
->
-{style="warning"}
+<primary-label ref="experimental-opt-in"/>
 
 `@ShouldRefineInSwift`は、Kotlin宣言をSwiftで書かれたラッパーに置き換えるのに役立ちます。このアノテーションは、生成されるObjective-C APIで関数またはプロパティを`swift_private`としてマークします。このような宣言には`__`プレフィックスが付き、Swiftからは見えなくなります。
 
@@ -59,9 +57,7 @@ SwiftフレンドリーなAPIを作成するために、Swiftコードでこれ�
 
 ### 宣言名の変更
 
-> `@ObjCName`アノテーションは[実験的](components-stability.md#stability-levels-explained)であり、[オプトイン](opt-in-requirements.md)が必要です。
->
-{style="warning"}
+<primary-label ref="experimental-opt-in"/>
 
 Kotlin宣言の名前変更を避けるには、`@ObjCName`アノテーションを使用します。これは、Kotlinコンパイラに、アノテーションが付けられたクラス、インターフェース、または他のKotlinエンティティに対して、カスタムのObjective-CおよびSwift名を使用するように指示します。
 
@@ -83,7 +79,7 @@ let index = array.index(of: "element")
 
 ドキュメントは、あらゆるAPIを理解するために不可欠です。共有Kotlin APIのドキュメントを提供することで、そのユーザーと使用法、注意点などについてやり取りできます。
 
-デフォルトでは、Objective-Cヘッダーを生成する際、[KDoc](kotlin-doc.md)コメントは対応するコメントに変換されません。例えば、KDocを含む以下のKotlinコード：
+Objective-Cヘッダーを生成する際、Kotlinコードの[KDoc](kotlin-doc.md)コメントは、対応するObjective-Cコメントに変換されます。例えば、KDocを含む以下のKotlinコード：
 
 ```kotlin
 /**
@@ -93,40 +89,7 @@ let index = array.index(of: "element")
 fun printSum(a: Int, b: Int) = println(a.toLong() + b)
 ```
 
-コメントなしのObjective-C宣言が生成されます：
-
-```objc
-+ (void)printSumA:(int32_t)a b:(int32_t)b __attribute__((swift_name("printSum(a:b:)")));
-```
-
-KDocコメントのエクスポートを有効にするには、`build.gradle(.kts)`に以下のコンパイラオプションを追加します。
-
-<tabs group="build-script">
-<tab title="Kotlin" group-key="kotlin">
-
-```kotlin
-kotlin {
-    targets.withType<org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget> {
-        compilations.get("main").compilerOptions.options.freeCompilerArgs.add("-Xexport-kdoc")
-    }
-}
-```
-
-</tab>
-<tab title="Groovy" group-key="groovy">
-
-```groovy
-kotlin {
-    targets.withType(org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget) {
-        compilations.get("main").compilerOptions.options.freeCompilerArgs.add("-Xexport-kdoc")
-    }
-}
-```
-
-</tab>
-</tabs>
-
-その後、Objective-Cヘッダーには対応するコメントが含まれます。
+は、対応するコメントを含むObjective-Cヘッダーを生成します：
 
 ```objc
 /**
@@ -136,18 +99,33 @@ kotlin {
 + (void)printSumA:(int32_t)a b:(int32_t)b __attribute__((swift_name("printSum(a:b:)")));
 ```
 
-例えばXcodeで、オートコンプリート時にクラスやメソッドのコメントを見ることができるようになります。関数の定義（`.h`ファイル内）に移動すると、`@param`、`@return`などのコメントが表示されます。
+KDocコメントはklibに組み込まれ、klibから生成されたAppleフレームワークに抽出されます。
+その結果、クラスやメソッドのコメントは、例えばXcodeでのオートコンプリート時に表示されます。
+`.h`ファイル内の関数の定義に移動すると、`@param`、`@return`などのタグに関するコメントが表示されます。
 
 既知の制限事項：
 
-> 生成されたObjective-CヘッダーにKDocコメントをエクスポートする機能は[実験的](components-stability.md)です。
-> いつでも廃止または変更される可能性があります。
-> オプトインが必要であり（詳細は下記参照）、評価目的でのみ使用してください。[YouTrack](https://youtrack.jetbrains.com/issue/KT-38600)でのフィードバックをお待ちしております。
->
-{style="warning"}
+*   依存関係のドキュメントは、それ自体が`-Xexport-kdoc`オプションでコンパイルされていない限りエクスポートされません。このコンパイラオプションでコンパイルされたライブラリは、他のコンパイラバージョンと互換性がない可能性があります。
+*   KDocコメントはほとんどそのままエクスポートされますが、`@property`など、多くのKDocブロックタグはサポートされていません。
 
-*   依存関係のドキュメントは、それ自体が`-Xexport-kdoc`でコンパイルされていない限りエクスポートされません。この機能は実験的であるため、このオプションでコンパイルされたライブラリは他のコンパイラバージョンと互換性がない可能性があります。
-*   KDocコメントはほとんどそのままエクスポートされます。`@property`など、多くのKDoc機能はサポートされていません。
+必要に応じて、Gradleビルドファイルの`binaries {}`ブロックで、klibから生成されたAppleフレームワークへのKDocコメントのエクスポートを無効にすることができます。
+
+```kotlin
+// build.gradle.kts
+import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
+
+kotlin {
+    iosArm64 {
+        binaries {
+            framework {
+                baseName = "sdk"
+                @OptIn(ExperimentalKotlinGradlePluginApi::class)
+                exportKdoc.set(false)
+            }
+        }
+    }
+}
+```
 
 ## マッピング
 
@@ -320,13 +298,9 @@ switch color {
 
 ### suspend 関数
 
-> Swiftコードから`suspend`関数を`async`として呼び出すサポートは[実験的](components-stability.md)です。
-> いつでも廃止または変更される可能性があります。
-> 評価目的でのみ使用してください。[YouTrack](https://youtrack.jetbrains.com/issue/KT-47610)でのフィードバックをお待ちしております。
->
-{style="warning"}
+<primary-label ref="experimental-opt-in"/>
 
-Kotlinの[サスペンド関数](coroutines-basics.md)（`suspend`）は、生成されるObjective-Cヘッダーではコールバック付き関数として、Swift/Objective-Cの用語では[完了ハンドラ](https://developer.apple.com/documentation/swift/calling_objective-c_apis_asynchronously)として表現されます。
+Kotlinの[サスペンド関数](coroutines-basics.md)（`suspend`）は、生成されるObjective-Cヘッダーではコールバック付き関数として、Swift/Objective-Cの用語では[完了ハンドラ](https://developer.apple.com/documentation/swift/calling_objective-c_apis_ asynchronously)として表現されます。
 
 Swift 5.5以降、Kotlinの`suspend`関数は、完了ハンドラを使用せずに`async`関数としてSwiftから呼び出すことも可能です。現在、この機能は非常に実験的であり、特定の制限があります。詳細については、[このYouTrackの課題](https://youtrack.jetbrains.com/issue/KT-47610)を参照してください。
 
@@ -452,7 +426,7 @@ Swift/Objective-Cコレクションは、`NSMutableSet`および`NSMutableDictio
 
 ### 関数型
 
-Kotlinの関数型オブジェクト（例：ラムダ）は、Swiftでは関数に、Objective-Cではブロックに変換されます。[Kotlin-Swift interopediaのラムダを持つKotlin関数の例を見る](https://github.com/kotlin-hands-on/kotlin-swift-interopedia/blob/main/docs/functionsandproperties/Functions%20returning%20function%20type.md)。
+Kotlinの関数型オブジェクト（例：ラムダ）は、Swiftではクロージャに、Objective-Cではブロックに変換されます。[Kotlin-Swift interopediaのラムダを持つKotlin関数の例を見る](https://github.com/kotlin-hands-on/kotlin-swift-interopedia/blob/main/docs/functionsandproperties/Functions%20returning%20function%20type.md)。
 
 しかし、関数と関数型を変換する際、パラメータと戻り値の型のマッピング方法には違いがあります。後者の場合、プリミティブ型はボックス化された表現にマッピングされます。Kotlinの`Unit`戻り値は、Swift/Objective-Cでは対応する`Unit`シングルトンとして表現されます。このシングルトンの値は、他のKotlinの`object`と同じ方法で取得できます。シングルトンは[上記の表](#mappings)を参照してください。
 
@@ -470,12 +444,42 @@ func foo(block: (KotlinInt) -> KotlinUnit)
 
 そして、次のように呼び出すことができます：
 
-```kotlin
+```swift
 foo {
     bar($0 as! Int32)
     return KotlinUnit()
 }
 ```
+
+#### Objective-Cブロック型での明示的なパラメータ名
+
+エクスポートされたObjective-Cヘッダーに対して、Kotlinの関数型に明示的なパラメータ名を追加できます。それらがないと、XcodeのオートコンプリートはObjective-Cブロックでパラメータ名のないObjective-C関数の呼び出しを提案し、生成されたブロックはClang警告を引き起こします。
+
+明示的なパラメータ名を有効にするには、以下の[バイナリオプション](native-binary-options.md)を`gradle.properties`ファイルに追加します。
+
+```none
+kotlin.native.binary.objcExportBlockExplicitParameterNames=true
+```
+
+例えば、以下のKotlinコードの場合：
+
+```kotlin
+// Kotlin:
+fun greetUser(block: (name: String) -> Unit) = block("John")
+```
+
+KotlinはKotlin関数型からObjective-Cブロック型にパラメータ名を転送し、Xcodeが提案でそれらを使用できるようにします：
+
+```objc
+// Objective-C:
+greetUserBlock:^(NSString *name) {
+    // ...
+};
+```
+
+> このオプションはObjective-C相互運用のみに影響します。これは、Xcodeで生成されたObjective-CコードをObjective-Cから呼び出す場合に適用され、一般的にSwiftからの呼び出しには影響しません。
+>
+{style="note"}
 
 ### ジェネリクス
 
@@ -491,9 +495,9 @@ Objective-Cのジェネリクスは、KotlinまたはSwiftのすべての機能�
 
 ジェネリクスはクラスのみに定義でき、インターフェース（Objective-CおよびSwiftのプロトコル）や関数には定義できません。
 
-#### Null許容性
+#### ヌル許容性
 
-KotlinとSwiftはどちらも型指定の一部としてnull許容性を定義しますが、Objective-Cは型のメソッドとプロパティに対してnull許容性を定義します。したがって、以下のKotlinコード：
+KotlinとSwiftはどちらも型指定の一部としてヌル許容性を定義しますが、Objective-Cは型のメソッドとプロパティに対してヌル許容性を定義します。したがって、以下のKotlinコード：
 
 ```kotlin
 class Sample<T>() {
@@ -509,9 +513,9 @@ class Sample<T>() {
 }
 ```
 
-null許容の可能性がある型をサポートするには、Objective-Cヘッダーで`myVal`をnull許容の戻り値を持つものとして定義する必要があります。
+潜在的にヌル許容の型をサポートするには、Objective-Cヘッダーで`myVal`をヌル許容の戻り値を持つものとして定義する必要があります。
 
-これを軽減するには、ジェネリッククラスを定義する際、ジェネリック型が_決して_nullであってはならない場合に、非null許容の型制約を提供します。
+これを軽減するには、ジェネリッククラスを定義する際、ジェネリック型が_決して_ヌルであってはならない場合に、非ヌル許容の型制約を提供します。
 
 ```kotlin
 class Sample<T : Any>() {
@@ -519,7 +523,7 @@ class Sample<T : Any>() {
 }
 ```
 
-これにより、Objective-Cヘッダーは`myVal`を非null許容としてマークするよう強制されます。
+これにより、Objective-Cヘッダーは`myVal`を非ヌル許容としてマークするよう強制されます。
 
 #### 共変性・反変性
 
@@ -537,7 +541,7 @@ let variOutAny : GenVarOut<BaseData> = variOut as! GenVarOut<BaseData>
 
 #### 制約
 
-Kotlinでは、ジェネリック型に上限（upper bounds）を指定できます。Objective-Cもこれをサポートしていますが、より複雑なケースではそのサポートは利用できず、現在のKotlin-Objective-C相互運用ではサポートされていません。ここでの例外は、非null許容の上限がある場合、Objective-Cのメソッド/プロパティが非null許容になることです。
+Kotlinでは、ジェネリック型に上限（upper bounds）を指定できます。Objective-Cもこれをサポートしていますが、より複雑なケースではそのサポートは利用できず、現在のKotlin-Objective-C相互運用ではサポートされていません。ここでの例外は、非ヌル許容の上限がある場合、Objective-Cのメソッド/プロパティが非ヌル許容になることです。
 
 #### 無効にするには
 
@@ -613,7 +617,7 @@ Kotlinのクラスとインターフェースは、Swift/Objective-Cのクラス
 
 ### KotlinからのSwift/Objective-Cクラスおよびプロトコルのサブクラス化
 
-Swift/Objective-Cのクラスとプロトコルは、Kotlinの`final`クラスでサブクラス化できます。`final`でないKotlinクラスがSwift/Objective-C型を継承することはまだサポートされていないため、Swift/Objective-C型を継承する複雑なクラス階層を宣言することはできません。
+Swift/Objective-Cのクラスとプロトコルは、Kotlinの`final`クラスでサブクラス化できます。非`final`なKotlinクラスがSwift/Objective-C型を継承することはまだサポートされていないため、Swift/Objective-C型を継承する複雑なクラス階層を宣言することはできません。
 
 通常のメソッドは、Kotlinの`override`キーワードを使用してオーバーライドできます。この場合、オーバーライドするメソッドは、オーバーライドされるメソッドと同じパラメータ名を持つ必要があります。
 

@@ -166,11 +166,11 @@ val reActAgent = AIAgent(
 ```
 <!--- KNIT example-predefined-strategies-04.kt -->
 
-### 参数
+### 形参
 
-`reActStrategy` 函数接受以下参数：
+`reActStrategy` 函数接受以下形参：
 
-| 参数 | 类型 | 默认值 | 描述 |
+| 形参 | 类型 | 默认值 | 描述 |
 |---|---|---|---|
 | `reasoningInterval` | Int | 1 | 指定推理步骤的间隔。必须大于 0。 |
 | `name` | String | `re_act` | 策略的名称。 |

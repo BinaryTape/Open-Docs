@@ -16,7 +16,7 @@
    
    ![Create a console application](jvm-new-project.png){width=700}
 
-4. **IntelliJ** ビルドシステムを選択します。これは追加のアーティファクトのダウンロードを必要としないネイティブビルダーです。
+4. **IntelliJ** ビルドシステムを選択します。これは、追加のアーティファクトのダウンロードを必要としないネイティブビルダーです。
 
    さらに設定が必要な、より複雑なプロジェクトを作成したい場合は、MavenまたはGradleを選択します。Gradleの場合、ビルドスクリプトの言語としてKotlinまたはGroovyを選択します。
 5. **JDK** リストから、プロジェクトで使用したい[JDK](https://www.oracle.com/java/technologies/downloads/)を選択します。
@@ -31,8 +31,7 @@
 
 7. **Create** をクリックします。
 
-    > Gradleビルドシステムを選択した場合、プロジェクトにはビルドスクリプトファイル `build.gradle(.kts)` があります。
-    > これには、コンソールアプリケーションに必要な`kotlin("jvm")`プラグインと依存関係が含まれています。プラグインの最新バージョンを使用していることを確認してください。
+    > Gradleビルドシステムを選択した場合、プロジェクトにはビルドスクリプトファイル `build.gradle(.kts)` があります。これには、コンソールアプリケーションに必要な`kotlin("jvm")`プラグインと依存関係が含まれています。プラグインの最新バージョンを使用していることを確認してください。
     > 
     > <tabs group="build-script">
     > <tab title="Kotlin" group-key="kotlin">
@@ -101,5 +100,5 @@
 
 このアプリケーションを作成したら、Kotlinの構文をさらに深く掘り下げることができます。
 
-* [Kotlin examples](https://play.kotlinlang.org/byExample/overview) からサンプルコードを追加する 
+* [Kotlin tour](kotlin-tour-welcome.md)を試す
 * IDEA 用の[JetBrains Academy プラグイン](https://plugins.jetbrains.com/plugin/10081-jetbrains-academy)をインストールし、[Kotlin Koans コース](https://plugins.jetbrains.com/plugin/10081-jetbrains-academy/docs/learner-start-guide.html?section=Kotlin%20Koans)の演習を完了する

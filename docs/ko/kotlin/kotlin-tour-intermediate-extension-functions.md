@@ -22,18 +22,14 @@
 
 확장 함수를 사용하면 클래스에 추가 기능을 확장할 수 있습니다. 확장 함수를 호출하는 방식은 클래스의 멤버 함수를 호출하는 방식과 동일합니다.
 
-확장 함수의 구문을 소개하기 전에 **리시버 타입**과 **리시버 객체**라는 용어를 이해해야 합니다.
-
-리시버 객체는 함수가 호출되는 대상입니다. 다시 말해, 리시버는 정보가 공유되는 곳 또는 대상입니다.
+확장 함수의 완전한 구문을 소개하기 전에 **리시버**가 무엇인지 이해해야 합니다. 리시버는 함수가 호출되는 대상입니다. 다시 말해, 리시버는 정보가 공유되는 곳 또는 대상입니다.
 
 ![송신자와 수신자의 예시](receiver-highlight.png){width="500"}
 
-이 예시에서 `main()` 함수는 [`.first()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/first.html) 함수를 호출합니다.
+이 예시에서 `main()` 함수는 리스트의 첫 번째 요소를 반환하기 위해 [`.first()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/first.html) 함수를 호출합니다.
 `.first()` 함수는 `readOnlyShapes` 변수 **상에서** 호출되므로, `readOnlyShapes` 변수가 리시버입니다.
 
-컴파일러가 함수를 언제 사용할 수 있는지 이해하도록 리시버 객체는 **타입**을 가집니다.
-
-이 예시는 표준 라이브러리의 `.first()` 함수를 사용하여 리스트의 첫 번째 요소를 반환합니다. 자신만의 확장 함수를 생성하려면 확장하려는 클래스의 이름 뒤에 `.`과 함수의 이름을 작성합니다. 이어서 인자와 반환 타입을 포함한 나머지 함수 선언을 작성합니다.
+확장 함수를 생성하려면 확장하려는 클래스의 이름 뒤에 `.`과 함수의 이름을 작성합니다. 이어서 인자와 반환 타입을 포함한 나머지 함수 선언을 작성합니다.
 
 예시:
 
@@ -41,7 +37,7 @@
 fun String.bold(): String = "<b>$this</b>"
 
 fun main() {
-    // "hello" is the receiver object
+    // "hello" is the receiver
     println("hello".bold())
     // <b>hello</b>
 }
@@ -50,84 +46,12 @@ fun main() {
 
 이 예시에서는 다음을 설명합니다:
 
-*   `String`은 확장된 클래스로, 리시버 타입으로도 알려져 있습니다.
+*   `String`은 확장된 클래스입니다.
 *   `bold`는 확장 함수의 이름입니다.
 *   `.bold()` 확장 함수의 반환 타입은 `String`입니다.
-*   `"hello"`는 `String`의 인스턴스로, 리시버 객체입니다.
-*   리시버 객체는 본문 내에서 [키워드](keyword-reference.md) `this`로 접근됩니다.
-*   문자열 템플릿 (`# Role and Task
-  
-    You are a professional AI translation assistant specializing in translating **Kotlin-related** English technical documentation into Korean with precision. Your goal is to produce high-quality, technically accurate translations that conform to the reading habits of the target language, primarily for a **developer audience**. Please strictly follow these guidelines and requirements:
-    
-    ## I. Translation Style and Quality Requirements
-    
-    1.  **Faithful to the Original and Fluent Expression:**
-        * Translations should be natural and fluent while ensuring technical accuracy, conforming to the language habits of Korean and the expression style of the internet technology community.
-        * Properly handle the original sentence structure and word order, avoiding literal translations that may create reading obstacles.
-        * Maintain the tone of the original text (e.g., formal, informal, educational).
-    
-    2.  **Terminology Handling:**
-        * **Prioritize the Terminology List:** Strictly translate according to the terminology list provided below. The terminology list has the highest priority.
-        * **Reference Translation Consistency:** For terms not included in the terminology list, please refer to the reference translations to maintain consistency in style and existing terminology usage.
-        * **New/Ambiguous Terminology Handling:**
-            * For proper nouns or technical terms not included in the terminology list and without precedent in reference translations, if you choose to translate them, it is recommended to include the original English in parentheses after the translation at first occurrence, e.g., "Translation (English Term)".
-            * If you are uncertain about a term's translation, or believe keeping the English is clearer, please **keep the original English text**.
-        * **Placeholders/Variable Names:** Placeholders (such as `YOUR_API_KEY`) or special variable names in the document that are not in code blocks should usually be kept in English, or translated with comments based on context.
-    
-    ## II. Technical Format Requirements
-    
-    1.  **Markdown Format:**
-        * Completely preserve all Markdown syntax and formatting in the original text, including but not limited to: headers, lists, bold, italics, strikethrough, blockquotes, horizontal rules, admonitions (:::), etc.
-    
-    2.  **Code Handling:**
-        * Content in code blocks (wrapped in ` ``` `) and inline code (wrapped in ` ` `) (including the code itself, variable names, function names, class names, parameter names, etc.) **must not be translated**, must be kept in the original English, determine whether to translate comments based on context.
-    
-    3.  **Links and Images:**
-        * All links (URLs) and image reference paths in the original text must remain unchanged.
-    
-    4.  **HTML Tags:**
-        * If HTML tags are embedded in the original Markdown, these tags and their attributes should also remain unchanged.
-        
-    ## III. YAML Frontmatter and Special Comments Handling Requirements
-    
-    1.  **Format Preservation:**
-        * The format of the YAML Frontmatter section at the beginning of the document, surrounded by two '---', must be strictly preserved.
-        * Keep all field names, colons, quotes, and other format symbols unchanged.
-        
-    2.  **Field Translation:**
-        * Only translate the content values of fields like 'title', 'description', etc.
-        * If field values contain quotes, ensure that the quote format is correctly preserved after translation.
-        * Do not translate field names, configuration parameter names, or special identifiers.
-        
-    3.  **Special Comments Handling:**
-        * Translate the title content in special comments like `[//]: # (title: Content to translate)`.
-        * Keep the comment format unchanged, only translate the actual content after the colon.
-        * Example: `[//]: # (title: Kotlin/Native as an Apple framework – tutorial)` should be translated to appropriate target language while maintaining the format.
-    
-    ## IV. Output Requirements
-    
-    1.  **Clean Output:** Output only the translated Markdown content. Do not include any additional explanations, statements, apologies, or self-comments (e.g., "This is a good translation..." or "Please note...").
-    2.  **Consistent Structure:** Maintain the same document structure and paragraphing as the original text.
-    
-    ---
-    
-    ## V. Resources
-    
-    ### 1. Terminology List (Glossary)
-    * The following terms must use the specified translations:
-    No relevant terms
-    
-    ### 2. Reference Translations
-    * Please refer to the following previously translated document fragments to maintain consistency in style and terminology:
-    No reference translations
-    
-    ---
-    
-    ## VI. Content to Translate
-    * Please translate the following Markdown content from English to Korean:
-    
-    ```markdown
-    )은 `this`의 값에 접근하는 데 사용됩니다.
+*   `"hello"`, 즉 `String`의 인스턴스가 리시버입니다.
+*   리시버는 본문 내에서 [키워드](keyword-reference.md) `this`로 접근됩니다.
+*   문자열 템플릿 (`$this`)은 `this`의 값에 접근하는 데 사용됩니다.
 *   `.bold()` 확장 함수는 문자열을 받아 굵은 글씨체(`<b>` HTML 요소)로 반환합니다.
 
 ## 확장 지향 설계

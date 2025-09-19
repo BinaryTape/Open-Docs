@@ -10,12 +10,12 @@ Kotlin에서는 모든 변수에서 멤버 함수와 프로퍼티를 호출할 �
 *   [문자열](strings.md)
 *   [배열](arrays.md)
 
-> [Kotlin에서 타입 검사 및 캐스트를 수행하는 방법을 알아보세요.](typecasts.md)
->
-{style="tip"}
-
 `Nothing`, `Any`, `Unit`과 같은 다른 Kotlin 타입에 대해 알아보려면 Kotlin API 레퍼런스를 참조하세요:
 
 *   [`Any`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/)
 *   [`Nothing`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-nothing.html)
 *   [`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/)
+
+> [Kotlin에서 타입 검사 및 캐스트를 수행하는 방법을 알아보세요.](typecasts.md)
+>
+{style="tip"}

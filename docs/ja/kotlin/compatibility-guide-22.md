@@ -214,7 +214,7 @@ _[言語の現代性を保つ](kotlin-evolution-principles.md)_ および _[快�
 
 ### `KotlinCompileTool` の `setSource()` 関数がソースを置き換えるように修正
 
-> **イシュー**: [KT-59632](https://youtrack.com/issue/KT-59632)
+> **イシュー**: [KT-59632](https://youtrack.jetbrains.com/issue/KT-59632)
 >
 > **コンポーネント**: Gradle
 >
@@ -228,7 +228,7 @@ _[言語の現代性を保つ](kotlin-evolution-principles.md)_ および _[快�
 
 ### `KotlinCompilationOutput#resourcesDirProvider` プロパティの非推奨化
 
-> **イシュー**: [KT-70620](https://youtrack.com/issue/KT-70620)
+> **イシュー**: [KT-70620](https://youtrack.jetbrains.com/issue/KT-70620)
 >
 > **コンポーネント**: Gradle
 >
@@ -257,13 +257,13 @@ _[言語の現代性を保つ](kotlin-evolution-principles.md)_ および _[快�
 
 ### `kotlin-android-extensions` プラグインの非推奨化
 
-> **イシュー**: [KT-72341](https://youtrack.com/issue/KT-72341/)
+> **イシュー**: [KT-72341](https://youtrack.jetbrains.com/issue/KT-72341/)
 >
 > **コンポーネント**: Gradle
 >
 > **非互換変更の種類**: ソース
 >
-> **概要**: `kotlin-android-extensions` プラグインは非推奨になりました。`Parcelable` 実装ジェネレーターには [`kotlin-parcelize`](https://plugins.gradle.org/plugin/org.jetbrains.kotlin.plugin.parcelize) という別のプラグインを、合成ビューには Android Jetpack の [ビューバインディング](https://developer.android.com/topic/libraries/view-binding) を代わりに使用してください。
+> **概要**: `kotlin-android-extensions` プラグインは非推奨になりました。`Parcelable` 実装ジェネレーターには別のプラグイン [`kotlin-parcelize`](https://plugins.gradle.org/plugin/org.jetbrains.kotlin.plugin.parcelize) を、合成ビューには Android Jetpack の [ビューバインディング](https://developer.android.com/topic/libraries/view-binding) を代わりに使用してください。
 >
 > **非推奨サイクル**:
 >
@@ -273,7 +273,7 @@ _[言語の現代性を保つ](kotlin-evolution-principles.md)_ および _[快�
 
 ### `kotlinOptions` DSLの非推奨化
 
-> **イシュー**: [KT-54110](https://youtrack.com/issue/KT-54110)
+> **イシュー**: [KT-54110](https://youtrack.jetbrains.com/issue/KT-54110)
 >
 > **コンポーネント**: Gradle
 >
@@ -288,7 +288,7 @@ _[言語の現代性を保つ](kotlin-evolution-principles.md)_ および _[快�
 
 ### `kotlin.incremental.useClasspathSnapshot` プロパティの削除
 
-> **イシュー**: [KT-62963](https://youtrack.com/issue/KT-62963)
+> **イシュー**: [KT-62963](https://youtrack.jetbrains.com/issue/KT-62963)
 >
 > **コンポーネント**: Gradle
 >
@@ -303,7 +303,7 @@ _[言語の現代性を保つ](kotlin-evolution-principles.md)_ および _[快�
 
 ### Kotlinスクリプト機能の非推奨化
 
-> **イシュー**: [KT-71685](https://youtrack.com/issue/KT-71685)、[KT-75632](https://youtrack.com/issue/KT-75632/)、[KT-76196](https://youtrack.com/issue/KT-76196/)。
+> **イシュー**: [KT-71685](https://youtrack.jetbrains.com/issue/KT-71685)、[KT-75632](https://youtrack.jetbrains.com/issue/KT-75632/)、[KT-76196](https://youtrack.jetbrains.com/issue/KT-76196/)。
 >
 > **コンポーネント**: スクリプト
 >
@@ -323,7 +323,7 @@ _[言語の現代性を保つ](kotlin-evolution-principles.md)_ および _[快�
 
 ### 曖昧さ解消分類子プロパティの非推奨化
 
-> **イシュー**: [KT-58231](https://youtrack.com/issue/KT-58231)
+> **イシュー**: [KT-58231](https://youtrack.jetbrains.com/issue/KT-58231)
 >
 > **コンポーネント**: Gradle
 >
@@ -342,7 +342,7 @@ _[言語の現代性を保つ](kotlin-evolution-principles.md)_ および _[快�
 
 ### 共通化パラメータの非推奨化
 
-> **イシュー**: [KT-75161](https://youtrack.com/issue/KT-75161)
+> **イシュー**: [KT-75161](https://youtrack.jetbrains.com/issue/KT-75161)
 >
 > **コンポーネント**: Gradle
 >
@@ -370,7 +370,7 @@ _[言語の現代性を保つ](kotlin-evolution-principles.md)_ および _[快�
 
 ### レガシーメタデータコンパイルのサポートの非推奨化
 
-> **イシュー**: [KT-61817](https://youtrack.com/issue/KT-61817)
+> **イシュー**: [KT-61817](https://youtrack.jetbrains.com/issue/KT-61817)
 >
 > **コンポーネント**: Gradle
 >
@@ -388,7 +388,7 @@ _[言語の現代性を保つ](kotlin-evolution-principles.md)_ および _[快�
 
 ### `KotlinCompilation.source` APIの非推奨化
 
-> **イシュー**: [KT-64991](https://youtrack.com/issue/KT-64991)
+> **イシュー**: [KT-64991](https://youtrack.jetbrains.com/issue/KT-64991)
 >
 > **コンポーネント**: Gradle
 >
@@ -404,7 +404,7 @@ _[言語の現代性を保つ](kotlin-evolution-principles.md)_ および _[快�
 
 ### ターゲットプリセットAPIの非推奨化
 
-> **イシュー**: [KT-71698](https://youtrack.com/issue/KT-71698)
+> **イシュー**: [KT-71698](https://youtrack.jetbrains.com/issue/KT-71698)
 >
 > **コンポーネント**: Gradle
 >
@@ -424,7 +424,7 @@ _[言語の現代性を保つ](kotlin-evolution-principles.md)_ および _[快�
 
 ### Appleターゲットショートカットの非推奨化
 
-> **イシュー**: [KT-70615](https://youtrack.com/issue/KT-70615)
+> **イシュー**: [KT-70615](https://youtrack.jetbrains.com/issue/KT-70615)
 >
 > **コンポーネント**: Gradle
 >
@@ -440,7 +440,7 @@ _[言語の現代性を保つ](kotlin-evolution-principles.md)_ および _[快�
 
 ### `publishAllLibraryVariants()` 関数の非推奨化
 
-> **イシュー**: [KT-60623](https://youtrack.com/issue/KT-60623)
+> **イシュー**: [KT-60623](https://youtrack.jetbrains.com/issue/KT-60623)
 >
 > **コンポーネント**: Gradle
 >
@@ -454,7 +454,7 @@ _[言語の現代性を保つ](kotlin-evolution-principles.md)_ および _[快�
 
 ### `android` ターゲットの非推奨化
 
-> **イシュー**: [KT-71608](https://youtrack.com/issue/KT-71608)
+> **イシュー**: [KT-71608](https://youtrack.jetbrains.com/issue/KT-71608)
 >
 > **コンポーネント**: Gradle
 >
@@ -470,7 +470,7 @@ _[言語の現代性を保つ](kotlin-evolution-principles.md)_ および _[快�
 
 ### `CInteropProcess` の `konanVersion` の非推奨化
 
-> **イシュー**: [KT-71069](https://youtrack.com/issue/KT-71069)
+> **イシュー**: [KT-71069](https://youtrack.jetbrains.com/issue/KT-71069)
 >
 > **コンポーネント**: Gradle
 >
@@ -484,9 +484,9 @@ _[言語の現代性を保つ](kotlin-evolution-principles.md)_ および _[快�
 > - 2.2.0: この警告をエラーに昇格
 > - 2.3.0: Kotlin Gradleプラグインから `konanVersion` プロパティを削除
 
-### `CInteropProcess` の `destinationDir` の非推奨化
+### `destinationDir` の `CInteropProcess` 非推奨化
 
-> **イシュー**: [KT-71068](https://youtrack.com/issue/KT-71068)
+> **イシュー**: [KT-71068](https://youtrack.jetbrains.com/issue/KT-71068)
 >
 > **コンポーネント**: Gradle
 >
@@ -502,13 +502,13 @@ _[言語の現代性を保つ](kotlin-evolution-principles.md)_ および _[快�
 
 ### `kotlinArtifacts` APIの非推奨化
 
-> **イシュー**: [KT-74953](https://youtrack.com/issue/KT-74953)
+> **イシュー**: [KT-74953](https://youtrack.jetbrains.com/issue/KT-74953)
 >
 > **コンポーネント**: Gradle
 >
 > **非互換変更の種類**: ソース
 >
-> **概要**: 実験的な `kotlinArtifacts` APIは非推奨になりました。最終的なネイティブバイナリをビルドするには、Kotlin Gradleプラグインで利用可能な現在のDSLを使用してください。移行に十分でない場合は、[こちらのYouTrackイシュー](https://youtrack.jetbrains.com/issue/KT-74953)にコメントを残してください。
+> **概要**: 実験的な `kotlinArtifacts` APIは非推奨になりました。最終的なネイティブバイナリをビルドするには、Kotlin Gradleプラグインで利用可能な現在のDSLを[使用してください](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-build-native-binaries.html)。移行に十分でない場合は、[こちらのYouTrackイシュー](https://youtrack.jetbrains.com/issue/KT-74953)にコメントを残してください。
 >
 > **非推奨サイクル**:
 >

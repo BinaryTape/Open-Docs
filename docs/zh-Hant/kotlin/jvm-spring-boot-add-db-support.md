@@ -1,6 +1,6 @@
-[//]: # (title: 新增資料庫支援到 Spring Boot 專案)
+[//]: # (title: 為 Spring Boot 專案新增資料庫支援)
 
-<web-summary>為以 Kotlin 編寫的 Sprint Boot 專案新增資料庫支援，使用 JDBC 模板。</web-summary>
+<web-summary>為以 Kotlin 編寫的 Spring Boot 專案新增資料庫支援，使用 JDBC 模板。</web-summary>
 
 <tldr>
     <p>這是「**Spring Boot 與 Kotlin 入門**」教學的第三部分。在繼續之前，請確保您已完成先前的步驟：</p><br/>
@@ -357,7 +357,7 @@ curl -X GET --location "http://localhost:8080"
        <p>訊息 <code>id</code> 由 Spring Framework 從上下文路徑中擷取，因為您使用 <code>@GetMapping(&quot;/{id}&quot;)</code> 註解了新函數。透過使用 <code>@PathVariable</code> 註解函數引數，您告訴框架將擷取到的值用作函數引數。新函數呼叫 <code>MessageService</code> 以透過其 ID 擷取個別訊息。</p>
     </def>
     <def title="具有可空接收者的擴充函數">
-         <p>擴充可以定義為可空接收者類型。如果接收者為 <code>null</code>，則 <code>this</code> 也為 <code>null</code>。因此，在定義具有可空接收者類型的擴充時，建議在函數主體內執行 <code>this == null</code> 檢查。</p>
+         <p>擴充可以定義為可空接收者類型。如果接收者為 <code>null</code>，則 <code>this</code> 也為 <code>null</code>。所以當定義一個具有可空接收者類型的擴充時，建議在函數主體內執行 <code>this == null</code> 檢查。</p>
          <p>您還可以使用空安全呼叫運算子 (<code>?.</code>) 來執行空檢查，如上方 <code>toResponseEntity()</code> 函數所示：</p>
          <code-block lang="kotlin">
          this?.let { ResponseEntity.ok(it) }

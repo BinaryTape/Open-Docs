@@ -1,61 +1,92 @@
-[//]: # (title: Kotlin for JavaScript)
+[//]: # (title: Kotlin/JavaScript)
 
-Kotlin/JS 提供了將您的 Kotlin 程式碼、Kotlin 標準函式庫以及任何相容的依賴項轉譯為 JavaScript 的能力。Kotlin/JS 的當前實作目標是 [ES5](https://www.ecma-international.org/ecma-262/5.1/)。
+Kotlin/JavaScript (Kotlin/JS) 讓您能夠將 Kotlin 程式碼、Kotlin 標準函式庫以及任何相容的依賴項轉譯為 JavaScript。透過這種方式，您的 Kotlin 應用程式可以在任何支援 JavaScript 的環境中執行。
 
-使用 Kotlin/JS 的推薦方式是透過 `kotlin.multiplatform` Gradle 插件。它讓您能輕鬆地在一個地方設定和控制目標為 JavaScript 的 Kotlin 專案。這包括了基本功能，例如控制應用程式的捆綁、直接從 npm 添加 JavaScript 依賴項等等。要概覽可用選項，請參閱 [設定 Kotlin/JS 專案](js-project-setup.md)。
+透過 [Kotlin Multiplatform Gradle 插件](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-dsl-reference.html) (`kotlin.multiplatform`) 使用 Kotlin/JS，可以從單一位置設定和管理目標為 JavaScript 的 Kotlin 專案。
 
-## Kotlin/JS IR 編譯器
+Kotlin Multiplatform Gradle 插件讓您能使用諸如控制應用程式的捆綁以及直接從 npm 添加 JavaScript 依賴項等功能。要概覽可用的設定選項，請參閱 [設定 Kotlin/JS 專案](js-project-setup.md)。
 
-[Kotlin/JS IR 編譯器](js-ir-compiler.md) 相較於舊版預設編譯器，帶來了許多改進。例如，它透過死碼消除減少了產生之可執行檔的大小，並提供了與 JavaScript 生態系統及其工具鏈更流暢的互通性。
+> Kotlin/JS 目前的實作目標是 [ES5](https://www.ecma-international.org/ecma-262/5.1/) 和 [ES2015](https://262.ecma-international.org/6.0/) 標準。
+>
+{style="tip"}
 
-> 舊版編譯器自 Kotlin 1.8.0 版本起已被棄用。
-> 
-{style="note"}
+## Kotlin/JS 的使用案例
 
-透過從 Kotlin 程式碼產生 TypeScript 宣告檔案 (`d.ts`)，IR 編譯器使得建立混合 TypeScript 和 Kotlin 程式碼的「混合」應用程式，以及利用 Kotlin Multiplatform 的程式碼共享功能變得更加容易。
+以下是一些使用 Kotlin/JS 的常見方式：
 
-要了解更多關於 Kotlin/JS IR 編譯器中的可用功能以及如何在您的專案中嘗試它，請造訪 [Kotlin/JS IR 編譯器文件頁面](js-ir-compiler.md) 和 [遷移指南](js-ir-migration.md)。
+*   **在前端和 JVM 後端之間共享共同邏輯**
+
+    如果您的後端是用 Kotlin 或其他 JVM 相容語言編寫的，您可以在網頁應用程式和後端之間共享共同程式碼。這包括資料傳輸物件 (DTOs)、驗證和身份驗證規則、REST API 端點的抽象化等等。
+
+*   **在 Android、iOS 和網頁用戶端之間共享共同邏輯**
+
+    您可以在網頁介面與 Android 和 iOS 行動應用程式之間共享業務邏輯，同時保留原生使用者介面。這避免了重複共同功能，例如 REST API 抽象化、使用者身份驗證、表單驗證和領域模型。
+
+*   **使用 Kotlin/JS 建置前端網頁應用程式**
+
+    使用 Kotlin 開發傳統網頁前端，同時與現有工具和函式庫整合：
+
+    *   如果您熟悉 Android 開發，可以使用基於 Compose 的框架（例如 [Kobweb](https://kobweb.varabyte.com/) 或 [Kilua](https://kilua.dev/)）來建置網頁應用程式。
+    *   透過 JetBrains 提供的 [Kotlin 對常用 JavaScript 函式庫的封裝器](https://github.com/JetBrains/kotlin-wrappers)，使用 Kotlin/JS 建置完全型別安全的 React 應用程式。這些 Kotlin 封裝器 (`kotlin-wrappers`) 為 React 和其他 JavaScript 框架提供了抽象化和整合。
+        這些封裝器還支援互補的函式庫，例如 [React Redux](https://react-redux.js.org/)、[React Router](https://reactrouter.com/) 和 [styled-components](https://styled-components.com/)。您還可以透過與 JavaScript 生態系統的互通性來使用第三方 React 元件和元件函式庫。
+
+    *   使用 [Kotlin/JS 框架](js-frameworks.md)，它們與 Kotlin 生態系統整合並支援簡潔而富有表達力的程式碼。
+
+*   **建置支援舊版瀏覽器的多平台應用程式**
+
+    透過 Compose Multiplatform，您可以使用 Kotlin 建置應用程式，並在網頁專案中重用行動裝置和桌面使用者介面。雖然 [Kotlin/Wasm](wasm-overview.md) 是主要目標，但您可以透過同時目標 Kotlin/JS 來將支援範圍擴展到舊版瀏覽器。
+
+*   **使用 Kotlin/JS 建置伺服器端和無伺服器應用程式**
+
+    Kotlin/JS 中的 Node.js 目標讓您可以在 JavaScript 執行環境上為伺服器端或無伺服器環境建立應用程式。這提供了快速啟動和低記憶體使用量。[`kotlinx-nodejs`](https://github.com/Kotlin/kotlinx-nodejs) 函式庫提供了從 Kotlin 對 [Node.js API](https://nodejs.org/docs/latest/api/) 的型別安全存取。
+
+根據您的使用案例，Kotlin/JS 專案可以使用來自 Kotlin 生態系統的相容函式庫，以及來自 JavaScript 和 TypeScript 生態系統的第三方函式庫。
+
+要從 Kotlin 程式碼中使用第三方函式庫，您可以建立自己的型別安全封裝器或使用社群維護的封裝器。此外，您可以使用 Kotlin/JS [動態型別](dynamic-type.md)，這讓您可以跳過嚴格型別檢查和函式庫封裝器，但犧牲了型別安全。
+
+Kotlin/JS 也相容於最常見的模組系統：[ESM](https://tc39.es/ecma262/#sec-modules)、[CommonJS](https://nodejs.org/api/modules.html#modules-commonjs-modules)、[UMD](https://github.com/umdjs/umd) 和 [AMD](https://github.com/amdjs/amdjs-api)。這讓您可以[產生和使用模組](js-modules.md)，並以有條理的方式與 JavaScript 生態系統整合。
+
+### 分享您的使用案例
+
+[Kotlin/JS 的使用案例](#use-cases-for-kotlin-js) 中的清單並非詳盡無遺。歡迎嘗試不同的方法，並找到最適合您專案的方式。
+
+歡迎在官方 [Kotlin Slack](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up) 中的 [#javascript](https://kotlinlang.slack.com/archives/C0B8L3U69) 頻道中，與 Kotlin/JS 社群分享您的使用案例、經驗和問題。
+
+## Kotlin/JS 入門
+
+探索開始使用 Kotlin/JS 的基本概念和初始步驟：
+
+*   如果您是 Kotlin 新手，請先檢閱 [基本語法](basic-syntax.md) 並探索 [Kotlin 導覽](kotlin-tour-welcome.md)。
+*   查看 [Kotlin/JS 範例專案](#sample-projects-for-kotlin-js) 清單以尋找靈感。這些範例包含有用的程式碼片段和模式，可以幫助您開始您的專案。
+*   如果您是 Kotlin/JS 新手，請從設定指南開始，然後再探索更進階的主題：
+
+<a href="js-project-setup.md"><img src="js-set-up-project.svg" width="600" alt="設定 Kotlin/JS 專案" style="block"/></a>
+
+## Kotlin/JS 範例專案
+
+下表列出了一組範例專案，展示了各種 Kotlin/JS 使用案例、架構和程式碼共享策略：
+
+| Project                                                                                                                           | Description                                                                                                                                                                                                                                                                                                                      |
+|-----------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| [Petclinic with common code between Spring and Angular](https://github.com/Kotlin/kmp-spring-petclinic/#readme)                   | 展示了企業應用程式如何透過共享資料傳輸物件、驗證和身份驗證規則，以及 REST API 端點的抽象化來避免程式碼重複。程式碼在 [Spring Boot](https://spring.io/projects/spring-boot) 後端和 [Angular](https://angular.dev/) 前端之間共享。                                                                                                    |
+| [Fullstack Conference CMS](https://github.com/Kotlin/kmp-fullstack-conference-cms/#readme)                                        | 展示了多種程式碼共享方法，從最簡單到全面共享程式碼，涵蓋了 [Ktor](https://ktor.io/)、[Jetpack Compose](https://developer.android.com/compose) 和 [Vue.js](https://vuejs.org/) 應用程式。                                                                                                                         |
+| [Todo App on a Compose-HTML-based Kobweb framework](https://github.com/varabyte/kobweb-templates/tree/main/examples/todo/#readme) | 展示了如何透過重用 Android 開發人員熟悉的方法來建立待辦事項應用程式。它建置了一個由 [Kobweb 框架](https://kobweb.varabyte.com/) 驅動的客戶端 UI 應用程式。                                                                                                                           |
+| [Simple logic sharing between Android, iOS, and web](https://github.com/Kotlin/kmp-logic-sharing-simple-example/#readme)          | 包含了一個用於建置專案的範本，該專案具有 Kotlin 中的共同邏輯，並在 Android ([Jetpack Compose](https://developer.android.com/compose))、iOS ([SwiftUI](https://developer.apple.com/tutorials/swiftui/)) 和網頁 ([React](https://react.dev/)) 上的平台原生 UI 應用程式中使用。                                            |
+| [Full-stack collaborative to-do list](https://github.com/kotlin-hands-on/jvm-js-fullstack/#readme)                                | 展示了如何使用 Kotlin Multiplatform 並以 JS 和 JVM 作為目標來建立協作待辦事項應用程式。它使用 [Ktor](https://ktor.io/) 作為後端，並使用 Kotlin/JS 和 React 作為前端。                                                                                                              |
 
 ## Kotlin/JS 框架
 
-現代網頁開發從簡化網頁應用程式建置的框架中獲益匪淺。以下是一些由不同作者編寫的、針對 Kotlin/JS 的流行網頁框架範例：
+Kotlin/JS 框架透過提供即用型元件、路由、狀態管理以及其他用於建置現代網頁應用程式的工具來簡化網頁開發。
 
-### Kobweb
-
-_Kobweb_ 是一個有明確觀點的 Kotlin 框架，用於建立網站和網頁應用程式。它利用 [Compose HTML](https://github.com/JetBrains/compose-multiplatform?tab=readme-ov-file#compose-html) 和即時重載來實現快速開發。受 [Next.js](https://nextjs.org/) 啟發，Kobweb 提倡一種標準結構來添加小工具、佈局和頁面。
-
-開箱即用，Kobweb 提供了頁面路由、淺色/深色模式、CSS 樣式、Markdown 支援、後端 API 和更多功能。它還包含一個名為 Silk 的 UI 函式庫，一套用於現代 UI 的多功能小工具。
-
-Kobweb 還支援網站匯出，為 SEO 和自動搜尋索引產生頁面快照。此外，Kobweb 使建立基於 DOM 的 UI 變得容易，這些 UI 可以有效率地響應狀態變化進行更新。
-
-請造訪 [Kobweb](https://kobweb.varabyte.com/) 網站以獲取文件和範例。
-
-關於該框架的更新和討論，請在 Kotlin Slack 中加入 [#kobweb](https://kotlinlang.slack.com/archives/C04RTD72RQ8) 和 [#compose-web](https://kotlinlang.slack.com/archives/C01F2HV7868) 頻道。
-
-### KVision
-
-_KVision_ 是一個物件導向的網頁框架，它使得可以使用 Kotlin/JS 編寫應用程式，並提供即用型元件，這些元件可用作應用程式使用者介面的建置塊。您可以使用反應式和指令式程式設計模型來建置前端，使用 Ktor、Spring Boot 和其他框架的連接器將其與您的伺服器端應用程式整合，並使用 [Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html) 共享程式碼。
-
-[造訪 KVision 網站](https://kvision.io) 以獲取文件、教學課程和範例。
-
-關於該框架的更新和討論，請在 [Kotlin Slack](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up) 中加入 [#kvision](https://kotlinlang.slack.com/messages/kvision) 和 [#javascript](https://kotlinlang.slack.com/archives/C0B8L3U69) 頻道。
-
-### fritz2
-
-_fritz2_ 是一個獨立框架，用於建置反應式網頁使用者介面。它提供了自己的型別安全 DSL，用於建置和渲染 HTML 元素，並利用 Kotlin 的協程和流來表達元件及其資料綁定。它開箱即用地提供了狀態管理、驗證、路由等功能，並與 Kotlin Multiplatform 專案整合。
-
-[造訪 fritz2 網站](https://www.fritz2.dev) 以獲取文件、教學課程和範例。
-
-關於該框架的更新和討論，請在 [Kotlin Slack](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up) 中加入 [#fritz2](https://kotlinlang.slack.com/messages/fritz2) 和 [#javascript](https://kotlinlang.slack.com/archives/C0B8L3U69) 頻道。
-
-### Doodle
-
-_Doodle_ 是一個基於向量的 Kotlin/JS UI 框架。Doodle 應用程式使用瀏覽器的圖形功能來繪製使用者介面，而不是依賴 DOM、CSS 或 Javascript。透過這種方法，Doodle 讓您能夠精確控制任意 UI 元素、向量形狀、漸層和自訂視覺化的渲染。
-
-[造訪 Doodle 網站](https://nacular.github.io/doodle/) 以獲取文件、教學課程和範例。
-
-關於該框架的更新和討論，請在 [Kotlin Slack](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up) 中加入 [#doodle](https://kotlinlang.slack.com/messages/doodle) 和 [#javascript](https://kotlinlang.slack.com/archives/C0B8L3U69) 頻道。
+[查看由不同作者編寫的 Kotlin/JS 可用框架](js-frameworks.md)。
 
 ## 加入 Kotlin/JS 社群
 
-您可以加入官方 [Kotlin Slack](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up) 中的 [#javascript](https://kotlinlang.slack.com/archives/C0B8L3U69) 頻道，與社群和團隊聊天。
+您可以加入官方 [Kotlin Slack](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up) 中的 [#javascript](https://kotlinlang.slack.com/archives/C0B8L3U69) 頻道，與社群和 Kotlin/JS 團隊聊天。
+
+## 接下來
+
+*   [設定 Kotlin/JS 專案](js-project-setup.md)
+*   [執行 Kotlin/JS 專案](running-kotlin-js.md)
+*   [除錯 Kotlin/JS 程式碼](js-debugging.md)
+*   [在 Kotlin/JS 中執行測試](js-running-tests.md)

@@ -18,7 +18,7 @@
 
 如果您的 Kotlin Multiplatform 项目中**不**导入 CocoaPods 依赖项，则此集成方法可以适用。
 
-如果您在 Android Studio 中创建项目，请选择 **Regular framework** 选项以自动生成此设置。如果您使用 [Kotlin Multiplatform Web 向导](https://kmp.jetbrains.com/)，则默认应用直接集成。
+如果您使用 [Kotlin Multiplatform IDE plugin]https://plugins.jetbrains.com/plugin/14936-kotlin-multiplatform)，则默认应用直接集成。
 
 关于直接集成，请参见[Direct integration](multiplatform-direct-integration.md)。
 
@@ -31,7 +31,7 @@
 * 您有一个使用 CocoaPods 的 iOS 项目的单一版本库设置
 * 您在 Kotlin Multiplatform 项目中导入 CocoaPods 依赖项
 
-要设置使用本地 CocoaPods 依赖项的工作流，您可以手动编辑脚本，或在 Android Studio 中使用向导生成项目。
+要设置使用本地 CocoaPods 依赖项的工作流，您可以手动编辑脚本。
 
 关于 CocoaPods 概述和设置，请参见[CocoaPods overview and setup](multiplatform-cocoapods-overview.md)。
 

@@ -14,7 +14,7 @@ IDE와 필요한 플러그인부터 시작하세요:
 1.  IDE를 선택하고 설치하세요.
     Kotlin Multiplatform은 IntelliJ IDEA와 Android Studio에서 지원되므로 원하는 IDE를 사용할 수 있습니다.
 
-    IDE 설치에는 [JetBrains Toolbox 앱](https://www.jetbrains.com/toolbox/app/)을 사용하는 것이 권장됩니다.
+    [JetBrains Toolbox 앱](https://www.jetbrains.com/toolbox/app/)은 IDE 설치에 권장되는 도구입니다.
     이 앱을 사용하면 [얼리 액세스 프로그램](https://www.jetbrains.com/resources/eap/)(EAP) 및 나이틀리 릴리스를 포함한
     여러 제품 또는 버전을 관리할 수 있습니다.
 
@@ -106,7 +106,7 @@ IDE 마법사를 사용하여 새 KMP 프로젝트를 생성하세요:
     *   iOS의 경우 두 가지 구현 방식 중 하나를 선택할 수 있습니다:
         *   Compose Multiplatform을 사용한 공유 UI 코드,
         *   SwiftUI로 만든 완전 네이티브 UI를 공유 로직이 있는 Kotlin 모듈에 연결.
-    *   데스크톱 대상에는 해당 코드를 변경하는 즉시 UI 변경 사항을 확인할 수 있는 [Compose Hot Reload](compose-hot-reload.md) 기능의 알파 버전이 포함되어 있습니다.
+    *   데스크톱 대상에는 해당 코드를 변경하는 즉시 UI 변경 사항을 확인할 수 있는 [Compose Hot Reload](compose-hot-reload.md) 기능의 베타 버전이 포함되어 있습니다.
         데스크톱 앱을 만들 계획이 없더라도 UI 코드 작성 속도를 높이기 위해 데스크톱 버전을 사용할 수 있습니다.
 
 플랫폼 선택이 완료되면 **Create** 버튼을 클릭하고 IDE가 프로젝트를 생성하고 가져오도록 기다립니다.
@@ -134,7 +134,7 @@ IDE 마법사를 사용하여 새 KMP 프로젝트를 생성하세요:
     *   iOS의 경우 두 가지 구현 방식 중 하나를 선택할 수 있습니다:
         *   Compose Multiplatform을 사용한 공유 UI 코드,
         *   SwiftUI로 만든 완전 네이티브 UI를 공유 로직이 있는 Kotlin 모듈에 연결.
-    *   데스크톱 대상에는 해당 코드를 변경하는 즉시 UI 변경 사항을 확인할 수 있는 핫 리로드 기능의 알파 버전이 포함되어 있습니다.
+    *   데스크톱 대상에는 해당 코드를 변경하는 즉시 UI 변경 사항을 확인할 수 있는 [Compose Hot Reload](compose-hot-reload.md) 기능의 베타 버전이 포함되어 있습니다.
         데스크톱 앱을 만들 계획이 없더라도 UI 코드 작성 속도를 높이기 위해 데스크톱 버전을 사용할 수 있습니다.
 5.  프로젝트가 생성되면 [JetBrains Runtime](https://github.com/JetBrains/JetBrainsRuntime)(JBR) 버전을 프로젝트의 JDK로 선택하는 것을 권장합니다. JBR은 특히 데스크톱 KMP 앱의 호환성을 개선하는 데 중요한 수정 사항을 제공하기 때문입니다.
     관련 JBR 버전은 모든 IntelliJ IDEA 배포판에 포함되어 있으므로 추가 설정이 필요하지 않습니다.
@@ -264,7 +264,8 @@ Java와 관련된 일반적인 문제:
 ### Android 도구
 
 JDK와 마찬가지로 `adb`와 같은 Android 도구 실행에 문제가 있다면,
-`ANDROID_HOME/tools`, `ANDROID_HOME/tools/bin`, `ANDROID_HOME/platform-tools` 경로가 `PATH` 환경 변수에 추가되었는지 확인하세요.
+`ANDROID_HOME/tools`, `ANDROID_HOME/tools/bin`,
+`ANDROID_HOME/platform-tools` 경로가 `PATH` 환경 변수에 추가되었는지 확인하세요.
 
 ### Xcode
 

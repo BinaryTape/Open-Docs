@@ -3,7 +3,7 @@
 컴포즈 멀티플랫폼(Compose Multiplatform) 컴포넌트의 생명 주기는 Jetpack Compose의 [생명 주기](https://developer.android.com/topic/libraries/architecture/lifecycle) 개념에서 채택되었습니다.
 생명 주기를 인식하는 컴포넌트는 다른 컴포넌트의 생명 주기 상태 변화에 반응할 수 있으며, 더 잘 정리되고 종종 더 가벼우며 유지보수하기 쉬운 코드를 만드는 데 도움을 줍니다.
 
-컴포즈 멀티플랫폼은 원본 Jetpack Compose 기능을 다른 플랫폼으로 확장하고 공통 코드에서 생명 주기 상태를 관찰하는 데 도움을 주는 공통 `LifecycleOwner` 구현체를 제공합니다.
+컴포즈 멀티플랫폼은 공통 `LifecycleOwner` 구현체를 제공하며, 이는 원본 Jetpack Compose 기능을 다른 플랫폼으로 확장하고 공통 코드에서 생명 주기 상태를 관찰하는 데 도움을 줍니다.
 
 멀티플랫폼 `Lifecycle` 구현을 사용하려면 `commonMain` 소스 세트에 다음 종속성을 추가하십시오:
 
@@ -29,7 +29,7 @@ kotlin {
 
 ## 상태 및 이벤트
 
-생명 주기 상태 및 이벤트의 흐름(Jetpack 생명 주기와 동일합니다):
+생명 주기 상태 및 이벤트의 흐름(이는 [Jetpack 생명 주기](https://developer.android.com/topic/libraries/architecture/lifecycle)와 동일합니다):
 
 ![Lifecycle diagram](lifecycle-states.svg){width="700"}
 
@@ -70,16 +70,18 @@ Wasm 타겟의 제약 사항으로 인해, 생명 주기는 다음과 같습니�
 *   애플리케이션이 항상 페이지에 연결되어 있으므로 `CREATED` 상태를 건너뜁니다.
 *   웹 페이지는 일반적으로 사용자가 탭을 닫을 때만 종료되므로 `DESTROYED` 상태에 도달하지 않습니다.
 
-| 네이티브 이벤트 | 생명 주기 이벤트 | 생명 주기 상태 변경 |
-|--------------|-----------------|------------------------|
-| `blur`       | `ON_PAUSE`      | `RESUMED` → `STARTED`  |
-| `focus`      | `ON_RESUME`     | `STARTED` → `RESUMED`  |
+| 네이티브 이벤트                             | 생명 주기 이벤트 | 생명 주기 상태 변경 |
+|------------------------------------------|-----------------|------------------------|
+| `visibilitychange` (becomes visible)     | `ON_START`      | `CREATED` → `STARTED`  |
+| `focus`                                  | `ON_RESUME`     | `STARTED` → `RESUMED`  |
+| `blur`                                   | `ON_PAUSE`      | `RESUMED` → `STARTED`  |
+| `visibilitychange` (stops being visible) | `ON_STOP`       | `STARTED` → `CREATED`  |
 
 ### 데스크톱
 
 | Swing 리스너 콜백 | 생명 주기 이벤트 | 생명 주기 상태 변경  |
 |--------------------------|-----------------|-------------------------|
-| `windowIconified`        | `ON_STOP`       | `STARTED` → `CREATED`   |
+| `windowIconified`        | `ON_STOP`       | `CREATED` → `STARTED`   |
 | `windowDeiconified`      | `ON_START`      | `CREATED` → `STARTED`   |
 | `windowLostFocus`        | `ON_PAUSE`      | `RESUMED` → `STARTED`   |
 | `windowGainedFocus`      | `ON_RESUME`     | `STARTED` → `RESUMED`   |

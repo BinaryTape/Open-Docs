@@ -167,26 +167,36 @@ fun Counter(text: String, counter: MutableState<Int>) {
 
 ### 实验性的离屏渲染
 
-一种实验模式允许直接在 Swing 组件上渲染 Compose 面板。这可以防止面板显示、隐藏或调整大小时出现的过渡渲染问题。它还可以在组合 Swing 组件和 Compose 面板时实现正确的分层：Swing 组件可以显示在 `ComposePanel` 之上或之下。
+一种实验模式允许直接在 Swing 组件上渲染 `ComposePanel`。这可以防止 `ComposePanel` 显示、隐藏或调整大小时出现的过渡渲染问题。它还可以在组合 Swing 组件和 Compose 面板时实现正确的分层：Swing 组件可以显示在 `ComposePanel` 之上或之下。然而，与默认的 Skia 渲染相比，这可能会导致性能开销，且开销随面板大小增加。
+
+此模式仅影响 `ComposePanel` 组件。目前，`ComposeWindow` 或 `ComposeDialog` 没有相应的设置。
 
 > 离屏渲染是[实验性的](supported-platforms.md#compose-multiplatform-ui-framework-stability-levels)，
 > 仅供评估目的使用。
-> {style="warning"}
+>
+{style="warning"}
 
-要启用离屏渲染，请使用 `compose.swing.render.on.graphics` 系统属性。此属性必须在应用程序中执行任何 Compose 代码之前设置，因此建议在启动时使用 `-D` 命令行 JVM 实参启用它：
-
-```Console
--Dcompose.swing.render.on.graphics=true
-```
-
-或者，在入口点使用 `System.setProperty()`：
+要为特定的 `ComposePanel` 启用离屏渲染，请在创建它时传递 `RenderSettings.SwingGraphics` 值：
 
 ```kotlin
-fun main() {
-    System.setProperty("compose.swing.render.on.graphics", "true")
-    ...
-}
+val composePanel = ComposePanel(renderSettings = RenderSettings.SwingGraphics)
 ```
+
+要默认在你的项目中为每个 `ComposePanel` 启用离屏渲染，请使用 `compose.swing.render.on.graphics` 特性标志：
+
+* 在启动时将其指定为命令行 JVM 实参：
+
+    ```shell
+    -Dcompose.swing.render.on.graphics=true
+    ```
+* 或者在入口点将其作为实参传递给 `System.setProperty()` 函数：
+
+    ```kotlin
+    fun main() {
+        System.setProperty("compose.swing.render.on.graphics", "true")
+        ...
+    }
+    ```
 
 ### 弹窗的实验性独立视图
 
@@ -194,7 +204,8 @@ fun main() {
 
 > 为弹窗创建独立视图或窗口是[实验性的](supported-platforms.md#compose-multiplatform-ui-framework-stability-levels)。需要选择启用（详情请参见下文），
 > 仅供评估目的使用。
-> {style="warning"}
+>
+{style="warning"}
 
 要在桌面端为弹窗创建独立视图或窗口，请设置 `compose.layers.type` 系统属性。支持的值：
 * `WINDOW` 将 `Popup` 和 `Dialog` 组件创建为独立的无边框窗口。
@@ -257,8 +268,6 @@ fun ComposeContent() {
 }
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="@OptIn(ExperimentalComposeUiApi::class) fun main()"}
-
-<img src="compose-desktop-swing-composepanel.animated.gif" alt="IntegrationWithSwing" preview-src="compose-desktop-swing-composepanel.png" width="799"/>
 
 ## 在 Compose Multiplatform 应用程序中使用 Swing
 
@@ -435,7 +444,8 @@ fun main() = application {
 
 > 互操作混合是[实验性的](supported-platforms.md#compose-multiplatform-ui-framework-stability-levels)，
 > 仅供评估目的使用。
-> {style="warning"}
+>
+{style="warning"}
 
 要启用此实验性特性，请将 `compose.interop.blending` 系统属性设置为 `true`。此属性必须在应用程序中执行任何 Compose 代码之前启用，因此可以通过 `-Dcompose.interop.blending=true` 命令行 JVM 实参设置，或在入口点使用 `System.setProperty()`：
 

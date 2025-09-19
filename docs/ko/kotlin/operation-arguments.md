@@ -104,10 +104,10 @@ class MultiMap<K, V> {
     | ---------------------------------- |
     
     ---
-    All operations above the horizontal line | ----- | happen before those below the line
+    수평선 | ----- | 위에 있는 모든 연산은 그 아래에 있는 연산보다 먼저 발생합니다.
     ---
 
-    The following interleaving leads to the error:
+    다음 인터리빙으로 인해 오류가 발생합니다:
     | ---------------------------------------------------------------------- |
     |    Thread 1     |                       Thread 2                       |
     | ---------------------------------------------------------------------- |

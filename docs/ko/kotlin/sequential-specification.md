@@ -11,9 +11,9 @@
 1.  모든 테스트 메서드의 순차 버전을 구현합니다.
 2.  순차 구현이 포함된 클래스를 `sequentialSpecification()` 옵션에 전달합니다:
 
-    ```kotlin
-    StressOptions().sequentialSpecification(SequentialQueue::class)
-    ```
+   ```kotlin
+   StressOptions().sequentialSpecification(SequentialQueue::class)
+   ```
 
 예를 들어, 다음은 자바 표준 라이브러리의 `j.u.c.ConcurrentLinkedQueue`의 정확성을 확인하는 테스트입니다.
 

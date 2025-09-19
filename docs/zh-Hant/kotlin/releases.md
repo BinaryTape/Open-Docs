@@ -2,7 +2,7 @@
 
 <tldr>
     <p>最新 Kotlin 版本：<strong>%kotlinVersion%</strong></p>
-    <p>詳情請參閱<a href="%kotlinLatestWhatsnew%">Kotlin %kotlinVersion% 新功能</a></p>
+    <p>詳情請參閱<a href="%kotlinLatestWhatsnew%">Kotlin 2.2.20 新功能</a> <!--and find the bug fix details in the <a href="%kotlinLatestUrl%">changelog</a>-->。</p>
 </tldr>
 
 自 Kotlin 2.0.0 起，我們發布以下類型的版本：
@@ -18,7 +18,7 @@
 {style="tip"}
 -->
 
-對於每個語言和工具發布版本，我們還會發布數個預覽 (EAP) 版本，供您在新功能發布前試用。詳情請參閱 [搶先體驗預覽](eap.md)。
+對於每個語言和工具發布版本，我們還會發布數個預覽 (_EAP_) 版本，供您在新功能發布前試用。詳情請參閱 [搶先體驗預覽](eap.md)。
 
 > 若要接收新 Kotlin 發布版本的通知，請訂閱 [Kotlin 電子報](https://lp.jetbrains.com/subscribe-to-kotlin-news/)、追蹤 [Kotlin 在 X 平台](https://x.com/kotlin)，或在 [Kotlin GitHub 儲存庫](https://github.com/JetBrains/kotlin) 上啟用 **Watch | Custom | Releases** 選項。
 > 
@@ -132,12 +132,32 @@ IntelliJ IDEA 和 Android Studio 中的 K2 模式使用 K2 編譯器來改進程
         <th>建置亮點</th>
     </tr>
     <tr>
+        <td><strong>2.2.20</strong>
+            <p>發布日期：<strong>2025 年 9 月 10 日</strong></p>
+            <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.2.20" target="_blank">在 GitHub 上發布</a></p>
+        </td>
+        <td>
+            <p>Kotlin 2.2.0 的工具發布版本，包含 Web 開發的重要變更及其他改進。</p>
+            <p>詳情請參閱<a href="https://github.com/JetBrains/kotlin/releases/tag/v2.2.20">變更日誌</a>。</p>
+        </td>
+    </tr>
+    <tr>
+        <td><strong>2.2.10</strong>
+            <p>發布日期：<strong>2025 年 8 月 14 日</strong></p>
+            <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.2.10" target="_blank">在 GitHub 上發布</a></p>
+        </td>
+        <td>
+            <p>Kotlin 2.2.0 的錯誤修正發布版本。</p>
+            <p>詳情請參閱<a href="https://github.com/JetBrains/kotlin/releases/tag/v2.2.10">變更日誌</a>。</p>
+        </td>
+    </tr>
+    <tr>
         <td><strong>2.2.0</strong>
             <p>發布日期：<strong>2025 年 6 月 23 日</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.2.0" target="_blank">在 GitHub 上發布</a></p>
         </td>
         <td>
-            <p>包含新穩定語言功能、工具更新、針對不同平台的效能改進以及重要修正的語言發布版本。</p>
+            <p>一個語言發布版本，包含新穩定語言功能、工具更新、針對不同平台的效能改進以及重要修正。</p>
             <p>詳情請參閱<a href="https://github.com/JetBrains/kotlin/releases/tag/v2.2.0">變更日誌</a>。</p>
         </td>
     </tr> 
@@ -167,7 +187,7 @@ IntelliJ IDEA 和 Android Studio 中的 K2 模式使用 K2 編譯器來改進程
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.1.10" target="_blank">在 GitHub 上發布</a></p>
         </td>
         <td>
-            <p>Kotlin 2.1.0 的錯誤修正發布版本</p>
+            <p>Kotlin 2.1.0 的錯誤修正發布版本。</p>
             <p>詳情請參閱<a href="https://github.com/JetBrains/kotlin/releases/tag/v2.1.10">變更日誌</a>。</p>
         </td>
     </tr>
@@ -177,7 +197,7 @@ IntelliJ IDEA 和 Android Studio 中的 K2 模式使用 K2 編譯器來改進程
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.1.0" target="_blank">在 GitHub 上發布</a></p>
         </td>
         <td>
-            <p>引入新語言功能的語言發布版本。</p>
+            <p>引入新語言功能的一個語言發布版本。</p>
             <p>在<a href="whatsnew21.md" target="_blank">Kotlin 2.1.0 新功能</a>中深入了解 Kotlin 2.1.0。</p>
         </td>
     </tr>
@@ -187,7 +207,7 @@ IntelliJ IDEA 和 Android Studio 中的 K2 模式使用 K2 編譯器來改進程
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.0.21" target="_blank">在 GitHub 上發布</a></p>
         </td>
         <td>
-            <p>Kotlin 2.0.20 的錯誤修正發布版本</p>
+            <p>Kotlin 2.0.20 的錯誤修正發布版本。</p>
             <p>詳情請參閱<a href="https://github.com/JetBrains/kotlin/releases/tag/v2.0.21">變更日誌</a>。</p>
         </td>
     </tr>
@@ -217,7 +237,7 @@ IntelliJ IDEA 和 Android Studio 中的 K2 模式使用 K2 編譯器來改進程
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.0.0" target="_blank">在 GitHub 上發布</a></p>
         </td>
         <td>
-            <p>具有穩定 Kotlin K2 編譯器的語言發布版本。</p>
+            <p>一個語言發布版本，包含穩定版 Kotlin K2 編譯器。</p>
             <p>在<a href="whatsnew20.md" target="_blank">Kotlin 2.0.0 新功能</a>中深入了解 Kotlin 2.0.0。</p>
         </td>
     </tr>
@@ -277,7 +297,7 @@ IntelliJ IDEA 和 Android Studio 中的 K2 模式使用 K2 編譯器來改進程
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.9.20" target="_blank">在 GitHub 上發布</a></p>
         </td>
         <td>
-            <p>具有 Beta 版 Kotlin K2 編譯器和穩定版 Kotlin Multiplatform 的功能發布版本。</p>
+            <p>一個功能發布版本，包含 Beta 版 Kotlin K2 編譯器和穩定版 Kotlin Multiplatform。</p>
             <p>深入了解：</p>
             <list>
                 <li><a href="whatsnew1920.md" target="_blank">Kotlin 1.9.20 新功能</a></li>
@@ -301,7 +321,7 @@ IntelliJ IDEA 和 Android Studio 中的 K2 模式使用 K2 編譯器來改進程
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.9.0" target="_blank">在 GitHub 上發布</a></p>
         </td>
         <td>
-            <p>功能發布版本，包含 Kotlin K2 編譯器更新、新的 enum class 值函式、用於開放式範圍的新運算子、Kotlin Multiplatform 中 Gradle 配置快取的預覽、Kotlin Multiplatform 中 Android 目標支援的變更、Kotlin/Native 中自訂記憶體分配器的預覽。</p>
+            <p>一個功能發布版本，包含 Kotlin K2 編譯器更新、新的 enum class 值函式、用於開放式範圍的新運算子、Kotlin Multiplatform 中 Gradle 配置快取的預覽、Kotlin Multiplatform 中 Android 目標支援的變更、Kotlin/Native 中自訂記憶體分配器的預覽。</p>
             <p>深入了解：</p>
             <list>
                 <li><a href="whatsnew19.md" target="_blank">Kotlin 1.9.0 新功能</a></li>
@@ -336,7 +356,7 @@ IntelliJ IDEA 和 Android Studio 中的 K2 模式使用 K2 編譯器來改進程
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.8.20" target="_blank">在 GitHub 上發布</a></p>
         </td>
         <td>
-            <p>功能發布版本，包含 Kotlin K2 編譯器更新、stdlib 中的 AutoCloseable 介面和 Base64 編碼、預設啟用新的 JVM 增量編譯、新的 Kotlin/Wasm 編譯器後端。</p>
+            <p>一個功能發布版本，包含 Kotlin K2 編譯器更新、stdlib 中的 AutoCloseable 介面和 Base64 編碼、預設啟用新的 JVM 增量編譯、新的 Kotlin/Wasm 編譯器後端。</p>
             <p>深入了解：</p>
             <list>
                 <li><a href="whatsnew1820.md" target="_blank">Kotlin 1.8.20 新功能</a></li>
@@ -361,7 +381,7 @@ IntelliJ IDEA 和 Android Studio 中的 K2 模式使用 K2 編譯器來改進程
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.8.0" target="_blank">在 GitHub 上發布</a></p>
         </td>
         <td>
-            <p>功能發布版本，包含改進的 kotlin-reflect 效能、用於 JVM 的新遞迴複製或刪除目錄內容實驗性函式、改進的 Objective-C/Swift 互通性。</p>
+            <p>一個功能發布版本，包含改進的 kotlin-reflect 效能、用於 JVM 的新遞迴複製或刪除目錄內容實驗性函式、改進的 Objective-C/Swift 互通性。</p>
             <p>深入了解：</p>
             <list>
                 <li><a href="whatsnew18.md" target="_blank">Kotlin 1.8.0 新功能</a></li>
@@ -386,7 +406,7 @@ IntelliJ IDEA 和 Android Studio 中的 K2 模式使用 K2 編譯器來改進程
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.7.20" target="_blank">在 GitHub 上發布</a></p>
         </td>
         <td>
-            <p>增量發布版本，包含新的語言功能、Kotlin K2 編譯器中對多個編譯器外掛程式的支援、預設啟用新的 Kotlin/Native 記憶體管理器，以及對 Gradle 7.1 的支援。</p>
+            <p>一個增量發布版本，包含新的語言功能、Kotlin K2 編譯器中對多個編譯器外掛程式的支援、預設啟用新的 Kotlin/Native 記憶體管理器，以及對 Gradle 7.1 的支援。</p>
             <p>深入了解：</p>
             <list>
                 <li><a href="whatsnew1720.md" target="_blank">Kotlin 1.7.20 新功能</a></li>
@@ -413,7 +433,7 @@ IntelliJ IDEA 和 Android Studio 中的 K2 模式使用 K2 編譯器來改進程
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.7.0" target="_blank">在 GitHub 上發布</a></p>
         </td>
         <td>
-            <p>功能發布版本，包含適用於 JVM 的 Alpha 版 Kotlin K2 編譯器、穩定化的語言功能、效能改進以及演進性變更，例如穩定化實驗性 API。</p>
+            <p>一個功能發布版本，包含適用於 JVM 的 Alpha 版 Kotlin K2 編譯器、穩定化的語言功能、效能改進以及演進性變更，例如穩定化實驗性 API。</p>
             <p>深入了解：</p>
             <list>
                 <li><a href="whatsnew17.md" target="_blank">Kotlin 1.7.0 新功能</a></li>
@@ -438,7 +458,7 @@ IntelliJ IDEA 和 Android Studio 中的 K2 模式使用 K2 編譯器來改進程
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.6.20" target="_blank">在 GitHub 上發布</a></p>
         </td>
         <td>
-            <p>增量發布版本，包含各種改進，例如：</p>
+            <p>一個增量發布版本，包含各種改進，例如：</p>
             <list>
                 <li>Context Receiver 原型</li>
                 <li>對函式式介面建構函式的可呼叫引用</li>
@@ -466,7 +486,7 @@ IntelliJ IDEA 和 Android Studio 中的 K2 模式使用 K2 編譯器來改進程
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.6.0" target="_blank">在 GitHub 上發布</a></p>
         </td>
         <td>
-            <p>功能發布版本，包含新的語言功能、效能改進以及演進性變更，例如穩定化實驗性 API。</p>
+            <p>一個功能發布版本，包含新的語言功能、效能改進以及演進性變更，例如穩定化實驗性 API。</p>
             <p>深入了解：</p>
             <list>
                 <li><a href="https://blog.jetbrains.com/kotlin/2021/11/kotlin-1-6-0-is-released/" target="_blank">發布部落格文章</a></li>
@@ -501,7 +521,7 @@ IntelliJ IDEA 和 Android Studio 中的 K2 模式使用 K2 編譯器來改進程
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.5.30" target="_blank">在 GitHub 上發布</a></p>
         </td>
         <td>
-            <p>增量發布版本，包含各種改進，例如：</p>
+            <p>一個增量發布版本，包含各種改進，例如：</p>
             <list>
                 <li>JVM 上註解類別的實例化</li>
                 <li>改進的 Opt-in 要求機制和型別推斷</li>
@@ -533,7 +553,7 @@ IntelliJ IDEA 和 Android Studio 中的 K2 模式使用 K2 編譯器來改進程
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.5.20" target="_blank">在 GitHub 上發布</a></p>
         </td>
         <td>
-            <p>增量發布版本，包含各種改進，例如：</p>
+            <p>一個增量發布版本，包含各種改進，例如：</p>
             <list>
                 <li>預設在 JVM 上透過 `invokedynamic` 進行字串串接</li>
                 <li>改進的 Lombok 支援和 JSpecify 支援</li>
@@ -564,7 +584,7 @@ IntelliJ IDEA 和 Android Studio 中的 K2 模式使用 K2 編譯器來改進程
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.5.0" target="_blank">在 GitHub 上發布</a></p>
         </td>
         <td>
-            <p>功能發布版本，包含新的語言功能、效能改進以及演進性變更，例如穩定化實驗性 API。</p>
+            <p>一個功能發布版本，包含新的語言功能、效能改進以及演進性變更，例如穩定化實驗性 API。</p>
             <p>深入了解：</p>
             <list>
                 <li><a href="https://blog.jetbrains.com/kotlin/2021/04/kotlin-1-5-0-released/" target="_blank">發布部落格文章</a></li>
@@ -589,7 +609,7 @@ IntelliJ IDEA 和 Android Studio 中的 K2 模式使用 K2 編譯器來改進程
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.4.31" target="_blank">在 GitHub 上發布</a></p>
         </td>
         <td>
-            <p>Kotlin 1.4.30 的錯誤修正發布版本</p>
+            <p>Kotlin 1.4.30 的錯誤修正發布版本。</p>
             <p>深入了解<a href="whatsnew1430.md" target="_blank">Kotlin 1.4.30</a>。</p>
         </td>
     </tr>
@@ -599,7 +619,7 @@ IntelliJ IDEA 和 Android Studio 中的 K2 模式使用 K2 編譯器來改進程
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.4.30" target="_blank">在 GitHub 上發布</a></p>
         </td>
         <td>
-            <p>增量發布版本，包含各種改進，例如：</p>
+            <p>一個增量發布版本，包含各種改進，例如：</p>
             <list>
                 <li>新的 JVM 後端，目前為 Beta 版</li>
                 <li>新語言功能的預覽</li>
@@ -619,7 +639,7 @@ IntelliJ IDEA 和 Android Studio 中的 K2 模式使用 K2 編譯器來改進程
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.4.21" target="_blank">在 GitHub 上發布</a></p>
         </td>
         <td>
-            <p>Kotlin 1.4.20 的錯誤修正發布版本</p>
+            <p>Kotlin 1.4.20 的錯誤修正發布版本。</p>
             <p>深入了解<a href="whatsnew1420.md" target="_blank">Kotlin 1.4.20</a>。</p>
         </td>
     </tr>
@@ -629,7 +649,7 @@ IntelliJ IDEA 和 Android Studio 中的 K2 模式使用 K2 編譯器來改進程
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.4.20" target="_blank">在 GitHub 上發布</a></p>
         </td>
         <td>
-            <p>增量發布版本，包含各種改進，例如：</p>
+            <p>一個增量發布版本，包含各種改進，例如：</p>
             <list>
                 <li>支援新的 JVM 功能，例如透過 `invokedynamic` 進行字串串接</li>
                 <li>改進 Kotlin Multiplatform Mobile 專案的效能和異常處理</li>
@@ -658,7 +678,7 @@ IntelliJ IDEA 和 Android Studio 中的 K2 模式使用 K2 編譯器來改進程
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.4.0" target="_blank">在 GitHub 上發布</a></p>
         </td>
         <td>
-            <p>功能發布版本，包含許多主要著重於品質和效能的功能和改進。</p>
+            <p>一個功能發布版本，包含許多主要著重於品質和效能的功能和改進。</p>
             <p>深入了解：</p>
             <list>
                 <li><a href="https://blog.jetbrains.com/kotlin/2020/08/kotlin-1-4-released-with-a-focus-on-quality-and-performance/" target="_blank">發布部落格文章</a></li>

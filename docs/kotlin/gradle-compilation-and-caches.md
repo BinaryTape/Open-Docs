@@ -13,9 +13,9 @@
 
 ## 增量编译
 
-Kotlin Gradle 插件支持增量编译，此功能默认已为 Kotlin/JVM 和 Kotlin/JS 项目启用。
+Kotlin Gradle 插件支持增量编译，此特性默认已为 Kotlin/JVM 和 Kotlin/JS 项目启用。
 增量编译会跟踪构建之间类路径中文件的更改，以便只编译受这些更改影响的文件。
-此方法适用于 [Gradle 的构建缓存](#gradle-build-cache-support) 并支持 [避免编译](https://docs.gradle.org/current/userguide/java_plugin.html#sec:java_compile_avoidance)。
+此方法适用于 [Gradle 的构建缓存](#gradle-build-cache-support) 并支持 [编译避免](https://docs.gradle.org/current/userguide/java_plugin.html#sec:java_compile_avoidance)。
 
 对于 Kotlin/JVM，增量编译依赖于类路径快照，
 这些快照捕获模块的 API 结构，以确定何时需要重新编译。
@@ -36,9 +36,9 @@ Kotlin Gradle 插件支持增量编译，此功能默认已为 Kotlin/JVM 和 Ko
 
 *   为 Kotlin/JVM 设置 `kotlin.incremental=false`。
 *   为 Kotlin/JS 项目设置 `kotlin.incremental.js=false`。
-*   使用 `-Pkotlin.incremental=false` 或 `-Pkotlin.incremental.js=false` 作为命令行参数。
+*   使用 `-Pkotlin.incremental=false` 或 `-Pkotlin.incremental.js=false` 作为命令行实参。
 
-    此参数应添加到每个后续构建中。
+    此实参应添加到每个后续构建中。
 
 禁用增量编译后，增量缓存将在构建后失效。首次构建永远不会是增量的。
 
@@ -56,7 +56,7 @@ Kotlin 插件使用 [Gradle 构建缓存](https://docs.gradle.org/current/usergu
 构建输出以供未来构建复用。
 
 要禁用所有 Kotlin 任务的缓存，请将系统属性 `kotlin.caching.enabled` 设置为 `false`
-（使用参数 `-Dkotlin.caching.enabled=false` 运行构建）。
+（使用实参 `-Dkotlin.caching.enabled=false` 运行构建）。
 
 ## Gradle 配置缓存支持
 
@@ -68,7 +68,7 @@ Kotlin 插件使用 [Gradle 配置缓存](https://docs.gradle.org/current/usergu
 
 ## Kotlin daemon 及其在 Gradle 中的使用
 
-Kotlin daemon：
+[Kotlin daemon](kotlin-daemon.md)：
 *   与 Gradle daemon 一起运行以编译项目。
 *   当你使用 IntelliJ IDEA 内置构建系统编译项目时，它会与 Gradle daemon 分开运行。
 
@@ -247,11 +247,11 @@ _Kotlin 编译器执行策略_ 定义了 Kotlin 编译器的执行位置以及�
 
 | 策略       | Kotlin 编译器执行位置          | 增量编译 | 其他特点和注意事项                                                                                                                                                                                                                                                |
 |------------|--------------------------------------------|----------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Daemon     | 在其自己的 daemon 进程内              | 是       | _默认且最快的策略_。可在不同的 Gradle daemon 和多个并行编译之间共享。                                                                                                                                                                                        |
-| 进程内     | 在 Gradle daemon 进程内           | 否       | 可能与 Gradle daemon 共享堆。“进程内”执行策略_比“Daemon”执行策略慢_。每个 [worker](https://docs.gradle.org/current/userguide/worker_api.html) 为每次编译创建一个单独的 Kotlin 编译器类加载器。 |
+| Kotlin daemon  | 在其自己的 daemon 进程内              | 是       | _默认且最快的策略_。可在不同的 Gradle daemon 和多个并行编译之间共享。                                                                                                                                                                                        |
+| 进程内     | 在 Gradle daemon 进程内           | 否       | 可能与 Gradle daemon 共享堆。“进程内”执行策略_比“Kotlin daemon”执行策略慢_。每个 [worker](https://docs.gradle.org/current/userguide/worker_api.html) 为每次编译创建一个单独的 Kotlin 编译器类加载器。 |
 | 进程外     | 为每次编译创建单独的进程 | 否       | 最慢的执行策略。类似于“进程内”策略，但额外在 Gradle worker 中为每次编译创建一个单独的 Java 进程。                                                                                                                     |
 
-要定义 Kotlin 编译器执行策略，可以使用以下属性之一：
+要定义 Kotlin 编译器执行策略，你可以使用以下属性之一：
 *   `kotlin.compiler.execution.strategy` Gradle 属性。
 *   `compilerExecutionStrategy` 编译任务属性。
 
@@ -310,14 +310,14 @@ tasks.withType(CompileUsingKotlinDaemon)
 ## Kotlin 编译器回退策略
 
 Kotlin 编译器的回退策略是，如果 daemon 出现故障，则在 Kotlin daemon 之外运行编译。
-如果 Gradle daemon 已开启，编译器将使用“进程内”策略。
+如果 Gradle daemon 已开启，编译器将使用[“进程内”策略](#defining-kotlin-compiler-execution-strategy)。
 如果 Gradle daemon 已关闭，编译器将使用“进程外”策略。
 
 当发生此回退时，你会在 Gradle 的构建输出中看到以下警告行：
 
 ```none
 Failed to compile with Kotlin daemon: java.lang.RuntimeException: Could not connect to Kotlin compile daemon
-[异常堆栈跟踪]
+[exception stacktrace]
 Using fallback strategy: Compile without Kotlin daemon
 Try ./gradlew --stop if this issue persists.
 ```
@@ -423,7 +423,7 @@ kotlin.build.report.json.directory=my/directory/path
 # 可选。基于文件的报告输出目录。默认值：build/reports/kotlin-build/
 kotlin.build.report.file.output_dir=kotlin-reports
 
-# 可选。用于标记构建报告的标签（例如，调试参数）
+# 可选。用于标记构建报告的标签（例如，调试实参）
 kotlin.build.report.label=some_label
 ```
 
@@ -447,9 +447,9 @@ kotlin.build.report.include_compiler_arguments=true|false
 
 ### 自定义值限制
 
-为了收集构建扫描的统计信息，Kotlin 构建报告使用 [Gradle 的自定义值](https://docs.gradle.com/enterprise/tutorials/extending-build-scans/)。
+为了收集构建扫描的统计信息，Kotlin 构建报告使用 [Gradle 的自定义值](https://docs.gradle.org/current/userguide/tutorials/extending-build-scans/)。
 你和不同的 Gradle 插件都可以将数据写入自定义值。自定义值的数量有上限。
-请参见 [Build scan plugin docs](https://docs.gradle.com/enterprise/gradle-plugin/#adding_custom_values) 中当前最大自定义值计数。
+请参见 [Build scan plugin docs](https://docs.gradle.org/current/userguide/gradle-plugin/#adding_custom_values) 中当前最大自定义值计数。
 
 如果你有一个大型项目，此类自定义值的数量可能相当大。如果此数量超过限制，
 你可能会在日志中看到以下消息：

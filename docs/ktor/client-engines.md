@@ -6,43 +6,49 @@
 了解处理网络请求的引擎。
 </link-summary>
 
-[Ktor HTTP 客户端](client-create-and-configure.md) 是多平台的，可在 JVM、[Android](https://kotlinlang.org/docs/android-overview.html)、[JavaScript](https://kotlinlang.org/docs/js-overview.html)（包括 WebAssembly）以及 [Native](https://kotlinlang.org/docs/native-overview.html) 目标平台运行。每个平台都需要一个特定的引擎来处理网络请求。例如，对于 JVM 应用程序，可以使用 `Apache` 或 `Jetty`；对于 Android，可以使用 `OkHttp` 或 `Android`；对于面向 Kotlin/Native 的桌面应用程序，可以使用 `Curl`。每个引擎在特性和配置上略有不同，因此你可以选择最符合你的平台和用例需求的引擎。
+[Ktor HTTP 客户端](client-create-and-configure.md) 是多平台的，可在 JVM、
+[Android](https://kotlinlang.org/docs/android-overview.html)、[JavaScript](https://kotlinlang.org/docs/js-overview.html)
+（包括 WebAssembly）以及 [Native](https://kotlinlang.org/docs/native-overview.html) 目标平台运行。每个平台都需要
+一个特定的引擎来处理网络请求。
+例如，对于 JVM 应用程序，可以使用 `Apache` 或 `Jetty`；对于 Android，可以使用 `OkHttp` 或 `Android`；
+对于面向 Kotlin/Native 的桌面应用程序，可以使用 `Curl`。每个引擎在特性和
+配置上略有不同，因此你可以选择最符合你的平台和用例需求的引擎。
 
 ## 支持的平台 {id="platforms"}
 
 下表列出了每个引擎支持的[平台](client-supported-platforms.md)：
 
-| Engine    | Platforms                                                                                                         |
-|-----------|-------------------------------------------------------------------------------------------------------------------|
-| `Apache5` | [JVM](#jvm)                                                                                                       |
-| `Java`    | [JVM](#jvm)                                                                                                       |
-| `Jetty`   | [JVM](#jvm)                                                                                                       |
-| `Android` | [JVM](#jvm), [Android](#jvm-android)                                                                              |
-| `OkHttp`  | [JVM](#jvm), [Android](#jvm-android)                                                                              |
-| `Darwin`  | [Native](#native)                                                                                                 |
-| `WinHttp` | [Native](#native)                                                                                                 |
-| `Curl`    | [Native](#native)                                                                                                 |
-| `CIO`     | [JVM](#jvm), [Android](#jvm-android), [Native](#native), [JavaScript](#js), [WasmJs](#jvm-android-native-wasm-js) |
-| `Js`      | [JavaScript](#js)                                                                                                 |
+| Engine | Platforms |
+|---|---|
+| `Apache5` | [JVM](#jvm) |
+| `Java` | [JVM](#jvm) |
+| `Jetty` | [JVM](#jvm) |
+| `Android` | [JVM](#jvm), [Android](#jvm-android) |
+| `OkHttp` | [JVM](#jvm), [Android](#jvm-android) |
+| `Darwin` | [Native](#native) |
+| `WinHttp` | [Native](#native) |
+| `Curl` | [Native](#native) |
+| `CIO` | [JVM](#jvm), [Android](#jvm-android), [Native](#native), [JavaScript](#js), [WasmJs](#jvm-android-native-wasm-js) |
+| `Js` | [JavaScript](#js) |
 
 ## 支持的 Android/Java 版本 {id="minimum-version"}
 
 面向 JVM 或同时面向 JVM 和 Android 的客户端引擎支持以下 Android/Java 版本：
 
-| Engine    | Android version   | Java version |
-|-----------|-------------------|--------------|
-| `Apache5` |                   | 8+           |
-| `Java`    |                   | 11+          |
-| `Jetty`   |                   | 11+          |
-| `CIO`     | 7.0+ <sup>*</sup> | 8+           |
-| `Android` | 1.x+              | 8+           |
-| `OkHttp`  | 5.0+              | 8+           |
+| Engine | Android version | Java version |
+|---|---|
+| `Apache5` | | 8+ |
+| `Java` | | 11+ |
+| `Jetty` | | 11+ |
+| `CIO` | 7.0+ <sup>*</sup> | 8+ |
+| `Android` | 1.x+ | 8+ |
+| `OkHttp` | 5.0+ | 8+ |
 
 _* 要在旧版 Android 上使用 CIO 引擎，你需要启用 [Java 8 API desugaring](https://developer.android.com/studio/write/java8-support)。_
 
 ## 添加引擎依赖项 {id="dependencies"}
 
-除了 [`ktor-client-core`](client-dependencies.md) artifact 之外，Ktor 客户端还需要为特定的引擎添加依赖项。每个支持的平台都有一组可用的引擎，详见相应部分：
+除了 [`ktor-client-core`](client-dependencies.md) 构件之外，Ktor 客户端还需要为特定的引擎添加依赖项。每个支持的平台都有一组可用的引擎，详见相应部分：
 
 * [JVM](#jvm)
 * [JVM 和 Android](#jvm-android)
@@ -96,7 +102,8 @@ HttpClient() {
 
 ## JVM {id="jvm"}
 
-JVM 目标平台支持 [`Apache5`](#apache5)、[`Java`](#java) 和 [`Jetty`](#jetty) 引擎。
+JVM 目标平台支持 [`Apache5`](#apache5)、[`Java`](#java) 和
+[`Jetty`](#jetty) 引擎。
 
 ### Apache5 {id="apache5"}
 
@@ -574,18 +581,18 @@ CIO 引擎是一个完全异步的基于协程的引擎，可在 JVM、Android�
 
 下表显示了特定引擎是否支持 HTTP/2 和 [WebSockets](client-websockets.topic)：
 
-| Engine    | HTTP/2 | WebSockets |
-|-----------|--------|------------|
-| `Apache5` | ✅️     | ✖️         |
-| `Java`    | ✅      | ✅️         |
-| `Jetty`   | ✅      | ✖️         |
-| `CIO`     | ✖️     | ✅          |
-| `Android` | ✖️     | ✖️         |
-| `OkHttp`  | ✅      | ✅          |
-| `Js`      | ✅      | ✅          |
-| `Darwin`  | ✅      | ✅          |
-| `WinHttp` | ✅      | ✅          |
-| `Curl`    | ✅      | ✅          |
+| Engine | HTTP/2 | WebSockets |
+|---|---|---|
+| `Apache5` | ✅️ | ✖️ |
+| `Java` | ✅ | ✅️ |
+| `Jetty` | ✅ | ✖️ |
+| `CIO` | ✖️ | ✅ |
+| `Android` | ✖️ | ✖️ |
+| `OkHttp` | ✅ | ✅ |
+| `Js` | ✅ | ✅ |
+| `Darwin` | ✅ | ✅ |
+| `WinHttp` | ✅ | ✅ |
+| `Curl` | ✅ | ✅ |
 
 ### 安全性
 

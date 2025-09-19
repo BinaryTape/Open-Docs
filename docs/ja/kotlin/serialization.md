@@ -75,7 +75,7 @@ KotlinオブジェクトをJSONにシリアライズする方法を見てみま�
     ```kotlin
     dependencies {
         implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:%serializationVersion%")
-    } 
+    }
     ```
 
     </tab>
@@ -84,7 +84,7 @@ KotlinオブジェクトをJSONにシリアライズする方法を見てみま�
     ```groovy
     dependencies {
         implementation 'org.jetbrains.kotlinx:kotlinx-serialization-json:%serializationVersion%'
-    } 
+    }
     ```
 
     </tab>
@@ -96,53 +96,53 @@ KotlinオブジェクトをJSONにシリアライズする方法を見てみま�
 
 1.  クラスに`@Serializable`アノテーションを付与してシリアライズ可能にします。
 
-```kotlin
-import kotlinx.serialization.Serializable
-
-@Serializable
-data class Data(val a: Int, val b: String)
-```
+    ```kotlin
+    import kotlinx.serialization.Serializable
+    
+    @Serializable
+    data class Data(val a: Int, val b: String)
+    ```
 
 2.  このクラスのインスタンスを`Json.encodeToString()`を呼び出してシリアライズします。
 
-```kotlin
-import kotlinx.serialization.Serializable
-import kotlinx.serialization.json.Json
-import kotlinx.serialization.encodeToString
+    ```kotlin
+    import kotlinx.serialization.Serializable
+    import kotlinx.serialization.json.Json
+    import kotlinx.serialization.encodeToString
+    
+    @Serializable
+    data class Data(val a: Int, val b: String)
+    
+    fun main() {
+        val json = Json.encodeToString(Data(42, "str"))
+    }
+    ```
 
-@Serializable
-data class Data(val a: Int, val b: String)
+    その結果、このオブジェクトの状態をJSONフォーマットで含む文字列:`{"a": 42, "b": "str"}`が得られます。
 
-fun main() {
-   val json = Json.encodeToString(Data(42, "str"))
-}
-```
-
-その結果、このオブジェクトの状態をJSONフォーマットで含む文字列:`{"a": 42, "b": "str"}`が得られます。
-
-> リストなどのオブジェクトコレクションも、単一の呼び出しでシリアライズできます。
-> 
-> ```kotlin
-> val dataList = listOf(Data(42, "str"), Data(12, "test"))
-> val jsonList = Json.encodeToString(dataList)
-> ```
-> 
-{style="note"}
+    > リストなどのオブジェクトコレクションも、単一の呼び出しでシリアライズできます。
+    > 
+    > ```kotlin
+    > val dataList = listOf(Data(42, "str"), Data(12, "test"))
+    > val jsonList = Json.encodeToString(dataList)
+    > ```
+    > 
+    {style="note"}
 
 3.  `decodeFromString()`関数を使用して、JSONからオブジェクトをデシリアライズします。
 
-```kotlin
-import kotlinx.serialization.Serializable
-import kotlinx.serialization.json.Json
-import kotlinx.serialization.decodeFromString
-
-@Serializable
-data class Data(val a: Int, val b: String)
-
-fun main() {
-   val obj = Json.decodeFromString<Data>("""{"a":42, "b": "str"}""")
-}
-```
+    ```kotlin
+    import kotlinx.serialization.Serializable
+    import kotlinx.serialization.json.Json
+    import kotlinx.serialization.decodeFromString
+    
+    @Serializable
+    data class Data(val a: Int, val b: String)
+    
+    fun main() {
+        val obj = Json.decodeFromString<Data>("""{"a":42, "b": "str"}""")
+    }
+    ```
 
 これで完了です！オブジェクトをJSON文字列にシリアライズし、それらをオブジェクトにデシリアライズすることに成功しました。
 

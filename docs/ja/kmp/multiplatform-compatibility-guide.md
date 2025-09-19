@@ -4,18 +4,19 @@
 
 このガイドでは、Kotlin Multiplatform を使用してプロジェクトを開発する際に発生する可能性のある[非互換の変更点](https://kotlinlang.org/docs/kotlin-evolution-principles.html#incompatible-changes)をまとめています。
 
-現在のKotlinの安定バージョンは %kotlinVersion% です。プロジェクトで使用しているKotlinのバージョンとの関連で、特定の変更の非推奨サイクルに留意してください。例：
+現在の Kotlin の安定バージョンは %kotlinVersion% です。プロジェクトで使用している Kotlin のバージョンに関連する特定の変更点の非推奨サイクルに留意してください。例：
 
-*   Kotlin 1.7.0 から Kotlin 1.9.0 にアップグレードする場合、[Kotlin 1.9.0](#kotlin-1-9-0-1-9-25) と [Kotlin 1.7.0−1.8.22](#kotlin-1-7-0-1-8-22) の両方で有効になった非互換の変更点を確認してください。
-*   Kotlin 1.9.0 から Kotlin 2.0.0 にアップグレードする場合、[Kotlin 2.0.0](#kotlin-2-0-0-and-later) と [Kotlin 1.9.0−1.9.25](#kotlin-1-9-0-1-9-25) の両方で有効になった非互換の変更点を確認してください。
+*   Kotlin 1.7.0 から Kotlin 1.9.0 にアップグレードする場合、[Kotlin 1.9.0](#kotlin-1-9-0-1-9-25) と [Kotlin 1.7.0−1.8.22](#kotlin-1-7-0-1-8-22) の両方で有効になる非互換の変更点を確認してください。
+*   Kotlin 1.9.0 から Kotlin 2.0.0 にアップグレードする場合、[Kotlin 2.0.0](#kotlin-2-0-0-and-later) と [Kotlin 1.9.0−1.9.25](#kotlin-1-9-0-1-9-25) の両方で有効になる非互換の変更点を確認してください。
 
 ## バージョンの互換性
 
-プロジェクトを設定する際には、使用しているKotlin Multiplatform Gradleプラグイン（プロジェクトのKotlinバージョンと同じ）のバージョンが、Gradle、Xcode、およびAndroid Gradleプラグインの各バージョンと互換性があることを確認してください。
+プロジェクトを設定する際には、使用している Kotlin Multiplatform Gradle プラグインの特定のバージョン（プロジェクトの Kotlin バージョンと同じ）と、Gradle、Xcode、および Android Gradle プラグインの各バージョンとの互換性を確認してください。
 
 | Kotlin Multiplatform プラグインバージョン | Gradle                                | Android Gradle プラグイン                               | Xcode   |
 |-------------------------------------|---------------------------------------|-----------------------------------------------------|---------|
-| 2.2.0-2.2.10                        | %minGradleVersion%–%maxGradleVersion% | %minAndroidGradleVersion%–%maxAndroidGradleVersion% | %xcode% |
+| 2.2.20                              | %minGradleVersion%–%maxGradleVersion% | %minAndroidGradleVersion%–%maxAndroidGradleVersion% | %xcode% |
+| 2.2.0-2.2.10                        | 7.6.3–8.14                            | 7.3.1–8.10.0                                        | 16.3    |
 | 2.1.21                              | 7.6.3–8.12.1                          | 7.3.1–8.7.2                                         | 16.3    |
 | 2.1.20                              | 7.6.3–8.11                            | 7.4.2–8.7.2                                         | 16.0    |
 | 2.1.0–2.1.10                        | 7.6.3-8.10*                           | 7.4.2–8.7.2                                         | 16.0    |
@@ -25,7 +26,7 @@
 | 1.9.20                              | 7.5-8.1.1                             | 7.4.2–8.2                                           | 15.0    |
 
 > *Kotlin 2.0.20–2.0.21 および Kotlin 2.1.0–2.1.10 は、Gradle 8.6まで完全に互換性があります。
-> Gradle バージョン 8.7–8.10 もサポートされていますが、1つだけ例外があります。Kotlin Multiplatform Gradleプラグインを使用している場合、JVMターゲットで `withJava()` 関数を呼び出す際に、マルチプラットフォームプロジェクトで非推奨の警告が表示されることがあります。
+> Gradle バージョン 8.7–8.10 もサポートされていますが、1つだけ例外があります。Kotlin Multiplatform Gradle プラグインを使用している場合、JVM ターゲットで `withJava()` 関数を呼び出す際に、マルチプラットフォームプロジェクトで非推奨の警告が表示されることがあります。
 > 詳細については、[デフォルトで作成されるJavaソースセット](#java-source-sets-created-by-default)を参照してください。
 >
 {style="warning"}
@@ -49,7 +50,7 @@
 計画されている非推奨サイクルは以下の通りです。
 
 *   2.0.20: Kotlin/Native コンパイラはビットコードの埋め込みをサポートしなくなります。
-*   2.1.0: Kotlin Multiplatform Gradleプラグインで `embedBitcode` DSL が警告付きで非推奨になります。
+*   2.1.0: Kotlin Multiplatform Gradle プラグインで `embedBitcode` DSL が警告付きで非推奨になります。
 *   2.2.0: 警告がエラーに格上げされます。
 *   2.3.0: `embedBitcode` DSL が削除されます。
 
@@ -57,7 +58,7 @@
 
 **変更点**
 
-Kotlin Multiplatform を Gradle の今後の変更に合わせるため、`withJava()` 関数の段階的な廃止を進めています。`withJava()` 関数は、必要なJavaソースセットを作成することで、GradleのJavaプラグインとの統合を可能にしました。Kotlin 2.1.20 以降、これらのJavaソースセットはデフォルトで作成されます。
+Kotlin Multiplatform を Gradle の今後の変更に合わせるため、`withJava()` 関数の段階的な廃止を進めています。`withJava()` 関数は、必要な Java ソースセットを作成することで、Gradle の Java プラグインとの統合を可能にしました。Kotlin 2.1.20 以降、これらの Java ソースセットはデフォルトで作成されます。
 
 **現在の推奨プラクティス**
 
@@ -73,37 +74,37 @@ kotlin {
 
 Kotlin 2.1.20 以降、ビルドスクリプトから `withJava()` 関数を削除できます。
 
-さらに、Gradle はJavaソースが存在する場合にのみJavaコンパイルタスクを実行するようになり、以前は実行されなかったJVM検証診断がトリガーされます。この診断は、`KotlinJvmCompile` タスクまたは `compilerOptions` 内で互換性のないJVMターゲットを明示的に設定した場合に失敗します。JVMターゲットの互換性を確保するためのガイダンスについては、[関連するコンパイルタスクのJVMターゲット互換性を確認する](https://kotlinlang.org/docs/gradle-configure-project.html#check-for-jvm-target-compatibility-of-related-compile-tasks)を参照してください。
+さらに、Gradle は Java ソースが存在する場合にのみ Java コンパイルタスクを実行するようになり、以前は実行されなかった JVM 検証診断がトリガーされます。この診断は、`KotlinJvmCompile` タスクまたは `compilerOptions` 内で互換性のない JVM ターゲットを明示的に設定した場合に失敗します。JVM ターゲットの互換性を確保するためのガイダンスについては、[関連するコンパイルタスクのJVMターゲット互換性を確認する](https://kotlinlang.org/docs/gradle-configure-project.html#check-for-jvm-target-compatibility-of-related-compile-tasks)を参照してください。
 
-プロジェクトが Gradle バージョン 8.7 より高く、[Java](https://docs.gradle.org/current/userguide/java_plugin.html)、[Java Library](https://docs.gradle.org/current/userguide/java_library_plugin.html)、[Application](https://docs.gradle.org/current/userguide/application_plugin.html) のようなGradle Javaプラグイン、またはGradle Javaプラグインに依存関係を持つサードパーティのGradleプラグインに依存していない場合、`withJava()` 関数を削除できます。
+プロジェクトが Gradle バージョン 8.7 より高く、[Java](https://docs.gradle.org/current/userguide/java_plugin.html)、[Java Library](https://docs.gradle.org/current/userguide/java_library_plugin.html)、または [Application](https://docs.gradle.org/current/userguide/application_plugin.html) のような Gradle Java プラグイン、または Gradle Java プラグインに依存関係を持つサードパーティの Gradle プラグインに依存していない場合、`withJava()` 関数を削除できます。
 
-プロジェクトが[Application](https://docs.gradle.org/current/userguide/application_plugin.html) Gradle Javaプラグインを使用している場合、[新しい実験的なDSL](https://kotlinlang.org/docs/whatsnew2120.html#kotlin-multiplatform-new-dsl-to-replace-gradle-s-application-plugin)への移行をお勧めします。Gradle 8.7 以降、Applicationプラグインは Kotlin Multiplatform Gradleプラグインでは動作しなくなります。
+プロジェクトが [Application](https://docs.gradle.org/current/userguide/application_plugin.html) Gradle Java プラグインを使用している場合、[新しい実験的な DSL](https://kotlinlang.org/docs/whatsnew2120.html#kotlin-multiplatform-new-dsl-to-replace-gradle-s-application-plugin)への移行をお勧めします。Gradle 8.7 以降、Application プラグインは Kotlin Multiplatform Gradle プラグインでは動作しなくなります。
 
-マルチプラットフォームプロジェクトで Kotlin Multiplatform Gradleプラグインと他のGradle Javaプラグインの両方を使用したい場合は、[Kotlin Multiplatform GradleプラグインとGradle Javaプラグインの非推奨の互換性](multiplatform-compatibility-guide.md#deprecated-compatibility-with-kotlin-multiplatform-gradle-plugin-and-gradle-java-plugins)を参照してください。
+マルチプラットフォームプロジェクトで Kotlin Multiplatform Gradle プラグインと他の Gradle Java プラグインの両方を使用したい場合は、[Kotlin Multiplatform Gradle プラグインと Gradle Java プラグインの非推奨の互換性](multiplatform-compatibility-guide.md#deprecated-compatibility-with-kotlin-multiplatform-gradle-plugin-and-gradle-java-plugins)を参照してください。
 
-Kotlin 2.1.20 と Gradle バージョン 8.7 より高いバージョンで [Java test fixtures](https://docs.gradle.org/current/userguide/java_testing.html#sec:java_test_fixtures) Gradleプラグインを使用すると、このプラグインは動作しません。代わりに、この問題が解決されている[Kotlin 2.1.21](https://kotlinlang.org/docs/releases.html#release-details)にアップグレードしてください。
+Kotlin 2.1.20 と Gradle バージョン 8.7 より高いバージョンで [Java test fixtures](https://docs.gradle.org/current/userguide/java_testing.html#sec:java_test_fixtures) Gradle プラグインを使用すると、このプラグインは動作しません。代わりに、この問題が解決されている[Kotlin 2.1.21](https://kotlinlang.org/docs/releases.html#release-details)にアップグレードしてください。
 
-問題が発生した場合は、[課題トラッカー](https://kotl.in/issue)に報告するか、[公開Slackチャンネル](https://kotlinlang.slack.com/archives/C19FD9681)でサポートを求めてください。
+問題が発生した場合は、[課題トラッカー](https://kotl.in/issue)に報告するか、[公開 Slack チャンネル](https://kotlinlang.slack.com/archives/C19FD9681)でサポートを求めてください。
 
 **変更の適用時期**
 
 計画されている非推奨サイクルは以下の通りです。
 
-*   Gradle >8.6: `withJava()` 関数を使用するマルチプラットフォームプロジェクトで、以前のKotlinバージョンに対する非推奨警告を導入します。
+*   Gradle >8.6: `withJava()` 関数を使用するマルチプラットフォームプロジェクトで、以前の Kotlin バージョンに対する非推奨警告を導入します。
 *   Gradle 9.0: この警告をエラーに格上げします。
-*   2.1.20: どのGradleバージョンでも `withJava()` 関数を使用すると、非推奨警告を導入します。
+*   2.1.20: どの Gradle バージョンでも `withJava()` 関数を使用すると、非推奨警告を導入します。
 
 ### `android` ターゲットから `androidTarget` への名称変更
 
 **変更点**
 
-Kotlin Multiplatform をより安定させるための取り組みを続けています。この方向性における重要なステップは、Android ターゲットに対するファーストクラスのサポートを提供することです。将来的には、このサポートはGoogleのAndroidチームによって開発される別のプラグインを通じて提供される予定です。
+Kotlin Multiplatform をより安定させるための取り組みを続けています。この方向性における重要なステップは、Android ターゲットに対するファーストクラスのサポートを提供することです。将来的には、このサポートは Google の Android チームによって開発される別のプラグインを通じて提供される予定です。
 
-新しいソリューションへの道を開くため、現在のKotlin DSL で `android` ブロックを `androidTarget` に変更します。これは、Google から提供される今後のDSLのために短い `android` 名を空けるために必要な一時的な変更です。
+新しいソリューションへの道を開くため、現在の Kotlin DSL で `android` ブロックを `androidTarget` に変更します。これは、Google から提供される今後の DSL のために短い `android` 名を空けるために必要な一時的な変更です。
 
 **現在の推奨プラクティス**
 
-`android` ブロックのすべての出現箇所を `androidTarget` に変更してください。Android ターゲットサポートの新しいプラグインが利用可能になったら、Google のDSLに移行してください。これは、Kotlin Multiplatform プロジェクトで Android を操作するための推奨オプションとなります。
+`android` ブロックのすべての出現箇所を `androidTarget` に変更してください。Android ターゲットサポートの新しいプラグインが利用可能になったら、Google の DSL に移行してください。これは、Kotlin Multiplatform プロジェクトで Android を操作するための推奨オプションとなります。
 
 **変更の適用時期**
 
@@ -111,13 +112,13 @@ Kotlin Multiplatform をより安定させるための取り組みを続けて�
 
 *   1.9.0: Kotlin Multiplatform プロジェクトで `android` 名が使用された場合に非推奨警告を導入します。
 *   2.1.0: この警告をエラーに格上げします。
-*   2.2.0: Kotlin Multiplatform Gradleプラグインから `android` ターゲットDSLを削除します。
+*   2.2.0: Kotlin Multiplatform Gradle プラグインから `android` ターゲット DSL を削除します。
 
 ### 類似する複数のターゲットの宣言
 
 **変更点**
 
-単一のGradleプロジェクトで複数の類似するターゲットを宣言することは推奨されません。例えば：
+単一の Gradle プロジェクトで複数の類似するターゲットを宣言することは推奨されません。例えば：
 
 ```kotlin
 kotlin {
@@ -164,13 +165,13 @@ kotlin {
 
 この実装には、自明ではない設定の複雑さが伴います。
 
-*   `:shared` 側と各コンシューマー側でGradle属性を設定する必要があります。そうしないと、追加情報がない場合、コンシューマーがKtorベースの実装を受け取るべきか、OkHttpベースの実装を受け取るべきかが不明確になるため、Gradleはそのようなプロジェクトの依存関係を解決できません。
+*   `:shared` 側と各コンシューマー側で Gradle 属性を設定する必要があります。そうしないと、追加情報がない場合、コンシューマーが Ktor ベースの実装を受け取るべきか、OkHttp ベースの実装を受け取るべきかが不明確になるため、Gradle はそのようなプロジェクトの依存関係を解決できません。
 *   `commonJvmMain` ソースセットを手動で設定する必要があります。
-*   この設定には、低レベルのGradleおよびKotlin Gradleプラグインの抽象化とAPIが多数含まれます。
+*   この設定には、低レベルの Gradle および Kotlin Gradle プラグインの抽象化と API が多数含まれます。
 
 **現在の推奨プラクティス**
 
-設定が複雑なのは、KtorベースとOkHttpベースの実装が_同じGradleプロジェクト内にある_ためです。多くの場合、これらの部分を別々のGradleプロジェクトに抽出することが可能です。そのようなリファクタリングの一般的な概要を以下に示します。
+設定が複雑なのは、Ktor ベースと OkHttp ベースの実装が _同じ Gradle プロジェクト内にある_ ためです。多くの場合、これらの部分を別々の Gradle プロジェクトに抽出することが可能です。そのようなリファクタリングの一般的な概要を以下に示します。
 
 1.  元のプロジェクトから重複する2つのターゲットを単一のターゲットに置き換えます。これらのターゲット間で共有ソースセットがあった場合、そのソースと設定を新しく作成されたターゲットのデフォルトソースセットに移動します。
 
@@ -187,19 +188,19 @@ kotlin {
     }
     ```
 
-2.  通常、`settings.gradle.kts` ファイルで `include` を呼び出して、2つの新しいGradleプロジェクトを追加します。例えば：
+2.  通常、`settings.gradle.kts` ファイルで `include` を呼び出して、2つの新しい Gradle プロジェクトを追加します。例えば：
 
     ```kotlin
     include(":okhttp-impl")
     include(":ktor-impl")
     ```
 
-3.  各新しいGradleプロジェクトを設定します。
+3.  各新しい Gradle プロジェクトを設定します。
 
     *   これらのプロジェクトは1つのターゲットのみにコンパイルされるため、`kotlin("multiplatform")` プラグインを適用する必要はないでしょう。この例では、`kotlin("jvm")` を適用できます。
     *   元のターゲット固有のソースセットの内容をそれぞれのプロジェクトに移動します。例えば、`jvmKtorMain` から `ktor-impl/src` へ。
     *   ソースセットの設定（依存関係、コンパイラオプションなど）をコピーします。
-    *   新しいGradleプロジェクトから元のプロジェクトへの依存関係を追加します。
+    *   新しい Gradle プロジェクトから元のプロジェクトへの依存関係を追加します。
 
     ```kotlin
     // ktor-impl/build.gradle.kts:
@@ -219,7 +220,7 @@ kotlin {
     }
     ```
 
-このアプローチは初期設定に多くの作業を必要としますが、GradleおよびKotlin Gradleプラグインの低レベルのエンティティを使用しないため、結果として得られるビルドの利用と保守が容易になります。
+このアプローチは初期設定に多くの作業を必要としますが、Gradle および Kotlin Gradle プラグインの低レベルのエンティティを使用しないため、結果として得られるビルドの利用と保守が容易になります。
 
 > 残念ながら、各ケースの詳細な移行手順を提供することはできません。上記の手順がうまくいかない場合は、この[YouTrack課題](https://youtrack.jetbrains.com/issue/KT-59316)でユースケースを説明してください。
 >
@@ -230,7 +231,7 @@ kotlin {
 計画されている非推奨サイクルは以下の通りです。
 
 *   1.9.20: Kotlin Multiplatform プロジェクトで複数の類似するターゲットが使用された場合に非推奨警告を導入します。
-*   2.1.0: そのようなケースではエラーを報告します（Kotlin/JSターゲットを除く）。この例外の詳細については、[YouTrack](https://youtrack.jetbrains.com/issue/KT-47038/KJS-MPP-Split-JS-target-into-JsBrowser-and-JsNode)の課題を参照してください。
+*   2.1.0: そのようなケースではエラーを報告します（Kotlin/JS ターゲットを除く）。この例外の詳細については、[YouTrack](https://youtrack.jetbrains.com/issue/KT-47038/KJS-MPP-Split-JS-target-into-JsBrowser-and-JsNode)の課題を参照してください。
 
 ### レガシーモードで公開されたマルチプラットフォームライブラリのサポート非推奨化
 
@@ -250,9 +251,9 @@ _マルチプラットフォームライブラリを使用している場合_、
 
 ライブラリがまだ非レガシーバイナリをサポートしていない場合、メンテナーに連絡し、この互換性問題について伝えることができます。
 
-_ライブラリの作成者である場合_、Kotlin Gradleプラグインを最新バージョンに更新し、[非推奨のGradleプロパティ](#deprecated-gradle-properties-for-hierarchical-structure-support)を修正したことを確認してください。
+_ライブラリの作成者である場合_、Kotlin Gradle プラグインを最新バージョンに更新し、[非推奨の Gradle プロパティ](#deprecated-gradle-properties-for-hierarchical-structure-support)を修正したことを確認してください。
 
-Kotlinチームはエコシステムの移行を支援することに熱心ですので、何か問題に直面した場合は、遠慮なく[YouTrackで課題](https://kotl.in/issue)を作成してください。
+Kotlin チームはエコシステムの移行を支援することに熱心ですので、何か問題に直面した場合は、遠慮なく[YouTrackで課題](https://kotl.in/issue)を作成してください。
 
 **変更の適用時期**
 
@@ -262,13 +263,13 @@ Kotlinチームはエコシステムの移行を支援することに熱心で�
 *   2.0.0: レガシーライブラリへの依存関係に対する警告をエラーに格上げします。
 *   >2.0.0: レガシーライブラリへの依存関係のサポートを削除します。そのような依存関係を使用すると、ビルドが失敗する可能性があります。
 
-### 階層構造サポートのための非推奨Gradleプロパティ
+### 階層構造サポートのための非推奨 Gradle プロパティ
 
 **変更点**
 
-Kotlinは進化の過程で、マルチプラットフォームプロジェクトにおける[階層構造](multiplatform-hierarchy.md)のサポートを徐々に導入してきました。これは、共通ソースセットの `commonMain` と任意のプラットフォーム固有のソースセット（例: `jvmMain`）の間に中間ソースセットを持つことができる機能です。
+Kotlin は進化の過程で、マルチプラットフォームプロジェクトにおける[階層構造](multiplatform-hierarchy.md)のサポートを徐々に導入してきました。これは、共通ソースセット `commonMain` と任意のプラットフォーム固有のソースセット（例: `jvmMain`）の間に中間ソースセットを持つことができる機能です。
 
-ツールチェーンが十分に安定していない移行期間中、きめ細かいオプトインとオプトアウトを可能にするいくつかのGradleプロパティが導入されました。
+ツールチェーンが十分に安定していない移行期間中、きめ細かいオプトインとオプトアウトを可能にするいくつかの Gradle プロパティが導入されました。
 
 Kotlin 1.6.20以降、階層型プロジェクト構造のサポートはデフォルトで有効になっています。しかし、これらのプロパティは、ブロッキング問題が発生した場合のオプトアウトのために残されていました。すべてのフィードバックを処理した後、これらのプロパティの完全な段階的廃止を開始します。
 
@@ -283,10 +284,10 @@ Kotlin 1.6.20以降、階層型プロジェクト構造のサポートはデフ�
 **現在の推奨プラクティス**
 
 *   これらのプロパティを `gradle.properties` および `local.properties` ファイルから削除します。
-*   GradleビルドスクリプトやGradleプラグインで、これらをプログラムで設定することは避けてください。
-*   ビルドで使用されているサードパーティのGradleプラグインによって非推奨プロパティが設定されている場合、プラグインのメンテナーにこれらのプロパティを設定しないように依頼してください。
+*   Gradle ビルドスクリプトや Gradle プラグインで、これらをプログラムで設定することは避けてください。
+*   ビルドで使用されているサードパーティの Gradle プラグインによって非推奨プロパティが設定されている場合、プラグインのメンテナーにこれらのプロパティを設定しないように依頼してください。
 
-Kotlin 1.6.20以降、Kotlinツールチェーンのデフォルト動作にはそのようなプロパティが含まれていないため、重大な影響はないと予想されます。ほとんどの変更は、プロジェクトが再構築された直後に確認できます。
+Kotlin 1.6.20以降、Kotlin ツールチェーンのデフォルト動作にはそのようなプロパティが含まれていないため、重大な影響はないと予想されます。ほとんどの変更は、プロジェクトが再構築された直後に確認できます。
 
 ライブラリの作者で、特に安全を期したい場合は、コンシューマーがあなたのライブラリを問題なく使用できるか確認してください。
 
@@ -294,19 +295,19 @@ Kotlin 1.6.20以降、Kotlinツールチェーンのデフォルト動作には�
 
 計画されている非推奨サイクルは以下の通りです。
 
-*   1.8.20: 非推奨のGradleプロパティが使用された場合に警告を報告します。
+*   1.8.20: 非推奨の Gradle プロパティが使用された場合に警告を報告します。
 *   1.9.20: この警告をエラーに格上げします。
-*   2.0.0: 非推奨のプロパティを削除します。Kotlin Gradleプラグインはそれらの使用を無視します。
+*   2.0.0: 非推奨のプロパティを削除します。Kotlin Gradle プラグインはそれらの使用を無視します。
 
 これらのプロパティを削除した後に問題が発生する可能性は低いですが、万一問題が発生した場合は、[YouTrackで課題](https://kotl.in/issue)を作成してください。
 
-### ターゲットプリセットAPIの非推奨化
+### ターゲットプリセット API の非推奨化
 
 **変更点**
 
-非常に初期の開発段階で、Kotlin Multiplatform は、いわゆる_ターゲットプリセット_を扱うためのAPIを導入しました。各ターゲットプリセットは、本質的にKotlin Multiplatformターゲットのファクトリとして機能していました。このAPIは、`jvm()` や `iosSimulatorArm64()` のようなDSL関数が同じユースケースをより直接的かつ簡潔にカバーできるため、ほとんど冗長であることが判明しました。
+非常に初期の開発段階で、Kotlin Multiplatform は、いわゆる _ターゲットプリセット_ を扱うための API を導入しました。各ターゲットプリセットは、本質的に Kotlin Multiplatform ターゲットのファクトリとして機能していました。この API は、`jvm()` や `iosSimulatorArm64()` のような DSL 関数が同じユースケースをより直接的かつ簡潔にカバーできるため、ほとんど冗長であることが判明しました。
 
-混乱を減らし、より明確なガイドラインを提供するため、Kotlin Gradleプラグインの公開APIにおいて、プリセット関連のすべてのAPIが非推奨になりました。これには以下が含まれます。
+混乱を減らし、より明確なガイドラインを提供するため、Kotlin Gradle プラグインの公開 API において、プリセット関連のすべての API が非推奨になりました。これには以下が含まれます。
 
 *   `org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension` の `presets` プロパティ
 *   `org.jetbrains.kotlin.gradle.plugin.KotlinTargetPreset` インターフェースとそのすべての継承クラス
@@ -314,7 +315,7 @@ Kotlin 1.6.20以降、Kotlinツールチェーンのデフォルト動作には�
 
 **現在の推奨プラクティス**
 
-代わりに、それぞれの[Kotlinターゲット](multiplatform-dsl-reference.md#targets)を使用してください。例：
+代わりに、それぞれの[Kotlin ターゲット](multiplatform-dsl-reference.md#targets)を使用してください。例：
 
 <table>
     
@@ -339,21 +340,21 @@ Kotlin 1.6.20以降、Kotlinツールチェーンのデフォルト動作には�
 
 計画されている非推奨サイクルは以下の通りです。
 
-*   1.9.20: プリセット関連APIのすべての使用に対して警告を報告します。
+*   1.9.20: プリセット関連 API のすべての使用に対して警告を報告します。
 *   2.0.0: この警告をエラーに格上げします。
-*   2.2.0: Kotlin Gradleプラグインの公開APIからプリセット関連APIを削除します。まだそれを使用しているソースは「未解決の参照」エラーで失敗し、バイナリ（例：Gradleプラグイン）は、最新バージョンのKotlin Gradleプラグインに対して再コンパイルしない限り、リンケージエラーで失敗する可能性があります。
+*   2.2.0: Kotlin Gradle プラグインの公開 API からプリセット関連 API を削除します。まだそれを使用しているソースは「未解決の参照」エラーで失敗し、バイナリ（例：Gradle プラグイン）は、最新バージョンの Kotlin Gradle プラグインに対して再コンパイルしない限り、リンケージエラーで失敗する可能性があります。
 
-### Appleターゲットショートカットの非推奨化
+### Apple ターゲットショートカットの非推奨化
 
 **変更点**
 
-Kotlin Multiplatform DSL における `ios()`、`watchos()`、`tvos()` ターゲットショートカットを非推奨にします。これらはAppleターゲットのソースセット階層を部分的に作成するために設計されていました。しかし、これらは拡張が難しく、時には混乱を招くことが判明しました。
+Kotlin Multiplatform DSL における `ios()`、`watchos()`、`tvos()` ターゲットショートカットを非推奨にします。これらは Apple ターゲットのソースセット階層を部分的に作成するために設計されていました。しかし、これらは拡張が難しく、時には混乱を招くことが判明しました。
 
-例えば、`ios()` ショートカットは `iosArm64` と `iosX64` の両方のターゲットを作成しましたが、Apple Mチップを搭載したホストで作業する際に必要な `iosSimulatorArm64` ターゲットは含まれていませんでした。しかし、このショートカットを変更することは実装が難しく、既存のユーザープロジェクトで問題を引き起こす可能性がありました。
+例えば、`ios()` ショートカットは `iosArm64` と `iosX64` の両方のターゲットを作成しましたが、Apple M チップを搭載したホストで作業する際に必要な `iosSimulatorArm64` ターゲットは含まれていませんでした。しかし、このショートカットを変更することは実装が難しく、既存のユーザープロジェクトで問題を引き起こす可能性がありました。
 
 **現在の推奨プラクティス**
 
-Kotlin Gradleプラグインは現在、組み込みの階層テンプレートを提供しています。Kotlin 1.9.20以降、これはデフォルトで有効になっており、一般的なユースケース向けに事前定義された中間ソースセットが含まれています。
+Kotlin Gradle プラグインは現在、組み込みの階層テンプレートを提供しています。Kotlin 1.9.20以降、これはデフォルトで有効になっており、一般的なユースケース向けに事前定義された中間ソースセットが含まれています。
 
 ショートカットの代わりに、ターゲットのリストを指定すると、プラグインがそのリストに基づいて自動的に中間ソースセットを設定します。
 
@@ -367,30 +368,30 @@ Kotlin Gradleプラグインは現在、組み込みの階層テンプレート�
 
 *   1.9.20: `ios()`、`watchos()`、および `tvos()` ターゲットショートカットが使用された場合に警告を報告します。代わりに、デフォルトの階層テンプレートがデフォルトで有効になります。
 *   2.1.0: ターゲットショートカットが使用された場合にエラーを報告します。
-*   2.2.0: Kotlin Multiplatform GradleプラグインからターゲットショートカットDSLを削除します。
+*   2.2.0: Kotlin Multiplatform Gradle プラグインからターゲットショートカット DSL を削除します。
 
-### Kotlin アップグレード後のiOSフレームワークのバージョン不正
+### Kotlin アップグレード後の iOS フレームワークのバージョン不正
 
 **問題点**
 
-直接統合を使用している場合、Kotlin コードの変更が Xcode の iOS アプリに反映されないことがあります。直接統合は `embedAndSignAppleFrameworkForXcode` タスクで設定され、これによりマルチプラットフォームプロジェクトのiOSフレームワークがXcodeのiOSアプリに接続されます。
+直接統合を使用している場合、Kotlin コードの変更が Xcode の iOS アプリに反映されないことがあります。直接統合は `embedAndSignAppleFrameworkForXcode` タスクで設定され、これによりマルチプラットフォームプロジェクトの iOS フレームワークが Xcode の iOS アプリに接続されます。
 
-これは、マルチプラットフォームプロジェクトでKotlinのバージョンを1.9.2xから2.0.0にアップグレード（または2.0.0から1.9.2xにダウングレード）し、Kotlinファイルに変更を加えてアプリをビルドしようとすると発生する可能性があり、Xcodeが誤って以前のバージョンのiOSフレームワークを使用する場合があります。そのため、変更がXcodeのiOSアプリに表示されません。
+これは、マルチプラットフォームプロジェクトで Kotlin のバージョンを 1.9.2x から 2.0.0 にアップグレード（または 2.0.0 から 1.9.2x にダウングレード）し、Kotlin ファイルに変更を加えてアプリをビルドしようとすると発生する可能性があり、Xcode が誤って以前のバージョンの iOS フレームワークを使用する場合があります。そのため、変更が Xcode の iOS アプリに表示されません。
 
 **回避策**
 
-1.  Xcodeで、**Product** | **Clean Build Folder** を使用してビルドディレクトリをクリーンアップします。
+1.  Xcode で、**Product** | **Clean Build Folder** を使用してビルドディレクトリをクリーンアップします。
 2.  ターミナルで以下のコマンドを実行します。
 
     ```none
     ./gradlew clean
     ```
 
-3.  アプリを再度ビルドして、新しいバージョンのiOSフレームワークが使用されていることを確認します。
+3.  アプリを再度ビルドして、新しいバージョンの iOS フレームワークが使用されていることを確認します。
 
 **いつ問題が修正されますか？**
 
-この問題はKotlin 2.0.10で修正予定です。Kotlin 2.0.10 のプレビューバージョンが[Kotlin Early Access Previewに参加する](https://kotlinlang.org/docs/eap.html)セクションで既に利用可能かどうかを確認できます。
+この問題は Kotlin 2.0.10 で修正予定です。Kotlin 2.0.10 のプレビューバージョンが[Kotlin Early Access Previewに参加する](https://kotlinlang.org/docs/eap.html)セクションで既に利用可能かどうかを確認できます。
 
 詳細については、[YouTrackの対応する課題](https://youtrack.jetbrains.com/issue/KT-68257)を参照してください。
 
@@ -398,7 +399,7 @@ Kotlin Gradleプラグインは現在、組み込みの階層テンプレート�
 
 このセクションでは、Kotlin 1.9.0−1.9.25 で非推奨サイクルを終了し、有効になる非互換の変更点について説明します。
 
-### KotlinソースセットをKotlinコンパイルに直接追加するAPIの非推奨化 {initial-collapse-state="collapsed" collapsible="true"}
+### Kotlin コンパイルに直接 Kotlin ソースセットを追加するための API の非推奨化 {initial-collapse-state="collapsed" collapsible="true"}
 
 **変更点**
 
@@ -459,17 +460,17 @@ kotlin {
 
 *   1.9.0: `KotlinComplation.source` が使用された場合に非推奨警告を導入します。
 *   1.9.20: この警告をエラーに格上げします。
-*   2.2.0: Kotlin Gradleプラグインから `KotlinComplation.source` を削除します。これを使用しようとすると、ビルドスクリプトのコンパイル中に「未解決の参照」エラーが発生します。
+*   2.2.0: Kotlin Gradle プラグインから `KotlinComplation.source` を削除します。これを使用しようとすると、ビルドスクリプトのコンパイル中に「未解決の参照」エラーが発生します。
 
-### `kotlin-js` Gradleプラグインから `kotlin-multiplatform` Gradleプラグインへの移行 {initial-collapse-state="collapsed" collapsible="true"}
+### `kotlin-js` Gradle プラグインから `kotlin-multiplatform` Gradle プラグインへの移行 {initial-collapse-state="collapsed" collapsible="true"}
 
 **変更点**
 
-Kotlin 1.9.0以降、`kotlin-js` Gradleプラグインは非推奨になりました。基本的に、これは `js()` ターゲットを持つ `kotlin-multiplatform` プラグインの機能を重複させ、内部で同じ実装を共有していました。このような重複は混乱を生み、Kotlinチームのメンテナンス負担を増やしました。代わりに、`js()` ターゲットを持つ `kotlin-multiplatform` Gradleプラグインへの移行をお勧めします。
+Kotlin 1.9.0以降、`kotlin-js` Gradle プラグインは非推奨になりました。基本的に、これは `js()` ターゲットを持つ `kotlin-multiplatform` プラグインの機能を重複させ、内部で同じ実装を共有していました。このような重複は混乱を生み、Kotlin チームのメンテナンス負担を増やしました。代わりに、`js()` ターゲットを持つ `kotlin-multiplatform` Gradle プラグインへの移行をお勧めします。
 
 **現在の推奨プラクティス**
 
-1.  `pluginManagement {}` ブロックを使用している場合は、プロジェクトから `kotlin-js` Gradleプラグインを削除し、`settings.gradle.kts` ファイルで `kotlin-multiplatform` を適用します。
+1.  `pluginManagement {}` ブロックを使用している場合は、プロジェクトから `kotlin-js` Gradle プラグインを削除し、`settings.gradle.kts` ファイルで `kotlin-multiplatform` を適用します。
 
     <Tabs>
     <TabItem title="kotlin-js">
@@ -508,7 +509,7 @@ Kotlin 1.9.0以降、`kotlin-js` Gradleプラグインは非推奨になりま�
     </TabItem>
     </Tabs>
 
-    プラグインの適用方法が異なる場合は、移行手順について[Gradleドキュメント](https://docs.gradle.org/current/userguide/plugins.html)を参照してください。
+    プラグインの適用方法が異なる場合は、移行手順について[Gradle ドキュメント](https://docs.gradle.org/current/userguide/plugins.html)を参照してください。
 
 2.  ソースファイルを `main` および `test` フォルダーから、同じディレクトリ内の `jsMain` および `jsTest` フォルダーに移動します。
 3.  依存関係の宣言を調整します。
@@ -562,7 +563,7 @@ Kotlin 1.9.0以降、`kotlin-js` Gradleプラグインは非推奨になりま�
         sourceSets {
             val jsMain by getting {
                 dependencies {
-                    // ここでjsプレフィックスは不要です。トップレベルのブロックからコピー&ペーストできます。
+                    // ここで js プレフィックスは不要です。トップレベルのブロックからコピー&ペーストできます。
                     implementation("org.jetbrains.kotlinx:kotlinx-html:0.8.0")
                 }
            }
@@ -570,7 +571,7 @@ Kotlin 1.9.0以降、`kotlin-js` Gradleプラグインは非推奨になりま�
     }
     
     dependencies {
-        // オプション #2. 依存関係の宣言にjsプレフィックスを追加する:
+        // オプション #2. 依存関係の宣言に js プレフィックスを追加する:
         add("jsTestImplementation", kotlin("test"))
     }
     ```
@@ -578,13 +579,13 @@ Kotlin 1.9.0以降、`kotlin-js` Gradleプラグインは非推奨になりま�
     </TabItem>
     </Tabs>
 
-4.  `kotlin {}` ブロック内でKotlin Gradleプラグインによって提供されるDSLは、ほとんどの場合変更されません。しかし、タスクや設定などの低レベルのGradleエンティティを名前で参照していた場合、通常は `js` プレフィックスを追加して調整する必要があります。例えば、`browserTest` タスクは `jsBrowserTest` という名前で見つけることができます。
+4.  `kotlin {}` ブロック内で Kotlin Gradle プラグインによって提供される DSL は、ほとんどの場合変更されません。しかし、タスクや設定などの低レベルの Gradle エンティティを名前で参照していた場合、通常は `js` プレフィックスを追加して調整する必要があります。例えば、`browserTest` タスクは `jsBrowserTest` という名前で見つけることができます。
 
 **変更の適用時期**
 
-1.9.0では、`kotlin-js` Gradleプラグインを使用すると非推奨警告が生成されます。
+1.9.0では、`kotlin-js` Gradle プラグインを使用すると非推奨警告が生成されます。
 
-### `jvmWithJava`プリセットの非推奨化 {initial-collapse-state="collapsed" collapsible="true"}
+### `jvmWithJava` プリセットの非推奨化 {initial-collapse-state="collapsed" collapsible="true"}
 
 **変更点**
 
@@ -609,23 +610,23 @@ Kotlin 1.9.0以降、`kotlin-js` Gradleプラグインは非推奨になりま�
 *   1.9.20: この警告をエラーに格上げします。
 *   >1.9.20: `targetPresets.jvmWithJava` API を削除します。これを使用しようとすると、ビルドスクリプトのコンパイルが失敗します。
 
-> `targetPresets` API全体が非推奨になったとしても、`jvmWithJava`プリセットは異なる非推奨スケジュールを持っています。
+> `targetPresets` API 全体が非推奨になったとしても、`jvmWithJava` プリセットは異なる非推奨スケジュールを持っています。
 >
 {style="note"}
 
-### レガシーAndroidソースセットレイアウトの非推奨化 {initial-collapse-state="collapsed" collapsible="true"}
+### レガシー Android ソースセットレイアウトの非推奨化 {initial-collapse-state="collapsed" collapsible="true"}
 
 **変更点**
 
-Kotlin 1.9.0以降、[新しいAndroidソースセットレイアウト](multiplatform-android-layout.md)がデフォルトで使用されます。レガシーレイアウトのサポートは非推奨になり、`kotlin.mpp.androidSourceSetLayoutVersion` Gradleプロパティの使用は現在、非推奨診断をトリガーします。
+[新しい Android ソースセットレイアウト](multiplatform-android-layout.md)は Kotlin 1.9.0以降デフォルトで使用されます。レガシーレイアウトのサポートは非推奨になり、`kotlin.mpp.androidSourceSetLayoutVersion` Gradle プロパティの使用は現在、非推奨診断をトリガーします。
 
 **変更の適用時期**
 
 計画されている非推奨サイクルは以下の通りです。
 
-*   <=1.9.0: `kotlin.mpp.androidSourceSetLayoutVersion=1` が使用された場合に警告を報告します。この警告は `kotlin.mpp.androidSourceSetLayoutVersion1.nowarn=true` Gradleプロパティで抑制できます。
+*   <=1.9.0: `kotlin.mpp.androidSourceSetLayoutVersion=1` が使用された場合に警告を報告します。この警告は `kotlin.mpp.androidSourceSetLayoutVersion1.nowarn=true` Gradle プロパティで抑制できます。
 *   1.9.20: この警告をエラーに格上げします。このエラーは**抑制できません**。
-*   >1.9.20: `kotlin.mpp.androidSourceSetLayoutVersion=1` のサポートを削除します。Kotlin Gradleプラグインはこのプロパティを無視します。
+*   >1.9.20: `kotlin.mpp.androidSourceSetLayoutVersion=1` のサポートを削除します。Kotlin Gradle プラグインはこのプロパティを無視します。
 
 ### カスタム `dependsOn` を持つ `commonMain` および `commonTest` の非推奨化 {initial-collapse-state="collapsed" collapsible="true"}
 
@@ -639,7 +640,7 @@ Kotlin 1.9.0以降、[新しいAndroidソースセットレイアウト](multipl
 
 **現在の推奨プラクティス**
 
-`commonMain.dependsOn(customCommonMain)` を使用する `customCommonMain` ソースセットを1.9.20に移行する必要があるとします。ほとんどの場合、`customCommonMain` は `commonMain` と同じコンパイルに参加するため、`customCommonMain` を `commonMain` にマージできます。
+`commonMain.dependsOn(customCommonMain)` を使用する `customCommonMain` ソースセットを 1.9.20 に移行する必要があるとします。ほとんどの場合、`customCommonMain` は `commonMain` と同じコンパイルに参加するため、`customCommonMain` を `commonMain` にマージできます。
 
 1.  `customCommonMain` のソースを `commonMain` にコピーします。
 2.  `customCommonMain` のすべての依存関係を `commonMain` に追加します。
@@ -660,102 +661,102 @@ Kotlin 1.9.0以降、[新しいAndroidソースセットレイアウト](multipl
 
 **変更点**
 
-JetBrainsチームは、Kotlinにおけるフォワード宣言のアプローチを改訂し、その動作をより予測可能にしました。
+JetBrains チームは、Kotlin におけるフォワード宣言のアプローチを改訂し、その動作をより予測可能にしました。
 
 *   フォワード宣言は `cnames` または `objcnames` パッケージを使用してのみインポートできます。
-*   対応するCおよびObjective-Cのフォワード宣言へのキャストを明示的に行う必要があります。
+*   対応する C および Objective-C のフォワード宣言へのキャストを明示的に行う必要があります。
 
 **現在の推奨プラクティス**
 
-*   `cstructName` フォワード宣言を宣言する `library.package` を持つCライブラリを考えてみましょう。
+*   `library.package` を持つ C ライブラリで `cstructName` フォワード宣言を宣言する場合を考えてみましょう。
     以前は、`import library.package.cstructName` を使ってライブラリから直接インポートすることが可能でした。
     現在では、そのための特別なフォワード宣言パッケージを使用するしかありません: `import cnames.structs.cstructName`。
     `objcnames` も同様です。
 
-*   2つのobjcinteropライブラリを考えてみましょう。1つは `objcnames.protocols.ForwardDeclaredProtocolProtocol` を使用し、もう1つは実際の定義を持っています。
+*   2つの objcinterop ライブラリを考えてみましょう。1つは `objcnames.protocols.ForwardDeclaredProtocolProtocol` を使用し、もう1つは実際の定義を持っています。
 
-    ```ObjC
-    // First objcinterop library
-    #import <Foundation/Foundation.h>
-    
-    @protocol ForwardDeclaredProtocol;
-    
-    NSString* consumeProtocol(id<ForwardDeclaredProtocol> s) {
-        return [NSString stringWithUTF8String:"Protocol"];
-    }
-    ```
+  ```ObjC
+  // First objcinterop library
+  #import <Foundation/Foundation.h>
+  
+  @protocol ForwardDeclaredProtocol;
+  
+  NSString* consumeProtocol(id<ForwardDeclaredProtocol> s) {
+      return [NSString stringWithUTF8String:"Protocol"];
+  }
+  ```
 
-    ```ObjC
-    // Second objcinterop library
-    // Header:
-    #import <Foundation/Foundation.h>
-    @protocol ForwardDeclaredProtocol
-    @end
-    // Implementation:
-    @interface ForwardDeclaredProtocolImpl : NSObject <ForwardDeclaredProtocol>
-    @end
+  ```ObjC
+  // Second objcinterop library
+  // Header:
+  #import <Foundation/Foundation.h>
+  @protocol ForwardDeclaredProtocol
+  @end
+  // Implementation:
+  @interface ForwardDeclaredProtocolImpl : NSObject <ForwardDeclaredProtocol>
+  @end
 
-    id<ForwardDeclaredProtocol> produceProtocol() {
-        return [ForwardDeclaredProtocolImpl new];
-    }
-    ```
+  id<ForwardDeclaredProtocol> produceProtocol() {
+      return [ForwardDeclaredProtocolImpl new];
+  }
+  ```
 
-    以前は、それらの間でオブジェクトをシームレスに転送することが可能でした。現在では、フォワード宣言には明示的な `as` キャストが必要です。
+  以前は、それらの間でオブジェクトをシームレスに転送することが可能でした。現在では、フォワード宣言には明示的な `as` キャストが必要です。
 
-    ```kotlin
-    // Kotlin code:
-    fun test() {
-        consumeProtocol(produceProtocol() as objcnames.protocols.ForwardDeclaredProtocolProtocol)
-    }
-    ```
+  ```kotlin
+  // Kotlin code:
+  fun test() {
+      consumeProtocol(produceProtocol() as objcnames.protocols.ForwardDeclaredProtocolProtocol)
+  }
+  ```
 
-    > `objcnames.protocols.ForwardDeclaredProtocolProtocol` へのキャストは、対応する実際のクラスからのみ可能です。そうしないとエラーが発生します。
-    >
-    {style="note"}
+  > `objcnames.protocols.ForwardDeclaredProtocolProtocol` へのキャストは、対応する実際のクラスからのみ可能です。そうしないとエラーが発生します。
+  >
+  {style="note"}
 
 **変更の適用時期**
 
-Kotlin 1.9.20 以降、対応するCおよびObjective-Cのフォワード宣言との間で明示的にキャストを行う必要があります。また、フォワード宣言は特別なパッケージを使用することによってのみインポートできるようになりました。
+Kotlin 1.9.20 以降、対応する C および Objective-C のフォワード宣言との間で明示的にキャストを行う必要があります。また、フォワード宣言は特別なパッケージを使用することによってのみインポートできるようになりました。
 
 ## Kotlin 1.7.0−1.8.22
 
 このセクションでは、Kotlin 1.7.0−1.8.22 で非推奨サイクルを終了し、有効になる非互換の変更点について説明します。
 
-### Kotlin Multiplatform GradleプラグインとGradle Javaプラグインの非推奨の互換性 {initial-collapse-state="collapsed" collapsible="true"}
+### Kotlin Multiplatform Gradle プラグインと Gradle Java プラグインの非推奨の互換性 {initial-collapse-state="collapsed" collapsible="true"}
 
 **変更点**
 
-Kotlin Multiplatform Gradleプラグインと、[Java](https://docs.gradle.org/current/userguide/java_plugin.html)、[Java Library](https://docs.gradle.org/current/userguide/java_library_plugin.html)、[Application](https://docs.gradle.org/current/userguide/application_plugin.html)のGradleプラグインとの互換性問題により、これらのプラグインを同じプロジェクトに適用すると非推奨警告が表示されるようになりました。マルチプラットフォームプロジェクト内の別のGradleプラグインがGradle Javaプラグインを適用する場合にもこの警告が表示されます。例えば、[Spring Boot Gradle Plugin](https://docs.spring.io/spring-boot/gradle-plugin/index.html) は自動的に Application プラグインを適用します。
+Kotlin Multiplatform Gradle プラグインと、[Java](https://docs.gradle.org/current/userguide/java_plugin.html)、[Java Library](https://docs.gradle.org/current/userguide/java_library_plugin.html)、および [Application](https://docs.gradle.org/current/userguide/application_plugin.html) の Gradle プラグインとの互換性問題により、これらのプラグインを同じプロジェクトに適用すると非推奨警告が表示されるようになりました。この警告は、マルチプラットフォームプロジェクト内の別の Gradle プラグインが Gradle Java プラグインを適用する場合にも表示されます。例えば、[Spring Boot Gradle Plugin](https://docs.spring.io/spring-boot/gradle-plugin/index.html) は自動的に Application プラグインを適用します。
 
-この非推奨警告は、Kotlin MultiplatformのプロジェクトモデルとGradleのJavaエコシステムプラグインとの間の根本的な互換性の問題のために追加されました。GradleのJavaエコシステムプラグインは現在、他のプラグインが以下の可能性があることを考慮していません。
+この非推奨警告は、Kotlin Multiplatform のプロジェクトモデルと Gradle の Java エコシステムプラグインとの間の根本的な互換性の問題のために追加されました。Gradle の Java エコシステムプラグインは現在、他のプラグインが以下の可能性があることを考慮していません。
 
-*   Javaエコシステムプラグインとは異なる方法でJVMターゲットを公開またはコンパイルする。
-*   同じプロジェクト内にJVMとAndroidのように2つの異なるJVMターゲットを持つ。
-*   複数の非JVMターゲットを持つ可能性のある複雑なマルチプラットフォームプロジェクト構造を持つ。
+*   Java エコシステムプラグインとは異なる方法で JVM ターゲットを公開またはコンパイルする。
+*   同じプロジェクト内に JVM と Android のように2つの異なる JVM ターゲットを持つ。
+*   複数の非 JVM ターゲットを持つ可能性のある複雑なマルチプラットフォームプロジェクト構造を持つ。
 
-残念ながら、Gradleは現在、これらの問題に対処するためのAPIを提供していません。
+残念ながら、Gradle は現在、これらの問題に対処するための API を提供していません。
 
-以前は、Javaエコシステムプラグインとの統合を支援するために、Kotlin Multiplatformでいくつかの回避策を使用していました。しかし、これらの回避策は互換性の問題を真に解決することはなく、Gradle 8.8のリリース以降、これらの回避策はもはや不可能です。詳細については、[YouTrackの課題](https://youtrack.jetbrains.com/issue/KT-66542/Gradle-JVM-target-with-withJava-produces-a-deprecation-warning)を参照してください。
+以前は、Java エコシステムプラグインとの統合を支援するために、Kotlin Multiplatform でいくつかの回避策を使用していました。しかし、これらの回避策は互換性の問題を真に解決することはなく、Gradle 8.8 のリリース以降、これらの回避策はもはや不可能です。詳細については、[YouTrackの課題](https://youtrack.jetbrains.com/issue/KT-66542/Gradle-JVM-target-with-withJava-produces-a-deprecation-warning)を参照してください。
 
-この互換性問題を正確に解決する方法はまだ不明ですが、Kotlin MultiplatformプロジェクトにおけるJavaソースコンパイルの何らかの形式のサポートを継続することをお約束します。最低限、マルチプラットフォームプロジェクト内でJavaソースのコンパイルとGradleの[`java-base`](https://docs.gradle.org/current/javadoc/org/gradle/api/plugins/JavaBasePlugin.html)プラグインの使用をサポートします。
+この互換性問題を正確に解決する方法はまだ不明ですが、Kotlin Multiplatform プロジェクトにおける Java ソースコンパイルの何らかの形式のサポートを継続することをお約束します。最低限、マルチプラットフォームプロジェクト内で Java ソースのコンパイルと Gradle の [`java-base`](https://docs.gradle.org/current/javadoc/org/gradle/api/plugins/JavaBasePlugin.html) プラグインの使用をサポートします。
 
 **現在の推奨プラクティス**
 
 マルチプラットフォームプロジェクトでこの非推奨警告が表示された場合、以下のことをお勧めします。
-1.  プロジェクトでGradle Javaプラグインが実際に必要かどうかを判断します。必要ない場合は、削除を検討してください。
-2.  Gradle Javaプラグインが単一のタスクのみに使用されているか確認します。その場合、あまり労力をかけずにプラグインを削除できる可能性があります。例えば、タスクがJavadoc JARファイルを作成するためにGradle Javaプラグインを使用している場合、代わりにJavadocタスクを手動で定義できます。
+1.  プロジェクトで Gradle Java プラグインが実際に必要かどうかを判断します。必要ない場合は、削除を検討してください。
+2.  Gradle Java プラグインが単一のタスクのみに使用されているか確認します。その場合、あまり労力をかけずにプラグインを削除できる可能性があります。例えば、タスクが Javadoc JAR ファイルを作成するために Gradle Java プラグインを使用している場合、代わりに Javadoc タスクを手動で定義できます。
 
-それ以外で、マルチプラットフォームプロジェクトでKotlin Multiplatform GradleプラグインとこれらのGradle Javaプラグインの両方を使用したい場合は、以下のことをお勧めします。
+それ以外で、マルチプラットフォームプロジェクトで Kotlin Multiplatform Gradle プラグインとこれらの Gradle Java プラグインの両方を使用したい場合は、以下のことをお勧めします。
 
-1.  Gradleプロジェクト内に別途サブプロジェクトを作成します。
-2.  そのサブプロジェクトで、Java用のGradleプラグインを適用します。
+1.  Gradle プロジェクト内に別途サブプロジェクトを作成します。
+2.  そのサブプロジェクトで、Java 用の Gradle プラグインを適用します。
 3.  そのサブプロジェクトで、親のマルチプラットフォームプロジェクトへの依存関係を追加します。
 
 > そのサブプロジェクトはマルチプラットフォームプロジェクトで**あってはならず**、マルチプラットフォームプロジェクトへの依存関係を設定するためだけに使用する必要があります。
 >
 {style="warning"}
 
-例えば、`my-main-project` というマルチプラットフォームプロジェクトがあり、[Java Library](https://docs.gradle.org/current/userguide/java_library_plugin.html) Gradleプラグインを使用したいとします。
+例えば、`my-main-project` というマルチプラットフォームプロジェクトがあり、[Java Library](https://docs.gradle.org/current/userguide/java_library_plugin.html) Gradle プラグインを使用したいとします。
 
 サブプロジェクト（仮に `subproject-A` とします）を作成すると、親プロジェクトの構造は以下のようになります。
 
@@ -769,7 +770,7 @@ Kotlin Multiplatform Gradleプラグインと、[Java](https://docs.gradle.org/c
         └── Main.java
 ```
 
-サブプロジェクトの `build.gradle.kts` ファイルで、`plugins {}` ブロックにJava Libraryプラグインを適用します。
+サブプロジェクトの `build.gradle.kts` ファイルで、`plugins {}` ブロックに Java Library プラグインを適用します。
 
 <Tabs group="build-script">
 <TabItem title="Kotlin" group-key="kotlin">
@@ -799,7 +800,7 @@ plugins {
 
 ```kotlin
 dependencies {
-    implementation(project(":my-main-project")) // The name of your parent multiplatform project
+    implementation(project(":my-main-project")) // 親のマルチプラットフォームプロジェクトの名称
 }
 ```
 
@@ -808,7 +809,7 @@ dependencies {
 
 ```groovy
 dependencies {
-    implementation project(':my-main-project') // The name of your parent multiplatform project
+    implementation project(':my-main-project') // 親のマルチプラットフォームプロジェクトの名称
 }
 ```
 
@@ -821,7 +822,7 @@ dependencies {
 
 **変更点**
 
-Gradleによって自動生成されるターゲットアクセサーは、`kotlin.targets {}` ブロック内では利用できなくなりました。代わりに `findByName("targetName")` メソッドを使用してください。
+Gradle によって自動生成されるターゲットアクセサーは、`kotlin.targets {}` ブロック内では利用できなくなりました。代わりに `findByName("targetName")` メソッドを使用してください。
 
 なお、このようなアクセサーは `kotlin.targets {}` の場合は、例えば `kotlin.targets.linuxX64` のように引き続き利用可能です。
 
@@ -852,11 +853,11 @@ Kotlin 1.7.20では、`kotlin.targets {}` ブロック内でターゲットア�
 
 詳細については、[YouTrackの対応する課題](https://youtrack.jetbrains.com/issue/KT-47047)を参照してください。
 
-### Gradleの入力および出力コンパイルタスクの変更点 {initial-collapse-state="collapsed" collapsible="true"}
+### Gradle の入力および出力コンパイルタスクの変更点 {initial-collapse-state="collapsed" collapsible="true"}
 
 **変更点**
 
-Kotlinのコンパイルタスクは、`sourceCompatibility` および `targetCompatibility` 入力を持つGradleの `AbstractCompile` タスクを継承しなくなり、Kotlinユーザーのスクリプトからは利用できなくなりました。
+Kotlin のコンパイルタスクは、`sourceCompatibility` および `targetCompatibility` 入力を持つ Gradle の `AbstractCompile` タスクを継承しなくなり、Kotlin ユーザーのスクリプトからは利用できなくなりました。
 
 コンパイルタスクにおけるその他の破壊的変更：
 
@@ -865,9 +866,9 @@ Kotlinのコンパイルタスクは、`sourceCompatibility` および `targetCo
 | 変更前                                                              | 変更後                                                                                                            |
 |---------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------|
 | `SourceTask.stableSources` 入力は利用できなくなりました。        | 代わりに `sources` 入力を使用してください。また、`setSource()` メソッドは引き続き利用可能です。                          |
-| `sourceFilesExtensions` 入力は削除されました。                      | コンパイルタスクは引き続き `PatternFilterable` インターフェースを実装しています。Kotlinソースのフィルタリングにはそのメソッドを使用してください。 |
+| `sourceFilesExtensions` 入力は削除されました。                      | コンパイルタスクは引き続き `PatternFilterable` インターフェースを実装しています。Kotlin ソースのフィルタリングにはそのメソッドを使用してください。 |
 | `Gradle destinationDir: File` 出力は非推奨になりました。            | 代わりに `destinationDirectory: DirectoryProperty` 出力を使用してください。                                              |
-| `KotlinCompile` タスクの `classpath` プロパティは非推奨になりました。 | すべてのコンパイルタスクは、コンパイルに必要なライブラリのリストに対して `libraries` 入力を使用します。              |
+| `classpath` プロパティの `KotlinCompile` タスクは非推奨になりました。 | すべてのコンパイルタスクは、コンパイルに必要なライブラリのリストに対して `libraries` 入力を使用します。              |
 
 **変更の適用時期**
 
@@ -879,7 +880,7 @@ Kotlin 1.7.20では、入力が利用できなくなり、出力が置き換え�
 
 **変更点**
 
-Kotlin Multiplatform Gradleプラグインによって作成されるコンパイル設定に新しい名前が付けられました。
+Kotlin Multiplatform Gradle プラグインによって作成されるコンパイル設定に新しい名前が付けられました。
 
 Kotlin Multiplatform プロジェクトのターゲットには、`main` と `test` の2つのデフォルトコンパイルがあります。これらの各コンパイルには、例えば `jvmMain` や `jvmTest` のように独自のデフォルトソースセットがあります。以前は、テストコンパイルとそのデフォルトソースセットの設定名が同じであったため、プラットフォーム固有の属性を持つ設定が別の設定に含まれる場合に、名前の衝突による問題が発生する可能性がありました。
 
@@ -947,7 +948,7 @@ Kotlin Multiplatform プロジェクトのターゲットには、`main` と `te
 
 </table>
 
-利用可能なスコープは `Api`、`Implementation`、`CompileOnly`、`RuntimeOnly` です。
+利用可能なスコープは `Api`、`Implementation`、`CompileOnly`、および `RuntimeOnly` です。
 
 **変更の適用時期**
 

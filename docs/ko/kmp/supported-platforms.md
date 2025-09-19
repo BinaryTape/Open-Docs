@@ -38,7 +38,7 @@
 | iOS                      | 안정적      |
 | 데스크톱 (JVM)             | 안정적      |
 | 서버 측 (JVM)            | 안정적      |
-| Kotlin/Wasm 기반 웹      | 알파        |
+| Kotlin/Wasm 기반 웹      | 베타        |
 | Kotlin/JS 기반 웹        | 안정적      |
 | watchOS                  | 베타        |
 | tvOS                     | 베타        |
@@ -78,7 +78,7 @@
 | 안드로이드                 | 안정적      |
 | iOS                      | 안정적      |
 | 데스크톱 (JVM)             | 안정적      |
-| Kotlin/Wasm 기반 웹      | 알파        |
+| Kotlin/Wasm 기반 웹      | 베타        |
 
 ## 다음 단계
 

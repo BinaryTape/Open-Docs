@@ -17,7 +17,7 @@
     typealias Input = Unit
     typealias Output = Unit
 
-    val str =
+    val str = 
     -->
     ```kotlin
     strategy<StrategyInput, StrategyOutput>("strategy-name") {
@@ -25,7 +25,7 @@
             name = "subgraph-name",
             toolSelectionStrategy = ToolSelectionStrategy.ALL
         ) {
-            // Define nodes and edges for this subgraph
+            // このサブグラフのノードとエッジを定義します
         }
     }
     ```
@@ -47,15 +47,15 @@
     val firstTool = SayToUser
     val secondTool = AskUser
 
-    val str =
+    val str = 
     -->
     ```kotlin
     strategy<StrategyInput, StrategyOutput>("strategy-name") {
        val subgraphIdentifier by subgraph<Input, Output>(
-           name = "subgraph-name",
+           name = "subgraph-name", 
            tools = listOf(firstTool, secondTool)
        ) {
-            // Define nodes and edges for this subgraph
+            // このサブグラフのノードとエッジを定義します
         }
     }
     ```
@@ -75,14 +75,14 @@ import ai.koog.agents.ext.tool.SayToUser
 val firstTool = SayToUser
 val secondTool = AskUser
 
-val str =
+val str = 
 -->
 ```kotlin
 strategy<String, String>("my-strategy") {
    val mySubgraph by subgraph<String, String>(
       tools = listOf(firstTool, secondTool)
    ) {
-        // Define nodes and edges for this subgraph
+        // このサブグラフのノードとエッジを定義します
         val sendInput by nodeLLMRequest()
         val executeToolCall by nodeExecuteTool()
         val sendToolResult by nodeLLMSendToolResult()
@@ -114,7 +114,7 @@ strategy<String, String>("my-strategy") {
     val mySubgraph by subgraph<String, String>(
        tools = listOf(AskUser)
      ) {
-        // Subgraph definition
+        // サブグラフの定義
      }
     ```
     <!--- KNIT example-custom-subgraphs-04.kt -->
@@ -134,7 +134,7 @@ strategy<String, String>("my-strategy") {
     val mySubgraph by subgraph<String, String>(
         tools = listOf(toolRegistry.getTool("AskUser"))
     ) {
-        // Subgraph definition
+        // サブグラフの定義
     }
     ```
     <!--- KNIT example-custom-subgraphs-05.kt -->
@@ -145,11 +145,11 @@ strategy<String, String>("my-strategy") {
 
     val str = strategy<String, String>("my-strategy") {
         val node by node<Unit, Unit>("node_name") {
-    -->
+-->
     <!--- SUFFIX
         }
     }
-    -->
+-->
     ```kotlin
     // ツールのセットを作成します
     this.llm.writeSession {
@@ -263,7 +263,7 @@ class WebSearchTool: SimpleTool<WebSearchTool.Args>() {
     override val argsSerializer: KSerializer<Args> = Args.serializer()
 
     override val descriptor: ToolDescriptor = ToolDescriptor("web_search", "Search on the web")
-
+    
     override suspend fun doExecute(args: Args): String {
         return "Searching for ${args.query} on the web..."
     }

@@ -867,7 +867,7 @@ println("$name has ${children.size} children")
 ```
 
 使用 [多美元字串內插 (multi-dollar string interpolation)](strings.md#multi-dollar-string-interpolation)
-將美元符號 `$` 視為字串字面量：
+將美元符號 `#` 視為字串字面量：
 
 ```kotlin
 val KClass<*>.jsonSchema : String
@@ -1054,25 +1054,25 @@ for (i in 0..<n) { /*...*/ }  // good
 ```kotlin
 fun main() {
 //sampleStart
-   println("""
-    Not
-    trimmed
-    text
-    """
-   )
+    println("""
+     Not
+     trimmed
+     text
+     """
+    )
 
-   println("""
-    Trimmed
-    text
-    """.trimIndent()
-   )
+    println("""
+     Trimmed
+     text
+     """.trimIndent()
+    )
 
-   println()
+    println()
 
-   val a = """Trimmed to margin text:
-          |if(a > 1) {
-          |    return a
-          |}""".trimMargin()
+    val a = """Trimmed to margin text:
+            |if(a > 1) {
+            |    return a
+            |}""".trimMargin()
 
    println(a)
 //sampleEnd
@@ -1100,7 +1100,7 @@ fun main() {
 盡可能地限制擴充函式的可見性。根據需要，使用局部擴充函式、成員擴充函式，
 或帶有私有可見性的頂層擴充函式。
 
-### 中綴函式
+### 中 infix 函式
 
 僅當函式作用於兩個扮演相似角色的物件時，才將其宣告為 `infix`。好的範例：`and`、`to`、`zip`。
 壞的範例：`add`。

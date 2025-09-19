@@ -1,7 +1,7 @@
 [//]: # (title: 與 Swift/Objective-C 的互通性)
 
 > Objective-C 函式庫的匯入功能處於 [Beta](native-c-interop-stability.md) 階段。
-> 所有由 `cinterop` 工具從 Objective-C 函式庫產生的 Kotlin 宣告
+> 所有由 cinterop 工具從 Objective-C 函式庫產生的 Kotlin 宣告
 > 都應該具有 `@ExperimentalForeignApi` 註解。
 >
 > 隨 Kotlin/Native 提供的原生平台函式庫（如 Foundation、UIKit 和 POSIX）
@@ -9,7 +9,8 @@
 >
 {style="note"}
 
-Kotlin/Native 透過 Objective-C 提供與 Swift 的間接互通性。本文檔涵蓋了如何在 Swift/Objective-C 程式碼中使用 Kotlin 宣告，以及如何在 Kotlin 程式碼中使用 Objective-C 宣告。
+Kotlin/Native 透過 Objective-C 提供與 Swift 的間接互通性。本文檔涵蓋了如何在 Swift/Objective-C 程式碼中使用 Kotlin
+宣告，以及如何在 Kotlin 程式碼中使用 Objective-C 宣告。
 
 您可能會發現有用的其他資源：
 
@@ -36,9 +37,7 @@ Kotlin 模組如果編譯為框架，則可以在 Swift/Objective-C 程式碼中
 
 ### 從 Objective-C 和 Swift 隱藏 Kotlin 宣告
 
-> `@HiddenFromObjC` 註解為 [實驗性](components-stability.md#stability-levels-explained) 功能，且需要[選擇啟用](opt-in-requirements.md)。
->
-{style="warning"}
+<primary-label ref="experimental-opt-in"/>
 
 為了讓您的 Kotlin 程式碼更符合 Swift/Objective-C 習慣，請使用 `@HiddenFromObjC` 註解來隱藏 Objective-C 和 Swift 中的 Kotlin 宣告。它會停用函數或屬性匯出到 Objective-C。
 
@@ -46,13 +45,11 @@ Kotlin 模組如果編譯為框架，則可以在 Swift/Objective-C 程式碼中
 
 [請參閱 Kotlin-Swift 互通百科中的範例](https://github.com/kotlin-hands-on/kotlin-swift-interopedia/blob/main/docs/overview/HiddenFromObjC.md)。
 
-### 在 Swift 中使用精簡 (Refining) 功能
+### 在 Swift 中使用精簡功能
 
-> `@ShouldRefineInSwift` 註解為 [實驗性](components-stability.md#stability-levels-explained) 功能，且需要[選擇啟用](opt-in-requirements.md)。
->
-{style="warning"}
+<primary-label ref="experimental-opt-in"/>
 
-`@ShouldRefineInSwift` 有助於將 Kotlin 宣告替換為使用 Swift 編寫的包裝器。該註解將函數或屬性在產生的 Objective-C API 中標記為 `swift_private`。這些宣告會加上 `__` 前綴，使其在 Swift 中不可見。
+`@ShouldRefineInSwift` 有助於將 Kotlin 宣告替換為使用 Swift 編寫的包裝器。該註解會將函數或屬性在產生的 Objective-C API 中標記為 `swift_private`。這些宣告會加上 `__` 前綴，使其在 Swift 中不可見。
 
 您仍然可以在 Swift 程式碼中使用這些宣告來建立 Swift 友好的 API，但它們不會在 Xcode 自動完成中建議。
 
@@ -61,9 +58,7 @@ Kotlin 模組如果編譯為框架，則可以在 Swift/Objective-C 程式碼中
 
 ### 更改宣告名稱
 
-> `@ObjCName` 註解為 [實驗性](components-stability.md#stability-levels-explained) 功能，且需要[選擇啟用](opt-in-requirements.md)。
->
-{style="warning"}
+<primary-label ref="experimental-opt-in"/>
 
 為避免重新命名 Kotlin 宣告，請使用 `@ObjCName` 註解。它指示 Kotlin 編譯器為被註解的類別、介面或其他 Kotlin 實體使用自訂的 Objective-C 和 Swift 名稱：
 
@@ -85,7 +80,7 @@ let index = array.index(of: "element")
 
 文件對於理解任何 API 至關重要。為共享的 Kotlin API 提供文件可讓您與其使用者就使用方式、注意事項等進行溝通。
 
-預設情況下，[KDocs](kotlin-doc.md) 註解在產生 Objective-C 標頭時不會翻譯成對應的註解。例如，以下帶有 KDoc 的 Kotlin 程式碼：
+在產生 Objective-C 標頭時，Kotlin 程式碼中的 [KDoc](kotlin-doc.md) 註解會轉換為對應的 Objective-C 註解。例如，以下帶有 KDoc 的 Kotlin 程式碼：
 
 ```kotlin
 /**
@@ -95,40 +90,7 @@ let index = array.index(of: "element")
 fun printSum(a: Int, b: Int) = println(a.toLong() + b)
 ```
 
-將產生不含任何註解的 Objective-C 宣告：
-
-```objc
-+ (void)printSumA:(int32_t)a b:(int32_t)b __attribute__((swift_name("printSum(a:b:)")));
-```
-
-若要啟用 KDoc 註解的匯出，請將以下編譯器選項新增到您的 `build.gradle(.kts)` 中：
-
-<tabs group="build-script">
-<tab title="Kotlin" group-key="kotlin">
-
-```kotlin
-kotlin {
-    targets.withType<org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget> {
-        compilations.get("main").compilerOptions.options.freeCompilerArgs.add("-Xexport-kdoc")
-    }
-}
-```
-
-</tab>
-<tab title="Groovy" group-key="groovy">
-
-```groovy
-kotlin {
-    targets.withType(org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget) {
-        compilations.get("main").compilerOptions.options.freeCompilerArgs.add("-Xexport-kdoc")
-    }
-}
-```
-
-</tab>
-</tabs>
-
-之後，Objective-C 標頭將包含對應的註解：
+將產生一個包含對應註解的 Objective-C 標頭：
 
 ```objc
 /**
@@ -138,19 +100,33 @@ kotlin {
 + (void)printSumA:(int32_t)a b:(int32_t)b __attribute__((swift_name("printSum(a:b:)")));
 ```
 
-您將能夠在自動完成中看到類別和方法的註解，例如在 Xcode 中。如果您前往函數定義（在 `.h` 檔案中），您將看到關於 `@param`、`@return` 等的註解。
+KDoc 註解會嵌入到 klibs 中，並從 klibs 提取到產生的 Apple 框架中。
+因此，類別和方法的註解會在 Xcode 等自動完成時顯示。
+如果您前往 `.h` 檔案中的函數定義，您將看到關於 `@param`、`@return` 等標籤的註解。
 
 已知限制：
 
-> 將 KDoc 註解匯出到產生的 Objective-C 標頭的功能為 [實驗性](components-stability.md) 功能。
-> 它可能隨時被捨棄或更改。
-> 需要選擇啟用（詳情請參閱下方），且您應僅將其用於評估目的。
-> 我們將非常感謝您在 [YouTrack](https://youtrack.jetbrains.com/issue/KT-38600) 上提供回饋。
->
-{style="warning"}
+*   依賴項文件不會匯出，除非它本身也使用 `-Xexport-kdoc` 選項進行編譯。使用此編譯器選項編譯的函式庫可能與其他編譯器版本不相容。
+*   KDoc 註解主要按原樣匯出，但許多 KDoc 區塊標籤（例如 `@property`）不支援。
 
-*   依賴項文件不會匯出，除非它本身也使用 `-Xexport-kdoc` 進行編譯。此功能是實驗性的，因此使用此選項編譯的函式庫可能與其他編譯器版本不相容。
-*   KDoc 註解主要按原樣匯出。許多 KDoc 功能，例如 `@property`，尚不支援。
+如有需要，您可以在 Gradle 建置檔案的 `binaries {}` 區塊中停用 KDoc 註解從 klibs 匯出到產生的 Apple 框架：
+
+```kotlin
+// build.gradle.kts
+import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
+
+kotlin {
+    iosArm64 {
+        binaries {
+            framework {
+                baseName = "sdk"
+                @OptIn(ExperimentalKotlinGradlePluginApi::class)
+                exportKdoc.set(false)
+            }
+        }
+    }
+}
+```
 
 ## 映射
 
@@ -328,11 +304,7 @@ switch color {
 
 ### 暫停函數 (Suspending functions)
 
-> 從 Swift 程式碼呼叫 `suspend` 函數作為 `async` 功能的支援為 [實驗性](components-stability.md) 功能。
-> 它可能隨時被捨棄或更改。
-> 僅將其用於評估目的。我們將非常感謝您在 [YouTrack](https://youtrack.jetbrains.com/issue/KT-47610) 上提供回饋。
->
-{style="warning"}
+<primary-label ref="experimental-opt-in"/>
 
 Kotlin 的[暫停函數](coroutines-basics.md) (`suspend`) 在產生的 Objective-C 標頭中以帶有回呼的函數形式呈現，或以 Swift/Objective-C 術語中的[完成處理器](https://developer.apple.com/documentation/swift/calling_objective-c_apis_asynchronously)形式呈現。
 
@@ -357,7 +329,7 @@ Kotlin 對「常規」Kotlin 類別的擴展會分別匯入 Swift 和 Objective-
 *   Kotlin 基本型別
 *   Kotlin `inline` 類別
 *   Kotlin `Any` 類型
-*   Kotlin 函數類型和子類型
+*   Kotlin 函數型別和子類型
 *   Objective-C 類別和協定
 
 [請參閱 Kotlin-Swift 互通百科中的範例集合](https://github.com/kotlin-hands-on/kotlin-swift-interopedia/tree/main/docs/extensions)。
@@ -405,7 +377,7 @@ MyClass.Companion.shared
 Kotlin 基本型別的裝箱會映射到特殊的 Swift/Objective-C 類別。例如，`kotlin.Int` 裝箱在 Swift 中表示為 `KotlinInt` 類別實例（或在 Objective-C 中表示為 `${prefix}Int` 實例，其中 `prefix` 是框架的名稱前綴）。
 這些類別源自 `NSNumber`，因此實例是支援所有相應操作的適當 `NSNumber`。
 
-當 `NSNumber` 用作 Swift/Objective-C 參數類型或回傳值時，它不會自動翻譯為 Kotlin 基本型別。原因是 `NSNumber` 類型未提供足夠關於包裝的基本值類型資訊，例如，靜態上不知道 `NSNumber` 是 `Byte`、`Boolean` 還是 `Double`。因此，Kotlin 基本值應[手動轉換為和從 `NSNumber` 轉換](#casting-between-mapped-types)。
+當 `NSNumber` 用作 Swift/Objective-C 參數型別或回傳值時，它不會自動翻譯為 Kotlin 基本型別。原因是 `NSNumber` 型別未提供足夠關於包裝的基本值型別資訊，例如，靜態上不知道 `NSNumber` 是 `Byte`、`Boolean` 還是 `Double`。因此，Kotlin 基本值應[手動轉換為和從 `NSNumber` 轉換](#casting-between-mapped-types)。
 
 ### 字串 (Strings)
 
@@ -464,10 +436,10 @@ Swift/Objective-C 集合會映射到 Kotlin，如 [映射表](#mappings) 中所�
 
 ### 函數型別 (Function types)
 
-Kotlin 函數型別物件（例如，Lambda 運算式）在 Swift 中會轉換為函數，在 Objective-C 中會轉換為區塊。
+Kotlin 函數型別物件（例如，Lambda 運算式）在 Swift 中會轉換為閉包，在 Objective-C 中會轉換為區塊。
 [請參閱 Kotlin-Swift 互通百科中帶有 Lambda 的 Kotlin 函數範例](https://github.com/kotlin-hands-on/kotlin-swift-interopedia/blob/main/docs/functionsandproperties/Functions%20returning%20function%20type.md)。
 
-然而，在翻譯函數和函數型別時，參數和回傳值的類型映射方式存在差異。在後者情況下，基本型別會映射到其裝箱表示。Kotlin `Unit` 回傳值在 Swift/Objective-C 中表示為對應的 `Unit` 單例。此單例的值可以像任何其他 Kotlin `object` 一樣檢索。請參閱上方[表格](#mappings)中的單例。
+然而，在翻譯函數和函數型別時，參數和回傳值的型別映射方式存在差異。在後者情況下，基本型別會映射到其裝箱表示。Kotlin `Unit` 回傳值在 Swift/Objective-C 中表示為對應的 `Unit` 單例。此單例的值可以像任何其他 Kotlin `object` 一樣檢索。請參閱上方[表格](#mappings)中的單例。
 
 考慮以下 Kotlin 函數：
 
@@ -483,16 +455,49 @@ func foo(block: (KotlinInt) -> KotlinUnit)
 
 您可以像這樣呼叫它：
 
-```kotlin
+```swift
 foo {
     bar($0 as! Int32)
     return KotlinUnit()
 }
 ```
 
+#### Objective-C 區塊型別中的明確參數名稱
+
+您可以為 Kotlin 的函數型別新增明確的參數名稱，以便匯出到 Objective-C 標頭。如果沒有它們，
+Xcode 的自動完成會建議呼叫 Objective-C 函數，且 Objective-C 區塊中沒有參數名稱，
+而產生的區塊會觸發 Clang 警告。
+
+要啟用明確的參數名稱，請將以下 [二進位檔選項](native-binary-options.md) 新增到您的 `gradle.properties` 檔案中：
+
+```none
+kotlin.native.binary.objcExportBlockExplicitParameterNames=true
+```
+
+例如，對於以下 Kotlin 程式碼：
+
+```kotlin
+// Kotlin:
+fun greetUser(block: (name: String) -> Unit) = block("John")
+```
+
+Kotlin 會將參數名稱從 Kotlin 函數型別轉發到 Objective-C 區塊型別，讓 Xcode 可以在建議中使用它們：
+
+```objc
+// Objective-C:
+greetUserBlock:^(NSString *name) {
+    // ...
+};
+```
+
+> 此選項僅影響 Objective-C 互通。它適用於在 Xcode 中從 Objective-C 呼叫生成的 Objective-C 程式碼，
+> 通常不影響從 Swift 進行的呼叫。
+>
+{style="note"}
+
 ### 泛型 (Generics)
 
-Objective-C 支援在類別中定義的「輕量級泛型」，功能集相對有限。Swift 可以匯入在類別上定義的泛型，以協助向編譯器提供額外的類型資訊。
+Objective-C 支援在類別中定義的「輕量級泛型」，功能集相對有限。Swift 可以匯入在類別上定義的泛型，以協助向編譯器提供額外的型別資訊。
 
 Objective-C 和 Swift 的泛型功能支援與 Kotlin 不同，因此翻譯不可避免地會遺失一些資訊，但支援的功能仍保留有意義的資訊。
 
@@ -506,7 +511,7 @@ Objective-C 泛型不支援 Kotlin 或 Swift 的所有功能，因此翻譯中�
 
 #### 可為空性 (Nullability)
 
-Kotlin 和 Swift 都將可為空性定義為類型規範的一部分，而 Objective-C 則在類型的方法和屬性上定義可為空性。因此，以下 Kotlin 程式碼：
+Kotlin 和 Swift 都將可為空性定義為型別規範的一部分，而 Objective-C 則在型別的方法和屬性上定義可為空性。因此，以下 Kotlin 程式碼：
 
 ```kotlin
 class Sample<T>() {
@@ -522,9 +527,9 @@ class Sample<T>() {
 }
 ```
 
-為了支援潛在的可為空類型，Objective-C 標頭需要將 `myVal` 定義為可為空回傳值。
+為了支援潛在的可為空型別，Objective-C 標頭需要將 `myVal` 定義為可為空回傳值。
 
-為緩解此問題，當定義您的泛型類別時，如果泛型類型「絕不」應為空，請提供一個不可為空類型約束：
+為緩解此問題，當定義您的泛型類別時，如果泛型型別「絕不」應為空，請提供一個不可為空型別約束：
 
 ```kotlin
 class Sample<T : Any>() {
@@ -550,7 +555,7 @@ let variOutAny : GenVarOut<BaseData> = variOut as! GenVarOut<BaseData>
 
 #### 約束 (Constraints)
 
-在 Kotlin 中，您可以為泛型類型提供上限。Objective-C 也支援此功能，但在更複雜的情況下不適用，且目前 Kotlin - Objective-C 互通不支援。這裡的例外是，不可為空的上限會使 Objective-C 方法/屬性不可為空。
+在 Kotlin 中，您可以為泛型型別提供上限。Objective-C 也支援此功能，但在更複雜的情況下不適用，且目前 Kotlin - Objective-C 互通不支援。這裡的例外是，不可為空的上限會使 Objective-C 方法/屬性不可為空。
 
 #### 停用
 
@@ -629,7 +634,8 @@ Kotlin 類別和介面可以被 Swift/Objective-C 類別和協定子類別化。
 
 ### 從 Kotlin 子類別化 Swift/Objective-C 類別和協定
 
-Swift/Objective-C 類別和協定可以使用 Kotlin `final` 類別進行子類別化。非 `final` 的 Kotlin 類別繼承 Swift/Objective-C 類型目前尚不支援，因此不可能宣告繼承 Swift/Objective-C 類型的複雜類別階層。
+Swift/Objective-C 類別和協定可以使用 Kotlin `final` 類別進行子類別化。非 `final` 的 Kotlin 類別
+繼承 Swift/Objective-C 型別目前尚不支援，因此不可能宣告繼承 Swift/Objective-C 型別的複雜類別階層。
 
 一般方法可以使用 `override` Kotlin 關鍵字進行覆寫。在這種情況下，覆寫方法必須具有與被覆寫方法相同的參數名稱。
 
@@ -643,10 +649,10 @@ class ViewController : UIViewController {
 }
 ```
 
-覆寫建構子必須具有與被覆寫建構子相同的參數名稱和類型。
+覆寫建構子必須具有與被覆寫建構子相同的參數名稱和型別。
 
 要覆寫具有衝突 Kotlin 簽章的不同方法，您可以將 `@ObjCSignatureOverride` 註解新增到類別。
-如果從 Objective-C 類別繼承了幾個具有相同引數類型但不同引數名稱的函數，該註解會指示 Kotlin 編譯器忽略衝突的重載。
+如果從 Objective-C 類別繼承了幾個具有相同引數型別但不同引數名稱的函數，該註解會指示 Kotlin 編譯器忽略衝突的重載。
 
 預設情況下，Kotlin/Native 編譯器不允許呼叫非指定 Objective-C 初始化器作為 `super()` 建構子。如果指定初始化器在 Objective-C 函式庫中未正確標記，此行為可能會不方便。若要停用這些編譯器檢查，請在函式庫的 [`.def` 檔案](native-definition-file.md) 中新增 `disableDesignatedInitializerChecks = true`。
 

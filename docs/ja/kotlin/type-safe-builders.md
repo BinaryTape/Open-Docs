@@ -1,6 +1,6 @@
 [//]: # (title: 型安全なビルダー)
 
-適切に命名された関数をビルダーとして、[レシーバーを持つ関数リテラル](lambdas.md#function-literals-with-receiver)と組み合わせることで、Kotlinで型安全な静的型付けされたビルダーを作成できます。
+[レシーバーを持つ関数リテラル](lambdas.md#function-literals-with-receiver)と組み合わせて、適切に命名された関数をビルダーとして使用することで、Kotlinで型安全な静的型付けされたビルダーを作成できます。
 
 型安全なビルダーは、複雑な階層的データ構造を半宣言的に構築するのに適した、Kotlinベースのドメイン固有言語 (DSLs) の作成を可能にします。ビルダーの典型的なユースケースは次のとおりです。
 
@@ -167,7 +167,7 @@ operator fun String.unaryPlus() {
 ## スコープ制御: @DslMarker
 
 DSLsを使用していると、コンテキスト内で呼び出し可能な関数が多すぎるという問題に遭遇することがあります。
-ラムダ内で利用可能なすべての暗黙的なレシーバーのメソッドを呼び出すことができ、そのため、`head`タグが別の`head`の中にあるように、一貫性のない結果になることがあります。
+ラムダ内で利用可能なすべての[暗黙的なレシーバー](lambdas.md#function-literals-with-receiver)のメソッドを呼び出すことができ、そのため、`head`タグが別の`head`の中にあるように、一貫性のない結果になることがあります。
 
 ```kotlin
 html {
@@ -262,6 +262,36 @@ html {
 ```
 
 ラムダ内では最も近いレシーバーのメンバーと拡張のみがアクセス可能であり、ネストされたスコープ間での意図しない相互作用を防ぎます。
+
+暗黙的なレシーバーのメンバーと、[コンテキストパラメータ](context-parameters.md)からの宣言が、同じ名前を持つスコープ内にある場合、コンパイラは、暗黙的なレシーバーがコンテキストパラメータによってシャドウされるため、警告を報告します。
+これを解決するには、`this`修飾子を使用してレシーバーを明示的に呼び出すか、`contextOf<T>()`を使用してコンテキスト宣言を呼び出します。
+
+```kotlin
+interface HtmlTag {
+    fun setAttribute(name: String, value: String)
+}
+
+// 同じ名前のトップレベル関数を宣言します。これはコンテキストパラメータを通じて利用可能です
+context(tag: HtmlTag)
+fun setAttribute(name: String, value: String) { tag.setAttribute(name, value) }
+
+fun test(head: HtmlTag, extraInfo: HtmlTag) {
+    with(head) {
+        // 内部スコープで同じ型のコンテキスト値を導入します
+        context(extraInfo) {
+            // 警告を報告します:
+            // コンテキストパラメータによってシャドウされた暗黙的なレシーバーを使用します
+            setAttribute("user", "1234")
+
+            // レシーバーのメンバーを明示的に呼び出します
+            this.setAttribute("user", "1234")
+
+            // コンテキスト宣言を明示的に呼び出します
+            contextOf<HtmlTag>().setAttribute("user", "1234")
+        }
+    }
+}
+```
 
 ### com.example.htmlパッケージの完全な定義
 

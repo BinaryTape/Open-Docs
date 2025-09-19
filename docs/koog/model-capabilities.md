@@ -1,4 +1,4 @@
-Koog 提供了一套抽象和实现，用于以与提供商无关的方式处理来自各种 LLM 提供商的大型语言模型 (LLM)。其中包括以下类：
+Koog 提供了一套抽象和实现，用于以独立于提供商的方式处理来自各种 LLM 提供商的大型语言模型 (LLM)。其中包括以下类：
 
 - **LLMCapability**：一个类层次结构，定义了 LLM 可支持的各种能力，例如：
     - 用于控制响应随机性的温度调整
@@ -178,11 +178,11 @@ val visionModel = OllamaModels.Meta.LLAMA_3_2
 
 -->
 ```kotlin
-// Check if models support specific capabilities
+// 检测模型是否支持特定能力
 val supportsTools = basicModel.capabilities.contains(LLMCapability.Tools) // true
 val supportsVideo = visionModel.capabilities.contains(LLMCapability.Vision.Video) // false
 
-// Check for schema capabilities
+// 检测 Schema 能力
 val jsonCapability = basicModel.capabilities.filterIsInstance<LLMCapability.Schema.JSON>().firstOrNull()
 val hasFullJsonSupport = jsonCapability is LLMCapability.Schema.JSON.Standard // true
 ```

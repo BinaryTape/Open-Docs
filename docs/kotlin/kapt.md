@@ -11,15 +11,6 @@ Kotlin 通过 _kapt_ 编译器插件支持注解处理器（请参见 [JSR 269](
 简而言之，kapt 能够通过启用基于 Java 的注解处理，帮助您在 Kotlin 项目中使用 [Dagger](https://google.github.io/dagger/)
 和 [Data Binding](https://developer.android.com/topic/libraries/data-binding/index.html) 等库。
 
-> 如果您在使用 kapt 和 K2 编译器时遇到任何问题，
-> 请向我们的 [问题追踪器](http://kotl.in/issue) 报告，并在您的 `gradle.properties` 文件中禁用 K2 模式：
->
-> ```kotlin
-> kapt.use.k2=false
-> ```
->
-{style="note"}
-
 ## 在 Gradle 中使用
 
 要在 Gradle 中使用 kapt，请按照以下步骤操作：
@@ -411,7 +402,8 @@ kapt 编译器插件在 Kotlin 编译器的二进制发行版中可用。
 
 ## 生成 Kotlin 源代码
 
-kapt 可以生成 Kotlin 源代码。只需将生成的 Kotlin 源文件写入由 `processingEnv.options["kapt.kotlin.generated"]` 指定的目录，这些文件将与主源代码一起编译。
+kapt 可以生成 Kotlin 源代码。只需将生成的 Kotlin 源文件写入由 `processingEnv.options["kapt.kotlin.generated"]` 指定的目录，
+这些文件将与主源代码一起编译。
 
 请注意，kapt 不支持对生成的 Kotlin 文件进行多轮处理。
 

@@ -224,7 +224,7 @@ val mainEmail = emails.firstOrNull() ?: ""
 val value = ...
 
 value?.let {
-    // 如果非 null，则执行此代码块
+    ... // 如果非 null，则执行此代码块
 }
 ```
 

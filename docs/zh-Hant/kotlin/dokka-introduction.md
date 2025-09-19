@@ -24,5 +24,5 @@ Dokka 可以生成多種格式的文件，包括其自身的現代化 [HTML 格�
 
 ## 社群
 
-Dokka 在 [Kotlin 社群 Slack](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up) 中有一個專用的 `#dokka` 頻道，
+Dokka 在 [Kotlin 社群 Slack](https://kotl.in/slack) 中有一個專用的 `#dokka` 頻道，
 在那裡您可以討論 Dokka、其外掛程式以及如何開發它們，並與維護者聯繫。

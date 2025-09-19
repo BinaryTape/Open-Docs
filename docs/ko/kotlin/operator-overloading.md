@@ -169,13 +169,13 @@ data class Counter(val dayIndex: Int) {
 | `a == b` | `a?.equals(b) ?: (b === null)` |
 | `a != b` | `!(a?.equals(b) ?: (b === null))` |
 
-이 연산자들은 [`equals(other: Any?): Boolean`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/equals.html) 함수와만 작동하며, 이 함수는 사용자 지정 동등성 확인 구현을 제공하기 위해 오버라이드될 수 있습니다. 동일한 이름을 가진 다른 함수(예: `equals(other: Foo)`)는 호출되지 않습니다.
+이 연산자들은 [`equals(other: Any?): Boolean`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/equals.html) 함수와만 작동하며, 이 함수는 사용자 지정 동등성 확인 구현을 제공하기 위해 오버라이드될 수 있습니다. 동일한 이름을 가진 다른 함수(예: `equals(other: Foo)`)는 무시됩니다.
+
+Kotlin은 `==` 표현식에서 어느 피연산자도 `null`과 직접 비교되지 않고 비교가 두 부동 소수점 타입 사이에 해당하지 않을 때 `.equals()`를 호출합니다. 그렇지 않으면 Kotlin은 직접적인 `null` 비교에 `===`를 사용하고, `null`이 아닌 부동 소수점 값은 숫자 값으로 비교합니다.
 
 > `===` 및 `!==`(동일성 검사)는 오버로드할 수 없으므로, 이에 대한 규칙은 존재하지 않습니다.
 >
 {style="note"}
-
-`==` 연산은 특별합니다: `null`을 확인하는 복잡한 표현식으로 변환됩니다. `null == null`은 항상 `true`이며, `null`이 아닌 `x`에 대한 `x == null`은 항상 `false`이며 `x.equals()`를 호출하지 않습니다.
 
 ### 비교 연산자
 

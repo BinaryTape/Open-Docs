@@ -32,6 +32,10 @@ Kotlinコンパイラには、コンパイルプロセスを調整するため�
   > ```
   {style="note"}
 
+## コンパイラオプションのスキーマ
+
+すべてのコンパイラオプションの共通スキーマは、JARアーティファクトとして[`org.jetbrains.kotlin:kotlin-compiler-arguments-description`](https://central.sonatype.com/artifact/org.jetbrains.kotlin/kotlin-compiler-arguments-description)の下で公開されています。このアーティファクトには、すべてのコンパイラオプションの説明（Kotlin以外のコンシューマ向け）のコード表現とJSON形式の両方が含まれています。また、各オプションが導入または安定化されたバージョンなどのメタデータも含まれています。
+
 ## 共通オプション
 
 以下のオプションは、すべてのKotlinコンパイラに共通です。
@@ -178,6 +182,33 @@ kotlinc -Xwarning-level=DIAGNOSTIC_NAME:(error|warning|disabled)
 | `-Wextra -Xwarning-level=DIAGNOSTIC_NAME:disabled` | 指定されたチェックを除くすべての追加チェックを有効にします。 |
 
 一般的なルールから除外する警告が多数ある場合は、[`@argfile`](#argfile)を使用して別のファイルにリストできます。
+
+### -Xdata-flow-based-exhaustiveness
+<primary-label ref="experimental-general"/>
+
+`when`式に対するデータフローベースの網羅性チェックを有効にします。
+
+### -Xallow-reified-type-in-catch
+<primary-label ref="experimental-general"/>
+
+`inline`関数の`catch`句における実体化された`Throwable`型パラメータのサポートを有効にします。
+
+### Kotlinコントラクトオプション
+<primary-label ref="experimental-general"/>
+
+以下のオプションは、実験的なKotlinコントラクト機能を有効にします。
+
+#### -Xallow-contracts-on-more-functions
+
+プロパティアクセサ、特定の演算子関数、ジェネリック型に対する型アサーションを含む追加の宣言でコントラクトを有効にします。
+
+#### -Xallow-condition-implies-returns-contracts
+
+コントラクトで`returnsNotNull()`関数を使用し、指定された条件に対して非nullの戻り値を想定することを許可します。
+
+#### -Xallow-holdsin-contract
+
+コントラクトで`holdsIn`キーワードを使用し、ラムダ内でブール条件が`true`であると想定することを許可します。
 
 ## Kotlin/JVMコンパイラのオプション
 
@@ -333,6 +364,11 @@ Kotlinコードで宣言した変数名と関数名をソースマップに追�
 
 ソースマップ内のパスに指定されたプレフィックスを追加します。
 
+### -Xes-long-as-bigint
+<primary-label ref="experimental-general"/>
+
+モダンJavaScript（ES2020）にコンパイルする際、Kotlinの`Long`値を表現するためにJavaScriptの`BigInt`型へのサポートを有効にします。
+
 ## Kotlin/Nativeコンパイラのオプション
 
 Kotlin/Nativeコンパイラは、Kotlinソースファイルを[対応プラットフォーム](native-overview.md#target-platforms)向けのネイティブバイナリにコンパイルします。Kotlin/Nativeコンパイルのためのコマンドラインツールは、`kotlinc-native`です。
@@ -412,7 +448,7 @@ stdlibとリンクしません。
 ### -opt
 
 コンパイル最適化を有効にし、より良いランタイムパフォーマンスを持つバイナリを生成します。
-最適化レベルを下げる[`-g`](#g)オプションと組み合わせて使用することは推奨されません。
+最適化レベルを下げ[`-g`](#g)オプションと組み合わせて使用することは推奨されません。
 
 ### -output _name_ (-o _name_)
 

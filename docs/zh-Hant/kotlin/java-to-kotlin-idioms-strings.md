@@ -295,7 +295,7 @@ System.out.println(result);
 
 輸出：
 
-![Java 15 multiline output](java-15-multiline-output.png){width=700}
+![Java 15 多行輸出](java-15-multiline-output.png){width=700}
 
 如果您將三引號放在與最後一個單字相同的行上，這種行為差異就會消失。
 
@@ -317,7 +317,7 @@ fun main() {
 
 輸出：
 
-![Kotlin multiline output](kotlin-multiline-output.png){width=700}
+![Kotlin 多行輸出](kotlin-multiline-output.png){width=700}
 
 若要有多一個空行，您應該明確地將此空行加入到您的多行字串中。
 

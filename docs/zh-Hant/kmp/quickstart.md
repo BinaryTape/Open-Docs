@@ -10,49 +10,49 @@ Kotlin Multiplatform (KMP) 專案需要特定的環境，但大多數要求會�
 
 從 IDE 和必要的插件開始：
 
-1. 選擇並安裝 IDE。
+1.  選擇並安裝 IDE。
     IntelliJ IDEA 和 Android Studio 都支援 Kotlin Multiplatform，因此您可以使用您偏好的 IDE。
-    
+
     [JetBrains Toolbox App](https://www.jetbrains.com/toolbox/app/) 是安裝 IDE 的推薦工具。
     它允許您管理多個產品或版本，包括
     [搶先體驗計畫](https://www.jetbrains.com/resources/eap/) (EAP) 和每夜發佈 (Nightly releases)。
 
-    對於獨立安裝，請下載 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/) 
+    對於獨立安裝，請下載 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/)
     或 [Android Studio](https://developer.android.com/studio) 的安裝程式。
 
     Kotlin Multiplatform 所需的插件需要 **IntelliJ IDEA 2025.1.1.1**
     或 **Android Studio Narwhal 2025.1.1**。
 
-2. 安裝 [Kotlin Multiplatform IDE 插件](https://plugins.jetbrains.com/plugin/14936-kotlin-multiplatform)
+2.  安裝 [Kotlin Multiplatform IDE 插件](https://plugins.jetbrains.com/plugin/14936-kotlin-multiplatform)
     (不要與 Kotlin Multiplatform Gradle 插件混淆)。
-   
+
     > 適用於 Windows 或 Linux 上 IDE 的 Kotlin Multiplatform 插件尚未提供。
     > 但在這些平台上它也不是嚴格必要的：
     > 您仍然可以依照本教學生成並運行 KMP 專案。
     >
     {style="note"}
-    
-3. 為 IntelliJ IDEA 安裝 Kotlin Multiplatform IDE 插件也會安裝所有必要的依賴項（如果您尚未安裝它們）（Android Studio 已綁定所有必要的插件）。
-    
-    如果您正在 Windows 或 Linux 上使用 IntelliJ IDEA，請確保手動安裝所有必要的插件：
-    * [Android](https://plugins.jetbrains.com/plugin/22989-android)
-    * [Android Design Tools](https://plugins.jetbrains.com/plugin/22990-android-design-tools)
-    * [Jetpack Compose](https://plugins.jetbrains.com/plugin/18409-jetpack-compose)
-    * [Native Debugging Support](https://plugins.jetbrains.com/plugin/12775-native-debugging-support)
-    * [Compose Multiplatform for Desktop IDE Support](https://plugins.jetbrains.com/plugin/16541-compose-multiplatform-for-desktop-ide-support)
-      (僅在您沒有 Kotlin Multiplatform 插件時才需要)。
 
-4. 如果您尚未設定 `ANDROID_HOME` 環境變數，請配置您的系統以識別它：
+3.  為 IntelliJ IDEA 安裝 Kotlin Multiplatform IDE 插件也會安裝所有必要的依賴項（如果您尚未安裝它們）（Android Studio 已綁定所有必要的插件）。
+
+    如果您正在 Windows 或 Linux 上使用 IntelliJ IDEA，請確保手動安裝所有必要的插件：
+    *   [Android](https://plugins.jetbrains.com/plugin/22989-android)
+    *   [Android Design Tools](https://plugins.jetbrains.com/plugin/22990-android-design-tools)
+    *   [Jetpack Compose](https://plugins.jetbrains.com/plugin/18409-jetpack-compose)
+    *   [Native Debugging Support](https://plugins.jetbrains.com/plugin/12775-native-debugging-support)
+    *   [Compose Multiplatform for Desktop IDE Support](https://plugins.jetbrains.com/plugin/16541-compose-multiplatform-for-desktop-ide-support)
+        (僅在您沒有 Kotlin Multiplatform 插件時才需要)。
+
+4.  如果您尚未設定 `ANDROID_HOME` 環境變數，請配置您的系統以識別它：
 
     <Tabs>
     <TabItem title= "Bash 或 Zsh">
-   
+
     將以下命令新增到您的 `.profile` 或 `.zprofile` 中：
-        
+
     ```shell
     export ANDROID_HOME=~/Library/Android/sdk
     ```
-   
+
     </TabItem>
     <TabItem title= "Windows PowerShell 或 CMD">
 
@@ -63,14 +63,14 @@ Kotlin Multiplatform (KMP) 專案需要特定的環境，但大多數要求會�
     ```
 
     對於 CMD，請使用 [`setx`](https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/setx) 命令：
-    
+
     ```shell
     setx ANDROID_HOME "<path to the SDK>"
     ```
     </TabItem>
     </Tabs>
 
-5. 若要建立 iOS 應用程式，您需要一台安裝了 [Xcode](https://apps.apple.com/us/app/xcode/id497799835) 的 macOS 主機。
+5.  若要建立 iOS 應用程式，您需要一台安裝了 [Xcode](https://apps.apple.com/us/app/xcode/id497799835) 的 macOS 主機。
     您的 IDE 將在底層運行 Xcode 以建構 iOS 框架。
 
     在開始使用 KMP 專案之前，請確保至少啟動一次 Xcode，以便它完成初始設定。
@@ -80,7 +80,7 @@ Kotlin Multiplatform (KMP) 專案需要特定的環境，但大多數要求會�
     >
     {style="note"}
 
-## 建立專案 
+## 建立專案
 
 ### 在 macOS 上
 
@@ -91,19 +91,19 @@ Kotlin Multiplatform (KMP) 專案需要特定的環境，但大多數要求會�
 
 使用 IDE 精靈建立新的 KMP 專案：
 
-1. 在主選單中選擇 **檔案** | **新增** | **專案**。
-2. 在左側列表中選擇 **Kotlin Multiplatform**。
-3. 根據需要設定專案的名稱、位置和其他基本屬性。
-4. 我們建議選擇一個版本的 [JetBrains Runtime](https://github.com/JetBrains/JetBrainsRuntime)
-   (JBR) 作為您專案的 JDK，因為它提供了重要的修復，特別是為了提高桌面 KMP 應用程式的相容性。
-   每個 IntelliJ IDEA 發行版中都包含相關版本的 JBR，因此無需額外設定。
-5. 選擇您希望作為專案一部分的平台：
-    * 所有目標平台都可以設定為從一開始就使用 Compose Multiplatform 共用 UI 代碼（不包含 UI 代碼的伺服器模組除外）。
-    * 對於 iOS，您可以選擇兩種實作方式之一：
-        * 共用 UI 代碼，使用 Compose Multiplatform，
-        * 完全原生的 UI，使用 SwiftUI 製作並與具有共用邏輯的 Kotlin 模組連接。
-    * 桌面目標包含 [Compose Hot Reload](compose-hot-reload.md) 功能的 Alpha 版本，它允許您在更改相應代碼後立即看到 UI 變更。
-      即使您不打算製作桌面應用程式，您可能也會想使用桌面版本來加速編寫 UI 代碼。
+1.  在主選單中選擇 **檔案** | **新增** | **專案**。
+2.  在左側列表中選擇 **Kotlin Multiplatform**。
+3.  根據需要設定專案的名稱、位置和其他基本屬性。
+4.  我們建議選擇一個版本的 [JetBrains Runtime](https://github.com/JetBrains/JetBrainsRuntime)
+    (JBR) 作為您專案的 JDK，因為它提供了重要的修復，特別是為了提高桌面 KMP 應用程式的相容性。
+    每個 IntelliJ IDEA 發行版中都包含相關版本的 JBR，因此無需額外設定。
+5.  選擇您希望作為專案一部分的平台：
+    *   所有目標平台都可以設定為從一開始就使用 Compose Multiplatform 共用 UI 代碼（不包含 UI 代碼的伺服器模組除外）。
+    *   對於 iOS，您可以選擇兩種實作方式之一：
+        *   共用 UI 代碼，使用 Compose Multiplatform，
+        *   完全原生的 UI，使用 SwiftUI 製作並與具有共用邏輯的 Kotlin 模組連接。
+    *   桌面目標包含 [Compose Hot Reload](compose-hot-reload.md) 功能的 Beta 版本，它允許您在更改相應代碼後立即看到 UI 變更。
+        即使您不打算製作桌面應用程式，您可能也會想使用桌面版本來加速編寫 UI 代碼。
 
 選擇完平台後，點擊 **建立 (Create)** 按鈕，等待 IDE 生成並匯入專案。
 
@@ -118,22 +118,22 @@ Kotlin Multiplatform IDE 插件嚴重依賴 K2 功能，沒有它將無法如描
 
 使用 IDE 精靈建立新的 KMP 專案：
 
-1. 在主選單中選擇 **檔案** | **新增** | **新增專案**。
-2. 在預設的 **手機和平板** 範本類別中選擇 **Kotlin Multiplatform**。
+1.  在主選單中選擇 **檔案** | **新增** | **新增專案**。
+2.  在預設的 **手機和平板** 範本類別中選擇 **Kotlin Multiplatform**。
 
     ![First new project step in Android Studio](as-wizard-1.png){width="400"}
 
-3. 根據需要設定專案的名稱、位置和其他基本屬性，然後點擊 **下一步 (Next)**。
-4. 選擇您希望作為專案一部分的平台：
-    * 所有目標平台都可以設定為從一開始就使用 Compose Multiplatform 共用 UI 代碼（不包含 UI 代碼的伺服器模組除外）。
-    * 對於 iOS，您可以選擇兩種實作方式之一： 
-      * 共用 UI 代碼，使用 Compose Multiplatform，
-      * 完全原生的 UI，使用 SwiftUI 製作並與具有共用邏輯的 Kotlin 模組連接。  
-    * 桌面目標包含熱重載（hot reload）功能的 alpha 版本，它允許您在更改相應代碼後立即看到 UI 變更。
-      即使您不打算製作桌面應用程式，您可能也會想使用桌面版本來加速編寫 UI 代碼。
-5. 當專案生成後，我們建議選擇一個版本的 [JetBrains Runtime](https://github.com/JetBrains/JetBrainsRuntime)
-   (JBR) 作為您專案的 JDK，因為它提供了重要的修復，特別是為了提高桌面 KMP 應用程式的相容性。
-   每個 IntelliJ IDEA 發行版中都包含相關版本的 JBR，因此無需額外設定。
+3.  根據需要設定專案的名稱、位置和其他基本屬性，然後點擊 **下一步 (Next)**。
+4.  選擇您希望作為專案一部分的平台：
+    *   所有目標平台都可以設定為從一開始就使用 Compose Multiplatform 共用 UI 代碼（不包含 UI 代碼的伺服器模組除外）。
+    *   對於 iOS，您可以選擇兩種實作方式之一：
+        *   共用 UI 代碼，使用 Compose Multiplatform，
+        *   完全原生的 UI，使用 SwiftUI 製作並與具有共用邏輯的 Kotlin 模組連接。
+    *   桌面目標包含 [Compose Hot Reload](compose-hot-reload.md) 功能的 Beta 版本，它允許您在更改相應代碼後立即看到 UI 變更。
+        即使您不打算製作桌面應用程式，您可能也會想使用桌面版本來加速編寫 UI 代碼。
+5.  當專案生成後，我們建議選擇一個版本的 [JetBrains Runtime](https://github.com/JetBrains/JetBrainsRuntime)
+    (JBR) 作為您專案的 JDK，因為它提供了重要的修復，特別是為了提高桌面 KMP 應用程式的相容性。
+    每個 IntelliJ IDEA 發行版中都包含相關版本的 JBR，因此無需額外設定。
 
 選擇完平台後，點擊 **完成 (Finish)** 按鈕，等待 IDE 生成並匯入專案。
 
@@ -146,15 +146,15 @@ Kotlin Multiplatform IDE 插件嚴重依賴 K2 功能，沒有它將無法如描
 
 如果您正在使用 Windows 或 Linux：
 
-1. 使用 [web KMP 精靈](https://kmp.jetbrains.com/) 生成一個專案。
-2. 解壓縮歸檔檔並在您的 IDE 中打開生成的資料夾。
-3. 等待匯入完成，然後前往 [未定義](#run-the-sample-apps) 部分了解如何建構和運行應用程式。
+1.  使用 [web KMP 精靈](https://kmp.jetbrains.com/) 生成一個專案。
+2.  解壓縮歸檔檔並在您的 IDE 中打開生成的資料夾。
+3.  等待匯入完成，然後前往 [未定義](#run-the-sample-apps) 部分了解如何建構和運行應用程式。
 
 ## 諮詢預檢
 
 您可以透過打開 **專案環境預檢 (Project Environment Preflight Checks)** 工具視窗來確保專案設定沒有環境問題：點擊右側邊欄或底部工具欄上的預檢圖示 ![Preflight checks icon with a plane](ide-preflight-checks.png){width="20"}
 
-在此工具視窗中，您可以查看與這些檢查相關的訊息、重新運行它們或更改其設定。 
+在此工具視窗中，您可以查看與這些檢查相關的訊息、重新運行它們或更改其設定。
 
 預檢命令也可在 **隨處搜尋 (Search Everywhere)** 對話框中找到。
 按下雙擊 <shortcut>Shift</shortcut> 並搜尋包含「preflight」一詞的命令：
@@ -239,19 +239,19 @@ wasmJsBrowserDevelopmentRun
 
 Java 的常見問題：
 
-* 某些工具可能找不到要運行的 Java 版本或使用了錯誤的版本。
-  為了解決這個問題：
-    * 將 `JAVA_HOME` 環境變數設定為安裝了適當 JDK 的目錄。
-  
-      > 我們建議使用 [JetBrains Runtime](https://github.com/JetBrains/JetBrainsRuntime)，
-      > 這是一個支援類別重新定義的 OpenJDK 分支。
-      >
-      {style="note"}
-  
-    * 將 `JAVA_HOME` 內的 `bin` 資料夾路徑附加到 `PATH` 變數中，
-      以便 JDK 中包含的工具可在終端機中使用。
-* 如果您在 Android Studio 中遇到 Gradle JDK 的問題，請確保其配置正確：
-  選擇 **設定** | **建構、執行、部署** | **建構工具** | **Gradle**。
+*   某些工具可能找不到要運行的 Java 版本或使用了錯誤的版本。
+    為了解決這個問題：
+    *   將 `JAVA_HOME` 環境變數設定為安裝了適當 JDK 的目錄。
+
+        > 我們建議使用 [JetBrains Runtime](https://github.com/JetBrains/JetBrainsRuntime)，
+        > 這是一個支援類別重新定義的 OpenJDK 分支。
+        >
+        {style="note"}
+
+    *   將 `JAVA_HOME` 內的 `bin` 資料夾路徑附加到 `PATH` 變數中，
+        以便 JDK 中包含的工具可在終端機中使用。
+*   如果您在 Android Studio 中遇到 Gradle JDK 的問題，請確保其配置正確：
+    選擇 **設定** | **建構、執行、部署** | **建構工具** | **Gradle**。
 
 ### Android 工具
 
@@ -265,25 +265,25 @@ Java 的常見問題：
 
 ### 獲取協助
 
-* **Kotlin Slack**。獲取 [邀請](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up) 並加入 [#multiplatform](https://kotlinlang.slack.com/archives/C3PQML5NU) 頻道。
-* **Kotlin Multiplatform 工具問題追蹤器**。[回報新問題](https://youtrack.jetbrains.com/newIssue?project=KMT)。
+*   **Kotlin Slack**。獲取 [邀請](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up) 並加入 [#multiplatform](https://kotlinlang.slack.com/archives/C3PQML5NU) 頻道。
+*   **Kotlin Multiplatform 工具問題追蹤器**。[回報新問題](https://youtrack.jetbrains.com/newIssue?project=KMT)。
 
 ## 接下來
 
 了解更多關於 KMP 專案結構和編寫共用代碼的資訊：
-* 一系列關於使用共用 UI 代碼的教學：[建立您的 Compose Multiplatform 應用程式](compose-multiplatform-create-first-app.md)
-* 一系列關於將共用代碼與原生 UI 結合使用的教學：[建立您的 Kotlin Multiplatform 應用程式](multiplatform-create-first-app.md)
-* 深入了解 Kotlin Multiplatform 文件：
-  * [專案配置](multiplatform-project-configuration.md)
-  * [使用多平台依賴項](https://kotlinlang.org/docs/multiplatform-add-dependencies.html)
-* 了解 Compose Multiplatform UI 框架、其基礎知識和平台特定功能：
+*   一系列關於使用共用 UI 代碼的教學：[建立您的 Compose Multiplatform 應用程式](compose-multiplatform-create-first-app.md)
+*   一系列關於將共用代碼與原生 UI 結合使用的教學：[建立您的 Kotlin Multiplatform 應用程式](multiplatform-create-first-app.md)
+*   深入了解 Kotlin Multiplatform 文件：
+    *   [專案配置](multiplatform-project-configuration.md)
+    *   [使用多平台依賴項](https://kotlinlang.org/docs/multiplatform-add-dependencies.html)
+*   了解 Compose Multiplatform UI 框架、其基礎知識和平台特定功能：
     [Compose Multiplatform 和 Jetpack Compose](compose-multiplatform-and-jetpack-compose.md)。
 
 探索已為 KMP 編寫的代碼：
-* 我們的 [範例](multiplatform-samples.md) 頁面，包含 JetBrains 官方範例以及展示 KMP 功能的精選專案列表。
-* GitHub 主題：
-  * [kotlin-multiplatform](https://github.com/topics/kotlin-multiplatform)，使用 Kotlin Multiplatform 實作的專案。
-  * [kotlin-multiplatform-sample](https://github.com/topics/kotlin-multiplatform-sample)，
-      使用 KMP 編寫的範例專案列表。
-* [klibs.io](https://klibs.io) – KMP 函式庫搜尋平台，迄今已索引超過 2000 個函式庫，
+*   我們的 [範例](multiplatform-samples.md) 頁面，包含 JetBrains 官方範例以及展示 KMP 功能的精選專案列表。
+*   GitHub 主題：
+    *   [kotlin-multiplatform](https://github.com/topics/kotlin-multiplatform)，使用 Kotlin Multiplatform 實作的專案。
+    *   [kotlin-multiplatform-sample](https://github.com/topics/kotlin-multiplatform-sample)，
+        使用 KMP 編寫的範例專案列表。
+*   [klibs.io](https://klibs.io) – KMP 函式庫搜尋平台，迄今已索引超過 2000 個函式庫，
     包括 OkHttp、Ktor、Coil、Koin、SQLDelight 等。

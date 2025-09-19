@@ -1,6 +1,6 @@
 [//]: # (title: 運算子多載)
 
-Kotlin 允許您為預定義的型別運算子提供自訂實作。這些運算子具有預定義的符號表示法（例如 `+` 或 `*`）和優先順序。若要實作運算子，請為對應的型別提供一個[成員函數](functions.md#member-functions)或[擴充函數](extensions.md)，並指定其名稱。此型別會成為二元運算的左側型別，以及一元運算的引數型別。
+Kotlin 允許您為預定義的運算子集提供自訂實作。這些運算子具有預定義的符號表示法（例如 `+` 或 `*`）和優先順序。若要實作運算子，請為對應的型別提供一個[成員函數](functions.md#member-functions)或一個[擴充函數](extensions.md)，並指定其名稱。此型別會成為二元運算的左側型別，以及一元運算的引數型別。
 
 若要多載運算子，請使用 `operator` 修飾符標記對應的函數：
 
@@ -171,12 +171,11 @@ data class Counter(val dayIndex: Int) {
 
 這些運算子僅適用於函數 [`equals(other: Any?): Boolean`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/equals.html)，該函數可以被覆寫以提供自訂等式檢查實作。任何其他同名函數（例如 `equals(other: Foo)`）將不會被呼叫。
 
+當 `==` 表達式中兩個運算元都沒有直接與 `null` 比較，且比較對象不是兩個浮點型別時，Kotlin 會呼叫 `.equals()`。否則，Kotlin 會使用 `===` 進行直接的 `null` 比較，並透過數值比較非 `null` 的浮點值。
+
 > `===` 和 `!==` (身份檢查) 無法多載，因此沒有為它們定義慣例。
 >
 {style="note"}
-
-`==` 運算很特殊：它會轉換為一個複雜的表達式，用於篩選 `null` 值。
-`null == null` 始終為 true，對於非 `null` 的 `x` 來說，`x == null` 始終為 false 且不會呼叫 `x.equals()`。
 
 ### 比較運算子
 

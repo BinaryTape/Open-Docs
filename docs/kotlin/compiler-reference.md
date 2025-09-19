@@ -14,7 +14,7 @@
 Kotlin 编译器提供了多种选项，用于定制编译过程。针对不同目标的编译器选项及其描述都列在本页中。
 
 有几种方式可以设置编译器选项及其值（_编译器实参_）：
-* 在 IntelliJ IDEA 中，将编译器实参写入“**设置/偏好设置** | **构建、执行、部署** | **编译器** | **Kotlin 编译器**”中的“**附加命令行参数**”文本框内。
+* 在 IntelliJ IDEA 中，将编译器实参写入“**附加命令行参数**”文本框内，该文本框位于“**设置/偏好设置** | **构建、执行、部署** | **编译器** | **Kotlin 编译器**”中。
 * 如果您正在使用 Gradle，请在 Kotlin 编译任务的 `compilerOptions` 属性中指定编译器实参。关于详情，请参见[Gradle 编译器选项](gradle-compiler-options.md#how-to-define-options)。
 * 如果您正在使用 Maven，请在 Maven 插件节点的 `<configuration>` 元素中指定编译器实参。关于详情，请参见[Maven](maven.md#specify-compiler-options)。
 * 如果您运行命令行编译器，请将编译器实参直接添加到实用工具调用中，或者将它们写入一个 [argfile](#argfile) 中。
@@ -30,6 +30,10 @@ Kotlin 编译器提供了多种选项，用于定制编译过程。针对不同�
   > $ kotlinc.bat hello.kt -include-runtime -d "My Folder\hello.jar"
   > ```
   {style="note"}
+
+## 编译器选项的架构
+
+所有编译器选项的通用架构发布在 [`org.jetbrains.kotlin:kotlin-compiler-arguments-description`](https://central.sonatype.com/artifact/org.jetbrains.kotlin/kotlin-compiler-arguments-description) 下，作为 JAR 构件。该构件包含所有编译器选项描述的代码表示和 JSON 等效表示（供非 Kotlin 消费者使用），以及每个选项引入或稳定时的版本等元数据。
 
 ## 通用选项
 
@@ -175,6 +179,33 @@ kotlinc -Xwarning-level=DIAGNOSTIC_NAME:(error|warning|disabled)
 
 如果您有许多警告需要从通用规则中排除，可以使用 [`@argfile`](#argfile) 将它们列在单独的文件中。
 
+### -Xdata-flow-based-exhaustiveness
+<primary-label ref="experimental-general"/>
+
+启用基于数据流的 `when` 表达式穷尽性检测。
+
+### -Xallow-reified-type-in-catch
+<primary-label ref="experimental-general"/>
+
+启用对 `inline` 函数的 `catch` 子句中使用具象化 `Throwable` 类型形参的支持。
+
+### Kotlin 契约选项
+<primary-label ref="experimental-general"/>
+
+以下选项启用实验性的 Kotlin 契约特性。
+
+#### -Xallow-contracts-on-more-functions
+
+在额外的声明中启用契约，包括属性访问器、特定的操作符函数和泛型类型的类型断言。
+
+#### -Xallow-condition-implies-returns-contracts
+
+允许在契约中使用 `returnsNotNull()` 函数，以假定指定条件下的非空返回值。
+
+#### -Xallow-holdsin-contract
+
+允许在契约中使用 `holdsIn` 关键字，以假定 lambda 内部的布尔条件为 `true`。
+
 ## Kotlin/JVM 编译器选项
 
 用于 JVM 的 Kotlin 编译器将 Kotlin 源文件编译成 Java 类文件。Kotlin 到 JVM 编译的命令行工具是 `kotlinc` 和 `kotlinc-jvm`。您也可以使用它们来执行 Kotlin 脚本文件。
@@ -231,7 +262,7 @@ kotlinc -Xwarning-level=DIAGNOSTIC_NAME:(error|warning|disabled)
 
 不要自动将 Kotlin/JVM 标准库 (`kotlin-stdlib.jar`) 和 Kotlin 反射 (`kotlin-reflect.jar`) 包含到 classpath 中。
 
-### -script-templates _classnames[,]
+### -script-templates _classnames[,]_
 
 脚本定义模板类。使用全限定类名，并用逗号（**，**）分隔它们。
 
@@ -326,6 +357,11 @@ Kotlin 库 `.meta.js` 和 `.kjsm` 文件的路径，由系统路径分隔符分�
 
 将指定前缀添加到源码映射中的路径。
 
+### -Xes-long-as-bigint
+<primary-label ref="experimental-general"/>
+
+当编译到现代 JavaScript (ES2020) 时，启用对 JavaScript `BigInt` 类型的支持，以表示 Kotlin `Long` 值。
+
 ## Kotlin/Native 编译器选项
 
 Kotlin/Native 编译器将 Kotlin 源文件编译成适用于[支持平台](native-overview.md#target-platforms)的原生二进制文件。Kotlin/Native 编译的命令行工具是 `kotlinc-native`。
@@ -354,7 +390,7 @@ Kotlin/Native 编译器将 Kotlin 源文件编译成适用于[支持平台](nati
 
 ### -library _path_ (-l _path_)
 
-链接到库。关于在 Kotlin/Native 项目中使用库的更多信息，请参见[Kotlin/Native 库](native-libraries.md)。
+链接到库。关于在 Kotlin/native 项目中使用库的更多信息，请参见[Kotlin/Native 库](native-libraries.md)。
 
 ### -library-version _version_ (-lv _version_)
 

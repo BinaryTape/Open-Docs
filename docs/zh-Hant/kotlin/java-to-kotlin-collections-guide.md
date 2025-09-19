@@ -98,7 +98,7 @@ _集合_ 是數量可變（可能為零）的項目群組，這些項目對於�
 
 如果您想深入了解 `zip()`、`chunked()`、`windowed()` 和其他一些操作，請觀看 Sebastian Aigner 關於 Kotlin 進階集合操作的這段影片：
 
-<video src="https://www.youtube.com/v/N4CpLxGJlq0" title="Advanced Collection Operations"/>
+<video src="https://www.youtube.com/v/N4CpLxGJlq0" title="進階集合操作"/>
 
 ## 可變性
 
@@ -140,9 +140,9 @@ immutableCollection.add("five"); // Fails in runtime with `UnsupportedOperationE
 ```kotlin
 // Kotlin
 val numbers = mutableListOf("one", "two", "three", "four")
-numbers.add("five")            // This is OK
+numbers.add("five")            // 這是 OK 的
 val immutableNumbers = listOf("one", "two")
-//immutableNumbers.add("five") // Compilation error - Unresolved reference: add
+//immutableNumbers.add("five") // 編譯錯誤 - 未解析的引用: add
 ```
 {id="mutability-kotlin"}
 
@@ -161,8 +161,7 @@ class Shape {}
 class Rectangle extends Shape {}
 
 public void doSthWithShapes(List<? extends Shape> shapes) {
-/* If using just List<Shape>, the code won't compile when calling
-this function with the List<Rectangle> as the argument as below */
+/* 如果只使用 List<Shape>，當以 List<Rectangle> 作為參數呼叫此函數時，程式碼將不會編譯 */
 }
 
 public void main() {
@@ -182,7 +181,7 @@ open class Shape(val name: String)
 class Rectangle(private val rectangleName: String) : Shape(rectangleName)
 
 fun doSthWithShapes(shapes: List<Shape>) {
-    println("The shapes are: ${shapes.joinToString { it.name }}")
+    println("形狀為: ${shapes.joinToString { it.name }}")
 }
 
 fun main() {
@@ -327,7 +326,7 @@ fun main() {
 // Java
 int sum = IntStream.iterate(1, e -> e + 3)
     .limit(10).sum();
-System.out.println(sum); // Prints 145
+System.out.println(sum); // 輸出 145
 ```
 {id="sequences-java"}
 
@@ -341,7 +340,7 @@ fun main() {
     val sum = generateSequence(1) {
         it + 3
     }.take(10).sum()
-    println(sum) // Prints 145
+    println(sum) // 輸出 145
 //sampleEnd
 }
 ```
@@ -364,7 +363,7 @@ public void remove() {
     numbers.add(2);
     numbers.add(3);
     numbers.add(1);
-    numbers.remove(1); // This removes by index
+    numbers.remove(1); // 這是依索引移除
     System.out.println(numbers); // [1, 3, 1]
     numbers.remove(Integer.valueOf(1));
     System.out.println(numbers); // [3, 1]
@@ -405,7 +404,7 @@ numbers.forEach((k,v) -> System.out.println("Key = " + k + ", Value = " + v));
 for ((k, v) in numbers) {
     println("Key = $k, Value = $v")
 }
-// Or
+// 或者
 numbers.forEach { (k, v) -> println("Key = $k, Value = $v") }
 ```
 {id="traverse-map-kotlin"}
@@ -443,7 +442,7 @@ if (deque.size() > 0) {
 
 ```kotlin
 // Kotlin
-val emails = listOf<String>() // Might be empty
+val emails = listOf<String>() // 可能為空
 val theOldestEmail = emails.firstOrNull() ?: ""
 val theFreshestEmail = emails.lastOrNull() ?: ""
 ```
@@ -567,7 +566,7 @@ public void objectIsInstance() {
     numbers.add("two");
     numbers.add(3.0);
     numbers.add("four");
-    System.out.println("All String elements in upper case:");
+    System.out.println("所有 String 元素大寫：");
     numbers.stream().filter(it -> it instanceof String)
         .forEach( it -> System.out.println(((String) it).toUpperCase()));
 }
@@ -582,7 +581,7 @@ fun main() {
 //sampleStart
     // Kotlin
     val numbers = listOf(null, 1, "two", 3.0, "four")
-    println("All String elements in upper case:")
+    println("所有 String 元素大寫：")
     numbers.filterIsInstance<String>().forEach {
         println(it.uppercase())
     }

@@ -1,11 +1,13 @@
-[//]: # (title: Compose Multiplatform %org.jetbrains.compose-eap% 中的新特性)
+[//]: # (title: Compose Multiplatform 1.9.0 中的新特性)
 
-以下是本次抢先体验预览特性发布的亮点：
+以下是本次特性发布的亮点：
 
-*   [Material 3 表现力主题](#new-material-3-expressive-theme)
-*   [可定制的阴影](#customizable-shadows)
 *   [@Preview 注解的参数](#parameters-for-the-preview-annotation)
+*   [可定制的阴影](#customizable-shadows)
+*   [新的上下文菜单 API](#new-context-menu-api)
+*   [Material 3 表现力主题](#material-3-expressive-theme)
 *   [iOS 上的帧率配置](#frame-rate-configuration)
+*   [Web 平台上的 Compose Multiplatform 进入 Beta 阶段](#compose-multiplatform-for-web-in-beta)
 *   [Web 目标平台上的辅助功能支持](#accessibility-support)
 *   [嵌入 HTML 内容的新 API](#new-api-for-embedding-html-content)
 
@@ -13,30 +15,21 @@
 
 ## 依赖项
 
-*   Gradle 插件 `org.jetbrains.compose`，版本 `%org.jetbrains.compose-eap%`。基于 Jetpack Compose 库：
-    *   [Runtime 1.9.0-rc01](https://developer.android.com/jetpack/androidx/releases/compose-runtime#1.9.0-rc01)
-    *   [UI 1.9.0-rc01](https://developer.android.com/jetpack/androidx/releases/compose-ui#1.9.0-rc01)
-    *   [Foundation 1.9.0-rc01](https://developer.android.com/jetpack/androidx/releases/compose-foundation#1.9.0-rc01)
-    *   [Material 1.9.0-rc01](https://developer.android.com/jetpack/androidx/releases/compose-material#1.9.0-rc01)
+*   Gradle 插件 `org.jetbrains.compose`，版本 1.9.0。基于 Jetpack Compose 库：
+    *   [Runtime 1.9.0](https://developer.android.com/jetpack/androidx/releases/compose-runtime#1.9.0)
+    *   [UI 1.9.0](https://developer.android.com/jetpack/androidx/releases/compose-ui#1.9.0)
+    *   [Foundation 1.9.0](https://developer.android.com/jetpack/androidx/releases/compose-foundation#1.9.0)
+    *   [Material 1.9.0](https://developer.android.com/jetpack/androidx/releases/compose-material#1.9.0)
     *   [Material3 1.3.2](https://developer.android.com/jetpack/androidx/releases/compose-material3#1.3.2)
-*   Compose Material3 库 `org.jetbrains.compose.material3:1.9.0-beta03`。基于 [Jetpack Material3 1.4.0-beta01](https://developer.android.com/jetpack/androidx/releases/compose-material3#1.4.0-beta01)。
+
+*   Compose Material3 库 `org.jetbrains.compose.material3:1.9.0-beta06`。基于 [Jetpack Material3 1.4.0-beta03](https://developer.android.com/jetpack/androidx/releases/compose-material3#1.4.0-beta03)。
 
     公共 Material3 库的稳定版本基于 Jetpack Compose Material3 1.3.2，但得益于 Compose Multiplatform 和 Material3 的[解耦版本控制](#decoupled-material3-versioning)，你可以为你的项目选择更新的预发布版本。
-*   Compose Material3 Adaptive 库 `org.jetbrains.compose.material3.adaptive:adaptive*:1.2.0-alpha05`。基于 [Jetpack Material3 Adaptive 1.2.0-alpha10](https://developer.android.com/jetpack/androidx/releases/compose-material3-adaptive#1.2.0-alpha10)
-*   Lifecycle 库 `org.jetbrains.androidx.lifecycle:lifecycle-*:2.9.2`。基于 [Jetpack Lifecycle 2.9.2](https://developer.android.com/jetpack/androidx/releases/lifecycle#2.9.2)
-*   Navigation 库 `org.jetbrains.androidx.navigation:navigation-*:2.9.0-beta05`。基于 [Jetpack Navigation 2.9.1](https://developer.android.com/jetpack/androidx/releases/navigation#2.9.1)
-*   Savedstate 库 `org.jetbrains.androidx.savedstate:savedstate:1.3.2`。基于 [Jetpack Savedstate 1.3.1](https://developer.android.com/jetpack/androidx/releases/savedstate#1.3.1)
-*   WindowManager Core 库 `org.jetbrains.androidx.window:window-core:1.4.0-beta01`。基于 [Jetpack WindowManager 1.4.0](https://developer.android.com/jetpack/androidx/releases/window#1.4.0)
-
-## 重大变更
-
-为与 Jetpack Material3 [1.4.0-beta01 版本](https://developer.android.com/jetpack/androidx/releases/compose-material3#1.4.0-beta01)保持一致，Compose Multiplatform 移除了所有带有 `ExperimentalMaterial3ExpressiveApi` 和 `ExperimentalMaterial3ComponentOverrideApi` 标签的公共 API。
-
-如果你想继续使用这些实验性特性，可以显式包含先前的 Material3 alpha 版本：
-
-```kotlin
-implementation("org.jetbrains.compose.material3:material3:1.9.0-alpha04")
-```
+*   Compose Material3 Adaptive 库 `org.jetbrains.compose.material3.adaptive:adaptive*:1.2.0-alpha06`。基于 [Jetpack Material3 Adaptive 1.2.0-alpha11](https://developer.android.com/jetpack/androidx/releases/compose-material3-adaptive#1.2.0-alpha11)
+*   Lifecycle 库 `org.jetbrains.androidx.lifecycle:lifecycle-*:2.9.4`。基于 [Jetpack Lifecycle 2.9.2](https://developer.android.com/jetpack/androidx/releases/lifecycle#2.9.2)
+*   Navigation 库 `org.jetbrains.androidx.navigation:navigation-*:2.9.0`。基于 [Jetpack Navigation 2.9.1](https://developer.android.com/jetpack/androidx/releases/navigation#2.9.1)
+*   Savedstate 库 `org.jetbrains.androidx.savedstate:savedstate:1.3.4`。基于 [Jetpack Savedstate 1.3.1](https://developer.android.com/jetpack/androidx/releases/savedstate#1.3.1)
+*   WindowManager Core 库 `org.jetbrains.androidx.window:window-core:1.4.0`。基于 [Jetpack WindowManager 1.4.0](https://developer.android.com/jetpack/androidx/releases/window#1.4.0)
 
 ## 跨平台
 
@@ -56,7 +49,7 @@ Compose Multiplatform 中的 `@Preview` 注解现在包含额外参数，用于�
 
 ### 可定制的阴影
 
-在 Compose Multiplatform %org.jetbrains.compose-eap% 中，我们引入了可定制的阴影，采用了 Jetpack Compose 新的阴影原语和 API。除了先前支持的 `shadow` 修饰符，你现在可以使用新 API 创建更高级、更灵活的阴影效果。
+在 Compose Multiplatform 1.9.0 中，我们引入了可定制的阴影，采用了 Jetpack Compose 新的阴影原语和 API。除了先前支持的 `shadow` 修饰符，你现在可以使用新 API 创建更高级、更灵活的阴影效果。
 
 两种新的原语可用于创建不同类型的阴影：`DropShadowPainter()` 和 `InnerShadowPainter()`。
 
@@ -73,26 +66,48 @@ Compose Multiplatform 中的 `@Preview` 注解现在包含额外参数，用于�
 
 有关详细信息，请参见 [阴影 API 参考](https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/shadow/package-summary.html)。
 
-### 新的 Material 3 表现力主题
+### 新的上下文菜单 API
+
+我们已采用 Jetpack Compose 的新 API，用于 `SelectionContainer` 和 `BasicTextField` 中的自定义上下文菜单。该实现在 iOS 和 web 上已完成，而桌面端则有初步支持。
+
+<list columns="2">
+   <li><img src="compose_basic_text_field.png" type="inline" alt="Context menu for BasicTextField" width="420"/></li>
+   <li><img src="compose_selection_container.png" type="inline" alt="Context menu for SelectionContainer" width="440"/></li>
+</list>
+
+要启用此新 API，请在应用程序入口点使用以下设置：
+
+```kotlin
+ComposeFoundationFlags.isNewContextMenuEnabled = true
+```
+
+有关详细信息，请参见 [上下文菜单 API 参考](https://developer.android.com/reference/kotlin/androidx/compose/foundation/text/contextmenu/data/package-summary)。
+
+### Material 3 表现力主题
 <secondary-label ref="Experimental"/>
 
 Compose Multiplatform 现在支持来自 Material 3 库的实验性 [`MaterialExpressiveTheme`](https://developer.android.com/reference/kotlin/androidx/compose/material3/package-summary?hl=en#MaterialExpressiveTheme(androidx.compose.material3.ColorScheme,androidx.compose.material3.MotionScheme,androidx.compose.material3.Shapes,androidx.compose.material3.Typography,kotlin.Function0))。表现力主题化允许你定制 Material Design 应用，以获得更个性化的体验。
 
+{style="note"}
+>为与 Jetpack Material3 [1.4.0-beta01 版本](https://developer.android.com/jetpack/androidx/releases/compose-material3#1.4.0-beta01) 保持一致，所有带有 `ExperimentalMaterial3ExpressiveApi` 和 `ExperimentalMaterial3ComponentOverrideApi` 标签的公共 API 已被移除。
+>
+>如果你想使用这些实验性特性，需要显式包含 Alpha 版本的 Material3。
+
 使用表现力主题：
 
-1.  包含最新版本的 Material 3：
+1.  包含 Material 3 的实验性版本：
 
     ```kotlin
     implementation("org.jetbrains.compose.material3:material3:1.9.0-alpha04")
     ```
 
-2.  使用 `MaterialExpressiveTheme()` 函数，并带有 `@OptIn(ExperimentalMaterial3ExpressiveApi::class)` opt-in，通过设置 `colorScheme`、`motionScheme`、`shapes` 和 `typography` 参数来配置 UI 元素的整体主题。
+2.  使用 `MaterialExpressiveTheme()` 函数配置 UI 元素的整体主题。此函数需要 `@OptIn(ExperimentalMaterial3ExpressiveApi::class)` opt-in，并允许你指定 `colorScheme`、`motionScheme`、`shapes` 和 `typography`。
 
 Material 组件，例如 [`Button()`](https://kotlinlang.org/api/compose-multiplatform/material3/androidx.compose.material3/-button.html) 和 [`Checkbox()`](https://kotlinlang.org/api/compose-multiplatform/material3/androidx.compose.material3/-checkbox.html)，随后将自动使用你提供的值。
 
 <img src="compose_expressive_theme.animated.gif" alt="Material 3 Expressive" width="250" preview-src="compose_expressive_theme.png"/>
 
-### androidx.compose.runtime:runtime 中的多平台目标
+### `androidx.compose.runtime:runtime` 中的多平台目标
 
 为了改善 Compose Multiplatform 与 Jetpack Compose 的对齐，我们已将所有目标的支持直接添加到 `androidx.compose.runtime:runtime` 构件中。
 
@@ -125,7 +140,37 @@ Modifier.preferredFrameRate(FrameRateCategory.High)
 Modifier.preferredFrameRate(30f)
 ```
 
+如果在同一个 `@Composable` 树中多次应用 `preferredFrameRate`，将应用指定的最高值。然而，设备的硬件可能会限制支持的帧率，通常最高为 120 Hz。
+
+### IME 选项
+
+Compose Multiplatform 1.9.0 引入了对文本输入组件的 iOS 特有 IME 定制支持。你现在可以使用 `PlatformImeOptions` 直接在文本字段组件中配置原生 UIKit 文本输入特性，例如键盘类型、自动更正和回车键行为：
+
+```kotlin
+BasicTextField(
+    value = "",
+    onValueChange = {},
+    keyboardOptions = KeyboardOptions(
+        platformImeOptions = PlatformImeOptions {
+            keyboardType(UIKeyboardTypeEmailAddress)
+        }
+    )
+)
+```
+
 ## Web
+
+### Web 平台上的 Compose Multiplatform 进入 Beta 阶段
+
+Web 平台上的 Compose Multiplatform 现已进入 Beta 阶段，正是尝试它的好时机。
+<!-- Check out [our blog post]()  to learn more about the progress made to reach this milestone.
+-->
+
+在我们努力实现稳定版本的过程中，我们的路线图包括：
+
+*   在移动浏览器中实现拖放功能支持。
+*   改进辅助功能支持。
+*   解决与 `TextField` 组件相关的问题。
 
 ### 辅助功能支持
 
@@ -190,19 +235,6 @@ fun Map() {
 
 请注意，你只能将此函数与 `ComposeViewport` 入口点一起使用，因为 `CanvasBasedWindow` 已弃用。
 
-### 上下文菜单
-
-Compose Multiplatform %org.jetbrains.compose-eap% 为 Web 上下文菜单带来了以下更新：
-
-*   文本上下文菜单：标准的 Compose 文本上下文菜单现在在移动和桌面模式下都完全支持。
-*   新的可定制上下文菜单：我们采用了 Jetpack Compose 新的 API 来实现自定义 Web 上下文菜单。目前，它仅在桌面模式下可用。
-
-    要启用此新 API，请在应用程序入口点使用以下设置：
-
-    ```kotlin
-    ComposeFoundationFlags.isNewContextMenuEnabled = true
-    ```
-
 ### 简化导航图绑定 API
 
 Compose Multiplatform 引入了一个新 API，用于将浏览器的导航状态绑定到 `NavController`：
@@ -233,6 +265,16 @@ LaunchedEffect(Unit) {
 }
 ```
 
+## Desktop
+
+### 在显示前配置窗口
+
+Compose Multiplatform 现在包含新的 `SwingFrame()` 和 `SwingDialog()` 可组合项。它们与现有的 `Window()` 和 `DialogWindow()` 函数类似，但包含一个 `init` 代码块。
+
+以前，你无法设置某些必须在显示前配置的窗口属性。新的 `init` 代码块会在你的窗口或对话框出现在屏幕之前执行，允许你配置 `java.awt.Window.setType` 等属性，或添加需要提前准备好的事件监听器。
+
+我们建议仅将 `init` 代码块用于窗口或对话框一旦可见后无法更改的属性。对于所有其他配置，请继续使用 `LaunchedEffect(window)` 模式，以确保你的代码保持兼容性，并能正确处理未来的更新。
+
 ## Gradle 插件
 
 ### Material3 版本解耦
@@ -243,3 +285,8 @@ Material3 库和 Compose Multiplatform Gradle 插件的版本和稳定级别不�
 
 ```kotlin
 implementation("org.jetbrains.compose.material3:material3:1.9.0-alpha04")
+```
+
+### 统一的 Web 分发
+
+新的 `composeCompatibilityBrowserDistribution` Gradle 任务将 Kotlin/JS 和 Kotlin/Wasm 分发包组合成一个单独的包。这允许 Wasm 应用程序在浏览器不支持现代 Wasm 特性时回退到 JS 目标平台。

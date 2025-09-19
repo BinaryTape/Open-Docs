@@ -235,6 +235,7 @@ fun DefaultPreview() {
         GreetingView("Hello, Android!")
     }
 }
+
 ```
 
 在建立的作用域內，我們可以呼叫共享的 `greeting` 函式並處理可能的異常。
@@ -310,12 +311,12 @@ fun DefaultPreview() {
 <Tabs>
 <TabItem title="Android">
 
-![Android simulator](tutorial_client_kmm_android.png){width="381"}
+![Android 模擬器](tutorial_client_kmm_android.png){width="381"}
 
 </TabItem>
 <TabItem title="iOS">
 
-![iOS simulator](tutorial_client_kmm_ios.png){width="351"}
+![iOS 模擬器](tutorial_client_kmm_ios.png){width="351"}
 
 </TabItem>
 </Tabs>

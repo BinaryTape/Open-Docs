@@ -1,6 +1,6 @@
 [//]: # (title: Kotlin 1.7 相容性指南)
 
-_讓語言保持現代 (Keeping the Language Modern)_ 和 _舒適的更新 (Comfortable Updates)_ 是 Kotlin 語言設計的根本原則之一。前者指出應移除阻礙語言演進的結構，後者則表示此類移除應事先充分溝通，以使程式碼遷移盡可能順暢。
+_[讓語言保持現代 (Keeping the Language Modern)](kotlin-evolution-principles.md)_ 和 _[舒適的更新 (Comfortable Updates)](kotlin-evolution-principles.md)_ 是 Kotlin 語言設計的根本原則之一。前者指出應移除阻礙語言演進的結構，後者則表示此類移除應事先充分溝通，以使程式碼遷移盡可能順暢。
 
 儘管大多數語言變更已透過其他管道（例如更新變更日誌或編譯器警告）宣佈，但本文總結了所有這些變更，為從 Kotlin 1.6 遷移到 Kotlin 1.7 提供了完整的參考。
 
@@ -45,19 +45,19 @@ _讓語言保持現代 (Keeping the Language Modern)_ 和 _舒適的更新 (Comf
 >
 > **棄用週期 (Deprecation cycle)**:
 >
-> - <1.3: 對於不可空接收者的不必要安全呼叫報告警告
+> - &lt;1.3: 對於不可空接收者的不必要安全呼叫報告警告
 > - 1.6.20: 額外警告不必要安全呼叫的結果型別將在下一版本中變更
-> - 1.7.0: 將安全呼叫結果的型別變更為可空，
->   `-XXLanguage:-SafeCallsAreAlwaysNullable` 可用於暫時恢復到 1.7 之前的行為
+> - 1.7.0: 將安全呼叫結果的型別變更為可空，  
+> `-XXLanguage:-SafeCallsAreAlwaysNullable` 可用於暫時恢復到 1.7 之前的行為
 
 ### 禁止將 super 呼叫委派給抽象超類別成員
 
-> **問題 (Issues)**: [KT-45508](https://youtrack.jetbrains.com/issue/KT-49017), [KT-49017](https://youtrack.jetbrains.com/issue/KT-49017), [KT-38078](https://youtrack.jetbrains.com/issue/KT-38078)
+> **問題 (Issues)**: [KT-45508](https://youtrack.jetbrains.com/issue/KT-45508), [KT-49017](https://youtrack.jetbrains.com/issue/KT-49017), [KT-38078](https://youtrack.jetbrains.com/issue/KT-38078)
 >
 > **元件 (Component)**: 核心語言 (Core language)
 >
 > **不相容變更型別 (Incompatible change type)**: 原始碼 (source)
->
+> 
 > **簡要概述 (Short summary)**: Kotlin 將在顯式或隱式 `super` 呼叫委派給超類別的 _抽象_ 成員時報告編譯錯誤，即使超介面中存在預設實作。
 >
 > **棄用週期 (Deprecation cycle)**:
@@ -66,7 +66,7 @@ _讓語言保持現代 (Keeping the Language Modern)_ 和 _舒適的更新 (Comf
 > - 1.7.0: 如果 `super` 呼叫實際上存取了超類別中的抽象成員，則報告錯誤
 > - 1.7.0: 如果啟用 `-Xjvm-default=all` 或 `-Xjvm-default=all-compatibility` 相容模式，則報告錯誤；
 >   在漸進模式下報告錯誤
-> - >=1.8.0: 在所有情況下報告錯誤
+> - &gt;=1.8.0: 在所有情況下報告錯誤
 
 ### 禁止透過在非公開主要建構子中宣告的公開屬性暴露非公開型別
 
@@ -102,7 +102,7 @@ _讓語言保持現代 (Keeping the Language Modern)_ 和 _舒適的更新 (Comf
 
 ### 禁止在 when 條件分支和迴圈條件中計算複雜布林運算式的常數值
 
-> **問題 (Issue)**: [KT-39883](https://youtrack.com/issue/KT-39883)
+> **問題 (Issue)**: [KT-39883](https://youtrack.jetbrains.com/issue/KT-39883)
 >
 > **元件 (Component)**: 核心語言 (Core language)
 >
@@ -144,7 +144,7 @@ _讓語言保持現代 (Keeping the Language Modern)_ 和 _舒適的更新 (Comf
 >
 > - 1.6.20: 對受影響的運算式引入棄用警告
 > - 1.8.0: 將此警告提升為錯誤
-> - >= 1.8: 將一些棄用結構重新用於新的語言功能
+> - &gt;= 1.8: 將一些棄用結構重新用於新的語言功能
 
 ### 型別可空性增強改進
 
@@ -174,14 +174,14 @@ _讓語言保持現代 (Keeping the Language Modern)_ 和 _舒適的更新 (Comf
 >
 > **棄用週期 (Deprecation cycle)**:
 >
-> - < 1.5.30: 在所有受影響的情況下都是舊行為
+> - &lt; 1.5.30: 在所有受影響的情況下都是舊行為
 > - 1.5.30: 修正生成的屬性委託存取器中的向下轉型行為，
 >   `-Xuse-old-backend` 可用於暫時恢復到 1.5.30 之前的修正行為
-> - >= 1.7.20: 修正其他受影響情況下的向下轉型行為
+> - &gt;= 1.7.20: 修正其他受影響情況下的向下轉型行為
 
 ### 棄用編譯器選項 -Xjvm-default 的啟用和相容模式
 
-> **問題 (Issue)**: [KT-46329](https://youtrack.jetbrains.com/issue/KT-46329)
+> **問題 (Issue)**: [KT-46329](https://youtrack.com/issue/KT-46329)
 >
 > **元件 (Component)**: Kotlin/JVM
 >
@@ -192,7 +192,7 @@ _讓語言保持現代 (Keeping the Language Modern)_ 和 _舒適的更新 (Comf
 > **棄用週期 (Deprecation cycle)**:
 >
 > - 1.6.20: 對於 `-Xjvm-default` 編譯器選項的 `enable` 和 `compatibility` 模式引入警告
-> - >= 1.8.0: 將此警告提升為錯誤
+> - &gt;= 1.8.0: 將此警告提升為錯誤
 
 ### 禁止呼叫帶有 trailing lambda 的 `suspend` 函數
 
@@ -224,8 +224,8 @@ _讓語言保持現代 (Keeping the Language Modern)_ 和 _舒適的更新 (Comf
 > **棄用週期 (Deprecation cycle)**:
 >
 > - 1.6.0: 對於在另一個模組中的父類別中宣告的屬性進行智能轉型時報告警告
-> - 1.7.0: 將此警告提升為錯誤，
->   `-XXLanguage:-ProhibitSmartcastsOnPropertyFromAlienBaseClass` 可用於暫時恢復到 1.7 之前的行為
+> - 1.7.0: 將此警告提升為錯誤，  
+> `-XXLanguage:-ProhibitSmartcastsOnPropertyFromAlienBaseClass` 可用於暫時恢復到 1.7 之前的行為
 
 ### 型別推斷時不要忽略有意義的約束
 
@@ -242,8 +242,8 @@ _讓語言保持現代 (Keeping the Language Modern)_ 和 _舒適的更新 (Comf
 > **棄用週期 (Deprecation cycle)**:
 >
 > - 1.5.20: 對於如果考慮所有型別推斷約束將發生型別不匹配的表達式報告警告
-> - 1.7.0: 考慮所有約束，從而將此警告提升為錯誤，
->   `-XXLanguage:-ProperTypeInferenceConstraintsProcessing` 可用於暫時恢復到 1.7 之前的行為
+> - 1.7.0: 考慮所有約束，從而將此警告提升為錯誤，  
+> `-XXLanguage:-ProperTypeInferenceConstraintsProcessing` 可用於暫時恢復到 1.7 之前的行為
 
 ## 標準函式庫
 
@@ -295,8 +295,8 @@ _讓語言保持現代 (Keeping the Language Modern)_ 和 _舒適的更新 (Comf
 > - 1.4.0: 在 `kotlinx.dom` 和 `kotlinx.browser` 套件中引入替換 API
 > - 1.4.0: 棄用 `kotlin.dom` 和 `kotlin.browser` 套件中的 API 並提出上述新 API 作為替換
 > - 1.6.0: 將棄用級別提升為錯誤
-> - >= 1.8: 從標準函式庫中移除棄用函數
-> - >= 1.8: 將 `kotlinx.*` 套件中的 API 移至獨立函式庫
+> - &gt;= 1.8: 從標準函式庫中移除棄用函數
+> - &gt;= 1.8: 將 `kotlinx.*` 套件中的 API 移至獨立函式庫
 
 ### 棄用部分僅限 JS 的 API
 
@@ -360,7 +360,7 @@ _讓語言保持現代 (Keeping the Language Modern)_ 和 _舒適的更新 (Comf
 > **棄用週期 (Deprecation cycle)**:
 >
 > - 1.6.20: 將棄用級別提升為警告
-> - >= 1.8.0: 移除此屬性
+> - &gt;= 1.8.0: 移除此屬性
 
 ### 移除 `kotlin.experimental.coroutines` Gradle DSL 選項和 `kotlin.coroutines` Gradle 屬性
 
@@ -387,9 +387,9 @@ _讓語言保持現代 (Keeping the Language Modern)_ 和 _舒適的更新 (Comf
 >
 > **簡要概述 (Short summary)**: 移除用於選擇在模組中使用 API 的隱藏 `useExperimentalAnnotation()` Gradle 函數。
 > 可以改用 `optIn()` 函數。
->
+> 
 > **棄用週期 (Deprecation cycle)**:
->
+> 
 > - 1.6.0: 隱藏棄用選項
 > - 1.7.0: 移除棄用選項
 
@@ -407,7 +407,7 @@ _讓語言保持現代 (Keeping the Language Modern)_ 和 _舒適的更新 (Comf
 > **棄用週期 (Deprecation cycle)**:
 >
 > - 1.7.0: 將棄用級別提升為警告
-> - > 1.7.0: 移除此屬性
+> - &gt; 1.7.0: 移除此屬性
 
 ### 移除 `kotlinOptions.jdkHome` 編譯器選項
 
@@ -423,7 +423,7 @@ _讓語言保持現代 (Keeping the Language Modern)_ 和 _舒適的更新 (Comf
 > **棄用週期 (Deprecation cycle)**:
 >
 > - 1.5.30: 將棄用級別提升為警告
-> - > 1.7.0: 移除此選項
+> - &gt; 1.7.0: 移除此選項
 
 ### 移除 `noStdlib` 編譯器選項
 

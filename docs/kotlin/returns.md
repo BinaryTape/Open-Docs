@@ -79,7 +79,7 @@ fun foo() {
     }
     print(" 完成，使用隐式标签")
 }
-//end
+//sampleEnd
 
 fun main() {
     foo()
@@ -99,7 +99,7 @@ fun foo() {
     })
     print(" 完成，使用匿名函数")
 }
-//end
+//sampleEnd
 
 fun main() {
     foo()
@@ -122,7 +122,7 @@ fun foo() {
     }
     print(" 完成，使用嵌套循环")
 }
-//end
+//sampleEnd
 
 fun main() {
     foo()

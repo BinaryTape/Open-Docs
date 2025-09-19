@@ -1,12 +1,12 @@
 # 自訂節點實作
 
-本頁提供關於如何在 Koog 框架中實作您自己的自訂節點的詳細說明。自訂節點可讓您透過建立執行特定操作的可重複使用元件，來擴展代理程式工作流程的功能。
+本頁提供關於如何在 Koog framework 中實作您自己的自訂節點的詳細說明。自訂節點可讓您透過建立執行特定操作的可重複使用元件，來擴展代理程式工作流程的功能。
 
 若要深入了解什麼是圖形節點、其用途以及現有的預設節點，請參閱 [圖形節點](nodes-and-components.md)。
 
 ## 節點架構概觀
 
-在深入探討實作細節之前，了解 Koog 框架中節點的架構至關重要。節點是代理程式工作流程的基本構成要素，每個節點都代表工作流程中的特定操作或轉換。您可以使用邊緣來連接節點，邊緣定義了節點之間的執行流程。
+在深入探討實作細節之前，了解 Koog framework 中節點的架構至關重要。節點是代理程式工作流程的基本構成要素，每個節點都代表工作流程中的特定操作或轉換。您可以使用邊緣來連接節點，邊緣定義了節點之間的執行流程。
 
 每個節點都有一個 `execute` 方法，該方法接受輸入並產生輸出，然後將該輸出傳遞給工作流程中的下一個節點。
 
@@ -33,7 +33,7 @@ val str = strategy<Input, Output>("my-strategy") {
 -->
 ```kotlin
 val myNode by node<Input, Output>("node_name") { input ->
-    // Processing
+    // 處理中
     returnValue
 }
 ```
@@ -51,7 +51,7 @@ val str = strategy<String, Int>("my-strategy") {
 -->
 ```kotlin
 val myNode by node<String, Int>("node_name") { input ->
-    // Processing
+    // 處理中
     input.length
 }
 ```
@@ -76,8 +76,8 @@ val strategy = strategy<String, String>("strategy_name") {
 fun AIAgentSubgraphBuilderBase<*, *>.myCustomNode(
     name: String? = null
 ): AIAgentNodeDelegate<Input, Output> = node(name) { input ->
-    // Custom logic
-    input // Return the input as output (pass-through)
+    // 自訂邏輯
+    input // 將輸入作為輸出返回 (直通)
 }
 
 val myCustomNode by myCustomNode("node_name")
@@ -109,8 +109,8 @@ val strategy = strategy<String, String>("strategy_name") {
     arg1: String,
     arg2: Int
 ): AIAgentNodeDelegate<Input, Output> = node(name) { input ->
-    // Use arg1 and arg2 in your custom logic
-    input // Return the input as the output
+    // 在您的自訂邏輯中使用 arg1 和 arg2
+    input // 將輸入作為輸出返回
 }
 
 val myCustomNode by myNodeWithArguments("node_name", arg1 = "value1", arg2 = 42)
@@ -131,8 +131,8 @@ import ai.koog.agents.core.dsl.builder.strategy
 inline fun <reified T> AIAgentSubgraphBuilderBase<*, *>.myParameterizedNode(
     name: String? = null,
 ): AIAgentNodeDelegate<T, T> = node(name) { input ->
-    // Do some additional actions
-    // Return the input as the output
+    // 執行一些額外動作
+    // 將輸入作為輸出返回
     input
 }
 
@@ -162,7 +162,7 @@ fun AIAgentSubgraphBuilderBase<*, *>.myStatefulNode(
 
     return node(name) { input ->
         counter++
-        println("Node executed $counter times")
+        println("節點已執行 $counter 次")
         input
     }
 }
@@ -176,15 +176,15 @@ fun AIAgentSubgraphBuilderBase<*, *>.myStatefulNode(
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
 
-val strategy = strategy<String, String>("my-strategy") {
+val strategy = strategy<String, String>("strategy_name") {
 -->
 <!--- SUFFIX
 }
 -->
 ```kotlin
 val stringToIntNode by node<String, Int>("node_name") { input: String ->
-    // Processing
-    input.toInt() // Convert string to integer
+    // 處理中
+    input.toInt() // 將字串轉換為整數
 }
 ```
 <!--- KNIT example-custom-nodes-07.kt -->
@@ -196,13 +196,13 @@ val stringToIntNode by node<String, Int>("node_name") { input: String ->
 
 實作自訂節點時，請遵循以下最佳實踐：
 
-1. **保持節點專注**：每個節點應執行單一、定義明確的操作。
-2. **使用描述性名稱**：節點名稱應清楚地表明其用途。
-3. **文件化參數**：為所有參數提供清晰的文件。
-4. **妥善處理錯誤**：實作適當的錯誤處理以防止工作流程失敗。
-5. **讓節點可重複使用**：設計節點以使其在不同工作流程中可重複使用。
-6. **使用型別參數**：在適當的時候使用泛型型別參數，以使節點更靈活。
-7. **提供預設值**：在可能的情況下，為參數提供合理的預設值。
+1.  **保持節點專注**：每個節點應執行單一、定義明確的操作。
+2.  **使用描述性名稱**：節點名稱應清楚地表明其用途。
+3.  **文件化參數**：為所有參數提供清晰的文件。
+4.  **妥善處理錯誤**：實作適當的錯誤處理以防止工作流程失敗。
+5.  **讓節點可重複使用**：設計節點以使其在不同工作流程中可重複使用。
+6.  **使用型別參數**：在適當的時候使用泛型型別參數，以使節點更靈活。
+7.  **提供預設值**：在可能的情況下，為參數提供合理的預設值。
 
 ## 常見模式
 
@@ -215,7 +215,7 @@ val stringToIntNode by node<String, Int>("node_name") { input: String ->
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
 
-val strategy = strategy<String, String>("my-strategy") {
+val strategy = strategy<String, String>("strategy_name") {
 -->
 <!--- SUFFIX
 }
@@ -223,8 +223,8 @@ val strategy = strategy<String, String>("my-strategy") {
 ```kotlin
 
 val loggingNode by node<String, String>("node_name") { input ->
-    println("Processing input: $input")
-    input // Return the input as the output
+    println("正在處理輸入: $input")
+    input // 將輸入作為輸出返回
 }
 ```
 <!--- KNIT example-custom-nodes-08.kt -->
@@ -236,15 +236,15 @@ val loggingNode by node<String, String>("node_name") { input ->
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
 
-val strategy = strategy<String, String>("my-strategy") {
+val strategy = strategy<String, String>("strategy_name") {
 -->
 <!--- SUFFIX
 }
 -->
 ```kotlin
 val upperCaseNode by node<String, String>("node_name") { input ->
-    println("Processing input: $input")
-    input.uppercase() // Transform the input to uppercase
+    println("正在處理輸入: $input")
+    input.uppercase() // 將輸入轉換為大寫
 }
 ```
 <!--- KNIT example-custom-nodes-09.kt -->
@@ -256,7 +256,7 @@ val upperCaseNode by node<String, String>("node_name") { input ->
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
 
-val strategy = strategy<String, String>("my-strategy") {
+val strategy = strategy<String, String>("strategy_name") {
 -->
 <!--- SUFFIX
 }
@@ -265,7 +265,7 @@ val strategy = strategy<String, String>("my-strategy") {
 val summarizeTextNode by node<String, String>("node_name") { input ->
     llm.writeSession {
         updatePrompt {
-            user("Please summarize the following text: $input")
+            user("請總結以下文字: $input")
         }
 
         val response = requestLLMWithoutTools()
@@ -292,7 +292,7 @@ val toolName = "my-custom-tool"
 @Serializable
 data class ToolArgs(val arg1: String, val arg2: Int)
 
-val strategy = strategy<String, String>("my-strategy") {
+val strategy = strategy<String, String>("strategy_name") {
 
 -->
 <!--- SUFFIX
@@ -304,7 +304,7 @@ val nodeExecuteCustomTool by node<String, String>("node_name") { input ->
         id = UUID.randomUUID().toString(),
         tool = toolName,
         metaInfo = ResponseMetaInfo.create(Clock.System),
-        content = Json.encodeToString(ToolArgs(arg1 = input, arg2 = 42)) // Use the input as tool arguments
+        content = Json.encodeToString(ToolArgs(arg1 = input, arg2 = 42)) // 使用輸入作為工具引數
     )
 
     val result = environment.executeTool(toolCall)

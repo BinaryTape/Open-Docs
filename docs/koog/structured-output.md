@@ -3,7 +3,7 @@
 ## 简介
 
 结构化输出 API 提供了一种方式，可确保大型语言模型 (LLM) 的响应符合特定的数据结构。
-这对于构建可靠的 AI 应用程序至关重要，因为你需要可预测、格式良好的数据，而非自由格式的文本。
+这对于构建可靠的 AI 应用程序至关重要，因为你需要可预测、格式良好的数据，而非自由格式文本。
 
 本文将解释如何使用此 API 定义数据结构、生成模式，并从 LLM 请求结构化响应。
 
@@ -11,10 +11,10 @@
 
 结构化输出 API 包含几个关键组件：
 
-1. **数据结构定义**：使用 kotlinx.serialization 和 LLM 特有注解标注的 Kotlin 数据类。
-2. **JSON 模式生成**：从 Kotlin 数据类生成 JSON 模式的工具。
-3. **结构化 LLM 请求**：请求 LLM 响应符合定义结构的方法。
-4. **响应处理**：处理和验证结构化响应。
+1.  **数据结构定义**：使用 kotlinx.serialization 和 LLM 特有注解标注的 Kotlin 数据类。
+2.  **JSON 模式生成**：从 Kotlin 数据类生成 JSON 模式的工具。
+3.  **结构化 LLM 请求**：请求 LLM 响应符合定义结构的方法。
+4.  **响应处理**：处理和验证结构化响应。
 
 ## 定义数据结构
 
@@ -22,6 +22,11 @@
 
 ### 基本结构
 
+<!--- INCLUDE
+import ai.koog.agents.core.tools.annotations.LLMDescription
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
+-->
 ```kotlin
 @Serializable
 @SerialName("WeatherForecast")
@@ -35,12 +40,13 @@ data class WeatherForecast(
     val precipitation: Int
 )
 ```
+<!--- KNIT example-structured-data-01.kt -->
 
 ### 关键注解
 
-- `@Serializable`：kotlinx.serialization 用于处理该类所必需的。
-- `@SerialName`：指定在序列化期间使用的名称。
-- `@LLMDescription`：为 LLM 提供类的描述。对于字段注解，请使用 `@property:LLMDescription`。
+-   `@Serializable`：kotlinx.serialization 用于处理该类所必需的。
+-   `@SerialName`：指定在序列化期间使用的名称。
+-   `@LLMDescription`：为 LLM 提供类的描述。对于字段注解，请使用 `@property:LLMDescription`。
 
 ### 支持的特性
 
@@ -48,6 +54,11 @@ data class WeatherForecast(
 
 #### 嵌套类
 
+<!--- INCLUDE
+import ai.koog.agents.core.tools.annotations.LLMDescription
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
+-->
 ```kotlin
 @Serializable
 @SerialName("WeatherForecast")
@@ -66,9 +77,22 @@ data class WeatherForecast(
     )
 }
 ```
+<!--- KNIT example-structured-data-02.kt -->
 
 #### 集合 (list 和 map)
 
+<!--- INCLUDE
+import ai.koog.agents.core.tools.annotations.LLMDescription
+import io.ktor.http.*
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
+
+@Serializable
+data class WeatherNews(val temperature: Double)
+
+@Serializable
+data class WeatherSource(val url: Url)
+-->
 ```kotlin
 @Serializable
 @SerialName("WeatherForecast")
@@ -80,17 +104,28 @@ data class WeatherForecast(
     val sources: Map<String, WeatherSource>
 )
 ```
+<!--- KNIT example-structured-data-03.kt -->
 
 #### 枚举
 
+<!--- INCLUDE
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
+-->
 ```kotlin
 @Serializable
 @SerialName("Pollution")
 enum class Pollution { Low, Medium, High }
 ```
+<!--- KNIT example-structured-data-04.kt -->
 
 #### 密封类多态
 
+<!--- INCLUDE
+import ai.koog.agents.core.tools.annotations.LLMDescription
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
+-->
 ```kotlin
 @Serializable
 @SerialName("WeatherAlert")
@@ -121,11 +156,18 @@ sealed class WeatherAlert {
     ) : WeatherAlert()
 }
 ```
+<!--- KNIT example-structured-data-05.kt -->
 
 ### 提供示例
 
 你可以提供示例来帮助 LLM 理解预期的格式：
 
+<!--- INCLUDE
+import ai.koog.agents.example.exampleStructuredData03.WeatherForecast
+import ai.koog.agents.example.exampleStructuredData03.WeatherNews
+import ai.koog.agents.example.exampleStructuredData03.WeatherSource
+import io.ktor.http.*
+-->
 ```kotlin
 val exampleForecasts = listOf(
   WeatherForecast(
@@ -146,14 +188,15 @@ val exampleForecasts = listOf(
 )
 
 ```
+<!--- KNIT example-structured-data-06.kt -->
 
 ## 请求结构化响应
 
 你可以在 Koog 的三个主要层中使用结构化输出：
 
-1. **提示执行器层**：使用提示执行器进行直接的 LLM 调用
-2. **Agent LLM 上下文层**：在 Agent 会话中使用，用于对话上下文
-3. **节点层**：创建具有结构化输出功能的、可重用的 Agent 节点
+1.  **提示执行器层**：使用提示执行器进行直接的 LLM 调用
+2.  **Agent LLM 上下文层**：在 Agent 会话中使用，用于对话上下文
+3.  **节点层**：创建具有结构化输出功能的、可重用的 Agent 节点
 
 ### 第 1 层：提示执行器
 
@@ -161,13 +204,30 @@ val exampleForecasts = listOf(
 
 此方法执行提示并确保响应的结构化，通过以下方式实现：
 
-- 根据 [模型能力](./model-capabilities.md) 自动选择最佳结构化输出方法
-- 在需要时将结构化输出指令注入到原始提示中
-- 在可用时使用原生结构化输出支持
-- 在解析失败时，通过辅助 LLM 提供自动错误校正
+-   根据 [模型能力](./model-capabilities.md) 自动选择最佳结构化输出方法
+-   在需要时将结构化输出指令注入到原始提示中
+-   在可用时使用原生结构化输出支持
+-   在解析失败时，通过辅助 LLM 提供自动错误校正
 
 以下是使用 `executeStructured` 方法的示例：
 
+<!--- INCLUDE
+import ai.koog.agents.example.exampleStructuredData03.WeatherForecast
+import ai.koog.agents.example.exampleStructuredData06.exampleForecasts
+import ai.koog.prompt.dsl.prompt
+import ai.koog.prompt.executor.clients.openai.OpenAIModels
+import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
+import ai.koog.prompt.structure.executeStructured
+import ai.koog.prompt.structure.StructureFixingParser
+import kotlinx.coroutines.runBlocking
+
+fun main() {
+    runBlocking {
+-->
+<!--- SUFFIX
+    }
+}
+-->
 ```kotlin
 // 定义一个简单的、单提供者的提示执行器
 val promptExecutor = simpleOpenAIExecutor(System.getenv("OPENAI_KEY"))
@@ -183,7 +243,7 @@ val structuredResponse = promptExecutor.executeStructured<WeatherForecast>(
                 """.trimIndent()
             )
             user(
-              "阿姆斯特丹的天气预报是什么？"
+              "What is the weather forecast for Amsterdam?"
             )
         },
         // 定义执行请求的主模型
@@ -197,15 +257,16 @@ val structuredResponse = promptExecutor.executeStructured<WeatherForecast>(
         )
     )
 ```
+<!--- KNIT example-structured-data-07.kt -->
 
 `executeStructured` 方法接受以下实参：
 
 | 名称           | 数据类型              | 必需 | 默认       | 描述                                                                                                     |
-|----------------|------------------------|----------|---------------|-----------------------------------------------------------------------------------------------------------------|
-| `prompt`       | Prompt                 | 是       |               | 要执行的提示。关于提示的更多信息，请参见 [提示 API](prompt-api.md)。                                   |
-| `model`        | LLModel                | 是       |               | 执行提示的主模型。                                                                           |
-| `examples`     | List<T>                | 否       | `emptyList()` | 可选的示例 list，用于帮助模型理解预期格式。                                     |
-| `fixingParser` | StructureFixingParser? | 否       | `null`        | 可选的解析器，它通过使用辅助 LLM 智能修复解析错误来处理格式错误的响应。 |
+| :------------- | :-------------------- | :--- | :---------- | :------------------------------------------------------------------------------------------------------- |
+| `prompt`       | Prompt                | 是   |             | 要执行的提示。关于提示的更多信息，请参见 [提示 API](prompt-api.md)。                                     |
+| `model`        | LLModel               | 是   |             | 执行提示的主模型。                                                                                       |
+| `examples`     | List<T>               | 否   | `emptyList()` | 可选的示例 list，用于帮助模型理解预期格式。                                                              |
+| `fixingParser` | StructureFixingParser? | 否   | `null`      | 可选的解析器，它通过使用辅助 LLM 智能修复解析错误来处理格式错误的响应。                                |
 
 该方法返回一个 `Result<StructuredResponse<T>>`，其中包含成功解析的结构化数据或一个错误。
 
@@ -215,6 +276,20 @@ Agent LLM 上下文层允许你在 Agent 会话中请求结构化响应。这对
 
 在 `writeSession` 中使用 `requestLLMStructured` 方法进行基于 Agent 的交互：
 
+<!--- INCLUDE
+import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.example.exampleStructuredData03.WeatherForecast
+import ai.koog.agents.example.exampleStructuredData06.exampleForecasts
+import ai.koog.prompt.executor.clients.openai.OpenAIModels
+import ai.koog.prompt.structure.StructureFixingParser
+
+val strategy = strategy<Unit, Unit>("strategy-name") {
+    val node by node<Unit, Unit> {
+-->
+<!--- SUFFIX
+    }
+}
+-->
 ```kotlin
 val structuredResponse = llm.writeSession {
     requestLLMStructured<WeatherForecast>(
@@ -226,6 +301,7 @@ val structuredResponse = llm.writeSession {
     )
 }
 ```
+<!--- KNIT example-structured-data-08.kt -->
 
 `fixingParser` 形参指定了通过辅助 LLM 在重试期间处理格式错误响应的配置。这有助于确保你始终获得有效的响应。
 
@@ -233,6 +309,15 @@ val structuredResponse = llm.writeSession {
 
 你可以将结构化数据处理集成到你的 Agent 策略中：
 
+<!--- INCLUDE
+import ai.koog.agents.core.dsl.builder.forwardTo
+import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.extension.nodeLLMRequest
+import ai.koog.agents.example.exampleStructuredData03.WeatherForecast
+import ai.koog.prompt.executor.clients.openai.OpenAIModels
+import ai.koog.prompt.message.Message
+import ai.koog.prompt.structure.StructureFixingParser
+-->
 ```kotlin
 val agentStrategy = strategy("weather-forecast") {
     val setup by nodeLLMRequest()
@@ -248,7 +333,7 @@ val agentStrategy = strategy("weather-forecast") {
         }
 
         """
-        响应结构：
+        Response structure:
         $structuredResponse
         """.trimIndent()
     }
@@ -258,6 +343,7 @@ val agentStrategy = strategy("weather-forecast") {
     edge(getStructuredForecast forwardTo nodeFinish)
 }
 ```
+<!--- KNIT example-structured-data-09.kt -->
 
 ### 第 3 层：节点层
 
@@ -271,10 +357,21 @@ val agentStrategy = strategy("weather-forecast") {
 
 #### 节点层示例
 
+<!--- INCLUDE
+import ai.koog.agents.core.dsl.builder.forwardTo
+import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.extension.nodeLLMRequest
+import ai.koog.agents.core.dsl.extension.nodeLLMRequestStructured
+import ai.koog.agents.example.exampleStructuredData03.WeatherForecast
+import ai.koog.agents.example.exampleStructuredData06.exampleForecasts
+import ai.koog.prompt.executor.clients.openai.OpenAIModels
+import ai.koog.prompt.structure.StructuredResponse
+import ai.koog.prompt.structure.StructureFixingParser
+-->
 ```kotlin
 val agentStrategy = strategy("weather-forecast") {
     val setup by node<Unit, String> { _ ->
-        "请提供阿姆斯特丹的天气预报"
+        "Please provide a weather forecast for Amsterdam"
     }
     
     // 使用委托语法创建结构化输出节点
@@ -291,12 +388,12 @@ val agentStrategy = strategy("weather-forecast") {
         when {
             result.isSuccess -> {
                 val forecast = result.getOrNull()?.structure
-                "天气预报: $forecast"
+                "Weather forecast: $forecast"
             }
             result.isFailure -> {
-                "未能获取结构化预报: ${result.exceptionOrNull()?.message}"
+                "Failed to get structured forecast: ${result.exceptionOrNull()?.message}"
             }
-            else -> "未知结果状态"
+            else -> "Unknown result state"
         }
     }
 
@@ -306,11 +403,30 @@ val agentStrategy = strategy("weather-forecast") {
     edge(processResult forwardTo nodeFinish)
 }
 ```
+<!--- KNIT example-structured-data-10.kt -->
 
 #### 完整代码示例
 
 以下是使用结构化输出 API 的完整示例：
 
+<!--- INCLUDE
+import ai.koog.agents.core.agent.AIAgent
+import ai.koog.agents.core.agent.config.AIAgentConfig
+import ai.koog.agents.core.dsl.builder.forwardTo
+import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.extension.nodeLLMRequest
+import ai.koog.agents.core.tools.ToolRegistry
+import ai.koog.agents.core.tools.annotations.LLMDescription
+import ai.koog.prompt.dsl.prompt
+import ai.koog.prompt.executor.clients.openai.OpenAIModels
+import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
+import ai.koog.prompt.message.Message
+import ai.koog.prompt.structure.json.generator.BasicJsonSchemaGenerator
+import ai.koog.prompt.structure.json.JsonStructuredData
+import kotlinx.coroutines.runBlocking
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
+-->
 ```kotlin
 // Note: Import statements are omitted for brevity
 @Serializable
@@ -325,7 +441,7 @@ data class SimpleWeatherForecast(
     val conditions: String
 )
 
-val token = System.getenv("OPENAI_KEY") ?: error("环境变量 OPENAI_KEY 未设置")
+val token = System.getenv("OPENAI_KEY") ?: error("Environment variable OPENAI_KEY 未设置")
 
 fun main(): Unit = runBlocking {
     // 创建示例预报
@@ -358,7 +474,7 @@ fun main(): Unit = runBlocking {
             }
   
             """
-            响应结构：
+            Response structure:
             $structuredResponse
             """.trimIndent()
         }
@@ -389,9 +505,10 @@ fun main(): Unit = runBlocking {
         agentConfig = agentConfig
     )
 
-    runner.run("获取巴黎的天气预报")
+    runner.run("Get weather forecast for Paris")
 }
 ```
+<!--- KNIT example-structured-data-11.kt -->
 
 ## 高级用法
 
@@ -404,11 +521,35 @@ fun main(): Unit = runBlocking {
 
 主要区别在于，你不是传递像 `examples` 和 `fixingParser` 这样的简单形参，而是创建一个 `StructuredOutputConfig` 对象，它允许对以下方面进行细粒度控制：
 
-- **模式生成**：选择特定的生成器（Standard、Basic 或提供者特有的）
-- **输出模式**：原生结构化输出支持与手动提示
-- **提供者映射**：不同 LLM 提供者的不同配置
-- **回退策略**：当提供者特有配置不可用时的默认行为
+-   **模式生成**：选择特定的生成器（Standard、Basic 或提供者特有的）
+-   **输出模式**：原生结构化输出支持与手动提示
+-   **提供者映射**：不同 LLM 提供者的不同配置
+-   **回退策略**：当提供者特有配置不可用时的默认行为
 
+<!--- INCLUDE
+import ai.koog.agents.example.exampleStructuredData03.WeatherForecast
+import ai.koog.agents.example.exampleStructuredData06.exampleForecasts
+import ai.koog.prompt.dsl.prompt
+import ai.koog.prompt.executor.clients.openai.OpenAIModels
+import ai.koog.prompt.executor.clients.anthropic.AnthropicModels
+import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
+import ai.koog.prompt.structure.executeStructured
+import ai.koog.prompt.structure.StructuredOutput
+import ai.koog.prompt.structure.StructuredOutputConfig
+import ai.koog.prompt.structure.StructureFixingParser
+import ai.koog.prompt.structure.json.JsonStructuredData
+import ai.koog.prompt.structure.json.generator.StandardJsonSchemaGenerator
+import ai.koog.prompt.executor.clients.openai.structure.OpenAIBasicJsonSchemaGenerator
+import ai.koog.prompt.llm.LLMProvider
+import kotlinx.coroutines.runBlocking
+
+fun main() {
+    runBlocking {
+-->
+<!--- SUFFIX
+    }
+}
+-->
 ```kotlin
 // 使用不同的生成器创建不同的模式结构
 val genericStructure = JsonStructuredData.createJsonStructure<WeatherForecast>(
@@ -442,37 +583,38 @@ val structuredResponse = promptExecutor.executeStructured(
     )
 )
 ```
+<!--- KNIT example-structured-data-12.kt -->
 
 ### 模式生成器
 
 根据你的需求，可以使用不同的模式生成器：
 
-- **StandardJsonSchemaGenerator**：完整的 JSON 模式，支持多态、定义和递归引用
-- **BasicJsonSchemaGenerator**：简化的模式，不支持多态，与更多模型兼容
-- **提供者特有生成器**：针对特定 LLM 提供者（OpenAI、Google 等）优化的模式
+-   **StandardJsonSchemaGenerator**：完整的 JSON 模式，支持多态、定义和递归引用
+-   **BasicJsonSchemaGenerator**：简化的模式，不支持多态，与更多模型兼容
+-   **提供者特有生成器**：针对特定 LLM 提供者（OpenAI、Google 等）优化的模式
 
 ### 所有层面的使用
 
 高级配置在 API 的所有三层中均保持一致。方法名称保持不变，只有形参从简单的实参变为更高级的 `StructuredOutputConfig`：
 
-- **提示执行器**：`executeStructured(prompt, model, config: StructuredOutputConfig<T>)`
-- **Agent LLM 上下文**：`requestLLMStructured(config: StructuredOutputConfig<T>)`
-- **节点层**：`nodeLLMRequestStructured(config: StructuredOutputConfig<T>)`
+-   **提示执行器**：`executeStructured(prompt, model, config: StructuredOutputConfig<T>)`
+-   **Agent LLM 上下文**：`requestLLMStructured(config: StructuredOutputConfig<T>)`
+-   **节点层**：`nodeLLMRequestStructured(config: StructuredOutputConfig<T>)`
 
 简化 API（仅使用 `examples` 和 `fixingParser` 形参）推荐用于大多数用例，而高级 API 在需要时提供额外控制。
 
 ## 最佳实践
 
-1. **使用清晰的描述**：使用 `@LLMDescription` 注解提供清晰详细的描述，以帮助 LLM 理解预期数据。
+1.  **使用清晰的描述**：使用 `@LLMDescription` 注解提供清晰详细的描述，以帮助 LLM 理解预期数据。
 
-2. **提供示例**：包含有效数据结构的示例以引导 LLM。
+2.  **提供示例**：包含有效数据结构的示例以引导 LLM。
 
-3. **优雅地处理错误**：实现适当的错误处理，以应对 LLM 可能无法生成有效结构的情况。
+3.  **优雅地处理错误**：实现适当的错误处理，以应对 LLM 可能无法生成有效结构的情况。
 
-4. **使用适当的模式类型**：根据你的需求和你正在使用的 LLM 的能力，选择适当的模式格式和类型。
+4.  **使用适当的模式类型**：根据你的需求和你正在使用的 LLM 的能力，选择适当的模式格式和类型。
 
-5. **使用不同模型进行测试**：不同的 LLM 在遵循结构化格式方面可能能力各异，因此如果可能，请使用多个模型进行测试。
+5.  **使用不同模型进行测试**：不同的 LLM 在遵循结构化格式方面可能能力各异，因此如果可能，请使用多个模型进行测试。
 
-6. **从简单开始**：从简单结构开始，然后根据需要逐步增加复杂度。
+6.  **从简单开始**：从简单结构开始，然后根据需要逐步增加复杂度。
 
-7. **谨慎使用多态**：虽然 API 支持密封类的多态，但请注意，LLM 处理起来可能更具挑战性。
+7.  **谨慎使用多态**：虽然 API 支持密封类的多态，但请注意，LLM 处理起来可能更具挑战性。

@@ -1,114 +1,106 @@
 [//]: # (title: 開始使用 Kotlin/Wasm 與 Compose Multiplatform)
 
-> Kotlin/Wasm 處於 [Alpha](components-stability.md) 階段，可能隨時變更。
-> 
-> [加入 Kotlin/Wasm 社群。](https://slack-chats.kotlinlang.org/c/webassembly)
->
-{style="note"}
+<primary-label ref="beta"/> 
 
-本教學課程示範如何在 IntelliJ IDEA 中使用 [Kotlin/Wasm](wasm-overview.md) 執行 [Compose Multiplatform](https://www.jetbrains.com/lp/compose-multiplatform/) 應用程式，並產生可在 [GitHub Pages](https://pages.github.com/) 上發佈為網站的成果物。
+本教學課程示範如何在 IntelliJ IDEA 中使用 [Kotlin/Wasm](wasm-overview.md) 執行 [Compose Multiplatform](https://www.jetbrains.com/lp/compose-multiplatform/) 應用程式，並產生可用於發佈為網站的成果物。
 
-## 開始之前
+## 建立專案
 
-使用 Kotlin Multiplatform 精靈建立專案：
+1. [設定您的 Kotlin Multiplatform 開發環境](https://www.jetbrains.com/help/kotlin-multiplatform-dev/quickstart.html#set-up-the-environment)。
+2. 在 IntelliJ IDEA 中，選取 **File | New | Project**。
+3. 在左側面板中，選取 **Kotlin Multiplatform**。
 
-1. 開啟 [Kotlin Multiplatform 精靈](https://kmp.jetbrains.com/#newProject)。
-2. 在 **New Project** 索引標籤上，將專案名稱和 ID 變更為您的偏好設定。在本教學課程中，我們將名稱設為「WasmDemo」，ID 設為「wasm.project.demo」。
-
-   > 這些是專案目錄的名稱和 ID。您也可以保持原樣。
-   >
-   {style="tip"}
-
-3. 選取 **Web** 選項。請確保沒有選取其他選項。
-4. 點擊 **Download** 按鈕並解壓縮產生的壓縮檔。
-
-   ![Kotlin Multiplatform wizard](wasm-compose-web-wizard.png){width=400}
-
-## 在 IntelliJ IDEA 中開啟專案
-
-1. 下載並安裝最新版本的 [IntelliJ IDEA](https://www.jetbrains.com/idea/)。
-2. 在 IntelliJ IDEA 的歡迎畫面中，點擊 **Open** 或在選單列中選取 **File | Open**。
-3. 導覽至已解壓縮的「WasmDemo」資料夾並點擊 **Open**。
-
-## 執行應用程式
-
-1. 在 IntelliJ IDEA 中，透過選取 **View** | **Tool Windows** | **Gradle** 開啟 **Gradle** 工具視窗。
-   
-   專案載入後，您可以在 Gradle 工具視窗中找到 Gradle 任務。
-
-   > 您的 Gradle JVM 需要至少 Java 11 才能成功載入任務。
+   > 如果您未使用 Kotlin Multiplatform IDE 外掛程式，可以使用 [KMP 網頁精靈](https://kmp.jetbrains.com/?web=true&webui=compose&includeTests=true) 產生相同的專案。
    >
    {style="note"}
 
-2. 在 **wasmdemo** | **Tasks** | **kotlin browser** 中，選取並執行 **wasmJsBrowserDevelopmentRun** 任務。
+4. 在 **New Project** 視窗中指定以下欄位：
 
-   ![Run the Gradle task](wasm-gradle-task-window.png){width=400}
+   * **名稱：** WasmDemo
+   * **群組：** wasm.project.demo
+   * **成果物：** wasmdemo
 
-   或者，您可以在 `WasmDemo` 根目錄的終端機中執行以下指令：
-
-   ```bash
-   ./gradlew wasmJsBrowserDevelopmentRun -t
-   ```
-
-3. 應用程式啟動後，在您的瀏覽器中開啟以下 URL：
-
-   ```bash
-   http://localhost:8080/
-   ```
-
-   > 連接埠號碼可能因 8080 連接埠可能無法使用而有所不同。您可以在 Gradle 建置主控台中找到實際的連接埠號碼。
+   > 如果您使用網頁精靈，請將「WasmDemo」指定為專案名稱，並將「wasm.project.demo」指定為專案 ID。
    >
-   {style="tip"}
+   {style="note"}
 
-   您會看到一個「Click me!」按鈕。點擊它：
+5. 選取 **Web** 目標和 **Share UI** 索引標籤。請確保沒有選取其他選項。
+6. 點擊 **Create**。
 
-   ![Click me](wasm-composeapp-browser-clickme.png){width=650}
+   ![Kotlin Multiplatform wizard](wasm-kmp-wizard.png){width=600}
 
-   現在您會看到 Compose Multiplatform 標誌：
+## 執行應用程式
 
-   ![Compose app in browser](wasm-composeapp-browser.png){width=650}
+專案載入後，從執行設定列表中選取 **composeApp [wasmJs]**，然後點擊 **Run**。
+
+![Run the Compose Multiplatform app on web](compose-run-web-black.png){width=300}
+
+網頁應用程式將自動在您的瀏覽器中開啟。或者，在執行完成後，您也可以在瀏覽器中開啟以下 URL：
+
+```shell
+   http://localhost:8080/
+```
+> 連接埠號碼可能因 8080 連接埠可能無法使用而有所不同。您可以在 Gradle 建置主控台中找到實際的連接埠號碼。
+>
+{style="tip"}
+
+點擊「Click me!」按鈕：
+
+![Click me](wasm-composeapp-browser-clickme.png){width=600}
+
+它會顯示 Compose Multiplatform 標誌：
+
+![Compose app in browser](wasm-composeapp-browser.png){width=600}
 
 ## 產生成果物
 
-在 **wasmdemo** | **Tasks** | **kotlin browser** 中，選取並執行 **wasmJsBrowserDistribution** 任務。
+產出您專案的成果物，以發佈到網站上：
 
-![Run the Gradle task](wasm-gradle-task-window-compose.png){width=400}
+1. 透過選取 **View** | **Tool Windows** | **Gradle** 開啟 **Gradle** 工具視窗。
+2. 在 **wasmdemo** | **Tasks** | **kotlin browser** 中，選取並執行 **wasmJsBrowserDistribution** 任務。
 
-或者，您可以在 `WasmDemo` 根目錄的終端機中執行以下指令：
+   > 您的 Gradle JVM 需要至少 Java 11 才能成功載入任務，而一般而言，對於 Compose Multiplatform 專案，我們建議至少 Java 17。
+   >
+   {style="note"}
 
-```bash
-./gradlew wasmJsBrowserDistribution
-```
+   ![Run the Gradle task](wasm-gradle-task-window-compose.png){width=400}
+
+   或者，您可以在 `WasmDemo` 根目錄的終端機中執行以下指令：
+
+    ```bash
+    ./gradlew wasmJsBrowserDistribution
+    ```
 
 應用程式任務完成後，您可以在 `composeApp/build/dist/wasmJs/productionExecutable` 目錄中找到產生的成果物：
 
 ![Artifacts directory](wasm-composeapp-directory.png){width=400}
 
-## 發佈到 GitHub Pages
+## 發佈應用程式
 
-1. 將 `productionExecutable` 目錄中的所有內容複製到您要建立網站的儲存庫中。
-2. 依照 GitHub 的說明[建立您的網站](https://docs.github.com/en/pages/getting-started-with-github-pages/creating-a-github-pages-site#creating-your-site)。
+使用產生的成果物來部署您的 Kotlin/Wasm 應用程式。選擇您偏好的發佈選項，並依照說明部署成果物。一些替代方案有：
 
-   > 將變更推送到 GitHub 後，您的網站可能需要長達 10 分鐘才能發佈。
-   >
-   {style="note"}
+* [GitHub Pages](https://docs.github.com/en/pages/getting-started-with-github-pages/creating-a-github-pages-site#creating-your-site)
+* [Cloudflare](https://developers.cloudflare.com/workers/)
+* [Apache HTTP Server](https://httpd.apache.org/docs/2.4/getting-started.html)
 
-3. 在瀏覽器中，導覽至您的 GitHub Pages 網域。
+您的網站建立後，開啟瀏覽器並導覽至您平台的頁面網域。例如，GitHub Pages：
 
-   ![Navigate to GitHub pages](wasm-composeapp-github-clickme.png){width=650}
+   ![Navigate to GitHub pages](wasm-composeapp-github-clickme.png){width=600}
 
-   恭喜！您已成功在 GitHub Pages 上發佈您的成果物。
+   恭喜！您已發佈您的成果物。
 
 ## 接下來呢？
 
 * [了解如何使用 Compose Multiplatform 在 iOS 和 Android 之間共用 UI](https://www.jetbrains.com/help/kotlin-multiplatform-dev/compose-multiplatform-create-first-app.html)
 * 嘗試更多 Kotlin/Wasm 範例：
 
-  * Compose image viewer
-  * Jetsnack application
-  * Node.js example
-  * WASI example
-  * Compose example
+  * [KotlinConf 應用程式](https://github.com/JetBrains/kotlinconf-app)
+  * [Compose 圖片檢視器](https://github.com/JetBrains/compose-multiplatform/tree/master/examples/imageviewer)
+  * [Jetsnack 應用程式](https://github.com/JetBrains/compose-multiplatform/tree/master/examples/jetsnack)
+  * [Node.js 範例](https://github.com/Kotlin/kotlin-wasm-nodejs-template)
+  * [WASI 範例](https://github.com/Kotlin/kotlin-wasm-wasi-template)
+  * [Compose 範例](https://github.com/Kotlin/kotlin-wasm-compose-template)
+
 * 在 Kotlin Slack 中加入 Kotlin/Wasm 社群：
 
   <a href="https://slack-chats.kotlinlang.org/c/webassembly"><img src="join-slack-channel.svg" width="500" alt="Join the Kotlin/Wasm community" style="block"/></a>

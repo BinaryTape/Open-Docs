@@ -50,12 +50,12 @@ object DoAuth {
 fun main(){
     // 物件在 takeParams() 函式被呼叫時建立
     DoAuth.takeParams("coding_ninja", "N1njaC0ding!")
-    // 輸入 Auth 參數 = coding_ninja:N1njaC0ding!
+    // input Auth parameters = coding_ninja:N1njaC0ding!
 }
 ```
 {kotlin-runnable="true" id="kotlin-tour-object-declarations"}
 
-此物件有一個名為 `takeParams` 的成員函式，它接受 `username` 和 `password` 變數作為參數，並向控制台返回一個字串。`DoAuth` 物件僅在該函式首次被呼叫時建立。
+此物件有一個名為 `takeParams` 的成員函式，它接受 `username` 和 `password` 變數作為參數，並向控制台列印一個字串。`DoAuth` 物件僅在該函式首次被呼叫時建立。
 
 > 物件可以繼承類別和介面。例如：
 > 
@@ -213,7 +213,7 @@ fun main() {
     // 列印每個資料物件的名稱
     println("Order name: $OrderOne")
     // Order name: OrderOne
-    println("Order name: $OrderTwo")
+    println("Order name: OrderTwo")
     // Order name: OrderTwo
 
     // 檢查訂單是否相同

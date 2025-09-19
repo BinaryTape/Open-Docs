@@ -73,13 +73,13 @@ fun main() {
 `println()`, `readln()`, `print()` 함수를 함께 사용하여 사용자 입력을 요청하고 표시하는 메시지를 인쇄할 수 있습니다.
 
 ```kotlin
-// Prints a message to request input
+// 입력을 요청하는 메시지 출력
 println("Enter any word: ")
 
-// Reads and stores the user input. For example: Happiness
+// 사용자 입력을 읽고 저장합니다. 예를 들어: Happiness
 val yourWord = readln()
 
-// Prints a message with the input
+// 입력과 함께 메시지 출력
 print("You entered the word: ")
 print(yourWord)
 // You entered the word: Happiness
@@ -159,7 +159,7 @@ Kotlin에서는 `val` 또는 `var` 키워드로 시작하고 변수 이름이 �
 ```kotlin
 fun main() {
 //sampleStart
-    // Declares the variable x and initializes it with the value of 5
+    // 변수 x를 선언하고 5로 초기화합니다
     val x: Int = 5
     // 5
 //sampleEnd
@@ -173,9 +173,9 @@ fun main() {
 ```kotlin
 fun main() {
 //sampleStart
-    // Declares the variable x and initializes it with the value of 5
+    // 변수 x를 선언하고 5로 초기화합니다
     var x: Int = 5
-    // Reassigns a new value of 6 to the variable x
+    // 변수 x에 새로운 값 6을 다시 할당합니다
     x += 1
     // 6
 //sampleEnd
@@ -189,7 +189,7 @@ Kotlin은 타입 추론(type inference)을 지원하며 선언된 변수의 데�
 ```kotlin
 fun main() {
 //sampleStart
-    // Declares the variable x with the value of 5;`Int` type is inferred
+    // 값 5로 변수 x를 선언합니다; `Int` 타입이 추론됩니다
     val x = 5
     // 5
 //sampleEnd
@@ -203,11 +203,11 @@ fun main() {
 ```kotlin
 fun main() {
 //sampleStart
-    // Initializes the variable x at the moment of declaration; type is not required
+    // 선언 시점에 변수 x를 초기화합니다; 타입은 필요하지 않습니다
     val x = 5
-    // Declares the variable c without initialization; type is required
+    // 초기화 없이 변수 c를 선언합니다; 타입이 필요합니다
     val c: Int
-    // Initializes the variable c after declaration 
+    // 선언 후 변수 c를 초기화합니다
     c = 3
     // 5 
     // 3
@@ -289,18 +289,18 @@ class Rectangle(val height: Double, val length: Double): Shape() {
 대부분의 최신 언어와 마찬가지로 Kotlin은 한 줄 주석(또는 _줄 끝 주석_)과 여러 줄 주석(_블록 주석_)을 지원합니다.
 
 ```kotlin
-// This is an end-of-line comment
+// 한 줄 주석(줄 끝 주석)입니다
 
-/* This is a block comment
-   on multiple lines. */
+/* 여러 줄 블록 주석입니다.
+   */
 ```
 
 Kotlin의 블록 주석은 중첩될 수 있습니다.
 
 ```kotlin
-/* The comment starts here
-/* contains a nested comment */     
-and ends here. */
+/* 주석이 여기서 시작됩니다
+/* 중첩된 주석을 포함합니다 */     
+그리고 여기서 끝납니다. */
 ```
 
 문서화 주석 구문에 대한 자세한 내용은 [Kotlin 코드 문서화](kotlin-doc.md)를 참조하세요.
@@ -311,11 +311,11 @@ and ends here. */
 fun main() {
 //sampleStart
     var a = 1
-    // simple name in template:
+    // 템플릿의 단순 이름:
     val s1 = "a is $a" 
     
     a = 2
-    // arbitrary expression in template:
+    // 템플릿의 임의 식:
     val s2 = "${s1.replace("is", "was")}, but now is $a"
 //sampleEnd
     println(s2)
@@ -573,13 +573,13 @@ fun printProduct(arg1: String, arg2: String) {
     val x = parseInt(arg1)
     val y = parseInt(arg2)
 
-    // Using `x * y` yields error because they may hold nulls.
+    // `x * y`를 사용하면 null 값을 가질 수 있기 때문에 오류가 발생합니다.
     if (x != null && y != null) {
-        // x and y are automatically cast to non-nullable after null check
+        // 널 검사 후 x와 y는 자동으로 널 불허(non-nullable) 타입으로 캐스트됩니다
         println(x * y)
     }
     else {
-        println("'$arg1' or '$arg2' is not a number")
+        println("'$arg1' 또는 '$arg2'는 숫자가 아닙니다")
     }    
 }
 //sampleEnd
@@ -606,15 +606,15 @@ fun printProduct(arg1: String, arg2: String) {
 //sampleStart
     // ...
     if (x == null) {
-        println("Wrong number format in arg1: '$arg1'")
+        println("arg1: '$arg1'의 숫자 형식이 잘못되었습니다")
         return
     }
     if (y == null) {
-        println("Wrong number format in arg2: '$arg2'")
+        println("arg2: '$arg2'의 숫자 형식이 잘못되었습니다")
         return
     }
 
-    // x and y are automatically cast to non-nullable after null check
+    // 널 검사 후 x와 y는 자동으로 널 불허(non-nullable) 타입으로 캐스트됩니다
     println(x * y)
 //sampleEnd
 }
@@ -638,11 +638,11 @@ fun main() {
 //sampleStart
 fun getStringLength(obj: Any): Int? {
     if (obj is String) {
-        // `obj` is automatically cast to `String` in this branch
+        // 이 분기에서 `obj`는 자동으로 `String`으로 캐스트됩니다
         return obj.length
     }
 
-    // `obj` is still of type `Any` outside of the type-checked branch
+    // 타입 검사가 된 분기 밖에서 `obj`는 여전히 `Any` 타입입니다
     return null
 }
 //sampleEnd
@@ -665,7 +665,7 @@ fun main() {
 fun getStringLength(obj: Any): Int? {
     if (obj !is String) return null
 
-    // `obj` is automatically cast to `String` in this branch
+    // 이 분기에서 `obj`는 자동으로 `String`으로 캐스트됩니다
     return obj.length
 }
 //sampleEnd
@@ -686,7 +686,7 @@ fun main() {
 ```kotlin
 //sampleStart
 fun getStringLength(obj: Any): Int? {
-    // `obj` is automatically cast to `String` on the right-hand side of `&&`
+    // `obj`는 `&&`의 오른쪽에서 자동으로 `String`으로 캐스트됩니다
     if (obj is String && obj.length > 0) {
         return obj.length
     }

@@ -14,10 +14,10 @@ Kotlin/Native 主要設計用於允許針對虛擬機器不適用或不可行的
 
 Kotlin/Native 支援以下平台：
 
-* Linux
-* Windows（透過 [MinGW](https://www.mingw-w64.org/)）
-* [Android NDK](https://developer.android.com/ndk)
-* 適用於 macOS、iOS、tvOS 和 watchOS 的 Apple 目標
+*   Linux
+*   Windows（透過 [MinGW](https://www.mingw-w64.org/)）
+*   [Android NDK](https://developer.android.com/ndk)
+*   適用於 macOS、iOS、tvOS 和 watchOS 的 Apple 目標
 
   > 若要編譯 Apple 目標，您需要安裝 [Xcode](https://apps.apple.com/us/app/xcode/id497799835) 及其命令列工具。
   >
@@ -35,9 +35,9 @@ Kotlin/Native 提供[與 C 的互通性](native-c-interop.md)。您可以直接�
 
 若要了解更多，請完成以下教學：
 
-* [為 C/C++ 專案建立帶有 C 標頭的動態函式庫](native-dynamic-libraries.md)
-* [了解 C 型別如何映射到 Kotlin](mapping-primitive-data-types-from-c.md)
-* [使用 C 互通性和 libcurl 建立原生 HTTP 用戶端](native-app-with-c-and-libcurl.md)
+*   [為 C/C++ 專案建立帶有 C 標頭的動態函式庫](native-dynamic-libraries.md)
+*   [了解 C 型別如何映射到 Kotlin](mapping-primitive-data-types-from-c.md)
+*   [使用 C 互通性和 libcurl 建立原生 HTTP 用戶端](native-app-with-c-and-libcurl.md)
 
 ### 與 Swift/Objective-C 的互通性
 

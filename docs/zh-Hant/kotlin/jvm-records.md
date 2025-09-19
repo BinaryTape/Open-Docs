@@ -98,7 +98,7 @@ data class Person(val name: String, @all:Positive val age: Int)
 
 ## 使註解適用於記錄元件
 
-若要使[註解](annotations.md)同時適用於 Kotlin 屬性**和** Java 記錄元件，請將以下中繼註解新增至您的註解宣告：
+若要使[註解](annotations.md)同時適用於 Kotlin 屬性 **和** Java 記錄元件，請將以下中繼註解新增至您的註解宣告：
 
 *   針對 Kotlin：[`@Target`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.annotation/-target/index.html)
 *   針對 Java 記錄元件：[`@java.lang.annotation.Target`](https://docs.oracle.com/javase/8/docs/api/java/lang/annotation/Target.html)
@@ -108,7 +108,7 @@ data class Person(val name: String, @all:Positive val age: Int)
 ```kotlin
 @Target(AnnotationTarget.CLASS, AnnotationTarget.PROPERTY)
 @java.lang.annotation.Target(ElementType.CLASS, ElementType.RECORD_COMPONENT)
-annotation class exampleClass
+annotation class ExampleClass
 ```
 
 您現在可以將 `@ExampleClass` 應用於 Kotlin 類別和屬性，以及 Java 類別和記錄元件。

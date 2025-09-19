@@ -9,7 +9,7 @@
    [가장 적합한 통합 방식을 선택하세요](multiplatform-ios-integration-overview.md)
 </tldr>
 
-Kotlin/Native는 [CocoaPods 종속성 관리자](https://cocoapods.org/)와의 통합을 제공합니다. Pod 라이브러리에 종속성을 추가하거나 Kotlin 프로젝트를 CocoaPods 종속성으로 사용할 수 있습니다.
+Kotlin/Native는 [CocoaPods 종속성 관리자](https://cocoapods.org/)와의 통합을 제공합니다. Pod 라이브러리에 대한 종속성을 추가할 수 있으며, Kotlin 프로젝트를 CocoaPods 종속성으로 사용할 수도 있습니다.
 
 IntelliJ IDEA 또는 Android Studio에서 직접 Pod 종속성을 관리하고 코드 하이라이팅 및 자동 완성 등 모든 추가 기능을 활용할 수 있습니다. Xcode로 전환할 필요 없이 Gradle을 사용하여 전체 Kotlin 프로젝트를 빌드할 수 있습니다.
 
@@ -50,7 +50,7 @@ Swift/Objective-C 코드를 변경하거나 Apple 시뮬레이터 또는 기기�
     ```bash
     rbenv global 3.0.0
     ```
-
+    
 4. CocoaPods를 설치합니다:
 
     ```bash
@@ -94,29 +94,23 @@ sudo gem install cocoapods
 
 ## 프로젝트 생성
 
-환경 설정이 완료되면 새로운 Kotlin Multiplatform 프로젝트를 생성할 수 있습니다. 이를 위해 Kotlin Multiplatform 웹 위자드(web wizard) 또는 Android Studio용 Kotlin Multiplatform 플러그인을 사용하세요.
+CocoaPods 환경이 설정되면 Pod와 함께 작동하도록 Kotlin Multiplatform 프로젝트를 구성할 수 있습니다. 다음 단계는 새로 생성된 프로젝트에서 구성을 보여줍니다:
 
-### 웹 위자드 사용
+1. [Kotlin Multiplatform IDE 플러그인](https://plugins.jetbrains.com/plugin/14936-kotlin-multiplatform)(macOS에서) 또는 [Kotlin Multiplatform 웹 위자드](https://kmp.jetbrains.com)를 사용하여 Android 및 iOS용 새 프로젝트를 생성합니다.
+   웹 위자드를 사용하는 경우, 아카이브의 압축을 해제하고 IDE로 프로젝트를 임포트(import)합니다.
+2. `gradle/libs.versions.toml` 파일의 `[plugins]` 블록에 Kotlin CocoaPods Gradle 플러그인을 추가합니다:
 
-웹 위자드를 사용하여 프로젝트를 생성하고 CocoaPods 통합을 구성하려면:
-
-1. [Kotlin Multiplatform 위자드](https://kmp.jetbrains.com)를 열고 프로젝트의 대상 플랫폼을 선택합니다.
-2. **Download** 버튼을 클릭하고 다운로드된 아카이브의 압축을 해제합니다.
-3. Android Studio에서 메뉴에서 **File | Open**을 선택합니다.
-4. 압축 해제된 프로젝트 폴더로 이동한 다음 **Open**을 클릭합니다.
-5. Kotlin CocoaPods Gradle 플러그인을 버전 카탈로그(version catalog)에 추가합니다. `gradle/libs.versions.toml` 파일의 `[plugins]` 블록에 다음 선언을 추가합니다:
- 
    ```text
    kotlinCocoapods = { id = "org.jetbrains.kotlin.native.cocoapods", version.ref = "kotlin" }
    ```
-   
-6. 프로젝트의 루트 `build.gradle.kts` 파일로 이동하여 `plugins {}` 블록에 다음 alias를 추가합니다:
+
+3. 프로젝트의 루트 `build.gradle.kts` 파일로 이동하여 `plugins {}` 블록에 다음 alias를 추가합니다:
 
    ```kotlin
    alias(libs.plugins.kotlinCocoapods) apply false
    ```
 
-7. CocoaPods를 통합하려는 모듈(예: `composeApp` 모듈)을 열고 `plugins {}` 블록에 다음 alias를 추가합니다:
+4. CocoaPods를 통합하려는 모듈(예: `composeApp` 모듈)을 열고 `build.gradle.kts` 파일의 `plugins {}` 블록에 다음 alias를 추가합니다:
 
    ```kotlin
    alias(libs.plugins.kotlinCocoapods)
@@ -124,29 +118,13 @@ sudo gem install cocoapods
 
 이제 [Kotlin Multiplatform 프로젝트에서 CocoaPods를 구성할](#configure-the-project) 준비가 되었습니다.
 
-### Android Studio에서
-
-Android Studio에서 CocoaPods 통합과 함께 프로젝트를 생성하려면:
-
-1. Android Studio에 [Kotlin Multiplatform 플러그인](https://plugins.jetbrains.com/plugin/14936-kotlin-multiplatform)을 설치합니다.
-2. Android Studio 메뉴에서 **File** | **New** | **New Project**를 선택합니다.
-3. 프로젝트 템플릿 목록에서 **Kotlin Multiplatform App**을 선택한 다음 **Next**를 클릭합니다.
-4. 애플리케이션 이름을 지정하고 **Next**를 클릭합니다.
-5. iOS 프레임워크 배포 옵션으로 **CocoaPods Dependency Manager**를 선택합니다.
-
-   ![Android Studio wizard with the Kotlin Multiplatform plugin](as-project-wizard.png){width=700}
-
-6. 다른 모든 옵션은 기본값으로 유지합니다. **Finish**를 클릭합니다.
-
-   플러그인이 CocoaPods 통합이 설정된 프로젝트를 자동으로 생성합니다.
-
 ## 프로젝트 구성
 
 멀티플랫폼 프로젝트에서 Kotlin CocoaPods Gradle 플러그인을 구성하려면:
 
 1. 프로젝트의 공유 모듈(shared module) `build.gradle(.kts)`에 Kotlin Multiplatform 플러그인뿐만 아니라 CocoaPods 플러그인도 적용합니다.
 
-   > 이 단계는 [웹 위자드](#using-web-wizard) 또는 [Android Studio용 Kotlin Multiplatform 플러그인](#in-android-studio)으로 프로젝트를 생성했다면 건너뛰세요.
+   > 이 단계는 [IDE 플러그인 또는 웹 위자드로 프로젝트를 생성했다면](#create-a-project) 건너뛰세요.
    > 
    {style="note"}
     

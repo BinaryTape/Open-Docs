@@ -170,7 +170,7 @@ class MessageService(private val db: JdbcTemplate) {
 
 1. `src/main/resources` 디렉터리에 `schema.sql` 파일을 생성합니다. 이 파일은 데이터베이스 객체 정의를 저장합니다:
 
-   ![Create database schema](create-database-schema.png){width=400}
+   ![데이터베이스 스키마 생성](create-database-schema.png){width=400}
 
 2. `src/main/resources/schema.sql` 파일을 다음 코드로 업데이트합니다:
 
@@ -241,11 +241,11 @@ class MessageService(private val db: JdbcTemplate) {
 3. 모든 POST 요청을 실행합니다. 요청 선언 옆에 있는 여백의 녹색 **실행** 아이콘을 사용하세요.
    이 요청들은 텍스트 메시지를 데이터베이스에 기록합니다:
 
-   ![Execute POST request](execute-post-requests.png)
+   ![POST 요청 실행](execute-post-requests.png)
 
 4. GET 요청을 실행하고 **실행** 도구 창에서 결과를 확인하세요:
 
-   ![Execute GET requests](execute-get-requests.png)
+   ![GET 요청 실행](execute-get-requests.png)
 
 ### 요청을 실행하는 다른 방법 {initial-collapse-state="collapsed" collapsible="true"}
 
@@ -490,7 +490,7 @@ class MessageController(private val service: MessageService) {
 
 5. GET 요청을 실행하고 **실행** 도구 창에서 결과를 확인합니다:
 
-    ![Retrieve message by its id](retrieve-message-by-its-id.png){width=706}
+    ![ID별 메시지 검색](retrieve-message-by-its-id.png){width=706}
 
 ## 다음 단계
 

@@ -21,7 +21,7 @@
 
 <snippet id="opentelemetry-description">
 
-Ktor는 [OpenTelemetry](https://opentelemetry.io/)와 통합됩니다. OpenTelemetry는 트레이스(traces), 메트릭(metrics), 로그(logs)와 같은 텔레메트리 데이터를 수집하기 위한 오픈 소스 관측성(observability) 프레임워크입니다. 이는 애플리케이션을 계측(instrument)하고 Grafana 또는 Jaeger와 같은 모니터링 및 관측성 도구로 데이터를 내보내는 표준 방식을 제공합니다.
+Ktor는 트레이스(traces), 메트릭(metrics), 로그(logs)와 같은 텔레메트리 데이터를 수집하기 위한 오픈 소스 관측성(observability) 프레임워크인 [OpenTelemetry](https://opentelemetry.io/)와 통합됩니다. 이는 애플리케이션을 계측(instrument)하고 Grafana 또는 Jaeger와 같은 모니터링 및 관측성 도구로 데이터를 내보내는 표준 방식을 제공합니다.
 
 </snippet>
 
@@ -192,7 +192,7 @@ install(%plugin_name%) {
 
 ### 스팬 종류 선택 {id="config-span-kind"}
 
-요청 특성에 따라 스팬 종류(`SERVER`, `CLIENT`, `PRODUCER`, `CONSUMER` 등)를 재정의하려면 `spanKindExtractor` 속성을 사용하십시오:
+요청 특성에 따라 스팬 종류(예: `SERVER`, `CLIENT`, `PRODUCER`, `CONSUMER`)를 재정의하려면 `spanKindExtractor` 속성을 사용하십시오:
 
 ```kotlin
 install(%plugin_name%) {

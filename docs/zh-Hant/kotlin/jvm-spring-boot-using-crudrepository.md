@@ -25,10 +25,10 @@ _CrudRepository_ 是一個 Spring Data 介面，用於對特定類型的儲存�
     ```kotlin
     // Message.kt
     package com.example.demo
-
+   
     import org.springframework.data.annotation.Id
     import org.springframework.data.relational.core.mapping.Table
-
+    
     @Table("MESSAGES")
     data class Message(@Id val id: String?, val text: String)
     ```
@@ -40,7 +40,7 @@ _CrudRepository_ 是一個 Spring Data 介面，用於對特定類型的儲存�
     @Table("MESSAGES")
     data class Message(val text: String, @Id val id: String? = null)
     ```
-
+ 
     現在，如果您需要建立 `Message` 類別的新實例，您只需指定 `text` 屬性作為參數：
 
     ```kotlin
@@ -52,9 +52,9 @@ _CrudRepository_ 是一個 Spring Data 介面，用於對特定類型的儲存�
     ```kotlin
     // MessageRepository.kt
     package com.example.demo
-
+   
     import org.springframework.data.repository.CrudRepository
-
+    
     interface MessageRepository : CrudRepository<Message, String>
     ```
 
@@ -66,13 +66,13 @@ _CrudRepository_ 是一個 Spring Data 介面，用於對特定類型的儲存�
 
     import org.springframework.data.repository.findByIdOrNull
     import org.springframework.stereotype.Service
-
+    
     @Service
     class MessageService(private val db: MessageRepository) {
         fun findMessages(): List<Message> = db.findAll().toList()
-
+    
         fun findMessageById(id: String): Message? = db.findByIdOrNull(id)
-
+    
         fun save(message: Message): Message = db.save(message)
     }
     ```
@@ -91,7 +91,7 @@ _CrudRepository_ 是一個 Spring Data 介面，用於對特定類型的儲存�
 4.  更新 `messages` 資料表的定義，以便為插入的物件生成 ID。由於 `id` 是字串，您可以使用 `RANDOM_UUID()` 函數預設生成 ID 值：
 
     ```sql
-    -- schema.sql
+    -- schema.sql 
     CREATE TABLE IF NOT EXISTS messages (
         id      VARCHAR(60)  DEFAULT RANDOM_UUID() PRIMARY KEY,
         text    VARCHAR      NOT NULL

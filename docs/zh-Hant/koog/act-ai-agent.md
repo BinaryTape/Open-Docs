@@ -45,7 +45,7 @@ println(result)
 ```
 
 發生了什麼？
-- requestLLMMultiple(input) 發送使用者輸入並接收一個或多個助理訊息。
+- `requestLLMMultiple(input)` 發送使用者輸入並接收一個或多個助理訊息。
 - 我們返回唯一訊息的內容 (典型的一次性 (one-shot) 流程)。
 
 提示：如果您想返回結構化資料，請解析內容或使用 Structured Data API。
@@ -57,7 +57,7 @@ println(result)
 class Switch {
     private var on = false
     fun on() { on = true }
-    fun off() { off = false }
+    fun off() { on = false }
     fun isOn() = on
 }
 
@@ -93,10 +93,10 @@ println("Switch is ${if (sw.isOn()) "on" else "off"}")
 ```
 
 運作方式
-- containsToolCalls() 偵測來自 LLM 的工具呼叫訊息。
-- extractToolCalls(...) 讀取要執行哪些工具以及使用哪些參數 (args)。
-- executeMultipleTools(...) 根據您的 ToolRegistry 執行它們。
-- sendMultipleToolResults(...) 將結果發送回 LLM 並取得下一個回應。
+- `containsToolCalls()` 偵測來自 LLM 的工具呼叫訊息。
+- `extractToolCalls(...)` 讀取要執行哪些工具以及使用哪些參數 (args)。
+- `executeMultipleTools(...)` 根據您的 ToolRegistry 執行它們。
+- `sendMultipleToolResults(...)` 將結果發送回 LLM 並取得下一個回應。
 
 ## 4) 透過功能 (EventHandler) 觀察行為
 目標：將每次工具呼叫印到控制台。
@@ -125,7 +125,7 @@ val observed = functionalAIAgent<String, String>(
 }
 ```
 
-您可以透過這種方式安裝的其他功能包括流式傳輸 token 和追蹤；請參閱側邊欄中的相關文件。
+您可以透過這種方式安裝的其他功能包括串流 token 和追蹤；請參閱側邊欄中的相關文件。
 
 ## 5) 控制上下文 (歷史紀錄壓縮)
 長時間的對話可能會超出模型的上下文視窗。使用 token 使用量來決定何時壓縮歷史紀錄：
@@ -153,7 +153,7 @@ while (responses.containsToolCalls()) {
 - 每個請求一個代理程式實例
   - 每個代理程式實例在同一時間只能單次執行。如果需要並行性，請建立新的實例。
 - 自訂輸出類型
-  - 更改 functionalAIAgent<String, MyResult> 並從迴圈中返回一個 data class。
+  - 更改 `functionalAIAgent<String, MyResult>` 並從迴圈中返回一個 `data class`。
 
 ## 故障排除與陷阱
 - 「代理程式已在執行中」
@@ -163,10 +163,10 @@ while (responses.containsToolCalls()) {
 - 迴圈永不結束
   - 確保在沒有工具呼叫時中斷；為安全起見新增防護措施/逾時。
 - 上下文溢出
-  - 監控 latestTokenUsage() 並呼叫 compressHistory()。
+  - 監控 `latestTokenUsage()` 並呼叫 `compressHistory()`。
 
 ## 參考 (快速)
-### 建構函式
+建構函式
 
 ```kotlin
 fun <Input, Output> functionalAIAgent(
@@ -186,7 +186,7 @@ fun <Input, Output> functionalAIAgent(
 ): AIAgent<Input, Output>
 ```
 
-### 重要類型
+重要類型
 - FunctionalAIAgent<Input, Output>
 - AIAgentFunctionalContext
 - AIAgentConfig / AIAgentConfigBase

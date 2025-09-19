@@ -41,9 +41,9 @@ val strategy = strategy<String, String>("strategy_name") {
 -->
 ```kotlin
 val nodeName by parallel<Input, Output>(
-   firstNode, secondNode, thirdNode /* Add more nodes if needed */
+   firstNode, secondNode, thirdNode /* 필요한 경우 노드 추가 */
 ) {
-   // Merge strategy goes here, for example: 
+   // 병합 전략은 여기에 작성됩니다. 예를 들어: 
    selectByMax { it.length }
 }
 ```
@@ -172,12 +172,12 @@ val nodeBestJoke by parallel<String, String>(
    nodeOpenAI, nodeAnthropicSonnet, nodeAnthropicOpus,
 ) {
    selectByIndex { jokes ->
-      // Use another LLM to determine the best joke
+      // 또 다른 LLM을 사용하여 가장 좋은 농담을 결정
       llm.writeSession {
          model = OpenAIModels.Chat.GPT4o
          updatePrompt {
-            system("You are a comedy critic. Select the best joke.")
-            user("Here are three jokes: ${jokes.joinToString("
+            system("당신은 코미디 평론가입니다. 가장 좋은 농담을 선택하세요.")
+            user("여기 세 가지 농담이 있습니다: ${jokes.joinToString("
 \n")}")
          }
          val response = requestLLMStructured<JokeRating>()
@@ -240,13 +240,13 @@ data class JokeRating(
 -->
 ```kotlin
 val strategy = strategy("best-joke") {
-   // Define nodes for different LLM models
+   // 다양한 LLM 모델에 대한 노드 정의
    val nodeOpenAI by node<String, String> { topic ->
       llm.writeSession {
          model = OpenAIModels.Chat.GPT4o
          updatePrompt {
-            system("You are a comedian. Generate a funny joke about the given topic.")
-            user("Tell me a joke about $topic.")
+            system("당신은 코미디언입니다. 주어진 주제에 대한 재미있는 농담을 생성하세요.")
+            user("$topic 에 대한 농담을 해주세요.")
          }
          val response = requestLLMWithoutTools()
          response.content
@@ -257,8 +257,8 @@ val strategy = strategy("best-joke") {
       llm.writeSession {
          model = AnthropicModels.Sonnet_3_5
          updatePrompt {
-            system("You are a comedian. Generate a funny joke about the given topic.")
-            user("Tell me a joke about $topic.")
+            system("당신은 코미디언입니다. 주어진 주제에 대한 재미있는 농담을 생성하세요.")
+            user("$topic 에 대한 농담을 해주세요.")
          }
          val response = requestLLMWithoutTools()
          response.content
@@ -269,34 +269,34 @@ val strategy = strategy("best-joke") {
       llm.writeSession {
          model = AnthropicModels.Opus_3
          updatePrompt {
-            system("You are a comedian. Generate a funny joke about the given topic.")
-            user("Tell me a joke about $topic.")
+            system("당신은 코미디언입니다. 주어진 주제에 대한 재미있는 농담을 생성하세요.")
+            user("$topic 에 대한 농담을 해주세요.")
          }
          val response = requestLLMWithoutTools()
          response.content
       }
    }
 
-   // Execute joke generation in parallel and select the best joke
+   // 농담 생성을 병렬로 실행하고 가장 좋은 농담을 선택합니다.
    val nodeGenerateBestJoke by parallel(
       nodeOpenAI, nodeAnthropicSonnet, nodeAnthropicOpus,
    ) {
       selectByIndex { jokes ->
-         // Another LLM (e.g., GPT4o) would find the funniest joke:
+         // 또 다른 LLM(예: GPT4o)이 가장 재미있는 농담을 찾습니다:
          llm.writeSession {
             model = OpenAIModels.Chat.GPT4o
             updatePrompt {
                prompt("best-joke-selector") {
-                  system("You are a comedy critic. Give a critique for the given joke.")
+                  system("당신은 코미디 평론가입니다. 주어진 농담에 대한 비평을 해주세요.")
                   user(
                      """
-                            Here are three jokes about the same topic:
+                            여기 같은 주제에 대한 세 가지 농담이 있습니다:
 
-                            ${jokes.mapIndexed { index, joke -> "Joke $index:
+                            ${jokes.mapIndexed { index, joke -> "농담 $index:
 $joke" }.joinToString("
 \n")}
 
-                            Select the best joke and explain why it's the best.
+                            가장 좋은 농담을 선택하고 그 이유를 설명하세요.
                             """.trimIndent()
                   )
                }
@@ -309,7 +309,7 @@ $joke" }.joinToString("
       }
    }
 
-   // Connect the nodes
+   // 노드 연결
    nodeStart then nodeGenerateBestJoke then nodeFinish
 }
 ```

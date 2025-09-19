@@ -14,7 +14,7 @@ Kotlin %kotlinEapVersion%이(가) 릴리스되었습니다!
 
 * Kotlin Multiplatform: [Swift 내보내기 기본 지원](#swift-export-available-by-default), [`js` 및 `wasmJs` 타겟을 위한 공유 소스셋](#shared-source-set-for-js-and-wasmjs-targets), [Kotlin 라이브러리를 위한 안정적인 크로스 플랫폼 컴파일](#stable-cross-platform-compilation-for-kotlin-libraries), 그리고 [공통 의존성 선언을 위한 새로운 접근 방식](#new-approach-for-declaring-common-dependencies).
 * Language: [suspend 함수 타입의 오버로드에 람다를 전달할 때 개선된 오버로드 해결](#improved-overload-resolution-for-lambdas-with-suspend-function-types).
-* Kotlin/Native: [바이너리에서 스택 카나리 지원](#support-for-stack-canaries-in-binaries) 및 [iOS 타겟을 위한 더 작은 바이너리 크기](#smaller-binary-size-for-ios-targets).
+* Kotlin/Native: [바이너리에서 스택 카나리 지원](#support-for-stack-canaries-in-binaries) 및 [릴리스 바이너리를 위한 더 작은 바이너리 크기](#smaller-binary-size-for-release-binaries).
 * Kotlin/Wasm: [Kotlin/Wasm 및 JavaScript 상호 운용성에서 개선된 예외 처리](#improved-exception-handling-in-kotlin-wasm-and-javascript-interop).
 * Kotlin/JS: [`Long` 값이 JavaScript `BigInt`로 컴파일됨](#usage-of-bigint-type-to-represent-kotlin-s-long-type).
 
@@ -54,7 +54,7 @@ fun test() {
 // Resolves to transform(() -> Int)
 transform({ 42 })
 
-// Resolves to transform(suspend { 42 })
+// Resolves to transform(suspend () -> Int)
 transform(suspend { 42 })
 ```
 
@@ -195,13 +195,13 @@ Kotlin %kotlinEapVersion%은 Swift 내보내기에 대한 실험적 지원을 �
 
 주요 기능은 다음과 같습니다:
 
-* **다중 모듈 지원**. 각 Kotlin 모듈은 별도의 Swift 모듈로 내보내져 함수 호출을 간소화합니다.
-* **패키지 지원**. Kotlin 패키지는 내보내기 시 명시적으로 보존되어 생성된 Swift 코드의 이름 충돌을 방지합니다.
-* **타입 별칭**. Kotlin 타입 별칭은 Swift로 내보내지고 보존되어 가독성을 향상시킵니다.
-* **기본 타입에 대한 향상된 널 가능성**. 널 가능성을 보존하기 위해 `Int?`와 같은 타입을 `KotlinInt`와 같은 래퍼 클래스로 박싱해야 했던 Objective-C 상호 운용성과 달리, Swift 내보내기는 널 가능성 정보를 직접 변환합니다.
-* **오버로드**. Swift에서 Kotlin의 오버로드된 함수를 모호함 없이 호출할 수 있습니다.
-* **평탄화된 패키지 구조**. Kotlin 패키지를 Swift 열거형으로 변환하여 생성된 Swift 코드에서 패키지 접두사를 제거할 수 있습니다.
-* **모듈 이름 사용자 정의**. Kotlin 프로젝트의 Gradle 구성에서 결과 Swift 모듈 이름을 사용자 정의할 수 있습니다.
+*   **다중 모듈 지원**. 각 Kotlin 모듈은 별도의 Swift 모듈로 내보내져 함수 호출을 간소화합니다.
+*   **패키지 지원**. Kotlin 패키지는 내보내기 시 명시적으로 보존되어 생성된 Swift 코드의 이름 충돌을 방지합니다.
+*   **타입 별칭**. Kotlin 타입 별칭은 Swift로 내보내지고 보존되어 가독성을 향상시킵니다.
+*   **기본 타입에 대한 향상된 널 가능성**. 널 가능성을 보존하기 위해 `Int?`와 같은 타입을 `KotlinInt`와 같은 래퍼 클래스로 박싱해야 했던 Objective-C 상호 운용성과 달리, Swift 내보내기는 널 가능성 정보를 직접 변환합니다.
+*   **오버로드**. Swift에서 Kotlin의 오버로드된 함수를 모호함 없이 호출할 수 있습니다.
+*   **평탄화된 패키지 구조**. Kotlin 패키지를 Swift 열거형으로 변환하여 생성된 Swift 코드에서 패키지 접두사를 제거할 수 있습니다.
+*   **모듈 이름 사용자 정의**. Kotlin 프로젝트의 Gradle 구성에서 결과 Swift 모듈 이름을 사용자 정의할 수 있습니다.
 
 #### Swift 내보내기 활성화 방법
 
@@ -209,17 +209,17 @@ Kotlin %kotlinEapVersion%은 Swift 내보내기에 대한 실험적 지원을 �
 
 Swift 내보내기를 사용해 보려면 Xcode 프로젝트를 구성하세요:
 
-1. Xcode에서 프로젝트 설정을 엽니다.
-2. **Build Phases** 탭에서 `embedAndSignAppleFrameworkForXcode` 태스크가 있는 **Run Script** 단계를 찾습니다.
-3. 실행 스크립트 단계에서 스크립트를 `embedSwiftExportForXcode` 태스크를 포함하도록 조정합니다:
+1.  Xcode에서 프로젝트 설정을 엽니다.
+2.  **Build Phases** 탭에서 `embedAndSignAppleFrameworkForXcode` 태스크가 있는 **Run Script** 단계를 찾습니다.
+3.  실행 스크립트 단계에서 스크립트를 `embedSwiftExportForXcode` 태스크를 포함하도록 조정합니다:
 
-  ```bash
-  ./gradlew :<Shared module name>:embedSwiftExportForXcode
-  ```
+    ```bash
+    ./gradlew :<Shared module name>:embedSwiftExportForXcode
+    ```
 
-  ![Add the Swift export script](xcode-swift-export-run-script-phase.png){width=700}
+    ![Add the Swift export script](xcode-swift-export-run-script-phase.png){width=700}
 
-4. 프로젝트를 빌드합니다. Swift 모듈은 빌드 출력 디렉토리에 생성됩니다.
+4.  프로젝트를 빌드합니다. Swift 모듈은 빌드 출력 디렉토리에 생성됩니다.
 
 이 기능은 기본적으로 제공됩니다. 이전 릴리스에서 이미 활성화했다면 이제 `gradle.properties` 파일에서 `kotlin.experimental.swift-export.enabled`를 제거할 수 있습니다.
 
@@ -235,8 +235,8 @@ Swift 내보내기에 대한 자세한 내용은 [README](https://github.com/Jet
 
 Swift 내보내기 지원은 Kotlin Multiplatform에 중요한 변경 사항입니다. 귀하의 피드백에 감사드립니다:
 
-* Kotlin Slack에서 개발팀에 직접 문의하세요 – [초대 받기](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up?_gl=1*ju6cbn*_ga*MTA3MTk5NDkzMC4xNjQ2MDY3MDU4*_ga_9J976DJZ68*MTY1ODMzNzA3OS4xMDAuMS4xNjU4MzQwODEwLjYw) 및 [#swift-export](https://kotlinlang.slack.com/archives/C073GUW6WN9) 채널에 참여하세요.
-* Swift 내보내기 사용 중 발생한 모든 문제를 [YouTrack](https://kotl.in/issue)에 보고하세요.
+*   Kotlin Slack에서 개발팀에 직접 문의하세요 – [초대 받기](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up?_gl=1*ju6cbn*_ga*MTA3MTk5NDkzMC4xNjQ2MDY3MDU4*_ga_9J976DJZ68*MTY1ODMzNzA3OS4xMDAuMS4xNjU4MzQwODEwLjYw) 및 [#swift-export](https://kotlinlang.slack.com/archives/C073GUW6WN9) 채널에 참여하세요.
+*   Swift 내보내기 사용 중 발생한 모든 문제를 [YouTrack](https://kotl.in/issue)에 보고하세요.
 
 ### js 및 wasmJs 타겟을 위한 공유 소스셋
 
@@ -293,10 +293,20 @@ suspend fun readCopiedText(): String {
 
 이 업데이트는 `js` 및 `wasmJs` 타겟 간의 코드 공유를 간소화합니다. 특히 다음 두 가지 경우에 유용합니다:
 
-* 코드 중복 없이 `js` 및 `wasmJs` 타겟을 모두 지원하려는 라이브러리 작성자에게 유용합니다.
-* 웹을 타겟으로 하는 Compose Multiplatform 애플리케이션을 빌드하는 개발자에게 유용합니다. 더 넓은 브라우저 호환성을 위해 `js` 및 `wasmJs` 타겟으로 크로스 컴파일을 가능하게 합니다. 이러한 폴백 모드가 주어지면 웹사이트를 만들 때 모든 브라우저에서 바로 작동합니다: 최신 브라우저는 `wasmJs`를 사용하고, 이전 브라우저는 `js`를 사용합니다.
+*   코드 중복 없이 `js` 및 `wasmJs` 타겟을 모두 지원하려는 라이브러리 작성자에게 유용합니다.
+*   웹을 타겟으로 하는 Compose Multiplatform 애플리케이션을 빌드하는 개발자에게 유용합니다. 더 넓은 브라우저 호환성을 위해 `js` 및 `wasmJs` 타겟으로 크로스 컴파일을 가능하게 합니다. 이러한 폴백 모드가 주어지면 웹사이트를 만들 때 모든 브라우저에서 바로 작동합니다: 최신 브라우저는 `wasmJs`를 사용하고, 이전 브라우저는 `js`를 사용합니다.
 
 이 기능을 사용해 보려면 `build.gradle(.kts)` 파일의 `kotlin {}` 블록에서 [기본 계층 템플릿](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-hierarchy.html#default-hierarchy-template)을 사용하세요.
+
+```kotlin
+kotlin {
+    js()
+    wasmJs()
+
+    // Enables the default source set hierarchy, including webMain and webTest
+    applyDefaultHierarchyTemplate()
+}
+```
 
 기본 계층을 사용하기 전에 사용자 지정 공유 소스셋이 있는 프로젝트가 있거나 `js("web")` 타겟의 이름을 변경했다면 잠재적인 충돌을 신중하게 고려하세요. 이러한 충돌을 해결하려면 충돌하는 소스셋 또는 타겟의 이름을 변경하거나 기본 계층을 사용하지 마세요.
 
@@ -310,9 +320,9 @@ Kotlin %kotlinEapVersion%은 Kotlin 라이브러리를 위한 크로스 플랫�
 
 안타깝게도 몇 가지 제한 사항이 여전히 존재합니다. 다음의 경우 여전히 Mac 머신을 사용해야 합니다:
 
-* 라이브러리에 [cinterop 의존성](native-c-interop.md)이 있는 경우.
-* 프로젝트에 [CocoaPods 통합](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-cocoapods-overview.html)이 설정되어 있는 경우.
-* Apple 타겟을 위한 [최종 바이너리](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-build-native-binaries.html)를 빌드하거나 테스트해야 하는 경우.
+*   라이브러리 또는 종속 모듈에 [cinterop 의존성](native-c-interop.md)이 있는 경우.
+*   프로젝트에 [CocoaPods 통합](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-cocoapods-overview.html)이 설정되어 있는 경우.
+*   Apple 타겟을 위한 [최종 바이너리](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-build-native-binaries.html)를 빌드하거나 테스트해야 하는 경우.
 
 멀티플랫폼 라이브러리 게시에 대한 자세한 내용은 [문서](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-publish-lib-setup.html)를 참조하세요.
 
@@ -342,11 +352,9 @@ Kotlin %kotlinEapVersion%은 Kotlin/Native 바이너리 및 디버깅에 대한 
 
 %kotlinEapVersion%부터 Kotlin은 결과 Kotlin/Native 바이너리에서 스택 카나리 지원을 추가합니다. 스택 보호의 일부로 이 보안 기능은 스택 스매싱으로부터 보호하여 일부 일반적인 애플리케이션 취약성을 완화합니다. Swift와 Objective-C에서 이미 사용 가능하며, 이제 Kotlin에서도 지원됩니다.
 
-#### 스택 카나리 활성화 방법
-
 Kotlin/Native의 스택 보호 구현은 [Clang](https://clang.llvm.org/docs/ClangCommandLineReference.html#cmdoption-clang-fstack-protector)의 스택 보호기 동작을 따릅니다.
 
-스택 카나리를 활성화하려면 `gradle.properties` 파일에 다음 속성을 추가하세요:
+스택 카나리를 활성화하려면 `gradle.properties` 파일에 다음 [바이너리 옵션](native-binary-options.md)을 추가하세요:
 
 ```none
 kotlin.native.binary.stackProtector=yes
@@ -354,21 +362,19 @@ kotlin.native.binary.stackProtector=yes
 
 이 속성은 스택 스매싱에 취약한 모든 Kotlin 함수에 대해 이 기능을 활성화합니다. 대체 모드는 다음과 같습니다:
 
-* `kotlin.native.binary.stackProtector=strong`은 스택 스매싱에 취약한 함수에 대해 더 강력한 휴리스틱을 사용합니다.
-* `kotlin.native.binary.stackProtector=all`은 모든 함수에 대해 스택 보호기를 활성화합니다.
+*   `kotlin.native.binary.stackProtector=strong`은 스택 스매싱에 취약한 함수에 대해 더 강력한 휴리스틱을 사용합니다.
+*   `kotlin.native.binary.stackProtector=all`은 모든 함수에 대해 스택 보호기를 활성화합니다.
 
 일부 경우에 스택 보호는 성능 비용을 수반할 수 있습니다.
 
-### iOS 타겟을 위한 더 작은 바이너리 크기
-<primary-label ref="experimental-general"/> 
+### 릴리스 바이너리를 위한 더 작은 바이너리 크기
+<primary-label ref="experimental-opt-in"/> 
 
-Kotlin %kotlinEapVersion%은 iOS 타겟의 바이너리 크기를 줄이는 데 도움이 되는 `smallBinary` 옵션을 도입합니다. 새 옵션은 LLVM 컴파일 단계에서 컴파일러의 기본 최적화 인수로 `-Oz`를 효과적으로 설정합니다.
+Kotlin %kotlinEapVersion%은 릴리스 바이너리(release binaries)의 바이너리 크기를 줄이는 데 도움이 되는 `smallBinary` 옵션을 도입합니다. 새 옵션은 LLVM 컴파일 단계에서 컴파일러의 기본 최적화 인수로 `-Oz`를 효과적으로 설정합니다.
 
 `smallBinary` 옵션을 활성화하면 릴리스 바이너리를 더 작게 만들고 빌드 시간을 개선할 수 있습니다. 하지만 일부 경우에 런타임 성능에 영향을 미칠 수 있습니다.
 
-#### 더 작은 바이너리 크기 활성화 방법
-
-새 기능은 현재 [실험적](components-stability.md#stability-levels-explained)입니다. 프로젝트에서 사용해 보려면 `-Xbinary=smallBinary=true` 컴파일러 옵션을 사용하거나 `gradle.properties` 파일을 다음과 같이 업데이트하세요:
+새 기능은 현재 [실험적](components-stability.md#stability-levels-explained)입니다. 프로젝트에서 사용해 보려면 `gradle.properties` 파일에 다음 [바이너리 옵션](native-binary-options.md)을 추가하세요:
 
 ```none
 kotlin.native.binary.smallBinary=true
@@ -437,13 +443,13 @@ Kotlin/Wasm은 분리된 npm 의존성 및 JavaScript 상호 운용성을 위한
 
 Kotlin %kotlinEapVersion%부터 Kotlin 툴링 npm 의존성은 프로젝트 외부에 설치됩니다. 이제 툴링 및 사용자 의존성은 별도의 디렉토리를 가집니다:
 
-* **툴링 의존성 디렉토리:**
+*   **툴링 의존성 디렉토리:**
 
-  `<kotlin-user-home>/kotlin-npm-tooling/<yarn|npm>/hash/node_modules`
+    `<kotlin-user-home>/kotlin-npm-tooling/<yarn|npm>/hash/node_modules`
 
-* **사용자 의존성 디렉토리:**
+*   **사용자 의존성 디렉토리:**
 
-  `build/wasm/node_modules`
+    `build/wasm/node_modules`
 
 또한, 프로젝트 디렉토리 내부의 잠금 파일은 사용자 정의 의존성만 포함합니다.
 
@@ -459,14 +465,14 @@ Kotlin %kotlinEapVersion%부터 Kotlin 툴링 npm 의존성은 프로젝트 외�
 
 Kotlin %kotlinEapVersion%부터 예외 처리와 관련한 개발자 경험이 양방향으로 개선됩니다:
 
-* JavaScript에서 예외가 발생할 때: Kotlin 쪽에서 더 많은 정보를 볼 수 있습니다. 그러한 예외가 Kotlin을 통해 다시 JS로 전파될 때, 더 이상 WebAssembly로 래핑되지 않습니다.
-* Kotlin에서 예외가 발생할 때: 이제 JavaScript 쪽에서 JS 오류로 Catch할 수 있습니다.
+*   JavaScript에서 예외가 발생할 때: Kotlin 쪽에서 더 많은 정보를 볼 수 있습니다. 그러한 예외가 Kotlin을 통해 다시 JS로 전파될 때, 더 이상 WebAssembly로 래핑되지 않습니다.
+*   Kotlin에서 예외가 발생할 때: 이제 JavaScript 쪽에서 JS 오류로 Catch할 수 있습니다.
 
 새로운 예외 처리는 [`WebAssembly.JSTag`](https://webassembly.github.io/exception-handling/js-api/#dom-webassembly-jstag) 기능을 지원하는 최신 브라우저에서 자동으로 작동합니다:
 
-* Chrome 115+
-* Firefox 129+
-* Safari 18.4+
+*   Chrome 115+
+*   Firefox 129+
+*   Safari 18.4+
 
 이전 브라우저에서는 예외 처리 동작이 변경되지 않습니다.
 
@@ -509,7 +515,7 @@ Kotlin/JS가 사용자 지정 `Long` 표현을 사용했기 때문에 JavaScript
 
 이 기능을 활성화하려면:
 
-1. Kotlin/JS에서 `Long` 내보내기를 허용합니다. `build.gradle(.kts)` 파일의 `freeCompilerArgs` 속성에 다음 컴파일러 인수를 추가하세요:
+1.  Kotlin/JS에서 `Long` 내보내기를 허용합니다. `build.gradle(.kts)` 파일의 `freeCompilerArgs` 속성에 다음 컴파일러 인수를 추가하세요:
 
     ```kotlin
     // build.gradle.kts
@@ -523,15 +529,15 @@ Kotlin/JS가 사용자 지정 `Long` 표현을 사용했기 때문에 JavaScript
     }
     ```
 
-2. `BigInt` 타입을 활성화합니다. [Kotlin의 `Long` 타입을 나타내기 위한 `BigInt` 타입 사용](#usage-of-bigint-type-to-represent-kotlin-s-long-type)에서 활성화 방법을 참조하세요.
+2.  `BigInt` 타입을 활성화합니다. [Kotlin의 `Long` 타입을 나타내기 위한 `BigInt` 타입 사용](#usage-of-bigint-type-to-represent-kotlin-s-long-type)에서 활성화 방법을 참조하세요.
 
 ### 더 깔끔한 인수를 위한 새로운 DSL 함수
 
 Node.js로 Kotlin/JS 애플리케이션을 실행할 때, 프로그램에 전달되는 인수(`args`)에는 다음이 포함되었습니다:
 
-* 실행 파일 `Node`의 경로.
-* 스크립트의 경로.
-* 제공한 실제 명령줄 인수.
+*   실행 파일 `Node`의 경로.
+*   스크립트의 경로.
+*   제공한 실제 명령줄 인수.
 
 하지만 `args`에 대한 예상 동작은 명령줄 인수만 포함하는 것이었습니다. 이를 달성하기 위해 `build.gradle(.kts)` 파일 내부 또는 Kotlin 코드에서 `drop()` 함수를 사용하여 처음 두 인수를 수동으로 건너뛰어야 했습니다:
 

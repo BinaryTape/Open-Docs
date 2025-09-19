@@ -10,7 +10,7 @@ Null 포인터 예외가 발생할 가능성을 최소화하기 위해 코드를
 이것은 Java에서 Kotlin으로 마이그레이션하고 Kotlin다운 스타일로 코드를 작성하는 데 도움이 될 것입니다.
 
 이 가이드의 첫 번째 부분은 가장 중요한 차이점, 즉 Kotlin의 Null 허용 타입 지원과 Kotlin이 [Java 코드의 타입](#platform-types)을 처리하는 방식을 다룹니다. 두 번째 부분은
-[함수 호출 결과 확인하기](#checking-the-result-of-a-function-call)부터 시작하여 특정 차이점을 설명하기 위한 몇 가지 구체적인 사례를 살펴봅니다.
+[함수 호출 결과 확인하기](#checking-the-function-call-result)부터 시작하여 특정 차이점을 설명하기 위한 몇 가지 구체적인 사례를 살펴봅니다.
 
 [Kotlin의 Null 안전성에 대해 더 알아보기](null-safety.md).
 
@@ -323,6 +323,47 @@ fun getStringLength(y: Any): Int {
 어쨌든 검사를 수행해야 하지만, 이 방식으로는 추가적인 박싱이 수행되지 않습니다.
 >
 {style="note"}
+
+Java 코드를 Kotlin으로 마이그레이션할 때, 코드의 원래 의미를 보존하기 위해 초기에는 Null 허용 타입과 함께 일반 형변환 연산자 `as`를 사용할 수 있습니다. 하지만 더 안전하고 Kotlin스러운 접근 방식을 위해 안전 형변환 연산자 `as?`를 사용하도록 코드를 조정하는 것이 좋습니다. 예를 들어, 다음 Java 코드가 있다면:
+
+```java
+public class UserProfile {
+    Object data;
+
+    public static String getUsername(UserProfile profile) {
+        if (profile == null) {
+            return null;
+        }
+        return (String) profile.data;
+    }
+}
+```
+
+이를 `as` 연산자로 직접 마이그레이션하면 다음과 같습니다:
+
+```kotlin
+class UserProfile(var data: Any? = null)
+
+fun getUsername(profile: UserProfile?): String? {
+    if (profile == null) {
+        return null
+    }
+    return profile.data as String?
+}
+```
+
+여기서 `profile.data`는 `as String?`을 사용하여 Null 허용 문자열로 형변환됩니다.
+
+한 단계 더 나아가 `as? String`을 사용하여 값을 안전하게 형변환하는 것을 권장합니다. 이 접근 방식은 `ClassCastException`을 던지는 대신 실패 시 `null`을 반환합니다:
+
+```kotlin
+class UserProfile(var data: Any? = null)
+
+fun getUsername(profile: UserProfile?): String? =
+  profile?.data as? String
+```
+
+이 버전은 [안전 호출 연산자](null-safety.md#safe-call-operator) `?.`로 `if` 표현식을 대체하여 형변환을 시도하기 전에 `data` 속성에 안전하게 접근합니다.
 
 ## 다음 단계
 

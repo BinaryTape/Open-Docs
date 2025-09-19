@@ -8,7 +8,7 @@ Kotlin 中的接口可以包含抽象方法的声明，以及方法的实现。�
 interface MyInterface {
     fun bar()
     fun foo() {
-      // 可选的方法体
+      // optional body
     }
 }
 ```
@@ -20,7 +20,7 @@ interface MyInterface {
 ```kotlin
 class Child : MyInterface {
     override fun bar() {
-        // 方法体
+        // body
     }
 }
 ```
@@ -31,7 +31,7 @@ class Child : MyInterface {
 
 ```kotlin
 interface MyInterface {
-    val prop: Int // 抽象的
+    val prop: Int // abstract
 
     val propertyWithImplementation: String
         get() = "foo"
@@ -63,7 +63,7 @@ interface Person : Named {
 }
 
 data class Employee(
-    // 无需实现 'name'
+    // implementing 'name' is not required
     override val firstName: String,
     override val lastName: String,
     val position: Position
@@ -121,4 +121,3 @@ kotlin {
         jvmDefault = JvmDefaultMode.NO_COMPATIBILITY
     }
 }
-```

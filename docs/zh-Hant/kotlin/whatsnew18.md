@@ -4,12 +4,12 @@ _[發佈日期：2022 年 12 月 28 日](releases.md#release-details)_
 
 Kotlin 1.8.0 版本已發佈，以下是一些主要亮點：
 
-* [JVM 的新實驗性函式：遞迴複製或刪除目錄內容](#recursive-copying-or-deletion-of-directories)
-* [提升 kotlin-reflect 效能](#improved-kotlin-reflect-performance)
-* [用於更好偵錯體驗的新 -Xdebug 編譯器選項](#a-new-compiler-option-for-disabling-optimizations)
-* [`kotlin-stdlib-jdk7` 和 `kotlin-stdlib-jdk8` 合併至 `kotlin-stdlib`](#updated-jvm-compilation-target)
-* [改進 Objective-C/Swift 互通性](#improved-objective-c-swift-interoperability)
-* [相容於 Gradle 7.3](#gradle)
+*   [JVM 的新實驗性函式：遞迴複製或刪除目錄內容](#recursive-copying-or-deletion-of-directories)
+*   [提升 kotlin-reflect 效能](#improved-kotlin-reflect-performance)
+*   [用於更好偵錯體驗的新 -Xdebug 編譯器選項](#a-new-compiler-option-for-disabling-optimizations)
+*   [`kotlin-stdlib-jdk7` 和 `kotlin-stdlib-jdk8` 合併至 `kotlin-stdlib`](#updated-jvm-compilation-target)
+*   [改進 Objective-C/Swift 互通性](#improved-objective-c-swift-interoperability)
+*   [相容於 Gradle 7.3](#gradle)
 
 ## IDE 支援
 
@@ -32,10 +32,10 @@ Kotlin 1.8.0 版本已發佈，以下是一些主要亮點：
 從 1.8.0 版開始，編譯器可以產生對應於 JVM 19 的位元碼版本的類別。
 新的語言版本還包括：
 
-* [用於關閉 JVM 註釋目標生成的編譯器選項](#ability-to-not-generate-type-use-and-type-parameter-annotation-targets)
-* [用於停用最佳化的新 `-Xdebug` 編譯器選項](#a-new-compiler-option-for-disabling-optimizations)
-* [移除舊的後端](#removal-of-the-old-backend)
-* [支援 Lombok 的 @Builder 註釋](#support-for-lombok-s-builder-annotation)
+*   [用於關閉 JVM 註釋目標生成的編譯器選項](#ability-to-not-generate-type-use-and-type-parameter-annotation-targets)
+*   [用於停用最佳化的新 `-Xdebug` 編譯器選項](#a-new-compiler-option-for-disabling-optimizations)
+*   [移除舊的後端](#removal-of-the-old-backend)
+*   [支援 Lombok 的 @Builder 註釋](#support-for-lombok-s-builder-annotation)
 
 ### 不生成 TYPE_USE 和 TYPE_PARAMETER 註釋目標的能力
 
@@ -82,57 +82,57 @@ YouTrack 問題添加了如此多的票數，以至於我們不得不支援 [@Bu
 
 Kotlin 1.8.0 包含了 Objective-C 和 Swift 互通性的變更、對 Xcode 14.1 的支援以及 CocoaPods Gradle 外掛程式的改進：
 
-* [支援 Xcode 14.1](#support-for-xcode-14-1)
-* [改進 Objective-C/Swift 互通性](#improved-objective-c-swift-interoperability)
-* [CocoaPods Gradle 外掛程式中預設為動態框架](#dynamic-frameworks-by-default-in-the-cocoapods-gradle-plugin)
+*   [支援 Xcode 14.1](#support-for-xcode-14-1)
+*   [改進 Objective-C/Swift 互通性](#improved-objective-c-swift-interoperability)
+*   [CocoaPods Gradle 外掛程式中預設為動態框架](#dynamic-frameworks-by-default-in-the-cocoapods-gradle-plugin)
 
 ### 支援 Xcode 14.1
 
 Kotlin/Native 編譯器現在支援最新的穩定 Xcode 版本 14.1。相容性改進包括
 以下變更：
 
-* 為 watchOS 目標新增了 `watchosDeviceArm64` 預設，支援 ARM64 平台上的 Apple watchOS。
-* Kotlin CocoaPods Gradle 外掛程式預設不再包含 Apple 框架的位元碼嵌入。
-* 平台函式庫已更新，以反映 Apple 目標的 Objective-C 框架變更。
+*   為 watchOS 目標新增了 `watchosDeviceArm64` 預設，支援 ARM64 平台上的 Apple watchOS。
+*   Kotlin CocoaPods Gradle 外掛程式預設不再包含 Apple 框架的位元碼嵌入。
+*   平台函式庫已更新，以反映 Apple 目標的 Objective-C 框架變更。
 
 ### 改進 Objective-C/Swift 互通性
 
 為了使 Kotlin 與 Objective-C 和 Swift 更具互通性，新增了三個註釋：
 
-* [`@ObjCName`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.native/-obj-c-name/) 允許您在 Swift 或 Objective-C 中指定更
-  符合慣例的名稱，而不是重新命名 Kotlin 宣告。
+*   [`@ObjCName`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.native/-obj-c-name/) 允許您在 Swift 或 Objective-C 中指定更
+    符合慣例的名稱，而不是重新命名 Kotlin 宣告。
 
-  此註釋指示 Kotlin 編譯器為此類別、屬性、參數或函式使用自訂的 Objective-C 和 Swift 名稱：
+    此註釋指示 Kotlin 編譯器為此類別、屬性、參數或函式使用自訂的 Objective-C 和 Swift 名稱：
 
-   ```kotlin
-   @ObjCName(swiftName = "MySwiftArray")
-   class MyKotlinArray {
-       @ObjCName("index")
-       fun indexOf(@ObjCName("of") element: String): Int = TODO()
-   }
+    ```kotlin
+    @ObjCName(swiftName = "MySwiftArray")
+    class MyKotlinArray {
+        @ObjCName("index")
+        fun indexOf(@ObjCName("of") element: String): Int = TODO()
+    }
 
-   // Usage with the ObjCName annotations
-   let array = MySwiftArray()
-   let index = array.index(of: "element")
-   ```
+    // Usage with the ObjCName annotations
+    let array = MySwiftArray()
+    let index = array.index(of: "element")
+    ```
 
-* [`@HiddenFromObjC`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.native/-hidden-from-obj-c/) 允許您從 Objective-C 隱藏
-  Kotlin 宣告。
+*   [`@HiddenFromObjC`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.native/-hidden-from-obj-c/) 允許您從 Objective-C 隱藏
+    Kotlin 宣告。
 
-  此註釋指示 Kotlin 編譯器不將函式或屬性匯出到 Objective-C，因此也不匯出到 Swift。
-  這可以使您的 Kotlin 程式碼更符合 Objective-C/Swift 習慣。
+    此註釋指示 Kotlin 編譯器不將函式或屬性匯出到 Objective-C，因此也不匯出到 Swift。
+    這可以使您的 Kotlin 程式碼更符合 Objective-C/Swift 習慣。
 
-* [`@ShouldRefineInSwift`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.native/-should-refine-in-swift/) 有助於
-  用 Swift 編寫的包裝器替換 Kotlin 宣告。
+*   [`@ShouldRefineInSwift`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.native/-should-refine-in-swift/) 有助於
+    用 Swift 編寫的包裝器替換 Kotlin 宣告。
 
-  此註釋指示 Kotlin 編譯器將函式或屬性標記為生成
-  Objective-C API 中的 `swift_private`。這類宣告會獲得 `__` 前綴，這使得它們對 Swift 程式碼不可見。
+    此註釋指示 Kotlin 編譯器將函式或屬性標記為生成
+    Objective-C API 中的 `swift_private`。這類宣告會獲得 `__` 前綴，這使得它們對 Swift 程式碼不可見。
 
-  您仍然可以在 Swift 程式碼中使用這些宣告來建立 Swift 友善的 API，但它們不會被
-  Xcode 的自動完成建議，例如。
+    您仍然可以在 Swift 程式碼中使用這些宣告來建立 Swift 友善的 API，但它們不會被
+    Xcode 的自動完成建議，例如。
 
-  有關在 Swift 中精煉 Objective-C 宣告的更多資訊，請參閱
-  [Apple 官方文件](https://developer.apple.com/documentation/swift/improving-objective-c-api-declarations-for-swift)。
+    有關在 Swift 中精煉 Objective-C 宣告的更多資訊，請參閱
+    [Apple 官方文件](https://developer.apple.com/documentation/swift/improving-objective-c-api-declarations-for-swift)。
 
 > 新的註釋[需要選擇性加入](opt-in-requirements.md)。
 >
@@ -169,13 +169,13 @@ Kotlin 1.8.0 引入了新的 Android 原始碼集佈局，取代了先前令人�
 考慮目前佈局中建立的兩個 `androidTest` 目錄的範例。一個用於 `KotlinSourceSets`，
 另一個用於 `AndroidSourceSets`：
 
-* 它們有不同的語義：Kotlin 的 `androidTest` 屬於 `unitTest` 類型，而 Android 的則屬於
-  `integrationTest` 類型。
-* 它們會建立一個令人困惑的 `SourceDirectories` 佈局，因為
-  `src/androidTest/kotlin` 有一個 `UnitTest` 而 `src/androidTest/java` 有一個 `InstrumentedTest`。
-* `KotlinSourceSets` 和 `AndroidSourceSets` 都對 Gradle 配置使用類似的命名模式，因此
-  兩個 `androidTest` 的結果配置都是相同的：`androidTestImplementation`、
-  `androidTestApi`、`androidTestRuntimeOnly` 和 `androidTestCompileOnly`。
+*   它們有不同的語義：Kotlin 的 `androidTest` 屬於 `unitTest` 類型，而 Android 的則屬於
+    `integrationTest` 類型。
+*   它們會建立一個令人困惑的 `SourceDirectories` 佈局，因為
+    `src/androidTest/kotlin` 有一個 `UnitTest` 而 `src/androidTest/java` 有一個 `InstrumentedTest`。
+*   `KotlinSourceSets` 和 `AndroidSourceSets` 都對 Gradle 配置使用類似的命名模式，因此
+    兩個 `androidTest` 的結果配置都是相同的：`androidTestImplementation`、
+    `androidTestApi`、`androidTestRuntimeOnly` 和 `androidTestCompileOnly`。
 
 為了解決這些及其他現有問題，我們引入了新的 Android 原始碼集佈局。
 以下是兩種佈局之間的一些主要區別：
@@ -191,8 +191,8 @@ Kotlin 1.8.0 引入了新的 Android 原始碼集佈局，取代了先前令人�
 |             | 目前原始碼集佈局 | 新原始碼集佈局          |
 |-------------|-------------------|--------------------------------|
 | main        | androidMain       | androidMain                    |
-| test        | androidTest       | android<b>Unit</b>Test         |
-| androidTest | android<b>Android</b>Test | android<b>Instrumented</b>Test |
+| test        | androidTest       | android**Unit**Test         |
+| androidTest | android**Android**Test | android**Instrumented**Test |
 
 #### SourceDirectories
 
@@ -205,21 +205,21 @@ Kotlin 1.8.0 引入了新的 Android 原始碼集佈局，取代了先前令人�
 |             | 目前原始碼集佈局                                  | 新原始碼集佈局                                                                          |
 |-------------|---------------------------------------------------|------------------------------------------------------------------------------------------------|
 | main        | src/androidMain/kotlin、src/main/kotlin、src/main/java     | src/androidMain/kotlin、src/main/kotlin、src/main/java                                         |
-| test        | src/androidTest/kotlin、src/test/kotlin、src/test/java     | src/android<b>Unit</b>Test/kotlin、src/test/kotlin、src/test/java                              |
-| androidTest | src/android<b>Android</b>Test/kotlin、src/androidTest/java | src/android<b>Instrumented</b>Test/kotlin、src/androidTest/java、<b>src/androidTest/kotlin</b> |
+| test        | src/androidTest/kotlin、src/test/kotlin、src/test/java     | src/android**Unit**Test/kotlin、src/test/kotlin、src/test/java                              |
+| androidTest | src/android**Android**Test/kotlin、src/androidTest/java | src/android**Instrumented**Test/kotlin、src/androidTest/java、**src/androidTest/kotlin** |
 
 #### AndroidManifest.xml 檔案的位置
 
 | 目前原始碼集佈局                              | 新原始碼集佈局                                 |
 |-----------------------------------------------|------------------------------------------------|
-| src/{<b>Android</b>SourceSet.name}/AndroidManifest.xml | src/{<b>Kotlin</b>SourceSet.name}/AndroidManifest.xml |
+| src/**Android**SourceSet.name/AndroidManifest.xml | src/**Kotlin**SourceSet.name/AndroidManifest.xml |
 
 `{AndroidSourceSet.name}` 映射至`{AndroidManifest.xml location}` 如下：
 
 |       | 目前原始碼集佈局     | 新原始碼集佈局                       |
 |-------|-----------------------|---------------------------------------------|
-| main  | src/main/AndroidManifest.xml  | src/<b>android</b>Main/AndroidManifest.xml  |
-| debug | src/debug/AndroidManifest.xml | src/<b>android</b>Debug/AndroidManifest.xml |
+| main  | src/main/AndroidManifest.xml  | src/**android**Main/AndroidManifest.xml  |
+| debug | src/debug/AndroidManifest.xml | src/**android**Debug/AndroidManifest.xml |
 
 #### Android 與通用測試之間的關係
 
@@ -228,9 +228,9 @@ Kotlin 1.8.0 引入了新的 Android 原始碼集佈局，取代了先前令人�
 
 以前，`androidAndroidTest` 和 `commonTest` 之間存在預設的 `dependsOn` 關係。實際上，這意味著：
 
-* `commonTest` 中的程式碼在 `androidAndroidTest` 中可用。
-* `commonTest` 中的 `expect` 宣告必須在 `androidAndroidTest` 中有對應的 `actual` 實作。
-* 在 `commonTest` 中宣告的測試也作為 Android 儀器測試執行。
+*   `commonTest` 中的程式碼在 `androidAndroidTest` 中可用。
+*   `commonTest` 中的 `expect` 宣告必須在 `androidAndroidTest` 中有對應的 `actual` 實作。
+*   在 `commonTest` 中宣告的測試也作為 Android 儀器測試執行。
 
 在新的 Android 原始碼集佈局中，預設不添加 `dependsOn` 關係。如果您偏好先前的行為，
 請在您的 `build.gradle.kts` 檔案中手動宣告此關係：
@@ -289,10 +289,10 @@ kotlin.mpp.androidSourceSetLayoutVersion1.nowarn=true
 ## Kotlin/JS
 
 Kotlin 1.8.0 穩定化了 JS IR 編譯器後端，並為 JavaScript 相關的 Gradle 建構腳本帶來了新功能：
-* [穩定的 JS IR 編譯器後端](#stable-js-ir-compiler-backend)
-* [用於報告 `yarn.lock` 已更新的新設定](#new-settings-for-reporting-that-yarn-lock-has-been-updated)
-* [透過 Gradle 屬性為瀏覽器添加測試目標](#add-test-targets-for-browsers-via-gradle-properties)
-* [將 CSS 支援添加到專案的新方法](#new-approach-to-adding-css-support-to-your-project)
+*   [穩定的 JS IR 編譯器後端](#stable-js-ir-compiler-backend)
+*   [用於報告 `yarn.lock` 已更新的新設定](#new-settings-for-reporting-that-yarn-lock-has-been-updated)
+*   [透過 Gradle 屬性為瀏覽器添加測試目標](#add-test-targets-for-browsers-via-gradle-properties)
+*   [將 CSS 支援添加到專案的新方法](#new-approach-to-adding-css-support-to-your-project)
 
 ### 穩定的 JS IR 編譯器後端
 
@@ -313,14 +313,14 @@ Kotlin 1.8.0 穩定化了 JS IR 編譯器後端，並為 JavaScript 相關的 Gr
 
 這三個新的 Gradle 屬性是：
 
-* `YarnLockMismatchReport`，指定如何報告 `yarn.lock` 檔案的變更。您可以使用以下其中一個值：
-    * `FAIL` 使對應的 Gradle 任務失敗。這是預設值。
-    * `WARNING` 將有關變更的資訊寫入警告日誌。
-    * `NONE` 停用報告。
-* `reportNewYarnLock`，明確報告最近建立的 `yarn.lock` 檔案。預設情況下，此選項已停用：
-  首次啟動時生成新的 `yarn.lock` 檔案是常見做法。您可以使用此選項來
-  確保該檔案已提交到您的儲存庫。
-* `yarnLockAutoReplace`，每次運行 Gradle 任務時自動替換 `yarn.lock`。
+*   `YarnLockMismatchReport`，指定如何報告 `yarn.lock` 檔案的變更。您可以使用以下其中一個值：
+    *   `FAIL` 使對應的 Gradle 任務失敗。這是預設值。
+    *   `WARNING` 將有關變更的資訊寫入警告日誌。
+    *   `NONE` 停用報告。
+*   `reportNewYarnLock`，明確報告最近建立的 `yarn.lock` 檔案。預設情況下，此選項已停用：
+    首次啟動時生成新的 `yarn.lock` 檔案是常見做法。您可以使用此選項來
+    確保該檔案已提交到您的儲存庫。
+*   `yarnLockAutoReplace`，每次運行 Gradle 任務時自動替換 `yarn.lock`。
 
 要使用這些選項，請更新您的建構腳本檔案 `build.gradle.kts` 如下：
 
@@ -386,53 +386,53 @@ Kotlin 1.8.0 **完全**支援 Gradle 7.2 和 7.3 版本。您也可以使用最�
 但如果這樣做，請記住您可能會遇到棄用警告或某些新的 Gradle 功能可能無法運作。
 
 此版本帶來了許多變更：
-* [將 Kotlin 編譯器選項公開為 Gradle 延遲屬性](#exposing-kotlin-compiler-options-as-gradle-lazy-properties)
-* [提升最低支援版本](#bumping-the-minimum-supported-versions)
-* [停用 Kotlin 守護行程回退策略的能力](#ability-to-disable-the-kotlin-daemon-fallback-strategy)
-* [在傳遞性依賴項中使用最新 kotlin-stdlib 版本](#usage-of-the-latest-kotlin-stdlib-version-in-transitive-dependencies)
-* [相關 Kotlin 和 Java 編譯任務的 JVM 目標相容性平等性強制檢查](#obligatory-check-for-jvm-targets-of-related-kotlin-and-java-compile-tasks)
-* [Kotlin Gradle 外掛程式傳遞性依賴項的解析](#resolution-of-kotlin-gradle-plugins-transitive-dependencies)
-* [棄用與移除](#deprecations-and-removals)
+*   [將 Kotlin 編譯器選項公開為 Gradle 延遲屬性](#exposing-kotlin-compiler-options-as-gradle-lazy-properties)
+*   [提升最低支援版本](#bumping-the-minimum-supported-versions)
+*   [停用 Kotlin 守護行程回退策略的能力](#ability-to-disable-the-kotlin-daemon-fallback-strategy)
+*   [在傳遞性依賴項中使用最新 kotlin-stdlib 版本](#usage-of-the-latest-kotlin-stdlib-version-in-transitive-dependencies)
+*   [相關 Kotlin 和 Java 編譯任務的 JVM 目標相容性平等性強制檢查](#obligatory-check-for-jvm-targets-of-related-kotlin-and-java-compile-tasks)
+*   [Kotlin Gradle 外掛程式傳遞性依賴項的解析](#resolution-of-kotlin-gradle-plugins-transitive-dependencies)
+*   [棄用與移除](#deprecations-and-removals)
 
 ### 將 Kotlin 編譯器選項公開為 Gradle 延遲屬性
 
-為了將可用的 Kotlin 編譯器選項公開為 [Gradle 延遲屬性](https://docs.gradle.org/current/userguide/lazy-configuration.html)
+為了將可用的 Kotlin 編譯器選項公開為 [Gradle 延遲屬性](https://docs.gradle.org/current/userguide/lazy_configuration.html)
 並將它們更好地整合到 Kotlin 任務中，我們進行了許多變更：
 
-* 編譯任務具有新的 `compilerOptions` 輸入，它類似於現有的 `kotlinOptions`，但使用
-  Gradle Properties API 中的 [`Property`](https://docs.gradle.org/current/javadoc/org/gradle/api/provider/Property.html) 作為回傳類型：
+*   編譯任務具有新的 `compilerOptions` 輸入，它類似於現有的 `kotlinOptions`，但使用
+    Gradle Properties API 中的 [`Property`](https://docs.gradle.org/current/javadoc/org/gradle/api/provider/Property.html) 作為回傳類型：
 
-  ```kotlin
-  tasks.named("compileKotlin", org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile::class.java) {
-      compilerOptions {
-          useK2.set(true)
-      }
-  }
-  ```
+    ```kotlin
+    tasks.named("compileKotlin", org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile::class.java) {
+        compilerOptions {
+            useK2.set(true)
+        }
+    }
+    ```
 
-* Kotlin 工具任務 `KotlinJsDce` 和 `KotlinNativeLink` 具有新的 `toolOptions` 輸入，它類似於
-  現有的 `kotlinOptions` 輸入。
-* 新的輸入具有 [`@Nested` Gradle 註釋](https://docs.gradle.org/current/javadoc/org/gradle/api/tasks/Nested.html)。
-  輸入中的每個屬性都有一個相關的 Gradle 註釋，例如
-  [`@Input` 或 `@Internal`](https://docs.gradle.org/current/userguide/more_about_tasks.html#sec:up_to_date_checks)。
-* Kotlin Gradle 外掛程式 API 構件有兩個新介面：
-    * `org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask`，它具有 `compilerOptions` 輸入和 `compileOptions()`
-      方法。所有 Kotlin 編譯任務都實作此介面。
-    * `org.jetbrains.kotlin.gradle.tasks.KotlinToolTask`，它具有 `toolOptions` 輸入和 `toolOptions()` 方法。
-      所有 Kotlin 工具任務——`KotlinJsDce`、`KotlinNativeLink` 和 `KotlinNativeLinkArtifactTask`——都實作此介面。
-* 某些 `compilerOptions` 使用新類型而非 `String` 類型：
-    * [`JvmTarget`](https://github.com/JetBrains/kotlin/blob/1.8.0/libraries/tools/kotlin-gradle-compiler-types/src/generated/kotlin/org/jetbrains/kotlin/gradle/dsl/JvmTarget.kt)
-    * [`KotlinVersion`](https://github.com/JetBrains/kotlin/blob/1.8.0/libraries/tools/kotlin-gradle-compiler-types/src/generated/kotlin/org/jetbrains/kotlin/gradle/dsl/KotlinVersion.kt)
-      （用於 `apiVersion` 和 `languageVersion` 輸入）
-    * [`JsMainFunctionExecutionMode`](https://github.com/JetBrains/kotlin/blob/1.8.0/libraries/tools/kotlin-gradle-compiler-types/src/generated/kotlin/org/jetbrains/kotlin/gradle/dsl/JsMainFunctionExecutionMode.kt)
-    * [`JsModuleKind`](https://github.com/JetBrains/kotlin/blob/1.8.0/libraries/tools/kotlin-gradle-compiler-types/src/generated/kotlin/org/jetbrains/kotlin/gradle/dsl/JsModuleKind.kt)
-    * [`JsSourceMapEmbedMode`](https://github.com/JetBrains/kotlin/blob/1.8.0/libraries/tools/kotlin-gradle-compiler-types/src/generated/kotlin/org/jetbrains/kotlin/gradle/dsl/JsSourceMapEmbedMode.kt)
+*   Kotlin 工具任務 `KotlinJsDce` 和 `KotlinNativeLink` 具有新的 `toolOptions` 輸入，它類似於
+    現有的 `kotlinOptions` 輸入。
+*   新的輸入具有 [`@Nested` Gradle 註釋](https://docs.gradle.org/current/javadoc/org/gradle/api/tasks/Nested.html)。
+    輸入中的每個屬性都有一個相關的 Gradle 註釋，例如
+    [`@Input` 或 `@Internal`](https://docs.gradle.org/current/userguide/more_about_tasks.html#sec:up_to_date_checks)。
+*   Kotlin Gradle 外掛程式 API 構件有兩個新介面：
+    *   `org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask`，它具有 `compilerOptions` 輸入和 `compileOptions()`
+        方法。所有 Kotlin 編譯任務都實作此介面。
+    *   `org.jetbrains.kotlin.gradle.tasks.KotlinToolTask`，它具有 `toolOptions` 輸入和 `toolOptions()` 方法。
+        所有 Kotlin 工具任務——`KotlinJsDce`、`KotlinNativeLink` 和 `KotlinNativeLinkArtifactTask`——都實作此介面。
+*   某些 `compilerOptions` 使用新類型而非 `String` 類型：
+    *   [`JvmTarget`](https://github.com/JetBrains/kotlin/blob/1.8.0/libraries/tools/kotlin-gradle-compiler-types/src/generated/kotlin/org/jetbrains/kotlin/gradle/dsl/JvmTarget.kt)
+    *   [`KotlinVersion`](https://github.com/JetBrains/kotlin/blob/1.8.0/libraries/tools/kotlin-gradle-compiler-types/src/generated/kotlin/org/jetbrains/kotlin/gradle/dsl/KotlinVersion.kt)
+        （用於 `apiVersion` 和 `languageVersion` 輸入）
+    *   [`JsMainFunctionExecutionMode`](https://github.com/JetBrains/kotlin/blob/1.8.0/libraries/tools/kotlin-gradle-compiler-types/src/generated/kotlin/org/jetbrains/kotlin/gradle/dsl/JsMainFunctionExecutionMode.kt)
+    *   [`JsModuleKind`](https://github.com/JetBrains/kotlin/blob/1.8.0/libraries/tools/kotlin-gradle-compiler-types/src/generated/kotlin/org/jetbrains/kotlin/gradle/dsl/JsModuleKind.kt)
+    *   [`JsSourceMapEmbedMode`](https://github.com/JetBrains/kotlin/blob/1.8.0/libraries/tools/kotlin-gradle-compiler-types/src/generated/kotlin/org/jetbrains/kotlin/gradle/dsl/JsSourceMapEmbedMode.kt)
 
-  例如，您可以使用 `compilerOptions.jvmTarget.set(JvmTarget.JVM_11)` 而不是 `kotlinOptions.jvmTarget = "11"`。
+    例如，您可以使用 `compilerOptions.jvmTarget.set(JvmTarget.JVM_11)` 而不是 `kotlinOptions.jvmTarget = "11"`。
 
-  `kotlinOptions` 類型沒有改變，它們在內部轉換為 `compilerOptions` 類型。
-* Kotlin Gradle 外掛程式 API 與先前的版本二進位相容。然而，`kotlin-gradle-plugin` 構件中有一些原始碼和 ABI 破壞性變更。這些變更大多涉及某些內部類型的額外泛型參數。一個重要的變更是 `KotlinNativeLink` 任務不再繼承 `AbstractKotlinNativeCompile` 任務。
-* `KotlinJsCompilerOptions.outputFile` 和相關的 `KotlinJsOptions.outputFile` 選項已棄用。請改用 `Kotlin2JsCompile.outputFileProperty` 任務輸入。
+    `kotlinOptions` 類型沒有改變，它們在內部轉換為 `compilerOptions` 類型。
+*   Kotlin Gradle 外掛程式 API 與先前的版本二進位相容。然而，`kotlin-gradle-plugin` 構件中有一些原始碼和 ABI 破壞性變更。這些變更大多涉及某些內部類型的額外泛型參數。一個重要的變更是 `KotlinNativeLink` 任務不再繼承 `AbstractKotlinNativeCompile` 任務。
+*   `KotlinJsCompilerOptions.outputFile` 和相關的 `KotlinJsOptions.outputFile` 選項已棄用。請改用 `Kotlin2JsCompile.outputFileProperty` 任務輸入。
 
 > Kotlin Gradle 外掛程式仍然將 `KotlinJvmOptions` DSL 添加到 Android 擴展：
 >
@@ -458,9 +458,9 @@ Kotlin 1.8.0 **完全**支援 Gradle 7.2 和 7.3 版本。您也可以使用最�
 
 呼叫 `kotlinOptions` 上的任何 setter 或 getter 都會委託給 `compilerOptions` 中相關的屬性。
 這引入了以下限制：
-* `compilerOptions` 和 `kotlinOptions` 無法在任務執行階段更改（下方段落中有一項例外）。
-* `freeCompilerArgs` 返回一個不可變的 `List<String>`，這意味著，例如，
-  `kotlinOptions.freeCompilerArgs.remove("something")` 將會失敗。
+*   `compilerOptions` 和 `kotlinOptions` 無法在任務執行階段更改（下方段落中有一項例外）。
+*   `freeCompilerArgs` 返回一個不可變的 `List<String>`，這意味著，例如，
+    `kotlinOptions.freeCompilerArgs.remove("something")` 將會失敗。
 
 包括 `kotlin-dsl` 和啟用 [Jetpack Compose](https://developer.android.com/jetpack/compose) 的 Android Gradle 外掛程式 (AGP) 在內的幾個外掛程式，
 嘗試在任務執行階段修改 `freeCompilerArgs` 屬性。我們已在 Kotlin 1.8.0 中為它們添加了解決方案。
@@ -556,25 +556,25 @@ dependencies {
 
 在 Kotlin 1.8.0 中，以下屬性和方法的棄用週期仍在繼續：
 
-* [在 Kotlin 1.7.0 的備註中](whatsnew17.md#changes-in-compile-tasks)，`KotlinCompile` 任務仍然具有
-  已棄用的 Kotlin 屬性 `classpath`，該屬性將在未來版本中移除。現在，我們已將
-  `KotlinCompile` 任務的 `classpath` 屬性的棄用級別更改為 `error`。所有編譯任務都使用
-  `libraries` 輸入作為編譯所需的函式庫列表。
-* 我們移除了 `kapt.use.worker.api` 屬性，該屬性允許透過 Gradle Workers API 執行 [kapt](kapt.md)。
-  預設情況下，[kapt 自 Kotlin 1.3.70 起就一直在使用 Gradle workers](kapt.md#run-kapt-tasks-in-parallel)，
-  我們建議堅持使用此方法。
-* 在 Kotlin 1.7.0 中，我們[宣布了 `kotlin.compiler.execution.strategy` 系統屬性棄用週期的開始](whatsnew17.md#deprecation-of-the-kotlin-compiler-execution-strategy-system-property)。
-  在此版本中，我們移除了此屬性。了解如何[以其他方式定義 Kotlin 編譯器執行策略](gradle-compilation-and-caches.md#defining-kotlin-compiler-execution-strategy)。
+*   [在 Kotlin 1.7.0 的備註中](whatsnew17.md#changes-in-compile-tasks)，`KotlinCompile` 任務仍然具有
+    已棄用的 Kotlin 屬性 `classpath`，該屬性將在未來版本中移除。現在，我們已將
+    `KotlinCompile` 任務的 `classpath` 屬性的棄用級別更改為 `error`。所有編譯任務都使用
+    `libraries` 輸入作為編譯所需的函式庫列表。
+*   我們移除了 `kapt.use.worker.api` 屬性，該屬性允許透過 Gradle Workers API 執行 [kapt](kapt.md)。
+    預設情況下，[kapt 自 Kotlin 1.3.70 起就一直在使用 Gradle workers](kapt.md#run-kapt-tasks-in-parallel)，
+    我們建議堅持使用此方法。
+*   在 Kotlin 1.7.0 中，我們[宣布了 `kotlin.compiler.execution.strategy` 系統屬性棄用週期的開始](whatsnew17.md#deprecation-of-the-kotlin-compiler-execution-strategy-system-property)。
+    在此版本中，我們移除了此屬性。了解如何[以其他方式定義 Kotlin 編譯器執行策略](gradle-compilation-and-caches.md#defining-kotlin-compiler-execution-strategy)。
 
 ## 標準函式庫
 
 Kotlin 1.8.0：
-* 更新 [JVM 編譯目標](#updated-jvm-compilation-target)。
-* 穩定化多個函式——[Java 和 Kotlin 之間的 TimeUnit 轉換](#timeunit-conversion-between-java-and-kotlin)、
-  [`cbrt()`](#cbrt)、[Java `Optionals` 擴展函式](#java-optionals-extension-functions)。
-* 提供[可比較和可相減 `TimeMarks` 的預覽](#comparable-and-subtractable-timemarks)。
-* 包含 [ `java.nio.file.path` 的實驗性擴展函式](#recursive-copying-or-deletion-of-directories)。
-* 呈現[提升的 kotlin-reflect 效能](#improved-kotlin-reflect-performance)。
+*   更新 [JVM 編譯目標](#updated-jvm-compilation-target)。
+*   穩定化多個函式——[Java 和 Kotlin 之間的 TimeUnit 轉換](#timeunit-conversion-between-java-and-kotlin)、
+    [`cbrt()`](#cbrt)、[Java `Optionals` 擴展函式](#java-optionals-extension-functions)。
+*   提供[可比較和可相減 `TimeMarks` 的預覽](#comparable-and-subtractable-timemarks)。
+*   包含 [ `java.nio.file.path` 的實驗性擴展函式](#recursive-copying-or-deletion-of-directories)。
+*   呈現[提升的 kotlin-reflect 效能](#improved-kotlin-reflect-performance)。
 
 ### 更新 JVM 編譯目標
 
@@ -649,7 +649,7 @@ fun main() {
 //sampleStart
     val timeSource = TimeSource.Monotonic
     val mark1 = timeSource.markNow()
-    Thread.sleep(500) // Sleep 0.5 seconds
+    Thread.sleep(500) // Sleep 0.5 秒
     val mark2 = timeSource.markNow()
 
     // Before 1.8.0
@@ -697,8 +697,8 @@ fun main() {
 我們引入了兩個新的 `java.nio.file.Path` 擴展函式，`copyToRecursively()` 和 `deleteRecursively()`，
 它們允許您遞迴地：
 
-* 將目錄及其內容複製到另一個目的地。
-* 刪除目錄及其內容。
+*   將目錄及其內容複製到另一個目的地。
+*   刪除目錄及其內容。
 
 這些函式作為備份過程的一部分非常有用。
 
@@ -709,7 +709,7 @@ fun main() {
 ```kotlin
 sourceRoot.copyToRecursively(destinationRoot, followLinks = false,
     onError = { source, target, exception ->
-        logger.logError(exception, "Failed to copy $source to $target")
+        logger.logError(exception, "無法將 $source 複製到 $target")
         OnErrorResult.TERMINATE
     })
 ```
@@ -772,16 +772,16 @@ Kotlin 文件收到了一些顯著的變更：
 
 ### 改版與新頁面
 
-* [Gradle 概覽](gradle.md) – 了解如何使用 Gradle 建構系統配置和建構 Kotlin 專案，
-  Kotlin Gradle 外掛程式中可用的編譯器選項、編譯和快取。
-* [Java 和 Kotlin 中的可空性](java-to-kotlin-nullability-guide.md) – 了解 Java 和 Kotlin 處理可能可空變數方法的差異。
-* [Lincheck 指南](lincheck-guide.md) – 了解如何設定和使用 Lincheck 框架來測試 JVM 上的並發演算法。
+*   [Gradle 概覽](gradle.md) – 了解如何使用 Gradle 建構系統配置和建構 Kotlin 專案，
+    Kotlin Gradle 外掛程式中可用的編譯器選項、編譯和快取。
+*   [Java 和 Kotlin 中的可空性](java-to-kotlin-nullability-guide.md) – 了解 Java 和 Kotlin 處理可能可空變數方法的差異。
+*   [Lincheck 指南](lincheck-guide.md) – 了解如何設定和使用 Lincheck 框架來測試 JVM 上的並發演算法。
 
-### 新與更新的教程
+### 新與更新的教學
 
-* [開始使用 Gradle 和 Kotlin/JVM](get-started-with-jvm-gradle-project.md) – 使用 IntelliJ IDEA 和 Gradle 建立控制台應用程式。
-* [使用 Ktor 和 SQLDelight 建立多平台應用程式](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-ktor-sqldelight.html) – 使用 Kotlin Multiplatform Mobile 建立適用於 iOS 和 Android 的行動應用程式。
-* [開始使用 Kotlin 多平台](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-create-first-app.html) – 了解使用 Kotlin 進行跨平台行動開發，並建立一個同時適用於 Android 和 iOS 的應用程式。
+*   [開始使用 Gradle 和 Kotlin/JVM](get-started-with-jvm-gradle-project.md) – 使用 IntelliJ IDEA 和 Gradle 建立控制台應用程式。
+*   [使用 Ktor 和 SQLDelight 建立多平台應用程式](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-ktor-sqldelight.html) – 使用 Kotlin Multiplatform Mobile 建立適用於 iOS 和 Android 的行動應用程式。
+*   [開始使用 Kotlin 多平台](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-create-first-app.html) – 了解使用 Kotlin 進行跨平台行動開發，並建立一個同時適用於 Android 和 iOS 的應用程式。
 
 ## 安裝 Kotlin 1.8.0
 

@@ -1,6 +1,6 @@
 [//]: # (title: Kotlin Gradle 外掛中的編譯器選項)
 
-Kotlin 的每個版本都包含對支援目標的編譯器：JVM、JavaScript 以及適用於[支援平台](native-overview.md#target-platforms)的原生二進位檔案。
+每個 Kotlin 版本都包含對支援目標的編譯器：JVM、JavaScript 以及適用於[支援平台](native-overview.md#target-platforms)的原生二進位檔案。
 
 這些編譯器會被以下工具使用：
 * 當你點擊 Kotlin 專案的 **Compile** 或 **Run** 按鈕時，由 IDE 使用。
@@ -48,7 +48,7 @@ kotlin {
     compilerOptions {
         optIn.add("kotlin.RequiresOptIn")
     }
-}    
+}
 ```
 
 ### 目標層級
@@ -57,7 +57,7 @@ kotlin {
 
 ```kotlin
 kotlin {
-    target { 
+    target {
         compilerOptions {
             optIn.add("kotlin.RequiresOptIn")
         }
@@ -71,7 +71,7 @@ kotlin {
 
 你可以在任務配置的 `compilerOptions {}` 區塊中，為特定的編譯單元或任務配置編譯器選項：
 
-```Kotlin
+```kotlin
 tasks.named<KotlinJvmCompile>("compileKotlin"){
     compilerOptions {
         optIn.add("kotlin.RequiresOptIn")
@@ -81,7 +81,7 @@ tasks.named<KotlinJvmCompile>("compileKotlin"){
 
 你也可以透過 `KotlinCompilation` 存取和配置編譯單元層級的編譯器選項：
 
-```Kotlin
+```kotlin
 kotlin {
     target {
         val main by compilations.getting {
@@ -398,7 +398,7 @@ kotlin {
 * 將所有使用 `-progressive` 編譯器選項的地方遷移為使用專用 DSL：`progressiveMode.set(true)`。
 * 將所有使用 `-Xjvm-default` 編譯器選項的地方遷移為[使用專用 DSL](gradle-compiler-options.md#attributes-specific-to-jvm)：`jvmDefault.set()`。使用以下選項對應：
 
-  | 之前                            | 之後                                             |
+  | Before                            | After                                             |
   |-----------------------------------|---------------------------------------------------|
   | `-Xjvm-default=all-compatibility` | `jvmDefault.set(JvmDefaultMode.ENABLE)`           |
   | `-Xjvm-default=all`               | `jvmDefault.set(JvmDefaultMode.NO_COMPATIBILITY)` | 
@@ -700,7 +700,7 @@ tasks
 
 ### 編譯器選項的型別
 
-一些 `compilerOptions` 使用新類型而非 `String` 類型：
+一些 `compilerOptions` 使用新類型而非 `String` 型別：
 
 | 選項                             | 型別                                                                                                                                                                                                              | 範例                                                                                              |
 |------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------|

@@ -3,22 +3,22 @@
 <no-index/>
 
 <tldr>
-    <p><img src="icon-1-done.svg" width="20" alt="First step" /> <a href="kotlin-tour-intermediate-extension-functions.md">扩展函数</a><br />
-        <img src="icon-2-done.svg" width="20" alt="Second step" /> <a href="kotlin-tour-intermediate-scope-functions.md">作用域函数</a><br />
-        <img src="icon-3.svg" width="20" alt="Third step" /> <strong>带接收者的 lambda 表达式</strong><br />
-        <img src="icon-4-todo.svg" width="20" alt="Fourth step" /> <a href="kotlin-tour-intermediate-classes-interfaces.md">类与接口</a><br />
-        <img src="icon-5-todo.svg" width="20" alt="Fifth step" /> <a href="kotlin-tour-intermediate-objects.md">对象</a><br />
-        <img src="icon-6-todo.svg" width="20" alt="Sixth step" /> <a href="kotlin-tour-intermediate-open-special-classes.md">开放类与特殊类</a><br />
-        <img src="icon-7-todo.svg" width="20" alt="Seventh step" /> <a href="kotlin-tour-intermediate-properties.md">属性</a><br />
-        <img src="icon-8-todo.svg" width="20" alt="Eighth step" /> <a href="kotlin-tour-intermediate-null-safety.md">空安全</a><br />
-        <img src="icon-9-todo.svg" width="20" alt="Ninth step" /> <a href="kotlin-tour-intermediate-libraries-and-apis.md">库与 API</a></p>
+    <p><img src="icon-1-done.svg" width="20" alt="第一步" /> <a href="kotlin-tour-intermediate-extension-functions.md">扩展函数</a><br />
+        <img src="icon-2-done.svg" width="20" alt="第二步" /> <a href="kotlin-tour-intermediate-scope-functions.md">作用域函数</a><br />
+        <img src="icon-3.svg" width="20" alt="第三步" /> <strong>带接收者的 lambda 表达式</strong><br />
+        <img src="icon-4-todo.svg" width="20" alt="第四步" /> <a href="kotlin-tour-intermediate-classes-interfaces.md">类与接口</a><br />
+        <img src="icon-5-todo.svg" width="20" alt="第五步" /> <a href="kotlin-tour-intermediate-objects.md">对象</a><br />
+        <img src="icon-6-todo.svg" width="20" alt="第六步" /> <a href="kotlin-tour-intermediate-open-special-classes.md">开放类与特殊类</a><br />
+        <img src="icon-7-todo.svg" width="20" alt="第七步" /> <a href="kotlin-tour-intermediate-properties.md">属性</a><br />
+        <img src="icon-8-todo.svg" width="20" alt="第八步" /> <a href="kotlin-tour-intermediate-null-safety.md">空安全</a><br />
+        <img src="icon-9-todo.svg" width="20" alt="第九步" /> <a href="kotlin-tour-intermediate-libraries-and-apis.md">库与 API</a></p>
 </tldr>
 
-在本章中，你将学习如何在另一种函数类型——lambda 表达式——中使用接收者对象，以及它们如何帮助你创建领域特定语言。
+在本章中，你将学习如何在另一种函数类型——lambda 表达式——中使用接收者，以及它们如何帮助你创建领域特定语言。
 
 ## 带接收者的 lambda 表达式
 
-在入门教程中，你学习了如何使用 [lambda 表达式](kotlin-tour-functions.md#lambda-expressions)。Lambda 表达式也可以拥有接收者。在这种情况下，lambda 表达式可以访问接收者对象的任何成员函数或属性，而无需每次都显式指定接收者对象。没有这些额外的引用，你的代码将更易于阅读和维护。
+在入门教程中，你学习了如何使用 [lambda 表达式](kotlin-tour-functions.md#lambda-expressions)。Lambda 表达式也可以拥有接收者。在这种情况下，lambda 表达式可以访问接收者对象的任何成员函数或属性，而无需每次都显式指定接收者。没有这些额外的引用，你的代码将更易于阅读和维护。
 
 > 带接收者的 lambda 表达式也称为函数字面量带接收者。
 >
@@ -36,30 +36,43 @@ MutableList<Int>.() -> Unit
 *   圆括号 `()` 内没有函数形参。
 *   没有返回值：`Unit`。
 
-考虑以下扩展 `StringBuilder` 类的示例：
+考虑一个在画布上绘制图形的示例：
 
 ```kotlin
-fun main() {
-    // 带接收者的 lambda 表达式定义
-    fun StringBuilder.appendText() { append("Hello!") }
+class Canvas {
+    fun drawCircle() = println("🟠 Drawing a circle")
+    fun drawSquare() = println("🟥 Drawing a square")
+}
 
+// 带接收者的 lambda 表达式定义
+fun render(block: Canvas.() -> Unit): Canvas {
+    val canvas = Canvas()
     // 使用带接收者的 lambda 表达式
-    val stringBuilder = StringBuilder()
-    stringBuilder.appendText()
-    println(stringBuilder.toString())
-    // Hello!
+    canvas.block()
+    return canvas
+}
+
+fun main() {
+    render {
+        drawCircle()
+        // 🟠 Drawing a circle
+        drawSquare()
+        // 🟥 Drawing a square
+    }
 }
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-intermediate-tour-lambda-expression-with-receiver"}
 
 在此示例中：
 
-*   `StringBuilder` 类是接收者类型。
-*   lambda 表达式的函数类型没有函数形参 `()` 也没有返回值 `Unit`。
-*   lambda 表达式调用 `StringBuilder` 类中的 `append()` 成员函数，并使用字符串 `"Hello!"` 作为函数形参。
-*   创建了 `StringBuilder` 类的一个实例。
-*   在 `stringBuilder` 实例上调用了赋值给 `appendText` 的 lambda 表达式。
-*   `stringBuilder` 实例通过 `toString()` 函数转换为字符串，并使用 `println()` 函数打印。
+*   `Canvas` 类有两个模拟绘制圆形或方形的函数。
+*   `render()` 函数接受一个 `block` 形参，并返回 `Canvas` 类的一个实例。
+*   `block` 形参是一个带接收者的 lambda 表达式，其中 `Canvas` 类是接收者。
+*   `render()` 函数创建了 `Canvas` 类的一个实例，并在 `canvas` 实例上调用了 `block()` lambda 表达式，将其用作接收者。
+*   `main()` 函数使用一个 lambda 表达式调用 `render()` 函数，该表达式被传递给 `block` 形参。
+*   在传递给 `render()` 函数的 lambda 表达式内部，程序在 `Canvas` 类的一个实例上调用了 `drawCircle()` 和 `drawSquare()` 函数。
+
+    由于 `drawCircle()` 和 `drawSquare()` 函数是在带接收者的 lambda 表达式中调用的，因此可以直接调用它们，就像它们在 `Canvas` 类内部一样。
 
 当你想要创建领域特定语言（DSL）时，带接收者的 lambda 表达式会很有帮助。由于你可以访问接收者对象的成员函数和属性，而无需显式引用接收者，因此你的代码会变得更简洁。
 
@@ -77,11 +90,11 @@ class Menu(val name: String) {
 }
 ```
 
-让我们使用一个带接收者的 lambda 表达式，将其作为函数形参 (`init`) 传递给 `menu()` 函数，该函数将菜单作为起点进行构建。你会注意到代码遵循了与之前 `StringBuilder` 示例类似的方法：
+让我们使用一个带接收者的 lambda 表达式，将其作为函数形参 (`init`) 传递给 `menu()` 函数，该函数将菜单作为起点进行构建：
 
 ```kotlin
 fun menu(name: String, init: Menu.() -> Unit): Menu {
-    // 创建 Menu 类的实例
+    // 创建 Menu 类的一个实例
     val menu = Menu(name)
     // 在类实例上调用带接收者的 lambda 表达式 init()
     menu.init()
@@ -127,9 +140,9 @@ fun main() {
     // 打印菜单
     printMenu(mainMenu)
     // Menu: Main Menu
-    // Item: Home
-    // Item: Settings
-    // Item: Exit
+    //   Item: Home
+    //   Item: Settings
+    //   Item: Exit
 }
 //sampleEnd
 ```
@@ -182,7 +195,7 @@ fun main() {
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="示例解决方案" id="kotlin-tour-lambda-receivers-solution-1"}
 
-### 练习 2 {initial-collapse-state="collapsed" collapsible="true" id="lambda-receivers-exercise-2"}
+### 2 {initial-collapse-state="collapsed" collapsible="true" id="lambda-receivers-exercise-2"}
 
 你有一个 `Button` 类以及 `ButtonEvent` 和 `Position` 数据类。编写一些代码，触发 `Button` 类的 `onEvent()` 成员函数，以触发双击事件。你的代码应打印 `"Double click!"`。
 

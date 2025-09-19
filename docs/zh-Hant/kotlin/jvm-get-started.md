@@ -71,7 +71,7 @@
 2. 修改程式碼，使其請求您的姓名並向您說 `Hello`：
 
    * 建立一個輸入提示，並將 [`readln()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.io/readln.html) 函數返回的值指派給 `name` 變數。
-   * 讓我們使用字串範本而不是串接，透過在變數名稱前直接加上一個美元符號 `$`，就像這樣 – `$name`。
+   * 讓我們使用字串範本而不是串接，透過在變數名稱前直接加上一個美元符號，就像這樣 – `$name`。
    
    ```kotlin
    fun main() {
@@ -103,6 +103,6 @@
 
 建立此應用程式後，您可以開始更深入地了解 Kotlin 語法：
 
-* 從 [Kotlin 範例](https://play.kotlinlang.org/byExample/overview) 中添加範例程式碼
+* 進行 [Kotlin 導覽](kotlin-tour-welcome.md) 
 * 為 IDEA 安裝 [JetBrains Academy 外掛程式](https://plugins.jetbrains.com/plugin/10081-jetbrains-academy) 並完成 
   [Kotlin Koans 課程](https://plugins.jetbrains.com/plugin/10081-jetbrains-academy/docs/learner-start-guide.html?section=Kotlin%20Koans) 中的練習

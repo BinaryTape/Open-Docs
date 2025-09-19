@@ -5,7 +5,7 @@ _[출시일: 2023년 7월 6일](releases.md#release-details)_
 Kotlin 1.9.0 릴리스가 출시되었으며, JVM용 K2 컴파일러는 이제 **베타** 단계에 있습니다. 또한, 주요 변경 사항은 다음과 같습니다:
 
 * [새로운 Kotlin K2 컴파일러 업데이트](#new-kotlin-k2-compiler-updates)
-* [enum 클래스 `values` 함수에 대한 안정적인 대체](#stable-replacement-of-the-enum-class-values-function)
+* [enum 클래스 `values` 함수의 안정적인 대체](#stable-replacement-of-the-enum-class-values-function)
 * [열린 범위(open-ended ranges)를 위한 안정적인 `..<` 연산자](#stable-operator-for-open-ended-ranges)
 * [정규식 캡처 그룹을 이름으로 가져오는 새로운 공통 함수](#new-common-function-to-get-regex-capture-group-by-name)
 * [상위 디렉터리를 생성하는 새로운 경로 유틸리티](#new-path-utility-to-create-parent-directories)
@@ -139,7 +139,7 @@ Kotlin 1.9.0에서는 이전에 도입된 새로운 언어 기능 중 일부를 
 * [데이터 클래스와 대칭을 이루는 데이터 객체](#stable-data-objects-for-symmetry-with-data-classes)
 * [인라인 값 클래스(inline value classes)의 본문이 있는 보조 생성자 지원](#support-for-secondary-constructors-with-bodies-in-inline-value-classes)
 
-### enum 클래스 values 함수에 대한 안정적인 대체
+### enum 클래스 values 함수의 안정적인 대체
 
 1.8.20에서 enum 클래스의 `entries` 속성이 실험적 기능으로 도입되었습니다. `entries` 속성은
 합성 `values()` 함수의 현대적이고 성능이 뛰어난 대체품입니다. 1.9.0에서 `entries` 속성은 안정화되었습니다.
@@ -321,7 +321,7 @@ Kotlin 피어 객체가 생성된 경우를 처리해야 합니다. 이는 메�
 kotlin.native.binary.objcDisposeOnMain=false
 ```
 
-이러러한 사례는 [이슈 트래커](https://kotl.in/issue)에 주저하지 말고 보고해 주세요.
+이러한 사례는 [이슈 트래커](https://kotl.in/issue)에 주저하지 말고 보고해 주세요.
 
 ### Kotlin/Native에서 상수 값에 접근할 때 객체 초기화 없음
 
@@ -551,7 +551,7 @@ Kotlin/Wasm을 타겟팅하는 Kotlin 코드를 작성, 실행 및 공유할 수
 
 > Kotlin/Wasm을 사용하려면 브라우저에서 실험적 기능을 활성화해야 합니다.
 >
-> [이러한 기능을 활성화하는 방법에 대해 자세히 알아보세요](wasm-troubleshooting.md).
+> [이러한 기능을 활성화하는 방법에 대해 자세히 알아보세요](wasm-configuration.md).
 >
 {style="note"}
 
@@ -852,7 +852,7 @@ Kotlin 1.9.0에는 표준 라이브러리에 대한 몇 가지 큰 개선 사항
 * [Kotlin/Native 표준 라이브러리가 철저히 검토되고 업데이트](#the-kotlin-native-standard-library-s-journey-towards-stabilization)되었습니다.
 * [`@Volatile` 어노테이션을 더 많은 플랫폼에서 사용할 수 있습니다](#stable-volatile-annotation).
 * [이름으로 정규식 캡처 그룹을 가져오는 **공통** 함수가 있습니다](#new-common-function-to-get-regex-capture-group-by-name).
-* [16진수를 서식 지정하고 파싱하는 `HexFormat` 클래스가 도입되었습니다](#new-hexformat-class-to-format-and-parse-hexadecimals).
+* [16진수를 서식 지정하고 파싱하는 새로운 `HexFormat` 클래스가 도입되었습니다](#new-hexformat-class-to-format-and-parse-hexadecimals).
 
 ### 열린 범위(open-ended ranges)를 위한 안정적인 ..< 연산자
 

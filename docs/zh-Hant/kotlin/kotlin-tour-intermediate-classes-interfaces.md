@@ -14,21 +14,21 @@
         <img src="icon-9-todo.svg" width="20" alt="第九步" /> <a href="kotlin-tour-intermediate-libraries-and-apis.md">函式庫與 API</a></p>
 </tldr>
 
-在初階教學中，您學習了如何使用類別 (classes) 和資料類別 (data classes) 來儲存資料並維護一組可以在程式碼中共享的特性。最終，您會希望建立一個階層 (hierarchy) 來有效地在專案中共享程式碼。本章將解釋 Kotlin 提供的程式碼共享選項，以及它們如何使您的程式碼更安全、更易於維護。
+在初階教學中，您學習了如何使用類別和資料類別來儲存資料並維護一組可以在程式碼中共享的特性。最終，您會希望建立一個階層來有效地在專案中共享程式碼。本章將解釋 Kotlin 提供的程式碼共享選項，以及它們如何使您的程式碼更安全、更易於維護。
 
 ## 類別繼承
 
-在上一章中，我們介紹了如何使用擴充函式 (extension functions) 來擴充類別而無需修改原始碼。但是，如果您正在處理一個複雜的專案，其中在類別**之間**共享程式碼會很有用，該怎麼辦？在這種情況下，您可以使用類別繼承 (class inheritance)。
+在上一章中，我們介紹了如何使用擴充函式來擴充類別而無需修改原始碼。但是，如果您正在處理一個複雜的專案，其中在類別**之間**共享程式碼會很有用，該怎麼辦？在這種情況下，您可以使用類別繼承。
 
 依預設，Kotlin 中的類別無法被繼承。Kotlin 的設計目的在於防止意外繼承，並使您的類別更易於維護。
 
-Kotlin 類別僅支援**單一繼承** (single inheritance)，這表示一次只能從**一個類別**繼承。這個類別被稱為**父類別** (parent)。
+Kotlin 類別僅支援**單一繼承**，這表示一次只能從**一個類別**繼承。這個類別被稱為**父類別**。
 
 類別的父類別繼承自另一個類別（祖父類別），從而形成一個階層。在 Kotlin 類別階層的頂端是共同的父類別：`Any`。所有類別最終都繼承自 `Any` 類別：
 
 ![一個帶有 Any 類型的類別階層範例](any-type-class.png){width="200"}
 
-`Any` 類別會自動提供 `toString()` 函式作為成員函式 (member function)。因此，您可以在任何類別中使用這個繼承的函式。例如：
+`Any` 類別會自動提供 `toString()` 函式作為成員函式。因此，您可以在任何類別中使用這個繼承的函式。例如：
 
 ```kotlin
 class Car(val make: String, val model: String, val numberOfDoors: Int)
@@ -45,11 +45,11 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-tour-any-class"}
 
-如果您想使用繼承來在類別之間共享程式碼，請首先考慮使用抽象類別 (abstract classes)。
+如果您想使用繼承來在類別之間共享程式碼，請首先考慮使用抽象類別。
 
 ### 抽象類別
 
-抽象類別預設可以被繼承。抽象類別的目的是提供其他類別繼承或實作 (implement) 的成員。因此，它們有建構式 (constructor)，但您無法從中建立實例 (instances)。在子類別中，您可以使用 `override` 關鍵字來定義父類別屬性和函式的行為。這樣一來，可以說子類別「覆寫」了父類別的成員。
+抽象類別預設可以被繼承。抽象類別的目的是提供其他類別繼承或實作的成員。因此，它們有建構式，但您無法從中建立實例。在子類別中，您可以使用 `override` 關鍵字來定義父類別屬性和函式的行為。這樣一來，可以說子類別「覆寫」了父類別的成員。
 
 > 當您定義繼承函式或屬性的行為時，我們稱之為**實作**。
 > 
@@ -133,7 +133,7 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-tour-abstract-class"}
 
-雖然抽象類別以這種方式共享程式碼非常有用，但它們受到限制，因為 Kotlin 中的類別只支援單一繼承。如果您需要從多個來源繼承，請考慮使用介面 (interfaces)。
+雖然抽象類別以這種方式共享程式碼非常有用，但它們受到限制，因為 Kotlin 中的類別只支援單一繼承。如果您需要從多個來源繼承，請考慮使用介面。
 
 ## 介面
 
@@ -157,7 +157,7 @@ interface PaymentMethod
 
 ### 介面實作
 
-介面支援多重繼承 (multiple inheritance)，因此一個類別可以同時實作多個介面。首先，我們考慮類別實作**一個**介面的情境。
+介面支援多重繼承，因此一個類別可以同時實作多個介面。首先，我們考慮類別實作**一個**介面的情境。
 
 要建立實作介面的類別，請在類別標頭後加上冒號，然後加上您要實作的介面名稱。您無需在介面名稱後使用圓括號 `()`，因為介面沒有建構式：
 
@@ -248,78 +248,176 @@ fun main() {
 
 ## 委託
 
-介面很有用，但如果您的介面包含許多函式，子類別最終可能會產生大量樣板程式碼 (boilerplate code)。當您只想覆寫父類別行為的一小部分時，您需要重複寫很多內容。
+介面很有用，但如果您的介面包含許多函式，子類別最終可能會產生大量樣板程式碼。當您只想覆寫父類別行為的一小部分時，您需要重複寫很多內容。
 
 > 樣板程式碼 (boilerplate code) 是指在軟體專案的多個部分中重複使用且幾乎沒有變動的程式碼片段。
 > 
 {style="tip"}
 
-例如，假設您有一個名為 `Drawable` 的介面，它包含許多函式和一個名為 `color` 的屬性：
+例如，假設您有一個名為 `DrawingTool` 的介面，它包含許多函式和一個名為 `color` 的屬性：
 
 ```kotlin
-interface Drawable {
-    fun draw()
-    fun resize()
-    val color: String?
+interface DrawingTool {
+    val color: String
+    fun draw(shape: String)
+    fun erase(area: String)
+    fun getToolInfo(): String
 }
 ```
 
-您建立了一個名為 `Circle` 的類別，它實作了 `Drawable` 介面並為其所有成員提供了實作：
+您建立了一個名為 `PenTool` 的類別，它實作了 `DrawingTool` 介面並為其所有成員提供了實作：
 
 ```kotlin
-class Circle : Drawable {
-    override fun draw() {
-        TODO("An example implementation")
+class PenTool : DrawingTool {
+    override val color: String = "black"
+
+    override fun draw(shape: String) {
+        println("Drawing $shape using a pen in $color")
     }
-    
-    override fun resize() {
-        TODO("An example implementation")
+
+    override fun erase(area: String) {
+        println("Erasing $area with pen tool")
     }
-   override val color = null
+
+    override fun getToolInfo(): String {
+        return "PenTool(color=$color)"
+    }
 }
 ```
 
-如果您想建立一個 `Circle` 類別的子類別，其行為除了 `color` 屬性的值外都相同，您仍然需要為 `Circle` 類別的每個成員函式新增實作：
+您想建立一個類似 `PenTool` 的類別，其行為除了 `color` 屬性的值外都相同。一種方法是建立一個新類別，它將實作 `DrawingTool` 介面的物件作為參數，例如 `PenTool` 類別的實例。然後，在類別中，您可以覆寫 `color` 屬性。
+
+但在此情境中，您需要為 `DrawingTool` 介面的每個成員新增實作：
 
 ```kotlin
-class RedCircle(val circle: Circle) : Circle {
+interface DrawingTool {
+    val color: String
+    fun draw(shape: String)
+    fun erase(area: String)
+    fun getToolInfo(): String
+}
 
-    // 樣板程式碼的開始
-    override fun draw() {
-        circle.draw()
+class PenTool : DrawingTool {
+    override val color: String = "black"
+
+    override fun draw(shape: String) {
+        println("Drawing $shape using a pen in $color")
     }
 
-    override fun resize() {
-        circle.resize()
+    override fun erase(area: String) {
+        println("Erasing $area with pen tool")
     }
 
-    // 樣板程式碼的結束
-    override val color = "red"
+    override fun getToolInfo(): String {
+        return "PenTool(color=$color)"
+    }
+}
+//sampleStart
+class CanvasSession(val tool: DrawingTool) : DrawingTool {
+    override val color: String = "blue"
+
+    override fun draw(shape: String) {
+        tool.draw(shape)
+    }
+
+    override fun erase(area: String) {
+        tool.erase(area)
+    }
+
+    override fun getToolInfo(): String {
+        return tool.getToolInfo()
+    }
+}
+//sampleEnd
+fun main() {
+    val pen = PenTool()
+    val session = CanvasSession(pen)
+
+    println("Pen color: ${pen.color}")
+    // Pen color: black
+
+    println("Session color: ${session.color}")
+    // Session color: blue
+
+    session.draw("circle")
+    // Drawing circle with pen in black
+
+    session.erase("top-left corner")
+    // Erasing top-left corner with pen tool
+
+    println(session.getToolInfo())
+    // PenTool(color=black)
 }
 ```
+{kotlin-runnable="true" id="kotlin-tour-interface-non-delegation"}
 
-您可以看到，如果 `Drawable` 介面中有大量成員函式，`RedCircle` 類別中的樣板程式碼量可能會非常大。然而，還有另一種選擇。
+您可以看到，如果 `DrawingTool` 介面中有大量成員函式，`CanvasSession` 類別中的樣板程式碼量可能會非常大。然而，還有另一種選擇。
 
-在 Kotlin 中，您可以使用委託 (delegation) 將介面實作委託給類別的實例。例如，您可以建立 `Circle` 類別的實例，並將 `Circle` 類別成員函式的實作委託給這個實例。為此，請使用 `by` 關鍵字。例如：
+在 Kotlin 中，您可以使用委託 (delegation) 將介面實作委託給類別的實例。為此，請使用 `by` 關鍵字。例如：
 
 ```kotlin
-class RedCircle(param: Circle) : Drawable by param
+class CanvasSession(val tool: DrawingTool) : DrawingTool by tool
 ```
 
-這裡，`param` 是 `Circle` 類別實例的名稱，成員函式的實作被委託給它。
+這裡，`tool` 是 `PenTool` 類別實例的名稱，成員函式的實作被委託給它。
 
-現在您無需在 `RedCircle` 類別中為成員函式新增實作。編譯器會自動為您從 `Circle` 類別執行此操作。這可以讓您省去編寫大量樣板程式碼。相反，您只需新增程式碼來變更子類別所需的行為。
+現在您無需在 `CanvasSession` 類別中為成員函式新增實作。編譯器會自動為您從 `PenTool` 類別執行此操作。這可以讓您省去編寫大量樣板程式碼。相反，您只需新增程式碼來變更子類別所需的行為。
 
 例如，如果您想變更 `color` 屬性的值：
 
 ```kotlin
-class RedCircle(param : Circle) : Drawable by param {
+interface DrawingTool {
+    val color: String
+    fun draw(shape: String)
+    fun erase(area: String)
+    fun getToolInfo(): String
+}
+
+class PenTool : DrawingTool {
+    override val color: String = "black"
+
+    override fun draw(shape: String) {
+        println("Drawing $shape using a pen in $color")
+    }
+
+    override fun erase(area: String) {
+        println("Erasing $area with pen tool")
+    }
+
+    override fun getToolInfo(): String {
+        return "PenTool(color=$color)"
+    }
+}
+
+//sampleStart
+class CanvasSession(val tool: DrawingTool) : DrawingTool by tool {
     // 沒有樣板程式碼！
-    override val color = "red"
+    override val color: String = "blue"
+}
+//sampleEnd
+fun main() {
+    val pen = PenTool()
+    val session = CanvasSession(pen)
+
+    println("Pen color: ${pen.color}")
+    // Pen color: black
+
+    println("Session color: ${session.color}")
+    // Session color: blue
+
+    session.draw("circle")
+    // Drawing circle with pen in black
+
+    session.erase("top-left corner")
+    // Erasing top-left corner with pen tool
+
+    println(session.getToolInfo())
+    // PenTool(color=black)
 }
 ```
+{kotlin-runnable="true" id="kotlin-tour-interface-delegation"}
 
-如果您願意，您也可以在 `RedCircle` 類別中覆寫繼承成員函式的行為，但現在您無需為每個繼承的成員函式新增新的程式碼行。
+如果您願意，您也可以在 `CanvasSession` 類別中覆寫繼承成員函式的行為，但現在您無需為每個繼承的成員函式新增新的程式碼行。
 
 更多資訊請參閱 [委託](delegation.md)。
 
@@ -340,7 +438,7 @@ class RedCircle(param : Circle) : Drawable by param {
 |--|--|
 
 ```kotlin
-abstract class // Write your code here
+abstract class // 在這裡編寫您的程式碼
 
 class SmartLight(name: String) : SmartDevice(name) {
     override fun turnOn() {
@@ -356,7 +454,7 @@ class SmartLight(name: String) : SmartDevice(name) {
     }
 }
 
-class SmartThermostat // Write your code here
+class SmartThermostat // 在這裡編寫您的程式碼
 
 fun main() {
     val livingRoomLight = SmartLight("Living Room Light")
@@ -452,9 +550,9 @@ fun main() {
 
 |---|---|
 ```kotlin
-interface // Write your code here
+interface // 在這裡編寫您的程式碼
 
-class // Write your code here
+class // 在這裡編寫您的程式碼
 
 fun main() {
     val audio = Audio("Symphony No. 5", "Beethoven")
@@ -502,14 +600,14 @@ fun main() {
 |---|---|
 ```kotlin
 interface Refundable {
-    // Write your code here
+    // 在這裡編寫您的程式碼
 }
 
 abstract class PaymentMethod(val name: String) {
-    // Write your code here
+    // 在這裡編寫您的程式碼
 }
 
-class CreditCard // Write your code here
+class CreditCard // 在這裡編寫您的程式碼
 
 fun main() {
     val visa = CreditCard("Visa")
@@ -591,7 +689,7 @@ class BasicMessenger : Messenger {
     }
 }
 
-class SmartMessenger // Write your code here
+class SmartMessenger // 在這裡編寫您的程式碼
 
 fun main() {
     val basicMessenger = BasicMessenger()

@@ -3,22 +3,22 @@
 <no-index/>
 
 <tldr>
-    <p><img src="icon-1-done.svg" width="20" alt="First step" /> <a href="kotlin-tour-intermediate-extension-functions.md">拡張関数</a><br />
-        <img src="icon-2-done.svg" width="20" alt="Second step" /> <a href="kotlin-tour-intermediate-scope-functions.md">スコープ関数</a><br />
-        <img src="icon-3-done.svg" width="20" alt="Third step" /> <a href="kotlin-tour-intermediate-lambdas-receiver.md">レシーバ付きラムダ式</a><br />
-        <img src="icon-4-done.svg" width="20" alt="Fourth step" /> <a href="kotlin-tour-intermediate-classes-interfaces.md">クラスとインターフェース</a><br />
-        <img src="icon-5-done.svg" width="20" alt="Fifth step" /> <a href="kotlin-tour-intermediate-objects.md">オブジェクト</a><br />
+    <p><img src="icon-1-done.svg" width="20" alt="最初のステップ" /> <a href="kotlin-tour-intermediate-extension-functions.md">拡張関数</a><br />
+        <img src="icon-2-done.svg" width="20" alt="2番目のステップ" /> <a href="kotlin-tour-intermediate-scope-functions.md">スコープ関数</a><br />
+        <img src="icon-3-done.svg" width="20" alt="3番目のステップ" /> <a href="kotlin-tour-intermediate-lambdas-receiver.md">レシーバ付きラムダ式</a><br />
+        <img src="icon-4-done.svg" width="20" alt="4番目のステップ" /> <a href="kotlin-tour-intermediate-classes-interfaces.md">クラスとインターフェース</a><br />
+        <img src="icon-5-done.svg" width="20" alt="5番目のステップ" /> <a href="kotlin-tour-intermediate-objects.md">オブジェクト</a><br />
         <img src="icon-6.svg" width="20" alt="Fourth step" /> <strong>open クラスと特殊クラス</strong><br />
-        <img src="icon-7-todo.svg" width="20" alt="Seventh step" /> <a href="kotlin-tour-intermediate-properties.md">プロパティ</a><br />
-        <img src="icon-8-todo.svg" width="20" alt="Eighth step" /> <a href="kotlin-tour-intermediate-null-safety.md">Null 安全</a><br />
-        <img src="icon-9-todo.svg" width="20" alt="Ninth step" /> <a href="kotlin-tour-intermediate-libraries-and-apis.md">ライブラリと API</a></p>
+        <img src="icon-7-todo.svg" width="20" alt="7番目のステップ" /> <a href="kotlin-tour-intermediate-properties.md">プロパティ</a><br />
+        <img src="icon-8-todo.svg" width="20" alt="8番目のステップ" /> <a href="kotlin-tour-intermediate-null-safety.md">Null 安全</a><br />
+        <img src="icon-9-todo.svg" width="20" alt="9番目のステップ" /> <a href="kotlin-tour-intermediate-libraries-and-apis.md">ライブラリと API</a></p>
 </tldr>
 
 この章では、open クラス、open クラスがインターフェースとどのように連携するか、および Kotlin で利用できるその他の特殊な型のクラスについて学習します。
 
 ## open クラス
 
-インターフェースや抽象クラスを使用できない場合は、クラスを `open` と宣言することで、明示的に継承可能にすることができます。
+インターフェースや抽象クラスを使用できない場合は、クラスを **open** と宣言することで、明示的に継承可能にすることができます。
 これを行うには、クラス宣言の前に `open` キーワードを使用します。
 
 ```kotlin
@@ -33,10 +33,10 @@ open class Vehicle(val make: String, val model: String)
 class Car(make: String, model: String, val numberOfDoors: Int) : Vehicle(make, model)
 
 fun main() {
-    // Creates an instance of the Car class
+    // Car クラスのインスタンスを作成する
     val car = Car("Toyota", "Corolla", 4)
 
-    // Prints the details of the car
+    // 車の詳細を出力する
     println("Car Info: Make - ${car.make}, Model - ${car.model}, Number of doors - ${car.numberOfDoors}")
     // Car Info: Make - Toyota, Model - Corolla, Number of doors - 4
 }
@@ -86,7 +86,7 @@ fun main() {
     val car1 = Car("Toyota", "Corolla", 4)
     val car2 = Car("Honda", "Civic", 2)
 
-    // Uses the overridden displayInfo() function
+    // オーバーライドされた displayInfo() 関数を使用する
     car1.displayInfo()
     // Car Info: Make - Toyota, Model - Corolla, Number of Doors - 4
     car2.displayInfo()
@@ -295,11 +295,11 @@ enum class Color(val rgb: Int) {
 fun main() {
     val red = Color.RED
     
-    // Calls containsRed() function on enum constant
+    // 列挙定数に対して containsRed() 関数を呼び出す
     println(red.containsRed())
     // true
 
-    // Calls containsRed() function on enum constants via class names
+    // クラス名を介して列挙定数に対して containsRed() 関数を呼び出す
     println(Color.BLUE.containsRed())
     // false
   
@@ -333,7 +333,7 @@ value class Email
 メールアドレスを収集するクラスを作成したいとします。
 
 ```kotlin
-// The address property is initialized in the class header.
+// address プロパティはクラスヘッダーで初期化されます。
 @JvmInline
 value class Email(val address: String)
 
@@ -370,7 +370,7 @@ fun main() {
 |---|---|
 
 ```kotlin
-sealed class // Write your code here
+sealed class // ここにコードを記述
 
 fun printDeliveryStatus(status: DeliveryStatus) {
     when (status) {
@@ -461,7 +461,7 @@ fun main() {
 sealed class Status {
     data object Loading : Status()
     data class Error(val problem: Problem) : Status() {
-        // Write your code here
+        // ここにコードを記述
     }
 
     data class OK(val data: List<String>) : Status()

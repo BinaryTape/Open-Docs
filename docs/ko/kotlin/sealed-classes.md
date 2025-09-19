@@ -62,9 +62,9 @@ fun main() {
     val errors = listOf(Error.NetworkError(), Error.DatabaseError(), Error.UnknownError())
     errors.forEach { println(it.message) }
 }
-// 네트워크 오류 
-// 데이터베이스에 연결할 수 없음 
-// 알 수 없는 오류가 발생했습니다 
+// Network failure 
+// Database cannot be reached 
+// An unknown error has occurred
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.5"}
 

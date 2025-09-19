@@ -4,7 +4,7 @@ _[リリース日: 2021年6月24日](releases.md#release-details)_
 
 Kotlin 1.5.20 では、1.5.0 の新機能で発見された問題の修正に加え、さまざまなツール改善が含まれています。
 
-変更点の概要については、[リリースブログ記事](https://blog.jetbrains.com/kotlin/2021/06/kotlin-1-5-20-released/)と、以下の動画で確認できます。
+変更点の概要については、[リリースブログ記事](https://blog.jetbrains.com/kotlin/2021/06/kotlin-1-5-20-released/)と以下の動画で確認できます。
 
 <video src="https://www.youtube.com/v/SV8CgSXQe44" title="Kotlin 1.5.20"/>
 

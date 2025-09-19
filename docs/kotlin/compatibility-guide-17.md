@@ -45,9 +45,9 @@ _[保持语言现代性](kotlin-evolution-principles.md)_ 和 _[舒适的更新]
 >
 > **Deprecation cycle**:
 >
-> - <1.3: 对非空接收者的不必要安全调用报告警告
+> - &lt;1.3: 对非空接收者的不必要安全调用报告警告
 > - 1.6.20: 额外警告，不必要的安全调用的结果类型将在下一版本中改变
-> - 1.7.0: 将安全调用结果的类型更改为可空，
+> - 1.7.0: 将安全调用结果的类型更改为可空，  
 > `-XXLanguage:-SafeCallsAreAlwaysNullable` 可用于临时恢复到 1.7 之前的行为
 
 ### 禁止将 `super` 调用委托给抽象超类成员
@@ -58,14 +58,14 @@ _[保持语言现代性](kotlin-evolution-principles.md)_ 和 _[舒适的更新]
 >
 > **Incompatible change type**: source
 >
-> **Short summary**: 当显式或隐式 `super` 调用委托给超类的_抽象_成员时，Kotlin 将报告编译错误，即使超接口中有默认实现。
+> **Short summary**: 当显式或隐式 `super` 调用委托给超类的 _抽象_ 成员时，Kotlin 将报告编译错误，即使超接口中有默认实现。
 >
 > **Deprecation cycle**:
 >
 > - 1.5.20: 当使用未覆盖所有抽象成员的非抽象类时引入警告
 > - 1.7.0: 如果 `super` 调用实际上访问了超类中的抽象成员，则报告错误
 > - 1.7.0: 如果启用了 `-Xjvm-default=all` 或 `-Xjvm-default=all-compatibility` 兼容模式，则报告错误；在渐进模式下报告错误
-> - >=1.8.0: 在所有情况下报告错误
+> - &gt;=1.8.0: 在所有情况下报告错误
 
 ### 禁止通过非公共主构造函数中声明的公共属性暴露非公共类型
 
@@ -141,7 +141,7 @@ _[保持语言现代性](kotlin-evolution-principles.md)_ 和 _[舒适的更新]
 >
 > - 1.6.20: 对受影响的表达式引入废弃警告
 > - 1.8.0: 将此警告提升为错误
-> - >= 1.8: 将一些废弃的构造用于新的语言特性
+> - &gt;= 1.8: 将一些废弃的构造用于新的语言特性
 
 ### 类型可空性增强改进
 
@@ -174,7 +174,7 @@ _[保持语言现代性](kotlin-evolution-principles.md)_ 和 _[舒适的更新]
 > - < 1.5.30: 所有受影响案例中的旧行为
 > - 1.5.30: 修复生成的属性委托访问器中的向下转换行为，
 > `-Xuse-old-backend` 可用于临时恢复到 1.5.30 修复前的行为
-> - >= 1.7.20: 修复其他受影响案例中的向下转换行为
+> - &gt;= 1.7.20: 修复其他受影响案例中的向下转换行为
 
 ### 废弃编译器选项 `-Xjvm-default` 的 `enable` 和 `compatibility` 模式
 
@@ -189,7 +189,7 @@ _[保持语言现代性](kotlin-evolution-principles.md)_ 和 _[舒适的更新]
 > **Deprecation cycle**:
 >
 > - 1.6.20: 对 `-Xjvm-default` 编译器选项的 `enable` 和 `compatibility` 模式引入警告
-> - >= 1.8.0: 将此警告提升为错误
+> - &gt;= 1.8.0: 将此警告提升为错误
 
 ### 禁止调用名称为 `suspend` 且带有尾随 lambda 的函数
 
@@ -220,7 +220,7 @@ _[保持语言现代性](kotlin-evolution-principles.md)_ 和 _[舒适的更新]
 > **Deprecation cycle**:
 >
 > - 1.6.0: 对在位于另一个模块中的超类中声明的属性进行智能转换报告警告
-> - 1.7.0: 将此警告提升为错误，
+> - 1.7.0: 将此警告提升为错误，  
 > `-XXLanguage:-ProhibitSmartcastsOnPropertyFromAlienBaseClass` 可用于临时恢复到 1.7 之前的行为
 
 ### 类型推断时勿忽略有意义的约束
@@ -236,7 +236,7 @@ _[保持语言现代性](kotlin-evolution-principles.md)_ 和 _[舒适的更新]
 > **Deprecation cycle**:
 >
 > - 1.5.20: 对如果考虑所有类型推断约束就会发生类型不匹配的表达式报告警告
-> - 1.7.0: 考虑所有约束，从而将此警告提升为错误，
+> - 1.7.0: 考虑所有约束，从而将此警告提升为错误，  
 > `-XXLanguage:-ProperTypeInferenceConstraintsProcessing` 可用于临时恢复到 1.7 之前的行为
 
 ## 标准库
@@ -289,8 +289,8 @@ _[保持语言现代性](kotlin-evolution-principles.md)_ 和 _[舒适的更新]
 > - 1.4.0: 在 `kotlinx.dom` 和 `kotlinx.browser` 包中引入替代 API
 > - 1.4.0: 废弃 `kotlin.dom` 和 `kotlin.browser` 包中的 API，并建议上述新 API 作为替代
 > - 1.6.0: 将废弃级别提升为错误
-> - >= 1.8: 从标准库中移除废弃函数
-> - >= 1.8: 将 `kotlinx.*` 包中的 API 移动到单独的库
+> - &gt;= 1.8: 从标准库中移除废弃函数
+> - &gt;= 1.8: 将 `kotlinx.*` 包中的 API 移动到单独的库
 
 ### 废弃部分仅 JS API
 
@@ -354,7 +354,7 @@ _[保持语言现代性](kotlin-evolution-principles.md)_ 和 _[舒适的更新]
 > **Deprecation cycle**:
 >
 > - 1.6.20: 将废弃级别提升为警告
-> - >= 1.8.0: 移除此属性
+> - &gt;= 1.8.0: 移除此属性
 
 ### 移除 `kotlin.experimental.coroutines` Gradle DSL 选项和 `kotlin.coroutines` Gradle 属性
 
@@ -399,7 +399,7 @@ _[保持语言现代性](kotlin-evolution-principles.md)_ 和 _[舒适的更新]
 > **Deprecation cycle:**
 >
 > - 1.7.0: 将废弃级别提升为警告
-> - > 1.7.0: 移除该属性
+> - &gt; 1.7.0: 移除该属性
 
 ### 移除 `kotlinOptions.jdkHome` 编译器选项
 
@@ -414,7 +414,7 @@ _[保持语言现代性](kotlin-evolution-principles.md)_ 和 _[舒适的更新]
 > **Deprecation cycle:**
 >
 > - 1.5.30: 将废弃级别提升为警告
-> - > 1.7.0: 移除该选项
+> - &gt; 1.7.0: 移除该选项
 
 ### 移除 `noStdlib` 编译器选项
 
@@ -426,7 +426,7 @@ _[保持语言现代性](kotlin-evolution-principles.md)_ 和 _[舒适的更新]
 >
 > **Short summary**: 移除 `noStdlib` 编译器选项。Gradle 插件使用 `kotlin.stdlib.default.dependency=true` 属性来控制 Kotlin 标准库是否存在。
 >
-> **Deprecation cycle:**
+> **Deprecation cycle**:
 >
 > - 1.5.0: 将废弃级别提升为警告
 > - 1.7.0: 移除该选项
@@ -441,7 +441,7 @@ _[保持语言现代性](kotlin-evolution-principles.md)_ 和 _[舒适的更新]
 >
 > **Short summary**: 移除 `kotlin2js` 和 `kotlin-dce-plugin` 插件。请改用新的 `org.jetbrains.kotlin.js` 插件来替代 `kotlin2js`。无用代码消除 (DCE) 在 Kotlin/JS Gradle 插件正确配置后即可工作。
 >
-> **Deprecation cycle:**
+> **Deprecation cycle**:
 >
 > - 1.4.0: 将废弃级别提升为警告
 > - 1.7.0: 移除这些插件
@@ -456,6 +456,6 @@ _[保持语言现代性](kotlin-evolution-principles.md)_ 和 _[舒适的更新]
 >
 > **Short summary**: Kotlin 编译任务不再继承 Gradle `AbstractCompile` 任务，因此 `sourceCompatibility` 和 `targetCompatibility` 输入在 Kotlin 用户脚本中不再可用。`SourceTask.stableSources` 输入不再可用。`sourceFilesExtensions` 输入已被移除。废弃的 `Gradle destinationDir: File` 输出已被 `destinationDirectory: DirectoryProperty` 输出替换。`KotlinCompile` 任务的 `classpath` 属性已废弃。
 >
-> **Deprecation cycle:**
+> **Deprecation cycle**:
 >
 > - 1.7.0: 输入不再可用，输出被替换，`classpath` 属性已废弃

@@ -125,15 +125,15 @@ Kotlin/Nativeコンパイラは、KotlinコードからmacOSおよびiOS用の�
 
     `binaries {}`ブロックは、動的ライブラリまたは共有ライブラリを生成するようにプロジェクトを構成します。
 
-    Kotlin/Nativeは、iOS用に`iosArm64`、`iosX64`、`iosSimulatorArm64`ターゲット、macOS用に`macosX64`、`macosArm64`ターゲットをサポートしています。そのため、`iosArm64()`をターゲットプラットフォームの適切なGradle関数に置き換えることができます。
+    Kotlin/Nativeは、iOS用に`iosArm64`、`iosX64`、`iosSimulatorArm64`ターゲット、macOS用に`macosArm64`、`macosX64`ターゲットをサポートしています。そのため、`iosArm64()`をターゲットプラットフォームの適切なGradle関数に置き換えることができます。
 
     | ターゲットプラットフォーム/デバイス | Gradle関数             |
     |----------------------------------|------------------------|
-    | macOS x86_64                     | `macosX64()`           | 
     | macOS ARM64                      | `macosArm64()`         |
-    | iOS ARM64                        | `iosArm64()`           | 
-    | iOS Simulator (x86_64)           | `iosX64()`             |
+    | macOS x86_64                     | `macosX64()`           |
+    | iOS ARM64                        | `iosArm64()`           |
     | iOS Simulator (ARM64)            | `iosSimulatorArm64()`  |
+    | iOS Simulator (x86_64)           | `iosX64()`             |
 
     他のサポートされているAppleターゲットについては、[Kotlin/Nativeのターゲットサポート](native-target-support.md)を参照してください。
 
@@ -271,7 +271,7 @@ __attribute__((swift_name("Object")))
 
 このコード内のObjective-C属性は、SwiftとObjective-Cの両方の言語からフレームワークを使用するのに役立ちます。`DemoInterface`、`DemoClazz`、および`DemoObject`は、それぞれ`Interface`、`Clazz`、および`Object`のために作成されます。
 
-`Interface`は`@protocol`に変換され、`class`と`object`は両方とも`@interface`として表現されます。`Demo`プレフィックスは、`kotlinc-native`の`-output`パラメータで設定されたフレームワーク名から来ています。ヌル許容の戻り値の型`ULong?`は、Objective-Cでは`DemoULong`に変換されます。
+`Interface`は`@protocol`に変換され、`class`と`object`は両方とも`@interface`として表現されます。`Demo`プレフィックスは、フレームワーク名から来ています。ヌル許容の戻り値の型`ULong?`は、Objective-Cでは`DemoULong`に変換されます。
 
 ### Kotlinからのグローバル宣言
 

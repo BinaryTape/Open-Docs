@@ -2,7 +2,7 @@
 
 모델 컨텍스트 프로토콜 (MCP)은 AI 에이전트가 일관된 인터페이스를 통해 외부 도구 및 서비스와 상호 작용할 수 있도록 하는 표준화된 프로토콜입니다.
 
-MCP는 도구와 프롬프트를 AI 에이전트가 호출할 수 있는 API 엔드포인트로 노출합니다. 각 도구에는 특정 이름과 JSON 스키마 형식으로 입력 및 출력을 설명하는 입력 스키마가 있습니다.
+MCP는 AI 에이전트가 호출할 수 있는 API 엔드포인트로 도구와 프롬프트를 노출합니다. 각 도구에는 특정 이름과 JSON 스키마 형식으로 입력 및 출력을 설명하는 입력 스키마가 있습니다.
 
 Koog 프레임워크는 MCP 서버와의 통합을 제공하여, MCP 도구를 Koog 에이전트에 통합할 수 있도록 합니다.
 
@@ -61,10 +61,10 @@ import ai.koog.agents.mcp.McpToolRegistryProvider
 import ai.koog.agents.mcp.defaultStdioTransport
 -->
 ```kotlin
-// MCP 서버 시작 (예: 프로세스로)
+// Start an MCP server (for example, as a process)
 val process = ProcessBuilder("path/to/mcp/server").start()
 
-// stdio 전송 생성 
+// Create the stdio transport 
 val transport = McpToolRegistryProvider.defaultStdioTransport(process)
 ```
 <!--- KNIT example-model-context-protocol-01.kt -->
@@ -77,7 +77,7 @@ val transport = McpToolRegistryProvider.defaultStdioTransport(process)
 import ai.koog.agents.mcp.McpToolRegistryProvider
 -->
 ```kotlin
-// SSE 전송 생성
+// Create the SSE transport
 val transport = McpToolRegistryProvider.defaultSseTransport("http://localhost:8931")
 ```
 <!--- KNIT example-model-context-protocol-02.kt -->
@@ -101,7 +101,7 @@ fun main() {
 }
 -->
 ```kotlin
-// MCP 서버의 도구로 도구 레지스트리 생성
+// Create a tool registry with tools from the MCP server
 val toolRegistry = McpToolRegistryProvider.fromTransport(
     transport = transport,
     name = "my-client",
@@ -127,7 +127,7 @@ fun main() {
 }
 -->
 ```kotlin
-// 기존 MCP 클라이언트에서 도구 레지스트리 생성
+// Create a tool registry from an existing MCP client
 val toolRegistry = McpToolRegistryProvider.fromClient(
     mcpClient = existingMcpClient
 )
@@ -160,7 +160,7 @@ fun main() {
 }
 -->
 ```kotlin
-// 도구를 포함한 에이전트 생성
+// Create an agent with the tools
 val agent = AIAgent(
     promptExecutor = executor,
     strategy = strategy,
@@ -168,7 +168,7 @@ val agent = AIAgent(
     toolRegistry = toolRegistry
 )
 
-// MCP 도구를 사용하는 작업으로 에이전트 실행
+// Run the agent with a task that uses an MCP tool
 val result = agent.run("Use the MCP tool to perform a task")
 ```
 <!--- KNIT example-model-context-protocol-05.kt -->
@@ -306,19 +306,19 @@ fun main() {
 }
 -->
 ```kotlin
-// Google Maps MCP 서버로 Docker 컨테이너 시작
+// Start the Docker container with the Google Maps MCP server
 val process = ProcessBuilder(
     "docker", "run", "-i",
     "-e", "GOOGLE_MAPS_API_KEY=$googleMapsApiKey",
     "mcp/google-maps"
 ).start()
 
-// MCP 서버의 도구로 ToolRegistry 생성
+// Create the ToolRegistry with tools from the MCP server
 val toolRegistry = McpToolRegistryProvider.fromTransport(
     transport = McpToolRegistryProvider.defaultStdioTransport(process)
 )
 
-// 에이전트 생성 및 실행
+// Create and run the agent
 val agent = AIAgent(
     promptExecutor = simpleOpenAIExecutor(openAIApiToken),
     llmModel = OpenAIModels.Chat.GPT4o,
@@ -349,17 +349,17 @@ fun main() {
 }
 -->
 ```kotlin
-// Playwright MCP 서버 시작
+// Start the Playwright MCP server
 val process = ProcessBuilder(
     "npx", "@playwright/mcp@latest", "--port", "8931"
 ).start()
 
-// MCP 서버의 도구로 ToolRegistry 생성
+// Create the ToolRegistry with tools from the MCP server
 val toolRegistry = McpToolRegistryProvider.fromTransport(
     transport = McpToolRegistryProvider.defaultSseTransport("http://localhost:8931")
 )
 
-// 에이전트 생성 및 실행
+// Create and run the agent
 val agent = AIAgent(
     promptExecutor = simpleOpenAIExecutor(openAIApiToken),
     llmModel = OpenAIModels.Chat.GPT4o,

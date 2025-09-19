@@ -1,6 +1,6 @@
 [//]: # (title: 内联函数)
 
-使用[高阶函数](lambdas.md)会带来一定的运行时开销：每个函数都是一个对象，并且它会捕获一个闭包。闭包是可以在函数体中访问的变量作用域。内存分配（函数对象和类）和虚调用会引入运行时开销。
+使用 [高阶函数](lambdas.md) 会带来一定的运行时开销：每个函数都是一个对象，并且它会捕获一个闭包。闭包是可以在函数体中访问的变量作用域。内存分配（函数对象和类）和虚调用会引入运行时开销。
 
 但似乎在许多情况下，这种开销可以通过内联 lambda 表达式来消除。下面展示的函数就是这种情况的很好示例。`lock()` 函数可以很容易地在调用点内联。考虑以下情况：
 
@@ -39,7 +39,7 @@ inline fun foo(inlined: () -> Unit, noinline notInlined: () -> Unit) { ... }
 
 可内联的 lambda 只能在内联函数内部调用，或作为可内联实参传递。然而，`noinline` lambda 可以以任何你喜欢的方式进行操作，包括存储在字段中或传递。
 
-> 如果一个内联函数没有可内联的函数形参，并且没有[实化类型形参](#reified-type-parameters)，编译器将发出警告，因为内联此类函数不太可能带来好处（如果你确定需要内联，可以使用 `@Suppress("NOTHING_TO_INLINE")` 注解来抑制警告）。
+> 如果一个内联函数没有可内联的函数形参，并且没有 [实化类型形参](#reified-type-parameters)，编译器将发出警告，因为内联此类函数不太可能带来好处（如果你确定需要内联，可以使用 `@Suppress("NOTHING_TO_INLINE")` 注解来抑制警告）。
 >
 {style="note"}
 
@@ -47,7 +47,7 @@ inline fun foo(inlined: () -> Unit, noinline notInlined: () -> Unit) { ... }
 
 ### 返回
 
-在 Kotlin 中，你只能使用普通的、非限定的 `return` 来退出命名函数或匿名函数。要退出 lambda 表达式，请使用[标签](returns.md#return-to-labels)。禁止在 lambda 内部使用裸 `return`，因为 lambda 无法让封闭函数 `return`：
+在 Kotlin 中，你只能使用普通的、非限定的 `return` 来退出命名函数或匿名函数。要退出 lambda 表达式，请使用 [标签](returns.md#return-to-labels)。禁止在 lambda 内部使用裸 `return`，因为 lambda 无法让封闭函数 `return`：
 
 ```kotlin
 fun ordinaryFunction(block: () -> Unit) {
@@ -180,7 +180,7 @@ fun main(s: Array<String>) {
 
 ## 内联属性
 
-`inline` 修饰符可以用于没有[幕后字段](properties.md#backing-fields)的属性的访问器上。你可以注解单个属性访问器：
+`inline` 修饰符可以用于没有 [幕后字段](properties.md#backing-fields) 的属性的访问器上。你可以注解单个属性访问器：
 
 ```kotlin
 val foo: Foo
@@ -203,7 +203,7 @@ inline var bar: Bar
 
 ## 公共 API 内联函数的限制
 
-当一个内联函数是 `public` 或 `protected` 但不是 `private` 或 `internal` 声明的一部分时，它被认为是[模块](visibility-modifiers.md#modules)的公共 API。它可以在其他模块中调用，并且也会在这些调用点内联。
+当一个内联函数是 `public` 或 `protected` 但不是 `private` 或 `internal` 声明的一部分时，它被认为是 [模块](visibility-modifiers.md#modules) 的公共 API。它可以在其他模块中调用，并且也会在这些调用点内联。
 
 这带来了由声明内联函数的模块发生更改而导致的二进制不兼容性风险，如果调用模块在更改后未重新编译的话。
 

@@ -2,7 +2,7 @@
 
 Koog 自然地融入你的 Ktor 服务器，使你能够使用惯用的 Kotlin API 从两端编写服务器端 AI 应用程序。
 
-只需安装一次 Koog 插件，在 `application.conf`/YAML 或代码中配置你的 LLM 提供商 (LLM providers)，然后就可以直接从你的路由中调用智能体 (agent)。无需再在模块间布线 LLM 客户端——你的路由只需请求一个智能体即可开始工作。
+只需安装一次 Koog 插件，在 `application.conf`/YAML 或代码中配置你的 LLM 提供商，然后就可以直接从你的路由中调用智能体。无需再在模块间布线 LLM 客户端——你的路由只需请求一个智能体即可开始工作。
 
 ## 概述
 
@@ -53,7 +53,7 @@ koog:
     baseUrl: http://localhost:11434
 ```
 
-可选：当请求的提供商未配置时，可配置直接 LLM 调用使用的回退 (fallback)。
+可选：当请求的提供商未配置时，可配置直接 LLM 调用使用的回退。
 
 ```yaml
 koog:
@@ -129,7 +129,7 @@ get("/stream") {
 }
 ```
 
-内容审核 (Moderation)
+内容审核
 
 ```kotlin
 post("/moderated-chat") {

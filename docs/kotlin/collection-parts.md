@@ -4,7 +4,7 @@ Kotlin 标准库包含了用于获取集合部分内容的扩展函数。这些�
 
 ## Slice
 
-[`slice()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/slice.html) 返回给定索引的集合元素 List。索引可以作为 [区间](ranges.md) 传递，也可以作为整数值集合传递。
+[`slice()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/slice.html) 返回给定索引的集合元素列表。索引可以作为 [区间](ranges.md) 传递，也可以作为整数值集合传递。
 
 ```kotlin
 
@@ -41,10 +41,10 @@ fun main() {
 
 你也可以使用谓词来定义要选取或丢弃的元素数量。有四个函数与上述函数类似：
 
-* [`takeWhile()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/take-while.html) 是带谓词的 `take()`：它选取匹配谓词的元素，直到但不包括第一个不匹配谓词的元素。如果第一个集合元素不匹配谓词，则结果为空。
-* [`takeLastWhile()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/take-last-while.html) 类似于 `takeLast()`：它从集合末尾选取匹配谓词的元素区间。该区间中的第一个元素是紧邻最后一个不匹配谓词的元素。如果最后一个集合元素不匹配谓词，则结果为空；
-* [`dropWhile()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/drop-while.html) 与使用相同谓词的 `takeWhile()` 函数相反：它返回从第一个不匹配谓词的元素到末尾的所有元素。
-* [`dropLastWhile()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/drop-last-while.html) 与使用相同谓词的 `takeLastWhile()` 函数相反：它返回从开头到最后一个不匹配谓词的元素之间的所有元素。
+*   [`takeWhile()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/take-while.html) 是带谓词的 `take()`：它选取匹配谓词的元素，直到但不包括第一个不匹配谓词的元素。如果第一个集合元素不匹配谓词，则结果为空。
+*   [`takeLastWhile()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/take-last-while.html) 类似于 `takeLast()`：它从集合末尾选取匹配谓词的元素区间。该区间中的第一个元素是紧邻最后一个不匹配谓词的元素。如果最后一个集合元素不匹配谓词，则结果为空；
+*   [`dropWhile()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/drop-while.html) 与使用相同谓词的 `takeWhile()` 函数相反：它返回从第一个不匹配谓词的元素到末尾的所有元素。
+*   [`dropLastWhile()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/drop-last-while.html) 与使用相同谓词的 `takeLastWhile()` 函数相反：它返回从开头到最后一个不匹配谓词的元素之间的所有元素。
 
 ```kotlin
 
@@ -105,8 +105,8 @@ fun main() {
 
 `windowed()` 在带默认值的形参方面提供了更大的灵活性：
 
-* `step` 定义了两个相邻窗口的第一个元素之间的距离。默认值为 1，因此结果包含从所有元素开始的窗口。如果你将步长增加到 2，你将只收到从奇数元素开始的窗口：第一个、第三个，依此类推。
-* `partialWindows` 包含从集合末尾元素开始的较小大小的窗口。例如，如果你请求三个元素的窗口，你无法为最后两个元素构建它们。在这种情况下，启用 `partialWindows` 会包含另外两个大小分别为 2 和 1 的 List。
+*   `step` 定义了两个相邻窗口的第一个元素之间的距离。默认值为 1，因此结果包含从所有元素开始的窗口。如果你将步长增加到 2，你将只收到从奇数元素开始的窗口：第一个、第三个，依此类推。
+*   `partialWindows` 包含从集合末尾元素开始的较小大小的窗口。例如，如果你请求三个元素的窗口，你无法为最后两个元素构建它们。在这种情况下，启用 `partialWindows` 会包含另外两个大小分别为 2 和 1 的 List。
 
 最后，你可以立即对返回的区间应用转换。为此，在调用 `windowed()` 时将转换作为 lambda 表达式提供。
 

@@ -31,12 +31,12 @@ Kotlin에서 타입 시스템은 `null`을 가질 수 있는 타입(널 허용 �
 ```kotlin
 fun main() {
 //sampleStart
-    // Assigns a non-null string to a variable
+    // 변수에 널이 아닌 문자열 할당
     var a: String = "abc"
-    // Attempts to re-assign null to the non-nullable variable
+    // 널이 아닌 변수에 null을 다시 할당 시도
     a = null
     print(a)
-    // Null can not be a value of a non-null type String
+    // 널은 널이 아닌 String 타입의 값이 될 수 없습니다.
 //sampleEnd
 }
 ```
@@ -47,9 +47,9 @@ fun main() {
 ```kotlin
 fun main() {
 //sampleStart
-    // Assigns a non-null string to a variable
+    // 변수에 널이 아닌 문자열 할당
     val a: String = "abc"
-    // Returns the length of a non-nullable variable
+    // 널이 아닌 변수의 길이 반환
     val l = a.length
     print(l)
     // 3
@@ -63,9 +63,9 @@ fun main() {
 ```kotlin
 fun main() {
 //sampleStart
-    // Assigns a nullable string to a variable
+    // 변수에 널 허용 문자열 할당
     var b: String? = "abc"
-    // Successfully re-assigns null to the nullable variable
+    // 널 허용 변수에 null을 성공적으로 다시 할당
     b = null
     print(b)
     // null
@@ -79,14 +79,14 @@ fun main() {
 ```kotlin
 fun main() {
 //sampleStart
-    // Assigns a nullable string to a variable
+    // 변수에 널 허용 문자열 할당
     var b: String? = "abc"
-    // Re-assigns null to the nullable variable
+    // 널 허용 변수에 null 다시 할당
     b = null
-    // Tries to directly return the length of a nullable variable
+    // 널 허용 변수의 길이를 직접 반환 시도
     val l = b.length
     print(l)
-    // Only safe (?.) or non-null asserted (!!.) calls are allowed on a nullable receiver of type String? 
+    // String? 타입의 널 허용 리시버에서는 안전 호출 (?.) 또는 널 아님 단언 (!!.)만 허용됩니다.
 //sampleEnd
 }
 ```
@@ -98,7 +98,7 @@ fun main() {
 *   [안전 호출 연산자 `?.`](#safe-call-operator)
 *   [엘비스 연산자 `?:`](#elvis-operator)
 *   [널 아님 단언 연산자 `!!`](#not-null-assertion-operator)
-*   [널 허용 리시버(Nullable receiver)](#nullable-receiver)
+*   [널 허용 리시버](#nullable-receiver)
 *   [`let` 함수](#let-function)
 *   [안전한 캐스트 `as?`](#safe-casts)
 *   [널 허용 타입 컬렉션](#collections-of-a-nullable-type)
@@ -114,9 +114,9 @@ fun main() {
 ```kotlin
 fun main() {
 //sampleStart
-    // Assigns null to a nullable variable
+    // 널 허용 변수에 null 할당
     val b: String? = null
-    // Checks for nullability first and then accesses length
+    // 먼저 널 허용성 확인 후 길이 접근
     val l = if (b != null) b.length else -1
     print(l)
     // -1
@@ -132,15 +132,15 @@ fun main() {
 ```kotlin
 fun main() {
 //sampleStart
-    // Assigns a nullable string to a variable
+    // 변수에 널 허용 문자열 할당
     val b: String? = "Kotlin"
 
-    // Checks for nullability first and then accesses length
+    // 먼저 널 허용성 확인 후 길이 접근
     if (b != null && b.length > 0) {
         print("String of length ${b.length}")
         // String of length 6
     } else {
-        // Provides alternative if the condition is not met
+        // 조건이 충족되지 않으면 대안 제공
         print("Empty string")
     }
 //sampleEnd
@@ -157,12 +157,12 @@ fun main() {
 ```kotlin
 fun main() {
 //sampleStart
-    // Assigns a nullable string to a variable
+    // 변수에 널 허용 문자열 할당
     val a: String? = "Kotlin"
-    // Assigns null to a nullable variable
+    // 널 허용 변수에 null 할당
     val b: String? = null
     
-    // Checks for nullability and returns length or null
+    // 널 허용성을 확인하고 길이 또는 null을 반환
     println(a?.length)
     // 6
     println(b?.length)
@@ -208,9 +208,9 @@ if (person != null && person.department != null) {
 ```kotlin
 fun main() {
 //sampleStart
-    // Assigns null to a nullable variable  
+    // 널 허용 변수에 null 할당
     val b: String? = null
-    // Checks for nullability. If not null, returns length. If null, returns 0
+    // 널 허용성 확인. null이 아니면 길이 반환. null이면 0 반환
     val l: Int = if (b != null) b.length else 0
     println(l)
     // 0
@@ -224,9 +224,9 @@ fun main() {
 ```kotlin
 fun main() {
 //sampleStart
-    // Assigns null to a nullable variable  
+    // 널 허용 변수에 null 할당
     val b: String? = null
-    // Checks for nullability. If not null, returns length. If null, returns a non-null value
+    // 널 허용성 확인. null이 아니면 길이 반환. null이면 널이 아닌 값 반환
     val l = b?.length ?: 0
     println(l)
     // 0
@@ -241,9 +241,9 @@ Kotlin에서 `throw`와 `return`은 표현식이기 때문에 엘비스 연산�
 
 ```kotlin
 fun foo(node: Node): String? {
-    // Checks for getParent(). If not null, it's assigned to parent. If null, returns null
+    // `getParent()` 확인. null이 아니면 parent에 할당. null이면 null 반환
     val parent = node.getParent() ?: return null
-    // Checks for getName(). If not null, it's assigned to name. If null, throws exception
+    // `getName()` 확인. null이 아니면 name에 할당. null이면 예외 발생
     val name = node.getName() ?: throw IllegalArgumentException("name expected")
     // ...
 }
@@ -260,9 +260,9 @@ fun foo(node: Node): String? {
 ```kotlin
 fun main() {
 //sampleStart
-    // Assigns a nullable string to a variable
+    // 변수에 널 허용 문자열 할당
     val b: String? = "Kotlin"
-    // Treats b as non-null and accesses its length
+    // b를 널이 아닌 것으로 처리하고 길이에 접근
     val l = b!!.length
     println(l)
     // 6
@@ -276,11 +276,11 @@ fun main() {
 ```kotlin
 fun main() {
 //sampleStart
-    // Assigns null to a nullable variable  
+    // 널 허용 변수에 null 할당
     val b: String? = null
-    // Treats b as non-null and tries to access its length
+    // b를 널이 아닌 것으로 처리하고 길이에 접근 시도
     val l = b!!.length
-    println(l) 
+    println(l)
     // Exception in thread "main" java.lang.NullPointerException
 //sampleEnd
 }
@@ -300,15 +300,15 @@ fun main() {
 ```kotlin
 //sampleStart
 fun main() {
-    // Assigns null to a nullable Person object stored in the person variable
+    // `person` 변수에 저장된 널 허용 `Person` 객체에 null 할당
     val person: Person? = null
 
-    // Applies .toString to the nullable person variable and prints a string
+    // 널 허용 `person` 변수에 `.toString`을 적용하고 문자열 출력
     println(person.toString())
     // null
 }
 
-// Defines a simple Person class
+// 간단한 Person 클래스 정의
 data class Person(val name: String)
 //sampleEnd
 ```
@@ -321,18 +321,18 @@ data class Person(val name: String)
 ```kotlin
 //sampleStart
 fun main() {
-    // Assigns a nullable Person object to a variable
+    // 널 허용 Person 객체를 변수에 할당
     val person1: Person? = null
     val person2: Person? = Person("Alice")
 
-    // Prints "null" if person is null; otherwise prints the result of person.toString()
+    // person이 null이면 "null"을 출력; 그렇지 않으면 person.toString() 결과 출력
     println(person1?.toString())
     // null
     println(person2?.toString())
     // Person(name=Alice)
 }
 
-// Defines a Person class
+// Person 클래스 정의
 data class Person(val name: String)
 //sampleEnd
 ```
@@ -349,12 +349,12 @@ data class Person(val name: String)
 ```kotlin
 fun main() {
 //sampleStart
-    // Declares a list of nullable strings
+    // 널 허용 문자열 리스트 선언
     val listWithNulls: List<String?> = listOf("Kotlin", null)
 
-    // Iterates over each item in the list
+    // 리스트의 각 항목 순회
     for (item in listWithNulls) {
-        // Checks if the item is null and only prints non-null values
+        // 항목이 null인지 확인하고 널이 아닌 값만 출력
         item?.let { println(it) }
         //Kotlin 
     }
@@ -372,12 +372,12 @@ Kotlin의 [타입 캐스트](typecasts.md#unsafe-cast-operator)를 위한 일반
 ```kotlin
 fun main() {
 //sampleStart
-    // Declares a variable of type Any, which can hold any type of value
+    // 모든 타입의 값을 담을 수 있는 Any 타입의 변수 선언
     val a: Any = "Hello, Kotlin!"
 
-    // Safe casts to Int using the 'as?' operator
+    // 'as?' 연산자를 사용하여 Int로 안전하게 캐스트
     val aInt: Int? = a as? Int
-    // Safe casts to String using the 'as?' operator
+    // 'as?' 연산자를 사용하여 String으로 안전하게 캐스트
     val aString: String? = a as? String
 
     println(aInt)
@@ -398,10 +398,10 @@ fun main() {
 ```kotlin
 fun main() {
 //sampleStart
-    // Declares a list containing some null and non-null integer values
+    // null 및 널이 아닌 정수 값을 포함하는 리스트 선언
     val nullableList: List<Int?> = listOf(1, 2, null, 4)
 
-    // Filters out null values, resulting in a list of non-null integers
+    // null 값을 필터링하여 널이 아닌 정수 리스트 생성
     val intList: List<Int> = nullableList.filterNotNull()
   
     println(intList)

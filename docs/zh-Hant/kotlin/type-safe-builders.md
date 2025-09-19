@@ -7,7 +7,7 @@
 *   使用 Kotlin 程式碼產生標記，例如 [HTML](https://github.com/Kotlin/kotlinx.html) 或 XML
 *   為網頁伺服器設定路由：[Ktor](https://ktor.io/docs/routing.html)
 
-考慮以下程式碼：
+請看以下程式碼：
 
 ```kotlin
 import com.example.html.* // see declarations below
@@ -44,7 +44,7 @@ fun result() =
 ```
 
 這是完全合法的 Kotlin 程式碼。
-您可以在[線上試用此程式碼 (修改並在瀏覽器中執行)](https://play.kotlinlang.org/byExample/09_Kotlin_JS/06_HtmlBuilder)。
+您可以在[線上試用此程式碼 (修改並在瀏覽器中執行) 這裡](https://play.kotlinlang.org/byExample/09_Kotlin_JS/06_HtmlBuilder)。
 
 ## 運作方式
 
@@ -167,8 +167,8 @@ operator fun String.unaryPlus() {
 
 ## 作用域控制：@DslMarker
 
-使用 DSLs 時，可能會遇到在特定上下文中可以呼叫過多函式的問題。
-您可以在 lambda 內部呼叫每個可用的隱式接收者的成員，從而得到不一致的結果，例如在另一個 `head` 內部出現 `head` 標籤：
+使用 DSLs 時，可能會遇到在特定上下文 (context) 中可以呼叫過多函式的問題。
+您可以在 lambda 內部呼叫每個可用的 [隱式接收者](lambdas.md#function-literals-with-receiver) 的成員，從而得到不一致的結果，例如在另一個 `head` 內部出現 `head` 標籤：
 
 ```kotlin
 html {
@@ -179,7 +179,7 @@ html {
 }
 ```
 
-在此範例中，只有最近的隱式接收者 `this@head` 的成員必須可用；`head()` 是外部接收者 `this@html` 的成員，因此呼叫它必須是非法的。
+在此範例中，只有最近的隱式接收者 `this@head` 的成員必須可用；`head()` 是外部接收者 `this@html` 的成員，因此呼叫它必須是不合法的。
 
 為了解決這個問題，有一個特殊的機制來控制接收者作用域。
 
@@ -264,10 +264,43 @@ html {
 
 在 lambda 中只能存取最近接收者的成員和擴展，防止了巢狀作用域之間意外的互動。
 
+當隱式接收者的成員和 [context 參數](context-parameters.md) 的宣告在作用域中具有相同名稱時，
+編譯器會報告警告，因為隱式接收者被 context 參數遮蔽。
+為了解決這個問題，請使用 `this` 限定詞來明確呼叫接收者，或使用 `contextOf<T>()` 來呼叫 context 宣告：
+
+```kotlin
+interface HtmlTag {
+    fun setAttribute(name: String, value: String)
+}
+
+// Declares a top-level function with the same name,
+// which is available through a context parameter
+context(tag: HtmlTag)
+fun setAttribute(name: String, value: String) { tag.setAttribute(name, value) }
+
+fun test(head: HtmlTag, extraInfo: HtmlTag) {
+    with(head) {
+        // Introduces a context value of the same type in an inner scope
+        context(extraInfo) {
+            // Reports a warning:
+            // Uses an implicit receiver shadowed by a context parameter
+            setAttribute("user", "1234")
+
+            // Calls the receiver's member explicitly
+            this.setAttribute("user", "1234")
+
+            // Calls the context declaration explicitly
+            contextOf<HtmlTag>().setAttribute("user", "1234")
+        }
+    }
+}
+```
+
 ### `com.example.html` 套件的完整定義
 
 這就是 `com.example.html` 套件的定義方式（僅包含上面範例中使用的元素）。
-它建構一個 HTML 樹。它大量使用了 [擴展函式](extensions.md) 和 [帶接收者的 lambda 運算式](lambdas.md#function-literals-with-receiver)。
+它建構一個 HTML 樹。它大量使用了 [擴展函式](extensions.md) 和
+[帶接收者的 lambda 運算式](lambdas.md#function-literals-with-receiver)。
 
 ```kotlin
 package com.example.html

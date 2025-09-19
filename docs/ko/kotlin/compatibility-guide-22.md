@@ -121,7 +121,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_ 및 _[편리한 �
 
 ### 간접 종속성에서 접근 불가능한 제네릭 타입 금지
 
-> **이슈**: [KTLC-3](https://youtrack.com/issue/KTLC-3)
+> **이슈**: [KTLC-3](https://youtrack.jetbrains.com/issue/KTLC-3)
 >
 > **컴포넌트**: 코어 언어
 >
@@ -137,7 +137,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_ 및 _[편리한 �
 
 ### 타입 파라미터 바운드에 대한 가시성 검사 강제
 
-> **이슈**: [KTLC-274](https://youtrack.com/issue/KTLC-274)
+> **이슈**: [KTLC-274](https://youtrack.jetbrains.com/issue/KTLC-274)
 >
 > **컴포넌트**: 코어 언어
 >
@@ -220,7 +220,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_ 및 _[편리한 �
 >
 > **비호환 변경 유형**: 동작
 >
-> **간단 요약**: [`KotlinCompileTool`](https://kotlinlang.org/api/kotlin-gradle-plugin/kotlin-gradle-plugin-api/org.jetbrains.kotlin.gradle.tasks/-kotlin-compile-tool/#) 인터페이스의 [`setSource()`](https://kotlinlang.org/api/kotlin-gradle-plugin/kotlin-gradle-plugin-api/org.jetbrains.kotlin.gradle.tasks/-kotlin-compile-tool/set-source.html#) 함수는 이제 소스를 추가하는 대신 구성된 소스를 대체합니다. 기존 소스를 대체하지 않고 소스를 추가하려면 [`source()`](https://kotlinlang.org/api/kotlin-gradle-plugin/kotlin-gradle-plugin-api/org.jetbrains.kotlin.gradle.tasks/-kotlin-compile-tool/source.html#) 함수를 사용하십시오.
+> **간단 요약**: [`KotlinCompileTool`](https://kotlinlang.org/api/kotlin-gradle-plugin/kotlin-gradle-plugin-api/org.jetbrains.kotlin.gradle.tasks/-kotlin-compile-tool/#) 인터페이스의 [`setSource()`](https://kotlinlang.org/api/kotlin-gradle-plugin/kotlin-gradle-plugin-api/org.jetbrains.kotlin.gradle.tasks/-kotlin-compile-tool/set-source.html#) 함수는 이제 구성된 소스를 추가하는 대신 대체합니다. 기존 소스를 대체하지 않고 소스를 추가하려면 [`source()`](https://kotlinlang.org/api/kotlin-gradle-plugin/kotlin-gradle-plugin-api/org.jetbrains.kotlin.gradle.tasks/-kotlin-compile-tool/source.html#) 함수를 사용하십시오.
 >
 > **단계별 지원 중단 주기**:
 >
@@ -279,7 +279,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_ 및 _[편리한 �
 >
 > **비호환 변경 유형**: 소스
 >
-> **간단 요약**: `kotlinOptions` DSL 및 관련 `KotlinCompile<KotlinOptions>` 태스크 인터페이스를 통한 컴파일러 옵션 구성 기능이 새로운 `compilerOptions` DSL을 선호하여 더 이상 사용되지 않습니다. 이 지원 중단의 일환으로, `kotlinOptions` 인터페이스의 모든 프로퍼티도 이제 개별적으로 더 이상 사용되지 않는 것으로 표시됩니다. 마이그레이션하려면 `compilerOptions` DSL을 사용하여 컴파일러 옵션을 구성하십시오. 마이그레이션 지침은 [`kotlinOptions {}`에서 `compilerOptions {}`로 마이그레이션](gradle-compiler-options.md#migrate-from-kotlinoptions-to-compileroptions)을 참조하십시오.
+> **간단 요약**: `kotlinOptions` DSL 및 관련된 `KotlinCompile<KotlinOptions>` 태스크 인터페이스를 통한 컴파일러 옵션 구성 기능이 새로운 `compilerOptions` DSL을 선호하여 더 이상 사용되지 않습니다. 이 지원 중단의 일환으로, `kotlinOptions` 인터페이스의 모든 프로퍼티도 이제 개별적으로 더 이상 사용되지 않는 것으로 표시됩니다. 마이그레이션하려면 `compilerOptions` DSL을 사용하여 컴파일러 옵션을 구성하십시오. 마이그레이션 지침은 [`kotlinOptions {}`에서 `compilerOptions {}`로 마이그레이션](gradle-compiler-options.md#migrate-from-kotlinoptions-to-compileroptions)을 참조하십시오.
 >
 > **단계별 지원 중단 주기**:
 >
@@ -330,7 +330,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_ 및 _[편리한 �
 >
 > **비호환 변경 유형**: 소스
 >
-> **간단 요약**: Kotlin Gradle 플러그인이 소스 세트 이름과 IDE 임포트를 명확히 하는 방법을 제어하는 데 사용되던 옵션이 더 이상 사용되지 않습니다. 따라서 `KotlinTarget` 인터페이스에서 다음 프로퍼티는 더 이상 사용되지 않습니다:
+> **간단 요약**: Kotlin Gradle 플러그인이 소스 세트 이름과 IDE 임포트를 명확히 하는 방법을 제어하는 데 사용되던 옵션이 구식이 되었습니다. 따라서 `KotlinTarget` 인터페이스에서 다음 프로퍼티는 이제 더 이상 사용되지 않습니다:
 >
 > *   `useDisambiguationClassifierAsSourceSetNamePrefix`
 > *   `overrideDisambiguationClassifierOnIdeImport`
@@ -377,7 +377,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_ 및 _[편리한 �
 >
 > **비호환 변경 유형**: 소스
 >
-> **간단 요약**: 계층적 구조를 설정하고 공통 소스 세트와 중간 소스 세트 사이에 중간 소스 세트를 생성하는 데 사용되던 옵션이 더 이상 사용되지 않습니다. 다음 컴파일러 옵션이 제거됩니다:
+> **간단 요약**: 계층적 구조를 설정하고 공통 소스 세트와 중간 소스 세트 사이에 중간 소스 세트를 생성하는 데 사용되던 옵션이 구식이 되었습니다. 다음 컴파일러 옵션이 제거됩니다:
 >
 > *   `isCompatibilityMetadataVariantEnabled`
 > *   `withGranularMetadata`
@@ -411,7 +411,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_ 및 _[편리한 �
 >
 > **비호환 변경 유형**: 소스
 >
-> **간단 요약**: Kotlin Multiplatform 타겟에 대한 타겟 프리셋은 더 이상 사용되지 않습니다; `jvm()` 또는 `iosSimulatorArm64()`와 같은 타겟 DSL 함수가 이제 동일한 사용 사례를 처리합니다. 모든 프리셋 관련 API는 더 이상 사용되지 않습니다:
+> **간단 요약**: Kotlin Multiplatform 타겟에 대한 타겟 프리셋은 구식이 되었습니다; `jvm()` 또는 `iosSimulatorArm64()`와 같은 타겟 DSL 함수가 이제 동일한 사용 사례를 처리합니다. 모든 프리셋 관련 API는 더 이상 사용되지 않습니다:
 >
 > *   `org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension`의 `presets` 프로퍼티
 > *   `org.jetbrains.kotlin.gradle.plugin.KotlinTargetPreset` 인터페이스 및 모든 상속자

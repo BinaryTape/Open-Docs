@@ -14,7 +14,7 @@ Kotlin %kotlinEapVersion% 版本已發佈！
 
 * Kotlin Multiplatform：[預設啟用 Swift 匯出](#swift-export-available-by-default)、[`js` 和 `wasmJs` 目標的共享原始碼集](#shared-source-set-for-js-and-wasmjs-targets)、[Kotlin 函式庫的穩定跨平台編譯](#stable-cross-platform-compilation-for-kotlin-libraries)，以及[宣告通用依賴項的新方法](#new-approach-for-declaring-common-dependencies)。
 * Language：[將 Lambda 傳遞給帶有 suspend 函式類型的多載時，改進的多載解析](#improved-overload-resolution-for-lambdas-with-suspend-function-types)。
-* Kotlin/Native：[二進制檔案中對堆疊 Canary 的支援](#support-for-stack-canaries-in-binaries) 和[縮小 iOS 目標的二進制檔案大小](#smaller-binary-size-for-ios-targets)。
+* Kotlin/Native：[二進制檔案中對堆疊 Canary 的支援](#support-for-stack-canaries-in-binaries) 和[縮小發佈二進制檔案大小](#smaller-binary-size-for-release-binaries)。
 * Kotlin/Wasm：[Kotlin/Wasm 和 JavaScript 互通中的異常處理改進](#improved-exception-handling-in-kotlin-wasm-and-javascript-interop)。
 * Kotlin/JS：[`Long` 值編譯為 JavaScript `BigInt`](#usage-of-bigint-type-to-represent-kotlin-s-long-type)。
 
@@ -37,15 +37,15 @@ Kotlin %kotlinEapVersion% 版本已發佈！
 以前，函式同時帶有常規函式型別和 `suspend` 函式型別的多載，在傳遞 Lambda 時會導致歧義錯誤。您可以使用顯式型別轉換來解決此錯誤，但編譯器錯誤地報告了「`No cast needed`」警告：
 
 ```kotlin
-// 定義兩個多載
+// Defines two overloads
 fun transform(block: () -> Int) {}
 fun transform(block: suspend () -> Int) {}
 
 fun test() {
-    // 因多載解析歧義而失敗
+    // Fails with overload resolution ambiguity
     transform({ 42 })
 
-    // 使用顯式轉換，但編譯器錯誤地報告「無需轉換」警告
+    // Uses an explicit cast, but compiler incorrectly reports a "No cast needed" warning
     transform({ 42 } as () -> Int)
 }
 ```
@@ -53,10 +53,10 @@ fun test() {
 經過此變更，當您同時定義常規和 `suspend` 函式型別的多載時，不帶轉換的 Lambda 會解析為常規多載。使用 `suspend` 關鍵字可顯式解析為 suspend 多載：
 
 ```kotlin
-// 解析為 transform(() -> Int)
+// Resolves to transform(() -> Int)
 transform({ 42 })
 
-// 解析為 transform(suspend () -> Int)
+// Resolves to transform(suspend () -> Int)
 transform(suspend { 42 })
 ```
 
@@ -84,28 +84,28 @@ kotlin {
 
 ```kotlin
 fun example() = return 42
-// 錯誤：表達式主體的函式禁止使用 return
+// Error: Returns are prohibited for functions with an expression body
 ```
 
 經過此變更，您現在可以在表達式主體中使用 `return`，只要明確寫出返回型別即可：
 
 ```kotlin
-// 明確指定返回型別
+// Specifies the return type explicitly
 fun getDisplayNameOrDefault(userId: String?): String = getDisplayName(userId ?: return "default")
 
-// 失敗，因為未明確指定返回型別
+// Fails because it doesn't specify the return type explicitly
 fun getDisplayNameOrDefault(userId: String?) = getDisplayName(userId ?: return "default")
 ```
 
 同樣地，在表達式主體函式中，Lambda 內部和巢狀表達式中的 `return` 陳述式以前會無意中編譯通過。Kotlin 現在支援這些情況，只要明確指定返回型別即可。沒有顯式返回型別的情況將在 Kotlin 2.3.0 中棄用：
 
 ```kotlin
-// 返回型別未明確指定，且 return 陳述式在 Lambda 內部
-// 這將被棄用
+// Return type isn't explicitly specified, and the return statement is inside a lambda
+// which will be deprecated
 fun returnInsideLambda() = run { return 42 }
 
-// 返回型別未明確指定，且 return 陳述式在初始式內部
-// 本地變數，這將被棄用
+// Return type isn't explicitly specified, and the return statement is inside the initializer
+// of a local variable, which will be deprecated
 fun returnInsideIf() = when {
     else -> {
         val result = if (someCondition()) return "" else "value"
@@ -156,7 +156,7 @@ class B : Example()
 class C : Example()
 
 fun test(e: Example) = when (e) {
-    // 將 invokedynamic 與 SwitchBootstraps.typeSwitch 搭配使用
+    // Uses invokedynamic with SwitchBootstraps.typeSwitch
     is A -> 1
     is B -> 2
     is C -> 3
@@ -251,12 +251,12 @@ expect suspend fun readCopiedText(): String
 
 // jsMain
 external interface Navigator { val clipboard: Clipboard }
-// JS 和 Wasm 中不同的互通
+// Different interop in JS and Wasm
 external interface Clipboard { fun readText(): Promise<String> } 
 external val navigator: Navigator
 
 suspend fun readCopiedText(): String {
-  // JS 和 Wasm 中不同的互通
+  // Different interop in JS and Wasm
     return navigator.clipboard.readText().await() 
 }
 
@@ -300,6 +300,16 @@ suspend fun readCopiedText(): String {
 
 要嘗試此功能，請在您的 `build.gradle(.kts)` 檔案的 `kotlin {}` 區塊中，使用[預設層次結構範本](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-hierarchy.html#default-hierarchy-template)。
 
+```kotlin
+kotlin {
+    js()
+    wasmJs()
+
+    // Enables the default source set hierarchy, including webMain and webTest
+    applyDefaultHierarchyTemplate()
+}
+```
+
 在使用預設層次結構之前，如果您有具有自定義共享原始碼集的專案，或者您重新命名了 `js("web")` 目標，請仔細考慮任何潛在衝突。要解決這些衝突，請重新命名衝突的原始碼集或目標，或不要使用預設層次結構。
 
 ### Kotlin 函式庫的穩定跨平台編譯
@@ -312,7 +322,7 @@ Kotlin %kotlinEapVersion% 完成了一個重要的[路線圖項目](https://yout
 
 不幸的是，仍然存在一些限制。您仍然需要在以下情況下使用 Mac 機器：
 
-* 您的函式庫具有 [cinterop 依賴](native-c-interop.md)。
+* 您的函式庫具有 [cinterop 依賴項](native-c-interop.md)。
 * 您的專案中設定了 [CocoaPods 整合](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-cocoapods-overview.html)。
 * 您需要為 Apple 目標建置或測試[最終二進制檔案](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-build-native-binaries.html)。
 
@@ -344,11 +354,9 @@ Kotlin %kotlinEapVersion% 為 Kotlin/Native 二進制檔案和偵錯帶來了改
 
 從 %kotlinEapVersion% 開始，Kotlin 新增了對生成的 Kotlin/Native 二進制檔案中堆疊 Canary 的支援。作為堆疊保護的一部分，此安全功能可防止堆疊溢出，緩解一些常見的應用程式漏洞。它已經在 Swift 和 Objective-C 中可用，現在在 Kotlin 中也得到支援。
 
-#### 如何啟用堆疊 Canary
-
 Kotlin/Native 中堆疊保護的實作遵循 [Clang](https://clang.llvm.org/docs/ClangCommandLineReference.html#cmdoption-clang-fstack-protector) 中堆疊保護器的行為。
 
-要啟用堆疊 Canary，請將以下屬性新增到您的 `gradle.properties` 檔案中：
+要啟用堆疊 Canary，請將以下[二進制選項](native-binary-options.md)新增到您的 `gradle.properties` 檔案中：
 
 ```none
 kotlin.native.binary.stackProtector=yes
@@ -361,36 +369,18 @@ kotlin.native.binary.stackProtector=yes
 
 請注意，在某些情況下，堆疊保護可能會帶來效能成本。
 
-### 縮小 iOS 目標的二進制檔案大小
-<primary-label ref="experimental-general"/> 
+### 縮小發佈二進制檔案大小
+<primary-label ref="experimental-opt-in"/> 
 
-Kotlin %kotlinEapVersion% 引入了 `smallBinary` 選項，它可以幫助您縮小 iOS 目標的二進制檔案大小。
+Kotlin %kotlinEapVersion% 引入了 `smallBinary` 選項，它可以幫助您縮小發佈二進制檔案的大小。
 新選項有效地將 `-Oz` 設定為 LLVM 編譯階段編譯器的預設優化參數。
 
 啟用 `smallBinary` 選項後，您可以使發佈的二進制檔案更小，並縮短建置時間。但是，在某些情況下它可能會影響運行時效能。
 
-#### 如何啟用較小的二進制檔案大小
-
-新功能目前是[實驗性](components-stability.md#stability-levels-explained)的。要在您的專案中試用它，請使用 `-Xbinary=smallBinary=true` 編譯器選項，或使用以下內容更新您的 `gradle.properties` 檔案：
+新功能目前是[實驗性](components-stability.md#stability-levels-explained)的。要在您的專案中試用它，請將以下[二進制選項](native-binary-options.md)新增到您的 `gradle.properties` 檔案中：
 
 ```none
 kotlin.native.binary.smallBinary=true
-```
-
-對於特定的二進制檔案，請在您的 `build.gradle(.kts)` 檔案中設定 `binaryOption("smallBinary", "true")`。例如：
-
-```kotlin
-kotlin {
-    listOf(
-        iosX64(),
-        iosArm64(),
-        iosSimulatorArm64(),
-    ).forEach {
-        it.binaries.framework {
-            binaryOption("smallBinary", "true")
-        }
-    }
-}
 ```
 
 Kotlin 團隊感謝 [Troels Lund](https://github.com/troelsbjerre) 協助實作此功能。
@@ -555,7 +545,7 @@ fun main(args: Array<String>) {
 
 ```kotlin
 fun main(args: Array<String>) {
-    // 無需使用 drop()，只包含您的自定義引數
+    // No need for drop() and only your custom arguments are included 
     println(args.joinToString(", "))
 }
 ```
@@ -614,7 +604,7 @@ Kotlin %kotlinEapVersion% 將實驗性 `KClass.isInterface` 屬性新增到 Kotl
 ```kotlin
 @OptIn(ExperimentalStdlibApi::class)
 fun inspect(klass: KClass<*>) {
-    // 對於介面列印 true
+    // Prints true for interfaces
     println(klass.isInterface)
 }
 ```

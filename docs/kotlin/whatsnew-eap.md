@@ -10,11 +10,11 @@ _[发布时间：%kotlinEapReleaseDate%](eap.md#build-details)_
 {style="note"}
 
 Kotlin %kotlinEapVersion% 版本已发布！
-以下是该 EAP 版本的一些详细信息：
+以下是此 EAP 版本的一些详细信息：
 
-* Kotlin Multiplatform：[Swift export 默认可用](#swift-export-available-by-default)，[js 和 wasmJs 目标的共享源代码集](#shared-source-set-for-js-and-wasmjs-targets)，[Kotlin 库的稳定跨平台编译](#stable-cross-platform-compilation-for-kotlin-libraries)，以及[声明公共依赖项的新方法](#new-approach-for-declaring-common-dependencies)。
+* Kotlin Multiplatform：[Swift export 默认可用](#swift-export-available-by-default)，[`js` 和 `wasmJs` 目标的共享源代码集](#shared-source-set-for-js-and-wasmjs-targets)，[Kotlin 库的稳定跨平台编译](#stable-cross-platform-compilation-for-kotlin-libraries)，以及[声明公共依赖项的新方法](#new-approach-for-declaring-common-dependencies)。
 * 语言：[传递 lambda 到挂起函数类型重载时改进的重载解析](#improved-overload-resolution-for-lambdas-with-suspend-function-types)。
-* Kotlin/Native：[支持二进制文件中的栈金丝雀](#support-for-stack-canaries-in-binaries) 和 [更小的 iOS 目标二进制文件大小](#smaller-binary-size-for-ios-targets)。
+* Kotlin/Native：[支持二进制文件中的栈金丝雀](#support-for-stack-canaries-in-binaries) 和 [更小的发布二进制文件大小](#smaller-binary-size-for-release-binaries)。
 * Kotlin/Wasm：[改进的 Kotlin/Wasm 和 JavaScript 互操作异常处理](#improved-exception-handling-in-kotlin-wasm-and-javascript-interop)。
 * Kotlin/JS：[`Long` 值编译为 JavaScript `BigInt`](#usage-of-bigint-type-to-represent-kotlin-s-long-type)。
 
@@ -24,11 +24,11 @@ Kotlin %kotlinEapVersion% 版本已发布！
 您无需更新 IDE 中的 Kotlin 插件。
 您只需在构建脚本中将 [Kotlin 版本更改](configure-build-for-eap.md) 为 %kotlinEapVersion% 即可。
 
-关于详细信息，请参阅 [更新到新版本](releases.md#update-to-a-new-kotlin-version)。
+关于详细信息，请参见 [更新到新版本](releases.md#update-to-a-new-kotlin-version)。
 
 ## 语言
 
-在 Kotlin %kotlinEapVersion% 中，您可以尝试 Kotlin 2.3.0 计划推出的一些语言特性，包括
+在 Kotlin %kotlinEapVersion% 中，您可以尝试 Kotlin 2.3.0 计划推出的一些即将到来的语言特性，包括
 [传递 lambda 到挂起函数类型重载时改进的重载解析](#improved-overload-resolution-for-lambdas-with-suspend-function-types)
 以及 [支持在带有显式返回类型的表达式体中使用 return 语句](#support-for-return-statements-in-expression-bodies-with-explicit-return-types)。
 
@@ -229,7 +229,7 @@ Kotlin %kotlinEapVersion% 引入了 Swift export 的实验性支持。它允许�
 >
 {style="tip"}
 
-关于 Swift export 的更多信息，请参阅其 [README](https://github.com/JetBrains/kotlin/tree/master/docs/swift-export#readme)。
+关于 Swift export 的更多信息，请参见其 [README](https://github.com/JetBrains/kotlin/tree/master/docs/swift-export#readme)。
 
 #### 留下反馈
 
@@ -298,23 +298,33 @@ suspend fun readCopiedText(): String {
 
 要试用此特性，请在 `build.gradle(.kts)` 文件的 `kotlin {}` 代码块中使用 [默认层级模板](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-hierarchy.html#default-hierarchy-template)。
 
+```kotlin
+kotlin {
+    js()
+    wasmJs()
+
+    // Enables the default source set hierarchy, including webMain and webTest
+    applyDefaultHierarchyTemplate()
+}
+```
+
 在使用默认层级之前，如果您有包含自定义共享源代码集或已重命名 `js("web")` 目标的项目，请仔细考虑任何潜在冲突。要解决这些冲突，请重命名冲突的源代码集或目标，或者不使用默认层级。
 
 ### Kotlin 库的稳定跨平台编译
 
 Kotlin %kotlinEapVersion% 完成了一项重要的[路线图项目](https://youtrack.jetbrains.com/issue/KT-71290)，稳定了 Kotlin 库的跨平台编译。
 
-您现在可以使用任何宿主来生成 `.klib` artifact，用于发布 Kotlin 库。这显著简化了发布过程，特别是对于以前需要 Mac 机器的 Apple 目标平台。
+您现在可以使用任何宿主来生成 `.klib` 构件，用于发布 Kotlin 库。这显著简化了发布过程，特别是对于以前需要 Mac 机器的 Apple 目标平台。
 
 此特性默认可用。如果您已通过 `kotlin.native.enableKlibsCrossCompilation=true` 启用跨编译，则现在可以从您的 `gradle.properties` 文件中移除它。
 
 不幸的是，仍然存在一些限制。在以下情况下，您仍然需要使用 Mac 机器：
 
-* 您的库具有 [cinterop 依赖项](native-c-interop.md)。
+* 您的库或任何依赖模块具有 [cinterop 依赖项](native-c-interop.md)。
 * 您在项目中设置了 [CocoaPods 集成](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-cocoapods-overview.html)。
 * 您需要为 Apple 目标平台构建或测试 [最终二进制文件](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-build-native-binaries.html)。
 
-关于多平台库的发布信息，请参阅我们的[文档](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-publish-lib-setup.html)。
+关于多平台库的发布信息，请参见我们的[文档](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-publish-lib-setup.html)。
 
 ### 声明公共依赖项的新方法
 <primary-label ref="experimental-opt-in"/>
@@ -342,11 +352,9 @@ Kotlin %kotlinEapVersion% 为 Kotlin/Native 二进制文件和调试带来了改
 
 从 %kotlinEapVersion% 开始，Kotlin 在生成的 Kotlin/Native 二进制文件中添加了对栈金丝雀的支持。作为栈保护的一部分，此安全特性可防止栈溢出攻击，从而减轻一些常见的应用程序漏洞。它已在 Swift 和 Objective-C 中可用，现在 Kotlin 也支持它。
 
-#### 如何启用栈金丝雀
-
 Kotlin/Native 中栈保护的实现遵循 [Clang](https://clang.llvm.org/docs/ClangCommandLineReference.html#cmdoption-clang-fstack-protector) 中栈保护器的行为。
 
-要启用栈金丝雀，请将以下属性添加到您的 `gradle.properties` 文件中：
+要启用栈金丝雀，请将以下 [二进制选项](native-binary-options.md) 添加到您的 `gradle.properties` 文件中：
 
 ```none
 kotlin.native.binary.stackProtector=yes
@@ -359,40 +367,20 @@ kotlin.native.binary.stackProtector=yes
 
 请注意，在某些情况下，栈保护可能会带来性能开销。
 
-### 更小的 iOS 目标二进制文件大小
-<primary-label ref="experimental-general"/> 
+### 更小的发布二进制文件大小
+<primary-label ref="experimental-opt-in"/> 
 
-Kotlin %kotlinEapVersion% 引入了 `smallBinary` 选项，可以帮助您减小 iOS 目标的二进制文件大小。新选项有效地将 `-Oz` 设置为 LLVM 编译阶段编译器默认的优化实参。
+Kotlin %kotlinEapVersion% 引入了 `smallBinary` 选项，可以帮助您减小发布二进制文件的大小。新选项有效地将 `-Oz` 设置为 LLVM 编译阶段编译器默认的优化实参。
 
 启用 `smallBinary` 选项后，可以使发布二进制文件更小并改善构建时间。但是，在某些情况下，它可能会影响运行时性能。
 
-#### 如何启用更小的二进制文件大小
-
-此新特性目前是[实验性的](components-stability.md#stability-levels-explained)。要在您的项目中试用它，请使用 `-Xbinary=smallBinary=true` 编译器选项或更新您的 `gradle.properties` 文件：
+此新特性目前是[实验性的](components-stability.md#stability-levels-explained)。要在您的项目中试用它，请将以下 [二进制选项](native-binary-options.md) 添加到您的 `gradle.properties` 文件中：
 
 ```none
 kotlin.native.binary.smallBinary=true
 ```
 
-对于特定的二进制文件，请在您的 `build.gradle(.kts)` 文件中设置 `binaryOption("smallBinary", "true")`。例如：
-
-```kotlin
-kotlin {
-    listOf(
-        iosX64(),
-        iosArm64(),
-        iosSimulatorArm64(),
-    ).forEach {
-        it.binaries.framework {
-            binaryOption("smallBinary", "true")
-        }
-    }
-}
-```
-
 Kotlin 团队感谢 [Troels Lund](https://github.com/troelsbjerre) 在实现此特性方面提供的帮助。
-
-关于 Kotlin/Native 中调试的更多信息，请参阅[文档](native-debugging.md)。
 
 ### 改进的调试器对象摘要
 
@@ -425,7 +413,7 @@ val point = Point(1, 2)
 
 Kotlin 团队感谢 [Nikita Nazarov](https://github.com/nikita-nazarov) 在实现此特性方面提供的帮助。
 
-关于 Kotlin/Native 中调试的更多信息，请参阅[文档](native-debugging.md)。
+关于 Kotlin/Native 中调试的更多信息，请参见[文档](native-debugging.md)。
 
 ## Kotlin/Wasm
 
@@ -501,7 +489,8 @@ kotlin {
 }
 ```
 
-此特性仍是[实验性的](components-stability.md#stability-levels-explained)。请在我们的问题跟踪器 [YouTrack](https://youtrack.jetbrains.com/issue/KT-57128) 中报告任何问题。
+此特性仍是[实验性的](components-stability.md#stability-levels-explained)。请
+在我们的问题跟踪器 [YouTrack](https://youtrack.jetbrains.com/issue/KT-57128) 中报告任何问题。
 
 #### Long 在导出声明中的用法
 
@@ -529,7 +518,7 @@ kotlin {
 
 ### 用于清理实参的新 DSL 函数
 
-使用 Node.js 运行 Kotlin/JS 应用程序时，传递给程序的实参（`args`）通常包含：
+当使用 Node.js 运行 Kotlin/JS 应用程序时，传递给程序的实参（`args`）通常包含：
 
 * 可执行文件 `Node` 的路径。
 * 脚本的路径。
@@ -576,7 +565,7 @@ kotlin {
 
 在 Kotlin %kotlinEapVersion% 中，构建报告现在包含 Kotlin/Native 任务的编译器性能指标。
 
-要了解有关构建报告以及如何配置它们的更多信息，请参阅[启用构建报告](gradle-compilation-and-caches.md#enabling-build-reports)。
+要了解有关构建报告以及如何配置它们的更多信息，请参见[启用构建报告](gradle-compilation-and-caches.md#enabling-build-reports)。
 
 ## Maven：kotlin-maven-plugin 中对 Kotlin daemon 的支持
 

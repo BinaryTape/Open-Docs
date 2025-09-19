@@ -395,7 +395,7 @@ Kotlinオブジェクトはピンニングできます。つまり、それら�
 
 2つのcinteropライブラリを考えてみましょう。1つは構造体の前方宣言を持ち、もう1つは別のパッケージに実際の実装を持つものです。
 
-```c
+```C
 // 最初のCライブラリ
 #include <stdio.h>
 
@@ -407,7 +407,7 @@ void consumeStruct(struct ForwardDeclaredStruct* s) {
 }
 ```
 
-```c
+```C
 // 2番目のCライブラリ
 // ヘッダー:
 #include <stdlib.h>

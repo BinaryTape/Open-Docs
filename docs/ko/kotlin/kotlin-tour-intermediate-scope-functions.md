@@ -80,7 +80,7 @@ fun getNextAddress(): String {
     return "sebastian@jetbrains.com"
 }
 
-fun main() {
+fun main() { 
     //sampleStart
     val address: String? = getNextAddress()
     val confirm = if(address != null) {
@@ -91,7 +91,7 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-tour-scope-function-let-non-null-if"}
 
-그러나 `let` 스코프 함수를 사용하는 것이 더 간결한 접근 방식입니다.
+그러나 `let` 스코프 함수를 사용하는 것이 더 간결한 접근 방식입니다:
 
 ```kotlin
 fun sendNotification(recipientAddress: String): String {
@@ -159,22 +159,22 @@ fun main() {
 
 ```kotlin
 class Client() {
-  var token: String? = null
-  fun connect() = println("connected!")
-  fun authenticate() = println("authenticated!")
-  fun getData(): String = "Mock data"
+    var token: String? = null
+    fun connect() = println("connected!")
+    fun authenticate() = println("authenticated!")
+    fun getData(): String = "Mock data"
 }
 //sampleStart
 val client = Client().apply {
-  token = "asdf"
-  connect()
-  authenticate()
+    token = "asdf"
+    connect()
+    authenticate()
 }
 
 fun main() {
-  client.getData()
-  // connected!
-  // authenticated!
+    client.getData()
+    // connected!
+    // authenticated!
 }
 //sampleEnd
 ```
@@ -268,7 +268,7 @@ fun main() {
 *   `medals` 변수에 `.map()` 확장 함수를 사용합니다.
 *   `it` 키워드를 통해 `medals`를 참조하고 `.uppercase()` 확장 함수를 호출하는 람다 표현식을 `.map()` 함수에 전달합니다.
 *   `medals` 변수에 `.filter()` 확장 함수를 사용합니다.
-*   `it` 키워드를 통해 `medals`를 참조하고 `medals` 변수에 포함된 리스트의 길이가 4개 항목보다 긴지 확인하는 람다 표현식을 프레디케이트로 `.filter()` 함수에 전달합니다.
+*   `it` 키워드를 통해 `medals`를 참조하고, 리스트의 각 항목의 길이가 4자보다 긴지 확인하는 람다 표현식을 프레디케이트로 `.filter()` 함수에 전달합니다.
 *   `medals` 변수에 `.reversed()` 확장 함수를 사용합니다.
 *   결과를 `reversedLongUpperCaseMedals` 변수에 할당합니다.
 *   `reversedLongUpperCaseMedals` 변수에 포함된 리스트를 출력합니다.

@@ -1,10 +1,10 @@
 [//]: # (title: 設定多平台函式庫發佈)
 
-您可以將多平台函式庫發佈到不同的位置：
+您可以將多平台函式庫的發佈設定到不同的位置：
 
 *   [到本地 Maven 儲存庫](#publishing-to-a-local-maven-repository)
-*   到 Maven Central 儲存庫。了解如何在[我們的教學](multiplatform-publish-libraries.md)中設定帳戶憑證、自訂函式庫中繼資料以及配置發佈外掛程式。
-*   到 GitHub 儲存庫。更多資訊，請參閱 GitHub 上關於 [GitHub Packages](https://docs.github.com/en/packages) 的文件。
+*   到 Maven Central 儲存庫。了解如何在[我們的教學](multiplatform-publish-libraries.md)中設定帳戶憑證、自訂函式庫中繼資料，以及配置發佈外掛程式。
+*   到 GitHub 儲存庫。更多資訊，請參閱 GitHub 上關於 [GitHub packages](https://docs.github.com/en/packages) 的文件。
 
 ## 發佈到本地 Maven 儲存庫
 
@@ -111,27 +111,19 @@ kotlin {
 
 ## 主機要求
 
-Kotlin/Native 支援交叉編譯，允許任何主機生成必要的 `.klib` 產物。然而，您仍需注意一些細節。
+Kotlin/Native 支援交叉編譯，允許任何主機生成必要的 `.klib` 產物。然而，您仍需注意一些限制。
 
-### 編譯 Apple 目標
-<secondary-label ref="Experimental"/>
+**編譯 Apple 目標**
 
-為了為包含 Apple 目標的專案生成產物，您通常需要一台 Apple 機器。然而，如果您想使用其他主機，請在 `gradle.properties` 檔案中設定此選項：
+您可以使用任何主機為包含 Apple 目標的專案生成產物。然而，如果您仍需要使用 Mac 機器，則需符合以下情況：
 
-```none
-kotlin.native.enableKlibsCrossCompilation=true
-```
-
-交叉編譯目前仍處於實驗階段（Experimental），並有一些限制。您仍然需要使用 Mac 機器，如果：
-
-*   您的函式庫具有 [cinterop 依賴項](https://kotlinlang.org/docs/native-c-interop.html)。
+*   您的函式庫或依賴模組具有 [cinterop 依賴項](https://kotlinlang.org/docs/native-c-interop.html)。
 *   您在專案中設定了 [CocoaPods 整合](multiplatform-cocoapods-overview.md)。
 *   您需要為 Apple 目標建置或測試[最終二進位檔](multiplatform-build-native-binaries.md)。
 
-### 重複發佈
+**重複發佈**
 
 為避免發佈過程中出現任何問題，請從單一主機發佈所有產物，以避免儲存庫中出現重複的發佈。例如，Maven Central 明確禁止重複發佈，並會導致該過程失敗。
-<!-- TBD: add the actual error -->
 
 ## 發佈 Android 函式庫
 
@@ -208,11 +200,11 @@ kotlin {
         }
         linuxX64()
     }
-    ```
+  ```
 
 ## 禁用 JVM 環境屬性發佈
 
-從 Kotlin 2.0.0 開始，Gradle 屬性 `org.gradle.jvm.environment` 會隨所有 Kotlin 變體自動發佈，以幫助區分 Kotlin 多平台函式庫的 JVM 和 Android 變體。此屬性指示哪個函式庫變體適合哪個 JVM 環境，Gradle 使用此資訊協助您專案中的依賴解析。目標環境可以是 "android"、"standard-jvm" 或 "no-jvm"。
+從 Kotlin 2.0.0 開始，Gradle 屬性 [`org.gradle.jvm.environment`](https://docs.gradle.org/current/userguide/variant_attributes.html#sub:jvm_default_attributes) 會隨所有 Kotlin 變體自動發佈，以幫助區分 Kotlin 多平台函式庫的 JVM 和 Android 變體。此屬性指示哪個函式庫變體適合哪個 JVM 環境，Gradle 使用此資訊協助您專案中的依賴解析。目標環境可以是 "android"、"standard-jvm" 或 "no-jvm"。
 
 您可以透過在 `gradle.properties` 檔案中添加以下 Gradle 屬性來禁用此屬性的發佈：
 

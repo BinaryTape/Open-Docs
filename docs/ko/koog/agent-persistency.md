@@ -95,8 +95,8 @@ val agent = AIAgent(
     llmModel = OllamaModels.Meta.LLAMA_3_2,
 ) {
 -->
-<!--- SUFFIX 
-} 
+<!--- SUFFIX
+}
 -->
 
 ```kotlin
@@ -133,8 +133,8 @@ val agent = AIAgent(
     llmModel = OllamaModels.Meta.LLAMA_3_2,
 ) {
 -->
-<!--- SUFFIX 
-} 
+<!--- SUFFIX
+}
 -->
 
 ```kotlin
@@ -297,8 +297,8 @@ val agent = AIAgent(
     llmModel = OllamaModels.Meta.LLAMA_3_2,
 ) {
 -->
-<!--- SUFFIX 
-} 
+<!--- SUFFIX
+}
 -->
 
 ```kotlin

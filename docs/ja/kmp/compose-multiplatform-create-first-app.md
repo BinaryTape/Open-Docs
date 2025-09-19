@@ -8,9 +8,9 @@
     <br/>
     <p>これは**共有ロジックとUIを持つCompose Multiplatformアプリの作成**チュートリアルの最初のパートです。</p>
     <p><img src="icon-1.svg" width="20" alt="First step"/> **Compose Multiplatformアプリの作成**<br/>
-        <img src="icon-2-todo.svg" width="20" alt="Second step"/> コンポーザブルコードを探索する<br/>
-        <img src="icon-3-todo.svg" width="20" alt="Third step"/> プロジェクトの変更<br/>      
-        <img src="icon-4-todo.svg" width="20" alt="Fourth step"/> 独自のアプリケーションを作成する<br/>
+        <img src="icon-2-todo.svg" width="20" alt="Second step"/> コンポーザブルコードを探索する <br/>
+        <img src="icon-3-todo.svg" width="20" alt="Third step"/> プロジェクトの変更 <br/>      
+        <img src="icon-4-todo.svg" width="20" alt="Fourth step"/> 独自のアプリケーションを作成する <br/>
     </p>
 </tldr>
 
@@ -18,7 +18,7 @@
 
 [Compose Multiplatform](https://www.jetbrains.com/lp/compose-multiplatform/) UIフレームワークを使えば、Kotlin Multiplatformのコード共有機能をアプリケーションロジックを超えて拡張できます。ユーザーインターフェースを一度実装すれば、Compose Multiplatformがサポートするすべてのプラットフォームでそれを使用できます。
 
-このチュートリアルでは、Android、iOS、デスクトップ、およびウェブで動作するサンプルアプリケーションを構築します。ユーザーインターフェースの作成にはCompose Multiplatformフレームワークを使用し、その基本であるコンポーザブル関数、テーマ、レイアウト、イベント、モディファイアについて学びます。
+このチュートリアルでは、Android、iOS、デスクトップ、およびウェブで動作するサンプルアプリケーションを構築します。ユーザーインターフェースを作成するにはCompose Multiplatformフレームワークを使用し、その基本であるコンポーザブル関数、テーマ、レイアウト、イベント、モディファイアについて学びます。
 
 このチュートリアルを進める上での注意点：
 *   Compose Multiplatform、Android、iOSに関する事前の経験は不要です。開始する前に[Kotlinの基礎](https://kotlinlang.org/docs/getting-started.html)に慣れておくことをお勧めします。
@@ -46,14 +46,14 @@
     {style="note"}
 
 5.  **Android**、**iOS**、**Desktop**、**Web**ターゲットを選択します。
-    iOSで**Share UI**オプションが選択されていることを確認してください。
+    iOSとWebの**Share UI**オプションが選択されていることを確認してください。
 6.  すべてのフィールドとターゲットを指定したら、**Create**（Webウィザードの場合は**Download**）をクリックします。
 
-![Create Compose Multiplatform project](create-compose-multiplatform-project.png){width=800}
+   ![Create Compose Multiplatform project](create-compose-multiplatform-project.png){width=800}
 
 ## プロジェクト構造の確認
 
-IntelliJ IDEAで「ComposeDemo」フォルダに移動します。
+IntelliJ IDEAで`ComposeDemo`フォルダに移動します。
 ウィザードでiOSを選択しなかった場合、「ios」または「apple」で始まる名前のフォルダはありません。
 
 > IntelliJ IDEAは、プロジェクト内のAndroid Gradleプラグインを最新バージョンにアップグレードすることを自動的に提案する場合があります。
@@ -66,12 +66,13 @@ IntelliJ IDEAで「ComposeDemo」フォルダに移動します。
 *   _composeApp_ は、Android、デスクトップ、iOS、ウェブアプリケーション間で共有されるロジック（すべてのプラットフォームで使用するコード）を含むKotlinモジュールです。ビルドプロセスを自動化するのに役立つビルドシステムとして[Gradle](https://kotlinlang.org/docs/gradle.html)を使用しています。
 *   _iosApp_ は、iOSアプリケーションにビルドされるXcodeプロジェクトです。共有モジュールに依存し、それをiOSフレームワークとして使用します。
 
-![Compose Multiplatform project structure](compose-project-structure.png){width=350}
+  ![Compose Multiplatform project structure](compose-project-structure.png)
 
-**composeApp**モジュールは、以下のソースセットで構成されています：`androidMain`、`commonMain`、`desktopMain`、`iosMain`、`wasmJsMain`。
+**composeApp**モジュールは、`androidMain`、`commonMain`、`jvmMain`、`iosMain`、`wasmJsMain`のソースセットで構成されています（テストを含めることを選択した場合は`commonTest`も）。
 _ソースセット_ とは、Gradleの概念で、論理的にグループ化された複数のファイルの集まりであり、各グループは独自の依存関係を持ちます。Kotlin Multiplatformでは、異なるソースセットが異なるプラットフォームをターゲットにすることができます。
 
-`commonMain`ソースセットは共通のKotlinコードを使用し、プラットフォームソースセットは各ターゲットに固有のKotlinコードを使用します。Kotlin/JVMは`androidMain`と`desktopMain`に、Kotlin/Nativeは`iosMain`に、そしてKotlin/Wasmは`wasmJsMain`に使用されます。
+`commonMain`ソースセットは共通のKotlinコードを含み、プラットフォームソースセットは各ターゲットに固有のKotlinコードを含みます。
+Kotlin/JVMは`androidMain`と`jvmMain`に、Kotlin/Nativeは`iosMain`に、そしてKotlin/Wasmは`wasmJsMain`に使用されます。
 
 共有モジュールがAndroidライブラリにビルドされるとき、共通のKotlinコードはKotlin/JVMとして扱われます。iOSフレームワークにビルドされるとき、共通のKotlinコードはKotlin/Nativeとして扱われます。共有モジュールがWebアプリにビルドされるとき、共通のKotlinコードはKotlin/Wasmとして扱われます。
 
@@ -113,10 +114,9 @@ fun App() {
 
 ## アプリケーションの実行
 
-アプリケーションはAndroid、iOS、デスクトップ、ウェブで実行できます。特定の順序で実行する必要はないため、最も慣れているプラットフォームから始めてください。
+アプリケーションはAndroid、iOS、デスクトップ、およびウェブで実行できます。特定の順序で実行する必要はないため、最も慣れているプラットフォームから始めてください。
 
-> Gradleビルドタスクを使用する必要はありません。マルチプラットフォームアプリケーションでは、これはサポートされているすべてのターゲットのデバッグ版とリリース版をビルドします。
-> Multiplatformウィザードで選択されたプラットフォームによっては、時間がかかる場合があります。
+> Gradleビルドタスクを使用する必要はありません。マルチプラットフォームアプリケーションでは、これはサポートされているすべてのターゲットのデバッグ版とリリース版をビルドします。Multiplatformウィザードで選択されたプラットフォームによっては、時間がかかる場合があります。
 > 実行構成を使用する方がはるかに高速です。この場合、選択されたターゲットのみがビルドされます。
 >
 {style="tip"}

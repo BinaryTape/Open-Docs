@@ -367,7 +367,7 @@ fun toneStrategy(name: String, toolRegistry: ToolRegistry): AIAgentGraphStrategy
                     onToolCall { true }
         )
 
-        // If the LLM responds with a message, the strategy finishes the process.
+        // If the LLM responds with a message, finish
         edge(
             (nodeSendToolResult forwardTo nodeFinish)
                     onAssistantMessage { true }

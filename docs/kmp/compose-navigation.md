@@ -52,10 +52,6 @@ kotlin {
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="org.jetbrains.androidx.navigation:navigation-compose:%org.jetbrains.androidx.navigation%"}
 
-> Compose Multiplatform %org.jetbrains.compose% 需要 Navigation 库版本 %org.jetbrains.androidx.navigation%。
->
-{style="note"}
-
 设置导航所需的步骤存在一定的顺序：
 
 1.  定义您的路由。
@@ -171,7 +167,7 @@ Navigation 库在处理返回栈方面提供了一些灵活性。您可以：
 *   处理空返回栈的弹出（这将导致用户进入空屏幕）。
 *   为应用程序的不同部分维护多个返回栈。
     例如，对于带有底部导航的应用程序，您可以为每个标签页维护单独的嵌套图，同时在标签页之间切换时保存和恢复导航状态。
-    或者，您可以为每个标签页创建单独的 `NavHost`，这会使设置稍微复杂一些，但在某些情况下可能更容易跟踪。
+    或者，您可以为每个标签页创建单独的 `NavHost`，这会使设置稍微复杂些，但在某些情况下可能更容易跟踪。
 
 有关详细信息和用例，请参见 [Jetpack Compose 返回栈文档](https://developer.android.com/guide/navigation/backstack)。
 

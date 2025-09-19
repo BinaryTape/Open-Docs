@@ -20,7 +20,7 @@ Kotlin의 클래스는 _주 생성자(primary constructor)_와 하나 이상의 
 class Person constructor(firstName: String) { /*...*/ }
 ```
 
-주 생성자에 어노테이션이나 가시성 한정자(visibility modifiers)가 없는 경우, `constructor` 키워드를 생략할 수 있습니다.
+주 생성자에 어노테이션이나 가시성 한정자가 없는 경우, `constructor` 키워드를 생략할 수 있습니다.
 
 ```kotlin
 class Person(firstName: String) { /*...*/ }
@@ -86,9 +86,9 @@ class Person(
 일반 프로퍼티와 마찬가지로, 주 생성자에 선언된 프로퍼티는 변경 가능(`var`)하거나 읽기 전용(`val`)일 수 있습니다.
 
 (프로퍼티가 아닌) 일반 생성자 파라미터는 다음에서 접근할 수 있습니다.
-*   클래스 헤더
-*   클래스 본문 내 초기화된 프로퍼티
-*   초기화 블록
+*   클래스 헤더.
+*   클래스 본문 내 초기화된 프로퍼티.
+*   초기화 블록.
 
 예시:
 

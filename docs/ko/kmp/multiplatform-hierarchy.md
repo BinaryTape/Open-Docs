@@ -1,7 +1,7 @@
 [//]: # (title: 계층형 프로젝트 구조)
 
 Kotlin Multiplatform 프로젝트는 계층형 소스 세트 구조를 지원합니다.
-이는 일부, 하지만 전부는 아닌, [지원되는 타겟](multiplatform-dsl-reference.md#targets) 간에 공통 코드를 공유하기 위해 중간 소스 세트의 계층을 구성할 수 있음을 의미합니다. 중간 소스 세트를 사용하면 다음을 수행하는 데 도움이 됩니다.
+이는 [지원되는 타겟](multiplatform-dsl-reference.md#targets) 중 일부에서만 공통 코드를 공유하기 위해 중간 소스 세트의 계층을 구성할 수 있음을 의미합니다. 중간 소스 세트를 사용하면 다음을 수행하는 데 도움이 됩니다.
 
 * 일부 타겟에 특정 API를 제공합니다. 예를 들어, 라이브러리는 Kotlin/Native 타겟을 위한 중간 소스 세트에 네이티브(native) 특정 API를 추가할 수 있지만, Kotlin/JVM 타겟에는 추가할 수 없습니다.
 * 일부 타겟에 특정 API를 사용합니다. 예를 들어, Kotlin Multiplatform 라이브러리가 중간 소스 세트를 구성하는 일부 타겟에 대해 제공하는 풍부한 API의 이점을 누릴 수 있습니다.
@@ -13,7 +13,9 @@ Kotlin 툴체인(toolchain)은 각 소스 세트가 해당 소스 세트가 컴�
 
 ## 기본 계층 템플릿
 
-Kotlin Gradle 플러그인에는 내장된 기본 [계층 템플릿](#see-the-full-hierarchy-template)이 있습니다. 여기에는 일부 일반적인 사용 사례를 위한 미리 정의된 중간 소스 세트가 포함되어 있습니다. 플러그인은 프로젝트에 지정된 타겟을 기반으로 해당 소스 세트를 자동으로 설정합니다.
+Kotlin Gradle 플러그인에는 내장된 기본 [계층 템플릿](#see-the-full-hierarchy-template)이 있습니다.
+여기에는 일부 일반적인 사용 사례를 위한 미리 정의된 중간 소스 세트가 포함되어 있습니다.
+플러그인은 프로젝트에 지정된 타겟을 기반으로 해당 소스 세트를 자동으로 설정합니다.
 
 공유 코드를 포함하는 프로젝트 모듈의 `build.gradle(.kts)` 파일을 살펴보세요:
 
@@ -227,8 +229,8 @@ Learn more about hierarchy templates: https://kotl.in/hierarchy-template
 
 예를 들어, 네이티브 Linux, Windows, macOS 타겟(`linuxX64`, `mingwX64`, `macosX64`) 간에 코드를 공유하고 싶다면 다음과 같이 하세요.
 
-1.  공유 모듈의 `build.gradle(.kts)` 파일에 이 타겟들을 위한 공유 로직을 포함하는 중간 소스 세트인 `desktopMain`을 추가합니다.
-2.  `dependsOn` 관계를 사용하여 소스 세트 계층을 설정합니다. `commonMain`을 `desktopMain`에 연결하고, 그 다음 `desktopMain`을 각 타겟 소스 세트에 연결합니다.
+1.  공유 모듈의 `build.gradle(.kts)` 파일에 이 타겟들을 위한 공유 로직을 포함하는 중간 소스 세트인 `myDesktopMain`을 추가합니다.
+2.  `dependsOn` 관계를 사용하여 소스 세트 계층을 설정합니다. `commonMain`을 `myDesktopMain`에 연결하고, 그 다음 `myDesktopMain`을 각 타겟 소스 세트에 연결합니다.
 
     <Tabs group="build-script">
     <TabItem title="Kotlin" group-key="kotlin">
@@ -240,13 +242,13 @@ Learn more about hierarchy templates: https://kotl.in/hierarchy-template
         macosX64()
     
         sourceSets {
-            val desktopMain by creating {
+            val myDesktopMain by creating {
                 dependsOn(commonMain.get())
             }
     
-            linuxX64Main.get().dependsOn(desktopMain)
-            mingwX64Main.get().dependsOn(desktopMain)
-            macosX64Main.get().dependsOn(desktopMain)
+            linuxX64Main.get().dependsOn(myDesktopMain)
+            mingwX64Main.get().dependsOn(myDesktopMain)
+            macosX64Main.get().dependsOn(myDesktopMain)
         }
     }
     ```
@@ -261,17 +263,17 @@ Learn more about hierarchy templates: https://kotl.in/hierarchy-template
         macosX64()
     
         sourceSets {
-            desktopMain {
+            myDesktopMain {
                 dependsOn(commonMain.get())
             }
             linuxX64Main {
-                dependsOn(desktopMain)
+                dependsOn(myDesktopMain)
             }
             mingwX64Main {
-                dependsOn(desktopMain)
+                dependsOn(myDesktopMain)
             }
             macosX64Main {
-                dependsOn(desktopMain)
+                dependsOn(myDesktopMain)
             }
         }
     }

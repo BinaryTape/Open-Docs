@@ -1,11 +1,11 @@
-[//]: # (title: Cの文字列のマッピング – チュートリアル)
+[//]: # (title: Cからの文字列のマッピング – チュートリアル)
 
 <tldr>
-    <p>このチュートリアルは、<strong>KotlinとCのマッピング</strong>シリーズの最終パートです。始める前に、以前のステップを完了していることを確認してください。</p>
+    <p>これは、**KotlinとCのマッピング**チュートリアルシリーズの最終パートです。始める前に、以前のステップを完了していることを確認してください。</p>
     <p><img src="icon-1-done.svg" width="20" alt="First step"/> <a href="mapping-primitive-data-types-from-c.md">Cのプリミティブデータ型のマッピング</a><br/>
         <img src="icon-2-done.svg" width="20" alt="Second step"/> <a href="mapping-struct-union-types-from-c.md">Cの構造体と共用体型のマッピング</a><br/>
       <img src="icon-3-done.svg" width="20" alt="Third step"/> <a href="mapping-function-pointers-from-c.md">関数ポインタのマッピング</a><br/>
-      <img src="icon-4.svg" width="20" alt="Fourth step"/> <strong>Cの文字列のマッピング</strong><br/>
+      <img src="icon-4.svg" width="20" alt="Fourth step"/> **Cからの文字列のマッピング**<br/>
     </p>
 </tldr>
 

@@ -12,15 +12,6 @@
 [Data Binding](https://developer.android.com/topic/libraries/data-binding/index.html)といったライブラリを
 Kotlinプロジェクトで使用できるようにします。
 
-> K2コンパイラーでkaptを使用中に問題が発生した場合は、
-> [課題トラッカー](http://kotl.in/issue)に報告し、`gradle.properties`ファイルでK2モードを無効にしてください。
->
-> ```kotlin
-> kapt.use.k2=false
-> ```
->
-{style="note"}
-
 ## Gradleでの使用
 
 Gradleでkaptを使用するには、次の手順に従います。
@@ -154,18 +145,18 @@ tasks.withType(org.jetbrains.kotlin.gradle.internal.KaptWithoutKotlincTask.class
 ```none
 # gradle.properties
 #
-# Any positive value enables caching
-# Use the same value as the number of modules that use kapt
+# 正の値を指定するとキャッシュが有効になります
+# kaptを使用するモジュールの数と同じ値を使用します
 kapt.classloaders.cache.size=5
 
-# Disable for caching to work
+# キャッシュを有効にするには無効にします
 kapt.include.compile.classpath=false
 ```
 
 アノテーションプロセッサーのキャッシュで何らかの問題に遭遇した場合は、それらのキャッシュを無効にしてください。
 
 ```none
-# Specify annotation processors' full names to disable caching for them
+# キャッシュを無効にするアノテーションプロセッサーの完全名を指定します
 kapt.classloaders.cache.disableForProcessors=[annotation processors full names]
 ```
 

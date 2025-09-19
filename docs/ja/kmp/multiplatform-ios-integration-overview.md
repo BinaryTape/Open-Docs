@@ -1,6 +1,6 @@
-[//]: # (title: iOS 統合方法)
+[//]: # (title: iOS統合方法)
 
-Kotlin Multiplatformの共有モジュールをiOSアプリに統合できます。そのためには、共有モジュールから[iOSフレームワーク](https://developer.apple.com/library/archive/documentation/MacOSX/Conceptual/BPFrameworks/Concepts/WhatAreFrameworks.html)を生成し、それをiOSプロジェクトに依存関係として追加します。
+Kotlin Multiplatform共有モジュールをiOSアプリに統合できます。そのためには、共有モジュールから[iOSフレームワーク](https://developer.apple.com/library/archive/documentation/MacOSX/Conceptual/BPFrameworks/Concepts/WhatAreFrameworks.html)を生成し、それをiOSプロジェクトに依存関係として追加します。
 
 ![iOS integration scheme](ios-integration-scheme.svg)
 
@@ -18,7 +18,7 @@ Xcodeプロジェクトに特殊なスクリプトを追加することで、Kot
 
 この統合方法は、Kotlin MultiplatformプロジェクトでCocoaPodsの依存関係をインポート**しない**場合に有効です。
 
-Android Studioでプロジェクトを作成する場合、**Regular framework**オプションを選択すると、この設定が自動的に生成されます。[Kotlin Multiplatform web wizard](https://kmp.jetbrains.com/)を使用する場合、直接統合がデフォルトで適用されます。
+[Kotlin Multiplatform IDEプラグイン](https://plugins.jetbrains.com/plugin/14936-kotlin-multiplatform)を使用する場合、直接統合がデフォルトで適用されます。
 
 詳細については、[直接統合](multiplatform-direct-integration.md)を参照してください。
 
@@ -31,7 +31,7 @@ SwiftおよびObjective-Cプロジェクト向けの一般的な依存関係マ�
 *   CocoaPodsを使用するiOSプロジェクトを含むモノリポジトリ設定がある場合
 *   Kotlin MultiplatformプロジェクトでCocoaPodsの依存関係をインポートしている場合
 
-ローカルのCocoaPods依存関係を持つワークフローを設定するには、スクリプトを手動で編集するか、Android Studioのウィザードを使用してプロジェクトを生成できます。
+ローカルのCocoaPods依存関係を持つワークフローを設定するには、スクリプトを手動で編集できます。
 
 詳細については、[CocoaPodsの概要とセットアップ](multiplatform-cocoapods-overview.md)を参照してください。
 

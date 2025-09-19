@@ -14,7 +14,7 @@
         <img src="icon-9.svg" width="20" alt="第九步" /> <strong>库与 API</strong><br /></p>
 </tldr>
 
-为了最大限度地利用 Kotlin，请使用现有的库和 API，这样你就可以花更多时间编写代码，减少重复造轮子的时间。
+为了最大限度地利用 Kotlin，请使用现有库和 API，这样你就可以花更多时间编写代码，减少重复造轮子的时间。
 
 库分发可复用代码，以简化常见任务。在库中，有用于对相关类、函数和实用工具进行分组的包和对象。库以一组函数、类或属性的形式公开 API（应用程序编程接口），供开发者在代码中使用。
 
@@ -73,13 +73,20 @@ fun main() {
 * 使用 `hours` 属性将 `0.5` 转换为 30 分钟的 `Duration`。
 * 检测两个 Duration 是否相等并打印结果。
 
-> 关于本示例中使用的函数和类的更详细探查，请参见 [API 参考](https://kotlinlang.org/api/kotlinx-datetime/kotlinx-datetime/kotlinx.datetime/)。
->
-{style="tip"}
+### 先搜索后构建
+
+在你决定编写自己的代码之前，请检测标准库以查看你正在寻找的内容是否已存在。以下是标准库已为你提供了许多类、函数和属性的领域列表：
+
+* [Collections](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/)
+* [Sequences](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.sequences/)
+* [String manipulation](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.text/)
+* [Time management](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.time/)
+
+关于标准库中的其他内容，请探查其 [API 参考](https://kotlinlang.org/api/core/kotlin-stdlib/)。
 
 ## Kotlin 库
 
-标准库涵盖了许多常见用例，但也有一些它无法解决的问题。幸运的是，Kotlin 团队和社区的其他成员开发了各种各样的库来补充标准库。例如，[`kotlinx-datetime`](https://kotlinlang.org/api/kotlinx-datetime/) 帮助你跨不同平台管理时间。
+标准库涵盖了许多常见用例，但也有一些它未解决的问题。幸运的是，Kotlin 团队和社区的其他成员开发了各种各样的库来补充标准库。例如，[`kotlinx-datetime`](https://kotlinlang.org/api/kotlinx-datetime/) 帮助你跨不同平台管理时间。
 
 你可以在我们的 [搜索平台](https://klibs.io/) 上找到有用的库。要使用它们，你需要采取额外步骤，例如添加依赖项或插件。每个库都有一个 GitHub 版本库，其中包含如何在你的 Kotlin 项目中包含它的说明。
 
@@ -152,14 +159,7 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-tour-libraries-apis"}
 
-此示例：
-
-* 创建了一个无符号整数数组。
-* 修改了其中一个元素。
-
-> 这是最简单的选择启用方式，但还有其他方式。关于选择启用要求，请参见 [选择启用要求](opt-in-requirements.md)。
->
-{style="tip"}
+这是最简单的选择启用方式，但还有其他方式。关于选择启用要求，请参见 [选择启用要求](opt-in-requirements.md)。
 
 ## 练习
 
@@ -235,16 +235,16 @@ fun main() {
 
 fun main() {
     val timeTaken = /* Write your code here */ {
-    // Simulate some data processing
-    val data = List(1000) { it * 2 }
-    val filteredData = data.filter { it % 3 == 0 }
+        // Simulate some data processing
+        val data = List(1000) { it * 2 }
+        val filteredData = data.filter { it % 3 == 0 }
 
-    // Simulate processing the filtered data
-    val processedData = filteredData.map { it / 2 }
-    println("Processed data")
-}
+        // Simulate processing the filtered data
+        val processedData = filteredData.map { it / 2 }
+        println("Processed data")
+    }
 
-println("Time taken: $timeTaken") // e.g. 16 ms
+    println("Time taken: $timeTaken") // e.g. 16 ms
 }
 ```
 {validate="false" kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-tour-libraries-exercise-2"}

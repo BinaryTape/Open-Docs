@@ -6,10 +6,10 @@ Kotlin 解决了 Java 存在的一系列问题：
 
 *   空引用由[类型系统](null-safety.md)控制。
 *   [无原始类型](java-interop.md#java-generics-in-kotlin)
-*   Kotlin 中的数组是[不型变的](arrays.md)。
-*   Kotlin 拥有恰当的[函数类型](lambdas.md#function-types)，而非 Java 的 SAM 转换。
+*   Kotlin 中的数组是[不型变的](arrays.md)
+*   Kotlin 拥有恰当的[函数类型](lambdas.md#function-types)，而非 Java 的 SAM 转换
 *   [使用处型变](generics.md#use-site-variance-type-projections)而无需通配符
-*   Kotlin 没有受检[异常](exceptions.md)。
+*   Kotlin 没有受检[异常](exceptions.md)
 *   [只读集合和可变集合的独立接口](collections-overview.md)
 
 ## Java 有而 Kotlin 没有的特性
@@ -18,7 +18,7 @@ Kotlin 解决了 Java 存在的一系列问题：
 *   不是类的[基本类型](basic-types.md)。字节码尽可能使用基本类型，但它们不[显式](basic-types.md)可用。
 *   [静态成员](classes.md)被 [companion objects](object-declarations.md#companion-objects)、[顶层函数](functions.md)、[扩展函数](extensions.md#extension-functions)或 [@JvmStatic](java-to-kotlin-interop.md#static-methods) 取代。
 *   [通配符类型](generics.md)被[声明处型变](generics.md#declaration-site-variance)和[类型投影](generics.md#type-projections)取代。
-*   [三元操作符 ``a ? b : c``](control-flow.md#if-expression)被 [if 表达式](control-flow.md#if-expression)取代。
+*   [三元操作符 `a ? b : c`](control-flow.md#if-expression)被 [if 表达式](control-flow.md#if-expression)取代。
 *   [Records](https://openjdk.org/jeps/395)
 *   [Pattern Matching](https://openjdk.org/projects/amber/design-notes/patterns/pattern-matching-for-java)
 *   包私有[可见性修饰符](visibility-modifiers.md)
@@ -29,7 +29,7 @@ Kotlin 解决了 Java 存在的一系列问题：
 *   [扩展函数](extensions.md)
 *   [空安全](null-safety.md)
 *   [智能类型转换](typecasts.md)（**Java 16**：[Pattern Matching for instanceof](https://openjdk.org/jeps/394)）
-*   [字符串模板](strings.md)（**Java 21**：[String Templates (Preview)](https://openjdk.org/jeps/430)）
+*   [字符串模板](strings.md)
 *   [属性](properties.md)
 *   [主构造函数](classes.md)
 *   [头等委托](delegation.md)

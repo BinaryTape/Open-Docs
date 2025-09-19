@@ -95,7 +95,7 @@ org.example.Utils.getDate();
 
 ## 实例字段
 
-如果需要将 Kotlin 属性作为 Java 中的字段公开，请使用 [`@JvmField`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.jvm/-jvm-field/index.html) 注解对其进行注解。该字段与底层属性具有相同的可见性。在以下情况下，你可以使用 `@JvmField` 注解属性：
+如果你需要将 Kotlin 属性作为 Java 中的字段公开，请使用 [`@JvmField`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.jvm/-jvm-field/index.html) 注解对其进行注解。该字段与底层属性具有相同的可见性。在以下情况下，你可以使用 `@JvmField` 注解属性：
 * 它具有幕后字段
 * 它不是私有的
 * 它不具有 `open`、`override` 或 `const` 修饰符
@@ -121,7 +121,7 @@ class JavaClient {
 
 ## 静态字段
 
-在命名对象或伴生对象中声明的 Kotlin 属性，在其命名对象或包含伴生对象的类中具有静态幕后字段。
+Kotlin 属性声明在命名对象或伴生对象中，在其命名对象或包含伴生对象的类中具有静态幕后字段。
 
 通常这些字段是私有的，但可以通过以下方式之一公开：
 
@@ -332,11 +332,11 @@ Kotlin 提供了三种模式来控制接口中的函数如何编译为 JVM 默�
 
 Kotlin 可见性修饰符在 Java 中的映射方式如下：
 
-* `private` 成员编译为 `private` 成员。
-* `private` 顶层声明编译为 `private` 顶层声明。如果从类内部访问，包私有访问器也会被包含在内。
-* `protected` 保持 `protected`。（请注意，Java 允许从同一包中的其他类访问受保护成员，而 Kotlin 不允许，因此 Java 类将对代码拥有更广泛的访问权限。）
-* `internal` 声明在 Java 中变为 `public`。`internal` 类的成员会经过名字修饰，以使其更难被 Java 意外使用，并允许对根据 Kotlin 规则互不可见的具有相同签名的成员进行重载。
-* `public` 保持 `public`。
+*   `private` 成员编译为 `private` 成员。
+*   `private` 顶层声明编译为 `private` 顶层声明。如果从类内部访问，包私有访问器也会被包含在内。
+*   `protected` 保持 `protected`。（请注意，Java 允许从同一包中的其他类访问受保护成员，而 Kotlin 不允许，因此 Java 类将对代码拥有更广泛的访问权限。）
+*   `internal` 声明在 Java 中变为 `public`。`internal` 类的成员会经过名字修饰，以使其更难被 Java 意外使用，并允许对根据 Kotlin 规则互不可见的具有相同签名的成员进行重载。
+*   `public` 保持 `public`。
 
 ## KClass
 

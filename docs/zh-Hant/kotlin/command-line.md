@@ -6,9 +6,9 @@
 > 常見的方法是使用具備官方 Kotlin 支援的 IDE 或程式碼編輯器來編寫 Kotlin 應用程式，
 > 例如 [IntelliJ IDEA](https://www.jetbrains.com/idea/) 或 [Android Studio](https://developer.android.com/studio)。
 > 它們提供開箱即用的完整 Kotlin 支援。
-> 
+>
 > 了解如何在 [IDE 中開始使用 Kotlin](getting-started.md)。
-> 
+>
 {style="note"}
 
 ## 安裝編譯器
@@ -22,7 +22,7 @@
 `bin` 目錄包含在 Windows、macOS 和 Linux 上編譯及執行 Kotlin 所需的腳本。
 
 > 如果您想在 Windows 上使用 Kotlin 命令列編譯器，建議您手動安裝。
-> 
+>
 {style="note"}
 
 ### SDKMAN!
@@ -55,7 +55,7 @@ sudo snap install --classic kotlin
 
 ## 建立並執行應用程式
 
-1. 建立一個簡單的 Kotlin 主控台 JVM 應用程式，顯示 `"Hello, World!"`。 
+1. 建立一個簡單的 Kotlin 主控台 JVM 應用程式，顯示 `"Hello, World!"`。
    在程式碼編輯器中，建立一個名為 `hello.kt` 的新檔案，並包含以下程式碼：
 
    ```kotlin
@@ -86,7 +86,7 @@ sudo snap install --classic kotlin
    ```
 
 > 若要編譯 Kotlin/Native 應用程式，請使用 [Kotlin/Native 編譯器](native-get-started.md#using-the-command-line-compiler)。
-> 
+>
 {style="note"}
 
 ## 編譯函式庫

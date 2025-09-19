@@ -25,7 +25,7 @@ Ktorは[OpenTelemetry](https://opentelemetry.io/)と統合されています。O
 
 </snippet>
 
-`%plugin_name%`プラグインは、Ktorサーバーアプリケーションにおける受信HTTPリクエストの分散トレースを可能にします。このプラグインは、ルート、HTTPメソッド、ステータスコード情報を含むspansを自動的に作成し、受信リクエストヘッダーから既存のトレースコンテキストを抽出し、スパン名、属性、スパンの種類をカスタマイズできるようにします。
+`%plugin_name%`プラグインは、Ktorサーバーアプリケーションにおける受信HTTPリクエストの分散トレースを可能にします。このプラグインは、ルート、HTTPメソッド、ステータスコード情報を含む[spans](https://opentelemetry.io/docs/concepts/signals/traces/#spans)を自動的に作成し、受信リクエストヘッダーから既存のトレースコンテキストを抽出し、スパン名、属性、スパンの種類をカスタマイズできるようにします。
 
 > クライアント側では、OpenTelemetryは[KtorClientTelemetry](client-opentelemetry.md)プラグインを提供しており、これは外部サービスへの送信HTTP呼び出しのトレースを収集します。
 
@@ -304,7 +304,7 @@ export OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:4317
     </step>
     <step>
         左側のナビゲーションメニューで、<ui-path>ドリルダウン → トレース</ui-path>に移動します。
-        <img src="opentelemetry-grafana-ui.png" alt="Grafana UIドリルダウントレースビュー" width="706" corners="rounded"/>
+        <img src="opentelemetry-grafana-ui.png" alt="Grafana UI Drilldown traces view" width="706" corners="rounded"/>
         <ui-path>トレース</ui-path>ビューでは、次のことができます。
         <list>
             <li>レート、エラー、または期間のメトリクスを選択します。</li>

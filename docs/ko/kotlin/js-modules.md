@@ -2,9 +2,10 @@
 
 Kotlin 프로젝트를 다양한 인기 모듈 시스템을 위한 JavaScript 모듈로 컴파일할 수 있습니다. 현재 다음 JavaScript 모듈 구성을 지원합니다.
 
-- [통합 모듈 정의 (UMD)](https://github.com/umdjs/umd): *AMD*와 *CommonJS* 모두와 호환됩니다. UMD 모듈은 임포트 없이도 또는 모듈 시스템이 없을 때도 실행될 수 있습니다. 이는 `browser` 및 `nodejs` 타겟의 기본 옵션입니다.
-- [비동기 모듈 정의 (AMD)](https://github.com/amdjs/amdjs-api/wiki/AMD): 특히 [RequireJS](https://requirejs.org/) 라이브러리에서 사용됩니다.
-- [CommonJS](http://wiki.commonjs.org/wiki/Modules/1.1): Node.js/npm에서 널리 사용됩니다(`require` 함수 및 `module.exports` 객체).
+- [ES Modules](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules)는 JavaScript에서 모듈을 선언하는 표준 방식( `import/export` JavaScript 문법 사용)입니다. `target`이 `es2015`로 설정된 경우 기본적으로 사용됩니다.
+- [통합 모듈 정의 (UMD)](https://github.com/umdjs/umd)는 *AMD*와 *CommonJS* 모두와 호환됩니다. UMD 모듈은 임포트 없이도 또는 모듈 시스템이 없을 때도 실행될 수 있습니다. 이는 `browser` 및 `nodejs` 타겟의 기본 옵션입니다.
+- [비동기 모듈 정의 (AMD)](https://github.com/amdjs/amdjs-api/wiki/AMD)는 특히 [RequireJS](https://requirejs.org/) 라이브러리에서 사용됩니다.
+- [CommonJS](http://wiki.commonjs.org/wiki/Modules/1.1)는 Node.js/npm에서 널리 사용됩니다(`require` 함수 및 `module.exports` 객체).
 - Plain (일반). 어떤 모듈 시스템으로도 컴파일하지 않습니다. 전역 스코프에서 이름으로 모듈에 접근할 수 있습니다.
 
 ## 브라우저 타겟
@@ -54,18 +55,20 @@ compileKotlinJs.compilerOptions.moduleKind = org.jetbrains.kotlin.gradle.dsl.JsM
 </tab>
 </tabs>
 
-사용 가능한 값은 `umd` (기본값), `commonjs`, `amd`, `plain`입니다.
+사용 가능한 값은 `umd` (기본값), `es`, `commonjs`, `amd`, `plain`입니다.
 
 > 이는 `webpackTask.output.libraryTarget`을 조정하는 것과 다릅니다. 라이브러리 타겟은 (코드가 이미 컴파일된 후) Webpack이 *생성하는* 출력을 변경합니다. `compilerOptions.moduleKind`는 Kotlin 컴파일러가 *생성하는* 출력을 변경합니다.
 >
 {style="note"}  
 
-Kotlin Gradle DSL에는 CommonJS 모듈 종류를 설정하는 단축키도 있습니다.
+Kotlin Gradle DSL에는 CommonJS 및 ESM 모듈 종류를 설정하는 단축키도 있습니다.
 
 ```kotlin
 kotlin {
     js {
         useCommonJs()
+        // OR
+        useEsModules()
         // ...
     }
 }

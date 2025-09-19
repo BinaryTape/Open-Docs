@@ -67,7 +67,7 @@
  * `file` 用作[註解使用站點目標](annotations.md#annotation-use-site-targets)。
  * `finally` 開始一個[在 try 區塊退出時總是會執行](exceptions.md)的區塊。
  * `get`
-     - 宣告[屬性的 getter](properties.md#getters-and-setters)。
+     - 宣告[屬性的 getter](properties.md)。
      - 用作[註解使用站點目標](annotations.md#annotation-use-site-targets)。
  * `import` [將另一個套件中的宣告匯入到當前檔案](packages.md)。
  * `init` 開始一個[初始化器區塊](classes.md#constructors)。
@@ -75,7 +75,7 @@
  * `property` 用作[註解使用站點目標](annotations.md#annotation-use-site-targets)。
  * `receiver` 用作[註解使用站點目標](annotations.md#annotation-use-site-targets)。
  * `set`
-     - 宣告[屬性的 setter](properties.md#getters-and-setters)。
+     - 宣告[屬性的 setter](properties.md)。
      - 用作[註解使用站點目標](annotations.md#annotation-use-site-targets)。
 * `setparam` 用作[註解使用站點目標](annotations.md#annotation-use-site-targets)。
 * `value` 與 `class` 關鍵字一同宣告[行內類別](inline-classes.md)。

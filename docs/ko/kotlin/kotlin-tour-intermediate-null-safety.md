@@ -3,15 +3,15 @@
 <no-index/>
 
 <tldr>
-    <p><img src="icon-1-done.svg" width="20" alt="First step" /> <a href="kotlin-tour-intermediate-extension-functions.md">확장 함수</a><br />
-        <img src="icon-2-done.svg" width="20" alt="Second step" /> <a href="kotlin-tour-intermediate-scope-functions.md">스코프 함수</a><br />
-        <img src="icon-3-done.svg" width="20" alt="Third step" /> <a href="kotlin-tour-intermediate-lambdas-receiver.md">수신 객체 지정 람다 (Lambda expressions with receiver)</a><br />
-        <img src="icon-4-done.svg" width="20" alt="Fourth step" /> <a href="kotlin-tour-intermediate-classes-interfaces.md">클래스 및 인터페이스</a><br />
-        <img src="icon-5-done.svg" width="20" alt="Fifth step" /> <a href="kotlin-tour-intermediate-objects.md">객체</a><br />
-        <img src="icon-6-done.svg" width="20" alt="Sixth step" /> <a href="kotlin-tour-intermediate-open-special-classes.md">open 및 특별한 클래스</a><br />
-        <img src="icon-7-done.svg" width="20" alt="Seventh step" /> <a href="kotlin-tour-intermediate-properties.md">프로퍼티</a><br />
-        <img src="icon-8.svg" width="20" alt="Eighth step" /> <strong>Null 안전성</strong><br />
-        <img src="icon-9-todo.svg" width="20" alt="Ninth step" /> <a href="kotlin-tour-intermediate-libraries-and-apis.md">라이브러리 및 API</a></p>
+    <p><img src="icon-1-done.svg" width="20" alt="첫 번째 단계" /> <a href="kotlin-tour-intermediate-extension-functions.md">확장 함수</a><br />
+        <img src="icon-2-done.svg" width="20" alt="두 번째 단계" /> <a href="kotlin-tour-intermediate-scope-functions.md">스코프 함수</a><br />
+        <img src="icon-3-done.svg" width="20" alt="세 번째 단계" /> <a href="kotlin-tour-intermediate-lambdas-receiver.md">수신 객체 지정 람다 (Lambda expressions with receiver)</a><br />
+        <img src="icon-4-done.svg" width="20" alt="네 번째 단계" /> <a href="kotlin-tour-intermediate-classes-interfaces.md">클래스 및 인터페이스</a><br />
+        <img src="icon-5-done.svg" width="20" alt="다섯 번째 단계" /> <a href="kotlin-tour-intermediate-objects.md">객체</a><br />
+        <img src="icon-6-done.svg" width="20" alt="여섯 번째 단계" /> <a href="kotlin-tour-intermediate-open-special-classes.md">open 및 특별한 클래스</a><br />
+        <img src="icon-7-done.svg" width="20" alt="일곱 번째 단계" /> <a href="kotlin-tour-intermediate-properties.md">프로퍼티</a><br />
+        <img src="icon-8.svg" width="20" alt="여덟 번째 단계" /> <strong>Null 안전성</strong><br />
+        <img src="icon-9-todo.svg" width="20" alt="아홉 번째 단계" /> <a href="kotlin-tour-intermediate-libraries-and-apis.md">라이브러리 및 API</a></p>
 </tldr>
 
 초급 투어에서는 코드에서 `null` 값을 처리하는 방법을 배웠습니다. 이 장에서는 null 안전성 기능의 일반적인 사용 사례와 이를 최대한 활용하는 방법을 다룹니다.
@@ -20,7 +20,7 @@
 
 코틀린은 때때로 명시적 선언 없이도 타입을 추론할 수 있습니다. 코틀린에게 변수나 객체를 특정 타입에 속하는 것처럼 다루도록 지시하는 과정을 **캐스팅(casting)**이라고 합니다. 타입이 자동으로 캐스팅될 때, 예를 들어 추론될 때, 이를 **스마트 캐스팅(smart casting)**이라고 합니다.
 
-### `is` 및 `!is` 연산자
+### is 및 !is 연산자
 
 캐스팅이 어떻게 작동하는지 알아보기 전에, 객체가 특정 타입을 가지고 있는지 확인하는 방법을 살펴보겠습니다. 이를 위해 `when` 또는 `if` 조건식과 함께 `is` 및 `!is` 연산자를 사용할 수 있습니다:
 
@@ -62,7 +62,7 @@ fun main() {
 > 
 {style="tip"}
 
-### `as` 및 `as?` 연산자
+### as 및 as? 연산자
 
 객체를 다른 타입으로 명시적으로 _캐스트_하려면 `as` 연산자를 사용하세요. 여기에는 nullable 타입에서 non-nullable 타입으로 캐스팅하는 것도 포함됩니다. 캐스팅이 불가능할 경우, 프로그램은 **런타임에** 충돌합니다. 이것이 바로 이를 **안전하지 않은(unsafe)** 캐스트 연산자라고 부르는 이유입니다.
 
@@ -402,9 +402,9 @@ fun main() {
     val invalidUser = "NotAUser"
 
     println(getNotificationPreferences(user1, emailEnabled = true, smsEnabled = false))
-    // [Alice에 대해 이메일 알림 활성화됨]
+    // [Email Notifications enabled for Alice]
     println(getNotificationPreferences(user2, emailEnabled = false, smsEnabled = true))
-    // [Guest에 대해 SMS 알림 활성화됨]
+    // [SMS Notifications enabled for Guest]
     println(getNotificationPreferences(invalidUser, emailEnabled = true, smsEnabled = true))
     // []
 }
@@ -590,7 +590,8 @@ fun main() {
 ```kotlin
 data class User(val username: String, val isActive: Boolean)
 
-fun getActiveUsernames(users: List<User>): List<String> = users.mapNotNull { user -> user.username.takeIf { user.isActive } }
+fun getActiveUsernames(users: List<User>): List<String> =
+    users.mapNotNull { user -> user.username.takeIf { user.isActive } }
 
 fun main() {
     val allUsers = listOf(

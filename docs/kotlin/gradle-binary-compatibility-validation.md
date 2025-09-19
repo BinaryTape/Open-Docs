@@ -21,7 +21,7 @@
 kotlin {
     @OptIn(org.jetbrains.kotlin.gradle.dsl.abi.ExperimentalAbiValidation::class)
     abiValidation {
-        // 使用 set() 函数以确保与旧版 Gradle 兼容
+        // Use the set() function to ensure compatibility with older Gradle versions
         enabled.set(true)
     }
 }
@@ -30,7 +30,7 @@ kotlin {
 </tab>
 <tab title="Groovy" group-key="groovy">
 
-```kotlin
+```groovy
 kotlin {
     abiValidation {
         enabled = true
@@ -47,7 +47,7 @@ kotlin {
 
 要检测代码更改后潜在的二进制不兼容问题，请在 IntelliJ IDEA 中运行 `checkLegacyAbi` Gradle 任务，或在你的项目目录中使用以下命令：
 
-```kotlin
+```bash
 ./gradlew checkLegacyAbi
 ```
 
@@ -57,7 +57,7 @@ kotlin {
 
 要更新 Gradle 用来检测最新更改的参考 ABI 转储文件，请在 IntelliJ IDEA 中运行 `updateLegacyAbi` 任务，或在你的项目目录中使用以下命令：
 
-```kotlin
+```bash
 ./gradlew updateLegacyAbi
 ```
 
@@ -108,7 +108,7 @@ kotlin {
 </tab>
 <tab title="Groovy" group-key="groovy">
 
-```kotlin
+```groovy
 kotlin {
     abiValidation {
         filters {
@@ -163,7 +163,7 @@ kotlin {
 </tab>
 <tab title="Groovy" group-key="groovy">
 
-```kotlin
+```groovy
 kotlin {
     abiValidation {
         klib {

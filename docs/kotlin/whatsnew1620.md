@@ -24,7 +24,7 @@ Kotlin 1.6.20 揭示了未来语言特性的抢先体验预览，将分层结构
 >
 {style="warning"}
 
-使用 Kotlin 1.6.20，您不再限于只有一个接收者。如果您需要更多接收者，可以通过向函数、属性和类的声明中添加上下文接收者来使它们依赖于上下文（或称“上下文相关的”）。上下文相关的声明执行以下操作：
+使用 Kotlin 1.6.20，您不再限于只有一个接收者。如果您需要更多，可以通过向函数、属性和类的声明中添加上下文接收者来使它们依赖于上下文（或称“上下文相关的”）。上下文相关的声明执行以下操作：
 
 *   它要求所有声明的上下文接收者以隐式接收者的形式存在于调用者的作用域中。
 *   它将声明的上下文接收者作为隐式接收者引入到其代码块作用域中。
@@ -127,7 +127,7 @@ Kotlin 1.6.20 引入：
 
 *   JVM 接口中默认方法的兼容性改进：[接口的新 `@JvmDefaultWithCompatibility` 注解](#new-jvmdefaultwithcompatibility-annotation-for-interfaces)和 [`-Xjvm-default` 模式的兼容性更改](#compatibility-changes-in-the-xjvm-default-modes)
 *   [支持 JVM 后端中单个模块的并行编译](#support-for-parallel-compilation-of-a-single-module-in-the-jvm-backend)
-*   [支持函数式接口构造函数的可调用引用](#support-for-callable-references-to-functional-interface-constructors)
+*   [支持函数式接口构造函数的 Callable Reference](#support-for-callable-references-to-functional-interface-constructors)
 
 ### 接口的新 @JvmDefaultWithCompatibility 注解
 
@@ -187,15 +187,15 @@ Kotlin 1.6.20 弃用了编译器选项 `-Xjvm-default` 的 `compatibility` 和 `
 >
 {style="note"}
 
-### 支持函数式接口构造函数的可调用引用
+### 支持函数式接口构造函数的 Callable Reference
 
-> 对函数式接口构造函数的可调用引用支持是[实验性的](components-stability.md)。
+> 对函数式接口构造函数的 Callable Reference 支持是[实验性的](components-stability.md)。
 > 它可能随时被删除或更改。需要显式选择启用（参见下方详情），且您应仅将其用于评估目的。
 > 我们非常感谢您在 [YouTrack](https://youtrack.jetbrains.com/issue/KT-47939) 中提供反馈。
 >
 {style="warning"}
 
-对函数式接口构造函数[可调用引用](reflection.md#callable-references)的支持提供了一种源兼容的方式，用于从带有构造函数接口迁移到[函数式接口](fun-interfaces.md)。
+对函数式接口构造函数[Callable Reference](reflection.md#callable-references) 的支持提供了一种源兼容的方式，用于从带有构造函数接口迁移到[函数式接口](fun-interfaces.md)。
 
 考虑以下代码：
 
@@ -207,7 +207,7 @@ interface Printer {
 fun Printer(block: () -> Unit): Printer = object : Printer { override fun print() = block() }
 ```
 
-启用对函数式接口构造函数的可调用引用后，此代码可以替换为仅一个函数式接口声明：
+启用对函数式接口构造函数的 Callable Reference 后，此代码可以替换为仅一个函数式接口声明：
 
 ```kotlin
 fun interface Printer {
@@ -289,7 +289,7 @@ Kotlin/Native 1.6.20 标志着其新组件的持续开发。我们向在其他�
 
 ### 与 Swift async/await 的互操作：返回 Swift 的 Void 而不是 KotlinUnit
 
-> 与 Swift async/await 的并发互操作性是[实验性的](components-stability.20)。它可能随时被删除或更改。
+> 与 Swift async/await 的并发互操作性是[实验性的](components-stability.md)。它可能随时被删除或更改。
 > 您应仅将其用于评估目的。我们非常感谢您在 [YouTrack](https://youtrack.jetbrains.com/issue/KT-47610) 中提供反馈。
 >
 {style="warning"}
@@ -401,7 +401,7 @@ kotlin.native.binary.sourceInfoType=libbacktrace
 
 以前，Kotlin/Native 中的 Android 原生可执行文件实际上不是可执行文件，而是可以作为 NativeActivity 使用的共享库。现在有一个选项可以为 Android 原生目标平台生成标准可执行文件。
 
-为此，在您项目的 `build.gradle(.kts)` 部分中，配置 `androidNative` 目标平台的可执行文件块。
+为此，在您项目的 `build.gradle(.kts)` 部分中，配置 `androidNative` 目标平台的可执行文件代码块。
 添加以下二进制选项：
 
 ```kotlin
@@ -469,7 +469,7 @@ Kotlin 1.6.20 默认启用分层结构支持。
 现在，您可以在几个类似的，重用大量通用逻辑和第三方 API 的原生目标平台之间[共享源代码](#better-code-sharing-in-your-project)。
 该技术将提供正确的默认依赖项，并找到共享代码中可用的确切 API。
 这消除了复杂的构建设置以及不得不使用变通方案来获取 IDE 对在原生目标平台之间共享源代码集的支持。
-它还有助于防止不安全地使用旨在用于不同目标平台的 API。
+它还有助于防止不安全地使用旨在用于不同目标平台上的 API。
 
 该技术对于[库作者](#more-opportunities-for-library-authors)也很有用，因为分层项目结构允许他们发布和使用包含目标平台子集公共 API 的库。
 
@@ -535,12 +535,12 @@ Kotlin 工具链提供了正确的默认依赖项，如 Kotlin/Native stdlib 或
     了解有关[构建 XCFramework](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-build-native-binaries.html#build-xcframeworks) 的更多信息。
 
 *   如果您在项目中使用 [CocoaPods 集成](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-cocoapods-overview.html)，您习惯于为整个 Gradle 项目指定所需的 Pod 版本。现在您有更多选项：
-    *   直接在 `cocoapods` 块中指定 Pod 版本。
+    *   直接在 `cocoapods` 代码块中指定 Pod 版本。
     *   继续使用 Gradle 项目版本。
     
     如果这些属性都没有配置，您将收到错误。
 
-*   您现在可以在 `cocoapods` 块中配置 CocoaPod 名称，而不是更改整个 Gradle 项目的名称。
+*   您现在可以在 `cocoapods` 代码块中配置 CocoaPod 名称，而不是更改整个 Gradle 项目的名称。
 
 *   CocoaPods 插件引入了一个新的 `extraSpecAttributes` 属性，您可以使用它来配置 Podspec 文件中以前硬编码的属性，例如 `libraries` 或 `vendored_frameworks`。
 
@@ -594,7 +594,7 @@ kotlin.incremental.js.ir=true // false by default
 通过消除应用程序启动时初始化所有属性的需要，惰性初始化缩短了启动时间。
 我们的测量显示，在一个实际的 Kotlin/JS 应用程序中，速度提升了约 10%。
 
-现在，我们已经完善并适当测试了此机制，我们正在使惰性初始化成为 IR 编译器中顶层属性的默认设置。
+现在，我们已经完善并适当检测了此机制，我们正在使惰性初始化成为 IR 编译器中顶层属性的默认设置。
 
 ```kotlin
 // lazy initialization
@@ -634,8 +634,8 @@ kotlin.js.ir.output.granularity=whole-program // `per-module` is the default
 
 ### 导出改进和 TypeScript 声明生成
 
-Kotlin 1.6.20 为导出机制（[`@JsExport`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.js/-js-export/) 注解）带来了多项修复和改进，包括 [TypeScript 声明（.d.ts）的生成](js-ir-compiler.md#preview-generation-of-typescript-declaration-files-d-ts)。
-我们增加了导出接口和枚举的能力，并修复了先前向我们报告的某些边缘情况下的导出行为。
+Kotlin 1.6.20 为导出机制（[`@JsExport`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.js/-js-export/) 注解）带来了多项修复和改进，包括 [TypeScript 声明（.d.ts）的生成](js-project-setup.md#generation-of-typescript-declaration-files-d-ts)。
+我们增加了导出接口和枚举的功能，并修复了先前向我们报告的某些边缘情况下的导出行为。
 有关更多详细信息，请参阅 [YouTrack 中导出改进列表](https://youtrack.jetbrains.com/issues?q=Project:%20Kotlin%20issue%20id:%20KT-45434,%20KT-44494,%20KT-37916,%20KT-43191,%20KT-46961,%20KT-40236)。
 
 了解有关[从 JavaScript 使用 Kotlin 代码](js-to-kotlin-interop.md)的更多信息。
@@ -770,8 +770,8 @@ rootProject.plugins.withType(org.jetbrains.kotlin.gradle.targets.js.yarn.YarnPlu
 
 Kotlin 1.6.20 为 Kotlin Gradle 插件带来了以下更改：
 
-*   [用于定义 Kotlin 编译器执行策略的新属性 `kotlin.compiler.execution.strategy` 和 `compilerExecutionStrategy`](#properties-for-defining-kotlin-compiler-execution-strategy)
-*   [kapt 和 coroutines 构建选项的弃用](#deprecation-of-build-options-for-kapt-and-coroutines)
+*   用于定义 Kotlin 编译器执行策略的新[属性 `kotlin.compiler.execution.strategy` 和 `compilerExecutionStrategy`](#properties-for-defining-kotlin-compiler-execution-strategy)
+*   [kapt 和协程构建选项的弃用](#deprecation-of-build-options-for-kapt-and-coroutines)
 *   [移除 `kotlin.parallel.tasks.in.project` 构建选项](#removal-of-the-kotlin-parallel-tasks-in-project-build-option)
 
 ### 用于定义 Kotlin 编译器执行策略的属性
@@ -828,7 +828,7 @@ tasks.withType<KotlinCompile>().configureEach {
 
 请在 [此 YouTrack 任务](https://youtrack.jetbrains.com/issue/KT-49299) 中留下您的反馈。
 
-### kapt 和 coroutines 构建选项的弃用
+### kapt 和协程构建选项的弃用
 
 在 Kotlin 1.6.20 中，我们更改了属性的弃用级别：
 

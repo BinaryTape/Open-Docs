@@ -3,7 +3,7 @@
 [Kotlin Notebook](kotlin-notebook-overview.md) 提供了一个强大的平台，用于访问和操作来自各种 Web 源和 API 的数据。
 它通过提供一个迭代环境来简化数据提取和分析任务，在该环境中，每个步骤都可以可视化以提高清晰度。这使得它在探索不熟悉的 API 时特别有用。
 
-与 [Kotlin DataFrame 库](https://kotlin.github.io/dataframe/gettingstarted.html) 结合使用时，Kotlin Notebook 不仅使你能够连接到 API 并从中获取 JSON 数据，还协助重塑此数据以进行全面的分析和可视化。
+与 [Kotlin DataFrame library](https://kotlin.github.io/dataframe/gettingstarted.html) 结合使用时，Kotlin Notebook 不仅使你能够连接到 API 并从中获取 JSON 数据，还协助重塑此数据以进行全面的分析和可视化。
 
 > 关于 Kotlin Notebook 示例，请参见 [GitHub 上的 DataFrame 示例](https://github.com/Kotlin/dataframe/blob/master/examples/notebooks/youtube/Youtube.ipynb)。
 >
@@ -11,7 +11,7 @@
 
 ## 开始之前
 
-Kotlin Notebook 依赖于 [Kotlin Notebook 插件](https://plugins.jetbrains.com/plugin/16340-kotlin-notebook)，
+Kotlin Notebook 依赖于 [Kotlin Notebook plugin](https://plugins.jetbrains.com/plugin/16340-kotlin-notebook)，
 该插件在 IntelliJ IDEA 中默认捆绑并启用。
 
 如果 Kotlin Notebook 特性不可用，请确保该插件已启用。关于更多信息，
@@ -60,27 +60,25 @@ Kotlin Notebook 依赖于 [Kotlin Notebook 插件](https://plugins.jetbrains.com
 
     ```kotlin
     fun load(path: String, maxPages: Int): AnyFrame {
-    
         // Initializes a mutable list to store rows of data.
         val rows = mutableListOf<AnyRow>()
-    
+
         // Sets the initial page path for data loading.
         var pagePath = path
         do {
-    
             // Loads data from the current page path.
             val row = load(pagePath)
             // Adds the loaded data as a row to the list.
             rows.add(row)
-           
+
             // Retrieves the token for the next page, if available.
             val next = row.getValueOrNull<String>("nextPageToken")
             // Updates the page path for the next iteration, including the new token.
             pagePath = path + "&pageToken=" + next
-    
+
             // Continues loading pages until there's no next page.
         } while (next != null && rows.size < maxPages) 
-        
+
         // Concatenates and returns all loaded rows as a DataFrame.
         return rows.concat() 
     }
@@ -183,7 +181,7 @@ Kotlin Notebook 依赖于 [Kotlin Notebook 插件](https://plugins.jetbrains.com
     ```kotlin
     val aggregated = channels.aggregate {
         viewCount.sum() into view
-    
+
         val last = maxBy { publishedAt }
         last.title into "last title"
         last.publishedAt into "time"

@@ -33,7 +33,7 @@
 
 ```kotlin
 class Contact(val id: Int, var email: String) {
-    val category: String = ""
+    var category: String = ""
 }
 ```
 
@@ -41,7 +41,7 @@ class Contact(val id: Int, var email: String) {
 
 ```kotlin
 class Contact(val id: Int, var email: String) {
-    val category: String = ""
+    var category: String = ""
         get() = field
         set(value) {
             field = value
@@ -81,7 +81,7 @@ fun main() {
     // Exception in thread "main" java.lang.StackOverflowError
 }
 ```
-{validate ="false" kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-tour-properties-stackoverflow"}
+{validate="false" kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-tour-properties-stackoverflow"}
 
 이 문제를 해결하려면 `set()` 함수에서 `field` 키워드를 사용하여 백킹 필드를 참조하면 됩니다:
 
@@ -177,7 +177,7 @@ operator fun setValue(thisRef: Any?, property: KProperty<*>, value: String) {}
 
 *   `operator` 키워드는 이 함수들을 연산자 함수로 표시하여 `get()` 및 `set()` 함수를 오버로드할 수 있도록 합니다.
 *   `thisRef` 매개변수는 위임된 프로퍼티를 **포함하는** 객체를 참조합니다. 기본적으로 타입은 `Any?`로 설정되지만, 더 구체적인 타입을 선언해야 할 수도 있습니다.
-*   `property` 매개변수는 값이 접근되거나 변경되는 프로퍼티를 참조합니다. 이 매개변수를 사용하여 프로퍼티의 이름이나 타입과 같은 정보에 접근할 수 있습니다. 기본적으로 타입은 `Any?`로 설정됩니다. 코드에서 이를 변경하는 것에 대해 걱정할 필요는 없습니다.
+*   `property` 매개변수는 값이 접근되거나 변경되는 프로퍼티를 참조합니다. 이 매개변수를 사용하여 프로퍼티의 이름이나 타입과 같은 정보에 접근할 수 있습니다. 기본적으로 타입은 `KProperty<*>`로 설정됩니다. 코드에서 이를 변경하는 것에 대해 걱정할 필요는 없습니다.
 
 `getValue()` 함수는 기본적으로 `String` 타입의 반환 타입을 가지지만, 필요에 따라 조정할 수 있습니다.
 
@@ -589,24 +589,24 @@ fun main() {
 import kotlin.properties.Delegates.observable
 
 class Budget(val totalBudget: Int) {
-  var remainingBudget: Int by observable(totalBudget) { _, oldValue, newValue ->
-    if (newValue < totalBudget * 0.2) {
-      println("Warning: Your remaining budget ($newValue) is below 20% of your total budget.")
-    } else if (newValue > oldValue) {
-      println("Good news: Your remaining budget increased to $newValue.")
+    var remainingBudget: Int by observable(totalBudget) { _, oldValue, newValue ->
+        if (newValue < totalBudget * 0.2) {
+            println("Warning: Your remaining budget ($newValue) is below 20% of your total budget.")
+        } else if (newValue > oldValue) {
+            println("Good news: Your remaining budget increased to $newValue.")
+        }
     }
-  }
 }
 
 fun main() {
-  val myBudget = Budget(totalBudget = 1000)
-  myBudget.remainingBudget = 800
-  myBudget.remainingBudget = 150
-  // Warning: Your remaining budget (150) is below 20% of your total budget.
-  myBudget.remainingBudget = 50
-  // Warning: Your remaining budget (50) is below 20% of your total budget.
-  myBudget.remainingBudget = 300
-  // Good news: Your remaining budget increased to 300.
+    val myBudget = Budget(totalBudget = 1000)
+    myBudget.remainingBudget = 800
+    myBudget.remainingBudget = 150
+    // Warning: Your remaining budget (150) is below 20% of your total budget.
+    myBudget.remainingBudget = 50
+    // Warning: Your remaining budget (50) is below 20% of your total budget.
+    myBudget.remainingBudget = 300
+    // Good news: Your remaining budget increased to 300.
 }
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="예시 해답" id="kotlin-tour-properties-solution-4"}

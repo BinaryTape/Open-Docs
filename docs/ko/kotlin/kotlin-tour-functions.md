@@ -95,11 +95,11 @@ fun printMessageWithPrefix(message: String, prefix: String = "Info") {
 }
 
 fun main() {
-    // Function called with both parameters
+    // 두 파라미터와 함께 호출된 함수
     printMessageWithPrefix("Hello", "Log") 
     // [Log] Hello
     
-    // Function called only with message parameter
+    // 메시지 파라미터만으로 호출된 함수
     printMessageWithPrefix("Hello")        
     // [Info] Hello
     
@@ -121,7 +121,7 @@ fun main() {
 ```kotlin
 fun printMessage(message: String) {
     println(message)
-    // `return Unit` or `return` is optional
+    // `return Unit` 또는 `return`은 선택 사항입니다.
 }
 
 fun main() {

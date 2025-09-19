@@ -74,7 +74,8 @@ fun main() {
 
 ## 从集合项创建字符串
 
-在 Java 中，你使用 [Stream API](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/stream/package-summary.html) 来过滤、映射然后收集项：
+在 Java 中，你使用 [Stream API](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/stream/package-summary.html) 
+来过滤、映射然后收集项：
 
 ```java
 // Java
@@ -152,8 +153,8 @@ fun getName(): String =
 
 ## 替换字符串开头和结尾的字符
 
-在 Java 中，你可以使用 [replaceAll()](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html#replaceAll(java.lang.String,java.lang.String)) 函数。
-在这种情况下，`replaceAll()` 函数接受正则表达式 `^##` 和 `##$`，它们分别定义以 `##` 开头和结尾的字符串：
+在 Java 中，你可以使用 [replaceAll()](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html#replaceAll(java.lang.String,java.lang.String)) 
+函数。在这种情况下，`replaceAll()` 函数接受正则表达式 `^##` 和 `##$`，它们分别定义以 `##` 开头和结尾的字符串：
 
 ```java
 // Java
@@ -285,7 +286,8 @@ fun main() {
 
 ## 使用多行字符串
 
-在 Java 15 之前，有几种创建多行字符串的方法。例如，使用 `String` 类的 [join()](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html#join(java.lang.CharSequence,java.lang.CharSequence...))
+在 Java 15 之前，有几种创建多行字符串的方法。例如，使用
+`String` 类的 [join()](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html#join(java.lang.CharSequence,java.lang.CharSequence...))
 函数：
 
 ```java
@@ -307,7 +309,7 @@ String result = """
     Kotlin
        Java
     """;
-System.out.println(result);
+System.println(result);
 ```
 {id="join-strings-15-java"}
 
@@ -361,4 +363,4 @@ fun main() {
 * 浏览其他 [Kotlin 惯用法](idioms.md)。
 * 了解如何使用 [Java 到 Kotlin 转换器](mixing-java-kotlin-intellij.md#converting-an-existing-java-file-to-kotlin-with-j2k) 将现有 Java 代码转换为 Kotlin。
 
-如果你有最喜欢的惯用法，欢迎您通过发送 Pull Request 来分享它。
+如果你有最喜欢的惯用法，我们邀请你通过发送 Pull Request 来分享它。

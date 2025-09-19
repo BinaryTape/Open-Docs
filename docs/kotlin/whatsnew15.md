@@ -161,8 +161,8 @@ Kotlin/JVM 编译的默认目标版本现在是 `1.8`。`1.6` 目标已弃用。
 ### 通过 invokedynamic 实现 SAM 适配器
 
 Kotlin 1.5.0 现在使用动态调用（`invokedynamic`）来编译 SAM（单一抽象方法）转换：
-* 如果 SAM 类型是 [Java 接口]，则针对任何表达式
-* 如果 SAM 类型是 [Kotlin 函数式接口]，则针对 lambda 表达式
+* 如果 SAM 类型是 [Java 接口](java-interop.md#sam-conversions)，则针对任何表达式
+* 如果 SAM 类型是 [Kotlin 函数式接口](fun-interfaces.md#sam-conversions)，则针对 lambda 表达式
 
 新的实现使用 [`LambdaMetafactory.metafactory()`](https://docs.oracle.com/javase/8/docs/api/java/lang/invoke/LambdaMetafactory.html#metafactory-java.lang.invoke.MethodHandles.Lookup-java.lang.String-java.lang.invoke.MethodType-java.lang.invoke.MethodType-java.lang.invoke.MethodHandle-java.lang.invoke.MethodType-)，辅助包装类在编译期间不再生成。这减小了应用程序 JAR 的大小，从而提高了 JVM 启动性能。
 
@@ -204,7 +204,7 @@ Kotlin 支持使用[空安全注解](java-interop.md#nullability-annotations)处
 * 它会读取编译后的 Java 库中用作依赖项的类型实参上的空安全注解。
 * 它支持带有 `TYPE_USE` 目标的空安全注解，适用于：
   * 数组
-  * 可变参数
+  * 可变实参 (Varargs)
   * 字段
   * 类型形参及其界限
   * 基类和接口的类型实参
@@ -224,7 +224,7 @@ Kotlin/Native 现在性能更高且更稳定。值得关注的变更是：
 
 在 1.5.0 中，Kotlin/Native 获得了一系列性能改进，可加快编译和执行速度。
 
-编译器缓存现在在调试模式下受支持，适用于 `linuxX64`（仅在 Linux 主机上）和 `iosArm64` 目标平台。启用编译器缓存后，除了首次编译，大多数调试编译都会快得多。测量结果显示，在我们的测试项目中速度提高了约 200%。
+[编译器缓存](https://blog.jetbrains.com/kotlin/2020/03/kotlin-1-3-70-released/#kotlin-native)现在在调试模式下受支持，适用于 `linuxX64`（仅在 Linux 主机上）和 `iosArm64` 目标平台。启用编译器缓存后，除了首次编译，大多数调试编译都会快得多。测量结果显示，在我们的测试项目中速度提高了约 200%。
 
 要为新目标使用编译器缓存，请通过将以下行添加到项目的 `gradle.properties` 中来选择启用：
 * 对于 `linuxX64`：`kotlin.native.cacheKind.linuxX64=static`
@@ -296,7 +296,7 @@ Kotlin/JS Gradle 插件现在为浏览器目标使用 webpack 5，而不是 webp
 * [新的集合函数 firstNotNullOf()](#new-collections-function-firstnotnullof)
 * [`String?.toBoolean()` 的严格版本](#strict-version-of-string-toboolean)
 
-您可以在[这篇博客文章](https://blog.jetbrains.com/kotlin/2021/04/kotlin-1-5-0-rc-released/)中了解更多关于标准库变更的信息。
+您可以在[这篇博客文章](https://blog.jetbrains.com/kotlin/2021/04/kotlin-1-5-0-rc-released)中了解更多关于标准库变更的信息。
 
 <video src="https://www.youtube.com/v/MyTkiT2I6-8" title="New Standard Library Features"/>
 
@@ -339,13 +339,13 @@ Kotlin 1.5.0 提供了以下完全[稳定](components-stability.md)的替代方�
 
 ### 稳定的 Char 到整数转换 API
 
-从 Kotlin 1.5.0 开始，新的字符到编码和字符到数字转换函数已[稳定](components-stability.md)。这些函数取代了当前的 API 函数，后者经常与类似的字符串到整数转换混淆。
+从 Kotlin 1.5.0 开始，新的字符到编码和字符到数字转换函数已[稳定](components-stability.md)。这些函数取代了当前的 API 函数，后者经常与类似的字符串到 Int 转换混淆。
 
 新的 API 消除了这种命名混淆，使代码行为更透明和明确。
 
-此版本引入了字符转换，它们分为以下几组命名清晰的函数：
+此版本引入了 `Char` 转换，它们分为以下几组命名清晰的函数：
 
-* 获取字符的整数编码以及从给定编码构造字符的函数：
+* 获取 `Char` 的整数编码以及从给定编码构造 `Char` 的函数：
 
  ```kotlin
  fun Char(code: Int): Char
@@ -353,26 +353,26 @@ Kotlin 1.5.0 提供了以下完全[稳定](components-stability.md)的替代方�
  val Char.code: Int
  ```
 
-* 将字符转换为其所代表数字的数值的函数：
+* 将 `Char` 转换为其所代表数字的数值的函数：
 
  ```kotlin
  fun Char.digitToInt(radix: Int): Int
  fun Char.digitToIntOrNull(radix: Int): Int?
  ```
 
-* 一个用于 `Int` 的扩展函数，用于将其所代表的非负单数字转换为相应的字符表示：
+* 一个用于 `Int` 的扩展函数，用于将其所代表的非负单数字转换为相应的 `Char` 表示：
 
  ```kotlin
  fun Int.digitToChar(radix: Int): Char
  ```
 
-旧的转换 API，包括 `Number.toChar()` 及其实现（除了 `Int.toChar()` 之外的所有）以及用于转换为数字类型的字符扩展，例如 `Char.toInt()`，现在已被弃用。
+旧的转换 API，包括 `Number.toChar()` 及其实现（除了 `Int.toChar()` 之外的所有）以及用于转换为数字类型的 `Char` 扩展，例如 `Char.toInt()`，现在已被弃用。
 
 [了解更多关于 KEEP 中字符到整数转换 API 的信息](https://github.com/Kotlin/KEEP/blob/master/proposals/stdlib/char-int-conversions.md)。
 
 ### 稳定的 Path API
 
-带有 `java.nio.file.Path` 扩展的[实验性 Path API](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.io.path/java.nio.file.-path/) 现在已[稳定](components-stability.md)。
+带有 `java.nio.file.Path` 扩展的[实验性的 Path API](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.io.path/java.nio.file.-path/) 现在已[稳定](components-stability.md)。
 
 ```kotlin
 // construct path with the div (/) operator
@@ -547,8 +547,7 @@ kotlin {
     sourceSets {
         val commonTest by getting {
             dependencies {
-                implementation(kotlin("test")) // This brings the dependency
-                                               // on JUnit 4 transitively
+                implementation(kotlin("test")) // 这会传递性地引入 JUnit 4 的依赖项
             }
         }
     }
@@ -563,8 +562,7 @@ kotlin {
     sourceSets {
         commonTest {
             dependencies {
-                implementation kotlin("test") // This brings the dependency 
-                                              // on JUnit 4 transitively
+                implementation kotlin("test") // 这会传递性地引入 JUnit 4 的依赖项 
             }
         }
     }
@@ -579,10 +577,10 @@ kotlin {
 ```groovy
 tasks {
     test {
-        // enable TestNG support
+        // 启用 TestNG 支持
         useTestNG()
-        // or
-        // enable JUnit Platform (a.k.a. JUnit 5) support
+        // 或
+        // 启用 JUnit Platform（又名 JUnit 5）支持
         useJUnitPlatform()
     }
 }
@@ -598,21 +596,21 @@ tasks {
 
 `kotlin-test` 库现在具有以下特性：
 
-* **检查值的类型**
+* **检测值的类型**
 
-  您可以使用新的 `assertIs<T>` 和 `assertIsNot<T>` 来检查值的类型：
+  您可以使用新的 `assertIs<T>` 和 `assertIsNot<T>` 来检测值的类型：
 
   ```kotlin
   @Test
   fun testFunction() {
       val s: Any = "test"
-      assertIs<String>(s)  // throws AssertionError mentioning the actual type of s if the assertion fails
-      // can now print s.length because of contract in assertIs
+      assertIs<String>(s)  // 如果断言失败，则抛出 AssertionError 并提及 s 的实际类型
+      // 因为 assertIs 中的契约，现在可以打印 s.length
       println("${s.length}")
   }
   ```
 
-  由于类型擦除，此断言函数在以下示例中仅检查 `value` 是否为 `List` 类型，而不检查它是否为特定 `String` 元素类型的列表：`assertIs<List<String>>(value)`。
+  由于类型擦除，此断言函数在以下示例中仅检测 `value` 是否为 `List` 类型，而不检测它是否为特定 `String` 元素类型的 list：`assertIs<List<String>>(value)`。
 
 * **比较数组、序列和任意可迭代容器的内容**
 
@@ -643,9 +641,9 @@ tasks {
   }
   ```
 
-* **检查集合和元素内容的新函数**
+* **检测集合和元素内容的新函数**
 
-  您现在可以使用 `assertContains()` 函数检查集合或元素是否包含某些内容。
+  您现在可以使用 `assertContains()` 函数检测集合或元素是否包含某些内容。
   您可以将它与 Kotlin 集合和具有 `contains()` 操作符的元素一起使用，例如 `IntRange`、`String` 等：
 
   ```kotlin
@@ -653,8 +651,8 @@ tasks {
   fun test() {
       val sampleList = listOf<String>("sample", "sample2")
       val sampleString = "sample"
-      assertContains(sampleList, sampleString)  // element in collection
-      assertContains(sampleString, "amp")       // substring in string
+      assertContains(sampleList, sampleString)  // 集合中的元素
+      assertContains(sampleString, "amp")       // 字符串中的子字符串
   }
   ```
 

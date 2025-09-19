@@ -11,14 +11,14 @@ Tracing 特性是一个强大的监控和调试工具，它捕获有关代理运
 - 工具调用
 - 代理图中的节点执行
 
-此特性通过拦截代理流水线中的关键事件并将其转发给可配置的消息处理器来运行。这些处理器可以将追踪信息输出到各种目标，例如日志文件或文件系统中的其他类型文件，使开发者能够深入了解代理行为并有效排查问题。
+此特性通过拦截代理流水线中的关键事件并将其转发给可配置的消息处理器。这些处理器可以将追踪信息输出到各种目标，例如日志文件或文件系统中的其他类型文件，使开发者能够深入了解代理行为并有效排查问题。
 
 ### 事件流
 
-1.  Tracing 特性拦截代理流水线中的事件。
-2.  事件根据配置的消息过滤器进行过滤。
-3.  过滤后的事件传递给已注册的消息处理器。
-4.  消息处理器格式化事件并将其输出到各自的目标。
+1. Tracing 特性拦截代理流水线中的事件。
+2. 事件根据配置的消息过滤器进行过滤。
+3. 过滤后的事件传递给已注册的消息处理器。
+4. 消息处理器格式化并输出事件到各自的目标。
 
 ## 配置与初始化
 
@@ -26,15 +26,15 @@ Tracing 特性是一个强大的监控和调试工具，它捕获有关代理运
 
 要使用 Tracing 特性，你需要：
 
-1.  拥有一个或多个消息处理器（你可以使用现有处理器或创建自己的处理器）。
-2.  在你的代理中安装 `Tracing`。
-3.  配置消息过滤器（可选）。
-4.  将消息处理器添加到该特性中。
+1. 拥有一个或多个消息处理器（你可以使用现有处理器或创建自己的处理器）。
+2. 在你的代理中安装 `Tracing`。
+3. 配置消息过滤器（可选）。
+4. 将消息处理器添加到该特性中。
 
 <!--- INCLUDE
 import ai.koog.agents.core.agent.AIAgent
-import ai.koog.agents.core.feature.model.AfterLLMCallEvent
-import ai.koog.agents.core.feature.model.ToolCallEvent
+import ai.koog.agents.core.feature.model.events.AfterLLMCallEvent
+import ai.koog.agents.core.feature.model.events.ToolCallEvent
 import ai.koog.agents.features.tracing.feature.Tracing
 import ai.koog.agents.features.tracing.writer.TraceFeatureMessageFileWriter
 import ai.koog.agents.features.tracing.writer.TraceFeatureMessageLogWriter
@@ -77,11 +77,11 @@ val agent = AIAgent(
 
 ### 消息过滤
 
-你可以处理所有现有事件，或根据特定条件选择其中一些。消息过滤器允许你控制哪些事件被处理。这对于关注代理运行的特定方面很有用：
+你可以处理所有现有事件，或根据特定条件选择其中一些。消息过滤器允许你控制哪些事件被处理。这对于关注代理运行的特定方面非常有用：
 
 <!--- INCLUDE
 import ai.koog.agents.core.agent.AIAgent
-import ai.koog.agents.core.feature.model.*
+import ai.koog.agents.core.feature.model.events.*
 import ai.koog.agents.features.tracing.feature.Tracing
 import ai.koog.prompt.executor.llms.all.simpleOllamaAIExecutor
 import ai.koog.prompt.llm.OllamaModels
@@ -98,12 +98,12 @@ val agent = AIAgent(
 -->
 ```kotlin
 // 仅过滤与 LLM 相关的事件
-messageFilter = { message -> 
+messageFilter = { message ->
     message is BeforeLLMCallEvent || message is AfterLLMCallEvent
 }
 
 // 仅过滤与工具相关的事件
-messageFilter = { message -> 
+messageFilter = { message ->
     message is ToolCallEvent ||
            message is ToolCallResultEvent ||
            message is ToolValidationErrorEvent ||
@@ -111,7 +111,7 @@ messageFilter = { message ->
 }
 
 // 仅过滤节点执行事件
-messageFilter = { message -> 
+messageFilter = { message ->
     message is AIAgentNodeExecutionStartEvent || message is AIAgentNodeExecutionEndEvent
 }
 ```
@@ -121,9 +121,9 @@ messageFilter = { message ->
 
 对于具有复杂策略或长时间运行的代理，追踪事件量可能非常大。考虑使用以下方法管理事件量：
 
--   使用特定的消息过滤器来减少事件数量。
--   实现带有缓冲或采样的自定义消息处理器。
--   对日志文件使用文件轮转，以防止它们变得过大。
+- 使用特定的消息过滤器来减少事件数量。
+- 实现带有缓冲或采样的自定义消息处理器。
+- 对日志文件使用文件轮转，以防止它们变得过大。
 
 ### 依赖图
 
@@ -131,7 +131,7 @@ Tracing 特性具有以下依赖项：
 
 ```
 Tracing
-├── AIAgentPipeline (用于拦截事件)
+├── AIAgentPipeline (for intercepting events)
 ├── TraceFeatureConfig
 │   └── FeatureConfig
 ├── Message Processors
@@ -257,8 +257,8 @@ agent.run(input)
 
 <!--- INCLUDE
 import ai.koog.agents.core.agent.AIAgent
-import ai.koog.agents.core.feature.model.AfterLLMCallEvent
-import ai.koog.agents.core.feature.model.BeforeLLMCallEvent
+import ai.koog.agents.core.feature.model.events.AfterLLMCallEvent
+import ai.koog.agents.core.feature.model.events.BeforeLLMCallEvent
 import ai.koog.agents.example.exampleTracing01.outputPath
 import ai.koog.agents.features.tracing.feature.Tracing
 import ai.koog.agents.features.tracing.writer.TraceFeatureMessageFileWriter
@@ -347,8 +347,8 @@ agent.run(input)
 在客户端，你可以使用 `FeatureMessageRemoteClient` 来接收事件并将其反序列化。
 
 <!--- INCLUDE
-import ai.koog.agents.core.feature.model.AIAgentFinishedEvent
-import ai.koog.agents.core.feature.model.DefinedFeatureEvent
+import ai.koog.agents.core.feature.model.events.AIAgentFinishedEvent
+import ai.koog.agents.core.feature.model.events.DefinedFeatureEvent
 import ai.koog.agents.core.feature.remote.client.config.DefaultClientConnectionConfig
 import ai.koog.agents.core.feature.remote.client.FeatureMessageRemoteClient
 import ai.koog.agents.utils.use
@@ -398,12 +398,12 @@ listOf(clientJob).joinAll()
 
 Tracing 特性遵循模块化架构，包含以下关键组件：
 
-1.  [Tracing](https://api.koog.ai/agents/agents-features/agents-features-trace/ai.koog.agents.features.tracing.feature/-tracing/index.html)：拦截代理流水线中事件的主要特性类。
-2.  [TraceFeatureConfig](https://api.koog.ai/agents/agents-features/agents-features-trace/ai.koog.agents.features.tracing.feature/-trace-feature-config/index.html)：用于自定义特性行为的配置类。
-3.  消息处理器：处理并输出追踪事件的组件：
-    *   [TraceFeatureMessageLogWriter](https://api.koog.ai/agents/agents-features/agents-features-trace/ai.koog.agents.features.tracing.writer/-trace-feature-message-log-writer/index.html)：将追踪事件写入日志器。
-    *   [TraceFeatureMessageFileWriter](https://api.koog.ai/agents/agents-features/agents-features-trace/ai.koog.agents.features.tracing.writer/-trace-feature-message-file-writer/index.html)：将追踪事件写入文件。
-    *   [TraceFeatureMessageRemoteWriter](https://api.koog.ai/agents/agents-features/agents-features-trace/ai.koog.agents.features.tracing.writer/-trace-feature-message-remote-writer/index.html)：将追踪事件发送到远程服务器。
+1. [Tracing](https://api.koog.ai/agents/agents-features/agents-features-trace/ai.koog.agents.features.tracing.feature/-tracing/index.html)：拦截代理流水线中事件的主要特性类。
+2. [TraceFeatureConfig](https://api.koog.ai/agents/agents-features/agents-features-trace/ai.koog.agents.features.tracing.feature/-trace-feature-config/index.html)：用于自定义特性行为的配置类。
+3. 消息处理器：处理并输出追踪事件的组件：
+    - [TraceFeatureMessageLogWriter](https://api.koog.ai/agents/agents-features/agents-features-trace/ai.koog.agents.features.tracing.writer/-trace-feature-message-log-writer/index.html)：将追踪事件写入日志器。
+    - [TraceFeatureMessageFileWriter](https://api.koog.ai/agents/agents-features/agents-features-trace/ai.koog.agents.features.tracing.writer/-trace-feature-message-file-writer/index.html)：将追踪事件写入文件。
+    - [TraceFeatureMessageRemoteWriter](https://api.koog.ai/agents/agents-features/agents-features-trace/ai.koog.agents.features.tracing.writer/-trace-feature-message-remote-writer/index.html)：将追踪事件发送到远程服务器。
 
 ## 常见问题与故障排除
 
@@ -415,8 +415,8 @@ Tracing 特性遵循模块化架构，包含以下关键组件：
 
 <!--- INCLUDE
 import ai.koog.agents.core.agent.AIAgent
-import ai.koog.agents.core.feature.model.AfterLLMCallEvent
-import ai.koog.agents.core.feature.model.BeforeLLMCallEvent
+import ai.koog.agents.core.feature.model.events.AfterLLMCallEvent
+import ai.koog.agents.core.feature.model.events.BeforeLLMCallEvent
 import ai.koog.agents.example.exampleTracing01.outputPath
 import ai.koog.agents.features.tracing.feature.Tracing
 import ai.koog.agents.features.tracing.writer.TraceFeatureMessageFileWriter
@@ -510,8 +510,8 @@ install(Tracing) {
 
 <!--- INCLUDE
 import ai.koog.agents.core.agent.AIAgent
-import ai.koog.agents.core.feature.model.AIAgentNodeExecutionStartEvent
-import ai.koog.agents.core.feature.model.AfterLLMCallEvent
+import ai.koog.agents.core.feature.model.events.AIAgentNodeExecutionStartEvent
+import ai.koog.agents.core.feature.model.events.AfterLLMCallEvent
 import ai.koog.agents.core.feature.message.FeatureMessage
 import ai.koog.agents.core.feature.message.FeatureMessageProcessor
 import ai.koog.agents.features.tracing.feature.Tracing
@@ -543,7 +543,7 @@ class CustomTraceProcessor : FeatureMessageProcessor() {
 
     override val isOpen: StateFlow<Boolean>
         get() = _isOpen.asStateFlow()
-    
+
     override suspend fun processMessage(message: FeatureMessage) {
         // 自定义处理逻辑
         when (message) {
@@ -576,11 +576,11 @@ install(Tracing) {
 
 Koog 提供了可在自定义消息处理器中使用的预定义事件类型。预定义事件可根据其关联的实体分为以下几类：
 
--   [代理事件](#agent-events)
--   [策略事件](#strategy-events)
--   [节点事件](#node-events)
--   [LLM 调用事件](#llm-call-events)
--   [工具调用事件](#tool-call-events)
+- [代理事件](#agent-events)
+- [策略事件](#strategy-events)
+- [节点事件](#node-events)
+- [LLM 调用事件](#llm-call-events)
+- [工具调用事件](#tool-call-events)
 
 ### 代理事件
 

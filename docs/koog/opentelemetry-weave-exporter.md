@@ -10,14 +10,14 @@ Weights & Biases 提供的这款开发者工具专用于 AI 应用程序的可�
 
 ## 设置说明
 
-1.  在 [https://wandb.ai](https://wandb.ai) 注册一个 W&B 账户。
-2.  从 [https://wandb.ai/authorize](https://wandb.ai/authorize) 获取你的 API 密钥。
-3.  访问你的 W&B 仪表盘 [https://wandb.ai/home](https://wandb.ai/home) 查找你的 `entity` 名称。
-    如果这是个人账户，你的 `entity` 通常是你的用户名；如果是团队/组织账户，则是你的团队/组织名称。
-4.  为你的项目定义一个名称。你无需提前创建项目，当第一个追踪被发送时，它将自动创建。
-5.  将 Weave `entity`、项目名称和 API 密钥传递给 Weave 导出器。
-    这可以通过将它们作为形参传递给 `addWeaveExporter()` 函数来完成，
-    或者通过设置环境变量，如下所示：
+1. 在 [https://wandb.ai](https://wandb.ai) 注册一个 W&B 账户。
+2. 从 [https://wandb.ai/authorize](https://wandb.ai/authorize) 获取你的 API 密钥。
+3. 访问你的 W&B 仪表盘 [https://wandb.ai/home](https://wandb.ai/home) 查找你的 `entity` 名称。
+   如果这是个人账户，你的 `entity` 通常是你的用户名；如果是团队/组织账户，则是你的团队/组织名称。
+4. 为你的项目定义一个名称。你无需提前创建项目，当第一个追踪被发送时，它将自动创建。
+5. 将 Weave `entity`、项目名称和 API 密钥传递给 Weave 导出器。
+   这可以通过将它们作为形参传递给 `addWeaveExporter()` 函数来完成，
+   或者通过设置环境变量，如下所示：
 
 ```bash
 export WEAVE_API_KEY="<your-api-key>"

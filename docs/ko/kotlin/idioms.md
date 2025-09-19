@@ -1,6 +1,6 @@
 [//]: # (title: 관용 표현)
 
-Kotlin에서 자주 사용되는 다양한 관용 표현 모음입니다. 좋아하는 관용 표현이 있다면 풀 리퀘스트를 보내 기여해주세요.
+Kotlin에서 자주 사용되는 다양하고 자주 사용되는 관용 표현 모음입니다. 좋아하는 관용 표현이 있다면 풀 리퀘스트를 보내 기여해주세요.
 
 ## DTO (POJO/POCO) 생성하기
 
@@ -8,7 +8,7 @@ Kotlin에서 자주 사용되는 다양한 관용 표현 모음입니다. 좋아
 data class Customer(val name: String, val email: String)
 ```
 
-`Customer` 클래스에 다음 기능을 제공합니다.
+다음 기능을 갖춘 `Customer` 클래스를 제공합니다:
 
 *   모든 프로퍼티에 대한 getter (및 `var`의 경우 setter)
 *   `equals()`
@@ -290,7 +290,7 @@ fun arrayOfMinusOnes(size: Int): IntArray {
 fun theAnswer() = 42
 ```
 
-다음과 같습니다.
+다음과 같습니다:
 
 ```kotlin
 fun theAnswer(): Int {

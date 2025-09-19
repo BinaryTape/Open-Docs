@@ -51,7 +51,7 @@ IntelliJ IDEA Ultimate Edition에서 프로젝트 마법사를 사용하여 Kotl
      >
      {style="tip"}
 
-   ![Spring Boot 프로젝트 생성](create-spring-boot-project.png){width=800}
+   ![Create Spring Boot project](create-spring-boot-project.png){width=800}
 
 4. 모든 필드를 지정했는지 확인하고 **Next**를 클릭하세요.
 
@@ -61,7 +61,7 @@ IntelliJ IDEA Ultimate Edition에서 프로젝트 마법사를 사용하여 Kotl
    * **SQL | Spring Data JDBC**
    * **SQL | H2 Database**
 
-   ![Spring Boot 프로젝트 설정](set-up-spring-boot-project.png){width=800}
+   ![Set up Spring Boot project](set-up-spring-boot-project.png){width=800}
 
 6. **Create**를 클릭하여 프로젝트를 생성하고 설정하세요.
 
@@ -71,7 +71,7 @@ IntelliJ IDEA Ultimate Edition에서 프로젝트 마법사를 사용하여 Kotl
 
 7. 이후, **Project view**에서 다음 구조를 확인할 수 있습니다:
 
-   ![Spring Boot 프로젝트 설정](spring-boot-project-view.png){width=400}
+   ![Set up Spring Boot project](spring-boot-project-view.png){width=400}
 
    생성된 Gradle 프로젝트는 Maven의 표준 디렉터리 레이아웃과 일치합니다:
    * 애플리케이션에 속하는 패키지와 클래스는 `main/kotlin` 폴더 아래에 있습니다.
@@ -88,8 +88,8 @@ Gradle 파일은 Spring Boot의 표준이지만, `kotlin("plugin.spring")`과 �
 ```kotlin
 // build.gradle.kts
 plugins {
-    kotlin("jvm") version "%springBootSupportedKotlinVersion%" // The version of Kotlin to use
-    kotlin("plugin.spring") version "%springBootSupportedKotlinVersion%" // The Kotlin Spring plugin
+    kotlin("jvm") version "%springBootSupportedKotlinVersion%" // 사용할 Kotlin 버전
+    kotlin("plugin.spring") version "%springBootSupportedKotlinVersion%" // Kotlin Spring 플러그인
     id("org.springframework.boot") version "%springBootVersion%"
     id("io.spring.dependency-management") version "1.1.7"
 }
@@ -110,8 +110,8 @@ repositories {
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-jdbc")
     implementation("org.springframework.boot:spring-boot-starter-web")
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin") // Jackson extensions for Kotlin for working with JSON
-    implementation("org.jetbrains.kotlin:kotlin-reflect") // Kotlin reflection library, required for working with Spring
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin") // JSON 작업 시 Kotlin용 Jackson 확장
+    implementation("org.jetbrains.kotlin:kotlin-reflect") // Spring 작업을 위해 필요한 Kotlin 리플렉션 라이브러리
     runtimeOnly("com.h2database:h2")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
@@ -120,7 +120,7 @@ dependencies {
 
 kotlin {
     compilerOptions {
-        freeCompilerArgs.addAll("-Xjsr305=strict") // `-Xjsr305=strict` enables the strict mode for JSR-305 annotations
+        freeCompilerArgs.addAll("-Xjsr305=strict") // `-Xjsr305=strict`는 JSR-305 애노테이션에 대해 엄격 모드를 활성화합니다.
     }
 }
 
@@ -250,7 +250,7 @@ class MessageController {
 
 1. `DemoApplication.kt` 파일에서 `main()` 메서드 옆의 거터에 있는 녹색 **Run** 아이콘을 클릭하세요:
 
-    ![Spring Boot 애플리케이션 실행](run-spring-boot-application.png){width=706}
+    ![Run Spring Boot application](run-spring-boot-application.png){width=706}
     
     > 터미널에서 `./gradlew bootRun` 명령을 실행할 수도 있습니다.
     >
@@ -266,7 +266,7 @@ class MessageController {
 
     "Hello, John!"이 응답으로 출력되는 것을 볼 수 있습니다:
 
-    ![Spring 애플리케이션 응답](spring-application-response.png){width=706}
+    ![Spring Application response](spring-application-response.png){width=706}
 
 ## 다음 단계
 

@@ -442,7 +442,7 @@ kotlin.mpp.enableCInteropCommonization=true
 
 ### 支持 XCFrameworks
 
-所有 Kotlin Multiplatform 项目现在都可以将 XCFrameworks 作为输出格式。Apple 引入 XCFrameworks 作为通用（fat）framework 的替代品。借助 XCFrameworks，你可以：
+所有 Kotlin Multiplatform 项目现在都可以将 XCFrameworks 作为输出格式。Apple 引入 XCFrameworks 作为通用（fat）框架的替代品。借助 XCFrameworks，你可以：
 * 将所有目标平台和架构的逻辑收集到单个 bundle 中。
 * 在将应用程序发布到 App Store 之前，无需移除所有不必要的架构。
 
@@ -523,7 +523,7 @@ kotlin {
 
 当你声明 XCFrameworks 时，将注册以下新的 Gradle 任务：
 * `assembleXCFramework`
-* `assembleDebugXCFramework` （另外包含调试构件，[其中包含 dSYMs](native-ios-symbolication.md)）
+* `assembleDebugXCFramework` （另外包含调试构件，[其中包含 dSYMs](native-debugging.md#debug-ios-applications)）
 * `assembleReleaseXCFramework`
 
 在[此 WWDC 视频](https://developer.apple.com/videos/play/wwdc2019/416/)中了解更多关于 XCFrameworks 的信息。
@@ -661,7 +661,7 @@ project.tasks
 </tab>
 </tabs>
 
-对于 Gradle 6.1 到 6.6 版本，请使用 `UsesKotlinJavaToolchain` 接口。从 Gradle 6.7 开始，请改用 [Java toolchains](#support-for-java-toolchains)。
+使用 `UsesKotlinJavaToolchain` 接口处理 Gradle 6.1 到 6.6 版本。从 Gradle 6.7 开始，请改用 [Java toolchains](#support-for-java-toolchains)。
 
 使用此特性时，请注意 [kapt 任务工作进程](kapt.md#run-kapt-tasks-in-parallel)将仅使用[进程隔离模式](https://docs.gradle.org/current/userguide/worker_api.html#changing_the_isolation_mode)，并且 `kapt.workers.isolation` 属性将被忽略。
 

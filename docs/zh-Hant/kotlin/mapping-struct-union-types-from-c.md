@@ -4,7 +4,7 @@
     <p>這是 **映射 Kotlin 與 C** 教學系列文件的第二部分。在繼續之前，請確保您已完成上一個步驟。</p>
     <p><img src="icon-1-done.svg" width="20" alt="First step"/> <a href="mapping-primitive-data-types-from-c.md">從 C 語言映射基本資料型別</a><br/>
        <img src="icon-2.svg" width="20" alt="Second step"/> <strong>從 C 語言映射結構與聯集型別</strong><br/>
-       <img src="icon-3-todo.svg" width="20" alt="Third step"/> <a href="mapping-function-pointers-from-c.md">映射函式指標</a><br/>
+       <img src="icon-3-todo.svg" width="20" alt="Third step"/> <a href="mapping-function-pointers-from-c.md">從 C 語言映射函式指標</a><br/>
        <img src="icon-4-todo.svg" width="20" alt="Fourth step"/> <a href="mapping-strings-from-c.md">從 C 語言映射字串</a><br/>
     </p>
 </tldr>

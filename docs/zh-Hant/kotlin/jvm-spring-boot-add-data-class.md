@@ -86,6 +86,7 @@
             </code-block>
           <p>這是 Kotlin 語法的一個方便功能，完全是可選的 – 即使沒有它們，您的程式碼也能正常運作。</p>
           <p>在上面的範例中，建立 `Message` 物件列表時，在最後一個 `listOf()` 函數參數之後包含了尾隨逗號。</p>
+       </def>
     </deflist>
 
 現在，`MessageController` 的回應將是一個包含 `Message` 物件集合的 JSON 文件。

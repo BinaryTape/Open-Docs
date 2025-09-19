@@ -1,10 +1,10 @@
 [//]: # (title: 타입 안전 빌더)
 
-잘 명명된 함수를 빌더로 사용하고 [리시버가 있는 함수 리터럴](lambdas.md#function-literals-with-receiver)과 조합하면 Kotlin에서 타입 안전하고 정적으로 타입이 지정된 빌더를 만들 수 있습니다.
+[리시버가 있는 함수 리터럴](lambdas.md#function-literals-with-receiver)과 함께 잘 명명된 함수를 빌더로 사용하면 Kotlin에서 타입 안전하고 정적으로 타입이 지정된 빌더를 만들 수 있습니다.
 
-타입 안전 빌더는 Kotlin 기반의 도메인 특화 언어(DSL)를 생성하여 복잡한 계층적 데이터 구조를 반선언적인 방식으로 빌드하는 데 적합합니다. 빌더의 사용 사례는 다음과 같습니다:
+타입 안전 빌더는 복잡한 계층적 데이터 구조를 반선언적인 방식으로 빌드하는 데 적합한 Kotlin 기반의 도메인 특화 언어(DSL)를 생성할 수 있도록 합니다. 빌더의 사용 사례는 다음과 같습니다:
 
-*   Kotlin 코드로 마크업 생성 (예: [HTML](https://github.com/Kotlin/kotlinx.html) 또는 XML)
+*   [HTML](https://github.com/Kotlin/kotlinx.html) 또는 XML과 같은 마크업을 Kotlin 코드로 생성
 *   웹 서버 라우트 구성: [Ktor](https://ktor.io/docs/routing.html)
 
 다음 코드를 살펴보세요:
@@ -167,7 +167,7 @@ operator fun String.unaryPlus() {
 ## 스코프 제어: @DslMarker
 
 DSL을 사용할 때, 컨텍스트 내에서 너무 많은 함수를 호출할 수 있는 문제에 직면할 수 있습니다.
-람다 내에서 사용 가능한 모든 암시적 리시버의 메서드를 호출할 수 있으므로, `head` 태그 안에 또 다른 `head` 태그가 있는 것처럼 일관되지 않은 결과를 얻을 수 있습니다:
+람다 내에서 사용 가능한 모든 [암시적 리시버](lambdas.md#function-literals-with-receiver)의 메서드를 호출할 수 있으므로, `head` 태그 안에 또 다른 `head` 태그가 있는 것처럼 일관되지 않은 결과를 얻을 수 있습니다:
 
 ```kotlin
 html {
@@ -263,10 +263,42 @@ html {
 
 람다 내에서는 가장 가까운 리시버의 멤버와 확장만 접근 가능하며, 중첩된 스코프 간의 의도치 않은 상호작용을 방지합니다.
 
+암시적 리시버의 멤버와 [컨텍스트 매개변수](context-parameters.md)의 선언이 모두 동일한 이름의 스코프에 있을 때, 암시적 리시버가 컨텍스트 매개변수에 의해 가려지므로 컴파일러는 경고를 보고합니다.
+이 문제를 해결하려면 `this` 한정자를 사용하여 리시버를 명시적으로 호출하거나, `contextOf<T>()`를 사용하여 컨텍스트 선언을 호출하세요:
+
+```kotlin
+interface HtmlTag {
+    fun setAttribute(name: String, value: String)
+}
+
+// 동일한 이름의 최상위 함수를 선언하며,
+// 이는 컨텍스트 매개변수를 통해 사용 가능합니다.
+context(tag: HtmlTag)
+fun setAttribute(name: String, value: String) { tag.setAttribute(name, value) }
+
+fun test(head: HtmlTag, extraInfo: HtmlTag) {
+    with(head) {
+        // 내부 스코프에서 동일한 타입의 컨텍스트 값을 도입합니다.
+        context(extraInfo) {
+            // 경고를 보고합니다:
+            // 컨텍스트 매개변수에 의해 가려진 암시적 리시버를 사용합니다.
+            setAttribute("user", "1234")
+
+            // 리시버의 멤버를 명시적으로 호출합니다.
+            this.setAttribute("user", "1234")
+
+            // 컨텍스트 선언을 명시적으로 호출합니다.
+            contextOf<HtmlTag>().setAttribute("user", "1234")
+        }
+    }
+}
+```
+
 ### com.example.html 패키지의 전체 정의
 
 이는 `com.example.html` 패키지가 어떻게 정의되었는지 보여줍니다 (위 예제에서 사용된 요소만 포함).
-HTML 트리를 빌드합니다. [확장 함수](extensions.md)와 [리시버가 있는 람다](lambdas.md#function-literals-with-receiver)를 광범위하게 사용합니다.
+HTML 트리를 빌드합니다. [확장 함수](extensions.md)와
+[리시버가 있는 람다](lambdas.md#function-literals-with-receiver)를 광범위하게 사용합니다.
 
 ```kotlin
 package com.example.html

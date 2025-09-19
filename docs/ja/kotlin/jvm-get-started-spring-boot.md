@@ -6,13 +6,13 @@
 
 これらの4つのステップを進めることで、Kotlin言語の多くの重要な機能について学ぶことができます。
 
-![最初のステップ](icon-1.svg){width=25}{type="joined"} [Spring Bootプロジェクトを作成する](jvm-create-project-with-spring-boot.md)
+![First step](icon-1.svg){width=25}{type="joined"} [Spring Bootプロジェクトを作成する](jvm-create-project-with-spring-boot.md)
 
-![2番目のステップ](icon-2.svg){width=25}{type="joined"} [Spring Bootプロジェクトにデータクラスを追加する](jvm-spring-boot-add-data-class.md)
+![Second step](icon-2.svg){width=25}{type="joined"} [Spring Bootプロジェクトにデータクラスを追加する](jvm-spring-boot-add-data-class.md)
 
-![3番目のステップ](icon-3.svg){width=25}{type="joined"} [Spring Bootプロジェクトにデータベースサポートを追加する](jvm-spring-boot-add-db-support.md)
+![Third step](icon-3.svg){width=25}{type="joined"} [Spring Bootプロジェクトにデータベースサポートを追加する](jvm-spring-boot-add-db-support.md)
 
-![4番目のステップ](icon-4.svg){width=25}{type="joined"} [データベースアクセスにSpring Data CrudRepositoryを使用する](jvm-spring-boot-using-crudrepository.md)
+![Fourth step](icon-4.svg){width=25}{type="joined"} [データベースアクセスにSpring Data CrudRepositoryを使用する](jvm-spring-boot-using-crudrepository.md)
 
 ## 次のステップ
 

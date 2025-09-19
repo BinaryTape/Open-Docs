@@ -1,9 +1,11 @@
 [//]: # (title: Kotlin/JS プロジェクトのセットアップ)
 
 Kotlin/JS プロジェクトはビルドシステムとして Gradle を使用します。開発者が Kotlin/JS プロジェクトを簡単に管理できるように、
-Kotlin チームは `kotlin.multiplatform` Gradle プラグインを提供しています。このプラグインは、JavaScript 開発で一般的なルーティンを自動化するためのヘルパータスクとともに、プロジェクト設定ツールを提供します。
+Kotlin チームは、JavaScript 開発で一般的なルーティンを自動化するためのヘルパータスクとともに、プロジェクト設定ツールを提供する
+`kotlin.multiplatform` Gradle プラグインを提供しています。
 
-このプラグインは、[npm](https://www.npmjs.com/) または [Yarn](https://yarnpkg.com/) パッケージマネージャーを使用して npm 依存関係をバックグラウンドでダウンロードし、[webpack](https://webpack.js.org/) を使用して Kotlin プロジェクトから JavaScript バンドルをビルドします。
+このプラグインは、[npm](https://www.npmjs.com/) または [Yarn](https://yarnpkg.com/)
+パッケージマネージャーを使用して npm 依存関係をバックグラウンドでダウンロードし、[webpack](https://webpack.js.org/) を使用して Kotlin プロジェクトから JavaScript バンドルをビルドします。
 依存関係管理と設定の調整は、大部分を Gradle ビルドファイルから直接行うことができ、
 自動生成された設定を上書きして完全に制御することも可能です。
 
@@ -42,6 +44,8 @@ kotlin {
 
 *   [ターゲット実行環境](#execution-environments): ブラウザまたは Node.js
 *   [ES2015機能のサポート](#support-for-es2015-features): クラス、モジュール、ジェネレーター
+*   [出力粒度の構成](#configure-output-granularity)
+*   [TypeScript宣言ファイル（d.ts）の生成](#generation-of-typescript-declaration-files-d-ts)
 *   [プロジェクト依存関係](#dependencies): Maven と npm
 *   [実行設定](#run-task)
 *   [テスト設定](#test-task)
@@ -87,19 +91,67 @@ Kotlin は、以下の ES2015 機能に対して[実験的な (Experimental)](co
 
 *   コードベースを簡素化し、メンテナンス性を向上させるモジュール。
 *   OOP (オブジェクト指向プログラミング) 原則を組み込むことで、よりクリーンで直感的なコードを実現するクラス。
-*   最終バンドルサイズを改善し、デバッグに役立つ[サスペンド関数 (suspend functions)](composing-suspending-functions.md) をコンパイルするためのジェネレーター。
+*   最終バンドルサイズを改善し、デバッグに役立つ[サスペンド関数 (suspend functions)](https://kotlinlang.org/docs/composing-suspending-functions.html) をコンパイルするためのジェネレーター。
 
 `build.gradle(.kts)` ファイルに `es2015` コンパイルターゲットを追加することで、サポートされているすべての ES2015 機能を一度に有効にできます。
 
 ```kotlin
 tasks.withType<KotlinJsCompile>().configureEach {
-    kotlinOptions {
+    compilerOptions {
         target = "es2015"
     }
 }
 ```
 
 [ES2015 (ECMAScript 2015, ES6) の詳細については、公式ドキュメントを参照してください](https://262.ecma-international.org/6.0/)。
+
+## 出力粒度の構成
+
+コンパイラがプロジェクトで `.js` ファイルを出力する方法を選択できます。
+
+*   **モジュールごと**。デフォルトでは、JS コンパイラはコンパイル結果として、プロジェクトの各モジュールに対して個別の `.js` ファイルを出力します。
+*   **プロジェクトごと**。`gradle.properties` ファイルに次の行を追加することで、プロジェクト全体を単一の `.js` ファイルにコンパイルできます。
+
+    ```none
+    kotlin.js.ir.output.granularity=whole-program // 'per-module' is the default
+    ```
+
+*   **ファイルごと**。各 Kotlin ファイルごとに1つ（ファイルにエクスポートされた宣言が含まれる場合は2つ）の JavaScript ファイルを生成する、よりきめ細かい出力を設定できます。ファイルごとのコンパイルモードを有効にするには：
+    1.  ES2015 機能をプロジェクトでサポートするために、[コンパイルターゲット](#support-for-es2015-features)として `es2015` を設定します。
+    2.  `gradle.properties` ファイルに次の行を追加します。
+        ```none
+        kotlin.js.ir.output.granularity=per-file // 'per-module' is the default
+        ```
+
+## TypeScript宣言ファイル（d.ts）の生成
+<primary-label ref="experimental-opt-in"/>
+
+Kotlin/JS コンパイラは、Kotlin コードから TypeScript 定義を生成できます。これらの定義は、ハイブリッドアプリケーションで作業する際に、JavaScript ツールと IDE で次の目的で使用できます。
+
+*   オートコンプリートを提供する
+*   静的アナライザーをサポートする
+*   JavaScript および TypeScript プロジェクトでの Kotlin コードの追加を簡素化する
+
+TypeScript 定義の生成は、[ビジネスロジック共有のユースケース](js-overview.md#use-cases-for-kotlin-js)で特に価値があります。
+
+コンパイラは、[`@JsExport`](js-to-kotlin-interop.md#jsexport-annotation) でマークされたトップレベル宣言をすべて収集し、対応する
+`.d.ts` ファイルに TypeScript 定義を自動的に生成します。
+
+TypeScript 定義を生成するには、Gradle ビルドファイルで明示的に構成します。
+[`js {}` ブロック](js-project-setup.md#execution-environments)の `build.gradle.kts` ファイルに `generateTypeScriptDefinitions()` 関数を追加します。
+
+```kotlin
+kotlin {
+    js {
+        binaries.executable()
+        browser {
+        }
+        generateTypeScriptDefinitions()
+    }
+}
+```
+
+定義は、対応する un-webpacked JavaScript コードとともに、`build/js/packages/<package_name>/kotlin` ディレクトリで見つけることができます。
 
 ## 依存関係
 
@@ -704,7 +756,7 @@ rootProject.plugins.withType(org.jetbrains.kotlin.gradle.targets.js.yarn.YarnPlu
 {style="note"}
 
 プロジェクトルートにある `kotlin-js-store` ディレクトリは、バージョンロックに必要な `yarn.lock` ファイルを保持するために、Kotlin Multiplatform Gradle プラグインによって自動的に生成されます。
-このロックファイルは Yarn プラグインによって完全に管理され、`kotlinNpmInstall` Gradle タスクの実行中に更新されます。
+ロックファイルは Yarn プラグインによって完全に管理され、`kotlinNpmInstall` Gradle タスクの実行中に更新されます。
 
 [推奨されるプラクティス](https://classic.yarnpkg.com/blog/2016/11/24/lockfiles-for-all/)に従い、`kotlin-js-store` とその内容をバージョン管理システムにコミットしてください。
 これにより、すべてのマシンでアプリケーションがまったく同じ依存関係ツリーでビルドされることが保証されます。
@@ -873,11 +925,11 @@ kotlin {
 ## モジュール名
 
 JavaScript _モジュール_ ( `build/js/packages/myModuleName` に生成される) の名前を調整するには、
-対応する `.js` ファイルと `.d.ts` ファイルを含め、`moduleName` オプションを使用します。
+対応する `.js` ファイルと `.d.ts` ファイルを含め、`outputModuleName` オプションを使用します。
 
 ```groovy
 js {
-    moduleName = "myModuleName"
+    outputModuleName = "myModuleName"
 }
 ```
 
@@ -892,7 +944,7 @@ Kotlin Multiplatform Gradle プラグインは、ビルド時に Kotlin/JS プ�
 デフォルトでは、このファイルには必須のデータが含まれています。名前、バージョン、ライセンス、依存関係、およびその他のパッケージ属性です。
 
 基本的なパッケージ属性以外に、`package.json` は JavaScript プロジェクトがどのように動作すべきかを定義できます。
-例えば、実行可能なスクリプトを識別するなどです。
+例として、実行可能なスクリプトを識別するなどです。
 
 Gradle DSL を介して、プロジェクトの `package.json` にカスタムエントリを追加できます。
 `package.json` にカスタムフィールドを追加するには、コンパイルの `packageJson` ブロックで `customField()` 関数を使用します。

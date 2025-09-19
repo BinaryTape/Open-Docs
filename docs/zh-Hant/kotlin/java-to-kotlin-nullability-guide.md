@@ -6,7 +6,7 @@ _可為空性_ 是一個變數能夠持有 `null` 值的特性。
 當變數包含 `null` 時，嘗試解除參照該變數會導致 `NullPointerException`。
 有許多方法可以編寫程式碼，以最大程度地降低收到 null 指標例外 (null pointer exceptions) 的可能性。
 
-本指南介紹了 Java 和 Kotlin 在處理可能為空 (possibly nullable) 變數方面的不同方法。
+本指南涵蓋了 Java 和 Kotlin 在處理可能為空 (possibly nullable) 變數方面的不同方法。
 它將幫助您從 Java 遷移到 Kotlin，並以純正的 Kotlin 風格編寫您的程式碼。
 
 本指南的第一部分涵蓋了最重要的區別——Kotlin 中對 [可為空型別](null-safety.md) 的支援，以及 Kotlin 如何處理 [來自 Java 程式碼的型別](#platform-types)。第二部分從
@@ -321,6 +321,47 @@ fun getStringLength(y: Any): Int {
 然而，讓此類函式傳回負值然後檢查該值會更有效率，因為無論如何您都會執行檢查，而且這種方式不會執行額外的裝箱。
 >
 {style="note"}
+
+將 Java 程式碼遷移到 Kotlin 時，您可能希望最初使用帶有可為空型別的常規轉型運算子 `as`，以保留程式碼的原始語義。然而，我們建議您調整程式碼，使用安全轉型運算子 `as?`，以獲得更安全、更具慣用語風格的方法。例如，如果您有以下 Java 程式碼：
+
+```java
+public class UserProfile {
+    Object data;
+
+    public static String getUsername(UserProfile profile) {
+        if (profile == null) {
+            return null;
+        }
+        return (String) profile.data;
+    }
+}
+```
+
+將其直接使用 `as` 運算子遷移後，您會得到：
+
+```kotlin
+class UserProfile(var data: Any? = null)
+
+fun getUsername(profile: UserProfile?): String? {
+    if (profile == null) {
+        return null
+    }
+    return profile.data as String?
+}
+```
+
+在這裡，`profile.data` 使用 `as String?` 轉型為可為空字串。
+
+我們建議進一步使用 `as? String` 安全地轉型該值。這種方法在失敗時傳回 `null`，而不是拋出 `ClassCastException`：
+
+```kotlin
+class UserProfile(var data: Any? = null)
+
+fun getUsername(profile: UserProfile?): String? =
+  profile?.data as? String
+```
+
+這個版本用 [安全呼叫運算子](null-safety.md#safe-call-operator) `?.` 取代了 `if` 表達式，它在嘗試轉型之前安全地存取 `data` 屬性。
 
 ## 接下來？
 

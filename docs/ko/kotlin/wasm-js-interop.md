@@ -1,5 +1,7 @@
 [//]: # (title: JavaScript 상호 운용성)
 
+<primary-label ref="beta"/>
+
 Kotlin/Wasm은 Kotlin에서 JavaScript 코드를 사용하고, JavaScript에서 Kotlin 코드를 사용할 수 있도록 합니다.
 
 [Kotlin/JS](js-overview.md)와 마찬가지로, Kotlin/Wasm 컴파일러 역시 JavaScript와의 상호 운용성을 지원합니다. Kotlin/JS 상호 운용성에 익숙하다면 Kotlin/Wasm 상호 운용성도 유사하다는 것을 알 수 있습니다. 하지만, 고려해야 할 주요 차이점이 있습니다.
@@ -331,7 +333,7 @@ Kotlin 타입이 JavaScript 타입에 어떻게 대응하는지 확인하십시�
 JavaScript 값은 Kotlin에서 `JsAny` 타입과 그 서브타입을 사용하여 표현됩니다.
 
 Kotlin/Wasm 표준 라이브러리는 이러한 타입 중 일부에 대한 표현을 제공합니다:
-* `kotlin.js` 패키지:
+* 패키지 `kotlin.js`:
     * `JsAny`
     * `JsBoolean`, `JsNumber`, `JsString`
     * `JsArray`
@@ -387,29 +389,14 @@ external fun <T : JsAny> processData(data: JsArray<T>): T
 
 ## 예외 처리 (Exception handling)
 
-Kotlin `try-catch` 표현식을 사용하여 JavaScript 예외를 잡을 수 있습니다.
-그러나 Kotlin/Wasm에서는 기본적으로 던져진 값에 대한 특정 세부 정보에 접근하는 것이 불가능합니다.
+Kotlin `try-catch` 표현식을 사용하여 Kotlin/Wasm 코드에서 JavaScript 예외를 잡을 수 있습니다.
+예외 처리는 다음과 같이 작동합니다:
 
-`JsException` 타입을 구성하여 JavaScript에서 원래 오류 메시지와 스택 트레이스를 포함할 수 있습니다.
-이렇게 하려면 `build.gradle.kts` 파일에 다음 컴파일러 옵션을 추가하십시오:
+* JavaScript에서 던져진 예외: Kotlin 측에서 자세한 정보를 사용할 수 있습니다. 이러한 예외가 JavaScript로 다시 전파되면 더 이상 WebAssembly로 래핑되지 않습니다.
 
-```kotlin
-kotlin {
-    wasmJs {
-        compilerOptions {
-            freeCompilerArgs.add("-Xwasm-attach-js-exception")
-        }
-    }
-}
-```
+* Kotlin에서 던져진 예외: JavaScript 측에서 일반 JS 오류로 잡을 수 있습니다.
 
-이 동작은 `WebAssembly.JSTag` API에 따라 달라지며, 이 API는 특정 브라우저에서만 사용할 수 있습니다:
-
-* **Chrome:** 버전 115부터 지원
-* **Firefox:** 버전 129부터 지원
-* **Safari:** 아직 지원되지 않음
-
-다음은 이 동작을 보여주는 예시입니다:
+다음은 Kotlin 측에서 JavaScript 예외를 잡는 것을 보여주는 예시입니다:
 
 ```kotlin
 external object JSON {
@@ -435,14 +422,15 @@ fun main() {
 }
 ```
 
-`-Xwasm-attach-js-exception` 컴파일러 옵션을 활성화하면 `JsException` 타입이 JavaScript 오류로부터 특정 세부 정보를 제공합니다.
-이 컴파일러 옵션을 활성화하지 않으면 `JsException`은 JavaScript 코드를 실행하는 동안 예외가 발생했다는 일반적인 메시지만 포함합니다.
+이 예외 처리는 [`WebAssembly.JSTag`](https://webassembly.github.io/exception-handling/js-api/#dom-webassembly-jstag) 기능을 지원하는 최신 브라우저에서 자동으로 작동합니다:
 
-JavaScript `try-catch` 표현식을 사용하여 Kotlin/Wasm 예외를 잡으려고 하면, 직접 접근할 수 있는 메시지나 데이터 없이 일반적인 `WebAssembly.Exception`처럼 보입니다.
+* Chrome 115+
+* Firefox 129+
+* Safari 18.4+
 
 ## Kotlin/Wasm과 Kotlin/JS 상호 운용성 차이점
 
-Kotlin/Wasm 상호 운용성이 Kotlin/JS 상호 운용성과 유사점을 공유하지만, 고려해야 할 주요 차이점이 있습니다:
+Kotlin/Wasm 상호 운용성은 Kotlin/JS 상호 운용성과 유사점을 공유하지만, 고려해야 할 주요 차이점이 있습니다:
 
 |                         | **Kotlin/Wasm**                                                                                                                                                                                                     | **Kotlin/JS**                                                                                                                                       |
 |-------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -458,7 +446,7 @@ Kotlin/Wasm 상호 운용성이 Kotlin/JS 상호 운용성과 유사점을 공�
 | **예외 처리**             | `JsException` 및 `Throwable` 타입을 사용하여 모든 JavaScript 예외를 잡을 수 있습니다.                                                                                                                                | `Throwable` 타입을 사용하여 JavaScript `Error`를 잡을 수 있습니다. `dynamic` 타입을 사용하여 모든 JavaScript 예외를 잡을 수 있습니다.                            |
 | **다이나믹 타입**         | `dynamic` 타입을 지원하지 않습니다. 대신 `JsAny`를 사용하십시오 (아래 샘플 코드 참조).                                                                                                                              | `dynamic` 타입을 지원합니다.                                                                                                                        |
 
-> 타입이 없거나 느슨하게 타입이 지정된 객체와의 상호 운용성을 위한 Kotlin/JS [다이나믹 타입](dynamic-type.md)은
+> Kotlin/JS [다이나믹 타입](dynamic-type.md)은 타입이 없거나 느슨하게 타입이 지정된 객체와의 상호 운용성을 위해
 > Kotlin/Wasm에서 지원되지 않습니다. `dynamic` 타입 대신 `JsAny` 타입을 사용할 수 있습니다:
 >
 > ```kotlin
@@ -484,14 +472,14 @@ Kotlin/Wasm 상호 운용성이 Kotlin/JS 상호 운용성과 유사점을 공�
 
 ## 웹 관련 브라우저 API
 
-[`kotlinx-browser` 라이브러리](https://github.com/kotlin/kotlinx-browser)는 독립형
-라이브러리로, 다음을 포함한 JavaScript 브라우저 API를 제공합니다:
-* `org.khronos.webgl` 패키지:
+[`kotlinx-browser` 라이브러리](https://github.com/kotlin/kotlinx-browser)는 다음을 포함한 JavaScript 브라우저 API를 제공하는 독립형
+라이브러리입니다:
+* 패키지 `org.khronos.webgl`:
   * `Int8Array`와 같은 타입이 지정된 배열.
   * WebGL 타입.
-* `org.w3c.dom.*` 패키지:
+* 패키지 `org.w3c.dom.*`:
   * DOM API 타입.
-* `kotlinx.browser` 패키지:
+* 패키지 `kotlinx.browser`:
   * `window` 및 `document`와 같은 DOM API 전역 객체.
 
 `kotlinx-browser` 라이브러리의 선언을 사용하려면, 프로젝트의 빌드 구성 파일에 이를 의존성으로 추가하십시오:
@@ -502,4 +490,3 @@ val wasmJsMain by getting {
         implementation("org.jetbrains.kotlinx:kotlinx-browser:0.3")
     }
 }
-```

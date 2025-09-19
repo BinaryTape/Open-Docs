@@ -56,10 +56,6 @@ kotlin {
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="org.jetbrains.androidx.navigation:navigation-compose:%org.jetbrains.androidx.navigation%"}
 
-> Compose Multiplatform %org.jetbrains.compose% は Navigationライブラリバージョン %org.jetbrains.androidx.navigation% を必要とします。
->
-{style="note"}
-
 ナビゲーションを設定するために必要な手順には、理にかなった順序があります。
 
 1.  ルートを定義します。

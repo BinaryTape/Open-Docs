@@ -21,10 +21,10 @@ Kotlin 兼具物件導向和函數式結構。您可以用 OO 和 FP 風格使�
 ### 相較於 Java 程式語言，Kotlin 帶給我哪些優勢？
 
 Kotlin 更簡潔。粗略估計，程式碼行數約可減少 40%。它也更型別安全 —— 例如，對非空型別的支援讓應用程式較不容易發生 NPE (空指標例外)。其他特性包括智慧型轉型 (smart casting)、高階函數、擴充函數 (extension functions) 和帶接收者的 Lambda (lambdas with receivers)，提供了編寫表達性程式碼的能力，並有助於建立 DSL (領域特定語言)。
-
+ 
 ### Kotlin 與 Java 程式語言相容嗎？
 
-是的。Kotlin 與 Java 程式語言 100% 互通，並且主要重點是確保您現有的程式碼庫能與 Kotlin 正確互動。您可以輕鬆地從 [Java 呼叫 Kotlin 程式碼](java-to-kotlin-interop.md) 以及從 [Kotlin 呼叫 Java 程式碼](java-interop.md)。這使得採用 Kotlin 更容易、風險更低。IDE 中也內建了自動化的 [Java 轉 Kotlin 轉換器](mixing-java-kotlin-intellij.md#converting-an-existing-java-file-to-kotlin-with-j2k)，簡化了現有程式碼的遷移。
+是的。Kotlin 與 Java 程式語言 100% 互通，並且主要重點是確保您現有的程式碼庫能與 Kotlin 正確互動。您可以輕鬆地從 [Java 呼叫 Kotlin 程式碼](java-to-kotlin-interop.md) 以及從 [Kotlin 呼叫 Java 程式碼](java-interop.md)。這使得採用更容易、風險更低。IDE 中也內建了自動化的 [Java 轉 Kotlin 轉換器](mixing-java-kotlin-intellij.md#converting-an-existing-java-file-to-kotlin-with-j2k)，簡化了現有程式碼的遷移。
 
 ### Kotlin 可以用來做什麼？
 
@@ -59,7 +59,7 @@ Kotlin 在 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/) 和 [Androi
 您也可以嘗試使用 [Kotlin Playground](https://play.kotlinlang.org) 在瀏覽器中編寫、執行和分享 Kotlin 程式碼。
 
 此外，還提供[命令列編譯器](command-line.md)，它為應用程式的編譯和執行提供了直接的支援。
-
+  
 ### 哪些建構工具支援 Kotlin？
 
 在 JVM 方面，主要的建構工具包括 [Gradle](gradle.md) 和 [Maven](maven.md)。還有一些針對用戶端 JavaScript 的建構工具可用。
@@ -79,11 +79,11 @@ Kotlin 讓您可以選擇用於執行的 JVM 版本。預設情況下，Kotlin/J
 ### Kotlin 難學嗎？
 
 Kotlin 受現有語言啟發，例如 Java、C#、JavaScript、Scala 和 Groovy。我們已努力確保 Kotlin 易於學習，讓大家能在數天內輕鬆上手，閱讀和編寫 Kotlin 程式碼。學習慣用 (idiomatic) 的 Kotlin 並使用更多其進階功能可能需要更長的時間，但總體而言，它並不是一門複雜的語言。欲了解更多資訊，請查看[我們的學習資料](learning-materials-overview.md)。
-
+ 
 ### 哪些公司正在使用 Kotlin？
-
+ 
 使用 Kotlin 的公司不勝枚舉，但一些已透過部落格文章、GitHub 儲存庫或演講公開聲明使用 Kotlin 的知名公司包括 [Square](https://medium.com/square-corner-blog/square-open-source-loves-kotlin-c57c21710a17)、[Pinterest](https://www.youtube.com/watch?v=mDpnc45WwlI)、[Basecamp](https://signalvnoise.com/svn3/using-kotlin-to-make-android-apis-fun-again/) 和 [Corda](https://corda.net/blog/kotlin/)。
-
+ 
 ### 誰開發了 Kotlin？
 
 Kotlin 由 [JetBrains 的工程師團隊](https://www.jetbrains.com/)開發 (目前團隊規模超過 100 人)。首席語言設計師是 Michail Zarečenskij。除了核心團隊之外，GitHub 上還有超過 250 名的外部貢獻者。
@@ -105,14 +105,14 @@ Kotlin 由 [JetBrains 的工程師團隊](https://www.jetbrains.com/)開發 (目
 * [O'Reilly 課程：Kotlin 程式設計導論](https://www.oreilly.com/library/view/introduction-to-kotlin/9781491964125/)，作者 Hadi Hariri
 * [Udemy 課程：10 個 Kotlin 初學者教程](https://petersommerhoff.com/dev/kotlin/kotlin-beginner-tutorial/)，作者 Peter Sommerhoff
 
-您也可以查看[我們的 YouTube 頻道](https://www.youtube.com/c/Kotlin)上的其他教程和內容。
+您也可以查看[我們的 YouTube 頻道](https://www.youtube.com/c/Kotlin)上的其他教學和內容。
 
 ### Kotlin 有社群嗎？
 
 是的！Kotlin 有一個非常活躍的社群。Kotlin 開發者活躍於 [Kotlin 論壇](https://discuss.kotlinlang.org)、[StackOverflow](https://stackoverflow.com/questions/tagged/kotlin) 以及更活躍地在 [Kotlin Slack](https://slack.kotlinlang.org) 上 (截至 2020 年 4 月，成員接近 30000 人)。
 
 ### 有沒有 Kotlin 活動？
-
+ 
 是的！現在有許多[使用者群組和聚會](https://kotlinlang.org/user-groups/user-group-list.html)專注於 Kotlin。此外，世界各地還有社群組織的 [Kotlin 之夜](https://kotlinlang.org/community/events.html)活動。
 
 ### 有沒有 Kotlin 大會？

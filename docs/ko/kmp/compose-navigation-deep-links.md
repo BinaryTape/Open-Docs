@@ -4,7 +4,7 @@
 
 딥 링크는 앱 링크(Android 용어) 또는 유니버설 링크(iOS 용어)의 더 일반적인 경우입니다. 이들은 앱과 특정 웹 주소 간의 검증된 연결입니다. 이에 대해 자세히 알아보려면 [Android 앱 링크](https://developer.android.com/training/app-links) 및 [iOS 유니버설 링크](https://developer.apple.com/documentation/xcode/allowing-apps-and-websites-to-link-to-your-content/) 문서를 참조하세요.
 
-딥 링크는 앱으로 외부 입력을 가져오는 데에도 유용할 수 있습니다. 예를 들어 OAuth 인증의 경우, 사용자를 시각적으로 탐색시키지 않고도 딥 링크를 파싱하여 OAuth 토큰을 얻을 수 있습니다.
+딥 링크는 앱으로 외부 입력을 가져오는 데에도 유용할 수 있습니다. 예를 들어 OAuth 인증의 경우, 딥 링크를 파싱하여 OAuth 토큰을 얻을 수 있으며, 사용자를 시각적으로 탐색시키지 않아도 됩니다.
 
 > 외부 입력은 악성일 수 있으므로, 원시 딥 링크 URI 처리와 관련된 위험을 적절히 완화하려면 [보안 지침](https://developer.android.com/privacy-and-security/risks/unsafe-use-of-deeplinks)을 반드시 따르세요.
 >
@@ -74,17 +74,13 @@ kotlin {
 
 각 운영 체제는 딥 링크를 처리하는 고유한 방식을 가지고 있습니다. 특정 대상에 대한 문서를 참조하는 것이 더 확실합니다:
 
-*   Android 앱의 경우, 딥 링크 스키마는 `AndroidManifest.xml` 파일에 인텐트 필터로 선언됩니다.
-    인텐트 필터를 올바르게 설정하는 방법에 대해 알아보려면 [Android 문서](https://developer.android.com/training/app-links/deep-linking?hl=en#adding-filters)를 참조하세요.
+*   Android 앱의 경우, 딥 링크 스키마는 `AndroidManifest.xml` 파일에 인텐트 필터로 선언됩니다. 인텐트 필터를 올바르게 설정하는 방법에 대해 알아보려면 [Android 문서](https://developer.android.com/training/app-links/deep-linking?hl=en#adding-filters)를 참조하세요.
 *   iOS 및 macOS 앱의 경우, 딥 링크 스키마는 `Info.plist` 파일의 [CFBundleURLTypes](https://developer.apple.com/documentation/bundleresources/information-property-list/cfbundleurltypes) 키에 선언됩니다.
 
-    > Compose Multiplatform은 macOS 앱의 `Info.plist`에 값을 추가하는 [Gradle DSL](compose-native-distribution.md#information-property-list-on-macos)을 제공합니다.
-    > iOS의 경우, KMP 프로젝트에서 파일을 직접 편집하거나 [Xcode GUI를 사용하여 스키마를 등록](https://developer.apple.com/documentation/xcode/defining-a-custom-url-scheme-for-your-app#Register-your-URL-scheme)할 수 있습니다.
+    > Compose Multiplatform은 macOS 앱의 `Info.plist`에 값을 추가하는 [Gradle DSL](compose-native-distribution.md#information-property-list-on-macos)을 제공합니다. iOS의 경우, KMP 프로젝트에서 파일을 직접 편집하거나 [Xcode GUI를 사용하여 스키마를 등록](https://developer.apple.com/documentation/xcode/defining-a-custom-url-scheme-for-your-app#Register-your-URL-scheme)할 수 있습니다.
     >
     {style="note"}
-*   Windows 앱의 경우, 딥 링크 스키마는 Windows 8 이하의 경우 [필요한 정보가 있는 키를 Windows 레지스트리에 추가](https://learn.microsoft.com/en-us/previous-versions/windows/internet-explorer/ie-developer/platform-apis/aa767914(v=vs.85))하거나 Windows 10 및 11의 경우 [패키지 매니페스트에 확장자를 지정](https://learn.microsoft.com/en-us/windows/apps/develop/launch/handle-uri-activation)하여 선언할 수 있습니다.
-    이는 설치 스크립트나 [Hydraulic Conveyor](https://conveyor.hydraulic.dev/)와 같은 타사 배포 패키지 생성기를 통해 수행할 수 있습니다.
-    Compose Multiplatform은 프로젝트 내에서 이를 구성하는 것을 지원하지 않습니다.
+*   Windows 앱의 경우, 딥 링크 스키마는 Windows 8 이하의 경우 [필요한 정보가 있는 키를 Windows 레지스트리에 추가](https://learn.microsoft.com/en-us/previous-versions/windows/internet-explorer/ie-developer/platform-apis/aa767914(v=vs.85))하거나 Windows 10 및 11의 경우 [패키지 매니페스트에 확장자를 지정](https://learn.microsoft.com/en-us/windows/apps/develop/launch/handle-uri-activation)하여 선언할 수 있습니다. 이는 설치 스크립트나 [Hydraulic Conveyor](https://conveyor.hydraulic.dev/)와 같은 타사 배포 패키지 생성기를 통해 수행할 수 있습니다. Compose Multiplatform은 프로젝트 내에서 이를 구성하는 것을 지원하지 않습니다.
 
     > [Windows에서 예약된 스키마](https://learn.microsoft.com/en-us/windows/apps/develop/launch/reserved-uri-scheme-names#reserved-uri-scheme-names) 중 하나를 사용하지 않는지 확인하세요.
     >
@@ -93,7 +89,7 @@ kotlin {
 
 ## 목적지에 딥 링크 할당
 
-탐색 그래프의 일부로 선언된 목적지는 해당 `NavDeepLink` 객체 목록을 포함할 수 있는 선택적 `deepLinks` 매개변수를 가집니다. 각 `NavDeeplink`는 목적지와 일치해야 하는 URI 패턴을 설명합니다. 동일한 화면으로 연결되어야 하는 여러 URI 패턴을 정의할 수 있습니다.
+탐색 그래프의 일부로 선언된 목적지는 해당 `NavDeepLink` 객체 목록을 포함할 수 있는 선택적 `deepLinks` 매개변수를 가집니다. 각 `NavDeepLink`는 목적지와 일치해야 하는 URI 패턴을 설명합니다. 동일한 화면으로 연결되어야 하는 여러 URI 패턴을 정의할 수 있습니다.
 
 경로에 정의할 수 있는 딥 링크 수에는 제한이 없습니다.
 
@@ -103,18 +99,13 @@ kotlin {
 
 일반 URI 패턴 규칙:
 
-*   스키마가 없는 URI는 `http://` 또는 `https://`로 시작한다고 가정합니다.
-    따라서 `uriPattern = "example.com"`은 `http://example.com` 및 `https://example.com`과 일치합니다.
-*   `{placeholder}`는 하나 이상의 문자와 일치합니다 (`example.com/name={name}`은 `https://example.com/name=Bob`과 일치).
-    0개 이상의 문자와 일치시키려면 `.*` 와일드카드(`example.com/name={.*}`은 `https://example.com/name=`과 `name`의 모든 값과 일치)를 사용하세요.
-*   경로 플레이스홀더에 대한 매개변수는 필수이며, 쿼리 플레이스홀더는 선택 사항입니다.
-    예를 들어, 패턴 `example.com/users/{id}?arg1={arg1}&arg2={arg2}`는 다음과 같습니다:
+*   스키마가 없는 URI는 `http://` 또는 `https://`로 시작한다고 가정합니다. 따라서 `uriPattern = "example.com"`은 `http://example.com` 및 `https://example.com`과 일치합니다.
+*   `{placeholder}`는 하나 이상의 문자와 일치합니다 (`example.com/name={name}`은 `https://example.com/name=Bob`과 일치). 0개 이상의 문자와 일치시키려면 `.*` 와일드카드(`example.com/name={.*}`은 `https://example.com/name=`과 `name`의 모든 값과 일치)를 사용하세요.
+*   경로 플레이스홀더에 대한 매개변수는 필수이며, 쿼리 플레이스홀더는 선택 사항입니다. 예를 들어, 패턴 `example.com/users/{id}?arg1={arg1}&arg2={arg2}`는 다음과 같습니다:
     *   필수 경로 부분(`id`)이 없기 때문에 `http://www.example.com/users?arg1=one&arg2=two`와 일치하지 않습니다.
     *   `http://www.example.com/users/4?arg2=two`와 `http://www.example.com/users/4?arg1=one` 모두와 일치합니다.
     *   `http://www.example.com/users/4?other=random`과도 일치합니다. 왜냐하면 불필요한 쿼리 매개변수는 일치에 영향을 미치지 않기 때문입니다.
-*   여러 컴포저블이 수신된 URI와 일치하는 `navDeepLink`를 가지고 있다면 동작은 불확실합니다.
-    딥 링크 패턴이 서로 교차하지 않도록 하세요.
-    여러 컴포저블이 동일한 딥 링크 패턴을 처리해야 하는 경우, 경로 또는 쿼리 매개변수를 추가하거나, 중간 목적지를 사용하여 사용자를 예측 가능하게 라우팅하는 것을 고려하세요.
+*   여러 컴포저블이 수신된 URI와 일치하는 `navDeepLink`를 가지고 있다면 동작은 불확실합니다. 딥 링크 패턴이 서로 교차하지 않도록 하세요. 여러 컴포저블이 동일한 딥 링크 패턴을 처리해야 하는 경우, 경로 또는 쿼리 매개변수를 추가하거나, 중간 목적지를 사용하여 사용자를 예측 가능하게 라우팅하는 것을 고려하세요.
 
 ### 경로 타입에 대한 생성된 URI 패턴
 
@@ -180,7 +171,7 @@ NavHost(
             navDeepLink { uriPattern = "demo://example2.org/name={name}" },
             // The generated pattern only handles the parameters,
             // so we add the serial name for the route type
-            navDeepLink<Screen3>(basePath = "$firstBasePath/dlscreen"),
+            navDeepLink<DeepLinkScreen>(basePath = "$firstBasePath/dlscreen"),
         )
     ) {
         // If the app receives the URI `demo://example1.org/dlscreen/Jane/`,
@@ -213,8 +204,7 @@ composable<DeepLinkScreen>(
     ) { ... }
 ```
 
-> 다른 단일 페이지 웹 앱과 마찬가지로, 웹에서 URL 프래그먼트를 사용하지 않을 수 있습니다.
-> 이를 위해 웹 서버를 구성하여 적절한 요청을 앱으로 리디렉션하고 [탐색 경로와 브라우저 주소의 기본 매핑](compose-navigation-routing.md#full-url-customization)을 다시 작성해야 합니다.
+> 다른 단일 페이지 웹 앱과 마찬가지로, 웹에서 URL 프래그먼트를 사용하지 않을 수 있습니다. 이를 위해 웹 서버를 구성하여 적절한 요청을 앱으로 리디렉션하고 [탐색 경로와 브라우저 주소의 기본 매핑](compose-navigation-routing.md#full-url-customization)을 다시 작성해야 합니다.
 >
 {style="tip"}
 
@@ -348,9 +338,6 @@ internal fun App(navController: NavHostController = rememberNavController()) = A
 
 ## 결과
 
-이제 전체 워크플로를 확인할 수 있습니다:
-사용자가 `demo://` URI를 열면 운영 체제가 이를 등록된 스키마와 일치시킵니다.
-그러면:
-*   딥 링크를 처리하는 앱이 닫혀 있는 경우, 싱글톤이 URI를 수신하여 캐시합니다.
-    메인 컴포저블 함수가 시작될 때, 싱글톤을 호출하고 캐시된 URI와 일치하는 딥 링크로 이동합니다.
+이제 전체 워크플로를 확인할 수 있습니다: 사용자가 `demo://` URI를 열면 운영 체제가 이를 등록된 스키마와 일치시킵니다. 그러면:
+*   딥 링크를 처리하는 앱이 닫혀 있는 경우, 싱글톤이 URI를 수신하여 캐시합니다. 메인 컴포저블 함수가 시작될 때, 싱글톤을 호출하고 캐시된 URI와 일치하는 딥 링크로 이동합니다.
 *   딥 링크를 처리하는 앱이 열려 있는 경우, 리스너가 이미 설정되어 있으므로 싱글톤이 URI를 수신하면 앱이 즉시 해당 URI로 이동합니다.

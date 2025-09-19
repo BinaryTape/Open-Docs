@@ -1,4 +1,4 @@
-[//]: # (title: Kotlin 1.7.20 の新機能)
+[//]: # (title: Kotlin 1.7.20の新機能)
 
 <tldr>
    <p>Kotlin 1.7.20のIDEサポートは、IntelliJ IDEA 2021.3、2022.1、および 2022.2 で利用できます。</p>
@@ -15,7 +15,7 @@ Kotlin 1.7.20 がリリースされました！ 本リリースにおける主�
 
 変更点の簡単な概要については、この動画もご覧ください。
 
-<video src="https://www.youtube.com/v/OG9npowJgE8" title="Kotlin 1.7.20の新機能"/>
+<video src="https://www.youtube.com/v/OG9npowJgE8" title="What's new in Kotlin 1.7.20"/>
 
 ## Kotlin K2 コンパイラープラグインのサポート
 
@@ -96,7 +96,7 @@ Kotlin 1.7.20では、新しい言語機能のプレビュー版を導入する�
 
 本リリースでは、新しい `..<` 演算子が導入されました。Kotlinには、値の範囲を表す `..` 演算子があります。新しい `..<` 演算子は `until` 関数のように機能し、開区間を定義するのに役立ちます。
 
-<video src="https://www.youtube.com/watch?v=v0AHdAIBnbs" title="開区間用の新しい演算子"/>
+<video src="https://www.youtube.com/watch?v=v0AHdAIBnbs" title="New operator for open-ended ranges"/>
 
 私たちの調査によると、この新しい演算子は、開区間をより適切に表現し、上限が含まれていないことを明確にするのに役立ちます。
 
@@ -107,7 +107,7 @@ when (value) {
     in 0.0..<0.25 -> // First quarter
     in 0.25..<0.5 -> // Second quarter
     in 0.5..<0.75 -> // Third quarter
-    in 0.75..1.0 ->  // Last quarter  <- ここでは閉区間であることに注意
+    in 0.75..1.0 ->  // Last quarter  <- Note closed range here
 }
 ```
 {validate="false"}
@@ -165,7 +165,7 @@ class IntRange : IntProgression(...), ClosedRange<Int>, OpenEndRange<Int> {
 
 本リリースでは、新しい種類の `object` 宣言である `data object` が利用可能になりました。[データオブジェクト](https://youtrack.jetbrains.com/issue/KT-4107)は、概念的には通常の `object` 宣言と同一に動作しますが、きれいな `toString` 表現が標準で提供されます。
 
-<video src="https://www.youtube.com/v/ovAqcwFhEGc" title="Kotlin 1.7.20 のデータオブジェクト"/>
+<video src="https://www.youtube.com/v/ovAqcwFhEGc" title="Data objects in Kotlin 1.7.20"/>
 
 ```kotlin
 package org.example
@@ -332,7 +332,7 @@ Kotlin 1.7.20では、ジェネリックなインラインクラスを導入し�
 
 Kotlin 1.7.20では、JVMインラインクラスの基底型を型パラメーターにすることを可能にします。コンパイラーはそれを `Any?` にマップするか、一般的には型パラメーターの上限にマップします。
 
-<video src="https://www.youtube.com/v/0JRPA0tt9og" title="Kotlin 1.7.20 のジェネリックなインラインクラス"/>
+<video src="https://www.youtube.com/v/0JRPA0tt9og" title="Generic inline classes in Kotlin 1.7.20"/>
 
 以下の例を検討してください。
 
@@ -340,7 +340,7 @@ Kotlin 1.7.20では、JVMインラインクラスの基底型を型パラメー�
 @JvmInline
 value class UserId<T>(val value: T)
 
-fun compute(s: UserId<String>) {} // コンパイラーは fun compute-<hashcode>(s: Any?) を生成します
+fun compute(s: UserId<String>) {} // Compiler generates fun compute-<hashcode>(s: Any?)
 ```
 
 関数はインラインクラスをパラメーターとして受け入れます。パラメーターは型引数ではなく、上限にマップされます。
@@ -561,7 +561,7 @@ Kotlin 1.7.20では、`java.nio.file.Path` クラス向けに新しい[拡張関
 * `fileVisitor()` は、`FileVisitor` を個別に作成することを可能にします。`FileVisitor` は、ディレクトリとファイルを走査する際のアクションを定義します。
 * `visitFileTree(fileVisitor: FileVisitor, ...)` は、準備された `FileVisitor` を受け取り、内部で `java.nio.file.Files.walkFileTree()` を使用します。
 * `visitFileTree(..., builderAction: FileVisitorBuilder.() -> Unit)` は、`builderAction` を使用して `FileVisitor` を作成し、`visitFileTree(fileVisitor, ...)` 関数を呼び出します。
-* `FileVisitor` の戻り値の型である `FileVisitResult` は、`CONTINUE` というデフォルト値を持っています。これはファイルの処理を続行します。
+* `FileVisitResult` の戻り値の型である `FileVisitor` は、`CONTINUE` というデフォルト値を持っています。これはファイルの処理を続行します。
 
 > `java.nio.file.Path` の新しい拡張関数は[実験的](components-stability.md)です。
 > いつでも変更される可能性があります。オプトインが必要です（詳細は下記参照）。評価目的でのみ使用してください。

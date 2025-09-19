@@ -80,7 +80,7 @@ val eastClicks = mutableStateOf(0)
 fun main() = SwingUtilities.invokeLater {
     val window = JFrame()
 
-    // 建立 ComposePanel
+    // Creates ComposePanel
     val composePanel = ComposePanel()
     window.defaultCloseOperation = WindowConstants.EXIT_ON_CLOSE
     window.title = "SwingComposeWindow"
@@ -98,10 +98,10 @@ fun main() = SwingUtilities.invokeLater {
         BorderLayout.SOUTH
     )
 
-    // 將 ComposePanel 加入 JFrame
+    // Adds ComposePanel to JFrame
     window.contentPane.add(composePanel, BorderLayout.CENTER)
 
-    // 設定內容
+    // Sets the content
     composePanel.setContent {
         ComposeContent()
     }
@@ -167,26 +167,35 @@ fun Counter(text: String, counter: MutableState<Int>) {
 
 ### 實驗性離屏渲染
 
-一種實驗模式允許直接在 Swing 元件上渲染 Compose 面板。這可以防止面板顯示、隱藏或調整大小時出現過渡性的渲染問題。它還能在結合 Swing 元件和 Compose 面板時實現正確的分層：一個 Swing 元件可以顯示在 `ComposePanel` 的上方或下方。
+一種實驗模式允許直接在 Swing 元件上渲染 `ComposePanel`。這可以防止 `ComposePanel` 顯示、隱藏或調整大小時出現過渡性的渲染問題。它還能在結合 Swing 元件和 Compose 面板時實現正確的分層：一個 Swing 元件可以顯示在 `ComposePanel` 的上方或下方。然而，與預設的 Skia 渲染相比，這可能會導致效能損失，且該損失會隨著面板大小的增加而增加。
+
+此模式僅影響 `ComposePanel` 元件。目前，`ComposeWindow` 或 `ComposeDialog` 沒有對應的設定。
 
 > 離屏渲染是[實驗性功能](supported-platforms.md#compose-multiplatform-ui-framework-stability-levels)，
 > 您應僅用於評估目的。
 > {style="warning"}
 
-要啟用離屏渲染，請使用 `compose.swing.render.on.graphics` 系統屬性。此屬性必須在應用程式中執行任何 Compose 程式碼之前設定，因此建議在啟動時使用 `-D` 命令列 JVM 引數來啟用它：
-
-```Console
--Dcompose.swing.render.on.graphics=true
-```
-
-或者，在入口點使用 `System.setProperty()`：
+若要為特定的 `ComposePanel` 啟用離屏渲染，請在建立它時傳遞 `RenderSettings.SwingGraphics` 值：
 
 ```kotlin
-fun main() {
-    System.setProperty("compose.swing.render.on.graphics", "true")
-    ...
-}
+val composePanel = ComposePanel(renderSettings = RenderSettings.SwingGraphics)
 ```
+
+若要為專案中的每個 `ComposePanel` 預設啟用離屏渲染，請使用 `compose.swing.render.on.graphics` 功能標記：
+
+*   在啟動時將該標記指定為命令列 JVM 引數：
+
+    ```shell
+    -Dcompose.swing.render.on.graphics=true
+    ```
+*   或者在入口點將該標記作為引數傳遞給 `System.setProperty()` 函數：
+
+    ```kotlin
+    fun main() {
+        System.setProperty("compose.swing.render.on.graphics", "true")
+        ...
+    }
+    ```
 
 ### 實驗性彈出視窗獨立視圖
 
@@ -238,7 +247,7 @@ fun main() = SwingUtilities.invokeLater {
         ComposeContent()
     }
     
-    // 將整個視窗用於對話框
+    // Uses the full window for dialogs
     composePanel.windowContainer = contentPane
     contentPane.add(composePanel)
 

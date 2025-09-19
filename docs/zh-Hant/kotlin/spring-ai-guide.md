@@ -1,6 +1,6 @@
 [//]: # (title: 建構一個 Kotlin 應用程式，使用 Spring AI 回答基於 Qdrant 中儲存文件的問題 — 教學課程)
 
-在本教學課程中，您將學習如何建構一個 Kotlin 應用程式，該應用程式使用 [Spring AI](https://spring.io/projects/spring-ai) 來連接到大型語言模型 (LLM)，
+在本教學課程中，您將學習如何建構一個 Kotlin 應用程式，該應用程式使用 [Spring AI](https://spring.io/projects/spring-ai) 來連接到 LLM，
 將文件儲存在向量資料庫中，並使用來自這些文件的上下文來回答問題。
 
 在本教學課程中，您將使用以下工具：
@@ -140,7 +140,7 @@
     ```kotlin
     package org.example.springaidemo
     
-    // Imports the required Spring and utility classes
+    // 匯入所需的 Spring 和工具類別
     import org.slf4j.LoggerFactory
     import org.springframework.ai.document.Document
     import org.springframework.ai.vectorstore.SearchRequest
@@ -165,7 +165,7 @@
         @OptIn(ExperimentalUuidApi::class)
         @PostMapping("/load-docs")
         fun load() {
-            // Loads a list of documents from the Kotlin documentation
+            // 從 Kotlin 文件中載入文件列表
             val kotlinStdTopics = listOf(
                 "collections-overview", "constructing-collections", "iterators", "ranges", "sequences",
                 "collection-operations", "collection-transformations", "collection-filtering", "collection-plus-minus",
@@ -173,14 +173,14 @@
                 "collection-aggregate", "collection-write", "list-operations", "set-operations",
                 "map-operations", "read-standard-input", "opt-in-requirements", "scope-functions", "time-measurement",
             )
-            // Base URL for the documents
+            // 文件的基礎 URL
             val url = "https://raw.githubusercontent.com/JetBrains/kotlin-web-site/refs/heads/master/docs/topics/"
-            // Retrieves each document from the URL and adds it to the vector store
+            // 從 URL 檢索每個文件並將其添加到向量儲存庫
             kotlinStdTopics.forEach { topic ->
                 val data = restTemplate.getForObject("$url$topic.md", String::class.java)
                 data?.let { it ->
                     val doc = Document.builder()
-                        // Builds a document with a random UUID
+                        // 建立一個帶有隨機 UUID 的文件
                         .id(Uuid.random().toString())
                         .text(it)
                         .metadata("topic", topic)
@@ -268,7 +268,7 @@
 2. 定義一個 `ChatRequest` 資料類別：
 
    ```kotlin
-   // Represents the request payload for chat queries
+   // 代表聊天查詢的請求負載
    data class ChatRequest(val query: String, val topK: Int = 3)
    ```
 
@@ -285,7 +285,7 @@
 4. 在控制器類別內部，建立一個 `ChatClient` 實例：
 
    ```kotlin
-   // Builds the chat client with a simple logging advisor
+   // 使用簡單的日誌記錄顧問建立聊天客戶端
    private val chatClient = chatClientBuilder.defaultAdvisors(SimpleLoggerAdvisor()).build()
    ```
 
@@ -294,7 +294,7 @@
    ```kotlin
    @PostMapping("/chat/ask")
    fun chatAsk(@RequestBody request: ChatRequest): String? {
-       // Defines the prompt template with placeholders
+       // 定義帶有佔位符的提示範本
        val promptTemplate = PromptTemplate(
            """
            {query}.
@@ -302,11 +302,11 @@
        """.trimIndent()
        )
 
-       // Creates the prompt by substituting placeholders with actual values
+       // 透過將佔位符替換為實際值來建立提示
        val prompt: Prompt =
            promptTemplate.create(mapOf("query" to request.query))
 
-       // Configures the retrieval advisor to augment the query with relevant documents
+       // 配置檢索顧問以使用相關文件來增強查詢
        val retrievalAdvisor = QuestionAnswerAdvisor.builder(vectorStore)
            .searchRequest(
                SearchRequest.builder()
@@ -317,7 +317,7 @@
            .promptTemplate(promptTemplate)
            .build()
 
-       // Sends the prompt to the LLM with the retrieval advisor and retrieves the generated content
+       // 將提示與檢索顧問一起發送給 LLM 並檢索生成的內容
        val response = chatClient.prompt(prompt)
            .advisors(retrievalAdvisor)
            .call()

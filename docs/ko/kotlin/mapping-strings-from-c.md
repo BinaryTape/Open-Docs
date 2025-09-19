@@ -81,11 +81,11 @@ C 문자열 선언이 Kotlin/Native로 어떻게 매핑되는지 살펴보겠습
     ```kotlin
     import interop.*
     import kotlinx.cinterop.ExperimentalForeignApi
-    
+  
     @OptIn(ExperimentalForeignApi::class)
     fun main() {
         println("Hello Kotlin/Native!")
-    
+
         pass_string(/*fix me*/)
         val useMe = return_string()
         val useMe2 = copy_string(/*fix me*/)
@@ -183,7 +183,7 @@ fun sendString() {
 
 이제 Kotlin 코드에서 C 선언을 사용하는 방법을 배웠으니, 프로젝트에서 사용해 보세요.
 최종 `hello.kt` 파일의 코드는 다음과 같을 수 있습니다.
-
+ 
 ```kotlin
 import interop.*
 import kotlinx.cinterop.*

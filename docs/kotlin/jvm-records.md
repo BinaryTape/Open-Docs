@@ -1,6 +1,6 @@
 [//]: # (title: 在 Kotlin 中使用 Java 记录)
 
-记录是 Java 中用于存储不可变数据的[类](https://openjdk.java.net/jeps/395)。记录带有一组固定的值——即记录组件。它们在 Java 中拥有简洁的语法，并能帮你省去编写样板代码的麻烦：
+_记录_ 是 Java 中用于存储不可变数据的[类](https://openjdk.java.net/jeps/395)。记录带有一组固定的值——即_记录组件_。它们在 Java 中拥有简洁的语法，并能帮你省去编写样板代码的麻烦：
 
 ```java
 // Java
@@ -105,7 +105,7 @@ data class Person(val name: String, @all:Positive val age: Int)
 ```kotlin
 @Target(AnnotationTarget.CLASS, AnnotationTarget.PROPERTY)
 @java.lang.annotation.Target(ElementType.CLASS, ElementType.RECORD_COMPONENT)
-annotation class exampleClass
+annotation class ExampleClass
 ```
 
 现在你可以将 `@ExampleClass` 应用于 Kotlin 类和属性，以及 Java 类和记录组件。

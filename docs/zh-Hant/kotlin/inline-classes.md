@@ -23,7 +23,7 @@ value class Password(private val s: String)
 ```kotlin
 // 類別 'Password' 實際上並未被實例化
 // 在執行時期，'securePassword' 僅包含 'String'
-val securePassword = Password("Don't try this in production") 
+val securePassword = Password("Don't try this in production")
 ```
 
 這是內聯類別的主要特性，它啟發了 *inline* 這個名稱：類別的資料被 *內聯* 到其使用之處（類似於 [內聯函數](inline-functions.md) 的內容如何被內聯到呼叫點）。
@@ -108,16 +108,16 @@ fun asNullable(i: Foo?) {}
 fun <T> id(x: T): T = x
 
 fun main() {
-    val f = Foo(42) 
-    
+    val f = Foo(42)
+
     asInline(f)    // 未裝箱：作為 Foo 本身使用
     asGeneric(f)   // 已裝箱：作為泛型型別 T 使用
     asInterface(f) // 已裝箱：作為型別 I 使用
     asNullable(f)  // 已裝箱：作為 Foo? 使用，這與 Foo 不同
-    
+
     // 下方，'f' 在傳遞給 'id' 時首先被裝箱，然後在從 'id' 返回時被拆箱
     // 最終，'c' 包含未裝箱的表示（僅為 '42'），就像 'f' 一樣
-    val c = id(f)  
+    val c = id(f)
 }
 ```
 
@@ -218,4 +218,3 @@ fun main() {
     })
     println(my.foo()) // 印出 "foo"
 }
-```

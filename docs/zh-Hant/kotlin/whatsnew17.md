@@ -132,7 +132,7 @@ fun main() {
 
 ### 穩定版選擇性啟用要求
 
-[選擇性啟用要求](opt-in-requirements.md)現在是[穩定版](components-stability.md)，不需要額外的編譯器組態。
+[選擇性啟用要求](opt-in-requirements.md)現在是[穩定版](components-stability.md)且不需要額外的編譯器組態。
 
 在 1.7.0 之前，選擇性啟用功能本身需要引數 `-opt-in=kotlin.RequiresOptIn` 以避免警告。現在不再需要此引數；但是，您仍然可以使用編譯器引數 `-opt-in` 來選擇性啟用其他註解、[一個模組](opt-in-requirements.md#opt-in-a-module)。
 

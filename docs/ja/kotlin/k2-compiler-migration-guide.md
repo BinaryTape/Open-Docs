@@ -70,12 +70,13 @@ class Cat {
 fun petAnimal(animal: Any) {
     val isCat = animal is Cat
     if (isCat) {
-        // Kotlin 2.0.0では、コンパイラーはisCatに関する情報に
-        // アクセスできるため、animalがCat型にスマートキャストされたことを
-        // 認識します。
-        // したがって、purr()関数を呼び出すことができます。
-        // Kotlin 1.9.20では、コンパイラーはスマートキャストを
-        // 認識しないため、purr()関数を呼び出すとエラーが発生します。
+        // In Kotlin 2.0.0, the compiler can access
+        // information about isCat, so it knows that
+        // animal was smart-cast to the type Cat.
+        // Therefore, the purr() function can be called.
+        // In Kotlin 1.9.20, the compiler doesn't know
+        // about the smart cast, so calling the purr()
+        // function triggers an error.
         animal.purr()
     }
 }
@@ -105,11 +106,12 @@ interface Declined : Status
 
 fun signalCheck(signalStatus: Any) {
     if (signalStatus is Postponed || signalStatus is Declined) {
-        // signalStatusは共通スーパータイプであるStatusにスマートキャストされる
+        // signalStatus is smart-cast to a common supertype Status
         signalStatus.signal()
-        // Kotlin 2.0.0より前は、signalStatusはAny型にスマートキャストされ、
-        // signal()関数を呼び出すと`Unresolved reference`エラーが発生しました。
-        // signal()関数は、別の型チェックの後でのみ正常に呼び出すことができました。
+        // Prior to Kotlin 2.0.0, signalStatus is smart cast 
+        // to type Any, so calling the signal() function triggered an
+        // Unresolved reference error. The signal() function can only 
+        // be called successfully after another type check:
         
         // check(signalStatus is Status)
         // signalStatus.signal()
@@ -141,18 +143,18 @@ fun nextProcessor(): Processor? = null
 fun runProcessor(): Processor? {
     var processor: Processor? = null
     inlineAction {
-        // Kotlin 2.0.0では、コンパイラーはprocessorが
-        // ローカル変数であり、inlineAction()がインライン関数であることを認識しているため、
-        // processorへの参照が漏洩することはありません。
-        // したがって、processorをスマートキャストしても安全です。
+        // In Kotlin 2.0.0, the compiler knows that processor 
+        // is a local variable and inlineAction() is an inline function, so 
+        // references to processor can't be leaked. Therefore, it's safe 
+        // to smart-cast processor.
       
-        // processorがnullでない場合、processorはスマートキャストされる
+        // If processor isn't null, processor is smart-cast
         if (processor != null) {
-            // コンパイラーはprocessorがnullではないことを認識しているため、
-            // セーフコールは不要である
+            // The compiler knows that processor isn't null, so no safe call 
+            // is needed
             processor.process()
 
-            // Kotlin 1.9.20では、セーフコールを実行する必要がある：
+            // In Kotlin 1.9.20, you have to perform a safe call:
             // processor?.process()
         }
 
@@ -170,14 +172,14 @@ fun runProcessor(): Processor? {
 ```kotlin
 class Holder(val provider: (() -> Unit)?) {
     fun process() {
-        // Kotlin 2.0.0では、providerがnullでない場合、
-        // スマートキャストされる
+        // In Kotlin 2.0.0, if provider isn't null,
+        // it is smart-cast
         if (provider != null) {
-            // コンパイラーはproviderがnullではないことを認識している
+            // The compiler knows that provider isn't null
             provider()
 
-            // 1.9.20では、コンパイラーはproviderがnullではないことを
-            // 認識しないため、エラーが発生する：
+            // In 1.9.20, the compiler doesn't know that provider isn't 
+            // null, so it triggers an error:
             // Reference has a nullable type '(() -> Unit)?', use explicit '?.invoke()' to make a function-like call instead
         }
     }
@@ -197,7 +199,7 @@ class Holder(val provider: Provider?, val processor: Processor?) {
     fun process() {
         if (provider != null) {
             provider() 
-            // 1.9.20では、コンパイラーがエラーを発生させる：
+            // In 1.9.20, the compiler triggers an error: 
             // Reference has a nullable type 'Provider?', use explicit '?.invoke()' to make a function-like call instead
         }
     }
@@ -212,27 +214,28 @@ Kotlin 2.0.0では、例外処理の改善を行い、スマートキャスト�
 //sampleStart
 fun testString() {
     var stringInput: String? = null
-    // stringInputはString型にスマートキャストされる
+    // stringInput is smart-cast to String type
     stringInput = ""
     try {
-        // コンパイラーはstringInputがnullではないことを認識している
+        // The compiler knows that stringInput isn't null
         println(stringInput.length)
         // 0
 
-        // コンパイラーはstringInputの以前のスマートキャスト情報を破棄する。
-        // 現在、stringInputはString?型になっている。
+        // The compiler rejects previous smart cast information for 
+        // stringInput. Now stringInput has the String? type.
         stringInput = null
 
-        // 例外をトリガーする
+        // Trigger an exception
         if (2 > 1) throw Exception()
         stringInput = ""
     } catch (exception: Exception) {
-        // Kotlin 2.0.0では、コンパイラーはstringInputが
-        // nullになる可能性があることを認識しているため、stringInputはnull許容のままである。
+        // In Kotlin 2.0.0, the compiler knows stringInput 
+        // can be null, so stringInput stays nullable.
         println(stringInput?.length)
         // null
 
-        // Kotlin 1.9.20では、コンパイラーはセーフコールが不要であると言うが、これは誤りである。
+        // In Kotlin 1.9.20, the compiler says that a safe call isn't
+        // needed, but this is incorrect.
     }
 }
 //sampleEnd
@@ -262,31 +265,34 @@ interface Tau {
 fun main(input: Rho) {
     var unknownObject: Rho = input
 
-    // unknownObjectがTauインターフェースを継承しているかチェック
-    // なお、unknownObjectはRhoインターフェースとTauインターフェースの両方を
-    // 継承している可能性がある。
+    // Check if unknownObject inherits from the Tau interface
+    // Note, it's possible that unknownObject inherits from both
+    // Rho and Tau interfaces.
     if (unknownObject is Tau) {
 
-        // Rhoインターフェースのオーバーロードされたinc()演算子を使用する。
-        // Kotlin 2.0.0では、unknownObjectの型はSigmaにスマートキャストされる。
+        // Use the overloaded inc() operator from interface Rho.
+        // In Kotlin 2.0.0, the type of unknownObject is smart-cast to
+        // Sigma.
         ++unknownObject
 
-        // Kotlin 2.0.0では、コンパイラーはunknownObjectがSigma型であることを認識しているため、
-        // sigma()関数を正常に呼び出すことができる。
+        // In Kotlin 2.0.0, the compiler knows unknownObject has type
+        // Sigma, so the sigma() function can be called successfully.
         unknownObject.sigma()
 
-        // Kotlin 1.9.20では、inc()が呼び出されてもコンパイラーはスマートキャストを
-        // 実行しないため、コンパイラーは依然としてunknownObjectがTau型であると認識する。
-        // sigma()関数を呼び出すとコンパイル時エラーが発生する。
+        // In Kotlin 1.9.20, the compiler doesn't perform a smart cast
+        // when inc() is called so the compiler still thinks that 
+        // unknownObject has type Tau. Calling the sigma() function 
+        // throws a compile-time error.
         
-        // Kotlin 2.0.0では、コンパイラーはunknownObjectがSigma型であることを認識しているため、
-        // tau()関数を呼び出すとコンパイル時エラーが発生する。
+        // In Kotlin 2.0.0, the compiler knows unknownObject has type
+        // Sigma, so calling the tau() function throws a compile-time 
+        // error.
         unknownObject.tau()
-        // 未解決の参照 'tau'
+        // Unresolved reference 'tau'
 
-        // Kotlin 1.9.20では、コンパイラーが誤ってunknownObjectがTau型であると
-        // 認識するため、tau()関数を呼び出すことができたが、
-        // ClassCastExceptionが発生する。
+        // In Kotlin 1.9.20, since the compiler mistakenly thinks that 
+        // unknownObject has type Tau, the tau() function can be called,
+        // but it throws a ClassCastException.
     }
 }
 ```
@@ -329,7 +335,7 @@ fun exampleFunction() {
 fun foo(x: Int) = println("platform foo")
 
 // JavaScript
-// JavaScriptプラットフォームにはfoo()関数のオーバーロードがない
+// There is no foo() function overload on the JavaScript platform
 ```
 
 </td>
@@ -359,9 +365,9 @@ expect class Identity {
 }
 
 fun common() {
-    // 2.0.0より前は、IDEのみのエラーをトリガーした
+    // Before 2.0.0, it triggers an IDE-only error
     Identity().confirmIdentity()
-    // RESOLUTION_TO_CLASSIFIER : ExpectedクラスIdentityにはデフォルトコンストラクターがない。
+    // RESOLUTION_TO_CLASSIFIER : Expected class Identity has no default constructor.
 }
 ```
 
@@ -391,21 +397,21 @@ Expected class 'expect class Identity : Any' does not have default constructor
 例えば、2つの`whichFun()`関数が異なるシグネチャを持つライブラリがあるとします。
 
 ```kotlin
-// 例のライブラリ
+// Example library
 
-// モジュール: common
+// MODULE: common
 fun whichFun(x: Any) = println("common function") 
 
-// モジュール: JVM
+// MODULE: JVM
 fun whichFun(x: Int) = println("platform function")
 ```
 
 共通コードで`whichFun()`関数を呼び出すと、ライブラリ内で最も関連性の高い引数型を持つ関数が解決されます。
 
 ```kotlin
-// JVMターゲット向けに例のライブラリを使用するプロジェクト
+// A project that uses the example library for the JVM target
 
-// モジュール: common
+// MODULE: common
 fun main(){
     whichFun(2) 
     // platform function
@@ -415,9 +421,9 @@ fun main(){
 比較すると、同じソースセット内で`whichFun()`のオーバーロードを宣言した場合、コードがプラットフォーム固有のバージョンにアクセスできないため、共通コードの関数が解決されます。
 
 ```kotlin
-// 例のライブラリは使用されていない
+// Example library isn't used
 
-// モジュール: common
+// MODULE: common
 fun whichFun(x: Any) = println("common function") 
 
 fun main(){
@@ -425,7 +431,7 @@ fun main(){
     // common function
 }
 
-// モジュール: JVM
+// MODULE: JVM
 fun whichFun(x: Int) = println("platform function")
 ```
 
@@ -438,19 +444,19 @@ fun whichFun(x: Int) = println("platform function")
 Kotlin 2.0.0より前は、Kotlin Multiplatformプロジェクトで[expectedおよびactual宣言](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-expect-actual.html)を使用する場合、それらは同じ[可視性レベル](visibility-modifiers.md)を持つ必要がありました。Kotlin 2.0.0では、異なる可視性レベルもサポートするようになりましたが、これはactual宣言がexpected宣言よりも_許容範囲が広い_場合に**のみ**です。例えば：
 
 ```kotlin
-expect internal class Attribute // 可視性はinternal
-actual class Attribute          // 可視性はデフォルトでpublicで、
-                                // より許容範囲が広い
+expect internal class Attribute // Visibility is internal
+actual class Attribute          // Visibility is public by default,
+                                // which is more permissive
 ```
 
 同様に、actual宣言で[型エイリアス](type-aliases.md)を使用している場合、**基になる型の**可視性はexpected宣言と同じか、より許容範囲が広いべきです。例えば：
 
 ```kotlin
-expect internal class Attribute                 // 可視性はinternal
+expect internal class Attribute                 // Visibility is internal
 internal actual typealias Attribute = Expanded
 
-class Expanded                                  // 可視性はデフォルトでpublicで、
-                                                // より許容範囲が広い
+class Expanded                                  // Visibility is public by default,
+                                                // which is more permissive
 ```
 
 ## Kotlin K2コンパイラーを有効にする方法
@@ -460,6 +466,41 @@ Kotlin 2.0.0以降、Kotlin K2コンパイラーはデフォルトで有効に�
 Kotlinバージョンをアップグレードするには、[Gradle](gradle-configure-project.md#apply-the-plugin)および[Maven](maven.md#configure-and-enable-the-plugin)のビルドスクリプトで、バージョンを2.0.0以降に変更してください。
 
 IntelliJ IDEAまたはAndroid Studioで最高の体験をするには、IDEで[K2モードを有効にすること](#support-in-ides)を検討してください。
+
+### GradleでKotlinビルドレポートを使用する
+
+Kotlinの[ビルドレポート](gradle-compilation-and-caches.md#build-reports)は、Kotlinコンパイラータスクの異なるコンパイルフェーズで費やされた時間、使用されたコンパイラーとKotlinのバージョン、およびインクリメンタルコンパイルであったかどうかに関する情報を提供します。これらのビルドレポートは、ビルドパフォーマンスを評価するのに役立ちます。[Gradleビルドスキャン](https://scans.gradle.com/)よりもKotlinコンパイルパイプラインに関するより多くの洞察を提供します。なぜなら、すべてのGradleタスクのパフォーマンスの概要が得られるからです。
+
+#### ビルドレポートを有効にする方法
+
+ビルドレポートを有効にするには、`gradle.properties`ファイルでビルドレポートの出力先を宣言します。
+
+```none
+kotlin.build.report.output=file
+```
+
+出力には以下の値とその組み合わせが利用可能です。
+
+| オプション | 説明 |
+|---|---|
+| `file` | ビルドレポートを人間が読める形式でローカルファイルに保存します。デフォルトでは、`${project_folder}/build/reports/kotlin-build/${project_name}-timestamp.txt` です。 |
+| `single_file` | ビルドレポートをオブジェクト形式で指定されたローカルファイルに保存します。 |
+| `build_scan` | ビルドレポートを[ビルドスキャン](https://scans.gradle.com/)の`custom values`セクションに保存します。Gradle Enterpriseプラグインは、カスタム値の数とその長さを制限することに注意してください。大規模なプロジェクトでは、一部の値が失われる可能性があります。 |
+| `http` | HTTP(S)を使用してビルドレポートを投稿します。POSTメソッドはJSON形式でメトリクスを送信します。送信されるデータの現在のバージョンは、[Kotlinリポジトリ](https://github.com/JetBrains/kotlin/blob/master/libraries/tools/kotlin-gradle-plugin/src/common/kotlin/org/jetbrains/kotlin/gradle/report/data/GradleCompileStatisticsData.kt)で確認できます。HTTPエンドポイントのサンプルは、[このブログ記事](https://blog.jetbrains.com/kotlin/2022/06/introducing-kotlin-build-reports/?_gl=1*1a7pghy*_ga*MTcxMjc1NzE5Ny4xNjY1NDAzNjkz*_ga_9J976DJZ68*MTcxNTA3NjA2NS4zNzcuMS4xNzE1MDc2MDc5LjQ2LjAuMA..&_ga=2.265800915.1124071296.1714976764-1712757197.1665403693#enable_build_reports)で確認できます。 |
+| `json` | ビルドレポートをJSON形式でローカルファイルに保存します。ビルドレポートの場所は`kotlin.build.report.json.directory`で設定します。デフォルトでは、名前は`${project_name}-build-<date-time>-<index>.json` です。 |
+
+ビルドレポートで可能なことに関する詳細は、[ビルドレポート](gradle-compilation-and-caches.md#build-reports)を参照してください。
+
+## IDEのサポート
+
+IntelliJ IDEAおよびAndroid StudioのK2モードは、K2コンパイラーを使用してコード解析、コード補完、およびハイライトを改善します。
+
+IntelliJ IDEA 2025.1以降、K2モードは[デフォルトで有効](https://blog.jetbrains.com/idea/2025/04/k2-mode-in-intellij-idea-2025-1-current-state-and-faq/)になります。
+
+Android Studioでは、2024.1以降で以下の手順に従ってK2モードを有効にできます。
+
+1.  **Settings** | **Languages & Frameworks** | **Kotlin** に移動します。
+2.  **Enable K2 mode** オプションを選択します。
 
 ### 以前のIDEの動作 {initial-collapse-state="collapsed" collapsible="true"}
 
@@ -510,9 +551,9 @@ open class Base {
     open var b: Int
     
     init {
-        // Kotlin 2.0からエラーとなるが、以前は正常にコンパイルされていた 
+        // Error starting with Kotlin 2.0 that earlier compiled successfully 
         this.a = 1 //Error: open val must have initializer
-        // 常にエラー
+        // Always an error
         this.b = 1 // Error: open var must have initializer
     }
 }
@@ -560,18 +601,18 @@ public class Container<E> {
 ```kotlin
 fun exampleFunction(starProjected: Container<*>, inProjected: Container<in Number>, sampleString: String) {
     starProjected.setFoo(sampleString)
-    // Kotlin 1.0以降エラー
+    // Error since Kotlin 1.0
 
-    // 合成セッター`foo`は`setFoo()`メソッドに解決される
+    // Synthetic setter `foo` is resolved to the `setFoo()` method
     starProjected.foo = sampleString
-    // Kotlin 2.0.0以降エラー
+    // Error since Kotlin 2.0.0
 
     inProjected.setFoo(sampleString)
-    // Kotlin 1.0以降エラー
+    // Error since Kotlin 1.0
 
-    // 合成セッター`foo`は`setFoo()`メソッドに解決される
+    // Synthetic setter `foo` is resolved to the `setFoo()` method
     inProjected.foo = sampleString
-    // Kotlin 2.0.0以降エラー
+    // Error since Kotlin 2.0.0
 }
 ```
 
@@ -590,51 +631,51 @@ K2コンパイラーの新しいアーキテクチャにより、アクセス不
 例えば、あるモジュールでジェネリッククラスを宣言したとします。
 
 ```kotlin
-// モジュール1
+// Module one
 class Node<V>(val value: V)
 ```
 
 モジュール1に依存関係が設定されている別のモジュール（モジュール2）がある場合、コードは`Node<V>`クラスにアクセスし、関数型で型として使用できます。
 
 ```kotlin
-// モジュール2
+// Module two
 fun execute(func: (Node<Int>) -> Unit) {}
-// 関数は正常にコンパイルされる
+// Function compiles successfully
 ```
 
 ただし、プロジェクトが誤って設定されており、モジュール2のみに依存する第3のモジュール（モジュール3）がある場合、Kotlinコンパイラーはモジュール3をコンパイルする際に**モジュール1**の`Node<V>`クラスにアクセスできなくなります。現在、`Node<V>`型を使用するモジュール3内のラムダまたは匿名関数は、Kotlin 2.0.0でエラーをトリガーし、これにより後でコードで回避可能なコンパイラーエラー、クラッシュ、および実行時例外を防ぎます。
 
 ```kotlin
-// モジュール3
+// Module three
 fun test() {
-    // 暗黙的なラムダパラメータ (it) の型がアクセス不可能なNodeに
-    // 解決されるため、Kotlin 2.0.0ではエラーが発生する
+    // Triggers an error in Kotlin 2.0.0, as the type of the implicit 
+    // lambda parameter (it) resolves to Node, which is inaccessible
     execute {}
 
-    // 未使用のラムダパラメータ (_) の型がアクセス不可能なNodeに
-    // 解決されるため、Kotlin 2.0.0ではエラーが発生する
+    // Triggers an error in Kotlin 2.0.0, as the type of the unused 
+    // lambda parameter (_) resolves to Node, which is inaccessible
     execute { _ -> }
 
-    // 未使用の匿名関数のパラメータ (_) の型がアクセス不可能なNodeに
-    // 解決されるため、Kotlin 2.0.0ではエラーが発生する
+    // Triggers an error in Kotlin 2.0.0, as the type of the unused
+    // anonymous function parameter (_) resolves to Node, which is inaccessible
     execute(fun (_) {})
 }
 ```
 
-アクセス不可能なジェネリック型の値パラメータを含む場合に、関数リテラルがエラーをトリガーするだけでなく、型がアクセス不可能なジェネリック型引数を持つ場合にもエラーが発生します。
+関数リテラルがアクセス不可能なジェネリック型の値パラメータを含む場合にエラーをトリガーするだけでなく、型がアクセス不可能なジェネリック型引数を持つ場合にもエラーが発生します。
 
 例えば、モジュール1に同じジェネリッククラス宣言があるとします。モジュール2では、別のジェネリッククラス`Container<C>`を宣言します。さらに、モジュール2で、ジェネリッククラス`Node<V>`を型引数として`Container<C>`を使用する関数を宣言します。
 
 <table>
    <tr>
-       <td>モジュール1</td>
-       <td>モジュール2</td>
+       <td>Module one</td>
+       <td>Module two</td>
    </tr>
    <tr>
 <td>
 
 ```kotlin
-// モジュール1
+// Module one
 class Node<V>(val value: V)
 ```
 
@@ -642,11 +683,11 @@ class Node<V>(val value: V)
 <td>
 
 ```kotlin
-// モジュール2
+// Module two
 class Container<C>(vararg val content: C)
 
-// ジェネリッククラス型を持つ関数で、
-// ジェネリッククラス型引数も持つ
+// Functions with generic class type that
+// also have a generic class type argument
 fun produce(): Container<Node<Int>> = Container(Node(42))
 fun consume(arg: Container<Node<Int>>) {}
 ```
@@ -658,10 +699,10 @@ fun consume(arg: Container<Node<Int>>) {}
 モジュール3でこれらの関数を呼び出そうとすると、ジェネリッククラス`Node<V>`がモジュール3からアクセスできないため、Kotlin 2.0.0でエラーがトリガーされます。
 
 ```kotlin
-// モジュール3
+// Module three
 fun test() {
-    // ジェネリッククラスNode<V>がアクセス不可能なため、
-    // Kotlin 2.0.0でエラーが発生する
+    // Triggers an error in Kotlin 2.0.0, as generic class Node<V> is 
+    // inaccessible
     consume(produce())
 }
 ```
@@ -672,14 +713,14 @@ fun test() {
 
 <table>
    <tr>
-       <td>モジュール1</td>
-       <td>モジュール2</td>
+       <td>Module one</td>
+       <td>Module two</td>
    </tr>
    <tr>
 <td>
 
 ```kotlin
-// モジュール1
+// Module one
 class IntNode(val value: Int)
 ```
 
@@ -687,13 +728,15 @@ class IntNode(val value: Int)
 <td>
 
 ```kotlin
-// モジュール2
-// `IntNode`型を持つラムダパラメータを含む関数
+// Module two
+// A function that contains a lambda 
+// parameter with `IntNode` type
 fun execute(func: (IntNode) -> Unit) {}
 
 class Container<C>(vararg val content: C)
 
-// `IntNode`を型引数として持つジェネリッククラス型を持つ関数
+// Functions with generic class type
+// that has `IntNode` as a type argument
 fun produce(): Container<IntNode> = Container(IntNode(42))
 fun consume(arg: Container<IntNode>) {}
 ```
@@ -705,20 +748,20 @@ fun consume(arg: Container<IntNode>) {}
 モジュール3でこれらの関数を呼び出すと、いくつかの警告がトリガーされます。
 
 ```kotlin
-// モジュール3
+// Module three
 fun test() {
-    // クラスIntNodeがアクセス不可能なため、
-    // Kotlin 2.0.0で警告が発生する。
+    // Triggers warnings in Kotlin 2.0.0, as class IntNode is 
+    // inaccessible.
 
     execute {}
-    // パラメータ 'it' のクラス 'IntNode' はアクセスできません。
+    // Class 'IntNode' of the parameter 'it' is inaccessible.
 
     execute { _ -> }
     execute(fun (_) {})
-    // パラメータ '_' のクラス 'IntNode' はアクセスできません。
+    // Class 'IntNode' of the parameter '_' is inaccessible.
 
-    // IntNodeがアクセス不可能なため、
-    // 将来のKotlinリリースで警告がトリガーされるでしょう。
+    // Will trigger a warning in future Kotlin releases, as IntNode is
+    // inaccessible.
     consume(produce())
 }
 ```
@@ -753,16 +796,16 @@ public class Base {
 class Derived : Base() {
     val a = "aa"
 
-    // カスタムget()関数を宣言する
+    // Declares custom get() function
     val b get() = "bb"
 }
 
 fun main() {
-    // Derived.aに解決される
+    // Resolves Derived.a
     println(a)
     // aa
 
-    // Base.bに解決される
+    // Resolves Base.b
     println(b)
     // b
 }
@@ -815,7 +858,7 @@ public class Derived extends Base {
 
 ```kotlin
 fun main() {
-    // Derived.aに解決される
+    // Resolves Derived.a
     println(a)
     // a
 }
@@ -845,7 +888,7 @@ val dataService: DataService = ...
 dataService.fetchData() // -> ResultContainer<String?>
 ```
 
-しかし、以前はJavaプリミティブ配列がKotlinにインポートされた場合、すべての`TYPE_USE`アノテーションが失われ、プラットフォームのnull許容性となり、安全でないコードにつながる可能性がありました。
+以前は、しかし、Javaプリミティブ配列がKotlinにインポートされた場合、すべての`TYPE_USE`アノテーションが失われ、プラットフォームのnull許容性となり、安全でないコードにつながる可能性がありました。
 
 ```java
 interface DataProvider {
@@ -856,8 +899,8 @@ interface DataProvider {
 ```kotlin
 val dataService: DataProvider = ...
 dataService.fetchData() // -> IntArray .. IntArray?
-// dataService.fetchData()はアノテーションによると`null`である可能性があるにもかかわらず、エラーなし
-// これによりNullPointerExceptionが発生する可能性がある
+// No error, even though `dataService.fetchData()` might be `null` according to annotations
+// This might result in a NullPointerException
 dataService.fetchData()[0]
 ```
 この問題は、宣言自体に対するnull許容性アノテーションには影響せず、`TYPE_USE`アノテーションのみに影響したことに注意してください。
@@ -891,8 +934,8 @@ K2コンパイラーを使用したコンパイル時の共通ソースとプラ
 
 <table>
    <tr>
-       <td>共通コード</td>
-       <td>プラットフォームコード</td>
+       <td>Common code</td>
+       <td>Platform code</td>
    </tr>
    <tr>
 <td>
@@ -902,9 +945,9 @@ abstract class FileSystem {
     abstract fun listFiles()
 }
 expect open class PlatformFileSystem() : FileSystem {
-    // Kotlin 2.0.0では、明示的なオーバーライドが必要である
+    // In Kotlin 2.0.0, an explicit override is needed
     expect override fun listFiles()
-    // Kotlin 2.0.0より前は、オーバーライドは不要だった
+    // Before Kotlin 2.0.0, an override wasn't needed
 }
 ```
 
@@ -978,7 +1021,7 @@ expectedな非抽象クラスで抽象関数を継承する場合は、非抽象
 | [KT-58260](https://youtrack.jetbrains.com/issue/KT-58260)  | `invoke`規約が期待される脱糖と一貫して動作するようにする                                                                                                                           |
 | [KT-62866](https://youtrack.jetbrains.com/issue/KT-62866)  | K2: コンパニオンオブジェクトが静的スコープよりも優先される場合の修飾子解決動作を変更する                                                                                             |
 | [KT-57750](https://youtrack.jetbrains.com/issue/KT-57750)  | 型を解決し、同じ名前のクラスがスターインポートされている場合に曖昧性エラーを報告する                                                                                                 |
-| [KT-63558](https://youtrack.jetbrains.com/issue/KT-63558)  | K2: COMPATIBILITY_WARNINGに関する解決を移行する                                                                                                                                          |
+| [KT-63558](https://youtrack.com/issue/KT-63558)  | K2: COMPATIBILITY_WARNINGに関する解決を移行する                                                                                                                                          |
 | [KT-51194](https://youtrack.jetbrains.com/issue/KT-51194)  | 同じ依存関係の2つの異なるバージョンに含まれる依存クラスがある場合のCONFLICTING_INHERITED_MEMBERSの偽陰性                                                                |
 | [KT-37592](https://youtrack.jetbrains.com/issue/KT-37592)  | レシーバーを持つ関数型のプロパティinvokeは、拡張関数invokeよりも優先される                                                                                               |
 | [KT-51666](https://youtrack.jetbrains.com/issue/KT-51666)  | 修飾された`this`: 型ケースで修飾された`this`を導入/優先する                                                                                                                           |
@@ -1089,6 +1132,7 @@ expectedな非抽象クラスで抽象関数を継承する場合は、非抽象
 | [KT-62019](https://youtrack.jetbrains.com/issue/KT-62019)  | [LCの問題] ステートメント位置での中断マークされた匿名関数の宣言を禁止する                                                   |
 | [KT-55111](https://youtrack.jetbrains.com/issue/KT-55111)  | OptIn: マーカーの下でデフォルト引数（デフォルト値を持つパラメータ）を持つコンストラクター呼び出しを禁止する                                                  |
 | [KT-61182](https://youtrack.jetbrains.com/issue/KT-61182)  | 変数に対する式とinvoke解決に対して、誤ってUnit変換が許可される                                                               |
+| [KT-55199](https://youtrack.jetbrains.com/issue/KT-55199)  | 適応を伴う呼び出し可能参照をKFunctionに昇格させることを禁止する                                                                         |
 | [KT-65776](https://youtrack.jetbrains.com/issue/KT-65776)  | [LC] K2は\`false && ...\`および\`false &VerticalLine;&VerticalLine; ...\`を破壊する                                                             |
 | [KT-65682](https://youtrack.jetbrains.com/issue/KT-65682)  | [LC] \`header\`/\`impl\`キーワードを非推奨にする                                                                                                |
 | [KT-45375](https://youtrack.jetbrains.com/issue/KT-45375)  | デフォルトでinvokedynamic + LambdaMetafactoryを介してすべてのKotlinラムダを生成する                                                               |

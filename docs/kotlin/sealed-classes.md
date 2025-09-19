@@ -87,14 +87,14 @@ sealed class Error(val severity: ErrorSeverity) {
 
 ```kotlin
 sealed class IOError {
-    // A sealed class constructor has protected visibility by default. It's visible inside this class and its subclasses 
+    // 密封类构造函数默认具有 protected 可见性。它在此类及其子类中可见
     constructor() { /*...*/ }
 
-    // Private constructor, visible inside this class only. 
-    // Using a private constructor in a sealed class allows for even stricter control over instantiation, enabling specific initialization procedures within the class.
+    // 私有构造函数，仅在此类中可见。
+    // 在密封类中使用私有构造函数可以更严格地控制实例化，从而在类内实现特定的初始化过程。
     private constructor(description: String): this() { /*...*/ }
 
-    // This will raise an error because public and internal constructors are not allowed in sealed classes
+    // 这将引发错误，因为密封类中不允许使用 public 和 internal 构造函数
     // public constructor(code: Int): this() {} 
 }
 ```
@@ -249,13 +249,13 @@ fun processPayment(payment: Payment) {
 密封类 `ApiResponse` 封装了不同的响应场景：包含用户数据的 `UserSuccess`，表示用户不存在的 `UserNotFound`，以及表示任何失败的 `Error`。`handleRequest` 函数使用 `when` 表达式以类型安全的方式处理这些请求，而 `getUserById` 则模拟用户检索：
 
 ```kotlin
-// Import necessary modules
+// 导入必要的模块
 import io.ktor.server.application.*
 import io.ktor.server.resources.*
 
 import kotlinx.serialization.*
 
-// Define the sealed interface for API requests using Ktor resources
+// 定义用于 API 请求的密封接口，使用 Ktor 资源
 @Resource("api")
 sealed interface ApiRequest
 
@@ -267,23 +267,23 @@ data class LoginRequest(val username: String, val password: String) : ApiRequest
 @Resource("logout")
 object LogoutRequest : ApiRequest
 
-// Define the ApiResponse sealed class with detailed response types
+// 定义具有详细响应类型的 ApiResponse 密封类
 sealed class ApiResponse {
     data class UserSuccess(val user: UserData) : ApiResponse()
     data object UserNotFound : ApiResponse()
     data class Error(val message: String) : ApiResponse()
 }
 
-// User data class to be used in the success response
+// 用于成功响应的用户数据类
 data class UserData(val userId: String, val name: String, val email: String)
 
-// Function to validate user credentials (for demonstration purposes)
+// 用于验证用户凭据的函数（仅用于演示）
 fun isValidUser(username: String, password: String): Boolean {
-    // Some validation logic (this is just a placeholder)
+    // 某些验证逻辑（这只是一个占位符）
     return username == "validUser" && password == "validPass"
 }
 
-// Function to handle API requests with detailed responses
+// 处理具有详细响应的 API 请求的函数
 fun handleRequest(request: ApiRequest): ApiResponse {
     return when (request) {
         is LoginRequest -> {
@@ -294,23 +294,23 @@ fun handleRequest(request: ApiRequest): ApiResponse {
             }
         }
         is LogoutRequest -> {
-            // Assuming logout operation always succeeds for this example
-            ApiResponse.UserSuccess(UserData("userId", "userName", "userEmail")) // For demonstration
+            // 假设此示例中的登出操作总是成功
+            ApiResponse.UserSuccess(UserData("userId", "userName", "userEmail")) // 仅用于演示
         }
     }
 }
 
-// Function to simulate a getUserById call
+// 模拟 getUserById 调用
 fun getUserById(userId: String): ApiResponse {
     return if (userId == "validUserId") {
         ApiResponse.UserSuccess(UserData("validUserId", "John Doe", "john@example.com"))
     } else {
         ApiResponse.UserNotFound
     }
-    // Error handling would also result in an Error response.
+    // 错误处理也会导致 Error 响应。
 }
 
-// Main function to demonstrate the usage
+// 演示用法的 main 函数
 fun main() {
     val loginResponse = handleRequest(LoginRequest("user", "pass"))
     println(loginResponse)

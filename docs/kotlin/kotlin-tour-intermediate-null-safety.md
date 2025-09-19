@@ -351,7 +351,7 @@ fun getNumberOfFriends(users: Map<Int, User>, userId: Int): Int {
 
 尽管此示例仅使用 Elvis 操作符检测一个条件，但你可以添加多个检测来覆盖任何关键错误路径。使用 Elvis 操作符的提前返回可防止程序执行不必要的工作，并在检测到 `null` 值或无效情况时立即停止，从而使代码更安全。
 
-有关如何在代码中使用 `return` 的更多信息，请参见[返回与跳转](returns.md)。
+有关如何在代码中使用 `return` 的更多信息，参见[返回与跳转](returns.md)。
 
 ## 练习
 

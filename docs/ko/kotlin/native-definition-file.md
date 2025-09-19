@@ -1,51 +1,54 @@
 [//]: # (title: 정의 파일)
 
-Kotlin/Native를 사용하면 C 및 Objective-C 라이브러리를 사용할 수 있으며, 이를 통해 Kotlin에서 해당 기능을 활용할 수 있습니다. `cinterop`이라는 특수 도구는 C 또는 Objective-C 라이브러리를 받아 해당 Kotlin 바인딩을 생성하므로, 라이브러리의 메서드를 Kotlin 코드에서 평소처럼 사용할 수 있습니다.
+Kotlin/Native를 사용하면 C 및 Objective-C 라이브러리를 사용할 수 있으며, 이를 통해 Kotlin에서 해당 기능을 활용할 수 있습니다.
+`cinterop`이라는 특수 도구는 C 또는 Objective-C 라이브러리를 받아 해당 Kotlin 바인딩을 생성하므로,
+라이브러리의 메서드를 Kotlin 코드에서 평소처럼 사용할 수 있습니다.
 
-이러한 바인딩을 생성하려면 각 라이브러리에는 정의 파일이 필요하며, 일반적으로 라이브러리와 동일한 이름을 가집니다. 이는 라이브러리가 어떻게 사용되어야 하는지 정확히 설명하는 속성 파일입니다. 사용 가능한 속성 전체 목록은 [여기](#properties)를 참조하세요.
+이러한 바인딩을 생성하려면 각 라이브러리에는 정의 파일이 필요하며, 일반적으로 라이브러리와 동일한 이름을 가집니다.
+이는 라이브러리가 어떻게 사용되어야 하는지 정확히 설명하는 속성 파일입니다. 사용 가능한 속성 전체 목록은 [여기](#properties)를 참조하세요.
 
 프로젝트 작업 시 일반적인 작업 흐름은 다음과 같습니다:
 
-1. 바인딩에 포함할 내용을 설명하는 `.def` 파일을 생성합니다.
-2. Kotlin 코드에서 생성된 바인딩을 사용합니다.
-3. Kotlin/Native 컴파일러를 실행하여 최종 실행 파일을 생성합니다.
+1.  바인딩에 포함할 내용을 설명하는 `.def` 파일을 생성합니다.
+2.  Kotlin 코드에서 생성된 바인딩을 사용합니다.
+3.  Kotlin/Native 컴파일러를 실행하여 최종 실행 파일을 생성합니다.
 
 ## 정의 파일 생성 및 구성
 
 C 라이브러리용 정의 파일을 생성하고 바인딩을 만들어 봅시다:
 
-1. IDE에서 `src` 폴더를 선택하고, **File | New | Directory**를 사용하여 새 디렉터리를 생성합니다.
-2. 새 디렉터리 이름을 `nativeInterop/cinterop`으로 지정합니다.
-   
-   이는 `.def` 파일 위치에 대한 기본 규칙이지만, 다른 위치를 사용하는 경우 `build.gradle.kts` 파일에서 재정의할 수 있습니다.
-3. 새 하위 폴더를 선택하고, **File | New | File**을 사용하여 `png.def` 파일을 생성합니다.
-4. 필요한 속성을 추가합니다:
+1.  IDE에서 `src` 폴더를 선택하고, **File | New | Directory**를 사용하여 새 디렉터리를 생성합니다.
+2.  새 디렉터리 이름을 `nativeInterop/cinterop`으로 지정합니다.
 
-   ```none
-   headers = png.h
-   headerFilter = png.h
-   package = png
-   
-   compilerOpts.linux = -I/usr/include -I/usr/include/x86_64-linux-gnu
-   linkerOpts.osx = -L/opt/local/lib -L/usr/local/opt/png/lib -lpng
-   linkerOpts.linux = -L/usr/lib/x86_64-linux-gnu -lpng
-   ```
+    이는 `.def` 파일 위치에 대한 기본 규칙이지만, 다른 위치를 사용하는 경우 `build.gradle.kts` 파일에서 재정의할 수 있습니다.
+3.  새 하위 폴더를 선택하고, **File | New | File**을 사용하여 `png.def` 파일을 생성합니다.
+4.  필요한 속성을 추가합니다:
 
-   * `headers`는 Kotlin 스텁을 생성할 헤더 파일 목록입니다. 이 항목에 여러 파일을 추가할 수 있으며, 각 파일은 공백으로 구분합니다. 이 경우 `png.h`만 해당합니다. 참조된 파일은 지정된 경로(이 경우 `/usr/include/png`)에서 사용할 수 있어야 합니다.
-   * `headerFilter`는 정확히 무엇이 포함되는지 보여줍니다. C에서는 하나의 파일이 `#include` 지시어로 다른 파일을 참조할 때 모든 헤더도 포함됩니다. 때로는 이것이 필요하지 않을 수 있으며, [글롭(glob) 패턴을 사용하여](https://en.wikipedia.org/wiki/Glob_(programming)) 이 매개변수를 추가하여 조정할 수 있습니다.
+    ```none
+    headers = png.h
+    headerFilter = png.h
+    package = png
 
-     `headerFilter`는 외부 종속성(예: 시스템 `stdint.h` 헤더)을 인터롭 라이브러리에 가져오지 않으려는 경우 사용할 수 있습니다. 또한 라이브러리 크기 최적화 및 시스템과 제공된 Kotlin/Native 컴파일 환경 간의 잠재적 충돌 해결에 유용할 수 있습니다.
+    compilerOpts.linux = -I/usr/include -I/usr/include/x86_64-linux-gnu
+    linkerOpts.osx = -L/opt/local/lib -L/usr/local/opt/png/lib -lpng
+    linkerOpts.linux = -L/usr/lib/x86_64-linux-gnu -lpng
+    ```
 
-   * 특정 플랫폼의 동작을 수정해야 하는 경우, `compilerOpts.osx` 또는 `compilerOpts.linux`와 같은 형식을 사용하여 옵션에 플랫폼별 값을 제공할 수 있습니다. 이 경우 macOS(`.osx` 접미사) 및 Linux(`.linux` 접미사)입니다. 접미사가 없는 매개변수도 가능하며(예: `linkerOpts=`), 모든 플랫폼에 적용됩니다.
+    *   `headers`는 Kotlin 스텁을 생성할 헤더 파일 목록입니다. 이 항목에 여러 파일을 추가할 수 있으며, 각 파일은 공백으로 구분합니다. 이 경우 `png.h`만 해당합니다. 참조된 파일은 지정된 경로(이 경우 `/usr/include/png`)에서 사용할 수 있어야 합니다.
+    *   `headerFilter`는 정확히 무엇이 포함되는지 보여줍니다. C에서는 하나의 파일이 `#include` 지시어로 다른 파일을 참조할 때 모든 헤더도 포함됩니다. 때로는 이것이 필요하지 않을 수 있으며, [글롭(glob) 패턴을 사용하여](https://en.wikipedia.org/wiki/Glob_(programming)) 이 매개변수를 추가하여 조정할 수 있습니다.
 
-5. 바인딩을 생성하려면 알림에서 **Sync Now**를 클릭하여 Gradle 파일을 동기화합니다.
+        `headerFilter`는 외부 종속성(예: 시스템 `stdint.h` 헤더)을 인터롭 라이브러리에 가져오지 않으려는 경우 사용할 수 있습니다. 또한 라이브러리 크기 최적화 및 시스템과 제공된 Kotlin/Native 컴파일 환경 간의 잠재적 충돌 해결에 유용할 수 있습니다.
 
-   ![Synchronize the Gradle files](gradle-sync.png)
+    *   특정 플랫폼의 동작을 수정해야 하는 경우, `compilerOpts.osx` 또는 `compilerOpts.linux`와 같은 형식을 사용하여 옵션에 플랫폼별 값을 제공할 수 있습니다. 이 경우 macOS(`.osx` 접미사) 및 Linux(`.linux` 접미사)입니다. 접미사가 없는 매개변수도 가능하며(예: `linkerOpts=`), 모든 플랫폼에 적용됩니다.
+
+5.  바인딩을 생성하려면 알림에서 **Sync Now**를 클릭하여 Gradle 파일을 동기화합니다.
+
+    ![Synchronize the Gradle files](gradle-sync.png)
 
 바인딩 생성 후 IDE는 이를 네이티브 라이브러리의 프록시 뷰로 사용할 수 있습니다.
 
 > 명령줄에서 [cinterop 도구](#generate-bindings-using-command-line)를 사용하여 바인딩 생성을 구성할 수도 있습니다.
-> 
+>
 {style="tip"}
 
 ## 속성
@@ -59,7 +62,7 @@ C 라이브러리용 정의 파일을 생성하고 바인딩을 만들어 봅시
 | `language`                                                                          | 언어를 지정합니다. 기본적으로 C가 사용되며, 필요한 경우 `Objective-C`로 변경합니다.                                                                                                                                      |
 | [`compilerOpts`](#pass-compiler-and-linker-options)                                 | cinterop 도구가 C 컴파일러에 전달하는 컴파일러 옵션입니다.                                                                                                                                                        |
 | [`linkerOpts`](#pass-compiler-and-linker-options)                                   | cinterop 도구가 링커에 전달하는 링커 옵션입니다.                                                                                                                                                              |
-| [`excludedFunctions`](#ignore-specific-functions)                                   | 무시해야 할 함수 이름의 공백으로 구분된 목록입니다.                                                                                                                                                         |                                              
+| [`excludedFunctions`](#ignore-specific-functions)                                   | 무시해야 할 함수 이름의 공백으로 구분된 목록입니다.                                                                                                                                                         |
 | [`staticLibraries`](#include-a-static-library)                                      | [실험적](components-stability.md#stability-levels-explained). 정적 라이브러리를 `.klib`에 포함합니다.                                                                                                              |
 | [`libraryPaths`](#include-a-static-library)                                         | [실험적](components-stability.md#stability-levels-explained). cinterop 도구가 `.klib`에 포함될 라이브러리를 검색하는 디렉터리 목록(공백으로 구분)입니다.                                    |
 | `packageName`                                                                       | 생성된 Kotlin API의 패키지 접두사입니다.                                                                                                                                                                             |
@@ -210,11 +213,11 @@ cinterop -def png.def -compiler-option -I/usr/local/include -o png
 
 생성된 바인딩은 일반적으로 플랫폼별(platform-specific)이므로, 여러 타겟을 개발하는 경우 바인딩을 재생성해야 합니다.
 
-* 시스루트(sysroot) 검색 경로에 포함되지 않은 호스트 라이브러리의 경우, 헤더가 필요할 수 있습니다.
-* 구성 스크립트가 있는 일반적인 UNIX 라이브러리의 경우, `compilerOpts`에는 `--cflags` 옵션(정확한 경로 없이)이 있는 구성 스크립트의 출력이 포함될 가능성이 높습니다.
-* `--libs`가 있는 구성 스크립트의 출력은 `linkerOpts` 속성에 전달될 수 있습니다.
+*   시스루트(sysroot) 검색 경로에 포함되지 않은 호스트 라이브러리의 경우, 헤더가 필요할 수 있습니다.
+*   구성 스크립트가 있는 일반적인 UNIX 라이브러리의 경우, `compilerOpts`에는 `--cflags` 옵션(정확한 경로 없이)이 있는 구성 스크립트의 출력이 포함될 가능성이 높습니다.
+*   `--libs`가 있는 구성 스크립트의 출력은 `linkerOpts` 속성에 전달될 수 있습니다.
 
 ## 다음 단계
 
-* [C 상호 운용성을 위한 바인딩](native-c-interop.md#bindings)
-* [Swift/Objective-C와의 상호 운용성](native-objc-interop.md)
+*   [C 상호 운용성을 위한 바인딩](native-c-interop.md#bindings)
+*   [Swift/Objective-C와의 상호 운용성](native-objc-interop.md)

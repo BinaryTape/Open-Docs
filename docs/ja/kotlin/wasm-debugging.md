@@ -1,150 +1,116 @@
 [//]: # (title: Kotlin/Wasm コードのデバッグ)
 
-> Kotlin/Wasm は [アルファ版](components-stability.md)です。これは予告なく変更される可能性があります。
->
-{style="note"}
+<primary-label ref="beta"/> 
 
-このチュートリアルでは、ブラウザを使用して Kotlin/Wasm でビルドされた [Compose Multiplatform](https://www.jetbrains.com/lp/compose-multiplatform/) アプリケーションをデバッグする方法を説明します。
+このチュートリアルでは、IntelliJ IDEA とブラウザを使用して、Kotlin/Wasm でビルドされた [Compose Multiplatform](https://www.jetbrains.com/lp/compose-multiplatform/) アプリケーションをデバッグする方法を説明します。
 
 ## 開始する前に
 
-Kotlin Multiplatform ウィザードを使用してプロジェクトを作成します:
+1. [Kotlin Multiplatform 開発環境をセットアップする](https://www.jetbrains.com/help/kotlin-multiplatform-dev/quickstart.html#set-up-the-environment)。
+2. [Kotlin/Wasm をターゲットとする Kotlin Multiplatform プロジェクトを作成する](wasm-get-started.md#create-a-project)の手順に従ってください。
 
-1. [Kotlin Multiplatform ウィザード](https://kmp.jetbrains.com/#newProject)を開きます。
-2. **New Project** タブで、プロジェクト名と ID を任意に変更します。このチュートリアルでは、名前を「WasmDemo」、ID を「wasm.project.demo」に設定します。
+> * IntelliJ IDEA での Kotlin/Wasm コードのデバッグは、IDE のバージョン 2025.3 以降で利用可能であり、現在 [早期アクセスプログラム (EAP)](https://www.jetbrains.com/resources/eap/) で安定版への移行を進めています。
+> 別のバージョンの IntelliJ IDEA で `WasmDemo` プロジェクトを作成した場合、このチュートリアルを続行するには、バージョン 2025.3 に切り替えてそこでプロジェクトを開いてください。
+> * IntelliJ IDEA で Kotlin/Wasm コードをデバッグするには、JavaScript Debugger プラグインをインストールする必要があります。[プラグインとそのインストール方法に関する詳細情報をご覧ください。](https://www.jetbrains.com/help/idea/debugging-javascript-in-chrome.html#ws_js_debugging_chrome_before_you_start)
+>
+{style="note"}
 
-   > これらはプロジェクトディレクトリの名前と ID です。そのままにしておくこともできます。
-   >
-   {style="tip"}
+## IntelliJ IDEA でデバッグする
 
-3. **Web** オプションを選択します。他のオプションが選択されていないことを確認してください。
-4. **Download** ボタンをクリックし、結果として得られるアーカイブを解凍します。
+作成した Kotlin Multiplatform プロジェクトには、Kotlin/Wasm を利用した Compose Multiplatform アプリケーションが含まれています。
+このアプリケーションは、IntelliJ IDEA で追加設定なしで、すぐにデバッグできます。
 
-   ![Kotlin Multiplatform wizard](wasm-compose-web-wizard.png){width=450}
+1. IntelliJ IDEA で、デバッグする Kotlin ファイルを開きます。このチュートリアルでは、Kotlin Multiplatform プロジェクトの以下のディレクトリにある `Greeting.kt` ファイルを扱います。
 
-## IntelliJ IDEA でプロジェクトを開く
+   `WasmDemo/composeApp/src/wasmJsMain/kotlin/wasm.project.demo.wasmdemo`
 
-1. [IntelliJ IDEA](https://www.jetbrains.com/idea/) の最新バージョンをダウンロードしてインストールします。
-2. IntelliJ IDEA のようこそ画面で、**Open** をクリックするか、メニューバーで **File | Open** を選択します。
-3. 解凍した「WasmDemo」フォルダに移動し、**Open** をクリックします。
+2. 調べたいコードにブレークポイントを設定するには、行番号をクリックします。
 
-## アプリケーションを実行する
+   ![Set breakpoints](wasm-breakpoints-intellij.png){width=650}
 
-1. IntelliJ IDEA で、**View** | **Tool Windows** | **Gradle** を選択して **Gradle** ツールウィンドウを開きます。
+3. 実行構成のリストで、**composeApp[wasmJs]** を選択します。
+4. 画面上部のデバッグアイコンをクリックして、コードをデバッグモードで実行します。
 
-   > タスクを正常にロードするには、Gradle JVM として Java 11 以降が必要です。
-   >
-   {style="note"}
+   ![Run in debug mode](wasm-debug-run-configurations.png){width=600}
 
-2. **composeApp** | **Tasks** | **kotlin browser** で、**wasmJsBrowserDevelopmentRun** タスクを選択して実行します。
+   アプリケーションが起動すると、新しいブラウザウィンドウで開きます。
 
-   ![Run the Gradle task](wasm-gradle-task-window.png){width=450}
+   ![Compose app in browser](wasm-composeapp-browser.png){width=600}
 
-   あるいは、`WasmDemo` のルートディレクトリからターミナルで以下のコマンドを実行することもできます:
+   また、IntelliJ IDEA で **Debug** パネルが自動的に開きます。
 
-   ```bash
-   ./gradlew wasmJsBrowserDevelopmentRun
-   ```
+   ![Compose app debugger](wasm-debug-pane.png){width=600}
 
-3. アプリケーションが起動したら、ブラウザで以下の URL を開きます:
+### アプリケーションを検査する
 
-   ```bash
-   http://localhost:8080/
-   ```
+> [ブラウザでデバッグ](#debug-in-your-browser)している場合も、アプリケーションを検査するために同じ手順を実行できます。
+>
+{style="note"}
 
-   > ポート番号は、8080 ポートが利用できない場合があるため、異なる場合があります。実際のポート番号は Gradle ビルドコンソールに表示されます。
-   >
-   {style="tip"}
+1. アプリケーションのブラウザウィンドウで、**Click me!** ボタンをクリックしてアプリケーションを操作します。このアクションによりコードの実行がトリガーされ、実行がブレークポイントに到達するとデバッガが一時停止します。
 
-   「Click me!」ボタンが表示されます。これをクリックします:
+2. デバッグペインで、デバッグコントロールボタンを使用してブレークポイントでの変数とコードの実行を検査します。
+    * ![Step over](wasm-debug-step-over.png){width=30}{type="joined"} ステップオーバーして、現在の行を実行し、次の行で一時停止します。
+    * ![Step into](wasm-debug-step-into.png){width=30}{type="joined"} ステップインして、関数をさらに深く調査します。
+    * ![Step out](wasm-debug-step-out.png){width=30}{type="joined"} ステップアウトして、現在の関数を終了するまでコードを実行します。
 
-   ![Click me](wasm-composeapp-browser-clickme.png){width=550}
+3. **Threads & Variables** ペインを確認します。これは、関数呼び出しのシーケンスをトレースし、エラーの場所を特定するのに役立ちます。
 
-   すると、Compose Multiplatform のロゴが表示されます:
+   ![Check Threads & Variables](wasm-debug-panes-intellij.png){width=700}
 
-   ![Compose app in browser](wasm-composeapp-browser.png){width=550}
+4. コードを変更し、アプリケーションを再度実行して、すべてが期待どおりに機能することを確認します。
+5. デバッグが完了したら、ブレークポイントのある行番号をクリックしてブレークポイントを削除します。
 
 ## ブラウザでデバッグする
 
-> 現在、デバッグはブラウザでのみ利用可能です。将来的には、[IntelliJ IDEA](https://youtrack.jetbrains.com/issue/KT-64683/Kotlin-Wasm-debugging-in-IntelliJ-IDEA) でコードをデバッグできるようになります。
+この Compose Multiplatform アプリケーションは、追加設定なしでブラウザでデバッグすることもできます。
+
+開発用の Gradle タスク (`*DevRun`) を実行すると、Kotlin は自動的にソースファイルをブラウザに提供し、ブレークポイントの設定、変数の検査、Kotlin コードのステップ実行を可能にします。
+
+ブラウザで Kotlin/Wasm プロジェクトのソースを提供するための設定は、Kotlin Gradle プラグインにすでに含まれています。
+以前にこの設定を `build.gradle.kts` ファイルに追加していた場合は、競合を避けるために削除する必要があります。
+
+> このチュートリアルでは Chrome ブラウザを使用していますが、他のブラウザでもこれらの手順を実行できるはずです。詳細については、[ブラウザのバージョン](wasm-configuration.md#browser-versions)を参照してください。
 >
-{style="note"}
+{style="tip"}
 
-この Compose Multiplatform アプリケーションは、追加の設定なしで、すぐにブラウザでデバッグできます。
+1. [Compose Multiplatform アプリケーションを実行する](wasm-get-started.md#run-the-application)の手順に従ってください。
 
-ただし、他のプロジェクトでは、Gradle ビルドファイルに追加の設定を行う必要がある場合があります。デバッグのためにブラウザを設定する方法の詳細については、次のセクションを展開してください。
+2. アプリケーションのブラウザウィンドウで右クリックし、**Inspect** アクションを選択して開発者ツールにアクセスします。
+   あるいは、**F12** ショートカットを使用するか、**View** | **Developer** | **Developer Tools** を選択することもできます。
 
-### デバッグのためにブラウザを設定する {initial-collapse-state="collapsed" collapsible="true"}
+3. **Sources** タブに切り替え、デバッグする Kotlin ファイルを選択します。このチュートリアルでは、`Greeting.kt` ファイルを扱います。
 
-#### プロジェクトのソースへのアクセスを有効にする
+4. 調べたいコードにブレークポイントを設定するには、行番号をクリックします。ブレークポイントを設定できるのは、数字が濃い色の行のみです。この例では、4、7、8、9 行目です。
 
-デフォルトでは、ブラウザはデバッグに必要なプロジェクトのソースの一部にアクセスできません。アクセスを提供するために、Webpack DevServer を構成してこれらのソースを提供できます。`ComposeApp` ディレクトリにある `build.gradle.kts` ファイルに以下のコードスニペットを追加します。
+   ![Set breakpoints](wasm-breakpoints-browser.png){width=700}
 
-このインポートをトップレベルの宣言として追加します:
+5. [IntelliJ IDEA でのデバッグ](#inspect-your-application)と同様に、アプリケーションを検査します。
 
-```kotlin
-import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpackConfig
-```
+    ブラウザでデバッグする際、関数呼び出しのシーケンスをトレースし、エラーの場所を特定するためのペインは、**Scope** と **Call Stack** です。
 
-`kotlin{}` 内の `wasmJs{}` ターゲット DSL および `browser{}` プラットフォーム DSL にある `commonWebpackConfig{}` ブロック内に、このコードスニペットを追加します:
+   ![Check the call stack](wasm-debug-scope.png){width=450}
 
-```kotlin
-devServer = (devServer ?: KotlinWebpackConfig.DevServer()).apply {
-    static = (static ?: mutableListOf()).apply {
-        // Serve sources to debug inside browser
-        add(project.rootDir.path)
-        add(project.projectDir.path)
-    }
-}
-```
+### カスタムフォーマッタを使用する
 
-結果として得られるコードブロックは以下のようになります:
+カスタムフォーマッタは、ブラウザで Kotlin/Wasm コードをデバッグする際に、変数値をよりユーザーフレンドリーで分かりやすい方法で表示し、特定するのに役立ちます。
 
-```kotlin
-kotlin {
-    @OptIn(ExperimentalWasmDsl::class)
-    wasmJs {
-        moduleName = "composeApp"
-        browser {
-            commonWebpackConfig {
-                outputFileName = "composeApp.js"
-                devServer = (devServer ?: KotlinWebpackConfig.DevServer()).apply {
-                    static = (static ?: mutableListOf()).apply { 
-                        // Serve sources to debug inside browser
-                        add(project.rootDir.path)
-                        add(project.projectDir.path)
-                    }
-                } 
-            }
-        }
-    }
-}
-```
-{initial-collapse-state="collapsed" collapsible="true"}
+カスタムフォーマッタは Kotlin/Wasm 開発ビルドでデフォルトで有効になっていますが、
+ブラウザの開発者ツールでカスタムフォーマッタが有効になっていることを確認する必要があります。
 
-> 現在、ライブラリのソースはデバッグできません。[将来的にはこれをサポートする予定です](https://youtrack.jetbrains.com/issue/KT-64685)。
->
-{style="note"}
-
-#### カスタムフォーマッタを使用する
-
-カスタムフォーマッタは、Kotlin/Wasm コードをデバッグする際に、変数値をよりユーザーフレンドリーで分かりやすい方法で表示し、特定するのに役立ちます。
-
-カスタムフォーマッタは開発ビルドでデフォルトで有効になっているため、追加の Gradle 設定は必要ありません。
-
-この機能は、[カスタムフォーマッタ API](https://firefox-source-docs.mozilla.org/devtools-user/custom_formatters/index.html) を使用しているため、Firefox および Chromium ベースのブラウザでサポートされています。
-
-この機能を使用するには、ブラウザの開発者ツールでカスタムフォーマッタが有効になっていることを確認してください:
-
-* Chrome DevTools では、**Settings | Preferences | Console** でカスタムフォーマッタのチェックボックスを見つけます:
+* Chrome DevTools では、**Settings | Preferences | Console** でカスタムフォーマッタのチェックボックスを見つけます。
 
   ![Enable custom formatters in Chrome](wasm-custom-formatters-chrome.png){width=400}
 
-* Firefox DevTools では、**Settings | Advanced settings** でカスタムフォーマッタのチェックボックスを見つけます:
+* Firefox DevTools では、**Settings | Advanced settings** で **Enable custom formatters** (カスタムフォーマッタを有効にする) のチェックボックスを見つけます。
 
   ![Enable custom formatters in Firefox](wasm-custom-formatters-firefox.png){width=400}
 
-カスタムフォーマッタは Kotlin/Wasm 開発ビルドで機能します。本番ビルドで特定の要件がある場合は、Gradle 設定をそれに応じて調整する必要があります。以下のコンパイラオプションを `wasmJs {}` ブロックに追加します:
+この機能は、[カスタムフォーマッタ API](https://firefox-source-docs.mozilla.org/devtools-user/custom_formatters/index.html) を使用しているため、Firefox および Chromium ベースのブラウザでサポートされています。
+
+カスタムフォーマッタは Kotlin/Wasm 開発ビルドでのみデフォルトで機能するため、
+本番ビルドでこれらを使用したい場合は、Gradle 設定を調整する必要があります。
+`wasmJs {}` ブロックに以下のコンパイラオプションを追加します。
 
 ```kotlin
 // build.gradle.kts
@@ -159,40 +125,6 @@ kotlin {
 }
 ```
 
-カスタムフォーマッタを有効にした後、デバッグチュートリアルを続行できます。
-
-### Kotlin/Wasm アプリケーションをデバッグする
-
-> このチュートリアルでは Chrome ブラウザを使用していますが、他のブラウザでもこれらの手順を実行できるはずです。詳細については、[ブラウザのバージョン](wasm-troubleshooting.md#browser-versions)を参照してください。
->
-{style="tip"}
-
-1. アプリケーションのブラウザウィンドウで右クリックし、**Inspect** アクションを選択して開発者ツールにアクセスします。あるいは、**F12** ショートカットを使用するか、**View** | **Developer** | **Developer Tools** を選択することもできます。
-
-2. **Sources** タブに切り替え、デバッグする Kotlin ファイルを選択します。このチュートリアルでは、`Greeting.kt` ファイルを扱います。
-
-3. 行番号をクリックして、調べたいコードにブレークポイントを設定します。ブレークポイントを設定できるのは、数字が濃い色の行のみです。
-
-   ![Set breakpoints](wasm-breakpoints.png){width=700}
-
-4. **Click me!** ボタンをクリックしてアプリケーションを操作します。このアクションによりコードの実行がトリガーされ、実行がブレークポイントに到達するとデバッガが一時停止します。
-
-5. デバッグペインで、デバッグコントロールボタンを使用して、ブレークポイントでの変数とコードの実行を調べます:
-   * ![Step into](wasm-step-into.png){width=30}{type="joined"} 関数をさらに深く調査するためにステップインします。
-   * ![Step over](wasm-step-over.png){width=30}{type="joined"} 現在の行を実行し、次の行で一時停止するためにステップオーバーします。
-   * ![Step out](wasm-step-out.png){width=30}{type="joined"} 現在の関数を終了するまでコードを実行するためにステップアウトします。
-
-   ![Debug controls](wasm-debug-controls.png){width=450}
-
-6. **Call stack** と **Scope** ペインをチェックして、関数呼び出しのシーケンスをトレースし、エラーの場所を特定します。
-
-   ![Check call stack](wasm-debug-scope.png){width=450}
-
-   変数値をより分かりやすく視覚化するには、「[デバッグのためにブラウザを設定する](#configure-your-browser-for-debugging)」セクションの「_カスタムフォーマッタを使用する_」を参照してください。
-
-7. コードを変更し、[アプリケーションを再度実行](#run-the-application)して、すべてが期待どおりに機能することを確認します。
-8. ブレークポイントのある行番号をクリックして、ブレークポイントを削除します。
-
 ## フィードバックを残す
 
 デバッグ体験に関するフィードバックをいただければ幸いです！
@@ -203,9 +135,10 @@ kotlin {
 ## 次のステップ
 
 * この [YouTube ビデオ](https://www.youtube.com/watch?v=t3FUWfJWrjU&t=2703s) で Kotlin/Wasm のデバッグの実際の様子をご覧ください。
-* `kotlin-wasm-examples` リポジトリから Kotlin/Wasm の例を試してみてください:
-   * [Compose image viewer](https://github.com/Kotlin/kotlin-wasm-examples/tree/main/compose-imageviewer)
-   * [Jetsnack application](https://github.com/Kotlin/kotlin-wasm-examples/tree/main/compose-jetsnack)
-   * [Node.js example](https://github.com/Kotlin/kotlin-wasm-examples/tree/main/nodejs-example)
-   * [WASI example](https://github.com/Kotlin/kotlin-wasm-examples/tree/main/wasi-example)
-   * [Compose example](https://github.com/Kotlin/kotlin-wasm-examples/tree/main/compose-example)
+* その他の Kotlin/Wasm の例を試してみてください。
+  * [KotlinConf application](https://github.com/JetBrains/kotlinconf-app)
+  * [Compose image viewer](https://github.com/JetBrains/compose-multiplatform/tree/master/examples/imageviewer)
+  * [Jetsnack application](https://github.com/JetBrains/compose-multiplatform/tree/master/examples/jetsnack)
+  * [Node.js example](https://github.com/Kotlin/kotlin-wasm-nodejs-template)
+  * [WASI example](https://github.com/Kotlin/kotlin-wasm-wasi-template)
+  * [Compose example](https://github.com/Kotlin/kotlin-wasm-compose-template)

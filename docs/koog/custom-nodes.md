@@ -1,6 +1,6 @@
 # 自定义节点实现
 
-本页面详细介绍了如何在 Koog 框架中实现自定义节点。自定义节点允许您通过创建执行特定操作的可复用组件来扩展代理工作流的功能。
+本页面详细介绍了如何在 Koog 框架中实现自己的自定义节点。自定义节点允许您通过创建执行特定操作的可复用组件来扩展代理工作流的功能。
 
 关于图节点是什么、如何使用以及现有默认节点的更多信息，请参见 [图节点](nodes-and-components.md)。
 
@@ -33,13 +33,13 @@ val str = strategy<Input, Output>("my-strategy") {
 -->
 ```kotlin
 val myNode by node<Input, Output>("node_name") { input ->
-    // Processing
+    // 处理
     returnValue
 }
 ```
 <!--- KNIT example-custom-nodes-01.kt -->
 
-上述代码表示一个名为 `myNode` 的自定义节点，它具有预定义的 `Input` 和 `Output` 类型，以及可选的名称字符串形参（`node_name`）。在实际示例中，这是一个接受字符串输入并返回其长度的简单节点：
+上述代码表示一个自定义节点 `myNode`，它具有预定义的 `Input` 和 `Output` 类型，以及可选的名称字符串形参（`node_name`）。在实际示例中，这是一个接受字符串输入并返回其长度的简单节点：
 
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
@@ -51,7 +51,7 @@ val str = strategy<String, Int>("my-strategy") {
 -->
 ```kotlin
 val myNode by node<String, Int>("node_name") { input ->
-    // Processing
+    // 处理
     input.length
 }
 ```
@@ -76,8 +76,8 @@ val strategy = strategy<String, String>("strategy_name") {
 fun AIAgentSubgraphBuilderBase<*, *>.myCustomNode(
     name: String? = null
 ): AIAgentNodeDelegate<Input, Output> = node(name) { input ->
-    // Custom logic
-    input // Return the input as output (pass-through)
+    // 自定义逻辑
+    input // 将输入作为输出返回（直通）
 }
 
 val myCustomNode by myCustomNode("node_name")
@@ -109,8 +109,8 @@ val strategy = strategy<String, String>("strategy_name") {
     arg1: String,
     arg2: Int
 ): AIAgentNodeDelegate<Input, Output> = node(name) { input ->
-    // Use arg1 and arg2 in your custom logic
-    input // Return the input as the output
+    // 在您的自定义逻辑中使用 arg1 和 arg2
+    input // 将输入作为输出返回
 }
 
 val myCustomNode by myNodeWithArguments("node_name", arg1 = "value1", arg2 = 42)
@@ -131,8 +131,8 @@ import ai.koog.agents.core.dsl.builder.strategy
 inline fun <reified T> AIAgentSubgraphBuilderBase<*, *>.myParameterizedNode(
     name: String? = null,
 ): AIAgentNodeDelegate<T, T> = node(name) { input ->
-    // Do some additional actions
-    // Return the input as the output
+    // 执行一些额外操作
+    // 将输入作为输出返回
     input
 }
 
@@ -183,8 +183,8 @@ val strategy = strategy<String, String>("strategy_name") {
 -->
 ```kotlin
 val stringToIntNode by node<String, Int>("node_name") { input: String ->
-    // Processing
-    input.toInt() // Convert string to integer
+    // 处理
+    input.toInt() // 将字符串转换为整数
 }
 ```
 <!--- KNIT example-custom-nodes-07.kt -->
@@ -223,8 +223,8 @@ val strategy = strategy<String, String>("strategy_name") {
 ```kotlin
 
 val loggingNode by node<String, String>("node_name") { input ->
-    println("Processing input: $input")
-    input // Return the input as the output
+    println("正在处理输入：$input")
+    input // 将输入作为输出返回
 }
 ```
 <!--- KNIT example-custom-nodes-08.kt -->
@@ -243,8 +243,8 @@ val strategy = strategy<String, String>("strategy_name") {
 -->
 ```kotlin
 val upperCaseNode by node<String, String>("node_name") { input ->
-    println("Processing input: $input")
-    input.uppercase() // Transform the input to uppercase
+    println("正在处理输入：$input")
+    input.uppercase() // 将输入转换为大写
 }
 ```
 <!--- KNIT example-custom-nodes-09.kt -->
@@ -304,7 +304,7 @@ val nodeExecuteCustomTool by node<String, String>("node_name") { input ->
         id = UUID.randomUUID().toString(),
         tool = toolName,
         metaInfo = ResponseMetaInfo.create(Clock.System),
-        content = Json.encodeToString(ToolArgs(arg1 = input, arg2 = 42)) // Use the input as tool arguments
+        content = Json.encodeToString(ToolArgs(arg1 = input, arg2 = 42)) // 将输入用作工具实参
     )
 
     val result = environment.executeTool(toolCall)

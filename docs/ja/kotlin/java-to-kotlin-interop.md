@@ -102,7 +102,7 @@ org.example.Utils.getDate();
 
 ## インスタンスフィールド
 
-KotlinのプロパティをJavaのフィールドとして公開する必要がある場合、`@JvmField`アノテーションを付与します。
+KotlinのプロパティをJavaのフィールドとして公開する必要がある場合、[`@JvmField`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.jvm/-jvm-field/index.html)アノテーションを付与します。
 フィールドは、基となるプロパティと同じ可視性を持ちます。プロパティに`@JvmField`を付与できるのは、以下の条件を満たす場合です。
 *   バッキングフィールドを持つ
 *   プライベートではない

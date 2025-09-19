@@ -1,6 +1,6 @@
 [//]: # (title: Kotlin 컴포넌트의 안정성)
 
-Kotlin 언어와 툴셋은 JVM, JS, Native 타겟용 컴파일러, 표준 라이브러리, 다양한 부속 도구 등 여러 컴포넌트로 나뉩니다. 이들 컴포넌트 중 다수는 공식적으로 **안정 (Stable)** 버전으로 출시되었습니다. 이는 [‘편안한 업데이트’ 및 ‘언어 현대성 유지’ 원칙](kotlin-evolution-principles.md)에 따라 하위 호환성 방식으로 발전되었음을 의미합니다.
+Kotlin 언어와 툴셋은 JVM, JS 및 Native 타겟용 컴파일러, 표준 라이브러리, 다양한 부속 도구 등 여러 컴포넌트로 나뉩니다. 이들 컴포넌트 중 다수는 공식적으로 **안정 (Stable)** 버전으로 출시되었습니다. 이는 [‘편안한 업데이트’ 및 ‘언어 현대성 유지’ 원칙](kotlin-evolution-principles.md)에 따라 하위 호환성 방식으로 발전되었음을 의미합니다.
 
 _피드백 루프 (Feedback Loop)_ 원칙에 따라, 우리는 커뮤니티가 사용해 볼 수 있도록 많은 것을 조기에 출시합니다. 따라서 아직 **안정 (Stable)** 버전으로 출시되지 않은 컴포넌트가 많습니다. 그중 일부는 초기 단계에 있고, 일부는 더 성숙한 단계에 있습니다. 각 컴포넌트가 발전하는 속도와 사용자가 채택 시 감수해야 하는 위험 수준에 따라 **실험적 (Experimental)**, **알파 (Alpha)** 또는 **베타 (Beta)**로 표시합니다.
 
@@ -63,12 +63,12 @@ _피드백 루프 (Feedback Loop)_ 원칙에 따라, 우리는 커뮤니티가 �
 
 ### Kotlin 컴파일러
 
-| **컴포넌트**                                                       | **상태**       | **버전 출시 이후 상태** | **설명** |
-|:-------------------------------------------------------------------|:---------------|:-------------------|:---------|
+| **컴포넌트**                                                       | **상태**      | **버전 출시 이후 상태** | **설명** |
+|:-------------------------------------------------------------------|:--------------|:-------------------|:---------|
 | Kotlin/JVM                                                         | 안정 (Stable) | 1.0.0              |          |
 | Kotlin/Native                                                      | 안정 (Stable) | 1.9.0              |          |
 | Kotlin/JS                                                          | 안정 (Stable) | 1.3.0              |          |
-| Kotlin/Wasm                                                        | 알파 (Alpha)  | 1.9.20             |          |
+| Kotlin/Wasm                                                        | 베타 (Beta)  | 2.2.20             |          |
 | [Analysis API](https://kotlin.github.io/analysis-api/index_md.html) | 안정 (Stable) |                    |          |
 
 ### 코어 컴파일러 플러그인
@@ -87,18 +87,18 @@ _피드백 루프 (Feedback Loop)_ 원칙에 따라, 우리는 커뮤니티가 �
 | **컴포넌트**         | **상태**      | **버전 출시 이후 상태** | **설명** |
 |:---------------------|:--------------|:-------------------|:---------|
 | kotlin-stdlib (JVM)  | 안정 (Stable) | 1.0.0              |          |
-| kotlinx-coroutines   | 안정 (Stable) | 1.3.0              |          |
+| kotlinx-coroutines    | 안정 (Stable) | 1.3.0              |          |
 | kotlinx-serialization | 안정 (Stable) | 1.0.0              |          |
 | kotlin-metadata-jvm  | 안정 (Stable) | 2.0.0              |          |
 | kotlin-reflect (JVM) | 베타 (Beta)  | 1.0.0              |          |
-| kotlinx-datetime     | 알파 (Alpha) | 0.2.0              |          |
-| kotlinx-io           | 알파 (Alpha) | 0.2.0              |          |
+| kotlinx-datetime      | 알파 (Alpha) | 0.2.0              |          |
+| kotlinx-io            | 알파 (Alpha) | 0.2.0              |          |
 
 ### Kotlin 멀티플랫폼
 
 | **컴포넌트**                                                | **상태**      | **버전 출시 이후 상태** | **설명**                                                                                                                              |
 |:------------------------------------------------------------|:--------------|:-------------------|:------------------------------------------------------------------------------------------------------------------------------------|
-| Kotlin 멀티플랫폼 (Kotlin Multiplatform)                     | 안정 (Stable) | 1.9.20             |                                                                                                                                     |
+| Kotlin 멀티플랫폼                                           | 안정 (Stable) | 1.9.20             |                                                                                                                                     |
 | Android Studio용 Kotlin 멀티플랫폼 플러그인 (Kotlin Multiplatform plugin for Android Studio) | 베타 (Beta)  | 0.8.0              | [언어와 별도로 버전 관리됨](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-plugin-releases.html) |
 
 ### Kotlin/Native
@@ -115,12 +115,12 @@ _피드백 루프 (Feedback Loop)_ 원칙에 따라, 우리는 커뮤니티가 �
 
 ### 언어 도구
 
-| **컴포넌트**                                              | **상태**          | **버전 출시 이후 상태** | **설명**                                          |
-|:----------------------------------------------------------|:------------------|:-------------------|:--------------------------------------------------|
-| 스크립팅 구문 및 의미 (Scripting syntax and semantics)       | 알파 (Alpha)     | 1.2.0              |                                                   |
-| 스크립팅 임베딩 및 확장 API (Scripting embedding and extension API) | 베타 (Beta)      | 1.5.0              |                                                   |
-| 스크립팅 IDE 지원 (Scripting IDE support)                   | 베타 (Beta)      |                    | IntelliJ IDEA 2023.1 이상 버전에서 사용 가능 |
-| CLI 스크립팅 (CLI scripting)                               | 알파 (Alpha)     | 1.2.0              |                                                   |
+| **컴포넌트**                                              | **상태**      | **버전 출시 이후 상태** | **설명**                                          |
+|:----------------------------------------------------------|:--------------|:-------------------|:--------------------------------------------------|
+| 스크립팅 구문 및 의미 (Scripting syntax and semantics)       | 알파 (Alpha) | 1.2.0              |                                                   |
+| 스크립팅 임베딩 및 확장 API (Scripting embedding and extension API) | 베타 (Beta)  | 1.5.0              |                                                   |
+| 스크립팅 IDE 지원 (Scripting IDE support)                   | 베타 (Beta)  |                    | IntelliJ IDEA 2023.1 이상 버전에서 사용 가능 |
+| CLI 스크립팅 (CLI scripting)                               | 알파 (Alpha) | 1.2.0              |                                                   |
 
 ## 언어 기능 및 설계 제안
 

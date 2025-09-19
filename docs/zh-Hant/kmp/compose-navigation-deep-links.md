@@ -171,7 +171,7 @@ NavHost(
             navDeepLink { uriPattern = "demo://example2.org/name={name}" },
             // 生成的模式只處理參數，
             // 因此我們為路由類型新增序列名稱
-            navDeepLink<Screen3>(basePath = "$firstBasePath/dlscreen"),
+            navDeepLink<DeepLinkScreen>(basePath = "$firstBasePath/dlscreen"),
         )
     ) {
         // 如果應用程式接收到 URI `demo://example1.org/dlscreen/Jane/`，

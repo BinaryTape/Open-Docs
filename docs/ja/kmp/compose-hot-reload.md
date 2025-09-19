@@ -1,6 +1,6 @@
 [//]: # (title: Compose Hot Reload)
 
-<primary-label ref="alpha"/>
+<primary-label ref="beta"/>
 
 [Compose Hot Reload](https://github.com/JetBrains/compose-hot-reload)は、Compose Multiplatformプロジェクトでの作業中にUIの変更を視覚化し、試すのに役立ちます。
 
@@ -57,7 +57,7 @@ Compose Hot Reloadは、以下の2つの方法で追加できます。
     }
     ```
 
-4.  Compose Hot Reloadの全ての機能を使用するには、プロジェクトは拡張されたクラス再定義をサポートするOpenJDKのフォークである[JetBrains Runtime](https://github.com/JetBrains/JetBrainsRuntime) (JBR)で実行される必要があります。
+4.  Compose Hot Reloadの全ての機能を使用するには、プロジェクトは、拡張されたクラス再定義をサポートするOpenJDKのフォークである[JetBrains Runtime](https://github.com/JetBrains/JetBrainsRuntime) (JBR)で実行される必要があります。
     Compose Hot Reloadは、プロジェクトのために互換性のあるJBRを自動的にプロビジョニングできます。
     これを許可するには、`settings.gradle.kts`ファイルに以下のGradleプラグインを追加します。
 
@@ -71,7 +71,7 @@ Compose Hot Reloadは、以下の2つの方法で追加できます。
 
 ## Compose Hot Reloadを使用する
 
-1.  `desktopMain`ディレクトリで、`main.kt`ファイルを開き、`main()`関数を更新します。
+1.  `jvmMain`ディレクトリで、`main.kt`ファイルを開き、`main()`関数を更新します。
     ```kotlin
     fun main() = application {
         Window(
@@ -85,7 +85,7 @@ Compose Hot Reloadは、以下の2つの方法で追加できます。
     ```
     `alwaysOnTop`変数を`true`に設定することで、生成されたデスクトップアプリが全てのウィンドウの手前に表示され続け、コードを編集して変更をライブで確認しやすくなります。
 
-2.  `commonMain`ディレクトリで、`App.kt`ファイルを開き、`Button`コンポーザブルを更新します。
+2.  `App.kt`ファイルを開き、`Button`コンポーザブルを更新します。
     ```kotlin
     Button(onClick = { showContent = !showContent }) {
         Column {
@@ -95,21 +95,21 @@ Compose Hot Reloadは、以下の2つの方法で追加できます。
     ```
     これで、ボタンのテキストは`greet()`関数によって制御されます。
 
-3.  `commonMain`ディレクトリで、`Greeting.kt`ファイルを開き、`greet()`関数を更新します。
+3.  `Greeting.kt`ファイルを開き、`greet()`関数を更新します。
     ```kotlin
      fun greet(): String {
          return "Hello!"
      }
     ```
 
-4.  `desktopMain`ディレクトリで、`main.kt`ファイルを開き、ガターの**実行**アイコンをクリックします。
-    **Run 'composeApp [desktop]' with Compose Hot Reload (Alpha)**を選択します。
+4.  `main.kt`ファイルを開き、ガターの**実行**アイコンをクリックします。
+    **Run 'composeApp [hotRunJvm]' with Compose Hot Reload (Beta)**を選択します。
 
     ![Run Compose Hot Reload from gutter](compose-hot-reload-gutter-run.png){width=350}
 
     ![First Compose Hot Reload on desktop app](compose-hot-reload-hello.png){width=500}
 
-5.  `greet()`関数から返される文字列を更新し、その後ファイルを保存すると、デスクトップアプリが自動的に更新されるのを確認できます。
+5.  `greet()`関数から返される文字列を更新し、その後全てのファイルを保存する (<shortcut>⌘ S</shortcut> / <shortcut>Ctrl+S</shortcut>) と、デスクトップアプリが自動的に更新されるのを確認できます。
 
     ![Compose Hot Reload](compose-hot-reload.gif){width=500}
 

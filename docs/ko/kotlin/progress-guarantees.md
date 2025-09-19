@@ -96,7 +96,7 @@ class ConcurrentSkipListMapTest {
 >
 {style="tip"}
 
-현재로서는 Lincheck은 옵스트럭션-프리(obstruction-freedom) 진행 보장만을 지원합니다. 그러나 대부분의 실제 라이브니스(liveness) 버그는 예상치 못한 블로킹(blocking) 코드를 추가하므로, 옵스트럭션-프리 검사는 락-프리(lock-free) 및 웨이트-프리(wait-free) 알고리즘에도 도움이 될 것입니다.
+현재로서는 Lincheck은 옵스트럭션-프리(obstruction-freedom) 진행 보장만을 지원합니다. 그러나 대부분의 실제 라이브니스(liveness) 버그는 예상치 못한 블로킹(blocking) 코드를 추가하므로, 옵스트럭션-프리 검사는 락-프리(lock-freedom) 및 웨이트-프리(wait-freedom) 알고리즘에도 도움이 될 것입니다.
 
 > *   [예제 전체 코드](https://github.com/JetBrains/lincheck/blob/master/src/jvm/test-lincheck-integration/org/jetbrains/lincheck_test/guide/ConcurrentMapTest.kt)를 확인해 보세요.
 > *   마이클-스콧 큐(Michael-Scott queue) 구현의 진행 보장을 테스트하는 [다른 예제](https://github.com/JetBrains/lincheck/blob/master/src/jvm/test-lincheck-integration/org/jetbrains/lincheck_test/guide/ObstructionFreedomViolationTest.kt)를 확인해 보세요.

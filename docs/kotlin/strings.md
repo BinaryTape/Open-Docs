@@ -1,6 +1,6 @@
 [//]: # (title: 字符串)
 
-Kotlin 中的字符串由 `String` 类型表示。
+Kotlin 中的字符串由 [`String`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/) 类型表示。
 
 > JVM 上，`String` 类型的对象使用 UTF-16 编码时，每个字符大约占用 2 字节。
 > 
@@ -12,7 +12,8 @@ Kotlin 中的字符串由 `String` 类型表示。
 val str = "abcd 123"
 ```
 
-字符串的元素是字符，你可以通过索引操作 `s[i]` 访问它们。你可以使用 `for` 循环迭代这些字符：
+字符串的元素是字符，你可以通过索引操作 `s[i]` 访问它们。
+你可以使用 `for` 循环迭代这些字符：
 
 ```kotlin
 fun main() {
@@ -26,7 +27,8 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-字符串是不可变的。一旦初始化了字符串，就不能更改其值或为其赋值新值。所有转换字符串的操作都会在新 `String` 对象中返回其结果，而原始字符串保持不变：
+字符串是不可变的。一旦初始化了字符串，就不能更改其值或为其赋值新值。
+所有转换字符串的操作都会在新 `String` 对象中返回其结果，而原始字符串保持不变：
 
 ```kotlin
 fun main() {
@@ -108,7 +110,8 @@ val text = """
 
 ## 字符串模板
 
-字符串字面值可以包含*模板表达式*——一些被求值并将其结果连接到字符串中的代码片段。当处理模板表达式时，Kotlin 会自动调用表达式结果上的 `.toString()` 函数，将其转换为字符串。模板表达式以美元符号 (`$`) 开头，并由变量名组成：
+字符串字面值可以包含*模板表达式*——一些被求值并将其结果连接到字符串中的代码片段。
+当处理模板表达式时，Kotlin 会自动调用表达式结果上的 `.toString()` 函数，将其转换为字符串。模板表达式以美元符号 (`$`) 开头，并由变量名组成：
 
 ```kotlin
 fun main() {
@@ -160,7 +163,8 @@ ${'$'}9.99
 
 虽然你可以为单行字符串[转义字面值](#escaped-strings)，
 但 Kotlin 中的多行字符串不支持反斜杠转义。
-要在字符串中包含美元符号 (`$`) 作为字面字符，你必须使用 `${'$'}` 结构来阻止字符串内插。
+要在字符串中包含美元符号 (`$`) 和 (`$$`) 作为字面字符，
+你必须使用 `${'$'}` 结构来阻止字符串内插。
 这种方法会使代码更难阅读，尤其是在字符串包含多个美元符号时。
 
 多美元符号字符串内插通过让你在单行字符串和多行字符串中都将美元符号视为字面字符来简化这一点。
@@ -168,7 +172,7 @@ ${'$'}9.99
 
 ```kotlin
 val KClass<*>.jsonSchema : String
-    get() = $"""
+    get() = $$"""
     {
       "$schema": "https://json-schema.org/draft/2020-12/schema",
       "$id": "https://example.com/product.schema.json",
@@ -179,21 +183,21 @@ val KClass<*>.jsonSchema : String
     """
 ```
 
-这里，`$` 前缀指定需要两个连续的美元符号来触发字符串内插。
+这里，`$$` 前缀指定需要两个连续的美元符号来触发字符串内插。
 单个美元符号保留为字面字符。
 
 你可以调整多少个美元符号会触发内插。
-例如，使用三个连续美元符号 (`$$$`) 允许 `$` 和 `$$` 保留为字面值，
+例如，使用三个连续美元符号 (`$$$`) 允许 `$$` 和 `$` 保留为字面值，
 同时通过 `$$$` 启用内插：
 
 ```kotlin
 val productName = "carrot"
 val requestedData =
-    $$"""{
+    $$$"""{
       "currency": "$",
       "enteredAmount": "42.45 $",
-      "$serviceField": "none",
-      "product": "$$productName"
+      "$$serviceField": "none",
+      "product": "$$$productName"
     }
     """
 
@@ -201,12 +205,12 @@ println(requestedData)
 //{
 //    "currency": "$",
 //    "enteredAmount": "42.45 $",
-//    "$serviceField": "none",
+//    "$$serviceField": "none",
 //    "product": "carrot"
 //}
 ```
 
-这里，`$$` 前缀允许字符串包含 `$` 和 `$$`，
+这里，`$$$` 前缀允许字符串包含 `$` 和 `$$`，
 而无需使用 `${'$'}` 结构进行转义。
 
 多美元符号字符串内插不影响使用单美元符号字符串内插的现有代码。
@@ -218,7 +222,7 @@ println(requestedData)
 >
 {style="note"}
 
-要根据你的特定要求格式化字符串，请使用 `String.format()` 函数。
+要根据你的特定要求格式化字符串，请使用 [`String.format()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/format.html) 函数。
 
 `String.format()` 函数接受一个格式字符串和一个或多个实参。格式字符串包含一个给定实参的占位符（由 `%` 指示），后跟格式说明符。
 格式说明符是相应实参的格式化指令，由标志、宽度、精度和转换类型组成。总的来说，格式说明符决定了输出的格式。常见的格式说明符包括用于整数的 `%d`、用于浮点数的 `%f` 和用于字符串的 `%s`。你还可以使用 `argument_index$` 语法
@@ -248,7 +252,7 @@ fun main() {
     println(helloString)
     // HELLO WORLD
     
-    // Formats a negative number to be enclosed in parentheses, then repeats the same number in a different format (without parentheses) using `argument_index$`.
+    // Formats a negative number to be enclosed in parentheses, then repeats the same number in a different format (without parentheses) using `argument_index$` syntax.
     val negativeNumberInParentheses = String.format("%(d means %1$d", -31416)
     println(negativeNumberInParentheses)
     //(31416) means -31416

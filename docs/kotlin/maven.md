@@ -200,6 +200,25 @@ Kotlin Maven 插件需要被引用才能编译源代码：
 </build>
 ```
 
+## 配置 Kotlin 编译器执行策略
+
+_Kotlin 编译器执行策略_ 定义了 Kotlin 编译器的运行位置。有两种可用的策略：
+
+| 策略 | Kotlin 编译器执行位置 |
+|---|---|
+| Kotlin daemon (默认) | 在其自身的 daemon 进程中 |
+| 进程内 | 在 Maven 进程中 |
+
+默认情况下，使用 [Kotlin daemon](kotlin-daemon.md)。你可以通过在 `pom.xml` 文件中设置以下属性来切换到“进程内”策略：
+
+```xml
+<properties>
+    <kotlin.compiler.daemon>false</kotlin.compiler.daemon>
+</properties>
+```
+
+无论你使用哪种编译器执行策略，你仍然需要显式配置增量编译。
+
 ## 启用增量编译
 
 为了让你的构建更快，你可以通过添加 `kotlin.compiler.incremental` 属性来启用增量编译：
@@ -306,17 +325,17 @@ java -jar target/mymodule-0.0.1-SNAPSHOT-jar-with-dependencies.jar
 
 ### JVM 特有的属性
 
-| 名称              | 属性名                   | 描述                                                                          | 可能的值                                  | 默认值                      |
-|-------------------|--------------------------|-------------------------------------------------------------------------------|-------------------------------------------|-----------------------------|
-| `nowarn`          |                          | 不生成警告                                                                    | true, false                               | false                       |
-| `languageVersion` | kotlin.compiler.languageVersion | 提供与指定 Kotlin 版本的源代码兼容性                                      | "1.8", "1.9", "2.0", "2.1", "2.2" (实验性的) |                             |
-| `apiVersion`      | kotlin.compiler.apiVersion | 仅允许使用指定版本的捆绑库中的声明                                          | "1.8", "1.9", "2.0", "2.1", "2.2" (实验性的) |                             |
-| `sourceDirs`      |                          | 包含要编译的源文件的目录                                                      |                                           | 项目源代码根目录            |
-| `compilerPlugins` |                          | 启用的编译器插件                                                              |                                           | []                          |
-| `pluginOptions`   |                          | 编译器插件选项                                                                |                                           | []                          |
-| `args`            |                          | 额外的编译器实参                                                              |                                           | []                          |
-| `jvmTarget`       | `kotlin.compiler.jvmTarget` | 生成的 JVM 字节码的目标版本                                                   | "1.8", "9", "10", ..., "24"               | "%defaultJvmTargetVersion%" |
-| `jdkHome`         | `kotlin.compiler.jdkHome` | 将指定位置的自定义 JDK 包含到类路径中，而不是默认的 JAVA_HOME                 |                                           |                             |
+| 名称 | 属性名 | 描述 | 可能的值 | 默认值 |
+|---|---|---|---|---|
+| `nowarn` | | 不生成警告 | true, false | false |
+| `languageVersion` | kotlin.compiler.languageVersion | 提供与指定 Kotlin 版本的源代码兼容性 | "1.8", "1.9", "2.0", "2.1", "2.2" (实验性的) | |
+| `apiVersion` | kotlin.compiler.apiVersion | 仅允许使用指定版本的捆绑库中的声明 | "1.8", "1.9", "2.0", "2.1", "2.2" (实验性的) | |
+| `sourceDirs` | | 包含要编译的源文件的目录 | | 项目源代码根目录 |
+| `compilerPlugins` | | 启用的编译器插件 | | [] |
+| `pluginOptions` | | 编译器插件选项 | | [] |
+| `args` | | 额外的编译器实参 | | [] |
+| `jvmTarget` | `kotlin.compiler.jvmTarget` | 生成的 JVM 字节码的目标版本 | "1.8", "9", "10", ..., "24" | "%defaultJvmTargetVersion%" |
+| `jdkHome` | `kotlin.compiler.jdkHome` | 将指定位置的自定义 JDK 包含到类路径中，而不是默认的 JAVA_HOME | | |
 
 ## 使用 BOM
 

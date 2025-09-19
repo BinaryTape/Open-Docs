@@ -1,12 +1,12 @@
 [//]: # (title: Compose 핫 리로드)
 
-<primary-label ref="alpha"/>
+<primary-label ref="beta"/>
 
 [Compose 핫 리로드](https://github.com/JetBrains/compose-hot-reload)는 Compose Multiplatform 프로젝트에서 작업하는 동안 UI 변경 사항을 시각화하고 실험하는 데 도움을 줍니다.
 
 현재 Compose 핫 리로드는 멀티플랫폼 프로젝트에 데스크톱 타겟을 포함할 때만 사용할 수 있습니다. JetBrains는 향후 다른 타겟에 대한 지원 추가를 검토 중입니다. 그 동안 데스크톱 앱을 샌드박스(sandbox)로 사용하면 작업 흐름을 방해하지 않고 공통 코드의 UI 변경 사항을 빠르게 실험할 수 있습니다.
 
-![Compose Hot Reload](compose-hot-reload.gif){width=500}
+![Compose 핫 리로드](compose-hot-reload.gif){width=500}
 
 ## 프로젝트에 Compose 핫 리로드 추가하기
 
@@ -24,7 +24,7 @@ Compose 핫 리로드는 다음 두 가지 방법으로 추가할 수 있습니�
 3.  왼쪽 패널에서 **Kotlin Multiplatform**을 선택합니다.
 4.  **새 프로젝트** 창에서 **Name**, **Group**, **Artifact** 필드를 지정합니다.
 5.  **Desktop** 타겟을 선택하고 **Create**를 클릭합니다.
-    ![Create multiplatform project with desktop target](create-desktop-project.png){width=700}
+    ![데스크톱 타겟으로 멀티플랫폼 프로젝트 생성](create-desktop-project.png){width=700}
 
 ### 기존 프로젝트에 추가하기
 
@@ -66,11 +66,11 @@ Compose 핫 리로드는 다음 두 가지 방법으로 추가할 수 있습니�
     }
     ```
 
-5.  **Gradle 변경 사항 동기화** 버튼을 클릭하여 Gradle 파일을 동기화합니다. ![Synchronize Gradle files](gradle-sync.png){width=50}
+5.  **Gradle 변경 사항 동기화** 버튼을 클릭하여 Gradle 파일을 동기화합니다. ![Gradle 파일 동기화](gradle-sync.png){width=50}
 
 ## Compose 핫 리로드 사용하기
 
-1.  `desktopMain` 디렉터리에서 `main.kt` 파일을 열고 `main()` 함수를 업데이트합니다.
+1.  `jvmMain` 디렉터리에서 `main.kt` 파일을 열고 `main()` 함수를 업데이트합니다.
     ```kotlin
     fun main() = application {
         Window(
@@ -84,7 +84,7 @@ Compose 핫 리로드는 다음 두 가지 방법으로 추가할 수 있습니�
     ```
     `alwaysOnTop` 변수를 `true`로 설정하면 생성된 데스크톱 앱이 모든 창 위에 유지되어 코드를 편집하고 변경 사항을 실시간으로 확인하기가 더 쉬워집니다.
 
-2.  `commonMain` 디렉터리에서 `App.kt` 파일을 열고 `Button` 컴포저블(composable)을 업데이트합니다.
+2.  `App.kt` 파일을 열고 `Button` 컴포저블(composable)을 업데이트합니다.
     ```kotlin
     Button(onClick = { showContent = !showContent }) {
         Column {
@@ -94,23 +94,23 @@ Compose 핫 리로드는 다음 두 가지 방법으로 추가할 수 있습니�
     ```
     이제 버튼의 텍스트는 `greet()` 함수에 의해 제어됩니다.
 
-3.  `commonMain` 디렉터리에서 `Greeting.kt` 파일을 열고 `greet()` 함수를 업데이트합니다.
+3.  `Greeting.kt` 파일을 열고 `greet()` 함수를 업데이트합니다.
     ```kotlin
      fun greet(): String {
          return "Hello!"
      }
     ```
 
-4.  `desktopMain` 디렉터리에서 `main.kt` 파일을 열고 거터(gutter)에 있는 **Run** 아이콘을 클릭합니다.
-    **Run 'composeApp [desktop]' with Compose Hot Reload (Alpha)**를 선택합니다.
+4.  `main.kt` 파일을 열고 거터(gutter)에 있는 **Run** 아이콘을 클릭합니다.
+    **Run 'composeApp [hotRunJvm]' with Compose Hot Reload (Beta)**를 선택합니다.
 
-    ![Run Compose Hot Reload from gutter](compose-hot-reload-gutter-run.png){width=350}
+    ![거터에서 Compose 핫 리로드 실행](compose-hot-reload-gutter-run.png){width=350}
 
-    ![First Compose Hot Reload on desktop app](compose-hot-reload-hello.png){width=500}
+    ![데스크톱 앱에서 첫 번째 Compose 핫 리로드](compose-hot-reload-hello.png){width=500}
 
-5.  `greet()` 함수에서 반환되는 문자열을 업데이트한 다음, 파일을 저장하여 데스크톱 앱이 자동으로 업데이트되는 것을 확인합니다.
+5.  `greet()` 함수에서 반환되는 문자열을 업데이트한 다음, 모든 파일을 저장하여 (<shortcut>⌘ S</shortcut> / <shortcut>Ctrl+S</shortcut>) 데스크톱 앱이 자동으로 업데이트되는 것을 확인합니다.
 
-    ![Compose Hot Reload](compose-hot-reload.gif){width=500}
+    ![Compose 핫 리로드](compose-hot-reload.gif){width=500}
 
 축하합니다! Compose 핫 리로드가 작동하는 것을 확인했습니다. 이제 변경할 때마다 데스크톱 실행 구성을 다시 시작할 필요 없이 텍스트, 이미지, 서식, UI 구조 등을 변경하면서 실험할 수 있습니다.
 

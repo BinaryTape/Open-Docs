@@ -44,6 +44,7 @@ Gradleでの最初のコンパイルは、依存関係のダウンロード、�
 
 *   `linkDebug*`。開発中にコードを実行する場合、通常は1つのバイナリのみが必要なため、対応する`linkDebug*`タスクを実行するだけで十分なはずです。
 *   `embedAndSignAppleFrameworkForXcode`。iOSシミュレータとデバイスは異なるプロセッサアーキテクチャを持っているため、Kotlin/Nativeバイナリをユニバーサル（fat）フレームワークとして配布するのが一般的なアプローチです。
+
     ただし、ローカル開発中は、使用しているプラットフォーム専用の`.framework`ファイルをビルドする方が高速です。プラットフォーム固有のフレームワークをビルドするには、[embedAndSignAppleFrameworkForXcode](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-direct-integration.html#connect-the-framework-to-your-project)タスクを使用します。
 
 ### 必要なターゲットのみをビルドする
@@ -94,13 +95,9 @@ Gradleの[コンフィギュレーションキャッシュ](https://docs.gradle.
 
 Gradleデーモンとコンパイラキャッシュを無効にするKotlin/Nativeプロパティがあります。
 
-```
-kotlin.native.disableCompilerDaemon=true
-kotlin.native.cacheKind=none
-kotlin.native.cacheKind.$target=none
-```
-
-ここで`$target`はKotlin/Nativeのコンパイルターゲットです（例: `iosSimulatorArm64`）。
+*   `kotlin.native.disableCompilerDaemon=true`
+*   `kotlin.native.cacheKind=none`
+*   `kotlin.native.cacheKind.$target=none`。ここで`$target`はKotlin/Nativeのコンパイルターゲットです（例: `iosSimulatorArm64`）。
 
 以前にこれらの機能で問題があり、`gradle.properties`ファイルまたはGradle引数にこれらの行を追加した場合は、それらを削除してビルドが正常に完了するかどうかを確認してください。これらのプロパティは、以前にすでに修正された問題を回避するために追加された可能性があります。
 

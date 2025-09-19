@@ -62,7 +62,7 @@
     agp = "8.7.3"
     ...
     coroutinesVersion = "%coroutinesVersion%"
-    dateTimeVersion = "0.6.2"
+    dateTimeVersion = "%dateTimeVersion%"
     koin = "%koinVersion%"
     ktor = "%ktorVersion%"
     sqlDelight = "%sqlDelightVersion%"
@@ -114,7 +114,7 @@
     }
     ```
 
-6.  公共源代码集需要每个库的核心 artifact，以及 Ktor [序列化特性](https://ktor.io/docs/serialization-client.html)，以便使用 `kotlinx.serialization` 处理网络请求和响应。iOS 和 Android 源代码集也需要 SQLDelight 和 Ktor 平台驱动程序。
+6.  公共源代码集需要每个库的核心构件，以及 Ktor [序列化特性](https://ktor.io/docs/serialization-client.html)，以便使用 `kotlinx.serialization` 处理网络请求和响应。iOS 和 Android 源代码集也需要 SQLDelight 和 Ktor 平台驱动程序。
 
     在同一个 `shared/build.gradle.kts` 文件中，添加所有所需依赖项：
 
@@ -144,7 +144,23 @@
     }
     ```
 
-7.  依赖项添加完毕后，再次点击 **Sync Gradle Changes** 按钮以同步 Gradle 文件。
+7.  在 `sourceSets` 代码块的开头，选择启用 Kotlin 标准库的实验性时间 API：
+
+    ```kotlin
+    kotlin {
+        // ...
+    
+        sourceSets {
+            all {
+                languageSettings.optIn("kotlin.time.ExperimentalTime")
+            }
+            
+            // ...
+        }
+    }
+    ```
+
+8.  依赖项添加完毕后，再次点击 **Sync Gradle Changes** 按钮以同步 Gradle 文件。
 
 Gradle 同步后，你的项目配置已完成，可以开始编写代码了。
 
@@ -184,7 +200,7 @@ Gradle 同步后，你的项目配置已完成，可以开始编写代码了。
 
 SQLDelight 库允许你从 SQL 查询生成类型安全的 Kotlin 数据库 API。在编译期，生成器会验证 SQL 查询并将其转换为可在共享模块中使用的 Kotlin 代码。
 
-SQLDelight 依赖项已包含在项目中。要配置该库，请打开 `shared/build.gradle.kts` 文件并在末尾添加 `sqldelight {}` 代码块。此代码块包含数据库列表及其形参：
+SQLDelight 依赖项已包含在项目中。要配置该库，请打开 `shared/build.gradle.kts` 文件并在末尾添加 `sqldelight {}` 代码块。此代码块包含数据库 list 及其形参：
 
 ```kotlin
 sqldelight {
@@ -250,7 +266,6 @@ sqldelight {
     SELECT Launch.*
     FROM Launch;
     ```
-
 8.  生成相应的 `AppDatabase` 接口（你稍后将使用数据库驱动程序对其进行初始化）。为此，请在终端中运行以下命令：
 
     ```shell
@@ -261,7 +276,7 @@ sqldelight {
 
 ### 为平台特有的数据库驱动程序创建工厂
 
-要初始化 `AppDatabase` 接口，你将把 `SqlDriver` 实例传递给它。SQLDelight 提供了 SQLite 驱动程序的多个平台特有的实现，因此你需要为每个平台单独创建这些实例。
+要初始化 `AppDatabase` 接口，你将把 `SqlDriver` 实例传递给它。SQLDelight 提供了 SQLite 驱动程序的多个平台特有实现，因此你需要为每个平台单独创建这些实例。
 
 虽然你可以通过 [expected 和 actual 接口](multiplatform-expect-actual.md) 实现此目的，但在本项目中，你将使用 [Koin](https://insert-koin.io/) 来尝试 Kotlin Multiplatform 中的依赖项注入。
 
@@ -900,7 +915,7 @@ IntelliJ IDEA 会生成一个已连接到共享模块的 iOS 项目。Kotlin 模
 
     ```kotlin
     package com.jetbrains.spacetutorial
-    
+   
     import org.koin.core.component.KoinComponent
     import com.jetbrains.spacetutorial.entity.RocketLaunch
     import org.koin.core.component.inject

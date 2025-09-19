@@ -1,6 +1,6 @@
 # Kotlin Multiplatform과 Flutter: 크로스 플랫폼 개발 솔루션
 
-<web-summary>이 글에서는 Kotlin Multiplatform과 Flutter를 탐색하여, 이들의 기능 이해를 돕고 크로스 플랫폼 프로젝트에 적합한 솔루션을 선택하는 데 도움을 드립니다.</web-summary>
+<web-summary>이 글에서는 Kotlin Multiplatform과 Flutter를 탐색하여, 이들의 기능 이해를 돕고 크로스 플랫폼 프로젝트에 적합한 솔루션을 선택하는 데 도움을 드립니다.</web-summary> 
 
 빠르게 발전하는 기술 세계에서 개발자들은 고품질 애플리케이션을 구축하는 데 도움이 되는 효율적인 프레임워크와 도구를 끊임없이 찾고 있습니다. 그러나 사용 가능한 여러 옵션 중에서 선택할 때, 이른바 '최고의 옵션'을 찾는 데 너무 많은 강조를 두는 것은 피해야 합니다. 이러한 접근 방식이 항상 가장 적합한 선택으로 이어지지는 않을 수 있기 때문입니다.
 
@@ -34,46 +34,50 @@ Kotlin Multiplatform을 사용하면 다양한 옵션을 선택할 수 있습니
 
 Kotlin Multiplatform은 2017년 Kotlin 1.2의 일부로 처음 소개되었습니다. 2023년 11월, Kotlin Multiplatform은 [안정화](https://blog.jetbrains.com/kotlin/2023/11/kotlin-multiplatform-stable/)되었습니다. Google I/O 2024에서 Google은 Android와 iOS 간의 비즈니스 로직 공유를 위한 Android의 [Kotlin Multiplatform 지원](https://android-developers.googleblog.com/2024/05/android-support-for-kotlin-multiplatform-to-share-business-logic-across-mobile-web-server-desktop.html)을 발표했습니다.
 
-[![Kotlin Multiplatform 알아보기](discover-kmp.svg){width="500"}](https://www.jetbrains.com/kotlin-multiplatform/)
+[![Discover Kotlin Multiplatform](discover-kmp.svg){width="500"}](https://www.jetbrains.com/kotlin-multiplatform/)
 
 #### Compose Multiplatform
 
 JetBrains의 최신 선언형 프레임워크인 [Compose Multiplatform](https://www.jetbrains.com/compose-multiplatform/)을 사용하여 여러 플랫폼에 걸쳐 공유 UI 코드를 작성할 수 있습니다. 이는 Kotlin Multiplatform과 Google의 Jetpack Compose를 기반으로 구축되었습니다.
 
-Compose Multiplatform은 현재 [iOS](https://blog.jetbrains.com/kotlin/2025/05/compose-multiplatform-1-8-0-released-compose-multiplatform-for-ios-is-stable-and-production-ready/), Android 및 데스크톱에서 안정화되었으며, 웹에서는 알파(Alpha) 버전입니다.
+Compose Multiplatform은 현재 [iOS](https://blog.jetbrains.com/kotlin/2025/05/compose-multiplatform-1-8-0-released-compose-multiplatform-for-ios-is-stable-and-production-ready/), Android 및 데스크톱에서 안정화되었으며, 웹에서는 베타(Beta) 버전입니다.
 
-[![Compose Multiplatform 살펴보기](explore-compose.svg){width="500"}](https://www.jetbrains.com/compose-multiplatform/)
+[![Explore Compose Multiplatform](explore-compose.svg){width="500"}](https://www.jetbrains.com/compose-multiplatform/)
 
 저희 전용 글에서는 [Compose Multiplatform과 Jetpack Compose](compose-multiplatform-and-jetpack-compose.md)의 관계를 설명하고 주요 차이점을 강조합니다.
 
 ### Kotlin Multiplatform과 Flutter: 개요
 
 <table style="both">
-
+    
 <tr>
 <td></td>
         <td><b>Kotlin Multiplatform</b></td>
         <td><b>Flutter</b></td>
 </tr>
 
+    
 <tr>
 <td><b>제작자</b></td>
         <td>JetBrains</td>
         <td>Google</td>
 </tr>
 
+    
 <tr>
 <td><b>언어</b></td>
         <td>Kotlin</td>
         <td>Dart</td>
 </tr>
 
+    
 <tr>
 <td><b>유연성 및 코드 재사용</b></td>
         <td>비즈니스 로직 및/또는 UI를 포함하여 코드베이스의 원하는 부분을 1%부터 100%까지 공유할 수 있습니다.</td>
-        <td>모든 플랫폼에서 100% 코드를 공유하여 맞춤형 및 반응형 디자인을 생성하기 위해 애플리케이션의 모든 픽셀을 제어할 수 있습니다.</td>
+        <td>애플리케이션의 모든 픽셀을 제어하여 맞춤형 및 반응형 디자인을 생성하기 위해 모든 플랫폼에서 100% 코드를 공유할 수 있습니다.</td>
 </tr>
 
+    
 <tr>
 <td><b>패키지, 종속성 및 생태계</b></td>
         <td>패키지는 <a href="https://central.sonatype.com/">Maven Central</a> 및 다음을 포함한 다른 저장소에서 사용할 수 있습니다.
@@ -82,18 +86,21 @@ Compose Multiplatform은 현재 [iOS](https://blog.jetbrains.com/kotlin/2025/05/
         <td>패키지는 <a href="https://pub.dev/">Pub.dev</a>에서 사용할 수 있습니다.</td>
 </tr>
 
+    
 <tr>
 <td><b>빌드 도구</b></td>
         <td>Gradle (Apple 기기 대상 애플리케이션의 경우 Xcode 추가).</td>
         <td>Flutter 명령줄 도구 (내부적으로 Gradle 및 Xcode 사용).</td>
 </tr>
 
+    
 <tr>
 <td><b>코드 공유</b></td>
         <td>Android, iOS, 웹, 데스크톱, 서버 측.</td>
         <td>Android, iOS, 웹, 데스크톱, 임베디드 기기.</td>
 </tr>
 
+    
 <tr>
 <td><b>컴파일</b></td>
         <td>데스크톱 및 Android용 JVM 바이트코드, 웹용 JavaScript 또는 Wasm, 네이티브 플랫폼용 플랫폼별 바이너리로 컴파일됩니다.</td>
@@ -102,18 +109,21 @@ Compose Multiplatform은 현재 [iOS](https://blog.jetbrains.com/kotlin/2025/05/
         </td>
 </tr>
 
+    
 <tr>
 <td><b>네이티브 API와의 통신</b></td>
         <td>네이티브 API는 <Links href="/kmp/multiplatform-expect-actual" summary="undefined">`expect/actual` 선언</Links>을 사용하여 Kotlin 코드에서 직접 접근할 수 있습니다.</td>
         <td>호스트 플랫폼과의 통신은 <a href="https://docs.flutter.dev/platform-integration/platform-channels">플랫폼 채널</a>을 사용하여 가능합니다.</td>
 </tr>
 
+    
 <tr>
 <td><b>UI 렌더링</b></td>
         <td><a href="https://www.jetbrains.com/compose-multiplatform/">Compose Multiplatform</a>은 Google의 Jetpack Compose를 기반으로 Skia 엔진을 사용하여 플랫폼 전반에 걸쳐 UI를 공유하는 데 사용될 수 있습니다. Skia 엔진은 OpenGL, ANGLE (OpenGL ES 2 또는 3 호출을 네이티브 API로 변환), Vulkan, Metal과 호환됩니다.</td>
         <td>Flutter 위젯은 사용자 정의 <a href="https://docs.flutter.dev/perf/impeller">Impeller 엔진</a>을 사용하여 화면에 렌더링됩니다. Impeller 엔진은 플랫폼 및 기기에 따라 Metal, Vulkan 또는 OpenGL을 사용하여 GPU와 직접 통신합니다.</td>
 </tr>
 
+    
 <tr>
 <td><b>UI 개발 반복</b></td>
         <td>공통 코드에서도 UI 미리보기를 사용할 수 있습니다.
@@ -121,6 +131,7 @@ Compose Multiplatform은 현재 [iOS](https://blog.jetbrains.com/kotlin/2025/05/
         <td>VS Code 및 Android Studio용 IDE 플러그인을 사용할 수 있습니다.</td>
 </tr>
 
+    
 <tr>
 <td><b>기술을 사용하는 회사</b></td>
         <td><a href="https://www.forbes.com/sites/forbes-engineering/2023/11/13/forbes-mobile-app-shifts-to-kotlin-multiplatform/">Forbes</a>, <a href="https://www.youtube.com/watch?v=z-o9MqN86eE">Todoist</a>, <a href="https://medium.com/mcdonalds-technical-blog/mobile-multiplatform-development-at-mcdonalds-3b72c8d44ebc">McDonald’s</a>, <a href="https://www.youtube.com/watch?v=5sOXv-X43vc">Google Workspace</a>, <a href="https://www.youtube.com/watch?v=hZPL8QqiLi8">Philips</a>, <a href="https://raymondctc.medium.com/adopting-kotlin-multiplatform-mobile-kmm-on-9gag-app-dfe526d9ce04">9gag</a>, <a href="https://kotlinlang.org/lp/multiplatform/case-studies/baidu">Baidu</a>, <a href="https://kotlinlang.org/lp/multiplatform/case-studies/autodesk/">Autodesk</a>, <a href="https://touchlab.co/">TouchLab</a>, <a href="https://www.youtube.com/watch?v=YsQ-2lQYQ8M">Instabee</a>, 그리고 더 많은 회사가 저희 <Links href="/kmp/case-studies" summary="undefined">KMP 사례 연구</Links>에 나열되어 있습니다.</td>

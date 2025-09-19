@@ -3,15 +3,15 @@
 <no-index/>
 
 <tldr>
-    <p><img src="icon-1.svg" width="20" alt="First step" /> <strong>擴展函數</strong><br />
-        <img src="icon-2-todo.svg" width="20" alt="Second step" /> <a href="kotlin-tour-intermediate-scope-functions.md">作用域函數</a><br />
-        <img src="icon-3-todo.svg" width="20" alt="Third step" /> <a href="kotlin-tour-intermediate-lambdas-receiver.md">帶有接收者的 Lambda 表達式</a><br />
-        <img src="icon-4-todo.svg" width="20" alt="Fourth step" /> <a href="kotlin-tour-intermediate-classes-interfaces.md">類別與介面</a><br />
-        <img src="icon-5-todo.svg" width="20" alt="Fifth step" /> <a href="kotlin-tour-intermediate-objects.md">物件</a><br />
-        <img src="icon-6-todo.svg" width="20" alt="Sixth step" /> <a href="kotlin-tour-intermediate-open-special-classes.md">開放類別與特殊類別</a><br />
-        <img src="icon-7-todo.svg" width="20" alt="Seventh step" /> <a href="kotlin-tour-intermediate-properties.md">屬性</a><br />
-        <img src="icon-8-todo.svg" width="20" alt="Eighth step" /> <a href="kotlin-tour-intermediate-null-safety.md">空值安全</a><br />
-        <img src="icon-9-todo.svg" width="20" alt="Ninth step" /> <a href="kotlin-tour-intermediate-libraries-and-apis.md">函式庫與 API</a></p>
+    <p><img src="icon-1.svg" width="20" alt="第一步" /> <strong>擴展函數</strong><br />
+        <img src="icon-2-todo.svg" width="20" alt="第二步" /> <a href="kotlin-tour-intermediate-scope-functions.md">作用域函數</a><br />
+        <img src="icon-3-todo.svg" width="20" alt="第三步" /> <a href="kotlin-tour-intermediate-lambdas-receiver.md">帶有接收者的 Lambda 表達式</a><br />
+        <img src="icon-4-todo.svg" width="20" alt="第四步" /> <a href="kotlin-tour-intermediate-classes-interfaces.md">類別與介面</a><br />
+        <img src="icon-5-todo.svg" width="20" alt="第五步" /> <a href="kotlin-tour-intermediate-objects.md">物件</a><br />
+        <img src="icon-6-todo.svg" width="20" alt="第六步" /> <a href="kotlin-tour-intermediate-open-special-classes.md">開放類別與特殊類別</a><br />
+        <img src="icon-7-todo.svg" width="20" alt="第七步" /> <a href="kotlin-tour-intermediate-properties.md">屬性</a><br />
+        <img src="icon-8-todo.svg" width="20" alt="第八步" /> <a href="kotlin-tour-intermediate-null-safety.md">空值安全</a><br />
+        <img src="icon-9-todo.svg" width="20" alt="第九步" /> <a href="kotlin-tour-intermediate-libraries-and-apis.md">函式庫與 API</a></p>
 </tldr>
 
 在本章中，您將探索特殊的 Kotlin 函數，它們能讓您的程式碼更簡潔、更易讀。了解它們如何幫助您使用高效的設計模式，將您的專案提升到新的水平。
@@ -20,20 +20,17 @@
 
 在軟體開發中，您經常需要在不更改原始程式碼的情況下修改程式的行為。例如，在您的專案中，您可能希望為來自第三方函式庫的類別添加額外功能。
 
-擴展函數允許您為類別擴展額外功能。您呼叫擴展函數的方式與呼叫類別的成員函數相同。
+擴展函數允許您為類別擴展額外功能。您呼叫擴展函數的方式與呼叫類別的成員函數相同，使用一個句點 `.`。
 
-在介紹擴展函數的語法之前，您需要了解**接收者類型**和**接收者物件**這些術語。
+在介紹擴展函數的完整語法之前，您需要了解**接收者 (receiver)** 是什麼。
+接收者是函數被呼叫的對象。換句話說，接收者是資訊共享的目標。
 
-接收者物件是函數被呼叫的對象。換句話說，接收者是資訊共享的目標。
+![寄件者與接收者的範例](receiver-highlight.png){width="500"}
 
-![An example of sender and receiver](receiver-highlight.png){width="500"}
-
-在此範例中，`main()` 函數呼叫了 [`.first()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/first.html) 函數。
+在此範例中，`main()` 函數呼叫了 [`.first()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/first.html) 函數來回傳列表中第一個元素。
 `.first()` 函數是針對 `readOnlyShapes` 變數呼叫的，因此 `readOnlyShapes` 變數是接收者。
 
-接收者物件具有**類型**，以便編譯器了解何時可以使用該函數。
-
-此範例使用標準函式庫中的 `.first()` 函數來回傳列表中的第一個元素。要建立您自己的擴展函數，請撰寫您要擴展的類別名稱，後跟一個 `.` 和您的函數名稱。然後繼續撰寫函數宣告的其餘部分，包括其引數和回傳類型。
+要建立擴展函數，請撰寫您要擴展的類別名稱，後跟一個 `.` 和您的函數名稱。然後繼續撰寫函數宣告的其餘部分，包括其引數和回傳類型。
 
 例如：
 
@@ -41,7 +38,7 @@
 fun String.bold(): String = "<b>$this</b>"
 
 fun main() {
-    // "hello" 是接收者物件
+    // "hello" 是接收者
     println("hello".bold())
     // <b>hello</b>
 }
@@ -54,7 +51,7 @@ fun main() {
 *   `bold` 是擴展函數的名稱。
 *   `.bold()` 擴展函數的回傳類型是 `String`。
 *   `"hello"`，一個 `String` 的實例，是接收者物件。
-*   接收者物件在函數體內部透過 [關鍵字](keyword-reference.md)：`this` 來存取。
+*   接收者在函數體內部透過 [關鍵字](keyword-reference.md)：`this` 來存取。
 *   字串模板 (`$this`) 用來存取 `this` 的值。
 *   `.bold()` 擴展函數接收一個字串並將其包裝在 `<b>` HTML 元素中，以顯示粗體文字。
 
@@ -117,7 +114,7 @@ fun main() {
 
 |---|---|
 ```kotlin
-fun Int.// Write your code here
+fun Int.// 在此撰寫您的程式碼
 
 fun main() {
     println(1.isPositive())
@@ -149,7 +146,7 @@ fun main() {
 
 |---|---|
 ```kotlin
-fun // Write your code here
+fun // 在此撰寫您的程式碼
 
 fun main() {
     println("Hello World!".toLowercaseString())

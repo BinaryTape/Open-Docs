@@ -2,34 +2,34 @@
 
 您可以将多平台库发布到不同位置：
 
-* [到本地 Maven 版本库](#publishing-to-a-local-maven-repository)
-* 到 Maven Central 版本库。了解如何在[我们的教程](multiplatform-publish-libraries.md)中设置账户凭据、自定义库元数据以及配置发布插件。
-* 到 GitHub 版本库。有关更多信息，请参阅 GitHub 关于 [GitHub packages](https://docs.github.com/en/packages) 的文档。
+*   [到本地 Maven 版本库](#publishing-to-a-local-maven-repository)
+*   到 Maven Central 版本库。了解如何在[我们的教程](multiplatform-publish-libraries.md)中设置账户凭据、自定义库元数据以及配置发布插件。
+*   到 GitHub 版本库。有关更多信息，请参阅 GitHub 关于 [GitHub packages](https://docs.github.com/en/packages) 的文档。
 
 ## 发布到本地 Maven 版本库
 
 您可以使用 `maven-publish` Gradle 插件将多平台库发布到本地 Maven 版本库：
 
-1. 在 `shared/build.gradle.kts` 文件中，添加 [`maven-publish` Gradle 插件](https://docs.gradle.org/current/userguide/publishing_maven.html)。
-2. 指定库的 group 和 version，以及应发布到的[版本库](https://docs.gradle.org/current/userguide/publishing_maven.html#publishing_maven:repositories)：
+1.  在 `shared/build.gradle.kts` 文件中，添加 [`maven-publish` Gradle 插件](https://docs.gradle.org/current/userguide/publishing_maven.html)。
+2.  指定库的 group 和 version，以及应发布到的[版本库](https://docs.gradle.org/current/userguide/publishing_maven.html#publishing_maven:repositories)：
 
-   ```kotlin
-   plugins {
-       // ...
-       id("maven-publish")
-   }
+    ```kotlin
+    plugins {
+        // ...
+        id("maven-publish")
+    }
 
-   group = "com.example"
-   version = "1.0"
+    group = "com.example"
+    version = "1.0"
 
-   publishing {
-       repositories {
-           maven {
-               //...
-           }
-       }
-   }
-   ```
+    publishing {
+        repositories {
+            maven {
+                //...
+            }
+        }
+    }
+    ```
 
 与 `maven-publish` 结合使用时，Kotlin 插件会自动为可在当前主机上构建的每个目标创建发布项，但 Android 目标除外，它需要[额外步骤来配置发布](#publish-an-android-library)。
 
@@ -59,9 +59,9 @@ kotlin {
 
 **目标特有的发布项**
 
-* 对于 `jvm` 目标：`test:lib-jvm:1.0`
-* 对于 `iosX64` 目标：`test:lib-iosx64:1.0`
-* 对于 `iosArm64` 目标：`test:lib-iosarm64:1.0`
+*   对于 `jvm` 目标：`test:lib-jvm:1.0`
+*   对于 `iosX64` 目标：`test:lib-iosx64:1.0`
+*   对于 `iosArm64` 目标：`test:lib-iosarm64:1.0`
 
 每个目标特有的发布项都是独立的。例如，运行 `publishJvmPublicationTo<MavenRepositoryName>` 只发布 JVM 模块，使其他模块保持未发布状态。
 
@@ -71,13 +71,13 @@ kotlin {
 
 根发布项作为入口点，引用所有目标特有的发布项。它包含元数据 artifact，并通过包含对其他发布项的引用（即各个平台 artifact 的预期 URL 和坐标）来确保正确的依赖项解析。
 
-* 一些版本库，例如 Maven Central，要求根模块包含不带分类器的 JAR artifact，例如 `kotlinMultiplatform-1.0.jar`。Kotlin Multiplatform 插件会自动生成所需的 artifact，其中包含嵌入式元数据 artifact。这意味着您无需在库的根模块中添加一个空 artifact 来满足版本库的要求。
+*   一些版本库，例如 Maven Central，要求根模块包含不带分类器的 JAR artifact，例如 `kotlinMultiplatform-1.0.jar`。Kotlin Multiplatform 插件会自动生成所需的 artifact，其中包含嵌入式元数据 artifact。这意味着您无需在库的根模块中添加一个空 artifact 来满足版本库的要求。
 
-  > 详细了解如何使用 [Gradle](multiplatform-configure-compilations.md#compilation-for-jvm) 和 [Maven](https://kotlinlang.org/docs/maven.html#create-jar-file) 构建系统生成 JAR artifact。
-  >
-  {style="tip"}
+    > 详细了解如何使用 [Gradle](multiplatform-configure-compilations.md#compilation-for-jvm) 和 [Maven](https://kotlinlang.org/docs/maven.html#create-jar-file) 构建系统生成 JAR artifact。
+    >
+    {style="tip"}
 
-* 如果版本库需要，`kotlinMultiplatform` 发布项也可能需要源代码和文档 artifact。在这种情况下，请在发布项的作用域中使用 [`artifact()`](https://docs.gradle.org/current/javadoc/org/gradle/api/publish/maven/MavenPublication.html#artifact-java.lang.Object-)。
+*   如果版本库需要，`kotlinMultiplatform` 发布项也可能需要源代码和文档 artifact。在这种情况下，请在发布项的作用域中使用 [`artifact()`](https://docs.gradle.org/current/javadoc/org/gradle/api/publish/maven/MavenPublication.html#artifact-java.lang.Object-)。
 
 ### 发布完整库
 
@@ -99,7 +99,7 @@ kotlin {
 
 ```bash
 ./gradlew publishKotlinMultiplatformPublicationToMavenLocal
-```
+````
 
 此任务发布一个 `*.module` 文件，其中包含关于目标特有发布项的信息，但目标本身仍未发布。要完成此过程，请单独发布每个目标特有的发布项：
 
@@ -113,25 +113,17 @@ kotlin {
 
 Kotlin/Native 支持交叉编译，允许任何主机生成必要的 `.klib` artifact。但是，您仍需注意一些具体事项。
 
-### Apple 目标的编译
-<secondary-label ref="实验性的"/>
+**Apple 目标的编译**
 
-要为带有 Apple 目标的项目生成 artifact，您通常需要一台 Apple 机器。但是，如果您想使用其他主机，请在您的 `gradle.properties` 文件中设置此选项：
+您可以使用任何主机为带有 Apple 目标的项目生成 artifact。但是，如果您仍需使用 Mac 机器，则需要满足以下条件：
 
-```none
-kotlin.native.enableKlibsCrossCompilation=true
-```
+*   您的库或依赖模块具有 [cinterop 依赖项](https://kotlinlang.org/docs/native-c-interop.html)。
+*   您的项目中设置了 [CocoaPods 集成](multiplatform-cocoapods-overview.md)。
+*   您需要为 Apple 目标构建或测试[最终二进制文件](multiplatform-build-native-binaries.md)。
 
-交叉编译目前是实验性的，并有一些限制。您仍需要使用 Mac 机器，如果：
-
-* 您的库具有 [cinterop 依赖项](https://kotlinlang.org/docs/native-c-interop.html)。
-* 您的项目中设置了 [CocoaPods 集成](multiplatform-cocoapods-overview.md)。
-* 您需要为 Apple 目标构建或测试[最终二进制文件](multiplatform-build-native-binaries.md)。
-
-### 重复发布项
+**重复发布项**
 
 为避免发布期间出现任何问题，请从单个主机发布所有 artifact，以避免在版本库中重复发布项。例如，Maven Central 明确禁止重复发布项并会导致进程失败。
-<!-- TBD: add the actual error -->
 
 ## 发布 Android 库
 
@@ -150,8 +142,8 @@ kotlin {
 此示例适用于不带 [product flavor](https://developer.android.com/build/build-variants#product-flavors) 的 Android 库。对于带有 product flavor 的库，变体名称也包含 flavor，例如 `fooBarDebug` 或 `fooBarRelease`。
 
 默认发布设置如下：
-* 如果已发布的变体具有相同的构建类型（例如，所有变体都是 `release` 或 `debug`），它们将与任何消费者构建类型兼容。
-* 如果已发布的变体具有不同的构建类型，则只有 release 变体将与未包含在已发布变体中的消费者构建类型兼容。所有其他变体（例如 `debug`）将只匹配消费者侧的相同构建类型，除非消费者项目指定了[匹配回退](https://developer.android.com/reference/tools/gradle-api/4.2/com/android/build/api/dsl/BuildType)。
+*   如果已发布的变体具有相同的构建类型（例如，所有变体都是 `release` 或 `debug`），它们将与任何消费者构建类型兼容。
+*   如果已发布的变体具有不同的构建类型，则只有 release 变体将与未包含在已发布变体中的消费者构建类型兼容。所有其他变体（例如 `debug`）将只匹配消费者侧的相同构建类型，除非消费者项目指定了[匹配回退](https://developer.android.com/reference/tools/gradle-api/4.2/com/android/build/api/dsl/BuildType)。
 
 如果您希望使每个已发布的 Android 变体仅与库消费者使用的相同构建类型兼容，请设置此 Gradle 属性：`kotlin.android.buildTypeAttribute.keep=true`。
 
@@ -173,42 +165,42 @@ kotlin {
 
 默认情况下，Kotlin Multiplatform Gradle 插件会为所有指定目标发布源代码。但是，您可以在 `shared/build.gradle.kts` 文件中使用 `withSourcesJar()` API 配置并禁用源代码发布：
 
-* 要为所有目标禁用源代码发布：
+*   要为所有目标禁用源代码发布：
 
-  ```kotlin
-  kotlin {
-      withSourcesJar(publish = false)
+    ```kotlin
+    kotlin {
+        withSourcesJar(publish = false)
 
-      jvm()
-      linuxX64()
-  }
-  ```
+        jvm()
+        linuxX64()
+    }
+    ```
 
-* 要仅为指定目标禁用源代码发布：
+*   要仅为指定目标禁用源代码发布：
 
-  ```kotlin
-  kotlin {
-       // Disable sources publication only for JVM:
-      jvm {
-          withSourcesJar(publish = false)
-      }
-      linuxX64()
-  }
-  ```
+    ```kotlin
+    kotlin {
+         // Disable sources publication only for JVM:
+        jvm {
+            withSourcesJar(publish = false)
+        }
+        linuxX64()
+    }
+    ```
 
-* 要为除指定目标外的所有目标禁用源代码发布：
+*   要为除指定目标外的所有目标禁用源代码发布：
 
-  ```kotlin
-  kotlin {
-      // Disable sources publication for all targets except for JVM:
-      withSourcesJar(publish = false)
+    ```kotlin
+    kotlin {
+        // Disable sources publication for all targets except for JVM:
+        withSourcesJar(publish = false)
 
-      jvm {
-          withSourcesJar(publish = true)
-      }
-      linuxX64()
-  }
-  ```
+        jvm {
+            withSourcesJar(publish = true)
+        }
+        linuxX64()
+    }
+    ```
 
 ## 禁用 JVM 环境属性发布
 
@@ -228,5 +220,5 @@ kotlin.publishJvmEnvironmentAttribute=false
 
 ## 下一步
 
-* [了解如何将您的 Kotlin Multiplatform 库发布到 Maven Central 版本库](multiplatform-publish-libraries.md)
-* [参阅库作者指南，了解为 Kotlin Multiplatform 设计库的最佳实践和技巧](https://kotlinlang.org/docs/api-guidelines-build-for-multiplatform.html)
+*   [了解如何将您的 Kotlin Multiplatform 库发布到 Maven Central 版本库](multiplatform-publish-libraries.md)
+*   [参阅库作者指南，了解为 Kotlin Multiplatform 设计库的最佳实践和技巧](https://kotlinlang.org/docs/api-guidelines-build-for-multiplatform.html)

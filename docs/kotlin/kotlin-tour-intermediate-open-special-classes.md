@@ -448,7 +448,7 @@ fun main() {
     // The delivery was canceled due to: Address not found.
 }
 ```
-{initial-collapse-state="collapsed" collapsible="true" collapsed-title="Example solution" id="kotlin-tour-special-classes-solution-1"}
+{initial-collapse-state="collapsed" collapsible="true" collapsed-title="示例解决方案" id="kotlin-tour-special-classes-solution-1"}
 
 ### 练习 2 {initial-collapse-state="collapsed" collapsible="true" id="special-classes-exercise-2"}
 
@@ -527,7 +527,7 @@ fun main() {
     // Data received: [Data1, Data2]
 }
 ```
-{initial-collapse-state="collapsed" collapsible="true" collapsed-title="Example solution" id="kotlin-tour-special-classes-solution-2"}
+{initial-collapse-state="collapsed" collapsible="true" collapsed-title="示例解决方案" id="kotlin-tour-special-classes-solution-2"}
 
 ## 下一步
 

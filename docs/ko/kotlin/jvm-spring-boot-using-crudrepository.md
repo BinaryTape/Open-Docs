@@ -23,10 +23,10 @@
     ```kotlin
     // Message.kt
     package com.example.demo
-
+   
     import org.springframework.data.annotation.Id
     import org.springframework.data.relational.core.mapping.Table
-
+    
     @Table("MESSAGES")
     data class Message(@Id val id: String?, val text: String)
     ```
@@ -38,7 +38,7 @@
     @Table("MESSAGES")
     data class Message(val text: String, @Id val id: String? = null)
     ```
-
+ 
     이제 `Message` 클래스의 새 인스턴스를 생성해야 할 때, `text` 프로퍼티만 매개변수로 지정할 수 있습니다.
 
     ```kotlin
@@ -50,9 +50,9 @@
     ```kotlin
     // MessageRepository.kt
     package com.example.demo
-
+   
     import org.springframework.data.repository.CrudRepository
-
+    
     interface MessageRepository : CrudRepository<Message, String>
     ```
 
@@ -64,13 +64,13 @@
 
     import org.springframework.data.repository.findByIdOrNull
     import org.springframework.stereotype.Service
-
+    
     @Service
     class MessageService(private val db: MessageRepository) {
         fun findMessages(): List<Message> = db.findAll().toList()
-
+    
         fun findMessageById(id: String): Message? = db.findByIdOrNull(id)
-
+    
         fun save(message: Message): Message = db.save(message)
     }
     ```
@@ -81,7 +81,7 @@
        </def>
        <def title="CrudRepository save() 함수">
           <p><a href="https://docs.spring.io/spring-data/jdbc/docs/current/reference/html/#jdbc.entity-persistence">이 함수는</a> 새 객체에 데이터베이스에 ID가 없다는 가정을 기반으로 작동합니다. 따라서 삽입을 위해서는 ID가 <b>null이어야 합니다</b>.</p>
-          <p>ID가 <i>null</i>이 아니면 <code>CrudRepository</code>는 객체가 데이터베이스에 이미 존재하며 이것은 <i>삽입</i> 작업이 아닌 <i>업데이트</i> 작업이라고 가정합니다. 삽입 작업 후에는 <code>id</code>가 데이터 저장소에 의해 생성되어 <code>Message</code> 인스턴스에 다시 할당됩니다. 이것이 <code>id</code> 프로퍼티가 <code>var</code> 키워드를 사용하여 선언되어야 하는 이유입니다.</p>
+          <p>ID가 _null_이 아니면 <code>CrudRepository</code>는 객체가 데이터베이스에 이미 존재하며 이것은 _삽입_ 작업이 아닌 _업데이트_ 작업이라고 가정합니다. 삽입 작업 후에는 <code>id</code>가 데이터 저장소에 의해 생성되어 <code>Message</code> 인스턴스에 다시 할당됩니다. 이것이 <code>id</code> 프로퍼티가 <code>var</code> 키워드를 사용하여 선언되어야 하는 이유입니다.</p>
           <p></p>
        </def>
     </deflist>
@@ -89,7 +89,7 @@
 4.  삽입된 객체에 대한 ID를 생성하도록 메시지 테이블 정의를 업데이트합니다. `id`는 문자열이므로, `RANDOM_UUID()` 함수를 사용하여 기본적으로 ID 값을 생성할 수 있습니다.
 
     ```sql
-    -- schema.sql
+    -- schema.sql 
     CREATE TABLE IF NOT EXISTS messages (
         id      VARCHAR(60)  DEFAULT RANDOM_UUID() PRIMARY KEY,
         text    VARCHAR      NOT NULL

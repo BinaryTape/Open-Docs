@@ -8,7 +8,7 @@ _[リリース日: 2022年6月9日](releases.md#release-details)_
 
 Kotlin 1.7.0がリリースされました。このバージョンでは、新しいKotlin/JVM K2コンパイラのAlpha版が公開され、言語機能が安定化され、JVM、JS、Nativeプラットフォームでのパフォーマンスが向上しています。
 
-このバージョンの主な更新点は以下の通りです。
+このバージョンの主な更新点は以下のとおりです。
 
 * [新しいKotlin K2コンパイラがAlpha版になりました](#new-kotlin-k2-compiler-for-the-jvm-in-alpha)。大幅なパフォーマンス向上を実現します。JVMでのみ利用可能で、kaptを含むコンパイラプラグインは動作しません。
 * [Gradleのインクリメンタルコンパイルへの新しいアプローチ](#a-new-approach-to-incremental-compilation)。インクリメンタルコンパイルは、依存するKotlin以外のモジュール内部での変更にも対応し、Gradleと互換性があります。
@@ -24,7 +24,7 @@ Kotlin 1.7.0がリリースされました。このバージョンでは、新�
 
 このKotlinリリースでは、新しいKotlin K2コンパイラの**Alpha**版が導入されます。新しいコンパイラは、新しい言語機能の開発を加速し、Kotlinがサポートするすべてのプラットフォームを統一し、パフォーマンス向上をもたらし、コンパイラ拡張のためのAPIを提供することを目的としています。
 
-新しいコンパイラとその利点については、すでに詳細な説明を公開しています。
+弊社の新しいコンパイラとその利点について、すでに詳細な説明を公開しています。
 
 * [新しいKotlinコンパイラへの道](https://www.youtube.com/watch?v=iTdJJq_LyoY)
 * [K2コンパイラ: トップダウンビュー](https://www.youtube.com/watch?v=db19VFLZqJM)
@@ -354,9 +354,237 @@ kotlin {
 }
 ```
 
+## 標準ライブラリ
+
+Kotlin 1.7.0では、標準ライブラリに多くの変更と改善が加えられました。これにより、新機能が導入され、実験的な機能が安定化され、Native、JS、JVM全体で名前付きキャプチャグループのサポートが統一されました。
+
+* [min()とmax()コレクション関数がnull非許容を返すようになりました](#min-and-max-collection-functions-return-as-non-nullable)
+* [特定のインデックスでの正規表現マッチング](#regular-expression-matching-at-specific-indices)
+* [以前の言語バージョンとAPIバージョンの拡張サポート](#extended-support-for-previous-language-and-api-versions)
+* [リフレクションによるアノテーションへのアクセス](#access-to-annotations-via-reflection)
+* [安定版ディープ再帰関数](#stable-deep-recursive-functions)
+* [デフォルト時間ソースのインラインクラスに基づくタイムマーク](#time-marks-based-on-inline-classes-for-default-time-source)
+* [Java Optional用の新しい実験的拡張関数](#new-experimental-extension-functions-for-java-optionals)
+* [JSとNativeでの名前付きキャプチャグループのサポート](#support-for-named-capturing-groups-in-js-and-native)
+
+### min()とmax()コレクション関数がnull非許容を返すようになりました
+
+[Kotlin 1.4.0](whatsnew14.md)では、`min()`と`max()`コレクション関数を`minOrNull()`と`maxOrNull()`に改名しました。これらの新しい名前は、受信側コレクションが空の場合にnullを返すというその動作をより適切に反映しています。これにより、関数がKotlinコレクションAPI全体で使用されている命名規則と一貫するようになりました。
+
+同様に、`minBy()`、`maxBy()`、`minWith()`、`maxWith()`もKotlin 1.4.0でそれぞれ`*OrNull()`の同義語が追加されました。この変更の影響を受ける古い関数は徐々に非推奨になりました。
+
+Kotlin 1.7.0では、元の関数名がnull非許容の戻り値の型で再導入されます。新しい`min()`、`max()`、`minBy()`、`maxBy()`、`minWith()`、`maxWith()`関数は、コレクション要素を厳密に返すか、例外をスローするようになりました。
+
+```kotlin
+fun main() {
+    val numbers = listOf<Int>()
+    println(numbers.maxOrNull()) // "null"
+    println(numbers.max()) // "Exception in... Collection is empty."
+}
+```
+
+### 特定のインデックスでの正規表現マッチング
+
+`Regex.matchAt()`と`Regex.matchesAt()`関数は、[1.5.30で導入されましたが](whatsnew1530.md#matching-with-regex-at-a-particular-position)、現在は安定版です。これらは、`String`または`CharSequence`内の特定の位置で正規表現が完全に一致するかどうかをチェックする方法を提供します。
+
+`matchesAt()`は一致をチェックし、ブール値を返します。
+
+```kotlin
+fun main() {
+    val releaseText = "Kotlin 1.7.0 is on its way!"
+    // regular expression: one digit, dot, one digit, dot, one or more digits
+    val versionRegex = "\\d[.]\\d[.]\\d+".toRegex()
+
+    println(versionRegex.matchesAt(releaseText, 0)) // "false"
+    println(versionRegex.matchesAt(releaseText, 7)) // "true"
+}
+```
+
+`matchAt()`は一致が見つかった場合はその一致を返し、見つからなかった場合は`null`を返します。
+
+```kotlin
+fun main() {
+    val releaseText = "Kotlin 1.7.0 is on its way!"
+    val versionRegex = "\\d[.]\\d[.]\\d+".toRegex()
+
+    println(versionRegex.matchAt(releaseText, 0)) // "null"
+    println(versionRegex.matchAt(releaseText, 7)?.value) // "1.7.0"
+}
+```
+
+この[YouTrack課題](https://youtrack.jetbrains.com/issue/KT-34021)にご意見をお寄せいただけると幸いです。
+
+### 以前の言語バージョンとAPIバージョンの拡張サポート
+
+幅広い以前のKotlinバージョンで利用可能なライブラリを開発するライブラリ作成者をサポートし、Kotlinのメジャーリリース頻度の増加に対応するために、以前の言語バージョンとAPIバージョンのサポートを拡張しました。
+
+Kotlin 1.7.0では、以前の言語およびAPIバージョンを2つではなく3つサポートしています。これは、Kotlin 1.7.0がKotlin 1.4.0までのKotlinバージョンをターゲットとするライブラリの開発をサポートすることを意味します。下位互換性の詳細については、[互換性モード](compatibility-modes.md)をご覧ください。
+
+### リフレクションによるアノテーションへのアクセス
+
+`KAnnotatedElement.findAnnotations()`拡張関数は、[Kotlin 1.6.0で初めて導入されましたが](whatsnew16.md#repeatable-annotations-with-runtime-retention-for-1-8-jvm-target)、現在は[安定版](components-stability.md)です。この[リフレクション](reflection.md)関数は、個別に適用されたアノテーションと繰り返し適用されたアノテーションの両方を含む、指定された型のアノテーションを要素上にすべて返します。
+
+```kotlin
+@Repeatable
+annotation class Tag(val name: String)
+
+@Tag("First Tag")
+@Tag("Second Tag")
+fun taggedFunction() {
+    println("I'm a tagged function!")
+}
+
+fun main() {
+    val x = ::taggedFunction
+    val foo = x as KAnnotatedElement
+    println(foo.findAnnotations<Tag>()) // [@Tag(name=First Tag), @Tag(name=Second Tag)]
+}
+```
+
+### 安定版ディープ再帰関数
+
+ディープ再帰関数は、[Kotlin 1.4.0](https://blog.jetbrains.com/kotlin/2020/07/kotlin-1-4-rc-debugging-coroutines/#Defining_deep_recursive_functions_using_coroutines)以降、実験的な機能として利用可能でしたが、Kotlin 1.7.0で[安定版](components-stability.md)になりました。`DeepRecursiveFunction`を使用すると、実際の呼び出しスタックを使用する代わりに、スタックをヒープ上に保持する関数を定義できます。これにより、非常に深い再帰計算を実行できます。ディープ再帰関数を呼び出すには、`invoke`を使用します。
+
+この例では、ディープ再帰関数を使用して二分木の深さを再帰的に計算します。このサンプル関数は100,000回再帰的に自身を呼び出しますが、`StackOverflowError`はスローされません。
+
+```kotlin
+class Tree(val left: Tree?, val right: Tree?)
+
+val calculateDepth = DeepRecursiveFunction<Tree?, Int> { t ->
+    if (t == null) 0 else maxOf(
+        callRecursive(t.left),
+        callRecursive(t.right)
+    ) + 1
+}
+
+fun main() {
+    // Generate a tree with a depth of 100_000
+    val deepTree = generateSequence(Tree(null, null)) { prev ->
+        Tree(prev, null)
+    }.take(100_000).last()
+
+    println(calculateDepth(deepTree)) // 100000
+}
+```
+
+再帰の深さが1000回を超える場合は、コードでディープ再帰関数の使用を検討してください。
+
+### デフォルト時間ソースのインラインクラスに基づくタイムマーク
+
+Kotlin 1.7.0では、`TimeSource.Monotonic`によって返されるタイムマークをインライン値クラスに変更することで、時間計測機能のパフォーマンスが向上しました。これは、`markNow()`、`elapsedNow()`、`measureTime()`、`measureTimedValue()`などの関数を呼び出しても、その`TimeMark`インスタンスのラッパークラスが割り当てられないことを意味します。特に、ホットパスの一部であるコードを計測する場合、これにより計測のパフォーマンスへの影響を最小限に抑えることができます。
+
+```kotlin
+@OptIn(ExperimentalTime::class)
+fun main() {
+    val mark = TimeSource.Monotonic.markNow() // Returned `TimeMark` is inline class
+    val elapsedDuration = mark.elapsedNow()
+}
+```
+
+> この最適化は、`TimeMark`が取得された時間ソースが`TimeSource.Monotonic`であることが静的にわかっている場合にのみ利用可能です。
+>
+{style="note"}
+
+### Java Optional用の新しい実験的拡張関数
+
+Kotlin 1.7.0には、Javaの`Optional`クラスを扱う際に便利な新機能が追加されました。これらの新機能は、JVMでOptionalオブジェクトをアンラップおよび変換するために使用でき、Java APIの操作をより簡潔にするのに役立ちます。
+
+`getOrNull()`、`getOrDefault()`、`getOrElse()`拡張関数を使用すると、`Optional`に値が存在する場合にその値を取得できます。そうでない場合は、それぞれ`null`、デフォルト値、または関数によって返された値が取得されます。
+
+```kotlin
+val presentOptional = Optional.of("I'm here!")
+
+println(presentOptional.getOrNull())
+// "I'm here!"
+
+val absentOptional = Optional.empty<String>()
+
+println(absentOptional.getOrNull())
+// null
+println(absentOptional.getOrDefault("Nobody here!"))
+// "Nobody here!"
+println(absentOptional.getOrElse {
+    println("Optional was absent!")
+    "Default value!"
+})
+// "Optional was absent!"
+// "Default value!"
+```
+
+`toList()`、`toSet()`、`asSequence()`拡張関数は、存在する`Optional`の値をリスト、セット、またはシーケンスに変換し、そうでない場合は空のコレクションを返します。`toCollection()`拡張関数は、`Optional`の値を既存の宛先コレクションに追加します。
+
+```kotlin
+val presentOptional = Optional.of("I'm here!")
+val absentOptional = Optional.empty<String>()
+println(presentOptional.toList() + "," + absentOptional.toList())
+// ["I'm here!"], []
+println(presentOptional.toSet() + "," + absentOptional.toSet())
+// ["I'm here!"], []
+val myCollection = mutableListOf<String>()
+absentOptional.toCollection(myCollection)
+println(myCollection)
+// []
+presentOptional.toCollection(myCollection)
+println(myCollection)
+// ["I'm here!"]
+val list = listOf(presentOptional, absentOptional).flatMap { it.asSequence() }
+println(list)
+// ["I'm here!"]
+```
+
+これらの拡張関数はKotlin 1.7.0で実験的機能として導入されています。`Optional`拡張の詳細については、[こちらのKEEP](https://github.com/Kotlin/KEEP/pull/291)をご覧ください。いつものように、[Kotlin課題トラッカー](https://kotl.in/issue)でのフィードバックをお待ちしております。
+
+### JSとNativeでの名前付きキャプチャグループのサポート
+
+Kotlin 1.7.0以降、名前付きキャプチャグループはJVMだけでなく、JSおよびNativeプラットフォームでもサポートされます。
+
+キャプチャグループに名前を付けるには、正規表現で`(?<name>group)`構文を使用します。グループに一致するテキストを取得するには、新しく導入された[`MatchGroupCollection.get()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/get.html)関数を呼び出し、グループ名を渡します。
+
+#### 名前で一致したグループ値を取得
+
+都市の座標を一致させる例を考えてみましょう。正規表現に一致するグループのコレクションを取得するには、[`groups`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/-match-result/groups.html)を使用します。グループの内容をその番号（インデックス）と、`value`を使用した名前で取得する場合を比較します。
+
+```kotlin
+fun main() {
+    val regex = "\\b(?<city>[A-Za-z\\s]+),\\s(?<state>[A-Z]{2}):\\s(?<areaCode>[0-9]{3})\\b".toRegex()
+    val input = "Coordinates: Austin, TX: 123"
+    val match = regex.find(input)!!
+    println(match.groups["city"]?.value) // "Austin" — by name
+    println(match.groups[2]?.value) // "TX" — by number
+}
+```
+
+#### 名前付き後方参照
+
+グループ名の後方参照でもグループ名を使用できるようになりました。後方参照は、以前にキャプチャグループによって一致したのと同じテキストに一致します。これには、正規表現で`\k<name>`構文を使用します。
+
+```kotlin
+fun backRef() {
+    val regex = "(?<title>\\w+), yes \\k<title>".toRegex()
+    val match = regex.find("Do you copy? Sir, yes Sir!")!!
+    println(match.value) // "Sir, yes Sir"
+    println(match.groups["title"]?.value) // "Sir"
+}
+```
+
+#### 置換式での名前付きグループ
+
+名前付きグループ参照は置換式で使用できます。入力内の指定された正規表現のすべての出現を置換式で置き換える[`replace()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/-regex/replace.html)関数と、最初の一致のみを交換する[`replaceFirst()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/-regex/replace-first.html)関数を考えてみましょう。
+
+置換文字列内の`${name}`の出現は、指定された名前のキャプチャグループに対応するサブシーケンスに置き換えられます。名前とインデックスによるグループ参照の置換を比較できます。
+
+```kotlin
+fun dateReplace() {
+    val dateRegex = Regex("(?<dd>\\d{2})-(?<mm>\\d{2})-(?<yyyy>\\d{4})")
+    val input = "Date of birth: 27-04-2022"
+    println(dateRegex.replace(input, "\${yyyy}-\${mm}-\${dd}")) // "Date of birth: 2022-04-27" — by name
+    println(dateRegex.replace(input, "\$3-\$2-\$1")) // "Date of birth: 2022-04-27" — by number
+}
+```
+
 ## Gradle
 
-このリリースでは、新しいビルドレポート、Gradleプラグインバリアントのサポート、kaptの新しい統計情報などが導入されます。
+このリリースでは、新しいビルドレポート、Gradleプラグインバリアントのサポート、kaptの新しい統計情報など、多くの新機能が導入されます。
 
 * [インクリメンタルコンパイルへの新しいアプローチ](#a-new-approach-to-incremental-compilation)
 * [コンパイラのパフォーマンスを追跡するための新しいビルドレポート](#build-reports-for-kotlin-compiler-tasks)
@@ -486,7 +714,7 @@ Kotlin GradleプラグインAPIアーティファクトは、いくつかの改�
 
 ### plugins APIを介したsam-with-receiverプラグインの利用可能性
 
-[sam-with-receiverコンパイラプラグイン](sam-with-receiver-plugin.md)は、[Gradle plugins DSL](https://docs.gradle.org/current/userguide/plugins.html#sec:plugins_block)を介して利用可能になりました。
+[sam-with-receiverコンパイラプラグイン](sam-with-receiver-plugin.md)は、[Gradle plugins DSL](https://docs.gradle.com/current/userguide/plugins.html#sec:plugins_block)を介して利用可能になりました。
 
 ```kotlin
 plugins {

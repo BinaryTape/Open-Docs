@@ -5,7 +5,7 @@
 當與 [Kotlin DataFrame 程式庫](https://kotlin.github.io/dataframe/gettingstarted.html) 結合使用時，Kotlin Notebook 不僅讓您能夠連接並從 API 擷取 JSON 資料，還協助重塑這些資料以進行全面的分析和視覺化。
 
 > 有關 Kotlin Notebook 範例，請參閱 [GitHub 上的 DataFrame 範例](https://github.com/Kotlin/dataframe/blob/master/examples/notebooks/youtube/Youtube.ipynb)。
-> 
+>
 {style="tip"}
 
 ## 開始之前
@@ -25,7 +25,7 @@ Kotlin Notebook 依賴於 [Kotlin Notebook 外掛程式](https://plugins.jetbrai
 
 ## 從 API 擷取資料
 
-透過 Kotlin Notebook 與 Kotlin DataFrame 程式庫從 API 擷取資料，是透過 [`.read()`](https://kotlin.github.io/dataframe/read.html) 函數實現的，這與 [從檔案擷取資料](data-analysis-work-work-with-data-sources.md#retrieve-data-from-a-file)（例如 CSV 或 JSON）相似。然而，當處理基於網路的來源時，您可能需要額外的格式設定，以將原始 API 資料轉換為結構化格式。
+透過 Kotlin Notebook 與 Kotlin DataFrame 程式庫從 API 擷取資料，是透過 [`.read()`](https://kotlin.github.io/dataframe/read.html) 函數實現的，這與 [從檔案擷取資料](data-analysis-work-with-data-sources.md#retrieve-data-from-a-file)（例如 CSV 或 JSON）相似。然而，當處理基於網路的來源時，您可能需要額外的格式設定，以將原始 API 資料轉換為結構化格式。
 
 讓我們看看一個從 [YouTube Data API](https://console.cloud.google.com/apis/library/youtube.googleapis.com) 擷取資料的範例：
 
@@ -53,27 +53,25 @@ Kotlin Notebook 依賴於 [Kotlin Notebook 外掛程式](https://plugins.jetbrai
 
    ```kotlin
    fun load(path: String, maxPages: Int): AnyFrame {
-   
        // 初始化一個可變列表來儲存資料行。
        val rows = mutableListOf<AnyRow>()
-   
+
        // 設定資料載入的初始頁面路徑。
        var pagePath = path
        do {
-   
            // 從當前頁面路徑載入資料。
            val row = load(pagePath)
            // 將載入的資料作為一行新增到列表中。
            rows.add(row)
-          
+
            // 擷取下一頁的權杖（如果可用）。
            val next = row.getValueOrNull<String>("nextPageToken")
            // 更新用於下一個疊代的頁面路徑，包括新的權杖。
            pagePath = path + "&pageToken=" + next
-   
+
            // 持續載入頁面，直到沒有下一頁。
        } while (next != null && rows.size < maxPages) 
-       
+
        // 將所有載入的資料行串聯並作為 DataFrame 返回。
        return rows.concat() 
    }
@@ -167,7 +165,7 @@ Kotlin Notebook 依賴於 [Kotlin Notebook 外掛程式](https://plugins.jetbrai
    ```kotlin
    val aggregated = channels.aggregate {
        viewCount.sum() into view
-   
+
        val last = maxBy { publishedAt }
        last.title into "last title"
        last.publishedAt into "time"

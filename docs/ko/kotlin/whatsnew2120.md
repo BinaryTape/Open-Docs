@@ -385,7 +385,7 @@ import java.util.concurrent.atomic.*
 //sampleStart
 @OptIn(ExperimentalAtomicApi::class)
 fun main() {
-    // Converts Kotlin AtomicInt to Java's AtomicInteger
+    // Converts Kotlin's AtomicInt to Java's AtomicInteger
     val kotlinAtomic = AtomicInt(42)
     val javaAtomic: AtomicInteger = kotlinAtomic.asJavaAtomic()
     println("Java atomic value: ${javaAtomic.get()}")
@@ -421,7 +421,7 @@ Kotlin의 UUID는 이제 `Comparable`입니다. Kotlin 2.1.20부터는 `Uuid`
 타입의 값을 직접 비교하고 정렬할 수 있습니다. 이를 통해 `<` 및 `>` 연산자와 `Comparable` 타입 또는 해당 컬렉션(예: `sorted()`)에만 제공되는
 표준 라이브러리 확장을 사용할 수 있으며, `Comparable` 인터페이스를 요구하는 모든 함수 또는 API에 UUID를 전달할 수도 있습니다.
 
-표준 라이브러리의 UUID 지원은 여전히 [Experimental](components-stability.act#stability-levels-explained) 상태임을 기억하십시오.
+표준 라이브러리의 UUID 지원은 여전히 [Experimental](components-stability.md#stability-levels-explained) 상태임을 기억하십시오.
 선택하려면 `@OptIn(ExperimentalUuidApi::class)` 어노테이션 또는 컴파일러 옵션 `-opt-in=kotlin.uuid.ExperimentalUuidApi`를 사용하십시오.
 
 ```kotlin
@@ -459,8 +459,8 @@ fun main() {
 Kotlin 2.1.20부터 표준 라이브러리는 특정 순간을 나타내는 기능을 제공합니다. 이 기능은
 이전에는 공식 Kotlin 라이브러리인 [`kotlinx-datetime`](https://kotlinlang.org/api/kotlinx-datetime/)에서만 사용할 수 있었습니다.
 
-[`kotlinx.datetime.Clock`](https://kotlinlang.org/api/kotlinx-datetime/kotlinx-datetime/kotlinx.datetime/-clock/) 인터페이스는
-표준 라이브러리에 `kotlin.time.Clock`으로 도입되었고, [`kotlinx.datetime.Instant`](https://kotlinlang.org/api/kotlinx-datetime/kotlinx-datetime/kotlinx.datetime/-instant/)
+[`kotlinx.datetime.Clock`](https://kotlinlang.org/api/core/2.1/kotlin-stdlib/kotlin.time/-clock/) 인터페이스는
+표준 라이브러리에 `kotlin.time.Clock`으로 도입되었고, [`kotlinx.datetime.Instant`](https://kotlinlang.org/api/core/2.1/kotlin-stdlib/kotlin.time/-instant/)
 클래스는 `kotlin.time.Instant`으로 도입되었습니다. 이 개념들은 표준 라이브러리의 `time` 패키지와 자연스럽게 일치합니다.
 왜냐하면 `kotlinx-datetime`에 남아 있는 더 복잡한 달력 및 시간대 기능과 달리 시간의 특정 순간에만 관심이 있기 때문입니다.
 
@@ -469,9 +469,9 @@ Kotlin 2.1.20부터 표준 라이브러리는 특정 순간을 나타내는 기�
 
 다른 언어와의 상호 운용성을 제공하기 위해 추가 변환 함수를 사용할 수 있습니다.
 
-*   `.toKotlinInstant()`는 시간 값을 `kotlin.time.Instant` 인스턴스로 변환합니다.
-*   `.toJavaInstant()`는 `kotlin.time.Instant` 값을 `java.time.Instant` 값으로 변환합니다.
-*   `Instant.toJSDate()`는 `kotlin.time.Instant` 값을 JS `Date` 클래스의 인스턴스로 변환합니다. 이 변환은
+*   [`.toKotlinInstant()`](https://kotlinlang.org/api/core/2.1/kotlin-stdlib/kotlin.time/to-kotlin-instant.html)는 시간 값을 `kotlin.time.Instant` 인스턴스로 변환합니다.
+*   [`.toJavaInstant()`](https://kotlinlang.org/api/core/2.1/kotlin-stdlib/kotlin.time/to-java-instant.html)는 `kotlin.time.Instant` 값을 `java.time.Instant` 값으로 변환합니다.
+*   [`Instant.toJSDate()`](https://kotlinlang.org/api/core/2.1/kotlin-stdlib/kotlin.time/to-j-s-date.html)는 `kotlin.time.Instant` 값을 JS `Date` 클래스의 인스턴스로 변환합니다. 이 변환은
     정확하지 않습니다. JS는 날짜를 밀리초 정밀도로 나타내는 반면, Kotlin은 나노초 해상도를 허용합니다.
 
 표준 라이브러리의 새로운 시간 기능은 여전히 [Experimental](components-stability.md#stability-levels-explained) 상태입니다.

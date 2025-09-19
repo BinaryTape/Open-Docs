@@ -1,6 +1,6 @@
 [//]: # (title: 添加多平台库依赖项)
 
-每个程序都需要一组库才能成功运行。Kotlin 多平台项目可以依赖于适用于所有目标平台的多平台库、平台特有的库，以及其他多平台项目。
+每个程序都需要一组库才能成功运行。Kotlin 多平台项目可以依赖于适用于所有目标平台的多平台库、平台特有的库以及其他多平台项目。
 
 要添加对库的依赖，请更新项目中包含共享代码目录下的 `build.gradle(.kts)` 文件。在 [`dependencies {}`](multiplatform-dsl-reference.md#dependencies) 代码块中，设置所需[类型](https://kotlinlang.org/docs/gradle-configure-project.html#dependency-types)的依赖项（例如，`implementation`）：
 
@@ -166,7 +166,7 @@ kotlin {
 
 ### 适用于所有源代码集的共享库
 
-如果你想在所有源代码集使用某个库，你可以仅将其添加到公共源代码集。Kotlin Multiplatform Mobile 插件将自动把对应的部分添加到任何其他源代码集。
+如果你想在所有源代码集使用某个库，你可以仅将其添加到公共源代码集。Kotlin Multiplatform 插件将自动把对应的部分添加到任何其他源代码集。
 
 > 你无法在公共源代码集中设置对平台特有库的依赖项。
 >
@@ -212,6 +212,10 @@ kotlin {
 
 </TabItem>
 </Tabs>
+
+> 你也可以在顶层 `dependencies {}` 代码块中配置公共库。参见[在顶层配置依赖项](multiplatform-dsl-reference.md#configure-dependencies-at-the-top-level)。
+> 
+{style="tip"}
 
 ### 在特定源代码集中使用的库
 

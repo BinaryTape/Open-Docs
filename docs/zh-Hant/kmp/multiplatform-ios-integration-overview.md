@@ -10,7 +10,7 @@
 
 ## 本地整合
 
-在本地設定中，有兩種主要的整合選項。您可以使用透過特殊腳本進行的直接整合，這使 Kotlin 建置成為 iOS 建置的一部分。如果您的 Kotlin Multiplatform 專案中包含 Pod 依賴項，請採用 CocoaPods 整合方法。
+在本地設定中，有兩種主要的整合選項。您可以透過特殊腳本使用直接整合，這會讓 Kotlin 建置成為 iOS 建置的一部分。如果您的 Kotlin Multiplatform 專案中包含 Pod 依賴項，請採用 CocoaPods 整合方法。
 
 ### 直接整合
 
@@ -18,7 +18,7 @@
 
 如果您的 Kotlin Multiplatform 專案中**沒有**匯入 CocoaPods 依賴項，此整合方法則適用於您。
 
-如果您在 Android Studio 中建立專案，請選擇**常規框架**選項以自動產生此設定。如果您使用 [Kotlin Multiplatform 網頁精靈](https://kmp.jetbrains.com/)，則會預設應用直接整合。
+如果您使用 [Kotlin Multiplatform IDE 外掛程式](https://plugins.jetbrains.com/plugin/14936-kotlin-multiplatform)，則會預設應用直接整合。
 
 如需更多資訊，請參閱 [直接整合](multiplatform-direct-integration.md)。
 
@@ -31,7 +31,7 @@
 * 您有一個使用 CocoaPods 的 iOS 專案的單一儲存庫設定
 * 您在 Kotlin Multiplatform 專案中匯入 CocoaPods 依賴項
 
-要設定一個包含本地 CocoaPods 依賴項的工作流程，您可以手動編輯腳本，或使用 Android Studio 中的精靈產生專案。
+要設定一個包含本地 CocoaPods 依賴項的工作流程，您可以手動編輯腳本。
 
 如需更多資訊，請參閱 [CocoaPods 概覽與設定](multiplatform-cocoapods-overview.md)。
 

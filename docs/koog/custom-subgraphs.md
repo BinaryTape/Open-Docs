@@ -17,7 +17,7 @@ typealias StrategyOutput = Unit
 typealias Input = Unit
 typealias Output = Unit
 
-val str =
+val str = 
 -->
 ```kotlin
 strategy<StrategyInput, StrategyOutput>("strategy-name") {
@@ -25,7 +25,7 @@ strategy<StrategyInput, StrategyOutput>("strategy-name") {
         name = "subgraph-name",
         toolSelectionStrategy = ToolSelectionStrategy.ALL
     ) {
-        // 为此子图定义节点和边
+        // Define nodes and edges for this subgraph
     }
 }
 ```
@@ -47,15 +47,15 @@ typealias Output = Unit
 val firstTool = SayToUser
 val secondTool = AskUser
 
-val str =
+val str = 
 -->
 ```kotlin
 strategy<StrategyInput, StrategyOutput>("strategy-name") {
    val subgraphIdentifier by subgraph<Input, Output>(
-       name = "subgraph-name",
+       name = "subgraph-name", 
        tools = listOf(firstTool, secondTool)
    ) {
-        // 为此子图定义节点和边
+        // Define nodes and edges for this subgraph
     }
 }
 ```
@@ -75,14 +75,14 @@ import ai.koog.agents.ext.tool.SayToUser
 val firstTool = SayToUser
 val secondTool = AskUser
 
-val str =
+val str = 
 -->
 ```kotlin
 strategy<String, String>("my-strategy") {
    val mySubgraph by subgraph<String, String>(
       tools = listOf(firstTool, secondTool)
    ) {
-        // 为此子图定义节点和边
+        // Define nodes and edges for this subgraph
         val sendInput by nodeLLMRequest()
         val executeToolCall by nodeExecuteTool()
         val sendToolResult by nodeLLMSendToolResult()
@@ -114,7 +114,7 @@ val str = strategy<String, String>("my-strategy") {
 val mySubgraph by subgraph<String, String>(
    tools = listOf(AskUser)
  ) {
-    // 子图定义
+    // Subgraph definition
  }
 ```
 <!--- KNIT example-custom-subgraphs-04.kt -->
@@ -134,7 +134,7 @@ val str = strategy<String, String>("my-strategy") {
 val mySubgraph by subgraph<String, String>(
     tools = listOf(toolRegistry.getTool("AskUser"))
 ) {
-    // 子图定义
+    // Subgraph definition
 }
 ```
 <!--- KNIT example-custom-subgraphs-05.kt -->
@@ -151,7 +151,7 @@ val str = strategy<String, String>("my-strategy") {
 }
 -->
 ```kotlin
-// 创建一组工具
+// Make a set of tools
 this.llm.writeSession {
     tools = tools.filter { it.name in listOf("first_tool_name", "second_tool_name") }
 }
@@ -181,24 +181,24 @@ val str =
 strategy("complex-workflow") {
    val inputProcessing by subgraph<String, A>(
    ) {
-      // 处理初始输入
+      // Process the initial input
    }
 
    val reasoning by subgraph<A, B>(
    ) {
-      // 根据处理后的输入执行推理
+      // Perform reasoning based on the processed input
    }
 
    val toolRun by subgraph<B, C>(
-      // 从工具注册表获取的可选工具子集
+      // Optional subset of tools from the tool registry
       tools = listOf(firstTool, secondTool)
    ) {
-      // 根据推理运行工具
+      // Run tools based on the reasoning
    }
 
    val responseGeneration by subgraph<C, String>(
    ) {
-      // 根据工具结果生成响应
+      // Generate a response based on the tool results
    }
 
    nodeStart then inputProcessing then reasoning then toolRun then responseGeneration then nodeFinish
@@ -262,7 +262,7 @@ class WebSearchTool: SimpleTool<WebSearchTool.Args>() {
     override val argsSerializer: KSerializer<Args> = Args.serializer()
 
     override val descriptor: ToolDescriptor = ToolDescriptor("web_search", "Search on the web")
-
+    
     override suspend fun doExecute(args: Args): String {
         return "Searching for ${args.query} on the web..."
     }
@@ -295,9 +295,9 @@ class DoAnotherAction: SimpleTool<DoAnotherAction.Args>() {
 }
 -->
 ```kotlin
-// 定义代理策略
+// Define the agent strategy
 val strategy = strategy<String, String>("assistant") {
-    // 包含工具调用的子图
+    // A subgraph that includes a tool call
 
     val researchSubgraph by subgraph<String, String>(
         "research_subgraph",

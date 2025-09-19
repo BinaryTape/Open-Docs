@@ -46,8 +46,9 @@ plugins {
 
 | KGP 버전      | Gradle 최소 및 최대 버전          | AGP 최소 및 최대 버전                               |
 |---------------|-----------------------------------|-----------------------------------------------------|
-| 2.2.0         | %minGradleVersion%–%maxGradleVersion% | %minAndroidGradleVersion%–%maxAndroidGradleVersion% |
-| 2.1.20–2.1.21 | 7.6.3–8.12.1                      | 7.3.1–8.7.2                                         |
+| 2.2.20        | %minGradleVersion%–%maxGradleVersion% | %minAndroidGradleVersion%–%maxAndroidGradleVersion% |
+| 2.2.0-2.2.10  | 7.6.3-8.14                        | 7.3.1-8.10.0                                        |
+| 2.1.20-2.1.21 | 7.6.3–8.12.1                      | 7.3.1–8.7.2                                         |
 | 2.1.0–2.1.10  | 7.6.3–8.10*                       | 7.3.1–8.7.2                                         |
 | 2.0.20–2.0.21 | 6.8.3–8.8*                        | 7.1.3–8.5                                           |
 | 2.0.0         | 6.8.3–8.5                         | 7.1.3–8.3.1                                         |
@@ -60,7 +61,7 @@ plugins {
 | 1.6.20–1.6.21 | 6.1.1–7.0.2                       | 3.4.3–7.0.2                                         |
 
 > *Kotlin 2.0.20–2.0.21 및 Kotlin 2.1.0–2.1.10은 Gradle 8.6까지 완벽하게 호환됩니다.
-> Gradle 버전 8.7–8.10도 지원되지만, 한 가지 예외가 있습니다. Kotlin Multiplatform Gradle 플러그인을 사용하는 경우,
+> Gradle 버전 8.7–8.10도 지원되지만, 한 가지 예외가 있습니다: Kotlin Multiplatform Gradle 플러그인을 사용하는 경우,
 > JVM 타겟에서 `withJava()` 함수를 호출하는 멀티플랫폼 프로젝트에서 deprecation 경고가 표시될 수 있습니다.
 > 자세한 내용은 [기본으로 생성되는 Java 소스 세트](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-compatibility-guide.html#java-source-sets-created-by-default)를 참조하세요.
 >
@@ -130,10 +131,10 @@ project
 ```
 
 > Java `.java` 파일을 `src/*/kotlin` 디렉터리에 저장하지 마세요. `.java` 파일은 컴파일되지 않습니다.
->
+> 
 > 대신 `src/main/java`를 사용할 수 있습니다.
 >
-{style="warning"}
+{style="warning"} 
 
 기본 컨벤션을 사용하지 않는 경우 해당 `sourceSets` 속성을 업데이트해야 합니다:
 
@@ -244,7 +245,7 @@ plugins {
 ### Gradle Java 툴체인 지원
 
 > Android 사용자 경고: Gradle 툴체인 지원을 사용하려면 Android Gradle 플러그인(AGP) 버전 8.1.0-alpha09 이상을 사용하세요.
->
+> 
 > Gradle Java 툴체인 지원은 AGP 7.4.0부터 [사용 가능](https://issuetracker.google.com/issues/194113162)합니다.
 > 그럼에도 불구하고, [이 문제](https://issuetracker.google.com/issues/260059413)로 인해 AGP는 8.1.0-alpha09 버전까지 `targetCompatibility`를 툴체인의 JDK와 같게 설정하지 않았습니다.
 > 8.1.0-alpha09 미만 버전을 사용하는 경우, `compileOptions`를 통해 `targetCompatibility`를 수동으로 구성해야 합니다.
@@ -259,7 +260,7 @@ plugins {
 > }
 > ```
 >
-{style="warning"}
+{style="warning"} 
 
 Gradle 6.7은 [Java 툴체인 지원](https://docs.gradle.org/current/userguide/toolchains.html)을 도입했습니다.
 이 기능을 사용하면 다음을 수행할 수 있습니다:
@@ -502,7 +503,7 @@ tasks.named("compileJava", JavaCompile.class) {
 </tabs>
 
 > `module-info.java`는 평소와 같이 `src/main/java` 디렉터리에 두세요.
->
+> 
 > 모듈의 경우, Kotlin 파일의 패키지 이름은 "package is empty or does not exist" 빌드 실패를 피하기 위해 `module-info.java`의 패키지 이름과 같아야 합니다.
 >
 {style="note"}
@@ -586,15 +587,33 @@ plugins {
 </tab>
 </tabs>
 
-[다양한 플랫폼을 위한 Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html) 및 [iOS 및 Android를 위한 Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-getting-started.html)에 대해 자세히 알아보세요.
+[다양한 플랫폼을 위한 Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html) 및 
+[iOS 및 Android를 위한 Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-getting-started.html)에 대해 자세히 알아보세요.
 
 ## Android 타겟팅하기
 
 Android 애플리케이션 생성을 위해 Android Studio를 사용하는 것이 권장됩니다. [Android Gradle 플러그인 사용 방법](https://developer.android.com/studio/releases/gradle-plugin)에 대해 알아보세요.
 
-## JavaScript 타겟팅하기
+## 웹 타겟팅하기
 
-JavaScript를 타겟팅할 때도 `kotlin-multiplatform` 플러그인을 사용하세요. [Kotlin/JS 프로젝트 설정에 대해 자세히 알아보기](js-project-setup.md)
+Kotlin은 Kotlin Multiplatform을 통해 웹 개발을 위한 두 가지 접근 방식을 제공합니다:
+
+*   JavaScript 기반 (Kotlin/JS 컴파일러 사용)
+*   WebAssembly 기반 (Kotlin/Wasm 컴파일러 사용)
+
+두 접근 방식 모두 Kotlin Multiplatform 플러그인을 사용하지만, 서로 다른 사용 사례를 지원합니다.
+아래 섹션에서는 각 타겟을 Gradle 빌드에서 구성하는 방법과 사용 시기를 설명합니다.
+
+### JavaScript 타겟팅하기
+
+다음과 같은 목표가 있다면 Kotlin/JS를 사용하세요:
+
+*   JavaScript/TypeScript 코드베이스와 비즈니스 로직 공유
+*   Kotlin으로 공유 불가능한 웹 앱 구축
+
+더 자세한 내용은 [Kotlin Multiplatform 프로젝트를 위한 올바른 웹 타겟 선택](https://www.jetbrains.com/help/kotlin-multiplatform-dev/choosing-web-target.html)을 참조하세요.
+
+JavaScript를 타겟팅할 때 `kotlin-multiplatform` 플러그인을 사용하세요:
 
 <tabs group="build-script">
 <tab title="Kotlin" group-key="kotlin">
@@ -617,9 +636,84 @@ plugins {
 </tab>
 </tabs>
 
-### JavaScript용 Kotlin 및 Java 소스
+브라우저 또는 Node.js 환경에서 실행되어야 하는지 지정하여 JavaScript 타겟을 구성하세요:
 
-이 플러그인은 Kotlin 파일에만 작동하므로 (프로젝트에 Java 파일이 포함된 경우) Kotlin 파일과 Java 파일을 분리하는 것이 좋습니다. 파일을 분리하여 저장하지 않는 경우, `sourceSets{}` 블록에 소스 폴더를 지정하세요:
+```kotlin
+kotlin {
+    js().browser {  // 또는 js().nodejs
+        /* ... */
+    }
+}
+```
+
+> [JavaScript용 Gradle 구성에 대한 추가 세부 정보](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-dsl-reference.html#web-targets)를 참조하고 [Kotlin/JS 프로젝트 설정](js-project-setup.md)에 대해 자세히 알아보세요.
+>
+{style="note"}
+
+### WebAssembly 타겟팅하기
+
+여러 플랫폼에서 로직과 UI를 모두 공유하고 싶다면 Kotlin/Wasm을 사용하세요. 더 자세한 내용은
+[Kotlin Multiplatform 프로젝트를 위한 올바른 웹 타겟 선택](https://www.jetbrains.com/help/kotlin-multiplatform-dev/choosing-web-target.html)을 참조하세요.
+
+JavaScript와 마찬가지로, WebAssembly (Wasm)를 타겟팅할 때 `kotlin-multiplatform` 플러그인을 사용하세요:
+
+<tabs group="build-script">
+<tab title="Kotlin" group-key="kotlin">
+
+```kotlin
+plugins {
+    kotlin("multiplatform") version "%kotlinVersion%"
+}
+```
+
+</tab>
+<tab title="Groovy" group-key="groovy">
+
+```groovy
+plugins {
+    id 'org.jetbrains.kotlin.multiplatform' version '%kotlinVersion%'
+}
+```
+
+</tab>
+</tabs>
+
+요구 사항에 따라 다음을 타겟팅할 수 있습니다:
+
+*   **`wasmJs`**: 브라우저 또는 Node.js에서 실행용
+*   **`wasmWasi`**: Wasmtime, WasmEdge 등 [WASI (WebAssembly System Interface)](https://wasi.dev/)를 지원하는 Wasm 환경에서 실행용
+
+웹 브라우저 또는 Node.js용 `wasmJs` 타겟을 구성하세요:
+
+```kotlin
+kotlin {
+    wasmJs {
+        browser { // 또는 nodejs
+            /* ... */
+        }
+    }
+}
+```
+
+WASI 환경용 `wasmWasi` 타겟을 구성하세요:
+
+```kotlin
+kotlin {
+    wasmWasi {
+        nodejs {
+            /* ... */
+        }
+    }
+}
+```
+
+> [Wasm용 Gradle 구성에 대한 추가 세부 정보](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-dsl-reference.html#web-targets)를 참조하세요.
+>
+{style="note"}
+
+### 웹 타겟용 Kotlin 및 Java 소스
+
+KGP는 Kotlin 파일에만 작동하므로 (프로젝트에 Java 파일이 포함된 경우) Kotlin 파일과 Java 파일을 분리하는 것이 좋습니다. 파일을 분리하여 저장하지 않는 경우, `sourceSets{}` 블록에 소스 폴더를 지정하세요:
 
 <tabs group="build-script">
 <tab title="Kotlin" group-key="kotlin">
@@ -648,7 +742,7 @@ kotlin {
 
 ## `KotlinBasePlugin` 인터페이스로 구성 동작 트리거하기
 
-모든 Kotlin Gradle 플러그인(JVM, JS, Multiplatform, Native 및 기타)이 적용될 때마다 특정 구성 동작을 트리거하려면, 모든 Kotlin 플러그인이 상속하는 `KotlinBasePlugin` 인터페이스를 사용하세요:
+어떤 Kotlin Gradle 플러그인(JVM, JS, Multiplatform, Native 및 기타)이 적용될 때마다 특정 구성 동작을 트리거하려면, 모든 Kotlin 플러그인이 상속하는 `KotlinBasePlugin` 인터페이스를 사용하세요:
 
 <tabs group="build-script">
 <tab title="Kotlin" group-key="kotlin">
@@ -714,7 +808,43 @@ kotlin {
 </tab>
 </tabs>
 
-또는 [최상위 레벨에서 종속성을 설정](#set-dependencies-at-top-level)할 수 있습니다.
+### 최상위 레벨에서 종속성 구성하기
+<primary-label ref="experimental-opt-in"/>
+
+최상위 `dependencies {}` 블록을 사용하여 멀티플랫폼 프로젝트에서 공통 종속성을 구성할 수 있습니다.
+여기에 선언된 종속성은 `commonMain` 또는 `commonTest` 소스 세트에 추가된 것처럼 동작합니다.
+
+최상위 `dependencies {}` 블록을 사용하려면, 블록 앞에 `@OptIn(ExperimentalKotlinGradlePluginApi::class)` 어노테이션을 추가하여 옵트인(opt-in)하세요:
+
+<tabs group="build-script">
+<tab title="Kotlin" group-key="kotlin">
+
+```kotlin
+kotlin {
+    @OptIn(ExperimentalKotlinGradlePluginApi::class)
+    dependencies {
+        implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:%coroutinesVersion%")
+    }
+}
+```
+
+</tab>
+<tab title="Groovy" group-key="groovy">
+
+```groovy
+kotlin {
+    dependencies {
+        implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:%coroutinesVersion%'
+    }
+}
+```
+
+</tab>
+</tabs>
+
+해당 타겟의 `sourceSets {}` 블록 안에 플랫폼별 종속성을 추가하세요.
+
+이 기능에 대한 피드백은 [YouTrack](https://youtrack.jetbrains.com/issue/KT-76446)에 공유할 수 있습니다.
 
 ### 종속성 유형
 
@@ -845,6 +975,7 @@ kotlin.stdlib.jdk.variants.version.alignment=false
   
 * Kotlin 표준 라이브러리 버전 `%kotlinVersion%`: `implementation("org.jetbrains.kotlin:kotlin-stdlib:%kotlinVersion%")`에 대한 종속성을 추가하고, Kotlin Gradle 플러그인의 이전 버전(1.8.0 미만)을 사용하는 경우, Kotlin Gradle 플러그인을 표준 라이브러리 버전에 맞게 업데이트하세요:
 
+  
   <tabs group="build-script">
   <tab title="Kotlin" group-key="kotlin">
 
@@ -856,7 +987,7 @@ kotlin.stdlib.jdk.variants.version.alignment=false
   ```
 
   </tab>
-  <tab title="Groovy" group="build-script">
+  <tab title="Groovy" group-key="groovy">
 
   ```groovy
   plugins {
@@ -908,8 +1039,8 @@ Kotlin/Native 타겟은 추가 테스트 종속성이 필요하지 않으며, `k
 ```kotlin
 kotlin {
     sourceSets {
-         commonTest.dependencies {
-             implementation(kotlin("test")) // 모든 플랫폼 종속성을 자동으로 가져옵니다
+        commonTest.dependencies {
+            implementation(kotlin("test")) // 모든 플랫폼 종속성을 자동으로 가져옵니다
         }
     }
 }
@@ -1098,31 +1229,6 @@ kotlin {
 </tab>
 </tabs>
 
-### 최상위 레벨에서 종속성 설정
-
-또는 구성 이름에 `<sourceSetName><DependencyType>` 패턴을 사용하여 최상위 레벨에서 종속성을 지정할 수 있습니다. 이는 `gradleApi()`, `localGroovy()`, `gradleTestKit()`와 같이 소스 세트의 종속성 DSL에서 사용할 수 없는 일부 Gradle 내장 종속성에 유용할 수 있습니다.
-
-<tabs group="build-script">
-<tab title="Kotlin" group-key="kotlin">
-
-```kotlin
-dependencies {
-    "commonMainImplementation"("com.example:my-library:1.0")
-}
-```
-
-</tab>
-<tab title="Groovy" group-key="groovy">
-
-```groovy
-dependencies {
-    commonMainImplementation 'com.example:my-library:1.0'
-}
-```
-
-</tab>
-</tabs>
-
 ## 저장소 선언하기
 
 공개적으로 사용 가능한 저장소를 선언하여 오픈 소스 종속성을 사용할 수 있습니다. `repositories{}` 블록에 저장소 이름을 설정하세요:
@@ -1149,7 +1255,7 @@ repositories {
 인기 있는 저장소로는 [Maven Central](https://central.sonatype.com/)과 [Google의 Maven 저장소](https://maven.google.com/web/index.html)가 있습니다.
 
 > Maven 프로젝트와도 작업하는 경우, `mavenLocal()`을 저장소로 추가하는 것을 피하는 것이 좋습니다. Gradle과 Maven 프로젝트 사이를 전환할 때 문제가 발생할 수 있습니다. `mavenLocal()` 저장소를 반드시 추가해야 한다면, `repositories{}` 블록의 마지막 저장소로 추가하세요. 자세한 내용은 [mavenLocal() 사용 사례](https://docs.gradle.org/current/userguide/declaring_repositories.html#sec:case-for-maven-local)를 참조하세요.
->
+> 
 {style="warning"}
 
 둘 이상의 서브프로젝트에서 동일한 저장소를 선언해야 하는 경우, `settings.gradle(.kts)` 파일의 `dependencyResolutionManagement{}` 블록에 저장소를 중앙에서 선언하세요:

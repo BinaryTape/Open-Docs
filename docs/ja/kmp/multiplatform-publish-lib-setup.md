@@ -37,7 +37,7 @@
 
 Kotlinマルチプラットフォームライブラリの公開物には、複数のMaven公開物が含まれており、それぞれが特定のターゲットに対応しています。さらに、ライブラリ全体を表す傘となる_root_公開物である`kotlinMultiplatform`も公開されます。
 
-[共通ソースセット](multiplatform-add-dependencies.md)に[依存関係](multiplatform-add-dependencies.md)として追加すると、root公開物は適切なプラットフォーム固有のアーティファクトに自動的に解決されます。
+[依存関係](multiplatform-add-dependencies.md)として共通ソースセットに追加すると、root公開物は適切なプラットフォーム固有のアーティファクトに自動的に解決されます。
 
 ### ターゲット固有およびroot公開物
 
@@ -113,34 +113,27 @@ Maven Localに公開する場合は、特別なタスクを使用できます。
 
 ## ホストの要件
 
-Kotlin/Nativeはクロスコンパイルをサポートしており、どのホストでも必要な`.klib`アーティファクトを生成できます。ただし、いくつか留意すべき具体的な点があります。
+Kotlin/Nativeはクロスコンパイルをサポートしており、どのホストでも必要な`.klib`アーティファクトを生成できます。
+ただし、いくつか留意すべき具体的な点があります。
 
-### Appleターゲットのコンパイル
-<secondary-label ref="Experimental"/>
+**Appleターゲットのコンパイル**
 
-Appleターゲットを含むプロジェクトのアーティファクトを生成するには、通常、Appleマシンが必要です。
-ただし、他のホストを使用したい場合は、`gradle.properties`ファイルでこのオプションを設定します。
+Appleターゲットを含むプロジェクトのアーティファクトを生成するには、任意のホストを使用できます。
+ただし、以下の場合はMacマシンを使用する必要があります。
 
-```none
-kotlin.native.enableKlibsCrossCompilation=true
-```
-
-クロスコンパイルは現在Experimental（試験的）であり、いくつかの制限があります。以下の場合はMacマシンを使用する必要があります。
-
-*   ライブラリに[cinterop依存関係](https://kotlinlang.org/docs/native-c-interop.html)がある場合。
+*   ライブラリまたは依存モジュールに[cinterop依存関係](https://kotlinlang.org/docs/native-c-interop.html)がある場合。
 *   プロジェクトで[CocoaPods連携](multiplatform-cocoapods-overview.md)が設定されている場合。
 *   Appleターゲットの[最終バイナリ](multiplatform-build-native-binaries.md)をビルドまたはテストする必要がある場合。
 
-### 公開物の重複
+**公開物の重複**
 
 公開時の問題を避けるため、リポジトリでの公開物の重複を避けるために、すべてのアーティファクトを単一のホストから公開してください。例えば、Maven Centralは公開物の重複を明示的に禁止しており、プロセスは失敗します。
-<!-- TBD: add the actual error -->
 
 ## Androidライブラリの公開
 
 Androidライブラリを公開するには、追加の構成が必要です。
 
-デフォルトでは、Androidライブラリのアーティファクトは公開されません。[Androidビルドバリアント](https://developer.android.com/build/build-variants)によって生成されたアーティファクトを公開するには、`shared/build.gradle.kts`ファイルのAndroidターゲットブロックでバリアント名を指定します。
+デフォルトでは、Androidライブラリのアーティファクトは公開されません。一連のAndroid [ビルドバリアント](https://developer.android.com/build/build-variants)によって生成されたアーティファクトを公開するには、`shared/build.gradle.kts`ファイルのAndroidターゲットブロックでバリアント名を指定します。
 
 ```kotlin
 kotlin {

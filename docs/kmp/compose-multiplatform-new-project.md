@@ -65,35 +65,35 @@
 
     ![New Compose Multiplatform app on desktop](first-compose-project-on-desktop-3.png){width=400}
 
-4.  要解决此问题，在 `composeApp/src/desktopMain/kotlin` 中，按如下方式更新 `main.kt` 文件：
+4.  要解决此问题，在 `composeApp/src/jvmMain/kotlin` 中，按如下方式更新 `main.kt` 文件：
 
     ```kotlin
-    fun main() = application {
-        val state = rememberWindowState(
-            size = DpSize(400.dp, 250.dp),
-            position = WindowPosition(300.dp, 300.dp)
-        )
-        Window(
-            title = "Local Time App", 
-            onCloseRequest = ::exitApplication, 
-            state = state,
-            alwaysOnTop = true
-        ) {
-            App()
-        }
-    }
+   fun main() = application {
+       val state = rememberWindowState(
+           size = DpSize(400.dp, 250.dp),
+           position = WindowPosition(300.dp, 300.dp)
+       )
+       Window(
+           title = "Local Time App",
+           onCloseRequest = ::exitApplication,
+           state = state,
+           alwaysOnTop = true
+       ) {
+           App()
+       }
+   }
     ```
 
     在这里，你设置了窗口的标题，并使用 `WindowState` 类型为窗口提供屏幕上的初始大小和位置。
 
     > 要在桌面应用中实时查看你的更改，请使用 [Compose 热重载](compose-hot-reload.md)：
     > 1.  在 `main.kt` 文件中，点击边栏中的 **运行** 图标。
-    > 2.  选择 **使用 Compose 热重载（Alpha）运行 'main [desktop]'**。
+    > 2.  选择 **使用 Compose 热重载（Beta）运行 'composeApp [hotRunJvm]'**。
     > ![Run Compose Hot Reload from gutter](compose-hot-reload-gutter-run.png){width=350}
     >
     > 要查看应用自动更新，请保存任何修改的文件（<shortcut>⌘ S</shortcut> / <shortcut>Ctrl+S</shortcut>）。
     >
-    > Compose 热重载目前处于 [Alpha](https://kotlinlang.org/components-stability.html#stability-levels-explained) 阶段，因此其功能可能会发生变化。
+    > Compose 热重载目前处于 [Beta](https://kotlinlang.org/components-stability.html#stability-levels-explained) 阶段，因此其功能可能会发生变化。
     >
     {style="tip"}
 
@@ -102,9 +102,11 @@
 
     ![Improved appearance of the Compose Multiplatform app on desktop](first-compose-project-on-desktop-4.png){width=350}
 
-    ### Compose 热重载演示 {initial-collapse-state="collapsed" collapsible="true"}
+<!--
+   ### Compose Hot Reload demo {initial-collapse-state="collapsed" collapsible="true"}
 
-    ![Compose Hot Reload](compose-hot-reload-resize.gif)
+   ![Compose Hot Reload](compose-hot-reload-resize.gif)
+-->
 
 ## 支持用户输入
 
@@ -176,26 +178,26 @@
 3.  调整你的 `App` 可组合项以调用 `currentTimeAt()`：
 
     ```kotlin
-    @Composable
-    @Preview
-    fun App() {
-    MaterialTheme { 
-        var location by remember { mutableStateOf("Europe/Paris") }
-        var timeAtLocation by remember { mutableStateOf("No location selected") }
-    
-        Column(
-            modifier = Modifier
-                .safeContentPadding()
-                .fillMaxSize()
-            ) {
-                Text(timeAtLocation)
-                TextField(value = location, onValueChange = { location = it })
-                Button(onClick = { timeAtLocation = currentTimeAt(location) ?: "Invalid Location" }) {
-                    Text("Show Time At Location")
-                }
-            }
-        }
-    }
+   @Composable
+   @Preview
+   fun App() {
+   MaterialTheme {
+       var location by remember { mutableStateOf("Europe/Paris") }
+       var timeAtLocation by remember { mutableStateOf("No location selected") }
+   
+       Column(
+           modifier = Modifier
+               .safeContentPadding()
+               .fillMaxSize()
+           ) {
+               Text(timeAtLocation)
+               TextField(value = location, onValueChange = { location = it })
+               Button(onClick = { timeAtLocation = currentTimeAt(location) ?: "Invalid Location" }) {
+                   Text("Show Time At Location")
+               }
+           }
+       }
+   }
     ```
 
 4.  在 `wasmJsMain/kotlin/main.kt` 文件中，在 `main()` 函数之前添加以下代码以初始化 Web 的时区支持：
@@ -262,7 +264,7 @@
     ```
 
     *   `modifier` 形参在 `Column` 周围以及 `Button` 和 `TextField` 的顶部添加了内边距。
-    *   `Text` 可组合项填充了可用的水平空间并居中其内容。
+    *   `Text` 可组合项填充可用的水平空间并居中其内容。
     *   `style` 形参自定义了 `Text` 的外观。
 
 2.  遵循 IDE 的指示导入缺失的依赖项。

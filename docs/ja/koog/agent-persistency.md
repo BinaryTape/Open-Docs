@@ -34,7 +34,7 @@ KNIT ignore this example
 -->
 ```kotlin
 require(ctx.strategy.metadata.uniqueNames) {
-    "Checkpoint feature requires unique node names in the strategy metadata"
+    "チェックポイント機能には、ストラテジーのメタデータに一意のノード名が必要です"
 }
 ```
 

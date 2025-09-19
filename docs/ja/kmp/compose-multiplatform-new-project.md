@@ -7,9 +7,9 @@
     <p>このチュートリアルではIntelliJ IDEAを使用していますが、Android Studioでも同様に進めることができます。どちらのIDEもコア機能とKotlin Multiplatformサポートは共通しています。</p>
     <br/>
     <p>これは「<strong>共有ロジックとUIを持つCompose Multiplatformアプリを作成する</strong>」チュートリアルの最終パートです。先に進む前に、前の手順を完了していることを確認してください。</p>
-    <p><img src="icon-1-done.svg" width="20" alt="最初のステップ"/> <Links href="/kmp/compose-multiplatform-create-first-app" summary="このチュートリアルではIntelliJ IDEAを使用していますが、Android Studioでも同様に進めることができます。どちらのIDEもコア機能とKotlin Multiplatformサポートは共通しています。これは共有ロジックとUIを持つCompose Multiplatformアプリを作成するチュートリアルの最初のパートです。Compose Multiplatformアプリを作成する コンポーザブルコードを探る プロジェクトを修正する 独自のアプリケーションを作成する">Compose Multiplatformアプリを作成する</Links><br/>
-       <img src="icon-2-done.svg" width="20" alt="2番目のステップ"/> <Links href="/kmp/compose-multiplatform-explore-composables" summary="このチュートリアルではIntelliJ IDEAを使用していますが、Android Studioでも同様に進めることができます。どちらのIDEもコア機能とKotlin Multiplatformサポートは共通しています。これは共有ロジックとUIを持つCompose Multiplatformアプリを作成するチュートリアルの2番目のパートです。先に進む前に、前の手順を完了していることを確認してください。Compose Multiplatformアプリを作成する コンポーザブルコードを探る プロジェクトを修正する 独自のアプリケーションを作成する">コンポーザブルコードを探る</Links><br/>
-       <img src="icon-3-done.svg" width="20" alt="3番目のステップ"/> <Links href="/kmp/compose-multiplatform-modify-project" summary="このチュートリアルではIntelliJ IDEAを使用していますが、Android Studioでも同様に進めることができます。どちらのIDEもコア機能とKotlin Multiplatformサポートは共通しています。これは共有ロジックとUIを持つCompose Multiplatformアプリを作成するチュートリアルの3番目のパートです。先に進む前に、前の手順を完了していることを確認してください。Compose Multiplatformアプリを作成する コンポーザブルコードを探る プロジェクトを修正する 独自のアプリケーションを作成する">プロジェクトを修正する</Links><br/>
+    <p><img src="icon-1-done.svg" width="20" alt="最初のステップ"/> <Links href="/kmp/compose-multiplatform-create-first-app" summary="This tutorial uses IntelliJ IDEA, but you can also follow it in Android Studio – both IDEs share the same core functionality and Kotlin Multiplatform support. This is the first part of the Create a Compose Multiplatform app with shared logic and UI tutorial. Create your Compose Multiplatform app Explore composable code Modify the project Create your own application">Compose Multiplatformアプリを作成する</Links><br/>
+       <img src="icon-2-done.svg" width="20" alt="2番目のステップ"/> <Links href="/kmp/compose-multiplatform-explore-composables" summary="This tutorial uses IntelliJ IDEA, but you can also follow it in Android Studio – both IDEs share the same core functionality and Kotlin Multiplatform support. This is the second part of the Create a Compose Multiplatform app with shared logic and UI tutorial. Before proceeding, make sure you've completed previous steps. Create your Compose Multiplatform app Explore composable code Modify the project Create your own application">コンポーザブルコードを探る</Links><br/>
+       <img src="icon-3-done.svg" width="20" alt="3番目のステップ"/> <Links href="/kmp/compose-multiplatform-modify-project" summary="This tutorial uses IntelliJ IDEA, but you can also follow it in Android Studio – both IDEs share the same core functionality and Kotlin Multiplatform support. This is the third part of the Create a Compose Multiplatform app with shared logic and UI tutorial. Before proceeding, make sure you've completed previous steps. Create your Compose Multiplatform app Explore composable code Modify the project Create your own application">プロジェクトを修正する</Links><br/>
        <img src="icon-4.svg" width="20" alt="4番目のステップ"/> <strong>独自のアプリケーションを作成する</strong><br/>
     </p>
 </tldr>
@@ -65,35 +65,35 @@
 
    ![デスクトップでの新しいCompose Multiplatformアプリ](first-compose-project-on-desktop-3.png){width=400}
 
-4.  これを修正するには、`composeApp/src/desktopMain/kotlin`にある`main.kt`ファイルを次のように更新します。
+4.  これを修正するには、`composeApp/src/jvmMain/kotlin`にある`main.kt`ファイルを次のように更新します。
 
     ```kotlin
-    fun main() = application {
+   fun main() = application {
        val state = rememberWindowState(
            size = DpSize(400.dp, 250.dp),
            position = WindowPosition(300.dp, 300.dp)
        )
        Window(
-           title = "Local Time App",
-           onCloseRequest = ::exitApplication,
+           title = "Local Time App", 
+           onCloseRequest = ::exitApplication, 
            state = state,
            alwaysOnTop = true
        ) {
            App()
        }
-    }
+   }
     ```
 
     ここでは、ウィンドウのタイトルを設定し、`WindowState`型を使用してウィンドウの初期サイズと画面上の位置を設定しています。
 
     > デスクトップアプリでリアルタイムに変更を見るには、[Compose Hot Reload](compose-hot-reload.md)を使用します。
     > 1. `main.kt`ファイルで、ガターにある**Run**アイコンをクリックします。
-    > 2. **Run 'main [desktop]' with Compose Hot Reload (Alpha)**を選択します。
+    > 2. **Run 'composeApp [hotRunJvm]' with Compose Hot Reload (Beta)**を選択します。
     > ![ガターからCompose Hot Reloadを実行する](compose-hot-reload-gutter-run.png){width=350}
     >
     > アプリが自動的に更新されるのを見るには、変更されたファイルを保存します（<shortcut>⌘ S</shortcut> / <shortcut>Ctrl+S</shortcut>）。
     >
-    > Compose Hot Reloadは現在[アルファ版](https://kotlinlang.org/components-stability.html#stability-levels-explained)であり、その機能は変更される可能性があります。
+    > Compose Hot Reloadは現在[ベータ版](https://kotlinlang.org/components-stability.html#stability-levels-explained)であり、その機能は変更される可能性があります。
     >
     {style="tip"}
 
@@ -101,10 +101,6 @@
 6.  デスクトップアプリケーションを再度実行します。見た目が改善されているはずです。
 
    ![デスクトップ上のCompose Multiplatformアプリの改善された外観](first-compose-project-on-desktop-4.png){width=350}
-
-   ### Compose Hot Reloadのデモ {initial-collapse-state="collapsed" collapsible="true"}
-
-   ![Compose Hot Reload](compose-hot-reload-resize.gif)
 
 ## ユーザー入力をサポートする
 
@@ -176,13 +172,13 @@
 3.  `App`コンポーザブルを調整して`currentTimeAt()`を呼び出します。
 
     ```kotlin
-    @Composable
-    @Preview
-    fun App() {
-    MaterialTheme {
-    var location by remember { mutableStateOf("Europe/Paris") }
-    var timeAtLocation by remember { mutableStateOf("No location selected") }
-
+   @Composable
+   @Preview
+   fun App() {
+   MaterialTheme { 
+       var location by remember { mutableStateOf("Europe/Paris") }
+       var timeAtLocation by remember { mutableStateOf("No location selected") }
+   
        Column(
            modifier = Modifier
                .safeContentPadding()
@@ -195,7 +191,7 @@
                }
            }
        }
-    }
+   }
     ```
 
 4.  `wasmJsMain/kotlin/main.kt`ファイルで、Web用のタイムゾーンサポートを初期化するために、`main()`関数の前に以下のコードを追加します。
@@ -278,12 +274,6 @@
         <img src="first-compose-project-on-desktop-7.png" alt="デスクトップにおけるCompose Multiplatformアプリの改善されたスタイル" width="350"/>
     </TabItem>
 </Tabs>
-
-<!--
-> You can find this state of the project in our [GitHub repository](https://github.com/kotlin-hands-on/get-started-with-cm/tree/main/ComposeDemoStage2).
->
-{style="tip"}
--->
 
 ## デザインをリファクタリングする
 
@@ -372,12 +362,6 @@
         <img src="first-compose-project-on-desktop-8.png" alt="デスクトップにおけるCompose Multiplatformアプリの国リスト" width="350"/>
     </TabItem>
 </Tabs>
-
-<!--
-> You can find this state of the project in our [GitHub repository](https://github.com/kotlin-hands-on/get-started-with-cm/tree/main/ComposeDemoStage3).
->
-{style="tip"}
--->
 
 > [Koin](https://insert-koin.io/)のような依存性注入フレームワークを使用して、場所のテーブルを構築および注入することで、デザインをさらに改善できます。データが外部に保存されている場合は、[Ktor](https://ktor.io/docs/create-client.html)ライブラリを使用してネットワーク経由でフェッチするか、[SQLDelight](https://github.com/cashapp/sqldelight)ライブラリを使用してデータベースからフェッチできます。
 >

@@ -1,61 +1,93 @@
-[//]: # (title: Kotlin/JS)
+[//]: # (title: Kotlin/JavaScript)
 
-Kotlin/JSは、Kotlinコード、Kotlin標準ライブラリ、および互換性のあるすべての依存関係をJavaScriptにトランスパイルする機能を提供します。Kotlin/JSの現在の実装は[ES5](https://www.ecma-international.org/ecma-262/5.1/)をターゲットとしています。
+Kotlin/JavaScript (Kotlin/JS) を使用すると、Kotlinコード、Kotlin標準ライブラリ、および互換性のあるすべての依存関係をJavaScriptにトランスパイルできます。これにより、KotlinアプリケーションはJavaScriptをサポートするあらゆる環境で実行できます。
 
-Kotlin/JSを使用する推奨される方法は、`kotlin.multiplatform` Gradleプラグインを介することです。これにより、JavaScriptをターゲットとするKotlinプロジェクトを簡単に一元的にセットアップおよび制御できます。これには、アプリケーションのバンドル制御、npmからのJavaScript依存関係の直接追加などの不可欠な機能が含まれます。利用可能なオプションの概要については、[Kotlin/JSプロジェクトのセットアップ](js-project-setup.md)を参照してください。
+Kotlin/JSは、[Kotlin Multiplatform Gradleプラグイン](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-dsl-reference.html) (`kotlin.multiplatform`) を介して使用し、JavaScriptをターゲットとするKotlinプロジェクトを一元的に設定および管理できます。
 
-## Kotlin/JS IRコンパイラ
+Kotlin Multiplatform Gradleプラグインは、アプリケーションのバンドル制御やnpmからのJavaScript依存関係の直接追加などの機能を提供します。利用可能な設定オプションの概要については、[Kotlin/JSプロジェクトのセットアップ](js-project-setup.md)を参照してください。
 
-[Kotlin/JS IRコンパイラ](js-ir-compiler.md)は、古いデフォルトのコンパイラに比べて多くの改善点があります。例えば、デッドコード排除によって生成される実行可能ファイルのサイズを削減し、JavaScriptエコシステムとそのツールとのよりスムーズな相互運用性を提供します。
+> Kotlin/JSの現在の実装は、[ES5](https://www.ecma-international.org/ecma-262/5.1/) および [ES2015](https://262.ecma-international.org/6.0/) 標準をターゲットとしています。
+>
+{style="tip"}
 
-> 古いコンパイラはKotlin 1.8.0のリリース以降、非推奨になりました。
-> 
-{style="note"}
+## Kotlin/JSのユースケース
 
-KotlinコードからTypeScript宣言ファイル（`d.ts`）を生成することで、IRコンパイラはTypeScriptとKotlinコードを組み合わせた「ハイブリッド」アプリケーションの作成を容易にし、Kotlin Multiplatformを使用してコード共有機能を活用できるようにします。
+Kotlin/JSの一般的な使用方法をいくつか紹介します。
 
-Kotlin/JS IRコンパイラの利用可能な機能と、プロジェクトで試す方法の詳細については、[Kotlin/JS IRコンパイラ ドキュメントページ](js-ir-compiler.md)と[マイグレーションガイド](js-ir-migration.md)を参照してください。
+*   **フロントエンドとJVMバックエンド間での共通ロジックの共有**
+
+    バックエンドがKotlinまたは他のJVM互換言語で記述されている場合、ウェブアプリケーションとバックエンド間で共通コードを共有できます。これには、データ転送オブジェクト (DTO)、バリデーションおよび認証ルール、REST APIエンドポイントの抽象化などが含まれます。
+
+*   **Android、iOS、およびウェブクライアント間での共通ロジックの共有**
+
+    ウェブインターフェースとAndroidおよびiOSのモバイルアプリケーション間でビジネスロジックを共有しつつ、ネイティブのユーザーインターフェースを維持できます。これにより、REST APIの抽象化、ユーザー認証、フォームバリデーション、ドメインモデルなどの一般的な機能の重複を避けることができます。
+
+*   **Kotlin/JSを使用したフロントエンドWebアプリケーションの構築**
+
+    既存のツールやライブラリと統合しながら、Kotlinを使用して従来のWebフロントエンドを開発できます。
+
+    *   Android開発に慣れている場合、[Kobweb](https://kobweb.varabyte.com/) や [Kilua](https://kilua.dev/) のようなComposeベースのフレームワークでWebアプリケーションを構築できます。
+    *   JetBrainsが提供する[一般的なJavaScriptライブラリ用のKotlinラッパー](https://github.com/JetBrains/kotlin-wrappers)を使用して、Kotlin/JSで完全に型安全なReactアプリケーションを構築できます。Kotlinラッパー (`kotlin-wrappers`) は、Reactやその他のJavaScriptフレームワークのための抽象化と統合を提供します。
+
+        これらのラッパーは、[React Redux](https://react-redux.js.org/)、[React Router](https://reactrouter.com/)、[styled-components](https://styled-components.com/) などの補完的なライブラリもサポートしています。JavaScriptエコシステムとの相互運用性を通じて、サードパーティのReactコンポーネントやコンポーネントライブラリを使用することもできます。
+
+    *   Kotlinエコシステムと統合し、簡潔で表現力豊かなコードをサポートする[Kotlin/JSフレームワーク](js-frameworks.md)を使用します。
+
+*   **古いブラウザをサポートするマルチプラットフォームアプリケーションの構築**
+
+    Compose Multiplatformを使用すると、Kotlinでアプリケーションを構築し、ウェブプロジェクトでモバイルおよびデスクトップのユーザーインターフェースを再利用できます。この目的の主要なターゲットは[Kotlin/Wasm](wasm-overview.md)ですが、Kotlin/JSもターゲットとすることで、古いブラウザへのサポートを拡張できます。
+
+*   **Kotlin/JSを使用したサーバーサイドおよびサーバーレスアプリケーションの構築**
+
+    Kotlin/JSのNode.jsターゲットを使用すると、JavaScriptランタイム上でサーバーサイドまたはサーバーレス環境向けのアプリケーションを作成できます。これにより、高速な起動と低いメモリ使用量が得られます。[`kotlinx-nodejs`](https://github.com/Kotlin/kotlinx-nodejs)ライブラリは、Kotlinから[Node.js API](https://nodejs.org/docs/latest/api/)への型安全なアクセスを提供します。
+
+ユースケースに応じて、Kotlin/JSプロジェクトはKotlinエコシステムの互換ライブラリや、JavaScriptおよびTypeScriptエコシステムのサードパーティライブラリを使用できます。
+
+Kotlinコードからサードパーティライブラリを使用するには、独自の型安全なラッパーを作成するか、コミュニティがメンテナンスしているラッパーを使用できます。さらに、Kotlin/JSの[動的型](dynamic-type.md)を使用することもできます。これは、型安全性を犠牲にして、厳密な型付けやライブラリラッパーをスキップすることを可能にします。
+
+Kotlin/JSは、最も一般的なモジュールシステムである[ESM](https://tc39.es/ecma262/#sec-modules)、[CommonJS](https://nodejs.org/api/modules.html#modules-commonjs-modules)、[UMD](https://github.com/umdjs/umd)、および[AMD](https://github.com/amdjs/amdjs-api)とも互換性があります。これにより、[モジュールを生成および利用](js-modules.md)し、構造化された方法でJavaScriptエコシステムと統合できます。
+
+### ユースケースを共有する
+
+[Kotlin/JSのユースケース](#use-cases-for-kotlin-js)に記載されているリストは網羅的なものではありません。さまざまなアプローチを自由に試して、プロジェクトに最適なものを見つけてください。
+
+[Kotlin Slack](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up)の[#javascript](https://kotlinlang.slack.com/archives/C0B8L3U69)チャンネルで、ユースケース、経験、質問をKotlin/JSコミュニティと共有してください。
+
+## Kotlin/JSを始める
+
+Kotlin/JSの作業を開始するための基本と最初のステップを探ります。
+
+*   Kotlinを初めて使用する場合は、まず[基本構文](basic-syntax.md)を確認し、[Kotlinツアー](kotlin-tour-welcome.md)を探索してください。
+*   インスピレーションを得るために、[Kotlin/JSサンプルプロジェクト](#sample-projects-for-kotlin-js)のリストをチェックしてください。これらのサンプルには、プロジェクトを開始するのに役立つ有用なコードスニペットとパターンが含まれています。
+*   Kotlin/JSを初めて使用する場合は、より高度なトピックを探索する前に、セットアップガイドから始めてください。
+
+<a href="js-project-setup.md"><img src="js-set-up-project.svg" width="600" alt="Kotlin/JSプロジェクトのセットアップ" style="block"/></a>
+
+## Kotlin/JSのサンプルプロジェクト
+
+次の表は、さまざまなKotlin/JSのユースケース、アーキテクチャ、およびコード共有戦略を示す一連のサンプルプロジェクトをリストしています。
+
+| プロジェクト                                                                                                                          | 説明                                                                                                                                                                                                                                                                                                                      |
+|:----------------------------------------------------------------------------------------------------------------------------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| [Petclinic with common code between Spring and Angular](https://github.com/Kotlin/kmp-spring-petclinic/#readme)                   | エンタープライズアプリケーションでコードの重複を避けるために、データ転送オブジェクト、バリデーションおよび認証ルール、REST APIエンドポイントの抽象化を共有する方法を示します。コードは[Spring Boot](https://spring.io/projects/spring-boot)バックエンドと[Angular](https://angular.dev/)フロントエンド間で共有されます。 |
+| [Fullstack Conference CMS](https://github.com/Kotlin/kmp-fullstack-conference-cms/#readme)                                        | [Ktor](https://ktor.io/)、[Jetpack Compose](https://developer.android.com/compose)、[Vue.js](https://vuejs.org/)アプリケーション間での、最もシンプルなものからオールインのコード共有まで、複数のコード共有アプローチを紹介します。                                                                                             |
+| [Todo App on a Compose-HTML-based Kobweb framework](https://github.com/varabyte/kobweb-templates/tree/main/examples/todo/#readme) | Android開発者にはおなじみのアプローチを再利用して、ToDoリストアプリケーションを作成する方法を示します。[Kobwebフレームワーク](https://kobweb.varabyte.com/)を搭載したクライアントUIアプリケーションを構築します。                                                                                                                           |
+| [Simple logic sharing between Android, iOS, and web](https://github.com/Kotlin/kmp-logic-sharing-simple-example/#readme)          | Kotlinで共通ロジックを持つプロジェクトを構築するためのテンプレートが含まれており、Android ([Jetpack Compose](https://developer.android.com/compose))、iOS ([SwiftUI](https://developer.apple.com/tutorials/swiftui/))、およびウェブ ([React](https://react.dev/)) のプラットフォームネイティブUIアプリケーションで利用されます。      |
+| [Full-stack collaborative to-do list](https://github.com/kotlin-hands-on/jvm-js-fullstack/#readme)                                | JSおよびJVMターゲットを持つKotlin Multiplatformを使用して、共同作業用のToDoリストアプリケーションを作成する方法を示します。バックエンドには[Ktor](https://ktor.io/)を、フロントエンドにはKotlin/JSとReactを使用します。                                                                                                             |
 
 ## Kotlin/JSフレームワーク
 
-モダンなWeb開発は、Webアプリケーションの構築を簡素化するフレームワークによって大きく恩恵を受けます。以下に、異なる作者によって書かれたKotlin/JS用の人気のあるWebフレームワークの例をいくつか紹介します。
+Kotlin/JSフレームワークは、すぐに使えるコンポーネント、ルーティング、状態管理、および最新のWebアプリケーションを構築するためのその他のツールを提供することで、Web開発を簡素化します。
 
-### Kobweb
-
-_Kobweb_ は、WebサイトおよびWebアプリを作成するための特定の思想に基づいたKotlinフレームワークです。[Compose HTML](https://github.com/JetBrains/compose-multiplatform?tab=readme-ov-file#compose-html)とライブリロードを活用して高速な開発を実現します。[Next.js](https://nextjs.org/)に触発され、Kobwebはウィジェット、レイアウト、ページを追加するための標準的な構造を推進しています。
-
-標準で、Kobwebはページルーティング、ライト/ダークモード、CSSスタイリング、Markdownサポート、バックエンドAPI、その他の機能を提供します。また、Silkと呼ばれるUIライブラリも含まれており、モダンなUI向けの多機能なウィジェットセットです。
-
-Kobwebはサイトのエクスポートもサポートしており、SEOと自動検索インデックス作成のためにページのスナップショットを生成します。さらに、Kobwebは状態の変化に応じて効率的に更新されるDOMベースのUIを簡単に作成できます。
-
-ドキュメントと例については、[Kobwebサイト](https://kobweb.varabyte.com/)にアクセスしてください。
-
-フレームワークに関する更新情報や議論については、Kotlin Slackの[#kobweb](https://kotlinlang.slack.com/archives/C04RTD72RQ8)および[#compose-web](https://kotlinlang.slack.com/archives/C01F2HV7868)チャンネルに参加してください。
-
-### KVision
-
-_KVision_ は、オブジェクト指向のWebフレームワークであり、Kotlin/JSでアプリケーションを記述することを可能にします。アプリケーションのユーザーインターフェースの構成要素として使用できる、すぐに使えるコンポーネントが提供されます。フロントエンドを構築するためにリアクティブプログラミングモデルと命令型プログラミングモデルの両方を使用でき、Ktor、Spring Boot、その他のフレームワーク用のコネクタを使用してサーバーサイドアプリケーションと統合し、[Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html)を使用してコードを共有できます。
-
-ドキュメント、チュートリアル、例については、[KVisionサイト](https://kvision.io)にアクセスしてください。
-
-フレームワークに関する更新情報や議論については、[Kotlin Slack](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up)の[#kvision](https://kotlinlang.slack.com/messages/kvision)および[#javascript](https://kotlinlang.slack.com/archives/C0B8L3U69)チャンネルに参加してください。
-
-### fritz2
-
-_fritz2_ は、リアクティブなWebユーザーインターフェースを構築するためのスタンドアロンフレームワークです。HTML要素を構築およびレンダリングするための独自の型安全なDSLを提供し、Kotlinのコルーチンとフローを活用してコンポーネントとそのデータバインディングを表現します。標準で状態管理、バリデーション、ルーティングなどの機能を提供し、Kotlin Multiplatformプロジェクトと統合します。
-
-ドキュメント、チュートリアル、例については、[fritz2サイト](https://www.fritz2.dev)にアクセスしてください。
-
-フレームワークに関する更新情報や議論については、[Kotlin Slack](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up)の[#fritz2](https://kotlinlang.slack.com/messages/fritz2)および[#javascript](https://kotlinlang.slack.com/archives/C0B8L3U69)チャンネルに参加してください。
-
-### Doodle
-
-_Doodle_ は、Kotlin/JS用のベクターベースのUIフレームワークです。Doodleアプリケーションは、DOM、CSS、またはJavaScriptに依存するのではなく、ブラウザのグラフィック機能を使用してユーザーインターフェースを描画します。このアプローチを使用することで、Doodleは任意のUI要素、ベクターシェイプ、グラデーション、カスタムビジュアライゼーションのレンダリングを細かく制御できます。
-
-ドキュメント、チュートリアル、例については、[Doodleサイト](https://nacular.github.io/doodle/)にアクセスしてください。
-
-フレームワークに関する更新情報や議論については、[Kotlin Slack](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up)の[#doodle](https://kotlinlang.slack.com/messages/doodle)および[#javascript](https://kotlinlang.slack.com/archives/C0B8L3U69)チャンネルに参加してください。
+[異なる作者によって書かれたKotlin/JSの利用可能なフレームワークをチェックする](js-frameworks.md)。
 
 ## Kotlin/JSコミュニティに参加する
 
-公式の[Kotlin Slack](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up)の[#javascript](https://kotlinlang.slack.com/archives/C0B8L3U69)チャンネルに参加して、コミュニティやチームとチャットできます。
+公式の[Kotlin Slack](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up)の[#javascript](https://kotlinlang.slack.com/archives/C0B8L3U69)チャンネルに参加して、コミュニティやKotlin/JSチームとチャットできます。
+
+## 次のステップ
+
+*   [Kotlin/JSプロジェクトのセットアップ](js-project-setup.md)
+*   [Kotlin/JSプロジェクトの実行](running-kotlin-js.md)
+*   [Kotlin/JSコードのデバッグ](js-debugging.md)
+*   [Kotlin/JSでのテストの実行](js-running-tests.md)

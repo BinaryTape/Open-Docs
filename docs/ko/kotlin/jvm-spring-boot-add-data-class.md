@@ -84,7 +84,7 @@
           <p>Kotlin 표준 라이브러리에서 이러한 컬렉션의 인스턴스를 생성하기 위한 해당 팩토리 함수도 제공합니다.
           </p>
           <p>이 튜토리얼에서는 <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/list-of.html"><code>listOf()</code></a> 함수를 사용하여 `Message` 객체 목록을 생성합니다.
-          이것은 읽기 전용 객체 목록을 생성하는 팩토리 함수입니다. 목록에서 요소를 추가하거나 제거할 수 없습니다.<br/>
+          이것은 <i>읽기 전용</i> 객체 목록을 생성하는 팩토리 함수입니다. 목록에서 요소를 추가하거나 제거할 수 없습니다.<br/>
           목록에 쓰기 연산을 수행해야 하는 경우, <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/mutable-list-of.html"><code>mutableListOf()</code></a> 함수를 호출하여 가변 리스트 인스턴스를 생성하세요.
           </p>
        </def>

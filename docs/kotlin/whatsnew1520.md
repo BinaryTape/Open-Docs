@@ -65,7 +65,7 @@ fun kotlinFun() = with(JavaClass()) {
 >
 {style="warning"}
 
-Kotlin 1.5.20 引入了一个实验性的 [Lombok 编译器插件](lombok.md)。该插件可以在同时包含 Kotlin 和 Java 代码的模块中生成和使用 Java 的 [Lombok](https://projectlombok.org/) 声明。Lombok 注解仅在 Java 源代码中有效，如果你在 Kotlin 代码中使用它们，则会被忽略。
+Kotlin 1.5.20 引入了一个实验性的 [Lombok 编译器插件](lombok.md)。该插件使生成和使用 Java 的 [Lombok](https://projectlombok.org/) 声明成为可能，即便在同时包含 Kotlin 和 Java 代码的模块中。Lombok 注解仅在 Java 源代码中有效，如果你在 Kotlin 代码中使用它们，则会被忽略。
 
 该插件支持以下注解：
 * `@Getter`、`@Setter`
@@ -97,7 +97,7 @@ Kotlin/Native 1.5.20 提供了新特性和工具改进的预览：
 >
 {style="warning"}
 
-你现在可以设置 Kotlin/Native 编译器，将 Kotlin 代码中的[文档注释 (KDoc)](kotlin-doc.md) 导出到由此生成的 Objective-C 框架，使其对框架的使用者可见。
+你现在可以设置 Kotlin/Native 编译器，将 Kotlin 代码中的[文档注释 (KDoc)](kotlin-doc.md) 导出到由此生成的 Objective-C framework，使其对 framework 的使用者可见。
 
 例如，以下带有 KDoc 的 Kotlin 代码：
 
@@ -242,7 +242,7 @@ fun main() {
     val latinCapitalA = 'A' // has "Lu" general category
     val circledLatinCapitalA = 'Ⓐ' // has "Other_Uppercase" property
     println(latinCapitalA.isUpperCase() && circledLatinCapitalA.isUpperCase())
-//sampleEnd
+//示例结束
 }
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.5"}

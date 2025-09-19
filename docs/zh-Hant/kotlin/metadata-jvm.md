@@ -79,13 +79,13 @@ dependencies {
 
 ```kotlin
 fun main() {
-    // Specifies the fully qualified name of the class
+    // 指定類別的完整限定名稱
     val clazz = Class.forName("org.example.SampleClass")
 
-    // Retrieves the @Metadata annotation
+    // 檢索 @Metadata 註解
     val metadata = clazz.getAnnotation(Metadata::class.java)
 
-    // Checks if the metadata is present
+    // 檢查中繼資料是否存在
     if (metadata != null) {
         println("This is a Kotlin class with metadata.")
     } else {
@@ -111,31 +111,31 @@ fun main() {
 以下程式碼範例演示如何使用 `readLenient()` 解析中繼資料，使用 `kmClass` 分析類別層級詳細資訊，以及使用 `kmPackage` 檢索檔案層級宣告：
 
 ```kotlin
-// Imports the necessary libraries
+// 匯入必要的函式庫
 import kotlin.metadata.jvm.*
 import kotlin.metadata.*
 
 fun main() {
-    // Specifies the fully qualified class name
+    // 指定完整限定的類別名稱
     val className = "org.example.SampleClass"
 
     try {
-        // Retrieves the class object for the specified name
+        // 檢索指定名稱的類別物件
         val clazz = Class.forName(className)
 
-        // Retrieves the @Metadata annotation
+        // 檢索 @Metadata 註解
         val metadataAnnotation = clazz.getAnnotation(Metadata::class.java)
         if (metadataAnnotation != null) {
             println("Kotlin Metadata found for class: $className")
 
-            // Parses metadata using the readLenient() function
+            // 使用 readLenient() 函數解析中繼資料
             val metadata = KotlinClassMetadata.readLenient(metadataAnnotation)
             when (metadata) {
                 is KotlinClassMetadata.Class -> {
                     val kmClass = metadata.kmClass
                     println("Class name: ${kmClass.name}")
 
-                    // Iterates over functions and checks visibility
+                    // 迭代函數並檢查可見性
                     kmClass.functions.forEach { function ->
                         val visibility = function.visibility
                         println("Function: ${function.name}, Visibility: $visibility")
@@ -144,7 +144,7 @@ fun main() {
                 is KotlinClassMetadata.FileFacade -> {
                     val kmPackage = metadata.kmPackage
 
-                    // Iterates over functions and checks visibility
+                    // 迭代函數並檢查可見性
                     kmPackage.functions.forEach { function ->
                         val visibility = function.visibility
                         println("Function: ${function.name}, Visibility: $visibility")
@@ -250,18 +250,18 @@ fun main() {
 以下是範例：
 
 ```kotlin
-// Imports the necessary libraries
+// 匯入必要的函式庫
 import kotlin.metadata.jvm.*
 import kotlin.metadata.*
 import org.objectweb.asm.*
 import org.objectweb.asm.tree.*
 import java.io.File
 
-// Checks if an annotation refers to a specific name
+// 檢查註解是否指向特定名稱
 fun AnnotationNode.refersToName(name: String) =
     desc.startsWith('L') && desc.endsWith(';') && desc.regionMatches(1, name, 0, name.length)
 
-// Retrieves annotation values by key
+// 按鍵檢索註解值
 private fun List<Any>.annotationValue(key: String): Any? {
     for (index in (0 until size / 2)) {
         if (this[index * 2] == key) {
@@ -271,17 +271,17 @@ private fun List<Any>.annotationValue(key: String): Any? {
     return null
 }
 
-// Defines a custom extension function to locate an annotation by its name in a ClassNode
+// 定義一個自訂擴展函數，用於在 ClassNode 中按名稱定位註解
 fun ClassNode.findAnnotation(annotationName: String, includeInvisible: Boolean = false): AnnotationNode? {
     val visible = visibleAnnotations?.firstOrNull { it.refersToName(annotationName) }
     if (!includeInvisible) return visible
     return visible ?: invisibleAnnotations?.firstOrNull { it.refersToName(annotationName) }
 }
 
-// Operator to simplify retrieving annotation values
+// 簡化檢索註解值的運算子
 operator fun AnnotationNode.get(key: String): Any? = values.annotationValue(key)
 
-// Extracts Kotlin metadata from a class node
+// 從類別節點中提取 Kotlin 中繼資料
 fun ClassNode.readMetadataLenient(): KotlinClassMetadata? {
     val metadataAnnotation = findAnnotation("kotlin/Metadata", false) ?: return null
     @Suppress("UNCHECKED_CAST")
@@ -297,7 +297,7 @@ fun ClassNode.readMetadataLenient(): KotlinClassMetadata? {
     return KotlinClassMetadata.readLenient(metadata)
 }
 
-// Converts a file to a ClassNode for bytecode inspection
+// 將檔案轉換為 ClassNode 以供位元碼檢查
 fun File.toClassNode(): ClassNode {
     val node = ClassNode()
     this.inputStream().use { ClassReader(it).accept(node, ClassReader.SKIP_CODE) }
@@ -308,16 +308,16 @@ fun main() {
     val classFilePath = "build/classes/kotlin/main/org/example/SampleClass.class"
     val classFile = File(classFilePath)
 
-    // Reads the bytecode and processes it into a ClassNode object
+    // 讀取位元碼並將其處理為 ClassNode 物件
     val classNode = classFile.toClassNode()
 
-    // Locates the @Metadata annotation and reads it leniently
+    // 定位 @Metadata 註解並寬鬆讀取它
     val metadata = classNode.readMetadataLenient()
     if (metadata != null && metadata is KotlinClassMetadata.Class) {
-        // Inspects the parsed metadata
+        // 檢查已解析的中繼資料
         val kmClass = metadata.kmClass
 
-        // Prints class details
+        // 列印類別詳細資訊
         println("Class name: ${kmClass.name}")
         println("Functions:")
         kmClass.functions.forEach { function ->
@@ -342,36 +342,36 @@ fun main() {
 以下是一個從類別中繼資料中移除私有函數的範例：
 
 ```kotlin
-// Imports the necessary libraries
+// 匯入必要的函式庫
 import kotlin.metadata.jvm.*
 import kotlin.metadata.*
 
 fun main() {
-    // Specifies the fully qualified class name
+    // 指定完整限定的類別名稱
     val className = "org.example.SampleClass"
 
     try {
-        // Retrieves the class object for the specified name
+        // 檢索指定名稱的類別物件
         val clazz = Class.forName(className)
 
-        // Retrieves the @Metadata annotation
+        // 檢索 @Metadata 註解
         val metadataAnnotation = clazz.getAnnotation(Metadata::class.java)
         if (metadataAnnotation != null) {
             println("Kotlin Metadata found for class: $className")
 
-            // Parses metadata using the readStrict() function
+            // 使用 readStrict() 函數解析中繼資料
             val metadata = KotlinClassMetadata.readStrict(metadataAnnotation)
             if (metadata is KotlinClassMetadata.Class) {
                 val kmClass = metadata.kmClass
 
-                // Removes private functions from the class metadata
+                // 從類別中繼資料中移除私有函數
                 kmClass.functions.removeIf { it.visibility == Visibility.PRIVATE }
                 println("Removed private functions. Remaining functions: ${kmClass.functions.map { it.name }}")
 
-                // Serializes the modified metadata back
+                // 序列化修改後的中繼資料
                 val newMetadata = metadata.write()
-                // After modifying the metadata, you need to write it into the class file
-                // To do so, you can use a bytecode manipulation framework such as ASM
+                // 修改中繼資料後，您需要將其寫入類別檔案中
+                // 為此，您可以使用位元碼操作框架，例如 ASM
                 
                 println("Modified metadata: ${newMetadata}")
             } else {
@@ -412,13 +412,13 @@ fun main() {
 以下範例演示如何為一個簡單的 Kotlin 類別建立中繼資料：
 
 ```kotlin
-// Imports the necessary libraries
+// 匯入必要的函式庫
 import kotlin.metadata.*
 import kotlin.metadata.jvm.*
 import org.objectweb.asm.*
 
 fun main() {
-    // Creates a KmClass instance
+    // 建立 KmClass 實例
     val klass = KmClass().apply {
         name = "Hello"
         visibility = Visibility.PUBLIC
@@ -435,15 +435,15 @@ fun main() {
         }
     }
 
-    // Serializes a KotlinClassMetadata.Class instance, including the version and flags, into a @kotlin.Metadata annotation
+    // 將 KotlinClassMetadata.Class 實例（包括版本和旗標）序列化為 @kotlin.Metadata 註解
     val annotationData = KotlinClassMetadata.Class(
         klass, JvmMetadataVersion.LATEST_STABLE_SUPPORTED, 0
     ).write()
 
-    // Generates a .class file with ASM
+    // 使用 ASM 產生 .class 檔案
     val classBytes = ClassWriter(0).apply {
         visit(Opcodes.V1_6, Opcodes.ACC_PUBLIC, "Hello", null, "java/lang/Object", null)
-        // Writes @kotlin.Metadata instance to the .class file
+        // 將 @kotlin.Metadata 實例寫入 .class 檔案
         visitAnnotation("Lkotlin/Metadata;", true).apply {
             visit("mv", annotationData.metadataVersion)
             visit("k", annotationData.kind)
@@ -460,7 +460,7 @@ fun main() {
         visitEnd()
     }.toByteArray()
 
-    // Writes the generated class file to disk
+    // 將產生的 .class 檔案寫入磁碟
     java.io.File("Hello.class").writeBytes(classBytes)
 
     println("Metadata and .class file created successfully.")

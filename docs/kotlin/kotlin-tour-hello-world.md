@@ -62,7 +62,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-tour-variables"}
 
-> 变量可以声明在 `main()` 函数之外，在程序的开头。以这种方式声明的变量被称为顶层声明。
+> 变量可以声明在 `main()` 函数之外，在程序的开头。以这种方式声明的变量被称为**顶层**声明。
 > 
 {style="tip"}
 
@@ -109,7 +109,7 @@ fun main() {
 fun main() {
     val name = "Mary"
     val age = 20
-    // Write your code here
+    // 在此处编写你的代码
 }
 ```
 {validate="false" kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-tour-hello-world-exercise"}

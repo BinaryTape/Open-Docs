@@ -2,7 +2,7 @@
 
 <tldr>
     <p>最新 Kotlin 版本：<strong>%kotlinVersion%</strong></p>
-    <p>关于详情，请参见<a href="%kotlinLatestWhatsnew%">Kotlin %kotlinVersion% 新特性</a></p>
+    <p>关于详情，请参见<a href="%kotlinLatestWhatsnew%">Kotlin 2.2.20 新特性</a> <!--and find the bug fix details in the <a href="%kotlinLatestUrl%">changelog</a>-->。</p>
 </tldr>
 
 自 Kotlin 2.0.0 起，我们发布以下类型的版本：
@@ -39,11 +39,11 @@
 
 ```kotlin
 plugins {
-    // Replace `<...>` with the plugin name appropriate for your target environment
+    // 将 `<...>` 替换为适用于你的目标环境的插件名称
     kotlin("<...>") version "%kotlinVersion%"
-    // For example, if your target environment is JVM:
+    // 例如，如果你的目标环境是 JVM：
     // kotlin("jvm") version "%kotlinVersion%"
-    // If your target is Kotlin Multiplatform:
+    // 如果你的目标是 Kotlin Multiplatform：
     // kotlin("multiplatform") version "%kotlinVersion%"
 }
 ```
@@ -53,11 +53,11 @@ plugins {
 
 ```groovy
 plugins {
-    // Replace `<...>` with the plugin name appropriate for your target environment
+    // 将 `<...>` 替换为适用于你的目标环境的插件名称
     id 'org.jetbrains.kotlin.<...>' version '%kotlinVersion%'
-    // For example, if your target environment is JVM: 
+    // 例如，如果你的目标环境是 JVM： 
     // id 'org.jetbrains.kotlin.jvm' version '%kotlinVersion%'
-    // If your target is Kotlin Multiplatform:
+    // 如果你的目标是 Kotlin Multiplatform：
     // id 'org.jetbrains.kotlin.multiplatform' version '%kotlinVersion%'
 }
 ```
@@ -132,6 +132,26 @@ IntelliJ IDEA 和 Android Studio 中的 K2 模式使用 K2 编译器来改进代
     <tr>
         <th>构建信息</th>
         <th>构建亮点</th>
+    </tr>
+    <tr>
+        <td><strong>2.2.20</strong>
+            <p>发布时间：<strong>2025 年 9 月 10 日</strong></p>
+            <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.2.20" target="_blank">GitHub 发布页</a></p>
+        </td>
+        <td>
+            <p>Kotlin 2.2.0 的工具版本，包含 Web 开发的重要变更及其他改进。</p>
+            <p>关于更多详情，请参见<a href="https://github.com/JetBrains/kotlin/releases/tag/v2.2.20">更新日志</a>。</p>
+        </td>
+    </tr>
+    <tr>
+        <td><strong>2.2.10</strong>
+            <p>发布时间：<strong>2025 年 8 月 14 日</strong></p>
+            <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.2.10" target="_blank">GitHub 发布页</a></p>
+        </td>
+        <td>
+            <p>Kotlin 2.2.0 的错误修复版本。</p>
+            <p>关于更多详情，请参见<a href="https://github.com/JetBrains/kotlin/releases/tag/v2.2.10">更新日志</a>。</p>
+        </td>
     </tr>
     <tr>
         <td><strong>2.2.0</strong>
@@ -415,7 +435,7 @@ IntelliJ IDEA 和 Android Studio 中的 K2 模式使用 K2 编译器来改进代
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.7.0" target="_blank">GitHub 发布页</a></p>
         </td>
         <td>
-            <p>一个特性发布版本，其中 Kotlin K2 编译器处于 Alpha 版，并包含稳定的语言特性、性能改进和演进性变更（例如稳定实验性 API）。</p>
+            <p>一个特性发布版本，其中 Kotlin K2 编译器处于 JVM 的 Alpha 版，并包含稳定的语言特性、性能改进和演进性变更（例如稳定实验性 API）。</p>
             <p>关于更多信息，请参见：</p>
             <list>
                 <li><a href="whatsnew17.md" target="_blank">Kotlin 1.7.0 新特性</a></li>

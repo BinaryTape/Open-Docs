@@ -143,8 +143,7 @@ compilerOpts.macos_x64 = -DFOO=foo2
 
 ### 包含静态库
 
-> 此特性是 [实验性的](components-stability.md#stability-levels-explained)。它可能随时被删除或更改。
-> 仅用于评估目的。
+> 此特性是 [实验性的](components-stability.md#stability-levels-explained)。它可能随时被删除或更改。仅用于评估目的。
 >
 {style="warning"}
 

@@ -170,6 +170,7 @@ data class Counter(val dayIndex: Int) {
 | `a != b` | `!(a?.equals(b) ?: (b === null))` |
 
 这些操作符仅与函数 [`equals(other: Any?): Boolean`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/equals.html) 配合使用，该函数可以被覆盖以提供自定义的相等性检测实现。任何其他同名函数（例如 `equals(other: Foo)`）都不会被调用。
+当 `==` 表达式中两个操作数均不直接与 `null` 比较且比较的不是两个浮点类型时，Kotlin 会调用 `.equals()`。否则，Kotlin 使用 `===` 进行直接的 `null` 比较，并通过数值比较非空的浮点值。
 
 > `===` 和 `!==`（恒等检测）不可重载，因此没有适用于它们的约定。
 >

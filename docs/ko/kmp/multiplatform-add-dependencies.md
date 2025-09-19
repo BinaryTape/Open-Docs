@@ -12,7 +12,7 @@ kotlin {
     //...
     sourceSets {
         commonMain.dependencies {
-            implementation("com.example:my-library:1.0") // library shared for all source sets
+            implementation("com.example:my-library:1.0") // 모든 소스 세트에 공유되는 라이브러리
         }
     }
 }
@@ -59,7 +59,7 @@ kotlin {
     //...
     sourceSets {
         commonTest.dependencies {
-            implementation(kotlin("test")) // Brings all the platform dependencies automatically
+            implementation(kotlin("test")) // 모든 플랫폼 종속성을 자동으로 가져옵니다.
         }
     }
 }
@@ -74,7 +74,7 @@ kotlin {
     sourceSets {
         commonTest {
             dependencies {
-                implementation kotlin("test") // Brings all the platform dependencies automatically
+                implementation kotlin("test") // 모든 플랫폼 종속성을 자동으로 가져옵니다.
             }
         }
     }
@@ -158,7 +158,7 @@ kotlin {
 
 ## Kotlin 멀티플랫폼 라이브러리 종속성
 
-[SQLDelight](https://github.com/cashapp/sqldelight)과 같이 Kotlin 멀티플랫폼 기술을 채택한 라이브러리에 종속성을 추가할 수 있습니다. 이러한 라이브러리의 작성자는 일반적으로 프로젝트에 종속성을 추가하는 방법에 대한 가이드를 제공합니다.
+[SQLDelight](https://github.com/cashapp/sqldelight)와 같이 Kotlin 멀티플랫폼 기술을 채택한 라이브러리에 종속성을 추가할 수 있습니다. 이러한 라이브러리의 작성자는 일반적으로 프로젝트에 종속성을 추가하는 방법에 대한 가이드를 제공합니다.
 
 > [JetBrains 검색 플랫폼](https://klibs.io/)에서 Kotlin 멀티플랫폼 라이브러리를 찾아보세요.
 >
@@ -166,7 +166,7 @@ kotlin {
 
 ### 모든 소스 세트에서 공유되는 라이브러리
 
-모든 소스 세트에서 라이브러리를 사용하려면 공통 소스 세트에만 추가하면 됩니다. Kotlin Multiplatform Mobile 플러그인은 해당 부분을 다른 소스 세트에 자동으로 추가합니다.
+모든 소스 세트에서 라이브러리를 사용하려면 공통 소스 세트에만 추가하면 됩니다. Kotlin Multiplatform 플러그인은 해당 부분을 다른 소스 세트에 자동으로 추가합니다.
 
 > 공통 소스 세트에서는 플랫폼별 라이브러리에 종속성을 설정할 수 없습니다.
 >
@@ -183,7 +183,7 @@ kotlin {
             implementation("io.ktor:ktor-client-core:%ktorVersion%")
         }
         androidMain.dependencies {
-            // dependency to a platform part of ktor-client will be added automatically
+            // ktor-client의 플랫폼 부분에 대한 종속성이 자동으로 추가됩니다.
         }
     }
 }
@@ -203,7 +203,7 @@ kotlin {
         }
         androidMain {
             dependencies {
-                // dependency to platform part of ktor-client will be added automatically
+                // ktor-client의 플랫폼 부분에 대한 종속성이 자동으로 추가됩니다.
             }
         }
     }
@@ -212,6 +212,10 @@ kotlin {
 
 </TabItem>
 </Tabs>
+
+> 최상위 `dependencies {}` 블록에서 공통 라이브러리를 구성할 수도 있습니다. [최상위 종속성 구성](multiplatform-dsl-reference.md#configure-dependencies-at-the-top-level)을 참조하세요.
+> 
+{style="tip"}
 
 ### 특정 소스 세트에서 사용되는 라이브러리
 
@@ -229,14 +233,14 @@ kotlin {
     //...
     sourceSets {
         commonMain.dependencies {
-            // kotlinx.coroutines will be available in all source sets
+            // kotlinx.coroutines는 모든 소스 세트에서 사용할 수 있습니다.
             implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:%coroutinesVersion%")
         }
         androidMain.dependencies {
 
         }
         iosMain.dependencies {
-            // SQLDelight will be available only in the iOS source set, but not in Android or common
+            // SQLDelight는 iOS 소스 세트에서만 사용할 수 있으며, Android 또는 common에서는 사용할 수 없습니다.
             implementation("com.squareup.sqldelight:native-driver:%sqlDelightVersion%")
         }
         wasmJsMain.dependencies {
@@ -255,7 +259,7 @@ kotlin {
     sourceSets {
         commonMain {
             dependencies {
-                // kotlinx.coroutines will be available in all source sets
+                // kotlinx.coroutines는 모든 소스 세트에서 사용할 수 있습니다.
                 implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:%coroutinesVersion%'
             }
         }
@@ -264,7 +268,7 @@ kotlin {
         }
         iosMain {
             dependencies {
-                // SQLDelight will be available only in the iOS source set, but not in Android or common
+                // SQLDelight는 iOS 소스 세트에서만 사용할 수 있으며, Android 또는 common에서는 사용할 수 없습니다.
                 implementation 'com.squareup.sqldelight:native-driver:%sqlDelightVersion%'
             }
         }
@@ -293,7 +297,7 @@ kotlin {
             implementation(project(":some-other-multiplatform-module"))
         }
         androidMain.dependencies {
-            // platform part of :some-other-multiplatform-module will be added automatically
+            // :some-other-multiplatform-module의 플랫폼 부분이 자동으로 추가됩니다.
         }
     }
 }
@@ -313,7 +317,7 @@ kotlin {
         }
         androidMain {
             dependencies {
-                // platform part of :some-other-multiplatform-module will be added automatically
+                // :some-other-multiplatform-module의 플랫폼 부분이 자동으로 추가됩니다.
             }
         }
     }

@@ -28,22 +28,6 @@ JetBrainsは、[Kotlin言語の進化原則](kotlin-evolution-principles.md)に�
 </td>
 <td>
 
-**リッチエラー: エラーユニオン型**
-
-* KEEP提案: 未定義
-* YouTrack課題: [KT-68296](https://youtrack.jetbrains.com/issue/KT-68296)
-
-</td>
-</tr>
-
-<tr filter="exploration-and-design">
-<td>
-
-**探索と設計**
-
-</td>
-<td>
-
 **名前ベースの分割代入**
 
 * KEEP提案: [name-based-destructuring.md](https://github.com/Kotlin/KEEP/blob/name-based-destructuring/proposals/name-based-destructuring.md)
@@ -71,6 +55,54 @@ JetBrainsは、[Kotlin言語の進化原則](kotlin-evolution-principles.md)に�
 <!-- END OF EXPLORATION AND DESIGN BLOCK -->
 
 <!-- KEEP DISCUSSION BLOCK -->
+
+<tr filter="keep">
+<td width="200">
+
+**KEEP議論**
+
+</td>
+<td>
+
+**コンパイル時定数の改善**
+
+* KEEP提案: [improve-compile-time-constants.md](https://github.com/Kotlin/KEEP/blob/main/proposals/KEEP-0444-improve-compile-time-constants.md)
+* YouTrack課題: [KT-22505](https://youtrack.jetbrains.com/issue/KT-22505)
+
+</td>
+</tr>
+
+<tr filter="keep">
+<td width="200">
+
+**KEEP議論**
+
+</td>
+<td>
+
+**`CoroutineContext`をコンテキストパラメータとして**
+
+* KEEP提案: [CoroutineContext-context-parameter.md](https://github.com/Kotlin/KEEP/blob/main/proposals/KEEP-0443-suspend-CoroutineContext-context-parameter.md)
+* YouTrack課題: [KT-15555](https://youtrack.jetbrains.com/issue/KT-15555)
+
+</td>
+</tr>
+
+<tr filter="keep">
+<td width="200">
+
+**KEEP議論**
+
+</td>
+<td>
+
+**リッチエラー: 動機と理論的根拠**
+
+* KEEP提案: [rich-errors-motivation.md](https://github.com/Kotlin/KEEP/blob/main/proposals/KEEP-0441-rich-errors-motivation.md)
+* YouTrack課題: [KT-68296](https://youtrack.jetbrains.com/issue/KT-68296)
+
+</td>
+</tr>
 
 <tr filter="keep">
 <td width="200">
@@ -195,10 +227,29 @@ JetBrainsは、[Kotlin言語の進化原則](kotlin-evolution-principles.md)に�
 </td>
 <td>
 
+**データフローに基づく網羅性チェック**
+
+* KEEP提案: [dfa-exhaustiveness.md](https://github.com/Kotlin/KEEP/blob/main/proposals/KEEP-0442-dfa-exhaustiveness.md)
+* YouTrack課題: [KT-8781](https://youtrack.jetbrains.com/issue/KT-8781)
+* 安定性レベル: [ベータ](components-stability.md#stability-levels-explained)
+* 提供開始バージョン: 2.2.20
+
+</td>
+</tr>
+
+<tr filter="in-preview">
+<td>
+
+**プレビュー中**
+
+</td>
+<td>
+
 **コンテキストパラメータ: コンテキスト依存の宣言のサポート**
 
 * KEEP提案: [context-parameters.md](https://github.com/Kotlin/KEEP/blob/context-parameters/proposals/context-parameters.md)
 * YouTrack課題: [KT-14663](https://youtrack.jetbrains.com/issue/KT-10468)
+* 安定性レベル: [実験的](components-stability.md#stability-levels-explained)
 * 提供開始バージョン: 2.2.0
 
 </td>
@@ -214,8 +265,9 @@ JetBrainsは、[Kotlin言語の進化原則](kotlin-evolution-principles.md)に�
 
 **プロパティのアノテーション利用サイトターゲットの改善**
 
-* KEEP提案: [Improvements to annotation use-site targets on properties](https://github.com/Kotlin/KEEP/blob/change-defaulting-rule/proposals/change-defaulting-rule.md)
+* KEEP提案: [Improvements to annotation use-site targets on properties](https://github.com/Kotlin/KEEP/blob/master/proposals/annotation-target-in-properties.md)
 * YouTrack課題: [KT-19289](https://youtrack.jetbrains.com/issue/KT-19289)
+* 安定性レベル: [実験的](components-stability.md#stability-levels-explained)
 * 提供開始バージョン: 2.2.0
 
 </td>
@@ -231,8 +283,9 @@ JetBrainsは、[Kotlin言語の進化原則](kotlin-evolution-principles.md)に�
 
 **ネストされた（非キャプチャ）型エイリアス**
 
-* KEEP提案: [Nested (non-capturing) type aliases](https://github.com/Kotlin/KEEP/blob/nested-typealias/proposals/nested-typealias.md)
+* KEEP提案: [Nested (non-capturing) type aliases](https://github.com/Kotlin/KEEP/blob/master/proposals/nested-typealias.md)
 * YouTrack課題: [KT-45285](https://youtrack.jetbrains.com/issue/KT-45285)
+* 安定性レベル: [ベータ](components-stability.md#stability-levels-explained)
 * 提供開始バージョン: 2.2.0
 
 </td>
@@ -250,6 +303,7 @@ JetBrainsは、[Kotlin言語の進化原則](kotlin-evolution-principles.md)に�
 
 * KEEP提案: [context-sensitive-resolution.md](https://github.com/Kotlin/KEEP/blob/improved-resolution-expected-type/proposals/context-sensitive-resolution.md)
 * YouTrack課題: [KT-16768](https://youtrack.jetbrains.com/issue/KT-16768)
+* 安定性レベル: [実験的](components-stability.md#stability-levels-explained)
 * 提供開始バージョン: 2.2.0
 
 </td>
@@ -267,6 +321,7 @@ JetBrainsは、[Kotlin言語の進化原則](kotlin-evolution-principles.md)に�
 
 * KEEP提案: [jvm-expose-boxed.md](https://github.com/Kotlin/KEEP/blob/jvm-expose-boxed/proposals/jvm-expose-boxed.md)
 * YouTrack課題: [KT-28135](https://youtrack.jetbrains.com/issue/KT-28135)
+* 安定性レベル: [実験的](components-stability.md#stability-levels-explained)
 * 提供開始バージョン: 2.2.0
 
 </td>
@@ -283,6 +338,7 @@ JetBrainsは、[Kotlin言語の進化原則](kotlin-evolution-principles.md)に�
 **kotlin.time.Instant**
 
 * KEEP提案: [Instant and Clock](https://github.com/Kotlin/KEEP/blob/master/proposals/stdlib/instant.md)
+* 安定性レベル: [実験的](components-stability.md#stability-levels-explained)
 * 提供開始バージョン: 2.1.0
 
 </td>
@@ -300,6 +356,7 @@ JetBrainsは、[Kotlin言語の進化原則](kotlin-evolution-principles.md)に�
 
 * KEEP提案: [uuid.md](https://github.com/Kotlin/KEEP/blob/uuid/proposals/stdlib/uuid.md)
 * YouTrack課題: [KT-31880](https://youtrack.jetbrains.com/issue/KT-31880)
+* 安定性レベル: [実験的](components-stability.md#stability-levels-explained)
 * 提供開始バージョン: 2.0.20
 
 </td>
@@ -317,6 +374,7 @@ JetBrainsは、[Kotlin言語の進化原則](kotlin-evolution-principles.md)に�
 
 * KEEP提案: [Common atomics](https://github.com/Kotlin/KEEP/blob/master/proposals/stdlib/common-atomics.md)
 * YouTrack課題: [KT-62423](https://youtrack.jetbrains.com/issue/KT-62423)
+* 安定性レベル: [実験的](components-stability.md#stability-levels-explained)
 * 提供開始バージョン: 2.2.0
 
 </td>
@@ -334,6 +392,7 @@ JetBrainsは、[Kotlin言語の進化原則](kotlin-evolution-principles.md)に�
 
 * KEEP提案: [kmp-kotlin-to-java-direct-actualization.md](https://github.com/Kotlin/KEEP/blob/kotlin-to-java-direct-actualization/proposals/kmp-kotlin-to-java-direct-actualization.md)
 * YouTrack課題: [KT-67202](https://youtrack.jetbrains.com/issue/KT-67202)
+* 安定性レベル: [実験的](components-stability.md#stability-levels-explained)
 * 提供開始バージョン: 2.1.0
 
 </td>
@@ -370,7 +429,7 @@ JetBrainsは、[Kotlin言語の進化原則](kotlin-evolution-principles.md)に�
 </td>
 <td>
 
-**複数ドル補間: 文字列リテラルにおける`$`の処理の改善**
+**複数ドル補間: 文字列リテラルにおける処理の改善**
 
 * KEEP提案: [dollar-escape.md](https://github.com/Kotlin/KEEP/blob/master/proposals/dollar-escape.md)
 * YouTrack課題: [KT-2425](https://youtrack.jetbrains.com/issue/KT-2425)
@@ -425,7 +484,7 @@ JetBrainsは、[Kotlin言語の進化原則](kotlin-evolution-principles.md)に�
 
 * KEEP提案: [enum-entries.md](https://github.com/Kotlin/KEEP/blob/master/proposals/enum-entries.md)
 * YouTrack課題: [KT-48872](https://youtrack.jetbrains.com/issue/KT-48872)
-* 目標バージョン: 2.0.0
+* 提供開始バージョン: 2.0.0
 
 </td>
 </tr>
@@ -442,7 +501,7 @@ JetBrainsは、[Kotlin言語の進化原則](kotlin-evolution-principles.md)に�
 
 * KEEP提案: [data-objects.md](https://github.com/Kotlin/KEEP/blob/master/proposals/data-objects.md)
 * YouTrack課題: [KT-4107](https://youtrack.jetbrains.com/issue/KT-4107)
-* 目標バージョン: 1.9.0
+* 提供開始バージョン: 1.9.0
 
 </td>
 </tr>
@@ -457,9 +516,9 @@ JetBrainsは、[Kotlin言語の進化原則](kotlin-evolution-principles.md)に�
 
 **RangeUntil演算子 `..<`**
 
-* KEEP提案: [open-ended-ranges.md](https://github.com/kotlin/KEEP/blob/open-ended-ranges/proposals/open-ended-ranges.md)
+* KEEP提案: [open-ended-ranges.md](https://github.com/Kotlin/KEEP/blob/open-ended-ranges/proposals/open-ended-ranges.md)
 * YouTrack課題: [KT-15613](https://youtrack.jetbrains.com/issue/KT-15613)
-* 目標バージョン: 1.7.20
+* 提供開始バージョン: 1.7.20
 
 </td>
 </tr>
@@ -476,7 +535,7 @@ JetBrainsは、[Kotlin言語の進化原則](kotlin-evolution-principles.md)に�
 
 * KEEP提案: [definitely-non-nullable-types.md](https://github.com/Kotlin/KEEP/blob/master/proposals/definitely-non-nullable-types.md)
 * YouTrack課題: [KT-26245](https://youtrack.jetbrains.com/issue/KT-26245)
-* 目標バージョン: 1.7.0
+* 提供開始バージョン: 1.7.0
 
 </td>
 </tr>
@@ -528,25 +587,8 @@ JetBrainsは、[Kotlin言語の進化原則](kotlin-evolution-principles.md)に�
 <tab id="exploration-and-design" title="探索と設計">
 
 <table>
-<tbody>
 <tr filter="exploration-and-design">
 <td width="200">
-
-**探索と設計**
-
-</td>
-<td>
-
-**リッチエラー: エラーユニオン型**
-
-* KEEP提案: 未定義
-* YouTrack課題: [KT-68296](https://youtrack.jetbrains.com/issue/KT-68296)
-
-</td>
-</tr>
-
-<tr filter="exploration-and-design">
-<td>
 
 **探索と設計**
 
@@ -576,7 +618,6 @@ JetBrainsは、[Kotlin言語の進化原則](kotlin-evolution-principles.md)に�
 
 </td>
 </tr>
-</tbody>
 </table>
 
 </tab>
@@ -584,7 +625,54 @@ JetBrainsは、[Kotlin言語の進化原則](kotlin-evolution-principles.md)に�
 <tab id="keep-preparation" title="KEEP議論">
 
 <table>
-<tbody>
+<tr filter="keep">
+<td width="200">
+
+**KEEP議論**
+
+</td>
+<td>
+
+**コンパイル時定数の改善**
+
+* KEEP提案: [improve-compile-time-constants.md](https://github.com/Kotlin/KEEP/blob/main/proposals/KEEP-0444-improve-compile-time-constants.md)
+* YouTrack課題: [KT-22505](https://youtrack.jetbrains.com/issue/KT-22505)
+
+</td>
+</tr>
+
+<tr filter="keep">
+<td width="200">
+
+**KEEP議論**
+
+</td>
+<td>
+
+**`CoroutineContext`をコンテキストパラメータとして**
+
+* KEEP提案: [CoroutineContext-context-parameter.md](https://github.com/Kotlin/KEEP/blob/main/proposals/KEEP-0443-suspend-CoroutineContext-context-parameter.md)
+* YouTrack課題: [KT-15555](https://youtrack.jetbrains.com/issue/KT-15555)
+
+</td>
+</tr>
+
+<tr filter="keep">
+<td width="200">
+
+**KEEP議論**
+
+</td>
+<td>
+
+**リッチエラー: 動機と理論的根拠**
+
+* KEEP提案: [rich-errors-motivation.md](https://github.com/Kotlin/KEEP/blob/main/proposals/KEEP-0441-rich-errors-motivation.md)
+* YouTrack課題: [KT-68296](https://youtrack.jetbrains.com/issue/KT-68296)
+
+</td>
+</tr>
+
 <tr filter="keep">
 <td width="200">
 
@@ -659,7 +747,7 @@ JetBrainsは、[Kotlin言語の進化原則](kotlin-evolution-principles.md)に�
 **未使用の戻り値チェッカー**
 
 * KEEP提案: [unused-return-value-checker.md](https://github.com/Kotlin/KEEP/blob/underscore-for-unused-local/proposals/unused-return-value-checker.md)
-* YouTrack課題: [KT-12719](https://youtrack.jetbrains.com/issue/KT-12719)
+* YouTrack課題: [KT-12719](https://youtrack.jetbrains.01.com/issue/KT-12719)
 
 </td>
 </tr>
@@ -695,7 +783,6 @@ JetBrainsは、[Kotlin言語の進化原則](kotlin-evolution-principles.md)に�
 
 </td>
 </tr>
-</tbody>
 </table>
 
 </tab>
@@ -703,9 +790,26 @@ JetBrainsは、[Kotlin言語の進化原則](kotlin-evolution-principles.md)に�
 <tab id="in-preview" title="プレビュー中">
 
 <table>
-<tbody>
 <tr filter="in-preview">
 <td width="200">
+
+**プレビュー中**
+
+</td>
+<td>
+
+**データフローに基づく網羅性チェック**
+
+* KEEP提案: [dfa-exhaustiveness.md](https://github.com/Kotlin/KEEP/blob/main/proposals/KEEP-0442-dfa-exhaustiveness.md)
+* YouTrack課題: [KT-8781](https://youtrack.jetbrains.com/issue/KT-8781)
+* 安定性レベル: [ベータ](components-stability.md#stability-levels-explained)
+* 提供開始バージョン: 2.2.20
+
+</td>
+</tr>
+
+<tr filter="in-preview">
+<td>
 
 **プレビュー中**
 
@@ -716,6 +820,7 @@ JetBrainsは、[Kotlin言語の進化原則](kotlin-evolution-principles.md)に�
 
 * KEEP提案: [context-parameters.md](https://github.com/Kotlin/KEEP/blob/context-parameters/proposals/context-parameters.md)
 * YouTrack課題: [KT-14663](https://youtrack.jetbrains.com/issue/KT-10468)
+* 安定性レベル: [実験的](components-stability.md#stability-levels-explained)
 * 提供開始バージョン: 2.2.0
 
 </td>
@@ -731,8 +836,9 @@ JetBrainsは、[Kotlin言語の進化原則](kotlin-evolution-principles.md)に�
 
 **プロパティのアノテーション利用サイトターゲットの改善**
 
-* KEEP提案: [Improvements to annotation use-site targets on properties](https://github.com/Kotlin/KEEP/blob/change-defaulting-rule/proposals/change-defaulting-rule.md)
+* KEEP提案: [Improvements to annotation use-site targets on properties](https://github.com/Kotlin/KEEP/blob/master/proposals/annotation-target-in-properties.md)
 * YouTrack課題: [KT-19289](https://youtrack.jetbrains.com/issue/KT-19289)
+* 安定性レベル: [実験的](components-stability.md#stability-levels-explained)
 * 提供開始バージョン: 2.2.0
 
 </td>
@@ -748,8 +854,9 @@ JetBrainsは、[Kotlin言語の進化原則](kotlin-evolution-principles.md)に�
 
 **ネストされた（非キャプチャ）型エイリアス**
 
-* KEEP提案: [Nested (non-capturing) type aliases](https://github.com/Kotlin/KEEP/blob/nested-typealias/proposals/nested-typealias.md)
+* KEEP提案: [Nested (non-capturing) type aliases](https://github.com/Kotlin/KEEP/blob/master/proposals/nested-typealias.md)
 * YouTrack課題: [KT-45285](https://youtrack.jetbrains.com/issue/KT-45285)
+* 安定性レベル: [ベータ](components-stability.md#stability-levels-explained)
 * 提供開始バージョン: 2.2.0
 
 </td>
@@ -767,6 +874,7 @@ JetBrainsは、[Kotlin言語の進化原則](kotlin-evolution-principles.md)に�
 
 * KEEP提案: [context-sensitive-resolution.md](https://github.com/Kotlin/KEEP/blob/improved-resolution-expected-type/proposals/context-sensitive-resolution.md)
 * YouTrack課題: [KT-16768](https://youtrack.jetbrains.com/issue/KT-16768)
+* 安定性レベル: [実験的](components-stability.md#stability-levels-explained)
 * 提供開始バージョン: 2.2.0
 
 </td>
@@ -784,6 +892,7 @@ JetBrainsは、[Kotlin言語の進化原則](kotlin-evolution-principles.md)に�
 
 * KEEP提案: [jvm-expose-boxed.md](https://github.com/Kotlin/KEEP/blob/jvm-expose-boxed/proposals/jvm-expose-boxed.md)
 * YouTrack課題: [KT-28135](https://youtrack.jetbrains.com/issue/KT-28135)
+* 安定性レベル: [実験的](components-stability.md#stability-levels-explained)
 * 提供開始バージョン: 2.2.0
 
 </td>
@@ -800,6 +909,7 @@ JetBrainsは、[Kotlin言語の進化原則](kotlin-evolution-principles.md)に�
 **kotlin.time.Instant**
 
 * KEEP提案: [Instant and Clock](https://github.com/Kotlin/KEEP/blob/master/proposals/stdlib/instant.md)
+* 安定性レベル: [実験的](components-stability.md#stability-levels-explained)
 * 提供開始バージョン: 2.1.0
 
 </td>
@@ -817,6 +927,7 @@ JetBrainsは、[Kotlin言語の進化原則](kotlin-evolution-principles.md)に�
 
 * KEEP提案: [uuid.md](https://github.com/Kotlin/KEEP/blob/uuid/proposals/stdlib/uuid.md)
 * YouTrack課題: [KT-31880](https://youtrack.jetbrains.com/issue/KT-31880)
+* 安定性レベル: [実験的](components-stability.md#stability-levels-explained)
 * 提供開始バージョン: 2.0.20
 
 </td>
@@ -834,6 +945,7 @@ JetBrainsは、[Kotlin言語の進化原則](kotlin-evolution-principles.md)に�
 
 * KEEP提案: [Common atomics](https://github.com/Kotlin/KEEP/blob/master/proposals/stdlib/common-atomics.md)
 * YouTrack課題: [KT-62423](https://youtrack.jetbrains.com/issue/KT-62423)
+* 安定性レベル: [実験的](components-stability.md#stability-levels-explained)
 * 提供開始バージョン: 2.2.0
 
 </td>
@@ -851,11 +963,11 @@ JetBrainsは、[Kotlin言語の進化原則](kotlin-evolution-principles.md)に�
 
 * KEEP提案: [kmp-kotlin-to-java-direct-actualization.md](https://github.com/Kotlin/KEEP/blob/kotlin-to-java-direct-actualization/proposals/kmp-kotlin-to-java-direct-actualization.md)
 * YouTrack課題: [KT-67202](https://youtrack.jetbrains.com/issue/KT-67202)
+* 安定性レベル: [実験的](components-stability.md#stability-levels-explained)
 * 提供開始バージョン: 2.1.0
 
 </td>
 </tr>
-</tbody>
 </table>
 
 </tab>
@@ -863,7 +975,6 @@ JetBrainsは、[Kotlin言語の進化原則](kotlin-evolution-principles.md)に�
 <tab id="stable" title="安定版">
 
 <table>
-<tbody>
 <tr filter="stable">
 <td width="200">
 
@@ -889,7 +1000,7 @@ JetBrainsは、[Kotlin言語の進化原則](kotlin-evolution-principles.md)に�
 </td>
 <td>
 
-**複数ドル補間: 文字列リテラルにおける`$`の処理の改善**
+**複数ドル補間: 文字列リテラルにおける処理の改善**
 
 * KEEP提案: [dollar-escape.md](https://github.com/Kotlin/KEEP/blob/master/proposals/dollar-escape.md)
 * YouTrack課題: [KT-2425](https://youtrack.jetbrains.com/issue/KT-2425)
@@ -944,7 +1055,7 @@ JetBrainsは、[Kotlin言語の進化原則](kotlin-evolution-principles.md)に�
 
 * KEEP提案: [enum-entries.md](https://github.com/Kotlin/KEEP/blob/master/proposals/enum-entries.md)
 * YouTrack課題: [KT-48872](https://youtrack.jetbrains.com/issue/KT-48872)
-* 目標バージョン: 2.0.0
+* 提供開始バージョン: 2.0.0
 
 </td>
 </tr>
@@ -961,7 +1072,7 @@ JetBrainsは、[Kotlin言語の進化原則](kotlin-evolution-principles.md)に�
 
 * KEEP提案: [data-objects.md](https://github.com/Kotlin/KEEP/blob/master/proposals/data-objects.md)
 * YouTrack課題: [KT-4107](https://youtrack.jetbrains.com/issue/KT-4107)
-* 目標バージョン: 1.9.0
+* 提供開始バージョン: 1.9.0
 
 </td>
 </tr>
@@ -976,9 +1087,9 @@ JetBrainsは、[Kotlin言語の進化原則](kotlin-evolution-principles.md)に�
 
 **RangeUntil演算子 `..<`**
 
-* KEEP提案: [open-ended-ranges.md](https://github.com/Kotlin/KEEP/blob/open-ended-ranges/proposals/open-ended-ranges.md)
+* KEEP提案: [open-ended-ranges.md](https://github.com/kotlin/KEEP/blob/open-ended-ranges/proposals/open-ended-ranges.md)
 * YouTrack課題: [KT-15613](https://youtrack.jetbrains.com/issue/KT-15613)
-* 目標バージョン: 1.7.20
+* 提供開始バージョン: 1.7.20
 
 </td>
 </tr>
@@ -995,11 +1106,10 @@ JetBrainsは、[Kotlin言語の進化原則](kotlin-evolution-principles.md)に�
 
 * KEEP提案: [definitely-non-nullable-types.md](https://github.com/Kotlin/KEEP/blob/master/proposals/definitely-non-nullable-types.md)
 * YouTrack課題: [KT-26245](https://youtrack.jetbrains.com/issue/KT-26245)
-* 目標バージョン: 1.7.0
+* 提供開始バージョン: 1.7.0
 
 </td>
 </tr>
-</tbody>
 </table>
 
 </tab>
@@ -1007,7 +1117,6 @@ JetBrainsは、[Kotlin言語の進化原則](kotlin-evolution-principles.md)に�
 <tab id="revoked" title="廃止済み">
 
 <table>
-<tbody>
 <tr filter="revoked">
 <td width="200">
 
@@ -1040,7 +1149,6 @@ JetBrainsは、[Kotlin言語の進化原則](kotlin-evolution-principles.md)に�
 
 </td>
 </tr>
-</tbody>
 </table>
 
 </tab>

@@ -39,6 +39,223 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_ 및 _[편안한 �
 >
 > **Component**: 핵심 언어
 >
+> **Incompatible change type**: source
+>
+> **Short summary**: Kotlin 1.7에서는 안전 호출의 리시버(receiver)가 널러블이 아니더라도(non-nullable), 안전 호출 결과의 타입은 항상 널러블(nullable)인 것으로 간주합니다.
+>
+> **Deprecation cycle**:
+>
+> - <1.3: 널러블이 아닌 리시버에 대한 불필요한 안전 호출에 경고 보고
+> - 1.6.20: 불필요한 안전 호출의 결과 타입이 다음 버전에서 변경될 것임을 추가로 경고
+> - 1.7.0: 안전 호출 결과의 타입을 널러블로 변경,  
+> `-XXLanguage:-SafeCallsAreAlwaysNullable`를 사용하여 1.7 이전 동작으로 일시적으로 되돌릴 수 있습니다.
+
+### 추상 슈퍼클래스 멤버에 대한 슈퍼 호출 위임 금지
+
+> **Issues**: [KT-45508](https://youtrack.jetbrains.com/issue/KT-45508), [KT-49017](https://youtrack.jetbrains.com/issue/KT-49017), [KT-38078](https://youtrack.jetbrains.com/issue/KT-38078)
+>
+> **Component**: 핵심 언어
+>
+> **Incompatible change type**: source
+>
+> **Short summary**: Kotlin은 명시적 또는 암시적 슈퍼 호출이 슈퍼클래스의 _추상_ 멤버에 위임될 때 컴파일 오류를 보고합니다. 이는 슈퍼 인터페이스에 기본 구현이 있더라도 마찬가지입니다.
+>
+> **Deprecation cycle**:
+>
+> - 1.5.20: 모든 추상 멤버를 오버라이드하지 않는 비추상 클래스가 사용될 때 경고 도입
+> - 1.7.0: 슈퍼 호출이 실제로 슈퍼클래스의 추상 멤버에 접근하는 경우 오류 보고
+> - 1.7.0: `-Xjvm-default=all` 또는 `-Xjvm-default=all-compatibility` 호환성 모드가 활성화된 경우 오류 보고;
+>   프로그레시브 모드에서 오류 보고
+> - >=1.8.0: 모든 경우에 오류 보고
+
+### 비공개 기본 생성자에서 선언된 비공개 타입을 가진 공개 프로퍼티 노출 금지
+
+> **Issue**: [KT-28078](https://苞thought
+The user wants a Korean translation of the provided Markdown document.
+I need to meticulously follow all the instructions, especially regarding:
+-   **Terminology**: Use terms from the reference translation (e.g., "언어의 현대성 유지", "편안한 업데이트", "소스 호환성", "바이너리 호환성", "동작 호환성", "핵심 언어", "표준 라이브러리", "지원 중단"). Keep `Issue`, `Component`, `Incompatible change type`, `Short summary`, `Deprecation cycle` headers in English, but translate their values.
+-   **Markdown Syntax**: Preserve *all* Markdown, including headers, lists, bold, italics, links, code blocks, inline code, blockquotes, horizontal rules.
+-   **Code/Variables**: **DO NOT TRANSLATE** any content inside code blocks (` ``` `) or inline code (` ` `). This includes variable names, function names, class names, parameter names.
+-   **Links/Image Paths**: Keep unchanged.
+-   **HTML Tags**: Keep unchanged.
+-   **YAML Frontmatter/Special Comments**: Preserve format, translate content of `title`.
+-   **Output**: Only the translated Markdown, no extra text.
+
+I will go through the document section by section, line by line, to ensure all constraints are met.
+
+**Plan:**
+
+1.  **YAML Frontmatter**: Translate `title: Compatibility guide for Kotlin 1.7` using the reference provided.
+    *   Original: `[//]: # (title: Compatibility guide for Kotlin 1.7)`
+    *   Reference: `[//]: # (title: Kotlin 1.7 호환성 가이드)` - Use this.
+
+2.  **Introduction**: Translate the first two paragraphs.
+    *   `_[Keeping the Language Modern](kotlin-evolution-principles.md)_ and _[Comfortable Updates](kotlin-evolution-evolution-principles.md)_ are among the fundamental principles in Kotlin Language Design.`
+        *   Use reference translations: "언어의 현대성 유지", "편안한 업데이트", "Kotlin 언어 설계".
+    *   The rest should be straightforward, maintaining formal tone.
+
+3.  **Basic terms**: Translate the definitions.
+    *   `_source_:` -> `_소스_:`
+    *   `source-incompatible change` -> "소스 호환성이 없는 변경" (from reference)
+    *   `_binary_:` -> `_바이너리_:`
+    *   `binary-compatible` -> "바이너리 호환된다" (from reference)
+    *   `_behavioral_:` -> `_동작_:`
+    *   `behavioral-incompatible` -> "동작 호환성이 없다는" (from reference)
+    *   Keep the rest consistent.
+
+4.  **Language Section**: Iterate through each sub-heading.
+    *   `### Make safe call result always nullable` -> Translate heading.
+    *   `> **Issue**:` `[KT-46860](https://youtrack.jetbrains.com/issue/KT-46860)` - Keep English label, keep link.
+    *   `> **Component**:` `Core language` - Keep English label, translate value.
+    *   `> **Incompatible change type**:` `source` - Keep English label, translate value.
+    *   `> **Short summary**:` - Keep English label, translate summary.
+        *   `non-nullable` -> `널러블이 아닌`
+        *   `nullable` -> `널러블`
+    *   `> **Deprecation cycle**:` - Keep English label, translate phases.
+        *   `<1.3: report a warning on an unnecessary safe call on non-nullable receivers` -> `<1.3: 널러블이 아닌 리시버에 대한 불필요한 안전 호출에 경고 보고`
+        *   `1.6.20: warn additionally that the result of an unnecessary safe call will change its type in the next version` -> `1.6.20: 불필요한 안전 호출의 결과 타입이 다음 버전에서 변경될 것임을 추가로 경고`
+        *   `1.7.0: change the type of safe call result to nullable,` -> `1.7.0: 안전 호출 결과의 타입을 널러블로 변경,`
+        *   `-XXLanguage:-SafeCallsAreAlwaysNullable` - **DO NOT TRANSLATE** (code/option).
+        *   `can be used to temporarily revert to the pre-1.7 behavior` -> `를 사용하여 1.7 이전 동작으로 일시적으로 되돌릴 수 있습니다.` (Consistent with reference)
+
+    *   Continue this pattern for all sub-sections under `Language`.
+        *   `abstract superclass member` -> `추상 슈퍼클래스 멤버`
+        *   `non-public types through public properties declared in a non-public primary constructor` -> `비공개 기본 생성자에서 선언된 비공개 타입을 가진 공개 프로퍼티`
+        *   `enum entries qualified with the enum name` -> `enum 이름으로 한정된 enum 엔트리` (from reference `enum 이름으로 한정된 초기화되지 않은 enum 엔트리`)
+        *   `complex boolean expressions` -> `복잡한 불리언 표현식`
+        *   `exhaustiveness` -> `완전성`
+        *   `control flow assumptions` -> `제어 흐름 추정`
+        *   `when statements with enum, sealed, and Boolean subjects exhaustive by default` -> `enum, sealed, Boolean 주제를 가진 when 문은 기본적으로 완전(exhaustive)하도록 만듭니다.`
+        *   `Deprecate confusing grammar in when-with-subject` -> `when-with-subject에서 혼란스러운 문법 사용 중단`
+        *   `Type nullability enhancement improvements` -> `타입 널러블성 향상 개선`
+        *   `Prevent implicit coercions between different numeric types` -> `다른 숫자 타입 간의 암시적 강제 변환 방지`
+            *   `behavioral` -> `동작` (component type)
+            *   `primitive numeric type` -> `기본 숫자 타입`
+            *   `downcast` -> `다운캐스트`
+            *   `generated property delegate accessors` -> `생성된 프로퍼티 위임 접근자`
+        *   `Deprecate the enable and the compatibility modes of the compiler option -Xjvm-default` -> `컴파일러 옵션 -Xjvm-default의 enable 및 compatibility 모드 지원 중단`
+        *   `Prohibit calls to functions named suspend with a trailing lambda` -> `후행 람다를 사용하는 suspend라는 이름의 함수 호출 금지`
+            *   `trailing lambda` -> `후행 람다`
+            *   `functional type` -> `함수 타입`
+        *   `Prohibit smart cast on a base class property if the base class is from another module` -> `베이스 클래스가 다른 모듈에 있는 경우 베이스 클래스 프로퍼티에 대한 스마트 캐스트 금지`
+            *   `smart cast` -> `스마트 캐스트`
+        *   `Do not neglect meaningful constraints during type inference` -> `타입 추론 시 의미 있는 제약 조건을 무시하지 않습니다.`
+            *   `type inference` -> `타입 추론`
+            *   `unsound code` -> `불안정한 코드`
+            *   `ClassCastException` - **DO NOT TRANSLATE**
+
+5.  **Standard library Section**: Iterate through each sub-heading.
+    *   `Component`: `kotlin-stdlib` - Keep.
+    *   `Gradually change the return type of collection min and max functions to non-nullable` -> `컬렉션 min 및 max 함수의 반환 타입을 점진적으로 널러블이 아닌(non-nullable) 것으로 변경합니다.`
+        *   `non-nullable` -> `널러블이 아닌`
+        *   `synonyms` -> `동의어`
+        *   `public API` -> `공개 API`
+    *   `Deprecate floating-point array functions: contains, indexOf, lastIndexOf` -> `부동 소수점 배열 함수: contains, indexOf, lastIndexOf 지원 중단`
+        *   `floating-point array functions` -> `부동 소수점 배열 함수`
+        *   `IEEE-754 order` -> `IEEE-754 순서`
+        *   `total order` -> `전체 순서`
+    *   `Migrate declarations from kotlin.dom and kotlin.browser packages to kotlinx.*` -> `kotlin.dom 및 kotlin.browser 패키지의 선언을 kotlinx.*로 마이그레이션`
+        *   `stdlib` -> `stdlib`
+        *   `replacement API` -> `대체 API`
+    *   `Deprecate some JS-only API` -> `일부 JS 전용 API 지원 중단`
+        *   `JS-only functions` -> `JS 전용 함수`
+        *   `comparison function` -> `비교 함수`
+
+6.  **Tools Section**: Iterate through each sub-heading.
+    *   `Component`: `Gradle` - Keep.
+    *   `Remove KotlinGradleSubplugin class` -> `KotlinGradleSubplugin 클래스 제거`
+        *   `KotlinGradleSubplugin` - **DO NOT TRANSLATE**
+        *   `KotlinCompilerPluginSupportPlugin` - **DO NOT TRANSLATE**
+    *   `Remove useIR compiler option` -> `useIR 컴파일러 옵션 제거`
+        *   `useIR` - **DO NOT TRANSLATE**
+    *   `Deprecate kapt.use.worker.api Gradle property` -> `kapt.use.worker.api Gradle 프로퍼티 지원 중단`
+        *   `kapt.use.worker.api` - **DO NOT TRANSLATE**
+        *   `Gradle Workers API` - **DO NOT TRANSLATE**
+    *   `Remove kotlin.experimental.coroutines Gradle DSL option and kotlin.coroutines Gradle property` -> `kotlin.experimental.coroutines Gradle DSL 옵션 및 kotlin.coroutines Gradle 프로퍼티 제거`
+        *   `kotlin.experimental.coroutines` - **DO NOT TRANSLATE**
+        *   `kotlin.coroutines` - **DO NOT TRANSLATE**
+        *   `experimental block` -> `experimental 블록`
+    *   `Deprecate useExperimentalAnnotation compiler option` -> `useExperimentalAnnotation 컴파일러 옵션 지원 중단`
+        *   `useExperimentalAnnotation()` - **DO NOT TRANSLATE**
+        *   `opt in` -> `옵트인`
+        *   `optIn()` - **DO NOT TRANSLATE**
+    *   `Deprecate kotlin.compiler.execution.strategy system property` -> `kotlin.compiler.execution.strategy 시스템 프로퍼티 지원 중단`
+        *   `kotlin.compiler.execution.strategy` - **DO NOT TRANSLATE** (both system property and Gradle property)
+        *   `compiler execution strategy` -> `컴파일러 실행 전략`
+        *   `compile task property` -> `컴파일 태스크 프로퍼티`
+        *   `compilerExecutionStrategy` - **DO NOT TRANSLATE**
+    *   `Remove kotlinOptions.jdkHome compiler option` -> `kotlinOptions.jdkHome 컴파일러 옵션 제거`
+        *   `kotlinOptions.jdkHome` - **DO NOT TRANSLATE**
+        *   `custom JDK` -> `커스텀 JDK`
+        *   `classpath` - **DO NOT TRANSLATE**
+        *   `JAVA_HOME` - **DO NOT TRANSLATE**
+        *   `Java toolchains` -> `Java 툴체인`
+        *   `[Java toolchains](gradle-configure-project.md#gradle-java-toolchains-support)` - Keep link.
+    *   `Remove noStdlib compiler option` -> `noStdlib 컴파일러 옵션 제거`
+        *   `noStdlib` - **DO NOT TRANSLATE**
+        *   `kotlin.stdlib.default.dependency=true` - **DO NOT TRANSLATE**
+        *   `Kotlin standard library` -> `Kotlin 표준 라이브러리`
+    *   `Remove kotlin2js and kotlin-dce-plugin plugins` -> `kotlin2js 및 kotlin-dce-plugin 플러그인 제거`
+        *   `kotlin2js` - **DO NOT TRANSLATE**
+        *   `kotlin-dce-plugin` - **DO NOT TRANSLATE**
+        *   `org.jetbrains.kotlin.js` - **DO NOT TRANSLATE**
+        *   `Dead code elimination (DCE)` -> `데드 코드 제거 (DCE)`
+        *   `Kotlin/JS Gradle plugin` -> `Kotlin/JS Gradle 플러그인`
+    *   `Changes in compile tasks` -> `컴파일 태스크 변경 사항`
+        *   `Gradle AbstractCompile task` - **DO NOT TRANSLATE**
+        *   `sourceCompatibility` - **DO NOT TRANSLATE**
+        *   `targetCompatibility` - **DO NOT TRANSLATE**
+        *   `Kotlin users' scripts` -> `Kotlin 사용자 스크립트`
+        *   `SourceTask.stableSources` - **DO NOT TRANSLATE**
+        *   `sourceFilesExtensions` - **DO NOT TRANSLATE**
+        *   `Gradle destinationDir: File` - **DO NOT TRANSLATE**
+        *   `destinationDirectory: DirectoryProperty` - **DO NOT TRANSLATE**
+        *   `KotlinCompile` - **DO NOT TRANSLATE**
+        *   `classpath` - **DO NOT TRANSLATE**
+
+Careful with HTML tags (`<` `>` `&gt;` `&lt;`) in deprecation cycles. They should be preserved literally if they appear as part of text, or translated if they are part of narrative (e.g. `>`=1.8.0). Reference uses `>=` directly for `>=1.8.0`.
+
+Let's start the translation.[//]: # (title: Kotlin 1.7 호환성 가이드)
+
+_[언어의 현대성 유지](kotlin-evolution-principles.md)_ 및 _[편안한 업데이트](kotlin-evolution-principles.md)_는 Kotlin 언어 설계의 근본 원칙 중 일부입니다. 전자는 언어 발전을 저해하는 구조는 제거되어야 한다고 말하며, 후자는 코드 마이그레이션이 최대한 원활하게 진행될 수 있도록 이러한 제거를 사전에 충분히 알려야 한다고 말합니다.
+
+대부분의 언어 변경 사항은 업데이트 변경 로그 또는 컴파일러 경고와 같은 다른 채널을 통해 이미 발표되었지만, 이 문서는 Kotlin 1.6에서 Kotlin 1.7로의 마이그레이션을 위한 완전한 참조 자료를 제공하며 모든 변경 사항을 요약합니다.
+
+## 기본 용어
+
+이 문서에서는 여러 종류의 호환성을 소개합니다:
+
+-   _소스_: 소스 호환성이 없는 변경은 오류나 경고 없이 잘 컴파일되던 코드가 더 이상 컴파일되지 않도록 합니다.
+-   _바이너리_: 두 바이너리 아티팩트가 바이너리 호환된다는 것은 서로 교환해도 로딩 또는 링크 오류가 발생하지 않는다는 의미입니다.
+-   _동작_: 변경 사항이 동작 호환성이 없다는 것은 동일한 프로그램이 변경 사항을 적용하기 전과 후에 다른 동작을 보인다는 의미입니다.
+
+이러한 정의는 순수 Kotlin에 대해서만 주어진 것임을 기억하세요. 다른 언어 관점에서의 Kotlin 코드의 호환성(예: Java에서)은 이 문서의 범위를 벗어납니다.
+
+## 언어
+
+<!--
+### Title
+
+> **Issue**: [KT-NNNNN](https://youtrack.jetbrains.com/issue/KT-NNNNN)
+>
+> **Component**: Core language
+>
+> **Incompatible change type**: source
+>
+> **Short summary**:
+>
+> **Deprecation cycle**:
+>
+> - 1.5.20: warning
+> - 1.7.0: report an error
+-->
+
+### 안전 호출 결과는 항상 널러블로 만듭니다.
+
+> **Issue**: [KT-46860](https://youtrack.jetbrains.com/issue/KT-46860)
+>
+> **Component**: 핵심 언어
+>
 > **Incompatible change type**: 소스
 >
 > **Short summary**: Kotlin 1.7에서는 안전 호출의 리시버(receiver)가 널러블이 아니더라도(non-nullable), 안전 호출 결과의 타입은 항상 널러블(nullable)인 것으로 간주합니다.
@@ -57,8 +274,8 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_ 및 _[편안한 �
 > **Component**: 핵심 언어
 >
 > **Incompatible change type**: 소스
-> 
-> **Short summary**: 슈퍼 인터페이스에 기본 구현이 있더라도 Kotlin은 명시적 또는 암시적 슈퍼 호출이 슈퍼클래스의 _추상_ 멤버에 위임될 때 컴파일 오류를 보고합니다.
+>
+> **Short summary**: Kotlin은 명시적 또는 암시적 슈퍼 호출이 슈퍼클래스의 _추상_ 멤버에 위임될 때 컴파일 오류를 보고합니다. 이는 슈퍼 인터페이스에 기본 구현이 있더라도 마찬가지입니다.
 >
 > **Deprecation cycle**:
 >
@@ -68,7 +285,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_ 및 _[편안한 �
 >   프로그레시브 모드에서 오류 보고
 > - &gt;=1.8.0: 모든 경우에 오류 보고
 
-### 비공개 기본 생성자에서 선언된 공개 프로퍼티를 통해 비공개 타입을 노출하는 것을 금지합니다.
+### 비공개 기본 생성자에서 선언된 비공개 타입을 가진 공개 프로퍼티 노출 금지
 
 > **Issue**: [KT-28078](https://youtrack.jetbrains.com/issue/KT-28078)
 >
@@ -99,7 +316,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_ 및 _[편안한 �
 >
 > - 1.7.0: enum 정적 초기화 블록에서 초기화되지 않은 enum 엔트리에 접근할 때 오류 보고
 
-### `when` 조건 분기 및 루프 조건에서 복잡한 불리언 표현식의 상수 값 계산 금지
+### when 조건 분기 및 루프 조건에서 복잡한 불리언 표현식의 상수 값 계산 금지
 
 > **Issue**: [KT-39883](https://youtrack.jetbrains.com/issue/KT-39883)
 >
@@ -129,7 +346,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_ 및 _[편안한 �
 > - 1.6.0: enum, sealed, 또는 Boolean 주제를 가진 `when` 문이 완전하지 않을 때 경고 도입 (프로그레시브 모드에서는 오류)
 > - 1.7.0: 이 경고를 오류로 격상
 
-### `when-with-subject`에서 혼란스러운 문법 사용 중단
+### when-with-subject에서 혼란스러운 문법 사용 중단
 
 > **Issue**: [KT-48385](https://youtrack.jetbrains.com/issue/KT-48385)
 >
@@ -173,7 +390,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_ 및 _[편안한 �
 >
 > **Deprecation cycle**:
 >
-> - < 1.5.30: 영향을 받는 모든 경우의 이전 동작
+> - &lt; 1.5.30: 영향을 받는 모든 경우의 이전 동작
 > - 1.5.30: 생성된 프로퍼티 위임 접근자(property delegate accessors)의 다운캐스트 동작 수정,
 >   `-Xuse-old-backend`를 사용하여 1.5.30 이전 수정 동작으로 일시적으로 되돌릴 수 있습니다.
 > - &gt;= 1.7.20: 영향을 받는 다른 경우의 다운캐스트 동작 수정
@@ -385,9 +602,9 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_ 및 _[편안한 �
 >
 > **Short summary**: 모듈에서 API 사용을 옵트인(opt in)하는 데 사용되었던 숨겨진 `useExperimentalAnnotation()` Gradle 함수를 제거합니다.
 > 대신 `optIn()` 함수를 사용할 수 있습니다.
-> 
+>
 > **Deprecation cycle:**
-> 
+>
 > - 1.6.0: 지원 중단 옵션 숨기기
 > - 1.7.0: 지원 중단된 옵션 제거
 
@@ -399,7 +616,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_ 및 _[편안한 �
 >
 > **Incompatible change type**: 소스
 >
-> **Short summary**: 컴파일러 실행 전략을 선택하는 데 사용되었던 `kotlin.compiler.execution.strategy` 시스템 프로퍼티를 지원 중단합니다. 
+> **Short summary**: 컴파일러 실행 전략을 선택하는 데 사용되었던 `kotlin.compiler.execution.strategy` 시스템 프로퍼티를 지원 중단합니다.
 > 대신 Gradle 프로퍼티 `kotlin.compiler.execution.strategy` 또는 컴파일 태스크 프로퍼티 `compilerExecutionStrategy`를 사용하세요.
 >
 > **Deprecation cycle:**
@@ -448,7 +665,6 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_ 및 _[편안한 �
 >
 > **Short summary**: `kotlin2js` 및 `kotlin-dce-plugin` 플러그인을 제거합니다. `kotlin2js` 대신 새로운 `org.jetbrains.kotlin.js` 플러그인을 사용하세요.
 > 데드 코드 제거(DCE)는 Kotlin/JS Gradle 플러그인이 올바르게 구성되면 작동합니다.
-
 >
 > **Deprecation cycle:**
 >

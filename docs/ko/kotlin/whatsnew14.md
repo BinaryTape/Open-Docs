@@ -600,7 +600,7 @@ kotlin {
 
 새 백엔드를 구성하는 방법에 대한 자세한 정보는 [Kotlin/JS IR 컴파일러 문서](js-ir-compiler.md)를 참조하세요.
 
-새로운 [@JsExport](js-to-kotlin-interop.md#jsexport-annotation) 어노테이션과 **[Kotlin 코드에서 TypeScript 정의(.d.ts)를 생성하는 기능](js-ir-compiler.md#preview-generation-of-typescript-declaration-files-d-ts)**을 통해 Kotlin/JS IR 컴파일러 백엔드는 JavaScript & TypeScript 상호 운용성을 개선합니다. 또한 기존 도구와 Kotlin/JS 코드를 더 쉽게 통합하고 **하이브리드 애플리케이션**을 만들고 멀티플랫폼 프로젝트에서 코드 공유 기능을 활용할 수 있도록 합니다.
+새로운 [@JsExport](js-to-kotlin-interop.md#jsexport-annotation) 어노테이션과 **[Kotlin 코드에서 TypeScript 정의(.d.ts)를 생성하는 기능](js-project-setup.md#generation-of-typescript-declaration-files-d-ts)**을 통해 Kotlin/JS IR 컴파일러 백엔드는 JavaScript & TypeScript 상호 운용성을 개선합니다. 또한 기존 도구와 Kotlin/JS 코드를 더 쉽게 통합하고 **하이브리드 애플리케이션**을 만들고 멀티플랫폼 프로젝트에서 코드 공유 기능을 활용할 수 있도록 합니다.
 
 [Kotlin/JS IR 컴파일러 백엔드에서 사용할 수 있는 기능에 대해 자세히 알아보세요](js-ir-compiler.md).
 
@@ -677,7 +677,7 @@ kotlin {
 }
 ```
 
-[크래시 보고서 심볼화에 대해 자세히 알아보세요](native-ios-symbolication.md).
+[크래시 보고서 심볼화에 대해 자세히 알아보세요](native-debugging.md#debug-ios-applications).
 
 ### 성능 개선
 

@@ -35,7 +35,7 @@ Kotlin 总共有五个作用域函数：`let`、`apply`、`run`、`also` 和 `wi
 >
 {style="tip"}
 
-### `let`
+### Let
 
 当你想要在代码中执行空检测，然后对返回的对象执行进一步操作时，请使用 `let` 作用域函数。
 
@@ -80,7 +80,7 @@ fun getNextAddress(): String {
     return "sebastian@jetbrains.com"
 }
 
-fun main() { 
+fun main() {
     //sampleStart
     val address: String? = getNextAddress()
     val confirm = if(address != null) {
@@ -115,7 +115,7 @@ fun main() {
 {kotlin-runnable="true" id="kotlin-tour-scope-function-let-non-null"}
 
 此示例：
-*   创建一个名为 `confirm` 的变量。
+*   创建名为 `address` 和 `confirm` 的变量。
 *   对 `address` 变量使用 `let` 作用域函数的安全调用。
 *   在 `let` 作用域函数内创建一个临时作用域。
 *   将 `sendNotification()` 函数作为 lambda 表达式传递给 `let` 作用域函数。
@@ -124,7 +124,7 @@ fun main() {
 
 通过这种方法，你的代码可以处理 `address` 变量可能为 `null` 值的情况，并且你可以在代码中后续使用 `confirm` 变量。
 
-### `apply`
+### Apply
 
 使用 `apply` 作用域函数可以在创建对象时（例如类实例）对其进行初始化，而不是在代码的后续部分进行。这种方法使你的代码更易于阅读和管理。
 
@@ -159,22 +159,22 @@ fun main() {
 
 ```kotlin
 class Client() {
-  var token: String? = null
-  fun connect() = println("connected!")
-  fun authenticate() = println("authenticated!")
-  fun getData(): String = "Mock data"
+    var token: String? = null
+    fun connect() = println("connected!")
+    fun authenticate() = println("authenticated!")
+    fun getData(): String = "Mock data"
 }
 //sampleStart
 val client = Client().apply {
-  token = "asdf"
-  connect()
-  authenticate()
+    token = "asdf"
+    connect()
+    authenticate()
 }
 
 fun main() {
-  client.getData()
-  // connected!
-  // authenticated!
+    client.getData()
+    // connected!
+    // authenticated!
 }
 //sampleEnd
 ```
@@ -190,7 +190,7 @@ fun main() {
 
 如你所见，当你处理大量代码时，此策略会很方便。
 
-### `run`
+### Run
 
 与 `apply` 类似，你可以使用 `run` 作用域函数来初始化一个对象，但最好在代码中的特定时刻初始化对象**并**立即计算结果时使用 `run`。
 
@@ -241,7 +241,7 @@ fun main() {
 
 现在你可以在代码中后续使用返回的结果。
 
-### `also`
+### Also
 
 使用 `also` 作用域函数可以对一个对象完成额外的操作，然后返回该对象以在代码中继续使用它，例如写入日志。
 
@@ -263,15 +263,15 @@ fun main() {
 
 此示例：
 
-*   创建 `medals` 变量，其中包含一个字符串列表。
+*   创建 `medals` 变量，其中包含一个字符串 list。
 *   创建类型为 `List<String>` 的 `reversedLongUpperCaseMedals` 变量。
 *   在 `medals` 变量上使用 `.map()` 扩展函数。
 *   向 `.map()` 函数传递一个 lambda 表达式，该表达式通过 `it` 关键字引用 `medals` 并调用其上的 `.uppercase()` 扩展函数。
 *   在 `medals` 变量上使用 `.filter()` 扩展函数。
-*   向 `.filter()` 函数传递一个 lambda 表达式作为谓词，该表达式通过 `it` 关键字引用 `medals` 并检测 `medals` 变量中包含的列表长度是否大于 4 项。
+*   向 `.filter()` 函数传递一个 lambda 表达式作为谓词，该表达式通过 `it` 关键字引用 `medals` 并检测 list 中的项是否包含多于 4 个字符。
 *   在 `medals` 变量上使用 `.reversed()` 扩展函数。
 *   将结果赋值给 `reversedLongUpperCaseMedals` 变量。
-*   打印 `reversedLongUpperCaseMedals` 变量中包含的列表。
+*   打印 `reversedLongUpperCaseMedals` 变量中包含的 list。
 
 在函数调用之间添加一些日志记录会很有用，以查看 `medals` 变量发生了什么。`also` 函数有助于此：
 
@@ -301,7 +301,7 @@ fun main() {
 
 由于 `also` 函数返回对象，因此它不仅对于日志记录有用，还适用于调试、链式调用多个操作以及执行不影响代码主流程的其他副作用操作。
 
-### `with`
+### With
 
 与其他作用域函数不同，`with` 不是扩展函数，因此语法不同。你将接收者对象作为实参传递给 `with`。
 

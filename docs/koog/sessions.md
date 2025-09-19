@@ -22,9 +22,9 @@ LLM 会话代表了与语言模型交互的上下文。它封装了：
 
 Koog framework 提供了两种会话类型：
 
-1. **写入会话** (`AIAgentLLMWriteSession`)：允许修改 prompt 和工具、发送 LLM 请求以及运行工具。在写入会话中所做的更改会持久化回 LLM 上下文。
+1.  **写入会话** (`AIAgentLLMWriteSession`)：允许修改 prompt 和工具、发送 LLM 请求以及运行工具。在写入会话中所做的更改会持久化回 LLM 上下文。
 
-2. **读取会话** (`AIAgentLLMReadSession`)：提供对 prompt 和工具的只读访问。它们对于探查当前状态而无需进行更改很有用。
+2.  **读取会话** (`AIAgentLLMReadSession`)：提供对 prompt 和工具的只读访问。它们对于探查当前状态而无需进行更改很有用。
 
 关键区别在于写入会话可以修改对话历史记录，而读取会话不能。
 
@@ -32,9 +32,9 @@ Koog framework 提供了两种会话类型：
 
 会话具有明确定义的生命周期：
 
-1. **创建**：使用 `llm.writeSession { ... }` 或 `llm.readSession { ... }` 创建会话。
-2. **活跃阶段**：当 lambda 代码块执行时，会话处于活跃状态。
-3. **终止**：当 lambda 代码块完成时，会话会自动关闭。
+1.  **创建**：使用 `llm.writeSession { ... }` 或 `llm.readSession { ... }` 创建会话。
+2.  **活跃阶段**：当 lambda 代码块执行时，会话处于活跃状态。
+3.  **终止**：当 lambda 代码块完成时，会话会自动关闭。
 
 会话实现了 `AutoCloseable` 接口，确保即使发生异常也能正确清理。
 
@@ -137,15 +137,15 @@ llm.writeSession {
 
 发送 LLM 请求最常用的方法有：
 
-1. `requestLLM()`：使用当前 prompt 和工具向 LLM 发送请求，返回单个响应。
+1.  `requestLLM()`：使用当前 prompt 和工具向 LLM 发送请求，返回单个响应。
 
-2. `requestLLMMultiple()`：使用当前 prompt 和工具向 LLM 发送请求，返回多个响应。
+2.  `requestLLMMultiple()`：使用当前 prompt 和工具向 LLM 发送请求，返回多个响应。
 
-3. `requestLLMWithoutTools()`：使用当前 prompt 但不带任何工具向 LLM 发送请求，返回单个响应。
+3.  `requestLLMWithoutTools()`：使用当前 prompt 但不带任何工具向 LLM 发送请求，返回单个响应。
 
-4. `requestLLMForceOneTool`：使用当前 prompt 和工具向 LLM 发送请求，强制使用一个工具。
+4.  `requestLLMForceOneTool`：使用当前 prompt 和工具向 LLM 发送请求，强制使用一个工具。
 
-5. `requestLLMOnlyCallingTools`：向 LLM 发送请求，该请求应仅通过使用工具来处理。
+5.  `requestLLMOnlyCallingTools`：向 LLM 发送请求，该请求应仅通过使用工具来处理。
 
 示例：
 
@@ -177,10 +177,10 @@ llm.writeSession {
 
 当你显式调用其中一个请求方法时，LLM 请求就会被发送。需要理解的关键点是：
 
-1. **显式调用**：请求仅在你调用 `requestLLM()`、`requestLLMWithoutTools()` 等方法时发生。
-2. **即时执行**：当你调用请求方法时，请求会立即发送，并且该方法会阻塞直到收到响应。
-3. **自动历史记录更新**：在写入会话中，响应会自动添加到对话历史记录中。
-4. **无隐式请求**：系统不会发送隐式请求；你需要显式调用请求方法。
+1.  **显式调用**：请求仅在你调用 `requestLLM()`、`requestLLMWithoutTools()` 等方法时发生。
+2.  **即时执行**：当你调用请求方法时，请求会立即发送，并且该方法会阻塞直到收到响应。
+3.  **自动历史记录更新**：在写入会话中，响应会自动添加到对话历史记录中。
+4.  **无隐式请求**：系统不会发送隐式请求；你需要显式调用请求方法。
 
 ### 带工具的请求方法
 
@@ -217,11 +217,11 @@ llm.writeSession {
 
 对于更高级的用例，平台提供了结构化和流式请求的方法：
 
-1. `requestLLMStructured()`：请求 LLM 以特定的结构化格式提供响应。
+1.  `requestLLMStructured()`：请求 LLM 以特定的结构化格式提供响应。
 
-2. `requestLLMStructuredOneShot()`：类似于 `requestLLMStructured()`，但没有重试或更正。
+2.  `requestLLMStructuredOneShot()`：类似于 `requestLLMStructured()`，但没有重试或更正。
 
-3. `requestLLMStreaming()`：向 LLM 发送流式请求，返回响应块的 flow。
+3.  `requestLLMStreaming()`：向 LLM 发送流式请求，返回响应块的 flow。
 
 示例：
 
@@ -387,13 +387,13 @@ llm.writeSession {
 
 写入会话提供了几种调用工具的方法：
 
-1. `callTool(tool, args)`：按引用调用工具。
+1.  `callTool(tool, args)`：按引用调用工具。
 
-2. `callTool(toolName, args)`：按名称调用工具。
+2.  `callTool(toolName, args)`：按名称调用工具。
 
-3. `callTool(toolClass, args)`：按类调用工具。
+3.  `callTool(toolClass, args)`：按类调用工具。
 
-4. `callToolRaw(toolName, args)`：按名称调用工具并返回原始字符串结果。
+4.  `callToolRaw(toolName, args)`：按名称调用工具并返回原始字符串结果。
 
 示例：
 
@@ -472,21 +472,21 @@ llm.writeSession {
 
 在使用 LLM 会话时，请遵循以下最佳实践：
 
-1. **使用正确的会话类型**：当你需要修改对话历史记录时使用写入会话，当你只需要读取它时使用读取会话。
+1.  **使用正确的会话类型**：当你需要修改对话历史记录时使用写入会话，当你只需要读取它时使用读取会话。
 
-2. **保持会话简短**：会话应专注于特定任务，并尽快关闭以释放资源。
+2.  **保持会话简短**：会话应专注于特定任务，并尽快关闭以释放资源。
 
-3. **处理异常**：确保在会话中处理异常，以防止资源泄漏。
+3.  **处理异常**：确保在会话中处理异常，以防止资源泄漏。
 
-4. **管理历史记录大小**：对于长时间运行的对话，请使用历史记录压缩来减少 token 使用。
+4.  **管理历史记录大小**：对于长时间运行的对话，请使用历史记录压缩来减少 token 使用。
 
-5. **优先使用高级抽象**：如果可能，请使用基于节点的 API。例如，使用 `nodeLLMRequest` 而非直接使用会话。
+5.  **优先使用高级抽象**：如果可能，请使用基于节点的 API。例如，使用 `nodeLLMRequest` 而非直接使用会话。
 
-6. **注意线程安全**：请记住，写入会话会阻塞其他会话，因此请尽可能缩短写入操作。
+6.  **注意线程安全**：请记住，写入会话会阻塞其他会话，因此请尽可能缩短写入操作。
 
-7. **对复杂数据使用结构化请求**：当你需要 LLM 返回结构化数据时，请使用 `requestLLMStructured` 而非解析自由格式文本。
+7.  **对复杂数据使用结构化请求**：当你需要 LLM 返回结构化数据时，请使用 `requestLLMStructured` 而非解析自由格式文本。
 
-8. **对长响应使用流式传输**：对于长响应，请使用 `requestLLMStreaming` 来处理到达的响应。
+8.  **对长响应使用流式传输**：对于长响应，请使用 `requestLLMStreaming` 来处理到达的响应。
 
 ## 故障排除
 

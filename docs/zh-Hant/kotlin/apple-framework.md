@@ -127,15 +127,15 @@ Kotlin/Native 編譯器可以從 Kotlin 程式碼中為 macOS 和 iOS 生成框�
 
     `binaries {}` 區塊配置專案以生成動態或共享函式庫。
 
-    Kotlin/Native 支援 iOS 的 `iosArm64`、`iosX64` 和 `iosSimulatorArm64` 目標，以及 macOS 的 `macosX64` 和 `macosArm64` 目標。因此，您可以將 `iosArm64()` 替換為您的目標平台相對應的 Gradle 函數：
+    Kotlin/Native 支援 iOS 的 `iosArm64`、`iosX64` 和 `iosSimulatorArm64` 目標，以及 macOS 的 `macosArm64` 和 `macosX64` 目標。因此，您可以將 `iosArm64()` 替換為您的目標平台相對應的 Gradle 函數：
 
     | 目標平台/裝置          | Gradle 函數           |
     |------------------------|-----------------------|
-    | macOS x86_64           | `macosX64()`          | 
     | macOS ARM64            | `macosArm64()`        |
-    | iOS ARM64              | `iosArm64()`          | 
-    | iOS Simulator (x86_64) | `iosX64()`            |
+    | macOS x86_64           | `macosX64()`          |
+    | iOS ARM64              | `iosArm64()`          |
     | iOS Simulator (ARM64)  | `iosSimulatorArm64()` |
+    | iOS Simulator (x86_64) | `iosX64()`            |
 
     有關其他支援的 Apple 目標的資訊，請參閱 [Kotlin/Native 目標支援](native-target-support.md)。
 

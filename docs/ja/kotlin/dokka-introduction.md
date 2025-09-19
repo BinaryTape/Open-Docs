@@ -20,4 +20,4 @@ Dokkaの使用を始めるには、[Dokkaを使ってみる](dokka-get-started.m
 
 ## コミュニティ
 
-Dokkaには、[Kotlin Community Slack](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up)内に専用の`#dokka`チャンネルがあり、Dokka、そのプラグイン、それらの開発方法についてチャットしたり、メンテナーと連絡を取ったりできます。
+Dokkaには、[Kotlin Community Slack](https://kotl.in/slack)内に専用の`#dokka`チャンネルがあり、Dokka、そのプラグイン、それらの開発方法についてチャットしたり、メンテナーと連絡を取ったりできます。

@@ -32,6 +32,10 @@ Kotlin 컴파일러는 컴파일 프로세스를 조정하기 위한 여러 옵�
   > ```
   {style="note"}
 
+## 컴파일러 옵션 스키마
+
+모든 컴파일러 옵션에 대한 공통 스키마는 JAR 아티팩트인 [`org.jetbrains.kotlin:kotlin-compiler-arguments-description`](https://central.sonatype.com/artifact/org.jetbrains.kotlin/kotlin-compiler-arguments-description) 아래에 게시됩니다. 이 아티팩트에는 코드 표현과 모든 컴파일러 옵션 설명의 JSON 동등물(Kotlin을 사용하지 않는 소비자를 위해)이 모두 포함됩니다. 또한 각 옵션이 도입되거나 안정화된 버전과 같은 메타데이터도 포함됩니다.
+
 ## 공통 옵션
 
 다음 옵션은 모든 Kotlin 컴파일러에 공통적으로 적용됩니다.
@@ -46,7 +50,7 @@ Kotlin 컴파일러는 컴파일 프로세스를 조정하기 위한 여러 옵�
 
 ### -script
 
-Kotlin 스크립트 파일을 평가합니다. 이 옵션으로 호출되면, 컴파일러는 주어진 인자들 중 첫 번째 Kotlin 스크립트(`*.kts`) 파일을 실행합니다.
+Kotlin 스크립트 파일을 평가합니다. 이 옵션으로 호출되면, 컴파일러는 주어진 인자들 중 첫 번째 Kotlin 스크립(`*.kts`) 파일을 실행합니다.
 
 ### -help (-h)
 
@@ -178,6 +182,33 @@ kotlinc -Xwarning-level=DIAGNOSTIC_NAME:(error|warning|disabled)
 | `-Wextra -Xwarning-level=DIAGNOSTIC_NAME:disabled` | 지정된 검사를 제외한 모든 추가 검사를 활성화합니다. |
 
 일반 규칙에서 제외할 경고가 많은 경우, [`@argfile`](#argfile)을 사용하여 별도의 파일에 나열할 수 있습니다.
+
+### -Xdata-flow-based-exhaustiveness
+<primary-label ref="experimental-general"/>
+
+데이터 흐름 기반 `when` 표현식 완전성 검사를 활성화합니다.
+
+### -Xallow-reified-type-in-catch
+<primary-label ref="experimental-general"/>
+
+`inline` 함수의 `catch` 절에서 `reified` `Throwable` 타입 파라미터에 대한 지원을 활성화합니다.
+
+### Kotlin 계약(contract) 옵션
+<primary-label ref="experimental-general"/>
+
+다음 옵션은 실험적인 Kotlin 계약(contract) 기능을 활성화합니다.
+
+#### -Xallow-contracts-on-more-functions
+
+속성 접근자(property accessors), 특정 연산자 함수, 제네릭 타입에 대한 타입 어설션(type assertions)을 포함하여 추가 선언에서 계약(contract)을 활성화합니다.
+
+#### -Xallow-condition-implies-returns-contracts
+
+계약(contract)에서 `returnsNotNull()` 함수를 사용하여 지정된 조건에 대해 null이 아닌 반환 값을 가정할 수 있도록 합니다.
+
+#### -Xallow-holdsin-contract
+
+계약(contract)에서 `holdsIn` 키워드를 사용하여 람다 내부에서 부울 조건이 `true`라고 가정할 수 있도록 합니다.
 
 ## Kotlin/JVM 컴파일러 옵션
 
@@ -336,6 +367,11 @@ Kotlin 코드에서 선언한 변수 및 함수 이름을 소스 맵에 추가�
 ### -source-map-prefix
 
 소스 맵의 경로에 지정된 접두사를 추가합니다.
+
+### -Xes-long-as-bigint
+<primary-label ref="experimental-general"/>
+
+현대 JavaScript (ES2020)로 컴파일할 때 Kotlin `Long` 값을 표현하기 위해 JavaScript `BigInt` 타입 지원을 활성화합니다.
 
 ## Kotlin/Native 컴파일러 옵션
 

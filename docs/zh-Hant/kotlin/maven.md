@@ -198,6 +198,25 @@ Kotlin 擁有豐富的標準函式庫，可用於您的應用程式。若要在�
 </build>
 ```
 
+## 配置 Kotlin 編譯器執行策略
+
+Kotlin 編譯器執行策略定義了 Kotlin 編譯器執行的位置。有兩種可用策略：
+
+| 策略                | Kotlin 編譯器執行的位置 |
+|-------------------------|---------------------------------------|
+| Kotlin daemon (預設) | 在其專屬的 daemon 程序中         |
+| 在程序內              | 在 Maven 程序中              |
+
+依預設，會使用 [Kotlin daemon](kotlin-daemon.md)。您可以透過在 `pom.xml` 檔案中設定以下屬性來切換到「在程序內」策略：
+
+```xml
+<properties>
+    <kotlin.compiler.daemon>false</kotlin.compiler.daemon>
+</properties>
+```
+
+無論您使用哪種編譯器執行策略，您仍然需要明確配置增量編譯。
+
 ## 啟用增量編譯
 
 為了加速您的建構，您可以透過新增 `kotlin.compiler.incremental` 屬性來啟用增量編譯：
@@ -322,7 +341,7 @@ java -jar target/mymodule-0.0.1-SNAPSHOT-jar-with-dependencies.jar
 
 ```xml
 <dependencyManagement>
-    <dependencies>
+    <dependencies>  
         <dependency>
             <groupId>org.jetbrains.kotlin</groupId>
             <artifactId>kotlin-bom</artifactId>

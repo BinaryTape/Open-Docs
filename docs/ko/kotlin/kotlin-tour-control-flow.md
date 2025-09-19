@@ -83,11 +83,11 @@ fun main() {
     val obj = "Hello"
 
     when (obj) {
-        // Checks whether obj equals to "1"
+        // obj가 "1"과 같은지 확인
         "1" -> println("One")
-        // Checks whether obj equals to "Hello"
+        // obj가 "Hello"와 같은지 확인
         "Hello" -> println("Greeting")
-        // Default statement
+        // 기본 문
         else -> println("Unknown")     
     }
     // Greeting
@@ -110,11 +110,10 @@ fun main() {
     val obj = "Hello"    
     
     val result = when (obj) {
-        // If obj equals "1", sets result to "one"
+        // obj가 "1"과 같으면, result를 "one"으로 설정
         "1" -> "One"
-        // If obj equals "Hello", sets result to "Greeting"
-        "Hello" -> "Greeting"
-        // Sets result to "Unknown" if no previous condition is satisfied
+        // obj가 "Hello"와 같으면, result를 "Greeting"으로 설정
+        // 이전 조건이 만족되지 않으면 result를 "Unknown"으로 설정
         else -> "Unknown"
     }
     println(result)
@@ -130,7 +129,7 @@ fun main() {
 
 ```kotlin
 fun main() {
-    val trafficLightState = "Red" // This can be "Green", "Yellow", or "Red"
+    val trafficLightState = "Red" // 이것은 "Green", "Yellow", "Red" 중 하나일 수 있습니다
 
     val trafficAction = when {
         trafficLightState == "Green" -> "Go"
@@ -149,7 +148,7 @@ fun main() {
 
 ```kotlin
 fun main() {
-    val trafficLightState = "Red" // This can be "Green", "Yellow", or "Red"
+    val trafficLightState = "Red" // 이것은 "Green", "Yellow", "Red" 중 하나일 수 있습니다
 
     val trafficAction = when (trafficLightState) {
         "Green" -> "Go"
@@ -189,7 +188,7 @@ import kotlin.random.Random
 fun main() {
     val firstResult = Random.nextInt(6)
     val secondResult = Random.nextInt(6)
-    // Write your code here
+    // 여기에 코드를 작성하세요
 }
 ```
 {validate="false" kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-tour-control-flow-conditional-exercise-1"}
@@ -227,7 +226,7 @@ fun main() {
     val button = "A"
 
     println(
-        // Write your code here
+        // 여기에 코드를 작성하세요
     )
 }
 ```
@@ -282,7 +281,7 @@ Kotlin에서 범위를 만드는 가장 일반적인 방법은 `..` 연산자를
 fun main() {
 //sampleStart
     for (number in 1..5) { 
-        // number is the iterator and 1..5 is the range
+        // number는 이터레이터이고 1..5는 범위입니다
         print(number)
     }
     // 12345
@@ -321,7 +320,7 @@ fun main() {
 *   `while` 루프가 계속될 조건식을 괄호 `()` 안에 선언하세요.
 *   완료하려는 작업을 중괄호 `{}` 안에 추가하세요.
 
-> 다음 예시는 `cakesEaten` 변수의 값을 증가시키기 위해 [증가 연산자](operator-overloading.md#increments-and-decrements)(`++`)를 사용합니다.
+> 다음 예시는 [증가 연산자](operator-overloading.md#increments-and-decrements)(`++`)를 사용하여 `cakesEaten` 변수의 값을 증가시키기 위해 사용합니다.
 >
 {style="tip"}
 
@@ -387,7 +386,7 @@ fun main() {
 ```kotlin
 fun main() {
     var pizzaSlices = 0
-    // Start refactoring here
+    // 여기서 리팩토링 시작
     pizzaSlices++
     println("There's only $pizzaSlices slice/s of pizza :(")
     pizzaSlices++
@@ -403,7 +402,7 @@ fun main() {
     pizzaSlices++
     println("There's only $pizzaSlices slice/s of pizza :(")
     pizzaSlices++
-    // End refactoring here
+    // 여기서 리팩토링 종료
     println("There are $pizzaSlices slices of pizza. Hooray! We have a whole pizza! :D")
 }
 ```
@@ -457,7 +456,7 @@ fun main() {
 |---|---|
 ```kotlin
 fun main() {
-    // Write your code here
+    // 여기에 코드를 작성하세요
 }
 ```
 {validate="false" kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-tour-control-flow-loops-exercise-2"}
@@ -493,7 +492,7 @@ fun main() {
 ```kotlin
 fun main() {
     val words = listOf("dinosaur", "limousine", "magazine", "language")
-    // Write your code here
+    // 여기에 코드를 작성하세요
 }
 ```
 {validate="false" kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-tour-control-flow-loops-exercise-3"}

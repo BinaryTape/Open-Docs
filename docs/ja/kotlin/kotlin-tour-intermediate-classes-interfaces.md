@@ -37,7 +37,7 @@ fun main() {
     //sampleStart
     val car1 = Car("Toyota", "Corolla", 4)
 
-    // Uses the .toString() function via string templates to print class properties
+    // 文字列テンプレートを介して.toString()関数を使用し、クラスプロパティを出力
     println("Car1: make=${car1.make}, model=${car1.model}, numberOfDoors=${car1.numberOfDoors}")
     // Car1: make=Toyota, model=Corolla, numberOfDoors=4
     //sampleEnd
@@ -74,10 +74,10 @@ abstract val sound: String
 
 ```kotlin
 abstract class Product(val name: String, var price: Double) {
-    // Abstract property for the product category
+    // 製品カテゴリのための抽象プロパティ
     abstract val category: String
 
-    // A function that can be shared by all products
+    // すべての製品で共有できる関数
     fun productInfo(): String {
         return "Product: $name, Category: $category, Price: $price"
     }
@@ -123,7 +123,7 @@ class Electronic(name: String, price: Double, val warranty: Int) : Product(name,
 
 //sampleStart
 fun main() {
-    // Creates an instance of the Electronic class
+    // Electronicクラスのインスタンスを作成します
     val laptop = Electronic(name = "Laptop", price = 1000.0, warranty = 2)
 
     println(laptop.productInfo())
@@ -169,13 +169,13 @@ class CreditCardPayment : PaymentMethod
 
 ```kotlin
 interface PaymentMethod {
-    // Functions are inheritable by default
+    // 関数はデフォルトで継承可能です
     fun initiatePayment(amount: Double): String
 }
 
 class CreditCardPayment(val cardNumber: String, val cardHolderName: String, val expiryDate: String) : PaymentMethod {
     override fun initiatePayment(amount: Double): String {
-        // Simulate processing payment with credit card
+        // クレジットカードでの支払い処理をシミュレート
         return "Payment of $amount initiated using Credit Card ending in ${cardNumber.takeLast(4)}."
     }
 }
@@ -216,7 +216,7 @@ interface PaymentType {
 class CreditCardPayment(val cardNumber: String, val cardHolderName: String, val expiryDate: String) : PaymentMethod,
     PaymentType {
     override fun initiatePayment(amount: Double): String {
-        // Simulate processing payment with credit card
+        // クレジットカードでの支払い処理をシミュレート
         return "Payment of $amount initiated using Credit Card ending in ${cardNumber.takeLast(4)}."
     }
 
@@ -254,72 +254,170 @@ fun main() {
 > 
 {style="tip"}
 
-例えば、`Drawable`というインターフェースがあり、多数の関数と`color`という1つのプロパティが含まれているとします。
+例えば、`DrawingTool`というインターフェースがあり、多数の関数と`color`という1つのプロパティが含まれているとします。
 
 ```kotlin
-interface Drawable {
-    fun draw()
-    fun resize()
-    val color: String?
+interface DrawingTool {
+    val color: String
+    fun draw(shape: String)
+    fun erase(area: String)
+    fun getToolInfo(): String
 }
 ```
 
-`Drawable`インターフェースを実装し、そのすべてのメンバの実装を提供する`Circle`というクラスを作成します。
+`DrawingTool`インターフェースを実装し、そのすべてのメンバの実装を提供する`PenTool`というクラスを作成します。
 
 ```kotlin
-class Circle : Drawable {
-    override fun draw() {
-        TODO("An example implementation")
+class PenTool : DrawingTool {
+    override val color: String = "black"
+
+    override fun draw(shape: String) {
+        println("Drawing $shape using a pen in $color")
     }
-    
-    override fun resize() {
-        TODO("An example implementation")
+
+    override fun erase(area: String) {
+        println("Erasing $area with pen tool")
     }
-   override val color = null
+
+    override fun getToolInfo(): String {
+        return "PenTool(color=$color)"
+    }
 }
 ```
 
-`Circle`クラスのチャイルドクラスを作成し、`color`プロパティの値**以外**は同じ動作をさせたい場合でも、`Circle`クラスの各メンバ関数に実装を追加する必要があります。
+`PenTool`クラスと同じ動作をするが、`color`プロパティの値が異なるクラスを作成したいとします。1つのアプローチは、`DrawingTool`インターフェースを実装するオブジェクトをパラメータとして受け取る新しいクラス（`PenTool`クラスのインスタンスのように）を作成することです。次に、そのクラス内で`color`プロパティをオーバーライドできます。
+
+しかし、このシナリオでは、`DrawingTool`インターフェースの各メンバに実装を追加する必要があります。
 
 ```kotlin
-class RedCircle(val circle: Circle) : Circle {
+interface DrawingTool {
+    val color: String
+    fun draw(shape: String)
+    fun erase(area: String)
+    fun getToolInfo(): String
+}
 
-    // Start of boilerplate code
-    override fun draw() {
-        circle.draw()
+class PenTool : DrawingTool {
+    override val color: String = "black"
+
+    override fun draw(shape: String) {
+        println("Drawing $shape using a pen in $color")
     }
 
-    override fun resize() {
-        circle.resize()
+    override fun erase(area: String) {
+        println("Erasing $area with pen tool")
     }
 
-    // End of boilerplate code
-    override val color = "red"
+    override fun getToolInfo(): String {
+        return "PenTool(color=$color)"
+    }
+}
+//sampleStart
+class CanvasSession(val tool: DrawingTool) : DrawingTool {
+    override val color: String = "blue"
+
+    override fun draw(shape: String) {
+        tool.draw(shape)
+    }
+
+    override fun erase(area: String) {
+        tool.erase(area)
+    }
+
+    override fun getToolInfo(): String {
+        return tool.getToolInfo()
+    }
+}
+//sampleEnd
+fun main() {
+    val pen = PenTool()
+    val session = CanvasSession(pen)
+
+    println("Pen color: ${pen.color}")
+    // Pen color: black
+
+    println("Session color: ${session.color}")
+    // Session color: blue
+
+    session.draw("circle")
+    // Drawing circle with pen in black
+
+    session.erase("top-left corner")
+    // Erasing top-left corner with pen tool
+
+    println(session.getToolInfo())
+    // PenTool(color=black)
 }
 ```
+{kotlin-runnable="true" id="kotlin-tour-interface-non-delegation"}
 
-`Drawable`インターフェースに多数のメンバ関数がある場合、`RedCircle`クラスのボイラープレートコードの量が非常に大きくなることがわかります。しかし、代替手段があります。
+`DrawingTool`インターフェースに多数のメンバ関数がある場合、`CanvasSession`クラスのボイラープレートコードの量が非常に大きくなることがわかります。しかし、代替手段があります。
 
-Kotlinでは、デリゲーションを使用して、インターフェースの実装をクラスのインスタンスに委譲できます。例えば、`Circle`クラスのインスタンスを作成し、`Circle`クラスのメンバ関数の実装をこのインスタンスに委譲できます。これを行うには、`by`キーワードを使用します。例：
+Kotlinでは、デリゲーションを使用して、インターフェースの実装をクラスのインスタンスに委譲できます。例えば：
 
 ```kotlin
-class RedCircle(param: Circle) : Drawable by param
+class CanvasSession(val tool: DrawingTool) : DrawingTool by tool
 ```
 
-ここで、`param`は、メンバ関数の実装が委譲される`Circle`クラスのインスタンス名です。
+ここで、`tool`は、メンバ関数の実装が委譲される`PenTool`クラスのインスタンス名です。
 
-これで、`RedCircle`クラスのメンバ関数に実装を追加する必要がなくなりました。コンパイラが`Circle`クラスから自動的にこれを行います。これにより、多くのボイラープレートコードを書く手間が省けます。代わりに、子クラスで変更したい動作のためだけにコードを追加します。
+これで、`CanvasSession`クラスのメンバ関数に実装を追加する必要がなくなりました。コンパイラが`PenTool`クラスから自動的にこれを行います。これにより、多くのボイラープレートコードを書く手間が省けます。代わりに、子クラスで変更したい動作のためだけにコードを追加します。
 
 例えば、`color`プロパティの値を変更したい場合：
 
 ```kotlin
-class RedCircle(param : Circle) : Drawable by param {
-    // No boilerplate code!
-    override val color = "red"
+interface DrawingTool {
+    val color: String
+    fun draw(shape: String)
+    fun erase(area: String)
+    fun getToolInfo(): String
+}
+
+class PenTool : DrawingTool {
+    override val color: String = "black"
+
+    override fun draw(shape: String) {
+        println("Drawing $shape using a pen in $color")
+    }
+
+    override fun erase(area: String) {
+        println("Erasing $area with pen tool")
+    }
+
+    override fun getToolInfo(): String {
+        return "PenTool(color=$color)"
+    }
+}
+
+//sampleStart
+class CanvasSession(val tool: DrawingTool) : DrawingTool by tool {
+    // ボイラープレートコードなし！
+    override val color: String = "blue"
+}
+//sampleEnd
+fun main() {
+    val pen = PenTool()
+    val session = CanvasSession(pen)
+
+    println("Pen color: ${pen.color}")
+    // Pen color: black
+
+    println("Session color: ${session.color}")
+    // Session color: blue
+
+    session.draw("circle")
+    // Drawing circle with pen in black
+
+    session.erase("top-left corner")
+    // Erasing top-left corner with pen tool
+
+    println(session.getToolInfo())
+    // PenTool(color=black)
 }
 ```
+{kotlin-runnable="true" id="kotlin-tour-interface-delegation"}
 
-必要であれば、`RedCircle`クラスで継承されたメンバ関数の動作をオーバーライドすることもできますが、これで継承されたメンバ関数ごとに新しいコード行を追加する必要がなくなります。
+必要であれば、`CanvasSession`クラスで継承されたメンバ関数の動作をオーバーライドすることもできますが、これで継承されたメンバ関数ごとに新しいコード行を追加する必要がなくなります。
 
 詳細については、[デリゲーション](delegation.md)を参照してください。
 
@@ -569,7 +667,7 @@ fun main() {
 
 `SmartMessenger`クラスで、スマートメッセージを送信するために`sendMessage()`関数をオーバーライドしてください。この関数は`message`を入力として受け取り、`"Sending a smart message: $message"`という出力ステートメントを返す必要があります。さらに、`BasicMessenger`クラスから`sendMessage()`関数を呼び出し、メッセージに`[smart]`をプレフィックスとして付けてください。
 
-> <code>SmartMessenger</code>クラスで<code>receiveMessage()</code>関数を書き直す必要はありません。
+> `SmartMessenger`クラスで`receiveMessage()`関数を書き直す必要はありません。
 > 
 {style="note"}
 

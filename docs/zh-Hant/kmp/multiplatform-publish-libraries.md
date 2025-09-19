@@ -105,7 +105,7 @@ brew install gpg
         (10) ECC (sign only)
         (14) Existing key from card
     Your selection? 9
-
+    
     Please select which elliptic curve you want:
         (1) Curve 25519 *default*
         (4) NIST P-384
@@ -131,7 +131,7 @@ brew install gpg
         <n>y = key expires in n years
     Key is valid for? (0) 0
     Key does not expire at all
-
+    
     Is this correct? (y/N) y
     ```
 
@@ -306,7 +306,7 @@ mavenPublishing {
 
 為了在您的 GitHub Actions 工作流程中使用發佈所需的金鑰和憑證，同時保持它們的私密性，您需要將這些值儲存為機密。
 
-1.  在您的 GitHub 儲存庫**Settings** 頁面，點擊 **Security** | **Secrets and variables** | **Actions**。
+1.  在您的 GitHub 儲存庫 **Settings** 頁面，點擊 **Security** | **Secrets and variables** | **Actions**。
 2.  點擊 `New repository secret` 按鈕並添加以下機密：
 
     *   `MAVEN_CENTRAL_USERNAME` 和 `MAVEN_CENTRAL_PASSWORD` 是由 Central Portal 網站[為 User Token 產生](#generate-the-user-token)的值。
@@ -370,7 +370,7 @@ jobs:
 
 ### 在 GitHub 上建立發行版
 
-設定好工作流程和機密後，您現在可以[建立發行版](https://docs.github.com/en/repositories/releasing-projects-on-github/managing-releases-in-a-repository#creating-a-release)，這將觸發您的函式庫的發佈。
+設定好工作流程和機密後，您現在可以[建立發行版](https://docs.github.com/en/repositories/releasing-projects-on-github/managing-releases-in-a-repository#creating-a-release)來觸發您的函式庫的發佈。
 
 1.  確保您的函式庫的 `build.gradle.kts` 檔案中指定的版本號碼是您想要發佈的版本。
 2.  前往您的 GitHub 儲存庫主頁。
@@ -399,9 +399,9 @@ jobs:
 
     ![發佈設定](published_on_maven_central.png){width=700}
 
-    > 發行版後，構件需要一些時間（通常約 15-30 分鐘）才能在 Maven Central 儲存庫中公開可用。它們可能需要更長時間才能被索引並在 [Maven Central 網站](https://central.sonatype.com/)上可搜尋。
+    > 發行版後，構件需要一些時間（通常約 15-30 分鐘，但可能長達數小時）才能在 Maven Central 儲存庫中公開可用。它們可能需要更長時間才能被索引並在 [Maven Central 網站](https://central.sonatype.com/)上可搜尋。
     >
-{style="tip"}
+    {style="tip"}
 
 要在部署驗證後自動發佈構件，請將工作流程中的 `publishToMavenCentral` 任務替換為 `publishAndReleaseToMavenCentral`。
 

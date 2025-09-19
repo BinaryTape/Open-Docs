@@ -1,10 +1,6 @@
 [//]: # (title: Kotlin/Wasm 和 WASI 入门)
 
-> Kotlin/Wasm 处于 [Alpha](components-stability.md) 阶段。它可能随时发生变化。
->
-> [加入 Kotlin/Wasm 社区。](https://slack-chats.kotlinlang.org/c/webassembly)
->
-{style="note"}
+<primary-label ref="beta"/> 
 
 本教程演示了如何在各种 WebAssembly 虚拟机中使用 [WebAssembly System Interface (WASI)](https://wasi.dev/) 运行一个简单的 [Kotlin/Wasm](wasm-overview.md) 应用程序。
 

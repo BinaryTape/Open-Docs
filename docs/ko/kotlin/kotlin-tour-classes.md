@@ -3,13 +3,13 @@
 <no-index/>
 
 <tldr>
-    <p><img src="icon-1-done.svg" width="20" alt="First step" /> <a href="kotlin-tour-hello-world.md">Hello world</a><br />
-        <img src="icon-2-done.svg" width="20" alt="Second step" /> <a href="kotlin-tour-basic-types.md">기본 타입</a><br />
-        <img src="icon-3-done.svg" width="20" alt="Third step" /> <a href="kotlin-tour-collections.md">컬렉션</a><br />
-        <img src="icon-4-done.svg" width="20" alt="Fourth step" /> <a href="kotlin-tour-control-flow.md">제어 흐름</a><br />
-        <img src="icon-5-done.svg" width="20" alt="Fifth step" /> <a href="kotlin-tour-functions.md">함수</a><br />
-        <img src="icon-6.svg" width="20" alt="Sixth step" /> <strong>클래스</strong><br />
-        <img src="icon-7-todo.svg" width="20" alt="Final step" /> <a href="kotlin-tour-null-safety.md">널 안정성</a></p>
+    <p><img src="icon-1-done.svg" width="20" alt="첫 번째 단계" /> <a href="kotlin-tour-hello-world.md">Hello world</a><br />
+        <img src="icon-2-done.svg" width="20" alt="두 번째 단계" /> <a href="kotlin-tour-basic-types.md">기본 타입</a><br />
+        <img src="icon-3-done.svg" width="20" alt="세 번째 단계" /> <a href="kotlin-tour-collections.md">컬렉션</a><br />
+        <img src="icon-4-done.svg" width="20" alt="네 번째 단계" /> <a href="kotlin-tour-control-flow.md">제어 흐름</a><br />
+        <img src="icon-5-done.svg" width="20" alt="다섯 번째 단계" /> <a href="kotlin-tour-functions.md">함수</a><br />
+        <img src="icon-6.svg" width="20" alt="여섯 번째 단계" /> <strong>클래스</strong><br />
+        <img src="icon-7-todo.svg" width="20" alt="마지막 단계" /> <a href="kotlin-tour-null-safety.md">널 안정성</a></p>
 </tldr>
 
 Kotlin은 클래스와 객체를 사용한 객체 지향 프로그래밍(object-oriented programming)을 지원합니다. 객체는 프로그램에서 데이터를 저장하는 데 유용합니다.
@@ -102,7 +102,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-tour-access-property"}
 
-> 프로퍼티의 값을 문자열의 일부로 연결하려면, 문자열 템플릿(string templates)(`$`)을 사용할 수 있습니다.
+> 프로퍼티의 값을 문자열의 일부로 연결하려면, 문자열 템플릿(string templates)(`).
 > 예를 들어:
 > ```kotlin
 > println("Their email address is: ${contact.email}")

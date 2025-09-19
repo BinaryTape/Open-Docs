@@ -71,8 +71,8 @@ Langfuse 인스턴스에서 트레이스를 확인하세요")
 Koog는 [에이전트 그래프](https://langfuse.com/docs/observability/features/agent-graphs)를 표시하기 위해 Langfuse가 요구하는 스팬 속성도 캡처합니다.
 
 Langfuse에서 시각화될 때, 트레이스는 다음과 같이 나타납니다:
-![Langfuse 트레이스](img/opentelemetry-langfuse-exporter-light.png#only-light)
-![Langfuse 트레이스](img/opentelemetry-langfuse-exporter-dark.png#only-dark)
+![Langfuse traces](img/opentelemetry-langfuse-exporter-light.png#only-light)
+![Langfuse traces](img/opnetelemetry-langfuse-exporter-dark.png#only-dark)
 
 Langfuse OpenTelemetry 트레이싱에 대한 자세한 내용은 다음을 참조하세요:  
 [Langfuse OpenTelemetry 문서](https://langfuse.com/integrations/native/opentelemetry#opentelemetry-endpoint).
@@ -82,6 +82,6 @@ Langfuse OpenTelemetry 트레이싱에 대한 자세한 내용은 다음을 참�
 ## 문제 해결
 
 ### Langfuse에 트레이스가 나타나지 않음
--   `LANGFUSE_HOST`, `LANGFUSE_PUBLIC_KEY`, `LANGFUSE_SECRET_KEY`가 환경에 설정되어 있는지 다시 확인하세요.
+-   `LANGFUSE_HOST`, `LANGFUSE_PUBLIC_KEY`, 및 `LANGFUSE_SECRET_KEY`가 환경에 설정되어 있는지 다시 확인하세요.
 -   자체 호스팅 Langfuse에서 실행 중인 경우, `LANGFUSE_HOST`가 애플리케이션 환경에서 도달 가능한지 확인하세요.
 -   공개/비밀 키 쌍이 올바른 프로젝트에 속하는지 확인하세요.

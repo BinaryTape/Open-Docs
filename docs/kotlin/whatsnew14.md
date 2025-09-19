@@ -194,7 +194,7 @@ fun main() {
 
 #### 根据函数中实参数量进行调整的引用
 
-现在，在传递可变数量实参 (`vararg`) 时，你可以调整函数的可调用引用。在传递的实参列表末尾，可以传递任意数量的同类型形参。
+现在，在传递可变数量实参 (`vararg`) 时，你可以调整函数的可调用引用。在传递的实参 list 末尾，可以传递任意数量的同类型形参。
 
 ```kotlin
 fun foo(x: Int, vararg y: String) {}
@@ -296,7 +296,7 @@ fun test(xs: List<Int>) {
 ### 协程调试器
 
 许多人已经使用[协程](coroutines-guide.md)进行异步编程。
-但就调试而言，在 Kotlin 1.4 之前，处理协程可能是一个真正的难题。由于协程在线程之间跳转，因此很难理解特定协程在做什么并检查其上下文。在某些情况下，在断点处跟踪步骤根本不起作用。结果，你不得不依赖日志记录或心智努力来调试使用协程的代码。
+但就调试而言，在 Kotlin 1.4 之前，处理协程可能是一个真正的难题。由于协程在线程之间跳转，因此很难理解特定协程在做什么并检测其上下文。在某些情况下，在断点处跟踪步骤根本不起作用。结果，你不得不依赖日志记录或心智努力来调试使用协程的代码。
 
 在 Kotlin 1.4 中，由于 Kotlin 插件附带的新功能，调试协程现在方便得多。
 
@@ -370,7 +370,7 @@ val result = run {
     if (str == null) {
         str = "test"
     }
-    str // Kotlin 编译器知道此处 str 不为 null
+    str // the Kotlin compiler knows that str is not null here
 }
 // 在 Kotlin 1.3 中，'result' 的类型是 String?，在 Kotlin 1.4 中是 String
 ```
@@ -538,14 +538,14 @@ Kotlin 现在可以在 JVM 字节码（目标版本 1.8+）中生成类型注解
 2.  将注解类声明编译到 JVM 字节码目标版本 1.8+。你可以使用 `-jvm-target=1.8` 编译器选项来指定它。
 3.  将使用注解的代码编译到 JVM 字节码目标版本 1.8+ (`-jvm-target=1.8`)，并添加 `-Xemit-jvm-type-annotations` 编译器选项。
 
-请注意，标准库中的类型注解目前不会在字节码中发出，因为标准库是使用目标版本 1.6 编译的。
+请注意，标准 library 中的类型注解目前不会在字节码中发出，因为标准 library 是使用目标版本 1.6 编译的。
 
 目前只支持基本情况：
 
 - 方法形参、方法返回类型和属性类型上的类型注解；
 - 类型实参的不型变投影，例如 `Smth<@Ann Foo>`、`Array<@Ann Foo>`。
 
-在下面的例子中，`String` 类型上的 `@Foo` 注解可以发出到字节码，然后被库代码使用：
+在下面的例子中，`String` 类型上的 `@Foo` 注解可以发出到字节码，然后被 library 代码使用：
 
 ```kotlin
 @Target(AnnotationTarget.TYPE)
@@ -569,8 +569,8 @@ class A {
 
 - 通过 `binaries.executable()` 显式切换可执行文件的创建。在此处阅读更多关于 [执行 Kotlin/JS 及其环境的信息](js-project-setup.md#execution-environments)。
 - 通过 `cssSupport` 从 Gradle 配置内部配置 webpack 的 CSS 和样式加载器。在此处阅读更多关于 [使用 CSS 和样式加载器](js-project-setup.md#css) 的信息。
-- 改进了 npm 依赖项管理，强制要求版本号或 [semver](https://docs.npmjs.com/about-semantic-versioning) 版本范围，以及使用 `devNpm`、`optionalNpm` 和 `peerNpm` 支持_开发_、_对等_和_可选_ npm 依赖项。[在此处阅读更多关于直接从 Gradle 管理 npm 包依赖项](js-project-setup.md#npm-dependencies) 的信息。
-- 与 [Dukat](https://github.com/Kotlin/dukat)（Kotlin 外部声明生成器）更强的集成。外部声明现在可以在构建时生成，也可以通过 Gradle 任务手动生成。
+- 改进了 npm 依赖项管理，强制要求版本号或 [semver](https://docs.npmjs.com/about-semantic-versioning) 版本区间，以及使用 `devNpm`、`optionalNpm` 和 `peerNpm` 支持_开发_、_对等_和_可选_ npm 依赖项。[在此处阅读更多关于直接从 Gradle 管理 npm 包依赖项](js-project-setup.md#npm-dependencies) 的信息。
+- 与 [Dukat](https://github.com/Kotlin/dukat)（Kotlin 外部声明生成器）更强的集成。外部声明现在可以在构建期生成，也可以通过 Gradle 任务手动生成。
 
 ### 新的 JS IR 后端
 
@@ -591,7 +591,7 @@ kotlin {
 
 有关如何配置新后端的更详细信息，请查看 [Kotlin/JS IR 编译器文档](js-ir-compiler.md)。
 
-通过新的 [@JsExport](js-to-kotlin-interop.md#jsexport-annotation) 注解和从 Kotlin 代码中**[生成 TypeScript 定义](js-ir-compiler.md#preview-generation-of-typescript-declaration-files-d-ts)** 的能力，Kotlin/JS IR 编译器后端改进了 JavaScript 和 TypeScript 的互操作性。这使得将 Kotlin/JS 代码与现有工具集成、创建**混合应用程序**并在多平台项目中利用代码共享功能变得更加容易。
+通过新的 [@JsExport](js-to-kotlin-interop.md#jsexport-annotation) 注解和从 Kotlin 代码中**[生成 TypeScript 定义](js-project-setup.md#generation-of-typescript-declaration-files-d-ts)** 的能力，Kotlin/JS IR 编译器后端改进了 JavaScript 和 TypeScript 的互操作性。这使得将 Kotlin/JS 代码与现有工具集成、创建**混合应用程序**并在多平台项目中使用代码共享功能变得更加容易。
 
 [了解更多关于 Kotlin/JS IR 编译器后端中的可用特性](js-ir-compiler.md)。
 
@@ -632,7 +632,7 @@ queryData(id: 17) { result, error in
 
 ### 默认支持 Objective-C 泛型
 
-Kotlin 的早期版本为 Objective-C 互操作中的泛型提供了实验性支持。从 1.4.0 开始，Kotlin/Native 默认从 Kotlin 代码生成带有泛型的 Apple framework。在某些情况下，这可能会破坏调用 Kotlin framework 的现有 Objective-C 或 Swift 代码。要使 framework 头文件不带泛型，请添加 `-Xno-objc-generics` 编译器选项。
+Kotlin 的早期版本为 Objective-C 互操作中的泛型提供了实验性的支持。从 1.4.0 开始，Kotlin/Native 默认从 Kotlin 代码生成带有泛型的 Apple framework。在某些情况下，这可能会破坏调用 Kotlin framework 的现有 Objective-C 或 Swift 代码。要使 framework 头文件不带泛型，请添加 `-Xno-objc-generics` 编译器选项。
 
 ```kotlin
 kotlin {
@@ -648,7 +648,7 @@ kotlin {
 
 ### Objective-C/Swift 互操作中的异常处理
 
-在 1.4.0 中，我们稍微改变了从 Kotlin 生成的 Swift API，这涉及到异常的翻译方式。Kotlin 和 Swift 在错误处理上存在根本区别。所有 Kotlin 异常都是非受检的，而 Swift 只有受检错误。因此，为了让 Swift 代码感知预期的异常，Kotlin 函数应该使用 `@Throws` 注解标记，指定潜在的异常类列表。
+在 1.4.0 中，我们稍微改变了从 Kotlin 生成的 Swift API，这涉及到异常的翻译方式。Kotlin 和 Swift 在错误处理上存在根本区别。所有 Kotlin 异常都是非受检的，而 Swift 只有受检错误。因此，为了让 Swift 代码感知预期的异常，Kotlin 函数应该使用 `@Throws` 注解标记，指定潜在的异常类 list。
 
 当编译到 Swift 或 Objective-C framework 时，具有或继承 `@Throws` 注解的函数在 Objective-C 中表示为生成 `NSError*` 的方法，在 Swift 中表示为 `throws` 方法。
 
@@ -668,16 +668,16 @@ kotlin {
 }
 ```
 
-[了解更多关于崩溃报告符号化的信息](native-ios-symbolication.md)。
+[了解更多关于崩溃报告符号化的信息](native-debugging.md#debug-ios-applications)。
 
 ### 性能改进
 
 Kotlin/Native 获得了一系列性能改进，加速了开发过程和执行。
 以下是一些例子：
 
-- 为了提高对象分配的速度，我们现在提供 [mimalloc](https://github.com/microsoft/mimalloc) 内存分配器作为系统分配器的替代品。mimalloc 在一些基准测试中速度提高多达两倍。目前，在 Kotlin/Native 中使用 mimalloc 尚属实验性的；你可以使用 `-Xallocator=mimalloc` 编译器选项切换到它。
+- 为了提高对象分配的速度，我们现在提供 [mimalloc](https://github.com/microsoft/mimalloc) 内存分配器作为系统分配器的替代品。mimalloc 在一些基准检测中速度提高多达两倍。目前，在 Kotlin/Native 中使用 mimalloc 尚属实验性的；你可以使用 `-Xallocator=mimalloc` 编译器选项切换到它。
 
-- 我们重新设计了 C 互操作库的构建方式。使用新工具，Kotlin/Native 生成互操作库的速度比以前快 4 倍，且构件大小是原来的 25% 到 30%。
+- 我们重新设计了 C 互操作 library 的构建方式。使用新工具，Kotlin/Native 生成互操作 library 的速度比以前快 4 倍，且构件大小是原来的 25% 到 30%。
 
 - 由于 GC 的优化，整体运行时性能得到改善。在具有大量长生命周期对象的项目中，这种改进将特别明显。`HashMap` 和 `HashSet` 集合现在通过避免冗余装箱工作得更快。
 
@@ -687,14 +687,14 @@ Kotlin/Native 获得了一系列性能改进，加速了开发过程和执行。
 
 以前，一旦你将项目与 CocoaPods 依赖项管理器集成，你只能在 Xcode 中构建项目的 iOS、macOS、watchOS 或 tvOS 部分，而不能与多平台项目的其他部分一起构建。这些其他部分可以在 IntelliJ IDEA 中构建。
 
-而且，每当你添加对存储在 CocoaPods 中的 Objective-C 库（Pod 库）的依赖项时，你都必须从 IntelliJ IDEA 切换到 Xcode，调用 `pod install`，并在那里运行 Xcode 构建。
+而且，每当你添加对存储在 CocoaPods 中的 Objective-C library（Pod library）的依赖项时，你都必须从 IntelliJ IDEA 切换到 Xcode，调用 `pod install`，并在那里运行 Xcode 构建。
 
 现在你可以在 IntelliJ IDEA 中直接管理 Pod 依赖项，同时享受它在代码工作方面提供的便利，例如代码高亮和补全。你还可以使用 Gradle 构建整个 Kotlin 项目，无需切换到 Xcode。这意味着你只需在需要编写 Swift/Objective-C 代码或在模拟器或设备上运行应用程序时才需要前往 Xcode。
 
-你也可以处理本地存储的 Pod 库。
+你也可以处理本地存储的 Pod library。
 
 根据你的需求，你可以在以下两者之间添加依赖项：
-* Kotlin 项目与存储在 CocoaPods 版本库中或本地机器上的 Pod 库之间。
+* Kotlin 项目与存储在 CocoaPods 版本库中或本地机器上的 Pod library 之间。
 * Kotlin Pod（用作 CocoaPods 依赖项的 Kotlin 项目）与带有一个或多个目标的 Xcode 项目之间。
 
 完成初始配置后，当你向 `cocoapods` 添加新的依赖项时，只需在 IntelliJ IDEA 中重新导入项目。新依赖项将自动添加。无需额外步骤。
@@ -710,7 +710,7 @@ Kotlin/Native 获得了一系列性能改进，加速了开发过程和执行。
 [Kotlin 多平台](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html) 减少了为 [不同平台](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-dsl-reference.html#targets) 编写和维护相同代码的时间，同时保留了原生编程的灵活性和优势。我们继续投入精力在多平台特性和改进上：
 
 * [通过分层项目结构在多个目标之间共享代码](#sharing-code-in-several-targets-with-the-hierarchical-project-structure)
-* [在分层结构中利用原生库](#leveraging-native-libs-in-the-hierarchical-structure)
+* [在分层结构中利用原生 library](#leveraging-native-libs-in-the-hierarchical-structure)
 * [只指定一次 kotlinx 依赖项](#specifying-dependencies-only-once)
 
 > 多平台项目需要 Gradle 6.0 或更高版本。
@@ -738,7 +738,7 @@ Kotlin/Native 获得了一系列性能改进，加速了开发过程和执行。
 
 ```kotlin
 kotlin {
-    ios() // iOS 设备和模拟器目标；iosMain 和 iosTest 源代码集
+    ios() // iOS device and simulator targets; iosMain and iosTest source sets
 }
 ```
 
@@ -794,19 +794,19 @@ kotlin {
 </tab>
 </tabs>
 
-得益于分层项目结构，库也可以为目标的子集提供公共 API。了解更多关于 [在库中共享代码](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-share-on-platforms.html#share-code-in-libraries) 的信息。
+得益于分层项目结构，library 也可以为目标的子 set 提供公共 API。了解更多关于 [在 library 中共享代码](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-share-on-platforms.html#share-code-in-libraries) 的信息。
 
-### 在分层结构中利用原生库
+### 在分层结构中利用原生 library
 
-在多个原生目标之间共享的源代码集中，你可以使用平台依赖库，例如 Foundation、UIKit 和 POSIX。这可以帮助你共享更多原生代码，而不受平台特有依赖项的限制。
+在多个原生目标之间共享的源代码集中，你可以使用平台依赖 library，例如 Foundation、UIKit 和 POSIX。这可以帮助你共享更多原生代码，而不受平台特有依赖项的限制。
 
 无需额外步骤 – 一切都是自动完成的。IntelliJ IDEA 将帮助你检测可以在共享代码中使用的公共声明。
 
-[了解更多关于平台依赖库使用方法的信息](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-share-on-platforms.html#connect-platform-specific-libraries)。
+[了解更多关于平台依赖 library 使用方法的信息](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-share-on-platforms.html#connect-platform-specific-libraries)。
 
 ### 只指定一次 kotlinx 依赖项
 
-从现在开始，在使用共享和平台特有源代码集时，你只需指定一次对同一库的不同变体的依赖项，而无需多次指定。
+从现在开始，在使用共享和平台特有源代码集时，你只需指定一次对同一 library 的不同变体的依赖项，而无需多次指定。
 
 <tabs group="build-script">
 <tab title="Kotlin" group-key="kotlin">
@@ -841,13 +841,13 @@ kotlin {
 </tab>
 </tabs>
 
-不要再使用带有指定平台后缀的 kotlinx 库构件名称，例如 `-common`、`-native` 或类似名称，因为它们不再受支持。请使用库的基础构件名称，在上面的例子中是 `kotlinx-coroutines-core`。
+不要再使用带有指定平台后缀的 kotlinx 构件名称，例如 `-common`、`-native` 或类似名称，因为它们不再受支持。请使用 library 的基础构件名称，在上面的例子中是 `kotlinx-coroutines-core`。
 
 然而，此更改目前不影响：
-* `stdlib` 库 – 从 Kotlin 1.4.0 开始，[stdlib 依赖项会自动添加](#dependency-on-the-standard-library-added-by-default)。
-* `kotlin.test` 库 – 你仍然应该使用 `test-common` 和 `test-annotations-common`。这些依赖项将在稍后处理。
+* `stdlib` library – 从 Kotlin 1.4.0 开始，[stdlib 依赖项会自动添加](#dependency-on-the-standard-library-added-by-default)。
+* `kotlin.test` library – 你仍然应该使用 `test-common` 和 `test-annotations-common`。这些依赖项将在稍后处理。
 
-如果你只对特定平台需要依赖项，仍然可以使用带有 `-jvm` 或 `-js` 等后缀的标准和 kotlinx 库的平台特有变体，例如 `kotlinx-coroutines-core-jvm`。
+如果你只对特定平台需要依赖项，仍然可以使用带有 `-jvm` 或 `-js` 等后缀的标准和 kotlinx library 的平台特有变体，例如 `kotlinx-coroutines-core-jvm`。
 
 [了解更多关于配置依赖项的信息](gradle-configure-project.md#configure-dependencies)。
 
@@ -855,17 +855,17 @@ kotlin {
 
 除了 [Kotlin 多平台](#kotlin-multiplatform)、[Kotlin/JVM](#kotlin-jvm)、[Kotlin/Native](#kotlin-native) 和 [Kotlin/JS](#kotlin-js) 特有的 Gradle 项目特性和改进之外，还有一些适用于所有 Kotlin Gradle 项目的更改：
 
-* [标准库依赖项现在默认添加](#dependency-on-the-standard-library-added-by-default)
+* [标准 library 依赖项现在默认添加](#dependency-on-the-standard-library-added-by-default)
 * [Kotlin 项目需要最新版本的 Gradle](#minimum-gradle-version-for-kotlin-projects)
 * [改进了 IDE 对 Kotlin Gradle DSL 的支持](#improved-gradle-kts-support-in-the-ide)
 
-### 标准库依赖项现在默认添加
+### 标准 library 依赖项现在默认添加
 
-你不再需要在任何 Kotlin Gradle 项目（包括多平台项目）中声明对 `stdlib` 库的依赖项。该依赖项默认添加。
+你不再需要在任何 Kotlin Gradle 项目（包括多平台项目）中声明对 `stdlib` library 的依赖项。该依赖项默认添加。
 
-自动添加的标准库将与 Kotlin Gradle 插件版本相同，因为它们具有相同的版本控制。
+自动添加的标准 library 将与 Kotlin Gradle 插件版本相同，因为它们具有相同的版本控制。
 
-对于平台特有源代码集，将使用库的相应平台特有变体，而公共标准库则添加到其余部分。Kotlin Gradle 插件将根据 Gradle 构建脚本的 `kotlinOptions.jvmTarget` [编译器选项](gradle-compiler-options.md) 选择合适的 JVM 标准库。
+对于平台特有源代码集，将使用 library 的相应平台特有变体，而公共标准 library 则添加到其余部分。Kotlin Gradle 插件将根据 Gradle 构建脚本的 `kotlinOptions.jvmTarget` [编译器选项](gradle-compiler-options.md) 选择合适的 JVM 标准 library。
 
 [了解如何更改默认行为](gradle-configure-project.md#dependency-on-the-standard-library)。
 
@@ -881,13 +881,13 @@ kotlin {
 
   在 Gradle 6.0 之前的版本中，你需要通过在编辑器中单击 **Load Configuration**（加载配置）来手动加载脚本配置。
 
-  ![*.gradle.kts – 加载配置](gradle-kts-load-config.png)
+  ![*.gradle.kts – Load Configuration](gradle-kts-load-config.png)
 
   在 Gradle 6.0 及更高版本中，你可以通过单击 **Load Gradle Changes**（加载 Gradle 更改）或重新导入 Gradle 项目来显式应用更改。
  
   在 IntelliJ IDEA 2020.1 中（Gradle 6.0 及更高版本），我们新增了一个操作——**Load Script Configurations**（加载脚本配置），它加载脚本配置的更改而无需更新整个项目。这比重新导入整个项目所需时间少得多。
 
-  ![*.gradle.kts – 加载脚本更改和加载 Gradle 更改](gradle-kts.png)
+  ![*.gradle.kts – Load Script Changes and Load Gradle Changes](gradle-kts.png)
 
   对于新创建的脚本，或者当你首次使用新的 Kotlin 插件打开项目时，你也应该**加载脚本配置**。
   
@@ -897,13 +897,13 @@ kotlin {
   要为 `init.gradle.kts` 或应用的 [脚本插件](https://docs.gradle.org/current/userguide/plugins.html#sec:script_plugins) 启用高亮显示，请使用旧机制——将它们添加到独立脚本中。这些脚本的配置将在你需要时单独加载。
   你还可以为这些脚本启用自动重载。
     
-  ![*.gradle.kts – 添加到独立脚本](gradle-kts-standalone.png)
+  ![*.gradle.kts – Add to standalone scripts](gradle-kts-standalone.png)
   
 - _更好的错误报告_。以前你只能在单独的日志文件中看到 Gradle Daemon 的错误。现在 Gradle Daemon 直接返回所有错误信息，并在构建工具窗口中显示。这为你节省了时间和精力。
 
-## 标准库
+## 标准 library
 
-以下是 Kotlin 1.4.0 中 Kotlin 标准库最显著的变更列表：
+以下是 Kotlin 1.4.0 中 Kotlin 标准 library 最显著的变更列表：
 
 - [通用异常处理 API](#common-exception-processing-api)
 - [数组和集合的新函数](#new-functions-for-arrays-and-collections)
@@ -919,17 +919,17 @@ kotlin {
 
 ### 通用异常处理 API
 
-以下 API 元素已移至公共库：
+以下 API 元素已移至公共 library：
 
 * `Throwable.stackTraceToString()` 扩展函数，它返回此可抛出对象及其堆栈跟踪的详细描述；以及 `Throwable.printStackTrace()`，它将此描述打印到标准错误输出。
-* `Throwable.addSuppressed()` 函数，它允许你指定为传递异常而被抑制的异常；以及 `Throwable.suppressedExceptions` 属性，它返回所有被抑制异常的列表。
-* `@Throws` 注解，它列出了当函数编译为平台方法（在 JVM 或原生平台上）时将进行检测的异常类型。
+* `Throwable.addSuppressed()` 函数，它允许你指定为传递异常而被抑制的异常；以及 `Throwable.suppressedExceptions` 属性，它返回所有被抑制异常的 list。
+* `@Throws` 注解，它列出了当函数编译为平台方法（在 JVM 或 native 平台上）时将进行检测的异常类型。
 
 ### 数组和集合的新函数
 
 #### 集合
 
-在 1.4.0 中，标准库包含许多用于处理**集合**的有用函数：
+在 1.4.0 中，标准 library 包含许多用于处理**集合**的有用函数：
 
 * `setOfNotNull()`，它创建一个由所提供实参中所有非空项组成的 set。
 
@@ -956,7 +956,7 @@ kotlin {
     ```
     {kotlin-runnable="true" kotlin-min-compiler-version="1.4"}
 
-* `onEach()` 和 `flatMap()` 的 `*Indexed()` 对应函数。
+* `*Indexed()` 对应函数，用于 `onEach()` 和 `flatMap()`。
 它们应用于集合元素的操作以元素索引作为形参。
 
     ```kotlin
@@ -976,7 +976,7 @@ kotlin {
     ```
     {kotlin-runnable="true" kotlin-min-compiler-version="1.4"}
 
-* `randomOrNull()`、`reduceOrNull()` 和 `reduceIndexedOrNull()` 的 `*OrNull()` 对应函数。
+* `*OrNull()` 对应函数 `randomOrNull()`、`reduceOrNull()` 和 `reduceIndexedOrNull()`。
 它们在空集合上返回 `null`。
 
     ```kotlin
@@ -1075,7 +1075,7 @@ kotlin {
 * `associateWith()` 和 `associateWithTo()` 以数组元素作为键构建 map。
 * 数组子区间的 `reverse()` 反转子区间中元素的顺序。
 * 数组子区间的 `sortDescending()` 以降序对子区间中的元素进行排序。
-* 数组子区间的 `sort()` 和 `sortWith()` 现在在公共库中可用。
+* 数组子区间的 `sort()` 和 `sortWith()` 现在在公共 library 中可用。
 
 ```kotlin
 fun main() {
@@ -1139,7 +1139,7 @@ fun main() {
 
 ### 字符串操作函数
 
-标准库在 1.4.0 中包含字符串操作 API 中的多项改进：
+标准 library 在 1.4.0 中包含字符串操作 API 中的多项改进：
 
 * `StringBuilder` 具有有用的新扩展函数：`set()`、`setRange()`、`deleteAt()`、`deleteRange()`、`appendRange()` 等。
 
@@ -1157,8 +1157,8 @@ fun main() {
     ```
     {kotlin-runnable="true" kotlin-min-compiler-version="1.4"}
 
-* `StringBuilder` 的一些现有函数在公共库中可用。其中包括 `append()`、`insert()`、`substring()`、`setLength()` 等。
-* 新的 `Appendable.appendLine()` 和 `StringBuilder.appendLine()` 函数已添加到公共库中。它们替换了这些类的仅 JVM 可用的 `appendln()` 函数。
+* `StringBuilder` 的一些现有函数在公共 library 中可用。其中包括 `append()`、`insert()`、`substring()`、`setLength()` 等。
+* 新的 `Appendable.appendLine()` 和 `StringBuilder.appendLine()` 函数已添加到公共 library 中。它们替换了这些类的仅 JVM 可用的 `appendln()` 函数。
 
     ```kotlin
     fun main() {
@@ -1197,7 +1197,7 @@ fun main() {
 ### 委派属性改进
 
 在 1.4.0 中，我们添加了新特性以改善你在 Kotlin 中使用委派属性的体验：
-- 一个属性可以委派给另一个属性。
+- 一个属性可以委托给另一个属性。
 - 新的 `PropertyDelegateProvider` 接口有助于在单个声明中创建委托提供者。
 - `ReadWriteProperty` 现在继承 `ReadOnlyProperty`，因此你可以将它们都用于只读属性。
 
@@ -1251,17 +1251,17 @@ fun main() {
 
 ### stdlib 构件的 module-info 描述符
 
-Kotlin 1.4.0 为默认标准库构件添加了 `module-info.java` 模块信息。这使你可以将它们与 [jlink 工具](https://docs.oracle.com/en/java/javase/11/tools/jlink.html) 一起使用，该工具生成仅包含应用程序所需平台模块的自定义 Java 运行时镜像。
-你已经可以使用 jlink 与 Kotlin 标准库构件，但你必须为此使用单独的构件——带有“modular”分类器的构件——并且整个设置并不简单。
+Kotlin 1.4.0 为默认标准 library 构件添加了 `module-info.java` 模块信息。这 lets 你使用它们与 [jlink 工具](https://docs.oracle.com/en/java/javase/11/tools/jlink.html) 一起使用，该工具生成仅包含应用程序所需平台模块的自定义 Java 运行时镜像。
+你已经可以使用 jlink 与 Kotlin 标准 library 构件，但你必须为此使用单独的构件——带有“modular”分类器的构件——并且整个设置并不简单。
 在 Android 中，请确保使用 Android Gradle 插件版本 3.2 或更高版本，它能正确处理带有 module-info 的 jar 文件。
 
 ### 弃用
 
 #### Double 和 Float 的 toShort() 和 toByte()
 
-我们已弃用 `Double` 和 `Float` 上的 `toShort()` 和 `toByte()` 函数，因为它们可能由于值范围窄和变量大小小而导致意外结果。
+我们已弃用 `Double` 和 `Float` 上的 `toShort()` 和 `toByte()` 函数，因为它们可能由于值区间窄和变量大小小而导致意外结果。
 
-要将浮点数转换为 `Byte` 或 `Short`，请使用两步转换：首先，将它们转换为 `Int`，然后再次将它们转换为目标类型。
+要将浮点数转换为 `Byte` 或 `Short`，请使用两步转换：首先，将它们转换为 `Int`，然后再次转换为目标类型。
 
 #### 浮点数组上的 contains()、indexOf() 和 lastIndexOf()
 
@@ -1274,11 +1274,11 @@ Kotlin 1.4.0 为默认标准库构件添加了 `module-info.java` 模块信息�
 
 ### 排除已弃用的实验性协程
 
-`kotlin.coroutines.experimental` API 在 1.3.0 中已弃用，取而代之的是 kotlin.coroutines。在 1.4.0 中，我们通过从标准库中移除 `kotlin.coroutines.experimental` 来完成其弃用周期。对于仍然在 JVM 上使用它的开发者，我们提供了一个兼容构件 `kotlin-coroutines-experimental-compat.jar`，其中包含所有实验性协程 API。我们已将其发布到 Maven，并将其与标准库一起包含在 Kotlin 发行版中。
+`kotlin.coroutines.experimental` API 在 1.3.0 中已弃用，取而代之的是 kotlin.coroutines。在 1.4.0 中，我们通过从标准 library 中移除 `kotlin.coroutines.experimental` 来完成其弃用周期。对于仍然在 JVM 上使用它的开发者，我们提供了一个兼容构件 `kotlin-coroutines-experimental-compat.jar`，其中包含所有实验性协程 API。我们已将其发布到 Maven，并将其与标准 library 一起包含在 Kotlin 发行版中。
 
 ## 稳定的 JSON 序列化
 
-随着 Kotlin 1.4.0 的发布，我们将推出 [kotlinx.serialization](https://github.com/Kotlin/kotlinx.serialization) 的第一个稳定版本 - 1.0.0-RC。现在我们很高兴声明 `kotlinx-serialization-core`（以前称为 `kotlinx-serialization-runtime`）中的 JSON 序列化 API 已稳定。其他序列化格式的库以及核心库的一些高级部分仍处于实验性阶段。
+随着 Kotlin 1.4.0 的发布，我们将推出 [kotlinx.serialization](https://github.com/Kotlin/kotlinx.serialization) 的第一个稳定版本 - 1.0.0-RC。现在我们很高兴声明 `kotlinx-serialization-core`（以前称为 `kotlinx-serialization-runtime`）中的 JSON 序列化 API 已稳定。其他序列化格式的 library 以及核心 library 的一些高级部分仍处于实验性阶段。
 
 我们大幅重构了 JSON 序列化的 API，使其更一致、更易于使用。从现在开始，我们将继续以向后兼容的方式开发 JSON 序列化 API。
 然而，如果你使用过之前的版本，在迁移到 1.0.0-RC 时，你需要重写一些代码。为了帮助你解决此问题，我们还提供了 **[Kotlin 序列化指南](https://github.com/Kotlin/kotlinx.serialization/blob/master/docs/serialization-guide.md)** – `kotlinx.serialization` 的完整文档集。它将指导你使用最重要的特性，并帮助你解决可能遇到的任何问题。
@@ -1303,7 +1303,7 @@ Kotlin 1.4.0 为默认标准库构件添加了 `module-info.java` 模块信息�
 ### 新的依赖项解析 API
 
 在 1.4.0 中，我们引入了用于解析外部依赖项（例如 Maven 构件）的新 API 及其实现。该 API 发布在新的构件 `kotlin-scripting-dependencies` 和 `kotlin-scripting-dependencies-maven` 中。
-`kotlin-script-util` 库中之前的依赖项解析功能现已弃用。
+`kotlin-script-util` library 中之前的依赖项解析功能现已弃用。
 
 ### 新的 REPL API
 
@@ -1315,7 +1315,7 @@ Kotlin Scripting API 现在提供了实现编译脚本缓存的能力，显著�
 
 ### 构件重命名
 
-为了避免构件名称上的混淆，我们将 `kotlin-scripting-jsr223-embeddable` 和 `kotlin-scripting-jvm-host-embeddable` 重命名为 `kotlin-scripting-jsr223` 和 `kotlin-scripting-jvm-host`。这些构件依赖于 `kotlin-compiler-embeddable` 构件，后者对捆绑的第三方库进行了重打包，以避免使用冲突。我们将 `kotlin-compiler-embeddable`（通常更安全）的使用设置为脚本构件的默认设置。
+为了避免构件名称上的混淆，我们将 `kotlin-scripting-jsr223-embeddable` 和 `kotlin-scripting-jvm-host-embeddable` 重命名为 `kotlin-scripting-jsr223` 和 `kotlin-scripting-jvm-host`。这些构件依赖于 `kotlin-compiler-embeddable` 构件，后者对捆绑的第三方 library 进行了重打包，以避免使用冲突。我们将 `kotlin-compiler-embeddable`（通常更安全）的使用设置为脚本构件的默认设置。
 如果出于某种原因，你需要依赖于未重打包的 `kotlin-compiler` 的构件，请使用带有 `-unshaded` 后缀的构件版本，例如 `kotlin-scripting-jsr223-unshaded`。请注意，此重命名仅影响应该直接使用的脚本构件；其他构件的名称保持不变。
 
 ## 迁移到 Kotlin 1.4.0
@@ -1324,12 +1324,13 @@ Kotlin 插件的迁移工具可帮助你将项目从早期 Kotlin 版本迁移�
 
 只需将 Kotlin 版本更改为 `1.4.0` 并重新导入你的 Gradle 或 Maven 项目。IDE 随后会询问你关于迁移的事宜。
  
-如果你同意，它将运行迁移代码检查，这些检查将检测你的代码并建议对任何不工作或在 1.4.0 中不推荐的代码进行更正。
+如果你同意，它将运行迁移代码检测，这些检测将检测你的代码并建议对任何不工作或在 1.4.0 中不推荐的代码进行更正。
 
-![运行迁移](run-migration-wn.png){width=300}
+![Run migration](run-migration-wn.png){width=300}
 
-代码检查具有不同的 [严重级别](https://www.jetbrains.com/help/idea/configuring-inspection-severities.html)，以帮助你决定接受哪些建议以及忽略哪些建议。
+代码检测具有不同的 [严重级别](https://www.jetbrains.com/help/idea/configuring-inspection-severities.html)，以帮助你决定接受哪些建议以及忽略哪些建议。
 
-![迁移检查](migration-inspection-wn.png)
+![Migration inspections](migration-inspection-wn.png)
 
-Kotlin 1.4.0 是一个 [特性发布](kotlin-evolution-principles.md#language-and-tooling-releases)，因此可能会给语言带来不兼容的更改。在 **[Kotlin 1.4 兼容性指南](compatibility-guide-14.md)** 中查找此类更改的详细列表。
+Kotlin 1.4.0 是一个 [特性发布](kotlin-evolution-principles.md#language-and-tooling-releases) 和因此可以
+给语言带来不兼容的更改。在 **[Kotlin 1.4 兼容性指南](compatibility-guide-14.md)** 中查找此类更改的详细 list。

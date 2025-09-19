@@ -12,9 +12,9 @@
 
 Kotlin은 Ant를 위한 세 가지 태스크를 제공합니다:
 
-* `kotlinc`: JVM을 대상으로 하는 Kotlin 컴파일러
-* `kotlin2js`: JavaScript를 대상으로 하는 Kotlin 컴파일러
-* `withKotlin`: 표준 *javac* Ant 태스크를 사용할 때 Kotlin 파일을 컴파일하는 태스크
+*   `kotlinc`: JVM을 대상으로 하는 Kotlin 컴파일러
+*   `kotlin2js`: JavaScript를 대상으로 하는 Kotlin 컴파일러
+*   `withKotlin`: 표준 *javac* Ant 태스크를 사용할 때 Kotlin 파일을 컴파일하는 태스크
 
 이러한 태스크는 [Kotlin 컴파일러](%kotlinLatestUrl%) 아카이브의 `lib` 폴더에 있는 *kotlin-ant.jar* 라이브러리에 정의되어 있습니다. Ant 버전 1.8.2 이상이 필요합니다.
 
@@ -112,7 +112,7 @@ Kotlin은 Ant를 위한 세 가지 태스크를 제공합니다:
     <typedef resource="org/jetbrains/kotlin/ant/antlib.xml" classpath="${kotlin.lib}/kotlin-ant.jar"/>
 
     <target name="build">
-        <!-- out.meta.js가 생성되며, 이는 바이너리 메타데이터를 포함합니다. -->
+        <!-- out.meta.js will be created, which contains binary metadata -->
         <kotlin2js src="root1" output="out.js" metaInfo="true"/>
     </target>
 </project>

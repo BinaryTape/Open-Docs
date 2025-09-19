@@ -154,11 +154,11 @@ Kotlin/WasmおよびKotlin/JSにおけるプロパティの使用を簡素化し
 
 *   Chrome DevToolsでは、**Settings | Preferences | Console**でカスタムフォーマッタのチェックボックスを見つけます。
 
-    ![Enable custom formatters in Chrome](wasm-custom-formatters-chrome.png){width=400}
+    ![Chromeでカスタムフォーマッターを有効にする](wasm-custom-formatters-chrome.png){width=400}
 
 *   Firefox DevToolsでは、**Settings | Advanced settings**でカスタムフォーマッタのチェックボックスを見つけます。
 
-    ![Enable custom formatters in Firefox](wasm-custom-formatters-firefox.png){width=400}
+    ![Firefoxでカスタムフォーマッターを有効にする](wasm-custom-formatters-firefox.png){width=400}
 
 この変更は主にKotlin/Wasmの開発ビルドに影響します。プロダクションビルドに特定の要件がある場合は、
 それに応じてGradle設定を調整する必要があります。そのためには、`wasmJs {}`ブロックに以下のコンパイラオプションを追加します。
@@ -266,6 +266,8 @@ kotlin.kmp.isolated-projects.support=disable
 ### カスタムGradleパブリケーションバリアントの追加のサポート
 <primary-label ref="experimental-opt-in"/>
 
+Kotlin 2.1.20は、カスタム[Gradleパブリケーションバリアント](https://docs.gradle.org/current/userguide/variant_attributes.html)の追加のサポートを導入します。この機能はマルチプラットフォームプロジェクトとJVMをターゲットとするプロジェクトで利用可能です。
+
 > この機能では、既存のGradleバリアントを変更することはできません。
 >
 {style="note"}
@@ -361,7 +363,7 @@ import java.util.concurrent.atomic.*
 //sampleStart
 @OptIn(ExperimentalAtomicApi::class)
 fun main() {
-    // Converts Kotlin AtomicInt to Java's AtomicInteger
+    // Converts Kotlin's AtomicInt to Java's AtomicInteger
     val kotlinAtomic = AtomicInt(42)
     val javaAtomic: AtomicInteger = kotlinAtomic.asJavaAtomic()
     println("Java atomic value: ${javaAtomic.get()}")
@@ -434,9 +436,9 @@ fun main() {
 Kotlin 2.1.20以降、標準ライブラリは時刻の瞬間を表す機能を提供します。この機能は
 以前は公式Kotlinライブラリである[`kotlinx-datetime`](https://kotlinlang.org/api/kotlinx-datetime/)でのみ利用可能でした。
 
-[`kotlinx.datetime.Clock`](https://kotlinlang.org/api/kotlinx-datetime/kotlinx-datetime/kotlinx.datetime/-clock/)インターフェースは
-標準ライブラリに`kotlin.time.Clock`として導入され、[`kotlinx.datetime.Instant`](https://kotlinlang.org/api/kotlinx-datetime/kotlinx-datetime/kotlinx.datetime/-instant/)クラスは
-`kotlin.time.Instant`として導入されました。これらの概念は、より複雑なカレンダーやタイムゾーン機能が`kotlinx-datetime`に残るのに対し、
+`kotlinx.datetime.Clock`インターフェースは
+標準ライブラリに[`kotlin.time.Clock`](https://kotlinlang.org/api/core/2.1/kotlin-stdlib/kotlin.time/-clock/)として導入され、`kotlinx.datetime.Instant`
+クラスは[`kotlin.time.Instant`](https://kotlinlang.org/api/core/2.1/kotlin-stdlib/kotlin.time/-instant/)として導入されました。これらの概念は、より複雑なカレンダーやタイムゾーン機能が`kotlinx-datetime`に残るのに対し、
 時刻の瞬間にのみ関心があるため、標準ライブラリの`time`パッケージと自然に整合します。
 
 `Instant`と`Clock`は、タイムゾーンや日付を考慮せずに正確な時間追跡が必要な場合に役立ちます。例えば、
@@ -445,9 +447,9 @@ Kotlin 2.1.20以降、標準ライブラリは時刻の瞬間を表す機能を�
 
 他の言語との相互運用性を提供するために、追加の変換関数が利用可能です。
 
-*   `.toKotlinInstant()`は、時刻値を`kotlin.time.Instant`インスタンスに変換します。
-*   `.toJavaInstant()`は、`kotlin.time.Instant`値を`java.time.Instant`値に変換します。
-*   `Instant.toJSDate()`は、`kotlin.time.Instant`値をJS `Date`クラスのインスタンスに変換します。この変換は
+*   [`.toKotlinInstant()`](https://kotlinlang.org/api/core/2.1/kotlin-stdlib/kotlin.time/to-kotlin-instant.html)は、時刻値を`kotlin.time.Instant`インスタンスに変換します。
+*   [`.toJavaInstant()`](https://kotlinlang.org/api/core/2.1/kotlin-stdlib/kotlin.time/to-java-instant.html)は、`kotlin.time.Instant`値を`java.time.Instant`値に変換します。
+*   [`Instant.toJSDate()`](https://kotlinlang.org/api/core/2.1/kotlin-stdlib/kotlin.time/to-j-s-date.html)は、`kotlin.time.Instant`値をJS `Date`クラスのインスタンスに変換します。この変換は
     正確ではありません。JSは日付を表すのにミリ秒精度を使用しますが、Kotlinはナノ秒解像度を許容します。
 
 標準ライブラリの新しい時間機能はまだ[Experimental](components-stability.md#stability-levels-explained)です。

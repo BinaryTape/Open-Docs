@@ -48,7 +48,7 @@ object DoAuth {
 }
 
 fun main(){
-    // オブジェクトはtakeParams()関数が呼び出されたときに作成されます
+    // The object is created when the takeParams() function is called
     DoAuth.takeParams("coding_ninja", "N1njaC0ding!")
     // input Auth parameters = coding_ninja:N1njaC0ding!
 }
@@ -135,7 +135,8 @@ class BigBen {
     }
 
 fun main() {
-    // コンパニオンオブジェクトは、クラスが初めて参照されたときに作成されます。
+    // Companion object is created when the class is referenced for the
+    // first time.
     BigBen.getBongs(12)
     // BONG BONG BONG BONG BONG BONG BONG BONG BONG BONG BONG BONG 
 }

@@ -167,7 +167,7 @@ if (order != null) {
 // Kotlin
 data class Order(val customer: Customer)
 
-data class Customer(val name: String)
+data class Customer(val val name: String)
 
 val order = findOrder()
 
@@ -220,7 +220,7 @@ if (order == null) {
 // Kotlin
 val order = findOrder() ?: Order(Customer("Antonio"))
 ```
-{id="default-value-instead-of-null-kotlin"}
+{id="default-value-of-null-kotlin"}
 
 ## 返回值或 null 的函数
 
@@ -317,6 +317,47 @@ fun getStringLength(y: Any): Int {
 然而，让此类函数返回负值然后检测该值会更节省资源——你无论如何都会执行该检测，但这样不会执行额外的装箱操作。
 >
 {style="note"}
+
+将 Java 代码迁移到 Kotlin 时，你可能希望最初使用带有可空类型的常规转换操作符 `as`，以保留代码的原始语义。但是，我们建议你调整代码以使用安全转换操作符 `as?`，以实现更安全、更惯用的方法。例如，如果你有以下 Java 代码：
+
+```java
+public class UserProfile {
+    Object data;
+
+    public static String getUsername(UserProfile profile) {
+        if (profile == null) {
+            return null;
+        }
+        return (String) profile.data;
+    }
+}
+```
+
+直接使用 `as` 操作符迁移会得到：
+
+```kotlin
+class UserProfile(var data: Any? = null)
+
+fun getUsername(profile: UserProfile?): String? {
+    if (profile == null) {
+        return null
+    }
+    return profile.data as String?
+}
+```
+
+在这里，`profile.data` 使用 `as String?` 被转换为可空字符串。
+
+我们建议更进一步，使用 `as? String` 来安全地转换该值。这种方法在失败时返回 `null`，而不是抛出 `ClassCastException`：
+
+```kotlin
+class UserProfile(var data: Any? = null)
+
+fun getUsername(profile: UserProfile?): String? =
+  profile?.data as? String
+```
+
+此版本将 `if` 表达式替换为[安全调用操作符](null-safety.md#safe-call-operator) `?.`，它在尝试转换之前安全地访问了 `data` 属性。
 
 ## 接下来？
 

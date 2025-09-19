@@ -15,7 +15,8 @@ Kotlin의 현재 Stable 버전은 %kotlinVersion%입니다. 프로젝트에서 �
 
 | Kotlin Multiplatform plugin version | Gradle                                | Android Gradle plugin                               | Xcode   |
 |-------------------------------------|---------------------------------------|-----------------------------------------------------|---------|
-| 2.2.0-2.2.10                        | %minGradleVersion%–%maxGradleVersion% | %minAndroidGradleVersion%–%maxAndroidGradleVersion% | %xcode% |
+| 2.2.20                              | %minGradleVersion%–%maxGradleVersion% | %minAndroidGradleVersion%–%maxAndroidGradleVersion% | %xcode% |
+| 2.2.0-2.2.10                        | 7.6.3–8.14                            | 7.3.1–8.10.0                                        | 16.3    |
 | 2.1.21                              | 7.6.3–8.12.1                          | 7.3.1–8.7.2                                         | 16.3    |
 | 2.1.20                              | 7.6.3–8.11                            | 7.4.2–8.7.2                                         | 16.0    |
 | 2.1.0–2.1.10                        | 7.6.3-8.10*                           | 7.4.2–8.7.2                                         | 16.0    |
@@ -53,7 +54,6 @@ Bitcode 임베딩은 Xcode 14에서 사용이 중단되었고 Xcode 15에서는 
 *   2.2.0: 경고가 오류로 상향됩니다.
 *   2.3.0: `embedBitcode` DSL이 제거됩니다.
 
-undefined
 ### 기본적으로 생성되는 Java 소스 세트
 
 **무엇이 변경되었나요?**
@@ -80,7 +80,7 @@ Kotlin 2.1.20부터 빌드 스크립트에서 `withJava()` 함수를 제거할 �
 
 프로젝트가 [Application](https://docs.gradle.org/current/userguide/application_plugin.html) Gradle Java 플러그인을 사용하는 경우, [새로운 Experimental DSL](https://kotlinlang.org/docs/whatsnew2120.html#kotlin-multiplatform-new-dsl-to-replace-gradle-s-application-plugin)로 마이그레이션하는 것을 권장합니다. Gradle 8.7부터 Application 플러그인은 Kotlin Multiplatform Gradle 플러그인과 더 이상 함께 작동하지 않습니다.
 
-멀티플랫폼 프로젝트에서 Kotlin Multiplatform Gradle 플러그인과 다른 Gradle Java 플러그인을 모두 사용하려면 [Kotlin Multiplatform Gradle 플러그인 및 Gradle Java 플러그인과의 호환성 사용 중단](multiplatform-compatibility-guide.md#deprecated-compatibility-with-kotlin-multiplatform-gradle-plugin-and-gradle-java-plugins)을 참조하세요.
+멀티플랫폼 프로젝트에서 Kotlin Multiplatform Gradle 플러그인과 다른 Gradle 플러그인을 모두 사용하려면 [Kotlin Multiplatform Gradle 플러그인 및 Gradle Java 플러그인과의 호환성 사용 중단](multiplatform-compatibility-guide.md#deprecated-compatibility-with-kotlin-multiplatform-gradle-plugin-and-gradle-java-plugins)을 참조하세요.
 
 Kotlin 2.1.20 및 Gradle 버전 8.7보다 높은 버전에서 [Java test fixtures](https://docs.gradle.org/current/userguide/java_testing.html#sec:java_test_fixtures) Gradle 플러그인을 사용하는 경우, 해당 플러그인은 작동하지 않습니다. 대신, 이 문제가 해결된 [Kotlin 2.1.21](https://kotlinlang.org/docs/releases.html#release-details)로 업그레이드하세요.
 
@@ -94,7 +94,6 @@ Kotlin 2.1.20 및 Gradle 버전 8.7보다 높은 버전에서 [Java test fixture
 *   Gradle 9.0: 이 경고가 오류로 상향됩니다.
 *   2.1.20: 어떤 Gradle 버전에서든 `withJava()` 함수 사용 시 사용 중단 경고가 도입됩니다.
 
-undefined
 ### `android` 타겟을 `androidTarget`으로 이름 변경
 
 **무엇이 변경되었나요?**
@@ -115,7 +114,6 @@ Kotlin Multiplatform을 더욱 안정화하기 위한 노력을 계속하고 있
 *   2.1.0: 이 경고가 오류로 상향됩니다.
 *   2.2.0: Kotlin Multiplatform Gradle 플러그인에서 `android` 타겟 DSL이 제거됩니다.
 
-undefined
 ### 여러 유사 타겟 선언
 
 **무엇이 변경되었나요?**
@@ -236,7 +234,6 @@ Ktor 기반 및 OkHttp 기반 구현이 _동일한 Gradle 프로젝트_에 있�
 *   1.9.20: Kotlin Multiplatform 프로젝트에서 여러 유사한 타겟을 사용할 때 사용 중단 경고가 도입됩니다.
 *   2.1.0: Kotlin/JS 타겟을 제외한 경우, 이러한 경우에 오류를 보고합니다. 이 예외에 대한 자세한 내용은 [YouTrack](https://youtrack.jetbrains.com/issue/KT-47038/KJS-MPP-Split-JS-target-into-JsBrowser-and-JsNode)의 이슈를 참조하세요.
 
-undefined
 ### 레거시 모드로 게시된 멀티플랫폼 라이브러리 지원 중단
 
 **무엇이 변경되었나요?**
@@ -267,7 +264,6 @@ Kotlin 팀은 생태계 마이그레이션을 돕기 위해 열심이므로, 문
 *   2.0.0: 레거시 라이브러리에 대한 종속성에 대한 경고가 오류로 상향됩니다.
 *   >2.0.0: 레거시 라이브러리에 대한 종속성 지원이 제거됩니다. 이러한 종속성을 사용하면 빌드 실패가 발생할 수 있습니다.
 
-undefined
 ### 계층 구조 지원을 위한 Gradle 속성 사용 중단
 
 **무엇이 변경되었나요?**
@@ -306,7 +302,6 @@ Kotlin 1.6.20부터 Kotlin 도구 체인의 기본 동작에 이러한 속성이
 
 이러한 속성을 제거한 후 예기치 않은 문제가 발생할 경우, [YouTrack에 이슈를 생성](https://kotl.in/issue)하세요.
 
-undefined
 ### 타겟 프리셋(Presets) API 사용 중단
 
 **무엇이 변경되었나요?**
@@ -350,7 +345,6 @@ undefined
 *   2.0.0: 이 경고가 오류로 상향됩니다.
 *   2.2.0: Kotlin Gradle 플러그인의 공개 API에서 프리셋 관련 API가 제거됩니다. 여전히 이를 사용하는 소스는 "unresolved reference" 오류로 실패하고, 바이너리(예: Gradle 플러그인)는 최신 버전의 Kotlin Gradle 플러그인을 대상으로 다시 컴파일되지 않으면 연결(linkage) 오류로 실패할 수 있습니다.
 
-undefined
 ### 사용 중단된 Apple 타겟 단축키
 
 **무엇이 변경되었나요?**
@@ -406,7 +400,6 @@ Kotlin Gradle 플러그인은 이제 내장된 계층 구조 템플릿을 제공
 
 이 섹션에서는 사용 중단 주기가 끝나고 Kotlin 1.9.0−1.9.25에 적용되는 호환되지 않는 변경 사항에 대해 다룹니다.
 
-undefined
 ### Kotlin 컴파일에 Kotlin 소스 세트를 직접 추가하기 위한 API 사용 중단 {initial-collapse-state="collapsed" collapsible="true"}
 
 **무엇이 변경되었나요?**
@@ -471,7 +464,6 @@ kotlin {
 *   1.9.20: 이 경고가 오류로 상향됩니다.
 *   2.2.0: Kotlin Gradle 플러그인에서 `KotlinComplation.source`가 제거되며, 사용 시도 시 빌드 스크립트 컴파일 중 "unresolved reference" 오류가 발생합니다.
 
-undefined
 ### `kotlin-js` Gradle 플러그인에서 `kotlin-multiplatform` Gradle 플러그인으로 마이그레이션 {initial-collapse-state="collapsed" collapsible="true"}
 
 **무엇이 변경되었나요?**
@@ -595,7 +587,6 @@ Kotlin 1.9.0부터 `kotlin-js` Gradle 플러그인은 사용 중단되었습니�
 
 1.9.0에서는 `kotlin-js` Gradle 플러그인을 사용하면 사용 중단 경고가 발생합니다.
 
-undefined
 ### `jvmWithJava` 프리셋 사용 중단 {initial-collapse-state="collapsed" collapsible="true"}
 
 **무엇이 변경되었나요?**
@@ -625,7 +616,6 @@ undefined
 >
 {style="note"}
 
-undefined
 ### 레거시 Android 소스 세트 레이아웃 사용 중단 {initial-collapse-state="collapsed" collapsible="true"}
 
 **무엇이 변경되었나요?**
@@ -641,7 +631,6 @@ undefined
 *   1.9.20: 이 경고가 오류로 상향됩니다. 이 오류는 **억제할 수 없습니다**.
 *   >1.9.20: `kotlin.mpp.androidSourceSetLayoutVersion=1` 지원이 제거됩니다. Kotlin Gradle 플러그인은 이 속성을 무시합니다.
 
-undefined
 ### 사용자 정의 `dependsOn`을 가진 `commonMain` 및 `commonTest` 사용 중단 {initial-collapse-state="collapsed" collapsible="true"}
 
 **무엇이 변경되었나요?**
@@ -691,7 +680,7 @@ JetBrains 팀은 예측 가능한 동작을 위해 Kotlin의 전방 선언(forwa
 *   `objcnames.protocols.ForwardDeclaredProtocolProtocol`을 사용하는 objcinterop 라이브러리와 실제 정의를 가진 다른 라이브러리 두 개를 고려해 봅시다:
 
     ```ObjC
-    // 첫 번째 objcinterop 라이브러리
+    // First objcinterop library
     #import <Foundation/Foundation.h>
     
     @protocol ForwardDeclaredProtocol;
@@ -702,12 +691,12 @@ JetBrains 팀은 예측 가능한 동작을 위해 Kotlin의 전방 선언(forwa
     ```
 
     ```ObjC
-    // 두 번째 objcinterop 라이브러리
-    // 헤더:
+    // Second objcinterop library
+    // Header:
     #import <Foundation/Foundation.h>
     @protocol ForwardDeclaredProtocol
     @end
-    // 구현:
+    // Implementation:
     @interface ForwardDeclaredProtocolImpl : NSObject <ForwardDeclaredProtocol>
     @end
 
@@ -738,7 +727,6 @@ Kotlin 1.9.20부터 해당 C 및 Objective-C 전방 선언으로의 명시적 �
 
 이 섹션에서는 사용 중단 주기가 끝나고 Kotlin 1.7.0−1.8.22에 적용되는 호환되지 않는 변경 사항에 대해 다룹니다.
 
-undefined
 ### Kotlin Multiplatform Gradle 플러그인 및 Gradle Java 플러그인과의 호환성 사용 중단 {initial-collapse-state="collapsed" collapsible="true"}
 
 **무엇이 변경되었나요?**
@@ -884,8 +872,8 @@ Kotlin 컴파일 작업은 더 이상 `sourceCompatibility` 및 `targetCompatibi
 |-----------------------------------------------------------|--------------------------------------------------------------------------------------------------------|
 | `SourceTask.stableSources` 입력은 더 이상 사용할 수 없습니다. | 대신 `sources` 입력을 사용하세요. 또한 `setSource()` 메서드는 여전히 사용할 수 있습니다.              |
 | `sourceFilesExtensions` 입력이 제거되었습니다.            | 컴파일 작업은 여전히 `PatternFilterable` 인터페이스를 구현합니다. Kotlin 소스를 필터링하려면 해당 메서드를 사용하세요. |
-| `Gradle destinationDir: File` 출력이 사용 중단되었습니다.   | 대신 `destinationDirectory: DirectoryProperty` 출력을 사용하세요.                                        |
-| `KotlinCompile` 작업의 `classpath` 속성이 사용 중단되었습니다.  | 모든 컴파일 작업은 이제 컴파일에 필요한 라이브러리 목록에 `libraries` 입력을 사용합니다.              |
+| `Gradle destinationDir: File` 출력이 사용 중단되었습니다.   | 대신 `destinationDirectory: DirectoryProperty` 출력을 사용하세요.                                              |
+| `KotlinCompile` 작업의 `classpath` 속성이 사용 중단되었습니다. | 모든 컴파일 작업은 이제 컴파일에 필요한 라이브러리 목록에 `libraries` 입력을 사용합니다.              |
 
 **언제부터 변경 사항이 적용되나요?**
 

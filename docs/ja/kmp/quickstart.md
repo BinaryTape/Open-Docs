@@ -15,7 +15,7 @@ IDE と必要なプラグインから始めます。
     Kotlin Multiplatform は IntelliJ IDEA および Android Studio でサポートされているため、お好みの IDE を使用できます。
 
     [JetBrains Toolbox App](https://www.jetbrains.com/toolbox/app/) は、IDE をインストールするための推奨ツールです。
-    これにより、複数の製品やバージョン（[早期アクセスプログラム](https://www.jetbrains.com/resources/eap/) (EAP) や Nightly リリースを含む）を管理できます。
+    これにより、[早期アクセスプログラム](https://www.jetbrains.com/resources/eap/) (EAP) や Nightly リリースを含む、複数の製品やバージョンを管理できます。
 
     スタンドアロンインストールの場合、[IntelliJ IDEA](https://www.jetbrains.com/idea/download/) または [Android Studio](https://developer.android.com/studio) のインストーラーをダウンロードしてください。
 
@@ -101,7 +101,7 @@ IDE ウィザードを使用して新しい KMP プロジェクトを作成し�
     *   iOS の場合、2つの実装のいずれかを選択できます。
         *   Compose Multiplatform を使用した共有 UI コード
         *   SwiftUI で作成され、共有ロジックを持つ Kotlin モジュールに接続された完全なネイティブ UI
-    *   デスクトップターゲットには、Compose Hot Reload 機能のアルファ版が含まれており、対応するコードを変更するとすぐに UI の変更を確認できます。
+    *   デスクトップターゲットには、[Compose Hot Reload](compose-hot-reload.md) 機能のベータ版が含まれており、対応するコードを変更するとすぐに UI の変更を確認できます。
         デスクトップアプリを作成する予定がない場合でも、UI コードの作成を高速化するためにデスクトップバージョンを使用することをお勧めします。
 
 プラットフォームの選択が完了したら、**Create** ボタンをクリックし、IDE がプロジェクトを生成してインポートするのを待ちます。
@@ -129,7 +129,7 @@ IDE ウィザードを使用して新しい KMP プロジェクトを作成し�
     *   iOS の場合、2つの実装のいずれかを選択できます。
         *   Compose Multiplatform を使用した共有 UI コード
         *   SwiftUI で作成され、共有ロジックを持つ Kotlin モジュールに接続された完全なネイティブ UI
-    *   デスクトップターゲットには、ホットリロード機能のアルファ版が含まれており、対応するコードを変更するとすぐに UI の変更を確認できます。
+    *   デスクトップターゲットには、[Compose Hot Reload](compose-hot-reload.md) 機能のベータ版が含まれており、対応するコードを変更するとすぐに UI の変更を確認できます。
         デスクトップアプリを作成する予定がない場合でも、UI コードの作成を高速化するためにデスクトップバージョンを使用することをお勧めします。
 5.  プロジェクトが生成されたら、プロジェクトの JDK として [JetBrains Runtime](https://github.com/JetBrains/JetBrainsRuntime) (JBR) のバージョンを選択することを推奨します。これは、特にデスクトップ KMP アプリの互換性を向上させる上で重要な修正を提供するためです。
     関連するバージョンの JBR はすべての IntelliJ IDEA ディストリビューションに含まれているため、追加の設定は必要ありません。
@@ -163,7 +163,8 @@ Windows または Linux を使用している場合:
 
 ## サンプルアプリを実行する
 
-IDE ウィザードによって作成されたプロジェクトには、iOS、Android、デスクトップ、Web アプリケーション用の生成された実行設定、およびサーバーアプリを実行するための Gradle タスクが含まれています。
+IDE ウィザードによって作成されたプロジェクトには、iOS、Android、デスクトップ、および Web アプリケーション用の生成された実行設定、
+ならびにサーバーアプリを実行するための Gradle タスクが含まれています。
 Windows および Linux の場合、各プラットフォームの Gradle コマンドについては以下を参照してください。
 
 <Tabs>
@@ -261,7 +262,7 @@ iOS 実行設定が実行する仮想デバイスがないと報告する場合�
 
 ### ヘルプ
 
-*   **Kotlin Slack**。 [招待](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up) を取得し、`#multiplatform` チャンネルに参加してください。
+*   **Kotlin Slack**。 [招待](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up) を取得し、[#multiplatform](https://kotlinlang.slack.com/archives/C3PQML5NU) チャンネルに参加してください。
 *   **Kotlin Multiplatform Tooling イシュートラッカー**。 [新しい問題を報告](https://youtrack.jetbrains.com/newIssue?project=KMT) してください。
 
 ## 次にすること

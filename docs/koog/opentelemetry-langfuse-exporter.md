@@ -71,10 +71,10 @@ Koog 还会捕获 Langfuse 所需的 span 属性，以显示 [代理图](https:/
 
 在 Langfuse 中可视化时，跟踪显示如下：
 ![Langfuse traces](img/opentelemetry-langfuse-exporter-light.png#only-light)
-![Langfuse traces](img/opricemetry-langfuse-exporter-dark.png#only-dark)
+![Langfuse traces](img/opentelemetry-langfuse-exporter-dark.png#only-dark)
 
 关于 Langfuse OpenTelemetry 跟踪的更多详细信息，请参见：
-[Langfuse OpenTelemetry 文档](https://langfuse.com/integrations/native/opentelemetry#opentelemetry-endpoint)。
+[Langfuse OpenTelemetry Docs](https://langfuse.com/integrations/native/opentelemetry#opentelemetry-endpoint)。
 
 ---
 

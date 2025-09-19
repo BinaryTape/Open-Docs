@@ -3,28 +3,28 @@
 <no-index/>
 
 <tldr>
-    <p><img src="icon-1-done.svg" width="20" alt="첫 번째 단계" /> <a href="kotlin-tour-intermediate-extension-functions.md">확장 함수</a><br />
-        <img src="icon-2-done.svg" width="20" alt="두 번째 단계" /> <a href="kotlin-tour-intermediate-scope-functions.md">스코프 함수</a><br />
-        <img src="icon-3.svg" width="20" alt="세 번째 단계" /> <strong>리시버를 가진 람다 표현식</strong><br />
-        <img src="icon-4-todo.svg" width="20" alt="네 번째 단계" /> <a href="kotlin-tour-intermediate-classes-interfaces.md">클래스와 인터페이스</a><br />
-        <img src="icon-5-todo.svg" width="20" alt="다섯 번째 단계" /> <a href="kotlin-tour-intermediate-objects.md">객체</a><br />
-        <img src="icon-6-todo.svg" width="20" alt="여섯 번째 단계" /> <a href="kotlin-tour-intermediate-open-special-classes.md">열린 클래스와 특수 클래스</a><br />
-        <img src="icon-7-todo.svg" width="20" alt="일곱 번째 단계" /> <a href="kotlin-tour-intermediate-properties.md">프로퍼티</a><br />
-        <img src="icon-8-todo.svg" width="20" alt="여덟 번째 단계" /> <a href="kotlin-tour-intermediate-null-safety.md">널 안정성</a><br />
-        <img src="icon-9-todo.svg" width="20" alt="아홉 번째 단계" /> <a href="kotlin-tour-intermediate-libraries-and-apis.md">라이브러리 및 API</a></p>
+    <p><img src="icon-1-done.svg" width="20" alt="First step" /> <a href="kotlin-tour-intermediate-extension-functions.md">확장 함수</a><br />
+        <img src="icon-2-done.svg" width="20" alt="Second step" /> <a href="kotlin-tour-intermediate-scope-functions.md">스코프 함수</a><br />
+        <img src="icon-3.svg" width="20" alt="Third step" /> <strong>리시버를 가진 람다 표현식</strong><br />
+        <img src="icon-4-todo.svg" width="20" alt="Fourth step" /> <a href="kotlin-tour-intermediate-classes-interfaces.md">클래스와 인터페이스</a><br />
+        <img src="icon-5-todo.svg" width="20" alt="Fifth step" /> <a href="kotlin-tour-intermediate-objects.md">객체</a><br />
+        <img src="icon-6-todo.svg" width="20" alt="Sixth step" /> <a href="kotlin-tour-intermediate-open-special-classes.md">열린 클래스와 특수 클래스</a><br />
+        <img src="icon-7-todo.svg" width="20" alt="Seventh step" /> <a href="kotlin-tour-intermediate-properties.md">프로퍼티</a><br />
+        <img src="icon-8-todo.svg" width="20" alt="Eighth step" /> <a href="kotlin-tour-intermediate-null-safety.md">널 안정성</a><br />
+        <img src="icon-9-todo.svg" width="20" alt="Ninth step" /> <a href="kotlin-tour-intermediate-libraries-and-apis.md">라이브러리 및 API</a></p>
 </tldr>
 
-이 장에서는 리시버 객체를 다른 타입의 함수인 람다 표현식과 함께 사용하는 방법과, 이들이 도메인 특화 언어를 만드는 데 어떻게 도움이 되는지 배웁니다.
+이 장에서는 다른 유형의 함수인 람다 표현식과 함께 리시버를 사용하는 방법과, 이들이 도메인 특화 언어(DSL)를 만드는 데 어떻게 도움이 되는지 배웁니다.
 
 ## 리시버를 가진 람다 표현식
 
-초급 투어에서 [람다 표현식](kotlin-tour-functions.md#lambda-expressions)을 사용하는 방법을 배웠습니다. 람다 표현식은 리시버를 가질 수도 있습니다. 이 경우 람다 표현식은 리시버 객체를 매번 명시적으로 지정할 필요 없이 리시버 객체의 모든 멤버 함수나 프로퍼티에 접근할 수 있습니다. 이러한 추가적인 참조가 없으면 코드를 더 쉽게 읽고 유지보수할 수 있습니다.
+초급 투어에서 [람다 표현식](kotlin-tour-functions.md#lambda-expressions)을 사용하는 방법을 배웠습니다. 람다 표현식은 리시버를 가질 수도 있습니다. 이 경우 람다 표현식은 리시버를 매번 명시적으로 지정할 필요 없이 리시버의 모든 멤버 함수나 프로퍼티에 접근할 수 있습니다. 이러한 추가적인 참조가 없으면 코드를 더 쉽게 읽고 유지보수할 수 있습니다.
 
 > 리시버를 가진 람다 표현식은 리시버를 가진 함수 리터럴로도 알려져 있습니다.
 >
 {style="tip"}
 
-리시버를 가진 람다 표현식의 구문은 함수 타입을 정의할 때 다릅니다. 먼저 확장하려는 리시버 타입을 작성합니다. 다음으로 `.`을 붙이고 나머지 함수 타입 정의를 완료합니다. 예를 들어:
+리시버를 가진 람다 표현식의 구문은 함수 타입을 정의할 때 다릅니다. 먼저 확장하려는 리시버를 작성합니다. 다음으로 `.`을 붙인 다음 나머지 함수 타입 정의를 완료합니다. 예를 들어:
 
 ```kotlin
 MutableList<Int>.() -> Unit
@@ -32,36 +32,49 @@ MutableList<Int>.() -> Unit
 
 이 함수 타입은 다음을 가집니다:
 
-*   `MutableList<Int>`를 리시버 타입으로 가집니다.
+*   `MutableList<Int>`를 리시버로 가집니다.
 *   괄호 `()` 안에 함수 파라미터가 없습니다.
 *   반환 값 `Unit`이 없습니다.
 
-`StringBuilder` 클래스를 확장하는 다음 예시를 고려해 보세요:
+캔버스에 도형을 그리는 다음 예시를 고려해 보세요:
 
 ```kotlin
-fun main() {
-    // 리시버를 가진 람다 표현식 정의
-    fun StringBuilder.appendText() { append("Hello!") }
+class Canvas {
+    fun drawCircle() = println("🟠 Drawing a circle")
+    fun drawSquare() = println("🟥 Drawing a square")
+}
 
+// 리시버를 가진 람다 표현식 정의
+fun render(block: Canvas.() -> Unit): Canvas {
+    val canvas = Canvas()
     // 리시버를 가진 람다 표현식 사용
-    val stringBuilder = StringBuilder()
-    stringBuilder.appendText()
-    println(stringBuilder.toString())
-    // Hello!
+    canvas.block()
+    return canvas
+}
+
+fun main() {
+    render {
+        drawCircle()
+        // 🟠 Drawing a circle
+        drawSquare()
+        // 🟥 Drawing a square
+    }
 }
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-intermediate-tour-lambda-expression-with-receiver"}
 
 이 예시에서:
 
-*   `StringBuilder` 클래스가 리시버 타입입니다.
-*   람다 표현식의 함수 타입은 함수 파라미터 `()`가 없으며 반환 값 `Unit`이 없습니다.
-*   람다 표현식은 `StringBuilder` 클래스의 `append()` 멤버 함수를 호출하고 문자열 `"Hello!"`를 함수 파라미터로 사용합니다.
-*   `StringBuilder` 클래스의 인스턴스가 생성됩니다.
-*   `appendText`에 할당된 람다 표현식이 `stringBuilder` 인스턴스에 대해 호출됩니다.
-*   `stringBuilder` 인스턴스는 `toString()` 함수로 문자열로 변환되어 `println()` 함수를 통해 출력됩니다.
+*   `Canvas` 클래스에는 원이나 사각형을 그리는 것을 시뮬레이션하는 두 개의 함수가 있습니다.
+*   `render()` 함수는 `block` 파라미터를 받고 `Canvas` 클래스의 인스턴스를 반환합니다.
+*   `block` 파라미터는 `Canvas` 클래스를 리시버로 가지는 리시버를 가진 람다 표현식입니다.
+*   `render()` 함수는 `Canvas` 클래스의 인스턴스를 생성하고, `canvas` 인스턴스에 `block()` 람다 표현식을 리시버로 사용하여 호출합니다.
+*   `main()` 함수는 `block` 파라미터에 전달되는 람다 표현식과 함께 `render()` 함수를 호출합니다.
+*   `render()` 함수에 전달된 람다 내부에서 프로그램은 `Canvas` 클래스의 인스턴스에 대해 `drawCircle()` 및 `drawSquare()` 함수를 호출합니다.
 
-리시버를 가진 람다 표현식은 도메인 특화 언어 (DSL)를 만들고자 할 때 유용합니다. 리시버를 명시적으로 참조하지 않고도 리시버 객체의 멤버 함수 및 프로퍼티에 접근할 수 있으므로 코드가 더욱 간결해집니다.
+  리시버를 가진 람다 표현식에서 `drawCircle()` 및 `drawSquare()` 함수가 호출되기 때문에, 이 함수들은 `Canvas` 클래스 내부에 있는 것처럼 직접 호출될 수 있습니다.
+
+리시버를 가진 람다 표현식은 도메인 특화 언어(DSL)를 만들고자 할 때 유용합니다. 리시버를 명시적으로 참조하지 않고도 리시버의 멤버 함수 및 프로퍼티에 접근할 수 있으므로 코드가 더욱 간결해집니다.
 
 이를 시연하기 위해, 메뉴의 항목을 구성하는 예시를 고려해 봅시다. `MenuItem` 클래스와 메뉴에 항목을 추가하는 `item()` 함수 및 모든 메뉴 항목의 리스트 `items`를 포함하는 `Menu` 클래스부터 시작하겠습니다:
 
@@ -77,7 +90,7 @@ class Menu(val name: String) {
 }
 ```
 
-시작점으로 메뉴를 빌드하는 `menu()` 함수에 함수 파라미터 (`init`)로 전달된 리시버를 가진 람다 표현식을 사용해 봅시다. 코드가 `StringBuilder` 클래스의 이전 예시와 유사한 접근 방식을 따르는 것을 알 수 있습니다:
+메뉴를 빌드하는 `menu()` 함수에 함수 파라미터 (`init`)로 전달된 리시버를 가진 람다 표현식을 시작점으로 사용해 봅시다:
 
 ```kotlin
 fun menu(name: String, init: Menu.() -> Unit): Menu {
@@ -127,9 +140,9 @@ fun main() {
     // 메뉴 출력
     printMenu(mainMenu)
     // Menu: Main Menu
-    // Item: Home
-    // Item: Settings
-    // Item: Exit
+    //   Item: Home
+    //   Item: Settings
+    //   Item: Exit
 }
 //sampleEnd
 ```
@@ -147,7 +160,7 @@ fun main() {
 
 ### 연습 문제 1 {initial-collapse-state="collapsed" collapsible="true" id="lambda-receivers-exercise-1"}
 
-리시버를 가진 람다 표현식을 받는 `fetchData()` 함수가 있습니다. 람다 표현식을 업데이트하여 `append()` 함수를 사용하도록 하여 코드의 출력이 `Data received - Processed`가 되도록 하세요.
+`fetchData()` 함수는 리시버를 가진 람다 표현식을 받습니다. 람다 표현식을 업데이트하여 `append()` 함수를 사용하도록 하여 코드의 출력이 `Data received - Processed`가 되도록 하세요.
 
 |---|---|
 ```kotlin

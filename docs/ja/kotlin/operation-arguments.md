@@ -36,90 +36,90 @@ class MultiMap<K, V> {
 4.  パラメータ構成名 (`@Param(name = "key")`) を指定して、複数のオペレーションで共有します。
 
     以下は、`[1..2]`の範囲で`add(key, value)`および`get(key)`オペレーションのキーを生成する`MultiMap`のストレス テストです。
+    
+   ```kotlin
+   import java.util.concurrent.*
+   import org.jetbrains.lincheck.check
+   import org.jetbrains.lincheck.datastructures.*
+   import org.junit.*
+   
+   class MultiMap<K, V> {
+       private val map = ConcurrentHashMap<K, List<V>>()
+   
+       // Maintains a list of values 
+       // associated with the specified key.
+       fun add(key: K, value: V) {
+           val list = map[key]
+           if (list == null) {
+               map[key] = listOf(value)
+           } else {
+               map[key] = list + value
+           }
+       }
 
-    ```kotlin
-    import java.util.concurrent.*
-    import org.jetbrains.lincheck.check
-    import org.jetbrains.lincheck.datastructures.*
-    import org.junit.*
-    
-    class MultiMap<K, V> {
-        private val map = ConcurrentHashMap<K, List<V>>()
-    
-        // Maintains a list of values 
-        // associated with the specified key.
-        fun add(key: K, value: V) {
-            val list = map[key]
-            if (list == null) {
-                map[key] = listOf(value)
-            } else {
-                map[key] = list + value
-            }
-        }
-
-        fun get(key: K): List<V> = map[key] ?: emptyList()
-    }
-    
-    @Param(name = "key", gen = IntGen::class, conf = "1:2")
-    class MultiMapTest {
-        private val map = MultiMap<Int, Int>()
-    
-        @Operation
-        fun add(@Param(name = "key") key: Int, value: Int) = map.add(key, value)
-    
-        @Operation
-        fun get(@Param(name = "key") key: Int) = map.get(key)
-    
-        @Test
-        fun stressTest() = StressOptions().check(this::class)
-    
-        @Test
-        fun modelCheckingTest() = ModelCheckingOptions().check(this::class)
-    }
-    ```
+       fun get(key: K): List<V> = map[key] ?: emptyList()
+   }
+   
+   @Param(name = "key", gen = IntGen::class, conf = "1:2")
+   class MultiMapTest {
+       private val map = MultiMap<Int, Int>()
+   
+       @Operation
+       fun add(@Param(name = "key") key: Int, value: Int) = map.add(key, value)
+   
+       @Operation
+       fun get(@Param(name = "key") key: Int) = map.get(key)
+   
+       @Test
+       fun stressTest() = StressOptions().check(this::class)
+   
+       @Test
+       fun modelCheckingTest() = ModelCheckingOptions().check(this::class)
+   }
+   ```
 
 5.  `stressTest()`を実行すると、次の出力が表示されます。
 
-    ```text
-    = Invalid execution results =
-    | ---------------------------------- |
-    |    Thread 1     |     Thread 2     |
-    | ---------------------------------- |
-    | add(2, 0): void | add(2, -1): void |
-    | ---------------------------------- |
-    | get(2): [0]     |                  |
-    | ---------------------------------- |
-    ```
-
+   ```text
+   = Invalid execution results =
+   | ---------------------------------- |
+   |    Thread 1     |     Thread 2     |
+   | ---------------------------------- |
+   | add(2, 0): void | add(2, -1): void |
+   | ---------------------------------- |
+   | get(2): [0]     |                  |
+   | ---------------------------------- |
+   ```
+   
 6.  最後に、`modelCheckingTest()`を実行します。以下の出力で失敗します。
 
-    ```text
-    = Invalid execution results =
-    | ---------------------------------- |
-    |    Thread 1     |     Thread 2     |
-    | ---------------------------------- |
-    | add(2, 0): void | add(2, -1): void |
-    | ---------------------------------- |
-    | get(2): [-1]    |                  |
-    | ---------------------------------- |
-    
-    ---
-    水平線 | ----- | より上のすべての操作は、線の下の操作より前に発生します
-    ---
+   ```text
+   = Invalid execution results =
+   | ---------------------------------- |
+   |    Thread 1     |     Thread 2     |
+   | ---------------------------------- |
+   | add(2, 0): void | add(2, -1): void |
+   | ---------------------------------- |
+   | get(2): [-1]    |                  |
+   | ---------------------------------- |
+   
+   ---
+   水平線 | ----- | より上のすべての操作は、線の下の操作より前に発生します
+   ---
 
-    次のインターリービングがエラーにつながります:
-    | ---------------------------------------------------------------------- |
-    |    Thread 1     |                       Thread 2                       |
-    | ---------------------------------------------------------------------- |
-    |                 | add(2, -1)                                           |
-    |                 |   add(2,-1) at MultiMapTest.add(MultiMap.kt:31)      |
-    |                 |     get(2): null at MultiMap.add(MultiMap.kt:15)     |
-    |                 |     switch                                           |
-    | add(2, 0): void |                                                      |
-    |                 |     put(2,[-1]): [0] at MultiMap.add(MultiMap.kt:17) |
-    |                 |   result: void                                       |
-    | ---------------------------------------------------------------------- |
-    ```
+   次のインターリービングがエラーにつながります:
+   | ---------------------------------------------------------------------- |
+   |    Thread 1     |                       Thread 2                       |
+   | ---------------------------------------------------------------------- |
+   |                 | add(2, -1)                                           |
+   |                 |   add(2,-1) at MultiMapTest.add(MultiMap.kt:31)      |
+   |                 |     get(2): null at MultiMap.add(MultiMap.kt:15)     |
+   |                 |     switch                                           |
+   | add(2, 0): void |                                                      |
+   |                 |     put(2,[-1]): [0] at MultiMap.add(MultiMap.kt:17) |
+   |                 |   result: void                                       |
+   | ---------------------------------------------------------------------- |
+   ```
 
 キーの範囲が狭いため、Lincheckはすぐに競合状態を明らかにします。同じキーによって2つの値が並行して追加されると、いずれかの値が上書きされて失われる可能性があります。
 

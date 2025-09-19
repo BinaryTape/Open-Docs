@@ -11,12 +11,12 @@
     </a>
 </p>
 <p>
-<b>비디오</b>: <a href="https://youtu.be/_Q62iJoNOfg">Kotlin Multiplatform Mobile 프로젝트에서 네트워킹을 위한 Ktor</a>
+<b>비디오</b>: <a href="https://youtu.be/_Q62iJoNOfg">Kotlin Multiplatform Mobile 프로젝트에서 네트워킹을 위한 Ktor</a> 
 </p>
 </tldr>
 
 <link-summary>
-Kotlin Multiplatform Mobile 앱을 생성하는 방법을 알아보세요.
+Kotlin Multiplatform Mobile 애플리케이션을 생성하는 방법을 알아보세요.
 </link-summary>
 
 Ktor HTTP 클라이언트는 멀티플랫폼 프로젝트에서 사용할 수 있습니다. 이 튜토리얼에서는 요청을 보내고 응답 본문을 일반 HTML 텍스트로 받는 간단한 Kotlin Multiplatform Mobile 애플리케이션을 만들 것입니다.
@@ -25,7 +25,7 @@ Ktor HTTP 클라이언트는 멀티플랫폼 프로젝트에서 사용할 수 �
 
 ## 필수 구성 요소 {id="prerequisites"}
 
-먼저 적합한 운영 체제에 필요한 도구를 설치하여 크로스 플랫폼 모바일 개발 환경을 설정해야 합니다. 이 방법은 [환경 설정](https://kotlinlang.org/docs/multiplatform-mobile-setup.html) 섹션에서 알아보세요.
+먼저, 적합한 운영 체제에 필요한 도구를 설치하여 크로스 플랫폼 모바일 개발 환경을 설정해야 합니다. 이 방법은 [환경 설정](https://kotlinlang.org/docs/multiplatform-mobile-setup.html) 섹션에서 알아보세요.
 
 > 이 튜토리얼의 특정 단계(iOS 전용 코드 작성 및 iOS 애플리케이션 실행 포함)를 완료하려면 macOS가 설치된 Mac이 필요합니다.
 >
@@ -311,12 +311,12 @@ fun DefaultPreview() {
 <Tabs>
 <TabItem title="Android">
 
-![Android simulator](tutorial_client_kmm_android.png){width="381"}
+![Android 시뮬레이터](tutorial_client_kmm_android.png){width="381"}
 
 </TabItem>
 <TabItem title="iOS">
 
-![iOS simulator](tutorial_client_kmm_ios.png){width="351"}
+![iOS 시뮬레이터](tutorial_client_kmm_ios.png){width="351"}
 
 </TabItem>
 </Tabs>

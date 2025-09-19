@@ -27,8 +27,7 @@ data class User(val name: String, val age: Int)
 
 データクラスは他のクラスを拡張できます ([密封クラス](sealed-classes.md)の例を参照)。
 
-> On the JVM, if the generated class needs to have a parameterless constructor, default values for the properties have
-> to be specified (see [Constructors](classes.md#constructors)):
+> On the JVM, 生成されたクラスが引数なしのコンストラクタを持つ必要がある場合、プロパティにデフォルト値を指定する必要があります ([Constructors](classes.md#constructors)を参照):
 >
 > ```kotlin
 > data class User(val name: String = "", val age: Int = 0)
@@ -87,6 +86,29 @@ fun copy(name: String = this.name, age: Int = this.age) = User(name, age)
 val jack = User(name = "Jack", age = 1)
 val olderJack = jack.copy(age = 2)
 ```
+
+`copy()`関数はインスタンスの_シャローコピー_を作成します。言い換えれば、コンポーネントを再帰的にコピーすることはありません。その結果、他のオブジェクトへの参照は共有されます。
+
+例えば、プロパティが可変リストを保持している場合、「オリジナル」の値を通じて行われた変更はコピーを通じても可視であり、コピーを通じて行われた変更はオリジナルを通じても可視となります:
+
+```kotlin
+data class Employee(val name: String, val roles: MutableList<String>)
+
+fun main() {
+    val original = Employee("Jamie", mutableListOf("developer"))
+    val duplicate = original.copy()
+
+    duplicate.roles.add("team lead")
+
+    println(original) 
+    // Employee(name=Jamie, roles=[developer, team lead])
+    println(duplicate) 
+    // Employee(name=Jamie, roles=[developer, team lead])
+}
+```
+{kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
+
+ご覧のとおり、`duplicate.roles`プロパティを変更すると`original.roles`プロパティも変更されます。これは、両方のプロパティが同じリスト参照を共有しているためです。
 
 ## データクラスと分解宣言
 

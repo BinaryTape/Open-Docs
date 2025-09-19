@@ -65,7 +65,7 @@ print(
 7.  **Gradle DSL**에 대해 Kotlin 또는 Gradle 언어를 선택합니다.
 8.  **Create**를 클릭합니다.
 
-![Kotlin 커스텀 스크립팅을 위한 루트 프로젝트 생성](script-deps-create-root-project.png){width=700}
+![Create a root project for custom Kotlin scripting](script-deps-create-root-project.png){width=700}
 
 ## 스크립팅 모듈 추가
 
@@ -79,7 +79,7 @@ print(
 6.  모듈의 부모로 루트 모듈을 선택합니다.
 7.  **Create**를 클릭합니다.
 
-   ![스크립트 정의 모듈 생성](script-deps-module-definition.png){width=700}
+   ![Create script definition module](script-deps-module-definition.png){width=700}
 
 8.  모듈의 `build.gradle(.kts)` 파일에서 Kotlin Gradle 플러그인의 `version`을 제거합니다. 이는 이미 루트 프로젝트의 빌드 스크립트에 있습니다.
 
@@ -87,7 +87,7 @@ print(
 
 프로젝트는 다음 구조를 가져야 합니다:
 
-![커스텀 스크립팅 프로젝트 구조](script-deps-project-structure.png){width=300}
+![Custom scripting project structure](script-deps-project-structure.png){width=300}
 
 이러한 프로젝트의 예시와 더 많은 Kotlin 스크립팅 예시를 [kotlin-script-examples GitHub 저장소](https://github.com/Kotlin/kotlin-script-examples/tree/master/jvm/basic/jvm-maven-deps)에서 찾을 수 있습니다.
 
@@ -107,7 +107,7 @@ print(
         implementation("org.jetbrains.kotlin:kotlin-scripting-dependencies")
         implementation("org.jetbrains.kotlin:kotlin-scripting-dependencies-maven")
         // coroutines dependency is required for this particular definition
-        implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:%coroutinesVersion%") 
+        implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:%coroutinesVersion%")
     }
     ```
 
@@ -122,7 +122,6 @@ print(
         implementation 'org.jetbrains.kotlin:kotlin-scripting-dependencies-maven'
         // coroutines dependency is required for this particular definition
         implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:%coroutinesVersion%'
-
     }
     ```
 
@@ -138,7 +137,7 @@ print(
     abstract class ScriptWithMavenDeps
     ```
 
-    이 클래스는 나중에 스크립트 정의에 대한 참조 역할을 할 것입니다.
+   이 클래스는 나중에 스크립트 정의에 대한 참조 역할을 할 것입니다.
 
 4.  이 클래스를 스크립트 정의로 만들려면 `@KotlinScript` 어노테이션으로 표시합니다. 어노테이션에 두 개의 매개변수를 전달합니다:
     *   `fileExtension` – 이 유형의 스크립트에 대한 파일 확장자를 정의하는 `.kts`로 끝나는 문자열.
@@ -171,7 +170,7 @@ print(
             defaultImports(DependsOn::class, Repository::class)
             jvm {
                 // Extract the whole classpath from context classloader and use it as dependencies
-                dependenciesFromCurrentContext(wholeClasspath = true) 
+                dependenciesFromCurrentContext(wholeClasspath = true)
             }
             // Callbacks
             refineConfiguration {
@@ -182,7 +181,7 @@ print(
     )
     ```
 
-    `configureMavenDepsOnAnnotations` 함수는 다음과 같습니다:
+   `configureMavenDepsOnAnnotations` 함수는 다음과 같습니다:
 
     ```kotlin
     // Handler that reconfigures the compilation on the fly
@@ -192,16 +191,16 @@ print(
         return runBlocking {
             resolver.resolveFromScriptSourceAnnotations(annotations)
         }.onSuccess {
-            context.compilationConfiguration.with { 
+            context.compilationConfiguration.with {
                 dependencies.append(JvmDependency(it))
             }.asSuccess()
         }
     }
-    
+
     private val resolver = CompoundDependenciesResolver(FileSystemDependenciesResolver(), MavenDependenciesResolver())
     ```
 
-    전체 코드는 [여기](https://github.com/Kotlin/kotlin-script-examples/blob/master/jvm/basic/jvm-maven-deps/script/src/main/kotlin/org/jetbrains/kotlin/script/examples/jvm/resolve/maven/scriptDef.kt)에서 찾을 수 있습니다.
+   전체 코드는 [여기](https://github.com/Kotlin/kotlin-script-examples/blob/master/jvm/basic/jvm-maven-deps/script/src/main/kotlin/org/jetbrains/kotlin/script/examples/jvm/resolve/maven/scriptDef.kt)에서 찾을 수 있습니다.
 
 ## 스크립팅 호스트 생성
 
@@ -242,7 +241,7 @@ print(
 
 3.  애플리케이션의 `main` 함수를 정의합니다. 함수 본문에서 스크립트 파일 경로라는 하나의 인수가 있는지 확인하고 스크립트를 실행합니다. 다음 단계에서 별도의 함수인 `evalFile`에서 스크립트 실행을 정의할 것입니다. 지금은 비어 있도록 선언합니다.
 
-    `main`은 다음과 같이 보일 수 있습니다:
+   `main`은 다음과 같이 보일 수 있습니다:
 
     ```kotlin
     fun main(vararg args: String) {
@@ -295,11 +294,11 @@ print(
     ```kotlin
     @file:Repository("https://maven.pkg.jetbrains.space/public/p/kotlinx-html/maven")
     @file:DependsOn("org.jetbrains.kotlinx:kotlinx-html-jvm:0.7.3")
-    
+
     import kotlinx.html.*; import kotlinx.html.stream.*; import kotlinx.html.attributes.*
-    
+
     val addressee = "World"
-    
+
     print(
         createHTML().html {
             body {
@@ -308,15 +307,15 @@ print(
         }
     )
     ```
-    
-    이것은 `@DependsOn` 어노테이션 인수에 참조된 `kotlinx-html-jvm` 라이브러리의 함수를 사용합니다.
+
+   이것은 `@DependsOn` 어노테이션 인수에 참조된 `kotlinx-html-jvm` 라이브러리의 함수를 사용합니다.
 
 2.  스크립팅 호스트를 시작하고 이 파일을 실행하는 실행 구성을 생성합니다:
     1.  `host.kt`를 열고 `main` 함수로 이동합니다. 왼쪽에 **실행** 거터 아이콘이 있습니다.
     2.  거터 아이콘을 마우스 오른쪽 버튼으로 클릭하고 **실행 구성 수정**을 선택합니다.
     3.  **실행 구성 생성** 대화 상자에서 스크립트 파일 이름을 **프로그램 인수**에 추가하고 **OK**를 클릭합니다.
-    
-       ![스크립팅 호스트 실행 구성](script-deps-run-config.png){width=800}
+
+       ![Scripting host run configuration](script-deps-run-config.png){width=800}
 
 3.  생성된 구성을 실행합니다.
 

@@ -92,14 +92,14 @@ IntelliJ IDEA は Gradle タスクを使用してコードを実行し、結果�
             binaries {
                 executable {
                     entryPoint = "main"
-                    runTask?.standardInput = System.`in`
+                    runTaskProvider?.configure { standardInput = System.`in` }
                 }
             }
         }
         //...
     }
     ```
-    {initial-collapse-state="collapsed" collapsible="true" collapsed-title="runTask?.standardInput = System.`in`"}
+    {initial-collapse-state="collapsed" collapsible="true" collapsed-title="runTaskProvider?.configure { standardInput = System.`in` }"}
 
 3.  空白を削除し、文字数を数えます。
 

@@ -1,10 +1,11 @@
 [//]: # (title: 예외)
 
-런타임 오류가 발생하여 프로그램 실행을 방해할 수 있는 경우에도 예외는 코드가 더 예측 가능하게 실행되도록 돕습니다.
+예외는 런타임 오류가 발생하여 프로그램 실행을 방해할 수 있는 경우에도 코드가 더 예측 가능하게 실행되도록 돕습니다.
 코틀린은 기본적으로 모든 예외를 _비검사 예외_로 처리합니다.
 비검사 예외는 예외 처리 과정을 단순화합니다. 예외를 잡을 수는 있지만, 명시적으로 처리하거나 [선언할](java-to-kotlin-interop.md#checked-exceptions) 필요는 없습니다.
 
-> 자바, Swift, Objective-C와 상호 운용할 때 코틀린이 예외를 처리하는 방법에 대해 [자바, Swift, Objective-C와의 예외 상호 운용](#exception-interoperability-with-java-swift-and-objective-c) 섹션에서 자세히 알아보세요.
+> 자바, Swift, Objective-C와 상호 운용할 때 코틀린이 예외를 처리하는 방법에 대해
+> [자바, Swift, Objective-C와의 예외 상호 운용](#exception-interoperability-with-java-swift-and-objective-c) 섹션에서 자세히 알아보세요.
 >
 {style="tip"}
 
@@ -515,7 +516,7 @@ fun main() {
 ```
 {kotlin-runnable="true"}
 
-`Nothing` 타입을 사용하는 코틀린의 [`TODO()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-t-o-d-o.html) 함수는 향후 구현이 필요한 코드 영역을 강조하기 위한 플레이스홀더 역할을 합니다.
+코틀린의 [`TODO()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-t-o-d-o.html) 함수는 `Nothing` 타입도 사용하며, 향후 구현이 필요한 코드 영역을 강조하기 위한 플레이스홀더 역할을 합니다.
 
 ```kotlin
 fun notImplementedFunction(): Int {

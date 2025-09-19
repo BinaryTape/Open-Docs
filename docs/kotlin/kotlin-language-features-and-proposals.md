@@ -28,22 +28,6 @@ JetBrains 遵循 [Kotlin 语言演进原则](kotlin-evolution-principles.md)演�
 </td>
 <td>
 
-**富错误：错误联合类型**
-
-* KEEP 提案：未定义
-* YouTrack 问题：[KT-68296](https://youtrack.jetbrains.com/issue/KT-68296)
-
-</td>
-</tr>
-
-<tr filter="exploration-and-design">
-<td>
-
-**探索与设计**
-
-</td>
-<td>
-
 **基于名称的解构**
 
 * KEEP 提案：[name-based-destructuring.md](https://github.com/Kotlin/KEEP/blob/name-based-destructuring/proposals/name-based-destructuring.md)
@@ -71,6 +55,54 @@ JetBrains 遵循 [Kotlin 语言演进原则](kotlin-evolution-principles.md)演�
 <!-- END OF EXPLORATION AND DESIGN BLOCK -->
 
 <!-- KEEP DISCUSSION BLOCK -->
+
+<tr filter="keep">
+<td width="200">
+
+**KEEP 讨论**
+
+</td>
+<td>
+
+**改进编译期常量**
+
+* KEEP 提案：[improve-compile-time-constants.md](https://github.com/Kotlin/KEEP/blob/main/proposals/KEEP-0444-improve-compile-time-constants.md)
+* YouTrack 问题：[KT-22505](https://youtrack.jetbrains.com/issue/KT-22505)
+
+</td>
+</tr>
+
+<tr filter="keep">
+<td width="200">
+
+**KEEP 讨论**
+
+</td>
+<td>
+
+**将 `CoroutineContext` 作为上下文形参**
+
+* KEEP 提案：[CoroutineContext-context-parameter.md](https://github.com/Kotlin/KEEP/blob/main/proposals/KEEP-0443-suspend-CoroutineContext-context-parameter.md)
+* YouTrack 问题：[KT-15555](https://youtrack.jetbrains.com/issue/KT-15555)
+
+</td>
+</tr>
+
+<tr filter="keep">
+<td width="200">
+
+**KEEP 讨论**
+
+</td>
+<td>
+
+**富错误：动机与原理**
+
+* KEEP 提案：[rich-errors-motivation.md](https://github.com/Kotlin/KEEP/blob/main/proposals/KEEP-0441-rich-errors-motivation.md)
+* YouTrack 问题：[KT-68296](https://youtrack.jetbrains.com/issue/KT-68296)
+
+</td>
+</tr>
 
 <tr filter="keep">
 <td width="200">
@@ -195,10 +227,29 @@ JetBrains 遵循 [Kotlin 语言演进原则](kotlin-evolution-principles.md)演�
 </td>
 <td>
 
+**基于数据流的穷尽性检测**
+
+* KEEP 提案：[dfa-exhaustiveness.md](https://github.com/Kotlin/KEEP/blob/main/proposals/KEEP-0442-dfa-exhaustiveness.md)
+* YouTrack 问题：[KT-8781](https://youtrack.jetbrains.com/issue/KT-8781)
+* 稳定性级别：[Beta](components-stability.md#stability-levels-explained)
+* 可用版本：2.2.20
+
+</td>
+</tr>
+
+<tr filter="in-preview">
+<td>
+
+**预览中**
+
+</td>
+<td>
+
 **上下文形参：支持依赖于上下文的声明**
 
 * KEEP 提案：[context-parameters.md](https://github.com/Kotlin/KEEP/blob/context-parameters/proposals/context-parameters.md)
 * YouTrack 问题：[KT-14663](https://youtrack.jetbrains.com/issue/KT-10468)
+* 稳定性级别：[实验性的](components-stability.md#stability-levels-explained)
 * 可用版本：2.2.0
 
 </td>
@@ -214,8 +265,9 @@ JetBrains 遵循 [Kotlin 语言演进原则](kotlin-evolution-principles.md)演�
 
 **属性上注解使用点目标的改进**
 
-* KEEP 提案：[Improvements to annotation use-site targets on properties](https://github.com/Kotlin/KEEP/blob/change-defaulting-rule/proposals/change-defaulting-rule.md)
+* KEEP 提案：[Improvements to annotation use-site targets on properties](https://github.com/Kotlin/KEEP/blob/master/proposals/annotation-target-in-properties.md)
 * YouTrack 问题：[KT-19289](https://youtrack.jetbrains.com/issue/KT-19289)
+* 稳定性级别：[实验性的](components-stability.md#stability-levels-explained)
 * 可用版本：2.2.0
 
 </td>
@@ -231,8 +283,9 @@ JetBrains 遵循 [Kotlin 语言演进原则](kotlin-evolution-principles.md)演�
 
 **嵌套（非捕获）类型别名**
 
-* KEEP 提案：[Nested (non-capturing) type aliases](https://github.com/Kotlin/KEEP/blob/nested-typealias/proposals/nested-typealias.md)
+* KEEP 提案：[Nested (non-capturing) type aliases](https://github.com/Kotlin/KEEP/blob/master/proposals/nested-typealias.md)
 * YouTrack 问题：[KT-45285](https://youtrack.jetbrains.com/issue/KT-45285)
+* 稳定性级别：[Beta](components-stability.md#stability-levels-explained)
 * 可用版本：2.2.0
 
 </td>
@@ -250,6 +303,7 @@ JetBrains 遵循 [Kotlin 语言演进原则](kotlin-evolution-principles.md)演�
 
 * KEEP 提案：[context-sensitive-resolution.md](https://github.com/Kotlin/KEEP/blob/improved-resolution-expected-type/proposals/context-sensitive-resolution.md)
 * YouTrack 问题：[KT-16768](https://youtrack.jetbrains.com/issue/KT-16768)
+* 稳定性级别：[实验性的](components-stability.md#stability-levels-explained)
 * 可用版本：2.2.0
 
 </td>
@@ -267,6 +321,7 @@ JetBrains 遵循 [Kotlin 语言演进原则](kotlin-evolution-principles.md)演�
 
 * KEEP 提案：[jvm-expose-boxed.md](https://github.com/Kotlin/KEEP/blob/jvm-expose-boxed/proposals/jvm-expose-boxed.md)
 * YouTrack 问题：[KT-28135](https://youtrack.jetbrains.com/issue/KT-28135)
+* 稳定性级别：[实验性的](components-stability.md#stability-levels-explained)
 * 可用版本：2.2.0
 
 </td>
@@ -283,6 +338,7 @@ JetBrains 遵循 [Kotlin 语言演进原则](kotlin-evolution-principles.md)演�
 **kotlin.time.Instant**
 
 * KEEP 提案：[Instant and Clock](https://github.com/Kotlin/KEEP/blob/master/proposals/stdlib/instant.md)
+* 稳定性级别：[实验性的](components-stability.md#stability-levels-explained)
 * 可用版本：2.1.0
 
 </td>
@@ -300,6 +356,7 @@ JetBrains 遵循 [Kotlin 语言演进原则](kotlin-evolution-principles.md)演�
 
 * KEEP 提案：[uuid.md](https://github.com/Kotlin/KEEP/blob/uuid/proposals/stdlib/uuid.md)
 * YouTrack 问题：[KT-31880](https://youtrack.jetbrains.com/issue/KT-31880)
+* 稳定性级别：[实验性的](components-stability.md#stability-levels-explained)
 * 可用版本：2.0.20
 
 </td>
@@ -317,6 +374,7 @@ JetBrains 遵循 [Kotlin 语言演进原则](kotlin-evolution-principles.md)演�
 
 * KEEP 提案：[Common atomics](https://github.com/Kotlin/KEEP/blob/master/proposals/stdlib/common-atomics.md)
 * YouTrack 问题：[KT-62423](https://youtrack.jetbrains.com/issue/KT-62423)
+* 稳定性级别：[实验性的](components-stability.md#stability-levels-explained)
 * 可用版本：2.2.0
 
 </td>
@@ -334,6 +392,7 @@ JetBrains 遵循 [Kotlin 语言演进原则](kotlin-evolution-principles.md)演�
 
 * KEEP 提案：[kmp-kotlin-to-java-direct-actualization.md](https://github.com/Kotlin/KEEP/blob/kotlin-to-java-direct-actualization/proposals/kmp-kotlin-to-java-direct-actualization.md)
 * YouTrack 问题：[KT-67202](https://youtrack.jetbrains.com/issue/KT-67202)
+* 稳定性级别：[实验性的](components-stability.md#stability-levels-explained)
 * 可用版本：2.1.0
 
 </td>
@@ -370,7 +429,7 @@ JetBrains 遵循 [Kotlin 语言演进原则](kotlin-evolution-principles.md)演�
 </td>
 <td>
 
-**多美元符内插：改进字符串字面量中 `$` 的处理**
+**多美元符内插：改进字符串字面量中 `#` 的处理**
 
 * KEEP 提案：[dollar-escape.md](https://github.com/Kotlin/KEEP/blob/master/proposals/dollar-escape.md)
 * YouTrack 问题：[KT-2425](https://youtrack.jetbrains.com/issue/KT-2425)
@@ -425,7 +484,7 @@ JetBrains 遵循 [Kotlin 语言演进原则](kotlin-evolution-principles.md)演�
 
 * KEEP 提案：[enum-entries.md](https://github.com/Kotlin/KEEP/blob/master/proposals/enum-entries.md)
 * YouTrack 问题：[KT-48872](https://youtrack.jetbrains.com/issue/KT-48872)
-* 目标版本：2.0.0
+* 可用版本：2.0.0
 
 </td>
 </tr>
@@ -442,7 +501,7 @@ JetBrains 遵循 [Kotlin 语言演进原则](kotlin-evolution-principles.md)演�
 
 * KEEP 提案：[data-objects.md](https://github.com/Kotlin/KEEP/blob/master/proposals/data-objects.md)
 * YouTrack 问题：[KT-4107](https://youtrack.jetbrains.com/issue/KT-4107)
-* 目标版本：1.9.0
+* 可用版本：1.9.0
 
 </td>
 </tr>
@@ -459,7 +518,7 @@ JetBrains 遵循 [Kotlin 语言演进原则](kotlin-evolution-principles.md)演�
 
 * KEEP 提案：[open-ended-ranges.md](https://github.com/kotlin/KEEP/blob/open-ended-ranges/proposals/open-ended-ranges.md)
 * YouTrack 问题：[KT-15613](https://youtrack.jetbrains.com/issue/KT-15613)
-* 目标版本：1.7.20
+* 可用版本：1.7.20
 
 </td>
 </tr>
@@ -476,10 +535,11 @@ JetBrains 遵循 [Kotlin 语言演进原则](kotlin-evolution-principles.md)演�
 
 * KEEP 提案：[definitely-non-nullable-types.md](https://github.com/Kotlin/KEEP/blob/master/proposals/definitely-non-nullable-types.md)
 * YouTrack 问题：[KT-26245](https://youtrack.jetbrains.com/issue/KT-26245)
-* 目标版本：1.7.0
+* 可用版本：1.7.0
 
 </td>
 </tr>
+</table>
 
 <!-- END OF STABLE BLOCK -->
 
@@ -536,22 +596,6 @@ JetBrains 遵循 [Kotlin 语言演进原则](kotlin-evolution-principles.md)演�
 </td>
 <td>
 
-**富错误：错误联合类型**
-
-* KEEP 提案：未定义
-* YouTrack 问题：[KT-68296](https://youtrack.jetbrains.com/issue/KT-68296)
-
-</td>
-</tr>
-
-<tr filter="exploration-and-design">
-<td>
-
-**探索与设计**
-
-</td>
-<td>
-
 **基于名称的解构**
 
 * KEEP 提案：[name-based-destructuring.md](https://github.com/Kotlin/KEEP/blob/name-based-destructuring/proposals/name-based-destructuring.md)
@@ -582,6 +626,54 @@ JetBrains 遵循 [Kotlin 语言演进原则](kotlin-evolution-principles.md)演�
 <tab id="keep-preparation" title="KEEP 讨论">
 
 <table>
+<tr filter="keep">
+<td width="200">
+
+**KEEP 讨论**
+
+</td>
+<td>
+
+**改进编译期常量**
+
+* KEEP 提案：[improve-compile-time-constants.md](https://github.com/Kotlin/KEEP/blob/main/proposals/KEEP-0444-improve-compile-time-constants.md)
+* YouTrack 问题：[KT-22505](https://youtrack.jetbrains.com/issue/KT-22505)
+
+</td>
+</tr>
+
+<tr filter="keep">
+<td width="200">
+
+**KEEP 讨论**
+
+</td>
+<td>
+
+**将 `CoroutineContext` 作为上下文形参**
+
+* KEEP 提案：[CoroutineContext-context-parameter.md](https://github.com/Kotlin/KEEP/blob/main/proposals/KEEP-0443-suspend-CoroutineContext-context-parameter.md)
+* YouTrack 问题：[KT-15555](https://youtrack.jetbrains.com/issue/KT-15555)
+
+</td>
+</tr>
+
+<tr filter="keep">
+<td width="200">
+
+**KEEP 讨论**
+
+</td>
+<td>
+
+**富错误：动机与原理**
+
+* KEEP 提案：[rich-errors-motivation.md](https://github.com/Kotlin/KEEP/blob/main/proposals/KEEP-0441-rich-errors-motivation.md)
+* YouTrack 问题：[KT-68296](https://youtrack.jetbrains.com/issue/KT-68296)
+
+</td>
+</tr>
+
 <tr filter="keep">
 <td width="200">
 
@@ -707,10 +799,29 @@ JetBrains 遵循 [Kotlin 语言演进原则](kotlin-evolution-principles.md)演�
 </td>
 <td>
 
+**基于数据流的穷尽性检测**
+
+* KEEP 提案：[dfa-exhaustiveness.md](https://github.com/Kotlin/KEEP/blob/main/proposals/KEEP-0442-dfa-exhaustiveness.md)
+* YouTrack 问题：[KT-8781](https://youtrack.jetbrains.com/issue/KT-8781)
+* 稳定性级别：[Beta](components-stability.md#stability-levels-explained)
+* 可用版本：2.2.20
+
+</td>
+</tr>
+
+<tr filter="in-preview">
+<td>
+
+**预览中**
+
+</td>
+<td>
+
 **上下文形参：支持依赖于上下文的声明**
 
 * KEEP 提案：[context-parameters.md](https://github.com/Kotlin/KEEP/blob/context-parameters/proposals/context-parameters.md)
 * YouTrack 问题：[KT-14663](https://youtrack.jetbrains.com/issue/KT-10468)
+* 稳定性级别：[实验性的](components-stability.md#stability-levels-explained)
 * 可用版本：2.2.0
 
 </td>
@@ -726,8 +837,9 @@ JetBrains 遵循 [Kotlin 语言演进原则](kotlin-evolution-principles.md)演�
 
 **属性上注解使用点目标的改进**
 
-* KEEP 提案：[Improvements to annotation use-site targets on properties](https://github.com/Kotlin/KEEP/blob/change-defaulting-rule/proposals/change-defaulting-rule.md)
+* KEEP 提案：[Improvements to annotation use-site targets on properties](https://github.com/Kotlin/KEEP/blob/master/proposals/annotation-target-in-properties.md)
 * YouTrack 问题：[KT-19289](https://youtrack.jetbrains.com/issue/KT-19289)
+* 稳定性级别：[实验性的](components-stability.md#stability-levels-explained)
 * 可用版本：2.2.0
 
 </td>
@@ -743,8 +855,9 @@ JetBrains 遵循 [Kotlin 语言演进原则](kotlin-evolution-principles.md)演�
 
 **嵌套（非捕获）类型别名**
 
-* KEEP 提案：[Nested (non-capturing) type aliases](https://github.com/Kotlin/KEEP/blob/nested-typealias/proposals/nested-typealias.md)
+* KEEP 提案：[Nested (non-capturing) type aliases](https://github.com/Kotlin/KEEP/blob/master/proposals/nested-typealias.md)
 * YouTrack 问题：[KT-45285](https://youtrack.jetbrains.com/issue/KT-45285)
+* 稳定性级别：[Beta](components-stability.md#stability-levels-explained)
 * 可用版本：2.2.0
 
 </td>
@@ -762,6 +875,7 @@ JetBrains 遵循 [Kotlin 语言演进原则](kotlin-evolution-principles.md)演�
 
 * KEEP 提案：[context-sensitive-resolution.md](https://github.com/Kotlin/KEEP/blob/improved-resolution-expected-type/proposals/context-sensitive-resolution.md)
 * YouTrack 问题：[KT-16768](https://youtrack.jetbrains.com/issue/KT-16768)
+* 稳定性级别：[实验性的](components-stability.md#stability-levels-explained)
 * 可用版本：2.2.0
 
 </td>
@@ -779,6 +893,7 @@ JetBrains 遵循 [Kotlin 语言演进原则](kotlin-evolution-principles.md)演�
 
 * KEEP 提案：[jvm-expose-boxed.md](https://github.com/Kotlin/KEEP/blob/jvm-expose-boxed/proposals/jvm-expose-boxed.md)
 * YouTrack 问题：[KT-28135](https://youtrack.jetbrains.com/issue/KT-28135)
+* 稳定性级别：[实验性的](components-stability.md#stability-levels-explained)
 * 可用版本：2.2.0
 
 </td>
@@ -795,6 +910,7 @@ JetBrains 遵循 [Kotlin 语言演进原则](kotlin-evolution-principles.md)演�
 **kotlin.time.Instant**
 
 * KEEP 提案：[Instant and Clock](https://github.com/Kotlin/KEEP/blob/master/proposals/stdlib/instant.md)
+* 稳定性级别：[实验性的](components-stability.md#stability-levels-explained)
 * 可用版本：2.1.0
 
 </td>
@@ -812,6 +928,7 @@ JetBrains 遵循 [Kotlin 语言演进原则](kotlin-evolution-principles.md)演�
 
 * KEEP 提案：[uuid.md](https://github.com/Kotlin/KEEP/blob/uuid/proposals/stdlib/uuid.md)
 * YouTrack 问题：[KT-31880](https://youtrack.jetbrains.com/issue/KT-31880)
+* 稳定性级别：[实验性的](components-stability.md#stability-levels-explained)
 * 可用版本：2.0.20
 
 </td>
@@ -829,6 +946,7 @@ JetBrains 遵循 [Kotlin 语言演进原则](kotlin-evolution-principles.md)演�
 
 * KEEP 提案：[Common atomics](https://github.com/Kotlin/KEEP/blob/master/proposals/stdlib/common-atomics.md)
 * YouTrack 问题：[KT-62423](https://youtrack.jetbrains.com/issue/KT-62423)
+* 稳定性级别：[实验性的](components-stability.md#stability-levels-explained)
 * 可用版本：2.2.0
 
 </td>
@@ -846,6 +964,7 @@ JetBrains 遵循 [Kotlin 语言演进原则](kotlin-evolution-principles.md)演�
 
 * KEEP 提案：[kmp-kotlin-to-java-direct-actualization.md](https://github.com/Kotlin/KEEP/blob/kotlin-to-java-direct-actualization/proposals/kmp-kotlin-to-java-direct-actualization.md)
 * YouTrack 问题：[KT-67202](https://youtrack.jetbrains.com/issue/KT-67202)
+* 稳定性级别：[实验性的](components-stability.md#stability-levels-explained)
 * 可用版本：2.1.0
 
 </td>
@@ -882,7 +1001,7 @@ JetBrains 遵循 [Kotlin 语言演进原则](kotlin-evolution-principles.md)演�
 </td>
 <td>
 
-**多美元符内插：改进字符串字面量中 `$` 的处理**
+**多美元符内插：改进字符串字面量中 `#` 的处理**
 
 * KEEP 提案：[dollar-escape.md](https://github.com/Kotlin/KEEP/blob/master/proposals/dollar-escape.md)
 * YouTrack 问题：[KT-2425](https://youtrack.jetbrains.com/issue/KT-2425)
@@ -937,7 +1056,7 @@ JetBrains 遵循 [Kotlin 语言演进原则](kotlin-evolution-principles.md)演�
 
 * KEEP 提案：[enum-entries.md](https://github.com/Kotlin/KEEP/blob/master/proposals/enum-entries.md)
 * YouTrack 问题：[KT-48872](https://youtrack.jetbrains.com/issue/KT-48872)
-* 目标版本：2.0.0
+* 可用版本：2.0.0
 
 </td>
 </tr>
@@ -954,7 +1073,7 @@ JetBrains 遵循 [Kotlin 语言演进原则](kotlin-evolution-principles.md)演�
 
 * KEEP 提案：[data-objects.md](https://github.com/Kotlin/KEEP/blob/master/proposals/data-objects.md)
 * YouTrack 问题：[KT-4107](https://youtrack.jetbrains.com/issue/KT-4107)
-* 目标版本：1.9.0
+* 可用版本：1.9.0
 
 </td>
 </tr>
@@ -971,7 +1090,7 @@ JetBrains 遵循 [Kotlin 语言演进原则](kotlin-evolution-principles.md)演�
 
 * KEEP 提案：[open-ended-ranges.md](https://github.com/kotlin/KEEP/blob/open-ended-ranges/proposals/open-ended-ranges.md)
 * YouTrack 问题：[KT-15613](https://youtrack.jetbrains.com/issue/KT-15613)
-* 目标版本：1.7.20
+* 可用版本：1.7.20
 
 </td>
 </tr>
@@ -988,7 +1107,7 @@ JetBrains 遵循 [Kotlin 语言演进原则](kotlin-evolution-principles.md)演�
 
 * KEEP 提案：[definitely-non-nullable-types.md](https://github.com/Kotlin/KEEP/blob/master/proposals/definitely-non-nullable-types.md)
 * YouTrack 问题：[KT-26245](https://youtrack.jetbrains.com/issue/KT-26245)
-* 目标版本：1.7.0
+* 可用版本：1.7.0
 
 </td>
 </tr>

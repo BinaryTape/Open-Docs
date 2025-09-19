@@ -2,7 +2,7 @@
 
 Koog는 Ktor 서버에 자연스럽게 통합되어 양쪽에서 관용적인 Kotlin API를 사용하여 서버 측 AI 애플리케이션을 작성할 수 있게 합니다.
 
-Koog 플러그인을 한 번 설치하고, `application.conf` 또는 `application.yaml` 파일이나 코드에서 LLM (Large Language Model) 공급자를 구성한 다음, 라우트에서 직접 에이전트를 호출할 수 있습니다. 더 이상 모듈 간에 LLM 클라이언트를 연결할 필요 없이, 라우트에서 에이전트를 요청하기만 하면 준비 완료입니다.
+Koog 플러그인을 한 번 설치하고, `application.conf` 또는 `application.yaml` 파일이나 코드에서 LLM 공급자를 구성한 다음, 라우트에서 직접 에이전트를 호출할 수 있습니다. 더 이상 모듈 간에 LLM 클라이언트를 연결할 필요 없이, 라우트에서 에이전트를 요청하기만 하면 준비 완료입니다.
 
 ## 개요
 
@@ -89,7 +89,7 @@ fun Application.module() {
 }
 ```
 
-참고:
+참고
 - `aiAgent`는 구체적인 모델(`LLModel`)을 필요로 합니다. 라우트별, 사용별로 선택하세요.
 - 하위 레벨 LLM 접근을 위해서는 `llm() (PromptExecutor)`를 직접 사용하세요.
 
@@ -212,13 +212,13 @@ YAML/CONF에서 `llm.fallback`을 구성할 때는 다음 식별자 형식을 �
 - DeepSeek: `deepseek.deepseek-chat`, `deepseek.deepseek-reasoner`
 - Ollama: `ollama.meta.llama3.2`, `ollama.alibaba.qwq:32b`, `ollama.groq.llama3-grok-tool-use:8b`
 
-참고:
+참고
 - OpenAI의 경우 카테고리(`chat`, `reasoning`, `costoptimized`, `audio`, `embeddings`, `moderation`)를 반드시 포함해야 합니다.
-- Ollama의 경우 `ollama.model` 및 `ollama.<maker>.<model>` 모두 지원됩니다.
+- Ollama의 경우, `ollama.model` 및 `ollama.<maker>.<model>` 모두 지원됩니다.
 
 ## MCP 도구 (JVM 전용)
 
-JVM에서는 MCP 서버에서 도구를 에이전트 도구 레지스트리에 추가할 수 있습니다:
+JVM에서는 MCP 서버의 도구를 에이전트 도구 레지스트리에 추가할 수 있습니다:
 
 ```kotlin
 install(Koog) {

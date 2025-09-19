@@ -62,7 +62,7 @@
     agp = "8.7.3"
     ...
     coroutinesVersion = "%coroutinesVersion%"
-    dateTimeVersion = "0.6.2"
+    dateTimeVersion = "%dateTimeVersion%"
     koin = "%koinVersion%"
     ktor = "%ktorVersion%"
     sqlDelight = "%sqlDelightVersion%"
@@ -144,7 +144,23 @@
     }
     ```
 
-7.  新增依賴項後，再次按一下 **Sync Gradle Changes** 按鈕以同步 Gradle 檔案。
+7.  在 `sourceSets` 區塊的開頭，選擇啟用標準 Kotlin 函式庫的實驗性時間 API：
+
+    ```kotlin
+    kotlin {
+        // ...
+    
+        sourceSets {
+            all {
+                languageSettings.optIn("kotlin.time.ExperimentalTime")
+            }
+            
+            // ...
+        }
+    }
+    ```
+
+8.  新增依賴項後，再次按一下 **Sync Gradle Changes** 按鈕以同步 Gradle 檔案。
 
 Gradle 同步後，您就完成了專案配置，可以開始編寫程式碼了。
 
@@ -312,7 +328,7 @@ SQLDelight 提供了 SQLite 驅動程式的多種平台專用實作，因此您�
     package com.jetbrains.spacetutorial.cache
     
     import app.cash.sqldelight.db.SqlDriver
-    
+
     interface DatabaseDriverFactory {
         fun createDriver(): SqlDriver
     }
@@ -327,7 +343,7 @@ SQLDelight 提供了 SQLite 驅動程式的多種平台專用實作，因此您�
     import android.content.Context
     import app.cash.sqldelight.db.SqlDriver
     import app.cash.sqldelight.driver.android.AndroidSqliteDriver
-    
+
     class AndroidDatabaseDriverFactory(private val context: Context) : DatabaseDriverFactory {
         override fun createDriver(): SqlDriver {
             return AndroidSqliteDriver(AppDatabase.Schema, context, "launch.db")
@@ -343,7 +359,7 @@ SQLDelight 提供了 SQLite 驅動程式的多種平台專用實作，因此您�
     
     import app.cash.sqldelight.db.SqlDriver
     import app.cash.sqldelight.driver.native.NativeSqliteDriver
-    
+
     class IOSDatabaseDriverFactory : DatabaseDriverFactory {
         override fun createDriver(): SqlDriver {
             return NativeSqliteDriver(AppDatabase.Schema, "launch.db")
@@ -363,7 +379,7 @@ SQLDelight 提供了 SQLite 驅動程式的多種平台專用實作，因此您�
 
     ```kotlin
     package com.jetbrains.spacetutorial.cache
-    
+
     internal class Database(databaseDriverFactory: DatabaseDriverFactory) {
         private val database = AppDatabase(databaseDriverFactory.createDriver())
         private val dbQuery = database.appDatabaseQueries
@@ -513,7 +529,7 @@ SQLDelight 提供了 SQLite 驅動程式的多種平台專用實作，因此您�
     import com.jetbrains.spacetutorial.cache.Database
     import com.jetbrains.spacetutorial.cache.DatabaseDriverFactory
     import com.jetbrains.spacetutorial.network.SpaceXApi
-    
+
     class SpaceXSDK(databaseDriverFactory: DatabaseDriverFactory, val api: SpaceXApi) { 
         private val database = Database(databaseDriverFactory)
     }
@@ -528,7 +544,7 @@ SQLDelight 提供了 SQLite 驅動程式的多種平台專用實作，因此您�
     
     class SpaceXSDK(databaseDriverFactory: DatabaseDriverFactory, val api: SpaceXApi) {
         // ...
-    
+   
         @Throws(Exception::class)
         suspend fun getLaunches(forceReload: Boolean): List<RocketLaunch> {
             val cachedLaunches = database.getAllLaunches()
@@ -897,8 +913,6 @@ Koin 依賴注入允許您宣告模組（元件集），您可以在不同的 co
     ```
     {initial-collapse-state="collapsed" collapsible="true" collapsed-title="import com.jetbrains.spacetutorial.theme.AppTheme"}
 
-   <!--3. Remove the `import App` line in the `MainActivity.kt` file in the `com.jetbrains.spacetutorial` package so that
-      the `setContent()` function refers to the `App()` composable you just created in that package.-->
 3.  最後，在 `AndroidManifest.xml` 檔案的 `<activity>` 標籤中指定您的 `MainActivity` 類別：
 
     ```xml
@@ -948,14 +962,14 @@ IntelliJ IDEA 生成的 iOS 專案已連接到共享模組。Kotlin 模組以 `s
 
     ```kotlin
     package com.jetbrains.spacetutorial
-    
+   
     import org.koin.core.component.KoinComponent
     import com.jetbrains.spacetutorial.entity.RocketLaunch
     import org.koin.core.component.inject
-    
+
     class KoinHelper : KoinComponent {
         private val sdk: SpaceXSDK by inject<SpaceXSDK>()
-    
+
         suspend fun getLaunches(forceReload: Boolean): List<RocketLaunch> {
             return sdk.getLaunches(forceReload = forceReload)
         }
@@ -1055,7 +1069,7 @@ IntelliJ IDEA 生成的 iOS 專案已連接到共享模組。Kotlin 模組以 `s
 
     視圖模型 (`ContentView.ViewModel`) 透過 [Combine 框架](https://developer.apple.com/documentation/combine) 與視圖 (`ContentView`) 連接：
     *   `ContentView.ViewModel` 類別被宣告為 `ObservableObject`。
-    *   `@Published` 屬性用於 `launches` 屬性，因此當此屬性更改時，視圖模型將發出訊號。
+    *   `@Published` 屬性用於 `launches` 屬性，所以視圖模型將在每次此屬性更改時發出訊號。
 
 5.  移除 `ContentView_Previews` 結構：您不需要實作應與您的視圖模型相容的預覽。
 

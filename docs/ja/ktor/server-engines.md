@@ -55,7 +55,7 @@ Ktorサーバーアプリケーションは、[2つの方法](server-create-and-
 
 ### embeddedServer {id="embeddedServer"}
 
-[embeddedServer](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.engine/embedded-server.html)関数は、特定の型のエンジンを作成するために使用されるエンジンファクトリを受け入れます。以下の例では、Nettyエンジンでサーバーを実行し、ポート`8080`をリッスンするために、[Netty](https://api.ktor.io/ktor-server/ktor-server-netty/io.ktor.server.netty/-netty/index.html)ファクトリを渡しています。
+[`embeddedServer()`](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.engine/embedded-server.html)関数は、特定の型のエンジンを作成するために使用されるエンジンファクトリを受け入れます。以下の例では、Nettyエンジンでサーバーを実行し、ポート`8080`をリッスンするために、[`Netty`](https://api.ktor.io/ktor-server/ktor-server-netty/io.ktor.server.netty/-netty/index.html)ファクトリを渡しています。
 
 ```kotlin
 import io.ktor.server.response.*

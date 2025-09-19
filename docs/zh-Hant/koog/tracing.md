@@ -8,7 +8,7 @@
 
 *   策略執行
 *   LLM 呼叫
-*   工具調用
+*   工具呼叫
 *   代理程式圖中的節點執行
 
 此功能透過攔截代理程式管線中的關鍵事件，並將其轉發給可設定的訊息處理器。這些處理器可以將追蹤資訊輸出到各種目的地，例如紀錄檔或檔案系統中的其他類型檔案，使開發者能夠深入瞭解代理程式的行為並有效地排解問題。
@@ -33,8 +33,8 @@
 
 <!--- INCLUDE
 import ai.koog.agents.core.agent.AIAgent
-import ai.koog.agents.core.feature.model.AfterLLMCallEvent
-import ai.koog.agents.core.feature.model.ToolCallEvent
+import ai.koog.agents.core.feature.model.events.AfterLLMCallEvent
+import ai.koog.agents.core.feature.model.events.ToolCallEvent
 import ai.koog.agents.features.tracing.feature.Tracing
 import ai.koog.agents.features.tracing.writer.TraceFeatureMessageFileWriter
 import ai.koog.agents.features.tracing.writer.TraceFeatureMessageLogWriter
@@ -77,11 +77,11 @@ val agent = AIAgent(
 
 ### 訊息篩選
 
-您可以處理所有現有事件，或根據特定準則選擇其中一些。訊息篩選器可讓您控制哪些事件被處理。這對於專注於代理程式執行的特定方面非常有用：
+您可以處理所有現有事件，或根據特定準則選擇其中一些。訊息篩選器可讓您控制哪些事件被處理。這對於專注於代理程式執行過程的特定方面非常有用：
 
 <!--- INCLUDE
 import ai.koog.agents.core.agent.AIAgent
-import ai.koog.agents.core.feature.model.*
+import ai.koog.agents.core.feature.model.events.*
 import ai.koog.agents.features.tracing.feature.Tracing
 import ai.koog.prompt.executor.llms.all.simpleOllamaAIExecutor
 import ai.koog.prompt.llm.OllamaModels
@@ -257,8 +257,8 @@ agent.run(input)
 
 <!--- INCLUDE
 import ai.koog.agents.core.agent.AIAgent
-import ai.koog.agents.core.feature.model.AfterLLMCallEvent
-import ai.koog.agents.core.feature.model.BeforeLLMCallEvent
+import ai.koog.agents.core.feature.model.events.AfterLLMCallEvent
+import ai.koog.agents.core.feature.model.events.BeforeLLMCallEvent
 import ai.koog.agents.example.exampleTracing01.outputPath
 import ai.koog.agents.features.tracing.feature.Tracing
 import ai.koog.agents.features.tracing.writer.TraceFeatureMessageFileWriter
@@ -347,8 +347,8 @@ agent.run(input)
 在客戶端，您可以使用 `FeatureMessageRemoteClient` 來接收事件並將其反序列化。
 
 <!--- INCLUDE
-import ai.koog.agents.core.feature.model.AIAgentFinishedEvent
-import ai.koog.agents.core.feature.model.DefinedFeatureEvent
+import ai.koog.agents.core.feature.model.events.AIAgentFinishedEvent
+import ai.koog.agents.core.feature.model.events.DefinedFeatureEvent
 import ai.koog.agents.core.feature.remote.client.config.DefaultClientConnectionConfig
 import ai.koog.agents.core.feature.remote.client.FeatureMessageRemoteClient
 import ai.koog.agents.utils.use
@@ -415,8 +415,8 @@ listOf(clientJob).joinAll()
 
 <!--- INCLUDE
 import ai.koog.agents.core.agent.AIAgent
-import ai.koog.agents.core.feature.model.AfterLLMCallEvent
-import ai.koog.agents.core.feature.model.BeforeLLMCallEvent
+import ai.koog.agents.core.feature.model.events.AfterLLMCallEvent
+import ai.koog.agents.core.feature.model.events.BeforeLLMCallEvent
 import ai.koog.agents.example.exampleTracing01.outputPath
 import ai.koog.agents.features.tracing.feature.Tracing
 import ai.koog.agents.features.tracing.writer.TraceFeatureMessageFileWriter
@@ -510,8 +510,8 @@ install(Tracing) {
 
 <!--- INCLUDE
 import ai.koog.agents.core.agent.AIAgent
-import ai.koog.agents.core.feature.model.AIAgentNodeExecutionStartEvent
-import ai.koog.agents.core.feature.model.AfterLLMCallEvent
+import ai.koog.agents.core.feature.model.events.AIAgentNodeExecutionStartEvent
+import ai.koog.agents.core.feature.model.events.AfterLLMCallEvent
 import ai.koog.agents.core.feature.message.FeatureMessage
 import ai.koog.agents.core.feature.message.FeatureMessageProcessor
 import ai.koog.agents.features.tracing.feature.Tracing

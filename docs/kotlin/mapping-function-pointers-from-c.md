@@ -4,7 +4,7 @@
     <p>这是 **Kotlin 与 C 的映射** 教程系列的第三部分。在继续之前，请确保你已完成前面步骤。</p>
     <p><img src="icon-1-done.svg" width="20" alt="第一步"/> <a href="mapping-primitive-data-types-from-c.md">映射 C 原生数据类型</a><br/>
         <img src="icon-2-done.svg" width="20" alt="第二步"/> <a href="mapping-struct-union-types-from-c.md">映射 C 结构体与联合类型</a><br/>
-        <img src="icon-3.svg" width="20" alt="第三步"/> <strong>映射函数指针</strong><br/>
+        <img src="icon-3.svg" width="20" alt="第三步"/> <strong>映射 C 函数指针</strong><br/>
         <img src="icon-4-todo.svg" width="20" alt="第四步"/> <a href="mapping-strings-from-c.md">映射 C 字符串</a><br/>
     </p>
 </tldr>
@@ -72,8 +72,8 @@ MyFun supply_fun() {
 
    ```kotlin
    fun myFun(i: kotlin.Int): kotlin.Int
-   fun accept_fun(f: kotlinx.cinterop.CPointer<kotlinx.cinterop.CFunction<(kotlin.Int) -> kotlin.Int>>? /* 来自: interop.MyFun? */)
-   fun supply_fun(): kotlinx.cinterop.CPointer<kotlinx.cinterop.CFunction<(kotlin.Int) -> kotlin.Int>>? /* 来自: interop.MyFun? */
+   fun accept_fun(f: kotlinx.cinterop.CPointer<kotlinx.cinterop.CFunction<(kotlin.Int) -> kotlin.Int>>? /* from: interop.MyFun? */)
+   fun supply_fun(): kotlinx.cinterop.CPointer<kotlinx.cinterop.CFunction<(kotlin.Int) -> kotlin.Int>>? /* from: interop.MyFun? */
    ```
 
 如你所见，C 函数指针在 Kotlin 中表示为 `CPointer<CFunction<...>>`。`accept_fun()` 函数接受一个可选的函数指针作为形参，而 `supply_fun()` 返回一个函数指针。

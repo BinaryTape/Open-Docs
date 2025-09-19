@@ -4,7 +4,7 @@
     <p>这是<strong>Kotlin 与 C 映射</strong>教程系列的第一个部分。</p>
     <p><img src="icon-1.svg" width="20" alt="第一步"/> <strong>从 C 语言映射原生数据类型</strong><br/>
        <img src="icon-2-todo.svg" width="20" alt="第二步"/> <a href="mapping-struct-union-types-from-c.md">从 C 语言映射结构体与联合体类型</a><br/>
-       <img src="icon-3-todo.svg" width="20" alt="第三步"/> <a href="mapping-function-pointers-from-c.md">映射函数指针</a><br/>
+       <img src="icon-3-todo.svg" width="20" alt="第三步"/> <a href="mapping-function-pointers-from-c.md">从 C 语言映射函数指针</a><br/>
        <img src="icon-4-todo.svg" width="20" alt="第四步"/> <a href="mapping-strings-from-c.md">从 C 语言映射字符串</a><br/>
     </p>
 </tldr>
@@ -21,7 +21,7 @@
 
 * [了解 C 语言中的数据类型](#types-in-c-language)
 * [创建一个在其导出中使用了这些类型的 C 库](#create-a-c-library)
-* [探查从 C 库生成的 Kotlin API](#inspect-generated-kotlin-apis-for-a-library)
+* [探查从 C 库生成的 Kotlin API](#inspect-generated-kotlin-apis-for-a-c-library)
 
 你可以使用命令行直接或通过脚本文件（例如 `.sh` 或 `.bat` 文件）生成 Kotlin 库。然而，对于拥有数百个文件和库的大型项目而言，这种方法无法很好地伸缩。使用构建系统可以通过下载和缓存 Kotlin/Native 编译器二进制文件和带有传递性依赖项的库，以及运行编译器和测试来简化此过程。Kotlin/Native 可以通过 [Kotlin 多平台插件](gradle-configure-project.md#targeting-multiple-platforms)使用 [Gradle](https://gradle.org) 构建系统。
 
@@ -145,11 +145,11 @@ cinterop 工具会为每组 `.h` 文件生成一个 Kotlin/Native 库（一个 `
     }
     
     kotlin {
-        macosArm64("native") {    // Apple Silicon macOS
+        macosArm64("native") {    // Apple Silicon 上的 macOS
         // macosX64("native") {   // x86_64 平台上的 macOS
         // linuxArm64("native") { // ARM64 平台上的 Linux
         // linuxX64("native") {   // x86_64 平台上的 Linux
-        // mingwX64("native") {   // Windows
+        // mingwX64("native") {   // 在 Windows 上
             compilations.main.cinterops {
                 interop 
             }

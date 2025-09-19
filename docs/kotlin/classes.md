@@ -120,7 +120,7 @@ class Person(val pets: MutableList<Pet> = mutableListOf())
 
 class Pet {
     constructor(owner: Person) {
-        owner.pets.add(this) // adds this pet to the list of its owner's pets
+        owner.pets.add(this) // 将此 pet 添加到其 owner 的 pets list 中
     }
 }
 ```
@@ -167,7 +167,7 @@ fun main() {
 class DontCreateMe private constructor() { /*...*/ }
 ```
 
-> On the JVM, if all of the primary constructor parameters have default values, the compiler will generate an additional parameterless constructor which will use the default values. This makes it easier to use Kotlin with libraries such as Jackson or JPA that create class instances through parameterless constructors.
+> 在 JVM 上，如果所有主构造函数形参都具有默认值，编译器将生成一个额外的无实参构造函数，该构造函数将使用默认值。这使得 Kotlin 更容易与 Jackson 或 JPA 等通过无实参构造函数创建类实例的库一起使用。
 >
 > ```kotlin
 > class Customer(val customerName: String = "")
@@ -229,13 +229,13 @@ class Rectangle : Polygon() {
 ```kotlin
 open class Polygon {
     open fun draw() {
-        // some default polygon drawing method
+        // 某些默认的多边形绘制方法
     }
 }
 
 abstract class WildShape : Polygon() {
-    // Classes that inherit WildShape need to provide their own
-    // draw method instead of using the default on Polygon
+    // 继承 WildShape 的类需要提供它们自己的
+    // draw 方法，而不是使用 Polygon 上的默认方法
     abstract override fun draw()
 }
 ```

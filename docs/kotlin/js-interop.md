@@ -14,11 +14,11 @@ fun jsTypeOf(o: Any): String {
 }
 ```
 
-因为 `js` 的参数在编译期解析并“原样”翻译为 JavaScript 代码，所以它必须是字符串常量。因此，以下代码不正确：
+因为 `js` 的形参在编译期解析并“原样”翻译为 JavaScript 代码，所以它必须是字符串常量。因此，以下代码不正确：
 
 ```kotlin
 fun jsTypeOf(o: Any): String {
-    return js(getTypeof() + " o") // 此处报告错误
+    return js(getTypeof() + " o") // error reported here
 }
 
 fun getTypeof() = "typeof"
@@ -44,7 +44,7 @@ external class Node {
 
     fun removeChild(child: Node): Node
 
-    // 等等
+    // etc
 }
 
 external val window: Window
@@ -58,10 +58,10 @@ external val window: Window
 
 在 JavaScript 中，你可以在原型上或类本身上定义成员：
 
-```javascript
+``` javascript
 function MyClass() { ... }
-MyClass.sharedMember = function() { /* 实现 */ };
-MyClass.prototype.ownMember = function() { /* 实现 */ };
+MyClass.sharedMember = function() { /* implementation */ };
+MyClass.prototype.ownMember = function() { /* implementation */ };
 ```
 
 Kotlin 中没有这样的语法。然而，在 Kotlin 中我们有 [`companion`](object-declarations.md#companion-objects) 对象。Kotlin 以特殊方式处理 `external` 类的伴生对象：它不期望一个对象，而是假定伴生对象的成员就是类本身的成员。上述示例中的 `MyClass` 可以描述如下：
@@ -143,7 +143,7 @@ external interface JQueryAjaxSettings {
 
     var complete: (JQueryXHR, String) -> Unit
 
-    // 等等
+    // etc
 }
 
 fun JQueryAjaxSettings(): JQueryAjaxSettings = js("{}")
@@ -168,8 +168,8 @@ external 接口有一些限制：
 - 它们不能用于 `is` 检测的右侧。
 - 它们不能作为实化类型实参传递。
 - 它们不能用于类字面量表达式（例如 `I::class`）。
-- `as` 到 external 接口的类型转换总是成功。
-- 转换到 external 接口会产生“Unchecked cast to external interface”（未经检测的类型转换到 external 接口）编译期警告。该警告可以使用 `@Suppress("UNCHECKED_CAST_TO_EXTERNAL_INTERFACE")` 注解抑制。
+- `as` 到 external 接口的类型转换总是成功。转换到 external 接口会产生“Unchecked cast to external interface”（未经检测的类型转换到 external 接口）编译期警告。该警告可以使用 `@Suppress("UNCHECKED_CAST_TO_EXTERNAL_INTERFACE")` 注解抑制。
+
 - IntelliJ IDEA 也可以自动生成 `@Suppress` 注解。通过灯泡图标或 Alt-Enter 键打开意图菜单，然后点击“Unchecked cast to external interface”检查旁边的小箭头。在此处，你可以选择抑制范围，你的 IDE 将相应地将注解添加到文件中。
 
 ### 类型转换

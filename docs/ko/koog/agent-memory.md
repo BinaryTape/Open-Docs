@@ -32,7 +32,7 @@ import ai.koog.agents.memory.model.FactType
 import ai.koog.agents.memory.model.SingleFact
 -->
 ```kotlin
-// Storing favorite IDE theme (single value)
+// IDE 선호 테마 저장 (단일 값)
 val themeFact = SingleFact(
     concept = Concept(
         "ide-theme", 
@@ -51,7 +51,7 @@ import ai.koog.agents.memory.model.FactType
 import ai.koog.agents.memory.model.MultipleFacts
 -->
 ```kotlin
-// Storing programming languages (multiple values)
+// 프로그래밍 언어 저장 (다중 값)
 val languagesFact = MultipleFacts(
     concept = Concept(
         "programming-languages",
@@ -91,8 +91,8 @@ import kotlinx.serialization.Serializable
 ```kotlin
 object MemorySubjects {
     /**
-     * Information specific to the local machine environment
-     * Examples: Installed tools, SDKs, OS configuration, available commands
+     * 로컬 머신 환경에 특화된 정보
+     * 예시: 설치된 도구, SDK, OS 구성, 사용 가능한 명령
      */
     @Serializable
     data object Machine : MemorySubject() {
@@ -103,8 +103,8 @@ object MemorySubjects {
     }
 
     /**
-     * Information specific to the user
-     * Examples: Conversation preferences, issue history, contact information
+     * 사용자에게 특화된 정보
+     * 예시: 대화 선호도, 문제 기록, 연락처 정보
      */
     @Serializable
     data object User : MemorySubject() {
@@ -195,7 +195,7 @@ import ai.koog.rag.base.files.JVMFileSystemProvider
 import kotlin.io.path.Path
 -->
 ```kotlin
-// Create a memory provider
+// 메모리 공급자 생성
 val memoryProvider = LocalFileMemoryProvider(
     config = LocalMemoryConfig("customer-support-memory"),
     storage = SimpleStorage(JVMFileSystemProvider.ReadWrite),
@@ -247,7 +247,7 @@ suspend fun main() {
 }
 -->
 ```kotlin
-// Get the stored information
+// 저장된 정보 가져오기
 val greeting = memoryProvider.load(
     concept = Concept("greeting", "User's name", FactType.SINGLE),
     subject = MemorySubjects.User,
@@ -283,12 +283,12 @@ import ai.koog.agents.memory.model.FactType
 -->
 ```kotlin
 val strategy = strategy("example-agent") {
-    // Node to automatically detect and save facts
+    // 팩트를 자동으로 감지 및 저장하는 노드
     val detectFacts by nodeSaveToMemoryAutoDetectFacts<Unit>(
         subjects = listOf(MemorySubjects.User, MemorySubjects.Machine)
     )
 
-    // Node to load specific facts
+    // 특정 팩트를 로드하는 노드
     val loadPreferences by node<Unit, Unit> {
         withMemory {
             loadFactsToAgent(
@@ -298,7 +298,7 @@ val strategy = strategy("example-agent") {
         }
     }
 
-    // Connect nodes in the strategy
+    // 전략에서 노드 연결
     edge(nodeStart forwardTo detectFacts)
     edge(detectFacts forwardTo loadPreferences)
     edge(loadPreferences forwardTo nodeFinish)
@@ -316,7 +316,7 @@ import ai.koog.rag.base.files.JVMFileSystemProvider
 import ai.koog.agents.memory.storage.Aes256GCMEncryptor
 -->
 ```kotlin
-// Simple encrypted storage setup
+// 간단한 암호화된 저장소 설정
 val secureStorage = EncryptedStorage(
     fs = JVMFileSystemProvider.ReadWrite,
     encryption = Aes256GCMEncryptor("your-secret-key")
@@ -517,15 +517,15 @@ import ai.koog.agents.memory.providers.AgentMemoryProvider
 ```kotlin
 class MyCustomMemoryProvider : AgentMemoryProvider {
     override suspend fun save(fact: Fact, subject: MemorySubject, scope: MemoryScope) {
-        // Implementation for saving facts
+        // 팩트 저장을 위한 구현
     }
 
     override suspend fun load(concept: Concept, subject: MemorySubject, scope: MemoryScope): List<Fact> {
-        // Implementation for loading facts by concept
+        // 개념별 팩트 로드를 위한 구현
     }
 
     override suspend fun loadAll(subject: MemorySubject, scope: MemoryScope): List<Fact> {
-        // Implementation for loading all facts
+        // 모든 팩트 로드를 위한 구현
     }
 
     override suspend fun loadByDescription(
@@ -533,7 +533,7 @@ class MyCustomMemoryProvider : AgentMemoryProvider {
         subject: MemorySubject,
         scope: MemoryScope
     ): List<Fact> {
-        // Implementation for loading facts by description
+        // 설명별 팩트 로드를 위한 구현
     }
 }
 ```

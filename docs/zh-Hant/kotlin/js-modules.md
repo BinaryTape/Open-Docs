@@ -2,6 +2,7 @@
 
 您可以將您的 Kotlin 專案編譯為 JavaScript 模組，以供各種流行的模組系統使用。我們目前支援以下 JavaScript 模組配置：
 
+- [ES 模組](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules)，在 JavaScript 中宣告模組的標準方式（使用 `import/export` JavaScript 語法）。如果 `target` 設定為 `es2015`，這是預設使用的模組類型。
 - [統一模組定義 (UMD)](https://github.com/umdjs/umd)，與 *AMD* 和 *CommonJS* 均相容。UMD 模組也能夠在未匯入或沒有模組系統存在的情況下執行。這是 `browser` 和 `nodejs` 目標的預設選項。
 - [非同步模組定義 (AMD)](https://github.com/amdjs/amdjs-api/wiki/AMD)，特別由 [RequireJS](https://requirejs.org/) 函式庫使用。
 - [CommonJS](http://wiki.commonjs.org/wiki/Modules/1.1)，被 Node.js/npm 廣泛使用（`require` 函式和 `module.exports` 物件）。
@@ -54,18 +55,20 @@ compileKotlinJs.compilerOptions.moduleKind = org.jetbrains.kotlin.gradle.dsl.JsM
 </tab>
 </tabs>
 
-可用的值為：`umd`（預設）、`commonjs`、`amd`、`plain`。
+可用的值為：`umd`（預設）、`es`、`commonjs`、`amd`、`plain`。
 
 > 這與調整 `webpackTask.output.libraryTarget` 不同。函式庫目標變更的是 _Webpack 產生的輸出_（在您的程式碼已經編譯之後）。`compilerOptions.moduleKind` 變更的是 _Kotlin 編譯器產生的輸出_。
 >
 {style="note"}  
 
-在 Kotlin Gradle DSL 中，也有一個設定 CommonJS 模組類型的捷徑：
+在 Kotlin Gradle DSL 中，也有一個設定 CommonJS 和 ESM 模組類型的捷徑：
 
 ```kotlin
 kotlin {
     js {
         useCommonJs()
+        // OR
+        useEsModules()
         // ...
     }
 }

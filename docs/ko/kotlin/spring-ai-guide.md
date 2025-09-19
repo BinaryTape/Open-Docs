@@ -61,7 +61,7 @@ IntelliJ IDEA Ultimate Edition에서 새 Spring Boot 프로젝트를 생성합�
         >
         {style="tip"}
 
-    ![Create Spring Boot project](create-spring-ai-project.png){width=800}
+   ![Create Spring Boot project](create-spring-ai-project.png){width=800}
 
 4.  모든 필드를 지정했는지 확인하고 **Next**를 클릭합니다.
 5.  **Spring Boot** 필드에서 최신 안정화 Spring Boot 버전을 선택합니다.
@@ -72,7 +72,7 @@ IntelliJ IDEA Ultimate Edition에서 새 Spring Boot 프로젝트를 생성합�
     *   **AI | OpenAI**
     *   **SQL | Qdrant Vector Database**
 
-    ![Set up Spring Boot project](spring-ai-dependencies.png){width=800}
+   ![Set up Spring Boot project](spring-ai-dependencies.png){width=800}
 
 7.  **Create**를 클릭하여 프로젝트를 생성하고 설정합니다.
 
@@ -129,7 +129,7 @@ IntelliJ IDEA Ultimate Edition에서 새 Spring Boot 프로젝트를 생성합�
 5.  `SpringAiDemoApplication.kt` 파일을 실행하여 Spring Boot 애플리케이션을 시작합니다.
     실행되면 브라우저에서 [Qdrant collections](http://localhost:6333/dashboard#/collections) 페이지를 열어 결과를 확인합니다:
 
-    ![Qdrant collections](qdrant-collections.png){width=700}
+   ![Qdrant collections](qdrant-collections.png){width=700}
 
 ## 문서를 로드하고 검색하는 컨트롤러 생성
 
@@ -157,10 +157,10 @@ IntelliJ IDEA Ultimate Edition에서 새 Spring Boot 프로젝트를 생성합�
     @RestController
     @RequestMapping("/kotlin")
     class KotlinSTDController(
-    private val restTemplate: RestTemplate,
-    private val vectorStore: VectorStore,
+        private val restTemplate: RestTemplate,
+        private val vectorStore: VectorStore,
     ) {
-    private val logger = LoggerFactory.getLogger(this::class.java)
+        private val logger = LoggerFactory.getLogger(this::class.java)
 
         @OptIn(ExperimentalUuidApi::class)
         @PostMapping("/load-docs")
@@ -206,7 +206,7 @@ IntelliJ IDEA Ultimate Edition에서 새 Spring Boot 프로젝트를 생성합�
         }
     }
     ```
-    {collapsible="true"}
+   {collapsible="true"}
 
 2.  `RestTemplate` 빈을 선언하도록 `SpringAiDemoApplication.kt` 파일을 업데이트합니다:
 
@@ -220,7 +220,6 @@ IntelliJ IDEA Ultimate Edition에서 새 Spring Boot 프로젝트를 생성합�
 
     @SpringBootApplication
     class SpringAiDemoApplication {
-
         @Bean
         fun restTemplate(): RestTemplate = RestTemplate()
     }
@@ -229,7 +228,7 @@ IntelliJ IDEA Ultimate Edition에서 새 Spring Boot 프로젝트를 생성합�
         runApplication<SpringAiDemoApplication>(*args)
     }
     ```
-    {collapsible="true"}
+   {collapsible="true"}
 
 3.  애플리케이션을 실행합니다.
 4.  터미널에서 `/kotlin/load-docs` 엔드포인트로 POST 요청을 보내 문서를 로드합니다:
@@ -244,7 +243,7 @@ IntelliJ IDEA Ultimate Edition에서 새 Spring Boot 프로젝트를 생성합�
     curl -X GET http://localhost:8080/kotlin/docs
     ```
 
-    ![GET request results](spring-ai-get-results.png){width="700"}
+   ![GET request results](spring-ai-get-results.png){width="700"}
 
 > [Qdrant collections](http://localhost:6333/dashboard#/collections) 페이지에서 결과를 확인할 수도 있습니다.
 >
@@ -336,7 +335,7 @@ IntelliJ IDEA Ultimate Edition에서 새 Spring Boot 프로젝트를 생성합�
          -d '{"query": "What are the performance implications of using lazy sequences in Kotlin for large datasets?", "topK": 3}'
     ```
 
-    ![OpenAI answer to chat request](open-ai-chat-endpoint.png){width="700"}
+   ![OpenAI answer to chat request](open-ai-chat-endpoint.png){width="700"}
 
 축하합니다! 이제 OpenAI에 연결하고 Qdrant에 저장된 문서에서 검색된 컨텍스트를 사용하여 질문에 답변하는 Kotlin 앱을 갖게 되었습니다.
 다른 쿼리로 실험하거나 다른 문서를 임포트하여 더 많은 가능성을 탐색해보세요.

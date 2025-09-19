@@ -41,9 +41,9 @@ val strategy = strategy<String, String>("strategy_name") {
 -->
 ```kotlin
 val nodeName by parallel<Input, Output>(
-   firstNode, secondNode, thirdNode /* Add more nodes if needed */
+   firstNode, secondNode, thirdNode /* 如有需要，可添加更多节点 */
 ) {
-   // Merge strategy goes here, for example: 
+   // 合并策略在此处，例如： 
    selectByMax { it.length }
 }
 ```
@@ -172,7 +172,7 @@ val nodeBestJoke by parallel<String, String>(
    nodeOpenAI, nodeAnthropicSonnet, nodeAnthropicOpus,
 ) {
    selectByIndex { jokes ->
-      // Use another LLM to determine the best joke
+      // 使用另一个 LLM 来确定最佳笑话
       llm.writeSession {
          model = OpenAIModels.Chat.GPT4o
          updatePrompt {
@@ -240,7 +240,7 @@ data class JokeRating(
 -->
 ```kotlin
 val strategy = strategy("best-joke") {
-   // Define nodes for different LLM models
+   // 为不同的 LLM 模型定义节点
    val nodeOpenAI by node<String, String> { topic ->
       llm.writeSession {
          model = OpenAIModels.Chat.GPT4o
@@ -277,12 +277,12 @@ val strategy = strategy("best-joke") {
       }
    }
 
-   // Execute joke generation in parallel and select the best joke
+   // 并行执行笑话生成并选择最佳笑话
    val nodeGenerateBestJoke by parallel(
       nodeOpenAI, nodeAnthropicSonnet, nodeAnthropicOpus,
    ) {
       selectByIndex { jokes ->
-         // Another LLM (e.g., GPT4o) would find the funniest joke:
+         // 另一个 LLM（例如，GPT4o）将找到最有趣的笑话：
          llm.writeSession {
             model = OpenAIModels.Chat.GPT4o
             updatePrompt {
@@ -309,7 +309,7 @@ $joke" }.joinToString("
       }
    }
 
-   // Connect the nodes
+   // 连接节点
    nodeStart then nodeGenerateBestJoke then nodeFinish
 }
 ```
@@ -317,11 +317,11 @@ $joke" }.joinToString("
 
 ## 最佳实践
 
-1. **考虑资源限制**：在并行执行节点时，请注意资源使用情况，尤其是在同时进行多个 LLM API 调用时。
+1.  **考虑资源限制**：在并行执行节点时，请注意资源使用情况，尤其是在同时进行多个 LLM API 调用时。
 
-2. **上下文管理**：每次并行执行都会创建一个派生上下文。合并结果时，请选择要保留哪个上下文或如何组合来自不同执行的上下文。
+2.  **上下文管理**：每次并行执行都会创建一个派生上下文。合并结果时，请选择要保留哪个上下文或如何组合来自不同执行的上下文。
 
-3. **根据您的用例进行优化**：
+3.  **根据您的用例进行优化**：
     - 对于竞争性求值（如笑话示例），使用 `selectByIndex` 选择最佳结果
     - 对于查找最大值，使用 `selectByMax`
     - 对于基于条件进行过滤，使用 `selectBy`

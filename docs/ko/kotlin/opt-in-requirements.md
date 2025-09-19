@@ -13,44 +13,44 @@ Kotlin 표준 라이브러리는 특정 API 요소를 사용하기 위해 명시
 코드에서 특정 API 요소를 사용할 때 옵트인하려면, [`@OptIn`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-opt-in/) 어노테이션과 실험적 API 마커에 대한 참조를 함께 사용하세요. 예를 들어, 옵트인이 필요한 `DateProvider` 클래스를 사용한다고 가정해 봅시다.
 
 ```kotlin
-// Library code
+// 라이브러리 코드
 @RequiresOptIn(message = "This API is experimental. It could change in the future without notice.")
 @Retention(AnnotationRetention.BINARY)
 @Target(AnnotationTarget.CLASS, AnnotationTarget.FUNCTION)
 annotation class MyDateTime
 
 @MyDateTime
-// A class requiring opt-in
+// 옵트인이 필요한 클래스
 class DateProvider
 ```
 
 코드에서 `DateProvider` 클래스를 사용하는 함수를 선언하기 전에, `MyDateTime` 어노테이션 클래스에 대한 참조와 함께 `@OptIn` 어노테이션을 추가하세요.
 
 ```kotlin
-// Client code
+// 클라이언트 코드
 @OptIn(MyDateTime::class)
 
-// Uses DateProvider
+// DateProvider 사용
 fun getDate(): Date {
     val dateProvider: DateProvider
     // ...
 }
 ```
 
-이 접근 방식의 중요한 점은, `getDate()` 함수가 코드의 다른 곳에서 호출되거나 다른 개발자가 사용하더라도 옵트인이 필요하지 않다는 것입니다.
+이 접근 방식에서 중요한 점은, `getDate()` 함수가 코드의 다른 곳에서 호출되거나 다른 개발자가 사용하더라도 옵트인이 필요하지 않다는 것입니다.
 
 ```kotlin
-// Client code
+// 클라이언트 코드
 @OptIn(MyDateTime::class)
 
-// Uses DateProvider
+// DateProvider 사용
 fun getDate(): Date {
     val dateProvider: DateProvider
     // ...
 }
 
 fun displayDate() {
-    // OK: No opt-in is required
+    // OK: 옵트인이 필요하지 않음
     println(getDate())
 }
 ```
@@ -59,22 +59,22 @@ fun displayDate() {
 
 #### 옵트인 요구 사항 전파
 
-라이브러리처럼 서드파티 사용을 목적으로 하는 코드로 API를 사용하는 경우, 해당 API의 옵트인 요구 사항을 자신의 API에도 전파할 수 있습니다. 이렇게 하려면 라이브러리에서 사용하는 것과 동일한 **[옵트인 요구 사항 어노테이션](#create-opt-in-requirement-annotations)**으로 선언을 표시하세요.
+라이브러리처럼 서드파티 사용을 목적으로 하는 코드에서 API를 사용하는 경우, 해당 API의 옵트인 요구 사항을 자신의 API에도 전파할 수 있습니다. 이렇게 하려면 라이브러리에서 사용하는 것과 동일한 **[옵트인 요구 사항 어노테이션](#create-opt-in-requirement-annotations)**으로 선언을 표시하세요.
 
 예를 들어, `DateProvider` 클래스를 사용하는 함수를 선언하기 전에 `@MyDateTime` 어노테이션을 추가하세요.
 
 ```kotlin
-// Client code
+// 클라이언트 코드
 @MyDateTime
 fun getDate(): Date {
-    // OK: the function requires opt-in as well
+    // OK: 함수에도 옵트인이 필요함
     val dateProvider: DateProvider
     // ...
 }
 
 fun displayDate() {
     println(getDate())
-    // Error: getDate() requires opt-in
+    // 에러: getDate()는 옵트인이 필요함
 }
 ```
 
@@ -83,13 +83,13 @@ fun displayDate() {
 API 요소의 시그니처에 옵트인이 필요한 타입이 포함되어 있다면, 시그니처 자체도 옵트인이 필요합니다. 그렇지 않으면, API 요소가 옵트인이 필요하지 않지만 시그니처에 옵트인이 필요한 타입이 포함되어 있다면, 사용 시 에러가 발생합니다.
 
 ```kotlin
-// Client code
+// 클라이언트 코드
 @MyDateTime
 fun getDate(dateProvider: DateProvider = DateProvider()): Date
 
 @MyDateTime
 fun displayDate() {
-    // OK: the function requires opt-in as well
+    // OK: 함수에도 옵트인이 필요함
     println(getDate())
 }
 ```
@@ -97,22 +97,22 @@ fun displayDate() {
 마찬가지로, 시그니처에 옵트인이 필요한 타입을 포함하는 선언에 `@OptIn`을 적용하더라도 옵트인 요구 사항은 여전히 전파됩니다.
 
 ```kotlin
-// Client code
+// 클라이언트 코드
 @OptIn(MyDateTime::class)
-// Propagates opt-in due to DateProvider in the signature
+// 시그니처에 DateProvider가 포함되어 옵트인 전파됨
 fun getDate(dateProvider: DateProvider = DateProvider()): Date
 
 fun displayDate() {
     println(getDate())
-    // Error: getDate() requires opt-in
+    // 에러: getDate()는 옵트인이 필요함
 }
 ```
 
 옵트인 요구 사항을 전파할 때, API 요소가 안정화되어 더 이상 옵트인 요구 사항이 없더라도, 여전히 옵트인 요구 사항을 가지고 있는 다른 API 요소는 실험적인 상태로 유지된다는 점을 이해하는 것이 중요합니다. 예를 들어, 라이브러리 작성자가 `getDate()` 함수가 이제 안정화되었기 때문에 옵트인 요구 사항을 제거했다고 가정해 봅시다.
 
 ```kotlin
-// Library code
-// No opt-in requirement
+// 라이브러리 코드
+// 옵트인 요구 사항 없음
 fun getDate(): Date {
     val dateProvider: DateProvider
     // ...
@@ -122,12 +122,12 @@ fun getDate(): Date {
 `displayDate()` 함수를 사용할 때 옵트인 어노테이션을 제거하지 않으면, 옵트인이 더 이상 필요하지 않더라도 함수는 실험적인 상태로 유지됩니다.
 
 ```kotlin
-// Client code
+// 클라이언트 코드
 
-// Still experimental!
+// 여전히 실험적임!
 @MyDateTime
 fun displayDate() {
-    // Uses a stable library function
+    // 안정적인 라이브러리 함수 사용
     println(getDate())
 }
 ```
@@ -152,7 +152,7 @@ fun displayDate() {
 파일의 모든 함수와 클래스에 대해 옵트인이 필요한 API를 사용하려면, 패키지 지정 및 임포트(`import`) 전에 파일 맨 위에 파일 수준 어노테이션인 `@file:OptIn`을 추가하세요.
 
  ```kotlin
- // Client code
+ // 클라이언트 코드
  @file:OptIn(MyDateTime::class)
  ```
 
@@ -250,7 +250,7 @@ Maven의 경우, 다음을 사용하세요.
 이러한 API 요소를 사용하고 코드에서 확장하려면, `@SubclassOptInRequired` 어노테이션과 어노테이션 클래스에 대한 참조를 함께 사용하세요. 예를 들어, 옵트인이 필요한 `CoreLibraryApi` 인터페이스를 사용한다고 가정해 봅시다.
 
 ```kotlin
-// Library code
+// 라이브러리 코드
 @RequiresOptIn(
  level = RequiresOptIn.Level.WARNING,
  message = "Interfaces in this library are experimental"
@@ -258,14 +258,14 @@ Maven의 경우, 다음을 사용하세요.
 annotation class UnstableApi()
 
 @SubclassOptInRequired(UnstableApi::class)
-// An interface requiring opt-in to extend
+// 확장에 옵트인이 필요한 인터페이스
 interface CoreLibraryApi
 ```
 
 코드에서 `CoreLibraryApi` 인터페이스를 상속하는 새 인터페이스를 만들기 전에, `UnstableApi` 어노테이션 클래스에 대한 참조와 함께 `@SubclassOptInRequired` 어노테이션을 추가하세요.
 
 ```kotlin
-// Client code
+// 클라이언트 코드
 @SubclassOptInRequired(UnstableApi::class)
 interface SomeImplementation : CoreLibraryApi
 ```
@@ -273,7 +273,7 @@ interface SomeImplementation : CoreLibraryApi
 클래스에 `@SubclassOptInRequired` 어노테이션을 사용할 때, 옵트인 요구 사항은 어떤 [내부 또는 중첩 클래스](nested-classes.md)에도 전파되지 않는다는 점에 유의하세요.
 
 ```kotlin
-// Library code
+// 라이브러리 코드
 @RequiresOptIn
 annotation class ExperimentalFeature
 
@@ -282,26 +282,26 @@ open class FileSystem {
     open class File
 }
 
-// Client code
+// 클라이언트 코드
 
-// Opt-in is required
+// 옵트인이 필요함
 class NetworkFileSystem : FileSystem()
 
-// Nested class
-// No opt-in required
+// 중첩 클래스
+// 옵트인 필요 없음
 class TextFile : FileSystem.File()
 ```
 
 또는 `@OptIn` 어노테이션을 사용하여 옵트인할 수 있습니다. 또한 실험적 마커 어노테이션을 사용하여 코드에서 해당 클래스의 모든 사용에 요구 사항을 더 멀리 전파할 수도 있습니다.
 
 ```kotlin
-// Client code
-// With @OptIn annotation
-@OptInRequired(UnstableApi::class)
+// 클라이언트 코드
+// @OptIn 어노테이션 사용
+@OptIn(UnstableApi::class)
 interface SomeImplementation : CoreLibraryApi
 
-// With annotation referencing annotation class
-// Propagates the opt-in requirement further
+// 어노테이션 클래스를 참조하는 어노테이션 사용
+// 옵트인 요구 사항을 더 전파함
 @UnstableApi
 interface SomeImplementation : CoreLibraryApi
 ```
@@ -323,14 +323,14 @@ annotation class MyDateTime
 
 옵트인 요구 사항 어노테이션은 몇 가지 요구 사항을 충족해야 합니다. 다음을 포함해야 합니다.
 
-* `BINARY` 또는 `RUNTIME` [보존 정책(retention)](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.annotation/-retention/).
-* `EXPRESSION`, `FILE`, `TYPE`, 또는 `TYPE_PARAMETER`를 [대상(target)](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.annotation/-target/)으로 합니다.
-* 파라미터가 없어야 합니다.
+*   `BINARY` 또는 `RUNTIME` [보존 정책(retention)](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.annotation/-retention/).
+*   `EXPRESSION`, `FILE`, `TYPE`, 또는 `TYPE_PARAMETER`를 [대상(target)](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.annotation/-target/)으로 합니다.
+*   파라미터가 없어야 합니다.
 
 옵트인 요구 사항은 다음 두 가지 심각도 [수준(level)](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-requires-opt-in/-level/) 중 하나를 가질 수 있습니다.
 
-* `RequiresOptIn.Level.ERROR`. 옵트인이 필수적입니다. 그렇지 않으면 표시된 API를 사용하는 코드가 컴파일되지 않습니다. 이것이 기본 수준입니다.
-* `RequiresOptIn.Level.WARNING`. 옵트인이 필수적이지는 않지만 권장됩니다. 옵트인 없이는 컴파일러가 경고를 발생시킵니다.
+*   `RequiresOptIn.Level.ERROR`. 옵트인이 필수적입니다. 그렇지 않으면 표시된 API를 사용하는 코드가 컴파일되지 않습니다. 이것이 기본 수준입니다.
+*   `RequiresOptIn.Level.WARNING`. 옵트인이 필수적이지는 않지만 권장됩니다. 옵트인 없이는 컴파일러가 경고를 발생시킵니다.
 
 원하는 수준을 설정하려면 `@RequiresOptIn` 어노테이션의 `level` 파라미터를 지정하세요.
 
@@ -359,16 +359,16 @@ fun getTime(): Time {}
 
 일부 언어 요소에는 옵트인 요구 사항 어노테이션을 적용할 수 없습니다.
 
-* 프로퍼티의 백킹 필드나 게터가 아닌, 프로퍼티 자체에만 어노테이션을 붙일 수 있습니다.
-* 로컬 변수나 값 파라미터에는 어노테이션을 붙일 수 없습니다.
+*   프로퍼티의 백킹 필드나 게터가 아닌, 프로퍼티 자체에만 어노테이션을 붙일 수 있습니다.
+*   로컬 변수나 값 파라미터에는 어노테이션을 붙일 수 없습니다.
 
 ## API 확장 시 옵트인 요구
 
-API의 어떤 특정 부분을 사용하고 확장할 수 있는지에 대해 더 세분화된 제어를 원할 때가 있습니다. 예를 들어, 사용하기에는 안정적이지만 다음과 같은 API가 있을 수 있습니다.
+때로는 API의 어떤 특정 부분을 사용하고 확장할 수 있는지에 대해 더 세분화된 제어를 원할 때가 있습니다. 예를 들어, 사용하기에는 안정적이지만 다음과 같은 API가 있을 수 있습니다.
 
-* 지속적인 발전으로 인해 **구현하기에는 불안정합니다**. 예를 들어, 기본 구현 없이 새로운 추상 함수를 추가할 것으로 예상되는 인터페이스 계열이 있을 때입니다.
-* 조율된 방식으로 동작해야 하는 개별 함수와 같이 **구현하기에 섬세하거나 취약합니다**.
-* 외부 구현에 대해 하위 호환성을 손상하는 방식으로 **미래에 계약이 약화될 수 있습니다**. 예를 들어, 코드가 이전에 `null` 값을 고려하지 않았던 입력 파라미터 `T`를 널러블 버전 `T?`로 변경하는 경우입니다.
+*   지속적인 발전으로 인해 **구현하기에는 불안정합니다**. 예를 들어, 기본 구현 없이 새로운 추상 함수를 추가할 것으로 예상되는 인터페이스 계열이 있을 때입니다.
+*   조율된 방식으로 동작해야 하는 개별 함수와 같이 **구현하기에 섬세하거나 취약합니다**.
+*   외부 구현에 대해 하위 호환성을 손상하는 방식으로 **미래에 계약이 약화될 수 있습니다**. 예를 들어, 코드가 이전에 `null` 값을 고려하지 않았던 입력 파라미터 `T`를 널러블 버전 `T?`로 변경하는 경우입니다.
 
 이러한 경우, 사용자가 API를 더 확장하기 전에 API에 옵트인하도록 요구할 수 있습니다. 사용자는 API를 상속하거나 추상 함수를 구현함으로써 API를 확장할 수 있습니다. [`@SubclassOptInRequired`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-subclass-opt-in-required/) 어노테이션을 사용하여 [오픈(open)](inheritance.md) 또는 [추상 클래스](classes.md#abstract-classes) 및 [비함수형 인터페이스](interfaces.md)에 대한 옵트인 요구 사항을 강제할 수 있습니다.
 
@@ -382,7 +382,7 @@ API 요소에 옵트인 요구 사항을 추가하려면, [`@SubclassOptInRequir
 annotation class UnstableApi()
 
 @SubclassOptInRequired(UnstableApi::class)
-// An interface requiring opt-in to extend
+// 확장에 옵트인이 필요한 인터페이스
 interface CoreLibraryApi
 ```
 

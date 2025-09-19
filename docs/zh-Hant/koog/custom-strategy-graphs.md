@@ -179,7 +179,7 @@ val myStrategy = strategy<String, String>("my-strategy") {
 
 ### 歷史壓縮 (History compression)
 
-對於長時間執行的對話，歷史可能會變得很大並消耗大量 tokens。要了解如何壓縮歷史，請參閱 [歷史壓縮](history-compression.md)。
+對於長時間執行的對話，歷史可能會變得很大並消耗大量 token。要了解如何壓縮歷史，請參閱 [歷史壓縮](history-compression.md)。
 
 ### 並行工具執行 (Parallel tool execution)
 
@@ -299,7 +299,7 @@ edge(
 - 使用各種輸入測試您的圖，以確保其行為符合預期。
 - 記錄您的圖的目的和行為，以供將來參考。
 - 使用預定義的策略或常見模式作為起點。
-- 對於長時間執行的對話，請使用歷史壓縮以減少 tokens 使用量。
+- 對於長時間執行的對話，請使用歷史壓縮以減少 token 使用量。
 - 使用子圖來組織您的圖並管理工具存取。
 
 ## 使用範例
@@ -405,7 +405,7 @@ fun toneStrategy(name: String, toolRegistry: ToolRegistry): AIAgentGraphStrategy
 
 ### 歷史過大
 
-如果您的歷史過大並消耗了太多 tokens，請考慮以下內容：
+如果您的歷史過大並消耗了太多 token，請考慮以下內容：
 
 - 添加歷史壓縮節點。
 - 使用條件檢查歷史大小，並在歷史過大時壓縮它。

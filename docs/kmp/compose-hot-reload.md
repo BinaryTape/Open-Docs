@@ -1,6 +1,6 @@
 [//]: # (title: Compose 热重载)
 
-<primary-label ref="alpha"/>
+<primary-label ref="beta"/>
 
 [Compose 热重载](https://github.com/JetBrains/compose-hot-reload) 帮助您在处理 Compose Multiplatform 项目时可视化并实验 UI 变更。
 
@@ -22,7 +22,7 @@ Compose 热重载可通过两种方式添加，即：
 1. 在 [快速入门](quickstart.md) 中，完成以下说明以 [为 Kotlin Multiplatform 开发设置环境](quickstart.md#set-up-the-environment)。
 2. 在 IntelliJ IDEA 中，选择 **File** | **New** | **Project**。
 3. 在左侧面板中，选择 **Kotlin Multiplatform**。
-4. 在 **New Project** 窗口中指定 **Name**、**Group** 和 **Artifact** 字段。
+4. 在 **New Project** 窗口中指定 **Name**、**Group** 和 **Artifact** 字段
 5. 选择 **Desktop** 目标平台，然后点击 **Create**。
    ![创建包含 desktop 目标平台的多平台项目](create-desktop-project.png){width=700}
 
@@ -70,7 +70,7 @@ Compose 热重载可通过两种方式添加，即：
 
 ## 使用 Compose 热重载
 
-1. 在 `desktopMain` 目录中，打开 `main.kt` 文件并更新 `main()` 函数：
+1. 在 `jvmMain` 目录中，打开 `main.kt` 文件并更新 `main()` 函数：
    ```kotlin
    fun main() = application {
        Window(
@@ -84,7 +84,7 @@ Compose 热重载可通过两种方式添加，即：
    ```
    通过将 `alwaysOnTop` 变量设置为 `true`，生成的 desktop 应用将保持在所有窗口的顶部，使您更轻松地编辑代码并实时查看更改。
 
-2. 在 `commonMain` 目录中，打开 `App.kt` 文件并更新 `Button` 可组合项：
+2. 打开 `App.kt` 文件并更新 `Button` 可组合项：
    ```kotlin
    Button(onClick = { showContent = !showContent }) {
        Column {
@@ -94,21 +94,21 @@ Compose 热重载可通过两种方式添加，即：
    ```
    现在，按钮的文本由 `greet()` 函数控制。
 
-3. 在 `commonMain` 目录中，打开 `Greeting.kt` 文件并更新 `greet()` 函数：
+3. 打开 `Greeting.kt` 文件并更新 `greet()` 函数：
    ```kotlin
     fun greet(): String {
         return "Hello!"
     }
    ```
 
-4. 在 `desktopMain` 目录中，打开 `main.kt` 文件并点击边栏中的 **Run** 图标。
-   选择 **Run 'composeApp [desktop]' with Compose Hot Reload (Alpha)**。
+4. 打开 `main.kt` 文件并点击边栏中的 **Run** 图标。
+   选择 **Run 'composeApp [hotRunJvm]' with Compose Hot Reload (Beta)**。
 
    ![从边栏运行 Compose Hot Reload](compose-hot-reload-gutter-run.png){width=350}
 
    ![desktop 应用上的首次 Compose Hot Reload](compose-hot-reload-hello.png){width=500}
 
-5. 更新 `greet()` 函数返回的字符串，然后保存文件以查看 desktop 应用自动更新。
+5. 更新 `greet()` 函数返回的字符串，然后保存所有文件 (<shortcut>⌘ S</shortcut> / <shortcut>Ctrl+S</shortcut>) 以查看 desktop 应用自动更新。
 
    ![Compose 热重载](compose-hot-reload.gif){width=500}
 

@@ -18,7 +18,8 @@
 
 ## @Tool 注解
 
-`@Tool` 注解用于标记应作为工具暴露给 LLM 的函数。带有 `@Tool` 注解的函数通过反射从实现了 `ToolSet` 接口的对象中收集。关于详细信息，请参见[实现 ToolSet 接口](#implement-the-toolset-interface)。
+`@Tool` 注解用于标记应作为工具暴露给 LLM 的函数。
+带有 `@Tool` 注解的函数通过反射从实现了 `ToolSet` 接口的对象中收集。关于详细信息，请参见[实现 ToolSet 接口](#implement-the-toolset-interface)。
 
 ### 定义
 
@@ -62,7 +63,8 @@ class MyToolSet : ToolSet {
 
 ## @LLMDescription 注解
 
-`@LLMDescription` 注解向 LLM 提供有关代码元素（类、函数、形参等）的描述性信息。这有助于 LLM 理解这些元素的用途和用法。
+`@LLMDescription` 注解向 LLM 提供有关代码元素（类、函数、形参等）的描述性信息。
+这有助于 LLM 理解这些元素的用途和用法。
 
 ### 定义
 
@@ -132,7 +134,8 @@ fun processTool(
 
 ### 1. 实现 ToolSet 接口
 
-创建一个实现 [`ToolSet`](https://api.koog.ai/agents/agents-tools/ai.koog.agents.core.tools.reflect/-tool-set/index.html) 接口的类。此接口将你的类标记为工具的容器。
+创建一个实现 [`ToolSet`](https://api.koog.ai/agents/agents-tools/ai.koog.agents.core.tools.reflect/-tool-set/index.html) 接口的类。
+此接口将你的类标记为工具的容器。
 
 <!--- INCLUDE
 import ai.koog.agents.core.tools.reflect.ToolSet

@@ -40,7 +40,7 @@ Kotlin Multiplatform 于 2017 年作为 Kotlin 1.2 的一部分首次推出。20
 
 您可以使用 [Compose Multiplatform](https://www.jetbrains.com/compose-multiplatform/) 在多个平台之间编写共享 UI 代码，它是 JetBrains 基于 Kotlin Multiplatform 和 Google 的 Jetpack Compose 构建的现代声明式框架。
 
-Compose Multiplatform 目前在 [iOS](https://blog.jetbrains.com/kotlin/2025/05/compose-multiplatform-1-8-0-released-compose-multiplatform-for-ios-is-stable-and-production-ready/)、Android 和桌面端已稳定，在 Web 端处于 Alpha 阶段。
+Compose Multiplatform 目前在 [iOS](https://blog.jetbrains.com/kotlin/2025/05/compose-multiplatform-1-8-0-released-compose-multiplatform-for-ios-is-stable-and-production-ready/)、Android 和桌面端已稳定，在 Web 端处于 Beta 阶段。
 
 [![探索 Compose Multiplatform](explore-compose.svg){width="500"}](https://www.jetbrains.com/compose-multiplatform/)
 
@@ -83,7 +83,7 @@ Compose Multiplatform 目前在 [iOS](https://blog.jetbrains.com/kotlin/2025/05/
         <td>软件包可从 <a href="https://central.sonatype.com/">Maven Central</a> 和其他版本库获取，包括
             <p><a href="http://klibs.io">klibs.io</a> (Alpha 版本)，它旨在简化 KMP 库的搜索。</p>
             <p>此<a href="https://github.com/terrakok/kmp-awesome">列表</a>包含一些最流行的 KMP 库和工具。</p> </td>
-        <td>软件包可从 <a href="https://pub.dev/">Pub.dev</a> 获取。</td>
+        <td>软件包可从 <a href="https://pub.dev/">Pub.dev。</a></td>
 </tr>
 
     
@@ -135,7 +135,7 @@ Compose Multiplatform 目前在 [iOS](https://blog.jetbrains.com/kotlin/2025/05/
 <tr>
 <td><b>使用该技术的公司</b></td>
         <td><a href="https://www.forbes.com/sites/forbes-engineering/2023/11/13/forbes-mobile-app-shifts-to-kotlin-multiplatform/">Forbes</a>、<a href="https://www.youtube.com/watch?v=z-o9MqN86eE">Todoist</a>、<a href="https://medium.com/mcdonalds-technical-blog/mobile-multiplatform-development-at-mcdonalds-3b72c8d44ebc">McDonald’s</a>、<a href="https://www.youtube.com/watch?v=5sOXv-X43vc">Google Workspace</a>、<a href="https://www.youtube.com/watch?v=hZPL8QqiLi8">Philips</a>、<a href="https://raymondctc.medium.com/adopting-kotlin-multiplatform-mobile-kmm-on-9gag-app-dfe526d9ce04">9gag</a>、<a href="https://kotlinlang.org/lp/multiplatform/case-studies/baidu">Baidu</a>、<a href="https://kotlinlang.org/lp/multiplatform/case-studies/autodesk/">Autodesk</a>、<a href="https://touchlab.co/">TouchLab</a>、<a href="https://www.youtube.com/watch?v=YsQ-2lQYQ8M">Instabee</a>，更多内容请参见我们的 <Links href="/kmp/case-studies" summary="undefined">KMP 案例研究</Links>。</td>
-        <td><a href="https://flutter.dev/showcase/xiaomi">Xiaomi</a>、<a href="https://flutter.dev/showcase/wolt">Wolt</a>、<a href="https://flutter.dev/showcase/universal-studios">Universal Studios</a>、<a href="https://flutter.dev/showcase/alibaba-group">Alibaba Group</a>、<a href="https://flutter.dev/showcase/bytedance">ByteDance</a>、<a href="https://www.geico.com/techblog/flutter-as-the-multi-channel-ux-framework/">Geico</a>、<a href="https://flutter.dev/showcase/ebay">eBay Motors</a>、<a href="https://flutter.dev/showcase/google-pay">Google Pay</a>、<a href="https://flutter.dev/showcase/so-vegan">So Vegan</a>，更多内容请参见 [Flutter 展示页面](https://flutter.dev/showcase)。</td>
+        <td><a href="https://flutter.dev/showcase/xiaomi">Xiaomi</a>、<a href="https://flutter.dev/showcase/wolt">Wolt</a>、<a href="https://flutter.dev/showcase/universal-studios">Universal Studios</a>、<a href="https://flutter.dev/showcase/alibaba-group">Alibaba Group</a>、<a href="https://flutter.dev/showcase/bytedance">ByteDance</a>、<a href="https://www.geico.com/techblog/flutter-as-the-multi-channel-ux-framework/">Geico</a>、<a href="https://flutter.dev/showcase/ebay">eBay Motors</a>、<a href="https://flutter.dev/showcase/google-pay">Google Pay</a>、<a href="https://flutter.dev/showcase/so-vegan">So Vegan</a>，更多内容请参见 <a href="https://flutter.dev/showcase">Flutter 展示页面。</a></td>
 </tr>
 
 </table>

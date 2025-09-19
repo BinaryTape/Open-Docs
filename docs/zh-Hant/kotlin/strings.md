@@ -182,7 +182,7 @@ val KClass<*>.jsonSchema : String
     """
 ```
 
-在這裡，`$` 前綴指定需要兩個連續的錢號來觸發字串插值。
+在這裡，`$$` 前綴指定需要兩個連續的錢號來觸發字串插值。
 單個錢號保持為常值字元。
 
 您可以調整有多少個錢號會觸發插值。
@@ -191,11 +191,11 @@ val KClass<*>.jsonSchema : String
 ```kotlin
 val productName = "carrot"
 val requestedData =
-    $$$"""{
+    $$"""{
       "currency": "$",
-      "enteredAmount": "42.45 $$",
-      "$$serviceField": "none",
-      "product": "$$$productName"
+      "enteredAmount": "42.45 $",
+      "$serviceField": "none",
+      "product": "$$productName"
     }
     """
 
@@ -208,7 +208,7 @@ println(requestedData)
 //}
 ```
 
-在這裡，`$$$` 前綴允許字串包含 `$` 和 `$$`，而無需使用 `${'$'}` 結構進行跳脫。
+在這裡，`$$` 前綴允許字串包含 `$` 和 `$$`，而無需使用 `${'$'}` 結構進行跳脫。
 
 多錢號字串插值不影響現有使用單錢號字串插值的程式碼。
 您可以像以前一樣繼續使用單個錢號 (`$`)，並在需要在字串中處理常值錢號時應用多個錢號。

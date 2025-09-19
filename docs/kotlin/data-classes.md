@@ -89,6 +89,29 @@ val jack = User(name = "Jack", age = 1)
 val olderJack = jack.copy(age = 2)
 ```
 
+`copy()` 函数会创建实例的_浅_复制。换句话说，它不会递归复制 component。结果是，对其他对象的引用是共享的。
+
+例如，如果某个属性持有可变 list，则通过“原始”值进行的更改也通过复制可见，而通过复制进行的更改也通过原始值可见：
+
+```kotlin
+data class Employee(val name: String, val roles: MutableList<String>)
+
+fun main() {
+    val original = Employee("Jamie", mutableListOf("developer"))
+    val duplicate = original.copy()
+
+    duplicate.roles.add("team lead")
+
+    println(original) 
+    // Employee(name=Jamie, roles=[developer, team lead])
+    println(duplicate) 
+    // Employee(name=Jamie, roles=[developer, team lead])
+}
+```
+{kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
+
+如你所见，修改 `duplicate.roles` 属性也会更改 `original.roles` 属性，因为这两个属性共享相同的 list 引用。
+
 ## 数据类与解构声明
 
 为数据类生成的_component 函数_使其可以在 [解构声明](destructuring-declarations.md) 中使用：

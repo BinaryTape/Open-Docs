@@ -2,7 +2,7 @@
 
 例外は、プログラムの実行を中断させる可能性のあるランタイムエラーが発生した場合でも、コードをより予測可能に実行するのに役立ちます。
 Kotlinは、すべての例外をデフォルトで_非チェック例外_として扱います。
-非チェック例外は、例外処理プロセスを簡素化します。例外をキャッチできますが、それらを明示的に処理したり[宣言](java-to-kotlin-interop.md#checked-exceptions)したりする必要はありません。
+非チェック例外は例外処理プロセスを簡素化します。例外をキャッチできますが、それらを明示的に処理したり[宣言](java-to-kotlin-interop.md#checked-exceptions)したりする必要はありません。
 
 > KotlinがJava、Swift、Objective-Cと連携する際に例外をどのように処理するかについては、
 > 「[Java、Swift、Objective-Cとの例外の相互運用性](#exception-interoperability-with-java-swift-and-objective-c)」セクションで詳しく学べます。
@@ -83,7 +83,7 @@ fun main() {
 
 > `require()`関数は、コンパイラが[スマートキャスト](typecasts.md#smart-casts)を実行することを可能にします。
 > チェックが成功した後、変数は自動的に非null型にキャストされます。
-> これらの関数は、変数を進める前にnullではないことを確認するために、nullabilityチェックによく使用されます。例：
+> これらの関数は、変数を進める前にnullではないことを確認するために、null許容性チェックによく使用されます。例：
 >
 > ```kotlin
 > fun printNonNullString(str: String?) {
@@ -131,7 +131,7 @@ fun main() {
 
 > `check()`関数は、コンパイラが[スマートキャスト](typecasts.md#smart-casts)を実行することを可能にします。
 > チェックが成功した後、変数は自動的に非null型にキャストされます。
-> これらの関数は、変数を進める前にnullではないことを確認するために、nullabilityチェックによく使用されます。例：
+> これらの関数は、変数を進める前にnullではないことを確認するために、null許容性チェックによく使用されます。例：
 >
 > ```kotlin
 > fun printNonNullString(str: String?) {
@@ -519,7 +519,7 @@ fun main() {
 ```
 {kotlin-runnable="true"}
 
-`Nothing`型を使用するKotlinの[`TODO()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-t-o-d-o.html)関数は、将来の実装が必要なコード領域を強調するためのプレースホルダーとして機能します。
+Kotlinの[`TODO()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-t-o-d-o.html)関数は、`Nothing`型も使用しており、将来の実装が必要なコード領域を強調するためのプレースホルダーとして機能します。
 
 ```kotlin
 fun notImplementedFunction(): Int {
@@ -581,7 +581,7 @@ Kotlinでよく見られるいくつかの一般的な例外タイプを見て�
     > println("First element in empty list: $firstElement")
     > ```
     >
-{style="note"}
+    {style="note"}
 
 *   [`NumberFormatException`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-number-format-exception/): この例外は、文字列を数値型に変換しようとしたときに、文字列が適切な形式ではない場合に発生します。
 
@@ -622,12 +622,12 @@ Kotlin例外階層のルートは[`Throwable`](https://kotlinlang.org/api/latest
 *   `Exception`サブクラスは、処理したい可能性のある条件に使用されます。
     `Exception`型のサブタイプ（[`RuntimeException`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-runtime-exception/)や`IOException`（入出力例外）など）は、アプリケーションでの例外的なイベントを扱います。
 
-![Exception hierarchy - the Throwable class](throwable.svg){width=700}
+![例外階層 - Throwableクラス](throwable.svg){width=700}
 
 `RuntimeException`は通常、プログラムコード内のチェック不足によって引き起こされ、プログラムによって防止できます。
 Kotlinは、`NullPointerException`のような一般的な`RuntimeException`を防ぐのに役立ち、ゼロ除算のような潜在的なランタイムエラーに対してコンパイル時警告を提供します。次の図は、`RuntimeException`から派生したサブタイプの階層を示しています。
 
-![Hierarchy of RuntimeExceptions](runtime-exception.svg){width=700}
+![RuntimeExceptionの階層](runtime-exception.svg){width=700}
 
 ## スタックトレース
 

@@ -275,9 +275,9 @@ mavenPublishing {
 여기서 가장 중요한 설정은 다음과 같습니다.
 
 *   `coordinates`: 라이브러리의 `groupId`, `artifactId`, `version`을 지정합니다.
-*   [license](https://central.sonatype.com/publish/requirements/#license-information): 라이브러리가 게시되는 라이선스입니다.
-*   [developer information](https://central.sonatype.com/publish/requirements/#developer-information): 라이브러리 저자를 나열합니다.
-*   [SCM (Source Code Management) information](https://central.sonatype.com/publish/requirements/#scm-information): 라이브러리의 소스 코드가 호스팅되는 위치를 지정합니다.
+*   [license](https://central.sonatype.org/publish/requirements/#license-information): 라이브러리가 게시되는 라이선스입니다.
+*   [developer information](https://central.sonatype.org/publish/requirements/#developer-information): 라이브러리 저자를 나열합니다.
+*   [SCM (Source Code Management) information](https://central.sonatype.org/publish/requirements/#scm-information): 라이브러리의 소스 코드가 호스팅되는 위치를 지정합니다.
 
 ## 지속적 통합을 사용하여 Maven Central에 게시
 

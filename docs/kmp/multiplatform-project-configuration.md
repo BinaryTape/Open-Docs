@@ -9,29 +9,21 @@
 *   [您有一个还是多个 Kotlin Multiplatform 共享模块？](#module-configurations)
     多个共享模块的伞模块应该是什么？
 *   [您是将所有代码存储在单版本库中还是存储在不同的版本库中？](#repository-configurations)
-*   [您是将在地或远程依赖项的形式使用 Kotlin Multiplatform 模块 framework 吗？](#code-sharing-workflow)
+*   [您是将 Kotlin Multiplatform 模块 framework 用作本地还是远程依赖项？](#code-sharing-workflow)
 
 回答这些问题将帮助您为项目选择最佳配置。
 
 ## 连接 Kotlin Multiplatform 模块到 iOS 应用
 
-要从 iOS 应用中使用 Kotlin Multiplatform 共享模块，您首先需要从此共享模块生成一个 [iOS framework](https://developer.apple.com/library/archive/documentation/MacOSX/Conceptual/BPFrameworks/Concepts/WhatAreFrameworks.html)。然后，您应该将其作为依赖项添加到 iOS 项目中：
+要从 iOS 应用中使用 Kotlin Multiplatform 共享模块，您首先需要从此共享模块生成
+一个 [iOS framework](https://developer.apple.com/library/archive/documentation/MacOSX/Conceptual/BPFrameworks/Concepts/WhatAreFrameworks.html)。然后，您应该将其作为依赖项添加到 iOS 项目中。
 
-![Kotlin Multiplatform shared module](kmp-shared-module.svg){width=700}
+通常，有两种具有不同实现的选项：
 
-可以将此 framework 作为本地或远程依赖项使用。
+*   本地依赖项。Kotlin 构建直接与 iOS 构建交互。
+*   远程依赖项。Kotlin 构建生成一个 iOS framework，然后您可以使用包管理器将其连接到 iOS 项目。
 
-您可以通过以下方式之一将 Kotlin Multiplatform 模块 framework 的依赖项添加到 iOS 项目：
-
-*   **直接集成**。您通过向 iOS 应用的构建添加一个新的运行脚本阶段来直接连接 framework。关于在 Xcode 中如何操作，请参见 [将 framework 连接到您的 iOS 项目](multiplatform-integrate-in-existing-app.md#configure-the-ios-project-to-use-a-kmp-framework)。
-
-    当您使用 Android Studio 向导创建项目时，选择 **Regular framework** 选项可自动生成此设置。
-
-*   **CocoaPods 集成**。您通过 [CocoaPods](https://cocoapods.org/) 连接 framework，CocoaPods 是一个用于 Swift 和 Objective-C 项目的流行依赖项管理器。它可以是本地或远程依赖项。关于更多信息，请参见 [将 Kotlin Gradle 项目用作 CocoaPods 依赖项](multiplatform-cocoapods-xcode.md)。
-
-    要设置使用本地 CocoaPods 依赖项的工作流程，您可以选择使用向导生成项目，或手动编辑脚本。
-
-*   **使用 SPM**。您使用 Swift 包管理器 (SPM) 连接 framework，SPM 是一个用于管理 Swift 代码分发的苹果工具。我们正在 [努力提供对 SPM 的官方支持](https://youtrack.jetbrains.com/issue/KT-53877)。目前，您可以设置使用 XCFrameworks 对 Swift 包的依赖项。关于更多信息，请参见 [Swift 包导出设置](multiplatform-spm-export.md)。
+要审阅所有可用的 iOS 集成选项，请参见 [iOS 集成方法](multiplatform-ios-integration-overview.md)。
 
 ## 模块配置
 
@@ -192,7 +184,7 @@ Android 和 iOS 应用可以单独版本控制，而共享模块与 Android 应�
 
 与 Kotlin Multiplatform 模块是 Android 项目一部分的项目场景相比，单独发布 Android 构件可能会给 Android 开发者带来额外的复杂性。
 
-当 Android 和 iOS 团队都使用相同版本控制的构件时，它们在版本一致性下运行。从团队角度来看，这避免了共享 Kotlin Multiplatform 代码“归属于”Android 开发者的印象。对于已经发布版本控制的内部 Kotlin 和 Swift 包用于特性开发的大型项目，发布共享 Kotlin 构件成为现有工作流程的一部分。
+当 Android 和 iOS 团队都使用相同版本控制的构件时，它们在版本一致性下运行。从团队角度来看，这避免了共享 Kotlin Multiplatform 代码“归属于”Android 开发者​​的印象。对于已经发布版本控制的内部 Kotlin 和 Swift 包用于特性开发的大型项目，发布共享 Kotlin 构件成为现有工作流程的一部分。
 
 ### 多个版本库：Android | iOS | 多个库
 
@@ -212,7 +204,7 @@ iOS 应用可以将由 Kotlin Multiplatform 共享模块生成的 framework 作�
 
 本地分发是指 iOS 应用使用 Kotlin Multiplatform 模块 framework，无需发布。iOS 应用可以要么直接集成 framework，要么通过 CocoaPods 集成。
 
-当 Android 和 iOS 团队成员都想编辑共享 Kotlin Multiplatform 代码时，通常会使用此工作流程。iOS 开发者需要安装 Android Studio 并具备 Kotlin 和 Gradle 的基本知识。
+此工作流程通常用于 Android 和 iOS 团队成员都想编辑共享 Kotlin Multiplatform 代码的情况。iOS 开发者需要安装 IntelliJ IDEA 或 Android Studio 并具备 Kotlin 和 Gradle 的基本知识。
 
 在本地分发方案中，iOS 应用构建会触发 iOS framework 的生成。这意味着 iOS 开发者可以立即观察他们对 Kotlin Multiplatform 代码的更改：
 
@@ -220,7 +212,7 @@ iOS 应用可以将由 Kotlin Multiplatform 共享模块生成的 framework 作�
 
 此场景通常用于两种情况。首先，它可以作为默认工作流程用于单版本库项目配置中，无需发布构件。其次，除了远程工作流程之外，它还可以用于本地开发。关于更多详细信息，请参见 [为本地开发设置本地依赖项](#setting-up-a-local-dependency-for-local-development)。
 
-当所有团队成员都准备好编辑整个项目中的代码时，此工作流程最有效。它包括在更改了公共部分之后，同时编辑 Android 和 iOS 两部分。理想情况下，每个团队成员都可以安装 Android Studio 和 Xcode，以便在更改公共代码后打开并运行两个应用。
+当所有团队成员都准备好编辑整个项目中的代码时，此工作流程最有效。它包括在更改了公共部分之后，同时编辑 Android 和 iOS 两部分。理想情况下，每个团队成员都可以安装 IntelliJ IDEA/Android Studio 和 Xcode，以便在更改公共代码后打开并运行两个应用。
 
 <table>
   
@@ -241,7 +233,7 @@ iOS 应用可以将由 Kotlin Multiplatform 共享模块生成的 framework 作�
 <td>
   <list>
     <li>团队成员需要在他们的机器上设置完整的开发环境。</li>
-    <li>iOS 开发者必须学习如何使用 Android Studio 和 Gradle。</li>
+    <li>iOS 开发者必须学习如何使用 IntelliJ IDEA 或 Android Studio 和 Gradle。</li>
     <li>随着共享代码的增多和团队的壮大，管理更改变得困难。</li>
   </list>
 </td>
@@ -251,7 +243,7 @@ iOS 应用可以将由 Kotlin Multiplatform 共享模块生成的 framework 作�
 
 ### 远程：构件分发
 
-远程分发意味着 framework 构件使用 SPM 作为 CocoaPod 或 Swift 包发布，并由 iOS 应用使用。Android 应用可以本地或远程使用二进制依赖项。
+远程分发意味着 framework 构件使用 Swift Package Manager 或作为 CocoaPod 发布，并由 iOS 应用使用。Android 应用可以本地或远程使用二进制依赖项。
 
 远程分发通常用于将技术逐步引入现有项目。它不会显著改变 iOS 开发者​​的工作流程和构建过程。拥有两个或更多版本库的团队主要使用远程分发来存储项目代码。
 
@@ -268,7 +260,7 @@ iOS 应用可以将由 Kotlin Multiplatform 共享模块生成的 framework 作�
 
   
 <tr>
-<td>不参与的 iOS 团队成员无需用 Kotlin 编写代码，也无需学习如何使用 Android Studio 和 Gradle 等工具。这显著降低了团队的进入门槛。</td>
+<td>不参与的 iOS 团队成员无需用 Kotlin 编写代码，也无需学习如何使用 IntelliJ IDEA/Android Studio 或 Gradle 等工具。这显著降低了团队的进入门槛。</td>
 <td>
   <list>
     <li>iOS 开发者工作流程较慢，因为编辑和构建共享代码的过程涉及发布和版本控制。</li>
@@ -287,7 +279,7 @@ iOS 应用可以将由 Kotlin Multiplatform 共享模块生成的 framework 作�
 
 当开发者添加新功能时，他们会切换到将 Kotlin Multiplatform 模块作为本地依赖项使用。这允许更改公共 Kotlin 代码，立即从 iOS 观察行为，并调试 Kotlin 代码。当功能准备就绪时，他们可以切换回远程依赖项并相应地发布他们的更改。首先，他们发布对共享模块的更改，然后才对应用进行更改。
 
-对于远程分发工作流程，请使用 CocoaPods 集成或 SPM。对于本地分发工作流程，请直接集成 framework。
+对于远程分发工作流程，请使用 Swift Package Manager。对于本地分发工作流程，请直接集成 framework。
 
 <!-- 本教程 [TODO] 描述了如何通过在 Xcode 中选择相应的 scheme 来切换工作流程：
 [TODO screenshot] -->

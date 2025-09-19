@@ -1,12 +1,12 @@
 [//]: # (title: 직렬화)
 
-_직렬화(Serialization)_는 애플리케이션에서 사용되는 데이터를 네트워크를 통해 전송되거나 데이터베이스 또는 파일에 저장될 수 있는 형식으로 변환하는 과정입니다. 반대로 _역직렬화(deserialization)_는 외부 소스에서 데이터를 읽어 런타임 객체로 변환하는 반대 과정입니다. 이 둘은 타사와 데이터를 교환하는 대부분의 애플리케이션에 필수적입니다.
+_직렬화(Serialization)_는 애플리케이션에서 사용되는 데이터를 네트워크를 통해 전송되거나 데이터베이스 또는 파일에 저장될 수 있는 형식으로 변환하는 과정입니다. 반대로, _역직렬화(deserialization)_는 외부 소스에서 데이터를 읽어 런타임 객체로 변환하는 반대 과정입니다. 이 둘은 타사와 데이터를 교환하는 대부분의 애플리케이션에 필수적입니다.
 
 [JSON](https://www.json.org/json-en.html)과 [프로토콜 버퍼(protocol buffers)](https://developers.google.com/protocol-buffers)와 같은 일부 데이터 직렬화 형식은 특히 흔합니다. 이들은 언어 중립적이고 플랫폼 중립적이므로 모든 최신 언어로 작성된 시스템 간에 데이터 교환을 가능하게 합니다.
 
 Kotlin에서는 데이터 직렬화 도구를 별도의 구성 요소인 [kotlinx.serialization](https://github.com/Kotlin/kotlinx.serialization)에서 사용할 수 있습니다. 이는 `org.jetbrains.kotlin.plugin.serialization` Gradle 플러그인, [런타임 라이브러리](#libraries), 그리고 컴파일러 플러그인으로 구성됩니다.
 
-`kotlinx-serialization-compiler-plugin`과 `kotlinx-serialization-compiler-plugin-embeddable` 컴파일러 플러그인은 Maven Central에 직접 게시됩니다. 두 번째 플러그인은 `kotlin-compiler-embeddable` 아티팩트와 함께 작동하도록 설계되었으며, 이는 스크립팅 아티팩트의 기본 옵션입니다. Gradle은 컴파일러 플러그인을 컴파일러 인수로 프로젝트에 추가합니다.
+컴파일러 플러그인은 `kotlinx-serialization-compiler-plugin`과 `kotlinx-serialization-compiler-plugin-embeddable`이며, Maven Central에 직접 게시됩니다. 두 번째 플러그인은 `kotlin-compiler-embeddable` 아티팩트와 함께 작동하도록 설계되었으며, 이는 스크립팅 아티팩트의 기본 옵션입니다. Gradle은 컴파일러 플러그인을 컴파일러 인수로 프로젝트에 추가합니다.
 
 ## 라이브러리
 
@@ -32,7 +32,7 @@ Kotlin에서는 데이터 직렬화 도구를 별도의 구성 요소인 [kotlin
 
 참고로 JSON 직렬화(`kotlinx-serialization-json`)를 제외한 모든 라이브러리는 [실험적(Experimental)](components-stability.md)이며, 이는 해당 API가 예고 없이 변경될 수 있음을 의미합니다.
 
-또한 [YAML](https://yaml.org/) 또는 [Apache Avro](https://avro.apache.org/)와 같은 더 많은 직렬화 형식을 지원하는 커뮤니티 관리 라이브러리도 있습니다. 사용 가능한 직렬화 형식에 대한 자세한 정보는 [`kotlinx.serialization` 문서](https://github.com/Kotlin/kotlinx.serialization/blob/master/formats/README.md)를 참조하세요.
+[YAML](https://yaml.org/) 또는 [Apache Avro](https://avro.apache.org/)와 같은 더 많은 직렬화 형식을 지원하는 커뮤니티 관리 라이브러리도 있습니다. 사용 가능한 직렬화 형식에 대한 자세한 정보는 [`kotlinx.serialization` 문서](https://github.com/Kotlin/kotlinx.serialization/blob/master/formats/README.md)를 참조하세요.
 
 ## 예시: JSON 직렬화
 
@@ -75,7 +75,7 @@ Kotlin 객체를 JSON으로 직렬화하는 방법을 살펴보겠습니다.
     ```kotlin
     dependencies {
         implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:%serializationVersion%")
-    } 
+    }
     ```
 
     </tab>
@@ -84,7 +84,7 @@ Kotlin 객체를 JSON으로 직렬화하는 방법을 살펴보겠습니다.
     ```groovy
     dependencies {
         implementation 'org.jetbrains.kotlinx:kotlinx-serialization-json:%serializationVersion%'
-    } 
+    }
     ```
 
     </tab>
@@ -96,53 +96,53 @@ Kotlin 객체를 JSON으로 직렬화하는 방법을 살펴보겠습니다.
 
 1. `@Serializable` 어노테이션을 사용하여 클래스를 직렬화 가능하도록 만듭니다.
 
-```kotlin
-import kotlinx.serialization.Serializable
-
-@Serializable
-data class Data(val a: Int, val b: String)
-```
+    ```kotlin
+    import kotlinx.serialization.Serializable
+    
+    @Serializable
+    data class Data(val a: Int, val b: String)
+    ```
 
 2. `Json.encodeToString()`을 호출하여 이 클래스의 인스턴스를 직렬화합니다.
 
-```kotlin
-import kotlinx.serialization.Serializable
-import kotlinx.serialization.json.Json
-import kotlinx.serialization.encodeToString
+    ```kotlin
+    import kotlinx.serialization.Serializable
+    import kotlinx.serialization.json.Json
+    import kotlinx.serialization.encodeToString
+    
+    @Serializable
+    data class Data(val a: Int, val b: String)
+    
+    fun main() {
+        val json = Json.encodeToString(Data(42, "str"))
+    }
+    ```
 
-@Serializable
-data class Data(val a: Int, val b: String)
+   결과적으로, 이 객체의 상태를 JSON 형식으로 포함하는 문자열을 얻게 됩니다: `{"a": 42, "b": "str"}`
 
-fun main() {
-   val json = Json.encodeToString(Data(42, "str"))
-}
-```
-
-결과적으로, 이 객체의 상태를 JSON 형식으로 포함하는 문자열을 얻게 됩니다: `{"a": 42, "b": "str"}`
-
-> 리스트와 같은 객체 컬렉션도 단일 호출로 직렬화할 수 있습니다:
-> 
-> ```kotlin
-> val dataList = listOf(Data(42, "str"), Data(12, "test"))
-> val jsonList = Json.encodeToString(dataList)
-> ```
-> 
-{style="note"}
+   > 리스트와 같은 객체 컬렉션도 단일 호출로 직렬화할 수 있습니다:
+   > 
+   > ```kotlin
+   > val dataList = listOf(Data(42, "str"), Data(12, "test"))
+   > val jsonList = Json.encodeToString(dataList)
+   > ```
+   > 
+   {style="note"}
 
 3. `decodeFromString()` 함수를 사용하여 JSON에서 객체를 역직렬화합니다:
 
-```kotlin
-import kotlinx.serialization.Serializable
-import kotlinx.serialization.json.Json
-import kotlinx.serialization.decodeFromString
-
-@Serializable
-data class Data(val a: Int, val b: String)
-
-fun main() {
-   val obj = Json.decodeFromString<Data>("""{"a":42, "b": "str"}""")
-}
-```
+    ```kotlin
+    import kotlinx.serialization.Serializable
+    import kotlinx.serialization.json.Json
+    import kotlinx.serialization.decodeFromString
+    
+    @Serializable
+    data class Data(val a: Int, val b: String)
+    
+    fun main() {
+        val obj = Json.decodeFromString<Data>("""{"a":42, "b": "str"}""")
+    }
+    ```
 
 끝입니다! 객체를 JSON 문자열로 성공적으로 직렬화하고 다시 객체로 역직렬화했습니다.
 

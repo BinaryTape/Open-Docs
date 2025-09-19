@@ -183,8 +183,9 @@ _ストレス テスト_はカバレッジを保証しませんが、`volatile`�
     import org.junit.Test
 
     class CounterTest {
-        private val c = Counter()
+        private val c = Counter() // 初期状態
     
+        // Counterに対する操作
         @Operation
         fun inc() = c.inc()
     
@@ -194,7 +195,7 @@ _ストレス テスト_はカバレッジを保証しませんが、`volatile`�
         @StateRepresentation
         fun stateRepresentation() = c.get().toString()
         
-        @Test
+        @Test // テストの実行
         fun modelCheckingTest() = ModelCheckingOptions().check(this::class)
     }
     ```

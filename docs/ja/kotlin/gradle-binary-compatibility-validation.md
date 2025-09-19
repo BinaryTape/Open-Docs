@@ -30,7 +30,7 @@ kotlin {
 </tab>
 <tab title="Groovy" group-key="groovy">
 
-```kotlin
+```groovy
 kotlin {
     abiValidation {
         enabled = true
@@ -47,7 +47,7 @@ kotlin {
 
 コードに変更を加えた後に潜在的なバイナリ互換性の問題をチェックするには、IntelliJ IDEAで `checkLegacyAbi` Gradleタスクを実行するか、プロジェクトディレクトリで以下のコマンドを使用します。
 
-```kotlin
+```bash
 ./gradlew checkLegacyAbi
 ```
 
@@ -57,7 +57,7 @@ kotlin {
 
 Gradleが最新の変更をチェックするために使用する参照ABIダンプを更新するには、IntelliJ IDEAで `updateLegacyAbi` タスクを実行するか、プロジェクトディレクトリで以下のコマンドを使用します。
 
-```kotlin
+```bash
 ./gradlew updateLegacyAbi
 ```
 
@@ -108,7 +108,7 @@ kotlin {
 </tab>
 <tab title="Groovy" group-key="groovy">
 
-```kotlin
+```groovy
 kotlin {
     abiValidation {
         filters {
@@ -163,7 +163,7 @@ kotlin {
 </tab>
 <tab title="Groovy" group-key="groovy">
 
-```kotlin
+```groovy
 kotlin {
     abiValidation {
         klib {

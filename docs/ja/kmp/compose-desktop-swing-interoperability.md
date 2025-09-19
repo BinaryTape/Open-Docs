@@ -8,7 +8,7 @@ Compose MultiplatformとSwing間の相互運用性は、以下を目的として
 
 多くの場合、Compose Multiplatformアプリケーション内でSwingコンポーネントを使用するよりも、不足しているコンポーネントをCompose Multiplatformで直接実装し（そしてコミュニティに貢献する）、その方がより効果的です。
 
-## Swingとの相互運用におけるユースケースと制限
+## Swing相互運用のユースケースと制限
 
 ### Swingアプリケーション内のCompose Multiplatformコンポーネント
 
@@ -167,26 +167,36 @@ fun Counter(text: String, counter: MutableState<Int>) {
 
 ### 実験的なオフスクリーンレンダリング
 
-実験的なモードでは、ComposeパネルをSwingコンポーネント上に直接レンダリングできます。これにより、パネルの表示、非表示、またはサイズ変更時に発生する過渡的なレンダリングの問題が防止されます。また、SwingコンポーネントとComposeパネルを組み合わせる際に適切なレイヤー化が可能になり、Swingコンポーネントを`ComposePanel`の上または下に表示することができます。
+実験的なモードでは、`ComposePanel`をSwingコンポーネント上に直接レンダリングできます。これにより、`ComposePanel`が表示、非表示、またはサイズ変更されたときに発生する過渡的なレンダリングの問題が防止されます。また、SwingコンポーネントとComposeパネルを組み合わせる際に適切なレイヤー化を可能にします。Swingコンポーネントを`ComposePanel`の上または下に表示することができます。ただし、デフォルトのSkiaレンダリングと比較して、パネルサイズが増加するにつれてパフォーマンスのペナルティが発生する可能性があります。
+
+このモードは`ComposePanel`コンポーネントのみに影響します。
+現時点では、`ComposeWindow`や`ComposeDialog`に対応する設定はありません。
 
 > オフスクリーンレンダリングは[実験的](supported-platforms.md#compose-multiplatform-ui-framework-stability-levels)であり、評価目的でのみ使用してください。
 >
 {style="warning"}
 
-オフスクリーンレンダリングを有効にするには、`compose.swing.render.on.graphics`システムプロパティを使用します。このプロパティは、アプリケーションでComposeコードを実行する前に設定する必要があるため、起動時に`-D`コマンドラインJVM引数を使用して有効にすることをお勧めします。
-
-```Console
--Dcompose.swing.render.on.graphics=true
-```
-
-あるいは、エントリポイントで`System.setProperty()`を使用することもできます。
+特定の`ComposePanel`に対してオフスクリーンレンダリングを有効にするには、作成時に`RenderSettings.SwingGraphics`値を渡します。
 
 ```kotlin
-fun main() {
-    System.setProperty("compose.swing.render.on.graphics", "true")
-    ...
-}
+val composePanel = ComposePanel(renderSettings = RenderSettings.SwingGraphics)
 ```
+
+プロジェクト内のすべての`ComposePanel`でオフスクリーンレンダリングをデフォルトで有効にするには、`compose.swing.render.on.graphics`機能フラグを使用します。
+
+* 起動時にコマンドラインJVM引数としてフラグを指定します。
+
+    ```shell
+    -Dcompose.swing.render.on.graphics=true
+    ```
+* または、エントリポイントで`System.setProperty()`関数への引数としてフラグを渡します。
+
+    ```kotlin
+    fun main() {
+        System.setProperty("compose.swing.render.on.graphics", "true")
+        ...
+    }
+    ```
 
 ### ポップアップ用の実験的な個別のビュー
 
@@ -202,7 +212,7 @@ fun main() {
 
 ポップアップとダイアログは、自身の境界外（たとえば、最上位コンテナの影など）に何も描画できないことに注意してください。
 
-`COMPONENT`プロパティを使用するコードの例を以下に示します。
+以下に、`COMPONENT`プロパティを使用するコードの例を以下に示します。
 
 ```kotlin
 import androidx.compose.foundation.background

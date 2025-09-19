@@ -1,11 +1,11 @@
-[//]: # (title: 为 EAP 配置你的构建)
+[//]: # (title: 为抢先体验预览配置你的构建)
 
 <tldr>
-    <!--  
     <p>目前没有可用的预览版本。</p>
+    <!--
+    <p>Latest Kotlin EAP release: <strong>%kotlinEapVersion%</strong></p>
+    <p><a href="eap.md#build-details">Explore Kotlin EAP release details</a></p>
     -->
-    <p>最新 Kotlin EAP 版本：<strong>%kotlinEapVersion%</strong></p>
-    <p><a href="eap.md#build-details">探索 Kotlin EAP 版本详情</a></p>
 </tldr>
 
 要配置你的构建以使用 Kotlin EAP 版本，你需要：
@@ -28,7 +28,7 @@ Kotlin EAP 版本可能无法与之前发布的版本库一起使用。
 
 ### 调整 Kotlin 版本
 
-在 `build.gradle(.kts)` 文件中的 `plugins` 代码块中，将 `KOTLIN-EAP-VERSION` 更改为实际的 EAP 版本，例如 `%kotlinEAPVersion%`。[可用的 EAP 版本此处列出](eap.md#build-details)。
+在 `build.gradle(.kts)` 文件中的 `plugins` 代码块中，将 `KOTLIN-EAP-VERSION` 更改为实际的 EAP 版本，例如 `%kotlinEapVersion%`。[可用的 EAP 版本此处列出](eap.md#build-details)。
 
 或者，你可以在 `settings.gradle(.kts)` 文件中的 `pluginManagement` 代码块中指定 EAP 版本——关于详情请参见 [Gradle 文档](https://docs.gradle.org/current/userguide/plugins.html#sec:plugin_version_management)。
 

@@ -363,7 +363,7 @@ Kotlin CocoaPods Gradleプラグインは、Xcodeビルド構成でのカスタ�
 
 ```kotlin
 cocoapods {
-    // カスタムXcode構成をNativeBuildTypeにマッピング
+    // Maps custom Xcode configuration to NativeBuildType
     xcodeConfigurationToNativeBuildType["CUSTOM_DEBUG"] = NativeBuildType.DEBUG
     xcodeConfigurationToNativeBuildType["CUSTOM_RELEASE"] = NativeBuildType.RELEASE
 }
@@ -523,7 +523,7 @@ kotlin {
 
 XCFrameworksを宣言すると、以下の新しいGradleタスクが登録されます。
 *   `assembleXCFramework`
-*   `assembleDebugXCFramework`（さらに[dSYMsを含む](native-ios-symbolication.md)デバッグアーティファクト）
+*   `assembleDebugXCFramework`（さらに[dSYMsを含む](native-debugging.md#debug-ios-applications)デバッグアーティファクト）
 *   `assembleReleaseXCFramework`
 
 XCFrameworksの詳細については、[このWWDCビデオ](https://developer.apple.com/videos/play/wwdc2019/416/)を参照してください。
@@ -690,7 +690,7 @@ Kotlin 1.5.30では、KotlinデーモンのJVM引数に新しいロジックが�
 
 *   `kotlin`拡張機能で引数を指定できます。
 
-    <tabs group="build-script">
+  <tabs group="build-script">
     <tab title="Kotlin" group-key="kotlin">
 
     ```kotlin
@@ -857,7 +857,7 @@ fun main() {
 fun main(){
 //sampleStart
     val releaseText = "Kotlin 1.5.30 is released!"
-    // 正規表現: 1桁の数字、ドット、1桁の数字、ドット、1桁以上の数字
+    // regular expression: one digit, dot, one digit, dot, one or more digits
     val versionRegex = "\\d[.]\\d[.]\\d+".toRegex()
     println(versionRegex.matchesAt(releaseText, 0)) // "false"
     println(versionRegex.matchesAt(releaseText, 7)) // "true"

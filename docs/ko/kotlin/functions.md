@@ -19,7 +19,7 @@ val result = double(2)
 멤버 함수를 호출할 때는 점 표기법(dot notation)을 사용합니다:
 
 ```kotlin
-Stream().read() // create instance of class Stream and call read()
+Stream().read() // Stream 클래스의 인스턴스를 생성하고 read()를 호출합니다.
 ```
 
 ### 매개변수
@@ -35,7 +35,7 @@ fun powerOf(number: Int, exponent: Int): Int { /*...*/ }
 ```kotlin
 fun powerOf(
     number: Int,
-    exponent: Int, // trailing comma
+    exponent: Int, // 후행 쉼표
 ) { /*...*/ }
 ```
 
@@ -65,7 +65,7 @@ open class A {
 }
 
 class B : A() {
-    override fun foo(i: Int) { /*...*/ }  // No default value is allowed.
+    override fun foo(i: Int) { /*...*/ }  // 기본값을 사용할 수 없습니다.
 }
 ```
 
@@ -77,7 +77,7 @@ fun foo(
     baz: Int,
 ) { /*...*/ }
 
-foo(baz = 1) // The default value bar = 0 is used
+foo(baz = 1) // 기본값 bar = 0이 사용됩니다.
 ```
 
 모든 기본값을 가진 매개변수 뒤의 마지막 매개변수가 함수형 타입인 경우,
@@ -90,9 +90,9 @@ fun foo(
     qux: () -> Unit,
 ) { /*...*/ }
 
-foo(1) { println("hello") }     // Uses the default value baz = 1
-foo(qux = { println("hello") }) // Uses both default values bar = 0 and baz = 1
-foo { println("hello") }        // Uses both default values bar = 0 and baz = 1
+foo(1) { println("hello") }     // baz = 1 기본값을 사용합니다.
+foo(qux = { println("hello") }) // bar = 0과 baz = 1 두 기본값을 모두 사용합니다.
+foo { println("hello") }        // bar = 0과 baz = 1 두 기본값을 모두 사용합니다.
 ```
 
 ### 이름 붙은 인자
@@ -160,7 +160,7 @@ fun printHello(name: String?): Unit {
         println("Hello $name")
     else
         println("Hi there!")
-    // `return Unit` or `return` is optional
+    // `return Unit` 또는 `return`은 선택 사항입니다.
 }
 ```
 
@@ -197,7 +197,7 @@ fun double(x: Int) = x * 2
 ```kotlin
 fun <T> asList(vararg ts: T): List<T> {
     val result = ArrayList<T>()
-    for (t in ts) // ts is an Array
+    for (t in ts) // ts는 배열입니다.
         result.add(t)
     return result
 }
@@ -223,7 +223,7 @@ val list = asList(-1, 0, *a, 4)
 [원시 타입 배열(primitive type array)](arrays.md#primitive-type-arrays)을 `vararg`에 전달하려면, `toTypedArray()` 함수를 사용하여 일반 (타입이 지정된) 배열로 변환해야 합니다:
 
 ```kotlin
-val a = intArrayOf(1, 2, 3) // IntArray is a primitive type array
+val a = intArrayOf(1, 2, 3) // IntArray는 원시 타입 배열입니다.
 val list = asList(-1, 0, *a.toTypedArray(), 4)
 ```
 
@@ -238,10 +238,10 @@ val list = asList(-1, 0, *a.toTypedArray(), 4)
 ```kotlin
 infix fun Int.shl(x: Int): Int { ... }
 
-// calling the function using the infix notation
+// 중위 표기법을 사용하여 함수 호출
 1 shl 2
 
-// is the same as
+// 다음 코드와 동일합니다.
 1.shl(2)
 ```
 
@@ -264,9 +264,9 @@ class MyStringCollection {
     infix fun add(s: String) { /*...*/ }
     
     fun build() {
-        this add "abc"   // Correct
-        add("abc")       // Correct
-        //add "abc"        // Incorrect: the receiver must be specified
+        this add "abc"   // 올바름
+        add("abc")       // 올바름
+        //add "abc"        // 잘못됨: 수신자를 지정해야 합니다.
     }
 }
 ```
@@ -319,7 +319,7 @@ class Sample {
 멤버 함수는 점 표기법으로 호출됩니다:
 
 ```kotlin
-Sample().foo() // creates instance of class Sample and calls foo
+Sample().foo() // Sample 클래스의 인스턴스를 생성하고 foo를 호출합니다.
 ```
 
 클래스 및 멤버 오버라이드에 대한 자세한 내용은 [클래스(Classes)](classes.md) 및 [상속(Inheritance)](classes.md#inheritance)을 참조하십시오.
@@ -341,7 +341,7 @@ fun <T> singletonList(item: T): List<T> { /*...*/ }
 함수가 `tailrec` 한정자로 표시되고 필요한 형식 조건을 충족하면, 컴파일러는 재귀를 최적화하여 제거하고, 대신 빠르고 효율적인 루프 기반 버전으로 대체합니다:
 
 ```kotlin
-val eps = 1E-10 // "good enough", could be 10^-15
+val eps = 1E-10 // "충분히 좋다", 10^-15일 수 있습니다.
 
 tailrec fun findFixPoint(x: Double = 1.0): Double =
     if (Math.abs(x - Math.cos(x)) < eps) x else findFixPoint(Math.cos(x))
@@ -350,7 +350,7 @@ tailrec fun findFixPoint(x: Double = 1.0): Double =
 이 코드는 코사인 함수의 고정점(fixpoint)을 계산하는 수학 상수입니다. `1.0`부터 시작하여 결과가 더 이상 변하지 않을 때까지 `Math.cos`를 반복적으로 호출하여 지정된 `eps` 정밀도에 대해 `0.7390851332151611`의 결과를 산출합니다. 결과 코드는 이보다 더 전통적인 스타일과 동일합니다:
 
 ```kotlin
-val eps = 1E-10 // "good enough", could be 10^-15
+val eps = 1E-10 // "충분히 좋다", 10^-15일 수 있습니다.
 
 private fun findFixPoint(): Double {
     var x = 1.0

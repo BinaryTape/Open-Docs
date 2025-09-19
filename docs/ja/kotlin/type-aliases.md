@@ -62,9 +62,9 @@ Kotlinでは、外側のクラスから型パラメータを捕捉しない限�
 
 ```kotlin
 class Dijkstra {
-   typealias VisitedNodes = Set<Node>
+    typealias VisitedNodes = Set<Node>
 
-   private fun step(visited: VisitedNodes, ...) = ...
+    private fun step(visited: VisitedNodes, ...) = ...
 }
 ```
 
@@ -115,4 +115,3 @@ kotlin {
         freeCompilerArgs.add("-Xnested-type-aliases")
     }
 }
-```

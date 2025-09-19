@@ -4,7 +4,7 @@
 Kotlin 默认将所有异常视为_非受检异常_。
 非受检异常简化了异常处理过程：您可以捕获异常，但无需显式处理或[声明](java-to-kotlin-interop.md#checked-exceptions)它们。
 
-> 关于 Kotlin 如何在与 Java、Swift 和 Objective-C 交互时处理异常的更多信息，请参阅
+> 关于 Kotlin 如何在与 Java、Swift 和 Objective-C 交互时处理异常的更多信息，请参见
 > [与 Java、Swift 和 Objective-C 的异常互操作性](#exception-interoperability-with-java-swift-and-objective-c)部分。
 >
 {style="tip"}
@@ -48,11 +48,11 @@ if (userInput < 0) {
 Kotlin 提供了使用前置条件函数自动抛出异常的额外方式。
 前置条件函数包括：
 
-| 前置条件函数             | 用例                 | 抛出的异常                                                                                                 |
-|--------------------------|----------------------|------------------------------------------------------------------------------------------------------------|
-| [`require()`](#require-function) | 检测用户输入有效性   | [`IllegalArgumentException`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-illegal-argument-exception/)   |
+| 前置条件函数             | 用例                   | 抛出的异常                                                                                                 |
+|--------------------------|------------------------|------------------------------------------------------------------------------------------------------------|
+| [`require()`](#require-function) | 检测用户输入有效性     | [`IllegalArgumentException`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-illegal-argument-exception/)   |
 | [`check()`](#check-function)     | 检测对象或变量状态有效性 | [`IllegalStateException`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-illegal-state-exception/)         |
-| [`error()`](#error-function)     | 指示非法状态或条件     | [`IllegalStateException`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-illegal-state-exception/)         |
+| [`error()`](#error-function)     | 指示非法状态或条件       | [`IllegalStateException`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-illegal-state-exception/)         |
 
 这些函数适用于程序流在不满足特定条件时无法继续的情况。
 这能精简您的代码并使这些检测的处理变得高效。
@@ -146,7 +146,7 @@ fun main() {
 
 #### error() 函数
 
-`error()` 函数用于指示代码中逻辑上不应发生的非法状态或条件。
+[`error()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/error.html) 函数用于指示代码中逻辑上不应发生的非法状态或条件。
 它适用于您想在代码中有意抛出异常的场景，例如当代码遇到意外状态时。
 此函数在 `when` 表达式中特别有用，提供了一种清晰的方式来处理逻辑上不应发生的情况。
 
@@ -295,7 +295,7 @@ finally {
 ```kotlin
 fun divideOrNull(a: Int): Int {
     
-    // try 代码块始终执行
+    // The try block is always executed
     // 此处的异常（除以零）会导致立即跳转到 catch 代码块
     try {
         val b = 44 / a
@@ -489,7 +489,7 @@ fun main() {
 这意味着 `Nothing` 可以用作返回类型或泛型类型，在预期任何其他类型的地方使用而不会导致类型错误。
 
 `Nothing` 是 Kotlin 中的一种特殊类型，用于表示永远不会成功完成的函数或表达式，原因可能是它们总是抛出异常或进入无限执行路径（例如无限循环）。
-您可以使用 `Nothing` 来标记尚未实现或设计为始终抛出异常的函数，从而清晰地向编译器和代码读者表明您的意图。
+您可以使用 `Nothing` 来标记函数，这些函数尚未实现或设计为始终抛出异常，从而清晰地向编译器和代码读者表明您的意图。
 如果编译器在函数签名中推断出 `Nothing` 类型，它将警告您。
 显式将 `Nothing` 定义为返回类型可以消除此警告。
 

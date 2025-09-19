@@ -15,7 +15,7 @@ annotation class Fancy
 
 ```kotlin
 @Target(AnnotationTarget.CLASS, AnnotationTarget.FUNCTION,
-        AnnotationTarget.TYPE_PARAMETER, AnnotationTarget.VALUE_PARAMETER, 
+        AnnotationTarget.TYPE_PARAMETER, AnnotationTarget.VALUE_PARAMETER,
         AnnotationTarget.EXPRESSION)
 @Retention(AnnotationRetention.SOURCE)
 @MustBeDocumented
@@ -266,12 +266,12 @@ public @interface Email { }
 ```kotlin
 data class User(
     val username: String,
-    // `@Email`을 `param`, `field`, `get`에 적용
+    // @Email을 param, field, get에 적용
     @all:Email val email: String,
-    // `@Email`을 `param`, `field`, `get`, `set_param`에 적용
+    // @Email을 param, field, get, setparam에 적용
     @all:Email var name: String,
 ) {
-    // `@Email`을 `field`와 `getter`에 적용 (생성자에 없으므로 `param` 없음)
+    // @Email을 field와 getter에 적용 (생성자에 없으므로 param 없음)
     @all:Email val secondaryEmail: String? = null
 }
 ```
@@ -285,7 +285,7 @@ data class User(
 * 어노테이션을 타입, 잠재적 확장 리시버, 컨텍스트 리시버 또는 매개변수로 전파하지 않습니다.
 * 여러 어노테이션과 함께 사용할 수 없습니다.
     ```kotlin
-    @all:[A B] // 금지됨, `@all:A @all:B`를 사용하십시오.
+    @all:[A B] // 금지됨, @all:A @all:B를 사용하십시오.
     val x: Int = 5
     ```
 * [위임된 프로퍼티](delegated-properties.md)와 함께 사용할 수 없습니다.
@@ -385,7 +385,7 @@ public @interface AnnWithArrayMethod {
 ```
 
 ```kotlin
-@AnnWithArrayMethod(names = ["abc", "foo", "bar"]) 
+@AnnWithArrayMethod(names = ["abc", "foo", "bar"])
 class C
 ```
 

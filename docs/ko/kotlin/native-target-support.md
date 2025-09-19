@@ -22,10 +22,8 @@ Kotlin/Native 컴파일러는 다양한 대상을 지원하지만, 모든 대상
 | Gradle 대상 이름      | Target triple                 | 테스트 실행 | 설명                                       |
 |-----------------------|-------------------------------|-------------|--------------------------------------------|
 | Apple macOS 호스트 전용: |                               |             |                                            |
-| `macosX64`            | `x86_64-apple-macos`          | ✅           | x86_64 플랫폼의 Apple macOS                |
 | `macosArm64`          | `aarch64-apple-macos`         | ✅           | Apple Silicon 플랫폼의 Apple macOS         |
 | `iosSimulatorArm64`   | `aarch64-apple-ios-simulator` | ✅           | Apple Silicon 플랫폼의 Apple iOS 시뮬레이터 |
-| `iosX64`             | `x86_64-apple-ios-simulator`  | ✅           | x86-64 플랫폼의 Apple iOS 시뮬레이터       |
 | `iosArm64`            | `aarch64-apple-ios`           |             | ARM64 플랫폼의 Apple iOS 및 iPadOS         |
 
 ## 계층 2
@@ -38,6 +36,8 @@ Kotlin/Native 컴파일러는 다양한 대상을 지원하지만, 모든 대상
 | `linuxX64`            | `x86_64-unknown-linux-gnu`        | ✅           | x86_64 플랫폼의 Linux                          |
 | `linuxArm64`          | `aarch64-unknown-linux-gnu`       |             | ARM64 플랫폼의 Linux                           |
 | Apple macOS 호스트 전용: |                                   |             |                                                |
+| `macosX64`            | `x86_64-apple-macos`              | ✅           | x86_64 플랫폼의 Apple macOS                    |
+| `iosX64`              | `x86_64-apple-ios-simulator`      | ✅           | x86-64 플랫폼의 Apple iOS 시뮬레이터           |
 | `watchosSimulatorArm64` | `aarch64-apple-watchos-simulator` | ✅           | Apple Silicon 플랫폼의 Apple watchOS 시뮬레이터 |
 | `watchosX64`          | `x86_64-apple-watchos-simulator`  | ✅           | x86_64 플랫폼의 Apple watchOS 64비트 시뮬레이터 |
 | `watchosArm32`        | `armv7k-apple-watchos`            |             | ARM32 플랫폼의 Apple watchOS                   |

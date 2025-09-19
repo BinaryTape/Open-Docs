@@ -217,10 +217,10 @@ val analysisAgent = AIAgent(
 // Convert the agent to a tool
 val analysisAgentTool = analysisAgent.asTool(
     agentName = "analyzeTransactions",
-    agentDescription = "Performs financial transaction analysis",
+    agentDescription = "執行金融交易分析",
     inputDescriptor = ToolParameterDescriptor(
         name = "request",
-        description = "Transaction analysis request",
+        description = "交易分析請求",
         type = ToolParameterType.String
     )
 )

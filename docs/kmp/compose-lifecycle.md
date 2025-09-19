@@ -3,7 +3,7 @@
 Compose Multiplatform 中的组件生命周期沿用了 Jetpack Compose [生命周期](https://developer.android.com/topic/libraries/architecture/lifecycle)的概念。
 生命周期感知的组件能够响应其他组件的生命周期状态变化，帮助你产出组织更良好、通常更轻量级且更易于维护的代码。
 
-Compose Multiplatform 提供了一个公共的 `LifecycleOwner` 实现，它将 Jetpack Compose 的原始功能扩展到其他平台，并帮助在公共代码中观察生命周期状态。
+Compose Multiplatform 提供了一个公共的 `LifecycleOwner` 实现，它将原始的 Jetpack Compose 功能性扩展到其他平台，并帮助在公共代码中观察生命周期状态。
 
 要使用多平台 `Lifecycle` 实现，请将以下依赖项添加到你的 `commonMain` 源代码集：
 
@@ -58,7 +58,7 @@ Composables 通常不需要独有的生命周期：一个公共的 `LifecycleOwn
 | `viewWillAppear`              | `ON_START`      | `CREATED` → `STARTED`   |
 | `willResignActive`            | `ON_PAUSE`      | `RESUMED` → `STARTED`   |
 | `didBecomeActive`             | `ON_RESUME`     | `STARTED` → `RESUMED`   |
-| `didEnterBackground`          | `ON_STOP`       | `STARTED` → `CREATED`   |
+| `didEnterBackground`          | `ON_STOP`       | `CREATED` → `STARTED`   |
 | `willEnterForeground`         | `ON_START`      | `CREATED` → `STARTED`   |
 | `viewControllerDidLeaveWindowHierarchy` | `ON_DESTROY`    | `CREATED` → `DESTROYED` |
 
@@ -69,10 +69,12 @@ Composables 通常不需要独有的生命周期：一个公共的 `LifecycleOwn
 * 跳过 `CREATED` 状态，因为应用程序始终附加到页面。
 * 永远不会达到 `DESTROYED` 状态，因为网页通常只有当用户关闭标签页时才会被终止。
 
-| 原生事件 | 生命周期事件 | 生命周期状态变更 |
-|----------|-----------------|------------------|
-| `blur`       | `ON_PAUSE`      | `RESUMED` → `STARTED`  |
-| `focus`      | `ON_RESUME`     | `STARTED` → `RESUMED`  |
+| 原生事件                           | 生命周期事件 | 生命周期状态变更 |
+|------------------------------------|-----------------|------------------|
+| `visibilitychange` (变为可见)        | `ON_START`      | `CREATED` → `STARTED`  |
+| `focus`                            | `ON_RESUME`     | `STARTED` → `RESUMED`  |
+| `blur`                             | `ON_PAUSE`      | `RESUMED` → `STARTED`  |
+| `visibilitychange` (停止可见)        | `ON_STOP`       | `STARTED` → `CREATED`  |
 
 ### 桌面
 

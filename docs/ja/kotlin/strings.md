@@ -148,7 +148,7 @@ fun main() {
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
 テンプレートは、複数行文字列とエスケープ文字列の両方で使用できます。ただし、複数行文字列はバックスラッシュエスケープをサポートしていません。
-複数行文字列で[識別子](https://kotlinlang.org/docs/reference/grammar.html#identifiers)の先頭に許可されるシンボルの前にドル記号 `$` を挿入するには、次の構文を使用します。
+複数行文字列で[識別子](https://kotlinlang.org/docs/reference/grammar.html#identifiers)の先頭に許可されるシンボルの前にドル記号 (`$`) を挿入するには、次の構文を使用します。
 
 ```kotlin
 val price = """

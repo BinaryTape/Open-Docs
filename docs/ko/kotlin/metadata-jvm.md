@@ -2,7 +2,7 @@
 
 <primary-label ref="advanced"/>
 
-[`kotlin-metadata-jvm`](https://github.com/JetBrains/kotlin/tree/master/libraries/kotlinx-metadata/jvm) 라이브러리는 JVM용으로 컴파일된 Kotlin 클래스의 메타데이터를 읽고, 수정하고, 생성하는 도구를 제공합니다. `.class` 파일 내의 [`@Metadata`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-metadata/) 어노테이션에 저장된 이 메타데이터는 [`kotlin-reflect`](reflection.md)와 같은 라이브러리 및 도구에서 런타임에 프로퍼티, 함수, 클래스와 같은 Kotlin 특정 구문(constructs)을 검사하는 데 사용됩니다.
+[`kotlin-metadata-jvm`](https://github.com/JetBrains/kotlin/tree/master/libraries/kotlinx-metadata/jvm) 라이브러리는 JVM용으로 컴파일된 Kotlin 클래스에서 메타데이터를 읽고, 수정하고, 생성하는 도구를 제공합니다. `.class` 파일 내 [`@Metadata`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-metadata/) 어노테이션에 저장된 이 메타데이터는 [`kotlin-reflect`](reflection.md)와 같은 라이브러리 및 도구에서 런타임에 프로퍼티, 함수, 클래스와 같은 Kotlin 특정 구문(constructs)을 검사하는 데 사용됩니다.
 
 > `kotlin-reflect` 라이브러리는 런타임에 Kotlin 특정 클래스 세부 정보를 검색하기 위해 메타데이터에 의존합니다.
 > 메타데이터와 실제 `.class` 파일 간의 불일치는 리플렉션 사용 시 잘못된 동작을 유발할 수 있습니다.
@@ -73,7 +73,7 @@ dependencies {
 
 ## 메타데이터 읽기 및 파싱
 
-`kotlin-metadata-jvm` 라이브러리는 컴파일된 Kotlin `.class` 파일에서 클래스 이름, 가시성(visibility), 시그니처와 같은 구조화된 정보를 추출합니다.
+`kotlin-metadata-jvm` 라이브러리는 컴파일된 Kotlin `.class` 파일에서 클래스 이름, 가시성, 시그니처와 같은 구조화된 정보를 추출합니다.
 컴파일된 Kotlin 선언을 분석해야 하는 프로젝트에서 사용할 수 있습니다.
 예를 들어, [바이너리 호환성 검증 도구(BCV)](https://github.com/Kotlin/binary-compatibility-validator)는 `kotlin-metadata-jvm`에 의존하여 공개 API 선언을 출력합니다.
 
@@ -109,7 +109,7 @@ fun main() {
     >
     {style="note"}
 
-메타데이터를 파싱할 때 `KotlinClassMetadata` 인스턴스는 클래스 또는 파일 수준 선언에 대한 구조화된 정보를 제공합니다.
+메타데이터를 파싱할 때, `KotlinClassMetadata` 인스턴스는 클래스 또는 파일 수준 선언에 대한 구조화된 정보를 제공합니다.
 클래스의 경우, [`kmClass`](https://kotlinlang.org/api/kotlinx-metadata-jvm/kotlin-metadata-jvm/kotlin.metadata.jvm/-kotlin-class-metadata/-class/km-class.html) 프로퍼티를 사용하여 클래스 이름, 함수, 프로퍼티, 가시성과 같은 속성 등 자세한 클래스 수준 메타데이터를 분석하는 데 사용하세요.
 파일 수준 선언의 경우, 메타데이터는 `kmPackage` 프로퍼티에 의해 표현되며, 여기에는 Kotlin 컴파일러가 생성한 파일 파사드(file facades)의 최상위 함수 및 프로퍼티가 포함됩니다.
 
@@ -247,7 +247,8 @@ fun main() {
 
 다음 단계를 따르면 됩니다:
 
-1.  ASM 라이브러리의 `ClassReader` 클래스를 사용하여 `.class` 파일의 바이트코드를 읽습니다. 이 클래스는 컴파일된 파일을 처리하고 클래스 구조를 나타내는 `ClassNode` 객체를 채웁니다.
+1.  ASM 라이브러리의 `ClassReader` 클래스를 사용하여 `.class` 파일의 바이트코드를 읽습니다.
+    이 클래스는 컴파일된 파일을 처리하고 클래스 구조를 나타내는 `ClassNode` 객체를 채웁니다.
 2.  `ClassNode` 객체에서 `@Metadata`를 추출합니다. 아래 예시는 이를 위해 사용자 지정 확장 함수 `findAnnotation()`을 사용합니다.
 3.  `KotlinClassMetadata.readLenient()` 함수를 사용하여 추출된 메타데이터를 파싱합니다.
 4.  `kmClass` 및 `kmPackage` 프로퍼티로 파싱된 메타데이터를 검사합니다.
@@ -467,7 +468,7 @@ fun main() {
         visitEnd()
     }.toByteArray()
 
-    // Writes the generated class file to disk
+    // Writes the generated .class file to disk
     java.io.File("Hello.class").writeBytes(classBytes)
 
     println("Metadata and .class file created successfully.")

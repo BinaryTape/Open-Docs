@@ -35,7 +35,7 @@ const val apiToken = ""
 
 -->
 ```kotlin
-// すべてのビルトインツールでツールレジストリを作成
+// Create a tool registry with all built-in tools
 val toolRegistry = ToolRegistry {
     tool(SayToUser)
     tool(AskUser)
@@ -45,7 +45,7 @@ val toolRegistry = ToolRegistry {
     tool(WriteFileTool(JVMFileSystemProvider.ReadWrite))
 }
 
-// エージェント作成時にレジストリを渡す
+// Pass the registry when creating an agent
 val agent = AIAgent(
     promptExecutor = simpleOpenAIExecutor(apiToken),
     systemPrompt = "You are a helpful assistant.",

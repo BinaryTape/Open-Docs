@@ -2,6 +2,7 @@
 
 Kotlinプロジェクトを様々な人気モジュールシステム向けのJavaScriptモジュールにコンパイルできます。現在、JavaScriptモジュール向けに以下の設定をサポートしています。
 
+- [ESモジュール](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules)。JavaScriptでモジュールを宣言する標準的な方法です (`import`/`export` JavaScript構文を使用)。`target`が`es2015`に設定されている場合、デフォルトで使用されます。
 - [Unified Module Definitions (UMD)](https://github.com/umdjs/umd)。これは*AMD*と*CommonJS*の両方と互換性があります。UMDモジュールは、インポートなしでも、またはモジュールシステムが存在しない場合でも実行可能です。これは`browser`および`nodejs`ターゲットのデフォルトオプションです。
 - [Asynchronous Module Definitions (AMD)](https://github.com/amdjs/amdjs-api/wiki/AMD)。特に[RequireJS](https://requirejs.org/)ライブラリで使用されます。
 - [CommonJS](http://wiki.commonjs.org/wiki/Modules/1.1)。Node.js/npmで広く使用されています（`require`関数および`module.exports`オブジェクト）。
@@ -53,17 +54,20 @@ compileKotlinJs.compilerOptions.moduleKind = org.jetbrains.kotlin.gradle.dsl.JsM
 </tab>
 </tabs>
 
-利用可能な値は、`umd`（デフォルト）、`commonjs`、`amd`、`plain`です。
+利用可能な値は、`umd`（デフォルト）、`es`、`commonjs`、`amd`、`plain`です。
 
 > これは`webpackTask.output.libraryTarget`の調整とは異なります。ライブラリターゲットは、_(コードが既にコンパイルされた後で) webpackによって生成される_出力_を変更します。`compilerOptions.moduleKind`は、_Kotlinコンパイラによって生成される_出力を変更します。
-> {style="note"}
+>
+{style="note"}  
 
-Kotlin Gradle DSLには、CommonJSモジュール種別を設定するためのショートカットもあります。
+Kotlin Gradle DSLには、CommonJSおよびESMモジュール種別を設定するためのショートカットもあります。
 
 ```kotlin
 kotlin {
     js {
         useCommonJs()
+        // OR
+        useEsModules()
         // ...
     }
 }

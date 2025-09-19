@@ -1,5 +1,7 @@
 [//]: # (title: 與 JavaScript 的互通性)
 
+<primary-label ref="beta"/> 
+
 Kotlin/Wasm 允許您在 Kotlin 中使用 JavaScript 程式碼，並在 JavaScript 中使用 Kotlin 程式碼。
 
 與 [Kotlin/JS](js-overview.md) 一樣，Kotlin/Wasm 編譯器也具備與 JavaScript 的互通性。如果您熟悉 Kotlin/JS 的互通性，您會注意到 Kotlin/Wasm 的互通性與其相似。然而，仍有一些關鍵差異需要考量。
@@ -111,7 +113,7 @@ external fun createUser(name: String, age: Int): User
 因此，與常規介面相比，外部介面有一些限制：
 * 您不能在 `is` 檢查的右側使用它們。
 * 您不能在類別常值表達式（例如 `User::class`）中使用它們。
-* 您不能將它們作為具體化類型引數傳遞。
+* 您不能將它們作為具體化型別引數傳遞。
 * 使用 `as` 對外部介面進行型別轉換總是會成功。
 
 #### 外部物件
@@ -384,28 +386,13 @@ external fun <T : JsAny> processData(data: JsArray<T>): T
 ## 異常處理
 
 您可以使用 Kotlin 的 `try-catch` 表達式來捕獲 JavaScript 異常。
-然而，預設情況下在 Kotlin/Wasm 中無法存取有關拋出值的特定詳細資訊。
+異常處理的運作方式如下：
 
-您可以配置 `JsException` 型別以包含來自 JavaScript 的原始錯誤訊息和堆疊追蹤。
-為此，請將以下編譯器選項新增到您的 `build.gradle.kts` 檔案中：
+* 從 JavaScript 拋出的異常：詳細資訊可在 Kotlin 端取得。如果此類異常傳播回 JavaScript，它將不再被包裝到 WebAssembly 中。
 
-```kotlin
-kotlin {
-    wasmJs {
-        compilerOptions {
-            freeCompilerArgs.add("-Xwasm-attach-js-exception")
-        }
-    }
-}
-```
+* 從 Kotlin 拋出的異常：它們可以在 JavaScript 端作為常規 JS 錯誤被捕獲。
 
-此行為取決於 `WebAssembly.JSTag` API，該 API 僅在某些瀏覽器中可用：
-
-* **Chrome**：從版本 115 起支援
-* **Firefox**：從版本 129 起支援
-* **Safari**：尚未支援
-
-以下是演示此行為的範例：
+以下是一個示範在 Kotlin 端捕獲 JavaScript 異常的範例：
 
 ```kotlin
 external object JSON {
@@ -431,10 +418,11 @@ fun main() {
 }
 ```
 
-啟用 `-Xwasm-attach-js-exception` 編譯器選項後，`JsException` 型別會提供 JavaScript 錯誤的特定詳細資訊。
-如果未啟用此編譯器選項，`JsException` 僅包含一條通用訊息，說明在執行 JavaScript 程式碼時拋出了一個異常。
+這種異常處理在支援 [`WebAssembly.JSTag`](https://webassembly.github.io/exception-handling/js-api/#dom-webassembly-jstag) 功能的現代瀏覽器中自動運作：
 
-如果您嘗試使用 JavaScript 的 `try-catch` 表達式來捕獲 Kotlin/Wasm 異常，它看起來就像一個通用的 `WebAssembly.Exception`，沒有可直接存取的訊息和資料。
+* Chrome 115+
+* Firefox 129+
+* Safari 18.4+
 
 ## Kotlin/Wasm 與 Kotlin/JS 互通性差異
 

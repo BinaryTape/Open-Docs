@@ -32,7 +32,7 @@ import ai.koog.agents.memory.model.FactType
 import ai.koog.agents.memory.model.SingleFact
 -->
 ```kotlin
-// Storing favorite IDE theme (single value)
+// 存储最喜欢的 IDE 主题（单个值）
 val themeFact = SingleFact(
     concept = Concept(
         "ide-theme", 
@@ -51,7 +51,7 @@ import ai.koog.agents.memory.model.FactType
 import ai.koog.agents.memory.model.MultipleFacts
 -->
 ```kotlin
-// Storing programming languages (multiple values)
+// 存储编程语言（多个值）
 val languagesFact = MultipleFacts(
     concept = Concept(
         "programming-languages",
@@ -91,26 +91,26 @@ import kotlinx.serialization.Serializable
 ```kotlin
 object MemorySubjects {
     /**
-     * Information specific to the local machine environment
-     * Examples: Installed tools, SDKs, OS configuration, available commands
+     * 本地机器环境特有的信息
+     * 示例：已安装的工具、SDK、操作系统配置、可用命令
      */
     @Serializable
     data object Machine : MemorySubject() {
         override val name: String = "machine"
         override val promptDescription: String =
-            "Technical environment (installed tools, package managers, packages, SDKs, OS, etc.)"
+            "技术环境（已安装的工具、包管理器、软件包、SDK、操作系统等）"
         override val priorityLevel: Int = 1
     }
 
     /**
-     * Information specific to the user
-     * Examples: Conversation preferences, issue history, contact information
+     * 用户特有的信息
+     * 示例：对话偏好、问题历史记录、联系信息
      */
     @Serializable
     data object User : MemorySubject() {
         override val name: String = "user"
         override val promptDescription: String =
-            "User information (conversation preferences, issue history, contact details, etc.)"
+            "用户信息（对话偏好、问题历史记录、联系方式等）"
         override val priorityLevel: Int = 1
     }
 }
@@ -195,7 +195,7 @@ import ai.koog.rag.base.files.JVMFileSystemProvider
 import kotlin.io.path.Path
 -->
 ```kotlin
-// Create a memory provider
+// 创建内存提供者
 val memoryProvider = LocalFileMemoryProvider(
     config = LocalMemoryConfig("customer-support-memory"),
     storage = SimpleStorage(JVMFileSystemProvider.ReadWrite),
@@ -247,7 +247,7 @@ suspend fun main() {
 }
 -->
 ```kotlin
-// Get the stored information
+// 获取存储的信息
 val greeting = memoryProvider.load(
     concept = Concept("greeting", "User's name", FactType.SINGLE),
     subject = MemorySubjects.User,
@@ -283,12 +283,12 @@ import ai.koog.agents.memory.model.FactType
 -->
 ```kotlin
 val strategy = strategy("example-agent") {
-    // Node to automatically detect and save facts
+    // 自动检测并保存事实的节点
     val detectFacts by nodeSaveToMemoryAutoDetectFacts<Unit>(
         subjects = listOf(MemorySubjects.User, MemorySubjects.Machine)
     )
 
-    // Node to load specific facts
+    // 加载特定事实的节点
     val loadPreferences by node<Unit, Unit> {
         withMemory {
             loadFactsToAgent(
@@ -298,7 +298,7 @@ val strategy = strategy("example-agent") {
         }
     }
 
-    // Connect nodes in the strategy
+    // 在策略中连接节点
     edge(nodeStart forwardTo detectFacts)
     edge(detectFacts forwardTo loadPreferences)
     edge(loadPreferences forwardTo nodeFinish)
@@ -316,7 +316,7 @@ import ai.koog.rag.base.files.JVMFileSystemProvider
 import ai.koog.agents.memory.storage.Aes256GCMEncryptor
 -->
 ```kotlin
-// Simple encrypted storage setup
+// 简单的加密存储设置
 val secureStorage = EncryptedStorage(
     fs = JVMFileSystemProvider.ReadWrite,
     encryption = Aes256GCMEncryptor("your-secret-key")
@@ -493,7 +493,7 @@ AgentMemory 特性包含多种机制来处理边缘情况：
 - [ai.koog.agents.local.memory.model](https://api.koog.ai/agents/agents-features/agents-features-memory/ai.koog.agents.local.memory.model/index.html)：包括核心数据结构和接口的定义，这些结构和接口使代理能够跨不同上下文和时间段存储、组织和检索信息。
 - [ai.koog.agents.local.memory.feature.history](https://api.koog.ai/agents/agents-features/agents-features-memory/ai.koog.agents.local.memory.feature.history/index.html)：提供了历史压缩策略，用于从过去的会话活动或存储的内存中检索和整合关于特定概念的事实知识。
 - [ai.koog.agents.local.memory.providers](https://api.koog.ai/agents/agents-features/agents-features-memory/ai.koog.agents.local.memory.providers/index.html)：提供了核心接口，该接口定义了以结构化、上下文感知方式存储和检索知识的基本操作及其实现。
-- [ai.koog.agents.local.memory.storage](https://api.koog.ai/agents/agents-features/agents-features-memory/ai.koog.agents.local.memory.storage/index.html)：提供了核心接口和特定实现，用于跨不同平台和存储后端进行文件操作。
+- [ai.koog.agents.local.memory.storage](https://api.koog.ai/agents/agents-features/agents-features-memory/ai.koog.agents.local.memory.storage/index.html)：提供了核心接口和特定实现，用于跨不同平台和存储后端的文件操作。
 
 ## 常见问题与故障排除
 
@@ -517,15 +517,15 @@ import ai.koog.agents.memory.providers.AgentMemoryProvider
 ```kotlin
 class MyCustomMemoryProvider : AgentMemoryProvider {
     override suspend fun save(fact: Fact, subject: MemorySubject, scope: MemoryScope) {
-        // Implementation for saving facts
+        // 保存事实的实现
     }
 
     override suspend fun load(concept: Concept, subject: MemorySubject, scope: MemoryScope): List<Fact> {
-        // Implementation for loading facts by concept
+        // 根据概念加载事实的实现
     }
 
     override suspend fun loadAll(subject: MemorySubject, scope: MemoryScope): List<Fact> {
-        // Implementation for loading all facts
+        // 加载所有事实的实现
     }
 
     override suspend fun loadByDescription(
@@ -533,7 +533,7 @@ class MyCustomMemoryProvider : AgentMemoryProvider {
         subject: MemorySubject,
         scope: MemoryScope
     ): List<Fact> {
-        // Implementation for loading facts by description
+        // 根据描述加载事实的实现
     }
 }
 ```

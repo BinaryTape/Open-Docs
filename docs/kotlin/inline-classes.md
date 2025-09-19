@@ -191,7 +191,7 @@ fun main() {
     acceptString(nameAlias) // OK: 传递别名而非底层类型
     acceptString(nameInlineClass) // 不正常：无法传递内联类而非底层类型
 
-    // And vice versa:
+    // 反之亦然：
     acceptNameTypeAlias(string) // OK: 传递底层类型而非别名
     acceptNameInlineClass(string) // 不正常：无法传递底层类型而非内联类
 }
@@ -218,4 +218,3 @@ fun main() {
     })
     println(my.foo()) // prints "foo"
 }
-```

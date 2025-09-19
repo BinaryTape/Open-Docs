@@ -48,7 +48,7 @@
 ```kotlin
 compose.resources {
     customDirectory(
-        sourceSetName = "desktopMain",
+        sourceSetName = "jvmMain",
         directoryProvider = provider { layout.projectDirectory.dir("desktopResources") }
     )
 }
@@ -75,6 +75,25 @@ compose.resources {
 ```
 {initial-collapse-state="collapsed" collapsible="true"  collapsed-title="directoryProvider = tasks.register<DownloadRemoteFiles>"}
 
+### 自定义 Web 资源路径
+
+你可以使用 `configureWebResources()` 函数指定 Web 资源的路径和 URL：
+
+*   使用相对路径（以 `/` 开头）来引用来自域根的资源。
+*   使用绝对 URL（以 `http://` 或 `https://` 开头）来引用托管在外部域或 CDN 上的资源。
+
+```kotlin
+// 将资源映射到应用程序特有的路径
+configureWebResources {
+    resourcePathMapping { path -> "/myApp/resources/$path" }
+}
+
+// 将资源映射到外部 CDN
+configureWebResources {
+    resourcePathMapping { path -> "https://mycdn.com/myApp/res/$path" }
+}
+```
+
 ### `androidLibrary` 目标中的资源
 <secondary-label ref="Experimental"/>
 
@@ -100,7 +119,7 @@ kotlin {
 
 ![Qualifiers in multiplatform resources](compose-resources-qualifiers.png){width=250}
 
-该库支持以下限定符（按优先级顺序）：[语言](#language-and-regional-qualifiers)、[主题](#theme-qualifier) 和 [密度](#density-qualifier)。
+该库支持（按优先级顺序）以下限定符：[语言](#language-and-regional-qualifiers)、[主题](#theme-qualifier) 和 [密度](#density-qualifier)。
 
 *   不同类型的限定符可以一起应用。例如，“drawable-en-rUS-mdpi-dark”是一个适用于美国地区英语语言、深色主题下 160 DPI 屏幕的图像。
 *   如果带有请求限定符的资源不可访问，则会使用默认资源（不带限定符）。
@@ -127,7 +146,7 @@ kotlin {
 *   “hdpi” – 240 DPI，1.5 倍密度
 *   “xhdpi” – 320 DPI，2 倍密度
 *   “xxhdpi” – 480 DPI，3 倍密度
-*   “xxxhdpi” – 640 DPI，4 倍密度
+*   “xxxhdpi” – 640dpi，4 倍密度
 
 资源是根据系统中定义的屏幕密度来选择的。
 

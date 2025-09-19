@@ -23,9 +23,6 @@ Ktorは[OpenTelemetry](https://opentelemetry.io/)と統合されています。O
 
 > サーバー側では、OpenTelemetryはサーバーへの受信HTTPリクエストをインストゥルメントするための[KtorServerTelemetry](server-opentelemetry.md)プラグインを提供します。
 
-<br/>
-<br/>
-
 ## %plugin_name%をインストールする {id="install_plugin"}
 
 `%plugin_name%`プラグインをインストールするには、[クライアント設定ブロック](client-create-and-configure.md#configure-client)内で`install`関数に渡し、[設定済みの`OpenTelemetry`インスタンス](#configure-otel)を設定します。
@@ -51,9 +48,6 @@ Ktorクライアントが送信HTTPコールに対するOpenTelemetryスパン�
 
 > これらの概念の詳細については、[OpenTelemetryトレースドキュメント](https://opentelemetry.io/docs/concepts/signals/traces/)を参照してください。
 
-<br/>
-<br/>
-
 ### レスポンスヘッダーをキャプチャする
 
 特定HTTPレスポンスヘッダーをスパン属性としてキャプチャするには、`capturedResponseHeaders`プロパティを使用します。
@@ -64,8 +58,6 @@ install(%plugin_name%) {
     capturedResponseHeaders(HttpHeaders.ContentType, CUSTOM_HEADER)
 }
 ```
-
-<br/>
 
 ## 次のステップ
 

@@ -1,14 +1,10 @@
 [//]: # (title: Kotlin/Wasm と WASI を使ってみる)
 
-> Kotlin/Wasm は[アルファ版](components-stability.md)です。いつでも変更される可能性があります。
->
-> [Kotlin/Wasm コミュニティに参加しましょう。](https://slack-chats.kotlinlang.org/c/webassembly)
->
-{style="note"}
+<primary-label ref="beta"/> 
 
 このチュートリアルでは、さまざまな WebAssembly 仮想マシンで[WebAssembly System Interface (WASI)](https://wasi.dev/) を使用して、シンプルな[Kotlin/Wasm](wasm-overview.md) アプリケーションを実行する方法を説明します。
 
-[Node.js](https://nodejs.org/en)、[Deno](https://deno.com/)、[WasmEdge](https://wasmedge.org/) 仮想マシンで実行されるアプリケーションの例を見つけることができます。出力は、標準の WASI API を使用するシンプルなアプリケーションです。
+[Node.js](https://nodejs.org/en)、[Deno](https://deno.com/)、および[WasmEdge](https://wasmedge.org/) 仮想マシンで実行されるアプリケーションの例を見つけることができます。出力は、標準の WASI API を使用するシンプルなアプリケーションです。
 
 現在、Kotlin/Wasm は Preview 1 としても知られている WASI 0.1 をサポートしています。
 [WASI 0.2 のサポートは、今後のリリースで計画されています。](https://youtrack.jetbrains.com/issue/KT-64568)

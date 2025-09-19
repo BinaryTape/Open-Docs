@@ -18,7 +18,7 @@ Xcode 프로젝트에 특별한 스크립트를 추가하여 Kotlin 멀티플랫
 
 이 통합 방식은 Kotlin 멀티플랫폼 프로젝트에서 CocoaPods 의존성을 **가져오지 않는** 경우에 적합합니다.
 
-Android Studio에서 프로젝트를 생성하는 경우, 이 설정을 자동으로 생성하려면 **Regular framework** 옵션을 선택하세요. [Kotlin 멀티플랫폼 웹 위자드](https://kmp.jetbrains.com/)를 사용하는 경우 직접 통합이 기본적으로 적용됩니다.
+[Kotlin 멀티플랫폼 IDE 플러그인](https://plugins.jetbrains.com/plugin/14936-kotlin-multiplatform)을 사용하는 경우 직접 통합이 기본적으로 적용됩니다.
 
 자세한 내용은 [직접 통합](multiplatform-direct-integration.md)을 참조하세요.
 
@@ -28,10 +28,10 @@ Swift 및 Objective-C 프로젝트의 인기 있는 의존성 관리자인 [Coco
 
 이 통합 방식은 다음 경우에 적합합니다.
 
-* CocoaPods를 사용하는 iOS 프로젝트와 함께 모노 리포지토리(mono repository) 설정을 가지고 있는 경우
-* Kotlin 멀티플랫폼 프로젝트에서 CocoaPods 의존성을 가져오는 경우
+*   CocoaPods를 사용하는 iOS 프로젝트와 함께 모노 리포지토리(mono repository) 설정을 가지고 있는 경우
+*   Kotlin 멀티플랫폼 프로젝트에서 CocoaPods 의존성을 가져오는 경우
 
-로컬 CocoaPods 의존성을 사용하는 워크플로(workflow)를 설정하려면 스크립트를 수동으로 편집하거나 Android Studio의 위자드를 사용하여 프로젝트를 생성할 수 있습니다.
+로컬 CocoaPods 의존성을 사용하는 워크플로(workflow)를 설정하려면 스크립트를 수동으로 편집할 수 있습니다.
 
 자세한 내용은 [CocoaPods 개요 및 설정](multiplatform-cocoapods-overview.md)을 참조하세요.
 

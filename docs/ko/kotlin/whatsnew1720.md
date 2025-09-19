@@ -20,8 +20,8 @@ Kotlin 1.7.20 릴리스가 출시되었습니다! 다음은 이번 릴리스의 
 ## Kotlin K2 컴파일러 플러그인 지원
 
 Kotlin 팀은 K2 컴파일러를 계속 안정화하고 있습니다.
-K2는 아직 **알파** 버전이지만([Kotlin 1.7.0 릴리스](whatsnew17.md#new-kotlin-k2-compiler-for-the-jvm-in-alpha)에서 발표된 대로) 이제 여러 컴파일러 플러그인을 지원합니다.
-새로운 컴파일러에 대한 Kotlin 팀의 업데이트를 확인하려면 [이 YouTrack 이슈](https://youtrack.jetbrains.com/issue/KT-52604)를 팔로우하세요.
+K2는 아직 **알파** 버전이지만([Kotlin 1.7.0 릴리스](whatsnew17.md#new-kotlin-k2-compiler-for-the-jvm-in-alpha)에서 발표된 대로)
+이제 여러 컴파일러 플러그인을 지원합니다. 새로운 컴파일러에 대한 Kotlin 팀의 업데이트를 확인하려면 [이 YouTrack 이슈](https://youtrack.jetbrains.com/issue/KT-52604)를 팔로우하세요.
 
 이 1.7.20 릴리스부터 Kotlin K2 컴파일러는 다음 플러그인을 지원합니다.
 
@@ -94,7 +94,8 @@ Kotlin 1.7.20은 새로운 언어 기능에 대한 미리보기 버전을 도입
 >
 {style="warning"}
 
-이번 릴리스에서는 새로운 `..<` 연산자를 도입합니다. Kotlin에는 값의 범위를 표현하기 위한 `..` 연산자가 있습니다. 새로운 `..<` 연산자는 `until` 함수처럼 작동하며 개방형 범위를 정의하는 데 도움이 됩니다.
+이번 릴리스에서는 새로운 `..<` 연산자를 도입합니다. Kotlin에는 값의 범위를 표현하기 위한 `..` 연산자가 있습니다. 새로운 `..<`
+연산자는 `until` 함수처럼 작동하며 개방형 범위를 정의하는 데 도움이 됩니다.
 
 <video src="https://www.youtube.com/watch?v=v0AHdAIBnbs" title="개방형 범위를 위한 새로운 연산자"/>
 
@@ -163,7 +164,8 @@ class IntRange : IntProgression(...), ClosedRange<Int>, OpenEndRange<Int> {
 >
 {style="warning"}
 
-이번 릴리스에서는 새로운 종류의 `object` 선언인 `data object`를 도입합니다. [데이터 객체](https://youtrack.jetbrains.com/issue/KT-4107)는 개념적으로 일반적인 `object` 선언과 동일하게 동작하지만, 기본적으로 깔끔한 `toString` 표현을 제공합니다.
+이번 릴리스에서는 새로운 종류의 `object` 선언인 `data object`를 도입합니다. [데이터 객체](https://youtrack.jetbrains.com/issue/KT-4107)는
+개념적으로 일반적인 `object` 선언과 동일하게 동작하지만, 기본적으로 깔끔한 `toString` 표현을 제공합니다.
 
 <video src="https://www.youtube.com/v/ovAqcwFhEGc" title="Kotlin 1.7.20의 데이터 객체"/>
 
@@ -246,8 +248,8 @@ Kotlin 1.7.20은 코드에 영향을 미칠 수 있는 [빌더 타입 추론](us
         }
     }
     ```
-    {validate="false"} 
-  
+    {validate="false"}
+
   코드를 수정하려면 타입을 명시적으로 지정해야 합니다.
 
     ```kotlin
@@ -271,13 +273,13 @@ Kotlin 1.7.20은 코드에 영향을 미칠 수 있는 [빌더 타입 추론](us
 
     ```kotlin
     fun <T: Any> buildList(
-        first: MutableList<T>.() -> Unit, 
+        first: MutableList<T>.() -> Unit,
         second: MutableList<T>.() -> Unit
     ): List<T> {
         val list = mutableListOf<T>()
         list.first()
         list.second()
-        return list 
+        return list
     }
     
     fun main() {
@@ -285,7 +287,7 @@ Kotlin 1.7.20은 코드에 영향을 미칠 수 있는 [빌더 타입 추론](us
             first = { // this: MutableList<String>
                 add("")
             },
-            second = { // this: MutableList<Int> 
+            second = { // this: MutableList<Int>
                 val i: Int = get(0)
                 println(i)
             }
@@ -326,7 +328,7 @@ Kotlin 1.7.20은 제네릭 인라인 클래스를 도입하고, 위임된 프로
 
 > 제네릭 인라인 클래스는 [실험적](components-stability.md#stability-levels-explained) 기능입니다.
 > 이 기능은 언제든지 제거되거나 변경될 수 있습니다. 옵트인(`opt-in`)이 필요하며(자세한 내용은 아래 참조), 평가 목적으로만 사용해야 합니다.
-> [YouTrack](https://youtrack.jetbrains.com/issue/KT-52994)에서 이 기능에 대한 피드백을 주시면 감사하겠습니다.
+> [YouTrack](https://youtrack.com/issue/KT-52994)에서 이 기능에 대한 피드백을 주시면 감사하겠습니다.
 >
 {style="warning"}
 
@@ -347,7 +349,7 @@ fun compute(s: UserId<String>) {} // 컴파일러는 fun compute-<hashcode>(s: A
 
 이 기능을 활성화하려면 `-language-version 1.8` 컴파일러 옵션을 사용하세요.
 
-[YouTrack](https://youtrack.jetbrains.com/issue/KT-52994)에서 이 기능에 대한 피드백을 주시면 감사하겠습니다.
+[YouTrack](https://youtrack.com/issue/KT-52994)에서 이 기능에 대한 피드백을 주시면 감사하겠습니다.
 
 ### 위임된 프로퍼티의 더 많은 최적화 사례
 
@@ -389,7 +391,7 @@ Kotlin 1.6.0에서는 `$delegate` 필드를 생략하고 [참조된 프로퍼티
 
 [위임된 프로퍼티](delegated-properties.md)에 대해 자세히 알아보세요.
 
-[YouTrack](https://youtrack.jetbrains.com/issue/KT-23397)에서 이 기능에 대한 피드백을 주시면 감사하겠습니다.
+[YouTrack](https://youtrack.com/issue/KT-23397)에서 이 기능에 대한 피드백을 주시면 감사하겠습니다.
 
 ### kapt 스텁 생성 작업에서 JVM IR 백엔드 지원
 
@@ -398,7 +400,8 @@ Kotlin 1.6.0에서는 `$delegate` 필드를 생략하고 [참조된 프로퍼티
 >
 {style="warning"}
 
-1.7.20 이전에는 `kapt` 스텁 생성 작업이 이전 백엔드를 사용했고, [반복 가능 어노테이션](annotations.md#repeatable-annotations)은 [kapt](kapt.md)에서 작동하지 않았습니다. Kotlin 1.7.20에서는 `kapt` 스텁 생성 작업에서 [JVM IR 백엔드](whatsnew15.md#stable-jvm-ir-backend)에 대한 지원을 추가했습니다. 이를 통해 반복 가능 어노테이션을 포함한 모든 최신 Kotlin 기능을 `kapt`와 함께 사용할 수 있게 됩니다.
+1.7.20 이전에는 `kapt` 스텁 생성 작업이 이전 백엔드를 사용했고, [반복 가능 어노테이션](annotations.md#repeatable-annotations)은
+[kapt](kapt.md)에서 작동하지 않았습니다. Kotlin 1.7.20에서는 `kapt` 스텁 생성 작업에서 [JVM IR 백엔드](whatsnew15.md#stable-jvm-ir-backend)에 대한 지원을 추가했습니다. 이를 통해 반복 가능 어노테이션을 포함한 모든 최신 Kotlin 기능을 `kapt`와 함께 사용할 수 있게 됩니다.
 
 `kapt`에서 IR 백엔드를 사용하려면 `gradle.properties` 파일에 다음 옵션을 추가하세요.
 
@@ -406,7 +409,7 @@ Kotlin 1.6.0에서는 `$delegate` 필드를 생략하고 [참조된 프로퍼티
 kapt.use.jvm.ir=true
 ```
 
-[YouTrack](https://youtrack.jetbrains.com/issue/KT-49682)에서 이 기능에 대한 피드백을 주시면 감사하겠습니다.
+[YouTrack](https://youtrack.com/issue/KT-49682)에서 이 기능에 대한 피드백을 주시면 감사하겠습니다.
 
 ## Kotlin/Native
 
@@ -463,11 +466,12 @@ Kotlin 팀은 이 옵션을 구현해준 [Ahmed El-Helw](https://github.com/ahme
 
 이는 저희 생태계에 중요한 변화입니다. 더 나은 개선을 위해 여러분의 피드백을 주시면 감사하겠습니다.
 
-프로젝트에서 새로운 메모리 관리자를 사용해보고 [이슈 트래커인 YouTrack](https://youtrack.jetbrains.com/issue/KT-48525)에 피드백을 공유해 주세요.
+프로젝트에서 새로운 메모리 관리자를 사용해보고 [이슈 트래커인 YouTrack](https://youtrack.com/issue/KT-48525)에 피드백을 공유해 주세요.
 
 ### Info.plist 파일 사용자 지정
 
-프레임워크를 생성할 때 Kotlin/Native 컴파일러는 정보 속성 목록 파일인 `Info.plist`를 생성합니다. 이전에는 그 내용을 사용자 지정하기가 번거로웠습니다. Kotlin 1.7.20부터는 다음 속성들을 직접 설정할 수 있습니다.
+프레임워크를 생성할 때 Kotlin/Native 컴파일러는 정보 속성 목록 파일인 `Info.plist`를 생성합니다.
+이전에는 그 내용을 사용자 지정하기가 번거로웠습니다. Kotlin 1.7.20부터는 다음 속성들을 직접 설정할 수 있습니다.
 
 | 속성                     | 이진 옵션              |
 |------------------------------|----------------------------|
@@ -475,7 +479,8 @@ Kotlin 팀은 이 옵션을 구현해준 [Ahmed El-Helw](https://github.com/ahme
 | `CFBundleShortVersionString` | `bundleShortVersionString` |
 | `CFBundleVersion`            | `bundleVersion`            |
 
-이를 위해 해당 이진 옵션을 사용하세요. 필요한 프레임워크에 `-Xbinary=$option=$value` 컴파일러 플래그를 전달하거나 `binaryOption(option, value)` Gradle DSL을 설정하세요.
+이를 위해 해당 이진 옵션을 사용하세요. 필요한 프레임워크에
+`-Xbinary=$option=$value` 컴파일러 플래그를 전달하거나 `binaryOption(option, value)` Gradle DSL을 설정하세요.
 
 Kotlin 팀은 이 기능을 구현해준 Mads Ager에게 매우 감사합니다.
 
@@ -484,28 +489,34 @@ Kotlin 팀은 이 기능을 구현해준 Mads Ager에게 매우 감사합니다.
 Kotlin/JS는 개발자 경험을 개선하고 성능을 향상시키는 몇 가지 개선 사항을 받았습니다.
 
 * 의존성 로딩 효율성 개선 덕분에 Klib 생성이 증분 빌드와 클린 빌드 모두에서 더 빨라졌습니다.
-* [개발 바이너리에 대한 증분 컴파일](js-ir-compiler.md#incremental-compilation-for-development-binaries)이 재작업되어 클린 빌드 시나리오에서 주요 개선, 더 빠른 증분 빌드, 안정성 수정 사항이 적용되었습니다.
+* [개발 바이너리에 대한 증분 컴파일](js-ir-compiler.md#incremental-compilation-for-development-binaries)이
+  재작업되어 클린 빌드 시나리오에서 주요 개선, 더 빠른 증분 빌드, 안정성 수정 사항이 적용되었습니다.
 * 중첩 객체, 봉인된 클래스, 생성자에서 기본값이 있는 파라미터에 대한 `.d.ts` 생성을 개선했습니다.
 
 ## Gradle
 
 Kotlin Gradle 플러그인에 대한 업데이트는 새로운 Gradle 기능 및 최신 Gradle 버전과의 호환성에 중점을 둡니다.
 
-Kotlin 1.7.20은 Gradle 7.1 지원을 위한 변경 사항을 포함합니다. 더 이상 사용되지 않는 메서드 및 프로퍼티가 제거되거나 대체되어 Kotlin Gradle 플러그인에서 발생하는 사용 중단 경고 수를 줄이고 Gradle 8.0의 향후 지원을 해제합니다.
+Kotlin 1.7.20은 Gradle 7.1 지원을 위한 변경 사항을 포함합니다. 더 이상 사용되지 않는 메서드 및 프로퍼티가 제거되거나 대체되어
+Kotlin Gradle 플러그인에서 발생하는 사용 중단 경고 수를 줄이고 Gradle 8.0의 향후 지원을 해제합니다.
 
 하지만 주의가 필요할 수 있는 잠재적으로 호환성을 깨는 변경 사항도 있습니다.
 
 ### 타겟 구성
 
 * `org.jetbrains.kotlin.gradle.dsl.SingleTargetExtension`은 이제 제네릭 파라미터인 `SingleTargetExtension<T : KotlinTarget>`를 가집니다.
-* `kotlin.targets.fromPreset()` 컨벤션은 더 이상 사용되지 않습니다. 대신 여전히 `kotlin.targets { fromPreset() }`을 사용할 수 있지만, [명시적으로 타겟을 설정하는 것](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-discover-project.html#targets)을 권장합니다.
-* Gradle에 의해 자동 생성된 타겟 접근자는 더 이상 `kotlin.targets { }` 블록 내에서 사용할 수 없습니다. 대신 `findByName("targetName")` 메서드를 사용하십시오.
+* `kotlin.targets.fromPreset()` 컨벤션은 더 이상 사용되지 않습니다. 대신 여전히 `kotlin.targets { fromPreset() }`을 사용할 수 있지만,
+  [명시적으로 타겟을 설정하는 것](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-discover-project.html#targets)을 권장합니다.
+* Gradle에 의해 자동 생성된 타겟 접근자는 더 이상 `kotlin.targets { }` 블록 내에서 사용할 수 없습니다. 대신 `findByName("targetName")`
+  메서드를 사용하십시오.
 
   `kotlin.targets`의 경우 (예: `kotlin.targets.linuxX64`), 이러한 접근자는 여전히 사용할 수 있습니다.
 
 ### 소스 디렉터리 구성
 
-Kotlin Gradle 플러그인은 이제 Java의 `SourceSet` 그룹에 Kotlin `SourceDirectorySet`을 `kotlin` 확장으로 추가합니다. 이를 통해 [Java, Groovy, Scala](https://docs.gradle.org/7.1/release-notes.html#easier-source-set-configuration-in-kotlin-dsl)에서 구성하는 방식과 유사하게 `build.gradle.kts` 파일에서 소스 디렉터리를 구성할 수 있습니다.
+Kotlin Gradle 플러그인은 이제 Java의 `SourceSet` 그룹에 Kotlin `SourceDirectorySet`을 `kotlin` 확장으로 추가합니다.
+이를 통해 [Java, Groovy, Scala](https://docs.gradle.org/7.1/release-notes.html#easier-source-set-configuration-in-kotlin-dsl)에서
+구성하는 방식과 유사하게 `build.gradle.kts` 파일에서 소스 디렉터리를 구성할 수 있습니다.
 
 ```kotlin
 sourceSets {
@@ -534,7 +545,9 @@ kotlin {
 
 ### JVM 툴체인 구성을 위한 새로운 메서드
 
-이번 릴리스에서는 [JVM 툴체인 기능](gradle-configure-project.md#gradle-java-toolchains-support)을 활성화하기 위한 새로운 `jvmToolchain()` 메서드를 제공합니다. `implementation` 또는 `vendor`와 같은 추가 [구성 필드](https://docs.gradle.org/current/javadoc/org/gradle/jvm/toolchain/JavaToolchainSpec.html)가 필요하지 않은 경우, Kotlin 확장에서 이 메서드를 사용할 수 있습니다.
+이번 릴리스에서는 [JVM 툴체인 기능](gradle-configure-project.md#gradle-java-toolchains-support)을 활성화하기 위한 새로운 `jvmToolchain()` 메서드를 제공합니다.
+`implementation` 또는 `vendor`와 같은 추가 [구성 필드](https://docs.gradle.org/current/javadoc/org/gradle/jvm/toolchain/JavaToolchainSpec.html)가 필요하지 않은 경우,
+Kotlin 확장(`kotlin` extension)에서 이 메서드를 사용할 수 있습니다.
 
 ```kotlin
 kotlin {
@@ -559,7 +572,8 @@ Kotlin 1.7.20은 `java.nio.file.Path` 클래스에 대한 새로운 [확장 함�
 * `walk()`는 지정된 경로를 루트로 하는 파일 트리를 지연 로드(lazily) 탐색합니다.
 * `fileVisitor()`는 `FileVisitor`를 별도로 생성할 수 있도록 합니다. `FileVisitor`는 디렉터리와 파일을 탐색할 때의 동작을 정의합니다.
 * `visitFileTree(fileVisitor: FileVisitor, ...)`는 준비된 `FileVisitor`를 소비하고 내부적으로 `java.nio.file.Files.walkFileTree()`를 사용합니다.
-* `visitFileTree(..., builderAction: FileVisitorBuilder.() -> Unit)`는 `builderAction`으로 `FileVisitor`를 생성하고 `visitFileTree(fileVisitor, ...)` 함수를 호출합니다.
+* `visitFileTree(..., builderAction: FileVisitorBuilder.() -> Unit)`는 `builderAction`으로 `FileVisitor`를 생성하고
+  `visitFileTree(fileVisitor, ...)` 함수를 호출합니다.
 * `FileVisitor`의 반환 타입인 `FileVisitResult`는 파일 처리를 계속하는 `CONTINUE` 기본값을 가집니다.
 
 > `java.nio.file.Path`의 새로운 확장 함수는 [실험적](components-stability.md)입니다.
@@ -601,7 +615,7 @@ Kotlin 1.7.20은 `java.nio.file.Path` 클래스에 대한 새로운 [확장 함�
   
       onVisitFile { file, attributes ->
           // 파일 방문 시 일부 로직
-          FileVisitResult.CONTINUE
+          FileVisitResult.CONTINCE
       }
   }
   ```
@@ -659,9 +673,11 @@ Kotlin 1.7.20은 `java.nio.file.Path` 클래스에 대한 새로운 [확장 함�
   }
   ```
 
-실험적 API에 대한 일반적인 경우와 같이, 새로운 확장 함수에는 옵트인(`opt-in`)이 필요합니다: `@OptIn(kotlin.io.path.ExperimentalPathApi::class)` 또는 `@kotlin.io.path.ExperimentalPathApi`. 또는 컴파일러 옵션 `-opt-in=kotlin.io.path.ExperimentalPathApi`를 사용할 수 있습니다.
+실험적 API에 대한 일반적인 경우와 같이, 새로운 확장 함수에는 옵트인(`opt-in`)이 필요합니다: `@OptIn(kotlin.io.path.ExperimentalPathApi::class)`
+또는 `@kotlin.io.path.ExperimentalPathApi`. 또는 컴파일러 옵션 `-opt-in=kotlin.io.path.ExperimentalPathApi`를 사용할 수 있습니다.
 
-[YouTrack](https://youtrack.jetbrains.com/issue/KT-52909)의 [`walk()` 함수](https://youtrack.jetbrains.com/issue/KT-52909)와 [방문 확장 함수](https://youtrack.jetbrains.com/issue/KT-52910)에 대한 피드백을 주시면 감사하겠습니다.
+[YouTrack](https://youtrack.com/issue/KT-52909)의 [`walk()` 함수](https://youtrack.com/issue/KT-52909)와
+[방문 확장 함수](https://youtrack.com/issue/KT-52910)에 대한 피드백을 주시면 감사하겠습니다.
 
 ## 문서 업데이트
 

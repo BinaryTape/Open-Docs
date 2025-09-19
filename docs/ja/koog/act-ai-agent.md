@@ -57,7 +57,7 @@ println(result)
 class Switch {
     private var on = false
     fun on() { on = true }
-    fun off() { off = true }
+    fun off() { on = false }
     fun isOn() = on
 }
 
@@ -109,9 +109,7 @@ val observed = functionalAIAgent<String, String>(
     toolRegistry = tools,
     featureContext = {
         install(EventHandler) {
-            onToolCall { e -> println("Tool called: ${'
-    ```}{e.tool.name}, args: ${'
-    ```}{e.toolArgs}") }
+            onToolCall { e -> println("Tool called: ${'```}{e.tool.name}, args: ${'```}{e.toolArgs}") }
         }
     }
 ) { input ->

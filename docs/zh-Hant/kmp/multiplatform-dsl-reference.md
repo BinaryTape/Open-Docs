@@ -41,6 +41,7 @@ plugins {
 | `targets`            | 列出專案的所有目標。                                                                                                                   |
 | `sourceSets`         | 設定預定義並宣告專案的自訂[原始碼集](#source-sets)。                                                                                 |
 | `compilerOptions`    | 指定共同的擴充層級[編譯器選項](#compiler-options)，這些選項將作為所有目標和共享原始碼集的預設值。 |
+| `dependencies`       | 配置[共同依賴項](#configure-dependencies-at-the-top-level)。(實驗性)                                                              |
 
 ## 目標
 
@@ -460,7 +461,7 @@ kotlin {
 可用的預定義原始碼集如下：
 
 | **名稱**                                    | **描述**                                                                                                                                                                                                                                 |
-|---------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|---------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `commonMain`                                | 在所有平台之間共享的程式碼和資源。在所有多平台專案中可用。用於專案的所有主要[編譯](#compilations)。                                                                           |
 | `commonTest`                                | 在所有平台之間共享的測試程式碼和資源。在所有多平台專案中可用。用於專案的所有測試編譯。                                                                                     |
 | _&lt;targetName&gt;&lt;compilationName&gt;_ | 目標特定編譯的原始碼。_&lt;targetName&gt;_ 是預定義目標的名稱，_&lt;compilationName&gt;_ 是此目標編譯的名稱。範例：`jsTest`、`jvmMain`。 |
@@ -999,6 +1000,43 @@ kotlin {
 
 此外，原始碼集可以相互依賴並形成層次結構。
 在這種情況下，使用 [`dependsOn()`](#source-set-parameters) 關係。
+
+### 在頂層配置依賴項
+<secondary-label ref="Experimental"/>
+
+您可以使用頂層 `dependencies {}` 區塊配置共同依賴項。在此宣告的依賴項行為，如同它們已添加到 `commonMain` 或 `commonTest` 原始碼集一樣。
+
+若要使用頂層 `dependencies {}` 區塊，請在區塊前添加 `@OptIn(ExperimentalKotlinGradlePluginApi::class)` 註解以選擇加入。
+
+<Tabs group="build-script">
+<TabItem title="Kotlin" group-key="kotlin">
+
+```kotlin
+kotlin {
+    @OptIn(ExperimentalKotlinGradlePluginApi::class)
+    dependencies {
+        implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:%coroutinesVersion%")
+    }
+}
+```
+
+</TabItem>
+<TabItem title="Groovy" group-key="groovy">
+
+```groovy
+kotlin {
+    dependencies {
+        implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:%coroutinesVersion%'
+    }
+}
+```
+
+</TabItem>
+</Tabs>
+
+將平台特定的依賴項添加到對應目標的 `sourceSets {}` 區塊內。
+
+您可以在 [YouTrack](https://youtrack.jetbrains.com/issue/KT-76446) 中分享對此功能的意見回饋。
 
 ## 語言設定
 

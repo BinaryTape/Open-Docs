@@ -46,12 +46,12 @@ val toolRegistry = ToolRegistry {}
 
 -->
 ```kotlin
-// 建立模擬 LLM 執行器
+// Create a mock LLM executor
 val mockLLMApi = getMockExecutor(toolRegistry) {
-  // 模擬簡單的文字回應
+  // Mock a simple text response
   mockLLMAnswer("Hello!") onRequestContains "Hello"
 
-  // 模擬預設回應
+  // Mock a default response
   mockLLMAnswer("I don't know how to answer that.").asDefaultResponse
 }
 ```
@@ -170,25 +170,25 @@ val mockLLMApi = getMockExecutor {
 }
 -->
 ```kotlin
-// 模擬工具呼叫回應
+// Mock a tool call response
 mockLLMToolCall(CreateTool, CreateTool.Args("solve")) onRequestEquals "Solve task"
 
-// 模擬工具行為 – 最簡單的形式，不使用 lambda
+// Mock tool behavior - simplest form without lambda
 mockTool(PositiveToneTool) alwaysReturns "The text has a positive tone."
 
-// 當您需要執行額外動作時使用 lambda
+// Using lambda when you need to perform extra actions
 mockTool(NegativeToneTool) alwaysTells {
-  // 執行一些額外動作
+  // Perform some extra action
   println("Negative tone tool called")
 
-  // 返回結果
+  // Return the result
   "The text has a negative tone."
 }
 
-// 根據特定參數模擬工具行為
+// Mock tool behavior based on specific arguments
 mockTool(AnalyzeTool) returns AnalyzeTool.Result("Detailed analysis") onArguments AnalyzeTool.Args("analyze deeply")
 
-// 根據條件式參數匹配模擬工具行為
+// Mock tool behavior with conditional argument matching
 mockTool(SearchTool) returns SearchTool.Result("Found results") onArgumentsMatching { args ->
   args.query.contains("important")
 }
@@ -267,7 +267,7 @@ fun main() {
 -->
 ```kotlin
 AIAgent(
-    // 建構函式參數
+    // Constructor arguments
     promptExecutor = mockLLMApi,
     toolRegistry = toolRegistry,
     llmModel = llmModel
@@ -276,23 +276,23 @@ AIAgent(
         val firstSubgraph = assertSubgraphByName<String, String>("first")
         val secondSubgraph = assertSubgraphByName<String, String>("second")
 
-        // 斷言子圖連接
+        // Assert subgraph connections
         assertEdges {
             startNode() alwaysGoesTo firstSubgraph
             firstSubgraph alwaysGoesTo secondSubgraph
             secondSubgraph alwaysGoesTo finishNode()
         }
 
-        // 驗證第一個子圖
+        // Verify the first subgraph
         verifySubgraph(firstSubgraph) {
             val start = startNode()
             val finish = finishNode()
 
-            // 按名稱斷言節點
+            // Assert nodes by name
             val askLLM = assertNodeByName<String, Message.Response>("callLLM")
             val callTool = assertNodeByName<ToolArgs, ToolResult>("executeTool")
 
-            // 斷言節點可達性
+            // Assert node reachability
             assertReachable(start, askLLM)
             assertReachable(askLLM, callTool)
         }
@@ -344,10 +344,10 @@ fun main() {
 ```kotlin
 assertNodes {
 
-    // 測試基本文字回應
+    // Test basic text responses
     askLLM withInput "Hello" outputs assistantMessage("Hello!")
 
-    // 測試工具呼叫回應
+    // Test tool call responses
     askLLM withInput "Solve task" outputs toolCallMessage(CreateTool, CreateTool.Args("solve"))
 }
 ```
@@ -425,7 +425,7 @@ fun main() {
 -->
 ```kotlin
 assertNodes {
-    // 測試工具執行與特定參數
+    // Test tool runs with specific arguments
     callTool withInput toolCallMessage(
         SolveTool,
         SolveTool.Args("solve")
@@ -502,10 +502,10 @@ fun main() {
 -->
 ```kotlin
 assertNodes {
-    // 使用不同的輸入測試相同的節點
+    // Test with different inputs to the same node
     askLLM withInput "Simple query" outputs assistantMessage("Simple response")
 
-    // 使用複雜的參數進行測試
+    // Test with complex parameters
     askLLM withInput "Complex query with parameters" outputs toolCallMessage(
         AnalyzeTool,
         AnalyzeTool.Args(query = "parameters", depth = 3)
@@ -582,7 +582,7 @@ fun main() {
 -->
 ```kotlin
 assertNodes {
-    // 測試帶有結構化結果的複雜工具呼叫
+    // Test a complex tool call with a structured result
     callTool withInput toolCallMessage(
         AnalyzeTool,
         AnalyzeTool.Args(query = "complex", depth = 5)
@@ -644,10 +644,10 @@ fun main() {
 -->
 ```kotlin
 assertEdges {
-    // 測試文字訊息路由
+    // Test text message routing
     askLLM withOutput assistantMessage("Hello!") goesTo giveFeedback
 
-    // 測試工具呼叫路由
+    // Test tool call routing
     askLLM withOutput toolCallMessage(CreateTool, CreateTool.Args("solve")) goesTo callTool
 }
 ```
@@ -695,7 +695,7 @@ fun main() {
 -->
 ```kotlin
 assertEdges {
-    // 不同的文字回應可以路由到不同的節點
+    // Different text responses can route to different nodes
     askLLM withOutput assistantMessage("Need more information") goesTo askForInfo
     askLLM withOutput assistantMessage("Ready to proceed") goesTo processRequest
 }
@@ -740,7 +740,7 @@ fun main() {
 -->
 ```kotlin
 assertEdges {
-    // 根據工具結果內容測試路由
+    // Test routing based on tool result content
     callTool withOutput toolResult(
         AnalyzeTool, 
         AnalyzeTool.Result(analysis = "Needs more processing", confidence = 0.5)
@@ -786,7 +786,7 @@ fun main() {
 -->
 ```kotlin
 assertEdges {
-    // 根據置信水平路由到不同的節點
+    // Route to different nodes based on confidence level
     callTool withOutput toolResult(
         AnalyzeTool, 
         AnalyzeTool.Result(analysis = "Complete", confidence = 0.9)
@@ -819,13 +819,13 @@ assertEdges {
 ```kotlin
 @Test
 fun testToneAgent() = runTest {
-    // 建立一個列表來追蹤工具呼叫
+    // Create a list to track tool calls
     var toolCalls = mutableListOf<String>()
     var result: String? = null
 
-    // 建立一個工具註冊表
+    // Create a tool registry
     val toolRegistry = ToolRegistry {
-        // 一個特殊工具，此類代理需要
+        // A special tool, required with this type of agent
         tool(SayToUser)
 
         with(ToneTools) {
@@ -833,7 +833,7 @@ fun testToneAgent() = runTest {
         }
     }
 
-    // 建立一個事件處理器
+    // Create an event handler
     val eventHandler = EventHandler {
         onToolCall { tool, args ->
             println("[DEBUG_LOG] Tool called: tool ${tool.name}, args $args")
@@ -861,19 +861,19 @@ ${it.stackTraceToString()}")
     val neutralResponse = "The text has a neutral tone."
 
     val mockLLMApi = getMockExecutor(toolRegistry, eventHandler) {
-        // 為不同的輸入文字設定 LLM 回應
+        // Set up LLM responses for different input texts
         mockLLMToolCall(NeutralToneTool, ToneTool.Args(defaultText)) onRequestEquals defaultText
         mockLLMToolCall(PositiveToneTool, ToneTool.Args(positiveText)) onRequestEquals positiveText
         mockLLMToolCall(NegativeToneTool, ToneTool.Args(negativeText)) onRequestEquals negativeText
 
-        // 模擬 LLM 在工具返回結果時只回應工具回應的行為
+        // Mock the behavior where the LLM responds with just tool responses when the tools return results
         mockLLMAnswer(positiveResponse) onRequestContains positiveResponse
         mockLLMAnswer(negativeResponse) onRequestContains negativeResponse
         mockLLMAnswer(neutralResponse) onRequestContains neutralResponse
 
         mockLLMAnswer(defaultText).asDefaultResponse
 
-        // 工具模擬
+        // Tool mocks
         mockTool(PositiveToneTool) alwaysTells {
             toolCalls += "Positive tone tool called"
             positiveResponse
@@ -888,10 +888,10 @@ ${it.stackTraceToString()}")
         }
     }
 
-    // 建立一個策略
+    // Create a strategy
     val strategy = toneStrategy("tone_analysis")
 
-    // 建立一個代理配置
+    // Create an agent configuration
     val agentConfig = AIAgentConfig(
         prompt = prompt("test-agent") {
             system(
@@ -908,7 +908,7 @@ ${it.stackTraceToString()}")
         maxAgentIterations = 10
     )
 
-    // 建立一個啟用測試的代理
+    // Create an agent with testing enabled
     val agent = AIAgent(
         promptExecutor = mockLLMApi,
         toolRegistry = toolRegistry,
@@ -919,17 +919,17 @@ ${it.stackTraceToString()}")
         withTesting()
     }
 
-    // 測試正面文字
+    // Test the positive text
     agent.run(positiveText)
     assertEquals("The text has a positive tone.", result, "Positive tone result should match")
     assertEquals(1, toolCalls.size, "One tool is expected to be called")
 
-    // 測試負面文字
+    // Test the negative text
     agent.run(negativeText)
     assertEquals("The text has a negative tone.", result, "Negative tone result should match")
     assertEquals(2, toolCalls.size, "Two tools are expected to be called")
 
-    //測試中性文字
+    //Test the neutral text
     agent.run(defaultText)
     assertEquals("The text has a neutral tone.", result, "Neutral tone result should match")
     assertEquals(3, toolCalls.size, "Three tools are expected to be called")
@@ -1068,7 +1068,7 @@ fun testMultiSubgraphAgentStructure() = runTest {
 val mockExecutor = getMockExecutor {
     mockTool(myTool) alwaysReturns myResult
 
-    // 或帶條件
+    // Or with conditions
     mockTool(myTool) returns myResult onArguments myArgs
 }
 ```
@@ -1104,14 +1104,14 @@ testGraph<Unit, String>("test") {
     val mySubgraph = assertSubgraphByName<Unit, String>("mySubgraph")
 
     verifySubgraph(mySubgraph) {
-        // 取得節點參考
+        // Get references to nodes
         val nodeA = assertNodeByName<Unit, String>("nodeA")
         val nodeB = assertNodeByName<String, String>("nodeB")
 
-        // 斷言可達性
+        // Assert reachability
         assertReachable(nodeA, nodeB)
 
-        // 斷言邊緣連接
+        // Assert edge connections
         assertEdges {
             nodeA.withOutput("result") goesTo nodeB
         }

@@ -113,6 +113,7 @@ fun main() {
         // objが"1"と等しい場合、resultを"one"に設定します
         "1" -> "One"
         // objが"Hello"と等しい場合、resultを"Greeting"に設定します
+        "Hello" -> "Greeting"
         // 以前の条件が満たされない場合、resultを"Unknown"に設定します
         else -> "Unknown"
     }
@@ -188,7 +189,7 @@ import kotlin.random.Random
 fun main() {
     val firstResult = Random.nextInt(6)
     val secondResult = Random.nextInt(6)
-    // ここにコードを記述してください
+    // Write your code here
 }
 ```
 {validate="false" kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-tour-control-flow-conditional-exercise-1"}
@@ -226,7 +227,7 @@ fun main() {
     val button = "A"
 
     println(
-        // ここにコードを記述してください
+        // Write your code here
     )
 }
 ```
@@ -457,7 +458,7 @@ fun main() {
 |---|---|
 ```kotlin
 fun main() {
-    // ここにコードを記述してください
+    // Write your code here
 }
 ```
 {validate="false" kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-tour-control-flow-loops-exercise-2"}

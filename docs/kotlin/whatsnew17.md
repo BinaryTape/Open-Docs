@@ -18,11 +18,11 @@ Kotlin 1.7.0 已经发布。它推出了新的 Kotlin/JVM K2 编译器的 Alpha 
 
 您还可以通过此视频简要了解这些更改：
 
-<video src="https://www.youtube.com/v/54WEfLKtCGk" title="Kotlin 1.7.0 的新特性"/>
+<video src="https://www.youtube.com/v/54WEfLKtCGk" title="What's new in Kotlin 1.7.0"/>
 
 ## 新的 Kotlin K2 编译器现已进入 Alpha 阶段
 
-此 Kotlin 版本引入了新的 Kotlin K2 编译器的 **Alpha** 版本。新编译器旨在加速新语言特性的开发，统一 Kotlin 支持的所有平台，带来性能改进，并提供编译器扩展的 API。
+此 Kotlin 版本引入了新的 Kotlin K2 编译器的 **Alpha** 版本。新编译器旨在加速新语言特性 (feature) 的开发，统一 Kotlin 支持的所有平台，带来性能改进，并提供编译器扩展的 API。
 
 我们已经发布了关于新编译器及其优势的一些详细解释：
 
@@ -58,7 +58,7 @@ Kotlin 1.7.0 已经发布。它推出了新的 Kotlin/JVM K2 编译器的 Alpha 
 
 ## 语言
 
-Kotlin 1.7.0 引入了对通过委托方式实现的支持和类型实参的新下划线操作符。它还稳定了以前版本中作为预览引入的几个语言特性：
+Kotlin 1.7.0 引入了对通过委托方式实现的支持和类型实参的新下划线操作符。它还稳定了以前版本中作为预览引入的几个语言特性 (feature)：
 
 * [通过委托方式实现内联类的内联值](#allow-implementation-by-delegation-to-an-inlined-value-of-an-inline-class)
 * [类型实参的下划线操作符](#underscore-operator-for-type-arguments)
@@ -86,7 +86,7 @@ fun main() {
 
 ### 类型实参的下划线操作符
 
-Kotlin 1.7.0 引入了类型实参的下划线操作符 `_`。您可以使用它在指定其他类型时自动推断类型实参：
+Kotlin 1.7.0 引入了类型实参的下划线操作符 `_`。您可以使用它在指定其他类型时自动推断实参的类型：
 
 ```kotlin
 abstract class SomeClass<T> {
@@ -134,7 +134,7 @@ fun main() {
 
 [选择性加入要求](opt-in-requirements.md)现已[稳定](components-stability.md)，并且不需要额外的编译器配置。
 
-在 1.7.0 之前，选择性加入特性本身需要实参 `-opt-in=kotlin.RequiresOptIn` 以避免警告。现在它不再需要此项；但是，您仍然可以使用编译器实参 `-opt-in` 来选择性加入其他注解，[一个模块](opt-in-requirements.md#opt-in-a-module)。
+在 1.7.0 之前，选择性加入特性 (feature) 本身需要实参 `-opt-in=kotlin.RequiresOptIn` 以避免警告。现在它不再需要此项；但是，您仍然可以使用编译器实参 `-opt-in` 来选择性加入其他注解，[一个模块](opt-in-requirements.md#opt-in-a-module)。
 
 ### 稳定的明确的非空类型
 
@@ -146,14 +146,14 @@ fun main() {
 fun <T> elvisLike(x: T, y: T & Any): T & Any = x ?: y
 
 fun main() {
-    // 正常
+    // OK
     elvisLike<String>("", "").length
-    // 错误：'null' 不能是非空类型的值
+    // Error: 'null' cannot be a value of a non-null type
     elvisLike<String>("", null).length
 
-    // 正常
+    // OK
     elvisLike<String?>(null, "").length
-    // 错误：'null' 不能是非空类型的值
+    // Error: 'null' cannot be a value of a non-null type
     elvisLike<String?>(null, null).length
 }
 ```
@@ -162,7 +162,7 @@ fun main() {
 
 ## Kotlin/JVM
 
-此版本为 Kotlin/JVM 编译器带来了性能改进和新的编译器选项。此外，对函数式接口构造函数的**可调用引用**已成为[稳定](components-stability.md)。请注意，从 1.7.0 开始，Kotlin/JVM 编译的默认目标版本是 `1.8`。
+此版本为 Kotlin/JVM 编译器带来了性能改进和新的编译器选项。此外，对函数式接口构造函数的**可调用引用**已成为稳定。请注意，从 1.7.0 开始，Kotlin/JVM 编译的默认目标版本是 `1.8`。
 
 * [编译器性能优化](#compiler-performance-optimizations)
 * [新编译器选项 -Xjdk-release](#new-compiler-option-xjdk-release)
@@ -201,7 +201,7 @@ Kotlin/JVM 编译的默认目标版本是 `1.8`。`1.6` 目标已移除。
 
 ## Kotlin/Native
 
-Kotlin 1.7.0 包含对 Objective-C 和 Swift 互操作性的更改，并稳定了以前版本中引入的特性。它还为新的内存管理器带来了性能改进以及其他更新：
+Kotlin 1.7.0 包含对 Objective-C 和 Swift 互操作性的更改，并稳定了以前版本中引入的特性 (feature)。它还为新的内存管理器带来了性能改进以及其他更新：
 
 * [新内存管理器的性能改进](#performance-improvements-for-the-new-memory-manager)
 * [与 JVM 和 JS IR 后端统一的编译器插件 ABI](#unified-compiler-plugin-abi-with-jvm-and-js-ir-backends)
@@ -219,17 +219,17 @@ Kotlin 1.7.0 包含对 Objective-C 和 Swift 互操作性的更改，并稳定�
 
 新内存管理器仍处于 Alpha 阶段，但它正在走向[稳定](components-stability.md)。此版本为新内存管理器带来了显著的性能改进，尤其是在垃圾回收 (GC) 方面。特别是，[在 1.6.20 中引入](whatsnew1620.md)的扫描阶段的并发实现现已默认启用。这有助于减少应用程序因 GC 暂停的时间。新的 GC 调度器在选择 GC 频率方面表现更好，尤其适用于更大的堆。
 
-此外，我们特别优化了调试二进制文件，确保在内存管理器的实现代码中使用了适当的优化级别和链接时优化。这帮助我们在基准测试中将调试二进制文件的执行时间缩短了大约 30%。
+此外，我们特别优化了调试二进制文件，确保在内存管理器的实现代码中使用了适当的优化级别和链接期优化。这帮助我们在基准测试中将调试二进制文件的执行时间缩短了大约 30%。
 
-请在您的项目中尝试使用新的内存管理器以了解其工作原理，并在 [YouTrack](https://youtrack.jetbrains.com/issue/KT-48525) 中与我们分享您的反馈。
+请在您的项目中使用新的内存管理器以了解其工作原理，并在 [YouTrack](https://youtrack.jetbrains.com/issue/KT-48525) 中与我们分享您的反馈。
 
 ### 与 JVM 和 JS IR 后端统一的编译器插件 ABI
 
-从 Kotlin 1.7.0 开始，Kotlin Multiplatform Gradle 插件默认使用 Kotlin/Native 的可嵌入编译器 jar。此[特性在 1.6.0 中宣布](whatsnew16.md#unified-compiler-plugin-abi-with-jvm-and-js-ir-backends)为实验性的，现在它已[稳定](components-stability.md)并可供使用。
+从 Kotlin 1.7.0 开始，Kotlin Multiplatform Gradle 插件默认使用 Kotlin/Native 的可嵌入编译器 jar。此[特性 (feature) 在 1.6.0 中宣布](whatsnew16.md#unified-compiler-plugin-abi-with-jvm-and-js-ir-backends)为实验性的，现在它已[稳定](components-stability.md)并可供使用。
 
 此改进对库作者非常方便，因为它改善了编译器插件开发体验。在此版本之前，您必须为 Kotlin/Native 提供单独的 artifact，但现在您可以为 Native 和其他受支持的平台使用相同的编译器插件 artifact。
 
-> 此特性可能要求插件开发者为其现有插件采取迁移步骤。
+> 此特性 (feature) 可能要求插件开发者为其现有插件采取迁移步骤。
 >
 > 了解如何在[此 YouTrack 工单](https://youtrack.jetbrains.com/issue/KT-48595)中为更新准备您的插件。
 >
@@ -247,7 +247,7 @@ binaryOptions["androidProgramType"] = "nativeActivity"
 
 ### 与 Swift async/await 的互操作：返回 Void 而非 KotlinUnit
 
-Kotlin `挂起`函数现在在 Swift 中返回 `Void` 类型而非 `KotlinUnit`。这是与 Swift 的 `async`/`await` 互操作性改进的结果。此特性[在 1.6.20 中引入](whatsnew1620.md#interop-with-swift-async-await-returning-void-instead-of-kotlinunit)，此版本默认启用此行为。
+Kotlin `挂起`函数现在在 Swift 中返回 `Void` 类型而非 `KotlinUnit`。这是与 Swift 的 `async`/`await` 互操作性改进的结果。此特性 (feature)[在 1.6.20 中引入](whatsnew1620.md#interop-with-swift-async-await-returning-void-instead-of-kotlinunit)，此版本默认启用此行为。
 
 您不再需要使用 `kotlin.native.binary.unitSuspendFunctionObjCExport=proper` 属性来为此类函数返回正确的类型。
 
@@ -322,9 +322,9 @@ kotlin {
 
 ### 通过 IR 后端中的 polyfill 支持旧版浏览器
 
-Kotlin/JS 的 IR 编译器后端现在包含与传统后端相同的 polyfills。这允许使用新编译器编译的代码在不支持 Kotlin 标准库使用的所有 ES2015 方法的旧版浏览器中运行。只有项目中实际使用的 polyfills 才会被包含在最终 bundle 中，这最小化了它们对 bundle 大小的潜在影响。
+Kotlin/JS 的 IR 编译器后端现在包含与传统后端相同的 polyfill。这允许使用新编译器编译的代码在不支持 Kotlin 标准库使用的所有 ES2015 方法的旧版浏览器中运行。只有项目中实际使用的 polyfill 才会被包含在最终 bundle 中，这最小化了它们对 bundle 大小的潜在影响。
 
-此特性在使用 IR 编译器时默认启用，您无需配置它。
+此特性 (feature) 在使用 IR 编译器时默认启用，您无需配置它。
 
 ### 从 js 表达式动态加载 JavaScript 模块
 
@@ -354,7 +354,7 @@ kotlin {
 
 ## 标准库
 
-在 Kotlin 1.7.0 中，标准库收到了一系列更改和改进。它们引入新特性，稳定实验性的特性，并统一对 Native、JS 和 JVM 的命名捕获组的支持：
+在 Kotlin 1.7.0 中，标准库收到了一系列更改和改进。它们引入新特性 (feature)，稳定实验性的特性 (feature)，并统一对 Native、JS 和 JVM 的命名捕获组的支持：
 
 * [min() 和 max() 集合函数返回非空类型](#min-and-max-collection-functions-return-as-non-nullable)
 * [特定索引处的正则表达式匹配](#regular-expression-matching-at-specific-indices)
@@ -375,7 +375,7 @@ Kotlin 1.7.0 重新引入了原始函数名称，但返回类型为非空。新�
 fun main() {
     val numbers = listOf<Int>()
     println(numbers.maxOrNull()) // "null"
-    println(numbers.max()) // "异常在... 集合为空。"
+    println(numbers.max()) // "Exception in... Collection is empty."
 }
 ```
 
@@ -439,7 +439,7 @@ fun main() {
 
 ### 稳定的深度递归函数
 
-深度递归函数自 [Kotlin 1.4.0](https://blog.jetbrains.com/kotlin/2020/07/kotlin-1-4-rc-debugging-coroutines/#Defining_deep_recursive_functions_using_coroutines) 以来一直作为实验性特性提供，它们现在在 Kotlin 1.7.0 中已[稳定](components-stability.md)。使用 `DeepRecursiveFunction`，您可以定义一个将其堆栈保存在堆上而不是使用实际调用栈的函数。这允许您运行非常深的递归计算。要调用深度递归函数，请 `invoke` 它。
+深度递归函数自 [Kotlin 1.4.0](https://blog.jetbrains.com/kotlin/2020/07/kotlin-1-4-rc-debugging-coroutines/#Defining_deep_recursive_functions_using_coroutines) 以来一直作为实验性特性 (feature) 提供，它们现在在 Kotlin 1.7.0 中已[稳定](components-stability.md)。使用 `DeepRecursiveFunction`，您可以定义一个将其堆栈保存在堆上而不是使用实际调用栈的函数。这允许您运行非常深的递归计算。要调用深度递归函数，请 `invoke` 它。
 
 在此示例中，深度递归函数用于递归地计算二叉树的深度。即使此示例函数递归调用自身 100,000 次，也不会抛出 `StackOverflowError`：
 
@@ -491,20 +491,20 @@ Kotlin 1.7.0 带来了新的便利函数，简化了 Java 中 `Optional` 类的�
 val presentOptional = Optional.of("I'm here!")
 
 println(presentOptional.getOrNull())
-// "我在这里！"
+// "I'm here!"
 
 val absentOptional = Optional.empty<String>()
 
 println(absentOptional.getOrNull())
 // null
 println(absentOptional.getOrDefault("Nobody here!"))
-// "这里没人！"
+// "Nobody here!"
 println(absentOptional.getOrElse {
-    println("Optional 不存在！")
-    "默认值！"
+    println("Optional was absent!")
+    "Default value!"
 })
-// "Optional 不存在！"
-// "默认值！"
+// "Optional was absent!"
+// "Default value!"
 ```
 
 `toList()`、`toSet()` 和 `asSequence()` 扩展函数将存在的 `Optional` 值转换为 list、set 或 sequence，否则返回空集合。`toCollection()` 扩展函数将 `Optional` 值附加到已存在的目的地集合：
@@ -513,22 +513,22 @@ println(absentOptional.getOrElse {
 val presentOptional = Optional.of("I'm here!")
 val absentOptional = Optional.empty<String>()
 println(presentOptional.toList() + "," + absentOptional.toList())
-// ["我在这里！"], []
+// ["I'm here!"], []
 println(presentOptional.toSet() + "," + absentOptional.toSet())
-// ["我在这里！"], []
+// ["I'm here!"], []
 val myCollection = mutableListOf<String>()
 absentOptional.toCollection(myCollection)
 println(myCollection)
 // []
 presentOptional.toCollection(myCollection)
 println(myCollection)
-// ["我在这里！"]
+// ["I'm here!"]
 val list = listOf(presentOptional, absentOptional).flatMap { it.asSequence() }
 println(list)
-// ["我在这里！"]
+// ["I'm here!"]
 ```
 
-这些扩展函数作为实验性特性在 Kotlin 1.7.0 中引入。您可以在[此 KEEP](https://github.com/Kotlin/KEEP/pull/291) 中了解更多关于 `Optional` 扩展的信息。一如既往，我们欢迎您在 [Kotlin 问题跟踪器](https://kotl.in/issue)中提供反馈。
+这些扩展函数作为实验性特性 (feature) 在 Kotlin 1.7.0 中引入。您可以在[此 KEEP](https://github.com/Kotlin/KEEP/pull/291) 中了解更多关于 `Optional` 扩展的信息。一如既往，我们欢迎您在 [Kotlin 问题跟踪器](https://kotl.in/issue)中提供反馈。
 
 ### JS 和 Native 中对命名捕获组的支持
 
@@ -573,8 +573,8 @@ fun backRef() {
 fun dateReplace() {
     val dateRegex = Regex("(?<dd>\\d{2})-(?<mm>\\d{2})-(?<yyyy>\\d{4})")
     val input = "Date of birth: 27-04-2022"
-    println(dateRegex.replace(input, "\${yyyy}-\${mm}-\${dd}")) // "出生日期：2022-04-27" — 按名称
-    println(dateRegex.replace(input, "\$3-\$2-\$1")) // "出生日期：2022-04-27" — 按编号
+    println(dateRegex.replace(input, "\${yyyy}-\${mm}-\${dd}")) // "Date of birth: 2022-04-27" — 按名称
+    println(dateRegex.replace(input, "\$3-\$2-\$1")) // "Date of birth: 2022-04-27" — 按编号
 }
 ```
 
@@ -652,7 +652,7 @@ kotlin.build.report.output=file
 有两种常见情况，通过分析长时间运行编译的构建报告可以帮助您解决：
 
 * 构建不是增量的。分析原因并修复底层问题。
-* 构建是增量的，但花费太多时间。尝试重新组织源文件 — 拆分大文件，将独立类保存在不同文件中，重构大型类，在不同文件中声明顶层函数等等。
+* 构建是增量的，但花费太多时间。尝试重新组织源代码集 — 拆分大文件，将独立类保存在不同文件中，重构大型类，在不同文件中声明顶层函数等等。
 
 [在此博客文章](https://blog.jetbrains.com/kotlin/2022/06/introducing-kotlin-build-reports/)中了解更多关于新构建报告的信息。
 
@@ -660,24 +660,24 @@ kotlin.build.report.output=file
 
 ### Gradle 和 Android Gradle 插件最低支持版本的更改
 
-从 Kotlin 1.7.0 开始，最低支持的 Gradle 版本是 6.7.1。我们[不得不提高版本](https://youtrack.jetbrains.com/issue/KT-49733/Bump-minimal-supported-Gradle-version-to-6-7-1)以支持 [Gradle 插件变体](#support-for-gradle-plugin-variants)和新的 Gradle API。在未来，由于 Gradle 插件变体特性，我们不必经常提高最低支持版本。
+从 Kotlin 1.7.0 开始，最低支持的 Gradle 版本是 6.7.1。我们[不得不提高版本](https://youtrack.jetbrains.com/issue/KT-49733/Bump-minimal-supported-Gradle-version-to-6-7-1)以支持 [Gradle 插件变体](#support-for-gradle-plugin-variants)和新的 Gradle API。在未来，由于 Gradle 插件变体特性 (feature)，我们不必经常提高最低支持版本。
 
 此外，最低支持的 Android Gradle 插件版本现在是 3.6.4。
 
 ### 对 Gradle 插件变体的支持
 
-Gradle 7.0 为 Gradle 插件作者引入了一项新特性 — [带有变体的插件](https://docs.gradle.org/7.0/userguide/implementing_gradle_plugins.html#plugin-with-variants)。此特性使添加对新 Gradle 特性的支持变得更容易，同时保持对 Gradle 7.1 以下版本的兼容性。了解更多关于 [Gradle 中变体选择](https://docs.gradle.org/current/userguide/variant_model.html)的信息。
+Gradle 7.0 为 Gradle 插件作者引入了一项新特性 (feature) — [带有变体的插件](https://docs.gradle.org/7.0/userguide/implementing_gradle_plugins.html#plugin-with-variants)。此特性 (feature) 使添加对新 Gradle 特性 (feature) 的支持变得更容易，同时保持对 Gradle 7.1 以下版本的兼容性。了解更多关于 [Gradle 中变体选择](https://docs.gradle.org/current/userguide/variant_model.html)的信息。
 
-通过 Gradle 插件变体，我们可以针对不同的 Gradle 版本发布不同的 Kotlin Gradle 插件变体。目标是在 `main` 变体中支持基础 Kotlin 编译，该变体对应于最旧的受支持 Gradle 版本。每个变体都将包含相应版本中 Gradle 特性的实现。最新的变体将支持最广泛的 Gradle 特性集。通过这种方法，我们可以扩展对旧版 Gradle 的支持，但功能有限。
+通过 Gradle 插件变体，我们可以针对不同的 Gradle 版本发布不同的 Kotlin Gradle 插件变体。目标是在 `main` 变体中支持基础 Kotlin 编译，该变体对应于最旧的受支持 Gradle 版本。每个变体都将包含相应版本中 Gradle 特性 (feature) 的实现。最新的变体将支持最广泛的 Gradle 特性 (feature) 集。通过这种方法，我们可以扩展对旧版 Gradle 的支持，但功能有限。
 
 目前，Kotlin Gradle 插件只有两种变体：
 
-* `main` 适用于 Gradle 6.7.1–6.9.3 版本
-* `gradle70` 适用于 Gradle 7.0 及更高版本
+* `main` 适用于 Gradle 版本 6.7.1–6.9.3
+* `gradle70` 适用于 Gradle 版本 7.0 及更高版本
 
 在未来的 Kotlin 版本中，我们可能会添加更多。
 
-要检查您的构建使用了哪个变体，请启用 [`--info` 日志级别](https://docs.gradle.org/current/userguide/logging.html#sec:choosing_a_log_level)并在输出中查找以 `Using Kotlin Gradle plugin` 开头的字符串，例如 `Using Kotlin Gradle plugin main variant`。
+要检测您的构建使用了哪个变体，请启用 [`--info` 日志级别](https://docs.gradle.org/current/userguide/logging.html#sec:choosing_a_log_level)并在输出中查找以 `Using Kotlin Gradle plugin` 开头的字符串，例如 `Using Kotlin Gradle plugin main variant`。
 
 > 以下是 Gradle 中变体选择的一些已知问题的解决方法：
 > * [pluginManagement 中的 ResolutionStrategy 对多变体插件不起作用](https://github.com/gradle/gradle/issues/20545)
@@ -720,8 +720,8 @@ plugins {
 * Kotlin 编译任务不再继承 Gradle `AbstractCompile` 任务。它们仅继承 `DefaultTask`。
 * `AbstractCompile` 任务具有 `sourceCompatibility` 和 `targetCompatibility` 输入。由于 `AbstractCompile` 任务不再继承，这些输入在 Kotlin 用户脚本中不再可用。
 * `SourceTask.stableSources` 输入不再可用，您应该使用 `sources` 输入。`setSource(...)` 方法仍然可用。
-* 所有编译任务现在都使用 `libraries` 输入来获取编译所需的库列表。`KotlinCompile` 任务仍然具有已弃用的 Kotlin 属性 `classpath`，该属性将在未来的版本中移除。
-* 编译任务仍然实现 `PatternFilterable` 接口，该接口允许过滤 Kotlin 源。`sourceFilesExtensions` 输入已移除，转而使用 `PatternFilterable` 方法。
+* 所有编译任务现在都使用 `libraries` 输入来获取编译所需的库 list。`KotlinCompile` 任务仍然具有已弃用的 Kotlin 属性 `classpath`，该属性将在未来的版本中移除。
+* 编译任务仍然实现 `PatternFilterable` 接口，该接口允许过滤 Kotlin 源代码集。`sourceFilesExtensions` 输入已移除，转而使用 `PatternFilterable` 方法。
 * 已弃用的 `Gradle destinationDir: File` 输出已替换为 `destinationDirectory: DirectoryProperty` 输出。
 * Kotlin/Native `AbstractNativeCompile` 任务现在继承 `AbstractKotlinCompileTool` 基类。这是将 Kotlin/Native 构建工具集成到所有其他工具中的第一步。
 
@@ -731,7 +731,7 @@ plugins {
 
 `kotlin-kapt` Gradle 插件已经[报告了每个处理器的性能统计数据](https://github.com/JetBrains/kotlin/pull/4280)。从 Kotlin 1.7.0 开始，它还可以报告每个注解处理器生成文件数量的统计数据。
 
-这对于跟踪构建中是否存在未使用的注解处理器很有用。您可以使用生成的报告查找触发不必要注解处理器的模块，并更新模块以防止这种情况。
+这对于检测构建中是否存在未使用的注解处理器很有用。您可以使用生成的报告查找触发不必要注解处理器的模块，并更新模块以防止这种情况。
 
 通过两个步骤启用统计：
 
@@ -766,7 +766,8 @@ plugins {
 
 ### kotlin.compiler.execution.strategy 系统属性的弃用
 
-Kotlin 1.6.20 引入了[用于定义 Kotlin 编译器执行策略的新属性](whatsnew1620.md#properties-for-defining-kotlin-compiler-execution-strategy)。在 Kotlin 1.7.0 中，旧系统属性 `kotlin.compiler.execution.strategy` 的弃用周期已经开始，转而使用新属性。
+Kotlin 1.6.20
+引入了[用于定义 Kotlin 编译器执行策略的新属性](whatsnew1620.md#properties-for-defining-kotlin-compiler-execution-strategy)。在 Kotlin 1.7.0 中，旧系统属性 `kotlin.compiler.execution.strategy` 的弃用周期已经开始，转而使用新属性。
 
 当使用 `kotlin.compiler.execution.strategy` 系统属性时，您将收到警告。此属性将在未来的版本中删除。为了保留旧行为，请将系统属性替换为同名的 Gradle 属性。例如，您可以在 `gradle.properties` 中执行此操作：
 
@@ -799,7 +800,8 @@ sourceSets {
 我们已完成了几个编译器选项的弃用周期：
 
 * `kotlinOptions.jdkHome` 编译器选项在 1.5.30 中弃用，并已在当前版本中移除。如果 Gradle 构建包含此选项，现在会失败。我们鼓励您使用自 Kotlin 1.5.30 以来一直支持的 [Java toolchains](whatsnew1530.md#support-for-java-toolchains)。
-* 已弃用的 `noStdlib` 编译器选项也已移除。Gradle 插件使用 `kotlin.stdlib.default.dependency=true` 属性来控制 Kotlin 标准库是否存在。
+* 已弃用的 `noStdlib` 编译器选项也已移除。Gradle 插件使用
+  `kotlin.stdlib.default.dependency=true` 属性来控制 Kotlin 标准库是否存在。
 
 > 编译器实参 `-jdkHome` 和 `-no-stdlib` 仍然可用。
 >
@@ -809,7 +811,7 @@ sourceSets {
 
 在 Kotlin 1.4.0 中，`kotlin2js` 和 `kotlin-dce-plugin` 插件已弃用，并在此版本中移除。而不是 `kotlin2js`，请使用新的 `org.jetbrains.kotlin.js` 插件。无用代码消除 (DCE) 在 Kotlin/JS Gradle 插件正确配置时工作。
 
-在 Kotlin 1.6.0 中，我们将 `KotlinGradleSubplugin` 类的弃用级别更改为 `ERROR`。使用此类的开发者用于编写编译器插件。在此版本中，[此类已移除](https://youtrack.jetbrains.com/issue/KT-48831/)。改用 `KotlinCompilerPluginSupportPlugin` 类。
+在 Kotlin 1.6.0 中，我们将 `KotlinGradleSubplugin` 类的弃用级别更改为 `ERROR`。开发者曾使用此 class 编写编译器插件。在此版本中，[此 class 已移除](https://youtrack.jetbrains.com/issue/KT-48831/)。改用 `KotlinCompilerPluginSupportPlugin` class。
 
 > 最佳实践是在您的整个项目中统一使用 1.7.0 及更高版本的 Kotlin 插件。
 >
@@ -817,7 +819,7 @@ sourceSets {
 
 #### 移除了已弃用的协程 DSL 选项和属性
 
-我们移除了已弃用的 `kotlin.experimental.coroutines` Gradle DSL 选项和 `gradle.properties` 中使用的 `kotlin.coroutines` 属性。现在您只需使用_[挂起函数](coroutines-basics.md#extract-function-refactoring)_或[添加 `kotlinx.coroutines` 依赖项](gradle-configure-project.md#set-a-dependency-on-a-kotlinx-library)到您的构建脚本。
+我们移除了已弃用的 `kotlin.experimental.coroutines` Gradle DSL 选项和 `gradle.properties` 中使用的 `kotlin.coroutines` 属性。现在您只需使用 _[挂起函数](coroutines-basics.md#extract-function-refactoring)_ 或[添加 `kotlinx.coroutines` 依赖项](gradle-configure-project.md#set-a-dependency-on-a-kotlinx-library)到您的构建脚本。
 
 在[协程指南](coroutines-guide.md)中了解更多关于协程的信息。
 
@@ -863,4 +865,4 @@ IntelliJ IDEA 2022.1 和 Android Studio Chipmunk (212) 会自动建议将 Kotlin
 
 ### Kotlin 1.7.0 兼容性指南
 
-Kotlin 1.7.0 是一个[特性发布](kotlin-evolution-principles.md#language-and-tooling-releases)，因此可能会带来与您为早期版本语言编写的代码不兼容的更改。在 [Kotlin 1.7.0 兼容性指南](compatibility-guide-17.md)中查找此类更改的详细列表。
+Kotlin 1.7.0 是一个[特性 (feature) 发布](kotlin-evolution-principles.md#language-and-tooling-releases)，因此可能会带来与您为早期版本语言编写的代码不兼容的更改。在 [Kotlin 1.7.0 兼容性指南](compatibility-guide-17.md)中查找此类更改的详细 list。

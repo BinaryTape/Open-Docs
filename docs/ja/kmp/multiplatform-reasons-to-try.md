@@ -29,8 +29,7 @@ Kotlin Multiplatform (KMP) は、複数のプラットフォーム向けにア�
 
 ### 1. Kotlin Multiplatformによりコードの重複を回避できる
 
-中国最大の中国語検索エンジンであるBaiduは、若年層をターゲットにしたアプリケーションである _Wonder App_ をリリースしました。
-従来のアプリ開発で彼らが直面した問題の一部を以下に示します。
+中国最大の中国語検索エンジンであるBaiduは、若年層をターゲットにしたアプリケーションである _Wonder App_ をリリースしました。従来のアプリ開発で彼らが直面した問題の一部を以下に示します。
 
 *   アプリ体験の一貫性の欠如: AndroidアプリとiOSアプリで動作が異なっていました。
 *   ビジネスロジック検証の高コスト: 同じビジネスロジックを使用しているiOS開発者とAndroid開発者の作業は個別に確認する必要があり、高コストにつながっていました。
@@ -103,7 +102,7 @@ Kotlin Multiplatformは、[Compose Multiplatform](https://www.jetbrains.com/lp/c
 
 ### 5. Kotlin MultiplatformソリューションでUIコードを共有できる
 
-JetBrainsは、KotlinとJetpack Composeをベースにした、Android（Jetpack Compose経由）、iOS、デスクトップ、Web（Alpha）を含む複数のプラットフォーム間でユーザーインターフェースを共有するための宣言型フレームワークである[Compose Multiplatform](https://www.jetbrains.com/lp/compose-multiplatform/)を提供しています。
+JetBrainsは、KotlinとJetpack Composeをベースにした、Android（Jetpack Compose経由）、iOS、デスクトップ、Web（ベータ版）を含む複数のプラットフォーム間でユーザーインターフェースを共有するための宣言型フレームワークである[Compose Multiplatform](https://www.jetbrains.com/lp/compose-multiplatform/)を提供しています。
 
 Eコマースビジネスに特化したラストマイルロジスティクスプラットフォームである _Instabee_ は、このテクノロジーがまだアルファ版の段階であったにもかかわらず、AndroidおよびiOSアプリケーションでCompose Multiplatformを使用し始め、UIロジックを共有しました。
 
@@ -149,7 +148,7 @@ Kotlin Multiplatformプロジェクトで作業する際、手元には強力な
 KotlinおよびKotlin Multiplatformには、非常に協力的なコミュニティがあります。何か質問がある場合に答えを見つけられる場所をいくつか紹介します。
 
 *   [Kotlinlang Slackワークスペース](https://slack-chats.kotlinlang.org/)。このワークスペースには約60,000人のメンバーがおり、クロスプラットフォーム開発専用の関連チャンネルがいくつかあります。たとえば、[#multiplatform](https://slack-chats.kotlinlang.org/c/multiplatform)、[#compose](https://slack-chats.kotlinlang.org/c/compose)、[#compose-ios](https://slack-chats.kotlinlang.org/c/compose-ios)などです。
-*   [Kotlin X](https://twitter.com/kotlin)。ここでは、素早い専門家の知見や最新ニュース、そして数えきれないほどのマルチプラットフォームのヒントが見つかります。
+*   [Kotlin X](https://twitter.com/kotlin)。ここでは、素早い専門家の知見や最新ニュース、そして数え切れないほどのマルチプラットフォームのヒントが見つかります。
 *   [Kotlin YouTube](https://www.youtube.com/channel/UCP7uiEZIqci43m22KDl0sNw)。私たちのYouTubeチャンネルでは、実践的なチュートリアル、専門家とのライブストリーム、そして視覚的な学習者向けの他の優れた教育コンテンツを提供しています。
 *   [Kotlin Roundup](https://lp.jetbrains.com/subscribe-to-kotlin-news/)。ダイナミックなKotlinおよびKotlin Multiplatformエコシステム全体での最新情報を見逃したくない場合は、定期ニュースレターを購読してください！
 

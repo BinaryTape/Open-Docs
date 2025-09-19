@@ -195,7 +195,7 @@ Kotlin 1.5.0では、純粋なKotlinラムダ（関数型インターフェー�
 * 実験的な[`reflect`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect.jvm/reflect.html) APIは、`LambdaMetafactory`で作成されたラムダをサポートしていません。
 
 この機能を試すには、コンパイラーオプション`-Xlambdas=indy`を追加してください。
-[このYouTrackチケット](https://youtrack.jetbrains.com/issue/KT-45375)を使用して、フィードバックを共有していただけると幸いです。
+[このYouTrackチケット](https://youtrack.com/issue/KT-45375)を使用して、フィードバックを共有していただけると幸いです。
 
 コンパイラーオプションの追加方法については、[Gradle](gradle-compiler-options.md)、[Maven](maven.md#specify-compiler-options)、
 および[コマンドラインコンパイラー](compiler-reference.md#compiler-options)をご覧ください。
@@ -224,7 +224,7 @@ Kotlin 1.5.0では、この機能に関していくつかの改善が導入さ�
   * 型パラメーターとそのバウンド
   * 基底クラスとインターフェースの型引数
 * null許容アノテーションが型に適用可能な複数のターゲットを持ち、そのうちの1つが`TYPE_USE`の場合、`TYPE_USE`が優先されます。
-  例えば、`@Nullable`が`TYPE_USE`と`METHOD`の両方をターゲットとしてサポートしている場合、メソッドシグネチャ`@Nullable String[] f()`は`fun f(): Array<String?>!`となります。
+  例えば、メソッドシグネチャ`@Nullable String[] f()`は、`@Nullable`が`TYPE_USE`と`METHOD`の両方をターゲットとしてサポートしている場合、`fun f(): Array<String?>!`となります。
 
 これらの新しくサポートされたケースでは、KotlinからJavaを呼び出す際に誤った型null許容を使用すると警告が表示されます。
 これらのケースで厳格モード（エラー報告付き）を有効にするには、コンパイラーオプション`-Xtype-enhancement-improvements-strict-mode`を使用します。
@@ -595,8 +595,7 @@ kotlin {
     sourceSets {
         val commonTest by getting {
             dependencies {
-                implementation(kotlin("test")) // This brings the dependency
-                                               // on JUnit 4 transitively
+                implementation(kotlin("test")) // これはJUnit 4への依存関係を推移的に引き起こします
             }
         }
     }
@@ -611,8 +610,7 @@ kotlin {
     sourceSets {
         commonTest {
             dependencies {
-                implementation kotlin("test") // This brings the dependency 
-                                              // on JUnit 4 transitively
+                implementation kotlin("test") // これはJUnit 4への依存関係を推移的に引き起こします
             }
         }
     }
@@ -629,10 +627,10 @@ JUnit 5またはTestNGを選択できます。
 ```groovy
 tasks {
     test {
-        // enable TestNG support
+        // TestNGサポートを有効にする
         useTestNG()
-        // or
-        // enable JUnit Platform (a.k.a. JUnit 5) support
+        // または
+        // JUnit Platform (別名 JUnit 5) サポートを有効にする
         useJUnitPlatform()
     }
 }
@@ -657,8 +655,8 @@ tasks {
   @Test
   fun testFunction() {
       val s: Any = "test"
-      assertIs<String>(s)  // throws AssertionError mentioning the actual type of s if the assertion fails
-      // can now print s.length because of contract in assertIs
+      assertIs<String>(s)  // アサーションが失敗した場合にsの実際の型を示すAssertionErrorをスローします
+      // assertIsのコントラクトにより、s.lengthを出力できます
       println("${s.length}")
   }
   ```
@@ -688,7 +686,7 @@ tasks {
   fun test() {
       val x = sin(PI)
 
-      // precision parameter
+      // 精度パラメーター
       val tolerance = 0.000001
 
       assertEquals(0.0, x, tolerance)
@@ -705,8 +703,8 @@ tasks {
   fun test() {
       val sampleList = listOf<String>("sample", "sample2")
       val sampleString = "sample"
-      assertContains(sampleList, sampleString)  // element in collection
-      assertContains(sampleString, "amp")       // substring in string
+      assertContains(sampleList, sampleString)  // コレクション内の要素
+      assertContains(sampleString, "amp")       // 文字列内の部分文字列
   }
   ```
 
@@ -776,7 +774,7 @@ IntelliJ IDEAとAndroid Studioは、Kotlinプラグインが利用可能にな�
 既存のプロジェクトをKotlin 1.5.0に移行するには、Kotlinバージョンを`1.5.0`に変更し、GradleまたはMavenプロジェクトを再インポートするだけです。
 [Kotlin 1.5.0への更新方法](releases.md#update-to-a-new-kotlin-version)をご覧ください。
 
-Kotlin 1.5.0で新しいプロジェクトを開始するには、Kotlinプラグインを更新し、**File** | **New** | **Project**からプロジェクトウィザードを実行します。
+新しいプロジェクトをKotlin 1.5.0で開始するには、Kotlinプラグインを更新し、**File** | **New** | **Project**からプロジェクトウィザードを実行します。
 
 新しいコマンドラインコンパイラーは、[GitHubリリースページ](https://github.com/JetBrains/kotlin/releases/tag/v1.5.0)からダウンロードできます。
 

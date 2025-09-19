@@ -21,13 +21,18 @@
 
 <snippet id="opentelemetry-description">
 
-Ktor 與 [OpenTelemetry](https://opentelemetry.io/) 整合 — 這是一個開源的可觀測性框架，用於收集遙測資料，例如追蹤 (traces)、指標 (metrics) 和日誌 (logs)。它提供了一種標準方式來儀器化應用程式並將資料匯出到 Grafana 或 Jaeger 等監控和可觀測性工具。
+Ktor 與 [OpenTelemetry](https://opentelemetry.io/) 整合 — 這是一個開源的可觀測性框架，用於收集
+遙測資料，例如追蹤 (traces)、指標 (metrics) 和日誌 (logs)。它提供了一種標準方式來儀器化應用程式並將資料
+匯出到 Grafana 或 Jaeger 等監控和可觀測性工具。
 
 </snippet>
 
-`%plugin_name%` 外掛程式在 Ktor 伺服器應用程式中啟用傳入 HTTP 請求的分散式追蹤。它會自動建立包含路由、HTTP 方法和狀態碼資訊的 [span](https://opentelemetry.io/docs/concepts/signals/traces/#spans)，從傳入請求標頭中提取現有的追蹤上下文 (trace context)，並允許自訂 span 名稱、屬性 (attributes) 和 span 種類 (span kinds)。
+`%plugin_name%` 外掛程式在 Ktor 伺服器應用程式中啟用傳入 HTTP 請求的分散式追蹤。它
+會自動建立包含路由、HTTP 方法和狀態碼資訊的 [span](https://opentelemetry.io/docs/concepts/signals/traces/#spans)，從傳入請求標頭中提取現有的追蹤上下文 (trace context)，並允許
+自訂 span 名稱、屬性 (attributes) 和 span 種類 (span kinds)。
 
-> 在客戶端，OpenTelemetry 提供了 [KtorClientTelemetry](client-opentelemetry.md) 外掛程式，用於收集對外部服務發出 HTTP 呼叫的追蹤。
+> 在客戶端，OpenTelemetry 提供了 [KtorClientTelemetry](client-opentelemetry.md) 外掛程式，用於收集
+> 對外部服務發出 HTTP 呼叫的追蹤。
 
 ## 新增依賴項 {id="add_dependencies"}
 
@@ -49,13 +54,17 @@ Ktor 與 [OpenTelemetry](https://opentelemetry.io/) 整合 — 這是一個開�
 
 ## 配置 OpenTelemetry {id="configure-otel"}
 
-在您的 Ktor 應用程式中安裝 `%plugin_name%` 外掛程式之前，您需要配置並初始化一個 `OpenTelemetry` 實例。此實例負責管理遙測資料，包括追蹤和指標。
+在您的 Ktor 應用程式中安裝 `%plugin_name%` 外掛程式之前，您需要配置並初始化一個
+`OpenTelemetry` 實例。此實例負責管理遙測資料，包括追蹤和指標。
 
 ### 自動配置
 
-配置 OpenTelemetry 的常見方式是使用 [`AutoConfiguredOpenTelemetrySdk`](https://javadoc.io/doc/io.opentelemetry/opentelemetry-sdk-extension-autoconfigure/latest/io/opentelemetry/sdk/autoconfigure/AutoConfiguredOpenTelemetrySdk.html)。這透過根據系統屬性和環境變數自動配置匯出器 (exporters) 和資源 (resources) 來簡化設定。
+配置 OpenTelemetry 的常見方式是使用
+[`AutoConfiguredOpenTelemetrySdk`](https://javadoc.io/doc/io.opentelemetry/opentelemetry-sdk-extension-autoconfigure/latest/io/opentelemetry/sdk/autoconfigure/AutoConfiguredOpenTelemetrySdk.html)。
+這透過根據系統屬性和環境變數自動配置匯出器 (exporters) 和資源 (resources) 來簡化設定。
 
-您仍然可以自訂自動偵測到的配置 — 例如，透過新增一個 `service.name` 資源屬性：
+您仍然可以自訂自動偵測到的配置 — 例如，透過新增一個 `service.name` 資源
+屬性：
 
 ```kotlin
 package com.example
@@ -73,13 +82,16 @@ fun getOpenTelemetry(serviceName: String): OpenTelemetry {
             .build()
     }.build().openTelemetrySdk
 }
+
 ```
 
 ### 程式化配置
 
-若要在程式碼中定義匯出器、處理器 (processors) 和傳播器 (propagators)，而不是依賴基於環境的配置，您可以使用 [`OpenTelemetrySdk`](https://javadoc.io/doc/io.opentelemetry/opentelemetry-sdk/latest/io/opentelemetry/sdk/OpenTelemetrySdk.html)。
+若要在程式碼中定義匯出器、處理器 (processors) 和傳播器 (propagators)，而不是依賴基於環境的配置，您可以使用
+[`OpenTelemetrySdk`](https://javadoc.io/doc/io.opentelemetry/opentelemetry-sdk/latest/io/opentelemetry/sdk/OpenTelemetrySdk.html)。
 
-以下範例展示了如何使用 OTLP 匯出器、一個 span 處理器和一個追蹤上下文傳播器來程式化配置 OpenTelemetry：
+以下範例展示了如何使用 OTLP 匯出器、一個 span 處理器
+和一個追蹤上下文傳播器來程式化配置 OpenTelemetry：
 
 ```kotlin
 import io.opentelemetry.api.OpenTelemetry
@@ -106,15 +118,18 @@ fun configureOpenTelemetry(): OpenTelemetry {
 }
 ```
 
-如果您需要完全控制遙測設定，或者您的部署環境無法依賴自動配置，請使用此方法。
+如果您需要完全控制遙測設定，或者您的部署環境無法依賴
+自動配置，請使用此方法。
 
-> 如需更多資訊，請參閱 [OpenTelemetry SDK 元件文件](https://opentelemetry.io/docs/languages/java/sdk/#sdk-components)。
+> 如需更多資訊，請參閱
+> [OpenTelemetry SDK 元件文件](https://opentelemetry.io/docs/languages/java/sdk/#sdk-components)。
 >
 {style="tip"}
 
 ## 安裝 %plugin_name% {id="install_plugin"}
 
-若要將 `%plugin_name%` 外掛程式[安裝](server-plugins.md#install)到應用程式，請在指定的[模組](server-modules.md)中將其傳遞給 `install` 函數，並設定[已配置的 `OpenTelemetry` 實例](#configure-otel)：
+若要將 `%plugin_name%` 外掛程式[安裝](server-plugins.md#install)到應用程式，請在指定的[模組](server-modules.md)中將其傳遞給 `install` 函數，
+並設定[已配置的 `OpenTelemetry` 實例](#configure-otel)：
 
 <Tabs>
 <TabItem title="embeddedServer">
@@ -163,13 +178,16 @@ fun configureOpenTelemetry(): OpenTelemetry {
 
 ## 配置追蹤 {id="configuration"}
 
-您可以自訂 Ktor 伺服器記錄和匯出 OpenTelemetry span 的方式。以下選項可讓您調整哪些請求被追蹤、span 如何命名、它們包含哪些屬性以及 span 種類如何確定。
+您可以自訂 Ktor 伺服器記錄和匯出 OpenTelemetry span 的方式。以下選項可讓您調整
+哪些請求被追蹤、span 如何命名、它們包含哪些屬性以及 span 種類如何確定。
 
-> 如需這些概念的更多資訊，請參閱 [OpenTelemetry 追蹤文件](https://opentelemetry.io/docs/concepts/signals/traces/)。
+> 如需這些概念的更多資訊，請參閱
+> [OpenTelemetry 追蹤文件](https://opentelemetry.io/docs/concepts/signals/traces/)。
 
 ### 追蹤額外的 HTTP 方法 {id="config-known-methods"}
 
-預設情況下，意外掛程式會追蹤標準 HTTP 方法 (`GET`、`POST`、`PUT` 等)。若要追蹤額外或自訂方法，請配置 `knownMethods` 屬性：
+預設情況下，此外掛程式會追蹤標準 HTTP 方法 (`GET`、`POST`、`PUT` 等)。若要追蹤額外或自訂方法，
+請配置 `knownMethods` 屬性：
 
 ```kotlin
 install(%plugin_name%) {
@@ -191,7 +209,8 @@ install(%plugin_name%) {
 
 ### 選擇 span 種類 {id="config-span-kind"}
 
-若要根據請求特性覆寫 span 種類 (例如 `SERVER`、`CLIENT`、`PRODUCER`、`CONSUMER`)，請使用 `spanKindExtractor` 屬性：
+若要根據請求特性覆寫 span 種類 (例如 `SERVER`、`CLIENT`、`PRODUCER`、`CONSUMER`)，
+請使用 `spanKindExtractor` 屬性：
 
 ```kotlin
 install(%plugin_name%) {
@@ -226,11 +245,16 @@ install(%plugin_name%) {
 
 ### 額外屬性 {id="additional-properties"}
 
-若要微調整個應用程式的追蹤行為，您還可以配置額外的 OpenTelemetry 屬性，例如傳播器、屬性限制以及啟用/禁用儀器化。如需更多詳情，請參閱 [OpenTelemetry Java 配置指南](https://opentelemetry.io/docs/languages/java/configuration/)。
+若要微調整個應用程式的追蹤行為，您還可以配置額外的 OpenTelemetry 屬性，
+例如傳播器、屬性限制以及啟用/禁用儀器化。如需更多詳情，請參閱
+[OpenTelemetry Java 配置指南](https://opentelemetry.io/docs/languages/java/configuration/)。
 
 ## 使用 Grafana LGTM 驗證遙測資料
 
-若要視覺化並驗證您的遙測資料，您可以將追蹤、指標和日誌匯出到分散式追蹤後端，例如 Grafana。`grafana/otel-lgtm` 一體化映像包含了 [Grafana](https://grafana.com/)、[Tempo](https://grafana.com/oss/tempo/) (追蹤)、[Loki](https://grafana.com/oss/loki/) (日誌) 和 [Mimir](https://grafana.com/oss/mimir/) (指標)。
+若要視覺化並驗證您的遙測資料，您可以將追蹤、指標和日誌匯出到分散式追蹤後端，
+例如 Grafana。`grafana/otel-lgtm` 一體化映像包含了 [Grafana](https://grafana.com/)、
+[Tempo](https://grafana.com/oss/tempo/) (追蹤)、[Loki](https://grafana.com/oss/loki/) (日誌) 和
+[Mimir](https://grafana.com/oss/mimir/) (指標)。
 
 ### 使用 Docker Compose
 
@@ -272,7 +296,8 @@ docker run -d --name grafana_lgtm \
 
 ### 應用程式匯出配置
 
-若要將遙測資料從您的 Ktor 應用程式傳送到 OTLP 端點，請配置 OpenTelemetry SDK 以使用 gRPC 協定。您可以在建構 SDK 之前透過環境變數設定這些值：
+若要將遙測資料從您的 Ktor 應用程式傳送到 OTLP 端點，請配置 OpenTelemetry SDK 以使用 gRPC
+協定。您可以在建構 SDK 之前透過環境變數設定這些值：
 
 ```shell
 export OTEL_TRACES_EXPORTER=otlp

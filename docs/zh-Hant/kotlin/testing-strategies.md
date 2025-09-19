@@ -159,7 +159,7 @@ class CounterTest {
 以下是上述計數器測試的最小化情境：
 
 ```text
-= Invalid execution results =
+= 無效執行結果 =
 | ------------------- |
 | Thread 1 | Thread 2 |
 | ------------------- |
@@ -202,7 +202,7 @@ class CounterTest {
 2. 現在執行 `modelCheckingTest()` 並檢查在修改計數器狀態的切換點處列印的 `Counter` 狀態（它們以 `STATE:` 開頭）：
 
     ```text
-    = Invalid execution results =
+    = 無效執行結果 =
     | ------------------- |
     | Thread 1 | Thread 2 |
     | ------------------- |

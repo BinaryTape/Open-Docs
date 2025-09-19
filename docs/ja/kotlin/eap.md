@@ -1,12 +1,14 @@
 [//]: # (title: Kotlin早期アクセスプレビューに参加する)
 
+<!--
 <tldr>
-    <p>最新のKotlin EAPリリース: <strong>%kotlinEapVersion%</strong></p>
+    <p>Latest Kotlin EAP release: <strong>%kotlinEapVersion%</strong></p>
 </tldr>
+-->
 
 Kotlin早期アクセスプレビュー (EAP) に参加して、Kotlinの最新機能をリリース前に試すことができます。
 
-私たちは、言語 (_2.x.0_) およびツール (_2.x.20_) のすべてのリリースに先立ち、いくつかのベータ ( _Beta_ ) およびリリース候補 ( _RC_ ) ビルドを提供しています。
+私たちは、言語 (_2.x.0_) およびツール (_2.x.20_) のすべてのリリースに先立ち、いくつかのベータ (_Beta_) およびリリース候補 (_RC_) ビルドを提供しています。
 
 課題トラッカー [YouTrack](https://kotl.in/issue) にバグを見つけて報告していただければ、大変感謝いたします。最終リリース前に修正できる可能性が高く、問題が解決されるまで次のKotlinリリースを待つ必要がなくなります。
 
@@ -32,31 +34,23 @@ Kotlin早期アクセスプレビュー (EAP) に参加して、Kotlinの最新�
 
 ## ビルドの詳細
 
-<!-- _No preview versions are currently available._ -->
+現在、プレビューバージョンは利用できません。
 
+<!--
 <table>
     <tr>
-        <th>ビルド情報</th>
-        <th>ビルドのハイライト</th>
+        <th>Build info</th>
+        <th>Build highlights</th>
     </tr>
     <tr>
-        <td><strong>2.2.20-Beta2</strong>
-            <p>リリース日: <strong>2025年7月29日</strong></p>
-            <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.2.20-Beta2" target="_blank">GitHubでリリースを確認</a></p>
+        <td><strong>2.2.20-RC2</strong>
+            <p>Released: <strong>September 1, 2025</strong></p>
+            <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.2.20-RC2" target="_blank">Release on GitHub</a></p>
         </td>
         <td>
-            <p>改善とバグ修正を含むツールのリリースです。</p>
-            <p>詳細については、<a href="https://github.com/JetBrains/kotlin/releases/tag/v2.2.20-Beta2">変更履歴</a>または<a href="whatsnew-eap.md">Kotlin 2.2.20-Beta2の新機能</a>を参照してください。</p>
-        </td>
-    </tr>
-    <tr>
-        <td><strong>2.2.10-RC</strong>
-            <p>リリース日: <strong>2025年7月18日</strong></p>
-            <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.2.10-RC" target="_blank">GitHubでリリースを確認</a></p>
-        </td>
-        <td>
-            <p>Kotlin 2.2.0のバグ修正リリースです。</p>
-            <p>詳細については、<a href="https://github.com/JetBrains/kotlin/releases/tag/v2.2.10-RC">変更履歴</a>を参照してください。</p>
+            <p>A tooling release containing improvements and bug fixes.</p>
+            <p>For more details, please refer to the <a href="https://github.com/JetBrains/kotlin/releases/tag/v2.2.20-RC2">changelog</a> or <a href="whatsnew-eap.md">What's new in Kotlin 2.2.20-RC2</a>.</p>
         </td>
     </tr>
 </table>
+-->

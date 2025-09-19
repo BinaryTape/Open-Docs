@@ -161,7 +161,7 @@ ${'$'}9.99
 보간은 변수 또는 표현식을 문자열에 직접 삽입하는 프로세스입니다.
 
 단일 행 문자열의 경우 [리터럴을 이스케이프](#escaped-strings)할 수 있지만, Kotlin의 여러 줄 문자열은 역슬래시 이스케이프를 지원하지 않습니다.
-달러 기호(`$`)를 리터럴 문자(literal character)로 포함하려면 문자열 보간을 방지하기 위해 `${'$'}` 구문을 사용해야 합니다.
+달러 기호(`$`)를 리터럴 문자로 포함하려면 문자열 보간을 방지하기 위해 `${'$'}` 구문을 사용해야 합니다.
 이 방식은 코드를 읽기 어렵게 만들 수 있으며, 특히 문자열에 여러 개의 달러 기호가 포함된 경우 더욱 그렇습니다.
 
 다중 달러 문자열 보간은 단일 행 및 여러 줄 문자열 모두에서 달러 기호를 리터럴 문자로 처리할 수 있게 하여 이를 간소화합니다.
@@ -219,7 +219,7 @@ println(requestedData)
 
 특정 요구 사항에 맞게 문자열을 포매팅하려면 [`String.format()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/format.html) 함수를 사용하세요.
 
-`String.format()` 함수는 형식 문자열과 하나 이상의 인수를 받습니다. 형식 문자열은 주어진 인수에 대한 하나의 자리 표시자(`%`로 표시)를 포함하며, 그 뒤에 형식 지정자가 따릅니다.
+`String.format()` 함수는 형식 문자열과 하나 이상의 인수를 받습니다. 형식 문자열은 주어진 인수에 대한 하나의 자리 표시자(`%`로 표시)를 포함하며, 그 뒤에 형식 지정자(format specifiers)가 따릅니다.
 형식 지정자는 해당 인수에 대한 포매팅 지시이며, 플래그, 너비, 정밀도, 변환 유형으로 구성됩니다. 총체적으로 형식 지정자는 출력의 포매팅을 형성합니다. 일반적인 형식 지정자로는 정수용 `%d`, 부동 소수점 숫자용 `%f`, 문자열용 `%s`가 있습니다. 또한 `argument_index$` 구문을 사용하여 형식 문자열 내에서 동일한 인수를 다른 형식으로 여러 번 참조할 수 있습니다.
 
 > 형식 지정자에 대한 자세한 내용과 포괄적인 목록은 [Java의 Class Formatter 문서](https://docs.oracle.com/javase/8/docs/api/java/util/Formatter.html#summary)를 참조하세요.
@@ -246,8 +246,8 @@ fun main() {
     println(helloString)
     // HELLO WORLD
     
-    // 음수를 괄호로 묶어서 포맷한 다음, `argument_index$`를 사용하여 동일한 숫자를 다른 형식(괄호 없음)으로 반복합니다.
-    val negativeNumberInParentheses = String.format("%(d means %1\$d", -31416)
+    // 음수를 괄호로 묶어서 포맷한 다음, `argument_index$` 구문을 사용하여 동일한 숫자를 다른 형식(괄호 없음)으로 반복합니다.
+    val negativeNumberInParentheses = String.format("%(d means %1$d", -31416)
     println(negativeNumberInParentheses)
     //(31416) means -31416
 //sampleEnd    

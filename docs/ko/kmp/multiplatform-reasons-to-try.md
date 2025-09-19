@@ -87,17 +87,17 @@ Kotlin Multiplatform 이전에는 개발자들이 모든 것을 네이티브로 
 
 Kotlin Multiplatform를 사용하면 [Compose Multiplatform](https://www.jetbrains.com/lp/compose-multiplatform/) 덕분에 개발자는 비즈니스 로직, 프레젠테이션 로직 또는 심지어 UI 로직까지 공유할 수 있습니다.
 
-![With Kotlin Multiplatform and Compose Multiplatform:  developers can share business logic, presentation logic, or even UI logic](with-compose-multiplatform.svg){width="700"}
+![With Kotlin Multiplatform and Compose Multiplatform: developers can share business logic, presentation logic, or even UI logic](with-compose-multiplatform.svg){width="700"}
 
 이제 플랫폼별 코드를 제외하고 거의 모든 것을 공유할 수 있습니다.
 
 ### 5. Kotlin Multiplatform 솔루션을 사용하면 UI 코드를 공유할 수 있습니다.
 
-JetBrains는 Kotlin과 Jetpack Compose를 기반으로 Android (Jetpack Compose를 통해), iOS, 데스크톱, 웹 (알파)을 포함한 여러 플랫폼에서 사용자 인터페이스를 공유하기 위한 선언형 프레임워크인 [Compose Multiplatform](https://www.jetbrains.com/lp/compose-multiplatform/)를 제공합니다.
+JetBrains는 Kotlin과 Jetpack Compose를 기반으로 Android (Jetpack Compose를 통해), iOS, 데스크톱, 웹 (베타)을 포함한 여러 플랫폼에서 사용자 인터페이스를 공유하기 위한 선언형 프레임워크인 [Compose Multiplatform](https://www.jetbrains.com/lp/compose-multiplatform/)를 제공합니다.
 
 전자상거래 비즈니스를 위한 라스트 마일 물류 플랫폼인 _Instabee_는 Compose Multiplatform가 아직 알파(Alpha) 상태였을 때부터 Android 및 iOS 애플리케이션에서 Compose Multiplatform를 사용하여 UI 로직을 공유하기 시작했습니다.
 
-Compose Multiplatform의 공식 샘플인 [ImageViewer 앱](https://github.com/JetBrains/compose-multiplatform/tree/master/examples/imageviewer)은 Android, iOS, 데스크톱 및 웹에서 실행되며 지도 및 카메라와 같은 네이티브 구성 요소와 통합됩니다. 커뮤니티 샘플인 [New York Times 앱](https://github.com/xxfast/NYTimes-KMP) 클론도 있으며, 이는 스마트워치 운영 체제인 Wear OS에서도 실행됩니다. 더 많은 예시를 보려면 [Kotlin Multiplatform 및 Compose Multiplatform 샘플](multiplatform-samples.md) 목록을 확인하세요.
+Compose Multiplatform의 공식 샘플인 [ImageViewer App](https://github.com/JetBrains/compose-multiplatform/tree/master/examples/imageviewer)은 Android, iOS, 데스크톱 및 웹에서 실행되며 지도 및 카메라와 같은 네이티브 구성 요소와 통합됩니다. 커뮤니티 샘플인 [New York Times App](https://github.com/xxfast/NYTimes-KMP) 클론도 있으며, 이는 스마트워치 운영 체제인 Wear OS에서도 실행됩니다. 더 많은 예시를 보려면 [Kotlin Multiplatform 및 Compose Multiplatform 샘플](multiplatform-samples.md) 목록을 확인하세요.
 
 [![Explore Compose Multiplatform](explore-compose.svg){width="700"}](https://www.jetbrains.com/compose-multiplatform/)
 

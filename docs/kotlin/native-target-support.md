@@ -19,32 +19,32 @@ Kotlin/Native 编译器支持大量不同的目标，但很难为所有目标提
 *   该目标会在 CI 上定期测试，以确保能够编译和运行。
 *   我们提供编译器版本之间的源代码和[二进制兼容性](https://youtrack.jetbrains.com/issue/KT-42293)。
 
-| Gradle target name      | Target triple                 | Running tests | Description                            |
-|-------------------------|-------------------------------|---------------|----------------------------------------|
-| 仅限 Apple macOS 主机:    |                               |               |                                        |
-| `macosX64`              | `x86_64-apple-macos`          | ✅             | 运行于 x86_64 平台上的 Apple macOS         |
-| `macosArm64`            | `aarch64-apple-macos`         | ✅             | 运行于 Apple Silicon 平台上的 Apple macOS |
+| Gradle target name      | Target triple                 | Running tests | Description                                |
+|-------------------------|-------------------------------|---------------|--------------------------------------------|
+| 仅限 Apple macOS 主机:    |                               |               |                                            |
+| `macosArm64`            | `aarch64-apple-macos`         | ✅             | 运行于 Apple Silicon 平台上的 Apple macOS     |
 | `iosSimulatorArm64`     | `aarch64-apple-ios-simulator` | ✅             | 运行于 Apple Silicon 平台上的 Apple iOS 模拟器 |
-| `iosX64`                | `x86_64-apple-ios-simulator`  | ✅             | 运行于 x86-64 平台上的 Apple iOS 模拟器  |
-| `iosArm64`              | `aarch64-apple-ios`           |               | 运行于 ARM64 平台上的 Apple iOS 和 iPadOS  |
+| `iosArm64`              | `aarch64-apple-ios`           |               | 运行于 ARM64 平台上的 Apple iOS 和 iPadOS    |
 
 ## 等级 2
 
 *   该目标会在 CI 上定期测试以确保能够编译，但可能不会自动测试其运行能力。
 *   我们正尽力在编译器版本之间提供源代码和[二进制兼容性](https://youtrack.jetbrains.com/issue/KT-42293)。
 
-| Gradle target name      | Target triple                     | Running tests | Description                            |
-|-------------------------|-----------------------------------|---------------|----------------------------------------|
-| `linuxX64`              | `x86_64-unknown-linux-gnu`        | ✅             | 运行于 x86_64 平台上的 Linux           |
-| `linuxArm64`            | `aarch64-unknown-linux-gnu`       |               | 运行于 ARM64 平台上的 Linux            |
-| 仅限 Apple macOS 主机:    |                                   |               |                                        |
+| Gradle target name      | Target triple                     | Running tests | Description                                    |
+|-------------------------|-----------------------------------|---------------|------------------------------------------------|
+| `linuxX64`              | `x86_64-unknown-linux-gnu`        | ✅             | 运行于 x86_64 平台上的 Linux                   |
+| `linuxArm64`            | `aarch64-unknown-linux-gnu`       |               | 运行于 ARM64 平台上的 Linux                    |
+| 仅限 Apple macOS 主机:    |                                   |               |                                                |
+| `macosX64`              | `x86_64-apple-macos`              | ✅             | 运行于 x86_64 平台上的 Apple macOS             |
+| `iosX64`                | `x86_64-apple-ios-simulator`      | ✅             | 运行于 x86-64 平台上的 Apple iOS 模拟器        |
 | `watchosSimulatorArm64` | `aarch64-apple-watchos-simulator` | ✅             | 运行于 Apple Silicon 平台上的 Apple watchOS 模拟器 |
 | `watchosX64`            | `x86_64-apple-watchos-simulator`  | ✅             | 运行于 x86_64 平台上的 Apple watchOS 64 位模拟器 |
-| `watchosArm32`          | `armv7k-apple-watchos`            |               | 运行于 ARM32 平台上的 Apple watchOS      |
+| `watchosArm32`          | `armv7k-apple-watchos`            |               | 运行于 ARM32 平台上的 Apple watchOS            |
 | `watchosArm64`          | `arm64_32-apple-watchos`          |               | 运行于带有 ILP32 的 ARM64 平台上的 Apple watchOS |
 | `tvosSimulatorArm64`    | `aarch64-apple-tvos-simulator`    | ✅             | 运行于 Apple Silicon 平台上的 Apple tvOS 模拟器 |
-| `tvosX64`               | `x86_64-apple-tvos-simulator`     | ✅             | 运行于 x86_64 平台上的 Apple tvOS 模拟器  |
-| `tvosArm64`             | `aarch64-apple-tvos`              |               | 运行于 ARM64 平台上的 Apple tvOS         |
+| `tvosX64`               | `x86_64-apple-tvos-simulator`     | ✅             | 运行于 x86_64 平台上的 Apple tvOS 模拟器      |
+| `tvosArm64`             | `aarch64-apple-tvos`              |               | 运行于 ARM64 平台上的 Apple tvOS               |
 
 ## 等级 3
 

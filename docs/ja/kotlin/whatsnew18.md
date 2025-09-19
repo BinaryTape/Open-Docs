@@ -190,11 +190,11 @@ Kotlin 1.8.0では、以前のディレクトリ命名スキームに代わる�
 
 `{AndroidSourceSet.name}`は`{KotlinSourceSet.name}`に以下のようにマップされます。
 
-|             | 現在のソースセットレイアウト | 新しいソースセットレイアウト |
-|-------------|---------------------------|--------------------------|
-| main        | androidMain               | androidMain              |
-| test        | androidTest               | android**Unit**Test      |
-| androidTest | android**Android**Test    | android**Instrumented**Test |
+|             | 現在のソースセットレイアウト | 新しいソースセットレイアウト          |
+|-------------|---------------------------|--------------------------------|
+| main        | androidMain               | androidMain                    |
+| test        | androidTest               | android<b>Unit</b>Test         |
+| androidTest | android<b>Android</b>Test | android<b>Instrumented</b>Test |
 
 #### SourceDirectories
 
@@ -207,21 +207,21 @@ Kotlin 1.8.0では、以前のディレクトリ命名スキームに代わる�
 |             | 現在のソースセットレイアウト                                  | 新しいソースセットレイアウト                                                                          |
 |-------------|------------------------------------------------------------|------------------------------------------------------------------------------------------------|
 | main        | src/androidMain/kotlin, src/main/kotlin, src/main/java     | src/androidMain/kotlin, src/main/kotlin, src/main/java                                         |
-| test        | src/androidTest/kotlin, src/test/kotlin, src/test/java     | src/android**Unit**Test/kotlin, src/test/kotlin, src/test/java                              |
-| androidTest | src/android**Android**Test/kotlin, src/androidTest/java | src/android**Instrumented**Test/kotlin, src/androidTest/java, **src/androidTest/kotlin** |
+| test        | src/androidTest/kotlin, src/test/kotlin, src/test/java     | src/android<b>Unit</b>Test/kotlin, src/test/kotlin, src/test/java                              |
+| androidTest | src/android<b>Android</b>Test/kotlin, src/androidTest/java | src/android<b>Instrumented</b>Test/kotlin, src/androidTest/java, <b>src/androidTest/kotlin</b> |
 
 #### `AndroidManifest.xml`ファイルの場所
 
 | 現在のソースセットレイアウト                              | 新しいソースセットレイアウト                                 |
 |--------------------------------------------------------|-------------------------------------------------------|
-| src/{**Android**SourceSet.name}/AndroidManifest.xml | src/{**Kotlin**SourceSet.name}/AndroidManifest.xml |
+| src/{<b>Android</b>SourceSet.name}/AndroidManifest.xml | src/{<b>Kotlin</b>SourceSet.name}/AndroidManifest.xml |
 
 `{AndroidSourceSet.name}`は`{AndroidManifest.xml location}`に以下のようにマップされます。
 
 |       | 現在のソースセットレイアウト     | 新しいソースセットレイアウト                       |
 |-------|-------------------------------|---------------------------------------------|
-| main  | src/main/AndroidManifest.xml  | src/**android**Main/AndroidManifest.xml  |
-| debug | src/debug/AndroidManifest.xml | src/**android**Debug/AndroidManifest.xml |
+| main  | src/main/AndroidManifest.xml  | src/<b>android</b>Main/AndroidManifest.xml  |
+| debug | src/debug/AndroidManifest.xml | src/<b>android</b>Debug/AndroidManifest.xml |
 
 #### Androidと共通テストの関係
 
@@ -232,7 +232,7 @@ Kotlin 1.8.0では、以前のディレクトリ命名スキームに代わる�
 実際には、これは以下のことを意味していました。
 
 *   `commonTest`のコードは`androidAndroidTest`で利用可能でした。
-*   `commonTest`の`expect`宣言には、`androidAndroidTest`に対応する`actual`実装が必要でした。
+*   `expect`宣言には、`androidAndroidTest`に対応する`actual`実装が必要でした。
 *   `commonTest`で宣言されたテストも、Android計装テストとして実行されました。
 
 新しいAndroidソースセットレイアウトでは、`dependsOn`関係はデフォルトでは追加されません。
@@ -253,7 +253,7 @@ kotlin {
 #### Androidフレーバーのサポート
 
 以前は、Kotlin Gradleプラグインは、`debug`および`release`ビルドタイプ、または`demo`や`full`などのカスタムフレーバーに対応するAndroidソースセットを
- eagerly に作成していました。
+eagerly に作成していました。
 これにより、`val androidDebug by getting { ... }`のような構成でアクセスできるようになりました。
 
 新しいAndroidソースセットレイアウトでは、これらのソースセットは`afterEvaluate`フェーズで作成されます。
@@ -374,7 +374,7 @@ browser {
 }
 ```
 
-現在では、`cssSupport {}`ブロック内の`enabled.set()`メソッドを使用する必要があります。
+現在では、`enabled.set()`メソッドを`cssSupport {}`ブロック内で使用する必要があります。
 
 ```kotlin
 browser {
@@ -528,7 +528,7 @@ implementation(platform("org.jetbrains.kotlin:kotlin-bom:1.8.0"))
 >
 {style="note"}
 
-[このリリースから](https://youtrack.jetbrains.com/issue/KT-54993/Raise-kotlin.jvm.target.validation.mode-check-default-level-to-error-when-build-is-running-on-Gradle-8)、
+[このリリースから](https://youtrack.com/issue/KT-54993/Raise-kotlin.jvm.target.validation.mode-check-default-level-to-error-when-build-is-running-on-Gradle-8)、
 Gradle 8.0以降（このバージョンのGradleはまだリリースされていません）のプロジェクトでは、
 [`kotlin.jvm.target.validation.mode`プロパティ](gradle-configure-project.md#check-for-jvm-target-compatibility-of-related-compile-tasks)のデフォルト値が`error`になり、
 JVMターゲットに互換性がない場合にプラグインはビルドを失敗させます。

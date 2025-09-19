@@ -3,24 +3,25 @@
 <table>
     <tr>
         <td><strong>上次修改时间</strong></td>
-        <td><strong>2025 年 2 月</strong></td>
+        <td><strong>2025 年 8 月</strong></td>
     </tr>
     <tr>
         <td><strong>下次更新时间</strong></td>
-        <td><strong>2025 年 8 月</strong></td>
+        <td><strong>2026 年 2 月</strong></td>
     </tr>
 </table>
 
-欢迎来到 Kotlin 路线图！在这里，您可以抢先了解 JetBrains 团队的优先事项。
+欢迎来到 Kotlin 路线图！抢先了解 JetBrains 团队的优先事项。
 
 ## 关键优先事项
 
 本路线图旨在为您提供宏观视角。
 以下是我们的关键重点领域——我们致力于交付的最重要方向：
 
-*   **语言演进**：更高效的数据处理、更高的抽象级别、增强的性能以及清晰的代码。
-*   **Kotlin Multiplatform**：发布 Kotlin 到 Swift Export 的直接支持、简化构建设置，以及简化多平台库的创建。
-*   **第三方生态系统作者的体验**：简化 Kotlin 库、工具和框架的开发和发布流程。
+*   **语言演进**：通过有意义的语言改进，在强调语义而非语法变化的同时，保持 Kotlin 的实用性和表达力。
+*   **多平台**：通过坚实的 iOS 支持、成熟的 web 目标平台和可靠的 IDE 工具，为现代多平台应用构建基础。
+*   **保持平台中立**：无论开发者使用何种工具或目标平台，都为其提供支持。
+*   **生态系统支持**：简化 Kotlin 库、工具和框架的开发和发布流程。
 
 ## 按子系统划分的 Kotlin 路线图
 
@@ -47,11 +48,10 @@ Visit the [roadmap board in our issue tracker YouTrack](https://youtrack.jetbrai
         <td><strong>编译器</strong></td>
         <td>
             <list>
-                <li>🆕 <a href="https://youtrack.jetbrains.com/issue/KT-75371">最终确定 JSpecify 支持</a></li>
-                <li>🆕 <a href="https://youtrack.jetbrains.com/issue/KT-75372">废弃 K1 编译器</a></li>
-                <li>🆕 <a href="https://youtrack.jetbrains.com/issue/KT-75370">将 Kotlin/Wasm (<code>wasm-js</code> 目标) 升级为 Beta 版</a></li>
-                <li><a href="https://youtrack.jetbrains.com/issue/KT-64568" target="_blank">Kotlin/Wasm：将库的 <code>wasm-wasi</code> 目标切换到 WASI Preview 2</a></li>
-                <li><a href="https://youtrack.jetbrains.com/issue/KT-64569" target="_blank">Kotlin/Wasm：支持 Component Model</a></li>
+                <li>🆕 <a href="https://youtrack.jetbrains.com/issue/KT-80304">Kotlin/Wasm：使用新的线程提案原型化多线程支持</a></li>
+                <li><a href="https://youtrack.jetbrains.com/issue/KT-75371">最终确定 JSpecify 支持</a></li>
+                <li><a href="https://youtrack.jetbrains.com/issue/KT-75372">废弃 K1 编译器</a></li>
+                <li><a href="https://youtrack.jetbrains.com/issue/KT-75370">将 Kotlin/Wasm (<code>wasm-js</code> 目标) 升级为 Beta 版</a></li>
             </list>
         </td>
     </tr>
@@ -59,42 +59,43 @@ Visit the [roadmap board in our issue tracker YouTrack](https://youtrack.jetbrai
         <td><strong>多平台</strong></td>
         <td>
             <list>
-                <li><a href="https://youtrack.jetbrains.com/issue/KT-64572">Swift Export 的首次公开发布</a></li>
+                <li>🆕 <a href="https://youtrack.jetbrains.com/issue/KT-80305">在 Swift Export 中支持协程</a></li>
+                <li>🆕 <a href="https://youtrack.jetbrains.com/issue/KT-80308">Kotlin/JS：编译为现代 JavaScript</a></li> 
+                <li>🆕 <a href="https://youtrack.jetbrains.com/issue/KT-80310">Kotlin/JS：扩展将 Kotlin 声明导出到 JavaScript 的可能性</a></li>
+                <li>🆕 <a href="https://youtrack.jetbrains.com/issue/KT-80307">Kotlin/JS：改进 Kotlin/JS 的入门材料</a></li> 
                 <li><a href="https://youtrack.jetbrains.com/issue/KT-71278">默认启用并发标记清除 (CMS) GC</a></li>
-                <li><a href="https://youtrack.jetbrains.com/issue/KT-71290">稳定化 klib 在不同平台上的交叉编译</a></li> 
-                <li><a href="https://youtrack.jetbrains.com/issue/KT-71281">实现下一代多平台库分发格式</a></li>
-                <li><a href="https://youtrack.jetbrains.com/issue/KT-71289">支持在项目级别声明 Kotlin Multiplatform 依赖项</a></li>
+                <li><a href="https://youtrack.jetbrains.com/issue/KT-68323">实现下一代多平台库分发格式</a></li>
                 <li><a href="https://youtrack.jetbrains.com/issue/KT-64570" target="_blank">统一所有 Kotlin 目标之间的内联语义</a></li>
                 <li><a href="https://youtrack.jetbrains.com/issue/KT-71279" target="_blank">默认启用 klib artifact 的增量编译</a></li>
             </list>
-            <tip><p><a href="https://www.jetbrains.com/help/kotlin-multiplatform-dev/kotlin-multiplatform-roadmap.html" target="_blank">Kotlin Multiplatform 开发路线图</a></p></tip>
+            <tip><p><a href="https://jb.gg/kmp-roadmap-2025" target="_blank">Kotlin Multiplatform 开发路线图</a></p></tip>
          </td>
     </tr>
     <tr id="tooling">
         <td><strong>工具</strong></td>
         <td>
             <list>
-                <li>🆕 <a href="https://youtrack.jetbrains.com/issue/KT-75374" target="_blank">改进 IntelliJ IDEA 中 Kotlin/Wasm 项目的开发体验</a></li>
-                <li>🆕 <a href="https://youtrack.jetbrains.com/issue/KT-75376" target="_blank">提升导入性能</a></li>
-                <li>🆕 <a href="https://youtrack.jetbrains.com/issue/KT-75377" target="_blank">支持 XCFrameworks 中的资源</a></li>
-                <li>🆕 <a href="https://youtrack.jetbrains.com/issue/KTNB-898" target="_blank">Kotlin Notebook：更流畅的访问和改进的体验</a></li>
+                <li>🆕 <a href="https://youtrack.jetbrains.com/issue/KT-80322" target="_blank">支持 Kotlin LSP 和 VS Code</a></li>
+                <li>🆕 <a href="https://youtrack.jetbrains.com/issue/KTIJ-35208" target="_blank">改进 Kotlin + JPA 体验</a></li>
+                <li>🆕 <a href="https://youtrack.jetbrains.com/issue/KT-80311" target="_blank">在 Gradle 项目隔离中支持 Kotlin JS\WASM</a></li>
+                <li>🆕 <a href="https://youtrack.jetbrains.com/issue/KTNB-1133" target="_blank">Kotlin Notebooks：支持新用例</a></li>
+                <li><a href="https://youtrack.jetbrains.com/issue/KT-75374" target="_blank">改进 IntelliJ IDEA 中 Kotlin/Wasm 项目的开发体验</a></li>
+                <li><a href="https://youtrack.jetbrains.com/issue/KT-75376" target="_blank">提升导入性能</a></li>
                 <li><a href="https://youtrack.jetbrains.com/issue/KTIJ-31316" target="_blank">IntelliJ IDEA K2 模式完整发布</a></li>
-                <li><a href="https://youtrack.jetbrains.com/issue/KT-71286" target="_blank">设计构建工具 API</a></li>
-                <li><a href="https://youtrack.jetbrains.com/issue/KT-71292" target="_blank">支持声明式 Gradle 的 Kotlin 生态系统插件</a></li>
-                <li><a href="https://youtrack.jetbrains.com/issue/KT-54105" target="_blank">支持 Gradle 项目隔离</a></li>
-                <li><a href="https://youtrack.jetbrains.com/issue/KT-64577" target="_blank">改进 Kotlin/Native 工具链与 Gradle 的集成</a></li>
-                <li><a href="https://youtrack.jetbrains.com/issue/KT-60279" target="_blank">改进 Kotlin 构建报告</a></li>
-                <li><a href="https://youtrack.jetbrains.com/issue/KT-55515" target="_blank">在 Gradle DSL 中暴露稳定编译器实参</a></li>
+                <li><a href="https://youtrack.jetbrains.com/issue/KT-76255" target="_blank">设计构建工具 API</a></li>
+                <li><a href="https://youtrack.jetbrains.com/issue/KT-71292" target="_blank">发布支持声明式 Gradle 的 Kotlin 生态系统插件</a></li>
                 <li><a href="https://youtrack.jetbrains.com/issue/KT-49511" target="_blank">改进 Kotlin 脚本和 <code>.gradle.kts</code> 的使用体验</a></li>
             </list>
          </td>
     </tr>
-    <tr id="library-ecosystem">
-        <td><strong>库生态系统</strong></td>
+    <tr id="ecosystem">
+        <td><strong>生态系统</strong></td>
         <td>
-            <p><b>库生态系统路线图项：</b></p>
             <list>
-                <li><a href="https://youtrack.jetbrains.com/issue/KT-71295" target="_blank">优化 Dokka HTML 输出 UI</a></li>
+                <li>🆕 <a href="https://youtrack.jetbrains.com/issue/KT-80323">实现 KDoc 机器可读表示</a></li>
+                <li>🆕 <a href="https://youtrack.jetbrains.com/issue/KT-80324">稳定化 Kotlin Notebooks</a></li>
+                <li>🆕 <a href="https://youtrack.jetbrains.com/issue/KT-80327">发布 Kotlin DataFrame 1.0</a></li>
+                <li>🆕 <a href="https://youtrack.jetbrains.com/issue/KT-80328">发布 Kandy 0.9</a></li>
                 <li><a href="https://youtrack.jetbrains.com/issue/KT-12719" target="_blank">为返回非 Unit 且未使用的 Kotlin 函数引入默认警告/错误</a></li>
                 <li><a href="https://youtrack.jetbrains.com/issue/KT-71298" target="_blank">标准库的新多平台 API：支持 Unicode 和 codepoint</a></li>
                 <li><a href="https://youtrack.jetbrains.com/issue/KT-71300" target="_blank">稳定化 <code>kotlinx-io</code> 库</a></li>
@@ -103,17 +104,18 @@ Visit the [roadmap board in our issue tracker YouTrack](https://youtrack.jetbrai
             </list>
             <p><b>Ktor：</b></p>
             <list>
-                <li>🆕 <a href="https://youtrack.jetbrains.com/issue/KTOR-1501">为 Ktor 添加 gRPC 支持，包括生成器插件和教程</a></li>
-                <li>🆕 <a href="https://youtrack.jetbrains.com/issue/KTOR-7158">简化后端应用程序的项目结构</a></li>
-                <li>🆕 <a href="https://youtrack.jetbrains.com/issue/KTOR-3937">将 CLI 生成器发布到 SNAP</a></li>
-                <li>🆕 <a href="https://youtrack.jetbrains.com/issue/KTOR-6026">创建 Kubernetes 生成器插件</a></li>
-                <li>🆕 <a href="https://youtrack.jetbrains.com/issue/KTOR-6621">简化依赖注入的使用</a></li>
-                <li>🆕 <a href="https://youtrack.jetbrains.com/issue/KTOR-7938">HTTP/3 支持</a></li>
+                <li>🆕 <a href="https://youtrack.jetbrains.com/issue/KTOR-8316">为 Ktor 客户端和服务器应用程序支持 OpenAPI 规范</a></li>
+                <li>🆕 <a href="https://youtrack.jetbrains.com/issue/KTOR-6622">改进 Ktor 管理与可观测性</a></li>
+                <li>🆕 <a href="https://youtrack.jetbrains.com/issue/KTOR-7958">WebRTC 客户端</a></li>
+                <li><a href="https://youtrack.jetbrains.com/issue/KTOR-1501">为 Ktor 添加 gRPC 支持，包括生成器插件和教程</a></li>
+                <li><a href="https://youtrack.jetbrains.com/issue/KTOR-6026">创建 Kubernetes 生成器插件</a></li>
+                <li><a href="https://youtrack.jetbrains.com/issue/KTOR-6621">简化依赖注入的使用</a></li>
+                <li><a href="https://youtrack.jetbrains.com/issue/KTOR-7938">HTTP/3 支持</a></li>
             </list>
             <p><b>Exposed：</b></p>
             <list>
-                <li>🆕 <a href="https://youtrack.jetbrains.com/issue/EXPOSED-444">发布 1.0.0 版</a></li>
-                <li>🆕 <a href="https://youtrack.jetbrains.com/issue/EXPOSED-74">添加 R2DBC 支持</a></li>
+                <li><a href="https://youtrack.jetbrains.com/issue/EXPOSED-444">发布 1.0.0 版</a></li>
+                <li><a href="https://youtrack.jetbrains.com/issue/EXPOSED-74">添加 R2DBC 支持</a></li>
             </list>
          </td>
     </tr>
@@ -125,54 +127,56 @@ Visit the [roadmap board in our issue tracker YouTrack](https://youtrack.jetbrai
 > 
 {style="note"}
 
-## 自 2024 年 9 月以来的变化
+## 自 2025 年 2 月以来的变化
 
 ### 已完成项
 
 我们已**完成**前版路线图中的以下项：
 
-*   ✅ 编译器：[支持在 Android 上调试内联函数](https://youtrack.jetbrains.com/issue/KT-60276)
-*   ✅ 编译器：[提高编译器诊断的质量](https://youtrack.jetbrains.com/issue/KT-71275)
-*   ✅ 多平台：[在 Kotlin 中支持 Xcode 16](https://youtrack.jetbrains.com/issue/KT-71287)
-*   ✅ 多平台：[发布 Kotlin Gradle Plugin 的公共可用 API 参考](https://youtrack.jetbrains.com/issue/KT-71288)
-*   ✅ 工具：[为 Kotlin/Wasm 目标提供开箱即用的调试体验](https://youtrack.jetbrains.com/issue/KT-71276)
-*   ✅ 库生态系统：[实现基于 Dokkatoo 的新 Dokka Gradle 插件](https://youtrack.jetbrains.com/issue/KT-71293)
-*   ✅ 库生态系统：[标准库的新多平台 API：Atomics](https://youtrack.jetbrains.com/issue/KT-62423)
-*   ✅ 库生态系统：[扩展库作者指南](https://youtrack.jetbrains.com/issue/KT-71299)
+* ✅ 多平台：[Swift Export 的首次公开发布](https://youtrack.jetbrains.com/issue/KT-64572)
+* ✅ 多平台：[支持在项目级别声明 Kotlin Multiplatform 依赖项](https://youtrack.jetbrains.com/issue/KT-71289)
+* ✅ 多平台：[稳定化 klib 在不同平台上的交叉编译](https://youtrack.jetbrains.com/issue/KT-71290)
+* ✅ 多平台：[Kotlin/JS：为 Compose 回退模式支持 WasmJS 和 JS 之间的公共源代码](https://youtrack.jetbrains.com/issue/KT-79394)
+* ✅ 工具：[改进 Kotlin 构建报告](https://youtrack.jetbrains.com/issue/KT-60279)
+* ✅ 工具：[在 Gradle DSL 中暴露稳定编译器实参](https://youtrack.jetbrains.com/issue/KT-55515)
+* ✅ 工具：[支持 Gradle 项目隔离](https://youtrack.jetbrains.com/issue/KT-54105)
+* ✅ 工具：[改进 Kotlin/Native 工具链与 Gradle 的集成](https://youtrack.jetbrains.com/issue/KT-64577)
+* ✅ 工具：[Kotlin Notebook：更流畅的访问和改进的体验](https://youtrack.jetbrains.com/issue/KTNB-898)
+* ✅ 工具：[支持 XCFrameworks 中的资源](https://youtrack.jetbrains.com/issue/KT-75377)
+* ✅ 生态系统：[优化 Dokka HTML 输出 UI](https://youtrack.jetbrains.com/issue/KT-71295)
+* ✅ 生态系统：[简化后端应用程序的项目结构](https://youtrack.jetbrains.com/issue/KTOR-7158)
+* ✅ 生态系统：[将 CLI 生成器发布到 SNAP](https://youtrack.jetbrains.com/issue/KTOR-3937)
+* ✅ 生态系统：[简化依赖注入的使用](https://youtrack.jetbrains.com/issue/KTOR-6621)
 
 ### 新增项
 
 我们已**添加**以下项到路线图中：
 
-*   🆕 编译器：[最终确定 JSpecify 支持](https://youtrack.jetbrains.com/issue/KT-75371)
-*   🆕 编译器：[废弃 K1 编译器](https://youtrack.jetbrains.com/issue/KT-75372)
-*   🆕 编译器：[将 Kotlin/Wasm (`wasm-js` 目标) 升级为 Beta 版](https://youtrack.jetbrains.com/issue/KT-75370)
-*   🆕 工具：[改进 IntelliJ IDEA 中 Kotlin/Wasm 项目的开发体验](https://youtrack.jetbrains.com/issue/KT-75374)
-*   🆕 工具：[提升导入性能](https://youtrack.jetbrains.com/issue/KT-75376)
-*   🆕 工具：[支持 XCFrameworks 中的资源](https://youtrack.jetbrains.com/issue/KT-75377)
-*   🆕 工具：[提升 Kotlin Notebook 的访问和使用体验](https://youtrack.jetbrains.com/issue/KTNB-898)
-*   🆕 Ktor：[为 Ktor 添加 gRPC 支持，包括生成器插件和教程](https://youtrack.jetbrains.com/issue/KTOR-1501)
-*   🆕 Ktor：[简化后端应用程序的项目结构](https://youtrack.jetbrains.com/issue/KTOR-7158)
-*   🆕 Ktor：[将 CLI 生成器发布到 SNAP](https://youtrack.jetbrains.com/issue/KTOR-3937)
-*   🆕 Ktor：[创建 Kubernetes 生成器插件](https://youtrack.jetbrains.com/issue/KTOR-6026)
-*   🆕 Ktor：[简化依赖注入的使用](https://youtrack.jetbrains.com/issue/KTOR-6621)
-*   🆕 Ktor：[HTTP/3 支持](https://youtrack.jetbrains.com/issue/KTOR-7938)
-*   🆕 Exposed：[发布 1.0.0 版](https://youtrack.jetbrains.com/issue/EXPOSED-444)
-*   🆕 Exposed：[添加 R2DBC 支持](https://youtrack.jetbrains.com/issue/EXPOSED-74)
+* 🆕 编译器：[Kotlin/Wasm：使用新的线程提案原型化多线程支持](https://youtrack.jetbrains.com/issue/KT-80304)
+* 🆕 多平台：[在 Swift Export 中支持协程](https://youtrack.jetbrains.com/issue/KT-80305)
+* 🆕 多平台：[Kotlin/JS：编译为现代 JavaScript](https://youtrack.jetbrains.com/issue/KT-80308)
+* 🆕 多平台：[Kotlin/JS：扩展将 Kotlin 声明导出到 JavaScript 的可能性](https://youtrack.jetbrains.com/issue/KT-80310)
+* 🆕 多平台：[Kotlin/JS：改进 Kotlin/JS 的入门材料](https://youtrack.jetbrains.com/issue/KT-80307)
+* 🆕 工具：[支持 Kotlin LSP 和 VS Code](https://youtrack.jetbrains.com/issue/KT-80322)
+* 🆕 工具：[改进 Kotlin + JPA 体验](https://youtrack.jetbrains.com/issue/KTIJ-35208)
+* 🆕 工具：[在 Gradle 项目隔离中支持 Kotlin JS\WASM](https://youtrack.jetbrains.com/issue/KT-80311)
+* 🆕 工具：[Kotlin Notebooks：支持新用例](https://youtrack.jetbrains.com/issue/KTNB-1133)
+* 🆕 生态系统：[实现 KDoc 机器可读表示](https://youtrack.jetbrains.com/issue/KT-80323)
+* 🆕 生态系统：[稳定化 Kotlin Notebooks](https://youtrack.jetbrains.com/issue/KT-80324)
+* 🆕 生态系统：[发布 Kotlin DataFrame 1.0](https://youtrack.jetbrains.com/issue/KT-80327)
+* 🆕 生态系统：[发布 Kandy 0.9](https://youtrack.jetbrains.com/issue/KT-80328)
+* 🆕 生态系统：[为 Ktor 客户端和服务器应用程序支持 OpenAPI 规范](https://youtrack.jetbrains.com/issue/KTOR-8316)
+* 🆕 生态系统：[改进 Ktor 管理与可观测性](https://youtrack.jetbrains.com/issue/KTOR-6622)
+* 🆕 生态系统：[WebRTC 客户端](https://youtrack.jetbrains.com/issue/KTOR-7958)
 
-<!--
-### Removed items
+### 已移除项
 
-We've **removed** the following items from the roadmap:
+我们已**移除**路线图中的以下项：
 
-* ❌ Compiler: [Improve the quality of compiler diagnostics](https://youtrack.jetbrains.com/issue/KT-71275)
+* ❌ 编译器：[Kotlin/Wasm：将库的 <code>wasm-wasi</code> 目标切换到 WASI Preview 2](https://youtrack.jetbrains.com/issue/KT-64568)
+* ❌ 编译器：[Kotlin/Wasm：支持 Component Model](https://youtrack.jetbrains.com/issue/KT-64569)
+* ❌ 生态系统：[发布到 Snap](https://youtrack.jetbrains.com/issue/KTOR-3937)
 
-> Some items were removed from the roadmap but not dropped completely. In some cases, we've merged previous roadmap items
-> with the current ones.
->
+> * 部分项已从路线图中移除，但并非完全放弃。在某些情况下，我们已将之前的路线图项与当前的项合并。
+> 
 {style="note"}
--->
-
-### 正在进行中的项
-
-所有其他先前确定的路线图项都在进行中。您可以查看其 [YouTrack 任务](https://youtrack.jetbrains.com/issues?q=project:%20KT,%20KTIJ%20tag:%20%7BRoadmap%20Item%7D%20%23Unresolved%20)以获取更新。

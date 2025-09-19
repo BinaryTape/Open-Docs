@@ -121,7 +121,7 @@ JetBrains Academy의 [Kotlin Core 트랙](https://hyperskill.org/tracks?category
 
 기술 강연 및 워크숍 외에도 KotlinConf는 네트워킹 기회, 커뮤니티 교류, 사교 행사를 제공하여 참석자들이 다른 Kotlin 사용자들과 교류하고 아이디어를 나눌 수 있습니다. Kotlin 생태계 내에서 협업과 커뮤니티 구축을 촉진하는 플랫폼 역할을 합니다.
 
-Kotlin은 전 세계 다양한 컨퍼런스에서 다루어지고 있습니다. [웹사이트](https://kotlinlanglang.org/community/talks.html?time=upcoming)에서 [예정된 강연] 목록을 확인할 수 있습니다.
+Kotlin은 전 세계 다양한 컨퍼런스에서 다루어지고 있습니다. [웹사이트](https://kotlinlang.org/community/talks.html?time=upcoming)에서 [예정된 강연] 목록을 확인할 수 있습니다.
 
 ### Kotlin은 소셜 미디어에 있나요?
 

@@ -108,7 +108,7 @@ data class Person(val name: String, @all:Positive val age: Int)
 ```kotlin
 @Target(AnnotationTarget.CLASS, AnnotationTarget.PROPERTY)
 @java.lang.annotation.Target(ElementType.CLASS, ElementType.RECORD_COMPONENT)
-annotation class exampleClass
+annotation class ExampleClass
 ```
 
 これで、`@ExampleClass`をKotlinクラスとプロパティ、ならびにJavaクラスとレコードコンポーネントに適用できます。

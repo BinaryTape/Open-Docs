@@ -11,7 +11,8 @@
 
 ## 編譯器選項
 
-Kotlin 編譯器有許多選項可用於客製化編譯過程。本頁面列出了針對不同目標的編譯器選項及其說明。
+Kotlin 編譯器有許多選項可用於客製化編譯過程。
+本頁面列出了針對不同目標的編譯器選項及其說明。
 
 有幾種方法可以設定編譯器選項及其值（_編譯器引數_）：
 * 在 IntelliJ IDEA 中，於 **設定/偏好設定** | **建置、執行、部署** | **編譯器** | **Kotlin 編譯器** 中的 **額外命令列參數** 文字方塊中輸入編譯器引數。
@@ -30,6 +31,10 @@ Kotlin 編譯器有許多選項可用於客製化編譯過程。本頁面列出�
   > $ kotlinc.bat hello.kt -include-runtime -d "My Folder\hello.jar"
   > ```
   {style="note"}
+
+## 編譯器選項的 Schema
+
+所有編譯器選項的通用 Schema 已以 JAR 構件的形式發佈在 [`org.jetbrains.kotlin:kotlin-compiler-arguments-description`](https://central.sonatype.com/artifact/org.jetbrains.kotlin/kotlin-compiler-arguments-description) 下。此構件包含所有編譯器選項說明的程式碼表示和 JSON 等效項（用於非 Kotlin 消費者），以及中繼資料，例如每個選項引入或穩定化的版本。
 
 ## 共用選項
 
@@ -175,6 +180,33 @@ kotlinc -Xwarning-level=DIAGNOSTIC_NAME:(error|warning|disabled)
 
 如果您有許多警告要從一般規則中排除，您可以使用 [`@argfile`](#argfile) 將它們列在單獨的檔案中。
 
+### -Xdata-flow-based-exhaustiveness
+<primary-label ref="experimental-general"/>
+
+啟用基於資料流的 `when` 表達式窮舉性檢查。
+
+### -Xallow-reified-type-in-catch
+<primary-label ref="experimental-general"/>
+
+啟用對 `inline` 函式中 `catch` 子句裡的實化 `Throwable` 類型參數的支援。
+
+### Kotlin 契約選項
+<primary-label ref="experimental-general"/>
+
+以下選項啟用實驗性的 Kotlin 契約功能。
+
+#### -Xallow-contracts-on-more-functions
+
+啟用在更多宣告中使用契約，包括屬性存取器、特定的運算子函式以及泛型上的類型斷言。
+
+#### -Xallow-condition-implies-returns-contracts
+
+允許在契約中使用 `returnsNotNull()` 函式，以假定在指定條件下傳回非空值。
+
+#### -Xallow-holdsin-contract
+
+允許在契約中使用 `holdsIn` 關鍵字，以假定在 `lambda` 內部布林條件為 `true`。
+
 ## Kotlin/JVM 編譯器選項
 
 用於 JVM 的 Kotlin 編譯器將 Kotlin 原始碼檔案編譯為 Java 類別檔案。用於 Kotlin 到 JVM 編譯的命令列工具是 `kotlinc` 和 `kotlinc-jvm`。您也可以使用它們來執行 Kotlin 腳本檔案。
@@ -281,7 +313,7 @@ kotlinc -Xwarning-level=DIAGNOSTIC_NAME:(error|warning|disabled)
 - `commonjs` - [CommonJS](http://www.commonjs.org/) 模組
 - `amd` - [非同步模組定義](https://en.wikipedia.org/wiki/Asynchronous_module_definition) 模組
 - `plain` - 純 JS 模組
-    
+
 若要了解更多有關不同類型 JS 模組及其區別的資訊，請參閱 [這篇](https://www.davidbcalhoun.com/2014/what-is-amd-commonjs-and-umd/) 文章。
 
 ### -no-stdlib (JS)
@@ -325,6 +357,11 @@ kotlinc -Xwarning-level=DIAGNOSTIC_NAME:(error|warning|disabled)
 ### -source-map-prefix
 
 將指定的字首新增到原始碼對應中的路徑。
+
+### -Xes-long-as-bigint
+<primary-label ref="experimental-general"/>
+
+啟用對 JavaScript `BigInt` 類型的支援，以便在編譯為現代 JavaScript (ES2020) 時表示 Kotlin `Long` 值。
 
 ## Kotlin/Native 編譯器選項
 
@@ -416,12 +453,12 @@ Kotlin/Native 編譯器將 Kotlin 原始碼檔案編譯為針對 [支援平台](
 
 指定輸出檔案類型：
 
-- `program`
-- `static`
-- `dynamic`
-- `framework`
-- `library`
-- `bitcode`
+- `program` (程式)
+- `static` (靜態)
+- `dynamic` (動態)
+- `framework` (框架)
+- `library` (函式庫)
+- `bitcode` (位元碼)
 
 ### -repo _path_ (-r _path_)
 

@@ -1,4 +1,4 @@
-[//]: # (title: Kotlin 和 Java 中的集合)
+[//]: # (title: Java 和 Kotlin 中的集合)
 
 <web-summary>了解如何从 Java 集合迁移到 Kotlin 集合。本指南涵盖 Kotlin 和 Java 中的 List、ArrayList、Map、Set 等数据结构。</web-summary>
 
@@ -102,7 +102,7 @@ _集合_是由可变数量（可能为零）的项组成的组，这些项对解
 
 ```java
 // Java
-// This list is mutable!
+// 这个 list 是可变的！
 public List<Customer> getCustomers() { ... }
 ```
 {id="mutability-java"}
@@ -121,7 +121,7 @@ numbers.add("five"); // Fails in runtime with `UnsupportedOperationException`
 ```java
 // Java
 List<String> numbers = new LinkedList<>();
-// This list is immutable!
+// 这个 list 是不可变的！
 List<String> immutableCollection = Collections.unmodifiableList(numbers);
 immutableCollection.add("five"); // Fails in runtime with `UnsupportedOperationException`
 ```
@@ -134,9 +134,9 @@ immutableCollection.add("five"); // Fails in runtime with `UnsupportedOperationE
 ```kotlin
 // Kotlin
 val numbers = mutableListOf("one", "two", "three", "four")
-numbers.add("five")            // This is OK
+numbers.add("five")            // 这没问题
 val immutableNumbers = listOf("one", "two")
-//immutableNumbers.add("five") // Compilation error - Unresolved reference: add
+//immutableNumbers.add("five") // 编译错误 - 无法解析的引用：add
 ```
 {id="mutability-kotlin"}
 
@@ -153,8 +153,7 @@ class Shape {}
 class Rectangle extends Shape {}
 
 public void doSthWithShapes(List<? extends Shape> shapes) {
-/* If using just List<Shape>, the code won't compile when calling
-this function with the List<Rectangle> as the argument as below */
+/* 如果仅使用 List<Shape>，在以下面 List<Rectangle> 作为实参调用此函数时，代码将无法编译 */
 }
 
 public void main() {
@@ -351,7 +350,7 @@ public void remove() {
     numbers.add(2);
     numbers.add(3);
     numbers.add(1);
-    numbers.remove(1); // This removes by index
+    numbers.remove(1); // 这是按索引移除
     System.out.println(numbers); // [1, 3, 1]
     numbers.remove(Integer.valueOf(1));
     System.out.println(numbers); // [3, 1]
@@ -549,7 +548,7 @@ public void objectIsInstance() {
     numbers.add("two");
     numbers.add(3.0);
     numbers.add("four");
-    System.out.println("All String elements in upper case:");
+    System.out.println("所有 String 元素大写：");
     numbers.stream().filter(it -> it instanceof String)
         .forEach( it -> System.out.println(((String) it).toUpperCase()));
 }
@@ -564,7 +563,7 @@ fun main() {
 //sampleStart
     // Kotlin
     val numbers = listOf(null, 1, "two", 3.0, "four")
-    println("All String elements in upper case:")
+    println("所有 String 元素大写：")
     numbers.filterIsInstance<String>().forEach {
         println(it.uppercase())
     }

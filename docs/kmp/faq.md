@@ -8,7 +8,7 @@
 
 ### 我可以使用 Kotlin Multiplatform 共享 UI 吗？
 
-可以，你可以使用 [Compose Multiplatform](https://www.jetbrains.com/lp/compose-multiplatform/) 共享 UI。它是 JetBrains 基于 Kotlin 和 [Jetpack Compose](https://developer.android.com/jetpack/compose) 开发的声明式 UI 框架。此框架允许你为 iOS、Android、桌面和 Web 等平台创建共享 UI 组件，帮助你在不同设备和平台间保持一致的用户界面。
+可以，你可以使用 [Compose Multiplatform](https://www.jetbrains.com/lp/compose-multiplatform/)，这是一个 JetBrains 基于 Kotlin 和 [Jetpack Compose](https://developer.android.com/jetpack/compose) 开发的声明式 UI 框架。此框架允许你为 iOS、Android、桌面和 Web 等平台创建共享 UI 组件，帮助你在不同设备和平台间保持一致的用户界面。
 
 要了解更多信息，请参见 [Compose Multiplatform](#compose-multiplatform) 部分。
 
@@ -49,7 +49,7 @@ Kotlin Multiplatform 支持 Android、iOS、桌面、Web、服务端以及其他
 你仍然可以使用协程和流在 Kotlin Multiplatform 项目中编写异步代码。如何调用这些代码取决于你从何处调用它们。从 Kotlin 代码中调用挂起函数和流已被广泛记录，尤其是对于 Android。从 [Swift 代码中调用它们](https://kotlinlang.org/docs/native-arc-integration.html#completion-handlers) 需要更多一些工作，更多详细信息请参见 [KT-47610](https://youtrack.jetbrains.com/issue/KT-47610)。
 
 <!-- when adding SKIE back to the tutorial, add it here as well
-and uncomment the paragraph below --> 
+and uncomment the paragraph below -->
 
 目前从 Swift 调用挂起函数和流的最佳方法是使用像 [KMP-NativeCoroutines](https://github.com/rickclephas/KMP-NativeCoroutines) 这样的插件和库，结合 Swift 的 `async`/`await` 或像 Combine 和 RxSwift 这样的库。
 
@@ -78,7 +78,7 @@ Kotlin/Native 主要旨在允许为那些不希望或无法使用虚拟机的平
 
 ### 什么是 Compose Multiplatform？
 
-[Compose Multiplatform](https://www.jetbrains.com/lp/compose-multiplatform/) 是 JetBrains 开发的一个现代声明式和反应式 UI 框架，它提供了一种用少量 Kotlin 代码构建用户界面的简单方法。它还允许你一次编写 UI，并在任何支持的平台（iOS、Android、桌面（Windows、macOS、Linux）和 Web）上运行它。
+[Compose Multiplatform](https://www.jetbrains.com/lp/compose-multiplatform/) 是 JetBrains 开发的一个现代声明式和反应式 UI 框架，它提供了一种用少量 Kotlin 代码构建用户界面的简单方法。它还允许你一次编写 UI，并在任何支持的平台——iOS、Android、桌面（Windows、macOS、Linux）和 Web——上运行它。
 
 ### 它与 Jetpack Compose for Android 有何关系？
 
@@ -94,7 +94,7 @@ Compose Multiplatform 大部分 API 与 Google 开发的 Android UI 框架 [Jetp
 
 Compose Multiplatform 的 Android、iOS 和桌面目标是稳定的。你可以在生产环境中使用它们。
 
-基于 WebAssembly 的 Compose Multiplatform for Web 版本处于 Alpha 阶段，这意味着它正在积极开发中。你可以谨慎使用，并预计会遇到迁移问题。它的 UI 与 Compose Multiplatform for iOS、Android 和桌面相同。
+基于 WebAssembly 的 Compose Multiplatform for Web 版本处于 Beta 阶段，这意味着它已接近完成。你可以使用它，但仍可能出现迁移问题。它的 UI 与 Compose Multiplatform for iOS、Android 和桌面相同。
 
 ### 如何创建新的 Compose Multiplatform 项目？
 
@@ -157,7 +157,7 @@ generated automatically.
 
 ### Compose Multiplatform 何时会稳定？
 
-Compose Multiplatform 对 Android、iOS 和桌面是稳定的，而 Web 平台支持处于 Alpha 阶段。我们正在努力实现 Web 平台的稳定版本，具体日期将另行公布。
+Compose Multiplatform 对 Android、iOS 和桌面是稳定的，而 Web 平台支持处于 Beta 阶段。我们正在努力实现 Web 平台的稳定版本，具体日期将另行公布。
 
 有关稳定状态的更多信息，请参见 [支持的平台](supported-platforms.md)。
 

@@ -27,7 +27,7 @@
 
 ## 创建项目
 
-1. 在[快速入门](quickstart.md)中，完成[设置 Kotlin Multiplatform 开发环境](https://kotlinlang.org/docs/multiplatform-quickstart.html#set-up-the-environment)的说明。
+1. 在[快速入门](quickstart.md)中，完成[设置 Kotlin Multiplatform 开发环境](quickstart.md#set-up-the-environment)的说明。
 2. 在 IntelliJ IDEA 中，选择 **File** | **New** | **Project**。
 3. 在左侧面板中，选择 **Kotlin Multiplatform**。
 
@@ -46,14 +46,14 @@
     {style="note"}
 
 5. 选择 **Android**、**iOS**、**Desktop** 和 **Web** 目标。
-    确保 **Share UI** 选项已为 iOS 选中。
+    确保 **Share UI** 选项已为 iOS 和 Web 选中。
 6. 指定所有字段和目标后，点击 **Create**（Web 向导中为 **Download**）。
 
    ![创建 Compose Multiplatform 项目](create-compose-multiplatform-project.png){width=800}
 
 ## 检查项目结构
 
-在 IntelliJ IDEA 中，导航到 "ComposeDemo" 文件夹。
+在 IntelliJ IDEA 中，导航到 `ComposeDemo` 文件夹。
 如果你未在向导中选择 iOS，将不会有以 "ios" 或 "apple" 开头的文件夹。
 
 > IntelliJ IDEA 可能会自动建议将项目中的 Android Gradle 插件升级到最新版本。我们不建议升级，因为 Kotlin Multiplatform 与最新 AGP 版本不兼容（参阅 [兼容性表](https://kotlinlang.org/docs/multiplatform-compatibility-guide.html#version-compatibility)）。
@@ -65,16 +65,17 @@
 * _composeApp_ 是一个 Kotlin 模块，包含在 Android、桌面、iOS 和 Web 应用程序之间共享的逻辑——即你在所有平台使用的代码。它使用 [Gradle](https://kotlinlang.org/docs/gradle.html) 作为构建系统，帮助你自动化构建过程。
 * _iosApp_ 是一个 Xcode 项目，它构建为 iOS 应用程序。它依赖并使用共享模块作为 iOS framework。
 
-  ![Compose Multiplatform 项目结构](compose-project-structure.png){width=350}
+  ![Compose Multiplatform 项目结构](compose-project-structure.png)
 
-**composeApp** 模块由以下源代码集组成：`androidMain`、`commonMain`、`desktopMain`、`iosMain` 和 `wasmJsMain`。
-_源代码集_ 是 Gradle 的一个概念，指一组逻辑上组合在一起的文件，其中每个组都有自己的依赖项。在 Kotlin Multiplatform 中，不同的源代码集可以面向不同的平台。
+**composeApp** 模块由以下源代码集组成：`androidMain`、`commonMain`、`jvmMain`、`iosMain` 和 `wasmJsMain`（如果选择包含测试，则还有 `commonTest`）。
+_源代码集_ 是 Gradle 的一个概念，指一组逻辑上组合在一起的文件，其中每个组都有自己的依赖项。在 Kotlin Multiplatform 中，不同的源代码集可以面向不同的目标平台。
 
-`commonMain` 源代码集使用通用 Kotlin 代码，平台源代码集使用每个目标特有的 Kotlin 代码。Kotlin/JVM 用于 `androidMain` 和 `desktopMain`。Kotlin/Native 用于 `iosMain`。另一方面，Kotlin/Wasm 用于 `wasmJsMain`。
+`commonMain` 源代码集包含通用 Kotlin 代码，平台源代码集包含每个目标特有的 Kotlin 代码。
+Kotlin/JVM 用于 `androidMain` 和 `jvmMain`。Kotlin/Native 用于 `iosMain`。另一方面，Kotlin/Wasm 用于 `wasmJsMain`。
 
 当共享模块构建为 Android 库时，通用 Kotlin 代码被视为 Kotlin/JVM。当它构建为 iOS framework 时，通用 Kotlin 代码被视为 Kotlin/Native。当共享模块构建为 Web 应用时，通用 Kotlin 代码被视为 Kotlin/Wasm。
 
-![通用 Kotlin、Kotlin/JVM 和 Kotlin/Native](module-structure.png){width=700}
+![Common Kotlin, Kotlin/JVM, and Kotlin/Native](module-structure.png){width=700}
 
 通常，尽可能将你的实现编写为通用代码，而不是在平台特有的源代码集中重复功能。
 
@@ -204,7 +205,7 @@ fun App() {
 
    如果你尚未设置你的团队，请在 **Team** 列表中使用 **Add an Account** 选项，并遵循 Xcode 说明。
 
-6. 确保 Bundle Identifier 是唯一的且签名证书已成功分配。
+6. 确保 Bundle Identifier 是唯一的且 Signing Certificate 已成功分配。
 
 ##### 运行应用
 

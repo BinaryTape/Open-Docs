@@ -2,7 +2,7 @@
 
 <tldr>
     <p>最新のKotlinバージョン: <strong>%kotlinVersion%</strong></p>
-    <p>詳細については<a href="%kotlinLatestWhatsnew%">Kotlin %kotlinVersion% の新機能</a>を参照してください</p>
+    <p>詳細については<a href="%kotlinLatestWhatsnew%">Kotlin 2.2.20 の新機能</a>を参照してください<!--and find the bug fix details in the <a href="%kotlinLatestUrl%">changelog</a>-->。</p>
 </tldr>
 
 Kotlin 2.0.0以降、以下の種類のリリースを提供しています。
@@ -53,7 +53,7 @@ plugins {
 plugins {
     // <...>をターゲット環境に適したプラグイン名に置き換えてください
     id 'org.jetbrains.kotlin.<...>' version '%kotlinVersion%'
-    // たとえば、ターゲット環境がJVMの場合:
+    // たとえば、ターゲット環境がJVMの場合: 
     // id 'org.jetbrains.kotlin.jvm' version '%kotlinVersion%'
     // ターゲットがKotlin Multiplatformの場合:
     // id 'org.jetbrains.kotlin.multiplatform' version '%kotlinVersion%'
@@ -132,15 +132,35 @@ K2モードの詳細については、[こちらのブログ](https://blog.jetbr
         <th>ビルドのハイライト</th>
     </tr>
     <tr>
+        <td><strong>2.2.20</strong>
+            <p>リリース日: <strong>2025年9月10日</strong></p>
+            <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.2.20" target="_blank">GitHubでのリリース</a></p>
+        </td>
+        <td>
+            <p>Kotlin 2.2.0 向けのツールリリースで、ウェブ開発における重要な変更やその他の改善が含まれています。</p>
+            <p>詳細については、<a href="https://github.com/JetBrains/kotlin/releases/tag/v2.2.20">変更ログ</a>を参照してください。</p>
+        </td>
+    </tr>
+    <tr>
+        <td><strong>2.2.10</strong>
+            <p>リリース日: <strong>2025年8月14日</strong></p>
+            <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.2.10" target="_blank">GitHubでのリリース</a></p>
+        </td>
+        <td>
+            <p>Kotlin 2.2.0 のバグ修正リリースです。</p>
+            <p>詳細については、<a href="https://github.com/JetBrains/kotlin/releases/tag/v2.2.10">変更ログ</a>を参照してください。</p>
+        </td>
+    </tr>
+    <tr>
         <td><strong>2.2.0</strong>
             <p>リリース日: <strong>2025年6月23日</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.2.0" target="_blank">GitHubでのリリース</a></p>
         </td>
         <td>
-            <p>新しい安定した言語機能、ツールアップデート、さまざまなプラットフォーム向けのパフォーマンス改善、重要な修正を含む言語リリースです。</p>
+            <p>新しい安定した言語機能、ツールアップデート、さまざまなプラットフォーム向けのパフォーマンス改善、および重要な修正を含む言語リリースです。</p>
             <p>詳細については、<a href="https://github.com/JetBrains/kotlin/releases/tag/v2.2.0">変更ログ</a>を参照してください。</p>
         </td>
-    </tr>
+    </tr> 
     <tr>
         <td><strong>2.1.21</strong>
             <p>リリース日: <strong>2025年5月13日</strong></p>
@@ -150,7 +170,7 @@ K2モードの詳細については、[こちらのブログ](https://blog.jetbr
             <p>Kotlin 2.1.20 のバグ修正リリースです。</p>
             <p>詳細については、<a href="https://github.com/JetBrains/kotlin/releases/tag/v2.1.21">変更ログ</a>を参照してください。</p>
         </td>
-    </tr>
+    </tr> 
    <tr>
         <td><strong>2.1.20</strong>
             <p>リリース日: <strong>2025年3月20日</strong></p>
@@ -536,10 +556,10 @@ K2モードの詳細については、[こちらのブログ](https://blog.jetbr
         <td>
             <p>以下のような様々な改善を含むインクリメンタルリリースです:</p>
             <list>
-                <li>JVMでの`invokedynamic`を介した文字列結合がデフォルトで有効に</li>
+                <li>JVMでの<code>invokedynamic</code>を介した文字列結合がデフォルトで有効に</li>
                 <li>Lombokのサポート改善とJSpecifyのサポート</li>
-                <li>Kotlin/Native: Objective-CヘッダーへのKDocエクスポートと、単一配列内での`Array.copyInto()`の高速化</li>
-                <li>Gradle: アノテーションプロセッサのクラスローダのキャッシュと`--parallel` Gradleプロパティのサポート</li>
+                <li>Kotlin/Native: Objective-CヘッダーへのKDocエクスポートと、単一配列内での<code>Array.copyInto()</code>の高速化</li>
+                <li>Gradle: アノテーションプロセッサのクラスローダのキャッシュと<code>--parallel</code> Gradleプロパティのサポート</li>
                 <li>プラットフォーム間でのstdlib関数の動作の統一</li>
             </list>
             <p>詳細はこちら:</p>
@@ -632,9 +652,9 @@ K2モードの詳細については、[こちらのブログ](https://blog.jetbr
         <td>
             <p>以下のような様々な改善を含むインクリメンタルリリースです:</p>
             <list>
-                <li>`invokedynamic`による文字列結合など、新しいJVM機能のサポート</li>
+                <li><code>invokedynamic</code>による文字列結合など、新しいJVM機能のサポート</li>
                 <li>Kotlin Multiplatform Mobileプロジェクトのパフォーマンスと例外処理の改善</li>
-                <li>JDK Pathの拡張機能: `Path("dir") / "file.txt"`</li>
+                <li>JDK Pathの拡張機能: <code>Path("dir") / "file.txt"</code></li>
             </list>
             <p>詳細はこちら:</p>
             <list>

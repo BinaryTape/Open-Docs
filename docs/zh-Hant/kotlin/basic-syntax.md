@@ -73,16 +73,16 @@ fun main() {
 您可以將 `println()`、`readln()` 和 `print()` 函數一起使用，以列印請求和顯示使用者輸入的訊息：
 
 ```kotlin
-// 列印訊息以請求輸入
+// Prints a message to request input
 println("Enter any word: ")
 
-// 讀取並儲存使用者輸入。例如：Happiness
+// Reads and stores the user input. For example: Happiness
 val yourWord = readln()
 
-// 列印包含輸入的訊息
+// Prints a message with the input
 print("You entered the word: ")
 print(yourWord)
-// 您輸入的單字：Happiness
+// You entered the word: Happiness
 ```
 
 更多資訊，請參閱 [Read standard input](read-standard-input.md)。
@@ -159,7 +159,7 @@ fun main() {
 ```kotlin
 fun main() {
 //sampleStart
-    // 宣告變數 x 並將其初始化為值 5
+    // Declares the variable x and initializes it with the value of 5
     val x: Int = 5
     // 5
 //sampleEnd
@@ -173,9 +173,9 @@ fun main() {
 ```kotlin
 fun main() {
 //sampleStart
-    // 宣告變數 x 並將其初始化為值 5
+    // Declares the variable x and initializes it with the value of 5
     var x: Int = 5
-    // 將新值 6 重新賦予變數 x
+    // Reassigns a new value of 6 to the variable x
     x += 1
     // 6
 //sampleEnd
@@ -189,7 +189,7 @@ Kotlin 支援型別推斷，並自動識別已宣告變數的資料型別。當�
 ```kotlin
 fun main() {
 //sampleStart
-    // 宣告變數 x 值為 5；推斷為 `Int` 型別
+    // Declares the variable x with the value of 5;`Int` type is inferred
     val x = 5
     // 5
 //sampleEnd
@@ -203,11 +203,11 @@ fun main() {
 ```kotlin
 fun main() {
 //sampleStart
-    // 在宣告時初始化變數 x；不需要型別
+    // Initializes the variable x at the moment of declaration; type is not required
     val x = 5
-    // 宣告變數 c 但不初始化；需要型別
+    // Declares the variable c without initialization; type is required
     val c: Int
-    // 在宣告後初始化變數 c 
+    // Initializes the variable c after declaration 
     c = 3
     // 5 
     // 3
@@ -289,18 +289,18 @@ class Rectangle(val height: Double, val length: Double): Shape() {
 與大多數現代語言一樣，Kotlin 支援單行（或*行尾*）和多行（*區塊*）註釋：
 
 ```kotlin
-// 這是一個行尾註釋
+// This is an end-of-line comment
 
-/* 這是一個區塊註釋
-   多行。 */
+/* This is a block comment
+   on multiple lines. */
 ```
 
 Kotlin 中的區塊註釋可以巢狀：
 
 ```kotlin
-/* 註釋從這裡開始
-/* 包含一個巢狀註釋 */     
-並在這裡結束。 */
+/* The comment starts here
+/* contains a nested comment */     
+and ends here. */
 ```
 
 有關文件註釋語法的資訊，請參閱 [Documenting Kotlin Code](kotlin-doc.md)。
@@ -311,11 +311,11 @@ Kotlin 中的區塊註釋可以巢狀：
 fun main() {
 //sampleStart
     var a = 1
-    // 模板中的簡單名稱：
+    // simple name in template:
     val s1 = "a is $a" 
     
     a = 2
-    // 模板中的任意運算式：
+    // arbitrary expression in template:
     val s2 = "${s1.replace("is", "was")}, but now is $a"
 //sampleEnd
     println(s2)
@@ -573,9 +573,9 @@ fun printProduct(arg1: String, arg2: String) {
     val x = parseInt(arg1)
     val y = parseInt(arg2)
 
-    // 使用 `x * y` 會產生錯誤，因為它們可能為空值。
+    // Using `x * y` yields error because they may hold nulls.
     if (x != null && y != null) {
-        // 經過空值檢查後，x 和 y 會自動轉型為非可空型別
+        // x and y are automatically cast to non-nullable after null check
         println(x * y)
     }
     else {
@@ -614,7 +614,7 @@ fun printProduct(arg1: String, arg2: String) {
         return
     }
 
-    // 經過空值檢查後，x 和 y 會自動轉型為非可空型別
+    // x and y are automatically cast to non-nullable after null check
     println(x * y)
 //sampleEnd
 }
@@ -637,11 +637,11 @@ fun main() {
 //sampleStart
 fun getStringLength(obj: Any): Int? {
     if (obj is String) {
-        // 在此分支中，`obj` 會自動轉型為 `String`
+        // `obj` is automatically cast to `String` in this branch
         return obj.length
     }
 
-    // 在此型別檢查分支之外，`obj` 仍為 `Any` 型別
+    // `obj` is still of type `Any` outside of the type-checked branch
     return null
 }
 //sampleEnd
@@ -664,7 +664,7 @@ fun main() {
 fun getStringLength(obj: Any): Int? {
     if (obj !is String) return null
 
-    // 在此分支中，`obj` 會自動轉型為 `String`
+    // `obj` is automatically cast to `String` in this branch
     return obj.length
 }
 //sampleEnd
@@ -685,7 +685,7 @@ fun main() {
 ```kotlin
 //sampleStart
 fun getStringLength(obj: Any): Int? {
-    // 在 `&&` 的右側，`obj` 會自動轉型為 `String`
+    // `obj` is automatically cast to `String` on the right-hand side of `&&`
     if (obj is String && obj.length > 0) {
         return obj.length
     }

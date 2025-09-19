@@ -7,14 +7,14 @@
 深度链接对于将外部输入引入应用程序也很有用，例如，在 OAuth 授权的情况下：你可以解析深度链接并获取 OAuth 令牌，而无需强制用户进行视觉导航。
 
 > 由于外部输入可能是恶意的，请务必遵循[安全指南](https://developer.android.com/privacy-and-security/risks/unsafe-use-of-deeplinks)以妥善缓解与处理原始深度链接 URI 相关的风险。
-> 
+>
 {style="warning"}
 
 要在 Compose Multiplatform 中实现深度链接：
 
-1. [在应用程序配置中注册深度链接方案](#register-deep-links-schemas-in-the-operating-system)
-2. [将特定深度链接分配给导航图中的目的地](#assign-deep-links-to-destinations)
-3. [处理应用程序接收到的深度链接](#handle-received-deep-links)
+1.  [在应用程序配置中注册深度链接方案](#register-deep-links-schemas-in-the-operating-system)
+2.  [将特定深度链接分配给导航图中的目的地](#assign-deep-links-to-destinations)
+3.  [处理应用程序接收到的深度链接](#handle-received-deep-links)
 
 ## 设置
 
@@ -27,7 +27,7 @@
 compose-multiplatform = "%org.jetbrains.compose%"
 agp = "8.9.0"
 
-# 支持深度链接的多平台 Navigation 库版本 
+# 支持深度链接的多平台 Navigation 库版本
 androidx-navigation = "%org.jetbrains.androidx.navigation%"
 
 # 与 Compose Multiplatform 1.8.0 兼容的最低 Kotlin 版本
@@ -74,18 +74,18 @@ kotlin {
 
 每个操作系统都有其处理深度链接的方式。查阅特定目标平台的文档会更可靠：
 
-* 对于 Android 应用程序，深度链接方案在 `AndroidManifest.xml` 文件中声明为 intent filter。关于如何正确设置 intent filter，请参见 [Android 文档](https://developer.android.com/training/app-links/deep-linking?hl=en#adding-filters)。
-* 对于 iOS 和 macOS 应用程序，深度链接方案在 `Info.plist` 文件中，于 [CFBundleURLTypes](https://developer.apple.com/documentation/bundleresources/information-property-list/cfbundleurltypes) 键中声明。
+*   对于 Android 应用程序，深度链接方案在 `AndroidManifest.xml` 文件中声明为 intent filter。关于如何正确设置 intent filter，请参见 [Android 文档](https://developer.android.com/training/app-links/deep-linking?hl=en#adding-filters)。
+*   对于 iOS 和 macOS 应用程序，深度链接方案在 `Info.plist` 文件中，于 [CFBundleURLTypes](https://developer.apple.com/documentation/bundleresources/information-property-list/cfbundleurltypes) 键中声明。
 
     > Compose Multiplatform [提供一个 Gradle DSL](compose-native-distribution.md#information-property-list-on-macos) 以向 macOS 应用程序的 `Info.plist` 添加值。对于 iOS，你可以在 KMP 项目中直接编辑该文件，或[使用 Xcode GUI 注册方案](https://developer.apple.com/documentation/xcode/defining-a-custom-url-scheme-for-your-app#Register-your-URL-scheme)。
     >
     {style="note"}
-* 对于 Windows 应用程序，深度链接方案可以通过向 [Windows 注册表](https://learn.microsoft.com/en-us/previous-versions/windows/internet-explorer/ie-developer/platform-apis/aa767914(v=vs.85))添加包含必要信息的键（适用于 Windows 8 及更早版本）或在[包清单](https://learn.microsoft.com/en-us/windows/apps/develop/launch/handle-uri-activation)中指定扩展（适用于 Windows 10 和 11）来声明。这可以通过安装脚本或第三方分发包生成器（例如 [Hydraulic Conveyor](https://conveyor.hydraulic.dev/)）完成。Compose Multiplatform 不支持在项目本身内部进行此配置。
-    
+*   对于 Windows 应用程序，深度链接方案可以通过向 [Windows 注册表](https://learn.microsoft.com/en-us/previous-versions/windows/internet-explorer/ie-developer/platform-apis/aa767914(v=vs.85))添加包含必要信息的键（适用于 Windows 8 及更早版本）或在[包清单](https://learn.microsoft.com/en-us/windows/apps/develop/launch/handle-uri-activation)中指定扩展（适用于 Windows 10 和 11）来声明。这可以通过安装脚本或第三方分发包生成器（例如 [Hydraulic Conveyor](https://conveyor.hydraulic.dev/)）完成。Compose Multiplatform 不支持在项目本身内部进行此配置。
+
     > 确保不要使用 Windows [保留的方案](https://learn.microsoft.com/en-us/windows/apps/develop/launch/reserved-uri-scheme-names#reserved-uri-scheme-names)之一。
     >
     {style="tip"}
-* 对于 Linux，深度链接方案可以在分发包中包含的 `.desktop` 文件中注册。
+*   对于 Linux，深度链接方案可以在分发包中包含的 `.desktop` 文件中注册。
 
 ## 将深度链接分配给目的地
 
@@ -99,13 +99,13 @@ kotlin {
 
 通用 URI 模式的规则：
 
-* 没有方案的 URI 假定以 `http://` 或 `https://` 开头。因此 `uriPattern = "example.com"` 匹配 `http://example.com` 和 `https://example.com`。
-* `{placeholder}` 匹配一个或多个字符（`example.com/name={name}` 匹配 `https://example.com/name=Bob`）。要匹配零个或多个字符，请使用 `.*` 通配符（`example.com/name={.*}` 匹配 `https://example.com/name=` 以及 `name` 的任何值）。
-* 路径占位符的形参是必需的，而匹配查询占位符是可选的。例如，模式 `example.com/users/{id}?arg1={arg1}&arg2={arg2}`：
-    * 不匹配 `http://www.example.com/users?arg1=one&arg2=two`，因为路径中必需的部分（`id`）缺失。
-    * 匹配 `http://www.example.com/users/4?arg2=two` 和 `http://www.example.com/users/4?arg1=one`。
-    * 也匹配 `http://www.example.com/users/4?other=random`，因为冗余的查询形参不影响匹配。
-* 如果多个可组合项的 `navDeepLink` 匹配接收到的 URI，则行为是不确定的。请确保你的深度链接模式不相交。如果你需要多个可组合项处理相同的深度链接模式，请考虑添加路径或查询形参，或使用中间目的地来可预测地路由用户。
+*   没有方案的 URI 假定以 `http://` 或 `https://` 开头。因此 `uriPattern = "example.com"` 匹配 `http://example.com` 和 `https://example.com`。
+*   `{placeholder}` 匹配一个或多个字符（`example.com/name={name}` 匹配 `https://example.com/name=Bob`）。要匹配零个或多个字符，请使用 `.*` 通配符（`example.com/name={.*}` 匹配 `https://example.com/name=` 以及 `name` 的任何值）。
+*   路径占位符的形参是必需的，而匹配查询占位符是可选的。例如，模式 `example.com/users/{id}?arg1={arg1}&arg2={arg2}`：
+    *   不匹配 `http://www.example.com/users?arg1=one&arg2=two`，因为路径中必需的部分（`id`）缺失。
+    *   匹配 `http://www.example.com/users/4?arg2=two` 和 `http://www.example.com/users/4?arg1=one`。
+    *   也匹配 `http://www.example.com/users/4?other=random`，因为冗余的查询形参不影响匹配。
+*   如果多个可组合项的 `navDeepLink` 匹配接收到的 URI，则行为是不确定的。请确保你的深度链接模式不相交。如果你需要多个可组合项处理相同的深度链接模式，请考虑添加路径或查询形参，或使用中间目的地来可预测地路由用户。
 
 ### 路由类型的生成 URI 模式
 
@@ -125,10 +125,10 @@ composable<PlantDetail>(
 
 URI 模式的其余部分将按如下方式生成：
 
-* 必需的形参作为路径形参附加（例如：`/{id}`）
-* 具有默认值（可选形参）的形参作为查询形参附加（例如：`?name={name}`）
-* 集合作为查询形参附加（例如：`?items={value1}&items={value2}`）
-* 形参顺序与路由定义中字段的顺序匹配。
+*   必需的形参作为路径形参附加（例如：`/{id}`）
+*   具有默认值（可选形参）的形参作为查询形参附加（例如：`?name={name}`）
+*   集合作为查询形参附加（例如：`?items={value1}&items={value2}`)
+*   形参顺序与路由定义中字段的顺序匹配。
 
 因此，例如，此路由类型：
 
@@ -163,14 +163,15 @@ NavHost(
     startDestination = FirstScreen
 ) {
     // ...
-    
+
     composable<DeepLinkScreen>(
         deepLinks = listOf(
             // 这个可组合项应同时处理 demo://example1.org 和 demo://example2.org 的链接
             navDeepLink { uriPattern = "$firstBasePath?name={name}" },
             navDeepLink { uriPattern = "demo://example2.org/name={name}" },
-            // 生成的模式只处理形参，所以我们为路由类型添加了序列化名称
-            navDeepLink<Screen3>(basePath = "$firstBasePath/dlscreen"),
+            // 生成的模式只处理形参，
+            // 所以我们为路由类型添加了序列化名称
+            navDeepLink<DeepLinkScreen>(basePath = "$firstBasePath/dlscreen"),
         )
     ) {
         // 如果应用程序接收到 URI `demo://example1.org/dlscreen/Jane/`，
@@ -178,12 +179,12 @@ NavHost(
         // 你可以自动将其映射到路由类型
         val deeplink: DeepLinkScreen = backStackEntry.toRoute()
         val nameGenerated = deeplink.name
-        
+
         // 如果应用程序接收到只匹配通用模式的 URI，
         // 例如 `demo://example1.com/?name=Jane`
         // 你需要直接解析该 URI
         val nameGeneral = backStackEntry.arguments?.read { getStringOrNull("name") }
-        
+
         // 可组合内容
     }
 }
@@ -196,7 +197,8 @@ NavHost(
 ```kotlin
 composable<DeepLinkScreen>(
         deepLinks = listOf(
-            // 对于默认的 Compose Multiplatform 设置，localhost:8080 是通过 wasmJsBrowserDevelopmentRun Gradle 任务运行的本地开发端点
+            // 对于默认的 Compose Multiplatform 设置，localhost:8080
+            // 是通过 wasmJsBrowserDevelopmentRun Gradle 任务运行的本地开发端点
             navDeepLink { uriPattern = "localhost:8080/#dlscreen%2F{name}" },
         )
     ) { ... }
@@ -212,9 +214,9 @@ composable<DeepLinkScreen>(
 
 我们来创建一个最简实现：
 
-1. 在公共代码中声明一个用于存储和缓存 URI 的单例，并带有一个外部 URI 监听器。
-2. 在必要时，实现发送从操作系统接收到的 URI 的平台特有调用。
-3. 在主可组合项中设置新深度链接的监听器。
+1.  在公共代码中声明一个用于存储和缓存 URI 的单例，并带有一个外部 URI 监听器。
+2.  在必要时，实现发送从操作系统接收到的 URI 的平台特有调用。
+3.  在主可组合项中设置新深度链接的监听器。
 
 ### 声明带 URI 监听器的单例
 
@@ -224,7 +226,7 @@ composable<DeepLinkScreen>(
 object ExternalUriHandler {
     // 用于在监听器设置前 URI 到达时的存储
     private var cached: String? = null
-    
+
     var listener: ((uri: String) -> Unit)? = null
         set(value) {
             field = value
@@ -252,7 +254,7 @@ object ExternalUriHandler {
 
 对于桌面 JVM 和 iOS，你都需要显式传递从系统接收到的 URI。
 
-在 `jvmMain/.../main.kt` 中，解析每个必要的操作系统的命令行实参，并将接收到的 URI 传递给单例：
+在 `jvmMain/.../main.kt` 中，解析每个必要操作系统的命令行实参，并将接收到的 URI 传递给单例：
 
 ```kotlin
 // 导入单例
@@ -286,13 +288,13 @@ func application(
     options: [UIApplication.OpenURLOptionsKey: Any] = [:]
 ) -> Bool {
     // 将完整的 URI 发送给单例
-    ExternalUriHandler.shared.onNewUri(uri: uri.absoluteString)    
+    ExternalUriHandler.shared.onNewUri(uri: uri.absoluteString)
         return true
     }
 ```
 
 > 关于从 Swift 访问单例的命名约定，请参见 [Kotlin/Native 文档](https://kotlinlang.org/docs/native-objc-interop.html#kotlin-singletons)。
-> 
+>
 {style="tip"}
 
 ### 设置监听器
@@ -337,5 +339,5 @@ internal fun App(navController: NavHostController = rememberNavController()) = A
 ## 结果
 
 现在你可以看到完整工作流程：当用户打开 `demo://` URI 时，操作系统将其与注册的方案匹配。然后：
-  * 如果处理深度链接的应用程序已关闭，单例会接收 URI 并缓存它。当主可组合函数启动时，它会调用单例并导航到与缓存 URI 匹配的深度链接。
-  * 如果处理深度链接的应用程序已打开，监听器已设置，因此当单例接收到 URI 时，应用程序会立即导航到它。
+*   如果处理深度链接的应用程序已关闭，单例会接收 URI 并缓存它。当主可组合函数启动时，它会调用单例并导航到与缓存 URI 匹配的深度链接。
+*   如果处理深度链接的应用程序已打开，监听器已设置，因此当单例接收到 URI 时，应用程序会立即导航到它。

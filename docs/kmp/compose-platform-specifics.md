@@ -32,9 +32,6 @@ Compose Multiplatform 采用了 [Compose 窗口插边处理方法](https://devel
 根据您的实现，软键盘在 iOS 上的位置可能会略有不同。
 请务必检测键盘是否会遮盖两个平台上的重要 UI 元素。
 
-Compose Multiplatform 目前不支持更改默认 IME action，例如，
-显示放大镜或复选标记，而不是通常的 &crarr; 图标。
-
 ### 触摸和鼠标支持
 
 当前的桌面实现将所有指针操作解释为鼠标手势，
@@ -65,7 +62,7 @@ Compose Multiplatform 目前不支持更改默认 IME action，例如，
 
 对于 iOS，有针对与 [SwiftUI](compose-swiftui-integration.md) 和 [UIKit](compose-uikit-integration.md) 进行互操作代码的单独指南。
 
-对于桌面平台，Compose Multiplatform 支持 [Swing 互操作性](compose-desktop-swing-interoperability.md)。
+对于桌面平台，Compose Multiplatform 支持 [Swing interoperability](compose-desktop-swing-interoperability.md)。
 
 ### 返回手势
 
@@ -89,7 +86,7 @@ Compose Multiplatform for iOS 默认支持返回手势，以模仿 Android 功�
 这不会对用户体验产生显著影响。相反，默认字体在每个平台上都会如预期般显示。
 然而，像素差异可能会干扰截屏测试，例如。
 
-<!-- this should be covered in benchmarking, not as a baseline Compose Multiplatform limitation
+<!-- this should be covered in benchmarking, not as a baseline Compose Multiplatform limitation 
 ### Initial performance
 
 On iOS, you may notice a delay in the initial performance of individual screens compared to Android.

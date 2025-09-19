@@ -76,7 +76,9 @@ object CalculatorTool : Tool<CalculatorTool.Args, ToolResult.Number>() {
                 name = "digit1",
                 description = "The first digit to add (0-9)",
                 type = ToolParameterType.Integer
-            ),
+            )
+        ),
+        optionalParameters = listOf(
             ToolParameterDescriptor(
                 name = "digit2",
                 description = "The second digit to add (0-9)",

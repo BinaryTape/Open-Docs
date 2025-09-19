@@ -1,6 +1,6 @@
 # 문서 저장소
 
-대규모 언어 모델 (LLM)과 함께 사용할 최신 검색 가능한 정보 소스를 제공하기 위해, Koog는 문서에서 정보를 저장하고 검색하는 리소스 증강 생성 (RAG)을 지원합니다.
+대규모 언어 모델(LLM)과 함께 사용할 최신 검색 가능한 정보 소스를 제공하기 위해, Koog는 문서에서 정보를 저장하고 검색하는 리소스 증강 생성(RAG)을 지원합니다.
 
 ## 주요 RAG 기능
 
@@ -295,7 +295,7 @@ val fileStorage = FileVectorStorage<Document, Path>(
 
 #### JVMFileVectorStorage
 
-`java.nio.file.Path`와 함께 작동하는 `FileVectorStorage`의 JVM 특정 구현입니다.
+`FileVectorStorage`의 JVM 특정 구현으로, `java.nio.file.Path`와 함께 작동합니다.
 
 <!--- INCLUDE
 import ai.koog.rag.vector.JVMFileVectorStorage

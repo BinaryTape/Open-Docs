@@ -7,7 +7,7 @@
 ディープリンクは、アプリに外部入力を取得するためにも役立ちます。たとえば、OAuth認証の場合です。ユーザーを視覚的にナビゲートすることなく、ディープリンクを解析してOAuthトークンを取得できます。
 
 > 外部入力は悪意のあるものである可能性があるため、生のディープリンクURIの処理に関連するリスクを適切に軽減するために、[セキュリティガイドライン](https://developer.android.com/privacy-and-security/risks/unsafe-use-of-deeplinks)に必ず従ってください。
-> 
+>
 {style="warning"}
 
 Compose Multiplatformでディープリンクを実装するには：
@@ -171,7 +171,7 @@ NavHost(
             navDeepLink { uriPattern = "demo://example2.org/name={name}" },
             // The generated pattern only handles the parameters,
             // so we add the serial name for the route type
-            navDeepLink<Screen3>(basePath = "$firstBasePath/dlscreen"),
+            navDeepLink<DeepLinkScreen>(basePath = "$firstBasePath/dlscreen"),
         )
     ) {
         // If the app receives the URI `demo://example1.org/dlscreen/Jane/`,
@@ -294,7 +294,7 @@ func application(
 ```
 
 > Swiftからシングルトンにアクセスするための命名規則については、[Kotlin/Nativeドキュメント](https://kotlinlang.org/docs/native-objc-interop.html#kotlin-singletons)を参照してください。
-> 
+>
 {style="tip"}
 
 ### リスナーをセットアップする
@@ -339,5 +339,5 @@ internal fun App(navController: NavHostController = rememberNavController()) = A
 ## 結果
 
 これで、完全なワークフローを確認できます。ユーザーが `demo://` URIを開くと、オペレーティングシステムはそれを登録されたスキーマと照合します。その後：
-  *   ディープリンクを処理するアプリが閉じている場合、シングルトンはURIを受信してキャッシュします。メインのコンポーザブル関数が開始すると、シングルトンを呼び出し、キャッシュされたURIに一致するディープリンクにナビゲートします。
-  *   ディープリンクを処理するアプリが開いている場合、リスナーはすでにセットアップされているため、シングルトンがURIを受信すると、アプリは直ちにそれにナビゲートします。
+*   ディープリンクを処理するアプリが閉じている場合、シングルトンはURIを受信してキャッシュします。メインのコンポーザブル関数が開始すると、シングルトンを呼び出し、キャッシュされたURIに一致するディープリンクにナビゲートします。
+*   ディープリンクを処理するアプリが開いている場合、リスナーはすでにセットアップされているため、シングルトンがURIを受信すると、アプリは直ちにそれにナビゲートします。

@@ -50,7 +50,7 @@ kotlin {
     compilerOptions {
         optIn.add("kotlin.RequiresOptIn")
     }
-}    
+}
 ```
 
 ### 타겟 레벨
@@ -59,7 +59,7 @@ JVM/Android 타겟에 대한 컴파일러 옵션은 `target {}` 블록 내부의
 
 ```kotlin
 kotlin {
-    target { 
+    target {
         compilerOptions {
             optIn.add("kotlin.RequiresOptIn")
         }
@@ -73,7 +73,7 @@ Kotlin 멀티플랫폼 프로젝트에서는 특정 타겟 내부에서 컴파�
 
 특정 컴파일 단위 또는 태스크에 대한 컴파일러 옵션은 태스크 구성 내부의 `compilerOptions {}` 블록에서 구성할 수 있습니다.
 
-```Kotlin
+```kotlin
 tasks.named<KotlinJvmCompile>("compileKotlin"){
     compilerOptions {
         optIn.add("kotlin.RequiresOptIn")
@@ -83,7 +83,7 @@ tasks.named<KotlinJvmCompile>("compileKotlin"){
 
 `KotlinCompilation`을 통해 컴파일 단위 레벨에서 컴파일러 옵션에 접근하고 구성할 수도 있습니다.
 
-```Kotlin
+```kotlin
 kotlin {
     target {
         val main by compilations.getting {
@@ -649,7 +649,7 @@ tasks.named('compileKotlin', KotlinCompilationTask) {
 
 > `freeCompilerArgs` 속성은 [확장](#extension-level), [타겟](#target-level) 및 [컴파일 단위 (태스크)](#compilation-unit-level) 레벨에서 사용할 수 있습니다.
 >
-{style="tip"}
+{style="tip"} 
 
 #### `languageVersion` 설정 예시 {initial-collapse-state="collapsed" collapsible="true"}
 

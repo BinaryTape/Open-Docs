@@ -3,15 +3,15 @@
 <no-index/>
 
 <tldr>
-    <p><img src="icon-1-done.svg" width="20" alt="First step" /> <a href="kotlin-tour-intermediate-extension-functions.md">拡張関数</a><br />
-        <img src="icon-2-done.svg" width="20" alt="Second step" /> <a href="kotlin-tour-intermediate-scope-functions.md">スコープ関数</a><br />
-        <img src="icon-3-done.svg" width="20" alt="Third step" /> <a href="kotlin-tour-intermediate-lambdas-receiver.md">レシーバー付きラムダ式</a><br />
-        <img src="icon-4-done.svg" width="20" alt="Fourth step" /> <a href="kotlin-tour-intermediate-classes-interfaces.md">クラスとインターフェース</a><br />
-        <img src="icon-5-done.svg" width="20" alt="Fifth step" /> <a href="kotlin-tour-intermediate-objects.md">オブジェクト</a><br />
-        <img src="icon-6-done.svg" width="20" alt="Sixth step" /> <a href="kotlin-tour-intermediate-open-special-classes.md">オープンクラスと特殊なクラス</a><br />
-        <img src="icon-7-done.svg" width="20" alt="Seventh step" /> <a href="kotlin-tour-intermediate-properties.md">プロパティ</a><br />
-        <img src="icon-8.svg" width="20" alt="Eighth step" /> <strong>Null Safety</strong><br />
-        <img src="icon-9-todo.svg" width="20" alt="Ninth step" /> <a href="kotlin-tour-intermediate-libraries-and-apis.md">ライブラリとAPI</a></p>
+    <p><img src="icon-1-done.svg" width="20" alt="最初のステップ" /> <a href="kotlin-tour-intermediate-extension-functions.md">拡張関数</a><br />
+        <img src="icon-2-done.svg" width="20" alt="二番目のステップ" /> <a href="kotlin-tour-intermediate-scope-functions.md">スコープ関数</a><br />
+        <img src="icon-3-done.svg" width="20" alt="三番目のステップ" /> <a href="kotlin-tour-intermediate-lambdas-receiver.md">レシーバー付きラムダ式</a><br />
+        <img src="icon-4-done.svg" width="20" alt="四番目のステップ" /> <a href="kotlin-tour-intermediate-classes-interfaces.md">クラスとインターフェース</a><br />
+        <img src="icon-5-done.svg" width="20" alt="五番目のステップ" /> <a href="kotlin-tour-intermediate-objects.md">オブジェクト</a><br />
+        <img src="icon-6-done.svg" width="20" alt="六番目のステップ" /> <a href="kotlin-tour-intermediate-open-special-classes.md">オープンクラスと特殊なクラス</a><br />
+        <img src="icon-7-done.svg" width="20" alt="七番目のステップ" /> <a href="kotlin-tour-intermediate-properties.md">プロパティ</a><br />
+        <img src="icon-8.svg" width="20" alt="八番目のステップ" /> <strong>Null Safety</strong><br />
+        <img src="icon-9-todo.svg" width="20" alt="九番目のステップ" /> <a href="kotlin-tour-intermediate-libraries-and-apis.md">ライブラリとAPI</a></p>
 </tldr>
 
 初心者向けツアーでは、コードで `null` 値を処理する方法を学びました。この章では、Null Safety機能の一般的なユースケースと、それらを最大限に活用する方法について説明します。
@@ -43,17 +43,17 @@ fun main() {
     val myDouble = 3.14
     val myList = listOf(1, 2, 3)
   
-    // The type is Int
+    // 型は Int
     printObjectType(myInt)
-    // It's an Integer with value 42
+    // 値 42 の Integer です
 
-    // The type is List, so it's NOT a Double.
+    // 型は List なので、Double ではありません。
     printObjectType(myList)
-    // It's NOT a Double
+    // Double ではありません
 
-    // The type is Double, so the else branch is triggered.
+    // 型は Double なので、else ブランチがトリガーされます。
     printObjectType(myDouble)
-    // Unknown type
+    // 不明な型
 }
 ```
 {kotlin-runnable="true" id="kotlin-tour-null-safety-casts"}
@@ -72,7 +72,7 @@ fun main() {
     val a: String? = null
     val b = a as String
 
-    // Triggers an error at runtime
+    // 実行時にエラーが発生します
     print(b)
 //sampleEnd
 }
@@ -87,7 +87,7 @@ fun main() {
     val a: String? = null
     val b = a as? String
 
-    // Returns null value
+    // null 値を返します
     print(b)
     // null
 //sampleEnd
@@ -105,7 +105,7 @@ fun calculateTotalStringLength(items: List<Any>): Int {
         totalLength += if (item is String) {
             item.length
         } else {
-            0  // Add 0 for non-String items
+            0  // String 以外のアイテムには 0 を加算
         }
     }
 
@@ -188,18 +188,18 @@ Kotlinには、コレクション内の値を見つけるために使用でき�
 ```kotlin
 fun main() {
 //sampleStart
-    // Temperatures recorded over a week
+    // 1週間に記録された気温
     val temperatures = listOf(15, 18, 21, 21, 19, 17, 16)
   
-    // Find the highest temperature of the week
+    // 週の最高気温を見つける
     val maxTemperature = temperatures.maxOrNull()
     println("Highest temperature recorded: ${maxTemperature ?: "No data"}")
-    // Highest temperature recorded: 21
+    // 記録された最高気温: 21
 
-    // Find the lowest temperature of the week
+    // 週の最低気温を見つける
     val minTemperature = temperatures.minOrNull()
     println("Lowest temperature recorded: ${minTemperature ?: "No data"}")
-    // Lowest temperature recorded: 15
+    // 記録された最低気温: 15
 //sampleEnd
 }
 ```
@@ -216,13 +216,13 @@ fun main() {
 ```kotlin
 fun main() {
 //sampleStart
-    // Temperatures recorded over a week
+    // 1週間に記録された気温
     val temperatures = listOf(15, 18, 21, 21, 19, 17, 16)
 
-    // Check if there was exactly one day with 30 degrees
+    // 30度の日は正確に1日だけだったかを確認
     val singleHotDay = temperatures.singleOrNull{ it == 30 }
     println("Single hot day with 30 degrees: ${singleHotDay ?: "None"}")
-    // Single hot day with 30 degrees: None
+    // 30度だった暑い日は1日だけ: None
 //sampleEnd
 }
 ```
@@ -260,18 +260,18 @@ fun main() {
 ```kotlin
 fun main() {
 //sampleStart
-    // Prices of items in a shopping cart
+    // ショッピングカート内の商品の価格
     val itemPrices = listOf(20, 35, 15, 40, 10)
 
-    // Calculate the total price using the reduceOrNull() function
+    // reduceOrNull() 関数を使用して合計価格を計算
     val totalPrice = itemPrices.reduceOrNull { runningTotal, price -> runningTotal + price }
     println("Total price of items in the cart: ${totalPrice ?: "No items"}")
-    // Total price of items in the cart: 120
+    // カート内の商品の合計価格: 120
 
     val emptyCart = listOf<Int>()
     val emptyTotalPrice = emptyCart.reduceOrNull { runningTotal, price -> runningTotal + price }
     println("Total price of items in the empty cart: ${emptyTotalPrice ?: "No items"}")
-    // Total price of items in the empty cart: No items
+    // 空のカート内の商品の合計価格: No items
 //sampleEnd
 }
 ```
@@ -293,25 +293,25 @@ fun main() {
 data class User(
     val id: Int,
     val name: String,
-    // List of friend user IDs
+    // 友達のユーザーIDのリスト
     val friends: List<Int>
 )
 
-// Function to get the number of friends for a user
+// ユーザーの友達の数を取得する関数
 fun getNumberOfFriends(users: Map<Int, User>, userId: Int): Int {
-    // Retrieves the user or return -1 if not found
+    // ユーザーを取得するか、見つからない場合は -1 を返します
     val user = users[userId] ?: return -1
-    // Returns the number of friends
+    // 友達の数を返します
     return user.friends.size
 }
 
 fun main() {
-    // Creates some sample users
+    // いくつかのサンプルユーザーを作成
     val user1 = User(1, "Alice", listOf(2, 3))
     val user2 = User(2, "Bob", listOf(1))
     val user3 = User(3, "Charlie", listOf(1))
 
-    // Creates a map of users
+    // ユーザーのマップを作成
     val users = mapOf(1 to user1, 2 to user2, 3 to user3)
 
     println(getNumberOfFriends(users, 1))
@@ -343,7 +343,7 @@ fun main() {
 
 ```kotlin
 fun getNumberOfFriends(users: Map<Int, User>, userId: Int): Int {
-    // Retrieve the user or return -1 if not found
+    // ユーザーを取得するか、見つからない場合は -1 を返します
     return users[userId]?.friends?.size ?: -1
 }
 ```
@@ -368,13 +368,13 @@ fun getNumberOfFriends(users: Map<Int, User>, userId: Int): Int {
 >
 > ```kotlin
 > fun main() {
->     // The user is logged in
+>     // ユーザーがログインしています
 >     val userIsLoggedIn = true
->     // The user has an active session
+>     // ユーザーにはアクティブなセッションがあります
 >     val hasSession = true
 > 
->     // Gives access to the dashboard if the user is logged in
->     // and has an active session
+>     // ユーザーがログインしており
+>     // アクティブなセッションを持っている場合にダッシュボードへのアクセスを許可します
 >     val canAccessDashboard = userIsLoggedIn.takeIf { hasSession }
 > 
 >     println(canAccessDashboard ?: "Access denied")
@@ -390,10 +390,10 @@ fun getNumberOfFriends(users: Map<Int, User>, userId: Int): Int {
 data class User(val name: String?)
 
 fun getNotificationPreferences(user: Any, emailEnabled: Boolean, smsEnabled: Boolean): List<String> {
-    val validUser = // Write your code here
-    val userName = // Write your code here
+    val validUser = // ここにコードを記述
+    val userName = // ここにコードを記述
 
-    return listOfNotNull( /* Write your code here */)
+    return listOfNotNull( /* ここにコードを記述 */)
 }
 
 fun main() {
@@ -450,7 +450,7 @@ fun main() {
 ```kotlin
 data class Subscription(val name: String, val isActive: Boolean)
 
-fun getActiveSubscription(subscriptions: List<Subscription>): Subscription? // Write your code here
+fun getActiveSubscription(subscriptions: List<Subscription>): Subscription? // ここにコードを記述
 
 fun main() {
     val userWithPremiumPlan = listOf(
@@ -539,7 +539,7 @@ fun main() {
 data class User(val username: String, val isActive: Boolean)
 
 fun getActiveUsernames(users: List<User>): List<String> {
-    return users.mapNotNull { /* Write your code here */ }
+    return users.mapNotNull { /* ここにコードを記述 */ }
 }
 
 fun main() {
@@ -590,7 +590,8 @@ fun main() {
 ```kotlin
 data class User(val username: String, val isActive: Boolean)
 
-fun getActiveUsernames(users: List<User>): List<String> = users.mapNotNull { user -> user.username.takeIf { user.isActive } }
+fun getActiveUsernames(users: List<User>): List<String> =
+    users.mapNotNull { user -> user.username.takeIf { user.isActive } }
 
 fun main() {
     val allUsers = listOf(
@@ -622,7 +623,7 @@ eコマースプラットフォームの在庫管理システムに取り組ん�
 
 ```kotlin
 fun validateStock(requested: Int?, available: Int?): Int {
-    // Write your code here
+    // ここにコードを記述
 }
 
 fun main() {

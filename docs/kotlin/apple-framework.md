@@ -1,4 +1,4 @@
-[//]: # (title: Kotlin/Native 作为 Apple framework – 教程)
+[//]: # (title: Kotlin/Native 作为 Apple 框架 – 教程)
 
 > Objective-C 库的导入处于 [Beta](native-c-interop-stability.md) 阶段。
 > 所有由 cinterop 工具从 Objective-C 库生成的 Kotlin 声明
@@ -9,16 +9,16 @@
 >
 {style="note"}
 
-Kotlin/Native 提供了与 Swift/Objective-C 的双向互操作性。你可以在 Kotlin 代码中使用 Objective-C framework，也可以在 Swift/Objective-C 代码中使用 Kotlin 模块。
+Kotlin/Native 提供了与 Swift/Objective-C 的双向互操作性。你可以在 Kotlin 代码中使用 Objective-C framework 和库，也可以在 Swift/Objective-C 代码中使用 Kotlin 模块。
 
 Kotlin/Native 附带了一系列预导入的系统 framework；也可以导入一个现有的 framework 并在 Kotlin 中使用它。在本教程中，你将学习如何创建自己的 framework 并从 macOS 和 iOS 上的 Swift/Objective-C 应用程序中使用 Kotlin/Native 代码。
 
 在本教程中，你将：
 
-* [创建 Kotlin 库并将其编译为 framework](#create-a-kotlin-library)
-* [检查生成的 Swift/Objective-C API 代码](#generated-framework-headers)
-* [从 Objective-C 使用 framework](#use-code-from-objective-c)
-* [从 Swift 使用 framework](#use-code-from-swift)
+*   [创建 Kotlin 库并将其编译为 framework](#create-a-kotlin-library)
+*   [检查生成的 Swift/Objective-C API 代码](#generated-framework-headers)
+*   [从 Objective-C 使用 framework](#use-code-from-objective-c)
+*   [从 Swift 使用 framework](#use-code-from-swift)
 
 你可以使用命令行直接或通过脚本文件（例如 `.sh` 或 `.bat` 文件）生成 Kotlin framework。然而，对于拥有数百个文件和库的更大项目来说，这种方法的可伸缩性不佳。使用构建系统可以通过下载和缓存 Kotlin/Native 编译器二进制文件和带有传递依赖项的库，以及运行编译器和测试来简化该过程。Kotlin/Native 可以通过 [Kotlin Multiplatform plugin](gradle-configure-project.md#targeting-multiple-platforms) 使用 [Gradle](https://gradle.org) 构建系统。
 
@@ -38,35 +38,35 @@ Kotlin/Native 编译器可以从 Kotlin 代码为 macOS 和 iOS 生成 framework
 
 我们首先创建一个 Kotlin 库：
 
-1. 在 `src/nativeMain/kotlin` 目录中，创建 `lib.kt` 文件，其中包含库内容：
+1.  在 `src/nativeMain/kotlin` 目录中，创建 `lib.kt` 文件，其中包含库内容：
 
-   ```kotlin
-   package example
-    
-   object Object {
-       val field = "A"
-   }
-    
-   interface Interface {
-       fun iMember() {}
-   }
-    
-   class Clazz : Interface {
-       fun member(p: Int): ULong? = 42UL
-   }
-    
-   fun forIntegers(b: Byte, s: UShort, i: Int, l: ULong?) { }
-   fun forFloats(f: Float, d: Double?) { }
-    
-   fun strings(str: String?) : String {
-       return "That is '$str' from C"
-   }
-    
-   fun acceptFun(f: (String) -> String?) = f("Kotlin/Native rocks!")
-   fun supplyFun() : (String) -> String? = { "$it is cool!" }
-   ```
+    ```kotlin
+    package example
+     
+    object Object {
+        val field = "A"
+    }
+     
+    interface Interface {
+        fun iMember() {}
+    }
+     
+    class Clazz : Interface {
+        fun member(p: Int): ULong? = 42UL
+    }
+     
+    fun forIntegers(b: Byte, s: UShort, i: Int, l: ULong?) { }
+    fun forFloats(f: Float, d: Double?) { }
+     
+    fun strings(str: String?) : String {
+        return "That is '$str' from C"
+    }
+     
+    fun acceptFun(f: (String) -> String?) = f("Kotlin/Native rocks!")
+    fun supplyFun() : (String) -> String? = { "$it is cool!" }
+    ```
 
-2. 使用以下内容更新你的 `build.gradle(.kts)` Gradle 构建文件：
+2.  使用以下内容更新你的 `build.gradle(.kts)` Gradle 构建文件：
 
     <tabs group="build-script">
     <tab title="Kotlin" group-key="kotlin">
@@ -129,23 +129,23 @@ Kotlin/Native 编译器可以从 Kotlin 代码为 macOS 和 iOS 生成 framework
 
     `binaries {}` 代码块配置项目以生成动态库或共享库。
 
-    Kotlin/Native 支持用于 iOS 的 `iosArm64`、`iosX64` 和 `iosSimulatorArm64` 目标平台，以及用于 macOS 的 `macosX64` 和 `macosArm64` 目标平台。因此，你可以用你的目标平台相应的 Gradle 函数替换 `iosArm64()`：
+    Kotlin/Native 支持用于 iOS 的 `iosArm64`、`iosX64` 和 `iosSimulatorArm64` 目标平台，以及用于 macOS 的 `macosArm64` 和 `macosX64` 目标平台。因此，你可以用你的目标平台相应的 Gradle 函数替换 `iosArm64()`：
 
-    | 目标平台/设备          | Gradle 函数           |
+    | 目标平台/设备           | Gradle 函数           |
     |------------------------|-----------------------|
-    | macOS x86_64           | `macosX64()`          | 
     | macOS ARM64            | `macosArm64()`        |
-    | iOS ARM64              | `iosArm64()`          | 
-    | iOS Simulator (x86_64) | `iosX64()`            |
-    | iOS Simulator (ARM64)  | `iosSimulatorArm64()` |
+    | macOS x86_64           | `macosX64()`          |
+    | iOS ARM64              | `iosArm64()`          |
+    | iOS 模拟器 (ARM64)     | `iosSimulatorArm64()` |
+    | iOS 模拟器 (x86_64)    | `iosX64()`            |
 
     关于其他受支持的 Apple 目标平台的信息，请参见 [Kotlin/Native 目标平台支持](native-target-support.md)。
 
-3. 在 IDE 中运行 `linkDebugFrameworkNative` Gradle 任务，或在你的终端中使用以下控制台命令来构建 framework：
+3.  在 IDE 中运行 `linkDebugFrameworkNative` Gradle 任务，或在你的终端中使用以下控制台命令来构建 framework：
 
-   ```bash
-   ./gradlew linkDebugFrameworkNative
-   ```
+    ```bash
+    ./gradlew linkDebugFrameworkNative
+    ```
     
 该构建会将 framework 生成到 `build/bin/native/debugFramework` 目录中。
 
@@ -197,7 +197,7 @@ __attribute__((swift_name("KotlinMutableDictionary")))
 @end
 ```
 
-Kotlin 类在 Swift/Objective-C 中有一个 `KotlinBase` 基类，它扩展了那里的 `NSObject` 类。也有用于集合和异常的包装器。大多数集合类型都映射到类似的集合类型在 Swift/Objective-C 中：
+Kotlin 类在 Swift/Objective-C 中有一个 `KotlinBase` 基类，它扩展了那里的 `NSObject` 类。也有用于集合和异常的包装器。大多数集合类型都映射到 Swift/Objective-C 中类似的集合类型：
 
 | Kotlin      | Swift               | Objective-C         |
 |-------------|---------------------|---------------------|
@@ -243,7 +243,7 @@ __attribute__((swift_name("Kotlin__TYPE__")))
 
 这些类型用于将装箱的 Kotlin 数字类型映射到 Swift/Objective-C。在 Swift 中，你可以调用构造函数来创建一个实例，例如 `KotlinLong(value: 42)`。
 
-### Kotlin 中的类和对象
+### Kotlin 中的类和 object
 
 让我们看看 `class` 和 `object` 如何映射到 Swift/Objective-C。生成的 `Demo.h` 文件包含确切的 `Class`、`Interface` 和 `Object` 的定义：
 
@@ -299,7 +299,7 @@ Kotlin 的 `String` 和 Objective-C 的 `NSString*` 透明地映射。类似地�
 
 ## 垃圾回收和引用计数
 
-Swift 和 Objective-C 使用自动引用计数 (ARC)。Kotlin/Native 有自己的[垃圾回收器](native-memory-manager.md#garbage-collector)，它也[与 Swift/Objective-C ARC 集成](native-arc-integration.md)。
+Swift 和 Objective-C 使用自动引用计数 (ARC)。Kotlin/Native 有自己的 [垃圾回收器](native-memory-manager.md#garbage-collector)，它也 [与 Swift/Objective-C ARC 集成](native-arc-integration.md)。
 
 未使用的 Kotlin 对象会自动移除。你无需采取额外步骤来控制 Kotlin/Native 实例的生命周期，无论是从 Swift 还是 Objective-C。
 
@@ -334,7 +334,7 @@ int main(int argc, const char * argv[]) {
 }
 ```
 
-在这里，你可以直接从 Objective-C 代码调用 Kotlin 类。一个 Kotlin 对象使用 `<object name>.shared` 类属性，这允许你获取该对象的唯一实例并在其上调用对象方法。
+在这里，你可以直接从 Objective-C 代码调用 Kotlin 类。一个 Kotlin object 使用 `<object name>.shared` 类属性，这允许你获取该对象的唯一实例并在其上调用 object 方法。
 
 使用广泛的模式来创建 `Clazz` 类的一个实例。你在 Objective-C 上调用 `[[ DemoClazz alloc] init]`。你也可以对不带参数的构造函数使用 `[DemoClazz new]`。
 
@@ -344,7 +344,7 @@ int main(int argc, const char * argv[]) {
 
 ## 从 Swift 使用代码
 
-你生成的 framework 具有辅助属性，使其更容易与 Swift 一起使用。让我们将[先前的 Objective-C 示例](#use-code-from-objective-c) 转换为 Swift。
+你生成的 framework 具有辅助属性，使其更容易与 Swift 一起使用。让我们将 [先前的 Objective-C 示例](#use-code-from-objective-c) 转换为 Swift。
 
 在 framework 目录中，创建 `main.swift` 文件并包含以下代码：
 
@@ -368,7 +368,7 @@ if (ret != nil) {
 }
 ``` 
 
-原始 Kotlin 代码和其 Swift 版本之间存在一些细微差异。在 Kotlin 中，任何对象声明只有一个实例。`Object.shared` 语法用于访问此单个实例。
+原始 Kotlin 代码和其 Swift 版本之间存在一些细微差异。在 Kotlin 中，任何 object 声明只有一个实例。`Object.shared` 语法用于访问此单个实例。
 
 Kotlin 函数和属性名称原样转换。Kotlin 的 `String` 被转换为 Swift 的 `String`。Swift 也隐藏了 `NSNumber*` 装箱。你还可以将 Swift 闭包传递给 Kotlin，并从 Swift 调用 Kotlin lambda 函数。
 
@@ -382,6 +382,6 @@ Kotlin 函数和属性名称原样转换。Kotlin 的 `String` 被转换为 Swif
 
 ## 接下来
 
-* [了解更多关于与 Objective-C 的互操作性](native-objc-interop.md)
-* [查看 Kotlin 中如何实现与 C 的互操作性](native-c-interop.md)
-* [查看 Kotlin/Native 作为动态库的教程](native-dynamic-libraries.md)
+*   [了解更多关于与 Objective-C 的互操作性](native-objc-interop.md)
+*   [查看 Kotlin 中如何实现与 C 的互操作性](native-c-interop.md)
+*   [查看 Kotlin/Native 作为动态库的教程](native-dynamic-libraries.md)

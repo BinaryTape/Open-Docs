@@ -322,7 +322,7 @@ jvmTest<Scope>
 
 <deflist collapsible="true">
    <def title="折りたたみ可能な項目 #1">
-      <p><code>CrudRepository</code>インターフェースの<code>findById()</code>関数の戻り値の型は<code>Optional</code>クラスのインスタンスです。しかし、一貫性のために単一のメッセージを持つ<code>List</code>を返す方が便利でしょう。そのためには、<code>Optional</code>値が存在する場合はそれをアンラップし、その値を含むリストを返す必要があります。これは、<code>Optional</code>型への[拡張関数](extensions.md#extension-functions)として実装できます。</p>
+      <p><code>CrudRepository</code>インターフェースの<code>findById()</code>関数の戻り値の型は<code>Optional</code>クラスのインスタンスです。しかし、一貫性のために単一のメッセージを持つ<code>List</code>を返す方が便利でしょう。そのためには、<code>Optional</code>値が存在する場合はそれをアンラップし、その値を含むリストを返す必要があります。これは、<code>Optional</code>型への<a href="extensions.md#extension-functions">拡張関数</a>として実装できます。</p>
       <p>コード中の<code>Optional&lt;out T&gt;.toList()</code>では、<code>.toList()</code>は<code>Optional</code>の拡張関数です。拡張関数を使用すると、任意のクラスに追加の関数を記述できます。これは、特定のライブラリクラスの機能を拡張したい場合に特に役立ちます。</p>
    </def>
    <def title="折りたたみ可能な項目 #2">

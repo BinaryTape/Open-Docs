@@ -90,6 +90,30 @@ val jack = User(name = "Jack", age = 1)
 val olderJack = jack.copy(age = 2)
 ```
 
+`copy()` 函數會建立實例的**淺層複製** (shallow copy)。換句話說，它不會遞迴地複製組件。
+因此，對其他物件的引用會被共享。
+
+例如，如果屬性持有**可變列表** (mutable list)，則透過「原始」值所做的更改也會透過複製可見，而透過複製所做的更改也會透過原始值可見：
+
+```kotlin
+data class Employee(val name: String, val roles: MutableList<String>)
+
+fun main() {
+    val original = Employee("Jamie", mutableListOf("developer"))
+    val duplicate = original.copy()
+
+    duplicate.roles.add("team lead")
+
+    println(original) 
+    // Employee(name=Jamie, roles=[developer, team lead])
+    println(duplicate) 
+    // Employee(name=Jamie, roles=[developer, team lead])
+}
+```
+{kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
+
+如您所見，修改 `duplicate.roles` 屬性也會更改 `original.roles` 屬性，因為這兩個屬性共享同一個列表引用。
+
 ## 資料類別與解構宣告
 
 為資料類別生成的**組件函數** (`Component functions`) 使其可以在 [解構宣告](destructuring-declarations.md) 中使用：

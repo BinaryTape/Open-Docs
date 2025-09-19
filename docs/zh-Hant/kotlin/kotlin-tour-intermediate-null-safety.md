@@ -32,9 +32,9 @@ Kotlin 有時可以在沒有明確宣告的情況下推斷類型。當你告訴 
 ```kotlin
 fun printObjectType(obj: Any) {
     when (obj) {
-        is Int -> println("它是值為 $obj 的整數")
-        !is Double -> println("它不是 Double")
-        else -> println("未知類型")
+        is Int -> println("It's an Integer with value $obj")
+        !is Double -> println("It's NOT a Double")
+        else -> println("Unknown type")
     }
 }
 
@@ -45,15 +45,15 @@ fun main() {
   
     // 類型為 Int
     printObjectType(myInt)
-    // 它是值為 42 的整數
+    // It's an Integer with value 42
 
     // 類型為 List，因此它不是 Double。
     printObjectType(myList)
-    // 它不是 Double
+    // It's NOT a Double
 
     // 類型為 Double，因此觸發 else 分支。
     printObjectType(myDouble)
-    // 未知類型
+    // Unknown type
 }
 ```
 {kotlin-runnable="true" id="kotlin-tour-null-safety-casts"}
@@ -72,7 +72,7 @@ fun main() {
     val a: String? = null
     val b = a as String
 
-    // 在執行時觸發錯誤
+    // Triggers an error at runtime
     print(b)
 //sampleEnd
 }
@@ -87,7 +87,7 @@ fun main() {
     val a: String? = null
     val b = a as? String
 
-    // 回傳 null 值
+    // Returns null value
     print(b)
     // null
 //sampleEnd
@@ -105,7 +105,7 @@ fun calculateTotalStringLength(items: List<Any>): Int {
         totalLength += if (item is String) {
             item.length
         } else {
-            0  // 對於非 String 項目加入 0
+            0  // Add 0 for non-String items
         }
     }
 
@@ -188,18 +188,18 @@ Kotlin 還提供了一些函式，可用於在集合中尋找值。如果找不�
 ```kotlin
 fun main() {
 //sampleStart
-    // 一週內記錄的溫度
+    // Temperatures recorded over a week
     val temperatures = listOf(15, 18, 21, 21, 19, 17, 16)
   
-    // 尋找本週最高溫度
+    // Find the highest temperature of the week
     val maxTemperature = temperatures.maxOrNull()
-    println("記錄到的最高溫度：${maxTemperature ?: "無資料"}")
-    // 記錄到的最高溫度：21
+    println("Highest temperature recorded: ${maxTemperature ?: "No data"}")
+    // Highest temperature recorded: 21
 
-    // 尋找本週最低溫度
+    // Find the lowest temperature of the week
     val minTemperature = temperatures.minOrNull()
-    println("記錄到的最低溫度：${minTemperature ?: "無資料"}")
-    // 記錄到的最低溫度：15
+    println("Lowest temperature recorded: ${minTemperature ?: "No data"}")
+    // Lowest temperature recorded: 15
 //sampleEnd
 }
 ```
@@ -216,13 +216,13 @@ fun main() {
 ```kotlin
 fun main() {
 //sampleStart
-    // 一週內記錄的溫度
+    // Temperatures recorded over a week
     val temperatures = listOf(15, 18, 21, 21, 19, 17, 16)
 
-    // 檢查是否有且只有一天是 30 度
+    // Check if there was exactly one day with 30 degrees
     val singleHotDay = temperatures.singleOrNull{ it == 30 }
-    println("單一天 30 度的高溫日：${singleHotDay ?: "無"}")
-    // 單一天 30 度的高溫日：無
+    println("Single hot day with 30 degrees: ${singleHotDay ?: "None"}")
+    // Single hot day with 30 degrees: None
 //sampleEnd
 }
 ```
@@ -260,18 +260,18 @@ fun main() {
 ```kotlin
 fun main() {
 //sampleStart
-    // 購物車中商品的價格
+    // Prices of items in a shopping cart
     val itemPrices = listOf(20, 35, 15, 40, 10)
 
-    // 使用 reduceOrNull() 函式計算總價
+    // Calculate the total price using the reduceOrNull() function
     val totalPrice = itemPrices.reduceOrNull { runningTotal, price -> runningTotal + price }
-    println("購物車中商品總價：${totalPrice ?: "無商品"}")
-    // 購物車中商品總價：120
+    println("Total price of items in the cart: ${totalPrice ?: "No items"}")
+    // Total price of items in the cart: 120
 
     val emptyCart = listOf<Int>()
     val emptyTotalPrice = emptyCart.reduceOrNull { runningTotal, price -> runningTotal + price }
-    println("空購物車中商品總價：${emptyTotalPrice ?: "無商品"}")
-    // 空購物車中商品總價：無商品
+    println("Total price of items in the empty cart: ${emptyTotalPrice ?: "No items"}")
+    // Total price of items in the empty cart: No items
 //sampleEnd
 }
 ```
@@ -293,25 +293,25 @@ fun main() {
 data class User(
     val id: Int,
     val name: String,
-    // 朋友使用者 ID 清單
+    // List of friend user IDs
     val friends: List<Int>
 )
 
-// 取得使用者朋友數量的函式
+// Function to get the number of friends for a user
 fun getNumberOfFriends(users: Map<Int, User>, userId: Int): Int {
-    // 擷取使用者，如果找不到則回傳 -1
+    // Retrieves the user or return -1 if not found
     val user = users[userId] ?: return -1
-    // 回傳朋友數量
+    // Returns the number of friends
     return user.friends.size
 }
 
 fun main() {
-    // 建立一些範例使用者
+    // Creates some sample users
     val user1 = User(1, "Alice", listOf(2, 3))
     val user2 = User(2, "Bob", listOf(1))
     val user3 = User(3, "Charlie", listOf(1))
 
-    // 建立使用者映射
+    // Creates a map of users
     val users = mapOf(1 to user1, 2 to user2, 3 to user3)
 
     println(getNumberOfFriends(users, 1))
@@ -343,7 +343,7 @@ fun main() {
 
 ```kotlin
 fun getNumberOfFriends(users: Map<Int, User>, userId: Int): Int {
-    // 擷取使用者，如果找不到則回傳 -1
+    // Retrieve the user or return -1 if not found
     return users[userId]?.friends?.size ?: -1
 }
 ```
@@ -369,16 +369,16 @@ fun getNumberOfFriends(users: Map<Int, User>, userId: Int): Int {
 >
 > ```kotlin
 > fun main() {
->     // 使用者已登入
+>     // The user is logged in
 >     val userIsLoggedIn = true
->     // 使用者具有活動會話
+>     // The user has an active session
 >     val hasSession = true
 > 
->     // 如果使用者已登入
->     // 且具有活動會話，則授予儀表板存取權限
+>     // Gives access to the dashboard if the user is logged in
+>     // and has an active session
 >     val canAccessDashboard = userIsLoggedIn.takeIf { hasSession }
 > 
->     println(canAccessDashboard ?: "存取遭拒")
+>     println(canAccessDashboard ?: "Access denied")
 >     // true
 > }
 > ```

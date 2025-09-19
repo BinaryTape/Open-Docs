@@ -1,6 +1,6 @@
 [//]: # (title: 枚举类)
 
-枚举类最基本的用途是实现类型安全的枚举：
+枚举类最基本的用例是实现类型安全的枚举：
 
 ```kotlin
 enum class Direction {
@@ -93,7 +93,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.9" id="rgb-enums-kotlin"}
 
-如果指定的名称与类中定义的任何枚举常量都不匹配，`valueOf()` 方法会抛出 `IllegalArgumentException`。
+`valueOf()` 方法会抛出 `IllegalArgumentException`，如果指定的名称与类中定义的任何枚举常量都不匹配。
 
 在 Kotlin 1.9.0 引入 `entries` 之前，`values()` 函数用于检索枚举常量数组。
 

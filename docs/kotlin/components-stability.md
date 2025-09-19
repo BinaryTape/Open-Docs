@@ -71,7 +71,7 @@ Kotlin 语言和工具集被划分为许多组件，例如面向 JVM、JS 和 Na
 | Kotlin/JVM                                                          | Stable     | 1.0.0              |              |
 | Kotlin/Native                                                       | Stable     | 1.9.0              |              |
 | Kotlin/JS                                                           | Stable     | 1.3.0              |              |
-| Kotlin/Wasm                                                         | Alpha      | 1.9.20             |              |
+| Kotlin/Wasm                                                         | Beta       | 2.2.20             |              |
 | [Analysis API](https://kotlin.github.io/analysis-api/index_md.html) | Stable     |                    |              |
 
 ### 核心编译器插件

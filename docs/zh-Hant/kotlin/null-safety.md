@@ -31,9 +31,9 @@ Kotlin 中可能導致 NPE 的唯一原因有：
 ```kotlin
 fun main() {
 //sampleStart
-    // Assigns a non-null string to a variable
+    // 將非空字串指派給變數
     var a: String = "abc"
-    // Attempts to re-assign null to the non-nullable variable
+    // 嘗試將 null 重新指派給非空變數
     a = null
     print(a)
     // Null can not be a value of a non-null type String
@@ -47,9 +47,9 @@ fun main() {
 ```kotlin
 fun main() {
 //sampleStart
-    // Assigns a non-null string to a variable
+    // 將非空字串指派給變數
     val a: String = "abc"
-    // Returns the length of a non-nullable variable
+    // 返回非空變數的長度
     val l = a.length
     print(l)
     // 3
@@ -63,9 +63,9 @@ fun main() {
 ```kotlin
 fun main() {
 //sampleStart
-    // Assigns a nullable string to a variable
+    // 將可空字串指派給變數
     var b: String? = "abc"
-    // Successfully re-assigns null to the nullable variable
+    // 成功將 null 重新指派給可空變數
     b = null
     print(b)
     // null
@@ -79,11 +79,11 @@ fun main() {
 ```kotlin
 fun main() {
 //sampleStart
-    // Assigns a nullable string to a variable
+    // 將可空字串指派給變數
     var b: String? = "abc"
-    // Re-assigns null to the nullable variable
+    // 將 null 重新指派給可空變數
     b = null
-    // Tries to directly return the length of a nullable variable
+    // 嘗試直接返回可空變數的長度
     val l = b.length
     print(l)
     // Only safe (?.) or non-null asserted (!!.) calls are allowed on a nullable receiver of type String? 
@@ -114,9 +114,9 @@ fun main() {
 ```kotlin
 fun main() {
 //sampleStart
-    // Assigns null to a nullable variable
+    // 將 null 指派給可空變數
     val b: String? = null
-    // Checks for nullability first and then accesses length
+    // 先檢查空值性，然後存取長度
     val l = if (b != null) b.length else -1
     print(l)
     // -1
@@ -132,15 +132,15 @@ fun main() {
 ```kotlin
 fun main() {
 //sampleStart
-    // Assigns a nullable string to a variable
+    // 將可空字串指派給變數
     val b: String? = "Kotlin"
 
-    // Checks for nullability first and then accesses length
+    // 先檢查空值性，然後存取長度
     if (b != null && b.length > 0) {
         print("String of length ${b.length}")
         // String of length 6
     } else {
-        // Provides alternative if the condition is not met
+        // 如果條件不滿足，提供替代方案
         print("Empty string")
     }
 //sampleEnd
@@ -157,12 +157,12 @@ fun main() {
 ```kotlin
 fun main() {
 //sampleStart
-    // Assigns a nullable string to a variable
+    // 將可空字串指派給變數
     val a: String? = "Kotlin"
-    // Assigns null to a nullable variable
+    // 將 null 指派給可空變數
     val b: String? = null
     
-    // Checks for nullability and returns length or null
+    // 檢查空值性並返回長度或 null
     println(a?.length)
     // 6
     println(b?.length)
@@ -208,9 +208,9 @@ if (person != null && person.department != null) {
 ```kotlin
 fun main() {
 //sampleStart
-    // Assigns null to a nullable variable  
+    // 將 null 指派給可空變數  
     val b: String? = null
-    // Checks for nullability. If not null, returns length. If null, returns 0
+    // 檢查空值性。如果不為 null，則返回長度。如果為 null，則返回 0
     val l: Int = if (b != null) b.length else 0
     println(l)
     // 0
@@ -224,9 +224,9 @@ fun main() {
 ```kotlin
 fun main() {
 //sampleStart
-    // Assigns null to a nullable variable  
+    // 將 null 指派給可空變數  
     val b: String? = null
-    // Checks for nullability. If not null, returns length. If null, returns a non-null value
+    // 檢查空值性。如果不為 null，則返回長度。如果為 null，則返回一個非空值
     val l = b?.length ?: 0
     println(l)
     // 0
@@ -241,9 +241,9 @@ fun main() {
 
 ```kotlin
 fun foo(node: Node): String? {
-    // Checks for getParent(). If not null, it's assigned to parent. If null, returns null
+    // 檢查 getParent()。如果不為 null，則指派給 parent。如果為 null，則返回 null
     val parent = node.getParent() ?: return null
-    // Checks for getName(). If not null, it's assigned to name. If null, throws exception
+    // 檢查 getName()。如果不為 null，則指派給 name。如果為 null，則拋出例外
     val name = node.getName() ?: throw IllegalArgumentException("name expected")
     // ...
 }
@@ -260,9 +260,9 @@ fun foo(node: Node): String? {
 ```kotlin
 fun main() {
 //sampleStart
-    // Assigns a nullable string to a variable
+    // 將可空字串指派給變數
     val b: String? = "Kotlin"
-    // Treats b as non-null and accesses its length
+    // 將 b 視為非空並存取其長度
     val l = b!!.length
     println(l)
     // 6
@@ -276,9 +276,9 @@ fun main() {
 ```kotlin
 fun main() {
 //sampleStart
-    // Assigns null to a nullable variable  
+    // 將 null 指派給可空變數  
     val b: String? = null
-    // Treats b as non-null and tries to access its length
+    // 將 b 視為非空並嘗試存取其長度
     val l = b!!.length
     println(l) 
     // Exception in thread "main" java.lang.NullPointerException
@@ -300,15 +300,15 @@ fun main() {
 ```kotlin
 //sampleStart
 fun main() {
-    // Assigns null to a nullable Person object stored in the person variable
+    // 將 null 指派給儲存在 person 變數中的可空 Person 物件
     val person: Person? = null
 
-    // Applies .toString to the nullable person variable and prints a string
+    // 將 .toString 應用於可空 person 變數並印出字串
     println(person.toString())
     // null
 }
 
-// Defines a simple Person class
+// 定義一個簡單的 Person 類別
 data class Person(val name: String)
 //sampleEnd
 ```
@@ -321,18 +321,18 @@ data class Person(val name: String)
 ```kotlin
 //sampleStart
 fun main() {
-    // Assigns a nullable Person object to a variable
+    // 將可空 Person 物件指派給變數
     val person1: Person? = null
     val person2: Person? = Person("Alice")
 
-    // Prints "null" if person is null; otherwise prints the result of person.toString()
+    // 如果 person 為 null，則印出 "null"；否則印出 person.toString() 的結果
     println(person1?.toString())
     // null
     println(person2?.toString())
     // Person(name=Alice)
 }
 
-// Defines a Person class
+// 定義一個 Person 類別
 data class Person(val name: String)
 //sampleEnd
 ```
@@ -349,12 +349,12 @@ data class Person(val name: String)
 ```kotlin
 fun main() {
 //sampleStart
-    // Declares a list of nullable strings
+    // 宣告一個可空字串的清單
     val listWithNulls: List<String?> = listOf("Kotlin", null)
 
-    // Iterates over each item in the list
+    // 迭代清單中的每個項目
     for (item in listWithNulls) {
-        // Checks if the item is null and only prints non-null values
+        // 檢查項目是否為 null，並只印出非空值
         item?.let { println(it) }
         //Kotlin 
     }
@@ -372,12 +372,12 @@ Kotlin 用於[類型轉型](typecasts.md#unsafe-cast-operator)的常規運算子
 ```kotlin
 fun main() {
 //sampleStart
-    // Declares a variable of type Any, which can hold any type of value
+    // 宣告一個 Any 類型的變數，它可以持有任何類型的值
     val a: Any = "Hello, Kotlin!"
 
-    // Safe casts to Int using the 'as?' operator
+    // 使用 'as?' 運算子安全轉型為 Int
     val aInt: Int? = a as? Int
-    // Safe casts to String using the 'as?' operator
+    // 使用 'as?' 運算子安全轉型為 String
     val aString: String? = a as? String
 
     println(aInt)
@@ -398,10 +398,10 @@ fun main() {
 ```kotlin
 fun main() {
 //sampleStart
-    // Declares a list containing some null and non-null integer values
+    // 宣告一個包含一些 null 和非空整數值的清單
     val nullableList: List<Int?> = listOf(1, 2, null, 4)
 
-    // Filters out null values, resulting in a list of non-null integers
+    // 過濾掉 null 值，得到一個非空整數的清單
     val intList: List<Int> = nullableList.filterNotNull()
   
     println(intList)

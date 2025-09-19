@@ -94,29 +94,25 @@ sudo gem install cocoapods
 
 ## 创建项目
 
-当环境设置好后，你可以创建一个新的 Kotlin Multiplatform 项目。为此，请使用 Kotlin Multiplatform 网页向导或 Android Studio 的 Kotlin Multiplatform 插件。
+当你的 CocoaPods 环境设置好后，你可以配置 Kotlin Multiplatform 项目以与 Pods 配合使用。
+以下步骤展示了在新生成的项目上的配置：
 
-### 使用网页向导
+1. 使用 [Kotlin Multiplatform IDE 插件](https://plugins.jetbrains.com/plugin/14936-kotlin-multiplatform)
+   （在 macOS 上）或 [Kotlin Multiplatform 网页向导](https://kmp.jetbrains.com)生成一个新的 Android 和 iOS 项目。
+   如果使用网页向导，请解压归档文件并将其导入你的 IDE。
+2. 在 `gradle/libs.versions.toml` 文件中，将 Kotlin CocoaPods Gradle 插件添加到 `[plugins]` 代码块中：
 
-要使用网页向导创建项目并配置 CocoaPods 集成：
-
-1. 打开 [Kotlin Multiplatform 向导](https://kmp.jetbrains.com) 并为你的项目选择目标平台。
-2. 点击 **Download** 按钮并解压下载的归档文件。
-3. 在 Android Studio 中，选择菜单中的 **File | Open**。
-4. 导航到解压后的项目文件夹，然后点击 **Open**。
-5. 将 Kotlin CocoaPods Gradle 插件添加到版本目录。在 `gradle/libs.versions.toml` 文件中，将以下声明添加到 `[plugins]` 代码块中：
- 
    ```text
    kotlinCocoapods = { id = "org.jetbrains.kotlin.native.cocoapods", version.ref = "kotlin" }
    ```
-   
-6. 导航到项目的根 `build.gradle.kts` 文件，并将以下别名添加到 `plugins {}` 代码块中：
+
+3. 导航到项目的根 `build.gradle.kts` 文件，并将以下别名添加到 `plugins {}` 代码块中：
 
    ```kotlin
    alias(libs.plugins.kotlinCocoapods) apply false
    ```
 
-7. 打开你想要集成 CocoaPods 的模块，例如 `composeApp` 模块，并将以下别名添加到 `plugins {}` 代码块中：
+4. 打开你想要集成 CocoaPods 的模块，例如 `composeApp` 模块，并将以下别名添加到 `build.gradle.kts` 文件的 `plugins {}` 代码块中：
 
    ```kotlin
    alias(libs.plugins.kotlinCocoapods)
@@ -124,29 +120,13 @@ sudo gem install cocoapods
 
 现在你已准备好[在 Kotlin Multiplatform 项目中配置 CocoaPods](#configure-the-project)。
 
-### 在 Android Studio 中
-
-要在 Android Studio 中创建具有 CocoaPods 集成的项目：
-
-1. 在 Android Studio 中安装 [Kotlin Multiplatform 插件](https://plugins.jetbrains.com/plugin/14936-kotlin-multiplatform)。
-2. 在 Android Studio 中，选择菜单中的 **File** | **New** | **New Project**。
-3. 在项目模板列表中，选择 **Kotlin Multiplatform App**，然后点击 **Next**。
-4. 为你的应用程序命名，然后点击 **Next**。
-5. 选择 **CocoaPods Dependency Manager** 作为 iOS framework 分发选项。
-
-   ![Android Studio wizard with the Kotlin Multiplatform plugin](as-project-wizard.png){width=700}
-
-6. 其他所有选项保持默认。点击 **Finish**。
-
-   该插件将自动生成已设置 CocoaPods 集成的项目。
-
 ## 配置项目
 
 要在你的 Multiplatform 项目中配置 Kotlin CocoaPods Gradle 插件：
 
 1. 在你的项目的共享模块的 `build.gradle(.kts)` 中，应用 CocoaPods 插件以及 Kotlin Multiplatform 插件。
 
-   > 如果你已通过[网页向导](#using-web-wizard)或[适用于 Android Studio 的 Kotlin Multiplatform 插件](#in-android-studio)创建项目，请跳过此步骤。
+   > 如果你已通过[IDE 插件或网页向导](#create-a-project)创建项目，请跳过此步骤。
    > 
    {style="note"}
     

@@ -6,7 +6,7 @@
 
 _[发布日期：2022 年 9 月 29 日](releases.md#release-details)_
 
-Kotlin 1.7.20 已发布！以下是本次发布的一些亮点：
+Kotlin 1.7.20 版本已发布！以下是本次发布的一些亮点：
 
 * [新的 Kotlin K2 编译器支持 `all-open`、带接收者的 SAM、Lombok 和其他编译器插件](#support-for-kotlin-k2-compiler-plugins)
 * [我们引入了用于创建开放区间的 `..<` 操作符预览版](#preview-of-the-operator-for-creating-open-ended-ranges)
@@ -192,7 +192,6 @@ fun main() {
     println(ReadResult.EndOfFile) // EndOfFile
 }
 ```
-{validate="false"}
 
 #### 如何启用数据对象
 
@@ -224,7 +223,7 @@ compileKotlin {
 
 ### 新的构建器类型推断限制
 
-Kotlin 1.7.20 对[构建器类型推断的使用](using-builders-with-builder-inference.md)施加了一些主要限制，这可能会影响你的代码。这些限制适用于包含构建器 lambda 函数的代码，在这种情况下，在不分析 lambda 本身的情况下无法推导出参数。该参数用作实参。现在，编译器总是会为此类代码显示错误，并要求你显式指定类型。
+Kotlin 1.7.20 对[构建器类型推断的使用](using-builders-with-builder-inference.md)施加了一些主要限制，这可能会影响你的代码。这些限制适用于包含构建器 lambda 函数的代码，在这种情况下，在不分析 lambda 本身的情况下无法推导出形参。该形参用作实参。现在，编译器总是会为此类代码显示错误，并要求你显式指定类型。
 
 这是一个破坏性更改，但我们的研究表明，这些情况非常罕见，这些限制不应该影响你的代码。如果确实影响了，请考虑以下情况：
 
@@ -267,7 +266,7 @@ Kotlin 1.7.20 对[构建器类型推断的使用](using-builders-with-builder-in
 
 * 具有多个 lambda 且类型实参未显式指定的构建器推断。
 
-  如果在构建器推断中有两个或更多 lambda 块，它们会影响类型。为防止出现错误，编译器要求你指定类型：
+  如果在构建器推断中有两个或更多 lambda 代码块，它们会影响类型。为防止出现错误，编译器要求你指定类型：
 
     ```kotlin
     fun <T: Any> buildList(
@@ -326,7 +325,7 @@ Kotlin 1.7.20 引入了泛型内联类，增加了对委托属性的字节码优
 
 > 泛型内联类是一项[实验性的](components-stability.md#stability-levels-explained)特性。
 > 它随时可能被取消或更改。需要选择性加入（详见下文），且仅应将其用于评估目的。
-> 我们期待你能在 [YouTrack](https://youtrack.jetbrains.com/issue/KT-52994) 上提供关于此功能的反馈。
+> 我们期待你能在 [YouTrack](https://youtrack.com/issue/KT-52994) 上提供关于此功能的反馈。
 >
 {style="warning"}
 
@@ -421,7 +420,7 @@ Kotlin 1.7.20 自带默认启用的新 Kotlin/Native 内存管理器，并提供
 
 以前的内存管理器使编写并发和异步代码变得复杂，包括在实现 `kotlinx.coroutines` 库时遇到的问题。这阻碍了 Kotlin Multiplatform Mobile 的采用，因为并发限制在 iOS 和 Android 平台之间共享 Kotlin 代码时造成了问题。新的内存管理器最终为[将 Kotlin Multiplatform Mobile 提升到 Beta 版](https://blog.jetbrains.com/kotlin/2022/05/kotlin-multiplatform-mobile-beta-roadmap-update/)铺平了道路。
 
-新的内存管理器还支持编译器缓存，这使得编译时间与以前的版本相当。有关新内存管理器的更多优势，请参阅我们关于预览版的原始[博客文章](https://blog.jetbrains.com/kotlin/2021/08/try-the-new-kotlin-native-memory-manager-development-preview/)。你可以在[文档](native-memory-manager.md)中找到更多技术细节。
+新的内存管理器还支持编译器缓存，这使得编译时间与以前的版本相当。有关新的内存管理器的更多优势，请参阅我们关于预览版的原始[博客文章](https://blog.jetbrains.com/kotlin/2021/08/try-the-new-kotlin-native-memory-manager-development-preview/)。你可以在[文档](native-memory-manager.md)中找到更多技术细节。
 
 #### 配置和设置
 
@@ -646,7 +645,7 @@ Kotlin 1.7.20 为 `java.nio.file.Path` 类提供了新的[扩展函数](extensio
       }
   
    
-  // 使用 walk 函数：
+  // Use walk function:
       val directoryStructure = rootDirectory.walk(PathWalkOption.INCLUDE_DIRECTORIES)
           .map { it.relativeTo(rootDirectory).toString() }
           .toList().sorted()

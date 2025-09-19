@@ -47,12 +47,12 @@ fun main() {
 例如：
 
 ```kotlin
-fun main() { 
+fun main() {
 //sampleStart
     val popcorn = 5    // 有 5 盒爆米花
     val hotdog = 7     // 有 7 個熱狗
     var customers = 10 // 佇列中有 10 位顧客
-    
+
     // 一些顧客離開了佇列
     customers = 8
     println(customers)
@@ -63,30 +63,30 @@ fun main() {
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-tour-variables"}
 
 > 變數可以在程式開始時於 `main()` 函式外部宣告。以這種方式宣告的變數被稱為在**頂層**宣告。
-> 
+>
 {style="tip"}
 
 由於 `customers` 是一個可變變數，它的值在宣告後可以被重新賦值。
 
 > 我們建議預設將所有變數宣告為唯讀 (`val`)。只有在你確實需要時才使用可變變數 (`var`)。這樣，你就比較不會意外更改不應該更改的內容。
-> 
+>
 {style="note"}
 
 ## 字串範本
 
-了解如何將變數內容列印到標準輸出很有用。你可以使用**字串範本**來實現這點。你可以使用範本表達式來存取儲存在變數和其他物件中的資料，並將它們轉換為字串。字串值是由雙引號 `"` 中的一系列字元組成。範本表達式總是以前置詞號 `$` 開頭。
+了解如何將變數內容列印到標準輸出很有用。你可以使用**字串範本**來實現這點。你可以使用範本表達式來存取儲存在變數和其他物件中的資料，並將它們轉換為字串。字串值是由雙引號 `"` 中的一系列字元組成。範本表達式總是以前置詞號 `#` 開頭。
 
-若要在範本表達式中評估一段程式碼，請將程式碼放在前置詞號 `$` 後的花括號 `{}` 內。
+若要在範本表達式中評估一段程式碼，請將程式碼放在前置詞號 `#` 後的花括號 `{}` 內。
 
 例如：
 
 ```kotlin
-fun main() { 
+fun main() {
 //sampleStart
     val customers = 10
     println("There are $customers customers")
     // 有 10 位顧客
-    
+
     println("There are ${customers + 1} customers")
     // 有 11 位顧客
 //sampleEnd

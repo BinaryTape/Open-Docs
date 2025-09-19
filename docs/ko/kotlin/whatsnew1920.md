@@ -1,6 +1,6 @@
 [//]: # (title: Kotlin 1.9.20의 새로운 기능)
 
-[릴리스: 2023년 11월 1일](releases.md#release-details)
+_[릴리스: 2023년 11월 1일](releases.md#release-details)_
 
 Kotlin 1.9.20 릴리스가 나왔습니다. [모든 타겟을 위한 K2 컴파일러가 이제 베타(Beta) 단계에 진입했습니다](#new-kotlin-k2-compiler-updates)하며, [Kotlin Multiplatform이 이제 안정화(Stable)되었습니다](#kotlin-multiplatform-is-stable). 이 외에도 주요 내용은 다음과 같습니다:
 
@@ -196,6 +196,7 @@ kotlin.incremental.native=true
 ```text
 No function found for symbol 'org.samples/MyClass.removedFunction|removedFunction(kotlin.Int;kotlin.String){}[0]'
 ```
+
 Kotlin/Native 컴파일러는 서드파티 Kotlin 라이브러리 간의 연결(linkage) 문제를 감지하고 런타임에 오류를 보고합니다. 한 서드파티 Kotlin 라이브러리의 작성자가 다른 서드파티 Kotlin 라이브러리가 사용하는 실험적 API에 호환되지 않는 변경을 가하는 경우 이러한 문제가 발생할 수 있습니다.
 
 Kotlin 1.9.20부터 컴파일러는 기본적으로 연결 문제를 자동으로 감지합니다. 프로젝트에서 이 설정을 조정할 수 있습니다:
@@ -483,7 +484,7 @@ JetBrains 팀은 크로스 플랫폼 프로젝트를 생성하는 새로운 방�
 새로운 위자드는 초기 설정을 쉽게 안내하여 온보딩 프로세스를 훨씬 원활하게 만듭니다. 문제가 발생하면 [YouTrack](https://kotl.in/issue)에 보고하여 위자드 사용 경험을 개선하는 데 도움을 주세요.
 
 <a href="https://kmp.jetbrains.com">
-   <img src="multiplatform-create-project-button.png" alt="Create a project" style="block"/>
+   <img src="multiplatform-create-project-button.png" alt="프로젝트 생성" style="block"/>
 </a>
 
 ### Kotlin Multiplatform에서 Gradle 설정 캐시(Configuration cache) 완벽 지원
@@ -606,7 +607,7 @@ Kotlin 1.9.20은 [Kotlin CocoaPods Gradle](https://www.jetbrains.com/help/kotlin
 Wasm GC가 최종 단계로 진행되면서 바이너리 표현에 사용되는 상수 숫자(opcode)에 대한 업데이트가 필요합니다. Kotlin 1.9.20은 최신 opcode를 지원하므로, Wasm 프로젝트를 최신 Kotlin 버전으로 업데이트하는 것을 강력히 권장합니다.
 또한 Wasm 환경을 갖춘 최신 버전의 브라우저를 사용하는 것을 권장합니다:
 *   Chrome 및 Chromium 기반 브라우저의 경우 119 버전 이상.
-*   Firefox의 경우 119 버전 이상. Firefox 119에서는 [Wasm GC를 수동으로 켜야 합니다](wasm-troubleshooting.md).
+*   Firefox의 경우 119 버전 이상. Firefox 119에서는 [Wasm GC를 수동으로 켜야 합니다](wasm-configuration.md).
 
 ### 새로운 `wasm-wasi` 타겟 및 `wasm` 타겟의 `wasm-js`로 이름 변경
 

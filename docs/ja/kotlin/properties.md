@@ -1,61 +1,127 @@
 [//]: # (title: プロパティ)
 
+Kotlinでは、プロパティを使用すると、データにアクセスしたり変更したりするための関数を記述することなく、データを保存および管理できます。
+プロパティは、[クラス](classes.md)、[インターフェース](interfaces.md)、[オブジェクト](object-declarations.md)、[コンパニオンオブジェクト](object-declarations.md#companion-objects)内、
+さらにはこれらの構造の外部でトップレベルプロパティとして使用できます。
+
+すべてのプロパティには名前、型、そしてgetterと呼ばれる自動生成された`get()`関数があります。getterを使用してプロパティの値を読み取ることができます。プロパティが可変の場合、setterと呼ばれる`set()`関数も持ち、プロパティの値を変更することができます。
+
+> Getterとsetterは_アクセサー_と呼ばれます。
+>
+{style="tip"}
+
 ## プロパティの宣言
 
-Kotlinクラスのプロパティは、`var`キーワードを使用して可変として、または`val`キーワードを使用して読み取り専用として宣言できます。
+プロパティは可変 (`var`) または読み取り専用 (`val`) にできます。
+これらは`.kt`ファイル内でトップレベルプロパティとして宣言できます。トップレベルプロパティは、パッケージに属するグローバル変数と考えることができます。
+
+```kotlin
+// File: Constants.kt
+package my.app
+
+val pi = 3.14159
+var counter = 0
+```
+
+クラス、インターフェース、またはオブジェクト内でプロパティを宣言することもできます。
+
+```kotlin
+// Class with properties
+class Address {
+    var name: String = "Holmes, Sherlock"
+    var street: String = "Baker"
+    var city: String = "London"
+}
+
+// Interface with a property
+interface ContactInfo {
+    val email: String
+}
+
+// Object with properties
+object Company {
+    var name: String = "Detective Inc."
+    val country: String = "UK"
+}
+
+// Class implementing the interface
+class PersonContact : ContactInfo {
+    override val email: String = "sherlock@example.com"
+}
+```
+
+プロパティを使用するには、その名前で参照します。
 
 ```kotlin
 class Address {
     var name: String = "Holmes, Sherlock"
     var street: String = "Baker"
     var city: String = "London"
-    var state: String? = null
-    var zip: String = "123456"
 }
-```
 
-プロパティを使用するには、その名前で参照するだけです。
+interface ContactInfo {
+    val email: String
+}
 
-```kotlin
+object Company {
+    var name: String = "Detective Inc."
+    val country: String = "UK"
+}
+
+class PersonContact : ContactInfo {
+    override val email: String = "sherlock@example.com"
+}
+
+//sampleStart
 fun copyAddress(address: Address): Address {
-    val result = Address() // Kotlinには'new'キーワードはありません
-    result.name = address.name // アクセサーが呼び出されます
+    val result = Address()
+    // Accesses properties in the result instance
+    result.name = address.name
     result.street = address.street
-    // ...
+    result.city = address.city
     return result
 }
+
+fun main() {
+    val sherlockAddress = Address()
+    val copy = copyAddress(sherlockAddress)
+    // Accesses properties in the copy instance
+    println("Copied address: ${copy.name}, ${copy.street}, ${copy.city}")
+    // Copied address: Holmes, Sherlock, Baker, London
+
+    // Accesses properties in the Company object
+    println("Company: ${Company.name} in ${Company.country}")
+    // Company: Detective Inc. in UK
+    
+    val contact = PersonContact()
+    // Access properties in the contact instance
+    println("Email: ${contact.email}")
+    // Email: sherlock@email.com
+}
+//sampleEnd
 ```
+{kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-access-properties"}
 
-## GetterとSetter
+Kotlinでは、コードを安全で読みやすく保つために、プロパティを宣言時に初期化することをお勧めします。ただし、特別な場合には、[後で初期化する](#late-initialized-properties-and-variables)こともできます。
 
-プロパティを宣言するための完全な構文は次のとおりです。
+コンパイラが初期化子またはgetterの戻り値の型から型を推論できる場合は、プロパティの型を宣言することはオプションです。
 
 ```kotlin
-var <propertyName>[: <PropertyType>] [= <property_initializer>]
-    [<getter>]
-    [<setter>]
+var initialized = 1 // The inferred type is Int
+var allByDefault    // ERROR: Property must be initialized.
 ```
+{validate="false"}
 
-初期化子、getter、setterはオプションです。プロパティの型は、初期化子またはgetterの戻り値の型から推論できる場合はオプションです。以下に示します。
+## カスタムgetterとsetter
 
-```kotlin
-var initialized = 1 // 型はInt、デフォルトのgetterとsetterを持つ
-// var allByDefault // ERROR: 明示的な初期化子が必要、デフォルトのgetterとsetterが暗黙的に含まれる
-```
+デフォルトでは、Kotlinはgetterとsetterを自動的に生成します。バリデーション、フォーマット、または他のプロパティに基づく計算など、追加のロジックが必要な場合は、独自のカスタムアクセサーを定義できます。
 
-読み取り専用プロパティ宣言の完全な構文は、可変プロパティ宣言とは2つの点で異なります。`var`の代わりに`val`で始まり、setterを許可しません。
-
-```kotlin
-val simple: Int? // 型はInt、デフォルトのgetter、コンストラクタで初期化する必要がある
-val inferredType = 1 // 型はIntで、デフォルトのgetterを持つ
-```
-
-プロパティに対してカスタムアクセサーを定義できます。カスタムgetterを定義すると、プロパティにアクセスするたびにそれが呼び出されます（このようにして算出プロパティを実装できます）。カスタムgetterの例を次に示します。
+カスタムgetterは、プロパティがアクセスされるたびに実行されます。
 
 ```kotlin
 //sampleStart
 class Rectangle(val width: Int, val height: Int) {
-    val area: Int // プロパティの型はgetterの戻り値の型から推論できるためオプション
+    val area: Int
         get() = this.width * this.height
 }
 //sampleEnd
@@ -64,134 +130,334 @@ fun main() {
     println("Width=${rectangle.width}, height=${rectangle.height}, area=${rectangle.area}")
 }
 ```
-{kotlin-runnable="true"}
+{kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-custom-getter"}
 
-getterから推論できる場合は、プロパティの型を省略できます。
+コンパイラがgetterから型を推論できる場合は、型を省略できます。
 
 ```kotlin
 val area get() = this.width * this.height
 ```
 
-カスタムsetterを定義すると、プロパティの初期化時を除き、値を代入するたびにそれが呼び出されます。カスタムsetterは次のようになります。
+カスタムsetterは、初期化時を除き、プロパティに値を代入するたびに実行されます。慣例により、setterパラメーターの名前は`value`ですが、別の名前を選択できます。
 
 ```kotlin
-var stringRepresentation: String
-    get() = this.toString()
-    set(value) {
-        setDataFromString(value) // 文字列をパースし、他のプロパティに値を代入する
+class Point(var x: Int, var y: Int) {
+    var coordinates: String
+        get() = "$x,$y"
+        set(value) {
+            val parts = value.split(",")
+            x = parts[0].toInt()
+            y = parts[1].toInt()
+        }
+}
+
+fun main() {
+    val location = Point(1, 2)
+    println(location.coordinates) 
+    // 1,2
+
+    location.coordinates = "10,20"
+    println("${location.x}, ${location.y}") 
+    // 10, 20
+}
+```
+{kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-custom-setter"}
+
+### 可視性の変更またはアノテーションの追加
+
+Kotlinでは、デフォルトの実装を置き換えることなく、アクセサーの可視性を変更したり、[アノテーション](annotations.md)を追加したりできます。これらの変更を本体`{}`内で行う必要はありません。
+
+アクセサーの可視性を変更するには、`get`または`set`キーワードの前に修飾子を使用します。
+
+```kotlin
+class BankAccount(initialBalance: Int) {
+    var balance: Int = initialBalance
+        // Only the class can modify the balance
+        private set 
+
+    fun deposit(amount: Int) {
+        if (amount > 0) balance += amount
     }
+
+    fun withdraw(amount: Int) {
+        if (amount > 0 && amount <= balance) balance -= amount
+    }
+}
+
+fun main() {
+    val account = BankAccount(100)
+    println("Initial balance: ${account.balance}") 
+    // 100
+
+    account.deposit(50)
+    println("After deposit: ${account.balance}") 
+    // 150
+
+    account.withdraw(70)
+    println("After withdrawal: ${account.balance}") 
+    // 80
+
+    // account.balance = 1000  
+    // Error: cannot assign because setter is private
+}
 ```
+{kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-private-setter"}
 
-慣例により、setterパラメーターの名前は`value`ですが、必要に応じて別の名前を選択できます。
-
-アクセサーにアノテーションを付けたり、その可視性を変更したりする必要があるが、デフォルトの実装を変更したくない場合は、アクセサーの本体を定義せずに定義できます。
+アクセサーにアノテーションを付けるには、`get`または`set`キーワードの前にアノテーションを使用します。
 
 ```kotlin
-var setterVisibility: String = "abc"
-    private set // setterはprivateで、デフォルトの実装を持つ
+// Defines an annotation that can be applied to a getter
+@Target(AnnotationTarget.PROPERTY_GETTER)
+annotation class Inject
 
-var setterWithAnnotation: Any? = null
-    @Inject set // setterにInjectアノテーションを付与する
+class Service {
+    var dependency: String = "Default Service"
+        // Annotates the getter
+        @Inject get 
+}
+
+fun main() {
+    val service = Service()
+    println(service.dependency)
+    // Default service
+    println(service::dependency.getter.annotations)
+    // [@Inject()]
+    println(service::dependency.setter.annotations)
+    // []
+}
 ```
+{validate="false"}
+
+この例では、[リフレクション](reflection.md)を使用して、getterとsetterにどのアノテーションが存在するかを示しています。
 
 ### バッキングフィールド
 
-Kotlinでは、フィールドはプロパティの一部としてその値をメモリに保持するためにのみ使用されます。フィールドを直接宣言することはできません。ただし、プロパティがバッキングフィールドを必要とするときは、Kotlinが自動的にそれを提供します。このバッキングフィールドは、アクセサー内で`field`識別子を使用して参照できます。
+Kotlinでは、アクセサーはプロパティの値をメモリに保存するためにバッキングフィールドを使用します。バッキングフィールドは、getterやsetterに追加のロジックを追加したい場合、またはプロパティが変更されるたびに追加のアクションをトリガーしたい場合に役立ちます。
 
-```kotlin
-var counter = 0 // 初期化子がバッキングフィールドに直接値を代入する
-    set(value) {
-        if (value >= 0)
-            field = value
-            // counter = value // ERROR StackOverflow: 実際の名前 'counter' を使用するとsetterが再帰的になる
-    }
-```
+バッキングフィールドを直接宣言することはできません。Kotlinは必要な場合にのみそれらを生成します。アクセサー内で`field`キーワードを使用してバッキングフィールドを参照できます。
 
-`field`識別子は、プロパティのアクセサー内でのみ使用できます。
+Kotlinは、デフォルトのgetterまたはsetterを使用する場合、または少なくとも1つのカスタムアクセサーで`field`を使用する場合にのみ、バッキングフィールドを生成します。
 
-バッキングフィールドは、アクセサーの少なくとも1つのデフォルト実装を使用する場合、またはカスタムアクセサーが`field`識別子を介してそれを参照する場合に、プロパティに対して生成されます。
-
-たとえば、次のケースではバッキングフィールドは存在しません。
+たとえば、`isEmpty`プロパティは、`field`キーワードを使用しないカスタムgetterを使用しているため、バッキングフィールドを持ちません。
 
 ```kotlin
 val isEmpty: Boolean
     get() = this.size == 0
 ```
 
-### バッキングプロパティ
-
-この_暗黙的なバッキングフィールド_の仕組みに合わないことをしたい場合は、_バッキングプロパティ_を使用するように常にフォールバックできます。
+この例では、`score`プロパティはsetterが`field`キーワードを使用しているため、バッキングフィールドを持っています。
 
 ```kotlin
-private var _table: Map<String, Int>? = null
-public val table: Map<String, Int>
-    get() {
-        if (_table == null) {
-            _table = HashMap() // 型引数は推論される
+class Scoreboard {
+    var score: Int = 0
+        set(value) {
+            field = value
+            // Adds logging when updating the value
+            println("Score updated to $field")
         }
-        return _table ?: throw AssertionError("別のスレッドによってnullに設定された")
-    }
-```
+}
 
-> JVM上：デフォルトのgetterとsetterを持つprivateプロパティへのアクセスは、関数呼び出しのオーバーヘッドを避けるために最適化されています。
+fun main() {
+    val board = Scoreboard()
+    board.score = 10  
+    // Score updated to 10
+    board.score = 20  
+    // Score updated to 20
+}
+```
+{kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-backing-field"}
+
+### バッキングプロパティ
+
+[バッキングフィールド](#backing-fields)が提供できる以上の柔軟性が必要になる場合があります。たとえば、プロパティを内部で変更できるが、外部からは変更できないAPIがある場合などです。そのような場合、_バッキングプロパティ_と呼ばれるコーディングパターンを使用できます。
+
+以下の例では、`ShoppingCart`クラスはショッピングカート内のすべてを表す`items`プロパティを持っています。`items`プロパティはクラスの外部からは読み取り専用にしたいが、ユーザーが`items`プロパティを直接変更できる「承認された」方法を1つだけ許可したいと考えています。これを実現するには、`_items`というプライベートなバッキングプロパティと、そのバッキングプロパティの値に委譲する`items`というパブリックなプロパティを定義できます。
+
+```kotlin
+class ShoppingCart {
+    // Backing property
+    private val _items = mutableListOf<String>()
+
+    // Public read-only view
+    val items: List<String>
+        get() = _items
+
+    fun addItem(item: String) {
+        _items.add(item)
+    }
+
+    fun removeItem(item: String) {
+        _items.remove(item)
+    }
+}
+
+fun main() {
+    val cart = ShoppingCart()
+    cart.addItem("Apple")
+    cart.addItem("Banana")
+
+    println(cart.items) 
+    // [Apple, Banana]
+    
+    cart.removeItem("Apple")
+    println(cart.items) 
+    // [Banana]
+}
+```
+{kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-backing-property"}
+
+この例では、ユーザーは`addItem()`関数を介してのみカートにアイテムを追加できますが、`items`プロパティにアクセスして中身を確認することはできます。
+
+> Kotlinの[コーディング規約](coding-conventions.md#names-for-backing-properties)に従うには、バッキングプロパティの命名時に先頭にアンダースコアを使用します。
 >
-{style="note"}
+{style="tip"}
+
+JVMでは、コンパイラはデフォルトのアクセサーを持つプライベートプロパティへのアクセスを最適化し、関数呼び出しのオーバーヘッドを回避します。
+
+バッキングプロパティは、複数のパブリックプロパティが状態を共有したい場合にも役立ちます。例：
+
+```kotlin
+class Temperature {
+    // Backing property storing temperature in Celsius
+    private var _celsius: Double = 0.0
+
+    var celsius: Double
+        get() = _celsius
+        set(value) { _celsius = value }
+
+    var fahrenheit: Double
+        get() = _celsius * 9 / 5 + 32
+        set(value) { _celsius = (value - 32) * 5 / 9 }
+}
+
+fun main() {
+    val temp = Temperature()
+    temp.celsius = 25.0
+    println("${temp.celsius}°C = ${temp.fahrenheit}°F") 
+    // 25.0°C = 77.0°F
+
+    temp.fahrenheit = 212.0
+    println("${temp.celsius}°C = ${temp.fahrenheit}°F") 
+    // 100.0°C = 212.0°F
+}
+```
+{kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-backing-property-multiple-properties"}
+
+この例では、`_celsius`バッキングプロパティは`celsius`プロパティと`fahrenheit`プロパティの両方からアクセスされます。この設定は、2つのパブリックビューを持つ単一の信頼できる情報源を提供します。
 
 ## コンパイル時定数
 
-読み取り専用プロパティの値がコンパイル時に既知である場合、`const`修飾子を使用して_コンパイル時定数_としてマークします。
-このようなプロパティは、次の要件を満たす必要があります。
+読み取り専用プロパティの値がコンパイル時に既知である場合、`const`修飾子を使用して_コンパイル時定数_としてマークします。コンパイル時定数はコンパイル時にインライン化されるため、各参照はその実際の値に置き換えられます。getterが呼び出されないため、より効率的にアクセスされます。
 
-* トップレベルプロパティ、または[`object`宣言](object-declarations.md#object-declarations-overview)や_[コンパニオンオブジェクト](object-declarations.md#companion-objects)_のメンバーであること。
-* `String`型またはプリミティブ型の値で初期化されていること。
-* カスタムgetterを持つことはできない。
+```kotlin
+// File: AppConfig.kt
+package com.example
 
-コンパイラは定数の使用箇所をインライン化し、定数への参照をその実際の値に置き換えます。ただし、フィールドは削除されないため、[リフレクション](reflection.md)を使用して操作できます。
+// Compile-time constant
+const val MAX_LOGIN_ATTEMPTS = 3
+```
 
-このようなプロパティは、アノテーションでも使用できます。
+コンパイル時定数は、次の要件を満たす必要があります。
+
+*   トップレベルプロパティであるか、[`object`宣言](object-declarations.md#object-declarations-overview)または[コンパニオンオブジェクト](object-declarations.md#companion-objects)のメンバーであること。
+*   `String`型または[プリミティブ型](basic-types.md)の値で初期化されていること。
+*   カスタムgetterを持つことはできない。
+
+コンパイル時定数にはバッキングフィールドがまだ存在するため、[リフレクション](reflection.md)を使用してそれらを操作できます。
+
+これらのプロパティをアノテーションでも使用できます。
 
 ```kotlin
 const val SUBSYSTEM_DEPRECATED: String = "This subsystem is deprecated"
 
-@Deprecated(SUBSYSTEM_DEPRECATED) fun foo() { ... }
+@Deprecated(SUBSYSTEM_DEPRECATED) fun processLegacyOrders() { ... }
 ```
 
 ## 遅延初期化プロパティと変数
 
-通常、非NULL許容型として宣言されたプロパティは、コンストラクタで初期化する必要があります。
-しかし、そうすることが不便な場合がよくあります。たとえば、プロパティは依存性注入によって、または単体テストのセットアップメソッドで初期化されることがあります。これらの場合、コンストラクタで非NULL許容の初期化子を提供することはできませんが、クラス本体内でプロパティを参照するときにnullチェックを避けたい場合があります。
+通常、プロパティはコンストラクタで初期化する必要があります。しかし、これは常に都合が良いとは限りません。たとえば、プロパティを依存性注入を介して、または単体テストのセットアップメソッド内で初期化する場合があります。
 
-このようなケースを処理するには、プロパティを`lateinit`修飾子でマークします。
+これらの状況を処理するには、プロパティを`lateinit`修飾子でマークします。
 
 ```kotlin
-public class MyTest {
-    lateinit var subject: TestSubject
+public class OrderServiceTest {
+    lateinit var orderService: OrderService
 
     @SetUp fun setup() {
-        subject = TestSubject()
+        orderService = OrderService()
     }
 
-    @Test fun test() {
-        subject.method()  // 直接逆参照する
+    @Test fun processesOrderSuccessfully() {
+        // Calls orderService directly without checking for null
+        // or initialization
+        orderService.processOrder()  
     }
 }
 ```
 
-この修飾子は、クラス本体内で宣言された`var`プロパティ（プライマリコンストラクタ内ではなく、プロパティがカスタムgetterまたはsetterを持たない場合のみ）、およびトップレベルプロパティやローカル変数に使用できます。プロパティまたは変数の型は非NULL許容である必要があり、プリミティブ型であってはなりません。
+`lateinit`修飾子は、次のように宣言された`var`プロパティで使用できます。
 
-`lateinit`プロパティが初期化される前にアクセスすると、アクセスされたプロパティとそれが初期化されていないという事実を明確に識別する特別な例外がスローされます。
+*   トップレベルプロパティ。
+*   ローカル変数。
+*   クラスの本体内のプロパティ。
 
-### lateinit varが初期化されているかどうかの確認
+クラスプロパティの場合：
 
-`lateinit var`がすでに初期化されているかどうかを確認するには、[そのプロパティへの参照](reflection.md#property-references)に対して`.isInitialized`を使用します。
+*   プライマリコンストラクタで宣言することはできません。
+*   カスタムgetterまたはsetterを持つことはできません。
+
+すべての場合において、プロパティまたは変数は非NULL許容である必要があり、[プリミティブ型](basic-types.md)であってはなりません。
+
+`lateinit`プロパティが初期化される前にアクセスすると、Kotlinはアクセスされた初期化されていないプロパティを明確に識別する特定の例外をスローします。
 
 ```kotlin
-if (foo::bar.isInitialized) {
-    println(foo.bar)
+class ReportGenerator {
+    lateinit var report: String
+
+    fun printReport() {
+        // Throws an exception as it's accessed before
+        // initialization
+        println(report)
+    }
+}
+
+fun main() {
+    val generator = ReportGenerator()
+    generator.printReport()
+    // Exception in thread "main" kotlin.UninitializedPropertyAccessException: lateinit property report has not been initialized
 }
 ```
+{kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-lateinit-property" validate="false"}
 
-このチェックは、同じ型、外側の型の一つ、または同じファイルのトップレベルで宣言されている場合に、字句的にアクセス可能なプロパティに対してのみ利用可能です。
+`lateinit var`がすでに初期化されているかどうかを確認するには、[そのプロパティへの参照](reflection.md#property-references)に対して[`isInitialized`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/is-initialized.html)プロパティを使用します。
+
+```kotlin
+class WeatherStation {
+    lateinit var latestReading: String
+
+    fun printReading() {
+        // Checks whether the property is initialized
+        if (this::latestReading.isInitialized) {
+            println("Latest reading: $latestReading")
+        } else {
+            println("No reading available")
+        }
+    }
+}
+
+fun main() {
+    val station = WeatherStation()
+
+    station.printReading()
+    // No reading available
+    station.latestReading = "22°C, sunny"
+    station.printReading()
+    // Latest reading: 22°C, sunny
+}
+```
+{kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-lateinit-property-check-initialization"}
+
+`isInitialized`は、コード内で既にアクセスできるプロパティに対してのみ使用できます。プロパティは、同じクラス内、外側のクラス内、または同じファイル内のトップレベルプロパティとして宣言されている必要があります。
 
 ## プロパティのオーバーライド
 
@@ -199,6 +465,13 @@ if (foo::bar.isInitialized) {
 
 ## 委譲プロパティ
 
-最も一般的な種類のプロパティは、単にバッキングフィールドから読み取り（そして場合によっては書き込み）を行いますが、カスタムgetterとsetterを使用すると、プロパティを使ってあらゆる種類の動作を実装できます。最初の種類の単純さと2番目の種類の多様性の間に、プロパティができることの一般的なパターンがあります。いくつかの例を挙げます。遅延値、特定のキーによるマップからの読み取り、データベースへのアクセス、アクセス時にリスナーに通知する、などです。
+ロジックを再利用し、コードの重複を減らすために、プロパティの取得と設定の責任を別のオブジェクトに委譲できます。
 
-このような一般的な動作は、[委譲プロパティ](delegated-properties.md)を使用してライブラリとして実装できます。
+アクセサーの振る舞いを委譲することで、プロパティのアクセサーロジックが一元化され、再利用が容易になります。このアプローチは、次のような振る舞いを実装する場合に役立ちます。
+
+*   値を遅延して計算する。
+*   特定のキーによるマップからの読み取り。
+*   データベースへのアクセス。
+*   プロパティがアクセスされたときにリスナーに通知する。
+
+これらの一般的な振る舞いは、ライブラリ内で自分で実装することも、外部ライブラリによって提供される既存のデリゲートを使用することもできます。詳細については、[委譲プロパティ](delegated-properties.md)を参照してください。

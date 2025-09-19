@@ -9,7 +9,7 @@ nullポインタ例外が発生する可能性を最小限に抑えるために�
 このガイドでは、JavaとKotlinのnull許容変数へのアプローチの違いについて説明します。
 JavaからKotlinへの移行を助け、Kotlinらしいコードを書くのに役立つでしょう。
 
-このガイドの最初のパートでは、最も重要な違いであるKotlinにおける[null許容型](null-safety.md)のサポートと、Kotlinが[Javaコードからの型](#platform-types)をどのように処理するかについて説明します。2番目のパートでは、[関数呼び出しの結果のチェック](#checking-the-result-of-a-function-call)から始めて、いくつかの具体的なケースを検証し、特定の違いを解説します。
+このガイドの最初のパートでは、最も重要な違いであるKotlinにおけるnull許容型のサポートと、Kotlinが[Javaコードからの型](#platform-types)をどのように処理するかについて説明します。2番目のパートでは、[関数呼び出しの結果のチェック](#checking-the-result-of-a-function-call)から始めて、いくつかの具体的なケースを検証し、特定の違いを解説します。
 
 [Kotlinのnull安全性についてさらに詳しく学ぶ](null-safety.md)。
 
@@ -23,7 +23,7 @@ Kotlinはコンパイル時にこのような呼び出しを禁止すること�
 null許容型は非null許容型のラッパーではありません。すべてのチェックはコンパイル時に実行されます。
 これは、Kotlinでnull許容型を扱う際の実行時オーバーヘッドがほとんどないことを意味します。
 
-> 「ほとんど」と述べるのは、[組み込み関数](https://ja.wikipedia.org/wiki/%E5%86%85%E5%9F%BA%E9%96%A2%E6%95%B0)のチェックは生成されるものの、
+> 「ほとんど」と述べるのは、[組み込み関数](https://ja.wikipedia.org/wiki/Intrinsic_function)のチェックは生成されるものの、
 そのオーバーヘッドはごくわずかだからです。
 >
 {style="note"}
@@ -79,7 +79,7 @@ fun stringLength(a: String?): Int = if (a != null) a.length else 0
 
 チェックが正常にパスされた後、コンパイラは、チェックが実行されるスコープ内でその変数を非null許容型の`String`であるかのように扱います。
 
-このチェックを行わない場合、コードは「Only [safe (?.)](null-safety.md#safe-call-operator) or [non-nullable asserted (!!.) calls](null-safety.md#not-null-assertion-operator) are allowed on a [nullable receiver](extensions.md#nullable-receiver) of type String? (String?型の[null許容レシーバー](extensions.md#nullable-receiver)では、[セーフコール(?.)](null-safety.md#safe-call-operator)または[非nullアサート(!!.)](null-safety.md#not-null-assertion-operator)による呼び出しのみが許可されます)」というメッセージでコンパイルに失敗します。
+このチェックを行わない場合、コードは「Only [safe (?.)](null-safety.md#safe-call-operator) or [non-nullable asserted (!!.) calls](null-safety.md#not-null-assertion-operator) are allowed on a [nullable receiver](extensions.md#nullable-receiver) of type String? (String?型の[null許容レシーバー](extensions.md#nullable-receiver)では、[セーフコール(?.)](null-safety.md#safe-call-operator)または[非nullアサート(!!.)呼び出し](null-safety.md#not-null-assertion-operator)のみが許可されます)」というメッセージでコンパイルに失敗します。
 
 同じことをより短く書くことができます。nullチェックとメソッド呼び出しを単一の操作に結合できる[セーフコール演算子 `?.` (If-not-null shorthand)](idioms.md#if-not-null-shorthand)を使用します。
 
@@ -319,6 +319,47 @@ fun getStringLength(y: Any): Int {
 いずれにせよチェックは行いますが、この方法では追加のボックス化は実行されません。
 >
 {style="note"}
+
+JavaコードをKotlinに移行する際、コードの元のセマンティクスを保持するために、最初は通常のキャスト演算子 `as` をnull許容型とともに使用したいと思うかもしれません。しかし、より安全でKotlinらしいアプローチのために、セーフキャスト演算子 `as?` を使用するようにコードを適応させることをお勧めします。例えば、次のJavaコードがある場合：
+
+```java
+public class UserProfile {
+    Object data;
+
+    public static String getUsername(UserProfile profile) {
+        if (profile == null) {
+            return null;
+        }
+        return (String) profile.data;
+    }
+}
+```
+
+これを `as` 演算子で直接移行すると次のようになります。
+
+```kotlin
+class UserProfile(var data: Any? = null)
+
+fun getUsername(profile: UserProfile?): String? {
+    if (profile == null) {
+        return null
+    }
+    return profile.data as String?
+}
+```
+
+ここで、`profile.data` は `as String?` を使用してnull許容文字列にキャストされています。
+
+さらに一歩進んで、値を安全にキャストするために `as? String` を使用することをお勧めします。このアプローチは、`ClassCastException` をスローする代わりに、失敗時に `null` を返します。
+
+```kotlin
+class UserProfile(var data: Any? = null)
+
+fun getUsername(profile: UserProfile?): String? =
+  profile?.data as? String
+```
+
+このバージョンでは、`if` 式を[セーフコール演算子](null-safety.md#safe-call-operator) `?.` で置き換えています。これにより、キャストを試みる前にデータプロパティに安全にアクセスします。
 
 ## 次のステップ
 

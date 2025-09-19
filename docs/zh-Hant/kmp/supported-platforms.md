@@ -38,7 +38,7 @@ Kotlin Multiplatform 讓您能夠為各種平台建立應用程式，並在它�
 | iOS                      | Stable     |
 | Desktop (JVM)            | Stable     |
 | Server-side (JVM)        | Stable     |
-| Web based on Kotlin/Wasm | Alpha      |
+| Web based on Kotlin/Wasm | Beta       |
 | Web based on Kotlin/JS   | Stable     |
 | watchOS                  | Beta       |
 | tvOS                     | Beta       |
@@ -78,7 +78,7 @@ Kotlin Multiplatform 讓您能夠為各種平台建立應用程式，並在它�
 | Android                  | Stable     |
 | iOS                      | Stable     |
 | Desktop (JVM)            | Stable     |
-| Web based on Kotlin/Wasm | Alpha      |
+| Web based on Kotlin/Wasm | Beta       |
 
 ## 接下來？
 

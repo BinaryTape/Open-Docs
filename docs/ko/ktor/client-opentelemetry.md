@@ -23,9 +23,6 @@ Ktor는 [OpenTelemetry](https://opentelemetry.io/)와 통합됩니다. OpenTelem
 
 > 서버 측에서는 OpenTelemetry가 서버로 들어오는 HTTP 요청을 계측하기 위한 [KtorServerTelemetry](server-opentelemetry.md) 플러그인을 제공합니다.
 
-undefined
-undefined
-
 ## %plugin_name% 설치 {id="install_plugin"}
 
 `%plugin_name%` 플러그인을 설치하려면, 이를 [클라이언트 구성 블록](client-create-and-configure.md#configure-client) 내부에 있는 `install` 함수에 전달하고 [구성된 `OpenTelemetry` 인스턴스](#configure-otel)를 설정합니다.
@@ -51,9 +48,6 @@ Ktor 클라이언트가 나가는(outgoing) HTTP 호출에 대한 OpenTelemetry 
 
 > 이러한 개념에 대한 자세한 내용은 [OpenTelemetry 트레이싱 문서](https://opentelemetry.io/docs/concepts/signals/traces/)를 참조하십시오.
 
-undefined
-undefined
-
 ### 응답 헤더 캡처
 
 특정 HTTP 응답 헤더를 스팬 속성으로 캡처하려면 `capturedResponseHeaders` 속성을 사용하십시오:
@@ -64,8 +58,6 @@ install(%plugin_name%) {
     capturedResponseHeaders(HttpHeaders.ContentType, CUSTOM_HEADER)
 }
 ```
-
-undefined
 
 ## 다음 단계
 

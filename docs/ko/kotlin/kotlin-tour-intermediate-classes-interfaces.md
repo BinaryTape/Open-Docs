@@ -3,15 +3,15 @@
 <no-index/>
 
 <tldr>
-    <p><img src="icon-1-done.svg" width="20" alt="First step" /> <a href="kotlin-tour-intermediate-extension-functions.md">확장 함수</a><br />
-        <img src="icon-2-done.svg" width="20" alt="Second step" /> <a href="kotlin-tour-intermediate-scope-functions.md">스코프 함수</a><br />
-        <img src="icon-3-done.svg" width="20" alt="Third step" /> <a href="kotlin-tour-intermediate-lambdas-receiver.md">리시버가 있는 람다 식</a><br />
-        <img src="icon-4.svg" width="20" alt="Fourth step" /> <strong>클래스와 인터페이스</strong><br />
-        <img src="icon-5-todo.svg" width="20" alt="Fifth step" /> <a href="kotlin-tour-intermediate-objects.md">객체</a><br />
-        <img src="icon-6-todo.svg" width="20" alt="Sixth step" /> <a href="kotlin-tour-intermediate-open-special-classes.md">열린(open) 클래스 및 특별한 클래스</a><br />
-        <img src="icon-7-todo.svg" width="20" alt="Seventh step" /> <a href="kotlin-tour-intermediate-properties.md">프로퍼티</a><br />
-        <img src="icon-8-todo.svg" width="20" alt="Eighth step" /> <a href="kotlin-tour-intermediate-null-safety.md">널 안정성</a><br />
-        <img src="icon-9-todo.svg" width="20" alt="Ninth step" /> <a href="kotlin-tour-intermediate-libraries-and-apis.md">라이브러리 및 API</a></p>
+    <p><img src="icon-1-done.svg" width="20" alt="첫 번째 단계" /> <a href="kotlin-tour-intermediate-extension-functions.md">확장 함수</a><br />
+        <img src="icon-2-done.svg" width="20" alt="두 번째 단계" /> <a href="kotlin-tour-intermediate-scope-functions.md">스코프 함수</a><br />
+        <img src="icon-3-done.svg" width="20" alt="세 번째 단계" /> <a href="kotlin-tour-intermediate-lambdas-receiver.md">리시버가 있는 람다 식</a><br />
+        <img src="icon-4.svg" width="20" alt="네 번째 단계" /> <strong>클래스와 인터페이스</strong><br />
+        <img src="icon-5-todo.svg" width="20" alt="다섯 번째 단계" /> <a href="kotlin-tour-intermediate-objects.md">객체</a><br />
+        <img src="icon-6-todo.svg" width="20" alt="여섯 번째 단계" /> <a href="kotlin-tour-intermediate-open-special-classes.md">열린(open) 클래스 및 특별한 클래스</a><br />
+        <img src="icon-7-todo.svg" width="20" alt="일곱 번째 단계" /> <a href="kotlin-tour-intermediate-properties.md">프로퍼티</a><br />
+        <img src="icon-8-todo.svg" width="20" alt="여덟 번째 단계" /> <a href="kotlin-tour-intermediate-null-safety.md">널 안정성</a><br />
+        <img src="icon-9-todo.svg" width="20" alt="아홉 번째 단계" /> <a href="kotlin-tour-intermediate-libraries-and-apis.md">라이브러리 및 API</a></p>
 </tldr>
 
 초급 과정에서는 클래스와 데이터 클래스를 사용하여 데이터를 저장하고 코드에서 공유할 수 있는 특성 모음을 유지하는 방법을 배웠습니다. 결국 프로젝트 내에서 코드를 효율적으로 공유하기 위한 계층 구조를 만들고 싶을 것입니다. 이 장에서는 Kotlin이 코드를 공유하기 위해 제공하는 옵션과 이를 통해 코드를 더 안전하고 유지 관리하기 쉽게 만드는 방법을 설명합니다.
@@ -26,7 +26,7 @@ Kotlin 클래스는 **단일 상속**만 지원합니다. 즉, **한 번에 하�
 
 클래스의 부모는 다른 클래스(조상)에서 상속받아 계층 구조를 형성합니다. Kotlin 클래스 계층 구조의 최상위에는 공통 부모 클래스인 `Any`가 있습니다. 모든 클래스는 궁극적으로 `Any` 클래스에서 상속받습니다.
 
-![An example of the class hierarchy with Any type](any-type-class.png){width="200"}
+![Any 타입으로 이루어진 클래스 계층 구조의 예시](any-type-class.png){width="200"}
 
 `Any` 클래스는 `toString()` 함수를 멤버 함수로 자동으로 제공합니다. 따라서 모든 클래스에서 이 상속된 함수를 사용할 수 있습니다. 예를 들어 다음과 같습니다.
 
@@ -254,72 +254,170 @@ fun main() {
 >
 {style="tip"}
 
-예를 들어, 여러 함수와 `color`라는 하나의 프로퍼티를 포함하는 `Drawable`이라는 인터페이스가 있다고 가정해 봅시다.
+예를 들어, 여러 함수와 `color`라는 하나의 프로퍼티를 포함하는 `DrawingTool`이라는 인터페이스가 있다고 가정해 봅시다.
 
 ```kotlin
-interface Drawable {
-    fun draw()
-    fun resize()
-    val color: String?
+interface DrawingTool {
+    val color: String
+    fun draw(shape: String)
+    fun erase(area: String)
+    fun getToolInfo(): String
 }
 ```
 
-`Drawable` 인터페이스를 구현하고 모든 멤버에 대한 구현을 제공하는 `Circle`이라는 클래스를 생성합니다.
+`DrawingTool` 인터페이스를 구현하고 모든 멤버에 대한 구현을 제공하는 `PenTool`이라는 클래스를 생성합니다.
 
 ```kotlin
-class Circle : Drawable {
-    override fun draw() {
-        TODO("예시 구현")
+class PenTool : DrawingTool {
+    override val color: String = "black"
+
+    override fun draw(shape: String) {
+        println("Drawing $shape using a pen in $color")
     }
 
-    override fun resize() {
-        TODO("예시 구현")
+    override fun erase(area: String) {
+        println("Erasing $area with pen tool")
     }
-   override val color = null
+
+    override fun getToolInfo(): String {
+        return "PenTool(color=$color)"
+    }
 }
 ```
 
-`color` 프로퍼티의 값 **을 제외하고** `Circle` 클래스와 동일한 동작을 가진 자식 클래스를 만들고 싶다면, 여전히 `Circle` 클래스의 각 멤버 함수에 대한 구현을 추가해야 합니다.
+`PenTool` 클래스와 동일한 동작을 가지지만 `color` 프로퍼티의 값 **이 다른** 클래스를 만들고 싶다고 가정해 봅시다. 하나의 접근 방식은 `DrawingTool` 인터페이스를 구현하는 객체를 매개변수로 받는 새 클래스를 만드는 것입니다. 예를 들어 `PenTool` 클래스 인스턴스처럼요. 그런 다음 클래스 내부에서 `color` 프로퍼티를 오버라이드할 수 있습니다.
+
+하지만 이 시나리오에서는 `DrawingTool` 인터페이스의 각 멤버에 대한 구현을 추가해야 합니다.
 
 ```kotlin
-class RedCircle(val circle: Circle) : Circle {
+interface DrawingTool {
+    val color: String
+    fun draw(shape: String)
+    fun erase(area: String)
+    fun getToolInfo(): String
+}
 
-    // 상용구 코드 시작
-    override fun draw() {
-        circle.draw()
+class PenTool : DrawingTool {
+    override val color: String = "black"
+
+    override fun draw(shape: String) {
+        println("Drawing $shape using a pen in $color")
     }
 
-    override fun resize() {
-        circle.resize()
+    override fun erase(area: String) {
+        println("Erasing $area with pen tool")
     }
 
-    // 상용구 코드 끝
-    override val color = "red"
+    override fun getToolInfo(): String {
+        return "PenTool(color=$color)"
+    }
+}
+//sampleStart
+class CanvasSession(val tool: DrawingTool) : DrawingTool {
+    override val color: String = "blue"
+
+    override fun draw(shape: String) {
+        tool.draw(shape)
+    }
+
+    override fun erase(area: String) {
+        tool.erase(area)
+    }
+
+    override fun getToolInfo(): String {
+        return tool.getToolInfo()
+    }
+}
+//sampleEnd
+fun main() {
+    val pen = PenTool()
+    val session = CanvasSession(pen)
+
+    println("Pen color: ${pen.color}")
+    // Pen color: black
+
+    println("Session color: ${session.color}")
+    // Session color: blue
+
+    session.draw("circle")
+    // Drawing circle with pen in black
+
+    session.erase("top-left corner")
+    // Erasing top-left corner with pen tool
+
+    println(session.getToolInfo())
+    // PenTool(color=black)
 }
 ```
+{kotlin-runnable="true" id="kotlin-tour-interface-non-delegation"}
 
-`Drawable` 인터페이스에 많은 멤버 함수가 있다면 `RedCircle` 클래스의 상용구 코드 양이 매우 많아질 수 있음을 알 수 있습니다. 하지만 대안이 있습니다.
+`DrawingTool` 인터페이스에 많은 멤버 함수가 있다면 `CanvasSession` 클래스의 상용구 코드 양이 매우 많아질 수 있음을 알 수 있습니다. 하지만 대안이 있습니다.
 
-Kotlin에서는 위임(delegation)을 사용하여 인터페이스 구현을 클래스 인스턴스에 위임할 수 있습니다. 예를 들어, `Circle` 클래스의 인스턴스를 생성하고 `Circle` 클래스의 멤버 함수 구현을 이 인스턴스에 위임할 수 있습니다. 이를 위해 `by` 키워드를 사용합니다. 예를 들어 다음과 같습니다.
+Kotlin에서는 `by` 키워드를 사용하여 인터페이스 구현을 클래스 인스턴스에 위임할 수 있습니다. 예를 들어 다음과 같습니다.
 
 ```kotlin
-class RedCircle(param: Circle) : Drawable by param
+class CanvasSession(val tool: DrawingTool) : DrawingTool by tool
 ```
 
-여기서 `param`은 멤버 함수 구현이 위임되는 `Circle` 클래스 인스턴스의 이름입니다.
+여기서 `tool`은 멤버 함수 구현이 위임되는 `DrawingTool` 클래스 인스턴스의 이름입니다.
 
-이제 `RedCircle` 클래스에 멤버 함수에 대한 구현을 추가할 필요가 없습니다. 컴파일러가 `Circle` 클래스에서 이를 자동으로 처리해 줍니다. 이렇게 하면 많은 상용구 코드를 작성할 필요가 없습니다. 대신, 자식 클래스에서 변경하려는 동작에 대해서만 코드를 추가하면 됩니다.
+이제 `CanvasSession` 클래스에 멤버 함수에 대한 구현을 추가할 필요가 없습니다. 컴파일러가 `PenTool` 클래스에서 이를 자동으로 처리해 줍니다. 이렇게 하면 많은 상용구 코드를 작성할 필요가 없습니다. 대신, 자식 클래스에서 변경하려는 동작에 대해서만 코드를 추가하면 됩니다.
 
 예를 들어, `color` 프로퍼티의 값을 변경하려는 경우:
 
 ```kotlin
-class RedCircle(param : Circle) : Drawable by param {
+interface DrawingTool {
+    val color: String
+    fun draw(shape: String)
+    fun erase(area: String)
+    fun getToolInfo(): String
+}
+
+class PenTool : DrawingTool {
+    override val color: String = "black"
+
+    override fun draw(shape: String) {
+        println("Drawing $shape using a pen in $color")
+    }
+
+    override fun erase(area: String) {
+        println("Erasing $area with pen tool")
+    }
+
+    override fun getToolInfo(): String {
+        return "PenTool(color=$color)"
+    }
+}
+
+//sampleStart
+class CanvasSession(val tool: DrawingTool) : DrawingTool by tool {
     // 상용구 코드 없음!
-    override val color = "red"
+    override val color: String = "blue"
+}
+//sampleEnd
+fun main() {
+    val pen = PenTool()
+    val session = CanvasSession(pen)
+
+    println("Pen color: ${pen.color}")
+    // Pen color: black
+
+    println("Session color: ${session.color}")
+    // Session color: blue
+
+    session.draw("circle")
+    // Drawing circle with pen in black
+
+    session.erase("top-left corner")
+    // Erasing top-left corner with pen tool
+
+    println(session.getToolInfo())
+    // PenTool(color=black)
 }
 ```
+{kotlin-runnable="true" id="kotlin-tour-interface-delegation"}
 
-원한다면 `RedCircle` 클래스에서 상속된 멤버 함수의 동작을 오버라이드할 수도 있지만, 이제 모든 상속된 멤버 함수에 대해 새로운 코드 라인을 추가할 필요는 없습니다.
+원한다면 `CanvasSession` 클래스에서 상속된 멤버 함수의 동작을 오버라이드할 수도 있지만, 이제 모든 상속된 멤버 함수에 대해 새로운 코드 라인을 추가할 필요는 없습니다.
 
 자세한 내용은 [위임](delegation.md)을 참조하세요.
 
@@ -340,7 +438,10 @@ class RedCircle(param : Circle) : Drawable by param {
 |--|--|
 
 ```kotlin
-abstract class // 여기에 코드를 작성하세요
+abstract class SmartDevice(val name: String) {
+    abstract fun turnOn()
+    abstract fun turnOff()
+}
 
 class SmartLight(name: String) : SmartDevice(name) {
     override fun turnOn() {
@@ -356,12 +457,24 @@ class SmartLight(name: String) : SmartDevice(name) {
     }
 }
 
-class SmartThermostat // 여기에 코드를 작성하세요
+class SmartThermostat(name: String) : SmartDevice(name) {
+    override fun turnOn() {
+        println("$name thermostat is now heating.")
+    }
+
+    override fun turnOff() {
+        println("$name thermostat is now off.")
+    }
+
+   fun adjustTemperature(temperature: Int) {
+        println("$name thermostat set to $temperature°C.")
+    }
+}
 
 fun main() {
     val livingRoomLight = SmartLight("Living Room Light")
     val bedroomThermostat = SmartThermostat("Bedroom Thermostat")
-
+    
     livingRoomLight.turnOn()
     // Living Room Light is now ON.
     livingRoomLight.adjustBrightness(10)
@@ -417,7 +530,7 @@ class SmartThermostat(name: String) : SmartDevice(name) {
 fun main() {
     val livingRoomLight = SmartLight("Living Room Light")
     val bedroomThermostat = SmartThermostat("Bedroom Thermostat")
-
+    
     livingRoomLight.turnOn()
     // Living Room Light is now ON.
     livingRoomLight.adjustBrightness(10)
@@ -433,7 +546,7 @@ fun main() {
     // Bedroom Thermostat thermostat is now off.
 }
 ```
-{initial-collapse-state="collapsed" collapsible="true" collapsed-title="Example solution" id="kotlin-tour-classes-interfaces-solution-1"}
+{initial-collapse-state="collapsed" collapsible="true" collapsed-title="예시 해답" id="kotlin-tour-classes-interfaces-solution-1"}
 
 ### 연습 2 {initial-collapse-state="collapsed" collapsible="true" id="classes-interfaces-exercise-2"}
 
@@ -452,9 +565,16 @@ fun main() {
 
 |---|---|
 ```kotlin
-interface // 여기에 코드를 작성하세요
+interface Media {
+    val title: String
+    fun play()
+}
 
-class // 여기에 코드를 작성하세요
+class Audio(override val title: String, val composer: String) : Media {
+    override fun play() {
+        println("Playing audio: $title, composed by $composer")
+    }
+}
 
 fun main() {
     val audio = Audio("Symphony No. 5", "Beethoven")
@@ -483,7 +603,7 @@ fun main() {
    // Playing audio: Symphony No. 5, composed by Beethoven
 }
 ```
-{initial-collapse-state="collapsed" collapsible="true" collapsed-title="Example solution" id="kotlin-tour-classes-interfaces-solution-2"}
+{initial-collapse-state="collapsed" collapsible="true" collapsed-title="예시 해답" id="kotlin-tour-classes-interfaces-solution-2"}
 
 ### 연습 3 {initial-collapse-state="collapsed" collapsible="true" id="classes-interfaces-exercise-3"}
 
@@ -502,18 +622,30 @@ fun main() {
 |---|---|
 ```kotlin
 interface Refundable {
-    // 여기에 코드를 작성하세요
+    fun refund(amount: Double)
 }
 
 abstract class PaymentMethod(val name: String) {
-    // 여기에 코드를 작성하세요
+    fun authorize(amount: Double) {
+        println("Authorizing payment of $amount.")
+    }
+
+    abstract fun processPayment(amount: Double)
 }
 
-class CreditCard // 여기에 코드를 작성하세요
+class CreditCard(name: String) : PaymentMethod(name), Refundable {
+    override fun processPayment(amount: Double) {
+        println("Processing credit card payment of $amount.")
+    }
+
+    override fun refund(amount: Double) {
+        println("Refunding $amount to the credit card.")
+    }
+}
 
 fun main() {
     val visa = CreditCard("Visa")
-
+    
     visa.authorize(100.0)
     // Authorizing payment of $100.0.
     visa.processPayment(100.0)
@@ -550,7 +682,7 @@ class CreditCard(name: String) : PaymentMethod(name), Refundable {
 
 fun main() {
     val visa = CreditCard("Visa")
-
+    
     visa.authorize(100.0)
     // Authorizing payment of $100.0.
     visa.processPayment(100.0)
@@ -559,7 +691,7 @@ fun main() {
     // Refunding $50.0 to the credit card.
 }
 ```
-{initial-collapse-state="collapsed" collapsible="true" collapsed-title="Example solution" id="kotlin-tour-classes-interfaces-solution-3"}
+{initial-collapse-state="collapsed" collapsible="true" collapsed-title="예시 해답" id="kotlin-tour-classes-interfaces-solution-3"}
 
 ### 연습 4 {initial-collapse-state="collapsed" collapsible="true" id="classes-interfaces-exercise-4"}
 
@@ -591,12 +723,17 @@ class BasicMessenger : Messenger {
     }
 }
 
-class SmartMessenger // 여기에 코드를 작성하세요
+class SmartMessenger(val basicMessenger: BasicMessenger) : Messenger by basicMessenger {
+    override fun sendMessage(message: String) {
+        println("Sending a smart message: $message")
+        basicMessenger.sendMessage("[smart] $message")
+    }
+}
 
 fun main() {
     val basicMessenger = BasicMessenger()
     val smartMessenger = SmartMessenger(basicMessenger)
-
+    
     basicMessenger.sendMessage("Hello!")
     // Sending message: Hello!
     println(smartMessenger.receiveMessage())
@@ -635,7 +772,7 @@ class SmartMessenger(val basicMessenger: BasicMessenger) : Messenger by basicMes
 fun main() {
     val basicMessenger = BasicMessenger()
     val smartMessenger = SmartMessenger(basicMessenger)
-
+    
     basicMessenger.sendMessage("Hello!")
     // Sending message: Hello!
     println(smartMessenger.receiveMessage())
@@ -645,7 +782,7 @@ fun main() {
     // Sending message: [smart] Hello from SmartMessenger!
 }
 ```
-{initial-collapse-state="collapsed" collapsible="true" collapsed-title="Example solution" id="kotlin-tour-classes-interfaces-solution-4"}
+{initial-collapse-state="collapsed" collapsible="true" collapsed-title="예시 해답" id="kotlin-tour-classes-interfaces-solution-4"}
 
 ## 다음 단계
 

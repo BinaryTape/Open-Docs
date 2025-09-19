@@ -92,14 +92,14 @@ IntelliJ IDEA 使用 Gradle 任務執行程式碼，並在 **Run** (執行) 分�
             binaries {
                 executable {
                     entryPoint = "main"
-                    runTask?.standardInput = System.`in`
+                    runTaskProvider?.configure { standardInput = System.`in` }
                 }
             }
         }
         //...
     }
     ```
-    {initial-collapse-state="collapsed" collapsible="true" collapsed-title="runTask?.standardInput = System.`in`"}
+    {initial-collapse-state="collapsed" collapsible="true" collapsed-title="runTaskProvider?.configure { standardInput = System.`in` }"}
 
 3.  消除空白字元並計算字母數量：
 
@@ -237,7 +237,7 @@ IntelliJ IDEA 使用 Gradle 任務執行程式碼，並在 **Run** (執行) 分�
 
     ```kotlin
     fun main() {
-        println("Hello, Kotlin/Native!") // 列印 "Hello, Kotlin/Native!"
+        println("Hello, Kotlin/Native!")
     }
     ```
 
@@ -299,7 +299,7 @@ IntelliJ IDEA 使用 Gradle 任務執行程式碼，並在 **Run** (執行) 分�
 
 ```kotlin
 fun main() {
-    println("Hello, Kotlin/Native!") // 列印 "Hello, Kotlin/Native!"
+    println("Hello, Kotlin/Native!")
 }
 ```
 

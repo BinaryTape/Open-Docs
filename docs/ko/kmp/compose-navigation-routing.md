@@ -3,12 +3,6 @@
 내비게이션은 사용자가 애플리케이션의 여러 화면 사이를 이동할 수 있도록 해주는 UI 애플리케이션의 핵심 부분입니다.
 Compose Multiplatform은 [Jetpack Compose의 내비게이션 접근 방식](https://developer.android.com/guide/navigation/design#frameworks)을 채택합니다.
 
-> 내비게이션 라이브러리는 현재 [베타](supported-platforms.md#compose-multiplatform-ui-framework-stability-levels) 단계에 있습니다.
-> Compose Multiplatform 프로젝트에서 이 라이브러리를 사용해 보시는 것을 환영합니다.
-> [YouTrack](https://youtrack.jetbrains.com/newIssue?project=CMP)을 통해 피드백을 주시면 감사하겠습니다.
->
-{style="tip"}
-
 ## 설정
 
 내비게이션 라이브러리를 사용하려면 `commonMain` 소스 세트에 다음 종속성을 추가합니다:
@@ -27,10 +21,6 @@ kotlin {
 }
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="org.jetbrains.androidx.navigation:navigation-compose:%org.jetbrains.androidx.navigation%"}
-
-> Compose Multiplatform %org.jetbrains.compose%에는 내비게이션 라이브러리 버전 %org.jetbrains.androidx.navigation%이 필요합니다.
->
-{style="note"}
 
 ## 샘플 프로젝트
 
@@ -57,7 +47,7 @@ Compose Multiplatform의 현재 구현에 대한 자세한 내용은 [수명 주
 주소 표시줄을 사용하여 현재 위치를 파악하고 대상(경로)으로 직접 이동할 수도 있습니다.
 
 웹 앱을 공통 코드에 정의된 내비게이션 그래프에 바인딩하려면,
-Kotlin/Wasm 코드에서 `window.bindToNavigation()` 메서드를 사용할 수 있습니다.
+Kotlin/Wasm 코드에서 `NavController.bindToBrowserNavigation()` 메서드를 사용할 수 있습니다.
 Kotlin/JS에서도 동일한 메서드를 사용할 수 있지만, Wasm 애플리케이션이 초기화되고 Skia가 그래픽을 렌더링할 준비가 되었는지 확인하기 위해 `onWasmReady {}` 블록으로 래핑해야 합니다.
 다음은 이를 설정하는 방법의 예시입니다.
 
@@ -83,7 +73,7 @@ fun main() {
     val body = document.body ?: return
     ComposeViewport(body) {
         App(
-          onNavHostReady = { window.bindToNavigation(it) }
+          onNavHostReady = { it.bindToBrowserNavigation() }
         )
     }
 }
@@ -96,14 +86,14 @@ fun main() {
         val body = document.body ?: return@onWasmReady
         ComposeViewport(body) {
             App(
-                onNavHostReady = { window.bindToNavigation(it) }
+                onNavHostReady = { it.bindToBrowserNavigation() }
             )
         }
     }
 }
 ```
 
-`window.bindToNavigation(navController)` 호출 후:
+`navController.bindToBrowserNavigation()` 호출 후:
 * 브라우저에 표시되는 URL은 현재 경로를 반영합니다(URL 프래그먼트, `#` 문자 뒤).
 * 앱은 수동으로 입력된 URL을 파싱하여 앱 내의 대상으로 변환합니다.
 
@@ -132,7 +122,7 @@ URL을 더 읽기 쉽게 만들고 구현을 URL 패턴과 분리하려면,
 경로를 URL로 완전히 사용자 정의 변환을 구현하려면 다음을 수행합니다.
 
 1. 필요할 때 경로가 URL 프래그먼트로 변환되는 방식을 지정하기 위해
-    선택적 `getBackStackEntryRoute` 람다를 `window.bindToNavigation()` 함수에 전달합니다.
+    선택적 `getBackStackEntryRoute` 람다를 `navController.bindToBrowserNavigation()` 함수에 전달합니다.
 2. 필요한 경우, 주소 표시줄의 URL 프래그먼트를 포착하고(누군가 앱의 URL을 클릭하거나 붙여넣을 때)
     URL을 경로로 변환하여 사용자를 적절히 내비게이션하는 코드를 추가합니다.
 
@@ -181,7 +171,7 @@ internal fun App(
 ```
 {default-state="collapsed" collapsible="true" collapsed-title="NavHost(navController = navController, startDestination = StartScreen)"}
 
-`wasmJsMain/kotlin/main.kt`에서 `.bindToNavigation()` 호출에 람다를 추가합니다:
+`wasmJsMain/kotlin/main.kt`에서 `.bindToBrowserNavigation()` 호출에 람다를 추가합니다:
 
 ```kotlin
 @OptIn(
@@ -194,13 +184,13 @@ fun main() {
     ComposeViewport(body) {
         App(
             onNavHostReady = { navController ->
-                window.bindToNavigation(navController) { entry ->
+                navController.bindToBrowserNavigation() { entry ->
                     val route = entry.destination.route.orEmpty()
                     when {
                         // 직렬화 디스크립터를 사용하여 경로를 식별합니다.
                         route.startsWith(StartScreen.serializer().descriptor.serialName) -> {
-                            // 해당 URL 프래그먼트를 "#org.example.app.StartScreen" 대신
-                            // "#start"로 설정합니다.
+                            // 해당 URL 프래그먼트를 "#start"로 설정합니다.
+                            // "#org.example.app.StartScreen" 대신
                             //
                             // 이 문자열은 항상 `#` 문자로 시작하여
                             // 프론트 엔드에서 처리가 이루어지도록 해야 합니다.
@@ -210,14 +200,14 @@ fun main() {
                             // 경로 인수에 접근합니다.
                             val args = entry.toRoute<Id>()
 
-                            // 해당 URL 프래그먼트를 "#org.example.app.ID%2F222" 대신
-                            // "#find_id_222"로 설정합니다.
+                            // 해당 URL 프래그먼트를 "#find_id_222"로 설정합니다.
+                            // "#org.example.app.ID%2F222" 대신
                             "#find_id_${args.id}"
                         }
                         route.startsWith(Patient.serializer().descriptor.serialName) -> {
                             val args = entry.toRoute<Patient>()
-                            // 해당 URL 프래그먼트를 "#org.company.app.Patient%2FJane%2520Smith-Baker%2F33" 대신
-                            // "#patient_Jane%20Smith-Baker_33"으로 설정합니다.
+                            // 해당 URL 프래그먼트를 "#patient_Jane%20Smith-Baker_33"으로 설정합니다.
+                            // "#org.company.app.Patient%2FJane%2520Smith-Baker%2F33" 대신
                             "#patient_${args.name}_${args.age}"
                         }
                         // 다른 모든 경로에 대해서는 URL 프래그먼트를 설정하지 않습니다.
@@ -229,7 +219,7 @@ fun main() {
     }
 }
 ```
-<!--{default-state="collapsed" collapsible="true" collapsed-title="window.bindToNavigation(navController) { entry ->}"}-->
+<!--{default-state="collapsed" collapsible="true" collapsed-title="navController.bindToBrowserNavigation() { entry ->"}-->
 
 > 경로에 해당하는 모든 문자열이 `#` 문자로 시작하는지 확인하여 데이터가
 > URL 프래그먼트 내에 유지되도록 하세요.
@@ -239,14 +229,14 @@ fun main() {
 {style="note"}
 
 URL에 사용자 정의 서식이 있는 경우, 수동으로 입력된 URL을 대상 경로에 일치시키기 위한 역처리를 추가해야 합니다.
-일치 작업을 수행하는 코드는 `window.bindToNavigation()` 호출이
+일치 작업을 수행하는 코드는 `navController.bindToBrowserNavigation()` 호출이
 `window.location`을 내비게이션 그래프에 바인딩하기 전에 실행되어야 합니다.
 
 <Tabs>
     <TabItem title="Kotlin/Wasm">
-        <code-block lang="Kotlin" code="        @OptIn(&#10;            ExperimentalComposeUiApi::class,&#10;            ExperimentalBrowserHistoryApi::class,&#10;            ExperimentalSerializationApi::class&#10;        )&#10;        fun main() {&#10;            val body = document.body ?: return&#10;            ComposeViewport(body) {&#10;                App(&#10;                    onNavHostReady = { navController -&gt;&#10;                        // 현재 URL의 프래그먼트 부분 문자열에 접근합니다.&#10;                        val initRoute = window.location.hash.substringAfter('#', &quot;&quot;)&#10;                        when {&#10;                            // 해당 경로를 식별하고 그 경로로 내비게이션합니다.&#10;                            initRoute.startsWith(&quot;start&quot;) -&gt; {&#10;                                navController.navigate(StartScreen)&#10;                            }&#10;                            initRoute.startsWith(&quot;find_id&quot;) -&gt; {&#10;                                // 문자열을 파싱하여 경로 매개변수를 추출한 다음 해당 경로로 내비게이션합니다.&#10;                                val id = initRoute.substringAfter(&quot;find_id_&quot;).toLong()&#10;                                navController.navigate(Id(id))&#10;                            }&#10;                            initRoute.startsWith(&quot;patient&quot;) -&gt; {&#10;                                val name = initRoute.substringAfter(&quot;patient_&quot;).substringBefore(&quot;_&quot;)&#10;                                val id = initRoute.substringAfter(&quot;patient_&quot;).substringAfter(&quot;_&quot;).toLong()&#10;                                navController.navigate(Patient(name, id))&#10;                            }&#10;                        }&#10;                        window.bindToNavigation(navController) { ... }&#10;                    }&#10;                )&#10;            }&#10;        }"/>
+        <code-block lang="Kotlin" code="        @OptIn(&#10;            ExperimentalComposeUiApi::class,&#10;            ExperimentalBrowserHistoryApi::class,&#10;            ExperimentalSerializationApi::class&#10;        )&#10;        fun main() {&#10;            val body = document.body ?: return&#10;            ComposeViewport(body) {&#10;                App(&#10;                    onNavHostReady = { navController -&gt;&#10;                        // 현재 URL의 프래그먼트 부분 문자열에 접근합니다.&#10;                        val initRoute = window.location.hash.substringAfter('#', &quot;&quot;)&#10;                        when {&#10;                            // 해당 경로를 식별하고 그 경로로 내비게이션합니다.&#10;                            initRoute.startsWith(&quot;start&quot;) -&gt; {&#10;                                navController.navigate(StartScreen)&#10;                            }&#10;                            initRoute.startsWith(&quot;find_id&quot;) -&gt; {&#10;                                // 문자열을 파싱하여 경로 매개변수를 추출한 다음 해당 경로로 내비게이션합니다.&#10;                                val id = initRoute.substringAfter(&quot;find_id_&quot;).toLong()&#10;                                navController.navigate(Id(id))&#10;                            }&#10;                            initRoute.startsWith(&quot;patient&quot;) -&gt; {&#10;                                val name = initRoute.substringAfter(&quot;patient_&quot;).substringBefore(&quot;_&quot;)&#10;                                val id = initRoute.substringAfter(&quot;patient_&quot;).substringAfter(&quot;_&quot;).toLong()&#10;                                navController.navigate(Patient(name, id))&#10;                            }&#10;                        }&#10;                        navController.bindToBrowserNavigation() { ... }&#10;                    }&#10;                )&#10;            }&#10;        }"/>
     </TabItem>
     <TabItem title="Kotlin/JS">
-        <code-block lang="kotlin" code="        @OptIn(&#10;            ExperimentalComposeUiApi::class,&#10;            ExperimentalBrowserHistoryApi::class,&#10;            ExperimentalSerializationApi::class&#10;        )&#10;        fun main() {&#10;            onWasmReady {&#10;                val body = document.body ?: return@onWasmReady&#10;                ComposeViewport(body) {&#10;                    App(&#10;                        onNavHostReady = { navController -&gt;&#10;                            // 현재 URL의 프래그먼트 부분 문자열에 접근합니다.&#10;                            val initRoute = window.location.hash.substringAfter('#', &quot;&quot;)&#10;                            when {&#10;                                // 해당 경로를 식별하고 그 경로로 내비게이션합니다.&#10;                                initRoute.startsWith(&quot;start&quot;) -&gt; {&#10;                                    navController.navigate(StartScreen)&#10;                                }&#10;                                initRoute.startsWith(&quot;find_id&quot;) -&gt; {&#10;                                    // 문자열을 파싱하여 경로 매개변수를 추출한 다음 해당 경로로 내비게이션합니다.&#10;                                    val id = initRoute.substringAfter(&quot;find_id_&quot;).toLong()&#10;                                    navController.navigate(Id(id))&#10;                                }&#10;                                initRoute.startsWith(&quot;patient&quot;) -&gt; {&#10;                                    val name = initRoute.substringAfter(&quot;patient_&quot;).substringBefore(&quot;_&quot;)&#10;                                    val id = initRoute.substringAfter(&quot;patient_&quot;).substringAfter(&quot;_&quot;).toLong()&#10;                                    navController.navigate(Patient(name, id))&#10;                                }&#10;                            }&#10;                            window.bindToNavigation(navController) { ... }&#10;                        }&#10;                    )&#10;                }&#10;            }&#10;        }"/>
+        <code-block lang="kotlin" code="        @OptIn(&#10;            ExperimentalComposeUiApi::class,&#10;            ExperimentalBrowserHistoryApi::class,&#10;            ExperimentalSerializationApi::class&#10;        )&#10;        fun main() {&#10;            onWasmReady {&#10;                val body = document.body ?: return@onWasmReady&#10;                ComposeViewport(body) {&#10;                    App(&#10;                        onNavHostReady = { navController -&gt;&#10;                            // 현재 URL의 프래그먼트 부분 문자열에 접근합니다.&#10;                            val initRoute = window.location.hash.substringAfter('#', &quot;&quot;)&#10;                            when {&#10;                                // 해당 경로를 식별하고 그 경로로 내비게이션합니다.&#10;                                initRoute.startsWith(&quot;start&quot;) -&gt; {&#10;                                    navController.navigate(StartScreen)&#10;                                }&#10;                                initRoute.startsWith(&quot;find_id&quot;) -&gt; {&#10;                                    // 문자열을 파싱하여 경로 매개변수를 추출한 다음 해당 경로로 내비게이션합니다.&#10;                                    val id = initRoute.substringAfter(&quot;find_id_&quot;).toLong()&#10;                                    navController.navigate(Id(id))&#10;                                }&#10;                                initRoute.startsWith(&quot;patient&quot;) -&gt; {&#10;                                    val name = initRoute.substringAfter(&quot;patient_&quot;).substringBefore(&quot;_&quot;)&#10;                                    val id = initRoute.substringAfter(&quot;patient_&quot;).substringAfter(&quot;_&quot;).toLong()&#10;                                    navController.navigate(Patient(name, id))&#10;                                }&#10;                            }&#10;                            navController.bindToBrowserNavigation() { ... }&#10;                        }&#10;                    )&#10;                }&#10;            }&#10;        }"/>
     </TabItem>
 </Tabs>

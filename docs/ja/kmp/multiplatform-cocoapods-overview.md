@@ -17,7 +17,7 @@ Swift/Objective-Cコードを変更したり、Appleシミュレーターまた�
 
 ## CocoaPodsで作業するための環境をセットアップする
 
-選択したインストールツールを使用して、[CocoaPods依存関係マネージャー](https://cocoapods.org/)をインストールします。
+[CocoaPods依存関係マネージャー](https://cocoapods.org/)を、選択したインストールツールを使用してインストールします。
 
 <Tabs>
 <TabItem title="RVM">
@@ -48,7 +48,7 @@ Swift/Objective-Cコードを変更したり、Appleシミュレーターまた�
 3. Rubyバージョンを特定のディレクトリのローカル、またはマシン全体のグローバルに設定します。
 
     ```bash
-    rbenb global 3.0.0
+    rbenv global 3.0.0
     ```
     
 4. CocoaPodsをインストールします。
@@ -94,29 +94,23 @@ sudo gem install cocoapods
 
 ## プロジェクトを作成する
 
-環境がセットアップされたら、新しいKotlin Multiplatformプロジェクトを作成できます。そのためには、Kotlin MultiplatformウェブウィザードまたはAndroid Studio用のKotlin Multiplatformプラグインを使用します。
+CocoaPods環境がセットアップされたら、Podで動作するようにKotlin Multiplatformプロジェクトを設定できます。以下の手順では、新規に生成されたプロジェクトでの設定を示します。
 
-### ウェブウィザードを使用する
+1. macOSで[Kotlin Multiplatform IDEプラグイン](https://plugins.jetbrains.com/plugin/14936-kotlin-multiplatform)または[Kotlin Multiplatformウェブウィザード](https://kmp.jetbrains.com)を使用して、AndroidおよびiOS用の新しいプロジェクトを生成します。
+   ウェブウィザードを使用する場合は、アーカイブを展開し、IDEにプロジェクトをインポートします。
+2. `gradle/libs.versions.toml`ファイルで、`[plugins]`ブロックにKotlin CocoaPods Gradleプラグインを追加します。
 
-ウェブウィザードを使用してプロジェクトを作成し、CocoaPods統合を設定するには：
-
-1. [Kotlin Multiplatformウィザード](https://kmp.jetbrains.com)を開き、プロジェクトのターゲットプラットフォームを選択します。
-2. **Download**ボタンをクリックし、ダウンロードしたアーカイブを展開します。
-3. Android Studioで、メニューから**File | Open**を選択します。
-4. 展開したプロジェクトフォルダーに移動し、**Open**をクリックします。
-5. Kotlin CocoaPods Gradleプラグインをバージョンカタログに追加します。`gradle/libs.versions.toml`ファイルに、`[plugins]`ブロックに以下の宣言を追加します。
- 
    ```text
    kotlinCocoapods = { id = "org.jetbrains.kotlin.native.cocoapods", version.ref = "kotlin" }
    ```
-   
-6. プロジェクトのルート`build.gradle.kts`ファイルに移動し、`plugins {}`ブロックに以下のエイリアスを追加します。
+
+3. プロジェクトのルート`build.gradle.kts`ファイルに移動し、`plugins {}`ブロックに以下のエイリアスを追加します。
 
    ```kotlin
    alias(libs.plugins.kotlinCocoapods) apply false
    ```
 
-7. CocoaPodsを統合したいモジュール（例：`composeApp`モジュール）を開き、`plugins {}`ブロックに以下のエイリアスを追加します。
+4. CocoaPodsを統合したいモジュール（例：`composeApp`モジュール）を開き、`build.gradle.kts`ファイルの`plugins {}`ブロックに以下のエイリアスを追加します。
 
    ```kotlin
    alias(libs.plugins.kotlinCocoapods)
@@ -124,29 +118,13 @@ sudo gem install cocoapods
 
 これで、[Kotlin MultiplatformプロジェクトでCocoaPodsを設定](#configure-the-project)する準備ができました。
 
-### Android Studioで
-
-CocoaPods統合でAndroid Studioにプロジェクトを作成するには：
-
-1. Android Studioに[Kotlin Multiplatformプラグイン](https://plugins.jetbrains.com/plugin/14936-kotlin-multiplatform)をインストールします。
-2. Android Studioで、メニューから**File | New | New Project**を選択します。
-3. プロジェクトテンプレートのリストで、**Kotlin Multiplatform App**を選択し、**Next**をクリックします。
-4. アプリケーションに名前を付け、**Next**をクリックします。
-5. iOSフレームワークの配布オプションとして**CocoaPods Dependency Manager**を選択します。
-
-   ![Android Studio wizard with the Kotlin Multiplatform plugin](as-project-wizard.png){width=700}
-
-6. 他のオプションはすべてデフォルトのままにします。**Finish**をクリックします。
-
-   プラグインがCocoaPods統合をセットアップした状態でプロジェクトを自動的に生成します。
-
 ## プロジェクトを設定する
 
 マルチプラットフォームプロジェクトでKotlin CocoaPods Gradleプラグインを設定するには：
 
 1. プロジェクトの共有モジュールの`build.gradle(.kts)`で、CocoaPodsプラグインとKotlin Multiplatformプラグインを適用します。
 
-   > [ウェブウィザード](#using-web-wizard)または[Android Studio用のKotlin Multiplatformプラグイン](#in-android-studio)でプロジェクトを作成した場合は、この手順をスキップしてください。
+   > [IDEプラグインまたはウェブウィザードで](#create-a-project)プロジェクトを作成した場合は、この手順をスキップしてください。
    > 
    {style="note"}
     
@@ -157,7 +135,7 @@ CocoaPods統合でAndroid Studioにプロジェクトを作成するには：
     }
     ```
 
-2. `cocoapods`ブロックでPodspecファイルの`version`、`summary`、`homepage`、`baseName`を設定します。
+2. `cocoapods`ブロックでPodspecファイルの`version`、`summary`、`homepage`、および`baseName`を設定します。
     
     ```kotlin
     plugins {
@@ -168,31 +146,31 @@ CocoaPods統合でAndroid Studioにプロジェクトを作成するには：
     kotlin {
         cocoapods {
             // Required properties
-            // Specify the required Pod version here
-            // Otherwise, the Gradle project version is used
+            // ここで必要なPodバージョンを指定します
+            // 指定しない場合、Gradleプロジェクトバージョンが使用されます
             version = "1.0"
             summary = "Some description for a Kotlin/Native module"
             homepage = "Link to a Kotlin/Native module homepage"
    
             // Optional properties
-            // Configure the Pod name here instead of changing the Gradle project name
+            // Gradleプロジェクト名を変更する代わりに、ここでPod名を構成します
             name = "MyCocoaPod"
 
             framework {
                 // Required properties              
-                // Framework name configuration. Use this property instead of deprecated 'frameworkName'
+                // フレームワーク名の構成。非推奨の'frameworkName'の代わりにこのプロパティを使用します
                 baseName = "MyFramework"
                 
                 // Optional properties
-                // Specify the framework linking type. It's dynamic by default. 
+                // フレームワークのリンクタイプを指定します。デフォルトは動的です。 
                 isStatic = false
-                // Dependency export
-                // Uncomment and specify another project module if you have one:
+                // 依存関係のエクスポート
+                // 別のプロジェクトモジュールがある場合は、コメントを解除して指定します。
                 // export(project(":<your other KMP module>"))
-                transitiveExport = false // This is default.
+                transitiveExport = false // これがデフォルトです。
             }
 
-            // Maps custom Xcode configuration to NativeBuildType
+            // カスタムXcode構成をNativeBuildTypeにマッピングします
             xcodeConfigurationToNativeBuildType["CUSTOM_DEBUG"] = NativeBuildType.DEBUG
             xcodeConfigurationToNativeBuildType["CUSTOM_RELEASE"] = NativeBuildType.RELEASE
         }
@@ -203,7 +181,7 @@ CocoaPods統合でAndroid Studioにプロジェクトを作成するには：
     >
     {style="note"}
     
-3. IntelliJ IDEAで**Build | Reload All Gradle Projects**を実行（またはAndroid Studioで**File | Sync Project with Gradle Files**を実行）して、プロジェクトを再インポートします。
+3. IntelliJ IDEAで**Build** | **Reload All Gradle Projects**を実行（またはAndroid Studioで**File** | **Sync Project with Gradle Files**を実行）して、プロジェクトを再インポートします。
 4. Xcodeビルド時の互換性問題を避けるために、[Gradle wrapper](https://docs.gradle.org/current/userguide/gradle_wrapper.html)を生成します。
 
 適用すると、CocoaPodsプラグインは以下を実行します。
@@ -247,7 +225,7 @@ KotlinプロジェクトをXcodeプロジェクトにインポートしたい場
 
    `pod install`を初めて実行すると、`.xcworkspace`ファイルが作成されます。このファイルには、元の`.xcodeproj`とCocoaPodsプロジェクトが含まれます。
 3. `.xcodeproj`を閉じ、代わりに新しい`.xcworkspace`ファイルを開きます。これにより、プロジェクトの依存関係に関する問題を回避できます。
-4. IntelliJ IDEAで**Build | Reload All Gradle Projects**を実行（またはAndroid Studioで**File | Sync Project with Gradle Files**を実行）して、プロジェクトを再インポートします。
+4. IntelliJ IDEAで**Build** | **Reload All Gradle Projects**を実行（またはAndroid Studioで**File** | **Sync Project with Gradle Files**を実行）して、プロジェクトを再インポートします。
 
 Podfileにこれらの変更を加えない場合、`podInstall`タスクは失敗し、CocoaPodsプラグインはログにエラーメッセージを表示します。
 

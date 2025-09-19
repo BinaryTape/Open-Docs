@@ -37,7 +37,7 @@ class ConcurrentHashMapTest {
 執行 `modelCheckingTest()`。您應該會得到以下結果：
 
 ```text
-= Obstruction-freedom is required but a lock has been found =
+= 需要阻礙自由，但找到了一個鎖 =
 | ---------------------- |
 |  Thread 1  | Thread 2  |
 | ---------------------- |
@@ -47,10 +47,10 @@ class ConcurrentHashMapTest {
 | ---------------------- |
 
 ---
-All operations above the horizontal line | ----- | happen before those below the line
+所有在水平線 | ----- | 上方的操作都發生在線下方的操作之前
 ---
 
-The following interleaving leads to the error:
+以下交錯執行導致錯誤：
 | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 |                                         Thread 1                                         |                                         Thread 2                                         |
 | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |

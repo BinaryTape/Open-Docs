@@ -57,7 +57,7 @@ Kotlin 提供了多種協程通訊的方式。
 *   [`Channel`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.channels/-channel/) 允許多個協程傳送和接收值，每個值僅傳遞給一個協程。
 *   [`SharedFlow`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/-shared-flow/) 持續將每個值與所有活躍的收集協程共享。
 
-當多個協程需要存取或更新相同的資料時，它們會 _共享可變狀態_ (share mutable state)。
+當多個協程需要存取或更新相同的資料時，它們 _共享可變狀態_ (share mutable state)。
 如果沒有協調，這可能導致競爭條件 (race conditions)，操作會以不可預測的方式相互干擾。
 為了安全地管理共享可變狀態，請使用 [`StateFlow`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/-state-flow/#) 包裝共享資料。
 然後，您可以從一個協程更新它，並從其他協程收集其最新值。

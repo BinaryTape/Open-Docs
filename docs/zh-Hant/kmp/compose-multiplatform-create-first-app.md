@@ -21,7 +21,7 @@
 在本教學課程中，您將建置一個可在 Android、iOS、桌面和網路執行的範例應用程式。為了建立使用者介面，您將使用 Compose 多平台框架並了解其基礎知識：可組合函式、主題、佈局、事件和修飾符。
 
 本教學課程注意事項：
-* 無需 Compose 多平台、Android 或 iOS 的先前經驗。我們建議您在開始之前熟悉 [Kotlin 基礎知識](https://kotlinlang.org/docs/getting-started.html)。
+* 無需 Compose Multiplatform、Android 或 iOS 的先前經驗。我們建議您在開始之前熟悉 [Kotlin 基礎知識](https://kotlinlang.org/docs/getting-started.html)。
 * 要完成本教學課程，您只需要 IntelliJ IDEA。它允許您在 Android 和桌面版上嘗試多平台開發。對於 iOS，您需要一台安裝了 Xcode 的 macOS 電腦。這是 iOS 開發的一般限制。
 * 如果您願意，可以將您的選擇限制在您感興趣的特定平台，並省略其他平台。
 
@@ -46,14 +46,14 @@
     {style="note"}
 
 5. 選擇 **Android**、**iOS**、**Desktop** 和 **Web** 目標平台。
-    確保已選取 iOS 的 **Share UI** 選項。
+    確保已選取 iOS 和 Web 的 **Share UI** 選項。
 6. 指定所有欄位和目標平台後，點擊 **Create**（在網頁精靈中為 **Download**）。
 
    ![Create Compose Multiplatform project](create-compose-multiplatform-project.png){width=800}
 
 ## 檢查專案結構
 
-在 IntelliJ IDEA 中，導覽至「ComposeDemo」資料夾。
+在 IntelliJ IDEA 中，導覽至 `ComposeDemo` 資料夾。
 如果您在精靈中沒有選擇 iOS，您將不會有以「ios」或「apple」開頭的資料夾。
 
 > IntelliJ IDEA 可能會自動建議將專案中的 Android Gradle plugin 升級到最新版本。
@@ -67,12 +67,14 @@
 * _composeApp_ 是一個 Kotlin 模組，其中包含 Android、桌面、iOS 和網路應用程式之間共享的邏輯 — 您用於所有平台的程式碼。它使用 [Gradle](https://kotlinlang.org/docs/gradle.html) 作為建置系統，可幫助您自動化建置過程。
 * _iosApp_ 是一個 Xcode 專案，可建置為一個 iOS 應用程式。它依賴並使用共享模組作為一個 iOS 框架。
 
-  ![Compose Multiplatform project structure](compose-project-structure.png){width=350}
+  ![Compose Multiplatform project structure](compose-project-structure.png)
 
-**composeApp** 模組由以下原始碼集組成：`androidMain`、`commonMain`、`desktopMain`、`iosMain` 和 `wasmJsMain`。
+**composeApp** 模組由以下原始碼集組成：`androidMain`、`commonMain`、`jvmMain`、`iosMain` 和 `wasmJsMain`
+（如果您選擇包含測試，則包含 `commonTest`）。
 _原始碼集_ 是 Gradle 中將多個檔案邏輯分組在一起的概念，其中每個組都有自己的相依性。在 Kotlin 多平台中，不同的原始碼集可以目標不同的平台。
 
-`commonMain` 原始碼集使用通用 Kotlin 程式碼，而平台原始碼集則使用各目標平台特定的 Kotlin 程式碼。Kotlin/JVM 用於 `androidMain` 和 `desktopMain`。Kotlin/Native 用於 `iosMain`。另一方面，Kotlin/Wasm 用於 `wasmJsMain`。
+`commonMain` 原始碼集包含通用 Kotlin 程式碼，而平台原始碼集則包含各目標平台特定的 Kotlin 程式碼。
+Kotlin/JVM 用於 `androidMain` 和 `jvmMain`，Kotlin/Native 用於 `iosMain`，而 Kotlin/Wasm 則用於 `wasmJsMain`。
 
 當共享模組建置成 Android 函式庫時，通用 Kotlin 程式碼被視為 Kotlin/JVM。當它建置成 iOS 框架時，通用 Kotlin 程式碼被視為 Kotlin/Native。當共享模組建置成網路應用程式時，通用 Kotlin 程式碼被視為 Kotlin/Wasm。
 

@@ -5,8 +5,8 @@
 <tldr>
     <p><img src="icon-1-done.svg" width="20" alt="First step" /> <a href="kotlin-tour-intermediate-extension-functions.md">扩展函数</a><br />
         <img src="icon-2-done.svg" width="20" alt="Second step" /> <a href="kotlin-tour-intermediate-scope-functions.md">作用域函数</a><br />
-        <img src="icon-3-done.svg" width="20" alt="Third step" /> <a href="kotlin-tour-intermediate-lambdas-receiver.md">带接收者的 lambda 表达式</a><br /> 
-        <img src="icon-4-done.svg" width="20" alt="Fourth step" /> <a href="kotlin-tour-intermediate-classes-interfaces.md">类和接口</a><br /> 
+        <img src="icon-3-done.svg" width="20" alt="Third step" /> <a href="kotlin-tour-intermediate-lambdas-receiver.md">带接收者的 lambda 表达式</a><br />
+        <img src="icon-4-done.svg" width="20" alt="Fourth step" /> <a href="kotlin-tour-intermediate-classes-interfaces.md">类和接口</a><br />
         <img src="icon-5.svg" width="20" alt="Fourth step" /> <strong>对象</strong><br />
         <img src="icon-6-todo.svg" width="20" alt="Sixth step" /> <a href="kotlin-tour-intermediate-open-special-classes.md">开放类与特殊类</a><br />
         <img src="icon-7-todo.svg" width="20" alt="Seventh step" /> <a href="kotlin-tour-intermediate-properties.md">属性</a><br />
@@ -98,7 +98,7 @@ data object AppConfig {
 fun main() {
     println(AppConfig)
     // AppConfig
-    
+
     println(AppConfig.appName)
     // My Application
 }
@@ -137,7 +137,7 @@ class BigBen {
 fun main() {
     // 伴生对象在类首次被引用时创建。
     BigBen.getBongs(12)
-    // BONG BONG BONG BONG BONG BONG BONG BONG BONG BONG BONG BONG 
+    // BONG BONG BONG BONG BONG BONG BONG BONG BONG BONG BONG BONG
 }
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-tour-classes-companion-object"}

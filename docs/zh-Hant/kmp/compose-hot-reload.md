@@ -1,8 +1,8 @@
 [//]: # (title: Compose Hot Reload)
 
-<primary-label ref="alpha"/>
+<primary-label ref="beta"/>
 
-Compose Hot Reload 可協助您在處理 Compose Multiplatform 專案時，視覺化並試驗使用者介面 (UI) 的變更。
+[Compose Hot Reload](https://github.com/JetBrains/compose-hot-reload) 協助您在處理 Compose Multiplatform 專案時，視覺化並試驗使用者介面 (UI) 的變更。
 
 目前，Compose Hot Reload 僅在您的多平台專案中包含桌面目標時可用。我們正在探索未來新增對其他目標的支援。同時，使用桌面應用程式作為您的沙盒，可讓您快速試驗通用程式碼中的 UI 變更，而不會中斷您的工作流程。
 
@@ -24,7 +24,7 @@ Compose Hot Reload 可以透過兩種方式新增：
 3. 在左側面板中，選取 **Kotlin Multiplatform**。
 4. 在 **New Project** 視窗中指定 **Name**、**Group** 和 **Artifact** 欄位。
 5. 選取 **Desktop** 目標並點擊 **Create**。
-   ![Create multiplatform project with desktop target](create-desktop-project.png){width=700}
+   ![建立具有桌面目標的多平台專案](create-desktop-project.png){width=700}
 
 ### 加入到現有專案
 
@@ -65,11 +65,11 @@ Compose Hot Reload 可以透過兩種方式新增：
    }
    ```
 
-5. 點擊 **Sync Gradle Changes** 按鈕以同步化 Gradle 檔案： ![Synchronize Gradle files](gradle-sync.png){width=50}
+5. 點擊 **Sync Gradle Changes** 按鈕以同步化 Gradle 檔案： ![同步化 Gradle 檔案](gradle-sync.png){width=50}
 
 ## 使用 Compose Hot Reload
 
-1. 在 `desktopMain` 目錄中，開啟 `main.kt` 檔案並更新 `main()` 函數：
+1. 在 `jvmMain` 目錄中，開啟 `main.kt` 檔案並更新 `main()` 函數：
    ```kotlin
    fun main() = application {
        Window(
@@ -83,7 +83,7 @@ Compose Hot Reload 可以透過兩種方式新增：
    ```
    透過將 `alwaysOnTop` 變數設定為 `true`，生成的桌面應用程式會保持在所有視窗之上，使您更容易編輯程式碼並即時查看變更。
 
-2. 在 `commonMain` 目錄中，開啟 `App.kt` 檔案並更新 `Button` 可組合項：
+2. 開啟 `App.kt` 檔案並更新 `Button` 可組合項：
    ```kotlin
    Button(onClick = { showContent = !showContent }) {
        Column {
@@ -93,20 +93,20 @@ Compose Hot Reload 可以透過兩種方式新增：
    ```
    現在，按鈕的文字由 `greet()` 函數控制。
 
-3. 在 `commonMain` 目錄中，開啟 `Greeting.kt` 檔案並更新 `greet()` 函數：
+3. 開啟 `Greeting.kt` 檔案並更新 `greet()` 函數：
    ```kotlin
     fun greet(): String {
         return "Hello!"
     }
    ```
 
-4. 在 `desktopMain` 目錄中，開啟 `main.kt` 檔案並點擊編輯器邊欄中的 **Run** 圖示。選取 **Run 'composeApp [desktop]' with Compose Hot Reload (Alpha)**。
+4. 開啟 `main.kt` 檔案並點擊編輯器邊欄中的 **Run** 圖示。選取 **Run 'composeApp [hotRunJvm]' with Compose Hot Reload (Beta)**。
 
     ![Run Compose Hot Reload from gutter](compose-hot-reload-gutter-run.png){width=350}
 
     ![First Compose Hot Reload on desktop app](compose-hot-reload-hello.png){width=500}
 
-5. 更新從 `greet()` 函數返回的字串，然後儲存檔案以查看桌面應用程式自動更新。
+5. 更新從 `greet()` 函數返回的字串，然後儲存所有檔案 (<shortcut>⌘ S</shortcut> / <shortcut>Ctrl+S</shortcut>) 以查看桌面應用程式自動更新。
 
    ![Compose Hot Reload](compose-hot-reload.gif){width=500}
 

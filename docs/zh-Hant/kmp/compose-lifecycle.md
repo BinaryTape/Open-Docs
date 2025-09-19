@@ -30,7 +30,7 @@ kotlin {
 
 生命週期狀態與事件的流程（與 [Jetpack 生命週期](https://developer.android.com/topic/libraries/architecture/lifecycle)相同）：
 
-![生命週期圖](lifecycle-states.svg){width="700"}
+![Lifecycle diagram](lifecycle-states.svg){width="700"}
 
 ## 生命週期實作
 
@@ -68,10 +68,12 @@ kotlin {
 * 會跳過 `CREATED` 狀態，因為應用程式總是附著在頁面上。
 * 永遠不會達到 `DESTROYED` 狀態，因為網頁通常只會在使用者關閉分頁時終止。
 
-| 原生事件 | 生命週期事件 | 生命週期狀態變更 |
-|----------|--------------|------------------|
-| `blur`       | `ON_PAUSE`   | `RESUMED` → `STARTED`  |
-| `focus`      | `ON_RESUME`  | `STARTED` → `RESUMED`  |
+| 原生事件                           | 生命週期事件 | 生命週期狀態變更 |
+|------------------------------------|--------------|------------------|
+| `visibilitychange` (becomes visible)     | `ON_START`   | `CREATED` → `STARTED`  |
+| `focus`                                  | `ON_RESUME`  | `STARTED` → `RESUMED`  |
+| `blur`                                   | `ON_PAUSE`   | `RESUMED` → `STARTED`  |
+| `visibilitychange` (stops being visible) | `ON_STOP`    | `CREATED` → `STARTED`  |
 
 ### Desktop
 

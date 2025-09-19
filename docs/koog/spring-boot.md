@@ -23,22 +23,22 @@ dependencies {
 在 `application.properties` 中配置您首选的 LLM 提供商：
 
 ```properties
-# OpenAI 配置
+# OpenAI Configuration
 ai.koog.openai.api-key=${OPENAI_API_KEY}
 ai.koog.openai.base-url=https://api.openai.com
-# Anthropic 配置  
+# Anthropic Configuration  
 ai.koog.anthropic.api-key=${ANTHROPIC_API_KEY}
 ai.koog.anthropic.base-url=https://api.anthropic.com
-# Google 配置
+# Google Configuration
 ai.koog.google.api-key=${GOOGLE_API_KEY}
 ai.koog.google.base-url=https://generativelanguage.googleapis.com
-# OpenRouter 配置
+# OpenRouter Configuration
 ai.koog.openrouter.api-key=${OPENROUTER_API_KEY}
 ai.koog.openrouter.base-url=https://openrouter.ai
-# DeepSeek 配置
+# DeepSeek Configuration
 ai.koog.deepseek.api-key=${DEEPSEEK_API_KEY}
 ai.koog.deepseek.base-url=https://api.deepseek.com
-# Ollama 配置（本地 - 无需 API 密钥）
+# Ollama Configuration (local - no API key required)
 ai.koog.ollama.base-url=http://localhost:11434
 ```
 

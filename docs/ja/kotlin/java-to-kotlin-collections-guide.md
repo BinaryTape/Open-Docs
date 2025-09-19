@@ -7,7 +7,7 @@ _コレクション_とは、解決しようとしている問題にとって重
 JavaからKotlinへの移行を支援し、Kotlinらしい書き方でコードを作成できるようにします。
 
 このガイドの最初の部分には、JavaとKotlinの同じコレクションに対する操作の簡単な用語集が含まれています。
-これは、[JavaとKotlinで同じ操作](#operations-that-are-the-same-in-java-and-kotlin)と[Javaの標準ライブラリには存在しない操作](#operations-that-don-t-exist-in-java-s-standard-library)に分かれています。
+これは、[JavaとKotlinで同じ操作](#operations-that-are-the-same-in-java-and-kotlin)と[Kotlinにのみ存在する操作](#operations-that-don-t-exist-in-java-s-standard-library)に分かれています。
 ガイドの2番目の部分では、[ミュータビリティ](#mutability)から始まり、具体的なケースを見ていくつかの違いを説明します。
 
 コレクションの概要については、[コレクションの概要](collections-overview.md)を参照するか、Kotlin開発者アドボケイトであるSebastian Aignerによる[このビデオ](https://www.youtube.com/watch?v=F8jj7e-_jFA)をご覧ください。
@@ -25,7 +25,7 @@ Kotlinには、Javaでの同等の操作とまったく同じように見える�
 | 説明 | 共通の操作 | その他のKotlinの選択肢 |
 |-------------|-----------|---------------------|
 | 要素または要素群を追加する | `add()`, `addAll()` | [`plusAssign`(`+=`) 演算子](collection-plus-minus.md)を使用します: `collection += element`, `collection += anotherCollection`。 |
-| コレクションが要素または要素群を含むか確認する | `contains()`, `containsAll()` | `in`キーワード](collection-elements.md#check-element-existence)を使用して、演算子形式で`contains()`を呼び出します: `element in collection`。 |
+| コレクションが要素または要素群を含むか確認する | `contains()`, `containsAll()` | [`in`キーワード](collection-elements.md#check-element-existence)を使用して、演算子形式で`contains()`を呼び出します: `element in collection`。 |
 | コレクションが空か確認する | `isEmpty()` | コレクションが空でないか確認するには[`isNotEmpty()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/is-not-empty.html)を使用します。 |
 | 特定の条件で削除する | `removeIf()` | |
 | 選択された要素のみを残す | `retainAll()` | |

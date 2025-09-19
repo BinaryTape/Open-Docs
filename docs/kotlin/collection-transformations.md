@@ -32,7 +32,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-转换 map 时，你有两种选择：转换键而保持值不变，反之亦然。要将给定转换应用于键，请使用 [`mapKeys()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/map-keys.html)；而 [`mapValues()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/map-values.html) 则转换值。这两个函数都使用将 map 条目作为实参的转换，因此你可以同时操作其键和值。
+转换 Map 时，你有两种选择：转换键而保持值不变，反之亦然。要将给定转换应用于键，请使用 [`mapKeys()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/map-keys.html)；相应地，[`mapValues()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/map-values.html) 转换值。这两个函数都使用将 Map 条目作为实参的转换，因此你可以同时操作其键和值。
 
 ```kotlin
 
@@ -106,9 +106,9 @@ fun main() {
 
 ## Associate
 
-_关联_转换允许从集合元素和与其关联的某些值构建 map。在不同的关联类型中，元素可以是关联 map 中的键或值。
+_关联_转换允许从集合元素和与其关联的某些值构建 Map。在不同的关联类型中，元素可以是关联 Map 中的键或值。
 
-基本关联函数 [`associateWith()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/associate-with.html) 创建一个 `Map`，其中原始集合的元素是键，值则由给定的转换函数从它们生成。如果两个元素相等，则只有最后一个保留在 map 中。
+基本关联函数 [`associateWith()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/associate-with.html) 创建一个 `Map`，其中原始集合的元素是键，值则由给定的转换函数从它们生成。如果两个元素相等，则只有最后一个保留在 Map 中。
 
 ```kotlin
 
@@ -121,7 +121,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-为了构建以集合元素作为值的 map，有一个函数 [`associateBy()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/associate-by.html)。它接受一个函数，该函数根据元素的值返回一个键。如果两个元素的键相等，则只有最后一个保留在 map 中。
+为了构建以集合元素作为值的 Map，有一个函数 [`associateBy()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/associate-by.html)。它接受一个函数，该函数根据元素的值返回一个键。如果两个元素的键相等，则只有最后一个保留在 Map 中。
 
 `associateBy()` 也可以与值转换函数一起调用。
 
@@ -138,7 +138,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-另一种构建 map 的方式是 [`associate()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/associate.html) 函数，其中键和值都是从集合元素以某种方式生成的。它接受一个返回 `Pair` 的 lambda 函数：对应 map 条目的键和值。
+另一种构建 Map 的方式是 [`associate()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/associate.html) 函数，其中键和值都是从集合元素以某种方式生成的。它接受一个返回 `Pair` 的 lambda 函数：对应 Map 条目的键和值。
 
 请注意，`associate()` 会产生短生命周期的 `Pair` 对象，这可能会影响性能。因此，当性能不关键或比其他选项更可取时，才应使用 `associate()`。
 
@@ -183,7 +183,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-另一个函数——[`flatMap()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/flat-map.html) 提供了一种灵活的方式来处理嵌套集合。它接受一个函数，该函数将集合元素映射到另一个集合。因此，`flatMap()` 返回一个包含所有元素上返回值构成的单个 List。所以，`flatMap()` 的行为类似于先调用 `map()`（将集合作为映射结果），然后调用 `flatten()`。
+另一个函数——[`flatMap()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/flat-map.html) 提供了一种灵活的方式来处理嵌套集合。它接受一个函数，该函数将集合元素映射到另一个集合。因此，`flatMap()` 返回一个包含所有元素上返回值构成的单个 `List`。所以，`flatMap()` 的行为类似于先调用 `map()`（将集合作为映射结果），然后调用 `flatten()`。
 
 ```kotlin
 

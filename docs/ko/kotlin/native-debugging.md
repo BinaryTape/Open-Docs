@@ -1,28 +1,54 @@
 [//]: # (title: Kotlin/Native 디버깅)
 
-현재 Kotlin/Native 컴파일러는 DWARF 2 명세와 호환되는 디버그 정보를 생성하므로, 최신 디버거 도구는 다음 작업을 수행할 수 있습니다:
-- 중단점
-- 단계 실행
-- 타입 정보 검사
-- 변수 검사
+Kotlin/Native 컴파일러는 디버그 정보가 포함된 바이너리를 생성할 수 있으며, [크래시 리포트 심볼화를 위한](#debug-ios-applications) 디버그 심볼 파일도 생성할 수 있습니다.
 
->DWARF 2 명세를 지원한다는 것은 디버거 도구가 Kotlin을 C89로 인식한다는 것을 의미합니다. 이는 DWARF 5 명세 이전에는 명세에 Kotlin 언어 타입에 대한 식별자가 없기 때문입니다.
+디버그 정보는 [DWARF 2](https://dwarfstd.org/download.html) 명세와 호환되므로, LLDB 및 GDB와 같은 최신 디버거 도구는 다음을 수행할 수 있습니다:
+
+*   [중단점 설정](#set-breakpoints)
+*   [단계 실행 사용](#use-stepping)
+*   [변수 및 타입 정보 검사](#inspect-variables)
+
+> DWARF 2 명세를 지원한다는 것은 디버거 도구가 Kotlin을 C89로 인식한다는 것을 의미합니다. 이는 DWARF 5 명세 이전에는 명세에 Kotlin 언어 타입에 대한 식별자가 없기 때문입니다.
 >
 {style="note"}
 
-## Kotlin/Native 컴파일러로 디버그 정보가 포함된 바이너리 생성
+## 디버그 정보가 포함된 바이너리 생성
 
-Kotlin/Native 컴파일러로 바이너리를 생성하려면 명령줄에서 ``-g`` 옵션을 사용하세요.
+IntelliJ IDEA, Android Studio 또는 Xcode에서 디버깅할 때, (빌드가 다르게 구성되지 않는 한) 디버그 정보가 포함된 바이너리가 자동으로 생성됩니다.
+
+다음 방법으로 디버깅을 수동으로 활성화하고 디버그 정보가 포함된 바이너리를 생성할 수 있습니다:
+
+*   **Gradle 태스크 사용**. 디버그 바이너리를 얻으려면 `linkDebug*` Gradle 태스크를 사용하십시오. 예를 들어:
+
+    ```bash
+    ./gradlew linkDebugFrameworkNative
+    ```
+
+    이 태스크들은 바이너리 타입(예: `linkDebugSharedNative`) 또는 대상(예: `linkDebugExecutableMacosArm64`)에 따라 달라집니다.
+
+*   **명령줄 컴파일러 사용**. 명령줄에서 `-g` 옵션을 사용하여 Kotlin/Native 바이너리를 컴파일하십시오:
+
+    ```bash
+    kotlinc-native hello.kt -g -o terminator
+    ```
+
+그런 다음 디버거 도구를 실행하십시오. 예를 들어:
 
 ```bash
-0:b-debugger-fixes:minamoto@unit-703(0)# cat - > hello.kt
+lldb terminator.kexe
+```
+
+디버거 출력:
+
+```bash
+$ cat - > hello.kt
 fun main(args: Array<String>) {
   println("Hello world")
-  println("I need your clothes, your boots and your motocycle")
+  println("I need your clothes, your boots and your motorcycle")
 }
-0:b-debugger-fixes:minamoto@unit-703(0)# dist/bin/konanc -g hello.kt -o terminator
+$ dist/bin/konanc -g hello.kt -o terminator
 KtFile: hello.kt
-0:b-debugger-fixes:minamoto@unit-703(0)# lldb terminator.kexe
+$ lldb terminator.kexe
 (lldb) target create "terminator.kexe"
 Current executable set to 'terminator.kexe' (x86_64).
 (lldb) b kfun:main(kotlin.Array<kotlin.String>)
@@ -34,7 +60,7 @@ Process 28473 stopped
     frame #0: 0x00000001000012e4 terminator.kexe`kfun:main(kotlin.Array<kotlin.String>) at hello.kt:2
    1    fun main(args: Array<String>) {
 -> 2      println("Hello world")
-   3      println("I need your clothes, your boots and your motocycle")
+   3      println("I need your clothes, your boots and your motorcycle")
    4    }
 (lldb) n
 Hello world
@@ -43,49 +69,51 @@ Process 28473 stopped
     frame #0: 0x00000001000012f0 terminator.kexe`kfun:main(kotlin.Array<kotlin.String>) at hello.kt:3
    1    fun main(args: Array<String>) {
    2      println("Hello world")
--> 3      println("I need your clothes, your boots and your motocycle")
+-> 3      println("I need your clothes, your boots and your motorcycle")
    4    }
 (lldb)
 ```
 
-## 중단점
+## 중단점 설정
 
-최신 디버거는 중단점을 설정하는 여러 방법을 제공합니다. 아래에서 도구별 분류를 확인하세요:
+최신 디버거는 중단점을 설정하는 여러 방법을 제공합니다. 아래에서 도구별 분류를 확인하십시오:
 
-### lldb
+### LLDB
 
-- 이름으로
+*   이름으로:
 
     ```bash
     (lldb) b -n kfun:main(kotlin.Array<kotlin.String>)
     Breakpoint 4: where = terminator.kexe`kfun:main(kotlin.Array<kotlin.String>) + 4 at hello.kt:2, address = 0x00000001000012e4
     ```
 
-_``-n``은 선택 사항이며, 이 플래그는 기본적으로 적용됩니다._
-- 위치로 (파일 이름, 줄 번호)
+    `-n`은 선택 사항이며, 기본적으로 적용됩니다.
+
+*   위치로 (파일 이름, 줄 번호):
 
     ```bash
     (lldb) b -f hello.kt -l 1
     Breakpoint 1: where = terminator.kexe`kfun:main(kotlin.Array<kotlin.String>) + 4 at hello.kt:2, address = 0x00000001000012e4
     ```
 
-- 주소로
+*   주소로:
 
     ```bash
     (lldb) b -a 0x00000001000012e4
     Breakpoint 2: address = 0x00000001000012e4
     ```
 
-- 정규식으로, 람다 등 생성된 아티팩트를 디버깅할 때 유용할 수 있습니다 (이름에 ``#`` 기호가 사용된 경우).
+*   정규식으로. 람다와 같이 생성된 아티팩트(이름에 `#` 기호가 사용된 경우)를 디버깅할 때 유용할 수 있습니다:
 
     ```bash
+    (lldb) b -r main\(
     3: regex = 'main\(', locations = 1
       3.1: where = terminator.kexe`kfun:main(kotlin.Array<kotlin.String>) + 4 at hello.kt:2, address = terminator.kexe[0x00000001000012e4], unresolved, hit count = 0
     ```
 
-### gdb
+### GDB
 
-- 정규식으로
+*   정규식으로:
 
     ```bash
     (gdb) rbreak main(
@@ -93,7 +121,7 @@ _``-n``은 선택 사항이며, 이 플래그는 기본적으로 적용됩니다
     struct ktype:kotlin.Unit &kfun:main(kotlin.Array<kotlin.String>);
     ```
 
-- 이름으로 __사용 불가__, ``:``이 위치 기반 중단점의 구분자이기 때문에
+*   이름으로 __사용 불가__. `:`이 위치 기반 중단점의 구분자이기 때문입니다:
 
     ```bash
     (gdb) b kfun:main(kotlin.Array<kotlin.String>)
@@ -102,14 +130,14 @@ _``-n``은 선택 사항이며, 이 플래그는 기본적으로 적용됩니다
     Breakpoint 1 (kfun:main(kotlin.Array<kotlin.String>)) pending
     ```
 
-- 위치로
+*   위치로:
 
     ```bash
     (gdb) b hello.kt:1
     Breakpoint 2 at 0x100001704: file /Users/minamoto/ws/.git-trees/hello.kt, line 1.
     ```
 
-- 주소로
+*   주소로:
 
     ```bash
     (gdb) b *0x100001704
@@ -123,25 +151,24 @@ _``-n``은 선택 사항이며, 이 플래그는 기본적으로 적용됩니다
 
 ## 변수 검사
 
-`var` 변수에 대한 변수 검사는 기본 타입에 대해 즉시 작동합니다.
-비기본 타입의 경우, `konan_lldb.py`에 lldb를 위한 사용자 지정 프리티 프린터가 있습니다:
+`var` 변수에 대한 변수 검사는 기본 및 비기본 타입 모두에서 즉시 작동합니다:
 
 ```bash
-λ cat main.kt | nl
+$ cat -n main.kt
      1  fun main(args: Array<String>) {
      2      var x = 1
      3      var y = 2
      4      var p = Point(x, y)
      5      println("p = $p")
      6  }
-       
-     7  data class Point(val x: Int, val y: Int)
+     7 
+     8  data class Point(val x: Int, val y: Int)
 
-λ lldb ./program.kexe -o 'b main.kt:5' -o
+$ lldb ./program.kexe -o 'b main.kt:5' -o
 (lldb) target create "./program.kexe"
 Current executable set to './program.kexe' (x86_64).
 (lldb) b main.kt:5
-Breakpoint 1: where = program.kexe`kfun:main(kotlin.Array<kotlin.String>) + 289 at main.kt:5, address = 0x000000000040af11
+Breakpoint 1: where = program.kexe`kfun:main(kotlin.Array<kotlin.String>) + 289 at main.kt:5
 (lldb) r
 Process 4985 stopped
 * thread #1, name = 'program.kexe', stop reason = breakpoint 1.1
@@ -158,59 +185,54 @@ Process 4985 launched: './program.kexe' (x86_64)
 (lldb) fr var
 (int) x = 1
 (int) y = 2
-(ObjHeader *) p = 0x00000000007643d8
-(lldb) command script import dist/tools/konan_lldb.py
-(lldb) fr var
-(int) x = 1
-(int) y = 2
-(ObjHeader *) p = [x: ..., y: ...]
-(lldb) p p
-(ObjHeader *) $2 = [x: ..., y: ...]
-(lldb) script lldb.frame.FindVariable("p").GetChildMemberWithName("x").Dereference().GetValue()
-'1'
-(lldb)
+(ObjHeader *) p = Point(x=1, y=2)
+
+(lldb) v p->x
+(int32_t) p->x = 1
 ```
 
-객체 변수(`var`)의 표현을 얻는 것은 내장 런타임 함수 `Konan_DebugPrint`를 사용해서도 가능합니다 (이 접근 방식은 GDB에서도 명령 구문 모듈을 사용하여 작동합니다):
+## iOS 애플리케이션 디버깅
 
-```bash
-0:b-debugger-fixes:minamoto@unit-703(0)# cat ../debugger-plugin/1.kt | nl -p
-     1  fun foo(a:String, b:Int) = a + b
-     2  fun one() = 1
-     3  fun main(arg:Array<String>) {
-     4    var a_variable = foo("(a_variable) one is ", 1)
-     5    var b_variable = foo("(b_variable) two is ", 2)
-     6    var c_variable = foo("(c_variable) two is ", 3)
-     7    var d_variable = foo("(d_variable) two is ", 4)
-     8    println(a_variable)
-     9    println(b_variable)
-    10    println(c_variable)
-    11    println(d_variable)
-    12  }
-0:b-debugger-fixes:minamoto@unit-703(0)# lldb ./program.kexe -o 'b -f 1.kt -l 9' -o r
-(lldb) target create "./program.kexe"
-Current executable set to './program.kexe' (x86_64).
-(lldb) b -f 1.kt -l 9
-Breakpoint 1: where = program.kexe`kfun:main(kotlin.Array<kotlin.String>) + 463 at 1.kt:9, address = 0x0000000100000dbf
-(lldb) r
-(a_variable) one is 1
-Process 80496 stopped
-* thread #1, queue = 'com.apple.main-thread', stop reason = breakpoint 1.1
-    frame #0: 0x0000000100000dbf program.kexe`kfun:main(kotlin.Array<kotlin.String>) at 1.kt:9
-   6      var c_variable = foo("(c_variable) two is ", 3)
-   7      var d_variable = foo("(d_variable) two is ", 4)
-   8      println(a_variable)
--> 9      println(b_variable)
-   10     println(c_variable)
-   11     println(d_variable)
-   12   }
+iOS 애플리케이션 디버깅은 때때로 크래시 리포트를 자세히 분석하는 것을 포함합니다. 크래시 리포트에는 일반적으로 메모리 주소를 읽을 수 있는 소스 코드 위치로 변환하는 과정인 심볼화(symbolication)가 필요합니다.
 
-Process 80496 launched: './program.kexe' (x86_64)
-(lldb) expression -- (int32_t)Konan_DebugPrint(a_variable)
-(a_variable) one is 1(int32_t) $0 = 0
-(lldb)
+Kotlin 코드의 주소(예: Kotlin 코드에 해당하는 스택 트레이스 요소)를 심볼화하려면 특별한 디버그 심볼(`.dSYM`) 파일이 필요합니다. 이 파일은 크래시 리포트의 메모리 주소를 함수나 줄 번호와 같은 소스 코드의 실제 위치에 매핑합니다.
+
+Kotlin/Native 컴파일러는 Apple 플랫폼에서 기본적으로 릴리스(최적화된) 바이너리에 대한 `.dSYM` 파일을 생성합니다. Xcode에서 빌드할 때, IDE는 표준 위치에서 `.dSYM` 파일을 찾아 심볼화를 위해 자동으로 사용합니다. Xcode는 IntelliJ IDEA 템플릿으로 생성된 프로젝트에서 `.dSYM` 파일을 자동으로 감지합니다.
+
+다른 플랫폼에서는 `-Xadd-light-debug` 컴파일러 옵션을 사용하여 생성된 바이너리에 디버그 정보를 추가할 수 있습니다 (이는 바이너리 크기를 증가시킵니다):
+
+<tabs group="build-script">
+<tab title="Kotlin" group-key="kotlin">
+
+```kotlin
+kotlin {
+    targets.withType<org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget> {
+        binaries.all {
+            freeCompilerArgs += "-Xadd-light-debug=enable"
+        }
+    }
+}
 ```
+
+</tab>
+<tab title="Groovy" group-key="groovy">
+
+```groovy
+kotlin {
+    targets.withType(org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget) {
+        binaries.all {
+            freeCompilerArgs += "-Xadd-light-debug=enable"
+        }
+    }
+}
+```
+
+</tab>
+</tabs>
+
+크래시 리포트에 대한 자세한 내용은 [Apple 문서](https://developer.apple.com/documentation/xcode/diagnosing-issues-using-crash-reports-and-device-logs)를 참조하십시오.
 
 ## 알려진 문제
 
-- Python 바인딩 성능.
+*   Python 바인딩 성능.
+*   디버거 도구에서 표현식 평가는 지원되지 않으며, 현재 구현 계획이 없습니다.

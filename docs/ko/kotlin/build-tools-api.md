@@ -46,20 +46,20 @@ import org.jetbrains.kotlin.buildtools.api.ExperimentalBuildToolsApi
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 
 plugins {
-	kotlin("jvm") version "2.2.0"
+    kotlin("jvm") version "2.2.0"
 }
 
 group = "org.jetbrains.example"
 version = "1.0-SNAPSHOT"
 
 repositories {
-	mavenCentral()
+    mavenCentral()
 }
 
 kotlin {
-	jvmToolchain(8)
-	@OptIn(ExperimentalBuildToolsApi::class, ExperimentalKotlinGradlePluginApi::class)
-	compilerVersion.set("2.1.21") // <-- different version than 2.2.0
+    jvmToolchain(8)
+    @OptIn(ExperimentalBuildToolsApi::class, ExperimentalKotlinGradlePluginApi::class)
+    compilerVersion.set("2.1.21") // <-- different version than 2.2.0
 }
 ```
 
@@ -94,9 +94,6 @@ kotlin.compiler.execution.strategy=in-process
 
 ## Maven 통합
 
-Kotlin 2.2.0부터 BTA는 [`kotlin-maven-plugin`](maven.md)에서 기본적으로 활성화됩니다.
+BTA는 [`kotlin-maven-plugin`](maven.md)이 기본 [컴파일러 실행 전략](maven.md#configure-kotlin-compiler-execution-strategy)인 [Kotlin 데몬](kotlin-daemon.md)을 지원하도록 합니다. `kotlin-maven-plugin`은 기본적으로 BTA를 사용하므로 별도로 구성할 필요가 없습니다.
 
-BTA가 아직 Maven 사용자에게 직접적인 이점을 제공하지는 않지만, 다음과 같은 기능을 개발하기 위한 견고한 기반을 제공합니다:
-
-* [Kotlin 데몬 지원](https://youtrack.jetbrains.com/issue/KT-77587)
-* [증분 컴파일 안정화](https://youtrack.jetbrains.com/issue/KT-77086)
+BTA는 향후 [증분 컴파일 안정화](https://youtrack.jetbrains.com/issue/KT-77086)와 같은 더 많은 기능을 제공할 수 있도록 합니다.

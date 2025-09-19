@@ -23,22 +23,22 @@ dependencies {
 在 `application.properties` 中配置您偏好的 LLM 提供者：
 
 ```properties
-# OpenAI 配置
+# OpenAI Configuration
 ai.koog.openai.api-key=${OPENAI_API_KEY}
 ai.koog.openai.base-url=https://api.openai.com
-# Anthropic 配置  
+# Anthropic Configuration  
 ai.koog.anthropic.api-key=${ANTHROPIC_API_KEY}
 ai.koog.anthropic.base-url=https://api.anthropic.com
-# Google 配置
+# Google Configuration
 ai.koog.google.api-key=${GOOGLE_API_KEY}
 ai.koog.google.base-url=https://generativelanguage.googleapis.com
-# OpenRouter 配置
+# OpenRouter Configuration
 ai.koog.openrouter.api-key=${OPENROUTER_API_KEY}
 ai.koog.openrouter.base-url=https://openrouter.ai
-# DeepSeek 配置
+# DeepSeek Configuration
 ai.koog.deepseek.api-key=${DEEPSEEK_API_KEY}
 ai.koog.deepseek.base-url=https://api.deepseek.com
-# Ollama 配置（本地 - 無需 API 金鑰）
+# Ollama Configuration (local - no API key required)
 ai.koog.ollama.base-url=http://localhost:11434
 ```
 
@@ -95,7 +95,7 @@ class AIService(
                 val result = anthropicExecutor.execute(prompt)
                 result.text
             }
-            else -> throw IllegalStateException("No LLM provider configured")
+            else -> throw IllegalStateException("未配置任何 LLM 提供者")
         }
     }
 }
@@ -127,11 +127,11 @@ class ChatController(
                 ResponseEntity.ok(ChatResponse(result.text))
             } catch (e: Exception) {
                 ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(ChatResponse("Error processing request"))
+                    .body(ChatResponse("處理請求時發生錯誤"))
             }
         } else {
             ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE)
-                .body(ChatResponse("AI service not configured"))
+                .body(ChatResponse("AI 服務未配置"))
         }
     }
 }
@@ -165,12 +165,12 @@ class RobustAIService(
                 val result = executor.execute(prompt)
                 return result.text
             } catch (e: Exception) {
-                logger.warn("Executor failed, trying next: ${e.message}")
+                logger.warn("執行器失敗，嘗試下一個: ${e.message}")
                 continue
             }
         }
 
-        throw IllegalStateException("All AI providers failed")
+        throw IllegalStateException("所有 AI 提供者均失敗")
     }
 
     companion object {

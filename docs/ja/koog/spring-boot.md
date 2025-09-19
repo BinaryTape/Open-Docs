@@ -281,8 +281,8 @@ API key is required but not provided
 
 ## 次のステップ
 
-- [シングルランエージェント](single-run-agents.md)について学び、基本的なAIワークフローを構築します
-- 高度なユースケースには[複雑なワークフローエージェント](complex-workflow-agents.md)を探求します
-- エージェントの機能を拡張するために[ツール概要](tools-overview.md)を参照してください
-- 実世界の実装については[例](examples.md)をチェックしてください
-- フレームワークをよりよく理解するために[主要な概念](key-concepts.md)を読んでください
+-   基本的なAIワークフローを構築するために、[シングルランエージェント](single-run-agents.md)について学びます
+-   高度なユースケースには[複雑なワークフローエージェント](complex-workflow-agents.md)を探求します
+-   エージェントの機能を拡張するために[ツール概要](tools-overview.md)を参照してください
+-   実世界の実装については[例](examples.md)をチェックしてください
+-   フレームワークをよりよく理解するために[主要な概念](key-concepts.md)を読んでください

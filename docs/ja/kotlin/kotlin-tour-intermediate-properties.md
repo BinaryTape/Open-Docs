@@ -22,8 +22,8 @@ Kotlinでは、プロパティはデフォルトの`get()`関数と`set()`関数
 
 バッキングフィールドは、以下のいずれかの条件が真の場合に存在します。
 
-* プロパティのデフォルトの`get()`関数または`set()`関数を使用する場合。
-* `field`キーワードを使用してコード内でプロパティ値にアクセスしようとする場合。
+*   プロパティのデフォルトの`get()`関数または`set()`関数を使用する場合。
+*   `field`キーワードを使用してコード内でプロパティ値にアクセスしようとする場合。
 
 > `get()`関数と`set()`関数は、ゲッターとセッターとも呼ばれます。
 >
@@ -33,7 +33,7 @@ Kotlinでは、プロパティはデフォルトの`get()`関数と`set()`関数
 
 ```kotlin
 class Contact(val id: Int, var email: String) {
-    val category: String = ""
+    var category: String = ""
 }
 ```
 
@@ -41,7 +41,7 @@ class Contact(val id: Int, var email: String) {
 
 ```kotlin
 class Contact(val id: Int, var email: String) {
-    val category: String = ""
+    var category: String = ""
         get() = field
         set(value) {
             field = value
@@ -52,8 +52,8 @@ class Contact(val id: Int, var email: String) {
 
 この例では：
 
-* `get()`関数はフィールドからプロパティ値（`""`）を取得します。
-* `set()`関数は`value`をパラメータとして受け入れ、それをフィールドに割り当てます。ここで`value`は`""`です。
+*   `get()`関数はフィールドからプロパティ値（`""`）を取得します。
+*   `set()`関数は`value`をパラメータとして受け入れ、それをフィールドに割り当てます。ここで`value`は`""`です。
 
 バッキングフィールドへのアクセスは、無限ループを引き起こすことなく`get()`関数または`set()`関数に余分なロジックを追加したい場合に便利です。例えば、`name`プロパティを持つ`Person`クラスがあるとします。
 
@@ -81,7 +81,7 @@ fun main() {
     // Exception in thread "main" java.lang.StackOverflowError
 }
 ```
-{validate ="false" kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-tour-properties-stackoverflow"}
+{validate="false" kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-tour-properties-stackoverflow"}
 
 これを修正するには、`field`キーワードで参照することにより、`set()`関数でバッキングフィールドを使用できます。
 
@@ -175,9 +175,9 @@ operator fun setValue(thisRef: Any?, property: KProperty<*>, value: String) {}
 
 これらの関数では：
 
-* `operator`キーワードは、これらの関数を演算子関数としてマークし、`get()`関数と`set()`関数をオーバーロードできるようにします。
-* `thisRef`パラメータは、委譲プロパティを**含む**オブジェクトを参照します。デフォルトでは型は`Any?`に設定されていますが、より具体的な型を宣言する必要がある場合があります。
-* `property`パラメータは、値にアクセスまたは変更されるプロパティを参照します。このパラメータを使用して、プロパティの名前や型などの情報にアクセスできます。デフォルトでは型は`Any?`に設定されています。コードでこれを変更することを心配する必要はありません。
+*   `operator`キーワードは、これらの関数を演算子関数としてマークし、`get()`関数と`set()`関数をオーバーロードできるようにします。
+*   `thisRef`パラメータは、委譲プロパティを**含む**オブジェクトを参照します。デフォルトでは型は`Any?`に設定されていますが、より具体的な型を宣言する必要がある場合があります。
+*   `property`パラメータは、値にアクセスまたは変更されるプロパティを参照します。このパラメータを使用して、プロパティの名前や型などの情報にアクセスできます。デフォルトでは型は`KProperty<*>`に設定されていますが、`Any?`を使用することもできます。コードでこれを変更することを心配する必要はありません。
 
 `getValue()`関数はデフォルトで`String`の戻り値の型を持ちますが、必要に応じて調整できます。
 
@@ -252,10 +252,10 @@ fun main() {
 
 この例では：
 
-* ヘッダーに`firstName`と`lastName`の2つのプロパティ、クラス本体に`displayName`という1つのプロパティを持つ`User`クラスを作成します。
-* `displayName`プロパティを`CachedStringDelegate`クラスのインスタンスに委譲します。
-* `user`という`User`クラスのインスタンスを作成します。
-* `user`インスタンス上の`displayName`プロパティにアクセスした結果を出力します。
+*   ヘッダーに`firstName`と`lastName`の2つのプロパティ、クラス本体に`displayName`という1つのプロパティを持つ`User`クラスを作成します。
+*   `displayName`プロパティを`CachedStringDelegate`クラスのインスタンスに委譲します。
+*   `user`という`User`クラスのインスタンスを作成します。
+*   `user`インスタンス上の`displayName`プロパティにアクセスした結果を出力します。
 
 `getValue()`関数では、`thisRef`パラメータの型が`Any?`型からオブジェクト型である`User`に絞り込まれていることに注意してください。これは、コンパイラが`User`クラスの`firstName`プロパティと`lastName`プロパティにアクセスできるようにするためです。
 
@@ -308,18 +308,18 @@ fun main() {
 
 この例では：
 
-* `connect()`および`query()`メンバ関数を持つ`Database`クラスがあります。
-* `connect()`関数はコンソールに文字列を出力し、`query()`関数はSQLクエリを受け取ってリストを返します。
-* 遅延プロパティである`databaseConnection`プロパティがあります。
-* `lazy()`関数に提供されるラムダ式は次のとおりです：
-  * `Database`クラスのインスタンスを作成します。
-  * このインスタンス（`db`）で`connect()`メンバ関数を呼び出します。
-  * インスタンスを返します。
-* `fetchData()`関数は次のとおりです：
-  * `databaseConnection`プロパティに対して`query()`関数を呼び出すことでSQLクエリを作成します。
-  * SQLクエリを`data`変数に割り当てます。
-  * `data`変数をコンソールに出力します。
-* `main()`関数は`fetchData()`関数を呼び出します。最初に呼び出されたとき、遅延プロパティが初期化されます。2回目以降は、最初の呼び出しと同じ結果が返されます。
+*   `connect()`および`query()`メンバ関数を持つ`Database`クラスがあります。
+*   `connect()`関数はコンソールに文字列を出力し、`query()`関数はSQLクエリを受け取ってリストを返します。
+*   遅延プロパティである`databaseConnection`プロパティがあります。
+*   `lazy()`関数に提供されるラムダ式は次のとおりです：
+    *   `Database`クラスのインスタンスを作成します。
+    *   このインスタンス（`db`）で`connect()`メンバ関数を呼び出します。
+    *   インスタンスを返します。
+*   `fetchData()`関数は次のとおりです：
+    *   `databaseConnection`プロパティに対して`query()`関数を呼び出すことでSQLクエリを作成します。
+    *   SQLクエリを`data`変数に割り当てます。
+    *   `data`変数をコンソールに出力します。
+*   `main()`関数は`fetchData()`関数を呼び出します。最初に呼び出されたとき、遅延プロパティが初期化されます。2回目以降は、最初の呼び出しと同じ結果が返されます。
 
 遅延プロパティは、初期化がリソース集約型である場合だけでなく、プロパティがコードで使用されない可能性のある場合にも役立ちます。さらに、遅延プロパティはデフォルトでスレッドセーフであり、これは並行環境で作業している場合に特に有利です。
 
@@ -359,18 +359,17 @@ fun main() {
 
 この例では：
 
-* 可観測プロパティである`temperature`を含む`Thermostat`クラスがあります。
-* `observable()`関数はパラメータとして`20.0`を受け入れ、それを使用してプロパティを初期化します。
-* `observable()`関数に提供されるラムダ式は次のとおりです：
-  * 3つのパラメータを持ちます：
-    * `_`：プロパティ自体を参照します。
-    * `old`：プロパティの古い値です。
-    * `new`：プロパティの新しい値です。
-  * `new`パラメータが`25`より大きいかどうかをチェックし、結果に応じて文字列をコンソールに出力します。
-* `main()`関数は次のとおりです：
-  * `thermostat`という`Thermostat`クラスのインスタンスを作成します。
-  * インスタンスの`temperature`プロパティの値を`22.5`に更新します。これにより、温度更新を伴うprint文がトリガーされます。
-  * インスタンスの`temperature`プロパティの値を`27.0`に更新します。これにより、警告を伴うprint文がトリガーされます。
+*   可観測プロパティである`temperature`を含む`Thermostat`クラスがあります。
+*   `observable()`関数はパラメータとして`20.0`を受け入れ、それを使用してプロパティを初期化します。
+*   `observable()`関数に提供されるラムダ式は次のとおりです：
+    *   `_`：プロパティ自体を参照します。
+    *   `old`：プロパティの古い値です。
+    *   `new`：プロパティの新しい値です。
+    *   `new`パラメータが`25`より大きいかどうかをチェックし、結果に応じて文字列をコンソールに出力します。
+*   `main()`関数は次のとおりです：
+    *   `thermostat`という`Thermostat`クラスのインスタンスを作成します。
+    *   インスタンスの`temperature`プロパティの値を`22.5`に更新します。これにより、温度更新を伴うprint文がトリガーされます。
+    *   インスタンスの`temperature`プロパティの値を`27.0`に更新します。これにより、警告を伴うprint文がトリガーされます。
 
 可観測プロパティは、ロギングやデバッグ目的だけでなく、UIの更新やデータの有効性の検証などの追加チェックを実行するユースケースにも役立ちます。
 
@@ -559,8 +558,8 @@ fun main() {
 
 あなたはシンプルな予算追跡アプリを構築しています。このアプリは、ユーザーの残りの予算の変更を監視し、特定のしきい値を下回るたびにユーザーに通知する必要があります。あなたは、初期予算額を含む`totalBudget`プロパティで初期化される`Budget`クラスを持っています。クラス内に、`remainingBudget`という可観測プロパティを作成し、以下を出力するようにしてください：
 
-* 値が初期予算の20%未満の場合に警告。
-* 予算が前の値から増加した場合に励ましのメッセージ。
+*   値が初期予算の20%未満の場合に警告。
+*   予算が前の値から増加した場合に励ましのメッセージ。
 
 |---|---|
 
@@ -589,24 +588,24 @@ fun main() {
 import kotlin.properties.Delegates.observable
 
 class Budget(val totalBudget: Int) {
-  var remainingBudget: Int by observable(totalBudget) { _, oldValue, newValue ->
-    if (newValue < totalBudget * 0.2) {
-      println("Warning: Your remaining budget ($newValue) is below 20% of your total budget.")
-    } else if (newValue > oldValue) {
-      println("Good news: Your remaining budget increased to $newValue.")
+    var remainingBudget: Int by observable(totalBudget) { _, oldValue, newValue ->
+        if (newValue < totalBudget * 0.2) {
+            println("Warning: Your remaining budget ($newValue) is below 20% of your total budget.")
+        } else if (newValue > oldValue) {
+            println("Good news: Your remaining budget increased to $newValue.")
+        }
     }
-  }
 }
 
 fun main() {
-  val myBudget = Budget(totalBudget = 1000)
-  myBudget.remainingBudget = 800
-  myBudget.remainingBudget = 150
-  // Warning: Your remaining budget (150) is below 20% of your total budget.
-  myBudget.remainingBudget = 50
-  // Warning: Your remaining budget (50) is below 20% of your total budget.
-  myBudget.remainingBudget = 300
-  // Good news: Your remaining budget increased to 300.
+    val myBudget = Budget(totalBudget = 1000)
+    myBudget.remainingBudget = 800
+    myBudget.remainingBudget = 150
+    // Warning: Your remaining budget (150) is below 20% of your total budget.
+    myBudget.remainingBudget = 50
+    // Warning: Your remaining budget (50) is below 20% of your total budget.
+    myBudget.remainingBudget = 300
+    // Good news: Your remaining budget increased to 300.
 }
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="解答例" id="kotlin-tour-properties-solution-4"}

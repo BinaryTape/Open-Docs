@@ -14,7 +14,7 @@ OpenTelemetry 是一個可觀測性框架，提供工具用於從您的應用程
 
 ## OpenTelemetry 關鍵概念
 
-- **Span**: Span 代表分散式追蹤中的獨立工作單元或操作。它們指示應用程式中特定活動的開始與結束，例如代理執行、函數呼叫、LLM 呼叫或工具呼叫。
+- **Span**: Span 代表分散式追蹤中的獨立工作單元或操作。它們指示應用程式中特定活動的開始與結束，例如代理執行、函式呼叫、LLM 呼叫或工具呼叫。
 - **Attribute**: Attribute 提供關於遙測相關項目（例如 Span）的元資料。Attribute 以鍵值對的形式表示。
 - **Event**: Event 是 Span 生命週期中在特定時間點發生的事件（與 Span 相關的事件），代表了可能值得注意的事情。
 - **Exporter**: Exporter 是負責將已收集的遙測資料發送到各種後端或目的地的元件。
@@ -306,7 +306,7 @@ Span 還可以有一個附加到其上的「Event」。Event 描述了在特定�
 - **SystemMessageEvent**: 傳遞給模型的系統指令。
 - **UserMessageEvent**: 傳遞給模型的使用者訊息。
 - **AssistantMessageEvent**: 傳遞給模型的助手訊息。
-- **ToolMessageEvent**: 傳遞給模型的來自工具或函數呼叫的回應。
+- **ToolMessageEvent**: 傳遞給模型的來自工具或函式呼叫的回應。
 - **ChoiceEvent**: 來自模型的回應訊息。
 - **ModerationResponseEvent**: 模型審核結果或訊號。
 
@@ -317,9 +317,9 @@ Span 還可以有一個附加到其上的「Event」。Event 描述了在特定�
 
 Exporter 將收集到的遙測資料發送到 OpenTelemetry Collector 或其他類型的目的地或後端實作。若要添加 Exporter，請在安裝 OpenTelemetry 功能時使用 `addSpanExporter()` 方法。該方法接受以下引數：
 
-| 名稱       | 資料型別    | 必需 | 預設值 | 描述                                                                 |
-|------------|--------------|----------|---------------|-----------------------------------------------------------------------------|
-| `exporter` | SpanExporter | 是       |               | 要添加到自訂 Span Exporter 列表中的 `SpanExporter` 實例。 |
+| 名稱       | 資料型別    | 必需 | 預設 | 描述                                                                 |
+|------------|--------------|----------|---------|-----------------------------------------------------------------------------|
+| `exporter` | SpanExporter | 是       |         | 要添加到自訂 Span Exporter 列表中的 `SpanExporter` 實例。 |
 
 以下章節提供了關於 `opentelemetry-java` SDK 中一些最常用 Exporter 的資訊。
 

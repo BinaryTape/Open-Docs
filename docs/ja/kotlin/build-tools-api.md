@@ -46,20 +46,20 @@ import org.jetbrains.kotlin.buildtools.api.ExperimentalBuildToolsApi
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 
 plugins {
-	kotlin("jvm") version "2.2.0"
+    kotlin("jvm") version "2.2.0"
 }
 
 group = "org.jetbrains.example"
 version = "1.0-SNAPSHOT"
 
 repositories {
-	mavenCentral()
+    mavenCentral()
 }
 
 kotlin {
-	jvmToolchain(8)
-	@OptIn(ExperimentalBuildToolsApi::class, ExperimentalKotlinGradlePluginApi::class)
-	compilerVersion.set("2.1.21") // <-- different version than 2.2.0
+    jvmToolchain(8)
+    @OptIn(ExperimentalBuildToolsApi::class, ExperimentalKotlinGradlePluginApi::class)
+    compilerVersion.set("2.1.21") // <-- different version than 2.2.0
 }
 ```
 
@@ -94,9 +94,6 @@ kotlin.compiler.execution.strategy=in-process
 
 ## Mavenとの統合
 
-Kotlin 2.2.0以降、BTAは[`kotlin-maven-plugin`](maven.md) でデフォルトで有効になっています。
+BTAは、[`kotlin-maven-plugin`](maven.md) が[Kotlinデーモン](kotlin-daemon.md) をサポートすることを可能にします。Kotlinデーモンは、デフォルトの[コンパイラ実行戦略](maven.md#configure-kotlin-compiler-execution-strategy)です。`kotlin-maven-plugin` はBTAをデフォルトで使用するため、何も設定する必要はありません。
 
-BTAはまだMavenユーザーに直接的なメリットをもたらしていませんが、次のような機能を開発するための強固な基盤を提供します。
-
-*   [Kotlinデーモンサポート](https://youtrack.jetbrains.com/issue/KT-77587)
-*   [インクリメンタルコンパイルの安定化](https://youtrack.jetbrains.com/issue/KT-77086)
+BTAは、将来的に[インクリメンタルコンパイルの安定化](https://youtrack.jetbrains.com/issue/KT-77086)などのさらなる機能を提供することを可能にします。

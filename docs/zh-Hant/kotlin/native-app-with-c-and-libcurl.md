@@ -196,7 +196,7 @@ fun main(args: Array<String>) {
 
 您可以看到實際輸出，因為 `curl_easy_perform` 呼叫會將結果列印到標準輸出。您可以使用 `curl_easy_setopt` 隱藏此內容。
 
-> 您可以在我們的 [GitHub 儲存庫](https://github.com/Kotlin/kotlin-hands-on-intro-kotlin-native) 中取得完整的專案程式碼。
+> 您可以在我們的 [GitHub 儲存庫](https://github.com/kotlin-hands-on/intro-kotlin-native) 中取得完整的專案程式碼。
 >
 {style="note"}
 

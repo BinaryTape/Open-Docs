@@ -10,12 +10,12 @@
 * [字串](strings.md)
 * [陣列](arrays.md)
 
-> [了解如何在 Kotlin 中執行型別檢查和轉換](typecasts.md)。
->
-{style="tip"}
-
 欲了解其他 Kotlin 類型，例如 `Nothing`、`Any` 和 `Unit`，請查閱 Kotlin API 參考資料：
 
 * [`Any`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/)
 * [`Nothing`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-nothing.html)
 * [`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/)
+
+> [了解如何在 Kotlin 中執行型別檢查和轉換](typecasts.md)。
+>
+{style="tip"}

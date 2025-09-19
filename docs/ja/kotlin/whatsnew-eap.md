@@ -14,7 +14,7 @@ Kotlin %kotlinEapVersion% がリリースされました！
 
 *   Kotlin Multiplatform: [Swiftエクスポートがデフォルトで利用可能に](#swift-export-available-by-default)、[`js` および `wasmJs` ターゲットの共有ソースセット](#shared-source-set-for-js-and-wasmjs-targets)、[Kotlinライブラリの安定したクロスプラットフォームコンパイル](#stable-cross-platform-compilation-for-kotlin-libraries)、および[共通依存関係を宣言する新しいアプローチ](#new-approach-for-declaring-common-dependencies)。
 *   言語: [中断関数型を持つオーバーロードにラムダを渡す際のオーバーロード解決の改善](#improved-overload-resolution-for-lambdas-with-suspend-function-types)。
-*   Kotlin/Native: [バイナリでのスタックカナリアのサポート](#support-for-stack-canaries-in-binaries)と[iOSターゲットのバイナリサイズの縮小](#smaller-binary-size-for-ios-targets)。
+*   Kotlin/Native: [バイナリでのスタックカナリアのサポート](#support-for-stack-canaries-in-binaries)と[iOSターゲットのバイナリサイズの縮小](#smaller-binary-size-for-release-binaries)。
 *   Kotlin/Wasm: [Kotlin/WasmとJavaScript相互運用における例外処理の改善](#improved-exception-handling-in-kotlin-wasm-and-javascript-interop)。
 *   Kotlin/JS: [`Long` 値がJavaScript `BigInt` にコンパイルされるように](#usage-of-bigint-type-to-represent-kotlin-s-long-type)。
 
@@ -28,22 +28,24 @@ IDEのKotlinプラグインを更新する必要はありません。
 
 ## 言語
 
-Kotlin %kotlinEapVersion% では、Kotlin 2.3.0 で予定されている今後の言語機能を試すことができます。これには、[中断関数型を持つオーバーロードにラムダを渡す際のオーバーロード解決の改善](#improved-overload-resolution-for-lambdas-with-suspend-function-types)と、[明示的な戻り値型を持つ式本体での `return` ステートメントのサポート](#support-for-return-statements-in-expression-bodies-with-explicit-return-types)が含まれます。
+Kotlin %kotlinEapVersion% では、Kotlin 2.3.0 で予定されている今後の言語機能を試すことができます。これには、
+[中断関数型を持つオーバーロードにラムダを渡す際のオーバーロード解決の改善](#improved-overload-resolution-for-lambdas-with-suspend-function-types)と、
+[明示的な戻り値型を持つ式本体での `return` ステートメントのサポート](#support-for-return-statements-in-expression-bodies-with-explicit-return-types)が含まれます。
 
 ### 中断関数型を持つラムダのオーバーロード解決の改善
 
 これまで、通常関数型と `suspend` 関数型の両方で関数をオーバーロードすると、ラムダを渡す際に曖昧さエラーが発生していました。このエラーは明示的な型キャストで回避できましたが、コンパイラは誤って `No cast needed` 警告を報告していました。
 
 ```kotlin
-// 2つのオーバーロードを定義
+// Defines two overloads
 fun transform(block: () -> Int) {}
 fun transform(block: suspend () -> Int) {}
 
 fun test() {
-    // オーバーロード解決の曖昧さで失敗
+    // Fails with overload resolution ambiguity
     transform({ 42 })
 
-    // 明示的なキャストを使用するが、コンパイラは誤って「キャスト不要」警告を報告
+    // Uses an explicit cast, but compiler incorrectly reports a "No cast needed" warning
     transform({ 42 } as () -> Int)
 }
 ```
@@ -51,10 +53,10 @@ fun test() {
 この変更により、通常関数型と `suspend` 関数型の両方のオーバーロードを定義した場合、キャストなしのラムダは通常のオーバーロードに解決されます。明示的に中断オーバーロードに解決するには、`suspend` キーワードを使用します。
 
 ```kotlin
-// transform(() -> Int) に解決
+// Resolves to transform(() -> Int)
 transform({ 42 })
 
-// transform(suspend () -> Int) に解決
+// Resolves to transform(suspend () -> Int)
 transform(suspend { 42 })
 ```
 
@@ -88,20 +90,22 @@ fun example() = return 42
 この変更により、戻り値型が明示的に記述されている限り、式本体で `return` を使用できるようになりました。
 
 ```kotlin
-// 戻り値型を明示的に指定
+// Specifies the return type explicitly
 fun getDisplayNameOrDefault(userId: String?): String = getDisplayName(userId ?: return "default")
 
-// 戻り値型を明示的に指定しないため失敗
+// Fails because it doesn't specify the return type explicitly
 fun getDisplayNameOrDefault(userId: String?) = getDisplayName(userId ?: return "default")
 ```
 
 同様に、式本体を持つ関数のラムダ内およびネストされた式内の `return` ステートメントは、意図せずコンパイルされていました。Kotlinは、戻り値型が明示的に指定されている限り、これらのケースをサポートするようになりました。明示的な戻り値型を持たないケースはKotlin 2.3.0で非推奨になります。
 
 ```kotlin
-// 戻り値型が明示的に指定されておらず、returnステートメントがラムダ内にあり、非推奨になる
+// Return type isn't explicitly specified, and the return statement is inside a lambda
+// which will be deprecated
 fun returnInsideLambda() = run { return 42 }
 
-// 戻り値型が明示的に指定されておらず、returnステートメントがローカル変数の初期化子内にあり、非推奨になる
+// Return type isn't explicitly specified, and the return statement is inside the initializer
+// of a local variable, which will be deprecated
 fun returnInsideIf() = when {
     else -> {
         val result = if (someCondition()) return "" else "value"
@@ -129,7 +133,7 @@ kotlin {
 課題トラッカーの[YouTrack](https://youtrack.jetbrains.com/issue/KT-76926)にてフィードバックをいただけると幸いです。
 
 ## Kotlin/JVM: when式での invokedynamic のサポート
-<primary-label ref="experimental-opt-in"/>
+<primary-label ref="experimental-opt-in"/> 
 
 Kotlin %kotlinEapVersion% では、`when` 式を `invokedynamic` でコンパイルできるようになりました。
 以前は、複数の型チェックを含む `when` 式は、バイトコードで長い `instanceof` チェックのチェーンにコンパイルされていました。
@@ -152,7 +156,7 @@ class B : Example()
 class C : Example()
 
 fun test(e: Example) = when (e) {
-    // invokedynamic を SwitchBootstraps.typeSwitch と共に使用
+    // Uses invokedynamic with SwitchBootstraps.typeSwitch
     is A -> 1
     is B -> 2
     is C -> 3
@@ -185,7 +189,7 @@ kotlin {
 Kotlin %kotlinEapVersion% は、Kotlin Multiplatformに大きな変更をもたらします。Swiftエクスポートがデフォルトで利用可能になり、新しい共有ソースセットが追加され、共通依存関係を管理する新しいアプローチを試すことができます。
 
 ### Swiftエクスポートがデフォルトで利用可能に
-<primary-label ref="experimental-general"/>
+<primary-label ref="experimental-general"/> 
 
 Kotlin %kotlinEapVersion% は、Swiftエクスポートの試験的サポートを導入します。これにより、Kotlinソースを直接エクスポートし、SwiftからKotlinコードを慣用的に呼び出すことができ、Objective-Cヘッダーは不要になります。
 
@@ -211,11 +215,11 @@ Swiftエクスポートを試すには、Xcodeプロジェクトを設定しま�
 2.  **Build Phases**タブで、`embedAndSignAppleFrameworkForXcode` タスクを含む**Run Script**フェーズを見つけます。
 3.  スクリプトを調整して、スクリプト実行フェーズで `embedSwiftExportForXcode` タスクを使用するようにします。
 
-  ```bash
-  ./gradlew :<Shared module name>:embedSwiftExportForXcode
-  ```
+    ```bash
+    ./gradlew :<Shared module name>:embedSwiftExportForXcode
+    ```
 
-  ![Swiftエクスポートスクリプトの追加](xcode-swift-export-run-script-phase.png){width=700}
+    ![Add the Swift export script](xcode-swift-export-run-script-phase.png){width=700}
 
 4.  プロジェクトをビルドします。Swiftモジュールはビルド出力ディレクトリに生成されます。
 
@@ -248,12 +252,12 @@ expect suspend fun readCopiedText(): String
 
 // jsMain
 external interface Navigator { val clipboard: Clipboard }
-// JSとWasmで異なる相互運用
+// Different interop in JS and Wasm
 external interface Clipboard { fun readText(): Promise<String> } 
 external val navigator: Navigator
 
 suspend fun readCopiedText(): String {
-  // JSとWasmで異なる相互運用
+  // Different interop in JS and Wasm
     return navigator.clipboard.readText().await() 
 }
 
@@ -271,7 +275,7 @@ suspend fun readCopiedText(): String {
 
 この変更により、`web` ソースセットが `js` および `wasmJs` の両方のソースセットの親になります。更新されたソースセット階層は次のようになります。
 
-![Webを使用したデフォルト階層テンプレートの例](default-hierarchy-example-with-web.svg)
+![An example of using the default hierarchy template with web](default-hierarchy-example-with-web.svg)
 
 新しいソースセットを使用すると、`js` と `wasmJs` の両方のターゲットに1つのコードを記述できます。
 共有コードを `webMain` に配置すると、両方のターゲットで自動的に機能します。
@@ -296,6 +300,16 @@ suspend fun readCopiedText(): String {
 *   WebをターゲットとするCompose Multiplatformアプリケーションを構築する開発者向け。これにより、より広範なブラウザ互換性のために、`js` と `wasmJs` の両方のターゲットへのクロスコンパイルが可能になります。このフォールバックモードを考慮すると、Webサイトを作成するとき、すべてのブラウザでそのまま動作します。最新のブラウザは `wasmJs` を使用し、古いブラウザは `js` を使用します。
 
 この機能を試すには、`build.gradle(.kts)` ファイルの `kotlin {}` ブロックで[デフォルトの階層テンプレート](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-hierarchy.html#default-hierarchy-template)を使用してください。
+
+```kotlin
+kotlin {
+    js()
+    wasmJs()
+
+    // webMain と webTest を含むデフォルトのソースセット階層を有効にする
+    applyDefaultHierarchyTemplate()
+}
+```
 
 デフォルトの階層を使用する前に、カスタム共有ソースセットを持つプロジェクトがある場合や、`js("web")` ターゲットの名前を変更した場合の潜在的な競合を慎重に検討してください。これらの競合を解決するには、競合するソースセットまたはターゲットの名前を変更するか、デフォルトの階層を使用しないでください。
 
@@ -341,11 +355,9 @@ Kotlin %kotlinEapVersion% は、Kotlin/Nativeバイナリとデバッグの改�
 
 %kotlinEapVersion% から、Kotlinは結果のKotlin/Nativeバイナリでスタックカナリアのサポートを追加します。スタック保護の一部として、このセキュリティ機能はスタック破壊を防ぎ、一般的なアプリケーションの脆弱性を緩和します。SwiftおよびObjective-Cですでに利用可能でしたが、Kotlinでもサポートされるようになりました。
 
-#### スタックカナリアを有効にする方法
-
 Kotlin/Nativeでのスタック保護の実装は、[Clang](https://clang.llvm.org/docs/ClangCommandLineReference.html#cmdoption-clang-fstack-protector)のスタックプロテクターの動作に準拠しています。
 
-スタックカナリアを有効にするには、`gradle.properties` ファイルに以下のプロパティを追加します。
+スタックカナリアを有効にするには、以下の[バイナリオプション](native-binary-options.md)を `gradle.properties` ファイルに追加します。
 
 ```none
 kotlin.native.binary.stackProtector=yes
@@ -359,38 +371,20 @@ kotlin.native.binary.stackProtector=yes
 場合によっては、スタック保護がパフォーマンスコストを伴う可能性があることに注意してください。
 
 ### iOSターゲットのバイナリサイズの縮小
-<primary-label ref="experimental-general"/>
+<primary-label ref="experimental-opt-in"/> 
 
-Kotlin %kotlinEapVersion% では、iOSターゲットのバイナリサイズを削減できる `smallBinary` オプションが導入されました。
+Kotlin %kotlinEapVersion% では、リリースバイナリのバイナリサイズを削減できる `smallBinary` オプションが導入されました。
 この新しいオプションは、LLVMコンパイルフェーズ中のコンパイラのデフォルト最適化引数として `-Oz` を効果的に設定します。
 
 `smallBinary` オプションを有効にすると、リリースバイナリを小さくし、ビルド時間を改善できます。ただし、場合によってはランタイムパフォーマンスに影響を与える可能性があります。
 
-#### バイナリサイズを縮小する方法
-
-新しい機能は現在[試験的](components-stability.md#stability-levels-explained)です。プロジェクトで試すには、`-Xbinary=smallBinary=true` コンパイラオプションを使用するか、`gradle.properties` ファイルを次のように更新します。
+新しい機能は現在[試験的](components-stability.md#stability-levels-explained)です。プロジェクトで試すには、以下の[バイナリオプション](native-binary-options.md)を `gradle.properties` ファイルに追加します。
 
 ```none
 kotlin.native.binary.smallBinary=true
 ```
 
-特定のバイナリの場合、`build.gradle(.kts)` ファイルで `binaryOption("smallBinary", "true")` を設定します。例:
-
-```kotlin
-kotlin {
-    listOf(
-        iosX64(),
-        iosArm64(),
-        iosSimulatorArm64(),
-    ).forEach {
-        it.binaries.framework {
-            binaryOption("smallBinary", "true")
-        }
-    }
-}
-```
-
-この機能の実装にご協力いただいた[Troels Lund](https://github.com/troelsbjerre)氏にKotlinチームは感謝します。
+Kotlinチームは、この機能の実装にご協力いただいた[Troels Lund](https://github.com/troelsbjerre)氏に感謝します。
 
 ### デバッガオブジェクトの概要の改善
 
@@ -421,7 +415,7 @@ Kotlin %kotlinEapVersion% では、デバッガは実際の値を含むより豊
 (int32_t) point->x = 1
 ```
 
-この機能の実装にご協力いただいた[Nikita Nazarov](https://github.com/nikita-nazarov)氏にKotlinチームは感謝します。
+Kotlinチームは、この機能の実装にご協力いただいた[Nikita Nazarov](https://github.com/nikita-nazarov)氏に感謝します。
 
 Kotlin/Nativeでのデバッグの詳細については、[ドキュメント](native-debugging.md)を参照してください。
 
@@ -439,11 +433,11 @@ Kotlin %kotlinEapVersion% から、Kotlinツールのnpm依存関係はプロジ
 
 *   **ツール依存関係のディレクトリ:**
 
-  `<kotlin-user-home>/kotlin-npm-tooling/<yarn|npm>/hash/node_modules`
+    `<kotlin-user-home>/kotlin-npm-tooling/<yarn|npm>/hash/node_modules`
 
 *   **ユーザー依存関係のディレクトリ:**
 
-  `build/wasm/node_modules`
+    `build/wasm/node_modules`
 
 また、プロジェクトディレクトリ内のロックファイルには、ユーザー定義の依存関係のみが含まれます。
 

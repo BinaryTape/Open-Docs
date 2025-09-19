@@ -21,7 +21,7 @@
 kotlin {
     @OptIn(org.jetbrains.kotlin.gradle.dsl.abi.ExperimentalAbiValidation::class)
     abiValidation {
-        // 使用 set() 函式確保與舊版 Gradle 相容
+        // Use the set() function to ensure compatibility with older Gradle versions
         enabled.set(true)
     }
 }
@@ -30,7 +30,7 @@ kotlin {
 </tab>
 <tab title="Groovy" group-key="groovy">
 
-```kotlin
+```groovy
 kotlin {
     abiValidation {
         enabled = true
@@ -47,7 +47,7 @@ kotlin {
 
 若要檢查程式碼變更後潛在的二進位不相容問題，請在 IntelliJ IDEA 中執行 `checkLegacyAbi` Gradle 工作，或在您的專案目錄中使用以下命令：
 
-```kotlin
+```bash
 ./gradlew checkLegacyAbi
 ```
 
@@ -57,7 +57,7 @@ kotlin {
 
 若要更新 Gradle 用於檢查最新變更的參考 ABI 傾印，請在 IntelliJ IDEA 中執行 `updateLegacyAbi` 工作，或在您的專案目錄中使用以下命令：
 
-```kotlin
+```bash
 ./gradlew updateLegacyAbi
 ```
 
@@ -79,7 +79,7 @@ Gradle 僅在宣告不符合任何排除規則時才將其包含在 ABI 傾印�
 > *   `*` 符合零個或多個字元，不包括句點。使用此項可指定單一類別名稱。
 > *   `?` 精確符合一個字元。
 > 
-{style = "tip"}
+{style="tip"}
 
 例如：
 
@@ -108,7 +108,7 @@ kotlin {
 </tab>
 <tab title="Groovy" group-key="groovy">
 
-```kotlin
+```groovy
 kotlin {
     abiValidation {
         filters {
@@ -163,7 +163,7 @@ kotlin {
 </tab>
 <tab title="Groovy" group-key="groovy">
 
-```kotlin
+```groovy
 kotlin {
     abiValidation {
         klib {

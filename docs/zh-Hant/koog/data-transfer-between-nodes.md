@@ -12,9 +12,9 @@ Koog 提供了一種使用 `AIAgentStorage` 來儲存和傳遞資料的方式，
 
 該儲存空間使用型別化的鍵系統，以確保在儲存和檢索資料時的型別安全：
 
--   `AIAgentStorageKey<T>`：一個 data class，代表用於識別和存取資料的儲存鍵。以下是 `AIAgentStorageKey` 類別的主要功能：
-    -   泛型型別參數 `T` 指定與此鍵關聯的資料型別，確保型別安全。
-    -   每個鍵都有一個 `name` 屬性，它是一個字串識別符，唯一代表該儲存鍵。
+- `AIAgentStorageKey<T>`：一個 data class，代表用於識別和存取資料的儲存鍵。以下是 `AIAgentStorageKey` 類別的主要功能：
+    - 泛型型別參數 T 指定與此鍵關聯的資料型別，確保型別安全。
+    - 每個鍵都有一個 `name` 屬性，它是一個字串識別符，唯一代表該儲存鍵。
 
 ## 使用範例
 
@@ -124,18 +124,18 @@ val nodeRetrieveData by node<String, Unit> { message ->
 
 有關 `AIAgentStorage` 類別中可用的個別函數，請參閱以下 API 參考資料：
 
--   [clear](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.agent.entity/-a-i-agent-storage/clear.html)
--   [get](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.agent.entity/-a-i-agent-storage/get.html)
--   [getValue](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.agent.entity/-a-i-agent-storage/get-value.html)
--   [putAll](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.agent.entity/-a-i-agent-storage/put-all.html)
--   [remove](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.agent.entity/-a-i-agent-storage/remove.html)
--   [set](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.agent.entity/-a-i-agent-storage/set.html)
--   [toMap](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.agent.entity/-a-i-agent-storage/to-map.html)
+- [clear](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.agent.entity/-a-i-agent-storage/clear.html)
+- [get](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.agent.entity/-a-i-agent-storage/get.html)
+- [getValue](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.agent.entity/-a-i-agent-storage/get-value.html)
+- [putAll](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.agent.entity/-a-i-agent-storage/put-all.html)
+- [remove](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.agent.entity/-a-i-agent-storage/remove.html)
+- [set](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.agent.entity/-a-i-agent-storage/set.html)
+- [toMap](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.agent.entity/-a-i-agent-storage/to-map.html)
 
 ## 其他資訊
 
--   `AIAgentStorage` 是執行緒安全的，使用 Mutex 來確保並行存取得到妥善處理。
--   此儲存的設計旨在與任何擴展 `Any` 的型別協同工作。
--   檢索值時，型別轉換會自動處理，確保在您的應用程式中保持型別安全。
--   對於值的非空存取，請使用 `getValue` 方法，如果鍵不存在，該方法將拋出一個異常。
--   您可以使用 `clear` 方法完全清除儲存，該方法將移除所有已儲存的鍵值對。
+- `AIAgentStorage` 是執行緒安全的，使用 Mutex 來確保並行存取得到妥善處理。
+- 此儲存的設計旨在與任何擴展 `Any` 的型別協同工作。
+- 檢索值時，型別轉換會自動處理，確保在您的應用程式中保持型別安全。
+- 對於值的非空存取，請使用 `getValue` 方法，如果鍵不存在，該方法將拋出一個異常。
+- 您可以使用 `clear` 方法完全清除儲存，該方法將移除所有已儲存的鍵值對。

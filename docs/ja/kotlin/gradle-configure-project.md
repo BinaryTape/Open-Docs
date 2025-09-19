@@ -16,9 +16,9 @@ Kotlin Gradleプラグインを適用するには、GradleプラグインDSLの 
 
 ```kotlin
 plugins {
-    // Replace `<...>` with the plugin name appropriate for your target environment
+    // `<...>` をターゲット環境に適したプラグイン名に置き換えてください
     kotlin("<...>") version "%kotlinVersion%"
-    // For example, if your target environment is JVM:
+    // 例えば、ターゲット環境がJVMの場合：
     // kotlin("jvm") version "%kotlinVersion%"
 }
 ```
@@ -28,9 +28,9 @@ plugins {
 
 ```groovy
 plugins {
-    // Replace `<...>` with the plugin name appropriate for your target environment
+    // `<...>` をターゲット環境に適したプラグイン名に置き換えてください
     id 'org.jetbrains.kotlin.<...>' version '%kotlinVersion%'
-    // For example, if your target environment is JVM: 
+    // 例えば、ターゲット環境がJVMの場合： 
     // id 'org.jetbrains.kotlin.jvm' version '%kotlinVersion%'
 }
 ```
@@ -42,22 +42,23 @@ plugins {
 >
 {style="note"}
 
-プロジェクトを構成する際、Kotlin Gradleプラグイン (KGP) と利用可能なGradleバージョンの互換性を確認してください。以下の表に、GradleとAndroid Gradleプラグイン (AGP) の最小および最大**完全にサポートされている**バージョンを示します。
+プロジェクトを構成する際、Kotlin Gradleプラグイン (KGP) と利用可能なGradleバージョンの互換性を確認してください。以下の表に、GradleおよびAndroid Gradleプラグイン (AGP) の最小および最大**完全にサポートされている**バージョンを示します。
 
-| KGP version   | Gradle min and max versions           | AGP min and max versions                            |
-|---------------|---------------------------------------|-----------------------------------------------------|
-| 2.2.0         | %minGradleVersion%–%maxGradleVersion% | %minAndroidGradleVersion%–%maxAndroidGradleVersion% |
-| 2.1.20–2.1.21 | 7.6.3–8.12.1                          | 7.3.1–8.7.2                                         |
-| 2.1.0–2.1.10  | 7.6.3–8.10*                           | 7.3.1–8.7.2                                         |
-| 2.0.20–2.0.21 | 6.8.3–8.8*                            | 7.1.3–8.5                                           |
-| 2.0.0         | 6.8.3–8.5                             | 7.1.3–8.3.1                                         |
-| 1.9.20–1.9.25 | 6.8.3–8.1.1                           | 4.2.2–8.1.0                                         |
-| 1.9.0–1.9.10  | 6.8.3–7.6.0                           | 4.2.2–7.4.0                                         |
-| 1.8.20–1.8.22 | 6.8.3–7.6.0                           | 4.1.3–7.4.0                                         |      
-| 1.8.0–1.8.11  | 6.8.3–7.3.3                           | 4.1.3–7.2.1                                         |   
-| 1.7.20–1.7.22 | 6.7.1–7.1.1                           | 3.6.4–7.0.4                                         |
-| 1.7.0–1.7.10  | 6.7.1–7.0.2                           | 3.4.3–7.0.2                                         |
-| 1.6.20–1.6.21 | 6.1.1–7.0.2                           | 3.4.3–7.0.2                                         |
+| KGPバージョン | Gradleの最小および最大バージョン | AGPの最小および最大バージョン |
+|---------------|----------------------------------|---------------------------------------|
+| 2.2.20        | %minGradleVersion%–%maxGradleVersion% | %minAndroidGradleVersion%–%maxAndroidGradleVersion% |
+| 2.2.0-2.2.10  | 7.6.3-8.14                       | 7.3.1-8.10.0                          |
+| 2.1.20-2.1.21 | 7.6.3–8.12.1                     | 7.3.1–8.7.2                           |
+| 2.1.0–2.1.10  | 7.6.3–8.10*                      | 7.3.1–8.7.2                           |
+| 2.0.20–2.0.21 | 6.8.3–8.8*                       | 7.1.3–8.5                             |
+| 2.0.0         | 6.8.3–8.5                        | 7.1.3–8.3.1                           |
+| 1.9.20–1.9.25 | 6.8.3–8.1.1                      | 4.2.2–8.1.0                           |
+| 1.9.0–1.9.10  | 6.8.3–7.6.0                      | 4.2.2–7.4.0                           |
+| 1.8.20–1.8.22 | 6.8.3–7.6.0                      | 4.1.3–7.4.0                           |
+| 1.8.0–1.8.11  | 6.8.3–7.3.3                      | 4.1.3–7.2.1                           |
+| 1.7.20–1.7.22 | 6.7.1–7.1.1                      | 3.6.4–7.0.4                           |
+| 1.7.0–1.7.10  | 6.7.1–7.0.2                      | 3.4.3–7.0.2                           |
+| 1.6.20–1.6.21 | 6.1.1–7.0.2                      | 3.4.3–7.0.2                           |
 
 > *Kotlin 2.0.20–2.0.21およびKotlin 2.1.0–2.1.10は、Gradle 8.6まで完全に互換性があります。
 > Gradleバージョン8.7–8.10もサポートされていますが、1つだけ例外があります。Kotlin Multiplatform Gradleプラグインを使用している場合、
@@ -83,9 +84,9 @@ GradleおよびAGPバージョンは最新リリースまで使用できます�
 
 この動作を構成するために、プロジェクトの`gradle.properties`ファイルに追加できるプロパティがあります。
 
-| Gradle property                                     | Description                                                                                                                                       |
-|-----------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------|
-| `kotlin.project.persistent.dir`                     | プロジェクトレベルのデータが保存される場所を構成します。デフォルト: `<project-root-directory>/.kotlin`                                      |
+| Gradleプロパティ | 説明 |
+|-------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------|
+| `kotlin.project.persistent.dir`     | プロジェクトレベルのデータが保存される場所を構成します。デフォルト: `<project-root-directory>/.kotlin` |
 | `kotlin.project.persistent.dir.gradle.disableWrite` | `.gradle`ディレクトリへのKotlinデータの書き込みを無効にするかどうかを制御します（古いIDEAバージョンとの下位互換性のため）。デフォルト: false |
 
 ## JVMをターゲットにする
@@ -171,7 +172,7 @@ sourceSets {
 >
 {style="note"}
 
-このような関連するタスクの場合、Kotlin GradleプラグインはJVMターゲットの互換性をチェックします。`kotlin`拡張またはタスクの [`jvmTarget`属性](gradle-compiler-options.md#attributes-specific-to-jvm)と、`java`拡張またはタスクの [`targetCompatibility`](https://docs.gradle.org/current/userguide/java_plugin.html#sec:java-extension)の値が異なる場合、JVMターゲットの非互換性が発生します。例えば、`compileKotlin`タスクに`jvmTarget=1.8`があり、`compileJava`タスクに`targetCompatibility=15`がある（または[継承している](https://docs.gradle.org/current/userguide/java_plugin.html#sec:java-extension)）場合などです。
+このような関連するタスクの場合、Kotlin GradleプラグインはJVMターゲットの互換性をチェックします。`kotlin`拡張またはタスクの [`jvmTarget`属性](gradle-compiler-options.md#attributes-specific-to-jvm)と、`java`拡張またはタスクの [`targetCompatibility`](https://docs.gradle.org/current/userguide/java_plugin.html#sec:java-extension)の値が異なる場合、JVMターゲットの非互換性が発生します。例えば、`compileKotlin`タスクに`jvmTarget=1.8`があり、`compileJava`タスクに（または[継承している](https://docs.gradle.org/current/userguide/java_plugin.html#sec:java-extension)）`targetCompatibility=15`がある場合などです。
 
 このチェックの動作をプロジェクト全体に対して構成するには、`gradle.properties`ファイルで`kotlin.jvm.target.validation.mode`プロパティを次のように設定します。
 
@@ -408,8 +409,8 @@ tasks.withType(UsesKotlinJavaToolchain::class).configureEach { task ->
 ```kotlin
 tasks.withType<UsesKotlinJavaToolchain>().configureEach {
     kotlinJavaToolchain.jdk.use(
-        "/path/to/local/jdk", // Put a path to your JDK
-        JavaVersion.<LOCAL_JDK_VERSION> // For example, JavaVersion.17
+        "/path/to/local/jdk", // お使いのJDKへのパスを指定してください
+        JavaVersion.<LOCAL_JDK_VERSION> // 例えば、JavaVersion.17
     )
 }
 ```
@@ -455,14 +456,14 @@ Kotlin Gradleプラグインが[Java Modules](https://www.oracle.com/corporate/f
 <tab title="Kotlin" group-key="kotlin">
         
 ```kotlin
-// Add the following three lines if you use a Gradle version less than 7.0
+// Gradleのバージョンが7.0未満の場合は、以下の3行を追加してください
 java {
     modularity.inferModulePath.set(true)
 }
 
 tasks.named("compileJava", JavaCompile::class.java) {
     options.compilerArgumentProviders.add(CommandLineArgumentProvider {
-        // Provide compiled Kotlin classes to javac – needed for Java/Kotlin mixed sources to work
+        // コンパイルされたKotlinクラスをjavacに提供します – Java/Kotlin混合ソースが機能するために必要です
         listOf("--patch-module", "YOUR_MODULE_NAME=${sourceSets["main"].output.asPath}")
     })
 }
@@ -472,7 +473,7 @@ tasks.named("compileJava", JavaCompile::class.java) {
 <tab title="Groovy" group-key="groovy">
 
 ```groovy
-// Add the following three lines if you use a Gradle version less than 7.0
+// Gradleのバージョンが7.0未満の場合は、以下の3行を追加してください
 java {
     modularity.inferModulePath = true
 }
@@ -481,7 +482,7 @@ tasks.named("compileJava", JavaCompile.class) {
     options.compilerArgumentProviders.add(new CommandLineArgumentProvider() {
         @Override
         Iterable<String> asArguments() {
-            // Provide compiled Kotlin classes to javac – needed for Java/Kotlin mixed sources to work
+            // コンパイルされたKotlinクラスをjavacに提供します – Java/Kotlin混合ソースが機能するために必要です
             return ["--patch-module", "YOUR_MODULE_NAME=${sourceSets["main"].output.asPath}"]
         }
     })
@@ -581,9 +582,25 @@ plugins {
 
 Androidアプリケーションを作成するには、Android Studioを使用することをお勧めします。[Android Gradleプラグインの使用方法を学ぶ](https://developer.android.com/studio/releases/gradle-plugin)。
 
-## JavaScriptをターゲットにする
+## Webをターゲットにする
 
-JavaScriptをターゲットにする場合も、`kotlin-multiplatform`プラグインを使用します。[Kotlin/JSプロジェクトの設定についてさらに学ぶ](js-project-setup.md)
+Kotlinは、Kotlin Multiplatformを介して、Web開発のための2つのアプローチを提供します。
+
+* JavaScriptベース (Kotlin/JSコンパイラを使用)
+* WebAssemblyベース (Kotlin/Wasmコンパイラを使用)
+
+どちらのアプローチもKotlin Multiplatformプラグインを使用しますが、異なるユースケースをサポートします。以下のセクションでは、Gradleビルドで各ターゲットを構成する方法と、それらを使用するタイミングについて説明します。
+
+### JavaScriptをターゲットにする
+
+目標が次のいずれかである場合は、Kotlin/JSを使用してください。
+
+* ビジネスロジックをJavaScript/TypeScriptコードベースと共有する
+* 共有できないWebアプリをKotlinで構築する
+
+詳細については、[Kotlin Multiplatformプロジェクトに適したWebターゲットを選択する](https://www.jetbrains.com/help/kotlin-multiplatform-dev/choosing-web-target.html)を参照してください。
+
+JavaScriptをターゲットにする場合、`kotlin-multiplatform`プラグインを使用します。
 
 <tabs group="build-script">
 <tab title="Kotlin" group-key="kotlin">
@@ -606,9 +623,83 @@ plugins {
 </tab>
 </tabs>
 
-### JavaScript用のKotlinおよびJavaソース
+JavaScriptターゲットを構成するには、ブラウザまたはNode.js環境のどちらで実行するかを指定します。
 
-このプラグインはKotlinファイルのみで動作するため、KotlinファイルとJavaファイルを分離しておくことをお勧めします（プロジェクトにJavaファイルが含まれている場合）。別々に保存しない場合は、`sourceSets{}`ブロックでソースフォルダを指定してください。
+```kotlin
+kotlin {
+    js().browser {  // or js().nodejs
+        /* ... */
+    }
+}
+```
+
+> [JavaScriptのGradle構成に関する詳細](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-dsl-reference.html#web-targets)と[Kotlin/JSプロジェクトのセットアップ](js-project-setup.md)についてさらに学ぶ。
+>
+{style="note"}
+
+### WebAssemblyをターゲットにする
+
+複数のプラットフォーム間でロジックとUIの両方を共有したい場合は、Kotlin/Wasmを使用してください。詳細については、[Kotlin Multiplatformプロジェクトに適したWebターゲットを選択する](https://www.jetbrains.com/help/kotlin-multiplatform-dev/choosing-web-target.html)を参照してください。
+
+JavaScriptと同様に、WebAssembly (Wasm) をターゲットにする場合、`kotlin-multiplatform`プラグインを使用します。
+
+<tabs group="build-script">
+<tab title="Kotlin" group-key="kotlin">
+
+```kotlin
+plugins {
+    kotlin("multiplatform") version "%kotlinVersion%"
+}
+```
+
+</tab>
+<tab title="Groovy" group-key="groovy">
+
+```groovy
+plugins {
+    id 'org.jetbrains.kotlin.multiplatform' version '%kotlinVersion%'
+}
+```
+
+</tab>
+</tabs>
+
+要件に応じて、以下をターゲットにできます。
+
+* **`wasmJs`**: ブラウザまたはNode.jsでの実行用
+* **`wasmWasi`**: Wasmtime、WasmEdgeなどの[WASI (WebAssembly System Interface)](https://wasi.dev/)をサポートするWasm環境での実行用。
+
+`wasmJs`ターゲットをWebブラウザまたはNode.js用に構成します。
+
+```kotlin
+kotlin {
+    wasmJs {
+        browser { // or nodejs
+            /* ... */
+        }
+    }
+}
+```
+
+WASI環境の場合、`wasmWasi`ターゲットを構成します。
+
+```kotlin
+kotlin {
+    wasmWasi {
+        nodejs {
+            /* ... */
+        }
+    }
+}
+```
+
+> [WasmのGradle構成に関する詳細](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-dsl-reference.html#web-targets)を参照してください。
+>
+{style="note"}
+
+### Webターゲット向けのKotlinおよびJavaソース
+
+KGPはKotlinファイルのみで動作するため、KotlinファイルとJavaファイルは分けておくことをお勧めします（プロジェクトにJavaファイルが含まれている場合）。別々に保存しない場合は、`sourceSets{}`ブロックでソースフォルダを指定してください。
 
 <tabs group="build-script">
 <tab title="Kotlin" group-key="kotlin">
@@ -648,7 +739,7 @@ import org.jetbrains.kotlin.gradle.plugin.KotlinBasePlugin
 // ...
 
 project.plugins.withType<KotlinBasePlugin>() {
-    // Configure your action here
+    // ここでアクションを構成します
 }
 ```
 
@@ -661,7 +752,7 @@ import org.jetbrains.kotlin.gradle.plugin.KotlinBasePlugin
 // ...
 
 project.plugins.withType(KotlinBasePlugin.class) {
-    // Configure your action here
+    // ここでアクションを構成します
 }
 ```
 
@@ -703,7 +794,42 @@ kotlin {
 </tab>
 </tabs>
 
-または、[トップレベルで依存関係を設定](#set-dependencies-at-top-level)することもできます。
+### トップレベルで依存関係を構成する
+<primary-label ref="experimental-opt-in"/>
+
+マルチプラットフォームプロジェクトでは、トップレベルの`dependencies {}`ブロックを使用して共通の依存関係を構成できます。ここで宣言された依存関係は、`commonMain`または`commonTest`ソースセットに追加されたかのように動作します。
+
+トップレベルの`dependencies {}`ブロックを使用するには、ブロックの前に`@OptIn(ExperimentalKotlinGradlePluginApi::class)`アノテーションを追加してオプトインしてください。
+
+<tabs group="build-script">
+<tab title="Kotlin" group-key="kotlin">
+
+```kotlin
+kotlin {
+    @OptIn(ExperimentalKotlinGradlePluginApi::class)
+    dependencies {
+        implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:%coroutinesVersion%")
+    }
+}
+```
+
+</tab>
+<tab title="Groovy" group-key="groovy">
+
+```groovy
+kotlin {
+    dependencies {
+        implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:%coroutinesVersion%'
+    }
+}
+```
+
+</tab>
+</tabs>
+
+対応するターゲットの`sourceSets {}`ブロック内にプラットフォーム固有の依存関係を追加してください。
+
+この機能に関するフィードバックは、[YouTrack](https://youtrack.jetbrains.com/issue/KT-76446)で共有できます。
 
 ### 依存関係のタイプ
 
@@ -839,7 +965,7 @@ kotlin.stdlib.jdk.variants.version.alignment=false
 
   ```kotlin
   plugins {
-      // replace `<...>` with the plugin name
+      // `<...>` をプラグイン名に置き換えてください
       kotlin("<...>") version "%kotlinVersion%"
   }
   ```
@@ -849,7 +975,7 @@ kotlin.stdlib.jdk.variants.version.alignment=false
 
   ```groovy
   plugins {
-      // replace `<...>` with the plugin name
+      // `<...>` をプラグイン名に置き換えてください
       id "org.jetbrains.kotlin.<...>" version "%kotlinVersion%"
   }
   ```
@@ -896,8 +1022,8 @@ Kotlin/Nativeターゲットは追加のテスト依存関係を必要とせず�
 ```kotlin
 kotlin {
     sourceSets {
-         commonTest.dependencies {
-             implementation(kotlin("test")) // This brings all the platform dependencies automatically
+        commonTest.dependencies {
+            implementation(kotlin("test")) // これにより、すべてのプラットフォーム依存関係が自動的に追加されます
         }
     }
 }
@@ -911,7 +1037,7 @@ kotlin {
     sourceSets {
         commonTest {
             dependencies {
-                implementation kotlin("test") // This brings all the platform dependencies automatically
+                implementation kotlin("test") // これにより、すべてのプラットフォーム依存関係が自動的に追加されます
             }
         }
     }
@@ -1079,31 +1205,6 @@ kotlin {
             }
         }
     }
-}
-```
-
-</tab>
-</tabs>
-
-### トップレベルで依存関係を設定する
-
-または、構成名に`<sourceSetName><DependencyType>`というパターンを使用して、トップレベルで依存関係を指定できます。これは、ソースセットの依存関係DSLでは利用できない`gradleApi()`、`localGroovy()`、`gradleTestKit()`などの一部のGradle組み込み依存関係に役立つ場合があります。
-
-<tabs group="build-script">
-<tab title="Kotlin" group-key="kotlin">
-
-```kotlin
-dependencies {
-    "commonMainImplementation"("com.example:my-library:1.0")
-}
-```
-
-</tab>
-<tab title="Groovy" group-key="groovy">
-
-```groovy
-dependencies {
-    commonMainImplementation 'com.example:my-library:1.0'
 }
 ```
 

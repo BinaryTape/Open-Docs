@@ -28,7 +28,7 @@ Kotlin 1.6.20부터는 하나의 리시버(receiver)만 가질 수 있다는 제
 
 ```kotlin
 interface LoggingContext {
-    val log: Logger // 이 컨텍스트는 로거에 대한 참조를 제공합니다. 
+    val log: Logger // 이 컨텍스트는 로거에 대한 참조를 제공합니다.
 }
 
 context(LoggingContext)
@@ -261,7 +261,7 @@ Kotlin 1.6.20에서는 새로운 Kotlin/Native 메모리 관리자의 알파 버
 새로운 Kotlin/Native 메모리 관리자를 위한 기능을 활성화하려면 다음 컴파일러 옵션을 전달하십시오:
 
 ```bash
--Xgc=cms 
+-Xgc=cms
 ```
 
 [이 YouTrack 이슈](https://youtrack.jetbrains.com/issue/KT-48526)에 새로운 메모리 관리자 성능에 대한 피드백을 자유롭게 공유해 주십시오.
@@ -284,7 +284,7 @@ Kotlin 1.6.20은 `Unit` 반환 타입을 가진 `suspend` 함수와 작동하는
 
 이전에는 이러한 함수가 Swift에서 `KotlinUnit`을 반환하는 `async` 함수로 표현되었습니다. 그러나 이들에 대한 적절한 반환 타입은 non-suspending 함수와 유사하게 `Void`입니다.
 
-기존 코드의 호환성 파괴를 방지하기 위해, 컴파일러가 `Unit`을 반환하는 suspend 함수를 `Void` 반환 타입을 가진 `async` Swift로 번역하도록 하는 Gradle 프로퍼티를 도입하고 있습니다:
+기존 코드의 호환성 파괴를 방지하기 위해, 컴파일러가 `Unit`을 반환하는 suspend 함수를 `async` Swift의 `Void` 반환 타입으로 번역하도록 하는 Gradle 프로퍼티를 도입하고 있습니다:
 
 ```none
 # gradle.properties
@@ -425,7 +425,7 @@ Kotlin 1.6.20은 Kotlin이 생성하는 LLVM IR에 영향을 미치는 일부 �
 ### cinterop 모듈 임포트 시 개선된 오류 처리
 
 이번 릴리스는 `cinterop` 도구를 사용하여 Objective-C 모듈을 임포트하는 경우(CocoaPods pod에 일반적인 경우) 개선된 오류 처리를 도입합니다.
-이전에는 Objective-C 모듈 작업 중 오류가 발생하면(예: 헤더에서 컴파일 오류 처리 시), `fatal error: could could not build module $name`과 같이 정보가 부족한 오류 메시지를 받았습니다.
+이전에는 Objective-C 모듈 작업 중 오류가 발생하면(예: 헤더에서 컴파일 오류 처리 시), `fatal error: could not build module $name`과 같이 정보가 부족한 오류 메시지를 받았습니다.
 `cinterop` 도구의 이 부분을 확장하여, 이제 확장된 설명과 함께 오류 메시지를 받을 수 있습니다.
 
 ### Xcode 13 라이브러리 지원
@@ -485,20 +485,20 @@ Kotlin 1.6.20부터 모든 새로운 멀티플랫폼 프로젝트는 계층적 �
 
 *   이미 [수동으로 활성화](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-share-on-platforms.html#share-code-on-similar-platforms)했다면, `gradle.properties`에서 사용 중단된 옵션을 제거할 수 있습니다:
 
-  ```none
-  # gradle.properties
-  kotlin.mpp.enableGranularSourceSetsMetadata=true
-  kotlin.native.enableDependencyPropagation=false // 또는 'true', 이전 설정에 따라 다름
-  ```
+    ```none
+    # gradle.properties
+    kotlin.mpp.enableGranularSourceSetsMetadata=true
+    kotlin.native.enableDependencyPropagation=false // 또는 'true', 이전 설정에 따라 다름
+    ```
 
 *   Kotlin 1.6.20에서는 최상의 경험을 위해 [Android Studio 2021.1.1](https://developer.android.com/studio) (Bumblebee) 이상을 사용하는 것을 권장합니다.
 
 *   선택 해제할 수도 있습니다. 계층적 구조 지원을 비활성화하려면 `gradle.properties`에서 다음 옵션을 설정하십시오:
 
-  ```none
-  # gradle.properties
-  kotlin.mpp.hierarchicalStructureSupport=false
-  ```
+    ```none
+    # gradle.properties
+    kotlin.mpp.hierarchicalStructureSupport=false
+    ```
 
 #### 피드백 남기기
 
@@ -611,7 +611,7 @@ kotlin.js.ir.output.granularity=whole-program // `per-module`이 기본값입니
 
 ### 내보내기 및 TypeScript 선언 생성 개선
 
-Kotlin 1.6.20은 내보내기 메커니즘([`@JsExport`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.js/-js-export/) 어노테이션)에 대한 여러 수정 및 개선 사항을 제공하며, 여기에는 [TypeScript 선언(`.d.ts`) 생성](js-ir-compiler.md#preview-generation-of-typescript-declaration-files-d-ts)이 포함됩니다.
+Kotlin 1.6.20은 내보내기 메커니즘([`@JsExport`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.js/-js-export/) 어노테이션)에 대한 여러 수정 및 개선 사항을 제공하며, 여기에는 [TypeScript 선언(`.d.ts`) 생성](js-project-setup.md#generation-of-typescript-declaration-files-d-ts)이 포함됩니다.
 인터페이스와 enum을 내보내는 기능을 추가했으며, 이전에 보고된 일부 예외적인 경우에서 내보내기 동작을 수정했습니다.
 자세한 내용은 [YouTrack의 내보내기 개선 목록](https://youtrack.jetbrains.com/issues?q=Project:%20Kotlin%20issue%20id:%20KT-45434,%20KT-44494,%20KT-37916,%20KT-43191,%20KT-46961,%20KT-40236)을 참조하십시오.
 
@@ -657,7 +657,7 @@ tasks.withType(org.jetbrains.kotlin.gradle.dsl.KotlinCompile).configureEach {
         freeCompilerArgs += "-Xklib-relative-path-base=$base"
     }
 }
-``` 
+```
 
 </tab>
 </tabs>
@@ -668,8 +668,8 @@ tasks.withType(org.jetbrains.kotlin.gradle.dsl.KotlinCompile).configureEach {
 >
 {style="note"}
 
-Kotlin/JS Gradle 플러그인은 이제 `yarn.lock` 파일을 지속시키는 기능을 제공하여, 추가 Gradle 구성 없이 프로젝트의 npm 종속성 버전을 고정할 수 있게 합니다.
-이 기능은 프로젝트 루트에 자동 생성되는 `kotlin-js-store` 디렉터리를 추가하여 기본 프로젝트 구조에 변경 사항을 가져옵니다.
+The Kotlin/JS Gradle 플러그인은 이제 `yarn.lock` 파일을 지속시키는 기능을 제공하여, 추가 Gradle 구성 없이 프로젝트의 npm 종속성 버전을 고정할 수 있게 합니다.
+이 기능은 프로젝트 루트에 자동 생성되는 `kotlin-js-store` 디렉터리를 추가하여 기본 프로젝트 구조에 변경 사항을 가져옵니다. `kotlin-js-store` 디렉터리 안에 `yarn.lock` 파일이 있습니다.
 `kotlin-js-store` 디렉터리와 그 내용을 버전 관리 시스템에 커밋하는 것을 강력히 권장합니다.
 록 파일을 버전 관리 시스템에 커밋하는 것은 [권장되는 관행](https://classic.yarnpkg.com/blog/2016/11/24/lockfiles-for-all/)입니다. 이는 개발 환경이든 CI/CD 서비스든 관계없이 모든 머신에서 애플리케이션이 정확히 동일한 종속성 트리를 사용하여 빌드되도록 보장하기 때문입니다.
 또한 록 파일은 새 머신에서 프로젝트를 체크아웃할 때 npm 종속성이 자동으로 업데이트되는 것을 방지합니다. 이는 보안 문제입니다.
@@ -698,13 +698,13 @@ rootProject.plugins.withType(org.jetbrains.kotlin.gradle.targets.js.yarn.YarnPlu
         file("my-kotlin-js-store")
     rootProject.extensions.getByType(org.jetbrains.kotlin.gradle.targets.js.yarn.YarnRootExtension).lockFileName = 'my-yarn.lock'
 }
-``` 
+```
 
 </tab>
 </tabs>
 
 > 록 파일 이름을 변경하면 종속성 검사 도구가 더 이상 해당 파일을 인식하지 못할 수 있습니다.
-> 
+>
 {style="warning"}
 
 ### 기본적으로 --ignore-scripts로 npm 종속성 설치
@@ -734,7 +734,7 @@ rootProject.plugins.withType<org.jetbrains.kotlin.gradle.targets.js.yarn.YarnPlu
 rootProject.plugins.withType(org.jetbrains.kotlin.gradle.targets.js.yarn.YarnPlugin) {
     rootProject.extensions.getByType(org.jetbrains.kotlin.gradle.targets.js.yarn.YarnRootExtension).ignoreScripts = false
 }
-``` 
+```
 
 </tab>
 </tabs>

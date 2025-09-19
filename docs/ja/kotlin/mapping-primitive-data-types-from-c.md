@@ -1,10 +1,10 @@
-[//]: # (title: Cのプリミティブデータ型をマッピングする - チュートリアル)
+[//]: # (title: Cからプリミティブデータ型をマッピングする - チュートリアル)
 
 <tldr>
-    <p>これは、<strong>KotlinとCのマッピング</strong>チュートリアルシリーズの最初のパートです。</p>
-    <p><img src="icon-1.svg" width="20" alt="最初のステップ"/> <strong>Cのプリミティブデータ型をマッピングする</strong><br/>
+    <p>これは、**KotlinとCのマッピング**チュートリアルシリーズの最初のパートです。</p>
+    <p><img src="icon-1.svg" width="20" alt="最初のステップ"/> **Cからプリミティブデータ型をマッピングする**<br/>
        <img src="icon-2-todo.svg" width="20" alt="2番目のステップ"/> <a href="mapping-struct-union-types-from-c.md">Cの構造体と共用体型をマッピングする</a><br/>
-       <img src="icon-3-todo.svg" width="20" alt="3番目のステップ"/> <a href="mapping-function-pointers-from-c.md">関数ポインタをマッピングする</a><br/>
+       <img src="icon-3-todo.svg" width="20" alt="3番目のステップ"/> <a href="mapping-function-pointers-from-c.md">Cの関数ポインタをマッピングする</a><br/>
        <img src="icon-4-todo.svg" width="20" alt="4番目のステップ"/> <a href="mapping-strings-from-c.md">Cの文字列をマッピングする</a><br/>
     </p>
 </tldr>
@@ -115,11 +115,11 @@ Cライブラリを作成するには：
     }
     
     kotlin {
-        macosArm64("native") {    // macOS on Apple Silicon
+        macosArm64("native") {    // Apple Silicon macOS
         // macosX64("native") {   // macOS on x86_64 platforms
         // linuxArm64("native") { // Linux on ARM64 platforms 
         // linuxX64("native") {   // Linux on x86_64 platforms
-        // mingwX64("native") {   // on Windows
+        // mingwX64("native") {   // Windows
             val main by compilations.getting
             val interop by main.cinterops.creating
         

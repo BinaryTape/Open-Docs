@@ -4,7 +4,7 @@
     <p>這是「<strong>映射 Kotlin 和 C 語言</strong>」教學系列的最後一部分。在繼續之前，請確保您已完成先前的步驟。</p>
     <p><img src="icon-1-done.svg" width="20" alt="First step"/> <a href="mapping-primitive-data-types-from-c.md">從 C 語言映射原始資料型別</a><br/>
         <img src="icon-2-done.svg" width="20" alt="Second step"/> <a href="mapping-struct-union-types-from-c.md">從 C 語言映射結構和聯合型別</a><br/>
-      <img src="icon-3-done.svg" width="20" alt="Third step"/> <a href="mapping-function-pointers-from-c.md">映射函式指標</a><br/>
+      <img src="icon-3-done.svg" width="20" alt="Third step"/> <a href="mapping-function-pointers-from-c.md">從 C 語言映射函式指標</a><br/>
       <img src="icon-4.svg" width="20" alt="Fourth step"/> <strong>從 C 語言映射字串</strong><br/>
     </p>
 </tldr>
@@ -25,7 +25,7 @@
 
 ## 處理 C 語言字串
 
-C 語言沒有專用的字串型別。方法簽章或文件可以幫助您識別特定情境中給定的 `char *` 是否代表 C 語言字串。
+C 語言沒有專用的字串型別。方法簽章或文件可以幫助您識別在特定情境中，給定的 `char *` 是否代表 C 語言字串。
 
 C 語言中的字串是**以 null 終止**的，因此會在位元組序列的末尾添加一個**尾隨的零字元** `\0` 來標記字串的結束。通常使用 [UTF-8 編碼字串](https://en.wikipedia.org/wiki/UTF-8)。UTF-8 編碼使用**變寬字元**並**向後相容** [ASCII](https://en.wikipedia.org/wiki/ASCII)。Kotlin/Native 預設使用 UTF-8 字元編碼。
 
@@ -139,15 +139,15 @@ fun passStringToC() {
 }
 ```
 
-在這裡，[`.toKString()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlinx.cinterop/to-k-string.html) 擴充函式將從 `return_string()` 函式回傳的 C 語言字串轉換為 Kotlin 字串。
+在這裡，[`.toKString()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlinx.cinterop/to-k-string.html) 擴充函式會將從 `return_string()` 函式回傳的 C 語言字串轉換為 Kotlin 字串。
 
 Kotlin 提供了幾個擴充函式，用於根據編碼將 C 語言的 `char *` 字串轉換為 Kotlin 字串：
 
 ```kotlin
-fun CPointer<ByteVarOf<Byte>>.toKString(): String // Standard function for UTF-8 strings
-fun CPointer<ByteVarOf<Byte>>.toKStringFromUtf8(): String // Explicitly converts UTF-8 strings
-fun CPointer<ShortVarOf<Short>>.toKStringFromUtf16(): String // Converts UTF-16 encoded strings
-fun CPointer<IntVarOf<Int>>.toKStringFromUtf32(): String // Converts UTF-32 encoded strings
+fun CPointer<ByteVarOf<Byte>>.toKString(): String // 標準函式，用於 UTF-8 字串
+fun CPointer<ByteVarOf<Byte>>.toKStringFromUtf8(): String // 明確轉換 UTF-8 字串
+fun CPointer<ShortVarOf<Short>>.toKStringFromUtf16(): String // 轉換 UTF-16 編碼字串
+fun CPointer<IntVarOf<Int>>.toKStringFromUtf32(): String // 轉換 UTF-32 編碼字串
 ```
 
 ## 將 C 語言字串位元組接收到 Kotlin 字串中

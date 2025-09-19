@@ -25,7 +25,7 @@ Kotlin Notebook 기능이 활성화되어 있지 않다면, 플러그인이 활�
 
 ## API에서 데이터 가져오기
 
-Kotlin DataFrame 라이브러리가 포함된 Kotlin Notebook을 사용하여 API에서 데이터를 가져오는 것은 [CSV 또는 JSON과 같은 파일에서 데이터 검색](data-analysis-work-with-data-sources.md#retrieve-data-from-a-file)과 유사한 [`.read()`](https://kotlin.github.io/dataframe/read.html) 함수를 통해 이루어집니다. 그러나 웹 기반 소스와 작업할 때는 원시 API 데이터를 구조화된 형식으로 변환하기 위해 추가적인 포맷팅이 필요할 수 있습니다.
+Kotlin DataFrame 라이브러리가 포함된 Kotlin Notebook을 사용하여 API에서 데이터를 가져오는 것은 [`.read()`](https://kotlin.github.io/dataframe/read.html) 함수를 통해 이루어지며, 이는 [CSV 또는 JSON과 같은 파일에서 데이터 검색](data-analysis-work-with-data-sources.md#retrieve-data-from-a-file)과 유사합니다. 그러나 웹 기반 소스와 작업할 때는 원시 API 데이터를 구조화된 형식으로 변환하기 위해 추가적인 포맷팅이 필요할 수 있습니다.
 
 [YouTube Data API](https://console.cloud.google.com/apis/library/youtube.googleapis.com)에서 데이터를 가져오는 예시를 살펴보겠습니다:
 
@@ -53,27 +53,25 @@ Kotlin DataFrame 라이브러리가 포함된 Kotlin Notebook을 사용하여 AP
 
     ```kotlin
     fun load(path: String, maxPages: Int): AnyFrame {
-    
         // 데이터 행을 저장할 변경 가능한 리스트를 초기화합니다.
         val rows = mutableListOf<AnyRow>()
-    
+
         // 데이터 로드를 위한 초기 페이지 경로를 설정합니다.
         var pagePath = path
         do {
-    
             // 현재 페이지 경로에서 데이터를 로드합니다.
             val row = load(pagePath)
             // 로드된 데이터를 행으로 리스트에 추가합니다.
             rows.add(row)
-           
+
             // 다음 페이지의 토큰을 가져옵니다(사용 가능한 경우).
             val next = row.getValueOrNull<String>("nextPageToken")
             // 새 토큰을 포함하여 다음 반복을 위한 페이지 경로를 업데이트합니다.
             pagePath = path + "&pageToken=" + next
-    
+
             // 다음 페이지가 없을 때까지 페이지 로드를 계속합니다.
         } while (next != null && rows.size < maxPages) 
-        
+
         // 로드된 모든 행을 DataFrame으로 연결하고 반환합니다.
         return rows.concat() 
     }

@@ -403,7 +403,7 @@ jobs:
 
     ![公開設定](published_on_maven_central.png){width=700}
 
-    > リリース後、アーティファクトがMaven Centralリポジトリで公開に利用可能になるまでには時間がかかります（通常15〜30分）。[Maven Centralウェブサイト](https://central.sonatype.com/)でインデックス化され、検索可能になるまでにはさらに時間がかかる場合があります。
+    > リリース後、アーティファクトがMaven Centralリポジトリで公開に利用可能になるまでには時間がかかります（通常15〜30分ですが、数時間かかる場合もあります）。[Maven Centralウェブサイト](https://central.sonatype.com/)でインデックス化され、検索可能になるまでにはさらに時間がかかる場合があります。
     >
     {style="tip"}
 

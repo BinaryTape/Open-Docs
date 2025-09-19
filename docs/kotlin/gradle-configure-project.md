@@ -45,7 +45,8 @@ plugins {
 
 | KGP 版本      | Gradle 最低和最高版本         | AGP 最低和最高版本                              |
 |---------------|-------------------------------|-----------------------------------------------------|
-| 2.2.0         | %minGradleVersion%–%maxGradleVersion% | %minAndroidGradleVersion%–%maxAndroidGradleVersion% |
+| 2.2.20        | %minGradleVersion%–%maxGradleVersion% | %minAndroidGradleVersion%–%maxAndroidGradleVersion% |
+| 2.2.0–2.2.10  | 7.6.3–8.14                    | 7.3.1–8.10.0                                        |
 | 2.1.20–2.1.21 | 7.6.3–8.12.1                  | 7.3.1–8.7.2                                         |
 | 2.1.0–2.1.10  | 7.6.3–8.10*                   | 7.3.1–8.7.2                                         |
 | 2.0.20–2.0.21 | 6.8.3–8.8*                    | 7.1.3–8.5                                           |
@@ -238,7 +239,7 @@ plugins {
 </tab>
 </tabs>
 
-当构建脚本中没有关于 `jvmTarget` 值的显式信息时，其默认值为 `null`，编译器会将其转换为默认值 `1.8`。`targetCompatibility` 等于当前 Gradle 的 JDK 版本，也就是你的 JDK 版本（除非你使用 [Java 工具链方法](gradle-configure-project.md#gradle-java-toolchains-support)）。假设你的 JDK 版本是 `%jvmLTSVersionSupportedByKotlin%`，你发布的库 artifact 将[声明自身兼容](https://docs.gradle.org/current/userguide/publishing_gradle_module_metadata.html) JDK %jvmLTSVersionSupportedByKotlin%+：`org.gradle.jvm.version=%jvmLTSVersionSupportedByKotlin%`，这是错误的。在这种情况下，你必须在主项目中使用 Java %jvmLTSVersionSupportedByKotlin% 来添加此库，即使字节码版本是 `1.8`。[配置工具链](gradle-configure-project.md#gradle-java-toolchains-support)来解决此问题。
+当构建脚本中没有关于 `jvmTarget` 值的显式信息时，其默认值为 `null`，编译器会将其转换为默认值 `1.8`。`targetCompatibility` 等于当前 Gradle 的 JDK 版本，也就是你的 JDK 版本（除非你使用 [Java 工具链方法](gradle-configure-project.md#gradle-java-toolchains-support)）。假设你的 JDK 版本是 `%jvmLTSVersionSupportedByKotlin%`，你发布的库 artifact 将[声明自身兼容](https://docs.gradle.org/current/userguide/publishing_gradle_module_metadata.html) JDK %jvmLTSVersionSupportedByKotlin%+: `org.gradle.jvm.version=%jvmLTSVersionSupportedByKotlin%`，这是错误的。在这种情况下，你必须在主项目中使用 Java %jvmLTSVersionSupportedByKotlin% 来添加此库，即使字节码版本是 `1.8`。[配置工具链](gradle-configure-project.md#gradle-java-toolchains-support)来解决此问题。
 
 ### Gradle Java 工具链支持
 
@@ -428,6 +429,8 @@ tasks.withType<UsesKotlinJavaToolchain>().configureEach {
 
 你可以通过在编译项之间建立一种关系来 _关联_ 编译项，即一个编译项使用另一个编译项的编译输出。关联编译项会在它们之间建立 `internal` 可见性。
 
+Kotlin 编译器默认关联一些编译项，例如每个目标的 `test` 和 `main` 编译项。如果你需要表达你的一个自定义编译项与另一个相关联，请创建你自己的关联编译项。
+
 为了使 IDE 支持关联的编译项以推断源代码集之间的可见性，请将以下代码添加到你的 `build.gradle(.kts)`：
 
 <tabs group="build-script">
@@ -595,9 +598,23 @@ plugins {
 
 建议使用 Android Studio 创建 Android 应用程序。[了解如何使用 Android Gradle 插件](https://developer.android.com/studio/releases/gradle-plugin)。
 
-## 面向 JavaScript
+## 面向 Web
 
-面向 JavaScript 时，也请使用 `kotlin-multiplatform` 插件。[了解更多关于设置 Kotlin/JS 项目](js-project-setup.md)
+Kotlin 通过 Kotlin Multiplatform 为 Web 开发提供两种方法：
+* 基于 JavaScript 的（使用 Kotlin/JS 编译器）
+* 基于 WebAssembly 的（使用 Kotlin/Wasm 编译器）
+
+这两种方法都使用 Kotlin Multiplatform 插件，但支持不同的用例。以下章节解释如何在 Gradle 构建中配置每个目标以及何时使用它们。
+
+### 面向 JavaScript
+
+如果你的目标是：
+* 共享业务逻辑与 JavaScript/TypeScript 代码库
+* 使用 Kotlin 构建不可共享的 Web 应用
+
+请使用 Kotlin/JS。关于更多信息，请参见[为 Kotlin Multiplatform 项目选择正确的 Web 目标](https://www.jetbrains.com/help/kotlin-multiplatform-dev/choosing-web-target.html)。
+
+面向 JavaScript 时，请使用 `kotlin-multiplatform` 插件：
 
 <tabs group="build-script">
 <tab title="Kotlin" group-key="kotlin">
@@ -620,9 +637,84 @@ plugins {
 </tab>
 </tabs>
 
-### 针对 JavaScript 的 Kotlin 和 Java 源代码
+通过指定 JavaScript 目标是在浏览器还是 Node.js 环境中运行来配置它：
 
-此插件仅适用于 Kotlin 文件，因此建议你将 Kotlin 和 Java 文件分开存放（如果项目包含 Java 文件）。如果你不将它们分开存储，请在 `sourceSets{}` 代码块中指定源代码文件夹：
+```kotlin
+kotlin {
+    js().browser {  // 或 js().nodejs
+        /* ... */
+    }
+}
+```
+
+> 关于 [Gradle 配置 JavaScript](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-dsl-reference.html#web-targets) 的更多详情请参见，并了解更多关于[设置 Kotlin/JS 项目](js-project-setup.md)的信息。
+>
+{style="note"}
+
+### 面向 WebAssembly
+
+如果你想跨多个平台共享逻辑和 UI，请使用 Kotlin/Wasm。关于更多信息，
+请参见[为 Kotlin Multiplatform 项目选择正确的 Web 目标](https://www.jetbrains.com/help/kotlin-multiplatform-dev/choosing-web-target.html)。
+
+与 JavaScript 一样，当面向 WebAssembly (Wasm) 时，请使用 `kotlin-multiplatform` 插件：
+
+<tabs group="build-script">
+<tab title="Kotlin" group-key="kotlin">
+
+```kotlin
+plugins {
+    kotlin("multiplatform") version "%kotlinVersion%"
+}
+```
+
+</tab>
+<tab title="Groovy" group-key="groovy">
+
+```groovy
+plugins {
+    id 'org.jetbrains.kotlin.multiplatform' version '%kotlinVersion%'
+}
+```
+
+</tab>
+</tabs>
+
+根据你的要求，你可以面向：
+
+* **`wasmJs`**：用于在浏览器或 Node.js 中运行
+* **`wasmWasi`**：用于在支持 [WASI (WebAssembly System Interface)](https://wasi.dev/) 的 Wasm 环境中运行，例如 Wasmtime、WasmEdge 等。
+
+配置用于 Web 浏览器或 Node.js 的 `wasmJs` 目标：
+
+```kotlin
+kotlin {
+    wasmJs {
+        browser { // 或 nodejs
+            /* ... */
+        }
+    }
+}
+```
+
+对于 WASI 环境，请配置 `wasmWasi` 目标：
+
+```kotlin
+kotlin {
+    wasmWasi {
+        nodejs {
+            /* ... */
+        }
+    }
+}
+```
+
+> [关于 Gradle 配置 Wasm](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-dsl-reference.html#web-targets) 的更多详情请参见。
+>
+{style="note"}
+
+### 针对 Web 目标的 Kotlin 和 Java 源代码
+
+KGP 仅适用于 Kotlin 文件，因此建议你将 Kotlin 和 Java 文件分开存放（如果项目包含 Java 文件）。如果你不将它们分开存储，请在 `sourceSets{}` 代码块中指定源代码文件夹：
 
 <tabs group="build-script">
 <tab title="Kotlin" group-key="kotlin">
@@ -718,7 +810,42 @@ kotlin {
 </tab>
 </tabs>
 
-或者，你可以[在顶层设置依赖项](#set-dependencies-at-top-level)。
+### 在顶层设置依赖项
+<primary-label ref="experimental-opt-in"/>
+
+你可以在多平台项目中使用顶层 `dependencies {}` 代码块来配置公共依赖项。在此声明的依赖项表现为仿佛已添加到 `commonMain` 或 `commonTest` 源代码集一样。
+
+要使用顶层 `dependencies {}` 代码块，请通过在代码块前添加 `@OptIn(ExperimentalKotlinGradlePluginApi::class)` 注解来选择启用此功能：
+
+<tabs group="build-script">
+<tab title="Kotlin" group-key="kotlin">
+
+```kotlin
+kotlin {
+    @OptIn(ExperimentalKotlinGradlePluginApi::class)
+    dependencies {
+        implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:%coroutinesVersion%")
+    }
+}
+```
+
+</tab>
+<tab title="Groovy" group-key="groovy">
+
+```groovy
+kotlin {
+    dependencies {
+        implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:%coroutinesVersion%'
+    }
+}
+```
+
+</tab>
+</tabs>
+
+请在相应目标的 `sourceSets {}` 代码块内部添加平台特有的依赖项。
+
+你可以就此特性在 [YouTrack](https://youtrack.jetbrains.com/issue/KT-76446) 中分享你的反馈。
 
 ### 依赖项类型
 
@@ -863,15 +990,15 @@ kotlin.stdlib.jdk.variants.version.alignment=false
   }
   ```
 
-  </tab>
-  <tab title="Groovy" group-key="groovy">
+</tab>
+<tab title="Groovy" group-key="groovy">
 
-  ```groovy
+```groovy
   plugins {
       // 将 `<...>` 替换为插件名称
       id "org.jetbrains.kotlin.<...>" version "%kotlinVersion%"
   }
-  ```
+```
 
   </tab>
   </tabs>
@@ -918,8 +1045,8 @@ Kotlin/Native 目标不需要额外的测试依赖项，并且 `kotlin.test` API
 ```kotlin
 kotlin {
     sourceSets {
-         commonTest.dependencies {
-             implementation(kotlin("test")) // 这会自动引入所有平台依赖项
+        commonTest.dependencies {
+            implementation(kotlin("test")) // 这会自动引入所有平台依赖项
         }
     }
 }
@@ -1105,31 +1232,6 @@ kotlin {
             }
         }
     }
-}
-```
-
-</tab>
-</tabs>
-
-### 在顶层设置依赖项
-
-或者，你可以在顶层指定依赖项，使用以下模式作为配置名称：`<sourceSetName><DependencyType>`。这对于某些 Gradle 内置依赖项（例如 `gradleApi()`、`localGroovy()` 或 `gradleTestKit()`）很有帮助，它们在源代码集的依赖项 DSL 中不可用。
-
-<tabs group="build-script">
-<tab title="Kotlin" group-key="kotlin">
-
-```kotlin
-dependencies {
-    "commonMainImplementation"("com.example:my-library:1.0")
-}
-```
-
-</tab>
-<tab title="Groovy" group-key="groovy">
-
-```groovy
-dependencies {
-    commonMainImplementation 'com.example:my-library:1.0'
 }
 ```
 

@@ -11,7 +11,7 @@
     </a>
 </p>
 <p>
-<b>视频</b>: <a href="https://youtu.be/_Q62iJoNOfg">Ktor 在 Kotlin Multiplatform Mobile 项目中用于网络</a> 
+<b>视频</b>: <a href="https://youtu.be/_Q62iJoNOfg">Ktor 在 Kotlin Multiplatform Mobile 项目中用于网络</a>
 </p>
 </tldr>
 
@@ -309,12 +309,12 @@ fun DefaultPreview() {
 <Tabs>
 <TabItem title="Android">
 
-![Android 模拟器](tutorial_client_kmm_android.png){width="381"}
+![Android simulator](tutorial_client_kmm_android.png){width="381"}
 
 </TabItem>
 <TabItem title="iOS">
 
-![iOS 模拟器](tutorial_client_kmm_ios.png){width="351"}
+![iOS simulator](tutorial_client_kmm_ios.png){width="351"}
 
 </TabItem>
 </Tabs>

@@ -3,7 +3,7 @@
 <primary-label ref="advanced"/>
 
 [`kotlin-metadata-jvm`](https://github.com/JetBrains/kotlin/tree/master/libraries/kotlinx-metadata/jvm)ライブラリは、JVM向けにコンパイルされたKotlinクラスからメタデータを読み取り、変更し、生成するためのツールを提供します。
-`.class`ファイル内の[`@Metadata`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-metadata/)アノテーションに格納されているこのメタデータは、
+このメタデータは、`.class`ファイル内の[`@Metadata`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-metadata/)アノテーションに格納されており、
 [`kotlin-reflect`](reflection.md)などのライブラリやツールによって、プロパティ、関数、クラスといったKotlin固有の構成要素をランタイムで検査するために使用されます。
 
 > `kotlin-reflect`ライブラリは、ランタイムでKotlin固有のクラス詳細を取得するためにメタデータに依存しています。
@@ -11,7 +11,7 @@
 > 
 {style="warning"}
 
-Kotlin Metadata JVMライブラリを使用して、可視性やモダリティなどのさまざまな宣言属性を検査したり、メタデータを生成して`.class`ファイルに組み込んだりすることもできます。
+Kotlin Metadata JVMライブラリを使用して、可視性やモダリティなどのさまざまな宣言属性を検査したり、メタデータを生成して`.class`ファイルに埋め込んだりすることもできます。
 
 ## プロジェクトにライブラリを追加する
 
@@ -76,10 +76,10 @@ dependencies {
 ## メタデータを読み取り、パースする
 
 `kotlin-metadata-jvm`ライブラリは、コンパイルされたKotlinの`.class`ファイルから、クラス名、可視性、シグネチャなどの構造化された情報を抽出します。
-コンパイルされたKotlinの宣言を分析する必要があるプロジェクトでこれを使用できます。
-例えば、[Binary Compatibility Validator (BCV)](https://github.com/Kotlin/binary-compatibility-validator)は、`kotlin-metadata-jvm`に依存して公開API宣言を出力します。
+これは、コンパイルされたKotlinの宣言を分析する必要があるプロジェクトで使用できます。
+例えば、[Binary Compatibility Validator (BCV)](https://github.com/Kotlin/binary-compatibility-validator)は、公開API宣言を出力するために`kotlin-metadata-jvm`に依存しています。
 
-コンパイルされたクラスからリフレクションを使用して`@Metadata`アノテーションを取得することで、Kotlinクラスのメタデータの調査を開始できます。
+リフレクションを使用してコンパイルされたクラスから`@Metadata`アノテーションを取得することで、Kotlinクラスのメタデータの調査を開始できます。
 
 ```kotlin
 fun main() {
@@ -98,7 +98,7 @@ fun main() {
 }
 ```
 
-`@Metadata`アノテーションを取得したら、[`KotlinClassMetadata`](https://kotlinlang.org/api/kotlinx-metadata-jvm/kotlin-metadata-jvm/kotlin.metadata.jvm/-kotlin-class-metadata/) APIの[`readLenient()`](https://kotlinlang.org/api/kotlinx-metadata-jvm/kotlin-metadata-jvm/kotlin.metadata.jvm/-kotlin-class-metadata/-companion/read-lenient.html)または[`readStrict()`](https://kotlinlang.org/api/kotlinx-metadata-jvm/kotlin-metadata-jvm/kotlin.metadata.jvm/-kotlin-class-metadata/-companion/read-strict.html)関数のいずれかを使用してそれをパースします。
+`@Metadata`アノテーションを取得したら、[`KotlinClassMetadata`](https://kotlinlang.org/api/kotlinx-metadata-jvm/kotlin-metadata-jvm/kotlin.metadata.jvm/-kotlin-class-metadata/) APIの[`readLenient()`](https://kotlinlang.org/api/kotlinx-metadata-jvm/kotlin-metadata-jvm/kotlin.metadata.jvm/-kotlin-class-metadata/-companion/read-lenient.html)または[`readStrict()`](https://kotlinlang.org/api/kotlinx-metadata-jvm/kotlin-metadata-jvm/kotlin.metadata.jvm/-kotlin-class-metadata/-companion/read-strict.html)関数のいずれかを使用してパースします。
 これらの関数は、異なる互換性要件に対応しながら、クラスやファイルに関する詳細情報を抽出します。
 
 *   `readLenient()`: この関数は、新しいKotlinコンパイラバージョンによって生成されたメタデータを含むメタデータを読み取るために使用します。この関数はメタデータの変更や書き込みをサポートしていません。
@@ -237,7 +237,8 @@ fun main() {
 ```
 
 > プロジェクトで`kotlin-metadata-jvm`ライブラリを使用している場合は、アノテーションをサポートするためにコードを更新およびテストすることをお勧めします。
-> そうしないと、将来のKotlinバージョンでメタデータ内のアノテーションが[デフォルトで有効](https://youtrack.jetbrains.com/issue/KT-75736)になった場合、プロジェクトが無効なまたは不完全なメタデータを生成する可能性があります。
+> そうしないと、将来のKotlinバージョンでメタデータ内のアノテーションが[デフォルトで有効](https://youtrack.jetbrains.com/issue/KT-75736)になった場合、
+> プロジェクトが無効なまたは不完全なメタデータを生成する可能性があります。
 >
 > 問題が発生した場合は、[課題トラッカー](https://youtrack.jetbrains.com/issue/KT-31857)にご報告ください。
 >
@@ -249,7 +250,8 @@ fun main() {
 
 これを行うには、以下の手順に従います。
 
-1.  ASMライブラリの`ClassReader`クラスを使用して、`.class`ファイルのバイトコードを読み取ります。このクラスは、コンパイルされたファイルを処理し、クラス構造を表す`ClassNode`オブジェクトを生成します。
+1.  ASMライブラリの`ClassReader`クラスを使用して、`.class`ファイルのバイトコードを読み取ります。
+    このクラスは、コンパイルされたファイルを処理し、クラス構造を表す`ClassNode`オブジェクトを生成します。
 2.  `ClassNode`オブジェクトから`@Metadata`を抽出します。以下の例では、これにカスタム拡張関数`findAnnotation()`を使用しています。
 3.  抽出されたメタデータを`KotlinClassMetadata.readLenient()`関数を使用してパースします。
 4.  パースされたメタデータを`kmClass`および`kmPackage`プロパティで検査します。
@@ -339,7 +341,7 @@ fun main() {
 [ProGuard](https://github.com/Guardsquare/proguard)のようなツールを使用してバイトコードを縮小および最適化する場合、一部の宣言が`.class`ファイルから削除されることがあります。
 ProGuardは、変更されたバイトコードと整合性を保つためにメタデータを自動的に更新します。
 
-ただし、Kotlinバイトコードを同様の方法で変更するカスタムツールを開発している場合、メタデータがそれに応じて調整されることを確認する必要があります。
+ただし、同様の方法でKotlinバイトコードを変更するカスタムツールを開発している場合、メタデータがそれに応じて調整されることを確認する必要があります。
 `kotlin-metadata-jvm`ライブラリを使用すると、宣言を更新したり、属性を調整したり、特定の要素を削除したりできます。
 
 例えば、Javaクラスファイルからprivateメソッドを削除するJVMツールを使用する場合、整合性を維持するためにKotlinメタデータからもprivate関数を削除する必要があります。
@@ -469,7 +471,7 @@ fun main() {
         visitEnd()
     }.toByteArray()
 
-    // Writes the generated class file to disk
+    // Writes the generated .class file to disk
     java.io.File("Hello.class").writeBytes(classBytes)
 
     println("Metadata and .class file created successfully.")

@@ -92,14 +92,14 @@ IntelliJ IDEA 使用 Gradle 任务运行代码，并在 **Run** 标签页中输�
            binaries {
                executable {
                    entryPoint = "main"
-                   runTask?.standardInput = System.`in`
+                   runTaskProvider?.configure { standardInput = System.`in` }
                }
            }
        }
        //...
    }
    ```
-   {initial-collapse-state="collapsed" collapsible="true" collapsed-title="runTask?.standardInput = System.`in`"}
+   {initial-collapse-state="collapsed" collapsible="true" collapsed-title="runTaskProvider?.configure { standardInput = System.`in` }"}
 
 3. 消除空白字符并计算字母：
 
@@ -183,9 +183,9 @@ IntelliJ IDEA 使用 Gradle 任务运行代码，并在 **Run** 标签页中输�
    }
 
    kotlin {
-       macosArm64("native") {  // on macOS
-       // linuxArm64("native") // on Linux
-       // mingwX64("native")   // on Windows
+       macosArm64("native") {  // 在 macOS 上
+       // linuxArm64("native") // 在 Linux 上
+       // mingwX64("native")   // 在 Windows 上
            binaries {
                executable()
            }
@@ -212,9 +212,9 @@ IntelliJ IDEA 使用 Gradle 任务运行代码，并在 **Run** 标签页中输�
    }
 
    kotlin {
-       macosArm64('native') {  // on macOS
-       // linuxArm64('native') // on Linux
-       // mingwX64('native')   // on Windows
+       macosArm64('native') {  // 在 macOS 上
+       // linuxArm64('native') // 在 Linux 上
+       // mingwX64('native')   // 在 Windows 上
            binaries {
                executable()
            }

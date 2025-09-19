@@ -7,6 +7,7 @@ Kotlin標準ライブラリは、コレクションの_変換操作_のための
 _マッピング_変換は、別のコレクションの要素に対する関数の結果からコレクションを作成します。基本的なマッピング関数は[`map()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/map.html)です。これは、与えられたラムダ関数を各要素に適用し、ラムダの結果のリストを返します。結果の順序は、元の要素の順序と同じです。さらに要素インデックスを引数として使用する変換を適用するには、[`mapIndexed()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/map-indexed.html)を使用します。
 
 ```kotlin
+
 fun main() {
 //sampleStart
     val numbers = setOf(1, 2, 3)
@@ -20,6 +21,7 @@ fun main() {
 変換が特定の要素で`null`を生成する場合、`map()`の代わりに[`mapNotNull()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/map-not-null.html)関数を呼び出すか、`mapIndexed()`の代わりに[`mapIndexedNotNull()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/map-indexed-not-null.html)を呼び出すことで、結果のコレクションから`null`を除外できます。
 
 ```kotlin
+
 fun main() {
 //sampleStart
     val numbers = setOf(1, 2, 3)
@@ -33,6 +35,7 @@ fun main() {
 マップを変換する場合、2つのオプションがあります。キーを変換し、値を変更しない、あるいはその逆です。キーに特定の変換を適用するには[`mapKeys()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/map-keys.html)を使用し、逆に[`mapValues()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/map-values.html)は値を変換します。どちらの関数もマップエントリを引数として取る変換を使用するため、そのキーと値の両方を操作できます。
 
 ```kotlin
+
 fun main() {
 //sampleStart
     val numbersMap = mapOf("key1" to 1, "key2" to 2, "key3" to 3, "key11" to 11)
@@ -54,6 +57,7 @@ _ジッピング_変換は、両方のコレクションの同じ位置にある
 `zip()`は中置記法`a zip b`でも呼び出すことができます。
 
 ```kotlin
+
 fun main() {
 //sampleStart
     val colors = listOf("red", "brown", "grey")
@@ -70,6 +74,7 @@ fun main() {
 `zip()`を、レシーバー要素と引数要素という2つのパラメータを受け取る変換関数と共に呼び出すこともできます。この場合、結果の`List`には、レシーバーと引数要素の同じ位置にあるペアに対して呼び出された変換関数の戻り値が含まれます。
 
 ```kotlin
+
 fun main() {
 //sampleStart
     val colors = listOf("red", "brown", "grey")
@@ -89,6 +94,7 @@ fun main() {
 ペアのリストをアンジップするには、[`unzip()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/unzip.html)を呼び出します。
 
 ```kotlin
+
 fun main() {
 //sampleStart
     val numberPairs = listOf("one" to 1, "two" to 2, "three" to 3, "four" to 4)
@@ -105,6 +111,7 @@ _関連付け_変換は、コレクションの要素とそれに関連付けら
 基本的な関連付け関数である[`associateWith()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/associate-with.html)は、元のコレクションの要素をキーとし、与えられた変換関数によってそれらから値が生成される`Map`を作成します。2つの要素が等しい場合、マップには最後の要素のみが残ります。
 
 ```kotlin
+
 fun main() {
 //sampleStart
     val numbers = listOf("one", "two", "three", "four")
@@ -119,6 +126,7 @@ fun main() {
 `associateBy()`は、値変換関数と共に呼び出すこともできます。
 
 ```kotlin
+
 fun main() {
 //sampleStart
     val numbers = listOf("one", "two", "three", "four")
@@ -137,6 +145,7 @@ fun main() {
 後者の例としては、キーとそれに対応する値が要素から同時に生成される場合です。
 
 ```kotlin
+
 fun main() {
 data class FullName (val firstName: String, val lastName: String)
 
@@ -164,6 +173,7 @@ fun parseFullName(fullName: String): FullName {
 最初の関数は[`flatten()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/flatten.html)です。これはコレクションのコレクション、例えば`Set`の`List`に対して呼び出すことができます。この関数は、ネストされたコレクションのすべての要素を含む単一の`List`を返します。
 
 ```kotlin
+
 fun main() {
 //sampleStart
     val numberSets = listOf(setOf(1, 2, 3), setOf(4, 5, 6), setOf(1, 2))
@@ -176,6 +186,7 @@ fun main() {
 もう1つの関数である[`flatMap()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/flat-map.html)は、ネストされたコレクションを処理する柔軟な方法を提供します。これは、コレクション要素を別のコレクションにマッピングする関数を取ります。その結果、`flatMap()`は、すべての要素に対する戻り値の単一のリストを返します。したがって、`flatMap()`は、`map()`（マッピング結果がコレクションである場合）と`flatten()`を連続して呼び出すように動作します。
 
 ```kotlin
+
 data class StringContainer(val values: List<String>)
 
 fun main() {
@@ -201,6 +212,7 @@ fun main() {
 パラメータのデフォルト値で呼び出された場合、これらの関数はコレクションに対して`toString()`を呼び出した場合と同様の結果を返します。つまり、要素の文字列表現がコンマとスペースで区切られた`String`です。
 
 ```kotlin
+
 fun main() {
 //sampleStart
     val numbers = listOf("one", "two", "three", "four")
@@ -219,6 +231,7 @@ fun main() {
 カスタムの文字列表現を構築するには、関数引数`separator`、`prefix`、`postfix`でそのパラメータを指定できます。結果の文字列は`prefix`で始まり、`postfix`で終わります。`separator`は、最後の要素を除く各要素の後に続きます。
 
 ```kotlin
+
 fun main() {
 //sampleStart
     val numbers = listOf("one", "two", "three", "four")    
@@ -231,6 +244,7 @@ fun main() {
 より大きなコレクションの場合、結果に含まれる要素の数である`limit`を指定したい場合があります。コレクションのサイズが`limit`を超えると、残りのすべての要素は`truncated`引数の単一の値に置き換えられます。
 
 ```kotlin
+
 fun main() {
 //sampleStart
     val numbers = (1..100).toList()
@@ -243,6 +257,7 @@ fun main() {
 最後に、要素自体の表現をカスタマイズするには、`transform`関数を提供します。
 
 ```kotlin
+
 fun main() {
 //sampleStart
     val numbers = listOf("one", "two", "three", "four")

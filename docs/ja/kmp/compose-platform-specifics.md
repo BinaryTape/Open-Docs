@@ -1,7 +1,7 @@
 [//]: # (title: 異なるプラットフォームにおけるデフォルトのUI動作)
 
 Compose Multiplatformは、異なるプラットフォームで可能な限り同様に動作するアプリを開発するのに役立つことを目指しています。
-このページでは、Compose Multiplatformで異なるプラットフォーム向けの共有UIコードを記述する際に予期すべき、避けられない相違点や一時的な妥協点について説明します。
+このページでは、Compose Multiplatformを使用して異なるプラットフォーム向けに共有UIコードを記述する際に予期すべき、避けられない相違点や一時的な妥協点について説明します。
 
 ## プロジェクト構造
 
@@ -26,8 +26,6 @@ Compose Multiplatformは、[Composeのウィンドウインセットアプロー
 [セーフエリア](https://developer.apple.com/documentation/UIKit/positioning-content-relative-to-the-safe-area)を考慮するためにiOSでそれを模倣しています。
 実装によっては、ソフトウェアキーボードがiOSで少し異なる位置に配置される場合があります。
 キーボードが両方のプラットフォームで重要なUI要素を覆わないことを確認してください。
-
-Compose Multiplatformは現在、デフォルトのIMEアクションの変更をサポートしていません。例えば、通常の&crarr;アイコンの代わりに、虫眼鏡やチェックマークを表示するなどです。
 
 ### タッチとマウスのサポート
 

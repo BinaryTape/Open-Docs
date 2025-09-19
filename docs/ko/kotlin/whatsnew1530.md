@@ -2,10 +2,10 @@
 
 _[출시일: 2021년 8월 24일](releases.md#release-details)_
 
-Kotlin 1.5.30은 향후 변경 사항 미리 보기를 포함한 언어 업데이트, 플랫폼 지원 및 툴링의 다양한 개선 사항, 새로운 표준 라이브러리 함수를 제공합니다.
+Kotlin 1.5.30은 향후 변경 사항의 미리 보기를 포함한 언어 업데이트, 플랫폼 지원 및 툴링의 다양한 개선 사항, 새로운 표준 라이브러리 함수를 제공합니다.
 
 주요 개선 사항은 다음과 같습니다:
-*   실험적인 봉인된(sealed) `when` 문, 옵트인 요구 사항 사용 변경 사항 등을 포함한 언어 기능
+*   실험적인 봉인된(`sealed`) `when` 문, 옵트인 요구 사항 사용 변경 사항 등을 포함한 언어 기능
 *   Apple Silicon 네이티브 지원
 *   Kotlin/JS IR 백엔드 베타 도달
 *   향상된 Gradle 플러그인 사용 경험
@@ -16,7 +16,7 @@ Kotlin 1.5.30은 향후 변경 사항 미리 보기를 포함한 언어 업데�
 
 ## 언어 기능
 
-Kotlin 1.5.30은 향후 언어 변경 사항을 미리 보여주고 옵트인 요구 사항 메커니즘과 타입 추론을 개선합니다:
+Kotlin 1.5.30은 향후 언어 변경 사항의 미리 보기를 제공하고 옵트인 요구 사항 메커니즘과 타입 추론에 대한 개선 사항을 제공합니다:
 *   [봉인된(Sealed) 및 Boolean 타입 주체에 대한 완전한 when 문](#exhaustive-when-statements-for-sealed-and-boolean-subjects)
 *   [슈퍼타입으로서의 suspend 함수](#suspending-functions-as-supertypes)
 *   [실험적 API의 암묵적 사용 시 옵트인 요구](#requiring-opt-in-on-implicit-usages-of-experimental-apis)
@@ -31,7 +31,7 @@ Kotlin 1.5.30은 향후 언어 변경 사항을 미리 보여주고 옵트인 �
 >
 {style="warning"}
 
-_완전한_ [`when`](control-flow.md#when-expressions-and-statements) 문은 주체의 모든 가능한 타입 또는 값에 대한 브랜치(branches)를 포함하거나, 특정 타입에 대한 브랜치를 포함하고 나머지 경우를 처리하기 위한 `else` 브랜치를 포함합니다.
+_완전한_ [`when`](control-flow.md#when-expressions-and-statements) 문은 주체의 모든 가능한 타입 또는 값을 위한 브랜치(branches)를 포함하거나, 특정 타입을 위한 브랜치와 나머지 경우를 처리하기 위한 `else` 브랜치를 포함합니다.
 
 `when` 표현식과의 동작 일관성을 위해 곧 비완전한 `when` 문을 금지할 예정입니다. 원활한 마이그레이션을 위해 컴파일러가 봉인된 클래스 또는 Boolean에 대한 비완전한 `when` 문에 대해 경고를 보고하도록 구성할 수 있습니다. 이러한 경고는 Kotlin 1.6에서 기본적으로 표시되며 나중에 오류로 변경됩니다.
 
@@ -110,7 +110,7 @@ class MyClass: suspend () -> Unit {
 }
 ```
 
-이 기능을 활성화하려면 `-language-version 1.6` 컴파일러 옵션을 사용하십시오.
+이 기능을 활성화하려면 `-language-version 1.6` 컴파일러 옵션을 사용하십시오:
 
 <tabs group="build-script">
 <tab title="Kotlin" group-key="kotlin">
@@ -153,7 +153,7 @@ kotlin {
 >
 {style="warning"}
 
-라이브러리 작성자는 실험적 API를 [옵트인 필요](opt-in-requirements.md#create-opt-in-requirement-annotations)로 표시하여 사용자에게 실험적 상태를 알릴 수 있습니다. API가 사용될 때 컴파일러는 경고 또는 오류를 발생시키며, 이를 억제하려면 [명시적 동의](opt-in-requirements.md#opt-in-to-api)가 필요합니다.
+라이브러리 작성자는 실험적 API를 [옵트인 필요](opt-in-requirements.md#create-opt-in-requirement-annotations)로 표시하여 사용자에게 해당 API의 실험적 상태를 알릴 수 있습니다. 컴파일러는 API가 사용될 때 경고 또는 오류를 발생시키며, 이를 억제하려면 [명시적 동의](opt-in-requirements.md#opt-in-to-api)가 필요합니다.
 
 Kotlin 1.5.30에서는 컴파일러가 시그니처에 실험적 타입이 있는 모든 선언을 실험적으로 처리합니다. 즉, 실험적 API의 암묵적 사용에 대해서도 옵트인이 필요합니다. 예를 들어, 함수의 반환 타입이 실험적 API 요소로 표시된 경우, 선언이 명시적으로 옵트인을 요구하지 않더라도 해당 함수를 사용하려면 옵트인이 필요합니다.
 
@@ -189,7 +189,7 @@ fun getDate(): Date {
 >
 {style="warning"}
 
-Kotlin 1.5.30은 다양한 [타겟(targets)](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.annotation/-target/)에 옵트인 요구 사항 어노테이션을 사용하고 선언하는 새로운 규칙을 제시합니다. 이제 컴파일러는 컴파일 시점에 처리하기 비실용적인 사용 사례에 대해 오류를 보고합니다. Kotlin 1.5.30에서는 다음이 적용됩니다:
+Kotlin 1.5.30은 다양한 [타겟](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.annotation/-target/)에 옵트인 요구 사항 어노테이션을 사용하고 선언하는 새로운 규칙을 제시합니다. 컴파일러는 이제 컴파일 시점에 처리하기 비실용적인 사용 사례에 대해 오류를 보고합니다. Kotlin 1.5.30에서는 다음이 적용됩니다:
 *   사용 사이트에서 로컬 변수 및 값 파라미터에 옵트인 요구 사항 어노테이션을 표시하는 것은 금지됩니다.
 *   오버라이드에 표시하는 것은 기본 선언도 표시된 경우에만 허용됩니다.
 *   배킹 필드 및 게터에 표시하는 것은 금지됩니다. 대신 기본 프로퍼티를 표시할 수 있습니다.
@@ -199,7 +199,7 @@ Kotlin 1.5.30은 다양한 [타겟(targets)](https://kotlinlang.org/api/latest/j
 
 ### 재귀적 제네릭 타입에 대한 타입 추론 개선
 
-Kotlin과 Java에서는 재귀적 제네릭 타입을 정의할 수 있습니다. 이 타입은 자체 타입 파라미터에서 자신을 참조합니다. Kotlin 1.5.30에서는 Kotlin 컴파일러가 해당 타입 파라미터가 재귀적 제네릭인 경우 상위 바운드(upper bounds)에만 기반하여 타입 인수를 추론할 수 있습니다. 이를 통해 Java에서 빌더 API를 만드는 데 자주 사용되는 재귀적 제네릭 타입을 이용한 다양한 패턴을 생성할 수 있습니다.
+Kotlin과 Java에서는 재귀적 제네릭 타입을 정의할 수 있으며, 이 타입은 자체 타입 파라미터에서 자신을 참조합니다. Kotlin 1.5.30에서는 Kotlin 컴파일러가 해당 타입 파라미터가 재귀적 제네릭인 경우 상위 바운드(upper bounds)에만 기반하여 타입 인수를 추론할 수 있습니다. 이를 통해 Java에서 빌더 API를 만드는 데 자주 사용되는 재귀적 제네릭 타입을 이용한 다양한 패턴을 생성할 수 있습니다.
 
 ```kotlin
 // Kotlin 1.5.20
@@ -417,7 +417,7 @@ MyClass.Companion.shared
 
 ### MinGW 타겟을 위한 임포트 라이브러리 없는 DLL 연결 지원 중단
 
-[LLD](https://lld.llvm.org/)는 LLVM 프로젝트의 링커로, Kotlin/Native에서 MinGW 타겟을 위해 사용하기 시작할 계획입니다. 이는 주로 기본 ld.bfd보다 더 나은 성능이라는 이점 때문입니다.
+[LLD](https://lld.llvm.org/)는 LLVM 프로젝트의 링커로, Kotlin/Native에서 MinGW 타겟을 위해 사용하기 시작할 계획이며, 이는 주로 기본 ld.bfd보다 더 나은 성능이라는 이점 때문입니다.
 
 그러나 LLD의 최신 안정 버전은 MinGW (Windows) 타겟에 대한 DLL에 직접 연결하는 것을 지원하지 않습니다. 이러한 연결에는 [임포트 라이브러리](https://stackoverflow.com/questions/3573475/how-does-the-import-library-work-details/3573527#3573527) 사용이 필요합니다. Kotlin/Native 1.5.30에서는 필요하지 않지만, 향후 MinGW의 기본 링커가 될 LLD와 호환되지 않는다는 것을 알려주기 위해 경고를 추가하고 있습니다.
 
@@ -426,7 +426,7 @@ LLD 링커로의 전환에 대한 여러분의 생각과 우려 사항을 [이 Y
 ## Kotlin Multiplatform
 
 1.5.30은 Kotlin Multiplatform에 다음과 같은 주목할 만한 업데이트를 제공합니다:
-*   [공유 네이티브 코드에서 커스텀 cinterop 라이브러리 사용 기능](#ability-to-use-custom-cinterop-libraries-in-shared-native-code)
+*   [공유 네이티브 코드에서 커스텀 `cinterop` 라이브러리 사용 기능](#ability-to-use-custom-cinterop-libraries-in-shared-native-code)
 *   [XCFrameworks 지원](#support-for-xcframeworks)
 *   [Android 아티팩트를 위한 새로운 기본 퍼블리싱 설정](#new-default-publishing-setup-for-android-artifacts)
 
@@ -523,7 +523,7 @@ kotlin {
 
 XCFrameworks를 선언하면 다음과 같은 새로운 Gradle 태스크가 등록됩니다:
 *   `assembleXCFramework`
-*   `assembleDebugXCFramework` ([dSYM을 포함](native-ios-symbolication.md)하는 디버그 아티팩트 추가)
+*   `assembleDebugXCFramework` ([dSYM을 포함](native-debugging.md#debug-ios-applications)하는 디버그 아티팩트 추가)
 *   `assembleReleaseXCFramework`
 
 [이 WWDC 비디오](https://developer.apple.com/videos/play/wwdc2019/416/)에서 XCFrameworks에 대해 자세히 알아보십시오.
@@ -766,13 +766,13 @@ Kotlin 1.5.30 이전에는 [`Duration.toString()`](https://kotlinlang.org/api/la
 
 |**함수 호출 예시**|**이전 출력**|**현재 출력**|
 | --- | --- | --- |
-Duration.days(45).toString()|`45.0d`|`45d`|
-Duration.days(1.5).toString()|`36.0h`|`1d 12h`|
-Duration.minutes(1230).toString()|`20.5h`|`20h 30m`|
-Duration.minutes(2415).toString()|`40.3h`|`1d 16h 15m`|
-Duration.minutes(920).toString()|`920m`|`15h 20m`|
-Duration.seconds(1.546).toString()|`1.55s`|`1.546s`|
-Duration.milliseconds(25.12).toString()|`25.1ms`|`25.12ms`|
+|Duration.days(45).toString()|`45.0d`|`45d`|
+|Duration.days(1.5).toString()|`36.0h`|`1d 12h`|
+|Duration.minutes(1230).toString()|`20.5h`|`20h 30m`|
+|Duration.minutes(2415).toString()|`40.3h`|`1d 16h 15m`|
+|Duration.minutes(920).toString()|`920m`|`15h 20m`|
+|Duration.seconds(1.546).toString()|`1.55s`|`1.546s`|
+|Duration.milliseconds(25.12).toString()|`25.1ms`|`25.12ms`|
 
 음수 Duration이 표현되는 방식도 변경되었습니다. 음수 Duration은 마이너스 부호(`-`)가 접두사로 붙으며, 여러 구성 요소로 구성된 경우 괄호로 둘러싸입니다: `-12m` 및 `-(1h 30m)`.
 

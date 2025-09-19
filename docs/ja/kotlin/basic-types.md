@@ -10,12 +10,12 @@ Kotlinでは、あらゆる変数に対してメンバー関数やプロパテ�
 *   [文字列](strings.md)
 *   [配列](arrays.md)
 
-> [Kotlinで型チェックとキャストを実行する方法](typecasts.md)を学びましょう。
->
-{style="tip"}
-
 `Nothing`、`Any`、`Unit`などの他のKotlin型について学ぶには、Kotlin APIリファレンスを参照してください。
 
 *   [`Any`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/)
 *   [`Nothing`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-nothing.html)
 *   [`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/)
+
+> [Kotlinで型チェックとキャストを実行する方法](typecasts.md)を学びましょう。
+>
+{style="tip"}

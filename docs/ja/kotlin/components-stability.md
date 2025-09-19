@@ -66,7 +66,7 @@ _Experimental_、_Alpha_、_Beta_を総称して**プレ安定版**レベルと�
 | Kotlin/JVM                                                          | Stable     | 1.0.0                    |              |
 | Kotlin/Native                                                       | Stable     | 1.9.0                    |              |
 | Kotlin/JS                                                           | Stable     | 1.3.0                    |              |
-| Kotlin/Wasm                                                         | Alpha      | 1.9.20                   |              |
+| Kotlin/Wasm                                                         | Beta       | 2.2.20                   |              |
 | [Analysis API](https://kotlin.github.io/analysis-api/index_md.html) | Stable     |                          |              |
 
 ### Core compiler plugins
@@ -94,9 +94,9 @@ _Experimental_、_Alpha_、_Beta_を総称して**プレ安定版**レベルと�
 
 ### Kotlin Multiplatform
 
-| **コンポーネント**                                  | **ステータス** | **バージョンからのステータス** | **コメント**                                                       |
-|------------------------------------------------|------------|--------------------------|----------------------------------------------------------------------|
-| Kotlin Multiplatform                           | Stable     | 1.9.20                   |                                                                      |
+| **コンポーネント**                                  | **ステータス** | **バージョンからのステータス** | **コメント**                                                              |
+|------------------------------------------------|------------|--------------------------|---------------------------------------------------------------------------|
+| Kotlin Multiplatform                           | Stable     | 1.9.20                   |                                                                           |
 | Kotlin Multiplatform plugin for Android Studio | Beta       | 0.8.0                    | [言語とは別にバージョン管理されています](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-plugin-releases.html) |
 
 ### Kotlin/Native
@@ -113,12 +113,12 @@ _Experimental_、_Alpha_、_Beta_を総称して**プレ安定版**レベルと�
 
 ### Language tools
 
-| **コンポーネント**                         | **ステータス**   | **バージョンからのステータス** | **コメント**                                   |
-|---------------------------------------|--------------|--------------------------|------------------------------------------------|
-| Scripting syntax and semantics        | Alpha        | 1.2.0                    |                                                |
-| Scripting embedding and extension API | Beta         | 1.5.0                    |                                                |
-| Scripting IDE support                 | Beta         |                          | IntelliJ IDEA 2023.1以降で利用可能           |
-| CLI scripting                         | Alpha        | 1.2.0                    |                                                |
+| **コンポーネント**                         | **ステータス**   | **バージョンからのステータス** | **コメント**                       |
+|---------------------------------------|--------------|--------------------------|------------------------------------|
+| Scripting syntax and semantics        | Alpha        | 1.2.0                    |                                    |
+| Scripting embedding and extension API | Beta         | 1.5.0                    |                                    |
+| Scripting IDE support                 | Beta         |                          | IntelliJ IDEA 2023.1以降で利用可能 |
+| CLI scripting                         | Alpha        | 1.2.0                    |                                    |
 
 ## 言語機能および設計提案
 

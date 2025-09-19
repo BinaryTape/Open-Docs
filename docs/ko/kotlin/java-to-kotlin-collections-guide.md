@@ -44,7 +44,7 @@ Kotlin에는 Java의 해당 연산과 동일하게 보이는 컬렉션 연산이
 | 맵이 비어 있는지 확인 | `isEmpty()` | [`isNotEmpty()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/is-not-empty.html)를 사용하여 맵이 비어 있지 않은지 확인합니다. |
 | 요소 제거 | `remove(key)`, `remove(key, value)` | [`minusAssign`(`-=`) 연산자](collection-plus-minus.md)를 사용합니다: `map -= key`. |
 | 맵에서 모든 요소 제거 | `clear()` | |
-| 맵에서 스트림 가져오기 | 엔트리, 키 또는 값에 대한 `stream()` | |
+| 맵에서 스트림 가져오기 | 엔트리, 키 또는 값에 대한 stream() | |
 
 ### 리스트에만 있는 연산
 

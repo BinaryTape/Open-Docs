@@ -82,7 +82,7 @@ Cのstruct型とunion型がKotlin/Nativeにどのようにマッピングされ�
     kotlin {
         macosArm64("native") {    // Apple Silicon搭載macOS
         // macosX64("native") {   // x86_64プラットフォーム上のmacOS
-        // linuxArm64("native") { // ARM64プラットフォーム上のLinux
+        // linuxArm64("native") { // ARM64プラットフォーム上のLinux 
         // linuxX64("native") {   // x86_64プラットフォーム上のLinux
         // mingwX64("native") {   // Windows
             val main by compilations.getting

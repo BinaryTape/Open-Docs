@@ -245,6 +245,3 @@ abstract class WildShape : Polygon() {
 如果您需要編寫一個無需類別實例即可呼叫，但需要存取類別內部（例如工廠方法）的函式，您可以將其作為[物件宣告](object-declarations.md)的成員寫在該類別內部。
 
 更具體地說，如果您在類別內部宣告[伴生物件](object-declarations.md#companion-objects)，您可以使用類別名稱作為限定符來存取其成員。
-
-```
-```

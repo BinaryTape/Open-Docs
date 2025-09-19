@@ -2,11 +2,11 @@
 
 ## 功能概述
 
-AgentMemory 功能是 Koog 框架的一個元件，可讓 AI 代理程式在不同的對話中儲存、檢索和使用資訊。
+`AgentMemory` 功能是 `Koog` 框架的一個元件，可讓 AI 代理程式在不同的對話中儲存、檢索和使用資訊。
 
 ### 目的
 
-AgentMemory 功能透過以下方式解決了在 AI 代理程式互動中維持上下文的挑戰：
+`AgentMemory` 功能透過以下方式解決了在 AI 代理程式互動中維持上下文的挑戰：
 
 - 儲存從對話中提取的重要事實。
 - 依概念、主題和範圍組織資訊。
@@ -15,7 +15,7 @@ AgentMemory 功能透過以下方式解決了在 AI 代理程式互動中維持�
 
 ### 架構
 
-AgentMemory 功能建立在一個階層式結構上。
+`AgentMemory` 功能建立在一個階層式結構上。
 該結構的元素在以下各節中列出並解釋。
 
 #### 事實
@@ -131,7 +131,7 @@ object MemorySubjects {
 
 ### 配置
 
-`AgentMemory.Config` 類別是 AgentMemory 功能的配置類別。
+`AgentMemory.Config` 類別是 `AgentMemory` 功能的配置類別。
 
 <!--- INCLUDE
 import ai.koog.agents.core.feature.config.FeatureConfig
@@ -154,7 +154,7 @@ class Config(
 
 ### 安裝
 
-要在代理程式中安裝 AgentMemory 功能，請遵循以下程式碼範例中提供的模式。
+要在代理程式中安裝 `AgentMemory` 功能，請遵循以下程式碼範例中提供的模式。
 
 <!--- INCLUDE
 import ai.koog.agents.core.agent.AIAgent
@@ -262,12 +262,12 @@ if (greeting.size > 1) {
 
 #### 使用記憶體節點
 
-AgentMemory 功能提供以下預定義的記憶體節點，這些節點可以用於代理程式策略中：
+`AgentMemory` 功能提供以下預定義的記憶體節點，這些節點可以用於代理程式策略中：
 
-* [nodeLoadAllFactsFromMemory](https://api.koog.ai/agents/agents-features/agents-features-memory/ai.koog.agents.local.memory.feature.nodes/node-load-all-facts-from-memory.html)：從記憶體中為給定概念載入有關主題的所有事實。
-* [nodeLoadFromMemory](https://api.koog.ai/agents/agents-features/agents-features-memory/ai.koog.agents.local.memory.feature.nodes/node-load-from-memory.html)：從記憶體中為給定概念載入特定事實。
-* [nodeSaveToMemory](https://api.koog.ai/agents/agents-features/agents-features-memory/ai.koog.agents.local.memory.feature.nodes/node-save-to-memory.html)：將事實儲存到記憶體中。
-* [nodeSaveToMemoryAutoDetectFacts](https://api.koog.ai/agents/agents-features/agents-features-memory/ai.koog.agents.local.memory.feature.nodes/node-save-to-memory-auto-detect-facts.html)：自動偵測並從聊天歷史中提取事實，並將其儲存到記憶體中。使用 LLM 識別概念。
+*   [nodeLoadAllFactsFromMemory](https://api.koog.ai/agents/agents-features/agents-features-memory/ai.koog.agents.local.memory.feature.nodes/node-load-all-facts-from-memory.html)：從記憶體中為給定概念載入有關主題的所有事實。
+*   [nodeLoadFromMemory](https://api.koog.ai/agents/agents-features/agents-features-memory/ai.koog.agents.local.memory.feature.nodes/node-load-from-memory.html)：從記憶體中為給定概念載入特定事實。
+*   [nodeSaveToMemory](https://api.koog.ai/agents/agents-features/agents-features-memory/ai.koog.agents.local.memory.feature.nodes/node-save-to-memory.html)：將事實儲存到記憶體中。
+*   [nodeSaveToMemoryAutoDetectFacts](https://api.koog.ai/agents/agents-features/agents-features-memory/ai.koog.agents.local.memory.feature.nodes/node-save-to-memory-auto-detect-facts.html)：自動偵測並從聊天歷史中提取事實，並將其儲存到記憶體中。使用 LLM 識別概念。
 
 以下是節點如何在代理程式策略中實作的範例：
 
@@ -325,7 +325,7 @@ val secureStorage = EncryptedStorage(
 
 #### 範例：記住使用者偏好
 
-以下是 AgentMemory 如何在實際情境中用於記住使用者偏好（特別是使用者最喜歡的程式語言）的範例。
+以下是 `AgentMemory` 如何在實際情境中用於記住使用者偏好（特別是使用者最喜歡的程式語言）的範例。
 
 <!--- INCLUDE
 import ai.koog.agents.example.exampleAgentMemory03.MemorySubjects
@@ -421,16 +421,16 @@ val saveAutoDetect by nodeSaveToMemoryAutoDetectFacts<Unit>(
 
 ## 最佳實踐
 
-1. **從簡開始**
+1.  **從簡開始**
     - 從沒有加密的基本儲存開始
     - 在轉向多個事實之前先使用單一事實
 
-2. **良好組織**
+2.  **良好組織**
     - 使用清晰的概念名稱
     - 添加有用的描述
     - 將相關資訊保留在相同主題下
 
-3. **處理錯誤**
+3.  **處理錯誤**
 <!--- INCLUDE
 import ai.koog.agents.example.exampleAgentMemory03.MemorySubjects
 import ai.koog.agents.example.exampleAgentMemory06.memoryProvider
@@ -468,31 +468,31 @@ try {
 
 ## 錯誤處理與邊緣情況
 
-AgentMemory 功能包含多種機制來處理邊緣情況：
+`AgentMemory` 功能包含多種機制來處理邊緣情況：
 
-1. **NoMemory 提供者**：一個不儲存任何內容的預設實作，在未指定記憶體提供者時使用。
+1.  **NoMemory 提供者**：一個不儲存任何內容的預設實作，在未指定記憶體提供者時使用。
 
-2. **主題特異性處理**：載入事實時，該功能會根據其定義的 `priorityLevel`，優先處理來自更特定主題的事實。
+2.  **主題特異性處理**：載入事實時，該功能會根據其定義的 `priorityLevel`，優先處理來自更特定主題的事實。
 
-3. **範圍過濾**：事實可以按範圍過濾，以確保只載入相關資訊。
+3.  **範圍過濾**：事實可以按範圍過濾，以確保只載入相關資訊。
 
-4. **時間戳追蹤**：事實與時間戳一起儲存，以追蹤它們的建立時間。
+4.  **時間戳追蹤**：事實與時間戳一起儲存，以追蹤它們的建立時間。
 
-5. **事實型別處理**：該功能支援單一事實和多個事實，並對每種類型進行適當處理。
+5.  **事實型別處理**：該功能支援單一事實和多個事實，並對每種類型進行適當處理。
 
 ## API 文件
 
-有關 AgentMemory 功能的完整 API 參考，請參閱 [agents-features-memory](https://api.koog.ai/agents/agents-features/agents-features-memory/index.html) 模組的參考文件。
+有關 `AgentMemory` 功能的完整 API 參考，請參閱 [agents-features-memory](https://api.koog.ai/agents/agents-features/agents-features-memory/index.html) 模組的參考文件。
 
 特定套件的 API 文件：
 
-- [ai.koog.agents.local.memory.feature](https://api.koog.ai/agents/agents-features/agents-features-memory/ai.koog.agents.local.memory.feature/index.html)：包含 `AgentMemory` 類別和 AI 代理程式記憶體功能的核心實作。
-- [ai.koog.agents.local.memory.feature.nodes](https://api.koog.ai/agents/agents-features/agents-features-memory/ai.koog.agents.local.memory.feature.nodes/index.html)：包含可用於子圖的預定義記憶體相關節點。
-- [ai.koog.agents.local.memory.config](https://api.koog.ai/agents/agents-features/agents-features-memory/ai.koog.agents.local.memory.config/index.html)：提供用於記憶體操作的記憶體範圍定義。
-- [ai.koog.agents.local.memory.model](https://api.koog.ai/agents/agents-features/agents-features-memory/ai.koog.agents.local.memory.model/index.html)：包含核心資料結構和介面的定義，這些結構和介面使代理程式能夠在不同上下文和時間段內儲存、組織和檢索資訊。
-- [ai.koog.agents.local.memory.feature.history](https://api.koog.ai/agents/agents-features/agents-features-memory/ai.koog.agents.local.memory.feature.history/index.html)：提供歷史記錄壓縮策略，用於從過去的會話活動或儲存的記憶體中檢索和整合有關特定事實知識的概念。
-- [ai.koog.agents.local.memory.providers](https://api.koog.ai/agents/agents-features/agents-features-memory/ai.koog.agents.local.memory.providers/index.html)：提供核心介面，定義了以結構化、上下文感知方式儲存和檢索知識的基本操作及其實作。
-- [ai.koog.agents.local.memory.storage](https://api.koog.ai/agents/agents-features/agents-features-memory/ai.koog.agents.local.memory.storage/index.html)：提供用於跨不同平台和儲存後端進行檔案操作的核心介面和特定實作。
+-   [ai.koog.agents.local.memory.feature](https://api.koog.ai/agents/agents-features/agents-features-memory/ai.koog.agents.local.memory.feature/index.html)：包含 `AgentMemory` 類別和 AI 代理程式記憶體功能的核心實作。
+-   [ai.koog.agents.local.memory.feature.nodes](https://api.koog.ai/agents/agents-features/agents-features-memory/ai.koog.agents.local.memory.feature.nodes/index.html)：包含可用於子圖的預定義記憶體相關節點。
+-   [ai.koog.agents.local.memory.config](https://api.koog.ai/agents/agents-features/agents-features-memory/ai.koog.agents.local.memory.config/index.html)：提供用於記憶體操作的記憶體範圍定義。
+-   [ai.koog.agents.local.memory.model](https://api.koog.ai/agents/agents-features/agents-features-memory/ai.koog.agents.local.memory.model/index.html)：包含核心資料結構和介面的定義，這些結構和介面使代理程式能夠在不同上下文和時間段內儲存、組織和檢索資訊。
+-   [ai.koog.agents.local.memory.feature.history](https://api.koog.ai/agents/agents-features/agents-features-memory/ai.koog.agents.local.memory.feature.history/index.html)：提供歷史記錄壓縮策略，用於從過去的會話活動或儲存的記憶體中檢索和整合有關特定事實知識的概念。
+-   [ai.koog.agents.local.memory.providers](https://api.koog.ai/agents/agents-features/agents-features-memory/ai.koog.agents.local.memory.providers/index.html)：提供核心介面，定義了以結構化、上下文感知方式儲存和檢索知識的基本操作及其實作。
+-   [ai.koog.agents.local.memory.storage](https://api.koog.ai/agents/agents-features/agents-features-memory/ai.koog.agents.local.memory.storage/index.html)：提供核心介面和特定實作，用於跨不同平台和儲存後端進行檔案操作。
 
 ## 常見問題與疑難排解
 

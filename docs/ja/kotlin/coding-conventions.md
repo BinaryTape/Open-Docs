@@ -1,6 +1,7 @@
 [//]: # (title: コーディング規約)
 
-よく知られ、従いやすいコーディング規約は、どのプログラミング言語にとっても不可欠です。ここでは、Kotlinを使用するプロジェクトにおけるコードスタイルとコード編成のガイドラインを提供します。
+よく知られ、従いやすいコーディング規約は、どのプログラミング言語にとっても不可欠です。
+ここでは、Kotlinを使用するプロジェクトにおけるコードスタイルとコード編成のガイドラインを提供します。
 
 ## IDEでのスタイル設定
 
@@ -30,7 +31,7 @@ Kotlinで最も人気のある2つのIDEである[IntelliJ IDEA](https://www.jet
 
 ### ソースファイル名
 
-Kotlinファイルが単一のクラスまたはインターフェース（関連するトップレベル宣言を含む可能性がある）を含む場合、その名前はクラス名と同じで、`.kt`拡張子が付加されているべきです。これはすべての種類のクラスとインターフェースに適用されます。ファイルが複数のクラスまたはトップレベル宣言のみを含む場合、ファイルの内容を記述する名前を選択し、それに応じてファイルに名前を付けます。各単語の最初の文字が大文字になる[アッパーキャメルケース](https://ja.wikipedia.org/wiki/%E3%82%AD%E3%83%A3%E3%83%A1%E3%83%AB%E3%82%B1%E3%83%BC%E3%82%B9)を使用します。例えば、`ProcessDeclarations.kt`です。
+Kotlinファイルが単一のクラスまたはインターフェース（関連するトップレベル宣言を含む可能性がある）を含む場合、その名前はクラス名と同じで、`.kt`拡張子が付加されているべきです。これはすべての種類のクラスとインターフェースに適用されます。ファイルが複数のクラスまたはトップレベル宣言のみを含む場合、ファイルの内容を記述する名前を選択し、それに応じてファイルに名前を付けます。各単語の最初の文字が大文字になる[アッパーキャメルケース](https://en.wikipedia.org/wiki/Camel_case)を使用します。例えば、`ProcessDeclarations.kt`です。
 
 ファイルの名前は、ファイル内のコードが何をするのかを記述するべきです。そのため、ファイル名に`Util`のような意味のない単語を使用することは避けるべきです。
 
@@ -113,7 +114,7 @@ object EmptyDeclarationProcessor : DeclarationProcessor() { /*...*/ }
 ```
 
 ### 関数名
-
+ 
 関数、プロパティ、およびローカル変数の名前は小文字で始まり、アンダースコアのないキャメルケースを使用します。
 
 ```kotlin
@@ -137,15 +138,15 @@ fun Foo(): Foo { return FooImpl() }
 
 ```kotlin
 class MyTestCase {
-     @Test fun `ensure everything works`() { /*...*/ }
-     
-     @Test fun ensureEverythingWorks_onAndroid() { /*...*/ }
+    @Test fun `ensure everything works`() { /*...*/ }
+
+    @Test fun ensureEverythingWorks_onAndroid() { /*...*/ }
 }
 ```
 
 ### プロパティ名
 
-定数（`const`でマークされたプロパティ、またはカスタム`get`関数がなく深く不変なデータを持つトップレベルまたはオブジェクトの`val`プロパティ）の名前は、[スクリーミングスネークケース](https://ja.wikipedia.org/wiki/%E3%82%B9%E3%83%8D%E3%83%BC%E3%82%AF%E3%82%B1%E3%83%BC%E3%82%B9)の規則に従って、すべて大文字でアンダースコアで区切られた名前を使用するべきです。
+定数（`const`でマークされたプロパティ、またはカスタム`get`関数がなく深く不変なデータを持つトップレベルまたはオブジェクトの`val`プロパティ）の名前は、[スクリーミングスネークケース](https://en.wikipedia.org/wiki/Snake_case)の規則に従って、すべて大文字でアンダースコアで区切られた名前を使用するべきです。
 
 ```kotlin
 const val MAX_COUNT = 8
@@ -164,8 +165,8 @@ val mutableCollection: MutableSet<String> = HashSet()
 val PersonComparator: Comparator<Person> = /*...*/
 ```
 
-enum定数については、すべて大文字でアンダースコア区切りの名前（[スクリーミングスネークケース](https://ja.wikipedia.org/wiki/%E3%82%B9%E3%83%8D%E3%83%BC%E3%82%AF%E3%82%B1%E3%83%BC%E3%82%B9)）（`enum class Color { RED, GREEN }`）またはアッパーキャメルケースの名前のいずれを使用しても問題ありません。これは使用法によります。
-
+enum定数については、すべて大文字でアンダースコア区切りの名前（[スクリーミングスネークケース](https://en.wikipedia.org/wiki/Snake_case)）（`enum class Color { RED, GREEN }`）またはアッパーキャメルケースの名前のいずれを使用しても問題ありません。これは使用法によります。
+   
 ### バッキングプロパティの名前
 
 クラスが概念的に同じだが、一方がパブリックAPIの一部であり、もう一方が実装の詳細である2つのプロパティを持つ場合、プライベートプロパティの名前にアンダースコアをプレフィックスとして使用します。
@@ -175,7 +176,7 @@ class C {
     private val _elementList = mutableListOf<Element>()
 
     val elementList: List<Element>
-         get() = _elementList
+        get() = _elementList
 }
 ```
 
@@ -185,7 +186,7 @@ class C {
 
 メソッドの名前は通常、そのメソッドが_何をするか_を述べる動詞または動詞句です：`close`、`readPersons`。名前は、そのメソッドがオブジェクトを変更するのか、新しいオブジェクトを返すのかも示唆するべきです。例えば、`sort`はコレクションをその場でソートし、`sorted`はコレクションのソートされたコピーを返します。
 
-名前はエンティティの目的を明確にするべきなので、名前の中に`Manager`、`Wrapper`のような無意味な単語を使用することは避けるのが最善です。
+名前はエンティティの目的を明確にするべきなので、名前の中に`Manager`、`Wrapper`のような意味のない単語を使用することは避けるのが最善です。
 
 宣言名の一部として頭字語を使用する場合、以下の規則に従います。
 
@@ -257,9 +258,9 @@ abstract class Foo<out T : Any> : IFoo {
 
 class FooImpl : Foo() {
     constructor(x: String) : this(x) { /*...*/ }
-    
+
     val x = object : IFoo { /*...*/ } 
-} 
+}
 ```
 
 ### クラスヘッダー
@@ -548,10 +549,10 @@ appendCommaSeparated(properties) { prop ->
 
 ```kotlin
 foo {
-   context: Context,
-   environment: Env
-   ->
-   context.configureEnv(environment)
+    context: Context,
+    environment: Env
+    ->
+    context.configureEnv(environment)
 }
 ```
 
@@ -811,15 +812,15 @@ println("$name has ${children.size} children")
 
 ```kotlin
 val KClass<*>.jsonSchema : String
-get() = $"""
-    {
-      "$schema": "https://json-schema.org/draft/2020-12/schema",
-      "$id": "https://example.com/product.schema.json",
-      "$dynamicAnchor": "meta",
-      "title": "${simpleName ?: qualifiedName ?: "unknown"}",
-      "type": "object"
-    }
-    """
+    get() = $"""
+        {
+            "$schema": "https://json-schema.org/draft/2020-12/schema",
+            "$id": "https://example.com/product.schema.json",
+            "$dynamicAnchor": "meta",
+            "title": "${simpleName ?: qualifiedName ?: "unknown"}",
+            "type": "object"
+        }
+        """
 ```
 
 ## 言語機能の慣用的な使用法
@@ -913,7 +914,7 @@ else
 when(x) {
     0 -> return "zero"
     else -> return "nonzero"
-}    
+}
 ```
 
 ### if 対 when
@@ -985,29 +986,30 @@ for (i in 0..<n) { /*...*/ }  // good
 ```kotlin
 fun main() {
 //sampleStart
-   println("""
-    Not
-    trimmed
-    text
-    """
-   )
+    println("""
+     Not
+     trimmed
+     text
+     """
+    )
 
-   println("""
-    Trimmed
-    text
-    """.trimIndent()
-   )
+    println("""
+     Trimmed
+     text
+     """.trimIndent()
+    )
 
-   println()
+    println()
 
-   val a = """Trimmed to margin text:
-          |if(a > 1) {
-          |    return a
-          |}""".trimMargin()
+    val a = """Trimmed to margin text:
+            |if(a > 1) {
+            |    return a
+            |}""".trimMargin()
 
    println(a)
 //sampleEnd
 }
+```
 {kotlin-runnable="true"}
 
 [JavaとKotlinの複数行文字列](java-to-kotlin-idioms-strings.md#use-multiline-strings)の違いを学びましょう。

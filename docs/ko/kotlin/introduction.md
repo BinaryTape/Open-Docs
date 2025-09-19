@@ -20,9 +20,9 @@ IntelliJ IDEA에서 기존 Kotlin 프로젝트를 열거나 [새 프로젝트를
    }
    
    dependencies {
-       // Lincheck 종속성
+       // Lincheck dependency
        testImplementation("org.jetbrains.lincheck:lincheck:%lincheckVersion%")
-       // 이 종속성을 사용하면 kotlin.test 및 JUnit과 함께 작업할 수 있습니다.
+       // This dependency allows you to work with kotlin.test and JUnit:
        testImplementation("junit:junit:4.13")
    }
    ```
@@ -36,9 +36,9 @@ IntelliJ IDEA에서 기존 Kotlin 프로젝트를 열거나 [새 프로젝트를
    }
    
    dependencies {
-       // Lincheck 종속성
+       // Lincheck dependency
        testImplementation "org.jetbrains.lincheck:lincheck:%lincheckVersion%"
-       // 이 종속성을 사용하면 kotlin.test 및 JUnit과 함께 작업할 수 있습니다.
+       // This dependency allows you to work with kotlin.test and JUnit:
        testImplementation "junit:junit:4.13"
    }
    ```

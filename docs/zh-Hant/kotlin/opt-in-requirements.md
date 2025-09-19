@@ -13,24 +13,24 @@ Kotlin 標準函式庫提供了一種機制，用於要求和給予明確同意�
 若要在程式碼中使用特定 API 元素時選擇加入，請使用 [`@OptIn`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-opt-in/) 註解，並參考實驗性 API 標記。例如，假設您想使用需要選擇加入的 `DateProvider` 類別：
 
 ```kotlin
-// Library code
+// 函式庫程式碼
 @RequiresOptIn(message = "This API is experimental. It could change in the future without notice.")
 @Retention(AnnotationRetention.BINARY)
 @Target(AnnotationTarget.CLASS, AnnotationTarget.FUNCTION)
 annotation class MyDateTime
 
 @MyDateTime
-// A class requiring opt-in
+// 一個需要選擇加入的類別
 class DateProvider
 ```
 
 在您的程式碼中，於宣告使用 `DateProvider` 類別的函式之前，新增 `@OptIn` 註解並參考 `MyDateTime` 註解類別：
 
 ```kotlin
-// Client code
+// 用戶端程式碼
 @OptIn(MyDateTime::class)
 
-// Uses DateProvider
+// 使用 DateProvider
 fun getDate(): Date {
     val dateProvider: DateProvider
     // ...
@@ -40,17 +40,17 @@ fun getDate(): Date {
 值得注意的是，使用這種方法，如果 `getDate()` 函式在您的程式碼中其他地方被呼叫或被其他開發者使用，則無需選擇加入：
 
 ```kotlin
-// Client code
+// 用戶端程式碼
 @OptIn(MyDateTime::class)
 
-// Uses DateProvider
+// 使用 DateProvider
 fun getDate(): Date {
     val dateProvider: DateProvider
     // ...
 }
 
 fun displayDate() {
-    // OK: No opt-in is required
+    // OK: 無需選擇加入
     println(getDate())
 }
 ```
@@ -64,17 +64,17 @@ fun displayDate() {
 例如，在宣告使用 `DateProvider` 類別的函式之前，新增 `@MyDateTime` 註解：
 
 ```kotlin
-// Client code
+// 用戶端程式碼
 @MyDateTime
 fun getDate(): Date {
-    // OK: the function requires opt-in as well
+    // OK: 該函式也需要選擇加入
     val dateProvider: DateProvider
     // ...
 }
 
 fun displayDate() {
     println(getDate())
-    // Error: getDate() requires opt-in
+    // 錯誤: getDate() 需要選擇加入
 }
 ```
 
@@ -83,13 +83,13 @@ fun displayDate() {
 如果 API 元素的簽章包含需要選擇加入的類型，則該簽章本身也必須需要選擇加入。否則，如果 API 元素不需要選擇加入，但其簽章包含需要選擇加入的類型，則使用它將觸發錯誤。
 
 ```kotlin
-// Client code
+// 用戶端程式碼
 @MyDateTime
 fun getDate(dateProvider: DateProvider = DateProvider()): Date
 
 @MyDateTime
 fun displayDate() {
-    // OK: the function requires opt-in as well
+    // OK: 該函式也需要選擇加入
     println(getDate())
 }
 ```
@@ -97,22 +97,22 @@ fun displayDate() {
 同樣地，如果您將 `@OptIn` 應用於其簽章包含需要選擇加入的類型的宣告，則選擇加入要求仍然會傳播：
 
 ```kotlin
-// Client code
+// 用戶端程式碼
 @OptIn(MyDateTime::class)
-// Propagates opt-in due to DateProvider in the signature
+// 因簽章中的 DateProvider 而傳播選擇加入
 fun getDate(dateProvider: DateProvider = DateProvider()): Date
 
 fun displayDate() {
     println(getDate())
-    // Error: getDate() requires opt-in
+    // 錯誤: getDate() 需要選擇加入
 }
 ```
 
 傳播選擇加入要求時，重要的是要了解，如果某個 API 元素變得穩定且不再有選擇加入要求，則任何其他仍有選擇加入要求的 API 元素仍保持實驗性。例如，假設函式庫作者移除了 `getDate()` 函式的選擇加入要求，因為它現在已經穩定：
 
 ```kotlin
-// Library code
-// No opt-in requirement
+// 函式庫程式碼
+// 無需選擇加入
 fun getDate(): Date {
     val dateProvider: DateProvider
     // ...
@@ -122,12 +122,12 @@ fun getDate(): Date {
 如果您使用 `displayDate()` 函式時未移除選擇加入註解，它仍會保持實驗性，即使該選擇加入不再需要：
 
 ```kotlin
-// Client code
+// 用戶端程式碼
 
-// Still experimental!
+// 仍然實驗性！
 @MyDateTime
 fun displayDate() {
-    // Uses a stable library function
+    // 使用穩定的函式庫函式
     println(getDate())
 }
 ```
@@ -152,7 +152,7 @@ fun displayDate() {
 若要讓檔案中的所有函式和類別都能使用需要選擇加入的 API，請在檔案頂部、套件規範和匯入之前，新增檔案層級註解 `@file:OptIn`。
 
  ```kotlin
- // Client code
+ // 用戶端程式碼
  @file:OptIn(MyDateTime::class)
  ```
 
@@ -251,7 +251,7 @@ kotlin {
 若要選擇加入使用此類 API 元素並在您的程式碼中擴充它，請使用 `@SubclassOptInRequired` 註解並參考該註解類別。例如，假設您想使用需要選擇加入的 `CoreLibraryApi` 介面：
 
 ```kotlin
-// Library code
+// 函式庫程式碼
 @RequiresOptIn(
  level = RequiresOptIn.Level.WARNING,
  message = "Interfaces in this library are experimental"
@@ -259,14 +259,14 @@ kotlin {
 annotation class UnstableApi()
 
 @SubclassOptInRequired(UnstableApi::class)
-// An interface requiring opt-in to extend
+// 一個需要選擇加入才能擴充的介面
 interface CoreLibraryApi
 ```
 
 在您的程式碼中，在建立繼承自 `CoreLibraryApi` 介面的新介面之前，新增 `@SubclassOptInRequired` 註解並參考 `UnstableApi` 註解類別：
 
 ```kotlin
-// Client code
+// 用戶端程式碼
 @SubclassOptInRequired(UnstableApi::class)
 interface SomeImplementation : CoreLibraryApi
 ```
@@ -274,7 +274,7 @@ interface SomeImplementation : CoreLibraryApi
 請注意，當您在類別上使用 `@SubclassOptInRequired` 註解時，選擇加入要求不會傳播到任何 [內部類別或巢狀類別](nested-classes.md)：
 
 ```kotlin
-// Library code
+// 函式庫程式碼
 @RequiresOptIn
 annotation class ExperimentalFeature
 
@@ -283,26 +283,26 @@ open class FileSystem {
     open class File
 }
 
-// Client code
+// 用戶端程式碼
 
-// Opt-in is required
+// 需要選擇加入
 class NetworkFileSystem : FileSystem()
 
-// Nested class
-// No opt-in required
+// 巢狀類別
+// 無需選擇加入
 class TextFile : FileSystem.File()
 ```
 
 或者，您可以使用 `@OptIn` 註解來選擇加入。您也可以使用實驗性標記註解，將該要求進一步傳播到程式碼中該類別的任何使用處：
 
 ```kotlin
-// Client code
-// With @OptIn annotation
-@OptIn(UnstableApi::class)
+// 用戶端程式碼
+// 使用 @OptIn 註解
+@OptInRequired(UnstableApi::class)
 interface SomeImplementation : CoreLibraryApi
 
-// With annotation referencing annotation class
-// Propagates the opt-in requirement further
+// 使用參考註解類別的註解
+// 進一步傳播選擇加入要求
 @UnstableApi
 interface SomeImplementation : CoreLibraryApi
 ```
@@ -383,7 +383,7 @@ fun getTime(): Time {}
 annotation class UnstableApi()
 
 @SubclassOptInRequired(UnstableApi::class)
-// An interface requiring opt-in to extend
+// 一個需要選擇加入才能擴充的介面
 interface CoreLibraryApi
 ```
 
@@ -403,4 +403,3 @@ interface CoreLibraryApi
 @Deprecated("This opt-in requirement is not used anymore. Remove its usages from your code.")
 @RequiresOptIn
 annotation class ExperimentalDateTime
-```

@@ -34,7 +34,7 @@
 
 3.  `composeResources` ディレクトリ構造を以下のルールに従って整理します。
 
-    *   画像は `drawable` ディレクトリに配置します。Compose Multiplatform は、ラスタライズ画像（JPEG、PNG、ビットマップ、WebP）およびベクター形式のAndroid XML画像（Androidリソースへの参照なし）をサポートしています。
+    *   画像は `drawable` ディレクトリに配置します。Compose Multiplatform は、ラスタライズ画像（JPEG、PNG、ビットマップ、WebP）およびベクター形式のAndroid XML画像（Androidリソースへの参照なし）をサポートします。
     *   フォントは `font` ディレクトリに配置します。
     *   文字列は `values` ディレクトリに配置します。
     *   その他のファイルは `files` ディレクトリに、適切と思われる任意のフォルダ階層で配置します。
@@ -48,7 +48,7 @@
 ```kotlin
 compose.resources {
     customDirectory(
-        sourceSetName = "desktopMain",
+        sourceSetName = "jvmMain",
         directoryProvider = provider { layout.projectDirectory.dir("desktopResources") }
     )
 }
@@ -75,11 +75,29 @@ compose.resources {
 ```
 {initial-collapse-state="collapsed" collapsible="true"  collapsed-title="directoryProvider = tasks.register<DownloadRemoteFiles>"}
 
+### カスタムウェブ・リソース・パス
+
+`configureWebResources()` 関数を使用して、ウェブ・リソースのパスとURLを指定できます。
+
+*   ドメインのルートからのリソースを参照するには、相対パス (`/` で始まる) を使用します。
+*   外部ドメインまたはCDNでホストされているリソースを参照するには、絶対URL (`http://` または `https://` で始まる) を使用します。
+
+```kotlin
+// Maps resources to an application-specific path
+configureWebResources {
+    resourcePathMapping { path -> "/myApp/resources/$path" }
+}
+
+// Maps resources to an external CDN
+configureWebResources {
+    resourcePathMapping { path -> "https://mycdn.com/myApp/res/$path" }
+}
+```
+
 ### `androidLibrary` ターゲット内のリソース
 <secondary-label ref="Experimental"/>
 
-Android Gradle プラグインバージョン 8.8.0 以降では、`androidLibrary` ターゲットで生成された `Res` クラスとリソースアクセサを使用できます。
-`androidLibrary` でマルチプラットフォームリソースのサポートを有効にするには、次のように構成を更新します：
+Android Gradle プラグインバージョン 8.8.0 以降では、`androidLibrary` ターゲットで生成された `Res` クラスとリソースアクセサを使用できます。`androidLibrary` でマルチプラットフォームリソースのサポートを有効にするには、次のように構成を更新します：
 
 ```
 kotlin {

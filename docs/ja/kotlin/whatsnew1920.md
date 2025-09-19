@@ -2,7 +2,7 @@
 
 _[公開日: 2023年11月1日](releases.md#release-details)_
 
-Kotlin 1.9.20がリリースされました。全てのターゲットに対応した[K2コンパイラがベータ版になりました](#new-kotlin-k2-k2-compiler-updates)、
+Kotlin 1.9.20がリリースされました。全てのターゲットに対応した[K2コンパイラがベータ版になりました](#new-kotlin-k2-compiler-updates)、
 そして[Kotlin Multiplatformが安定版になりました](#kotlin-multiplatform-is-stable)。さらに、主なハイライトは以下の通りです。
 
 * [マルチプラットフォームプロジェクトの設定における新しいデフォルト階層テンプレート](#template-for-configuring-multiplatform-projects)
@@ -14,15 +14,15 @@ Kotlin 1.9.20がリリースされました。全てのターゲットに対応�
 
 これらのアップデートの簡単な概要は、こちらのビデオでもご覧いただけます。
 
-<video src="https://www.youtube.com/v/Ol_96CHKqg8" title="Kotlin 1.9.20の新機能"/>
+<video src="https://www.youtube.com/v/Ol_96CHKqg8" title="What's new in Kotlin 1.9.20"/>
 
 ## IDEサポート
 
 1.9.20をサポートするKotlinプラグインは以下で利用可能です。
 
-| IDE            | サポートされているバージョン                     |
-|----------------|----------------------------------------|
-| IntelliJ IDEA  | 2023.1.x, 2023.2.x, 2023.x             |
+| IDE | サポートされているバージョン |
+|---|---|
+| IntelliJ IDEA | 2023.1.x, 2023.2.x, 2023.x |
 | Android Studio | Hedgehog (2023.1.1), Iguana (2023.2.1) |
 
 > IntelliJ IDEA 2023.3.x および Android Studio Iguana (2023.2.1) Canary 15 以降、Kotlinプラグインは自動的に
@@ -413,7 +413,7 @@ kotlin {
 コード内で`androidTarget`、`iosArm64`、および`iosSimulatorArm64`ターゲットを宣言すると、Kotlin Gradleプラグインは
 テンプレートから適切な共有ソースセットを見つけて作成します。結果として得られる階層は次のようになります。
 
-![デフォルトターゲット階層の使用例](default-hierarchy-example.svg){thumbnail="true" width="350" thumbnail-same-file="true"}
+![An example of the default target hierarchy in use](default-hierarchy-example.svg){thumbnail="true" width="350" thumbnail-same-file="true"}
 
 緑色のソースセットは実際に作成されてプロジェクトに含まれ、灰色のデフォルトテンプレートからのソースセットは無視されます。
 
@@ -421,7 +421,7 @@ kotlin {
 
 作成されたプロジェクト構造を操作しやすくするため、IntelliJ IDEAはデフォルト階層テンプレートで作成されたソースセットの補完を提供するようになりました。
 
-<img src="multiplatform-hierarchy-completion.animated.gif" alt="ソースセット名のIDE補完" width="350" preview-src="multiplatform-hierarchy-completion.png"/>
+<img src="multiplatform-hierarchy-completion.animated.gif" alt="IDE completion for source set names" width="350" preview-src="multiplatform-hierarchy-completion.png"/>
 
 Kotlinはまた、対応するターゲットを宣言していないために存在しないソースセットにアクセスしようとすると警告します。
 以下の例では、JVMターゲットがありません（`androidTarget`のみで、同じではありません）。しかし、`jvmMain`ソースセットを使用してみましょう。
@@ -501,7 +501,7 @@ Kotlin 1.9.20以降、デフォルト階層テンプレートは自動的に有�
 プロジェクトがコンパイルするターゲットを宣言すると、
 プラグインはそれに応じてテンプレートから共有ソースセットを選択し、プロジェクト内に作成します。
 
-![デフォルト階層テンプレート](full-template-hierarchy.svg)
+![Default hierarchy template](full-template-hierarchy.svg)
 
 > この例はプロジェクトのプロダクション部分のみを示しており、`Main`サフィックスは省略されています
 > （例えば、`commonMain`の代わりに`common`を使用しています）。しかし、`*Test`ソースについても同様です。
@@ -523,7 +523,7 @@ IDEでは次期リリースを待つ必要があります。
 新しいウィザードを使えば、プロジェクトのセットアップがこれまで以上に簡単になります。
 モバイル、サーバー、デスクトップ開発のターゲットプラットフォームを選択することで、プロジェクトをニーズに合わせて調整できます。将来のリリースでは、Web開発も追加する予定です。
 
-<img src="multiplatform-web-wizard.png" alt="マルチプラットフォームウェブウィザード" width="400"/>
+<img src="multiplatform-web-wizard.png" alt="Multiplatform web wizard" width="400"/>
 
 新しいプロジェクトウィザードは、Kotlinでクロスプラットフォームプロジェクトを作成するための推奨される方法となりました。1.9.20以降、Kotlin
 プラグインはIntelliJ IDEAで**Kotlin Multiplatform**プロジェクトウィザードを提供しなくなりました。
@@ -532,7 +532,7 @@ IDEでは次期リリースを待つ必要があります。
 問題が発生した場合は、ウィザードの使用体験を改善するために[YouTrack](https://kotl.in/issue)に報告してください。
 
 <a href="https://kmp.jetbrains.com">
-   <img src="multiplatform-create-project-button.png" alt="プロジェクトを作成" style="block"/>
+   <img src="multiplatform-create-project-button.png" alt="Create a project" style="block"/>
 </a>
 
 ### Kotlin MultiplatformにおけるGradle Configuration Cacheの完全サポート
@@ -636,8 +636,8 @@ Kotlin 1.9.20では、[Kotlin CocoaPods Gradle](https://www.jetbrains.com/help/k
 Android Gradleプラグイン（AGP）のバージョンとの互換性を確認してください。
 
 | Kotlin Multiplatform Gradleプラグイン | Gradle | Android Gradleプラグイン | Xcode |
-|---------------------------|------|----|----|
-| 1.9.20        | 7.5 以降 | 7.4.2–8.2 | 15.0。詳細は下記参照 |
+|---|---|---|---|
+| 1.9.20 | 7.5 以降 | 7.4.2–8.2 | 15.0。詳細は下記参照 |
 
 このリリース時点でのXcodeの推奨バージョンは15.0です。Xcode 15.0に同梱されているライブラリは完全にサポートされており、
 Kotlinコード内のどこからでもアクセスできます。
@@ -666,7 +666,6 @@ Xcode 15に同梱されているライブラリは表示されますが、アク
 Wasm GCは最終フェーズに移行し、バイナリ表現で使用される定数であるオペコードの更新が必要です。
 Kotlin 1.9.20は最新のオペコードをサポートしているため、Wasmプロジェクトを最新バージョンのKotlinに更新することを強くお勧めします。
 また、Wasm環境で最新バージョンのブラウザを使用することもお勧めします。
-
 * ChromeおよびChromiumベースのブラウザではバージョン119以降。
 * Firefoxではバージョン119以降。Firefox 119では、Wasm GCを[手動で有効にする](wasm-troubleshooting.md)必要があることに注意してください。
 

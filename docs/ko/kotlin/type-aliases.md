@@ -20,7 +20,7 @@ typealias MyHandler = (Int, String, Any) -> Unit
 typealias Predicate<T> = (T) -> Boolean
 ```
 
-이너(inner) 클래스 및 중첩(nested) 클래스에 대해 새로운 이름을 가질 수 있습니다.
+이너 클래스 및 중첩 클래스에 대해 새로운 이름을 가질 수 있습니다.
 
 ```kotlin
 class A {
@@ -62,9 +62,9 @@ Kotlin에서는 타입 별칭을 다른 선언 내부에 정의할 수 있으며
 
 ```kotlin
 class Dijkstra {
-   typealias VisitedNodes = Set<Node>
+    typealias VisitedNodes = Set<Node>
 
-   private fun step(visited: VisitedNodes, ...) = ...
+    private fun step(visited: VisitedNodes, ...) = ...
 }
 ```
 
@@ -77,7 +77,7 @@ class Graph<Node> {
 }
 ```
 
-이 문제를 해결하려면 타입 별칭에 타입 매개변수를 직접 선언하세요.
+이 문제를 해결하려면 타입 매개변수를 직접 타입 별칭에 선언하세요.
 
 ```kotlin
 class Graph<Node> {
@@ -115,4 +115,3 @@ kotlin {
         freeCompilerArgs.add("-Xnested-type-aliases")
     }
 }
-```

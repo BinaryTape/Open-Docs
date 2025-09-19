@@ -53,27 +53,25 @@ Kotlin NotebookとKotlin DataFrameライブラリを使用してAPIからデー�
 
     ```kotlin
     fun load(path: String, maxPages: Int): AnyFrame {
-    
         // Initializes a mutable list to store rows of data.
         val rows = mutableListOf<AnyRow>()
-    
+
         // Sets the initial page path for data loading.
         var pagePath = path
         do {
-    
             // Loads data from the current page path.
             val row = load(pagePath)
             // Adds the loaded data as a row to the list.
             rows.add(row)
-           
+
             // Retrieves the token for the next page, if available.
             val next = row.getValueOrNull<String>("nextPageToken")
             // Updates the page path for the next iteration, including the new token.
             pagePath = path + "&pageToken=" + next
-    
+
             // Continues loading pages until there's no next page.
         } while (next != null && rows.size < maxPages) 
-        
+
         // Concatenates and returns all loaded rows as a DataFrame.
         return rows.concat() 
     }
@@ -167,7 +165,7 @@ Kotlin NotebookとKotlin DataFrameライブラリを使用してAPIからデー�
     ```kotlin
     val aggregated = channels.aggregate {
         viewCount.sum() into view
-    
+
         val last = maxBy { publishedAt }
         last.title into "last title"
         last.publishedAt into "time"

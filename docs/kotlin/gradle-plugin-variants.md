@@ -25,8 +25,8 @@ Gradle 7.0 为 Gradle 插件作者引入了一项新特性 — [带变体的插�
 ## 故障排除
 
 > 以下是针对 Gradle 中变体选择的一些已知问题的临时解决方案：
-> * [ResolutionStrategy 在 pluginManagement 中对多变体插件无效](https://github.com/gradle/gradle/issues/20545)
-> * [当插件作为 `buildSrc` 公共依赖项添加时，插件变体会被忽略](https://github.com/gradle/gradle/issues/20847)
+> * [ResolutionStrategy in pluginManagement is not working for plugins with multivariants](https://github.com/gradle/gradle/issues/20545)
+> * [Plugin variants are ignored when a plugin is added as the `buildSrc` common dependency](https://github.com/gradle/gradle/issues/20847)
 >
 {style="note"}
 

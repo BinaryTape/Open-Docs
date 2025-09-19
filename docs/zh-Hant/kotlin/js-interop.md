@@ -2,7 +2,7 @@
 
 Kotlin 最初設計旨在與 Java 平台輕鬆互通：它將 Java 類別視為 Kotlin 類別，而 Java 則將 Kotlin 類別視為 Java 類別。
 
-然而，JavaScript 是一種動態型別語言，這表示它不會在編譯時檢查型別。您可以透過 [dynamic](dynamic-type.md) 型別，從 Kotlin 自由地與 JavaScript 互動。如果您想充分利用 Kotlin 型別系統的強大功能，您可以為 JavaScript 函式庫建立外部宣告，這些宣告將會被 Kotlin 編譯器和周邊工具所理解。
+然而，JavaScript 是一種動態型別語言，這表示它不會在編譯時檢查型別。您可以透過 [`dynamic`](dynamic-type.md) 型別，從 Kotlin 自由地與 JavaScript 互動。如果您想充分利用 Kotlin 型別系統的強大功能，您可以為 JavaScript 函式庫建立外部宣告，這些宣告將會被 Kotlin 編譯器和周邊工具所理解。
 
 ## 內聯 JavaScript
 
@@ -176,7 +176,7 @@ fun sendQuery() {
 
 ### 轉型
 
-除了會因為轉型失敗而拋出 `ClassCastException` 的 ["不安全" 轉型運算符](typecasts.md#unsafe-cast-operator) `as` 之外，Kotlin/JS 還提供了 [`unsafeCast<T>()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.js/unsafe-cast.html)。當使用 `unsafeCast` 時，在執行時_完全不執行型別檢查_。例如，考慮以下兩種方法：
+除了會因為轉型失敗而拋出 `ClassCastException` 的「不安全」轉型運算符 [`as`](typecasts.md#unsafe-cast-operator) 之外，Kotlin/JS 還提供了 [`unsafeCast<T>()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.js/unsafe-cast.html)。當使用 `unsafeCast` 時，在執行時_完全不執行型別檢查_。例如，考慮以下兩種方法：
 
 ```kotlin
 fun usingUnsafeCast(s: Any) = s.unsafeCast<String>()

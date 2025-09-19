@@ -302,13 +302,13 @@ Kotlin/JS Gradle 外掛現在對瀏覽器目標使用 webpack 5 而不是 webpac
 許多知名框架和函式庫已經適用於 IR 後端：[KVision](https://kvision.io/)、[fritz2](https://www.fritz2.dev/)、
 [doodle](https://github.com/nacular/doodle) 等等。如果您在專案中使用它們，您已經可以使用 IR 後端建置專案並查看其帶來的優勢。
 
-如果您正在撰寫自己的函式庫，請 [以 'both' 模式編譯](js-ir-compiler.md#authoring-libraries-for-the-ir-compiler-with-backwards-compatibility)，
-以便您的客戶也可以使用新編譯器。
+如果您正在撰寫自己的函式庫，請以 'both' 模式編譯
+，以便您的客戶也可以使用新編譯器。
 
 ## Kotlin Multiplatform
 
-在 Kotlin 1.5.0 中，[為每個平台選擇測試依賴項已簡化](#simplified-test-dependencies-usage-in-multiplatform-projects)，
-現在由 Gradle 外掛自動完成。
+在 Kotlin 1.5.0 中，[為每個平台選擇測試依賴項已簡化](#simplified-test-dependencies-usage-in-multiplatform-projects)
+，現在由 Gradle 外掛自動完成。
 
 [取得字元類別的新 API 現已在多平台專案中可用](#new-api-for-getting-a-char-category-now-available-in-multiplatform-code)。
 
@@ -326,7 +326,7 @@ Kotlin/JS Gradle 外掛現在對瀏覽器目標使用 webpack 5 而不是 webpac
 * [新的集合函數 firstNotNullOf()](#new-collections-function-firstnotnullof)
 * [String?.toBoolean() 的嚴格版本](#strict-version-of-string-toboolean)
 
-您可以在 [這篇部落格文章](https://blog.jetbrains.com/kotlin/2021/04/kotlin-1-5-0-rc-released/) 中找到有關標準函式庫變更的更多詳細資訊。
+您可以在 [這篇部落格文章](https://blog.jetbrains.com/kotlin/2021/04/kotlin-1-5-0-rc-released) 中找到有關標準函式庫變更的更多詳細資訊。
 
 <video src="https://www.youtube.com/v/MyTkiT2I6-8" title="新的標準函式庫功能"/>
 

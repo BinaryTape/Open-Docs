@@ -1,6 +1,6 @@
 [//]: # (title: シールドクラスとインターフェース)
 
-_sealed_クラスとインターフェースは、クラス階層の継承を制御します。シールドクラスの直接のサブクラスはすべてコンパイル時に既知となります。シールドクラスが定義されているモジュールおよびパッケージの外では、他のサブクラスを宣言することはできません。シールドインターフェースとその実装にも同じ論理が適用されます。シールドインターフェースを含むモジュールがコンパイルされると、新しい実装を作成することはできません。
+_シールド_クラスとインターフェースは、クラス階層の継承を制御します。シールドクラスの直接のサブクラスはすべてコンパイル時に既知となります。シールドクラスが定義されているモジュールおよびパッケージの外では、他のサブクラスを宣言することはできません。シールドインターフェースとその実装にも同じ論理が適用されます。シールドインターフェースを含むモジュールがコンパイルされると、新しい実装を作成することはできません。
 
 > 直接のサブクラスとは、スーパークラスから直接継承するクラスです。
 >
@@ -27,17 +27,17 @@ _sealed_クラスとインターフェースは、クラス階層の継承を制
 シールドクラスまたはインターフェースを宣言するには、`sealed`修飾子を使用します。
 
 ```kotlin
-// シールドインターフェースを作成
+// Create a sealed interface
 sealed interface Error
 
-// シールドインターフェースErrorを実装するシールドクラスを作成
+// Create a sealed class that implements sealed interface Error
 sealed class IOError(): Error
 
-// シールドクラス'IOError'を拡張するサブクラスを定義
+// Define subclasses that extend sealed class 'IOError'
 class FileReadError(val file: File): IOError()
 class DatabaseError(val source: DataSource): IOError()
 
-// 'Error'シールドインターフェースを実装するシングルトンオブジェクトを作成
+// Create a singleton object implementing the 'Error' sealed interface 
 object RuntimeError : Error
 ```
 
@@ -77,7 +77,7 @@ sealed class Error(val severity: ErrorSeverity) {
     class FileReadError(val file: File): Error(ErrorSeverity.MAJOR)
     class DatabaseError(val source: DataSource): Error(ErrorSeverity.CRITICAL)
     object RuntimeError : Error(ErrorSeverity.CRITICAL)
-    // 追加のエラータイプをここに追加できます
+    // Additional error types can be added here
 }
 ```
 
@@ -120,13 +120,13 @@ sealed class IOError {
 これらの制限は、間接的なサブクラスには適用されません。シールドクラスの直接のサブクラスがsealedとしてマークされていない場合、その修飾子が許可するあらゆる方法で拡張できます。
 
 ```kotlin
-// シールドインターフェース'Error'は同じパッケージとモジュール内でのみ実装を持ちます。
+// Sealed interface 'Error' has implementations only in the same package and module
 sealed interface Error
 
-// シールドクラス'IOError'は'Error'を拡張し、同じパッケージ内でのみ拡張可能です。
+// Sealed class 'IOError' extends 'Error' and is extendable only within the same package
 sealed class IOError(): Error
 
-// openクラス'CustomError'は'Error'を拡張し、可視範囲であればどこでも拡張可能です。
+// Open class 'CustomError' extends 'Error' and can be extended anywhere it's visible
 open class CustomError(): Error
 ```
 
@@ -143,7 +143,7 @@ open class CustomError(): Error
 シールドクラスを使用する主要な利点は、[`when`式](control-flow.md#when-expressions-and-statements)で使用する際に発揮されます。シールドクラスとともに使用される`when`式は、Kotlinコンパイラがすべての可能なケースが網羅されていることを徹底的にチェックすることを可能にします。そのような場合、`else`句を追加する必要はありません。
 
 ```kotlin
-// シールドクラスとそのサブクラス
+// Sealed class and its subclasses
 sealed class Error {
     class FileReadError(val file: String): Error()
     class DatabaseError(val source: String): Error()
@@ -151,16 +151,16 @@ sealed class Error {
 }
 
 //sampleStart
-// エラーをログに記録する関数
+// Function to log errors
 fun log(e: Error) = when(e) {
     is Error.FileReadError -> println("Error while reading file ${e.file}")
     is Error.DatabaseError -> println("Error while reading from database ${e.source}")
     Error.RuntimeError -> println("Runtime error")
-    // すべてのケースが網羅されているため、`else`句は必要ありません。
+    // No `else` clause is required because all the cases are covered
 }
 //sampleEnd
 
-// すべてのエラーをリストする
+// List all errors
 fun main() {
     val errors = listOf(
         Error.FileReadError("example.txt"),
@@ -238,13 +238,13 @@ fun processPayment(payment: Payment) {
 シールドクラスとシールドインターフェースを使用して、APIリクエストとレスポンスを処理するユーザー認証システムを実装できます。ユーザー認証システムにはログインとログアウトの機能があります。`ApiRequest`シールドインターフェースは、ログイン用の`LoginRequest`とログアウト操作用の`LogoutRequest`という特定の要求タイプを定義します。シールドクラス`ApiResponse`は、ユーザーデータを含む`UserSuccess`、ユーザーが存在しない場合の`UserNotFound`、およびあらゆる失敗の場合の`Error`など、異なる応答シナリオをカプセル化します。`handleRequest`関数は`when`式を使用してこれらのリクエストを型安全な方法で処理し、`getUserById`はユーザー検索をシミュレートします。
 
 ```kotlin
-// 必要なモジュールをインポート
+// Import necessary modules
 import io.ktor.server.application.*
 import io.ktor.server.resources.*
 
 import kotlinx.serialization.*
 
-// Ktorリソースを使用してAPIリクエストのシールドインターフェースを定義
+// Define the sealed interface for API requests using Ktor resources
 @Resource("api")
 sealed interface ApiRequest
 
@@ -256,23 +256,23 @@ data class LoginRequest(val username: String, val password: String) : ApiRequest
 @Resource("logout")
 object LogoutRequest : ApiRequest
 
-// 詳細なレスポンスタイプを持つApiResponseシールドクラスを定義
+// Define the ApiResponse sealed class with detailed response types
 sealed class ApiResponse {
     data class UserSuccess(val user: UserData) : ApiResponse()
     data object UserNotFound : ApiResponse()
     data class Error(val message: String) : ApiResponse()
 }
 
-// 成功レスポンスで使用されるユーザーデータクラス
+// User data class to be used in the success response
 data class UserData(val userId: String, val name: String, val email: String)
 
-// ユーザー認証情報を検証する関数（デモンストレーション目的）
+// Function to validate user credentials (for demonstration purposes)
 fun isValidUser(username: String, password: String): Boolean {
-    // いくつかの検証ロジック（これはプレースホルダーです）
+    // Some validation logic (this is just a placeholder)
     return username == "validUser" && password == "validPass"
 }
 
-// 詳細なレスポンスでAPIリクエストを処理する関数
+// Function to handle API requests with detailed responses
 fun handleRequest(request: ApiRequest): ApiResponse {
     return when (request) {
         is LoginRequest -> {
@@ -283,23 +283,23 @@ fun handleRequest(request: ApiRequest): ApiResponse {
             }
         }
         is LogoutRequest -> {
-            // この例ではログアウト操作は常に成功すると仮定
-            ApiResponse.UserSuccess(UserData("userId", "userName", "userEmail")) // デモンストレーションのため
+            // Assuming logout operation always succeeds for this example
+            ApiResponse.UserSuccess(UserData("userId", "userName", "userEmail")) // For demonstration
         }
     }
 }
 
-// getUserById呼び出しをシミュレートする関数
+// Function to simulate a getUserById call
 fun getUserById(userId: String): ApiResponse {
     return if (userId == "validUserId") {
         ApiResponse.UserSuccess(UserData("validUserId", "John Doe", "john@example.com"))
     } else {
         ApiResponse.UserNotFound
     }
-    // エラー処理もErrorレスポンスになります。
+    // Error handling would also result in an Error response.
 }
 
-// 使用方法を示すメイン関数
+// Main function to demonstrate the usage
 fun main() {
     val loginResponse = handleRequest(LoginRequest("user", "pass"))
     println(loginResponse)

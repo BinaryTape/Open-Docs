@@ -6,9 +6,9 @@
 
 在本教學課程中，您將學習如何準備 Ktor 應用程式並將其部署到 [Sevalla](https://sevalla.com/)。您可以根據用於 [建立 Ktor 伺服器](server-create-and-configure.topic) 的方式，使用以下其中一個起始專案：
 
-*   [embedded-server](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/embedded-server)
+* [embedded-server](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/embedded-server)
 
-*   [Engine-main](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/engine-main)
+* [Engine-main](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/engine-main)
 
 ## 先決條件 {id="prerequisites"}
 
@@ -18,9 +18,9 @@
 
 若要開啟範例應用程式，請依照以下步驟操作：
 
-1.  複製 [Ktor 文件儲存庫](https://github.com/ktorio/ktor-documentation)。
-2.  開啟 [codeSnippets](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets) 專案。
-3.  開啟 [embedded-server](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/embedded-server) 或 [engine-main](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/engine-main) 範例，此範例展示了設定 Ktor 伺服器的兩種不同方法 — 可以直接在程式碼中設定，也可以透過外部設定檔設定。部署這些專案的唯一區別在於如何指定用於監聽傳入請求的埠 (port)。
+1. 複製 [Ktor 文件儲存庫](https://github.com/ktorio/ktor-documentation)。
+2. 開啟 [codeSnippets](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets) 專案。
+3. 開啟 [embedded-server](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/embedded-server) 或 [engine-main](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/engine-main) 範例，此範例展示了設定 Ktor 伺服器的兩種不同方法 — 可以直接在程式碼中設定，也可以透過外部設定檔設定。部署這些專案的唯一區別在於如何指定用於監聽傳入請求的埠 (port)。
 
 ## 準備應用程式 {id="prepare-app"}
 
@@ -84,17 +84,17 @@ Sevalla 直接從已連接的 Git 儲存庫建構並部署您的應用程式。�
 
 若要部署應用程式，請登入 [Sevalla](https://sevalla.com/) 並依照以下步驟操作：
 
-1.  點擊 **應用程式 -> 建立應用程式**
-    ![Sevalla add app](../images/sevalla-add-app.jpg)
-2.  選擇您的 Git 儲存庫並選取適當的分支 (branch)（通常是 `main` 或 `master`）。
-3.  設定**應用程式名稱**，選取**區域**，並選擇您的 **pod 大小**（您可以從 0.5 CPU / 1GB RAM 開始）。
-4.  點擊**建立**，但暫時跳過部署步驟
-    ![Sevalla create app](../images/sevalla-deployment-create-app.png)
-5.  前往**設定 -> 建構 (Build)** 並在**建構環境 (Build environment)** 卡片下方點擊**更新設定**。
-    ![Sevalla update build settings](../images/sevalla-deployment-update-build-settings.png)
-6.  將建構方法設定為 **Dockerfile**。
-    ![Sevalla Dockerfile settings](../images/sevalla-deployment-docker-settings.png)
-7.  確認 **Dockerfile 路徑**是 `Dockerfile` 且**上下文 (Context)** 是 `.`。
-8.  返回您的應用程式的**部署**分頁，然後點擊**部署**。
+1. 點擊 **應用程式 -> 建立應用程式**
+  ![Sevalla add app](../images/sevalla-add-app.jpg)
+2. 選擇您的 Git 儲存庫並選取適當的分支 (branch)（通常是 `main` 或 `master`）。
+3. 設定**應用程式名稱**，選取**區域**，並選擇您的 **pod 大小**（您可以從 0.5 CPU / 1GB RAM 開始）。
+4. 點擊**建立**，但暫時跳過部署步驟  
+  ![Sevalla create app](../images/sevalla-deployment-create-app.png)
+5. 前往**設定 -> 建構 (Build)** 並在**建構環境 (Build environment)** 卡片下方點擊**更新設定**。  
+  ![Sevalla update build settings](../images/sevalla-deployment-update-build-settings.png)
+6. 將建構方法設定為 **Dockerfile**。
+  ![Sevalla Dockerfile settings](../images/sevalla-deployment-docker-settings.png)
+7. 確認 **Dockerfile 路徑**是 `Dockerfile` 且**上下文 (Context)** 是 `.`。
+8. 返回您的應用程式的**部署**分頁，然後點擊**部署**。
 
 Sevalla 將複製您的 Git 儲存庫，使用您的 Dockerfile 建構 Docker 映像 (image)，注入 `PORT` 環境變數，並執行您的應用程式。如果一切設定正確，您的 Ktor 應用程式將在 `https://<your-app>.sevalla.app` 上線。

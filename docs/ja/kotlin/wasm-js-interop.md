@@ -1,5 +1,7 @@
 [//]: # (title: JavaScriptとの相互運用)
 
+<primary-label ref="beta"/>
+
 Kotlin/Wasmでは、KotlinからJavaScriptコードを、またJavaScriptからKotlinコードを使用できます。
 
 [Kotlin/JS](js-overview.md)と同様に、Kotlin/WasmコンパイラもJavaScriptとの相互運用性を持っています。Kotlin/JSの相互運用性に精通している場合、Kotlin/Wasmの相互運用性も似ていることに気づくでしょう。ただし、考慮すべき重要な違いがいくつかあります。
@@ -10,7 +12,7 @@ Kotlin/Wasmでは、KotlinからJavaScriptコードを、またJavaScriptからK
 
 ## KotlinでJavaScriptコードを使用する
 
-`external`宣言、JavaScriptコードスニペットを持つ関数、および`@JsModule`アノテーションを使用して、KotlinでJavaScriptコードを使用する方法を学びます。
+外部宣言、JavaScriptコードスニペットを持つ関数、および`@JsModule`アノテーションを使用して、KotlinでJavaScriptコードを使用する方法を学びます。
 
 ### 外部宣言
 
@@ -109,10 +111,10 @@ external fun createUser(name: String, age: Int): User
 
 外部インターフェースは実行時型情報を持たず、コンパイル時のみの概念です。
 そのため、外部インターフェースには通常のインターフェースと比較していくつかの制限があります。
-* `is`チェックの右側で使用することはできません。
-* クラスリテラル式 (`User::class`など) で使用することはできません。
-* 実体化された型引数として渡すことはできません。
-* `as`による外部インターフェースへのキャストは常に成功します。
+*   `is`チェックの右側で使用することはできません。
+*   クラスリテラル式 (`User::class`など) で使用することはできません。
+*   実体化された型引数として渡すことはできません。
+*   `as`による外部インターフェースへのキャストは常に成功します。
 
 #### 外部オブジェクト
 
@@ -170,11 +172,11 @@ fun createJsUser(name: String, age: Int): JsAny =
 ```
 
 Kotlin/Wasmは`js()`関数の呼び出しを特別な方法で扱い、実装にはいくつかの制限があります。
-* `js()`関数の呼び出しには、文字列リテラル引数を指定する必要があります。
-* `js()`関数の呼び出しは、関数本体の唯一の式でなければなりません。
-* `js()`関数は、パッケージレベルの関数からのみ呼び出すことができます。
-* 関数の戻り値の型は明示的に指定する必要があります。
-* [型](#type-correspondence)は、`external fun`と同様に制限されます。
+*   `js()`関数の呼び出しには、文字列リテラル引数を指定する必要があります。
+*   `js()`関数の呼び出しは、関数本体の唯一の式でなければなりません。
+*   `js()`関数は、パッケージレベルの関数からのみ呼び出すことができます。
+*   関数の戻り値の型は明示的に指定する必要があります。
+*   [型](#type-correspondence)は、`external fun`と同様に制限されます。
 
 Kotlinコンパイラは、コード文字列を生成されたJavaScriptファイルの関数に入れ、WebAssembly形式でインポートします。
 KotlinコンパイラはこれらのJavaScriptスニペットを検証しません。
@@ -258,7 +260,7 @@ import org.khronos.webgl.*
 
 `@JsExport`アノテーションを使用して、JavaScriptでKotlinコードを使用する方法を学びます。
 
-### `@JsExport`アノテーションを持つ関数
+### @JsExportアノテーションを持つ関数
 
 Kotlin/Wasm関数をJavaScriptコードで利用可能にするには、`@JsExport`アノテーションを使用します。
 
@@ -310,7 +312,7 @@ Kotlin/Wasmは、JavaScript相互運用宣言のシグネチャで特定の型�
 Kotlin型がJavaScript型にどのように対応するかを見てみましょう。
 
 | Kotlin                                                     | JavaScript                        |
-|------------------------------------------------------------|-----------------------------------|
+|:-----------------------------------------------------------|:----------------------------------|
 | `Byte`、`Short`、`Int`、`Char`、`UByte`、`UShort`、`UInt` | `Number`                          |
 | `Float`、`Double`                                          | `Number`                          |
 | `Long`、`ULong`                                            | `BigInt`                          |
@@ -329,13 +331,13 @@ Kotlin型がJavaScript型にどのように対応するかを見てみましょ�
 JavaScriptの値は、Kotlinでは`JsAny`型とそのサブタイプを使用して表現されます。
 
 Kotlin/Wasm標準ライブラリは、これらの型の一部に対して表現を提供します。
-* パッケージ`kotlin.js`：
-    * `JsAny`
-    * `JsBoolean`、`JsNumber`、`JsString`
-    * `JsArray`
-    * `Promise`
+*   パッケージ`kotlin.js`：
+    *   `JsAny`
+    *   `JsBoolean`、`JsNumber`、`JsString`
+    *   `JsArray`
+    *   `Promise`
 
-`external`インターフェースまたはクラスを宣言することで、カスタムの`JsAny`サブタイプを作成することもできます。
+外部インターフェースまたはクラスを宣言することで、カスタムの`JsAny`サブタイプを作成することもできます。
 
 ### JsReference型
 
@@ -385,29 +387,13 @@ external fun <T : JsAny> processData(data: JsArray<T>): T
 
 ## 例外処理
 
-Kotlinの`try-catch`式を使用してJavaScriptの例外をキャッチできます。
-ただし、Kotlin/Wasmでは、スローされた値に関する特定の詳細にデフォルトでアクセスすることはできません。
+Kotlinの`try-catch`式を使用してKotlin/WasmコードでJavaScript例外をキャッチできます。例外処理は次のように機能します。
 
-`JsException`型を設定して、JavaScriptからの元のエラーメッセージとスタックトレースを含めることができます。
-これを行うには、`build.gradle.kts`ファイルに以下のコンパイラオプションを追加します。
+*   JavaScriptからスローされた例外：詳細な情報はKotlin側で利用可能です。このような例外がJavaScriptに伝播する場合、WebAssemblyにラップされることはなくなります。
 
-```kotlin
-kotlin {
-    wasmJs {
-        compilerOptions {
-            freeCompilerArgs.add("-Xwasm-attach-js-exception")
-        }
-    }
-}
-```
+*   Kotlinからスローされた例外：通常のJSエラーとしてJavaScript側でキャッチできます。
 
-この挙動は、特定のブラウザでのみ利用可能な`WebAssembly.JSTag` APIに依存します。
-
-* **Chrome:** バージョン115以降でサポート
-* **Firefox:** バージョン129以降でサポート
-* **Safari:** 未だサポートされていません
-
-以下にこの挙動を示す例を示します。
+以下に、Kotlin側でJavaScript例外をキャッチする例を示します。
 
 ```kotlin
 external object JSON {
@@ -433,31 +419,31 @@ fun main() {
 }
 ```
 
-`-Xwasm-attach-js-exception`コンパイラオプションが有効になっている場合、`JsException`型はJavaScriptエラーからの特定の詳細を提供します。
-このコンパイラオプションを有効にしない場合、`JsException`はJavaScriptコードの実行中に例外がスローされたことを示す一般的なメッセージのみを含みます。
+この例外処理は、[`WebAssembly.JSTag`](https://webassembly.github.io/exception-handling/js-api/#dom-webassembly-jstag)機能をサポートするモダンブラウザで自動的に機能します：
 
-JavaScriptの`try-catch`式を使ってKotlin/Wasmの例外をキャッチしようとすると、直接アクセス可能なメッセージやデータのない一般的な`WebAssembly.Exception`のように見えます。
+*   Chrome 115+
+*   Firefox 129+
+*   Safari 18.4+
 
 ## Kotlin/WasmとKotlin/JSの相互運用性の違い
 
-Kotlin/Wasmの相互運用性はKotlin/JSの相互運用性と類似点がありますが、考慮すべき重要な違いがあります。
+Kotlin/Wasmの相互運用性はKotlin/JSの相互運用性と類似点がありますが、考慮すべき重要な違いがあります：
 
-|                         | **Kotlin/Wasm**                                                                                                                                                                                                     | **Kotlin/JS**                                                                                                                                       |
-|-------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------|
-| **外部Enum**            | 外部enumクラスをサポートしていません。                                                                                                                                                                              | 外部enumクラスをサポートしています。                                                                                                                     |
-| **型拡張**              | 非外部型が外部型を拡張することをサポートしていません。                                                                                                                                                        | 非外部型をサポートしています。                                                                                                                        |
-| **`JsName`アノテーション** | 外部宣言にアノテーションを付ける場合にのみ効果があります。                                                                                                                                                           | 通常の非外部宣言の名前を変更するために使用できます。                                                                                   |
-| **`js()`関数**          | `js("code")`関数呼び出しは、パッケージレベルの関数の単一の式本体として許可されます。                                                                                                                     | `js("code")`関数は任意のコンテキストで呼び出すことができ、`dynamic`値を返します。                                                               |
-| **モジュールシステム**  | ESモジュールのみをサポートします。`@JsNonModule`アノテーションに相当するものはありません。そのエクスポートは`default`オブジェクトのプロパティとして提供されます。パッケージレベルの関数のみをエクスポートできます。 | ESモジュールとレガシーモジュールシステムをサポートします。名前付きESMエクスポートを提供します。クラスとオブジェクトのエクスポートを許可します。                                    |
-| **型**                  | `external`、`= js("code")`、`@JsExport`のすべての相互運用宣言に一律に厳格な型制限を適用します。選択された数の[組み込みKotlin型と`JsAny`サブタイプ](#type-correspondence)のみを許可します。 | `external`宣言ではすべての型を許可します。`@JsExport`で使用できる型を[制限します](js-to-kotlin-interop.md#kotlin-types-in-javascript)。 |
-| **Long**                | JavaScriptの`BigInt`に対応する型です。                                                                                                                                                                            | JavaScriptではカスタムクラスとして可視です。                                                                                                            |
-| **配列**                | 相互運用ではまだ直接サポートされていません。代わりに新しい`JsArray`型を使用できます。                                                                                                                                  | JavaScript配列として実装されます。                                                                                                                   |
-| **その他の型**          | KotlinオブジェクトをJavaScriptに渡すには`JsReference<>`が必要です。                                                                                                                                                      | 外部宣言で非外部Kotlinクラス型を使用できます。                                                                                                        |
-| **例外処理**            | `JsException`および`Throwable`型で任意のJavaScript例外をキャッチできます。                                                                                                                                | `Throwable`型を使用してJavaScriptの`Error`をキャッチできます。`dynamic`型を使用して任意のJavaScript例外をキャッチできます。                            |
-| **動的型**              | `dynamic`型はサポートされていません。代わりに`JsAny`を使用してください（以下のサンプルコードを参照）。                                                                                                                                   | `dynamic`型をサポートしています。                                                                                                                   |
+|                             | **Kotlin/Wasm**                                                                                                                                                                                                     | **Kotlin/JS**                                                                                                                                       |
+|:----------------------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:----------------------------------------------------------------------------------------------------------------------------------------------------|
+| **外部Enum**                | 外部enumクラスをサポートしていません。                                                                                                                                                                              | 外部enumクラスをサポートしています。                                                                                                                     |
+| **型拡張**                  | 非外部型が外部型を拡張することをサポートしていません。                                                                                                                                                        | 非外部型をサポートしています。                                                                                                                        |
+| **`JsName`アノテーション**   | 外部宣言にアノテーションを付ける場合にのみ効果があります。                                                                                                                                                           | 通常の非外部宣言の名前を変更するために使用できます。                                                                                   |
+| **`js()`関数**              | `js("code")`関数呼び出しは、パッケージレベルの関数の単一の式本体として許可されます。                                                                                                                     | `js("code")`関数は任意のコンテキストで呼び出すことができ、`dynamic`値を返します。                                                               |
+| **モジュールシステム**      | ESモジュールのみをサポートします。`@JsNonModule`アノテーションに相当するものはありません。そのエクスポートは`default`オブジェクトのプロパティとして提供されます。パッケージレベルの関数のみをエクスポートできます。 | ESモジュールとレガシーモジュールシステムをサポートします。名前付きESMエクスポートを提供します。クラスとオブジェクトのエクスポートを許可します。                                    |
+| **型**                      | `external`、`= js("code")`、`@JsExport`のすべての相互運用宣言に一律に厳格な型制限を適用します。選択された数の[組み込みKotlin型と`JsAny`サブタイプ](#type-correspondence)のみを許可します。 | `external`宣言ではすべての型を許可します。`@JsExport`で使用できる型を[制限します](js-to-kotlin-interop.md#kotlin-types-in-javascript)。 |
+| **Long**                    | JavaScriptの`BigInt`に対応する型です。                                                                                                                                                                            | JavaScriptではカスタムクラスとして可視です。                                                                                                            |
+| **配列**                    | 相互運用ではまだ直接サポートされていません。代わりに新しい`JsArray`型を使用できます。                                                                                                                                  | JavaScript配列として実装されます。                                                                                                                   |
+| **その他の型**              | KotlinオブジェクトをJavaScriptに渡すには`JsReference<>`が必要です。                                                                                                                                                      | 外部宣言で非外部Kotlinクラス型を使用できます。                                                                                                        |
+| **例外処理**                | `JsException`および`Throwable`型で任意のJavaScript例外をキャッチできます。                                                                                                                                | `Throwable`型を使用してJavaScriptの`Error`をキャッチできます。`dynamic`型を使用して任意のJavaScript例外をキャッチできます。                            |
+| **動的型**                  | `dynamic`型はサポートされていません。代わりに`JsAny`を使用してください（以下のサンプルコードを参照）。                                                                                                                                   | `dynamic`型をサポートしています。                                                                                                                   |
 
-> Kotlin/Wasmでは、型なしまたはルーズな型付きオブジェクトとの相互運用性に関するKotlin/JSの[動的型](dynamic-type.md)はサポートされていません。
-> 代わりに`dynamic`型の代わりに、`JsAny`型を使用できます。
+> Kotlin/Wasmでは、型なしまたはルーズな型付きオブジェクトとの相互運用性に関するKotlin/JSの[動的型](dynamic-type.md)はサポートされていません。代わりに`dynamic`型の代わりに、`JsAny`型を使用できます。
 >
 > ```kotlin
 > // Kotlin/JS
@@ -483,13 +469,13 @@ Kotlin/Wasmの相互運用性はKotlin/JSの相互運用性と類似点があり
 ## Web関連のブラウザAPI
 
 [`kotlinx-browser`ライブラリ](https://github.com/kotlin/kotlinx-browser)は、JavaScriptブラウザAPIを提供するスタンドアロンライブラリです。これには以下が含まれます。
-* パッケージ`org.khronos.webgl`：
-  * `Int8Array`のような型付き配列。
-  * WebGL型。
-* パッケージ`org.w3c.dom.*`：
-  * DOM API型。
-* パッケージ`kotlinx.browser`：
-  * `window`や`document`のようなDOM APIグローバルオブジェクト。
+*   パッケージ`org.khronos.webgl`：
+    *   `Int8Array`のような型付き配列。
+    *   WebGL型。
+*   パッケージ`org.w3c.dom.*`：
+    *   DOM API型。
+*   パッケージ`kotlinx.browser`：
+    *   `window`や`document`のようなDOM APIグローバルオブジェクト。
 
 `kotlinx-browser`ライブラリの宣言を使用するには、プロジェクトのビルド構成ファイルに依存関係として追加します。
 

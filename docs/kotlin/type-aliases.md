@@ -57,9 +57,9 @@ fun main() {
 
 ```kotlin
 class Dijkstra {
-   typealias VisitedNodes = Set<Node>
+    typealias VisitedNodes = Set<Node>
 
-   private fun step(visited: VisitedNodes, ...) = ...
+    private fun step(visited: VisitedNodes, ...) = ...
 }
 ```
 

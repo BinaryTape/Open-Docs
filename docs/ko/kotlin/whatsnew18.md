@@ -180,7 +180,7 @@ Kotlin 1.8.0은 기존의 혼란스러운 디렉터리 명명 체계를 대체�
 
 | 현재 소스 세트 레이아웃                          | 새 소스 세트 레이아웃                                |
 |:-----------------------------------------------|:-----------------------------------------------------|
-| src/**Android**SourceSet.name}/AndroidManifest.xml | src/**Kotlin**SourceSet.name}/AndroidManifest.xml |
+| src/{**Android**SourceSet.name}/AndroidManifest.xml | src/{**Kotlin**SourceSet.name}/AndroidManifest.xml |
 
 `{AndroidSourceSet.name}`은 다음과 같이 `{AndroidManifest.xml location}`에 매핑됩니다:
 
@@ -404,7 +404,7 @@ Kotlin 1.8.0은 Gradle 버전 7.2 및 7.3을 **완전히** 지원합니다. 최�
 *   `compilerOptions`와 `kotlinOptions`는 작업 실행 단계에서 변경할 수 없습니다 (아래 단락의 한 가지 예외 참조).
 *   `freeCompilerArgs`는 변경 불가능한 `List<String>`을 반환합니다. 이는 예를 들어 `kotlinOptions.freeCompilerArgs.remove("something")`이 실패한다는 것을 의미합니다.
 
-[Jetpack Compose](https://developer.android.com/jetpack/compose)가 활성화된 `kotlin-dsl` 및 Android Gradle 플러그인(AGP)을 포함한 여러 플러그인이 작업 실행 단계에서 `freeCompilerArgs` 속성을 수정하려고 시도합니다. Kotlin 1.8.0에서는 이를 위한 해결책을 추가했습니다. 이 해결책을 통해 모든 빌드 스크립트 또는 플러그인이 실행 단계에서 `kotlinOptions.freeCompilerArgs`를 수정할 수 있지만, 빌드 로그에 경고가 생성됩니다. 이 경고를 비활성화하려면 새로운 Gradle 속성 `kotlin.options.suppressFreeCompilerArgsModificationWarning=true`를 사용하세요. Gradle은 [`kotlin-dsl` 플러그인](https://github.com/gradle/gradle/issues/22091)과 [Jetpack Compose가 활성화된 AGP](https://issuetracker.google.com/u/1/issues/247544167)에 대한 수정 사항을 추가할 예정입니다.
+[`kotlin-dsl`](https://github.com/gradle/gradle/issues/22091) 플러그인과 [Jetpack Compose](https://developer.android.com/jetpack/compose)가 활성화된 Android Gradle 플러그인(AGP)을 포함한 여러 플러그인이 작업 실행 단계에서 `freeCompilerArgs` 속성을 수정하려고 시도합니다. Kotlin 1.8.0에서는 이를 위한 해결책을 추가했습니다. 이 해결책을 통해 모든 빌드 스크립트 또는 플러그인이 실행 단계에서 `kotlinOptions.freeCompilerArgs`를 수정할 수 있지만, 빌드 로그에 경고가 생성됩니다. 이 경고를 비활성화하려면 새로운 Gradle 속성 `kotlin.options.suppressFreeCompilerArgsModificationWarning=true`를 사용하세요. Gradle은 [`kotlin-dsl` 플러그인](https://github.com/gradle/gradle/issues/22091)과 [Jetpack Compose가 활성화된 AGP](https://issuetracker.google.com/u/1/issues/247544167)에 대한 수정 사항을 추가할 예정입니다.
 
 ### 최소 지원 버전 상향 조정
 

@@ -33,8 +33,8 @@
 
 <!--- INCLUDE
 import ai.koog.agents.core.agent.AIAgent
-import ai.koog.agents.core.feature.model.AfterLLMCallEvent
-import ai.koog.agents.core.feature.model.ToolCallEvent
+import ai.koog.agents.core.feature.model.events.AfterLLMCallEvent
+import ai.koog.agents.core.feature.model.events.ToolCallEvent
 import ai.koog.agents.features.tracing.feature.Tracing
 import ai.koog.agents.features.tracing.writer.TraceFeatureMessageFileWriter
 import ai.koog.agents.features.tracing.writer.TraceFeatureMessageLogWriter
@@ -77,11 +77,12 @@ val agent = AIAgent(
 
 ### 메시지 필터링
 
-모든 기존 이벤트를 처리하거나 특정 기준에 따라 일부 이벤트를 선택할 수 있습니다. 메시지 필터는 처리할 이벤트를 제어할 수 있도록 합니다. 이는 에이전트 실행의 특정 측면에 집중하는 데 유용합니다:
+모든 기존 이벤트를 처리하거나 특정 기준에 따라 일부 이벤트를 선택할 수 있습니다.
+메시지 필터는 처리할 이벤트를 제어할 수 있도록 합니다. 이는 에이전트 실행의 특정 측면에 집중하는 데 유용합니다:
 
 <!--- INCLUDE
 import ai.koog.agents.core.agent.AIAgent
-import ai.koog.agents.core.feature.model.*
+import ai.koog.agents.core.feature.model.events.*
 import ai.koog.agents.features.tracing.feature.Tracing
 import ai.koog.prompt.executor.llms.all.simpleOllamaAIExecutor
 import ai.koog.prompt.llm.OllamaModels
@@ -257,8 +258,8 @@ agent.run(input)
 
 <!--- INCLUDE
 import ai.koog.agents.core.agent.AIAgent
-import ai.koog.agents.core.feature.model.AfterLLMCallEvent
-import ai.koog.agents.core.feature.model.BeforeLLMCallEvent
+import ai.koog.agents.core.feature.model.events.AfterLLMCallEvent
+import ai.koog.agents.core.feature.model.events.BeforeLLMCallEvent
 import ai.koog.agents.example.exampleTracing01.outputPath
 import ai.koog.agents.features.tracing.feature.Tracing
 import ai.koog.agents.features.tracing.writer.TraceFeatureMessageFileWriter
@@ -347,8 +348,8 @@ agent.run(input)
 클라이언트 측에서는 `FeatureMessageRemoteClient`를 사용하여 이벤트를 수신하고 역직렬화할 수 있습니다.
 
 <!--- INCLUDE
-import ai.koog.agents.core.feature.model.AIAgentFinishedEvent
-import ai.koog.agents.core.feature.model.DefinedFeatureEvent
+import ai.koog.agents.core.feature.model.events.AIAgentFinishedEvent
+import ai.koog.agents.core.feature.model.events.DefinedFeatureEvent
 import ai.koog.agents.core.feature.remote.client.config.DefaultClientConnectionConfig
 import ai.koog.agents.core.feature.remote.client.FeatureMessageRemoteClient
 import ai.koog.agents.utils.use
@@ -415,8 +416,8 @@ listOf(clientJob).joinAll()
 
 <!--- INCLUDE
 import ai.koog.agents.core.agent.AIAgent
-import ai.koog.agents.core.feature.model.AfterLLMCallEvent
-import ai.koog.agents.core.feature.model.BeforeLLMCallEvent
+import ai.koog.agents.core.feature.model.events.AfterLLMCallEvent
+import ai.koog.agents.core.feature.model.events.BeforeLLMCallEvent
 import ai.koog.agents.example.exampleTracing01.outputPath
 import ai.koog.agents.features.tracing.feature.Tracing
 import ai.koog.agents.features.tracing.writer.TraceFeatureMessageFileWriter
@@ -510,8 +511,8 @@ install(Tracing) {
 
 <!--- INCLUDE
 import ai.koog.agents.core.agent.AIAgent
-import ai.koog.agents.core.feature.model.AIAgentNodeExecutionStartEvent
-import ai.koog.agents.core.feature.model.AfterLLMCallEvent
+import ai.koog.agents.core.feature.model.events.AIAgentNodeExecutionStartEvent
+import ai.koog.agents.core.feature.model.events.AfterLLMCallEvent
 import ai.koog.agents.core.feature.message.FeatureMessage
 import ai.koog.agents.core.feature.message.FeatureMessageProcessor
 import ai.koog.agents.features.tracing.feature.Tracing
@@ -692,9 +693,9 @@ LLM 호출의 시작을 나타냅니다. 다음 필드를 포함합니다:
 LLM 호출의 종료를 나타냅니다. 다음 필드를 포함합니다:
 
 | 이름        | 데이터 타입                    | 필수 여부 | 기본값           | 설명                                                               |
-|-------------|------------------------------|----------|------------------|--------------------------------------------------------------------|
-| `responses` | List&lt;Message.Response&gt; | Yes      |                  | 모델이 반환한 하나 이상의 응답입니다.                                |
-| `eventId`   | String                       | No       | `LLMCallEndEvent`| 이벤트 식별자. 일반적으로 이벤트 클래스의 `simpleName`입니다. |
+|-------------|------------------------------|----------|-------------------|--------------------------------------------------------------------|
+| `responses` | List&lt;Message.Response&gt; | Yes      |                   | 모델이 반환한 하나 이상의 응답입니다.                                |
+| `eventId`   | String                       | No       | `LLMCallEndEvent` | 이벤트 식별자. 일반적으로 이벤트 클래스의 `simpleName`입니다. |
 
 ### 도구 호출 이벤트
 
@@ -713,10 +714,10 @@ LLM 호출의 종료를 나타냅니다. 다음 필드를 포함합니다:
 도구 호출 중 유효성 검사 오류 발생을 나타냅니다. 다음 필드를 포함합니다:
 
 | 이름           | 데이터 타입 | 필수 여부 | 기본값                    | 설명                                                               |
-|----------------|-----------|----------|---------------------------|--------------------------------------------------------------------|
-| `toolName`     | String    | Yes      |                           | 유효성 검사에 실패한 도구의 이름입니다.                            |
-| `toolArgs`     | Tool.Args | Yes      |                           | 도구에 제공되는 인수입니다.                                        |
-| `errorMessage` | String    | Yes      |                           | 유효성 검사 오류 메시지입니다.                                     |
+|----------------|-----------|----------|----------------------------|--------------------------------------------------------------------|
+| `toolName`     | String    | Yes      |                            | 유효성 검사에 실패한 도구의 이름입니다.                            |
+| `toolArgs`     | Tool.Args | Yes      |                            | 도구에 제공되는 인수입니다.                                        |
+| `errorMessage` | String    | Yes      |                            | 유효성 검사 오류 메시지입니다.                                     |
 | `eventId`      | String    | No       | `ToolValidationErrorEvent`| 이벤트 식별자. 일반적으로 이벤트 클래스의 `simpleName`입니다. |
 
 #### ToolCallFailureEvent
@@ -735,8 +736,8 @@ LLM 호출의 종료를 나타냅니다. 다음 필드를 포함합니다:
 결과 반환과 함께 성공적인 도구 호출을 나타냅니다. 다음 필드를 포함합니다:
 
 | 이름       | 데이터 타입  | 필수 여부 | 기본값               | 설명                                                               |
-|------------|------------|----------|----------------------|--------------------------------------------------------------------|
-| `toolName` | String     | Yes      |                      | 도구의 이름입니다.                                                 |
-| `toolArgs` | Tool.Args  | Yes      |                      | 도구에 제공되는 인수입니다.                                        |
-| `result`   | ToolResult | Yes      |                      | 도구 호출 결과.                                                    |
+|------------|------------|----------|-----------------------|--------------------------------------------------------------------|
+| `toolName` | String     | Yes      |                       | 도구의 이름입니다.                                                 |
+| `toolArgs` | Tool.Args  | Yes      |                       | 도구에 제공되는 인수입니다.                                        |
+| `result`   | ToolResult | Yes      |                       | 도구 호출 결과.                                                    |
 | `eventId`  | String     | No       | `ToolCallResultEvent`| 이벤트 식별자. 일반적으로 이벤트 클래스의 `simpleName`입니다. |

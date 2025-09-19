@@ -46,20 +46,20 @@ import org.jetbrains.kotlin.buildtools.api.ExperimentalBuildToolsApi
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 
 plugins {
-	kotlin("jvm") version "2.2.0"
+    kotlin("jvm") version "2.2.0"
 }
 
 group = "org.jetbrains.example"
 version = "1.0-SNAPSHOT"
 
 repositories {
-	mavenCentral()
+    mavenCentral()
 }
 
 kotlin {
-	jvmToolchain(8)
-	@OptIn(ExperimentalBuildToolsApi::class, ExperimentalKotlinGradlePluginApi::class)
-	compilerVersion.set("2.1.21") // <-- 与 2.2.0 不同的版本
+    jvmToolchain(8)
+    @OptIn(ExperimentalBuildToolsApi::class, ExperimentalKotlinGradlePluginApi::class)
+    compilerVersion.set("2.1.21") // <-- 与 2.2.0 不同的版本
 }
 ```
 
@@ -94,9 +94,6 @@ kotlin.compiler.execution.strategy=in-process
 
 ## 与 Maven 集成
 
-从 Kotlin 2.2.0 开始，BTA 在 [`kotlin-maven-plugin`](maven.md) 中默认启用。
+BTA 使得 [`kotlin-maven-plugin`](maven.md) 能够支持 [Kotlin 守护进程](kotlin-daemon.md)，这是默认的 [编译器执行策略](maven.md#configure-kotlin-compiler-execution-strategy)。`kotlin-maven-plugin` 默认使用 BTA，因此无需进行任何配置。
 
-尽管 BTA 尚未直接为 Maven 用户带来好处，但它为开发以下特性提供了坚实的基础：
-
-*   [Kotlin 守护进程支持](https://youtrack.jetbrains.com/issue/KT-77587)
-*   [增量编译稳定性](https://youtrack.jetbrains.com/issue/KT-77086)
+BTA 将使得将来能够提供更多特性，例如[增量编译稳定性](https://youtrack.jetbrains.com/issue/KT-77086)。

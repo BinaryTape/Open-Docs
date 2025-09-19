@@ -6,7 +6,7 @@
 annotation class Fancy
 ```
 
-アノテーションクラスにメタアノテーションを付加することで、アノテーションの追加属性を指定できます。
+アノテーションの追加属性は、アノテーションクラスにメタアノテーションを付加することで指定できます。
 
   * [`@Target`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.annotation/-target/index.html) は、アノテーションを付加できる要素の種類 (クラス、関数、プロパティ、式など) を指定します。
   * [`@Retention`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.annotation/-retention/index.html) は、コンパイルされたクラスファイルにアノテーションが保存されるか、および実行時にリフレクションを通じて参照できるか (デフォルトでは両方とも `true`) を指定します。
@@ -15,7 +15,7 @@ annotation class Fancy
 
 ```kotlin
 @Target(AnnotationTarget.CLASS, AnnotationTarget.FUNCTION,
-        AnnotationTarget.TYPE_PARAMETER, AnnotationTarget.VALUE_PARAMETER, 
+        AnnotationTarget.TYPE_PARAMETER, AnnotationTarget.VALUE_PARAMETER,
         AnnotationTarget.EXPRESSION)
 @Retention(AnnotationRetention.SOURCE)
 @MustBeDocumented
@@ -162,7 +162,7 @@ class Example {
     ```kotlin
     fun @receiver:Fancy String.myExtension() { ... }
     ```
-    
+
   * `param` (コンストラクタパラメータ)
   * `setparam` (プロパティセッターパラメータ)
   * `delegate` (委譲プロパティの委譲インスタンスを格納するフィールド)
@@ -267,12 +267,12 @@ public @interface Email { }
 ```kotlin
 data class User(
     val username: String,
-    // `@Email`を`param`、`field`、`get`に適用
+    // @Emailをparam、field、getに適用
     @all:Email val email: String,
-    // `@Email`を`param`、`field`、`get`、`set_param`に適用
+    // @Emailをparam、field、get、setparamに適用
     @all:Email var name: String,
 ) {
-    // `@Email`を`field`と`getter`に適用 (コンストラクタ内ではないため`param`はなし)
+    // @Emailをfieldとgetterに適用 (コンストラクタ内ではないためparamはなし)
     @all:Email val secondaryEmail: String? = null
 }
 ```
@@ -286,7 +286,7 @@ data class User(
 * 型、潜在的な拡張レシーバー、またはコンテキストレシーバーやパラメータにアノテーションを伝播しません。
 * 複数のアノテーションと一緒に使用することはできません。
     ```kotlin
-    @all:[A B] // 禁止、`@all:A @all:B` を使用してください
+    @all:[A B] // 禁止、@all:A @all:B を使用してください
     val x: Int = 5
     ```
 * [委譲プロパティ](delegated-properties.md)と一緒に使用することはできません。
@@ -386,7 +386,7 @@ public @interface AnnWithArrayMethod {
 ```
 
 ```kotlin
-@AnnWithArrayMethod(names = ["abc", "foo", "bar"]) 
+@AnnWithArrayMethod(names = ["abc", "foo", "bar"])
 class C
 ```
 
@@ -427,7 +427,7 @@ annotation class Tag(val name: String)
 // コンパイラは@Tag.Container コンテナアノテーションを生成します
 ```
 
-コンテナアノテーションのカスタム名を設定するには、[`@kotlin.jvm.JvmRepeatable`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.jvm/-jvmrepeatable/)メタアノテーションを適用し、引数として明示的に宣言されたコンテナアノテーションクラスを渡します。
+コンテナアノテーションのカスタム名を設定するには、[`@kotlin.jvm.JvmRepeatable`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.jvm/-jvmRepeatable/)メタアノテーションを適用し、引数として明示的に宣言されたコンテナアノテーションクラスを渡します。
 
 ```kotlin
 @JvmRepeatable(Tags::class)

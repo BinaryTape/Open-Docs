@@ -52,7 +52,7 @@ fun main() {
 Kotlin 中沒有三元運算子 `condition ? then : else`。相反地，`if` 可以作為表達式使用。如果每個動作只有一行程式碼，則花括號 `{}` 是可選的：
 
 ```kotlin
-fun main() {
+fun main() { 
 //sampleStart
     val a = 1
     val b = 2
@@ -88,7 +88,7 @@ fun main() {
         // 檢查 obj 是否等於 "Hello"
         "Hello" -> println("Greeting")
         // 預設陳述式
-        else -> println("Unknown")
+        else -> println("Unknown")     
     }
     // Greeting
 //sampleEnd
@@ -106,13 +106,14 @@ fun main() {
 
 ```kotlin
 fun main() {
-//sampleStart
-    val obj = "Hello"
-
+//sampleStart    
+    val obj = "Hello"    
+    
     val result = when (obj) {
         // 如果 obj 等於 "1"，將 result 設定為 "One"
         "1" -> "One"
         // 如果 obj 等於 "Hello"，將 result 設定為 "Greeting"
+        "Hello" -> "Greeting"
         // 如果先前的條件都不符合，將 result 設定為 "Unknown"
         else -> "Unknown"
     }
@@ -157,7 +158,7 @@ fun main() {
         else -> "Malfunction"
     }
 
-    println(trafficAction)
+    println(trafficAction)  
     // Stop
 }
 ```
@@ -236,14 +237,14 @@ fun main() {
 ```kotlin
 fun main() {
     val button = "A"
-
+    
     println(
         when (button) {
             "A" -> "Yes"
             "B" -> "No"
             "X" -> "Menu"
             "Y" -> "Nothing"
-            else -> "There is no such button"
+            else -> "沒有這個按鈕"
         }
     )
 }
@@ -280,7 +281,7 @@ fun main() {
 ```kotlin
 fun main() {
 //sampleStart
-    for (number in 1..5) {
+    for (number in 1..5) { 
         // number 是迭代器，1..5 是範圍
         print(number)
     }
@@ -293,12 +294,12 @@ fun main() {
 集合也可以透過迴圈進行迭代：
 
 ```kotlin
-fun main() {
+fun main() { 
 //sampleStart
     val cakes = listOf("carrot", "cheese", "chocolate")
 
     for (cake in cakes) {
-        println("Yummy, it's a $cake cake!")
+        println("好好吃，是個 $cake 蛋糕！")
     }
     // 好好吃，是紅蘿蔔蛋糕！
     // 好好吃，是起司蛋糕！
@@ -329,7 +330,7 @@ fun main() {
 //sampleStart
     var cakesEaten = 0
     while (cakesEaten < 3) {
-        println("Eat a cake")
+        println("吃一個蛋糕")
         cakesEaten++
     }
     // 吃一個蛋糕
@@ -351,11 +352,11 @@ fun main() {
     var cakesEaten = 0
     var cakesBaked = 0
     while (cakesEaten < 3) {
-        println("Eat a cake")
+        println("吃一個蛋糕")
         cakesEaten++
     }
     do {
-        println("Bake a cake")
+        println("烤一個蛋糕")
         cakesBaked++
     } while (cakesBaked < cakesEaten)
     // 吃一個蛋糕
@@ -388,22 +389,22 @@ fun main() {
     var pizzaSlices = 0
     // 在此處開始重構
     pizzaSlices++
-    println("There's only $pizzaSlices slice/s of pizza :(")
+    println("這裡只有 $pizzaSlices 片披薩 :(")
     pizzaSlices++
-    println("There's only $pizzaSlices slice/s of pizza :(")
+    println("這裡只有 $pizzaSlices 片披薩 :(")
     pizzaSlices++
-    println("There's only $pizzaSlices slice/s of pizza :(")
+    println("這裡只有 $pizzaSlices 片披薩 :(")
     pizzaSlices++
-    println("There's only $pizzaSlices slice/s of pizza :(")
+    println("這裡只有 $pizzaSlices 片披薩 :(")
     pizzaSlices++
-    println("There's only $pizzaSlices slice/s of pizza :(")
+    println("這裡只有 $pizzaSlices 片披薩 :(")
     pizzaSlices++
-    println("There's only $pizzaSlices slice/s of pizza :(")
+    println("這裡只有 $pizzaSlices 片披薩 :(")
     pizzaSlices++
-    println("There's only $pizzaSlices slice/s of pizza :(")
+    println("這裡只有 $pizzaSlices 片披薩 :(")
     pizzaSlices++
     // 在此處結束重構
-    println("There are $pizzaSlices slices of pizza. Hooray! We have a whole pizza! :D")
+    println("這裡有 $pizzaSlices 片披薩。太棒了！我們有一整個披薩了！:D")
 }
 ```
 {validate="false" kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-tour-control-flow-loops-exercise-1"}
@@ -414,10 +415,10 @@ fun main() {
     var pizzaSlices = 0
     while ( pizzaSlices < 7 ) {
         pizzaSlices++
-        println("There's only $pizzaSlices slice/s of pizza :(")
+        println("這裡只有 $pizzaSlices 片披薩 :(")
     }
     pizzaSlices++
-    println("There are $pizzaSlices slices of pizza. Hooray! We have a whole pizza! :D")
+    println("這裡有 $pizzaSlices 片披薩。太棒了！我們有一整個披薩了！:D")
 }
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="範例解法 1" id="kotlin-tour-control-flow-loops-exercise-1-solution-1"}
@@ -428,10 +429,10 @@ fun main() {
     var pizzaSlices = 0
     pizzaSlices++
     do {
-        println("There's only $pizzaSlices slice/s of pizza :(")
+        println("這裡只有 $pizzaSlices 片披薩 :(")
         pizzaSlices++
     } while ( pizzaSlices < 8 )
-    println("There are $pizzaSlices slices of pizza. Hooray! We have a whole pizza! :D")
+    println("這裡有 $pizzaSlices 片披薩。太棒了！我們有一整個披薩了！:D")
 }
 
 ```
@@ -449,7 +450,7 @@ fun main() {
 
 <deflist collapsible="true">
     <def title="提示 2">
-        使用模數運算子 (<code>%</code>) 返回數字被除後的餘數。使用 <a href="operator-overloading.md#equality-and-inequality-operators">等於運算子</a> (<code>==</code>) 來檢查餘數是否等於零。
+        使用模數運算子 (<code>%</code>) 返回數字被除後的餘數。使用<a href="operator-overloading.md#equality-and-inequality-operators">等於運算子</a> (<code>==</code>) 來檢查餘數是否等於零。
     </def>
 </deflist>
 

@@ -10,7 +10,7 @@
 本教學的第一部分將展示如何使用 IntelliJ IDEA 中的專案精靈 (Project Wizard) 透過 Gradle 建立一個 Spring Boot 專案。
 
 > 本教學不強制要求使用 Gradle 作為建構系統。如果您使用 Maven，也可以遵循相同的步驟。
-> 
+>
 {style="note"}
 
 ## 開始之前
@@ -19,7 +19,7 @@
 
 > 如果您使用 IntelliJ IDEA Community Edition 或其他 IDE，您可以透過
 > [基於網頁的專案產生器](https://start.spring.io/#!language=kotlin&type=gradle-project-kotlin) 來產生 Spring Boot 專案。
-> 
+>
 {style="tip"}
 
 ## 建立 Spring Boot 專案
@@ -29,7 +29,7 @@
 1. 在 IntelliJ IDEA 中，選取 **File** | **New** | **Project**。
 2. 在左側面板中，選取 **New Project** | **Spring Boot**。
 3. 在 **New Project** 視窗中指定以下欄位和選項：
-   
+
    * **Name** (名稱): demo
    * **Language** (語言): Kotlin
    * **Type** (類型): Gradle - Kotlin
@@ -40,14 +40,14 @@
 
    * **Package name** (套件名稱): com.example.demo
    * **JDK**: Java JDK
-     
-     > 本教學使用 **Amazon Corretto 版本 23**。
+
+     > 本教學使用 **Amazon Corretto version 23**。
      > 如果您沒有安裝 JDK，可以從下拉式選單中下載。
      >
      {style="note"}
-   
+
    * **Java**: 17
-   
+
      > 如果您沒有安裝 Java 17，可以從 JDK 下拉式選單中下載。
      >
      {style="tip"}
@@ -68,7 +68,7 @@
 
    > IDE 將產生並開啟一個新專案。下載並匯入專案相依性可能需要一些時間。
    >
-   {style="tip"} 
+   {style="tip"}
 
 7. 完成後，您可以在 **Project view** (專案檢視) 中觀察到以下結構：
 
@@ -253,7 +253,7 @@ Spring 應用程式現在已準備好執行：
 1. 在 `DemoApplication.kt` 檔案中，點擊 `main()` 方法旁裝訂線 (gutter) 中的綠色 **Run** (執行) 圖示：
 
     ![執行 Spring Boot 應用程式](run-spring-boot-application.png){width=706}
-    
+
     > 您也可以在終端機中執行 `./gradlew bootRun` 命令。
     >
     {style="tip"}

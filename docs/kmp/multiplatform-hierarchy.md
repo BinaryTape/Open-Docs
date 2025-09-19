@@ -2,9 +2,9 @@
 
 Kotlin 多平台项目支持分层源代码集结构。这意味着你可以安排中间源代码集的层级结构，以便在部分（而非全部）[支持的目标](multiplatform-dsl-reference.md#targets)之间共享公共代码。使用中间源代码集有助于你：
 
-* 为某些目标提供特定的 API。例如，一个库可以在一个中间源代码集中为 Kotlin/Native 目标添加原生特有的 API，而不是为 Kotlin/JVM 目标添加。
-* 为某些目标消费特定的 API。例如，你可以受益于 Kotlin 多平台库为构成中间源代码集的一些目标提供的丰富 API。
-* 在你的项目中使用平台相关的库。例如，你可以从中间 iOS 源代码集访问 iOS 特有的依赖项。
+*   为某些目标提供特定的 API。例如，一个库可以在一个中间源代码集中为 Kotlin/Native 目标添加原生特有的 API，而不是为 Kotlin/JVM 目标添加。
+*   为某些目标消费特定的 API。例如，你可以受益于 Kotlin 多平台库为构成中间源代码集的一些目标提供的丰富 API。
+*   在你的项目中使用平台相关的库。例如，你可以从中间 iOS 源代码集访问 iOS 特有的依赖项。
 
 Kotlin 工具链确保每个源代码集只能访问对其编译到的所有目标都可用的 API。这可以防止诸如使用 Windows 特有的 API 然后将其编译到 macOS，从而导致链接错误或运行时未定义行为的情况。
 
@@ -118,9 +118,9 @@ kotlin {
 
 要解决此问题，请通过执行以下任一操作来配置你的项目：
 
-* [用默认分层模板替换你的手动配置](#replacing-a-manual-configuration)
-* [在默认分层模板中创建额外的源代码集](#creating-additional-source-sets)
-* [修改由默认分层模板创建的源代码集](#modifying-source-sets)
+*   [用默认分层模板替换你的手动配置](#replacing-a-manual-configuration)
+*   [在默认分层模板中创建额外的源代码集](#creating-additional-source-sets)
+*   [修改由默认分层模板创建的源代码集](#modifying-source-sets)
 
 #### 替换手动配置
 
@@ -134,8 +134,8 @@ kotlin {
 
 **解决方案**：
 
-1. 在共享模块的 `build.gradle(.kts)` 文件中，通过显式调用 `applyDefaultHierarchyTemplate()` 重新应用模板。
-2. 使用 `dependsOn()` [手动](#manual-configuration)配置额外的源代码集：
+1.  在共享模块的 `build.gradle(.kts)` 文件中，通过显式调用 `applyDefaultHierarchyTemplate()` 重新应用模板。
+2.  使用 `dependsOn()` [手动](#manual-configuration)配置额外的源代码集：
 
     <Tabs group="build-script">
     <TabItem title="Kotlin" group-key="kotlin">
@@ -201,8 +201,8 @@ kotlin {
 
 但是，你仍然可以执行以下任一操作：
 
-* 找到适用于你目的的不同源代码集，无论是在默认分层模板中还是手动创建的。
-* 通过在 `gradle.properties` 文件中添加 `kotlin.mpp.applyDefaultHierarchyTemplate=false` 来完全退出模板，并手动配置所有源代码集。
+*   找到适用于你目的的不同源代码集，无论是在默认分层模板中还是手动创建的。
+*   通过在 `gradle.properties` 文件中添加 `kotlin.mpp.applyDefaultHierarchyTemplate=false` 来完全退出模板，并手动配置所有源代码集。
 
 > 我们目前正在开发一个 API 来创建你自己的分层模板。这将对层级配置与默认模板显著不同的项目很有用。
 >
@@ -226,8 +226,8 @@ kotlin {
 
 例如，如果你想在原生 Linux、Windows 和 macOS 目标（`linuxX64`、`mingwX64` 和 `macosX64`）之间共享代码，可以这样做：
 
-1. 在共享模块的 `build.gradle(.kts)` 文件中，添加中间源代码集 `desktopMain`，它将包含这些目标的共享逻辑。
-2. 使用 `dependsOn` 关联，设置源代码集层级结构。将 `commonMain` 与 `desktopMain` 连接，然后将 `desktopMain` 与每个目标源代码集连接：
+1.  在共享模块的 `build.gradle(.kts)` 文件中，添加中间源代码集 `myDesktopMain`，它将包含这些目标的共享逻辑。
+2.  使用 `dependsOn` 关联，设置源代码集层级结构。将 `commonMain` 与 `myDesktopMain` 连接，然后将 `myDesktopMain` 与每个目标源代码集连接：
 
     <Tabs group="build-script">
     <TabItem title="Kotlin" group-key="kotlin">
@@ -239,13 +239,13 @@ kotlin {
         macosX64()
     
         sourceSets {
-            val desktopMain by creating {
+            val myDesktopMain by creating {
                 dependsOn(commonMain.get())
             }
     
-            linuxX64Main.get().dependsOn(desktopMain)
-            mingwX64Main.get().dependsOn(desktopMain)
-            macosX64Main.get().dependsOn(desktopMain)
+            linuxX64Main.get().dependsOn(myDesktopMain)
+            mingwX64Main.get().dependsOn(myDesktopMain)
+            macosX64Main.get().dependsOn(myDesktopMain)
         }
     }
     ```
@@ -260,17 +260,17 @@ kotlin {
         macosX64()
     
         sourceSets {
-            desktopMain {
+            myDesktopMain {
                 dependsOn(commonMain.get())
             }
             linuxX64Main {
-                dependsOn(desktopMain)
+                dependsOn(myDesktopMain)
             }
             mingwX64Main {
-                dependsOn(desktopMain)
+                dependsOn(myDesktopMain)
             }
             macosX64Main {
-                dependsOn(desktopMain)
+                dependsOn(myDesktopMain)
             }
         }
     }
@@ -285,16 +285,16 @@ kotlin {
 
 你可以为以下目标组合共享源代码集：
 
-* JVM 或 Android + JS + Native
-* JVM 或 Android + Native
-* JS + Native
-* JVM 或 Android + JS
-* Native
+*   JVM 或 Android + Web + Native
+*   JVM 或 Android + Native
+*   Web + Native
+*   JVM 或 Android + Web
+*   Native
 
 Kotlin 目前不支持为以下组合共享源代码集：
 
-* 多个 JVM 目标
-* JVM + Android 目标
-* 多个 JS 目标
+*   多个 JVM 目标
+*   JVM + Android 目标
+*   多个 JS 目标
 
 如果你需要从共享的原生源代码集访问平台特有的 API，IntelliJ IDEA 将帮助你检测可以在共享原生代码中使用的公共声明。对于其他情况，请使用 Kotlin 的[预期与实际声明](multiplatform-expect-actual.md)机制。

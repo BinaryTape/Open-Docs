@@ -61,10 +61,10 @@ import ai.koog.agents.mcp.McpToolRegistryProvider
 import ai.koog.agents.mcp.defaultStdioTransport
 -->
 ```kotlin
-// 启动一个 MCP 服务器（例如，作为进程）
+// Start an MCP server (for example, as a process)
 val process = ProcessBuilder("path/to/mcp/server").start()
 
-// 创建 stdio 传输
+// Create the stdio transport 
 val transport = McpToolRegistryProvider.defaultStdioTransport(process)
 ```
 <!--- KNIT example-model-context-protocol-01.kt -->
@@ -77,7 +77,7 @@ val transport = McpToolRegistryProvider.defaultStdioTransport(process)
 import ai.koog.agents.mcp.McpToolRegistryProvider
 -->
 ```kotlin
-// 创建 SSE 传输
+// Create the SSE transport
 val transport = McpToolRegistryProvider.defaultSseTransport("http://localhost:8931")
 ```
 <!--- KNIT example-model-context-protocol-02.kt -->
@@ -101,7 +101,7 @@ fun main() {
 }
 -->
 ```kotlin
-// 从 MCP 服务器创建带有工具的工具注册表
+// Create a tool registry with tools from the MCP server
 val toolRegistry = McpToolRegistryProvider.fromTransport(
     transport = transport,
     name = "my-client",
@@ -127,7 +127,7 @@ fun main() {
 }
 -->
 ```kotlin
-// 从现有 MCP 客户端创建工具注册表
+// Create a tool registry from an existing MCP client
 val toolRegistry = McpToolRegistryProvider.fromClient(
     mcpClient = existingMcpClient
 )
@@ -160,7 +160,7 @@ fun main() {
 }
 -->
 ```kotlin
-// 创建带有工具的智能体
+// Create an agent with the tools
 val agent = AIAgent(
     promptExecutor = executor,
     strategy = strategy,
@@ -168,7 +168,7 @@ val agent = AIAgent(
     toolRegistry = toolRegistry
 )
 
-// 运行智能体，执行使用 MCP 工具的任务
+// Run the agent with a task that uses an MCP tool
 val result = agent.run("Use the MCP tool to perform a task")
 ```
 <!--- KNIT example-model-context-protocol-05.kt -->
@@ -306,19 +306,19 @@ fun main() {
 }
 -->
 ```kotlin
-// 启动带有 Google Maps MCP 服务器的 Docker 容器
+// Start the Docker container with the Google Maps MCP server
 val process = ProcessBuilder(
     "docker", "run", "-i",
     "-e", "GOOGLE_MAPS_API_KEY=$googleMapsApiKey",
     "mcp/google-maps"
 ).start()
 
-// 从 MCP 服务器创建带有工具的 ToolRegistry
+// Create the ToolRegistry with tools from the MCP server
 val toolRegistry = McpToolRegistryProvider.fromTransport(
     transport = McpToolRegistryProvider.defaultStdioTransport(process)
 )
 
-// 创建并运行智能体
+// Create and run the agent
 val agent = AIAgent(
     promptExecutor = simpleOpenAIExecutor(openAIApiToken),
     llmModel = OpenAIModels.Chat.GPT4o,
@@ -349,17 +349,17 @@ fun main() {
 }
 -->
 ```kotlin
-// 启动 Playwright MCP 服务器
+// Start the Playwright MCP server
 val process = ProcessBuilder(
     "npx", "@playwright/mcp@latest", "--port", "8931"
 ).start()
 
-// 从 MCP 服务器创建带有工具的 ToolRegistry
+// Create the ToolRegistry with tools from the MCP server
 val toolRegistry = McpToolRegistryProvider.fromTransport(
     transport = McpToolRegistryProvider.defaultSseTransport("http://localhost:8931")
 )
 
-// 创建并运行智能体
+// Create and run the agent
 val agent = AIAgent(
     promptExecutor = simpleOpenAIExecutor(openAIApiToken),
     llmModel = OpenAIModels.Chat.GPT4o,

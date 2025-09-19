@@ -6,7 +6,7 @@
 瞭解處理網路請求的引擎。
 </link-summary>
 
-為了執行 Ktor 伺服器應用程式，您需要先 [建立](server-create-and-configure.topic) 並設定伺服器。
+要執行 Ktor 伺服器應用程式，您需要先 [建立](server-create-and-configure.topic) 並設定伺服器。
 伺服器設定包含不同的設定：
 
 - 一個用於處理網路請求的 [引擎](#supported-engines)。
@@ -29,10 +29,10 @@
 
 在使用所需的引擎之前，您需要將對應的依賴項新增到您的 [建置腳本](server-dependencies.topic) 中：
 
-* `ktor-server-netty`
-* `ktor-server-jetty-jakarta`
-* `ktor-server-tomcat-jakarta`
-* `ktor-server-cio`
+*   `ktor-server-netty`
+*   `ktor-server-jetty-jakarta`
+*   `ktor-server-tomcat-jakarta`
+*   `ktor-server-cio`
 
 以下是為 Netty 新增依賴項的範例：
 
@@ -51,11 +51,15 @@
 
 ## 選擇如何建立伺服器 {id="choose-create-server"}
 
-Ktor 伺服器應用程式可以透過 [兩種方式建立和執行](server-create-and-configure.topic#embedded)：使用 [embeddedServer](#embeddedServer) 在程式碼中快速傳遞伺服器參數，或使用 [EngineMain](#EngineMain) 從外部的 `application.conf` 或 `application.yaml` 檔案載入設定。
+Ktor 伺服器應用程式可以透過 [兩種方式建立和執行](server-create-and-configure.topic#embedded)：使用
+[`embeddedServer`](#embeddedServer) 在程式碼中快速傳遞伺服器參數，或使用 [`EngineMain`](#EngineMain) 從外部的 `application.conf` 或 `application.yaml` 檔案載入設定。
 
 ### embeddedServer {id="embeddedServer"}
 
-[`embeddedServer()`](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.engine/embedded-server.html) 函式接受一個引擎工廠，用於建立特定類型的引擎。在下面的範例中，我們傳遞 [`Netty`](https://api.ktor.io/ktor-server/ktor-server-netty/io.ktor.server.netty/-netty/index.html) 工廠以 Netty 引擎執行伺服器並監聽 `8080` 連接埠：
+[`embeddedServer()`](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.engine/embedded-server.html)
+函式接受一個引擎工廠，用於建立特定類型的引擎。在下面的範例中，我們傳遞
+[`Netty`](https://api.ktor.io/ktor-server/ktor-server-netty/io.ktor.server.netty/-netty/index.html) 工廠以 Netty 引擎執行
+伺服器並監聽 `8080` 連接埠：
 
 ```kotlin
 import io.ktor.server.response.*
@@ -78,12 +82,14 @@ fun main(args: Array<String>) {
 
 `EngineMain` 代表一個用於執行伺服器的引擎。您可以使用以下引擎：
 
-* `io.ktor.server.netty.EngineMain`
-* `io.ktor.server.jetty.jakarta.EngineMain`
-* `io.ktor.server.tomcat.jakarta.EngineMain`
-* `io.ktor.server.cio.EngineMain`
+*   `io.ktor.server.netty.EngineMain`
+*   `io.ktor.server.jetty.jakarta.EngineMain`
+*   `io.ktor.server.tomcat.jakarta.EngineMain`
+*   `io.ktor.server.cio.EngineMain`
 
-`EngineMain.main` 函式用於以選定的引擎啟動伺服器，並載入外部 [設定檔](server-configuration-file.topic) 中指定的 [應用程式模組](server-modules.md)。在下面的範例中，我們從應用程式的 `main` 函式啟動伺服器：
+`EngineMain.main` 函式用於以選定的引擎啟動伺服器，並載入
+外部 [設定檔](server-configuration-file.topic) 中指定的 [應用程式模組](server-modules.md)。在
+下面的範例中，我們從應用程式的 `main` 函式啟動伺服器：
 
 <Tabs>
 <TabItem title="Application.kt">
@@ -182,7 +188,8 @@ mainClassName = "io.ktor.server.netty.EngineMain"
     類別公開。
 </p>
 <p>
-    下面的範例展示了如何使用 <code>Netty</code> 引擎設定伺服器。在 <code>configure</code> 區塊內，我們定義了一個 <code>connector</code> 來指定主機和連接埠，並自訂各種伺服器參數：
+    下面的範例展示了如何使用 <code>Netty</code> 引擎設定伺服器。在 <code>configure</code> 區塊內，我們定義了一個 <code>connector</code> 來指定主機和連接埠，並
+    自訂各種伺服器參數：
 </p>
 <code-block lang="kotlin" code="import io.ktor.server.response.*&#10;import io.ktor.server.routing.*&#10;import io.ktor.server.engine.*&#10;import io.ktor.server.netty.*&#10;&#10;fun main(args: Array&lt;String&gt;) {&#10;    embeddedServer(Netty, configure = {&#10;        connectors.add(EngineConnectorBuilder().apply {&#10;            host = &quot;127.0.0.1&quot;&#10;            port = 8080&#10;        })&#10;        connectionGroupSize = 2&#10;        workerGroupSize = 5&#10;        callGroupSize = 10&#10;        shutdownGracePeriod = 2000&#10;        shutdownTimeout = 3000&#10;    }) {&#10;        routing {&#10;            get(&quot;/&quot;) {&#10;                call.respondText(&quot;Hello, world!&quot;)&#10;            }&#10;        }&#10;    }.start(wait = true)&#10;}"/>
 <p>

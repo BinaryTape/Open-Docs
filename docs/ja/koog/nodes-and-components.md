@@ -328,9 +328,9 @@ edge(executeMultipleTools forwardTo sendMultipleToolResultsToLLM)
 
 事前定義されたサブグラフを使用すると、さまざまな一般的なパイプラインを実装できます。以下に例を示します。
 
-1. データを準備する。
-2. タスクを実行する。
-3. タスク結果を検証する。結果が正しくない場合、調整を行うためのフィードバックメッセージとともにステップ2に戻る。
+1.  データを準備する。
+2.  タスクを実行する。
+3.  タスク結果を検証する。結果が正しくない場合、調整を行うためのフィードバックメッセージとともにステップ2に戻る。
 
 ### subgraphWithTask
 
@@ -522,7 +522,7 @@ fun toolBasedStrategy(name: String, toolRegistry: ToolRegistry): AIAgentGraphStr
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.forwardTo
 import ai.koog.agents.core.dsl.builder.strategy
-import ai.koog.agents.example.exampleStreamingApi08.Book
+import ai.koog.agents.example.exampleStreamingApi03.Book
 import ai.koog.agents.example.exampleStreamingApi04.markdownBookDefinition
 import ai.koog.agents.example.exampleStreamingApi06.parseMarkdownStreamToBooks
 -->

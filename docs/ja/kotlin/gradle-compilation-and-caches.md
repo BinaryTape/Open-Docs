@@ -66,7 +66,7 @@ Kotlinプラグインは[Gradleコンフィグレーションキャッシュ](ht
 
 ## KotlinデーモンとGradleでの使用方法
 
-Kotlinデーモン：
+[Kotlinデーモン](kotlin-daemon.md)は、以下の通りです。
 *   プロジェクトをコンパイルするためにGradleデーモンとともに実行されます。
 *   IntelliJ IDEA内蔵のビルドシステムでプロジェクトをコンパイルする場合、Gradleデーモンとは別に実行されます。
 
@@ -233,17 +233,17 @@ Kotlin 2.0.0以降で以前のコンパイラを使用するには、以下の�
     または
 *   以下のコンパイラオプションを使用します：`-language-version 1.9`。
 
-K2コンパイラの利点の詳細については、[K2コンパイラの移行ガイド](k2-compiler-migration-guide.md)を参照してください。
+K2コンパイラの利点の詳細については、[K2コンパイラ移行ガイド](k2-compiler-migration-guide.md)を参照してください。
 
 ## Kotlinコンパイラ実行戦略の定義
 
-*Kotlinコンパイラ実行戦略*は、Kotlinコンパイラがどこで実行されるか、そして各ケースでインクリメンタルコンパイルがサポートされるかどうかを定義します。
+_Kotlinコンパイラ実行戦略_は、Kotlinコンパイラがどこで実行されるか、そして各ケースでインクリメンタルコンパイルがサポートされるかどうかを定義します。
 
 コンパイラ実行戦略は3つあります。
 
 | 戦略              | Kotlinコンパイラの実行場所 | インクリメンタルコンパイル | その他の特性と注意点                                                                                                                                                                                                                                                                           |
 |-------------------|----------------------------|----------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Daemon            | 独自のデーモンプロセス内     | あり                       | _デフォルトかつ最速の戦略_。異なるGradleデーモン間や複数の並行コンパイルで共有できます。                                                                                                                                                         |
+| Kotlinデーモン  | 独自のデーモンプロセス内     | あり                       | _デフォルトかつ最速の戦略_。異なるGradleデーモン間や複数の並行コンパイルで共有できます。                                                                                                                                                         |
 | In process        | Gradleデーモンプロセス内     | なし                       | Gradleデーモンとヒープを共有する場合があります。「インプロセス」実行戦略は「デーモン」実行戦略よりも_低速_です。各[ワーカー](https://docs.gradle.org/current/userguide/worker_api.html)は、コンパイルごとに個別のKotlinコンパイラクラスローダーを作成します。 |
 | Out of process    | コンパイルごとに別プロセス | なし                       | 最も低速な実行戦略です。「インプロセス」に似ていますが、さらに各コンパイルごとにGradleワーカー内に個別のJavaプロセスを作成します。                                                                                                                     |
 
@@ -282,7 +282,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompilerExecutionStrategy
 
 tasks.withType<CompileUsingKotlinDaemon>().configureEach {
     compilerExecutionStrategy.set(KotlinCompilerExecutionStrategy.IN_PROCESS)
-}
+} 
 ```
 
 </tab>
@@ -306,8 +306,8 @@ tasks.withType(CompileUsingKotlinDaemon)
 ## Kotlinコンパイラのフォールバック戦略
 
 Kotlinコンパイラのフォールバック戦略は、デーモンが何らかの形で失敗した場合に、Kotlinデーモン外でコンパイルを実行することです。
-Gradleデーモンがオンの場合、コンパイラは「インプロセス」戦略](#defining-kotlin-compiler-execution-strategy)を使用します。
-Gradleデーモンがオフの場合、コンパイラは「アウトオブプロセス」戦略を使用します。
+Gradleデーモンがオンの場合、コンパイラは[「In process」戦略](#defining-kotlin-compiler-execution-strategy)を使用します。
+Gradleデーモンがオフの場合、コンパイラは「Out of process」戦略を使用します。
 
 このフォールバックが発生した場合、Gradleのビルド出力に以下の警告行が表示されます。
 
@@ -336,7 +336,7 @@ Kotlinコンパイルタスクには`useDaemonFallbackStrategy`プロパティ�
 tasks {
     compileKotlin {
         useDaemonFallbackStrategy.set(false)
-    }
+    }   
 }
 ```
 
@@ -363,7 +363,7 @@ Kotlin 2.0.0以降、最新の言語バージョンを試すには、`gradle.pro
 
 ```shell
 ./gradlew assemble -Pkotlin.experimental.tryNext=true
-```
+``` 
 
 [ビルドレポート](#build-reports)では、各タスクのコンパイルに使用された言語バージョンを確認できます。
 

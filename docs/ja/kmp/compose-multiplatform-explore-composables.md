@@ -111,7 +111,7 @@ fun MainViewController() = ComposeUIViewController { App() }
 
 ### デスクトップの場合
 
-デスクトップの場合、`composeApp/src/desktopMain/kotlin`にある`main()`関数を見てください。
+デスクトップの場合、`composeApp/src/jvmMain/kotlin`にある`main()`関数を見てください。
 
 ```kotlin
 fun main() = application {

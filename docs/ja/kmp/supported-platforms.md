@@ -1,6 +1,6 @@
 [//]: # (title: サポートされているプラットフォームの安定性)
 
-Kotlin Multiplatformを使用すると、様々なプラットフォーム向けにアプリケーションを作成し、コードを共有することで、ユーザーが好むデバイスで利用できるようになります。各プラットフォームは、コード共有のためのコアKotlin Multiplatformテクノロジーと、Compose Multiplatform UIフレームワークによるサポートに基づいて、異なる安定性レベルを持つ場合があります。
+Kotlin Multiplatformを使用すると、様々なプラットフォーム向けにアプリケーションを作成し、コードを共有することで、ユーザーがお気に入りのデバイスでアプリケーションを利用できるようにします。異なるプラットフォームは、コード共有のためのコアKotlin Multiplatformテクノロジーと、Compose Multiplatform UIフレームワークによるサポートに基づいて、様々な安定性レベルを持つ場合があります。
 
 このページには、プロジェクトのニーズに合ったプラットフォームを特定するのに役立つ情報と、その安定性レベルの詳細が記載されています。
 
@@ -10,7 +10,7 @@ Kotlinにおける安定性レベルとその意味について簡単に説明�
 
 **Experimental** は「おもちゃのプロジェクトでのみ試してください」という意味です。
 
-*   これは私たちがアイデアを試している段階で、ユーザーに触れてもらいフィードバックを求めています。うまくいかなければ、いつでも中止する可能性があります。
+*   私たちはアイデアを試している段階であり、何人かのユーザーに触れてもらいフィードバックを求めています。うまくいかなければ、いつでも中止する可能性があります。
 
 **Alpha** は「自己責任で使用してください、移行の問題が予想されます」という意味です。
 
@@ -38,7 +38,7 @@ _Experimental_、_Alpha_、_Beta_ を総称して **プレ安定版** レベル�
 | iOS                      | Stable          |
 | Desktop (JVM)            | Stable          |
 | Server-side (JVM)        | Stable          |
-| Web based on Kotlin/Wasm | Alpha           |
+| Web based on Kotlin/Wasm | Beta            |
 | Web based on Kotlin/JS   | Stable          |
 | watchOS                  | Beta            |
 | tvOS                     | Beta            |
@@ -78,7 +78,7 @@ Compose Multiplatform UIフレームワークにおけるプラットフォー�
 | Android                  | Stable          |
 | iOS                      | Stable          |
 | Desktop (JVM)            | Stable          |
-| Web based on Kotlin/Wasm | Alpha           |
+| Web based on Kotlin/Wasm | Beta            |
 
 ## 次のステップ
 

@@ -122,7 +122,7 @@ reformat(
 )
 ```
 
-デフォルト値を持つすべての引数をスキップできます：
+すべてのデフォルト値を持つ引数をスキップできます：
 
 ```kotlin
 reformat("This is a long String!")
@@ -334,7 +334,7 @@ fun <T> singletonList(item: T): List<T> { /*...*/ }
 Kotlinは[末尾再帰](https://en.wikipedia.org/wiki/Tail_call)として知られる関数型プログラミングのスタイルをサポートしています。通常ループを使用する一部のアルゴリズムでは、スタックオーバーフローのリスクなしに再帰関数を使用できます。`tailrec`修飾子でマークされ、必要な形式的条件を満たしている場合、コンパイラは再帰を最適化し、高速で効率的なループベースのバージョンに置き換えます：
 
 ```kotlin
-val eps = 1E-10 // "十分良い"、10^-15でも可
+val eps = 1E-10 // 「十分良い」、10^-15でも可
 
 tailrec fun findFixPoint(x: Double = 1.0): Double =
     if (Math.abs(x - Math.cos(x)) < eps) x else findFixPoint(Math.cos(x))
@@ -343,7 +343,7 @@ tailrec fun findFixPoint(x: Double = 1.0): Double =
 このコードは、数学定数であるコサインの`不動点`を計算します。これは、`1.0`から開始して結果が変化しなくなるまで`Math.cos`を繰り返し呼び出し、指定された`eps`精度で`0.7390851332151611`という結果を生成します。結果として得られるコードは、より伝統的な以下のスタイルと同等です：
 
 ```kotlin
-val eps = 1E-10 // "十分良い"、10^-15でも可
+val eps = 1E-10 // 「十分良い」、10^-15でも可
 
 private fun findFixPoint(): Double {
     var x = 1.0

@@ -15,11 +15,11 @@
 
 チャットエージェント戦略は、エージェントが以下のパターンを実装します。
 
-1. ユーザー入力の受信
-2. LLMを使用した入力の処理
-3. ツールの呼び出し、または直接的な応答の提供
-4. ツール結果の処理と会話の継続
-5. LLMがツールを使用せずにプレーンテキストで応答しようとした場合のフィードバック提供
+1.  ユーザー入力の受信
+2.  LLMを使用した入力の処理
+3.  ツールの呼び出し、または直接的な応答の提供
+4.  ツール結果の処理と会話の継続
+5.  LLMがツールを使用せずにプレーンテキストで応答しようとした場合のフィードバック提供
 
 このアプローチにより、エージェントがユーザー要求を満たすためにツールを使用できる会話型インターフェースが作成されます。
 
@@ -50,7 +50,7 @@ val chatAgent = AIAgent(
     promptExecutor = promptExecutor,
     toolRegistry = toolRegistry,
     llmModel = model,
-    // chatAgentStrategyをエージェント戦略として設定
+    // Set chatAgentStrategy as the agent strategy
     strategy = chatAgentStrategy()
 )
 ```
@@ -60,10 +60,10 @@ val chatAgent = AIAgent(
 
 チャットエージェント戦略は、特に以下の状況で役立ちます。
 
-- ツールを使用する必要がある会話型エージェントの構築
-- ユーザー要求に基づいてアクションを実行できるアシスタントの作成
-- 外部システムやデータにアクセスする必要があるチャットボットの実装
-- プレーンテキストの応答ではなく、ツールの使用を強制したいシナリオ
+-   ツールを使用する必要がある会話型エージェントの構築
+-   ユーザー要求に基づいてアクションを実行できるアシスタントの作成
+-   外部システムやデータにアクセスする必要があるチャットボットの実装
+-   プレーンテキストの応答ではなく、ツールの使用を強制したいシナリオ
 
 ### 例
 
@@ -90,9 +90,9 @@ val model =  OpenAIModels.Reasoning.O4Mini
 val chatAgent = AIAgent(
     promptExecutor = promptExecutor,
     llmModel = model,
-    // chatAgentStrategyをエージェント戦略として使用
+    // Use chatAgentStrategy as the agent strategy
     strategy = chatAgentStrategy(),
-    // エージェントが使用できるツールを追加
+    // Add tools the agent can use
     toolRegistry = ToolRegistry {
         tool(searchTool)
         tool(weatherTool)
@@ -100,7 +100,7 @@ val chatAgent = AIAgent(
 )
 
 suspend fun main() { 
-    // ユーザーのクエリでエージェントを実行
+    // Run the agent with a user query
     val result = chatAgent.run("What's the weather like today and should I bring an umbrella?")
 }
 ```
@@ -114,10 +114,10 @@ ReAct（Reasoning and Acting）戦略は、推論と実行の段階を交互に�
 
 ReAct戦略は、エージェントが以下のパターンを実装します。
 
-1. 現在の状態について推論し、次のステップを計画する
-2. その推論に基づいて行動を起こす
-3. それらの行動の結果を観察する
-4. サイクルを繰り返す
+1.  現在の状態について推論し、次のステップを計画する
+2.  その推論に基づいて行動を起こす
+3.  それらの行動の結果を観察する
+4.  サイクルを繰り返す
 
 このアプローチは、推論（問題を段階的に考える）と行動（情報収集や操作実行のためにツールを実行する）の強みを組み合わせています。
 
@@ -156,9 +156,9 @@ val reActAgent = AIAgent(
     promptExecutor = promptExecutor,
     toolRegistry = toolRegistry,
     llmModel = model,
-    // reActStrategyをエージェント戦略として設定
+    // Set reActStrategy as the agent strategy
     strategy = reActStrategy(
-        // オプションのパラメータ値を設定
+        // Set optional parameter values
         reasoningInterval = 1,
         name = "react_agent"
     )
@@ -251,10 +251,10 @@ You spent $800.00 last month on groceries, rent, and utilities.
 
 ReAct戦略は、特に以下の状況で役立ちます。
 
-- 多段階の推論を必要とする複雑なタスク
-- エージェントが最終的な回答を提供する前に情報を収集する必要があるシナリオ
-- 小さなステップに分解することで解決が容易になる問題
-- 分析的思考とツールの使用の両方を必要とするタスク
+-   多段階の推論を必要とする複雑なタスク
+-   エージェントが最終的な回答を提供する前に情報を収集する必要があるシナリオ
+-   小さなステップに分解することで解決が容易になる問題
+-   分析的思考とツールの使用の両方を必要とするタスク
 
 ### 例
 
@@ -283,12 +283,12 @@ val model =  OpenAIModels.Reasoning.O4Mini
 val bankingAgent = AIAgent(
     promptExecutor = promptExecutor,
     llmModel = model,
-    // reActStrategyをエージェント戦略として使用
+    // Use reActStrategy as the agent strategy
     strategy = reActStrategy(
         reasoningInterval = 1,
         name = "banking_agent"
     ),
-    // エージェントが使用できるツールを追加
+    // Add tools the agent can use
     toolRegistry = ToolRegistry {
         tool(getTransactions)
         tool(calculateSum)
@@ -296,7 +296,7 @@ val bankingAgent = AIAgent(
 )
 
 suspend fun main() { 
-    // ユーザーのクエリでエージェントを実行
+    // Run the agent with a user query
     val result = bankingAgent.run("How much did I spend last month?")
 }
 ```

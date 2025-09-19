@@ -60,32 +60,32 @@ fun main() {
 }
 -->
 ```kotlin
-// Create an embedder using Ollama
+// Ollama を使用してエンベッダーを作成
 val embedder = LLMEmbedder(OllamaClient(), OllamaEmbeddingModels.NOMIC_EMBED_TEXT)
-// You may also use OpenAI embeddings with:
+// OpenAI の埋め込みも使用できます:
 // val embedder = LLMEmbedder(OpenAILLMClient("API_KEY"), OpenAIModels.Embeddings.TextEmbeddingAda3Large)
 
-// Create a JVM-specific document embedder
+// JVM 固有のドキュメントエンベッダーを作成
 val documentEmbedder = JVMTextDocumentEmbedder(embedder)
 
-// Create a ranked document storage using in-memory vector storage
+// インメモリベクトルストレージを使用してランク付けされたドキュメントストレージを作成
 val rankedDocumentStorage = EmbeddingBasedDocumentStorage(documentEmbedder, InMemoryVectorStorage())
 
-// Store documents in the storage
+// ストレージにドキュメントを保存
 rankedDocumentStorage.store(Path.of("./my/documents/doc1.txt"))
 rankedDocumentStorage.store(Path.of("./my/documents/doc2.txt"))
 rankedDocumentStorage.store(Path.of("./my/documents/doc3.txt"))
-// ... store more documents as needed
+// ... 必要に応じてさらにドキュメントを保存
 rankedDocumentStorage.store(Path.of("./my/documents/doc100.txt"))
 
-// Find the most relevant documents for a user query
+// ユーザーのクエリに最も関連性の高いドキュメントを見つける
 val query = "I want to open a bank account but I'm getting a 404 when I open your website. I used to be your client with a different account 5 years ago before you changed your firm name"
 val relevantFiles = rankedDocumentStorage.mostRelevantDocuments(query, count = 3)
 
-// Process the relevant files
+// 関連ファイルを処理
 relevantFiles.forEach { file ->
     println("Relevant file: ${file.toAbsolutePath()}")
-    // Process the file content as needed
+    // 必要に応じてファイルコンテンツを処理
 }
 ```
 <!--- KNIT example-ranked-document-storage-01.kt -->
@@ -111,15 +111,15 @@ import ai.koog.rag.vector.InMemoryVectorStorage
 import ai.koog.rag.vector.JVMTextDocumentEmbedder
 import kotlin.io.path.pathString
 
-// Create an embedder using Ollama
+// Ollama を使用してエンベッダーを作成
 val embedder = LLMEmbedder(OllamaClient(), OllamaEmbeddingModels.NOMIC_EMBED_TEXT)
-// You may also use OpenAI embeddings with:
+// OpenAI の埋め込みも使用できます:
 // val embedder = LLMEmbedder(OpenAILLMClient("API_KEY"), OpenAIModels.Embeddings.TextEmbeddingAda3Large)
 
-// Create a JVM-specific document embedder
+// JVM 固有のドキュメントエンベッダーを作成
 val documentEmbedder = JVMTextDocumentEmbedder(embedder)
 
-// Create a ranked document storage using in-memory vector storage
+// インメモリベクトルストレージを使用してランク付けされたドキュメントストレージを作成
 val rankedDocumentStorage = EmbeddingBasedDocumentStorage(documentEmbedder, InMemoryVectorStorage())
 
 const val apiKey = "apikey"
@@ -127,10 +127,10 @@ const val apiKey = "apikey"
 -->
 ```kotlin
 suspend fun solveUserRequest(query: String) {
-    // Retrieve top-5 documents from the document provider
+    // ドキュメントプロバイダーから上位 5 つのドキュメントを取得
     val relevantDocuments = rankedDocumentStorage.mostRelevantDocuments(query, count = 5)
 
-    // Create an AI Agent with the relevant context
+    // 関連コンテキストを持つ AI エージェントを作成
     val agentConfig = AIAgentConfig(
         prompt = prompt("context") {
             system("You are a helpful assistant. Use the provided context to answer the user's question accurately.")
@@ -143,7 +143,7 @@ suspend fun solveUserRequest(query: String) {
                 }
             }
         },
-        model = OpenAIModels.Chat.GPT4o, // Or a different model of your choice
+        model = OpenAIModels.Chat.GPT4o, // または、選択した別のモデル
         maxAgentIterations = 100,
     )
 
@@ -152,10 +152,10 @@ suspend fun solveUserRequest(query: String) {
         llmModel = OpenAIModels.Chat.GPT4o
     )
 
-    // Run the agent to get a response
+    // エージェントを実行して応答を取得
     val response = agent.run(query)
 
-    // Return or process the response
+    // 応答を返すか処理
     println("Agent response: $response")
 }
 ```
@@ -185,15 +185,15 @@ import ai.koog.rag.vector.JVMTextDocumentEmbedder
 import kotlinx.coroutines.runBlocking
 import java.nio.file.Files
 
-// Create an embedder using Ollama
+// Ollama を使用してエンベッダーを作成
 val embedder = LLMEmbedder(OllamaClient(), OllamaEmbeddingModels.NOMIC_EMBED_TEXT)
-// You may also use OpenAI embeddings with:
+// OpenAI の埋め込みも使用できます:
 // val embedder = LLMEmbedder(OpenAILLMClient("API_KEY"), OpenAIModels.Embeddings.TextEmbeddingAda3Large)
 
-// Create a JVM-specific document embedder
+// JVM 固有のドキュメントエンベッダーを作成
 val documentEmbedder = JVMTextDocumentEmbedder(embedder)
 
-// Create a ranked document storage using in-memory vector storage
+// インメモリベクトルストレージを使用してランク付けされたドキュメントストレージを作成
 val rankedDocumentStorage = EmbeddingBasedDocumentStorage(documentEmbedder, InMemoryVectorStorage())
 
 const val apiKey = "apikey"
@@ -215,14 +215,14 @@ suspend fun searchDocuments(
         return "No relevant documents found for the query: $query"
     }
 
-    val result = StringBuilder("Found ${relevantDocuments.size} relevant documents:
+    val result = StringBuilder("関連ドキュメントが ${relevantDocuments.size} 件見つかりました:
 \n")
 
     relevantDocuments.forEachIndexed { index, document ->
         val content = Files.readString(document)
-        result.append("Document ${index + 1}: ${document.fileName}
+        result.append("ドキュメント ${index + 1}: ${document.fileName}
 ")
-        result.append("Content: $content
+        result.append("コンテンツ: $content
 \n")
     }
 
@@ -481,15 +481,15 @@ import kotlinx.coroutines.flow.flow
 import java.nio.file.Path
 -->
 ```kotlin
-// Define a PDFDocument class
+// PDFDocument クラスを定義
 class PDFDocument(private val path: Path) {
     fun readText(): String {
-        // Use a PDF library to extract text from the PDF
+        // PDF ライブラリを使用して PDF からテキストを抽出
         return "Text extracted from PDF at $path"
     }
 }
 
-// Implement a DocumentProvider for PDFDocument
+// PDFDocument 用の DocumentProvider を実装
 class PDFDocumentProvider : DocumentProvider<Path, PDFDocument> {
     override suspend fun document(path: Path): PDFDocument? {
         return if (path.toString().endsWith(".pdf")) {
@@ -504,7 +504,7 @@ class PDFDocumentProvider : DocumentProvider<Path, PDFDocument> {
     }
 }
 
-// Implement a DocumentEmbedder for PDFDocument
+// PDFDocument 用の DocumentEmbedder を実装
 class PDFDocumentEmbedder(private val embedder: Embedder) : DocumentEmbedder<PDFDocument> {
     override suspend fun embed(document: PDFDocument): Vector {
         val text = document.readText()
@@ -520,7 +520,7 @@ class PDFDocumentEmbedder(private val embedder: Embedder) : DocumentEmbedder<PDF
     }
 }
 
-// Create a custom vector storage for PDF documents
+// PDF ドキュメント用のカスタムベクトルストレージを作成
 class PDFVectorStorage(
     private val pdfProvider: PDFDocumentProvider,
     private val embedder: PDFDocumentEmbedder,
@@ -558,7 +558,7 @@ class PDFVectorStorage(
     }
 }
 
-// Usage example
+// 使用例
 suspend fun main() {
     val pdfProvider = PDFDocumentProvider()
     val embedder = LLMEmbedder(OllamaClient(), OllamaEmbeddingModels.NOMIC_EMBED_TEXT)
@@ -566,11 +566,11 @@ suspend fun main() {
     val storage = InMemoryVectorStorage<PDFDocument>()
     val pdfStorage = PDFVectorStorage(pdfProvider, pdfEmbedder, storage)
 
-    // Store PDF documents
+    // PDF ドキュメントを保存
     val pdfDocument = PDFDocument(Path.of("./documents/sample.pdf"))
     pdfStorage.store(pdfDocument)
 
-    // Query for relevant PDF documents
+    // 関連する PDF ドキュメントをクエリ
     val relevantPDFs = pdfStorage.mostRelevantDocuments("information about climate change", count = 3)
 
 }
@@ -605,15 +605,15 @@ class KeywordBasedDocumentStorage<Document>(
 ) : RankedDocumentStorage<Document> {
 
     override fun rankDocuments(query: String): Flow<RankedDocument<Document>> = flow {
-        // Split the query into keywords
+        // クエリをキーワードに分割
         val keywords = query.lowercase().split(Regex("\\W+")).filter { it.length > 2 }
 
-        // Process each document
+        // 各ドキュメントを処理
         storage.allDocuments().collect { document ->
-            // Get the document text
+            // ドキュメントテキストを取得
             val documentText = documentProvider.text(document).toString().lowercase()
 
-            // Calculate a simple similarity score based on keyword frequency
+            // キーワード頻度に基づいたシンプルな類似性スコアを計算
             var similarity = 0.0
             for (keyword in keywords) {
                 val count = countOccurrences(documentText, keyword)
@@ -622,7 +622,7 @@ class KeywordBasedDocumentStorage<Document>(
                 }
             }
 
-            // Emit the document with its similarity score
+            // 類似性スコアとともにドキュメントを出力
             emit(RankedDocument(document, similarity))
         }
     }
@@ -684,14 +684,14 @@ class TimeBasedDocumentStorage<Document>(
             val timestamp = getDocumentTimestamp(document)
             val ageInHours = (currentTime - timestamp) / (1000.0 * 60 * 60)
 
-            // Calculate a decay factor based on age (newer documents get higher scores)
+            // 経過時間に基づいた減衰係数を計算（新しいドキュメントほど高いスコアを得る）
             val decayFactor = Math.exp(-0.01 * ageInHours)
 
             emit(RankedDocument(document, decayFactor))
         }
     }
 
-    // Implement other required methods from RankedDocumentStorage
+    // RankedDocumentStorage からの他の必須メソッドを実装
     override suspend fun store(document: Document, data: Unit): String {
         return storage.store(document)
     }

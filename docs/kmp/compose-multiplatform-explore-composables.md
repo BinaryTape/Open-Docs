@@ -14,7 +14,9 @@
     </p>
 </tldr>
 
-让我们仔细研究一下 Kotlin Multiplatform 向导创建的示例可组合项。首先，有一个 `App()` 可组合函数，它实现了公共 UI，并且可以在所有平台中使用。其次，有用于在每个平台启动此 UI 的平台特有代码。
+让我们仔细研究一下 Kotlin Multiplatform 向导创建的示例可组合项。首先，有一个
+可组合的 `App()` 函数，它实现了公共 UI，并且可以在所有平台中使用。其次，有用于在每个平台启动此 UI 的
+平台特有代码。
 
 ## 实现可组合函数
 
@@ -47,7 +49,8 @@ fun App() {
 }
 ```
 
-`App()` 函数是一个常规的 Kotlin 函数，标注有 `@Composable`。这类函数被称为_可组合函数_或简称_可组合项_。它们是基于 Compose Multiplatform 的 UI 的构建块。
+`App()` 函数是一个常规的 Kotlin 函数，标注有 `@Composable`。这类函数被称为 _可组合函数_
+或简称 _可组合项_。它们是基于 Compose Multiplatform 的 UI 的构建块。
 
 可组合函数具有以下通用结构：
 
@@ -59,7 +62,8 @@ fun App() {
 
 `Column` 的 `horizontalAlignment` 形参使其内容居中。但要使其生效，该列应占据其容器的全部宽度。这是通过 `modifier` 形参实现的。
 
-修饰符是 Compose Multiplatform 的关键组件。这是你用于调整 UI 中可组合项外观或行为的主要机制。修饰符使用 `Modifier` 类型的方法创建。当你链式调用这些方法时，每次调用都可以更改从上次调用返回的 `Modifier`，这使得顺序变得重要。关于更多详细信息，请参见 [JetPack Compose 文档](https://developer.android.com/jetpack/compose/modifiers)。
+修饰符是 Compose Multiplatform 的关键组件。这是你用于调整 UI 中可组合项外观或行为的主要机制。修饰符使用 `Modifier` 类型的方法创建。当你链式调用这些方法时，每次调用都可以更改从上次调用返回的 `Modifier`，这使得顺序变得重要。
+关于更多详细信息，请参见 [JetPack Compose 文档](https://developer.android.com/jetpack/compose/modifiers)。
 
 ### 管理状态
 
@@ -71,7 +75,7 @@ var showContent by remember { mutableStateOf(false) }
 
 该状态对象被 `remember()` 函数调用包装，这意味着它被构建一次，然后由框架保留。通过执行此操作，你创建了一个属性，其值是包含布尔值的状态对象。框架缓存此状态对象，允许可组合项观察它。
 
-当状态值改变时，任何观察它的可组合项都会被重新调用。这使得它们产生的任何控件都可以被重新绘制。这被称为_重组_。
+当状态值改变时，任何观察它的可组合项都会被重新调用。这使得它们产生的任何控件都可以被重新绘制。这被称为 _重组_。
 
 在你的应用程序中，状态唯一改变的地方是按钮的点击事件中。`onClick` 事件处理程序反转 `showContent` 属性的值。因此，图像会随 `Greeting().greet()` 调用一起显示或隐藏，因为父 `AnimatedVisibility` 可组合项观察 `showContent`。
 
@@ -110,7 +114,7 @@ fun MainViewController() = ComposeUIViewController { App() }
 
 ### 在桌面端
 
-对于桌面端，查看 `composeApp/src/desktopMain/kotlin` 中的 `main()` 函数：
+对于桌面端，查看 `composeApp/src/jvmMain/kotlin` 中的 `main()` 函数：
 
 ```kotlin
 fun main() = application {
@@ -150,5 +154,6 @@ fun main() {
 
 ## 获取帮助
 
-*   **Kotlin Slack**。获取 [邀请](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up) 并加入 [#multiplatform](https://kotlinlang.slack.com/archives/C3PQML5NU) 频道。
+*   **Kotlin Slack**。获取 [邀请](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up) 并加入
+    #multiplatform 频道。
 *   **Kotlin 问题追踪器**。 [报告新问题](https://youtrack.jetbrains.com/newIssue?project=KT)。

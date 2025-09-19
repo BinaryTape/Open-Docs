@@ -377,7 +377,7 @@ cocoapods {
 
 ### 與 Swift 5.5 `async/await` 的實驗性互通性
 
-> 與 Swift `async/await` 的並發互通性是[實驗性](components-stability.2md)的。它可能會隨時被移除或變更。
+> 與 Swift `async/await` 的並發互通性是[實驗性](components-stability.md)的。它可能會隨時被移除或變更。
 > 您應僅用於評估目的。我們非常感謝您在 [YouTrack](https://youtrack.jetbrains.com/issue/KT-47610) 上提供回饋。
 >
 {style="warning"}
@@ -571,7 +571,7 @@ Gradle 6.7 引入了「[Java 工具鏈支援](https://docs.gradle.org/current/us
 
 透過工具鏈支援，Gradle 可以自動偵測本地 JDK 並安裝建置所需的缺失 JDK。現在，Gradle 本身可以在任何 JDK 上執行，並且仍然重複使用[建置快取功能](gradle-compilation-and-caches.md#gradle-build-cache-support)。
 
-Kotlin Gradle 插件支援 Kotlin/JVM 編譯任務的 Java 工具鏈。
+Kotlin Gradle 插件支援 Java 工具鏈用於 Kotlin/JVM 編譯任務。
 Java 工具鏈：
 * 設定適用於 JVM 目標的 [`jdkHome` 選項](gradle-compiler-options.md#attributes-specific-to-jvm)。
   > [直接設定 `jdkHome` 選項的功能已被棄用](https://youtrack.jetbrains.com/issue/KT-46541)。

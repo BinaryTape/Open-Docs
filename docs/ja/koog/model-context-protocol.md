@@ -219,8 +219,8 @@ val result = agent.run("MCPツールを使用してタスクを実行")
 
 [//]: # (val args = McpTool.Args&#40;buildJsonObject { )
 
-[//]: # (    put&#40;"parameter1", "value1"&#41;)
-[//]: # (    put&#40;"parameter2", "value2"&#41;)
+[//]: # (    put&#40;"parameter1", JsonPrimitive&#40;"value1"&#41;&#41;)
+[//]: # (    put&#40;"parameter2", JsonPrimitive&#40;"value2"&#41;&#41;)
 
 [//]: # (}&#41;)
 
@@ -298,7 +298,7 @@ import kotlinx.coroutines.runBlocking
 const val googleMapsApiKey = ""
 const val openAIApiToken = ""
 fun main() {
-    runBlocking { 
+    runBlocking {
 -->
 <!--- SUFFIX
     }
@@ -341,7 +341,7 @@ import kotlinx.coroutines.runBlocking
 val openAIApiToken = ""
 
 fun main() {
-    runBlocking { 
+    runBlocking {
 -->
 <!--- SUFFIX
     }

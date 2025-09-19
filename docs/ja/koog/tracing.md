@@ -1,10 +1,10 @@
 # トレーシング
 
-このページでは、AIエージェント向けの包括的なトレーシング機能を提供するトレーシング機能について詳しく説明します。
+このページでは、AIエージェント向けの包括的なトレーシング機能を提供するTracing機能について詳しく説明します。
 
 ## 機能概要
 
-トレーシング機能は、エージェントの実行に関する詳細情報を捕捉する強力なモニタリングおよびデバッグツールです。捕捉される情報には以下が含まれます。
+Tracing機能は、エージェントの実行に関する詳細情報を捕捉する強力なモニタリングおよびデバッグツールです。捕捉される情報には以下が含まれます。
 
 - 戦略の実行
 - LLM呼び出し
@@ -15,26 +15,26 @@
 
 ### イベントフロー
 
-1. トレーシング機能は、エージェントパイプライン内のイベントを傍受します。
-2. イベントは、設定されたメッセージフィルターに基づいてフィルタリングされます。
-3. フィルタリングされたイベントは、登録されたメッセージプロセッサーに渡されます。
-4. メッセージプロセッサーはイベントをフォーマットし、それぞれの出力先に送ります。
+1.  Tracing機能は、エージェントパイプライン内のイベントを傍受します。
+2.  イベントは、設定されたメッセージフィルターに基づいてフィルタリングされます。
+3.  フィルタリングされたイベントは、登録されたメッセージプロセッサーに渡されます。
+4.  メッセージプロセッサーはイベントをフォーマットし、それぞれの出力先に送ります。
 
 ## 設定と初期化
 
 ### 基本的なセットアップ
 
-トレーシング機能を使用するには、以下が必要です。
+Tracing機能を使用するには、以下が必要です。
 
-1. 1つ以上のメッセージプロセッサーを用意する（既存のものを使用するか、独自に作成できます）。
-2. エージェントに`Tracing`をインストールします。
-3. メッセージフィルターを設定する（オプション）。
-4. メッセージプロセッサーを機能に追加します。
+1.  1つ以上のメッセージプロセッサーを用意する（既存のものを使用するか、独自に作成できます）。
+2.  エージェントに`Tracing`をインストールします。
+3.  メッセージフィルターを設定する（オプション）。
+4.  メッセージプロセッサーを機能に追加します。
 
 <!--- INCLUDE
 import ai.koog.agents.core.agent.AIAgent
-import ai.koog.agents.core.feature.model.AfterLLMCallEvent
-import ai.koog.agents.core.feature.model.ToolCallEvent
+import ai.koog.agents.core.feature.model.events.AfterLLMCallEvent
+import ai.koog.agents.core.feature.model.events.ToolCallEvent
 import ai.koog.agents.features.tracing.feature.Tracing
 import ai.koog.agents.features.tracing.writer.TraceFeatureMessageFileWriter
 import ai.koog.agents.features.tracing.writer.TraceFeatureMessageLogWriter
@@ -82,7 +82,7 @@ val agent = AIAgent(
 
 <!--- INCLUDE
 import ai.koog.agents.core.agent.AIAgent
-import ai.koog.agents.core.feature.model.*
+import ai.koog.agents.core.feature.model.events.*
 import ai.koog.agents.features.tracing.feature.Tracing
 import ai.koog.prompt.executor.llms.all.simpleOllamaAIExecutor
 import ai.koog.prompt.llm.OllamaModels
@@ -258,8 +258,8 @@ agent.run(input)
 
 <!--- INCLUDE
 import ai.koog.agents.core.agent.AIAgent
-import ai.koog.agents.core.feature.model.AfterLLMCallEvent
-import ai.koog.agents.core.feature.model.BeforeLLMCallEvent
+import ai.koog.agents.core.feature.model.events.AfterLLMCallEvent
+import ai.koog.agents.core.feature.model.events.BeforeLLMCallEvent
 import ai.koog.agents.example.exampleTracing01.outputPath
 import ai.koog.agents.features.tracing.feature.Tracing
 import ai.koog.agents.features.tracing.writer.TraceFeatureMessageFileWriter
@@ -341,15 +341,14 @@ val agent = AIAgent(
 }
 // エージェントを実行します
 agent.run(input)
-// ブロックが終了すると、ライターは自動的に閉じられます
 ```
 <!--- KNIT example-tracing-06.kt -->
 
 クライアント側では、`FeatureMessageRemoteClient`を使用してイベントを受信し、逆シリアル化できます。
 
 <!--- INCLUDE
-import ai.koog.agents.core.feature.model.AIAgentFinishedEvent
-import ai.koog.agents.core.feature.model.DefinedFeatureEvent
+import ai.koog.agents.core.feature.model.events.AIAgentFinishedEvent
+import ai.koog.agents.core.feature.model.events.DefinedFeatureEvent
 import ai.koog.agents.core.feature.remote.client.config.DefaultClientConnectionConfig
 import ai.koog.agents.core.feature.remote.client.FeatureMessageRemoteClient
 import ai.koog.agents.utils.use
@@ -399,9 +398,9 @@ listOf(clientJob).joinAll()
 
 Tracing機能は、以下の主要コンポーネントを持つモジュラーアーキテクチャに従います。
 
-1. [Tracing](https://api.koog.ai/agents/agents-features/agents-features-trace/ai.koog.agents.features.tracing.feature/-tracing/index.html): エージェントパイプライン内のイベントを傍受する主要な機能クラスです。
-2. [TraceFeatureConfig](https://api.koog.ai/agents/agents-features/agents-features-trace/ai.koog.agents.features.tracing.feature/-trace-feature-config/index.html): 機能の動作をカスタマイズするための設定クラスです。
-3. Message Processors: トレースイベントを処理し、出力するコンポーネントです。
+1.  [Tracing](https://api.koog.ai/agents/agents-features/agents-features-trace/ai.koog.agents.features.tracing.feature/-tracing/index.html): エージェントパイプライン内のイベントを傍受する主要な機能クラスです。
+2.  [TraceFeatureConfig](https://api.koog.ai/agents/agents-features/agents-features-trace/ai.koog.agents.features.tracing.feature/-trace-feature-config/index.html): 機能の動作をカスタマイズするための設定クラスです。
+3.  Message Processors: トレースイベントを処理し、出力するコンポーネントです。
     - [TraceFeatureMessageLogWriter](https://api.koog.ai/agents/agents-features/agents-features-trace/ai.koog.agents.features.tracing.writer/-trace-feature-message-log-writer/index.html): トレースイベントをロガーに書き込みます。
     - [TraceFeatureMessageFileWriter](https://api.koog.ai/agents/agents-features/agents-features-trace/ai.koog.agents.features.tracing.writer/-trace-feature-message-file-writer/index.html): トレースイベントをファイルに書き込みます。
     - [TraceFeatureMessageRemoteWriter](https://api.koog.ai/agents/agents-features/agents-features-trace/ai.koog.agents.features.tracing.writer/-trace-feature-message-remote-writer/index.html): トレースイベントをリモートサーバーに送信します。
@@ -416,8 +415,8 @@ Tracing機能は、以下の主要コンポーネントを持つモジュラー�
 
 <!--- INCLUDE
 import ai.koog.agents.core.agent.AIAgent
-import ai.koog.agents.core.feature.model.AfterLLMCallEvent
-import ai.koog.agents.core.feature.model.BeforeLLMCallEvent
+import ai.koog.agents.core.feature.model.events.AfterLLMCallEvent
+import ai.koog.agents.core.feature.model.events.BeforeLLMCallEvent
 import ai.koog.agents.example.exampleTracing01.outputPath
 import ai.koog.agents.features.tracing.feature.Tracing
 import ai.koog.agents.features.tracing.writer.TraceFeatureMessageFileWriter
@@ -511,8 +510,8 @@ install(Tracing) {
 
 <!--- INCLUDE
 import ai.koog.agents.core.agent.AIAgent
-import ai.koog.agents.core.feature.model.AIAgentNodeExecutionStartEvent
-import ai.koog.agents.core.feature.model.AfterLLMCallEvent
+import ai.koog.agents.core.feature.model.events.AIAgentNodeExecutionStartEvent
+import ai.koog.agents.core.feature.model.events.AfterLLMCallEvent
 import ai.koog.agents.core.feature.message.FeatureMessage
 import ai.koog.agents.core.feature.message.FeatureMessageProcessor
 import ai.koog.agents.features.tracing.feature.Tracing

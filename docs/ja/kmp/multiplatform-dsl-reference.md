@@ -35,12 +35,13 @@ plugins {
 `kotlin {}` は、Gradle ビルドスクリプトにおけるマルチプラットフォームプロジェクト構成のトップレベルブロックです。
 `kotlin {}` 内に、以下のブロックを記述できます。
 
-| **ブロック**            | **説明**                                                                                                                                     |
-|----------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------|
-| _&lt;targetName&gt;_ | プロジェクトの特定のターゲットを宣言します。利用可能なターゲット名は、[ターゲット](#targets)セクションにリストされています。             |
-| `targets`            | プロジェクトのすべてのターゲットをリストします。                                                                                                         |
-| `sourceSets`         | 事前定義されたソースセットを設定し、プロジェクトのカスタム[ソースセット](#source-sets)を宣言します。                                                     |
+| **ブロック**            | **説明**                                                                                                                         |
+|----------------------|----------------------------------------------------------------------------------------------------------------------------------|
+| _&lt;targetName&gt;_ | プロジェクトの特定のターゲットを宣言します。利用可能なターゲット名は、[ターゲット](#targets)セクションにリストされています。     |
+| `targets`            | プロジェクトのすべてのターゲットをリストします。                                                                                 |
+| `sourceSets`         | 事前定義されたソースセットを設定し、プロジェクトのカスタム[ソースセット](#source-sets)を宣言します。                             |
 | `compilerOptions`    | すべてのターゲットおよび共有ソースセットのデフォルトとして使用される共通の拡張レベル[コンパイラーオプション](#compiler-options)を指定します。 |
+| `dependencies`       | [共通依存関係](#configure-dependencies-at-the-top-level)を設定します。(実験的)                                                    |
 
 ## ターゲット
 
@@ -778,21 +779,21 @@ kotlin {
 
 プロジェクトのコンパイラーオプションは、次の3つの異なるレベルで設定できます。
 
-* **拡張レベル**: `kotlin {}` ブロック内。
-* **ターゲットレベル**: ターゲットブロック内。
-* **コンピレーションユニットレベル**: 通常、特定のコンピレーションタスク内。
+*   **拡張レベル**: `kotlin {}` ブロック内。
+*   **ターゲットレベル**: ターゲットブロック内。
+*   **コンピレーションユニットレベル**: 通常、特定のコンピレーションタスク内。
 
 ![Kotlin コンパイラーオプションのレベル](compiler-options-levels.svg){width=700}
 
 上位レベルの設定は、下位レベルのデフォルトとして機能します。
 
-* 拡張レベルで設定されたコンパイラーオプションは、`commonMain`、`nativeMain`、`commonTest` のような共有ソースセットを含むターゲットレベルのオプションのデフォルトです。
-* ターゲットレベルで設定されたコンパイラーオプションは、`compileKotlinJvm` や `compileTestKotlinJvm` タスクのようなコンピレーションユニット（タスク）レベルのオプションのデフォルトです。
+*   拡張レベルで設定されたコンパイラーオプションは、`commonMain`、`nativeMain`、`commonTest` のような共有ソースセットを含むターゲットレベルのオプションのデフォルトです。
+*   ターゲットレベルで設定されたコンパイラーオプションは、`compileKotlinJvm` や `compileTestKotlinJvm` タスクのようなコンピレーションユニット（タスク）レベルのオプションのデフォルトです。
 
 下位レベルで行われた設定は、上位レベルの同様の設定をオーバーライドします。
 
-* タスクレベルのコンパイラーオプションは、ターゲットレベルまたは拡張レベルの同様の設定をオーバーライドします。
-* ターゲットレベルのコンパイラーオプションは、拡張レベルの同様の設定をオーバーライドします。
+*   タスクレベルのコンパイラーオプションは、ターゲットレベルまたは拡張レベルの同様の設定をオーバーライドします。
+*   ターゲットレベルのコンパイラーオプションは、拡張レベルの同様の設定をオーバーライドします。
 
 設定可能なコンパイラーオプションのリストについては、[すべてのコンパイラーオプション](https://kotlinlang.org/docs/gradle-compiler-options.html#all-compiler-options)を参照してください。
 
@@ -999,6 +1000,43 @@ kotlin {
 
 さらに、ソースセットは互いに依存し、階層を形成することができます。
 この場合、[`dependsOn()`](#source-set-parameters) 関係が使用されます。
+
+### トップレベルでの依存関係の設定
+<secondary-label ref="Experimental">実験的</secondary-label>
+
+トップレベルの `dependencies {}` ブロックを使用して共通依存関係を設定できます。ここで宣言された依存関係は、`commonMain` または `commonTest` ソースセットに追加されたかのように動作します。
+
+トップレベルの `dependencies {}` ブロックを使用するには、ブロックの前に `@OptIn(ExperimentalKotlinGradlePluginApi::class)` アノテーションを追加してオプトインしてください。
+
+<Tabs group="build-script">
+<TabItem title="Kotlin" group-key="kotlin">
+
+```kotlin
+kotlin {
+    @OptIn(ExperimentalKotlinGradlePluginApi::class)
+    dependencies {
+        implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:%coroutinesVersion%")
+    }
+}
+```
+
+</TabItem>
+<TabItem title="Groovy" group-key="groovy">
+
+```groovy
+kotlin {
+    dependencies {
+        implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:%coroutinesVersion%'
+    }
+}
+```
+
+</TabItem>
+</Tabs>
+
+プラットフォーム固有の依存関係は、対応するターゲットの `sourceSets {}` ブロック内に記述してください。
+
+この機能に関するフィードバックは、[YouTrack](https://youtrack.jetbrains.com/issue/KT-76446)で共有できます。
 
 ## 言語設定
 

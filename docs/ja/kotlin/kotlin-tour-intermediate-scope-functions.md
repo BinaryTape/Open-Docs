@@ -35,7 +35,7 @@ Kotlinには、`let`、`apply`、`run`、`also`、`with` の合計5つのスコ�
 >
 {style="tip"}
 
-### `let`
+### let
 
 `let` スコープ関数は、コードで null チェックを実行し、後で返されたオブジェクトに対してさらにアクションを実行したい場合に使用します。
 
@@ -124,7 +124,7 @@ fun main() {
 
 このアプローチにより、コードは `address` 変数が `null` 値である可能性を処理でき、後でコードで `confirm` 変数を使用できます。
 
-### `apply`
+### apply
 
 `apply` スコープ関数は、クラスインスタンスのようなオブジェクトを、コードの後の方ではなく、作成時に初期化するために使用します。このアプローチにより、コードが読みやすく、管理しやすくなります。
 
@@ -159,22 +159,22 @@ fun main() {
 
 ```kotlin
 class Client() {
-  var token: String? = null
-  fun connect() = println("connected!")
-  fun authenticate() = println("authenticated!")
-  fun getData(): String = "Mock data"
+    var token: String? = null
+    fun connect() = println("connected!")
+    fun authenticate() = println("authenticated!")
+    fun getData(): String = "Mock data"
 }
 //sampleStart
 val client = Client().apply {
-  token = "asdf"
-  connect()
-  authenticate()
+    token = "asdf"
+    connect()
+    authenticate()
 }
 
 fun main() {
-  client.getData()
-  // connected!
-  // authenticated!
+    client.getData()
+    // connected!
+    // authenticated!
 }
 //sampleEnd
 ```
@@ -190,7 +190,7 @@ fun main() {
 
 ご覧のとおり、この戦略は大規模なコードを扱う場合に便利です。
 
-### `run`
+### run
 
 `apply` と同様に、`run` スコープ関数を使用してオブジェクトを初期化できますが、コードの特定の瞬間にオブジェクトを初期化 **し**、すぐに結果を計算したい場合は `run` を使用する方が良いです。
 
@@ -241,7 +241,7 @@ fun main() {
 
 これで、返された結果をコード内でさらに使用できます。
 
-### `also`
+### also
 
 `also` スコープ関数は、オブジェクトに対して追加のアクションを完了し、そのオブジェクトを返してコード内で引き続き使用する（例えばログを書き込むなど）場合に使用します。
 
@@ -301,7 +301,7 @@ fun main() {
 
 `also` 関数はオブジェクトを返すため、ログ記録だけでなく、デバッグ、複数の操作のチェイン、およびコードのメインフローに影響を与えないその他の副作用操作の実行にも役立ちます。
 
-### `with`
+### with
 
 他のスコープ関数とは異なり、`with` は拡張関数ではないため、構文が異なります。レシーバーオブジェクトを引数として `with` に渡します。
 

@@ -1,8 +1,8 @@
 # 提示 API
 
-提示 API 提供了一套全面的工具包，用於在生產環境應用程式中與大型語言模型 (LLMs) 互動。它提供：
+提示 API (Prompt API) 提供了一套全面的工具包，用於在生產環境應用程式中與大型語言模型 (LLMs) 互動。它提供：
 
-- **Kotlin DSL** 用於建立具有型別安全的結構化提示。
+- 具有型別安全的 **Kotlin DSL**，用於建立結構化提示。
 - **多供應商支援**，支援 OpenAI、Anthropic、Google 及其他 LLM 供應商。
 - **生產功能**，例如重試邏輯、錯誤處理和逾時設定。
 - **多模態功能**，用於處理文字、圖像、音訊和文件。
@@ -13,7 +13,7 @@
 
 - **LLM 用戶端**：針對特定供應商 (OpenAI、Anthropic 等) 的低階介面。
 - **裝飾器**：可選的包裝器，用於新增重試邏輯等功能。
-- **提示執行器**：管理用戶端生命週期並簡化使用方式的高階抽象。
+- **提示執行器**：管理用戶端生命週期並簡化使用方式的高階抽象層。
 
 ## 建立提示
 
@@ -353,7 +353,7 @@ Koog 提供兩種主要的提示執行器：
 import ai.koog.prompt.executor.clients.openai.OpenAILLMClient
 -->
 ```kotlin
-val openAIClient = OpenAILLMClient(System.getenv("OPENAI_KEY"))
+val openAIClient = OpenAILLMClient(System.getenv("OPENAI_API_KEY"))
 ```
 <!--- KNIT example-prompt-api-09.kt -->
 2) 使用 [`SingleLLMPromptExecutor`](https://api.koog.ai/prompt/prompt-executor/prompt-executor-llms/ai.koog.prompt.executor.llms/-single-l-l-m-prompt-executor/index.html) 建立提示執行器：
@@ -402,7 +402,7 @@ val multiExecutor = MultiLLMPromptExecutor(
 
 - 單一供應商執行器，返回設定有特定 LLM 用戶端的 `SingleLLMPromptExecutor`：
     - `simpleOpenAIExecutor` 用於使用 OpenAI 模型執行提示。
-    - `simpleAzureOpenAIExecutor` 用於使用 Azure OpenAI 服務執行提示。
+    - `simpleAzureOpenAIExecutor` 用於使用 Azure OpenAI Service 執行提示。
     - `simpleAnthropicExecutor` 用於使用 Anthropic 模型執行提示。
     - `simpleGoogleAIExecutor` 用於使用 Google 模型執行提示。
     - `simpleOpenRouterExecutor` 用於使用 OpenRouter 執行提示。
@@ -489,7 +489,7 @@ import ai.koog.prompt.executor.clients.openai.OpenAILLMClient
 import ai.koog.prompt.executor.llms.SingleLLMPromptExecutor
 -->
 ```kotlin
-val client = OpenAILLMClient(System.getenv("OPENAI_KEY"))
+val client = OpenAILLMClient(System.getenv("OPENAI_API_KEY"))
 val promptExecutor = SingleLLMPromptExecutor(client)
 ```
 <!--- KNIT example-prompt-api-15.kt -->
@@ -583,9 +583,9 @@ Koog 提供多種預設重試配置：
 | 配置         | 最大嘗試次數 | 初始延遲 | 最大延遲 | 使用案例      |
 |--------------|-------------|---------------|-----------|---------------|
 | `DISABLED`   | 1 (不重試) | -             | -         | 開發與測試    |
-| `CONSERVATIVE` | 3           | 2秒           | 30秒      | 正常生產用途  |
-| `AGGRESSIVE` | 5           | 500毫秒       | 20秒      | 關鍵操作      |
-| `PRODUCTION` | 3           | 1秒           | 20秒      | 推薦預設值    |
+| `CONSERVATIVE` | 3           | 2s            | 30s       | 正常生產用途  |
+| `AGGRESSIVE` | 5           | 500ms         | 20s       | 關鍵操作      |
+| `PRODUCTION` | 3           | 1s            | 20s       | 推薦預設值    |
 
 您可以直接使用它們，或建立自訂配置：
 
@@ -769,7 +769,7 @@ val client = OpenAILLMClient(
 
 在生產環境中處理 LLM 時，您需要實作錯誤處理策略：
 
-- **使用 try-catch 區塊**來處理意外錯誤。
+- **使用 `try-catch` 區塊**來處理意外錯誤。
 - **記錄帶有上下文的錯誤**，用於偵錯。
 - **實作備用策略**，用於關鍵操作。
 - **監控重試模式**，以識別重複或系統性問題。

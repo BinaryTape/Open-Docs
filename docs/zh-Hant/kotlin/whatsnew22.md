@@ -1,362 +1,4 @@
-[//]: # (title: Kotlin 2.2.0 的新功能)
-
-_[發佈日期：2025 年 6 月 23 日](releases.md#release-details)_
-
-Kotlin 2.2.0 版本現已推出！以下是主要亮點：
-
-*   **語言**：預覽版中的新語言功能，包括[上下文參數](#preview-of-context-parameters)。數個[先前為實驗性的功能現已穩定](#stable-features-guard-conditions-non-local-break-and-continue-and-multi-dollar-interpolation)，例如守衛條件、非局部 `break` 和 `continue`，以及多美元符號插值。
-*   **Kotlin 編譯器**：[統一管理編譯器警告](#kotlin-compiler-unified-management-of-compiler-warnings)。
-*   **Kotlin/JVM**：[介面函數預設方法生成的變更](#changes-to-default-method-generation-for-interface-functions)。
-*   **Kotlin/Native**：[LLVM 19 以及用於追蹤和調整記憶體消耗的新功能](#kotlin-native)。
-*   **Kotlin/Wasm**：[分離的 Wasm 目標](#build-infrastructure-for-wasm-target-separated-from-javascript-target)以及為[每個專案配置 Binaryen 的功能](#per-project-binaryen-configuration)。
-*   **Kotlin/JS**：[針對 `@JsPlainObject` 介面生成的 `copy()` 方法的修復](#fix-for-copy-in-jsplainobject-interfaces)。
-*   **Gradle**：[Kotlin Gradle 插件中包含的二進位相容性驗證](#binary-compatibility-validation-included-in-kotlin-gradle-plugin)。
-*   **標準函式庫**：[穩定的 Base64 和 HexFormat API](#stable-base64-encoding-and-decoding)。
-*   **文件**：我們的[文件問卷調查已開放](https://surveys.jetbrains.com/s3/Kotlin-Docs-2025)，並且[Kotlin 文件已顯著改進](#documentation-updates)。
-
-您還可以觀看這段 Kotlin 語言演進團隊討論新功能並回答問題的影片：
-
-<video src="https://www.youtube.com/watch?v=jne3923lWtw" title="Kotlin 2.2.0 的新功能"/>
-
-## IDE 支援
-
-支援 2.2.0 的 Kotlin 插件已捆綁在最新版本的 IntelliJ IDEA 和 Android Studio 中。
-您無需更新 IDE 中的 Kotlin 插件。
-您只需在構建腳本中將 [Kotlin 版本](configure-build-for-eap.md#adjust-the-kotlin-version)變更為 2.2.0。
-
-有關詳細資訊，請參閱[更新到新版本](releases.md#update-to-a-new-kotlin-version)。
-
-## 語言
-
-此版本將[守衛條件](#stable-features-guard-conditions-non-local-break-and-continue-and-multi-dollar-interpolation)、非局部 `break` 和 `continue`，以及多美元符號插值[晉升為穩定版](components-stability.md#stability-levels-explained)。此外，還以預覽版形式推出了多個功能，例如[上下文參數](#preview-of-context-parameters)和[上下文敏感解析](#preview-of-context-sensitive-resolution)。
-
-### 上下文參數預覽
-<primary-label ref="experimental-general"/> 
-
-上下文參數允許函數和屬性宣告在周圍上下文中隱式可用的依賴。
-
-使用上下文參數，您無需手動傳遞在多個函數呼叫集之間共享且很少變更的值，例如服務或依賴。
-
-上下文參數取代了舊的實驗性功能，稱為上下文接收器。要從上下文接收器遷移到上下文參數，您可以使用 IntelliJ IDEA 中的輔助支援，如[部落格文章](https://blog.jetbrains.com/kotlin/2025/04/update-on-context-parameters/)中所述。
-
-主要區別在於上下文參數不會作為接收器引入到函數主體中。因此，您需要使用上下文參數的名稱來存取其成員，這與上下文接收器不同，在上下文接收器中上下文是隱式可用的。
-
-Kotlin 中的上下文參數在透過簡化依賴注入、改進 DSL 設計和作用域操作來管理依賴方面代表著顯著的改進。有關更多資訊，請參閱該功能的 [KEEP](https://github.com/Kotlin/KEEP/blob/context-parameters/proposals/context-parameters.md)。
-
-#### 如何宣告上下文參數
-
-您可以使用 `context` 關鍵字，後跟參數列表來宣告屬性和函數的上下文參數，每個參數的形式為 `name: Type`。以下是一個依賴 `UserService` 介面的範例：
-
-```kotlin
-// UserService 定義了上下文所需的依賴 
-interface UserService {
-    fun log(message: String)
-    fun findUserById(id: Int): String
-}
-
-// 宣告帶有上下文參數的函數
-context(users: UserService)
-fun outputMessage(message: String) {
-    // 使用來自上下文的 log
-    users.log("Log: $message")
-}
-
-// 宣告帶有上下文參數的屬性
-context(users: UserService)
-val firstUser: String
-    // 使用來自上下文的 findUserById    
-    get() = users.findUserById(1)
-```
-
-您可以使用 `_` 作為上下文參數名稱。在這種情況下，參數的值可用於解析，但在區塊內部無法透過名稱存取：
-
-```kotlin
-// 使用 "_" 作為上下文參數名稱
-context(_: UserService)
-fun logWelcome() {
-    // 從 UserService 找到合適的 log 函數
-    outputMessage("Welcome!")
-}
-```
-
-#### 如何啟用上下文參數
-
-要在專案中啟用上下文參數，請在命令列中使用以下編譯器選項：
-
-```Bash
--Xcontext-parameters
-```
-
-或者將其添加到 Gradle 構建檔案的 `compilerOptions {}` 區塊中：
-
-```kotlin
-// build.gradle.kts
-kotlin {
-    compilerOptions {
-        freeCompilerArgs.add("-Xcontext-parameters")
-    }
-}
-```
-
-> 同時指定 `-Xcontext-receivers` 和 `-Xcontext-parameters` 編譯器選項會導致錯誤。
->
-{style="warning"}
-
-#### 留下您的回饋
-
-此功能計劃在未來的 Kotlin 版本中穩定並改進。
-我們感謝您在我們的問題追蹤器 [YouTrack](https://youtrack.jetbrains.com/issue/KT-10468/Context-Parameters-expanding-extension-receivers-to-work-with-scopes) 上提供回饋。
-
-### 上下文敏感解析預覽
-<primary-label ref="experimental-general"/> 
-
-Kotlin 2.2.0 在預覽版中引入了上下文敏感解析的實作。
-
-以前，即使可以從上下文中推斷型別，您也必須寫出列舉項目或密封類別成員的完整名稱。
-例如：
-
-```kotlin
-enum class Problem {
-    CONNECTION, AUTHENTICATION, DATABASE, UNKNOWN
-}
-
-fun message(problem: Problem): String = when (problem) {
-    Problem.CONNECTION -> "connection"
-    Problem.AUTHENTICATION -> "authentication"
-    Problem.DATABASE -> "database"
-    Problem.UNKNOWN -> "unknown"
-}
-```
-
-現在，透過上下文敏感解析，您可以在已知預期型別的上下文中省略型別名稱：
-
-```kotlin
-enum class Problem {
-    CONNECTION, AUTHENTICATION, DATABASE, UNKNOWN
-}
-
-// 根據已知問題類型解析列舉項目
-fun message(problem: Problem): String = when (problem) {
-    CONNECTION -> "connection"
-    AUTHENTICATION -> "authentication"
-    DATABASE -> "database"
-    UNKNOWN -> "unknown"
-}
-```
-
-編譯器使用此上下文型別資訊來解析正確的成員。此資訊除其他外，包括：
-
-*   `when` 表達式的主體
-*   顯式回傳型別
-*   宣告的變數型別
-*   型別檢查 (`is`) 和型別轉換 (`as`)
-*   密封類別繼承結構的已知型別
-*   參數的宣告型別
-
-> 上下文敏感解析不適用於函數、帶有參數的屬性或帶有接收器的擴充屬性。
->
-{style="note"}
-
-要在專案中試用上下文敏感解析，請在命令列中使用以下編譯器選項：
-
-```bash
--Xcontext-sensitive-resolution
-```
-
-或者將其添加到 Gradle 構建檔案的 `compilerOptions {}` 區塊中：
-
-```kotlin
-// build.gradle.kts
-kotlin {
-    compilerOptions {
-        freeCompilerArgs.add("-Xcontext-sensitive-resolution")
-    }
-}
-```
-
-我們計劃在未來的 Kotlin 版本中穩定並改進此功能，並感謝您在我們的問題追蹤器 [YouTrack](https://youtrack.jetbrains.com/issue/KT-16768/Context-sensitive-resolution) 上提供回饋。
-
-### 註解使用站點目標功能預覽
-<primary-label ref="experimental-general"/>
-
-Kotlin 2.2.0 引入了幾項功能，使處理註解使用站點目標更加方便。
-
-#### 屬性的 `@all` 中繼目標
-<primary-label ref="experimental-general"/>
-
-Kotlin 允許您將註解附加到宣告的特定部分，稱為[使用站點目標](annotations.md#annotation-use-site-targets)。然而，單獨註解每個目標既複雜又容易出錯：
-
-```kotlin
-data class User(
-    val username: String,
-
-    @param:Email      // 建構子參數
-    @field:Email      // 支援欄位
-    @get:Email        // Getter 方法
-    @property:Email   // Kotlin 屬性參照
-    val email: String,
-) {
-    @field:Email
-    @get:Email
-    @property:Email
-    val secondaryEmail: String? = null
-}
-```
-
-為簡化此過程，Kotlin 為屬性引入了新的 `@all` 中繼目標。
-此功能會告訴編譯器將註解應用於屬性的所有相關部分。當您使用它時，`@all` 會嘗試將註解應用於：
-
-*   **`param`**：建構子參數，如果它在主建構子中宣告。
-
-*   **`property`**：Kotlin 屬性本身。
-
-*   **`field`**：支援欄位，如果它存在。
-
-*   **`get`**：Getter 方法。
-
-*   **`set_param`**：Setter 方法的參數，如果屬性定義為 `var`。
-
-*   **`RECORD_COMPONENT`**：如果類別是 `@JvmRecord`，則註解會應用於 [Java 記錄組件](#improved-support-for-annotating-jvm-records)。此行為模擬了 Java 處理記錄組件上註解的方式。
-
-編譯器只會將註解應用於給定屬性的目標。
-
-在下面的範例中，`@Email` 註解應用於每個屬性的所有相關目標：
-
-```kotlin
-data class User(
-    val username: String,
-
-    // 將 @Email 應用於 param、property、field、
-    // get 和 set_param (如果是 var)
-    @all:Email val email: String,
-) {
-    // 將 @Email 應用於 property、field 和 getter 
-    // (沒有 param，因為它不在建構子中)
-    @all:Email val secondaryEmail: String? = null
-}
-```
-
-您可以將 `@all` 中繼目標與任何屬性一起使用，無論是在主建構子內部還是外部。但是，您不能將 `@all` 中繼目標與[多個註解](https://kotlinlang.org/spec/syntax-and-grammar.html#grammar-rule-annotation)一起使用。
-
-這項新功能簡化了語法、確保了一致性，並改善了與 Java 記錄的互通性。
-
-要在專案中啟用 `@all` 中繼目標，請在命令列中使用以下編譯器選項：
-
-```Bash
--Xannotation-target-all
-```
-
-或者將其添加到 Gradle 構建檔案的 `compilerOptions {}` 區塊中：
-
-```kotlin
-// build.gradle.kts
-kotlin {
-    compilerOptions {
-        freeCompilerArgs.add("-Xannotation-target-all")
-    }
-}
-```
-
-此功能目前處於預覽階段。請向我們的問題追蹤器 [YouTrack](https://kotl.in/issue) 報告任何問題。
-有關 `@all` 中繼目標的更多資訊，請閱讀此 [KEEP](https://github.com/Kotlin/KEEP/blob/master/proposals/annotation-target-in-properties.md) 提案。
-
-#### 註解使用站點目標的新預設規則
-<primary-label ref="experimental-general"/>
-
-Kotlin 2.2.0 引入了新的預設規則，用於將註解傳播到參數、欄位和屬性。以前，註解預設僅應用於 `param`、`property` 或 `field` 之一，現在的預設行為更符合註解的預期。
-
-如果有多個適用目標，則選擇一個或多個目標，如下所示：
-
-*   如果建構子參數目標 (`param`) 適用，則使用它。
-*   如果屬性目標 (`property`) 適用，則使用它。
-*   如果欄位目標 (`field`) 適用而 `property` 不適用，則使用 `field`。
-
-如果有多個目標，並且 `param`、`property` 或 `field` 都不適用，則註解會導致錯誤。
-
-要啟用此功能，請將其添加到 Gradle 構建檔案的 `compilerOptions {}` 區塊中：
-
-```kotlin
-// build.gradle.kts
-kotlin {
-    compilerOptions {
-        freeCompilerArgs.add("-Xannotation-default-target=param-property")
-    }
-}
-```
-
-或者使用編譯器的命令列參數：
-
-```Bash
--Xannotation-default-target=param-property
-```
-
-如果您想使用舊行為，您可以：
-
-*   在特定情況下，明確定義必要的目標，例如，使用 `@param:Annotation` 而不是 `@Annotation`。
-*   對於整個專案，請在 Gradle 構建檔案中使用此旗標：
-
-    ```kotlin
-    // build.gradle.kts
-    kotlin {
-        compilerOptions {
-            freeCompilerArgs.add("-Xannotation-default-target=first-only")
-        }
-    }
-    ```
-
-此功能目前處於預覽階段。請向我們的問題追蹤器 [YouTrack](https://kotl.in/issue) 報告任何問題。
-有關註解使用站點目標的新預設規則的更多資訊，請閱讀此 [KEEP](https://github.com/Kotlin/KEEP/blob/master/proposals/annotation-target-in-properties.md) 提案。
-
-### 支援巢狀型別別名
-<primary-label ref="beta"/>
-
-以前，您只能在 Kotlin 檔案的頂層宣告[型別別名](type-aliases.md)。這意味著即使是內部或領域特定型別別名也必須存在於使用它們的類別之外。
-
-從 2.2.0 開始，您可以在其他宣告內部定義型別別名，只要它們不捕獲其外部類別的型別參數：
-
-```kotlin
-class Dijkstra {
-    typealias VisitedNodes = Set<Node>
-
-    private fun step(visited: VisitedNodes, ...) = ...
-}
-```
-
-巢狀型別別名有一些額外的限制，例如無法提及型別參數。請查閱[文件](type-aliases.md#nested-type-aliases)以瞭解完整的規則集。
-
-巢狀型別別名透過改善封裝、減少套件層級的雜亂並簡化內部實作，實現了更清晰、更易於維護的程式碼。
-
-#### 如何啟用巢狀型別別名
-
-要在專案中啟用巢狀型別別名，請在命令列中使用以下編譯器選項：
-
-```bash
--Xnested-type-aliases
-```
-
-或者將其添加到 Gradle 構建檔案的 `compilerOptions {}` 區塊中：
-
-```kotlin
-// build.gradle.kts
-kotlin {
-    compilerOptions {
-        freeCompilerArgs.add("-Xnested-type-aliases")
-    }
-}
-```
-
-#### 分享您的回饋
-
-巢狀型別別名目前處於 [Beta](components-stability.md#stability-levels-explained) 階段。請向我們的問題追蹤器 [YouTrack](https://kotl.in/issue) 報告任何問題。有關此功能的更多資訊，請閱讀此 [KEEP](https://github.com/Kotlin/KEEP/blob/master/proposals/nested-typealias.md) 提案。
-
-### 穩定版功能：守衛條件、非局部 `break` 和 `continue`，以及多美元符號插值
-
-在 Kotlin 2.1.0 中，以預覽版形式引入了幾項新的語言功能。
-我們很高興地宣佈，以下語言功能在此版本中已[穩定](components-stability.md#stability-levels-explained)：
-
-*   [帶有主體的 `when` 表達式中的守衛條件](whatsnew21.md#guard-conditions-in-when-with-a-subject)
-*   [非局部 `break` 和 `continue`](whatsnew21.md#non-local-break-and-continue)
-*   [多美元符號插值：改進字串字面值中 `$` 的處理](whatsnew21.md#multi-dollar-string-interpolation)
+in string literals](strings.md#multi-dollar-string-interpolation)
 
 [查看 Kotlin 語言設計功能和提案的完整列表](kotlin-language-features-and-proposals.md)。
 
@@ -509,7 +151,7 @@ fun main() {
     val metadata = Message::class.java.getAnnotation(Metadata::class.java)
     val kmClass = (KotlinClassMetadata.readStrict(metadata) as KotlinClassMetadata.Class).kmClass
     println(kmClass.annotations)
-    // 輸出：[@Label(value = StringValue("Message class"))]
+    // [@Label(value = StringValue("Message class"))]
 }
 ```
 
@@ -689,7 +331,7 @@ Kotlin 團隊非常感謝 Google 的同事，特別是 [Sonya Valchuk](https://g
 
 ## Kotlin/Wasm
 
-在此版本中，[Wasm 目標的構建基礎設施與 JavaScript 目標分離](#build-infrastructure-for-wasm-target-separated-from-javascript-target)。此外，您現在可以[按專案配置 Binaryen 工具](#per-project-binaryen-configuration)。
+在此版本中，[Wasm 目標的構建基礎設施與 JavaScript 目標分離](#build-infrastructure-for-wasm-target-separated-from-javascript-target)。此外，您現在可以[按專案或模組配置 Binaryen 工具](#per-project-binaryen-configuration)。
 
 ### Wasm 目標的構建基礎設施與 JavaScript 目標分離
 
@@ -841,7 +483,7 @@ fun fooUnit(): Promise<Unit> = GlobalScope.promise {
 
 ## Gradle
 
-Kotlin 2.2.0 完全相容於 Gradle 7.6.3 至 8.14。您也可以使用最新發佈的 Gradle 版本。但是，請注意，這樣做可能會導致棄用警告，並且某些新的 Gradle 功能可能無法運作。
+Kotlin 2.2.0 完全相容於 Gradle 7.6.3 至 8.14。您也可以使用最新發佈的 Gradle 版本。但是，請注意，這樣做可能導致棄用警告，並且某些新的 Gradle 功能可能無法運作。
 
 在此版本中，Kotlin Gradle 插件對其診斷功能進行了多項改進。它還引入了[二進位相容性驗證](#binary-compatibility-validation-included-in-kotlin-gradle-plugin)的實驗性整合，使函式庫開發更容易。
 
@@ -935,7 +577,7 @@ org.gradle.console=plain
 
 以前，Kotlin Gradle 插件 (KGP) 只能將警告和錯誤等診斷報告為純文字輸出到控制台或日誌中。
 
-從 2.2.0 開始，KGP 引入了一種額外的報告機制：它現在使用 [Gradle 的 Problems API](https://docs.gradle.org/current/kotlin-dsl/gradle/org.gradle.api.problems/index.html)，這是一種標準化的方式，用於在構建過程中報告豐富、結構化的問題資訊。
+從 2.2.0 開始，KGP 引入了一種額外的報告機制：它現在使用 [Gradle 的 Problems API](https://docs.gradle.com/current/kotlin-dsl/gradle/org.gradle.api.problems/index.html)，這是一種標準化的方式，用於在構建過程中報告豐富、結構化的問題資訊。
 
 現在，KGP 診斷更容易閱讀，並且在不同的介面中顯示更一致，例如 Gradle CLI 和 IntelliJ IDEA。
 
@@ -944,7 +586,7 @@ org.gradle.console=plain
 
 ### KGP 與 `--warning-mode` 的相容性
 
-Kotlin Gradle 插件 (KGP) 診斷報告問題時使用固定的嚴重性層級，這意味著 Gradle 的 [`--warning-mode` 命令列選項](https://docs.gradle.org/current/userguide/command_line_interface.html#sec:command_line_warnings) 對 KGP 顯示錯誤的方式沒有影響。
+Kotlin Gradle 插件 (KGP) 診斷報告問題時使用固定的嚴重性層級，這意味著 Gradle 的 [`--warning-mode` 命令列選項](https://docs.gradle.com/current/userguide/command_line_interface.html#sec:command_line_warnings) 對 KGP 顯示錯誤的方式沒有影響。
 
 現在，KGP 診斷與 `--warning-mode` 選項相容，提供了更大的靈活性。例如，您可以將所有警告轉換為錯誤或完全禁用警告。
 
@@ -1088,7 +730,7 @@ fun main() {
     }
 
     println(output.toString())
-    // 輸出：SGVsbG8gV29ybGQhIQ==
+    // SGVsbG8gV29ybGQhIQ==
 }
 ```
 
@@ -1173,7 +815,7 @@ composeCompiler {
     *   JSR-223：由於此 [JSR](https://jcp.org/en/jsr/detail?id=223) 處於**已撤銷**狀態，JSR-223 實作將繼續與語言版本 1.9 一起運作，但未來將不會遷移以使用 K2 編譯器。
     *   `KotlinScriptMojo` Maven 插件：我們沒有看到此插件足夠的關注。如果您繼續使用它，您將會看到編譯器警告。
 *   
-*   在 Kotlin 2.2.0 中，[`KotlinCompileTool`](https://kotlinlang.org/api/kotlin-gradle-plugin/kotlin-gradle-plugin-api/org.jetbrains.kotlin.gradle.tasks/-kotlin-compile-tool/#) 中的 [`setSource()`](https://kotlinlang.org/api/kotlin-gradle-plugin/kotlin-gradle-plugin-api/org.jetbrains.kotlin.gradle.tasks/-kotlin-compile-tool/set-source.html#) 函數現在[取代了已配置的來源而不是添加它們](compatibility-guide-22.md#correct-setsource-function-in-kotlincompiletool-to-replace-sources)。如果您想添加來源而不取代現有來源，請使用 [`source()`](https://kotlinlang.org/api/kotlin-gradle-plugin/kotlin-gradle-plugin-api/org.jetbrains.kotlin.gradle.tasks/-kotlin-compile-tool/source.html#) 函數。
+*   在 Kotlin 2.2.0 中，[`setSource()`](https://kotlinlang.org/api/kotlin-gradle-plugin/kotlin-gradle-plugin-api/org.jetbrains.kotlin.gradle.tasks/-kotlin-compile-tool/set-source.html#) 函數在 [`KotlinCompileTool`](https://kotlinlang.org/api/kotlin-gradle-plugin/kotlin-gradle-plugin-api/org.jetbrains.kotlin.gradle.tasks/-kotlin-compile-tool/#) 中現在[取代了已配置的來源而不是添加它們](compatibility-guide-22.md#correct-setsource-function-in-kotlincompiletool-to-replace-sources)。如果您想添加來源而不取代現有來源，請使用 [`source()`](https://kotlinlang.org/api/kotlin-gradle-plugin/kotlin-gradle-plugin-api/org.jetbrains.kotlin.gradle.tasks/-kotlin-compile-tool/source.html#) 函數。
 *   `BaseKapt` 中 [`annotationProcessorOptionProviders`](https://kotlinlang.org/api/kotlin-gradle-plugin/kotlin-gradle-plugin-api/org.jetbrains.kotlin.gradle.tasks/-base-kapt/annotation-processor-option-providers.html#) 的型別已從 [`MutableList<Any>` 變更為 `MutableList<CommandLineArgumentProvider>`](compatibility-guide-22.md#deprecate-basekapt-annotationprocessoroptionproviders-property)。如果您的程式碼目前將列表作為單一元素添加，請使用 `addAll()` 函數而不是 `add()` 函數。
 *   繼廢棄了用於舊版 Kotlin/JS 後端的死程式碼消除 (DCE) 工具之後，所有與 DCE 相關的 DSL 現已從 Kotlin Gradle 插件中移除：
     *   `org.jetbrains.kotlin.gradle.dsl.KotlinJsDce` 介面

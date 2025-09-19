@@ -133,9 +133,9 @@ suspend fun solveUserRequest(query: String) {
     // 建立一個具相關上下文的 AI 代理
     val agentConfig = AIAgentConfig(
         prompt = prompt("context") {
-            system("You are a helpful assistant. Use the provided context to answer the user's question accurately.")
+            system("您是個樂於助人的助手。請使用提供的上下文來準確回答使用者的問題。")
             user {
-                "Relevant context"
+                "相關上下文"
                 attachments {
                     relevantDocuments.forEach {
                         file(it.pathString, "text/plain")
@@ -156,7 +156,7 @@ suspend fun solveUserRequest(query: String) {
     val response = agent.run(query)
 
     // 傳回或處理回應
-    println("Agent response: $response")
+    println("代理回應: $response")
 }
 ```
 <!--- KNIT example-ranked-document-storage-02.kt -->
@@ -216,14 +216,16 @@ suspend fun searchDocuments(
     }
 
     val result = StringBuilder("找到 ${relevantDocuments.size} 個相關文件：
-\n")
+
+")
 
     relevantDocuments.forEachIndexed { index, document ->
         val content = Files.readString(document)
         result.append("文件 ${index + 1}：${document.fileName}
 ")
         result.append("內容：$content
-\n")
+
+")
     }
 
     return result.toString()
@@ -242,7 +244,7 @@ fun main() {
         )
 
         val response = agent.run("How to make a cake?")
-        println("Agent response: $response")
+        println("代理回應: $response")
 
     }
 }

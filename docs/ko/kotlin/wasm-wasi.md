@@ -1,10 +1,6 @@
 [//]: # (title: Kotlin/Wasm 및 WASI 시작하기)
 
-> Kotlin/Wasm은 [알파 버전](components-stability.md)입니다. 언제든지 변경될 수 있습니다.
->
-> [Kotlin/Wasm 커뮤니티에 참여하세요.](https://slack-chats.kotlinlang.org/c/webassembly)
->
-{style="note"}
+<primary-label ref="beta"/> 
 
 이 튜토리얼에서는 다양한 WebAssembly 가상 머신에서 [WebAssembly System Interface (WASI)](https://wasi.dev/)를 사용하여 간단한 [Kotlin/Wasm](wasm-overview.md) 애플리케이션을 실행하는 방법을 보여줍니다.
 
@@ -25,15 +21,15 @@
 2. IntelliJ IDEA에서 **File | New | Project from Version Control**을 선택하여 [Kotlin/Wasm WASI 템플릿 저장소](https://github.com/Kotlin/kotlin-wasm-wasi-template)를 복제합니다.
 
    명령줄에서 복제할 수도 있습니다:
-
+   
    ```bash
    git clone git@github.com:Kotlin/kotlin-wasm-wasi-template.git
    ```
 
 ## 애플리케이션 실행하기
 
-1. **View** | **Tool Windows** | **Gradle**을 선택하여 **Gradle** 도구 창을 엽니다.
-
+1. **View** | **Tool Windows** | **Gradle**을 선택하여 **Gradle** 도구 창을 엽니다. 
+   
    프로젝트가 로드되면 **Gradle** 도구 창에서 **kotlin-wasm-wasi-example** 아래의 Gradle 태스크를 찾을 수 있습니다.
 
    > 태스크가 성공적으로 로드되려면 Gradle JVM으로 최소 Java 11이 필요합니다.
@@ -51,7 +47,7 @@
      {style="tip"}
 
    ![Kotlin/Wasm and WASI tasks](wasm-wasi-gradle-task.png){width=600}
-
+   
 또는 ` kotlin-wasm-wasi-template` 루트 디렉토리에서 터미널에 다음 명령 중 하나를 실행합니다:
 
 * Node.js에서 애플리케이션을 실행하려면:
@@ -89,15 +85,15 @@ Gradle 도구 창에서 **kotlin-wasm-wasi-example** | **Tasks** | **verificatio
 ![Kotlin/Wasm and WASI test tasks](wasm-wasi-testing-task.png){width=600}
 
 또는 ` kotlin-wasm-wasi-template` 루트 디렉토리에서 터미널에 다음 명령 중 하나를 실행합니다:
-
+    
 * Node.js에서 애플리케이션을 테스트하려면:
 
   ```bash
   ./gradlew wasmWasiNodeTest
   ```
-
+   
 * Deno에서 애플리케이션을 테스트하려면:
-
+   
   ```bash
   ./gradlew wasmWasiDenoTest
   ```

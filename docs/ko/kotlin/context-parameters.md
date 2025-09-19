@@ -2,8 +2,8 @@
 
 <primary-label ref="experimental-general"/>
 
-> 컨텍스트 파라미터(Context parameters)는 이전의 실험적 기능인 [컨텍스트 리시버(context receivers)](whatsnew1620.md#prototype-of-context-receivers-for-kotlin-jvm)를 대체합니다.
-> 주요 차이점은 [컨텍스트 파라미터(context parameters)에 대한 설계 문서](https://github.com/Kotlin/KEEP/blob/master/proposals/context-parameters.md#summary-of-changes-from-the-previous-proposal)에서 확인할 수 있습니다.
+> 컨텍스트 파라미터는 이전의 실험적 기능인 [컨텍스트 리시버](whatsnew1620.md#prototype-of-context-receivers-for-kotlin-jvm)를 대체합니다.
+> 주요 차이점은 [컨텍스트 파라미터에 대한 설계 문서](https://github.com/Kotlin/KEEP/blob/master/proposals/context-parameters.md#summary-of-changes-from-the-previous-proposal)에서 확인할 수 있습니다.
 > 컨텍스트 리시버에서 컨텍스트 파라미터로 마이그레이션하려면, 관련 [블로그 게시물](https://blog.jetbrains.com/kotlin/2025/04/update-on-context-parameters/)에 설명된 대로 IntelliJ IDEA의 지원 기능을 사용할 수 있습니다.
 >
 {style="tip"}
@@ -71,7 +71,7 @@ fun main() {
 
     // UserService를 구현합니다.
     val serviceB = object : UserService {
-        override fun fun log(message: String) = println("B: $message")
+        override fun log(message: String) = println("B: $message")
     }
 
     // serviceA와 serviceB 모두 호출 사이트에서 예상되는 UserService 타입과 일치합니다.

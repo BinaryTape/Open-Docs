@@ -18,22 +18,18 @@
 
 ## 拡張関数
 
-ソフトウェア開発では、元のソースコードを変更せずにプログラムの動作を変更する必要があることがよくあります。たとえば、プロジェクトでサードパーティライブラリのクラスに機能を追加したい場合があります。
+ソフトウェア開発では、元のソースコードを変更せずにプログラムの動作を変更する必要があることがよくあります。たとえば、プロジェクトでサードパーティライブラリのクラスに追加の機能を持たせたい場合があります。
 
-拡張関数を使用すると、クラスに追加の機能を持たせることができます。拡張関数は、クラスのメンバー関数と同じ方法で呼び出します。
+**拡張関数**を追加してクラスを拡張することで、これを実現できます。拡張関数は、クラスのメンバー関数を呼び出すのと同じ方法で、ピリオド (`.`) を使用して呼び出します。
 
-拡張関数の構文を導入する前に、**レシーバー型**と**レシーバーオブジェクト**という用語を理解する必要があります。
-
-レシーバーオブジェクトとは、関数が呼び出される対象のことです。言い換えれば、レシーバーは情報が共有される場所、または共有される相手です。
+拡張関数の完全な構文を導入する前に、**レシーバー**とは何かを理解する必要があります。レシーバーとは、関数が呼び出される対象のことです。言い換えれば、レシーバーは情報が共有される場所、または共有される相手です。
 
 ![送信者と受信者の例](receiver-highlight.png){width="500"}
 
-この例では、`main()`関数が[`.first()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/first.html)関数を呼び出しています。
+この例では、`main()`関数がリストの最初の要素を返す[`.first()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/first.html)関数を呼び出しています。
 `.first()`関数は`readOnlyShapes`変数**に対して**呼び出されるため、`readOnlyShapes`変数がレシーバーです。
 
-レシーバーオブジェクトには**型**があり、コンパイラが関数をいつ使用できるかを理解できるようになっています。
-
-この例では、標準ライブラリの`.first()`関数を使用して、リストの最初の要素を返します。独自の拡張関数を作成するには、拡張したいクラス名の後に`.`を記述し、その後に自分の関数名を記述します。その後に、引数や戻り値の型を含む残りの関数宣言を続けます。
+拡張関数を作成するには、拡張したいクラス名の後に`.`を記述し、その後に自分の関数名を記述します。その後に、引数や戻り値の型を含む残りの関数宣言を続けます。
 
 例:
 
@@ -41,7 +37,7 @@
 fun String.bold(): String = "<b>$this</b>"
 
 fun main() {
-    // "hello" is the receiver object
+    // "hello" is the receiver
     println("hello".bold())
     // <b>hello</b>
 }
@@ -50,19 +46,19 @@ fun main() {
 
 この例では:
 
-* `String`は拡張されたクラスであり、レシーバー型としても知られています。
-* `bold`は拡張関数の名前です。
-* `.bold()`拡張関数の戻り値の型は`String`です。
-* `"hello"` (`String`のインスタンス) はレシーバーオブジェクトです。
-* レシーバーオブジェクトは、本体内で[キーワード](keyword-reference.md) `this`によってアクセスされます。
-* 文字列テンプレート (` ` `) を使用して、`this`の値にアクセスします。
-* `.bold()`拡張関数は、文字列を受け取り、太字テキスト用の`<b>` HTML要素でそれを返します。
+*   `String`は拡張されたクラスです。
+*   `bold`は拡張関数の名前です。
+*   `.bold()`拡張関数の戻り値の型は`String`です。
+*   `String`のインスタンスである`"hello"`はレシーバーです。
+*   レシーバーは、本体内で[キーワード](keyword-reference.md) `this`によってアクセスされます。
+*   文字列テンプレート (` ` `) を使用して、`this`の値にアクセスします。
+*   `.bold()`拡張関数は、文字列を受け取り、太字テキスト用の`<b>` HTML要素でそれを返します。
 
 ## 拡張指向設計
 
 拡張関数はどこでも定義できるため、拡張指向設計を作成できます。これらの設計は、コア機能を有用だが不可欠ではない機能から分離し、コードの読みやすさとメンテナンス性を向上させます。
 
-良い例は、Ktorライブラリの[`HttpClient`](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client/-http-client/index.html)クラスです。これは、ネットワークリクエストの実行に役立ちます。その機能のコアは、HTTPリクエストに必要なすべての情報を受け取る単一の関数`request()`です。
+良い例は、ネットワークリクエストの実行に役立つKtorライブラリの[`HttpClient`](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client/-http-client/index.html)クラスです。その機能のコアは、HTTPリクエストに必要なすべての情報を受け取る単一の関数`request()`です。
 
 ```kotlin
 class HttpClient {
@@ -135,7 +131,7 @@ fun main() {
     // true
 }
 ```
-{initial-collapse-state="collapsed" collapsible="true" collapsed-title="Example solution" id="kotlin-tour-extension-functions-solution-1"}
+{initial-collapse-state="collapsed" collapsible="true" collapsed-title="解答例" id="kotlin-tour-extension-functions-solution-1"}
 
 ### 演習2 {initial-collapse-state="collapsed" collapsible="true" id="extension-functions-exercise-2"}
 
@@ -168,7 +164,7 @@ fun main() {
     // hello world!
 }
 ```
-{initial-collapse-state="collapsed" collapsible="true" collapsed-title="Example solution" id="kotlin-tour-extension-functions-solution-2"}
+{initial-collapse-state="collapsed" collapsible="true" collapsed-title="解答例" id="kotlin-tour-extension-functions-solution-2"}
 
 ## 次のステップ
 

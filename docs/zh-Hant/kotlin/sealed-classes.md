@@ -27,17 +27,17 @@ _密封 (sealed)_ 類與介面提供對類別階層的受控繼承。密封類�
 要宣告密封類或介面，請使用 `sealed` 修飾符：
 
 ```kotlin
-// 建立一個密封介面
+// Create a sealed interface
 sealed interface Error
 
-// 建立一個實作密封介面 Error 的密封類
+// Create a sealed class that implements sealed interface Error
 sealed class IOError(): Error
 
-// 定義擴展密封類 'IOError' 的子類
+// Define subclasses that extend sealed class 'IOError'
 class FileReadError(val file: File): IOError()
 class DatabaseError(val source: DataSource): IOError()
 
-// 建立一個實作 'Error' 密封介面的單例物件
+// Create a singleton object implementing the 'Error' sealed interface 
 object RuntimeError : Error
 ```
 
@@ -62,9 +62,9 @@ fun main() {
     val errors = listOf(Error.NetworkError(), Error.DatabaseError(), Error.UnknownError())
     errors.forEach { println(it.message) }
 }
-// 網路故障
-// 無法連線資料庫
-// 發生未知錯誤
+// Network failure 
+// Database cannot be reached 
+// An unknown error has occurred
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.5"}
 
@@ -78,7 +78,7 @@ sealed class Error(val severity: ErrorSeverity) {
     class FileReadError(val file: File): Error(ErrorSeverity.MAJOR)
     class DatabaseError(val source: DataSource): Error(ErrorSeverity.CRITICAL)
     object RuntimeError : Error(ErrorSeverity.CRITICAL)
-    // 可以在此處添加額外的錯誤型別
+    // Additional error types can be added here
 }
 ```
 
@@ -86,15 +86,15 @@ sealed class Error(val severity: ErrorSeverity) {
 
 ```kotlin
 sealed class IOError {
-    // 密封類別的建構函式預設為 protected 可視性。它在此類別及其子類中可見。
+    // A sealed class constructor has protected visibility by default. It's visible inside this class and its subclasses 
     constructor() { /*...*/ }
 
-    // 私有建構函式，僅在此類別內部可見。
-    // 在密封類中使用私有建構函式可以對實例化進行更嚴格的控制，從而允許在類內部進行特定的初始化過程。
+    // Private constructor, visible inside this class only. 
+    // Using a private constructor in a sealed class allows for even stricter control over instantiation, enabling specific initialization procedures within the class.
     private constructor(description: String): this() { /*...*/ }
 
-    // 這將會引發錯誤，因為密封類中不允許使用 public 和 internal 建構函式
-    // public constructor(code: Int): this() {}
+    // This will raise an error because public and internal constructors are not allowed in sealed classes
+    // public constructor(code: Int): this() {} 
 }
 ```
 
@@ -108,26 +108,26 @@ sealed class IOError {
 >
 > ```kotlin
 > sealed interface Error
->
-> // 繼承密封介面 Error 的 enum 類
+> 
+> // enum class extending the sealed interface Error
 > enum class ErrorType : Error {
 >     FILE_ERROR, DATABASE_ERROR
 > }
 >
 > ```
->
+> 
 {style="note"}
 
 這些限制不適用於間接子類。如果密封類的直接子類未標記為密封，則可以以其修飾符允許的任何方式擴展它：
 
 ```kotlin
-// 密封介面 'Error' 僅在相同套件和模組中有實作
+// Sealed interface 'Error' has implementations only in the same package and module
 sealed interface Error
 
-// 密封類 'IOError' 繼承 'Error'，且僅在相同套件內可擴展
+// Sealed class 'IOError' extends 'Error' and is extendable only within the same package
 sealed class IOError(): Error
 
-// 開放類 'CustomError' 繼承 'Error'，且可在任何可見之處擴展
+// Open class 'CustomError' extends 'Error' and can be extended anywhere it's visible
 open class CustomError(): Error
 ```
 
@@ -146,7 +146,7 @@ open class CustomError(): Error
 在這種情況下，您不需要添加 `else` 子句：
 
 ```kotlin
-// 密封類及其子類
+// Sealed class and its subclasses
 sealed class Error {
     class FileReadError(val file: String): Error()
     class DatabaseError(val source: String): Error()
@@ -154,16 +154,16 @@ sealed class Error {
 }
 
 //sampleStart
-// 記錄錯誤的函式
+// Function to log errors
 fun log(e: Error) = when(e) {
-    is Error.FileReadError -> println("讀取檔案 ${e.file} 時出錯")
-    is Error.DatabaseError -> println("從資料庫 ${e.source} 讀取時出錯")
-    Error.RuntimeError -> println("執行時錯誤")
-    // 無需 `else` 子句，因為所有情況都已涵蓋
+    is Error.FileReadError -> println("Error while reading file ${e.file}")
+    is Error.DatabaseError -> println("Error while reading from database ${e.source}")
+    Error.RuntimeError -> println("Runtime error")
+    // No `else` clause is required because all the cases are covered
 }
 //sampleEnd
 
-// 列出所有錯誤
+// List all errors
 fun main() {
     val errors = listOf(
         Error.FileReadError("example.txt"),
@@ -180,7 +180,7 @@ fun main() {
 > 此功能允許您在匹配密封類成員時，如果預期型別已知，則可以省略型別名稱。
 >
 > 欲了解更多資訊，請參閱 [上下文相關解析的預覽](whatsnew22.md#preview-of-context-sensitive-resolution) 或相關的 [KEEP 提案](https://github.com/Kotlin/KEEP/blob/improved-resolution-expected-type/proposals/context-sensitive-resolution.md)。
->
+> 
 {style="tip"}
 
 當使用密封類與 `when` 表達式時，您還可以添加守護條件，以在單一分支中包含額外檢查。
@@ -202,17 +202,17 @@ fun main() {
 此範例演示如何管理各種 UI 狀態：
 
 ```kotlin
-sealed class UIState {
+sealed class UIState { 
     data object Loading : UIState()
     data class Success(val data: String) : UIState()
     data class Error(val exception: Exception) : UIState()
 }
 
-fun updateUI(state: UIState) {
+fun updateUI(state: UIState) { 
     when (state) {
         is UIState.Loading -> showLoadingIndicator()
         is UIState.Success -> showData(state.data)
-        is UIState.Error -> showError(state.exception)
+        is UIState.Error -> showError(state.exception) 
     }
 }
 ```
@@ -230,11 +230,11 @@ sealed class Payment {
     data object Cash : Payment()
 }
 
-fun processPayment(payment: Payment) {
+fun processPayment(payment: Payment) { 
     when (payment) {
         is Payment.CreditCard -> processCreditCardPayment(payment.number, payment.expiryDate)
         is Payment.PayPal -> processPayPalPayment(payment.email)
-        is Payment.Cash -> processCashPayment()
+        is Payment.Cash -> processCashPayment() 
     }
 }
 ```
@@ -252,13 +252,13 @@ fun processPayment(payment: Payment) {
 密封類 `ApiResponse` 封裝了不同的回應情境：包含使用者資料的 `UserSuccess`、用於不存在使用者的 `UserNotFound`，以及用於任何失敗的 `Error`。`handleRequest` 函式使用 `when` 表達式以型別安全的方式處理這些請求，而 `getUserById` 模擬使用者擷取：
 
 ```kotlin
-// 匯入必要的模組
+// Import necessary modules
 import io.ktor.server.application.*
 import io.ktor.server.resources.*
 
 import kotlinx.serialization.*
 
-// 使用 Ktor 資源定義 API 請求的密封介面
+// Define the sealed interface for API requests using Ktor resources
 @Resource("api")
 sealed interface ApiRequest
 
@@ -270,50 +270,50 @@ data class LoginRequest(val username: String, val password: String) : ApiRequest
 @Resource("logout")
 object LogoutRequest : ApiRequest
 
-// 定義具有詳細回應型別的 ApiResponse 密封類
+// Define the ApiResponse sealed class with detailed response types
 sealed class ApiResponse {
     data class UserSuccess(val user: UserData) : ApiResponse()
     data object UserNotFound : ApiResponse()
     data class Error(val message: String) : ApiResponse()
 }
 
-// 用於成功回應的使用者資料類別
+// User data class to be used in the success response
 data class UserData(val userId: String, val name: String, val email: String)
 
-// 驗證使用者憑證的函式（僅用於演示）
+// Function to validate user credentials (for demonstration purposes)
 fun isValidUser(username: String, password: String): Boolean {
-    // 一些驗證邏輯（這只是一個佔位符）
+    // Some validation logic (this is just a placeholder)
     return username == "validUser" && password == "validPass"
 }
 
-// 處理帶有詳細回應的 API 請求的函式
+// Function to handle API requests with detailed responses
 fun handleRequest(request: ApiRequest): ApiResponse {
     return when (request) {
         is LoginRequest -> {
             if (isValidUser(request.username, request.password)) {
                 ApiResponse.UserSuccess(UserData("userId", "userName", "userEmail"))
             } else {
-                ApiResponse.Error("無效的使用者名稱或密碼")
+                ApiResponse.Error("Invalid username or password")
             }
         }
         is LogoutRequest -> {
-            // 假設在此範例中登出操作總是成功
-            ApiResponse.UserSuccess(UserData("userId", "userName", "userEmail")) // 僅用於演示
+            // Assuming logout operation always succeeds for this example
+            ApiResponse.UserSuccess(UserData("userId", "userName", "userEmail")) // For demonstration
         }
     }
 }
 
-// 模擬 getUserById 呼叫的函式
+// Function to simulate a getUserById call
 fun getUserById(userId: String): ApiResponse {
     return if (userId == "validUserId") {
         ApiResponse.UserSuccess(UserData("validUserId", "John Doe", "john@example.com"))
     } else {
         ApiResponse.UserNotFound
     }
-    // 錯誤處理也會導致錯誤回應。
+    // Error handling would also result in an Error response.
 }
 
-// 演示用法的 main 函式
+// Main function to demonstrate the usage
 fun main() {
     val loginResponse = handleRequest(LoginRequest("user", "pass"))
     println(loginResponse)

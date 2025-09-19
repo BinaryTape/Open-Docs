@@ -70,13 +70,13 @@ class Cat {
 fun petAnimal(animal: Any) {
     val isCat = animal is Cat
     if (isCat) {
-        // 在 Kotlin 2.0.0 中，編譯器可以存取
-        // isCat 的資訊，因此它知道
-        // animal 被智慧型轉型為 Cat 型別。
-        // 因此，可以呼叫 purr() 函式。
-        // 在 Kotlin 1.9.20 中，編譯器不知道
-        // 智慧型轉型，因此呼叫 purr()
-        // 函式會觸發錯誤。
+        // In Kotlin 2.0.0, the compiler can access
+        // information about isCat, so it knows that
+        // animal was smart-cast to the type Cat.
+        // Therefore, the purr() function can be called.
+        // In Kotlin 1.9.20, the compiler doesn't know
+        // about the smart cast, so calling the purr()
+        // function triggers an error.
         animal.purr()
     }
 }
@@ -89,7 +89,7 @@ fun main(){
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="2.0" id="kotlin-smart-casts-k2-local-variables" validate="false"}
 
-#### 使用邏輯 or 運算子的型別檢查
+#### 使用邏輯 `or` 運算子的型別檢查
 
 在 Kotlin 2.0.0 中，如果您使用 `or` 運算子 (`||`) 結合物件的型別檢查，則會將其智慧型轉型為最接近的共同父型別。在此變更之前，智慧型轉型總是轉型為 `Any` 型別。
 
@@ -106,12 +106,12 @@ interface Declined : Status
 
 fun signalCheck(signalStatus: Any) {
     if (signalStatus is Postponed || signalStatus is Declined) {
-        // signalStatus 被智慧型轉型為共同父型別 Status
+        // signalStatus is smart-cast to a common supertype Status
         signalStatus.signal()
-        // 在 Kotlin 2.0.0 之前，signalStatus 被智慧型轉型
-        // 為 Any 型別，因此呼叫 signal() 函式會觸發
-        // 未解析參考錯誤。signal() 函式只能在
-        // 另一個型別檢查之後成功呼叫：
+        // Prior to Kotlin 2.0.0, signalStatus is smart cast 
+        // to type Any, so calling the signal() function triggered an
+        // Unresolved reference error. The signal() function can only 
+        // be called successfully after another type check:
         
         // check(signalStatus is Status)
         // signalStatus.signal()
@@ -145,17 +145,18 @@ fun nextProcessor(): Processor? = null
 fun runProcessor(): Processor? {
     var processor: Processor? = null
     inlineAction {
-        // 在 Kotlin 2.0.0 中，編譯器知道 processor
-        // 是一個局部變數，inlineAction() 是一個內聯函式，因此
-        // processor 的參考不會洩漏。因此，智慧型轉型
-        // processor 是安全的。
+        // In Kotlin 2.0.0, the compiler knows that processor 
+        // is a local variable and inlineAction() is an inline function, so 
+        // references to processor can't be leaked. Therefore, it's safe 
+        // to smart-cast processor.
       
-        // 如果 processor 不為 null，則 processor 會被智慧型轉型
+        // If processor isn't null, processor is smart-cast
         if (processor != null) {
-            // 編譯器知道 processor 不為 null，因此不需要安全呼叫
+            // The compiler knows that processor isn't null, so no safe call 
+            // is needed
             processor.process()
 
-            // 在 Kotlin 1.9.20 中，您必須執行安全呼叫：
+            // In Kotlin 1.9.20, you have to perform a safe call:
             // processor?.process()
         }
 
@@ -173,14 +174,14 @@ fun runProcessor(): Processor? {
 ```kotlin
 class Holder(val provider: (() -> Unit)?) {
     fun process() {
-        // 在 Kotlin 2.0.0 中，如果 provider 不為 null，
-        // 它會被智慧型轉型
+        // In Kotlin 2.0.0, if provider isn't null,
+        // it is smart-cast
         if (provider != null) {
-            // 編譯器知道 provider 不為 null
+            // The compiler knows that provider isn't null
             provider()
 
-            // 在 1.9.20 中，編譯器不知道 provider 不為
-            // null，因此會觸發錯誤：
+            // In 1.9.20, the compiler doesn't know that provider isn't 
+            // null, so it triggers an error:
             // Reference has a nullable type '(() -> Unit)?', use explicit '?.invoke()' to make a function-like call instead
         }
     }
@@ -200,7 +201,7 @@ class Holder(val provider: Provider?, val processor: Processor?) {
     fun process() {
         if (provider != null) {
             provider() 
-            // 在 1.9.20 中，編譯器觸發錯誤： 
+            // In 1.9.20, the compiler triggers an error: 
             // Reference has a nullable type 'Provider?', use explicit '?.invoke()' to make a function-like call instead
         }
     }
@@ -215,28 +216,28 @@ class Holder(val provider: Provider?, val processor: Processor?) {
 //sampleStart
 fun testString() {
     var stringInput: String? = null
-    // stringInput 被智慧型轉型為 String 型別
+    // stringInput is smart-cast to String type
     stringInput = ""
     try {
-        // 編譯器知道 stringInput 不為 null
+        // The compiler knows that stringInput isn't null
         println(stringInput.length)
         // 0
 
-        // 編譯器拒絕了 stringInput 先前的智慧型轉型資訊。
-        // 現在 stringInput 具有 String? 型別。
+        // The compiler rejects previous smart cast information for 
+        // stringInput. Now stringInput has the String? type.
         stringInput = null
 
-        // 觸發例外
+        // Trigger an exception
         if (2 > 1) throw Exception()
         stringInput = ""
     } catch (exception: Exception) {
-        // 在 Kotlin 2.0.0 中，編譯器知道 stringInput
-        // 可以為 null，因此 stringInput 保持可空。
+        // In Kotlin 2.0.0, the compiler knows stringInput 
+        // can be null, so stringInput stays nullable.
         println(stringInput?.length)
         // null
 
-        // 在 Kotlin 1.9.20 中，編譯器表示不需要安全呼叫，
-        // 但這是不正確的。
+        // In Kotlin 1.9.20, the compiler says that a safe call isn't
+        // needed, but this is incorrect.
     }
 }
 //sampleEnd
@@ -266,32 +267,34 @@ interface Tau {
 fun main(input: Rho) {
     var unknownObject: Rho = input
 
-    // 檢查 unknownObject 是否繼承自 Tau 介面
-    // 請注意，unknownObject 有可能同時繼承自
-    // Rho 和 Tau 介面。
+    // Check if unknownObject inherits from the Tau interface
+    // Note, it's possible that unknownObject inherits from both
+    // Rho and Tau interfaces.
     if (unknownObject is Tau) {
 
-        // 使用介面 Rho 中重載的 inc() 運算子。
-        // 在 Kotlin 2.0.0 中，unknownObject 的型別會被智慧型轉型為
-        // Sigma。
+        // Use the overloaded inc() operator from interface Rho.
+        // In Kotlin 2.0.0, the type of unknownObject is smart-cast to
+        // Sigma.
         ++unknownObject
 
-        // 在 Kotlin 2.0.0 中，編譯器知道 unknownObject 的型別為
-        // Sigma，因此 sigma() 函式可以成功呼叫。
+        // In Kotlin 2.0.0, the compiler knows unknownObject has type
+        // Sigma, so the sigma() function can be called successfully.
         unknownObject.sigma()
 
-        // 在 Kotlin 1.9.20 中，當呼叫 inc() 時，編譯器不會執行智慧型轉型，
-        // 因此編譯器仍然認為 unknownObject 的型別為 Tau。呼叫 sigma() 函式
-        // 會拋出編譯時錯誤。
+        // In Kotlin 1.9.20, the compiler doesn't perform a smart cast
+        // when inc() is called so the compiler still thinks that 
+        // unknownObject has type Tau. Calling the sigma() function 
+        // throws a compile-time error.
         
-        // 在 Kotlin 2.0.0 中，編譯器知道 unknownObject 的型別為
-        // Sigma，因此呼叫 tau() 函式會拋出編譯時錯誤。
+        // In Kotlin 2.0.0, the compiler knows unknownObject has type
+        // Sigma, so calling the tau() function throws a compile-time 
+        // error.
         unknownObject.tau()
         // Unresolved reference 'tau'
 
-        // 在 Kotlin 1.9.20 中，由於編譯器錯誤地認為
-        // unknownObject 的型別為 Tau，tau() 函式可以被呼叫，
-        // 但會拋出 ClassCastException。
+        // In Kotlin 1.9.20, since the compiler mistakenly thinks that 
+        // unknownObject has type Tau, the tau() function can be called,
+        // but it throws a ClassCastException.
     }
 }
 ```
@@ -444,17 +447,19 @@ fun whichFun(x: Int) = println("platform function")
 Kotlin 2.0.0 現在也支援不同的可見性等級，但**僅限於**實際宣告比預期宣告 _更具_ 寬容性時。例如：
 
 ```kotlin
-expect internal class Attribute // 可見性為 internal
-actual class Attribute          // 預設可見性為 public，更具寬容性
+expect internal class Attribute // Visibility is internal
+actual class Attribute          // Visibility is public by default,
+                                // which is more permissive
 ```
 
 同樣，如果您在實際宣告中使用[型別別名](type-aliases.md)，則**底層型別**的可見性應與預期宣告相同或更具寬容性。例如：
 
 ```kotlin
-expect internal class Attribute                 // 可見性為 internal
+expect internal class Attribute                 // Visibility is internal
 internal actual typealias Attribute = Expanded
 
-class Expanded                                  // 預設可見性為 public，更具寬容性
+class Expanded                                  // Visibility is public by default,
+                                                // which is more permissive
 ```
 
 ## 如何啟用 Kotlin K2 編譯器
@@ -484,7 +489,7 @@ kotlin.build.report.output=file
 | `file`       | 將建構報告以人類可讀的格式儲存到本機檔案。預設為 `${project_folder}/build/reports/kotlin-build/${project_name}-timestamp.txt`                                                                                                                                                                                                                          |
 | `single_file` | 將建構報告以物件格式儲存到指定的本機檔案。                                                                                                                                                                                                                                                                  |
 | `build_scan` | 將建構報告儲存到[建構掃描](https://scans.gradle.com/)的 `custom values` 區段中。請注意，Gradle Enterprise 外掛程式限制了自訂值的數量和長度。在大型專案中，某些值可能會丟失。                                                                                                                                                                      |
-| `http`       | 使用 HTTP(S) 發布建構報告。POST 方法以 JSON 格式發送度量。您可以在[Kotlin 儲存庫](https://github.com/JetBrains/kotlin/blob/master/libraries/tools/kotlin-gradle-plugin/src/common/kotlin/org/jetbrains/kotlin/gradle/report/data/GradleCompileStatisticsData.kt)中查看發送資料的當前版本。您可以在[此部落格文章](https://blog.jetbrains.com/kotlin/2022/06/introducing-kotlin-build-reports/?_gl=1*1a7pghy*_ga*MTcxMjc1NzE5Ny4xNjY1NDAzNjkz*_ga_9J976DJZ68*MTcxNTA3NjA2NS4zNzcuMS4xNzE1MDc2MDc5LjQ2LjAuMA..&_ga=2.265800911.1124071296.1714976764-1712757197.1665403693#enable_build_reports)中找到 HTTP 端點範例。 |
+| `http`       | 使用 HTTP(S) 發布建構報告。POST 方法以 JSON 格式發送度量。您可以在[Kotlin 儲存庫](https://github.com/JetBrains/kotlin/blob/master/libraries/tools/kotlin-gradle-plugin/src/common/kotlin/org/jetbrains/kotlin/gradle/report/data/GradleCompileStatisticsData.kt)中查看發送資料的當前版本。您可以在[此部落格文章](https://blog.jetbrains.com/kotlin/2024/04/k2-compiler-performance-benchmarks-and-how-to-measure-them-on-your-projects/)中找到 HTTP 端點範例。 |
 | `json`       | 將建構報告以 JSON 格式儲存到本機檔案。在 `kotlin.build.report.json.directory` 中設定建構報告的位置。預設名稱為 `${project_name}-build-<date-time>-<index>.json`。                                                                                                                                                                                        |
 
 有關建構報告功能的更多資訊，請參閱[建構報告](gradle-compilation-and-caches.md#build-reports)。
@@ -550,10 +555,10 @@ open class Base {
     open var b: Int
     
     init {
-        // 從 Kotlin 2.0 開始會出錯，先前可成功編譯 
-        this.a = 1 // 錯誤：open val 必須有初始化式
-        // 始終是錯誤
-        this.b = 1 // 錯誤：open var 必須有初始化式
+        // Error starting with Kotlin 2.0 that earlier compiled successfully 
+        this.a = 1 //Error: open val must have initializer
+        // Always an error
+        this.b = 1 // Error: open var must have initializer
     }
 }
 
@@ -600,18 +605,18 @@ public class Container<E> {
 ```kotlin
 fun exampleFunction(starProjected: Container<*>, inProjected: Container<in Number>, sampleString: String) {
     starProjected.setFoo(sampleString)
-    // 從 Kotlin 1.0 開始出錯
+    // Error since Kotlin 1.0
 
-    // 合成 setter `foo` 解析為 `setFoo()` 方法
+    // Synthetic setter `foo` is resolved to the `setFoo()` method
     starProjected.foo = sampleString
-    // 從 Kotlin 2.0.0 開始出錯
+    // Error since Kotlin 2.0.0
 
     inProjected.setFoo(sampleString)
-    // 從 Kotlin 1.0 開始出錯
+    // Error since Kotlin 1.0
 
-    // 合成 setter `foo` 解析為 `setFoo()` 方法
+    // Synthetic setter `foo` is resolved to the `setFoo()` method
     inProjected.foo = sampleString
-    // 從 Kotlin 2.0.0 開始出錯
+    // Error since Kotlin 2.0.0
 }
 ```
 
@@ -630,33 +635,33 @@ fun exampleFunction(starProjected: Container<*>, inProjected: Container<in Numbe
 例如，假設您在一個模組中宣告了一個泛型類別：
 
 ```kotlin
-// 模組一
+// Module one
 class Node<V>(val value: V)
 ```
 
 如果您有另一個模組（模組二）配置了對模組一的依賴，您的程式碼就可以存取 `Node<V>` 類別並將其用作函式型別中的型別：
 
 ```kotlin
-// 模組二
+// Module two
 fun execute(func: (Node<Int>) -> Unit) {}
-// 函式成功編譯
+// Function compiles successfully
 ```
 
 然而，如果您的專案配置錯誤，以至於您有第三個模組（模組三）僅依賴於模組二，則 Kotlin 編譯器在編譯第三個模組時將無法存取**模組一**中的 `Node<V>` 類別。現在，模組三中任何使用 `Node<V>` 型別的 lambda 或匿名函式都會在 Kotlin 2.0.0 中觸發錯誤，從而防止稍後在程式碼中出現可避免的編譯器錯誤、崩潰和執行時例外：
 
 ```kotlin
-// 模組三
+// Module three
 fun test() {
-    // 在 Kotlin 2.0.0 中觸發錯誤，因為隱式
-    // lambda 參數 (it) 解析為 Node，而 Node 不可存取
+    // Triggers an error in Kotlin 2.0.0, as the type of the implicit 
+    // lambda parameter (it) resolves to Node, which is inaccessible
     execute {}
 
-    // 在 Kotlin 2.0.0 中觸發錯誤，因為未使用的
-    // lambda 參數 (_) 解析為 Node，而 Node 不可存取
+    // Triggers an error in Kotlin 2.0.0, as the type of the unused 
+    // lambda parameter (_) resolves to Node, which is inaccessible
     execute { _ -> }
 
-    // 在 Kotlin 2.0.0 中觸發錯誤，因為未使用的
-    // 匿名函式參數 (_) 解析為 Node，而 Node 不可存取
+    // Triggers an error in Kotlin 2.0.0, as the type of the unused
+    // anonymous function parameter (_) resolves to Node, which is inaccessible
     execute(fun (_) {})
 }
 ```
@@ -674,7 +679,7 @@ fun test() {
 <td>
 
 ```kotlin
-// 模組一
+// Module one
 class Node<V>(val value: V)
 ```
 
@@ -682,11 +687,11 @@ class Node<V>(val value: V)
 <td>
 
 ```kotlin
-// 模組二
+// Module two
 class Container<C>(vararg val content: C)
 
-// 具有泛型類別型別的函式，其
-// 也具有泛型類別型別引數
+// Functions with generic class type that
+// also have a generic class type argument
 fun produce(): Container<Node<Int>> = Container(Node(42))
 fun consume(arg: Container<Node<Int>>) {}
 ```
@@ -698,10 +703,10 @@ fun consume(arg: Container<Node<Int>>) {}
 如果您嘗試在模組三中呼叫這些函式，則會在 Kotlin 2.0.0 中觸發錯誤，因為泛型類別 `Node<V>` 無法從模組三存取：
 
 ```kotlin
-// 模組三
+// Module three
 fun test() {
-    // 在 Kotlin 2.0.0 中觸發錯誤，因為泛型類別 Node<V>
-    // 不可存取
+    // Triggers an error in Kotlin 2.0.0, as generic class Node<V> is 
+    // inaccessible
     consume(produce())
 }
 ```
@@ -719,7 +724,7 @@ fun test() {
 <td>
 
 ```kotlin
-// 模組一
+// Module one
 class IntNode(val value: Int)
 ```
 
@@ -727,15 +732,15 @@ class IntNode(val value: Int)
 <td>
 
 ```kotlin
-// 模組二
-// 包含 lambda 的函式
-// 參數，型別為 `IntNode`
+// Module two
+// A function that contains a lambda 
+// parameter with `IntNode` type
 fun execute(func: (IntNode) -> Unit) {}
 
 class Container<C>(vararg val content: C)
 
-// 具有泛型類別型別的函式
-// 其具有 `IntNode` 作為型別引數
+// Functions with generic class type
+// that has `IntNode` as a type argument
 fun produce(): Container<IntNode> = Container(IntNode(42))
 fun consume(arg: Container<IntNode>) {}
 ```
@@ -747,20 +752,20 @@ fun consume(arg: Container<IntNode>) {}
 如果您在模組三中呼叫這些函式，則會觸發一些警告：
 
 ```kotlin
-// 模組三
+// Module three
 fun test() {
-    // 在 Kotlin 2.0.0 中觸發警告，因為類別 IntNode
-    // 不可存取。
+    // Triggers warnings in Kotlin 2.0.0, as class IntNode is 
+    // inaccessible.
 
     execute {}
-    // 參數 'it' 的類別 'IntNode' 不可存取。
+    // Class 'IntNode' of the parameter 'it' is inaccessible.
 
     execute { _ -> }
     execute(fun (_) {})
-    // 參數 '_' 的類別 'IntNode' 不可存取。
+    // Class 'IntNode' of the parameter '_' is inaccessible.
 
-    // 在未來的 Kotlin 版本中將觸發警告，因為 IntNode
-    // 不可存取。
+    // Will trigger a warning in future Kotlin releases, as IntNode is
+    // inaccessible.
     consume(produce())
 }
 ```
@@ -795,16 +800,16 @@ public class Base {
 class Derived : Base() {
     val a = "aa"
 
-    // 宣告自訂 get() 函式
+    // Declares custom get() function
     val b get() = "bb"
 }
 
 fun main() {
-    // 解析為 Derived.a
+    // Resolves Derived.a
     println(a)
     // aa
 
-    // 解析為 Base.b
+    // Resolves Base.b
     println(b)
     // b
 }
@@ -857,7 +862,7 @@ public class Derived extends Base {
 
 ```kotlin
 fun main() {
-    // 解析為 Derived.a
+    // Resolves Derived.a
     println(a)
     // a
 }
@@ -887,7 +892,7 @@ val dataService: DataService = ...
 dataService.fetchData() // -> ResultContainer<String?>
 ```
 
-然而，以前當 Java 基本型別陣列匯入到 Kotlin 時，所有 `TYPE_USE` 註解都會丟失，導致平台可空性並可能產生不安全的程式碼：
+以前，然而，當 Java 基本型別陣列匯入到 Kotlin 時，所有 `TYPE_USE` 註解都會丟失，導致平台可空性並可能產生不安全的程式碼：
 
 ```java
 interface DataProvider {
@@ -898,8 +903,8 @@ interface DataProvider {
 ```kotlin
 val dataService: DataProvider = ...
 dataService.fetchData() // -> IntArray .. IntArray?
-// 沒有錯誤，即使 `dataService.fetchData()` 根據註解可能為 `null`
-// 這可能會導致 NullPointerException
+// No error, even though `dataService.fetchData()` might be `null` according to annotations
+// This might result in a NullPointerException
 dataService.fetchData()[0]
 ```
 請注意，此問題從未影響宣告本身的可空性註解，僅影響 `TYPE_USE` 註解。
@@ -946,9 +951,9 @@ abstract class FileSystem {
     abstract fun listFiles()
 }
 expect open class PlatformFileSystem() : FileSystem {
-    // 在 Kotlin 2.0.0 中，需要明確的覆寫
+    // In Kotlin 2.0.0, an explicit override is needed
     expect override fun listFiles()
-    // 在 Kotlin 2.0.0 之前，不需要覆寫
+    // Before Kotlin 2.0.0, an override wasn't needed
 }
 ```
 
@@ -1125,8 +1130,8 @@ actual open class PlatformFileSystem : FileSystem {
 
 #### 其他 {initial-collapse-state="collapsed" collapsible="true"}
 
-| 問題 ID                                                    | 標題                                                                                                                                              |
-| :--------------------------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 問題 ID                                                    | 標題                                                                                                                                      |
+| :--------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------ |
 | [KT-59739](https://youtrack.jetbrains.com/issue/KT-59739)* | K2/MPP 報告 [ABSTRACT_MEMBER_NOT_IMPLEMENTED] 在共同程式碼中對於繼承者的情況，當實作位於實際對應物中時                                            |
 | [KT-49015](https://youtrack.jetbrains.com/issue/KT-49015)  | 合格的 this：在潛在標籤衝突情況下改變行為                                                                                                           |
 | [KT-56545](https://youtrack.jetbrains.com/issue/KT-56545)  | 修復 JVM 後端中函式命名不正確的問題，該問題發生在 Java 子類別中意外的衝突重載情況下                                                               |

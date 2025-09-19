@@ -40,7 +40,7 @@ Kotlin Multiplatform 最初於 2017 年作為 Kotlin 1.2 的一部分推出。20
 
 您可以使用 [Compose Multiplatform](https://www.jetbrains.com/compose-multiplatform/) 在多個平台上編寫共用 UI 程式碼，這是一個由 JetBrains 開發的現代宣告式框架，該框架建構於 Kotlin Multiplatform 和 Google 的 Jetpack Compose 之上。
 
-Compose Multiplatform 目前在 [iOS](https://blog.jetbrains.com/kotlin/2025/05/compose-multiplatform-1-8-0-released-compose-multiplatform-for-ios-is-stable-and-production-ready/)、Android 和桌面端已趨於穩定，網路端則處於 Alpha 階段。
+Compose Multiplatform 目前在 [iOS](https://blog.jetbrains.com/kotlin/2025/05/compose-multiplatform-1-8-0-released-compose-multiplatform-for-ios-is-stable-and-production-ready/)、Android 和桌面端已趨於穩定，網路端則處於 Beta 階段。
 
 [![探索 Compose Multiplatform](explore-compose.svg){width="500"}](https://www.jetbrains.com/compose-multiplatform/)
 

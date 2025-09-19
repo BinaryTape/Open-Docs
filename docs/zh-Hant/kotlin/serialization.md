@@ -10,7 +10,7 @@ _序列化_ 是將應用程式所使用的資料轉換為可透過網路傳輸�
 
 ## 函式庫
 
-`kotlinx.serialization` 為所有支援的平台（JVM、JavaScript、Native）以及各種序列化格式（JSON、CBOR、Protocol Buffers 等）提供多套函式庫。您可以在[下方](#formats)找到所有支援的序列化格式的完整列表。
+`kotlinx.serialization` 為所有支援的平台 – JVM、JavaScript、Native – 以及各種序列化格式 – JSON、CBOR、Protocol Buffers 等 – 提供多套函式庫。您可以在[下方](#formats)找到所有支援的序列化格式的完整列表。
 
 所有 Kotlin 序列化函式庫都屬於 `org.jetbrains.kotlinx:` 群組。它們的名稱以 `kotlinx-serialization-` 開頭，並帶有反映序列化格式的尾碼。範例：
 * `org.jetbrains.kotlinx:kotlinx-serialization-json` 為 Kotlin 專案提供 JSON 序列化。
@@ -75,7 +75,7 @@ _序列化_ 是將應用程式所使用的資料轉換為可透過網路傳輸�
     ```kotlin
     dependencies {
         implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:%serializationVersion%")
-    } 
+    }
     ```
 
     </tab>
@@ -84,7 +84,7 @@ _序列化_ 是將應用程式所使用的資料轉換為可透過網路傳輸�
     ```groovy
     dependencies {
         implementation 'org.jetbrains.kotlinx:kotlinx-serialization-json:%serializationVersion%'
-    } 
+    }
     ```
 
     </tab>
@@ -96,53 +96,53 @@ _序列化_ 是將應用程式所使用的資料轉換為可透過網路傳輸�
 
 1. 使用 `@Serializable` 標註類別，使其可序列化。
 
-```kotlin
-import kotlinx.serialization.Serializable
-
-@Serializable
-data class Data(val a: Int, val b: String)
-```
+    ```kotlin
+    import kotlinx.serialization.Serializable
+    
+    @Serializable
+    data class Data(val a: Int, val b: String)
+    ```
 
 2. 透過呼叫 `Json.encodeToString()` 來序列化此類別的實例。
 
-```kotlin
-import kotlinx.serialization.Serializable
-import kotlinx.serialization.json.Json
-import kotlinx.serialization.encodeToString
+    ```kotlin
+    import kotlinx.serialization.Serializable
+    import kotlinx.serialization.json.Json
+    import kotlinx.serialization.encodeToString
+    
+    @Serializable
+    data class Data(val a: Int, val b: String)
+    
+    fun main() {
+        val json = Json.encodeToString(Data(42, "str"))
+    }
+    ```
 
-@Serializable
-data class Data(val a: Int, val b: String)
+   結果，您會得到一個包含此物件狀態的 JSON 格式字串：`{"a": 42, "b": "str"}`
 
-fun main() {
-   val json = Json.encodeToString(Data(42, "str"))
-}
-```
+   > 您也可以在單次呼叫中序列化物件集合，例如列表：
+   > 
+   > ```kotlin
+   > val dataList = listOf(Data(42, "str"), Data(12, "test"))
+   > val jsonList = Json.encodeToString(dataList)
+   > ```
+   > 
+   {style="note"}
 
-結果，您會得到一個包含此物件狀態的 JSON 格式字串：`{"a": 42, "b": "str"}`
+3. 使用 `decodeFromString()` 函式從 JSON 反序列化物件：
 
-> 您也可以在單次呼叫中序列化物件集合，例如列表：
-> 
-> ```kotlin
-> val dataList = listOf(Data(42, "str"), Data(12, "test"))
-> val jsonList = Json.encodeToString(dataList)
-> ```
-> 
-{style="note"}
-
-3. 使用 `decodeFromString()` 函數從 JSON 反序列化物件：
-
-```kotlin
-import kotlinx.serialization.Serializable
-import kotlinx.serialization.json.Json
-import kotlinx.serialization.decodeFromString
-
-@Serializable
-data class Data(val a: Int, val b: String)
-
-fun main() {
-   val obj = Json.decodeFromString<Data>("""{"a":42, "b": "str"}""")
-}
-```
+    ```kotlin
+    import kotlinx.serialization.Serializable
+    import kotlinx.serialization.json.Json
+    import kotlinx.serialization.decodeFromString
+    
+    @Serializable
+    data class Data(val a: Int, val b: String)
+    
+    fun main() {
+        val obj = Json.decodeFromString<Data>("""{"a":42, "b": "str"}""")
+    }
+    ```
 
 就這樣！您已成功將物件序列化為 JSON 字串，並將其反序列化回物件。
 

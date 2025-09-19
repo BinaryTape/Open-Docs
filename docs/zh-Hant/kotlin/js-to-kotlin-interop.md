@@ -10,23 +10,23 @@
 fun foo() = "Hello"
 ```
 
-可以像這樣從 JavaScript 呼叫：
+這個函數可以像這樣從 JavaScript 呼叫：
 
 ```javascript
 alert(myModule.foo());
 ```
 
-當您將 Kotlin 模組編譯為 UMD（這是 `browser` 和 `nodejs` 目標的預設設定）、CommonJS 或 AMD 等 JavaScript 模組時，此規則不適用。在這種情況下，您的宣告將以您所選 JavaScript 模組系統指定的格式公開。例如，當使用 UMD 或 CommonJS 時，您的呼叫點可能如下所示：
+當您將 Kotlin 模組編譯為 [UMD](https://github.com/umdjs/umd)（`browser` 和 `nodejs` 目標的預設設定）、[ESM](https://tc39.es/ecma262/#sec-modules)、[CommonJS](https://nodejs.org/api/modules.html#modules-commonjs-modules) 或 [AMD](https://github.com/amdjs/amdjs-api/wiki/AMD) 等 JavaScript 模組時，直接像這樣呼叫函數便不適用。在這些情況下，您的宣告會根據所選的 JavaScript 模組系統公開。例如，當使用 UMD、ESM 或 CommonJS 時，您的呼叫點會如下所示：
 
 ```javascript
 alert(require('myModule').foo());
 ```
 
-請查閱關於 [JavaScript 模組](js-modules.md)的文章，以獲取有關 JavaScript 模組系統主題的更多資訊。
+有關 JavaScript 模組系統的更多資訊，請參閱 [JavaScript 模組](js-modules.md)。
 
 ## 套件結構
 
-Kotlin 將其套件結構公開給 JavaScript，因此除非您在根套件中定義您的宣告，否則您必須在 JavaScript 中使用完整合格名稱。例如：
+對於大多數模組系統（CommonJS、Plain 和 UMD），Kotlin 會將其套件結構公開給 JavaScript。除非您在根套件中定義您的宣告，否則您必須在 JavaScript 中使用完整合格名稱。例如：
 
 ```kotlin
 package my.qualified.packagename
@@ -40,10 +40,18 @@ fun foo() = "Hello"
 alert(require('myModule').my.qualified.packagename.foo())
 ```
 
-或者，在使用 `plain` 作為模組系統設定的情況下：
+當使用 `plain` 作為模組系統設定時，呼叫點會是：
 
 ```javascript
 alert(myModule.my.qualified.packagename.foo());
+```
+
+當目標為 ECMAScript Modules (ESM) 時，套件資訊不會被保留，以改善應用程式 bundle 大小並符合 ESM 套件的典型佈局。在這種情況下，使用 ES 模組來使用 Kotlin 宣告的方式如下：
+
+```javascript
+import { foo } from 'myModule';
+
+alert(foo());
 ```
 
 ### @JsName 註解
@@ -133,6 +141,49 @@ C.Companion.callNonStatic(); // 唯一運作方式
 
 也可以將 `@JsStatic` 註解應用於物件或伴隨物件的屬性，使其 getter 和 setter 方法成為該物件或包含伴隨物件的類別中的靜態成員。
 
+### 使用 `BigInt` 類型來表示 Kotlin 的 `Long` 類型
+<primary-label ref="experimental-general"/>
+
+當編譯至現代 JavaScript (ES2020) 時，Kotlin/JS 使用 JavaScript 內建的 `BigInt` 類型來表示 Kotlin 的 `Long` 值。
+
+為了啟用 `BigInt` 類型的支援，您需要將以下編譯器選項添加到您的 `build.gradle(.kts)` 檔案中：
+
+```kotlin
+// build.gradle.kts
+kotlin {
+    js {
+        ...
+        compilerOptions {
+            freeCompilerArgs.add("-Xes-long-as-bigint")
+        }
+    }
+}
+```
+
+此功能為 [實驗性](components-stability.md#stability-levels-explained)。請在我們的議題追蹤器 [YouTrack](https://youtrack.jetbrains.com/issue/KT-57128/KJS-Use-BigInt-to-represent-Long-values-in-ES6-mode) 上分享您的回饋。
+
+#### 在匯出的宣告中使用 `Long`
+
+由於 Kotlin 的 `Long` 類型可以編譯為 JavaScript 的 `BigInt` 類型，Kotlin/JS 支援將 `Long` 值匯出到 JavaScript。
+
+若要啟用此功能：
+
+1. 允許在 Kotlin/JS 中匯出 `Long`。將以下編譯器選項添加到您的 `build.gradle(.kts)` 檔案中的 `freeCompilerArgs` 屬性：
+
+ ```kotlin
+// build.gradle.kts
+kotlin {
+    js {
+        ...
+        compilerOptions { 
+            freeCompilerArgs.add("-XXLanguage:+JsAllowLongInExportedDeclarations")
+        }
+    }
+}
+```
+
+2. 啟用 `BigInt` 類型。請參閱 [使用 `BigInt` 類型來表示 Kotlin 的 `Long` 類型](#use-bigint-type-to-represent-kotlin-s-long-type) 中如何啟用它。
+
 ## JavaScript 中的 Kotlin 類型
 
 請參閱 Kotlin 類型如何映射到 JavaScript 類型：
@@ -141,7 +192,7 @@ C.Companion.callNonStatic(); // 唯一運作方式
 |:-----------------------------------------------------------------|:--------------------------|:-------------------------------------------------------------------------------|
 | `Byte`, `Short`, `Int`, `Float`, `Double`                        | `Number`                  |                                                                                |
 | `Char`                                                           | `Number`                  | 數字代表字元的程式碼。                                                          |
-| `Long`                                                           | Not supported             | JavaScript 中沒有 64 位元整數數字類型，因此它由 Kotlin 類別模擬。                 |
+| `Long`                                                           | `BigInt`                  | 需要配置 [`-Xes-long-as-bigint` 編譯器選項](compiler-reference.md#xes-long-as-bigint)。 |
 | `Boolean`                                                        | `Boolean`                 |                                                                                |
 | `String`                                                         | `String`                  |                                                                                |
 | `Array`                                                          | `Array`                   |                                                                                |

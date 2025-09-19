@@ -4,7 +4,7 @@
     <p>これは**KotlinとCのマッピング**チュートリアルシリーズの第3部です。進む前に、前の手順を完了していることを確認してください。</p>
     <p><img src="icon-1-done.svg" width="20" alt="First step"/> <a href="mapping-primitive-data-types-from-c.md">Cからのプリミティブデータ型のマッピング</a><br/>
         <img src="icon-2-done.svg" width="20" alt="Second step"/> <a href="mapping-struct-union-types-from-c.md">Cからの構造体と共用体型のマッピング</a><br/>
-        <img src="icon-3.svg" width="20" alt="Third step"/> <strong>関数ポインターのマッピング</strong><br/>
+        <img src="icon-3.svg" width="20" alt="Third step"/> <strong>Cからの関数ポインターのマッピング</strong><br/>
         <img src="icon-4-todo.svg" width="20" alt="Fourth step"/> <a href="mapping-strings-from-c.md">Cからの文字列のマッピング</a><br/>
     </p>
 </tldr>

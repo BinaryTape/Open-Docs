@@ -39,6 +39,8 @@ kotlin {
 
 *   [대상 실행 환경](#execution-environments): 브라우저 또는 Node.js
 *   [ES2015 기능 지원](#support-for-es2015-features): 클래스, 모듈 및 제너레이터
+*   [출력 세분성 구성](#configure-output-granularity)
+*   [TypeScript 선언 파일 생성](#generation-of-typescript-declaration-files-d-ts)
 *   [프로젝트 의존성](#dependencies): Maven 및 npm
 *   [실행 구성](#run-task)
 *   [테스트 구성](#test-task)
@@ -79,19 +81,65 @@ Kotlin은 다음 ES2015 기능에 대한 [실험적](components-stability.md#sta
 
 *   **모듈**: 코드베이스를 단순화하고 유지보수성을 향상시킵니다.
 *   **클래스**: OOP 원칙을 통합하여 더 깔끔하고 직관적인 코드를 만들 수 있습니다.
-*   **제너레이터**: 최종 번들 크기를 줄이고 디버깅에 도움이 되는 [정지 함수](composing-suspending-functions.md) 컴파일용.
+*   **제너레이터**: 최종 번들 크기를 줄이고 디버깅에 도움이 되는 [정지 함수](https://kotlinlang.org/docs/composing-suspending-functions.html) 컴파일용.
 
-`build.gradle(.kts)` 파일에 `es2015` 컴파일 대상을 추가하여 지원되는 모든 ES2015 기능을 한 번에 활성화할 수 있습니다.
+지원되는 모든 ES2015 기능을 한 번에 활성화하려면 `build.gradle(.kts)` 파일에 `es2015` 컴파일 대상을 추가하세요.
 
 ```kotlin
 tasks.withType<KotlinJsCompile>().configureEach {
-    kotlinOptions {
+    compilerOptions {
         target = "es2015"
     }
 }
 ```
 
 [공식 문서에서 ES2015 (ECMAScript 2015, ES6)에 대해 더 자세히 알아보세요.](https://262.ecma-international.org/6.0/)
+
+## 출력 세분성 구성
+
+컴파일러가 프로젝트에서 `.js` 파일을 출력하는 방식을 선택할 수 있습니다.
+
+*   **모듈별 하나**. 기본적으로 JS 컴파일러는 각 프로젝트 모듈에 대해 별도의 `.js` 파일을 컴파일 결과로 출력합니다.
+*   **프로젝트별 하나**. `gradle.properties` 파일에 다음 줄을 추가하여 전체 프로젝트를 단일 `.js` 파일로 컴파일할 수 있습니다.
+
+    ```none
+    kotlin.js.ir.output.granularity=whole-program // 'per-module' is the default
+    ```
+
+*   **파일별 하나**. 각 Kotlin 파일당 하나(또는 파일에 내보내진 선언이 포함된 경우 두 개)의 JavaScript 파일을 생성하는 더 세분화된 출력을 설정할 수 있습니다. 파일별 컴파일 모드를 활성화하려면:
+    1.  프로젝트에서 ES2015 기능을 지원하도록 `es2015`를 [컴파일 대상](#support-for-es2015-features)으로 설정합니다.
+    2.  `gradle.properties` 파일에 다음 줄을 추가합니다.
+        ```none
+        kotlin.js.ir.output.granularity=per-file // 'per-module' is the default
+        ```
+
+## TypeScript 선언 파일 (`d.ts`) 생성
+<primary-label ref="experimental-opt-in"/>
+
+Kotlin/JS 컴파일러는 Kotlin 코드에서 TypeScript 정의를 생성할 수 있습니다. 이 정의는 하이브리드 애플리케이션 작업 시 JavaScript 도구 및 IDE에서 다음 용도로 사용될 수 있습니다.
+
+*   자동 완성 제공
+*   정적 분석기 지원
+*   JavaScript 및 TypeScript 프로젝트에서 Kotlin 코드 추가 간소화
+
+TypeScript 정의 생성은 [비즈니스 로직 공유 사용 사례](js-overview.md#use-cases-for-kotlin-js)에 특히 유용합니다.
+
+컴파일러는 [`@JsExport`](js-to-kotlin-interop.md#jsexport-annotation)로 표시된 모든 최상위 선언을 수집하고 `.d.ts` 파일에 TypeScript 정의를 자동으로 생성합니다.
+
+TypeScript 정의를 생성하려면 Gradle 빌드 파일에 명시적으로 구성해야 합니다. [`js {}` 블록](js-project-setup.md#execution-environments) 내의 `build.gradle.kts` 파일에 `generateTypeScriptDefinitions()` 함수를 추가하세요.
+
+```kotlin
+kotlin {
+    js {
+        binaries.executable()
+        browser {
+        }
+        generateTypeScriptDefinitions()
+    }
+}
+```
+
+정의는 해당 웹팩 미적용 JavaScript 코드와 함께 `build/js/packages/<package_name>/kotlin` 디렉터리에서 찾을 수 있습니다.
 
 ## 의존성
 
@@ -214,7 +262,7 @@ dependencies {
 ```
 
 </tab>
-<tab title="Groovy" group="build-script">
+<tab title="Groovy" group-key="groovy">
 
 ```groovy
 dependencies {
@@ -837,11 +885,11 @@ kotlin {
 
 ## 모듈 이름
 
-해당 `.js` 및 `.d.ts` 파일을 포함하여 JavaScript _모듈_ ( `build/js/packages/myModuleName`에 생성됨)의 이름을 조정하려면 `moduleName` 옵션을 사용하세요.
+해당 `.js` 및 `.d.ts` 파일을 포함하여 JavaScript _모듈_ ( `build/js/packages/myModuleName`에 생성됨)의 이름을 조정하려면 `outputModuleName` 옵션을 사용하세요.
 
 ```groovy
 js {
-    moduleName = "myModuleName"
+    outputModuleName = "myModuleName"
 }
 ```
 

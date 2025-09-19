@@ -118,26 +118,18 @@ Maven Local에 게시할 때는 특별한 작업을 사용할 수 있습니다:
 Kotlin/Native는 크로스 컴파일을 지원하므로 모든 호스트가 필요한 `.klib` 아티팩트를 생성할 수 있습니다.
 그러나 몇 가지 주의해야 할 특정 사항이 있습니다.
 
-### Apple 타겟용 컴파일
-<secondary-label ref="Experimental"/>
+**Apple 타겟용 컴파일**
 
-Apple 타겟이 있는 프로젝트의 아티팩트를 생성하려면 일반적으로 Apple 머신이 필요합니다.
-그러나 다른 호스트를 사용하려면 `gradle.properties` 파일에 이 옵션을 설정하세요:
+Apple 타겟이 있는 프로젝트의 아티팩트를 생성하기 위해 어떤 호스트든 사용할 수 있습니다.
+그러나 다음 경우에는 여전히 Mac 머신을 사용해야 합니다:
 
-```none
-kotlin.native.enableKlibsCrossCompilation=true
-```
-
-크로스 컴파일은 현재 실험적(Experimental)이며 몇 가지 제한 사항이 있습니다. 다음 경우에는 여전히 Mac 머신을 사용해야 합니다:
-
-*   라이브러리에 [cinterop 의존성](https://kotlinlang.org/docs/native-c-interop.html)이 있는 경우.
+*   라이브러리 또는 종속 모듈에 [cinterop 의존성](https://kotlinlang.org/docs/native-c-interop.html)이 있는 경우.
 *   프로젝트에 [CocoaPods 통합](multiplatform-cocoapods-overview.md)이 설정된 경우.
 *   Apple 타겟용 [최종 바이너리](multiplatform-build-native-binaries.md)를 빌드하거나 테스트해야 하는 경우.
 
-### 게시물 중복 방지
+**게시물 중복 방지**
 
 게시 중 발생할 수 있는 문제를 방지하려면, 저장소에 게시물이 중복되지 않도록 모든 아티팩트를 단일 호스트에서 게시하세요. 예를 들어, Maven Central은 중복 게시물을 명시적으로 금지하며 프로세스를 실패시킵니다.
-<!-- TBD: add the actual error -->
 
 ## Android 라이브러리 게시
 

@@ -2,6 +2,7 @@
 
 您可以将 Kotlin 项目编译为适用于各种流行模块系统的 JavaScript 模块。我们目前支持以下 JavaScript 模块配置：
 
+-   [ES Modules](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules)，声明 JavaScript 模块的标准方式（使用 `import/export` JavaScript 语法）。如果 `target` 设置为 `es2015`，则默认使用它。
 -   [统一模块定义 (UMD)](https://github.com/umdjs/umd)，它与 *AMD* 和 *CommonJS* 均兼容。UMD 模块也能够在不被导入或不存在模块系统的情况下执行。这是 `browser` 和 `nodejs` 目标平台的默认选项。
 -   [异步模块定义 (AMD)](https://github.com/amdjs/amdjs-api/wiki/AMD)，特别是 [RequireJS](https://requirejs.org/) 库所使用的。
 -   [CommonJS](http://wiki.commonjs.org/wiki/Modules/1.1)，被 Node.js/npm 广泛使用（`require` 函数和 `module.exports` 对象）。
@@ -22,6 +23,7 @@ kotlin {
         binaries.executable()
     }
 }
+
 ```
 
 Webpack 提供了两种不同风格的 CommonJS：`commonjs` 和 `commonjs2`，它们会影响您的声明可用性的方式。在大多数情况下，您可能希望使用 `commonjs2`，它会将 `module.exports` 语法添加到生成的库中。或者，您也可以选择 `commonjs` 选项，它严格遵循 CommonJS 规范。要了解更多关于 `commonjs` 和 `commonjs2` 之间的区别，请参阅 [Webpack 仓库](https://github.com/webpack/webpack/issues/1114)。
@@ -53,18 +55,20 @@ compileKotlinJs.compilerOptions.moduleKind = org.jetbrains.kotlin.gradle.dsl.JsM
 </tab>
 </tabs>
 
-可用值包括：`umd`（默认）、`commonjs`、`amd`、`plain`。
+可用值包括：`umd`（默认）、`es`、`commonjs`、`amd`、`plain`。
 
 > 这与调整 `webpackTask.output.libraryTarget` 不同。库目标会更改 *由 webpack 生成的* 输出（在您的代码已编译之后）。`compilerOptions.moduleKind` 会更改 *由 Kotlin 编译器生成的* 输出。
 >
-{style="note"}  
+{style="note"}
 
-在 Kotlin Gradle DSL 中，还提供了一个设置 CommonJS 模块种类的快捷方式：
+在 Kotlin Gradle DSL 中，还提供了一个设置 CommonJS 和 ESM 模块种类（module kinds）的快捷方式：
 
 ```kotlin
 kotlin {
     js {
         useCommonJs()
+        // OR
+        useEsModules()
         // ...
     }
 }

@@ -87,7 +87,7 @@ class MPSCQueueTest {
 
 すべての消費`poll()`および`peek()`呼び出しが単一スレッドから実行されているため、「単一コンシューマー」の制約を満たしていることに注意してください。
 
-> [完全なコードを取得する](https://github.com/JetBrains/lincheck/blob/master/src/jvm/test-lincheck-integration/org/jetbrains/lincheck_test/guide/MPSCQueueTest.kt)。
+> [完全なコードを取得する](https://github.N/JetBrains/lincheck/blob/master/src/jvm/test-lincheck-integration/org/jetbrains/lincheck_test/guide/MPSCQueueTest.kt)。
 >
 {style="note"}
 

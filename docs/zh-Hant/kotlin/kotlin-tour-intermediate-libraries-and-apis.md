@@ -24,16 +24,16 @@
 
 ## 標準程式庫
 
-Kotlin 有一個標準程式庫，提供基本類型、函式、集合和工具程式，使您的程式碼簡潔且富有表達力。標準程式庫的很大一部分（[`kotlin` 套件](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/) 中的所有內容）無需明確匯入即可在任何 Kotlin 檔案中直接使用：
+Kotlin 有一個標準程式庫，提供基本類型、函式、集合和工具程式，使您的程式碼簡潔且富有表達性。標準程式庫的很大一部分（[`kotlin` 套件](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/) 中的所有內容）無需明確匯入即可在任何 Kotlin 檔案中直接使用：
 
 ```kotlin
 fun main() {
     val text = "emosewa si niltoK"
     
-   // Use the reversed() function from the standard library
+   // 使用標準程式庫中的 reversed() 函式
     val reversedText = text.reversed()
 
-    // Use the print() function from the standard library
+    // 使用標準程式庫中的 print() 函式
     print(reversedText)
     // Kotlin is awesome
 }
@@ -96,7 +96,7 @@ fun main() {
 import kotlinx.datetime.*
 
 fun main() {
-    val now = Clock.System.now() // Get current instant
+    val now = Clock.System.now() // 取得目前的 Instant
     println("Current instant: $now")
 
     val zone = TimeZone.of("America/New_York")
@@ -148,10 +148,10 @@ inline fun uintArrayOf(vararg elements: UInt): UIntArray
 ```kotlin
 @OptIn(ExperimentalUnsignedTypes::class)
 fun main() {
-    // Create an unsigned integer array
+    // 建立一個無符號整數陣列
     val unsignedArray: UIntArray = uintArrayOf(1u, 2u, 3u, 4u, 5u)
 
-    // Modify an element
+    // 修改一個元素
     unsignedArray[2] = 42u
     println("Updated array: ${unsignedArray.joinToString()}")
     // Updated array: 1, 2, 42, 4, 5
@@ -185,10 +185,10 @@ fun main() {
 |--|--|
 
 ```kotlin
-// Write your code here
+// 在此編寫您的程式碼
 
 fun calculateCompoundInterest(P: Double, r: Double, n: Int, t: Int): Double {
-    // Write your code here
+    // 在此編寫您的程式碼
 }
 
 fun main() {
@@ -231,18 +231,18 @@ fun main() {
 |---|---|
 
 ```kotlin
-// Write your code here
+// 在此編寫您的程式碼
 
 fun main() {
-    val timeTaken = /* Write your code here */ {
-    // Simulate some data processing
-    val data = List(1000) { it * 2 }
-    val filteredData = data.filter { it % 3 == 0 }
+    val timeTaken = /* 在此編寫您的程式碼 */ {
+        // 模擬一些資料處理
+        val data = List(1000) { it * 2 }
+        val filteredData = data.filter { it % 3 == 0 }
 
-    // Simulate processing the filtered data
-    val processedData = filteredData.map { it / 2 }
-    println("Processed data")
-}
+        // 模擬處理篩選後的資料
+        val processedData = filteredData.map { it / 2 }
+        println("Processed data")
+    }
 
 println("Time taken: $timeTaken") // e.g. 16 ms
 }

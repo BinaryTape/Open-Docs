@@ -94,7 +94,7 @@ Compose Multiplatform 與 Google 開發的 Android UI 框架 [Jetpack Compose](h
 
 Compose Multiplatform 的 Android、iOS 和桌面目標已穩定。您可以在生產環境中使用它們。
 
-基於 WebAssembly 的 Compose Multiplatform 網頁版本處於 Alpha 階段，這表示它正在積極開發中。您可以謹慎使用，並預期可能會有遷移問題。它的 UI 與 Compose Multiplatform 針對 iOS、Android 和桌面平台的 UI 相同。
+基於 WebAssembly 的 Compose Multiplatform 網頁版本處於 Beta 階段，這表示它已接近完成。您可以使用它，但仍可能發生遷移問題。它的 UI 與 Compose Multiplatform 針對 iOS、Android 和桌面平台的 UI 相同。
 
 ### 如何建立新的 Compose Multiplatform 專案？
 
@@ -122,7 +122,7 @@ Compose Multiplatform 的 Android、iOS 和桌面目標已穩定。您可以在�
 
 ### 我有一個現有的 Android 應用程式，它使用 Jetpack Compose。我應該如何將其遷移到其他平台？
 
-應用程式的遷移包含兩部分：遷移 UI 和遷移邏輯。遷移的複雜度取決於您的應用程式複雜度和您使用的 Android 特定函式庫數量。您可以在不改變的情況下將大部分螢幕遷移到 Compose Multiplatform。所有 Jetpack Compose 小工具都受支援。然而，有些 API 僅在 Android 目標中有效 – 它們可能是 Android 特定的，或者尚未被移植到其他平台。例如，資源處理是 Android 特定的，因此您需要遷移到 [Compose Multiplatform 資源函式庫](compose-multiplatform-resources.md) 或使用社群解決方案。Android [導航函式庫](https://developer.android.com/jetpack/androidx/releases/navigation) 也是 Android 特定的，但有 [社群替代方案](compose-navigation-routing.md) 可用。有關僅適用於 Android 的元件的更多資訊，請參閱目前的 [Android 專用 API 列表](compose-android-only-components.md)。
+應用程式的遷移包含兩部分：遷移 UI 和遷移邏輯。遷移的複雜度取決於您的應用程式複雜度和您使用的 Android 特定函式庫數量。您可以在不改變的情況下將大部分畫面遷移到 Compose Multiplatform。所有 Jetpack Compose 小工具都受支援。然而，有些 API 僅在 Android 目標中有效 – 它們可能是 Android 特定的，或者尚未被移植到其他平台。例如，資源處理是 Android 特定的，因此您需要遷移到 [Compose Multiplatform 資源函式庫](compose-multiplatform-resources.md) 或使用社群解決方案。Android [導航函式庫](https://developer.android.com/jetpack/androidx/releases/navigation) 也是 Android 特定的，但有 [社群替代方案](compose-navigation-routing.md) 可用。有關僅適用於 Android 的元件的更多資訊，請參閱目前的 [Android 專用 API 列表](compose-android-only-components.md)。
 
 您需要將 [業務邏輯遷移到 Kotlin Multiplatform](multiplatform-integrate-in-existing-app.md)。當您嘗試將程式碼移至共享模組時，使用 Android 依賴項的部分將停止編譯，您需要重寫它們。
 
@@ -157,7 +157,7 @@ generated automatically.
 
 ### Compose Multiplatform 何時會變得穩定？
 
-Compose Multiplatform 對於 Android、iOS 和桌面平台已穩定，而網頁平台支援則處於 Alpha 階段。我們正朝著網頁平台的穩定版本努力，確切日期將另行公佈。
+Compose Multiplatform 對於 Android、iOS 和桌面平台已穩定，而網頁平台支援則處於 Beta 階段。我們正朝著網頁平台的穩定版本努力，確切日期將另行公佈。
 
 有關穩定狀態的更多資訊，請參閱 [支援平台](supported-platforms.md)。
 

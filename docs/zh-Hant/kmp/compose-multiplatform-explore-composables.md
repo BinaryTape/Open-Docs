@@ -59,7 +59,7 @@ fun App() {
 
 `Column` 的 `horizontalAlignment` 參數將其內容置中。但為了使其生效，該 column 應佔據其容器的全部寬度。這可透過使用 `modifier` 參數來實現。
 
-`Modifier` 是 Compose Multiplatform 的關鍵組件。這是您用來調整 UI 中 composable 的外觀或行為的主要機制。`Modifier` 是使用 `Modifier` 類型的方法建立的。當您將這些方法串聯起來時，每次呼叫都可以改變從上一次呼叫返回的 `Modifier`，這使得順序很重要。有關更多詳細資訊，請參閱 [JetPack Compose 文件](https://developer.android.com/jetpack/compose/modifiers)。
+`Modifier` 是 Compose Multiplatform 的關鍵組件。這是您用來調整 UI 中 composable 的外觀或行為的主要機制。`Modifier` 是使用 `Modifier` 類型的方法建立的。當您將這些方法串聯起來時，每次呼叫都可以改變從上一次呼叫返回的 `Modifier`，這使得順序很重要。有關更多詳情，請參閱 [JetPack Compose 文件](https://developer.android.com/jetpack/compose/modifiers)。
 
 ### 管理狀態
 
@@ -71,7 +71,7 @@ var showContent by remember { mutableStateOf(false) }
 
 狀態物件被包裝在對 `remember()` 函式的呼叫中，這意味著它會被建立一次，然後由框架保留。透過執行此操作，您會建立一個其值為包含布林值的狀態物件的屬性。框架會快取此狀態物件，允許 composable 觀察它。
 
-當狀態值改變時，任何觀察它的 composable 都會被重新呼叫。這允許它們產生的任何小工具被重新繪製。這被稱為 _重組_。
+當狀態值改變時，任何觀察它的 composable 都會被重新叫用。這允許它們產生的任何小工具被重新繪製。這被稱為 _重組_。
 
 在您的應用程式中，唯一改變狀態的地方是按鈕的點擊事件。`onClick` 事件處理器會翻轉 `showContent` 屬性的值。因此，圖像會隨著 `Greeting().greet()` 呼叫一起顯示或隱藏，因為父級 `AnimatedVisibility` composable 觀察 `showContent`。
 
@@ -110,7 +110,7 @@ fun MainViewController() = ComposeUIViewController { App() }
 
 ### 在桌面端
 
-對於桌面端，請查看 `composeApp/src/desktopMain/kotlin` 中的 `main()` 函式：
+對於桌面端，請查看 `composeApp/src/jvmMain/kotlin` 中的 `main()` 函式：
 
 ```kotlin
 fun main() = application {

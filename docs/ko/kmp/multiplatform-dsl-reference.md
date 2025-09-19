@@ -31,12 +31,13 @@ plugins {
 
 `kotlin {}`은 Gradle 빌드 스크립트에서 멀티플랫폼 프로젝트 구성을 위한 최상위 블록입니다. `kotlin {}` 내부에 다음 블록을 작성할 수 있습니다:
 
-| **블록**            | **설명**                                                                                                                                     |
-|----------------------|----------------------------------------------------------------------------------------------------------------------------------------------|
-| _&lt;targetName&gt;_ | 프로젝트의 특정 타겟을 선언합니다. 사용 가능한 타겟의 이름은 [타겟](#targets) 섹션에 나열되어 있습니다.                                            |
-| `targets`            | 프로젝트의 모든 타겟을 나열합니다.                                                                                                            |
-| `sourceSets`         | 프로젝트의 사전 정의된 [소스 세트](#source-sets)를 구성하고 사용자 정의 소스 세트를 선언합니다.                                                 |
-| `compilerOptions`    | 모든 타겟 및 공유 소스 세트의 기본값으로 사용되는 공통 확장 수준 [컴파일러 옵션](#compiler-options)을 지정합니다.                              |
+| **블록**            | **설명**                                                                                                                         |
+|----------------------|----------------------------------------------------------------------------------------------------------------------------------|
+| _&lt;targetName&gt;_ | 프로젝트의 특정 타겟을 선언합니다. 사용 가능한 타겟의 이름은 [타겟](#targets) 섹션에 나열되어 있습니다.                         |
+| `targets`            | 프로젝트의 모든 타겟을 나열합니다.                                                                                                |
+| `sourceSets`         | 프로젝트의 사전 정의된 [소스 세트](#source-sets)를 구성하고 사용자 정의 소스 세트를 선언합니다.                                     |
+| `compilerOptions`    | 모든 타겟 및 공유 소스 세트의 기본값으로 사용되는 공통 확장 수준 [컴파일러 옵션](#compiler-options)을 지정합니다.              |
+| `dependencies`       | [최상위에서 의존성 구성](#configure-dependencies-at-the-top-level)을 구성합니다. (실험적)                                            |
 
 ## 타겟
 
@@ -231,7 +232,7 @@ kotlin {
     linuxX64 { // 대신 사용할 타겟을 지정하세요.
         binaries {
             executable {
-                // 바이너리 구성.
+                // Binary configuration.
             }
         }
     }
@@ -444,7 +445,7 @@ kotlin {
 
 `sourceSets {}` 블록은 프로젝트의 소스 세트를 설명합니다. 소스 세트는 리소스 및 의존성과 함께 컴파일에 참여하는 Kotlin 소스 파일을 포함합니다.
 
-멀티플랫폼 프로젝트는 타겟을 위한 [사전 정의된 소스 세트](#predefined-source-sets)를 포함하며, 개발자는 필요에 따라 [사용자 정의 소스 세트](#custom-source-sets)를 생성할 수도 있습니다.
+멀티플랫폼 프로젝트는 타겟을 위한 [사전 정의된](#predefined-source-sets) 소스 세트를 포함하며, 개발자는 필요에 따라 [사용자 정의](#custom-source-sets) 소스 세트를 생성할 수도 있습니다.
 
 ### 사전 정의된 소스 세트
 
@@ -983,6 +984,43 @@ kotlin {
 </Tabs>
 
 또한, 소스 세트는 서로 의존하며 계층 구조를 형성할 수 있습니다. 이 경우 [`dependsOn()`](#source-set-parameters) 관계가 사용됩니다.
+
+### 최상위에서 의존성 구성
+<secondary-label ref="Experimental"/>
+
+최상위 `dependencies {}` 블록을 사용하여 공통 의존성을 구성할 수 있습니다. 여기서 선언된 의존성은 `commonMain` 또는 `commonTest` 소스 세트에 추가된 것처럼 작동합니다.
+
+최상위 `dependencies {}` 블록을 사용하려면 블록 앞에 `@OptIn(ExperimentalKotlinGradlePluginApi::class)` 어노테이션을 추가하여 옵트인(opt-in)하세요:
+
+<Tabs group="build-script">
+<TabItem title="Kotlin" group-key="kotlin">
+
+```kotlin
+kotlin {
+    @OptIn(ExperimentalKotlinGradlePluginApi::class)
+    dependencies {
+        implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:%coroutinesVersion%")
+    }
+}
+```
+
+</TabItem>
+<TabItem title="Groovy" group-key="groovy">
+
+```groovy
+kotlin {
+    dependencies {
+        implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:%coroutinesVersion%'
+    }
+}
+```
+
+</TabItem>
+</Tabs>
+
+해당 타겟의 `sourceSets {}` 블록 내부에 플랫폼별 의존성을 추가하세요.
+
+이 기능에 대한 의견은 [YouTrack](https://youtrack.jetbrains.com/issue/KT-76446)에서 공유할 수 있습니다.
 
 ## 언어 설정
 

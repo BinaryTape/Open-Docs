@@ -93,7 +93,7 @@ Kotlin/Native 컴파일러는 두 가지 별도의 LLVM 최적화 시퀀스(모�
 
 기본값은 실제 패스의 긴 목록으로 펼쳐지며, 여기서 원치 않는 패스를 제외해야 합니다.
 
-실제 패스 목록을 얻으려면 LLVM 배포판과 함께 `~/.konan/dependencies/llvm-{VERSION}-{ARCH}-{OS}-dev-{BUILD}/bin` 디렉토리에 자동으로 다운로드되는 [`opt`](https://llvm.org/docs/CommandGuide/opt.html) 도구를 실행하세요.
+실제 패스 목록을 얻으려면 LLVM 배포판과 함께 `~/.konan/dependencies/llvm-{VERSION}-{ARCH}-{OS}-dev-{BUILD}/bin` 디렉터리에 자동으로 다운로드되는 [`opt`](https://llvm.org/docs/CommandGuide/opt.html) 도구를 실행하세요.
 
 예를 들어, 링크 타임 패스 목록을 얻으려면 다음을 실행하세요:
 

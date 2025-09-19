@@ -6,8 +6,13 @@
 了解處理網路請求的引擎。
 </link-summary>
 
-[Ktor HTTP 用戶端](client-create-and-configure.md) 是多平台的，可在 JVM、[Android](https://kotlinlang.org/docs/android-overview.html)、[JavaScript](https://kotlinlang.org/docs/js-overview.html) (包括 WebAssembly) 以及 [Native](https://kotlinlang.org/docs/native-overview.html) 目標平台上執行。每個平台都需要特定的引擎來處理網路請求。
-例如，您可以將 `Apache` 或 `Jetty` 用於 JVM 應用程式，`OkHttp` 或 `Android` 用於 Android，`Curl` 用於針對 Kotlin/Native 的桌面應用程式。每個引擎在功能和設定上略有不同，因此您可以根據您的平台和使用案例需求選擇最合適的引擎。
+[Ktor HTTP 用戶端](client-create-and-configure.md) 是多平台的，可在 JVM、
+[Android](https://kotlinlang.org/docs/android-overview.html)、[JavaScript](https://kotlinlang.org/docs/js-overview.html)
+（包括 WebAssembly）以及 [Native](https://kotlinlang.org/docs/native-overview.html) 目標平台執行。每個平台都需要
+特定的引擎來處理網路請求。
+例如，您可以將 `Apache` 或 `Jetty` 用於 JVM 應用程式，將 `OkHttp` 或 `Android`
+用於 Android，將 `Curl` 用於針對 Kotlin/Native 的桌面應用程式。每個引擎在功能和
+設定上略有不同，因此您可以根據您的平台和使用案例需求選擇最合適的引擎。
 
 ## 支援的平台 {id="platforms"}
 
@@ -50,7 +55,9 @@ _* 若要在較舊的 Android 版本上使用 CIO 引擎，您需要啟用 [Java
 * [JavaScript](#js)
 * [Native](#native)
 
-> Ktor 提供帶有 `-jvm` 或 `-js` 等後綴的平台特定 artifact，例如 `ktor-client-cio-jvm`。依賴項解析方式因建構工具而異。Gradle 會為給定平台解析適當的 artifact，而 Maven 不支援此功能。這意味著對於 Maven，您需要手動指定平台後綴。
+> Ktor 提供帶有 `-jvm` 或 `-js` 等後綴的平台特定 artifact。例如，`ktor-client-cio-jvm`。
+> 依賴項解析方式因建構工具而異。Gradle 會為給定平台解析適當的 artifact，而 Maven
+> 不支援此功能。這意味著對於 Maven，您需要手動指定平台後綴。
 >
 {type="note"}
 
@@ -76,7 +83,9 @@ import io.ktor.client.*
 val client = HttpClient()
 ```
 
-這在多平台專案中特別有用。例如，對於同時針對 [Android 和 iOS](client-create-multiplatform-application.md) 的專案，您可以將 [Android](#jvm-android) 依賴項新增到 `androidMain` 原始碼集，並將 [Darwin](#darwin) 依賴項新增到 `iosMain` 原始碼集。在執行時建立 `HttpClient` 時會選取適當的引擎。
+這在多平台專案中特別有用。例如，對於同時針對
+[Android 和 iOS](client-create-multiplatform-application.md) 的專案，您可以將 [Android](#jvm-android) 依賴項
+新增到 `androidMain` 原始碼集，並將 [Darwin](#darwin) 依賴項新增到 `iosMain` 原始碼集。在執行時建立 `HttpClient` 時會選取適當的引擎。
 
 ## 設定引擎 {id="configure"}
 
@@ -97,7 +106,8 @@ HttpClient() {
 
 ## JVM {id="jvm"}
 
-JVM 目標平台支援 [`Apache5`](#apache5)、[`Java`](#java) 和 [`Jetty`](#jetty) 引擎。
+JVM 目標平台支援 [`Apache5`](#apache5)、[`Java`](#java) 和
+[`Jetty`](#jetty) 引擎。
 
 ### Apache5 {id="apache5"}
 
@@ -221,7 +231,8 @@ JVM 目標平台支援 [`Apache5`](#apache5)、[`Java`](#java) 和 [`Jetty`](#je
        </TabItem>
    </Tabs>
 2. 將
-   [`Jetty`](https://api.ktor.io/ktor-client/ktor-client-jetty-jakarta/io.ktor.client.engine.jetty.jakarta/-jetty/index.html) 類別作為引數傳遞給 `HttpClient` 建構函式：
+   [`Jetty`](https://api.ktor.io/ktor-client/ktor-client-jetty-jakarta/io.ktor.client.engine.jetty.jakarta/-jetty/index.html)
+   類別作為引數傳遞給 `HttpClient` 建構函式：
    ```kotlin
    import io.ktor.client.*
    import io.ktor.client.engine.jetty.jakarta.*
@@ -267,7 +278,8 @@ JVM 目標平台支援 [`Apache5`](#apache5)、[`Java`](#java) 和 [`Jetty`](#je
        </TabItem>
    </Tabs>
 2. 將
-   [`Android`](https://api.ktor.io/ktor-client/ktor-client-android/io.ktor.client.engine.android/-android/index.html) 類別作為引數傳遞給 `HttpClient` 建構函式：
+   [`Android`](https://api.ktor.io/ktor-client/ktor-client-android/io.ktor.client.engine.android/-android/index.html)
+   類別作為引數傳遞給 `HttpClient` 建構函式：
    ```kotlin
    import io.ktor.client.*
    import io.ktor.client.engine.android.*
@@ -310,7 +322,9 @@ JVM 目標平台支援 [`Apache5`](#apache5)、[`Java`](#java) 和 [`Jetty`](#je
            <code-block lang="XML" code="               &lt;dependency&gt;&#10;                   &lt;groupId&gt;io.ktor&lt;/groupId&gt;&#10;                   &lt;artifactId&gt;%artifact_name%-jvm&lt;/artifactId&gt;&#10;                   &lt;version&gt;${ktor_version}&lt;/version&gt;&#10;               &lt;/dependency&gt;"/>
        </TabItem>
    </Tabs>
-2. 將 [`OkHttp`](https://api.ktor.io/ktor-client/ktor-client-okhttp/io.ktor.client.engine.okhttp/-ok-http/index.html) 類別作為引數傳遞給 `HttpClient` 建構函式：
+2. 將
+   [`OkHttp`](https://api.ktor.io/ktor-client/ktor-client-okhttp/io.ktor.client.engine.okhttp/-ok-http/index.html)
+   類別作為引數傳遞給 `HttpClient` 建構函式：
    ```kotlin
    import io.ktor.client.*
    import io.ktor.client.engine.okhttp.*
@@ -480,7 +494,7 @@ Ktor 為 [Kotlin/Native](https://kotlinlang.org/docs/native-overview.html) 目�
 
 ### CIO {id="cio"}
 
-`CIO` 引擎是一個完全非同步的基於協程的引擎，可在 JVM、Android、Native、JavaScript 和 WebAssembly JavaScript (WasmJs) 平台上使用。它目前僅支援 HTTP/1.x。若要使用它，請遵循以下步驟：
+CIO 引擎是一個完全非同步的基於協程的引擎，可在 JVM、Android、Native、JavaScript 和 WebAssembly JavaScript (WasmJs) 平台上使用。它目前僅支援 HTTP/1.x。若要使用它，請遵循以下步驟：
 
 1. 新增 `ktor-client-cio` 依賴項：
 

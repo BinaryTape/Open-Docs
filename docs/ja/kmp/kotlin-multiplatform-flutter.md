@@ -4,7 +4,7 @@
 
 急速に進化するテクノロジーの世界において、開発者は高品質なアプリケーションを構築するための効率的なフレームワークやツールを常に探しています。しかし、利用可能な選択肢の中から選ぶ際、いわゆる「最良の選択肢」を見つけることに重点を置きすぎないことが重要です。このアプローチは、必ずしも最も適切な選択肢につながるとは限りません。
 
-各プロジェクトは独自のものであり、特定の要件を持っています。この記事は、Kotlin MultiplatformやFlutterのようなテクノロジーがあなたのプロジェクトに最も適しているかをより深く理解し、情報に基づいた意思決定を行えるよう、選択肢を検討する手助けをすることを目的としています。
+各プロジェクトは独自のものであり、特定の要件を持っています。この記事は、あなたの選択をナビゲートし、Kotlin MultiplatformやFlutterのようなテクノロジーがあなたのプロジェクトに最も適しているかをより深く理解するのに役立つことを目的としています。これにより、情報に基づいた意思決定を行えるようになります。
 
 ## クロスプラットフォーム開発: 最新のアプリケーション構築への統合アプローチ
 
@@ -32,15 +32,15 @@ Kotlin Multiplatformでは、さまざまな選択肢があります。アプリ
 
 ![Kotlin Multiplatform is a technology for reusing up to 100% of your code](kmp-logic-and-ui.svg){ width="700" }
 
-Kotlin Multiplatformは2017年にKotlin 1.2の一部として初めて導入されました。2023年11月、Kotlin Multiplatformは[安定版](https://blog.jetbrains.com/kotlin/2023/11/kotlin-multiplatform-stable/)になりました。Google I/O 2024では、GoogleがAndroidおよびiOS間でビジネスロジックを共有するための[Kotlin Multiplatformのサポート](https://android-developers.googleblog.com/2024/05/android-support-for-kotlin-multiplatform-to-share-business-logic-across-mobile-web-server-desktop.html)を発表しました。
+Kotlin Multiplatformは2017年にKotlin 1.2の一部として初めて導入されました。2023年11月、Kotlin Multiplatformは[安定版](https://blog.jetbrains.com/kotlin/2023/11/kotlin-multiplatform-stable/)になりました。Google I/O 2024では、GoogleがAndroidおよびiOS間でビジネスロジックを共有するための[Kotlin Multiplatformのサポート](https://android-developers.googleblog.com/2024/05/android-support-for-kotlin-multiplatform-to-share-business-logic-across-mobile-web-server-desktop.html)をAndroid向けに発表しました。
 
 [![Discover Kotlin Multiplatform](discover-kmp.svg){width="500"}](https://www.jetbrains.com/kotlin-multiplatform/)
 
 #### Compose Multiplatform
 
-JetBrains製の最新の宣言型フレームワークである[Compose Multiplatform](https://www.jetbrains.com/compose-multiplatform/)を使用すると、複数のプラットフォーム間で共有UIコードを記述できます。これはKotlin MultiplatformとGoogleのJetpack Composeに基づいて構築されています。
+JetBrains製の最新の宣言型フレームワークである[Compose Multiplatform](https://www.jetbrains.com/compose-multiplatform/)を使用すると、Kotlin MultiplatformとGoogleのJetpack Composeに基づいて構築された、複数のプラットフォーム間で共有UIコードを記述できます。
 
-Compose Multiplatformは現在、[iOS](https://blog.jetbrains.com/kotlin/2025/05/compose-multiplatform-1-8-0-released-compose-multiplatform-for-ios-is-stable-and-production-ready/)、Android、デスクトップで安定しており、ウェブではアルファ版です。
+Compose Multiplatformは現在、[iOS](https://blog.jetbrains.com/kotlin/2025/05/compose-multiplatform-1-8-0-released-compose-multiplatform-for-ios-is-stable-and-production-ready/)、Android、デスクトップで安定しており、ウェブではベータ版です。
 
 [![Explore Compose Multiplatform](explore-compose.svg){width="500"}](https://www.jetbrains.com/compose-multiplatform/)
 
