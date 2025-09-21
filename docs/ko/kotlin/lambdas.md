@@ -4,8 +4,8 @@ Kotlin 함수는 [일급 객체](https://en.wikipedia.org/wiki/First-class_funct
 변수나 데이터 구조에 저장할 수 있으며, 다른 [고차 함수](#higher-order-functions)의 인수로 전달되거나 반환될 수 있습니다.
 함수가 아닌 다른 값에 대해 가능한 모든 연산을 함수에 수행할 수 있습니다.
 
-이를 위해 Kotlin은 정적 타입 프로그래밍 언어로서 함수를 표현하기 위해 일련의 [함수 타입](#function-types)을 사용하고,
-[람다 표현식](#lambda-expressions-and-anonymous-functions)과 같은 특수화된 언어 구조를 제공합니다.
+이를 위해 Kotlin은 정적 타입 프로그래밍 언어로서 함수를 표현하기 위해 일련의
+[함수 타입](#function-types)을 사용하고, [람다 표현식](#lambda-expressions-and-anonymous-functions)과 같은 특수화된 언어 구조를 제공합니다.
 
 ## 고차 함수
 
@@ -28,8 +28,7 @@ fun <T, R> Collection<T>.fold(
 }
 ```
 
-위 코드에서 `combine` 매개변수는 [함수 타입](#function-types) `(R, T) -> R`을 가지므로,
-`R` 타입과 `T` 타입의 두 인수를 받아 `R` 타입의 값을 반환하는 함수를 허용합니다.
+위 코드에서 `combine` 매개변수는 [함수 타입](#function-types) `(R, T) -> R`을 가지므로, `R` 타입과 `T` 타입의 두 인수를 받아 `R` 타입의 값을 반환하는 함수를 허용합니다.
 이 함수는 `for` 루프 내에서 [호출](#invoking-a-function-type-instance)되며, 반환 값은 `accumulator`에 할당됩니다.
 
 `fold`를 호출하려면 [함수 타입의 인스턴스](#instantiating-a-function-type)를 인수로 전달해야 하며,
@@ -41,21 +40,21 @@ fun main() {
     //sampleStart
     val items = listOf(1, 2, 3, 4, 5)
     
-    // 람다는 중괄호로 묶인 코드 블록입니다.
+    // Lambdas are code blocks enclosed in curly braces.
     items.fold(0, { 
-        // 람다가 매개변수를 가질 때, 매개변수들이 먼저 오고 그 뒤에 '->'가 옵니다.
+        // When a lambda has parameters, they go first, followed by '->'
         acc: Int, i: Int -> 
         print("acc = $acc, i = $i, ") 
         val result = acc + i
         println("result = $result")
-        // 람다의 마지막 표현식은 반환 값으로 간주됩니다.
+        // The last expression in a lambda is considered the return value:
         result
     })
     
-    // 람다의 매개변수 타입은 추론될 수 있다면 생략할 수 있습니다.
+    // Parameter types in a lambda are optional if they can be inferred:
     val joinedToString = items.fold("Elements:", { acc, i -> acc + " " + i })
     
-    // 함수 참조도 고차 함수 호출에 사용될 수 있습니다.
+    // Function references can also be used for higher-order function calls:
     val product = items.fold(1, Int::times)
     //sampleEnd
     println("joinedToString = $joinedToString")
@@ -66,7 +65,7 @@ fun main() {
 
 ## 함수 타입
 
-Kotlin은 함수를 다루는 선언에 `(Int) -> String`과 같은 함수 타입을 사용합니다. 예를 들어, `val onClick: () -> Unit = ...`.
+Kotlin은 `val onClick: () -> Unit = ...`과 같이 함수를 다루는 선언에 `(Int) -> String`과 같은 함수 타입을 사용합니다.
 
 이러한 타입은 함수의 시그니처, 즉 매개변수와 반환 값에 해당하는 특별한 표기법을 가집니다.
 
@@ -74,7 +73,7 @@ Kotlin은 함수를 다루는 선언에 `(Int) -> String`과 같은 함수 타�
 
 *   함수 타입은 선택적으로 추가 *리시버* 타입을 가질 수 있으며, 이는 표기법에서 점(`.`) 앞에 지정됩니다. `A.(B) -> C` 타입은 리시버 객체 `A`에 매개변수 `B`와 함께 호출될 수 있고 `C` 값을 반환하는 함수를 나타냅니다. [리시버를 가진 함수 리터럴](#function-literals-with-receiver)은 이러한 타입과 함께 자주 사용됩니다.
 
-*   [코루틴 함수](coroutines-basics.md#extract-function-refactoring)는 `suspend () -> Unit` 또는 `suspend A.(B) -> C`와 같이 표기법에 *suspend* 한정자가 있는 특수한 종류의 함수 타입에 속합니다.
+*   [코루틴 함수](coroutines-basics.md)는 `suspend () -> Unit` 또는 `suspend A.(B) -> C`와 같이 표기법에 *suspend* 한정자가 있는 특수한 종류의 함수 타입에 속합니다.
 
 함수 타입 표기법은 선택적으로 함수 매개변수의 이름을 포함할 수 있습니다: `(x: Int, y: Int) -> Point`.
 이 이름들은 매개변수의 의미를 문서화하는 데 사용될 수 있습니다.
@@ -171,7 +170,7 @@ fun main() {
     
     println(intPlus.invoke(1, 1))
     println(intPlus(1, 2))
-    println(2.intPlus(3)) // 확장 함수와 유사한 호출
+    println(2.intPlus(3)) // extension-like call
     //sampleEnd
 }
 ```
@@ -352,11 +351,11 @@ class HTML {
 }
 
 fun html(init: HTML.() -> Unit): HTML {
-    val html = HTML()  // 리시버 객체 생성
-    html.init()        // 리시버 객체를 람다에 전달
+    val html = HTML()  // create the receiver object
+    html.init()        // pass the receiver object to the lambda
     return html
 }
 
-html {       // 리시버를 가진 람다가 여기서 시작
-    body()   // 리시버 객체의 메서드 호출
+html {       // lambda with receiver begins here
+    body()   // calling a method on the receiver object
 }

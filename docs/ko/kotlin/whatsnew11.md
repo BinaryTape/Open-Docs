@@ -5,7 +5,7 @@ _출시: 2016년 2월 15일_
 ## 목차
 
 * [코루틴](#coroutines-experimental)
-* [다른 언어 기능](#other-language-features)
+* [기타 언어 기능](#other-language-features)
 * [표준 라이브러리](#standard-library)
 * [JVM 백엔드](#jvm-backend)
 * [JavaScript 백엔드](#javascript-backend)
@@ -18,25 +18,25 @@ Kotlin 1.1부터 JavaScript 타겟은 더 이상 실험적인 기능으로 간�
 
 Kotlin 1.1의 핵심 새 기능은 *코루틴(coroutines)*으로, `async`/`await`, `yield` 및 유사한 프로그래밍 패턴을 지원합니다. Kotlin 설계의 핵심 특징은 코루틴 실행 구현이 언어의 일부가 아닌 라이브러리의 일부이므로, 특정 프로그래밍 패러다임이나 동시성 라이브러리에 얽매이지 않는다는 것입니다.
 
-코루틴은 효과적으로 일시 중단되었다가 나중에 다시 시작할 수 있는 경량 스레드입니다. 코루틴은 _[일시 중단 함수(suspending functions)](coroutines-basics.md#extract-function-refactoring)_를 통해 지원됩니다. 이러한 함수 호출은 코루틴을 잠재적으로 일시 중단할 수 있으며, 새로운 코루틴을 시작하기 위해 일반적으로 익명 일시 중단 함수(즉, 일시 중단 람다)를 사용합니다.
+코루틴은 효과적으로 일시 중단되었다가 나중에 다시 시작할 수 있는 경량 스레드입니다. 코루틴은 _[일시 중단 함수(suspending functions)](coroutines-basics.md)_를 통해 지원됩니다. 이러한 함수 호출은 코루틴을 잠재적으로 일시 중단할 수 있으며, 새로운 코루틴을 시작하기 위해 일반적으로 익명 일시 중단 함수(즉, 일시 중단 람다)를 사용합니다.
 
 `async`/`await`를 살펴보겠습니다. 이는 외부 라이브러리인 [kotlinx.coroutines](https://github.com/kotlin/kotlinx.coroutines)에 구현되어 있습니다.
 
 ```kotlin
-// runs the code in the background thread pool
+// 백그라운드 스레드 풀에서 코드를 실행합니다.
 fun asyncOverlay() = async(CommonPool) {
-    // start two async operations
+    // 두 개의 비동기 작업을 시작합니다.
     val original = asyncLoadImage("original")
     val overlay = asyncLoadImage("overlay")
-    // and then apply overlay to both results
+    // 그리고 두 결과에 오버레이를 적용합니다.
     applyOverlay(original.await(), overlay.await())
 }
 
-// launches new coroutine in UI context
+// UI 컨텍스트에서 새 코루틴을 시작합니다.
 launch(UI) {
-    // wait for async overlay to complete
+    // 비동기 오버레이가 완료될 때까지 기다립니다.
     val image = asyncOverlay().await()
-    // and then show it in UI
+    // 그리고 UI에 표시합니다.
     showImage(image)
 }
 ```
@@ -51,14 +51,14 @@ import kotlin.coroutines.experimental.*
 fun main(args: Array<String>) {
     val seq = buildSequence {
       for (i in 1..5) {
-          // yield a square of i
+          // i의 제곱을 yield
           yield(i * i)
       }
-      // yield a range
+      // 범위를 yield
       yieldAll(26..28)
     }
 
-    // print the sequence
+    // 시퀀스를 출력합니다.
     println(seq.toList())
 }
 ```
@@ -390,7 +390,7 @@ inputDir.walk()
 ### also(), takeIf(), 및 takeUnless()
 
 이들은 모든 리시버에 적용할 수 있는 세 가지 일반 목적의 확장 함수입니다.
-
+ 
 `also`는 `apply`와 유사합니다. 리시버를 받아 어떤 작업을 수행한 다음 해당 리시버를 반환합니다. 차이점은 `apply` 내부 블록에서는 리시버를 `this`로 사용할 수 있지만, `also` 내부 블록에서는 `it`으로 사용할 수 있다는 것입니다(원한다면 다른 이름을 지정할 수도 있습니다). 이는 외부 스코프의 `this`를 가리고 싶지 않을 때 유용합니다.
 
 ```kotlin

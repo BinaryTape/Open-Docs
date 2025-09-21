@@ -4,11 +4,11 @@ _リリース日: 2016年2月15日_
 
 ## 目次
 
-*   [コルーチン (実験的機能)](#coroutines-experimental)
-*   [その他の言語機能](#other-language-features)
-*   [標準ライブラリ](#standard-library)
-*   [JVMバックエンド](#jvm-backend)
-*   [JavaScriptバックエンド](#javascript-backend)
+* [コルーチン (実験的機能)](#coroutines-experimental)
+* [その他の言語機能](#other-language-features)
+* [標準ライブラリ](#standard-library)
+* [JVMバックエンド](#jvm-backend)
+* [JavaScriptバックエンド](#javascript-backend)
 
 ## JavaScript
 
@@ -19,25 +19,25 @@ Kotlin 1.1から、JavaScriptターゲットはもはや実験的と見なされ
 Kotlin 1.1の主要な新機能は**コルーチン**であり、`async`/`await`、`yield`、および同様のプログラミングパターンをサポートします。Kotlinの設計における重要な特徴は、コルーチン実行の実装が言語の一部ではなく、ライブラリの一部であるため、特定のプログラミングパラダイムや並行処理ライブラリに縛られないことです。
 
 コルーチンは実質的に、後で一時停止および再開できる軽量なスレッドです。
-コルーチンは_[中断関数 (suspending functions)](coroutines-basics.md#extract-function-refactoring)_を通じてサポートされます。このような関数への呼び出しは、コルーチンを一時停止させる可能性があり、新しいコルーチンを開始するには通常、匿名の中断関数 (つまり、中断ラムダ) を使用します。
+コルーチンは_[中断関数 (suspending functions)](coroutines-basics.md)_を通じてサポートされます。このような関数への呼び出しは、コルーチンを一時停止させる可能性があり、新しいコルーチンを開始するには通常、匿名の中断関数 (つまり、中断ラムダ) を使用します。
 
-外部ライブラリである[kotlinx.coroutines](https://github.com/kotlin/kotlinx.coroutines)で実装されている`async`/`await`を見てみましょう。
+外部ライブラリである[kotlinx.coroutines](https://github.com/Kotlin/kotlinx.coroutines)で実装されている`async`/`await`を見てみましょう。
 
 ```kotlin
-// runs the code in the background thread pool
+// バックグラウンドスレッドプールでコードを実行
 fun asyncOverlay() = async(CommonPool) {
-    // start two async operations
+    // 2つの非同期操作を開始
     val original = asyncLoadImage("original")
     val overlay = asyncLoadImage("overlay")
-    // and then apply overlay to both results
+    // そして両方の結果にオーバーレイを適用
     applyOverlay(original.await(), overlay.await())
 }
 
-// launches new coroutine in UI context
+// UIコンテキストで新しいコルーチンを起動
 launch(UI) {
-    // wait for async overlay to complete
+    // 非同期オーバーレイが完了するのを待機
     val image = asyncOverlay().await()
-    // and then show it in UI
+    // そしてUIに表示
     showImage(image)
 }
 ```
@@ -53,14 +53,14 @@ import kotlin.coroutines.experimental.*
 fun main(args: Array<String>) {
     val seq = buildSequence {
       for (i in 1..5) {
-          // yield a square of i
+          // iの2乗をyield
           yield(i * i)
       }
-      // yield a range
+      // 範囲をyield
       yieldAll(26..28)
     }
 
-    // print the sequence
+    // シーケンスを出力
     println(seq.toList())
 }
 ```
@@ -86,7 +86,7 @@ typealias OscarWinners = Map<String, String>
 fun countLaLaLand(oscarWinners: OscarWinners) =
         oscarWinners.count { it.value.contains("La La Land") }
 
-// Note that the type names (initial and the type alias) are interchangeable:
+// 型名（元の型と型エイリアス）は交換可能です。
 fun checkLaLaLandIsTheBestMovie(oscarWinners: Map<String, String>) =
         oscarWinners["Best picture"] == "La La Land"
 //sampleEnd
@@ -160,7 +160,9 @@ fun main(args: Array<String>) {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-詳細については、[sealedクラスのドキュメント](sealed-classes.md)または[sealed class](https://github.com/Kotlin/KEEP/blob/master/proposals/sealed-class-inheritance.md)および[data class](https://github.com/Kotlin/KEEP/blob/master/proposals/data-class-inheritance.md)のKEEPsを参照してください。
+詳細については、[sealedクラスのドキュメント](sealed-classes.md)または
+[sealed class](https://github.com/Kotlin/KEEP/blob/master/proposals/sealed-class-inheritance.md)および
+[data class](https://github.com/Kotlin/KEEP/blob/master/proposals/data-class-inheritance.md)のKEEPsを参照してください。
 
 ### ラムダにおける分割宣言 (Destructuring)
 
@@ -171,12 +173,12 @@ fun main(args: Array<String>) {
 fun main(args: Array<String>) {
 //sampleStart
     val map = mapOf(1 to "one", 2 to "two")
-    // before
+    // 以前
     println(map.mapValues { entry ->
       val (key, value) = entry
       "$key -> $value!"
     })
-    // now
+    // 現在
     println(map.mapValues { (key, value) -> "$key -> $value!" })
 //sampleEnd
 }
@@ -246,7 +248,7 @@ fun main(args: Array<String>) {
 ```kotlin
 //sampleStart
     data class Person(val name: String, val age: Int) {
-    val isAdult get() = age >= 20 // Property type inferred to be 'Boolean'
+    val isAdult get() = age >= 20 // プロパティ型は 'Boolean' と推論されます
 }
 //sampleEnd
 fun main(args: Array<String>) {
@@ -269,7 +271,7 @@ public val <T> List<T>.lastIndex: Int
 
 fun main(args: Array<String>) {
     val list = listOf('a', 'b')
-    // the getter will be inlined
+    // ゲッターはインライン化されます
     println("Last index of $list is ${list.lastIndex}")
 }
 ```
@@ -295,8 +297,8 @@ fun main(args: Array<String>) {
         println("Calculating the answer...")
         42
     }
-    if (needAnswer()) {                     // returns the random value
-        println("The answer is $answer.")   // answer is calculated at this point
+    if (needAnswer()) {                     // ランダムな値を返します
+        println("The answer is $answer.")   // この時点で答えが計算されます
     }
     else {
         println("Sometimes no answer is the answer...")
@@ -317,7 +319,7 @@ fun main(args: Array<String>) {
 class ResourceLoader<T>(id: ResourceID<T>) {
     operator fun provideDelegate(thisRef: MyUI, prop: KProperty<*>): ReadOnlyProperty<MyUI, T> {
         checkProperty(thisRef, prop.name)
-        ... // property creation
+        ... // プロパティの作成
     }
 
     private fun checkProperty(thisRef: MyUI, name: String) { ... }
@@ -349,7 +351,7 @@ inline fun <reified T : Enum<T>> printAllValues() {
 //sampleEnd
 
 fun main(args: Array<String>) {
-    printAllValues<RGB>() // prints RED, GREEN, BLUE
+    printAllValues<RGB>() // RED, GREEN, BLUE を出力
 }
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
@@ -405,7 +407,7 @@ inputDir.walk()
 ### also()、takeIf()、およびtakeUnless()
 
 これらは、任意のレシーバーに適用できる3つの汎用拡張関数です。
-
+ 
 `also`は`apply`に似ています。レシーバーを受け取り、それに対して何らかのアクションを実行し、そのレシーバーを返します。
 違いは、`apply`内のブロックではレシーバーが`this`として利用できるのに対し、`also`内のブロックでは`it`として利用できる点です（必要に応じて別の名前を付けることもできます）。
 これは、外側のスコープから`this`をシャドウしたくない場合に便利です。
@@ -421,7 +423,7 @@ fun Block.copy() = Block().also {
 }
 //sampleEnd
 
-// using 'apply' instead
+// 'apply' を使用する場合
 fun Block.copy1() = Block().apply {
     this.content = this@copy1.content
 }
@@ -440,7 +442,7 @@ fun main(args: Array<String>) {
 
 ```kotlin
 val outDirFile = File(outputDir.path).takeIf { it.exists() } ?: return false
-// do something with existing outDirFile
+// 既存の outDirFile を使用して何かを実行
 ```
 
 ```kotlin
@@ -450,7 +452,7 @@ fun main(args: Array<String>) {
 
 //sampleStart
     val index = input.indexOf(keyword).takeIf { it >= 0 } ?: error("keyword not found")
-    // do something with index of keyword in input string, given that it's found
+    // 入力文字列内でキーワードが見つかった場合のインデックスを使用して何かを実行
 //sampleEnd
     
     println("'$keyword' was found in '$input'")
@@ -496,8 +498,8 @@ fun main(args: Array<String>) {
 //sampleEnd
     println("Counting first letters: $frequencies.")
 
-    // The alternative way that uses 'groupBy' and 'mapValues' creates an intermediate map, 
-    // while 'groupingBy' way counts on the fly.
+    // 'groupBy' と 'mapValues' を使用する代替方法は中間マップを作成しますが、
+    // 'groupingBy' はその場でカウントします。
     val groupBy = words.groupBy { it.first() }.mapValues { (_, list) -> list.size }
     println("Comparing the result with using 'groupBy': ${groupBy == frequencies}.")
 }
@@ -577,14 +579,14 @@ fun main(args: Array<String>) {
 fun main(args: Array<String>) {
 //sampleStart    
     val map = mapOf("key" to 42)
-    // returns non-nullable Int value 42
+    // null許容ではない Int 値 42 を返します
     val value: Int = map.getValue("key")
 
     val mapWithDefault = map.withDefault { k -> k.length }
-    // returns 4
+    // 4 を返します
     val value2 = mapWithDefault.getValue("key2")
 
-    // map.getValue("anotherKey") // <- this will throw NoSuchElementException
+    // map.getValue("anotherKey") // <- これは NoSuchElementException をスローします
 //sampleEnd
     
     println("value is $value")
@@ -607,8 +609,8 @@ JVMでは、これらの抽象ミュータブルコレクションは、ほと�
 fun main(args: Array<String>) {
 //sampleStart
     val array = arrayOf("a", "b", "c")
-    println(array.toString())  // JVM implementation: type-and-hash gibberish
-    println(array.contentToString())  // nicely formatted as list
+    println(array.toString())  // JVM実装: 型とハッシュの難読化された出力
+    println(array.contentToString())  // リストとしてきれいにフォーマット
 //sampleEnd
 }
 ```
@@ -646,7 +648,7 @@ Kotlinは[javax.script API](https://docs.oracle.com/javase/8/docs/api/javax/scri
 ```kotlin
 val engine = ScriptEngineManager().getEngineByExtension("kts")!!
 engine.eval("val x = 3")
-println(engine.eval("x + 2"))  // Prints out 5
+println(engine.eval("x + 2"))  // 5 を出力します
 ```
 
 このAPIを使用したより大きな例のプロジェクトは[こちら](https://github.com/JetBrains/kotlin/tree/1.1.0/libraries/examples/kotlin-jsr223-local-example)を参照してください。
@@ -680,7 +682,7 @@ external class Node {
 
     fun removeChild(child: Node): Node
 
-    // etc
+    // その他
 }
 ```
 
@@ -704,7 +706,7 @@ external interface JQuery {
 external fun jquery(selector: String): JQuery
 ```
 
-この場合、JQueryは`jquery`という名前のモジュールとしてインポートされます。あるいは、Kotlinコンパイラが使用するように設定されているモジュールシステムに応じて、`-objectとして使用することもできます。
+この場合、JQueryは`jquery`という名前のモジュールとしてインポートされます。あるいは、Kotlinコンパイラが使用するように設定されているモジュールシステムに応じて、`$`オブジェクトとして使用することもできます。
 
 これらの宣言は、アプリケーションで次のように使用できます。
 
@@ -714,4 +716,3 @@ fun main(args: Array<String>) {
         jquery(".toggle-panel").toggle(300)
     }
 }
-```

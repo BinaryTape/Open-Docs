@@ -18,7 +18,7 @@
 
 Kotlin 1.1 的關鍵新功能是 *協程 (coroutines)*，它帶來了 `async`/`await`、`yield` 和類似程式設計模式的支援。Kotlin 設計的關鍵特點是協程執行的實作是函式庫的一部分，而非語言本身，因此您不受任何特定程式設計範式或併發函式庫的約束。
 
-協程實際上是一個輕量級執行緒，可以暫停並稍後恢復。協程透過 _[suspend 函數](coroutines-basics.md#extract-function-refactoring)_ 獲得支援：呼叫此類函數可能會暫停協程，而要啟動一個新的協程，我們通常使用匿名 suspend 函數（即 suspend lambda 表達式）。
+協程實際上是一個輕量級執行緒，可以暫停並稍後恢復。協程透過 _[suspend 函數](coroutines-basics.md)_ 獲得支援：呼叫此類函數可能會暫停協程，而要啟動一個新的協程，我們通常使用匿名 suspend 函數（即 suspend lambda 表達式）。
 
 讓我們看看 `async`/`await`，它是在外部函式庫 [kotlinx.coroutines](https://github.com/kotlin/kotlinx.coroutines) 中實作的：
 
@@ -674,7 +674,7 @@ external interface JQuery {
 external fun jquery(selector: String): JQuery
 ```
 
-在這種情況下，JQuery 將作為名為 `jquery` 的模組導入。或者，它可以作為一個 `-object 使用，這取決於 Kotlin 編譯器配置為使用的模組系統。
+在這種情況下，JQuery 將作為名為 `jquery` 的模組導入。或者，它可以作為一個 $-object 使用，這取決於 Kotlin 編譯器配置為使用的模組系統。
 
 您可以在應用程式中這樣使用這些宣告：
 
@@ -684,4 +684,3 @@ fun main(args: Array<String>) {
         jquery(".toggle-panel").toggle(300)
     }
 }
-```

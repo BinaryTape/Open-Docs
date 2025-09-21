@@ -93,7 +93,7 @@ allprojects {
 }
 ```
 
-然後依賴具有 [最新快照版本](https://github.com/coil-kt/coil/blob/main/gradle.properties#L34) 的相同構件 (artifact)。
+然後依賴具有 [最新快照版本](https://github.com/coil-kt/coil/blob/main/gradle.properties#L34) 的相同構件。
 
 !!! 注意
     每個通過 CI 的 `main` 分支新提交都會部署快照。它們可能包含破壞性變更或不穩定。請自行承擔風險使用。
@@ -103,11 +103,14 @@ allprojects {
 要將 Proguard 與 Coil 一起使用，請將以下規則新增到您的配置中：
 
 ```
--keep class * extends coil3.util.DecoderServiceLoaderTarget { *; }
--keep class * extends coil3.util.FetcherServiceLoaderTarget { *; }
+-keep class coil3.util.DecoderServiceLoaderTarget { *; }
+-keep class coil3.util.FetcherServiceLoaderTarget { *; }
+-keep class coil3.util.ServiceLoaderComponentRegistry { *; }
+-keep class * implements coil3.util.DecoderServiceLoaderTarget { *; }
+-keep class * implements coil3.util.FetcherServiceLoaderTarget { *; }
 ```
 
 您可能還需要為 Ktor、OkHttp 和 Coroutines 新增自訂規則。
 
 !!! 注意
-    **如果您使用 R8，則無需為 Coil 新增任何自訂規則**，R8 是 Android 上預設的程式碼壓縮器 (code shrinker)。這些規則會自動新增。
+    **如果您使用 R8，則無需為 Coil 新增任何自訂規則**，R8 是 Android 上預設的程式碼壓縮器。這些規則會自動新增。

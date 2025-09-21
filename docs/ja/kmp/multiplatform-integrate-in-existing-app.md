@@ -335,15 +335,17 @@ Androidアプリケーションをクロスプラットフォーム化した後�
 ### XcodeでiOSプロジェクトを作成する
 
 1. Xcodeで、**File** | **New** | **Project**をクリックします。
-2. iOSアプリのテンプレートを選択し、**Next**をクリックします。
+2. ダイアログで、**iOS**タブに切り替えます:
 
    ![iOSプロジェクトテンプレート](ios-project-wizard-1.png){width=700}
 
-3. プロダクト名として「simpleLoginIOS」を指定し、**Next**をクリックします。
+3. **App**テンプレートを選択し、**Next**をクリックします。
+
+4. プロダクト名として「simpleLoginIOS」を指定し、**Next**をクリックします。
 
    ![iOSプロジェクト設定](ios-project-wizard-2.png){width=700}
 
-4. プロジェクトの場所として、クロスプラットフォームアプリケーションが保存されているディレクトリ（例：`kmp-integration-sample`）を選択します。
+5. プロジェクトの場所として、クロスプラットフォームアプリケーションが保存されているディレクトリ（例：`kmp-integration-sample`）を選択します。
 
 Android Studioでは、以下の構造が得られます。
 
@@ -370,7 +372,7 @@ iOSアプリとKotlin Multiplatformによってビルドされたフレームワ
 
     ![Run Scriptフェーズを追加](xcode-run-script-phase-1.png){width=700}
 
-4. ランスクリプトフィールドに以下のスクリプトを貼り付けます。
+5. ランスクリプトフィールドに以下のスクリプトを貼り付けます。
 
     ```text
     cd "$SRCROOT/.."
@@ -379,15 +381,15 @@ iOSアプリとKotlin Multiplatformによってビルドされたフレームワ
 
    ![スクリプトを追加](xcode-run-script-phase-2.png){width=700}
 
-5. **Based on dependency analysis**オプションを無効にします。
+6. **Based on dependency analysis**オプションを無効にします。
 
    これにより、Xcodeがビルドごとにスクリプトを実行し、出力依存関係の欠落に関する警告が毎回表示されないようになります。
 
-6. **Run Script**フェーズを**Compile Sources**フェーズの前に移動させます。
+7. **Run Script**フェーズを**Compile Sources**フェーズの前に移動させます。
 
    ![Run Scriptフェーズを移動](xcode-run-script-phase-3.png){width=700}
 
-7. **Build Settings**タブで、**Build Options**の下にある**User Script Sandboxing**オプションを無効にします。
+8. **Build Settings**タブで、**Build Options**の下にある**User Script Sandboxing**オプションを無効にします。
 
    ![ユーザー・スクリプト・サンドボックス化](disable-sandboxing-in-xcode-project-settings.png){width=700}
 
@@ -395,7 +397,7 @@ iOSアプリとKotlin Multiplatformによってビルドされたフレームワ
    >
    {style="note"}
 
-8. Xcodeでプロジェクトをビルドします（メインメニューの**Product** | **Build**）。
+9. Xcodeでプロジェクトをビルドします（メインメニューの**Product** | **Build**）。
     すべてが正しく設定されていれば、プロジェクトは正常にビルドされます
     （「build phase will be run during every build」という警告は安全に無視できます）。
    

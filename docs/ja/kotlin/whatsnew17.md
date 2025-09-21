@@ -10,11 +10,11 @@ Kotlin 1.7.0がリリースされました。このバージョンでは、新�
 
 このバージョンの主な更新点は以下のとおりです。
 
-* [新しいKotlin K2コンパイラがAlpha版になりました](#new-kotlin-k2-compiler-for-the-jvm-in-alpha)。大幅なパフォーマンス向上を実現します。JVMでのみ利用可能で、kaptを含むコンパイラプラグインは動作しません。
-* [Gradleのインクリメンタルコンパイルへの新しいアプローチ](#a-new-approach-to-incremental-compilation)。インクリメンタルコンパイルは、依存するKotlin以外のモジュール内部での変更にも対応し、Gradleと互換性があります。
-* [オプトイン要件アノテーション](#stable-opt-in-requirements)、[null許容型でないことが保証される型](#stable-definitely-non-nullable-types)、[ビルダ推論](#stable-builder-inference)が安定化されました。
-* [型引数にアンダースコア演算子が追加されました](#underscore-operator-for-type-arguments)。他の型が指定されている場合に、引数の型を自動的に推論するために使用できます。
-* [このリリースでは、インラインクラスのインライン化された値へのデリゲートによる実装が可能になりました](#allow-implementation-by-delegation-to-an-inlined-value-of-an-inline-class)。ほとんどの場合、メモリを割り当てない軽量なラッパーを作成できるようになりました。
+*   [新しいKotlin K2コンパイラがAlpha版になりました](#new-kotlin-k2-compiler-for-the-jvm-in-alpha)。大幅なパフォーマンス向上を実現します。JVMでのみ利用可能で、kaptを含むコンパイラプラグインは動作しません。
+*   [Gradleのインクリメンタルコンパイルへの新しいアプローチ](#a-new-approach-to-incremental-compilation)。インクリメンタルコンパイルは、依存するKotlin以外のモジュール内部での変更にも対応し、Gradleと互換性があります。
+*   [オプトイン要件アノテーション](#stable-opt-in-requirements)、[null許容型でないことが保証される型](#stable-definitely-non-nullable-types)、[ビルダ推論](#stable-builder-inference)が安定化されました。
+*   [型引数にアンダースコア演算子が追加されました](#underscore-operator-for-type-arguments)。他の型が指定されている場合に、引数の型を自動的に推論するために使用できます。
+*   [このリリースでは、インラインクラスのインライン化された値へのデリゲートによる実装が可能になりました](#allow-implementation-by-delegation-to-an-inlined-value-of-an-inline-class)。ほとんどの場合、メモリを割り当てない軽量なラッパーを作成できるようになりました。
 
 変更点の概要については、以下のビデオでもご確認いただけます。
 
@@ -26,10 +26,10 @@ Kotlin 1.7.0がリリースされました。このバージョンでは、新�
 
 弊社の新しいコンパイラとその利点について、すでに詳細な説明を公開しています。
 
-* [新しいKotlinコンパイラへの道](https://www.youtube.com/watch?v=iTdJJq_LyoY)
-* [K2コンパイラ: トップダウンビュー](https://www.youtube.com/watch?v=db19VFLZqJM)
+*   [新しいKotlinコンパイラへの道](https://www.youtube.com/watch?v=iTdJJq_LyoY)
+*   [K2コンパイラ: トップダウンビュー](https://www.youtube.com/watch?v=db19VFLZqJM)
 
-新しいK2コンパイラのAlpha版では、主にパフォーマンス向上に注力したため、JVMプロジェクトでのみ動作することに注意してください。Kotlin/JS、Kotlin/Native、またはその他のマルチプラットフォームプロジェクトはサポートしておらず、[kapt](kapt.md)を含むどのコンパイラプラグインも動作しません。
+弊社の新しいK2コンパイラのAlpha版では、主にパフォーマンス向上に注力したため、JVMプロジェクトでのみ動作することに注意してください。Kotlin/JS、Kotlin/Native、またはその他のマルチプラットフォームプロジェクトはサポートしておらず、[kapt](kapt.md)を含むどのコンパイラプラグインも動作しません。
 
 弊社のベンチマークでは、社内プロジェクトで優れた結果が示されています。
 
@@ -60,11 +60,11 @@ Kotlin K2コンパイラでパフォーマンスの問題に直面した場合�
 
 Kotlin 1.7.0では、デリゲートによる実装のサポートと、型引数用の新しいアンダースコア演算子が導入されました。また、以前のリリースでプレビュー版として導入されたいくつかの言語機能が安定化されました。
 
-* [インラインクラスのインライン化された値へのデリゲートによる実装](#allow-implementation-by-delegation-to-an-inlined-value-of-an-inline-class)
-* [型引数にアンダースコア演算子](#underscore-operator-for-type-arguments)
-* [ビルダ推論の安定化](#stable-builder-inference)
-* [オプトイン要件の安定化](#stable-opt-in-requirements)
-* [null許容型でないことが保証される型の安定化](#stable-definitely-non-nullable-types)
+*   [インラインクラスのインライン化された値へのデリゲートによる実装](#allow-implementation-by-delegation-to-an-inlined-value-of-an-inline-class)
+*   [型引数にアンダースコア演算子](#underscore-operator-for-type-arguments)
+*   [ビルダ推論の安定化](#stable-builder-inference)
+*   [オプトイン要件の安定化](#stable-opt-in-requirements)
+*   [null許容型でないことが保証される型の安定化](#stable-definitely-non-nullable-types)
 
 ### インラインクラスのインライン化された値へのデリゲートによる実装を許可
 
@@ -164,10 +164,10 @@ null許容型でないことが保証される型の詳細については、[こ
 
 このリリースでは、Kotlin/JVMコンパイラのパフォーマンス向上と新しいコンパイラオプションがもたらされます。さらに、関数型インターフェースのコンストラクタへの呼び出し可能参照が安定版になりました。1.7.0以降、Kotlin/JVMコンパイルのデフォルトのターゲットバージョンは`1.8`であることに注意してください。
 
-* [コンパイラのパフォーマンス最適化](#compiler-performance-optimizations)
-* [新しいコンパイラオプション `-Xjdk-release`](#new-compiler-option-xjdk-release)
-* [関数型インターフェースのコンストラクタへの呼び出し可能参照の安定化](#stable-callable-references-to-functional-interface-constructors)
-* [JVMターゲットバージョン1.6の削除](#removed-jvm-target-version-1-6)
+*   [コンパイラのパフォーマンス最適化](#compiler-performance-optimizations)
+*   [新しいコンパイラオプション `-Xjdk-release`](#new-compiler-option-xjdk-release)
+*   [関数型インターフェースのコンストラクタへの呼び出し可能参照の安定化](#stable-callable-references-to-functional-interface-constructors)
+*   [JVMターゲットバージョン1.6の削除](#removed-jvm-target-version-1-6)
 
 ### コンパイラのパフォーマンス最適化
 
@@ -195,21 +195,21 @@ Kotlin/JVMコンパイルのデフォルトのターゲットバージョンは`
 
 JVMターゲット1.8以降に移行してください。JVMターゲットバージョンの更新方法については、以下をご覧ください。
 
-* [Gradle](gradle-compiler-options.md#attributes-specific-to-jvm)
-* [Maven](maven.md#attributes-specific-to-jvm)
-* [コマンドラインコンパイラ](compiler-reference.md#jvm-target-version)
+*   [Gradle](gradle-compiler-options.md#attributes-specific-to-jvm)
+*   [Maven](maven.md#attributes-specific-to-jvm)
+*   [コマンドラインコンパイラ](compiler-reference.md#jvm-target-version)
 
 ## Kotlin/Native
 
 Kotlin 1.7.0には、Objective-CおよびSwiftとの相互運用性の変更、以前のリリースで導入された機能の安定化が含まれています。また、新しいメモリマネージャーのパフォーマンス向上とその他の更新ももたらされます。
 
-* [新しいメモリマネージャーのパフォーマンス向上](#performance-improvements-for-the-new-memory-manager)
-* [JVMおよびJS IRバックエンドとの統一されたコンパイラプラグインABI](#unified-compiler-plugin-abi-with-jvm-and-js-ir-backends)
-* [スタンドアロンAndroid実行可能ファイルのサポート](#support-for-standalone-android-executables)
-* [Swift async/awaitとの相互運用: KotlinUnitの代わりにVoidを返す](#interop-with-swift-async-await-returning-void-instead-of-kotlinunit)
-* [Objective-Cブリッジを介した未宣言例外の禁止](#prohibited-undeclared-exceptions-through-objective-c-bridges)
-* [CocoaPods統合の改善](#improved-cocoapods-integration)
-* [Kotlin/NativeコンパイラのダウンロードURLの上書き](#overriding-the-kotlin-native-compiler-download-url)
+*   [新しいメモリマネージャーのパフォーマンス向上](#performance-improvements-for-the-new-memory-manager)
+*   [JVMおよびJS IRバックエンドとの統一されたコンパイラプラグインABI](#unified-compiler-plugin-abi-with-jvm-and-js-ir-backends)
+*   [スタンドアロンAndroid実行可能ファイルのサポート](#support-for-standalone-android-executables)
+*   [Swift async/awaitとの相互運用: KotlinUnitの代わりにVoidを返す](#interop-with-swift-async-await-returning-void-instead-of-kotlinunit)
+*   [Objective-Cブリッジを介した未宣言例外の禁止](#prohibited-undeclared-exceptions-through-objective-c-bridges)
+*   [CocoaPods統合の改善](#improved-cocoapods-integration)
+*   [Kotlin/NativeコンパイラのダウンロードURLの上書き](#overriding-the-kotlin-native-compiler-download-url)
 
 ### 新しいメモリマネージャーのパフォーマンス向上
 
@@ -291,20 +291,20 @@ kotlin.native.distribution.baseDownloadUrl=https://example.com
 
 Kotlin/JSは、[JS IRコンパイラバックエンド](js-ir-compiler.md)のさらなる改善と、開発体験を向上させるその他のアップデートを受けています。
 
-* [新しいIRバックエンドのパフォーマンス向上](#performance-improvements-for-the-new-ir-backend)
-* [IR使用時のメンバー名のミニファイ](#minification-for-member-names-when-using-ir)
-* [IRバックエンドでのポリフィルによる古いブラウザのサポート](#support-for-older-browsers-via-polyfills-in-the-ir-backend)
-* [js式からのJavaScriptモジュールの動的ロード](#dynamically-load-javascript-modules-from-js-expressions)
-* [JavaScriptテストランナー用の環境変数を指定](#specify-environment-variables-for-javascript-test-runners)
+*   [新しいIRバックエンドのパフォーマンス向上](#performance-improvements-for-the-new-ir-backend)
+*   [IR使用時のメンバー名のミニファイ](#minification-for-member-names-when-using-ir)
+*   [IRバックエンドでのポリフィルによる古いブラウザのサポート](#support-for-older-browsers-via-polyfills-in-the-ir-backend)
+*   [js式からのJavaScriptモジュールの動的ロード](#dynamically-load-javascript-modules-from-js-expressions)
+*   [JavaScriptテストランナー用の環境変数を指定](#specify-environment-variables-for-javascript-test-runners)
 
 ### 新しいIRバックエンドのパフォーマンス向上
 
 このリリースには、開発体験を向上させるいくつかの大きなアップデートが含まれています。
 
-* Kotlin/JSのインクリメンタルコンパイルパフォーマンスが大幅に改善されました。JSプロジェクトのビルドにかかる時間が短縮されます。インクリメンタルなリビルドは、多くの場合、レガシーバックエンドとほぼ同等になりました。
-* Kotlin/JSの最終バンドルは、最終成果物のサイズを大幅に削減したため、必要なスペースが少なくなりました。一部の大規模プロジェクトでは、プロダクションバンドルサイズがレガシーバックエンドと比較して最大20%削減されたことを確認しています。
-* インターフェースの型チェックが桁違いに改善されました。
-* Kotlinはより高品質なJSコードを生成します。
+*   Kotlin/JSのインクリメンタルコンパイルパフォーマンスが大幅に改善されました。JSプロジェクトのビルドにかかる時間が短縮されます。インクリメンタルなリビルドは、多くの場合、レガシーバックエンドとほぼ同等になりました。
+*   Kotlin/JSの最終バンドルは、最終成果物のサイズを大幅に削減したため、必要なスペースが少なくなりました。一部の大規模プロジェクトでは、プロダクションバンドルサイズがレガシーバックエンドと比較して最大20%削減されたことを確認しています。
+*   インターフェースの型チェックが桁違いに改善されました。
+*   Kotlinはより高品質なJSコードを生成します。
 
 ### IR使用時のメンバー名のミニファイ
 
@@ -358,14 +358,14 @@ kotlin {
 
 Kotlin 1.7.0では、標準ライブラリに多くの変更と改善が加えられました。これにより、新機能が導入され、実験的な機能が安定化され、Native、JS、JVM全体で名前付きキャプチャグループのサポートが統一されました。
 
-* [min()とmax()コレクション関数がnull非許容を返すようになりました](#min-and-max-collection-functions-return-as-non-nullable)
-* [特定のインデックスでの正規表現マッチング](#regular-expression-matching-at-specific-indices)
-* [以前の言語バージョンとAPIバージョンの拡張サポート](#extended-support-for-previous-language-and-api-versions)
-* [リフレクションによるアノテーションへのアクセス](#access-to-annotations-via-reflection)
-* [安定版ディープ再帰関数](#stable-deep-recursive-functions)
-* [デフォルト時間ソースのインラインクラスに基づくタイムマーク](#time-marks-based-on-inline-classes-for-default-time-source)
-* [Java Optional用の新しい実験的拡張関数](#new-experimental-extension-functions-for-java-optionals)
-* [JSとNativeでの名前付きキャプチャグループのサポート](#support-for-named-capturing-groups-in-js-and-native)
+*   [min()とmax()コレクション関数がnull非許容を返すようになりました](#min-and-max-collection-functions-return-as-non-nullable)
+*   [特定のインデックスでの正規表現マッチング](#regular-expression-matching-at-specific-indices)
+*   [以前の言語バージョンとAPIバージョンの拡張サポート](#extended-support-for-previous-language-and-api-versions)
+*   [リフレクションによるアノテーションへのアクセス](#access-to-annotations-via-reflection)
+*   [安定版ディープ再帰関数](#stable-deep-recursive-functions)
+*   [デフォルト時間ソースのインラインクラスに基づくタイムマーク](#time-marks-based-on-inline-classes-for-default-time-source)
+*   [Java Optional用の新しい実験的拡張関数](#new-experimental-extension-functions-for-java-optionals)
+*   [JSとNativeでの名前付きキャプチャグループのサポート](#support-for-named-capturing-groups-in-js-and-native)
 
 ### min()とmax()コレクション関数がnull非許容を返すようになりました
 
@@ -422,7 +422,7 @@ Kotlin 1.7.0では、以前の言語およびAPIバージョンを2つではな�
 
 ### リフレクションによるアノテーションへのアクセス
 
-`KAnnotatedElement.findAnnotations()`拡張関数は、[Kotlin 1.6.0で初めて導入されましたが](whatsnew16.md#repeatable-annotations-with-runtime-retention-for-1-8-jvm-target)、現在は[安定版](components-stability.md)です。この[リフレクション](reflection.md)関数は、個別に適用されたアノテーションと繰り返し適用されたアノテーションの両方を含む、指定された型のアノテーションを要素上にすべて返します。
+The [`KAnnotatedElement.findAnnotations()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect.full/find-annotations.html)拡張関数は、[Kotlin 1.6.0で初めて導入されましたが](whatsnew16.md#repeatable-annotations-with-runtime-retention-for-1-8-jvm-target)、現在は[安定版](components-stability.md)です。この[リフレクション](reflection.md)関数は、個別に適用されたアノテーションと繰り返し適用されたアノテーションの両方を含む、指定された型のアノテーションを要素上にすべて返します。
 
 ```kotlin
 @Repeatable
@@ -586,16 +586,16 @@ fun dateReplace() {
 
 このリリースでは、新しいビルドレポート、Gradleプラグインバリアントのサポート、kaptの新しい統計情報など、多くの新機能が導入されます。
 
-* [インクリメンタルコンパイルへの新しいアプローチ](#a-new-approach-to-incremental-compilation)
-* [コンパイラのパフォーマンスを追跡するための新しいビルドレポート](#build-reports-for-kotlin-compiler-tasks)
-* [GradleおよびAndroid Gradleプラグインの最小サポートバージョンの変更](#bumping-minimum-supported-versions)
-* [Gradleプラグインバリアントのサポート](#support-for-gradle-plugin-variants)
-* [Kotlin GradleプラグインAPIの更新](#updates-in-the-kotlin-gradle-plugin-api)
-* [plugins APIを介したsam-with-receiverプラグインの利用可能性](#the-sam-with-receiver-plugin-is-available-via-the-plugins-api)
-* [コンパイルタスクの変更](#changes-in-compile-tasks)
-* [kaptの各アノテーションプロセッサによって生成されたファイルの新しい統計情報](#statistics-of-generated-files-by-each-annotation-processor-in-kapt)
-* [kotlin.compiler.execution.strategyシステムプロパティの非推奨化](#deprecation-of-the-kotlin-compiler-execution-strategy-system-property)
-* [非推奨オプション、メソッド、プラグインの削除](#removal-of-deprecated-options-methods-and-plugins)
+*   [インクリメンタルコンパイルへの新しいアプローチ](#a-new-approach-to-incremental-compilation)
+*   [コンパイラのパフォーマンスを追跡するための新しいビルドレポート](#build-reports-for-kotlin-compiler-tasks)
+*   [GradleおよびAndroid Gradleプラグインの最小サポートバージョンの変更](#bumping-minimum-supported-versions)
+*   [Gradleプラグインバリアントのサポート](#support-for-gradle-plugin-variants)
+*   [Kotlin GradleプラグインAPIの更新](#updates-in-the-kotlin-gradle-plugin-api)
+*   [plugins APIを介したsam-with-receiverプラグインの利用可能性](#the-sam-with-receiver-plugin-is-available-via-the-plugins-api)
+*   [コンパイルタスクの変更](#changes-in-compile-tasks)
+*   [kaptの各アノテーションプロセッサによって生成されたファイルの新しい統計情報](#statistics-of-generated-files-by-each-annotation-processor-in-kapt)
+*   [kotlin.compiler.execution.strategyシステムプロパティの非推奨化](#deprecation-of-the-kotlin-compiler-execution-strategy-system-property)
+*   [非推奨オプション、メソッド、プラグインの削除](#removal-of-deprecated-options-methods-and-plugins)
 
 ### インクリメンタルコンパイルへの新しいアプローチ
 
@@ -637,8 +637,8 @@ Kotlin 1.7.0では、コンパイラのパフォーマンスを追跡するの�
 
 ビルドレポートは、コンパイラのタスクに関する問題を調査したい場合に役立ちます。例えば：
 
-* Gradleビルドに時間がかかりすぎ、パフォーマンス低下の根本原因を理解したい場合。
-* 同じプロジェクトのコンパイル時間が異なり、数秒で終わることもあれば、数分かかることもある場合。
+*   Gradleビルドに時間がかかりすぎ、パフォーマンス低下の根本原因を理解したい場合。
+*   同じプロジェクトのコンパイル時間が異なり、数秒で終わることもあれば、数分かかることもある場合。
 
 ビルドレポートを有効にするには、`gradle.properties`でビルドレポートの出力先を宣言します。
 
@@ -648,25 +648,25 @@ kotlin.build.report.output=file
 
 以下の値（およびそれらの組み合わせ）が利用可能です。
 
-* `file`はビルドレポートをローカルファイルに保存します。
-* `build_scan`はビルドレポートを[ビルドスキャン](https://scans.gradle.com/)の`custom values`セクションに保存します。
+*   `file`はビルドレポートをローカルファイルに保存します。
+*   `build_scan`はビルドレポートを[ビルドスキャン](https://scans.gradle.com/)の`custom values`セクションに保存します。
 
-  > Gradle Enterpriseプラグインは、カスタム値の数とその長さを制限します。大規模なプロジェクトでは、一部の値が失われる可能性があります。
-  >
-  {style="note"}
+    > Gradle Enterpriseプラグインは、カスタム値の数とその長さを制限します。大規模なプロジェクトでは、一部の値が失われる可能性があります。
+    >
+    {style="note"}
 
-* `http`はHTTP(S)を使用してビルドレポートを送信します。POSTメソッドはJSON形式でメトリクスを送信します。データはバージョンごとに変更される可能性があります。送信されるデータの現在のバージョンは、[Kotlinリポジトリ](https://github.com/JetBrains/kotlin/blob/master/libraries/tools/kotlin-gradle-plugin/src/common/kotlin/org/jetbrains/kotlin/gradle/report/data/GradleCompileStatisticsData.kt)で確認できます。
+*   `http`はHTTP(S)を使用してビルドレポートを送信します。POSTメソッドはJSON形式でメトリクスを送信します。データはバージョンごとに変更される可能性があります。送信されるデータの現在のバージョンは、[Kotlinリポジトリ](https://github.com/JetBrains/kotlin/blob/master/libraries/tools/kotlin-gradle-plugin/src/common/kotlin/org/jetbrains/kotlin/gradle/report/data/GradleCompileStatisticsData.kt)で確認できます。
 
 実行時間の長いコンパイルのビルドレポートを分析することで解決できる一般的なケースが2つあります。
 
-* ビルドがインクリメンタルでなかった場合。原因を分析し、根本的な問題を修正してください。
-* ビルドはインクリメンタルだったが、時間がかかりすぎた場合。ソースファイルを再編成してみてください。大きなファイルを分割したり、個別のクラスを異なるファイルに保存したり、大きなクラスをリファクタリングしたり、トップレベル関数を異なるファイルで宣言したりするなどです。
+*   ビルドがインクリメンタルでなかった場合。原因を分析し、根本的な問題を修正してください。
+*   ビルドはインクリメンタルだったが、時間がかかりすぎた場合。ソースファイルを再編成してみてください。大きなファイルを分割したり、個別のクラスを異なるファイルに保存したり、大きなクラスをリファクタリングしたり、トップレベル関数を異なるファイルで宣言したりするなどです。
 
 新しいビルドレポートの詳細については、[こちらのブログ投稿](https://blog.jetbrains.com/kotlin/2022/06/introducing-kotlin-build-reports/)をご覧ください。
 
 インフラストラクチャでビルドレポートの使用を試すことを歓迎します。フィードバック、問題、改善の提案などございましたら、お気軽に[課題トラッカー](https://youtrack.jetbrains.com/newIssue)にご報告ください。よろしくお願いいたします！
 
-### 最小サポートバージョンの変更
+### GradleおよびAndroid Gradleプラグインの最小サポートバージョンの変更
 
 Kotlin 1.7.0以降、サポートされるGradleの最小バージョンは6.7.1です。[Gradleプラグインバリアント](#support-for-gradle-plugin-variants)と新しいGradle APIをサポートするために、[バージョンを上げる必要がありました](https://youtrack.jetbrains.com/issue/KT-49733/Bump-minimal-supported-Gradle-version-to-6-7-1)。今後は、Gradleプラグインバリアント機能のおかげで、最小サポートバージョンを頻繁に上げる必要はなくなるはずです。
 
@@ -680,16 +680,16 @@ Gradleプラグインバリアントを使用すると、異なるGradleバー�
 
 現在、Kotlin Gradleプラグインには2つのバリアントのみが存在します。
 
-* `main`：Gradleバージョン6.7.1～6.9.3向け
-* `gradle70`：Gradleバージョン7.0以上向け
+*   `main`：Gradleバージョン6.7.1～6.9.3向け
+*   `gradle70`：Gradleバージョン7.0以上向け
 
 今後のKotlinリリースでは、さらに追加される可能性があります。
 
 ビルドがどのバリアントを使用しているかを確認するには、[`--info`ログレベル](https://docs.gradle.org/current/userguide/logging.html#sec:choosing_a_log_level)を有効にし、出力から`Using Kotlin Gradle plugin`で始まる文字列、例えば`Using Kotlin Gradle plugin main variant`を探してください。
 
 > Gradleにおけるバリアント選択の既知の問題に対する回避策は以下の通りです。
-> * [pluginManagementでのResolutionStrategyが、マルチバリアントを持つプラグインで機能しない](https://github.com/gradle/gradle/issues/20545)
-> * [プラグインが`buildSrc`共通依存関係として追加された場合、プラグインバリアントが無視される](https://github.com/gradle/gradle/issues/20847)
+> *   [pluginManagementでのResolutionStrategyが、マルチバリアントを持つプラグインで機能しない](https://github.com/gradle/gradle/issues/20545)
+> *   [プラグインが`buildSrc`共通依存関係として追加された場合、プラグインバリアントが無視される](https://github.com/gradle/gradle/issues/20847)
 >
 {style="note"}
 
@@ -699,18 +699,18 @@ Gradleプラグインバリアントを使用すると、異なるGradleバー�
 
 Kotlin GradleプラグインAPIアーティファクトは、いくつかの改善が施されました。
 
-* ユーザーが設定可能な入力を備えたKotlin/JVMおよびKotlin/kaptタスク用の新しいインターフェースが追加されました。
-* すべてのKotlinプラグインが継承する新しい`KotlinBasePlugin`インターフェースが追加されました。このインターフェースは、任意のKotlin Gradleプラグイン（JVM、JS、マルチプラットフォーム、Native、その他のプラットフォーム）が適用されるたびに、何らかの設定アクションをトリガーしたい場合に使用します。
+*   ユーザーが設定可能な入力を備えたKotlin/JVMおよびKotlin/kaptタスク用の新しいインターフェースが追加されました。
+*   すべてのKotlinプラグインが継承する新しい`KotlinBasePlugin`インターフェースが追加されました。このインターフェースは、任意のKotlin Gradleプラグイン（JVM、JS、マルチプラットフォーム、Native、その他のプラットフォーム）が適用されるたびに、何らかの設定アクションをトリガーしたい場合に使用します。
 
-  ```kotlin
-  project.plugins.withType<org.jetbrains.kotlin.gradle.plugin.KotlinBasePlugin>() {
-      // ここでアクションを設定
-  }
-  ```
-  `KotlinBasePlugin`に関するフィードバックは、[こちらのYouTrackチケット](https://youtrack.jetbrains.com/issue/KT-48008/Consider-offering-a-KotlinBasePlugin)にお寄せください。
+    ```kotlin
+    project.plugins.withType<org.jetbrains.kotlin.gradle.plugin.KotlinBasePlugin>() {
+        // ここでアクションを設定
+    }
+    ```
+    `KotlinBasePlugin`に関するフィードバックは、[こちらのYouTrackチケット](https://youtrack.jetbrains.com/issue/KT-48008/Consider-offering-a-KotlinBasePlugin)にお寄せください。
 
-* Android GradleプラグインがKotlinコンパイル自体を設定するための基礎を築きました。これにより、ビルドにKotlin Android Gradleプラグインを追加する必要がなくなります。
-  追加されたサポートについて学び、試すには、[Android Gradleプラグインのリリースアナウンス](https://developer.android.com/studio/releases/gradle-plugin)をご覧ください！
+*   Android GradleプラグインがKotlinコンパイル自体を設定するための基礎を築きました。これにより、ビルドにKotlin Android Gradleプラグインを追加する必要がなくなります。
+    追加されたサポートについて学び、試すには、[Android Gradleプラグインのリリースアナウンス](https://developer.android.com/studio/releases/gradle-plugin)をご覧ください！
 
 ### plugins APIを介したsam-with-receiverプラグインの利用可能性
 
@@ -726,37 +726,37 @@ plugins {
 
 コンパイルタスクは、このリリースで多くの変更を受けました。
 
-* Kotlinコンパイルタスクは、Gradleの`AbstractCompile`タスクを継承しなくなりました。`DefaultTask`のみを継承します。
-* `AbstractCompile`タスクには`sourceCompatibility`と`targetCompatibility`の入力があります。`AbstractCompile`タスクが継承されなくなったため、これらの入力はKotlinユーザーのスクリプトでは利用できなくなりました。
-* `SourceTask.stableSources`入力は利用できなくなり、`sources`入力を使用する必要があります。`setSource(...)`メソッドは引き続き利用可能です。
-* すべてのコンパイルタスクは、コンパイルに必要なライブラリのリストとして`libraries`入力を使用するようになりました。`KotlinCompile`タスクにはまだ非推奨のKotlinプロパティ`classpath`がありますが、これは今後のリリースで削除される予定です。
-* コンパイルタスクは引き続き`PatternFilterable`インターフェースを実装しており、これによりKotlinソースのフィルタリングが可能です。`sourceFilesExtensions`入力は、`PatternFilterable`メソッドの使用を優先して削除されました。
-* 非推奨の`Gradle destinationDir: File`出力は、`destinationDirectory: DirectoryProperty`出力に置き換えられました。
-* Kotlin/Nativeの`AbstractNativeCompile`タスクは、`AbstractKotlinCompileTool`基底クラスを継承するようになりました。これは、Kotlin/Nativeビルドツールを他のすべてのツールに統合するための最初のステップです。
+*   Kotlinコンパイルタスクは、Gradleの`AbstractCompile`タスクを継承しなくなりました。`DefaultTask`のみを継承します。
+*   `AbstractCompile`タスクには`sourceCompatibility`と`targetCompatibility`の入力があります。`AbstractCompile`タスクが継承されなくなったため、これらの入力はKotlinユーザーのスクリプトでは利用できなくなりました。
+*   `SourceTask.stableSources`入力は利用できなくなり、`sources`入力を使用する必要があります。`setSource(...)`メソッドは引き続き利用可能です。
+*   すべてのコンパイルタスクは、コンパイルに必要なライブラリのリストとして`libraries`入力を使用するようになりました。`KotlinCompile`タスクにはまだ非推奨のKotlinプロパティ`classpath`がありますが、これは今後のリリースで削除される予定です。
+*   コンパイルタスクは引き続き`PatternFilterable`インターフェースを実装しており、これによりKotlinソースのフィルタリングが可能です。`sourceFilesExtensions`入力は、`PatternFilterable`メソッドの使用を優先して削除されました。
+*   非推奨の`Gradle destinationDir: File`出力は、`destinationDirectory: DirectoryProperty`出力に置き換えられました。
+*   Kotlin/Nativeの`AbstractNativeCompile`タスクは、`AbstractKotlinCompileTool`基底クラスを継承するようになりました。これは、Kotlin/Nativeビルドツールを他のすべてのツールに統合するための最初のステップです。
 
 [こちらのYouTrackチケット](https://youtrack.jetbrains.com/issue/KT-32805)でフィードバックをお寄せください。
 
 ### kaptの各アノテーションプロセッサによって生成されたファイルの新しい統計情報
 
-`kotlin-kapt` Gradleプラグインは、すでに[各プロセッサのパフォーマンス統計を報告しています](https://github.com/JetBrains/kotlin/pull/4280)。Kotlin 1.7.0以降、各アノテーションプロセッサによって生成されたファイルの数に関する統計も報告できます。
+The `kotlin-kapt` Gradle pluginは、すでに[各プロセッサのパフォーマンス統計を報告しています](https://github.com/JetBrains/kotlin/pull/4280)。Kotlin 1.7.0以降、各アノテーションプロセッサによって生成されたファイルの数に関する統計も報告できます。
 
 これは、ビルドの一部として未使用のアノテーションプロセッサがあるかどうかを追跡するのに役立ちます。生成されたレポートを使用して、不要なアノテーションプロセッサをトリガーするモジュールを見つけ、それを防止するためにモジュールを更新できます。
 
 統計を有効にするには、2つのステップが必要です。
 
-* `build.gradle.kts`で`showProcessorStats`フラグを`true`に設定します。
+*   `build.gradle.kts`で`showProcessorStats`フラグを`true`に設定します。
 
-  ```kotlin
-  kapt {
-      showProcessorStats = true
-  }
-  ```
+    ```kotlin
+    kapt {
+        showProcessorStats = true
+    }
+    ```
 
-* `gradle.properties`で`kapt.verbose`Gradleプロパティを`true`に設定します。
-  
-  ```none
-  kapt.verbose=true
-  ```
+*   `gradle.properties`で`kapt.verbose`Gradleプロパティを`true`に設定します。
+    
+    ```none
+    kapt.verbose=true
+    ```
 
 > コマンドラインオプション`verbose`を介して詳細出力を有効にすることもできます（[kapt.md#use-in-cli](kapt.md#use-in-cli)を参照）。
 >
@@ -807,8 +807,8 @@ Kotlinの[オプトイン要件](opt-in-requirements.md)の詳細については
 
 いくつかのコンパイラオプションの非推奨サイクルを完了しました。
 
-* `kotlinOptions.jdkHome`コンパイラオプションは1.5.30で非推奨となり、現在のリリースで削除されました。Gradleビルドにこのオプションが含まれている場合、ビルドは失敗するようになりました。Kotlin 1.5.30以降でサポートされている[Javaツールチェーン](whatsnew1530.md#support-for-java-toolchains)の使用をお勧めします。
-* 非推奨の`noStdlib`コンパイラオプションも削除されました。Gradleプラグインは、Kotlin標準ライブラリが存在するかどうかを制御するために`kotlin.stdlib.default.dependency=true`プロパティを使用します。
+*   `kotlinOptions.jdkHome`コンパイラオプションは1.5.30で非推奨となり、現在のリリースで削除されました。Gradleビルドにこのオプションが含まれている場合、ビルドは失敗するようになりました。Kotlin 1.5.30以降でサポートされている[Javaツールチェーン](whatsnew1530.md#support-for-java-toolchains)の使用をお勧めします。
+*   非推奨の`noStdlib`コンパイラオプションも削除されました。Gradleプラグインは、Kotlin標準ライブラリが存在するかどうかを制御するために`kotlin.stdlib.default.dependency=true`プロパティを使用します。
 
 > コンパイラ引数`-jdkHome`と`-no-stdlib`は引き続き利用可能です。
 >
@@ -826,7 +826,7 @@ Kotlin 1.6.0では、`KotlinGradleSubplugin`クラスの非推奨レベルを`ER
 
 #### 非推奨のコルーチンDSLオプションとプロパティの削除
 
-非推奨の`kotlin.experimental.coroutines` Gradle DSLオプションと、`gradle.properties`で使用されていた`kotlin.coroutines`プロパティを削除しました。今後は、_[サスペンド関数](coroutines-basics.md#extract-function-refactoring)_ を使用するか、ビルドスクリプトに[kotlinx.coroutinesの依存関係を追加](gradle-configure-project.md#set-a-dependency-on-a-kotlinx-library)するだけで済みます。
+非推奨の`kotlin.experimental.coroutines` Gradle DSLオプションと、`gradle.properties`で使用されていた`kotlin.coroutines`プロパティを削除しました。今後は、_[サスペンド関数](coroutines-basics.md)_ を使用するか、ビルドスクリプトに[kotlinx.coroutinesの依存関係を追加](gradle-configure-project.md#set-a-dependency-on-a-kotlinx-library)するだけで済みます。
 
 コルーチンの詳細については、[コルーチンガイド](coroutines-guide.md)をご覧ください。
 
@@ -866,9 +866,9 @@ IntelliJ IDEA 2022.1とAndroid Studio Chipmunk (212) は、Kotlinプラグイン
 
 ### Kotlin 1.7.0への既存プロジェクトの移行または新規プロジェクトの開始
 
-* 既存のプロジェクトをKotlin 1.7.0に移行するには、Kotlinのバージョンを`1.7.0`に変更し、GradleまたはMavenプロジェクトを再インポートします。[Kotlin 1.7.0へのアップデート方法](releases.md#update-to-a-new-kotlin-version)をご覧ください。
+*   既存のプロジェクトをKotlin 1.7.0に移行するには、Kotlinのバージョンを`1.7.0`に変更し、GradleまたはMavenプロジェクトを再インポートします。[Kotlin 1.7.0へのアップデート方法](releases.md#update-to-a-new-kotlin-version)をご覧ください。
 
-* Kotlin 1.7.0で新規プロジェクトを開始するには、Kotlinプラグインを更新し、**File** | **New** | **Project**からプロジェクトウィザードを実行します。
+*   Kotlin 1.7.0で新規プロジェクトを開始するには、Kotlinプラグインを更新し、**File** | **New** | **Project**からプロジェクトウィザードを実行します。
 
 ### Kotlin 1.7.0の互換性ガイド
 

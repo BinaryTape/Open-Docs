@@ -12,7 +12,7 @@ Kotlin 1.7.0이 릴리스되었습니다. 이 버전은 새로운 Kotlin/JVM K2 
 
 *   [새로운 Kotlin K2 컴파일러는 현재 알파 버전입니다](#new-kotlin-k2-compiler-for-the-jvm-in-alpha). 이 컴파일러는 상당한 성능 개선을 제공합니다. JVM에서만 사용할 수 있으며, kapt를 포함한 어떤 컴파일러 플러그인도 이와 함께 작동하지 않습니다.
 *   [Gradle에서 점진적 컴파일에 대한 새로운 접근 방식](#a-new-approach-to-incremental-compilation). 이제 종속된 비-Kotlin 모듈 내의 변경 사항에 대해서도 점진적 컴파일이 지원되며 Gradle과 호환됩니다.
-*   [옵트인 (opt-in) 요구 사항 어노테이션](#stable-opt-in-requirements), [명확히 null을 허용하지 않는 타입](#stable-definitely-non-nullable-types), [빌더 추론](#stable-builder-inference)을 안정화했습니다.
+*   옵트인 (opt-in) 요구 사항 어노테이션, 명확히 null을 허용하지 않는 타입, 빌더 추론을 안정화했습니다.
 *   [이제 타입 인자에 대한 언더스코어 연산자가 있습니다](#underscore-operator-for-type-arguments). 다른 타입이 지정되었을 때 인자의 타입을 자동으로 추론하는 데 사용할 수 있습니다.
 *   [이번 릴리스에서는 인라인 클래스의 인라인된 값에 대한 위임을 통한 구현을 허용합니다](#allow-implementation-by-delegation-to-an-inlined-value-of-an-inline-class). 이제 대부분의 경우 메모리를 할당하지 않는 경량 래퍼를 생성할 수 있습니다.
 
@@ -60,7 +60,7 @@ Kotlin K2 컴파일러에서 성능 문제가 발생하는 경우 [이슈 트래
 
 Kotlin 1.7.0은 위임을 통한 구현 (implementation by delegation) 지원과 타입 인자를 위한 새로운 언더스코어 연산자를 도입합니다. 또한 이전 릴리스에서 프리뷰 (preview)로 소개되었던 여러 언어 기능을 안정화합니다.
 
-*   [인라인 클래스의 인라인된 값에 대한 위임을 통한 구현](#allow-implementation-by-delegation-to-an-inlined-value-of-an-inline-class)
+*   [인라인 클래스의 인라인된 값에 위임을 통한 구현 허용](#allow-implementation-by-delegation-to-an-inlined-value-of-an-inline-class)
 *   [타입 인자를 위한 언더스코어 연산자](#underscore-operator-for-type-arguments)
 *   [안정적인 빌더 추론](#stable-builder-inference)
 *   [안정적인 옵트인 (opt-in) 요구 사항](#stable-opt-in-requirements)
@@ -171,7 +171,7 @@ fun main() {
 
 ### 컴파일러 성능 최적화
 
-Kotlin 1.7.0은 Kotlin/JVM 컴파일러의 성능 개선을 도입합니다. 저희 벤치마크에 따르면 Kotlin 1.6.0에 비해 컴파일 시간이 [평균 10% 단축](https://youtrack.jetbrains.com/issue/KT-48233/Switching-to-JVM-IR-backend-increases-compilation-time-by-more-t#focus=Comments-27-6114542.0-0)되었습니다. 예를 들어, [kotlinx.html을 사용하는 프로젝트](https://youtrack.com/issue/KT-51416/Compilation-of-kotlinx-html-DSL-should-still-be-faster)와 같이 인라인 함수를 많이 사용하는 프로젝트는 바이트코드 후처리 개선 덕분에 더 빠르게 컴파일될 것입니다.
+Kotlin 1.7.0은 Kotlin/JVM 컴파일러의 성능 개선을 도입합니다. 저희 벤치마크에 따르면 Kotlin 1.6.0에 비해 컴파일 시간이 [평균 10% 단축](https://youtrack.jetbrains.com/issue/KT-48233/Switching-to-JVM-IR-backend-increases-compilation-time-by-more-t#focus=Comments-27-6114542.0-0)되었습니다. 예를 들어, [kotlinx.html을 사용하는 프로젝트](https://youtrack.jetbrains.com/issue/KT-51416/Compilation-of-kotlinx-html-DSL-should-still-be-faster)와 같이 인라인 함수를 많이 사용하는 프로젝트는 바이트코드 후처리 개선 덕분에 더 빠르게 컴파일될 것입니다.
 
 ### 새로운 컴파일러 옵션: -Xjdk-release
 
@@ -666,7 +666,7 @@ kotlin.build.report.output=file
 
 ### 최소 지원 버전 올리기
 
-Kotlin 1.7.0부터 최소 지원 Gradle 버전은 6.7.1입니다. 저희는 [Gradle 플러그인 변형](#support-for-gradle-plugin-variants)과 새로운 Gradle API를 지원하기 위해 [버전을 올려야 했습니다](https://youtrack.jetbrains.com/issue/KT-49733/Bump-minimal-supported-Gradle-version-to-6-7-1). 앞으로는 Gradle 플러그인 변형 기능 덕분에 최소 지원 버전을 자주 올릴 필요가 없을 것입니다.
+Kotlin 1.7.0부터 최소 지원 Gradle 버전은 6.7.1입니다. 저희는 [버전을 올려야 했습니다](https://youtrack.jetbrains.com/issue/KT-49733/Bump-minimal-supported-Gradle-version-to-6-7-1)를 지원하기 위해 [Gradle 플러그인 변형](#support-for-gradle-plugin-variants)과 새로운 Gradle API를 지원하기 위해 [버전을 올려야 했습니다](https://youtrack.jetbrains.com/issue/KT-49733/Bump-minimal-supported-Gradle-version-to-6-7-1). 앞으로는 Gradle 플러그인 변형 기능 덕분에 최소 지원 버전을 자주 올릴 필요가 없을 것입니다.
 
 또한, 최소 지원 Android Gradle 플러그인 버전은 이제 3.6.4입니다.
 

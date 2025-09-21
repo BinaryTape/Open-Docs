@@ -103,8 +103,11 @@ allprojects {
 Coil과 함께 Proguard를 사용하려면 설정에 다음 규칙을 추가하세요:
 
 ```
--keep class * extends coil3.util.DecoderServiceLoaderTarget { *; }
--keep class * extends coil3.util.FetcherServiceLoaderTarget { *; }
+-keep class coil3.util.DecoderServiceLoaderTarget { *; }
+-keep class coil3.util.FetcherServiceLoaderTarget { *; }
+-keep class coil3.util.ServiceLoaderComponentRegistry { *; }
+-keep class * implements coil3.util.DecoderServiceLoaderTarget { *; }
+-keep class * implements coil3.util.FetcherServiceLoaderTarget { *; }
 ```
 
 Ktor, OkHttp, Coroutines에 대한 사용자 지정 규칙을 추가해야 할 수도 있습니다.

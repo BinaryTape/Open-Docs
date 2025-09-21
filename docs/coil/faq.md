@@ -1,6 +1,6 @@
 # 常见问题
 
-有问题不在常见问题解答中？请在 [StackOverflow](https://stackoverflow.com/questions/tagged/coil) 上搜索 `#coil` 标签，或在 [Github discussion](https://github.com/coil-kt/coil/discussions) 中查找。
+有问题不在常见问题解答中？请在 [StackOverflow](https://stackoverflow.com/questions/tagged/coil) 上搜索 `#coil` 标签，或在 [Github discussions](https://github.com/coil-kt/coil/discussions) 中查找。
 
 ## Coil 可以用于 Java 项目或 Kotlin/Java 混合项目吗？
 
@@ -17,7 +17,7 @@ val request = ImageRequest.Builder(context)
 imageLoader.enqueue(request)
 ```
 
-这将预加载图像并将其保存到磁盘缓存和内存缓存中。
+这将预加载图像并将其保存到磁盘和内存缓存中。
 
 如果您只想预加载到磁盘缓存，可以跳过解码和保存到内存缓存的步骤，如下所示：
 
@@ -105,6 +105,9 @@ allprojects {
 ```
 -keep class * extends coil3.util.DecoderServiceLoaderTarget { *; }
 -keep class * extends coil3.util.FetcherServiceLoaderTarget { *; }
+-keep class coil3.util.ServiceLoaderComponentRegistry { *; }
+-keep class * implements coil3.util.DecoderServiceLoaderTarget { *; }
+-keep class * implements coil3.util.FetcherServiceLoaderTarget { *; }
 ```
 
 您可能还需要为 Ktor、OkHttp 和 Coroutines 添加自定义规则。

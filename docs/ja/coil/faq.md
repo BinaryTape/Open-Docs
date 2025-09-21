@@ -1,6 +1,6 @@
 # よくある質問
 
-よくある質問に掲載されていない質問がありますか？ [StackOverflow](https://stackoverflow.com/questions/tagged/coil) で `#coil` タグを使って確認するか、[Github discussions](https://github.com/coil-kt/coil/discussions) で検索してください。
+FAQ に掲載されていない質問がありますか？ [StackOverflow](https://stackoverflow.com/questions/tagged/coil) で `#coil` タグを使って確認するか、[Github discussions](https://github.com/coil-kt/coil/discussions) で検索してください。
 
 ## Coil は Java プロジェクトまたは Kotlin/Java 混合プロジェクトで使用できますか？
 
@@ -24,9 +24,9 @@ imageLoader.enqueue(request)
 ```kotlin
 val request = ImageRequest.Builder(context)
     .data("https://example.com/image.jpg")
-    // Disables writing to the memory cache.
+    // メモリキャッシュへの書き込みを無効にします。
     .memoryCachePolicy(CachePolicy.DISABLED)
-    // Skips the decode step so we don't waste time/memory decoding the image into memory.
+    // デコードステップをスキップし、画像をメモリにデコードする時間/メモリを無駄にしません。
     .decoderFactory(BlackholeDecoder.Factory())
     .build()
 imageLoader.enqueue(request)
@@ -103,8 +103,11 @@ allprojects {
 Coil で Proguard を使用するには、設定に以下のルールを追加してください。
 
 ```
--keep class * extends coil3.util.DecoderServiceLoaderTarget { *; }
--keep class * extends coil3.util.FetcherServiceLoaderTarget { *; }
+-keep class coil3.util.DecoderServiceLoaderTarget { *; }
+-keep class coil3.util.FetcherServiceLoaderTarget { *; }
+-keep class coil3.util.ServiceLoaderComponentRegistry { *; }
+-keep class * implements coil3.util.DecoderServiceLoaderTarget { *; }
+-keep class * implements coil3.util.FetcherServiceLoaderTarget { *; }
 ```
 
 Ktor、OkHttp、および Coroutines にカスタムルールを追加する必要がある場合もあります。

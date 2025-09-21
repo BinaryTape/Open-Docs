@@ -14,7 +14,7 @@ Kotlin 1.7.0 已發布。它發布了新 Kotlin/JVM K2 編譯器的 Alpha 版本
 * [Gradle 中增量編譯的新方法](#a-new-approach-to-incremental-compilation)。增量編譯現在也支援在依賴的非 Kotlin 模組中進行的變更，並且與 Gradle 相容。
 * 我們已穩定化[選擇性啟用要求註解](#stable-opt-in-requirements)、[明確非空類型](#stable-definitely-non-nullable-types)和[建立器推斷](#stable-builder-inference)。
 * [現在有型別引數的底線運算子](#underscore-operator-for-type-arguments)。您可以使用它在指定其他類型時自動推斷引數的類型。
-* [此版本允許委託實作至行內類別的行內值](#allow-implementation-by-delegation-to-an-inlined-value-of-an-inline-class)。您現在可以建立輕量級包裝器，在大多數情況下它們不會分配記憶體。
+* [此版本允許委託實作至行內類別的行內值](#allow-implementation-by-delegegation-to-an-inlined-value-of-an-inline-class)。您現在可以建立輕量級包裝器，在大多數情況下它們不會分配記憶體。
 
 您也可以在此影片中找到這些變更的簡短概覽：
 
@@ -171,7 +171,9 @@ fun main() {
 
 ### 編譯器效能最佳化
 
-Kotlin 1.7.0 為 Kotlin/JVM 編譯器帶來了效能改進。根據我們的基準測試，與 Kotlin 1.6.0 相比，編譯時間[平均減少了 10%](https://youtrack.jetbrains.com/issue/KT-48233/Switching-to-JVM-IR-backend-increases-compilation-time-by-more-t#focus=Comments-27-6114542.0-0)。由於位元碼後處理的改進，大量使用行內函數的專案，例如[使用 `kotlinx.html` 的專案](https://youtrack.jetbrains.com/issue/KT-51416/Compilation-of-kotlinx-html-DSL-should-still-be-faster)，將會編譯得更快。
+Kotlin 1.7.0 為 Kotlin/JVM 編譯器帶來了效能改進。根據我們的基準測試，與 Kotlin 1.6.0 相比，編譯時間[平均減少了 10%](https://youtrack.jetbrains.com/issue/KT-48233/Switching-to-JVM-IR-backend-increases-compilation-time-by-more-t#focus=Comments-27-6114542.0-0)
+。由於位元碼後處理的改進，大量使用行內函數的專案，例如[使用 `kotlinx.html` 的專案](https://youtrack.jetbrains.com/issue/KT-51416/Compilation-of-kotlinx-html-DSL-should-still-be-faster)
+，將會編譯得更快。
 
 ### 新編譯器選項：-Xjdk-release
 
@@ -627,7 +629,7 @@ Kotlin 團隊非常感謝 [Ivan Gavrilovic](https://github.com/gavra0)、[Hung N
 ### 追蹤編譯器效能的新建置報告
 
 > Kotlin 建置報告是[實驗性](components-stability.md)的。它們可能隨時被移除或更改。
-> 需要選擇性啟用 (請參閱下面的詳細資訊)。僅將它們用於評估目的。我們非常感謝您在 [YouTrack](https://youtrack.jetbrains.com/issues/KT) 中提供對它們的回饋。
+> 需要選擇性啟用 (請參閱下面的詳細資訊)。僅將它們用於評估目的。我們感謝您在 [YouTrack](https://youtrack.jetbrains.com/issues/KT) 中提供對它們的回饋。
 >
 {style="warning"}
 
@@ -814,7 +816,7 @@ sourceSets {
 
 #### 移除棄用的插件
 
-在 Kotlin 1.4.0 中，`kotlin2js` 和 `kotlin-dce-plugin` 插件被棄用，它們已在此版本中移除。請改用新的 `org.jetbrains.kotlin.js` 插件而不是 `kotlin2js`。當 Kotlin/JS Gradle 插件正確配置時，無用程式碼移除 (DCE) 才會運作。
+在 Kotlin 1.4.0 中，`kotlin2js` 和 `kotlin-dce-plugin` 插件被棄用，它們已在此版本中移除。請改用新的 `org.jetbrains.kotlin.js` 插件而不是 `kotlin2js`。無用程式碼移除 (DCE) 只有在 Kotlin/JS Gradle 插件正確配置時才會運作。
 
 在 Kotlin 1.6.0 中，我們將 `KotlinGradleSubplugin` 類別的棄用等級變更為 `ERROR`。開發人員使用此類別編寫編譯器插件。在此版本中，[此類別已移除](https://youtrack.jetbrains.com/issue/KT-48831/)。請改用 `KotlinCompilerPluginSupportPlugin` 類別。
 

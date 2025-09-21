@@ -1,4 +1,4 @@
-[//]: # (title: 将 Android 应用程序迁移到 iOS – 教程)
+[//]: # (title: 让你的 Android 应用程序在 iOS 上运行 – 教程)
 
 <secondary-label ref="IntelliJ IDEA"/>
 <secondary-label ref="Android Studio"/>
@@ -331,15 +331,17 @@ Android Studio 和 IntelliJ IDEA 都提供了用于创建 Kotlin Multiplatform �
 ### 在 Xcode 中创建 iOS 项目
 
 1. 在 Xcode 中，点击 **File** | **New** | **Project**。
-2. 选择 iOS app 模板并点击 **Next**。
+2. 在对话框中，切换到 **iOS** 标签页：
 
    ![iOS project template](ios-project-wizard-1.png){width=700}
 
-3. 将产品名称指定为 "simpleLoginIOS" 并点击 **Next**。
+3. 选择 **App** 模板，然后点击 **Next**。
+
+4. 将产品名称指定为 "simpleLoginIOS" 并点击 **Next**。
 
    ![iOS project settings](ios-project-wizard-2.png){width=700}
 
-4. 选择存储你的跨平台应用程序的目录作为项目位置，例如 `kmp-integration-sample`。
+5. 选择存储你的跨平台应用程序的目录作为项目位置，例如 `kmp-integration-sample`。
 
 在 Android Studio 中，你将获得以下结构：
 
@@ -366,7 +368,7 @@ Android Studio 和 IntelliJ IDEA 都提供了用于创建 Kotlin Multiplatform �
 
     ![Add a run script phase](xcode-run-script-phase-1.png){width=700}
 
-4. 将以下脚本粘贴到运行脚本字段中：
+5. 将以下脚本粘贴到运行脚本字段中：
 
     ```text
     cd "$SRCROOT/.."
@@ -375,15 +377,15 @@ Android Studio 和 IntelliJ IDEA 都提供了用于创建 Kotlin Multiplatform �
 
    ![Add the script](xcode-run-script-phase-2.png){width=700}
 
-5. 禁用 **Based on dependency analysis** 选项。
+6. 禁用 **Based on dependency analysis** 选项。
 
    这可以确保 Xcode 在每次构建期间都运行该脚本，并且每次都不会警告缺少输出依赖项。
 
-6. 将 **Run Script** 阶段向上移动，将其放置在 **Compile Sources** 阶段之前：
+7. 将 **Run Script** 阶段向上移动，将其放置在 **Compile Sources** 阶段之前：
 
    ![Move the Run Script phase](xcode-run-script-phase-3.png){width=700}
 
-7. 在 **Build Settings** 标签页上，禁用 **Build Options** 下的 **User Script Sandboxing** 选项：
+8. 在 **Build Settings** 标签页上，禁用 **Build Options** 下的 **User Script Sandboxing** 选项：
 
    ![User Script Sandboxing](disable-sandboxing-in-xcode-project-settings.png){width=700}
 
@@ -391,7 +393,7 @@ Android Studio 和 IntelliJ IDEA 都提供了用于创建 Kotlin Multiplatform �
    >
    {style="note"}
 
-8. 在 Xcode 中构建项目（主菜单中的 **Product** | **Build**）。
+9. 在 Xcode 中构建项目（主菜单中的 **Product** | **Build**）。
     如果一切配置正确，项目应该能成功构建 
     （你可以安全地忽略“build phase will be run during every build”警告）
    
@@ -473,7 +475,7 @@ Android Studio 和 IntelliJ IDEA 都提供了用于创建 Kotlin Multiplatform �
 8. 由于你已经[提前设置了集成](#configure-the-ios-project-to-use-a-kmp-framework)，
     iOS 应用会使用通用代码验证输入：
 
-   ![Simple login application](xcode-iphone-login.png){width="300"}
+   ![Simple login application](xcode-iphone-login.png){width=300}
 
 ## 享受成果 – 只需更新一次逻辑
 

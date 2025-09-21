@@ -32,21 +32,21 @@ fun main() {
     //sampleStart
     val items = listOf(1, 2, 3, 4, 5)
     
-    // Lambda 是用花括號包圍的程式碼區塊。
+    // Lambdas are code blocks enclosed in curly braces.
     items.fold(0, { 
-        // 當 Lambda 有參數時，它們會放在最前面，後跟 '->'
+        // When a lambda has parameters, they go first, followed by '->'
         acc: Int, i: Int -> 
         print("acc = $acc, i = $i, ") 
         val result = acc + i
         println("result = $result")
-        // Lambda 中的最後一個表達式被視為回傳值：
+        // The last expression in a lambda is considered the return value:
         result
     })
     
-    // 如果 Lambda 中的參數型別可以被推斷，它們是可選的：
+    // Parameter types in a lambda are optional if they can be inferred:
     val joinedToString = items.fold("Elements:", { acc, i -> acc + " " + i })
     
-    // 函式參考也可以用於高階函式呼叫：
+    // Function references can also be used for higher-order function calls:
     val product = items.fold(1, Int::times)
     //sampleEnd
     println("joinedToString = $joinedToString")
@@ -158,7 +158,7 @@ fun main() {
     
     println(intPlus.invoke(1, 1))
     println(intPlus(1, 2))
-    println(2.intPlus(3)) // 類似擴充的呼叫
+    println(2.intPlus(3)) // extension-like call
     //sampleEnd
 }
 ```
@@ -215,7 +215,6 @@ val product = items.fold(1) { acc, e -> acc * e }
 
 ```kotlin
 run { println("...") }
-}
 ```
 
 ### it：單一參數的隱式名稱

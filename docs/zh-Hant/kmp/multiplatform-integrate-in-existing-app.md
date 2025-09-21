@@ -207,7 +207,7 @@ Android Studio 和 IntelliJ IDEA 都提供了用於為 Kotlin Multiplatform 建�
 
    為了讓你的程式碼在 Android 和 iOS 上都能良好執行，請盡可能將移動後的 `data` 目錄中的所有 JVM 相依性替換為 Kotlin 相依性。
 
-   1. 在 `LoginDataValidator` 類別中，用符合電子郵件驗證模式的 Kotlin 正則表達式替換來自 `android.utils` 套件的 `Patterns` 類別：
+   1. 在 `LoginDataValidator` 類別中，用符合電子郵件驗證模式的 Kotlin 正規表達式替換來自 `android.utils` 套件的 `Patterns` 類別：
 
        ```kotlin
        // Before
@@ -329,15 +329,17 @@ Android Studio 和 IntelliJ IDEA 都提供了用於為 Kotlin Multiplatform 建�
 ### 在 Xcode 中建立 iOS 專案
 
 1. 在 Xcode 中，點擊 **File** | **New** | **Project**。
-2. 選擇 iOS 應用程式的模板，然後點擊 **Next**。
+2. 在對話方塊中，切換到 **iOS** 標籤：
 
    ![iOS project template](ios-project-wizard-1.png){width=700}
 
-3. 將產品名稱指定為「simpleLoginIOS」，然後點擊 **Next**。
+3. 選擇 **App** 模板，然後點擊 **Next**。
+
+4. 將產品名稱指定為「simpleLoginIOS」，然後點擊 **Next**。
 
    ![iOS project settings](ios-project-wizard-2.png){width=700}
 
-4. 將專案位置選擇為儲存你的跨平台應用程式的目錄，例如 `kmp-integration-sample`。
+5. 將專案位置選擇為儲存你的跨平台應用程式的目錄，例如 `kmp-integration-sample`。
 
 在 Android Studio 中，你將獲得以下結構：
 
@@ -355,7 +357,7 @@ Android Studio 和 IntelliJ IDEA 都提供了用於為 Kotlin Multiplatform 建�
 此方法的替代方案在 [iOS 整合方法概覽](multiplatform-ios-integration-overview.md)中介紹，但它們超出了本教程的範圍。
 
 1. 在 Android Studio 中，右鍵點擊 `iosApp/simpleLoginIOS.xcodeproj` 目錄並選擇 **Open In** | **Open In Associated Application** 以在 Xcode 中開啟 iOS 專案。
-2. 在 Xcode 中，透過雙擊 **Project** 導航器中的專案名稱來開啟 iOS 專案設定。
+2. 在 Xcode 中，透過雙擊 **Project** 導覽器中的專案名稱來開啟 iOS 專案設定。
 
 3. 在左側的 **Targets** 部分，選擇 **simpleLoginIOS**，然後點擊 **Build Phases** 標籤。
 
@@ -363,7 +365,7 @@ Android Studio 和 IntelliJ IDEA 都提供了用於為 Kotlin Multiplatform 建�
 
     ![Add a run script phase](xcode-run-script-phase-1.png){width=700}
 
-4. 將以下腳本貼到執行腳本欄位中：
+5. 將以下腳本貼到執行腳本欄位中：
 
     ```text
     cd "$SRCROOT/.."
@@ -372,15 +374,15 @@ Android Studio 和 IntelliJ IDEA 都提供了用於為 Kotlin Multiplatform 建�
 
    ![Add the script](xcode-run-script-phase-2.png){width=700}
 
-5. 停用 **Based on dependency analysis** 選項。
+6. 停用 **Based on dependency analysis** 選項。
 
    這確保了 Xcode 在每次建置期間都執行腳本，並且不會每次都警告缺少輸出相依性。
 
-6. 將 **Run Script** 階段向上移動，將其放置在 **Compile Sources** 階段之前：
+7. 將 **Run Script** 階段向上移動，將其放置在 **Compile Sources** 階段之前：
 
    ![Move the Run Script phase](xcode-run-script-phase-3.png){width=700}
 
-7. 在 **Build Settings** 標籤上，在 **Build Options** 下停用 **User Script Sandboxing** 選項：
+8. 在 **Build Settings** 標籤上，在 **Build Options** 下停用 **User Script Sandboxing** 選項：
 
    ![User Script Sandboxing](disable-sandboxing-in-xcode-project-settings.png){width=700}
 
@@ -389,7 +391,7 @@ Android Studio 和 IntelliJ IDEA 都提供了用於為 Kotlin Multiplatform 建�
    >
    {style="note"}
 
-8. 在 Xcode 中建置專案（主選單中的 **Product** | **Build**）。
+9. 在 Xcode 中建置專案（主選單中的 **Product** | **Build**）。
     如果一切設定正確，專案應該會成功建置
     （你可以安全地忽略「build phase will be run during every build」警告）。
 

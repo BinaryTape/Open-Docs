@@ -132,7 +132,7 @@ fun main() {
 
 ### 稳定的选择性加入要求
 
-[选择性加入要求](opt-in-requirements.md)现已[稳定](components-stability.md)，并且不需要额外的编译器配置。
+[选择性加入要求](opt-in-requirements.md)现已[稳定](components-stability.md)并且不需要额外的编译器配置。
 
 在 1.7.0 之前，选择性加入特性 (feature) 本身需要实参 `-opt-in=kotlin.RequiresOptIn` 以避免警告。现在它不再需要此项；但是，您仍然可以使用编译器实参 `-opt-in` 来选择性加入其他注解，[一个模块](opt-in-requirements.md#opt-in-a-module)。
 
@@ -775,7 +775,7 @@ Kotlin 1.6.20
 kotlin.compiler.execution.strategy=out-of-process
 ```
 
-您还可以使用编译任务属性 `compilerExecutionStrategy`。在 [Gradle 页面](gradle-compilation-and-caches.md#defining-kotlin-compiler-execution-strategy)上了解更多信息。
+您还可以使用编译任务属性 `compilerExecutionStrategy`。了解更多关于此信息，请参阅 [Gradle 页面](gradle-compilation-and-caches.md#defining-kotlin-compiler-execution-strategy)。
 
 ### 移除了已弃用的选项、方法和插件
 
@@ -819,7 +819,7 @@ sourceSets {
 
 #### 移除了已弃用的协程 DSL 选项和属性
 
-我们移除了已弃用的 `kotlin.experimental.coroutines` Gradle DSL 选项和 `gradle.properties` 中使用的 `kotlin.coroutines` 属性。现在您只需使用 _[挂起函数](coroutines-basics.md#extract-function-refactoring)_ 或[添加 `kotlinx.coroutines` 依赖项](gradle-configure-project.md#set-a-dependency-on-a-kotlinx-library)到您的构建脚本。
+我们移除了已弃用的 `kotlin.experimental.coroutines` Gradle DSL 选项和 `gradle.properties` 中使用的 `kotlin.coroutines` 属性。现在您只需使用 _[挂起函数](coroutines-basics.md)_ 或[添加 `kotlinx.coroutines` 依赖项](gradle-configure-project.md#set-a-dependency-on-a-kotlinx-library)到您的构建脚本。
 
 在[协程指南](coroutines-guide.md)中了解更多关于协程的信息。
 

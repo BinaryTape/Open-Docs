@@ -5,7 +5,7 @@ Kotlin 函数是[一等公民](https://en.wikipedia.org/wiki/First-class_functio
 非函数值可能执行的任何操作。
 
 为实现这一点，Kotlin 作为一种静态类型编程语言，使用一系列[函数类型](#function-types)来表示函数，并提供了一组专门的语言构造，例如
-[lambda 表达式和匿名函数](#lambda-expressions-and-anonymous-functions)。
+[lambda 表达式](#lambda-expressions-and-anonymous-functions)。
 
 ## 高阶函数
 
@@ -74,7 +74,7 @@ Kotlin 使用函数类型，例如 `(Int) -> String`，来处理函数的声明�
     类型 `A.(B) -> C` 表示可以对接收者对象 `A` 调用、带一个形参 `B` 并返回 `C` 值
     的函数。[带接收者的函数字面量](#function-literals-with-receiver)通常与这些类型一起使用。
 
-*   [挂起函数](coroutines-basics.md#extract-function-refactoring)属于一种特殊类型的函数类型，其表示法中具有一个 `suspend` 修饰符，例如 `suspend () -> Unit` 或 `suspend A.(B) -> C`。
+*   [挂起函数](coroutines-basics.md)属于一种特殊类型的函数类型，其表示法中具有一个 `suspend` 修饰符，例如 `suspend () -> Unit` 或 `suspend A.(B) -> C`。
 
 函数类型表示法可以可选地包含函数形参的名称：`(x: Int, y: Int) -> Point`。
 这些名称可以用于记录形参的含义。
@@ -124,7 +124,7 @@ val intFunction: (Int) -> Int = IntTransformer()
 如果存在足够的信息，编译器可以推断变量的函数类型：
 
 ```kotlin
-val a = { i: Int -> i + 1 } // 推断类型为 (Int) -> Int
+val a = { i: Int -> i + 1 } // The inferred type is (Int) -> Int
 ```
 
 带接收者和不带接收者的*非字面量*函数类型值是可互换的，因此接收者可以代替第一个形参，反之亦然。例如，类型为 `(A, B) -> C` 的值可以
@@ -261,7 +261,7 @@ ints.filter {
 }
 ```
 
-此约定，连同[将 lambda 表达式放在圆括号外部传递](#passing-trailing-lambdas)的能力，允许编写 [LINQ 风格](https://learn.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/linq/)的代码：
+此约定，连同[将 lambda 表达式放在圆括号外部传递](#passing-trailing-lambdas)的能力，允许编写 [LINQ 风格](https://learn.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/linq/)代码：
 
 ```kotlin
 strings.filter { it.length == 5 }.sortedBy { it }.map { it.uppercase() }

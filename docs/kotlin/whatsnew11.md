@@ -4,11 +4,11 @@
 
 ## 目录
 
-* [协程](#coroutines-experimental)
-* [其他语言特性](#other-language-features)
-* [标准库](#standard-library)
-* [JVM 后端](#jvm-backend)
-* [JavaScript 后端](#javascript-backend)
+*   [协程](#coroutines-experimental)
+*   [其他语言特性](#other-language-features)
+*   [标准库](#standard-library)
+*   [JVM 后端](#jvm-backend)
+*   [JavaScript 后端](#javascript-backend)
 
 ## JavaScript
 
@@ -16,9 +16,9 @@
 
 ## 协程 (实验性的)
 
-Kotlin 1.1 中的关键新特性是 *协程*，它带来了 `async`/`await`、`yield` 以及类似编程模式的支持。Kotlin 设计的一个关键特性是协程执行的实现是库的一部分，而不是语言的一部分，因此您不受任何特定编程范式或并发库的约束。
+Kotlin 1.1 中的关键新特性是 *协程*，它带来了 `async`/`await`、`yield` 以及类似编程范式的支持。Kotlin 设计的一个关键特性是协程执行的实现是库的一部分，而不是语言的一部分，因此您不受任何特定编程范式或并发库的约束。
 
-协程本质上是一种轻量级线程，可以被挂起并在稍后恢复。协程通过 _[挂起函数](coroutines-basics.md#extract-function-refactoring)_ 提供支持：调用此类函数可能会挂起协程，并且要启动一个新协程，我们通常使用匿名挂起函数（即挂起 lambda 表达式）。
+协程本质上是一种轻量级线程，可以被挂起并在稍后恢复。协程通过 _[挂起函数](coroutines-basics.md)_ 提供支持：调用此类函数可能会挂起协程，并且要启动一个新协程，我们通常使用匿名挂起函数（即挂起 lambda 表达式）。
 
 让我们看看在外部库 [kotlinx.coroutines](https://github.com/kotlin/kotlinx.coroutines) 中实现的 `async`/`await`：
 
@@ -110,7 +110,7 @@ fun main(args: Array<String>) {
 
 ### 绑定可调用引用
 
-您现在可以使用 `::` 操作符获取指向特定对象实例的方法或属性的[成员引用](reflection.md#function-references)。以前，这只能通过 lambda 表达式来表达。例如：
+您现在可以使用 `::` 操作符获取指向特定对象实例的[成员引用](reflection.md#function-references)。以前，这只能通过 lambda 表达式来表达。例如：
 
 ```kotlin
 //sampleStart
@@ -418,7 +418,7 @@ fun main(args: Array<String>) {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-`takeIf` 类似于单值的 `filter`。它检测接收者是否符合谓词，如果符合则返回接收者，否则返回 `null`。结合 elvis 操作符 (?:) 和提前返回，它允许编写如下构造：
+`takeIf` 类似于单值的 `filter`。它检测接收者是否符合谓词，如果符合则返回接收者，否则返回 `null`。结合 Elvis 操作符 (?:) 和提前返回，它允许编写如下构造：
 
 ```kotlin
 val outDirFile = File(outputDir.path).takeIf { it.exists() } ?: return false
@@ -684,4 +684,3 @@ fun main(args: Array<String>) {
         jquery(".toggle-panel").toggle(300)
     }
 }
-```

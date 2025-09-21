@@ -344,15 +344,17 @@ Android Studio와 IntelliJ IDEA 모두 Kotlin Multiplatform용 공유 모듈을 
 ### Xcode에서 iOS 프로젝트 생성
 
 1.  Xcode에서 **File** | **New** | **Project**를 클릭합니다.
-2.  iOS 앱 템플릿을 선택하고 **Next**를 클릭합니다.
+2.  대화 상자에서 **iOS** 탭으로 전환합니다:
 
-   ![iOS project template](ios-project-wizard-1.png){width="700"}
+   ![iOS project template](ios-project-wizard-1.png){width=700}
 
-3.  제품 이름으로 "simpleLoginIOS"를 지정하고 **Next**를 클릭합니다.
+3.  **App** 템플릿을 선택한 다음 **Next**를 클릭합니다.
 
-   ![iOS project settings](ios-project-wizard-2.png){width="700"}
+4.  제품 이름으로 "simpleLoginIOS"를 지정하고 **Next**를 클릭합니다.
 
-4.  프로젝트 위치로 크로스 플랫폼 애플리케이션이 저장된 디렉터리(예: `kmp-integration-sample`)를 선택합니다.
+   ![iOS project settings](ios-project-wizard-2.png){width=700}
+
+5.  프로젝트 위치로 크로스 플랫폼 애플리케이션이 저장된 디렉터리(예: `kmp-integration-sample`)를 선택합니다.
 
 Android Studio에서 다음과 같은 구조를 얻게 됩니다:
 
@@ -380,7 +382,7 @@ iOS 앱과 Kotlin Multiplatform이 빌드한 프레임워크 간의 통합을 �
 
     ![Add a run script phase](xcode-run-script-phase-1.png){width="700"}
 
-4.  스크립트 실행 필드에 다음 스크립트를 붙여넣습니다:
+5.  스크립트 실행 필드에 다음 스크립트를 붙여넣습니다:
 
     ```text
     cd "$SRCROOT/.."
@@ -389,15 +391,15 @@ iOS 앱과 Kotlin Multiplatform이 빌드한 프레임워크 간의 통합을 �
 
    ![Add the script](xcode-run-script-phase-2.png){width="700"}
 
-5.  **Based on dependency analysis** 옵션을 비활성화합니다.
+6.  **Based on dependency analysis** 옵션을 비활성화합니다.
 
    이렇게 하면 Xcode가 빌드할 때마다 스크립트를 실행하고 누락된 출력 종속성에 대해 매번 경고하지 않습니다.
 
-6.  **Run Script** 단계를 **Compile Sources** 단계보다 위로 이동합니다:
+7.  **Run Script** 단계를 **Compile Sources** 단계보다 위로 이동합니다:
 
    ![Move the Run Script phase](xcode-run-script-phase-3.png){width="700"}
 
-7.  **Build Settings** 탭에서 **Build Options** 아래의 **User Script Sandboxing** 옵션을 비활성화합니다:
+8.  **Build Settings** 탭에서 **Build Options** 아래의 **User Script Sandboxing** 옵션을 비활성화합니다:
 
    ![User Script Sandboxing](disable-sandboxing-in-xcode-project-settings.png){width="700"}
 
@@ -406,7 +408,7 @@ iOS 앱과 Kotlin Multiplatform이 빌드한 프레임워크 간의 통합을 �
    >
    {style="note"}
 
-8.  Xcode에서 프로젝트를 빌드합니다 (메인 메뉴에서 **Product** | **Build**).
+9.  Xcode에서 프로젝트를 빌드합니다 (메인 메뉴에서 **Product** | **Build**).
     모든 것이 올바르게 구성되었다면, 프로젝트는 성공적으로 빌드되어야 합니다
     ("build phase will be run during every build" 경고는 무시해도 됩니다).
    
