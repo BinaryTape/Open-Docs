@@ -7,7 +7,7 @@ https://github.com/JetBrains/koog/blob/develop/examples/notebooks/UnityMcp.ipynb
 https://raw.githubusercontent.com/JetBrains/koog/develop/examples/notebooks/UnityMcp.ipynb
 ){ .md-button }
 
-이 노트북은 Model Context Protocol (MCP)을 사용하여 Koog로 Unity에 능숙한 AI 에이전트를 구축하는 과정을 안내합니다. Unity MCP 서버에 연결하고, 도구를 탐색하며, LLM(거대 언어 모델)으로 계획을 세운 다음, 현재 열려 있는 씬에 대해 액션을 실행하는 방법을 설명합니다.
+이 노트북은 Model Context Protocol (MCP)을 사용하여 Koog로 Unity에 능숙한 AI 에이전트를 구축하는 과정을 안내합니다. Unity MCP 서버에 연결하고, 도구를 탐색하며, LLM(거대 언어 모델)으로 계획을 세운 다음, 현재 열려 있는 씬에 대해 액션을 실행합니다.
 
 > 사전 준비 사항
 > - Unity-MCP 서버 플러그인이 설치된 Unity 프로젝트
@@ -26,7 +26,7 @@ lateinit var process: Process
 ```
 
 ## 1) OpenAI API 키 제공
-`OPENAI_API_KEY` 환경 변수에서 API 키를 읽어옵니다. 이를 통해 중요한 정보(시크릿)를 노트북 외부에 보관할 수 있습니다.
+노트북 외부에 시크릿을 보관할 수 있도록 `OPENAI_API_KEY` 환경 변수에서 API 키를 읽어옵니다.
 
 ```kotlin
 val token = System.getenv("OPENAI_API_KEY") ?: error("OPENAI_API_KEY environment variable not set")
@@ -71,12 +71,10 @@ Unity MCP 서버에서 도구를 탐색하고, 간단한 '계획 우선' 전략�
 import kotlinx.coroutines.runBlocking
 
 runBlocking {
-    // Create the ToolRegistry with tools from the MCP server
+    // MCP 서버의 도구로 ToolRegistry 생성
     val toolRegistry = McpToolRegistryProvider.fromTransport(
         transport = McpToolRegistryProvider.defaultStdioTransport(process)
-    ) + ToolRegistry {
-        tool(ProvideStringSubgraphResult)
-    }
+    )
 
     toolRegistry.tools.forEach {
         println(it.name)
@@ -85,8 +83,8 @@ runBlocking {
 
     val strategy = strategy<String, String>("unity_interaction") {
         val nodePlanIngredients by nodeLLMRequest(allowToolCalls = false)
-        val interactionWithUnity by subgraphWithTask<String>(
-            // work with plan
+        val interactionWithUnity by subgraphWithTask<String, String>(
+            // 계획에 따라 작업
             tools = toolRegistry.tools,
         ) { input ->
             "Start interacting with Unity according to the plan: $input"
@@ -103,7 +101,7 @@ description:" + it.descriptor
             }
         )
         edge(nodePlanIngredients forwardTo interactionWithUnity onAssistantMessage { true })
-        edge(interactionWithUnity forwardTo nodeFinish transformed { it.result })
+        edge(interactionWithUnity forwardTo nodeFinish)
     }
 
     val agent = AIAgent(

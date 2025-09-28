@@ -4,12 +4,14 @@
 
 _可空性_ 指变量可持有 `null` 值的特性。
 当变量包含 `null` 时，尝试解引用该变量会导致 `NullPointerException`。
-有许多方法可以编写代码以最大程度地降低收到空指针异常的概率。
+有许多方法可以编写代码，以最大程度地降低收到空指针异常的概率。
 
 本指南涵盖了 Java 与 Kotlin 在处理可能可空变量方面的不同方法。
 它将帮助你从 Java 迁移到 Kotlin，并以原汁原味的 Kotlin 风格编写代码。
 
-本指南的第一部分涵盖了最重要的区别——Kotlin 对可空类型的支持以及 Kotlin 如何处理[来自 Java 代码的类型](#platform-types)。第二部分，从[检查函数调用的结果](#checking-the-result-of-a-function-call)开始，探讨了几个具体案例来解释某些差异。
+本指南的第一部分涵盖了最重要的区别——Kotlin 对可空类型的支持以及
+Kotlin 如何处理[来自 Java 代码的类型](#platform-types)。第二部分，从
+[检查函数调用的结果](#checking-the-result-of-a-function-call)开始，探讨了几个具体案例来解释某些差异。
 
 [详细了解 Kotlin 中的空安全](null-safety.md)。
 
@@ -23,7 +25,8 @@ Kotlin 在编译期禁止此类调用，从而防止了许多可能的异常。
 可空类型不是非空类型的包装器。所有检测都在编译期执行。
 这意味着在 Kotlin 中使用可空类型几乎没有运行时开销。
 
-> 我们说“几乎”是因为，即使[内建](https://en.wikipedia.org/wiki/Intrinsic_function)检测确实会生成，其开销也微乎其微。
+> 我们说“几乎”是因为，即使[内建](https://en.wikipedia.org/wiki/Intrinsic_function)检测确实会生成，
+其开销也微乎其微。
 >
 {style="note"}
 
@@ -62,13 +65,16 @@ fun stringLength(a: String) = a.length
 
 参数 `a` 的类型为 `String`，这在 Kotlin 中意味着它必须始终包含 `String` 实例，并且不能包含 `null`。
 Kotlin 中的可空类型用问号 `?` 标记，例如 `String?`。
-如果在运行时 `a` 的类型是 `String`，则 `NullPointerException` 的情况是不可能发生的，因为编译器强制执行 `stringLength()` 的所有实参都不能为 `null` 的规则。
+如果在运行时 `a` 的类型是 `String`，则 `NullPointerException` 的情况是不可能发生的，因为编译器强制执行
+`stringLength()` 的所有实参都不能为 `null` 的规则。
 
-尝试将 `null` 值传递给 `stringLength(a: String)` 函数将导致编译期错误：“Null can not be a value of a non-null type String”：
+尝试将 `null` 值传递给 `stringLength(a: String)` 函数将导致编译期错误：
+“Null 不能是非空类型 String 的值”：
 
-![Passing null to a non-nullable function error](passing-null-to-function.png){width=700}
+![将 null 传递给非空函数时的错误](passing-null-to-function.png){width=700}
 
-如果你希望此函数能接受任何实参（包括 `null`），请在实参类型 `String?` 后使用问号，并在函数体内部进行检测以确保实参的值不为 `null`：
+如果你希望此函数能接受任何实参（包括 `null`），请在实参类型 `String?` 后使用问号，
+并在函数体内部进行检测以确保实参的值不为 `null`：
 
 ```kotlin
 // Kotlin
@@ -78,9 +84,12 @@ fun stringLength(a: String?): Int = if (a != null) a.length else 0
 
 在检测成功通过后，编译器将在执行检测的作用域内将该变量视为非空类型 `String`。
 
-如果你不执行此检测，代码将无法编译，并显示以下消息：“Only [safe (?.)](null-safety.md#safe-call-operator) or [non-nullable asserted (!!.) calls](null-safety.md#not-null-assertion-operator) are allowed on a [nullable receiver](extensions.md#nullable-receiver) of type String?”。
+如果你不执行此检测，代码将无法编译，并显示以下消息：
+“Only [safe (?.)](null-safety.md#safe-call-operator) or [non-nullable asserted (!!.) calls](null-safety.md#not-null-assertion-operator) are allowed
+on a [nullable receiver](extensions.md#nullable-receiver) of type String?”。
 
-你可以写得更短——使用[安全调用操作符 ?.（非空速记）](idioms.md#if-not-null-shorthand)，它允许你将 `null` 检测和方法调用合并为单个操作：
+你可以写得更短——使用[安全调用操作符 ?.（非空速记）](idioms.md#if-not-null-shorthand)，
+它允许你将 `null` 检测和方法调用合并为单个操作：
 
 ```kotlin
 // Kotlin
@@ -92,8 +101,10 @@ fun stringLength(a: String?): Int = a?.length ?: 0
 
 在 Java 中，你可以使用注解来表明变量是否可以为 `null`。
 此类注解不属于标准库的一部分，但你可以单独添加它们。
-例如，你可以使用 JetBrains 注解 `@Nullable` 和 `@NotNull`（来自 `org.jetbrains.annotations` 包）或 Eclipse 的注解（`org.eclipse.jdt.annotation`）。
-当你[从 Kotlin 代码调用 Java 代码](java-interop.md#nullability-annotations)时，Kotlin 可以识别此类注解，并将根据其注解处理类型。
+例如，你可以使用 JetBrains 注解 `@Nullable` 和 `@NotNull`（来自 `org.jetbrains.annotations` 包），
+[JSpecify](https://jspecify.dev/) 中的注解（`org.jspecify.annotations`），或 Eclipse 的注解（`org.eclipse.jdt.annotation`）。
+当你[从 Kotlin 代码调用 Java 代码](java-interop.md#nullability-annotations)时，Kotlin 可以识别此类注解，
+并将根据其注解处理类型。
 
 如果你的 Java 代码没有这些注解，那么 Kotlin 将把 Java 类型视为_平台类型_。
 但由于 Kotlin 没有这些类型的可空性信息，其编译器将允许对其进行所有操作。
@@ -125,7 +136,7 @@ public interface Game<T> {
 ```kotlin
 interface ArcadeGame<T1> : Game<T1> {
   override fun save(x: T1): T1
-  // T1 是确定非空类型
+  // T1 is definitely non-nullable
   override fun load(x: T1 & Any): T1 & Any
 }
 ```
@@ -167,7 +178,7 @@ if (order != null) {
 // Kotlin
 data class Order(val customer: Customer)
 
-data class Customer(val val name: String)
+data class Customer(val name: String)
 
 val order = findOrder()
 
@@ -220,11 +231,11 @@ if (order == null) {
 // Kotlin
 val order = findOrder() ?: Order(Customer("Antonio"))
 ```
-{id="default-value-of-null-kotlin"}
+{id="default-value-instead-of-null-kotlin"}
 
 ## 返回值或 null 的函数
 
-在 Java 中，处理 `list` 元素时需要小心。在使用元素之前，应始终检测特定索引处是否存在元素：
+在 Java 中，处理列表元素时需要小心。在使用元素之前，应始终检测特定索引处是否存在元素：
 
 ```java
 // Java
@@ -250,7 +261,7 @@ fun main() {
     println(numbers[0])  // 如果集合为空，可能会抛出 IndexOutOfBoundsException
     //numbers.get(5)     // 异常！
 
-    // 更多能力：
+    // 更多功能：
     println(numbers.firstOrNull())
     println(numbers.getOrNull(5)) // null
 //sampleEnd
@@ -260,7 +271,8 @@ fun main() {
 
 ## 聚合操作
 
-当你需要获取最大元素（如果没有元素则为 `null`）时，在 Java 中你会使用 [Stream API](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/stream/package-summary.html)：
+当你需要获取最大元素（如果没有元素则为 `null`）时，在 Java 中你会使用
+[Stream API](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/stream/package-summary.html)：
 
 ```java
 // Java
@@ -318,7 +330,8 @@ fun getStringLength(y: Any): Int {
 >
 {style="note"}
 
-将 Java 代码迁移到 Kotlin 时，你可能希望最初使用带有可空类型的常规转换操作符 `as`，以保留代码的原始语义。但是，我们建议你调整代码以使用安全转换操作符 `as?`，以实现更安全、更惯用的方法。例如，如果你有以下 Java 代码：
+将 Java 代码迁移到 Kotlin 时，你可能希望最初使用带有可空类型的常规转换操作符 `as`，以保留代码的原始语义。
+但是，我们建议你调整代码以使用安全转换操作符 `as?`，以实现更安全、更惯用的方法。例如，如果你有以下 Java 代码：
 
 ```java
 public class UserProfile {

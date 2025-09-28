@@ -7,10 +7,10 @@
     <p>이 튜토리얼은 IntelliJ IDEA를 사용하지만, Android Studio에서도 따라 할 수 있습니다. 두 IDE 모두 동일한 핵심 기능과 Kotlin Multiplatform 지원을 공유합니다.</p>
     <br/>   
     <p>이 튜토리얼은 <strong>공유 로직과 UI를 사용하여 Compose Multiplatform 앱 만들기</strong> 튜토리얼의 마지막 부분입니다. 계속 진행하기 전에 이전 단계를 완료했는지 확인하세요.</p>
-    <p><img src="icon-1-done.svg" width="20" alt="첫 번째 단계"/> <Links href="/kmp/compose-multiplatform-create-first-app" summary="This tutorial uses IntelliJ IDEA, but you can also follow it in Android Studio – both IDEs share the same core functionality and Kotlin Multiplatform support. This is the first part of the Create a Compose Multiplatform app with shared logic and UI tutorial. Create your Compose Multiplatform app Explore composable code Modify the project Create your own application">Compose Multiplatform 앱 만들기</Links><br/>
-       <img src="icon-2-done.svg" width="20" alt="두 번째 단계"/> <Links href="/kmp/compose-multiplatform-explore-composables" summary="This tutorial uses IntelliJ IDEA, but you can also follow it in Android Studio – both IDEs share the same core functionality and Kotlin Multiplatform support. This is the second part of the Create a Compose Multiplatform app with shared logic and UI tutorial. Before proceeding, make sure you've completed previous steps. Create your Compose Multiplatform app Explore composable code Modify the project Create your own application">컴포저블 코드 살펴보기</Links><br/>
-       <img src="icon-3-done.svg" width="20" alt="세 번째 단계"/> <Links href="/kmp/compose-multiplatform-modify-project" summary="This tutorial uses IntelliJ IDEA, but you can also follow it in Android Studio – both IDEs share the same core functionality and Kotlin Multiplatform support. This is the third part of the Create a Compose Multiplatform app with shared logic and UI tutorial. Before proceeding, make sure you've completed previous steps. Create your Compose Multiplatform app Explore composable code Modify the project Create your own application">프로젝트 수정하기</Links><br/>
-       <img src="icon-4.svg" width="20" alt="네 번째 단계"/> <strong>나만의 애플리케이션 만들기</strong><br/>
+    <p><img src="icon-1-done.svg" width="20" alt="First step"/> <Links href="/kmp/compose-multiplatform-create-first-app" summary="This tutorial uses IntelliJ IDEA, but you can also follow it in Android Studio – both IDEs share the same core functionality and Kotlin Multiplatform support. This is the first part of the Create a Compose Multiplatform app with shared logic and UI tutorial. Create your Compose Multiplatform app Explore composable code Modify the project Create your own application">Compose Multiplatform 앱 만들기</Links><br/>
+       <img src="icon-2-done.svg" width="20" alt="Second step"/> <Links href="/kmp/compose-multiplatform-explore-composables" summary="This tutorial uses IntelliJ IDEA, but you can also follow it in Android Studio – both IDEs share the same core functionality and Kotlin Multiplatform support. This is the second part of the Create a Compose Multiplatform app with shared logic and UI tutorial. Before proceeding, make sure you've completed previous steps. Create your Compose Multiplatform app Explore composable code Modify the project Create your own application">컴포저블 코드 살펴보기</Links><br/>
+       <img src="icon-3-done.svg" width="20" alt="Third step"/> <Links href="/kmp/compose-multiplatform-modify-project" summary="This tutorial uses IntelliJ IDEA, but you can also follow it in Android Studio – both IDEs share the same core functionality and Kotlin Multiplatform support. This is the third part of the Create a Compose Multiplatform app with shared logic and UI tutorial. Before proceeding, make sure you've completed previous steps. Create your Compose Multiplatform app Explore composable code Modify the project Create your own application">프로젝트 수정하기</Links><br/>
+       <img src="icon-4.svg" width="20" alt="Fourth step"/> <strong>나만의 애플리케이션 만들기</strong><br/>
     </p>
 </tldr>
 
@@ -57,13 +57,13 @@
 
 2.  Android 및 iOS에서 애플리케이션을 실행하세요.
 
-    ![Android 및 iOS의 새로운 Compose Multiplatform 앱](first-compose-project-on-android-ios-3.png){width=500}
+    ![New Compose Multiplatform app on Android and iOS](first-compose-project-on-android-ios-3.png){width=500}
 
     애플리케이션을 실행하고 버튼을 클릭하면 하드코딩된 시간이 표시됩니다.
 
 3.  데스크톱에서 애플리케이션을 실행합니다. 작동은 하지만, UI에 비해 창이 너무 큽니다.
 
-    ![데스크톱의 새로운 Compose Multiplatform 앱](first-compose-project-on-desktop-3.png){width=400}
+    ![New Compose Multiplatform app on desktop](first-compose-project-on-desktop-3.png){width=400}
 
 4.  이를 해결하려면 `composeApp/src/desktopMain/kotlin`에서 `main.kt` 파일을 다음과 같이 업데이트하세요.
 
@@ -89,7 +89,7 @@
     > 데스크톱 앱에서 변경 사항을 실시간으로 확인하려면 [Compose Hot Reload](compose-hot-reload.md)를 사용하세요:
     > 1.  `main.kt` 파일에서 거터(gutter)의 **실행** 아이콘을 클릭하세요.
     > 2.  **'composeApp [hotRunJvm]'을 Compose Hot Reload (베타)로 실행**을 선택하세요.
-    > ![거터에서 Compose Hot Reload 실행](compose-hot-reload-gutter-run.png){width=350}
+    > ![Run Compose Hot Reload from gutter](compose-hot-reload-gutter-run.png){width=350}
     > 
     > 앱이 자동으로 업데이트되는 것을 보려면 수정된 파일(<shortcut>⌘ S</shortcut> / <shortcut>Ctrl+S</shortcut>)을 저장하세요.
     > 
@@ -100,7 +100,7 @@
 5.  IDE의 지침에 따라 누락된 의존성을 임포트하세요.
 6.  데스크톱 애플리케이션을 다시 실행하세요. 모양이 개선될 것입니다.
 
-    ![데스크톱 Compose Multiplatform 앱의 개선된 모양](first-compose-project-on-desktop-4.png){width=350}
+    ![Improved appearance of the Compose Multiplatform app on desktop](first-compose-project-on-desktop-4.png){width=350}
 
 <!--
    ### Compose Hot Reload demo {initial-collapse-state="collapsed" collapsible="true"}
@@ -144,10 +144,10 @@
 
 <Tabs>
     <TabItem id="mobile-user-input" title="Android 및 iOS">
-        <img src="first-compose-project-on-android-ios-4.png" alt="Android 및 iOS의 Compose Multiplatform 앱 사용자 입력" width="500"/>
+        <img src="first-compose-project-on-android-ios-4.png" alt="User input in the Compose Multiplatform app on Android and iOS" width="500"/>
     </TabItem>
     <TabItem id="desktop-user-input" title="데스크톱">
-        <img src="first-compose-project-on-desktop-5.png" alt="데스크톱의 Compose Multiplatform 앱 사용자 입력" width="350"/>
+        <img src="first-compose-project-on-desktop-5.png" alt="User input in the Compose Multiplatform app on desktop" width="350"/>
     </TabItem>
 </Tabs>
 
@@ -200,24 +200,15 @@
    }
     ```
 
-4.  `wasmJsMain/kotlin/main.kt` 파일에서 `main()` 함수 앞에 다음 코드를 추가하여 웹용 타임존(timezone) 지원을 초기화하세요.
-
-    ```kotlin
-    @JsModule("@js-joda/timezone")
-    external object JsJodaTimeZoneModule
-    
-    private val jsJodaTz = JsJodaTimeZoneModule
-    ```
-
-5.  애플리케이션을 다시 실행하고 유효한 타임존(timezone)을 입력하세요.
-6.  버튼을 클릭하세요. 올바른 시간이 표시될 것입니다.
+4.  애플리케이션을 다시 실행하고 유효한 타임존(timezone)을 입력하세요.
+5.  버튼을 클릭하세요. 올바른 시간이 표시될 것입니다.
 
 <Tabs>
     <TabItem id="mobile-time-display" title="Android 및 iOS">
-        <img src="first-compose-project-on-android-ios-5.png" alt="Android 및 iOS의 Compose Multiplatform 앱 시간 표시" width="500"/>
+        <img src="first-compose-project-on-android-ios-5.png" alt="Time display in the Compose Multiplatform app on Android and iOS" width="500"/>
     </TabItem>
     <TabItem id="desktop-time-display" title="데스크톱">
-        <img src="first-compose-project-on-desktop-6.png" alt="데스크톱의 Compose Multiplatform 앱 시간 표시" width="350"/>
+        <img src="first-compose-project-on-desktop-6.png" alt="Time display in the Compose Multiplatform app on desktop" width="350"/>
     </TabItem>
 </Tabs>
 
@@ -274,10 +265,10 @@
 
 <Tabs>
     <TabItem id="mobile-improved-style" title="Android 및 iOS">
-        <img src="first-compose-project-on-android-ios-6.png" alt="Android 및 iOS의 Compose Multiplatform 앱 개선된 스타일" width="500"/>
+        <img src="first-compose-project-on-android-ios-6.png" alt="Improved style of the Compose Multiplatform app on Android and iOS" width="500"/>
     </TabItem>
     <TabItem id="desktop-improved-style" title="데스크톱">
-        <img src="first-compose-project-on-desktop-7.png" alt="데스크톱의 Compose Multiplatform 앱 개선된 스타일" width="350"/>
+        <img src="first-compose-project-on-desktop-7.png" alt="Improved style of the Compose Multiplatform app on desktop" width="350"/>
     </TabItem>
 </Tabs>
 
@@ -368,10 +359,10 @@
 
 <Tabs>
     <TabItem id="mobile-country-list" title="Android 및 iOS">
-        <img src="first-compose-project-on-android-ios-7.png" alt="Android 및 iOS의 Compose Multiplatform 앱 국가 목록" width="500"/>
+        <img src="first-compose-project-on-android-ios-7.png" alt="The country list in the Compose Multiplatform app on Android and iOS" width="500"/>
     </TabItem>
     <TabItem id="desktop-country-list" title="데스크톱">
-        <img src="first-compose-project-on-desktop-8.png" alt="데스크톱의 Compose Multiplatform 앱 국가 목록" width="350"/>
+        <img src="first-compose-project-on-desktop-8.png" alt="The country list in the Compose Multiplatform app on desktop" width="350"/>
     </TabItem>
 </Tabs>
 
@@ -397,7 +388,7 @@ Compose Multiplatform은 모든 플랫폼에서 공통 코드를 통해 리소�
 
 2.  동일한 국기 이미지를 모든 플랫폼에서 사용할 수 있도록 이미지를 `composeApp/src/commonMain/composeResources/drawable` 디렉터리로 이동하세요.
 
-    ![Compose Multiplatform 리소스 프로젝트 구조](compose-resources-project-structure.png){width=300}
+    ![Compose Multiplatform resources project structure](compose-resources-project-structure.png){width=300}
 
 3.  추가된 리소스에 대한 접근자를 포함하는 `Res` 클래스를 생성하려면 애플리케이션을 빌드하거나 실행하세요.
 
@@ -492,10 +483,10 @@ Compose Multiplatform은 모든 플랫폼에서 공통 코드를 통해 리소�
 
 <Tabs>
     <TabItem id="mobile-flags" title="Android 및 iOS">
-        <img src="first-compose-project-on-android-ios-8.png" alt="Android 및 iOS의 Compose Multiplatform 앱 국가 국기" width="500"/>
+        <img src="first-compose-project-on-android-ios-8.png" alt="The country flags in the Compose Multiplatform app on Android and iOS" width="500"/>
     </TabItem>
     <TabItem id="desktop-flags" title="데스크톱">
-        <img src="first-compose-project-on-desktop-9.png" alt="데스크톱의 Compose Multiplatform 앱 국가 국기" width="350"/>
+        <img src="first-compose-project-on-desktop-9.png" alt="The country flags in the Compose Multiplatform app on desktop" width="350"/>
     </TabItem>
 </Tabs>
 

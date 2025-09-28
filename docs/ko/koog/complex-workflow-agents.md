@@ -311,8 +311,8 @@ val toolRegistry = ToolRegistry {
 예를 들어, 이벤트 핸들러 기능을 설치하려면 다음을 수행해야 합니다:
 <!--- INCLUDE
 import ai.koog.agents.core.agent.AIAgent
-import ai.koog.agents.core.feature.handler.AgentFinishedContext
-import ai.koog.agents.core.feature.handler.AgentStartContext
+import ai.koog.agents.core.feature.handler.agent.AgentCompletedContext
+import ai.koog.agents.core.feature.handler.agent.AgentStartingContext
 import ai.koog.agents.features.eventHandler.feature.EventHandler
 import ai.koog.prompt.executor.llms.all.simpleOllamaAIExecutor
 import ai.koog.prompt.llm.OllamaModels
@@ -328,10 +328,10 @@ val agent = AIAgent(
 // install the EventHandler feature
 installFeatures = {
     install(EventHandler) {
-        onBeforeAgentStarted { eventContext: AgentStartContext<*> ->
+        onAgentStarting { eventContext: AgentStartingContext<*> ->
             println("Starting agent: ${eventContext.agent.id}")
         }
-        onAgentFinished { eventContext: AgentFinishedContext ->
+        onAgentCompleted { eventContext: AgentCompletedContext ->
             println("Result: ${eventContext.result}")
         }
     }
@@ -346,8 +346,8 @@ installFeatures = {
 이전 단계에서 생성된 구성 옵션으로 에이전트를 생성하고 제공된 입력으로 실행합니다:
 <!--- INCLUDE
 import ai.koog.agents.core.agent.AIAgent
-import ai.koog.agents.core.feature.handler.AgentFinishedContext
-import ai.koog.agents.core.feature.handler.AgentStartContext
+import ai.koog.agents.core.feature.handler.agent.AgentCompletedContext
+import ai.koog.agents.core.feature.handler.agent.AgentStartingContext
 import ai.koog.agents.example.exampleComplexWorkflowAgents01.promptExecutor
 import ai.koog.agents.example.exampleComplexWorkflowAgents06.agentStrategy
 import ai.koog.agents.example.exampleComplexWorkflowAgents07.agentConfig
@@ -363,10 +363,10 @@ val agent = AIAgent(
     agentConfig = agentConfig,
     installFeatures = {
         install(EventHandler) {
-            onBeforeAgentStarted { eventContext: AgentStartContext<*> ->
+            onAgentStarting { eventContext: AgentStartingContext<*> ->
                 println("Starting agent: ${eventContext.agent.id}")
             }
-            onAgentFinished { eventContext: AgentFinishedContext ->
+            onAgentCompleted { eventContext: AgentCompletedContext ->
                 println("Result: ${eventContext.result}")
             }
         }
@@ -377,7 +377,7 @@ fun main() {
     runBlocking {
         println("Enter two numbers to add (e.g., 'add 5 and 7' or '5 + 7'):")
 
-        // 사용자 입력을 읽어 에이전트로 보냅니다.
+        // Read the user input and send it to the agent
         val userInput = readlnOrNull() ?: ""
         val agentResult = agent.run(userInput)
         println("The agent returned: $agentResult")
@@ -405,8 +405,8 @@ import ai.koog.agents.core.agent.config.AIAgentConfig
 import ai.koog.agents.core.dsl.builder.forwardTo
 import ai.koog.agents.core.dsl.builder.strategy
 import ai.koog.agents.core.dsl.extension.*
-import ai.koog.agents.core.feature.handler.AgentFinishedContext
-import ai.koog.agents.core.feature.handler.AgentStartContext
+import ai.koog.agents.core.feature.handler.agent.AgentCompletedContext
+import ai.koog.agents.core.feature.handler.agent.AgentStartingContext
 import ai.koog.agents.core.tools.ToolRegistry
 import ai.koog.agents.core.tools.annotations.LLMDescription
 import ai.koog.agents.core.tools.annotations.Tool
@@ -420,37 +420,37 @@ import kotlinx.coroutines.runBlocking
 
 -->
 ```kotlin
-// 환경 변수에서 API 키를 사용하여 OpenAI 실행기를 사용합니다.
+// Use the OpenAI executor with an API key from an environment variable
 val promptExecutor = simpleOpenAIExecutor(System.getenv("OPENAI_API_KEY"))
 
-// 간단한 전략을 생성합니다.
+// Create a simple strategy
 val agentStrategy = strategy("Simple calculator") {
-    // 전략에 대한 노드를 정의합니다.
+    // Define nodes for the strategy
     val nodeSendInput by nodeLLMRequest()
     val nodeExecuteTool by nodeExecuteTool()
     val nodeSendToolResult by nodeLLMSendToolResult()
 
-    // 노드 간의 엣지를 정의합니다.
-    // 시작 -> 입력 전송
+    // Define edges between nodes
+    // Start -> Send input
     edge(nodeStart forwardTo nodeSendInput)
 
-    // 입력 전송 -> 완료
+    // Send input -> Finish
     edge(
         (nodeSendInput forwardTo nodeFinish)
                 transformed { it }
                 onAssistantMessage { true }
     )
 
-    // 입력 전송 -> 도구 실행
+    // Send input -> Execute tool
     edge(
         (nodeSendInput forwardTo nodeExecuteTool)
                 onToolCall { true }
     )
 
-    // 도구 실행 -> 도구 결과 전송
+    // Execute tool -> Send the tool result
     edge(nodeExecuteTool forwardTo nodeSendToolResult)
 
-    // 도구 결과 전송 -> 완료
+    // Send the tool result -> finish
     edge(
         (nodeSendToolResult forwardTo nodeFinish)
                 transformed { it }
@@ -458,7 +458,7 @@ val agentStrategy = strategy("Simple calculator") {
     )
 }
 
-// 에이전트를 구성합니다.
+// Configure the agent
 val agentConfig = AIAgentConfig(
     prompt = Prompt.build("simple-calculator") {
         system(
@@ -476,7 +476,7 @@ val agentConfig = AIAgentConfig(
     maxAgentIterations = 10
 )
 
-// 두 숫자를 더할 수 있는 간단한 계산기 도구를 구현합니다.
+// Implement a simple calculator tool that can add two numbers
 @LLMDescription("Tools for performing basic arithmetic operations")
 class CalculatorTools : ToolSet {
     @Tool
@@ -493,12 +493,12 @@ class CalculatorTools : ToolSet {
     }
 }
 
-// 도구를 도구 레지스트리에 추가합니다.
+// Add the tool to the tool registry
 val toolRegistry = ToolRegistry {
     tools(CalculatorTools())
 }
 
-// 에이전트를 생성합니다.
+// Create the agent
 val agent = AIAgent(
     promptExecutor = promptExecutor,
     toolRegistry = toolRegistry,
@@ -506,10 +506,10 @@ val agent = AIAgent(
     agentConfig = agentConfig,
     installFeatures = {
         install(EventHandler) {
-            onBeforeAgentStarted { eventContext: AgentStartContext<*> ->
+            onAgentStarting { eventContext: AgentStartingContext<*> ->
                 println("Starting agent: ${eventContext.agent.id}")
             }
-            onAgentFinished { eventContext: AgentFinishedContext ->
+            onAgentCompleted { eventContext: AgentCompletedContext ->
                 println("Result: ${eventContext.result}")
             }
         }
@@ -520,7 +520,7 @@ fun main() {
     runBlocking {
         println("Enter two numbers to add (e.g., 'add 5 and 7' or '5 + 7'):")
 
-        // 사용자 입력을 읽어 에이전트로 보냅니다.
+        // Read the user input and send it to the agent
         val userInput = readlnOrNull() ?: ""
         val agentResult = agent.run(userInput)
         println("The agent returned: $agentResult")

@@ -11,7 +11,7 @@ KoogのOpenTelemetryサポートに関する背景については、[OpenTelemet
 
 1.  [https://wandb.ai](https://wandb.ai)でW&Bアカウントを作成します。
 2.  [https://wandb.ai/authorize](https://wandb.ai/authorize)からAPIキーを取得します。
-3.  [https://wandb.ai/home](https://wandb.ai/home)でW&Bダッシュボードにアクセスしてエンティティ名を見つけます。個人のアカウントであればユーザー名、チーム/組織名であればチーム/組織名がエンティティ名となります。
+3.  [https://wandb.ai/home](https://wandb.ai/home)でW&Bダッシュボードにアクセスしてエンティティ名を見つけます。個人のアカウントであれば通常はユーザー名、チーム/組織名であればチーム/組織名がエンティティとなります。
 4.  プロジェクト名を定義します。事前にプロジェクトを作成する必要はなく、最初のトレースが送信されたときに自動的に作成されます。
 5.  Weaveエンティティ、プロジェクト名、APIキーをWeaveエクスポーターに渡します。
     これは、`addWeaveExporter()`関数にパラメーターとして渡すか、または以下に示すように環境変数を設定することで可能です。
@@ -71,6 +71,34 @@ See traces on https://wandb.ai/$entity/$projectName/weave/traces")
 -   **LLMのインタラクション**: プロンプト、補完、レイテンシー
 -   **ツール呼び出し**: ツール呼び出しの実行トレース
 -   **システムコンテキスト**: モデル名、環境、Koogバージョンなどのメタデータ
+
+セキュリティ上の理由から、OpenTelemetryスパンの一部コンテンツはデフォルトでマスクされています。そのコンテンツをWeaveで利用可能にするには、OpenTelemetry設定において[setVerbose](opentelemetry-support.md#setverbose) メソッドを使用し、その `verbose` 引数を `true` に設定してください。以下に例を示します。
+
+<!--- INCLUDE
+import ai.koog.agents.core.agent.AIAgent
+import ai.koog.agents.features.opentelemetry.feature.OpenTelemetry
+import ai.koog.agents.features.opentelemetry.integration.weave.addWeaveExporter
+import ai.koog.prompt.executor.clients.openai.OpenAIModels
+import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
+
+const val apiKey = ""
+
+val agent = AIAgent(
+    promptExecutor = simpleOpenAIExecutor(apiKey),
+    llmModel = OpenAIModels.Chat.GPT4o,
+    systemPrompt = "You are a helpful assistant."
+) {
+-->
+<!--- SUFFIX
+}
+-->
+```kotlin
+install(OpenTelemetry) {
+    addWeaveExporter()
+    setVerbose(true)
+}
+```
+<!--- KNIT example-weave-exporter-02.kt -->
 
 W&B Weaveで可視化すると、トレースは以下のようになります。
 ![W&B Weave traces](img/opentelemetry-weave-exporter-light.png#only-light)

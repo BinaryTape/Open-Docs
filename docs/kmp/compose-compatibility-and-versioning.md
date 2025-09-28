@@ -13,7 +13,7 @@ Compose Multiplatform %org.jetbrains.compose% 支持以下平台：
 | macOS | macOS 12 x64, macOS 13 arm64 |
 | Windows | Windows 10 (x86-64, arm64) |
 | Linux | Ubuntu 20.04 (x86-64, arm64) |
-| Web | 支持 [WasmGC 的浏览器](https://kotlinlang.org/docs/wasm-troubleshooting.html#browser-versions) |
+| Web | 支持 [WasmGC 的浏览器](https://kotlinlang.org/docs/wasm-configuration.html#browser-versions) |
 
 [//]: # (https://youtrack.jetbrains.com/issue/CMP-7539)
 
@@ -43,8 +43,8 @@ Compose Multiplatform 要求应用的 Compose Compiler Gradle 插件与 Kotlin M
 Compose Multiplatform 桌面版有以下限制：
 
 *   由于 [Skia](https://skia.org/) 绑定中使用的内存管理方案，仅支持 JDK 11 或更高版本。
-*   由于 `jpackage` 的限制，仅支持 JDK 17 或更高版本用于打包原生分发版。
-*   在 macOS 上切换键盘布局时，OpenJDK 11.0.12 存在一个已知问题。此问题在 OpenJDK 11.0.15 中无法重现。
+*   由于 [`jpackage`](https://docs.oracle.com/en/java/javase/17/docs/specs/man/jpackage.html) 的限制，仅支持 JDK 17 或更高版本用于打包原生分发版。
+*   在 macOS 上切换键盘布局时，OpenJDK 11.0.12 存在一个已知 [问题](https://github.com/JetBrains/compose-multiplatform/issues/940)。此问题在 OpenJDK 11.0.15 中无法重现。
 
 ## Jetpack Compose 与 Compose Multiplatform 发布周期
 
@@ -52,10 +52,10 @@ Compose Multiplatform 与 Google 开发的 Android 框架 [Jetpack Compose](http
 
 当 Jetpack Compose 发布新版本时，我们会：
 
-*   使用该发布版本的 commit 作为下一个 [Compose Multiplatform](https://github.com/JetBrains/androidx) 版本的基础。
-*   添加对新平台特性的支持。
-*   稳定所有平台。
-*   发布新版本的 Compose Multiplatform。
+1.  使用该发布版本的 commit 作为下一个 [Compose Multiplatform](https://github.com/JetBrains/androidx) 版本的基础。
+2.  添加对新平台特性的支持。
+3.  稳定所有平台。
+4.  发布新版本的 Compose Multiplatform。
 
 Compose Multiplatform 发布版本与 Jetpack Compose 发布版本之间的间隔通常为 1-3 个月。
 
@@ -77,6 +77,7 @@ maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
 
 | Compose Multiplatform 版本 | Jetpack Compose 版本 | Jetpack Compose Material3 版本 |
 |-----------------------------------------------------------------------------------|-------------------------|-----------------------------------|
+| [1.9.0](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.9.0) | 1.9.0 | 1.3.2 |
 | [1.8.2](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.8.2) | 1.8.2 | 1.3.2 |
 | [1.7.3](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.7.3) | 1.7.6 | 1.3.1 |
 | [1.7.1](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.7.1) | 1.7.5 | 1.3.1 |

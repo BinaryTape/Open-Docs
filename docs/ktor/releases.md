@@ -8,7 +8,7 @@ Ktor 遵循[语义化版本控制](https://semver.org/):
 - _次版本_ (x.y.0) 提供向后兼容的新功能。
 - _补丁版本_ (x.y.z) 包含向后兼容的修复。
 
-对于每个主版本和次版本，我们还会发布多个预览版 (EAP)，供你在新特性发布前进行试用。有关更多详细信息，请参见[抢先体验计划](https://ktor.io/eap/)。
+对于每个主版本和次版本，我们还会发布多个预览版 (EAP)，供你在新特性发布前进行试用。关于更多详细信息，请参见[抢先体验计划](https://ktor.io/eap/)。
 
 ## Gradle 插件 {id="gradle"}
 
@@ -30,6 +30,18 @@ IntelliJ Ktor 插件允许你将 Ktor 项目迁移到最新版本。你可以从
 
 <tr>
 <td>版本</td><td>发布日期</td><td>亮点</td>
+</tr>
+
+<tr>
+<td>3.3.0</td><td>2025 年 9 月 11 日</td><td>
+<p>
+一个次版本，引入了实验性的 OpenAPI 生成预览、改进的静态内容处理、适用于 Android 和 JS/Wasm 的 WebRTC 客户端等主要特性，并升级到 Jetty、OkHttp 和 Kotlin 2.2。关于更多信息，请参见<Links href="/ktor/whats-new-330" summary="undefined">Ktor 3.3.0 新特性</Links>。
+</p>
+<var name="version" value="3.3.0"/>
+<p>
+    <a href="https://github.com/ktorio/ktor/releases/tag/%version%">在 GitHub 上查看更新日志</a>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -71,7 +83,7 @@ IntelliJ Ktor 插件允许你将 Ktor 项目迁移到最新版本。你可以从
 <tr>
 <td>3.2.0</td><td>2025 年 6 月 12 日</td><td>
 <p>
-一个次版本，引入了类型化配置反序列化、新的依赖项注入和 HTMX 模块、Gradle 版本目录支持以及挂起模块支持。有关更多信息，请参见<Links href="/ktor/whats-new-320" summary="undefined">Ktor 3.2.0 新特性</Links>。
+一个次版本，引入了类型化配置反序列化、新的依赖项注入和 HTMX 模块、Gradle 版本目录支持以及挂起模块支持。关于更多信息，请参见<Links href="/ktor/whats-new-320" summary="undefined">Ktor 3.2.0 新特性</Links>。
 </p>
 <var name="version" value="3.2.0"/>
 <p>
@@ -170,7 +182,7 @@ IntelliJ Ktor 插件允许你将 Ktor 项目迁移到最新版本。你可以从
 
 <tr>
 <td>3.0.0</td><td>2024 年 10 月 9 日</td><td><p>
-一个主版本，包含改进和错误修复，包括增加了对 Android Native 目标的支持。有关破坏性变更的更多信息，请参见<Links href="/ktor/migrating-3" summary="undefined">迁移指南</Links>。
+一个主版本，包含改进和错误修复，包括增加了对 Android Native 目标的支持。关于破坏性变更的更多信息，请参见<Links href="/ktor/migrating-3" summary="undefined">迁移指南</Links>。
 </p>
 <var name="version" value="3.0.0"/>
 <p>
@@ -203,7 +215,7 @@ IntelliJ Ktor 插件允许你将 Ktor 项目迁移到最新版本。你可以从
 
 <tr>
 <td>3.0.0-beta-2</td><td>2024 年 7 月 15 日</td><td><p>
-一个主要预发布版本，包含各种改进和错误修复，包括 SSE 支持的改进和 Kotlin/Wasm 的 Ktor 客户端。
+一个主要预发布版本，包含各种改进和错误修复，包括 SSE 支持的改进和适用于 Kotlin/Wasm 的 Ktor 客户端。
 </p>
 <var name="version" value="3.0.0-beta-2"/>
 <p>
@@ -426,7 +438,7 @@ IntelliJ Ktor 插件允许你将 Ktor 项目迁移到最新版本。你可以从
 <tr>
 <td>2.2.0</td><td>2022 年 12 月 7 日</td><td>
 <p>
-一个多功能发布版本，包括 Swagger UI 托管、新的插件 API、Sessions 的多平台支持等等。有关更多信息，请参见<Links href="/ktor/migration-to-22x" summary="undefined">从 2.0.x 迁移到 2.2.x</Links>指南。
+一个多功能发布版本，包括 Swagger UI 托管、新的插件 API、Sessions 的多平台支持等等。关于更多信息，请参见<Links href="/ktor/migration-to-22x" summary="undefined">从 2.0.x 迁移到 2.2.x</Links>指南。
 </p>
 <var name="version" value="2.2.0"/>
 <p>
@@ -522,7 +534,7 @@ IntelliJ Ktor 插件允许你将 Ktor 项目迁移到最新版本。你可以从
 <tr>
 <td>2.0.0</td><td>2022 年 4 月 11 日</td><td>
 <p>
-一个主版本，更新了 API 文档并包含各种新特性。有关破坏性变更以及如何从 <code>1.x.x</code> 迁移的更多信息，请参见<Links href="/ktor/migration-to-20x" summary="undefined">迁移指南</Links>。
+一个主版本，更新了 API 文档并包含各种新特性。关于破坏性变更以及如何从 <code>1.x.x</code> 迁移的更多信息，请参见<Links href="/ktor/migration-to-20x" summary="undefined">迁移指南</Links>。
 </p>
 <var name="version" value="2.0.0"/>
 <p>

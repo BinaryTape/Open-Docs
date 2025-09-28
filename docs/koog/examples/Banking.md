@@ -470,49 +470,40 @@ runBlocking {
 首先，我们需要一种方法来对传入请求进行分类：
 
 ```kotlin
-import ai.koog.agents.ext.agent.SerializableSubgraphResult
+import ai.koog.agents.core.tools.annotations.LLMDescription
 import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
+@Suppress("unused")
 @SerialName("UserRequestType")
 @Serializable
 @LLMDescription("用户请求类型：转账或分析")
-enum class RequestType {
-    Transfer,
-    Analytics
-}
+enum class RequestType { Transfer, Analytics }
 
 @Serializable
 @LLMDescription("由代理分类的银行请求。")
 data class ClassifiedBankRequest(
-    @LLMDescription("请求类型：转账或分析")
+    @property:LLMDescription("请求类型：转账或分析")
     val requestType: RequestType,
-    @LLMDescription("银行应用程序要执行的实际请求")
+    @property:LLMDescription("银行应用程序要执行的实际请求")
     val userRequest: String
-) : SerializableSubgraphResult<ClassifiedBankRequest> {
-    override fun getSerializer() = serializer()
-}
+)
 ```
 
 ### 共享工具注册表
 
 ```kotlin
-import ai.koog.agents.ext.agent.ProvideStringSubgraphResult
-import ai.koog.agents.core.tools.ToolRegistry
-import ai.koog.agents.ext.tool.AskUser
-import ai.koog.agents.core.tools.reflect.asTools
-
 // 为多代理系统创建一个综合工具注册表
 val toolRegistry = ToolRegistry {
     tool(AskUser)  // 允许代理请求澄清
     tools(MoneyTransferTools().asTools())
     tools(TransactionAnalysisTools().asTools())
-    tool(ProvideStringSubgraphResult)
 }
 ```
 
 ## 代理策略
 
-现在我们将创建一个`编排`多个节点的策略：
+现在我们将创建一个编排多个节点的策略：
 
 ```kotlin
 import ai.koog.agents.core.dsl.builder.forwardTo
@@ -520,7 +511,6 @@ import ai.koog.agents.core.dsl.builder.strategy
 import ai.koog.agents.core.dsl.extension.*
 import ai.koog.agents.ext.agent.subgraphWithTask
 import ai.koog.prompt.structure.StructureFixingParser
-import ai.koog.prompt.executor.clients.openai.OpenAIModels
 
 val strategy = strategy<String, String>("banking assistant") {
 
@@ -576,7 +566,7 @@ val strategy = strategy<String, String>("banking assistant") {
     }
 
     // 用于处理资金转账的子图
-    val transferMoney by subgraphWithTask<ClassifiedBankRequest>(
+    val transferMoney by subgraphWithTask<ClassifiedBankRequest, String>(
         tools = MoneyTransferTools().asTools() + AskUser,
         llmModel = OpenAIModels.Chat.GPT4o  // 对转账使用功能更强大的模型
     ) { request ->
@@ -588,7 +578,7 @@ val strategy = strategy<String, String>("banking assistant") {
     }
 
     // 用于交易分析的子图
-    val transactionAnalysis by subgraphWithTask<ClassifiedBankRequest>(
+    val transactionAnalysis by subgraphWithTask<ClassifiedBankRequest, String>(
         tools = TransactionAnalysisTools().asTools() + AskUser,
     ) { request ->
         """
@@ -609,16 +599,16 @@ val strategy = strategy<String, String>("banking assistant") {
         onCondition { it.requestType == RequestType.Analytics })
 
     // 将结果路由到结束节点
-    edge(transferMoney forwardTo nodeFinish transformed { it.result })
-    edge(transactionAnalysis forwardTo nodeFinish transformed { it.result })
+    edge(transferMoney forwardTo nodeFinish)
+    edge(transactionAnalysis forwardTo nodeFinish)
 }
 ```
 
 ```kotlin
 import ai.koog.agents.core.agent.config.AIAgentConfig
 import ai.koog.prompt.dsl.prompt
-import ai.koog.prompt.executor.clients.openai.OpenAIModels
 import ai.koog.agents.core.agent.AIAgent
+import ai.koog.prompt.executor.clients.openai.OpenAIModels // 导入 OpenAIModels
 
 val agentConfig = AIAgentConfig(
     prompt = prompt(id = "banking assistant") {
@@ -680,10 +670,10 @@ Koog 允许你在其他代理中使用代理作为工具，从而实现强大的
 import ai.koog.agents.core.agent.asTool
 import ai.koog.agents.core.tools.ToolParameterDescriptor
 import ai.koog.agents.core.tools.ToolParameterType
-import ai.koog.agents.core.agent.AIAgent
-import ai.koog.prompt.executor.clients.openai.OpenAIModels
-import ai.koog.agents.core.tools.ToolRegistry
-import ai.koog.agents.ext.tool.AskUser
+import ai.koog.agents.core.agent.AIAgent // 导入 AIAgent
+import ai.koog.prompt.executor.clients.openai.OpenAIModels // 导入 OpenAIModels
+import ai.koog.agents.core.tools.ToolRegistry // 导入 ToolRegistry
+import ai.koog.agents.ext.tool.AskUser // 导入 AskUser
 
 val classifierAgent = AIAgent(
     executor = openAIExecutor,
@@ -739,23 +729,23 @@ runBlocking {
     有两个名为 Daniel 的联系人。请确认你想将钱转给哪一个：
     1. Daniel Anderson (+46 70 123 45 67)
     2. Daniel Garcia (+34 612 345 678)
-    请确认是否要继续将 €25 转账给 Daniel Anderson (+46 70 123 45 67)，用于“餐厅晚餐”。
+    请确认将 €25.00 转账给 Daniel Anderson (+46 70 123 45 67)，用于“餐厅晚餐”。
 
     结果：无法执行任务。
 
 ## 总结
 在本教程中，你学习了如何：
 
-1.  创建带有清晰描述的 LLM 驱动工具，帮助 AI 理解何时以及如何使用它们
-2.  构建将 LLM 与工具结合起来以完成特定任务的单一用途代理
-3.  使用策略和子图实现图代理以处理复杂工作流
-4.  通过将代理用作其他代理中的工具来组合代理
-5.  处理用户交互，包括确认和消歧
+1. 创建带有清晰描述的 LLM 驱动工具，帮助 AI 理解何时以及如何使用它们
+2. 构建将 LLM 与工具结合起来以完成特定任务的单一用途代理
+3. 使用策略和子图实现图代理以处理复杂工作流
+4. 通过将代理用作其他代理中的工具来组合代理
+5. 处理用户交互，包括确认和消歧
 
 ## 最佳实践
 
-1.  清晰的工具描述：编写详细的 LLMDescription 注解，帮助 AI 理解工具用法
-2.  惯用的 Kotlin：使用 Kotlin 的特性，如数据类、扩展函数和作用域函数
-3.  错误处理：始终验证输入并提供有意义的错误消息
-4.  用户体验：为资金转账等关键操作包含确认步骤
-5.  模块化：将关注点分离到不同的工具和代理中，以实现更好的可维护性
+1. 清晰的工具描述：编写详细的 LLMDescription 注解，帮助 AI 理解工具用法
+2. 惯用的 Kotlin：使用 Kotlin 的特性，如数据类、扩展函数和作用域函数
+3. 错误处理：始终验证输入并提供有意义的错误消息
+4. 用户体验：为资金转账等关键操作包含确认步骤
+5. 模块化：将关注点分离到不同的工具和代理中，以实现更好的可维护性

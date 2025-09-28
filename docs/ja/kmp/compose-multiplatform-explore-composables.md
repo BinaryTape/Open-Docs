@@ -24,26 +24,30 @@ Kotlin Multiplatformウィザードによって作成されたサンプルコン
 @Composable
 @Preview
 fun App() {
-  MaterialTheme {
-    var showContent by remember { mutableStateOf(false) }
-    Column(
-      modifier = Modifier
-        .safeContentPadding()
-        .fillMaxSize(),
-      horizontalAlignment = Alignment.CenterHorizontally,
-    ) {
-      Button(onClick = { showContent = !showContent }) {
-        Text("Click me!")
-      }
-      AnimatedVisibility(showContent) {
-        val greeting = remember { Greeting().greet() }
-        Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
-          Image(painterResource(Res.drawable.compose_multiplatform), null)
-          Text("Compose: $greeting")
+    MaterialTheme {
+        var showContent by remember { mutableStateOf(false) }
+        Column(
+            modifier = Modifier
+                .background(MaterialTheme.colorScheme.primaryContainer)
+                .safeContentPadding()
+                .fillMaxSize(),
+            horizontalAlignment = Alignment.CenterHorizontally,
+        ) {
+            Button(onClick = { showContent = !showContent }) {
+                Text("Click me!")
+            }
+            AnimatedVisibility(showContent) {
+                val greeting = remember { Greeting().greet() }
+                Column(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                ) {
+                    Image(painterResource(Res.drawable.compose_multiplatform), null)
+                    Text("Compose: $greeting")
+                }
+            }
         }
-      }
     }
-  }
 }
 ```
 
@@ -129,19 +133,23 @@ fun main() = application {
 
 ### ウェブの場合
 
-`composeApp/src/wasmJsMain/kotlin/main.kt`ファイルで、`main()`関数を見てみましょう。
+`composeApp/src/webMain/kotlin/main.kt`ファイルで、`main()`関数を見てみましょう。
 
 ```kotlin
 @OptIn(ExperimentalComposeUiApi::class)
 fun main() {
-    ComposeViewport(document.body!!) { App() }
+    ComposeViewport {
+        App()
+    }
 }
 ```
 
 *   `@OptIn(ExperimentalComposeUiApi::class)`アノテーションは、実験的としてマークされており、将来のリリースで変更される可能性があるAPIを使用していることをコンパイラに伝えます。
-*   `ComposeViewport()`関数は、アプリケーションのCompose環境を設定します。
-*   Webアプリは、`ComposeViewport`関数のパラメーターとして指定されたコンテナに挿入されます。この例では、ドキュメントのボディ全体がコンテナとして機能します。
+*   `ComposeViewport{}`関数は、アプリケーションのCompose環境を設定します。
+*   Webアプリは、`ComposeViewport`関数のパラメーターとして指定されたコンテナに挿入されます。
 *   `App()`関数は、Jetpack Composeを使用してアプリケーションのUIコンポーネントを構築する役割を担います。
+
+`main.kt`ファイルは、Webターゲット用の共通コードを含む`webMain`ディレクトリにあります。
 
 ## 次のステップ
 

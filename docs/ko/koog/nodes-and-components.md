@@ -3,7 +3,8 @@ _# 사전 정의된 노드 및 컴포넌트
 노드는 Koog 프레임워크의 에이전트 워크플로를 구성하는 근본적인 빌딩 블록입니다.
 각 노드는 워크플로 내에서 특정 작업이나 변환을 나타내며, 엣지를 사용하여 연결되어 실행 흐름을 정의합니다.
 
-일반적으로 노드를 사용하면 복잡한 로직을 재사용 가능한 컴포넌트로 캡슐화하여 다양한 에이전트 워크플로에 쉽게 통합할 수 있습니다. 이 가이드에서는 에이전트 전략에서 사용할 수 있는 기존 노드에 대해 설명합니다.
+일반적으로 노드를 사용하면 복잡한 로직을 재사용 가능한 컴포넌트로 캡슐화하여
+다양한 에이전트 워크플로에 쉽게 통합할 수 있습니다. 이 가이드에서는 에이전트 전략에서 사용할 수 있는 기존 노드에 대해 설명합니다.
 
 자세한 참조 문서는 [API 레퍼런스](https://api.koog.ai/index.html)를 참조하세요.
 
@@ -88,15 +89,16 @@ edge(setupContext forwardTo secondNode)
 
 ### nodeLLMSendMessageOnlyCallingTools
 
-LLM 프롬프트에 사용자 메시지를 추가하고 LLM이 도구만 호출할 수 있는 응답을 받는 노드입니다. 자세한 내용은 [API 레퍼런스](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.dsl.extension/node-l-l-m-send-message-only-calling-tools.html)를 참조하세요.
+LLM 프롬프트에 사용자 메시지를 추가하고 LLM이 도구만 호출할 수 있는 응답을 받는 노드입니다. 자세한 내용은 [API 레퍼런스](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.dsl.extension/node-l-l-m-send-message-only-calling-tools.html).
 
 ### nodeLLMSendMessageForceOneTool
 
-LLM 프롬프트에 사용자 메시지를 추가하고 LLM이 특정 도구를 사용하도록 강제하는 노드입니다. 자세한 내용은 [API 레퍼런스](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.dsl.extension/node-l-l-m-send-message-force-one-tool.html)를 참조하세요.
+LLM 프롬프트에 사용자 메시지를 추가하고 LLM이 특정 도구를 사용하도록 강제하는 노드입니다. 자세한 내용은 [API 레퍼런스](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.dsl.extension/node-l-l-m-send-message-force-one-tool.html).
 
 ### nodeLLMRequest
 
-LLM 프롬프트에 사용자 메시지를 추가하고 선택적 도구 사용과 함께 응답을 받는 노드입니다. 노드 설정은 메시지 처리 중에 도구 호출이 허용되는지 여부를 결정합니다. 자세한 내용은 [API 레퍼런스](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.dsl.extension/node-l-l-m-request.html).
+LLM 프롬프트에 사용자 메시지를 추가하고 선택적 도구 사용과 함께 응답을 받는 노드입니다. 노드 설정은
+메시지 처리 중에 도구 호출이 허용되는지 여부를 결정합니다. 자세한 내용은 [API 레퍼런스](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.dsl.extension/node-l-l-m-request.html).
 
 이 노드는 다음 목적으로 사용할 수 있습니다:
 
@@ -124,15 +126,15 @@ edge(getUserQuestion forwardTo requestLLM)
 
 ### nodeLLMRequestStructured
 
-LLM 프롬프트에 사용자 메시지를 추가하고 오류 수정 기능과 함께 LLM으로부터 구조화된 데이터를 요청하는 노드입니다. 자세한 내용은 [API 레퍼런스](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.dsl.extension/node-l-l-m-request-structured.html)를 참조하세요.
+LLM 프롬프트에 사용자 메시지를 추가하고 오류 수정 기능과 함께 LLM으로부터 구조화된 데이터를 요청하는 노드입니다. 자세한 내용은 [API 레퍼런스](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.dsl.extension/node-l-l-m-request-structured.html).
 
 ### nodeLLMRequestStreaming
 
-LLM 프롬프트에 사용자 메시지를 추가하고 스트림 데이터 변환 유무에 관계없이 LLM 응답을 스트리밍하는 노드입니다. 자세한 내용은 [API 레퍼런스](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.dsl.extension/node-l-l-m-request-streaming.html)를 참조하세요.
+LLM 프롬프트에 사용자 메시지를 추가하고 스트림 데이터 변환 유무에 관계없이 LLM 응답을 스트리밍하는 노드입니다. 자세한 내용은 [API 레퍼런스](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.dsl.extension/node-l-l-m-request-streaming.html).
 
 ### nodeLLMRequestMultiple
 
-LLM 프롬프트에 사용자 메시지를 추가하고 도구 호출이 활성화된 여러 LLM 응답을 받는 노드입니다. 자세한 내용은 [API 레퍼런스](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.dsl.extension/node-l-l-m-request-multiple.html)를 참조하세요.
+LLM 프롬프트에 사용자 메시지를 추가하고 도구 호출이 활성화된 여러 LLM 응답을 받는 노드입니다. 자세한 내용은 [API 레퍼런스](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.dsl.extension/node-l-l-m-request-multiple.html).
 
 이 노드는 다음 목적으로 사용할 수 있습니다:
 
@@ -202,7 +204,7 @@ edge(generateHugeHistory forwardTo compressHistory)
 
 ### nodeExecuteTool
 
-단일 도구 호출을 실행하고 그 결과를 반환하는 노드입니다. 이 노드는 LLM이 수행한 도구 호출을 처리하는 데 사용됩니다. 자세한 내용은 [API 레퍼런스](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.dsl.extension/node-execute-tool.html)를 참조하세요.
+단일 도구 호출을 실행하고 그 결과를 반환하는 노드입니다. 이 노드는 LLM이 수행한 도구 호출을 처리하는 데 사용됩니다. 자세한 내용은 [API 레퍼런스](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.dsl.extension/node-execute-tool.html).
 
 이 노드는 다음 목적으로 사용할 수 있습니다:
 
@@ -233,7 +235,7 @@ edge(requestLLM forwardTo executeTool onToolCall { true })
 
 ### nodeLLMSendToolResult
 
-프롬프트에 도구 결과를 추가하고 LLM 응답을 요청하는 노드입니다. 자세한 내용은 [API 레퍼런스](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.dsl.extension/node-l-l-m-send-tool-result.html)를 참조하세요.
+프롬프트에 도구 결과를 추가하고 LLM 응답을 요청하는 노드입니다. 자세한 내용은 [API 레퍼런스](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.dsl.extension/node-l-l-m-send-tool-result.html).
 
 이 노드는 다음 목적으로 사용할 수 있습니다:
 
@@ -263,7 +265,7 @@ edge(executeTool forwardTo sendToolResultToLLM)
 
 ### nodeExecuteMultipleTools
 
-여러 도구 호출을 실행하는 노드입니다. 이 호출들은 선택적으로 병렬로 실행될 수 있습니다. 자세한 내용은 [API 레퍼런스](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.dsl.extension/node-execute-multiple-tools.html)를 참조하세요.
+여러 도구 호출을 실행하는 노드입니다. 이 호출들은 선택적으로 병렬로 실행될 수 있습니다. 자세한 내용은 [API 레퍼런스](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.dsl.extension/node-execute-multiple-tools.html).
 
 이 노드는 다음 목적으로 사용할 수 있습니다:
 
@@ -294,7 +296,7 @@ edge(requestLLMMultipleTools forwardTo executeMultipleTools onMultipleToolCalls 
 
 ### nodeLLMSendMultipleToolResults
 
-프롬프트에 여러 도구 결과를 추가하고 여러 LLM 응답을 받는 노드입니다. 자세한 내용은 [API 레퍼런스](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.dsl.extension/node-l-l-m-send-multiple-tool-results.html)를 참조하세요.
+프롬프트에 여러 도구 결과를 추가하고 여러 LLM 응답을 받는 노드입니다. 자세한 내용은 [API 레퍼런스](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.dsl.extension/node-l-l-m-send-multiple-tool-results.html).
 
 이 노드는 다음 목적으로 사용할 수 있습니다:
 
@@ -322,15 +324,84 @@ edge(executeMultipleTools forwardTo sendMultipleToolResultsToLLM)
 ```
 <!--- KNIT example-nodes-and-component-09.kt -->
 
+## 노드 출력 변환
+
+프레임워크는 노드의 출력에 변환을 적용하는 변환된 버전의 노드를 생성할 수 있게 해주는 `transform` 확장 함수를 제공합니다. 이는 노드의 출력을 다른 유형이나 형식으로 변환해야 하면서도 원래 노드의 기능을 유지해야 할 때 유용합니다.
+
+### transform
+
+`transform` 함수는 원래 노드를 래핑하고 출력에 변환 함수를 적용하는 새로운 `AIAgentNodeDelegate`를 생성합니다.
+
+<!--- INCLUDE
+/**
+-->
+<!--- SUFFIX
+**/
+-->
+```kotlin
+inline fun <reified T> AIAgentNodeDelegate<Input, Output>.transform(
+    noinline transformation: suspend (Output) -> T
+): AIAgentNodeDelegate<Input, T>
+```
+<!--- KNIT example-nodes-and-component-10.kt -->
+
+#### 사용자 정의 노드 변환
+
+사용자 정의 노드의 출력을 다른 데이터 타입으로 변환합니다:
+
+<!--- INCLUDE
+import ai.koog.agents.core.dsl.builder.forwardTo
+import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.extension.nodeDoNothing
+
+val strategy = strategy<String, Int>("strategy_name") {
+-->
+<!--- SUFFIX
+}
+-->
+```kotlin
+val textNode by nodeDoNothing<String>("textNode").transform<Int> { text ->
+    text.split(" ").filter { it.isNotBlank() }.size
+}
+
+edge(nodeStart forwardTo textNode)
+edge(textNode forwardTo nodeFinish)
+```
+<!--- KNIT example-nodes-and-component-11.kt -->
+
+#### 내장 노드 변환
+
+`nodeLLMRequest`와 같은 내장 노드의 출력을 변환합니다:
+
+<!--- INCLUDE
+import ai.koog.agents.core.dsl.builder.forwardTo
+import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.extension.nodeLLMRequest
+
+val strategy = strategy<String, Int>("strategy_name") {
+-->
+<!--- SUFFIX
+}
+-->
+```kotlin
+val lengthNode by nodeLLMRequest("llmRequest").transform<Int> { assistantMessage ->
+    assistantMessage.content.length
+}
+
+edge(nodeStart forwardTo lengthNode)
+edge(lengthNode forwardTo nodeFinish)
+```
+<!--- KNIT example-nodes-and-component-12.kt -->
+
 ## 사전 정의된 서브그래프
 
 프레임워크는 일반적으로 사용되는 패턴과 워크플로를 캡슐화하는 사전 정의된 서브그래프를 제공합니다. 이러한 서브그래프는 기본 노드 및 엣지 생성을 자동으로 처리하여 복잡한 에이전트 전략 개발을 간소화합니다.
 
 사전 정의된 서브그래프를 사용하면 다양한 인기 파이프라인을 구현할 수 있습니다. 예시는 다음과 같습니다:
 
-1. 데이터를 준비합니다.
-2. 작업을 실행합니다.
-3. 작업 결과를 검증합니다. 결과가 올바르지 않으면 피드백 메시지와 함께 2단계로 돌아가서 조정합니다.
+1.  데이터를 준비합니다.
+2.  작업을 실행합니다.
+3.  작업 결과를 검증합니다. 결과가 올바르지 않으면 피드백 메시지와 함께 2단계로 돌아가서 조정합니다.
 
 ### subgraphWithTask
 
@@ -363,7 +434,7 @@ val strategy = strategy<String, String>("strategy_name") {
 }
 -->
 ```kotlin
-val processQuery by subgraphWithTask<String>(
+val processQuery by subgraphWithTask<String, String>(
     tools = listOf(searchTool, calculatorTool, weatherTool),
     llmModel = OpenAIModels.Chat.GPT4o,
 ) { userQuery ->
@@ -374,7 +445,7 @@ val processQuery by subgraphWithTask<String>(
     """
 }
 ```
-<!--- KNIT example-nodes-and-component-10.kt -->
+<!--- KNIT example-nodes-and-component-13.kt -->
 
 ### subgraphWithVerification
 
@@ -387,7 +458,8 @@ val processQuery by subgraphWithTask<String>(
 - 자체 검증 컴포넌트를 생성합니다.
 - 성공/실패 상태 및 상세 피드백을 포함한 구조화된 검증 결과를 생성합니다.
 
-이 서브그래프는 LLM이 워크플로의 끝에서 검증 도구를 호출하여 작업이 성공적으로 완료되었는지 확인하도록 보장합니다. 이는 이 검증이 최종 단계로 수행되도록 보장하며, 작업이 성공적으로 완료되었는지 여부를 나타내고 상세한 피드백을 제공하는 `VerifiedSubgraphResult`를 반환합니다. 예시는 다음과 같습니다:
+이 서브그래프는 LLM이 워크플로의 끝에서 검증 도구를 호출하여 작업이 성공적으로 완료되었는지 확인하도록 보장합니다. 이는 이 검증이 최종 단계로 수행되도록 보장하며, 작업이 성공적으로 완료되었는지 여부를 나타내고 상세한 피드백을 제공하는 `CriticResult`를 반환합니다.
+예시는 다음과 같습니다:
 
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
@@ -420,7 +492,7 @@ val verifyCode by subgraphWithVerification<String>(
     """
 }
 ```
-<!--- KNIT example-nodes-and-component-11.kt -->
+<!--- KNIT example-nodes-and-component-14.kt -->
 
 ## 사전 정의된 전략 및 일반적인 전략 패턴
 
@@ -457,7 +529,7 @@ public fun singleRunStrategy(): AIAgentGraphStrategy<String, String> = strategy(
     edge(nodeSendToolResult forwardTo nodeExecuteTool onToolCall { true })
 }
 ```
-<!--- KNIT example-nodes-and-component-12.kt -->
+<!--- KNIT example-nodes-and-component-15.kt -->
 
 ### 도구 기반 전략
 
@@ -511,11 +583,12 @@ fun toolBasedStrategy(name: String, toolRegistry: ToolRegistry): AIAgentGraphStr
     }
 }
 ```
-<!--- KNIT example-nodes-and-component-13.kt -->
+<!--- KNIT example-nodes-and-component-16.kt -->
 
 ### 스트리밍 데이터 전략
 
-스트리밍 데이터 전략은 LLM으로부터 스트리밍 데이터를 처리하도록 설계되었습니다. 일반적으로 스트리밍 데이터를 요청하고, 이를 처리하며, 처리된 데이터로 도구를 호출할 수 있습니다.
+스트리밍 데이터 전략은 LLM으로부터 스트리밍 데이터를 처리하도록 설계되었습니다. 일반적으로
+스트리밍 데이터를 요청하고, 이를 처리하며, 처리된 데이터로 도구를 호출할 수 있습니다.
 
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.forwardTo
@@ -549,4 +622,4 @@ val agentStrategy = strategy<String, List<Book>>("library-assistant") {
     edge(getMdOutput forwardTo nodeFinish)
 }
 ```
-<!--- KNIT example-nodes-and-component-14.kt -->
+<!--- KNIT example-nodes-and-component-17.kt -->

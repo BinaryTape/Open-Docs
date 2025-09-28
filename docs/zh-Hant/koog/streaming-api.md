@@ -153,19 +153,19 @@ fun GraphAIAgent.FeatureContext.installStreamingApi() {
 -->
 ```kotlin
 handleEvents {
-    onToolCall { context ->
+    onToolExecutionStarting { context ->
         println("
 🔧 使用 ${context.tool.name} 搭配 ${context.toolArgs}... ")
     }
-    onStreamFrame { context ->
+    onLLMStreamingFrameReceived { context ->
         (context.streamFrame as? StreamFrame.Append)?.let { frame ->
             print(frame.text)
         }
     }
-    onStreamError { context -> 
+    onLLMStreamingFailed { context -> 
         println("❌ 錯誤：${context.error}")
     }
-    onAfterStream {
+    onLLMStreamingCompleted {
         println("🏁 完成")
     }
 }
@@ -189,8 +189,8 @@ handleEvents {
 
 結構化資料方法包括以下關鍵組件：
 
-1.  **MarkdownStructuredDataDefinition**：一個類別，可幫助您定義 Markdown 格式結構化資料的結構描述和範例。
-2.  **markdownStreamingParser**：一個函數，用於創建一個解析器，該解析器處理 Markdown 區塊流並發出事件。
+1.  `MarkdownStructuredDataDefinition`：一個類別，可幫助您定義 Markdown 格式結構化資料的結構描述和範例。
+2.  `markdownStreamingParser`：一個函數，用於創建一個解析器，該解析器處理 Markdown 區塊流並發出事件。
 
 以下部分提供了與處理結構化資料流相關的逐步說明和程式碼範例。
 
@@ -199,7 +199,6 @@ handleEvents {
 首先，定義一個資料類別來表示您的結構化資料：
 
 <!--- INCLUDE
-import ai.koog.agents.core.tools.ToolArgs
 import kotlinx.serialization.Serializable
 -->
 ```kotlin
@@ -208,7 +207,7 @@ data class Book(
     val title: String,
     val author: String,
     val description: String
-): ToolArgs
+)
 ```
 <!--- KNIT example-streaming-api-03.kt -->
 
@@ -374,9 +373,17 @@ import ai.koog.agents.core.tools.SimpleTool
 import ai.koog.agents.core.tools.ToolDescriptor
 import ai.koog.agents.example.exampleStreamingApi03.Book
 import kotlinx.serialization.KSerializer
+import kotlinx.serialization.Serializable
 
 -->
 ```kotlin
+@Serializable
+data class Book(
+   val title: String,
+   val author: String,
+   val description: String
+)
+
 class BookTool(): SimpleTool<Book>() {
     
     companion object { const val NAME = "book" }
@@ -389,14 +396,9 @@ class BookTool(): SimpleTool<Book>() {
 
     override val argsSerializer: KSerializer<Book>
         get() = Book.serializer()
-    
-    override val descriptor: ToolDescriptor
-        get() = ToolDescriptor(
-            name = NAME,
-            description = "A tool to parse book information from Markdown",
-            requiredParameters = listOf(),
-            optionalParameters = listOf()
-        )
+
+    override val name: String = NAME
+    override val description: String = "A tool to parse book information from Markdown"
 }
 ```
 <!--- KNIT example-streaming-api-08.kt -->
@@ -406,7 +408,6 @@ class BookTool(): SimpleTool<Book>() {
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.forwardTo
 import ai.koog.agents.core.dsl.builder.strategy
-import ai.koog.agents.core.tools.ToolArgs
 import ai.koog.agents.example.exampleStreamingApi04.markdownBookDefinition
 import ai.koog.agents.example.exampleStreamingApi06.parseMarkdownStreamToBooks
 import ai.koog.agents.example.exampleStreamingApi08.BookTool
@@ -422,7 +423,7 @@ val agentStrategy = strategy<String, Unit>("library-assistant") {
          val markdownStream = requestLLMStreaming(mdDefinition)
 
          parseMarkdownStreamToBooks(markdownStream).collect { book ->
-            callToolRaw(BookTool.NAME, book as ToolArgs)
+            callToolRaw(BookTool.NAME, book)
             /* 其他可能的選項：
                 callTool(BookTool::class, book)
                 callTool<BookTool>(book)

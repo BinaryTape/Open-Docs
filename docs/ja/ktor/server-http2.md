@@ -10,7 +10,8 @@
 
 [HTTP/2](https://en.wikipedia.org/wiki/HTTP/2)は、HTTP/1.xの後継として設計された、最新のバイナリ二重多重化プロトコルです。
 
-JettyおよびNettyエンジンは、Ktorが利用できるHTTP/2実装を提供します。ただし、これらには大きな違いがあり、各エンジンには追加の設定が必要です。ホストがKtor用に適切に設定されると、HTTP/2のサポートが自動的に有効になります。
+JettyおよびNettyエンジンは、Ktorが利用できるHTTP/2実装を提供します。ただし、これらには大きな違いがあり、各エンジンには追加の設定が必要です。
+ホストがKtor用に適切に設定されると、HTTP/2のサポートが自動的に有効になります。
 
 主な要件:
 
@@ -19,7 +20,9 @@ JettyおよびNettyエンジンは、Ktorが利用できるHTTP/2実装を提供
 
 ## SSL証明書 {id="ssl_certificate"}
 
-仕様によると、HTTP/2は暗号化を必須としませんが、すべてのブラウザはHTTP/2で使用するために暗号化された接続を要求します。そのため、動作するTLS環境がHTTP/2を有効にするための前提条件となります。したがって、暗号化を有効にするには証明書が必要です。テスト目的の場合、JDKの`keytool`を使用して生成できます...
+仕様によると、HTTP/2は暗号化を必須としませんが、すべてのブラウザはHTTP/2で使用するために暗号化された接続を要求します。
+そのため、動作するTLS環境がHTTP/2を有効にするための前提条件となります。したがって、暗号化を有効にするには証明書が必要です。
+テスト目的の場合、JDKの`keytool`を使用して生成できます...
 
 ```bash
 keytool -keystore test.jks -genkeypair -alias testkey -keyalg RSA -keysize 4096 -validity 5000 -dname 'CN=localhost, OU=ktor, O=ktor, L=Unspecified, ST=Unspecified, C=US'
@@ -80,7 +83,9 @@ ktor:
 
 ## ALPN実装 {id="apln_implementation"}
 
-HTTP/2を有効にするには、ALPN ([Application-Layer Protocol Negotiation](https://en.wikipedia.org/wiki/Application-Layer_Protocol_Negotiation)) が有効になっている必要があります。最初のオプションは、ブートクラスパスに追加する必要がある外部のALPN実装を使用することです。もう1つのオプションは、OpenSSLネイティブバインディングとプリコンパイルされたネイティブバイナリを使用することです。また、特定のエンジンはこれらの方法のいずれか1つしかサポートしない場合があります。
+HTTP/2を有効にするには、ALPN ([Application-Layer Protocol Negotiation](https://en.wikipedia.org/wiki/Application-Layer_Protocol_Negotiation)) が有効になっている必要があります。最初のオプションは、ブートクラスパスに追加する必要がある外部のALPN実装を使用することです。
+もう1つのオプションは、OpenSSLネイティブバインディングとプリコンパイルされたネイティブバイナリを使用することです。
+また、特定のエンジンはこれらの方法のいずれか1つしかサポートしない場合があります。
 
 ### Jetty {id="jetty"}
 
@@ -93,7 +98,8 @@ Java 8以降でALPN APIがサポートされているため、Jettyエンジン�
 
 ### Netty {id="netty"}
 
-NettyでHTTP/2を有効にするには、OpenSSLバインディング ([tcnative netty port](https://netty.io/wiki/forked-tomcat-native.html)) を使用します。以下の例は、ネイティブ実装（OpenSSLのフォークである静的リンクされたBoringSSLライブラリ）を`build.gradle.kts`ファイルに追加する方法を示しています。
+NettyでHTTP/2を有効にするには、OpenSSLバインディング ([tcnative netty port](https://netty.io/wiki/forked-tomcat-native.html)) を使用します。
+以下の例は、ネイティブ実装（OpenSSLのフォークである静的リンクされたBoringSSLライブラリ）を`build.gradle.kts`ファイルに追加する方法を示しています。
 
 ```kotlin
 val osName = System.getProperty("os.name").lowercase()
@@ -113,4 +119,25 @@ dependencies {
 }
 ```
 
-`tc.native.classifier`は、`linux-x86_64`、`osx-x86_64`、または`windows-x86_64`のいずれかである必要があります。[http2-netty](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/http2-netty)実行可能な例は、NettyのHTTP/2サポートを有効にする方法を示しています。
+`tc.native.classifier`は、`linux-x86_64`、`osx-x86_64`、または`windows-x86_64`のいずれかである必要があります。
+[http2-netty](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/http2-netty)実行可能な例は、NettyのHTTP/2サポートを有効にする方法を示しています。
+
+#### TLSなしのHTTP/2
+
+Nettyエンジンは、[クリアテキスト上のHTTP/2 (h2c)](https://httpwg.org/specs/rfc7540.html#discover-http)もサポートしています。
+これにより、暗号化が不要なプライベートネットワーク内など、TLSなしでHTTP/2通信が可能になります。
+クライアントはHTTP/1.1リクエストで通信を開始し、その後HTTP/2にアップグレードできます。
+
+h2cを有効にするには、エンジン設定で`enableH2c`フラグを`true`に設定します。
+
+```kotlin
+embeddedServer(Netty, configure = {
+    connector {
+        port = 8080
+    }
+    enableHttp2 = true
+    enableH2c = true
+})
+```
+
+h2cには`enableHttp2 = true`が必要であり、サーバーにSSLコネクタが設定されている場合は使用できないことに注意してください。

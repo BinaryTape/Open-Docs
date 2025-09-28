@@ -3,6 +3,7 @@
 ## 未发布
 
 ### 新增
+- [PostgreSQL 变体] 添加对 Postgres Triggers 的有限支持 (#5932 by [Griffio][griffio])
 - [PostgreSQL 变体] 添加谓词来检测 SQL 表达式是否可解析为 JSON (#5843 by [Griffio][griffio])
 - [PostgreSQL 变体] 添加对 PostgreSql Comment On 语句的有限支持 (#5808 by [Griffio][griffio])
 - [MySQL 变体] 添加对索引可见性选项的支持 (#5785 by [Oren Kislev][orenkislev-faire])
@@ -19,8 +20,8 @@
 - [IntelliJ 插件] 避免了复制到 SQLite 边槽操作中与线程相关的崩溃 (#5901 by [Griffio][griffio])
 - [IntelliJ 插件] 修复了 PostgreSQL 变体在使用 schema 语句 CREATE INDEX 和 CREATE VIEW 时的问题 (#5772 by [Griffio][griffio])
 - [编译器] 修复了引用列时 FTS 的栈溢出问题 (#5896 by [Griffio][griffio])
-- [编译器] 修复了 WITH RECURSIVE 的栈溢出问题 (#5892 by [Griffio][griffio])
-- [编译器] 修复了 INSERT|UPDATE|DELETE RETURNING 语句的通知功能 (#5851 by [Griffio][griffio])
+- [编译器] 修复了 With Recursive 栈溢出问题 (#5892 by [Griffio][griffio])
+- [编译器] 修复了 Insert|Update|Delete Returning 语句的通知功能 (#5851 by [Griffio][griffio])
 - [编译器] 修复了返回 Long 的事务块的异步结果类型问题 (#5836 by [Griffio][griffio])
 - [编译器] 将 SQL 参数绑定的复杂度从 O(n²) 优化到 O(n) (#5898 by [Chen Frenkel][chenf7])
 - [SQLite 变体] 修复 Sqlite 3.18 缺失的函数 (#5759 by [Griffio][griffio])
@@ -29,7 +30,7 @@
 
 ### 新增
 - [WASM 驱动] 添加对 wasmJs 到 web worker 驱动的支持 (#5534 by [Ilya Gulya][IlyaGulya])
-- [PostgreSQL 变体] 支持 PostgreSQL UnNest 数组到行 (#5673 by [Griffio][griffio])
+- [PostgreSQL 变体] 支持 PostgreSql UnNest 数组到行 (#5673 by [Griffio][griffio])
 - [PostgreSQL 变体] PostgreSQL TSRANGE/TSTZRANGE 支持 (#5297 by [Griffio][griffio])
 - [PostgreSQL 变体] PostgreSQL Right Full Join (#5086 by [Griffio][griffio])
 - [PostgreSQL 变体] PostgreSQL 从时间类型中提取 (#5273 by [Griffio][griffio])
@@ -42,7 +43,7 @@
 - [PostgreSQL 变体] PostgreSQL AT TIME ZONE (#5243 by [Griffio][griffio])
 - [PostgreSQL 变体] 支持 PostgreSQL ORDER BY NULLS (#5199 by [Griffio][griffio])
 - [PostgreSQL 变体] 添加 PostgreSQL 当前日期/时间函数支持 (#5226 by [Drew Dobson][drewd])
-- [PostgreSQL 变体] PostgreSQL 正则表达式操作符 (#5137 by [Griffio][griffio])
+- [PostgreSQL 变体] PostgreSQL Regex 操作符 (#5137 by [Griffio][griffio])
 - [PostgreSQL 变体] 添加 brin gist (#5059 by [Griffio][griffio])
 - [MySQL 变体] 支持 MySQL 变体的 RENAME INDEX (#5212 by [Oren Kislev][orenkislev-faire])
 - [JSON 扩展] 为 JSON 表函数添加别名 (#5372 by [Griffio][griffio])
@@ -66,7 +67,7 @@
 - [JDBC 驱动] 如文档所述，在事务中运行 SQLite 迁移 (#5218 by [Lukáš Moravec][morki])
 - [JDBC 驱动] 修复事务提交/回滚后连接泄漏 (#5205 by [Lukáš Moravec][morki])
 - [Gradle 插件] 在 `GenerateSchemaTask` 之前执行 `DriverInitializer` (#5562 by [Emeka Nwagu][nwagu])
-- [运行时] 修复 `LogSqliteDriver` 在实际驱动为异步时的崩溃 (#5723 by [Eric Denman][edenman])
+- [运行时] 修复 LogSqliteDriver 在实际驱动为异步时的崩溃 (#5723 by [Eric Denman][edenman])
 - [运行时] 修复 StringBuilder 容量 (#5192 by [Jan Bína][janbina])
 - [PostgreSQL 变体] PostgreSQL CREATE OR REPLACE VIEW (#5407 by [Griffio][griffio])
 - [PostgreSQL 变体] PostgreSQL to_json (#5606 by [Griffio][griffio])
@@ -86,8 +87,8 @@
 ## [2.0.2] - 2024-04-05
 
 ### 新增
-- [PostgreSQL 变体] 添加 PostgreSQL `STRING_AGG` 函数 (#4950 by [André Danielsson][anddani])
-- [PostgreSQL 变体] 为 pg 变体添加 `SET` 语句 (#4927 by [Bastien de Luca][de-luca])
+- [PostgreSQL 变体] 添加 PostgreSQL STRING_AGG 函数 (#4950 by [André Danielsson][anddani])
+- [PostgreSQL 变体] 为 pg 变体添加 SET 语句 (#4927 by [Bastien de Luca][de-luca])
 - [PostgreSQL 变体] 添加 PostgreSQL ALTER COLUMN SEQUENCE 参数 (#4916 by [Griffio][griffio])
 - [PostgreSQL 变体] 为 INSERT 语句添加 PostgreSQL ALTER COLUMN DEFAULT 支持 (#4912 by [Griffio][griffio])
 - [PostgreSQL 变体] 添加 PostgreSQL ALTER SEQUENCE 和 DROP SEQUENCE (#4920 by [Griffio][griffio])
@@ -96,11 +97,11 @@
 
 ### 变更
 - [IDE 插件] 最低版本 2023.1 / Android Studio Iguana
-- [编译器] 允许在 `encapsulatingType` 中覆盖类型可空性 (#4882 by [Eliezer Graber][eygraber])
-- [编译器] 内联 `SELECT *` 的列名
-- [Gradle 插件] 切换到 `processIsolation` (#5068 by [Emeka Nwagu][nwagu])
+- [编译器] 允许在 encapsulatingType 中覆盖类型可空性 (#4882 by [Eliezer Graber][eygraber])
+- [编译器] 内联 SELECT * 的列名
+- [Gradle 插件] 切换到 processIsolation (#5068 by [Emeka Nwagu][nwagu])
 - [Android 运行时] 将 Android minSDK 提高到 21 (#5094 by [Philip Wedemann][hfhbd])
-- [驱动] 为变体作者公开更多 JDBC/R2DBC 语句方法 (#5098 by [Philip Wedemann][hfhbd])
+- [驱动] 为变体作者暴露更多 JDBC/R2DBC 语句方法 (#5098 by [Philip Wedemann][hfhbd])
 
 ### 修复
 - [PostgreSQL 变体] 修复 PostgreSQL ALTER TABLE ALTER COLUMN (#4868 by [Griffio][griffio])
@@ -120,27 +121,27 @@
 - [IDE 插件] BugSnag 未能在 IDEA 2023.3 中初始化 (by [Alexander Perfilyev][aperfilyev])
 - [IDE 插件] 在 IntelliJ 中通过插件打开 `.sq` 文件时出现 PluginException (by [Alexander Perfilyev][aperfilyev])
 - [IDE 插件] 不要将 kotlin 库打包到 intellij 插件中，因为它已经是插件依赖项 (#5126)
-- [IDE 插件] 使用 `extensions` 数组而不是 stream (#5127)
+- [IDE 插件] 使用 extensions 数组而不是 stream (#5127)
 
 ## [2.0.1] - 2023-12-01
 
 ### 新增
-- [编译器] 添加对 `SELECT` 中多列表达式的支持 (#4453 by [Adriel Martinez][Adriel-M])
-- [PostgreSQL 变体] 添加对 PostgreSQL `CREATE INDEX CONCURRENTLY` 的支持 (#4531 by [Griffio][griffio])
+- [编译器] 添加对 SELECT 中多列表达式的支持 (#4453 by [Adriel Martinez][Adriel-M])
+- [PostgreSQL 变体] 添加对 PostgreSQL CREATE INDEX CONCURRENTLY 的支持 (#4531 by [Griffio][griffio])
 - [PostgreSQL 变体] 允许 PostgreSQL CTEs 辅助语句相互引用 (#4493 by [Griffio][griffio])
 - [PostgreSQL 变体] 添加对 PostgreSQL 二元表达式和求和类型的支持 (#4539 by [Adriel Martinez][Adriel-M])
-- [PostgreSQL 变体] 添加对 PostgreSQL `SELECT DISTINCT ON` 语法的支持 (#4584 by [Griffio][griffio])
-- [PostgreSQL 变体] 添加对 `SELECT` 语句中 PostgreSQL JSON 函数的支持 (#4590 by [Marius Volkhart][MariusV])
-- [PostgreSQL 变体] 添加 `generate_series` PostgreSQL 函数 (#4717 by [Griffio][griffio])
+- [PostgreSQL 变体] 添加对 PostgreSQL SELECT DISTINCT ON 语法的支持 (#4584 by [Griffio][griffio])
+- [PostgreSQL 变体] 添加对 SELECT 语句中 PostgreSQL JSON 函数的支持 (#4590 by [Marius Volkhart][MariusV])
+- [PostgreSQL 变体] 添加 generate_series PostgreSQL 函数 (#4717 by [Griffio][griffio])
 - [PostgreSQL 变体] 添加额外的 Postgres 字符串函数定义 (#4752 by [Marius Volkhart][MariusV])
-- [PostgreSQL 变体] 将 `DATE` PostgreSQL 类型添加到 min 和 max 聚合函数 (#4816 by [André Danielsson][anddani])
+- [PostgreSQL 变体] 将 DATE PostgreSQL 类型添加到 min 和 max 聚合函数 (#4816 by [André Danielsson][anddani])
 - [PostgreSQL 变体] 将 PostgreSQL 时间类型添加到 SqlBinaryExpr (#4657 by [Griffio][griffio])
-- [PostgreSQL 变体] 添加 `TRUNCATE` 到 Postgres 变体 (#4817 by [Bastien de Luca][de-luca])
-- [SQLite 3.35 变体] 允许多个 `ON CONFLICT` 子句按顺序评估 (#4551 by [Griffio][griffio])
+- [PostgreSQL 变体] 添加 TRUNCATE 到 Postgres 变体 (#4817 by [Bastien de Luca][de-luca])
+- [SQLite 3.35 变体] 允许多个 ON CONFLICT 子句按顺序评估 (#4551 by [Griffio][griffio])
 - [JDBC 驱动] 为更愉快的 SQL 编辑添加语言注解 (#4602 by [Marius Volkhart][MariusV])
 - [原生驱动] 原生驱动：添加对 linuxArm64 的支持 (#4792 by [Philip Wedemann][hfhbd])
-- [Android 驱动] 为 AndroidSqliteDriver 添加 `windowSizeBytes` 参数 (#4804 by [Benoit Lubek][BoD])
-- [Paging3 扩展] feat: 为 OffsetQueryPagingSource 添加 `initialOffset` (#4802 by [Mohamad Jaara][MohamadJaara])
+- [Android 驱动] 为 AndroidSqliteDriver 添加 windowSizeBytes 参数 (#4804 by [Benoit Lubek][BoD])
+- [Paging3 扩展] 特性：为 OffsetQueryPagingSource 添加 initialOffset (#4802 by [Mohamad Jaara][MohamadJaara])
 
 ### 变更
 - [编译器] 在适当情况下优先使用 Kotlin 类型 (#4517 by [Eliezer Graber][eygraber])
@@ -158,7 +159,7 @@
 - [IDE 插件] 如果已设置，则使用 IDEA 项目 JDK (#4689 by [Griffio][griffio])
 - [IDE 插件] 修复 IDEA 2023.2 及更高版本中的“未知元素类型：TYPE_NAME”错误 (#4727)
 - [IDE 插件] 修复了一些与 2023.2 的兼容性问题
-- [Gradle 插件] 更正 `verifyMigrationTask` Gradle 任务的文档 (#4713 by [Josh Friend][joshfriend])
+- [Gradle 插件] 更正 verifyMigrationTask Gradle 任务的文档 (#4713 by [Josh Friend][joshfriend])
 - [Gradle 插件] 添加 Gradle 任务输出消息以帮助用户在验证数据库之前生成数据库 (#4684 by [Jingwei][jingwei99])
 - [PostgreSQL 变体] 修复 PostgreSQL 列的多次重命名问题 (#4566 by [Griffio][griffio])
 - [PostgreSQL 变体] 修复 4714 PostgreSQL ALTER COLUMN NULLABILITY (#4831 by [Griffio][griffio])
@@ -168,19 +169,19 @@
 - [SQLite 变体] 更新 FROM 语句对发现多个同名列的误报 (#4777 by [Eliezer Graber][eygraber])
 - [原生驱动] 支持命名内存数据库 (#4662 by [Matthew Nelson][05nelsonm])
 - [原生驱动] 确保查询监听器集合的线程安全 (#4567 by [Kevin Galligan][kpgalligan])
-- [JDBC 驱动] 修复 `ConnectionManager` 中的连接泄漏 (#4589 by [Marius Volkhart][MariusV])
-- [JDBC 驱动] 修复 `JdbcSqliteDriver` 在选择 ConnectionManager 类型时的 URL 解析 (#4656 by [Matthew Nelson][05nelsonm])
+- [JDBC 驱动] 修复 ConnectionManager 中的连接泄漏 (#4589 by [Marius Volkhart][MariusV])
+- [JDBC 驱动] 修复 JdbcSqliteDriver 在选择 ConnectionManager 类型时的 URL 解析 (#4656 by [Matthew Nelson][05nelsonm])
 
 ## [2.0.0] - 2023-07-26
 
 ### 新增
-- [MySQL 变体] MySQL: 支持 IF 表达式中的 `timestamp`/`bigint` (#4329 by [Mike Gershunovsky][shellderp])
-- [MySQL 变体] MySQL: 添加 `now` (#4431 by [Philip Wedemann][hfhbd])
+- [MySQL 变体] MySQL: 支持 IF 表达式中的 timestamp/bigint (#4329 by [Mike Gershunovsky][shellderp])
+- [MySQL 变体] MySQL: 添加 now (#4431 by [Philip Wedemann][hfhbd])
 - [Web 驱动] 启用 NPM 包发布 (#4364)
 - [IDE 插件] 允许用户在 Gradle 工具连接失败时显示堆栈跟踪 (#4383)
 
 ### 变更
-- [SQLite 驱动] 简化 `JdbcSqliteDriver` 使用 schema 迁移 (#3737 by [Lukáš Moravec][morki])
+- [SQLite 驱动] 简化 JdbcSqliteDriver 使用 schema 迁移 (#3737 by [Lukáš Moravec][morki])
 - [R2DBC 驱动] 真实的异步 R2DBC 游标 (#4387 by [Philip Wedemann][hfhbd])
 
 ### 修复
@@ -197,10 +198,10 @@
 ## [2.0.0-rc02] - 2023-06-27
 
 ### 新增
-- [MySQL 变体] 支持小写日期类型以及日期类型的 `min` 和 `max` (#4243 by [Mike Gershunovsky][shellderp])
+- [MySQL 变体] 支持小写日期类型以及日期类型的 min 和 max (#4243 by [Mike Gershunovsky][shellderp])
 - [MySQL 变体] 支持 MySQL 二元表达式和求和类型 (#4254 by [Mike Gershunovsky][shellderp])
 - [MySQL 变体] 支持没有显示宽度的无符号整数 (#4306 by [Mike Gershunovsky][shellderp])
-- [MySQL 变体] 支持 `LOCK IN SHARED MODE`
+- [MySQL 变体] 支持 LOCK IN SHARED MODE
 - [PostgreSQL 变体] 添加布尔值和 Timestamp 到 min max (#4245 by [Griffio][griffio])
 - [PostgreSQL 变体] Postgres: 添加窗口函数支持 (#4283 by [Philip Wedemann][hfhbd])
 - [运行时] 为运行时添加 linuxArm64、androidNative 和 watchosDeviceArm 目标 (#4258 by [Philip Wedemann][hfhbd])
@@ -208,7 +209,7 @@
 
 ### 变更
 - [Gradle 插件] 为 Android API 34 添加自动变体支持 (#4251)
-- [Paging 扩展] 为 QueryPagingSource 添加 SuspendingTransacter 支持 (#4292 by [Ilya Polenov][daio])
+- [Paging 扩展] 添加对 QueryPagingSource 中 SuspendingTransacter 的支持 (#4292 by [Ilya Polenov][daio])
 - [运行时] 改进 addListener API (#4244 by [Philip Wedemann][hfhbd])
 - [运行时] 使用 Long 作为迁移版本 (#4297 by [Philip Wedemann][hfhbd])
 
@@ -228,7 +229,7 @@
 - [PostgreSQL 变体] 添加 PostgreSQL 列默认间隔 (#4142 by [Griffio][griffio])
 - [PostgreSQL 变体] 添加 PostgreSQL 间隔列结果 (#4152 by [Griffio][griffio])
 - [PostgreSQL 变体] 添加 PostgreSQL ALTER COLUMN (#4165 by [Griffio][griffio])
-- [PostgreSQL 变体] PostgreSQL: 添加 `date_part` (#4198 by [Philip Wedemann][hfhbd])
+- [PostgreSQL 变体] PostgreSQL: 添加 date_part (#4198 by [Philip Wedemann][hfhbd])
 - [MySQL 变体] 添加 SQL 字符长度函数 (#4134 by [Griffio][griffio])
 - [IDE 插件] 添加 sqldelight 目录建议 (#3976 by [Alexander Perfilyev][aperfilyev])
 - [IDE 插件] 在项目树中压缩中间包 (#3992 by [Alexander Perfilyev][aperfilyev])
@@ -240,7 +241,7 @@
 ### 变更
 - [Gradle 插件] 允许使用 ServiceLoader 机制为 VerifyMigrationTask 注册 DriverInitializer (#3986 by [Alex Doubov][C2H6O])
 - [Gradle 插件] 创建显式编译器环境 (#4079 by [Philip Wedemann][hfhbd])
-- [JS 驱动] 将 web worker 驱动拆分为单独的构件
+- [JS 驱动] 将 web worker 驱动拆分为单独的 artifact
 - [JS 驱动] 不暴露 JsWorkerSqlCursor (#3874 by [Philip Wedemann][hfhbd])
 - [JS 驱动] 禁用 sqljs 驱动的发布 (#4108)
 - [运行时] 强制同步驱动需要同步 schema 初始化器 (#4013)
@@ -256,7 +257,7 @@
 - [Gradle 插件] 小幅 Gradle 插件质量改进 (#3930 by [Zac Sweers][zacsweers])
 - [IDE 插件] 修复未解析的 Kotlin 类型 (#3924 by [Alexander Perfilyev][aperfilyev])
 - [IDE 插件] 修复展开通配符意图以与限定符一起使用 (#3979 by [Alexander Perfilyev][aperfilyev])
-- [IDE 插件] 如果 `java home` 缺失，则使用可用 JDK (#3925 by [Alexander Perfilyev][aperfilyev])
+- [IDE 插件] 如果 java home 缺失，则使用可用 JDK (#3925 by [Alexander Perfilyev][aperfilyev])
 - [IDE 插件] 修复包名查找使用 (#4010)
 - [IDE 插件] 不显示无效元素的自动导入 (#4008)
 - [IDE 插件] 如果缺少变体，则不解析 (#4009)
@@ -271,27 +272,27 @@
 
 ### 新增
 - [Paging] 多平台 Paging 扩展 (by [Jeff Lockhart][jeffdgr8])
-- [运行时] 为 `Listener` 接口添加 `fun` 修饰符。
-- [SQLite 变体] 添加 SQLite 3.33 支持 (`UPDATE FROM`) (by [Eliezer Graber][eygraber])
-- [PostgreSQL 变体] 支持 PostgreSQL 中的 `UPDATE FROM` (by [Eliezer Graber][eygraber])
+- [运行时] 为 Listener 接口添加 fun 修饰符。
+- [SQLite 变体] 添加 SQLite 3.33 支持 (UPDATE FROM) (by [Eliezer Graber][eygraber])
+- [PostgreSQL 变体] 支持 PostgreSQL 中的 UPDATE FROM (by [Eliezer Graber][eygraber])
 
 ### 变更
 - [R2DBC 驱动] 暴露连接 (by [Philip Wedemann][hfhbd])
-- [运行时] 将迁移回调移到主 `migrate` 函数中
+- [运行时] 将迁移回调移到主 migrate 函数中
 - [Gradle 插件] 向下游项目隐藏配置
 - [Gradle 插件] 仅着色 IntelliJ (by [Philip Wedemann][hfhbd])
 - [Gradle 插件] 支持 Kotlin 1.8.0-Beta 并添加多版本 Kotlin 测试 (by [Philip Wedemann][hfhbd])
 
 ### 修复
-- [R2DBC 驱动] 使用 `javaObjectType` 代替 (by [Philip Wedemann][hfhbd])
-- [R2DBC 驱动] 修复 `bindStatement` 中的原始空值 (by [Philip Wedemann][hfhbd])
+- [R2DBC 驱动] 使用 javaObjectType 代替 (by [Philip Wedemann][hfhbd])
+- [R2DBC 驱动] 修复 bindStatement 中的原始空值 (by [Philip Wedemann][hfhbd])
 - [R2DBC 驱动] 支持 R2DBC 1.0 (by [Philip Wedemann][hfhbd])
 - [PostgreSQL 变体] Postgres: 修复不带类型参数的数组 (by [Philip Wedemann][hfhbd])
 - [IDE 插件] 将 intellij 提升到 221.6008.13 (by [Philip Wedemann][hfhbd])
 - [编译器] 从纯视图解析递归源表 (by [Philip Wedemann][hfhbd])
 - [编译器] 使用表外键子句中的值类 (by [Philip Wedemann][hfhbd])
-- [编译器] 修复 `SelectQueryGenerator` 以支持不带圆括号的绑定表达式 (by [Doogie Min][bellatoris])
-- [编译器] 修复使用事务时重复生成 `${name}Indexes` 变量的问题 (by [Andreas Sacher][sachera])
+- [编译器] 修复 SelectQueryGenerator 以支持不带圆括号的绑定表达式 (by [Doogie Min][bellatoris])
+- [编译器] 修复使用事务时重复生成 ${name}Indexes 变量的问题 (by [Andreas Sacher][sachera])
 
 ## [1.5.5] - 2023-01-20
 
@@ -306,42 +307,42 @@
 ### 破坏性变更
 
 - Paging 3 扩展 API 已更改为仅允许 int 类型用于计数。
-- 协程扩展现在需要传入 `dispatcher` 而不是默认值。
+- 协程扩展现在需要传入 dispatcher 而不是默认值。
 - 变体和驱动类是最终的，请改用委托。
 
 ### 新增
-- [HSQL 变体] HSQL: 支持在 INSERT 中使用 `DEFAULT` 用于生成列 (#3372 by [Philip Wedemann][hfhbd])
-- [PostgreSQL 变体] PostgreSQL: 支持在 INSERT 中使用 `DEFAULT` 用于生成列 (#3373 by [Philip Wedemann][hfhbd])
-- [PostgreSQL 变体] 添加 `NOW()` 到 PostgreSQL (#3403 by [Philip Wedemann][hfhbd])
-- [PostgreSQL 变体] PostgreSQL 添加 `NOT` 操作符 (#3504 by [Philip Wedemann][hfhbd])
-- [Paging] 允许将 CoroutineContext 传入 `*QueryPagingSource` (#3384)
+- [HSQL 变体] HSQL: 支持在 INSERT 中使用 DEFAULT 用于生成列 (#3372 by [Philip Wedemann][hfhbd])
+- [PostgreSQL 变体] PostgreSQL: 支持在 INSERT 中使用 DEFAULT 用于生成列 (#3373 by [Philip Wedemann][hfhbd])
+- [PostgreSQL 变体] 添加 NOW() 到 PostgreSQL (#3403 by [Philip Wedemann][hfhbd])
+- [PostgreSQL 变体] PostgreSQL 添加 NOT 操作符 (#3504 by [Philip Wedemann][hfhbd])
+- [Paging] 允许将 CoroutineContext 传入 *QueryPagingSource (#3384)
 - [Gradle 插件] 添加更好的版本目录支持变体 (#3435)
-- [原生驱动] 添加回调以钩入 `NativeSqliteDriver` 的 `DatabaseConfiguration` 创建 (#3512 by [Sven Jacobs][svenjacobs])
+- [原生驱动] 添加回调以钩入 NativeSqliteDriver 的 DatabaseConfiguration 创建 (#3512 by [Sven Jacobs][svenjacobs])
 
 ### 变更
 - [Paging] 为 KeyedQueryPagingSource 支持的 QueryPagingSource 函数添加默认调度器 (#3385)
 - [Paging] 使 OffsetQueryPagingSource 仅与 Int 配合使用 (#3386)
-- [异步运行时] 将 `await*` 移动到上层类 `ExecutableQuery` (#3524 by [Philip Wedemann][hfhbd])
+- [异步运行时] 将 await* 移动到上层类 ExecutableQuery (#3524 by [Philip Wedemann][hfhbd])
 - [协程扩展] 移除流扩展的默认参数 (#3489)
 
 ### 修复
 - [Gradle 插件] 更新到 Kotlin 1.7.20 (#3542 by [Zac Sweers][zacsweers])
 - [R2DBC 驱动] 采纳 R2DBC 更改，这些更改不总是发送值 (#3525 by [Philip Wedemann][hfhbd])
-- [HSQL 变体] 修复使用 HSQL 导致 `sqlite VerifyMigrationTask` 失败 (#3380 by [Philip Wedemann][hfhbd])
+- [HSQL 变体] 修复使用 HSQL 导致 sqlite VerifyMigrationTask 失败 (#3380 by [Philip Wedemann][hfhbd])
 - [Gradle 插件] 将任务转换为使用 Gradle 的惰性配置 API (by [Matthew Haughton][3flex])
 - [Gradle 插件] 避免 Kotlin 1.7.20 中的 NPE (#3398 by [Zac Sweers][ZacSweers])
 - [Gradle 插件] 修复 squash migrations 任务的描述 (#3449)
-- [IDE 插件] 修复较新 Kotlin 插件中的 `NoSuchFieldError` (#3422 by [Madis Pink][madisp])
+- [IDE 插件] 修复较新 Kotlin 插件中的 NoSuchFieldError (#3422 by [Madis Pink][madisp])
 - [IDE 插件] IDEA: UnusedQueryInspection - 修复 ArrayIndexOutOfBoundsException (#3427 by [Niklas Baudy][vanniktech])
 - [IDE 插件] 为旧 Kotlin 插件引用使用反射
 - [编译器] 带有扩展函数的自定义变体不创建导入 (#3338 by [Philip Wedemann][hfhbd])
-- [编译器] 修复转义 `CodeBlock.of("${CodeBlock.toString()}")` (#3340 by [Philip Wedemann][hfhbd])
+- [编译器] 修复转义 CodeBlock.of("${CodeBlock.toString()}") (#3340 by [Philip Wedemann][hfhbd])
 - [编译器] 迁移中等待异步执行语句 (#3352)
 - [编译器] 修复 AS (#3370 by [Philip Wedemann][hfhbd])
 - [编译器] `getObject` 方法支持自动填充实际类型 (#3401 by [Rob X][robx])
 - [编译器] 修复异步分组返回语句的代码生成 (#3411)
 - [编译器] 如果可能，推断绑定参数的 Kotlin 类型，否则抛出更好的错误消息 (#3413 by [Philip Wedemann][hfhbd])
-- [编译器] 不允许 `ABS("foo")` (#3430 by [Philip Wedemann][hfhbd])
+- [编译器] 不允许 ABS("foo") (#3430 by [Philip Wedemann][hfhbd])
 - [编译器] 支持从其他参数推断 Kotlin 类型 (#3431 by [Philip Wedemann][hfhbd])
 - [编译器] 始终创建数据库实现 (#3540 by [Philip Wedemann][hfhbd])
 - [编译器] 放宽 Javadoc 并将其添加到自定义映射函数中 (#3554 [Philip Wedemann][hfhbd])
@@ -375,9 +376,9 @@ sqldelight {
 - [Gradle 插件] 暴露 SQLDelight 任务的类路径
 - [Gradle 插件] 添加了用于压缩迁移的 Gradle 任务
 - [Gradle 插件] 添加了一个标志以在迁移检测期间忽略 schema 定义
-- [MySQL 变体] 支持 MySQL 中的 `FOR SHARE` 和 `FOR UPDATE` (#3098)
+- [MySQL 变体] 支持 MySQL 中的 FOR SHARE 和 FOR UPDATE (#3098)
 - [MySQL 变体] 支持 MySQL 索引提示 (#3099)
-- [PostgreSQL 变体] 添加 `date_trunc` (#3295 by [Philip Wedemann][hfhbd])
+- [PostgreSQL 变体] 添加 date_trunc (#3295 by [Philip Wedemann][hfhbd])
 - [JSON 扩展] 支持 JSON 表函数 (#3090)
 
 ### 变更
@@ -386,7 +387,7 @@ sqldelight {
 - [运行时] 开放变体和解析器以支持第三方实现 (#3232 by [Philip Wedemann][hfhbd])
 - [编译器] 在失败报告中包含用于编译的变体 (#3086)
 - [编译器] 跳过未使用的适配器 (#3162 by [Eliezer Graber][eygraber])
-- [编译器] 在 `PrepareStatement` 中使用零基索引 (#3269 by [Philip Wedemann][hfhbd])
+- [编译器] 在 PrepareStatement 中使用零基索引 (#3269 by [Philip Wedemann][hfhbd])
 - [Gradle 插件] 也使变体成为正确的 Gradle 依赖项而不是字符串 (#3085)
 - [Gradle 插件] Gradle 验证任务：当数据库文件缺失时抛出异常 (#3126 by [Niklas Baudy][vanniktech])
 
@@ -394,13 +395,13 @@ sqldelight {
 - [Gradle 插件] 对 Gradle 插件进行小幅清理和调整 (#3171 by [Matthew Haughton][3flex])
 - [Gradle 插件] 不使用 AGP 字符串作为生成目录
 - [Gradle 插件] 使用 AGP namespace 属性 (#3220)
-- [Gradle 插件] 不将 `kotlin-stdlib` 作为 Gradle 插件的运行时依赖项 (#3245 by [Martin Bonnin][mbonnin])
+- [Gradle 插件] 不将 kotlin-stdlib 作为 Gradle 插件的运行时依赖项 (#3245 by [Martin Bonnin][mbonnin])
 - [Gradle 插件] 简化多平台配置 (#3246 by [Martin Bonnin][mbonnin])
 - [Gradle 插件] 支持仅限 js 的项目 (#3310 by [Philip Wedemann][hfhbd])
-- [IDE 插件] 使用 `java home` 用于 Gradle 工具 API (#3078)
-- [IDE 插件] 在 IDE 插件中将 JDBC 驱动加载到正确的 `classLoader` 上 (#3080)
+- [IDE 插件] 使用 java home 用于 Gradle 工具 API (#3078)
+- [IDE 插件] 在 IDE 插件中将 JDBC 驱动加载到正确的 classLoader 上 (#3080)
 - [IDE 插件] 在失效之前将文件元素标记为 null，以避免在现有 PSI 更改期间出现错误 (#3082)
-- [IDE 插件] 在 `ALTER TABLE` 语句中查找新表名的使用时不要崩溃 (#3106)
+- [IDE 插件] 在 ALTER TABLE 语句中查找新表名的使用时不要崩溃 (#3106)
 - [IDE 插件] 优化检查器并使其能够针对预期异常类型静默失败 (#3121)
 - [IDE 插件] 删除应为生成目录的文件 (#3198)
 - [IDE 插件] 修复不安全的运算符调用
@@ -409,7 +410,7 @@ sqldelight {
 - [编译器] 公共表不生成数据类，因此不返回它们 (#3097)
 - [编译器] 更快地找到顶层迁移文件 (#3108)
 - [编译器] 正确继承管道操作符的可空性
-- [编译器] 支持 `iif` ANSI SQL 函数
+- [编译器] 支持 iif ANSI SQL 函数
 - [编译器] 不生成空的查询文件 (#3300 by [Philip Wedemann][hfhbd])
 - [编译器] 修复仅带问号的适配器 (#3314 by [Philip Wedemann][hfhbd])
 - [PostgreSQL 变体] Postgres 主键列始终不可空 (#3092)
@@ -434,7 +435,7 @@ sqldelight {
 - [PostgreSQL] 支持 PG 区间
 - [PostgreSQL] 支持 PG 布尔值并修复修改表的插入操作
 - [PostgreSQL] 支持 Postgres 中的可选限制
-- [PostgreSQL] 支持 PG `BYTEA` 类型
+- [PostgreSQL] 支持 PG BYTEA 类型
 - [PostgreSQL] 添加 Postgres 序列化测试
 - [PostgreSQL] 支持 Postgres 语法更新
 - [PostgreSQL] 支持 PostgreSQL 数组类型
@@ -458,25 +459,25 @@ sqldelight {
 - [编译器] 清理生成的代码
 - [编译器] 禁止在分组语句中使用表参数 (#1822)
 - [编译器] 将分组查询放入事务中 (#2785)
-- [运行时] 从驱动的 `execute` 方法返回更新的行数
+- [运行时] 从驱动的 execute 方法返回更新的行数
 - [运行时] 将 SqlCursor 限制在访问连接的关键部分 (#2123 by [Anders Ha][andersio])
 - [Gradle 插件] 比较迁移的 schema 定义 (#841)
 - [PostgreSQL] PG 不允许双引号
-- [MySQL] MySQL 中使用 `==` 时报错 (#2673)
+- [MySQL] MySQL 中使用 == 时报错 (#2673)
 
 ### 修复
 - [编译器] 2.0 alpha 中不同表相同适配器类型导致编译错误
 - [编译器] Upsert 语句编译问题 (#2791)
 - [编译器] 如果有多个匹配，查询结果应使用 SELECT 中的表 (#1874, #2313)
-- [编译器] 支持更新具有 `INSTEAD OF` 触发器的视图 (#1018)
-- [编译器] 支持函数名中的 `from` 和 `for`
-- [编译器] 允许 `SEPARATOR` 关键字在函数表达式中
+- [编译器] 支持更新具有 INSTEAD OF 触发器的视图 (#1018)
+- [编译器] 支持函数名中的 from 和 for
+- [编译器] 允许 SEPARATOR 关键字在函数表达式中
 - [编译器] 无法访问 ORDER BY 中别名表的 ROWID
 - [编译器] MySQL 中 HAVING 子句中未识别别名列名
 - [编译器] 错误的“发现多列”错误
-- [编译器] 无法设置 `PRAGMA locking_mode = EXCLUSIVE;`
+- [编译器] 无法设置 PRAGMA locking_mode = EXCLUSIVE;
 - [PostgreSQL] PostgreSQL 重命名列
-- [MySQL] `UNIX_TIMESTAMP`、`TO_SECONDS`、`JSON_ARRAYAGG` MySQL 函数未识别
+- [MySQL] UNIX_TIMESTAMP、TO_SECONDS、JSON_ARRAYAGG MySQL 函数未识别
 - [SQLite] 修复 SQLite 窗口功能
 - [IDE 插件] 在空进度指示器中运行 goto 处理程序 (#2990)
 - [IDE 插件] 确保如果项目未配置，高亮访问器不运行 (#2981, #2976)
@@ -515,11 +516,11 @@ sqldelight {
 - [IDE 插件] 添加 kotlin 类自动补全 (by [Alexander Perfilyev][aperfilyev])
 - [Gradle 插件] 为 Gradle 类型安全项目访问器添加快捷方式 (by [Philip Wedemann][hfhbd])
 - [编译器] 根据变体自定义代码生成 (by [Marius Volkhart][MariusV])
-- [JDBC 驱动] 为 `JdbcDriver` 添加通用类型 (by [Marius Volkhart][MariusV])
+- [JDBC 驱动] 为 JdbcDriver 添加通用类型 (by [Marius Volkhart][MariusV])
 - [SQLite] 添加对 SQLite 3.35 的支持 (by [Eliezer Graber][eygraber])
 - [SQLite] 添加对 ALTER TABLE DROP COLUMN 的支持 (by [Eliezer Graber][eygraber])
 - [SQLite] 添加对 Sqlite 3.30 变体的支持 (by [Eliezer Graber][eygraber])
-- [SQLite] 支持 SQLite 中的 `NULLS FIRST`/`LAST` (by [Eliezer Graber][eygraber])
+- [SQLite] 支持 SQLite 中的 NULLS FIRST/LAST (by [Eliezer Graber][eygraber])
 - [HSQL] 添加 HSQL 对生成子句的支持 (by [Marius Volkhart][MariusV])
 - [HSQL] 添加对 HSQL 中命名参数的支持 (by [Marius Volkhart][MariusV])
 - [HSQL] 自定义 HSQL 插入查询 (by [Marius Volkhart][MariusV])
@@ -530,8 +531,8 @@ sqldelight {
 - [运行时] 切换到驱动实现的查询通知。
 - [运行时] 将默认列适配器提取到单独的模块 (#2056, #2060)
 - [编译器] 让模块生成查询实现而不是在每个模块中重复生成
-- [编译器] 移除生成的类中自定义 `toString` 的生成。 (by [Paul Woitaschek][PaulWoitaschek])
-- [JS 驱动] 移除 sqljs-driver 对 `sql.js` 的依赖 (by [Derek Ellis][dellisd])
+- [编译器] 移除生成的类中自定义 toString 的生成。 (by [Paul Woitaschek][PaulWoitaschek])
+- [JS 驱动] 移除 sqljs-driver 对 sql.js 的依赖 (by [Derek Ellis][dellisd])
 - [Paging] 移除 Android Paging 2 扩展
 - [IDE 插件] SQLDelight 同步时添加编辑器横幅 (#2511)
 - [IDE 插件] 最低支持 IntelliJ 版本为 2021.1
@@ -558,23 +559,23 @@ sqldelight {
 - [Gradle 插件] 生成代码时对文件进行排序以确保幂等输出 (by [Zac Sweers][ZacSweers])
 - [编译器] 使用更快的 API 迭代文件，并且不探索整个 PSI 图
 - [编译器] 添加关键字 mangling 到选择函数参数 (#2759 by [Alexander Perfilyev][aperfilyev])
-- [编译器] 修复迁移适配器的 `packageName` (by [Philip Wedemann][hfhbd])
+- [编译器] 修复迁移适配器的 packageName (by [Philip Wedemann][hfhbd])
 - [编译器] 在属性而不是类型上发出注解 (#2798 by [Alexander Perfilyev][aperfilyev])
 - [编译器] 在传递给 Query 子类型之前对参数进行排序 (#2379 by [Alexander Perfilyev][aperfilyev])
 
 ## [1.5.3] - 2021-11-23
 ### 新增
-- [JDBC 驱动] 开放 `JdbcDriver` 以供第三方驱动实现 (#2672 by [Philip Wedemann][hfhbd])
+- [JDBC 驱动] 开放 JdbcDriver 以供第三方驱动实现 (#2672 by [Philip Wedemann][hfhbd])
 - [MySQL 变体] 添加缺失的时间增量函数 (#2671 by [Sam Doward][sdoward])
 - [协程扩展] 为协程扩展添加 M1 目标 (by [Philip Dukhov][PhilipDukhov])
 
 ### 变更
-- [Paging3 扩展] 将 `sqldelight-android-paging3` 分发为 JAR 而不是 AAR (#2634 by [Marco Romano][julioromano])
+- [Paging3 扩展] 将 sqldelight-android-paging3 分发为 JAR 而不是 AAR (#2634 by [Marco Romano][julioromano])
 - 属性名如果也是软关键字，现在将以 `_` 为后缀。例如，`value` 将被公开为 `value_`
 
 ### 修复
 - [编译器] 不为重复数组参数提取变量 (by [Alexander Perfilyev][aperfilyev])
-- [Gradle 插件] 添加 `kotlin.mpp.enableCompatibilityMetadataVariant` (#2628 by [Martin Bonnin][martinbonnin])
+- [Gradle 插件] 添加 kotlin.mpp.enableCompatibilityMetadataVariant (#2628 by [Martin Bonnin][martinbonnin])
 - [IDE 插件] 查找使用处理需要读取操作
 
 ## [1.5.2] - 2021-10-12
@@ -586,12 +587,12 @@ sqldelight {
 - [SQLite 驱动] 添加 mingwX86 目标 (#2558 by [Nikita Kozhemyakin][enginegl])
 - [SQLite 驱动] 添加 M1 目标
 - [SQLite 驱动] 添加 linuxX64 支持 (#2456 by [Cedric Hippmann][chippmann])
-- [MySQL 变体] 为 MySQL 添加 `ROW_COUNT` 函数 (#2523)
+- [MySQL 变体] 为 MySQL 添加 ROW_COUNT 函数 (#2523)
 - [PostgreSQL 变体] PostgreSQL 重命名，删除列 (by [Juan Liska][pabl0rg])
 - [PostgreSQL 变体] PostgreSQL 语法不识别 CITEXT
-- [PostgreSQL 变体] 包含 `TIMESTAMP WITH TIME ZONE` 和 `TIMESTAMPTZ`
+- [PostgreSQL 变体] 包含 TIMESTAMP WITH TIME ZONE 和 TIMESTAMPTZ
 - [PostgreSQL 变体] 为 PostgreSQL GENERATED 列添加语法
-- [运行时] 提供 SqlDriver 作为 `AfterVersion` 的参数 (#2534, 2614 by [Ahmed El-Helw][ahmedre])
+- [运行时] 提供 SqlDriver 作为 AfterVersion 的参数 (#2534, 2614 by [Ahmed El-Helw][ahmedre])
 
 ### 变更
 - [Gradle 插件] 明确要求 Gradle 7.0 (#2572 by [Martin Bonnin][martinbonnin])
@@ -605,28 +606,28 @@ sqldelight {
 - [IDE 插件] 避免在未使用查询检查期间崩溃 (#2610)
 - [IDE 插件] 在写入操作中运行数据库同步写入 (#2605)
 - [IDE 插件] 让 IDE 调度 SQLDelight 同步
-- [IDE 插件] 修复 `JavaTypeMixin` 中的 NPE (#2603 by [Alexander Perfilyev][aperfilyev])
-- [IDE 插件] 修复 `MismatchJoinColumnInspection` 中的 `IndexOutOfBoundsException` (#2602 by [Alexander Perfilyev][aperfilyev])
-- [IDE 插件] 为 `UnusedColumnInspection` 添加描述 (#2600 by [Alexander Perfilyev][aperfilyev])
-- [IDE 插件] 将 `PsiElement.generatedVirtualFiles` 包装到读取操作中 (#2599 by [Alexander Perfilyev][aperfilyev])
+- [IDE 插件] 修复 JavaTypeMixin 中的 NPE (#2603 by [Alexander Perfilyev][aperfilyev])
+- [IDE 插件] 修复 MismatchJoinColumnInspection 中的 IndexOutOfBoundsException (#2602 by [Alexander Perfilyev][aperfilyev])
+- [IDE 插件] 为 UnusedColumnInspection 添加描述 (#2600 by [Alexander Perfilyev][aperfilyev])
+- [IDE 插件] 将 PsiElement.generatedVirtualFiles 包装到读取操作中 (#2599 by [Alexander Perfilyev][aperfilyev])
 - [IDE 插件] 移除不必要的非空转换 (#2596)
 - [IDE 插件] 正确处理查找使用的空值 (#2595)
 - [IDE 插件] 修复 Android 生成文件的 IDE 自动补全 (#2573 by [Martin Bonnin][martinbonnin])
-- [IDE 插件] 修复 `SqlDelightGotoDeclarationHandler` 中的 NPE (by [Alexander Perfilyev][aperfilyev])
+- [IDE 插件] 修复 SqlDelightGotoDeclarationHandler 中的 NPE (by [Alexander Perfilyev][aperfilyev])
 - [IDE 插件] 在 insert 语句中对参数中的 Kotlin 关键字进行 mangling (#2433 by [Alexander Perfilyev][aperfilyev])
-- [IDE 插件] 修复 `SqlDelightFoldingBuilder` 中的 NPE (#2382 by [Alexander Perfilyev][aperfilyev])
-- [IDE 插件] 捕获 `CopyPasteProcessor` 中的 `ClassCastException` (#2369 by [Alexander Perfilyev][aperfilyev])
+- [IDE 插件] 修复 SqlDelightFoldingBuilder 中的 NPE (#2382 by [Alexander Perfilyev][aperfilyev])
+- [IDE 插件] 捕获 CopyPasteProcessor 中的 ClassCastException (#2369 by [Alexander Perfilyev][aperfilyev])
 - [IDE 插件] 修复更新实时模板 (by [Ilias Redissi][IliasRedissi])
 - [IDE 插件] 为意图操作添加描述 (#2489 by [Alexander Perfilyev][aperfilyev])
-- [IDE 插件] 修复 `CreateTriggerMixin` 中找不到表时的异常 (by [Alexander Perfilyev][aperfilyev])
+- [IDE 插件] 修复 CreateTriggerMixin 中找不到表时的异常 (by [Alexander Perfilyev][aperfilyev])
 - [编译器] 拓扑排序表创建语句
-- [编译器] 停止在目录上调用 `forDatabaseFiles` 回调 (#2532)
-- [Gradle 插件] 将 `generateDatabaseInterface` 任务依赖传播到潜在消费者 (#2518 by [Martin Bonnin][martinbonnin])
+- [编译器] 停止在目录上调用 forDatabaseFiles 回调 (#2532)
+- [Gradle 插件] 将 generateDatabaseInterface 任务依赖传播到潜在消费者 (#2518 by [Martin Bonnin][martinbonnin])
 
 ## [1.5.1] - 2021-07-16
 ### 新增
 - [PostgreSQL 变体] PostgreSQL JSONB 和 ON CONFLICT DO NOTHING (by [Andrew Stewart][satook])
-- [PostgreSQL 变体] 添加对 PostgreSQL `ON CONFLICT (column, ...) DO UPDATE` 的支持 (by [Andrew Stewart][satook])
+- [PostgreSQL 变体] 添加对 PostgreSQL ON CONFLICT (column, ...) DO UPDATE 的支持 (by [Andrew Stewart][satook])
 - [MySQL 变体] 支持 MySQL 生成列 (by [Jeff Gulbronson][JeffG])
 - [原生驱动] 添加 watchosX64 支持
 - [IDE 插件] 添加参数类型和注解 (by [Alexander Perfilyev][aperfilyev])
@@ -648,16 +649,16 @@ sqldelight {
 - [JS 驱动] 将 sql.js 升级到 1.5.0
 
 ### 修复
-- [JDBC SQLite 驱动] 在清除 `ThreadLocal` 之前调用连接上的 `close()` (#2444 by [Hannes Struß][hannesstruss])
+- [JDBC SQLite 驱动] 在清除 ThreadLocal 之前调用连接上的 close() (#2444 by [Hannes Struß][hannesstruss])
 - [RX 扩展] 修复订阅/释放竞争泄漏 (#2403 by [Pierre Yves Ricau][pyricau])
 - [协程扩展] 确保在通知之前注册查询监听器
-- [编译器] 排序 `notifyQueries` 以获得一致的 Kotlin 输出文件 (by [Jiayu Chen][thomascjy])
-- [编译器] 不使用 `@JvmField` 注解 `select` 查询类属性 (by [Eliezer Graber][eygraber])
+- [编译器] 排序 notifyQueries 以获得一致的 Kotlin 输出文件 (by [Jiayu Chen][thomascjy])
+- [编译器] 不使用 @JvmField 注解 select 查询类属性 (by [Eliezer Graber][eygraber])
 - [IDE 插件] 修复导入优化器 (#2350 by [Alexander Perfilyev][aperfilyev])
 - [IDE 插件] 修复未使用列检查 (by [Alexander Perfilyev][aperfilyev])
 - [IDE 插件] 为导入检查和类注解器添加嵌套类支持 (by [Alexander Perfilyev][aperfilyev])
-- [IDE 插件] 修复 `CopyPasteProcessor` 中的 NPE (#2363 by [Alexander Perfilyev][aperfilyev])
-- [IDE 插件] 修复 `InlayParameterHintsProvider` 中的崩溃 (#2359 by [Alexander Perfilyev][aperfilyev])
+- [IDE 插件] 修复 CopyPasteProcessor 中的 NPE (#2363 by [Alexander Perfilyev][aperfilyev])
+- [IDE 插件] 修复 InlayParameterHintsProvider 中的崩溃 (#2359 by [Alexander Perfilyev][aperfilyev])
 - [IDE 插件] 修复将任何文本复制粘贴到 create table 语句时插入空白行的问题 (#2431 by [Alexander Perfilyev][aperfilyev])
 
 ## [1.5.0] - 2021-04-23
@@ -669,15 +670,15 @@ sqldelight {
 ### 新增
 - [SQLite Javascript 驱动] 启用 sqljs-driver 发布 (#1667 by [Derek Ellis][dellisd])
 - [Paging3 扩展] Android Paging 3 库扩展 (#1786 by [Kevin Cianfarini][kevincianfarini])
-- [MySQL 变体] 添加对 MySQL 的 `ON DUPLICATE KEY UPDATE` 冲突解决的支持 (by [Ryan Harter][rharter])
-- [SQLite 变体] 添加对 SQLite `offsets()` 的编译器支持 (by [Quinton Roberts][qjroberts])
+- [MySQL 变体] 添加对 MySQL 的 ON DUPLICATE KEY UPDATE 冲突解决的支持 (by [Ryan Harter][rharter])
+- [SQLite 变体] 添加对 SQLite offsets() 的编译器支持 (by [Quinton Roberts][qjroberts])
 - [IDE 插件] 为未知类型添加导入快速修复 (#683 by [Alexander Perfilyev][aperfilyev])
 - [IDE 插件] 添加未使用导入检查 (#1161 by [Alexander Perfilyev][aperfilyev])
 - [IDE 插件] 添加未使用查询检查 (by [Alexander Perfilyev][aperfilyev])
 - [IDE 插件] 添加未使用列检查 (#569 by [Alexander Perfilyev][aperfilyev])
 - [IDE 插件] 自动在复制/粘贴时导入 (#684 by [Alexander Perfilyev][aperfilyev])
 - [IDE 插件] 当 Gradle/IntelliJ 插件版本不兼容时，弹出气泡通知
-- [IDE 插件] `INSERT INTO ... VALUES(?)` 参数提示 (#506 by [Alexander Perfilyev][aperfilyev])
+- [IDE 插件] INSERT INTO ... VALUES(?) 参数提示 (#506 by [Alexander Perfilyev][aperfilyev])
 - [IDE 插件] 内联参数提示 (by [Alexander Perfilyev][aperfilyev])
 - [运行时] 在运行时中包含用于运行带回调的迁移的 API (#1844)
 
@@ -686,25 +687,25 @@ sqldelight {
 - [编译器] 防范在运行时失败的关键字 (#1471, #1629)
 - [Gradle 插件] 将 Gradle 插件大小从 60MB 减小到 13MB。
 - [Gradle 插件] 正确支持 Android 变体，并移除对 KMM 目标特定 SQL 的支持 (#1039)
-- [Gradle 插件] 根据 `minSdkVersion` 选择最低 SQLite 版本 (#1684)
+- [Gradle 插件] 根据 minSdkVersion 选择最低 SQLite 版本 (#1684)
 - [原生驱动] 原生驱动连接池和性能更新
 
 ### 修复
 - [编译器] Lambda 之前的 NBSP (by [Benoît Quenaudon][oldergod])
-- [编译器] 修复生成的 `bind*` 和 `cursor.get*` 语句中不兼容的类型
+- [编译器] 修复生成的 bind* 和 cursor.get* 语句中不兼容的类型
 - [编译器] SQL 子句应保留适配类型 (#2067)
-- [编译器] 仅包含 `NULL` 关键字的列应为可空
+- [编译器] 仅包含 NULL 关键字的列应为可空
 - [编译器] 不生成带类型注解的映射器 lambda (#1957)
 - [编译器] 如果自定义查询冲突，则使用文件名作为额外的包后缀 (#1057, #1278)
 - [编译器] 确保外键级联导致查询监听器被通知 (#1325, #1485)
 - [编译器] 如果联合两种相同类型，则返回表类型 (#1342)
-- [编译器] 确保 `ifnull` 和 `coalesce` 的参数可空 (#1263)
+- [编译器] 确保 ifnull 和 coalesce 的参数可空 (#1263)
 - [编译器] 正确使用查询施加的可空性来处理表达式
-- [MySQL 变体] 支持 MySQL `IF` 语句
-- [PostgreSQL 变体] 在 PostgreSQL 中将 `NUMERIC` 和 `DECIMAL` 作为 Double 检索 (#2118)
+- [MySQL 变体] 支持 MySQL IF 语句
+- [PostgreSQL 变体] 在 PostgreSQL 中将 NUMERIC 和 DECIMAL 作为 Double 检索 (#2118)
 - [SQLite 变体] UPSERT 通知应考虑 BEFORE/AFTER UPDATE 触发器 (#2198 by [Anders Ha][andersio])
-- [SQLite 驱动] 除非在内存中，否则 `SqliteDriver` 对线程使用多个连接 (#1832)
-- [JDBC 驱动] JDBC 驱动假定 `autoCommit` 为 true (#2041)
+- [SQLite 驱动] 除非在内存中，否则 SqliteDriver 对线程使用多个连接 (#1832)
+- [JDBC 驱动] JDBC 驱动假定 autoCommit 为 true (#2041)
 - [JDBC 驱动] 确保在异常时关闭连接 (#2306)
 - [IDE 插件] 修复 Windows 上由于路径分隔符错误导致 GoToDeclaration/FindUsages 损坏的问题 (#2054 by [Angus Holder][AngusH])
 - [IDE 插件] 忽略 Gradle 错误而不是在 IDE 中崩溃。
@@ -719,11 +720,11 @@ sqldelight {
 - [IDE 插件] 处理在 IDE 中代码生成之前检测错误时发生的异常
 - [IDE 插件] 使 IDE 插件与动态插件兼容 (#1536)
 - [Gradle 插件] 使用 WorkerApi 生成数据库的竞争条件 (#2062 by [Stéphane Nicolas][stephanenicolas])
-- [Gradle 插件] `classLoaderIsolation` 阻止自定义 JDBC 使用 (#2048 by [Ben Asher][BenA])
-- [Gradle 插件] 改进缺失 `packageName` 错误消息 (by [Niklas Baudy][vanniktech])
-- [Gradle 插件] SQLDelight 将 IntelliJ 依赖项泄露到 `buildscript` 类路径中 (#1998)
+- [Gradle 插件] classLoaderIsolation 阻止自定义 JDBC 使用 (#2048 by [Ben Asher][BenA])
+- [Gradle 插件] 改进缺失 packageName 错误消息 (by [Niklas Baudy][vanniktech])
+- [Gradle 插件] SQLDelight 将 IntelliJ 依赖项泄露到 buildscript 类路径中 (#1998)
 - [Gradle 插件] 修复 Gradle 构建缓存 (#2075)
-- [Gradle 插件] 不依赖 Gradle 插件中的 `kotlin-native-utils` (by [Ilya Matveev][ilmat192])
+- [Gradle 插件] 不依赖 Gradle 插件中的 kotlin-native-utils (by [Ilya Matveev][ilmat192])
 - [Gradle 插件] 如果只有迁移文件，也要写入数据库 (#2094)
 - [Gradle 插件] 确保钻石依赖项在最终编译单元中只被拾取一次 (#1455)
 
@@ -731,9 +732,9 @@ sqldelight {
 
 ## [1.4.4] - 2020-10-08
 ### 新增
-- [PostgreSQL 变体] 支持 `WITH` 子句中的数据修改语句
-- [PostgreSQL 变体] 支持 `substring` 函数
-- [Gradle 插件] 添加 `verifyMigrations` 标志，用于在 SQLDelight 编译期间验证迁移 (#1872)
+- [PostgreSQL 变体] 支持 WITH 子句中的数据修改语句
+- [PostgreSQL 变体] 支持 substring 函数
+- [Gradle 插件] 添加 verifyMigrations 标志，用于在 SQLDelight 编译期间验证迁移 (#1872)
 
 ### 变更
 - [编译器] 在非 SQLite 变体中将 SQLite 特定函数标记为未知
@@ -742,9 +743,9 @@ sqldelight {
 ### 修复
 - [编译器] 报告在 ORDER BY 子句中绑定列名时的错误 (#1187 by [Eliezer Graber][eygraber])
 - [编译器] 生成数据库接口时出现注册表警告 (#1792)
-- [编译器] `CASE` 语句类型推断不正确 (#1811)
+- [编译器] CASE 语句类型推断不正确 (#1811)
 - [编译器] 为没有版本的迁移文件提供更好的错误信息 (#2006)
-- [编译器] 某些数据库类型 `ColumnAdapter` 的所需数据库类型不正确 (#2012)
+- [编译器] 某些数据库类型 ColumnAdapter 的所需数据库类型不正确 (#2012)
 - [编译器] CAST 的可空性 (#1261)
 - [编译器] 查询包装器中大量名称冲突警告 (#1946 by [Eliezer Graber][eygraber])
 - [编译器] 生成的代码使用完整的限定名 (#1939)
@@ -755,60 +756,60 @@ sqldelight {
 - [IDE 插件] 对于 Gradle 项目之外的文件使用空包名 (#1973)
 - [IDE 插件] 对于无效类型优雅地失败 (#1943)
 - [IDE 插件] 遇到未知表达式时抛出更好的错误消息 (#1958)
-- [Gradle 插件] SQLDelight 将 IntelliJ 依赖项泄露到 `buildscript` 类路径中 (#1998)
-- [Gradle 插件] `*.sq` 文件中添加方法文档时出现“JavadocIntegrationKt not found”编译错误 (#1982)
+- [Gradle 插件] SQLDelight 将 IntelliJ 依赖项泄露到 buildscript 类路径中 (#1998)
+- [Gradle 插件] *.sq 文件中添加方法文档时出现“JavadocIntegrationKt not found”编译错误 (#1982)
 - [Gradle 插件] SqlDelight Gradle 插件不支持配置缓存（CoCa）(#1947 by [Stéphane Nicolas][stephanenicolas])
-- [SQLite JDBC 驱动] `SQLException: database in auto-commit mode` (#1832)
+- [SQLite JDBC 驱动] SQLException: database in auto-commit mode (#1832)
 - [协程扩展] 修复协程扩展的 IR 后端 (#1918 by [Derek Ellis][dellisd])
 
 ## [1.4.3] - 2020-09-04
 ### 新增
-- [MySQL 变体] 添加对 MySQL `last_insert_id` 函数的支持 (by [Kelvin Law][lawkai])
-- [PostgreSQL 变体] 支持 `SERIAL` 数据类型 (by [Veyndan Stuart][VeyndanS] & [Felipe Lima][felipecsl])
+- [MySQL 变体] 添加对 MySQL last_insert_id 函数的支持 (by [Kelvin Law][lawkai])
+- [PostgreSQL 变体] 支持 SERIAL 数据类型 (by [Veyndan Stuart][VeyndanS] & [Felipe Lima][felipecsl])
 - [PostgreSQL 变体] 支持 PostgreSQL RETURNING (by [Veyndan Stuart][VeyndanS])
 
 ### 修复
-- [MySQL 变体] 将 MySQL `AUTO_INCREMENT` 视为具有默认值 (#1823)
+- [MySQL 变体] 将 MySQL AUTO_INCREMENT 视为具有默认值 (#1823)
 - [编译器] 修复 Upsert 语句编译器错误 (#1809 by [Eliezer Graber][eygraber])
 - [编译器] 修复生成无效 Kotlin 代码的问题 (#1925 by [Eliezer Graber][eygraber])
 - [编译器] 为未知函数提供更好的错误信息 (#1843)
-- [编译器] 将 `instr` 的第二个参数类型公开为字符串
+- [编译器] 将 instr 的第二个参数类型公开为字符串
 - [IDE 插件] 修复 IDE 插件的守护进程膨胀和 UI 线程停滞 (#1916)
 - [IDE 插件] 处理空模块场景 (#1902)
-- [IDE 插件] 在未配置的 `sq` 文件中，包名返回空字符串 (#1920)
+- [IDE 插件] 在未配置的 sq 文件中，包名返回空字符串 (#1920)
 - [IDE 插件] 修复分组语句并添加集成测试 (#1820)
-- [IDE 插件] 使用内置的 `ModuleUtil` 查找元素的模块 (#1854)
+- [IDE 插件] 使用内置的 ModuleUtil 查找元素的模块 (#1854)
 - [IDE 插件] 只将有效元素添加到查找中 (#1909)
 - [IDE 插件] 父级可以为 null (#1857)
 
 ## [1.4.2] - 2020-08-27
 ### 新增
 - [运行时] 支持新的 JS IR 后端
-- [Gradle 插件] 添加 `generateSqlDelightInterface` Gradle 任务 (by [Niklas Baudy][vanniktech])
-- [Gradle 插件] 添加 `verifySqlDelightMigration` Gradle 任务 (by [Niklas Baudy][vanniktech])
+- [Gradle 插件] 添加 generateSqlDelightInterface Gradle 任务。 (by [Niklas Baudy][vanniktech])
+- [Gradle 插件] 添加 verifySqlDelightMigration Gradle 任务。 (by [Niklas Baudy][vanniktech])
 
 ### 修复
 - [IDE 插件] 使用 Gradle 工具 API 促进 IDE 和 Gradle 之间的数据共享
 - [IDE 插件] schema 派生默认设为 false
-- [IDE 插件] 正确检索 `commonMain` 源代码集
-- [MySQL 变体] 为 `mySqlFunctionType()` 添加 `minute` (by [MaaxGr][maaxgr])
+- [IDE 插件] 正确检索 commonMain 源代码集
+- [MySQL 变体] 为 mySqlFunctionType() 添加 minute (by [MaaxGr][maaxgr])
 
 ## [1.4.1] - 2020-08-21
 ### 新增
 - [运行时] 支持 Kotlin 1.4.0 (#1859)
 
 ### 变更
-- [Gradle 插件] 使 AGP 依赖为 `compileOnly` (#1362)
+- [Gradle 插件] 使 AGP 依赖为 compileOnly (#1362)
 
 ### 修复
 - [编译器] 为列定义规则和表接口生成器添加可选的 Javadoc (#1224 by [Daniel Eke][endanke])
 - [SQLite 变体] 添加对 sqlite fts5 辅助函数 highlight、snippet 和 bm25 的支持 (by [Daniel Rampelt][drampelt])
 - [MySQL 变体] 支持 MySQL bit 数据类型
 - [MySQL 变体] 支持 MySQL 二进制字面量
-- [PostgreSQL 变体] 从 `sql-psi` 暴露 `SERIAL` (by [Veyndan Stuart][VeyndanS])
-- [PostgreSQL 变体] 添加 `BOOLEAN` 数据类型 (by [Veyndan Stuart][VeyndanS])
-- [PostgreSQL 变体] 添加 `NULL` 列约束 (by [Veyndan Stuart][VeyndanS])
-- [HSQL 变体] 为 HSQL 添加 `AUTO_INCREMENT` 支持 (by [Ryan Harter][rharter])
+- [PostgreSQL 变体] 从 sql-psi 暴露 SERIAL (by [Veyndan Stuart][VeyndanS])
+- [PostgreSQL 变体] 添加 BOOLEAN 数据类型 (by [Veyndan Stuart][VeyndanS])
+- [PostgreSQL 变体] 添加 NULL 列约束 (by [Veyndan Stuart][VeyndanS])
+- [HSQL 变体] 为 HSQL 添加 AUTO_INCREMENT 支持 (by [Ryan Harter][rharter])
 
 ## [1.4.0] - 2020-06-22
 ### 新增
@@ -820,8 +821,8 @@ sqldelight {
 - [IDE] IDE 对迁移 (.sqm) 文件的支持
 - [IDE] 添加模拟内置 SQL Live Templates 的 SQLDelight Live Templates (#1154 by [Veyndan Stuart][VeyndanS])
 - [IDE] 添加新建 SqlDelight 文件操作 (#42 by [Roman Zavarnitsyn][RomanZ])
-- [运行时] `transactionWithReturn` API 用于返回结果的事务
-- [编译器] 在 `.sq` 文件中分组多个 SQL 语句的语法
+- [运行时] transactionWithReturn API 用于返回结果的事务
+- [编译器] 在 .sq 文件中分组多个 SQL 语句的语法
 - [编译器] 支持从迁移文件生成 schema
 - [Gradle 插件] 添加一个任务用于将迁移文件输出为有效 SQL
 
@@ -829,22 +830,22 @@ sqldelight {
 - [文档] 大修文档网站 (by [Saket Narayan][SaketN])
 - [Gradle 插件] 改进不受支持的变体错误消息 (by [Veyndan Stuart][VeyndanS])
 - [IDE] 根据变体动态更改文件图标 (by [Veyndan Stuart][VeyndanS])
-- [JDBC 驱动] 暴露一个基于 `javax.sql.DataSource` 的 `JdbcDriver` 构造函数 (#1614)
+- [JDBC 驱动] 暴露一个基于 javax.sql.DataSource 的 JdbcDriver 构造函数 (#1614)
 
 ### 修复
 - [编译器] 支持表上的 Javadoc 并修复一个文件中多个 Javadoc 的问题 (#1224)
 - [编译器] 允许为合成列插入值 (#1351)
 - [编译器] 修复目录名称清理中的不一致性 (by [Zac Sweers][ZacSweers])
 - [编译器] 合成列在连接时应保留可空性 (#1656)
-- [编译器] 将 `DELETE` 语句锁定在 `DELETE` 关键字上 (#1643)
+- [编译器] 将 DELETE 语句锁定在 DELETE 关键字上 (#1643)
 - [编译器] 修复引号 (#1525 by [Angus Holder][AngusH])
-- [编译器] 修复 `BETWEEN` 操作符以正确递归到表达式中 (#1279)
+- [编译器] 修复 BETWEEN 操作符以正确递归到表达式中 (#1279)
 - [编译器] 为创建索引时缺失表/列提供更好的错误信息 (#1372)
 - [编译器] 允许在 JOIN 约束中使用外部查询的投影 (#1346)
-- [原生驱动] 使执行使用 `transactionPool` (by [Ben Asher][BenA])
+- [原生驱动] 使 execute 使用 transactionPool (by [Ben Asher][BenA])
 - [JDBC 驱动] 使用 JDBC 事务 API 而不是 SQLite (#1693)
-- [IDE] 修复 `virtualFile` 引用始终是原始文件的问题 (#1782)
-- [IDE] 在向 Bugsnag 报告错误时使用正确的 `throwable` (#1262)
+- [IDE] 修复 virtualFile 引用始终是原始文件的问题 (#1782)
+- [IDE] 在向 Bugsnag 报告错误时使用正确的 throwable (#1262)
 - [Paging 扩展] 修复 DataSource 泄漏 (#1628)
 - [Gradle 插件] 如果输出 db 文件在生成 schema 时已存在，则删除它 (#1645)
 - [Gradle 插件] 如果存在间隙，则迁移验证失败
@@ -852,31 +853,31 @@ sqldelight {
 
 ## [1.3.0] - 2020-04-03
 
-* 新增: [Gradle] `dialect` 属性，用于指定要编译的 SQL 变体。
+* 新增: [Gradle] dialect 属性，用于指定要编译的 SQL 变体。
 * 新增: [编译器] #1009 实验性支持 MySQL 变体。
 * 新增: [编译器] #1436 支持 SQLite 3.24 变体和 upsert。
 * 新增: [JDBC 驱动] 从 SQLite JVM 驱动中拆分出 JDBC 驱动。
 * 修复: [编译器] #1199 支持任意长度的 lambda。
-* 修复: [编译器] #1610 修复 `avg()` 的返回类型为可空。
+* 修复: [编译器] #1610 修复 avg() 的返回类型为可空。
 * 修复: [IntelliJ] #1594 修复 Windows 上导致 Goto 和 Find Usages 损坏的路径分隔符处理问题。
 
 ## [1.2.2] - 2020-01-22
 
 * 新增: [运行时] 支持 Windows (mingW)、tvOS、watchOS 和 macOS 架构。
-* 修复: [编译器] `sum()` 的返回类型应为可空。
-* 修复: [Paging] 将 `Transacter` 传入 `QueryDataSourceFactory` 以避免竞争条件。
+* 修复: [编译器] sum() 的返回类型应为可空。
+* 修复: [Paging] 将 Transacter 传入 QueryDataSourceFactory 以避免竞争条件。
 * 修复: [IntelliJ 插件] 查找文件的包名时不搜索依赖项。
 * 修复: [Gradle] #862 将 Gradle 中的 validator 日志更改为调试级别。
-* 增强: [Gradle] 将 `GenerateSchemaTask` 转换为使用 Gradle worker。
-* 注意: `sqldelight-runtime` 构件已重命名为 `runtime`。
+* 增强: [Gradle] 将 GenerateSchemaTask 转换为使用 Gradle worker。
+* 注意: sqldelight-runtime artifact 已重命名为 runtime。
 
 ## [1.2.1] - 2019-12-11
 
 * 修复: [Gradle] Kotlin Native 1.3.60 支持。
 * 修复: [Gradle] #1287 同步时的警告。
-* 修复: [编译器] #1469 查询的 `SynetheticAccessor` 创建。
+* 修复: [编译器] #1469 查询的 SynetheticAccessor 创建。
 * 修复: [JVM 驱动] 修复内存泄漏。
-* 注意: 协程扩展构件要求将 `kotlinx bintray maven` 仓库添加到您的 `buildscript`。
+* 注意: 协程扩展 artifact 要求将 kotlinx bintray maven 仓库添加到您的 buildscript。
 
 ## [1.2.0] - 2019-08-30
 
@@ -897,11 +898,11 @@ sqldelight {
 * 修复: [Gradle] #1274 启用在 Kotlin DSL 中使用 sqldelight 扩展。
 * 修复: [编译器] 为每个查询确定性地生成唯一 ID。
 * 修复: [编译器] 仅在事务完成时通知监听查询。
-* 修复: [JVM 驱动] #1370 强制 `JdbcSqliteDriver` 用户提供 DB URL。
+* 修复: [JVM 驱动] #1370 强制 JdbcSqliteDriver 用户提供 DB URL。
 
 ## [1.1.3] - 2019-04-14
 
-* Gradle 元数据 1.0 发布。
+Gradle Metadata 1.0 发布。
 
 ## [1.1.2] - 2019-04-14
 
@@ -957,14 +958,14 @@ sqldelight {
 * 新增: 生成的代码已更新为仅使用 Support SQLite 库。所有查询现在生成语句对象而不是原始字符串。
 * 新增: IDE 中的语句折叠。
 * 新增: 布尔类型现在自动处理。
-* 修复: 移除代码生成中已弃用的 `marshals`。
-* 修复: 正确将 `avg` SQL 函数类型映射为 REAL。
-* 修复: 正确检测 `julianday` SQL 函数。
+* 修复: 移除代码生成中已弃用的 marshals。
+* 修复: 正确将 avg SQL 函数类型映射为 REAL。
+* 修复: 正确检测 julianday SQL 函数。
 
 ## [0.6.1] - 2017-03-22
 
 * 新增: 没有参数的 Delete、Update 和 Insert 语句生成编译语句。
-* 修复: 子查询中使用的视图中的 `USING` 子句不再报错。
+* 修复: 子查询中使用的视图中的 USING 子句不再报错。
 * 修复: 移除生成的映射器上的重复类型。
 * 修复: 子查询可以在检测参数的表达式中使用。
 
@@ -975,7 +976,7 @@ sqldelight {
 * 新增: 为视图名称发出字符串常量。
 * 修复: 需要工厂的视图上的查询现在正确要求这些工厂作为参数。
 * 修复: 验证插入参数的数量与指定列的数量匹配。
-* 修复: 正确编码在 `WHERE` 子句中使用的 blob 字面量。
+* 修复: 正确编码在 WHERE 子句中使用的 blob 字面量。
 * 此版本需要 Gradle 3.3 或更高版本。
 
 ## [0.5.1] - 2016-10-24
@@ -988,7 +989,7 @@ sqldelight {
 ## [0.5.0] - 2016-10-19
 
 * 新增: SQLite 参数可以通过工厂进行类型安全传递。
-* 新增: IntelliJ 插件对 `.sq` 文件执行格式化。
+* 新增: IntelliJ 插件对 .sq 文件执行格式化。
 * 新增: 支持 SQLite 时间戳字面量。
 * 修复: 参数化类型可以在 IntelliJ 中点击进入。
 * 修复: 转义的列名如果从 Cursor 获取，不再抛出 RuntimeExceptions。
@@ -998,9 +999,9 @@ sqldelight {
 
 * 新增: 对 `short` 作为列 Java 类型的原生支持。
 * 新增: 生成的映射器和工厂方法的 Javadoc。
-* 修复: `group_concat` 和 `nullif` 函数具有正确的可空性。
+* 修复: group_concat 和 nullif 函数具有正确的可空性。
 * 修复: 与 Android Studio 2.2-alpha 的兼容性。
-* 修复: `WITH RECURSIVE` 不再使插件崩溃。
+* 修复: WITH RECURSIVE 不再使插件崩溃。
 
 ## [0.4.3] - 2016-07-07
 
@@ -1009,9 +1010,9 @@ sqldelight {
 * 新增: 命名语句上的 Javadoc 将出现在生成的字符串中。
 * 修复: 生成的视图模型包含可空性注解。
 * 修复: 联合生成的代码具有正确的类型和可空性，以支持所有可能的列。
-* 修复: `sum` 和 `round` SQLite 函数在生成的代码中具有正确的类型。
-* 修复: `CAST`、内部选择的 bug 修复。
-* 修复: `CREATE TABLE` 语句中的自动补全。
+* 修复: sum 和 round SQLite 函数在生成的代码中具有正确的类型。
+* 修复: CAST、内部选择的 bug 修复。
+* 修复: CREATE TABLE 语句中的自动补全。
 * 修复: SQLite 关键字可以在包中使用。
 
 ## [0.4.2] - 2016-06-16
@@ -1028,7 +1029,7 @@ sqldelight {
 ## [0.4.0] - 2016-06-14
 
 * 新增: 映射器按查询生成，而不是按表生成。
-* 新增: Java 类型可以在 `.sq` 文件中导入。
+* 新增: Java 类型可以在 .sq 文件中导入。
 * 新增: SQLite 函数被验证。
 * 修复: 移除重复错误。
 * 修复: 大写列名和 Java 关键字列名不再报错。
@@ -1050,12 +1051,12 @@ sqldelight {
 * 新增: 列定义使用 SQLite 类型，并可以有额外的“AS”约束来指定 Java 类型。
 * 新增: 可以从 IDE 发送 Bug 报告。
 * 修复: 自动补全功能正常。
-* 修复: SQLDelight 模型文件在 `.sq` 文件编辑时更新。
+* 修复: SQLDelight 模型文件在 .sq 文件编辑时更新。
 * 移除: 不再支持附加数据库。
 
 ## [0.2.2] - 2016-03-07
 
-* 新增: 编译时验证 `insert`、`update`、`delete`、`index` 和 `trigger` 语句使用的列。
+* 新增: 编译时验证 insert、update、delete、index 和 trigger 语句使用的列。
 * 修复: 移动/创建文件时不会导致 IDE 插件崩溃。
 
 ## [0.2.1] - 2016-03-07
@@ -1066,11 +1067,11 @@ sqldelight {
 
 ## [0.2.0] - 2016-02-29
 
-* 新增: 为 `Marshal` 类添加了复制构造函数。
+* 新增: 为 Marshal 类添加了复制构造函数。
 * 新增: 更新到 Kotlin 1.0 最终版。
-* 修复: 以非失败方式报告 `sqldelight` 文件夹结构问题。
+* 修复: 以非失败方式报告 sqldelight 文件夹结构问题。
 * 修复: 禁止名为 `table_name` 的列。它们生成的常量与表名常量冲突。
-* 修复: 确保 IDE 插件立即生成模型类，无论 `.sq` 文件是否打开。
+* 修复: 确保 IDE 插件立即生成模型类，无论 .sq 文件是否打开。
 * 修复: 支持 IDE 和 Gradle 插件中的 Windows 路径。
 
 ## [0.1.2] - 2016-02-13

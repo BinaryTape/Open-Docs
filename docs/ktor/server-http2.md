@@ -114,3 +114,21 @@ dependencies {
 ```
 
 `tc.native.classifier` 应该是以下之一：`linux-x86_64`、`osx-x86_64` 或 `windows-x86_64`。[http2-netty](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/http2-netty) 可运行示例演示了如何为 Netty 启用 HTTP/2 支持。
+
+#### 无 TLS 的 HTTP/2
+
+Netty 引擎也支持[明文 HTTP/2 (h2c)](https://httpwg.org/specs/rfc7540.html#discover-http)。这允许在不需要加密的私有网络中进行无 TLS 的 HTTP/2 通信。客户端可以发起 HTTP/1.1 请求，然后升级到 HTTP/2。
+
+要启用 h2c，请在引擎配置中将 `enableH2c` 标志设置为 `true`：
+
+```kotlin
+embeddedServer(Netty, configure = {
+    connector {
+        port = 8080
+    }
+    enableHttp2 = true
+    enableH2c = true
+})
+```
+
+请注意，h2c 需要 `enableHttp2 = true` 且不能在服务器上配置了 SSL 连接器时使用。

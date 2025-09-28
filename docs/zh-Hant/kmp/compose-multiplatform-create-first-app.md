@@ -7,10 +7,10 @@
     <p>本教學課程使用 IntelliJ IDEA，但您也可以在 Android Studio 中進行操作 – 這兩個 IDE 共享相同的核心功能和 Kotlin 多平台支援。</p>
     <br/>
     <p>這是<strong>建立具有共享邏輯和 UI 的 Compose 多平台應用程式</strong>教學課程的第一部分。</p>
-    <p><img src="icon-1.svg" width="20" alt="First step"/> <strong>建立您的 Compose 多平台應用程式</strong><br/>
-        <img src="icon-2-todo.svg" width="20" alt="Second step"/> 探索可組合程式碼 <br/>
-        <img src="icon-3-todo.svg" width="20" alt="Third step"/> 修改專案 <br/>      
-        <img src="icon-4-todo.svg" width="20" alt="Fourth step"/> 建立您自己的應用程式 <br/>
+    <p><img src="icon-1.svg" width="20" alt="第一步"/> <strong>建立您的 Compose 多平台應用程式</strong><br/>
+        <img src="icon-2-todo.svg" width="20" alt="第二步"/> 探索可組合程式碼 <br/>
+        <img src="icon-3-todo.svg" width="20" alt="第三步"/> 修改專案 <br/>      
+        <img src="icon-4-todo.svg" width="20" alt="第四步"/> 建立您自己的應用程式 <br/>
     </p>
 </tldr>
 
@@ -49,7 +49,7 @@
     確保已選取 iOS 和 Web 的 **Share UI** 選項。
 6. 指定所有欄位和目標平台後，點擊 **Create**（在網頁精靈中為 **Download**）。
 
-   ![Create Compose Multiplatform project](create-compose-multiplatform-project.png){width=800}
+   ![建立 Compose 多平台專案](create-compose-multiplatform-project.png){width=800}
 
 ## 檢查專案結構
 
@@ -67,18 +67,22 @@
 * _composeApp_ 是一個 Kotlin 模組，其中包含 Android、桌面、iOS 和網路應用程式之間共享的邏輯 — 您用於所有平台的程式碼。它使用 [Gradle](https://kotlinlang.org/docs/gradle.html) 作為建置系統，可幫助您自動化建置過程。
 * _iosApp_ 是一個 Xcode 專案，可建置為一個 iOS 應用程式。它依賴並使用共享模組作為一個 iOS 框架。
 
-  ![Compose Multiplatform project structure](compose-project-structure.png)
+  ![Compose 多平台專案結構](compose-project-structure.png)
 
-**composeApp** 模組由以下原始碼集組成：`androidMain`、`commonMain`、`jvmMain`、`iosMain` 和 `wasmJsMain`
-（如果您選擇包含測試，則包含 `commonTest`）。
+**composeApp** 模組由以下原始碼集組成：`androidMain`、`commonMain`、`iosMain`、`jsMain`、`jvmMain`、`wasmJsMain` 和 `webMain`（如果您選擇包含測試，則包含 `commonTest`）。
 _原始碼集_ 是 Gradle 中將多個檔案邏輯分組在一起的概念，其中每個組都有自己的相依性。在 Kotlin 多平台中，不同的原始碼集可以目標不同的平台。
 
-`commonMain` 原始碼集包含通用 Kotlin 程式碼，而平台原始碼集則包含各目標平台特定的 Kotlin 程式碼。
-Kotlin/JVM 用於 `androidMain` 和 `jvmMain`，Kotlin/Native 用於 `iosMain`，而 Kotlin/Wasm 則用於 `wasmJsMain`。
+`commonMain` 原始碼集包含通用 Kotlin 程式碼，而平台原始碼集則包含各目標平台特定的 Kotlin 程式碼：
+* `jvmMain` 是用於桌面的原始檔，它使用 Kotlin/JVM。
+* `androidMain` 也使用 Kotlin/JVM。
+* `iosMain` 使用 Kotlin/Native。
+* `jsMain` 使用 Kotlin/JS。
+* `wasmJsMain` 使用 Kotlin/Wasm。
+* `webMain` 是網頁的[中介原始碼集](multiplatform-hierarchy.md#manual-configuration)，包含 `jsMain` 和 `wasmJsMain`。
 
-當共享模組建置成 Android 函式庫時，通用 Kotlin 程式碼被視為 Kotlin/JVM。當它建置成 iOS 框架時，通用 Kotlin 程式碼被視為 Kotlin/Native。當共享模組建置成網路應用程式時，通用 Kotlin 程式碼被視為 Kotlin/Wasm。
+當共享模組建置成 Android 函式庫時，通用 Kotlin 程式碼被視為 Kotlin/JVM。當它建置成 iOS 框架時，通用 Kotlin 程式碼被視為 Kotlin/Native。當共享模組建置成網路應用程式時，通用 Kotlin 程式碼可以被視為 Kotlin/Wasm 和 Kotlin/JS。
 
-![Common Kotlin, Kotlin/JVM, and Kotlin/Native](module-structure.png){width=700}
+![通用 Kotlin、Kotlin/JVM 和 Kotlin/Native](module-structure.svg){width=700}
 
 通常，盡可能將您的實作寫成通用程式碼，而不是在平台特定原始碼集中重複功能。
 
@@ -92,6 +96,7 @@ fun App() {
         var showContent by remember { mutableStateOf(false) }
         Column(
             modifier = Modifier
+                .background(MaterialTheme.colorScheme.primaryContainer)
                 .safeContentPadding()
                 .fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -101,7 +106,10 @@ fun App() {
             }
             AnimatedVisibility(showContent) {
                 val greeting = remember { Greeting().greet() }
-                Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
+                Column(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                ) {
                     Image(painterResource(Res.drawable.compose_multiplatform), null)
                     Text("Compose: $greeting")
                 }
@@ -128,9 +136,9 @@ fun App() {
 1. 在執行設定清單中，選擇 **composeApp**。
 2. 選擇您的 Android 虛擬裝置，然後點擊 **Run**：您的 IDE 會啟動選定的虛擬裝置（如果它已關閉電源），並執行應用程式。
 
-![Run the Compose Multiplatform app on Android](compose-run-android.png){width=350}
+![在 Android 上執行 Compose 多平台應用程式](compose-run-android.png){width=350}
 
-![First Compose Multiplatform app on Android](first-compose-project-on-android-1.png){width=300}
+![Android 上的第一個 Compose 多平台應用程式](first-compose-project-on-android-1.png){width=300}
 
 <snippet id="run_android_other_devices">
 
@@ -151,9 +159,9 @@ fun App() {
 在 IntelliJ IDEA 中，在執行設定清單中選擇 **iosApp**，選擇執行設定旁邊的模擬裝置，然後點擊 **Run**。
 如果清單中沒有可用的 iOS 設定，請新增一個[新的執行設定](#run-on-a-new-ios-simulated-device)。
 
-![Run the Compose Multiplatform app on iOS](compose-run-ios.png){width=350}
+![在 iOS 上執行 Compose 多平台應用程式](compose-run-ios.png){width=350}
 
-![First Compose Multiplatform app on iOS](first-compose-project-on-ios-1.png){width=300}
+![iOS 上的第一個 Compose 多平台應用程式](first-compose-project-on-ios-1.png){width=300}
 
 <snippet id="run_ios_other_devices">
 
@@ -163,11 +171,11 @@ fun App() {
 
 1. 在執行設定清單中，點擊 **Edit Configurations**。
 
-   ![Edit run configurations](ios-edit-configurations.png){width=450}
+   ![編輯執行設定](ios-edit-configurations.png){width=450}
 
 2. 點擊設定清單上方的 **+** 按鈕，然後選擇 **Xcode Application**。
 
-   ![New run configuration for iOS application](ios-new-configuration.png)
+   ![用於 iOS 應用程式的新執行設定](ios-new-configuration.png)
 
 3. 為您的設定命名。
 4. 選擇 **Working directory**。為此，導覽至您的專案，例如 **KotlinMultiplatformSandbox**，在 `iosApp` 資料夾中。
@@ -234,15 +242,20 @@ fun App() {
 
 在執行設定清單中選擇 **composeApp [desktop]** 並點擊 **Run**。預設情況下，執行設定會在自己的作業系統視窗中啟動桌面應用程式：
 
-![Run the Compose Multiplatform app on desktop](compose-run-desktop.png){width=350}
+![在桌面上執行 Compose 多平台應用程式](compose-run-desktop.png){width=350}
 
-![First Compose Multiplatform app on desktop](first-compose-project-on-desktop-1.png){width=500}
+![桌面上的第一個 Compose 多平台應用程式](first-compose-project-on-desktop-1.png){width=500}
 
 ### 執行您的網路應用程式
 
-在執行設定清單中選擇 **composeApp [wasmJs]** 並點擊 **Run**。
+1. 在執行設定清單中，選擇：
 
-![Run the Compose Multiplatform app on web](compose-run-web.png){width=350}
+   * **composeApp[js]**：執行您的 Kotlin/JS 應用程式。
+   * **composeApp[wasmJs]**：執行您的 Kotlin/Wasm 應用程式。
+
+   ![在網頁上執行 Compose 多平台應用程式](web-run-configuration.png){width=400}
+
+2. 點擊 **Run**。
 
 網路應用程式將在您的瀏覽器中自動開啟。或者，當執行完成時，您可以在瀏覽器中輸入以下網址：
 
@@ -254,7 +267,31 @@ fun App() {
 >
 {style="tip"}
 
-![Compose web application](first-compose-project-on-web.png){width=550}
+![Compose 網路應用程式](first-compose-project-on-web.png){width=600}
+
+#### 網頁目標的相容模式
+
+您可以為您的網路應用程式啟用相容模式，以確保它在所有瀏覽器中開箱即用。在此模式下，現代瀏覽器使用 Wasm 版本，而舊版瀏覽器則會回退到 JS 版本。此模式是透過對 `js` 和 `wasmJs` 目標進行交叉編譯來實現的。
+
+若要為您的網路應用程式啟用相容模式：
+
+1. 透過選擇 **View | Tool Windows | Gradle** 來開啟 Gradle 工具視窗。
+2. 在 **composedemo | Tasks | compose** 中，選擇並執行 **composeCompatibilityBrowserDistribution** 任務。
+
+   > 您的 Gradle JVM 需要至少 Java 11 才能成功載入任務，我們通常建議 Compose 多平台專案使用至少 JetBrains Runtime 17。
+   >
+   {style="note"}
+
+   ![執行相容模式任務](web-compatibility-gradle-task.png){width=500}
+
+   或者，您可以從 `ComposeDemo` 根目錄下的終端機執行以下命令：
+
+    ```bash
+    ./gradlew composeCompatibilityBrowserDistribution
+    ```
+
+Gradle 任務完成後，相容的 artifacts 將在 `composeApp/build/dist/composeWebCompatibility/productionExecutable` 目錄中生成。
+您可以使用這些 artifacts 來[發佈您的應用程式](https://kotlinlang.org/docs/wasm-get-started.html#publish-the-application)，使其同時適用於 `js` 和 `wasmJs` 目標。
 
 ## 下一步
 

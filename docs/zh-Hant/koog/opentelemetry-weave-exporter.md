@@ -50,12 +50,12 @@ fun main() = runBlocking {
         }
     }
 
-    println("正在執行帶有 Weave 追蹤的代理程式")
+    println("Running agent with Weave tracing")
 
     val result = agent.run("Tell me a joke about programming")
 
-    println("結果: $result
-請在 https://wandb.ai/$entity/$projectName/weave/traces 查看追蹤")
+    println("Result: $result
+See traces on https://wandb.ai/$entity/$projectName/weave/traces")
 }
 ```
 <!--- KNIT example-weave-exporter-01.kt -->
@@ -66,8 +66,36 @@ fun main() = runBlocking {
 
 -   **代理程式生命週期事件**：代理程式啟動、停止、錯誤
 -   **LLM 互動**：提示、完成、延遲
--   **工具呼叫**：工具呼叫的執行追蹤
+-   **工具呼叫**：工具叫用的執行追蹤
 -   **系統上下文**：模型名稱、環境、Koog 版本等中繼資料
+
+由於安全考量，OpenTelemetry 跨度中的部分內容預設會被遮蔽。若要讓內容在 Weave 中可用，請在 OpenTelemetry 組態中使用 [setVerbose](opentelemetry-support.md#setverbose) 方法，並將其 `verbose` 引數設為 `true`，如下所示：
+
+<!--- INCLUDE
+import ai.koog.agents.core.agent.AIAgent
+import ai.koog.agents.features.opentelemetry.feature.OpenTelemetry
+import ai.koog.agents.features.opentelemetry.integration.weave.addWeaveExporter
+import ai.koog.prompt.executor.clients.openai.OpenAIModels
+import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
+
+const val apiKey = ""
+
+val agent = AIAgent(
+    promptExecutor = simpleOpenAIExecutor(apiKey),
+    llmModel = OpenAIModels.Chat.GPT4o,
+    systemPrompt = "You are a helpful assistant."
+) {
+-->
+<!--- SUFFIX
+}
+-->
+```kotlin
+install(OpenTelemetry) {
+    addWeaveExporter()
+    setVerbose(true)
+}
+```
+<!--- KNIT example-weave-exporter-02.kt -->
 
 在 W&B Weave 中視覺化時，追蹤顯示如下：
 ![W&B Weave traces](img/opentelemetry-weave-exporter-light.png#only-light)

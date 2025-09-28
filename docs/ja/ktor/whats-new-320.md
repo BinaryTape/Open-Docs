@@ -6,16 +6,20 @@ _[リリース日: 2025年6月12日](releases.md#release-details)_
 
 この機能リリースの主なハイライトは以下のとおりです。
 
-*   [バージョンカタログ](#published-version-catalog)
-*   [依存性注入](#dependency-injection)
-*   [ファーストクラスのHTMXサポート](#htmx-integration)
-*   [サスペンド可能なモジュール関数](#suspendable-module-functions)
+* [バージョンカタログ](#published-version-catalog)
+* [依存性注入](#dependency-injection)
+* [ファーストクラスのHTMXサポート](#htmx-integration)
+* [サスペンド可能なモジュール関数](#suspendable-module-functions)
 
 ## Ktorサーバー
 
 ### サスペンド可能なモジュール関数
 
 Ktor 3.2.0から、[アプリケーションモジュール](server-modules.md)がサスペンド関数をサポートするようになりました。
+
+> サスペンドモジュールのサポートが導入されたことにより、開発モードでの自動リロードはブロッキング関数参照では機能しなくなりました。詳細については、[開発モードの自動リロードの退行](#regression)を参照してください。
+>
+{style="warning"}
 
 以前は、Ktorモジュール内で非同期関数を追加するには、サーバー作成時にデッドロックを引き起こす可能性のある`runBlocking`ブロックが必要でした。
 
@@ -247,6 +251,24 @@ val connection: Connection = application.property("connection")
 
 詳細と高度な使用法については、[依存性注入](server-dependency-injection.md)を参照してください。
 
+### 開発モードの自動リロードの退行 {id="regression"}
+
+サスペンド関数のサポートの副次的な影響として、ブロッキング関数参照 (`Application::myModule`) は現在、キャスト時に匿名内部クラスにラップされます。これにより、関数名が安定した参照として保持されなくなるため、自動リロードが機能しなくなります。
+
+これは、`development`モードでの自動リロードは、サスペンド関数モジュールと設定参照でのみ機能することを意味します。
+
+```kotlin
+// サスペンド関数参照
+embeddedServer(Netty, port = 8080, module = Application::mySuspendModule)
+
+// 設定参照
+ktor {
+    application {
+        modules = [ com.example.ApplicationKt.mySuspendModule ]
+    }
+}
+```
+
 ## Ktorクライアント
 
 ### `SaveBodyPlugin`と`HttpRequestBuilder.skipSavingBody()`は非推奨に
@@ -284,14 +306,14 @@ Ktor 3.2.0では、[`.wrapWithContent()`](https://api.ktor.io/ktor-client/ktor-c
 これにより、レスポンスボディにアクセスする異なるプラグイン間の互換性が失われる可能性があります。なぜなら、最初にボディを読み取るプラグインがボディを消費してしまうからです。
 
 ```kotlin
-// Replaces the body with a channel decoded once from rawContent
+// rawContentから一度デコードされたチャネルでボディを置き換えます
 val decodedBody = decode(response.rawContent)
 val decodedResponse = call.wrapWithContent(decodedBody).response
 
-// The first call returns the body
+// 最初の呼び出しはボディを返します
 decodedResponse.bodyAsText()
 
-// Subsequent calls return an empty string
+// その後の呼び出しは空文字列を返します
 decodedResponse.bodyAsText() 
 ```
 
@@ -299,7 +321,7 @@ decodedResponse.bodyAsText()
 これは、アクセスごとに新しいチャネルを返すラムダを受け入れ、他のプラグインとの安全な統合を保証します。
 
 ```kotlin
-// Replaces the body with a new decoded channel on each access
+// アクセスごとに新しいデコードされたチャネルでボディを置き換えます
 call.replaceResponse {
     decode(response.rawContent)
 }
@@ -325,9 +347,9 @@ JSおよびWasmプラットフォームでは、`.resolveAddress()`は常に`nul
 
 Ktor 3.2.0では、`hx-get`や`hx-swap`などのHTML属性を介した動的なインタラクションを可能にするモダンなJavaScriptライブラリである[HTMX](https://htmx.org/)の実験的サポートが導入されました。KtorのHTMX統合は以下を提供します。
 
--   ヘッダーに基づいてHTMXリクエストを処理するHTMX対応ルーティング。
--   KotlinでHTMX属性を生成するためのHTML DSL拡張。
--   文字列リテラルを排除するためのHTMXヘッダー定数と値。
+- ヘッダーに基づいてHTMXリクエストを処理するHTMX対応ルーティング。
+- KotlinでHTMX属性を生成するためのHTML DSL拡張。
+- 文字列リテラルを排除するためのHTMXヘッダー定数と値。
 
 KtorのHTMXサポートは、3つの実験的モジュールで利用可能です。
 
@@ -412,19 +434,19 @@ dependencies {
 
 Ktor 3.2.0では、開発モードの有効化が簡素化されました。以前は、開発モードを有効にするには`application`ブロックで明示的な設定が必要でした。現在では、`ktor.development`プロパティを使用して、動的または明示的に有効にできます。
 
-*   プロジェクトプロパティに基づいて開発モードを動的に有効にする。
-    ```kotlin
+* プロジェクトプロパティに基づいて開発モードを動的に有効にする。
+  ```kotlin
     ktor {
         development = project.ext.has("development")
     }
-    ```
-*   開発モードを明示的にtrueに設定する。
+  ```
+* 開発モードを明示的にtrueに設定する。
 
     ```kotlin
     ktor {
         development = true
     }
-    ```
+  ```
 
 デフォルトでは、`ktor.development`の値は、Gradleプロジェクトプロパティまたはシステムプロパティ`io.ktor.development`のいずれかが定義されている場合に、自動的に解決されます。これにより、Gradle CLIフラグを使用して開発モードを直接有効にすることができます。
 

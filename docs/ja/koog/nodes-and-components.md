@@ -1,4 +1,4 @@
-_# 事前定義されたノードとコンポーネント
+# 事前定義されたノードとコンポーネント
 
 ノードは、Koogフレームワークにおけるエージェントワークフローの基本的な構成要素です。
 各ノードはワークフロー内の特定の操作または変換を表し、エッジを使用して接続することで実行フローを定義できます。
@@ -43,7 +43,7 @@ edge(passthrough forwardTo nodeFinish)
 ### nodeUpdatePrompt
 
 提供されたプロンプトビルダーを使用して、LLMプロンプトにメッセージを追加するノードです。
-これは、実際のLLMリクエストを行う前に会話コンテキストを変更する場合に役立ちます。詳細については、[APIリファレンス](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.dsl.extension/node-update-prompt.html)を参照してください。
+これは、実際のLLMリクエストを行う前に会話コンテキストを変更する場合に役立ちます。詳細については、[APIリファレンス](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.dsl.extension/node-update-prompt.html)。
 
 このノードは次の目的で使用できます。
 
@@ -322,11 +322,80 @@ edge(executeMultipleTools forwardTo sendMultipleToolResultsToLLM)
 ```
 <!--- KNIT example-nodes-and-component-09.kt -->
 
+## ノード出力変換
+
+このフレームワークは、ノードの出力に変換を適用する、変換されたバージョンのノードを作成できる `transform` 拡張関数を提供します。これは、元のノードの機能を維持しながら、ノードの出力を異なる型または形式に変換する必要がある場合に役立ちます。
+
+### transform
+
+`transform` 関数は、元のノードをラップし、その出力に変換関数を適用する新しい `AIAgentNodeDelegate` を作成します。
+
+<!--- INCLUDE
+/**
+-->
+<!--- SUFFIX
+**/
+-->
+```kotlin
+inline fun <reified T> AIAgentNodeDelegate<Input, Output>.transform(
+    noinline transformation: suspend (Output) -> T
+): AIAgentNodeDelegate<Input, T>
+```
+<!--- KNIT example-nodes-and-component-10.kt -->
+
+#### カスタムノード変換
+
+カスタムノードの出力を異なるデータ型に変換する:
+
+<!--- INCLUDE
+import ai.koog.agents.core.dsl.builder.forwardTo
+import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.extension.nodeDoNothing
+
+val strategy = strategy<String, Int>("strategy_name") {
+-->
+<!--- SUFFIX
+}
+-->
+```kotlin
+val textNode by nodeDoNothing<String>("textNode").transform<Int> { text ->
+    text.split(" ").filter { it.isNotBlank() }.size
+}
+
+edge(nodeStart forwardTo textNode)
+edge(textNode forwardTo nodeFinish)
+```
+<!--- KNIT example-nodes-and-component-11.kt -->
+
+#### 組み込みノード変換
+
+`nodeLLMRequest`のような組み込みノードの出力を変換する:
+
+<!--- INCLUDE
+import ai.koog.agents.core.dsl.builder.forwardTo
+import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.extension.nodeLLMRequest
+
+val strategy = strategy<String, Int>("strategy_name") {
+-->
+<!--- SUFFIX
+}
+-->
+```kotlin
+val lengthNode by nodeLLMRequest("llmRequest").transform<Int> { assistantMessage ->
+    assistantMessage.content.length
+}
+
+edge(nodeStart forwardTo lengthNode)
+edge(lengthNode forwardTo nodeFinish)
+```
+<!--- KNIT example-nodes-and-component-12.kt -->
+
 ## 事前定義されたサブグラフ
 
 このフレームワークは、一般的に使用されるパターンとワークフローをカプセル化した事前定義されたサブグラフを提供します。これらのサブグラフは、ベースノードとエッジの作成を自動的に処理することで、複雑なエージェント戦略の開発を簡素化します。
 
-事前定義されたサブグラフを使用すると、さまざまな一般的なパイプラインを実装できます。以下に例を示します。
+事前定義されたサブグラフを使用すると、さまざまな一般的なパイプラインを実装できます。以下に例を示します:
 
 1.  データを準備する。
 2.  タスクを実行する。
@@ -345,7 +414,7 @@ edge(executeMultipleTools forwardTo sendMultipleToolResultsToLLM)
 - 構造化されたエージェントワークフローとタスク実行パイプラインを開発する。
 - LLMタスク実行から構造化された結果を生成する。
 
-サブグラフにタスクをテキストとして提供し、必要に応じてLLMを設定し、必要なツールを提供すると、サブグラフがそのタスクを処理して解決します。以下に例を示します。
+サブグラフにタスクをテキストとして提供し、必要に応じてLLMを設定し、必要なツールを提供すると、サブグラフがそのタスクを処理して解決します。以下に例を示します:
 
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
@@ -363,7 +432,7 @@ val strategy = strategy<String, String>("strategy_name") {
 }
 -->
 ```kotlin
-val processQuery by subgraphWithTask<String>(
+val processQuery by subgraphWithTask<String, String>(
     tools = listOf(searchTool, calculatorTool, weatherTool),
     llmModel = OpenAIModels.Chat.GPT4o,
 ) { userQuery ->
@@ -374,7 +443,7 @@ val processQuery by subgraphWithTask<String>(
     """
 }
 ```
-<!--- KNIT example-nodes-and-component-10.kt -->
+<!--- KNIT example-nodes-and-component-13.kt -->
 
 ### subgraphWithVerification
 
@@ -387,8 +456,8 @@ val processQuery by subgraphWithTask<String>(
 - 自己検証コンポーネントを作成する。
 - 成功/失敗ステータスと詳細なフィードバックを含む構造化された検証結果を生成する。
 
-このサブグラフは、LLMがワークフローの最後に検証ツールを呼び出し、タスクが正常に完了したかどうかをチェックすることを保証します。この検証が最終ステップとして実行されることを保証し、タスクが正常に完了したかどうかを示す`VerifiedSubgraphResult`と詳細なフィードバックを返します。
-以下に例を示します。
+このサブグラフは、LLMがワークフローの最後に検証ツールを呼び出し、タスクが正常に完了したかどうかをチェックすることを保証します。この検証が最終ステップとして実行されることを保証し、タスクが正常に完了したかどうかを示す `CriticResult` と詳細なフィードバックを返します。
+以下に例を示します:
 
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
@@ -421,7 +490,7 @@ val verifyCode by subgraphWithVerification<String>(
     """
 }
 ```
-<!--- KNIT example-nodes-and-component-11.kt -->
+<!--- KNIT example-nodes-and-component-14.kt -->
 
 ## 事前定義された戦略と一般的な戦略パターン
 
@@ -458,7 +527,7 @@ public fun singleRunStrategy(): AIAgentGraphStrategy<String, String> = strategy(
     edge(nodeSendToolResult forwardTo nodeExecuteTool onToolCall { true })
 }
 ```
-<!--- KNIT example-nodes-and-component-12.kt -->
+<!--- KNIT example-nodes-and-component-15.kt -->
 
 ### ツールベース戦略
 
@@ -512,7 +581,7 @@ fun toolBasedStrategy(name: String, toolRegistry: ToolRegistry): AIAgentGraphStr
     }
 }
 ```
-<!--- KNIT example-nodes-and-component-13.kt -->
+<!--- KNIT example-nodes-and-component-16.kt -->
 
 ### ストリーミングデータ戦略
 
@@ -551,4 +620,4 @@ val agentStrategy = strategy<String, List<Book>>("library-assistant") {
     edge(getMdOutput forwardTo nodeFinish)
 }
 ```
-<!--- KNIT example-nodes-and-component-14.kt -->
+<!--- KNIT example-nodes-and-component-17.kt -->

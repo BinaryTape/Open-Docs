@@ -29,7 +29,7 @@ Ktor 允许您直接在应用程序中 [创建并启动服务器](server-create-
 
 与上述方法相反，servlet 容器应控制应用程序的生命周期和连接设置。Ktor 提供了一个特殊的 [ServletApplicationEngine](https://api.ktor.io/ktor-server/ktor-server-servlet/io.ktor.server.servlet/-servlet-application-engine/index.html) 引擎，它将应用程序的控制权委托给 servlet 容器。
 
-> 请注意，当 Ktor 应用程序部署在 servlet 容器中时，[连接和 SSL 设置](server-configuration-file.topic) 不会生效。
+> 请注意，当 Ktor 应用程序部署在 servlet 容器中时，[连接和 SSL 设置](server-configuration-file.topic) 不会生效。 
 > [tomcat-war-ssl](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/tomcat-war-ssl) 示例演示了如何在 Tomcat 中配置 SSL。
 
 ### 添加依赖项 {id="add-dependencies"}
@@ -90,11 +90,15 @@ Ktor 允许您直接在应用程序中 [创建并启动服务器](server-create-
 
 ## 配置 Gretty {id="configure-gretty"}
 
+> Ktor 3.3.0 需要 Jetty 12，而 Gretty 尚未支持。如果您依赖 Gretty 进行开发或部署，请改用 Ktor 3.2.3，直到 Gretty 添加 Jetty 12 支持为止。
+>
+{style="warning"}
+
 [Gretty](https://plugins.gradle.org/plugin/org.gretty) 插件允许您在 Jetty 和 Tomcat 上 [运行](#run) servlet 应用程序。要安装此插件，请打开 `build.gradle.kts` 文件并将以下代码添加到 `plugins` 块中：
 
 ```groovy
 plugins {
-    id("org.gretty") version "4.0.3"
+    id("org.gretty") version "4.1.7"
 }
 ```
 

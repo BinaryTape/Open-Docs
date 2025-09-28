@@ -7,7 +7,7 @@ Koog 內建支援將代理程式追蹤匯出到 [Langfuse](https://langfuse.com/
 
 ---
 
-### 設定說明
+## 設定說明
 
 1.  建立一個 Langfuse 專案。請遵循 [在 Langfuse 中建立新專案](https://langfuse.com/docs/get-started#create-new-project-in-langfuse) 的設定指南。
 2.  取得 API 憑證。請按照 [Langfuse API 金鑰在哪裡？](https://langfuse.com/faq/all/where-are-langfuse-api-keys) 所述，擷取您的 Langfuse `public key` 和 `secret key`。
@@ -60,6 +60,57 @@ See traces on the Langfuse instance")
 ```
 <!--- KNIT example-langfuse-exporter-01.kt -->
 
+## 追蹤屬性
+
+Langfuse 使用追蹤層級屬性，透過工作階段、環境、標籤及其他中繼資料等功能來增強可觀察性。
+`addLangfuseExporter` 函式支援 `traceAttributes` 參數，它接受 `CustomAttribute` 物件的列表。
+
+這些屬性會被新增到每個追蹤的根 `InvokeAgentSpan` span 中，並啟用 Langfuse 的進階功能。您可以傳遞 Langfuse 支援的任何屬性 — 請參閱 [Langfuse OpenTelemetry 文件中的完整列表](https://langfuse.com/integrations/native/opentelemetry#trace-level-attributes)。
+
+常見屬性：
+-   **工作階段** (`langfuse.session.id`)：將相關追蹤分組，以便進行彙總指標、成本分析和評分。
+-   **環境**：將生產追蹤與開發和測試環境的追蹤分開，以進行更清晰的分析。
+-   **標籤** (`langfuse.trace.tags`)：使用功能名稱、實驗 ID 或客戶區隔（字串陣列）來標記追蹤。
+
+### 範例：包含工作階段和標籤
+
+<!--- INCLUDE
+import ai.koog.agents.core.agent.AIAgent
+import ai.koog.agents.features.opentelemetry.attribute.CustomAttribute
+import ai.koog.agents.features.opentelemetry.feature.OpenTelemetry
+import ai.koog.agents.features.opentelemetry.integration.langfuse.addLangfuseExporter
+import ai.koog.prompt.executor.clients.openai.OpenAIModels
+import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
+import kotlinx.coroutines.runBlocking
+import java.util.UUID
+-->
+```kotlin
+fun main() = runBlocking {
+    val apiKey = "api-key"
+    val sessionId = UUID.randomUUID().toString()
+
+    val agent = AIAgent(
+        promptExecutor = simpleOpenAIExecutor(apiKey),
+        llmModel = OpenAIModels.CostOptimized.GPT4oMini,
+        systemPrompt = "You are a helpful assistant."
+    ) {
+        install(OpenTelemetry) {
+            addLangfuseExporter(
+                traceAttributes = listOf(
+                    CustomAttribute("langfuse.session.id", sessionId),
+                    CustomAttribute("langfuse.trace.tags", listOf("chat", "kotlin", "production"))
+                )
+            )
+        }
+    }
+
+    // 使用相同工作階段 ID 的多次執行將會在 Langfuse 中被分組。
+    agent.run("What is Kotlin?")
+    agent.run("Show me a coroutine example")
+}
+```
+<!--- KNIT example-langfuse-exporter-02.kt -->
+
 ## 追蹤的內容
 
 啟用後，Langfuse 匯出器會擷取與 Koog 一般 OpenTelemetry 整合相同的 span，包括：
@@ -70,6 +121,34 @@ See traces on the Langfuse instance")
 -   **系統上下文**：中繼資料，例如模型名稱、環境、Koog 版本
 
 Koog 也會擷取 Langfuse 顯示 [Agent Graphs](https://langfuse.com/docs/observability/features/agent-graphs) 所需的 span 屬性。
+
+出於安全考量，某些 OpenTelemetry span 的內容預設會被遮罩。若要使內容在 Langfuse 中可用，請在 OpenTelemetry 配置中使用 [setVerbose](opentelemetry-support.md#setverbose) 方法，並將其 `verbose` 引數設定為 `true`，如下所示：
+
+<!--- INCLUDE
+import ai.koog.agents.core.agent.AIAgent
+import ai.koog.agents.features.opentelemetry.feature.OpenTelemetry
+import ai.koog.agents.features.opentelemetry.integration.langfuse.addLangfuseExporter
+import ai.koog.prompt.executor.clients.openai.OpenAIModels
+import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
+
+const val apiKey = ""
+
+val agent = AIAgent(
+    promptExecutor = simpleOpenAIExecutor(apiKey),
+    llmModel = OpenAIModels.Chat.GPT4o,
+    systemPrompt = "You are a helpful assistant."
+) {
+-->
+<!--- SUFFIX
+}
+-->
+```kotlin
+install(OpenTelemetry) {
+    addLangfuseExporter()
+    setVerbose(true)
+}
+```
+<!--- KNIT example-langfuse-exporter-03.kt -->
 
 在 Langfuse 中視覺化時，追蹤顯示如下：
 ![Langfuse traces](img/opentelemetry-langfuse-exporter-light.png#only-light)

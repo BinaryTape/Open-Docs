@@ -2,7 +2,7 @@
 
 <show-structure for="chapter,procedure" depth="2"/>
 
-_**출시일:** 2025년 6월 12일](releases.md#release-details)_
+_[출시일: 2025년 6월 12일](releases.md#release-details)_
 
 이번 기능 릴리스의 주요 내용은 다음과 같습니다:
 
@@ -11,11 +11,15 @@ _**출시일:** 2025년 6월 12일](releases.md#release-details)_
 * [일등 시민(First-class) HTMX 지원](#htmx-integration)
 * [Suspend 가능한 모듈 함수](#suspendable-module-functions)
 
-## Ktor Server
+## Ktor 서버
 
 ### Suspend 가능한 모듈 함수
 
 Ktor 3.2.0부터 [애플리케이션 모듈](server-modules.md)은 suspend 가능한 함수를 지원합니다.
+
+> suspend 모듈 지원 도입으로 인해, 개발 모드에서의 자동 리로드가 더 이상 블로킹 함수 참조와 함께 작동하지 않습니다. 자세한 내용은 [개발 모드 자동 리로드 회귀](#regression)를 참조하세요.
+>
+{style="warning"}
 
 이전에는 Ktor 모듈 내에서 비동기 함수를 추가하려면 서버 생성 시 교착 상태(deadlock)를 유발할 수 있는 `runBlocking` 블록이 필요했습니다:
 
@@ -37,7 +41,7 @@ suspend fun Application.installEvents() {
 
 #### 동시 모듈 로딩
 
-또한 `ktor.application.startup = concurrent` Gradle 프로퍼티를 추가하여 동시 모듈 로딩을 선택할 수 있습니다. 이는 모든 애플리케이션 모듈을 독립적으로 시작하여, 하나의 모듈이 suspend될 때 다른 모듈이 차단되지 않도록 합니다. 이를 통해 의존성 주입을 위한 비순차적 로딩과 경우에 따라 더 빠른 로딩이 가능합니다.
+`ktor.application.startup = concurrent` Gradle 프로퍼티를 추가하여 동시 모듈 로딩을 선택할 수도 있습니다. 이는 모든 애플리케이션 모듈을 독립적으로 시작하여, 하나의 모듈이 suspend될 때 다른 모듈이 차단되지 않도록 합니다. 이를 통해 의존성 주입을 위한 비순차적 로딩과 경우에 따라 더 빠른 로딩이 가능합니다.
 
 자세한 내용은 [동시 모듈 로딩](server-modules.md#concurrent-module-loading)을 참조하세요.
 
@@ -65,7 +69,7 @@ database:
 
 이 기능은 HOCON 및 YAML 구성 형식을 모두 지원하며, 역직렬화를 위해 `kotlinx.serialization`을 사용합니다.
 
-### ApplicationTestBuilder에 설정 가능한 client 추가
+### `ApplicationTestBuilder`에 설정 가능한 `client`
 
 Ktor 3.2.0부터 `ApplicationTestBuilder` 클래스의 `client` 프로퍼티는 변경 가능(mutable)합니다. 이전에는 읽기 전용이었습니다. 이 변경을 통해 고유한 테스트 클라이언트를 구성하고 `ApplicationTestBuilder` 클래스를 사용할 수 있는 모든 곳에서 이를 재사용할 수 있습니다. 예를 들어, 확장 함수 내에서 클라이언트에 접근할 수 있습니다:
 
@@ -244,9 +248,27 @@ val connection: Connection = application.property("connection")
 
 더 많은 정보 및 고급 사용법은 [의존성 주입](server-dependency-injection.md)을 참조하세요.
 
-## Ktor Client
+### 개발 모드 자동 리로드 회귀 {id="regression"}
 
-### SaveBodyPlugin 및 HttpRequestBuilder.skipSavingBody()는 더 이상 사용되지 않습니다.
+suspend 함수 지원의 부작용으로, 블로킹 함수 참조(`Application::myModule`)는 이제 형변환(casting)하는 동안 익명 내부 클래스로 래핑됩니다. 이는 함수 이름이 더 이상 안정적인 참조로 유지되지 않기 때문에 자동 리로드를 깨뜨립니다.
+
+이는 `development` 모드에서의 자동 리로드가 suspend 함수 모듈 및 구성 참조에서만 작동함을 의미합니다:
+
+```kotlin
+// Suspend function reference
+embeddedServer(Netty, port = 8080, module = Application::mySuspendModule)
+
+// Configuration reference
+ktor {
+    application {
+        modules = [ com.example.ApplicationKt.mySuspendModule ]
+    }
+}
+```
+
+## Ktor 클라이언트
+
+### `SaveBodyPlugin` 및 `HttpRequestBuilder.skipSavingBody()`는 더 이상 사용되지 않습니다.
 
 Ktor 3.2.0 이전에는 `SaveBodyPlugin`이 기본적으로 설치되었습니다. 이는 전체 응답 본문(response body)을 메모리에 캐시하여 여러 번 접근할 수 있도록 했습니다. 응답 본문 저장을 피하려면 플러그인을 명시적으로 비활성화해야 했습니다.
 
@@ -272,11 +294,11 @@ client.prepareGet("/some-file").execute { response ->
 
 이 접근 방식은 응답을 직접 스트리밍하여 본문이 메모리에 저장되는 것을 방지합니다.
 
-### .wrapWithContent() 및 .wrap() 확장 함수는 더 이상 사용되지 않습니다.
+### `.wrapWithContent()` 및 `.wrap()` 확장 함수는 더 이상 사용되지 않습니다.
 
-Ktor 3.2.0에서는 [.wrapWithContent()](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client.plugins.observer/wrap-with-content.html) 및 [.wrap()](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client.plugins.observer/wrap.html) 확장 함수가 새로운 `.replaceResponse()` 함수를 위해 더 이상 사용되지 않습니다.
+Ktor 3.2.0에서는 [`.wrapWithContent()`](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client.plugins.observer/wrap-with-content.html) 및 [`.wrap()`](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client.plugins.observer/wrap.html) 확장 함수가 새로운 `.replaceResponse()` 함수를 대신하여 더 이상 사용되지 않습니다.
 
-`.wrapWithContent()` 및 `.wrap()` 함수는 원본 응답 본문을 한 번만 읽을 수 있는 `ByteReadChannel`로 대체합니다. 새로운 채널을 반환하는 함수 대신 동일한 채널 인스턴스가 직접 전달되면, 본문을 여러 번 읽는 것이 실패합니다. 이는 응답 본문에 접근하는 여러 플러그인 간의 호환성을 깨뜨릴 수 있습니다. 왜냐하면 본문을 먼저 읽는 플러그인이 본문을 소비하기 때문입니다:
+`.wrapWithContent()` 및 `.wrap()` 함수는 원본 응답 본문을 한 번만 읽을 수 있는 `ByteReadChannel`로 대체합니다. 새로운 채널을 반환하는 함수 대신 동일한 채널 인스턴스가 직접 전달되면, 본문을 여러 번 읽는 것이 실패합니다. 이는 본문을 먼저 읽는 플러그인이 본문을 소비하기 때문에 응답 본문에 접근하는 여러 플러그인 간의 호환성을 깨뜨릴 수 있습니다:
 
 ```kotlin
 // Replaces the body with a channel decoded once from rawContent
@@ -286,7 +308,7 @@ val decodedResponse = call.wrapWithContent(decodedBody).response
 // The first call returns the body
 decodedResponse.bodyAsText()
 
-// Subsequent calls return an empty string
+// Subsequent calls returns an empty string
 decodedResponse.bodyAsText() 
 ```
 
@@ -310,7 +332,7 @@ val rawAddress = address.resolveAddress()
 
 이 함수는 확인된 IP 주소를 `ByteArray`로 반환하며, 주소를 확인할 수 없는 경우 `null`을 반환합니다. 반환되는 `ByteArray`의 크기는 IP 버전에 따라 다릅니다: IPv4 주소의 경우 4바이트를, IPv6 주소의 경우 16바이트를 포함합니다. JS 및 Wasm 플랫폼에서는 `.resolveAddress()`가 항상 `null`을 반환합니다.
 
-## Shared
+## 공유
 
 ### HTMX 통합
 
@@ -330,7 +352,7 @@ Ktor의 HTMX 지원은 다음 세 가지 실험적 모듈에서 사용할 수 �
 
 모든 API는 `@ExperimentalKtorApi`로 표시되어 있으며 `@OptIn(ExperimentalKtorApi::class)`를 통해 옵트인(opt-in)이 필요합니다. 자세한 내용은 [HTMX 통합](htmx-integration.md)을 참조하세요.
 
-## Unix domain sockets
+## 유닉스 도메인 소켓
 
 3.2.0부터 Ktor 클라이언트가 유닉스 도메인 소켓(Unix domain sockets)에 연결하고 Ktor 서버가 해당 소켓을 수신하도록 설정할 수 있습니다. 현재 유닉스 도메인 소켓은 CIO 엔진에서만 지원됩니다.
 
@@ -395,7 +417,7 @@ dependencies {
 </TabItem>
 </Tabs>
 
-## Gradle plugin
+## Gradle 플러그인
 
 ### 개발 모드 활성화
 
@@ -419,4 +441,3 @@ Ktor 3.2.0은 개발 모드를 활성화하는 것을 간소화합니다. 이전
 
 ```bash
 ./gradlew run -Pio.ktor.development=true
-```

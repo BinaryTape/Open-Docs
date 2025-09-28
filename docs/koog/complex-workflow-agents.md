@@ -302,16 +302,16 @@ val toolRegistry = ToolRegistry {
 特性允许您为代理添加新功能、修改其行为、提供对外部系统和资源的访问，并在代理运行时记录和监控事件。
 以下特性可用：
 
--   EventHandler
--   AgentMemory
--   Tracing
+- EventHandler
+- AgentMemory
+- Tracing
 
 要安装该特性，请调用 `install` 函数并将该特性作为实参提供。
 例如，要安装事件处理特性，您需要执行以下操作：
 <!--- INCLUDE
 import ai.koog.agents.core.agent.AIAgent
-import ai.koog.agents.core.feature.handler.AgentFinishedContext
-import ai.koog.agents.core.feature.handler.AgentStartContext
+import ai.koog.agents.core.feature.handler.agent.AgentCompletedContext
+import ai.koog.agents.core.feature.handler.agent.AgentStartingContext
 import ai.koog.agents.features.eventHandler.feature.EventHandler
 import ai.koog.prompt.executor.llms.all.simpleOllamaAIExecutor
 import ai.koog.prompt.llm.OllamaModels
@@ -327,10 +327,10 @@ val agent = AIAgent(
 // 安装 EventHandler 特性
 installFeatures = {
     install(EventHandler) {
-        onBeforeAgentStarted { eventContext: AgentStartContext<*> ->
+        onAgentStarting { eventContext: AgentStartingContext<*> ->
             println("正在启动代理: ${eventContext.agent.id}")
         }
-        onAgentFinished { eventContext: AgentFinishedContext ->
+        onAgentCompleted { eventContext: AgentCompletedContext ->
             println("结果: ${eventContext.result}")
         }
     }
@@ -345,8 +345,8 @@ installFeatures = {
 使用前一阶段创建的配置选项创建代理，并使用提供的输入运行它：
 <!--- INCLUDE
 import ai.koog.agents.core.agent.AIAgent
-import ai.koog.agents.core.feature.handler.AgentFinishedContext
-import ai.koog.agents.core.feature.handler.AgentStartContext
+import ai.koog.agents.core.feature.handler.agent.AgentCompletedContext
+import ai.koog.agents.core.feature.handler.agent.AgentStartingContext
 import ai.koog.agents.example.exampleComplexWorkflowAgents01.promptExecutor
 import ai.koog.agents.example.exampleComplexWorkflowAgents06.agentStrategy
 import ai.koog.agents.example.exampleComplexWorkflowAgents07.agentConfig
@@ -362,10 +362,10 @@ val agent = AIAgent(
     agentConfig = agentConfig,
     installFeatures = {
         install(EventHandler) {
-            onBeforeAgentStarted { eventContext: AgentStartContext<*> ->
+            onAgentStarting { eventContext: AgentStartingContext<*> ->
                 println("正在启动代理: ${eventContext.agent.id}")
             }
-            onAgentFinished { eventContext: AgentFinishedContext ->
+            onAgentCompleted { eventContext: AgentCompletedContext ->
                 println("结果: ${eventContext.result}")
             }
         }
@@ -404,8 +404,8 @@ import ai.koog.agents.core.agent.config.AIAgentConfig
 import ai.koog.agents.core.dsl.builder.forwardTo
 import ai.koog.agents.core.dsl.builder.strategy
 import ai.koog.agents.core.dsl.extension.*
-import ai.koog.agents.core.feature.handler.AgentFinishedContext
-import ai.koog.agents.core.feature.handler.AgentStartContext
+import ai.koog.agents.core.feature.handler.agent.AgentCompletedContext
+import ai.koog.agents.core.feature.handler.agent.AgentStartingContext
 import ai.koog.agents.core.tools.ToolRegistry
 import ai.koog.agents.core.tools.annotations.LLMDescription
 import ai.koog.agents.core.tools.annotations.Tool
@@ -505,10 +505,10 @@ val agent = AIAgent(
     agentConfig = agentConfig,
     installFeatures = {
         install(EventHandler) {
-            onBeforeAgentStarted { eventContext: AgentStartContext<*> ->
+            onAgentStarting { eventContext: AgentStartingContext<*> ->
                 println("正在启动代理: ${eventContext.agent.id}")
             }
-            onAgentFinished { eventContext: AgentFinishedContext ->
+            onAgentCompleted { eventContext: AgentCompletedContext ->
                 println("结果: ${eventContext.result}")
             }
         }

@@ -396,27 +396,28 @@ import ai.koog.prompt.message.Message
 class MyCustomCompressionStrategy : HistoryCompressionStrategy() {
     override suspend fun compress(
         llmSession: AIAgentLLMWriteSession,
-        preserveMemory: Boolean,
         memoryMessages: List<Message>
     ) {
-        // 1. Process the current history in llmSession.prompt.messages
-        // 2. Create new compressed messages
-        // 3. Update the prompt with the compressed messages
+        // 1. 处理 llmSession.prompt.messages 中的当前历史
+        // 2. 创建新的压缩消息
+        // 3. 使用压缩消息更新 prompt
 
-        // Example implementation:
+        // 保存原始消息以保留它们
+        val originalMessages = llmSession.prompt.messages
+        
+        // 示例实现：
         val importantMessages = llmSession.prompt.messages.filter {
-            // Your custom filtering logic
+            // 你的自定义过滤逻辑
             it.content.contains("important")
         }.filterIsInstance<Message.Response>()
         
-        // Note: you can also make LLM requests using the `llmSession` and ask the LLM to do some job for you using, for example, `llmSession.requestLLMWithoutTools()`
-        // Or you can change the current model: `llmSession.model = AnthropicModels.Sonnet_3_7` and ask some other LLM model -- but don't forget to change it back after
+        // 注意：你也可以使用 `llmSession` 发送 LLM 请求，并让 LLM 为你完成某些工作，例如 `llmSession.requestLLMWithoutTools()`
+        // 或者你可以更改当前模型：`llmSession.model = AnthropicModels.Sonnet_3_7` 并请求其他 LLM 模型——但之后别忘了改回来
 
-        // Compose the prompt with the filtered messages
-        composePromptWithRequiredMessages(
-            llmSession,
+        // 使用过滤后的消息构成 prompt
+        val compressedMessages = composeMessageHistory(
+            originalMessages,
             importantMessages,
-            preserveMemory,
             memoryMessages
         )
     }

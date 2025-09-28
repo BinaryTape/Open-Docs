@@ -45,7 +45,7 @@
     >
     {style="note"}
 
-5.  **Android**、**iOS**、**Desktop**、**Web**ターゲットを選択します。
+5.  **Android**、**iOS**、**Desktop**、および**Web**ターゲットを選択します。
     iOSとWebの**Share UI**オプションが選択されていることを確認してください。
 6.  すべてのフィールドとターゲットを指定したら、**Create**（Webウィザードの場合は**Download**）をクリックします。
 
@@ -68,15 +68,21 @@ IntelliJ IDEAで`ComposeDemo`フォルダに移動します。
 
   ![Compose Multiplatform project structure](compose-project-structure.png)
 
-**composeApp**モジュールは、`androidMain`、`commonMain`、`jvmMain`、`iosMain`、`wasmJsMain`のソースセットで構成されています（テストを含めることを選択した場合は`commonTest`も）。
+**composeApp**モジュールは、`androidMain`、`commonMain`、`iosMain`、`jsMain`、`jvmMain`、`wasmJsMain`、および`webMain`のソースセットで構成されています（テストを含めることを選択した場合は`commonTest`も）。
 _ソースセット_ とは、Gradleの概念で、論理的にグループ化された複数のファイルの集まりであり、各グループは独自の依存関係を持ちます。Kotlin Multiplatformでは、異なるソースセットが異なるプラットフォームをターゲットにすることができます。
 
-`commonMain`ソースセットは共通のKotlinコードを含み、プラットフォームソースセットは各ターゲットに固有のKotlinコードを含みます。
-Kotlin/JVMは`androidMain`と`jvmMain`に、Kotlin/Nativeは`iosMain`に、そしてKotlin/Wasmは`wasmJsMain`に使用されます。
+`commonMain`ソースセットは共通のKotlinコードを使用し、プラットフォームソースセットは各ターゲットに固有のKotlinコードを使用します。
 
-共有モジュールがAndroidライブラリにビルドされるとき、共通のKotlinコードはKotlin/JVMとして扱われます。iOSフレームワークにビルドされるとき、共通のKotlinコードはKotlin/Nativeとして扱われます。共有モジュールがWebアプリにビルドされるとき、共通のKotlinコードはKotlin/Wasmとして扱われます。
+*   `jvmMain` はデスクトップのソースファイルで、Kotlin/JVMを使用します。
+*   `androidMain` もKotlin/JVMを使用します。
+*   `iosMain` はKotlin/Nativeを使用します。
+*   `jsMain` はKotlin/JSを使用します。
+*   `wasmJsMain` はKotlin/Wasmを使用します。
+*   `webMain` は、`jsMain`と`wasmJsMain`を含むウェブの[中間ソースセット](multiplatform-hierarchy.md#manual-configuration)です。
 
-![Common Kotlin, Kotlin/JVM, and Kotlin/Native](module-structure.png){width=700}
+共有モジュールがAndroidライブラリにビルドされるとき、共通のKotlinコードはKotlin/JVMとして扱われます。iOSフレームワークにビルドされるとき、共通のKotlinコードはKotlin/Nativeとして扱われます。共有モジュールがWebアプリにビルドされるとき、共通のKotlinコードはKotlin/WasmおよびKotlin/JSとして扱われます。
+
+![Common Kotlin, Kotlin/JVM, and Kotlin/Native](module-structure.svg){width=700}
 
 一般的に、プラットフォーム固有のソースセットで機能を重複させるのではなく、可能な限り実装を共通コードとして記述してください。
 
@@ -90,6 +96,7 @@ fun App() {
         var showContent by remember { mutableStateOf(false) }
         Column(
             modifier = Modifier
+                .background(MaterialTheme.colorScheme.primaryContainer)
                 .safeContentPadding()
                 .fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -99,7 +106,10 @@ fun App() {
             }
             AnimatedVisibility(showContent) {
                 val greeting = remember { Greeting().greet() }
-                Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
+                Column(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                ) {
                     Image(painterResource(Res.drawable.compose_multiplatform), null)
                     Text("Compose: $greeting")
                 }
@@ -237,9 +247,14 @@ XcodeでiPhoneを登録したら、IntelliJ IDEAで[新しい実行構成を作�
 
 ### ウェブアプリケーションを実行する
 
-実行構成のリストから**composeApp [wasmJs]**を選択し、**Run**をクリックします。
+1.  実行構成のリストから以下を選択します。
 
-![Run the Compose Multiplatform app on web](compose-run-web.png){width=350}
+    *   **composeApp[js]**: Kotlin/JSアプリケーションを実行します。
+    *   **composeApp[wasmJs]**: Kotlin/Wasmアプリケーションを実行します。
+
+   ![Run the Compose Multiplatform app on web](web-run-configuration.png){width=400}
+
+2.  **Run**をクリックします。
 
 ウェブアプリケーションはブラウザで自動的に開きます。あるいは、実行が完了したらブラウザに以下のURLを入力することもできます。
 
@@ -251,7 +266,33 @@ XcodeでiPhoneを登録したら、IntelliJ IDEAで[新しい実行構成を作�
 >
 {style="tip"}
 
-![Compose web application](first-compose-project-on-web.png){width=550}
+![Compose web application](first-compose-project-on-web.png){width=600}
+
+#### ウェブターゲットの互換モード
+
+ウェブアプリケーションで互換モードを有効にすることで、すべてのブラウザで追加設定なしで動作するようにできます。
+このモードでは、モダンなブラウザはWasmバージョンを使用し、古いブラウザはJSバージョンにフォールバックします。
+このモードは、`js`と`wasmJs`の両ターゲットに対するクロスコンパイルによって実現されます。
+
+ウェブアプリケーションの互換モードを有効にするには：
+
+1.  **View | Tool Windows | Gradle**を選択してGradleツールウィンドウを開きます。
+2.  **composedemo | Tasks | compose**で、**composeCompatibilityBrowserDistribution**タスクを選択して実行します。
+
+    > タスクが正常にロードされるためには、Gradle JVMとしてJava 11以上が必要です。また、Compose Multiplatformプロジェクト全般では、JetBrains Runtime 17以上を推奨します。
+    >
+    {style="note"}
+
+   ![Run compatibility task](web-compatibility-gradle-task.png){width=500}
+
+   あるいは、`ComposeDemo`のルートディレクトリからターミナルで以下のコマンドを実行することもできます。
+
+    ```bash
+    ./gradlew composeCompatibilityBrowserDistribution
+    ```
+
+Gradleタスクが完了すると、互換性のあるアーティファクトが`composeApp/build/dist/composeWebCompatibility/productionExecutable`ディレクトリに生成されます。
+これらのアーティファクトを使用して、`js`と`wasmJs`の両ターゲットで動作する[アプリケーションを公開](https://kotlinlang.org/docs/wasm-get-started.html#publish-the-application)できます。
 
 ## 次のステップ
 

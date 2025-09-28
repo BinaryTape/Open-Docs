@@ -27,12 +27,11 @@ OpenAPI 插件可讓您為專案產生 OpenAPI 文件。
 </link-summary>
 
 Ktor 允許您根據現有的 OpenAPI 規範，為您的專案產生並提供 OpenAPI 文件。
-
-undefined
+您可以提供現有的 YAML 或 JSON 規範，或使用 Ktor Gradle plugin 的 [OpenAPI 擴充功能](openapi-spec-generation.md) 來產生一個。
 
 ## 新增依賴項 {id="add_dependencies"}
 
-*   要提供 OpenAPI 文件，需要在建置腳本中新增 `%artifact_name%` 構件：
+*   提供 OpenAPI 文件需要在建置腳本中新增 `%artifact_name%` 構件：
 
   <Tabs group="languages">
       <TabItem title="Gradle (Kotlin)" group-key="kotlin">

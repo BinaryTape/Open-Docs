@@ -26,9 +26,7 @@
 OpenAPIプラグインを使用すると、プロジェクトのOpenAPIドキュメントを生成できます。
 </link-summary>
 
-Ktorでは、既存のOpenAPI仕様に基づいて、プロジェクトのOpenAPIドキュメントを生成し提供できます。
-
-undefined
+Ktorでは、既存のOpenAPI仕様に基づいて、プロジェクトのOpenAPIドキュメントを生成し提供できます。既存のYAMLまたはJSON仕様を提供することも、Ktor Gradleプラグインの[OpenAPI拡張機能](openapi-spec-generation.md)を使用して生成することもできます。
 
 ## 依存関係の追加 {id="add_dependencies"}
 
@@ -78,11 +76,9 @@ routing {
 }
 ```
 
-このメソッドは、アプリケーションリソース内でOpenAPI仕様を検索しようとします。
-それ以外の場合は、`java.io.File`を使用してファイルシステムからOpenAPI仕様を読み取ろうとします。
+このメソッドは、アプリケーションリソース内でOpenAPI仕様を検索しようとします。それ以外の場合は、`java.io.File`を使用してファイルシステムからOpenAPI仕様を読み取ろうとします。
 
-デフォルトでは、ドキュメントは`StaticHtml2Codegen`を使用して生成されます。
-`openAPI`ブロック内で生成設定をカスタマイズできます:
+デフォルトでは、ドキュメントは`StaticHtml2Codegen`を使用して生成されます。`openAPI`ブロック内で生成設定をカスタマイズできます:
 
 ```kotlin
 routing {

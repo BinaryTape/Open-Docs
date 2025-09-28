@@ -1,8 +1,10 @@
 # 歷史記錄壓縮
 
-AI 代理維護一個訊息記錄，其中包含使用者訊息、助理回應、工具呼叫和工具回應。隨著代理依循其策略進行每次互動，此記錄會不斷增長。
+AI 代理維護一個訊息記錄，其中包含使用者訊息、助理回應、工具呼叫和工具回應。
+此記錄會隨著代理依循其策略進行每次互動而增長。
 
-對於長期對話，記錄可能會變得龐大並消耗大量 Token。歷史記錄壓縮有助於減少此情況，它將完整的訊息列表摘要成一個或多或少包含代理進一步運作所需重要資訊的訊息。
+對於長期對話，記錄可能會變得龐大並消耗大量 Token。
+歷史記錄壓縮有助於減少此情況，它將完整的訊息列表摘要成一個或多個訊息，這些訊息僅包含代理進一步運作所需的重要資訊。
 
 歷史記錄壓縮解決了代理系統中的關鍵挑戰：
 
@@ -27,7 +29,8 @@ AI 代理維護一個訊息記錄，其中包含使用者訊息、助理回應�
 
 ### 策略圖中的歷史記錄壓縮
 
-若要在策略圖中壓縮歷史記錄，您需要使用 `nodeLLMCompressHistory` 節點。根據您決定執行壓縮的步驟，有以下情境可用：
+若要在策略圖中壓縮歷史記錄，您需要使用 `nodeLLMCompressHistory` 節點。
+根據您決定執行壓縮的步驟，有以下情境可用：
 
 *   當歷史記錄變得太長時壓縮歷史記錄，您可以定義一個輔助函數並將 `nodeLLMCompressHistory` 節點新增到您的策略圖中，其邏輯如下：
 
@@ -71,7 +74,8 @@ val strategy = strategy<String, String>("execute-with-history-compression") {
 ```
 <!--- KNIT example-history-compression-01.kt -->
 
-在此範例中，策略會在每次工具呼叫後檢查歷史記錄是否太長。歷史記錄在將工具結果發送回 LLM 之前進行壓縮。這可防止上下文在長期對話中增長。
+在此範例中，策略會在每次工具呼叫後檢查歷史記錄是否太長。
+歷史記錄在將工具結果發送回 LLM 之前進行壓縮。這可防止上下文在長期對話中增長。
 
 *   若要在策略的邏輯步驟（子圖）之間壓縮歷史記錄，您可以如下實作您的策略：
 
@@ -82,11 +86,11 @@ import ai.koog.agents.core.dsl.extension.nodeLLMCompressHistory
 ```kotlin
 val strategy = strategy<String, String>("execute-with-history-compression") {
     val collectInformation by subgraph<String, String> {
-        // Some steps to collect the information
+        // 收集資訊的步驟
     }
     val compressHistory by nodeLLMCompressHistory<String>()
     val makeTheDecision by subgraph<String, String> {
-        // Some steps to make the decision based on the current compressed history and collected information
+        // 根據目前壓縮的歷史記錄和收集到的資訊做出決策的步驟
     }
     
     nodeStart then collectInformation then compressHistory then makeTheDecision
@@ -124,11 +128,13 @@ llm.writeSession {
 
 ## 歷史記錄壓縮策略
 
-您可以透過向 `nodeLLMCompressHistory(strategy=...)` 或 `replaceHistoryWithTLDR(strategy=...)` 傳遞一個可選的 `strategy` 參數來自訂壓縮過程。該框架提供了幾種內建策略。
+您可以透過向 `nodeLLMCompressHistory(strategy=...)` 或 `replaceHistoryWithTLDR(strategy=...)` 傳遞一個可選的 `strategy` 參數來自訂壓縮過程。
+該框架提供了幾種內建策略。
 
 ### WholeHistory (預設)
 
-此為預設策略，它將整個歷史記錄壓縮成一條 TLDR 訊息，總結到目前為止已完成的內容。此策略適用於大多數通用使用情境，在這些情境中您希望維持對整個交談上下文的感知，同時減少 Token 使用量。
+此為預設策略，它將整個歷史記錄壓縮成一條 TLDR 訊息，總結到目前為止已完成的內容。
+此策略適用於大多數通用使用情境，在這些情境中您希望維持對整個交談上下文的感知，同時減少 Token 使用量。
 
 您可以如下使用它：
 
@@ -177,7 +183,8 @@ llm.writeSession {
 
 ### FromLastNMessages
 
-此策略僅將最後 `n` 條訊息壓縮成一條 TLDR 訊息，並完全丟棄較早的訊息。當只有代理的最新成就（或最新發現的事實、最新上下文）與解決問題相關時，此策略非常有用。
+此策略僅將最後 `n` 條訊息壓縮成一條 TLDR 訊息，並完全丟棄較早的訊息。
+當只有代理的最新成就（或最新發現的事實、最新上下文）與解決問題相關時，此策略非常有用。
 
 您可以如下使用它：
 
@@ -229,7 +236,8 @@ llm.writeSession {
 
 ### Chunked
 
-此策略將整個訊息歷史記錄分割成固定大小的塊，並將每個塊獨立壓縮成一條 TLDR 訊息。當您不僅需要迄今為止的簡明 TLDR，還希望追蹤整體進度，並且某些舊資訊可能也很重要時，此策略非常有用。
+此策略將整個訊息歷史記錄分割成固定大小的塊，並將每個塊獨立壓縮成一條 TLDR 訊息。
+當您不僅需要迄今為止的簡明 TLDR，還希望追蹤整體進度，並且某些舊資訊可能也很重要時，此策略非常有用。
 
 您可以如下使用它：
 
@@ -281,7 +289,9 @@ llm.writeSession {
 
 ### RetrieveFactsFromHistory
 
-此策略在歷史記錄中搜尋與所提供概念列表相關的特定事實並將其擷取。它將整個歷史記錄更改為僅包含這些事實，並將其作為未來 LLM 請求的上下文。當您了解哪些確切事實將有助於 LLM 更好地執行任務時，此策略非常有用。
+此策略在歷史記錄中搜尋與所提供概念列表相關的特定事實並將其擷取。
+它將整個歷史記錄更改為僅包含這些事實，並將其作為未來 LLM 請求的上下文。
+當您了解哪些確切事實將有助於 LLM 更好地執行任務時，此策略非常有用。
 
 您可以如下使用它：
 
@@ -396,26 +406,28 @@ import ai.koog.prompt.message.Message
 class MyCustomCompressionStrategy : HistoryCompressionStrategy() {
     override suspend fun compress(
         llmSession: AIAgentLLMWriteSession,
-        preserveMemory: Boolean,
         memoryMessages: List<Message>
     ) {
         // 1. 處理 llmSession.prompt.messages 中的目前歷史記錄
         // 2. 建立新的壓縮訊息
         // 3. 使用壓縮訊息更新 prompt
 
+        // 儲存原始訊息以保留它們
+        val originalMessages = llmSession.prompt.messages
+        
         // 範例實作：
         val importantMessages = llmSession.prompt.messages.filter {
             // 您的自訂篩選邏輯
             it.content.contains("important")
         }.filterIsInstance<Message.Response>()
         
-        // 注意：您也可以使用 `llmSession` 提出 LLM 請求，並要求 LLM 替您執行某些任務，例如使用 `llmSession.requestLLMWithoutTools()`
-        // 或者您可以變更目前模型：`llmSession.model = AnthropicModels.Sonnet_3_7` 並詢問其他 LLM 模型 – 但之後別忘了將其改回
+        // 注意：您也可以使用 llmSession 提出 LLM 請求，並要求 LLM 替您執行某些任務，例如使用 llmSession.requestLLMWithoutTools()
+        // 或者您可以變更目前模型：llmSession.model = AnthropicModels.Sonnet_3_7 並詢問其他 LLM 模型 – 但之後別忘了將其改回
+
         // 使用篩選後的訊息構成 prompt
-        composePromptWithRequiredMessages(
-            llmSession,
+        val compressedMessages = composeMessageHistory(
+            originalMessages,
             importantMessages,
-            preserveMemory,
             memoryMessages
         )
     }
@@ -473,7 +485,8 @@ llm.writeSession {
 
 ## 壓縮期間的記憶體保留
 
-所有歷史記錄壓縮方法都有一個 `preserveMemory` 參數，它決定在壓縮期間是否應保留記憶體相關訊息。這些訊息包含從記憶體中擷取的事實，或指示記憶體功能未啟用。
+所有歷史記錄壓縮方法都有一個 `preserveMemory` 參數，它決定在壓縮期間是否應保留記憶體相關訊息。
+這些訊息包含從記憶體中擷取的事實，或指示記憶體功能未啟用。
 
 您可以如下使用 `preserveMemory` 參數：
 

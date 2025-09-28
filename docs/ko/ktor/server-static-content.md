@@ -14,13 +14,16 @@
 스타일시트, 스크립트, 이미지 등과 같은 정적 콘텐츠를 제공하는 방법을 알아보세요.
 </link-summary>
 
-웹사이트를 생성하든 HTTP 엔드포인트를 만들든, 애플리케이션은 스타일시트, 스크립트, 이미지와 같은 파일을 제공해야 할 가능성이 높습니다. Ktor를 사용하여 파일 내용을 로드하고 클라이언트에 [응답으로 전송](server-responses.md)하는 것이 물론 가능하지만, Ktor는 정적 콘텐츠 제공을 위한 추가 기능을 제공하여 이 과정을 간소화합니다.
+웹사이트를 생성하든 HTTP 엔드포인트를 만들든, 애플리케이션은 스타일시트, 스크립트 또는 이미지와 같은 파일을 제공해야 할 가능성이 높습니다.
+Ktor를 사용하여 파일 내용을 로드하고 클라이언트에 [응답으로 전송](server-responses.md)하는 것이 물론 가능하지만, Ktor는 정적 콘텐츠 제공을 위한 추가 기능을 제공하여 이 과정을 간소화합니다.
 
 Ktor를 사용하면 [폴더](#folders), [ZIP 파일](#zipped), 그리고 [임베디드 애플리케이션 리소스](#resources)에서 콘텐츠를 제공할 수 있습니다.
 
 ## 폴더 {id="folders"}
 
-로컬 파일 시스템에서 정적 파일을 제공하려면 [`staticFiles()`](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.http.content/static-files.html) 함수를 사용하세요. 이 경우 상대 경로는 현재 작업 디렉터리를 사용하여 확인됩니다.
+로컬 파일 시스템에서 정적 파일을 제공하려면
+[`staticFiles()`](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.http.content/static-files.html)
+함수를 사용하세요. 이 경우 상대 경로는 현재 작업 디렉터리를 사용하여 확인됩니다.
 
  ```kotlin
  routing {
@@ -28,13 +31,16 @@ Ktor를 사용하면 [폴더](#folders), [ZIP 파일](#zipped), 그리고 [임�
  }
  ```
 
-위 예시에서 `/resources`로 들어오는 모든 요청은 현재 작업 디렉터리의 `files` 물리적 폴더에 매핑됩니다. Ktor는 URL 경로와 물리적 파일 이름이 일치하는 한 `files` 폴더의 모든 파일을 재귀적으로 제공합니다.
+위 예시에서 `/resources`로 들어오는 모든 요청은 현재 작업 디렉터리의 `files` 물리적 폴더에 매핑됩니다.
+Ktor는 URL 경로와 물리적 파일 이름이 일치하는 한 `files` 폴더의 모든 파일을 재귀적으로 제공합니다.
 
 전체 예시는 [static-files](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/static-files)를 참조하세요.
 
 ## ZIP 파일 {id="zipped"}
 
-ZIP 파일에서 정적 콘텐츠를 제공하려면 Ktor는 [`staticZip()`](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.http.content/static-zip.html) 함수를 제공합니다. 이 함수를 사용하면 아래 예시에서 보여지듯이 요청을 ZIP 아카이브의 콘텐츠에 직접 매핑할 수 있습니다:
+ZIP 파일에서 정적 콘텐츠를 제공하려면 Ktor는 [
+`staticZip()`](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.http.content/static-zip.html) 함수를 제공합니다.
+이 함수를 사용하면 아래 예시에서 보여지듯이 요청을 ZIP 아카이브의 콘텐츠에 직접 매핑할 수 있습니다:
 
  ```kotlin
  routing {
@@ -52,7 +58,9 @@ ZIP 파일에서 정적 콘텐츠를 제공하려면 Ktor는 [`staticZip()`](htt
 
 ## 리소스 {id="resources"}
 
-클래스패스에서 콘텐츠를 제공하려면 [`staticResources()`](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.http.content/static-resources.html) 함수를 사용하세요.
+클래스패스에서 콘텐츠를 제공하려면
+[`staticResources()`](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.http.content/static-resources.html)
+함수를 사용하세요.
 
 ```kotlin
 routing {
@@ -60,7 +68,8 @@ routing {
 }
 ```
 
-이는 `/resources`로 들어오는 모든 요청을 애플리케이션 리소스 내의 `static` 패키지에 매핑합니다. 이 경우 Ktor는 URL 경로와 리소스 경로가 일치하는 한 `static` 패키지의 모든 파일을 재귀적으로 제공합니다.
+이는 `/resources`로 들어오는 모든 요청을 애플리케이션 리소스 내의 `static` 패키지에 매핑합니다.
+이 경우 Ktor는 URL 경로와 리소스 경로가 일치하는 한 `static` 패키지의 모든 파일을 재귀적으로 제공합니다.
 
 전체 예시는 [static-resources](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/static-resources)를 참조하세요.
 
@@ -80,7 +89,8 @@ staticResources("/custom", "static", index = "custom_index.html")
 
 ### 사전 압축 파일 {id="precompressed"}
 
-Ktor는 사전 압축된 파일을 제공하고 [동적 압축](server-compression.md)을 사용하지 않도록 하는 기능을 제공합니다. 이 기능을 사용하려면 블록 문 내부에 `preCompressed()` 함수를 정의하세요:
+Ktor는 사전 압축된 파일을 제공하고 [동적 압축](server-compression.md)을 사용하지 않도록 하는 기능을 제공합니다.
+이 기능을 사용하려면 블록 문 내부에 `preCompressed()` 함수를 정의하세요:
 
 ```kotlin
 staticFiles("/", File("files")) {
@@ -151,6 +161,27 @@ object Immutable : CacheControl(null) {
 }
 ```
 
+[`ConditionalHeaders`](server-conditional-headers.md) 플러그인이 설치된 경우, Ktor는 `ETag` 및 `LastModified` 헤더와 함께 정적 리소스를 제공하고 조건부 헤더를 처리하여 마지막 요청 이후 변경되지 않았다면 콘텐츠 본문을 전송하지 않도록 할 수 있습니다:
+
+```kotlin
+staticFiles("/filesWithEtagAndLastModified", filesDir) {
+    etag { resource -> EntityTagVersion("etag") }
+    lastModified { resource -> GMTDate() }
+}
+```
+
+이 예시에서는 `etag` 및 `lastModified` 값이 각 리소스에 따라 동적으로 계산되어 응답에 적용됩니다.
+
+`ETag` 생성을 단순화하기 위해 미리 정의된 프로바이더를 사용할 수도 있습니다:
+
+```kotlin
+staticFiles("/filesWithStrongGeneratedEtag", filesDir) {
+    etag(ETagProvider.StrongSha256)
+}
+```
+
+이 예시에서는 리소스 콘텐츠의 SHA-256 해시를 사용하여 강력한 `ETag`가 생성됩니다. I/O 오류가 발생하면 `ETag`는 생성되지 않습니다.
+
 > Ktor의 캐싱에 대한 자세한 내용은 [캐싱 헤더](server-caching-headers.md)를 참조하세요.
 >
 {style="tip"}
@@ -176,6 +207,28 @@ staticResources("/", "static"){
 ```
 
 이 예시에서 `/index`가 요청되면 Ktor는 `/index.html`을 검색하여 찾은 콘텐츠를 제공합니다.
+
+### 사용자 지정 대체
+
+요청된 정적 리소스를 찾을 수 없을 때 사용자 지정 대체 동작을 구성하려면 `fallback()` 함수를 사용하세요.
+`fallback()`을 사용하면 요청된 경로를 검사하고 응답 방법을 결정할 수 있습니다. 예를 들어, 다른 리소스로 리디렉션하거나 특정 HTTP 상태를 반환하거나 대체 파일을 제공할 수 있습니다.
+
+`fallback()`은 `staticFiles()`, `staticResources()`, `staticZip()`, 또는 `staticFileSystem()` 내부에 추가할 수 있습니다. 콜백은 요청된 경로와 현재 `ApplicationCall`을 제공합니다.
+
+아래 예시는 특정 확장자를 리디렉션하거나, 사용자 지정 상태를 반환하거나, `index.html`로 대체하는 방법을 보여줍니다:
+
+```kotlin
+staticFiles("/files", File("textFiles")) {
+    fallback { requestedPath, call ->
+        when {
+            requestedPath.endsWith(".php") -> call.respondRedirect("/static/index.html") // absolute path
+            requestedPath.endsWith(".kt") -> call.respondRedirect("Default.kt") // relative path
+            requestedPath.endsWith(".xml") -> call.respond(HttpStatusCode.Gone)
+            else -> call.respondFile(File("files/index.html"))
+        }
+    }
+}
+```
 
 ### 사용자 지정 수정 {id="modify"}
 

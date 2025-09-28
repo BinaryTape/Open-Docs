@@ -26,13 +26,14 @@ Koog 프레임워크는 도구를 구현하기 위한 다음 접근 방식을 �
 
 각 도구는 다음 구성 요소로 구성됩니다.
 
-| <div style="width:110px">구성 요소</div> | 설명                                                                                                                                                                                                                                                                                                                   |
-|------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `Args`                                   | 도구에 필요한 인자를 정의하는 직렬화 가능한 데이터 클래스입니다. 이 클래스는 [`ToolArgs`](https://api.koog.ai/agents/agents-tools/ai.koog.agents.core.tools/-tool/-args/index.html) 인터페이스를 구현해야 합니다. 인자가 필요 없는 도구의 경우 내장된 `ToolArgs.Empty` 구현을 사용할 수 있습니다. |
-| `Result`                                 | 도구가 반환하는 결과의 타입입니다. 이 타입은 [`ToolResult`](https://api.koog.ai/agents/agents-tools/ai.koog.agents.core.tools/-tool-result/index.html) 인터페이스를 구현해야 하며, `ToolResult.Text`, `ToolResult.Boolean`, `ToolResult.Number` 또는 `ToolResult.JSONSerializable`의 사용자 정의 구현일 수 있습니다. |
-| `argsSerializer`                         | 도구의 인자가 역직렬화되는 방식을 정의하는 오버라이드된 변수입니다. 또한 [argsSerializer](https://api.koog.ai/agents/agents-tools/ai.koog.agents.core.tools/-tool/args-serializer.html)를 참조하세요.                                                                                                                  |
-| `descriptor`                             | 도구 메타데이터를 지정하는 오버라이드된 변수입니다:<br/>- `name`<br/>- `description`<br/>- `requiredParameters` (기본값은 비어 있음)<br/>- `optionalParameters` (기본값은 비어 있음)<br/>또한 [descriptor](https://api.koog.ai/agents/agents-tools/ai.koog.agents.core.tools/-tool/descriptor.html)를 참조하세요.                        |
-| `execute()`                              | 도구의 로직을 구현하는 함수입니다. `Args` 타입의 인자를 받고 `Result` 타입의 결과를 반환합니다. 또한 [execute()]()를 참조하세요.                                                                                                                                         |
+| <div style="width:110px">구성 요소</div> | 설명                                                                                                                                                                                                                                                                                                                                                                                                                          |
+|------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `Args`                                   | 도구에 필요한 인자를 정의하는 직렬화 가능한 데이터 클래스입니다.                                                                                                                                                                                                                                                                                                                                                                                           |
+| `Result`                                 | 도구가 반환하는 직렬화 가능한 결과 타입입니다. 사용자 정의 형식으로 도구 결과를 표시하려면 [`ToolResult.TextSerializable`](https://api.koog.ai/agents/agents-tools/ai.koog.agents.core.tools/-tool-result/-text-serializable/index.html) 클래스를 상속하고 `textForLLM(): String` 메서드를 구현하세요.                                                                                                          |
+| `argsSerializer`                         | 도구의 인자가 역직렬화되는 방식을 정의하는 오버라이드된 변수입니다. 또한 [argsSerializer](https://api.koog.ai/agents/agents-tools/ai.koog.agents.core.tools/-tool/args-serializer.html)를 참조하세요.                                                                                                                                                                                                                       |
+| `resultSerializer`                       | 도구의 결과가 역직렬화되는 방식을 정의하는 오버라이드된 변수입니다. 또한 [resultSerializer](https://api.koog.ai/agents/agents-tools/ai.koog.agents.core.tools/-tool/result-serializer.html)를 참조하세요. [`ToolResult.TextSerializable`](https://api.koog.ai/agents/agents-tools/ai.koog.agents.core.tools/-tool-result/-text-serializable/index.html)을 상속하기로 선택했다면 `ToolResultUtils.toTextSerializer()` 사용을 고려하세요. |
+| `descriptor`                             | 도구 메타데이터를 지정하는 오버라이드된 변수입니다:<br/>- `name`<br/>- `description`<br/>- `requiredParameters` (기본값은 비어 있음)<br/>- `optionalParameters` (기본값은 비어 있음)<br/>또한 [descriptor](https://api.koog.ai/agents/agents-tools/ai.koog.agents.core.tools/-tool/descriptor.html)를 참조하세요.                                                                                                                               |
+| `execute()`                              | 도구의 로직을 구현하는 함수입니다. `Args` 타입의 인자를 받고 `Result` 타입의 결과를 반환합니다. 또한 [execute()]()를 참조하세요.                                                                                                                                                                                                                                                                                 |
 
 !!! tip
     LLM이 도구를 올바르게 이해하고 사용하기 쉽도록 도구에 명확한 설명과 잘 정의된 매개변수 이름을 지정하세요.
@@ -43,23 +44,25 @@ Koog 프레임워크는 도구를 구현하기 위한 다음 접근 방식을 �
 
 <!--- INCLUDE
 import ai.koog.agents.core.tools.Tool
-import ai.koog.agents.core.tools.ToolArgs
 import ai.koog.agents.core.tools.ToolDescriptor
 import ai.koog.agents.core.tools.ToolParameterDescriptor
 import ai.koog.agents.core.tools.ToolParameterType
-import ai.koog.agents.core.tools.ToolResult
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.builtins.serializer
+import ai.koog.agents.core.tools.annotations.LLMDescription
 -->
 ```kotlin
 // Implement a simple calculator tool that adds two digits
-object CalculatorTool : Tool<CalculatorTool.Args, ToolResult.Number>() {
+object CalculatorTool : Tool<CalculatorTool.Args, Int>() {
     
     // Arguments for the calculator tool
     @Serializable
     data class Args(
+        @property:LLMDescription("The first digit to add (0-9)")
         val digit1: Int,
+        @property:LLMDescription("The second digit to add (0-9)")
         val digit2: Int
-    ) : ToolArgs {
+    ) {
         init {
             require(digit1 in 0..9) { "digit1 must be a single digit (0-9)" }
             require(digit2 in 0..9) { "digit2 must be a single digit (0-9)" }
@@ -68,30 +71,15 @@ object CalculatorTool : Tool<CalculatorTool.Args, ToolResult.Number>() {
 
     // Serializer for the Args class
     override val argsSerializer = Args.serializer()
-
-    // Tool descriptor
-    override val descriptor: ToolDescriptor = ToolDescriptor(
-        name = "calculator",
-        description = "A simple calculator that can add two digits (0-9).",
-        requiredParameters = listOf(
-            ToolParameterDescriptor(
-                name = "digit1",
-                description = "The first digit to add (0-9)",
-                type = ToolParameterType.Integer
-            ),
-            ToolParameterDescriptor(
-                name = "digit2",
-                description = "The second digit to add (0-9)",
-                type = ToolParameterType.Integer
-            )
-        )
-    )
+    override val resultSerializer = Int.serializer()
+    
+    // Name of the tool, visible to LLM (by default will be derrived from the class name)
+    override val name = "calculator"
+    // Description of the tool, visible to LLM. Required
+    override val description = "A simple calculator that can add two digits (0-9)."
 
     // Function to add two digits
-    override suspend fun execute(args: Args): ToolResult.Number {
-        val sum = args.digit1 + args.digit2
-        return ToolResult.Number(sum)
-    }
+    override suspend fun execute(args: Args): Int = args.digit1 + args.digit2
 }
 ```
 <!--- KNIT example-class-based-tools-01.kt --> 
@@ -127,34 +115,25 @@ import ai.koog.agents.core.tools.ToolDescriptor
 import ai.koog.agents.core.tools.ToolParameterDescriptor
 import ai.koog.agents.core.tools.ToolParameterType
 import kotlinx.serialization.Serializable
+import ai.koog.agents.core.tools.annotations.LLMDescription
 -->
 ```kotlin
 // Create a tool that casts a string expression to a double value
 object CastToDoubleTool : SimpleTool<CastToDoubleTool.Args>() {
     // Define tool arguments
     @Serializable
-    data class Args(val expression: String, val comment: String) : ToolArgs
+    data class Args(
+        @property:LLMDescription("An expression to case to double")
+        val expression: String,
+        @property:LLMDescription("A comment on how to process the expression")
+        val comment: String
+    )
 
     // Serializer for the Args class
     override val argsSerializer = Args.serializer()
 
-    // Tool descriptor
-    override val descriptor = ToolDescriptor(
-        name = "cast_to_double",
-        description = "casts the passed expression to double or returns 0.0 if the expression is not castable",
-        requiredParameters = listOf(
-            ToolParameterDescriptor(
-                name = "expression", description = "An expression to case to double", type = ToolParameterType.String
-            )
-        ),
-        optionalParameters = listOf(
-            ToolParameterDescriptor(
-                name = "comment",
-                description = "A comment on how to process the expression",
-                type = ToolParameterType.String
-            )
-        )
-    )
+    // Description of the tool, visible to LLM
+    override val description = "casts the passed expression to double or returns 0.0 if the expression is not castable"
     
     // Function that executes the tool with the provided arguments
     override suspend fun doExecute(args: Args): String {
@@ -168,6 +147,82 @@ object CastToDoubleTool : SimpleTool<CastToDoubleTool.Args>() {
 }
 ```
 <!--- KNIT example-class-based-tools-02.kt --> 
+
+### 사용자 정의 형식으로 LLM에 도구 결과 전송
+
+JSON 결과가 LLM에 전송되는 방식이 만족스럽지 않다면 (예를 들어, 어떤 경우에는 도구 출력이 Markdown으로 구조화될 때 LLM이 더 잘 작동할 수 있습니다) 다음 단계를 따라야 합니다.
+1. `ToolResult.TextSerializable` 인터페이스를 구현하고 `textForLLM()` 메서드를 오버라이드합니다.
+2. `ToolResultUtils.toTextSerializer<T>()`를 사용하여 `resultSerializer`를 오버라이드합니다.
+
+#### 예시
+
+<!--- INCLUDE
+import ai.koog.agents.core.tools.Tool
+import ai.koog.agents.core.tools.ToolResult
+import ai.koog.agents.core.tools.ToolDescriptor
+import ai.koog.agents.core.tools.ToolParameterDescriptor
+import ai.koog.agents.core.tools.ToolParameterType
+import kotlinx.serialization.Serializable
+import ai.koog.agents.core.tools.annotations.LLMDescription
+import ai.koog.prompt.markdown.markdown
+-->
+```kotlin
+// A tool that edits file
+object EditFile : Tool<EditFile.Args, EditFile.Result>() {
+    // Define tool arguments
+    @Serializable
+    public data class Args(
+        val path: String,
+        val original: String,
+        val replacement: String
+    )
+
+    @Serializable
+    public data class Result(
+        private val patchApplyResult: PatchApplyResult
+    ) : ToolResult.TextSerializable() {
+
+        @Serializable
+        public sealed interface PatchApplyResult {
+            @Serializable
+            public data class Success(val updatedContent: String) : PatchApplyResult
+            
+            @Serializable
+            public sealed class Failure(public val reason: String) : PatchApplyResult
+        }
+        
+        // Textual output (in Markdown format) that will be visible to the LLM after the tool finishes.
+        override fun textForLLM(): String = markdown {
+            if (patchApplyResult is PatchApplyResult.Success) {
+                line {
+                    bold("Successfully").text(" edited file (patch applied)")
+                }
+            } else {
+                line {
+                    text("File was ")
+                        .bold("not")
+                        .text(" modified (patch application failed: ${(patchApplyResult as PatchApplyResult.Failure).reason})")
+                }
+            }
+        }
+
+        override fun toString(): String = textForLLM()
+    }
+
+    // Serializers for the args and Result class
+    override val argsSerializer = Args.serializer()
+    override val resultSerializer = Result.serializer()
+
+    // Description of the tool, visible to LLM
+    override val description = "Edits the given file"
+    
+    // Function that executes the tool with the provided arguments
+    override suspend fun execute(args: Args): Result {
+        return TODO("Implement file edit")
+    }
+}
+```
+<!--- KNIT example-class-based-tools-03.kt -->
 
 도구를 구현한 후에는 도구 레지스트리에 추가한 다음 에이전트와 함께 사용해야 합니다.
 자세한 내용은 [도구 레지스트리](tools-overview.md#tool-registry)를 참조하세요.

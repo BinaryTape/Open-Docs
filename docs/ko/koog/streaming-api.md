@@ -2,7 +2,7 @@
 
 ## 서론
 
-Koog의 **스트리밍 API**를 사용하면 **LLM 출력**을 `Flow<StreamFrame>` 형태로 **점진적으로** 소비할 수 있습니다. 전체 응답을 기다리지 않고도 코드는 다음을 수행할 수 있습니다.
+Koog의 **스트리밍 API**를 사용하면 `Flow<StreamFrame>` 형태로 **LLM 출력**을 **점진적으로** 소비할 수 있습니다. 전체 응답을 기다리지 않고도 코드는 다음을 수행할 수 있습니다.
 
 - 어시스턴트 텍스트가 도착하는 대로 렌더링
 - **도구 호출**을 실시간으로 감지하고 이에 따라 조치
@@ -34,7 +34,7 @@ Koog의 **스트리밍 API**를 사용하면 **LLM 출력**을 `Flow<StreamFrame
 
 ### 프레임과 직접 작업하기
 
-이것은 가장 일반적인 접근 방식입니다. 각 프레임 종류에 반응합니다.
+이것은 가장 일반적인 접근 방식입니다: 각 프레임 종류에 반응합니다.
 
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
@@ -154,20 +154,20 @@ fun GraphAIAgent.FeatureContext.installStreamingApi() {
 -->
 ```kotlin
 handleEvents {
-    onToolCall { context ->
+    onToolExecutionStarting { context ->
         println("
-🔧 Using ${context.tool.name} with ${context.toolArgs}... ")
+🔧 ${context.tool.name}을 ${context.toolArgs}와 함께 사용 중... ")
     }
-    onStreamFrame { context ->
+    onLLMStreamingFrameReceived { context ->
         (context.streamFrame as? StreamFrame.Append)?.let { frame ->
             print(frame.text)
         }
     }
-    onStreamError { context -> 
-        println("❌ Error: ${context.error}")
+    onLLMStreamingFailed { context -> 
+        println("❌ 오류: ${context.error}")
     }
-    onAfterStream {
-        println("🏁 Done")
+    onLLMStreamingCompleted {
+        println("🏁 완료")
     }
 }
 ```
@@ -200,7 +200,6 @@ handleEvents {
 먼저 구조화된 데이터를 나타내는 데이터 클래스를 정의합니다.
 
 <!--- INCLUDE
-import ai.koog.agents.core.tools.ToolArgs
 import kotlinx.serialization.Serializable
 -->
 ```kotlin
@@ -209,7 +208,7 @@ data class Book(
     val title: String,
     val author: String,
     val description: String
-): ToolArgs
+)
 ```
 <!--- KNIT example-streaming-api-03.kt -->
 
@@ -351,7 +350,7 @@ val agentStrategy = strategy<String, List<Book>>("library-assistant") {
          // Call the parser with the result of the response stream and perform actions with the result
          parseMarkdownStreamToBooks(markdownStream).collect { book ->
             books.add(book)
-            println("Parsed Book: ${book.title} by ${book.author}")
+            println("파싱된 책: ${book.title} (저자: ${book.author})")
          }
       }
 
@@ -375,29 +374,32 @@ import ai.koog.agents.core.tools.SimpleTool
 import ai.koog.agents.core.tools.ToolDescriptor
 import ai.koog.agents.example.exampleStreamingApi03.Book
 import kotlinx.serialization.KSerializer
+import kotlinx.serialization.Serializable
 
 -->
 ```kotlin
+@Serializable
+data class Book(
+   val title: String,
+   val author: String,
+   val description: String
+)
+
 class BookTool(): SimpleTool<Book>() {
     
     companion object { const val NAME = "book" }
 
     override suspend fun doExecute(args: Book): String {
-        println("${args.title} by ${args.author}:
+        println("${args.title} (저자: ${args.author}):
  ${args.description}")
         return "Done"
     }
 
     override val argsSerializer: KSerializer<Book>
         get() = Book.serializer()
-    
-    override val descriptor: ToolDescriptor
-        get() = ToolDescriptor(
-            name = NAME,
-            description = "A tool to parse book information from Markdown",
-            requiredParameters = listOf(),
-            optionalParameters = listOf()
-        )
+
+    override val name: String = NAME
+    override val description: String = "A tool to parse book information from Markdown"
 }
 ```
 <!--- KNIT example-streaming-api-08.kt -->
@@ -407,7 +409,6 @@ class BookTool(): SimpleTool<Book>() {
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.forwardTo
 import ai.koog.agents.core.dsl.builder.strategy
-import ai.koog.agents.core.tools.ToolArgs
 import ai.koog.agents.example.exampleStreamingApi04.markdownBookDefinition
 import ai.koog.agents.example.exampleStreamingApi06.parseMarkdownStreamToBooks
 import ai.koog.agents.example.exampleStreamingApi08.BookTool
@@ -423,7 +424,7 @@ val agentStrategy = strategy<String, Unit>("library-assistant") {
          val markdownStream = requestLLMStreaming(mdDefinition)
 
          parseMarkdownStreamToBooks(markdownStream).collect { book ->
-            callToolRaw(BookTool.NAME, book as ToolArgs)
+            callToolRaw(BookTool.NAME, book)
             /* Other possible options:
                 callTool(BookTool::class, book)
                 callTool<BookTool>(book)
@@ -433,7 +434,7 @@ val agentStrategy = strategy<String, Unit>("library-assistant") {
 
          // We can make parallel tool calls
          parseMarkdownStreamToBooks(markdownStream).toParallelToolCallsRaw(toolClass=BookTool::class).collect {
-            println("Tool call result: $it")
+            println("도구 호출 결과: $it")
          }
       }
    }

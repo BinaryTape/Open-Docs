@@ -33,9 +33,21 @@ IntelliJ Ktor プラグインを使用すると、Ktor プロジェクトを最�
 </tr>
 
 <tr>
+<td>3.3.0</td><td>2025年9月11日</td><td>
+<p>
+実験的な OpenAPI (OpenAPI) 生成プレビュー、改善された静的コンテンツ処理、Android および JS/Wasm 用 WebRTC クライアントなどの主要な機能を導入し、Jetty、OkHttp、Kotlin 2.2 へアップグレードするマイナーリリースです。詳細については、<Links href="/ktor/whats-new-330" summary="undefined">Ktor 3.3.0 の新機能</Links> を参照してください。
+</p>
+<var name="version" value="3.3.0"/>
+<p>
+    <a href="https://github.com/ktorio/ktor/releases/tag/%version%">GitHub で変更履歴を見る</a>
+</p>
+</td>
+</tr>
+
+<tr>
 <td>3.2.3</td><td>2025年7月29日</td><td>
 <p>
-YAML 設定の処理、DI 解決、および Wasm/JS の安定性に対する改善、さらにマルチパート解析、CIO の `100 Continue` レスポンスフォーマット、`ByteReadChannel` での無限読み取りループ、サーバーシャットダウンの問題に対する修正を導入するパッチリリースです。
+YAML 設定の処理、DI 解決、および Wasm/JS の安定性に対する改善、さらにマルチパート解析、CIO の <code>100 Continue</code> レスポンスフォーマット、<code>ByteReadChannel</code> での無限読み取りループ、サーバーシャットダウンの問題に対する修正を導入するパッチリリースです。
 </p>
 <var name="version" value="3.2.3"/>
 <p>
@@ -126,7 +138,7 @@ Kotlin を 2.1.20 に更新し、Base64 デコード、認証トークンのク�
 
 <tr>
 <td>3.0.3</td><td>2024年12月18日</td><td><p>
-`browserProductionWebpack` でのビルドエラー、gzip されたコンテンツの処理、および `FormFieldLimit` 設定の上書きの修正を含む、様々なバグ修正を伴うパッチリリースです。このリリースには、コアパフォーマンスの改善と適切なテストアプリケーションのシャットダウンも含まれています。
+<code>browserProductionWebpack</code> でのビルドエラー、gzip されたコンテンツの処理、および <code>FormFieldLimit</code> 設定の上書きの修正を含む、様々なバグ修正を伴うパッチリリースです。このリリースには、コアパフォーマンスの改善と適切なテストアプリケーションのシャットダウンも含まれています。
 </p>
 <var name="version" value="3.0.3"/>
 <p>
@@ -148,7 +160,7 @@ Kotlin を 2.1.20 に更新し、Base64 デコード、認証トークンのク�
 
 <tr>
 <td>2.3.13</td><td>2024年11月20日</td><td><p>
-バグ修正、セキュリティパッチ、および改善を含むパッチリリースで、`watchosDeviceArm64` ターゲットのサポートが追加されました。
+バグ修正、セキュリティパッチ、および改善を含むパッチリリースで、<code>watchosDeviceArm64</code> ターゲットのサポートが追加されました。
 </p>
 <var name="version" value="2.3.13"/>
 <p>
@@ -192,7 +204,7 @@ XML のマルチプラットフォームサポートなど、破壊的変更、�
 
 <tr>
 <td>3.0.0-rc-1</td><td>2024年9月9日</td><td><p>
-大幅な改善とバグ修正を含むメジャーリリースの候補版です。このアップデートにより、後方互換性が強化され、拡張された `staticZip` のサポートが特徴です。
+大幅な改善とバグ修正を含むメジャーリリースの候補版です。このアップデートにより、後方互換性が強化され、拡張された <code>staticZip</code> のサポートが特徴です。
 </p>
 <var name="version" value="3.0.0-rc-1"/>
 <p>
@@ -330,7 +342,7 @@ HTTP Cookie ヘッダーと NoTransformationFoundException エラーのバグ修
 <tr>
 <td>2.3.3</td><td>2023年8月1日</td><td>
 <p>
-`linuxArm64` のクライアントとサーバーのサポート、および様々なバグ修正を含むパッチリリースです。
+<code>linuxArm64</code> のクライアントとサーバーのサポート、および様々なバグ修正を含むパッチリリースです。
 </p>
 <var name="version" value="2.3.3"/>
 <p>
@@ -342,7 +354,7 @@ HTTP Cookie ヘッダーと NoTransformationFoundException エラーのバグ修
 <tr>
 <td>2.3.2</td><td>2023年6月28日</td><td>
 <p>
-Kotlin バージョンを `1.8.22` にアップグレードし、様々なバグ修正を含むパッチリリースです。
+Kotlin バージョンを <code>1.8.22</code> にアップグレードし、様々なバグ修正を含むパッチリリースです。
 </p>
 <var name="version" value="2.3.2"/>
 <p>
@@ -402,7 +414,7 @@ OAuth2 のマルチプラットフォーム機能と様々なバグ修正を含�
 <tr>
 <td>2.2.2</td><td>2023年1月3日</td><td>
 <p>
-`2.2.1` のバグ修正、Swagger プラグインの改善と修正などを含むパッチリリースです。
+<code>2.2.1</code> のバグ修正、Swagger プラグインの改善と修正などを含むパッチリリースです。
 </p>
 <var name="version" value="2.2.2"/>
 <p>
@@ -414,7 +426,7 @@ OAuth2 のマルチプラットフォーム機能と様々なバグ修正を含�
 <tr>
 <td>2.2.1</td><td>2022年12月7日</td><td>
 <p>
-`2.2.0` における `java.lang.NoClassDefFoundError: kotlinx/atomicfu/AtomicFU` エラーに対するパッチリリースです。
+<code>2.2.0</code> における <code>java.lang.NoClassDefFoundError: kotlinx/atomicfu/AtomicFU</code> エラーに対するパッチリリースです。
 </p>
 <var name="version" value="2.2.1"/>
 <p>
@@ -486,7 +498,7 @@ YAML 設定のサポートを追加するマイナーリリースであり、そ
 <tr>
 <td>2.0.3</td><td>2022年6月28日</td><td>
 <p>
-バグ修正と `kotlinx.coroutines` バージョンを `1.6.2` にアップグレードしたものを含むパッチリリースです。
+バグ修正と <code>kotlinx.coroutines</code> バージョンを <code>1.6.2</code> にアップグレードしたものを含むパッチリリースです。
 </p>
 <var name="version" value="2.0.3"/>
 <p>
@@ -510,7 +522,7 @@ YAML 設定のサポートを追加するマイナーリリースであり、そ
 <tr>
 <td>2.0.1</td><td>2022年4月28日</td><td>
 <p>
-様々なバグ修正と Kotlin バージョンを `1.6.21` に更新したものを含むパッチリリースです。
+様々なバグ修正と Kotlin バージョンを <code>1.6.21</code> に更新したものを含むパッチリリースです。
 </p>
 <var name="version" value="2.0.1"/>
 <p>
@@ -522,7 +534,7 @@ YAML 設定のサポートを追加するマイナーリリースであり、そ
 <tr>
 <td>2.0.0</td><td>2022年4月11日</td><td>
 <p>
-更新された API ドキュメントと様々な新機能を含むメジャーリリースです。破壊的変更と `1.x.x` からの移行方法の詳細については、<Links href="/ktor/migration-to-20x" summary="undefined">移行ガイド</Links> を参照してください。
+更新された API ドキュメントと様々な新機能を含むメジャーリリースです。破壊的変更と <code>1.x.x</code> からの移行方法の詳細については、<Links href="/ktor/migration-to-20x" summary="undefined">移行ガイド</Links> を参照してください。
 </p>
 <var name="version" value="2.0.0"/>
 <p>

@@ -40,7 +40,7 @@ val executor = simpleOpenAIExecutor(token)
 val agentConfig = AIAgentConfig(
     prompt = prompt("cook_agent_system_prompt") {
         system {
-            "你是一个 Unity 助手。你可以通过与 Unity 引擎中的工具交互来执行不同的任务。"
+            "You are a Unity assistant. You can execute different tasks by interacting with tools from the Unity engine."
         }
     },
     model = OpenAIModels.Chat.GPT4o,
@@ -74,9 +74,7 @@ runBlocking {
     // 使用 MCP 服务器中的工具创建 ToolRegistry
     val toolRegistry = McpToolRegistryProvider.fromTransport(
         transport = McpToolRegistryProvider.defaultStdioTransport(process)
-    ) + ToolRegistry {
-        tool(ProvideStringSubgraphResult)
-    }
+    )
 
     toolRegistry.tools.forEach {
         println(it.name)
@@ -85,7 +83,7 @@ runBlocking {
 
     val strategy = strategy<String, String>("unity_interaction") {
         val nodePlanIngredients by nodeLLMRequest(allowToolCalls = false)
-        val interactionWithUnity by subgraphWithTask<String>(
+        val interactionWithUnity by subgraphWithTask<String, String>(
             // 处理计划
             tools = toolRegistry.tools,
         ) { input ->
@@ -102,7 +100,7 @@ runBlocking {
             }
         )
         edge(nodePlanIngredients forwardTo interactionWithUnity onAssistantMessage { true })
-        edge(interactionWithUnity forwardTo nodeFinish transformed { it.result })
+        edge(interactionWithUnity forwardTo nodeFinish)
     }
 
     val agent = AIAgent(

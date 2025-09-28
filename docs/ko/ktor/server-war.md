@@ -90,11 +90,15 @@ Tomcat/Jetty 9.x 또는 이전 버전을 사용하는 경우, 대신 `ktor-serve
 
 ## Gretty 구성 {id="configure-gretty"}
 
+> Ktor 3.3.0은 Gretty에서 아직 지원되지 않는 Jetty 12를 필요로 합니다. 개발 또는 배포에 Gretty를 사용하는 경우, Gretty가 Jetty 12 지원을 추가할 때까지 Ktor 3.2.3을 대신 사용하세요.
+>
+{style="warning"}
+
 [Gretty](https://plugins.gradle.org/plugin/org.gretty) 플러그인을 사용하면 Jetty 및 Tomcat에서 서블릿 애플리케이션을 [실행](#run)할 수 있습니다. 이 플러그인을 설치하려면 `build.gradle.kts` 파일을 열고 `plugins` 블록에 다음 코드를 추가하세요:
 
 ```groovy
 plugins {
-    id("org.gretty") version "4.0.3"
+    id("org.gretty") version "4.1.7"
 }
 ```
 

@@ -80,7 +80,7 @@ val multiExecutor = DefaultMultiLLMPromptExecutor(openAIClient, anthropicClient,
 
 ### 3. 戦略の定義
 
-戦略は、ノードとエッジを使用してエージェントのワークフローを定義します。戦略関数ジェネリックパラメータで任意の入出力型を指定でき、これらは`AIAgent`の入出力型にもなります。入出力のデフォルト型は`String`です。
+戦略は、ノードとエッジを使用してエージェントのワークフローを定義します。戦略関数ジェネリックパラメータで任意の入出力型を指定できます。これらは `AIAgent` の入出力型にもなります。入出力のデフォルト型は `String` です。
 
 !!! tip
     戦略の詳細については、「[カスタム戦略グラフ](custom-strategy-graphs.md)」を参照してください。
@@ -311,8 +311,8 @@ val toolRegistry = ToolRegistry {
 たとえば、イベントハンドラー機能をインストールするには、以下を実行する必要があります。
 <!--- INCLUDE
 import ai.koog.agents.core.agent.AIAgent
-import ai.koog.agents.core.feature.handler.AgentFinishedContext
-import ai.koog.agents.core.feature.handler.AgentStartContext
+import ai.koog.agents.core.feature.handler.agent.AgentCompletedContext
+import ai.koog.agents.core.feature.handler.agent.AgentStartingContext
 import ai.koog.agents.features.eventHandler.feature.EventHandler
 import ai.koog.prompt.executor.llms.all.simpleOllamaAIExecutor
 import ai.koog.prompt.llm.OllamaModels
@@ -328,10 +328,10 @@ val agent = AIAgent(
 // EventHandler 機能をインストールする
 installFeatures = {
     install(EventHandler) {
-        onBeforeAgentStarted { eventContext: AgentStartContext<*> ->
+        onAgentStarting { eventContext: AgentStartingContext<*> ->
             println("エージェントの開始: ${eventContext.agent.id}")
         }
-        onAgentFinished { eventContext: AgentFinishedContext ->
+        onAgentCompleted { eventContext: AgentCompletedContext ->
             println("結果: ${eventContext.result}")
         }
     }
@@ -346,8 +346,8 @@ installFeatures = {
 前の段階で作成した構成オプションでエージェントを作成し、提供された入力で実行します。
 <!--- INCLUDE
 import ai.koog.agents.core.agent.AIAgent
-import ai.koog.agents.core.feature.handler.AgentFinishedContext
-import ai.koog.agents.core.feature.handler.AgentStartContext
+import ai.koog.agents.core.feature.handler.agent.AgentCompletedContext
+import ai.koog.agents.core.feature.handler.agent.AgentStartingContext
 import ai.koog.agents.example.exampleComplexWorkflowAgents01.promptExecutor
 import ai.koog.agents.example.exampleComplexWorkflowAgents06.agentStrategy
 import ai.koog.agents.example.exampleComplexWorkflowAgents07.agentConfig
@@ -363,10 +363,10 @@ val agent = AIAgent(
     agentConfig = agentConfig,
     installFeatures = {
         install(EventHandler) {
-            onBeforeAgentStarted { eventContext: AgentStartContext<*> ->
+            onAgentStarting { eventContext: AgentStartingContext<*> ->
                 println("エージェントの開始: ${eventContext.agent.id}")
             }
-            onAgentFinished { eventContext: AgentFinishedContext ->
+            onAgentCompleted { eventContext: AgentCompletedContext ->
                 println("結果: ${eventContext.result}")
             }
         }
@@ -405,8 +405,8 @@ import ai.koog.agents.core.agent.config.AIAgentConfig
 import ai.koog.agents.core.dsl.builder.forwardTo
 import ai.koog.agents.core.dsl.builder.strategy
 import ai.koog.agents.core.dsl.extension.*
-import ai.koog.agents.core.feature.handler.AgentFinishedContext
-import ai.koog.agents.core.feature.handler.AgentStartContext
+import ai.koog.agents.core.feature.handler.agent.AgentCompletedContext
+import ai.koog.agents.core.feature.handler.agent.AgentStartingContext
 import ai.koog.agents.core.tools.ToolRegistry
 import ai.koog.agents.core.tools.annotations.LLMDescription
 import ai.koog.agents.core.tools.annotations.Tool
@@ -506,10 +506,10 @@ val agent = AIAgent(
     agentConfig = agentConfig,
     installFeatures = {
         install(EventHandler) {
-            onBeforeAgentStarted { eventContext: AgentStartContext<*> ->
+            onAgentStarting { eventContext: AgentStartingContext<*> ->
                 println("エージェントの開始: ${eventContext.agent.id}")
             }
-            onAgentFinished { eventContext: AgentFinishedContext ->
+            onAgentCompleted { eventContext: AgentCompletedContext ->
                 println("結果: ${eventContext.result}")
             }
         }

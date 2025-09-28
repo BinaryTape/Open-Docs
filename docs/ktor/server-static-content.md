@@ -154,6 +154,28 @@ object Immutable : CacheControl(null) {
 }
 ```
 
+当安装了 [`ConditionalHeaders`](server-conditional-headers.md) 插件时，Ktor 可以提供带有 `ETag` 和 `LastModified` 标头的静态资源，并处理条件标头以避免在内容未更改时发送内容主体：
+
+```kotlin
+staticFiles("/filesWithEtagAndLastModified", filesDir) {
+    etag { resource -> EntityTagVersion("etag") }
+    lastModified { resource -> GMTDate() }
+}
+```
+
+在此示例中，`etag` 和 `lastModified` 值根据每个资源动态计算，并应用于响应。
+
+为了简化 `ETag` 生成，您还可以使用预定义提供者：
+
+```kotlin
+staticFiles("/filesWithStrongGeneratedEtag", filesDir) {
+    etag(ETagProvider.StrongSha256)
+}
+```
+
+在此示例中，使用资源内容的 SHA‑256 散列生成一个强 `ETag`。
+如果发生 I/O 错误，则不生成 `ETag`。
+
 > 关于 Ktor 中缓存的更多信息，请参见 [Caching headers](server-caching-headers.md)。
 >
 {style="tip"}
@@ -179,6 +201,28 @@ staticResources("/", "static"){
 ```
 
 在此示例中，当请求 `/index` 时，Ktor 将搜索 `/index.html` 并提供找到的内容。
+
+### 自定义回退 {id="custom-fallback"}
+
+要配置请求的静态资源未找到时的自定义回退行为，请使用 `fallback()` 函数。
+借助 `fallback()`，您可以探查请求路径并决定如何响应。例如，您可以重定向到另一个资源、返回特定的 HTTP 状态，或提供替代文件。
+
+您可以在 `staticFiles()`、`staticResources()`、`staticZip()` 或 `staticFileSystem()` 中添加 `fallback()`。回调提供了请求的路径和当前的 `ApplicationCall`。
+
+以下示例展示了如何重定向某些扩展名、返回自定义状态或回退到 `index.html`：
+
+```kotlin
+staticFiles("/files", File("textFiles")) {
+    fallback { requestedPath, call ->
+        when {
+            requestedPath.endsWith(".php") -> call.respondRedirect("/static/index.html") // absolute path
+            requestedPath.endsWith(".kt") -> call.respondRedirect("Default.kt") // relative path
+            requestedPath.endsWith(".xml") -> call.respond(HttpStatusCode.Gone)
+            else -> call.respondFile(File("files/index.html"))
+        }
+    }
+}
+```
 
 ### 自定义修改 {id="modify"}
 

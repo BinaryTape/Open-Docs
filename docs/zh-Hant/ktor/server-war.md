@@ -90,11 +90,15 @@ Ktor 允許您在應用程式中直接使用所需的引擎（例如 Netty、Jet
 
 ## 配置 Gretty {id="configure-gretty"}
 
+> Ktor 3.3.0 需要 Jetty 12，而 Gretty 尚未支援它。如果您依賴 Gretty 進行開發或部署，請改用 Ktor 3.2.3，直到 Gretty 添加對 Jetty 12 的支援。
+>
+{style="warning"}
+
 [Gretty](https://plugins.gradle.org/plugin/org.gretty) 外掛程式允許您在 Jetty 和 Tomcat 上[執行](#run) servlet 應用程式。若要安裝此外掛程式，請開啟 `build.gradle.kts` 檔案並將以下程式碼添加到 `plugins` 區塊：
 
 ```groovy
 plugins {
-    id("org.gretty") version "4.0.3"
+    id("org.gretty") version "4.1.7"
 }
 ```
 

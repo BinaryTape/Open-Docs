@@ -26,26 +26,30 @@
 @Composable
 @Preview
 fun App() {
-  MaterialTheme {
-    var showContent by remember { mutableStateOf(false) }
-    Column(
-      modifier = Modifier
-        .safeContentPadding()
-        .fillMaxSize(),
-      horizontalAlignment = Alignment.CenterHorizontally,
-    ) {
-      Button(onClick = { showContent = !showContent }) {
-        Text("Click me!")
-      }
-      AnimatedVisibility(showContent) {
-        val greeting = remember { Greeting().greet() }
-        Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
-          Image(painterResource(Res.drawable.compose_multiplatform), null)
-          Text("Compose: $greeting")
+    MaterialTheme {
+        var showContent by remember { mutableStateOf(false) }
+        Column(
+            modifier = Modifier
+                .background(MaterialTheme.colorScheme.primaryContainer)
+                .safeContentPadding()
+                .fillMaxSize(),
+            horizontalAlignment = Alignment.CenterHorizontally,
+        ) {
+            Button(onClick = { showContent = !showContent }) {
+                Text("Click me!")
+            }
+            AnimatedVisibility(showContent) {
+                val greeting = remember { Greeting().greet() }
+                Column(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                ) {
+                    Image(painterResource(Res.drawable.compose_multiplatform), null)
+                    Text("Compose: $greeting")
+                }
+            }
         }
-      }
     }
-  }
 }
 ```
 
@@ -132,19 +136,23 @@ fun main() = application {
 
 ### 在 Web 上
 
-在 `composeApp/src/wasmJsMain/kotlin/main.kt` 文件中，查看 `main()` 函数：
+在 `composeApp/src/webMain/kotlin/main.kt` 文件中，查看 `main()` 函数：
 
 ```kotlin
 @OptIn(ExperimentalComposeUiApi::class)
 fun main() {
-    ComposeViewport(document.body!!) { App() }
+    ComposeViewport {
+        App()
+    }
 }
 ```
 
 *   `@OptIn(ExperimentalComposeUiApi::class)` 注解告诉编译器你正在使用标记为实验性的 API，该 API 可能会在未来版本中更改。
 *   `ComposeViewport()` 函数为应用程序设置 Compose 环境。
-*   Web 应用被插入到作为 `ComposeViewport` 函数形参指定的 container 中。在此示例中，整个文档的 body 用作 container。
+*   Web 应用被插入到作为 `ComposeViewport` 函数形参指定的 container 中。
 *   `App()` 函数负责使用 Jetpack Compose 构建应用程序的 UI 组件。
+
+`main.kt` 文件位于 `webMain` 目录中，其中包含 Web 目标平台的公共代码。
 
 ## 下一步
 
@@ -154,6 +162,5 @@ fun main() {
 
 ## 获取帮助
 
-*   **Kotlin Slack**。获取 [邀请](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up) 并加入
-    #multiplatform 频道。
+*   **Kotlin Slack**。获取 [邀请](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up) 并加入 #multiplatform 频道。
 *   **Kotlin 问题追踪器**。 [报告新问题](https://youtrack.jetbrains.com/newIssue?project=KT)。

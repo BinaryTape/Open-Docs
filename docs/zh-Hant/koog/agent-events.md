@@ -54,11 +54,11 @@ val agent = AIAgent(
 ```kotlin
 handleEvents {
     // 處理工具呼叫
-    onToolCall { eventContext ->
-        println("Tool called: ${eventContext.tool} with args ${eventContext.toolArgs}")
+    onToolExecutionStarting { eventContext ->
+        println("Tool called: ${eventContext.tool.name} with args ${eventContext.toolArgs}")
     }
     // 處理 agent 完成執行時觸發的事件
-    onAgentFinished { eventContext ->
+    onAgentCompleted { eventContext ->
         println("Agent finished with result: ${eventContext.result}")
     }
 
@@ -84,11 +84,11 @@ val agent = AIAgent(
 ){
     handleEvents {
         // 處理工具呼叫
-        onToolCall { eventContext ->
-            println("Tool called: ${eventContext.tool} with args ${eventContext.toolArgs}")
+        onToolExecutionStarting { eventContext ->
+            println("Tool called: ${eventContext.tool.name} with args ${eventContext.toolArgs}")
         }
         // 處理 agent 完成執行時觸發的事件
-        onAgentFinished { eventContext ->
+        onAgentCompleted { eventContext ->
             println("Agent finished with result: ${eventContext.result}")
         }
 

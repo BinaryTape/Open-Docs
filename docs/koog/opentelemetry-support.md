@@ -1,10 +1,10 @@
 # OpenTelemetry 支持
 
-本页面详细介绍了 Koog 代理 framework 对 OpenTelemetry 的支持，用于跟踪和监控您的 AI 代理。
+本页面详细介绍了 Koog 代理框架对 OpenTelemetry 的支持，用于跟踪和监控您的 AI 代理。
 
 ## 概述
 
-OpenTelemetry 是一个可观测性 framework，它提供工具用于从您的应用程序生成、收集和导出遥测数据（跟踪）。Koog 的 OpenTelemetry 特性允许您对 AI 代理进行插桩以收集遥测数据，这可以帮助您：
+OpenTelemetry 是一个可观测性框架，它提供工具用于从您的应用程序生成、收集和导出遥测数据（跟踪）。Koog 的 OpenTelemetry 特性允许您对 AI 代理进行插桩以收集遥测数据，这可以帮助您：
 
 - 监控代理性能和行为
 - 调试复杂代理工作流中的问题
@@ -48,7 +48,7 @@ val agent = AIAgent(
     systemPrompt = "You are a helpful assistant.",
     installFeatures = {
         install(OpenTelemetry) {
-            // Configuration options go here
+            // 配置选项放在这里
         }
     }
 )
@@ -59,7 +59,7 @@ val agent = AIAgent(
 
 ### 基本配置
 
-以下是在代理中配置 OpenTelemetry 特性时可设置的全部可用属性 list：
+以下是在代理中配置 OpenTelemetry 特性时可设置的全部可用属性列表：
 
 | Name | Data type | Default value | Description |
 |:---|:---|:---|:---|
@@ -94,10 +94,10 @@ val agent = AIAgent(
 -->
 ```kotlin
 install(OpenTelemetry) {
-    // Set your service configuration
+    // 设置您的服务配置
     setServiceInfo("my-agent-service", "1.0.0")
     
-    // Add the Logging exporter
+    // 添加 Logging 导出器
     addSpanExporter(LoggingSpanExporter.create())
 }
 ```
@@ -120,7 +120,7 @@ install(OpenTelemetry) {
 
 | Name | Data type | Required | Default value | Description |
 |:---|:---|:---|:---|:---|
-| `exporter` | `SpanExporter` | Yes | | 要添加到自定义 Span 导出器 list 的 `SpanExporter` 实例。 |
+| `exporter` | `SpanExporter` | Yes | | 要添加到自定义 Span 导出器列表的 `SpanExporter` 实例。 |
 
 #### addSpanProcessor
 
@@ -148,11 +148,15 @@ install(OpenTelemetry) {
 
 #### setVerbose
 
-启用或禁用用于调试 OpenTelemetry 配置的详细日志记录。接受以下实参：
+启用或禁用详细日志记录。接受以下实参：
 
 | Name | Data type | Required | Default value | Description |
 |:---|:---|:---|:---|:---|
 | `verbose` | `Boolean` | Yes | `false` | 如果为 true，应用程序将收集更详细的遥测数据。 |
+
+!!! note
+
+    出于安全原因，OpenTelemetry Span 的某些内容默认被遮盖。例如，LLM 消息被遮盖为 `HIDDEN:non-empty` 而不是实际消息内容。要获取内容，请将 `verbose` 实参的值设置为 `true`。
 
 #### setSdk
 
@@ -194,16 +198,16 @@ val agent = AIAgent(
 -->
 ```kotlin
 install(OpenTelemetry) {
-    // Set your service configuration
+    // 设置您的服务配置
     setServiceInfo("my-agent-service", "1.0.0")
     
-    // Add the Logging exporter
+    // 添加 Logging 导出器
     addSpanExporter(LoggingSpanExporter.create())
     
-    // Set the sampler 
+    // 设置采样器 
     setSampler(Sampler.traceIdRatioBased(0.5)) 
 
-    // Add resource attributes
+    // 添加资源属性
     addResourceAttributes(mapOf(
         AttributeKey.stringKey("custom.attribute") to "custom-value")
     )
@@ -290,7 +294,7 @@ CreateAgentSpan
 
 Span 属性提供与 Span 相关的元数据。每个 Span 都有自己的一组属性，而有些 Span 也可以重复属性。
 
-Koog 支持遵循 OpenTelemetry [生成式 AI 事件语义约定](https://opentelemetry.io/docs/specs/semconv/gen-ai/gen-ai-spans/)的预定义属性 list。例如，这些约定定义了一个名为 `gen_ai.conversation.id` 的属性，这通常是 Span 的必需属性。在 Koog 中，此属性的值是代理运行的唯一标识符，当您调用 `agent.run()` 方法时会自动设置。
+Koog 支持遵循 OpenTelemetry [生成式 AI 事件语义约定](https://opentelemetry.io/docs/specs/semconv/gen-ai/gen-ai-spans/)的预定义属性列表。例如，这些约定定义了一个名为 `gen_ai.conversation.id` 的属性，这通常是 Span 的必需属性。在 Koog 中，此属性的值是代理运行的唯一标识符，当您调用 `agent.run()` 方法时会自动设置。
 
 此外，Koog 还包括自定义的、Koog 特有的属性。您可以通过 `koog.` 前缀识别其中大多数属性。以下是可用的自定义属性：
 
@@ -310,7 +314,7 @@ Span 也可以附加一个_事件_。事件描述了在特定时间点发生的�
 - **ChoiceEvent**：从模型返回的响应消息。
 - **ModerationResponseEvent**：模型审核结果或信号。
 
-!!! note
+!!! note   
     `optentelemetry-java` SDK 在添加事件时不支持事件正文字段形参。因此，在 Koog 的 OpenTelemetry 支持中，事件正文字段是一个单独的属性，其键为 `body`，值类型为 string。该 string 包含事件正文字段的内容或载荷，通常是类似 JSON 的 object。有关事件正文字段的示例，请参阅 [OpenTelemetry 文档](https://opentelemetry.io/docs/specs/semconv/gen-ai/gen-ai-events/#examples)。有关 `opentelemetry-java` 中事件正文字段支持状态的信息，请参阅相关的 [GitHub 议题](https://github.com/open-telemetry/semantic-conventions/issues/1870)。
 
 ## 导出器
@@ -319,7 +323,7 @@ Span 也可以附加一个_事件_。事件描述了在特定时间点发生的�
 
 | Name | Data type | Required | Default | Description |
 |:---|:---|:---|:---|:---|
-| `exporter` | SpanExporter | Yes | | 要添加到自定义 Span 导出器 list 的 SpanExporter 实例。 |
+| `exporter` | SpanExporter | Yes | | 要添加到自定义 Span 导出器列表的 SpanExporter 实例。 |
 
 以下章节提供了有关 `opentelemetry-java` SDK 中一些最常用导出器的信息。
 
@@ -352,9 +356,9 @@ val agent = AIAgent(
 -->
 ```kotlin
 install(OpenTelemetry) {
-    // Add the logging exporter
+    // 添加日志记录导出器
     addSpanExporter(LoggingSpanExporter.create())
-    // Add more exporters as needed
+    // 按需添加更多导出器
 }
 ```
 <!--- KNIT example-opentelemetry-support-05.kt -->
@@ -385,14 +389,14 @@ val agent = AIAgent(
 -->
 ```kotlin
 install(OpenTelemetry) {
-   // Add OpenTelemetry HTTP exporter 
+   // 添加 OpenTelemetry HTTP 导出器 
    addSpanExporter(
       OtlpHttpSpanExporter.builder()
-         // Set the maximum time to wait for the collector to process an exported batch of spans 
+         // 设置等待收集器处理导出的 Span 批次的最大时间 
          .setTimeout(30, TimeUnit.SECONDS)
-         // Set the OpenTelemetry endpoint to connect to
+         // 设置要连接的 OpenTelemetry 端点
          .setEndpoint("http://localhost:3000/api/public/otel/v1/traces")
-         // Add the authorization header
+         // 添加授权请求头
          .addHeader("Authorization", "Basic $AUTH_STRING")
          .build()
    )
@@ -424,10 +428,10 @@ val agent = AIAgent(
 -->
 ```kotlin
 install(OpenTelemetry) {
-   // Add OpenTelemetry gRPC exporter 
+   // 添加 OpenTelemetry gRPC 导出器 
    addSpanExporter(
       OtlpGrpcSpanExporter.builder()
-          // Set the host and the port
+          // 设置主机和端口
          .setEndpoint("http://localhost:4317")
          .build()
    )
@@ -565,10 +569,10 @@ fun main() {
             systemPrompt = "You are a code assistant. Provide concise code examples."
         ) {
             install(OpenTelemetry) {
-                // Add a console logger for local debugging
+                // 为本地调试添加控制台日志记录器
                 addSpanExporter(LoggingSpanExporter.create())
 
-                // Send traces to OpenTelemetry collector
+                // 将跟踪发送到 OpenTelemetry collector
                 addSpanExporter(
                     OtlpGrpcSpanExporter.builder()
                         .setEndpoint("http://localhost:4317")
@@ -595,19 +599,19 @@ fun main() {
 
 ### 常见问题
 
-1. **Jaeger、Langfuse 或 W&B Weave 中未出现跟踪**
+1.  **Jaeger、Langfuse 或 W&B Weave 中未出现跟踪**
     - 确保服务正在运行且 OpenTelemetry 端口 (4317) 可访问。
     - 检测 OpenTelemetry 导出器是否配置了正确的端点。
     - 确保在代理执行后等待几秒钟，以便跟踪被导出。
 
-2. **Span 缺失或跟踪不完整**
+2.  **Span 缺失或跟踪不完整**
     - 验证代理执行是否成功完成。
     - 确保您没有在代理执行后过快地关闭应用程序。
     - 在代理执行后添加延迟，以便有时间导出 Span。
 
-3. **Span 数量过多**
+3.  **Span 数量过多**
     - 考虑通过配置 `sampler` 属性来使用不同的采样策略。
     - 例如，使用 `Sampler.traceIdRatioBased(0.1)` 仅对 10% 的跟踪进行采样。
 
-4. **Span 适配器相互覆盖**
+4.  **Span 适配器相互覆盖**
     - 目前，OpenTelemetry 代理特性不支持应用多个 Span 适配器 [KG-265](https://youtrack.jetbrains.com/issue/KG-265/Adding-Weave-exporter-breaks-Langfuse-exporter)。

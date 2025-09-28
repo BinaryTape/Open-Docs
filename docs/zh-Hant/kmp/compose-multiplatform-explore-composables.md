@@ -24,26 +24,30 @@
 @Composable
 @Preview
 fun App() {
-  MaterialTheme {
-    var showContent by remember { mutableStateOf(false) }
-    Column(
-      modifier = Modifier
-        .safeContentPadding()
-        .fillMaxSize(),
-      horizontalAlignment = Alignment.CenterHorizontally,
-    ) {
-      Button(onClick = { showContent = !showContent }) {
-        Text("Click me!")
-      }
-      AnimatedVisibility(showContent) {
-        val greeting = remember { Greeting().greet() }
-        Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
-          Image(painterResource(Res.drawable.compose_multiplatform), null)
-          Text("Compose: $greeting")
+    MaterialTheme {
+        var showContent by remember { mutableStateOf(false) }
+        Column(
+            modifier = Modifier
+                .background(MaterialTheme.colorScheme.primaryContainer)
+                .safeContentPadding()
+                .fillMaxSize(),
+            horizontalAlignment = Alignment.CenterHorizontally,
+        ) {
+            Button(onClick = { showContent = !showContent }) {
+                Text("Click me!")
+            }
+            AnimatedVisibility(showContent) {
+                val greeting = remember { Greeting().greet() }
+                Column(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                ) {
+                    Image(painterResource(Res.drawable.compose_multiplatform), null)
+                    Text("Compose: $greeting")
+                }
+            }
         }
-      }
     }
-  }
 }
 ```
 
@@ -121,26 +125,30 @@ fun main() = application {
 ```
 
 *   在這裡，`application()` 函式會啟動一個新的桌面應用程式。
-*   此函式接受一個 lambda，您可以在其中初始化 UI。通常，您會建立一個 `Window` 並指定屬性和指令，以決定程式在視窗關閉時應如何反應。在這種情況下，整個應用程式會關閉。
+*   此函式接受一個 lambda，您可以在其中初始化 UI。通常，您會建立一個 `Window` 並指定屬性與指令，以決定程式在視窗關閉時應如何反應。在這種情況下，整個應用程式會關閉。
 *   在此視窗內，您可以放置您的內容。與 Android 和 iOS 一樣，唯一的內容是 `App()` 函式。
 
 目前，`App` 函式未宣告任何參數。在較大型的應用程式中，您通常會將參數傳遞給平台專屬的依賴項。這些依賴項可以手動建立，或使用依賴注入庫。
 
 ### 在網頁上
 
-在 `composeApp/src/wasmJsMain/kotlin/main.kt` 檔案中，查看 `main()` 函式：
+在 `composeApp/src/webMain/kotlin/main.kt` 檔案中，查看 `main()` 函式：
 
 ```kotlin
 @OptIn(ExperimentalComposeUiApi::class)
 fun main() {
-    ComposeViewport(document.body!!) { App() }
+    ComposeViewport {
+        App()
+    }
 }
 ```
 
 *   `@OptIn(ExperimentalComposeUiApi::class)` 註解告訴編譯器您正在使用一個標記為實驗性並可能在未來版本中變更的 API。
-*   `ComposeViewport()` 函式為應用程式設定 Compose 環境。
-*   網頁應用程式會插入到作為 `ComposeViewport` 函式參數指定的容器中。在此範例中，整個文件的主體作為容器。
+*   `ComposeViewport{}` 函式為應用程式設定 Compose 環境。
+*   網頁應用程式會插入到作為 `ComposeViewport` 函式參數指定的容器中。
 *   `App()` 函式負責使用 Jetpack Compose 建立應用程式的 UI 組件。
+
+`main.kt` 檔案位於 `webMain` 目錄中，其中包含適用於網頁目標的通用程式碼。
 
 ## 下一步
 

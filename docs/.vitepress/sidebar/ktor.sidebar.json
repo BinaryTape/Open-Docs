@@ -547,6 +547,10 @@
                 "link": "client-create-and-configure"
               },
               {
+                "text": "ktor.client-webrtc",
+                "link": "client-webrtc"
+              },
+              {
                 "text": "ktor.client-engines",
                 "link": "client-engines"
               },
@@ -719,6 +723,10 @@
         "link": "htmx-integration"
       },
       {
+        "text": "ktor.openapi-spec-generation",
+        "link": "openapi-spec-generation"
+      },
+      {
         "text": "ktor.tutorial-first-steps-with-kotlin-rpc",
         "link": "tutorial-first-steps-with-kotlin-rpc"
       }
@@ -731,6 +739,10 @@
       {
         "text": "ktor.releases",
         "link": "releases"
+      },
+      {
+        "text": "ktor.whats-new-330",
+        "link": "whats-new-330"
       },
       {
         "text": "ktor.whats-new-320",

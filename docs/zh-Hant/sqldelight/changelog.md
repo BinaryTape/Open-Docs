@@ -2,8 +2,29 @@
 
 ## 未發布
 
-- [SQLite 變體] 修正 Sqlite 3.18 缺少函式 (#5759 by [Griffio][griffio])
+### 新增
+- [PostgreSQL 變體] 新增對 Postgres 觸發器的有限支援 (#5932 by [Griffio][griffio])
+- [PostgreSQL 變體] 新增判斷式以檢查 SQL 表達式是否可解析為 JSON (#5843 by [Griffio][griffio])
+- [PostgreSQL 變體] 新增對 PostgreSQL Comment On 陳述式的有限支援 (#5808 by [Griffio][griffio])
+- [MySQL 變體] 新增對索引可見性選項的支援 (#5785 by [Oren Kislev][orenkislev-faire])
+- [PostgreSQL 變體] 新增對 TSQUERY 資料型別的支援 (#5779 by [Griffio][griffio])
 - [Gradle 外掛程式] 新增支援版本目錄以新增模組 (#5755 by [Michael Rittmeister][DRSchlaubi])
+
+### 變更
+- 開發中快照版本現已發布到 https://central.sonatype.com/repository/maven-snapshots/ 的 Central Portal Snapshots 儲存庫。
+- [編譯器] 使用建構函式參照簡化預設生成的查詢 (#5814 by [Jon Poulton][jonapoul])
+
+### 修正
+- [編譯器] 修正使用包含共同表格表達式 (Common Table Expression) 的視圖時的堆疊溢位 (#5928 by [Griffio][griffio])
+- [Gradle 外掛程式] 修正開啟 SqlDelight 工具視窗以新增「New Connection」時的崩潰問題 (#5906 by [Griffio][griffio])
+- [IntelliJ 外掛程式] 避免在複製到 SQLite 側邊欄動作中發生執行緒相關的崩潰 (#5901 by [Griffio][griffio])
+- [IntelliJ 外掛程式] 修正使用 Schema 陳述式 CREATE INDEX 和 CREATE VIEW 時的 PostgreSQL 變體問題 (#5772 by [Griffio][griffio])
+- [編譯器] 修正參照欄位時的 FTS 堆疊溢位 (#5896 by [Griffio][griffio])
+- [編譯器] 修正 With Recursive 堆疊溢位 (#5892 by [Griffio][griffio])
+- [編譯器] 修正針對 Insert|Update|Delete 返回陳述式發出通知的問題 (#5851 by [Griffio][griffio])
+- [編譯器] 修正返回 Long 的交易區塊的非同步結果型別 (#5836 by [Griffio][griffio])
+- [編譯器] 將 SQL 參數綁定從 O(n²) 複雜度優化至 O(n) 複雜度 (#5898 by [Chen Frenkel][chenf7])
+- [SQLite 變體] 修正 Sqlite 3.18 缺少函式 (#5759 by [Griffio][griffio])
 
 ## [2.1.0] - 2025-05-16
 
@@ -71,7 +92,7 @@
 - [PostgreSQL 變體] 新增 PostgreSQL 變更欄位序列參數 (#4916 by [Griffio][griffio])
 - [PostgreSQL 變體] 新增 PostgreSQL 變更欄位預設值以支援 INSERT 陳述式 (#4912 by [Griffio][griffio])
 - [PostgreSQL 變體] 新增 PostgreSQL 變更序列和移除序列 (#4920 by [Griffio][griffio])
-- [PostgreSQL 變體] 新增 PostgreSQL Regex 函式定義 (#5025 by [Marius Volkhart][MariusV])
+- [PostgreSQL 變體] 新增 Postgres Regex 函式定義 (#5025 by [Marius Volkhart][MariusV])
 - [PostgreSQL 變體] 新增 GIN 的語法 (#5027 by [Griffio][griffio])
 
 ### 變更
@@ -98,7 +119,7 @@
 - [SQLite 變體] 修正 4897 SQLite 變更表格重新命名欄位 (#4899 by [Griffio][griffio])
 - [IDE 外掛程式] 修正錯誤處理程式崩潰 (#4988 by [Alexander Perfilyev][aperfilyev])
 - [IDE 外掛程式] BugSnag 在 IDEA 2023.3 中初始化失敗 (by [Alexander Perfilyev][aperfilyev])
-- [IDE 外掛程式] 透過外掛程式在 IntelliJ 中開啟 .sq 檔案時發生 PluginException (by [Alexander Perfilyev][aperfilyev])
+- [IDE 外掛程式] PluginException 在 IntelliJ 中透過外掛程式開啟 .sq 檔案時發生 (by [Alexander Perfilyev][aperfilyev])
 - [IDE 外掛程式] 不要將 Kotlin 函式庫捆綁到 IntelliJ 外掛程式中，因為它已經是外掛程式的依賴項 (#5126)
 - [IDE 外掛程式] 使用擴充功能陣列而不是串流 (#5127)
 
@@ -112,9 +133,9 @@
 - [PostgreSQL 變體] 新增對 PostgreSQL SELECT DISTINCT ON 語法的支援 (#4584 by [Griffio][griffio])
 - [PostgreSQL 變體] 新增對 SELECT 陳述式中 PostgreSQL JSON 函式的支援 (#4590 by [Marius Volkhart][MariusV])
 - [PostgreSQL 變體] 新增 generate_series PostgreSQL 函式 (#4717 by [Griffio][griffio])
-- [PostgreSQL 變體] 新增額外的 PostgreSQL 字串函式定義 (#4752 by [Marius Volkhart][MariusV])
+- [PostgreSQL 變體] 新增額外的 Postgres 字串函式定義 (#4752 by [Marius Volkhart][MariusV])
 - [PostgreSQL 變體] 將 DATE PostgreSQL 型別新增到 min 和 max 聚合函式 (#4816 by [André Danielsson][anddani])
-- [PostgreSQL 變體] 將 PostgreSQL 時間類型新增到 SqlBinaryExpr (#4657 by [Griifio][griffio])
+- [PostgreSQL 變體] 將 PostgreSQL 時間型別新增到 SqlBinaryExpr (#4657 by [Griifio][griffio])
 - [PostgreSQL 變體] 新增 TRUNCATE 到 PostgreSQL 變體 (#4817 by [Bastien de Luca][de-luca])
 - [SQLite 3.35 變體] 允許依序評估多個 ON CONFLICT 子句 (#4551 by [Griffio][griffio])
 - [JDBC 驅動程式] 為更愉快的 SQL 編輯新增語言註釋 (#4602 by [Marius Volkhart][MariusV])
@@ -134,11 +155,11 @@
 
 ### 修正
 - [編譯器] 修正帶有返回且無參數的群組陳述式編譯 (#4699 by [Griffio][griffio])
-- [編譯器] 使用 SqlBinaryExpr 綁定參數 (#4604 by [Griffio][griffio])
+- [編譯器] 使用 SqlBinaryExpr 綁定引數 (#4604 by [Griffio][griffio])
 - [IDE 外掛程式] 如果設定了 IDEA 專案 JDK 則使用它 (#4689 by [Griffio][griffio])
 - [IDE 外掛程式] 修正 IDEA 2023.2 及更高版本中「未知元素型別：TYPE_NAME」錯誤 (#4727)
 - [IDE 外掛程式] 修正了與 2023.2 的一些相容性問題
-- [Gradle 外掛程式] 修正 `verifyMigrationTask` Gradle 任務的文件 (#4713 by [Josh Friend][joshfriend])
+- [Gradle 外掛程式] 更正 `verifyMigrationTask` Gradle 任務的文件 (#4713 by [Josh Friend][joshfriend])
 - [Gradle 外掛程式] 新增 Gradle 任務輸出訊息以幫助使用者在驗證資料庫之前生成資料庫 (#4684 by [Jingwei][jingwei99])
 - [PostgreSQL 變體] 修正 PostgreSQL 欄位多次重新命名問題 (#4566 by [Griffio][griffio])
 - [PostgreSQL 變體] 修正 4714 PostgreSQL 變更欄位空值性 (#4831 by [Griffio][griffio])
@@ -149,7 +170,7 @@
 - [原生驅動程式] 支援具名記憶體內資料庫 (#4662 by [Matthew Nelson][05nelsonm])
 - [原生驅動程式] 確保查詢監聽器集合的執行緒安全 (#4567 by [Kevin Galligan][kpgalligan])
 - [JDBC 驅動程式] 修正 ConnectionManager 中的連接洩漏 (#4589 by [Marius Volkhart][MariusV])
-- [JDBC 驅動程式] 修正 JdbcSqliteDriver 在選擇 ConnectionManager 類型時的 URL 解析 (#4656 by [Matthew Nelson][05nelsonm])
+- [JDBC 驅動程式] 修正 JdbcSqliteDriver 在選擇 ConnectionManager 型別時的 URL 解析 (#4656 by [Matthew Nelson][05nelsonm])
 
 ## [2.0.0] - 2023-07-26
 
@@ -169,7 +190,7 @@
 - [IDE 外掛程式] 修正 IDE 生成非同步程式碼的問題 (#4406)
 - [IDE 外掛程式] 將套件結構的組裝移動到一次性計算並脫離 EDT (#4417)
 - [IDE 外掛程式] 在 2023.2 上使用正確的 Stub 索引鍵進行 Kotlin 型別解析 (#4416)
-- [IDE 外掛程式] 在執行搜尋之前等待索引準備好 (#4419)
+- [IDE 外掛程式] 等待索引準備好後再執行搜尋 (#4419)
 - [IDE 外掛程式] 如果索引不可用，則不要執行 GoTo (#4420)
 - [編譯器] 修正群組陳述式的結果表達式 (#4378)
 - [編譯器] 不要使用虛擬表格作為介面型別 (#4427 by [Philip Wedemann][hfhbd])
@@ -270,7 +291,7 @@
 - [IDE 外掛程式] 將 Intellij 版本提升到 221.6008.13 (by [Philip Wedemann][hfhbd])
 - [編譯器] 從純視圖解析遞迴起源表 (recursive origin table) (by [Philip Wedemann][hfhbd])
 - [編譯器] 從表格外部鍵子句 (foreign key clause) 使用值類別 (value classes) (by [Philip Wedemann][hfhbd])
-- [編譯器] 修正 SelectQueryGenerator 以支援沒有括號的綁定表達式 (bind expression) (by [Doogie Min][bellatoris])
+- [編譯器] 修正 SelectQueryGenerator 以支援沒有圓括號的綁定表達式 (bind expression) (by [Doogie Min][bellatoris])
 - [編譯器] 修正使用交易時重複生成 `${name}Indexes` 變數的問題 (by [Andreas Sacher][sachera])
 
 ## [1.5.5] - 2023-01-20
@@ -295,7 +316,7 @@
 - [PostgreSQL 變體] 新增 NOW() 到 PostgreSQL (#3403 by [Philip Wedemann][hfhbd])
 - [PostgreSQL 變體] PostgreSQL 新增 NOT 運算子 (#3504 by [Philip Wedemann][hfhbd])
 - [分頁] 允許將 CoroutineContext 傳入 *QueryPagingSource (#3384)
-- [Gradle 外掛程式] 新增更好的變體版本目錄支援 (#3435)
+- [Gradle 外掛程式] 新增更好的版本目錄支援變體 (#3435)
 - [原生驅動程式] 新增回調以掛鉤 NativeSqliteDriver 的 DatabaseConfiguration 建立 (#3512 by [Sven Jacobs][svenjacobs])
 
 ### 變更
@@ -334,7 +355,7 @@
 
 ### 破壞性變更
 
-- 變體現在像實際的 Gradle 依賴項一樣被引用。
+- 變體現在像實際的 Gradle 依賴項一樣被參照。
 ```groovy
 sqldelight {
   MyDatabase {
@@ -452,11 +473,11 @@ sqldelight {
 - [編譯器] 支援函式名稱中的 `from` 和 `for`
 - [編譯器] 允許 `SEPARATOR` 關鍵字在函式表達式中
 - [編譯器] 無法在 ORDER BY 中存取別名表格的 ROWID
-- [編譯器] MySQL 中 HAVING 子句中無法識別別名欄位名稱
+- [編譯器] Aliased 欄位名稱在 MySQL 的 HAVING 子句中無法識別
 - [編譯器] 錯誤的「找到多個欄位」錯誤
 - [編譯器] 無法設定 `PRAGMA locking_mode = EXCLUSIVE;`
-- [PostgreSQL] PostgreSQL 重新命名欄位
-- [MySQL] 無法識別 UNIX_TIMESTAMP、TO_SECONDS、JSON_ARRAYAGG MySQL 函式
+- [PostgreSQL] Postgresql 重新命名欄位
+- [MySQL] UNIX_TIMESTAMP、TO_SECONDS、JSON_ARRAYAGG MySQL 函式未識別
 - [SQLite] 修正 SQLite 視窗函式功能
 - [IDE 外掛程式] 在空進度指示器中執行 goto 處理程式 (#2990)
 - [IDE 外掛程式] 確保如果專案未配置，高亮訪問器不會運行 (#2981, #2976)
@@ -522,7 +543,7 @@ sqldelight {
 - [IDE 外掛程式] 新增缺失的檢查描述 (#2768 by [Alexander Perfilyev][aperfilyev])
 - [IDE 外掛程式] 修正 GotoDeclarationHandler 中的異常 (#2531, #2688, #2804 by [Alexander Perfilyev][aperfilyev])
 - [IDE 外掛程式] 高亮匯入關鍵字 (by [Alexander Perfilyev][aperfilyev])
-- [IDE 外掛程式] 修正未解析的 kotlin 型別 (#1678 by [Alexander Perfilyev][aperfilyev])
+- [IDE 外掛程式] 修正未解析的 Kotlin 型別 (#1678 by [Alexander Perfilyev][aperfilyev])
 - [IDE 外掛程式] 修正未解析套件的高亮顯示 (#2543 by [Alexander Perfilyev][aperfilyev])
 - [IDE 外掛程式] 如果專案索引尚未初始化，則不要嘗試檢查不匹配的欄位
 - [IDE 外掛程式] 在 Gradle 同步發生之前不要初始化檔案索引
@@ -702,10 +723,10 @@ sqldelight {
 - [Gradle 外掛程式] `classLoaderIsolation` 阻止自定義 JDBC 使用 (#2048 by [Ben Asher][BenA])
 - [Gradle 外掛程式] 改善缺少 `packageName` 的錯誤訊息 (by [Niklas Baudy][vanniktech])
 - [Gradle 外掛程式] SQLDelight 將 IntelliJ 依賴項洩漏到構建腳本類別路徑中 (#1998)
-- [Gradle 外掛程式] 「JavadocIntegrationKt not found」編譯錯誤，在 *.sq 檔案中新增方法文件時 (#1982)
-- [Gradle 外掛程式] SqlDelight Gradle 外掛程式不支援 Configuration Caching (CoCa) (#1947 by [Stéphane Nicolas][stephanenicolas])
-- [SQLite JDBC 驅動程式] SQLException: 資料庫處於自動提交模式 (#1832)
-- [Coroutines 擴充功能] 修正 coroutines-extensions 的 IR 後端 (#1918 by [Derek Ellis][dellisd])
+- [Gradle 外掛程式] 修正 Gradle 建構緩存 (#2075)
+- [Gradle 外掛程式] 不要依賴 Gradle 外掛程式中的 kotlin-native-utils (by [Ilya Matveev][ilmat192])
+- [Gradle 外掛程式] 如果只有遷移檔案，也寫入資料庫 (#2094)
+- [Gradle 外掛程式] 確保鑽石依賴項在最終編譯單元中只被選取一次 (#1455)
 
 另外，特別感謝 [Matthew Haughton][3flex] 在本次發布中為改善 SQLDelight 基礎設施所做的許多工作。
 
@@ -730,7 +751,7 @@ sqldelight {
 - [編譯器] 生成程式碼正在使用完全限定名稱 (#1939)
 - [IDE 外掛程式] 從 Gradle 同步觸發 `sqldelight` 程式碼生成
 - [IDE 外掛程式] 變更 .sq 檔案時外掛程式未重新生成資料庫介面 (#1945)
-- [IDE 外掛程式] 將檔案移動到新套件時出現問題 (#444)
+- [IDE 外掛程式] Issue 當移動檔案到新套件時 (#444)
 - [IDE 外掛程式] 如果沒有地方移動游標，則不執行任何操作而不是崩潰 (#1994)
 - [IDE 外掛程式] 對於 Gradle 專案之外的檔案使用空套件名稱 (#1973)
 - [IDE 外掛程式] 對於無效型別優雅地失敗 (#1943)
@@ -1140,3 +1161,4 @@ sqldelight {
 [orenkislev-faire]: https://github.com/orenkislev-faire
 [janbina]: https://github.com/janbina
 [DRSchlaubi]: https://github.com/DRSchlaubi
+[jonapoul]: https://github.com/jonapoul

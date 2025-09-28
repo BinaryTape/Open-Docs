@@ -13,7 +13,7 @@ Compose Multiplatform %org.jetbrains.compose% は、以下のプラットフォ�
 | macOS    | macOS 12 x64, macOS 13 arm64                                                                           |
 | Windows  | Windows 10 (x86-64, arm64)                                                                             |
 | Linux    | Ubuntu 20.04 (x86-64, arm64)                                                                           |
-| Web      | [WasmGCサポート](https://kotlinlang.org/docs/wasm-troubleshooting.html#browser-versions)のあるブラウザ |
+| Web      | [WasmGCサポート](https://kotlinlang.org/docs/wasm-configuration.html#browser-versions)のあるブラウザ |
 
 [//]: # (https://youtrack.jetbrains.com/issue/CMP-7539)
 
@@ -43,12 +43,11 @@ Compose Multiplatformは、Kotlin Multiplatformプラグインと同じバージ
 
 ## デスクトップ版Compose Multiplatformの制限事項
 
-デスクトップ版Compose Multiplatformには以下の制限事項があります。
+デスクトップ版Compose Multiplatformは、[Skia](https://skia.org/)バインディングで使用されているメモリ管理スキームにより、JDK 11以降のみがサポートされています。
 
-* [Skia](https://skia.org/)バインディングで使用されているメモリ管理スキームにより、JDK 11以降のみがサポートされています。
+加えて：
 * [`jpackage`](https://docs.oracle.com/en/java/javase/17/docs/specs/man/jpackage.html)の制限により、ネイティブディストリビューションのパッケージングにはJDK 17以降のみがサポートされています。
-* macOSでキーボードレイアウトを切り替える際に、OpenJDK 11.0.12に既知の[問題](https://github.com/JetBrains/compose-multiplatform/issues/940)があります。
-  この問題はOpenJDK 11.0.15では再現されません。
+* macOSでキーボードレイアウトを切り替える際に、OpenJDK 11.0.12に既知の[問題](https://github.com/JetBrains/compose-multiplatform/issues/940)があります。この問題はOpenJDK 11.0.15では再現されません。
 
 ## Jetpack ComposeとCompose Multiplatformのリリースサイクル
 
@@ -56,10 +55,10 @@ Compose Multiplatformは、Googleが開発したフレームワークであるAn
 
 Jetpack Composeの新しいバージョンがリリースされると、弊社は以下を行います。
 
-* 次の[Compose Multiplatform](https://github.com/JetBrains/androidx)バージョンのベースとして、リリースコミットを使用します。
-* 新しいプラットフォーム機能のサポートを追加します。
-* すべてのプラットフォームを安定化させます。
-* Compose Multiplatformの新しいバージョンをリリースします。
+1.  次の[Compose Multiplatform](https://github.com/JetBrains/androidx)バージョンのベースとして、リリースコミットを使用します。
+2.  新しいプラットフォーム機能のサポートを追加します。
+3.  すべてのプラットフォームを安定化させます。
+4.  Compose Multiplatformの新しいバージョンをリリースします。
 
 Compose MultiplatformのリリースとJetpack Composeのリリースの間隔は、通常1〜3ヶ月です。
 
@@ -83,6 +82,7 @@ Android向けにアプリケーションをビルドする際、Compose Multipla
 
 | Compose Multiplatformバージョン                                                     | Jetpack Composeバージョン | Jetpack Compose Material3バージョン |
 |-----------------------------------------------------------------------------------|-------------------------|-----------------------------------|
+| [1.9.0](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.9.0)   | 1.9.0                   | 1.3.2                             |
 | [1.8.2](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.8.2)   | 1.8.2                   | 1.3.2                             |
 | [1.7.3](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.7.3)   | 1.7.6                   | 1.3.1                             |
 | [1.7.1](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.7.1)   | 1.7.5                   | 1.3.1                             |

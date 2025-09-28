@@ -7,8 +7,8 @@
     <p>本教程使用 IntelliJ IDEA，但你也可以在 Android Studio 中进行操作 — 这两个 IDE 共享相同的核心功能性以及 Kotlin Multiplatform 支持。</p>
     <br/>
     <p>这是**使用共享逻辑和 UI 创建 Compose Multiplatform 应用**教程的第三部分。在继续之前，请确保你已完成了之前的步骤。</p>
-    <p><img src="icon-1-done.svg" width="20" alt="第一步"/> <Links href="/kmp/compose-multiplatform-create-first-app" summary="本教程使用 IntelliJ IDEA，但你也可以在 Android Studio 中进行操作 — 这两个 IDE 共享相同的核心功能性以及 Kotlin Multiplatform 支持。这是使用共享逻辑和 UI 创建 Compose Multiplatform 应用教程的第一部分。创建你的 Compose Multiplatform 应用 探索可组合代码 修改项目 创建你自己的应用程序">创建你的 Compose Multiplatform 应用</Links><br/>
-       <img src="icon-2-done.svg" width="20" alt="第二步"/> <Links href="/kmp/compose-multiplatform-explore-composables" summary="本教程使用 IntelliJ IDEA，但你也可以在 Android Studio 中进行操作 — 这两个 IDE 共享相同的核心功能性以及 Kotlin Multiplatform 支持。这是使用共享逻辑和 UI 创建 Compose Multiplatform 应用教程的第二部分。在继续之前，请确保你已完成了之前的步骤。创建你的 Compose Multiplatform 应用 探索可组合代码 修改项目 创建你自己的应用程序">探索可组合代码</Links><br/>
+    <p><img src="icon-1-done.svg" width="20" alt="第一步"/> <Links href="/kmp/compose-multiplatform-create-first-app" summary="This tutorial uses IntelliJ IDEA, but you can also follow it in Android Studio – both IDEs share the same core functionality and Kotlin Multiplatform support. This is the first part of the Create a Compose Multiplatform app with shared logic and UI tutorial. Create your Compose Multiplatform app Explore composable code Modify the project Create your own application">创建你的 Compose Multiplatform 应用</Links><br/>
+       <img src="icon-2-done.svg" width="20" alt="第二步"/> <Links href="/kmp/compose-multiplatform-explore-composables" summary="This tutorial uses IntelliJ IDEA, but you can also follow it in Android Studio – both IDEs share the same core functionality and Kotlin Multiplatform support. This is the second part of the Create a Compose Multiplatform app with shared logic and UI tutorial. Before proceeding, make sure you've completed previous steps. Create your Compose Multiplatform app Explore composable code Modify the project Create your own application">探索可组合代码</Links><br/>
        <img src="icon-3.svg" width="20" alt="第三步"/> <strong>修改项目</strong><br/>
        <img src="icon-4-todo.svg" width="20" alt="第四步"/> 创建你自己的应用程序<br/>
     </p>
@@ -37,7 +37,7 @@
                 // ...
                 implementation("org.jetbrains.kotlinx:kotlinx-datetime:%dateTimeVersion%")
             }
-            wasmJsMain.dependencies {
+            webMain.dependencies {
                 implementation(npm("@js-joda/timezone", "2.22.0"))
             }
         }
@@ -47,14 +47,14 @@
 
     * 主要依赖项已添加到配置公共代码源代码集的部分。
     * 为简单起见，版本号直接包含在内，而不是添加到版本目录。
-    * 为了支持 Web 目标平台中的时区，所需的 npm 包引用已包含在 `wasmJsMain` 依赖项中。
+    * 为了支持 Web 目标平台中的时区，所需的 npm 包引用已包含在 `webMain` 依赖项中。
 
-2. 依赖项添加完成后，系统会提示你重新同步项目。点击“**同步 Gradle 变更**”按钮以同步 Gradle 文件： ![同步 Gradle 文件](gradle-sync.png){width=50}
+2. 依赖项添加完成后，系统会提示你重新同步项目。点击“**同步 Gradle 变更**”按钮以同步 Gradle 文件： ![Synchronize Gradle files](gradle-sync.png){width=50}
 
 3. 在“**终端**”工具窗口中，运行以下命令：
 
     ```shell
-    ./gradlew kotlinUpgradeYarnLock
+    ./gradlew kotlinUpgradeYarnLock kotlinWasmUpgradeYarnLock
     ```
 
    此 Gradle 任务可确保 `yarn.lock` 文件已更新为最新依赖项版本。
@@ -89,13 +89,13 @@
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Text(
-                    text = "今天的日期是 ${todaysDate()}",
+                    text = "Today's date is ${todaysDate()}",
                     modifier = Modifier.padding(20.dp),
                     fontSize = 24.sp,
                     textAlign = TextAlign.Center
                 )
                 Button(onClick = { showContent = !showContent }) {
-                    Text("点击我！")
+                    Text("Click me!")
                 }
                 AnimatedVisibility(showContent) {
                     Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
@@ -108,33 +108,13 @@
     }
     ```
 
-3. 按照 IDE 的建议导入缺失的依赖项。请确保从 `kotlinx.datetime` 包导入 `todaysDate()` 函数的所有缺失依赖项，**不是** `kotlin.time`。
+3. 按照 IDE 的建议导入缺失的依赖项。请确保从更新的包中导入 `todaysDate()` 函数的所有缺失依赖项，并在 IDE 提示时选择加入。
 
-   ![未解析的引用](compose-unresolved-references.png)
-
-4. 将 Web 应用从使用 `Element` 作为容器切换到使用具有外部指定 `id` 的 HTML 元素：
-
-    1. 在 `composeApp/src/wasmJsMain/resources/index.html` 文件中，在 `<body>` 中添加一个命名元素：
-
-        ```html
-        <body>
-        <div id="composeApplication" style="width:400px; height: 600px;"></div>
-        </body>
-        ```
-    2. 在 `composeApp/src/wasmJsMain/kotlin/main.kt` 文件中，将 `ComposeViewport` 调用更改为 `String` 变体，指向你在 HTML 文件中指定的 ID：
-
-        ```kotlin
-        @OptIn(ExperimentalComposeUiApi::class)
-        fun main() {
-            ComposeViewport(viewportContainerId = "composeApplication") {
-                App()
-            }
-        }
-        ```
+   ![Unresolved references](compose-unresolved-references.png)
 
 ## 重新运行应用程序
 
-你现在可以使用相同的运行配置在 Android、iOS、桌面和 Web 上重新运行应用程序：
+你现在可以使用相同的运行配置在 Android、iOS、桌面和 Web 上[重新运行应用程序](compose-multiplatform-create-first-app.md#run-your-application)：
 
 <Tabs>
     <TabItem id="mobile-app" title="Android 和 iOS">
@@ -149,7 +129,7 @@
 </Tabs>
 
 <!--
-> You can find this state of the project in our [GitHub repository](https://github.com/kotlin-hands-on/get-started-with-cm/tree/main/ComposeDemoStage1).
+> 你可以在我们的 [GitHub 版本库](https://github.com/kotlin-hands-on/get-started-with-cm/tree/main/ComposeDemoStage1) 中找到此项目状态。
 >
 {style="tip"}
 -->

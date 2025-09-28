@@ -12,7 +12,7 @@ Ktor 遵循 [語義化版本控制](https://semver.org/)：
 
 ## Gradle 外掛程式 {id="gradle"}
 
-[Gradle Ktor 外掛程式](https://github.com/ktorio/ktor-build-plugins) 與框架處於相同的發行週期。您可以在 [Gradle 外掛程式入口網站](https://plugins.gradle.org/plugin/io.ktor.plugin) 上找到所有外掛程式發行版本。
+[Gradle Ktor 外掛程式](https://github.com/ktorio/ktor-build-plugins) 和框架處於相同的發行週期。您可以在 [Gradle 外掛程式入口網站](https://plugins.gradle.org/plugin/io.ktor.plugin) 上找到所有外掛程式發行版本。
 
 ## IntelliJ Ultimate 外掛程式 {id="intellij"}
 
@@ -33,9 +33,21 @@ IntelliJ Ktor 外掛程式允許您將 Ktor 專案遷移到最新版本。您可
 </tr>
 
 <tr>
+<td>3.3.0</td><td>September 11, 2025</td><td>
+<p>
+一個次要版本，引入了實驗性的 OpenAPI 生成預覽、改進的靜態內容處理、適用於 Android 和 JS/Wasm 的 WebRTC 用戶端等主要功能，並升級至 Jetty、OkHttp 和 Kotlin 2.2。欲了解更多資訊，請參閱 <Links href="/ktor/whats-new-330" summary="undefined">Ktor 3.3.0 中的新功能</Links>。
+</p>
+<var name="version" value="3.3.0"/>
+<p>
+    <a href="https://github.com/ktorio/ktor/releases/tag/%version%">在 GitHub 上查看變更日誌</a>
+</p>
+</td>
+</tr>
+
+<tr>
 <td>3.2.3</td><td>July 29, 2025</td><td>
 <p>
-一個修補程式版本，引入了對 YAML 設定處理、DI 解析和 Wasm/JS 穩定性的改進，以及對多部分解析、CIO <code>100 Continue</code> 回應格式、<code>ByteReadChannel</code> 中的無限讀取迴圈以及伺服器關閉問題的修正。
+一個修補程式版本，引入了對 YAML config 處理、DI resolution 和 Wasm/JS stability 的改進，以及對 multipart parsing、CIO <code>100 Continue</code> response formatting、<code>ByteReadChannel</code> 中的無限讀取迴圈，以及伺服器關閉問題的修正。
 </p>
 <var name="version" value="3.2.3"/>
 <p>
@@ -47,7 +59,7 @@ IntelliJ Ktor 外掛程式允許您將 Ktor 專案遷移到最新版本。您可
 <tr>
 <td>3.2.2</td><td>July 14, 2025</td><td>
 <p>
-一個修補程式版本，改進了 SSE 欄位序列化順序，並解決了多個問題，包括 CORS 預檢處理、測試應用程式串流、設定反序列化錯誤以及跨平台缺少標頭的問題——包括來自 3.2.1 影響 wasmJs 和 Darwin 目標的迴歸。
+一個修補程式版本，改進了 SSE field serialization order，並解決了多個問題，包括 CORS preflight handling、test application streaming、configuration deserialization bugs，以及跨平台缺少標頭的問題——包括來自 3.2.1 影響 wasmJs 和 Darwin targets 的迴歸。
 </p>
 <var name="version" value="3.2.2"/>
 <p>
@@ -59,7 +71,7 @@ IntelliJ Ktor 外掛程式允許您將 Ktor 專案遷移到最新版本。您可
 <tr>
 <td>3.2.1</td><td>July 4, 2025</td><td>
 <p>
-一個修補程式版本，包括對時間 API、範本和發布的改進，以及對外掛程式行為、Netty、OkHttp 和 3.2.0 中引入的啟動問題的關鍵錯誤修正。
+一個修補程式版本，包括對 time APIs、templating 和 publishing 的改進，以及對 plugin behavior、Netty、OkHttp 和 3.2.0 中引入的 startup issues 的關鍵錯誤修正。
 </p>
 <var name="version" value="3.2.1"/>
 <p>
@@ -71,7 +83,7 @@ IntelliJ Ktor 外掛程式允許您將 Ktor 專案遷移到最新版本。您可
 <tr>
 <td>3.2.0</td><td>June 12, 2025</td><td>
 <p>
-一個次要版本，引入了型別化設定反序列化、新的依賴注入和 HTMX 模組、Gradle 版本目錄支援和暫停模組支援。欲了解更多資訊，請參閱 <Links href="/ktor/whats-new-320" summary="undefined">Ktor 3.2.0 中的新功能</Links>。
+一個次要版本，引入了 typed configuration deserialization、新的 dependency injection 和 HTMX modules、Gradle version catalog support 和 suspend module support。欲了解更多資訊，請參閱 <Links href="/ktor/whats-new-320" summary="undefined">Ktor 3.2.0 中的新功能</Links>。
 </p>
 <var name="version" value="3.2.0"/>
 <p>
@@ -82,7 +94,7 @@ IntelliJ Ktor 外掛程式允許您將 Ktor 專案遷移到最新版本。您可
 
 <tr>
 <td>3.1.3</td><td>May 5, 2025</td><td><p>
-一個修補程式版本，包括性能改進，例如更快的位元組操作和多部分處理，以及更安全的令牌刷新處理。它還修正了度量中的記憶體問題，改進了標頭行為，並解決了 WebSockets、OkHttp、Apache5 和 Netty 中的錯誤，此外還更新了 JTE 以支援 Kotlin 2.1.0。
+一個修補程式版本，包括性能改進，例如更快的 byte operations 和 multipart handling，以及更安全的 token refresh handling。它還修正了 metrics 中的 memory issues，改進了 header behavior，並解決了 WebSockets、OkHttp、Apache5 和 Netty 中的 bugs，此外還更新了 JTE 以支援 Kotlin 2.1.0。
 </p>
 <var name="version" value="3.1.3"/>
 <p>
@@ -93,7 +105,7 @@ IntelliJ Ktor 外掛程式允許您將 Ktor 專案遷移到最新版本。您可
 
 <tr>
 <td>3.1.2</td><td>March 27, 2025</td><td><p>
-一個修補程式版本，將 Kotlin 更新至 2.1.20，並修正了各種問題，包括 Base64 解碼、認證令牌清除、Android 伺服器啟動錯誤、WebSocket 標頭格式和 SSE 會話取消。
+一個修補程式版本，將 Kotlin 更新至 2.1.20，並修正了各種問題，包括 Base64 decoding、auth token clearing、Android server startup errors、WebSocket header formatting 和 SSE session cancellation。
 </p>
 <var name="version" value="3.1.2"/>
 <p>
@@ -104,7 +116,7 @@ IntelliJ Ktor 外掛程式允許您將 Ktor 專案遷移到最新版本。您可
 
 <tr>
 <td>3.1.1</td><td>February 24, 2025</td><td><p>
-一個修補程式版本，改進了日誌記錄並修正了 WebSocket 超時處理。它修正了多個錯誤，包括 HTTP 快取不一致、表單資料複製錯誤、gzip 處理崩潰以及導致區段池損壞的併發問題。
+一個修補程式版本，改進了 logging 並修正了 WebSocket timeout handling。它修正了多個 bugs，包括 HTTP cache inconsistencies、form data copying errors、gzip handling crashes 以及導致 segment pool corruption 的 concurrency issues。
 </p>
 <var name="version" value="3.1.1"/>
 <p>
@@ -115,7 +127,7 @@ IntelliJ Ktor 外掛程式允許您將 Ktor 專案遷移到最新版本。您可
 
 <tr>
 <td>3.1.0</td><td>February 11, 2025</td><td><p>
-一個次要版本，引入了各種 SSE 功能以及擴展的 CIO 引擎和 WebSocket 支援。它增強了平台兼容性、日誌記錄和認證，同時修正了與位元組通道處理、HTTP 請求失敗和併發問題相關的關鍵錯誤。
+一個次要版本，引入了各種 SSE features 以及 extended CIO engine 和 WebSocket support。它增強了 platform compatibility、logging 和 authentication，同時修正了與 byte channel handling、HTTP request failures 和 concurrency issues 相關的 critical bugs。
 </p>
 <var name="version" value="3.1.0"/>
 <p>
@@ -126,7 +138,7 @@ IntelliJ Ktor 外掛程式允許您將 Ktor 專案遷移到最新版本。您可
 
 <tr>
 <td>3.0.3</td><td>December 18, 2024</td><td><p>
-一個修補程式版本，包含各種錯誤修正，包括修正 <code>browserProductionWebpack</code> 中的建置錯誤、gzipped 內容處理和 <code>FormFieldLimit</code> 設定覆蓋。此版本還包括核心性能改進和正確的測試應用程式關閉。
+一個修補程式版本，包含各種 bug fixes，包括修正 <code>browserProductionWebpack</code> 中的 build errors、gzipped content handling 和 <code>FormFieldLimit</code> configuration overwrites。此版本還包括 core performance improvements 和 proper test application shutdown。
 </p>
 <var name="version" value="3.0.3"/>
 <p>
@@ -137,7 +149,7 @@ IntelliJ Ktor 外掛程式允許您將 Ktor 專案遷移到最新版本。您可
 
 <tr>
 <td>3.0.2</td><td>December 4, 2024</td><td><p>
-一個修補程式版本，解決了與回應損壞、截斷主體、連接處理和不正確標頭相關的多個錯誤修正，以及擴展的二進位編碼支援和 Android 性能增強。
+一個修補程式版本，解決了與 response corruption、truncated bodies、connection handling 和 incorrect headers 相關的多個 bug fixes，以及 extended binary encoding support 和 Android 的 performance enhancements。
 </p>
 <var name="version" value="3.0.2"/>
 <p>
@@ -148,7 +160,7 @@ IntelliJ Ktor 外掛程式允許您將 Ktor 專案遷移到最新版本。您可
 
 <tr>
 <td>2.3.13</td><td>November 20, 2024</td><td><p>
-一個修補程式版本，包含錯誤修正、安全修補程式和改進，包括對 <code>watchosDeviceArm64</code> 目標的支援。
+一個修補程式版本，包含 bug fixes、security patches 和 improvements，包括對 <code>watchosDeviceArm64</code> target 的支援。
 </p>
 <var name="version" value="2.3.13"/>
 <p>
@@ -159,7 +171,7 @@ IntelliJ Ktor 外掛程式允許您將 Ktor 專案遷移到最新版本。您可
 
 <tr>
 <td>3.0.1</td><td>October 29, 2024</td><td><p>
-一個修補程式版本，包括客戶端和伺服器日誌記錄的改進，以及各種錯誤修正。
+一個修補程式版本，包括 client 和 server logging 的 improvements，以及各種 bug fixes。
 </p>
 <var name="version" value="3.0.1"/>
 <p>
@@ -170,7 +182,7 @@ IntelliJ Ktor 外掛程式允許您將 Ktor 專案遷移到最新版本。您可
 
 <tr>
 <td>3.0.0</td><td>October 9, 2024</td><td><p>
-一個主要版本，包含改進和錯誤修正，包括對 Android Native 目標的支援。有關破壞性變更的更多資訊，請參閱 <Links href="/ktor/migrating-3" summary="undefined">遷移指南</Links>。
+一個主要版本，包含 improvements 和 bug fixes，包括對 Android Native targets 的支援。有關破壞性變更的更多資訊，請參閱 <Links href="/ktor/migrating-3" summary="undefined">遷移指南</Links>。
 </p>
 <var name="version" value="3.0.0"/>
 <p>
@@ -181,7 +193,7 @@ IntelliJ Ktor 外掛程式允許您將 Ktor 專案遷移到最新版本。您可
 
 <tr>
 <td>3.0.0-rc-2</td><td>October 2, 2024</td><td><p>
-一個主要發行候選版本，包含各種改進，帶有破壞性變更、錯誤修正和功能，例如 XML 的多平台支援。
+一個主要 release candidate，包含各種帶有破壞性變更、bug fixes 和 features 的 improvements，例如針對 XML 的 multiplatform support。
 </p>
 <var name="version" value="3.0.0-rc-2"/>
 <p>
@@ -192,7 +204,7 @@ IntelliJ Ktor 外掛程式允許您將 Ktor 專案遷移到最新版本。您可
 
 <tr>
 <td>3.0.0-rc-1</td><td>September 9, 2024</td><td><p>
-一個主要發行候選版本，包含重大改進和錯誤修正。此更新增強了向後兼容性並具有擴展的 <code>staticZip</code> 支援。
+一個主要 release candidate，包含 significant improvements 和 bug fixes。此更新增強了 backward compatibility 並具有 extended <code>staticZip</code> support。
 </p>
 <var name="version" value="3.0.0-rc-1"/>
 <p>
@@ -203,7 +215,7 @@ IntelliJ Ktor 外掛程式允許您將 Ktor 專案遷移到最新版本。您可
 
 <tr>
 <td>3.0.0-beta-2</td><td>July 15, 2024</td><td><p>
-一個主要預發行版本，包含各種改進和錯誤修正，包括 SSE 支援改進和用於 Kotlin/Wasm 的 Ktor 客戶端。
+一個主要 pre-release version，包含各種 improvements 和 bug fixes，包括 SSE support improvements 和適用於 Kotlin/Wasm 的 Ktor client。
 </p>
 <var name="version" value="3.0.0-beta-2"/>
 <p>
@@ -214,7 +226,7 @@ IntelliJ Ktor 外掛程式允許您將 Ktor 專案遷移到最新版本。您可
 
 <tr>
 <td>2.3.12</td><td>June 20, 2024</td><td><p>
-一個修補程式版本，包括 Ktor Core 和 Ktor Server 中的錯誤修正，以及 Netty 和 OpenAPI 的版本更新。
+一個修補程式版本，包括 Ktor Core 和 Ktor Server 中的 bug fixes，以及 Netty 和 OpenAPI 的 version updates。
 </p>
 <var name="version" value="2.3.12"/>
 <p>
@@ -225,7 +237,7 @@ IntelliJ Ktor 外掛程式允許您將 Ktor 專案遷移到最新版本。您可
 
 <tr>
 <td>2.3.11</td><td>May 9, 2024</td><td><p>
-一個修補程式版本，包括一個修正，用於將 socket 超時應用於 Test Client 的引擎。
+一個修補程式版本，包括一個用於將 socket timeout 應用於 Test Client 的 engine 的 bug fix。
 </p>
 <var name="version" value="2.3.11"/>
 <p>
@@ -236,7 +248,7 @@ IntelliJ Ktor 外掛程式允許您將 Ktor 專案遷移到最新版本。您可
 
 <tr>
 <td>2.3.10</td><td>April 8, 2024</td><td><p>
-一個修補程式版本，包括 CallLogging 和 SSE 伺服器外掛程式的各種錯誤修正，改進的 Android 客戶端日誌記錄等。
+一個修補程式版本，包括 CallLogging 和 SSE server plugins 的各種 bug fixes，improved Android client logging 等。
 </p>
 <var name="version" value="2.3.10"/>
 <p>
@@ -247,7 +259,7 @@ IntelliJ Ktor 外掛程式允許您將 Ktor 專案遷移到最新版本。您可
 
 <tr>
 <td>2.3.9</td><td>March 4, 2024</td><td><p>
-一個修補程式版本，包括 ContentNegotiation 客戶端外掛程式的一個錯誤修正，以及對透過 HTTP 傳送安全 cookie 的支援。
+一個修補程式版本，包括 ContentNegotiation client plugin 的一個 bug fix，以及對透過 HTTP 傳送 secure cookies 的支援。
 </p>
 <var name="version" value="2.3.9"/>
 <p>
@@ -258,7 +270,7 @@ IntelliJ Ktor 外掛程式允許您將 Ktor 專案遷移到最新版本。您可
 
 <tr>
 <td>2.3.8</td><td>January 31, 2024</td><td><p>
-一個修補程式版本，包括 URLBuilder、CORS 和 WebSocket 外掛程式的各種錯誤修正。
+一個修補程式版本，包括 URLBuilder、CORS 和 WebSocket plugins 的各種 bug fixes。
 </p>
 <var name="version" value="2.3.8"/>
 <p>
@@ -270,7 +282,7 @@ IntelliJ Ktor 外掛程式允許您將 Ktor 專案遷移到最新版本。您可
 <tr>
 <td>2.3.7</td><td>December 7, 2023</td><td>
 <p>
-一個修補程式版本，包括 ContentNegotiation、WebSockets 中的錯誤修正，以及 Native Server 中的記憶體使用。
+一個修補程式版本，包括 ContentNegotiation、WebSockets 中的 bug fixes，以及 Native Server 中的 memory usage。
 </p>
 <var name="version" value="2.3.7"/>
 <p>
@@ -282,7 +294,7 @@ IntelliJ Ktor 外掛程式允許您將 Ktor 專案遷移到最新版本。您可
 <tr>
 <td>3.0.0-beta-1</td><td>November 23, 2023</td><td>
 <p>
-一個主要預發行版本，包含各種改進和錯誤修正，包括客戶端和伺服器 SSE 支援。
+一個主要 pre-release version，包含各種 improvements 和 bug fixes，包括 client 和 server SSE support。
 </p>
 <var name="version" value="3.0.0-beta-1"/>
 <p>
@@ -294,7 +306,7 @@ IntelliJ Ktor 外掛程式允許您將 Ktor 專案遷移到最新版本。您可
 <tr>
 <td>2.3.6</td><td>November 7, 2023</td><td>
 <p>
-一個修補程式版本，包括對 2.3.5 中破壞性變更的修正以及各種其他錯誤修正。
+一個修補程式版本，包括對 2.3.5 中破壞性變更的 fix 以及各種其他 bug fixes。
 </p>
 <var name="version" value="2.3.6"/>
 <p>
@@ -306,7 +318,7 @@ IntelliJ Ktor 外掛程式允許您將 Ktor 專案遷移到最新版本。您可
 <tr>
 <td>2.3.5</td><td>October 5, 2023</td><td>
 <p>
-一個修補程式版本，包括 Darwin 和 Apache5 引擎設定中的修正。
+一個修補程式版本，包括 Darwin 和 Apache5 engine configurations 中的 fixes。
 </p>
 <var name="version" value="2.3.5"/>
 <p>
@@ -318,7 +330,7 @@ IntelliJ Ktor 外掛程式允許您將 Ktor 專案遷移到最新版本。您可
 <tr>
 <td>2.3.4</td><td>August 31, 2023</td><td>
 <p>
-一個修補程式版本，包括 HTTP Cookie 標頭中的錯誤修正和 NoTransformationFoundException 錯誤。
+一個修補程式版本，包括 HTTP Cookie header 中的 bug fix 和 NoTransformationFoundException error。
 </p>
 <var name="version" value="2.3.4"/>
 <p>
@@ -330,7 +342,7 @@ IntelliJ Ktor 外掛程式允許您將 Ktor 專案遷移到最新版本。您可
 <tr>
 <td>2.3.3</td><td>August 1, 2023</td><td>
 <p>
-一個修補程式版本，包括對 <code>linuxArm64</code> 的客戶端和伺服器支援以及各種錯誤修正。
+一個修補程式版本，包括對 <code>linuxArm64</code> 的 client 和 server support 以及各種 bug fixes。
 </p>
 <var name="version" value="2.3.3"/>
 <p>
@@ -342,7 +354,7 @@ IntelliJ Ktor 外掛程式允許您將 Ktor 專案遷移到最新版本。您可
 <tr>
 <td>2.3.2</td><td>June 28, 2023</td><td>
 <p>
-一個修補程式版本，將 Kotlin 版本升級到 <code>1.8.22</code>，並包含各種錯誤修正。
+一個修補程式版本，將 Kotlin version 升級到 <code>1.8.22</code>，並包含各種 bug fixes。
 </p>
 <var name="version" value="2.3.2"/>
 <p>
@@ -354,7 +366,7 @@ IntelliJ Ktor 外掛程式允許您將 Ktor 專案遷移到最新版本。您可
 <tr>
 <td>2.3.1</td><td>May 31, 2023</td><td>
 <p>
-一個修補程式版本，包括伺服器設定的改進以及各種錯誤修正。
+一個修補程式版本，包括 server configurations 的 improvements 以及各種 bug fixes。
 </p>
 <var name="version" value="2.3.1"/>
 <p>
@@ -366,7 +378,7 @@ IntelliJ Ktor 外掛程式允許您將 Ktor 專案遷移到最新版本。您可
 <tr>
 <td>2.3.0</td><td>April 19, 2023</td><td>
 <p>
-一個功能發行版本，增加了對多個設定檔、Routing 中的正則表達式模式等的支援。
+一個 feature release，增加了對 multiple configuration files、Routing 中的 regex patterns 等的 support。
 </p>
 <var name="version" value="2.3.0"/>
 <p>
@@ -378,7 +390,7 @@ IntelliJ Ktor 外掛程式允許您將 Ktor 專案遷移到最新版本。您可
 <tr>
 <td>2.2.4</td><td>February 28, 2023</td><td>
 <p>
-一個修補程式版本，包含 HTTP 客戶端、Routing 和 ContentNegotiation 中的各種錯誤修正。
+一個修補程式版本，包含 HTTP client、Routing 和 ContentNegotiation 中的各種 bug fixes。
 </p>
 <var name="version" value="2.2.4"/>
 <p>
@@ -390,7 +402,7 @@ IntelliJ Ktor 外掛程式允許您將 Ktor 專案遷移到最新版本。您可
 <tr>
 <td>2.2.3</td><td>January 31, 2023</td><td>
 <p>
-一個修補程式版本，包括 OAuth2 的多平台功能以及各種錯誤修正。
+一個修補程式版本，包括針對 OAuth2 的 multiplatform functionality 以及各種 bug fixes。
 </p>
 <var name="version" value="2.2.3"/>
 <p>
@@ -402,7 +414,7 @@ IntelliJ Ktor 外掛程式允許您將 Ktor 專案遷移到最新版本。您可
 <tr>
 <td>2.2.2</td><td>January 3, 2023</td><td>
 <p>
-一個修補程式版本，包括對 <code>2.2.1</code> 的錯誤修正，Swagger 外掛程式中的改進和修正等。
+一個修補程式版本，包括對 <code>2.2.1</code> 的 bug fix、Swagger plugin 中的 improvements 和 fixes 等。
 </p>
 <var name="version" value="2.2.2"/>
 <p>
@@ -414,7 +426,7 @@ IntelliJ Ktor 外掛程式允許您將 Ktor 專案遷移到最新版本。您可
 <tr>
 <td>2.2.1</td><td>December 7, 2022</td><td>
 <p>
-一個修補程式版本，用於解決 <code>2.2.0</code> 中的 <code>java.lang.NoClassDefFoundError: kotlinx/atomicfu/AtomicFU</code> 錯誤。
+一個修補程式版本，用於解決 <code>2.2.0</code> 中的 <code>java.lang.NoClassDefFoundError: kotlinx/atomicfu/AtomicFU</code> error。
 </p>
 <var name="version" value="2.2.1"/>
 <p>
@@ -426,7 +438,7 @@ IntelliJ Ktor 外掛程式允許您將 Ktor 專案遷移到最新版本。您可
 <tr>
 <td>2.2.0</td><td>December 7, 2022</td><td>
 <p>
-一個多功能發行版本，包括 Swagger UI 託管、新外掛程式 API、Session 的多平台支援等。欲了解更多資訊，請參閱 <Links href="/ktor/migration-to-22x" summary="undefined">從 2.0.x 遷移到 2.2.x</Links> 指南。
+一個 multiple feature release，包括 Swagger UI hosting、new plugins API、針對 Sessions 的 multiplatform support 等。欲了解更多資訊，請參閱 <Links href="/ktor/migration-to-22x" summary="undefined">從 2.0.x 遷移到 2.2.x</Links> 指南。
 </p>
 <var name="version" value="2.2.0"/>
 <p>
@@ -438,7 +450,7 @@ IntelliJ Ktor 外掛程式允許您將 Ktor 專案遷移到最新版本。您可
 <tr>
 <td>2.1.3</td><td>October 26, 2022</td><td>
 <p>
-一個修補程式版本，包含各種錯誤修正。
+一個修補程式版本，包含各種 bug fixes。
 </p>
 <var name="version" value="2.1.3"/>
 <p>
@@ -450,7 +462,7 @@ IntelliJ Ktor 外掛程式允許您將 Ktor 專案遷移到最新版本。您可
 <tr>
 <td>2.1.2</td><td>September 29, 2022</td><td>
 <p>
-一個修補程式版本，包括 Routing、Testing 引擎和 Ktor 客戶端中的錯誤修正。
+一個修補程式版本，包括 Routing、Testing engine 和 Ktor client 中的 bug fixes。
 </p>
 <var name="version" value="2.1.2"/>
 <p>
@@ -462,7 +474,7 @@ IntelliJ Ktor 外掛程式允許您將 Ktor 專案遷移到最新版本。您可
 <tr>
 <td>2.1.1</td><td>September 6, 2022</td><td>
 <p>
-一個修補程式版本，包含 Ktor 客戶端和伺服器中的各種錯誤修正。
+一個修補程式版本，包含 Ktor client 和 server 中的各種 bug fixes。
 </p>
 <var name="version" value="2.1.1"/>
 <p>
@@ -474,7 +486,7 @@ IntelliJ Ktor 外掛程式允許您將 Ktor 專案遷移到最新版本。您可
 <tr>
 <td>2.1.0</td><td>August 11, 2022</td><td>
 <p>
-一個次要版本，增加了對 YAML 設定的支援以及各種其他改進和錯誤修正。
+一個次要版本，增加了對 YAML configuration 的 support 以及各種其他 improvements 和 bug fixes。
 </p>
 <var name="version" value="2.1.0"/>
 <p>
@@ -486,7 +498,7 @@ IntelliJ Ktor 外掛程式允許您將 Ktor 專案遷移到最新版本。您可
 <tr>
 <td>2.0.3</td><td>June 28, 2022</td><td>
 <p>
-一個修補程式版本，包含錯誤修正並將 <code>kotlinx.coroutines</code> 版本升級到 <code>1.6.2</code>。
+一個修補程式版本，包含 bug fixes 並將 <code>kotlinx.coroutines</code> version 升級到 <code>1.6.2</code>。
 </p>
 <var name="version" value="2.0.3"/>
 <p>
@@ -498,7 +510,7 @@ IntelliJ Ktor 外掛程式允許您將 Ktor 專案遷移到最新版本。您可
 <tr>
 <td>2.0.2</td><td>May 27, 2022</td><td>
 <p>
-一個修補程式版本，包含各種改進、錯誤修正和依賴項版本升級。
+一個修補程式版本，包含各種 improvements、bug fixes 和 dependencies version upgrades。
 </p>
 <var name="version" value="2.0.2"/>
 <p>
@@ -510,7 +522,7 @@ IntelliJ Ktor 外掛程式允許您將 Ktor 專案遷移到最新版本。您可
 <tr>
 <td>2.0.1</td><td>April 28, 2022</td><td>
 <p>
-一個修補程式版本，包含各種錯誤修正並將 Kotlin 版本更新到 <code>1.6.21</code>。
+一個修補程式版本，包含各種 bug fixes 並將 Kotlin version 更新到 <code>1.6.21</code>。
 </p>
 <var name="version" value="2.0.1"/>
 <p>
@@ -522,7 +534,7 @@ IntelliJ Ktor 外掛程式允許您將 Ktor 專案遷移到最新版本。您可
 <tr>
 <td>2.0.0</td><td>April 11, 2022</td><td>
 <p>
-一個主要版本，帶有更新的 API 文件和各種新功能。有關破壞性變更以及如何從 <code>1.x.x</code> 遷移的更多資訊，請參閱 <Links href="/ktor/migration-to-20x" summary="undefined">遷移指南</Links>。
+一個主要版本，帶有 updated API docs 和各種 new features。有關破壞性變更以及如何從 <code>1.x.x</code> 遷移的更多資訊，請參閱 <Links href="/ktor/migration-to-20x" summary="undefined">遷移指南</Links>。
 </p>
 <var name="version" value="2.0.0"/>
 <p>
@@ -534,7 +546,7 @@ IntelliJ Ktor 外掛程式允許您將 Ktor 專案遷移到最新版本。您可
 <tr>
 <td>1.6.8</td><td>March 15, 2022</td><td>
 <p>
-一個修補程式版本，包含依賴項版本升級。
+一個修補程式版本，包含 dependencies version upgrades。
 </p>
 <var name="version" value="1.6.8"/>
 <p>

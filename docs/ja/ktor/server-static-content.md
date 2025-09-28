@@ -154,6 +154,27 @@ object Immutable : CacheControl(null) {
 }
 ```
 
+[`ConditionalHeaders`](server-conditional-headers.md)プラグインがインストールされている場合、Ktorは静的リソースを `ETag` および `LastModified` ヘッダーとともに提供し、条件付きヘッダーを処理して、最後の要求以降に変更がない場合にコンテンツの本体を送信しないようにすることができます。
+
+```kotlin
+staticFiles("/filesWithEtagAndLastModified", filesDir) {
+    etag { resource -> EntityTagVersion("etag") }
+    lastModified { resource -> GMTDate() }
+}
+```
+
+この例では、`etag` と `lastModified` の値は、各リソースに基づいて動的に計算され、応答に適用されます。
+
+`ETag` 生成を簡素化するために、事前定義されたプロバイダーを使用することもできます。
+
+```kotlin
+staticFiles("/filesWithStrongGeneratedEtag", filesDir) {
+    etag(ETagProvider.StrongSha256)
+}
+```
+
+この例では、リソースコンテンツのSHA‑256ハッシュを使用して強力な `ETag` が生成されます。I/Oエラーが発生した場合、`ETag` は生成されません。
+
 > Ktorでのキャッシングに関する詳細については、[キャッシングヘッダー](server-caching-headers.md)を参照してください。
 >
 {style="tip"}
@@ -179,6 +200,28 @@ staticResources("/", "static"){
 ```
 
 この例では、`/index` がリクエストされると、Ktorは `/index.html` を検索し、見つかったコンテンツを提供します。
+
+### カスタムフォールバック
+
+リクエストされた静的リソースが見つからない場合のカスタムフォールバック動作を設定するには、`fallback()` 関数を使用します。
+`fallback()` を使用すると、リクエストされたパスを検査し、どのように応答するかを決定できます。例えば、別のリソースにリダイレクトしたり、特定のHTTPステータスを返したり、代替ファイルを提供したりすることができます。
+
+`fallback()` は、`staticFiles()`、`staticResources()`、`staticZip()`、または `staticFileSystem()` の内部に追加できます。このコールバックは、リクエストされたパスと現在の `ApplicationCall` を提供します。
+
+以下の例は、特定の拡張子をリダイレクトしたり、カスタムステータスを返したり、`index.html` にフォールバックしたりする方法を示しています。
+
+```kotlin
+staticFiles("/files", File("textFiles")) {
+    fallback { requestedPath, call ->
+        when {
+            requestedPath.endsWith(".php") -> call.respondRedirect("/static/index.html") // absolute path
+            requestedPath.endsWith(".kt") -> call.respondRedirect("Default.kt") // relative path
+            requestedPath.endsWith(".xml") -> call.respond(HttpStatusCode.Gone)
+            else -> call.respondFile(File("files/index.html"))
+        }
+    }
+}
+```
 
 ### カスタム変更 {id="modify"}
 

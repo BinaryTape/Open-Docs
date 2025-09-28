@@ -163,8 +163,7 @@ BasicTextField(
 ### Web 平台上的 Compose Multiplatform 进入 Beta 阶段
 
 Web 平台上的 Compose Multiplatform 现已进入 Beta 阶段，正是尝试它的好时机。
-<!-- Check out [our blog post]()  to learn more about the progress made to reach this milestone.
--->
+关于此版本达成的里程碑进展，请参阅 [我们的博客文章](https://blog.jetbrains.com/kotlin/2025/09/compose-multiplatform-1-9-0-compose-for-web-beta/)。
 
 在我们努力实现稳定版本的过程中，我们的路线图包括：
 
@@ -192,7 +191,7 @@ Text(
 )
 ```
 
-辅助功能支持现在默认启用，但你可以随时通过调整 `isA11YEnabled` 来禁用它：
+辅助功能支持现在默认启用，但你可以随时通过调整 `isA11YEnabled` 来禁用：
 
 ```kotlin
 ComposeViewport(
@@ -265,7 +264,7 @@ LaunchedEffect(Unit) {
 }
 ```
 
-## Desktop
+## 桌面端
 
 ### 在显示前配置窗口
 

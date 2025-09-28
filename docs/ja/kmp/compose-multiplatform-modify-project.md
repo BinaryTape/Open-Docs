@@ -37,7 +37,7 @@ Kotlin Multiplatformウィザードによって生成されたコードを修正
                 // ...
                 implementation("org.jetbrains.kotlinx:kotlinx-datetime:%dateTimeVersion%")
             }
-            wasmJsMain.dependencies {
+            webMain.dependencies {
                 implementation(npm("@js-joda/timezone", "2.22.0"))
             }
         }
@@ -47,14 +47,14 @@ Kotlin Multiplatformウィザードによって生成されたコードを修正
 
     *   主な依存関係は、共通コードのソースセットを設定するセクションに追加されます。
     *   簡潔にするため、バージョン番号はバージョンカタログに追加する代わりに直接含まれています。
-    *   Webターゲットでタイムゾーンをサポートするために、必要なnpmパッケージへの参照が`wasmJsMain`依存関係に含まれます。
+    *   Webターゲットでタイムゾーンをサポートするために、必要なnpmパッケージへの参照が`webMain`依存関係に含まれます。
 
 2. 依存関係が追加されると、プロジェクトの再同期を促されます。**Sync Gradle Changes**ボタンをクリックしてGradleファイルを同期します。 ![Synchronize Gradle files](gradle-sync.png){width=50}
 
 3. **Terminal**ツールウィンドウで、以下のコマンドを実行します。
 
     ```shell
-    ./gradlew kotlinUpgradeYarnLock
+    ./gradlew kotlinUpgradeYarnLock kotlinWasmUpgradeYarnLock
     ```
 
    このGradleタスクにより、`yarn.lock`ファイルが最新の依存関係バージョンで更新されます。
@@ -109,33 +109,13 @@ Kotlin Multiplatformウィザードによって生成されたコードを修正
     ```
 
 3. IDEの提案に従って、不足している依存関係をインポートします。
-   `todaysDate()`関数の不足しているすべての依存関係を`kotlin.time` **ではなく**、`kotlinx.datetime`パッケージからインポートするようにしてください。
+   `todaysDate()`関数の不足しているすべての依存関係を、更新されたパッケージからインポートし、IDEからプロンプトが表示された場合はオプトインしてください。
 
    ![Unresolved references](compose-unresolved-references.png)
 
-4. Webアプリのコンテナとして`Element`を使用するのを、外部で指定された`id`を持つHTML要素を使用するように切り替えます。
-
-    1. `composeApp/src/wasmJsMain/resources/index.html`ファイルで、`<body>`内に名前付き要素を追加します。
-
-        ```html
-        <body>
-        <div id="composeApplication" style="width:400px; height: 600px;"></div>
-        </body>
-        ```
-    2. `composeApp/src/wasmJsMain/kotlin/main.kt`ファイルで、`ComposeViewport`の呼び出しを、HTMLファイルで指定したIDを指す`String`バリアントに変更します。
-
-        ```kotlin
-        @OptIn(ExperimentalComposeUiApi::class)
-        fun main() {
-            ComposeViewport(viewportContainerId = "composeApplication") {
-                App()
-            }
-        }
-        ```
-
 ## アプリケーションを再実行する
 
-Android、iOS、デスクトップ、およびWebの同じ実行設定を使用して、アプリケーションを再実行できるようになりました。
+Android、iOS、デスクトップ、およびWebの同じ実行設定を使用して、[アプリケーションを再実行](compose-multiplatform-create-first-app.md#run-your-application)できるようになりました。
 
 <Tabs>
     <TabItem id="mobile-app" title="Android と iOS">

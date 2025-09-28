@@ -65,17 +65,23 @@
 * _composeApp_ 是一个 Kotlin 模块，包含在 Android、桌面、iOS 和 Web 应用程序之间共享的逻辑——即你在所有平台使用的代码。它使用 [Gradle](https://kotlinlang.org/docs/gradle.html) 作为构建系统，帮助你自动化构建过程。
 * _iosApp_ 是一个 Xcode 项目，它构建为 iOS 应用程序。它依赖并使用共享模块作为 iOS framework。
 
-  ![Compose Multiplatform 项目结构](compose-project-structure.png)
+  ![Compose Multiplatform project structure](compose-project-structure.png)
 
-**composeApp** 模块由以下源代码集组成：`androidMain`、`commonMain`、`jvmMain`、`iosMain` 和 `wasmJsMain`（如果选择包含测试，则还有 `commonTest`）。
+**composeApp** 模块由以下源代码集组成：`androidMain`、`commonMain`、`iosMain`、`jsMain`、`jvmMain`、`wasmJsMain` 和 `webMain`（如果选择包含测试，则还有 `commonTest`）。
 _源代码集_ 是 Gradle 的一个概念，指一组逻辑上组合在一起的文件，其中每个组都有自己的依赖项。在 Kotlin Multiplatform 中，不同的源代码集可以面向不同的目标平台。
 
-`commonMain` 源代码集包含通用 Kotlin 代码，平台源代码集包含每个目标特有的 Kotlin 代码。
-Kotlin/JVM 用于 `androidMain` 和 `jvmMain`。Kotlin/Native 用于 `iosMain`。另一方面，Kotlin/Wasm 用于 `wasmJsMain`。
+`commonMain` 源代码集使用通用 Kotlin 代码，而平台源代码集使用每个目标特有的 Kotlin 代码：
 
-当共享模块构建为 Android 库时，通用 Kotlin 代码被视为 Kotlin/JVM。当它构建为 iOS framework 时，通用 Kotlin 代码被视为 Kotlin/Native。当共享模块构建为 Web 应用时，通用 Kotlin 代码被视为 Kotlin/Wasm。
+* `jvmMain` 是桌面平台的源代码文件，它使用 Kotlin/JVM。
+* `androidMain` 也使用 Kotlin/JVM。
+* `iosMain` 使用 Kotlin/Native。
+* `jsMain` 使用 Kotlin/JS。
+* `wasmJsMain` 使用 Kotlin/Wasm。
+* `webMain` 是 Web [中间源代码集](multiplatform-hierarchy.md#manual-configuration)，它包含 `jsMain` 和 `wasmJsMain`。
 
-![Common Kotlin, Kotlin/JVM, and Kotlin/Native](module-structure.png){width=700}
+当共享模块构建为 Android 库时，通用 Kotlin 代码被视为 Kotlin/JVM。当它构建为 iOS framework 时，通用 Kotlin 代码被视为 Kotlin/Native。当共享模块构建为 Web 应用时，通用 Kotlin 代码可以被视为 Kotlin/Wasm 和 Kotlin/JS。
+
+![Common Kotlin, Kotlin/JVM, and Kotlin/Native](module-structure.svg){width=700}
 
 通常，尽可能将你的实现编写为通用代码，而不是在平台特有的源代码集中重复功能。
 
@@ -89,6 +95,7 @@ fun App() {
         var showContent by remember { mutableStateOf(false) }
         Column(
             modifier = Modifier
+                .background(MaterialTheme.colorScheme.primaryContainer)
                 .safeContentPadding()
                 .fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -98,7 +105,10 @@ fun App() {
             }
             AnimatedVisibility(showContent) {
                 val greeting = remember { Greeting().greet() }
-                Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
+                Column(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                ) {
                     Image(painterResource(Res.drawable.compose_multiplatform), null)
                     Text("Compose: $greeting")
                 }
@@ -121,8 +131,8 @@ fun App() {
 
 ### 在 Android 上运行你的应用程序
 
-1. 在运行配置列表中，选择 **composeApp**。
-2. 选择你的 Android 虚拟设备，然后点击 **Run**：如果所选虚拟设备已关机，你的 IDE 将启动它，并运行该应用。
+1. 在运行配置列表，选择 **composeApp**。
+2. 选择你的 Android 虚拟设备，然后点击 **Run**：你的 IDE 将启动所选虚拟设备（如果它已关机），并运行该应用。
 
 ![在 Android 上运行 Compose Multiplatform 应用](compose-run-android.png){width=350}
 
@@ -144,7 +154,7 @@ fun App() {
 
 如果你尚未将 Xcode 作为初始设置的一部分启动，请在运行 iOS 应用之前执行此操作。
 
-在 IntelliJ IDEA 中，在运行配置列表中选择 **iosApp**，在运行配置旁边选择一个模拟设备，然后点击 **Run**。
+在 IntelliJ IDEA 中，在运行配置列表选择 **iosApp**，在运行配置旁边选择一个模拟设备，然后点击 **Run**。
 如果列表中没有可用的 iOS 配置，请添加[新的运行配置](#run-on-a-new-ios-simulated-device)。
 
 ![在 iOS 上运行 Compose Multiplatform 应用](compose-run-ios.png){width=350}
@@ -157,7 +167,7 @@ fun App() {
 
 如果你想在模拟设备上运行你的应用程序，可以添加新的运行配置。
 
-1. 在运行配置列表中，点击 **Edit Configurations**。
+1. 在运行配置列表，点击 **Edit Configurations**。
 
    ![编辑运行配置](ios-edit-configurations.png){width=450}
 
@@ -221,13 +231,13 @@ fun App() {
 5. 使用你的 Apple ID 登录，以在设备上启用开发功能。
 6. 遵循屏幕上的说明完成配对过程。
 
-在 Xcode 中注册你的 iPhone 后，在 IntelliJ IDEA 中[创建新的运行配置](#run-on-a-new-ios-simulated-device)，并在**执行目标**列表中选择你的设备。运行相应的 `iosApp` 配置。
+在 Xcode 中注册你的 iPhone 后，在 IntelliJ IDEA 中[创建新的运行配置](#run-on-a-new-ios-simulated-device)并在**执行目标**列表中选择你的设备。运行相应的 `iosApp` 配置。
 
 </snippet>
 
 ### 在桌面平台上运行你的应用程序
 
-在运行配置列表中选择 **composeApp [desktop]** 并点击 **Run**。默认情况下，运行配置会在其自己的操作系统窗口中启动一个桌面应用：
+在运行配置列表选择 **composeApp [desktop]** 并点击 **Run**。默认情况下，运行配置会在其自己的操作系统窗口中启动一个桌面应用：
 
 ![在桌面平台上运行 Compose Multiplatform 应用](compose-run-desktop.png){width=350}
 
@@ -235,11 +245,17 @@ fun App() {
 
 ### 运行你的 Web 应用程序
 
-在运行配置列表中选择 **composeApp [wasmJs]** 并点击 **Run**。
+1. 在运行配置列表，选择：
 
-![在 Web 上运行 Compose Multiplatform 应用](compose-run-web.png){width=350}
+   * **composeApp[js]**：运行你的 Kotlin/JS 应用程序。
+   * **composeApp[wasmJs]**：运行你的 Kotlin/Wasm 应用程序。
 
-Web 应用程序将在你的浏览器中自动打开。或者，当运行完成后，你可以在浏览器中输入以下 URL：
+   ![在 Web 上运行 Compose Multiplatform 应用](web-run-configuration.png){width=400}
+
+2. 点击 **Run**。
+
+Web 应用程序将在你的浏览器中自动打开。
+或者，当运行完成后，你可以在浏览器中输入以下 URL：
 
 ```shell
    http://localhost:8080/
@@ -248,7 +264,33 @@ Web 应用程序将在你的浏览器中自动打开。或者，当运行完成�
 >
 {style="tip"}
 
-![Compose Web 应用程序](first-compose-project-on-web.png){width=550}
+![Compose web application](first-compose-project-on-web.png){width=600}
+
+#### Web 目标的兼容模式
+
+你可以为你的 Web 应用程序启用兼容模式，以确保它开箱即用（在所有浏览器中工作）。
+在此模式下，现代浏览器使用 Wasm 版本，而旧版浏览器则回退到 JS 版本。
+此模式通过针对 `js` 和 `wasmJs` 目标的交叉编译实现。
+
+为你的 Web 应用程序启用兼容模式：
+
+1. 通过选择 **View** | **Tool Windows** | **Gradle** 打开 Gradle 工具窗口。
+2. 在 **composedemo** | **Tasks** | **compose** 中，选择并运行 **composeCompatibilityBrowserDistribution** 任务。
+
+   > 你需要至少 Java 11 作为你的 Gradle JVM，才能使任务成功加载；我们建议对于一般的 Compose Multiplatform 项目，至少使用 JetBrains Runtime 17。
+   >
+   {style="note"}
+
+   ![运行兼容性任务](web-compatibility-gradle-task.png){width=500}
+
+   或者，你可以在 `ComposeDemo` 根目录的终端中运行以下命令：
+
+    ```bash
+    ./gradlew composeCompatibilityBrowserDistribution
+    ```
+
+Gradle 任务完成后，兼容的构件将生成在 `composeApp/build/dist/composeWebCompatibility/productionExecutable` 目录中。
+你可以使用这些构件来 [发布你的应用程序](https://kotlinlang.org/docs/wasm-get-started.html#publish-the-application)，使其可以在 `js` 和 `wasmJs` 目标上运行。
 
 ## 下一步
 

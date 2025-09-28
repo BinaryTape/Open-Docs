@@ -27,8 +27,7 @@ OpenAPI 插件允许您为项目生成 OpenAPI 文档。
 </link-summary>
 
 Ktor 允许您基于现有的 OpenAPI 规范为您的项目生成并提供 OpenAPI 文档。
-
-undefined
+您可以提供现有的 YAML 或 JSON 规范，也可以使用 Ktor Gradle 插件的 [OpenAPI 扩展](openapi-spec-generation.md) 生成一个。
 
 ## 添加依赖项 {id="add_dependencies"}
 

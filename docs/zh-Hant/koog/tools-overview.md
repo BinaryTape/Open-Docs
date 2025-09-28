@@ -6,7 +6,7 @@
 
 Koog 框架為使用工具提供以下工作流程：
 
-1. 建立自訂工具或使用內建工具之一。
+1. 建立自訂工具或使用其中一個內建工具。
 2. 將工具新增至工具註冊表。
 3. 將工具註冊表傳遞給代理程式。
 4. 與代理程式一同使用工具。
@@ -16,7 +16,7 @@ Koog 框架為使用工具提供以下工作流程：
 Koog 框架中有三種類型的工具：
 
 - 內建工具，為代理程式與使用者互動以及對話管理提供功能。有關詳細資訊，請參閱 [內建工具](built-in-tools.md)。
-- 基於註解的自訂工具，可讓您將函數作為工具暴露給 LLM。有關詳細資訊，請參閱 [基於註解的工具](annotation-based-tools.md)。
+- 基於註解的自訂工具，可讓您將函式作為工具暴露給 LLM。有關詳細資訊，請參閱 [基於註解的工具](annotation-based-tools.md)。
 - 自訂工具，可讓您控制工具參數、中繼資料、執行邏輯以及其註冊和呼叫方式。有關詳細資訊，請參閱 [基於類別的工具](class-based-tools.md)。
 
 ### 工具註冊表
@@ -128,7 +128,7 @@ data class Book(
     val title: String,
     val author: String,
     val description: String
-) : ToolArgs
+)
 
 class BookTool() : SimpleTool<Book>() {
     companion object {
@@ -144,13 +144,8 @@ class BookTool() : SimpleTool<Book>() {
     override val argsSerializer: KSerializer<Book>
         get() = Book.serializer()
 
-    override val descriptor: ToolDescriptor
-        get() = ToolDescriptor(
-            name = NAME,
-            description = "A tool to parse book information from Markdown",
-            requiredParameters = listOf(),
-            optionalParameters = listOf()
-        )
+    override val name = NAME
+    override val description = "A tool to parse book information from Markdown"
 }
 
 val strategy = strategy<Unit, Unit>("strategy-name") {
@@ -173,7 +168,7 @@ val strategy = strategy<Unit, Unit>("strategy-name") {
 
 當使用節點建立代理程式工作流程時，您可以使用特殊節點來呼叫工具：
 
-*   **nodeExecuteTool**：呼叫單一工具並返回其結果。有關詳細資訊，請參閱 [API 參考](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.dsl.extension/node-execute-tool.html)。
+*   **nodeExecuteTool**：呼叫單一工具呼叫並返回其結果。有關詳細資訊，請參閱 [API 參考](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.dsl.extension/node-execute-tool.html)。
 
 *   **nodeExecuteSingleTool**：呼叫帶有提供引數的特定工具。有關詳細資訊，請參閱 [API 參考](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.dsl.extension/node-execute-single-tool.html)。
 
@@ -217,12 +212,8 @@ val analysisAgent = AIAgent(
 // Convert the agent to a tool
 val analysisAgentTool = analysisAgent.asTool(
     agentName = "analyzeTransactions",
-    agentDescription = "執行金融交易分析",
-    inputDescriptor = ToolParameterDescriptor(
-        name = "request",
-        description = "交易分析請求",
-        type = ToolParameterType.String
-    )
+    agentDescription = "Performs financial transaction analysis",
+    inputDescription = "Transaction analysis request",
 )
 ```
 <!--- KNIT example-tools-overview-05.kt -->

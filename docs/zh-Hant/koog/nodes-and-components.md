@@ -324,6 +324,77 @@ edge(executeMultipleTools forwardTo sendMultipleToolResultsToLLM)
 ```
 <!--- KNIT example-nodes-and-component-09.kt -->
 
+## 節點輸出轉換
+
+該框架提供了 `transform` 擴展函式，允許您建立節點的轉換版本，
+將轉換應用於其輸出。當您需要將節點的輸出轉換為不同的類型或格式，
+同時保留原始節點的功能時，這非常有用。
+
+### transform
+
+`transform` 函式建立一個新的 `AIAgentNodeDelegate`，它會封裝原始節點，並將轉換函式應用於其輸出。
+
+<!--- INCLUDE
+/**
+-->
+<!--- SUFFIX
+**/
+-->
+```kotlin
+inline fun <reified T> AIAgentNodeDelegate<Input, Output>.transform(
+    noinline transformation: suspend (Output) -> T
+): AIAgentNodeDelegate<Input, T>
+```
+<!--- KNIT example-nodes-and-component-10.kt -->
+
+#### 自訂節點轉換
+
+將自訂節點的輸出轉換為不同的資料類型：
+
+<!--- INCLUDE
+import ai.koog.agents.core.dsl.builder.forwardTo
+import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.extension.nodeDoNothing
+
+val strategy = strategy<String, Int>("strategy_name") {
+-->
+<!--- SUFFIX
+}
+-->
+```kotlin
+val textNode by nodeDoNothing<String>("textNode").transform<Int> { text ->
+    text.split(" ").filter { it.isNotBlank() }.size
+}
+
+edge(nodeStart forwardTo textNode)
+edge(textNode forwardTo nodeFinish)
+```
+<!--- KNIT example-nodes-and-component-11.kt -->
+
+#### 內建節點轉換
+
+轉換 `nodeLLMRequest` 等內建節點的輸出：
+
+<!--- INCLUDE
+import ai.koog.agents.core.dsl.builder.forwardTo
+import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.extension.nodeLLMRequest
+
+val strategy = strategy<String, Int>("strategy_name") {
+-->
+<!--- SUFFIX
+}
+-->
+```kotlin
+val lengthNode by nodeLLMRequest("llmRequest").transform<Int> { assistantMessage ->
+    assistantMessage.content.length
+}
+
+edge(nodeStart forwardTo lengthNode)
+edge(lengthNode forwardTo nodeFinish)
+```
+<!--- KNIT example-nodes-and-component-12.kt -->
+
 ## 預定義子圖
 
 該框架提供了預定義的子圖，用於封裝常用模式和工作流程。這些子圖透過自動處理基本節點和邊的建立，簡化了複雜代理策略的開發。
@@ -365,7 +436,7 @@ val strategy = strategy<String, String>("strategy_name") {
 }
 -->
 ```kotlin
-val processQuery by subgraphWithTask<String>(
+val processQuery by subgraphWithTask<String, String>(
     tools = listOf(searchTool, calculatorTool, weatherTool),
     llmModel = OpenAIModels.Chat.GPT4o,
 ) { userQuery ->
@@ -376,7 +447,7 @@ val processQuery by subgraphWithTask<String>(
     """
 }
 ```
-<!--- KNIT example-nodes-and-component-10.kt -->
+<!--- KNIT example-nodes-and-component-13.kt -->
 
 ### subgraphWithVerification
 
@@ -389,7 +460,7 @@ val processQuery by subgraphWithTask<String>(
 - 建立自我驗證元件。
 - 生成帶有成功/失敗狀態和詳細回饋的結構化驗證結果。
 
-該子圖確保 LLM 在工作流程結束時呼叫驗證工具，以檢查任務是否成功完成。它保證此驗證作為最後一步執行，並返回一個 `VerifiedSubgraphResult`，指示任務是否成功完成並提供詳細回饋。
+該子圖確保 LLM 在工作流程結束時呼叫驗證工具，以檢查任務是否成功完成。它保證此驗證作為最後一步執行，並返回一個 `CriticResult`，指示任務是否成功完成並提供詳細回饋。
 以下是一個範例：
 
 <!--- INCLUDE
@@ -423,7 +494,7 @@ val verifyCode by subgraphWithVerification<String>(
     """
 }
 ```
-<!--- KNIT example-nodes-and-component-11.kt -->
+<!--- KNIT example-nodes-and-component-14.kt -->
 
 ## 預定義策略與常見策略模式
 
@@ -460,7 +531,7 @@ public fun singleRunStrategy(): AIAgentGraphStrategy<String, String> = strategy(
     edge(nodeSendToolResult forwardTo nodeExecuteTool onToolCall { true })
 }
 ```
-<!--- KNIT example-nodes-and-component-12.kt -->
+<!--- KNIT example-nodes-and-component-15.kt -->
 
 ### 基於工具的策略
 
@@ -514,7 +585,7 @@ fun toolBasedStrategy(name: String, toolRegistry: ToolRegistry): AIAgentGraphStr
     }
 }
 ```
-<!--- KNIT example-nodes-and-component-13.kt -->
+<!--- KNIT example-nodes-and-component-16.kt -->
 
 ### 串流資料策略
 
@@ -553,4 +624,4 @@ val agentStrategy = strategy<String, List<Book>>("library-assistant") {
     edge(getMdOutput forwardTo nodeFinish)
 }
 ```
-<!--- KNIT example-nodes-and-component-14.kt -->
+<!--- KNIT example-nodes-and-component-17.kt -->

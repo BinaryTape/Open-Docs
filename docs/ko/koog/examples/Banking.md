@@ -1,4 +1,4 @@
-# Koog로 AI 뱅킹 어시스턴트 구축하기
+# 코그(Koog)로 AI 뱅킹 어시스턴트 구축하기
 
 [:material-github: GitHub에서 열기](
 https://github.com/JetBrains/koog/blob/develop/examples/notebooks/Banking.ipynb
@@ -7,20 +7,20 @@ https://github.com/JetBrains/koog/blob/develop/examples/notebooks/Banking.ipynb
 https://raw.githubusercontent.com/JetBrains/koog/develop/examples/notebooks/Banking.ipynb
 ){ .md-button }
 
-이 튜토리얼에서는 Kotlin의 **Koog** 에이전트를 사용하여 작은 뱅킹 어시스턴트를 구축합니다.
-다음 방법을 배웁니다.
+이 튜토리얼에서는 Kotlin의 **코그(Koog)** 에이전트를 사용하여 작은 뱅킹 어시스턴트를 구축합니다.
+다음 방법을 배우게 됩니다.
 - 도메인 모델과 샘플 데이터 정의하기
 - **송금** 및 **거래 분석**을 위한 기능 중심 도구 노출하기
 - 사용자 의도 분류하기 (송금 vs 분석)
-- 두 가지 스타일로 호출 오케스트레이션하기:
+- 두 가지 스타일로 호출을 오케스트레이션하기:
   1) 그래프/서브그래프 전략
   2) "도구로서의 에이전트"
 
-튜토리얼을 마치면 자유 형식의 사용자 요청을 올바른 도구로 라우팅하고 유용하고 감사 가능한 응답을 생성할 수 있습니다.
+튜토리얼을 마치면 자유 형식의 사용자 요청을 올바른 도구로 라우팅하고 유용하며 감사 가능한 응답을 생성할 수 있습니다.
 
 ## 설정 및 의존성
 
-Kotlin Notebook 커널을 사용할 것입니다. Koog 아티팩트가 Maven Central에서 해결 가능하며, `OPENAI_API_KEY`를 통해 LLM 공급자 키를 사용할 수 있는지 확인하세요.
+Kotlin Notebook 커널을 사용할 것입니다. Koog 아티팩트가 Maven Central에서 해결 가능하며, LLM 공급자 키가 `OPENAI_API_KEY`를 통해 사용 가능한지 확인하세요.
 
 ```kotlin
 %useLatestDescriptors
@@ -234,7 +234,7 @@ runBlocking {
 
 ## 거래 분석 추가
 이제 거래 분석 도구를 사용하여 어시스턴트의 기능을 확장해 보겠습니다.
-먼저 거래 도메인 모델을 정의합니다.
+먼저, 거래 도메인 모델을 정의합니다.
 
 ```kotlin
 @Serializable
@@ -446,51 +446,46 @@ runBlocking {
 
     거래 분석 어시스턴트가 시작되었습니다
 
-    이번 달에 레스토랑에 총 $517.64를 지출했습니다.
+    이번 달에 레스토랑에 총 $517.64를 지출했습니다. 
     
     작업이 성공적으로 완료되었습니다.
 
 ## 그래프로 에이전트 구축
-이제 특수 에이전트를 그래프 에이전트로 결합하여 요청을 적절한 핸들러로 라우팅할 수 있도록 하겠습니다.
+이제 특수 에이전트들을 그래프 에이전트로 결합하여 요청을 적절한 핸들러로 라우팅할 수 있도록 하겠습니다.
 
 ### 요청 분류
 먼저, 들어오는 요청을 분류할 방법이 필요합니다.
 
 ```kotlin
-import ai.koog.agents.ext.agent.SerializableSubgraphResult
+import ai.koog.agents.core.tools.annotations.LLMDescription
 import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
+@Suppress("unused")
 @SerialName("UserRequestType")
 @Serializable
 @LLMDescription("사용자 요청 유형: 송금 또는 분석")
-enum class RequestType {
-    Transfer,
-    Analytics
-}
+enum class RequestType { Transfer, Analytics }
 
 @Serializable
 @LLMDescription("에이전트가 분류한 은행 요청입니다.")
 data class ClassifiedBankRequest(
-    @LLMDescription("요청 유형: 송금 또는 분석")
+    @property:LLMDescription("요청 유형: 송금 또는 분석")
     val requestType: RequestType,
-    @LLMDescription("뱅킹 애플리케이션에서 수행될 실제 요청")
+    @property:LLMDescription("뱅킹 애플리케이션에서 수행될 실제 요청")
     val userRequest: String
-) : SerializableSubgraphResult<ClassifiedBankRequest> {
-    override fun getSerializer() = serializer()
-}
+)
+
 ```
 
 ### 공유 도구 레지스트리
 
 ```kotlin
-import ai.koog.agents.ext.agent.ProvideStringSubgraphResult
-
 // 다중 에이전트 시스템을 위한 포괄적인 도구 레지스트리 생성
 val toolRegistry = ToolRegistry {
     tool(AskUser)  // 에이전트가 설명을 요청할 수 있도록 허용
     tools(MoneyTransferTools().asTools())
     tools(TransactionAnalysisTools().asTools())
-    tool(ProvideStringSubgraphResult)
 }
 ```
 
@@ -559,7 +554,7 @@ val strategy = strategy<String, String>("banking assistant") {
     }
 
     // 송금 처리를 위한 서브그래프
-    val transferMoney by subgraphWithTask<ClassifiedBankRequest>(
+    val transferMoney by subgraphWithTask<ClassifiedBankRequest, String>(
         tools = MoneyTransferTools().asTools() + AskUser,
         llmModel = OpenAIModels.Chat.GPT4o  // 송금을 위해 더 강력한 모델 사용
     ) { request ->
@@ -571,7 +566,7 @@ val strategy = strategy<String, String>("banking assistant") {
     }
 
     // 거래 분석을 위한 서브그래프
-    val transactionAnalysis by subgraphWithTask<ClassifiedBankRequest>(
+    val transactionAnalysis by subgraphWithTask<ClassifiedBankRequest, String>(
         tools = TransactionAnalysisTools().asTools() + AskUser,
     ) { request ->
         """
@@ -592,8 +587,8 @@ val strategy = strategy<String, String>("banking assistant") {
         onCondition { it.requestType == RequestType.Analytics })
 
     // 결과를 완료 노드로 라우팅
-    edge(transferMoney forwardTo nodeFinish transformed { it.result })
-    edge(transactionAnalysis forwardTo nodeFinish transformed { it.result })
+    edge(transferMoney forwardTo nodeFinish)
+    edge(transactionAnalysis forwardTo nodeFinish)
 }
 ```
 
@@ -649,11 +644,11 @@ runBlocking {
     정확한 수신자의 번호를 지정해 주세요.
     Daniel Garcia에게 "저녁 식사"로 €25를 송금하는 것을 진행하시겠습니까?
 
-    결과: 작업이 성공적으로 완료되었습니다.
+    Result: 작업이 성공적으로 완료되었습니다.
 
 ## 에이전트 구성 — 도구로서 에이전트 사용
 
-Koog는 에이전트를 다른 에이전트 내에서 도구로 사용할 수 있게 하여 강력한 구성 패턴을 가능하게 합니다.
+코그(Koog)는 에이전트를 다른 에이전트 내에서 도구로 사용할 수 있게 하여 강력한 구성 패턴을 가능하게 합니다.
 
 ```kotlin
 import ai.koog.agents.core.agent.asTool
@@ -712,15 +707,15 @@ runBlocking {
     'Daniel'이라는 이름의 연락처가 두 개 있습니다. 누구에게 송금하시겠습니까?
     1. Daniel Anderson (+46 70 123 45 67)
     2. Daniel Garcia (+34 612 345 678)
-    Daniel Anderson에게 "저녁 식사"로 €25를 송금하는 것을 확인하시겠습니까?
+    Daniel Anderson에게 "저녁 식사"로 €25.00를 송금하는 것을 확인하시겠습니까?
 
-    결과: 작업을 수행할 수 없습니다.
+    Result: 작업을 수행할 수 없습니다.
 
 ## 요약
 이 튜토리얼에서는 다음 방법을 배웠습니다.
 
 1.  AI가 도구를 언제 어떻게 사용해야 하는지 이해하는 데 도움이 되는 명확한 설명과 함께 LLM 기반 도구를 생성하는 방법
-2.  특정 작업을 수행하기 위해 LLM과 도구를 결합하는 단일 목적 에이전트를 구축하는 방법
+2.  LLM과 도구를 결합하여 특정 작업을 수행하는 단일 목적 에이전트를 구축하는 방법
 3.  복잡한 워크플로를 위한 전략 및 서브그래프를 사용하는 그래프 에이전트를 구현하는 방법
 4.  에이전트를 다른 에이전트 내에서 도구로 사용하여 에이전트를 구성하는 방법
 5.  확인 및 모호성 해소를 포함한 사용자 상호 작용을 처리하는 방법

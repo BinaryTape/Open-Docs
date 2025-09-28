@@ -61,7 +61,7 @@ val agent = AIAgent(
 
 エージェントでOpenTelemetry機能を設定する際に設定できる利用可能なプロパティの完全なリストを以下に示します。
 
-| Name             | Data type          | Default value                | 説明                                                                  |
+| Name             | Data type          | Default value                | Description                                                                  |
 |------------------|--------------------|------------------------------|------------------------------------------------------------------------------|
 | `serviceName`    | `String`           | `ai.koog`                    | 計装されるサービスの名前。                                                   |
 | `serviceVersion` | `String`           | Current Koog library version | 計装されるサービスのバージョン。                                             |
@@ -109,7 +109,7 @@ install(OpenTelemetry) {
 
 名前とバージョンを含むサービス情報を設定します。以下の引数を取ります。
 
-| Name               | Data type | Required | Default value | 説明                                                 |
+| Name               | Data type | Required | Default value | Description                                                 |
 |--------------------|-----------|----------|---------------|-------------------------------------------------------------|
 | `serviceName`      | String    | Yes      |               | 計装されるサービスの名前。                                  |
 | `serviceVersion`   | String    | Yes      |               | 計装されるサービスのバージョン。                            |
@@ -118,7 +118,7 @@ install(OpenTelemetry) {
 
 テレメトリーデータを外部システムに送信するためのスパンエクスポーターを追加します。以下の引数を取ります。
 
-| Name       | Data type      | Required | Default value | 説明                                                                   |
+| Name       | Data type      | Required | Default value | Description                                                                   |
 |------------|----------------|----------|---------------|-------------------------------------------------------------------------------|
 | `exporter` | `SpanExporter` | Yes      |               | カスタムスパンエクスポーターのリストに追加する`SpanExporter`インスタンス。    |
 
@@ -126,7 +126,7 @@ install(OpenTelemetry) {
 
 スパンがエクスポートされる前に処理するためのスパンプロセッサーファクトリを追加します。以下の引数を取ります。
 
-| Name        | Data type                         | Required | Default value | 説明                                                                                                  |
+| Name        | Data type                         | Required | Default value | Description                                                                                                  |
 |-------------|-----------------------------------|----------|---------------|--------------------------------------------------------------------------------------------------------------|
 | `processor` | `(SpanExporter) -> SpanProcessor` | Yes      |               | 指定されたエクスポーター用のスパンプロセッサーを作成する関数。エクスポーターごとに処理をカスタマイズできます。 |
 
@@ -134,7 +134,7 @@ install(OpenTelemetry) {
 
 サービスに関する追加のコンテキストを提供するためのリソース属性を追加します。以下の引数を取ります。
 
-| Name         | Data type                 | Required | Default value | 説明                                                            |
+| Name         | Data type                 | Required | Default value | Description                                                            |
 |--------------|---------------------------|----------|---------------|------------------------------------------------------------------------|
 | `attributes` | `Map<AttributeKey<T>, T>` | Yes      |               | サービスに関する追加の詳細を提供するキーと値のペア。                   |
 
@@ -142,17 +142,21 @@ install(OpenTelemetry) {
 
 どのスパンを収集するかを制御するためにサンプリング戦略を設定します。以下の引数を取ります。
 
-| Name      | Data type | Required | Default value | 説明                                                      |
+| Name      | Data type | Required | Default value | Description                                                      |
 |-----------|-----------|----------|---------------|------------------------------------------------------------------|
 | `sampler` | `Sampler` | Yes      |               | OpenTelemetry設定のために設定するサンプラーインスタンス。        |
 
 #### setVerbose
 
-OpenTelemetry設定のデバッグ用の詳細ログを有効または無効にします。以下の引数を取ります。
+詳細ログを有効または無効にします。以下の引数を取ります。
 
-| Name      | Data type | Required | Default value | 説明                                                     |
+| Name      | Data type | Required | Default value | Description                                                     |
 |-----------|-----------|----------|---------------|-----------------------------------------------------------------|
 | `verbose` | `Boolean` | Yes      | `false`       | trueの場合、アプリケーションはより詳細なテレメトリーデータを収集します。 |
+
+!!! note
+
+    セキュリティ上の理由から、OpenTelemetryスパンの一部コンテンツはデフォルトでマスクされます。例えば、LLMメッセージは実際のメッセージコンテンツの代わりに`HIDDEN:non-empty`としてマスクされます。コンテンツを取得するには、`verbose`引数の値を`true`に設定してください。
 
 #### setSdk
 
@@ -161,9 +165,9 @@ OpenTelemetry設定のデバッグ用の詳細ログを有効または無効に�
 - `setSdk(sdk)`を呼び出すと、提供されたSDKがそのまま使用され、`addSpanExporter`、`addSpanProcessor`、`addResourceAttributes`、または`setSampler`を介して適用されたカスタム設定はすべて無視されます。
 - トレーサーの計装スコープ名/バージョンは、サービス情報と同期されます。
 
-| Name | Data type         | Required | 説明                           |
-|------|-------------------|----------|---------------------------------------|
-| `sdk`| `OpenTelemetrySdk`| Yes      | エージェントで使用するSDKインスタンス。 |
+| Name  | Data type          | Required | Description                           |
+|-------|--------------------|----------|---------------------------------------|
+| `sdk` | `OpenTelemetrySdk` | Yes      | エージェントで使用するSDKインスタンス。 |
 
 ### 高度な設定
 
@@ -310,14 +314,14 @@ OpenTelemetryの[生成AIイベントのセマンティック規約](https://ope
 - **ChoiceEvent**: モデルからの応答メッセージ。
 - **ModerationResponseEvent**: モデルのモデレーション結果またはシグナル。
 
-!!! note
+!!! note   
     `opentelemetry-java` SDKは、イベントを追加する際にイベント本体フィールドパラメータをサポートしていません。したがって、KoogのOpenTelemetryサポートでは、イベント本体フィールドはキーが`body`で値の型が文字列である個別の属性です。この文字列には、イベント本体フィールドのコンテンツまたはペイロードが含まれており、通常はJSONのようなオブジェクトです。イベント本体フィールドの例については、[OpenTelemetryドキュメント](https://opentelemetry.io/docs/specs/semconv/gen-ai/gen-ai-events/#examples)を参照してください。`opentelemetry-java`におけるイベント本体フィールドのサポート状況については、関連する[GitHubイシュー](https://github.com/open-telemetry/semantic-conventions/issues/1870)を参照してください。
 
 ## エクスポーター
 
 エクスポーターは、収集されたテレメトリーデータをOpenTelemetry Collectorまたは他の種類の宛先やバックエンド実装に送信します。エクスポーターを追加するには、OpenTelemetry機能をインストールする際に`addSpanExporter()`メソッドを使用します。このメソッドは以下の引数を取ります。
 
-| Name       | Data type    | Required | Default | 説明                                                                 |
+| Name       | Data type    | Required | Default | Description                                                                 |
 |------------|--------------|----------|---------|-----------------------------------------------------------------------------|
 | `exporter` | SpanExporter | Yes      |         | カスタムスパンエクスポーターのリストに追加する`SpanExporter`インスタンス。 |
 

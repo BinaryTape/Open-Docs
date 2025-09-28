@@ -21,33 +21,33 @@
 이 튜토리얼에서는 Android, iOS, 데스크톱, 웹에서 실행되는 샘플 애플리케이션을 빌드합니다. 사용자 인터페이스를 생성하기 위해 Compose Multiplatform 프레임워크를 사용하고, 컴포저블 함수, 테마, 레이아웃, 이벤트, 수정자(modifier) 등 기본 사항을 배웁니다.
 
 이 튜토리얼에서 유의할 점:
-*   Compose Multiplatform, Android 또는 iOS에 대한 이전 경험은 필요하지 않습니다. 시작하기 전에 [Kotlin의 기본](https://kotlinlang.org/docs/getting-started.html)을 숙지하는 것을 권장합니다.
-*   이 튜토리얼을 완료하려면 IntelliJ IDEA만 있으면 됩니다. 이를 통해 Android 및 데스크톱에서 멀티플랫폼 개발을 시도할 수 있습니다. iOS의 경우 Xcode가 설치된 macOS 기기가 필요합니다. 이는 iOS 개발의 일반적인 제한 사항입니다.
-*   원하는 경우 관심 있는 특정 플랫폼으로 선택을 제한하고 다른 플랫폼은 생략할 수 있습니다.
+* Compose Multiplatform, Android 또는 iOS에 대한 이전 경험은 필요하지 않습니다. 시작하기 전에 [Kotlin의 기본](https://kotlinlang.org/docs/getting-started.html)을 숙지하는 것을 권장합니다.
+* 이 튜토리얼을 완료하려면 IntelliJ IDEA만 있으면 됩니다. 이를 통해 Android 및 데스크톱에서 멀티플랫폼 개발을 시도할 수 있습니다. iOS의 경우 Xcode가 설치된 macOS 기기가 필요합니다. 이는 iOS 개발의 일반적인 제한 사항입니다.
+* 원하는 경우 관심 있는 특정 플랫폼으로 선택을 제한하고 다른 플랫폼은 생략할 수 있습니다.
 
 ## 프로젝트 생성하기
 
-1.  [퀵스타트](quickstart.md)에서 [Kotlin Multiplatform 개발 환경 설정](quickstart.md#set-up-the-environment) 지침을 완료하세요.
-2.  IntelliJ IDEA에서 **File** | **New** | **Project**를 선택합니다.
-3.  왼쪽 패널에서 **Kotlin Multiplatform**을 선택합니다.
+1. [퀵스타트](quickstart.md)에서 [Kotlin Multiplatform 개발 환경 설정](quickstart.md#set-up-the-environment) 지침을 완료하세요.
+2. IntelliJ IDEA에서 **File** | **New** | **Project**를 선택합니다.
+3. 왼쪽 패널에서 **Kotlin Multiplatform**을 선택합니다.
 
     > Kotlin Multiplatform IDE 플러그인을 사용하지 않는 경우, [KMP 웹 위자드](https://kmp.jetbrains.com/?android=true&ios=true&iosui=compose&desktop=true&web=true&includeTests=true)를 사용하여 동일한 프로젝트를 생성할 수 있습니다.
     >
     {style="note"}
 
-4.  **New Project** 창에서 다음 필드를 지정합니다:
+4. **New Project** 창에서 다음 필드를 지정합니다:
 
-    *   **Name**: ComposeDemo
-    *   **Group**: compose.project
-    *   **Artifact**: demo
+    * **Name**: ComposeDemo
+    * **Group**: compose.project
+    * **Artifact**: demo
 
     > 웹 위자드를 사용하는 경우, "ComposeDemo"를 **Project Name**으로, "compose.project.demo"를 **Project ID**로 지정합니다.
     >
     {style="note"}
 
-5.  **Android**, **iOS**, **Desktop**, **Web** 타겟을 선택합니다.
-    iOS 및 웹에 대해 **Share UI** 옵션이 선택되어 있는지 확인합니다.
-6.  모든 필드와 타겟을 지정했으면 **Create**를 클릭합니다 (웹 위자드에서는 **Download**).
+5. **Android**, **iOS**, **Desktop**, **Web** 대상을 선택합니다.
+    iOS 및 웹에 대해 **UI 공유** 옵션이 선택되어 있는지 확인합니다.
+6. 모든 필드와 대상을 지정했으면 **Create**를 클릭합니다 (웹 위자드에서는 **Download**).
 
    ![Create Compose Multiplatform project](create-compose-multiplatform-project.png){width=800}
 
@@ -64,20 +64,27 @@ IntelliJ IDEA에서 `ComposeDemo` 폴더로 이동합니다.
 
 프로젝트에는 두 개의 모듈이 포함되어 있습니다:
 
-*   _composeApp_은 Android, 데스크톱, iOS, 웹 애플리케이션 간에 공유되는 로직(모든 플랫폼에 사용하는 코드)을 포함하는 Kotlin 모듈입니다. 빌드 프로세스를 자동화하는 데 도움이 되는 [Gradle](https://kotlinlang.org/docs/gradle.html)을 빌드 시스템으로 사용합니다.
-*   _iosApp_은 iOS 애플리케이션으로 빌드되는 Xcode 프로젝트입니다. 공유 모듈에 의존하며 이를 iOS 프레임워크로 사용합니다.
+* _composeApp_은 Android, 데스크톱, iOS, 웹 애플리케이션 간에 공유되는 로직(모든 플랫폼에 사용하는 코드)을 포함하는 Kotlin 모듈입니다. 빌드 프로세스를 자동화하는 데 도움이 되는 [Gradle](https://kotlinlang.org/docs/gradle.html)을 빌드 시스템으로 사용합니다.
+* _iosApp_은 iOS 애플리케이션으로 빌드되는 Xcode 프로젝트입니다. 공유 모듈에 의존하며 이를 iOS 프레임워크로 사용합니다.
 
   ![Compose Multiplatform project structure](compose-project-structure.png)
 
-**composeApp** 모듈은 다음 소스 세트로 구성됩니다: `androidMain`, `commonMain`, `jvmMain`, `iosMain`, `wasmJsMain` (테스트 포함을 선택한 경우 `commonTest`).
+**composeApp** 모듈은 다음 소스 세트로 구성됩니다: `androidMain`, `commonMain`, `iosMain`, `jsMain`, 
+`jvmMain`, `wasmJsMain`, `webMain` (테스트 포함을 선택한 경우 `commonTest` 포함).
 _소스 세트_는 논리적으로 함께 그룹화된 파일들의 집합에 대한 Gradle 개념으로, 각 그룹은 자체 종속성을 가집니다. Kotlin Multiplatform에서 서로 다른 소스 세트는 다른 플랫폼을 타겟팅할 수 있습니다.
 
-`commonMain` 소스 세트는 공통 Kotlin 코드를 사용하고, 플랫폼 소스 세트는 각 타겟에 특정한 Kotlin 코드를 사용합니다.
-`androidMain` 및 `jvmMain`에는 Kotlin/JVM이 사용됩니다. `iosMain`에는 Kotlin/Native가 사용됩니다. `wasmJsMain`에는 Kotlin/Wasm이 사용됩니다.
+`commonMain` 소스 세트는 공통 Kotlin 코드를 사용하고, 플랫폼 소스 세트는 각 대상에 특정한 Kotlin 코드를 사용합니다: 
 
-공유 모듈이 Android 라이브러리로 빌드될 때, 공통 Kotlin 코드는 Kotlin/JVM으로 처리됩니다. iOS 프레임워크로 빌드될 때, 공통 Kotlin 코드는 Kotlin/Native로 처리됩니다. 공유 모듈이 웹 앱으로 빌드될 때, 공통 Kotlin 코드는 Kotlin/Wasm으로 처리됩니다.
+* `jvmMain`은 Kotlin/JVM을 사용하는 데스크톱용 소스 파일입니다.
+* `androidMain`도 Kotlin/JVM을 사용합니다.
+* `iosMain`은 Kotlin/Native를 사용합니다.
+* `jsMain`은 Kotlin/JS를 사용합니다.
+* `wasmJsMain`은 Kotlin/Wasm을 사용합니다.
+* `webMain`은 `jsMain`과 `wasmJsMain`을 포함하는 웹 [중간 소스 세트](multiplatform-hierarchy.md#manual-configuration)입니다.
 
-![Common Kotlin, Kotlin/JVM, and Kotlin/Native](module-structure.png){width=700}
+공유 모듈이 Android 라이브러리로 빌드될 때, 공통 Kotlin 코드는 Kotlin/JVM으로 처리됩니다. iOS 프레임워크로 빌드될 때, 공통 Kotlin 코드는 Kotlin/Native로 처리됩니다. 공유 모듈이 웹 앱으로 빌드될 때, 공통 Kotlin 코드는 Kotlin/Wasm 및 Kotlin/JS로 처리될 수 있습니다.
+
+![Common Kotlin, Kotlin/JVM, and Kotlin/Native](module-structure.svg){width=700}
 
 일반적으로 플랫폼별 소스 세트에서 기능을 중복하는 대신, 가능하면 구현을 공통 코드로 작성하세요.
 
@@ -91,6 +98,7 @@ fun App() {
         var showContent by remember { mutableStateOf(false) }
         Column(
             modifier = Modifier
+                .background(MaterialTheme.colorScheme.primaryContainer)
                 .safeContentPadding()
                 .fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -100,7 +108,10 @@ fun App() {
             }
             AnimatedVisibility(showContent) {
                 val greeting = remember { Greeting().greet() }
-                Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
+                Column(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                ) {
                     Image(painterResource(Res.drawable.compose_multiplatform), null)
                     Text("Compose: $greeting")
                 }
@@ -123,8 +134,8 @@ fun App() {
 
 ### Android에서 애플리케이션 실행하기
 
-1.  실행 구성 목록에서 **composeApp**을 선택합니다.
-2.  Android 가상 기기를 선택한 다음 **Run**을 클릭합니다: IDE가 선택된 가상 기기가 꺼져 있다면 시작하고, 앱을 실행합니다.
+1. 실행 구성 목록에서 **composeApp**을 선택합니다.
+2. Android 가상 기기를 선택한 다음 **Run**을 클릭합니다: IDE가 선택된 가상 기기가 꺼져 있다면 시작하고, 앱을 실행합니다.
 
 ![Run the Compose Multiplatform app on Android](compose-run-android.png){width=350}
 
@@ -159,18 +170,18 @@ IntelliJ IDEA에서 실행 구성 목록에서 **iosApp**을 선택하고, 실�
 
 시뮬레이션 기기에서 애플리케이션을 실행하려면 새 실행 구성을 추가할 수 있습니다.
 
-1.  실행 구성 목록에서 **Edit Configurations**를 클릭합니다.
+1. 실행 구성 목록에서 **Edit Configurations**를 클릭합니다.
 
    ![Edit run configurations](ios-edit-configurations.png){width=450}
 
-2.  구성 목록 위에 있는 **+** 버튼을 클릭한 다음 **Xcode Application**을 선택합니다.
+2. 구성 목록 위에 있는 **+** 버튼을 클릭한 다음 **Xcode Application**을 선택합니다.
 
    ![New run configuration for iOS application](ios-new-configuration.png)
 
-3.  구성 이름을 지정합니다.
-4.  **Working directory**를 선택합니다. 이를 위해 프로젝트(예: **KotlinMultiplatformSandbox**)의 `iosApp` 폴더로 이동합니다.
+3. 구성 이름을 지정합니다.
+4. **작업 디렉터리**를 선택합니다. 이를 위해 프로젝트(예: **KotlinMultiplatformSandbox**)의 `iosApp` 폴더로 이동합니다.
 
-5.  새 시뮬레이션 기기에서 애플리케이션을 실행하려면 **Run**을 클릭합니다.
+5. **Run**을 클릭하여 새 시뮬레이션 기기에서 애플리케이션을 실행합니다.
 
 #### 실제 iOS 기기에서 실행 {initial-collapse-state="collapsed" collapsible="true"}
 
@@ -182,7 +193,7 @@ IntelliJ IDEA에서 실행 구성 목록에서 **iosApp**을 선택하고, 실�
 
 KDoctor 사용 시:
 
-1.  IntelliJ IDEA에서 터미널에 다음 명령어를 실행합니다:
+1. IntelliJ IDEA에서 터미널에 다음 명령어를 실행합니다:
 
    ```none
    kdoctor --team-ids 
@@ -195,19 +206,19 @@ KDoctor 사용 시:
    ZABCW6SXYZ (SampleTech Inc.)
    ```
 
-2.  IntelliJ IDEA에서 `iosApp/Configuration/Config.xcconfig` 파일을 열고 팀 ID를 지정합니다.
+2. IntelliJ IDEA에서 `iosApp/Configuration/Config.xcconfig` 파일을 열고 팀 ID를 지정합니다.
 
 또는 Xcode에서 팀 선택하기:
 
-1.  Xcode로 이동하여 **Open a project or file**을 선택합니다.
-2.  프로젝트의 `iosApp/iosApp.xcworkspace` 파일로 이동합니다.
-3.  왼쪽 메뉴에서 `iosApp`을 선택합니다.
-4.  **Signing & Capabilities**로 이동합니다.
-5.  **Team** 목록에서 팀을 선택합니다.
+1. Xcode로 이동하여 **Open a project or file**을 선택합니다.
+2. 프로젝트의 `iosApp/iosApp.xcworkspace` 파일로 이동합니다.
+3. 왼쪽 메뉴에서 `iosApp`을 선택합니다.
+4. **Signing & Capabilities**로 이동합니다.
+5. **Team** 목록에서 팀을 선택합니다.
 
    아직 팀을 설정하지 않았다면 **Team** 목록에서 **Add an Account** 옵션을 사용하고 Xcode 지침을 따르세요.
 
-6.  번들 식별자(Bundle Identifier)가 고유하고 서명 인증서(Signing Certificate)가 성공적으로 할당되었는지 확인합니다.
+6. 번들 식별자가 고유하고 서명 인증서가 성공적으로 할당되었는지 확인합니다.
 
 ##### 앱 실행하기
 
@@ -216,12 +227,12 @@ iPhone을 케이블로 연결합니다. 이미 Xcode에 기기가 등록되어 �
 아직 Xcode에 iPhone을 등록하지 않았다면, [Apple 권장 사항](https://developer.apple.com/documentation/xcode/running-your-app-in-simulator-or-on-a-device/)을 따르세요.
 간단히 말해, 다음을 수행해야 합니다:
 
-1.  iPhone을 케이블로 연결합니다.
-2.  iPhone에서 **Settings** | **Privacy & Security**에서 개발자 모드를 활성화합니다.
-3.  Xcode에서 상단 메뉴로 이동하여 **Window** | **Devices and Simulators**를 선택합니다.
-4.  더하기 기호를 클릭합니다. 연결된 iPhone을 선택하고 **Add**를 클릭합니다.
-5.  Apple ID로 로그인하여 기기에서 개발 기능을 활성화합니다.
-6.  화면의 지침에 따라 페어링 프로세스를 완료합니다.
+1. iPhone을 케이블로 연결합니다.
+2. iPhone에서 **Settings** | **Privacy & Security**에서 개발자 모드를 활성화합니다.
+3. Xcode에서 상단 메뉴로 이동하여 **Window** | **Devices and Simulators**를 선택합니다.
+4. 더하기 기호를 클릭합니다. 연결된 iPhone을 선택하고 **Add**를 클릭합니다.
+5. Apple ID로 로그인하여 기기에서 개발 기능을 활성화합니다.
+6. 화면의 지침에 따라 페어링 프로세스를 완료합니다.
 
 Xcode에 iPhone을 등록했다면, IntelliJ IDEA에서 [새 실행 구성](#run-on-a-new-ios-simulated-device)을 생성하고 **Execution target** 목록에서 기기를 선택하세요. 해당 `iosApp` 구성을 실행합니다.
 
@@ -237,11 +248,17 @@ Xcode에 iPhone을 등록했다면, IntelliJ IDEA에서 [새 실행 구성](#run
 
 ### 웹 애플리케이션 실행하기
 
-실행 구성 목록에서 **composeApp [wasmJs]**을 선택하고 **Run**을 클릭합니다.
+1. 실행 구성 목록에서 다음을 선택합니다:
 
-![Run the Compose Multiplatform app on web](compose-run-web.png){width=350}
+   * **composeApp[js]**: Kotlin/JS 애플리케이션을 실행하려면 선택합니다.
+   * **composeApp[wasmJs]**: Kotlin/Wasm 애플리케이션을 실행하려면 선택합니다.
 
-웹 애플리케이션이 브라우저에서 자동으로 열립니다. 또는 실행이 완료되면 브라우저에 다음 URL을 입력할 수 있습니다:
+   ![Run the Compose Multiplatform app on web](web-run-configuration.png){width=400}
+
+2. **Run**을 클릭합니다.
+
+웹 애플리케이션이 브라우저에서 자동으로 열립니다. 
+또는 실행이 완료되면 브라우저에 다음 URL을 입력할 수 있습니다:
 
 ```shell
    http://localhost:8080/
@@ -251,7 +268,33 @@ Xcode에 iPhone을 등록했다면, IntelliJ IDEA에서 [새 실행 구성](#run
 >
 {style="tip"}
 
-![Compose web application](first-compose-project-on-web.png){width=550}
+![Compose web application](first-compose-project-on-web.png){width=600}
+
+#### 웹 대상용 호환 모드
+
+웹 애플리케이션의 호환 모드를 활성화하여 모든 브라우저에서 바로 작동하도록 할 수 있습니다.
+이 모드에서는 최신 브라우저가 Wasm 버전을 사용하고, 이전 브라우저는 JS 버전으로 폴백(fallback)합니다.
+이 모드는 `js` 및 `wasmJs` 대상 모두에 대한 교차 컴파일을 통해 달성됩니다.
+
+웹 애플리케이션의 호환 모드를 활성화하려면 다음을 수행합니다:
+
+1. **View | Tool Windows | Gradle**을 선택하여 Gradle 도구 창을 엽니다.
+2. **composedemo | Tasks | compose**에서 **composeCompatibilityBrowserDistribution** 작업을 선택하고 실행합니다.
+
+   > 작업이 성공적으로 로드되려면 Gradle JVM으로 Java 11 이상이 필요하며, 일반적으로 Compose Multiplatform 프로젝트에는 JetBrains Runtime 17 이상을 권장합니다.
+   >
+   {style="note"}
+
+   ![Run compatibility task](web-compatibility-gradle-task.png){width=500}
+
+   또는 `ComposeDemo` 루트 디렉터리에서 터미널에 다음 명령어를 실행할 수 있습니다:
+
+    ```bash
+    ./gradlew composeCompatibilityBrowserDistribution
+    ```
+
+Gradle 작업이 완료되면 `composeApp/build/dist/composeWebCompatibility/productionExecutable` 디렉터리에 호환 가능한 아티팩트가 생성됩니다.
+이 아티팩트를 사용하여 `js` 및 `wasmJs` 대상 모두에서 작동하는 [애플리케이션을 게시](https://kotlinlang.org/docs/wasm-get-started.html#publish-the-application)할 수 있습니다.
 
 ## 다음 단계
 
@@ -261,5 +304,5 @@ Xcode에 iPhone을 등록했다면, IntelliJ IDEA에서 [새 실행 구성](#run
 
 ## 도움 받기
 
-*   **Kotlin Slack**. [초대](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up)를 받아 [#multiplatform](https://kotlinlang.slack.com/archives/C3PQML5NU) 채널에 참여하세요.
-*   **Kotlin 이슈 트래커**. [새로운 이슈 보고](https://youtrack.jetbrains.com/newIssue?project=KT).
+* **Kotlin Slack**. [초대](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up)를 받아 [#multiplatform](https://kotlinlang.slack.com/archives/C3PQML5NU) 채널에 참여하세요.
+* **Kotlin 이슈 트래커**. [새로운 이슈 보고](https://youtrack.jetbrains.com/newIssue?project=KT).

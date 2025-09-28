@@ -9,7 +9,7 @@ _可為空性_ 是一個變數能夠持有 `null` 值的特性。
 本指南涵蓋了 Java 和 Kotlin 在處理可能為空 (possibly nullable) 變數方面的不同方法。
 它將幫助您從 Java 遷移到 Kotlin，並以純正的 Kotlin 風格編寫您的程式碼。
 
-本指南的第一部分涵蓋了最重要的區別——Kotlin 中對 [可為空型別](null-safety.md) 的支援，以及 Kotlin 如何處理 [來自 Java 程式碼的型別](#platform-types)。第二部分從
+本指南的第一部分涵蓋了最重要的區別——Kotlin 中對可為空型別的支援，以及 Kotlin 如何處理 [來自 Java 程式碼的型別](#platform-types)。第二部分從
 [檢查函式呼叫的結果](#checking-the-result-of-a-function-call) 開始，探討了幾個具體案例來解釋某些差異。
 
 [深入了解 Kotlin 中的 null 安全](null-safety.md)。
@@ -38,7 +38,7 @@ int stringLength(String a) {
 }
 
 void main() {
-    stringLength(null); // 拋出 `NullPointerException`
+    stringLength(null); // Throws a `NullPointerException`
 }
 ```
 {id="get-length-of-null-java"}
@@ -64,7 +64,7 @@ fun stringLength(a: String) = a.length
 
 參數 `a` 的型別是 `String`，這在 Kotlin 中表示它必須始終包含一個 `String` 實例，並且不能包含 `null`。
 Kotlin 中的可為空型別以問號 `?` 標記，例如 `String?`。
-如果 `a` 是 `String`，則在執行時期出現 `NullPointerException` 的情況是不可能的，因為編譯器強制執行 `stringLength()` 的所有參數不能為 `null` 的規則。
+如果在執行時期 `a` 是 `String`，則出現 `NullPointerException` 的情況是不可能的，因為編譯器強制執行 `stringLength()` 的所有參數不能為 `null` 的規則。
 
 嘗試將 `null` 值傳遞給 `stringLength(a: String)` 函式將導致編譯時期錯誤，「Null 不能是 String 非空型別的值」：
 
@@ -81,7 +81,7 @@ fun stringLength(a: String?): Int = if (a != null) a.length else 0
 檢查成功通過後，編譯器在執行檢查的範圍內將該變數視為非空型別 `String`。
 
 如果您不執行此檢查，程式碼將無法編譯並顯示以下訊息：
-「僅允許在 String 型別的 [可為空接收者](extensions.md#nullable-receiver) 上執行 [安全呼叫 (?. )](null-safety.md#safe-call-operator) 或 [非空斷言 (!!.) 呼叫](null-safety.md#not-null-assertion-operator)。」
+「僅允許在 String 型別的 [可為空接收者](extensions.md#nullable-receiver) 上執行 [安全呼叫運算子 (?. )](null-safety.md#safe-call-operator) 或 [非空斷言運算子 (!!.) 呼叫](null-safety.md#not-null-assertion-operator)。」
 
 您可以寫得更短——使用 [安全呼叫運算子 ?. (If-not-null 簡寫)](idioms.md#if-not-null-shorthand)，它允許您將 null 檢查和方法呼叫組合到一個操作中：
 
@@ -95,8 +95,8 @@ fun stringLength(a: String?): Int = a?.length ?: 0
 
 在 Java 中，您可以使用註解來表示變數是否可以為 `null`。
 此類註解不屬於標準函式庫，但您可以單獨添加它們。
-例如，您可以使用 JetBrains 的 `@Nullable` 和 `@NotNull` 註解（來自 `org.jetbrains.annotations` 套件）
-或來自 Eclipse 的註解（`org.eclipse.jdt.annotation`）。
+例如，您可以使用 JetBrains 的 `@Nullable` 和 `@NotNull` 註解（來自 `org.jetbrains.annotations` 套件）、
+[JSpecify](https://jspecify.dev/) 的註解 (`org.jspecify.annotations`)，或來自 Eclipse 的註解 (`org.eclipse.jdt.annotation`)。
 當您 [從 Kotlin 程式碼呼叫 Java 程式碼](java-interop.md#nullability-annotations) 時，Kotlin 可以識別此類註解，並根據其註解處理型別。
 
 如果您的 Java 程式碼沒有這些註解，則 Kotlin 會將 Java 型別視為 _平台型別_。
@@ -129,7 +129,7 @@ public interface Game<T> {
 ```kotlin
 interface ArcadeGame<T1> : Game<T1> {
   override fun save(x: T1): T1
-  // T1 是絕對非空
+  // T1 is definitely non-nullable
   override fun load(x: T1 & Any): T1 & Any
 }
 ```
@@ -175,7 +175,7 @@ data class Customer(val name: String)
 
 val order = findOrder()
 
-// 直接轉換
+// Direct conversion
 if (order != null){
     processCustomer(order.customer)
 }
@@ -237,7 +237,7 @@ numbers.add(1);
 numbers.add(2);
 
 System.out.println(numbers.get(0));
-//numbers.get(5) // 例外！
+//numbers.get(5) // Exception!
 ```
 {id="functions-returning-null-java"}
 
@@ -252,7 +252,7 @@ fun main() {
     val numbers = listOf(1, 2)
     
     println(numbers[0])  // 如果集合為空，可能會拋出 IndexOutOfBoundsException
-    //numbers.get(5)     // 例外！
+    //numbers.get(5)     // Exception!
 
     // 更多功能：
     println(numbers.firstOrNull())
@@ -264,7 +264,8 @@ fun main() {
 
 ## 聚合操作
 
-當您需要取得最大元素或在沒有元素時取得 `null`，在 Java 中您會使用 [Stream API](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/stream/package-summary.html)：
+當您需要取得最大元素或在沒有元素時取得 `null`，在 Java 中您會使用
+[Stream API](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/stream/package-summary.html)：
 
 ```java
 // Java

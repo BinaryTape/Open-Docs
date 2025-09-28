@@ -4,7 +4,7 @@ AIエージェントは、ユーザーメッセージ、アシスタントの応
 この履歴は、エージェントが戦略に従うにつれて、各対話で増加します。
 
 長期間にわたる会話では、履歴が肥大化し、多くのトークンを消費する可能性があります。
-履歴圧縮は、メッセージの完全なリストを、さらなるエージェント操作に必要な重要な情報のみを含む1つまたは複数のメッセージに要約することで、これを削減するのに役立ちます。
+履歴圧縮は、さらなるエージェント操作に必要な重要な情報のみを含む1つまたは複数のメッセージにメッセージの完全なリストを要約することで、これを削減するのに役立ちます。
 
 履歴圧縮は、エージェントシステムにおける主要な課題に対処します。
 
@@ -406,13 +406,15 @@ import ai.koog.prompt.message.Message
 class MyCustomCompressionStrategy : HistoryCompressionStrategy() {
     override suspend fun compress(
         llmSession: AIAgentLLMWriteSession,
-        preserveMemory: Boolean,
         memoryMessages: List<Message>
     ) {
         // 1. llmSession.prompt.messages内の現在の履歴を処理します
         // 2. 新しい圧縮されたメッセージを作成します
         // 3. 圧縮されたメッセージでプロンプトを更新します
 
+        // オリジナルのメッセージを保存して保持します
+        val originalMessages = llmSession.prompt.messages
+        
         // 例の実装:
         val importantMessages = llmSession.prompt.messages.filter {
             // カスタムフィルタリングロジック
@@ -423,10 +425,9 @@ class MyCustomCompressionStrategy : HistoryCompressionStrategy() {
         // あるいは、現在のモデルを変更することもできます: `llmSession.model = AnthropicModels.Sonnet_3_7` として他のLLMモデルに依頼することもできますが、後で元に戻すことを忘れないでください
 
         // フィルタリングされたメッセージでプロンプトを構成します
-        composePromptWithRequiredMessages(
-            llmSession,
+        val compressedMessages = composeMessageHistory(
+            originalMessages,
             importantMessages,
-            preserveMemory,
             memoryMessages
         )
     }
@@ -533,6 +534,7 @@ llm.writeSession {
         strategy = HistoryCompressionStrategy.WholeHistory,
         preserveMemory = true
     )
+}
 }
 ```
 <!--- KNIT example-history-compression-16.kt -->

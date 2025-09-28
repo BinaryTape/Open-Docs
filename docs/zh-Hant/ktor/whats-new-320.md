@@ -6,16 +6,20 @@ _[發布日期：2025 年 6 月 12 日](releases.md#release-details)_
 
 本次功能發布的重點如下：
 
-* [版本目錄](#published-version-catalog)
-* [依賴注入](#dependency-injection)
-* [對 HTMX 的一流支援](#htmx-integration)
-* [可暫停的模組函式](#suspendable-module-functions)
+*   [版本目錄](#published-version-catalog)
+*   [依賴注入](#dependency-injection)
+*   [對 HTMX 的一流支援](#htmx-integration)
+*   [可暫停的模組函式](#suspendable-module-functions)
 
 ## Ktor Server
 
 ### 可暫停的模組函式
 
 從 Ktor 3.2.0 開始，[應用程式模組](server-modules.md)支援可暫停函式。
+
+> 隨著暫停模組支援的引入，開發模式下的自動重新載入不再適用於阻塞的函式引用。如需更多資訊，請參閱[開發模式自動重新載入退化](#regression)。
+>
+{style="warning"}
 
 以前，在 Ktor 模組內部新增非同步函式需要 `runBlocking` 區塊，這可能導致伺服器建立時出現死鎖：
 
@@ -244,6 +248,24 @@ val connection: Connection = application.property("connection")
 
 如需更多資訊和進階用法，請參閱[依賴注入](server-dependency-injection.md)。
 
+### 開發模式自動重新載入退化 {id="regression"}
+
+由於暫停函式支援的副作用，阻塞函式引用 (`Application::myModule`) 現在在轉型期間被封裝成匿名內部類別。這會中斷自動重新載入，因為函式名稱不再被保留為穩定的引用。
+
+這表示 `development` 模式下的自動重新載入僅適用於暫停函式模組和配置引用：
+
+```kotlin
+// 暫停函式引用
+embeddedServer(Netty, port = 8080, module = Application::mySuspendModule)
+
+// 配置引用
+ktor {
+    application {
+        modules = [ com.example.ApplicationKt.mySuspendModule ]
+    }
+}
+```
+
 ## Ktor Client
 
 ### `SaveBodyPlugin` 和 `HttpRequestBuilder.skipSavingBody()` 已棄用
@@ -402,13 +424,13 @@ dependencies {
 
 Ktor 3.2.0 簡化了開發模式的啟用。以前，啟用開發模式需要 `application` 區塊中的明確配置。現在，您可以使用 `ktor.development` 屬性來動態或明確地啟用它：
 
-* 根據專案屬性動態啟用開發模式。
-  ```kotlin
+*   根據專案屬性動態啟用開發模式。
+    ```kotlin
     ktor {
         development = project.ext.has("development")
     }
-  ```
-* 明確設定開發模式為 true。
+    ```
+*   明確設定開發模式為 true。
 
     ```kotlin
     ktor {

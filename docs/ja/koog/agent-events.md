@@ -47,18 +47,18 @@ val agent = AIAgent(
     llmModel = OllamaModels.Meta.LLAMA_3_2,
 ) {
 -->
-<!--- SUFFIX
-}
+<!--- SUFFIX 
+} 
 -->
 
 ```kotlin
 handleEvents {
     // ツール呼び出しを処理
-    onToolCall { eventContext ->
-        println("Tool called: ${eventContext.tool} with args ${eventContext.toolArgs}")
+    onToolExecutionStarting { eventContext ->
+        println("Tool called: ${eventContext.tool.name} with args ${eventContext.toolArgs}")
     }
     // エージェントの実行が完了したときにトリガーされるイベントを処理
-    onAgentFinished { eventContext ->
+    onAgentCompleted { eventContext ->
         println("Agent finished with result: ${eventContext.result}")
     }
 
@@ -85,11 +85,11 @@ val agent = AIAgent(
 ){
     handleEvents {
         // ツール呼び出しを処理
-        onToolCall { eventContext ->
-            println("Tool called: ${eventContext.tool} with args ${eventContext.toolArgs}")
+        onToolExecutionStarting { eventContext ->
+            println("Tool called: ${eventContext.tool.name} with args ${eventContext.toolArgs}")
         }
         // エージェントの実行が完了したときにトリガーされるイベントを処理
-        onAgentFinished { eventContext ->
+        onAgentCompleted { eventContext ->
             println("Agent finished with result: ${eventContext.result}")
         }
 

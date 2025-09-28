@@ -37,7 +37,7 @@
                 // ...
                 implementation("org.jetbrains.kotlinx:kotlinx-datetime:%dateTimeVersion%")
             }
-            wasmJsMain.dependencies {
+            webMain.dependencies {
                 implementation(npm("@js-joda/timezone", "2.22.0"))
             }
         }
@@ -47,14 +47,14 @@
 
     * 主要依賴項被添加到了配置通用程式碼原始碼集的區段。
     * 為求簡潔，版本號直接包含在內，而不是添加到版本目錄。
-    * 為了在網路目標中支援時區，必要的 npm 套件參考已包含在 `wasmJsMain` 依賴項中。
+    * 為了在 web 目標中支援時區，必要的 npm 套件參考已包含在 `webMain` 依賴項中。
 
 2. 添加依賴項後，系統會提示您重新同步專案。點擊 **Sync Gradle Changes** 按鈕以同步 Gradle 檔案：![同步 Gradle 檔案](gradle-sync.png){width=50}
 
 3. 在 **Terminal** 工具視窗中，執行以下指令：
 
     ```shell
-    ./gradlew kotlinUpgradeYarnLock
+    ./gradlew kotlinUpgradeYarnLock kotlinWasmUpgradeYarnLock
     ```
 
    此 Gradle 任務確保 `yarn.lock` 檔案與最新的依賴項版本同步。
@@ -108,33 +108,14 @@
     }
     ```
 
-3. 按照 IDE 的建議匯入遺失的依賴項。確保從 `kotlinx.datetime` 套件匯入 `todaysDate()` 函數的所有遺失依賴項，**而不是** `kotlin.time`。
+3. 按照 IDE 的建議匯入遺失的依賴項。
+   請確保從更新的套件匯入 `todaysDate()` 函數的所有遺失依賴項，並在 IDE 提示時選擇加入。
 
    ![未解析的引用](compose-unresolved-references.png)
 
-4. 將網路應用程式從使用 `Element` 作為容器切換為使用帶有外部指定 `id` 的 HTML 元素：
-
-    1. 在 `composeApp/src/wasmJsMain/resources/index.html` 檔案中，在 `<body>` 內添加一個命名的元素：
-
-        ```html
-        <body>
-        <div id="composeApplication" style="width:400px; height: 600px;"></div>
-        </body>
-        ```
-    2. 在 `composeApp/src/wasmJsMain/kotlin/main.kt` 檔案中，將 `ComposeViewport` 呼叫變更為 `String` 變體，指向您在 HTML 檔案中指定的 ID：
-
-        ```kotlin
-        @OptIn(ExperimentalComposeUiApi::class)
-        fun main() {
-            ComposeViewport(viewportContainerId = "composeApplication") {
-                App()
-            }
-        }
-        ```
-
 ## 重新執行應用程式
 
-您現在可以使用相同的執行設定在 Android、iOS、桌面和網路平台上重新執行應用程式：
+您現在可以使用相同的[執行設定](compose-multiplatform-create-first-app.md#run-your-application)在 Android、iOS、桌面和網路平台上重新執行應用程式：
 
 <Tabs>
     <TabItem id="mobile-app" title="Android 和 iOS">

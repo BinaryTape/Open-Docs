@@ -2,16 +2,13 @@
 
 _[릴리스: 2025년 9월 10일](releases.md#release-details)_
 
-> Kotlin에 대한 여러분의 의견을 듣고 싶습니다!  
-> [Kotlin 개발자 설문조사에 참여해 주세요.](https://surveys.jetbrains.com/s3/7e238a7b85e5)   
-> 약 10분 정도 소요되며, 여러분의 피드백은 언어, 도구 및 생태계를 개선하는 데 도움이 될 것입니다.
-> 
+> Kotlin에 대한 여러분의 의견을 듣고 싶습니다!
+>
+> [Kotlin 개발자 설문조사에 참여해 주세요.](https://surveys.jetbrains.com/s3/7e238a7b85e5) 약 10분 정도 소요되며, 여러분의 피드백은 언어, 도구 및 생태계를 개선하는 데 도움이 될 것입니다.
+>
 {style="note"}
 
-Kotlin 2.2.20 릴리스가 출시되어 웹 개발을 위한 중요한 변경 사항을 제공합니다. [Kotlin/Wasm은 이제 베타 버전](#kotlin-wasm)으로,
-[JavaScript 상호 운용성에서 예외 처리 개선](#improved-exception-handling-in-kotlin-wasm-and-javascript-interop),
-[npm 의존성 관리](#separated-npm-dependencies), [내장 브라우저 디버깅 지원](#support-for-debugging-in-browsers-without-configuration),
-그리고 `js` 및 `wasmJs` 타겟을 위한 새로운 [공유 소스 세트](#shared-source-set-for-js-and-wasmjs-targets)가 개선되었습니다.
+Kotlin 2.2.20 릴리스가 출시되어 웹 개발을 위한 중요한 변경 사항을 제공합니다. [Kotlin/Wasm은 이제 베타 버전](#kotlin-wasm)이며, [JavaScript 상호 운용성에서 예외 처리 개선](#improved-exception-handling-in-kotlin-wasm-and-javascript-interop), [npm 의존성 관리](#separated-npm-dependencies), [내장 브라우저 디버깅 지원](#support-for-debugging-in-browsers-without-configuration), 그리고 `js` 및 `wasmJs` 타겟을 위한 새로운 [공유 소스 세트](#shared-source-set-for-js-and-wasmjs-targets)를 포함한 개선 사항이 있습니다.
 
 또한, 주요 내용은 다음과 같습니다:
 
@@ -20,25 +17,23 @@ Kotlin 2.2.20 릴리스가 출시되어 웹 개발을 위한 중요한 변경 �
 *   **Kotlin/Native**: [바이너리에서 스택 카나리(stack canaries) 지원](#support-for-stack-canaries-in-binaries) 및 [릴리스 바이너리의 바이너리 크기 축소](#smaller-binary-size-for-release-binaries)가 추가되었습니다.
 *   **Kotlin/JS**: [`Long` 값이 JavaScript `BigInt`로 컴파일](#usage-of-the-bigint-type-to-represent-kotlin-s-long-type)됩니다.
 
+> 웹용 Compose Multiplatform이 이제 베타 버전입니다. 자세한 내용은 [블로그 게시물](https://blog.jetbrains.com/kotlin/2025/09/compose-multiplatform-1-9-0-compose-for-web-beta/)에서 알아보세요.
+>
+{style="note"}
+
 ## IDE 지원
 
-Kotlin 2.2.20을 지원하는 Kotlin 플러그인은 최신 버전의 IntelliJ IDEA 및 Android Studio에 번들로 포함되어 있습니다. 
-업데이트하려면 빌드 스크립트에서 Kotlin 버전을 2.2.20으로 변경하기만 하면 됩니다.
+Kotlin 2.2.20을 지원하는 Kotlin 플러그인은 최신 버전의 IntelliJ IDEA 및 Android Studio에 번들로 포함되어 있습니다. 업데이트하려면 빌드 스크립트에서 Kotlin 버전을 2.2.20으로 변경하기만 하면 됩니다.
 
 자세한 내용은 [새 릴리스로 업데이트](releases.md#update-to-a-new-kotlin-version)를 참조하세요.
 
 ## 언어
 
-Kotlin 2.2.20에서는 Kotlin 2.3.0에 예정된 다음 언어 기능을 시험해 볼 수 있습니다.
-[람다를 `suspend` 함수 타입의 오버로드에 전달할 때 오버로드 결정 개선](#improved-overload-resolution-for-lambdas-with-suspend-function-types)과
-[명시적 반환 타입이 있는 표현식 본문에서 `return` 문 지원](#support-for-return-statements-in-expression-bodies-with-explicit-return-types)이 포함됩니다. 또한 이번 릴리스에는
-[`when` 표현식에 대한 완전성 검사 개선](#data-flow-based-exhaustiveness-checks-for-when-expressions),
-[재실체화된(reified) `Throwable` 캐치](#support-for-reified-types-in-catch-clauses), 그리고 [Kotlin 계약(contracts) 개선](#improved-kotlin-contracts)도 포함되어 있습니다.
+Kotlin 2.2.20에서는 Kotlin 2.3.0에 예정된 다음 언어 기능을 시험해 볼 수 있습니다. [람다를 `suspend` 함수 타입의 오버로드에 전달할 때 오버로드 결정 개선](#improved-overload-resolution-for-lambdas-with-suspend-function-types)과 [명시적 반환 타입이 있는 표현식 본문에서 `return` 문 지원](#support-for-return-statements-in-expression-bodies-with-explicit-return-types)이 포함됩니다. 또한 이번 릴리스에는 [`when` 표현식에 대한 완전성 검사 개선](#data-flow-based-exhaustiveness-checks-for-when-expressions), [재실체화된(reified) `Throwable` 캐치](#support-for-reified-types-in-catch-clauses), 그리고 [Kotlin 계약(contracts) 개선](#improved-kotlin-contracts)도 포함되어 있습니다.
 
 ### `suspend` 함수 타입을 사용하는 람다에 대한 오버로드 결정 개선
 
-이전에는 일반 함수 타입과 `suspend` 함수 타입 모두를 사용하여 함수를 오버로드하면 람다를 전달할 때 모호성(ambiguity) 오류가 발생했습니다.
-명시적 타입 캐스트를 사용하여 이 오류를 해결할 수 있었지만, 컴파일러는 `No cast needed` 경고를 잘못 보고했습니다:
+이전에는 일반 함수 타입과 `suspend` 함수 타입 모두를 사용하여 함수를 오버로드하면 람다를 전달할 때 모호성(ambiguity) 오류가 발생했습니다. 명시적 타입 캐스트를 사용하여 이 오류를 해결할 수 있었지만, 컴파일러는 `No cast needed` 경고를 잘못 보고했습니다:
 
 ```kotlin
 // Defines two overloads
@@ -49,14 +44,13 @@ fun test() {
     // Fails with overload resolution ambiguity
     transform({ 42 })
 
-    // Uses an explicit cast, but the compiler incorrectly reports 
+    // Uses an explicit cast, but the compiler incorrectly reports
     // a "No cast needed" warning
     transform({ 42 } as () -> Int)
 }
 ```
 
-이 변경으로, 일반 함수 타입과 `suspend` 함수 타입 오버로드 모두를 정의할 때, 캐스트 없는 람다는 일반 오버로드로 결정됩니다.
-`suspend` 키워드를 사용하여 suspend 오버로드로 명시적으로 결정하세요:
+이 변경으로, 일반 함수 타입과 `suspend` 함수 타입 오버로드 모두를 정의할 때, 캐스트 없는 람다는 일반 오버로드로 결정됩니다. `suspend` 키워드를 사용하여 suspend 오버로드로 명시적으로 결정하세요:
 
 ```kotlin
 // Resolves to transform(() -> Int)
@@ -160,7 +154,7 @@ fun getPermissionLevel(role: UserRole): Int {
     return when (role) {
         UserRole.MEMBER -> 10
         UserRole.GUEST -> 1
-        // You no longer have to include this else branch 
+        // You no longer have to include this else branch
         // else -> throw IllegalStateException()
     }
 }
@@ -439,7 +433,7 @@ kotlin {
 ```
 
 ## Kotlin/JVM: `when` 표현식에서 `invokedynamic` 지원
-<primary-label ref="experimental-opt-in"/> 
+<primary-label ref="experimental-opt-in"/>
 
 Kotlin 2.2.20에서는 이제 `invokedynamic`를 사용하여 `when` 표현식을 컴파일할 수 있습니다. 이전에는 여러 타입 검사가 있는 `when` 표현식이 바이트코드에서 긴 `instanceof` 검사 체인으로 컴파일되었습니다.
 
@@ -495,7 +489,7 @@ Kotlin 2.2.20은 Kotlin Multiplatform에 중요한 변화를 도입합니다: Sw
 새로운 공유 소스 세트가 있고, 공통 의존성을 관리하는 새로운 접근 방식을 시도할 수 있습니다.
 
 ### Swift export가 기본적으로 제공
-<primary-label ref="experimental-general"/> 
+<primary-label ref="experimental-general"/>
 
 Kotlin 2.2.20은 Swift export에 대한 실험적 지원을 도입합니다. 이를 통해 Kotlin 소스를 직접 내보내고
 Swift에서 Kotlin 코드를 관용적으로 호출할 수 있어 Objective-C 헤더의 필요성이 사라집니다.
@@ -673,7 +667,7 @@ Kotlin 2.2.20은 각 의존성이 어떤 타겟을 지원하고 어떤 타겟을
 `gradle.properties` 파일에서 다음 Gradle 속성을 사용하여 진단 기능을 비활성화할 수 있습니다:
 
 | 속성                                                     | 설명                                                           |
-|----------------------------------------------------------|----------------------------------------------------------------|
+|:---------------------------------------------------------|:---------------------------------------------------------------|
 | `kotlin.kmp.eagerUnresolvedDependenciesDiagnostic=false` | 메타데이터 컴파일 및 임포트에 대해서만 진단 실행                 |
 | `kotlin.kmp.unresolvedDependenciesDiagnostic=false`      | 진단을 완전히 비활성화                                           |
 
@@ -702,7 +696,7 @@ kotlin.native.binary.stackProtector=yes
 일부 경우 스택 보호 기능이 성능 비용을 수반할 수 있다는 점에 유의하세요.
 
 ### 릴리스 바이너리의 바이너리 크기 축소
-<primary-label ref="experimental-opt-in"/> 
+<primary-label ref="experimental-opt-in"/>
 
 Kotlin 2.2.20은 릴리스 바이너리의 크기를 줄이는 데 도움이 되는 `smallBinary` 옵션을 도입합니다.
 새로운 옵션은 LLVM 컴파일 단계에서 컴파일러의 기본 최적화 인수로 효과적으로 `-Oz`를 설정합니다.
@@ -835,7 +829,7 @@ import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 kotlin {
     iosArm64 {
         binaries {
-            framework { 
+            framework {
                 baseName = "sdk"
                 @OptIn(ExperimentalKotlinGradlePluginApi::class)
                 exportKdoc.set(false)
@@ -1052,7 +1046,7 @@ Kotlin/JS는 사용자 정의 `Long` 표현을 사용했기 때문에 JavaScript
     kotlin {
         js {
             ...
-            compilerOptions {                   
+            compilerOptions {
                 freeCompilerArgs.add("-XXLanguage:+JsAllowLongInExportedDeclarations")
             }
         }
@@ -1085,7 +1079,7 @@ fun main(args: Array<String>) {
 
 ```kotlin
 fun main(args: Array<String>) {
-    // No need for drop() and only your custom arguments are included 
+    // No need for drop() and only your custom arguments are included
     println(args.joinToString(", "))
 }
 ```

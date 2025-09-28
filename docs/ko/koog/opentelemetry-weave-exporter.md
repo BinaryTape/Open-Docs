@@ -1,6 +1,6 @@
 # W&B Weave 익스포터
 
-Koog는 Weights & Biases의 개발자 도구인 [W&B Weave](https://wandb.ai/site/weave/)로 에이전트 트레이스를 내보내는 기본 지원을 제공합니다. 이는 AI 애플리케이션의 가시성 및 분석을 위한 도구입니다. Weave 통합을 통해 프롬프트, 완료, 시스템 컨텍스트 및 실행 트레이스를 캡처하고 W&B 워크스페이스에서 직접 시각화할 수 있습니다.
+Koog는 에이전트 트레이스를 [W&B Weave](https://wandb.ai/site/weave/)로 내보내는 기본 지원을 제공합니다. 이는 Weights & Biases의 개발자 도구로, AI 애플리케이션의 가시성 및 분석을 위한 것입니다. Weave 통합을 통해 프롬프트, 완료, 시스템 컨텍스트 및 실행 트레이스를 캡처하고 W&B 워크스페이스에서 직접 시각화할 수 있습니다.
 
 Koog의 OpenTelemetry 지원에 대한 배경 지식은 [OpenTelemetry 지원](https://docs.koog.ai/opentelemetry-support/)을 참조하세요.
 
@@ -68,6 +68,34 @@ See traces on https://wandb.ai/$entity/$projectName/weave/traces")
 -   **LLM 상호 작용**: 프롬프트, 완료, 지연 시간
 -   **도구 호출**: 도구 호출에 대한 실행 트레이스
 -   **시스템 컨텍스트**: 모델 이름, 환경, Koog 버전과 같은 메타데이터
+
+보안상의 이유로 OpenTelemetry 스팬의 일부 내용은 기본적으로 마스킹됩니다. 이 내용을 Weave에서 사용 가능하게 하려면 OpenTelemetry 설정에서 [setVerbose](opentelemetry-support.md#setverbose) 메서드를 사용하고 `verbose` 인수를 다음과 같이 `true`로 설정하세요.
+
+<!--- INCLUDE
+import ai.koog.agents.core.agent.AIAgent
+import ai.koog.agents.features.opentelemetry.feature.OpenTelemetry
+import ai.koog.agents.features.opentelemetry.integration.weave.addWeaveExporter
+import ai.koog.prompt.executor.clients.openai.OpenAIModels
+import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
+
+const val apiKey = ""
+
+val agent = AIAgent(
+    promptExecutor = simpleOpenAIExecutor(apiKey),
+    llmModel = OpenAIModels.Chat.GPT4o,
+    systemPrompt = "You are a helpful assistant."
+) {
+-->
+<!--- SUFFIX
+}
+-->
+```kotlin
+install(OpenTelemetry) {
+    addWeaveExporter()
+    setVerbose(true)
+}
+```
+<!--- KNIT example-weave-exporter-02.kt -->
 
 W&B Weave에서 시각화될 때, 트레이스는 다음과 같이 표시됩니다.
 ![W&B Weave traces](img/opentelemetry-weave-exporter-light.png#only-light)

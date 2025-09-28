@@ -83,7 +83,7 @@ val multiExecutor = DefaultMultiLLMPromptExecutor(openAIClient, anthropicClient,
 策略使用節點與邊緣定義代理程式的工作流程。它可以具有任意的輸入和輸出類型，這些類型可以在 `strategy` 函數的泛型參數中指定。這些也將是 `AIAgent` 的輸入/輸出類型。輸入和輸出的預設類型均為 `String`。
 
 !!! tip
-    若要了解有關策略的更多資訊，請參閱 [自訂策略圖](custom-strategy-graphs.md)。
+    若要了解有關策略的更多資訊，請參閱 [自訂策略圖](custom-strategy-graphs.md)
 
 #### 3.1. 理解節點與邊
 
@@ -105,9 +105,9 @@ val strategy = strategy<InputType, OutputType>("Simple calculator") {
 -->
 ```kotlin
 val processNode by node<InputType, OutputType> { input ->
-    // Process the input and return an output
-    // You can use llm.writeSession to interact with the LLM
-    // You can call tools using callTool, callToolRaw, etc.
+    // 處理輸入並回傳輸出
+    // 您可以使用 llm.writeSession 與 LLM 互動
+    // 您可以使用 callTool、callToolRaw 等呼叫工具
     transformedOutput
 }
 ```
@@ -126,16 +126,16 @@ const val transformedOutput = "transformed-output"
 val strategy = strategy<String, String>("Simple calculator") {
 
     val sourceNode by node<String, String> { input ->
-        // Process the input and return an output
-        // You can use llm.writeSession to interact with the LLM
-        // You can call tools using callTool, callToolRaw, etc.
+        // 處理輸入並回傳輸出
+        // 您可以使用 llm.writeSession 與 LLM 互動
+        // 您可以使用 callTool、callToolRaw 等呼叫工具
         transformedOutput
     }
 
     val targetNode by node<String, String> { input ->
-        // Process the input and return an output
-        // You can use llm.writeSession to interact with the LLM
-        // You can call tools using callTool, callToolRaw, etc.
+        // 處理輸入並回傳輸出
+        // 您可以使用 llm.writeSession 與 LLM 互動
+        // 您可以使用 callTool、callToolRaw 等呼叫工具
         transformedOutput
     }
 -->
@@ -311,8 +311,8 @@ val toolRegistry = ToolRegistry {
 例如，若要安裝事件處理器功能，您需要執行以下操作：
 <!--- INCLUDE
 import ai.koog.agents.core.agent.AIAgent
-import ai.koog.agents.core.feature.handler.AgentFinishedContext
-import ai.koog.agents.core.feature.handler.AgentStartContext
+import ai.koog.agents.core.feature.handler.agent.AgentCompletedContext
+import ai.koog.agents.core.feature.handler.agent.AgentStartingContext
 import ai.koog.agents.features.eventHandler.feature.EventHandler
 import ai.koog.prompt.executor.llms.all.simpleOllamaAIExecutor
 import ai.koog.prompt.llm.OllamaModels
@@ -328,10 +328,10 @@ val agent = AIAgent(
 // 安裝 EventHandler 功能
 installFeatures = {
     install(EventHandler) {
-        onBeforeAgentStarted { eventContext: AgentStartContext<*> ->
+        onAgentStarting { eventContext: AgentStartingContext<*> ->
             println("正在啟動代理程式：${eventContext.agent.id}")
         }
-        onAgentFinished { eventContext: AgentFinishedContext ->
+        onAgentCompleted { eventContext: AgentCompletedContext ->
             println("結果：${eventContext.result}")
         }
     }
@@ -346,8 +346,8 @@ installFeatures = {
 使用先前階段建立的設定選項建立代理程式，並使用提供的輸入執行它：
 <!--- INCLUDE
 import ai.koog.agents.core.agent.AIAgent
-import ai.koog.agents.core.feature.handler.AgentFinishedContext
-import ai.koog.agents.core.feature.handler.AgentStartContext
+import ai.koog.agents.core.feature.handler.agent.AgentCompletedContext
+import ai.koog.agents.core.feature.handler.agent.AgentStartingContext
 import ai.koog.agents.example.exampleComplexWorkflowAgents01.promptExecutor
 import ai.koog.agents.example.exampleComplexWorkflowAgents06.agentStrategy
 import ai.koog.agents.example.exampleComplexWorkflowAgents07.agentConfig
@@ -363,10 +363,10 @@ val agent = AIAgent(
     agentConfig = agentConfig,
     installFeatures = {
         install(EventHandler) {
-            onBeforeAgentStarted { eventContext: AgentStartContext<*> ->
+            onAgentStarting { eventContext: AgentStartingContext<*> ->
                 println("正在啟動代理程式：${eventContext.agent.id}")
             }
-            onAgentFinished { eventContext: AgentFinishedContext ->
+            onAgentCompleted { eventContext: AgentCompletedContext ->
                 println("結果：${eventContext.result}")
             }
         }
@@ -405,8 +405,8 @@ import ai.koog.agents.core.agent.config.AIAgentConfig
 import ai.koog.agents.core.dsl.builder.forwardTo
 import ai.koog.agents.core.dsl.builder.strategy
 import ai.koog.agents.core.dsl.extension.*
-import ai.koog.agents.core.feature.handler.AgentFinishedContext
-import ai.koog.agents.core.feature.handler.AgentStartContext
+import ai.koog.agents.core.feature.handler.agent.AgentCompletedContext
+import ai.koog.agents.core.feature.handler.agent.AgentStartingContext
 import ai.koog.agents.core.tools.ToolRegistry
 import ai.koog.agents.core.tools.annotations.LLMDescription
 import ai.koog.agents.core.tools.annotations.Tool
@@ -506,10 +506,10 @@ val agent = AIAgent(
     agentConfig = agentConfig,
     installFeatures = {
         install(EventHandler) {
-            onBeforeAgentStarted { eventContext: AgentStartContext<*> ->
+            onAgentStarting { eventContext: AgentStartingContext<*> ->
                 println("正在啟動代理程式：${eventContext.agent.id}")
             }
-            onAgentFinished { eventContext: AgentFinishedContext ->
+            onAgentCompleted { eventContext: AgentCompletedContext ->
                 println("結果：${eventContext.result}")
             }
         }

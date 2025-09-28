@@ -24,26 +24,30 @@ Kotlin Multiplatform 위자드가 생성한 샘플 컴포저블을 자세히 살
 @Composable
 @Preview
 fun App() {
-  MaterialTheme {
-    var showContent by remember { mutableStateOf(false) }
-    Column(
-      modifier = Modifier
-        .safeContentPadding()
-        .fillMaxSize(),
-      horizontalAlignment = Alignment.CenterHorizontally,
-    ) {
-      Button(onClick = { showContent = !showContent }) {
-        Text("Click me!")
-      }
-      AnimatedVisibility(showContent) {
-        val greeting = remember { Greeting().greet() }
-        Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
-          Image(painterResource(Res.drawable.compose_multiplatform), null)
-          Text("Compose: $greeting")
+    MaterialTheme {
+        var showContent by remember { mutableStateOf(false) }
+        Column(
+            modifier = Modifier
+                .background(MaterialTheme.colorScheme.primaryContainer)
+                .safeContentPadding()
+                .fillMaxSize(),
+            horizontalAlignment = Alignment.CenterHorizontally,
+        ) {
+            Button(onClick = { showContent = !showContent }) {
+                Text("Click me!")
+            }
+            AnimatedVisibility(showContent) {
+                val greeting = remember { Greeting().greet() }
+                Column(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                ) {
+                    Image(painterResource(Res.drawable.compose_multiplatform), null)
+                    Text("Compose: $greeting")
+                }
+            }
         }
-      }
     }
-  }
 }
 ```
 
@@ -129,19 +133,23 @@ fun main() = application {
 
 ### 웹에서
 
-`composeApp/src/wasmJsMain/kotlin/main.kt` 파일에서 `main()` 함수를 살펴보세요.
+`composeApp/src/webMain/kotlin/main.kt` 파일에서 `main()` 함수를 살펴보세요.
 
 ```kotlin
 @OptIn(ExperimentalComposeUiApi::class)
 fun main() {
-    ComposeViewport(document.body!!) { App() }
+    ComposeViewport {
+        App()
+    }
 }
 ```
 
 *   `@OptIn(ExperimentalComposeUiApi::class)` 어노테이션은 실험용으로 표시되었으며 향후 릴리스에서 변경될 수 있는 API를 사용하고 있음을 컴파일러에 알립니다.
-*   `ComposeViewport()` 함수는 애플리케이션의 Compose 환경을 설정합니다.
-*   웹 앱은 `ComposeViewport` 함수의 파라미터로 지정된 컨테이너에 삽입됩니다. 이 예제에서는 문서의 전체 본문이 컨테이너로 작동합니다.
+*   `ComposeViewport{}` 함수는 애플리케이션의 Compose 환경을 설정합니다.
+*   웹 앱은 `ComposeViewport` 함수의 파라미터로 지정된 컨테이너에 삽입됩니다.
 *   `App()` 함수는 Jetpack Compose를 사용하여 애플리케이션의 UI 컴포넌트를 빌드하는 역할을 합니다.
+
+`main.kt` 파일은 웹 타겟의 공통 코드를 포함하는 `webMain` 디렉토리에 있습니다.
 
 ## 다음 단계
 

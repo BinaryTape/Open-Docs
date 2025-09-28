@@ -6,18 +6,22 @@ _[发布日期：2025 年 6 月 12 日](releases.md#release-details)_
 
 本次特性发布的主要亮点如下：
 
-* [Version Catalog](#published-version-catalog)
-* [Dependency Injection](#dependency-injection)
-* [First-class HTMX support](#htmx-integration)
-* [Suspendable module functions](#suspendable-module-functions)
+* [版本目录](#published-version-catalog)
+* [依赖项注入](#dependency-injection)
+* [一流的 HTMX 支持](#htmx-integration)
+* [可挂起模块函数](#suspendable-module-functions)
 
 ## Ktor 服务器
 
-### 挂起模块函数
+### 可挂起模块函数
 
-从 Ktor 3.2.0 开始，[应用程序模块](server-modules.md)支持挂起函数。
+从 Ktor 3.2.0 开始，[应用程序模块](server-modules.md)支持可挂起函数。
 
-以前，在 Ktor 模块内添加异步函数需要 `runBlocking` 代码块，这可能导致服务器创建时发生死锁：
+> 随着挂起模块支持的引入，开发模式下的自动重新加载不再适用于阻塞函数引用。关于更多信息，请参见[开发模式自动重新加载退步](#regression)。
+>
+{style="warning"}
+
+以前，在 Ktor 模块内添加异步函数需要使用 `runBlocking` 代码块，这可能导致服务器创建时发生死锁：
 
 ```kotlin
 fun Application.installEvents() {
@@ -27,7 +31,7 @@ fun Application.installEvents() {
 }
 ```
 
-现在，您可以使用 `suspend` 关键字，从而在应用程序启动时运行异步代码：
+现在，您可以使用 `suspend` 关键字，从而允许在应用程序启动时运行异步代码：
 
 ```kotlin
 suspend fun Application.installEvents() {
@@ -67,7 +71,7 @@ database:
 
 ### `ApplicationTestBuilder` 的 `client` 可配置
 
-从 Ktor 3.2.0 开始，`ApplicationTestBuilder` 类中的 `client` 属性是可变的。以前，它是只读的。此更改允许您配置自己的测试客户端，并在 `ApplicationTestBuilder` 类可用的任何地方重用它。例如，您可以从扩展函数中访问客户端：
+从 Ktor 3.2.0 开始，`client` 属性在 `ApplicationTestBuilder` 类中是可变的。以前，它是只读的。此更改允许您配置自己的测试客户端，并在 `ApplicationTestBuilder` 类可用的任何地方重用它。例如，您可以从扩展函数中访问客户端：
 
 ```kotlin
 @Test
@@ -243,6 +247,24 @@ val connection: Connection = application.property("connection")
 这简化了结构化配置的处理，并支持基本类型的自动解析。
 
 关于更多信息和高级用法，请参见[依赖项注入](server-dependency-injection.md)。
+
+### 开发模式自动重新加载退步 {id="regression"}
+
+作为对挂起函数支持的副作用，阻塞函数引用（`Application::myModule`）现在在类型转换时被包装为匿名内部类。这破坏了自动重新加载功能，因为函数名不再保留为稳定的引用。
+
+这意味着 `development` 模式下的自动重新加载仅适用于挂起函数模块和配置引用：
+
+```kotlin
+// Suspend function reference
+embeddedServer(Netty, port = 8080, module = Application::mySuspendModule)
+
+// Configuration reference
+ktor {
+    application {
+        modules = [ com.example.ApplicationKt.mySuspendModule ]
+    }
+}
+```
 
 ## Ktor 客户端
 

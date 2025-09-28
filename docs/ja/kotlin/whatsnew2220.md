@@ -3,13 +3,14 @@
 _[リリース日: 2025年9月10日](releases.md#release-details)_
 
 > Kotlinについてのご意見をお聞かせください！
-> [Kotlin開発者アンケートにご協力ください](https://surveys.jetbrains.com/s3/7e238a7b85e5)。
-> わずか10分ほどで完了し、皆様からのフィードバックは言語、ツール、エコシステムの改善に役立てられます。
+> 
+> [Kotlin開発者アンケートにご協力ください](https://surveys.jetbrains.com/s3/7e238a7b85e5)。わずか10分ほどで完了します。
+> 皆様からのフィードバックは言語、ツール、エコシステムの改善に役立てられます。
 > 
 {style="note"}
 
-Kotlin 2.2.20 がリリースされ、Web開発に重要な変更が加えられました。
-[Kotlin/Wasm は現在ベータ版](#kotlin-wasm)であり、[JavaScript相互運用における例外処理の改善](#improved-exception-handling-in-kotlin-wasm-and-javascript-interop)、
+Kotlin 2.2.20 がリリースされ、Web開発に重要な変更が加えられました。[Kotlin/Wasm は現在ベータ版](#kotlin-wasm)であり、
+[JavaScript相互運用における例外処理の改善](#improved-exception-handling-in-kotlin-wasm-and-javascript-interop)、
 [npm依存関係管理](#separated-npm-dependencies)、[組み込みのブラウザデバッグサポート](#support-for-debugging-in-browsers-without-configuration)、
 および[jsおよびwasmJsターゲット用の新しい共有ソースセット](#shared-source-set-for-js-and-wasmjs-targets)が含まれています。
 
@@ -19,6 +20,10 @@ Kotlin 2.2.20 がリリースされ、Web開発に重要な変更が加えられ
 *   **言語**: [suspend関数型を持つオーバーロードにラムダを渡す際のオーバーロード解決の改善](#improved-overload-resolution-for-lambdas-with-suspend-function-types)。
 *   **Kotlin/Native**: [バイナリにおけるスタックカナリアのサポート](#support-for-stack-canaries-in-binaries)、および[リリースバイナリのバイナリサイズの縮小](#smaller-binary-size-for-release-binaries)。
 *   **Kotlin/JS**: [JavaScriptの`BigInt`型にコンパイルされる`Long`値](#usage-of-the-bigint-type-to-represent-kotlin-s-long-type)。
+
+> Web向けCompose Multiplatformがベータ版になりました。詳細は[ブログ記事](https://blog.jetbrains.com/kotlin/2025/09/compose-multiplatform-1-9-0-compose-for-web-beta/)をご覧ください。
+>
+{style="note"}
 
 ## IDEサポート
 
@@ -32,8 +37,8 @@ Kotlin 2.2.20をサポートするKotlinプラグインは、IntelliJ IDEAおよ
 Kotlin 2.2.20では、Kotlin 2.3.0で計画されている今後の言語機能を試すことができます。これには、
 [suspend関数型を持つオーバーロードにラムダを渡す際のオーバーロード解決の改善](#improved-overload-resolution-for-lambdas-with-suspend-function-types)と
 [明示的な戻り値型を持つ式本体での`return`文のサポート](#support-for-return-statements-in-expression-bodies-with-explicit-return-types)が含まれます。このリリースには、
-[when`式のデータフローに基づく網羅性チェック](#data-flow-based-exhaustiveness-checks-for-when-expressions)、
-[reified `Throwable`キャッチ](#support-for-reified-types-in-catch-clauses)、および[Kotlinコントラクトの改善](#improved-kotlin-contracts)も含まれています。
+[when`式の網羅性チェックの改善](#data-flow-based-exhaustiveness-checks-for-when-expressions)、
+[reified `Throwable`キャッチのサポート](#support-for-reified-types-in-catch-clauses)、および[Kotlinコントラクトの改善](#improved-kotlin-contracts)も含まれます。
 
 ### suspend関数型を持つラムダのオーバーロード解決の改善
 
@@ -82,7 +87,7 @@ kotlin {
 
 課題トラッカー[YouTrack](https://youtrack.jetbrains.com/issue/KT-23610)でフィードバックをお寄せいただけると幸いです。
 
-### 明示的な戻り値型を持つ式本体でのreturn文のサポート
+### 明示的な戻り値型を持つ式本体での`return`文のサポート
 
 これまで、式本体で`return`を使用すると、関数の戻り値型が`Nothing`と推論される可能性があったため、コンパイラエラーが発生していました。
 
@@ -136,7 +141,7 @@ kotlin {
 
 課題トラッカー[YouTrack](https://youtrack.jetbrains.com/issue/KT-76926)でフィードバックをお寄せいただけると幸いです。
 
-### when式のデータフローに基づく網羅性チェック
+### `when`式のデータフローに基づく網羅性チェック
 <primary-label ref="experimental-opt-in"/>
 
 Kotlin 2.2.20では、`when`式の**データフローに基づく**網羅性チェックが導入されました。
@@ -155,7 +160,7 @@ fun getPermissionLevel(role: UserRole): Int {
     return when (role) {
         UserRole.MEMBER -> 10
         UserRole.GUEST -> 1
-        // このelseブランチを含める必要はなくなりました 
+        // You no longer have to include this else branch 
         // else -> throw IllegalStateException()
     }
 }
@@ -172,7 +177,7 @@ kotlin {
 }
 ```
 
-### catch句におけるreified型のサポート
+### `catch`句におけるreified型のサポート
 <primary-label ref="experimental-opt-in"/>
 
 Kotlin 2.2.20では、コンパイラは`inline`関数の`catch`句で[reifiedジェネリック型パラメータ](inline-functions.md#reified-type-parameters)の使用を許可するようになりました。
@@ -183,7 +188,7 @@ Kotlin 2.2.20では、コンパイラは`inline`関数の`catch`句で[reified�
 inline fun <reified ExceptionType : Throwable> handleException(block: () -> Unit) {
     try {
         block()
-        // この変更により、これが許可されるようになりました
+        // This is now allowed after the change
     } catch (e: ExceptionType) {
         println("Caught specific exception: ${e::class.simpleName}")
     }
@@ -247,7 +252,7 @@ sealed class Result<out T, out F : Failure> {
 }
 
 @OptIn(ExperimentalContracts::class)
-// コントラクトを使用してジェネリック型をアサート
+// Uses a contract to assert a generic type
 fun <T, F : Failure> Result<T, F>.isHttpError(): Boolean {
     contract {
         returns(true) implies (this@isHttpError is Result.Failed<Failure.HttpError>)
@@ -281,14 +286,14 @@ import kotlin.contracts.*
 val Any.isHelloString: Boolean
     get() {
         @OptIn(ExperimentalContracts::class)
-        // ゲッターがtrueを返したときにレシーバーをStringにスマートキャストできるようにする
+        // Enables smart casting the receiver to String when the getter returns true
         contract { returns(true) implies (this@isHelloString is String) }
         return "hello" == this
     }
 
 fun printIfHelloString(x: Any) {
     if (x.isHelloString) {
-        // レシーバーをStringにスマートキャストした後に長さを出力
+        // Prints the length after the smart cast of the receiver to String
         println(x.length)
         // 5
     }
@@ -312,7 +317,7 @@ import kotlin.contracts.*
 
 class Runner {
     @OptIn(ExperimentalContracts::class)
-    // ラムダ内で割り当てられた変数の初期化を有効にする
+    // Enables initialization of variables assigned inside the lambda
     operator fun invoke(block: () -> Unit) {
         contract {
             callsInPlace(block, InvocationKind.EXACTLY_ONCE)
@@ -326,7 +331,7 @@ fun testOperator(runner: Runner) {
     runner {
         number = 1
     }
-    // コントラクトによって保証された確実な初期化後に値を出力
+    // Prints the value after definite initialization guaranteed by the contract
     println(number)
     // 1
 }
@@ -354,7 +359,7 @@ import kotlin.contracts.*
 @OptIn(ExperimentalContracts::class, ExperimentalExtendedContracts::class)
 fun decode(encoded: String?): String? {
     contract {
-        // 入力が非nullの場合に非nullの戻り値を保証
+        // Guarantees a non-null return value when the input is non-null
         (encoded != null) implies (returnsNotNull())
     }
     if (encoded == null) return null
@@ -362,10 +367,10 @@ fun decode(encoded: String?): String? {
 }
 
 fun useDecodedValue(s: String?) {
-    // 戻り値がnullの場合があるため、セーフコールを使用
+    // Uses a safe call since the return value may be null
     decode(s)?.length
     if (s != null) {
-        // スマートキャスト後、戻り値を非nullとして扱う
+        // Treats the return value as non-null after the smart cast
         decode(s).length
     }
 }
@@ -396,9 +401,9 @@ import kotlin.contracts.*
 @OptIn(ExperimentalContracts::class, ExperimentalExtendedContracts::class)
 fun <T> T.alsoIf(condition: Boolean, block: (T) -> Unit): T {
     contract {
-        // ラムダが最大1回実行されることを宣言
+        // Declares that the lambda runs at most once
         callsInPlace(block, InvocationKind.AT_MOST_ONCE)
-        // ラムダ内で条件がtrueであると仮定されることを宣言
+        // Declares that the condition is assumed to be true inside the lambda
         condition holdsIn block
     }
     if (condition) block(this)
@@ -409,8 +414,8 @@ fun useApplyIf(input: Any) {
     val result = listOf(1, 2, 3)
         .first()
         .alsoIf(input is Int) {
-            // ラムダ内でinputパラメータがIntにスマートキャストされる
-            // inputとリストの最初の要素の合計を出力
+            // The input parameter is smart cast to Int inside the lambda
+            // Prints the sum of input and first list element
             println(input + it)
             // 2
         }
@@ -428,7 +433,7 @@ kotlin {
 }
 ```
 
-## Kotlin/JVM: when式でのinvokedynamicのサポート
+## Kotlin/JVM: `when`式での`invokedynamic`のサポート
 <primary-label ref="experimental-opt-in"/> 
 
 Kotlin 2.2.20では、`when`式を`invokedynamic`でコンパイルできるようになりました。これまで、複数の型チェックを含む`when`式は、バイトコードで長い`instanceof`チェックの連鎖にコンパイルされていました。
@@ -451,7 +456,7 @@ class B : Example()
 class C : Example()
 
 fun test(e: Example) = when (e) {
-    // SwitchBootstraps.typeSwitchとinvokedynamicを使用
+    // Uses invokedynamic with SwitchBootstraps.typeSwitch
     is A -> 1
     is B -> 2
     is C -> 3
@@ -516,7 +521,7 @@ Swiftエクスポートを試すには、Xcodeプロジェクトを設定しま�
    ./gradlew :<Shared module name>:embedSwiftExportForXcode
    ```
 
-   ![Swiftエクスポートスクリプトを追加](xcode-swift-export-run-script-phase.png){width=700}
+   ![Add the Swift export script](xcode-swift-export-run-script-phase.png){width=700}
 
 4.  プロジェクトをビルドします。Swiftモジュールはビルド出力ディレクトリに生成されます。
 
@@ -538,7 +543,7 @@ Swiftエクスポートのサポートは、Kotlin Multiplatformにとって大�
 *   Kotlin Slackで開発チームに直接連絡してください – [招待を取得](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up?_gl=1*ju6cbn*_ga*MTA3MTk5NDkzMC4xNjQ2MDY3MDU4*_ga_9J976DJZ68*MTY1ODMzNzA3OS4xMDAuMS4xNjU4MzQwODEwLjYw)して[#swift-export](https://kotlinlang.slack.com/archives/C073GUW6WN9)チャンネルに参加してください。
 *   Swiftエクスポートで直面する問題を[YouTrack](https://kotl.in/issue)で報告してください。
 
-### jsおよびwasmJsターゲット用の共有ソースセット
+### `js`および`wasmJs`ターゲット用の共有ソースセット
 
 これまで、Kotlin MultiplatformはJavaScript (`js`) とWebAssembly (`wasmJs`) のWebターゲット用の共有ソースセットをデフォルトで含んでいませんでした。
 `js`と`wasmJs`の間でコードを共有するには、カスタムソースセットを手動で設定するか、`js`用と`wasmJs`用で2箇所にコードを記述する必要がありました。例:
@@ -549,12 +554,12 @@ expect suspend fun readCopiedText(): String
 
 // jsMain
 external interface Navigator { val clipboard: Clipboard }
-// JSとWasmで異なる相互運用
+// Different interop in JS and Wasm
 external interface Clipboard { fun readText(): Promise<String> }
 external val navigator: Navigator
 
 suspend fun readCopiedText(): String {
-    // JSとWasmで異なる相互運用
+    // Different interop in JS and Wasm
     return navigator.clipboard.readText().await()
 }
 
@@ -572,7 +577,7 @@ suspend fun readCopiedText(): String {
 
 この変更により、`web`ソースセットは`js`と`wasmJs`の両方のソースセットの親となります。更新されたソースセット階層は次のようになります。
 
-![Webを使用したデフォルト階層テンプレートの使用例](default-hierarchy-example-with-web.svg)
+![An example of using the default hierarchy template with web](default-hierarchy-example-with-web.svg)
 
 新しいソースセットにより、`js`と`wasmJs`の両方のターゲットに対して1つのコードを記述できます。共有コードを`webMain`に配置すると、両方で自動的に機能します。
 
@@ -602,7 +607,7 @@ kotlin {
     js()
     wasmJs()
 
-    // webMainとwebTestを含むデフォルトのソースセット階層を有効にする
+    // Enables the default source set hierarchy, including webMain and webTest
     applyDefaultHierarchyTemplate()
 }
 ```
@@ -845,7 +850,8 @@ Kotlin 2.2.20−2.4.0リリースサイクル中に、すべての`x86_64` Apple
 
 ## Kotlin/Wasm
 
-Kotlin/Wasmは現在ベータ版であり、npm依存関係の分離、[JavaScript相互運用における例外処理の改善](#improved-exception-handling-in-kotlin-wasm-and-javascript-interop)、[組み込みのブラウザデバッグサポート](#support-for-debugging-in-browsers-without-configuration)などの改善とともに、より高い安定性を提供します。
+Kotlin/Wasmは現在ベータ版であり、npm依存関係の分離、[JavaScript相互運用における例外処理の改善](#improved-exception-handling-in-kotlin-wasm-and-javascript-interop)、
+[組み込みのブラウザデバッグサポート](#support-for-debugging-in-browsers-without-configuration)などの改善とともに、より高い安定性を提供します。
 
 ### npm依存関係の分離
 
@@ -934,7 +940,7 @@ if (config.devServer) {
 }
 ```
 
-### 空のyarn.lockファイルの排除
+### 空の`yarn.lock`ファイルの排除
 
 これまで、Kotlin Gradleプラグイン (KGP) は、Kotlinツールチェーンで必要とされるnpmパッケージに関する情報と、プロジェクトまたは使用されるライブラリからの既存の[npm](https://www.npmjs.com/)依存関係を含む`yarn.lock`ファイルを自動的に生成していました。
 
@@ -978,7 +984,7 @@ kotlin {
 
 Kotlin 2.2.20では、`BigInt`型を使用してKotlinの`Long`型を表現するのをサポートし、エクスポートされた宣言で`Long`を使用できるようにします。さらに、このリリースではNode.js引数をクリーンアップするためのDSL関数が追加されました。
 
-### KotlinのLong型を表現するためのBigInt型の使用
+### Kotlinの`Long`型を表現するための`BigInt`型の使用
 <primary-label ref="experimental-opt-in"/>
 
 ES2020標準以前、JavaScript (JS) は53ビットを超える正確な整数に対するプリミティブ型をサポートしていませんでした。
@@ -987,7 +993,7 @@ ES2020標準以前、JavaScript (JS) は53ビットを超える正確な整数�
 
 Kotlin 2.2.20から、Kotlin/JSは、モダンなJavaScript (ES2020) にコンパイルする際、Kotlinの`Long`値を表現するためにJavaScriptに組み込みの`BigInt`型を使用するようになりました。
 
-この変更により、Kotlin 2.2.20で導入された機能である[JavaScriptへの`Long`型のエクスポート](#usage-of-long-in-exported-declarations)が可能になります。結果として、この変更はKotlinとJavaScript間の相互運用性を簡素化します。
+この変更は、Kotlin 2.2.20で導入された機能である[JavaScriptへの`Long`型のエクスポート](#usage-of-long-in-exported-declarations)も可能にします。結果として、この変更はKotlinとJavaScript間の相互運用性を簡素化します。
 
 これを有効にするには、`build.gradle(.kts)`ファイルに以下のコンパイラオプションを追加する必要があります。
 
@@ -1004,7 +1010,7 @@ kotlin {
 
 この機能は[Experimental](components-stability.md#stability-levels-explained)です。課題トラッカー[YouTrack](https://youtrack.jetbrains.com/issue/KT-57128)でフィードバックをお寄せいただけると幸いです。
 
-#### エクスポートされた宣言でのLongの使用
+#### エクスポートされた宣言での`Long`の使用
 
 Kotlin/JSはカスタムの`Long`表現を使用していたため、JavaScriptからKotlinの`Long`と対話する直接的な方法を提供することは困難でした。その結果、`Long`型を使用するKotlinコードをJavaScriptにエクスポートすることはできませんでした。この問題は、関数パラメータ、クラスプロパティ、コンストラクタなど、`Long`を使用するすべてのコードに影響しました。
 
@@ -1035,7 +1041,7 @@ Node.jsでKotlin/JSアプリケーションを実行する際、プログラム�
 *   スクリプトへのパス。
 *   指定した実際のコマンドライン引数。
 
-しかし、`args`の期待される挙動は、コマンドライン引数のみを含むことでした。これを実現するには、`build.gradle(.kts)`ファイル内またはKotlinコードで`drop()`関数を使用して最初の2つの引数を手動でスキップする必要がありました。
+しかし、`args`の期待される挙動は、コマンドライン引数のみを含むことでした。これを実現するには、`drop()`関数を使用して最初の2つの引数を手動でスキップする必要がありました。`build.gradle(.kts)`ファイル内またはKotlinコードで:
 
 ```kotlin
 fun main(args: Array<String>) {
@@ -1051,7 +1057,7 @@ fun main(args: Array<String>) {
 
 ```kotlin
 fun main(args: Array<String>) {
-    // drop()は不要になり、カスタム引数のみが含まれる 
+    // No need for drop() and only your custom arguments are included 
     println(args.joinToString(", "))
 }
 ```
@@ -1103,7 +1109,7 @@ Kotlin 2.2.20以前は、インクリメンタルコンパイルを有効にし�
 
 Kotlin 2.2.20では、コンパイラはインライン関数のラムダの変更を検出し、その呼び出しサイトを自動的に再コンパイルするようになりました。
 
-## Maven: kotlin-maven-pluginにおけるKotlinデーモンのサポート
+## Maven: `kotlin-maven-plugin`におけるKotlinデーモンのサポート
 
 Kotlin 2.2.20では、[Kotlin 2.2.0で導入されたビルドツールAPI](whatsnew22.md#new-experimental-build-tools-api)をさらに一歩進め、`kotlin-maven-plugin`で[Kotlinデーモン](kotlin-daemon.md)のサポートを追加しました。Kotlinデーモンを使用すると、Kotlinコンパイラは独立した別のプロセスで実行され、他のMavenプラグインがシステムプロパティを上書きするのを防ぎます。この[YouTrack課題](https://youtrack.jetbrains.com/issue/KT-43894/Maven-Windows-error-RuntimeException-Could-not-find-installation-home-path)で例を見ることができます。
 
@@ -1135,7 +1141,7 @@ Kotlin 2.2.20では、[`org.jetbrains.kotlin:kotlin-compiler-arguments-descripti
 ### Kotlin/JSにおけるリフレクションによるインターフェース型識別のサポート
 <primary-label ref="experimental-opt-in"/>
 
-Kotlin 2.2.20では、[Experimental](components-stability.md#stability-levels-explained)な[`KClass.isInterface`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.reflect/-k-class/is-interface.html)プロパティがKotlin/JS標準ライブラリに追加されました。
+Kotlin 2.2.20は、[Experimental](components-stability.md#stability-levels-explained)な[`KClass.isInterface`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.reflect/-k-class/is-interface.html)プロパティをKotlin/JS標準ライブラリに追加します。
 
 このプロパティを使用すると、クラス参照がKotlinインターフェースを表しているかどうかをチェックできます。これにより、Kotlin/JSはKotlin/JVMとのパリティに近づき、Kotlin/JVMでは`KClass.java.isInterface`を使用してクラスがインターフェースを表しているかどうかをチェックできます。
 
@@ -1144,7 +1150,7 @@ Kotlin 2.2.20では、[Experimental](components-stability.md#stability-levels-ex
 ```kotlin
 @OptIn(ExperimentalStdlibApi::class)
 fun inspect(klass: KClass<*>) {
-    // インターフェースの場合trueを出力
+    // Prints true for interfaces
     println(klass.isInterface)
 }
 ```
@@ -1178,13 +1184,13 @@ fun main() {
     val counter = AtomicLong(Random.nextLong())
     val minSetBitsThreshold = 20
 
-    // 結果を使用せずに新しい値を設定
+    // Sets a new value without using the result
     counter.update { if (it < 0xDECAF) 0xCACA0 else 0xC0FFEE }
 
-    // 現在の値を取得し、更新
+    // Retrieves the current value, then updates it
     val previousValue = counter.fetchAndUpdate { 0x1CEDL.shl(Long.SIZE_BITS - it.countLeadingZeroBits()) or it }
 
-    // 値を更新し、結果を取得
+    // Updates the value, then retrieves the result
     val current = counter.updateAndFetch {
         if (it.countOneBits() < minSetBitsThreshold) it.shl(20) or 0x15BADL else it
     }
@@ -1204,7 +1210,7 @@ fun main() {
 
 課題トラッカー[YouTrack](https://youtrack.jetbrains.com/issue/KT-76389)でフィードバックをお寄せいただけると幸いです。
 
-### 配列のcopyOf()オーバーロードのサポート
+### 配列の`copyOf()`オーバーロードのサポート
 <primary-label ref="experimental-opt-in"/>
 
 Kotlin 2.2.20では、[`copyOf()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/copy-of.html)関数の実験的なオーバーロードが導入されました。
@@ -1219,7 +1225,7 @@ Kotlin 2.2.20では、[`copyOf()`](https://kotlinlang.org/api/core/kotlin-stdlib
 @OptIn(ExperimentalStdlibApi::class)
 fun main() {
     val row1: Array<String> = arrayOf("one", "two")
-    // 配列のサイズを変更し、ラムダを使用して新しい要素を埋める
+    // Resizes the array and populates the new elements using the lambda
     val row2: Array<String> = row1.copyOf(4) { "default" }
     println(row2.contentToString())
     // [one, two, default, default]
@@ -1248,10 +1254,10 @@ fun main() {
 
 ```text
 @Composable fun App() {
-  Box { // <-- Boxは@UiComposableです
-    Path(...) // <-- Pathは@VectorComposableです
+  Box { // <-- `Box` is a `@UiComposable`
+    Path(...) // <-- `Path` is a `@VectorComposable`
     ^^^^^^^^^
-    warning: UIコンポーザブルが期待される場所でVectorコンポーザブル関数を呼び出しています
+    warning: Calling a Vector composable function where a UI composable was expected
   }
 }
 ```
@@ -1265,7 +1271,7 @@ fun main() {
 
 このセクションでは、注目すべき重要な破壊的変更と非推奨化について説明します。
 
-*   [kapt](kapt.md)コンパイラプラグインは、デフォルトでK2コンパイラを使用するようになりました。その結果、プラグインがK2コンパイラを使用するかどうかを制御する`kapt.use.k2`プロパティは非推奨になりました。このプロパティを`false`に設定してK2コンパイラの使用をオプトアウトすると、Gradleは警告を表示します。
+*   [`kapt`コンパイラプラグイン](kapt.md)は、デフォルトでK2コンパイラを使用するようになりました。その結果、プラグインがK2コンパイラを使用するかどうかを制御する`kapt.use.k2`プロパティは非推奨になりました。このプロパティを`false`に設定してK2コンパイラの使用をオプトアウトすると、Gradleは警告を表示します。
 
 ## ドキュメントの更新
 

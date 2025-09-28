@@ -21,7 +21,7 @@ LLM 能力表示大型语言模型可以支持的特定特性或功能。在 Koo
 
 ### 核心能力
 
-下面的 list 包含了 Koog 框架中模型可用的核心 LLM 特有的能力：
+下面的列表包含了 Koog 框架中模型可用的核心、LLM 特有的能力：
 
 - **推测** (`LLMCapability.Speculation`)：让模型生成具有不同可能性程度的推测性或探索性响应。适用于需要更广泛潜在结果的创造性或假设场景。
 
@@ -39,7 +39,7 @@ LLM 能力表示大型语言模型可以支持的特定特性或功能。在 Koo
 
 ### 媒体处理能力
 
-以下 list 表示用于处理图像或音频等媒体内容的一组能力：
+以下列表表示用于处理图像或音频等媒体内容的一组能力：
 
 - **视觉** (`LLMCapability.Vision`)：一个用于基于视觉的能力的类，可处理、分析和推断视觉数据中的洞察。
 支持以下类型的视觉数据：
@@ -52,7 +52,7 @@ LLM 能力表示大型语言模型可以支持的特定特性或功能。在 Koo
 
 ### 文本处理能力
 
-以下能力 list 表示文本生成和处理功能：
+以下能力列表表示文本生成和处理功能：
 
 - **嵌入** (`LLMCapability.Embed`)：让模型从输入文本生成向量嵌入，从而实现相似度比较、聚类及其他基于向量的分析。
 
@@ -64,7 +64,7 @@ LLM 能力表示大型语言模型可以支持的特定特性或功能。在 Koo
 
 ### Schema 能力
 
-下面的 list 指示与处理结构化数据相关的能力：
+下面的列表指示与处理结构化数据相关的能力：
 
 - **Schema** (`LLMCapability.Schema`)：一个用于结构化 Schema 能力的类，与使用特定格式进行数据交互和编码相关。
 包括对以下格式的支持：
@@ -80,7 +80,7 @@ LLM 能力表示大型语言模型可以支持的特定特性或功能。在 Koo
 |-------------------|---------------------------|----------|---------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `provider`        | LLMProvider               | Yes      |         | LLM 提供商，例如 Google 或 OpenAI。这标识了创建或托管模型的公司或组织。                                                                                                                              |
 | `id`              | String                    | Yes      |         | LLM 实例的唯一标识符。这通常表示特定的模型版本或名称。例如，`gpt-4-turbo`、`claude-3-opus`、`llama-3-2`。                              |
-| `capabilities`    | List&lt;LLMCapability&gt; | Yes      |         | LLM 支持的能力 list，例如温度调整、工具使用或基于 Schema 的任务。这些能力定义了模型可以做什么以及如何配置它。 |
+| `capabilities`    | List&lt;LLMCapability&gt; | Yes      |         | LLM 支持的能力列表，例如温度调整、工具使用或基于 Schema 的任务。这些能力定义了模型可以做什么以及如何配置它。 |
 | `contextLength`   | Long                      | Yes      |         | LLM 的上下文长度。这是 LLM 可处理的最大 token 数量。                                                                                                       |
 | `maxOutputTokens` | Long                      | No       | `null`  | 提供商可为 LLM 生成的最大 token 数量。                                                                                                                |
 
@@ -96,6 +96,7 @@ import ai.koog.prompt.llm.LLMProvider
 import ai.koog.prompt.llm.LLModel
 
 -->
+
 ```kotlin
 val basicModel = LLModel(
     provider = LLMProvider.OpenAI,
@@ -108,6 +109,7 @@ val basicModel = LLModel(
     contextLength = 128_000
 )
 ```
+
 <!--- KNIT example-model-capabilities-01.kt -->
 
 以下模型配置是一个具有视觉能力的多模态 LLM：
@@ -118,6 +120,7 @@ import ai.koog.prompt.llm.LLMProvider
 import ai.koog.prompt.llm.LLModel
 
 -->
+
 ```kotlin
 val visionModel = LLModel(
     provider = LLMProvider.OpenAI,
@@ -131,6 +134,7 @@ val visionModel = LLModel(
     maxOutputTokens = 32_768
 )
 ```
+
 <!--- KNIT example-model-capabilities-02.kt -->
 
 一个具有音频处理能力的 LLM：
@@ -141,6 +145,7 @@ import ai.koog.prompt.llm.LLMProvider
 import ai.koog.prompt.llm.LLModel
 
 -->
+
 ```kotlin
 val audioModel = LLModel(
     provider = LLMProvider.Anthropic,
@@ -153,6 +158,7 @@ val audioModel = LLModel(
     contextLength = 200_000
 )
 ```
+
 <!--- KNIT example-model-capabilities-03.kt -->
 
 除了创建 `LLModel` 实例并指定所有相关参数之外，Koog 还包含一个预定义模型及其配置（包含支持的能力）的集合。
@@ -162,9 +168,11 @@ val audioModel = LLModel(
 import ai.koog.prompt.llm.OllamaModels
 
 -->
+
 ```kotlin
 val metaModel = OllamaModels.Meta.LLAMA_3_2
 ```
+
 <!--- KNIT example-model-capabilities-04.kt -->
 
 要检测模型是否支持特定能力，请使用 `contains` 方法检测 `capabilities` list 中是否存在该能力：
@@ -177,6 +185,7 @@ val basicModel = OllamaModels.Meta.LLAMA_3_2
 val visionModel = OllamaModels.Meta.LLAMA_3_2
 
 -->
+
 ```kotlin
 // 检测模型是否支持特定能力
 val supportsTools = basicModel.capabilities.contains(LLMCapability.Tools) // true
@@ -186,6 +195,7 @@ val supportsVideo = visionModel.capabilities.contains(LLMCapability.Vision.Video
 val jsonCapability = basicModel.capabilities.filterIsInstance<LLMCapability.Schema.JSON>().firstOrNull()
 val hasFullJsonSupport = jsonCapability is LLMCapability.Schema.JSON.Standard // true
 ```
+
 <!--- KNIT example-model-capabilities-05.kt -->
 
 ### 按模型划分的 LLM 能力
@@ -198,105 +208,127 @@ val hasFullJsonSupport = jsonCapability is LLMCapability.Schema.JSON.Standard //
 - `-` 表示模型不支持该能力
 - 对于 JSON Schema，`Full` 或 `Simple` 表示模型支持哪种 JSON Schema 能力变体
 
-#### Google models
+??? "Google models"
+    #### Google models
 
-| Model                  | Temperature | JSON Schema | Completion | Multiple Choices | Tools | Tool Choice | 视觉 (图像) | 视觉 (视频) | Audio |
-|------------------------|-------------|-------------|------------|------------------|-------|-------------|----------------|----------------|-------|
-| Gemini2_5Pro           | ✓           | Full        | ✓          | ✓                | ✓     | ✓           | ✓              | ✓              | ✓     |
-| Gemini2_5Flash         | ✓           | Full        | ✓          | ✓                | -     | -           | ✓              | ✓              | ✓     |
-| Gemini2_0Flash         | ✓           | Full        | ✓          | ✓                | ✓     | ✓           | ✓              | ✓              | ✓     |
-| Gemini2_0Flash001      | ✓           | Full        | ✓          | ✓                | ✓     | ✓           | ✓              | ✓              | ✓     |
-| Gemini2_0FlashLite     | ✓           | Full        | ✓          | ✓                | ✓     | ✓           | ✓              | ✓              | ✓     |
-| Gemini2_0FlashLite001  | ✓           | Full        | ✓          | ✓                | ✓     | ✓           | ✓              | ✓              | ✓     |
-| Gemini1_5Pro           | ✓           | Full        | ✓          | ✓                | ✓     | ✓           | ✓              | ✓              | ✓     |
-| Gemini1_5ProLatest     | ✓           | Full        | ✓          | ✓                | ✓     | ✓           | ✓              | ✓              | ✓     |
-| Gemini1_5Pro002        | ✓           | Full        | ✓          | ✓                | ✓     | ✓           | ✓              | ✓              | ✓     |
-| Gemini1_5Flash         | ✓           | Full        | ✓          | ✓                | ✓     | ✓           | ✓              | ✓              | ✓     |
-| Gemini1_5FlashLatest   | ✓           | Full        | ✓          | ✓                | -     | -           | ✓              | ✓              | ✓     |
-| Gemini1_5Flash002      | ✓           | Full        | ✓          | ✓                | -     | -           | ✓              | ✓              | ✓     |
-| Gemini1_5Flash8B       | ✓           | Full        | ✓          | ✓                | -     | -           | ✓              | ✓              | ✓     |
-| Gemini1_5Flash8B001    | ✓           | Full        | ✓          | ✓                | -     | -           | ✓              | ✓              | ✓     |
-| Gemini1_5Flash8BLatest | ✓           | Full        | ✓          | ✓                | -     | -           | ✓              | ✓              | ✓     |
+    | Model                  | Temperature | JSON Schema | Completion | Multiple Choices | Tools | Tool Choice | Vision (Image) | Vision (Video) | Audio |
+    |------------------------|-------------|-------------|------------|------------------|-------|-------------|----------------|----------------|-------|
+    | Gemini2_5Pro           | ✓           | Full        | ✓          | ✓                | ✓     | ✓           | ✓              | ✓              | ✓     |
+    | Gemini2_5Flash         | ✓           | Full        | ✓          | ✓                | ✓     | ✓           | ✓              | ✓              | ✓     |
+    | Gemini2_5FlashLite     | ✓           | Full        | ✓          | ✓                | ✓     | ✓           | ✓              | ✓              | ✓     |
+    | Gemini2_0Flash         | ✓           | Full        | ✓          | ✓                | ✓     | ✓           | ✓              | ✓              | ✓     |
+    | Gemini2_0Flash001      | ✓           | Full        | ✓          | ✓                | ✓     | ✓           | ✓              | ✓              | ✓     |
+    | Gemini2_0FlashLite     | ✓           | Full        | ✓          | ✓                | ✓     | ✓           | ✓              | ✓              | ✓     |
+    | Gemini2_0FlashLite001  | ✓           | Full        | ✓          | ✓                | ✓     | ✓           | ✓              | ✓              | ✓     |
 
-#### OpenAI models
+??? "OpenAI models"
+    #### OpenAI models
 
-| Model                | Temperature | JSON Schema | Completion | Multiple Choices | Tools | Tool Choice | 视觉 (图像) | 视觉 (视频) | Audio | 推测 | 内容审核 |
-|----------------------|-------------|-------------|------------|------------------|-------|-------------|----------------|----------------|-------|-------------|------------|
-| Reasoning.GPT4oMini  | ✓           | Full        | ✓          | ✓                | ✓     | ✓           | ✓              | -              | -     | ✓           | -          |
-| Reasoning.O3Mini     | ✓           | Full        | ✓          | ✓                | ✓     | ✓           | -              | -              | -     | ✓           | -          |
-| Reasoning.O1Mini     | -           | Full        | ✓          | ✓                | -     | -           | -              | -              | -     | ✓           | -          |
-| Reasoning.O3         | -           | Full        | ✓          | ✓                | ✓     | ✓           | ✓              | -              | -     | ✓           | -          |
-| Reasoning.O1         | -           | Full        | ✓          | ✓                | ✓     | ✓           | ✓              | -              | -     | ✓           | -          |
-| Chat.GPT4o           | ✓           | Full        | ✓          | ✓                | ✓     | ✓           | ✓              | -              | -     | ✓           | -          |
-| Chat.GPT4_1          | ✓           | Full        | ✓          | ✓                | ✓     | ✓           | ✓              | -              | -     | ✓           | -          |
-| Audio.GPT4oMiniAudio | ✓           | -           | ✓          | -                | ✓     | ✓           | -              | -              | ✓     | -           | -          |
-| Audio.GPT4oAudio     | ✓           | -           | ✓          | -                | ✓     | ✓           | -              | -              | ✓     | -           | -          |
-| Moderation.Omni      | -           | -           | -          | -                | -     | -           | ✓              | -              | -     | -           | ✓          |
-| Moderation.Text      | -           | -           | -          | -                | -     | -           | -              | -              | -     | -           | ✓          |
+    | Model                    | Temperature | JSON Schema | Completion | Multiple Choices | Tools | Tool Choice | Vision (Image) | Vision (Video) | Audio | Speculation | Moderation |
+    |--------------------------|-------------|-------------|------------|------------------|-------|-------------|----------------|----------------|-------|-------------|------------|
+    | Reasoning.O4Mini         | -           | Full        | ✓          | ✓                | ✓     | ✓           | ✓              | -              | -     | ✓           | -          |
+    | Reasoning.O3Mini         | -           | Full        | ✓          | ✓                | ✓     | ✓           | -              | -              | -     | ✓           | -          |
+    | Reasoning.O3             | -           | Full        | ✓          | ✓                | ✓     | ✓           | ✓              | -              | -     | ✓           | -          |
+    | Reasoning.O1             | -           | Full        | ✓          | ✓                | ✓     | ✓           | ✓              | -              | -     | ✓           | -          |
+    | Chat.GPT4o               | ✓           | Full        | ✓          | ✓                | ✓     | ✓           | ✓              | -              | -     | ✓           | -          |
+    | Chat.GPT4_1              | ✓           | Full        | ✓          | ✓                | ✓     | ✓           | ✓              | -              | -     | ✓           | -          |
+    | Chat.GPT5                | ✓           | Full        | ✓          | ✓                | ✓     | ✓           | ✓              | -              | -     | ✓           | -          |
+    | Chat.GPT5Mini            | ✓           | Full        | ✓          | ✓                | ✓     | ✓           | ✓              | -              | -     | ✓           | -          |
+    | Chat.GPT5Nano            | ✓           | Full        | ✓          | ✓                | ✓     | ✓           | ✓              | -              | -     | ✓           | -          |
+    | Audio.GptAudio           | ✓           | -           | ✓          | -                | ✓     | ✓           | -              | -              | ✓     | -           | -          |
+    | Audio.GPT4oMiniAudio     | ✓           | -           | ✓          | -                | ✓     | ✓           | -              | -              | ✓     | -           | -          |
+    | Audio.GPT4oAudio         | ✓           | -           | ✓          | -                | ✓     | ✓           | -              | -              | ✓     | -           | -          |
+    | CostOptimized.GPT4_1Nano | ✓           | Full        | ✓          | ✓                | ✓     | ✓           | ✓              | -              | -     | ✓           | -          |
+    | CostOptimized.GPT4_1Mini | ✓           | Full        | ✓          | ✓                | ✓     | ✓           | ✓              | -              | -     | ✓           | -          |
+    | CostOptimized.GPT4oMini  | ✓           | Full        | ✓          | ✓                | ✓     | ✓           | ✓              | -              | -     | ✓           | -          |
+    | Moderation.Omni          | -           | -           | -          | -                | -     | -           | ✓              | -              | -     | -           | ✓          |
 
-#### Anthropic models
+??? "Anthropic models"
+    #### Anthropic models
 
-| Model      | Temperature | JSON Schema | Completion | Tools | Tool Choice | 视觉 (图像) |
-|------------|-------------|-------------|------------|-------|-------------|----------------|
-| Opus_4     | ✓           | Full        | ✓          | ✓     | ✓           | ✓              |
-| Sonnet_4   | ✓           | Full        | ✓          | ✓     | ✓           | ✓              |
-| Sonnet_3_7 | ✓           | Full        | ✓          | ✓     | ✓           | ✓              |
-| Haiku_3_5  | ✓           | Full        | ✓          | ✓     | ✓           | ✓              |
-| Sonnet_3_5 | ✓           | Full        | ✓          | ✓     | ✓           | ✓              |
-| Haiku_3    | ✓           | Full        | ✓          | ✓     | ✓           | ✓              |
-| Opus_3     | ✓           | Full        | ✓          | ✓     | ✓           | ✓              |
+    | Model      | Temperature | JSON Schema | Completion | Tools | Tool Choice | Vision (Image) |
+    |------------|-------------|-------------|------------|-------|-------------|----------------|
+    | Opus_4_1   | ✓           | -           | ✓          | ✓     | ✓           | ✓              |
+    | Opus_4     | ✓           | -           | ✓          | ✓     | ✓           | ✓              |
+    | Sonnet_4   | ✓           | -           | ✓          | ✓     | ✓           | ✓              |
+    | Sonnet_3_7 | ✓           | -           | ✓          | ✓     | ✓           | ✓              |
+    | Haiku_3_5  | ✓           | -           | ✓          | ✓     | ✓           | ✓              |
+    | Sonnet_3_5 | ✓           | -           | ✓          | ✓     | ✓           | ✓              |
+    | Haiku_3    | ✓           | -           | ✓          | ✓     | ✓           | ✓              |
+    | Opus_3     | ✓           | -           | ✓          | ✓     | ✓           | ✓              |
 
-#### Ollama models
+??? "Ollama models"
+    #### Ollama models
 
-##### Meta models
+    ##### Meta models
 
-| Model         | Temperature | JSON Schema | Tools | 内容审核 |
-|---------------|-------------|-------------|-------|------------|
-| LLAMA_3_2_3B  | ✓           | Simple      | ✓     | -          |
-| LLAMA_3_2     | ✓           | Simple      | ✓     | -          |
-| LLAMA_4       | ✓           | Simple      | ✓     | -          |
-| LLAMA_GUARD_3 | -           | -           | -     | ✓          |
+    | Model         | Temperature | JSON Schema | Tools | Moderation |
+    |---------------|-------------|-------------|-------|------------|
+    | LLAMA_3_2_3B  | ✓           | Simple      | ✓     | -          |
+    | LLAMA_3_2     | ✓           | Simple      | ✓     | -          |
+    | LLAMA_4       | ✓           | Simple      | ✓     | -          |
+    | LLAMA_GUARD_3 | -           | -           | -     | ✓          |
 
-##### Alibaba models
+    ##### Alibaba models
 
-| Model              | Temperature | JSON Schema | Tools |
-|--------------------|-------------|-------------|-------|
-| QWEN_2_5_05B       | ✓           | Simple      | ✓     |
-| QWEN_3_06B         | ✓           | Simple      | ✓     |
-| QWQ                | ✓           | Simple      | ✓     |
-| QWEN_CODER_2_5_32B | ✓           | Simple      | ✓     |
+    | Model              | Temperature | JSON Schema | Tools |
+    |--------------------|-------------|-------------|-------|
+    | QWEN_2_5_05B       | ✓           | Simple      | ✓     |
+    | QWEN_3_06B         | ✓           | Simple      | ✓     |
+    | QWQ                | ✓           | Simple      | ✓     |
+    | QWEN_CODER_2_5_32B | ✓           | Simple      | ✓     |
 
-##### Groq models
+    ##### Groq models
 
-| Model                     | Temperature | JSON Schema | Tools |
-|---------------------------|-------------|-------------|-------|
-| LLAMA_3_GROK_TOOL_USE_8B  | ✓           | Full        | ✓     |
-| LLAMA_3_GROK_TOOL_USE_70B | ✓           | Full        | ✓     |
+    | Model                     | Temperature | JSON Schema | Tools |
+    |---------------------------|-------------|-------------|-------|
+    | LLAMA_3_GROK_TOOL_USE_8B  | ✓           | Full        | ✓     |
+    | LLAMA_3_GROK_TOOL_USE_70B | ✓           | Full        | ✓     |
 
-##### Granite models
+    ##### Granite models
 
-| Model              | Temperature | JSON Schema | Tools | 视觉 (图像) |
-|--------------------|-------------|-------------|-------|----------------|
-| GRANITE_3_2_VISION | ✓           | Simple      | ✓     | ✓              |
+    | Model              | Temperature | JSON Schema | Tools | Vision (Image) |
+    |--------------------|-------------|-------------|-------|----------------|
+    | GRANITE_3_2_VISION | ✓           | Simple      | ✓     | ✓              |
 
-#### OpenRouter models
+??? "DeepSeek models"
+    #### DeepSeek models
 
-| Model               | Temperature | JSON Schema | Completion | 推测 | Tools | Tool Choice | 视觉 (图像) |
-|---------------------|-------------|-------------|------------|-------------|-------|-------------|----------------|
-| Phi4Reasoning       | ✓           | Full        | ✓          | ✓           | ✓     | ✓           | -              |
-| Claude3Opus         | ✓           | Full        | ✓          | ✓           | ✓     | ✓           | ✓              |
-| Claude3Sonnet       | ✓           | Full        | ✓          | ✓           | ✓     | ✓           | ✓              |
-| Claude3Haiku        | ✓           | Full        | ✓          | ✓           | ✓     | ✓           | ✓              |
-| GPT4                | ✓           | Full        | ✓          | ✓           | ✓     | ✓           | -              |
-| GPT4o               | ✓           | Full        | ✓          | ✓           | ✓     | ✓           | ✓              |
-| GPT4Turbo           | ✓           | Full        | ✓          | ✓           | ✓     | ✓           | ✓              |
-| GPT35Turbo          | ✓           | Full        | ✓          | ✓           | ✓     | ✓           | -              |
-| Gemini15Pro         | ✓           | Full        | ✓          | ✓           | ✓     | ✓           | ✓              |
-| Gemini15Flash       | ✓           | Full        | ✓          | ✓           | ✓     | ✓           | ✓              |
-| Llama3              | ✓           | Full        | ✓          | ✓           | ✓     | ✓           | -              |
-| Llama3Instruct      | ✓           | Full        | ✓          | ✓           | ✓     | ✓           | -              |
-| Mistral7B           | ✓           | Full        | ✓          | ✓           | ✓     | ✓           | -              |
-| Mixtral8x7B         | ✓           | Full        | ✓          | ✓           | ✓     | ✓           | -              |
-| Claude3VisionSonnet | ✓           | Full        | ✓          | ✓           | ✓     | ✓           | ✓              |
-| Claude3VisionOpus   | ✓           | Full        | ✓          | ✓           | ✓     | ✓           | ✓              |
-| Claude3VisionHaiku  | ✓           | Full        | ✓          | ✓           | ✓     | ✓           | ✓              |
+    | Model            | Temperature | JSON Schema | Completion | Speculation | Tools | Tool Choice | Vision (Image) |
+    |------------------|-------------|-------------|------------|-------------|-------|-------------|----------------|
+    | DeepSeekChat     | ✓           | Full        | ✓          | -           | ✓     | ✓           | -              |
+    | DeepSeekReasoner | ✓           | Full        | ✓          | -           | ✓     | ✓           | -              |
+
+??? "OpenRouter models"
+    #### OpenRouter models
+
+    | Model               | Temperature | JSON Schema | Completion | Speculation | Tools | Tool Choice | Vision (Image) |
+    |---------------------|-------------|-------------|------------|-------------|-------|-------------|----------------|
+    | Phi4Reasoning       | ✓           | Full        | ✓          | ✓           | ✓     | ✓           | -              |
+    | Claude3Opus         | ✓           | Full        | ✓          | ✓           | ✓     | ✓           | ✓              |
+    | Claude3Sonnet       | ✓           | Full        | ✓          | ✓           | ✓     | ✓           | ✓              |
+    | Claude3Haiku        | ✓           | Full        | ✓          | ✓           | ✓     | ✓           | ✓              |
+    | Claude3_5Sonnet     | ✓           | Full        | ✓          | ✓           | ✓     | ✓           | ✓              |
+    | Claude3_7Sonnet     | ✓           | Full        | ✓          | ✓           | ✓     | ✓           | ✓              |
+    | Claude4Sonnet       | ✓           | Full        | ✓          | ✓           | ✓     | ✓           | ✓              |
+    | Claude4_1Opus       | ✓           | Full        | ✓          | ✓           | ✓     | ✓           | ✓              |
+    | GPT4oMini           | ✓           | Full        | ✓          | ✓           | ✓     | ✓           | ✓              |
+    | GPT5                | ✓           | Full        | ✓          | ✓           | ✓     | ✓           | -              |
+    | GPT5Mini            | ✓           | Full        | ✓          | ✓           | ✓     | ✓           | -              |
+    | GPT5Nano            | ✓           | Full        | ✓          | ✓           | ✓     | ✓           | -              |
+    | GPT_OSS_120b        | ✓           | Full        | ✓          | ✓           | ✓     | ✓           | -              |
+    | GPT4                | ✓           | Full        | ✓          | ✓           | ✓     | ✓           | -              |
+    | GPT4o               | ✓           | Full        | ✓          | ✓           | ✓     | ✓           | ✓              |
+    | GPT4Turbo           | ✓           | Full        | ✓          | ✓           | ✓     | ✓           | ✓              |
+    | GPT35Turbo          | ✓           | Full        | ✓          | ✓           | ✓     | ✓           | -              |
+    | Llama3              | ✓           | Full        | ✓          | ✓           | ✓     | ✓           | -              |
+    | Llama3Instruct      | ✓           | Full        | ✓          | ✓           | ✓     | ✓           | -              |
+    | Mistral7B           | ✓           | Full        | ✓          | ✓           | ✓     | ✓           | -              |
+    | Mixtral8x7B         | ✓           | Full        | ✓          | ✓           | ✓     | ✓           | -              |
+    | Claude3VisionSonnet | ✓           | Full        | ✓          | ✓           | ✓     | ✓           | ✓              |
+    | Claude3VisionOpus   | ✓           | Full        | ✓          | ✓           | ✓     | ✓           | ✓              |
+    | Claude3VisionHaiku  | ✓           | Full        | ✓          | ✓           | ✓     | ✓           | ✓              |
+    | DeepSeekV30324      | ✓           | Full        | ✓          | ✓           | ✓     | ✓           | -              |
+    | Gemini2_5FlashLite  | ✓           | Full        | ✓          | ✓           | ✓     | ✓           | ✓              |
+    | Gemini2_5Flash      | ✓           | Full        | ✓          | ✓           | ✓     | ✓           | ✓              |
+    | Gemini2_5Pro        | ✓           | Full        | ✓          | ✓           | ✓     | ✓           | ✓              |

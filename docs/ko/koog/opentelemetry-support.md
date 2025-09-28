@@ -148,11 +148,15 @@ install(OpenTelemetry) {
 
 #### setVerbose
 
-OpenTelemetry 구성 디버깅을 위한 상세 로깅을 활성화 또는 비활성화합니다. 다음 인수를 사용합니다:
+상세 로깅을 활성화 또는 비활성화합니다. 다음 인수를 사용합니다:
 
 | 이름      | 데이터 유형 | 필수 | 기본값  | 설명                                                         |
 |:----------|:----------|:---|:------|:-------------------------------------------------------------|
-| `verbose` | `Boolean` | 예 | `false` | true인 경우 애플리케이션은 더 상세한 텔레메트리 데이터를 수집합니다. |
+| `verbose` | `Boolean` | 예 | `false` | true인 경우, 애플리케이션은 더 상세한 텔레메트리 데이터를 수집합니다. |
+
+!!! note
+
+    보안상의 이유로 OpenTelemetry 스팬의 일부 내용은 기본적으로 마스킹됩니다. 예를 들어, LLM 메시지는 실제 메시지 내용 대신 `HIDDEN:non-empty`로 마스킹됩니다. 내용을 얻으려면 `verbose` 인수의 값을 `true`로 설정하십시오.
 
 #### setSdk
 
@@ -310,7 +314,7 @@ OpenTelemetry의 [생성형 AI 이벤트에 대한 시맨틱 컨벤션](https://
 -   **ChoiceEvent**: 모델의 응답 메시지.
 -   **ModerationResponseEvent**: 모델의 조정 결과 또는 신호.
 
-!!! note
+!!! note   
     `optentelemetry-java` SDK는 이벤트를 추가할 때 이벤트 본문 필드 매개변수를 지원하지 않습니다. 따라서 Koog의 OpenTelemetry 지원에서는 이벤트 본문 필드가 키가 `body`이고 값 유형이 문자열인 별도의 속성으로 처리됩니다. 이 문자열에는 일반적으로 JSON과 같은 객체인 이벤트 본문 필드의 내용 또는 페이로드가 포함됩니다. 이벤트 본문 필드의 예시는 [OpenTelemetry 문서](https://opentelemetry.io/docs/specs/semconv/gen-ai/gen-ai-events/#examples)를 참조하세요. `opentelemetry-java`의 이벤트 본문 필드 지원 상태는 관련 [GitHub 이슈](https://github.com/open-telemetry/semantic-conventions/issues/1870)를 참조하세요.
 
 ## 익스포터
@@ -578,13 +582,13 @@ fun main() {
         }
 
         agent.use { agent ->
-            println("OpenTelemetry 추적을 사용하여 에이전트를 실행 중입니다...")
+            println("Running the agent with OpenTelemetry tracing...")
 
             val result = agent.run("Tell me a joke about programming")
 
-            println("에이전트 실행이 결과: '$result'와(과) 함께 완료되었습니다." +
+            println("Agent run completed with result: '$result'." +
                     "
-추적을 보려면 http://localhost:16686에서 Jaeger UI를 확인하세요")
+Check Jaeger UI at http://localhost:16686 to view traces")
         }
     }
 }

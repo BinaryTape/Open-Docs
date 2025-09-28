@@ -153,19 +153,19 @@ fun GraphAIAgent.FeatureContext.installStreamingApi() {
 -->
 ```kotlin
 handleEvents {
-    onToolCall { context ->
+    onToolExecutionStarting { context ->
         println("
 🔧 Using ${context.tool.name} with ${context.toolArgs}... ")
     }
-    onStreamFrame { context ->
+    onLLMStreamingFrameReceived { context ->
         (context.streamFrame as? StreamFrame.Append)?.let { frame ->
             print(frame.text)
         }
     }
-    onStreamError { context ->
+    onLLMStreamingFailed { context -> 
         println("❌ Error: ${context.error}")
     }
-    onAfterStream {
+    onLLMStreamingCompleted {
         println("🏁 Done")
     }
 }
@@ -189,8 +189,8 @@ handleEvents {
 
 结构化数据方法包括以下关键组件：
 
-1. **MarkdownStructuredDataDefinition**：一个帮助您定义 Markdown 格式结构化数据的 schema 和 examples 的类。
-2. **markdownStreamingParser**：一个用于创建解析器（该解析器处理 Markdown 数据块流并发出事件）的函数。
+1.  **MarkdownStructuredDataDefinition**：一个帮助您定义 Markdown 格式结构化数据的 schema 和 examples 的类。
+2.  **markdownStreamingParser**：一个用于创建解析器（该解析器处理 Markdown 数据块流并发出事件）的函数。
 
 以下部分提供了处理结构化数据流的分步说明和代码示例。
 
@@ -199,7 +199,6 @@ handleEvents {
 首先，定义一个 data class 来表示您的结构化数据：
 
 <!--- INCLUDE
-import ai.koog.agents.core.tools.ToolArgs
 import kotlinx.serialization.Serializable
 -->
 ```kotlin
@@ -208,7 +207,7 @@ data class Book(
     val title: String,
     val author: String,
     val description: String
-): ToolArgs
+)
 ```
 <!--- KNIT example-streaming-api-03.kt -->
 
@@ -374,9 +373,17 @@ import ai.koog.agents.core.tools.SimpleTool
 import ai.koog.agents.core.tools.ToolDescriptor
 import ai.koog.agents.example.exampleStreamingApi03.Book
 import kotlinx.serialization.KSerializer
+import kotlinx.serialization.Serializable
 
 -->
 ```kotlin
+@Serializable
+data class Book(
+   val title: String,
+   val author: String,
+   val description: String
+)
+
 class BookTool(): SimpleTool<Book>() {
     
     companion object { const val NAME = "book" }
@@ -389,14 +396,9 @@ class BookTool(): SimpleTool<Book>() {
 
     override val argsSerializer: KSerializer<Book>
         get() = Book.serializer()
-    
-    override val descriptor: ToolDescriptor
-        get() = ToolDescriptor(
-            name = NAME,
-            description = "A tool to parse book information from Markdown",
-            requiredParameters = listOf(),
-            optionalParameters = listOf()
-        )
+
+    override val name: String = NAME
+    override val description: String = "A tool to parse book information from Markdown"
 }
 ```
 <!--- KNIT example-streaming-api-08.kt -->
@@ -406,7 +408,6 @@ class BookTool(): SimpleTool<Book>() {
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.forwardTo
 import ai.koog.agents.core.dsl.builder.strategy
-import ai.koog.agents.core.tools.ToolArgs
 import ai.koog.agents.example.exampleStreamingApi04.markdownBookDefinition
 import ai.koog.agents.example.exampleStreamingApi06.parseMarkdownStreamToBooks
 import ai.koog.agents.example.exampleStreamingApi08.BookTool
@@ -422,7 +423,7 @@ val agentStrategy = strategy<String, Unit>("library-assistant") {
          val markdownStream = requestLLMStreaming(mdDefinition)
 
          parseMarkdownStreamToBooks(markdownStream).collect { book ->
-            callToolRaw(BookTool.NAME, book as ToolArgs)
+            callToolRaw(BookTool.NAME, book)
             /* Other possible options:
                 callTool(BookTool::class, book)
                 callTool<BookTool>(book)
@@ -471,16 +472,16 @@ val runner = AIAgent(
 
 ## 最佳实践
 
-1. **定义清晰的结构**：为您的数据创建清晰明确的 Markdown 结构。
+1.  **定义清晰的结构**：为您的数据创建清晰明确的 Markdown 结构。
 
-2. **提供良好的示例**：在您的 `MarkdownStructuredDataDefinition` 中包含全面的示例以指导 LLM。
+2.  **提供良好的示例**：在您的 `MarkdownStructuredDataDefinition` 中包含全面的示例以指导 LLM。
 
-3. **处理不完整数据**：在从流中解析数据时，始终检测空值或空数据。
+3.  **处理不完整数据**：在从流中解析数据时，始终检测空值或空数据。
 
-4. **清理资源**：使用 `onFinishStream` 处理程序清理资源并处理任何剩余数据。
+4.  **清理资源**：使用 `onFinishStream` 处理程序清理资源并处理任何剩余数据。
 
-5. **处理错误**：为格式错误的 Markdown 或意外数据实现适当的错误处理。
+5.  **处理错误**：为格式错误的 Markdown 或意外数据实现适当的错误处理。
 
-6. **测试**：使用各种输入场景（包括部分数据块和格式错误的输入）测试您的解析器。
+6.  **测试**：使用各种输入场景（包括部分数据块和格式错误的输入）测试您的解析器。
 
-7. **并行处理**：对于独立的数据项，考虑使用并行工具调用以获得更好的性能。
+7.  **并行处理**：对于独立的数据项，考虑使用并行工具调用以获得更好的性能。

@@ -37,7 +37,7 @@ Kotlin Multiplatform 마법사가 생성한 코드를 수정하고 `App` 컴포�
                 // ...
                 implementation("org.jetbrains.kotlinx:kotlinx-datetime:%dateTimeVersion%")
             }
-            wasmJsMain.dependencies {
+            webMain.dependencies {
                 implementation(npm("@js-joda/timezone", "2.22.0"))
             }
         }
@@ -47,14 +47,14 @@ Kotlin Multiplatform 마법사가 생성한 코드를 수정하고 `App` 컴포�
 
     * 주요 의존성은 공통 코드 소스 세트를 구성하는 섹션에 추가됩니다.
     * 단순화를 위해 버전 번호는 버전 카탈로그에 추가하는 대신 직접 포함됩니다.
-    * 웹 타겟에서 시간대를 지원하기 위해 필요한 npm 패키지 참조가 `wasmJsMain` 의존성에 포함됩니다.
+    * 웹 타겟에서 시간대를 지원하기 위해 필요한 npm 패키지 참조가 `webMain` 의존성에 포함됩니다.
 
 2. 의존성이 추가되면 프로젝트 동기화를 요청하는 메시지가 나타납니다. **Sync Gradle Changes** 버튼을 클릭하여 Gradle 파일을 동기화합니다. ![Gradle 파일 동기화](gradle-sync.png){width=50}
 
 3. **터미널** 도구 창에서 다음 명령을 실행합니다.
 
     ```shell
-    ./gradlew kotlinUpgradeYarnLock
+    ./gradlew kotlinUpgradeYarnLock kotlinWasmUpgradeYarnLock
     ```
 
    이 Gradle 작업은 `yarn.lock` 파일이 최신 의존성 버전으로 업데이트되도록 합니다.
@@ -109,33 +109,13 @@ Kotlin Multiplatform 마법사가 생성한 코드를 수정하고 `App` 컴포�
     ```
 
 3. IDE의 제안에 따라 누락된 의존성을 임포트합니다.
-   `todaysDate()` 함수에 필요한 모든 누락된 의존성을 `kotlinx.datetime` 패키지에서 임포트해야 하며, `kotlin.time`에서 임포트하지 않도록 주의하세요.
+   `todaysDate()` 함수에 필요한 모든 누락된 의존성을 업데이트된 패키지에서 임포트해야 하며, IDE에서 메시지가 표시되면 옵트인하세요.
 
    ![해결되지 않은 참조](compose-unresolved-references.png)
 
-4. 웹 앱이 컨테이너로 `Element`를 사용하는 대신 외부에서 지정된 `id`를 가진 HTML 요소를 사용하도록 전환합니다.
-
-    1. `composeApp/src/wasmJsMain/resources/index.html` 파일에서 `<body>` 내에 명명된 요소를 추가합니다.
-
-        ```html
-        <body>
-        <div id="composeApplication" style="width:400px; height: 600px;"></div>
-        </body>
-        ```
-    2. `composeApp/src/wasmJsMain/kotlin/main.kt` 파일에서 `ComposeViewport` 호출을 HTML 파일에 지정한 ID를 가리키는 `String` 변형으로 변경합니다.
-
-        ```kotlin
-        @OptIn(ExperimentalComposeUiApi::class)
-        fun main() {
-            ComposeViewport(viewportContainerId = "composeApplication") {
-                App()
-            }
-        }
-        ```
-
 ## 애플리케이션 다시 실행
 
-이제 Android, iOS, 데스크톱 및 웹에 대해 동일한 실행 구성을 사용하여 애플리케이션을 다시 실행할 수 있습니다.
+이제 Android, iOS, 데스크톱 및 웹에 대해 동일한 실행 구성을 사용하여 [애플리케이션을 다시 실행](compose-multiplatform-create-first-app.md#run-your-application)할 수 있습니다.
 
 <Tabs>
     <TabItem id="mobile-app" title="Android 및 iOS">

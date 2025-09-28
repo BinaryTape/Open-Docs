@@ -3,6 +3,7 @@
 ## 미출시
 
 ### 추가
+- [PostgreSQL 다이얼렉트] Postgres 트리거에 대한 제한된 지원 추가 (#5932 by [Griffio][griffio])
 - [PostgreSQL 다이얼렉트] SQL 표현식이 JSON으로 파싱될 수 있는지 확인하는 조건자(predicate) 추가 (#5843 by [Griffio][griffio])
 - [PostgreSQL 다이얼렉트] PostgreSql COMMENT ON 문에 대한 제한된 지원 추가 (#5808 by [Griffio][griffio])
 - [MySQL 다이얼렉트] 인덱스 가시성 옵션 지원 추가 (#5785 by [Oren Kislev][orenkislev-faire])
@@ -28,7 +29,6 @@
 ## [2.1.0] - 2025-05-16
 
 ### 추가
-
 - [WASM 드라이버] 웹 워커(web worker) 드라이버에 wasmJs 지원 추가 (#5534 by [Ilya Gulya][IlyaGulya])
 - [PostgreSQL 다이얼렉트] PostgreSql 배열을 행으로 언네스트(UnNest)하는 기능 지원 (#5673 by [Griffio][griffio])
 - [PostgreSQL 다이얼렉트] PostgreSql TSRANGE/TSTZRANGE 지원 (#5297 by [Griffio][griffio])
@@ -41,7 +41,7 @@
 - [PostgreSQL 다이얼렉트] Postgresql ILIKE 연산자 (#5330 by [Griffio][griffio])
 - [PostgreSQL 다이얼렉트] PostgreSql XML 타입 (#5331 by [Griffio][griffio])
 - [PostgreSQL 다이얼렉트] PostgreSql AT TIME ZONE (#5243 by [Griffio][griffio])
-- [PostgreSQL 다이얼렉트] postgresql ORDER BY NULLS 지원 (#5199 by [Griffio][griffio])
+- [PostgreSQL 다이얼렉트] PostgreSQL ORDER BY NULLS 지원 (#5199 by [Griffio][griffio])
 - [PostgreSQL 다이얼렉트] PostgreSQL 현재 날짜/시간 함수 지원 추가 (#5226 by [Drew Dobson][drewd])
 - [PostgreSQL 다이얼렉트] PostgreSql 정규 표현식(Regex) 연산자 (#5137 by [Griffio][griffio])
 - [PostgreSQL 다이얼렉트] BRIN GIST 추가 (#5059 by [Griffio][griffio])
@@ -49,14 +49,12 @@
 - [JSON 확장] JSON 테이블 함수에 별칭(alias) 추가 (#5372 by [Griffio][griffio])
 
 ### 변경
-
 - [컴파일러] 생성된 쿼리 파일이 단순 뮤테이터(mutator)에 대한 행 개수(row count)를 반환하도록 변경 (#4578 by [Marius Volkhart][MariusV])
 - [네이티브 드라이버] NativeSqlDatabase.kt 업데이트: DELETE, INSERT, UPDATE 문에 대한 읽기 전용(readonly) 플래그 변경 (#5680 by [Griffio][griffio])
 - [PostgreSQL 다이얼렉트] PgInterval을 String으로 변경 (#5403 by [Griffio][griffio])
 - [PostgreSQL 다이얼렉트] SqlDelight 모듈이 PostgreSQL 확장 기능을 구현하도록 지원 (#5677 by [Griffio][griffio])
 
 ### 수정
-
 - [컴파일러] 수정: 결과와 함께 그룹 문을 실행할 때 쿼리 알림 (#5006 by [Vitor Hugo Schwaab][vitorhugods])
 - [컴파일러] SqlDelightModule 타입 리졸버 수정 (#5625 by [Griffio][griffio])
 - [컴파일러] 5501번 이슈 수정: insert object escaped column (#5503 by [Griffio][griffio])
@@ -68,7 +66,7 @@
 - [JDBC 드라이버] 트랜잭션 종료 중 connectionManager의 메모리 누수(leak) 수정
 - [JDBC 드라이버] 문서에 언급된 대로 트랜잭션 내에서 SQLite 마이그레이션 실행 (#5218 by [Lukáš Moravec][morki])
 - [JDBC 드라이버] 트랜잭션 커밋/롤백 후 연결 누수(leaking connections) 수정 (#5205 by [Lukáš Moravec][morki])
-- [Gradle 플러그인] `GenerateSchemaTask` 이전에 `DriverInitializer` 실행 (#5562 by [Emeka Nwagu][nwagu])
+- [Gradle 플러그인] `DriverInitializer` 이전에 `GenerateSchemaTask` 실행 (#5562 by [Emeka Nwagu][nwagu])
 - [런타임] 실제 드라이버가 비동기(Async)일 때 LogSqliteDriver의 크래시(crash) 수정 (#5723 by [Eric Denman][edenman])
 - [런타임] StringBuilder 용량(capacity) 수정 (#5192 by [Jan Bína][janbina])
 - [PostgreSQL 다이얼렉트] PostgreSql CREATE OR REPLACE VIEW (#5407 by [Griffio][griffio])
@@ -89,7 +87,6 @@
 ## [2.0.2] - 2024-04-05
 
 ### 추가
-
 - [PostgreSQL 다이얼렉트] PostgreSQL STRING_AGG 함수 추가 (#4950 by [André Danielsson][anddani])
 - [PostgreSQL 다이얼렉트] pg 다이얼렉트에 SET 문 추가 (#4927 by [Bastien de Luca][de-luca])
 - [PostgreSQL 다이얼렉트] PostgreSql ALTER COLUMN SEQUENCE 매개변수 추가 (#4916 by [Griffio][griffio])
@@ -99,7 +96,6 @@
 - [PostgreSQL 다이얼렉트] GIN을 위한 문법 추가 (#5027 by [Griffio][griffio])
 
 ### 변경
-
 - [IDE 플러그인] 최소 버전 2023.1 / Android Studio Iguana
 - [컴파일러] encapsulatingType에서 타입 널러블리티(nullability) 재정의 허용 (#4882 by [Eliezer Graber][eygraber])
 - [컴파일러] `SELECT *`에 대한 열 이름 인라인화
@@ -108,7 +104,6 @@
 - [드라이버] 다이얼렉트 작성자를 위해 더 많은 JDBC/R2DBC 문(statement) 메서드 노출 (#5098 by [Philip Wedemann][hfhbd])
 
 ### 수정
-
 - [PostgreSQL 다이얼렉트] postgresql ALTER TABLE ALTER COLUMN 수정 (#4868 by [Griffio][griffio])
 - [PostgreSQL 다이얼렉트] 4448번 이슈 수정: 테이블 모델의 누락된 임포트 (#4885 by [Griffio][griffio])
 - [PostgreSQL 다이얼렉트] 4932번 이슈 수정: postgresql 기본(default) 제약 조건 함수 (#4934 by [Griffio][griffio])
@@ -131,7 +126,6 @@
 ## [2.0.1] - 2023-12-01
 
 ### 추가
-
 - [컴파일러] SELECT 시 다중 열 표현식(multi-column-expr) 지원 추가 (#4453 by [Adriel Martinez][Adriel-M])
 - [PostgreSQL 다이얼렉트] PostgreSQL CREATE INDEX CONCURRENTLY 지원 추가 (#4531 by [Griffio][griffio])
 - [PostgreSQL 다이얼렉트] PostgreSQL CTE(Common Table Expressions) 보조 문(auxiliary statements)이 서로 참조할 수 있도록 허용 (#4493 by [Griffio][griffio])
@@ -150,7 +144,6 @@
 - [Paging3 확장] 기능: OffsetQueryPagingSource에 initialOffset 추가 (#4802 by [Mohamad Jaara][MohamadJaara])
 
 ### 변경
-
 - [컴파일러] 적절한 경우 Kotlin 타입 선호 (#4517 by [Eliezer Graber][eygraber])
 - [컴파일러] 값 타입 삽입(value type insert) 시 항상 열 이름 포함 (#4864)
 - [PostgreSQL 다이얼렉트] PostgreSQL 다이얼렉트의 실험적(experimental) 상태 제거 (#4443 by [Philip Wedemann][hfhbd])
@@ -158,11 +151,9 @@
 - [R2DBC 드라이버] PostgreSQL에서 정수 데이터 타입 처리 시 성능 최적화 (#4588 by [Marius Volkhart][MariusV])
 
 ### 제거
-
 - [SQLite Javascript 드라이버] sqljs-driver 제거 (#4613, #4670 by [Derek Ellis][dellisd])
 
 ### 수정
-
 - [컴파일러] 반환 값은 있지만 매개변수가 없는 그룹화된 문(grouped statements) 컴파일 수정 (#4699 by [Griffio][griffio])
 - [컴파일러] SqlBinaryExpr로 인수 바인딩 (#4604 by [Griffio][griffio])
 - [IDE 플러그인] 설정된 경우 IDEA 프로젝트 JDK 사용 (#4689 by [Griffio][griffio])
@@ -184,19 +175,16 @@
 ## [2.0.0] - 2023-07-26
 
 ### 추가
-
 - [MySQL 다이얼렉트] MySQL: IF 표현식에서 timestamp/bigint 지원 (#4329 by [Mike Gershunovsky][shellderp])
 - [MySQL 다이얼렉트] MySQL: NOW 추가 (#4431 by [Philip Wedemann][hfhbd])
 - [웹 드라이버] NPM 패키지 게시 활성화 (#4364)
 - [IDE 플러그인] Gradle 툴링(tooling) 연결 실패 시 스택 트레이스(stacktrace)를 표시할 수 있도록 허용 (#4383)
 
 ### 변경
-
 - [SQLite 드라이버] JdbcSqliteDriver에 스키마 마이그레이션 사용 단순화 (#3737 by [Lukáš Moravec][morki])
 - [R2DBC 드라이버] 실제 비동기 R2DBC 커서(cursor) (#4387 by [Philip Wedemann][hfhbd])
 
 ### 수정
-
 - [IDE 플러그인] 필요할 때까지 데이터베이스 프로젝트 서비스 인스턴스화하지 않음 (#4382)
 - [IDE 플러그인] 사용처 찾기(find usages) 중 프로세스 취소 처리 (#4340)
 - [IDE 플러그인] IDE 비동기 코드 생성 수정 (#4406)
@@ -210,7 +198,6 @@
 ## [2.0.0-rc02] - 2023-06-27
 
 ### 추가
-
 - [MySQL 다이얼렉트] 소문자 날짜 타입 및 날짜 타입의 min/max 지원 (#4243 by [Mike Gershunovsky][shellderp])
 - [MySQL 다이얼렉트] 이진 표현식(binary expr) 및 합계(sum)에 대한 mysql 타입 지원 (#4254 by [Mike Gershunovsky][shellderp])
 - [MySQL 다이얼렉트] 표시 너비 없는 부호 없는 정수(unsigned ints) 지원 (#4306 by [Mike Gershunovsky][shellderp])
@@ -221,21 +208,18 @@
 - [페이징 확장] 페이징 확장에 linux 및 mingw x64 타겟 추가 (#4280 by [Cedric Hippmann][chippman])
 
 ### 변경
-
 - [Gradle 플러그인] Android API 34에 대한 자동 다이얼렉트 지원 추가 (#4251)
 - [페이징 확장] QueryPagingSource에서 SuspendingTransacter 지원 추가 (#4292 by [Ilya Polenov][daio])
 - [런타임] addListener API 개선 (#4244 by [Philip Wedemann][hfhbd])
 - [런타임] 마이그레이션 버전을 Long으로 사용 (#4297 by [Philip Wedemann][hfhbd])
 
 ### 수정
-
 - [Gradle 플러그인] 생성된 소스의 안정적인 출력 경로 사용 (#4269 by [Josh Friend][joshfriend])
 - [Gradle 플러그인] Gradle 개선 사항 (#4222 by [Matthew Haughton][3flex])
 
 ## [2.0.0-rc01] - 2023-05-29
 
 ### 추가
-
 - [페이징] 페이징 확장에 JS 브라우저 타겟 추가 (#3843 by [Sean Proctor][sproctor])
 - [페이징] androidx-paging3 확장에 iosSimulatorArm64 타겟 추가 (#4117)
 - [PostgreSQL 다이얼렉트] gen_random_uuid() 지원 및 테스트 추가 (#3855 by [David Wheeler][davidwheeler123])
@@ -255,7 +239,6 @@
 - [Gradle 플러그인] 타입 안전 프로젝트 접근자(typesafe project accessors) 활성화 (#4005 by [Philip Wedemann][hfhbd])
 
 ### 변경
-
 - [Gradle 플러그인] ServiceLoader 메커니즘을 사용하여 VerifyMigrationTask에 DriverInitializer 등록 허용 (#3986 by [Alex Doubov][C2H6O])
 - [Gradle 플러그인] 명시적 컴파일러 환경 생성 (#4079 by [Philip Wedemann][hfhbd])
 - [JS 드라이버] 웹 워커(web worker) 드라이버를 별도의 아티팩트로 분리
@@ -267,7 +250,6 @@
 - [런타임] 이전 MM 지원 제거 (#4148 by [Philip Wedemann][hfhbd])
 
 ### 수정
-
 - [R2DBC 드라이버] R2DBC: 드라이버 닫기 대기 (#4139 by [Philip Wedemann][hfhbd])
 - [컴파일러] 데이터베이스 생성(SqlDriver) 시 마이그레이션의 PRAGMA 포함 (#3845 by [Marius Volkhart][MariusV])
 - [컴파일러] RETURNING 절에 대한 코드 생성 수정 (#3872 by [Marius Volkhart][MariusV])
@@ -289,14 +271,12 @@
 ## [2.0.0-alpha05] - 2023-01-20
 
 ### 추가
-
 - [페이징] 멀티플랫폼 페이징 확장 (by [Jeff Lockhart][jeffdgr8])
-- [런타임] Listener 인터페이스에 fun 수정자(modifier) 추가.
-- [SQLite 다이얼렉트] SQLite 3.33 지원 (UPDATE FROM) (by [Eliezer Graber][eygraber]))
-- [PostgreSQL 다이얼렉트] postgresql에서 UPDATE FROM 지원 (by [Eliezer Graber][eygraber]))
+- [런타임] Listener 인터페이스에 `fun` 수정자(modifier) 추가.
+- [SQLite 다이얼렉트] SQLite 3.33 지원 (UPDATE FROM) (by [Eliezer Graber][eygraber])
+- [PostgreSQL 다이얼렉트] postgresql에서 UPDATE FROM 지원 (by [Eliezer Graber][eygraber])
 
 ### 변경
-
 - [R2DBC 드라이버] 연결 노출 (by [Philip Wedemann][hfhbd])
 - [런타임] 마이그레이션 콜백을 메인 `migrate` 함수로 이동
 - [Gradle 플러그인] 다운스트림(downstream) 프로젝트에서 구성(Configurations) 숨기기
@@ -304,7 +284,6 @@
 - [Gradle 플러그인] Kotlin 1.8.0-Beta 지원 및 다중 버전 Kotlin 테스트 추가 (by [Philip Wedemann][hfhbd])
 
 ### 수정
-
 - [R2DBC 드라이버] javaObjectType 대신 사용 (by [Philip Wedemann][hfhbd])
 - [R2DBC 드라이버] bindStatement에서 기본(primitive) null 값 수정 (by [Philip Wedemann][hfhbd])
 - [R2DBC 드라이버] R2DBC 1.0 지원 (by [Philip Wedemann][hfhbd])
@@ -329,11 +308,10 @@ Kotlin 1.7.20 및 AGP 7.3.0 호환성 업데이트입니다.
 
 - Paging 3 확장 API가 변경되어 개수(count)에 int 타입만 허용합니다.
 - 코루틴(coroutines) 확장은 이제 기본값 대신 디스패처(dispatcher)를 전달해야 합니다.
-- 다이얼렉트 및 드라이버 클래스는 final이며, 대신 위임(delegation)을 사용하십시오.
+- 다이얼렉트 및 드라이버 클래스는 `final`이며, 대신 위임(delegation)을 사용하십시오.
 
 ### 추가
-
-- [HSQL 다이얼렉트] Hsql: INSERT에서 생성된 열에 DEFAULT 사용 지원 (#3372 by [Philip Wedemann][hfhbd])
+- [HSQL 다이얼렉트] HSQL: INSERT에서 생성된 열에 DEFAULT 사용 지원 (#3372 by [Philip Wedemann][hfhbd])
 - [PostgreSQL 다이얼렉트] PostgreSQL: INSERT에서 생성된 열에 DEFAULT 사용 지원 (#3373 by [Philip Wedemann][hfhbd])
 - [PostgreSQL 다이얼렉트] PostgreSQL에 NOW() 추가 (#3403 by [Philip Wedemann][hfhbd])
 - [PostgreSQL 다이얼렉트] PostgreSQL NOT 연산자 추가 (#3504 by [Philip Wedemann][hfhbd])
@@ -342,17 +320,15 @@ Kotlin 1.7.20 및 AGP 7.3.0 호환성 업데이트입니다.
 - [네이티브 드라이버] NativeSqliteDriver의 DatabaseConfiguration 생성에 연결할(hook into) 콜백 추가 (#3512 by [Sven Jacobs][svenjacobs])
 
 ### 변경
-
 - [페이징] KeyedQueryPagingSource가 지원하는 QueryPagingSource 함수에 기본 디스패처(dispatcher) 추가 (#3385)
 - [페이징] OffsetQueryPagingSource가 Int 타입에서만 작동하도록 변경 (#3386)
 - [비동기 런타임] await*를 상위 클래스 ExecutableQuery로 이동 (#3524 by [Philip Wedemann][hfhbd])
 - [코루틴 확장] flow 확장에서 기본(default) 매개변수 제거 (#3489)
 
 ### 수정
-
 - [Gradle 플러그인] Kotlin 1.7.20으로 업데이트 (#3542 by [Zac Sweers][zacsweers])
 - [R2DBC 드라이버] 항상 값을 보내지 않는 R2DBC 변경 사항 채택 (#3525 by [Philip Wedemann][hfhbd])
-- [HSQL 다이얼렉트] Hsql과 함께 Sqlite VerifyMigrationTask 실패 수정 (#3380 by [Philip Wedemann][hfhbd])
+- [HSQL 다이얼렉트] HSQL과 함께 Sqlite VerifyMigrationTask 실패 수정 (#3380 by [Philip Wedemann][hfhbd])
 - [Gradle 플러그인] 작업을 지연 구성 API 사용으로 전환 (by [Matthew Haughton][3flex])
 - [Gradle 플러그인] Kotlin 1.7.20에서 NPE 방지 (#3398 by [Zac Sweers][ZacSweers])
 - [Gradle 플러그인] squash migrations 작업 설명 수정 (#3449)
@@ -392,7 +368,6 @@ sqldelight {
 - `PreparedStatement` API는 이제 0-기반 인덱스로 호출됩니다.
 
 ### 추가
-
 - [IDE 플러그인] 실행 중인 데이터베이스에 대해 SQLite, MySQL, PostgreSQL 명령 실행 지원 추가 (#2718 by [Alexander Perfilyev][aperfilyev])
 - [IDE 플러그인] Android Studio DB 인스펙터 지원 추가 (#3107 by [Alexander Perfilyev][aperfilyev])
 - [런타임] 비동기 드라이버 지원 추가 (#3168 by [Derek Ellis][dellisd])
@@ -407,7 +382,6 @@ sqldelight {
 - [JSON 확장] JSON 테이블 함수 지원 (#3090)
 
 ### 변경
-
 - [런타임] 드라이버 없는 AfterVersion 타입 제거 (#3091)
 - [런타임] 스키마(Schema) 타입을 최상위로 이동
 - [런타임] 타사 구현을 지원하기 위해 다이얼렉트 및 리졸버 열기 (#3232 by [Philip Wedemann][hfhbd])
@@ -418,7 +392,6 @@ sqldelight {
 - [Gradle 플러그인] Gradle Verify Task: 데이터베이스 파일이 누락된 경우 오류 발생. (#3126 by [Niklas Baudy][vanniktech])
 
 ### 수정
-
 - [Gradle 플러그인] Gradle 플러그인에 대한 사소한 정리 및 조정 (#3171 by [Matthew Haughton][3flex])
 - [Gradle 플러그인] 생성된 디렉토리에 AGP 문자열을 사용하지 않음
 - [Gradle 플러그인] AGP 네임스페이스 속성 사용 (#3220)
@@ -451,7 +424,6 @@ sqldelight {
 - `app.cash.sqldelight.runtime.rx`의 모든 발생을 `app.cash.sqldelight.rx2`로 바꿔야 합니다.
 
 ### 추가
-
 - [컴파일러] 그룹화된 문(grouped statement) 끝에서 반환 지원
 - [컴파일러] 다이얼렉트 모듈을 통한 컴파일러 확장 지원 및 SQLite JSON 확장 추가 (#1379, #2087)
 - [컴파일러] 값을 반환하는 PRAGMA 문 지원 (#1106)
@@ -484,7 +456,6 @@ sqldelight {
 - [SQLite] Sqlite 3.38 다이얼렉트 지원 추가 (by [Eliezer Graber][eygraber])
 
 ### 변경
-
 - [컴파일러] 생성된 코드 약간 정리
 - [컴파일러] 그룹화된 문(grouped statements)에서 테이블 매개변수 사용 금지 (#1822)
 - [컴파일러] 그룹화된 쿼리를 트랜잭션 내에 배치 (#2785)
@@ -495,7 +466,6 @@ sqldelight {
 - [MySQL] MySQL에서 `==` 사용 시 오류 발생 (#2673)
 
 ### 수정
-
 - [컴파일러] 2.0 알파에서 다른 테이블의 동일한 어댑터 타입이 컴파일 오류를 일으키는 문제
 - [컴파일러] UPSERT 문 컴파일 문제 (#2791)
 - [컴파일러] 쿼리 결과는 여러 일치 항목이 있는 경우 SELECT의 테이블을 사용해야 함 (#1874, #2313)
@@ -541,7 +511,6 @@ sqldelight {
 - 기본 타입은 이제 임포트되어야 합니다 (예: `INTEGER AS Boolean`의 경우 `import kotlin.Boolean`을 해야 함). 이전에 지원되던 일부 타입은 이제 어댑터가 필요합니다. 대부분의 변환(`Integer AS kotlin.Int`와 같은)을 위해 `app.cash.sqldelight:primitive-adapters:2.0.0-alpha01`에서 기본 어댑터를 사용할 수 있습니다.
 
 ### 추가
-
 - [IDE 플러그인] 기본 제안 마이그레이션 (by [Alexander Perfilyev][aperfilyev])
 - [IDE 플러그인] 알 수 없는 타입에 대한 임포트 빠른 수정(quick fix) 추가 (by [Alexander Perfilyev][aperfilyev])
 - [IDE 플러그인] kotlin 클래스 완성(completion) 추가 (by [Alexander Perfilyev][aperfilyev])
@@ -557,7 +526,6 @@ sqldelight {
 - [HSQL] HSQL INSERT 쿼리 사용자 정의 (by [Marius Volkhart][MariusV])
 
 ### 변경
-
 - [전체] 패키지 이름이 `com.squareup.sqldelight`에서 `app.cash.sqldelight`로 변경되었습니다.
 - [런타임] 다이얼렉트를 자체 격리된 Gradle 모듈로 이동
 - [런타임] 드라이버가 구현하는 쿼리 알림으로 전환.
@@ -570,7 +538,6 @@ sqldelight {
 - [IDE 플러그인] 지원되는 IntelliJ 최소 버전은 2021.1입니다.
 
 ### 수정
-
 - [런타임] 할당 및 포인터 추적(pointer chasing)을 줄이기 위해 리스너 목록 평탄화. (by [Anders Ha][andersio])
 - [IDE 플러그인] 오류 메시지 수정: 오류로 점프할 수 있도록 허용 (by [Philip Wedemann][hfhbd])
 - [IDE 플러그인] 누락된 검사 설명 추가 (#2768 by [Alexander Perfilyev][aperfilyev])
@@ -620,7 +587,7 @@ sqldelight {
 - [SQLite 드라이버] mingwX86 타겟 추가. (#2558 by [Nikita Kozhemyakin][enginegl])
 - [SQLite 드라이버] M1 타겟 추가
 - [SQLite 드라이버] linuxX64 지원 추가 (#2456 by [Cedric Hippmann][chippmann])
-- [MySQL 다이얼렉트] mysql에 ROW_COUNT 함수 추가 (#2523)
+- [MySQL 다이얼렉트] MySQL에 ROW_COUNT 함수 추가 (#2523)
 - [PostgreSQL 다이얼렉트] postgres 이름 변경, 열 삭제 (by [Juan Liska][pabl0rg])
 - [PostgreSQL 다이얼렉트] PostgreSQL 문법이 CITEXT를 인식하지 못함
 - [PostgreSQL 다이얼렉트] TIMESTAMP WITH TIME ZONE 및 TIMESTAMPTZ 포함
@@ -693,11 +660,6 @@ sqldelight {
 - [IDE 플러그인] CopyPasteProcessor의 NPE 수정 (#2363 by [Alexander Perfilyev][aperfilyev])
 - [IDE 플러그인] InlayParameterHintsProvider의 크래시 수정 (#2359 by [Alexander Perfilyev][aperfilyev])
 - [IDE 플러그인] CREATE TABLE stmt에 텍스트를 복사/붙여넣기할 때 빈 줄 삽입 수정 (#2431 by [Alexander Perfilyev][aperfilyev])
-
-## [1.5.0] - 2021-04-23
-### 추가
-- [SQLite Javascript 드라이버] sqljs-driver 게시 활성화 (#1667 by [Derek Ellis][dellisd])
-- [Paging3 확장] Android Paging 3 라이브러리용 확장 (#1786 by [Kevin Cianfarini][kevincianfarini])
 
 ## [1.5.0] - 2021-04-23
 ### 추가

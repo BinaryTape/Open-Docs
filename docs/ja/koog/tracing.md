@@ -33,8 +33,8 @@ Tracing機能を使用するには、以下が必要です。
 
 <!--- INCLUDE
 import ai.koog.agents.core.agent.AIAgent
-import ai.koog.agents.core.feature.model.events.AfterLLMCallEvent
-import ai.koog.agents.core.feature.model.events.ToolCallEvent
+import ai.koog.agents.core.feature.model.events.LLMCallCompletedEvent
+import ai.koog.agents.core.feature.model.events.ToolExecutionStartingEvent
 import ai.koog.agents.features.tracing.feature.Tracing
 import ai.koog.agents.features.tracing.writer.TraceFeatureMessageFileWriter
 import ai.koog.agents.features.tracing.writer.TraceFeatureMessageLogWriter
@@ -52,25 +52,18 @@ val outputPath = Path("/path/to/trace.log")
 
 // エージェントを作成しています
 val agent = AIAgent(
-   promptExecutor = simpleOllamaAIExecutor(),
-   llmModel = OllamaModels.Meta.LLAMA_3_2,
+    promptExecutor = simpleOllamaAIExecutor(),
+    llmModel = OllamaModels.Meta.LLAMA_3_2,
 ) {
-   install(Tracing) {
-      // トレースイベントを処理するメッセージプロセッサーを設定します
-      addMessageProcessor(TraceFeatureMessageLogWriter(logger))
-      addMessageProcessor(
-         TraceFeatureMessageFileWriter(
+    install(Tracing) {
+
+        // トレースイベントを処理するメッセージプロセッサーを設定します
+        addMessageProcessor(TraceFeatureMessageLogWriter(logger))
+        addMessageProcessor(TraceFeatureMessageFileWriter(
             outputPath,
             { path: Path -> SystemFileSystem.sink(path).buffered() }
-         )
-      )
-
-      // オプションでメッセージをフィルタリングします
-      messageFilter = { message ->
-         // LLM呼び出しとツール呼び出しのみをトレースします
-         message is AfterLLMCallEvent || message is ToolCallEvent
-      }
-   }
+        ))
+    }
 }
 ```
 <!--- KNIT example-tracing-01.kt -->
@@ -83,37 +76,50 @@ val agent = AIAgent(
 <!--- INCLUDE
 import ai.koog.agents.core.agent.AIAgent
 import ai.koog.agents.core.feature.model.events.*
+import ai.koog.agents.example.exampleTracing01.outputPath
 import ai.koog.agents.features.tracing.feature.Tracing
+import ai.koog.agents.features.tracing.writer.TraceFeatureMessageFileWriter
 import ai.koog.prompt.executor.llms.all.simpleOllamaAIExecutor
 import ai.koog.prompt.llm.OllamaModels
+import kotlinx.io.buffered
+import kotlinx.io.files.Path
+import kotlinx.io.files.SystemFileSystem
 
 val agent = AIAgent(
-   promptExecutor = simpleOllamaAIExecutor(),
-   llmModel = OllamaModels.Meta.LLAMA_3_2,
+    promptExecutor = simpleOllamaAIExecutor(),
+    llmModel = OllamaModels.Meta.LLAMA_3_2,
 ) {
-   install(Tracing) {
+    install(Tracing) {
 -->
 <!--- SUFFIX
    }
 }
 -->
 ```kotlin
+
+val fileWriter = TraceFeatureMessageFileWriter(
+    outputPath,
+    { path: Path -> SystemFileSystem.sink(path).buffered() }
+)
+
+addMessageProcessor(fileWriter)
+
 // LLM関連イベントのみをフィルタリング
-messageFilter = { message -> 
-    message is BeforeLLMCallEvent || message is AfterLLMCallEvent
+fileWriter.setMessageFilter { message ->
+    message is LLMCallStartingEvent || message is LLMCallCompletedEvent
 }
 
 // ツール関連イベントのみをフィルタリング
-messageFilter = { message -> 
-    message is ToolCallEvent ||
-           message is ToolCallResultEvent ||
-           message is ToolValidationErrorEvent ||
-           message is ToolCallFailureEvent
+fileWriter.setMessageFilter { message ->
+    message is ToolExecutionStartingEvent ||
+           message is ToolExecutionCompletedEvent ||
+           message is ToolValidationFailedEvent ||
+           message is ToolExecutionFailedEvent
 }
 
 // ノード実行イベントのみをフィルタリング
-messageFilter = { message -> 
-    message is AIAgentNodeExecutionStartEvent || message is AIAgentNodeExecutionEndEvent
+fileWriter.setMessageFilter { message ->
+    message is NodeExecutionStartingEvent || message is NodeExecutionCompletedEvent
 }
 ```
 <!--- KNIT example-tracing-02.kt -->
@@ -143,21 +149,19 @@ Tracing
 │   └── TraceFeatureMessageRemoteWriter
 │       └── FeatureMessageRemoteWriter
 └── Event Types (from ai.koog.agents.core.feature.model)
-    ├── AIAgentStartedEvent
-    ├── AIAgentFinishedEvent
-    ├── AIAgentRunErrorEvent
-    ├── AIAgentStrategyStartEvent
-    ├── AIAgentStrategyFinishedEvent
-    ├── AIAgentNodeExecutionStartEvent
-    ├── AIAgentNodeExecutionEndEvent
-    ├── LLMCallStartEvent
-    ├── LLMCallWithToolsStartEvent
-    ├── LLMCallEndEvent
-    ├── LLMCallWithToolsEndEvent
-    ├── ToolCallEvent
-    ├── ToolValidationErrorEvent
-    ├── ToolCallFailureEvent
-    └── ToolCallResultEvent
+    ├── AgentStartingEvent
+    ├── AgentCompletedEvent
+    ├── AgentExecutionFailedEvent
+    ├── StrategyStartingEvent
+    ├── StrategyCompletedEvent
+    ├── NodeExecutionStartingEvent
+    ├── NodeExecutionCompletedEvent
+    ├── LLMCallStartingEvent
+    ├── LLMCallCompletedEvent
+    ├── ToolExecutionStartingEvent
+    ├── ToolValidationFailedEvent
+    ├── ToolExecutionFailedEvent
+    └── ToolExecutionCompletedEvent
 ```
 
 ## 例とクイックスタート
@@ -258,8 +262,8 @@ agent.run(input)
 
 <!--- INCLUDE
 import ai.koog.agents.core.agent.AIAgent
-import ai.koog.agents.core.feature.model.events.AfterLLMCallEvent
-import ai.koog.agents.core.feature.model.events.BeforeLLMCallEvent
+import ai.koog.agents.core.feature.model.events.LLMCallCompletedEvent
+import ai.koog.agents.core.feature.model.events.LLMCallStartingEvent
 import ai.koog.agents.example.exampleTracing01.outputPath
 import ai.koog.agents.features.tracing.feature.Tracing
 import ai.koog.agents.features.tracing.writer.TraceFeatureMessageFileWriter
@@ -291,11 +295,17 @@ fun main() {
 -->
 ```kotlin
 install(Tracing) {
+
+    val fileWriter = TraceFeatureMessageFileWriter(
+        outputPath,
+        { path: Path -> SystemFileSystem.sink(path).buffered() }
+    )
+    addMessageProcessor(fileWriter)
+
     // LLM呼び出しのみをトレースします
-    messageFilter = { message ->
-        message is BeforeLLMCallEvent || message is AfterLLMCallEvent
+    fileWriter.setMessageFilter { message ->
+        message is LLMCallStartingEvent || message is LLMCallCompletedEvent
     }
-    addMessageProcessor(writer)
 }
 ```
 <!--- KNIT example-tracing-05.kt -->
@@ -341,13 +351,14 @@ val agent = AIAgent(
 }
 // エージェントを実行します
 agent.run(input)
+// ブロックが終了すると、ライターは自動的に閉じられます
 ```
 <!--- KNIT example-tracing-06.kt -->
 
 クライアント側では、`FeatureMessageRemoteClient`を使用してイベントを受信し、逆シリアル化できます。
 
 <!--- INCLUDE
-import ai.koog.agents.core.feature.model.events.AIAgentFinishedEvent
+import ai.koog.agents.core.feature.model.events.AgentCompletedEvent
 import ai.koog.agents.core.feature.model.events.DefinedFeatureEvent
 import ai.koog.agents.core.feature.remote.client.config.DefaultClientConnectionConfig
 import ai.koog.agents.core.feature.remote.client.FeatureMessageRemoteClient
@@ -379,7 +390,7 @@ val clientJob = launch {
                 agentEvents.add(event as DefinedFeatureEvent)
 
                 // エージェント完了時にイベント収集を停止
-                if (event is AIAgentFinishedEvent) {
+                if (event is AgentCompletedEvent) {
                     cancel()
                 }
             }
@@ -415,8 +426,8 @@ Tracing機能は、以下の主要コンポーネントを持つモジュラー�
 
 <!--- INCLUDE
 import ai.koog.agents.core.agent.AIAgent
-import ai.koog.agents.core.feature.model.events.AfterLLMCallEvent
-import ai.koog.agents.core.feature.model.events.BeforeLLMCallEvent
+import ai.koog.agents.core.feature.model.events.LLMCallCompletedEvent
+import ai.koog.agents.core.feature.model.events.LLMCallStartingEvent
 import ai.koog.agents.example.exampleTracing01.outputPath
 import ai.koog.agents.features.tracing.feature.Tracing
 import ai.koog.agents.features.tracing.writer.TraceFeatureMessageFileWriter
@@ -448,11 +459,16 @@ fun main() {
 -->
 ```kotlin
 install(Tracing) {
-   // LLM呼び出しのみをトレースします
-   messageFilter = { message ->
-      message is BeforeLLMCallEvent || message is AfterLLMCallEvent
-   }
-   addMessageProcessor(writer)
+    val fileWriter = TraceFeatureMessageFileWriter(
+        outputPath,
+        { path: Path -> SystemFileSystem.sink(path).buffered() }
+    )
+    addMessageProcessor(fileWriter)
+
+    // LLM呼び出しのみをトレースします
+    fileWriter.setMessageFilter { message ->
+        message is LLMCallStartingEvent || message is LLMCallCompletedEvent
+    }
 }
 ```
 <!--- KNIT example-tracing-08.kt -->
@@ -483,12 +499,12 @@ val logger = KotlinLogging.logger {}
 val connectionConfig = DefaultServerConnectionConfig(host = ai.koog.agents.example.exampleTracing06.host, port = ai.koog.agents.example.exampleTracing06.port)
 
 fun main() {
-   runBlocking {
-      // エージェントを作成しています
-      val agent = AIAgent(
-         promptExecutor = simpleOllamaAIExecutor(),
-         llmModel = OllamaModels.Meta.LLAMA_3_2,
-      ) {
+    runBlocking {
+        // エージェントを作成しています
+        val agent = AIAgent(
+            promptExecutor = simpleOllamaAIExecutor(),
+            llmModel = OllamaModels.Meta.LLAMA_3_2,
+        ) {
 -->
 <!--- SUFFIX
         }
@@ -510,8 +526,8 @@ install(Tracing) {
 
 <!--- INCLUDE
 import ai.koog.agents.core.agent.AIAgent
-import ai.koog.agents.core.feature.model.events.AIAgentNodeExecutionStartEvent
-import ai.koog.agents.core.feature.model.events.AfterLLMCallEvent
+import ai.koog.agents.core.feature.model.events.NodeExecutionStartingEvent
+import ai.koog.agents.core.feature.model.events.LLMCallCompletedEvent
 import ai.koog.agents.core.feature.message.FeatureMessage
 import ai.koog.agents.core.feature.message.FeatureMessageProcessor
 import ai.koog.agents.features.tracing.feature.Tracing
@@ -523,12 +539,12 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
 fun main() {
-   runBlocking {
-      // エージェントを作成しています
-      val agent = AIAgent(
-         promptExecutor = simpleOllamaAIExecutor(),
-         llmModel = OllamaModels.Meta.LLAMA_3_2,
-      ) {
+    runBlocking {
+        // エージェントを作成しています
+        val agent = AIAgent(
+            promptExecutor = simpleOllamaAIExecutor(),
+            llmModel = OllamaModels.Meta.LLAMA_3_2,
+        ) {
 -->
 <!--- SUFFIX
         }
@@ -543,17 +559,17 @@ class CustomTraceProcessor : FeatureMessageProcessor() {
 
     override val isOpen: StateFlow<Boolean>
         get() = _isOpen.asStateFlow()
-    
+
     override suspend fun processMessage(message: FeatureMessage) {
         // カスタム処理ロジック
         when (message) {
-            is AIAgentNodeExecutionStartEvent -> {
+            is NodeExecutionStartingEvent -> {
                 // ノード開始イベントを処理
             }
 
-            is AfterLLMCallEvent -> {
+            is LLMCallCompletedEvent -> {
                 // LLM呼び出し終了イベントを処理
-           }
+            }
             // その他のイベントタイプを処理
         }
     }
@@ -584,16 +600,16 @@ Koogは、カスタムメッセージプロセッサーで使用できる定義�
 
 ### エージェントイベント
 
-#### AIAgentStartedEvent
+#### AgentStartingEvent
 
 エージェントの実行開始を表します。以下のフィールドが含まれます：
 
 | 名前           | データ型 | 必須 | デフォルト               | 説明                                             |
 |----------------|----------|------|------------------------|--------------------------------------------------|
 | `strategyName` | String   | Yes  |                        | エージェントが従うべき戦略の名前。               |
-| `eventId`      | String   | No   | `AIAgentStartedEvent`  | イベントの識別子。通常、イベントクラスの`simpleName`です。 |
+| `eventId`      | String   | No   | `AgentStartingEvent`   | イベントの識別子。通常、イベントクラスの`simpleName`です。 |
 
-#### AIAgentFinishedEvent
+#### AgentCompletedEvent
 
 エージェントの実行終了を表します。以下のフィールドが含まれます：
 
@@ -601,17 +617,17 @@ Koogは、カスタムメッセージプロセッサーで使用できる定義�
 |----------------|----------|------|-------------------------|--------------------------------------------------------------|
 | `strategyName` | String   | Yes  |                         | エージェントが従った戦略の名前。                             |
 | `result`       | String   | Yes  |                         | エージェント実行の結果。結果がない場合は`null`になります。   |
-| `eventId`      | String   | No   | `AIAgentFinishedEvent`  | イベントの識別子。通常、イベントクラスの`simpleName`です。 |
+| `eventId`      | String   | No   | `AgentCompletedEvent`   | イベントの識別子。通常、イベントクラスの`simpleName`です。 |
 
-#### AIAgentRunErrorEvent
+#### AgentExecutionFailedEvent
 
 エージェントの実行中にエラーが発生したことを表します。以下のフィールドが含まれます：
 
-| 名前           | データ型    | 必須 | デフォルト                | 説明                                                                                             |
-|----------------|-------------|------|-------------------------|--------------------------------------------------------------------------------------------------|
-| `strategyName` | String      | Yes  |                         | エージェントが従った戦略の名前。                                                                 |
-| `error`        | AIAgentError| Yes  |                         | エージェント実行中に発生した特定のエラー。[AIAgentError](#aiagenterror)の詳細については、を参照してください。 |
-| `eventId`      | String      | No   | `AIAgentRunErrorEvent`  | イベントの識別子。通常、イベントクラスの`simpleName`です。                                       |
+| 名前           | データ型    | 必須 | デフォルト                 | 説明                                                                                             |
+|----------------|-------------|------|--------------------------|--------------------------------------------------------------------------------------------------|
+| `strategyName` | String      | Yes  |                          | エージェントが従った戦略の名前。                                                                 |
+| `error`        | AIAgentError| Yes  |                          | エージェント実行中に発生した特定のエラー。[AIAgentError](#aiagenterror)の詳細については、を参照してください。 |
+| `eventId`      | String      | No   | `AgentExecutionFailedEvent` | イベントの識別子。通常、イベントクラスの`simpleName`です。                                       |
 
 <a id="aiagenterror"></a>
 `AIAgentError`クラスは、エージェントの実行中に発生したエラーに関する詳細情報を提供します。以下のフィールドが含まれます：
@@ -624,16 +640,16 @@ Koogは、カスタムメッセージプロセッサーで使用できる定義�
 
 ### 戦略イベント
 
-#### AIAgentStrategyStartEvent
+#### StrategyStartingEvent
 
 戦略の実行開始を表します。以下のフィールドが含まれます：
 
 | 名前           | データ型 | 必須 | デフォルト                     | 説明                                             |
 |----------------|----------|------|------------------------------|--------------------------------------------------|
 | `strategyName` | String   | Yes  |                              | 戦略の名前。                                     |
-| `eventId`      | String   | No   | `AIAgentStrategyStartEvent`  | イベントの識別子。通常、イベントクラスの`simpleName`です。 |
+| `eventId`      | String   | No   | `StrategyStartingEvent` | イベントの識別子。通常、イベントクラスの`simpleName`です。 |
 
-#### AIAgentStrategyFinishedEvent
+#### StrategyCompletedEvent
 
 戦略の実行終了を表します。以下のフィールドが含まれます：
 
@@ -641,11 +657,11 @@ Koogは、カスタムメッセージプロセッサーで使用できる定義�
 |----------------|----------|------|---------------------------------|--------------------------------------------------|
 | `strategyName` | String   | Yes  |                                 | 戦略の名前。                                     |
 | `result`       | String   | Yes  |                                 | 実行の結果。                                     |
-| `eventId`      | String   | No   | `AIAgentStrategyFinishedEvent`  | イベントの識別子。通常、イベントクラスの`simpleName`です。 |
+| `eventId`      | String   | No   | `StrategyCompletedEvent` | イベントの識別子。通常、イベントクラスの`simpleName`です。 |
 
 ### ノードイベント
 
-#### AIAgentNodeExecutionStartEvent
+#### NodeExecutionStartingEvent
 
 ノードの実行開始を表します。以下のフィールドが含まれます：
 
@@ -653,9 +669,9 @@ Koogは、カスタムメッセージプロセッサーで使用できる定義�
 |------------|----------|------|-----------------------------------|--------------------------------------------------|
 | `nodeName` | String   | Yes  |                                   | 実行が開始されたノードの名前。                   |
 | `input`    | String   | Yes  |                                   | ノードの入力値。                                 |
-| `eventId`  | String   | No   | `AIAgentNodeExecutionStartEvent`  | イベントの識別子。通常、イベントクラスの`simpleName`です。 |
+| `eventId`  | String   | No   | `NodeExecutionStartingEvent` | イベントの識別子。通常、イベントクラスの`simpleName`です。 |
 
-#### AIAgentNodeExecutionEndEvent
+#### NodeExecutionCompletedEvent
 
 ノードの実行終了を表します。以下のフィールドが含まれます：
 
@@ -664,11 +680,11 @@ Koogは、カスタムメッセージプロセッサーで使用できる定義�
 | `nodeName` | String   | Yes  |                                 | 実行が終了したノードの名前。                     |
 | `input`    | String   | Yes  |                                 | ノードの入力値。                                 |
 | `output`   | String   | Yes  |                                 | ノードによって生成された出力値。                 |
-| `eventId`  | String   | No   | `AIAgentNodeExecutionEndEvent`  | イベントの識別子。通常、イベントクラスの`simpleName`です。 |
+| `eventId`  | String   | No   | `NodeExecutionCompletedEvent` | イベントの識別子。通常、イベントクラスの`simpleName`です。 |
 
 ### LLM呼び出しイベント
 
-#### LLMCallStartEvent
+#### LLMCallStartingEvent
 
 LLM呼び出しの開始を表します。以下のフィールドが含まれます：
 
@@ -676,7 +692,7 @@ LLM呼び出しの開始を表します。以下のフィールドが含まれ�
 |-----------|-------------------|------|----------------------|--------------------------------------------------------------|
 | `prompt`  | Prompt            | Yes  |                      | モデルに送信されるプロンプト。[Prompt](#prompt)の詳細については、を参照してください。 |
 | `tools`   | List&lt;String&gt;| Yes  |                      | モデルが呼び出すことができるツールのリスト。                 |
-| `eventId` | String            | No   | `LLMCallStartEvent`  | イベントの識別子。通常、イベントクラスの`simpleName`です。   |
+| `eventId` | String            | No   | `LLMCallStartingEvent` | イベントの識別子。通常、イベントクラスの`simpleName`です。   |
 
 <a id="prompt"></a>
 `Prompt`クラスは、メッセージのリスト、一意の識別子、および言語モデル設定用のオプションパラメーターで構成される、プロンプトのデータ構造を表します。以下のフィールドが含まれます：
@@ -687,14 +703,14 @@ LLM呼び出しの開始を表します。以下のフィールドが含まれ�
 | `id`       | String             | Yes  |                | プロンプトの一意の識別子。                           |
 | `params`   | LLMParams          | No   | LLMParams()    | LLMがコンテンツを生成する方法を制御する設定。        |
 
-#### LLMCallEndEvent
+#### LLMCallCompletedEvent
 
 LLM呼び出しの終了を表します。以下のフィールドが含まれます：
 
-| 名前        | データ型                    | 必須 | デフォルト           | 説明                                             |
-|-------------|-----------------------------|------|--------------------|--------------------------------------------------|
-| `responses` | List&lt;Message.Response&gt;| Yes  |                    | モデルによって返された1つ以上の応答。            |
-| `eventId`   | String                      | No   | `LLMCallEndEvent`  | イベントの識別子。通常、イベントクラスの`simpleName`です。 |
+| 名前        | データ型                    | 必須 | デフォルト            | 説明                                             |
+|-------------|-----------------------------|------|---------------------|--------------------------------------------------|
+| `responses` | List&lt;Message.Response&gt;| Yes  |                     | モデルによって返された1つ以上の応答。            |
+| `eventId`   | String                      | No   | `LLMCallCompletedEvent` | イベントの識別子。通常、イベントクラスの`simpleName`です。 |
 
 ### ツール呼び出しイベント
 

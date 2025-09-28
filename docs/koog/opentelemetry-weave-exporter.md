@@ -75,6 +75,35 @@ See traces on https://wandb.ai/$entity/$projectName/weave/traces")
 -   **工具调用**：工具调用的执行追踪
 -   **系统上下文**：元数据，例如模型名称、环境、Koog 版本
 
+出于安全原因，OpenTelemetry spans 的部分内容默认会被屏蔽。
+为了让内容在 Weave 中可用，请在 OpenTelemetry 配置中使用 [setVerbose](opentelemetry-support.md#setverbose) 方法，并将其 `verbose` 实参设置为 `true`，如下所示：
+
+<!--- INCLUDE
+import ai.koog.agents.core.agent.AIAgent
+import ai.koog.agents.features.opentelemetry.feature.OpenTelemetry
+import ai.koog.agents.features.opentelemetry.integration.weave.addWeaveExporter
+import ai.koog.prompt.executor.clients.openai.OpenAIModels
+import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
+
+const val apiKey = ""
+
+val agent = AIAgent(
+    promptExecutor = simpleOpenAIExecutor(apiKey),
+    llmModel = OpenAIModels.Chat.GPT4o,
+    systemPrompt = "You are a helpful assistant."
+) {
+-->
+<!--- SUFFIX
+}
+-->
+```kotlin
+install(OpenTelemetry) {
+    addWeaveExporter()
+    setVerbose(true)
+}
+```
+<!--- KNIT example-weave-exporter-02.kt -->
+
 在 W&B Weave 中可视化时，追踪显示如下：
 ![W&B Weave 追踪](img/opentelemetry-weave-exporter-light.png#only-light)
 ![W&B Weave 追踪](img/opentelemetry-weave-exporter-dark.png#only-dark)

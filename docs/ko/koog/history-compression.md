@@ -60,7 +60,7 @@ val strategy = strategy<String, String>("execute-with-history-compression") {
 
     edge(nodeStart forwardTo callLLM)
     edge(callLLM forwardTo nodeFinish onAssistantMessage { true })
-    edge(callLLM forwardTo executeTool onToolCall { true })
+    edge(callLLLL forwardTo executeTool onToolCall { true })
 
     // 히스토리가 너무 길면 도구 실행 후 히스토리 압축
     edge(executeTool forwardTo compressHistory onCondition { historyIsTooLong() })
@@ -406,13 +406,15 @@ import ai.koog.prompt.message.Message
 class MyCustomCompressionStrategy : HistoryCompressionStrategy() {
     override suspend fun compress(
         llmSession: AIAgentLLMWriteSession,
-        preserveMemory: Boolean,
         memoryMessages: List<Message>
     ) {
         // 1. llmSession.prompt.messages에서 현재 히스토리 처리
         // 2. 새로운 압축된 메시지 생성
         // 3. 압축된 메시지로 프롬프트 업데이트
 
+        // 원본 메시지를 저장하여 보존
+        val originalMessages = llmSession.prompt.messages
+        
         // 예시 구현:
         val importantMessages = llmSession.prompt.messages.filter {
             // 사용자 정의 필터링 로직
@@ -423,10 +425,9 @@ class MyCustomCompressionStrategy : HistoryCompressionStrategy() {
         // 또는 현재 모델을 변경하여(`llmSession.model = AnthropicModels.Sonnet_3_7`) 다른 LLM 모델에 요청할 수도 있지만, 나중에 다시 원래대로 변경하는 것을 잊지 마세요.
 
         // 필터링된 메시지로 프롬프트 구성
-        composePromptWithRequiredMessages(
-            llmSession,
+        val compressedMessages = composeMessageHistory(
+            originalMessages,
             importantMessages,
-            preserveMemory,
             memoryMessages
         )
     }

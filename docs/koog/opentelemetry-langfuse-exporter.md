@@ -7,7 +7,7 @@ Koog 内置支持将代理跟踪导出到 [Langfuse](https://langfuse.com/)，�
 
 ---
 
-### 设置说明
+## 设置说明
 
 1.  创建一个 Langfuse 项目。请遵循以下设置指南：[在 Langfuse 中创建新项目](https://langfuse.com/docs/get-started#create-new-project-in-langfuse)
 2.  获取 API 凭据。按照 [Langfuse API 密钥在哪里？](https://langfuse.com/faq/all/where-are-langfuse-api-keys) 中所述，检索您的 Langfuse `public key` 和 `secret key`。
@@ -48,15 +48,66 @@ fun main() = runBlocking {
         }
     }
 
-    println("Running agent with Langfuse tracing")
+    println("正在运行带有 Langfuse 跟踪的代理")
 
     val result = agent.run("Tell me a joke about programming")
 
     println("Result: $result
-See traces on the Langfuse instance")
+请在 Langfuse 实例上查看跟踪")
 }
 ```
 <!--- KNIT example-langfuse-exporter-01.kt -->
+
+## 跟踪属性
+
+Langfuse 使用跟踪级别的属性来增强可观测性，其特性包括会话、环境、标签及其他元数据。
+`addLangfuseExporter` 函数支持一个 `traceAttributes` 形参，该形参接受一个 `CustomAttribute` 对象 list。
+
+这些属性被添加到每个跟踪的根 `InvokeAgentSpan` span 中，并启用 Langfuse 的高级特性。您可以传递 Langfuse 支持的任何属性——请参见 [Langfuse OpenTelemetry 文档中的完整列表](https://langfuse.com/integrations/native/opentelemetry#trace-level-attributes)。
+
+常见属性：
+-   **会话** (`langfuse.session.id`)：将相关跟踪分组，用于聚合指标、成本分析和评分
+-   **环境**：将生产跟踪与开发和测试环境隔离，以便进行更清晰的分析
+-   **标签** (`langfuse.trace.tags`)：用特性名称、实验 ID 或客户细分来标记跟踪（字符串数组）
+
+### 带有会话和标签的示例
+
+<!--- INCLUDE
+import ai.koog.agents.core.agent.AIAgent
+import ai.koog.agents.features.opentelemetry.attribute.CustomAttribute
+import ai.koog.agents.features.opentelemetry.feature.OpenTelemetry
+import ai.koog.agents.features.opentelemetry.integration.langfuse.addLangfuseExporter
+import ai.koog.prompt.executor.clients.openai.OpenAIModels
+import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
+import kotlinx.coroutines.runBlocking
+import java.util.UUID
+-->
+```kotlin
+fun main() = runBlocking {
+    val apiKey = "api-key"
+    val sessionId = UUID.randomUUID().toString()
+
+    val agent = AIAgent(
+        promptExecutor = simpleOpenAIExecutor(apiKey),
+        llmModel = OpenAIModels.CostOptimized.GPT4oMini,
+        systemPrompt = "You are a helpful assistant."
+    ) {
+        install(OpenTelemetry) {
+            addLangfuseExporter(
+                traceAttributes = listOf(
+                    CustomAttribute("langfuse.session.id", sessionId),
+                    CustomAttribute("langfuse.trace.tags", listOf("chat", "kotlin", "production"))
+                )
+            )
+        }
+    }
+
+    // 使用相同会话 ID 的多次运行将在 Langfuse 中被分组
+    agent.run("What is Kotlin?")
+    agent.run("Show me a coroutine example")
+}
+```
+<!--- KNIT example-langfuse-exporter-02.kt -->
 
 ## 跟踪内容
 
@@ -69,12 +120,41 @@ See traces on the Langfuse instance")
 
 Koog 还会捕获 Langfuse 所需的 span 属性，以显示 [代理图](https://langfuse.com/docs/observability/features/agent-graphs)。
 
+出于安全原因，OpenTelemetry span 的某些内容默认会被屏蔽。
+要使内容在 Langfuse 中可用，请在 OpenTelemetry 配置中使用 [setVerbose](opentelemetry-support.md#setverbose) 方法，并将其 `verbose` 实参设置为 `true`，如下所示：
+
+<!--- INCLUDE
+import ai.koog.agents.core.agent.AIAgent
+import ai.koog.agents.features.opentelemetry.feature.OpenTelemetry
+import ai.koog.agents.features.opentelemetry.integration.langfuse.addLangfuseExporter
+import ai.koog.prompt.executor.clients.openai.OpenAIModels
+import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
+
+const val apiKey = ""
+
+val agent = AIAgent(
+    promptExecutor = simpleOpenAIExecutor(apiKey),
+    llmModel = OpenAIModels.Chat.GPT4o,
+    systemPrompt = "You are a helpful assistant."
+) {
+-->
+<!--- SUFFIX
+}
+-->
+```kotlin
+install(OpenTelemetry) {
+    addLangfuseExporter()
+    setVerbose(true)
+}
+```
+<!--- KNIT example-langfuse-exporter-03.kt -->
+
 在 Langfuse 中可视化时，跟踪显示如下：
 ![Langfuse traces](img/opentelemetry-langfuse-exporter-light.png#only-light)
-![Langfuse traces](img/opentelemetry-langfuse-exporter-dark.png#only-dark)
+![Langfuse traces](img/opetenelemetry-langfuse-exporter-dark.png#only-dark)
 
 关于 Langfuse OpenTelemetry 跟踪的更多详细信息，请参见：
-[Langfuse OpenTelemetry Docs](https://langfuse.com/integrations/native/opentelemetry#opentelemetry-endpoint)。
+[Langfuse OpenTelemetry 文档](https://langfuse.com/integrations/native/opentelemetry#opentelemetry-endpoint)。
 
 ---
 

@@ -7,7 +7,7 @@ Koog의 OpenTelemetry 지원에 대한 배경 정보는 [OpenTelemetry 지원](h
 
 ---
 
-### 설정 지침
+## 설정 지침
 
 1.  Langfuse 프로젝트를 생성합니다. [Langfuse에서 새 프로젝트 생성](https://langfuse.com/docs/get-started#create-new-project-in-langfuse) 설정 가이드를 따르세요.
 2.  API 자격 증명을 얻습니다. [Langfuse API 키는 어디에 있나요?](https://langfuse.com/faq/all/where-are-langfuse-api-keys)에 설명된 대로 Langfuse `public key`와 `secret key`를 검색합니다.
@@ -49,15 +49,66 @@ fun main() = runBlocking {
         }
     }
 
-    println("Langfuse 트레이싱으로 에이전트 실행 중")
+    println("Running agent with Langfuse tracing")
 
     val result = agent.run("Tell me a joke about programming")
 
-    println("결과: $result
-Langfuse 인스턴스에서 트레이스를 확인하세요")
+    println("Result: $result
+See traces on the Langfuse instance")
 }
 ```
 <!--- KNIT example-langfuse-exporter-01.kt -->
+
+## 트레이스 속성
+
+Langfuse는 세션, 환경, 태그 및 기타 메타데이터와 같은 기능을 사용하여 관측 가능성을 향상시키기 위해 트레이스 수준 속성을 사용합니다.  
+`addLangfuseExporter` 함수는 `CustomAttribute` 객체 목록을 받는 `traceAttributes` 매개변수를 지원합니다.
+
+이러한 속성은 각 트레이스의 루트 `InvokeAgentSpan` 스팬에 추가되며, Langfuse의 고급 기능을 활성화합니다. Langfuse가 지원하는 모든 속성을 전달할 수 있습니다. 자세한 내용은 [Langfuse OpenTelemetry 문서](https://langfuse.com/integrations/native/opentelemetry#trace-level-attributes)에서 전체 목록을 참조하세요.
+
+일반적인 속성:
+- **세션** (`langfuse.session.id`): 집계된 메트릭, 비용 분석 및 스코어링을 위해 관련 트레이스를 그룹화합니다.
+- **환경**: 더 깔끔한 분석을 위해 프로덕션 트레이스를 개발 및 스테이징 환경과 분리합니다.
+- **태그** (`langfuse.trace.tags`): 기능 이름, 실험 ID 또는 고객 세그먼트로 트레이스에 레이블을 지정합니다. (문자열 배열)
+
+### 세션 및 태그 예시
+
+<!--- INCLUDE
+import ai.koog.agents.core.agent.AIAgent
+import ai.koog.agents.features.opentelemetry.attribute.CustomAttribute
+import ai.koog.agents.features.opentelemetry.feature.OpenTelemetry
+import ai.koog.agents.features.opentelemetry.integration.langfuse.addLangfuseExporter
+import ai.koog.prompt.executor.clients.openai.OpenAIModels
+import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
+import kotlinx.coroutines.runBlocking
+import java.util.UUID
+-->
+```kotlin
+fun main() = runBlocking {
+    val apiKey = "api-key"
+    val sessionId = UUID.randomUUID().toString()
+
+    val agent = AIAgent(
+        promptExecutor = simpleOpenAIExecutor(apiKey),
+        llmModel = OpenAIModels.CostOptimized.GPT4oMini,
+        systemPrompt = "You are a helpful assistant."
+    ) {
+        install(OpenTelemetry) {
+            addLangfuseExporter(
+                traceAttributes = listOf(
+                    CustomAttribute("langfuse.session.id", sessionId),
+                    CustomAttribute("langfuse.trace.tags", listOf("chat", "kotlin", "production"))
+                )
+            )
+        }
+    }
+
+    // Multiple runs with the same session ID will be grouped in Langfuse
+    agent.run("What is Kotlin?")
+    agent.run("Show me a coroutine example")
+}
+```
+<!--- KNIT example-langfuse-exporter-02.kt -->
 
 ## 트레이스되는 내용
 
@@ -69,6 +120,35 @@ Langfuse 인스턴스에서 트레이스를 확인하세요")
 -   **시스템 컨텍스트**: 모델 이름, 환경, Koog 버전과 같은 메타데이터
 
 Koog는 [에이전트 그래프](https://langfuse.com/docs/observability/features/agent-graphs)를 표시하기 위해 Langfuse가 요구하는 스팬 속성도 캡처합니다.
+
+보안상의 이유로 OpenTelemetry 스팬의 일부 내용은 기본적으로 마스킹됩니다.  
+Langfuse에서 해당 내용을 사용할 수 있도록 하려면 OpenTelemetry 구성에서 [setVerbose](opentelemetry-support.md#setverbose) 메서드를 사용하고 `verbose` 인수를 다음과 같이 `true`로 설정하세요:
+
+<!--- INCLUDE
+import ai.koog.agents.core.agent.AIAgent
+import ai.koog.agents.features.opentelemetry.feature.OpenTelemetry
+import ai.koog.agents.features.opentelemetry.integration.langfuse.addLangfuseExporter
+import ai.koog.prompt.executor.clients.openai.OpenAIModels
+import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
+
+const val apiKey = ""
+
+val agent = AIAgent(
+    promptExecutor = simpleOpenAIExecutor(apiKey),
+    llmModel = OpenAIModels.Chat.GPT4o,
+    systemPrompt = "You are a helpful assistant."
+) {
+-->
+<!--- SUFFIX
+}
+-->
+```kotlin
+install(OpenTelemetry) {
+    addLangfuseExporter()
+    setVerbose(true)
+}
+```
+<!--- KNIT example-langfuse-exporter-03.kt -->
 
 Langfuse에서 시각화될 때, 트레이스는 다음과 같이 나타납니다:
 ![Langfuse traces](img/opentelemetry-langfuse-exporter-light.png#only-light)

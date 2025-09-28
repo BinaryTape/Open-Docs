@@ -33,6 +33,18 @@ IntelliJ Ktor 플러그인을 사용하면 Ktor 프로젝트를 최신 버전으
 </tr>
 
 <tr>
+<td>3.3.0</td><td>2025년 9월 11일</td><td>
+<p>
+실험적 OpenAPI 생성 미리보기, 개선된 정적 콘텐츠 처리, Android 및 JS/Wasm용 WebRTC 클라이언트와 같은 주요 기능을 도입하고, Jetty, OkHttp 및 Kotlin 2.2로 업그레이드하는 마이너 릴리스입니다. 자세한 내용은 <Links href="/ktor/whats-new-330" summary="undefined">Ktor 3.3.0의 새로운 기능</Links>을 참조하세요.
+</p>
+<var name="version" value="3.3.0"/>
+<p>
+    <a href="https://github.com/ktorio/ktor/releases/tag/%version%">GitHub에서 변경 로그 보기</a>
+</p>
+</td>
+</tr>
+
+<tr>
 <td>3.2.3</td><td>2025년 7월 29일</td><td>
 <p>
 YAML 설정 처리, DI 해상도 및 Wasm/JS 안정성 개선과 함께 멀티파트 파싱, CIO <code>100 Continue</code> 응답 형식 지정, <code>ByteReadChannel</code>의 무한 읽기 루프, 서버 종료 문제에 대한 수정 사항을 포함하는 패치 릴리스입니다.

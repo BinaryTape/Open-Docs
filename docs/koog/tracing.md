@@ -50,27 +50,20 @@ import kotlinx.io.files.SystemFileSystem
 val logger = KotlinLogging.logger { }
 val outputPath = Path("/path/to/trace.log")
 
-// 创建代理
+// 创建一个代理
 val agent = AIAgent(
-   promptExecutor = simpleOllamaAIExecutor(),
-   llmModel = OllamaModels.Meta.LLAMA_3_2,
+    promptExecutor = simpleOllamaAIExecutor(),
+    llmModel = OllamaModels.Meta.LLAMA_3_2,
 ) {
-   install(Tracing) {
-      // 配置消息处理器以处理追踪事件
-      addMessageProcessor(TraceFeatureMessageLogWriter(logger))
-      addMessageProcessor(
-         TraceFeatureMessageFileWriter(
+    install(Tracing) {
+
+        // 配置消息处理器以处理追踪事件
+        addMessageProcessor(TraceFeatureMessageLogWriter(logger))
+        addMessageProcessor(TraceFeatureMessageFileWriter(
             outputPath,
             { path: Path -> SystemFileSystem.sink(path).buffered() }
-         )
-      )
-
-      // 可选地过滤消息
-      messageFilter = { message ->
-         // 仅追踪 LLM 调用和工具调用
-         message is AfterLLMCallEvent || message is ToolCallEvent
-      }
-   }
+        ))
+    }
 }
 ```
 <!--- KNIT example-tracing-01.kt -->
@@ -82,28 +75,41 @@ val agent = AIAgent(
 <!--- INCLUDE
 import ai.koog.agents.core.agent.AIAgent
 import ai.koog.agents.core.feature.model.events.*
+import ai.koog.agents.example.exampleTracing01.outputPath
 import ai.koog.agents.features.tracing.feature.Tracing
+import ai.koog.agents.features.tracing.writer.TraceFeatureMessageFileWriter
 import ai.koog.prompt.executor.llms.all.simpleOllamaAIExecutor
 import ai.koog.prompt.llm.OllamaModels
+import kotlinx.io.buffered
+import kotlinx.io.files.Path
+import kotlinx.io.files.SystemFileSystem
 
 val agent = AIAgent(
-   promptExecutor = simpleOllamaAIExecutor(),
-   llmModel = OllamaModels.Meta.LLAMA_3_2,
+    promptExecutor = simpleOllamaAIExecutor(),
+    llmModel = OllamaModels.Meta.LLAMA_3_2,
 ) {
-   install(Tracing) {
+    install(Tracing) {
 -->
 <!--- SUFFIX
    }
 }
 -->
 ```kotlin
+
+val fileWriter = TraceFeatureMessageFileWriter(
+    outputPath,
+    { path: Path -> SystemFileSystem.sink(path).buffered() }
+)
+
+addMessageProcessor(fileWriter)
+
 // 仅过滤与 LLM 相关的事件
-messageFilter = { message ->
+fileWriter.setMessageFilter { message ->
     message is BeforeLLMCallEvent || message is AfterLLMCallEvent
 }
 
 // 仅过滤与工具相关的事件
-messageFilter = { message ->
+fileWriter.setMessageFilter { message ->
     message is ToolCallEvent ||
            message is ToolCallResultEvent ||
            message is ToolValidationErrorEvent ||
@@ -111,7 +117,7 @@ messageFilter = { message ->
 }
 
 // 仅过滤节点执行事件
-messageFilter = { message ->
+fileWriter.setMessageFilter { message ->
     message is AIAgentNodeExecutionStartEvent || message is AIAgentNodeExecutionEndEvent
 }
 ```
@@ -149,10 +155,8 @@ Tracing
     ├── AIAgentStrategyFinishedEvent
     ├── AIAgentNodeExecutionStartEvent
     ├── AIAgentNodeExecutionEndEvent
-    ├── LLMCallStartEvent
-    ├── LLMCallWithToolsStartEvent
-    ├── LLMCallEndEvent
-    ├── LLMCallWithToolsEndEvent
+    ├── BeforeLLMCallEvent
+    ├── AfterLLMCallEvent
     ├── ToolCallEvent
     ├── ToolValidationErrorEvent
     ├── ToolCallFailureEvent
@@ -290,11 +294,17 @@ fun main() {
 -->
 ```kotlin
 install(Tracing) {
+
+    val fileWriter = TraceFeatureMessageFileWriter(
+        outputPath,
+        { path: Path -> SystemFileSystem.sink(path).buffered() }
+    )
+    addMessageProcessor(fileWriter)
+
     // 仅追踪 LLM 调用
-    messageFilter = { message ->
+    fileWriter.setMessageFilter { message ->
         message is BeforeLLMCallEvent || message is AfterLLMCallEvent
     }
-    addMessageProcessor(writer)
 }
 ```
 <!--- KNIT example-tracing-05.kt -->
@@ -448,11 +458,16 @@ fun main() {
 -->
 ```kotlin
 install(Tracing) {
-   // 仅追踪 LLM 调用
-   messageFilter = { message ->
-      message is BeforeLLMCallEvent || message is AfterLLMCallEvent
-   }
-   addMessageProcessor(writer)
+    val fileWriter = TraceFeatureMessageFileWriter(
+        outputPath,
+        { path: Path -> SystemFileSystem.sink(path).buffered() }
+    )
+    addMessageProcessor(fileWriter)
+
+    // 仅追踪 LLM 调用
+    fileWriter.setMessageFilter { message ->
+        message is BeforeLLMCallEvent || message is AfterLLMCallEvent
+    }
 }
 ```
 <!--- KNIT example-tracing-08.kt -->
@@ -553,7 +568,7 @@ class CustomTraceProcessor : FeatureMessageProcessor() {
 
             is AfterLLMCallEvent -> {
                 // 处理 LLM 调用结束事件
-           }
+            }
             // 处理其他事件类型
         }
     }
@@ -607,8 +622,8 @@ Koog 提供了可在自定义消息处理器中使用的预定义事件类型。
 
 表示代理运行期间发生错误。包含以下字段：
 
-| 名称           | 数据类型     | 必需 | 默认                   | 描述                                                                                            |
-|--------------|------------|----|----------------------|-----------------------------------------------------------------------------------------------|
+| 名称           | 数据类型     | 必需 | 默认                   | 描述                                                                                                        |
+|--------------|------------|----|----------------------|-----------------------------------------------------------------------------------------------------------|
 | `strategyName` | String     | 是  |                      | 代理所遵循的策略名称。                                                                           |
 | `error`        | AIAgentError | 是  |                      | 代理运行期间发生的具体错误。有关更多信息，请参见 [AIAgentError](#aiagenterror)。                  |
 | `eventId`      | String     | 否  | `AIAgentRunErrorEvent` | 事件的标识符。通常是事件类的 `simpleName`。                                                      |

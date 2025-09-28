@@ -14,7 +14,7 @@
     </p>
 </tldr>
 
-ウィザードで作成されたサンプルプロジェクトを探求し、強化したところで、あなたはすでに知っている概念を使い、新しい概念を導入しながら、ゼロから独自のアプリケーションを作成することができます。
+ウィザードによって作成されたサンプルプロジェクトを探求し、強化したところで、あなたはすでに知っている概念を使い、新しい概念を導入しながら、ゼロから独自のアプリケーションを作成することができます。
 
 ユーザーが国と都市を入力し、アプリがその国の首都の時刻を表示する「ローカル時刻表示アプリケーション」を作成します。Compose Multiplatformアプリのすべての機能は、マルチプラットフォームライブラリを使用して共通コードで実装されます。ドロップダウンメニュー内に画像をロードして表示し、イベント、スタイル、テーマ、モディファイア、レイアウトを使用します。
 
@@ -36,7 +36,7 @@
     fun App() {
         MaterialTheme {
             var timeAtLocation by remember { mutableStateOf("No location selected") }
-   
+
             Column(
                 modifier = Modifier
                     .safeContentPadding()
@@ -74,8 +74,8 @@
            position = WindowPosition(300.dp, 300.dp)
        )
        Window(
-           title = "Local Time App", 
-           onCloseRequest = ::exitApplication, 
+           title = "Local Time App",
+           onCloseRequest = ::exitApplication,
            state = state,
            alwaysOnTop = true
        ) {
@@ -115,7 +115,7 @@
         MaterialTheme {
             var location by remember { mutableStateOf("Europe/Paris") }
             var timeAtLocation by remember { mutableStateOf("No location selected") }
-    
+
             Column(
                 modifier = Modifier
                     .safeContentPadding()
@@ -175,10 +175,10 @@
    @Composable
    @Preview
    fun App() {
-   MaterialTheme { 
+   MaterialTheme {
        var location by remember { mutableStateOf("Europe/Paris") }
        var timeAtLocation by remember { mutableStateOf("No location selected") }
-   
+
        Column(
            modifier = Modifier
                .safeContentPadding()
@@ -194,17 +194,8 @@
    }
     ```
 
-4.  `wasmJsMain/kotlin/main.kt`ファイルで、Web用のタイムゾーンサポートを初期化するために、`main()`関数の前に以下のコードを追加します。
-
-    ```kotlin
-    @JsModule("@js-joda/timezone")
-    external object JsJodaTimeZoneModule
-    
-    private val jsJodaTz = JsJodaTimeZoneModule
-    ```
-
-5.  アプリケーションを再度実行し、有効なタイムゾーンを入力します。
-6.  ボタンをクリックします。正しい時刻が表示されるはずです。
+4.  アプリケーションを再度実行し、有効なタイムゾーンを入力します。
+5.  ボタンをクリックします。正しい時刻が表示されるはずです。
 
 <Tabs>
     <TabItem id="mobile-time-display" title="AndroidとiOS">
@@ -228,7 +219,7 @@
         MaterialTheme {
             var location by remember { mutableStateOf("Europe/Paris") }
             var timeAtLocation by remember { mutableStateOf("No location selected") }
-   
+
             Column(
                 modifier = Modifier
                     .padding(20.dp)
@@ -283,16 +274,16 @@
 
     ```kotlin
     data class Country(val name: String, val zone: TimeZone)
-    
+
     fun currentTimeAt(location: String, zone: TimeZone): String {
         fun LocalTime.formatted() = "$hour:$minute:$second"
-    
+
         val time = Clock.System.now()
         val localTime = time.toLocalDateTime(zone).time
-    
+
         return "The time in $location is ${localTime.formatted()}"
     }
-    
+
     fun countries() = listOf(
         Country("Japan", TimeZone.of("Asia/Tokyo")),
         Country("France", TimeZone.of("Europe/Paris")),
@@ -300,14 +291,14 @@
         Country("Indonesia", TimeZone.of("Asia/Jakarta")),
         Country("Egypt", TimeZone.of("Africa/Cairo")),
     )
-    
+
     @Composable
     @Preview
     fun App(countries: List<Country> = countries()) {
         MaterialTheme {
             var showCountries by remember { mutableStateOf(false) }
             var timeAtLocation by remember { mutableStateOf("No location selected") }
-    
+
             Column(
                 modifier = Modifier
                     .padding(20.dp)
@@ -336,7 +327,7 @@
                         }
                     }
                 }
-    
+
                 Button(modifier = Modifier.padding(start = 20.dp, top = 10.dp),
                     onClick = { showCountries = !showCountries }) {
                     Text("Select Location")
@@ -345,6 +336,7 @@
         }
     }
     ```
+    {initial-collapse-state="collapsed" collapsible="true"  collapsed-title="data class Country(val name: String, val zone: TimeZone)"}
 
    *   名前とタイムゾーンからなる`Country`型があります。
    *   `currentTimeAt()`関数は、2番目のパラメーターとして`TimeZone`を取ります。
@@ -391,8 +383,8 @@ Compose Multiplatformは、すべてのプラットフォームで共通コー�
     import compose.project.demo.generated.resources.id
     import compose.project.demo.generated.resources.jp
     import compose.project.demo.generated.resources.mx
-   
-   data class Country(val name: String, val zone: TimeZone, val image: DrawableResource)
+
+    data class Country(val name: String, val zone: TimeZone, val image: DrawableResource)
 
     fun currentTimeAt(location: String, zone: TimeZone): String {
         fun LocalTime.formatted() = "$hour:$minute:$second"

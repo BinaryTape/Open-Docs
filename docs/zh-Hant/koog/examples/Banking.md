@@ -11,7 +11,7 @@ https://raw.githubusercontent.com/JetBrains/koog/develop/examples/notebooks/Bank
 您將學習如何：
 - 定義領域模型 (domain models) 和範例資料
 - 針對**資金轉帳 (money transfers)** 和**交易分析 (transaction analytics)** 揭露以能力為中心的工具
-- 分類使用者意圖 (Transfer vs Analytics)
+- 分類使用者意圖 (user intent) (轉帳 vs. 分析)
 - 以兩種風格協調呼叫：
   1) 圖形/子圖 (graph/subgraph) 策略
   2) 「代理程式作為工具 (agents as tools)」
@@ -26,7 +26,7 @@ https://raw.githubusercontent.com/JetBrains/koog/develop/examples/notebooks/Bank
 %useLatestDescriptors
 %use datetime
 
-// uncomment this for using koog from Maven Central
+// 取消註解此行以使用 Maven Central 的 Koog
 // %use koog
 ```
 
@@ -54,7 +54,7 @@ val bankingAssistantSystemPrompt = """
 
 ## 領域模型與範例資料
 
-首先，讓我們定義我們的領域模型和範例資料。我們將使用 Kotlin 的 `data class` 並支援序列化。
+首先，讓我們定義我們的領域模型和範例資料。我們將使用 Kotlin 的 data class 並支援序列化。
 
 ```kotlin
 import kotlinx.serialization.Serializable
@@ -180,7 +180,7 @@ class MoneyTransferTools : ToolSet {
             return "REQUIRES_CONFIRMATION: $summary"
         }
 
-        // In a real system this is where you'd call a payment API.
+        // 在實際系統中，這就是您呼叫付款 API 的地方。
         return "Money was sent. $summary"
     }
 }
@@ -359,19 +359,19 @@ class TransactionAnalysisTools : ToolSet {
     ): String {
         var filteredTransactions = sampleTransactions
 
-        // Validate userId (in production, this would query a real database)
+        // 驗證 userId (在生產環境中，這將查詢實際資料庫)
         if (userId != null && userId != "123") {
             return "No transactions found for user $userId."
         }
 
-        // Apply category filter
+        // 套用類別篩選器
         category?.let { cat ->
             val categoryEnum = TransactionCategory.fromString(cat)
                 ?: return "Invalid category: $cat. Available: ${TransactionCategory.availableCategories()}"
             filteredTransactions = filteredTransactions.filter { it.category == categoryEnum }
         }
 
-        // Apply date range filters
+        // 套用日期範圍篩選器
         startDate?.let { date ->
             val startDateTime = parseDate(date, startOfDay = true)
             filteredTransactions = filteredTransactions.filter { it.date >= startDateTime }
@@ -405,7 +405,7 @@ class TransactionAnalysisTools : ToolSet {
         return "Sum: $%.2f".format(sum)
     }
 
-    // Helper function to parse dates
+    // 解析日期的輔助函式
     private fun parseDate(dateStr: String, startOfDay: Boolean): LocalDateTime {
         val parts = dateStr.split("-").map { it.toInt() }
         require(parts.size == 3) { "Invalid date format. Use YYYY-MM-DD" }
@@ -459,40 +459,35 @@ runBlocking {
 首先，我們需要一種方法來分類傳入請求：
 
 ```kotlin
-import ai.koog.agents.ext.agent.SerializableSubgraphResult
+import ai.koog.agents.core.tools.annotations.LLMDescription
 import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
+@Suppress("unused")
 @SerialName("UserRequestType")
 @Serializable
 @LLMDescription("Type of user request: Transfer or Analytics")
-enum class RequestType {
-    Transfer,
-    Analytics
-}
+enum class RequestType { Transfer, Analytics }
 
 @Serializable
 @LLMDescription("The bank request that was classified by the agent.")
 data class ClassifiedBankRequest(
-    @LLMDescription("Type of request: Transfer or Analytics")
+    @property:LLMDescription("Type of request: Transfer or Analytics")
     val requestType: RequestType,
-    @LLMDescription("Actual request to be performed by the banking application")
+    @property:LLMDescription("Actual request to be performed by the banking application")
     val userRequest: String
-) : SerializableSubgraphResult<ClassifiedBankRequest> {
-    override fun getSerializer() = serializer()
-}
+)
+
 ```
 
 ### 共享工具註冊表
 
 ```kotlin
-import ai.koog.agents.ext.agent.ProvideStringSubgraphResult
-
 // 為多代理程式系統建立一個綜合工具註冊表
 val toolRegistry = ToolRegistry {
     tool(AskUser)  // 允許代理程式要求澄清
     tools(MoneyTransferTools().asTools())
     tools(TransactionAnalysisTools().asTools())
-    tool(ProvideStringSubgraphResult)
 }
 ```
 
@@ -561,7 +556,7 @@ val strategy = strategy<String, String>("banking assistant") {
     }
 
     // 用於處理資金轉帳的子圖
-    val transferMoney by subgraphWithTask<ClassifiedBankRequest>(
+    val transferMoney by subgraphWithTask<ClassifiedBankRequest, String>(
         tools = MoneyTransferTools().asTools() + AskUser,
         llmModel = OpenAIModels.Chat.GPT4o  // 對於轉帳使用功能更強大的模型
     ) { request ->
@@ -573,7 +568,7 @@ val strategy = strategy<String, String>("banking assistant") {
     }
 
     // 用於交易分析的子圖
-    val transactionAnalysis by subgraphWithTask<ClassifiedBankRequest>(
+    val transactionAnalysis by subgraphWithTask<ClassifiedBankRequest, String>(
         tools = TransactionAnalysisTools().asTools() + AskUser,
     ) { request ->
         """
@@ -594,8 +589,8 @@ val strategy = strategy<String, String>("banking assistant") {
         onCondition { it.requestType == RequestType.Analytics })
 
     // 將結果路由到結束節點
-    edge(transferMoney forwardTo nodeFinish transformed { it.result })
-    edge(transactionAnalysis forwardTo nodeFinish transformed { it.result })
+    edge(transferMoney forwardTo nodeFinish)
+    edge(transactionAnalysis forwardTo nodeFinish)
 }
 ```
 
@@ -730,7 +725,7 @@ runBlocking {
 ## 最佳實踐
 
 1.  **清晰的工具描述：** 編寫詳細的 `LLMDescription` 註釋以幫助 AI 理解工具的使用方式
-2.  **慣用 Kotlin：** 使用 Kotlin 功能，例如 `data class`、擴充函式和作用域函式
+2.  **慣用 Kotlin：** 使用 Kotlin 功能，例如 data class、擴充函式和作用域函式
 3.  **錯誤處理：** 始終驗證輸入並提供有意義的錯誤訊息
 4.  **使用者體驗：** 對於資金轉帳等關鍵操作，包含確認步驟
 5.  **模組化：** 將不同關注點分離到不同的工具和代理程式中，以提高可維護性

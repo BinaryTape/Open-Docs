@@ -10,7 +10,7 @@ Null 포인터 예외가 발생할 가능성을 최소화하기 위해 코드를
 이것은 Java에서 Kotlin으로 마이그레이션하고 Kotlin다운 스타일로 코드를 작성하는 데 도움이 될 것입니다.
 
 이 가이드의 첫 번째 부분은 가장 중요한 차이점, 즉 Kotlin의 Null 허용 타입 지원과 Kotlin이 [Java 코드의 타입](#platform-types)을 처리하는 방식을 다룹니다. 두 번째 부분은
-[함수 호출 결과 확인하기](#checking-the-function-call-result)부터 시작하여 특정 차이점을 설명하기 위한 몇 가지 구체적인 사례를 살펴봅니다.
+[함수 호출 결과 확인하기](#checking-the-result-of-a-function-call)부터 시작하여 특정 차이점을 설명하기 위한 몇 가지 구체적인 사례를 살펴봅니다.
 
 [Kotlin의 Null 안전성에 대해 더 알아보기](null-safety.md).
 
@@ -97,7 +97,7 @@ fun stringLength(a: String?): Int = a?.length ?: 0
 Java에서는 변수가 `null`일 수 있는지 없는지를 나타내는 어노테이션을 사용할 수 있습니다.
 이러한 어노테이션은 표준 라이브러리의 일부가 아니지만, 별도로 추가할 수 있습니다.
 예를 들어, JetBrains 어노테이션 `@Nullable` 및 `@NotNull` ( `org.jetbrains.annotations` 패키지에서)
-또는 Eclipse 어노테이션 (`org.eclipse.jdt.annotation`)을 사용할 수 있습니다.
+또는 [JSpecify](https://jspecify.dev/) (`org.jspecify.annotations`) 어노테이션, 또는 Eclipse 어노테이션 (`org.eclipse.jdt.annotation`)을 사용할 수 있습니다.
 Kotlin은 [Kotlin 코드에서 Java 코드를 호출할 때](java-interop.md#nullability-annotations) 이러한 어노테이션을 인식하고 해당 어노테이션에 따라 타입을 처리합니다.
 
 Java 코드에 이러한 어노테이션이 없다면, Kotlin은 Java 타입을 _플랫폼 타입_으로 취급합니다.

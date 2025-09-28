@@ -6,8 +6,8 @@ _Null許容性_とは、変数が`null`値を保持できる能力のことで�
 変数が`null`を含んでいる場合、その変数を参照解除しようとすると`NullPointerException`が発生します。
 nullポインタ例外が発生する可能性を最小限に抑えるためにコードを書く方法はたくさんあります。
 
-このガイドでは、JavaとKotlinのnull許容変数へのアプローチの違いについて説明します。
-JavaからKotlinへの移行を助け、Kotlinらしいコードを書くのに役立つでしょう。
+このガイドでは、JavaとKotlinの、nullになりうる変数を扱うアプローチの違いについて説明します。
+これは、JavaからKotlinへの移行を助け、Kotlinらしいコードを書くのに役立つでしょう。
 
 このガイドの最初のパートでは、最も重要な違いであるKotlinにおけるnull許容型のサポートと、Kotlinが[Javaコードからの型](#platform-types)をどのように処理するかについて説明します。2番目のパートでは、[関数呼び出しの結果のチェック](#checking-the-result-of-a-function-call)から始めて、いくつかの具体的なケースを検証し、特定の違いを解説します。
 
@@ -93,7 +93,7 @@ fun stringLength(a: String?): Int = a?.length ?: 0
 
 Javaでは、変数が`null`である可能性があるか、または`null`ではないかを示すアノテーションを使用できます。
 このようなアノテーションは標準ライブラリの一部ではありませんが、別途追加できます。
-たとえば、JetBrainsのアノテーションである`@Nullable`と`@NotNull`（`org.jetbrains.annotations`パッケージから）や、Eclipse（`org.eclipse.jdt.annotation`）のアノテーションを使用できます。
+たとえば、JetBrainsのアノテーションである`@Nullable`と`@NotNull`（`org.jetbrains.annotations`パッケージから）、[JSpecify](https://jspecify.dev/)（`org.jspecify.annotations`）のアノテーション、またはEclipse（`org.eclipse.jdt.annotation`）のアノテーションを使用できます。
 Kotlinは、[KotlinコードからJavaコードを呼び出す](java-interop.md#nullability-annotations)際にこれらのアノテーションを認識し、そのアノテーションに従って型を扱います。
 
 Javaコードにこれらのアノテーションがない場合、KotlinはJavaの型を_プラットフォーム型_として扱います。
@@ -126,7 +126,7 @@ Kotlinで`load()`メソッドを正常にオーバーライドするには、`T1
 ```kotlin
 interface ArcadeGame<T1> : Game<T1> {
   override fun save(x: T1): T1
-  // T1は厳密な非null許容型です
+  // T1 is definitely non-nullable
   override fun load(x: T1 & Any): T1 & Any
 }
 ```

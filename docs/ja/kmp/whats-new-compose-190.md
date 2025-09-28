@@ -168,8 +168,7 @@ BasicTextField(
 ### Web 版 Compose Multiplatform がベータ版に
 
 Web 版 Compose Multiplatform がベータ版になりました。ぜひお試しください。
-<!-- Check out [our blog post]()  to learn more about the progress made to reach this milestone.
--->
+このマイルストーンに到達するために行われた進捗の詳細については、[ブログ記事](https://blog.jetbrains.com/kotlin/2025/09/compose-multiplatform-1-9-0-compose-for-web-beta/)を参照してください。
 
 安定版のリリースに向けて、ロードマップには以下が含まれます。
 

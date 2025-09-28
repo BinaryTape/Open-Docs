@@ -2,7 +2,7 @@
 
 ## はじめに
 
-Koogの**ストリーミングAPI**は、`Flow<StreamFrame>`として**LLMの出力をインクリメンタルに**消費することを可能にします。完全な応答を待つ代わりに、コードは以下のことができます。
+Koogの**ストリーミングAPI**を使用すると、`Flow<StreamFrame>`として**LLMの出力をインクリメンタルに**消費できます。完全な応答を待つ代わりに、コードは以下のことができます。
 
 - アシスタントテキストが到着するとすぐにレンダリングする
 - **ツール呼び出し**をリアルタイムで検出し、それに基づいて動作する
@@ -107,7 +107,8 @@ llm.writeSession {
 
 ### 生のテキストストリーム（派生）を操作する
 
-既存のストリーミングパーサーが`Flow<String>`を期待する場合、`filterTextOnly()`でテキストチャンクを派生させるか、`collectText()`でそれらを収集します。
+既存のストリーミングパーサーが`Flow<String>`を期待する場合、
+`filterTextOnly()`でテキストチャンクを派生させるか、`collectText()`でそれらを収集します。
 
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
@@ -154,19 +155,19 @@ fun GraphAIAgent.FeatureContext.installStreamingApi() {
 -->
 ```kotlin
 handleEvents {
-    onToolCall { context ->
+    onToolExecutionStarting { context ->
         println("
 🔧 Using ${context.tool.name} with ${context.toolArgs}... ")
     }
-    onStreamFrame { context ->
+    onLLMStreamingFrameReceived { context ->
         (context.streamFrame as? StreamFrame.Append)?.let { frame ->
             print(frame.text)
         }
     }
-    onStreamError { context -> 
+    onLLMStreamingFailed { context -> 
         println("❌ Error: ${context.error}")
     }
-    onAfterStream {
+    onLLMStreamingCompleted {
         println("🏁 Done")
     }
 }
@@ -186,7 +187,8 @@ handleEvents {
 
 ### ストリーミング中の構造化データ（Markdownの例）
 
-生の文字列ストリームを操作することも可能ですが、[構造化データ](structured-output.md)を操作する方がより便利な場合が多くあります。
+生の文字列ストリームを操作することも可能ですが、
+[構造化データ](structured-output.md)を操作する方がより便利な場合が多くあります。
 
 構造化データのアプローチには、以下の主要なコンポーネントが含まれます。
 
@@ -200,7 +202,6 @@ handleEvents {
 まず、構造化データを表すデータクラスを定義します。
 
 <!--- INCLUDE
-import ai.koog.agents.core.tools.ToolArgs
 import kotlinx.serialization.Serializable
 -->
 ```kotlin
@@ -209,7 +210,7 @@ data class Book(
     val title: String,
     val author: String,
     val description: String
-): ToolArgs
+)
 ```
 <!--- KNIT example-streaming-api-03.kt -->
 
@@ -376,9 +377,17 @@ import ai.koog.agents.core.tools.SimpleTool
 import ai.koog.agents.core.tools.ToolDescriptor
 import ai.koog.agents.example.exampleStreamingApi03.Book
 import kotlinx.serialization.KSerializer
+import kotlinx.serialization.Serializable
 
 -->
 ```kotlin
+@Serializable
+data class Book(
+   val title: String,
+   val author: String,
+   val description: String
+)
+
 class BookTool(): SimpleTool<Book>() {
     
     companion object { const val NAME = "book" }
@@ -391,14 +400,9 @@ class BookTool(): SimpleTool<Book>() {
 
     override val argsSerializer: KSerializer<Book>
         get() = Book.serializer()
-    
-    override val descriptor: ToolDescriptor
-        get() = ToolDescriptor(
-            name = NAME,
-            description = "A tool to parse book information from Markdown",
-            requiredParameters = listOf(),
-            optionalParameters = listOf()
-        )
+
+    override val name: String = NAME
+    override val description: String = "A tool to parse book information from Markdown"
 }
 ```
 <!--- KNIT example-streaming-api-08.kt -->
@@ -408,7 +412,6 @@ class BookTool(): SimpleTool<Book>() {
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.forwardTo
 import ai.koog.agents.core.dsl.builder.strategy
-import ai.koog.agents.core.tools.ToolArgs
 import ai.koog.agents.example.exampleStreamingApi04.markdownBookDefinition
 import ai.koog.agents.example.exampleStreamingApi06.parseMarkdownStreamToBooks
 import ai.koog.agents.example.exampleStreamingApi08.BookTool
@@ -424,7 +427,7 @@ val agentStrategy = strategy<String, Unit>("library-assistant") {
          val markdownStream = requestLLMStreaming(mdDefinition)
 
          parseMarkdownStreamToBooks(markdownStream).collect { book ->
-            callToolRaw(BookTool.NAME, book as ToolArgs)
+            callToolRaw(BookTool.NAME, book)
             /* Other possible options:
                 callTool(BookTool::class, book)
                 callTool<BookTool>(book)

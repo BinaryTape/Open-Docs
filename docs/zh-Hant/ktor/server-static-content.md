@@ -77,7 +77,7 @@ routing {
 在此情況下，只要 URL 路徑和資源路徑匹配，Ktor 就會遞迴地服務 `static` 套件中的任何檔案。
 
 有關完整範例，
-請參閱 [static-resources](https://github.ktor.io/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/static-resources)。
+請參閱 [static-resources](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/static-resources)。
 
 ## 額外配置 {id="configuration"}
 
@@ -168,6 +168,28 @@ object Immutable : CacheControl(null) {
 }
 ```
 
+當 [`ConditionalHeaders`](server-conditional-headers.md) 外掛安裝後，Ktor 可以使用 `ETag` 和 `LastModified` 標頭服務靜態資源，並處理條件式標頭，以避免在內容自上次請求後未更改時傳送內容主體：
+
+```kotlin
+staticFiles("/filesWithEtagAndLastModified", filesDir) {
+    etag { resource -> EntityTagVersion("etag") }
+    lastModified { resource -> GMTDate() }
+}
+```
+
+在此範例中，`etag` 和 `lastModified` 值根據每個資源動態計算，並應用於回應。
+
+為了簡化 `ETag` 的生成，您也可以使用預定義的提供者：
+
+```kotlin
+staticFiles("/filesWithStrongGeneratedEtag", filesDir) {
+    etag(ETagProvider.StrongSha256)
+}
+```
+
+在此範例中，使用資源內容的 SHA‑256 雜湊生成一個強 `ETag`。
+如果發生 I/O 錯誤，則不會生成 `ETag`。
+
 > 有關 Ktor 中快取的更多資訊，請參閱[快取標頭](server-caching-headers.md)。
 >
 {style="tip"}
@@ -194,6 +216,30 @@ staticResources("/", "static"){
 ```
 
 在此範例中，當請求 `/index` 時，Ktor 將搜尋 `/index.html` 並服務找到的內容。
+
+### 自訂回退 {id="custom-fallback"}
+
+為了在請求的靜態資源未找到時配置自訂回退行為，請使用 `fallback()` 函式。
+透過 `fallback()`，您可以檢查請求的路徑並決定如何回應。例如，您可能重定向到
+另一個資源、返回特定的 HTTP 狀態碼或服務一個替代檔案。
+
+您可以將 `fallback()` 新增到 `staticFiles()`、`staticResources()`、`staticZip()` 或 `staticFileSystem()` 中。回呼提供
+了請求路徑和目前的 `ApplicationCall`。
+
+以下範例展示了如何重定向某些副檔名、返回自訂狀態或回退到 `index.html`：
+
+```kotlin
+staticFiles("/files", File("textFiles")) {
+    fallback { requestedPath, call ->
+        when {
+            requestedPath.endsWith(".php") -> call.respondRedirect("/static/index.html") // absolute path
+            requestedPath.endsWith(".kt") -> call.respondRedirect("Default.kt") // relative path
+            requestedPath.endsWith(".xml") -> call.respond(HttpStatusCode.Gone)
+            else -> call.respondFile(File("files/index.html"))
+        }
+    }
+}
+```
 
 ### 自訂修改 {id="modify"}
 

@@ -14,13 +14,13 @@ OpenTelemetry 是一個可觀測性框架，提供工具用於從您的應用程
 
 ## OpenTelemetry 關鍵概念
 
-- **Span**: Span 代表分散式追蹤中的獨立工作單元或操作。它們指示應用程式中特定活動的開始與結束，例如代理執行、函式呼叫、LLM 呼叫或工具呼叫。
-- **Attribute**: Attribute 提供關於遙測相關項目（例如 Span）的元資料。Attribute 以鍵值對的形式表示。
-- **Event**: Event 是 Span 生命週期中在特定時間點發生的事件（與 Span 相關的事件），代表了可能值得注意的事情。
-- **Exporter**: Exporter 是負責將已收集的遙測資料發送到各種後端或目的地的元件。
-- **Collector**: Collector 接收、處理和匯出遙測資料。它們在您的應用程式和您的可觀測性後端之間充當中介者。
-- **Sampler**: Sampler 根據採樣策略決定是否應記錄追蹤。它們用於管理遙測資料的量。
-- **Resource**: Resource 代表產生遙測資料的實體。它們由 Resource Attribute 識別，Resource Attribute 是提供關於 Resource 資訊的鍵值對。
+- **Span**：Span 代表分散式追蹤中的獨立工作單元或操作。它們指示應用程式中特定活動的開始與結束，例如代理執行、函式呼叫、LLM 呼叫或工具呼叫。
+- **Attribute**：Attribute 提供關於遙測相關項目（例如 Span）的元資料。Attribute 以鍵值對的形式表示。
+- **Event**：Event 是 Span 生命週期中在特定時間點發生的事件（與 Span 相關的事件），代表了可能值得注意的事情。
+- **Exporter**：Exporter 是負責將已收集的遙測資料發送到各種後端或目的地的元件。
+- **Collector**：Collector 接收、處理和匯出遙測資料。它們在您的應用程式和您的可觀測性後端之間充當中介者。
+- **Sampler**：Sampler 根據採樣策略決定是否應記錄追蹤。它們用於管理遙測資料的量。
+- **Resource**：Resource 代表產生遙測資料的實體。它們由 Resource Attribute 識別，Resource Attribute 是提供關於 Resource 資訊的鍵值對。
 
 Koog 中的 OpenTelemetry 功能會自動為各種代理事件建立 Span，包括：
 
@@ -148,15 +148,19 @@ install(OpenTelemetry) {
 
 #### setVerbose
 
-啟用或禁用詳細日誌記錄，用於調試 OpenTelemetry 配置。接受以下引數：
+啟用或禁用詳細日誌記錄。接受以下引數：
 
 | 名稱      | 資料型別 | 必需 | 預設值 | 描述                                                     |
 |-----------|-----------|----------|---------------|-----------------------------------------------------------------|
 | `verbose` | `Boolean` | 是       | `false`       | 如果為 true，應用程式會收集更詳細的遙測資料。 |
 
+!!! note
+
+    出於安全原因，OpenTelemetry Span 的某些內容預設會被遮罩。例如，LLM 訊息會被遮罩為 `HIDDEN:non-empty`，而不是實際訊息內容。若要取得內容，請將 `verbose` 引數的值設定為 `true`。
+
 #### setSdk
 
-注入預先配置的 `OpenTelemetrySdk` 實例。
+注入預先配置的 OpenTelemetrySdk 實例。
 
 - 當您呼叫 `setSdk(sdk)` 時，所提供的 SDK 會按原樣使用，並且透過 `addSpanExporter`、`addSpanProcessor`、`addResourceAttributes` 或 `setSampler` 應用的任何自訂配置都將被忽略。
 - Tracer 的檢測範圍名稱/版本會與您的服務資訊對齊。
@@ -169,8 +173,8 @@ install(OpenTelemetry) {
 
 對於更進階的配置，您還可以自訂以下配置選項：
 
-- Sampler: 配置採樣策略以調整收集資料的頻率和數量。
-- Resource Attribute: 添加更多關於產生遙測資料的程序的資訊。
+- Sampler：配置採樣策略以調整收集資料的頻率和數量。
+- Resource Attribute：添加更多關於產生遙測資料的程序的資訊。
 
 <!--- INCLUDE
 import ai.koog.agents.core.agent.AIAgent
@@ -217,7 +221,7 @@ install(OpenTelemetry) {
 
 預設採樣策略如下：
 
-- `Sampler.alwaysOn()`: 預設採樣策略，其中每個 Span (追蹤) 都會被採樣。
+- `Sampler.alwaysOn()`：預設採樣策略，其中每個 Span (追蹤) 都會被採樣。
 
 有關可用 Sampler 和採樣策略的更多資訊，請參閱 OpenTelemetry [Sampler](https://opentelemetry.io/docs/languages/java/sdk/#sampler) 文件。
 
@@ -267,11 +271,11 @@ addResourceAttributes(mapOf(
 
 OpenTelemetry 功能會自動建立不同類型的 Span，以追蹤代理中的各種操作：
 
-- **CreateAgentSpan**: 在您運行代理時建立，在代理關閉或程序終止時關閉。
-- **InvokeAgentSpan**: 代理的調用。
-- **NodeExecuteSpan**: 代理策略中節點的執行。這是一個自訂的、Koog 特定的 Span。
-- **InferenceSpan**: LLM 呼叫。
-- **ExecuteToolSpan**: 工具呼叫。
+- **CreateAgentSpan**：在您運行代理時建立，在代理關閉或程序終止時關閉。
+- **InvokeAgentSpan**：代理的調用。
+- **NodeExecuteSpan**：代理策略中節點的執行。這是一個自訂的、Koog 特定的 Span。
+- **InferenceSpan**：LLM 呼叫。
+- **ExecuteToolSpan**：工具呼叫。
 
 Span 以巢狀的、階層式的結構組織。以下是一個 Span 結構的範例：
 
@@ -294,8 +298,8 @@ Koog 支援一組預定義的 Attribute，這些 Attribute 遵循 OpenTelemetry 
 
 此外，Koog 還包含自訂的、Koog 特定的 Attribute。您可以透過 `koog.` 前綴識別這些 Attribute 中的大多數。以下是可用的自訂 Attribute：
 
-- `koog.agent.strategy.name`: 代理策略的名稱。策略是一個與 Koog 相關的實體，描述代理的目的。用於 `InvokeAgentSpan` Span。
-- `koog.node.name`: 正在運行的節點名稱。用於 `NodeExecuteSpan` Span。
+- `koog.agent.strategy.name`：代理策略的名稱。策略是一個與 Koog 相關的實體，描述代理的目的。用於 `InvokeAgentSpan` Span。
+- `koog.node.name`：正在運行的節點名稱。用於 `NodeExecuteSpan` Span。
 
 ### Event
 
@@ -303,12 +307,12 @@ Span 還可以有一個附加到其上的「Event」。Event 描述了在特定�
 
 以下 Event 類型遵循 OpenTelemetry 的 [生成式 AI 事件語義約定](https://opentelemetry.io/docs/specs/semconv/gen-ai/gen-ai-events/) 獲得支援：
 
-- **SystemMessageEvent**: 傳遞給模型的系統指令。
-- **UserMessageEvent**: 傳遞給模型的使用者訊息。
-- **AssistantMessageEvent**: 傳遞給模型的助手訊息。
-- **ToolMessageEvent**: 傳遞給模型的來自工具或函式呼叫的回應。
-- **ChoiceEvent**: 來自模型的回應訊息。
-- **ModerationResponseEvent**: 模型審核結果或訊號。
+- **SystemMessageEvent**：傳遞給模型的系統指令。
+- **UserMessageEvent**：傳遞給模型的使用者訊息。
+- **AssistantMessageEvent**：傳遞給模型的助手訊息。
+- **ToolMessageEvent**：傳遞給模型的來自工具或函式呼叫的回應。
+- **ChoiceEvent**：來自模型的回應訊息。
+- **ModerationResponseEvent**：模型審核結果或訊號。
 
 !!! note   
     `opentelemetry-java` SDK 在添加 Event 時不支援 Event 主體欄位參數。因此，在 Koog 的 OpenTelemetry 支援中，Event 主體欄位是一個單獨的 Attribute，其鍵為 `body` 且值類型為字串。該字串包含 Event 主體欄位的內容或負載，通常是一個類似 JSON 的物件。有關 Event 主體欄位的範例，請參閱 [OpenTelemetry 文件](https://opentelemetry.io/docs/specs/semconv/gen-ai/gen-ai-events/#examples)。有關 `opentelemetry-java` 中 Event 主體欄位支援狀態，請參閱相關的 [GitHub issue](https://github.com/open-telemetry/semantic-conventions/issues/1870)。

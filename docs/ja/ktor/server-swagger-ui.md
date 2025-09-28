@@ -23,16 +23,10 @@
 </tldr>
 
 <link-summary>
-Swagger UI プラグインを使用すると、プロジェクト用の Swagger UI を生成できます。
+SwaggerUI プラグインを使用すると、プロジェクト用の Swagger UI を生成できます。
 </link-summary>
 
-Ktor は、既存の OpenAPI 仕様に基づいて、プロジェクト用の Swagger UI を生成して提供できます。Swagger UI を使用すると、API リソースを視覚化し、操作できます。
-
-> コードから OpenAPI 定義を生成したり、その逆を行ったりするために、次のツールを利用できます。
-> - IntelliJ IDEA 用の [Ktor プラグイン](https://www.jetbrains.com/help/idea/ktor.html#openapi) は、サーバーサイド Ktor アプリケーションの OpenAPI ドキュメントを生成する機能を提供します。
-> - [OpenAPI generator](https://github.com/OpenAPITools/openapi-generator) を使用すると、[kotlin-server](https://github.com/OpenAPITools/openapi-generator/blob/master/docs/generators/kotlin-server.md) ジェネレーターを使って、API 定義から Ktor プロジェクトを作成できます。また、IntelliJ IDEA の[機能](https://www.jetbrains.com/help/idea/openapi.html#codegen)を使用することもできます。
->
-{id="open-api-note"}
+Ktor は、既存の OpenAPI 仕様に基づいて、プロジェクト用の Swagger UI を生成して提供できます。Swagger UI を使用すると、API リソースを視覚化し、操作できます。既存の YAML または JSON 仕様を提供したり、Ktor Gradle プラグインの [OpenAPI 拡張機能](openapi-spec-generation.md)を使用して生成したりできます。
 
 ## 依存関係を追加する {id="add_dependencies"}
 
@@ -89,4 +83,3 @@ install(CORS) {
     anyHost()
     allowHeader(HttpHeaders.ContentType)
 }
-```

@@ -27,6 +27,7 @@ OpenAPI 플러그인을 사용하면 프로젝트의 OpenAPI 문서를 생성할
 </link-summary>
 
 Ktor를 사용하면 기존 OpenAPI 명세(specification)를 기반으로 프로젝트의 OpenAPI 문서를 생성하고 제공할 수 있습니다.
+기존 YAML 또는 JSON 명세를 제공하거나, Ktor Gradle 플러그인의 [OpenAPI 확장](openapi-spec-generation.md)을 사용하여 생성할 수 있습니다.
 
 ## 의존성 추가 {id="add_dependencies"}
 
@@ -65,7 +66,7 @@ Ktor를 사용하면 기존 OpenAPI 명세(specification)를 기반으로 프로
 
 ## OpenAPI 구성 {id="configure-swagger"}
 
-OpenAPI 문서를 제공하려면 `path`에 있는 문서와 함께 `swaggerFile`에 배치된 OpenAPI 명세에서 렌더링된 GET 엔드포인트를 생성하는 [`openAPI`](%plugin_api_link%) 메서드를 호출해야 합니다:
+OpenAPI 문서를 제공하려면, `swaggerFile`에 배치된 OpenAPI 명세에서 렌더링되어 `path`에 문서를 포함하는 `GET` 엔드포인트를 생성하는 [`openAPI`](%plugin_api_link%) 메서드를 호출해야 합니다:
 
 ```kotlin
 import io.ktor.server.plugins.openapi.*

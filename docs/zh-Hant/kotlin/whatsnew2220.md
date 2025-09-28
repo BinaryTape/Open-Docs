@@ -3,12 +3,16 @@
 _[發布日期：2025 年 9 月 10 日](releases.md#release-details)_
 
 > 我們很想聽聽您對 Kotlin 的想法！
-> [請填寫我們的 Kotlin 開發者問卷](https://surveys.jetbrains.com/s3/7e238a7b85e5)。
-> 這只需要大約 10 分鐘，您的回饋將幫助我們改進語言、工具和生態系統。
->
+> 
+> [請填寫我們的 Kotlin 開發者問卷](https://surveys.jetbrains.com/s3/7e238a7b85e5)。這只需要大約 10 分鐘。
+> 您的回饋將幫助我們改進語言、工具和生態系統。
+> 
 {style="note"}
 
-Kotlin 2.2.20 版本已發布，為網頁開發帶來了重要的變更。[Kotlin/Wasm 現已進入 Beta 階段](#kotlin-wasm)，並改進了 [JavaScript 互通中的例外處理](#improved-exception-handling-in-kotlin-wasm-and-javascript-interop)、[npm 依賴管理](#separated-npm-dependencies)、[內建瀏覽器偵錯支援](#support-for-debugging-in-browsers-without-configuration)，以及適用於 [`js` 和 `wasmJs` 目標的新共享原始碼集](#shared-source-set-for-js-and-wasmjs-targets)。
+Kotlin 2.2.20 版本已發布，為網頁開發帶來了重要的變更。[Kotlin/Wasm 現已進入 Beta 階段](#kotlin-wasm)，
+並改進了 [JavaScript 互通中的例外處理](#improved-exception-handling-in-kotlin-wasm-and-javascript-interop)、
+[npm 依賴管理](#separated-npm-dependencies)、[內建瀏覽器偵錯支援](#support-for-debugging-in-browsers-without-configuration)，
+以及適用於 [`js` 和 `wasmJs` 目標的新共享原始碼集](#shared-source-set-for-js-and-wasmjs-targets)。
 
 此外，以下是一些主要亮點：
 
@@ -16,6 +20,10 @@ Kotlin 2.2.20 版本已發布，為網頁開發帶來了重要的變更。[Kotli
 *   **語言**：[將 Lambda 傳遞給帶有 suspend 函式型別的多載時，改進多載解析](#improved-overload-resolution-for-lambdas-with-suspend-function-types)。
 *   **Kotlin/Native**：[二進位檔案中支援堆疊金絲雀](#support-for-stack-canaries-in-binaries)，以及[發布版本二進位檔案大小更小](#smaller-binary-size-for-release-binaries)。
 *   **Kotlin/JS**：[`Long` 值編譯為 JavaScript `BigInt`](#usage-of-the-bigint-type-to-represent-kotlin-s-long-type)。
+
+> Compose Multiplatform for web 已進入 Beta 階段。請在我們的[部落格文章](https://blog.jetbrains.com/kotlin/2025/09/compose-multiplatform-1-9-0-compose-for-web-beta/)中了解更多資訊。
+>
+{style="note"}
 
 ## IDE 支援
 
@@ -26,7 +34,11 @@ Kotlin 2.2.20 版本已發布，為網頁開發帶來了重要的變更。[Kotli
 
 ## 語言
 
-在 Kotlin 2.2.20 中，您可以試用計劃用於 Kotlin 2.3.0 的即將推出的語言功能，包括 [將 Lambda 傳遞給帶有 `suspend` 函式型別的多載時，改進多載解析](#improved-overload-resolution-for-lambdas-with-suspend-function-types) 和 [在具有明確回傳型別的表達式主體中支援 `return` 陳述式](#support-for-return-statements-in-expression-bodies-with-explicit-return-types)。此版本還包括改進 [`when` 表達式的窮舉檢查](#data-flow-based-exhaustiveness-checks-for-when-expressions)、[實化 `Throwable` 捕捉](#support-for-reified-types-in-catch-clauses) 和 [Kotlin 契約](#improved-kotlin-contracts)。
+在 Kotlin 2.2.20 中，您可以試用計劃用於 Kotlin 2.3.0 的即將推出的語言功能，包括
+[將 Lambda 傳遞給帶有 `suspend` 函式型別的多載時，改進多載解析](#improved-overload-resolution-for-lambdas-with-suspend-function-types)
+和 [在具有明確回傳型別的表達式主體中支援 `return` 陳述式](#support-for-return-statements-in-expression-bodies-with-explicit-return-types)。此版本還包括
+改進 [`when` 表達式的窮舉檢查](#data-flow-based-exhaustiveness-checks-for-when-expressions)、
+[實化 `Throwable` 捕捉](#support-for-reified-types-in-catch-clauses) 和 [Kotlin 契約](#improved-kotlin-contracts)。
 
 ### 將 Lambda 傳遞給帶有 `suspend` 函式型別的多載時，改進多載解析
 
@@ -41,7 +53,7 @@ fun test() {
     // Fails with overload resolution ambiguity
     transform({ 42 })
 
-    // Uses an explicit cast, but the compiler incorrectly reports
+    // Uses an explicit cast, but the compiler incorrectly reports 
     // a "No cast needed" warning
     transform({ 42 } as () -> Int)
 }
@@ -151,7 +163,7 @@ fun getPermissionLevel(role: UserRole): Int {
     return when (role) {
         UserRole.MEMBER -> 10
         UserRole.GUEST -> 1
-        // You no longer have to include this else branch
+        // You no longer have to include this else branch 
         // else -> throw IllegalStateException()
     }
 }
@@ -219,7 +231,7 @@ Kotlin 2.2.20 引入了 [Kotlin 契約](https://kotlinlang.org/api/core/kotlin-s
 *   [契約中支援 `returnsNotNull()` 函式](#support-for-the-returnsnotnull-function-in-contracts)，以確保在滿足條件時回傳非空值。
 *   [新的 `holdsIn` 關鍵字](#new-holdsin-keyword)，允許您假定條件在 Lambda 內部為真。
 
-這些改進是 [實驗性的](components-stability.md#stability-levels-explained)。要啟用它們，您仍然需要在宣告契約時使用 `@OptIn(ExperimentalContracts::class)` 註解。`holdsIn` 關鍵字和 `returnsNotNull()` 函式也需要 `@OptIn(ExperimentalExtendedContracts::class)` 註解。
+這些改進是 [實驗性的](components-stability.md#stability-levels-explained)。要啟用，您仍然需要在宣告契約時使用 `@OptIn(ExperimentalContracts::class)` 註解。`holdsIn` 關鍵字和 `returnsNotNull()` 函式也需要 `@OptIn(ExperimentalExtendedContracts::class)` 註解。
 
 要使用這些改進，您還需要添加以下每個部分中描述的編譯器選項。
 
@@ -495,7 +507,7 @@ Kotlin 2.2.20 引入了對 Swift 匯出的實驗性支援。它允許您直接�
 *   **型別別名**。Kotlin 型別別名會匯出並保留在 Swift 中，提高了可讀性。
 *   **基本型別的增強可為空性**。與 Objective-C 互通不同，Objective-C 互通需要將 `Int?` 等型別裝箱到 `KotlinInt` 等封裝類別中以保留可為空性，Swift 匯出直接轉換可為空性資訊。
 *   **多載**。您可以在 Swift 中呼叫 Kotlin 的多載函式而沒有歧義。
-*   **扁平化套件結構**。您可以將 Kotlin 套件轉換為 Swift 枚舉，從生成的 Swift 程式碼中移除套件前綴。
+*   **扁平化套件結構**。您可以將 Kotlin 套件轉換為 Swift 列舉，從生成的 Swift 程式碼中移除套件前綴。
 *   **模組名稱自訂**。您可以在 Kotlin 專案的 Gradle 配置中自訂生成的 Swift 模組名稱。
 
 #### 如何啟用 Swift 匯出
@@ -1059,7 +1071,7 @@ kotlin {
     kotlin {
         js {
             ...
-            compilerOptions {
+            compilerOptions {                   
                 freeCompilerArgs.add("-XXLanguage:+JsAllowLongInExportedDeclarations")
             }
         }
@@ -1092,7 +1104,7 @@ fun main(args: Array<String>) {
 
 ```kotlin
 fun main(args: Array<String>) {
-    // No need for drop() and only your custom arguments are included
+    // No need for drop() and only your custom arguments are included 
     println(args.joinToString(", "))
 }
 ```
@@ -1143,7 +1155,7 @@ kotlin.incremental.jvm.fir=true
 ### 增量編譯偵測 inline 函式中 Lambda 的變更
 
 在 Kotlin 2.2.20 之前，如果您啟用增量編譯並更改了 inline 函式中 Lambda 的邏輯，
-編譯器不會重新編譯其他模組中該 inline 函式的呼叫點。結果，這些呼叫點使用
+編譯器不會重新編譯其他模組中該 inline 函式的呼叫點。結果，那些呼叫點使用
 Lambda 的先前版本，這可能會導致意外行為。
 
 在 Kotlin 2.2.20 中，編譯器現在會偵測 inline 函式中 Lambda 的變更並自動重新編譯其呼叫點。
@@ -1152,7 +1164,7 @@ Lambda 的先前版本，這可能會導致意外行為。
 
 Kotlin 2.2.20 透過在 `kotlin-maven-plugin` 中添加對 [Kotlin 常駐程式](kotlin-daemon.md) 的支援，使 [Kotlin 2.2.0 中引入的實驗性建置工具 API](whatsnew22.md#new-experimental-build-tools-api) 更進一步。當使用 Kotlin 常駐程式時，Kotlin
 編譯器在一個單獨的隔離程序中執行，這可以防止其他 Maven 插件覆寫系統屬性。您
-可以在這個 [YouTrack 問題](https://youtrack.com/issue/KT-43894/Maven-Windows-error-RuntimeException-Could-not-find-installation-home-path) 中看到一個範例。
+可以在這個 [YouTrack 問題](https://youtrack.jetbrains.com/issue/KT-43894/Maven-Windows-error-RuntimeException-Could-not-find-installation-home-path) 中看到一個範例。
 
 從 Kotlin 2.2.20 開始，Kotlin 常駐程式預設使用。如果您想恢復到以前的行為，請
 透過將 `pom.xml` 檔案中的以下屬性設定為 `false` 來選擇退出：
@@ -1335,7 +1347,7 @@ Kotlin 文件已收到一些顯著變更：
 *   [屬性 (Properties)](properties.md) – 了解您可以在 Kotlin 中使用屬性的多種方式。
 *   [條件與迴圈](control-flow.md) – 了解 Kotlin 中的條件和迴圈如何運作。
 *   [Kotlin/JavaScript](js-overview.md) – 探索 Kotlin/JS 的使用情境。
-*   [以網頁為目標](gradle-configure-project.md#targeting-the-web) – 了解 Gradle 為網頁開發提供的不同目標。
+*   [為網頁為目標](gradle-configure-project.md#targeting-the-web) – 了解 Gradle 為網頁開發提供的不同目標。
 *   [Kotlin 常駐程式](kotlin-daemon.md) – 了解 Kotlin 常駐程式及其如何與建置系統和 Kotlin 編譯器協同運作。
 *   [協程概覽頁面](coroutines-overview.md) – 了解協程概念並開始您的學習之旅。
 *   [Kotlin/Native 二進位選項](native-binary-options.md) – 了解 Kotlin/Native 的二進位選項以及如何配置它們。

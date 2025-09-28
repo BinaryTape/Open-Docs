@@ -26,13 +26,7 @@
 Swagger UI 插件允许您为项目生成 Swagger UI。
 </link-summary>
 
-Ktor 允许您基于现有 OpenAPI 规范为项目生成并提供 Swagger UI。借助 Swagger UI，您可以可视化 API 资源并与之交互。
-
-> 以下工具可用于从代码生成 OpenAPI 定义，反之亦然：
-> - IntelliJ IDEA 的 [Ktor 插件](https://www.jetbrains.com/help/idea/ktor.html#openapi) 提供了为服务器端 Ktor 应用程序生成 OpenAPI 文档的能力。
-> - [OpenAPI 生成器](https://github.com/OpenAPITools/openapi-generator) 允许您使用 [kotlin-server](https://github.com/OpenAPITools/openapi-generator/blob/master/docs/generators/kotlin-server.md) 生成器从 API 定义创建 Ktor 项目。或者，您可以使用 IntelliJ IDEA 的[功能性](https://www.jetbrains.com/help/idea/openapi.html#codegen)。
->
-{id="open-api-note"}
+Ktor 允许您基于现有 OpenAPI 规范为项目生成并提供 Swagger UI。借助 Swagger UI，您可以可视化 API 资源并与之交互。您可以提供现有的 YAML 或 JSON 规范，也可以使用 Ktor Gradle 插件的 [OpenAPI 扩展](openapi-spec-generation.md) 生成一个。
 
 ## 添加依赖项 {id="add_dependencies"}
 

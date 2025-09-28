@@ -24,7 +24,7 @@
 
 *   Compose Material3 라이브러리 `org.jetbrains.compose.material3:1.9.0-beta06`. [Jetpack Material3 1.4.0-beta03](https://developer.android.com/jetpack/androidx/releases/compose-material3#1.4.0-beta03) 기반.
 
-    공통 Material3 라이브러리의 안정 버전은 Jetpack Compose Material3 1.3.2를 기반으로 하지만, Compose Multiplatform와 Material3의 [분리된 버전 관리](#decoupled-material3-versioning) 덕분에 프로젝트에 더 새로운 프리릴리스(pre-release) 버전을 선택할 수 있습니다.
+    공통 Material3 라이브러리의 안정 버전은 Jetpack Compose Material3 1.3.2를 기반으로 하지만, Compose Multiplatform과 Material3의 [분리된 버전 관리](#decoupled-material3-versioning) 덕분에 프로젝트에 더 새로운 프리릴리스(pre-release) 버전을 선택할 수 있습니다.
 *   Compose Material3 Adaptive 라이브러리 `org.jetbrains.compose.material3.adaptive:adaptive*:1.2.0-alpha06`. [Jetpack Material3 Adaptive 1.2.0-alpha11](https://developer.android.com/jetpack/androidx/releases/compose-material3-adaptive#1.2.0-alpha11) 기반
 *   Lifecycle 라이브러리 `org.jetbrains.androidx.lifecycle:lifecycle-*:2.9.4`. [Jetpack Lifecycle 2.9.2](https://developer.android.com/jetpack/androidx/releases/lifecycle#2.9.2) 기반
 *   Navigation 라이브러리 `org.jetbrains.androidx.navigation:navigation-*:2.9.0`. [Jetpack Navigation 2.9.1](https://developer.android.com/jetpack/androidx/releases/navigation#2.9.1) 기반
@@ -162,8 +162,7 @@ BasicTextField(
 ### 베타 버전으로 출시된 웹용 Compose Multiplatform
 
 웹용 Compose Multiplatform은 이제 베타 버전으로, 지금 사용해보기 아주 좋은 시기입니다.
-<!-- Check out [our blog post]() to learn more about the progress made to reach this milestone.
--->
+[블로그 게시물](https://blog.jetbrains.com/kotlin/2025/09/compose-multiplatform-1-9-0-compose-for-web-beta/)에서 이 이정표를 달성하기 위한 진행 상황에 대해 자세히 알아보십시오.
 
 안정 버전 릴리스를 위해 노력하는 동안, 저희의 로드맵에는 다음이 포함됩니다:
 

@@ -6,7 +6,7 @@
 *   [可自訂陰影](#customizable-shadows)
 *   [新環境選單 API](#new-context-menu-api)
 *   [Material 3 表達性主題](#material-3-expressive-theme)
-*   [iOS 上的畫面更新率配置](#frame-rate-configuration-on-ios)
+*   [iOS 上的畫面更新率配置](#frame-rate-configuration)
 *   [Compose Multiplatform 網頁版進入 Beta 階段](#compose-multiplatform-for-web-in-beta)
 *   [網頁目標上的輔助功能支援](#accessibility-support)
 *   [用於嵌入 HTML 內容的新 API](#new-api-for-embedding-html-content)
@@ -163,9 +163,7 @@ BasicTextField(
 
 ### Compose Multiplatform 網頁版進入 Beta 階段
 
-Compose Multiplatform 網頁版現在已進入 Beta 階段，是時候嘗試一下了。
-<!-- Check out [our blog post]()  to learn more about the progress made to reach this milestone.
--->
+Compose Multiplatform 網頁版現在已進入 Beta 階段，是時候嘗試一下了。請參閱[我們的部落格文章](https://blog.jetbrains.com/kotlin/2025/09/compose-multiplatform-1-9-0-compose-for-web-beta/)，了解為達成此里程碑所做的進展。
 
 在我們邁向穩定發布的過程中，我們的路線圖包括：
 
