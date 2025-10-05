@@ -23,9 +23,10 @@
 ContentNegotiation 外掛程式主要有兩個用途：在用戶端和伺服器之間協商媒體類型，以及在傳送請求和接收回應時以特定格式序列化/反序列化內容。
 </link-summary>
 
-[ContentNegotiation](https://api.ktor.io/ktor-client/ktor-client-plugins/ktor-client-content-negotiation/io.ktor.client.plugins.contentnegotiation/-content-negotiation) 外掛程式主要有兩個用途：
+[ContentNegotiation](https://api.ktor.io/ktor-client/ktor-client-plugins/ktor-client-content-negotiation/io.ktor.client.plugins.contentnegotiation/-content-negotiation)
+外掛程式主要有兩個用途：
 *   在用戶端和伺服器之間協商媒體類型。為此，它使用 `Accept` 和 `Content-Type` 標頭。
-*   在傳送[請求](client-requests.md)和接收[回應](client-responses.md)時以特定格式序列化/反序列化內容。Ktor 開箱即用支援以下格式：JSON、XML、CBOR 和 ProtoBuf。請注意，XML 序列化器僅在 [JVM](client-engines.md) 上支援。
+*   在傳送[請求](client-requests.md)和接收[回應](client-responses.md)時，以特定格式序列化/反序列化內容。Ktor 開箱即用支援以下格式：JSON、XML、CBOR 和 ProtoBuf。
 
 > 在伺服器端，Ktor 提供 [ContentNegotiation](server-serialization.md) 外掛程式用於內容的序列化/反序列化。
 
@@ -377,7 +378,7 @@ val response: HttpResponse = client.post("http://localhost:8080/customer") {
 
 ### 接收資料 {id="receive_data"}
 
-當伺服器傳送帶有 `application/json`、`application/xml` 或 `application/cbor` 內容的回應時，您可以透過將[資料類別](#create_data_class)指定為用於接收回應酬載的函數 (在以下範例中為 `body`) 的參數來反序列化它：
+當伺服器傳送帶有 `application/json`、`application/xml` 或 `application/cbor` 內容的[回應](client-responses.md)時，您可以透過將[資料類別](#create_data_class)指定為用於接收回應酬載的函數 (在以下範例中為 `body`) 的參數來反序列化它：
 ```kotlin
 val customer: Customer = client.get("http://localhost:8080/customer/3").body()
 ```

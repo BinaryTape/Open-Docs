@@ -15,6 +15,8 @@ open class Base // 類別開放供繼承
 
 ```
 
+[欲知詳情，請參閱 Open 關鍵字](#open-keyword)。
+
 若要宣告一個明確的超類型，請在類別標頭中的冒號後放置該類型：
 
 ```kotlin
@@ -32,6 +34,52 @@ class MyView : View {
     constructor(ctx: Context) : super(ctx)
 
     constructor(ctx: Context, attrs: AttributeSet) : super(ctx, attrs)
+}
+```
+
+## Open 關鍵字
+
+在 Kotlin 中，`open` 關鍵字表示一個類別或成員（函式或屬性）可以在子類別中被覆寫。預設情況下，Kotlin 類別及其成員是 _final_ 的，這表示它們不能被繼承（對於類別而言）或覆寫（對於成員而言），除非您明確地將它們標記為 `open`：
+
+```kotlin
+// 允許繼承的帶有 open 關鍵字的基礎類別
+open class Person(
+    val name: String
+) {
+    // 可以在子類別中覆寫的 open 函式
+    open fun introduce() {
+        println("Hello, my name is $name.")
+    }
+}
+
+// 繼承自 Person 並覆寫 introduce() 函式的子類別
+class Student(
+    name: String,
+    val school: String
+) : Person(name) {
+    override fun introduce() {
+        println("Hi, I'm $name, and I study at $school.")
+    }
+}
+```
+
+如果您覆寫了基礎類別的一個成員，則該覆寫成員預設也是 `open` 的。如果您想改變這一點並禁止您的類別的子類別覆寫您的實作，您可以明確地將該覆寫成員標記為 `final`：
+
+```kotlin
+// 允許繼承的帶有 open 關鍵字的基礎類別
+open class Person(val name: String) {
+    // 可以在子類別中覆寫的 open 函式
+    open fun introduce() {
+        println("Hello, my name is $name.")
+    }
+}
+
+// 繼承自 Person 並覆寫 introduce() 函式的子類別
+class Student(name: String, val school: String) : Person(name) {
+    // final 關鍵字可防止在子類別中進一步覆寫
+    final override fun introduce() {
+        println("Hi, I'm $name, and I study at $school.")
+    }
 }
 ```
 
@@ -98,26 +146,26 @@ class Polygon : Shape {
 //sampleStart
 open class Base(val name: String) {
 
-    init { println("Initializing a base class") } // 初始化基礎類別
+    init { println("Initializing a base class") }
 
     open val size: Int = 
-        name.length.also { println("Initializing size in the base class: $it") } // 在基礎類別中初始化 size
+        name.length.also { println("Initializing size in the base class: $it") }
 }
 
 class Derived(
     name: String,
     val lastName: String,
-) : Base(name.replaceFirstChar { it.uppercase() }.also { println("Argument for the base class: $it") }) { // 基礎類別的引數
+) : Base(name.replaceFirstChar { it.uppercase() }.also { println("Argument for the base class: $it") }) {
 
-    init { println("Initializing a derived class") } // 初始化衍生類別
+    init { println("Initializing a derived class") }
 
     override val size: Int =
-        (super.size + lastName.length).also { println("Initializing size in the derived class: $it") } // 在衍生類別中初始化 size
+        (super.size + lastName.length).also { println("Initializing size in the derived class: $it") }
 }
 //sampleEnd
 
 fun main() {
-    println("Constructing the derived class(\"hello\", \"world\")") // 正在建構衍生類別("hello", "world")
+    println("Constructing the derived class(\"hello\", \"world\")")
     Derived("hello", "world")
 }
 ```
@@ -131,14 +179,14 @@ fun main() {
 
 ```kotlin
 open class Rectangle {
-    open fun draw() { println("Drawing a rectangle") } // 繪製矩形
-    val borderColor: String get() = "black" // 黑色
+    open fun draw() { println("Drawing a rectangle") }
+    val borderColor: String get() = "black"
 }
 
 class FilledRectangle : Rectangle() {
     override fun draw() {
         super.draw()
-        println("Filling the rectangle") // 正在填充矩形
+        println("Filling the rectangle")
     }
 
     val fillColor: String get() = super.borderColor
@@ -149,8 +197,8 @@ class FilledRectangle : Rectangle() {
 
 ```kotlin
 open class Rectangle {
-    open fun draw() { println("Drawing a rectangle") } // 繪製矩形
-    val borderColor: String get() = "black" // 黑色
+    open fun draw() { println("Drawing a rectangle") }
+    val borderColor: String get() = "black"
 }
 
 //sampleStart
@@ -161,7 +209,7 @@ class FilledRectangle: Rectangle() {
     }
     
     inner class Filler {
-        fun fill() { println("Filling") } // 正在填充
+        fun fill() { println("Filling") }
         fun drawAndFill() {
             super@FilledRectangle.draw() // 呼叫 Rectangle 的 draw() 實作
             fill()

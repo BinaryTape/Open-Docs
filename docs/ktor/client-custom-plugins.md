@@ -16,14 +16,13 @@
 了解如何创建您自己的自定义客户端插件。
 </link-summary>
 
-从 v2.2.0 开始，Ktor 提供了一个新的 API 来创建自定义客户端[插件](client-plugins.md)。一般来说，此 API 不需要理解 Ktor 内部概念，例如流水线、阶段等。
-相反，您可以使用 `onRequest`、`onResponse` 等一组处理器，访问[请求和响应处理](#call-handling)的不同阶段。
+从 v2.2.0 开始，Ktor 提供了一个新的 API 来创建自定义客户端 [插件](client-plugins.md)。一般来说，此 API 不需要理解 Ktor 内部概念，例如流水线、阶段等等。相反，您可以使用 `onRequest`、`onResponse` 等一组处理器，访问[处理请求和响应](#call-handling)的不同阶段。
 
 ## 创建并安装您的第一个插件 {id="first-plugin"}
 
 在本节中，我们将演示如何创建并安装您的第一个插件，该插件会向每个[请求](client-requests.md)添加自定义标头：
 
-1. 要创建插件，请调用 `createClientPlugin` [函数](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client.plugins.api/create-client-plugin.html)，并将插件名称作为实参传递：
+1. 要创建插件，请调用 [createClientPlugin](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client.plugins.api/create-client-plugin.html) 函数，并将插件名称作为实参传递：
    ```kotlin
    package com.example.plugins
    
@@ -59,8 +58,7 @@
    ```
    
    
-您可以在这里找到完整示例：[CustomHeader.kt](https://github.com/ktorio/ktor-documentation/blob/%ktor_version%/codeSnippets/snippets/client-custom-plugin/src/main/kotlin/com/example/plugins/CustomHeader.kt)。
-在以下章节中，我们将探讨如何提供插件配置以及处理请求和响应。
+您可以在这里找到完整示例：[CustomHeader.kt](https://github.com/ktorio/ktor-documentation/blob/%ktor_version%/codeSnippets/snippets/client-custom-plugin/src/main/kotlin/com/example/plugins/CustomHeader.kt)。在以下章节中，我们将探讨如何提供插件配置以及处理请求和响应。
 
 ## 提供插件配置 {id="plugin-configuration"}
 
@@ -111,8 +109,7 @@
 - `onRequest` 和 `onResponse` 分别允许您处理请求和响应。
 - `transformRequestBody` 和 `transformResponseBody` 可用于对请求和响应正文应用必要的转换。
 
-还有 `on(...)` 处理器，它允许您调用可能有助于处理调用其他阶段的特定钩子。
-下表列出了所有处理器及其执行顺序：
+还有 `on(...)` 处理器，它允许您调用可能有助于处理调用其他阶段的特定钩子。下表列出了所有处理器及其执行顺序：
 
 <Tabs>
 <TabItem title="基本钩子">
@@ -381,9 +378,7 @@
 
 ### 共享调用状态 {id="call-state"}
 
-自定义插件允许您共享与调用相关的任何值，以便您可以在处理此调用的任何处理器内部访问此值。
-此值以具有唯一键的属性形式存储在 `call.attributes` 集合中。
-下面的示例演示了如何使用属性来计算发送请求和接收响应之间的时间：
+自定义插件允许您共享与调用相关的任何值，以便您可以在处理此调用的任何处理器内部访问此值。此值以具有唯一键的属性形式存储在 `call.attributes` 集合中。下面的示例演示了如何使用属性来计算发送请求和接收响应之间的时间：
 
 ```kotlin
 import io.ktor.client.plugins.api.*
@@ -408,8 +403,7 @@ val ResponseTimePlugin = createClientPlugin("ResponseTimePlugin") {
 
 ## 访问客户端配置 {id="client-config"}
 
-您可以使用 `client` 属性访问客户端配置，该属性返回 `HttpClient` 实例。
-下面的示例展示了如何获取客户端使用的[代理地址](client-proxy.md)：
+您可以使用 `client` 属性访问客户端配置，该属性返回 `HttpClient` 实例。下面的示例展示了如何获取客户端使用的[代理地址](client-proxy.md)：
 
 ```kotlin
 import io.ktor.client.plugins.api.*
@@ -422,8 +416,7 @@ val SimplePlugin = createClientPlugin("SimplePlugin") {
 
 ## 示例 {id="examples"}
 
-下面的代码示例演示了自定义插件的几个示例。
-您可以在这里找到最终项目：[client-custom-plugin](https://github.com/ktorio/ktor-documentation/blob/%ktor_version%/codeSnippets/snippets/client-custom-plugin/)。
+下面的代码示例演示了自定义插件的几个示例。您可以在这里找到最终项目：[client-custom-plugin](https://github.com/ktorio/ktor-documentation/blob/%ktor_version%/codeSnippets/snippets/client-custom-plugin/)。
 
 ### 自定义标头 {id="example-custom-header"}
 

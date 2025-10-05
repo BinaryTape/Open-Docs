@@ -494,5 +494,11 @@
   "kmp.kotlin-multiplatform-react-native": "Kotlin Multiplatform 및 React Native",
   "koog.act-agent-api": "Act Agent API",
   "koog.structured-output": "구조화된 출력",
-  "koog.why-koog": "Koog를 선택하는 이유"
+  "koog.why-koog": "Koog를 선택하는 이유",
+  "koog.functional-agents": "함수형 에이전트",
+  "koog.a2a-protocol": "A2A 프로토콜",
+  "koog.a2a-server-implementation": "A2A 서버 구현",
+  "koog.a2a-client-implementation": "A2A 클라이언트 구현",
+  "koog.a2a-and-koog-integration": "A2A 및 Koog 통합",
+  "koog.agent-persistence": "에이전트 영속성"
 }

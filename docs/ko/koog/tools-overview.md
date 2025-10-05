@@ -79,12 +79,12 @@ import ai.koog.prompt.executor.clients.openai.OpenAIModels
 import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
 -->
 ```kotlin
-// Agent initialization
+// 에이전트 초기화
 val agent = AIAgent(
     promptExecutor = simpleOpenAIExecutor(System.getenv("OPENAI_API_KEY")),
     systemPrompt = "You are a helpful assistant with strong mathematical skills.",
     llmModel = OpenAIModels.Chat.GPT4o,
-    // Pass your tool registry to the agent
+    // 도구 레지스트리를 에이전트에 전달
     toolRegistry = toolRegistry
 )
 ```
@@ -95,7 +95,7 @@ val agent = AIAgent(
 에이전트 코드 내에서 도구를 호출하는 여러 가지 방법이 있습니다. 권장되는 접근 방식은 도구를 직접 호출하는 대신 에이전트 컨텍스트에서 제공되는 메서드를 사용하는 것입니다. 이는 에이전트 환경 내에서 도구 작업의 적절한 처리를 보장하기 때문입니다.
 
 !!! tip
-    에이전트 오류를 방지하려면 도구에 적절한 [오류 처리](agent-events.md)가 구현되었는지 확인하세요.
+    에이전트 오류를 방지하려면 도구에 적절한 [오류 처리](agent-event-handlers.md)가 구현되었는지 확인하세요.
 
 도구는 `AIAgentLLMWriteSession`으로 표현되는 특정 세션 컨텍스트 내에서 호출됩니다.
 이는 도구 호출을 위한 여러 메서드를 제공하며, 따라서 다음을 수행할 수 있습니다:
@@ -184,11 +184,12 @@ val strategy = strategy<Unit, Unit>("strategy-name") {
 
 ### 에이전트를 도구로 변환하기
 
-에이전트를 도구로 변환하려면 `asTool()` 확장 함수를 사용하세요:
+에이전트를 도구로 변환하려면 `AIAgentService`의 `createAgentTool()` 함수를 사용하세요:
 
 <!--- INCLUDE
 import ai.koog.agents.core.agent.AIAgent
-import ai.koog.agents.core.agent.asTool
+import ai.koog.agents.core.agent.AIAgentService
+import ai.koog.agents.core.agent.createAgentTool
 import ai.koog.agents.core.tools.ToolParameterDescriptor
 import ai.koog.agents.core.tools.ToolParameterType
 import ai.koog.agents.core.tools.ToolRegistry
@@ -200,19 +201,19 @@ val analysisToolRegistry = ToolRegistry {}
 
 -->
 ```kotlin
-// Create a specialized agent
-val analysisAgent = AIAgent(
+// 재무 분석 에이전트 생성을 담당하는 전문 에이전트 서비스를 생성합니다.
+val analysisAgentService = AIAgentService(
     promptExecutor = simpleOpenAIExecutor(apiKey),
     llmModel = OpenAIModels.Chat.GPT4o,
     systemPrompt = "You are a financial analysis specialist.",
     toolRegistry = analysisToolRegistry
 )
 
-// Convert the agent to a tool
-val analysisAgentTool = analysisAgent.asTool(
+// 호출 시 재무 분석 에이전트를 실행하는 도구를 생성합니다.
+val analysisAgentTool = analysisAgentService.createAgentTool(
     agentName = "analyzeTransactions",
-    agentDescription = "Performs financial transaction analysis",
-    inputDescription = "Transaction analysis request",
+    agentDescription = "금융 거래 분석을 수행합니다",
+    inputDescription = "거래 분석 요청",
 )
 ```
 <!--- KNIT example-tools-overview-05.kt -->
@@ -232,14 +233,14 @@ const val apiKey = ""
 
 -->
 ```kotlin
-// Create a coordinator agent that can use specialized agents as tools
+// 전문 에이전트를 도구로 사용할 수 있는 코디네이터 에이전트를 생성합니다.
 val coordinatorAgent = AIAgent(
     promptExecutor = simpleOpenAIExecutor(apiKey),
     llmModel = OpenAIModels.Chat.GPT4o,
     systemPrompt = "You coordinate different specialized services.",
     toolRegistry = ToolRegistry {
         tool(analysisAgentTool)
-        // Add other tools as needed
+        // 필요에 따라 다른 도구를 추가
     }
 )
 ```

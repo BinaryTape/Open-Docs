@@ -8,6 +8,11 @@
 
 Koog 框架实现了以下特性：
 
-- [事件处理器](agent-events.md)
+- [事件处理器](agent-event-handlers.md)
 - [跟踪](tracing.md)
 - [智能体内存](agent-memory.md)
+- [OpenTelemetry](opentelemetry-support.md)
+- [智能体持久化 (快照)](agent-persistence.md)
+- 调试器
+- 分词器
+- SQL 持久化提供器

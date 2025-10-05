@@ -49,7 +49,7 @@ plugins {
 [Google App Engine Gradle 插件](https://github.com/GoogleCloudPlatform/app-gradle-plugin) 提供构建和部署 Google App Engine 应用程序的任务。要使用此插件，请按照以下步骤操作：
 
 1. 打开 `settings.gradle.kts` 文件并插入以下代码以从中央 Maven 版本库引用插件：
-   ```groovy
+   ```kotlin
    pluginManagement {
        repositories {
            gradlePluginPortal()
@@ -88,7 +88,7 @@ plugins {
    }
    ```
 
-### 步骤 3: 配置 App Engine 设置 {id="configure-app-engine-settings"}
+### 3: 配置 App Engine 设置 {id="configure-app-engine-settings"}
 你可以在 [app.yaml](https://cloud.google.com/appengine/docs/standard/python/config/appref) 文件中配置应用程序的 App Engine 设置：
 1. 在 `src/main` 内部创建 `appengine` 目录。
 2. 在此目录内部，创建 `app.yaml` 文件并添加以下内容（将 `google-appengine-standard` 替换为你的项目名称）：

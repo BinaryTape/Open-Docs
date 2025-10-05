@@ -97,6 +97,7 @@ fun main() {
     val getResponseWithMember = client.request("GET", "https://example.com", emptyMap())
 
     // 使用 get() 擴展函數進行 GET 請求
+    // 客戶端實例是接收者
     val getResponseWithExtension = client.get("https://example.com")
 }
 ```
@@ -114,7 +115,7 @@ fun main() {
 
 |---|---|
 ```kotlin
-fun Int.// 在此撰寫您的程式碼
+fun Int.// Write your code here
 
 fun main() {
     println(1.isPositive())
@@ -146,7 +147,7 @@ fun main() {
 
 |---|---|
 ```kotlin
-fun // 在此撰寫您的程式碼
+fun // Write your code here
 
 fun main() {
     println("Hello World!".toLowercaseString())

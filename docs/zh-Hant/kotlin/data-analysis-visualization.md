@@ -2,7 +2,7 @@
 
 Kotlin 提供了一站式解決方案，可實現強大且靈活的資料視覺化，在深入複雜模型之前，提供了一種直觀的方式來呈現和探索資料。
 
-本教學課程示範如何在 IntelliJ IDEA 中，使用 [Kotlin Notebook](kotlin-notebook-overview.md) 搭配 [Kandy](https://kotlin.github.io/kandy/welcome.html) 和 [Kotlin DataFrame](https://kotlin.github.io/dataframe/gettingstarted.html) 函式庫來建立不同類型的圖表。
+本教學課程示範如何在 IntelliJ IDEA 中，使用 [Kotlin Notebook](kotlin-notebook-overview.md) 搭配 [Kandy](https://kotlin.github.io/kandy/welcome.html) 和 [Kotlin DataFrame](https://kotlin.github.io/dataframe/home.html) 函式庫來建立不同類型的圖表。
 
 ## 開始之前
 

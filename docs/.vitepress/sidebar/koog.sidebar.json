@@ -18,8 +18,8 @@
             "link": "single-run-agents"
           },
           {
-            "text": "koog.act-agent-api",
-            "link": "act-ai-agent"
+            "text": "koog.functional-agents",
+            "link": "functional-agents"
           },
           {
             "text": "koog.complex-workflow-agents",
@@ -91,6 +91,28 @@
       {
         "text": "koog.model-context-protocol",
         "link": "model-context-protocol"
+      },
+      {
+        "text": "koog.a2a-protocol",
+        "items": [
+          {
+            "text": "koog.overview",
+            "link": "a2a-protocol-overview"
+          },
+          {
+            "text": "koog.a2a-server-implementation",
+            "link": "a2a-server"
+          },
+          {
+            "text": "koog.a2a-client-implementation",
+            "link": "a2a-client"
+          },
+          {
+            "text": "koog.a2a-and-koog-integration",
+            "link": "a2a-koog-integration"
+          }
+        ],
+        "collapsed": true
       },
       {
         "text": "koog.model-capabilities",
@@ -171,8 +193,8 @@
                 "link": "agent-memory"
               },
               {
-                "text": "koog.agent-persistency",
-                "link": "agent-persistency"
+                "text": "koog.agent-persistence",
+                "link": "agent-persistence"
               },
               {
                 "text": "koog.opentelemetry",

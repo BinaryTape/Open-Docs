@@ -60,6 +60,28 @@ Ktor 서버는 Kotlin에서 지원하는 다음 플랫폼에서 사용할 수 �
 
 <tr>
 <td>
+        Android
+    </td>
+    <td>
+        <list>
+            <li>
+                <code>androidNativeArm32</code>
+            </li>
+            <li>
+                <code>androidNativeArm64</code>
+            </li>
+            <li>
+                <code>androidNativeX86</code>
+            </li>
+            <li>
+                <code>androidNativeX64</code>
+            </li>
+        </list>
+    </td>
+</tr>
+
+<tr>
+<td>
         iOS
     </td>
     <td>
@@ -151,6 +173,19 @@ Ktor 서버는 Kotlin에서 지원하는 다음 플랫폼에서 사용할 수 �
             </li>
             <li>
                 <code>linuxArm64</code>
+            </li>
+        </list>
+    </td>
+</tr>
+
+<tr>
+<td>
+        Windows
+    </td>
+    <td>
+        <list>
+            <li>
+                <code>mingwX64</code>
             </li>
         </list>
     </td>

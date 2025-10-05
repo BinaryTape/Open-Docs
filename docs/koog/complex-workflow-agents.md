@@ -2,6 +2,9 @@
 
 除了单次运行代理，`AIAgent` 类还允许您通过定义自定义策略、工具、配置以及自定义输入/输出类型来构建处理复杂工作流的代理。
 
+!!! tip
+    如果您是 Koog 新手并希望创建最简单的代理，请从 [单次运行代理](single-run-agents.md) 开始。
+
 创建和配置此类代理的过程通常包括以下步骤：
 
 1.  提供一个提示执行器与 LLM 通信。
@@ -19,7 +22,7 @@
     使用环境变量或安全的配置管理系统来存储您的 API 密钥。
     避免将 API 密钥直接硬编码到源代码中。
 
-## 创建单次运行代理
+## 创建复杂工作流代理
 
 ### 1. 添加依赖项
 
@@ -38,7 +41,7 @@ dependencies {
 提示执行器管理并运行提示。
 您可以根据计划使用的 LLM 提供商选择提示执行器。
 此外，您可以使用其中一个可用的 LLM 客户端创建自定义提示执行器。
-欲了解更多信息，请参见 [提示执行器](prompt-api.md#prompt-executors)。
+欲了解更多信息，请参见 [提示执行器](prompt-api.md#running-prompts-with-prompt-executors)。
 
 例如，要提供 OpenAI 提示执行器，您需要调用 `simpleOpenAIExecutor` 函数，并提供与 OpenAI 服务进行身份验证所需的 API 密钥：
 
@@ -112,6 +115,7 @@ val processNode by node<InputType, OutputType> { input ->
 }
 ```
 <!--- KNIT example-complex-workflow-agents-04.kt -->
+
 !!! tip
     还有一些预定义节点可供您在代理策略中使用。欲了解更多信息，请参见 [预定义节点和组件](nodes-and-components.md)。
 
@@ -162,6 +166,7 @@ edge(sourceNode forwardTo targetNode transformed { output ->
 edge(sourceNode forwardTo targetNode onCondition { it.isNotEmpty() } transformed { it.uppercase() })
 ```
 <!--- KNIT example-complex-workflow-agents-05.kt -->
+
 #### 3.2. 实现策略
 
 要实现代理策略，请调用 `strategy` 函数并定义节点和边。例如：
@@ -387,7 +392,7 @@ fun main() {
 
 ## 处理结构化数据
 
-`AIAgent` 可以处理来自 LLM 输出的结构化数据。欲了解更多详情，请参见 [结构化数据处理](structured-data.md)。
+`AIAgent` 可以处理来自 LLM 输出的结构化数据。欲了解更多详情，请参见 [结构化数据处理](structured-output.md)。
 
 ## 使用并行工具调用
 

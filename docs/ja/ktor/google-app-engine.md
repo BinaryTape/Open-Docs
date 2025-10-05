@@ -16,25 +16,25 @@
 </web-summary>
 
 <link-summary>
-Google App Engine標準環境にプロジェクトをデプロイする方法を学びます。
+プロジェクトをGoogle App Engine標準環境にデプロイする方法を学びます。
 </link-summary>
 
-このチュートリアルでは、KtorプロジェクトをGoogle App Engine標準環境に準備してデプロイする方法を説明します。このチュートリアルでは、[engine-main](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/engine-main)サンプルプロジェクトを開始プロジェクトとして使用します。
+このチュートリアルでは、KtorプロジェクトをGoogle App Engine標準環境に準備してデプロイする方法を説明します。このチュートリアルでは、開始プロジェクトとして[engine-main](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/engine-main)サンプルプロジェクトを使用します。
 
 ## 前提条件 {id="prerequisites"}
 このチュートリアルを開始する前に、以下の手順を実行する必要があります。
-* [Google Cloud Platform](https://console.cloud.google.com/)に登録します。
-* [Google Cloud SDK](https://cloud.google.com/sdk/docs/install)をインストールして初期化します。
-* 以下のコマンドでJava用のApp Engine拡張機能をインストールします。
+*   [Google Cloud Platform](https://console.cloud.google.com/)に登録します。
+*   [Google Cloud SDK](https://cloud.google.com/sdk/docs/install)をインストールして初期化します。
+*   以下のコマンドでJava用のApp Engine拡張機能をインストールします。
    ```Bash
    gcloud components install app-engine-java
    ```
 
 ## サンプルアプリケーションのクローン作成 {id="clone"}
 サンプルアプリケーションを開くには、以下の手順に従います。
-1. Ktorドキュメンテーションリポジトリをクローンし、[codeSnippets](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets)プロジェクトを開きます。
-2. [engine-main](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/engine-main)モジュールを開きます。
-   > Ktorは、[サーバーを作成および構成する](server-create-and-configure.topic)ための2つのアプローチ（コード内または構成ファイルを使用）を提供していることに注意してください。このチュートリアルでは、両方のアプローチでデプロイプロセスは同じです。
+1.  Ktorドキュメンテーションリポジトリをクローンし、[codeSnippets](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets)プロジェクトを開きます。
+2.  [engine-main](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/engine-main)モジュールを開きます。
+   > Ktorは、[サーバーを作成および構成する](server-create-and-configure.topic)ための2つのアプローチ（コード内または構成ファイルを使用）を提供していることに注意してください。このチュートリアルでは、デプロイプロセスは両方のアプローチで同じです。
 
 ## アプリケーションの準備 {id="prepare-app"}
 ### ステップ1: Shadowプラグインの適用 {id="configure-shadow-plugin"}
@@ -48,8 +48,8 @@ plugins {
 ### ステップ2: App Engineプラグインの構成 {id="configure-app-engine-plugin"}
 [Google App Engine Gradleプラグイン](https://github.com/GoogleCloudPlatform/app-gradle-plugin)は、Google App Engineアプリケーションをビルドおよびデプロイするためのタスクを提供します。このプラグインを使用するには、以下の手順に従います。
 
-1. `settings.gradle.kts`ファイルを開き、以下のコードを挿入してCentral Mavenリポジトリからプラグインを参照します。
-   ```groovy
+1.  `settings.gradle.kts`ファイルを開き、以下のコードを挿入してCentral Mavenリポジトリからプラグインを参照します。
+   ```kotlin
    pluginManagement {
        repositories {
            gradlePluginPortal()
@@ -66,14 +66,14 @@ plugins {
    }
    ```
 
-2. `build.gradle.kts`を開き、`plugins`ブロックにプラグインを適用します。
+2.  `build.gradle.kts`を開き、`plugins`ブロックにプラグインを適用します。
    ```kotlin
    plugins {
        id("com.google.cloud.tools.appengine") version "2.8.0"
    }
    ```
 
-3. `build.gradle.kts`ファイルに以下の設定で`appengine`ブロックを追加します。
+3.  `build.gradle.kts`ファイルに以下の設定で`appengine`ブロックを追加します。
    ```kotlin
    import com.google.cloud.tools.gradle.appengine.appyaml.AppEngineAppYamlExtension
    
@@ -90,8 +90,8 @@ plugins {
 
 ### ステップ3: App Engine設定の構成 {id="configure-app-engine-settings"}
 アプリケーションのApp Engine設定は、[app.yaml](https://cloud.google.com/appengine/docs/standard/python/config/appref)ファイルで構成します。
-1. `src/main`内に`appengine`ディレクトリを作成します。
-2. このディレクトリ内に`app.yaml`ファイルを作成し、以下のコンテンツを追加します（`google-appengine-standard`をプロジェクト名に置き換えます）。
+1.  `src/main`内に`appengine`ディレクトリを作成します。
+2.  このディレクトリ内に`app.yaml`ファイルを作成し、以下のコンテンツを追加します（`google-appengine-standard`をプロジェクト名に置き換えます）。
    ```yaml
    runtime: java21
    entrypoint: 'java -jar google-appengine-standard-all.jar'
@@ -106,17 +106,17 @@ plugins {
 
 アプリケーションをデプロイするには、ターミナルを開き、以下の手順に従います。
 
-1. まず、アプリケーションリソースを保持するトップレベルのコンテナであるGoogle Cloudプロジェクトを作成します。例えば、以下のコマンドは`ktor-sample-app-engine`という名前でプロジェクトを作成します。
+1.  まず、アプリケーションリソースを保持するトップレベルのコンテナであるGoogle Cloudプロジェクトを作成します。例えば、以下のコマンドは`ktor-sample-app-engine`という名前でプロジェクトを作成します。
    ```Bash
    gcloud projects create ktor-sample-app-engine --set-as-default
    ```
    
-2. Cloudプロジェクト用にApp Engineアプリケーションを作成します。
+2.  Cloudプロジェクト用にApp Engineアプリケーションを作成します。
    ```Bash
    gcloud app create
    ```
 
-3. アプリケーションをデプロイするには、`appengineDeploy` Gradleタスクを実行します...
+3.  アプリケーションをデプロイするには、`appengineDeploy` Gradleタスクを実行します...
    ```Bash
    ./gradlew appengineDeploy
    ```

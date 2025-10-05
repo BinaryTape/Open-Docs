@@ -9,7 +9,7 @@ FunctionalAIAgent는 간단한 루프로 제어하는 경량의 비‑그래프(
 1) "Hello, World" FunctionalAIAgent 생성.
 2) 도구를 추가하고 에이전트가 이를 호출하도록 하기.
 3) 동작을 관찰하기 위한 기능(이벤트 핸들러) 추가.
-4) 기록 압축을 통해 컨텍스트 제어하기.
+4) 기록 압축을 통해 컨텍스트를 제어하기.
 5) 일반적인 레시피, 주의사항 및 FAQ 알아보기.
 
 ## 1) 전제 조건
@@ -109,7 +109,7 @@ val observed = functionalAIAgent<String, String>(
     toolRegistry = tools,
     featureContext = {
         install(EventHandler) {
-            onToolCall { e -> println("Tool called: ${e.tool.name}, args: ${e.toolArgs}") }
+            onToolCallStarting { e -> println("Tool called: ${e.tool.name}, args: ${e.toolArgs}") }
         }
     }
 ) { input ->

@@ -8,6 +8,7 @@
 
 *   策略執行
 *   LLM 呼叫
+*   LLM 串流 (開始、幀、完成、錯誤)
 *   工具呼叫
 *   代理程式圖中的節點執行
 
@@ -34,7 +35,7 @@
 <!--- INCLUDE
 import ai.koog.agents.core.agent.AIAgent
 import ai.koog.agents.core.feature.model.events.LLMCallCompletedEvent
-import ai.koog.agents.core.feature.model.events.ToolExecutionStartingEvent
+import ai.koog.agents.core.feature.model.events.ToolCallStartingEvent
 import ai.koog.agents.features.tracing.feature.Tracing
 import ai.koog.agents.features.tracing.writer.TraceFeatureMessageFileWriter
 import ai.koog.agents.features.tracing.writer.TraceFeatureMessageLogWriter
@@ -46,7 +47,7 @@ import kotlinx.io.files.Path
 import kotlinx.io.files.SystemFileSystem
 -->
 ```kotlin
-// 定義將用作追蹤訊息目的地的紀錄器/檔案
+// 定義將用作追蹤訊息目的地的紀錄器/檔案 
 val logger = KotlinLogging.logger { }
 val outputPath = Path("/path/to/trace.log")
 
@@ -109,15 +110,15 @@ fileWriter.setMessageFilter { message ->
 }
 
 // 僅篩選與工具相關的事件
-fileWriter.setMessageFilter { message ->
-    message is ToolExecutionStartingEvent ||
-           message is ToolExecutionCompletedEvent ||
+fileWriter.setMessageFilter { message -> 
+    message is ToolCallStartingEvent ||
+           message is ToolCallCompletedEvent ||
            message is ToolValidationFailedEvent ||
-           message is ToolExecutionFailedEvent
+           message is ToolCallFailedEvent
 }
 
 // 僅篩選節點執行事件
-fileWriter.setMessageFilter { message ->
+fileWriter.setMessageFilter { message -> 
     message is NodeExecutionStartingEvent || message is NodeExecutionCompletedEvent
 }
 ```
@@ -147,20 +148,24 @@ Tracing
 │   │   └── FeatureMessageFileWriter
 │   └── TraceFeatureMessageRemoteWriter
 │       └── FeatureMessageRemoteWriter
-└── Event Types (來自 ai.koog.agents.core.feature.model)
-    ├── AgentStartingEvent (代理程式開始事件)
-    ├── AgentCompletedEvent (代理程式完成事件)
-    ├── AgentExecutionFailedEvent (代理程式執行失敗事件)
-    ├── StrategyStartingEvent (策略開始事件)
-    ├── StrategyCompletedEvent (策略完成事件)
-    ├── NodeExecutionStartingEvent (節點執行開始事件)
-    ├── NodeExecutionCompletedEvent (節點執行完成事件)
-    ├── LLMCallStartingEvent (LLM 呼叫開始事件)
-    ├── LLMCallCompletedEvent (LLM 呼叫完成事件)
-    ├── ToolExecutionStartingEvent (工具執行開始事件)
-    ├── ToolValidationFailedEvent (工具驗證失敗事件)
-    ├── ToolExecutionFailedEvent (工具執行失敗事件)
-    └── ToolExecutionCompletedEvent (工具執行完成事件)
+└── Event Types (from ai.koog.agents.core.feature.model)
+    ├── AgentStartingEvent
+    ├── AgentCompletedEvent
+    ├── AgentExecutionFailedEvent
+    ├── StrategyStartingEvent
+    ├── StrategyCompletedEvent
+    ├── NodeExecutionStartingEvent
+    ├── NodeExecutionCompletedEvent
+    ├── LLMCallStartingEvent
+    ├── LLMCallCompletedEvent
+    ├── LLMStreamingStartingEvent
+    ├── LLMStreamingFrameReceivedEvent
+    ├── LLMStreamingFailedEvent
+    ├── LLMStreamingCompletedEvent
+    ├── ToolCallStartingEvent
+    ├── ToolValidationFailedEvent
+    ├── ToolCallFailedEvent
+    └── ToolCallCompletedEvent
 ```
 
 ## 範例與快速入門
@@ -294,13 +299,13 @@ fun main() {
 -->
 ```kotlin
 install(Tracing) {
-
+    
     val fileWriter = TraceFeatureMessageFileWriter(
-        outputPath,
+        outputPath, 
         { path: Path -> SystemFileSystem.sink(path).buffered() }
     )
     addMessageProcessor(fileWriter)
-
+    
     // 僅追蹤 LLM 呼叫
     fileWriter.setMessageFilter { message ->
         message is LLMCallStartingEvent || message is LLMCallCompletedEvent
@@ -591,11 +596,11 @@ install(Tracing) {
 
 Koog 提供了可用於自訂訊息處理器的預定義事件類型。預定義事件可根據其相關實體分為多個類別：
 
--   [代理程式事件](#agent-events)
--   [策略事件](#strategy-events)
--   [節點事件](#node-events)
--   [LLM 呼叫事件](#llm-call-events)
--   [工具呼叫事件](#tool-call-events)
+*   [代理程式事件](#agent-events)
+*   [策略事件](#strategy-events)
+*   [節點事件](#node-events)
+*   [LLM 呼叫事件](#llm-call-events)
+*   [工具呼叫事件](#tool-call-events)
 
 ### 代理程式事件
 
@@ -694,7 +699,7 @@ Koog 提供了可用於自訂訊息處理器的預定義事件類型。預定義
 | `eventId` | String             | 否       | `LLMCallStartingEvent` | 事件的識別碼。通常是事件類別的 `simpleName`。                      |
 
 <a id="prompt"></a>
-`Prompt` 類別表示提示的資料結構，由訊息列表、唯一識別碼以及用於語言模型設定的可選參數組成。包含以下欄位：
+`Prompt` 類別表示提示的資料結構，由訊息列表、唯一識別碼以及用於 LLM 設定的可選參數組成。包含以下欄位：
 
 | 名稱       | 資料類型           | 必填 | 預設值     | 說明                                   |
 |------------|---------------------|----------|-------------|----------------------------------------|

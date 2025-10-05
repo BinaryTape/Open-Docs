@@ -1,8 +1,11 @@
 [//]: # (title: Kotlin Notebook에서 지원하는 출력 형식)
 
-[Kotlin Notebook](kotlin-notebook-overview.md)은 텍스트, HTML, 이미지 등 다양한 출력 유형을 지원합니다. 외부 라이브러리의 도움으로 출력 옵션을 확장하고 차트, 스프레드시트 등으로 데이터를 시각화할 수 있습니다.
+[Kotlin Notebook](kotlin-notebook-overview.md)은 텍스트, HTML, 이미지 등 다양한 출력 유형을 지원합니다. 외부 라이브러리의 도움으로
+출력 옵션을 확장하고 차트, 스프레드시트 등으로 데이터를 시각화할 수 있습니다.
 
-각 출력은 [Jupiter MIME 타입](https://jupyterlab.readthedocs.io/en/latest/user/file_formats.html)을 데이터에 매핑하는 JSON 객체입니다. 이 맵에서 Kotlin Notebook은 다른 타입 중에서 가장 높은 우선순위를 가진 지원되는 MIME 타입을 선택하여 다음과 같이 렌더링합니다.
+각 출력은 [Jupiter MIME 타입](https://jupyterlab.readthedocs.io/en/latest/user/file_formats.html)을
+데이터에 매핑하는 JSON 객체입니다. 이 맵에서 Kotlin Notebook은 다른
+타입 중에서 가장 높은 우선순위를 가진 지원되는 MIME 타입을 선택하여 다음과 같이 렌더링합니다.
 
 *   [텍스트](#texts)는 `text/plain` MIME 타입을 사용합니다.
 *   [BufferedImage 클래스](#buffered-images)는 Base64 문자열에 매핑되는 `image/png` MIME 타입을 사용합니다.
@@ -105,7 +108,8 @@ HTML("""
 
 ## 이미지
 
-Kotlin Notebook을 사용하면 파일, 생성된 그래프 또는 기타 시각 미디어에서 이미지를 표시할 수 있습니다. 정적 이미지는 `.png`, `jpeg`, `.svg`와 같은 형식으로 표시될 수 있습니다.
+Kotlin Notebook을 사용하면 파일, 생성된 그래프 또는 기타 시각 미디어에서 이미지를 표시할 수 있습니다.
+정적 이미지는 `.png`, `jpeg`, `.svg`와 같은 형식으로 표시될 수 있습니다.
 
 ### 버퍼링된 이미지
 
@@ -136,7 +140,8 @@ graphics.dispose()
 
 ### 로드된 이미지
 
-`lib-ext` 라이브러리의 도움으로 표준 Jupyter 기능을 확장하고 네트워크에서 로드된 이미지를 표시할 수 있습니다.
+`lib-ext` 라이브러리의 도움으로 표준 Jupyter 기능을 확장하고
+네트워크에서 로드된 이미지를 표시할 수 있습니다.
 
 ```none
 %use lib-ext(0.11.0-398)
@@ -150,7 +155,8 @@ Image("https://kotlinlang.org/docs/images/kotlin-logo.png", embed = false).withW
 
 ### 임베디드 이미지
 
-네트워크에서 로드된 이미지의 단점은 링크가 끊어지거나 네트워크 연결이 끊어지는 경우 이미지가 사라진다는 것입니다. 이를 해결하려면 임베디드 이미지를 사용하세요. 예를 들면 다음과 같습니다.
+네트워크에서 로드된 이미지의 단점은 링크가 끊어지거나 네트워크 연결이 끊어지는 경우 이미지가 사라진다는 것입니다.
+이를 해결하려면 임베디드 이미지를 사용하세요. 예를 들면 다음과 같습니다.
 
 ```kotlin
 val kotlinMascot = Image("https://blog.jetbrains.com/wp-content/uploads/2023/04/DSGN-16174-Blog-post-banner-and-promo-materials-for-post-about-Kotlin-mascot_3.png", embed = true).withWidth(400)
@@ -181,7 +187,7 @@ kotlinMascot
 
 Kotlin Notebook을 사용하면 데이터 프레임을 통해 구조화된 데이터를 시각화할 수 있습니다.
 
-1.  [Kotlin DataFrame](https://kotlin.github.io/dataframe/gettingstarted.html) 라이브러리를 노트북에 추가합니다.
+1.  [Kotlin DataFrame](https://kotlin.github.io/dataframe/home.html) 라이브러리를 노트북에 추가합니다.
 
     ```none
     %use dataframe

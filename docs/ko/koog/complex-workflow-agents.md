@@ -2,6 +2,9 @@
 
 단일 실행 에이전트 외에도, `AIAgent` 클래스를 사용하면 사용자 지정 전략, 도구, 구성 및 사용자 지정 입/출력 타입을 정의하여 복잡한 워크플로를 처리하는 에이전트를 빌드할 수 있습니다.
 
+!!! tip
+    Koog가 처음이고 가장 간단한 에이전트를 만들고 싶다면 [단일 실행 에이전트](single-run-agents.md)부터 시작하세요.
+
 이러한 에이전트를 생성하고 구성하는 과정은 일반적으로 다음 단계를 포함합니다.
 
 1.  LLM과 통신하기 위한 프롬프트 실행기를 제공합니다.
@@ -19,7 +22,7 @@
     환경 변수 또는 보안 구성 관리 시스템을 사용하여 API 키를 저장하세요.
     소스 코드에 API 키를 직접 하드코딩하지 마세요.
 
-## 단일 실행 에이전트 생성
+## 복잡한 워크플로 에이전트 생성
 
 ### 1. 의존성 추가
 
@@ -38,7 +41,7 @@ dependencies {
 프롬프트 실행기는 프롬프트를 관리하고 실행합니다.
 사용할 LLM 제공자에 따라 프롬프트 실행기를 선택할 수 있습니다.
 또한, 사용 가능한 LLM 클라이언트 중 하나를 사용하여 사용자 지정 프롬프트 실행기를 생성할 수 있습니다.
-더 자세히 알아보려면 [프롬프트 실행기](prompt-api.md#prompt-executors)를 참조하세요.
+더 자세히 알아보려면 [프롬프트 실행기](prompt-api.md#running-prompts-with-prompt-executors)를 참조하세요.
 
 예를 들어, OpenAI 프롬프트 실행기를 제공하려면 `simpleOpenAIExecutor` 함수를 호출하고 OpenAI 서비스 인증에 필요한 API 키를 제공해야 합니다.
 
@@ -113,6 +116,7 @@ val processNode by node<InputType, OutputType> { input ->
 }
 ```
 <!--- KNIT example-complex-workflow-agents-04.kt -->
+
 !!! tip
     에이전트 전략에서 사용할 수 있는 사전 정의된 노드도 있습니다. 더 자세히 알아보려면 [사전 정의된 노드 및 컴포넌트](nodes-and-components.md)를 참조하세요.
 
@@ -163,6 +167,7 @@ edge(sourceNode forwardTo targetNode transformed { output ->
 edge(sourceNode forwardTo targetNode onCondition { it.isNotEmpty() } transformed { it.uppercase() })
 ```
 <!--- KNIT example-complex-workflow-agents-05.kt -->
+
 #### 3.2. 전략 구현하기
 
 에이전트 전략을 구현하려면 `strategy` 함수를 호출하고 노드와 엣지를 정의합니다. 예를 들어:
@@ -388,7 +393,7 @@ fun main() {
 
 ## 구조화된 데이터 작업
 
-`AIAgent`는 LLM 출력에서 구조화된 데이터를 처리할 수 있습니다. 더 자세한 내용은 [구조화된 데이터 처리](structured-data.md)를 참조하세요.
+`AIAgent`는 LLM 출력에서 구조화된 데이터를 처리할 수 있습니다. 더 자세한 내용은 [구조화된 데이터 처리](structured-output.md)를 참조하세요.
 
 ## 병렬 도구 호출 사용
 

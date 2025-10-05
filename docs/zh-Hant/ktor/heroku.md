@@ -25,7 +25,7 @@
 * 如果伺服器設定是在程式碼中指定，您可以使用 `System.getenv` 取得環境變數值。開啟位於 `src/main/kotlin/com/example` 資料夾中的 `Application.kt` 檔案，並按照以下所示更改 `embeddedServer` 函式的 `port` 參數值：
    ```kotlin
    fun main() {
-      embeddedServer(Netty, port = System.getenv("PORT").toInt()) {
+      embeddedServer(Netty, port = System.getenv("PORT")?.toIntOrNull() ?: 8080) {
           // ...
       }.start(wait = true)
    }

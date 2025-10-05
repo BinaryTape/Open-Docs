@@ -71,7 +71,7 @@ Unity MCPサーバーからツールを検出し、小さなプラン優先戦�
 import kotlinx.coroutines.runBlocking
 
 runBlocking {
-    // MCPサーバーのツールでToolRegistryを作成します
+    // Create the ToolRegistry with tools from the MCP server
     val toolRegistry = McpToolRegistryProvider.fromTransport(
         transport = McpToolRegistryProvider.defaultStdioTransport(process)
     )
@@ -84,7 +84,7 @@ runBlocking {
     val strategy = strategy<String, String>("unity_interaction") {
         val nodePlanIngredients by nodeLLMRequest(allowToolCalls = false)
         val interactionWithUnity by subgraphWithTask<String, String>(
-            // プランで作業
+            // work with plan
             tools = toolRegistry.tools,
         ) { input ->
             "Start interacting with Unity according to the plan: $input"
@@ -113,17 +113,17 @@ description:" + it.descriptor
             install(Tracing)
 
             install(EventHandler) {
-                onBeforeAgentStarted { eventContext ->
-                    println("OnBeforeAgentStarted first (strategy: ${strategy.name})")
+                onAgentStarting { eventContext ->
+                    println("OnAgentStarting first (strategy: ${strategy.name})")
                 }
 
-                onBeforeAgentStarted { eventContext ->
-                    println("OnBeforeAgentStarted second (strategy: ${strategy.name})")
+                onAgentStarting { eventContext ->
+                    println("OnAgentStarting second (strategy: ${strategy.name})")
                 }
 
-                onAgentFinished { eventContext ->
+                onAgentCompleted { eventContext ->
                     println(
-                        "OnAgentFinished (agent id: ${eventContext.agentId}, result: ${eventContext.result})"
+                        "OnAgentCompleted (agent id: ${eventContext.agentId}, result: ${eventContext.result})"
                     )
                 }
             }
@@ -143,5 +143,5 @@ description:" + it.descriptor
 実行の最後には、必ず外部のUnity MCPサーバープロセスをクリーンアップしてください。
 
 ```kotlin
-// Unity MCPプロセスをシャットダウンします
+// Shutdown the Unity MCP process
 process.destroy()

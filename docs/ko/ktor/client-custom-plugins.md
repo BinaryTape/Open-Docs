@@ -16,7 +16,8 @@
 사용자 지정 클라이언트 플러그인을 만드는 방법을 알아보세요.
 </link-summary>
 
-v2.2.0부터 Ktor는 사용자 지정 클라이언트 [플러그인](client-plugins.md)을 생성하기 위한 새로운 API를 제공합니다. 일반적으로 이 API는 파이프라인, 페이즈 등 내부 Ktor 개념에 대한 이해를 요구하지 않습니다. 대신 `onRequest`, `onResponse` 등과 같은 핸들러 세트를 사용하여 [요청 및 응답 처리](#call-handling)의 다양한 단계에 접근할 수 있습니다.
+v2.2.0부터 Ktor는 사용자 지정 클라이언트 [플러그인](client-plugins.md)을 생성하기 위한 새로운 API를 제공합니다. 일반적으로 이 API는 파이프라인, 페이즈 등 내부 Ktor 개념에 대한 이해를 요구하지 않습니다.
+대신, `onRequest`, `onResponse` 등과 같은 핸들러 세트를 사용하여 [요청 및 응답 처리](#call-handling)의 다양한 단계에 접근할 수 있습니다.
 
 ## 첫 번째 플러그인 생성 및 설치 {id="first-plugin"}
 
@@ -73,7 +74,7 @@ v2.2.0부터 Ktor는 사용자 지정 클라이언트 [플러그인](client-plug
     }
     ```
 
-2.  플러그인에서 이 구성을 사용하려면 구성 클래스 참조를 `createApplicationPlugin`에 전달합니다.
+2.  플러그인에서 이 구성을 사용하려면 구성 클래스 참조를 `createClientPlugin`에 전달합니다.
 
     ```kotlin
     import io.ktor.client.plugins.api.*
@@ -128,7 +129,7 @@ v2.2.0부터 Ktor는 사용자 지정 클라이언트 [플러그인](client-plug
 
 <tr>
 <td>
-<code>onRequest</code>
+`onRequest`
 </td>
 <td>
 <p>
@@ -144,14 +145,14 @@ v2.2.0부터 Ktor는 사용자 지정 클라이언트 [플러그인](client-plug
 
 <tr>
 <td>
-<code>transformRequestBody</code>
+`transformRequestBody`
 </td>
 <td>
 <p>
 <a href="#body">요청 본문</a>을 변환할 수 있도록 합니다.
 이 핸들러에서는 본문을 
 <a href="https://api.ktor.io/ktor-http/io.ktor.http.content/-outgoing-content/index.html">OutgoingContent</a> 
-(예: <code>TextContent</code>, <code>ByteArrayContent</code>, 또는 <code>FormDataContent</code>)로 직렬화하거나, 변환이 적용되지 않는 경우 <code>null</code>을 반환해야 합니다.
+(예: `TextContent`, `ByteArrayContent`, 또는 `FormDataContent`)로 직렬화하거나, 변환이 적용되지 않는 경우 `null`을 반환해야 합니다.
 </p>
 <p>
 <emphasis>
@@ -163,7 +164,7 @@ v2.2.0부터 Ktor는 사용자 지정 클라이언트 [플러그인](client-plug
 
 <tr>
 <td>
-<code>onResponse</code>
+`onResponse`
 </td>
 <td>
 <p>
@@ -179,13 +180,13 @@ v2.2.0부터 Ktor는 사용자 지정 클라이언트 [플러그인](client-plug
 
 <tr>
 <td>
-<code>transformResponseBody</code>
+`transformResponseBody`
 </td>
 <td>
 <p>
 <a href="#body">응답 본문</a>을 변환할 수 있도록 합니다.
-이 핸들러는 각 <code>HttpResponse.body</code> 호출에 대해 호출됩니다.
-본문을 <code>requestedType</code> 인스턴스로 역직렬화하거나, 변환이 적용되지 않는 경우 <code>null</code>을 반환해야 합니다.
+이 핸들러는 각 `HttpResponse.body` 호출에 대해 호출됩니다.
+본문을 `requestedType` 인스턴스로 역직렬화하거나, 변환이 적용되지 않는 경우 `null`을 반환해야 합니다.
 </p>
 <p>
 <emphasis>
@@ -197,7 +198,7 @@ v2.2.0부터 Ktor는 사용자 지정 클라이언트 [플러그인](client-plug
 
 <tr>
 <td>
-<code>onClose</code>
+`onClose`
 </td>
 <td>
 이 플러그인에 의해 할당된 리소스를 정리할 수 있도록 합니다.
@@ -223,10 +224,10 @@ v2.2.0부터 Ktor는 사용자 지정 클라이언트 [플러그인](client-plug
 
 <tr>
 <td>
-<code>on(SetupRequest)</code>
+`on(SetupRequest)`
 </td>
 <td>
-<code>SetupRequest</code> 훅은 요청 처리에서 가장 먼저 실행됩니다.
+`SetupRequest` 훅은 요청 처리에서 가장 먼저 실행됩니다.
 </td>
 </tr>
 
@@ -234,7 +235,7 @@ v2.2.0부터 Ktor는 사용자 지정 클라이언트 [플러그인](client-plug
 
 <tr>
 <td>
-<code>onRequest</code>
+`onRequest`
 </td>
 <td>
 <p>
@@ -254,14 +255,14 @@ v2.2.0부터 Ktor는 사용자 지정 클라이언트 [플러그인](client-plug
 
 <tr>
 <td>
-<code>transformRequestBody</code>
+`transformRequestBody`
 </td>
 <td>
 <p>
 <a href="#body">요청 본문</a>을 변환할 수 있도록 합니다.
 이 핸들러에서는 본문을 
 <a href="https://api.ktor.io/ktor-http/io.ktor.http.content/-outgoing-content/index.html">OutgoingContent</a> 
-(예: <code>TextContent</code>, <code>ByteArrayContent</code>, 또는 <code>FormDataContent</code>)로 직렬화하거나, 변환이 적용되지 않는 경우 <code>null</code>을 반환해야 합니다.
+(예: `TextContent`, `ByteArrayContent`, 또는 `FormDataContent`)로 직렬화하거나, 변환이 적용되지 않는 경우 `null`을 반환해야 합니다.
 </p>
 <p>
 <emphasis>
@@ -275,11 +276,11 @@ v2.2.0부터 Ktor는 사용자 지정 클라이언트 [플러그인](client-plug
 
 <tr>
 <td>
-<code>on(Send)</code>
+`on(Send)`
 </td>
 <td>
 <p>
-<code>Send</code> 훅은 응답을 검사하고 필요한 경우 추가 요청을 시작할 수 있는 기능을 제공합니다. 이는 리다이렉트 처리, 요청 재시도, 인증 등에 유용할 수 있습니다.
+`Send` 훅은 응답을 검사하고 필요한 경우 추가 요청을 시작할 수 있는 기능을 제공합니다. 이는 리다이렉트 처리, 요청 재시도, 인증 등에 유용할 수 있습니다.
 </p>
 <p>
 <emphasis>
@@ -291,11 +292,11 @@ v2.2.0부터 Ktor는 사용자 지정 클라이언트 [플러그인](client-plug
 
 <tr>
 <td>
-<code>on(SendingRequest)</code>
+`on(SendingRequest)`
 </td>
 <td>
 <p>
-<code>SendingRequest</code> 훅은 사용자에 의해 시작되지 않은 경우에도 모든 요청에 대해 실행됩니다.
+`SendingRequest` 훅은 사용자에 의해 시작되지 않은 경우에도 모든 요청에 대해 실행됩니다.
 예를 들어, 요청이 리다이렉트를 발생시키는 경우 `onRequest` 핸들러는 원본 요청에 대해서만 실행되지만, `on(SendingRequest)`는 원본 및 리다이렉트된 요청 모두에 대해 실행됩니다.
 마찬가지로 `on(Send)`를 사용하여 추가 요청을 시작한 경우, 핸들러는 다음과 같이 정렬됩니다.
 </p>
@@ -312,7 +313,7 @@ v2.2.0부터 Ktor는 사용자 지정 클라이언트 [플러그인](client-plug
 
 <tr>
 <td>
-<code>onResponse</code>
+`onResponse`
 </td>
 <td>
 <p>
@@ -332,13 +333,13 @@ v2.2.0부터 Ktor는 사용자 지정 클라이언트 [플러그인](client-plug
 
 <tr>
 <td>
-<code>transformResponseBody</code>
+`transformResponseBody`
 </td>
 <td>
 <p>
 <a href="#body">응답 본문</a>을 변환할 수 있도록 합니다.
-이 핸들러는 각 <code>HttpResponse.body</code> 호출에 대해 호출됩니다.
-본문을 <code>requestedType</code> 인스턴스로 역직렬화하거나, 변환이 적용되지 않는 경우 <code>null</code>을 반환해야 합니다.
+이 핸들러는 각 `HttpResponse.body` 호출에 대해 호출됩니다.
+본문을 `requestedType` 인스턴스로 역직렬화하거나, 변환이 적용되지 않는 경우 `null`을 반환해야 합니다.
 </p>
 <p>
 <emphasis>
@@ -354,7 +355,7 @@ v2.2.0부터 Ktor는 사용자 지정 클라이언트 [플러그인](client-plug
 
 <tr>
 <td>
-<code>onClose</code>
+`onClose`
 </td>
 <td>
 이 플러그인에 의해 할당된 리소스를 정리할 수 있도록 합니다.

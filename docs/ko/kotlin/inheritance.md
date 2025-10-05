@@ -3,7 +3,7 @@
 코틀린의 모든 클래스는 공통 슈퍼클래스인 `Any`를 가집니다. 이는 슈퍼타입이 선언되지 않은 클래스의 기본 슈퍼클래스입니다.
 
 ```kotlin
-class Example // Implicitly inherits from Any
+class Example // 암묵적으로 Any를 상속받습니다.
 ```
 
 `Any`는 `equals()`, `hashCode()`, `toString()` 세 가지 메서드를 가지고 있습니다. 따라서 이 메서드들은 모든 코틀린 클래스에 대해 정의됩니다.
@@ -11,9 +11,11 @@ class Example // Implicitly inherits from Any
 기본적으로 코틀린 클래스는 `final`입니다. 즉, 상속될 수 없습니다. 클래스를 상속 가능하게 만들려면 `open` 키워드를 붙여야 합니다.
 
 ```kotlin
-open class Base // Class is open for inheritance
+open class Base // 이 클래스는 상속을 위해 open됩니다.
 
 ```
+
+[자세한 내용은 Open 키워드](#open-keyword)를 참조하십시오.
 
 명시적인 슈퍼타입을 선언하려면, 클래스 헤더의 콜론(`:`) 뒤에 타입을 배치합니다.
 
@@ -32,6 +34,52 @@ class MyView : View {
     constructor(ctx: Context) : super(ctx)
 
     constructor(ctx: Context, attrs: AttributeSet) : super(ctx, attrs)
+}
+```
+
+## Open 키워드
+
+코틀린에서 `open` 키워드는 클래스 또는 멤버(함수나 프로퍼티)가 서브클래스에서 오버라이드될 수 있음을 나타냅니다. 기본적으로 코틀린 클래스와 멤버는 _`final`_입니다. 즉, 명시적으로 `open`으로 표시하지 않는 한 상속(클래스의 경우)되거나 오버라이드(멤버의 경우)될 수 없습니다.
+
+```kotlin
+// 상속을 허용하기 위해 open 키워드가 있는 기본 클래스
+open class Person(
+    val name: String
+) {
+    // 서브클래스에서 오버라이드될 수 있는 open 함수
+    open fun introduce() {
+        println("Hello, my name is $name.")
+    }
+}
+
+// Person을 상속받아 introduce() 함수를 오버라이드하는 서브클래스
+class Student(
+    name: String,
+    val school: String
+) : Person(name) {
+    override fun introduce() {
+        println("Hi, I'm $name, and I study at $school.")
+    }
+}
+```
+
+기본 클래스의 멤버를 오버라이드하는 경우, 오버라이드하는 멤버도 기본적으로 `open`입니다. 이를 변경하고 클래스의 서브클래스가 현재 구현을 오버라이드하는 것을 금지하려면, 오버라이드하는 멤버를 명시적으로 `final`로 표시할 수 있습니다.
+
+```kotlin
+// 상속을 허용하기 위해 open 키워드가 있는 기본 클래스
+open class Person(val name: String) {
+    // 서브클래스에서 오버라이드될 수 있는 open 함수
+    open fun introduce() {
+        println("Hello, my name is $name.")
+    }
+}
+
+// Person을 상속받아 introduce() 함수를 오버라이드하는 서브클래스
+class Student(name: String, val school: String) : Person(name) {
+    // final 키워드는 서브클래스에서의 추가적인 오버라이드를 방지합니다.
+    final override fun introduce() {
+        println("Hi, I'm $name, and I study at $school.")
+    }
 }
 ```
 
@@ -163,9 +211,9 @@ class FilledRectangle: Rectangle() {
     inner class Filler {
         fun fill() { println("Filling") }
         fun drawAndFill() {
-            super@FilledRectangle.draw() // Calls Rectangle's implementation of draw()
+            super@FilledRectangle.draw() // Rectangle.draw() 호출
             fill()
-            println("Drawn a filled rectangle with color ${super@FilledRectangle.borderColor}") // Uses Rectangle's implementation of borderColor's get()
+            println("Drawn a filled rectangle with color ${super@FilledRectangle.borderColor}") // Rectangle의 borderColor의 get() 구현 사용
         }
     }
 }
@@ -190,14 +238,14 @@ open class Rectangle {
 }
 
 interface Polygon {
-    fun draw() { /* ... */ } // interface members are 'open' by default
+    fun draw() { /* ... */ } // 인터페이스 멤버는 기본적으로 'open'입니다.
 }
 
 class Square() : Rectangle(), Polygon {
-    // The compiler requires draw() to be overridden:
+    // 컴파일러는 draw()를 오버라이드할 것을 요구합니다:
     override fun draw() {
-        super<Rectangle>.draw() // call to Rectangle.draw()
-        super<Polygon>.draw() // call to Polygon.draw()
+        super<Rectangle>.draw() // Rectangle.draw() 호출
+        super<Polygon>.draw() // Polygon.draw() 호출
     }
 }
 ```

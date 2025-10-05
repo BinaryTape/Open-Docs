@@ -2,7 +2,7 @@
 
 Kotlin은 강력하고 유연한 데이터 시각화를 위한 올인원 솔루션을 제공하여, 복잡한 모델에 뛰어들기 전에 데이터를 표현하고 탐색하는 직관적인 방법을 제공합니다.
 
-이 튜토리얼에서는 [Kandy](https://kotlin.github.io/kandy/welcome.html) 및 [Kotlin DataFrame](https://kotlin.github.io/dataframe/gettingstarted.html) 라이브러리와 함께 [Kotlin Notebook](kotlin-notebook-overview.md)을 사용하여 IntelliJ IDEA에서 다양한 차트 유형을 생성하는 방법을 보여줍니다.
+이 튜토리얼에서는 [Kandy](https://kotlin.github.io/kandy/welcome.html) 및 [Kotlin DataFrame](https://kotlin.github.io/dataframe/home.html) 라이브러리와 함께 [Kotlin Notebook](kotlin-notebook-overview.md)을 사용하여 IntelliJ IDEA에서 다양한 차트 유형을 생성하는 방법을 보여줍니다.
 
 ## 시작하기 전에
 
@@ -27,7 +27,7 @@ Kotlin Notebook 기능이 제공되지 않는다면 플러그인이 활성화되
 Kotlin DataFrame 라이브러리의 `dataFrameOf()` 함수를 사용하여 DataFrame을 생성합니다. Kotlin Notebook에서 다음 코드 스니펫을 실행합니다.
 
 ```kotlin
-// The months variable stores a list with the 12 months of the year
+// The months 변수는 1년 12개월 목록을 저장합니다
 val months = listOf(
     "January", "February",
     "March", "April", "May",
@@ -35,7 +35,7 @@ val months = listOf(
     "September", "October", "November",
     "December"
 )
-// The tempBerlin, tempMadrid, and tempCaracas variables store a list with temperature values for each month
+// The tempBerlin, tempMadrid, and tempCaracas 변수는 각 월별 기온 값 목록을 저장합니다
 val tempBerlin =
     listOf(-0.5, 0.0, 4.8, 9.0, 14.3, 17.5, 19.2, 18.9, 14.5, 9.7, 4.7, 1.0)
 val tempMadrid =
@@ -43,7 +43,7 @@ val tempMadrid =
 val tempCaracas =
     listOf(27.5, 28.9, 29.6, 30.9, 31.7, 35.1, 33.8, 32.2, 31.3, 29.4, 28.9, 27.6)
 
-// The df variable stores a DataFrame of three columns, including records of months, temperature, and cities
+// The df 변수는 월, 기온 및 도시 기록을 포함하는 세 개의 열로 구성된 DataFrame을 저장합니다
 val df = dataFrameOf(
     "Month" to months + months + months,
     "Temperature" to tempBerlin + tempMadrid + tempCaracas,
@@ -57,7 +57,7 @@ val df = dataFrameOf(
 df.head(4)
 ```
 
-DataFrame에는 Month(월), Temperature(기온), City(도시)의 세 가지 열이 있는 것을 볼 수 있습니다. DataFrame의 처음 네 행에는 1월부터 4월까지 베를린의 기온 기록이 포함되어 있습니다.
+DataFrame에는 Month, Temperature, City의 세 가지 열이 있는 것을 볼 수 있습니다. DataFrame의 처음 네 행에는 1월부터 4월까지 베를린의 기온 기록이 포함되어 있습니다.
 
 ![Dataframe exploration](visualization-dataframe-temperature.png){width=600}
 
@@ -74,17 +74,17 @@ Kandy 라이브러리의 `plot()` 함수를 사용합니다. `plot()` 함수 내
 ```kotlin
 df.plot {
     line {
-        // Accesses the DataFrame's columns used for the X and Y axes 
+        // X축과 Y축에 사용되는 DataFrame 열에 접근합니다
         x(Month)
         y(Temperature)
-        // Accesses the DataFrame's column used for categories and sets colors for these categories 
+        // 카테고리에 사용되는 DataFrame 열에 접근하고 이 카테고리에 대한 색상을 설정합니다
         color(City) {
             scale = categorical("Berlin" to Color.PURPLE, "Madrid" to Color.ORANGE, "Caracas" to Color.GREEN)
         }
-        // Customizes the line's size
+        // 선의 크기를 사용자 정의합니다
         width = 1.5
     }
-    // Customizes the chart's layout size
+    // 차트의 레이아웃 크기를 사용자 정의합니다
     layout.size = 1000 to 450
 }
 ```
@@ -102,17 +102,17 @@ df.plot {
 ```kotlin
 df.plot {
     points {
-        // Accesses the DataFrame's columns used for the X and Y axes 
+        // X축과 Y축에 사용되는 DataFrame 열에 접근합니다
         x(Month) { axis.name = "Month" }
         y(Temperature) { axis.name = "Temperature" }
-        // Customizes the point's size
+        // 포인트의 크기를 사용자 정의합니다
         size = 5.5
-        // Accesses the DataFrame's column used for categories and sets colors for these categories 
+        // 카테고리에 사용되는 DataFrame 열에 접근하고 이 카테고리에 대한 색상을 설정합니다
         color(City) {
             scale = categorical("Berlin" to Color.LIGHT_GREEN, "Madrid" to Color.BLACK, "Caracas" to Color.YELLOW)
         }
     }
-    // Adds a chart heading
+    // 차트 제목을 추가합니다
     layout.title = "Temperature per month"
 }
 ```
@@ -126,15 +126,15 @@ df.plot {
 마지막으로, 이전 차트와 동일한 데이터를 사용하여 도시별로 그룹화된 바 차트를 만들어 보겠습니다. 색상에는 16진수 코드도 사용할 수 있습니다.
 
 ```kotlin
-// Groups by cities  
+// 도시별로 그룹화합니다
 df.groupBy { City }.plot {
-    // Adds a chart heading
+    // 차트 제목을 추가합니다
     layout.title = "Temperature per month"
     bars {
-        // Accesses the DataFrame's columns used for the X and Y axes 
+        // X축과 Y축에 사용되는 DataFrame 열에 접근합니다
         x(Month)
         y(Temperature)
-        // Accesses the DataFrame's column used for categories and sets colors for these categories 
+        // 카테고리에 사용되는 DataFrame 열에 접근하고 이 카테고리에 대한 색상을 설정합니다
         fillColor(City) {
             scale = categorical(
                 "Berlin" to Color.hex("#6F4E37"),

@@ -4,7 +4,7 @@ Kotlin 標準函式庫提供了多種函式，用於對集合執行操作。這�
 
 ## 擴充函式與成員函式
 
-集合操作在標準函式庫中有兩種宣告方式：集合介面的[成員函式](classes.md#class-members)和[擴充函式](extensions.md#extension-functions)。
+集合操作在標準函式庫中有兩種宣告方式：集合介面的[成員函式](classes.md)和[擴充函式](extensions.md#extension-functions)。
 
 成員函式定義了集合類型所必需的操作。例如，[`Collection`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-collection/index.html) 包含了用於檢查其是否為空的函式 [`isEmpty()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-collection/is-empty.html)；[`List`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html) 包含了用於透過索引存取元素的 [`get()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/get.html) 等等。
 

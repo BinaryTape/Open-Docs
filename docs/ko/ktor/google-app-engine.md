@@ -49,7 +49,7 @@ plugins {
 [Google App Engine Gradle 플러그인](https://github.com/GoogleCloudPlatform/app-gradle-plugin)은 Google App Engine 애플리케이션을 빌드하고 배포하는 태스크를 제공합니다. 이 플러그인을 사용하려면 다음 단계를 따르세요:
 
 1. `settings.gradle.kts` 파일을 열고 중앙 Maven 저장소에서 플러그인을 참조하기 위해 다음 코드를 삽입합니다:
-   ```groovy
+   ```kotlin
    pluginManagement {
        repositories {
            gradlePluginPortal()

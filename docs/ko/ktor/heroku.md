@@ -25,7 +25,7 @@
 * 서버 구성이 코드에 지정된 경우, `System.getenv`를 사용하여 환경 변수 값을 얻을 수 있습니다. `src/main/kotlin/com/example` 폴더에 있는 `Application.kt` 파일을 열고, 아래와 같이 `embeddedServer` 함수의 `port` 파라미터 값을 변경하세요:
    ```kotlin
    fun main() {
-      embeddedServer(Netty, port = System.getenv("PORT").toInt()) {
+      embeddedServer(Netty, port = System.getenv("PORT")?.toIntOrNull() ?: 8080) {
           // ...
       }.start(wait = true)
    }

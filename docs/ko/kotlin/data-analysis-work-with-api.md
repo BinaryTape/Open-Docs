@@ -2,7 +2,7 @@
 
 [Kotlin Notebook](kotlin-notebook-overview.md)은 다양한 웹 소스 및 API에서 데이터에 액세스하고 조작하기 위한 강력한 플랫폼을 제공합니다. 이는 모든 단계를 명확하게 시각화할 수 있는 반복적인 환경을 제공하여 데이터 추출 및 분석 작업을 단순화합니다. 따라서 익숙하지 않은 API를 탐색할 때 특히 유용합니다.
 
-[Kotlin DataFrame 라이브러리](https://kotlin.github.io/dataframe/gettingstarted.html)와 함께 사용하면 Kotlin Notebook은 API에 연결하여 JSON 데이터를 가져올 수 있을 뿐만 아니라, 포괄적인 분석 및 시각화를 위해 이 데이터를 재구성하는 데도 도움을 줍니다.
+[Kotlin DataFrame 라이브러리](https://kotlin.github.io/dataframe/home.html)와 함께 사용하면 Kotlin Notebook은 API에 연결하여 JSON 데이터를 가져올 수 있을 뿐만 아니라, 포괄적인 분석 및 시각화를 위해 이 데이터를 재구성하는 데도 도움을 줍니다.
 
 > Kotlin Notebook 예시는 [GitHub의 DataFrame 예시](https://github.com/Kotlin/dataframe/blob/master/examples/notebooks/youtube/Youtube.ipynb)를 참조하세요.
 > 
@@ -93,7 +93,7 @@ Kotlin DataFrame 라이브러리가 포함된 Kotlin Notebook을 사용하여 AP
 
 ## 데이터 정제 및 개선
 
-데이터를 정제하고 개선하는 것은 분석을 위한 데이터셋 준비에 있어 중요한 단계입니다. [Kotlin DataFrame 라이브러리](https://kotlin.github.io/dataframe/gettingstarted.html)는 이러한 작업을 위한 강력한 기능을 제공합니다. [`move`](https://kotlin.github.io/dataframe/move.html), [`concat`](https://kotlin.github.io/dataframe/concatdf.html), [`select`](https://kotlin.github.io/dataframe/select.html), [`parse`](https://kotlin.github.io/dataframe/parse.html), [`join`](https://kotlin.github.io/dataframe/join.html)과 같은 메서드는 데이터를 구성하고 변환하는 데 중요한 역할을 합니다.
+데이터를 정제하고 개선하는 것은 분석을 위한 데이터셋 준비에 있어 중요한 단계입니다. [Kotlin DataFrame 라이브러리](https://kotlin.github.io/dataframe/home.html)는 이러한 작업을 위한 강력한 기능을 제공합니다. [`move`](https://kotlin.github.io/dataframe/move.html), [`concat`](https://kotlin.github.io/dataframe/concatdf.html), [`select`](https://kotlin.github.io/dataframe/select.html), [`parse`](https://kotlin.github.io/dataframe/parse.html), [`join`](https://kotlin.github.io/dataframe/join.html)과 같은 메서드는 데이터를 구성하고 변환하는 데 중요한 역할을 합니다.
 
 데이터가 이미 [YouTube 데이터 API를 사용하여 가져와진](#fetch-data-from-an-api) 예시를 살펴보겠습니다. 목표는 심층 분석을 위해 데이터셋을 정제하고 재구성하는 것입니다:
 
@@ -134,7 +134,7 @@ Kotlin DataFrame 라이브러리가 포함된 Kotlin Notebook을 사용하여 AP
 
 ## Kotlin Notebook에서 데이터 분석
 
-[Kotlin DataFrame 라이브러리](https://kotlin.github.io/dataframe/gettingstarted.html)의 함수를 사용하여 데이터를 성공적으로 [가져오고](#fetch-data-from-an-api) [정제 및 개선](#clean-and-refine-data)했다면, 다음 단계는 이 준비된 데이터셋을 분석하여 의미 있는 통찰력을 추출하는 것입니다.
+[Kotlin DataFrame 라이브러리](https://kotlin.github.io/dataframe/home.html)의 함수를 사용하여 데이터를 성공적으로 [가져오고](#fetch-data-from-an-api) [정제 및 개선](#clean-and-refine-data)했다면, 다음 단계는 이 준비된 데이터셋을 분석하여 의미 있는 통찰력을 추출하는 것입니다.
 
 데이터 분류를 위한 [`groupBy`](https://kotlin.github.io/dataframe/groupby.html), [요약 통계](https://kotlin.github.io/dataframe/summarystatistics.html)를 위한 [`sum`](https://kotlin.github.io/dataframe/sum.html) 및 [`maxBy`](https://kotlin.github.io/dataframe/maxby.html), 데이터 순서 지정을 위한 [`sortBy`](https://kotlin.github.io/dataframe/sortby.html)와 같은 메서드는 특히 유용합니다. 이러한 도구를 사용하면 복잡한 데이터 분석 작업을 효율적으로 수행할 수 있습니다.
 
@@ -179,7 +179,7 @@ Kotlin DataFrame 라이브러리가 포함된 Kotlin Notebook을 사용하여 AP
 
 ![Analysis results](kotlin-analysis.png){width=700}
 
-더 고급 기술에 대한 자세한 내용은 [Kotlin DataFrame 문서](https://kotlin.github.io/dataframe/gettingstarted.html)를 참조하세요.
+더 고급 기술에 대한 자세한 내용은 [Kotlin DataFrame 문서](https://kotlin.github.io/dataframe/home.html)를 참조하세요.
 
 ## 다음 단계
 

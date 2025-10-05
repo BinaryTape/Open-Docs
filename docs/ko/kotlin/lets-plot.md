@@ -6,7 +6,7 @@ LPK는 [Kotlin 노트북](data-analysis-overview.md#notebooks), [Kotlin/JS](js-o
 
 ![Lets-Plot](lets-plot-overview.png){width=700}
 
-이 튜토리얼은 IntelliJ IDEA의 Kotlin Notebook에서 LPK 및 [Kotlin DataFrame](https://kotlin.github.io/dataframe/gettingstarted.html) 라이브러리를 사용하여 다양한 플롯 유형을 생성하는 방법을 보여줍니다.
+이 튜토리얼은 IntelliJ IDEA의 Kotlin Notebook에서 LPK 및 [Kotlin DataFrame](https://kotlin.github.io/dataframe/home.html) 라이브러리를 사용하여 다양한 플롯 유형을 생성하는 방법을 보여줍니다.
 
 ## 시작하기 전에
 
@@ -31,7 +31,7 @@ Lets-Plot을 사용하기 위해 새로운 Kotlin Notebook을 생성합니다.
 Kotlin DataFrame 라이브러리의 [`dataFrameOf()`](https://kotlin.github.io/dataframe/createdataframe.html#dataframeof) 함수를 사용하여 DataFrame을 생성합니다. 다음 코드 스니펫을 Kotlin Notebook에 붙여넣고 실행하십시오.
 
 ```kotlin
-// The months variable stores a list with 12 months of the year
+// months 변수는 1년 12개월 목록을 저장합니다.
 val months = listOf(
     "January", "February",
     "March", "April", "May",
@@ -39,7 +39,7 @@ val months = listOf(
     "September", "October", "November",
     "December"
 )
-// The tempBerlin, tempMadrid, and tempCaracas variables store a list with temperature values for each month
+// tempBerlin, tempMadrid, tempCaracas 변수는 각 달의 기온 값을 목록으로 저장합니다.
 val tempBerlin =
     listOf(-0.5, 0.0, 4.8, 9.0, 14.3, 17.5, 19.2, 18.9, 14.5, 9.7, 4.7, 1.0)
 val tempMadrid =
@@ -47,7 +47,7 @@ val tempMadrid =
 val tempCaracas =
     listOf(27.5, 28.9, 29.6, 30.9, 31.7, 35.1, 33.8, 32.2, 31.3, 29.4, 28.9, 27.6)
 
-// The df variable stores a DataFrame of three columns, including monthly records, temperature, and cities
+// df 변수는 월별 기록, 기온, 도시에 대한 세 개의 열로 구성된 DataFrame을 저장합니다.
 val df = dataFrameOf(
     "Month" to months + months + months,
     "Temperature" to tempBerlin + tempMadrid + tempCaracas,
@@ -73,7 +73,7 @@ Kotlin Notebook에서 LPK 라이브러리를 사용하여 산점도를 생성해
 데이터가 `Map` 형식으로 준비되면 LPK 라이브러리의 [`geomPoint()`](https://lets-plot.org/kotlin/api-reference/-lets--plot--kotlin/org.jetbrains.letsPlot.geom/geom-point/index.html) 함수를 사용하여 산점도를 생성합니다. X축과 Y축의 값을 지정하고 범주 및 해당 색상을 정의할 수 있습니다. 또한 필요에 따라 플롯 크기 및 점 모양을 [사용자 지정](https://lets-plot.org/kotlin/aesthetics.html#point-shapes)할 수 있습니다.
 
 ```kotlin
-// Specifies X and Y axes, categories and their color, plot size, and plot type
+// X 및 Y 축, 범주와 해당 색상, 플롯 크기 및 플롯 유형을 지정합니다.
 val scatterPlot =
     letsPlot(data) { x = "Month"; y = "Temperature"; color = "City" } + ggsize(600, 500) + geomPoint(shape = 15)
 scatterPlot
@@ -88,9 +88,9 @@ scatterPlot
 [데이터](#prepare-the-data)를 상자 그림으로 시각화해 보겠습니다. LPK 라이브러리의 [`geomBoxplot()`](https://lets-plot.org/kotlin/api-reference/-lets--plot--kotlin/org.jetbrains.letsPlot.geom/geom-boxplot.html) 함수를 사용하여 플롯을 생성하고 [`scaleFillManual()`](https://lets-plot.org/kotlin/api-reference/-lets--plot--kotlin/org.jetbrains.letsPlot.scale/scale-fill-manual.html) 함수로 색상을 [사용자 지정](https://lets-plot.org/kotlin/aesthetics.html#point-shapes)합니다.
 
 ```kotlin
-// Specifies X and Y axes, categories, plot size, and plot type
+// X 및 Y 축, 범주, 플롯 크기 및 플롯 유형을 지정합니다.
 val boxPlot = ggplot(data) { x = "City"; y = "Temperature" } + ggsize(700, 500) + geomBoxplot { fill = "City" } +
-    // Customizes colors        
+    // 색상 사용자 지정        
     scaleFillManual(values = listOf("light_yellow", "light_magenta", "light_green"))
 boxPlot
 ```
@@ -120,7 +120,7 @@ boxPlot
 2.  2D 데이터 포인트 세트를 생성하려면 다음 코드 스니펫을 Kotlin Notebook에 붙여넣고 실행하십시오.
 
     ```kotlin
-    // Defines covariance matrices for three distributions
+    // 세 분포에 대한 공분산 행렬을 정의합니다.
     val cov0: Array<DoubleArray> = arrayOf(
         doubleArrayOf(1.0, -.8),
         doubleArrayOf(-.8, 1.0)
@@ -136,15 +136,15 @@ boxPlot
         doubleArrayOf(.1, .1)
     )
     
-    // Defines the number of samples
+    // 샘플 수를 정의합니다.
     val n = 400
     
-    // Defines means for three distributions
+    // 세 분포에 대한 평균을 정의합니다.
     val means0: DoubleArray = doubleArrayOf(-2.0, 0.0)
     val means1: DoubleArray = doubleArrayOf(2.0, 0.0)
     val means2: DoubleArray = doubleArrayOf(0.0, 1.0)
     
-    // Generates random samples from three multivariate normal distributions
+    // 세 다변량 정규 분포에서 무작위 샘플을 생성합니다.
     val xy0 = MultivariateNormalDistribution(means0, cov0).sample(n)
     val xy1 = MultivariateNormalDistribution(means1, cov1).sample(n)
     val xy2 = MultivariateNormalDistribution(means2, cov2).sample(n)

@@ -18,13 +18,13 @@ Ktorは[Kotlin/Native](https://kotlinlang.org/docs/native-overview.html)をサ�
 *   `embeddedServer`を使用して[サーバーを作成する](server-create-and-configure.topic)必要があります
 *   [CIOエンジン](server-engines.md)のみがサポートされています
 *   リバースプロキシなしの[HTTPS](server-ssl.md)はサポートされていません
-*   Windows [ターゲット](server-platforms.md)はサポートされていません
 
 ## 依存関係を追加する {id="add-dependencies"}
 
 Kotlin/NativeプロジェクトのKtorサーバーには、少なくとも2つの依存関係が必要です: `ktor-server-core`依存関係とエンジン依存関係（CIO）です。以下のコードスニペットは、`build.gradle.kts`ファイルの`nativeMain`ソースセットに依存関係を追加する方法を示しています:
 
 ```kotlin
+}
 sourceSets {
     val nativeMain by getting {
         dependencies {
@@ -32,20 +32,19 @@ sourceSets {
             implementation("io.ktor:ktor-server-cio:$ktor_version")
         }
     }
-}
 ```
 
 Nativeサーバーを[テスト](server-testing.md)するには、`ktor-server-test-host`アーティファクトを`nativeTest`ソースセットに追加します:
 
 ```kotlin
-sourceSets {
+}
+    }
     val nativeTest by getting {
         dependencies {
             implementation(kotlin("test"))
             implementation("io.ktor:ktor-server-test-host:$ktor_version")
         }
     }
-}
 ```
 
 ## ネイティブターゲットを設定する {id="native-target"}
@@ -59,7 +58,8 @@ sourceSets {
         hostOs == "Mac OS X" && arch == "aarch64" -> macosArm64("native")
         hostOs == "Linux" && arch == "x86_64" -> linuxX64("native")
         hostOs == "Linux" && arch == "aarch64" -> linuxArm64("native")
-        // Other supported targets are listed here: https://ktor.io/docs/native-server.html#targets
+        hostOs.startsWith("Windows") -> mingwX64("native")
+        // Other supported targets are listed here: https://ktor.io/docs/server-native.html#targets
         else -> throw GradleException("Host OS is not supported in Kotlin/Native.")
     }
 
@@ -69,7 +69,6 @@ sourceSets {
                 entryPoint = "main"
             }
         }
-    }
 ```
 
 完全な例は、こちらで確認できます: [embedded-server-native](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/embedded-server-native)。

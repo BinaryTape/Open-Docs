@@ -8,11 +8,11 @@
 
 この機能の主な目的は、以下の方法でエージェントベースのAI機能のテストを容易にすることです。
 
--   特定のプロンプトに対するLLMの応答をモックする
--   ツール呼び出しとその結果をシミュレートする
--   エージェントパイプラインのサブグラフとその構造をテストする
--   エージェントノードを介したデータの正しいフローを検証する
--   期待される動作に対するアサーションを提供する
+- 特定のプロンプトに対するLLMの応答をモックする
+- ツール呼び出しとその結果をシミュレートする
+- エージェントパイプラインのサブグラフとその構造をテストする
+- エージェントノードを介したデータの正しいフローを検証する
+- 期待される動作に対するアサーションを提供する
 
 ## 設定と初期化
 
@@ -790,7 +790,7 @@ fun testToneAgent() = runTest {
 
     // Create an event handler
     val eventHandler = EventHandler {
-        onToolCall { tool, args ->
+        onToolCallStarting { tool, args ->
             println("[DEBUG_LOG] Tool called: tool ${tool.name}, args $args")
             toolCalls.add(tool.name)
         }

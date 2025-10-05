@@ -113,17 +113,17 @@ description:" + it.descriptor
             install(Tracing)
 
             install(EventHandler) {
-                onBeforeAgentStarted { eventContext ->
-                    println("OnBeforeAgentStarted first (strategy: ${strategy.name})")
+                onAgentStarting { eventContext ->
+                    println("OnAgentStarting first (strategy: ${strategy.name})")
                 }
 
-                onBeforeAgentStarted { eventContext ->
-                    println("OnBeforeAgentStarted second (strategy: ${strategy.name})")
+                onAgentStarting { eventContext ->
+                    println("OnAgentStarting second (strategy: ${strategy.name})")
                 }
 
-                onAgentFinished { eventContext ->
+                onAgentCompleted { eventContext ->
                     println(
-                        "OnAgentFinished (agent id: ${eventContext.agentId}, result: ${eventContext.result})"
+                        "OnAgentCompleted (agent id: ${eventContext.agentId}, result: ${eventContext.result})"
                     )
                 }
             }

@@ -48,7 +48,7 @@ val prompt = prompt("prompt_name", LLMParams()) {
 
 ## 多模態輸入
 
-除了在提示中提供文字訊息外，Koog 還允許您在 `user` 訊息中向 LLM 傳送圖像、音訊、視訊和檔案。
+除了在提示中提供文字訊息外，Koog 還允許您在 `user` 訊息中向 LLMs 傳送圖像、音訊、視訊和檔案。
 與標準的純文字提示一樣，您也可以使用提示建構的 DSL 結構將媒體新增至提示中。
 
 <!--- INCLUDE
@@ -220,8 +220,8 @@ val prompt = prompt("mixed_content") {
 若要在用戶端和執行器之間做選擇，請考慮以下因素：
 
 - 如果您使用單一 LLM 供應商且不需要進階生命週期管理，請直接使用 LLM 用戶端。若要了解更多資訊，請參閱 [使用 LLM 用戶端執行提示](#running-prompts-with-llm-clients)。
-- 如果您需要更進階的抽象層來管理 LLM 及其生命週期，或者您希望透過跨多個供應商的一致 API 執行提示並在它們之間動態切換，請使用提示執行器。
-  若要了解更多資訊，請參閱 [使用提示執行器執行提示](#running-prompts-with-executors)。
+- 如果您需要更進階的抽象層來管理 LLMs 及其生命週期，或者您希望透過跨多個供應商的一致 API 執行提示並在它們之間動態切換，請使用提示執行器。
+  若要了解更多資訊，請參閱 [使用提示執行器執行提示](#running-prompts-with-prompt-executors)。
 
 !!!note
     LLM 用戶端和提示執行器都允許您串流回應、產生多個選擇並執行內容審核。
@@ -342,7 +342,7 @@ Koog 提供兩種主要的提示執行器：
 | [`SingleLLMPromptExecutor`](https://api.koog.ai/prompt/prompt-executor/prompt-executor-llms/ai.koog.prompt.executor.llms/-single-l-l-m-prompt-executor/index.html)       | 包裝單一供應商的單一 LLM 用戶端。如果您的代理程式僅需要在單一 LLM 供應商內的不同模型之間切換，請使用此執行器。                                                                            |
 | [`MultiLLMPromptExecutor`](https://api.koog.ai/prompt/prompt-executor/prompt-executor-llms/ai.koog.prompt.executor.llms/-multi-l-l-m-prompt-executor/index.html)        | 透過供應商路由到多個 LLM 用戶端，並為每個供應商提供可選的備用方案，以在請求的供應商不可用時使用。如果您的代理程式需要在不同供應商的模型之間切換，請使用此執行器。 |
 
-這些是 [`PromtExecutor`](https://api.koog.ai/prompt/prompt-executor/prompt-executor-model/ai.koog.prompt.executor.model/-prompt-executor/index.html) 介面的實作，用於使用 LLM 執行提示。
+這些是 [`PromtExecutor`](https://api.koog.ai/prompt/prompt-executor/prompt-executor-model/ai.koog.prompt.executor.model/-prompt-executor/index.html) 介面的實作，用於使用 LLMs 執行提示。
 
 ### 建立單一供應商執行器
 
@@ -353,7 +353,7 @@ Koog 提供兩種主要的提示執行器：
 import ai.koog.prompt.executor.clients.openai.OpenAILLMClient
 -->
 ```kotlin
-val openAIClient = OpenAILLMClient(System.getenv("OPENAI_API_KEY"))
+val openAIClient = OpenAILLMClient(System.getenv("OPENAI_KEY"))
 ```
 <!--- KNIT example-prompt-api-09.kt -->
 2) 使用 [`SingleLLMPromptExecutor`](https://api.koog.ai/prompt/prompt-executor/prompt-executor-llms/ai.koog.prompt.executor.llms/-single-l-l-m-prompt-executor/index.html) 建立提示執行器：
@@ -406,7 +406,7 @@ val multiExecutor = MultiLLMPromptExecutor(
     - `simpleAnthropicExecutor` 用於使用 Anthropic 模型執行提示。
     - `simpleGoogleAIExecutor` 用於使用 Google 模型執行提示。
     - `simpleOpenRouterExecutor` 用於使用 OpenRouter 執行提示。
-    - `simpleOllamaExecutor` 用於使用 Ollama 執行提示。
+    - `simpleOllamaAIExecutor` 用於使用 Ollama 執行提示。
 
 - 多供應商執行器：
     - `DefaultMultiLLMPromptExecutor` 是 `MultiLLMPromptExecutor` 的實作，支援 OpenAI、Anthropic 和 Google 供應商。
@@ -489,7 +489,7 @@ import ai.koog.prompt.executor.clients.openai.OpenAILLMClient
 import ai.koog.prompt.executor.llms.SingleLLMPromptExecutor
 -->
 ```kotlin
-val client = OpenAILLMClient(System.getenv("OPENAI_API_KEY"))
+val client = OpenAILLMClient(System.getenv("OPENAI_KEY"))
 val promptExecutor = SingleLLMPromptExecutor(client)
 ```
 <!--- KNIT example-prompt-api-15.kt -->
@@ -767,7 +767,7 @@ val client = OpenAILLMClient(
 
 ### 錯誤處理
 
-在生產環境中處理 LLM 時，您需要實作錯誤處理策略：
+在生產環境中處理 LLMs 時，您需要實作錯誤處理策略：
 
 - **使用 `try-catch` 區塊**來處理意外錯誤。
 - **記錄帶有上下文的錯誤**，用於偵錯。

@@ -28,7 +28,7 @@ data class User(val name: String, val age: Int)
 
 데이터 클래스는 다른 클래스를 상속할 수 있습니다(예시는 [봉인된 클래스](sealed-classes.md)를 참조하세요).
 
-> JVM에서, 생성된 클래스가 매개변수 없는 생성자를 가져야 하는 경우, 프로퍼티의 기본값이 지정되어야 합니다([생성자](classes.md#constructors) 참조).
+> JVM에서, 생성된 클래스가 매개변수 없는 생성자를 가져야 하는 경우, 프로퍼티의 기본값이 지정되어야 합니다([생성자](classes.md#constructors-and-initializer-blocks) 참조).
 >
 > ```kotlin
 > data class User(val name: String = "", val age: Int = 0)

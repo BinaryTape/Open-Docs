@@ -593,7 +593,7 @@ Kotlin 例外繼承結構的根是 [`Throwable`](https://kotlinlang.org/api/late
 
 ## 堆疊追蹤
 
-_堆疊追蹤 (stack trace)_ 是運行時環境生成的一份報告，用於除錯。它顯示了導致程式中特定點（特別是發生錯誤或例外之處）的函式呼叫序列。
+_堆疊追蹤 (stack trace)_ 是一份由運行時環境生成的報告，用於除錯。它顯示了導致程式中特定點（特別是發生錯誤或例外之處）的函式呼叫序列。
 
 讓我們看一個在 JVM 環境中因例外而自動列印堆疊追蹤的範例：
 
@@ -627,4 +627,4 @@ Exception in thread "main" java.lang.ArithmeticException: This is an arithmetic 
 
 ## 與 Java、Swift 和 Objective-C 的例外互通性
 
-由於 Kotlin 將所有例外視為 unchecked (非檢查式)，當從區分檢查式與非檢查式例外的語言呼叫這些例外時，可能會導致複雜性。為了彌補 Kotlin 與 Java、Swift 和 Objective-C 等語言之間例外處理的差異，您可以使用 [`@Throws`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throws/) 註解。此註解會提醒呼叫者可能的例外。更多資訊請參閱 [從 Java 呼叫 Kotlin](java-to-kotlin-interop.md#checked-exceptions) 和 [與 Swift/Objective-C 的互通性](native-objc-interop.md#errors-and-exceptions)。
+由於 Kotlin 將所有例外視為 unchecked，當從區分檢查式與非檢查式例外的語言呼叫這些例外時，可能會導致複雜性。為了彌補 Kotlin 與 Java、Swift 和 Objective-C 等語言之間例外處理的差異，您可以使用 [`@Throws`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throws/) 註解。此註解會提醒呼叫者可能的例外。更多資訊請參閱 [從 Java 呼叫 Kotlin](java-to-kotlin-interop.md#checked-exceptions) 和 [與 Swift/Objective-C 的互通性](native-objc-interop.md#errors-and-exceptions)。

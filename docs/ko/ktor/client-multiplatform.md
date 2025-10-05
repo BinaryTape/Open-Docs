@@ -29,7 +29,7 @@ Ktor 클라이언트는 멀티플랫폼 프로젝트에서 사용할 수 있으�
            <code-block lang="Groovy" code="               %platform_name%Main {&#10;                   dependencies {&#10;                       implementation &quot;io.ktor:%artifact_name%:$ktor_version&quot;&#10;                   }&#10;               }"/>
        </TabItem>
    </Tabs>
-1. 필요한 플랫폼에 대한 [엔진 의존성](client-engines.md#dependencies)을 해당 소스 세트에 추가합니다. Android의 경우 `androidMain` 소스 세트에 [Android](client-engines.md#android) 엔진 의존성을 추가할 수 있습니다.
+2. 필요한 플랫폼에 대한 [엔진 의존성](client-engines.md#dependencies)을 해당 소스 세트에 추가합니다. Android의 경우 `androidMain` 소스 세트에 [Android](client-engines.md#android) 엔진 의존성을 추가할 수 있습니다.
    <var name="platform_name" value="android"/>
    <var name="artifact_name" value="ktor-client-android"/>
    <Tabs group="languages">

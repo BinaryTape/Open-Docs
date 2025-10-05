@@ -8,6 +8,11 @@
 
 Koogフレームワークは以下の機能を実装しています。
 
-- [イベントハンドラー](agent-events.md)
+- [イベントハンドラー](agent-event-handlers.md)
 - [トレーシング](tracing.md)
 - [エージェントメモリ](agent-memory.md)
+- [OpenTelemetry](opentelemetry-support.md)
+- [エージェント永続化 (スナップショット)](agent-persistence.md)
+- デバッガー
+- トークナイザー
+- SQL 永続化プロバイダー

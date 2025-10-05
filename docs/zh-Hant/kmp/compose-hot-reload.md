@@ -4,13 +4,15 @@
 
 [Compose Hot Reload](https://github.com/JetBrains/compose-hot-reload) 協助您在處理 Compose Multiplatform 專案時，視覺化並試驗使用者介面 (UI) 的變更。
 
-目前，Compose Hot Reload 僅在您的多平台專案中包含桌面目標時可用。我們正在探索未來新增對其他目標的支援。同時，使用桌面應用程式作為您的沙盒，可讓您快速試驗通用程式碼中的 UI 變更，而不會中斷您的工作流程。
+Compose Hot Reload 目前僅適用於您的多平台專案包含桌面目標且與 Java 21 或更早版本相容的情況。
+
+我們正在探索未來新增對其他目標的支援。同時，使用桌面應用程式作為您的沙盒，可讓您快速試驗通用程式碼中的 UI 變更，而不會中斷您的工作流程。
 
 ![Compose Hot Reload](compose-hot-reload.gif){width=500}
 
 ## 將 Compose Hot Reload 加入您的專案
 
-Compose Hot Reload 可以透過兩種方式新增：
+Compose Hot Reload 可以透過兩種方式新增，方式如下：
 
 * [在 IntelliJ IDEA 或 Android Studio 中從頭開始建立專案](#from-scratch)
 * [將其作為 Gradle 外掛程式新增到現有專案](#to-an-existing-project)
@@ -57,7 +59,15 @@ Compose Hot Reload 可以透過兩種方式新增：
    ```
 
 4. 若要使用 Compose Hot Reload 的完整功能，您的專案必須在 [JetBrains Runtime](https://github.com/JetBrains/JetBrainsRuntime) (JBR) 上執行，這是一個支援增強類別重定義的 OpenJDK 分支。
-   Compose Hot Reload 可以為您的專案自動提供相容的 JBR。為此，請將以下 Gradle 外掛程式新增到您的 `settings.gradle.kts` 檔案：
+   Compose Hot Reload 可以為您的專案自動佈建相容的 JBR。
+
+   > 最新版本的 JetBrains Runtime 僅支援 Java 21：
+   > 如果您將 Compose Hot Reload 加入到僅與 Java 22 或更新版本相容的專案，
+   > 執行專案將會導致連結錯誤。
+   > 
+   {style="warning"}
+
+   為允許自動佈建，請將以下 Gradle 外掛程式新增到您的 `settings.gradle.kts` 檔案：
 
    ```kotlin
    plugins {
@@ -100,11 +110,12 @@ Compose Hot Reload 可以透過兩種方式新增：
     }
    ```
 
-4. 開啟 `main.kt` 檔案並點擊編輯器邊欄中的 **Run** 圖示。選取 **Run 'composeApp [hotRunJvm]' with Compose Hot Reload (Beta)**。
+4. 開啟 `main.kt` 檔案並點擊編輯器邊欄中的 **Run** 圖示。
+   選取 **Run 'composeApp [hotRunJvm]' with Compose Hot Reload (Beta)**。
 
-    ![Run Compose Hot Reload from gutter](compose-hot-reload-gutter-run.png){width=350}
+    ![從編輯器邊欄執行 Compose Hot Reload](compose-hot-reload-gutter-run.png){width=350}
 
-    ![First Compose Hot Reload on desktop app](compose-hot-reload-hello.png){width=500}
+    ![桌面上第一個 Compose Hot Reload 應用程式](compose-hot-reload-hello.png){width=500}
 
 5. 更新從 `greet()` 函數返回的字串，然後儲存所有檔案 (<shortcut>⌘ S</shortcut> / <shortcut>Ctrl+S</shortcut>) 以查看桌面應用程式自動更新。
 

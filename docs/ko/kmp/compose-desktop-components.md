@@ -236,9 +236,9 @@ object AboutIcon : Painter() {
 
 ## 이벤트
 
-*   [마우스 이벤트](compose-desktop-mouse-events.md)
-*   [키보드 이벤트](compose-desktop-keyboard.md)
-*   [컴포넌트 간 탭 탐색](#tabbing-navigation-between-components)
+* [마우스 이벤트](compose-desktop-mouse-events.md)
+* [키보드 이벤트](compose-desktop-keyboard.md)
+* [컴포넌트 간 탭 탐색](#tabbing-navigation-between-components)
 
 ### 컴포넌트 간 탭 탐색
 
@@ -300,7 +300,6 @@ fun main() = application {
 
 ## 다음 단계
 
-*   [Compose Multiplatform 데스크톱 애플리케이션](https://github.com/JetBrains/compose-multiplatform-desktop-template#readme) 튜토리얼을 완료하세요.
 *   Compose Multiplatform 데스크톱 프로젝트의 [단위 테스트 생성 방법](compose-desktop-ui-testing.md)을 알아보세요.
 *   데스크톱 플랫폼용 [네이티브 배포, 설치 프로그램 및 패키지 생성 방법](compose-native-distribution.md)을 알아보세요.
 *   [Swing과의 상호 운용성을 설정하고 Swing 애플리케이션을 Compose Multiplatform로 마이그레이션](compose-desktop-swing-interoperability.md)하세요.

@@ -136,6 +136,10 @@ kotlin {
 ### when 表达式的基于数据流的穷尽性检测
 <primary-label ref="experimental-opt-in"/>
 
+> IntelliJ IDEA 中对该特性的代码分析、代码补全和高亮显示支持目前仅在 [2025.3 EAP 构建版](https://www.jetbrains.com/idea/nextversion/)中提供。
+>
+{style = "note"}
+
 Kotlin 2.2.20 引入了针对 `when` 表达式的**基于数据流的**穷尽性检测。此前，编译器的检测仅限于 `when` 表达式本身，这通常会强制您添加一个冗余的 `else` 分支。通过此次更新，编译器现在会跟踪先前的条件检测和提前返回，因此您可以移除冗余的 `else` 分支。
 
 例如，编译器现在识别出当 `if` 条件满足时函数会返回，因此 `when` 表达式只需处理剩余的情况：
@@ -144,13 +148,13 @@ Kotlin 2.2.20 引入了针对 `when` 表达式的**基于数据流的**穷尽性
 enum class UserRole { ADMIN, MEMBER, GUEST }
 
 fun getPermissionLevel(role: UserRole): Int {
-    // Covers the Admin case outside of the when expression
+    // 涵盖了 `when` 表达式之外的 Admin 情况
     if (role == UserRole.ADMIN) return 99
 
     return when (role) {
         UserRole.MEMBER -> 10
         UserRole.GUEST -> 1
-        // You no longer have to include this else branch
+        // 您不再需要包含此 `else` 分支
         // else -> throw IllegalStateException()
     }
 }
@@ -169,6 +173,10 @@ kotlin {
 ### catch 子句中具体化类型的支持
 <primary-label ref="experimental-opt-in"/>
 
+> IntelliJ IDEA 中对该特性的代码分析、代码补全和高亮显示支持目前仅在 [2025.3 EAP 构建版](https://www.jetbrains.com/idea/nextversion/)中提供。
+>
+{style = "note"}
+
 在 Kotlin 2.2.20 中，编译器现在允许在 `inline` 函数的 `catch` 子句中使用[具体化泛型类型形参](inline-functions.md#reified-type-parameters)。
 
 这是一个例子：
@@ -177,18 +185,18 @@ kotlin {
 inline fun <reified ExceptionType : Throwable> handleException(block: () -> Unit) {
     try {
         block()
-        // This is now allowed after the change
+        // 此更改后，这现在被允许
     } catch (e: ExceptionType) {
         println("Caught specific exception: ${e::class.simpleName}")
     }
 }
 
 fun main() {
-    // Tries to perform an action that might throw an IOException
+    // 尝试执行可能抛出 IOException 的操作
     handleException<java.io.IOException> {
         throw java.io.IOException("File not found")
     }
-    // Caught specific exception: IOException
+    // 捕获到特定异常: IOException
 }
 ```
 
@@ -208,6 +216,10 @@ Kotlin 团队感谢外部贡献者 [Iven Krall](https://github.com/kralliv) 的�
 
 ### 改进的 Kotlin 契约
 <primary-label ref="experimental-opt-in"/>
+
+> IntelliJ IDEA 中对该特性的代码分析、代码补全和高亮显示支持目前仅在 [2025.3 EAP 构建版](https://www.jetbrains.com/idea/nextversion/)中提供。
+>
+{style = "note"}
 
 Kotlin 2.2.20 对 [Kotlin 契约](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.contracts/contract.html)进行了多项改进，包括：
 
@@ -240,7 +252,7 @@ sealed class Result<out T, out F : Failure> {
 }
 
 @OptIn(ExperimentalContracts::class)
-// Uses a contract to assert a generic type
+// 使用契约断言泛型类型
 fun <T, F : Failure> Result<T, F>.isHttpError(): Boolean {
     contract {
         returns(true) implies (this@isHttpError is Result.Failed<Failure.HttpError>)
@@ -273,14 +285,14 @@ import kotlin.contracts.*
 val Any.isHelloString: Boolean
     get() {
         @OptIn(ExperimentalContracts::class)
-        // Enables smart casting the receiver to String when the getter returns true
+        // 当 getter 返回 true 时，启用将接收者智能类型转换为 String
         contract { returns(true) implies (this@isHelloString is String) }
         return "hello" == this
     }
 
 fun printIfHelloString(x: Any) {
     if (x.isHelloString) {
-        // Prints the length after the smart cast of the receiver to String
+        // 在将接收者智能类型转换为 String 后打印长度
         println(x.length)
         // 5
     }
@@ -304,7 +316,7 @@ import kotlin.contracts.*
 
 class Runner {
     @OptIn(ExperimentalContracts::class)
-    // Enables initialization of variables assigned inside the lambda
+    // 启用 lambda 内部赋值的变量的初始化
     operator fun invoke(block: () -> Unit) {
         contract {
             callsInPlace(block, InvocationKind.EXACTLY_ONCE)
@@ -318,7 +330,7 @@ fun testOperator(runner: Runner) {
     runner {
         number = 1
     }
-    // Prints the value after definite initialization guaranteed by the contract
+    // 打印由契约保证的确定初始化后的值
     println(number)
     // 1
 }
@@ -344,7 +356,7 @@ import kotlin.contracts.*
 @OptIn(ExperimentalContracts::class, ExperimentalExtendedContracts::class)
 fun decode(encoded: String?): String? {
     contract {
-        // Guarantees a non-null return value when the input is non-null
+        // 当输入非空时，保证返回非空值
         (encoded != null) implies (returnsNotNull())
     }
     if (encoded == null) return null
@@ -352,10 +364,10 @@ fun decode(encoded: String?): String? {
 }
 
 fun useDecodedValue(s: String?) {
-    // Uses a safe call since the return value may be null
+    // 使用安全调用，因为返回值可能为空
     decode(s)?.length
     if (s != null) {
-        // Treats the return value as non-null after the smart cast
+        // 智能类型转换后将返回值视为非空
         decode(s).length
     }
 }
@@ -385,9 +397,9 @@ import kotlin.contracts.*
 @OptIn(ExperimentalContracts::class, ExperimentalExtendedContracts::class)
 fun <T> T.alsoIf(condition: Boolean, block: (T) -> Unit): T {
     contract {
-        // Declares that the lambda runs at most once
+        // 声明 lambda 最多运行一次
         callsInPlace(block, InvocationKind.AT_MOST_ONCE)
-        // Declares that the condition is assumed to be true inside the lambda
+        // 声明条件在 lambda 内部被假定为 true
         condition holdsIn block
     }
     if (condition) block(this)
@@ -398,8 +410,8 @@ fun useApplyIf(input: Any) {
     val result = listOf(1, 2, 3)
         .first()
         .alsoIf(input is Int) {
-            // The input parameter is smart cast to Int inside the lambda
-            // Prints the sum of input and first list element
+            // 输入形参在 lambda 内部被智能类型转换为 Int
+            // 打印输入与列表第一个元素的和
             println(input + it)
             // 2
         }
@@ -440,7 +452,7 @@ class B : Example()
 class C : Example()
 
 fun test(e: Example) = when (e) {
-    // Uses invokedynamic with SwitchBootstraps.typeSwitch
+    // 使用 invokedynamic 和 SwitchBootstraps.typeSwitch
     is A -> 1
     is B -> 2
     is C -> 3
@@ -503,7 +515,7 @@ Kotlin 2.2.20 引入了对 Swift 导出的实验性支持。它允许您直接�
     ./gradlew :<Shared module name>:embedSwiftExportForXcode
     ```
 
-    ![Add the Swift export script](xcode-swift-export-run-script-phase.png){width=700}
+    ![添加 Swift 导出脚本](xcode-swift-export-run-script-phase.png){width=700}
 
 4.  构建项目。Swift 模块在构建输出目录中生成。
 
@@ -534,12 +546,12 @@ expect suspend fun readCopiedText(): String
 
 // jsMain
 external interface Navigator { val clipboard: Clipboard }
-// Different interop in JS and Wasm
+// JS 和 Wasm 中不同的互操作
 external interface Clipboard { fun readText(): Promise<String> }
 external val navigator: Navigator
 
 suspend fun readCopiedText(): String {
-    // Different interop in JS and Wasm
+    // JS 和 Wasm 中不同的互操作
     return navigator.clipboard.readText().await()
 }
 
@@ -557,7 +569,7 @@ suspend fun readCopiedText(): String {
 
 通过此更改，`web` 源代码集成为 `js` 和 `wasmJs` 源代码集的父级。更新后的源代码集层级结构如下：
 
-![An example of using the default hierarchy template with web](default-hierarchy-example-with-web.svg)
+![使用带有 web 的默认层级模板的示例](default-hierarchy-example-with-web.svg)
 
 新的源代码集允许您为 `js` 和 `wasmJs` 目标平台编写一段代码。您可以将共享代码放在 `webMain` 中，它将自动适用于两者：
 
@@ -587,7 +599,7 @@ kotlin {
     js()
     wasmJs()
 
-    // Enables the default source set hierarchy, including webMain and webTest
+    // 启用默认源代码集层级，包括 webMain 和 webTest
     applyDefaultHierarchyTemplate()
 }
 ```
@@ -623,7 +635,7 @@ Kotlin 2.2.20 完成了一项重要的[路线图项](https://youtrack.jetbrains.
 kotlin {
     @OptIn(ExperimentalKotlinGradlePluginApi::class)
     dependencies {
-        implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:%coroutinesVersion%")
+        // implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:%coroutinesVersion%")
     }
 }
 ```
@@ -964,7 +976,7 @@ Kotlin 2.2.20 支持使用 `BigInt` 类型来表示 Kotlin 的 `Long` 类型，�
 
 此更改允许[将 `Long` 类型导出到 JavaScript](#usage-of-long-in-exported-declarations)，这也是 Kotlin 2.2.20 中引入的一项特性。因此，此更改简化了 Kotlin 和 JavaScript 之间的互操作性。
 
-要启用它，您需要将以下编译器选项添加到您的 `build.gradle(.kts)` 文件中：
+要启用它，您需要添加以下编译器选项到您的 `build.gradle(.kts)` 文件中：
 
 ```kotlin
 kotlin {
@@ -1026,7 +1038,7 @@ fun main(args: Array<String>) {
 
 ```kotlin
 fun main(args: Array<String>) {
-    // No need for drop() and only your custom arguments are included
+    // 无需 `drop()`，只包含您的自定义实参
     println(args.joinToString(", "))
 }
 ```
@@ -1074,7 +1086,7 @@ kotlin.incremental.jvm.fir=true
 
 ### 增量编译检测内联函数 lambda 中的更改
 
-在 Kotlin 2.2.20 之前，如果您启用增量编译并更改了内联函数中 lambda 内部的逻辑，编译器不会重新编译该内联函数在其他模块中的调用点。结果是，这些调用点使用了 lambda 的先前版本，这可能导致意外行为。
+在 Kotlin 2.2.20 之前，如果您启用增量编译并更改了内联函数中 lambda 内部的逻辑，编译器不会重新编译该内联函数在其他模块中的调用点。结果是，那些调用点使用了 lambda 的先前版本，这可能导致意外行为。
 
 在 Kotlin 2.2.20 中，编译器现在可以检测内联函数中 lambda 的更改，并自动重新编译它们的调用点。
 
@@ -1109,7 +1121,7 @@ Kotlin 2.2.20 引入了所有编译器选项的通用 Schema，发布在 [`org.j
 ### Kotlin/JS 中通过反射识别接口类型的支持
 <primary-label ref="experimental-opt-in"/>
 
-Kotlin 2.2.20 将[实验性的](components-stability.md#stability-levels-explained) `KClass.isInterface` 属性添加到 Kotlin/JS 标准库。
+Kotlin 2.2.20 将[实验性的](components-stability.md#stability-levels-explained) [`KClass.isInterface`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.reflect/-k-class/is-interface.html) 属性添加到 Kotlin/JS 标准库。
 
 通过此属性，您现在可以检测类引用是否表示 Kotlin 接口。这使 Kotlin/JS 更接近与 Kotlin/JVM 的对等，在 Kotlin/JVM 中您可以使用 `KClass.java.isInterface` 来检测类是否表示接口。
 
@@ -1118,7 +1130,7 @@ Kotlin 2.2.20 将[实验性的](components-stability.md#stability-levels-explain
 ```kotlin
 @OptIn(ExperimentalStdlibApi::class)
 fun inspect(klass: KClass<*>) {
-    // Prints true for interfaces
+    // 为接口打印 true
     println(klass.isInterface)
 }
 ```
@@ -1149,13 +1161,13 @@ fun main() {
     val counter = AtomicLong(Random.nextLong())
     val minSetBitsThreshold = 20
 
-    // Sets a new value without using the result
+    // 设置一个新值而不使用结果
     counter.update { if (it < 0xDECAF) 0xCACA0 else 0xC0FFEE }
 
-    // Retrieves the current value, then updates it
+    // 检索当前值，然后更新它
     val previousValue = counter.fetchAndUpdate { 0x1CEDL.shl(Long.SIZE_BITS - it.countLeadingZeroBits()) or it }
 
-    // Updates the value, then retrieves the result
+    // 更新值，然后检索结果
     val current = counter.updateAndFetch {
         if (it.countOneBits() < minSetBitsThreshold) it.shl(20) or 0x15BADL else it
     }
@@ -1188,7 +1200,7 @@ Kotlin 2.2.20 引入了 [`copyOf()`](https://kotlinlang.org/api/core/kotlin-stdl
 @OptIn(ExperimentalStdlibApi::class)
 fun main() {
     val row1: Array<String> = arrayOf("one", "two")
-    // Resizes the array and populates the new elements using the lambda
+    // 调整数组大小并使用 lambda 填充新元素
     val row2: Array<String> = row1.copyOf(4) { "default" }
     println(row2.contentToString())
     // [one, two, default, default]
@@ -1217,10 +1229,10 @@ Compose 编译器从 Kotlin 2.1.0 开始支持抽象函数中的默认形参，�
 
 ```text
 @Composable fun App() {
-  Box { // <-- `Box` is a `@UiComposable`
-    Path(...) // <-- `Path` is a `@VectorComposable`
+  Box { // <-- `Box` 是一个 `@UiComposable`
+    Path(...) // <-- `Path` 是一个 `@VectorComposable`
     ^^^^^^^^^
-    warning: Calling a Vector composable function where a UI composable was expected
+    警告: 在预期 UI 可组合函数的位置调用 Vector 可组合函数
   }
 }
 ```

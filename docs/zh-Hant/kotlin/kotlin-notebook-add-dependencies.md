@@ -1,7 +1,7 @@
 [//]: # (title: 將依賴項新增至您的 Kotlin Notebook)
 
 <tldr>
-   <p>這是《**Kotlin Notebook 入門指南**》教學的第三部分。在繼續之前，請確保您已完成先前的步驟。</p>
+   <p>這是《<strong>Kotlin Notebook 入門指南</strong>》教學的第三部分。在繼續之前，請確保您已完成先前的步驟。</p>
    <p><img src="icon-1-done.svg" width="20" alt="First step"/> <a href="kotlin-notebook-set-up-env.md">設定環境</a><br/>
       <img src="icon-2-done.svg" width="20" alt="Second step"/> <a href="kotlin-notebook-create.md">建立 Kotlin Notebook</a><br/>
       <img src="icon-3.svg" width="20" alt="Third step"/> <strong>將依賴項新增至 Kotlin Notebook</strong><br/>
@@ -20,6 +20,12 @@
 ```kotlin
 // 將 libraryName 替換為您想新增的程式庫依賴項
 %use libraryName
+// 如有需要，請指定版本
+%use libraryName(version)
+// 新增 v= 以觸發自動完成
+%use libraryName(v=version)
+// 範例：kotlinx.datetime:0.7.1
+%use datetime(v=0.7.1)
 ```
 
 您也可以使用 Kotlin Notebook 中的自動完成功能，快速存取可用的程式庫：
@@ -29,8 +35,8 @@
 ## 將 Kotlin DataFrame 和 Kandy 程式庫新增至您的 Kotlin Notebook
 
 讓我們將兩個常用的 Kotlin 程式庫依賴項新增至您的 Kotlin Notebook：
-* [Kotlin DataFrame 程式庫](https://kotlin.github.io/dataframe/gettingstarted.html) 讓您能夠在 Kotlin 專案中操控資料。 
-您可以使用它從 [API](data-analysis-work-with-api.md)、[SQL 資料庫](data-analysis-connect-to-db.md) 和[各種檔案格式](data-analysis-work-with-data-sources.md) (例如 CSV 或 JSON) 擷取資料。
+* [Kotlin DataFrame 程式庫](https://kotlin.github.io/dataframe/home.html) 讓您能夠在 Kotlin 專案中操控資料。 
+您可以使用它從 [APIs](data-analysis-work-with-api.md)、[SQL 資料庫](data-analysis-connect-to-db.md) 和[各種檔案格式](data-analysis-work-with-data-sources.md) (例如 CSV 或 JSON) 擷取資料。
 * [Kandy 程式庫](https://kotlin.github.io/kandy/welcome.html) 提供強大且靈活的 DSL，用於[建立圖表](data-analysis-visualization.md)。
 
 若要新增這些程式庫：

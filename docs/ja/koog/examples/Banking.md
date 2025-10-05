@@ -91,18 +91,18 @@ import ai.koog.agents.core.tools.annotations.LLMDescription
 import ai.koog.agents.core.tools.annotations.Tool
 import ai.koog.agents.core.tools.reflect.ToolSet
 
-@LLMDescription("Tools for money transfer operations.")
+@LLMDescription("資金移動操作のためのツール。")
 class MoneyTransferTools : ToolSet {
 
     @Tool
     @LLMDescription(
         """
-        Returns the list of contacts for the given user.
-        The user in this demo is always userId=123.
+        指定されたユーザーの連絡先リストを返します。
+        このデモのユーザーは常にuserId=123です。
         """
     )
     fun getContacts(
-        @LLMDescription("The unique identifier of the user whose contact list is requested.") userId: Int
+        @LLMDescription("連絡先リストが要求されたユーザーの一意の識別子。") userId: Int
     ): String = buildString {
         contactList.forEach { c ->
             appendLine("${c.id}: ${c.name} ${c.surname ?: ""} (${c.phoneNumber})")
@@ -110,22 +110,22 @@ class MoneyTransferTools : ToolSet {
     }.trimEnd()
 
     @Tool
-    @LLMDescription("Returns the current balance (demo value).")
+    @LLMDescription("現在の残高を返します（デモ値）。")
     fun getBalance(
-        @LLMDescription("The unique identifier of the user.") userId: Int
+        @LLMDescription("ユーザーの一意の識別子。") userId: Int
     ): String = "Balance: 200.00 EUR"
 
     @Tool
-    @LLMDescription("Returns the default user currency (demo value).")
+    @LLMDescription("デフォルトのユーザー通貨を返します（デモ値）。")
     fun getDefaultCurrency(
-        @LLMDescription("The unique identifier of the user.") userId: Int
+        @LLMDescription("ユーザーの一意の識別子。") userId: Int
     ): String = "EUR"
 
     @Tool
-    @LLMDescription("Returns a demo FX rate between two ISO currencies (e.g. EUR→USD).")
+    @LLMDescription("2つのISO通貨間のデモ為替レートを返します（例：EUR→USD）。")
     fun getExchangeRate(
-        @LLMDescription("Base currency (e.g., EUR).") from: String,
-        @LLMDescription("Target currency (e.g., USD).") to: String
+        @LLMDescription("基準通貨（例：EUR）。") from: String,
+        @LLMDescription("目標通貨（例：USD）。") to: String
     ): String = when (from.uppercase() to to.uppercase()) {
         "EUR" to "USD" -> "1.10"
         "EUR" to "GBP" -> "0.86"
@@ -137,12 +137,12 @@ class MoneyTransferTools : ToolSet {
     @Tool
     @LLMDescription(
         """
-        Returns a ranked list of possible recipients for an ambiguous name.
-        The agent should ask the user to pick one and then use the selected contact id.
+        曖昧な名前に対応する可能性のある受取人のランク付けされたリストを返します。
+        エージェントはユーザーに1つを選択するように求め、その後に選択された連絡先IDを使用する必要があります。
         """
     )
     fun chooseRecipient(
-        @LLMDescription("An ambiguous or partial contact name.") confusingRecipientName: String
+        @LLMDescription("曖昧な、または部分的な連絡先名。") confusingRecipientName: String
     ): String {
         val matches = contactList.filter { c ->
             c.name.contains(confusingRecipientName, ignoreCase = true) ||
@@ -160,17 +160,17 @@ class MoneyTransferTools : ToolSet {
     @Tool
     @LLMDescription(
         """
-        Sends money from the user to a contact.
-        If confirmed=false, return "REQUIRES_CONFIRMATION" with a human-readable summary.
-        The agent should confirm with the user before retrying with confirmed=true.
+        ユーザーから連絡先に送金します。
+        confirmed=falseの場合、人間が読める要約とともに「REQUIRES_CONFIRMATION」を返します。
+        エージェントはconfirmed=trueで再試行する前に、ユーザーに確認を求める必要があります。
         """
     )
     fun sendMoney(
-        @LLMDescription("Sender user id.") senderId: Int,
-        @LLMDescription("Amount in sender's default currency.") amount: Double,
-        @LLMDescription("Recipient contact id.") recipientId: Int,
-        @LLMDescription("Short purpose/description.") purpose: String,
-        @LLMDescription("Whether the user already confirmed this transfer.") confirmed: Boolean = false
+        @LLMDescription("送信者のユーザーID。") senderId: Int,
+        @LLMDescription("送信者のデフォルト通貨での金額。") amount: Double,
+        @LLMDescription("受取人の連絡先ID。") recipientId: Int,
+        @LLMDescription("簡単な目的/説明。") purpose: String,
+        @LLMDescription("ユーザーがこの送金を既に確認したかどうか。") confirmed: Boolean = false
     ): String {
         val recipient = contactById[recipientId] ?: return "無効な受取人です。"
         val summary = "%.2fユーロを %s %s (%s) に「%s」の目的で送金します。"
@@ -192,13 +192,14 @@ class MoneyTransferTools : ToolSet {
 
 ```kotlin
 import ai.koog.agents.core.agent.AIAgent
+import ai.koog.agents.core.agent.AIAgentService
 import ai.koog.agents.core.tools.ToolRegistry
 import ai.koog.agents.core.tools.reflect.asTools
 import ai.koog.agents.ext.tool.AskUser
 import ai.koog.prompt.executor.clients.openai.OpenAIModels
 import kotlinx.coroutines.runBlocking
 
-val transferAgent = AIAgent(
+val transferAgentService = AIAgentService(
     executor = openAIExecutor,
     llmModel = OpenAIModels.Reasoning.GPT4oMini,
     systemPrompt = bankingAssistantSystemPrompt,
@@ -219,7 +220,7 @@ val message = "Send 25 euros to Daniel for dinner at the restaurant."
 // - "Transfer 100 euros to Bob for the shared vacation expenses"
 
 runBlocking {
-    val result = transferAgent.run(message)
+    val result = transferAgentService.createAgentAndRun(message)
     result
 }
 ```
@@ -334,25 +335,25 @@ val sampleTransactions = listOf(
 ## 取引分析ツール
 
 ```kotlin
-@LLMDescription("Tools for analyzing transaction history")
+@LLMDescription("取引履歴を分析するためのツール。")
 class TransactionAnalysisTools : ToolSet {
 
     @Tool
     @LLMDescription(
         """
-        Retrieves transactions filtered by userId, category, start date, and end date.
-        All parameters are optional. If no parameters are provided, all transactions are returned.
-        Dates should be in the format YYYY-MM-DD.
+        ユーザーID、カテゴリ、開始日、終了日でフィルタリングされた取引を取得します。
+        すべてのパラメータはオプションです。パラメータが指定されない場合、すべての取引が返されます。
+        日付はYYYY-MM-DD形式である必要があります。
         """
     )
     fun getTransactions(
-        @LLMDescription("The ID of the user whose transactions to retrieve.")
+        @LLMDescription("取引を取得するユーザーのID。")
         userId: String? = null,
-        @LLMDescription("The category to filter transactions by (e.g., 'Food & Dining').")
+        @LLMDescription("取引をフィルタリングするカテゴリ（例：「Food & Dining」）。")
         category: String? = null,
-        @LLMDescription("The start date to filter transactions by, in the format YYYY-MM-DD.")
+        @LLMDescription("取引をフィルタリングする開始日。形式はYYYY-MM-DD。")
         startDate: String? = null,
-        @LLMDescription("The end date to filter transactions by, in the format YYYY-MM-DD.")
+        @LLMDescription("取引をフィルタリングする終了日。形式はYYYY-MM-DD。")
         endDate: String? = null
     ): String {
         var filteredTransactions = sampleTransactions
@@ -392,9 +393,9 @@ class TransactionAnalysisTools : ToolSet {
     }
 
     @Tool
-    @LLMDescription("Calculates the sum of an array of double numbers.")
+    @LLMDescription("倍精度浮動小数点数の配列の合計を計算します。")
     fun sumArray(
-        @LLMDescription("Comma-separated list of double numbers to sum (e.g., '1.5,2.3,4.7').")
+        @LLMDescription("合計する倍精度浮動小数点数のカンマ区切りリスト（例：「1.5,2.3,4.7」）。")
         numbers: String
     ): String {
         val numbersList = numbers.split(",")
@@ -418,7 +419,7 @@ class TransactionAnalysisTools : ToolSet {
 ```
 
 ```kotlin
-val analysisAgent = AIAgent(
+val analysisAgentService = AIAgentService(
     executor = openAIExecutor,
     llmModel = OpenAIModels.Reasoning.GPT4oMini,
     systemPrompt = "$bankingAssistantSystemPrompt
@@ -439,7 +440,7 @@ val analysisMessage = "How much have I spent on restaurants this month?"
 // - "Show me all transactions from last week"
 
 runBlocking {
-    val result = analysisAgent.run(analysisMessage)
+    val result = analysisAgentService.createAgentAndRun(analysisMessage)
     result
 }
 ```
@@ -447,7 +448,7 @@ runBlocking {
     取引分析アシスタントが起動しました
 
     今月のレストランでの支出合計は$517.64です。
-
+    
     タスクが正常に完了しました。
 
 ## グラフを持つエージェントの構築
@@ -464,15 +465,15 @@ import kotlinx.serialization.Serializable
 @Suppress("unused")
 @SerialName("UserRequestType")
 @Serializable
-@LLMDescription("Type of user request: Transfer or Analytics")
+@LLMDescription("ユーザーリクエストの種類：TransferまたはAnalytics")
 enum class RequestType { Transfer, Analytics }
 
 @Serializable
-@LLMDescription("The bank request that was classified by the agent.")
+@LLMDescription("エージェントによって分類された銀行リクエスト。")
 data class ClassifiedBankRequest(
-    @property:LLMDescription("Type of request: Transfer or Analytics")
+    @property:LLMDescription("リクエストの種類：TransferまたはAnalytics")
     val requestType: RequestType,
-    @property:LLMDescription("Actual request to be performed by the banking application")
+    @property:LLMDescription("バンキングアプリケーションによって実行される実際のリクエスト")
     val userRequest: String
 )
 
@@ -539,14 +540,14 @@ val strategy = strategy<String, String>("バンキングアシスタント") {
         edge(
             requestClassification forwardTo callLLM
                 onCondition { it.isFailure }
-                transformed { "ユーザーの意図を理解できませんでした" }
+                transformed { "Failed to understand the user's intent" }
         )
 
         edge(callLLM forwardTo callAskUserTool onToolCall { true })
 
         edge(
             callLLM forwardTo callLLM onAssistantMessage { true }
-                transformed { "チャットする代わりに `${AskUser.name}` ツールを呼び出してください" }
+                transformed { "Please call `${AskUser.name}` tool instead of chatting" }
         )
 
         edge(callAskUserTool forwardTo requestClassification
@@ -651,7 +652,7 @@ runBlocking {
 Koogでは、他のエージェント内でエージェントをツールとして使用できるため、強力なコンポジションパターンが可能になります。
 
 ```kotlin
-import ai.koog.agents.core.agent.asTool
+import ai.koog.agents.core.agent.createAgentTool
 import ai.koog.agents.core.tools.ToolParameterDescriptor
 import ai.koog.agents.core.tools.ToolParameterType
 
@@ -663,7 +664,7 @@ val classifierAgent = AIAgent(
 
         // エージェントをツールに変換
         tool(
-            transferAgent.asTool(
+            transferAgentService.createAgentTool(
                 agentName = "transferMoney",
                 agentDescription = "資金を移動し、関連するすべての操作を処理します",
                 inputDescriptor = ToolParameterDescriptor(
@@ -675,7 +676,7 @@ val classifierAgent = AIAgent(
         )
 
         tool(
-            analysisAgent.asTool(
+            analysisAgentService.createAgentTool(
                 agentName = "analyzeTransactions",
                 agentDescription = "ユーザーの取引に対する分析を実行します",
                 inputDescriptor = ToolParameterDescriptor(

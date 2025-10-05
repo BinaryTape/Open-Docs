@@ -4,7 +4,7 @@ Kotlin 标准库提供了多种多样的函数，用于对集合执行操作。�
 
 ## 扩展函数与成员函数
 
-集合操作在标准库中有两种声明方式：集合接口的[成员函数](classes.md#class-members)和[扩展函数](extensions.md#extension-functions)。
+集合操作在标准库中有两种声明方式：集合接口的[成员函数](classes.md)和[扩展函数](extensions.md#extension-functions)。
 
 成员函数定义了对集合类型至关重要的操作。例如，[`Collection`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-collection/index.html) 包含 [`isEmpty()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-collection/is-empty.html) 函数，用于检测其是否为空；[`List`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html) 包含 [`get()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/get.html) 函数，用于索引访问元素，等等。
 

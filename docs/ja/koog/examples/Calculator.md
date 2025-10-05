@@ -163,13 +163,13 @@ val agent = AIAgent(
     toolRegistry = toolRegistry
 ) {
     handleEvents {
-        onToolCall { e ->
+        onToolCallStarting { e ->
             println("Tool called: ${e.tool.name}, args=${e.toolArgs}")
         }
-        onAgentRunError { e ->
+        onAgentExecutionFailed { e ->
             println("Agent error: ${e.throwable.message}")
         }
-        onAgentFinished { e ->
+        onAgentCompleted { e ->
             println("Final result: ${e.result}")
         }
     }
@@ -197,7 +197,7 @@ runBlocking {
     Tool called: divide, args=VarArgs(args={parameter #1 a of fun Line_4_jupyter.CalculatorTools.divide(kotlin.Double, kotlin.Double): kotlin.String=300.0, parameter #2 b of fun Line_4_jupyter.CalculatorTools.divide(kotlin.Double, kotlin.Double): kotlin.String=-9.0})
     Final result: The result of the expression \((10 + 20) * (5 + 5) / (2 - 11)\) is approximately \(-33.33\).
 
-    The result of the expression \((10 + 20) * (5 + 5) / (2 - 11)\) is approximately \(-33.33\).
+The result of the expression \((10 + 20) * (5 + 5) / (2 - 11)\) is approximately \(-33.33\).
 
 ## 並列呼び出しを強制してみる
 
@@ -217,7 +217,7 @@ runBlocking {
     Tool called: divide, args=VarArgs(args={parameter #1 a of fun Line_4_jupyter.CalculatorTools.divide(kotlin.Double, kotlin.Double): kotlin.String=30.0, parameter #2 b of fun Line_4_jupyter.CalculatorTools.divide(kotlin.Double, kotlin.Double): kotlin.String=-9.0})
     Final result: The result of \((10 + 20) * (5 + 5) / (2 - 11)\) is approximately \(-3.33\).
 
-    The result of \((10 + 20) * (5 + 5) / (2 - 11)\) is approximately \(-3.33\).
+The result of \((10 + 20) * (5 + 5) / (2 - 11)\) is approximately \(-3.33\).
 
 ## Ollama で実行する
 
@@ -248,5 +248,4 @@ runBlocking {
 
     Agent says: The result of the expression (10 + 20) * (5 + 5) / (2 - 11) is approximately -33.33.
 
-    If you have any more questions or need further assistance, feel free to ask!
-```
+If you have any more questions or need further assistance, feel free to ask!

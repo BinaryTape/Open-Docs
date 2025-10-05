@@ -1,6 +1,6 @@
 [//]: # (title: 从文件中检索数据)
 
-[Kotlin Notebook](kotlin-notebook-overview.md) 结合 [Kotlin DataFrame 库](https://kotlin.github.io/dataframe/gettingstarted.html)，使你能够处理非结构化数据和结构化数据。这种组合提供了将 TXT 文件等非结构化数据转换为结构化数据集的灵活性。
+[Kotlin Notebook](kotlin-notebook-overview.md) 结合 [Kotlin DataFrame 库](https://kotlin.github.io/dataframe/home.html)，使你能够处理非结构化数据和结构化数据。这种组合提供了将 TXT 文件等非结构化数据转换为结构化数据集的灵活性。
 
 对于数据转换，你可以使用 [`add`](https://kotlin.github.io/dataframe/adddf.html)、[`split`](https://kotlin.github.io/dataframe/split.html)、[`convert`](https://kotlin.github.io/dataframe/convert.html) 和 [`parse`](https://kotlin.github.io/dataframe/parse.html) 等方法。此外，该工具集支持从各种结构化文件格式（包括 CSV、JSON、XLS、XLSX 和 Apache Arrow）中检索和操作数据。
 
@@ -27,7 +27,6 @@ Kotlin Notebook 依赖于 [Kotlin Notebook 插件](https://plugins.jetbrains.com
 
 1.  打开你的 Kotlin Notebook 文件 (`.ipynb`)。
 2.  通过在 Notebook 开头的代码单元格中添加 `%use dataframe` 来导入 Kotlin DataFrame 库。
-
     > 确保在运行任何依赖于 Kotlin DataFrame 库的其他代码单元格之前，先运行包含 `%use dataframe` 行的代码单元格。
     >
     {style="note"}

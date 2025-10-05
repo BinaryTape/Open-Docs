@@ -300,7 +300,6 @@ fun main() = application {
 
 ## 接下來的步驟
 
-*   完成 [Compose Multiplatform 桌面應用程式](https://github.com/JetBrains/compose-multiplatform-desktop-template#readme)教學。
 *   了解如何為您的 Compose Multiplatform 桌面專案[建立單元測試](compose-desktop-ui-testing.md)。
 *   了解如何為桌面平台[建立原生發行版本、安裝程式和套件](compose-native-distribution.md)。
 *   設定[與 Swing 的互通性，並將您的 Swing 應用程式遷移至 Compose Multiplatform](compose-desktop-swing-interoperability.md)。

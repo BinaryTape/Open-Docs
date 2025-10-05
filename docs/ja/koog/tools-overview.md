@@ -95,7 +95,7 @@ val agent = AIAgent(
 エージェントコード内でツールを呼び出す方法はいくつかあります。推奨されるアプローチは、ツールを直接呼び出すのではなく、エージェントコンテキストで提供されるメソッドを使用することです。これにより、エージェント環境内でのツール操作が適切に処理されます。
 
 !!! tip
-    エージェントの失敗を防ぐため、ツールに適切な[エラー処理](agent-events.md)を実装していることを確認してください。
+    エージェントの失敗を防ぐため、ツールに適切な[エラー処理](agent-event-handlers.md)を実装していることを確認してください。
 
 ツールは、`AIAgentLLMWriteSession`で表される特定のセッションコンテキスト内で呼び出されます。
 これには、ツールを呼び出すためのいくつかのメソッドが用意されており、次のことができます。
@@ -189,7 +189,8 @@ val strategy = strategy<Unit, Unit>("strategy-name") {
 
 <!--- INCLUDE
 import ai.koog.agents.core.agent.AIAgent
-import ai.koog.agents.core.agent.asTool
+import ai.koog.agents.core.agent.AIAgentService
+import ai.koog.agents.core.agent.createAgentTool
 import ai.koog.agents.core.tools.ToolParameterDescriptor
 import ai.koog.agents.core.tools.ToolParameterType
 import ai.koog.agents.core.tools.ToolRegistry
@@ -201,16 +202,16 @@ val analysisToolRegistry = ToolRegistry {}
 
 -->
 ```kotlin
-// 専門のエージェントを作成
-val analysisAgent = AIAgent(
+// 財務分析エージェントの作成を担当する、専門のエージェントサービスを作成します。
+val analysisAgentService = AIAgentService(
     promptExecutor = simpleOpenAIExecutor(apiKey),
     llmModel = OpenAIModels.Chat.GPT4o,
     systemPrompt = "You are a financial analysis specialist.",
     toolRegistry = analysisToolRegistry
 )
 
-// エージェントをツールに変換
-val analysisAgentTool = analysisAgent.asTool(
+// 呼び出されると財務分析エージェントを実行するツールを作成します。
+val analysisAgentTool = analysisAgentService.createAgentTool(
     agentName = "analyzeTransactions",
     agentDescription = "Performs financial transaction analysis",
     inputDescription = "Transaction analysis request",

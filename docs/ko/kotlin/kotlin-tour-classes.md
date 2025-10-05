@@ -37,7 +37,7 @@ class Contact(val id: Int, var email: String) {
 }
 ```
 
-클래스 인스턴스가 생성된 후에 변경할 필요가 없다면 프로퍼티를 읽기 전용(`val`)으로 선언하는 것을 권장합니다.
+클래스 인스턴스가 생성된 후에 변경될 필요가 없다면 프로퍼티를 읽기 전용(`val`)으로 선언하는 것을 권장합니다.
 
 괄호 안에 `val` 또는 `var` 없이 프로퍼티를 선언할 수 있지만, 이러한 프로퍼티는 인스턴스가 생성된 후에는 접근할 수 없습니다.
 
@@ -76,7 +76,7 @@ fun main() {
 *   `id`와 `email`은 프로퍼티입니다.
 *   `id`와 `email`은 기본 생성자와 함께 사용되어 `contact`를 생성합니다.
 
-Kotlin 클래스는 직접 정의하는 생성자를 포함하여 여러 생성자를 가질 수 있습니다. 여러 생성자를 선언하는 방법에 대해 더 자세히 알아보려면 [생성자](classes.md#constructors)를 참조하세요.
+Kotlin 클래스는 직접 정의하는 생성자를 포함하여 여러 생성자를 가질 수 있습니다. 여러 생성자를 선언하는 방법에 대해 더 자세히 알아보려면 [생성자](classes.md#constructors-and-initializer-blocks)를 참조하세요.
 
 ## 프로퍼티 접근
 
@@ -247,7 +247,7 @@ fun main() {
 
 |---|---|
 ```kotlin
-// 여기에 코드를 작성하세요
+// Write your code here
 
 fun main() {
     val emp = Employee("Mary", 20)
@@ -278,7 +278,7 @@ fun main() {
 |---|---|
 ```kotlin
 data class Person(val name: Name, val address: Address, val ownsAPet: Boolean = true)
-// 여기에 코드를 작성하세요
+// Write your code here
 // data class Name(...)
 
 fun main() {

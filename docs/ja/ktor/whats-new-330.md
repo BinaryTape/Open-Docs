@@ -39,7 +39,7 @@ staticFiles("/files", File("textFiles")) {
 Ktor 3.3.0では、静的リソースに対する `ETag` および `LastModified` ヘッダーのサポートが導入されました。[`ConditionalHeaders`](server-conditional-headers.md) プラグインがインストールされている場合、条件付きヘッダーを処理して、前回のリクエスト以降に変更がないコンテンツのボディの送信を回避できます。
 
 ```kotlin
-staticFiles("/filesWithEtagAndLastModified", filesDir) {
+staticFiles("/filesWithEtagAndLastModified", File("files")) {
     etag { resource -> EntityTagVersion("etag") }
     lastModified { resource -> GMTDate() }
 }
@@ -50,7 +50,7 @@ staticFiles("/filesWithEtagAndLastModified", filesDir) {
 また、事前定義されたプロバイダーを使用することもできます。例えば、リソースコンテンツのSHA‑256ハッシュを使用して強力な `ETag` を生成できます。
 
 ```kotlin
-staticFiles("/filesWithStrongGeneratedEtag", filesDir) {
+staticFiles("/filesWithStrongGeneratedEtag", File("files")) {
     etag(ETagProvider.StrongSha256)
 }
 ```
@@ -196,8 +196,6 @@ Ktor 3.3.0では、Gradleプラグインとコンパイラプラグインを介�
     - レスポンスコードとタイプ
     - セキュリティ、説明、非推奨、および外部ドキュメントリンク
 - `call.receive()` および `call.respond()` からリクエストおよびレスポンスボディを推論します。
-
-undefined</include>
 
 #### OpenAPI仕様の生成
 

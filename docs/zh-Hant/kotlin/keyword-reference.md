@@ -41,7 +41,7 @@
      - 從次要建構函式[呼叫超類別建構函式](classes.md#inheritance)。
  * `this`
      - 參照[當前的接收者](this-expressions.md)。
-     - 從次要建構函式[呼叫同一類別的另一個建構函式](classes.md#constructors)。
+     - 從次要建構函式[呼叫同一類別的另一個建構函式](classes.md#constructors-and-initializer-blocks)。
  * `throw` [拋出一個例外](exceptions.md)。
  * `true` 指定[Boolean 型別](booleans.md)的 'true' 值。
  * `try` [開始一個例外處理區塊](exceptions.md)。
@@ -60,7 +60,7 @@
      - [將介面的實作委派給另一個物件](delegation.md)。
      - [將屬性存取器的實作委派給另一個物件](delegated-properties.md)。
  * `catch` 開始一個[處理特定例外型別](exceptions.md)的區塊。
- * `constructor` 宣告一個[主要或次要建構函式](classes.md#constructors)。
+ * `constructor` 宣告一個[主要或次要建構函式](classes.md#constructors-and-initializer-blocks)。
  * `delegate` 用作[註解使用站點目標](annotations.md#annotation-use-site-targets)。
  * `dynamic` 在 Kotlin/JS 程式碼中參照一個[動態型別](dynamic-type.md)。
  * `field` 用作[註解使用站點目標](annotations.md#annotation-use-site-targets)。
@@ -70,7 +70,7 @@
      - 宣告[屬性的 getter](properties.md)。
      - 用作[註解使用站點目標](annotations.md#annotation-use-site-targets)。
  * `import` [將另一個套件中的宣告匯入到當前檔案](packages.md)。
- * `init` 開始一個[初始化器區塊](classes.md#constructors)。
+ * `init` 開始一個[初始化器區塊](classes.md#constructors-and-initializer-blocks)。
  * `param` 用作[註解使用站點目標](annotations.md#annotation-use-site-targets)。
  * `property` 用作[註解使用站點目標](annotations.md#annotation-use-site-targets)。
  * `receiver` 用作[註解使用站點目標](annotations.md#annotation-use-site-targets)。

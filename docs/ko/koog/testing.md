@@ -2,7 +2,7 @@
 
 ## 개요
 
-테스트 기능은 Koog 프레임워크에서 AI 에이전트 파이프라인, 서브그래프, 도구 상호작용을 테스트하기 위한 포괄적인 프레임워크를 제공합니다. 이를 통해 개발자는 모의 LLM(거대 언어 모델) 실행기, 도구 레지스트리, 에이전트 환경을 갖춘 제어된 테스트 환경을 구축할 수 있습니다.
+테스트 기능은 Koog 프레임워크에서 AI 에이전트 파이프라인, 서브그래프 및 도구 상호작용을 테스트하기 위한 포괄적인 프레임워크를 제공합니다. 이를 통해 개발자는 모의 LLM(거대 언어 모델) 실행기, 도구 레지스트리 및 에이전트 환경을 갖춘 제어된 테스트 환경을 구축할 수 있습니다.
 
 ### 목적
 
@@ -46,12 +46,12 @@ val toolRegistry = ToolRegistry {}
 
 -->
 ```kotlin
-// Create a mock LLM executor
+// 모의 LLM 실행기 생성
 val mockLLMApi = getMockExecutor(toolRegistry) {
-  // Mock a simple text response
+  // 간단한 텍스트 응답 모의
   mockLLMAnswer("Hello!") onRequestContains "Hello"
 
-  // Mock a default response
+  // 기본 응답 모의
   mockLLMAnswer("I don't know how to answer that.").asDefaultResponse
 }
 ```
@@ -142,25 +142,25 @@ val mockLLMApi = getMockExecutor {
 }
 -->
 ```kotlin
-// Mock a tool call response
+// 도구 호출 응답 모의
 mockLLMToolCall(CreateTool, CreateTool.Args("solve")) onRequestEquals "Solve task"
 
-// Mock tool behavior - simplest form without lambda
+// 도구 동작 모의 - 람다 없는 가장 간단한 형태
 mockTool(PositiveToneTool) alwaysReturns "The text has a positive tone."
 
-// Using lambda when you need to perform extra actions
+// 추가 작업을 수행해야 할 때 람다 사용
 mockTool(NegativeToneTool) alwaysTells {
-  // Perform some extra action
+  // 추가 작업 수행
   println("Negative tone tool called")
 
-  // Return the result
+  // 결과 반환
   "The text has a negative tone."
 }
 
-// Mock tool behavior based on specific arguments
+// 특정 인수를 기반으로 도구 동작 모의
 mockTool(AnalyzeTool) returns "Detailed analysis" onArguments AnalyzeTool.Args("analyze deeply")
 
-// Mock tool behavior with conditional argument matching
+// 조건부 인수 일치로 도구 동작 모의
 mockTool(SearchTool) returns "Found results" onArgumentsMatching { args ->
   args.query.contains("important")
 }
@@ -194,13 +194,13 @@ fun main() {
 }
 -->
 ```kotlin
-// Create the agent with testing enabled
+// 테스트가 활성화된 에이전트 생성
 AIAgent(
     promptExecutor = mockLLMApi,
     toolRegistry = toolRegistry,
     llmModel = llmModel
 ) {
-    // Enable testing mode
+    // 테스트 모드 활성화
     withTesting()
 }
 ```
@@ -239,7 +239,7 @@ fun main() {
 -->
 ```kotlin
 AIAgent(
-    // Constructor arguments
+    // 생성자 인수
     promptExecutor = mockLLMApi,
     toolRegistry = toolRegistry,
     llmModel = llmModel
@@ -248,23 +248,23 @@ AIAgent(
         val firstSubgraph = assertSubgraphByName<String, String>("first")
         val secondSubgraph = assertSubgraphByName<String, String>("second")
 
-        // Assert subgraph connections
+        // 서브그래프 연결 어설션
         assertEdges {
             startNode() alwaysGoesTo firstSubgraph
             firstSubgraph alwaysGoesTo secondSubgraph
             secondSubgraph alwaysGoesTo finishNode()
         }
 
-        // Verify the first subgraph
+        // 첫 번째 서브그래프 검증
         verifySubgraph(firstSubgraph) {
             val start = startNode()
             val finish = finishNode()
 
-            // Assert nodes by name
+            // 이름으로 노드 어설션
             val askLLM = assertNodeByName<String, Message.Response>("callLLM")
             val callTool = assertNodeByName<ToolArgs, ToolResult>("executeTool")
 
-            // Assert node reachability
+            // 노드 도달 가능성 어설션
             assertReachable(start, askLLM)
             assertReachable(askLLM, callTool)
         }
@@ -316,10 +316,10 @@ fun main() {
 ```kotlin
 assertNodes {
 
-    // Test basic text responses
+    // 기본 텍스트 응답 테스트
     askLLM withInput "Hello" outputs assistantMessage("Hello!")
 
-    // Test tool call responses
+    // 도구 호출 응답 테스트
     askLLM withInput "Solve task" outputs toolCallMessage(CreateTool, CreateTool.Args("solve"))
 }
 ```
@@ -389,7 +389,7 @@ fun main() {
 -->
 ```kotlin
 assertNodes {
-    // Test tool runs with specific arguments
+    // 특정 인수로 도구 실행 테스트
     callTool withInput toolCallMessage(
         SolveTool,
         SolveTool.Args("solve")
@@ -459,10 +459,10 @@ fun main() {
 -->
 ```kotlin
 assertNodes {
-    // Test with different inputs to the same node
+    // 동일한 노드에 다른 입력으로 테스트
     askLLM withInput "Simple query" outputs assistantMessage("Simple response")
 
-    // Test with complex parameters
+    // 복잡한 매개변수로 테스트
     askLLM withInput "Complex query with parameters" outputs toolCallMessage(
         AnalyzeTool,
         AnalyzeTool.Args(query = "parameters", depth = 3)
@@ -537,7 +537,7 @@ fun main() {
 -->
 ```kotlin
 assertNodes {
-    // Test a complex tool call with a structured result
+    // 구조화된 결과를 가진 복잡한 도구 호출 테스트
     callTool withInput toolCallMessage(
         AnalyzeTool,
         AnalyzeTool.Args(query = "complex", depth = 5)
@@ -599,10 +599,10 @@ fun main() {
 -->
 ```kotlin
 assertEdges {
-    // Test text message routing
+    // 텍스트 메시지 라우팅 테스트
     askLLM withOutput assistantMessage("Hello!") goesTo giveFeedback
 
-    // Test tool call routing
+    // 도구 호출 라우팅 테스트
     askLLM withOutput toolCallMessage(CreateTool, CreateTool.Args("solve")) goesTo callTool
 }
 ```
@@ -650,7 +650,7 @@ fun main() {
 -->
 ```kotlin
 assertEdges {
-    // Different text responses can route to different nodes
+    // 다른 텍스트 응답은 다른 노드로 라우팅될 수 있습니다
     askLLM withOutput assistantMessage("Need more information") goesTo askForInfo
     askLLM withOutput assistantMessage("Ready to proceed") goesTo processRequest
 }
@@ -695,7 +695,7 @@ fun main() {
 -->
 ```kotlin
 assertEdges {
-    // Test routing based on tool result content
+    // 도구 결과 내용을 기반으로 라우팅 테스트
     callTool withOutput toolResult(
         AnalyzeTool, 
         AnalyzeTool.Result(analysis = "Needs more processing", confidence = 0.5)
@@ -741,7 +741,7 @@ fun main() {
 -->
 ```kotlin
 assertEdges {
-    // Route to different nodes based on confidence level
+    // 신뢰도 수준에 따라 다른 노드로 라우팅
     callTool withOutput toolResult(
         AnalyzeTool, 
         AnalyzeTool.Result(analysis = "Complete", confidence = 0.9)
@@ -774,13 +774,13 @@ assertEdges {
 ```kotlin
 @Test
 fun testToneAgent() = runTest {
-    // Create a list to track tool calls
+    // 도구 호출을 추적할 목록 생성
     var toolCalls = mutableListOf<String>()
     var result: String? = null
 
-    // Create a tool registry
+    // 도구 레지스트리 생성
     val toolRegistry = ToolRegistry {
-        // A special tool, required with this type of agent
+        // 이 유형의 에이전트에 필요한 특별 도구
         tool(SayToUser)
 
         with(ToneTools) {
@@ -788,9 +788,9 @@ fun testToneAgent() = runTest {
         }
     }
 
-    // Create an event handler
+    // 이벤트 핸들러 생성
     val eventHandler = EventHandler {
-        onToolCall { tool, args ->
+        onToolCallStarting { tool, args ->
             println("[DEBUG_LOG] Tool called: tool ${tool.name}, args $args")
             toolCalls.add(tool.name)
         }
@@ -816,19 +816,19 @@ ${it.stackTraceToString()}")
     val neutralResponse = "The text has a neutral tone."
 
     val mockLLMApi = getMockExecutor(toolRegistry, eventHandler) {
-        // Set up LLM responses for different input texts
+        // 다양한 입력 텍스트에 대한 LLM 응답 설정
         mockLLMToolCall(NeutralToneTool, ToneTool.Args(defaultText)) onRequestEquals defaultText
         mockLLMToolCall(PositiveToneTool, ToneTool.Args(positiveText)) onRequestEquals positiveText
         mockLLMToolCall(NegativeToneTool, ToneTool.Args(negativeText)) onRequestEquals negativeText
 
-        // Mock the behavior where the LLM responds with just tool responses when the tools return results
+        // 도구가 결과를 반환할 때 LLM이 도구 응답으로만 응답하도록 동작 모의
         mockLLMAnswer(positiveResponse) onRequestContains positiveResponse
         mockLLMAnswer(negativeResponse) onRequestContains negativeResponse
         mockLLMAnswer(neutralResponse) onRequestContains neutralResponse
 
         mockLLMAnswer(defaultText).asDefaultResponse
 
-        // Tool mocks
+        // 도구 모의
         mockTool(PositiveToneTool) alwaysTells {
             toolCalls += "Positive tone tool called"
             positiveResponse
@@ -843,10 +843,10 @@ ${it.stackTraceToString()}")
         }
     }
 
-    // Create a strategy
+    // 전략 생성
     val strategy = toneStrategy("tone_analysis")
 
-    // Create an agent configuration
+    // 에이전트 구성 생성
     val agentConfig = AIAgentConfig(
         prompt = prompt("test-agent") {
             system(
@@ -863,7 +863,7 @@ ${it.stackTraceToString()}")
         maxAgentIterations = 10
     )
 
-    // Create an agent with testing enabled
+    // 테스트가 활성화된 에이전트 생성
     val agent = AIAgent(
         promptExecutor = mockLLMApi,
         toolRegistry = toolRegistry,
@@ -874,17 +874,17 @@ ${it.stackTraceToString()}")
         withTesting()
     }
 
-    // Test the positive text
+    // 긍정적인 텍스트 테스트
     agent.run(positiveText)
     assertEquals("The text has a positive tone.", result, "Positive tone result should match")
     assertEquals(1, toolCalls.size, "One tool is expected to be called")
 
-    // Test the negative text
+    // 부정적인 텍스트 테스트
     agent.run(negativeText)
     assertEquals("The text has a negative tone.", result, "Negative tone result should match")
     assertEquals(2, toolCalls.size, "Two tools are expected to be called")
 
-    //Test the neutral text
+    // 중립적인 텍스트 테스트
     agent.run(defaultText)
     assertEquals("The text has a neutral tone.", result, "Neutral tone result should match")
     assertEquals(3, toolCalls.size, "Three tools are expected to be called")
@@ -1023,7 +1023,7 @@ fun testMultiSubgraphAgentStructure() = runTest {
 val mockExecutor = getMockExecutor {
     mockTool(myTool) alwaysReturns myResult
 
-    // Or with conditions
+    // 또는 조건과 함께
     mockTool(myTool) returns myResult onArguments myArgs
 }
 ```
@@ -1059,14 +1059,14 @@ testGraph<Unit, String>("test") {
     val mySubgraph = assertSubgraphByName<Unit, String>("mySubgraph")
 
     verifySubgraph(mySubgraph) {
-        // Get references to nodes
+        // 노드 레퍼런스 가져오기
         val nodeA = assertNodeByName<Unit, String>("nodeA")
         val nodeB = assertNodeByName<String, String>("nodeB")
 
-        // Assert reachability
+        // 도달 가능성 어설션
         assertReachable(nodeA, nodeB)
 
-        // Assert edge connections
+        // 엣지 연결 어설션
         assertEdges {
             nodeA.withOutput("result") goesTo nodeB
         }

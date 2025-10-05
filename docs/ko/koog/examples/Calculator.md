@@ -26,7 +26,7 @@ LLM 실행기를 제공하세요.
 %use koog
 
 val OPENAI_API_KEY = System.getenv("OPENAI_API_KEY")
-    ?: error("OPENAI_API_KEY 환경 변수를 설정해 주세요")
+    ?: error("Please set the OPENAI_API_KEY environment variable")
 
 val executor = simpleOpenAIExecutor(OPENAI_API_KEY)
 ```
@@ -43,37 +43,37 @@ import ai.koog.agents.core.tools.annotations.Tool
 private fun Double.pretty(): String =
     if (abs(this % 1.0) < 1e-9) this.toLong().toString() else "%.10g".format(this)
 
-@LLMDescription("기본 계산기 연산을 위한 툴")
+@LLMDescription("Tools for basic calculator operations")
 class CalculatorTools : ToolSet {
 
     @Tool
-    @LLMDescription("두 숫자를 더하고 그 합을 텍스트로 반환합니다.")
+    @LLMDescription("Adds two numbers and returns the sum as text.")
     fun plus(
-        @LLMDescription("첫 번째 덧셈 요소.") a: Double,
-        @LLMDescription("두 번째 덧셈 요소.") b: Double
+        @LLMDescription("First addend.") a: Double,
+        @LLMDescription("Second addend.") b: Double
     ): String = (a + b).pretty()
 
     @Tool
-    @LLMDescription("첫 번째 숫자에서 두 번째 숫자를 빼고 그 차이를 텍스트로 반환합니다.")
+    @LLMDescription("Subtracts the second number from the first and returns the difference as text.")
     fun minus(
-        @LLMDescription("피감수.") a: Double,
-        @LLMDescription("감수.") b: Double
+        @LLMDescription("Minuend.") a: Double,
+        @LLMDescription("Subtrahend.") b: Double
     ): String = (a - b).pretty()
 
     @Tool
-    @LLMDescription("두 숫자를 곱하고 그 곱을 텍스트로 반환합니다.")
+    @LLMDescription("Multiplies two numbers and returns the product as text.")
     fun multiply(
-        @LLMDescription("첫 번째 인수.") a: Double,
-        @LLMDescription("두 번째 인수.") b: Double
+        @LLMDescription("First factor.") a: Double,
+        @LLMDescription("Second factor.") b: Double
     ): String = (a * b).pretty()
 
     @Tool
-    @LLMDescription("첫 번째 숫자를 두 번째 숫자로 나누고 그 몫을 텍스트로 반환합니다. 0으로 나누는 경우 오류 메시지를 반환합니다.")
+    @LLMDescription("Divides the first number by the second and returns the quotient as text. Returns an error message on division by zero.")
     fun divide(
-        @LLMDescription("피제수.") a: Double,
-        @LLMDescription("제수 (0이 아니어야 합니다.).") b: Double
+        @LLMDescription("Dividend.") a: Double,
+        @LLMDescription("Divisor (must not be zero).") b: Double
     ): String = if (abs(b) < 1e-12) {
-        "오류: 0으로 나눌 수 없습니다"
+        "ERROR: Division by zero"
     } else {
         (a / b).pretty()
     }
@@ -82,12 +82,12 @@ class CalculatorTools : ToolSet {
 
 ## 툴 레지스트리
 
-(상호 작용/로깅을 위한 두 가지 내장 툴과 함께) 우리의 툴을 노출합니다.
+우리의 툴을 노출합니다 (상호 작용/로깅을 위한 두 가지 내장 툴과 함께).
 
 ```kotlin
 val toolRegistry = ToolRegistry {
-    tool(AskUser)   // 필요할 때 명시적인 사용자 확인을 가능하게 함
-    tool(SayToUser) // 에이전트가 사용자에게 최종 메시지를 제시할 수 있도록 함
+    tool(AskUser)   // enables explicit user clarification when needed
+    tool(SayToUser) // allows the agent to present the final message to the user
     tools(CalculatorTools())
 }
 ```
@@ -146,7 +146,7 @@ object CalculatorStrategy {
 ```kotlin
 val agentConfig = AIAgentConfig(
     prompt = prompt("calculator") {
-        system("당신은 계산기입니다. 항상 제공된 산술 툴을 사용하세요.")
+        system("You are a calculator. Always use the provided tools for arithmetic.")
     },
     model = OpenAIModels.Chat.GPT4o,
     maxAgentIterations = 50
@@ -163,13 +163,13 @@ val agent = AIAgent(
     toolRegistry = toolRegistry
 ) {
     handleEvents {
-        onToolCall { e ->
-            println("툴 호출됨: ${e.tool.name}, args=${e.toolArgs}")
+        onToolCallStarting { e ->
+            println("툴 호출 시작됨: ${e.tool.name}, args=${e.toolArgs}")
         }
-        onAgentRunError { e ->
-            println("에이전트 오류: ${e.throwable.message}")
+        onAgentExecutionFailed { e ->
+            println("에이전트 실행 실패: ${e.throwable.message}")
         }
-        onAgentFinished { e ->
+        onAgentCompleted { e ->
             println("최종 결과: ${e.result}")
         }
     }
@@ -186,18 +186,18 @@ import kotlinx.coroutines.runBlocking
 runBlocking {
     agent.run("(10 + 20) * (5 + 5) / (2 - 11)")
 }
-// 예상되는 최종 값 ≈ -33.333...
+// Expected final value ≈ -33.333...
 ```
 
-    툴 호출됨: plus, args=VarArgs(args={parameter #1 a of fun Line_4_jupyter.CalculatorTools.plus(kotlin.Double, kotlin.Double): kotlin.String=10.0, parameter #2 b of fun Line_4_jupyter.CalculatorTools.plus(kotlin.Double, kotlin.Double): kotlin.String=20.0})
-    툴 호출됨: plus, args=VarArgs(args={parameter #1 a of fun Line_4_jupyter.CalculatorTools.plus(kotlin.Double, kotlin.Double): kotlin.String=5.0, parameter #2 b of fun Line_4_jupyter.CalculatorTools.plus(kotlin.Double, kotlin.Double): kotlin.String=5.0})
-    툴 호출됨: minus, args=VarArgs(args={parameter #1 a of fun Line_4_jupyter.CalculatorTools.minus(kotlin.Double, kotlin.Double): kotlin.String=2.0, parameter #2 b of fun Line_4_jupyter.CalculatorTools.minus(kotlin.Double, kotlin.Double): kotlin.String=11.0})
-    툴 호출됨: multiply, args=VarArgs(args={parameter #1 a of fun Line_4_jupyter.CalculatorTools.multiply(kotlin.Double, kotlin.Double): kotlin.String=30.0, parameter #2 b of fun Line_4_jupyter.CalculatorTools.multiply(kotlin.Double, kotlin.Double): kotlin.String=10.0})
-    툴 호출됨: divide, args=VarArgs(args={parameter #1 a of fun Line_4_jupyter.CalculatorTools.divide(kotlin.Double, kotlin.Double): kotlin.String=1.0, parameter #2 b of fun Line_4_jupyter.CalculatorTools.divide(kotlin.Double, kotlin.Double): kotlin.String=-9.0})
-    툴 호출됨: divide, args=VarArgs(args={parameter #1 a of fun Line_4_jupyter.CalculatorTools.divide(kotlin.Double, kotlin.Double): kotlin.String=300.0, parameter #2 b of fun Line_4_jupyter.CalculatorTools.divide(kotlin.Double, kotlin.Double): kotlin.String=-9.0})
-    최종 결과: 표현식 \((10 + 20) * (5 + 5) / (2 - 11)\)의 결과는 약 \(-33.33\)입니다.
+    툴 호출 시작됨: plus, args=VarArgs(args={parameter #1 a of fun Line_4_jupyter.CalculatorTools.plus(kotlin.Double, kotlin.Double): kotlin.String=10.0, parameter #2 b of fun Line_4_jupyter.CalculatorTools.plus(kotlin.Double, kotlin.Double): kotlin.String=20.0})
+    툴 호출 시작됨: plus, args=VarArgs(args={parameter #1 a of fun Line_4_jupyter.CalculatorTools.plus(kotlin.Double, kotlin.Double): kotlin.String=5.0, parameter #2 b of fun Line_4_jupyter.CalculatorTools.plus(kotlin.Double, kotlin.Double): kotlin.String=5.0})
+    툴 호출 시작됨: minus, args=VarArgs(args={parameter #1 a of fun Line_4_jupyter.CalculatorTools.minus(kotlin.Double, kotlin.Double): kotlin.String=2.0, parameter #2 b of fun Line_4_jupyter.CalculatorTools.minus(kotlin.Double, kotlin.Double): kotlin.String=11.0})
+    툴 호출 시작됨: multiply, args=VarArgs(args={parameter #1 a of fun Line_4_jupyter.CalculatorTools.multiply(kotlin.Double, kotlin.Double): kotlin.String=30.0, parameter #2 b of fun Line_4_jupyter.CalculatorTools.multiply(kotlin.Double, kotlin.Double): kotlin.String=10.0})
+    툴 호출 시작됨: divide, args=VarArgs(args={parameter #1 a of fun Line_4_jupyter.CalculatorTools.divide(kotlin.Double, kotlin.Double): kotlin.String=1.0, parameter #2 b of fun Line_4_jupyter.CalculatorTools.divide(kotlin.Double, kotlin.Double): kotlin.String=-9.0})
+    툴 호출 시작됨: divide, args=VarArgs(args={parameter #1 a of fun Line_4_jupyter.CalculatorTools.divide(kotlin.Double, kotlin.Double): kotlin.String=300.0, parameter #2 b of fun Line_4_jupyter.CalculatorTools.divide(kotlin.Double, kotlin.Double): kotlin.String=-9.0})
+    최종 결과: The result of the expression \((10 + 20) * (5 + 5) / (2 - 11)\) is approximately \(-33.33\).
 
-    표현식 \((10 + 20) * (5 + 5) / (2 - 11)\)의 결과는 약 \(-33.33\)입니다.
+    The result of the expression \((10 + 20) * (5 + 5) / (2 - 11)\) is approximately \(-33.33\).
 
 ## 병렬 호출 강제 실행해보기
 
@@ -210,14 +210,14 @@ runBlocking {
 }
 ```
 
-    툴 호출됨: plus, args=VarArgs(args={parameter #1 a of fun Line_4_jupyter.CalculatorTools.plus(kotlin.Double, kotlin.Double): kotlin.String=10.0, parameter #2 b of fun Line_4_jupyter.CalculatorTools.plus(kotlin.Double, kotlin.Double): kotlin.String=20.0})
-    툴 호출됨: plus, args=VarArgs(args={parameter #1 a of fun Line_4_jupyter.CalculatorTools.plus(kotlin.Double, kotlin.Double): kotlin.String=5.0, parameter #2 b of fun Line_4_jupyter.CalculatorTools.plus(kotlin.Double, kotlin.Double): kotlin.String=5.0})
-    툴 호출됨: minus, args=VarArgs(args={parameter #1 a of fun Line_4_jupyter.CalculatorTools.minus(kotlin.Double, kotlin.Double): kotlin.String=2.0, parameter #2 b of fun Line_4_jupyter.CalculatorTools.minus(kotlin.Double, kotlin.Double): kotlin.String=11.0})
-    툴 호출됨: multiply, args=VarArgs(args={parameter #1 a of fun Line_4_jupyter.CalculatorTools.multiply(kotlin.Double, kotlin.Double): kotlin.String=30.0, parameter #2 b of fun Line_4_jupyter.CalculatorTools.multiply(kotlin.Double, kotlin.Double): kotlin.String=10.0})
-    툴 호출됨: divide, args=VarArgs(args={parameter #1 a of fun Line_4_jupyter.CalculatorTools.divide(kotlin.Double, kotlin.Double): kotlin.String=30.0, parameter #2 b of fun Line_4_jupyter.CalculatorTools.divide(kotlin.Double, kotlin.Double): kotlin.String=-9.0})
-    최종 결과: \((10 + 20) * (5 + 5) / (2 - 11)\)의 결과는 약 \(-3.33\)입니다.
+    툴 호출 시작됨: plus, args=VarArgs(args={parameter #1 a of fun Line_4_jupyter.CalculatorTools.plus(kotlin.Double, kotlin.Double): kotlin.String=10.0, parameter #2 b of fun Line_4_jupyter.CalculatorTools.plus(kotlin.Double, kotlin.Double): kotlin.String=20.0})
+    툴 호출 시작됨: plus, args=VarArgs(args={parameter #1 a of fun Line_4_jupyter.CalculatorTools.plus(kotlin.Double, kotlin.Double): kotlin.String=5.0, parameter #2 b of fun Line_4_jupyter.CalculatorTools.plus(kotlin.Double, kotlin.Double): kotlin.String=5.0})
+    툴 호출 시작됨: minus, args=VarArgs(args={parameter #1 a of fun Line_4_jupyter.CalculatorTools.minus(kotlin.Double, kotlin.Double): kotlin.String=2.0, parameter #2 b of fun Line_4_jupyter.CalculatorTools.minus(kotlin.Double, kotlin.Double): kotlin.String=11.0})
+    툴 호출 시작됨: multiply, args=VarArgs(args={parameter #1 a of fun Line_4_jupyter.CalculatorTools.multiply(kotlin.Double, kotlin.Double): kotlin.String=30.0, parameter #2 b of fun Line_4_jupyter.CalculatorTools.multiply(kotlin.Double, kotlin.Double): kotlin.String=10.0})
+    툴 호출 시작됨: divide, args=VarArgs(args={parameter #1 a of fun Line_4_jupyter.CalculatorTools.divide(kotlin.Double, kotlin.Double): kotlin.String=30.0, parameter #2 b of fun Line_4_jupyter.CalculatorTools.divide(kotlin.Double, kotlin.Double): kotlin.String=-9.0})
+    최종 결과: The result of \((10 + 20) * (5 + 5) / (2 - 11)\) is approximately \(-3.33\).
 
-    \((10 + 20) * (5 + 5) / (2 - 11)\)의 결과는 약 \(-3.33\)입니다.
+    The result of \((10 + 20) * (5 + 5) / (2 - 11)\) is approximately \(-3.33\).
 
 ## Ollama와 함께 실행하기
 
@@ -228,7 +228,7 @@ val ollamaExecutor: PromptExecutor = simpleOllamaAIExecutor()
 
 val ollamaAgentConfig = AIAgentConfig(
     prompt = prompt("calculator", LLMParams(temperature = 0.0)) {
-        system("당신은 계산기입니다. 항상 제공된 산술 툴을 사용하세요.")
+        system("You are a calculator. Always use the provided tools for arithmetic.")
     },
     model = OllamaModels.Meta.LLAMA_3_2,
     maxAgentIterations = 50
@@ -246,6 +246,6 @@ runBlocking {
 }
 ```
 
-    에이전트 응답: 표현식 (10 + 20) * (5 + 5) / (2 - 11)의 결과는 약 -33.33입니다.
+    에이전트 응답: The result of the expression (10 + 20) * (5 + 5) / (2 - 11) is approximately -33.33.
 
-    더 궁금한 점이 있거나 추가 지원이 필요하면 언제든지 문의하세요!
+    If you have any more questions or need further assistance, feel free to ask!

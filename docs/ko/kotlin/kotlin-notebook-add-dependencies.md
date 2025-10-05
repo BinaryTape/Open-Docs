@@ -20,6 +20,12 @@
 ```kotlin
 // libraryName을 추가하려는 라이브러리 의존성으로 바꾸세요
 %use libraryName
+// 필요한 경우 버전을 지정하세요
+%use libraryName(version)
+// v=를 추가하여 자동 완성을 트리거하세요
+%use libraryName(v=version)
+// 예시: kotlinx.datetime:0.7.1
+%use datetime(v=0.7.1)
 ```
 
 Kotlin Notebook의 자동 완성 기능을 사용하여 사용 가능한 라이브러리에 빠르게 접근할 수도 있습니다.
@@ -29,7 +35,7 @@ Kotlin Notebook의 자동 완성 기능을 사용하여 사용 가능한 라이�
 ## Kotlin Notebook에 Kotlin DataFrame 및 Kandy 라이브러리 추가하기
 
 Kotlin Notebook에 인기 있는 Kotlin 라이브러리 의존성 두 가지를 추가해 봅시다.
-* [Kotlin DataFrame 라이브러리](https://kotlin.github.io/dataframe/gettingstarted.html)는 Kotlin 프로젝트에서 데이터를 조작할 수 있는 기능을 제공합니다.
+* [Kotlin DataFrame 라이브러리](https://kotlin.github.io/dataframe/home.html)는 Kotlin 프로젝트에서 데이터를 조작할 수 있는 기능을 제공합니다.
 이 라이브러리를 사용하여 [API](data-analysis-work-with-api.md), [SQL 데이터베이스](data-analysis-connect-to-db.md) 및 CSV 또는 JSON과 같은 [다양한 파일 형식](data-analysis-work-with-data-sources.md)에서 데이터를 가져올 수 있습니다.
 * [Kandy 라이브러리](https://kotlin.github.io/kandy/welcome.html)는 [차트 생성](data-analysis-visualization.md)을 위한 강력하고 유연한 DSL을 제공합니다.
 
@@ -39,7 +45,7 @@ Kotlin Notebook에 인기 있는 Kotlin 라이브러리 의존성 두 가지를 
 2. 코드 셀에 다음 코드를 입력합니다.
 
     ```kotlin
-    // 최신 라이브러리 버전을 사용하도록 보장합니다.
+    // 최신 사용 가능한 라이브러리 버전이 사용되도록 보장합니다.
     %useLatestDescriptors
     
     // Kotlin DataFrame 라이브러리를 가져옵니다.

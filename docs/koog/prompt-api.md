@@ -217,7 +217,7 @@ val prompt = prompt("mixed_content") {
 在使用 Prompt API 时，你可以使用 LLM 客户端或提示词执行器来运行提示词。要在这两者之间进行选择，请考虑以下因素：
 
 - 如果你使用单个 LLM 提供方并且不需要高级生命周期管理，请直接使用 LLM 客户端。要了解更多信息，请参见 [使用 LLM 客户端运行提示词](#running-prompts-with-llm-clients)。
-- 如果你需要更高级别的抽象来管理 LLM 及其生命周期，或者你希望通过跨多个提供方的统一 API 运行提示词并动态切换它们，请使用提示词执行器。要了解更多信息，请参见 [使用提示词执行器运行提示词](#running-prompts-with-executors)。
+- 如果你需要更高级别的抽象来管理 LLM 及其生命周期，或者你希望通过跨多个提供方的统一 API 运行提示词并动态切换它们，请使用提示词执行器。要了解更多信息，请参见 [使用提示词执行器运行提示词](#running-prompts-with-prompt-executors)。
 
 !!!note
     LLM 客户端和提示词执行器都允许你流式传输响应、生成多个选择和运行内容审核。有关更多信息，请参考特定客户端或执行器的 [API 参考](https://api.koog.ai/index.html)。

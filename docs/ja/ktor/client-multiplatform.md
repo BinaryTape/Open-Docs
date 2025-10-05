@@ -18,7 +18,7 @@ Ktorクライアントはマルチプラットフォームプロジェクトで�
 
 ## 依存関係の追加 {id="add-dependencies"}
 プロジェクトでKtor HTTPクライアントを使用するには、少なくとも2つの依存関係、つまりクライアントの依存関係と[エンジン](client-engines.md)の依存関係を追加する必要があります。マルチプラットフォームプロジェクトの場合、これらの依存関係は次のように追加します。
-1. `commonMain` ソースセットの `build.gradle` または `build.gradle.kts` ファイルに `ktor-client-core` への依存関係を追加して、共通コードでKtorクライアントを使用します。
+1. 共通コードでKtorクライアントを使用するには、`build.gradle` または `build.gradle.kts` ファイルの `commonMain` ソースセットに `ktor-client-core` への依存関係を追加します。
    <var name="platform_name" value="common"/>
    <var name="artifact_name" value="ktor-client-core"/>
    <Tabs group="languages">
@@ -29,7 +29,7 @@ Ktorクライアントはマルチプラットフォームプロジェクトで�
            <code-block lang="Groovy" code="               %platform_name%Main {&#10;                   dependencies {&#10;                       implementation &quot;io.ktor:%artifact_name%:$ktor_version&quot;&#10;                   }&#10;               }"/>
        </TabItem>
    </Tabs>
-1. 必要なプラットフォーム用の[エンジン依存関係](client-engines.md#dependencies)を対応するソースセットに追加します。Androidの場合、`androidMain` ソースセットに[Android](client-engines.md#android)エンジンの依存関係を追加できます。
+2. 必要なプラットフォーム用の[エンジン依存関係](client-engines.md#dependencies)を対応するソースセットに追加します。Androidの場合、`androidMain` ソースセットに[Android](client-engines.md#android)エンジンの依存関係を追加できます。
    <var name="platform_name" value="android"/>
    <var name="artifact_name" value="ktor-client-android"/>
    <Tabs group="languages">

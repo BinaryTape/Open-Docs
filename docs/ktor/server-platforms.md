@@ -3,6 +3,7 @@
 Ktor 服务器可用于 Kotlin 支持的以下平台：
 - JVM
 - [原生](server-native.md)
+undefined
 - [JavaScript](https://kotlinlang.org/docs/js-overview.html)
 - [WasmJs](https://kotlinlang.org/docs/wasm-overview.html)
 
@@ -53,6 +54,28 @@ Ktor 服务器可用于 Kotlin 支持的以下平台：
         <list>
             <li>
                 <code>js</code>
+            </li>
+        </list>
+    </td>
+</tr>
+
+<tr>
+<td>
+        Android
+    </td>
+    <td>
+        <list>
+            <li>
+                <code>androidNativeArm32</code>
+            </li>
+            <li>
+                <code>androidNativeArm64</code>
+            </li>
+            <li>
+                <code>androidNativeX86</code>
+            </li>
+            <li>
+                <code>androidNativeX64</code>
             </li>
         </list>
     </td>
@@ -151,6 +174,19 @@ Ktor 服务器可用于 Kotlin 支持的以下平台：
             </li>
             <li>
                 <code>linuxArm64</code>
+            </li>
+        </list>
+    </td>
+</tr>
+
+<tr>
+<td>
+        Windows
+    </td>
+    <td>
+        <list>
+            <li>
+                <code>mingwX64</code>
             </li>
         </list>
     </td>

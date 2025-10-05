@@ -12,8 +12,7 @@
         <img src="icon-7-todo.svg" width="20" alt="最後一步" /> <a href="kotlin-tour-null-safety.md">空值安全</a></p>
 </tldr>
 
-Kotlin 支援物件導向程式設計，其中包含類別與物件。物件對於在程式中儲存資料很有用。
-類別允許您宣告物件的一組特性。當您從類別建立物件時，可以節省時間和精力，因為您不必每次都宣告這些特性。
+Kotlin 支援物件導向程式設計，其中包含類別與物件。物件對於在程式中儲存資料很有用。類別允許您為物件宣告一組特性。當您從類別建立物件時，可以節省時間和精力，因為您不必每次都宣告這些特性。
 
 要宣告一個類別，請使用 `class` 關鍵字：
 
@@ -25,12 +24,12 @@ class Customer
 
 類別物件的特性可以在屬性中宣告。您可以為類別宣告屬性：
 
-* 在類別名稱後的圓括號 `()` 內。
+*   在類別名稱後的圓括號 `()` 內。
 ```kotlin
 class Contact(val id: Int, var email: String)
 ```
 
-* 在花括號 `{}` 定義的類別主體內。
+*   在花括號 `{}` 定義的類別主體內。
 ```kotlin
 class Contact(val id: Int, var email: String) {
     val category: String = ""
@@ -41,8 +40,8 @@ class Contact(val id: Int, var email: String) {
 
 您可以在圓括號內宣告不帶 `val` 或 `var` 的屬性，但這些屬性在建立實例後無法存取。
 
-> * 圓括號 `()` 內包含的內容稱為**類別標頭**。
-> * 宣告類別屬性時可以使用[尾隨逗號](coding-conventions.md#trailing-commas)。
+> *   圓括號 `()` 內包含的內容稱為**類別標頭**。
+> *   宣告類別屬性時可以使用[尾隨逗號](coding-conventions.md#trailing-commas)。
 >
 {style="note"}
 
@@ -71,12 +70,12 @@ fun main() {
 
 在此範例中：
 
-* `Contact` 是一個類別。
-* `contact` 是 `Contact` 類別的實例。
-* `id` 和 `email` 是屬性。
-* `id` 和 `email` 與預設建構函式一起用於建立 `contact`。
+*   `Contact` 是一個類別。
+*   `contact` 是 `Contact` 類別的實例。
+*   `id` 和 `email` 是屬性。
+*   `id` 和 `email` 與預設建構函式一起用於建立 `contact`。
 
-Kotlin 類別可以有多個建構函式，包括您自己定義的建構函式。要了解更多關於如何宣告多個建構函式的資訊，請參閱[建構函式](classes.md#constructors)。
+Kotlin 類別可以有多個建構函式，包括您自己定義的建構函式。要了解更多關於如何宣告多個建構函式的資訊，請參閱[建構函式](classes.md#constructors-and-initializer-blocks)。
 
 ## 存取屬性
 
@@ -152,9 +151,9 @@ data class User(val name: String, val id: Int)
 
 請參閱以下章節以了解如何使用每個函式範例：
 
-* [列印為字串](#print-as-string)
-* [比較實例](#compare-instances)
-* [複製實例](#copy-instance)
+*   [列印為字串](#print-as-string)
+*   [比較實例](#compare-instances)
+*   [複製實例](#copy-instance)
 
 ### 列印為字串
 

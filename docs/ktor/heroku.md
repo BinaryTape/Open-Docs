@@ -25,7 +25,7 @@
 *   如果服务器配置在代码中指定，你可以使用 `System.getenv` 获取环境变量的值。打开 `src/main/kotlin/com/example` 文件夹中的 `Application.kt` 文件，并更改 `embeddedServer` 函数的 `port` 形参值，如下所示：
    ```kotlin
    fun main() {
-      embeddedServer(Netty, port = System.getenv("PORT").toInt()) {
+      embeddedServer(Netty, port = System.getenv("PORT")?.toIntOrNull() ?: 8080) {
           // ...
       }.start(wait = true)
    }
@@ -51,14 +51,14 @@ tasks {
 ``` 
 请注意，`installDist` 任务来自 Gradle [application 插件](https://docs.gradle.org/current/userguide/application_plugin.html)，该插件已添加到示例项目中。
 
-### 步骤 3：创建一个 Procfile {id="procfile"}
+### 3：创建一个 Procfile {id="procfile"}
 在项目根目录中创建一个 [Procfile](https://devcenter.heroku.com/articles/procfile) 并添加以下内容：
 ```
 web: ./build/install/ktor-get-started-sample/bin/ktor-get-started-sample
 ```
 {style="block"}
 
-此文件指定了由 `stage` 任务生成的应用程序可执行文件的路径，并允许 Heroku 启动应用程序。
+此文件指定了由 [stage](#stage) 任务生成的应用程序可执行文件的路径，并允许 Heroku 启动应用程序。
 你可能需要将 `ktor-get-started-sample` 替换为你的项目名称。
 
 ## 部署应用程序 {id="deploy-app"}

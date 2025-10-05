@@ -1,10 +1,10 @@
 [//]: # (title: コレクション操作の概要)
 
-Kotlin標準ライブラリは、コレクションに対する操作を実行するための多様な関数を提供しています。これには、要素の取得や追加といった単純な操作から、検索、ソート、フィルタリング、変換などのより複雑な操作までが含まれます。
+Kotlin標準ライブラリは、コレクションに対する操作を実行するための多種多様な関数を提供しています。これには、要素の取得や追加といった単純な操作から、検索、ソート、フィルタリング、変換などのより複雑な操作までが含まれます。
 
 ## 拡張関数とメンバー関数
 
-コレクション操作は、標準ライブラリで2つの方法で宣言されています。コレクションインターフェースの[メンバー関数](classes.md#class-members)と、[拡張関数](extensions.md#extension-functions)です。
+コレクション操作は、標準ライブラリで2つの方法で宣言されています。コレクションインターフェースの[メンバー関数](classes.md)と、[拡張関数](extensions.md#extension-functions)です。
 
 メンバー関数は、コレクション型にとって不可欠な操作を定義します。例えば、[`Collection`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-collection/index.html)にはその空っぽさを確認するための[`isEmpty()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-collection/is-empty.html)関数が含まれ、[`List`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html)には要素へのインデックスアクセスを行う[`get()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/get.html)などが含まれています。
 

@@ -192,13 +192,14 @@ class MoneyTransferTools : ToolSet {
 
 ```kotlin
 import ai.koog.agents.core.agent.AIAgent
+import ai.koog.agents.core.agent.AIAgentService
 import ai.koog.agents.core.tools.ToolRegistry
 import ai.koog.agents.core.tools.reflect.asTools
 import ai.koog.agents.ext.tool.AskUser
 import ai.koog.prompt.executor.clients.openai.OpenAIModels
 import kotlinx.coroutines.runBlocking
 
-val transferAgent = AIAgent(
+val transferAgentService = AIAgentService(
     executor = openAIExecutor,
     llmModel = OpenAIModels.Reasoning.GPT4oMini,
     systemPrompt = bankingAssistantSystemPrompt,
@@ -219,7 +220,7 @@ val message = "转账 25 欧元给 Daniel，用于餐厅晚餐。"
 // - “转账 100 欧元给 Bob，用于分摊的度假费用”
 
 runBlocking {
-    val result = transferAgent.run(message)
+    val result = transferAgentService.createAgentAndRun(message)
     result
 }
 ```
@@ -426,12 +427,13 @@ class TransactionAnalysisTools : ToolSet {
 
 ```kotlin
 import ai.koog.agents.core.agent.AIAgent
+import ai.koog.agents.core.agent.AIAgentService
 import ai.koog.agents.core.tools.ToolRegistry
 import ai.koog.agents.core.tools.reflect.asTools
 import ai.koog.prompt.executor.clients.openai.OpenAIModels
 import kotlinx.coroutines.runBlocking
 
-val analysisAgent = AIAgent(
+val analysisAgentService = AIAgentService(
     executor = openAIExecutor,
     llmModel = OpenAIModels.Reasoning.GPT4oMini,
     systemPrompt = "$bankingAssistantSystemPrompt
@@ -452,7 +454,7 @@ val analysisMessage = "我这个月在餐厅花了多少钱？"
 // - “显示我上周的所有交易”
 
 runBlocking {
-    val result = analysisAgent.run(analysisMessage)
+    val result = analysisAgentService.createAgentAndRun(analysisMessage)
     result
 }
 ```
@@ -488,6 +490,7 @@ data class ClassifiedBankRequest(
     @property:LLMDescription("银行应用程序要执行的实际请求")
     val userRequest: String
 )
+
 ```
 
 ### 共享工具注册表
@@ -667,7 +670,7 @@ runBlocking {
 Koog 允许你在其他代理中使用代理作为工具，从而实现强大的组合模式。
 
 ```kotlin
-import ai.koog.agents.core.agent.asTool
+import ai.koog.agents.core.agent.createAgentTool
 import ai.koog.agents.core.tools.ToolParameterDescriptor
 import ai.koog.agents.core.tools.ToolParameterType
 import ai.koog.agents.core.agent.AIAgent // 导入 AIAgent
@@ -683,7 +686,7 @@ val classifierAgent = AIAgent(
 
         // 将代理转换为工具
         tool(
-            transferAgent.asTool(
+            transferAgentService.createAgentTool(
                 agentName = "transferMoney",
                 agentDescription = "转账并处理所有相关操作",
                 inputDescriptor = ToolParameterDescriptor(
@@ -695,7 +698,7 @@ val classifierAgent = AIAgent(
         )
 
         tool(
-            analysisAgent.asTool(
+            analysisAgentService.createAgentTool(
                 agentName = "analyzeTransactions",
                 agentDescription = "对用户交易进行分析",
                 inputDescriptor = ToolParameterDescriptor(

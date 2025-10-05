@@ -8,7 +8,7 @@
   </p>
 </tldr>
 
-初めての[Kotlin Notebook](kotlin-notebook-overview.md)を作成しましたね！次に、高度な機能を利用するために必要な、ライブラリへの依存関係を追加する方法を学びましょう。
+最初の[Kotlin Notebook](kotlin-notebook-overview.md)を作成しましたね！次に、高度な機能を利用するために必要な、ライブラリへの依存関係を追加する方法を学びましょう。
 
 > Kotlin標準ライブラリはすぐに使用できるため、インポートする必要はありません。
 > 
@@ -20,6 +20,12 @@ Mavenリポジトリから任意のライブラリを、任意のコードセル
 ```kotlin
 // Replace libraryName with the library dependency you want to add
 %use libraryName
+// Specify a version, if required
+%use libraryName(version)
+// Add v= to trigger autocomplete
+%use libraryName(v=version)
+// Example: kotlinx.datetime:0.7.1
+%use datetime(v=0.7.1)
 ```
 
 Kotlin Notebookのオートコンプリート機能を使用して、利用可能なライブラリにすばやくアクセスすることもできます。
@@ -29,7 +35,7 @@ Kotlin Notebookのオートコンプリート機能を使用して、利用可�
 ## Kotlin DataFrameおよびKandyライブラリをKotlin Notebookに追加する
 
 Kotlin Notebookに、2つの人気のあるKotlinライブラリの依存関係を追加しましょう。
-*   [Kotlin DataFrameライブラリ](https://kotlin.github.io/dataframe/gettingstarted.html)は、Kotlinプロジェクトでデータを操作する機能を提供します。
+*   [Kotlin DataFrameライブラリ](https://kotlin.github.io/dataframe/home.html)は、Kotlinプロジェクトでデータを操作する機能を提供します。
     これを使用して、[API](data-analysis-work-with-api.md)、[SQLデータベース](data-analysis-connect-to-db.md)、およびCSVやJSONなどの[さまざまなファイル形式](data-analysis-work-with-data-sources.md)からデータを取得できます。
 *   [Kandyライブラリ](https://kotlin.github.io/kandy/welcome.html)は、[チャートを作成](data-analysis-visualization.md)するための強力で柔軟なDSLを提供します。
 
@@ -102,7 +108,7 @@ Kotlin Notebookに、2つの人気のあるKotlinライブラリの依存関係�
 
 ![Visualization using the Kandy library](kandy-library.png){width=700}
 
-これらのライブラリを追加し、Kotlin Notebookで活用できたことをお祝いします！
+Kotlin Notebookでこれらのライブラリを追加し、活用できたことをお祝いします！
 これは、Kotlin Notebookとその[サポートされているライブラリ](data-analysis-libraries.md)で達成できることのほんの一端にすぎません。
 
 ## 次のステップ

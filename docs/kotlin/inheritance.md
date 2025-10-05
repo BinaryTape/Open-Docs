@@ -15,6 +15,8 @@ open class Base // 类可用于继承
 
 ```
 
+[关于 `open` 关键字，请参见 Open 关键字](#open-keyword)。
+
 要声明一个显式超类型，请在类头中的冒号后放置该类型：
 
 ```kotlin
@@ -32,6 +34,52 @@ class MyView : View {
     constructor(ctx: Context) : super(ctx)
 
     constructor(ctx: Context, attrs: AttributeSet) : super(ctx, attrs)
+}
+```
+
+## Open 关键字
+
+在 Kotlin 中，`open` 关键字表明一个类或成员（函数或属性）可以在子类中被覆盖。默认情况下，Kotlin 类及其成员是 _final_ 的，这意味着它们不能被继承（对于类而言）或被覆盖（对于成员而言），除非你显式地将它们标记为 `open`：
+
+```kotlin
+// 带有 `open` 关键字的基类，允许被继承
+open class Person(
+    val name: String
+) {
+    // 可以在子类中被覆盖的 `open` 函数
+    open fun introduce() {
+        println("Hello, my name is $name.")
+    }
+}
+
+// 继承自 Person 并覆盖 introduce() 函数的子类
+class Student(
+    name: String,
+    val school: String
+) : Person(name) {
+    override fun introduce() {
+        println("Hi, I'm $name, and I study at $school.")
+    }
+}
+```
+
+如果你覆盖基类的一个成员，该覆盖成员默认也是 `open` 的。如果你想改变这一点并禁止你的类的子类覆盖你的实现，你可以显式地将覆盖成员标记为 `final`：
+
+```kotlin
+// 带有 `open` 关键字的基类，允许被继承
+open class Person(val name: String) {
+    // 可以在子类中被覆盖的 `open` 函数
+    open fun introduce() {
+        println("Hello, my name is $name.")
+    }
+}
+
+// 继承自 Person 并覆盖 introduce() 函数的子类
+class Student(name: String, val school: String) : Person(name) {
+    // `final` 关键字可防止在子类中进一步覆盖
+    final override fun introduce() {
+        println("Hi, I'm $name, and I study at $school.")
+    }
 }
 ```
 
@@ -98,26 +146,26 @@ class Polygon : Shape {
 //sampleStart
 open class Base(val name: String) {
 
-    init { println("Initializing a base class") }
+    init { println("初始化基类") }
 
     open val size: Int = 
-        name.length.also { println("Initializing size in the base class: $it") }
+        name.length.also { println("在基类中初始化 size: $it") }
 }
 
 class Derived(
     name: String,
     val lastName: String,
-) : Base(name.replaceFirstChar { it.uppercase() }.also { println("Argument for the base class: $it") }) {
+) : Base(name.replaceFirstChar { it.uppercase() }.also { println("基类的实参: $it") }) {
 
-    init { println("Initializing a derived class") }
+    init { println("初始化派生类") }
 
     override val size: Int =
-        (super.size + lastName.length).also { println("Initializing size in the derived class: $it") }
+        (super.size + lastName.length).also { println("在派生类中初始化 size: $it") }
 }
 //sampleEnd
 
 fun main() {
-    println("Constructing the derived class(\"hello\", \"world\")")
+    println("构建派生类(\"hello\", \"world\")")
     Derived("hello", "world")
 }
 ```
@@ -131,14 +179,14 @@ fun main() {
 
 ```kotlin
 open class Rectangle {
-    open fun draw() { println("Drawing a rectangle") }
+    open fun draw() { println("绘制矩形") }
     val borderColor: String get() = "black"
 }
 
 class FilledRectangle : Rectangle() {
     override fun draw() {
         super.draw()
-        println("Filling the rectangle")
+        println("填充矩形")
     }
 
     val fillColor: String get() = super.borderColor
@@ -149,7 +197,7 @@ class FilledRectangle : Rectangle() {
 
 ```kotlin
 open class Rectangle {
-    open fun draw() { println("Drawing a rectangle") }
+    open fun draw() { println("绘制矩形") }
     val borderColor: String get() = "black"
 }
 
@@ -161,7 +209,7 @@ class FilledRectangle: Rectangle() {
     }
     
     inner class Filler {
-        fun fill() { println("Filling") }
+        fun fill() { println("填充") }
         fun drawAndFill() {
             super@FilledRectangle.draw() // 调用 Rectangle 的 draw() 实现
             fill()

@@ -151,7 +151,7 @@ staticFiles("/files", File("textFiles")) {
 `cacheControl()` 函式允許您為 HTTP 快取配置 `Cache-Control` 標頭。
 
 ```kotlin
-fun Application.module() {
+    install(ConditionalHeaders)
     routing {
         staticFiles("/files", File("textFiles")) {
             cacheControl { file ->
@@ -171,7 +171,7 @@ object Immutable : CacheControl(null) {
 當 [`ConditionalHeaders`](server-conditional-headers.md) 外掛安裝後，Ktor 可以使用 `ETag` 和 `LastModified` 標頭服務靜態資源，並處理條件式標頭，以避免在內容自上次請求後未更改時傳送內容主體：
 
 ```kotlin
-staticFiles("/filesWithEtagAndLastModified", filesDir) {
+staticFiles("/filesWithEtagAndLastModified", File("files")) {
     etag { resource -> EntityTagVersion("etag") }
     lastModified { resource -> GMTDate() }
 }
@@ -182,7 +182,7 @@ staticFiles("/filesWithEtagAndLastModified", filesDir) {
 為了簡化 `ETag` 的生成，您也可以使用預定義的提供者：
 
 ```kotlin
-staticFiles("/filesWithStrongGeneratedEtag", filesDir) {
+staticFiles("/filesWithStrongGeneratedEtag", File("files")) {
     etag(ETagProvider.StrongSha256)
 }
 ```

@@ -51,7 +51,7 @@ fun main() {
 *   `.bold()`拡張関数の戻り値の型は`String`です。
 *   `String`のインスタンスである`"hello"`はレシーバーです。
 *   レシーバーは、本体内で[キーワード](keyword-reference.md) `this`によってアクセスされます。
-*   文字列テンプレート (` ` `) を使用して、`this`の値にアクセスします。
+*   文字列テンプレート (`` ` ``) を使用して、`this`の値にアクセスします。
 *   `.bold()`拡張関数は、文字列を受け取り、太字テキスト用の`<b>` HTML要素でそれを返します。
 
 ## 拡張指向設計
@@ -77,7 +77,7 @@ fun HttpClient.post(url: String): HttpResponse = request("POST", url, emptyMap()
 ```
 {validate="false"}
 
-これらの`.get()`および`.post()`関数は、正しいHTTPメソッドで`request()`関数を呼び出すため、自分で呼び出す必要はありません。これらはコードを簡素化し、理解しやすくします。
+これらの`.get()`および`.post()`関数は`HttpClient`クラスを拡張します。これらは`HttpClient`クラスのインスタンスがレシーバーとして呼び出されるため、`HttpClient`クラスの`request()`関数を直接使用できます。これらの拡張関数を使用すると、適切なHTTPメソッドで`request()`関数を呼び出すことができ、コードが簡素化され、理解しやすくなります。
 
 ```kotlin
 class HttpClient {
@@ -96,6 +96,7 @@ fun main() {
     val getResponseWithMember = client.request("GET", "https://example.com", emptyMap())
 
     // Making a GET request using the get() extension function
+    // clientインスタンスがレシーバーです
     val getResponseWithExtension = client.get("https://example.com")
 }
 ```

@@ -6,7 +6,7 @@ Koogの**ストリーミングAPI**を使用すると、`Flow<StreamFrame>`と�
 
 - アシスタントテキストが到着するとすぐにレンダリングする
 - **ツール呼び出し**をリアルタイムで検出し、それに基づいて動作する
-- ストリームがいつ**終了**したか、そしてその理由を知る
+- ストリームがいつ**終了したか、そしてその理由を知る
 
 ストリームは**型付けされたフレーム**を運びます。
 
@@ -14,7 +14,7 @@ Koogの**ストリーミングAPI**を使用すると、`Flow<StreamFrame>`と�
 - `StreamFrame.ToolCall(id: String?, name: String, content: String)` — ツール呼び出し（安全に結合されます）
 - `StreamFrame.End(finishReason: String?)` — ストリーム終了マーカー
 
-プレーンテキストを抽出し、フレームを`Message.Response`オブジェクトに変換し、**チャンク化されたツール呼び出しを安全に結合する**ためのヘルパーが提供されています。
+プレーンテキストを抽出し、フレームを`Message.Response`オブジェクトに変換し、安全に**チャンク化されたツール呼び出しを結合する**ためのヘルパーが提供されています。
 
 ---
 
@@ -140,7 +140,7 @@ $fullText")
 
 ### イベントハンドラでストリームイベントをリッスンする
 
-[エージェントイベント](agent-events.md)でストリームイベントをリッスンできます。
+[エージェントイベントハンドラ](agent-event-handlers.md)でストリームイベントをリッスンできます。
 
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
@@ -155,7 +155,7 @@ fun GraphAIAgent.FeatureContext.installStreamingApi() {
 -->
 ```kotlin
 handleEvents {
-    onToolExecutionStarting { context ->
+    onToolCallStarting { context ->
         println("
 🔧 Using ${context.tool.name} with ${context.toolArgs}... ")
     }

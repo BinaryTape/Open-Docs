@@ -15,6 +15,8 @@ open class Base // Class is open for inheritance
 
 ```
 
+詳細については、[Openキーワード](#open-keyword)を参照してください。
+
 明示的なスーパークラスを宣言するには、クラスヘッダーのコロンの後に型を配置します。
 
 ```kotlin
@@ -32,6 +34,52 @@ class MyView : View {
     constructor(ctx: Context) : super(ctx)
 
     constructor(ctx: Context, attrs: AttributeSet) : super(ctx, attrs)
+}
+```
+
+## Openキーワード
+
+Kotlinでは、`open`キーワードは、クラスまたはメンバー（関数やプロパティ）がサブクラスでオーバーライド可能であることを示します。デフォルトでは、Kotlinのクラスとそのメンバーは_final_であり、明示的に`open`とマークしない限り、継承（クラスの場合）またはオーバーライド（メンバーの場合）できません。
+
+```kotlin
+// 継承を許可するopenキーワードを持つ基底クラス
+open class Person(
+    val name: String
+) {
+    // サブクラスでオーバーライド可能なopen関数
+    open fun introduce() {
+        println("Hello, my name is $name.")
+    }
+}
+
+// Personを継承し、introduce()関数をオーバーライドするサブクラス
+class Student(
+    name: String,
+    val school: String
+) : Person(name) {
+    override fun introduce() {
+        println("Hi, I'm $name, and I study at $school.")
+    }
+}
+```
+
+基底クラスのメンバーをオーバーライドする場合、オーバーライドするメンバーもデフォルトでは`open`です。この動作を変更し、クラスのサブクラスがあなたの実装をオーバーライドすることを禁止したい場合は、オーバーライドするメンバーを明示的に`final`とマークできます。
+
+```kotlin
+// 継承を許可するopenキーワードを持つ基底クラス
+open class Person(val name: String) {
+    // サブクラスでオーバーライド可能なopen関数
+    open fun introduce() {
+        println("Hello, my name is $name.")
+    }
+}
+
+// Personを継承し、introduce()関数をオーバーライドするサブクラス
+class Student(name: String, val school: String) : Person(name) {
+    // finalキーワードは、サブクラスでのさらなるオーバーライドを防ぎます
+    final override fun introduce() {
+        println("Hi, I'm $name, and I study at $school.")
+    }
 }
 ```
 

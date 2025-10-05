@@ -1,9 +1,9 @@
 [//]: # (title: 从 Web 源和 API 检索数据)
 
 [Kotlin Notebook](kotlin-notebook-overview.md) 提供了一个强大的平台，用于访问和操作来自各种 Web 源和 API 的数据。
-它通过提供一个迭代环境来简化数据提取和分析任务，在该环境中，每个步骤都可以可视化以提高清晰度。这使得它在探索不熟悉的 API 时特别有用。
+它通过提供一个迭代环境来简化数据提取和分析任务，在该环境中，每个步骤都可以可视化以提高清晰度。这使得它在探索你不熟悉的 API 时特别有用。
 
-与 [Kotlin DataFrame library](https://kotlin.github.io/dataframe/gettingstarted.html) 结合使用时，Kotlin Notebook 不仅使你能够连接到 API 并从中获取 JSON 数据，还协助重塑此数据以进行全面的分析和可视化。
+与 [Kotlin DataFrame library](https://kotlin.github.io/dataframe/home.html) 结合使用时，Kotlin Notebook 不仅使你能够连接到 API 并从中获取 JSON 数据，还协助重塑此数据以进行全面的分析和可视化。
 
 > 关于 Kotlin Notebook 示例，请参见 [GitHub 上的 DataFrame 示例](https://github.com/Kotlin/dataframe/blob/master/examples/notebooks/youtube/Youtube.ipynb)。
 >
@@ -102,7 +102,7 @@ Kotlin Notebook 依赖于 [Kotlin Notebook plugin](https://plugins.jetbrains.com
 
 ## 清洗和精炼数据
 
-清洗和精炼数据是为分析准备数据集的关键步骤。 [Kotlin DataFrame 库](https://kotlin.github.io/dataframe/gettingstarted.html)
+清洗和精炼数据是为分析准备数据集的关键步骤。 [Kotlin DataFrame 库](https://kotlin.github.io/dataframe/home.html)
 为这些任务提供了强大的功能。[`move`](https://kotlin.github.io/dataframe/move.html)、
 [`concat`](https://kotlin.github.io/dataframe/concatdf.html)、[`select`](https://kotlin.github.io/dataframe/select.html)、
 [`parse`](https://kotlin.github.io/dataframe/parse.html) 和 [`join`](https://kotlin.github.io/dataframe/join.html)
@@ -123,11 +123,11 @@ Kotlin Notebook 依赖于 [Kotlin Notebook plugin](https://plugins.jetbrains.com
 2.  从清洗过的数据中分块 ID 并加载相应的视频统计信息。这包括将数据分成更小的批次并获取额外细节：
 
     ```kotlin
-    val statPages = clean.id.chunked(50).map {
-        val ids = it.joinToString("%2C")
-        load("videos?part=statistics&id=$ids")
-    }
-    statPages
+   val statPages = clean.id.chunked(50).map {
+       val ids = it.joinToString("%2C")
+       load("videos?part=statistics&id=$ids")
+   }
+   statPages
     ```
 
 3.  连接获取到的统计信息并选择相关列：
@@ -149,7 +149,7 @@ Kotlin Notebook 依赖于 [Kotlin Notebook plugin](https://plugins.jetbrains.com
 
 ## 在 Kotlin Notebook 中分析数据
 
-在使用 [Kotlin DataFrame 库](https://kotlin.github.io/dataframe/gettingstarted.html) 中的函数成功 [获取](#fetch-data-from-an-api) 并 [清洗和精炼数据](#clean-and-refine-data) 后，下一步是分析这个准备好的数据集以提取有意义的洞察。
+在使用 [Kotlin DataFrame 库](https://kotlin.github.io/dataframe/home.html) 中的函数成功 [获取](#fetch-data-from-an-api) 并 [清洗和精炼数据](#clean-and-refine-data) 后，下一步是分析这个准备好的数据集以提取有意义的洞察。
 
 [`groupBy`](https://kotlin.github.io/dataframe/groupby.html) 用于数据分类，[`sum`](https://kotlin.github.io/dataframe/sum.html) 和 [`maxBy`](https://kotlin.github.io/dataframe/maxby.html) 用于 [汇总统计](https://kotlin.github.io/dataframe/summarystatistics.html)，以及 [`sortBy`](https://kotlin.github.io/dataframe/sortby.html) 用于数据排序等方法特别有用。
 这些工具使你能够高效地执行复杂的数据分析任务。
@@ -195,7 +195,7 @@ Kotlin Notebook 依赖于 [Kotlin Notebook plugin](https://plugins.jetbrains.com
 
 ![Analysis results](kotlin-analysis.png){width=700}
 
-关于更高级的技术，请参见 [Kotlin DataFrame 文档](https://kotlin.github.io/dataframe/gettingstarted.html)。
+关于更高级的技术，请参见 [Kotlin DataFrame 文档](https://kotlin.github.io/dataframe/home.html)。
 
 ## 后续步骤
 

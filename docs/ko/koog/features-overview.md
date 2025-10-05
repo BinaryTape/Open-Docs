@@ -8,6 +8,11 @@
 
 Koog 프레임워크는 다음 기능을 구현합니다:
 
-- [이벤트 핸들러](agent-events.md)
+- [이벤트 핸들러](agent-event-handlers.md)
 - [트레이싱](tracing.md)
 - [에이전트 메모리](agent-memory.md)
+- [OpenTelemetry](opentelemetry-support.md)
+- [에이전트 지속성 (스냅샷)](agent-persistence.md)
+- 디버거
+- 토크나이저
+- SQL 지속성 제공자

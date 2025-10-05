@@ -29,7 +29,7 @@ Ktor 客户端可用于多平台项目，并支持 Android、JavaScript 和 Nati
            <code-block lang="Groovy" code="               %platform_name%Main {&#10;                   dependencies {&#10;                       implementation &quot;io.ktor:%artifact_name%:$ktor_version&quot;&#10;                   }&#10;               }"/>
        </TabItem>
    </Tabs>
-1. 将所需平台的[引擎依赖项](client-engines.md#dependencies)添加到对应的源代码集。对于 Android，你可以将 [Android](client-engines.md#android) 引擎依赖项添加到 `androidMain` 源代码集：
+2. 将所需平台的[引擎依赖项](client-engines.md#dependencies)添加到对应的源代码集。对于 Android，你可以将 [Android](client-engines.md#android) 引擎依赖项添加到 `androidMain` 源代码集：
    <var name="platform_name" value="android"/>
    <var name="artifact_name" value="ktor-client-android"/>
    <Tabs group="languages">

@@ -144,7 +144,7 @@ staticFiles("/files", File("textFiles")) {
 `cacheControl()` 함수를 사용하면 HTTP 캐싱을 위한 `Cache-Control` 헤더를 구성할 수 있습니다.
 
 ```kotlin
-fun Application.module() {
+    install(ConditionalHeaders)
     routing {
         staticFiles("/files", File("textFiles")) {
             cacheControl { file ->
@@ -164,7 +164,7 @@ object Immutable : CacheControl(null) {
 [`ConditionalHeaders`](server-conditional-headers.md) 플러그인이 설치된 경우, Ktor는 `ETag` 및 `LastModified` 헤더와 함께 정적 리소스를 제공하고 조건부 헤더를 처리하여 마지막 요청 이후 변경되지 않았다면 콘텐츠 본문을 전송하지 않도록 할 수 있습니다:
 
 ```kotlin
-staticFiles("/filesWithEtagAndLastModified", filesDir) {
+staticFiles("/filesWithEtagAndLastModified", File("files")) {
     etag { resource -> EntityTagVersion("etag") }
     lastModified { resource -> GMTDate() }
 }
@@ -175,7 +175,7 @@ staticFiles("/filesWithEtagAndLastModified", filesDir) {
 `ETag` 생성을 단순화하기 위해 미리 정의된 프로바이더를 사용할 수도 있습니다:
 
 ```kotlin
-staticFiles("/filesWithStrongGeneratedEtag", filesDir) {
+staticFiles("/filesWithStrongGeneratedEtag", File("files")) {
     etag(ETagProvider.StrongSha256)
 }
 ```

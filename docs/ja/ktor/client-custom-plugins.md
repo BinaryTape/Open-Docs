@@ -75,7 +75,7 @@ Ktor v2.2.0以降、カスタムクライアント[プラグイン](client-plugi
     }
     ```
 
-2.  この設定をプラグインで使用するには、設定クラスの参照を`createApplicationPlugin`に渡します。
+2.  この設定をプラグインで使用するには、設定クラスの参照を`createClientPlugin`に渡します。
 
     ```kotlin
     import io.ktor.client.plugins.api.*
@@ -231,7 +231,7 @@ Ktor v2.2.0以降、カスタムクライアント[プラグイン](client-plugi
 <code>on(SetupRequest)</code>
 </td>
 <td>
-<code>SetupRequest</code>フックは、リクエスト処理で最初に実行されます。
+`SetupRequest`フックは、リクエスト処理で最初に実行されます。
 </td>
 </tr>
 
@@ -285,7 +285,7 @@ Ktor v2.2.0以降、カスタムクライアント[プラグイン](client-plugi
 </td>
 <td>
 <p>
-<code>Send</code>フックは、レスポンスを検査し、必要に応じて追加のリクエストを開始する機能を提供します。
+`Send`フックは、レスポンスを検査し、必要に応じて追加のリクエストを開始する機能を提供します。
 これは、リダイレクトの処理、リクエストの再試行、認証などに役立ちます。
 </p>
 <p>
@@ -302,9 +302,9 @@ Ktor v2.2.0以降、カスタムクライアント[プラグイン](client-plugi
 </td>
 <td>
 <p>
-<code>SendingRequest</code>フックは、ユーザーによって開始されたものでないリクエストであっても、すべてのリクエストに対して実行されます。
-例えば、リクエストがリダイレクトされた場合、<code>onRequest</code>ハンドラーは元のリクエストに対してのみ実行されますが、<code>on(SendingRequest)</code>は元のリクエストとリダイレクトされたリクエストの両方に対して実行されます。
-同様に、追加のリクエストを開始するために<code>on(Send)</code>を使用した場合は、ハンドラーは次のように順序付けされます。
+`SendingRequest`フックは、ユーザーによって開始されたものでないリクエストであっても、すべてのリクエストに対して実行されます。
+例えば、リクエストがリダイレクトされた場合、`onRequest`ハンドラーは元のリクエストに対してのみ実行されますが、`on(SendingRequest)`は元のリクエストとリダイレクトされたリクエストの両方に対して実行されます。
+同様に、追加のリクエストを開始するために`on(Send)`を使用した場合は、ハンドラーは次のように順序付けされます。
 </p>
 <code-block lang="Console" code="--&gt; onRequest&#10;--&gt; on(Send)&#10;--&gt; on(SendingRequest)&#10;&lt;-- onResponse&#10;--&gt; on(SendingRequest)&#10;&lt;-- onResponse"/>
 <p>

@@ -20,13 +20,20 @@
 BOMRemover 外掛程式可讓您從回應本文中移除位元組順序標記 (BOM)。
 </link-summary>
 
-[位元組順序標記 (BOM)](https://en.wikipedia.org/wiki/Byte_order_mark) 是一種在 Unicode 檔案或資料流中編碼的字元。BOM 的主要目的是標示文字資料流的編碼以及 16 位元和 32 位元編碼的位元組順序。
+[位元組順序標記 (BOM)](https://en.wikipedia.org/wiki/Byte_order_mark) 是一種編碼在 Unicode 檔案或
+資料流中的字元。BOM 的主要目的是標示文字資料流的編碼，以及 16 位元和 32 位元
+編碼的位元組順序。
 
-在某些情況下，需要從回應本文中移除 BOM。例如，在 UTF-8 編碼中，BOM 的存在是可選的，當由不清楚如何處理 BOM 的軟體讀取時，它可能會造成問題。
+在某些情況下，需要從回應本文中移除 BOM。例如，在 UTF-8 編碼中，
+BOM 的存在是可選的，當由不清楚如何處理 BOM 的軟體讀取時，它可能會造成問題。
 
-Ktor 用戶端提供了 [BOMRemover](https://api.ktor.io/ktor-client/ktor-client-plugins/ktor-client-bom-remover/io.ktor.client.plugins.bomremover/index.html) 外掛程式，該外掛程式可從 UTF-8、UTF-16 (BE)、UTF-16 (LE)、UTF-32 (BE) 和 UTF-32 (LE) 編碼的回應本文中移除 BOM。
+Ktor 用戶端提供了
+[BOMRemover](https://api.ktor.io/ktor-client/ktor-client-plugins/ktor-client-bom-remover/io.ktor.client.plugins.bomremover/index.html)
+外掛程式，該外掛程式可從 UTF-8、UTF-16 (BE)、UTF-16 (LE)、UTF-32 (BE) 和 UTF-32 (LE)
+編碼的回應本文中移除 BOM。
 
-> 請注意，當移除 BOM 時，Ktor 不會更改 `Content-Length` 標頭，該標頭會保留初始回應的長度。
+> 請注意，當移除 BOM 時，Ktor 不會更改 `Content-Length` 標頭，該標頭會保留
+初始回應的長度。
 >
 {style="note"}
 
@@ -56,7 +63,7 @@ Ktor 用戶端提供了 [BOMRemover](https://api.ktor.io/ktor-client/ktor-client
 ```kotlin
 import io.ktor.client.*
 import io.ktor.client.engine.cio.*
-import io.ktor.client.plugins.compression.*
+import io.ktor.client.plugins.bomremover.*
 //...
 val client = HttpClient(CIO) {
     install(BOMRemover)

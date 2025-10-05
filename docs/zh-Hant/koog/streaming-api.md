@@ -64,7 +64,7 @@ llm.writeSession {
                 // val json = frame.contentJson
             }
             is StreamFrame.End -> println("
-[結束] reason=${frame.finishReason}")
+[END] reason=${frame.finishReason}")
         }
     }
 }
@@ -138,7 +138,7 @@ $fullText")
 
 ### 在事件處理器中監聽資料流事件
 
-您可以在 [代理事件](agent-events.md) 中監聽資料流事件。
+您可以在 [代理事件處理器](agent-event-handlers.md) 中監聽資料流事件。
 
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
@@ -153,9 +153,9 @@ fun GraphAIAgent.FeatureContext.installStreamingApi() {
 -->
 ```kotlin
 handleEvents {
-    onToolExecutionStarting { context ->
+    onToolCallStarting { context ->
         println("
-🔧 使用 ${context.tool.name} 搭配 ${context.toolArgs}... ")
+🔧 Using ${context.tool.name} with ${context.toolArgs}... ")
     }
     onLLMStreamingFrameReceived { context ->
         (context.streamFrame as? StreamFrame.Append)?.let { frame ->
@@ -163,10 +163,10 @@ handleEvents {
         }
     }
     onLLMStreamingFailed { context -> 
-        println("❌ 錯誤：${context.error}")
+        println("❌ Error: ${context.error}")
     }
     onLLMStreamingCompleted {
-        println("🏁 完成")
+        println("🏁 Done")
     }
 }
 ```
@@ -398,7 +398,7 @@ class BookTool(): SimpleTool<Book>() {
         get() = Book.serializer()
 
     override val name: String = NAME
-    override val description: String = "A tool to parse book information from Markdown"
+    override val description = "A tool to parse book information from Markdown"
 }
 ```
 <!--- KNIT example-streaming-api-08.kt -->

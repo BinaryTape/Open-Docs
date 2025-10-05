@@ -56,7 +56,7 @@ Ktor 客户端提供了 [BOMRemover](https://api.ktor.io/ktor-client/ktor-client
 ```kotlin
 import io.ktor.client.*
 import io.ktor.client.engine.cio.*
-import io.ktor.client.plugins.compression.*
+import io.ktor.client.plugins.bomremover.*
 //...
 val client = HttpClient(CIO) {
     install(BOMRemover)

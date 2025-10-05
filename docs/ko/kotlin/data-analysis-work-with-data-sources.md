@@ -1,6 +1,6 @@
 [//]: # (title: 파일에서 데이터 가져오기)
 
-[Kotlin Notebook](kotlin-notebook-overview.md)은 [Kotlin DataFrame 라이브러리](https://kotlin.github.io/dataframe/gettingstarted.html)와 함께 비정형 및 정형 데이터를 모두 처리할 수 있도록 지원합니다. 이 조합은 TXT 파일에서 발견되는 데이터와 같은 비정형 데이터를 정형 데이터셋으로 변환할 수 있는 유연성을 제공합니다.
+[Kotlin Notebook](kotlin-notebook-overview.md)은 [Kotlin DataFrame 라이브러리](https://kotlin.github.io/dataframe/home.html)와 함께 비정형 및 정형 데이터를 모두 처리할 수 있도록 지원합니다. 이 조합은 TXT 파일에서 발견되는 데이터와 같은 비정형 데이터를 정형 데이터셋으로 변환할 수 있는 유연성을 제공합니다.
 
 데이터 변환을 위해 [`add`](https://kotlin.github.io/dataframe/adddf.html), [`split`](https://kotlin.github.io/dataframe/split.html), [`convert`](https://kotlin.github.io/dataframe/convert.html), [`parse`](https://kotlin.github.io/dataframe/parse.html)와 같은 메서드를 사용할 수 있습니다. 또한, 이 도구 세트는 CSV, JSON, XLS, XLSX, Apache Arrow를 포함한 다양한 정형 파일 형식에서 데이터를 검색하고 조작할 수 있도록 합니다.
 

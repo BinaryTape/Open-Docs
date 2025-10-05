@@ -2,7 +2,7 @@
 
 Kotlin 提供了一个一站式解决方案，用于强大而灵活的数据可视化，以直观的方式呈现和探索数据，然后再深入复杂的模型。
 
-本教程演示了如何在 IntelliJ IDEA 中使用 [Kotlin Notebook](kotlin-notebook-overview.md) 结合 [Kandy](https://kotlin.github.io/kandy/welcome.html) 和 [Kotlin DataFrame](https://kotlin.github.io/dataframe/gettingstarted.html) 库创建不同类型的图表。
+本教程演示了如何在 IntelliJ IDEA 中使用 [Kotlin Notebook](kotlin-notebook-overview.md) 结合 [Kandy](https://kotlin.github.io/kandy/welcome.html) 和 [Kotlin DataFrame](https://kotlin.github.io/dataframe/home.html) 库创建不同类型的图表。
 
 ## 开始之前
 
@@ -75,17 +75,17 @@ df.head(4)
 ```kotlin
 df.plot {
     line {
-        // Accesses the DataFrame's columns used for the X and Y axes 
+        // 访问 DataFrame 中用于 X 轴和 Y 轴的列 
         x(Month)
         y(Temperature)
-        // Accesses the DataFrame's column used for categories and sets colors for these categories 
+        // 访问 DataFrame 中用于分类的列并为这些分类设置颜色 
         color(City) {
             scale = categorical("Berlin" to Color.PURPLE, "Madrid" to Color.ORANGE, "Caracas" to Color.GREEN)
         }
-        // Customizes the line's size
+        // 自定义线的尺寸
         width = 1.5
     }
-    // Customizes the chart's layout size
+    // 自定义图表的布局尺寸
     layout.size = 1000 to 450
 }
 ```
@@ -103,17 +103,17 @@ df.plot {
 ```kotlin
 df.plot {
     points {
-        // Accesses the DataFrame's columns used for the X and Y axes 
+        // 访问 DataFrame 中用于 X 轴和 Y 轴的列 
         x(Month) { axis.name = "Month" }
         y(Temperature) { axis.name = "Temperature" }
-        // Customizes the point's size
+        // 自定义点的大小
         size = 5.5
-        // Accesses the DataFrame's column used for categories and sets colors for these categories 
+        // 访问 DataFrame 中用于分类的列并为这些分类设置颜色 
         color(City) {
             scale = categorical("Berlin" to Color.LIGHT_GREEN, "Madrid" to Color.BLACK, "Caracas" to Color.YELLOW)
         }
     }
-    // Adds a chart heading
+    // 添加图表标题
     layout.title = "Temperature per month"
 }
 ```
@@ -127,15 +127,15 @@ df.plot {
 最后，让我们使用与之前图表相同的数据创建一个按城市分组的条形图。对于颜色，你还可以使用十六进制代码：
 
 ```kotlin
-// Groups by cities  
+// 按城市分组  
 df.groupBy { City }.plot {
-    // Adds a chart heading
+    // 添加图表标题
     layout.title = "Temperature per month"
     bars {
-        // Accesses the DataFrame's columns used for the X and Y axes 
+        // 访问 DataFrame 中用于 X 轴和 Y 轴的列 
         x(Month)
         y(Temperature)
-        // Accesses the DataFrame's column used for categories and sets colors for these categories 
+        // 访问 DataFrame 中用于分类的列并为这些分类设置颜色 
         fillColor(City) {
             scale = categorical(
                 "Berlin" to Color.hex("#6F4E37"),

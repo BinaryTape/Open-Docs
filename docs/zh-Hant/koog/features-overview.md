@@ -8,6 +8,11 @@
 
 Koog 框架實現了以下功能：
 
-- [事件處理器](agent-events.md)
+- [事件處理器](agent-event-handlers.md)
 - [追蹤](tracing.md)
 - [代理記憶體](agent-memory.md)
+- [OpenTelemetry](opentelemetry-support.md)
+- [代理持久化 (快照)](agent-persistence.md)
+- Debugger
+- Tokenizer
+- SQL Persistence Providers

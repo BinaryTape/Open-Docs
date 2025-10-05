@@ -21,7 +21,9 @@
 
 ## 文件夹 {id="folders"}
 
-要从本地文件系统提供静态文件，请使用 [`staticFiles()`](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.http.content/static-files.html) 函数。在此情况下，相对路径将使用当前工作目录进行解析。
+要从本地文件系统提供静态文件，请使用
+[`staticFiles()`](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.http.content/static-files.html)
+函数。在此情况下，相对路径将使用当前工作目录进行解析。
 
  ```kotlin
  routing {
@@ -36,7 +38,9 @@
 
 ## ZIP 文件 {id="zipped"}
 
-要从 ZIP 文件提供静态内容，Ktor 提供了 [`staticZip()`](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.http.content/static-zip.html) 函数。这允许您将请求直接映射到 ZIP 归档的内容，如下例所示：
+要从 ZIP 文件提供静态内容，Ktor 提供了 [
+`staticZip()`](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.http.content/static-zip.html) 函数。
+这允许您将请求直接映射到 ZIP 归档的内容，如下例所示：
 
  ```kotlin
  routing {
@@ -54,7 +58,9 @@
 
 ## 资源 {id="resources"}
 
-要从 classpath 提供内容，请使用 [`staticResources()`](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.http.content/static-resources.html) 函数。
+要从 classpath 提供内容，请使用
+[`staticResources()`](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.http.content/static-resources.html)
+函数。
 
 ```kotlin
 routing {
@@ -130,14 +136,14 @@ staticFiles("/files", File("textFiles")) {
 }
 ```
 
-在此示例中，文件 `html-file.txt` 的响应将包含 `Content-Type: text/html` 标头，对于其他所有文件，将应用默认行为。
+在此示例中，文件 `html-file.txt` 的响应将包含 `Content-Type: text/html` 标头，对于所有其他文件，将应用默认行为。
 
 ### 缓存 {id="caching"}
 
 `cacheControl()` 函数允许您配置 HTTP 缓存的 `Cache-Control` 标头。
 
 ```kotlin
-fun Application.module() {
+    install(ConditionalHeaders)
     routing {
         staticFiles("/files", File("textFiles")) {
             cacheControl { file ->
@@ -157,7 +163,7 @@ object Immutable : CacheControl(null) {
 当安装了 [`ConditionalHeaders`](server-conditional-headers.md) 插件时，Ktor 可以提供带有 `ETag` 和 `LastModified` 标头的静态资源，并处理条件标头以避免在内容未更改时发送内容主体：
 
 ```kotlin
-staticFiles("/filesWithEtagAndLastModified", filesDir) {
+staticFiles("/filesWithEtagAndLastModified", File("files")) {
     etag { resource -> EntityTagVersion("etag") }
     lastModified { resource -> GMTDate() }
 }
@@ -168,7 +174,7 @@ staticFiles("/filesWithEtagAndLastModified", filesDir) {
 为了简化 `ETag` 生成，您还可以使用预定义提供者：
 
 ```kotlin
-staticFiles("/filesWithStrongGeneratedEtag", filesDir) {
+staticFiles("/filesWithStrongGeneratedEtag", File("files")) {
     etag(ETagProvider.StrongSha256)
 }
 ```
@@ -202,7 +208,7 @@ staticResources("/", "static"){
 
 在此示例中，当请求 `/index` 时，Ktor 将搜索 `/index.html` 并提供找到的内容。
 
-### 自定义回退 {id="custom-fallback"}
+### 自定义回退
 
 要配置请求的静态资源未找到时的自定义回退行为，请使用 `fallback()` 函数。
 借助 `fallback()`，您可以探查请求路径并决定如何响应。例如，您可以重定向到另一个资源、返回特定的 HTTP 状态，或提供替代文件。

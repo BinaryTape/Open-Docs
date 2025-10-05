@@ -2,12 +2,12 @@
 
 [Kotlin Notebook](kotlin-notebook-overview.md) 支持多种输出类型，包括文本、HTML 和图片。借助外部库，您可以扩展输出选项，并通过图表、电子表格等方式可视化数据。
 
-每个输出都是一个 JSON 对象，将 [Jupiter MIME 类型](https://jupyterlab.readthedocs.io/en/latest/user/file_formats.html)映射到一些数据。Kotlin Notebook 会从此映射中选择支持的、优先级最高的 MIME 类型，并按如下方式进行渲染：
+每个输出都是一个 JSON 对象，将 [Jupiter MIME type](https://jupyterlab.readthedocs.io/en/latest/user/file_formats.html) 映射到一些数据。Kotlin Notebook 会从此映射中选择支持的、优先级最高的 MIME type，并按如下方式进行渲染：
 
-*   [文本](#texts)使用 `text/plain` MIME 类型。
-*   [BufferedImage 类](#buffered-images)使用 `image/png` MIME 类型，该类型映射到 Base64 字符串。
-*   [Image 类](#loaded-images)以及 [LaTeX 格式](#math-formulas-and-equations)使用 `text/html` MIME 类型，其中包含 `img` 标签。
-*   [Kotlin DataFrame 表格](#data-frames)和 [Kandy 图](#charts)使用它们自己的内部 MIME 类型，这些类型由静态 HTML 或图片支持。这样，您就可以在 GitHub 上显示它们。
+*   [文本](#texts)使用 `text/plain` MIME type。
+*   [BufferedImage 类](#buffered-images)使用 `image/png` MIME type，该类型映射到 Base64 字符串。
+*   [Image 类](#loaded-images)以及 [LaTeX 格式](#math-formulas-and-equations)使用 `text/html` MIME type，其中包含 `img` 标签。
+*   [Kotlin DataFrame 表格](#data-frames)和 [Kandy 图](#charts)使用它们自己的内部 MIME type，这些类型由静态 HTML 或图片支持。这样，您就可以在 GitHub 上显示它们。
 
 您可以手动设置映射，例如，使用 Markdown 作为单元格输出：
 
@@ -16,7 +16,7 @@ MimeTypedResult(
     mapOf(
         "text/plain" to "123",
         "text/markdown" to "# HEADER",
-        // 其他 mime:value 对
+        //other mime:value pairs
     )
 )
 ```
@@ -181,7 +181,7 @@ kotlinMascot
 
 借助 Kotlin Notebook，您可以使用数据帧可视化结构化数据：
 
-1.  将 [Kotlin DataFrame](https://kotlin.github.io/dataframe/gettingstarted.html) 库添加到您的 Notebook：
+1.  将 [Kotlin DataFrame](https://kotlin.github.io/dataframe/home.html) 库添加到您的 Notebook：
 
     ```none
     %use dataframe
@@ -198,12 +198,12 @@ kotlinMascot
         "December"
     )
 
-    // 不同产品和月份的销售数据：
+    // Sales data for different products and months:
     val salesLaptop = listOf(120, 130, 150, 180, 200, 220, 240, 230, 210, 190, 160, 140)
     val salesSmartphone = listOf(90, 100, 110, 130, 150, 170, 190, 180, 160, 140, 120, 100)
     val salesTablet = listOf(60, 70, 80, 90, 100, 110, 120, 110, 100, 90, 80, 70)
     
-    // 包含月份、销售额和产品列的数据帧
+    // A data frame with columns for Month, Sales, and Product
     val dfSales = dataFrameOf(
         "Month" to months + months + months,
         "Sales" to salesLaptop + salesSmartphone + salesTablet,
@@ -224,7 +224,7 @@ kotlinMascot
 4.  您还可以将数据帧导出为 CSV 文件：
 
     ```kotlin
-    // 将数据导出为 CSV 格式
+    // Export your data to CSV format
     dfSales.writeCSV("sales-stats.csv")
     ```
 
@@ -243,10 +243,10 @@ kotlinMascot
     ```kotlin
     val salesPlot = dfSales.groupBy { Product }.plot {
         bars {
-            // 访问用于 X 轴和 Y 轴的数据帧列
+            // Access the data frame's columns used for the X and Y axes
             x(Month)
             y(Sales)
-            // 访问用于类别并为这些类别设置颜色的数据帧列
+            // Access the data frame's column used for categories and sets colors for these categories
             fillColor(Product) {
                 scale = categorical(
                     "Laptop" to Color.PURPLE,
@@ -256,7 +256,7 @@ kotlinMascot
                 legend.name = "Product types"
             }
         }
-        // 自定义图表外观
+        // Customize the chart's appearance
         layout.size = 1000 to 450
         layout.title = "Yearly Gadget Sales Results"
     }
@@ -269,7 +269,7 @@ kotlinMascot
 3.  您还可以以 `.png`、`jpeg`、`.html` 或 `.svg` 格式导出您的绘图：
 
     ```kotlin
-    // 指定绘图文件的输出格式：
+    // Specify the output format for the plot file:
     salesPlot.save("sales-chart.svg")
     ```
 

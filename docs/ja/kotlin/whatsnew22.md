@@ -357,9 +357,9 @@ kotlin {
 Kotlin 2.1.0では、いくつかの新言語機能がプレビュー段階で導入されました。
 このリリースで以下の言語機能が[安定版](components-stability.md#stability-levels-explained)になったことをお知らせします。
 
-*   [when`におけるガード条件（対象あり）](whatsnew21.md#guard-conditions-in-when-with-a-subject)
-*   [非ローカルな`break`と`continue`](whatsnew21.md#non-local-break-and-continue)
-*   [複数ドル記号による文字列補間: 文字列リテラルにおける処理の改善](whatsnew21.md#multi-dollar-string-interpolation)
+*   [when`におけるガード条件（対象あり）](control-flow.md#guard-conditions-in-when-expressions)
+*   [非ローカルな`break`と`continue`](inline-functions.md#break-and-continue)
+*   [複数ドル記号による文字列補間: 文字列リテラルにおける処理の改善](strings.md#multi-dollar-string-interpolation)
 
 [Kotlinの言語設計機能と提案の全リストを参照してください](kotlin-language-features-and-proposals.md)。
 
@@ -524,6 +524,10 @@ fun main() {
 
 ### インライン値クラスとのJava相互運用性の改善
 <primary-label ref="experimental-general"/>
+
+> IntelliJ IDEAでの本機能のコード分析、コード補完、ハイライトのサポートは、現在のところ[2025.3 EAPビルド](https://www.jetbrains.com/idea/nextversion/)でのみ利用可能です。
+>
+{style="note"}
 
 Kotlin 2.2.0は、新しい実験的なアノテーション[`@JvmExposeBoxed`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.jvm/-jvm-expose-boxed/)を導入します。このアノテーションは、Javaから[インライン値クラス](inline-classes.md)を使用しやすくします。
 
@@ -1065,4 +1069,181 @@ Base64.Default.encode(foBytes) // "Zm8="
 // Base64.encode(foBytes)
 
 val foobarBytes = "foobar".map { it.code.toByte() }.toByteArray()
-Base64.Url
+Base64.UrlSafe.encode(foobarBytes) // "Zm9vYmFy"
+
+Base64.Default.decode("Zm8=") // foBytes
+// Alternatively:
+// Base64.decode("Zm8=")
+
+Base64.UrlSafe.decode("Zm9vYmFy") // foobarBytes
+```
+
+JVMでは、`.encodingWith()`および`.decodingWith()`拡張関数を使用して、入力ストリームと出力ストリームでBase64をエンコードおよびデコードします。
+
+```kotlin
+import kotlin.io.encoding.*
+import java.io.ByteArrayOutputStream
+
+fun main() {
+    val output = ByteArrayOutputStream()
+    val base64Output = output.encodingWith(Base64.Default)
+
+    base64Output.use { stream ->
+        stream.write("Hello World!!".encodeToByteArray()) 
+    }
+
+    println(output.toString())
+    // SGVsbG8gV29ybGQhIQ==
+}
+```
+
+### Stable (安定版) HexFormat APIによる16進数のパースとフォーマット
+
+[Kotlin 1.9.0](whatsnew19.md#new-hexformat-class-to-format-and-parse-hexadecimals)で導入された[`HexFormat` API](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.text/-hex-format/)は、現在[安定版](components-stability.md#stability-levels-explained)です。
+これを使用して、数値と16進数文字列間の変換が可能です。
+
+例えば:
+
+```kotlin
+fun main() {
+    //sampleStart
+    println(93.toHexString())
+    //sampleEnd
+}
+```
+{kotlin-runnable="true"}
+
+詳細については、[16進数をフォーマットおよびパースするための新しい`HexFormat`クラス](whatsnew19.md#new-hexformat-class-to-format-and-parse-hexadecimals)を参照してください。
+
+## Composeコンパイラ
+
+このリリースでは、Composeコンパイラがコンポーザブル関数参照のサポートを導入し、いくつかの機能フラグのデフォルトを変更します。
+
+### `@Composable`関数参照のサポート
+
+Composeコンパイラは、Kotlin 2.2.0リリース以降、コンポーザブル関数参照の宣言と使用をサポートします。
+
+```kotlin
+val content: @Composable (String) -> Unit = ::Text
+
+@Composable fun App() {
+    content("My App")
+}
+```
+
+コンポーザブル関数参照は、ランタイムにおいてコンポーザブルラムダオブジェクトとはわずかに異なる動作をします。特に、コンポーザブルラムダは`ComposableLambda`クラスを拡張することでスキッピングのより細かい制御を可能にします。関数参照は`KCallable`インターフェースを実装することが期待されるため、同じ最適化は適用できません。
+
+### `PausableComposition`機能フラグがデフォルトで有効に
+
+Kotlin 2.2.0以降、`PausableComposition`機能フラグがデフォルトで有効になります。このフラグは、再開可能な関数に対するComposeコンパイラの出力を調整し、ランタイムがスキッピング動作を強制することで、各関数をスキップしてコンポジションを効果的に一時停止できるようにします。これにより、重いコンポジションをフレーム間で分割できるようになり、将来のリリースでプリフェッチによって使用される予定です。
+
+この機能フラグを無効にするには、Gradle設定に以下を追加します。
+
+```kotlin
+// build.gradle.kts
+composeCompiler {
+    featureFlag = setOf(ComposeFeatureFlag.PausableComposition.disabled())
+}
+```
+
+### `OptimizeNonSkippingGroups`機能フラグがデフォルトで有効に
+
+Kotlin 2.2.0以降、`OptimizeNonSkippingGroups`機能フラグがデフォルトで有効になります。この最適化は、非スキッピングなコンポーザブル関数に対して生成されるグループ呼び出しを削除することで、ランタイムパフォーマンスを向上させます。ランタイムで目に見える動作変更が生じることはありません。
+
+問題が発生した場合は、この変更が原因であることを機能フラグを無効にして検証できます。[Jetpack Compose課題トラッカー](https://issuetracker.google.com/issues/new?component=610764&template=1424126)に問題を報告してください。
+
+`OptimizeNonSkippingGroups`フラグを無効にするには、Gradle設定に以下を追加します。
+
+```kotlin
+composeCompiler {
+    featureFlag = setOf(ComposeFeatureFlag.OptimizeNonSkippingGroups.disabled())
+}
+```
+
+### 非推奨の機能フラグ
+
+`StrongSkipping`と`IntrinsicRemember`機能フラグは現在非推奨であり、将来のリリースで削除される予定です。
+これらの機能フラグを無効にする必要がある問題が発生した場合は、[Jetpack Compose課題トラッカー](https://issuetracker.google.com/issues/new?component=610764&template=1424126)に問題を報告してください。
+
+## 破壊的変更と非推奨化
+
+このセクションでは、注目すべき重要な破壊的変更と非推奨化について説明します。このリリースにおけるすべての破壊的変更と非推奨化の完全な概要については、[互換性ガイド](compatibility-guide-22.md)を参照してください。
+
+*   Kotlin 2.2.0以降、[Ant](ant.md)ビルドシステムのサポートは非推奨になりました。AntのKotlinサポートは長らく活発な開発が行われておらず、ユーザーベースが比較的小さいため、これ以上維持する計画はありません。
+
+    2.3.0でAntのサポートを削除する予定です。しかし、Kotlinは[貢献](contribute.md)に対して開かれたままです。Antの外部メンテナーになることに興味がある場合は、[このYouTrack issue](https://youtrack.jetbrains.com/issue/KT-75875/)に「jetbrains-team」の公開設定でコメントを残してください。
+
+*   Kotlin 2.2.0では、Gradleの[`kotlinOptions{}`ブロックの非推奨レベルがエラーに引き上げられました](compatibility-guide-22.md#deprecate-kotlinoptions-dsl)。代わりに`compilerOptions{}`ブロックを使用してください。ビルドスクリプトの更新に関するガイダンスについては、[`kotlinOptions{}`から`compilerOptions{}`への移行](gradle-compiler-options.md#migrate-from-kotlinoptions-to-compileroptions)を参照してください。
+*   KotlinスクリプトはKotlinのエコシステムの重要な部分であり続けていますが、より良いエクスペリエンスを提供するために、カスタムスクリプト、`gradle.kts`、`main.kts`スクリプトなどの特定のユースケースに焦点を当てています。
+    詳細については、更新された[ブログ記事](https://blog.jetbrains.com/kotlin/2024/11/state-of-kotlin-scripting-2024/)を参照してください。結果として、Kotlin 2.2.0では以下のサポートが非推奨になります。
+
+    *   REPL: `kotlinc`経由でREPLを引き続き使用するには、`-Xrepl`コンパイラオプションでオプトインしてください。
+    *   JSR-223: この[JSR](https://jcp.org/en/jsr/detail?id=223)は**Withdrawn**（撤回済み）状態であるため、JSR-223の実装は言語バージョン1.9では動作し続けますが、将来的にK2コンパイラを使用するように移行されることはありません。
+    *   `KotlinScriptMojo` Mavenプラグイン: このプラグインは十分な採用が見られませんでした。引き続き使用するとコンパイラの警告が表示されます。
+
+*   Kotlin 2.2.0では、[`KotlinCompileTool`](https://kotlinlang.org/api/kotlin-gradle-plugin/kotlin-gradle-plugin-api/org.jetbrains.kotlin.gradle.tasks/-kotlin-compile-tool/#)の[`setSource()`](https://kotlinlang.org/api/kotlin-gradle-plugin/kotlin-gradle-plugin-api/org.jetbrains.kotlin.gradle.tasks/-kotlin-compile-tool/set-source.html#)関数が、[設定されたソースを追加するのではなく置き換えるようになりました](compatibility-guide-22.md#correct-setsource-function-in-kotlincompiletool-to-replace-sources)。
+    既存のソースを置き換えずにソースを追加したい場合は、[`source()`](https://kotlinlang.org/api/kotlin-gradle-plugin/kotlin-gradle-plugin-api/org.jetbrains.kotlin.gradle.tasks/-kotlin-compile-tool/source.html#)関数を使用してください。
+*   `BaseKapt`の[`annotationProcessorOptionProviders`](https://kotlinlang.org/api/kotlin-gradle-plugin/kotlin-gradle-plugin-api/org.jetbrains.kotlin.gradle.tasks/-base-kapt/annotation-processor-option-providers.html#)の型が、[`MutableList<Any>`から`MutableList<CommandLineArgumentProvider>`に変更されました](compatibility-guide-22.md#deprecate-basekapt-annotationprocessoroptionproviders-property)。コードが現在リストを単一要素として追加している場合、`add()`関数の代わりに`addAll()`関数を使用してください。
+*   レガシーKotlin/JSバックエンドで使用されていたデッドコードエリミネーション（DCE）ツールの非推奨化に伴い、DCEに関連する残りのDSLがKotlin Gradleプラグインから削除されました。
+    *   `org.jetbrains.kotlin.gradle.dsl.KotlinJsDce`インターフェース
+    *   `org.jetbrains.kotlin.gradle.targets.js.dsl.KotlinJsBrowserDsl.dceTask(body: Action<KotlinJsDce>)`関数
+    *   `org.jetbrains.kotlin.gradle.dsl.KotlinJsDceCompilerToolOptions`インターフェース
+    *   `org.jetbrains.kotlin.gradle.dsl.KotlinJsDceOptions`インターフェース
+
+    現在の[JS IRコンパイラ](js-ir-compiler.md)は、DCEをすぐにサポートしており、[`@JsExport`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.js/-js-export/)アノテーションを使用すると、DCE中に保持するKotlin関数とクラスを指定できます。
+
+*   非推奨の`kotlin-android-extensions`プラグインは[Kotlin 2.2.0で削除されました](compatibility-guide-22.md#deprecate-kotlin-android-extensions-plugin)。
+    `Parcelable`実装ジェネレーターには`kotlin-parcelize`プラグインを、合成ビューにはAndroid Jetpackの[ビューバインディング](https://developer.android.com/topic/libraries/view-binding)を使用してください。
+*   実験的な`kotlinArtifacts` APIは[Kotlin 2.2.0で非推奨になりました](compatibility-guide-22.md#deprecate-kotlinartifacts-api)。
+    最終的なネイティブバイナリをビルドするには、Kotlin Gradleプラグインで利用可能な現在のDSLを使用してください。[移行に不十分な場合は、[このYouTrack issue](https://youtrack.jetbrains.com/issue/KT-74953)にコメントを残してください。
+*   Kotlin 1.9.0で非推奨になった`KotlinCompilation.source`は、[Kotlin Gradleプラグインから削除されました](compatibility-guide-22.md#deprecate-kotlincompilation-source-api)。
+*   実験的なcommonizationモードのパラメータは[Kotlin 2.2.0で非推奨になりました](compatibility-guide-22.md#deprecate-commonization-parameters)。
+    無効なコンパイル成果物を削除するには、commonizationキャッシュをクリアしてください。
+*   非推奨の`konanVersion`プロパティは、[`CInteropProcess`タスクから削除されました](compatibility-guide-22.md#deprecate-konanversion-in-cinteropprocess)。
+    代わりに`CInteropProcess.kotlinNativeVersion`を使用してください。
+*   非推奨の`destinationDir`プロパティの使用は、[エラーになります](compatibility-guide-22.md#deprecate-destinationdir-in-cinteropprocess)。
+    代わりに`CInteropProcess.destinationDirectory.set()`を使用してください。
+
+## ドキュメントの更新
+
+このリリースでは、Kotlin Multiplatformのドキュメントが[KMPポータル](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html)に移行されるなど、注目すべきドキュメントの変更が行われました。
+
+さらに、ドキュメントに関するアンケートを開始し、新しいページやチュートリアルを作成・改訂しました。
+
+### Kotlinドキュメントに関するアンケート
+
+Kotlinドキュメントをより良くするために、皆様からの率直なフィードバックを求めています。
+
+アンケートの所要時間は約15分です。皆様の意見がKotlinドキュメントの未来を形作るのに役立ちます。
+
+[こちらからアンケートにご回答ください](https://surveys.jetbrains.com/s3/Kotlin-Docs-2025)。
+
+### 新しいチュートリアルと改訂されたチュートリアル
+
+*   [Kotlin中級ツアー](kotlin-tour-welcome.md) – Kotlinの理解を次のレベルへと進めましょう。拡張関数、インターフェース、クラスなどをいつ使用すべきか学びます。
+*   [Spring AIを使用するKotlinアプリを構築する](spring-ai-guide.md) – OpenAIとベクトルデータベースを使用して質問に答えるKotlinアプリを作成する方法を学びます。
+*   [GradleでSpring Bootプロジェクトを作成する](jvm-create-project-with-spring-boot.md) – IntelliJ IDEAの**New Project**ウィザードを使用して、GradleでSpring Bootプロジェクトを作成する方法を学びます。
+*   [KotlinとCのマッピングチュートリアルシリーズ](mapping-primitive-data-types-from-c.md) – KotlinとCの間でさまざまな型と構造がどのようにマッピングされるかを学びます。
+*   [C interopとlibcurlを使用してアプリを作成する](native-app-with-c-and-libcurl.md) – libcurl Cライブラリを使用してネイティブで実行できるシンプルなHTTPクライアントを作成します。
+*   [Kotlin Multiplatformライブラリを作成する](https://www.jetbrains.com/help/kotlin-multiplatform-dev/create-kotlin-multiplatform-library.html) – IntelliJ IDEAを使用してマルチプラットフォームライブラリを作成および公開する方法を学びます。
+*   [KtorとKotlin Multiplatformでフルスタックアプリケーションを構築する](https://ktor.io/docs/full-stack-development-with-kotlin-multiplatform.html) – このチュートリアルでは、Fleetの代わりにIntelliJ IDEAを使用し、Material 3とKtorおよびKotlinの最新バージョンを使用するようになりました。
+*   [Compose Multiplatformアプリでローカルリソース環境を管理する](https://www.jetbrains.com/help/kotlin-multiplatform-dev/compose-resource-environment.html) – アプリケーションのテーマや言語など、アプリ内リソース環境を管理する方法を学びます。
+
+### 新しいページと改訂されたページ
+
+*   [Kotlin for AI概要](kotlin-ai-apps-development-overview.md) – AI搭載アプリケーションを構築するためのKotlinの機能を学びます。
+*   [Dokka移行ガイド](https://kotlinlang.org/docs/dokka-migration.html) – Dokka Gradleプラグインのv2への移行方法を学びます。
+*   [Kotlinメタデータ](metadata-jvm.md) – JVM用にコンパイルされたKotlinクラスのメタデータを読み取り、変更、生成する方法に関するガイダンスを探ります。
+*   [CocoaPods統合](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-cocoapods-overview.html) – チュートリアルとサンプルプロジェクトを通じて、環境の設定、Pod依存関係の追加、KotlinプロジェクトをCocoaPod依存関係として使用する方法を学びます。
+*   iOS安定版リリースをサポートするためのCompose Multiplatformの新しいページ:
+    *   [ナビゲーション](https://www.jetbrains.com/help/kotlin-multiplatform-dev/compose-navigation.html)と特に[ディープリンク](https://www.jetbrains.com/help/kotlin-multiplatform-dev/compose-navigation-deep-links.html)。
+    *   [Composeでのレイアウトの実装](https://www.jetbrains.com/help/kotlin-multiplatform-dev/compose-layout.html)。
+    *   [文字列のローカライズ](https://www.jetbrains.com/help/kotlin-multiplatform-dev/compose-localize-strings.html)や、RTL言語のサポートなど他の国際化ページ。
+*   [Compose Hot Reload](https://www.jetbrains.com/help/kotlin-multiplatform-dev/compose-hot-reload.html) – デスクトップターゲットでCompose Hot Reloadを使用する方法と、既存のプロジェクトに追加する方法を学びます。
+*   [Exposedマイグレーション](https://www.jetbrains.com/help/exposed/migrations.html) – Exposedがデータベーススキーマの変更を管理するために提供するツールについて学びます。
+
+## Kotlin 2.2.0へのアップデート方法
+
+Kotlinプラグインは、IntelliJ IDEAおよびAndroid Studioにバンドルされたプラグインとして配布されます。
+
+新しいKotlinバージョンにアップデートするには、ビルドスクリプトで[Kotlinのバージョンを2.2.0に変更する](releases.md#update-to-a-new-kotlin-version)だけです。

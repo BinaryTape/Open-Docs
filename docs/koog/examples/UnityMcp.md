@@ -40,7 +40,7 @@ val executor = simpleOpenAIExecutor(token)
 val agentConfig = AIAgentConfig(
     prompt = prompt("cook_agent_system_prompt") {
         system {
-            "You are a Unity assistant. You can execute different tasks by interacting with tools from the Unity engine."
+            "你是一个 Unity 助手。你可以通过与 Unity 引擎中的工具交互来执行不同的任务。"
         }
     },
     model = OpenAIModels.Chat.GPT4o,
@@ -92,11 +92,12 @@ runBlocking {
 
         edge(
             nodeStart forwardTo nodePlanIngredients transformed {
-                "为 " + agentInput + " 创建详细计划，使用以下工具：${toolRegistry.tools.joinToString("
+                "为 " + agentInput + "" +
+                    "创建详细计划，使用以下工具：${toolRegistry.tools.joinToString("
 ") {
-                    it.name + "
-描述:" + it.descriptor
-                }}"
+                        it.name + "
+description:" + it.descriptor
+                    }}"
             }
         )
         edge(nodePlanIngredients forwardTo interactionWithUnity onAssistantMessage { true })
@@ -112,17 +113,17 @@ runBlocking {
             install(Tracing)
 
             install(EventHandler) {
-                onBeforeAgentStarted { eventContext ->
-                    println("OnBeforeAgentStarted 第一次 (策略: ${strategy.name})")
+                onAgentStarting { eventContext ->
+                    println("OnAgentStarting 第一次 (策略: ${strategy.name})")
                 }
 
-                onBeforeAgentStarted { eventContext ->
-                    println("OnBeforeAgentStarted 第二次 (策略: ${strategy.name})")
+                onAgentStarting { eventContext ->
+                    println("OnAgentStarting 第二次 (策略: ${strategy.name})")
                 }
 
-                onAgentFinished { eventContext ->
+                onAgentCompleted { eventContext ->
                     println(
-                        "OnAgentFinished (Agent ID: ${eventContext.agentId}, 结果: ${eventContext.result})"
+                        "OnAgentCompleted (Agent ID: ${eventContext.agentId}, 结果: ${eventContext.result})"
                     )
                 }
             }

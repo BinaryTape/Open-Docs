@@ -3,7 +3,7 @@
 プロンプト API は、本番アプリケーションで大規模言語モデル (LLM) と対話するための包括的なツールキットを提供します。これは以下の機能を提供します。
 
 - 型安全な構造化プロンプトを作成するための **Kotlin DSL**。
-- OpenAI、Anthropic、Google、その他のLLMプロバイダー向けの **マルチプロバイダー対応**。
+- OpenAI、Anthropic、Google、その他の LLM プロバイダー向けの **マルチプロバイダー対応**。
 - リトライロジック、エラーハンドリング、タイムアウト設定などの **本番環境向け機能**。
 - テキスト、画像、音声、ドキュメントを扱うための **マルチモーダル機能**。
 
@@ -11,7 +11,7 @@
 
 プロンプト API は、主に3つのレイヤーで構成されます。
 
-- **LLMクライアント**: 特定のプロバイダー (OpenAI、Anthropicなど) への低レベルインターフェース。
+- **LLM クライアント**: 特定のプロバイダー (OpenAI、Anthropicなど) への低レベルインターフェース。
 - **デコレーター**: リトライロジックなどの機能を追加するオプションのラッパー。
 - **プロンプトエグゼキューター**: クライアントのライフサイクルを管理し、使用を簡素化する高レベルの抽象化。
 
@@ -31,16 +31,16 @@ import ai.koog.prompt.params.LLMParams
 -->
 ```kotlin
 val prompt = prompt("prompt_name", LLMParams()) {
-    // Add a system message to set the context
+    // コンテキストを設定するためのシステムメッセージを追加します
     system("You are a helpful assistant.")
 
-    // Add a user message
+    // ユーザーメッセージを追加します
     user("Tell me about Kotlin")
 
-    // You can also add assistant messages for few-shot examples
+    // Few-shotの例としてアシスタントメッセージを追加することもできます
     assistant("Kotlin is a modern programming language...")
 
-    // Add another user message
+    // 別のユーザーメッセージを追加します
     user("What are its key features?")
 }
 ```
@@ -48,8 +48,8 @@ val prompt = prompt("prompt_name", LLMParams()) {
 
 ## マルチモーダル入力
 
-プロンプト内でテキストメッセージを提供するだけでなく、Koog では`user`メッセージとともに画像、音声、動画、ファイルをLLMに送信することもできます。
-標準的なテキストのみのプロンプトと同様に、プロンプト構築のためのDSL構造を使用してメディアをプロンプトに追加します。
+プロンプト内でテキストメッセージを提供するだけでなく、Koog では`user`メッセージとともに画像、音声、動画、ファイルを LLM に送信することもできます。
+標準的なテキストのみのプロンプトと同様に、プロンプト構築のための DSL 構造を使用してメディアをプロンプトに追加します。
 
 <!--- INCLUDE
 import ai.koog.prompt.dsl.prompt
@@ -90,7 +90,7 @@ val prompt = prompt("prompt") {
 user(
     content = "This is the user message",
     attachments = listOf(
-        // Add attachments
+        // アタッチメントを追加
     )
 )
 ```
@@ -138,10 +138,10 @@ user(
 |---|---|---|---|
 | `content` | [AttachmentContent](#attachmentcontent) | Yes | 提供されるファイルコンテンツのソースです。詳細については、[AttachmentContent](#attachmentcontent)を参照してください。 |
 | `format` | String | Yes | 提供されるファイルの形式です。例: `png`。 |
-| `mimeType` | String | Only for `Attachment.File` | 提供されるファイルのMIMEタイプです。例: `image/png`。 |
+| `mimeType` | String | Only for `Attachment.File` | 提供されるファイルの MIME タイプです。例: `image/png`。 |
 | `fileName` | String | No | 拡張子を含む提供されるファイルの名前です。例: `screenshot.png`。 |
 
-詳細については、[APIリファレンス](https://api.koog.ai/prompt/prompt-model/ai.koog.prompt.message/-attachment/index.html)を参照してください。
+詳細については、[API リファレンス](https://api.koog.ai/prompt/prompt-model/ai.koog.prompt.message/-attachment/index.html)を参照してください。
 
 #### AttachmentContent
 
@@ -155,7 +155,7 @@ user(
   |---|---|---|---|
   | `url` | String | Yes | 提供されるコンテンツのURLです。 |
 
-  詳細については、[APIリファレンス](https://api.koog.ai/prompt/prompt-model/ai.koog.prompt.message/-attachment-content/-u-r-l/index.html)も参照してください。
+  詳細については、[API リファレンス](https://api.koog.ai/prompt/prompt-model/ai.koog.prompt.message/-attachment-content/-u-r-l/index.html)も参照してください。
 
 * `AttachmentContent.Binary.Bytes(val data: ByteArray)`
 
@@ -165,7 +165,7 @@ user(
   |---|---|---|---|
   | `data` | ByteArray | Yes | バイト配列として提供されるファイルコンテンツです。 |
 
-  詳細については、[APIリファレンス](https://api.koog.ai/prompt/prompt-model/ai.koog.prompt.message/-attachment-content/-binary/index.html)も参照してください。
+  詳細については、[API リファレンス](https://api.koog.ai/prompt/prompt-model/ai.koog.prompt.message/-attachment-content/-binary/index.html)も参照してください。
 
 * `AttachmentContent.Binary.Base64(val base64: String)`
 
@@ -173,22 +173,22 @@ user(
 
   | 名前 | データ型 | 必須 | 説明 |
   |---|---|---|---|
-  | `base64` | String | Yes | ファイルデータを含むBase64文字列です。 |
+  | `base64` | String | Yes | ファイルデータを含む Base64 文字列です。 |
 
-  詳細については、[APIリファレンス](https://api.koog.ai/prompt/prompt-model/ai.koog.prompt.message/-attachment-content/-binary/index.html)も参照してください。
+  詳細については、[API リファレンス](https://api.koog.ai/prompt/prompt-model/ai.koog.prompt.message/-attachment-content/-binary/index.html)も参照してください。
 
 * `AttachmentContent.PlainText(val text: String)`
 
 !!! tip
     アタッチメントタイプが`Attachment.File`の場合にのみ適用されます。
 
-  プレーンテキストファイル（`text/plain`MIMEタイプなど）からコンテンツを提供します。以下のパラメータを取ります。
+  プレーンテキストファイル（`text/plain` MIME タイプなど）からコンテンツを提供します。以下のパラメータを取ります。
 
   | 名前 | データ型 | 必須 | 説明 |
   |---|---|---|---|
   | `text` | String | Yes | ファイルのコンテンツです。 |
 
-  詳細については、[APIリファレンス](https://api.koog.ai/prompt/prompt-model/ai.koog.prompt.message/-attachment-content/-plain-text/index.html)も参照してください。
+  詳細については、[API リファレンス](https://api.koog.ai/prompt/prompt-model/ai.koog.prompt.message/-attachment-content/-plain-text/index.html)も参照してください。
 
 ### 混在するアタッチメントコンテンツ
 
@@ -214,23 +214,23 @@ val prompt = prompt("mixed_content") {
 ```
 <!--- KNIT example-prompt-api-05.kt -->
 
-## LLMクライアントとプロンプトエグゼキューターの選択
+## LLM クライアントとプロンプトエグゼキューターの選択
 
-プロンプト API を使用する際、LLMクライアントまたはプロンプトエグゼキューターのいずれかを使用してプロンプトを実行できます。
+プロンプト API を使用する際、LLM クライアントまたはプロンプトエグゼキューターのいずれかを使用してプロンプトを実行できます。
 クライアントとエグゼキューターのどちらを選択するかは、以下の要因を考慮してください。
 
-- 単一のLLMプロバイダーを扱い、高度なライフサイクル管理を必要としない場合は、LLMクライアントを直接使用してください。詳細については、「[LLMクライアントを使用したプロンプトの実行](#running-prompts-with-llm-clients)」を参照してください。
-- LLMとそのライフサイクルを管理するためのより高レベルの抽象化が必要な場合、または複数のプロバイダー間で一貫したAPIでプロンプトを実行し、それらを動的に切り替えたい場合は、プロンプトエグゼキューターを使用してください。
+- 単一の LLM プロバイダーを扱い、高度なライフサイクル管理を必要としない場合は、LLM クライアントを直接使用してください。詳細については、「[LLM クライアントを使用したプロンプトの実行](#running-prompts-with-llm-clients)」を参照してください。
+- LLM とそのライフサイクルを管理するためのより高レベルの抽象化が必要な場合、または複数のプロバイダー間で一貫した API でプロンプトを実行し、それらを動的に切り替えたい場合は、プロンプトエグゼキューターを使用してください。
   詳細については、「[プロンプトエグゼキューターを使用したプロンプトの実行](#running-prompts-with-prompt-executors)」を参照してください。
 
 !!!note
-    LLMクライアントとプロンプトエグゼキューターはどちらも、ストリーミングレスポンス、複数選択肢の生成、コンテンツモデレーションを可能にします。
-    詳細については、特定のクライアントまたはエグゼキューターの[APIリファレンス](https://api.koog.ai/index.html)を参照してください。
+    LLM クライアントとプロンプトエグゼキューターはどちらも、ストリーミングレスポンス、複数選択肢の生成、コンテンツモデレーションを可能にします。
+    詳細については、特定のクライアントまたはエグゼキューターの[API リファレンス](https://api.koog.ai/index.html)を参照してください。
 
-## LLMクライアントを使用したプロンプトの実行
+## LLM クライアントを使用したプロンプトの実行
 
-単一のLLMプロバイダーを扱い、高度なライフサイクル管理を必要としない場合は、LLMクライアントを使用してプロンプトを実行できます。
-Koogは以下のLLMクライアントを提供します。
+単一の LLM プロバイダーを扱い、高度なライフサイクル管理を必要としない場合は、LLM クライアントを使用してプロンプトを実行できます。
+Koog は以下の LLM クライアントを提供します。
 
 * [OpenAILLMClient](https://api.koog.ai/prompt/prompt-executor/prompt-executor-clients/prompt-executor-openai-client/ai.koog.prompt.executor.clients.openai/-open-a-i-l-l-m-client/index.html)
 * [AnthropicLLMClient](https://api.koog.ai/prompt/prompt-executor/prompt-executor-clients/prompt-executor-anthropic-client/ai.koog.prompt.executor.clients.anthropic/-anthropic-l-l-m-client/index.html)
@@ -238,23 +238,23 @@ Koogは以下のLLMクライアントを提供します。
 * [OpenRouterLLMClient](https://api.koog.ai/prompt/prompt-executor/prompt-executor-clients/prompt-executor-openrouter-client/ai.koog.prompt.executor.clients.openrouter/-open-router-l-l-m-client/index.html)
 * [DeepSeekLLMClient](https://api.koog.ai/prompt/prompt-executor/prompt-executor-clients/prompt-executor-deepseek-client/ai.koog.prompt.executor.clients.deepseek/-deep-seek-l-l-m-client/index.html)
 * [OllamaClient](https://api.koog.ai/prompt/prompt-executor/prompt-executor-clients/prompt-executor-ollama-client/ai.koog.prompt.executor.ollama.client/-ollama-client/index.html)
-* [BedrockLLMClient](https://api.koog.ai/prompt/prompt-executor/prompt-executor-clients/prompt-executor-bedrock-client/ai.koog.prompt.executor.clients.bedrock/-bedrock-l-l-m-client/index.html) (JVMのみ)
+* [BedrockLLMClient](https://api.koog.ai/prompt/prompt-executor/prompt-executor-clients/prompt-executor-bedrock-client/ai.koog.prompt.executor.clients.bedrock/-bedrock-l-l-m-client/index.html) (JVM のみ)
 
-LLMクライアントを使用してプロンプトを実行するには、次の手順を実行します。
+LLM クライアントを使用してプロンプトを実行するには、次の手順を実行します。
 
-1) アプリケーションとLLMプロバイダー間の接続を処理する、対応するLLMクライアントを作成します。例：
+1) アプリケーションと LLM プロバイダー間の接続を処理する、対応する LLM クライアントを作成します。例：
 
 <!--- INCLUDE
 import ai.koog.prompt.executor.clients.openai.OpenAILLMClient
 const val apiKey = "apikey"
 -->
 ```kotlin
-// Create an OpenAI client
+// OpenAI クライアントを作成します
 val client = OpenAILLMClient(apiKey)
 ```
 <!--- KNIT example-prompt-api-06.kt -->
 
-2) プロンプトとLLMを引数として`execute` メソッドを呼び出します。
+2) プロンプトと LLM を引数として`execute` メソッドを呼び出します。
 
 <!--- INCLUDE
 import ai.koog.agents.example.examplePromptApi01.prompt
@@ -270,15 +270,15 @@ runBlocking {
 }
 -->
 ```kotlin
-// Execute the prompt
+// プロンプトを実行します
 val response = client.execute(
     prompt = prompt,
-    model = OpenAIModels.Chat.GPT4o  // You can choose different models
+    model = OpenAIModels.Chat.GPT4o  // 異なるモデルを選択できます
 )
 ```
 <!--- KNIT example-prompt-api-07.kt -->
 
-以下は、OpenAIクライアントを使用してプロンプトを実行する例です。
+以下は、OpenAI クライアントを使用してプロンプトを実行する例です。
 
 <!--- INCLUDE
 import ai.koog.prompt.dsl.prompt
@@ -291,26 +291,26 @@ import kotlinx.coroutines.runBlocking
 
 fun main() {
     runBlocking {
-        // Set up the OpenAI client with your API key
+        // API キーを使用して OpenAI クライアントをセットアップします
         val token = System.getenv("OPENAI_API_KEY")
         val client = OpenAILLMClient(token)
 
-        // Create a prompt
+        // プロンプトを作成します
         val prompt = prompt("prompt_name", LLMParams()) {
-            // Add a system message to set the context
+            // コンテキストを設定するためのシステムメッセージを追加します
             system("You are a helpful assistant.")
 
-            // Add a user message
+            // ユーザーメッセージを追加します
             user("Tell me about Kotlin")
 
-            // You can also add assistant messages for few-shot examples
+            // Few-shotの例としてアシスタントメッセージを追加することもできます
             assistant("Kotlin is a modern programming language...")
 
-            // Add another user message
+            // 別のユーザーメッセージを追加します
             user("What are its key features?")
         }
 
-        // Execute the prompt and get the response
+        // プロンプトを実行し、レスポンスを取得します
         val response = client.execute(prompt = prompt, model = OpenAIModels.Chat.GPT4o)
         println(response)
     }
@@ -319,13 +319,13 @@ fun main() {
 <!--- KNIT example-prompt-api-08.kt -->
 
 !!!note
-    LLMクライアントは、ストリーミングレスポンス、複数選択肢の生成、コンテンツモデレーションを可能にします。
-    詳細については、特定のクライアントのAPIリファレンスを参照してください。
+    LLM クライアントは、ストリーミングレスポンス、複数選択肢の生成、コンテンツモデレーションを可能にします。
+    詳細については、特定のクライアントの API リファレンスを参照してください。
     コンテンツモデレーションの詳細については、「[コンテンツモデレーション](content-moderation.md)」を参照してください。
 
 ## プロンプトエグゼキューターを使用したプロンプトの実行
 
-LLMクライアントがプロバイダーへの直接アクセスを提供するのに対し、プロンプトエグゼキューターは、一般的なユースケースを簡素化し、クライアントのライフサイクル管理を処理する、より高レベルの抽象化を提供します。
+LLM クライアントがプロバイダーへの直接アクセスを提供するのに対し、プロンプトエグゼキューターは、一般的なユースケースを簡素化し、クライアントのライフサイクル管理を処理する、より高レベルの抽象化を提供します。
 これらは、次のような場合に理想的です。
 
 - クライアント設定を管理せずに迅速なプロトタイプ作成を行いたい場合。
@@ -335,20 +335,20 @@ LLMクライアントがプロバイダーへの直接アクセスを提供す�
 
 ### エグゼキューターの種類
 
-Koogは主に2つのプロンプトエグゼキューターを提供します。
+Koog は主に2つのプロンプトエグゼキューターを提供します。
 
 | <div style="width:175px">名前</div> | 説明 |
 |---|---|
-| [`SingleLLMPromptExecutor`](https://api.koog.ai/prompt/prompt-executor/prompt-executor-llms/ai.koog.prompt.executor.llms/-single-l-l-m-prompt-executor/index.html) | 単一のプロバイダーのLLMクライアントをラップします。エージェントが単一のLLMプロバイダー内でモデルを切り替える機能のみを必要とする場合、このエグゼキューターを使用してください。 |
-| [`MultiLLMPromptExecutor`](https://api.koog.ai/prompt/prompt-executor/prompt-executor-llms/ai.koog.prompt.executor.llms/-multi-l-l-m-prompt-executor/index.html) | プロバイダーごとに複数のLLMクライアントにルーティングし、リクエストされたプロバイダーが利用できない場合はオプションのフォールバックを使用します。エージェントが異なるプロバイダーのモデル間を切り替える必要がある場合、このエグゼキューターを使用してください。 |
+| [`SingleLLMPromptExecutor`](https://api.koog.ai/prompt/prompt-executor/prompt-executor-llms/ai.koog.prompt.executor.llms/-single-l-l-m-prompt-executor/index.html) | 単一のプロバイダーの LLM クライアントをラップします。エージェントが単一の LLM プロバイダー内でモデルを切り替える機能のみを必要とする場合、このエグゼキューターを使用してください。 |
+| [`MultiLLMPromptExecutor`](https://api.koog.ai/prompt/prompt-executor/prompt-executor-llms/ai.koog.prompt.executor.llms/-multi-l-l-m-prompt-executor/index.html) | プロバイダーごとに複数の LLM クライアントにルーティングし、リクエストされたプロバイダーが利用できない場合はオプションのフォールバックを使用します。エージェントが異なるプロバイダーのモデル間を切り替える必要がある場合、このエグゼキューターを使用してください。 |
 
-これらは、LLMでプロンプトを実行するための[`PromtExecutor`](https://api.koog.ai/prompt/prompt-executor/prompt-executor-model/ai.koog.prompt.executor.model/-prompt-executor/index.html)インターフェースの実装です。
+これらは、LLM でプロンプトを実行するための[`PromtExecutor`](https://api.koog.ai/prompt/prompt-executor/prompt-executor-model/ai.koog.prompt.executor.model/-prompt-executor/index.html)インターフェースの実装です。
 
 ### 単一プロバイダーエグゼキューターの作成
 
-特定のLLMプロバイダー向けのプロンプトエグゼキューターを作成するには、次の手順を実行します。
+特定の LLM プロバイダー向けのプロンプトエグゼキューターを作成するには、次の手順を実行します。
 
-1) 対応するAPIキーを使用して、特定のプロバイダーのLLMクライアントを構成します。
+1) 対応する API キーを使用して、特定のプロバイダーの LLM クライアントを構成します。
 <!--- INCLUDE
 import ai.koog.prompt.executor.clients.openai.OpenAILLMClient
 -->
@@ -368,9 +368,9 @@ val promptExecutor = SingleLLMPromptExecutor(openAIClient)
 
 ### マルチプロバイダーエグゼキューターの作成
 
-複数のLLMプロバイダーと連携するプロンプトエグゼキューターを作成するには、次の手順を実行します。
+複数の LLM プロバイダーと連携するプロンプトエグゼキューターを作成するには、次の手順を実行します。
 
-1) 必要なLLMプロバイダーのクライアントを、対応するAPIキーを使用して構成します。
+1) 必要な LLM プロバイダーのクライアントを、対応する API キーを使用して構成します。
 <!--- INCLUDE
 import ai.koog.prompt.executor.clients.openai.OpenAILLMClient
 import ai.koog.prompt.executor.ollama.client.OllamaClient
@@ -381,7 +381,7 @@ val ollamaClient = OllamaClient()
 ```
 <!--- KNIT example-prompt-api-11.kt -->
 
-2) 構成されたクライアントを`MultiLLMPromptExecutor` クラスのコンストラクタに渡し、複数のLLMプロバイダーを持つプロンプトエグゼキューターを作成します。
+2) 構成されたクライアントを`MultiLLMPromptExecutor` クラスのコンストラクタに渡し、複数の LLM プロバイダーを持つプロンプトエグゼキューターを作成します。
 <!--- INCLUDE
 import ai.koog.agents.example.examplePromptApi11.openAIClient
 import ai.koog.agents.example.examplePromptApi11.ollamaClient
@@ -398,18 +398,18 @@ val multiExecutor = MultiLLMPromptExecutor(
 
 ### 事前定義されたプロンプトエグゼキューター
 
-より迅速なセットアップのために、Koogは一般的なプロバイダー向けに、以下のすぐに使用できるエグゼキューター実装を提供します。
+より迅速なセットアップのために、Koog は一般的なプロバイダー向けに、以下のすぐに使用できるエグゼキューター実装を提供します。
 
-- 特定のLLMクライアントで構成された`SingleLLMPromptExecutor`を返す単一プロバイダーエグゼキューター：
-    - `simpleOpenAIExecutor`: OpenAIモデルでプロンプトを実行するため。
-    - `simpleAzureOpenAIExecutor`: Azure OpenAI Serviceを使用してプロンプトを実行するため。
-    - `simpleAnthropicExecutor`: Anthropicモデルでプロンプトを実行するため。
-    - `simpleGoogleAIExecutor`: Googleモデルでプロンプトを実行するため。
-    - `simpleOpenRouterExecutor`: OpenRouterでプロンプトを実行するため。
-    - `simpleOllamaExecutor`: Ollamaでプロンプトを実行するため。
+- 特定の LLM クライアントで構成された`SingleLLMPromptExecutor`を返す単一プロバイダーエグゼキューター：
+    - `simpleOpenAIExecutor`: OpenAI モデルでプロンプトを実行するため。
+    - `simpleAzureOpenAIExecutor`: Azure OpenAI Service を使用してプロンプトを実行するため。
+    - `simpleAnthropicExecutor`: Anthropic モデルでプロンプトを実行するため。
+    - `simpleGoogleAIExecutor`: Google モデルでプロンプトを実行するため。
+    - `simpleOpenRouterExecutor`: OpenRouter でプロンプトを実行するため。
+    - `simpleOllamaAIExecutor`: Ollama でプロンプトを実行するため。
 
 - マルチプロバイダーエグゼキューター：
-    - `DefaultMultiLLMPromptExecutor`: OpenAI、Anthropic、Googleプロバイダーをサポートする`MultiLLMPromptExecutor`の実装。
+    - `DefaultMultiLLMPromptExecutor`: OpenAI、Anthropic、Google プロバイダーをサポートする`MultiLLMPromptExecutor`の実装。
 
 事前定義された単一およびマルチプロバイダーエグゼキューターを作成する例を以下に示します。
 
@@ -429,10 +429,10 @@ fun main() {
 }
 -->
 ```kotlin
-// Create an OpenAI executor
+// OpenAI エグゼキューターを作成します
 val promptExecutor = simpleOpenAIExecutor("OPENAI_KEY")
 
-// Create a DefaultMultiLLMPromptExecutor with OpenAI, Anthropic, and Google LLM clients
+// OpenAI、Anthropic、Google LLM クライアントを含む DefaultMultiLLMPromptExecutor を作成します
 val openAIClient = OpenAILLMClient("OPENAI_KEY")
 val anthropicClient = AnthropicLLMClient("ANTHROPIC_KEY")
 val googleClient = GoogleLLMClient("GOOGLE_KEY")
@@ -444,7 +444,7 @@ val multiExecutor = DefaultMultiLLMPromptExecutor(openAIClient, anthropicClient,
 
 プロンプトエグゼキューターは、ストリーミング、複数選択肢の生成、コンテンツモデレーションなど、さまざまな機能を使用してプロンプトを実行するメソッドを提供します。
 
-`execute`メソッドを使用して特定のLLMでプロンプトを実行する方法の例を以下に示します。
+`execute`メソッドを使用して特定の LLM でプロンプトを実行する方法の例を以下に示します。
 
 <!--- INCLUDE
 import ai.koog.agents.example.examplePromptApi04.prompt
@@ -460,7 +460,7 @@ fun main() {
 }
 -->
 ```kotlin
-// Execute a prompt
+// プロンプトを実行します
 val response = promptExecutor.execute(
     prompt = prompt,
     model = OpenAIModels.Chat.GPT4o
@@ -472,13 +472,13 @@ val response = promptExecutor.execute(
 
 !!!note
     プロンプトエグゼキューターは、ストリーミングレスポンス、複数選択肢の生成、コンテンツモデレーションを可能にします。
-    詳細については、特定のExecutorのAPIリファレンスを参照してください。
+    詳細については、特定の Executor の API リファレンスを参照してください。
     コンテンツモデレーションの詳細については、「[コンテンツモデレーション](content-moderation.md)」を参照してください。
 
 ## キャッシュ付きプロンプトエグゼキューター
 
-繰り返されるリクエストの場合、LLMレスポンスをキャッシュしてパフォーマンスを最適化し、コストを削減できます。
-Koogは、キャッシュ機能を追加する`PromptExecutor`のラッパーである`CachedPromptExecutor`を提供します。
+繰り返されるリクエストの場合、LLM レスポンスをキャッシュしてパフォーマンスを最適化し、コストを削減できます。
+Koog は、キャッシュ機能を追加する`PromptExecutor`のラッパーである`CachedPromptExecutor`を提供します。
 これにより、以前に実行されたプロンプトからのレスポンスを保存し、同じプロンプトが再度実行されたときにそれらを取得できます。
 
 キャッシュ付きプロンプトエグゼキューターを作成するには、次の手順を実行します。
@@ -542,7 +542,7 @@ val response = cachedExecutor.execute(prompt, OpenAIModels.Chat.GPT4o)
 
 ## リトライ機能
 
-LLMプロバイダーと連携する際、レート制限や一時的なサービス停止といった一時的なエラーに遭遇することがあります。`RetryingLLMClient`デコレーターは、あらゆるLLMクライアントに自動リトライロジックを追加します。
+LLM プロバイダーと連携する際、レート制限や一時的なサービス停止といった一時的なエラーに遭遇することがあります。`RetryingLLMClient`デコレーターは、あらゆる LLM クライアントに自動リトライロジックを追加します。
 
 ### 基本的な使用方法
 
@@ -567,11 +567,11 @@ fun main() {
 }
 -->
 ```kotlin
-// Wrap any client with retry capability
+// 既存のクライアントをリトライ機能でラップします
 val client = OpenAILLMClient(apiKey)
 val resilientClient = RetryingLLMClient(client)
 
-// Now all operations will automatically retry on transient errors
+// これで、すべて操作は一時的なエラー発生時に自動的にリトライされます
 val response = resilientClient.execute(prompt, OpenAIModels.Chat.GPT4o)
 ```
 <!--- KNIT example-prompt-api-18.kt -->
@@ -599,13 +599,13 @@ val apiKey = System.getenv("OPENAI_API_KEY")
 val client = OpenAILLMClient(apiKey)
 -->
 ```kotlin
-// Use the predefined configuration
+// 事前定義された設定を使用します
 val conservativeClient = RetryingLLMClient(
     delegate = client,
     config = RetryConfig.CONSERVATIVE
 )
 
-// Or create a custom configuration
+// またはカスタム設定を作成します
 val customClient = RetryingLLMClient(
     delegate = client,
     config = RetryConfig(
@@ -623,13 +623,13 @@ val customClient = RetryingLLMClient(
 
 デフォルトでは、リトライメカニズムは一般的な一時的エラーを認識します。
 
-* **HTTPステータスコード**:
+* **HTTP ステータスコード**:
     * `429`: レート制限
     * `500`: 内部サーバーエラー
     * `502`: バッドゲートウェイ
     * `503`: サービス利用不可
     * `504`: ゲートウェイタイムアウト
-    * `529`: Anthropic過負荷
+    * `529`: Anthropic 過負荷
 
 * **エラーキーワード**:
     * rate limit (レート制限)
@@ -665,7 +665,7 @@ val config = RetryConfig(
 
 #### プロンプトエグゼキューターでのリトライ
 
-プロンプトエグゼキューターを使用する際は、エグゼキューターを作成する前に基盤となるLLMクライアントをリトライメカニズムでラップします。
+プロンプトエグゼキューターを使用する際は、エグゼキューターを作成する前に基盤となる LLM クライアントをリトライメカニズムでラップします。
 
 <!--- INCLUDE
 import ai.koog.prompt.executor.clients.anthropic.AnthropicLLMClient
@@ -679,14 +679,14 @@ import ai.koog.prompt.llm.LLMProvider
 
 -->
 ```kotlin
-// Single provider executor with retry
+// リトライ機能を備えた単一プロバイダーエグゼキューター
 val resilientClient = RetryingLLMClient(
     OpenAILLMClient(System.getenv("OPENAI_KEY")),
     RetryConfig.PRODUCTION
 )
 val executor = SingleLLMPromptExecutor(resilientClient)
 
-// Multi-provider executor with flexible client configuration
+// 柔軟なクライアント構成を備えたマルチプロバイダーエグゼキューター
 val multiExecutor = MultiLLMPromptExecutor(
     LLMProvider.OpenAI to RetryingLLMClient(
         OpenAILLMClient(System.getenv("OPENAI_KEY")),
@@ -696,7 +696,7 @@ val multiExecutor = MultiLLMPromptExecutor(
         AnthropicLLMClient(System.getenv("ANTHROPIC_API_KEY")),
         RetryConfig.AGGRESSIVE  
     ),
-    // The Bedrock client already has a built-in AWS SDK retry 
+    // Bedrock クライアントにはすでに AWS SDK のリトライ機能が組み込まれています
     LLMProvider.Bedrock to BedrockLLMClient(
         awsAccessKeyId = System.getenv("AWS_ACCESS_KEY_ID"),
         awsSecretAccessKey = System.getenv("AWS_SECRET_ACCESS_KEY"),
@@ -743,7 +743,7 @@ val stream = client.executeStreaming(prompt, OpenAIModels.Chat.GPT4o)
 
 ### タイムアウト設定
 
-すべてのLLMクライアントは、リクエストのハングを防ぐためのタイムアウト設定をサポートしています。
+すべての LLM クライアントは、リクエストのハングを防ぐためのタイムアウト設定をサポートしています。
 
 <!--- INCLUDE
 import ai.koog.prompt.executor.clients.ConnectionTimeoutConfig
@@ -767,9 +767,9 @@ val client = OpenAILLMClient(
 
 ### エラーハンドリング
 
-本番環境でLLMを操作する際は、エラーハンドリング戦略を実装する必要があります。
+本番環境で LLM を操作する際は、エラーハンドリング戦略を実装する必要があります。
 
-- 予期せぬエラーを処理するために、**try-catchブロックを使用してください**。
+- 予期せぬエラーを処理するために、**try-catch ブロックを使用してください**。
 - デバッグのために、**コンテキスト情報とともにエラーをログに出力してください**。
 - クリティカルな操作には、**フォールバック戦略を実装してください**。
 - 再発する問題やシステムの問題を特定するために、**リトライパターンを監視してください**。

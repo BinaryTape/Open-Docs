@@ -33,7 +33,7 @@ throw IllegalArgumentException()
 ```kotlin
 val cause = IllegalStateException("Original cause: illegal state")
 
-// 如果 userInput 为负数，则抛出 IllegalArgumentException
+// 如果 userInput 为负数，则抛出 IllegalArgumentException 
 // 此外，它会显示原始原因，由 cause IllegalStateException 表示
 if (userInput < 0) {
     throw IllegalArgumentException("Input must be non-negative", cause)
@@ -70,10 +70,10 @@ fun getIndices(count: Int): List<Int> {
 }
 
 fun main() {
-    // 这将因 IllegalArgumentException 而失败
+    // This fails with an IllegalArgumentException
     println(getIndices(-1))
     
-    // 取消注释下面这行以查看工作示例
+    // Uncomment the line below to see a working example
     // println(getIndices(3))
     // [1, 2, 3]
 }
@@ -122,7 +122,7 @@ fun main() {
     // getStateValue() 
     someState = "non-empty-state"
 
-    // 这将打印 "non-empty-state"
+    // This prints "non-empty-state"
     println(getStateValue())
 }
 ```
@@ -166,12 +166,12 @@ fun processUserRole(user: User) {
 }
 
 fun main() {
-    // 这按预期工作
+    // This works as expected
     val user1 = User("Alice", "admin")
     processUserRole(user1)
     // Alice is an admin.
 
-    // 这将抛出 IllegalStateException
+    // This throws an IllegalStateException
     val user2 = User("Bob", "guest")
     processUserRole(user2)
 }
@@ -189,9 +189,9 @@ fun main() {
 
 ```kotlin
 try {
-    // 可能抛出异常的代码
+    // Code that may throw an exception
 } catch (e: SomeException) {
-    // 处理异常的代码
+    // Code for handling the exception
 }
 ```
 
@@ -201,22 +201,22 @@ try {
 fun main() {
     val num: Int = try {
 
-        // 如果 count() 成功完成，其返回值将被赋值给 num
+        // If count() completes successfully, its return value is assigned to num
         count()
         
     } catch (e: ArithmeticException) {
         
-        // 如果 count() 抛出异常，catch 代码块将返回 -1，
-        // 该值被赋值给 num
+        // If count() throws an exception, the catch block returns -1, 
+        // which is assigned to num
         -1
     }
     println("Result: $num")
 }
 
-// 模拟一个可能抛出 ArithmeticException 的函数
+// Simulates a function that might throw ArithmeticException
 fun count(): Int {
     
-    // 更改此值以向 num 返回不同的值
+    // Change this value to return a different value to num
     val a = 0
     
     return 10 / a
@@ -248,7 +248,7 @@ fun processWithdrawal(amount: Double, availableFunds: Double) {
 fun main() {
     val availableFunds = 500.0
 
-    // 更改此值以测试不同的场景
+    // Change this value to test different scenarios
     val withdrawalAmount = 500.5
 
     try {
@@ -276,13 +276,13 @@ fun main() {
 
 ```kotlin
 try {
-    // 可能抛出异常的代码
+    // Code that may throw an exception
 }
 catch (e: YourException) {
-    // 异常处理器
+    // Exception handler
 }
 finally {
-    // 始终执行的代码
+    // Code that is always executed
 }
 ```
 
@@ -295,7 +295,7 @@ finally {
 ```kotlin
 fun divideOrNull(a: Int): Int {
     
-    // The try block is always executed
+    // try 代码块始终执行
     // 此处的异常（除以零）会导致立即跳转到 catch 代码块
     try {
         val b = 44 / a
@@ -525,7 +525,7 @@ fun notImplementedFunction(): Int {
 
 fun main() {
     val result = notImplementedFunction()
-    // 这将抛出 NotImplementedError
+    // This throws a NotImplementedError
     println(result)
 }
 ```
@@ -540,14 +540,14 @@ fun main() {
 *   [`ArithmeticException`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-arithmetic-exception/)：当算术操作无法执行时（例如除以零），会发生此异常。
 
     ```kotlin
-    val example = 2 / 0 // 抛出 ArithmeticException
+    val example = 2 / 0 // throws ArithmeticException
     ```
 
 *   [`IndexOutOfBoundsException`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-index-out-of-bounds-exception/)：当某种索引（例如数组或字符串的索引）超出区间时，会抛出此异常。
 
     ```kotlin
     val myList = mutableListOf(1, 2, 3)
-    myList.removeAt(3)  // 抛出 IndexOutOfBoundsException
+    myList.removeAt(3)  // throws IndexOutOfBoundsException
     ```
 
     > 为避免此异常，请使用更安全的替代方案，例如 [`getOrNull()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/get-or-null.html) 函数：
@@ -559,13 +559,13 @@ fun main() {
     > println("Element at index 3: $element")
     > ```
     >
-    {style="note"}
+{style="note"}
 
 *   [`NoSuchElementException`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-no-such-element-exception/)：当访问特定集合中不存在的元素时，会抛出此异常。在使用期望特定元素的方法（例如 [`first()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/first.html) 或 [`last()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/last.html)）时会发生此异常。
 
     ```kotlin
     val emptyList = listOf<Int>()
-    val firstElement = emptyList.first()  // 抛出 NoSuchElementException
+    val firstElement = emptyList.first()  // throws NoSuchElementException
     ```
 
     > 为避免此异常，请使用更安全的替代方案，例如 [`firstOrNull()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/first-or-null.html) 函数：
@@ -577,13 +577,13 @@ fun main() {
     > println("First element in empty list: $firstElement")
     > ```
     >
-    {style="note"}
+{style="note"}
 
 *   [`NumberFormatException`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-number-format-exception/)：当尝试将字符串转换为数值类型但字符串格式不正确时，会发生此异常。
 
     ```kotlin
     val string = "This is not a number"
-    val number = string.toInt() // 抛出 NumberFormatException
+    val number = string.toInt() // throws NumberFormatException
     ```
 
     > 为避免此异常，请使用更安全的替代方案，例如 [`toIntOrNull()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/to-int-or-null.html) 函数：
@@ -595,14 +595,14 @@ fun main() {
     > println("Converted number: $number")
     > ```
     >
-    {style="note"}
+{style="note"}
 
 *   [`NullPointerException`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-null-pointer-exception/)：当应用程序尝试使用值为 `null` 的对象引用时，会抛出此异常。
     尽管 Kotlin 的空安全特性显著降低了 NullPointerException 的风险，但它们仍然可能通过有意使用 `!!` 操作符，或在与缺乏 Kotlin 空安全的 Java 交互时发生。
 
     ```kotlin
     val text: String? = null
-    println(text!!.length)  // 抛出 NullPointerException
+    println(text!!.length)  // throws a NullPointerException
     ```
 
 虽然 Kotlin 中所有异常都是非受检的，并且您不必显式捕获它们，但如果需要，您仍然可以灵活地捕获它们。

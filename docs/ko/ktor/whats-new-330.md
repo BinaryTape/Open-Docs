@@ -17,7 +17,7 @@ Ktor 3.3.0은 서버, 클라이언트 및 툴링 전반에 걸쳐 새로운 기�
 
 Ktor 3.3.0은 정적 콘텐츠를 위한 새로운 `fallback()` 함수를 도입했습니다. 이 함수를 사용하면 요청된 리소스를 찾을 수 없을 때 사용자 지정 동작을 정의할 수 있습니다.
 
-항상 동일한 폴백 파일을 제공하는 `default()`와 달리, `fallback()`은 원래 요청된 경로와 현재 `ApplicationCall`에 대한 액세스를 제공합니다. 이를 사용하여 리디렉션하거나, 사용자 지정 상태 코드를 반환하거나, 다른 파일을 동적으로 제공할 수 있습니다.
+`default()`가 항상 동일한 폴백 파일을 제공하는 것과 달리, `fallback()`은 원래 요청된 경로와 현재 `ApplicationCall`에 대한 액세스를 제공합니다. 이를 사용하여 리디렉션하거나, 사용자 지정 상태 코드를 반환하거나, 다른 파일을 동적으로 제공할 수 있습니다.
 
 사용자 지정 폴백 동작을 정의하려면 `staticFiles()`, `staticResources()`, `staticZip()`, 또는 `staticFileSystem()` 내에서 `fallback()` 함수를 사용하세요:
 
@@ -39,7 +39,7 @@ staticFiles("/files", File("textFiles")) {
 Ktor 3.3.0은 정적 리소스에 대한 `ETag` 및 `LastModified` 헤더 지원을 도입했습니다. [`ConditionalHeaders`](server-conditional-headers.md) 플러그인이 설치된 경우, 조건부 헤더를 처리하여 마지막 요청 이후 내용이 변경되지 않았다면 콘텐츠 본문을 전송하지 않도록 할 수 있습니다:
 
 ```kotlin
-staticFiles("/filesWithEtagAndLastModified", filesDir) {
+staticFiles("/filesWithEtagAndLastModified", File("files")) {
     etag { resource -> EntityTagVersion("etag") }
     lastModified { resource -> GMTDate() }
 }
@@ -50,7 +50,7 @@ staticFiles("/filesWithEtagAndLastModified", filesDir) {
 미리 정의된 제공자(provider)를 사용할 수도 있습니다. 예를 들어, 리소스 콘텐츠의 SHA-256 해시를 사용하여 강력한 `ETag`를 생성하는 경우입니다:
 
 ```kotlin
-staticFiles("/filesWithStrongGeneratedEtag", filesDir) {
+staticFiles("/filesWithStrongGeneratedEtag", File("files")) {
     etag(ETagProvider.StrongSha256)
 }
 ```
@@ -134,7 +134,7 @@ val jsClient = WebRtcClient(JsWebRtc) {
 
 ```kotlin
 val androidClient = WebRtcClient(AndroidWebRtc) {
-    context = appContext // Required: provide Android context
+    context = appContext // 필수: Android 컨텍스트 제공
     defaultConnectionConfig = {
         iceServers = listOf(WebRtc.IceServer("stun:stun.l.google.com:19302"))
     }
@@ -187,12 +187,12 @@ OkHttp 엔진은 이제 기존에 도입되었던 `OkHttpSSESession`을 대체�
 Ktor 3.3.0은 Gradle 플러그인과 컴파일러 플러그인을 통해 실험적인 OpenAPI 생성 기능을 도입했습니다. 이를 통해 빌드 시 애플리케이션 코드에서 직접 OpenAPI 사양을 생성할 수 있습니다.
 
 다음과 같은 기능을 제공합니다:
-- Ktor 라우트 정의를 분석하고 중첩된 라우트, 로컬 확장, 리소스 경로를 병합합니다.
-- 선행 KDoc 주석을 파싱하여 다음을 포함한 OpenAPI 메타데이터를 제공합니다:
-    - 경로(path), 쿼리(query), 헤더(header), 쿠키(cookie), 바디(body) 파라미터
-    - 응답 코드 및 타입
-    - 보안, 설명, 비추천(deprecation), 외부 문서 링크
-- `call.receive()` 및 `call.respond()`에서 요청 및 응답 바디를 추론합니다.
+*   Ktor 라우트 정의를 분석하고 중첩된 라우트, 로컬 확장, 리소스 경로를 병합합니다.
+*   선행 KDoc 주석을 파싱하여 다음을 포함한 OpenAPI 메타데이터를 제공합니다:
+    *   경로(path), 쿼리(query), 헤더(header), 쿠키(cookie), 바디(body) 파라미터
+    *   응답 코드 및 타입
+    *   보안, 설명, 비추천(deprecation), 외부 문서 링크
+*   `call.receive()` 및 `call.respond()`에서 요청 및 응답 바디를 추론합니다.
 
 undefined</include>
 

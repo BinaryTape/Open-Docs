@@ -40,7 +40,7 @@ val executor = simpleOpenAIExecutor(token)
 val agentConfig = AIAgentConfig(
     prompt = prompt("cook_agent_system_prompt") {
         system {
-            "You are a Unity assistant. You can execute different tasks by interacting with tools from the Unity engine."
+            "您是一個 Unity 助手。您可以透過與 Unity 引擎中的工具互動來執行不同的任務。"
         }
     },
     model = OpenAIModels.Chat.GPT4o,
@@ -71,7 +71,7 @@ val process = ProcessBuilder(
 import kotlinx.coroutines.runBlocking
 
 runBlocking {
-    // Create the ToolRegistry with tools from the MCP server
+    // 使用來自 MCP 伺服器的工具建立 ToolRegistry
     val toolRegistry = McpToolRegistryProvider.fromTransport(
         transport = McpToolRegistryProvider.defaultStdioTransport(process)
     )
@@ -84,16 +84,17 @@ runBlocking {
     val strategy = strategy<String, String>("unity_interaction") {
         val nodePlanIngredients by nodeLLMRequest(allowToolCalls = false)
         val interactionWithUnity by subgraphWithTask<String, String>(
-            // work with plan
+            // 處理計畫
             tools = toolRegistry.tools,
         ) { input ->
-            "Start interacting with Unity according to the plan: $input"
+            "根據計畫開始與 Unity 互動：$input"
         }
 
         edge(
             nodeStart forwardTo nodePlanIngredients transformed {
-                "Create detailed plan for " + agentInput + "" +
-                    "using the following tools: ${toolRegistry.tools.joinToString("
+                "為 " + agentInput + "" +
+                    "建立詳細計畫" +
+                    "使用以下工具：${toolRegistry.tools.joinToString("
 ") {
                         it.name + "
 description:" + it.descriptor
@@ -113,17 +114,17 @@ description:" + it.descriptor
             install(Tracing)
 
             install(EventHandler) {
-                onBeforeAgentStarted { eventContext ->
-                    println("OnBeforeAgentStarted first (strategy: ${strategy.name})")
+                onAgentStarting { eventContext ->
+                    println("OnAgentStarting 首次 (策略: ${strategy.name})")
                 }
 
-                onBeforeAgentStarted { eventContext ->
-                    println("OnBeforeAgentStarted second (strategy: ${strategy.name})")
+                onAgentStarting { eventContext ->
+                    println("OnAgentStarting 第二次 (策略: ${strategy.name})")
                 }
 
-                onAgentFinished { eventContext ->
+                onAgentCompleted { eventContext ->
                     println(
-                        "OnAgentFinished (agent id: ${eventContext.agentId}, result: ${eventContext.result})"
+                        "OnAgentCompleted (代理程式 ID: ${eventContext.agentId}, 結果: ${eventContext.result})"
                     )
                 }
             }
@@ -131,8 +132,8 @@ description:" + it.descriptor
     )
 
     val result = agent.run(
-        " extend current opened scene for the towerdefence game. " +
-            "Add more placements for the towers, change the path for the enemies"
+        " 擴展目前開啟的塔防遊戲場景。 " +
+            "為塔樓增加更多放置點，改變敵人的路徑"
     )
 
     result
@@ -143,5 +144,5 @@ description:" + it.descriptor
 在執行結束時，務必清理外部的 Unity MCP 伺服器處理程序。
 
 ```kotlin
-// Shutdown the Unity MCP process
+// 關閉 Unity MCP 處理程序
 process.destroy()

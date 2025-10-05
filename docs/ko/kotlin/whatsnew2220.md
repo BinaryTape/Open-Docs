@@ -135,6 +135,10 @@ kotlin {
 ### `when` 표현식을 위한 데이터 흐름 기반 완전성 검사
 <primary-label ref="experimental-opt-in"/>
 
+> IntelliJ IDEA의 [2025.3 EAP 빌드](https://www.jetbrains.com/idea/nextversion/)에서만 현재 이 기능에 대한 코드 분석, 코드 완성 및 하이라이팅 지원이 제공됩니다.
+>
+{style = "note"}
+
 Kotlin 2.2.20은 `when` 표현식을 위한 **데이터 흐름 기반** 완전성 검사를 도입합니다.
 이전에는 컴파일러의 검사가 `when` 표현식 자체에 국한되어,
 종종 중복된 `else` 브랜치를 추가해야 했습니다.
@@ -173,6 +177,10 @@ kotlin {
 
 ### `catch` 절에서 재실체화된(reified) 타입 지원
 <primary-label ref="experimental-opt-in"/>
+
+> IntelliJ IDEA의 [2025.3 EAP 빌드](https://www.jetbrains.com/idea/nextversion/)에서만 현재 이 기능에 대한 코드 분석, 코드 완성 및 하이라이팅 지원이 제공됩니다.
+>
+{style = "note"}
 
 Kotlin 2.2.20에서는 컴파일러가 `inline` 함수의 `catch` 절에서 [재실체화된 제네릭 타입 매개변수](inline-functions.md#reified-type-parameters)를 사용하는 것을 허용합니다.
 
@@ -214,6 +222,10 @@ Kotlin 팀은 외부 기여자 [Iven Krall](https://github.com/kralliv)의 기�
 
 ### Kotlin 계약(contracts) 개선
 <primary-label ref="experimental-opt-in"/>
+
+> IntelliJ IDEA의 [2025.3 EAP 빌드](https://www.jetbrains.com/idea/nextversion/)에서만 현재 이 기능에 대한 코드 분석, 코드 완성 및 하이라이팅 지원이 제공됩니다.
+>
+{style = "note"}
 
 Kotlin 2.2.20은 [Kotlin 계약(contracts)](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.contracts/contract.html)에 몇 가지 개선 사항을 도입합니다:
 

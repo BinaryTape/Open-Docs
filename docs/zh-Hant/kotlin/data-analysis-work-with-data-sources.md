@@ -1,6 +1,6 @@
 [//]: # (title: 從檔案擷取資料)
 
-[Kotlin Notebook](kotlin-notebook-overview.md) 與 [Kotlin DataFrame library](https://kotlin.github.io/dataframe/gettingstarted.html) 結合，使您能夠處理非結構化和結構化資料。這種組合提供了將非結構化資料 (例如 TXT 檔案中的資料) 轉換為結構化資料集的靈活性。
+[Kotlin Notebook](kotlin-notebook-overview.md)，結合 [Kotlin DataFrame library](https://kotlin.github.io/dataframe/home.html)，使您能夠處理非結構化和結構化資料。這種組合提供了將非結構化資料 (例如 TXT 檔案中的資料) 轉換為結構化資料集的靈活性。
 
 對於資料轉換，您可以使用諸如 [`add`](https://kotlin.github.io/dataframe/adddf.html)、[`split`](https://kotlin.github.io/dataframe/split.html)、[`convert`](https://kotlin.github.io/dataframe/convert.html) 和 [`parse`](https://kotlin.github.io/dataframe/parse.html) 等方法。此外，此工具集還能從各種結構化檔案格式 (包括 CSV、JSON、XLS、XLSX 和 Apache Arrow) 中擷取和操作資料。
 
@@ -25,7 +25,7 @@ Kotlin Notebook 依賴於 [Kotlin Notebook plugin](https://plugins.jetbrains.com
 
 若要在 Kotlin Notebook 中從檔案擷取資料：
 
-1. 開啟您的 Kotlin Notebook 檔案 (`.ipynb`)。
+1. 開啟您的 Kotlin Notebook 檔案（`.ipynb`）。
 2. 在您的筆記本開頭的程式碼儲存格中新增 `%use dataframe`，以匯入 Kotlin DataFrame library。
    > 確保在執行任何其他依賴於 Kotlin DataFrame library 的程式碼儲存格之前，先執行包含 `%use dataframe` 行的程式碼儲存格。
    >

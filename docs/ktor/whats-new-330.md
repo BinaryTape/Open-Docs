@@ -25,8 +25,8 @@ Ktor 3.3.0 为静态内容引入了一个新的 `fallback()` 函数，允许你�
 staticFiles("/files", File("textFiles")) {
     fallback { requestedPath, call ->
         when {
-            requestedPath.endsWith(".php") -> call.respondRedirect("/static/index.html") // 绝对路径
-            requestedPath.endsWith(".kt") -> call.respondRedirect("Default.kt") // 相对路径
+            requestedPath.endsWith(".php") -> call.respondRedirect("/static/index.html") // absolute path
+            requestedPath.endsWith(".kt") -> call.respondRedirect("Default.kt") // relative path
             requestedPath.endsWith(".xml") -> call.respond(HttpStatusCode.Gone)
             else -> call.respondFile(File("files/index.html"))
         }
@@ -39,7 +39,7 @@ staticFiles("/files", File("textFiles")) {
 Ktor 3.3.0 引入了对静态资源的 `ETag` 和 `LastModified` 头的支持。当安装了 [`ConditionalHeaders`](server-conditional-headers.md) 插件后，你可以处理条件头，以避免在内容自上次请求以来未更改时发送内容正文：
 
 ```kotlin
-staticFiles("/filesWithEtagAndLastModified", filesDir) {
+staticFiles("/filesWithEtagAndLastModified", File("files")) {
     etag { resource -> EntityTagVersion("etag") }
     lastModified { resource -> GMTDate() }
 }
@@ -50,7 +50,7 @@ staticFiles("/filesWithEtagAndLastModified", filesDir) {
 你还可以使用预定义提供者，例如使用资源内容的 SHA‑256 散列值来生成强 `ETag`：
 
 ```kotlin
-staticFiles("/filesWithStrongGeneratedEtag", filesDir) {
+staticFiles("/filesWithStrongGeneratedEtag", File("files")) {
     etag(ETagProvider.StrongSha256)
 }
 ```
@@ -64,10 +64,10 @@ staticFiles("/filesWithStrongGeneratedEtag", filesDir) {
 支持的模块声明示例：
 
 ```kotlin
-// 支持 — 挂起函数引用
+// Supported — suspend function reference
 embeddedServer(Netty, port = 8080, module = Application::mySuspendModule)
 
-// 支持 — 配置引用 (application.conf / application.yaml)
+// Supported — configuration reference (application.conf / application.yaml)
 ktor {
     application {
         modules = [ com.example.ApplicationKt.mySuspendModule ]
@@ -115,7 +115,7 @@ client.sse(url, { bufferPolicy(SSEBufferPolicy.All) }) {
 
 此版本引入了实验性的 WebRTC 客户端支持，用于多平台项目中的点对点实时通信。
 
-WebRTC 支持视频通话、多人游戏和协作工具等应用程序。通过此版本，你现在可以使用统一的 Kotlin API 建立对等连接，并在 JavaScript/Wasm 和 Android 目标平台之间交换数据通道。未来版本计划支持 iOS、JVM 桌面和 Native 等其他目标平台。
+WebRTC 实现了视频通话、多人游戏和协作工具等应用程序。通过此版本，你现在可以使用统一的 Kotlin API 建立对等连接，并在 JavaScript/Wasm 和 Android 目标平台之间交换数据通道。未来版本计划支持 iOS、JVM 桌面和 Native 等其他目标平台。
 
 你可以通过选择适合你平台的引擎并提供配置来创建 `WebRtcClient`，类似于 `HttpClient`：
 
@@ -134,7 +134,7 @@ val jsClient = WebRtcClient(JsWebRtc) {
 
 ```kotlin
 val androidClient = WebRtcClient(AndroidWebRtc) {
-    context = appContext // 必需：提供 Android 上下文
+    context = appContext // Required: provide Android context
     defaultConnectionConfig = {
         iceServers = listOf(WebRtc.IceServer("stun:stun.l.google.com:19302"))
     }
@@ -148,13 +148,13 @@ val androidClient = WebRtcClient(AndroidWebRtc) {
 ```kotlin
 val connection = client.createPeerConnection()
 
-// 添加远程 ICE 候选者（通过信令通道接收）
+// Add a remote ICE candidate (received via your signaling channel)
 connection.addIceCandidate(WebRtc.IceCandidate(candidateString, sdpMid, sdpMLineIndex))
 
-// 等待所有本地候选者收集完成
+// Wait until all local candidates are gathered
 connection.awaitIceGatheringComplete()
 
-// 监听传入的数据通道事件
+// Listen for incoming data channel events
 connection.dataChannelEvents.collect { event ->
    when (event) {
      is Open -> println("Another peer opened a chanel: ${event.channel}")
@@ -163,7 +163,7 @@ connection.dataChannelEvents.collect { event ->
    }
 }
 
-// 创建通道并发送/接收消息
+// Create a channel and send/receive messages
 val channel = connection.createDataChannel("chat")
 channel.send("hello")
 val answer = channel.receiveText()

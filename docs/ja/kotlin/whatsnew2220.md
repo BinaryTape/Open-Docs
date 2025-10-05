@@ -144,6 +144,10 @@ kotlin {
 ### `when`式のデータフローに基づく網羅性チェック
 <primary-label ref="experimental-opt-in"/>
 
+> IntelliJ IDEAでのこの機能のコード分析、コード補完、ハイライトのサポートは、現在[2025.3 EAPビルド](https://www.jetbrains.com/idea/nextversion/)でのみ利用可能です。
+> 
+{style = "note"}
+
 Kotlin 2.2.20では、`when`式の**データフローに基づく**網羅性チェックが導入されました。
 これまで、コンパイラのチェックは`when`式自体に限定されており、冗長な`else`ブランチを追加せざるを得ないことがよくありました。
 このアップデートにより、コンパイラは以前の条件チェックと早期リターンを追跡するようになり、冗長な`else`ブランチを削除できるようになりました。
@@ -179,6 +183,10 @@ kotlin {
 
 ### `catch`句におけるreified型のサポート
 <primary-label ref="experimental-opt-in"/>
+
+> IntelliJ IDEAでのこの機能のコード分析、コード補完、ハイライトのサポートは、現在[2025.3 EAPビルド](https://www.jetbrains.com/idea/nextversion/)でのみ利用可能です。
+> 
+{style = "note"}
 
 Kotlin 2.2.20では、コンパイラは`inline`関数の`catch`句で[reifiedジェネリック型パラメータ](inline-functions.md#reified-type-parameters)の使用を許可するようになりました。
 
@@ -220,6 +228,10 @@ Kotlinチームは、外部コントリビューターの[Iven Krall](https://gi
 
 ### Kotlinコントラクトの改善
 <primary-label ref="experimental-opt-in"/>
+
+> IntelliJ IDEAでのこの機能のコード分析、コード補完、ハイライトのサポートは、現在[2025.3 EAPビルド](https://www.jetbrains.com/idea/nextversion/)でのみ利用可能です。
+> 
+{style = "note"}
 
 Kotlin 2.2.20では、[Kotlinコントラクト](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.contracts/contract.html)にいくつかの改善が導入されました。これには以下が含まれます。
 
@@ -521,7 +533,7 @@ Swiftエクスポートを試すには、Xcodeプロジェクトを設定しま�
    ./gradlew :<Shared module name>:embedSwiftExportForXcode
    ```
 
-   ![Add the Swift export script](xcode-swift-export-run-script-phase.png){width=700}
+   ![Swiftエクスポートスクリプトを追加](xcode-swift-export-run-script-phase.png){width=700}
 
 4.  プロジェクトをビルドします。Swiftモジュールはビルド出力ディレクトリに生成されます。
 
@@ -577,7 +589,7 @@ suspend fun readCopiedText(): String {
 
 この変更により、`web`ソースセットは`js`と`wasmJs`の両方のソースセットの親となります。更新されたソースセット階層は次のようになります。
 
-![An example of using the default hierarchy template with web](default-hierarchy-example-with-web.svg)
+![Webでデフォルト階層テンプレートを使用する例](default-hierarchy-example-with-web.svg)
 
 新しいソースセットにより、`js`と`wasmJs`の両方のターゲットに対して1つのコードを記述できます。共有コードを`webMain`に配置すると、両方で自動的に機能します。
 

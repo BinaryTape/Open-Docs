@@ -6,7 +6,7 @@ LPK 面向多种平台，包括 [Kotlin notebook](data-analysis-overview.md#note
 
 ![Lets-Plot](lets-plot-overview.png){width=700}
 
-本教程演示了如何在 IntelliJ IDEA 中使用 Kotlin Notebook，借助 LPK 和 [Kotlin DataFrame](https://kotlin.github.io/dataframe/gettingstarted.html) 库创建不同绘图类型。
+本教程演示了如何在 IntelliJ IDEA 中使用 Kotlin Notebook，借助 LPK 和 [Kotlin DataFrame](https://kotlin.github.io/dataframe/home.html) 库创建不同绘图类型。
 
 ## 开始之前
 
@@ -16,8 +16,8 @@ Kotlin Notebook 依赖于 [Kotlin Notebook 插件](https://plugins.jetbrains.com
 
 创建一个新的 Kotlin Notebook 来使用 Lets-Plot：
 
-1. 选择 **文件** | **新建** | **Kotlin Notebook**。
-2. 在你的 Notebook 中，运行以下命令导入 LPK 和 Kotlin DataFrame 库：
+1.  选择 **文件** | **新建** | **Kotlin Notebook**。
+2.  在你的 Notebook 中，运行以下命令导入 LPK 和 Kotlin DataFrame 库：
 
     ```kotlin
     %use lets-plot
@@ -101,65 +101,65 @@ boxPlot
 
 ## 创建二维密度图
 
-现在，让我们创建一个二维密度图来可视化数据的分布和集中。
+现在，让我们创建一个二维密度图来可视化某些随机数据的分布和集中。
 
 ### 准备二维密度图的数据
 
-1. 导入依赖项以处理数据并生成绘图：
+1.  导入依赖项以处理数据并生成绘图：
 
-   ```kotlin
-   %use lets-plot
+    ```kotlin
+    %use lets-plot
 
-   @file:DependsOn("org.apache.commons:commons-math3:3.6.1")
-   import org.apache.commons.math3.distribution.MultivariateNormalDistribution
-   ```
+    @file:DependsOn("org.apache.commons:commons-math3:3.6.1")
+    import org.apache.commons.math3.distribution.MultivariateNormalDistribution
+    ```
 
-   > 关于导入依赖项到 Kotlin Notebook 的更多信息，请参见 [Kotlin Notebook 文档](https://www.jetbrains.com/help/idea/kotlin-notebook.html#add-dependencies)。
-   > {style="tip"}
+    > 关于导入依赖项到 Kotlin Notebook 的更多信息，请参见 [Kotlin Notebook 文档](https://www.jetbrains.com/help/idea/kotlin-notebook.html#add-dependencies)。
+    > {style="tip"}
 
-2. 将以下代码片段粘贴到你的 Kotlin Notebook 并运行，以创建二维数据点集：
+2.  将以下代码片段粘贴到你的 Kotlin Notebook 并运行，以创建二维数据点集：
 
-   ```kotlin
-   // 为三种分布定义协方差矩阵
-   val cov0: Array<DoubleArray> = arrayOf(
-       doubleArrayOf(1.0, -.8),
-       doubleArrayOf(-.8, 1.0)
-   )
-   
-   val cov1: Array<DoubleArray> = arrayOf(
-       doubleArrayOf(1.0, .8),
-       doubleArrayOf(.8, 1.0)
-   )
-   
-   val cov2: Array<DoubleArray> = arrayOf(
-       doubleArrayOf(10.0, .1),
-       doubleArrayOf(.1, .1)
-   )
-   
-   // 定义样本数量
-   val n = 400
-   
-   // 为三种分布定义均值
-   val means0: DoubleArray = doubleArrayOf(-2.0, 0.0)
-   val means1: DoubleArray = doubleArrayOf(2.0, 0.0)
-   val means2: DoubleArray = doubleArrayOf(0.0, 1.0)
-   
-   // 从三种多元正态分布生成随机样本
-   val xy0 = MultivariateNormalDistribution(means0, cov0).sample(n)
-   val xy1 = MultivariateNormalDistribution(means1, cov1).sample(n)
-   val xy2 = MultivariateNormalDistribution(means2, cov2).sample(n)
-   ```
+    ```kotlin
+    // 为三种分布定义协方差矩阵
+    val cov0: Array<DoubleArray> = arrayOf(
+        doubleArrayOf(1.0, -.8),
+        doubleArrayOf(-.8, 1.0)
+    )
 
-   从上面的代码中，`xy0`、`xy1` 和 `xy2` 变量存储了包含二维 (`x, y`) 数据点的数组。
+    val cov1: Array<DoubleArray> = arrayOf(
+        doubleArrayOf(1.0, .8),
+        doubleArrayOf(.8, 1.0)
+    )
 
-3. 将你的数据转换为 `Map` 类型：
+    val cov2: Array<DoubleArray> = arrayOf(
+        doubleArrayOf(10.0, .1),
+        doubleArrayOf(.1, .1)
+    )
 
-   ```kotlin
-   val data = mapOf(
-       "x" to (xy0.map { it[0] } + xy1.map { it[0] } + xy2.map { it[0] }).toList(),
-       "y" to (xy0.map { it[1] } + xy1.map { it[1] } + xy2.map { it[1] }).toList()
-   )
-   ```
+    // 定义样本数量
+    val n = 400
+
+    // 为三种分布定义均值
+    val means0: DoubleArray = doubleArrayOf(-2.0, 0.0)
+    val means1: DoubleArray = doubleArrayOf(2.0, 0.0)
+    val means2: DoubleArray = doubleArrayOf(0.0, 1.0)
+
+    // 从三种多元正态分布生成随机样本
+    val xy0 = MultivariateNormalDistribution(means0, cov0).sample(n)
+    val xy1 = MultivariateNormalDistribution(means1, cov1).sample(n)
+    val xy2 = MultivariateNormalDistribution(means2, cov2).sample(n)
+    ```
+
+    从上面的代码中，`xy0`、`xy1` 和 `xy2` 变量存储了包含二维 (`x, y`) 数据点的数组。
+
+3.  将你的数据转换为 `Map` 类型：
+
+    ```kotlin
+    val data = mapOf(
+        "x" to (xy0.map { it[0] } + xy1.map { it[0] } + xy2.map { it[0] }).toList(),
+        "y" to (xy0.map { it[1] } + xy1.map { it[1] } + xy2.map { it[1] }).toList()
+    )
+    ```
 
 ### 生成二维密度图
 
@@ -181,7 +181,7 @@ densityPlot
 
 ## 接下来
 
-* 在 [Lets-Plot for Kotlin 文档](https://lets-plot.org/kotlin/charts.html) 中探索更多绘图示例。
-* 查阅 Lets-Plot for Kotlin 的 [API 参考](https://lets-plot.org/kotlin/api-reference/)。
-* 在 [Kotlin DataFrame](https://kotlin.github.io/dataframe/info.html) 和 [Kandy](https://kotlin.github.io/kandy/welcome.html) 库文档中了解如何使用 Kotlin 转换和可视化数据。
-* 查找关于 [Kotlin Notebook 用法和关键特性](https://www.jetbrains.com/help/idea/kotlin-notebook.html) 的更多信息。
+*   在 [Lets-Plot for Kotlin 文档](https://lets-plot.org/kotlin/charts.html) 中探索更多绘图示例。
+*   查阅 Lets-Plot for Kotlin 的 [API 参考](https://lets-plot.org/kotlin/api-reference/)。
+*   在 [Kotlin DataFrame](https://kotlin.github.io/dataframe/info.html) 和 [Kandy](https://kotlin.github.io/kandy/welcome.html) 库文档中了解如何使用 Kotlin 转换和可视化数据。
+*   查找关于 [Kotlin Notebook 用法和关键特性](https://www.jetbrains.com/help/idea/kotlin-notebook.html) 的更多信息。

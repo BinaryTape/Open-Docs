@@ -107,7 +107,8 @@ llm.writeSession {
 
 ### 원시 텍스트 스트림(파생)과 작업하기
 
-`Flow<String>`을 예상하는 기존 스트리밍 파서가 있는 경우, `filterTextOnly()`를 통해 텍스트 청크를 파생하거나 `collectText()`로 수집할 수 있습니다.
+`Flow<String>`을 예상하는 기존 스트리밍 파서가 있는 경우,
+`filterTextOnly()`를 통해 텍스트 청크를 파생하거나 `collectText()`로 수집할 수 있습니다.
 
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
@@ -139,7 +140,7 @@ $fullText")
 
 ### 이벤트 핸들러에서 스트림 이벤트 수신하기
 
-[에이전트 이벤트](agent-events.md)에서 스트림 이벤트를 수신할 수 있습니다.
+[에이전트 이벤트 핸들러](agent-event-handlers.md)에서 스트림 이벤트를 수신할 수 있습니다.
 
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
@@ -154,7 +155,7 @@ fun GraphAIAgent.FeatureContext.installStreamingApi() {
 -->
 ```kotlin
 handleEvents {
-    onToolExecutionStarting { context ->
+    onToolCallStarting { context ->
         println("
 🔧 ${context.tool.name}을 ${context.toolArgs}와 함께 사용 중... ")
     }
@@ -186,7 +187,8 @@ handleEvents {
 
 ### 스트리밍 중 구조화된 데이터 (마크다운 예시)
 
-원시 문자열 스트림으로 작업하는 것이 가능하지만, [구조화된 데이터](structured-output.md)로 작업하는 것이 종종 더 편리합니다.
+원시 문자열 스트림으로 작업하는 것이 가능하지만,
+[구조화된 데이터](structured-output.md)로 작업하는 것이 종종 더 편리합니다.
 
 구조화된 데이터 접근 방식은 다음과 같은 주요 구성 요소를 포함합니다.
 

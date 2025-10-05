@@ -9,7 +9,7 @@
 *   [Imageクラス](#loaded-images)と[LaTeX形式](#math-formulas-and-equations)は、内部に`img`タグを持つ`text/html` MIMEタイプを使用します。
 *   [Kotlin DataFrameテーブル](#data-frames)と[Kandyプロット](#charts)は、静的HTMLまたは画像によって支えられている独自の内部MIMEタイプを使用します。これにより、GitHub上でそれらを表示することができます。
 
-例えば、Markdownをセル出力として使用するために、マッピングを手動で設定することができます。
+マッピングを手動で設定することができます。例えば、Markdownをセル出力として使用する場合などです。
 
 ```kotlin
 MimeTypedResult(
@@ -181,7 +181,7 @@ LaTeX形式（学術分野で広く使用されている組版システム）を
 
 Kotlin Notebookを使用すると、データフレームで構造化されたデータを可視化できます。
 
-1.  ノートブックに[Kotlin DataFrame](https://kotlin.github.io/dataframe/gettingstarted.html)ライブラリを追加します。
+1.  ノートブックに[Kotlin DataFrame](https://kotlin.github.io/dataframe/home.html)ライブラリを追加します。
 
     ```none
     %use dataframe
@@ -198,12 +198,12 @@ Kotlin Notebookを使用すると、データフレームで構造化された�
         "December"
     )
 
-    // さまざまな製品と月ごとの売上データ：
+    // Sales data for different products and months:
     val salesLaptop = listOf(120, 130, 150, 180, 200, 220, 240, 230, 210, 190, 160, 140)
     val salesSmartphone = listOf(90, 100, 110, 130, 150, 170, 190, 180, 160, 140, 120, 100)
     val salesTablet = listOf(60, 70, 80, 90, 100, 110, 120, 110, 100, 90, 80, 70)
      
-    // 月、売上、製品の列を持つデータフレーム
+    // A data frame with columns for Month, Sales, and Product
     val dfSales = dataFrameOf(
         "Month" to months + months + months,
         "Sales" to salesLaptop + salesSmartphone + salesTablet,
@@ -224,7 +224,7 @@ Kotlin Notebookを使用すると、データフレームで構造化された�
 4.  データフレームをCSVファイルとしてエクスポートすることもできます。
 
     ```kotlin
-    // データをCSV形式でエクスポートする
+    // Export your data to CSV format
     dfSales.writeCSV("sales-stats.csv")
     ```
 
@@ -243,10 +243,10 @@ Kotlin Notebookで直接様々なチャートを作成し、データを可視�
     ```kotlin
     val salesPlot = dfSales.groupBy { Product }.plot {
         bars {
-            // データフレームのX軸とY軸に使用される列にアクセスする
+            // Access the data frame's columns used for the X and Y axes
             x(Month)
             y(Sales)
-            // データフレームのカテゴリに使用される列にアクセスし、それらのカテゴリの色を設定する
+            // Access the data frame's column used for categories and sets colors for these categories
             fillColor(Product) {
                 scale = categorical(
                     "Laptop" to Color.PURPLE,
@@ -256,7 +256,7 @@ Kotlin Notebookで直接様々なチャートを作成し、データを可視�
                 legend.name = "Product types"
             }
         }
-        // チャートの外観をカスタマイズする
+        // Customize the chart's appearance
         layout.size = 1000 to 450
         layout.title = "Yearly Gadget Sales Results"
     }
@@ -269,7 +269,7 @@ Kotlin Notebookで直接様々なチャートを作成し、データを可視�
 3.  プロットを`.png`、`jpeg`、`.html`、または`.svg`形式でエクスポートすることもできます。
 
     ```kotlin
-    // プロットファイルの出力形式を指定する
+    // Specify the output format for the plot file:
     salesPlot.save("sales-chart.svg")
     ```
 

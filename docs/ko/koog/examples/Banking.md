@@ -20,7 +20,7 @@ https://raw.githubusercontent.com/JetBrains/koog/develop/examples/notebooks/Bank
 
 ## 설정 및 의존성
 
-Kotlin Notebook 커널을 사용할 것입니다. Koog 아티팩트가 Maven Central에서 해결 가능하며, LLM 공급자 키가 `OPENAI_API_KEY`를 통해 사용 가능한지 확인하세요.
+Kotlin Notebook 커널을 사용할 것입니다. Koog 아티팩트가 Maven Central에서 해결 가능하며, `OPENAI_API_KEY`를 통해 LLM 공급자 키를 사용할 수 있는지 확인하세요.
 
 ```kotlin
 %useLatestDescriptors
@@ -192,13 +192,14 @@ class MoneyTransferTools : ToolSet {
 
 ```kotlin
 import ai.koog.agents.core.agent.AIAgent
+import ai.koog.agents.core.agent.AIAgentService
 import ai.koog.agents.core.tools.ToolRegistry
 import ai.koog.agents.core.tools.reflect.asTools
 import ai.koog.agents.ext.tool.AskUser
 import ai.koog.prompt.executor.clients.openai.OpenAIModels
 import kotlinx.coroutines.runBlocking
 
-val transferAgent = AIAgent(
+val transferAgentService = AIAgentService(
     executor = openAIExecutor,
     llmModel = OpenAIModels.Reasoning.GPT4oMini,
     systemPrompt = bankingAssistantSystemPrompt,
@@ -219,7 +220,7 @@ val message = "Send 25 euros to Daniel for dinner at the restaurant."
 // - "Bob에게 공유 휴가 비용으로 100유로를 송금해줘"
 
 runBlocking {
-    val result = transferAgent.run(message)
+    val result = transferAgentService.createAgentAndRun(message)
     result
 }
 ```
@@ -228,7 +229,7 @@ runBlocking {
     'Daniel'이라는 이름의 연락처가 두 개 있습니다. 누구에게 송금하시겠습니까?
     1. Daniel Anderson (+46 70 123 45 67)
     2. Daniel Garcia (+34 612 345 678)
-    €25.00를 "저녁 식사"로 Daniel Garcia(+34 612 345 678)에게 송금하는 것을 확인하시겠습니까?
+    “저녁 식사” 명목으로 Daniel Garcia(+34 612 345 678)에게 €25.00를 송금하는 것을 확인하시겠습니까?
 
     작업이 성공적으로 완료되었습니다.
 
@@ -357,19 +358,19 @@ class TransactionAnalysisTools : ToolSet {
     ): String {
         var filteredTransactions = sampleTransactions
 
-        // Validate userId (in production, this would query a real database)
+        // userId 유효성 검사 (실제 환경에서는 실제 데이터베이스에 쿼리)
         if (userId != null && userId != "123") {
             return "No transactions found for user $userId."
         }
 
-        // Apply category filter
+        // 카테고리 필터 적용
         category?.let { cat ->
             val categoryEnum = TransactionCategory.fromString(cat)
                 ?: return "Invalid category: $cat. Available: ${TransactionCategory.availableCategories()}"
             filteredTransactions = filteredTransactions.filter { it.category == categoryEnum }
         }
 
-        // Apply date range filters
+        // 날짜 범위 필터 적용
         startDate?.let { date ->
             val startDateTime = parseDate(date, startOfDay = true)
             filteredTransactions = filteredTransactions.filter { it.date >= startDateTime }
@@ -403,7 +404,7 @@ class TransactionAnalysisTools : ToolSet {
         return "Sum: $%.2f".format(sum)
     }
 
-    // Helper function to parse dates
+    // 날짜 파싱 도우미 함수
     private fun parseDate(dateStr: String, startOfDay: Boolean): LocalDateTime {
         val parts = dateStr.split("-").map { it.toInt() }
         require(parts.size == 3) { "Invalid date format. Use YYYY-MM-DD" }
@@ -418,7 +419,7 @@ class TransactionAnalysisTools : ToolSet {
 ```
 
 ```kotlin
-val analysisAgent = AIAgent(
+val analysisAgentService = AIAgentService(
     executor = openAIExecutor,
     llmModel = OpenAIModels.Reasoning.GPT4oMini,
     systemPrompt = "$bankingAssistantSystemPrompt
@@ -439,7 +440,7 @@ val analysisMessage = "How much have I spent on restaurants this month?"
 // - "지난주 모든 거래를 보여줘"
 
 runBlocking {
-    val result = analysisAgent.run(analysisMessage)
+    val result = analysisAgentService.createAgentAndRun(analysisMessage)
     result
 }
 ```
@@ -642,7 +643,7 @@ runBlocking {
     1. Daniel Anderson (+46 70 123 45 67)
     2. Daniel Garcia (+34 612 345 678)
     정확한 수신자의 번호를 지정해 주세요.
-    Daniel Garcia에게 "저녁 식사"로 €25를 송금하는 것을 진행하시겠습니까?
+    Daniel Garcia에게 "저녁 식사" 명목으로 €25를 송금하는 것을 진행하시겠습니까?
 
     Result: 작업이 성공적으로 완료되었습니다.
 
@@ -651,7 +652,7 @@ runBlocking {
 코그(Koog)는 에이전트를 다른 에이전트 내에서 도구로 사용할 수 있게 하여 강력한 구성 패턴을 가능하게 합니다.
 
 ```kotlin
-import ai.koog.agents.core.agent.asTool
+import ai.koog.agents.core.agent.createAgentTool
 import ai.koog.agents.core.tools.ToolParameterDescriptor
 import ai.koog.agents.core.tools.ToolParameterType
 
@@ -663,7 +664,7 @@ val classifierAgent = AIAgent(
 
         // 에이전트를 도구로 변환
         tool(
-            transferAgent.asTool(
+            transferAgentService.createAgentTool(
                 agentName = "transferMoney",
                 agentDescription = "송금 및 모든 관련 작업을 처리합니다",
                 inputDescriptor = ToolParameterDescriptor(
@@ -675,7 +676,7 @@ val classifierAgent = AIAgent(
         )
 
         tool(
-            analysisAgent.asTool(
+            analysisAgentService.createAgentTool(
                 agentName = "analyzeTransactions",
                 agentDescription = "사용자 거래에 대한 분석을 수행합니다",
                 inputDescriptor = ToolParameterDescriptor(
@@ -707,7 +708,7 @@ runBlocking {
     'Daniel'이라는 이름의 연락처가 두 개 있습니다. 누구에게 송금하시겠습니까?
     1. Daniel Anderson (+46 70 123 45 67)
     2. Daniel Garcia (+34 612 345 678)
-    Daniel Anderson에게 "저녁 식사"로 €25.00를 송금하는 것을 확인하시겠습니까?
+    “저녁 식사” 명목으로 Daniel Anderson(+46 70 123 45 67)에게 €25.00를 송금하는 것을 확인하시겠습니까?
 
     Result: 작업을 수행할 수 없습니다.
 

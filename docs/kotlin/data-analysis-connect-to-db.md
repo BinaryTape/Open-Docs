@@ -1,7 +1,7 @@
 [//]: # (title: 连接并从数据库检索数据)
 
 [Kotlin Notebook](kotlin-notebook-overview.md) 提供了连接并从各种类型的 SQL 数据库（例如 MariaDB、PostgreSQL、MySQL 和 SQLite）检索数据的功能。
-利用 [Kotlin DataFrame 库](https://kotlin.github.io/dataframe/gettingstarted.html)，Kotlin Notebook 可以建立数据库连接、执行 SQL 查询，并导入结果以进行后续操作。
+利用 [Kotlin DataFrame 库](https://kotlin.github.io/dataframe/home.html)，Kotlin Notebook 可以建立数据库连接、执行 SQL 查询，并导入结果以进行后续操作。
 
 有关详细示例，请参见 [KotlinDataFrame SQL Examples GitHub 版本库中的 Notebook](https://github.com/zaleslaw/KotlinDataFrame-SQL-Examples/blob/master/notebooks/imdb.ipynb)。
 
@@ -18,7 +18,7 @@ Kotlin Notebook 依赖于 [Kotlin Notebook 插件](https://plugins.jetbrains.com
 
 ## 连接数据库
 
-您可以使用 [Kotlin DataFrame 库](https://kotlin.github.io/dataframe/gettingstarted.html) 中的特定函数连接并与 SQL 数据库交互。
+您可以使用 [Kotlin DataFrame 库](https://kotlin.github.io/dataframe/home.html) 中的特定函数连接并与 SQL 数据库交互。
 您可以使用 `DatabaseConfiguration` 建立与数据库的连接，并使用 `getSchemaForAllSqlTables()` 检索其中所有表的 schema。
 
 我们来看一个示例：
@@ -47,7 +47,7 @@ Kotlin Notebook 依赖于 [Kotlin Notebook 插件](https://plugins.jetbrains.com
    val URL = "YOUR_URL"
    val USER_NAME = "YOUR_USERNAME"
    val PASSWORD = "YOUR_PASSWORD"
-
+   
    val dbConfig = DatabaseConfiguration(URL, USER_NAME, PASSWORD)
    ```
 
@@ -55,8 +55,8 @@ Kotlin Notebook 依赖于 [Kotlin Notebook 插件](https://plugins.jetbrains.com
 
    ```kotlin
    val dataschemas = DataFrame.getSchemaForAllSqlTables(dbConfig)
-
-   dataschemas.forEach {
+   
+   dataschemas.forEach { 
        println("---Yet another table schema---")
        println(it)
        println()
@@ -64,7 +64,7 @@ Kotlin Notebook 依赖于 [Kotlin Notebook 插件](https://plugins.jetbrains.com
    ```
 
    > 有关连接 SQL 数据库的更多信息，请参见 [Kotlin DataFrame 文档中关于从 SQL 数据库读取数据的内容](https://kotlin.github.io/dataframe/readsqldatabases.html)。
-   >
+   > 
    {style="tip"}
 
 ## 检索和操作数据
@@ -86,7 +86,7 @@ Kotlin Notebook 依赖于 [Kotlin Notebook 插件](https://plugins.jetbrains.com
    val props = Properties()
    props.setProperty("user", USER_NAME)
    props.setProperty("password", PASSWORD)
-
+   
    val TARANTINO_FILMS_SQL_QUERY = """
        SELECT name, year, rank, GROUP_CONCAT(genre) as "genres"
        FROM movies JOIN movies_directors ON movie_id = movies.id
@@ -95,18 +95,18 @@ Kotlin Notebook 依赖于 [Kotlin Notebook 插件](https://plugins.jetbrains.com
        GROUP BY name, year, rank
        ORDER BY year
        """
-
+   
    // 检索昆汀·塔伦蒂诺的电影列表，包括它们的名称、年份、排名以及所有类型的连接字符串。
    // 结果按名称、年份、排名分组，并按年份排序。
-
+   
    var dfTarantinoMovies: DataFrame<*>
-
+   
    DriverManager.getConnection(URL, props).use { connection ->
       connection.createStatement().use { st ->
          st.executeQuery(TARANTINO_FILMS_SQL_QUERY).use { rs ->
             val dfTarantinoFilmsSchema = DataFrame.getSchemaForResultSet(rs, connection)
             dfTarantinoFilmsSchema.print()
-
+   
             dfTarantinoMovies = DataFrame.readResultSet(rs, connection)
             dfTarantinoMovies
          }
@@ -120,10 +120,10 @@ Kotlin Notebook 依赖于 [Kotlin Notebook 插件](https://plugins.jetbrains.com
    val df = dfTarantinoMovies
        // 将 'year' 列中的所有缺失值替换为 0。
        .fillNA { year }.with { 0 }
-
+       
        // 将 'year' 列转换为整数。
        .convert { year }.toInt()
-
+   
        // 筛选数据，仅包含 2000 年之后上映的电影。
        .filter { year > 2000 }
    df
@@ -133,7 +133,7 @@ Kotlin Notebook 依赖于 [Kotlin Notebook 插件](https://plugins.jetbrains.com
 
 ## 在 Kotlin Notebook 中分析数据
 
-在[建立与 SQL 数据库的连接](#connect-to-database)后，您可以使用 Kotlin Notebook 进行深入的数据分析，利用 [Kotlin DataFrame 库](https://kotlin.github.io/dataframe/gettingstarted.html)。这包括对数据进行分组、排序和聚合的函数，帮助您发现并理解数据中的模式。
+在[建立与 SQL 数据库的连接](#connect-to-database)后，您可以使用 Kotlin Notebook 进行深入的数据分析，利用 [Kotlin DataFrame 库](https://kotlin.github.io/dataframe/home.html)。这包括对数据进行分组、排序和聚合的函数，帮助您发现并理解数据中的模式。
 
 我们深入研究一个示例，该示例涉及分析电影数据库中的演员数据，重点关注最常出现的演员名字：
 
@@ -149,13 +149,13 @@ Kotlin Notebook 依赖于 [Kotlin Notebook 插件](https://plugins.jetbrains.com
    val top20ActorNames = actorDf
        // 按 first_name 列对数据进行分组，以便根据演员名字进行组织。
       .groupBy { first_name }
-
+   
        // 计算每个唯一名字的出现次数，提供频率分布。
       .count()
-
+   
        // 按计数降序排列结果，以识别最常见的名字。
       .sortByDesc("count")
-
+   
        // 选择前 20 个最常出现的名称进行分析。
       .take(20)
    top20ActorNames

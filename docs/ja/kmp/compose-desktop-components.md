@@ -4,12 +4,45 @@ Compose Multiplatformを使用すると、macOS、Linux、Windowsのデスクト
 
 ## コンポーネント
 
+<!-- * [Images and icons](#images-and-icons) -->
 *   [ウィンドウとダイアログ](compose-desktop-top-level-windows-management.md)
 *   [コンテキストメニュー](compose-desktop-context-menus.md)
 *   [システムトレイ](#the-system-tray)
 *   [メニューバー](#menu-bar)
 *   [スクロールバー](compose-desktop-scrollbars.md)
 *   [ツールチップ](compose-desktop-tooltips.md)
+
+<!-- ### Images and icons
+
+You can use the `Image` composable and the `painterResource()` function to display images stored as resources in your
+application:
+
+```kotlin
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.window.singleWindowApplication
+
+fun main() = singleWindowApplication {
+    Image(
+        painter = painterResource("sample.png"),
+        contentDescription = "Sample",
+        modifier = Modifier.fillMaxSize()
+    )
+}
+```
+
+`painterResource()` supports rasterized image formats, such as `.png`, `.jpg`, `.bmp`, `.webp`, and the Android XML vector
+drawable format. You can also use images stored in the device memory, load images from the network,
+or create them in your project using `Canvas()`.
+
+With Compose Multiplatform, you can set the application window icon and the application tray icon as well.
+
+* For more information on working with images using Compose Multiplatform in desktop projects, see
+  the [Image and in-app icon manipulations](https://github.com/JetBrains/compose-multiplatform/tree/master/tutorials/Image_And_Icons_Manipulations)
+  tutorial.
+* For more information on using resources in common code in Compose Multiplatform projects, see [Images and resources](compose-multiplatform-resources.md). -->
 
 ### システムトレイ
 
@@ -267,7 +300,6 @@ fun main() = application {
 
 ## 次のステップ
 
-*   [Compose Multiplatformデスクトップアプリケーション](https://github.com/JetBrains/compose-multiplatform-desktop-template#readme)チュートリアルを完了します。
 *   [Compose Multiplatformデスクトッププロジェクトのユニットテストを作成する方法](compose-desktop-ui-testing.md)を学習します。
 *   [デスクトッププラットフォーム用のネイティブディストリビューション、インストーラー、およびパッケージを作成する方法](compose-native-distribution.md)を学習します。
 *   [Swingとの相互運用を設定し、SwingアプリケーションをCompose Multiplatformに移行します](compose-desktop-swing-interoperability.md)。

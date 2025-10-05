@@ -2,7 +2,7 @@
 
 [Kotlin Notebook](kotlin-notebook-overview.md) 支援多種輸出類型，包括文字、HTML 和影像。藉助外部函式庫，您可以擴展輸出選項，並使用圖表、試算表等來可視化您的資料。
 
-每個輸出都是一個 JSON 物件，將 [Jupiter MIME 類型](https://jupyterlab.readthedocs.io/en/latest/user/file_formats.html)映射到某些資料。Kotlin Notebook 從此映射中選擇在其他類型中優先順序最高的支援 MIME 類型，並依此渲染：
+每個輸出都是一個 JSON 物件，將 [Jupiter MIME 類型](https://jupyterlab.readthedocs.io/en/latest/user/file_formats.html)映射到某些資料。從此映射中，Kotlin Notebook 會選擇在其他類型中優先順序最高的支援 MIME 類型，並依此渲染：
 
 *   [文字](#texts) 使用 `text/plain` MIME 類型。
 *   [BufferedImage 類別](#buffered-images) 使用映射到 Base64 字串的 `image/png` MIME 類型。
@@ -181,7 +181,7 @@ kotlinMascot
 
 使用 Kotlin Notebook，您可以使用資料框架可視化結構化資料：
 
-1.  將 [Kotlin DataFrame](https://kotlin.github.io/dataframe/gettingstarted.html) 函式庫添加到您的筆記本中：
+1.  將 [Kotlin DataFrame](https://kotlin.github.io/dataframe/home.html) 函式庫添加到您的筆記本中：
 
     ```none
     %use dataframe

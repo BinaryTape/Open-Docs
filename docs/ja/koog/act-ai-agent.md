@@ -109,7 +109,7 @@ val observed = functionalAIAgent<String, String>(
     toolRegistry = tools,
     featureContext = {
         install(EventHandler) {
-            onToolCall { e -> println("Tool called: ${'```}{e.tool.name}, args: ${'```}{e.toolArgs}") }
+            onToolCallStarting { e -> println("Tool called: ${'```'}{e.tool.name}, args: ${'```'}{e.toolArgs}") }
         }
     }
 ) { input ->

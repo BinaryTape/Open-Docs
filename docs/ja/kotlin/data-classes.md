@@ -27,7 +27,7 @@ data class User(val name: String, val age: Int)
 
 データクラスは他のクラスを拡張できます ([密封クラス](sealed-classes.md)の例を参照)。
 
-> On the JVM, 生成されたクラスが引数なしのコンストラクタを持つ必要がある場合、プロパティにデフォルト値を指定する必要があります ([Constructors](classes.md#constructors)を参照):
+> On the JVM, 生成されたクラスが引数なしのコンストラクタを持つ必要がある場合、プロパティにデフォルト値を指定する必要があります ([Constructors](classes.md#constructors-and-initializer-blocks)を参照):
 >
 > ```kotlin
 > data class User(val name: String = "", val age: Int = 0)

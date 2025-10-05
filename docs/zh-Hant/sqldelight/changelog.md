@@ -3,6 +3,7 @@
 ## 未發布
 
 ### 新增
+- [PostgreSQL 變體] 新增對 Postgres Enum 的支援 (#5935 by [Griffio][griffio])
 - [PostgreSQL 變體] 新增對 Postgres 觸發器的有限支援 (#5932 by [Griffio][griffio])
 - [PostgreSQL 變體] 新增判斷式以檢查 SQL 表達式是否可解析為 JSON (#5843 by [Griffio][griffio])
 - [PostgreSQL 變體] 新增對 PostgreSQL Comment On 陳述式的有限支援 (#5808 by [Griffio][griffio])
@@ -21,7 +22,7 @@
 - [IntelliJ 外掛程式] 修正使用 Schema 陳述式 CREATE INDEX 和 CREATE VIEW 時的 PostgreSQL 變體問題 (#5772 by [Griffio][griffio])
 - [編譯器] 修正參照欄位時的 FTS 堆疊溢位 (#5896 by [Griffio][griffio])
 - [編譯器] 修正 With Recursive 堆疊溢位 (#5892 by [Griffio][griffio])
-- [編譯器] 修正針對 Insert|Update|Delete 返回陳述式發出通知的問題 (#5851 by [Griffio][griffio])
+- [編譯器] 修正 Insert|Update|Delete Returning 陳述式的通知問題 (#5851 by [Griffio][griffio])
 - [編譯器] 修正返回 Long 的交易區塊的非同步結果型別 (#5836 by [Griffio][griffio])
 - [編譯器] 將 SQL 參數綁定從 O(n²) 複雜度優化至 O(n) 複雜度 (#5898 by [Chen Frenkel][chenf7])
 - [SQLite 變體] 修正 Sqlite 3.18 缺少函式 (#5759 by [Griffio][griffio])
@@ -70,7 +71,7 @@
 - [執行期] 修正 LogSqliteDriver 在實際驅動程式為非同步 (Async) 時的崩潰問題 (#5723 by [Eric Denman][edenman])
 - [執行期] 修正 StringBuilder 容量問題 (#5192 by [Jan Bína][janbina])
 - [PostgreSQL 變體] PostgreSQL 建立或替換視圖 (#5407 by [Griffio][griffio])
-- [PostgreSQL 變體] PostgreSQL to_json (#5606 by [Griffio][griffio])
+- [PostgreSQL 變體] Postgresql to_json (#5606 by [Griffio][griffio])
 - [PostgreSQL 變體] PostgreSQL 數值解析器 (#5399 by [Griffio][griffio])
 - [PostgreSQL 變體] SQLite 視窗函式 (#2799 by [Griffio][griffio])
 - [PostgreSQL 變體] PostgreSQL SELECT DISTINCT ON (#5345 by [Griffio][griffio])
@@ -157,7 +158,7 @@
 - [編譯器] 修正帶有返回且無參數的群組陳述式編譯 (#4699 by [Griffio][griffio])
 - [編譯器] 使用 SqlBinaryExpr 綁定引數 (#4604 by [Griffio][griffio])
 - [IDE 外掛程式] 如果設定了 IDEA 專案 JDK 則使用它 (#4689 by [Griffio][griffio])
-- [IDE 外掛程式] 修正 IDEA 2023.2 及更高版本中「未知元素型別：TYPE_NAME」錯誤 (#4727)
+- [IDE 外掛程式] 修正「未知元素型別：TYPE_NAME」錯誤在 IDEA 2023.2 及更高版本中 (#4727)
 - [IDE 外掛程式] 修正了與 2023.2 的一些相容性問題
 - [Gradle 外掛程式] 更正 `verifyMigrationTask` Gradle 任務的文件 (#4713 by [Josh Friend][joshfriend])
 - [Gradle 外掛程式] 新增 Gradle 任務輸出訊息以幫助使用者在驗證資料庫之前生成資料庫 (#4684 by [Jingwei][jingwei99])
@@ -203,7 +204,7 @@
 - [MySQL 變體] 支援不帶顯示寬度的無符號整數 (#4306 by [Mike Gershunovsky][shellderp])
 - [MySQL 變體] 支援 LOCK IN SHARED MODE
 - [PostgreSQL 變體] 新增布林和 Timestamp 到 min max (#4245 by [Griffio][griffio])
-- [PostgreSQL 變體] PostgreSQL：新增視窗函式支援 (#4283 by [Philip Wedemann][hfhbd])
+- [PostgreSQL 變體] Postgres：新增視窗函式支援 (#4283 by [Philip Wedemann][hfhbd])
 - [執行期] 為執行期新增 `linuxArm64`、`androidNative` 和 `watchosDeviceArm` 目標 (#4258 by [Philip Wedemann][hfhbd])
 - [分頁擴充功能] 為分頁擴充功能新增 `linux` 和 `mingw x64` 目標 (#4280 by [Cedric Hippmann][chippman])
 
@@ -287,11 +288,11 @@
 - [R2DBC 驅動程式] 改用 javaObjectType (by [Philip Wedemann][hfhbd])
 - [R2DBC 驅動程式] 修正 `bindStatement` 中的原始空值 (primitive null values) (by [Philip Wedemann][hfhbd])
 - [R2DBC 驅動程式] 支援 R2DBC 1.0 (by [Philip Wedemann][hfhbd])
-- [PostgreSQL 變體] PostgreSQL：修正沒有型別參數的陣列 (Array without type parameter) (by [Philip Wedemann][hfhbd])
+- [PostgreSQL 變體] Postgres：修正沒有型別參數的陣列 (Array without type parameter) (by [Philip Wedemann][hfhbd])
 - [IDE 外掛程式] 將 Intellij 版本提升到 221.6008.13 (by [Philip Wedemann][hfhbd])
 - [編譯器] 從純視圖解析遞迴起源表 (recursive origin table) (by [Philip Wedemann][hfhbd])
 - [編譯器] 從表格外部鍵子句 (foreign key clause) 使用值類別 (value classes) (by [Philip Wedemann][hfhbd])
-- [編譯器] 修正 SelectQueryGenerator 以支援沒有圓括號的綁定表達式 (bind expression) (by [Doogie Min][bellatoris])
+- [編譯器] 修正 SelectQueryGenerator 以支援沒有圓括號的綁定表達式 (bind expression) (#5928 by [Doogie Min][bellatoris])
 - [編譯器] 修正使用交易時重複生成 `${name}Indexes` 變數的問題 (by [Andreas Sacher][sachera])
 
 ## [1.5.5] - 2023-01-20
@@ -751,7 +752,7 @@ sqldelight {
 - [編譯器] 生成程式碼正在使用完全限定名稱 (#1939)
 - [IDE 外掛程式] 從 Gradle 同步觸發 `sqldelight` 程式碼生成
 - [IDE 外掛程式] 變更 .sq 檔案時外掛程式未重新生成資料庫介面 (#1945)
-- [IDE 外掛程式] Issue 當移動檔案到新套件時 (#444)
+- [IDE 外掛程式] 移動檔案到新套件時的問題 (#444)
 - [IDE 外掛程式] 如果沒有地方移動游標，則不執行任何操作而不是崩潰 (#1994)
 - [IDE 外掛程式] 對於 Gradle 專案之外的檔案使用空套件名稱 (#1973)
 - [IDE 外掛程式] 對於無效型別優雅地失敗 (#1943)
@@ -877,7 +878,7 @@ sqldelight {
 * 修正：[Gradle] #1287 同步時警告。
 * 修正：[編譯器] #1469 查詢的 `SynetheticAccessor` 建立。
 * 修正：[JVM 驅動程式] 修正記憶體洩漏。
-* 注意：`kotlinx bintray maven` 倉庫需要新增到您的 `buildscript` 中，以支持協程擴展 artifact。
+* 注意：協程擴展 artifact 需要 kotlinx bintray maven 儲存庫被新增到您的 buildscript 中。
 
 ## [1.2.0] - 2019-08-30
 
@@ -898,7 +899,7 @@ sqldelight {
 * 修正：[Gradle] #1274 啟用與 Kotlin DSL 一起使用 SQLDelight 擴充功能。
 * 修正：[編譯器] 為每個查詢確定性地生成唯一 ID。
 * 修正：[編譯器] 僅在交易完成時通知監聽查詢。
-* 修正：[JVM 驅動程式] #1370 強制 `JdbcSqliteDriver` 使用者提供資料庫 URL。
+* 修正：[JVM 驅動程式] #1370 強制 JdbcSqliteDriver 使用者提供資料庫 URL。
 
 ## [1.1.3] - 2019-04-14
 

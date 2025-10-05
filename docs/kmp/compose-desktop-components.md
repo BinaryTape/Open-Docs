@@ -236,15 +236,15 @@ object AboutIcon : Painter() {
 
 ## 事件
 
-*   [鼠标事件](compose-desktop-mouse-events.md)
-*   [键盘事件](compose-desktop-keyboard.md)
-*   [Tab 键导航](#tabbing-navigation-between-components)
+* [鼠标事件](compose-desktop-mouse-events.md)
+* [键盘事件](compose-desktop-keyboard.md)
+* [Tab 键导航](#tabbing-navigation-between-components)
 
 ### 组件之间的 Tab 键导航
 
 您可以使用 <shortcut>Tab</shortcut> 键盘快捷键设置组件之间的导航，用于切换到下一个组件，使用 <shortcut>⇧ + Tab</shortcut> 切换到上一个组件。
 
-默认情况下，Tab 键导航允许您按照组件出现的顺序在可聚焦组件之间移动。可聚焦组件包括 `TextField`、`OutlinedTextField` 和 `BasicTextField` 等 composable，以及使用 `Modifier.clickable` 的组件，例如 `Button`、`IconButton` 和 `MenuItem`。
+默认情况下，Tab 键导航允许您按照组件出现的顺序在可聚焦组件之间移动。可聚焦组件包括 `TextField`、`OutlinedTextField` 和 `BasicTextField` composable，以及使用 `Modifier.clickable` 的组件，例如 `Button`、`IconButton` 和 `MenuItem`。
 
 例如，以下是一个窗口示例，用户可以使用标准快捷键在五个文本字段之间导航：
 
@@ -300,7 +300,6 @@ fun main() = application {
 
 ## 后续步骤
 
-*   完成 [Compose Multiplatform 桌面应用程序](https://github.com/JetBrains/compose-multiplatform-desktop-template#readme) 教程。
 *   了解如何 [为您的 Compose Multiplatform 桌面项目创建单元测试](compose-desktop-ui-testing.md)。
 *   了解如何 [为桌面平台创建原生分发、安装程序和软件包](compose-native-distribution.md)。
 *   设置 [与 Swing 的互操作性并将您的 Swing 应用程序迁移到 Compose Multiplatform](compose-desktop-swing-interoperability.md)。

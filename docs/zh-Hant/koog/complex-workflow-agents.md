@@ -2,6 +2,9 @@
 
 除了單次執行代理程式外，`AIAgent` 類別還允許您透過定義自訂策略、工具、配置，以及自訂的輸入/輸出類型來建構處理複雜工作流程的代理程式。
 
+!!! tip
+    如果您剛接觸 Koog 並想建立最簡單的代理程式，請從 [單次執行代理程式](single-run-agents.md) 開始。
+
 建立和配置此類代理程式的過程通常包括以下步驟：
 
 1.  提供提示執行器以與 LLM 溝通。
@@ -19,7 +22,7 @@
     使用環境變數或安全的組態管理系統來儲存您的 API 金鑰。
     避免直接在原始碼中硬編碼 API 金鑰。
 
-## 建立單次執行代理程式
+## 建立複雜工作流程代理程式
 
 ### 1. 新增依賴項
 
@@ -38,7 +41,7 @@ dependencies {
 提示執行器管理並執行提示。
 您可以根據計畫使用的 LLM 提供者選擇提示執行器。
 此外，您可以使用其中一個可用的 LLM 用戶端建立自訂提示執行器。
-若要了解更多資訊，請參閱 [提示執行器](prompt-api.md#prompt-executors)。
+若要了解更多資訊，請參閱 [提示執行器](prompt-api.md#running-prompts-with-prompt-executors)。
 
 例如，若要提供 OpenAI 提示執行器，您需要呼叫 `simpleOpenAIExecutor` 函數並為其提供與 OpenAI 服務進行驗證所需的 API 金鑰：
 
@@ -112,6 +115,7 @@ val processNode by node<InputType, OutputType> { input ->
 }
 ```
 <!--- KNIT example-complex-workflow-agents-04.kt -->
+
 !!! tip
     還有一些預定義節點可以在您的代理程式策略中使用。若要了解更多資訊，請參閱 [預定義節點和元件](nodes-and-components.md)。
 
@@ -162,6 +166,7 @@ edge(sourceNode forwardTo targetNode transformed { output ->
 edge(sourceNode forwardTo targetNode onCondition { it.isNotEmpty() } transformed { it.uppercase() })
 ```
 <!--- KNIT example-complex-workflow-agents-05.kt -->
+
 #### 3.2. 實作策略
 
 若要實作代理程式策略，請呼叫 `strategy` 函數並定義節點與邊。例如：
@@ -388,7 +393,7 @@ fun main() {
 
 ## 使用結構化資料
 
-`AIAgent` 可以處理來自 LLM 輸出的結構化資料。有關更多詳細資訊，請參閱 [結構化資料處理](structured-data.md)。
+`AIAgent` 可以處理來自 LLM 輸出的結構化資料。有關更多詳細資訊，請參閱 [結構化資料處理](structured-output.md)。
 
 ## 使用平行工具呼叫
 

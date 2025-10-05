@@ -6,29 +6,29 @@
 
 Koog 框架為使用工具提供以下工作流程：
 
-1. 建立自訂工具或使用其中一個內建工具。
-2. 將工具新增至工具註冊表。
-3. 將工具註冊表傳遞給代理程式。
-4. 與代理程式一同使用工具。
+1.  建立自訂工具或使用其中一個內建工具。
+2.  將工具新增至工具註冊表。
+3.  將工具註冊表傳遞給代理程式。
+4.  與代理程式一同使用工具。
 
 ### 可用的工具類型
 
 Koog 框架中有三種類型的工具：
 
-- 內建工具，為代理程式與使用者互動以及對話管理提供功能。有關詳細資訊，請參閱 [內建工具](built-in-tools.md)。
-- 基於註解的自訂工具，可讓您將函式作為工具暴露給 LLM。有關詳細資訊，請參閱 [基於註解的工具](annotation-based-tools.md)。
-- 自訂工具，可讓您控制工具參數、中繼資料、執行邏輯以及其註冊和呼叫方式。有關詳細資訊，請參閱 [基於類別的工具](class-based-tools.md)。
+-   內建工具，為代理程式與使用者互動以及對話管理提供功能。有關詳細資訊，請參閱 [內建工具](built-in-tools.md)。
+-   基於註解的自訂工具，可讓您將函式作為工具暴露給 LLM。有關詳細資訊，請參閱 [基於註解的工具](annotation-based-tools.md)。
+-   自訂工具，可讓您控制工具參數、中繼資料、執行邏輯以及其註冊和呼叫方式。有關詳細資訊，請參閱 [基於類別的工具](class-based-tools.md)。
 
 ### 工具註冊表
 
-在代理程式中使用工具之前，您必須將其新增至工具註冊表。
+在您於代理程式中使用工具之前，必須將其新增至工具註冊表。
 工具註冊表管理代理程式可用的所有工具。
 
 工具註冊表的主要功能：
 
-- 組織工具。
-- 支援合併多個工具註冊表。
-- 提供依名稱或類型檢索工具的方法。
+-   組織工具。
+-   支援合併多個工具註冊表。
+-   提供依名稱或類型檢索工具的方法。
 
 要了解更多資訊，請參閱 [ToolRegistry](https://api.koog.ai/agents/agents-tools/ai.koog.agents.core.tools/-tool-registry/index.html)。
 
@@ -95,16 +95,16 @@ val agent = AIAgent(
 在您的代理程式程式碼中有數種呼叫工具的方式。建議的方法是使用代理程式環境中提供的方法，而不是直接呼叫工具，因為這可確保工具操作在代理程式環境中得到正確處理。
 
 !!! tip
-    請確保您已在工具中實作正確的 [錯誤處理](agent-events.md) 以防止代理程式失敗。
+    請確保您已在工具中實作正確的 [錯誤處理](agent-event-handlers.md) 以防止代理程式失敗。
 
 這些工具是在由 `AIAgentLLMWriteSession` 表示的特定會話上下文內呼叫的。
 它提供了數種呼叫工具的方法，以便您可以：
 
-- 呼叫帶有給定引數的工具。
-- 依其名稱和給定引數呼叫工具。
-- 依提供的工具類別和引數呼叫工具。
-- 呼叫指定類型的工具，並帶有給定引數。
-- 呼叫返回原始字串結果的工具。
+-   呼叫帶有給定引數的工具。
+-   依其名稱和給定引數呼叫工具。
+-   依提供的工具類別和引數呼叫工具。
+-   呼叫指定類型的工具，並帶有給定引數。
+-   呼叫返回原始字串結果的工具。
 
 有關更多詳細資訊，請參閱 [API 參考](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.agent.session/-a-i-agent-l-l-m-write-session/index.html)。
 
@@ -189,7 +189,8 @@ val strategy = strategy<Unit, Unit>("strategy-name") {
 
 <!--- INCLUDE
 import ai.koog.agents.core.agent.AIAgent
-import ai.koog.agents.core.agent.asTool
+import ai.koog.agents.core.agent.AIAgentService
+import ai.koog.agents.core.agent.createAgentTool
 import ai.koog.agents.core.tools.ToolParameterDescriptor
 import ai.koog.agents.core.tools.ToolParameterType
 import ai.koog.agents.core.tools.ToolRegistry
@@ -201,16 +202,16 @@ val analysisToolRegistry = ToolRegistry {}
 
 -->
 ```kotlin
-// Create a specialized agent
-val analysisAgent = AIAgent(
+// Create a specialized agent service, responsible for creating financial analysis agents.
+val analysisAgentService = AIAgentService(
     promptExecutor = simpleOpenAIExecutor(apiKey),
     llmModel = OpenAIModels.Chat.GPT4o,
     systemPrompt = "You are a financial analysis specialist.",
     toolRegistry = analysisToolRegistry
 )
 
-// Convert the agent to a tool
-val analysisAgentTool = analysisAgent.asTool(
+// Create a tool that would run financial analysis agent once called.
+val analysisAgentTool = analysisAgentService.createAgentTool(
     agentName = "analyzeTransactions",
     agentDescription = "Performs financial transaction analysis",
     inputDescription = "Transaction analysis request",
@@ -250,9 +251,9 @@ val coordinatorAgent = AIAgent(
 
 當呼叫代理程式工具時：
 
-1. 引數會根據輸入描述符反序列化。
-2. 封裝的代理程式會使用反序列化輸入來執行。
-3. 代理程式的輸出會序列化並作為工具結果傳回。
+1.  引數會根據輸入描述符反序列化。
+2.  封裝的代理程式會使用反序列化輸入來執行。
+3.  代理程式的輸出會序列化並作為工具結果傳回。
 
 ### 將代理程式作為工具的好處
 

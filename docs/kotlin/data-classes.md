@@ -28,7 +28,7 @@ data class User(val name: String, val age: Int)
 
 数据类可以扩展其他类（关于示例，请参见 [密封类](sealed-classes.md)）。
 
-> 在 JVM 上，如果生成的类需要有一个无参构造函数，则必须为属性指定默认值（关于详情，请参见 [构造函数](classes.md#constructors)）：
+> 在 JVM 上，如果生成的类需要有一个无参构造函数，则必须为属性指定默认值（关于详情，请参见 [构造函数](classes.md#constructors-and-initializer-blocks)）：
 >
 > ```kotlin
 > data class User(val name: String = "", val age: Int = 0)

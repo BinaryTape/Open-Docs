@@ -2,7 +2,7 @@
 
 Kotlinは、強力で柔軟なデータ可視化のためのオールインワンソリューションを提供し、複雑なモデルに深く入り込む前にデータを提示および探索する直感的な方法を提供します。
 
-このチュートリアルでは、[Kandy](https://kotlin.github.io/kandy/welcome.html)および[Kotlin DataFrame](https://kotlin.github.io/dataframe/gettingstarted.html)ライブラリと[Kotlin Notebook](kotlin-notebook-overview.md)を使用して、IntelliJ IDEAでさまざまなグラフタイプを作成する方法を解説します。
+このチュートリアルでは、[Kotlin Notebook](kotlin-notebook-overview.md)と[Kandy](https://kotlin.github.io/kandy/welcome.html)および[Kotlin DataFrame](https://kotlin.github.io/dataframe/home.html)ライブラリを使用して、IntelliJ IDEAでさまざまなグラフタイプを作成する方法を解説します。
 
 ## 開始する前に
 

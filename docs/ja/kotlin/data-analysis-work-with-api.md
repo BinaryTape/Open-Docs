@@ -2,7 +2,7 @@
 
 [Kotlin Notebook](kotlin-notebook-overview.md)は、様々なウェブソースやAPIからデータにアクセスし、操作するための強力なプラットフォームを提供します。各ステップを可視化して明確にするための反復的な環境を提供することで、データ抽出と分析のタスクを簡素化します。これにより、慣れていないAPIを探索する際に特に役立ちます。
 
-[Kotlin DataFrameライブラリ](https://kotlin.github.io/dataframe/gettingstarted.html)と組み合わせて使用すると、Kotlin NotebookはAPIへの接続やJSONデータの取得を可能にするだけでなく、包括的な分析と視覚化のためにこのデータを整形するのにも役立ちます。
+[Kotlin DataFrameライブラリ](https://kotlin.github.io/dataframe/home.html)と組み合わせて使用すると、Kotlin NotebookはAPIへの接続やJSONデータの取得を可能にするだけでなく、包括的な分析と視覚化のためにこのデータを整形するのにも役立ちます。
 
 > Kotlin Notebookの例については、[GitHubのDataFrameの例](https://github.com/Kotlin/dataframe/blob/master/examples/notebooks/youtube/Youtube.ipynb)を参照してください。
 >
@@ -93,7 +93,7 @@ Kotlin NotebookとKotlin DataFrameライブラリを使用してAPIからデー�
 
 ## データのクリーンアップと整形
 
-データのクリーンアップと整形は、分析のためにデータセットを準備する上で非常に重要なステップです。[Kotlin DataFrameライブラリ](https://kotlin.github.io/dataframe/gettingstarted.html)は、これらのタスクに強力な機能を提供します。[`move`](https://kotlin.github.io/dataframe/move.html)、[`concat`](https://kotlin.github.io/dataframe/concatdf.html)、[`select`](https://kotlin.github.io/dataframe/select.html)、[`parse`](https://kotlin.github.io/dataframe/parse.html)、[`join`](https://kotlin.github.io/dataframe/join.html)などのメソッドは、データの整理と変換に役立ちます。
+データのクリーンアップと整形は、分析のためにデータセットを準備する上で非常に重要なステップです。[Kotlin DataFrameライブラリ](https://kotlin.github.io/dataframe/home.html)は、これらのタスクに強力な機能を提供します。[`move`](https://kotlin.github.io/dataframe/move.html)、[`concat`](https://kotlin.github.io/dataframe/concatdf.html)、[`select`](https://kotlin.github.io/dataframe/select.html)、[`parse`](https://kotlin.github.io/dataframe/parse.html)、[`join`](https://kotlin.github.io/dataframe/join.html)などのメソッドは、データの整理と変換に役立ちます。
 
 データがすでに[YouTubeのData APIを使用して取得されている](#fetch-data-from-an-api)例を見てみましょう。目標は、詳細な分析のためにデータセットをクリーンアップし、再構築することです。
 
@@ -134,7 +134,7 @@ Kotlin NotebookとKotlin DataFrameライブラリを使用してAPIからデー�
 
 ## Kotlin Notebookでデータを分析する
 
-[Kotlin DataFrameライブラリ](https://kotlin.github.io/dataframe/gettingstarted.html)の関数を使用して、データを正常に[取得](#fetch-data-from-an-api)し、[クリーンアップおよび整形](#clean-and-refine-data)した後、次のステップは、準備されたデータセットを分析して意味のある洞察を抽出することです。
+データを正常に[取得](#fetch-data-from-an-api)し、[クリーンアップおよび整形](#clean-and-refine-data)した後、[Kotlin DataFrameライブラリ](https://kotlin.github.io/dataframe/home.html)の関数を使用して、次のステップは、準備されたデータセットを分析して意味のある洞察を抽出することです。
 
 データの分類には[`groupBy`](https://kotlin.github.io/dataframe/groupby.html)、[要約統計量](https://kotlin.github.io/dataframe/summarystatistics.html)の計算には[`sum`](https://kotlin.github.io/dataframe/sum.html)や[`maxBy`](https://kotlin.github.io/dataframe/maxby.html)、データの順序付けには[`sortBy`](https://kotlin.github.io/dataframe/sortby.html)といったメソッドが特に役立ちます。これらのツールを使用すると、複雑なデータ分析タスクを効率的に実行できます。
 
@@ -179,7 +179,7 @@ Kotlin NotebookとKotlin DataFrameライブラリを使用してAPIからデー�
 
 ![分析結果](kotlin-analysis.png){width=700}
 
-より高度なテクニックについては、[Kotlin DataFrameのドキュメント](https://kotlin.github.io/dataframe/gettingstarted.html)を参照してください。
+より高度なテクニックについては、[Kotlin DataFrameのドキュメント](https://kotlin.github.io/dataframe/home.html)を参照してください。
 
 ## 次に行うこと
 

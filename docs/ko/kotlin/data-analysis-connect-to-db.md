@@ -1,6 +1,6 @@
 [//]: # (title: 데이터베이스 연결 및 데이터 검색)
 
-[Kotlin Notebook](kotlin-notebook-overview.md)은 MariaDB, PostgreSQL, MySQL, SQLite와 같은 다양한 유형의 SQL 데이터베이스에 연결하고 데이터를 검색하는 기능을 제공합니다. [Kotlin DataFrame 라이브러리](https://kotlin.github.io/dataframe/gettingstarted.html)를 활용하여 Kotlin Notebook은 데이터베이스에 연결하고, SQL 쿼리를 실행하며, 추가 작업을 위해 결과를 가져올 수 있습니다.
+[Kotlin Notebook](kotlin-notebook-overview.md)은 MariaDB, PostgreSQL, MySQL, SQLite와 같은 다양한 유형의 SQL 데이터베이스에 연결하고 데이터를 검색하는 기능을 제공합니다. [Kotlin DataFrame 라이브러리](https://kotlin.github.io/dataframe/home.html)를 활용하여 Kotlin Notebook은 데이터베이스에 연결하고, SQL 쿼리를 실행하며, 추가 작업을 위해 결과를 가져올 수 있습니다.
 
 자세한 예시는 [KotlinDataFrame SQL Examples GitHub 저장소의 Notebook](https://github.com/zaleslaw/KotlinDataFrame-SQL-Examples/blob/master/notebooks/imdb.ipynb)을 참조하세요.
 
@@ -17,7 +17,7 @@ Kotlin Notebook 기능이 사용 가능하지 않다면, 플러그인이 활성�
 
 ## 데이터베이스 연결
 
-SQL 데이터베이스에 연결하고 상호 작용하려면 [Kotlin DataFrame 라이브러리](https://kotlin.github.io/dataframe/gettingstarted.html)의 특정 함수를 사용할 수 있습니다. `DatabaseConfiguration`을 사용하여 데이터베이스에 연결하고 `getSchemaForAllSqlTables()`를 사용하여 데이터베이스 내 모든 테이블의 스키마를 검색할 수 있습니다.
+[Kotlin DataFrame 라이브러리](https://kotlin.github.io/dataframe/home.html)의 특정 함수를 사용하여 SQL 데이터베이스에 연결하고 상호 작용할 수 있습니다. `DatabaseConfiguration`을 사용하여 데이터베이스에 연결하고 `getSchemaForAllSqlTables()`를 사용하여 데이터베이스 내 모든 테이블의 스키마를 검색할 수 있습니다.
 
 예시를 살펴보겠습니다.
 
@@ -129,7 +129,7 @@ IMDB 데이터베이스에 연결하고 Quentin Tarantino 감독이 연출한 �
 
 ## Kotlin Notebook에서 데이터 분석
 
-[SQL 데이터베이스 연결](#connect-to-database)을 설정한 후, [Kotlin DataFrame 라이브러리](https://kotlin.github.io/dataframe/gettingstarted.html)를 활용하여 Kotlin Notebook에서 심층적인 데이터 분석을 수행할 수 있습니다. 여기에는 데이터 그룹화, 정렬 및 집계 기능이 포함되어 데이터 내의 패턴을 발견하고 이해하는 데 도움이 됩니다.
+[SQL 데이터베이스 연결](#connect-to-database)을 설정한 후, [Kotlin DataFrame 라이브러리](https://kotlin.github.io/dataframe/home.html)를 활용하여 Kotlin Notebook에서 심층적인 데이터 분석을 수행할 수 있습니다. 여기에는 데이터 그룹화, 정렬 및 집계 기능이 포함되어 데이터 내의 패턴을 발견하고 이해하는 데 도움이 됩니다.
 
 영화 데이터베이스에서 배우 데이터를 분석하는 예시를 살펴보겠습니다. 이 예시는 배우의 가장 자주 나타나는 이름에 초점을 맞춥니다:
 

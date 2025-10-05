@@ -2,7 +2,7 @@
 
 [Kotlin Notebook](kotlin-notebook-overview.md) 提供一個強大的平台，用於存取和操作來自各種網路來源和 API 的資料。它透過提供一個疊代式環境來簡化資料擷取和分析任務，該環境能將每個步驟視覺化以提高清晰度。這使得它在探索您不熟悉的 API 時特別有用。
 
-當與 [Kotlin DataFrame 程式庫](https://kotlin.github.io/dataframe/gettingstarted.html) 結合使用時，Kotlin Notebook 不僅讓您能夠連接並從 API 擷取 JSON 資料，還協助重塑這些資料以進行全面的分析和視覺化。
+當與 [Kotlin DataFrame 程式庫](https://kotlin.github.io/dataframe/home.html) 結合使用時，Kotlin Notebook 不僅讓您能夠連接並從 API 擷取 JSON 資料，還協助重塑這些資料以進行全面的分析和視覺化。
 
 > 有關 Kotlin Notebook 範例，請參閱 [GitHub 上的 DataFrame 範例](https://github.com/Kotlin/dataframe/blob/master/examples/notebooks/youtube/Youtube.ipynb)。
 >
@@ -93,7 +93,7 @@ Kotlin Notebook 依賴於 [Kotlin Notebook 外掛程式](https://plugins.jetbrai
 
 ## 清理和優化資料
 
-清理和優化資料是準備資料集以進行分析的關鍵步驟。[Kotlin DataFrame 程式庫](https://kotlin.github.io/dataframe/gettingstarted.html) 為這些任務提供了強大的功能。諸如 [`move`](https://kotlin.github.io/dataframe/move.html)、[`concat`](https://kotlin.github.io/dataframe/concatdf.html)、[`select`](https://kotlin.github.io/dataframe/select.html)、[`parse`](https://kotlin.github.io/dataframe/parse.html) 和 [`join`](https://kotlin.github.io/dataframe/join.html) 等方法在組織和轉換資料方面發揮著重要作用。
+清理和優化資料是準備您的資料集以進行分析的關鍵步驟。[Kotlin DataFrame 程式庫](https://kotlin.github.io/dataframe/home.html) 為這些任務提供了強大的功能。諸如 [`move`](https://kotlin.github.io/dataframe/move.html)、[`concat`](https://kotlin.github.io/dataframe/concatdf.html)、[`select`](https://kotlin.github.io/dataframe/select.html)、[`parse`](https://kotlin.github.io/dataframe/parse.html) 和 [`join`](https://kotlin.github.io/dataframe/join.html) 等方法在組織和轉換您的資料方面發揮著重要作用。
 
 讓我們來探討一個資料已從 [YouTube 資料 API 擷取](#fetch-data-from-an-api) 的範例。目標是清理和重組資料集，為深入分析做準備：
 
@@ -134,7 +134,7 @@ Kotlin Notebook 依賴於 [Kotlin Notebook 外掛程式](https://plugins.jetbrai
 
 ## 在 Kotlin Notebook 中分析資料
 
-在您使用 [Kotlin DataFrame 程式庫](https://kotlin.github.io/dataframe/gettingstarted.html) 的函數成功 [擷取](#fetch-data-from-an-api) 並 [清理和優化資料](#clean-and-refine-data) 後，下一步是分析這個準備好的資料集，以提取有意義的見解。
+在您使用 [Kotlin DataFrame 程式庫](https://kotlin.github.io/dataframe/home.html) 的函數成功 [擷取](#fetch-data-from-an-api) 並 [清理和優化資料](#clean-and-refine-data) 後，下一步是分析這個準備好的資料集，以提取有意義的見解。
 
 諸如用於資料分類的 [`groupBy`](https://kotlin.github.io/dataframe/groupby.html)、用於 [摘要統計](https://kotlin.github.io/dataframe/summarystatistics.html) 的 [`sum`](https://kotlin.github.io/dataframe/sum.html) 和 [`maxBy`](https://kotlin.github.io/dataframe/maxby.html)，以及用於資料排序的 [`sortBy`](https://kotlin.github.io/dataframe/sortby.html) 等方法特別有用。這些工具讓您能夠高效地執行複雜的資料分析任務。
 
@@ -165,7 +165,7 @@ Kotlin Notebook 依賴於 [Kotlin Notebook 外掛程式](https://plugins.jetbrai
    ```kotlin
    val aggregated = channels.aggregate {
        viewCount.sum() into view
-
+   
        val last = maxBy { publishedAt }
        last.title into "last title"
        last.publishedAt into "time"
@@ -179,7 +179,7 @@ Kotlin Notebook 依賴於 [Kotlin Notebook 外掛程式](https://plugins.jetbrai
 
 ![分析結果](kotlin-analysis.png){width=700}
 
-有關更進階的技術，請參閱 [Kotlin DataFrame 文件](https://kotlin.github.io/dataframe/gettingstarted.html)。
+有關更進階的技術，請參閱 [Kotlin DataFrame 文件](https://kotlin.github.io/dataframe/home.html)。
 
 ## 接下來
 

@@ -149,7 +149,7 @@ val agent = AIAgent(
 단일 실행 에이전트는 사용자 지정 이벤트 핸들러를 지원합니다.
 에이전트를 생성하는 데 이벤트 핸들러가 필수는 아니지만, 테스트, 디버깅 또는 연쇄 에이전트 상호작용을 위한 훅(hook)을 만드는 데 유용할 수 있습니다.
 
-에이전트 상호작용을 모니터링하기 위해 `EventHandler` 기능을 사용하는 방법에 대한 자세한 내용은 [에이전트 이벤트](agent-events.md)를 참조하세요.
+에이전트 상호작용을 모니터링하기 위해 `EventHandler` 기능을 사용하는 방법에 대한 자세한 내용은 [이벤트 핸들러](agent-event-handlers.md)를 참조하세요.
 
 ### 8. 에이전트 실행
 
@@ -181,7 +181,7 @@ fun main() = runBlocking {
 ```
 <!--- KNIT example-single-run-06.kt -->
 
-에이전트는 다음 출력을 생성합니다.
+에이전트는 다음 출력을 생성합니다:
 
 ```
 Agent says: Hello! I'm here to assist you with a variety of tasks. Whether you have questions, need information, or require help with specific tasks, feel free to ask. How can I assist you today?

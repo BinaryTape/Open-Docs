@@ -6,10 +6,10 @@ _[發佈日期：2025 年 9 月 11 日](releases.md#release-details)_
 
 Ktor 3.3.0 在伺服器、客戶端和工具方面帶來了新功能。以下是此功能版本的一些重點：
 
-* [靜態資源的自訂回退機制](#custom-fallback)
-* [OpenAPI 規範生成](#openapi-spec-gen)
-* [HTTP/2 明碼 (h2c) 支援](#http2-h2c-support)
-* [實驗性 WebRTC 客戶端](#webrtc-client)
+*   [靜態資源的自訂回退機制](#custom-fallback)
+*   [OpenAPI 規範生成](#openapi-spec-gen)
+*   [HTTP/2 明碼 (h2c) 支援](#http2-h2c-support)
+*   [實驗性 WebRTC 客戶端](#webrtc-client)
 
 ## Ktor 伺服器
 
@@ -39,7 +39,7 @@ staticFiles("/files", File("textFiles")) {
 Ktor 3.3.0 引入了對靜態資源的 `ETag` 和 `LastModified` 標頭的支援。當安裝了 [`ConditionalHeaders`](server-conditional-headers.md) 外掛程式時，您可以處理條件式標頭，以避免在內容自上次請求以來未發生變化時發送內容主體：
 
 ```kotlin
-staticFiles("/filesWithEtagAndLastModified", filesDir) {
+staticFiles("/filesWithEtagAndLastModified", File("files")) {
     etag { resource -> EntityTagVersion("etag") }
     lastModified { resource -> GMTDate() }
 }
@@ -50,7 +50,7 @@ staticFiles("/filesWithEtagAndLastModified", filesDir) {
 您也可以使用預定義的提供者，例如使用資源內容的 SHA‑256 雜湊來生成強 `ETag`：
 
 ```kotlin
-staticFiles("/filesWithStrongGeneratedEtag", filesDir) {
+staticFiles("/filesWithStrongGeneratedEtag", File("files")) {
     etag(ETagProvider.StrongSha256)
 }
 ```
@@ -64,10 +64,10 @@ staticFiles("/filesWithStrongGeneratedEtag", filesDir) {
 支援的模組宣告範例：
 
 ```kotlin
-// Supported — suspend function reference
+// 支援 — suspend 函式引用
 embeddedServer(Netty, port = 8080, module = Application::mySuspendModule)
 
-// Supported — configuration reference (application.conf / application.yaml)
+// 支援 — 配置引用 (application.conf / application.yaml)
 ktor {
     application {
         modules = [ com.example.ApplicationKt.mySuspendModule ]
@@ -135,7 +135,7 @@ val jsClient = WebRtcClient(JsWebRtc) {
 
 ```kotlin
 val androidClient = WebRtcClient(AndroidWebRtc) {
-    context = appContext // Required: provide Android context
+    context = appContext // 必填：提供 Android context
     defaultConnectionConfig = {
         iceServers = listOf(WebRtc.IceServer("stun:stun.l.google.com:19302"))
     }
@@ -149,13 +149,13 @@ val androidClient = WebRtcClient(AndroidWebRtc) {
 ```kotlin
 val connection = client.createPeerConnection()
 
-// Add a remote ICE candidate (received via your signaling channel)
+// 新增遠端 ICE candidate (透過您的信號通道接收)
 connection.addIceCandidate(WebRtc.IceCandidate(candidateString, sdpMid, sdpMLineIndex))
 
-// Wait until all local candidates are gathered
+// 等待所有本地端 candidate 收集完成
 connection.awaitIceGatheringComplete()
 
-// Listen for incoming data channel events
+// 監聽傳入的資料通道事件
 connection.dataChannelEvents.collect { event ->
    when (event) {
      is Open -> println("Another peer opened a chanel: ${event.channel}")
@@ -164,7 +164,7 @@ connection.dataChannelEvents.collect { event ->
    }
 }
 
-// Create a channel and send/receive messages
+// 建立通道並發送/接收訊息
 val channel = connection.createDataChannel("chat")
 channel.send("hello")
 val answer = channel.receiveText()

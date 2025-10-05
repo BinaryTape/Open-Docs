@@ -2,6 +2,9 @@
 
 単一実行エージェントに加え、`AIAgent` クラスを使用すると、カスタム戦略、ツール、構成、およびカスタム入出力タイプを定義することで、複雑なワークフローを処理するエージェントを構築できます。
 
+!!! tip
+    Koogを初めて利用し、最もシンプルなエージェントを作成したい場合は、[単一実行エージェント](single-run-agents.md)から始めてください。
+
 このようなエージェントを作成および構成するプロセスには、通常、以下の手順が含まれます。
 
 1.  LLMと通信するためのプロンプトエグゼキュータを提供します。
@@ -19,7 +22,7 @@
     APIキーは環境変数または安全な構成管理システムを使用して保存してください。
     ソースコードにAPIキーを直接ハードコーディングすることは避けてください。
 
-## 単一実行エージェントの作成
+## 複雑なワークフローエージェントの作成
 
 ### 1. 依存関係の追加
 
@@ -38,7 +41,7 @@ dependencies {
 プロンプトエグゼキュータは、プロンプトを管理し実行します。
 使用する予定のLLMプロバイダーに基づいてプロンプトエグゼキュータを選択できます。
 また、利用可能なLLMクライアントのいずれかを使用してカスタムプロンプトエグゼキュータを作成することもできます。
-詳細については、「[プロンプトエグゼキュータ](prompt-api.md#prompt-executors)」を参照してください。
+詳細については、「[プロンプトエグゼキュータ](prompt-api.md#running-prompts-with-prompt-executors)」を参照してください。
 
 たとえば、OpenAIプロンプトエグゼキュータを提供するには、`simpleOpenAIExecutor` 関数を呼び出し、OpenAIサービスでの認証に必要なAPIキーを渡す必要があります。
 
@@ -80,7 +83,7 @@ val multiExecutor = DefaultMultiLLMPromptExecutor(openAIClient, anthropicClient,
 
 ### 3. 戦略の定義
 
-戦略は、ノードとエッジを使用してエージェントのワークフローを定義します。戦略関数ジェネリックパラメータで任意の入出力型を指定できます。これらは `AIAgent` の入出力型にもなります。入出力のデフォルト型は `String` です。
+戦略は、ノードとエッジを使用してエージェントのワークフローを定義します。`strategy` 関数ジェネリックパラメータで任意の入出力型を指定できます。これらは `AIAgent` の入出力型にもなります。入出力のデフォルト型は `String` です。
 
 !!! tip
     戦略の詳細については、「[カスタム戦略グラフ](custom-strategy-graphs.md)」を参照してください。
@@ -112,6 +115,7 @@ val processNode by node<InputType, OutputType> { input ->
 }
 ```
 <!--- KNIT example-complex-workflow-agents-04.kt -->
+
 !!! tip
     エージェント戦略で使用できる事前定義されたノードもあります。詳細については、「[事前定義されたノードとコンポーネント](nodes-and-components.md)」を参照してください。
 
@@ -162,6 +166,7 @@ edge(sourceNode forwardTo targetNode transformed { output ->
 edge(sourceNode forwardTo targetNode onCondition { it.isNotEmpty() } transformed { it.uppercase() })
 ```
 <!--- KNIT example-complex-workflow-agents-05.kt -->
+
 #### 3.2. 戦略の実装
 
 エージェント戦略を実装するには、`strategy` 関数を呼び出してノードとエッジを定義します。たとえば、
@@ -388,7 +393,7 @@ fun main() {
 
 ## 構造化データの操作
 
-`AIAgent` はLLM出力からの構造化データを処理できます。詳細については、「[構造化データの処理](structured-data.md)」を参照してください。
+`AIAgent` はLLM出力からの構造化データを処理できます。詳細については、「[構造化データの処理](structured-output.md)」を参照してください。
 
 ## 並列ツール呼び出しの使用
 

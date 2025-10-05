@@ -8,7 +8,8 @@
 
 - 전략 실행
 - LLM 호출
-- 도구 호출 (Tool invocations)
+- LLM 스트리밍 (시작, 프레임, 완료, 오류)
+- 도구 호출
 - 에이전트 그래프 내 노드 실행
 
 이 기능은 에이전트 파이프라인의 주요 이벤트를 가로채어 구성 가능한 메시지 처리기로 전달하는 방식으로 작동합니다. 이 처리기들은 트레이스 정보를 로그 파일 또는 파일 시스템의 다른 유형 파일과 같은 다양한 대상으로 출력할 수 있으며, 이를 통해 개발자는 에이전트 동작에 대한 통찰력을 얻고 문제를 효과적으로 해결할 수 있습니다.
@@ -34,7 +35,7 @@
 <!--- INCLUDE
 import ai.koog.agents.core.agent.AIAgent
 import ai.koog.agents.core.feature.model.events.LLMCallCompletedEvent
-import ai.koog.agents.core.feature.model.events.ToolExecutionStartingEvent
+import ai.koog.agents.core.feature.model.events.ToolCallStartingEvent
 import ai.koog.agents.features.tracing.feature.Tracing
 import ai.koog.agents.features.tracing.writer.TraceFeatureMessageFileWriter
 import ai.koog.agents.features.tracing.writer.TraceFeatureMessageLogWriter
@@ -111,10 +112,10 @@ fileWriter.setMessageFilter { message ->
 
 // 도구 관련 이벤트만 필터링
 fileWriter.setMessageFilter { message -> 
-    message is ToolExecutionStartingEvent ||
-           message is ToolExecutionCompletedEvent ||
+    message is ToolCallStartingEvent ||
+           message is ToolCallCompletedEvent ||
            message is ToolValidationFailedEvent ||
-           message is ToolExecutionFailedEvent
+           message is ToolCallFailedEvent
 }
 
 // 노드 실행 이벤트만 필터링
@@ -138,7 +139,7 @@ fileWriter.setMessageFilter { message ->
 
 ```
 Tracing
-├── AIAgentPipeline (이벤트 가로채기용)
+├── AIAgentPipeline (for intercepting events)
 ├── TraceFeatureConfig
 │   └── FeatureConfig
 ├── Message Processors
@@ -158,10 +159,14 @@ Tracing
     ├── NodeExecutionCompletedEvent
     ├── LLMCallStartingEvent
     ├── LLMCallCompletedEvent
-    ├── ToolExecutionStartingEvent
+    ├── LLMStreamingStartingEvent
+    ├── LLMStreamingFrameReceivedEvent
+    ├── LLMStreamingFailedEvent
+    ├── LLMStreamingCompletedEvent
+    ├── ToolCallStartingEvent
     ├── ToolValidationFailedEvent
-    ├── ToolExecutionFailedEvent
-    └── ToolExecutionCompletedEvent
+    ├── ToolCallFailedEvent
+    └── ToolCallCompletedEvent
 ```
 
 ## 예시 및 빠른 시작
@@ -312,7 +317,7 @@ install(Tracing) {
 
 ### 특정 이벤트를 원격 엔드포인트로 트레이싱
 
-네트워크를 통해 이벤트 데이터를 보내야 할 때 원격 엔드포인트로 트레이싱을 사용합니다. 일단 시작되면, 원격 엔드포인트로의 트레이싱은 지정된 포트 번호에서 경량 서버를 시작하고 Kotlin Server-Sent Events (SSE)를 통해 이벤트를 전송합니다.
+네트워크를 통해 이벤트 데이터를 보내야 할 때 원격 엔드포인트로 트레이싱을 사용합니다. 일단 시작되면, 원격 엔드포인트로의 트레이싱은 지정된 포트 번호에서 경량 서버를 시작하고 Kotlin 서버 전송 이벤트 (SSE)를 통해 이벤트를 전송합니다.
 
 <!--- INCLUDE
 import ai.koog.agents.core.agent.AIAgent
@@ -415,344 +420,3 @@ listOf(clientJob).joinAll()
     -   [TraceFeatureMessageLogWriter](https://api.koog.ai/agents/agents-features/agents-features-trace/ai.koog.agents.features.tracing.writer/-trace-feature-message-log-writer/index.html): 트레이스 이벤트를 로거에 기록합니다.
     -   [TraceFeatureMessageFileWriter](https://api.koog.ai/agents/agents-features/agents-features-trace/ai.koog.agents.features.tracing.writer/-trace-feature-message-file-writer/index.html): 트레이스 이벤트를 파일에 기록합니다.
     -   [TraceFeatureMessageRemoteWriter](https://api.koog.ai/agents/agents-features/agents-features-trace/ai.koog.agents.features.tracing.writer/-trace-feature-message-remote-writer/index.html): 트레이스 이벤트를 원격 서버로 보냅니다.
-
-## FAQ 및 문제 해결
-
-다음 섹션에는 트레이싱 기능과 관련된 자주 묻는 질문과 답변이 포함되어 있습니다.
-
-### 에이전트 실행의 특정 부분만 트레이스하려면 어떻게 해야 합니까?
-
-`messageFilter` 속성을 사용하여 이벤트를 필터링합니다. 예를 들어, 노드 실행만 트레이스하려면:
-
-<!--- INCLUDE
-import ai.koog.agents.core.agent.AIAgent
-import ai.koog.agents.core.feature.model.events.LLMCallCompletedEvent
-import ai.koog.agents.core.feature.model.events.LLMCallStartingEvent
-import ai.koog.agents.example.exampleTracing01.outputPath
-import ai.koog.agents.features.tracing.feature.Tracing
-import ai.koog.agents.features.tracing.writer.TraceFeatureMessageFileWriter
-import ai.koog.prompt.executor.llms.all.simpleOllamaAIExecutor
-import ai.koog.prompt.llm.OllamaModels
-import kotlinx.coroutines.runBlocking
-import kotlinx.io.buffered
-import kotlinx.io.files.Path
-import kotlinx.io.files.SystemFileSystem
-
-const val input = "What's the weather like in New York?"
-
-fun main() {
-    runBlocking {
-        // Creating an agent
-        val agent = AIAgent(
-            promptExecutor = simpleOllamaAIExecutor(),
-            llmModel = OllamaModels.Meta.LLAMA_3_2,
-        ) {
-            val writer = TraceFeatureMessageFileWriter(
-                outputPath,
-                { path: Path -> SystemFileSystem.sink(path).buffered() }
-            )
--->
-<!--- SUFFIX
-        }
-    }
-}
--->
-```kotlin
-install(Tracing) {
-    val fileWriter = TraceFeatureMessageFileWriter(
-        outputPath, 
-        { path: Path -> SystemFileSystem.sink(path).buffered() }
-    )
-    addMessageProcessor(fileWriter)
-    
-    // LLM 호출만 트레이스
-    fileWriter.setMessageFilter { message ->
-        message is LLMCallStartingEvent || message is LLMCallCompletedEvent
-    }
-}
-```
-<!--- KNIT example-tracing-08.kt -->
-
-### 여러 메시지 처리기를 사용할 수 있습니까?
-
-예, 여러 메시지 처리기를 추가하여 동시에 다른 대상으로 트레이스할 수 있습니다:
-
-<!--- INCLUDE
-import ai.koog.agents.core.agent.AIAgent
-import ai.koog.agents.core.feature.remote.server.config.DefaultServerConnectionConfig
-import ai.koog.agents.example.exampleTracing01.outputPath
-import ai.koog.agents.features.tracing.feature.Tracing
-import ai.koog.agents.features.tracing.writer.TraceFeatureMessageFileWriter
-import ai.koog.agents.features.tracing.writer.TraceFeatureMessageLogWriter
-import ai.koog.agents.features.tracing.writer.TraceFeatureMessageRemoteWriter
-import ai.koog.prompt.executor.llms.all.simpleOllamaAIExecutor
-import ai.koog.prompt.llm.OllamaModels
-import io.github.oshai.kotlinlogging.KotlinLogging
-import kotlinx.coroutines.runBlocking
-import kotlinx.io.buffered
-import kotlinx.io.files.Path
-import kotlinx.io.files.SystemFileSystem
-
-const val input = "What's the weather like in New York?"
-val syncOpener = { path: Path -> SystemFileSystem.sink(path).buffered() }
-val logger = KotlinLogging.logger {}
-val connectionConfig = DefaultServerConnectionConfig(host = ai.koog.agents.example.exampleTracing06.host, port = ai.koog.agents.example.exampleTracing06.port)
-
-fun main() {
-    runBlocking {
-        // Creating an agent
-        val agent = AIAgent(
-            promptExecutor = simpleOllamaAIExecutor(),
-            llmModel = OllamaModels.Meta.LLAMA_3_2,
-        ) {
--->
-<!--- SUFFIX
-        }
-    }
-}
--->
-```kotlin
-install(Tracing) {
-    addMessageProcessor(TraceFeatureMessageLogWriter(logger))
-    addMessageProcessor(TraceFeatureMessageFileWriter(outputPath, syncOpener))
-    addMessageProcessor(TraceFeatureMessageRemoteWriter(connectionConfig))
-}
-```
-<!--- KNIT example-tracing-09.kt -->
-
-### 사용자 지정 메시지 처리기를 어떻게 생성할 수 있습니까?
-
-`FeatureMessageProcessor` 인터페이스를 구현하십시오:
-
-<!--- INCLUDE
-import ai.koog.agents.core.agent.AIAgent
-import ai.koog.agents.core.feature.model.events.NodeExecutionStartingEvent
-import ai.koog.agents.core.feature.model.events.LLMCallCompletedEvent
-import ai.koog.agents.core.feature.message.FeatureMessage
-import ai.koog.agents.core.feature.message.FeatureMessageProcessor
-import ai.koog.agents.features.tracing.feature.Tracing
-import ai.koog.prompt.executor.llms.all.simpleOllamaAIExecutor
-import ai.koog.prompt.llm.OllamaModels
-import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
-
-fun main() {
-    runBlocking {
-        // Creating an agent
-        val agent = AIAgent(
-            promptExecutor = simpleOllamaAIExecutor(),
-            llmModel = OllamaModels.Meta.LLAMA_3_2,
-        ) {
--->
-<!--- SUFFIX
-        }
-    }
-}
--->
-```kotlin
-class CustomTraceProcessor : FeatureMessageProcessor() {
-
-    // 처리기의 현재 열린 상태
-    private var _isOpen = MutableStateFlow(false)
-
-    override val isOpen: StateFlow<Boolean>
-        get() = _isOpen.asStateFlow()
-    
-    override suspend fun processMessage(message: FeatureMessage) {
-        // 사용자 지정 처리 로직
-        when (message) {
-            is NodeExecutionStartingEvent -> {
-                // 노드 시작 이벤트 처리
-            }
-
-            is LLMCallCompletedEvent -> {
-                // LLM 호출 종료 이벤트 처리 
-            }
-            // 다른 이벤트 유형 처리 
-        }
-    }
-
-    override suspend fun close() {
-        // 설정된 연결 닫기
-    }
-}
-
-// 사용자 지정 처리기 사용
-install(Tracing) {
-    addMessageProcessor(CustomTraceProcessor())
-}
-```
-<!--- KNIT example-tracing-10.kt -->
-
-메시지 처리기가 처리할 수 있는 기존 이벤트 유형에 대한 자세한 내용은 [사전 정의된 이벤트 유형](#predefined-event-types)을 참조하십시오.
-
-## 사전 정의된 이벤트 유형
-
-Koog는 사용자 지정 메시지 처리기에서 사용할 수 있는 사전 정의된 이벤트 유형을 제공합니다. 사전 정의된 이벤트는 관련 엔티티에 따라 여러 범주로 분류될 수 있습니다:
-
--   [에이전트 이벤트](#agent-events)
--   [전략 이벤트](#strategy-events)
--   [노드 이벤트](#node-events)
--   [LLM 호출 이벤트](#llm-call-events)
--   [도구 호출 이벤트](#tool-call-events)
-
-### 에이전트 이벤트
-
-#### AgentStartingEvent
-
-에이전트 실행의 시작을 나타냅니다. 다음 필드를 포함합니다:
-
-| 이름           | 데이터 타입 | 필수 여부 | 기본값               | 설명                                                               |
-|----------------|-----------|----------|-----------------------|--------------------------------------------------------------------|
-| `strategyName` | String    | 예        |                       | 에이전트가 따라야 할 전략의 이름입니다.                            |
-| `eventId`      | String    | 아니오      | `AgentStartingEvent` | 이벤트 식별자. 일반적으로 이벤트 클래스의 `simpleName`입니다. |
-
-#### AgentCompletedEvent
-
-에이전트 실행의 종료를 나타냅니다. 다음 필드를 포함합니다:
-
-| 이름           | 데이터 타입 | 필수 여부 | 기본값                | 설명                                                               |
-|----------------|-----------|----------|------------------------|--------------------------------------------------------------------|
-| `strategyName` | String    | 예        |                        | 에이전트가 따른 전략의 이름입니다.                                 |
-| `result`       | String    | 예        |                        | 에이전트 실행 결과. 결과가 없으면 `null`일 수 있습니다.          |
-| `eventId`      | String    | 아니오      | `AgentCompletedEvent` | 이벤트 식별자. 일반적으로 이벤트 클래스의 `simpleName`입니다. |
-
-#### AgentExecutionFailedEvent
-
-에이전트 실행 중 오류 발생을 나타냅니다. 다음 필드를 포함합니다:
-
-| 이름           | 데이터 타입    | 필수 여부 | 기본값                     | 설명                                                                                                     |
-|----------------|--------------|----------|------------------------|----------------------------------------------------------------------------------------------------------|
-| `strategyName` | String       | 예        |                        | 에이전트가 따른 전략의 이름입니다.                                                                       |
-| `error`        | AIAgentError | 예        |                        | 에이전트 실행 중 발생한 특정 오류. 자세한 내용은 [AIAgentError](#aiagenterror)를 참조하십시오. |
-| `eventId`      | String       | 아니오      | `AgentExecutionFailedEvent` | 이벤트 식별자. 일반적으로 이벤트 클래스의 `simpleName`입니다.                                            |
-
-<a id="aiagenterror"></a>
-`AIAgentError` 클래스는 에이전트 실행 중 발생한 오류에 대한 자세한 정보를 제공합니다. 다음 필드를 포함합니다:
-
-| 이름         | 데이터 타입 | 필수 여부 | 기본값 | 설명                                                      |
-|--------------|-----------|----------|--------|-----------------------------------------------------------|
-| `message`    | String    | 예        |        | 특정 오류에 대한 자세한 정보를 제공하는 메시지입니다.       |
-| `stackTrace` | String    | 예        |        | 마지막으로 실행된 코드까지의 스택 기록 모음입니다.          |
-| `cause`      | String    | 아니오      | null   | 오류의 원인(있는 경우).                                     |
-
-### 전략 이벤트
-
-#### StrategyStartingEvent
-
-전략 실행의 시작을 나타냅니다. 다음 필드를 포함합니다:
-
-| 이름           | 데이터 타입 | 필수 여부 | 기본값                      | 설명                                                               |
-|----------------|-----------|----------|-----------------------------|--------------------------------------------------------------------|
-| `strategyName` | String    | 예        |                             | 전략의 이름입니다.                                                 |
-| `eventId`      | String    | 아니오      | `StrategyStartingEvent` | 이벤트 식별자. 일반적으로 이벤트 클래스의 `simpleName`입니다. |
-
-#### StrategyCompletedEvent
-
-전략 실행의 종료를 나타냅니다. 다음 필드를 포함합니다:
-
-| 이름           | 데이터 타입 | 필수 여부 | 기본값                     | 설명                                                               |
-|----------------|-----------|----------|--------------------------------|--------------------------------------------------------------------|
-| `strategyName` | String    | 예        |                                | 전략의 이름입니다.                                                 |
-| `result`       | String    | 예        |                                | 실행 결과.                                                         |
-| `eventId`      | String    | 아니오      | `StrategyCompletedEvent` | 이벤트 식별자. 일반적으로 이벤트 클래스의 `simpleName`입니다. |
-
-### 노드 이벤트
-
-#### NodeExecutionStartingEvent
-
-노드 실행의 시작을 나타냅니다. 다음 필드를 포함합니다:
-
-| 이름       | 데이터 타입 | 필수 여부 | 기본값                           | 설명                                                               |
-|------------|-----------|----------|----------------------------------|--------------------------------------------------------------------|
-| `nodeName` | String    | 예        |                                  | 실행이 시작된 노드의 이름입니다.                                   |
-| `input`    | String    | 예        |                                  | 노드에 대한 입력 값입니다.                                         |
-| `eventId`  | String    | 아니오      | `NodeExecutionStartingEvent` | 이벤트 식별자. 일반적으로 이벤트 클래스의 `simpleName`입니다. |
-
-#### NodeExecutionCompletedEvent
-
-노드 실행의 종료를 나타냅니다. 다음 필드를 포함합니다:
-
-| 이름       | 데이터 타입 | 필수 여부 | 기본값                       | 설명                                                               |
-|------------|-----------|----------|--------------------------------|--------------------------------------------------------------------|
-| `nodeName` | String    | 예        |                                | 실행이 종료된 노드의 이름입니다.                                   |
-| `input`    | String    | 예        |                                | 노드에 대한 입력 값입니다.                                         |
-| `output`   | String    | 예        |                                | 노드에 의해 생성된 출력 값입니다.                                  |
-| `eventId`  | String    | 아니오      | `NodeExecutionCompletedEvent` | 이벤트 식별자. 일반적으로 이벤트 클래스의 `simpleName`입니다. |
-
-### LLM 호출 이벤트
-
-#### LLMCallStartingEvent
-
-LLM 호출의 시작을 나타냅니다. 다음 필드를 포함합니다:
-
-| 이름      | 데이터 타입          | 필수 여부 | 기본값               | 설명                                                                        |
-|-----------|--------------------|----------|----------------------|-----------------------------------------------------------------------------|
-| `prompt`  | Prompt             | 예        |                      | 모델로 전송되는 프롬프트. 자세한 내용은 [Prompt](#prompt)를 참조하십시오. |
-| `tools`   | List&lt;String&gt; | 예        |                      | 모델이 호출할 수 있는 도구 목록입니다.                                       |
-| `eventId` | String             | 아니오      | `LLMCallStartingEvent` | 이벤트 식별자. 일반적으로 이벤트 클래스의 `simpleName`입니다.             |
-
-<a id="prompt"></a>
-`Prompt` 클래스는 메시지 목록, 고유 식별자 및 언어 모델 설정에 대한 선택적 매개변수로 구성된 프롬프트의 데이터 구조를 나타냅니다. 다음 필드를 포함합니다:
-
-| 이름       | 데이터 타입           | 필수 여부 | 기본값     | 설명                                                  |
-|------------|---------------------|----------|------------|-------------------------------------------------------|
-| `messages` | List&lt;Message&gt; | 예        |            | 프롬프트가 구성되는 메시지 목록입니다.                |
-| `id`       | String              | 예        |            | 프롬프트의 고유 식별자입니다.                         |
-| `params`   | LLMParams           | 아니오      | LLMParams()| LLM이 콘텐츠를 생성하는 방식을 제어하는 설정입니다.   |
-
-#### LLMCallCompletedEvent
-
-LLM 호출의 종료를 나타냅니다. 다음 필드를 포함합니다:
-
-| 이름        | 데이터 타입                    | 필수 여부 | 기본값                | 설명                                                               |
-|-------------|------------------------------|----------|---------------------|--------------------------------------------------------------------|
-| `responses` | List&lt;Message.Response&gt; | 예        |                     | 모델이 반환한 하나 이상의 응답입니다.                                |
-| `eventId`   | String                       | 아니오      | `LLMCallCompletedEvent` | 이벤트 식별자. 일반적으로 이벤트 클래스의 `simpleName`입니다. |
-
-### 도구 호출 이벤트
-
-#### ToolCallEvent
-
-모델이 도구를 호출하는 이벤트를 나타냅니다. 다음 필드를 포함합니다:
-
-| 이름       | 데이터 타입 | 필수 여부 | 기본값          | 설명                                                               |
-|------------|-----------|----------|-----------------|--------------------------------------------------------------------|
-| `toolName` | String    | 예        |                 | 도구의 이름입니다.                                                 |
-| `toolArgs` | Tool.Args | 예        |                 | 도구에 제공되는 인수입니다.                                        |
-| `eventId`  | String    | 아니오      | `ToolCallEvent` | 이벤트 식별자. 일반적으로 이벤트 클래스의 `simpleName`입니다. |
-
-#### ToolValidationErrorEvent
-
-도구 호출 중 유효성 검사 오류 발생을 나타냅니다. 다음 필드를 포함합니다:
-
-| 이름           | 데이터 타입 | 필수 여부 | 기본값                     | 설명                                                               |
-|----------------|-----------|----------|----------------------------|--------------------------------------------------------------------|
-| `toolName`     | String    | 예        |                            | 유효성 검사에 실패한 도구의 이름입니다.                            |
-| `toolArgs`     | Tool.Args | 예        |                            | 도구에 제공되는 인수입니다.                                        |
-| `errorMessage` | String    | 예        |                            | 유효성 검사 오류 메시지입니다.                                     |
-| `eventId`      | String    | 아니오      | `ToolValidationErrorEvent` | 이벤트 식별자. 일반적으로 이벤트 클래스의 `simpleName`입니다. |
-
-#### ToolCallFailureEvent
-
-도구 호출 실패를 나타냅니다. 다음 필드를 포함합니다:
-
-| 이름       | 데이터 타입    | 필수 여부 | 기본값                 | 설명                                                                                                           |
-|------------|--------------|----------|------------------------|----------------------------------------------------------------------------------------------------------------|
-| `toolName` | String       | 예        |                        | 도구의 이름입니다.                                                                                             |
-| `toolArgs` | Tool.Args    | 예        |                        | 도구에 제공되는 인수입니다.                                                                                    |
-| `error`    | AIAgentError | 예        |                        | 도구를 호출하려 할 때 발생한 특정 오류. 자세한 내용은 [AIAgentError](#aiagenterror)를 참조하십시오. |
-| `eventId`  | String       | 아니오      | `ToolCallFailureEvent` | 이벤트 식별자. 일반적으로 이벤트 클래스의 `simpleName`입니다.                                                  |
-
-#### ToolCallResultEvent
-
-결과 반환과 함께 성공적인 도구 호출을 나타냅니다. 다음 필드를 포함합니다:
-
-| 이름       | 데이터 타입  | 필수 여부 | 기본값                | 설명                                                               |
-|------------|------------|----------|-----------------------|--------------------------------------------------------------------|
-| `toolName` | String     | 예        |                       | 도구의 이름입니다.                                                 |
-| `toolArgs` | Tool.Args  | 예        |                       | 도구에 제공되는 인수입니다.                                        |
-| `result`   | ToolResult | 예        |                       | 도구 호출 결과.                                                    |
-| `eventId`  | String     | 아니오      | `ToolCallResultEvent` | 이벤트 식별자. 일반적으로 이벤트 클래스의 `simpleName`입니다. |

@@ -1,369 +1,6 @@
 [//]: # (title: Kotlin 2.2.0 新特性)
 
-_[发布时间：2025 年 6 月 23 日](releases.md#release-details)_
-
-Kotlin 2.2.0 版本现已发布！以下是主要亮点：
-
-*   **语言**：新增预览版语言特性，包括[上下文形参](#preview-of-context-parameters)。一些[之前为实验性的特性现在已稳定](#stable-features-guard-conditions-non-local-break-and-continue-and-multi-dollar-interpolation)，例如守卫条件、非局部 `break` 和 `continue` 以及多美元符号内插。
-*   **Kotlin 编译器**：[编译器警告的统一管理](#kotlin-compiler-unified-management-of-compiler-warnings)。
-*   **Kotlin/JVM**：[接口函数默认方法生成的变化](#changes-to-default-method-generation-for-interface-functions)。
-*   **Kotlin/Native**：[LLVM 19 以及用于跟踪和调整内存消耗的新特性](#kotlin-native)。
-*   **Kotlin/Wasm**：[Wasm 目标平台的构建基础设施已与 JavaScript 目标平台分离](#build-infrastructure-for-wasm-target-separated-from-javascript-target)，并且能够[按项目配置 Binaryen](#per-project-binaryen-configuration)。
-*   **Kotlin/JS**：[修复了 `@JsPlainObject` 接口生成的 `copy()` 方法](#fix-for-copy-in-jsplainobject-interfaces)。
-*   **Gradle**：[Kotlin Gradle 插件中包含了二进制兼容性验证](#binary-compatibility-validation-included-in-kotlin-gradle-plugin)。
-*   **标准库**：[Base64 和 HexFormat API 已稳定](#stable-base64-encoding-and-decoding)。
-*   **文档**：我们的[文档调查已开放](https://surveys.jetbrains.com/s3/Kotlin-Docs-2025)，并且[Kotlin 文档已进行了显著改进](#documentation-updates)。
-
-你还可以观看 Kotlin 语言演进团队讨论新特性和回答问题的视频：
-
-<video src="https://www.youtube.com/watch?v=jne3923lWtw" title="What's new in Kotlin 2.2.0"/>
-
-## IDE 支持
-
-支持 2.2.0 的 Kotlin 插件已捆绑在最新版本的 IntelliJ IDEA 和 Android Studio 中。
-你无需在 IDE 中更新 Kotlin 插件。
-你只需在构建脚本中[将 Kotlin 版本更改](configure-build-for-eap.md#adjust-the-kotlin-version)为 2.2.0。
-
-关于详细信息，请参见[更新到新版本](releases.md#update-to-a-new-kotlin-version)。
-
-## 语言
-
-此版本将[守卫条件](#stable-features-guard-conditions-non-local-break-and-continue-and-multi-dollar-interpolation)、非局部 `break` 和 `continue` 以及多美元符号内插[提升为稳定特性](components-stability.md#stability-levels-explained)。
-此外，一些特性（例如[上下文形参](#preview-of-context-parameters)和[上下文敏感解析](#preview-of-context-sensitive-resolution)）已作为预览版引入。
-
-### 上下文形参预览
-<primary-label ref="experimental-general"/> 
-
-上下文形参允许函数和属性声明在周围上下文中隐式可用的依赖项。
-
-通过上下文形参，你无需手动传递那些在多组函数调用中共享且很少更改的值（例如服务或依赖项）。
-
-上下文形参取代了之前名为上下文接收者的实验性特性。要从上下文接收者迁移到上下文形参，你可以使用 IntelliJ IDEA 中的辅助支持，如[博文](https://blog.jetbrains.com/kotlin/2025/04/update-on-context-parameters/)中所述。
-
-主要区别在于，上下文形参并非作为接收者引入函数体。因此，你需要使用上下文形参的名称来访问其成员，这与上下文接收者不同，后者上下文是隐式可用的。
-
-Kotlin 中的上下文形参通过简化依赖注入、改进 DSL 设计和作用域操作，显著改善了依赖管理。更多信息，请参见此特性的 [KEEP](https://github.com/Kotlin/KEEP/blob/context-parameters/proposals/context-parameters.md)。
-
-#### 如何声明上下文形参
-
-你可以使用 `context` 关键字后跟参数列表（每个参数的形式为 `name: Type`）来为属性和函数声明上下文形参。以下是依赖于 `UserService` 接口的示例：
-
-```kotlin
-// UserService 定义了上下文中所需的依赖项
-interface UserService {
-    fun log(message: String)
-    fun findUserById(id: Int): String
-}
-
-// 声明一个带有上下文形参的函数
-context(users: UserService)
-fun outputMessage(message: String) {
-    // 使用来自上下文的 log
-    users.log("Log: $message")
-}
-
-// 声明一个带有上下文形参的属性
-context(users: UserService)
-val firstUser: String
-    // 使用来自上下文的 findUserById    
-    get() = users.findUserById(1)
-```
-
-你可以使用 `_` 作为上下文形参名称。在这种情况下，形参的值可用于解析，但在代码块内部不能通过名称访问：
-
-```kotlin
-// 使用 "_" 作为上下文形参名称
-context(_: UserService)
-fun logWelcome() {
-    // 从 UserService 中找到适当的 log 函数
-    outputMessage("Welcome!")
-}
-```
-
-#### 如何启用上下文形参
-
-要在你的项目中启用上下文形参，请在命令行中使用以下编译器选项：
-
-```Bash
--Xcontext-parameters
-```
-
-或将其添加到 Gradle 构建文件的 `compilerOptions {}` 代码块中：
-
-```kotlin
-// build.gradle.kts
-kotlin {
-    compilerOptions {
-        freeCompilerArgs.add("-Xcontext-parameters")
-    }
-}
-```
-
-> 同时指定 `-Xcontext-receivers` 和 `-Xcontext-parameters` 编译器选项会导致错误。
->
-{style="warning"}
-
-#### 留下你的反馈
-
-此特性计划在未来的 Kotlin 版本中稳定并改进。
-我们非常感谢你在我们的问题跟踪器 [YouTrack](https://youtrack.jetbrains.com/issue/KT-10468/Context-Parameters-expanding-extension-receivers-to-work-with-scopes) 上提供反馈。
-
-### 上下文敏感解析预览
-<primary-label ref="experimental-general"/> 
-
-Kotlin 2.2.0 引入了上下文敏感解析的预览实现。
-
-以前，你必须编写枚举条目或密封类成员的完整名称，即使类型可以从上下文中推断出来。
-例如：
-
-```kotlin
-enum class Problem {
-    CONNECTION, AUTHENTICATION, DATABASE, UNKNOWN
-}
-
-fun message(problem: Problem): String = when (problem) {
-    Problem.CONNECTION -> "connection"
-    Problem.AUTHENTICATION -> "authentication"
-    Problem.DATABASE -> "database"
-    Problem.UNKNOWN -> "unknown"
-}
-```
-
-现在，通过上下文敏感解析，你可以在已知预期类型的上下文中省略类型名称：
-
-```kotlin
-enum class Problem {
-    CONNECTION, AUTHENTICATION, DATABASE, UNKNOWN
-}
-
-// 根据已知的问题类型解析枚举条目
-fun message(problem: Problem): String = when (problem) {
-    CONNECTION -> "connection"
-    AUTHENTICATION -> "authentication"
-    DATABASE -> "database"
-    UNKNOWN -> "unknown"
-}
-```
-
-编译器使用此上下文类型信息来解析正确的成员。此信息包括（但不限于）：
-
-*   `when` 表达式的主体
-*   显式返回类型
-*   声明的变量类型
-*   类型检测 (`is`) 和类型转换 (`as`)
-*   密封类层级的已知类型
-*   声明的形参类型
-
-> 上下文敏感解析不适用于函数、带有形参的属性或带有接收者的扩展属性。
->
-{style="note"}
-
-要在你的项目中尝试上下文敏感解析，请在命令行中使用以下编译器选项：
-
-```bash
--Xcontext-sensitive-resolution
-```
-
-或将其添加到 Gradle 构建文件的 `compilerOptions {}` 代码块中：
-
-```kotlin
-// build.gradle.kts
-kotlin {
-    compilerOptions {
-        freeCompilerArgs.add("-Xcontext-sensitive-resolution")
-    }
-}
-```
-
-我们计划在未来的 Kotlin 版本中稳定并改进此特性，并非常感谢你在我们的问题跟踪器 [YouTrack](https://youtrack.jetbrains.com/issue/KT-16768/Context-sensitive-resolution) 上提供反馈。
-
-### 注解使用点目标特性预览
-<primary-label ref="experimental-general"/>
-
-Kotlin 2.2.0 引入了一些特性，使处理注解使用点目标更加方便。
-
-#### `@all` 属性元目标
-<primary-label ref="experimental-general"/>
-
-Kotlin 允许你将注解附加到声明的特定部分，这称为[使用点目标](annotations.md#annotation-use-site-targets)。
-然而，单独注解每个目标既复杂又容易出错：
-
-```kotlin
-data class User(
-    val username: String,
-
-    @param:Email      // 构造函数形参
-    @field:Email      // 幕后字段
-    @get:Email        // getter 方法
-    @property:Email   // Kotlin 属性引用
-    val email: String,
-) {
-    @field:Email
-    @get:Email
-    @property:Email
-    val secondaryEmail: String? = null
-}
-```
-
-为简化此过程，Kotlin 引入了新的 `@all` 属性元目标。
-此特性告诉编译器将注解应用于属性的所有相关部分。当你使用它时，
-`@all` 会尝试将注解应用于：
-
-*   **`param`**：构造函数形参，如果在主构造函数中声明。
-
-*   **`property`**：Kotlin 属性本身。
-
-*   **`field`**：幕后字段，如果存在。
-
-*   **`get`**：getter 方法。
-
-*   **`setparam`**：setter 方法的形参，如果属性定义为 `var`。
-
-*   **`RECORD_COMPONENT`**：如果类是 `@JvmRecord`，则注解应用于 [Java 记录组件](#improved-support-for-annotating-jvm-records)。此行为模仿了 Java 处理记录组件注解的方式。
-
-编译器仅将注解应用于给定属性的目标。
-
-在下面的示例中，`@Email` 注解应用于每个属性的所有相关目标：
-
-```kotlin
-data class User(
-    val username: String,
-
-    // 将 @Email 应用于 param、property、field、
-    // get 和 setparam (如果为 var)
-    @all:Email val email: String,
-) {
-    // 将 @Email 应用于 property、field 和 get
-    // (没有 param，因为它不在构造函数中)
-    @all:Email val secondaryEmail: String? = null
-}
-```
-
-你可以在主构造函数内部和外部的任何属性上使用 `@all` 元目标。但是，
-你不能将 `@all` 元目标与[多个注解](https://kotlinlang.org/spec/syntax-and-grammar.html#grammar-rule-annotation)一起使用。
-
-这项新特性简化了语法，确保了一致性，并改进了与 Java records 的互操作性。
-
-要在你的项目中启用 `@all` 元目标，请在命令行中使用以下编译器选项：
-
-```Bash
--Xannotation-target-all
-```
-
-或将其添加到 Gradle 构建文件的 `compilerOptions {}` 代码块中：
-
-```kotlin
-// build.gradle.kts
-kotlin {
-    compilerOptions {
-        freeCompilerArgs.add("-Xannotation-target-all")
-    }
-}
-```
-
-此特性处于预览阶段。请将任何问题报告到我们的问题跟踪器 [YouTrack](https://kotl.in/issue)。
-有关 `@all` 元目标的更多信息，请阅读此 [KEEP](https://github.com/Kotlin/KEEP/blob/master/proposals/annotation-target-in-properties.md) 提案。
-
-#### 使用点注解目标的新默认规则
-<primary-label ref="experimental-general"/>
-
-Kotlin 2.2.0 引入了将注解传播到形参、字段和属性的新默认规则。
-以前，注解默认仅应用于 `param`、`property` 或 `field` 中的一个，现在默认值更符合注解的预期。
-
-如果存在多个适用的目标，则按如下方式选择一个或多个：
-
-*   如果构造函数形参目标 (`param`) 适用，则使用它。
-*   如果属性目标 (`property`) 适用，则使用它。
-*   如果字段目标 (`field`) 适用而 `property` 不适用，则使用 `field`。
-
-如果存在多个目标，并且 `param`、`property` 或 `field` 都不适用，则注解会导致错误。
-
-要启用此特性，请将其添加到 Gradle 构建文件的 `compilerOptions {}` 代码块中：
-
-```kotlin
-// build.gradle.kts
-kotlin {
-    compilerOptions {
-        freeCompilerArgs.add("-Xannotation-default-target=param-property")
-    }
-}
-```
-
-或使用编译器的命令行实参：
-
-```Bash
--Xannotation-default-target=param-property
-```
-
-如果你想使用旧行为，可以：
-
-*   在特定情况下，显式定义所需的目标，例如，使用 `@param:Annotation` 而不是 `@Annotation`。
-*   对于整个项目，在 Gradle 构建文件中使用此标志：
-
-    ```kotlin
-    // build.gradle.kts
-    kotlin {
-        compilerOptions {
-            freeCompilerArgs.add("-Xannotation-default-target=first-only")
-        }
-    }
-    ```
-
-此特性处于预览阶段。请将任何问题报告到我们的问题跟踪器 [YouTrack](https://kotl.in/issue)。
-有关注解使用点目标新默认规则的更多信息，请阅读此 [KEEP](https://github.com/Kotlin/KEEP/blob/master/proposals/annotation-target-in-properties.md) 提案。
-
-### 支持嵌套类型别名
-<primary-label ref="beta"/>
-
-以前，你只能在 Kotlin 文件的顶层声明[类型别名](type-aliases.md)。这意味着
-即使是内部或领域特定的类型别名也必须存在于它们所使用的类之外。
-
-从 2.2.0 开始，你可以在其他声明内部定义类型别名，只要它们
-不捕获来自其外部类的类型形参：
-
-```kotlin
-class Dijkstra {
-    typealias VisitedNodes = Set<Node>
-
-    private fun step(visited: VisitedNodes, ...) = ...
-}
-```
-
-嵌套类型别名有一些额外的约束，例如不能提及类型形参。请查看[文档](type-aliases.md#nested-type-aliases)以了解完整的规则集。
-
-嵌套类型别名通过改进封装、减少包级别混乱和简化内部实现，使得代码更简洁、更易于维护。
-
-#### 如何启用嵌套类型别名
-
-要在你的项目中启用嵌套类型别名，请在命令行中使用以下编译器选项：
-
-```bash
--Xnested-type-aliases
-```
-
-或将其添加到 Gradle 构建文件的 `compilerOptions {}` 代码块中：
-
-```kotlin
-// build.gradle.kts
-kotlin {
-    compilerOptions {
-        freeCompilerArgs.add("-Xnested-type-aliases")
-    }
-}
-```
-
-#### 分享你的反馈
-
-嵌套类型别名目前处于 [Beta](components-stability.md#stability-levels-explained) 阶段。请将任何问题报告到我们的问题跟踪器 [YouTrack](https://kotl.in/issue)。有关此特性的更多信息，请阅读此 [KEEP](https://github.com/Kotlin/KEEP/blob/master/proposals/nested-typealias.md) 提案。
-
-### 稳定特性：守卫条件、非局部 `break` 和 `continue` 以及多美元符号内插
-
-在 Kotlin 2.1.0 中，引入了几个新的语言特性作为预览版。
-我们很高兴地宣布，以下语言特性在此版本中已[稳定](components-stability.md#stability-levels-explained)：
-
-*   [`when` 表达式中带有主体的守卫条件](control-flow.md#guard-conditions-in-when-expressions)
-*   [非局部 `break` 和 `continue`](inline-functions.md#break-and-continue)
-*   [多美元符号内插：改进了字符串字面值中 `$var` 表达式的处理](strings.md#multi-dollar-string-interpolation)
+字符串字面值中 `$var` 表达式的处理](strings.md#multi-dollar-string-interpolation)
 
 [请参见 Kotlin 语言设计特性和提案的完整列表](kotlin-language-features-and-proposals.md)。
 
@@ -531,6 +168,10 @@ fun main() {
 
 ### 改进了与内联值类的 Java 互操作性
 <primary-label ref="experimental-general"/>
+
+> 对 IntelliJ IDEA 中此特性的代码分析、代码补全和高亮显示目前仅在 [2025.3 EAP 构建](https://www.jetbrains.com/idea/nextversion/)中可用。
+>
+{style = "note"}
 
 Kotlin 2.2.0 引入了一个新的实验性注解：[`@JvmExposeBoxed`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.jvm/-jvm-expose-boxed/)。此注解使得从 Java 中使用[内联值类](inline-classes.md)变得更容易。
 
@@ -1072,7 +713,8 @@ kotlin {
 
 ```
 
-BTA 支持配置 KGP 和 Kotlin 编译器版本，支持前三个主要版本和一个后续主要版本。因此，在 KGP 2.2.0 中，支持 Kotlin 编译器版本 2.1.x、2.0.x 和 1.9.25。KGP 2.2.0 也兼容未来的 Kotlin 编译器版本 2.2.x 和 2.3.x。
+BTA 支持配置 KGP 和 Kotlin 编译器版本，支持前三个主要版本和一个后续主要版本。因此，在 KGP 2.2.0 中，Kotlin 编译器版本 2.1.x、2.0.x 和 1.9.25 均受支持。
+KGP 2.2.0 也兼容未来的 Kotlin 编译器版本 2.2.x 和 2.3.x。
 
 但是，请记住，将不同的编译器版本与编译器插件一起使用可能会导致 Kotlin 编译器异常。Kotlin 团队计划在未来的版本中解决此类问题。
 
@@ -1197,7 +839,7 @@ composeCompiler {
 它不应导致运行时出现任何可观察到的行为更改。
 
 如果你遇到任何问题，可以通过禁用此特性标志来验证此更改是否导致了问题。
-请将任何问题报告到 [Jetpack Compose 问题跟踪器](https://issuetracker.box.com/m/610764/jetpack_compose_issue_tracker?template=1424126)。
+请将任何问题报告到 [Jetpack Compose 问题跟踪器](https://issuetracker.google.com/issues/new?component=610764&template=1424126)。
 
 要禁用 `OptimizeNonSkippingGroups` 标志，请将以下内容添加到你的 Gradle 配置中：
 
@@ -1210,7 +852,7 @@ composeCompiler {
 ### 已弃用的特性标志
 
 `StrongSkipping` 和 `IntrinsicRemember` 特性标志现在已弃用，并将在未来的版本中删除。
-如果你遇到任何导致你禁用这些特性标志的问题，请将其报告到 [Jetpack Compose 问题跟踪器](https://issuetracker.box.com/m/610764/jetpack_compose_issue_tracker?template=1424126)。
+如果你遇到任何导致你禁用这些特性标志的问题，请将其报告到 [Jetpack Compose 问题跟踪器](https://issuetracker.google.com/issues/new?component=610764&template=1424126)。
 
 ## 破坏性变更与弃用
 
@@ -1247,7 +889,7 @@ composeCompiler {
 *   已弃用的 `kotlin-android-extensions` 插件[已在 Kotlin 2.2.0 中移除](compatibility-guide-22.md#deprecate-kotlin-android-extensions-plugin)。
     请使用 `kotlin-parcelize` 插件用于 `Parcelable` 实现生成器，并使用 Android Jetpack 的[视图绑定](https://developer.android.com/topic/libraries/view-binding)用于合成视图。
 *   实验性的 `kotlinArtifacts` API [已在 Kotlin 2.2.0 中弃用](compatibility-guide-22.md#deprecate-kotlinartifacts-api)。
-    请使用 Kotlin Gradle 插件中现有的 DSL 来[构建最终的原生二进制文件](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-build-native-binaries.html)。如果不足以进行迁移，请在此 [YT 问题](https://youtrack.jetbrains.com/issue/KT-74953)中留下评论。
+    请使用 Kotlin Gradle 插件中现有的 DSL 来[构建最终的原生二进制文件](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-build-native-binaries.html)。如果不足以进行迁移，请在此 [YouTrack 问题](https://youtrack.jetbrains.com/issue/KT-74953)中留下评论。
 *   `KotlinCompilation.source`，在 Kotlin 1.9.0 中已弃用，现在已[从 Kotlin Gradle 插件中移除](compatibility-guide-22.md#deprecate-kotlincompilation-source-api)。
 *   实验性通用化模式的参数[已在 Kotlin 2.2.0 中弃用](compatibility-guide-22.md#deprecate-commonization-parameters)。
     清除通用化缓存以删除无效的编译构件。

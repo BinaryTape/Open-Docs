@@ -495,5 +495,11 @@
   "kmp.kotlin-multiplatform-react-native": "Kotlin Multiplatform 与 React Native",
   "koog.act-agent-api": "Act Agent API",
   "koog.structured-output": "结构化输出",
-  "koog.why-koog": "为何选择 Koog"
+  "koog.why-koog": "为何选择 Koog",
+  "koog.functional-agents": "函数式代理",
+  "koog.a2a-protocol": "A2A Protocol",
+  "koog.a2a-server-implementation": "A2A server implementation",
+  "koog.a2a-client-implementation": "A2A client implementation",
+  "koog.a2a-and-koog-integration": "A2A and Koog integration",
+  "koog.agent-persistence": "代理持久性"
 }

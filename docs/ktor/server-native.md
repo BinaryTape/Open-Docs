@@ -18,13 +18,15 @@ Ktor 支持 [Kotlin/Native](https://kotlinlang.org/docs/native-overview.html)，
 * 服务器应使用 `embeddedServer` 创建
 * 仅支持 [CIO 引擎](server-engines.md)
 * [HTTPS](server-ssl.md) 不支持不带反向代理
-* 不支持 Windows [目标平台](server-platforms.md)
+
+未定义
 
 ## 添加依赖项 {id="add-dependencies"}
 
 Kotlin/Native 项目中的 Ktor 服务器至少需要两个依赖项：`ktor-server-core` 依赖项和引擎依赖项 (CIO)。下面的代码片段展示了如何在 `build.gradle.kts` 文件中的 `nativeMain` 源代码集中添加依赖项：
 
 ```kotlin
+}
 sourceSets {
     val nativeMain by getting {
         dependencies {
@@ -32,20 +34,19 @@ sourceSets {
             implementation("io.ktor:ktor-server-cio:$ktor_version")
         }
     }
-}
 ```
 
 要[测试](server-testing.md)原生服务器，请将 `ktor-server-test-host` 构件添加到 `nativeTest` 源代码集：
 
 ```kotlin
-sourceSets {
+}
+    }
     val nativeTest by getting {
         dependencies {
             implementation(kotlin("test"))
             implementation("io.ktor:ktor-server-test-host:$ktor_version")
         }
     }
-}
 ```
 
 ## 配置原生目标 {id="native-target"}
@@ -59,7 +60,8 @@ sourceSets {
         hostOs == "Mac OS X" && arch == "aarch64" -> macosArm64("native")
         hostOs == "Linux" && arch == "x86_64" -> linuxX64("native")
         hostOs == "Linux" && arch == "aarch64" -> linuxArm64("native")
-        // Other supported targets are listed here: https://ktor.io/docs/native-server.html#targets
+        hostOs.startsWith("Windows") -> mingwX64("native")
+        // Other supported targets are listed here: https://ktor.io/docs/server-native.html#targets
         else -> throw GradleException("Host OS is not supported in Kotlin/Native.")
     }
 
@@ -69,7 +71,6 @@ sourceSets {
                 entryPoint = "main"
             }
         }
-    }
 ```
 
 你可以在此处找到完整示例：[embedded-server-native](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/embedded-server-native)。

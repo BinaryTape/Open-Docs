@@ -8,7 +8,7 @@ FunctionalAIAgent 是一個輕量級、非圖形化的代理程式，您可以�
 您將在本指南中完成以下任務：
 1) 建立一個「Hello, World」FunctionalAIAgent。
 2) 新增一個工具並讓代理程式呼叫它。
-3) 新增一個功能 (事件處理器) 以觀察行為。
+3) 新增一個功能 (EventHandler) 以觀察行為。
 4) 透過歷史紀錄壓縮來控制上下文。
 5) 學習常見用法、陷阱和常見問題。
 
@@ -109,7 +109,7 @@ val observed = functionalAIAgent<String, String>(
     toolRegistry = tools,
     featureContext = {
         install(EventHandler) {
-            onToolCall { e -> println("Tool called: ${'
+            onToolCallStarting { e -> println("Tool called: ${'
     ```}{e.tool.name}, args: ${'
     ```}{e.toolArgs}") }
         }

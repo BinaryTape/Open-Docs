@@ -19,6 +19,12 @@
 ```kotlin
 // 将 libraryName 替换为您要添加的库依赖项
 %use libraryName
+// 指定版本（如果需要）
+%use libraryName(version)
+// 添加 v= 以触发自动补全
+%use libraryName(v=version)
+// 示例: kotlinx.datetime:0.7.1
+%use datetime(v=0.7.1)
 ```
 
 您还可以使用 Kotlin Notebook 中的自动补全特性来快速访问可用库：
@@ -28,7 +34,7 @@
 ## 向您的 Kotlin Notebook 添加 Kotlin DataFrame 和 Kandy 库
 
 让我们向您的 Kotlin Notebook 添加两个常用的 Kotlin 库依赖项：
-* [Kotlin DataFrame 库](https://kotlin.github.io/dataframe/gettingstarted.html)使您能够操纵 Kotlin 项目中的数据。您可以使用它从 [APIs](data-analysis-work-with-api.md)、[SQL 数据库](data-analysis-connect-to-db.md)以及 [各种文件格式](data-analysis-work-with-data-sources.md)（例如 CSV 或 JSON）检索数据。
+* [Kotlin DataFrame 库](https://kotlin.github.io/dataframe/home.html)使您能够操纵 Kotlin 项目中的数据。您可以使用它从 [APIs](data-analysis-work-with-api.md)、[SQL 数据库](data-analysis-connect-to-db.md)以及 [各种文件格式](data-analysis-work-with-data-sources.md)（例如 CSV 或 JSON）检索数据。
 * [Kandy 库](https://kotlin.github.io/kandy/welcome.html)提供了一个强大而灵活的 DSL，用于[创建图表](data-analysis-visualization.md)。
 
 要添加这些库：
@@ -37,7 +43,7 @@
 2. 在代码单元格中输入以下代码：
 
     ```kotlin
-    // 确保使用最新可用的库版本
+    // 确保使用最新可用库版本
     %useLatestDescriptors
     
     // 导入 Kotlin DataFrame 库

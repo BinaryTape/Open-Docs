@@ -20,7 +20,7 @@ Kotlinは、すべての例外をデフォルトで_非チェック例外_とし
 
 `throw`キーワードを使用して、手動で例外をスローできます。
 例外をスローすることは、コードで予期しないランタイムエラーが発生したことを示します。
-例外は[オブジェクト](classes.md#creating-instances-of-classes)であり、例外をスローすると例外クラスのインスタンスが作成されます。
+例外は[オブジェクト](classes.md#creating-instances)であり、例外をスローすると例外クラスのインスタンスが作成されます。
 
 パラメータなしで例外をスローできます。
 
@@ -599,7 +599,7 @@ Kotlinでよく見られるいくつかの一般的な例外タイプを見て�
     > println("Converted number: $number")
     > ```
     >
-{style="note"}
+    {style="note"}
 
 *   [`NullPointerException`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-null-pointer-exception/): この例外は、アプリケーションが`null`値を持つオブジェクト参照を使用しようとしたときにスローされます。
     Kotlinのnull安全性機能はNullPointerExceptionのリスクを大幅に軽減しますが、`!!`演算子を意図的に使用した場合、またはKotlinのnull安全性を持たないJavaと相互作用した場合に発生する可能性があります。
@@ -622,12 +622,12 @@ Kotlin例外階層のルートは[`Throwable`](https://kotlinlang.org/api/latest
 *   `Exception`サブクラスは、処理したい可能性のある条件に使用されます。
     `Exception`型のサブタイプ（[`RuntimeException`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-runtime-exception/)や`IOException`（入出力例外）など）は、アプリケーションでの例外的なイベントを扱います。
 
-![例外階層 - Throwableクラス](throwable.svg){width=700}
+![Exception hierarchy - the Throwable class](throwable.svg){width=700}
 
 `RuntimeException`は通常、プログラムコード内のチェック不足によって引き起こされ、プログラムによって防止できます。
 Kotlinは、`NullPointerException`のような一般的な`RuntimeException`を防ぐのに役立ち、ゼロ除算のような潜在的なランタイムエラーに対してコンパイル時警告を提供します。次の図は、`RuntimeException`から派生したサブタイプの階層を示しています。
 
-![RuntimeExceptionの階層](runtime-exception.svg){width=700}
+![Hierarchy of RuntimeExceptions](runtime-exception.svg){width=700}
 
 ## スタックトレース
 

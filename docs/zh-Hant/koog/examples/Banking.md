@@ -43,18 +43,18 @@ val openAIExecutor = simpleOpenAIExecutor(apiKey)
 
 ```kotlin
 val bankingAssistantSystemPrompt = """
-    |You are a banking assistant interacting with a user (userId=123).
-    |Your goal is to understand the user's request and determine whether it can be fulfilled using the available tools.
+    |您是一位銀行助理，正在與使用者 (userId=123) 互動。
+    |您的目標是理解使用者的請求，並判斷是否可以使用可用工具來完成。
     |
-    |If the task can be accomplished with the provided tools, proceed accordingly,
-    |at the end of the conversation respond with: "Task completed successfully."
-    |If the task cannot be performed with the tools available, respond with: "Can't perform the task."
+    |如果任務可以使用提供的工具完成，請照常進行，
+    |在對話結束時回應：「任務已成功完成。」
+    |如果任務無法使用可用工具執行，請回應：「無法執行任務。」
 """.trimMargin()
 ```
 
 ## 領域模型與範例資料
 
-首先，讓我們定義我們的領域模型和範例資料。我們將使用 Kotlin 的 data class 並支援序列化。
+首先，讓我們定義我們的領域模型和範例資料。我們將使用 Kotlin 的資料類別 (data class) 並支援序列化。
 
 ```kotlin
 import kotlinx.serialization.Serializable
@@ -91,18 +91,18 @@ import ai.koog.agents.core.tools.annotations.LLMDescription
 import ai.koog.agents.core.tools.annotations.Tool
 import ai.koog.agents.core.tools.reflect.ToolSet
 
-@LLMDescription("Tools for money transfer operations.")
+@LLMDescription("錢財轉帳操作的工具。")
 class MoneyTransferTools : ToolSet {
 
     @Tool
     @LLMDescription(
         """
-        Returns the list of contacts for the given user.
-        The user in this demo is always userId=123.
+        傳回指定使用者的聯絡人清單。
+        此示範中的使用者始終為 userId=123。
         """
     )
     fun getContacts(
-        @LLMDescription("The unique identifier of the user whose contact list is requested.") userId: Int
+        @LLMDescription("請求聯絡人清單之使用者的唯一識別碼。") userId: Int
     ): String = buildString {
         contactList.forEach { c ->
             appendLine("${c.id}: ${c.name} ${c.surname ?: ""} (${c.phoneNumber})")
@@ -110,22 +110,22 @@ class MoneyTransferTools : ToolSet {
     }.trimEnd()
 
     @Tool
-    @LLMDescription("Returns the current balance (demo value).")
+    @LLMDescription("傳回目前餘額 (示範值)。")
     fun getBalance(
-        @LLMDescription("The unique identifier of the user.") userId: Int
+        @LLMDescription("使用者的唯一識別碼。") userId: Int
     ): String = "Balance: 200.00 EUR"
 
     @Tool
-    @LLMDescription("Returns the default user currency (demo value).")
+    @LLMDescription("傳回預設使用者貨幣 (示範值)。")
     fun getDefaultCurrency(
-        @LLMDescription("The unique identifier of the user.") userId: Int
+        @LLMDescription("使用者的唯一識別碼。") userId: Int
     ): String = "EUR"
 
     @Tool
-    @LLMDescription("Returns a demo FX rate between two ISO currencies (e.g. EUR→USD).")
+    @LLMDescription("傳回兩個 ISO 貨幣之間的示範匯率 (例如 EUR→USD)。")
     fun getExchangeRate(
-        @LLMDescription("Base currency (e.g., EUR).") from: String,
-        @LLMDescription("Target currency (e.g., USD).") to: String
+        @LLMDescription("基礎貨幣 (例如，EUR)。") from: String,
+        @LLMDescription("目標貨幣 (例如，USD)。") to: String
     ): String = when (from.uppercase() to to.uppercase()) {
         "EUR" to "USD" -> "1.10"
         "EUR" to "GBP" -> "0.86"
@@ -137,19 +137,19 @@ class MoneyTransferTools : ToolSet {
     @Tool
     @LLMDescription(
         """
-        Returns a ranked list of possible recipients for an ambiguous name.
-        The agent should ask the user to pick one and then use the selected contact id.
+        傳回模稜兩可名稱的可能收款人排名清單。
+        代理程式應要求使用者選擇其中一個，然後使用選定的聯絡人 ID。
         """
     )
     fun chooseRecipient(
-        @LLMDescription("An ambiguous or partial contact name.") confusingRecipientName: String
+        @LLMDescription("模稜兩可或部分聯絡人名稱。") confusingRecipientName: String
     ): String {
         val matches = contactList.filter { c ->
             c.name.contains(confusingRecipientName, ignoreCase = true) ||
                 (c.surname?.contains(confusingRecipientName, ignoreCase = true) ?: false)
         }
         if (matches.isEmpty()) {
-            return "No candidates found for '$confusingRecipientName'. Use getContacts and ask the user to choose."
+            return "找不到名稱為 '$confusingRecipientName' 的候選人。請使用 getContacts 並要求使用者選擇。"
         }
         return matches.mapIndexed { idx, c ->
             "${idx + 1}. ${c.id}: ${c.name} ${c.surname ?: ""} (${c.phoneNumber})"
@@ -160,19 +160,19 @@ class MoneyTransferTools : ToolSet {
     @Tool
     @LLMDescription(
         """
-        Sends money from the user to a contact.
-        If confirmed=false, return "REQUIRES_CONFIRMATION" with a human-readable summary.
-        The agent should confirm with the user before retrying with confirmed=true.
+        將錢從使用者傳送給聯絡人。
+        如果 confirmed=false，則傳回「REQUIRES_CONFIRMATION」並附上人類可讀的摘要。
+        代理程式應在以 confirmed=true 重試之前與使用者確認。
         """
     )
     fun sendMoney(
-        @LLMDescription("Sender user id.") senderId: Int,
-        @LLMDescription("Amount in sender's default currency.") amount: Double,
-        @LLMDescription("Recipient contact id.") recipientId: Int,
-        @LLMDescription("Short purpose/description.") purpose: String,
-        @LLMDescription("Whether the user already confirmed this transfer.") confirmed: Boolean = false
+        @LLMDescription("寄件使用者 ID。") senderId: Int,
+        @LLMDescription("寄件人預設貨幣的金額。") amount: Double,
+        @LLMDescription("收款人聯絡人 ID。") recipientId: Int,
+        @LLMDescription("簡短目的/描述。") purpose: String,
+        @LLMDescription("使用者是否已確認此轉帳。") confirmed: Boolean = false
     ): String {
-        val recipient = contactById[recipientId] ?: return "Invalid recipient."
+        val recipient = contactById[recipientId] ?: return "無效收款人。"
         val summary = "Transfer €%.2f to %s %s (%s) for \"%s\"."
             .format(amount, recipient.name, recipient.surname ?: "", recipient.phoneNumber, purpose)
 
@@ -192,13 +192,14 @@ class MoneyTransferTools : ToolSet {
 
 ```kotlin
 import ai.koog.agents.core.agent.AIAgent
+import ai.koog.agents.core.agent.AIAgentService
 import ai.koog.agents.core.tools.ToolRegistry
 import ai.koog.agents.core.tools.reflect.asTools
 import ai.koog.agents.ext.tool.AskUser
 import ai.koog.prompt.executor.clients.openai.OpenAIModels
 import kotlinx.coroutines.runBlocking
 
-val transferAgent = AIAgent(
+val transferAgentService = AIAgentService(
     executor = openAIExecutor,
     llmModel = OpenAIModels.Reasoning.GPT4oMini,
     systemPrompt = bankingAssistantSystemPrompt,
@@ -210,35 +211,33 @@ val transferAgent = AIAgent(
 )
 
 // 使用各種情境測試代理程式
-println("Banking Assistant started")
+println("銀行助理已啟動")
 val message = "Send 25 euros to Daniel for dinner at the restaurant."
 
 // 您可以嘗試的其他測試訊息：
-// - "Send 50 euros to Alice for the concert tickets"
-// - "What's my current balance?"
-// - "Transfer 100 euros to Bob for the shared vacation expenses"
+// - "傳送 50 歐元給 Alice 作為音樂會門票"
+// - "我的目前餘額是多少？"
+// - "轉帳 100 歐元給 Bob 作為共享假期費用"
 
 runBlocking {
-    val result = transferAgent.run(message)
+    val result = transferAgentService.createAgentAndRun(message)
     result
 }
 ```
 
-    Banking Assistant started
-    There are two contacts named Daniel. Please confirm which one you would like to send money to:
+    銀行助理已啟動
+    有兩個名為 Daniel 的聯絡人。請確認您想將錢傳送給哪一位：
     1. Daniel Anderson (+46 70 123 45 67)
     2. Daniel Garcia (+34 612 345 678)
-    Please confirm the transfer of €25.00 to Daniel Garcia (+34 612 345 678) for "Dinner at the restaurant".
+    請確認將 €25.00 轉帳給 Daniel Garcia (+34 612 345 678) 作為「餐廳晚餐」。
 
-    Task completed successfully.
+    任務已成功完成。
 
 ## 新增交易分析
 讓我們使用交易分析工具擴展助理的功能。
 首先，我們將定義交易領域模型。
 
 ```kotlin
-import kotlinx.serialization.Serializable
-
 @Serializable
 enum class TransactionCategory(val title: String) {
     FOOD_AND_DINING("Food & Dining"),
@@ -272,8 +271,8 @@ data class Transaction(
 
 ```kotlin
 val transactionAnalysisPrompt = """
-Today is 2025-05-22.
-Available categories for transactions: ${TransactionCategory.availableCategories()}
+今天是 2025-05-22。
+可用的交易類別：${TransactionCategory.availableCategories()}
 """
 
 val sampleTransactions = listOf(
@@ -336,38 +335,38 @@ val sampleTransactions = listOf(
 ## 交易分析工具
 
 ```kotlin
-@LLMDescription("Tools for analyzing transaction history")
+@LLMDescription("用於分析交易歷史的工具。")
 class TransactionAnalysisTools : ToolSet {
 
     @Tool
     @LLMDescription(
         """
-        Retrieves transactions filtered by userId, category, start date, and end date.
-        All parameters are optional. If no parameters are provided, all transactions are returned.
-        Dates should be in the format YYYY-MM-DD.
+        根據 userId、類別、開始日期和結束日期篩選交易。
+        所有參數都是可選的。如果未提供任何參數，則傳回所有交易。
+        日期應為 YYYY-MM-DD 格式。
         """
     )
     fun getTransactions(
-        @LLMDescription("The ID of the user whose transactions to retrieve.")
+        @LLMDescription("要檢索其交易的使用者 ID。")
         userId: String? = null,
-        @LLMDescription("The category to filter transactions by (e.g., 'Food & Dining').")
+        @LLMDescription("用於篩選交易的類別 (例如，'Food & Dining')。")
         category: String? = null,
-        @LLMDescription("The start date to filter transactions by, in the format YYYY-MM-DD.")
+        @LLMDescription("用於篩選交易的開始日期，格式為 YYYY-MM-DD。")
         startDate: String? = null,
-        @LLMDescription("The end date to filter transactions by, in the format YYYY-MM-DD.")
+        @LLMDescription("用於篩選交易的結束日期，格式為 YYYY-MM-DD。")
         endDate: String? = null
     ): String {
         var filteredTransactions = sampleTransactions
 
         // 驗證 userId (在生產環境中，這將查詢實際資料庫)
         if (userId != null && userId != "123") {
-            return "No transactions found for user $userId."
+            return "找不到使用者 $userId 的交易。"
         }
 
         // 套用類別篩選器
         category?.let { cat ->
             val categoryEnum = TransactionCategory.fromString(cat)
-                ?: return "Invalid category: $cat. Available: ${TransactionCategory.availableCategories()}"
+                ?: return "無效類別：$cat。可用類別：${TransactionCategory.availableCategories()}"
             filteredTransactions = filteredTransactions.filter { it.category == categoryEnum }
         }
 
@@ -383,7 +382,7 @@ class TransactionAnalysisTools : ToolSet {
         }
 
         if (filteredTransactions.isEmpty()) {
-            return "No transactions found matching the specified criteria."
+            return "找不到符合指定條件的交易。"
         }
 
         return filteredTransactions.joinToString("
@@ -394,9 +393,9 @@ class TransactionAnalysisTools : ToolSet {
     }
 
     @Tool
-    @LLMDescription("Calculates the sum of an array of double numbers.")
+    @LLMDescription("計算雙精度浮點數陣列的總和。")
     fun sumArray(
-        @LLMDescription("Comma-separated list of double numbers to sum (e.g., '1.5,2.3,4.7').")
+        @LLMDescription("以逗號分隔的雙精度浮點數清單，用於求和 (例如，'1.5,2.3,4.7')。")
         numbers: String
     ): String {
         val numbersList = numbers.split(",")
@@ -408,7 +407,7 @@ class TransactionAnalysisTools : ToolSet {
     // 解析日期的輔助函式
     private fun parseDate(dateStr: String, startOfDay: Boolean): LocalDateTime {
         val parts = dateStr.split("-").map { it.toInt() }
-        require(parts.size == 3) { "Invalid date format. Use YYYY-MM-DD" }
+        require(parts.size == 3) { "無效日期格式。請使用 YYYY-MM-DD" }
 
         return if (startOfDay) {
             LocalDateTime(parts[0], parts[1], parts[2], 0, 0, 0, 0)
@@ -420,7 +419,7 @@ class TransactionAnalysisTools : ToolSet {
 ```
 
 ```kotlin
-val analysisAgent = AIAgent(
+val analysisAgentService = AIAgentService(
     executor = openAIExecutor,
     llmModel = OpenAIModels.Reasoning.GPT4oMini,
     systemPrompt = "$bankingAssistantSystemPrompt
@@ -431,26 +430,26 @@ $transactionAnalysisPrompt",
     }
 )
 
-println("Transaction Analysis Assistant started")
+println("交易分析助理已啟動")
 val analysisMessage = "How much have I spent on restaurants this month?"
 
 // 您可以嘗試的其他查詢：
-// - "What's my maximum check at a restaurant this month?"
-// - "How much did I spend on groceries in the first week of May?"
-// - "What's my total spending on entertainment in May?"
-// - "Show me all transactions from last week"
+// - "我本月在餐廳的最高消費是多少？"
+// - "我在五月的第一週在雜貨上花了多少錢？"
+// - "我五月在娛樂上的總花費是多少？"
+// - "顯示我上週的所有交易"
 
 runBlocking {
-    val result = analysisAgent.run(analysisMessage)
+    val result = analysisAgentService.createAgentAndRun(analysisMessage)
     result
 }
 ```
 
-    Transaction Analysis Assistant started
+    交易分析助理已啟動
 
-    You have spent a total of $517.64 on restaurants this month. 
-    
-    Task completed successfully.
+    您本月在餐廳共花費 $517.64。
+
+    任務已成功完成。
 
 ## 使用圖形建立代理程式
 現在讓我們將專業代理程式組合成一個圖形代理程式 (graph agent)，它可以將請求路由到適當的處理器。
@@ -466,15 +465,15 @@ import kotlinx.serialization.Serializable
 @Suppress("unused")
 @SerialName("UserRequestType")
 @Serializable
-@LLMDescription("Type of user request: Transfer or Analytics")
+@LLMDescription("使用者請求的類型：轉帳或分析")
 enum class RequestType { Transfer, Analytics }
 
 @Serializable
-@LLMDescription("The bank request that was classified by the agent.")
+@LLMDescription("代理程式分類的銀行請求。")
 data class ClassifiedBankRequest(
-    @property:LLMDescription("Type of request: Transfer or Analytics")
+    @property:LLMDescription("請求類型：轉帳或分析")
     val requestType: RequestType,
-    @property:LLMDescription("Actual request to be performed by the banking application")
+    @property:LLMDescription("銀行應用程式要執行的實際請求")
     val userRequest: String
 )
 
@@ -502,7 +501,7 @@ import ai.koog.agents.core.dsl.extension.*
 import ai.koog.agents.ext.agent.subgraphWithTask
 import ai.koog.prompt.structure.StructureFixingParser
 
-val strategy = strategy<String, String>("banking assistant") {
+val strategy = strategy<String, String>("銀行助理") {
 
     // 用於分類使用者請求的子圖
     val classifyRequest by subgraph<String, ClassifiedBankRequest>(
@@ -541,14 +540,14 @@ val strategy = strategy<String, String>("banking assistant") {
         edge(
             requestClassification forwardTo callLLM
                 onCondition { it.isFailure }
-                transformed { "Failed to understand the user's intent" }
+                transformed { "無法理解使用者的意圖" }
         )
 
         edge(callLLM forwardTo callAskUserTool onToolCall { true })
 
         edge(
             callLLM forwardTo callLLM onAssistantMessage { true }
-                transformed { "Please call `${AskUser.name}` tool instead of chatting" }
+                transformed { "請呼叫 `${AskUser.name}` 工具，而不是聊天" }
         )
 
         edge(callAskUserTool forwardTo requestClassification
@@ -562,7 +561,7 @@ val strategy = strategy<String, String>("banking assistant") {
     ) { request ->
         """
         $bankingAssistantSystemPrompt
-        Specifically, you need to help with the following request:
+        具體來說，您需要協助處理以下請求：
         ${request.userRequest}
         """.trimIndent()
     }
@@ -574,7 +573,7 @@ val strategy = strategy<String, String>("banking assistant") {
         """
         $bankingAssistantSystemPrompt
         $transactionAnalysisPrompt
-        Specifically, you need to help with the following request:
+        具體來說，您需要協助處理以下請求：
         ${request.userRequest}
         """.trimIndent()
     }
@@ -618,42 +617,42 @@ val agent = AIAgent<String, String>(
 ## 執行圖形代理程式
 
 ```kotlin
-println("Banking Assistant started")
+println("銀行助理已啟動")
 val testMessage = "Send 25 euros to Daniel for dinner at the restaurant."
 
 // 測試各種情境：
 // 轉帳請求：
-//   - "Send 50 euros to Alice for the concert tickets"
-//   - "Transfer 100 to Bob for groceries"
-//   - "What's my current balance?"
+//   - "傳送 50 歐元給 Alice 作為音樂會門票"
+//   - "轉帳 100 給 Bob 作為雜貨費用"
+//   - "我的目前餘額是多少？"
 //
 // 分析請求：
-//   - "How much have I spent on restaurants this month?"
-//   - "What's my maximum check at a restaurant this month?"
-//   - "How much did I spend on groceries in the first week of May?"
-//   - "What's my total spending on entertainment in May?"
+//   - "我本月在餐廳花費了多少錢？"
+//   - "我本月在餐廳的最高消費是多少？"
+//   - "我在五月的第一週在雜貨上花了多少錢？"
+//   - "我五月在娛樂上的總花費是多少？"
 
 runBlocking {
     val result = agent.run(testMessage)
-    "Result: $result"
+    "結果：$result"
 }
 ```
 
-    Banking Assistant started
-    I found multiple contacts with the name Daniel. Please choose the correct one:
+    銀行助理已啟動
+    我找到多個名為 Daniel 的聯絡人。請選擇正確的一個：
     1. Daniel Anderson (+46 70 123 45 67)
     2. Daniel Garcia (+34 612 345 678)
-    Please specify the number of the correct recipient.
-    Please confirm if you would like to proceed with sending €25 to Daniel Garcia for "dinner at the restaurant."
+    請指定正確收款人的號碼。
+    請確認您是否要繼續將 €25 傳送給 Daniel Garcia 作為「餐廳晚餐」。
 
-    Result: Task completed successfully.
+    結果：任務已成功完成。
 
 ## 代理程式組成 — 將代理程式作為工具使用
 
 Koog 允許您在其他代理程式中將代理程式作為工具使用，從而實現強大的組成模式。
 
 ```kotlin
-import ai.koog.agents.core.agent.asTool
+import ai.koog.agents.core.agent.createAgentTool
 import ai.koog.agents.core.tools.ToolParameterDescriptor
 import ai.koog.agents.core.tools.ToolParameterType
 
@@ -665,24 +664,24 @@ val classifierAgent = AIAgent(
 
         // 將代理程式轉換為工具
         tool(
-            transferAgent.asTool(
+            transferAgentService.createAgentTool(
                 agentName = "transferMoney",
-                agentDescription = "Transfers money and handles all related operations",
+                agentDescription = "轉帳並處理所有相關操作",
                 inputDescriptor = ToolParameterDescriptor(
                     name = "request",
-                    description = "Transfer request from the user",
+                    description = "來自使用者的轉帳請求",
                     type = ToolParameterType.String
                 )
             )
         )
 
         tool(
-            analysisAgent.asTool(
+            analysisAgentService.createAgentTool(
                 agentName = "analyzeTransactions",
-                agentDescription = "Performs analytics on user transactions",
+                agentDescription = "對使用者交易執行分析",
                 inputDescriptor = ToolParameterDescriptor(
                     name = "request",
-                    description = "Transaction analytics request",
+                    description = "交易分析請求",
                     type = ToolParameterType.String
                 )
             )
@@ -696,27 +695,27 @@ $transactionAnalysisPrompt"
 ## 執行組合代理程式
 
 ```kotlin
-println("Banking Assistant started")
+println("銀行助理已啟動")
 val composedMessage = "Send 25 euros to Daniel for dinner at the restaurant."
 
 runBlocking {
     val result = classifierAgent.run(composedMessage)
-    "Result: $result"
+    "結果：$result"
 }
 ```
 
-    Banking Assistant started
-    There are two contacts named Daniel. Please confirm which one you would like to send money to:
+    銀行助理已啟動
+    有兩個名為 Daniel 的聯絡人。請確認您想將錢傳送給哪一位：
     1. Daniel Anderson (+46 70 123 45 67)
     2. Daniel Garcia (+34 612 345 678)
-    Please confirm the transfer of €25.00 to Daniel Anderson (+46 70 123 45 67) for "Dinner at the restaurant".
+    請確認將 €25.00 轉帳給 Daniel Anderson (+46 70 123 45 67) 作為「餐廳晚餐」。
 
-    Result: Can't perform the task.
+    結果：無法執行任務。
 
 ## 摘要
 在本教學課程中，您已學會如何：
 
-1.  建立帶有清晰描述的 LLM 驅動工具，以幫助 AI 理解何時以及如何使用它們
+1.  建立具有清晰描述的 LLM 驅動工具，以幫助 AI 理解何時以及如何使用它們
 2.  建構將 LLM 與工具結合以完成特定任務的單一目的代理程式
 3.  使用策略和子圖實現圖形代理程式以處理複雜的工作流程
 4.  透過在其他代理程式中將代理程式作為工具使用來組成代理程式
@@ -725,7 +724,7 @@ runBlocking {
 ## 最佳實踐
 
 1.  **清晰的工具描述：** 編寫詳細的 `LLMDescription` 註釋以幫助 AI 理解工具的使用方式
-2.  **慣用 Kotlin：** 使用 Kotlin 功能，例如 data class、擴充函式和作用域函式
+2.  **慣用 Kotlin：** 使用 Kotlin 功能，例如資料類別、擴充函式和作用域函式
 3.  **錯誤處理：** 始終驗證輸入並提供有意義的錯誤訊息
 4.  **使用者體驗：** 對於資金轉帳等關鍵操作，包含確認步驟
 5.  **模組化：** 將不同關注點分離到不同的工具和代理程式中，以提高可維護性

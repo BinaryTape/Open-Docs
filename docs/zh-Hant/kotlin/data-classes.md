@@ -28,7 +28,7 @@ data class User(val name: String, val age: Int)
 
 資料類別可以擴展其他類別 (請參閱 [密封類別](sealed-classes.md) 以獲取範例)。
 
-> 在 JVM 上，如果生成的類別需要一個無參數的建構函式，則必須為屬性指定預設值 (請參閱 [建構函式](classes.md#constructors))：
+> 在 JVM 上，如果生成的類別需要一個無參數的建構函式，則必須為屬性指定預設值 (請參閱 [建構函式](classes.md#constructors-and-initializer-blocks))：
 >
 > ```kotlin
 > data class User(val name: String = "", val age: Int = 0)

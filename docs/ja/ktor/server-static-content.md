@@ -137,7 +137,7 @@ staticFiles("/files", File("textFiles")) {
 `cacheControl()` 関数を使用すると、HTTPキャッシングのための `Cache-Control` ヘッダーを設定できます。
 
 ```kotlin
-fun Application.module() {
+    install(ConditionalHeaders)
     routing {
         staticFiles("/files", File("textFiles")) {
             cacheControl { file ->
@@ -157,7 +157,7 @@ object Immutable : CacheControl(null) {
 [`ConditionalHeaders`](server-conditional-headers.md)プラグインがインストールされている場合、Ktorは静的リソースを `ETag` および `LastModified` ヘッダーとともに提供し、条件付きヘッダーを処理して、最後の要求以降に変更がない場合にコンテンツの本体を送信しないようにすることができます。
 
 ```kotlin
-staticFiles("/filesWithEtagAndLastModified", filesDir) {
+staticFiles("/filesWithEtagAndLastModified", File("files")) {
     etag { resource -> EntityTagVersion("etag") }
     lastModified { resource -> GMTDate() }
 }
@@ -168,7 +168,7 @@ staticFiles("/filesWithEtagAndLastModified", filesDir) {
 `ETag` 生成を簡素化するために、事前定義されたプロバイダーを使用することもできます。
 
 ```kotlin
-staticFiles("/filesWithStrongGeneratedEtag", filesDir) {
+staticFiles("/filesWithStrongGeneratedEtag", File("files")) {
     etag(ETagProvider.StrongSha256)
 }
 ```
@@ -214,8 +214,8 @@ staticResources("/", "static"){
 staticFiles("/files", File("textFiles")) {
     fallback { requestedPath, call ->
         when {
-            requestedPath.endsWith(".php") -> call.respondRedirect("/static/index.html") // absolute path
-            requestedPath.endsWith(".kt") -> call.respondRedirect("Default.kt") // relative path
+            requestedPath.endsWith(".php") -> call.respondRedirect("/static/index.html") // 絶対パス
+            requestedPath.endsWith(".kt") -> call.respondRedirect("Default.kt") // 相対パス
             requestedPath.endsWith(".xml") -> call.respond(HttpStatusCode.Gone)
             else -> call.respondFile(File("files/index.html"))
         }

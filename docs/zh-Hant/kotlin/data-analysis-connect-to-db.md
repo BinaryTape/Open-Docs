@@ -1,6 +1,6 @@
 [//]: # (title: 連接並從資料庫擷取資料)
 
-[Kotlin Notebook](kotlin-notebook-overview.md) 提供了連接和從各種 SQL 資料庫（例如 MariaDB、PostgreSQL、MySQL 和 SQLite）擷取資料的功能。利用 [Kotlin DataFrame 函式庫](https://kotlin.github.io/dataframe/gettingstarted.html)，Kotlin Notebook 可以建立與資料庫的連接、執行 SQL 查詢，並匯入結果以進行後續操作。
+[Kotlin Notebook](kotlin-notebook-overview.md) 提供了連接和從各種 SQL 資料庫（例如 MariaDB、PostgreSQL、MySQL 和 SQLite）擷取資料的功能。利用 [Kotlin DataFrame 函式庫](https://kotlin.github.io/dataframe/home.html)，Kotlin Notebook 可以建立與資料庫的連接、執行 SQL 查詢，並匯入結果以進行後續操作。
 
 如需詳細範例，請參閱 [KotlinDataFrame SQL 範例 GitHub 儲存庫中的 Notebook](https://github.com/zaleslaw/KotlinDataFrame-SQL-Examples/blob/master/notebooks/imdb.ipynb)。
 
@@ -17,7 +17,7 @@ Kotlin Notebook 依賴於 [Kotlin Notebook 外掛程式](https://plugins.jetbrai
 
 ## 連接資料庫
 
-您可以使用 [Kotlin DataFrame 函式庫](https://kotlin.github.io/dataframe/gettingstarted.html) 中的特定函式來連接和與 SQL 資料庫互動。您可以使用 `DatabaseConfiguration` 建立與資料庫的連接，並使用 `getSchemaForAllSqlTables()` 擷取其中所有資料表的綱要。
+您可以使用 [Kotlin DataFrame 函式庫](https://kotlin.github.io/dataframe/home.html) 中的特定函式來連接和與 SQL 資料庫互動。您可以使用 `DatabaseConfiguration` 建立與資料庫的連接，並使用 `getSchemaForAllSqlTables()` 擷取其中所有資料表的綱要。
 
 讓我們看一個範例：
 
@@ -128,7 +128,7 @@ Kotlin Notebook 依賴於 [Kotlin Notebook 外掛程式](https://plugins.jetbrai
 
 ## 在 Kotlin Notebook 中分析資料
 
-在 [建立與 SQL 資料庫的連接](#connect-to-database) 後，您可以使用 Kotlin Notebook 進行深度資料分析，並利用 [Kotlin DataFrame 函式庫](https://kotlin.github.io/dataframe/gettingstarted.html)。這包括用於分組、排序和聚合資料的函式，幫助您揭示和理解資料中的模式。
+在 [建立與 SQL 資料庫的連接](#connect-to-database) 後，您可以使用 Kotlin Notebook 進行深度資料分析，並利用 [Kotlin DataFrame 函式庫](https://kotlin.github.io/dataframe/home.html)。這包括用於分組、排序和聚合資料的函式，幫助您揭示和理解資料中的模式。
 
 讓我們深入探討一個範例，該範例涉及分析電影資料庫中的演員資料，重點關注演員最常見的名字：
 

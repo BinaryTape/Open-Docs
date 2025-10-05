@@ -49,7 +49,7 @@ plugins {
 [Google App Engine Gradle plugin](https://github.com/GoogleCloudPlatform/app-gradle-plugin) 提供用於建置和部署 Google App Engine 應用程式的任務。要使用此外掛程式，請按照以下步驟操作：
 
 1. 開啟 `settings.gradle.kts` 檔案並插入以下程式碼以從 Central Maven 儲存庫引用外掛程式：
-   ```groovy
+   ```kotlin
    pluginManagement {
        repositories {
            gradlePluginPortal()

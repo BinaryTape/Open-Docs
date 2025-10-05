@@ -76,7 +76,7 @@ fun main() {
 *   `id` 和 `email` 是属性。
 *   `id` 和 `email` 与默认构造函数一起用于创建 `contact`。
 
-Kotlin 类可以有许多构造函数，包括你自己定义的构造函数。关于如何声明多个构造函数，请参见[构造函数](classes.md#constructors)。
+Kotlin 类可以有许多构造函数，包括你自己定义的构造函数。关于如何声明多个构造函数，请参见[构造函数](classes.md#constructors-and-initializer-blocks)。
 
 ## 访问属性
 
@@ -87,16 +87,16 @@ class Contact(val id: Int, var email: String)
 
 fun main() {
     val contact = Contact(1, "mary@gmail.com")
-    
+
     // 打印属性 email 的值
-    println(contact.email)           
+    println(contact.email)
     // mary@gmail.com
 
     // 更新属性 email 的值
     contact.email = "jane@gmail.com"
-    
+
     // 打印属性 email 的新值
-    println(contact.email)           
+    println(contact.email)
     // jane@gmail.com
 }
 ```
@@ -126,7 +126,7 @@ class Contact(val id: Int, var email: String) {
 fun main() {
     val contact = Contact(1, "mary@gmail.com")
     // 调用成员函数 printId()
-    contact.printId()           
+    contact.printId()
     // 1
 }
 ```
@@ -158,7 +158,7 @@ data class User(val name: String, val id: Int)
 
 ### 打印为字符串
 
-要将类的实例打印为可读字符串，可以显式调用 `toString()` 函数，或者使用 `print()` 和 `println()` 等打印函数，它们会自动为你调用 `toString()`：
+要将类的实例打印为可读字符串，可以显式调用 `toString()` 函数，或者使用 `println()` 和 `print()` 等打印函数，它们会自动为你调用 `toString()`：
 
 ```kotlin
 data class User(val name: String, val id: Int)
@@ -166,9 +166,9 @@ data class User(val name: String, val id: Int)
 fun main() {
     //sampleStart
     val user = User("Alex", 1)
-    
+
     // 自动使用 toString() 函数，使输出易于阅读
-    println(user)            
+    println(user)
     // User(name=Alex, id=1)
     //sampleEnd
 }
@@ -191,11 +191,11 @@ fun main() {
     val thirdUser = User("Max", 2)
 
     // 比较 user 与 secondUser
-    println("user == secondUser: ${user == secondUser}") 
+    println("user == secondUser: ${user == secondUser}")
     // user == secondUser: true
-    
+
     // 比较 user 与 thirdUser
-    println("user == thirdUser: ${user == thirdUser}")   
+    println("user == thirdUser: ${user == thirdUser}")
     // user == thirdUser: false
     //sampleEnd
 }
@@ -218,15 +218,15 @@ fun main() {
     val user = User("Alex", 1)
 
     // 创建 user 的精确副本
-    println(user.copy())       
+    println(user.copy())
     // User(name=Alex, id=1)
 
     // 创建 user 的副本，并将 name 设为 "Max"
-    println(user.copy("Max"))  
+    println(user.copy("Max"))
     // User(name=Max, id=1)
 
     // 创建 user 的副本，并将 id 设为 3
-    println(user.copy(id = 3)) 
+    println(user.copy(id = 3))
     // User(name=Alex, id=3)
     //sampleEnd
 }

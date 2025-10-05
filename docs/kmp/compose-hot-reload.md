@@ -2,22 +2,24 @@
 
 <primary-label ref="beta"/>
 
-[Compose 热重载](https://github.com/JetBrains/compose-hot-reload) 帮助您在处理 Compose Multiplatform 项目时可视化并实验 UI 变更。
+[Compose Hot Reload](https://github.com/JetBrains/compose-hot-reload) 帮助您在处理 Compose Multiplatform 项目时可视化并实验 UI 变更。
 
-目前，Compose 热重载仅在您的多平台项目中包含 desktop 目标平台时可用。我们正在探索未来增加对其他目标平台的支持。同时，使用 desktop 应用作为您的沙盒可以帮助您快速实验通用代码中的 UI 变更，而不会中断您的工作流。
+Compose Hot Reload 目前仅在您的多平台项目包含 desktop 目标平台且兼容 Java 21 或更早版本时可用。
+
+我们正在探索未来增加对其他目标平台的支持。同时，使用 desktop 应用作为您的沙盒可以帮助您快速实验通用代码中的 UI 变更，而不会中断您的工作流。
 
 ![Compose 热重载](compose-hot-reload.gif){width=500}
 
-## 将 Compose 热重载添加到您的项目
+## 将 Compose Hot Reload 添加到您的项目
 
-Compose 热重载可通过两种方式添加，即：
+Compose Hot Reload 可通过两种方式添加，即：
 
 * [在 IntelliJ IDEA 或 Android Studio 中从头创建项目](#from-scratch)
 * [将其作为 Gradle 插件添加到现有项目](#to-an-existing-project)
 
 ### 从头开始
 
-本节将引导您完成在 IntelliJ IDEA 和 Android Studio 中创建包含 desktop 目标平台的多平台项目的步骤。当您的项目创建后，Compose 热重载将自动添加。
+本节将引导您完成在 IntelliJ IDEA 和 Android Studio 中创建包含 desktop 目标平台的多平台项目的步骤。当您的项目创建后，Compose Hot Reload 将自动添加。
 
 1. 在 [快速入门](quickstart.md) 中，完成以下说明以 [为 Kotlin Multiplatform 开发设置环境](quickstart.md#set-up-the-environment)。
 2. 在 IntelliJ IDEA 中，选择 **File** | **New** | **Project**。
@@ -28,9 +30,9 @@ Compose 热重载可通过两种方式添加，即：
 
 ### 添加到现有项目
 
-本节将引导您完成将 Compose 热重载添加到现有多平台项目的步骤。这些步骤参考了 [使用共享逻辑和 UI 创建应用](compose-multiplatform-create-first-app.md) 教程中的项目。
+本节将引导您完成将 Compose Hot Reload 添加到现有多平台项目的步骤。这些步骤参考了 [使用共享逻辑和 UI 创建应用](compose-multiplatform-create-first-app.md) 教程中的项目。
 
-> 要查找 Compose 热重载的最新版本，请参见 [发行版本](https://github.com/JetBrains/compose-hot-reload/releases)。
+> 要查找 Compose Hot Reload 的最新版本，请参见 [发行版本](https://github.com/JetBrains/compose-hot-reload/releases)。
 > 
 {style="tip"}
 
@@ -47,7 +49,7 @@ Compose 热重载可通过两种方式添加，即：
        alias(libs.plugins.composeHotReload) apply false
    }
    ```
-   这可以防止 Compose 热重载插件在您的每个子项目中被多次加载。
+   这可以防止 Compose Hot Reload 插件在您的每个子项目中被多次加载。
 
 3. 在包含您的多平台应用程序的子项目 (`ComposeDemo/composeApp/build.gradle.kts`) 的 `build.gradle.kts` 中，将以下代码添加到您的 `plugins {}` 代码块中：
    ```kotlin
@@ -56,8 +58,13 @@ Compose 热重载可通过两种方式添加，即：
    }
    ```
 
-4. 要使用 Compose 热重载的全部功能，您的项目必须运行在 [JetBrains Runtime](https://github.com/JetBrains/JetBrainsRuntime) (JBR) 上，这是一个支持增强类重定义的 OpenJDK 分支。
-   Compose 热重载可以自动提供兼容的 JBR 给您的项目。
+4. 要使用 Compose Hot Reload 的全部功能，您的项目必须运行在 [JetBrains Runtime](https://github.com/JetBrains/JetBrainsRuntime) (JBR) 上，这是一个支持增强类重定义的 OpenJDK 分支。
+   Compose Hot Reload 可以自动提供兼容的 JBR 给您的项目。
+
+   > 最新的 JetBrains Runtime 仅支持 Java 21：如果您将 Compose Hot Reload 添加到仅兼容 Java 22 或更高版本的项目，运行项目将导致链接错误。
+   > 
+   {style="warning"}
+
    为了实现此目的，请将以下 Gradle 插件添加到您的 `settings.gradle.kts` 文件中：
 
    ```kotlin
@@ -68,7 +75,7 @@ Compose 热重载可通过两种方式添加，即：
 
 5. 点击 **Sync Gradle Changes** 按钮以同步 Gradle 文件： ![同步 Gradle 文件](gradle-sync.png){width=50}
 
-## 使用 Compose 热重载
+## 使用 Compose Hot Reload
 
 1. 在 `jvmMain` 目录中，打开 `main.kt` 文件并更新 `main()` 函数：
    ```kotlin
@@ -112,8 +119,8 @@ Compose 热重载可通过两种方式添加，即：
 
    ![Compose 热重载](compose-hot-reload.gif){width=500}
 
-恭喜！您已看到 Compose 热重载的实际效果。现在，您可以尝试更改文本、图像、格式、UI 结构等内容，无需在每次更改后重新启动 desktop 运行配置。
+恭喜！您已看到 Compose Hot Reload 的实际效果。现在，您可以尝试更改文本、图像、格式、UI 结构等内容，无需在每次更改后重新启动 desktop 运行配置。
 
 ## 获取帮助
 
-如果您在使用 Compose 热重载时遇到任何问题，请通过 [创建 GitHub Issue](https://github.com/JetBrains/compose-hot-reload/issues) 告诉我们。
+如果您在使用 Compose Hot Reload 时遇到任何问题，请通过 [创建 GitHub Issue](https://github.com/JetBrains/compose-hot-reload/issues) 告诉我们。

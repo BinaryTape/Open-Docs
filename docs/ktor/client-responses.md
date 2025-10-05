@@ -98,6 +98,72 @@ val customer: Customer = client.get("http://localhost:8080/customer/3").body()
 
 > ContentNegotiation 插件适用于[客户端](client-serialization.md)和[服务器](server-serialization.md)。请确保针对你的情况使用正确的插件。
 
+### Multipart 表单数据 {id="multipart"}
+
+当接收到包含 Multipart 表单数据的响应时，你可以将其体读取为 [`MultiPartData`](https://api.ktor.io/ktor-http/io.ktor.http.content/-multi-part-data/index.html) 实例。这允许你处理响应中包含的表单字段和文件。
+
+下面的示例演示了如何处理来自 multipart 响应的文本表单字段和文件上传：
+
+```kotlin
+val response = client.post("https://myserver.com/multipart/receive")
+
+val multipart = response.body<MultiPartData>()
+
+multipart.forEachPart { part ->
+    when (part) {
+        is PartData.FormItem -> {
+            println("Form item key: ${part.name}")
+            val value = part.value
+            // ...
+        }
+        is PartData.FileItem -> {
+            println("file: ${part.name}")
+            println(part.originalFileName)
+            val fileContent: ByteReadChannel = part.provider()
+            // ...
+        }
+    }
+    part.dispose()
+}
+```
+
+#### 表单字段
+
+`PartData.FormItem` 表示一个表单字段，其值可以通过 `value` 属性访问：
+
+```kotlin
+when (part) {
+    is PartData.FormItem -> {
+        println("Form item key: ${part.name}")
+        val value = part.value
+        // ...
+    }
+}
+```
+
+#### 文件上传
+
+`PartData.FileItem` 表示一个文件项。你可以将文件上传作为字节流处理：
+
+```kotlin
+when (part) {
+    is PartData.FileItem -> {
+        println("file: ${part.name}")
+        println(part.originalFileName)
+        val fileContent: ByteReadChannel = part.provider()
+        // ...
+    }
+}
+```
+
+#### 资源清理
+
+一旦表单处理完成，每个部分都会通过调用 `.dispose()` 函数来释放资源。
+
+```kotlin
+part.dispose()
+```
+
 ### 流式数据 {id="streaming"}
 
 当你调用 `HttpResponse.body` 函数以获取体时，Ktor 会在内存中处理响应并返回完整的响应体。如果你需要顺序获取响应块而不是等待整个响应，请使用带作用域 [`execute`](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client.statement/-http-statement/execute.html) 代码块的 `HttpStatement`。下面的[可运行示例](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-download-streaming)展示了如何以块（字节包）的形式接收响应内容并将其保存到文件：
@@ -137,4 +203,3 @@ client.prepareGet("https://httpbin.org/bytes/$fileSize").execute { httpResponse 
     channel.copyAndClose(file.writeChannel())
     println("A file saved to ${file.path}")
 }
-```

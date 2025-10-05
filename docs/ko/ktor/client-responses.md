@@ -7,7 +7,8 @@
 </link-summary>
 
 [HTTP 요청을 수행](client-requests.md)하는 데 사용되는 모든 함수(`request`, `get`, `post` 등)는
-[`HttpResponse`](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client.statement/-http-response/index.html) 객체로 응답을 받을 수 있도록 합니다.
+[`HttpResponse`](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client.statement/-http-response/index.html)
+객체로 응답을 받을 수 있도록 합니다.
 
 `HttpResponse`는 [응답 본문](#body)을 다양한 방식(원시 바이트, JSON 객체 등)으로 얻고, 상태 코드, 콘텐츠 타입, 헤더와 같은 [응답 파라미터](#parameters)를 획득하는 데 필요한 API를 노출합니다.
 예를 들어, 파라미터 없는 `GET` 요청에 대한 `HttpResponse`는 다음과 같이 받을 수 있습니다:
@@ -18,11 +19,14 @@ val response: HttpResponse = client.get("https://ktor.io/docs/welcome.html")
 
 ## 응답 파라미터 받기 {id="parameters"}
 
-[`HttpResponse`](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client.statement/-http-response/index.html) 클래스를 사용하면 상태 코드, 헤더, HTTP 버전 등과 같은 다양한 응답 파라미터를 얻을 수 있습니다.
+[`HttpResponse`](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client.statement/-http-response/index.html)
+클래스를 사용하면 상태 코드, 헤더, HTTP 버전 등과 같은 다양한 응답 파라미터를 얻을 수 있습니다.
 
 ### 상태 코드 {id="status"}
 
-응답의 상태 코드를 얻으려면 [`HttpResponse.status`](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client.statement/-http-response/status.html) 속성을 사용하세요:
+응답의 상태 코드를 얻으려면
+[`HttpResponse.status`](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client.statement/-http-response/status.html)
+속성을 사용하세요:
 
 ```kotlin
 import io.ktor.client.*
@@ -38,7 +42,8 @@ if (httpResponse.status.value in 200..299) {
 
 ### 헤더 {id="headers"}
 
-[`HttpResponse.headers`](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client.statement/-http-response/index.html) 속성을 사용하면 모든 응답 헤더를 포함하는 [Headers](https://api.ktor.io/ktor-http/io.ktor.http/-headers/index.html) 맵을 얻을 수 있습니다. 또한, `HttpResponse`는 특정 헤더 값을 받기 위한 다음 함수들을 노출합니다:
+[`HttpResponse.headers`](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client.statement/-http-response/index.html)
+속성을 사용하면 모든 응답 헤더를 포함하는 [Headers](https://api.ktor.io/ktor-http/io.ktor.http/-headers/index.html) 맵을 얻을 수 있습니다. 또한, `HttpResponse`는 특정 헤더 값을 받기 위한 다음 함수들을 노출합니다:
 
 *   `contentType` for the `Content-Type` header value
 *   `charset` for a charset from the `Content-Type` header value.
@@ -100,6 +105,74 @@ val customer: Customer = client.get("http://localhost:8080/customer/3").body()
 
 > ContentNegotiation 플러그인은 [클라이언트](client-serialization.md)와 [서버](server-serialization.md) 모두에서 사용할 수 있습니다. 사용 사례에 맞는 것을 사용해야 합니다.
 
+### 멀티파트 폼 데이터 {id="multipart"}
+
+멀티파트 폼 데이터를 포함하는 응답을 받을 때, 해당 본문을
+[`MultiPartData`](https://api.ktor.io/ktor-http/io.ktor.http.content/-multi-part-data/index.html) 인스턴스로 읽을 수 있습니다.
+이를 통해 응답에 포함된 폼 필드와 파일을 처리할 수 있습니다.
+
+아래 예제는 멀티파트 응답에서 텍스트 폼 필드와 파일 업로드 모두를 처리하는 방법을 보여줍니다:
+
+```kotlin
+val response = client.post("https://myserver.com/multipart/receive")
+
+val multipart = response.body<MultiPartData>()
+
+multipart.forEachPart { part ->
+    when (part) {
+        is PartData.FormItem -> {
+            println("Form item key: ${part.name}")
+            val value = part.value
+            // ...
+        }
+        is PartData.FileItem -> {
+            println("file: ${part.name}")
+            println(part.originalFileName)
+            val fileContent: ByteReadChannel = part.provider()
+            // ...
+        }
+    }
+    part.dispose()
+}
+```
+
+#### 폼 필드
+
+`PartData.FormItem`은 폼 필드를 나타내며, 그 값은 `value` 속성을 통해 접근할 수 있습니다:
+
+```kotlin
+when (part) {
+    is PartData.FormItem -> {
+        println("Form item key: ${part.name}")
+        val value = part.value
+        // ...
+    }
+}
+```
+
+#### 파일 업로드
+
+`PartData.FileItem`은 파일 항목을 나타냅니다. 파일 업로드를 바이트 스트림으로 처리할 수 있습니다:
+
+```kotlin
+when (part) {
+    is PartData.FileItem -> {
+        println("file: ${part.name}")
+        println(part.originalFileName)
+        val fileContent: ByteReadChannel = part.provider()
+        // ...
+    }
+}
+```
+
+#### 리소스 정리
+
+폼 처리가 완료되면, 각 파트는 `.dispose()` 함수를 사용하여 리소스를 해제합니다.
+
+```kotlin
+part.dispose()
+```
+
 ### 데이터 스트리밍 {id="streaming"}
 
 `HttpResponse.body` 함수를 호출하여 본문을 얻을 때, Ktor는 응답을 메모리에서 처리하고 전체 응답 본문을 반환합니다. 전체 응답을 기다리는 대신 응답의 청크를 순차적으로 받아야 하는 경우, 스코프가 지정된 [execute](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client.statement/-http-statement/execute.html) 블록과 함께 `HttpStatement`를 사용하세요.
@@ -140,4 +213,3 @@ client.prepareGet("https://httpbin.org/bytes/$fileSize").execute { httpResponse 
     channel.copyAndClose(file.writeChannel())
     println("A file saved to ${file.path}")
 }
-```

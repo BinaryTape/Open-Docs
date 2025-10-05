@@ -18,17 +18,17 @@
 
 ## 扩展函数
 
-在软件开发中，你经常需要在不修改原始源代码的情况下，改变程序的行为。例如，在你的项目中，你可能想为来自第三方库的类添加额外功能。
+在软件开发中，你经常需要在不修改原始源代码的情况下，改变程序的行为。例如，你可能想为来自第三方库的类添加额外功能。
 
-扩展函数允许你为类添加额外功能以扩展它。你调用扩展函数的方式与调用类的成员函数的方式相同，使用点号 `.`。
+你可以通过添加 _扩展函数_ 来扩展一个类。你调用扩展函数的方式与调用类的成员函数的方式相同，使用点号 `.`。
 
-在介绍扩展函数的语法之前，你需要理解 **接收者类型** 和 **接收者对象** 这两个术语。
-接收者对象是函数在其上被调用的对象。换句话说，接收者是信息被共享的位置或与之共享的对象。
+在介绍扩展函数的完整语法之前，你需要理解什么是 **接收者**。
+接收者是函数在其上被调用的对象。换句话说，接收者是信息被共享的位置或与之共享的对象。
 
 ![发送者和接收者的示例](receiver-highlight.png){width="500"}
 
 在此示例中，`main()` 函数调用了 [`.first()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/first.html) 函数来返回 list 中的第一个元素。
-`.first()` 函数在 `readOnlyShapes` 变量上调用，因此 `readOnlyShapes` 变量是接收者对象。
+`.first()` 函数在 `readOnlyShapes` 变量上调用，因此 `readOnlyShapes` 变量是接收者。
 
 要创建扩展函数，请写下你想要扩展的类的名称，后跟一个 `.` 和你的函数名称。然后继续编写函数声明的其余部分，包括其实参和返回类型。
 
@@ -47,10 +47,10 @@ fun main() {
 
 在此示例中：
 
-*   `String` 是被扩展的类，也称为接收者类型。
+*   `String` 是被扩展的类。
 *   `bold` 是扩展函数的名称。
 *   `.bold()` 扩展函数的返回类型是 `String`。
-*   `"hello"`，一个 `String` 的实例，是接收者对象。
+*   `"hello"`，一个 `String` 的实例，是接收者。
 *   接收者通过 [关键字](keyword-reference.md)：`this` 在函数体内部被访问。
 *   字符串内插 (`$this`) 用于访问 `this` 的值。
 *   `.bold()` 扩展函数接受一个字符串，并将其包裹在 `<b>` HTML 元素中以显示粗体文本。
@@ -78,7 +78,7 @@ fun HttpClient.post(url: String): HttpResponse = request("POST", url, emptyMap()
 ```
 {validate="false"}
 
-这些 `.get()` 和 `.post()` 函数会使用正确的 HTTP 方法调用 `request()` 函数，因此你无需手动指定。它们简化了你的代码并使其更易于理解：
+这些 `.get()` 和 `.post()` 函数扩展了 `HttpClient` 类。它们可以直接使用 `HttpClient` 类中的 `request()` 函数，因为它们是作为接收者在 `HttpClient` 类的一个实例上调用的。你可以使用这些扩展函数来调用 `request()` 函数并指定正确的 HTTP 方法，这简化了你的代码并使其更易于理解：
 
 ```kotlin
 class HttpClient {
@@ -97,6 +97,7 @@ fun main() {
     val getResponseWithMember = client.request("GET", "https://example.com", emptyMap())
 
     // 使用 get() 扩展函数发起 GET 请求
+    // client 实例是接收者
     val getResponseWithExtension = client.get("https://example.com")
 }
 ```

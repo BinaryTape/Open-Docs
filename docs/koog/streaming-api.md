@@ -71,7 +71,7 @@ llm.writeSession {
 ```
 <!--- KNIT example-streaming-api-01.kt -->
 
-值得注意的是，您可以通过直接使用原始字符串流来解析输出。这种方法使您对解析过程具有更大的灵活性和控制力。
+值得注意的是，您可以通过直接使用原始字符串流来解析输出。这种方法使您对解析过程具有更大的灵活性和控制权。
 
 以下是一个带有输出结构 Markdown 定义的原始字符串流：
 
@@ -138,7 +138,7 @@ $fullText")
 
 ### 在事件处理程序中监听流事件
 
-您可以在[代理事件](agent-events.md)中监听流事件。
+您可以在[代理事件处理程序](agent-event-handlers.md)中监听流事件。
 
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
@@ -153,7 +153,7 @@ fun GraphAIAgent.FeatureContext.installStreamingApi() {
 -->
 ```kotlin
 handleEvents {
-    onToolExecutionStarting { context ->
+    onToolCallStarting { context ->
         println("
 🔧 Using ${context.tool.name} with ${context.toolArgs}... ")
     }
@@ -398,7 +398,7 @@ class BookTool(): SimpleTool<Book>() {
         get() = Book.serializer()
 
     override val name: String = NAME
-    override val description: String = "A tool to parse book information from Markdown"
+    override val description = "A tool to parse book information from Markdown"
 }
 ```
 <!--- KNIT example-streaming-api-08.kt -->

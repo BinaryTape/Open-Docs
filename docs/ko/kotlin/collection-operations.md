@@ -4,7 +4,7 @@
 
 ## 확장 함수와 멤버 함수
 
-컬렉션 작업은 표준 라이브러리에서 두 가지 방식으로 선언됩니다. 바로 컬렉션 인터페이스의 [멤버 함수](classes.md#class-members)와 [확장 함수](extensions.md#extension-functions)입니다.
+컬렉션 작업은 표준 라이브러리에서 두 가지 방식으로 선언됩니다. 바로 컬렉션 인터페이스의 [멤버 함수](classes.md)와 [확장 함수](extensions.md#extension-functions)입니다.
 
 멤버 함수는 컬렉션 타입에 필수적인 작업을 정의합니다. 예를 들어, [`Collection`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-collection/index.html)에는 비어 있는지 확인하는 [`isEmpty()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-collection/is-empty.html) 함수가 포함되어 있으며, [`List`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html)에는 요소에 대한 인덱스 접근을 위한 [`get()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/get.html)이 포함되어 있습니다.
 

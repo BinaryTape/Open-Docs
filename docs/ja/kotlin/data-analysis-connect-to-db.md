@@ -1,7 +1,7 @@
 [//]: # (title: データベースに接続してデータを取得する)
 
 [Kotlin Notebook](kotlin-notebook-overview.md)は、MariaDB、PostgreSQL、MySQL、SQLiteなど、さまざまな種類のSQLデータベースに接続し、データを取得する機能を提供します。
-[Kotlin DataFrameライブラリ](https://kotlin.github.io/dataframe/gettingstarted.html)を利用することで、Kotlin Notebookはデータベースへの接続を確立し、SQLクエリを実行し、結果をインポートしてさらなる操作を行うことができます。
+[Kotlin DataFrameライブラリ](https://kotlin.github.io/dataframe/home.html)を利用することで、Kotlin Notebookはデータベースへの接続を確立し、SQLクエリを実行し、結果をインポートしてさらなる操作を行うことができます。
 
 詳細な例については、[KotlinDataFrame SQL Examples GitHubリポジトリ](https://github.com/zaleslaw/KotlinDataFrame-SQL-Examples/blob/master/notebooks/imdb.ipynb)にあるNotebookを参照してください。
 
@@ -20,7 +20,7 @@ Kotlin Notebookの機能が利用できない場合は、プラグインが有�
 
 ## データベースに接続する
 
-[Kotlin DataFrameライブラリ](https://kotlin.github.io/dataframe/gettingstarted.html)の特定の関数を使用することで、SQLデータベースに接続し、操作できます。
+[Kotlin DataFrameライブラリ](https://kotlin.github.io/dataframe/home.html)の特定の関数を使用することで、SQLデータベースに接続し、操作できます。
 `DatabaseConfiguration`を使用してデータベースへの接続を確立し、`getSchemaForAllSqlTables()`を使用してその中のすべてのテーブルのスキーマを取得できます。
 
 例を見てみましょう。
@@ -138,7 +138,7 @@ IMDBデータベースに接続し、クエンティン・タランティーノ�
 
 ## Kotlin Notebookでデータを分析する
 
-[SQLデータベースへの接続を確立](#connect-to-database)した後、[Kotlin DataFrameライブラリ](https://kotlin.github.io/dataframe/gettingstarted.html)を活用して、Kotlin Notebookで綿密なデータ分析を行うことができます。
+[SQLデータベースへの接続を確立](#connect-to-database)した後、[Kotlin DataFrameライブラリ](https://kotlin.github.io/dataframe/home.html)を活用して、Kotlin Notebookで綿密なデータ分析を行うことができます。
 これには、データのグループ化、ソート、集計を行う関数が含まれており、データ内のパターンを明らかにし、理解するのに役立ちます。
 
 映画データベースから俳優データを分析し、最も頻繁に出現する俳優のファーストネームに焦点を当てる例を見てみましょう。

@@ -4,7 +4,8 @@
 
 [Compose Hot Reload](https://github.com/JetBrains/compose-hot-reload)は、Compose Multiplatformプロジェクトでの作業中にUIの変更を視覚化し、試すのに役立ちます。
 
-現時点では、Compose Hot Reloadは、マルチプラットフォームプロジェクトにデスクトップターゲットを含めた場合にのみ利用可能です。
+Compose Hot Reloadは、現時点では、マルチプラットフォームプロジェクトにデスクトップターゲットが含まれており、Java 21以前と互換性がある場合にのみ利用可能です。
+
 今後、他のターゲットに対するサポートを追加することを検討しています。その間、デスクトップアプリをサンドボックスとして使用することで、作業の流れを中断することなく共通コードでのUIの変更を素早く試すことができます。
 
 ![Compose Hot Reload](compose-hot-reload.gif){width=500}
@@ -59,6 +60,11 @@ Compose Hot Reloadは、以下の2つの方法で追加できます。
 
 4.  Compose Hot Reloadの全ての機能を使用するには、プロジェクトは、拡張されたクラス再定義をサポートするOpenJDKのフォークである[JetBrains Runtime](https://github.com/JetBrains/JetBrainsRuntime) (JBR)で実行される必要があります。
     Compose Hot Reloadは、プロジェクトのために互換性のあるJBRを自動的にプロビジョニングできます。
+
+    > 最新のJetBrains RuntimeはJava 21のみをサポートしています。Compose Hot ReloadをJava 22以降のみと互換性のあるプロジェクトに追加すると、プロジェクトの実行時にリンケージエラーが発生します。
+    >
+    {style="warning"}
+
     これを許可するには、`settings.gradle.kts`ファイルに以下のGradleプラグインを追加します。
 
     ```kotlin

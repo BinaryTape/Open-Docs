@@ -1,12 +1,12 @@
 [//]: # (title: Kotlin用Lets-Plotによるデータ可視化)
 
-[Lets-Plot for Kotlin (LPK)](https://lets-plot.org/kotlin/get-started.html) は、[Rのggplot2ライブラリ](https://ggplot2.tidyverse.org/)をKotlinに移植したマルチプラットフォームプロットライブラリです。LPKは、豊富な機能を持つggplot2 APIをKotlinエコシステムにもたらし、高度なデータ可視化機能を必要とする科学者や統計学者に適しています。
+[Lets-Plot for Kotlin (LPK)](https://lets-plot.org/kotlin/get-started.html)は、[Rのggplot2ライブラリ](https://ggplot2.tidyverse.org/)をKotlinに移植したマルチプラットフォームプロットライブラリです。LPKは、豊富な機能を持つggplot2 APIをKotlinエコシステムにもたらし、高度なデータ可視化機能を必要とする科学者や統計学者に適しています。
 
 LPKは、[Kotlin Notebook](data-analysis-overview.md#notebooks)、[Kotlin/JS](js-overview.md)、[JVMのSwing](https://docs.oracle.com/javase/8/docs/technotes/guides/swing/)、[JavaFX](https://openjfx.io/)、[Compose Multiplatform](https://www.jetbrains.com/lp/compose-multiplatform/)を含む様々なプラットフォームをターゲットとしています。さらに、LPKは[IntelliJ](https://www.jetbrains.com/idea/)、[DataGrip](https://www.jetbrains.com/datagrip/)、[DataSpell](https://www.jetbrains.com/dataspell/)、[PyCharm](https://www.jetbrains.com/pycharm/)とシームレスに統合されています。
 
 ![Lets-Plot](lets-plot-overview.png){width=700}
 
-このチュートリアルでは、IntelliJ IDEAのKotlin NotebookでLPKと[Kotlin DataFrame](https://kotlin.github.io/dataframe/gettingstarted.html)ライブラリを使用して、さまざまなプロットタイプを作成する方法をデモンストレーションします。
+このチュートリアルでは、IntelliJ IDEAのKotlin NotebookでLPKと[Kotlin DataFrame](https://kotlin.github.io/dataframe/home.html)ライブラリを使用して、さまざまなプロットタイプを作成する方法をデモンストレーションします。
 
 ## 開始する前に
 
@@ -16,7 +16,7 @@ Kotlin Notebookの機能が利用できない場合は、プラグインが有�
 
 Lets-Plotで作業するために、新しいKotlin Notebookを作成します。
 
-1.  **File** | **New** | **Kotlin Notebook**を選択します。
+1.  **ファイル** | **新規** | **Kotlin Notebook** を選択します。
 2.  Notebookで、次のコマンドを実行してLPKとKotlin DataFrameライブラリをインポートします。
 
     ```kotlin
@@ -68,7 +68,7 @@ val data = df.toMap()
 
 ## 散布図の作成
 
-LPKライブラリを使用して、Kotlin Notebookで散布図を作成しましょう。
+LPKライブラリを使用してKotlin Notebookで散布図を作成しましょう。
 
 データを`Map`形式にしたら、LPKライブラリの[`geomPoint()`](https://lets-plot.org/kotlin/api-reference/-lets--plot--kotlin/org.jetbrains.letsPlot.geom/geom-point/index.html)関数を使用して散布図を生成します。X軸とY軸の値を指定し、カテゴリとその色を定義できます。さらに、プロットのサイズと点の形状を[ニーズに合わせてカスタマイズ](https://lets-plot.org/kotlin/aesthetics.html#point-shapes)できます。
 
@@ -90,7 +90,7 @@ scatterPlot
 ```kotlin
 // X軸とY軸、カテゴリ、プロットサイズ、プロットタイプを指定します
 val boxPlot = ggplot(data) { x = "City"; y = "Temperature" } + ggsize(700, 500) + geomBoxplot { fill = "City" } +
-    // 色をカスタマイズします
+    // 色をカスタマイズします        
     scaleFillManual(values = listOf("light_yellow", "light_magenta", "light_green"))
 boxPlot
 ```
@@ -125,25 +125,25 @@ boxPlot
         doubleArrayOf(1.0, -.8),
         doubleArrayOf(-.8, 1.0)
     )
-
+    
     val cov1: Array<DoubleArray> = arrayOf(
         doubleArrayOf(1.0, .8),
         doubleArrayOf(.8, 1.0)
     )
-
+    
     val cov2: Array<DoubleArray> = arrayOf(
         doubleArrayOf(10.0, .1),
         doubleArrayOf(.1, .1)
     )
-
+    
     // サンプル数を定義します
     val n = 400
-
+    
     // 3つの分布の平均を定義します
     val means0: DoubleArray = doubleArrayOf(-2.0, 0.0)
     val means1: DoubleArray = doubleArrayOf(2.0, 0.0)
     val means2: DoubleArray = doubleArrayOf(0.0, 1.0)
-
+    
     // 3つの多変量正規分布からランダムサンプルを生成します
     val xy0 = MultivariateNormalDistribution(means0, cov0).sample(n)
     val xy1 = MultivariateNormalDistribution(means1, cov1).sample(n)

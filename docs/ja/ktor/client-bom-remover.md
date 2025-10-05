@@ -56,7 +56,7 @@ Ktor クライアントは、UTF-8、UTF-16 (BE)、UTF-16 (LE)、UTF-32 (BE)、�
 ```kotlin
 import io.ktor.client.*
 import io.ktor.client.engine.cio.*
-import io.ktor.client.plugins.compression.*
+import io.ktor.client.plugins.bomremover.*
 //...
 val client = HttpClient(CIO) {
     install(BOMRemover)

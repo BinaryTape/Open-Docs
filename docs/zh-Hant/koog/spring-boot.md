@@ -4,7 +4,14 @@ Koog 透過其自動配置啟動器，提供無縫的 Spring Boot 整合，讓�
 
 ## 概述
 
-`koog-spring-boot-starter` 會根據您的應用程式屬性自動配置 LLM 用戶端，並提供現成的 bean 供依賴注入。它支援所有主要的 LLM 提供者，包括 OpenAI、Anthropic、Google、OpenRouter、DeepSeek 和 Ollama。
+`koog-spring-boot-starter` 會根據您的應用程式屬性自動配置 LLM 用戶端，並提供現成的 bean 供依賴注入。它支援所有主要的 LLM 提供者，包括：
+
+- OpenAI
+- Anthropic
+- Google
+- OpenRouter
+- DeepSeek
+- Ollama
 
 ## 入門
 
@@ -23,22 +30,28 @@ dependencies {
 在 `application.properties` 中配置您偏好的 LLM 提供者：
 
 ```properties
-# OpenAI Configuration
+# OpenAI 配置
+ai.koog.openai.enabled=true
 ai.koog.openai.api-key=${OPENAI_API_KEY}
 ai.koog.openai.base-url=https://api.openai.com
-# Anthropic Configuration  
+# Anthropic 配置
+ai.koog.anthropic.enabled=true
 ai.koog.anthropic.api-key=${ANTHROPIC_API_KEY}
 ai.koog.anthropic.base-url=https://api.anthropic.com
-# Google Configuration
+# Google 配置
+ai.koog.google.enabled=true
 ai.koog.google.api-key=${GOOGLE_API_KEY}
 ai.koog.google.base-url=https://generativelanguage.googleapis.com
-# OpenRouter Configuration
+# OpenRouter 配置
+ai.koog.openrouter.enabled=true
 ai.koog.openrouter.api-key=${OPENROUTER_API_KEY}
 ai.koog.openrouter.base-url=https://openrouter.ai
-# DeepSeek Configuration
+# DeepSeek 配置
+ai.koog.deepseek.enabled=true
 ai.koog.deepseek.api-key=${DEEPSEEK_API_KEY}
 ai.koog.deepseek.base-url=https://api.deepseek.com
-# Ollama Configuration (local - no API key required)
+# Ollama 配置 (本地 - 無需 API 金鑰)
+ai.koog.ollama.enabled=true
 ai.koog.ollama.base-url=http://localhost:11434
 ```
 
@@ -48,26 +61,50 @@ ai.koog.ollama.base-url=http://localhost:11434
 ai:
     koog:
         openai:
+            enabled: true
             api-key: ${OPENAI_API_KEY}
             base-url: https://api.openai.com
         anthropic:
+            enabled: true
             api-key: ${ANTHROPIC_API_KEY}
             base-url: https://api.anthropic.com
         google:
+            enabled: true
             api-key: ${GOOGLE_API_KEY}
             base-url: https://generativelanguage.googleapis.com
         openrouter:
+            enabled: true
             api-key: ${OPENROUTER_API_KEY}
             base-url: https://openrouter.ai
         deepseek:
+            enabled: true
             api-key: ${DEEPSEEK_API_KEY}
             base-url: https://api.deepseek.com
         ollama:
+            enabled: true # 需明確設定為 `true` 以啟用 !!!
             base-url: http://localhost:11434
 ```
 
+`ai.koog.PROVIDER.api-key` 和 `ai.koog.PROVIDER.enabled` 這兩個屬性都用於啟用提供者。
+
+如果提供者支援 API 金鑰（例如 OpenAI、Anthropic、Google），則 `ai.koog.PROVIDER.enabled` 預設為 `true`。
+
+如果提供者不支援 API 金鑰（例如 Ollama），則 `ai.koog.PROVIDER.enabled` 預設為 `false`，並且提供者應在應用程式配置中明確啟用。
+
+提供者的基礎 URL 在 Spring Boot 啟動器中會設定為其預設值，但您可以在應用程式中覆寫它。
+
 !!! tip "環境變數"
 建議為 API 金鑰使用環境變數，以確保其安全並避免納入版本控制。
+Spring 配置使用 LLM 提供者眾所周知的環境變數。
+例如，設定環境變數 `OPENAI_API_KEY` 足以啟用 OpenAI 的 Spring 配置。
+
+| LLM 提供者 | 環境變數            |
+|--------------|-----------------------|
+| Open AI      | `OPENAI_API_KEY`      |
+| Anthropic    | `ANTHROPIC_API_KEY`   |
+| Google       | `GOOGLE_API_KEY`      |
+| OpenRouter   | `OPENROUTER_API_KEY`  |
+| DeepSeek     | `DEEPSEEK_API_KEY`    |
 
 ### 3. 注入與使用
 
@@ -209,21 +246,21 @@ class ConfigurableAIService(
 
 | 屬性                            | 描述              | Bean 條件                                                   | 預設值                                      |
 |-------------------------------|-------------------|-------------------------------------------------------------|---------------------------------------------|
-| `ai.koog.openai.api-key`      | OpenAI API 金鑰   | `openAIExecutor` bean 所必需                                | -                                           |
+| `ai.koog.openai.api-key`      | OpenAI API 金鑰   | 為 `openAIExecutor` bean 所必需                             | -                                           |
 | `ai.koog.openai.base-url`     | OpenAI 基礎 URL   | 選用                                                        | `https://api.openai.com`                    |
-| `ai.koog.anthropic.api-key`   | Anthropic API 金鑰| `anthropicExecutor` bean 所必需                             | -                                           |
+| `ai.koog.anthropic.api-key`   | Anthropic API 金鑰| 為 `anthropicExecutor` bean 所必需                          | -                                           |
 | `ai.koog.anthropic.base-url`  | Anthropic 基礎 URL| 選用                                                        | `https://api.anthropic.com`                 |
-| `ai.koog.google.api-key`      | Google API 金鑰   | `googleExecutor` bean 所必需                                | -                                           |
+| `ai.koog.google.api-key`      | Google API 金鑰   | 為 `googleExecutor` bean 所必需                             | -                                           |
 | `ai.koog.google.base-url`     | Google 基礎 URL   | 選用                                                        | `https://generativelanguage.googleapis.com` |
-| `ai.koog.openrouter.api-key`  | OpenRouter API 金鑰| `openRouterExecutor` bean 所必需                            | -                                           |
+| `ai.koog.openrouter.api-key`  | OpenRouter API 金鑰| 為 `openRouterExecutor` bean 所必需                         | -                                           |
 | `ai.koog.openrouter.base-url` | OpenRouter 基礎 URL| 選用                                                        | `https://openrouter.ai`                     |
-| `ai.koog.deepseek.api-key`    | DeepSeek API 金鑰 | `deepSeekExecutor` bean 所必需                              | -                                           |
+| `ai.koog.deepseek.api-key`    | DeepSeek API 金鑰 | 為 `deepSeekExecutor` bean 所必需                           | -                                           |
 | `ai.koog.deepseek.base-url`   | DeepSeek 基礎 URL | 選用                                                        | `https://api.deepseek.com`                  |
 | `ai.koog.ollama.base-url`     | Ollama 基礎 URL   | 任何 `ai.koog.ollama.*` 屬性都會啟用 `ollamaExecutor` bean | `http://localhost:11434`                    |
 
 ### Bean 名稱
 
-自動配置會在以下情況下建立對應的 bean（當配置時）：
+自動配置會建立以下 bean (配置時)：
 
 - `openAIExecutor` - OpenAI 執行器（需要 `ai.koog.openai.api-key`）
 - `anthropicExecutor` - Anthropic 執行器（需要 `ai.koog.anthropic.api-key`）

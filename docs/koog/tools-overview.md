@@ -94,7 +94,7 @@ val agent = AIAgent(
 在您的代理代码中，有几种方式可以调用工具。推荐的方法是使用代理上下文中提供的方法，而不是直接调用工具，因为这可以确保在代理环境中正确处理工具操作。
 
 !!! tip
-    确保您已在工具中实现适当的 [错误处理](agent-events.md) 以防止代理失败。
+    确保您已在工具中实现适当的 [错误处理](agent-event-handlers.md) 以防止代理失败。
 
 工具在由 `AIAgentLLMWriteSession` 表示的特定会话上下文中被调用。它提供了几种调用工具的方法，以便您可以：
 
@@ -186,7 +186,8 @@ val strategy = strategy<Unit, Unit>("strategy-name") {
 
 <!--- INCLUDE
 import ai.koog.agents.core.agent.AIAgent
-import ai.koog.agents.core.agent.asTool
+import ai.koog.agents.core.agent.AIAgentService
+import ai.koog.agents.core.agent.createAgentTool
 import ai.koog.agents.core.tools.ToolParameterDescriptor
 import ai.koog.agents.core.tools.ToolParameterType
 import ai.koog.agents.core.tools.ToolRegistry
@@ -198,16 +199,16 @@ val analysisToolRegistry = ToolRegistry {}
 
 -->
 ```kotlin
-// 创建一个专门的代理
-val analysisAgent = AIAgent(
+// 创建一个专门的代理服务，负责创建财务分析代理。
+val analysisAgentService = AIAgentService(
     promptExecutor = simpleOpenAIExecutor(apiKey),
     llmModel = OpenAIModels.Chat.GPT4o,
     systemPrompt = "You are a financial analysis specialist.",
     toolRegistry = analysisToolRegistry
 )
 
-// 将代理转换为工具
-val analysisAgentTool = analysisAgent.asTool(
+// 创建一个在调用时运行财务分析代理的工具。
+val analysisAgentTool = analysisAgentService.createAgentTool(
     agentName = "analyzeTransactions",
     agentDescription = "Performs financial transaction analysis",
     inputDescription = "Transaction analysis request",

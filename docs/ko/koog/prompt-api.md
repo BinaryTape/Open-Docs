@@ -127,10 +127,10 @@ user(
 
 `attachments` 파라미터는 파일 입력 목록을 취하며, 각 항목은 다음 클래스 중 하나의 인스턴스입니다:
 
-- `Attachment.Image`: `jpg` 또는 `png` 파일과 같은 이미지 첨부 파일.
-- `Attachment.Audio`: `mp3` 또는 `wav` 파일과 같은 오디오 첨부 파일.
-- `Attachment.Video`: `mpg` 또는 `avi` 파일과 같은 비디오 첨부 파일.
-- `Attachment.File`: `pdf` 또는 `txt` 파일과 같은 일반 파일 첨부 파일.
+- `Attachment.Image`: 이미지 첨부 파일. 예: `jpg` 또는 `png` 파일.
+- `Attachment.Audio`: 오디오 첨부 파일. 예: `mp3` 또는 `wav` 파일.
+- `Attachment.Video`: 비디오 첨부 파일. 예: `mpg` 또는 `avi` 파일.
+- `Attachment.File`: 일반 파일 첨부 파일. 예: `pdf` 또는 `txt` 파일.
 
 각 클래스는 다음 파라미터를 사용합니다:
 
@@ -406,7 +406,7 @@ val multiExecutor = MultiLLMPromptExecutor(
     - `simpleAnthropicExecutor`: Anthropic 모델로 프롬프트를 실행하기 위한 실행기.
     - `simpleGoogleAIExecutor`: Google 모델로 프롬프트를 실행하기 위한 실행기.
     - `simpleOpenRouterExecutor`: OpenRouter로 프롬프트를 실행하기 위한 실행기.
-    - `simpleOllamaExecutor`: Ollama로 프롬프트를 실행하기 위한 실행기.
+    - `simpleOllamaAIExecutor`: Ollama로 프롬프트를 실행하기 위한 실행기.
 
 - 다중 제공자 실행기:
     - `DefaultMultiLLMPromptExecutor`: OpenAI, Anthropic, Google 제공자를 지원하는 `MultiLLMPromptExecutor`의 구현.

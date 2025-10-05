@@ -29,7 +29,7 @@ Ktor 用戶端可用於多平台專案，並支援 Android、JavaScript 和 Nati
            <code-block lang="Groovy" code="               %platform_name%Main {&#10;                   dependencies {&#10;                       implementation &quot;io.ktor:%artifact_name%:$ktor_version&quot;&#10;                   }&#10;               }"/>
        </TabItem>
    </Tabs>
-1. 將所需平台的 [引擎依賴項](client-engines.md#dependencies) 新增至對應的原始碼集。對於 Android，您可以將 [Android](client-engines.md#android) 引擎依賴項新增至 `androidMain` 原始碼集：
+2. 將所需平台的 [引擎依賴項](client-engines.md#dependencies) 新增至對應的原始碼集。對於 Android，您可以將 [Android](client-engines.md#android) 引擎依賴項新增至 `androidMain` 原始碼集：
    <var name="platform_name" value="android"/>
    <var name="artifact_name" value="ktor-client-android"/>
    <Tabs group="languages">
@@ -78,7 +78,7 @@ val client = HttpClient(Android) {
         // this: AndroidEngineConfig
         connectTimeout = 100_000
         socketTimeout = 100_000
-        proxy = Proxy(Proxy.Type.HTTP, InetSocketAddress("localhost", 8080))
+        proxy = Proxy(Proxy.Type.HTTP, new InetSocketAddress("localhost", 8080))
     }
 }
 ```

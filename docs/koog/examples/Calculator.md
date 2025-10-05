@@ -19,7 +19,7 @@ https://raw.githubusercontent.com/JetBrains/koog/develop/examples/notebooks/Calc
 ## 设置
 
 我们假设您处于一个已安装 Koog 的 Kotlin Notebook 环境中。
-提供一个 LLM executor。
+提供一个 LLM executor
 
 ```kotlin
 %useLatestDescriptors
@@ -39,39 +39,39 @@ val executor = simpleOpenAIExecutor(OPENAI_API_KEY)
 ```kotlin
 import ai.koog.agents.core.tools.annotations.Tool
 
-// Format helper: integers render cleanly, decimals keep reasonable precision.
+// 格式化助手：整数显示整洁，小数保留合理的精度。
 private fun Double.pretty(): String =
     if (abs(this % 1.0) < 1e-9) this.toLong().toString() else "%.10g".format(this)
 
-@LLMDescription("Tools for basic calculator operations")
+@LLMDescription("用于基本计算器操作的工具")
 class CalculatorTools : ToolSet {
 
     @Tool
-    @LLMDescription("Adds two numbers and returns the sum as text.")
+    @LLMDescription("添加两个数字并以文本形式返回它们的和。")
     fun plus(
-        @LLMDescription("First addend.") a: Double,
-        @LLMDescription("Second addend.") b: Double
+        @LLMDescription("第一个加数。") a: Double,
+        @LLMDescription("第二个加数。") b: Double
     ): String = (a + b).pretty()
 
     @Tool
-    @LLMDescription("Subtracts the second number from the first and returns the difference as text.")
+    @LLMDescription("从第一个数字中减去第二个数字，并以文本形式返回差。")
     fun minus(
-        @LLMDescription("Minuend.") a: Double,
-        @LLMDescription("Subtrahend.") b: Double
+        @LLMDescription("被减数。") a: Double,
+        @LLMDescription("减数。") b: Double
     ): String = (a - b).pretty()
 
     @Tool
-    @LLMDescription("Multiplies two numbers and returns the product as text.")
+    @LLMDescription("将两个数字相乘，并以文本形式返回它们的积。")
     fun multiply(
-        @LLMDescription("First factor.") a: Double,
-        @LLMDescription("Second factor.") b: Double
+        @LLMDescription("第一个乘数。") a: Double,
+        @LLMDescription("第二个乘数。") b: Double
     ): String = (a * b).pretty()
 
     @Tool
-    @LLMDescription("Divides the first number by the second and returns the quotient as text. Returns an error message on division by zero.")
+    @LLMDescription("将第一个数字除以第二个数字，并以文本形式返回商。除数为零时返回错误消息。")
     fun divide(
-        @LLMDescription("Dividend.") a: Double,
-        @LLMDescription("Divisor (must not be zero).") b: Double
+        @LLMDescription("被除数。") a: Double,
+        @LLMDescription("除数（不能为零）。") b: Double
     ): String = if (abs(b) < 1e-12) {
         "ERROR: Division by zero"
     } else {
@@ -86,8 +86,8 @@ class CalculatorTools : ToolSet {
 
 ```kotlin
 val toolRegistry = ToolRegistry {
-    tool(AskUser)   // enables explicit user clarification when needed
-    tool(SayToUser) // allows the agent to present the final message to the user
+    tool(AskUser)   // 在需要时启用显式用户澄清
+    tool(SayToUser) // 允许代理向用户呈现最终消息
     tools(CalculatorTools())
 }
 ```
@@ -111,29 +111,29 @@ object CalculatorStrategy {
 
         edge(nodeStart forwardTo callLLM)
 
-        // If the assistant produced a final answer, finish.
+        // 如果助手生成了最终答案，则结束。
         edge((callLLM forwardTo nodeFinish) transformed { it.first() } onAssistantMessage { true })
 
-        // Otherwise, run the tools LLM requested (possibly several in parallel).
+        // 否则，运行 LLM 请求的工具（可能并行执行）。
         edge((callLLM forwardTo executeTools) onMultipleToolCalls { true })
 
-        // If we’re getting large, compress past tool results before continuing.
+        // 如果数据量变大，则在继续之前压缩过去的工具结果。
         edge(
             (executeTools forwardTo compressHistory)
                 onCondition { llm.readSession { prompt.latestTokenUsage > MAX_TOKENS_THRESHOLD } }
         )
         edge(compressHistory forwardTo sendToolResults)
 
-        // Normal path: send tool results back to the LLM.
+        // 正常路径：将工具结果发送回 LLM。
         edge(
             (executeTools forwardTo sendToolResults)
                 onCondition { llm.readSession { prompt.latestTokenUsage <= MAX_TOKENS_THRESHOLD } }
         )
 
-        // LLM might request more tools after seeing results.
+        // LLM 在查看结果后可能会请求更多工具。
         edge((sendToolResults forwardTo executeTools) onMultipleToolCalls { true })
 
-        // Or it can produce the final answer.
+        // 或者它可以生成最终答案。
         edge((sendToolResults forwardTo nodeFinish) transformed { it.first() } onAssistantMessage { true })
     }
 }
@@ -146,7 +146,7 @@ object CalculatorStrategy {
 ```kotlin
 val agentConfig = AIAgentConfig(
     prompt = prompt("calculator") {
-        system("You are a calculator. Always use the provided tools for arithmetic.")
+        system("你是一个计算器。始终使用提供的工具进行算术运算。")
     },
     model = OpenAIModels.Chat.GPT4o,
     maxAgentIterations = 50
@@ -163,14 +163,14 @@ val agent = AIAgent(
     toolRegistry = toolRegistry
 ) {
     handleEvents {
-        onToolCall { e ->
-            println("Tool called: ${e.tool.name}, args=${e.toolArgs}")
+        onToolCallStarting { e ->
+            println("工具调用: ${e.tool.name}, args=${e.toolArgs}")
         }
-        onAgentRunError { e ->
-            println("Agent error: ${e.throwable.message}")
+        onAgentExecutionFailed { e ->
+            println("代理错误: ${e.throwable.message}")
         }
-        onAgentFinished { e ->
-            println("Final result: ${e.result}")
+        onAgentCompleted { e ->
+            println("最终结果: ${e.result}")
         }
     }
 }
@@ -186,7 +186,7 @@ import kotlinx.coroutines.runBlocking
 runBlocking {
     agent.run("(10 + 20) * (5 + 5) / (2 - 11)")
 }
-// Expected final value ≈ -33.333...
+// 期望的最终值 ≈ -33.333...
 ```
 
     Tool called: plus, args=VarArgs(args={parameter #1 a of fun Line_4_jupyter.CalculatorTools.plus(kotlin.Double, kotlin.Double): kotlin.String=10.0, parameter #2 b of fun Line_4_jupyter.CalculatorTools.plus(kotlin.Double, kotlin.Double): kotlin.String=20.0})
@@ -197,7 +197,7 @@ runBlocking {
     Tool called: divide, args=VarArgs(args={parameter #1 a of fun Line_4_jupyter.CalculatorTools.divide(kotlin.Double, kotlin.Double): kotlin.String=300.0, parameter #2 b of fun Line_4_jupyter.CalculatorTools.divide(kotlin.Double, kotlin.Double): kotlin.String=-9.0})
     Final result: The result of the expression \((10 + 20) * (5 + 5) / (2 - 11)\) is approximately \(-33.33\).
 
-结果为表达式 \((10 + 20) * (5 + 5) / (2 - 11)\) 约等于 \(-33.33\)。
+表达式 \((10 + 20) * (5 + 5) / (2 - 11)\) 的结果约等于 \(-33.33\)。
 
 ## 尝试强制并行调用
 
@@ -228,7 +228,7 @@ val ollamaExecutor: PromptExecutor = simpleOllamaAIExecutor()
 
 val ollamaAgentConfig = AIAgentConfig(
     prompt = prompt("calculator", LLMParams(temperature = 0.0)) {
-        system("You are a calculator. Always use the provided tools for arithmetic.")
+        system("你是一个计算器。始终使用提供的工具进行算术运算。")
     },
     model = OllamaModels.Meta.LLAMA_3_2,
     maxAgentIterations = 50
@@ -247,5 +247,7 @@ runBlocking {
 ```
 
     Agent says: The result of the expression (10 + 20) * (5 + 5) / (2 - 11) is approximately -33.33.
+
+代理说：表达式 (10 + 20) * (5 + 5) / (2 - 11) 的结果约等于 -33.33。
 
 如果您还有其他问题或需要进一步帮助，请随时提问！

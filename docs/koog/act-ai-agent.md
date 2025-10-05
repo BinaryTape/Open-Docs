@@ -1,10 +1,9 @@
-[//]: # (title: FunctionalAIAgent：如何一步步构建单次运行代理)
 # FunctionalAIAgent：如何一步步构建单次运行代理
 
 FunctionalAIAgent 是一种轻量级的非图谱代理，你可以通过一个简单的循环来控制它。当你想执行以下操作时，可以使用它：
 - 在自定义循环中一次或多次调用大型语言模型（LLM）；
 - 可选地在 LLM 轮次之间调用工具；
-- 返回最终值（字符串、数据类等），而无需构建完整的策略图谱。
+- 返回最终值（字符串、data class 等），而无需构建完整的策略图谱。
 
 在本指南中你将完成：
 1) 创建一个“Hello, World”FunctionalAIAgent。
@@ -29,7 +28,7 @@ val model = OllamaModels.Meta.LLAMA_3_2
 就是这样 — 我们会将两者注入到代理工厂中。
 
 ## 2) 你的第一个代理（Hello, World）
-目标：将用户的文本发送给大型语言模型（LLM），并返回一条助理消息作为字符串。
+目标：将用户的文本发送给 LLM，并返回一条助理消息作为字符串。
 
 ```kotlin
 val agent = functionalAIAgent<String, String>(
@@ -94,10 +93,10 @@ println("Switch is ${if (sw.isOn()) "on" else "off"}")
 ```
 
 工作原理
-- `containsToolCalls()` 从大型语言模型（LLM）检测工具调用消息。
+- `containsToolCalls()` 检测 LLM 的工具调用消息。
 - `extractToolCalls(...)` 读取要运行哪些工具以及使用哪些实参。
 - `executeMultipleTools(...)` 根据你的 ToolRegistry 运行它们。
-- `sendMultipleToolResults(...)` 将结果发送回大型语言模型（LLM）并获取下一个响应。
+- `sendMultipleToolResults(...)` 将结果发送回 LLM 并获取下一个响应。
 
 ## 4) 使用特性观察行为 (EventHandler)
 目标：将每次工具调用打印到控制台。
@@ -110,7 +109,7 @@ val observed = functionalAIAgent<String, String>(
     toolRegistry = tools,
     featureContext = {
         install(EventHandler) {
-            onToolCall { e -> println("Tool called: ${'
+            onToolCallStarting { e -> println("Tool called: ${'
     ```}{e.tool.name}, args: ${'
     ```}{e.toolArgs}") }
         }
@@ -148,19 +147,19 @@ while (responses.containsToolCalls()) {
 
 ## 常见用法
 - 返回结构化输出
-  - 请求大型语言模型（LLM）格式化 JSON 并解析它；或使用 Structured Data API。
+  - 请求 LLM 格式化 JSON 并解析它；或使用 Structured Data API。
 - 验证工具输入
   - 在工具函数中执行验证并返回清晰的错误消息。
 - 每个请求一个代理实例
   - 每个代理实例在任一时刻都是单次运行的。如果需要并发，请创建新的实例。
 - 自定义输出类型
-  - 更改 `functionalAIAgent<String, MyResult>` 并从循环中返回一个数据类。
+  - 更改 `functionalAIAgent<String, MyResult>` 并从循环中返回一个 data class。
 
 ## 故障排除与陷阱
-- “代理已在运行”
+- “Agent is already running”
   - FunctionalAIAgent 防止在同一实例上并发运行。不要在并行协程中共享一个实例；为每次运行创建新的代理或等待其完成。
 - 空或意外的模型输出
-  - 检查你的系统提示。打印中间响应。考虑添加少量示例。
+  - 检测你的系统提示。打印中间响应。考虑添加少量示例。
 - 循环永不停止
   - 确保在没有工具调用时跳出；添加防护/超时机制以确保安全。
 - 上下文溢出

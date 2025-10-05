@@ -6,7 +6,7 @@ LPK 支援多種平台，包括 [Kotlin 筆記本](data-analysis-overview.md#not
 
 ![Lets-Plot](lets-plot-overview.png){width=700}
 
-本教學課程演示如何使用 LPK 和 [Kotlin DataFrame](https://kotlin.github.io/dataframe/gettingstarted.html) 函式庫在 IntelliJ IDEA 的 Kotlin 筆記本中建立不同類型的圖表。
+本教學課程演示如何使用 LPK 和 [Kotlin DataFrame](https://kotlin.github.io/dataframe/home.html) 函式庫在 IntelliJ IDEA 的 Kotlin 筆記本中建立不同類型的圖表。
 
 ## 開始之前
 
@@ -16,8 +16,8 @@ Kotlin 筆記本依賴於 [Kotlin 筆記本外掛程式](https://plugins.jetbrai
 
 建立一個新的 Kotlin 筆記本以使用 Lets-Plot：
 
-1. 選擇 **檔案** | **新增** | **Kotlin 筆記本**。
-2. 在您的筆記本中，執行以下指令以匯入 LPK 和 Kotlin DataFrame 函式庫：
+1.  選擇 **檔案** | **新增** | **Kotlin 筆記本**。
+2.  在您的筆記本中，執行以下指令以匯入 LPK 和 Kotlin DataFrame 函式庫：
 
     ```kotlin
     %use lets-plot
@@ -105,61 +105,61 @@ boxPlot
 
 ### 為 2D 密度圖準備資料
 
-1. 匯入依賴項以處理資料並生成圖表：
+1.  匯入依賴項以處理資料並生成圖表：
 
-   ```kotlin
-   %use lets-plot
+    ```kotlin
+    %use lets-plot
 
-   @file:DependsOn("org.apache.commons:commons-math3:3.6.1")
-   import org.apache.commons.math3.distribution.MultivariateNormalDistribution
-   ```
+    @file:DependsOn("org.apache.commons:commons-math3:3.6.1")
+    import org.apache.commons.math3.distribution.MultivariateNormalDistribution
+    ```
 
-   > 有關匯入 Kotlin 筆記本依賴項的更多資訊，請參閱 [Kotlin 筆記本文件](https://www.jetbrains.com/help/idea/kotlin-notebook.html#add-dependencies)。
-   > {style="tip"}
+    > 有關匯入 Kotlin 筆記本依賴項的更多資訊，請參閱 [Kotlin 筆記本文件](https://www.jetbrains.com/help/idea/kotlin-notebook.html#add-dependencies)。
+    > {style="tip"}
 
-2. 將以下程式碼片段貼上並在您的 Kotlin 筆記本中執行，以建立 2D 資料點集：
+2.  將以下程式碼片段貼上並在您的 Kotlin 筆記本中執行，以建立 2D 資料點集：
 
-   ```kotlin
-   // Defines covariance matrices for three distributions
-   val cov0: Array<DoubleArray> = arrayOf(
-       doubleArrayOf(1.0, -.8),
-       doubleArrayOf(-.8, 1.0)
-   )
-   
-   val cov1: Array<DoubleArray> = arrayOf(
-       doubleArrayOf(1.0, .8),
-       doubleArrayOf(.8, 1.0)
-   )
-   
-   val cov2: Array<DoubleArray> = arrayOf(
-       doubleArrayOf(10.0, .1),
-       doubleArrayOf(.1, .1)
-   )
-   
-   // Defines the number of samples
-   val n = 400
-   
-   // Defines means for three distributions
-   val means0: DoubleArray = doubleArrayOf(-2.0, 0.0)
-   val means1: DoubleArray = doubleArrayOf(2.0, 0.0)
-   val means2: DoubleArray = doubleArrayOf(0.0, 1.0)
-   
-   // Generates random samples from three multivariate normal distributions
-   val xy0 = MultivariateNormalDistribution(means0, cov0).sample(n)
-   val xy1 = MultivariateNormalDistribution(means1, cov1).sample(n)
-   val xy2 = MultivariateNormalDistribution(means2, cov2).sample(n)
-   ```
+    ```kotlin
+    // Defines covariance matrices for three distributions
+    val cov0: Array<DoubleArray> = arrayOf(
+        doubleArrayOf(1.0, -.8),
+        doubleArrayOf(-.8, 1.0)
+    )
+    
+    val cov1: Array<DoubleArray> = arrayOf(
+        doubleArrayOf(1.0, .8),
+        doubleArrayOf(.8, 1.0)
+    )
+    
+    val cov2: Array<DoubleArray> = arrayOf(
+        doubleArrayOf(10.0, .1),
+        doubleArrayOf(.1, .1)
+    )
+    
+    // Defines the number of samples
+    val n = 400
+    
+    // Defines means for three distributions
+    val means0: DoubleArray = doubleArrayOf(-2.0, 0.0)
+    val means1: DoubleArray = doubleArrayOf(2.0, 0.0)
+    val means2: DoubleArray = doubleArrayOf(0.0, 1.0)
+    
+    // Generates random samples from three multivariate normal distributions
+    val xy0 = MultivariateNormalDistribution(means0, cov0).sample(n)
+    val xy1 = MultivariateNormalDistribution(means1, cov1).sample(n)
+    val xy2 = MultivariateNormalDistribution(means2, cov2).sample(n)
+    ```
 
-   從上面的程式碼中，`xy0`、`xy1` 和 `xy2` 變數儲存包含 2D (`x, y`) 資料點的陣列。
+    從上面的程式碼中，`xy0`、`xy1` 和 `xy2` 變數儲存包含 2D (`x, y`) 資料點的陣列。
 
-3. 將您的資料轉換為 `Map` 型別：
+3.  將您的資料轉換為 `Map` 型別：
 
-   ```kotlin
-   val data = mapOf(
-       "x" to (xy0.map { it[0] } + xy1.map { it[0] } + xy2.map { it[0] }).toList(),
-       "y" to (xy0.map { it[1] } + xy1.map { it[1] } + xy2.map { it[1] }).toList()
-   )
-   ```
+    ```kotlin
+    val data = mapOf(
+        "x" to (xy0.map { it[0] } + xy1.map { it[0] } + xy2.map { it[0] }).toList(),
+        "y" to (xy0.map { it[1] } + xy1.map { it[1] } + xy2.map { it[1] }).toList()
+    )
+    ```
 
 ### 生成 2D 密度圖
 
@@ -181,7 +181,7 @@ densityPlot
 
 ## 接下來
 
-* 在 [Lets-Plot for Kotlin 的文件中](https://lets-plot.org/kotlin/charts.html) 探索更多圖表示例。
-* 查閱 Lets-Plot for Kotlin 的 [API 參考](https://lets-plot.org/kotlin/api-reference/)。
-* 在 [Kotlin DataFrame](https://kotlin.github.io/dataframe/info.html) 和 [Kandy](https://kotlin.github.io/kandy/welcome.html) 函式庫文件中了解如何使用 Kotlin 轉換和視覺化資料。
-* 查找有關 [Kotlin 筆記本使用方式和主要功能](https://www.jetbrains.com/help/idea/kotlin-notebook.html) 的更多資訊。
+*   在 [Lets-Plot for Kotlin 的文件中](https://lets-plot.org/kotlin/charts.html) 探索更多圖表示例。
+*   查閱 Lets-Plot for Kotlin 的 [API 參考](https://lets-plot.org/kotlin/api-reference/)。
+*   在 [Kotlin DataFrame](https://kotlin.github.io/dataframe/info.html) 和 [Kandy](https://kotlin.github.io/kandy/welcome.html) 函式庫文件中了解如何使用 Kotlin 轉換和視覺化資料。
+*   查找有關 [Kotlin 筆記本使用方式和主要功能](https://www.jetbrains.com/help/idea/kotlin-notebook.html) 的更多資訊。

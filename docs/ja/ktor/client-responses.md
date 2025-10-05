@@ -3,14 +3,14 @@
 <show-structure for="chapter" depth="2"/>
 
 <link-summary>
-レスポンスを受信する方法、レスポンスボディを取得する方法、およびレスポンスパラメーターを取得する方法を学びます。
+レスポンスの受信方法、レスポンスボディの取得方法、およびレスポンスパラメーターの取得方法を学びます。
 </link-summary>
 
 [HTTPリクエストの作成](client-requests.md)に使用されるすべての関数 (`request`、`get`、`post` など) を使用すると、
 [`HttpResponse`](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client.statement/-http-response/index.html)
 オブジェクトとしてレスポンスを受信できます。
 
-`HttpResponse` は、[レスポンスボディ](#body)をさまざまな方法 (生のバイト、JSON オブジェクトなど) で取得し、
+`HttpResponse` は、[レスポンスボディ](#body)をさまざまな方法 (生のバイト、JSONオブジェクトなど) で取得し、
 ステータスコード、コンテンツタイプ、ヘッダーなどの[レスポンスパラメーター](#parameters)を取得するために必要なAPIを公開します。
 たとえば、パラメーターなしの `GET` リクエストに対する `HttpResponse` は次のように受信できます。
 
@@ -111,6 +111,74 @@ val customer: Customer = client.get("http://localhost:8080/customer/3").body()
 詳細については、[データの送受信](client-serialization.md#receive_send_data)を参照してください。
 
 > ContentNegotiation プラグインは、[クライアント](client-serialization.md)と[サーバー](server-serialization.md)の両方で利用できます。ご自身のケースに適切なものを使用してください。
+
+### マルチパートフォームデータ {id="multipart"}
+
+マルチパートフォームデータを含むレスポンスを受信する場合、そのボディを
+[`MultiPartData`](https://api.ktor.io/ktor-http/io.ktor.http.content/-multi-part-data/index.html)
+インスタンスとして読み取ることができます。これにより、レスポンスに含まれるフォームフィールドやファイルを処理できます。
+
+以下の例は、マルチパートレスポンスからテキストフォームフィールドとファイルアップロードの両方を処理する方法を示しています。
+
+```kotlin
+val response = client.post("https://myserver.com/multipart/receive")
+
+val multipart = response.body<MultiPartData>()
+
+multipart.forEachPart { part ->
+    when (part) {
+        is PartData.FormItem -> {
+            println("Form item key: ${part.name}")
+            val value = part.value
+            // ...
+        }
+        is PartData.FileItem -> {
+            println("file: ${part.name}")
+            println(part.originalFileName)
+            val fileContent: ByteReadChannel = part.provider()
+            // ...
+        }
+    }
+    part.dispose()
+}
+```
+
+#### フォームフィールド
+
+`PartData.FormItem` はフォームフィールドを表し、その値は `value` プロパティを通じてアクセスできます。
+
+```kotlin
+when (part) {
+    is PartData.FormItem -> {
+        println("Form item key: ${part.name}")
+        val value = part.value
+        // ...
+    }
+}
+```
+
+#### ファイルアップロード
+
+`PartData.FileItem` はファイル項目を表します。ファイルアップロードはバイトストリームとして処理できます。
+
+```kotlin
+when (part) {
+    is PartData.FileItem -> {
+        println("file: ${part.name}")
+        println(part.originalFileName)
+        val fileContent: ByteReadChannel = part.provider()
+        // ...
+    }
+}
+```
+
+#### リソースのクリーンアップ
+
+フォーム処理が完了すると、各パートは `.dispose()` 関数を使用してリソースを解放します。
+
+```kotlin
+part.dispose()
+```
 
 ### ストリーミングデータ {id="streaming"}
 

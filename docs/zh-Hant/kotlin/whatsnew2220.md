@@ -2,11 +2,11 @@
 
 _[發布日期：2025 年 9 月 10 日](releases.md#release-details)_
 
-> 我們很想聽聽您對 Kotlin 的想法！
-> 
+> 分享您對 Kotlin 的想法！
+>
 > [請填寫我們的 Kotlin 開發者問卷](https://surveys.jetbrains.com/s3/7e238a7b85e5)。這只需要大約 10 分鐘。
 > 您的回饋將幫助我們改進語言、工具和生態系統。
-> 
+>
 {style="note"}
 
 Kotlin 2.2.20 版本已發布，為網頁開發帶來了重要的變更。[Kotlin/Wasm 現已進入 Beta 階段](#kotlin-wasm)，
@@ -144,6 +144,10 @@ kotlin {
 ### 基於資料流的 `when` 表達式窮舉檢查
 <primary-label ref="experimental-opt-in"/>
 
+> 對 IntelliJ IDEA 中此功能的程式碼分析、程式碼補齊和語法高亮顯示目前僅在 [2025.3 EAP 版本](https://www.jetbrains.com/idea/nextversion/) 中可用。
+>
+{style = "note"}
+
 Kotlin 2.2.20 引入了基於**資料流**的 `when` 表達式窮舉檢查。
 以前，編譯器的檢查僅限於 `when` 表達式本身，
 通常會強制您添加多餘的 `else` 分支。
@@ -182,6 +186,10 @@ kotlin {
 
 ### `catch` 子句中支援實化型別
 <primary-label ref="experimental-opt-in"/>
+
+> 對 IntelliJ IDEA 中此功能的程式碼分析、程式碼補齊和語法高亮顯示目前僅在 [2025.3 EAP 版本](https://www.jetbrains.com/idea/nextversion/) 中可用。
+>
+{style = "note"}
 
 在 Kotlin 2.2.20 中，編譯器現在允許在 `inline` 函式的 `catch` 子句中使用 [實化泛型型別參數](inline-functions.md#reified-type-parameters)。
 
@@ -223,6 +231,10 @@ Kotlin 團隊感謝外部貢獻者 [Iven Krall](https://github.com/kralliv) 的�
 
 ### 改進的 Kotlin 契約
 <primary-label ref="experimental-opt-in"/>
+
+> 對 IntelliJ IDEA 中此功能的程式碼分析、程式碼補齊和語法高亮顯示目前僅在 [2025.3 EAP 版本](https://www.jetbrains.com/idea/nextversion/) 中可用。
+>
+{style = "note"}
 
 Kotlin 2.2.20 引入了 [Kotlin 契約](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.contracts/contract.html) 的多項改進，包括：
 
@@ -876,7 +888,7 @@ macOS Tahoe 26 將是最後一個支援基於 Intel 架構的作業系統版本�
 
 Kotlin/Wasm 現已進入 Beta 階段，提供了更高的穩定性以及改進，例如分離的 npm 依賴、
 [改進的 Kotlin/Wasm 和 JavaScript 互通中的例外處理](#improved-exception-handling-in-kotlin-wasm-and-javascript-interop)、
-[內建瀏覽器偵錯支援](#support-for-debugging-in-browsers-without-configuration) 等。
+[內建瀏覽器偵錯支援](#support-for-debugging-in-browsers-without-configuration)，以及更多。
 
 ### 分離的 npm 依賴
 

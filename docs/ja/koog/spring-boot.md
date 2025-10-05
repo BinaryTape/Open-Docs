@@ -6,6 +6,13 @@ Koogは、その自動構成スターターを通じてシームレスなSpring 
 
 `koog-spring-boot-starter`は、アプリケーションプロパティに基づいてLLMクライアントを自動的に構成し、依存性注入のためにすぐに使えるBeanを提供します。OpenAI、Anthropic、Google、OpenRouter、DeepSeek、Ollamaを含むすべての主要なLLMプロバイダーをサポートしています。
 
+- OpenAI
+- Anthropic
+- Google
+- OpenRouter
+- DeepSeek
+- Ollama
+
 ## はじめに
 
 ### 1. 依存関係の追加
@@ -24,21 +31,27 @@ dependencies {
 
 ```properties
 # OpenAI Configuration
+ai.koog.openai.enabled=true
 ai.koog.openai.api-key=${OPENAI_API_KEY}
 ai.koog.openai.base-url=https://api.openai.com
 # Anthropic Configuration  
+ai.koog.anthropic.enabled=true
 ai.koog.anthropic.api-key=${ANTHROPIC_API_KEY}
 ai.koog.anthropic.base-url=https://api.anthropic.com
 # Google Configuration
+ai.koog.google.enabled=true
 ai.koog.google.api-key=${GOOGLE_API_KEY}
 ai.koog.google.base-url=https://generativelanguage.googleapis.com
 # OpenRouter Configuration
+ai.koog.openrouter.enabled=true
 ai.koog.openrouter.api-key=${OPENROUTER_API_KEY}
 ai.koog.openrouter.base-url=https://openrouter.ai
 # DeepSeek Configuration
+ai.koog.deepseek.enabled=true
 ai.koog.deepseek.api-key=${DEEPSEEK_API_KEY}
 ai.koog.deepseek.base-url=https://api.deepseek.com
 # Ollama Configuration (local - no API key required)
+ai.koog.ollama.enabled=true
 ai.koog.ollama.base-url=http://localhost:11434
 ```
 
@@ -48,26 +61,50 @@ ai.koog.ollama.base-url=http://localhost:11434
 ai:
     koog:
         openai:
+            enabled: true
             api-key: ${OPENAI_API_KEY}
             base-url: https://api.openai.com
         anthropic:
+            enabled: true
             api-key: ${ANTHROPIC_API_KEY}
             base-url: https://api.anthropic.com
         google:
+            enabled: true
             api-key: ${GOOGLE_API_KEY}
             base-url: https://generativelanguage.googleapis.com
         openrouter:
+            enabled: true
             api-key: ${OPENROUTER_API_KEY}
             base-url: https://openrouter.ai
         deepseek:
+            enabled: true
             api-key: ${DEEPSEEK_API_KEY}
             base-url: https://api.deepseek.com
         ollama:
+            enabled: true # Set it to `true` explicitly to activate !!!
             base-url: http://localhost:11434
 ```
 
+`ai.koog.PROVIDER.api-key`と`ai.koog.PROVIDER.enabled`の両方のプロパティを使用して、プロバイダーを有効にします。
+
+プロバイダーがAPIキーをサポートしている場合（OpenAI、Anthropic、Googleなど）、`ai.koog.PROVIDER.enabled`はデフォルトで`true`に設定されます。
+
+Ollamaのように、プロバイダーがAPIキーをサポートしていない場合、`ai.koog.PROVIDER.enabled`はデフォルトで`false`に設定されており、アプリケーション構成でプロバイダーを明示的に有効にする必要があります。
+
+プロバイダーのベースURLはSpring Bootスターター内でデフォルト値に設定されていますが、アプリケーションでそれを上書きすることができます。
+
 !!! tip "環境変数"
 APIキーをセキュアに保ち、バージョン管理から除外するために、環境変数を使用することをお勧めします。
+Spring構成では、LLMプロバイダーのよく知られた環境変数を使用します。
+例えば、環境変数`OPENAI_API_KEY`を設定するだけで、OpenAIのSpring構成がアクティブ化されます。
+
+| LLMプロバイダー | 環境変数             |
+|--------------|-----------------------|
+| Open AI      | `OPENAI_API_KEY`      |
+| Anthropic    | `ANTHROPIC_API_KEY`   |
+| Google       | `GOOGLE_API_KEY`      |
+| OpenRouter   | `OPENROUTER_API_KEY`  |
+| DeepSeek     | `DEEPSEEK_API_KEY`    |
 
 ### 3. 注入と利用
 
@@ -165,7 +202,7 @@ class RobustAIService(
                 val result = executor.execute(prompt)
                 return result.text
             } catch (e: Exception) {
-                logger.warn("エグゼキューターが失敗しました。次を試します: ${e.message}")
+                logger.warn("Executor failed, trying next: ${e.message}")
                 continue
             }
         }

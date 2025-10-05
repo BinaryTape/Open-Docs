@@ -1,365 +1,6 @@
 [//]: # (title: Kotlin 2.2.0의 새로운 기능)
 
-_[출시일: 2025년 6월 23일](releases.md#release-details)_
-
-Kotlin 2.2.0이 출시되었습니다! 주요 내용은 다음과 같습니다:
-
-*   **언어**: [컨텍스트 파라미터](#preview-of-context-parameters)를 포함한 새로운 프리뷰 언어 기능이 추가되었습니다. 가드 조건, 비지역 `break` 및 `continue`, 멀티-달러 보간법 등 여러 [이전 실험 기능이 이제 Stable](#stable-features-guard-conditions-non-local-break-and-continue-and-multi-dollar-interpolation)로 전환되었습니다.
-*   **Kotlin 컴파일러**: [컴파일러 경고의 통합 관리](#kotlin-compiler-unified-management-of-compiler-warnings) 기능이 추가되었습니다.
-*   **Kotlin/JVM**: [인터페이스 함수의 기본 메서드 생성 변경](#changes-to-default-method-generation-for-interface-functions)이 있습니다.
-*   **Kotlin/Native**: [LLVM 19 및 메모리 소비 추적 및 조정](#kotlin-native)을 위한 새로운 기능이 추가되었습니다.
-*   **Kotlin/Wasm**: [Wasm 타겟 분리](#build-infrastructure-for-wasm-target-separated-from-javascript-target) 및 [프로젝트별 Binaryen 구성](#per-project-binaryen-configuration) 기능이 추가되었습니다.
-*   **Kotlin/JS**: [`@JsPlainObject` 인터페이스에 생성된 `copy()` 메서드 수정](#fix-for-copy-in-jsplainobject-interfaces)이 있습니다.
-*   **Gradle**: [Kotlin Gradle 플러그인에 바이너리 호환성 검증](#binary-compatibility-validation-included-in-kotlin-gradle-plugin)이 포함되었습니다.
-*   **표준 라이브러리**: [Stable Base64 및 HexFormat API](#stable-base64-encoding-and-decoding)가 추가되었습니다.
-*   **문서**: 저희 [문서 설문조사가 진행 중](https://surveys.jetbrains.com/s3/Kotlin-Docs-2025)이며, [Kotlin 문서에 상당한 개선](#documentation-updates)이 있었습니다.
-
-Kotlin 언어 발전 팀이 새로운 기능에 대해 논의하고 질문에 답변하는 다음 비디오도 시청할 수 있습니다:
-
-<video src="https://www.youtube.com/watch?v=jne3923lWtw" title="What's new in Kotlin 2.2.0"/>
-
-## IDE 지원
-
-2.2.0을 지원하는 Kotlin 플러그인은 최신 버전의 IntelliJ IDEA 및 Android Studio에 번들로 제공됩니다.
-IDE에서 Kotlin 플러그인을 업데이트할 필요가 없습니다.
-빌드 스크립트에서 Kotlin 버전을 2.2.0으로 [변경](configure-build-for-eap.md#adjust-the-kotlin-version)하기만 하면 됩니다.
-
-자세한 내용은 [새 릴리스로 업데이트](releases.md#update-to-a-new-kotlin-version)를 참조하세요.
-
-## 언어
-
-이번 릴리스는 가드 조건, 비지역 `break` 및 `continue`, 멀티-달러 보간법을 [Stable](components-stability.md#stability-levels-explained)로 [승격](#stable-features-guard-conditions-non-local-break-and-continue-and-multi-dollar-interpolation)시킵니다.
-또한 [컨텍스트 파라미터](#preview-of-context-parameters) 및 [컨텍스트-민감형 분석](#preview-of-context-sensitive-resolution)과 같은 몇 가지 기능이 프리뷰로 도입되었습니다.
-
-### 컨텍스트 파라미터 프리뷰
-<primary-label ref="experimental-general"/>
-
-컨텍스트 파라미터는 함수 및 프로퍼티가 주변 컨텍스트에서 암시적으로 사용 가능한 의존성을 선언할 수 있도록 합니다.
-
-컨텍스트 파라미터를 사용하면 서비스나 의존성처럼 공유되고 함수 호출 세트 전반에서 거의 변경되지 않는 값을 수동으로 전달할 필요가 없습니다.
-
-컨텍스트 파라미터는 컨텍스트 리시버(context receivers)라는 이전 실험 기능을 대체합니다. 컨텍스트 리시버에서 컨텍스트 파라미터로 마이그레이션하려면, [블로그 게시물](https://blog.jetbrains.com/kotlin/2025/04/update-on-context-parameters/)에 설명된 대로 IntelliJ IDEA의 지원 기능을 사용할 수 있습니다.
-
-주요 차이점은 컨텍스트 파라미터가 함수 본문에서 리시버로 도입되지 않는다는 것입니다. 결과적으로, 컨텍스트가 암시적으로 사용 가능했던 컨텍스트 리시버와 달리, 컨텍스트 파라미터의 멤버에 접근하려면 해당 이름을 사용해야 합니다.
-
-Kotlin의 컨텍스트 파라미터는 의존성 주입 간소화, DSL 설계 개선 및 스코프 작업(scoped operations)을 통해 의존성 관리에 상당한 개선을 가져옵니다. 자세한 내용은 이 기능의 [KEEP](https://github.com/Kotlin/KEEP/blob/context-parameters/proposals/context-parameters.md)을 참조하세요.
-
-#### 컨텍스트 파라미터를 선언하는 방법
-
-`context` 키워드 뒤에 `name: Type` 형식의 파라미터 목록을 사용하여 프로퍼티 및 함수에 대한 컨텍스트 파라미터를 선언할 수 있습니다. `UserService` 인터페이스에 대한 의존성을 사용하는 예시는 다음과 같습니다:
-
-```kotlin
-// UserService는 컨텍스트에서 필요한 의존성을 정의합니다.
-interface UserService {
-    fun log(message: String)
-    fun findUserById(id: Int): String
-}
-
-// 컨텍스트 파라미터를 사용하여 함수를 선언합니다.
-context(users: UserService)
-fun outputMessage(message: String) {
-    // 컨텍스트에서 log를 사용합니다.
-    users.log("Log: $message")
-}
-
-// 컨텍스트 파라미터를 사용하여 프로퍼티를 선언합니다.
-context(users: UserService)
-val firstUser: String
-    // 컨텍스트에서 findUserById를 사용합니다.
-    get() = users.findUserById(1)
-```
-
-`_`를 컨텍스트 파라미터 이름으로 사용할 수 있습니다. 이 경우, 파라미터 값은 분석에 사용 가능하지만 블록 내에서 이름으로 접근할 수는 없습니다:
-
-```kotlin
-// "_"를 컨텍스트 파라미터 이름으로 사용합니다.
-context(_: UserService)
-fun logWelcome() {
-    // UserService에서 적절한 로그 함수를 찾습니다.
-    outputMessage("Welcome!")
-}
-```
-
-#### 컨텍스트 파라미터를 활성화하는 방법
-
-프로젝트에서 컨텍스트 파라미터를 활성화하려면 명령줄에서 다음 컴파일러 옵션을 사용하세요:
-
-```Bash
--Xcontext-parameters
-```
-
-또는 Gradle 빌드 파일의 `compilerOptions {}` 블록에 추가하세요:
-
-```kotlin
-// build.gradle.kts
-kotlin {
-    compilerOptions {
-        freeCompilerArgs.add("-Xcontext-parameters")
-    }
-}
-```
-
-> `-Xcontext-receivers`와 `-Xcontext-parameters` 컴파일러 옵션을 동시에 지정하면 오류가 발생합니다.
->
-{style="warning"}
-
-#### 피드백 남기기
-
-이 기능은 향후 Kotlin 릴리스에서 안정화되고 개선될 예정입니다.
-이슈 트래커인 [YouTrack](https://youtrack.jetbrains.com/issue/KT-10468/Context-Parameters-expanding-extension-receivers-to-work-with-scopes)에 피드백을 주시면 감사하겠습니다.
-
-### 컨텍스트-민감형 분석 프리뷰
-<primary-label ref="experimental-general"/>
-
-Kotlin 2.2.0은 컨텍스트-민감형 분석(context-sensitive resolution) 구현을 프리뷰로 도입합니다.
-
-이전에는 타입이 컨텍스트에서 추론될 수 있었더라도 enum 엔트리 또는 sealed 클래스 멤버의 전체 이름을 작성해야 했습니다.
-예를 들어:
-
-```kotlin
-enum class Problem {
-    CONNECTION, AUTHENTICATION, DATABASE, UNKNOWN
-}
-
-fun message(problem: Problem): String = when (problem) {
-    Problem.CONNECTION -> "connection"
-    Problem.AUTHENTICATION -> "authentication"
-    Problem.DATABASE -> "database"
-    Problem.UNKNOWN -> "unknown"
-}
-```
-
-이제 컨텍스트-민감형 분석을 사용하면 예상 타입이 알려진 컨텍스트에서 타입 이름을 생략할 수 있습니다:
-
-```kotlin
-enum class Problem {
-    CONNECTION, AUTHENTICATION, DATABASE, UNKNOWN
-}
-
-// 알려진 문제 타입에 따라 enum 엔트리를 분석합니다.
-fun message(problem: Problem): String = when (problem) {
-    CONNECTION -> "connection"
-    AUTHENTICATION -> "authentication"
-    DATABASE -> "database"
-    UNKNOWN -> "unknown"
-}
-```
-
-컴파일러는 이 컨텍스트 타입 정보를 사용하여 올바른 멤버를 분석합니다. 이 정보에는 다음이 포함됩니다:
-
-*   `when` 표현식의 subject
-*   명시적 반환 타입
-*   선언된 변수 타입
-*   타입 검사 (`is`) 및 캐스트 (`as`)
-*   sealed 클래스 계층 구조의 알려진 타입
-*   파라미터의 선언된 타입
-
-> 컨텍스트-민감형 분석은 함수, 파라미터가 있는 프로퍼티, 또는 리시버가 있는 확장 프로퍼티에는 적용되지 않습니다.
->
-{style="note"}
-
-프로젝트에서 컨텍스트-민감형 분석을 사용해 보려면 명령줄에서 다음 컴파일러 옵션을 사용하세요:
-
-```bash
--Xcontext-sensitive-resolution
-```
-
-또는 Gradle 빌드 파일의 `compilerOptions {}` 블록에 추가하세요:
-
-```kotlin
-// build.gradle.kts
-kotlin {
-    compilerOptions {
-        freeCompilerArgs.add("-Xcontext-sensitive-resolution")
-    }
-}
-```
-
-향후 Kotlin 릴리스에서 이 기능을 안정화하고 개선할 계획이며, 이슈 트래커인 [YouTrack](https://youtrack.jetbrains.com/issue/KT-16768/Context-sensitive-resolution)에 피드백을 주시면 감사하겠습니다.
-
-### 어노테이션 사용-위치 타겟(use-site targets)을 위한 기능 프리뷰
-<primary-label ref="experimental-general"/>
-
-Kotlin 2.2.0은 어노테이션 사용-위치 타겟 작업을 더 편리하게 만드는 몇 가지 기능을 도입합니다.
-
-#### 프로퍼티를 위한 `@all` 메타-타겟
-<primary-label ref="experimental-general"/>
-
-Kotlin을 사용하면 선언의 특정 부분, 즉 [사용-위치 타겟(use-site targets)](annotations.md#annotation-use-site-targets)에 어노테이션을 붙일 수 있습니다.
-그러나 각 타겟에 개별적으로 어노테이션을 다는 것은 복잡하고 오류가 발생하기 쉬웠습니다:
-
-```kotlin
-data class User(
-    val username: String,
-
-    @param:Email      // 생성자 파라미터
-    @field:Email      // 백킹 필드
-    @get:Email        // 게터 메서드
-    @property:Email   // Kotlin 프로퍼티 참조
-    val email: String,
-) {
-    @field:Email
-    @get:Email
-    @property:Email
-    val secondaryEmail: String? = null
-}
-```
-
-이를 간소화하기 위해 Kotlin은 프로퍼티를 위한 새로운 `@all` 메타-타겟을 도입합니다.
-이 기능은 컴파일러에게 어노테이션을 프로퍼티의 모든 관련 부분에 적용하도록 지시합니다. `@all`을 사용하면 어노테이션을 다음 대상에 적용하려고 시도합니다:
-
-*   **`param`**: 주 생성자에 선언된 경우 생성자 파라미터.
-
-*   **`property`**: Kotlin 프로퍼티 자체.
-
-*   **`field`**: 백킹 필드가 존재하는 경우.
-
-*   **`get`**: 게터 메서드.
-
-*   **`set_param`**: 프로퍼티가 `var`로 정의된 경우 세터 메서드의 파라미터.
-
-*   **`RECORD_COMPONENT`**: 클래스가 `@JvmRecord`인 경우, 어노테이션은 [자바 레코드 컴포넌트](#improved-support-for-annotating-jvm-records)에 적용됩니다. 이 동작은 자바가 레코드 컴포넌트의 어노테이션을 처리하는 방식과 유사합니다.
-
-컴파일러는 주어진 프로퍼티의 타겟에만 어노테이션을 적용합니다.
-
-아래 예시에서, `@Email` 어노테이션은 각 프로퍼티의 모든 관련 타겟에 적용됩니다:
-
-```kotlin
-data class User(
-    val username: String,
-
-    // @Email을 param, property, field,
-    // get, set_param (var인 경우)에 적용
-    @all:Email val email: String,
-) {
-    // @Email을 property, field, getter에 적용
-    // (생성자에 없으므로 param에는 적용 안함)
-    @all:Email val secondaryEmail: String? = null
-}
-```
-
-`@all` 메타-타겟은 주 생성자 내부와 외부 모두에서 모든 프로퍼티와 함께 사용할 수 있습니다. 그러나 `@all` 메타-타겟을 [여러 어노테이션](https://kotlinlang.org/spec/syntax-and-grammar.html#grammar-rule-annotation)과 함께 사용할 수는 없습니다.
-
-이 새로운 기능은 구문을 간소화하고, 일관성을 보장하며, 자바 레코드와의 상호 운용성을 개선합니다.
-
-프로젝트에서 `@all` 메타-타겟을 활성화하려면 명령줄에서 다음 컴파일러 옵션을 사용하세요:
-
-```Bash
--Xannotation-target-all
-```
-
-또는 Gradle 빌드 파일의 `compilerOptions {}` 블록에 추가하세요:
-
-```kotlin
-// build.gradle.kts
-kotlin {
-    compilerOptions {
-        freeCompilerArgs.add("-Xannotation-target-all")
-    }
-}
-```
-
-이 기능은 프리뷰 상태입니다. [YouTrack](https://kotl.in/issue)의 이슈 트래커에 문제점을 보고해 주세요.
-`@all` 메타-타겟에 대한 자세한 내용은 이 [KEEP](https://github.com/Kotlin/KEEP/blob/master/proposals/annotation-target-in-properties.md) 제안을 읽어보세요.
-
-#### 사용-위치 어노테이션 타겟을 위한 새로운 기본 규칙
-<primary-label ref="experimental-general"/>
-
-Kotlin 2.2.0은 파라미터, 필드 및 프로퍼티로 어노테이션을 전파하기 위한 새로운 기본 규칙을 도입합니다.
-이전에는 어노테이션이 기본적으로 `param`, `property`, 또는 `field` 중 하나에만 적용되었지만, 이제 기본값은 어노테이션에 기대되는 바와 더 일치합니다.
-
-여러 적용 가능한 타겟이 있는 경우, 하나 이상이 다음과 같이 선택됩니다:
-
-*   생성자 파라미터 타겟(`param`)이 적용 가능하면 사용됩니다.
-*   프로퍼티 타겟(`property`)이 적용 가능하면 사용됩니다.
-*   `property`가 적용 가능하지 않은 동안 필드 타겟(`field`)이 적용 가능하면 `field`가 사용됩니다.
-
-여러 타겟이 있고 `param`, `property`, 또는 `field` 중 어느 것도 적용 가능하지 않으면 어노테이션은 오류를 발생시킵니다.
-
-이 기능을 활성화하려면 Gradle 빌드 파일의 `compilerOptions {}` 블록에 추가하세요:
-
-```kotlin
-// build.gradle.kts
-kotlin {
-    compilerOptions {
-        freeCompilerArgs.add("-Xannotation-default-target=param-property")
-    }
-}
-```
-
-또는 컴파일러에 대한 명령줄 인수를 사용하세요:
-
-```Bash
--Xannotation-default-target=param-property
-```
-
-이전 동작을 사용하고 싶다면 다음을 할 수 있습니다:
-
-*   특정 경우에 `param:Annotation` 대신 `@Annotation`을 사용하여 필요한 타겟을 명시적으로 정의합니다.
-*   전체 프로젝트의 경우, Gradle 빌드 파일에서 이 플래그를 사용합니다:
-
-    ```kotlin
-    // build.gradle.kts
-    kotlin {
-        compilerOptions {
-            freeCompilerArgs.add("-Xannotation-default-target=first-only")
-        }
-    }
-    ```
-
-이 기능은 프리뷰 상태입니다. [YouTrack](https://kotl.in/issue)의 이슈 트래커에 문제점을 보고해 주세요.
-어노테이션 사용-위치 타겟을 위한 새로운 기본 규칙에 대한 자세한 내용은 이 [KEEP](https://github.com/Kotlin/KEEP/blob/master/proposals/annotation-target-in-properties.md) 제안을 읽어보세요.
-
-### 중첩된 타입 별칭(nested type aliases) 지원
-<primary-label ref="beta"/>
-
-이전에는 Kotlin 파일의 최상위 레벨에서만 [타입 별칭(type aliases)](type-aliases.md)을 선언할 수 있었습니다. 이는 내부 또는 도메인별 타입 별칭조차도 사용되는 클래스 외부에서 존재해야 한다는 것을 의미했습니다.
-
-2.2.0부터는 외부 클래스에서 타입 파라미터를 캡처하지 않는 한, 다른 선언 내부에 타입 별칭을 정의할 수 있습니다:
-
-```kotlin
-class Dijkstra {
-    typealias VisitedNodes = Set<Node>
-
-    private fun step(visited: VisitedNodes, ...) = ...
-}
-```
-
-중첩된 타입 별칭에는 타입 파라미터를 언급할 수 없는 것과 같은 몇 가지 추가 제약 조건이 있습니다. 전체 규칙 집합은 [문서](type-aliases.md#nested-type-aliases)를 참조하세요.
-
-중첩된 타입 별칭은 캡슐화를 개선하고, 패키지 레벨의 혼란을 줄이며, 내부 구현을 단순화하여 더 깔끔하고 유지보수 가능한 코드를 가능하게 합니다.
-
-#### 중첩된 타입 별칭을 활성화하는 방법
-
-프로젝트에서 중첩된 타입 별칭을 활성화하려면 명령줄에서 다음 컴파일러 옵션을 사용하세요:
-
-```bash
--Xnested-type-aliases
-```
-
-또는 Gradle 빌드 파일의 `compilerOptions {}` 블록에 추가하세요:
-
-```kotlin
-// build.gradle.kts
-kotlin {
-    compilerOptions {
-        freeCompilerArgs.add("-Xnested-type-aliases")
-    }
-}
-```
-
-#### 피드백 공유
-
-중첩된 타입 별칭은 현재 [베타](components-stability.md#stability-levels-explained) 상태입니다. [YouTrack](https://kotl.in/issue)의 이슈 트래커에 문제점을 보고해 주세요. 이 기능에 대한 자세한 내용은 이 [KEEP](https://github.com/Kotlin/KEEP/blob/master/proposals/nested-typealias.md) 제안을 읽어보세요.
-
-### Stable 기능: 가드 조건, 비지역 `break` 및 `continue`, 멀티-달러 보간법
-
-Kotlin 2.1.0에서는 여러 새로운 언어 기능이 프리뷰로 도입되었습니다.
-이번 릴리스에서 다음 언어 기능이 [Stable](components-stability.md#stability-levels-explained)로 전환되었음을 발표하게 되어 기쁩니다:
-
-*   [Subject가 있는 `when`의 가드 조건](whatsnew21.md#guard-conditions-in-when-with-a-subject)
-*   [비지역 `break` 및 `continue`](whatsnew21.md#non-local-break-and-continue)
-*   [멀티-달러 보간법: 문자열 리터럴에서 `$` 처리 개선](whatsnew21.md#multi-dollar-string-interpolation)
+에서 멀티-달러 문자 처리 개선](strings.md#multi-dollar-string-interpolation)
 
 [Kotlin 언어 설계 기능 및 제안의 전체 목록](kotlin-language-features-and-proposals.md)을 참조하세요.
 
@@ -393,27 +34,27 @@ Kotlin 2.2.0은 새로운 컴파일러 옵션인 `-Xwarning-level`을 도입합�
 
 #### 경고 억제
 
-| 명령                                          | 설명                                      |
+| 명령 | 설명 |
 |:----------------------------------------------|:------------------------------------------|
-| [`-nowarn`](compiler-reference.md#nowarn)     | 컴파일 중 모든 경고를 억제합니다.           |
-| `-Xwarning-level=DIAGNOSTIC_NAME:disabled`    | 지정된 경고만 억제합니다.                   |
+| [`-nowarn`](compiler-reference.md#nowarn) | 컴파일 중 모든 경고를 억제합니다. |
+| `-Xwarning-level=DIAGNOSTIC_NAME:disabled` | 지정된 경고만 억제합니다. |
 | `-nowarn -Xwarning-level=DIAGNOSTIC_NAME:warning` | 지정된 경고를 제외한 모든 경고를 억제합니다. |
 
 #### 경고를 오류로 격상
 
-| 명령                                          | 설명                                            |
+| 명령 | 설명 |
 |:----------------------------------------------|:------------------------------------------------|
-| [`-Werror`](compiler-reference.md#werror)     | 모든 경고를 컴파일 오류로 격상시킵니다.         |
-| `-Xwarning-level=DIAGNOSTIC_NAME:error`       | 지정된 경고만 오류로 격상시킵니다.               |
+| [`-Werror`](compiler-reference.md#werror) | 모든 경고를 컴파일 오류로 격상시킵니다. |
+| `-Xwarning-level=DIAGNOSTIC_NAME:error` | 지정된 경고만 오류로 격상시킵니다. |
 | `-Werror -Xwarning-level=DIAGNOSTIC_NAME:warning` | 지정된 경고를 제외한 모든 경고를 오류로 격상시킵니다. |
 
 #### 추가 컴파일러 경고 활성화
 
-| 명령                                            | 설명                                                                                         |
+| 명령 | 설명 |
 |:------------------------------------------------|:---------------------------------------------------------------------------------------------|
-| [`-Wextra`](compiler-reference.md#wextra)       | true인 경우 경고를 발생하는 모든 추가 선언, 표현식 및 타입 컴파일러 검사를 활성화합니다. |
-| `-Xwarning-level=DIAGNOSTIC_NAME:warning`       | 지정된 추가 컴파일러 검사만 활성화합니다.                                                  |
-| `-Wextra -Xwarning-level=DIAGNOSTIC_NAME:disabled` | 지정된 검사를 제외한 모든 추가 검사를 활성화합니다.                                      |
+| [`-Wextra`](compiler-reference.md#wextra) | true인 경우 경고를 발생하는 모든 추가 선언, 표현식 및 타입 컴파일러 검사를 활성화합니다. |
+| `-Xwarning-level=DIAGNOSTIC_NAME:warning` | 지정된 추가 컴파일러 검사만 활성화합니다. |
+| `-Wextra -Xwarning-level=DIAGNOSTIC_NAME:disabled` | 지정된 검사를 제외한 모든 추가 검사를 활성화합니다. |
 
 #### 경고 목록
 
@@ -526,6 +167,10 @@ fun main() {
 ### 인라인 값 클래스를 사용한 Java 상호 운용성 개선
 <primary-label ref="experimental-general"/>
 
+> IntelliJ IDEA에서 이 기능에 대한 코드 분석, 코드 완성 및 하이라이팅 지원은 현재 [2025.3 EAP 빌드](https://www.jetbrains.com/idea/nextversion/)에서만 사용할 수 있습니다.
+>
+{style = "note"}
+
 Kotlin 2.2.0은 새로운 실험적 어노테이션인 [`@JvmExposeBoxed`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.jvm/-jvm-expose-boxed/)를 도입합니다. 이 어노테이션은 [인라인 값 클래스](inline-classes.md)를 Java에서 사용하기 쉽게 만듭니다.
 
 기본적으로 Kotlin은 인라인 값 클래스를 **언박스된 표현(unboxed representations)**을 사용하도록 컴파일합니다. 이는 성능이 좋지만 Java에서는 사용하기 어렵거나 심지어 불가능한 경우가 많습니다. 예를 들어:
@@ -620,7 +265,7 @@ Kotlin/Native의 [메모리 할당자](https://github.com/JetBrains/kotlin/blob/
 
 이 새로운 기능은 기본 메모리 할당자 대신 시스템 메모리 할당자를 활성화했던 `-Xallocator=std` 컴파일러 옵션을 대체하도록 설계되었습니다. 이제 메모리 할당자를 전환하지 않고도 버퍼링(할당 페이징)을 비활성화할 수 있습니다.
 
-이 기능은 현재 [실험적(Experimental)](components-stability.3d#stability-levels-explained)입니다.
+이 기능은 현재 [실험적(Experimental)](components-stability.md#stability-levels-explained)입니다.
 활성화하려면 `gradle.properties` 파일에 다음 옵션을 설정하세요:
 
 ```none
@@ -703,21 +348,21 @@ Kotlin 2.2.0부터 지원되는 최소 Windows 버전이 Windows 7에서 Windows
 
 Wasm을 위한 새로운 NPM 관련 태스크가 도입되었으며, 기존 JavaScript 태스크는 이제 JavaScript 전용으로 사용됩니다:
 
-| **Wasm 태스크**        | **JavaScript 태스크** |
+| **Wasm 태스크** | **JavaScript 태스크** |
 |:-----------------------|:----------------------|
-| `kotlinWasmNpmInstall` | `kotlinNpmInstall`    |
-| `wasmRootPackageJson`  | `rootPackageJson`     |
+| `kotlinWasmNpmInstall` | `kotlinNpmInstall` |
+| `wasmRootPackageJson` | `rootPackageJson` |
 
 마찬가지로, 새로운 Wasm 전용 선언이 추가되었습니다:
 
-| **Wasm 선언**         | **JavaScript 선언** |
+| **Wasm 선언** | **JavaScript 선언** |
 |:----------------------|:--------------------|
-| `WasmNodeJsRootPlugin`| `NodeJsRootPlugin`  |
-| `WasmNodeJsPlugin`    | `NodeJsPlugin`      |
-| `WasmYarnPlugin`      | `YarnPlugin`        |
+| `WasmNodeJsRootPlugin`| `NodeJsRootPlugin` |
+| `WasmNodeJsPlugin` | `NodeJsPlugin` |
+| `WasmYarnPlugin` | `YarnPlugin` |
 | `WasmNodeJsRootExtension` | `NodeJsRootExtension` |
-| `WasmNodeJsEnvSpec`   | `NodeJsEnvSpec`     |
-| `WasmYarnRootEnvSpec` | `YarnRootEnvSpec`   |
+| `WasmNodeJsEnvSpec` | `NodeJsEnvSpec` |
+| `WasmYarnRootEnvSpec` | `YarnRootEnvSpec` |
 
 이제 JavaScript 타겟과 독립적으로 Wasm 타겟으로 작업할 수 있어 구성 프로세스가 단순해집니다.
 
@@ -755,9 +400,9 @@ external interface User {
 
 fun main() {
     val user = User(name = "SomeUser", age = 21)
-    // 이 구문은 더 이상 유효하지 않습니다.
-    val copy = user.copy(age = 35)
-    // 이것이 올바른 구문입니다.
+    // This syntax is not valid anymore
+    val copy = user.copy(age = 35)      
+    // This is the correct syntax
     val copy = User.copy(user, age = 35)
 }
 ```
@@ -791,7 +436,7 @@ Kotlin 멀티플랫폼 프로젝트에서 [`expect/actual` 메커니즘](https:/
 ```kotlin
 // commonMain
 
-// 이전에는 오류가 발생했지만, 이제 올바르게 작동합니다.
+// Produced error, but now works correctly 
 @JsExport
 expect class WindowManager {
     fun close()
@@ -827,14 +472,14 @@ JavaScript 소스 세트의 해당 `actual` 구현에도 `@JsExport` 어노테�
 이러한 제한이 제거되었습니다. 이제 다음 코드는 오류 없이 컴파일됩니다:
 
 ```kotlin
-// 이전에는 올바르게 작동했습니다.
+// Worked correctly before
 @JsExport
 fun fooInt(): Promise<Int> = GlobalScope.promise {
     delay(100)
     return@promise 42
 }
 
-// 이전에는 오류가 발생했지만, 이제 올바르게 작동합니다.
+// Produced error, but now works correctly
 @JsExport
 fun fooUnit(): Promise<Unit> = GlobalScope.promise {
     delay(100)
@@ -865,7 +510,7 @@ Kotlin 라이브러리는 JVM 클래스 파일 또는 `klib` 두 가지 바이�
 kotlin {
     @OptIn(org.jetbrains.kotlin.gradle.dsl.abi.ExperimentalAbiValidation::class)
     abiValidation {
-        // 이전 Gradle 버전과의 호환성을 보장하기 위해 set() 함수를 사용합니다.
+        // Use the set() function to ensure compatibility with older Gradle versions
         enabled.set(true)
     }
 }
@@ -983,7 +628,7 @@ BTA를 사용해 보려면:
 
 ```kotlin
 kotlin.compiler.runViaBuildToolsApi=true
-```
+```   
 
 *   Maven의 경우, 아무것도 할 필요가 없습니다. 기본적으로 활성화되어 있습니다.
 
@@ -1016,22 +661,23 @@ BTA는 이를 가능하게 합니다. `build.gradle.kts` 파일에서 다음과 
 import org.jetbrains.kotlin.buildtools.api.ExperimentalBuildToolsApi
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 
-plugins {
+plugins { 
     kotlin("jvm") version "2.2.0"
 }
 
 group = "org.jetbrains.example"
 version = "1.0-SNAPSHOT"
 
-repositories {
+repositories { 
     mavenCentral()
 }
 
-kotlin {
+kotlin { 
     jvmToolchain(8)
-    @OptIn(ExperimentalBuildToolsApi::class, ExperimentalKotlinGradlePluginApi::class)
+    @OptIn(ExperimentalBuildToolsApi::class, ExperimentalKotlinGradlePluginApi::class) 
     compilerVersion.set("2.1.21") // 2.2.0과 다른 버전
 }
+
 ```
 
 BTA는 KGP와 Kotlin 컴파일러 버전을 이전 세 가지 주요 버전 및 다음 하나의 주요 버전과 함께 구성하는 것을 지원합니다. 따라서 KGP 2.2.0에서는 Kotlin 컴파일러 버전 2.1.x, 2.0.x 및 1.9.25가 지원됩니다. KGP 2.2.0은 또한 향후 Kotlin 컴파일러 버전 2.2.x 및 2.3.x와 호환됩니다.
@@ -1069,14 +715,14 @@ Base64 API를 사용하여 바이너리 데이터를 Base64 문자열로 인코�
 ```kotlin
 val foBytes = "fo".map { it.code.toByte() }.toByteArray()
 Base64.Default.encode(foBytes) // "Zm8="
-// 다른 방법:
+// Alternatively:
 // Base64.encode(foBytes)
 
 val foobarBytes = "foobar".map { it.code.toByte() }.toByteArray()
 Base64.UrlSafe.encode(foobarBytes) // "Zm9vYmFy"
 
 Base64.Default.decode("Zm8=") // foBytes
-// 다른 방법:
+// Alternatively:
 // Base64.decode("Zm8=")
 
 Base64.UrlSafe.decode("Zm9vYmFy") // foobarBytes
@@ -1093,7 +739,7 @@ fun main() {
     val base64Output = output.encodingWith(Base64.Default)
 
     base64Output.use { stream ->
-        stream.write("Hello World!!".encodeToByteArray())
+        stream.write("Hello World!!".encodeToByteArray()) 
     }
 
     println(output.toString())
@@ -1184,7 +830,6 @@ composeCompiler {
     *   REPL: `kotlinc`를 통해 REPL을 계속 사용하려면 `-Xrepl` 컴파일러 옵션으로 옵트인하세요.
     *   JSR-223: 이 [JSR](https://jcp.org/en/jsr/detail?id=223)은 **철회(Withdrawn)** 상태이므로, JSR-223 구현은 언어 버전 1.9와 계속 작동하지만 향후 K2 컴파일러를 사용하도록 마이그레이션되지 않습니다.
     *   `KotlinScriptMojo` Maven 플러그인: 이 플러그인에 대한 충분한 인기를 확인하지 못했습니다. 계속 사용하면 컴파일러 경고가 표시될 것입니다.
-*
 *   Kotlin 2.2.0에서 [`KotlinCompileTool`](https://kotlinlang.org/api/kotlin-gradle-plugin/kotlin-gradle-plugin-api/org.jetbrains.kotlin.gradle.tasks/-kotlin-compile-tool/#)의 [`setSource()`](https://kotlinlang.org/api/kotlin-gradle-plugin/kotlin-gradle-plugin-api/org.jetbrains.kotlin.gradle.tasks/-kotlin-compile-tool/set-source.html#) 함수는 이제 [구성된 소스를 추가하는 대신 교체](compatibility-guide-22.md#correct-setsource-function-in-kotlincompiletool-to-replace-sources)합니다.
     기존 소스를 교체하지 않고 추가하려면 [`source()`](https://kotlinlang.org/api/kotlin-gradle-plugin/kotlin-gradle-plugin-api/org.jetbrains.kotlin.gradle.tasks/-kotlin-compile-tool/source.html#) 함수를 사용하세요.
 *   `BaseKapt`의 [`annotationProcessorOptionProviders`](https://kotlinlang.org/api/kotlin-gradle-plugin/kotlin-gradle-plugin-api/org.jetbrains.kotlin.gradle.tasks/-base-kapt/annotation-processor-option-providers.html#) 속성 타입이 [`MutableList<Any>`에서 `MutableList<CommandLineArgumentProvider>`로 변경](compatibility-guide-22.md#deprecate-basekapt-annotationprocessoroptionproviders-property)되었습니다. 코드가 현재 목록을 단일 요소로 추가하는 경우, `add()` 함수 대신 `addAll()` 함수를 사용하세요.

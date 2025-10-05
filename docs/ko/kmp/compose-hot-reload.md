@@ -4,7 +4,9 @@
 
 [Compose 핫 리로드](https://github.com/JetBrains/compose-hot-reload)는 Compose Multiplatform 프로젝트에서 작업하는 동안 UI 변경 사항을 시각화하고 실험하는 데 도움을 줍니다.
 
-현재 Compose 핫 리로드는 멀티플랫폼 프로젝트에 데스크톱 타겟을 포함할 때만 사용할 수 있습니다. JetBrains는 향후 다른 타겟에 대한 지원 추가를 검토 중입니다. 그 동안 데스크톱 앱을 샌드박스(sandbox)로 사용하면 작업 흐름을 방해하지 않고 공통 코드의 UI 변경 사항을 빠르게 실험할 수 있습니다.
+Compose 핫 리로드는 현재 멀티플랫폼 프로젝트에 데스크톱 타겟이 포함되어 있고 Java 21 이하 버전과 호환되는 경우에만 사용할 수 있습니다.
+
+JetBrains는 향후 다른 타겟에 대한 지원 추가를 검토 중입니다. 그 동안 데스크톱 앱을 샌드박스(sandbox)로 사용하면 작업 흐름을 방해하지 않고 공통 코드의 UI 변경 사항을 빠르게 실험할 수 있습니다.
 
 ![Compose 핫 리로드](compose-hot-reload.gif){width=500}
 
@@ -31,7 +33,7 @@ Compose 핫 리로드는 다음 두 가지 방법으로 추가할 수 있습니�
 이 섹션에서는 기존 멀티플랫폼 프로젝트에 Compose 핫 리로드를 추가하는 단계를 안내합니다. 이 단계는 [공유 로직 및 UI로 앱 생성](compose-multiplatform-create-first-app.md) 튜토리얼의 프로젝트를 참조합니다.
 
 > 최신 버전의 Compose 핫 리로드를 찾으려면 [Releases](https://github.com/JetBrains/compose-hot-reload/releases)를 참조하세요.
-> 
+>
 {style="tip"}
 
 1.  프로젝트에서 버전 카탈로그(version catalog)를 업데이트합니다. `gradle/libs.versions.toml`에 다음 코드를 추가합니다.
@@ -51,14 +53,19 @@ Compose 핫 리로드는 다음 두 가지 방법으로 추가할 수 있습니�
 
 3.  멀티플랫폼 애플리케이션을 포함하는 서브프로젝트의 `build.gradle.kts`(`ComposeDemo/composeApp/build.gradle.kts`)에 다음 코드를 `plugins {}` 블록에 추가합니다.
     ```kotlin
-    plugins { 
+    plugins {
         alias(libs.plugins.composeHotReload)
     }
     ```
 
 4.  Compose 핫 리로드의 모든 기능을 사용하려면 프로젝트가 향상된 클래스 재정의(redefinition)를 지원하는 OpenJDK 포크(fork)인 [JetBrains Runtime](https://github.com/JetBrains/JetBrainsRuntime)(JBR)에서 실행되어야 합니다.
     Compose 핫 리로드는 프로젝트에 호환 가능한 JBR을 자동으로 프로비저닝(provision)할 수 있습니다.
-    이를 허용하려면 다음 Gradle 플러그인을 `settings.gradle.kts` 파일에 추가합니다.
+
+    > 최신 JetBrains Runtime은 Java 21만 지원합니다. Java 22 이상 버전에서만 호환되는 프로젝트에 Compose 핫 리로드를 추가하면 프로젝트 실행 시 링키지 오류가 발생합니다.
+    >
+    {style="warning"}
+
+    자동 프로비저닝을 허용하려면 다음 Gradle 플러그인을 `settings.gradle.kts` 파일에 추가합니다.
 
     ```kotlin
     plugins {
@@ -82,7 +89,7 @@ Compose 핫 리로드는 다음 두 가지 방법으로 추가할 수 있습니�
         }
     }
     ```
-    `alwaysOnTop` 변수를 `true`로 설정하면 생성된 데스크톱 앱이 모든 창 위에 유지되어 코드를 편집하고 변경 사항을 실시간으로 확인하기가 더 쉬워집니다.
+    `alwaysOnTop` 변수를 `true`로 설정하면 생성된 데스크톱 앱이 모든 창 위에 유지되어 코드를 더 쉽게 편집하고 변경 사항을 실시간으로 확인할 수 있습니다.
 
 2.  `App.kt` 파일을 열고 `Button` 컴포저블(composable)을 업데이트합니다.
     ```kotlin
