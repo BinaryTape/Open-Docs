@@ -2,15 +2,14 @@
 
 [Kotlin Multiplatform IDE 插件](https://plugins.jetbrains.com/plugin/14936-kotlin-multiplatform)可帮助你开发适用于 Android、iOS、桌面和 Web 的跨平台应用程序。请确保你拥有最新版本的插件，以便使用 Kotlin Multiplatform 项目。
 
-> 该 IDE 插件目前仅适用于 macOS，对 Windows 和 Linux 的支持正在开发中。
-> 
-{style="note"}
-
 该插件兼容 IntelliJ IDEA（版本 2025.1.1.1 及更高）和 Android Studio（版本 Narwhal 2025.1.1 及更高）。
 
-> 关于 Kotlin Multiplatform Gradle 插件的信息，请参见其 [DSL 参考](multiplatform-dsl-reference.md)和[兼容性指南](multiplatform-compatibility-guide.md)。
-> 
-{style="tip"}
+> 要在 Windows 和 Linux 上使用 Kotlin Multiplatform 插件，你需要 IntelliJ IDEA 2025.2.2。
+> Android Studio 将在即将发布的版本中增加对 KMP IDE 插件在 Windows 和 Linux 上的支持。
+>
+{style="note"}
+
+关于 Kotlin Multiplatform Gradle 插件的信息，请参见其 [DSL 参考](multiplatform-dsl-reference.md)和[兼容性指南](multiplatform-compatibility-guide.md)。
 
 ## 更新到最新版本
 
@@ -91,7 +90,7 @@ Kotlin Multiplatform 插件已彻底重构：
 </td>
 <td>
 
-* 支持 Kotlin 的 [K2 模式](https://kotlinlang.org/docs/k2-compiler-migration-guide.html#support-in-ides)，以提高稳定性和代码分析能力。
+* 支持 Kotlin 的 [K2 模式](https://kotlinlang.org/docs/k2-compiler-migration-guide.html#support-in-ides)以提高稳定性及代码分析能力。
 
 </td>
 <td>
@@ -490,7 +489,7 @@ Kotlin Multiplatform 插件已彻底重构：
 </td>
 <td>
 
-* [修复了与 Android Studio Arctic Fox 2020.3.1 Beta 1 及更高版本的兼容性问题](https://youtrack.jetbrains.com/issue/KT-46834)。
+* [修复了与 Android Studio Arctic Fox 2020.3.1 Beta 1 和更高版本的兼容性问题](https://youtrack.jetbrains.com/issue/KT-46834)。
 
 </td>
 <td>
@@ -510,7 +509,7 @@ Kotlin Multiplatform 插件已彻底重构：
 </td>
 <td>
 
-请将此插件版本与 Android Studio 4.2 或 Android Studio 2020.3.1 Canary 8 及更高版本一起使用。
+请将此插件版本与 Android Studio 4.2 或 Android Studio 2020.3.1 Canary 8 和更高版本一起使用。
 * 兼容 [Kotlin 1.5.0](https://kotlinlang.org/docs/whatsnew15.html)。
 * [能够在 Kotlin Multiplatform 模块中使用 CocoaPods 依赖项管理器进行 iOS 集成](https://youtrack.jetbrains.com/issue/KT-45946)。
 
@@ -650,7 +649,7 @@ Kotlin Multiplatform 插件已彻底重构：
 </td>
 <td>
 
- * 修复了与 [Kotlin 1.4.20-M1](https://youtrack.jetbrains.com/issue/KT-44970) 的兼容性。
+ * 修复了与 [Kotlin 1.4.20-M1](https://kotlinlang.org/docs/eap.html#build-details) 的兼容性。
  * 默认启用向 JetBrains 报告错误。
 
 </td>
@@ -672,7 +671,7 @@ Kotlin Multiplatform 插件已彻底重构：
 </td>
 <td>
 
-* 修复了与 Android Studio Canary 8 及更高版本的兼容性。
+* 修复了与 Android Studio Canary 8 和更高版本的兼容性。
 
 </td>
 <td>

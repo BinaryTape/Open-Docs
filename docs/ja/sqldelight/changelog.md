@@ -3,6 +3,7 @@
 ## 未リリース
 
 ### 追加
+-   [PostgreSQL Dialect] Postgres JSON Aggregate FILTERのサポートを追加 (#5957 by [Griffio][griffio])
 -   [PostgreSQL Dialect] Postgres Enumのサポートを追加 (#5935 by [Griffio][griffio])
 -   [PostgreSQL Dialect] Postgres Triggersの限定的なサポートを追加 (#5932 by [Griffio][griffio])
 -   [PostgreSQL Dialect] SQL式がJSONとして解析できるかをチェックする述語を追加 (#5843 by [Griffio][griffio])
@@ -67,7 +68,7 @@
 -   [JDBC Driver] トランザクション終了時の`connectionManager`のメモリリークを修正
 -   [JDBC Driver] ドキュメントに記載されているように、SQLiteのマイグレーションをトランザクション内で実行するよう修正 (#5218 by [Lukáš Moravec][morki])
 -   [JDBC Driver] トランザクションコミット/ロールバック後の接続リークを修正 (#5205 by [Lukáš Moravec][morki])
--   [Gradle Plugin] `GenerateSchemaTask`の前に`DriverInitializer`を実行するように修正 (#5562 by [Emeka Nwagu][nwagu])
+-   [Gradle Plugin] `DriverInitializer`を`GenerateSchemaTask`の前に実行するように修正 (#5562 by [Emeka Nwagu][nwagu])
 -   [Runtime] 実際のドライバーがAsyncの場合に`LogSqliteDriver`でクラッシュする問題を修正 (#5723 by [Eric Denman][edenman])
 -   [Runtime] `StringBuilder`の容量を修正 (#5192 by [Jan Bína][janbina])
 -   [PostgreSQL Dialect] PostgreSQLの`CREATE OR REPLACE VIEW`を修正 (#5407 by [Griffio][griffio])
@@ -119,8 +120,8 @@
 -   [PostgreSQL Dialect] 5032のPostgreSQL `UPDATE FROM`ステートメントでの列隣接を修正 (#5035 by [Griffio][griffio])
 -   [SQLite Dialect] 4897のSQLite `ALTER TABLE RENAME COLUMN`を修正 (#4899 by [Griffio][griffio])
 -   [IDE Plugin] エラーハンドラのクラッシュを修正 (#4988 by [Alexander Perfilyev][aperfilyev])
--   [IDE Plugin] IDEA 2023.3でBugSnagの初期化が失敗する (#4988 by [Alexander Perfilyev][aperfilyev])
--   [IDE Plugin] IntelliJでプラグイン経由で`.sq`ファイルを開く際の`PluginException`を修正 (#4988 by [Alexander Perfilyev][aperfilyev])
+-   [IDE Plugin] IDEA 2023.3でBugSnagの初期化が失敗する (by [Alexander Perfilyev][aperfilyev])
+-   [IDE Plugin] IntelliJでプラグイン経由で`.sq`ファイルを開く際の`PluginException`を修正 (by [Alexander Perfilyev][aperfilyev])
 -   [IDE Plugin] Kotlinライブラリがすでにプラグインの依存関係にあるため、IntelliJプラグインにバンドルしないよう修正 (#5126)
 -   [IDE Plugin] ストリームの代わりに`extensions`配列を使用するよう修正 (#5127)
 
@@ -1056,7 +1057,7 @@ sqldelight {
 *   新規: 列定義がSQLite型を使用し、Java型を指定するための追加の「`AS`」制約を持つことができる。
 *   新規: IDEからバグレポートを送信できる。
 *   修正: 自動補完が適切に機能する。
-*   修正: .sqファイル編集時にSQLDelightモデルファイルが更新される。
+*   修正: SQLDelightモデルファイルが.sqファイル編集時に更新される。
 *   削除: 添付データベースはサポートされなくなった。
 
 ## [0.2.2] - 2016-03-07

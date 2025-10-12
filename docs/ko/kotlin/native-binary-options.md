@@ -69,7 +69,7 @@ kotlinc-native main.kt -Xbinary=enableSafepointSignposts=true
         <td width="110">상태</td>
     </tr>
     <tr>
-        <td><a href="whatsnew-eap.md#smaller-binary-size-for-release-binaries"><code>smallBinary</code></a></td>
+        <td><a href="whatsnew2220.md#smaller-binary-size-for-release-binaries"><code>smallBinary</code></a></td>
         <td>
             <list>
                 <li><code>true</code></li>
@@ -80,7 +80,7 @@ kotlinc-native main.kt -Xbinary=enableSafepointSignposts=true
         <td>2.2.20부터 실험적</td>
     </tr>
     <tr>
-        <td><a href="whatsnew-eap.md#support-for-stack-canaries-in-binaries"><code>stackProtector</code></a></td>
+        <td><a href="whatsnew2220.md#support-for-stack-canaries-in-binaries"><code>stackProtector</code></a></td>
         <td>
             <list>
                 <li><code>yes</code></li>
@@ -252,6 +252,68 @@ kotlinc-native main.kt -Xbinary=enableSafepointSignposts=true
         </td>
         <td>1.6.20부터 실험적</td>
     </tr>
+    <!-- <tr>
+        <td><code>objcExportReportNameCollisions</code></td>
+        <td>
+            <list>
+                <li><code>true</code></li>
+                <li><code>false</code> (default)</li>
+            </list>
+        </td>
+        <td>When <code>enabled</code>, reports warnings in case name collisions occur during Objective-C export.</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td><code>objcExportErrorOnNameCollisions</code></td>
+        <td>
+            <list>
+                <li><code>true</code></li>
+                <li><code>false</code> (default)</li>
+            </list>
+        </td>
+        <td>When <code>true</code>, issues errors in case name collisions occur during Objective-C export.</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td><code>debugCompilationDir</code></td>
+        <td><code>String</code></td>
+        <td>Specifies the directory path to use for debug information in the compiled binary.</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td><code>fixedBlockPageSize</code></td>
+        <td><code>UInt</code></td>
+        <td>Controls the page size for fixed memory blocks in the memory allocator. Affects memory allocation performance and fragmentation.</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td><code>gcMutatorsCooperate</code></td>
+        <td>
+            <list>
+                <li><code>true</code></li>
+                <li><code>false</code> (default)</li>
+            </list>
+        </td>
+        <td>Controls cooperation between mutator threads and the garbage collector.</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td><code>auxGCThreads</code></td>
+        <td><code>UInt</code></td>
+        <td>Specifies the number of auxiliary threads to use for garbage collection.</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td><code>sanitizer</code></td>
+        <td>
+            <list>
+                <li><code>address</code></li>
+                <li><code>thread</code></li>
+            </list>
+        </td>
+        <td>Enables runtime sanitizers for detecting various issues like memory errors, data races, and undefined behavior.</td>
+        <td>Experimental</td>
+    </tr> -->
 </table>
 
 > 안정성 수준에 대한 자세한 내용은 [문서](components-stability.md#stability-levels-explained)를 참조하십시오.

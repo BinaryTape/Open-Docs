@@ -221,8 +221,7 @@ AIAgent(
 <!--- INCLUDE
 
 import ai.koog.agents.core.agent.AIAgent
-import ai.koog.agents.core.tools.ToolResult
-import ai.koog.agents.example.exampleCustomNodes11.ToolArgs
+import ai.koog.agents.core.environment.ReceivedToolResult
 import ai.koog.agents.example.exampleTesting02.mockLLMApi
 import ai.koog.agents.example.exampleTesting02.toolRegistry
 import ai.koog.agents.testing.feature.testGraph
@@ -262,7 +261,7 @@ AIAgent(
 
             // 이름으로 노드 어설션
             val askLLM = assertNodeByName<String, Message.Response>("callLLM")
-            val callTool = assertNodeByName<ToolArgs, ToolResult>("executeTool")
+            val callTool = assertNodeByName<Message.Tool.Call, ReceivedToolResult>("executeTool")
 
             // 노드 도달 가능성 어설션
             assertReachable(start, askLLM)

@@ -221,8 +221,7 @@ AIAgent(
 <!--- INCLUDE
 
 import ai.koog.agents.core.agent.AIAgent
-import ai.koog.agents.core.tools.ToolResult
-import ai.koog.agents.example.exampleCustomNodes11.ToolArgs
+import ai.koog.agents.core.environment.ReceivedToolResult
 import ai.koog.agents.example.exampleTesting02.mockLLMApi
 import ai.koog.agents.example.exampleTesting02.toolRegistry
 import ai.koog.agents.testing.feature.testGraph
@@ -262,7 +261,7 @@ AIAgent(
 
             // Assert nodes by name
             val askLLM = assertNodeByName<String, Message.Response>("callLLM")
-            val callTool = assertNodeByName<ToolArgs, ToolResult>("executeTool")
+            val callTool = assertNodeByName<Message.Tool.Call, ReceivedToolResult>("executeTool")
 
             // Assert node reachability
             assertReachable(start, askLLM)

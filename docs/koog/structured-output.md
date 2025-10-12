@@ -524,7 +524,7 @@ fun main(): Unit = runBlocking {
 -   **模式生成**：选择特定的生成器（Standard、Basic 或提供者特有的）
 -   **输出模式**：原生结构化输出支持与手动提示
 -   **提供者映射**：不同 LLM 提供者的不同配置
--   **回退策略**：当提供者特有配置不可用时的默认行为
+-   **回退策略**：当提供者特有配置不可用时，默认行为
 
 <!--- INCLUDE
 import ai.koog.agents.example.exampleStructuredData03.WeatherForecast
@@ -539,7 +539,7 @@ import ai.koog.prompt.structure.StructuredOutputConfig
 import ai.koog.prompt.structure.StructureFixingParser
 import ai.koog.prompt.structure.json.JsonStructuredData
 import ai.koog.prompt.structure.json.generator.StandardJsonSchemaGenerator
-import ai.koog.prompt.executor.clients.openai.structure.OpenAIBasicJsonSchemaGenerator
+import ai.koog.prompt.executor.clients.openai.base.structure.OpenAIBasicJsonSchemaGenerator
 import ai.koog.prompt.llm.LLMProvider
 import kotlinx.coroutines.runBlocking
 
@@ -606,15 +606,9 @@ val structuredResponse = promptExecutor.executeStructured(
 ## 最佳实践
 
 1.  **使用清晰的描述**：使用 `@LLMDescription` 注解提供清晰详细的描述，以帮助 LLM 理解预期数据。
-
 2.  **提供示例**：包含有效数据结构的示例以引导 LLM。
-
 3.  **优雅地处理错误**：实现适当的错误处理，以应对 LLM 可能无法生成有效结构的情况。
-
 4.  **使用适当的模式类型**：根据你的需求和你正在使用的 LLM 的能力，选择适当的模式格式和类型。
-
 5.  **使用不同模型进行测试**：不同的 LLM 在遵循结构化格式方面可能能力各异，因此如果可能，请使用多个模型进行测试。
-
 6.  **从简单开始**：从简单结构开始，然后根据需要逐步增加复杂度。
-
 7.  **谨慎使用多态**：虽然 API 支持密封类的多态，但请注意，LLM 处理起来可能更具挑战性。

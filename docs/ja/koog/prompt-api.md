@@ -676,6 +676,7 @@ import ai.koog.prompt.executor.clients.retry.RetryingLLMClient
 import ai.koog.prompt.executor.llms.MultiLLMPromptExecutor
 import ai.koog.prompt.executor.llms.SingleLLMPromptExecutor
 import ai.koog.prompt.llm.LLMProvider
+import aws.sdk.kotlin.runtime.auth.credentials.StaticCredentialsProvider
 
 -->
 ```kotlin
@@ -698,10 +699,13 @@ val multiExecutor = MultiLLMPromptExecutor(
     ),
     // Bedrock クライアントにはすでに AWS SDK のリトライ機能が組み込まれています
     LLMProvider.Bedrock to BedrockLLMClient(
-        awsAccessKeyId = System.getenv("AWS_ACCESS_KEY_ID"),
-        awsSecretAccessKey = System.getenv("AWS_SECRET_ACCESS_KEY"),
-        awsSessionToken = System.getenv("AWS_SESSION_TOKEN"),
-    ))
+        credentialsProvider = StaticCredentialsProvider {
+            accessKeyId = System.getenv("AWS_ACCESS_KEY_ID")
+            secretAccessKey = System.getenv("AWS_SECRET_ACCESS_KEY")
+            sessionToken = System.getenv("AWS_SESSION_TOKEN")
+        },
+    ),
+)
 ```
 <!--- KNIT example-prompt-api-21.kt -->
 

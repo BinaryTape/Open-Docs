@@ -1,11 +1,10 @@
 [//]: # (title: Kotlin/JavaScript)
 
-Kotlin/JavaScript (Kotlin/JS)는 Kotlin 코드, Kotlin 표준 라이브러리 및 모든 호환되는 종속성을 JavaScript로 트랜스파일(transpile)할 수 있도록 합니다. 이를 통해 Kotlin 애플리케이션은 JavaScript를 지원하는 모든 환경에서 실행될 수 있습니다.
+Kotlin/JavaScript (Kotlin/JS)를 사용하면 Kotlin 코드, Kotlin 표준 라이브러리 및 모든 호환되는 종속성을 JavaScript로 트랜스파일할 수 있습니다. 이를 통해 Kotlin 애플리케이션은 JavaScript를 지원하는 모든 환경에서 실행될 수 있습니다.
 
-[Kotlin Multiplatform Gradle 플러그인](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-dsl-reference.html)(`kotlin.multiplatform`)을 통해 Kotlin/JS를 사용하면 JavaScript를 대상으로 하는 Kotlin 프로젝트를 한곳에서 쉽게 설정하고 관리할 수 있습니다.
+[Kotlin Multiplatform Gradle 플러그인](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-dsl-reference.html)(`kotlin.multiplatform`)을 통해 Kotlin/JS를 사용하면 JavaScript를 대상으로 하는 Kotlin 프로젝트를 한곳에서 설정하고 관리할 수 있습니다.
 
-Kotlin Multiplatform Gradle 플러그인은 애플리케이션 번들링 제어 및 npm에서 JavaScript 종속성을 직접 추가하는 것과 같은 기능에 대한 접근을 제공합니다.
-사용 가능한 구성 옵션에 대한 개요는 [Kotlin/JS 프로젝트 설정](js-project-setup.md)을 참조하세요.
+Kotlin Multiplatform Gradle 플러그인은 애플리케이션 번들링 제어 및 npm에서 JavaScript 종속성을 직접 추가하는 것과 같은 기능에 대한 접근을 제공합니다. 사용 가능한 구성 옵션에 대한 개요는 [Kotlin/JS 프로젝트 설정](js-project-setup.md)을 참조하세요.
 
 > Kotlin/JS의 현재 구현은 [ES5](https://www.ecma-international.org/ecma-262/5.1/) 및 [ES2015](https://262.ecma-international.org/6.0/) 표준을 대상으로 합니다.
 >
@@ -44,8 +43,7 @@ Kotlin Multiplatform Gradle 플러그인은 애플리케이션 번들링 제어 
 
 사용 사례에 따라 Kotlin/JS 프로젝트는 Kotlin 생태계의 호환 라이브러리 및 JavaScript와 TypeScript 생태계의 서드파티 라이브러리를 사용할 수 있습니다.
 
-Kotlin 코드에서 서드파티 라이브러리를 사용하려면, 직접 타입 안전 래퍼를 생성하거나 커뮤니티에서 유지보수하는 래퍼를 사용할 수 있습니다.
-또한 Kotlin/JS [동적 타입](dynamic-type.md)을 사용할 수 있습니다. 이는 타입 안전성을 저하시키는 대신 엄격한 타입 지정 및 라이브러리 래퍼를 생략할 수 있도록 합니다.
+Kotlin 코드에서 서드파티 라이브러리를 사용하려면, 직접 타입 안전 래퍼를 생성하거나 커뮤니티에서 유지보수하는 래퍼를 사용할 수 있습니다. 또한 Kotlin/JS [동적 타입](dynamic-type.md)을 사용할 수 있습니다. 이는 타입 안전성을 저하시키는 대신 엄격한 타입 지정 및 라이브러리 래퍼를 생략할 수 있도록 합니다.
 
 Kotlin/JS는 가장 일반적인 모듈 시스템인 [ESM](https://tc39.es/ecma262/#sec-modules), [CommonJS](https://nodejs.org/api/modules.html#modules-commonjs-modules), [UMD](https://github.com/umdjs/umd) 및 [AMD](https://github.com/amdjs/amdjs-api)와도 호환됩니다. 이를 통해 [모듈을 생성 및 소비](js-modules.md)하고 구조화된 방식으로 JavaScript 생태계와 통합할 수 있습니다.
 
@@ -53,7 +51,7 @@ Kotlin/JS는 가장 일반적인 모듈 시스템인 [ESM](https://tc39.es/ecma2
 
 [Kotlin/JS 사용 사례](#use-cases-for-kotlin-js)의 목록은 총망라하는 것은 아닙니다. 다양한 접근 방식을 자유롭게 실험하고 프로젝트에 가장 적합한 방법을 찾아보세요.
 
-[Kotlin Slack](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up)의 [#javascript](https://kotlinlang.slack.com/archives/C0B8L3U69) 채널에서 Kotlin/JS 커뮤니티와 사용 사례, 경험 및 질문을 공유하세요.
+공식 [Kotlin Slack](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up)의 [#javascript](https://kotlinlang.slack.com/archives/C0B8L3U69) 채널에서 Kotlin/JS 커뮤니티와 사용 사례, 경험 및 질문을 공유하세요.
 
 ## Kotlin/JS 시작하기
 
@@ -61,9 +59,11 @@ Kotlin/JS 작업을 시작하기 위한 기본 사항 및 초기 단계를 살�
 
 *   Kotlin이 처음이라면, [기본 문법](basic-syntax.md)을 검토하고 [Kotlin 둘러보기](kotlin-tour-welcome.md)를 탐색하는 것부터 시작하세요.
 *   영감을 얻기 위해 [Kotlin/JS 샘플 프로젝트](#sample-projects-for-kotlin-js) 목록을 확인하세요. 이 샘플들은 프로젝트를 시작하는 데 도움이 될 수 있는 유용한 코드 스니펫과 패턴을 포함하고 있습니다.
-*   Kotlin/JS가 처음이라면, 고급 주제를 탐색하기 전에 설정 가이드부터 시작하세요.
+*   Kotlin/JS가 처음이라면, 고급 주제를 탐색하기 전에 [설정 가이드](js-project-setup.md)부터 시작하세요.
 
-<a href="js-project-setup.md"><img src="js-set-up-project.svg" width="600" alt="Set up a Kotlin/JS project" style="block"/></a>
+Kotlin/JS를 직접 사용해 보시겠습니까?
+
+<a href="js-get-started.md"><img src="js-get-started-button.svg" width="500" alt="Kotlin/JS 시작하기" style="block"/></a>
 
 ## Kotlin/JS 샘플 프로젝트
 

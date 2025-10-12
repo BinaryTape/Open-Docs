@@ -1,10 +1,8 @@
 [//]: # (title: 參與 Kotlin 搶先體驗計畫)
 
-<!--
 <tldr>
-    <p>Latest Kotlin EAP release: <strong>%kotlinEapVersion%</strong></p>
+    <p>最新 Kotlin EAP 版本發布：<strong>%kotlinEapVersion%</strong></p>
 </tldr>
--->
 
 您可以參與 Kotlin 搶先體驗計畫 (EAP)，以在新功能發布前搶先體驗最新的 Kotlin 功能。
 
@@ -34,23 +32,31 @@
 
 ## 組建詳細資訊
 
-_目前沒有可用的預覽版本。_
+<!-- _目前沒有可用的預覽版本。_ -->
 
-<!--
 <table>
     <tr>
-        <th>Build info</th>
-        <th>Build highlights</th>
+        <th>組建資訊</th>
+        <th>組建亮點</th>
     </tr>
     <tr>
-        <td><strong>2.2.20-RC2</strong>
-            <p>Released: <strong>September 1, 2025</strong></p>
-            <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.2.20-RC2" target="_blank">Release on GitHub</a></p>
+        <td><strong>2.3.0-Beta1</strong>
+            <p>發布：<strong>2025 年 10 月 7 日</strong></p>
+            <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.3.0-Beta1" target="_blank">GitHub 發布</a></p>
         </td>
         <td>
-            <p>A tooling release containing improvements and bug fixes.</p>
-            <p>For more details, please refer to the <a href="https://github.com/JetBrains/kotlin/releases/tag/v2.2.20-RC2">changelog</a> or <a href="whatsnew-eap.md">What's new in Kotlin 2.2.20-RC2</a>.</p>
+            <p>一個包含新功能預覽和工具更新的語言版本發布。</p>
+            <p>更多詳情請參閱 <a href="https://github.com/JetBrains/kotlin/releases/tag/v2.3.0-Beta1">changelog</a> 或 <a href="whatsnew-eap.md">Kotlin 2.3.0-Beta1 中的新功能</a>。</p>
         </td>
     </tr>
+    <tr>
+        <td><strong>2.2.21-RC</strong>
+            <p>發布：<strong>2025 年 10 月 7 日</strong></p>
+            <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.2.21-RC" target="_blank">GitHub 發布</a></p>
+        </td>
+        <td>
+            <p>一個包含對 Xcode 26 支援，以及其他改進和錯誤修復的工具版本發布。</p>
+            <p>更多詳情請參閱 <a href="https://github.com/JetBrains/kotlin/releases/tag/v2.2.21-RC">changelog</a> 或 <a href="whatsnew-eap.md">Kotlin 2.2.21-RC 中的新功能</a>。</p>
+    </td>
+    </tr>
 </table>
--->

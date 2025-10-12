@@ -48,7 +48,8 @@ val prompt = prompt("prompt_name", LLMParams()) {
 
 ## 多模态输入
 
-除了在提示词中提供文本消息外，Koog 还允许你将图像、音频、视频和文件与 `user` 消息一同发送给 LLM。与标准的纯文本提示词一样，你也可以使用 DSL 结构来构建提示词并向其添加媒体。
+除了在提示词中提供文本消息外，Koog 还允许你将图像、音频、视频和文件与 `user` 消息一同发送给 LLM。
+与标准的纯文本提示词一样，你也可以使用 DSL 结构来构建提示词并向其添加媒体。
 
 <!--- INCLUDE
 import ai.koog.prompt.dsl.prompt
@@ -72,7 +73,8 @@ val prompt = prompt("multimodal_input") {
 
 ### 文本提示词内容
 
-为了支持各种附件类型并在提示词中区分文本输入和文件输入，你可以将文本消息放在 `user` 提示词中一个专用的 `content` 形参中。要添加文件输入，请将它们作为列表提供给 `attachments` 形参。
+为了支持各种附件类型并在提示词中区分文本输入和文件输入，你可以将文本消息放在 `user` 提示词中一个专用的 `content` 形参中。
+要添加文件输入，请将它们作为列表提供给 `attachments` 形参。
 
 包含文本消息和附件列表的 `user` 消息的通用格式如下：
 
@@ -397,7 +399,7 @@ val multiExecutor = MultiLLMPromptExecutor(
     - `simpleAnthropicExecutor` 用于使用 Anthropic 模型执行提示词。
     - `simpleGoogleAIExecutor` 用于使用 Google 模型执行提示词。
     - `simpleOpenRouterExecutor` 用于使用 OpenRouter 执行提示词。
-    - `simpleOllamaExecutor` 用于使用 Ollama 执行提示词。
+    - `simpleOllamaAIExecutor` 用于使用 Ollama 执行提示词。
 
 - 多提供方执行器：
     - `DefaultMultiLLMPromptExecutor` 是 `MultiLLMPromptExecutor` 的一个实现，支持 OpenAI、Anthropic 和 Google 提供方。
@@ -663,6 +665,7 @@ import ai.koog.prompt.executor.clients.retry.RetryingLLMClient
 import ai.koog.prompt.executor.llms.MultiLLMPromptExecutor
 import ai.koog.prompt.executor.llms.SingleLLMPromptExecutor
 import ai.koog.prompt.llm.LLMProvider
+import aws.sdk.kotlin.runtime.auth.credentials.StaticCredentialsProvider
 
 -->
 ```kotlin
@@ -685,10 +688,13 @@ val multiExecutor = MultiLLMPromptExecutor(
     ),
     // Bedrock 客户端已内置 AWS SDK 重试功能
     LLMProvider.Bedrock to BedrockLLMClient(
-        awsAccessKeyId = System.getenv("AWS_ACCESS_KEY_ID"),
-        awsSecretAccessKey = System.getenv("AWS_SECRET_ACCESS_KEY"),
-        awsSessionToken = System.getenv("AWS_SESSION_TOKEN"),
-    ))
+        credentialsProvider = StaticCredentialsProvider {
+            accessKeyId = System.getenv("AWS_ACCESS_KEY_ID")
+            secretAccessKey = System.getenv("AWS_SECRET_ACCESS_KEY")
+            sessionToken = System.getenv("AWS_SESSION_TOKEN")
+        },
+    ),
+)
 ```
 <!--- KNIT example-prompt-api-21.kt -->
 

@@ -1,11 +1,9 @@
 [//]: # (title: EAPビルドの構成)
 
 <tldr>
-    <p>プレビューバージョンは現在利用できません。</p>
-    <!--
-    <p>Latest Kotlin EAP release: <strong>%kotlinEapVersion%</strong></p>
-    <p><a href="eap.md#build-details">Explore Kotlin EAP release details</a></p>
-    -->
+    <!-- <p>プレビューバージョンは現在利用できません。</p> -->
+    <p>最新のKotlin EAPリリース: <strong>%kotlinEapVersion%</strong></p>
+    <p><a href="eap.md#build-details">Kotlin EAPリリースの詳細を見る</a></p>
 </tldr>
 
 KotlinのEAPバージョンを使用するようにビルドを構成するには、以下を行う必要があります。

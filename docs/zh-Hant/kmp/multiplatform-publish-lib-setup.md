@@ -71,7 +71,7 @@ kotlin {
 
 根發佈作為一個入口點，引用所有目標特定的發佈。它包含中繼資料產物，並透過包含對其他發佈的引用來確保正確的依賴解析：個別平台產物的預期 URL 和座標。
 
-*   某些儲存庫，例如 Maven Central，要求根模組包含一個沒有分類器（classifier）的 JAR 產物，例如 `kotlinMultiplatform-1.0.jar`。Kotlin 多平台外掛程式會自動產生所需的產物，其中包含嵌入式中繼資料產物。這表示您無需在函式庫的根模組中添加一個空的產物來滿足儲存庫的要求。
+*   某些儲存庫，例如 Maven Central，要求根模組包含一個沒有分類器的 JAR 產物，例如 `kotlinMultiplatform-1.0.jar`。Kotlin 多平台外掛程式會自動產生所需的產物，其中包含嵌入式中繼資料產物。這表示您無需在函式庫的根模組中添加一個空的產物來滿足儲存庫的要求。
 
     > 透過 [Gradle](multiplatform-configure-compilations.md#compilation-for-jvm) 和 [Maven](https://kotlinlang.org/docs/maven.html#create-jar-file) 建置系統了解更多關於 JAR 產物生成。
     >
@@ -99,7 +99,7 @@ kotlin {
 
 ```bash
 ./gradlew publishKotlinMultiplatformPublicationToMavenLocal
-```
+````
 
 此任務發佈一個 `*.module` 檔案，其中包含目標特定發佈的資訊，但目標本身仍未發佈。要完成此過程，請單獨發佈每個目標特定發佈：
 
@@ -113,7 +113,7 @@ kotlin {
 
 Kotlin/Native 支援交叉編譯，允許任何主機生成必要的 `.klib` 產物。然而，您仍需注意一些限制。
 
-**編譯 Apple 目標**
+### 編譯 Apple 目標
 
 您可以使用任何主機為包含 Apple 目標的專案生成產物。然而，如果您仍需要使用 Mac 機器，則需符合以下情況：
 
@@ -121,45 +121,82 @@ Kotlin/Native 支援交叉編譯，允許任何主機生成必要的 `.klib` 產
 *   您在專案中設定了 [CocoaPods 整合](multiplatform-cocoapods-overview.md)。
 *   您需要為 Apple 目標建置或測試[最終二進位檔](multiplatform-build-native-binaries.md)。
 
-**重複發佈**
+### 重複發佈
 
-為避免發佈過程中出現任何問題，請從單一主機發佈所有產物，以避免儲存庫中出現重複的發佈。例如，Maven Central 明確禁止重複發佈，並會導致該過程失敗。
+為避免儲存庫中出現任何重複發佈問題，請從單一主機發佈所有產物。例如，Maven Central 明確禁止重複發佈，並會導致該過程失敗。
 
 ## 發佈 Android 函式庫
 
-要發佈 Android 函式庫，您需要提供額外的配置。
+要發佈 Android 函式庫，您需要提供額外的配置。預設情況下，Android 函式庫不發佈任何產物。
 
-預設情況下，Android 函式庫不發佈任何產物。要發佈由一組 Android [建置變體](https://developer.android.com/build/build-variants)產生的產物，請在 `shared/build.gradle.kts` 檔案的 Android 目標區塊中指定變體名稱：
-
-```kotlin
-kotlin {
-    androidTarget {
-        publishLibraryVariants("release")
-    }
-}
-```
-
-此範例適用於沒有[產品特色](https://developer.android.com/build/build-variants#product-flavors)的 Android 函式庫。對於具有產品特色的函式庫，變體名稱也包含特色，例如 `fooBarDebug` 或 `fooBarRelease`。
-
-預設的發佈設定如下：
-*   如果已發佈的變體具有相同的建置類型（例如，它們都是 `release` 或 `debug`），它們將與任何消費者建置類型相容。
-*   如果已發佈的變體具有不同的建置類型，則只有 `release` 變體將與不屬於已發佈變體的消費者建置類型相容。所有其他變體（例如 `debug`）將僅在消費者端匹配相同的建置類型，除非消費者專案指定了[匹配回退](https://developer.android.com/reference/tools/gradle-api/4.2/com/android/build/api/dsl/BuildType)。
-
-如果您希望使每個已發佈的 Android 變體僅與函式庫消費者使用的相同建置類型相容，請設定此 Gradle 屬性：`kotlin.android.buildTypeAttribute.keep=true`。
-
-您還可以按產品特色對變體進行分組發佈，以便不同建置類型的輸出放置在單個模組中，其中建置類型成為產物的分類器（`release` 建置類型仍以無分類器方式發佈）。此模式預設為禁用，可以在 `shared/build.gradle.kts` 檔案中啟用，如下所示：
-
-```kotlin
-kotlin {
-    androidTarget {
-        publishLibraryVariantsGroupedByFlavor = true
-    }
-}
-```
-
-> 不建議您按產品特色對變體進行分組發佈，以防它們具有不同的依賴項，因為這些依賴項將合併到一個依賴項列表中。
+> 本節假設您正在使用 Android Gradle Library 外掛程式。
+> 有關設定外掛程式或從舊版 `com.android.library` 外掛程式遷移的指南，
+> 請參閱 Android 文件中的[設定 Android Gradle Library 外掛程式](https://developer.android.com/kotlin/multiplatform/plugin#migrate)頁面。
 >
 {style="note"}
+
+要發佈產物，請將 `androidLibrary {}` 區塊
+新增到 `shared/build.gradle.kts` 檔案中，並使用 KMP DSL 配置發佈。
+例如：
+
+```kotlin
+kotlin {
+    androidLibrary {
+        namespace = "org.example.library"
+        compileSdk = libs.versions.android.compileSdk.get().toInt()
+        minSdk = libs.versions.android.minSdk.get().toInt()
+
+        // Enables Java compilation support.
+        // This improves build times when Java compilation is not needed
+        withJava()
+
+        compilations.configureEach {
+            compilerOptions.configure {
+                jvmTarget.set(
+                    JvmTarget.JVM_11
+                )
+            }
+        }
+    }
+}
+```
+
+請注意，Android Gradle Library 外掛程式不支援產品特色和建置變體，這簡化了配置。
+因此，您需要選擇啟用以建立測試原始碼集和配置。例如：
+
+```kotlin
+kotlin {
+    androidLibrary {
+        // ...
+
+        // Opt in to enable and configure host-side (unit) tests
+        withHostTestBuilder {}.configure {}
+
+        // Opt in to enable device tests, specifying the source set name
+        withDeviceTestBuilder {
+            sourceSetTreeName = "test"
+        }
+
+        // ...
+    }
+}
+```
+
+以前，透過 GitHub action 執行測試時，例如，需要單獨指定 debug 和 release 變體：
+
+```yaml
+- target: testDebugUnitTest
+  os: ubuntu-latest
+- target: testReleaseUnitTest
+  os: ubuntu-latest
+```
+
+使用 Android Gradle Library 外掛程式，您只需指定帶有原始碼集名稱的通用目標：
+
+```yaml
+- target: testAndroidHostTest
+  os: ubuntu-latest
+```
 
 ## 禁用原始碼發佈
 
@@ -186,7 +223,7 @@ kotlin {
         }
         linuxX64()
     }
-    ```
+  ```
 
 *   禁用除指定目標外的所有目標的原始碼發佈：
 
@@ -214,7 +251,7 @@ kotlin.publishJvmEnvironmentAttribute=false
 
 ## 推廣您的函式庫
 
-您的函式庫可以在 [JetBrains 的搜尋平台](https://klibs.io/)上展示。它旨在讓您根據目標平台輕鬆查找 Kotlin 多平台函式庫。
+您的函式庫可以在 [JetBrains 的多平台函式庫目錄](https://klibs.io/)上展示。它旨在讓您根據目標平台輕鬆查找 Kotlin 多平台函式庫。
 
 符合條件的函式庫會自動添加。有關如何添加函式庫的更多資訊，請參閱 [常見問題](https://klibs.io/faq)。
 

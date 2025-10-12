@@ -31,7 +31,7 @@
     }
     ```
 
-`maven-publish`と組み合わせて使用すると、Kotlinプラグインは現在のホストでビルド可能な各ターゲットに対して自動的に公開物を作成します。ただし、Androidターゲットは[公開を設定するための追加の手順](#publish-an-android-library)が必要です。
+`maven-publish`と組み合わせて使用すると、Kotlinプラグインは、Androidターゲットを除き、現在のホストでビルド可能な各ターゲットに対して自動的に公開物を作成します。Androidターゲットには、[公開を設定するための追加の手順](#publish-an-android-library)が必要です。
 
 ## 公開物の構造
 
@@ -116,7 +116,7 @@ Maven Localに公開する場合は、特別なタスクを使用できます。
 Kotlin/Nativeはクロスコンパイルをサポートしており、どのホストでも必要な`.klib`アーティファクトを生成できます。
 ただし、いくつか留意すべき具体的な点があります。
 
-**Appleターゲットのコンパイル**
+### Appleターゲットのコンパイル
 
 Appleターゲットを含むプロジェクトのアーティファクトを生成するには、任意のホストを使用できます。
 ただし、以下の場合はMacマシンを使用する必要があります。
@@ -125,46 +125,77 @@ Appleターゲットを含むプロジェクトのアーティファクトを生
 *   プロジェクトで[CocoaPods連携](multiplatform-cocoapods-overview.md)が設定されている場合。
 *   Appleターゲットの[最終バイナリ](multiplatform-build-native-binaries.md)をビルドまたはテストする必要がある場合。
 
-**公開物の重複**
+### 公開物の重複
 
 公開時の問題を避けるため、リポジトリでの公開物の重複を避けるために、すべてのアーティファクトを単一のホストから公開してください。例えば、Maven Centralは公開物の重複を明示的に禁止しており、プロセスは失敗します。
 
 ## Androidライブラリの公開
 
-Androidライブラリを公開するには、追加の構成が必要です。
+Androidライブラリを公開するには、追加の構成が必要です。デフォルトでは、Androidライブラリのアーティファクトは公開されません。
 
-デフォルトでは、Androidライブラリのアーティファクトは公開されません。一連のAndroid [ビルドバリアント](https://developer.android.com/build/build-variants)によって生成されたアーティファクトを公開するには、`shared/build.gradle.kts`ファイルのAndroidターゲットブロックでバリアント名を指定します。
-
-```kotlin
-kotlin {
-    androidTarget {
-        publishLibraryVariants("release")
-    }
-}
-```
-
-この例は、[プロダクトフレーバー](https://developer.android.com/build/build-variants#product-flavors)を持たないAndroidライブラリで機能します。
-プロダクトフレーバーを持つライブラリの場合、バリアント名には`fooBarDebug`や`fooBarRelease`のようなフレーバーも含まれます。
-
-デフォルトの公開設定は以下のとおりです。
-*   公開されるバリアントが同じビルドタイプ（例えば、すべて`release`または`debug`）の場合、それらはどのコンシューマビルドタイプとも互換性があります。
-*   公開されるバリアントが異なるビルドタイプの場合、公開されたバリアントに含まれないコンシューマビルドタイプと互換性があるのはリリースバリアントのみです。他のすべてのバリアント（`debug`など）は、コンシューマプロジェクトが[マッチングフォールバック](https://developer.android.com/reference/tools/gradle-api/4.2/com/android/build/api/dsl/BuildType)を指定しない限り、コンシューマ側で同じビルドタイプにのみ一致します。
-
-公開されるAndroidバリアントすべてを、ライブラリコンシューマが使用する同じビルドタイプのみと互換性を持たせたい場合は、このGradleプロパティを設定します: `kotlin.android.buildTypeAttribute.keep=true`。
-
-プロダクトフレーバーごとにバリアントをグループ化して公開することもできます。これにより、異なるビルドタイプの出力が単一のモジュールに配置され、ビルドタイプがアーティファクトの分類子 (classifier) になります（リリースビルドタイプは引き続き分類子なしで公開されます）。このモードはデフォルトで無効になっており、`shared/build.gradle.kts`ファイルで次のように有効にできます。
-
-```kotlin
-kotlin {
-    androidTarget {
-        publishLibraryVariantsGroupedByFlavor = true
-    }
-}
-```
-
-> 異なる依存関係を持つ場合にプロダクトフレーバーごとにバリアントをグループ化して公開することは推奨されません。それらの依存関係は1つの依存関係リストにマージされるためです。
+> このセクションでは、Android Gradleライブラリプラグインを使用していることを前提としています。プラグインの設定、または従来の`com.android.library`プラグインからの移行に関するガイドについては、Androidドキュメントの[Android Gradleライブラリプラグインの設定](https://developer.android.com/kotlin/multiplatform/plugin#migrate)ページを参照してください。
 >
 {style="note"}
+
+アーティファクトを公開するには、`shared/build.gradle.kts`ファイルに`androidLibrary {}`ブロックを追加し、KMP DSLを使用して公開を設定します。例:
+
+```kotlin
+kotlin {
+    androidLibrary {
+        namespace = "org.example.library"
+        compileSdk = libs.versions.android.compileSdk.get().toInt()
+        minSdk = libs.versions.android.minSdk.get().toInt()
+
+        // Enables Java compilation support.
+        // This improves build times when Java compilation is not needed
+        withJava()
+
+        compilations.configureEach {
+            compilerOptions.configure {
+                jvmTarget.set(
+                    JvmTarget.JVM_11
+                )
+            }
+        }
+    }
+}
+```
+
+Android Gradleライブラリプラグインはプロダクトフレーバーとビルドバリアントをサポートせず、構成を合理化することに注意してください。結果として、テストソースセットと構成を作成するにはオプトインする必要があります。例:
+
+```kotlin
+kotlin {
+    androidLibrary {
+        // ...
+
+        // Opt in to enable and configure host-side (unit) tests
+        withHostTestBuilder {}.configure {}
+
+        // Opt in to enable device tests, specifying the source set name
+        withDeviceTestBuilder {
+            sourceSetTreeName = "test"
+        }
+
+        // ...
+    }
+}
+```
+
+以前は、例えばGitHubアクションでテストを実行するには、デバッグとリリースバリアントを個別に指定する必要がありました。
+
+```yaml
+- target: testDebugUnitTest
+  os: ubuntu-latest
+- target: testReleaseUnitTest
+  os: ubuntu-latest
+```
+
+Android Gradleライブラリプラグインを使用する場合、ソースセット名を持つ一般的なターゲットのみを指定すればよいです。
+
+```yaml
+- target: testAndroidHostTest
+  os: ubuntu-latest
+```
 
 ## ソース公開の無効化
 
@@ -219,9 +250,9 @@ kotlin.publishJvmEnvironmentAttribute=false
 
 ## ライブラリのプロモーション
 
-あなたのライブラリは、[JetBrainsの検索プラットフォーム](https://klibs.io/)で紹介される可能性があります。これは、ターゲットプラットフォームに基づいてKotlinマルチプラットフォームライブラリを簡単に検索できるように設計されています。
+あなたのライブラリは、[JetBrainsのマルチプラットフォームライブラリカタログ](https://klibs.io/)で紹介される可能性があります。これは、ターゲットプラットフォームに基づいてKotlinマルチプラットフォームライブラリを簡単に検索できるように設計されています。
 
-条件を満たすライブラリは自動的に追加されます。ライブラリを追加する方法の詳細については、[FAQ](https://klibs.io/faq)を参照してください。
+条件を満たすライブラリは自動的に追加されます。ライブラリがカタログに表示されるようにする方法の詳細については、[FAQ](https://klibs.io/faq)を参照してください。
 
 ## 次のステップ
 

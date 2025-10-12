@@ -6,7 +6,7 @@
 
 自訂子圖通常使用以下模式建立：
 
-*   具有指定工具選擇策略的子圖：
+* 具有指定工具選擇策略的子圖：
 <!--- INCLUDE
 import ai.koog.agents.core.agent.entity.ToolSelectionStrategy
 import ai.koog.agents.core.dsl.builder.strategy
@@ -31,7 +31,7 @@ strategy<StrategyInput, StrategyOutput>("strategy-name") {
 ```
 <!--- KNIT example-custom-subgraphs-01.kt -->
 
-*   具有指定工具列表的子圖（來自已定義工具註冊表的工具子集）：
+* 具有指定工具列表的子圖（來自已定義工具註冊表的工具子集）：
 <!--- INCLUDE
 import ai.koog.agents.core.agent.entity.ToolSelectionStrategy
 import ai.koog.agents.core.dsl.builder.strategy
@@ -100,7 +100,7 @@ strategy<String, String>("my-strategy") {
 
 工具可以透過幾種方式為子圖進行設定：
 
-*   直接在子圖定義中：
+* 直接在子圖定義中：
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
 import ai.koog.agents.ext.tool.AskUser
@@ -119,7 +119,7 @@ val mySubgraph by subgraph<String, String>(
 ```
 <!--- KNIT example-custom-subgraphs-04.kt -->
 
-*   從工具註冊表：
+* 從工具註冊表：
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
 import ai.koog.agents.core.tools.ToolRegistry
@@ -139,7 +139,7 @@ val mySubgraph by subgraph<String, String>(
 ```
 <!--- KNIT example-custom-subgraphs-05.kt -->
 
-*   在執行時動態地：
+* 在執行時動態地：
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
 

@@ -1,6 +1,6 @@
 # エージェントの永続化
 
-エージェントの永続化 (Agent Persistence) は、KoogフレームワークにおけるAIエージェントにチェックポイント機能を提供する機能です。
+エージェントの永続化は、KoogフレームワークにおけるAIエージェントにチェックポイント機能を提供する機能です。
 これにより、エージェントの実行中の特定の時点で状態を保存および復元することができ、以下のような機能が可能になります。
 
 - エージェントの実行を特定の時点から再開する
@@ -248,8 +248,7 @@ val agent = AIAgent(
 install(Persistence) {
     enableAutomaticPersistence = true
     rollbackToolRegistry = RollbackToolRegistry {
-        // すべての`createUser`ツール呼び出しに対し、ロールバック時には逆順で`removeUser`が呼び出されます。
-        // 目的の実行ポイントにロールバックする際に。
+        // すべての`createUser`ツール呼び出しに対し、目的の実行ポイントにロールバックする際に、逆順で`removeUser`が呼び出されます。
         // 注: `removeUser`ツールは、`createUser`とまったく同じ引数を取る必要があります。
         // `removeUser`の呼び出しが`createUser`のすべての副作用をロールバックすることを確認するのは開発者の責任です。
         registerRollback(::createUser, ::removeUser)
@@ -308,24 +307,24 @@ import ai.koog.agents.snapshot.providers.PersistenceStorageProvider
 */
 -->
 ```kotlin
-class MyCustomStorageProvider : PersistenceStorageProvider {
-    override suspend fun getCheckpoints(agentId: String): List<AgentCheckpointData> {
-        // 実装
+class MyCustomStorageProvider<MyFilterType> : PersistenceStorageProvider<MyFilterType> {
+    override suspend fun getCheckpoints(agentId: String, filter: MyFilterType?): List<AgentCheckpointData> {
+        TODO("Not yet implemented")
     }
-    
+
     override suspend fun saveCheckpoint(agentId: String, agentCheckpointData: AgentCheckpointData) {
-        // 実装
+        TODO("Not yet implemented")
     }
-    
-    override suspend fun getLatestCheckpoint(agentId: String): AgentCheckpointData? {
-        // 実装
+
+    override suspend fun getLatestCheckpoint(agentId: String, filter: MyFilterType?): AgentCheckpointData? {
+        TODO("Not yet implemented")
     }
 }
 ```
 
 <!--- KNIT example-agent-persistence-09.kt -->
 
-エージェントでエージェントの永続化機能を設定する際に、カスタムプロバイダーをストレージとして設定することで、そのプロバイダーを使用できます。
+機能設定でカスタムプロバイダーを使用するには、エージェントの永続化機能をエージェントに設定する際に、それをストレージとして設定します。
 
 <!--- INCLUDE
 import ai.koog.agents.core.agent.AIAgent
@@ -335,8 +334,8 @@ import ai.koog.agents.snapshot.providers.PersistenceStorageProvider
 import ai.koog.prompt.executor.llms.all.simpleOllamaAIExecutor
 import ai.koog.prompt.llm.OllamaModels
 
-class MyCustomStorageProvider : PersistenceStorageProvider {
-    override suspend fun getCheckpoints(agentId: String): List<AgentCheckpointData> {
+class MyCustomStorageProvider<MyFilterType> : PersistenceStorageProvider<MyFilterType> {
+    override suspend fun getCheckpoints(agentId: String, filter: MyFilterType?): List<AgentCheckpointData> {
         TODO("Not yet implemented")
     }
 
@@ -344,7 +343,7 @@ class MyCustomStorageProvider : PersistenceStorageProvider {
         TODO("Not yet implemented")
     }
 
-    override suspend fun getLatestCheckpoint(agentId: String): AgentCheckpointData? {
+    override suspend fun getLatestCheckpoint(agentId: String, filter: MyFilterType?): AgentCheckpointData? {
         TODO("Not yet implemented")
     }
 }
@@ -360,7 +359,7 @@ val agent = AIAgent(
 
 ```kotlin
 install(Persistence) {
-    storage = MyCustomStorageProvider()
+    storage = MyCustomStorageProvider<Any>()
 }
 ```
 

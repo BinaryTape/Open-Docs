@@ -2,8 +2,7 @@
 
 ## はじめに
 
-構造化出力 API (Structured Output API) は、大規模言語モデル (LLM) からの応答が特定のデータ構造に準拠していることを保証する方法を提供します。
-これは、自由形式のテキストではなく、予測可能で適切に整形されたデータが必要な信頼性の高い AI アプリケーションを構築する上で非常に重要です。
+構造化出力 API (Structured Output API) は、大規模言語モデル (LLM) からの応答が特定のデータ構造に準拠していることを保証する方法を提供します。これは、自由形式のテキストではなく、予測可能で適切に整形されたデータが必要な信頼性の高い AI アプリケーションを構築する上で非常に重要です。
 
 このページでは、この API を使用してデータ構造を定義し、スキーマを生成し、LLM から構造化された応答を要求する方法について説明します。
 
@@ -512,8 +511,7 @@ fun main(): Unit = runBlocking {
 
 ## 高度な使用法
 
-上記の例では、モデル機能に基づいて最適な構造化出力アプローチを自動的に選択する簡易 API を示しました。
-構造化出力プロセスをより詳細に制御するために、手動でのスキーマ作成とプロバイダー固有の設定を備えた高度な API を使用できます。
+上記の例では、モデル機能に基づいて最適な構造化出力アプローチを自動的に選択する簡易 API を示しました。構造化出力プロセスをより詳細に制御するために、手動でのスキーマ作成とプロバイダー固有の設定を備えた高度な API を使用できます。
 
 ### 手動でのスキーマ作成と設定
 
@@ -539,7 +537,7 @@ import ai.koog.prompt.structure.StructuredOutputConfig
 import ai.koog.prompt.structure.StructureFixingParser
 import ai.koog.prompt.structure.json.JsonStructuredData
 import ai.koog.prompt.structure.json.generator.StandardJsonSchemaGenerator
-import ai.koog.prompt.executor.clients.openai.structure.OpenAIBasicJsonSchemaGenerator
+import ai.koog.prompt.executor.clients.openai.base.structure.OpenAIBasicJsonSchemaGenerator
 import ai.koog.prompt.llm.LLMProvider
 import kotlinx.coroutines.runBlocking
 
@@ -591,7 +589,7 @@ val structuredResponse = promptExecutor.executeStructured(
 
 -   **StandardJsonSchemaGenerator**: ポリモーフィズム、定義、再帰参照をサポートする完全な JSON スキーマ
 -   **BasicJsonSchemaGenerator**: ポリモーフィズムのサポートがない簡易スキーマで、より多くのモデルと互換性があります
--   **Provider-specific generators**: 特定の LLM プロバイダー (OpenAI、Google など) 向けに最適化されたスキーマ
+-   **プロバイダー固有のジェネレーター**: 特定の LLM プロバイダー (OpenAI、Google など) 向けに最適化されたスキーマ
 
 ### すべてのレイヤーでの使用法
 

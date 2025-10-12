@@ -50,7 +50,7 @@ Kotlin/JS 也相容於最常見的模組系統：[ESM](https://tc39.es/ecma262/#
 
 [Kotlin/JS 的使用案例](#use-cases-for-kotlin-js) 中的清單並非詳盡無遺。歡迎嘗試不同的方法，並找到最適合您專案的方式。
 
-歡迎在官方 [Kotlin Slack](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up) 中的 [#javascript](https://kotlinlang.slack.com/archives/C0B8L3U69) 頻道中，與 Kotlin/JS 社群分享您的使用案例、經驗和問題。
+歡迎在官方 [Kotlin Slack](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up) 中的 [#javascript](https://kotlinlang.slack.com/archives/C0B8L3U69) 頻道中，與 Kotlin/JS 社群和 Kotlin/JS 團隊聊天。
 
 ## Kotlin/JS 入門
 
@@ -58,9 +58,11 @@ Kotlin/JS 也相容於最常見的模組系統：[ESM](https://tc39.es/ecma262/#
 
 *   如果您是 Kotlin 新手，請先檢閱 [基本語法](basic-syntax.md) 並探索 [Kotlin 導覽](kotlin-tour-welcome.md)。
 *   查看 [Kotlin/JS 範例專案](#sample-projects-for-kotlin-js) 清單以尋找靈感。這些範例包含有用的程式碼片段和模式，可以幫助您開始您的專案。
-*   如果您是 Kotlin/JS 新手，請從設定指南開始，然後再探索更進階的主題：
+*   如果您是 Kotlin/JS 新手，請從 [設定指南](js-project-setup.md) 開始，然後再探索更進階的主題。
 
-<a href="js-project-setup.md"><img src="js-set-up-project.svg" width="600" alt="設定 Kotlin/JS 專案" style="block"/></a>
+想親自試試看 Kotlin/JS 嗎？
+
+<a href="js-get-started.md"><img src="js-get-started-button.svg" width="500" alt="開始使用 Kotlin/JS" style="block"/></a>
 
 ## Kotlin/JS 範例專案
 
@@ -82,7 +84,7 @@ Kotlin/JS 框架透過提供即用型元件、路由、狀態管理以及其他�
 
 ## 加入 Kotlin/JS 社群
 
-您可以加入官方 [Kotlin Slack](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up) 中的 [#javascript](https://kotlinlang.slack.com/archives/C0B8L3U69) 頻道，與社群和 Kotlin/JS 團隊聊天。
+您可以加入官方 [Kotlin Slack](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up) 中的 [#javascript](https://kotlinlang.slack.com/archives/C0B8L3U69) 頻道中，與社群和 Kotlin/JS 團隊聊天。
 
 ## 接下來
 

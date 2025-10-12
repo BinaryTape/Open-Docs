@@ -6,7 +6,7 @@
 
 ## 設定環境
 
-Kotlin Multiplatform (KMP) 專案需要特定的環境，但大多數要求會透過 IDE 中的預檢（preflight checks）清楚說明。
+Kotlin Multiplatform (KMP) 專案需要特定的環境，但大多數要求會透過 IDE 中的預檢清楚說明。
 
 從 IDE 和必要的插件開始：
 
@@ -20,27 +20,18 @@ Kotlin Multiplatform (KMP) 專案需要特定的環境，但大多數要求會�
     對於獨立安裝，請下載 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/)
     或 [Android Studio](https://developer.android.com/studio) 的安裝程式。
 
-    Kotlin Multiplatform 所需的插件需要 **IntelliJ IDEA 2025.1.1.1**
+    Kotlin Multiplatform 所需的插件至少需要 **IntelliJ IDEA 2025.1.1**
     或 **Android Studio Narwhal 2025.1.1**。
 
 2.  安裝 [Kotlin Multiplatform IDE 插件](https://plugins.jetbrains.com/plugin/14936-kotlin-multiplatform)
     (不要與 Kotlin Multiplatform Gradle 插件混淆)。
 
-    > 適用於 Windows 或 Linux 上 IDE 的 Kotlin Multiplatform 插件尚未提供。
-    > 但在這些平台上它也不是嚴格必要的：
-    > 您仍然可以依照本教學生成並運行 KMP 專案。
+    > 要在 Windows 和 Linux 上使用 Kotlin Multiplatform 插件，您需要 IntelliJ IDEA 2025.2.2。
+    > Android Studio 將在即將發佈的版本中新增對 Windows 和 Linux 上 KMP IDE 插件的支援。
     >
     {style="note"}
 
 3.  為 IntelliJ IDEA 安裝 Kotlin Multiplatform IDE 插件也會安裝所有必要的依賴項（如果您尚未安裝它們）（Android Studio 已綁定所有必要的插件）。
-
-    如果您正在 Windows 或 Linux 上使用 IntelliJ IDEA，請確保手動安裝所有必要的插件：
-    *   [Android](https://plugins.jetbrains.com/plugin/22989-android)
-    *   [Android Design Tools](https://plugins.jetbrains.com/plugin/22990-android-design-tools)
-    *   [Jetpack Compose](https://plugins.jetbrains.com/plugin/18409-jetpack-compose)
-    *   [Native Debugging Support](https://plugins.jetbrains.com/plugin/12775-native-debugging-support)
-    *   [Compose Multiplatform for Desktop IDE Support](https://plugins.jetbrains.com/plugin/16541-compose-multiplatform-for-desktop-ide-support)
-        (僅在您沒有 Kotlin Multiplatform 插件時才需要)。
 
 4.  如果您尚未設定 `ANDROID_HOME` 環境變數，請配置您的系統以識別它：
 
@@ -82,10 +73,6 @@ Kotlin Multiplatform (KMP) 專案需要特定的環境，但大多數要求會�
 
 ## 建立專案
 
-### 在 macOS 上
-
-在 macOS 上，Kotlin Multiplatform 插件在 IDE 內部提供了一個專案生成精靈：
-
 <Tabs>
 <TabItem title= "IntelliJ IDEA">
 
@@ -111,6 +98,10 @@ Kotlin Multiplatform (KMP) 專案需要特定的環境，但大多數要求會�
 
 </TabItem>
 <TabItem title= "Android Studio">
+
+> KMP IDE 插件在 Windows 和 Linux 版本的 Android Studio 中尚未支援。
+>
+{style="warning"}
 
 Kotlin Multiplatform IDE 插件嚴重依賴 K2 功能，沒有它將無法如描述般運作。
 因此，在開始之前，請確保 K2 模式已啟用：
@@ -142,14 +133,6 @@ Kotlin Multiplatform IDE 插件嚴重依賴 K2 功能，沒有它將無法如描
 </TabItem>
 </Tabs>
 
-### 在 Windows 或 Linux 上
-
-如果您正在使用 Windows 或 Linux：
-
-1.  使用 [web KMP 精靈](https://kmp.jetbrains.com/) 生成一個專案。
-2.  解壓縮歸檔檔並在您的 IDE 中打開生成的資料夾。
-3.  等待匯入完成，然後前往 [未定義](#run-the-sample-apps) 部分了解如何建構和運行應用程式。
-
 ## 諮詢預檢
 
 您可以透過打開 **專案環境預檢 (Project Environment Preflight Checks)** 工具視窗來確保專案設定沒有環境問題：點擊右側邊欄或底部工具欄上的預檢圖示 ![Preflight checks icon with a plane](ide-preflight-checks.png){width="20"}
@@ -164,7 +147,7 @@ Kotlin Multiplatform IDE 插件嚴重依賴 K2 功能，沒有它將無法如描
 ## 運行範例應用程式
 
 IDE 精靈建立的專案包括為 iOS、Android、桌面和 Web 應用程式生成的運行配置，以及運行伺服器應用程式的 Gradle 任務。
-在 Windows 和 Linux 上，請參閱下方每個平台的 Gradle 命令。
+每個平台的具體 Gradle 命令如下所列。
 
 <Tabs>
 <TabItem title="Android">
@@ -173,7 +156,7 @@ IDE 精靈建立的專案包括為 iOS、Android、桌面和 Web 應用程式生
 
 ![Dropdown with the Android run configuration highlighted](run-android-configuration.png){width=250}
 
-要在 Windows 或 Linux 上運行 Android 應用程式，請建立一個 **Android 應用程式 (Android App)** 運行配置，並選擇模組 **[專案名稱].composeApp**。
+若要手動建立 Android 運行配置，請選擇 **Android 應用程式 (Android App)** 作為運行配置範本，並選擇模組 **[專案名稱].composeApp**。
 
 預設情況下，它會在第一個可用的虛擬裝置上運行：
 
@@ -203,7 +186,8 @@ IDE 精靈建立的專案包括為 iOS、Android、桌面和 Web 應用程式生
 
 ![Dropdown with the default desktop run configuration highlighted](run-desktop-configuration.png){width=250}
 
-要在 Windows 或 Linux 上運行桌面應用程式，請建立一個 **Gradle** 運行配置，指向 **[應用程式名稱]:composeApp** Gradle 專案，並使用以下命令：
+若要手動建立桌面運行配置，請選擇 **Gradle** 運行配置範本，並將其指向
+**[應用程式名稱]:composeApp** Gradle 專案，並使用以下命令：
 
 ```shell
 desktopRun -DmainClass=com.example.myapplication.MainKt --quiet
@@ -220,7 +204,8 @@ Web 應用程式的預設運行配置建立為 **composeApp [wasmJs]**：
 
 ![Dropdown with the default Wasm run configuration highlighted](run-wasm-configuration.png){width=250}
 
-要在 Windows 或 Linux 上運行 Web 應用程式，請建立一個 **Gradle** 運行配置，指向 **[應用程式名稱]:composeApp** Gradle 專案，並使用以下命令：
+若要手動建立 Web 運行配置，請選擇 **Gradle** 運行配置範本，並將其指向
+**[應用程式名稱]:composeApp** Gradle 專案，並使用以下命令：
 
 ```shell
 wasmJsBrowserDevelopmentRun
@@ -261,7 +246,8 @@ Java 的常見問題：
 
 ### Xcode
 
-如果您的 iOS 運行配置報告沒有可運行的虛擬裝置，請確保啟動 Xcode 並查看 iOS 模擬器是否有任何更新。
+如果您的 iOS 運行配置報告沒有可運行的虛擬裝置，或者預檢失敗，請確保啟動 Xcode
+並查看 iOS 模擬器是否有任何更新。
 
 ### 獲取協助
 

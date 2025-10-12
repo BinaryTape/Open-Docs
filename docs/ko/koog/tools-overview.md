@@ -1,6 +1,6 @@
 # 개요
 
-에이전트는 특정 작업을 수행하거나 외부 시스템에 접근하기 위해 도구를 사용합니다.
+ 에이전트는 특정 작업을 수행하거나 외부 시스템에 접근하기 위해 도구를 사용합니다.
 
 ## 도구 워크플로
 
@@ -115,8 +115,6 @@ val agent = AIAgent(
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
 import ai.koog.agents.core.tools.SimpleTool
-import ai.koog.agents.core.tools.ToolArgs
-import ai.koog.agents.core.tools.ToolDescriptor
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flow
 import kotlinx.serialization.KSerializer

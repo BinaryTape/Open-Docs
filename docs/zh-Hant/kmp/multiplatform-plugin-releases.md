@@ -2,25 +2,25 @@
 
 [Kotlin Multiplatform IDE 外掛程式](https://plugins.jetbrains.com/plugin/14936-kotlin-multiplatform) 可協助您開發適用於 Android、iOS、桌面和網頁的跨平台應用程式。請確保您擁有最新版本的此外掛程式，以便使用 Kotlin Multiplatform 專案。
 
-> 此外掛程式目前僅適用於 macOS，對 Windows 和 Linux 的支援正在開發中。
-> 
-{style="note"}
-
 此外掛程式與 IntelliJ IDEA (從版本 2025.1.1.1 開始) 和 Android Studio (從 Narwhal 2025.1.1 開始) 相容。
 
-> 有關 Kotlin Multiplatform Gradle 外掛程式的資訊，請參閱其 [DSL 參考](multiplatform-dsl-reference.md) 和 [相容性指南](multiplatform-compatibility-guide.md)。
-> 
-{style="tip"}
+> 若要在 Windows 和 Linux 上使用 Kotlin Multiplatform 外掛程式，您需要 IntelliJ IDEA 2025.2.2。
+> Android Studio 將在即將推出的版本中新增對 KMP IDE 外掛程式在 Windows 和 Linux 上的支援。
+>
+{style="note"}
+
+有關 Kotlin Multiplatform Gradle 外掛程式的資訊，請參閱其 [DSL 參考](multiplatform-dsl-reference.md) 和 [相容性指南](multiplatform-compatibility-guide.md)。
 
 ## 更新至最新版本
 
-您的 IDE 會在新的 Kotlin Multiplatform 外掛程式版本可用時立即建議更新。如果您接受建議，此外掛程式將更新至最新版本。若要完成外掛程式安裝，請重新啟動 IDE。
+您的 IDE 會在新的 Kotlin Multiplatform 外掛程式發佈版本可用時立即建議更新。如果您接受建議，此外掛程式將更新至最新版本。若要完成外掛程式安裝，請重新啟動 IDE。
 
 您可以在 **Settings** | **Plugins** 中手動檢查外掛程式版本並進行更新。
 
 此外掛程式需要相容的 Kotlin 版本才能正常運作。您可以在 [發佈詳情](#release-details) 中找到相容版本。若要檢查您的 Kotlin 版本並進行更新，請前往 **Settings** | **Plugins** 或在 **Tools** | **Kotlin** | **Configure Kotlin in Project** 中操作。
 
-> 如果您的 Kotlin 版本不相容，Kotlin Multiplatform 外掛程式將被停用。請更新您的 Kotlin 版本，然後在 **Settings** | **Plugins** 中重新啟用此外掛程式。
+> 如果您的 Kotlin 版本不相容，Kotlin Multiplatform 外掛程式將被停用。
+> 請更新您的 Kotlin 版本，然後在 **Settings** | **Plugins** 中重新啟用此外掛程式。
 >
 {style="note"}
 

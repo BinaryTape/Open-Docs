@@ -3,6 +3,8 @@
 ## 미출시
 
 ### 추가
+- [PostgreSQL 다이얼렉트] Postgres JSON 집계 필터(Aggregate FILTER) 지원 추가 (#5957 by [Griffio][griffio])
+- [PostgreSQL 다이얼렉트] Postgres Enum 지원 추가 (#5935 by [Griffio][griffio])
 - [PostgreSQL 다이얼렉트] Postgres 트리거에 대한 제한된 지원 추가 (#5932 by [Griffio][griffio])
 - [PostgreSQL 다이얼렉트] SQL 표현식이 JSON으로 파싱될 수 있는지 확인하는 조건자(predicate) 추가 (#5843 by [Griffio][griffio])
 - [PostgreSQL 다이얼렉트] PostgreSql COMMENT ON 문에 대한 제한된 지원 추가 (#5808 by [Griffio][griffio])
@@ -17,8 +19,8 @@
 ### 수정
 - [컴파일러] 공통 테이블 표현식(Common Table Expression)을 포함하는 뷰 사용 시 스택 오버플로우 수정 (#5928 by [Griffio][griffio])
 - [Gradle 플러그인] "새 연결(New Connection)" 추가를 위해 SqlDelight 도구 창을 열 때 발생하는 크래시 수정 (#5906 by [Griffio][griffio])
-- [IntelliJ 플러그인] SQLite로 복사(copy-to-sqlite) 거터 액션에서 스레딩 관련 크래시 방지 (#5901 by [Griffio][griffio])
-- [IntelliJ 플러그인] CREATE INDEX 및 CREATE VIEW 스키마 문 사용 시 PostgreSql 다이얼렉트에 대한 수정 (#5772 by [Griffio][griffio])
+- [IDE 플러그인] SQLite로 복사(copy-to-sqlite) 거터 액션에서 스레딩 관련 크래시 방지 (#5901 by [Griffio][griffio])
+- [IDE 플러그인] CREATE INDEX 및 CREATE VIEW 스키마 문 사용 시 PostgreSql 다이얼렉트에 대한 수정 (#5772 by [Griffio][griffio])
 - [컴파일러] 열 참조 시 FTS 스택 오버플로우 수정 (#5896 by [Griffio][griffio])
 - [컴파일러] WITH RECURSIVE 스택 오버플로우 수정 (#5892 by [Griffio][griffio])
 - [컴파일러] INSERT | UPDATE | DELETE RETURNING 문에 대한 알림 수정 (#5851 by [Griffio][griffio])
@@ -57,7 +59,7 @@
 ### 수정
 - [컴파일러] 수정: 결과와 함께 그룹 문을 실행할 때 쿼리 알림 (#5006 by [Vitor Hugo Schwaab][vitorhugods])
 - [컴파일러] SqlDelightModule 타입 리졸버 수정 (#5625 by [Griffio][griffio])
-- [컴파일러] 5501번 이슈 수정: insert object escaped column (#5503 by [Griffio][griffio])
+- [컴파일러] 5501번 이슈 수정: 객체 이스케이프된 열 삽입 (#5503 by [Griffio][griffio])
 - [컴파일러] 컴파일러: 경로 링크가 올바른 줄 및 문자 위치로 클릭 가능하도록 오류 메시지 개선. (#5604 by [Niklas Baudy][vanniktech])
 - [컴파일러] 5298번 이슈 수정: 키워드를 테이블 이름으로 사용할 수 있도록 허용
 - [컴파일러] 명명된(named) 실행 수정 및 테스트 추가
@@ -82,7 +84,7 @@
 - [PostgreSQL 다이얼렉트] PostgreSql SELECT DISTINCT (#5172 by [Griffio][griffio])
 - [페이징 확장] 페이징 초기 로드(initial load) 새로고침 수정 (#5615 by [Eva][evant])
 - [페이징 확장] MacOS 네이티브 타겟 추가 (#5324 by [Vitor Hugo Schwaab][vitorhugods])
-- [IntelliJ 플러그인] K2 지원
+- [IDE 플러그인] K2 지원
 
 ## [2.0.2] - 2024-04-05
 
@@ -141,7 +143,7 @@
 - [JDBC 드라이버] 보다 쾌적한 SQL 편집을 위한 언어(Language) 어노테이션 추가 (#4602 by [Marius Volkhart][MariusV])
 - [네이티브 드라이버] 네이티브 드라이버: linuxArm64 지원 추가 (#4792 by [Philip Wedemann][hfhbd])
 - [Android 드라이버] AndroidSqliteDriver에 windowSizeBytes 매개변수 추가 (#4804 by [Benoit Lubek][BoD])
-- [Paging3 확장] 기능: OffsetQueryPagingSource에 initialOffset 추가 (#4802 by [Mohamad Jaara][MohamadJaara])
+- [페이징3 확장] 기능: OffsetQueryPagingSource에 initialOffset 추가 (#4802 by [Mohamad Jaara][MohamadJaara])
 
 ### 변경
 - [컴파일러] 적절한 경우 Kotlin 타입 선호 (#4517 by [Eliezer Graber][eygraber])
@@ -159,7 +161,7 @@
 - [IDE 플러그인] 설정된 경우 IDEA 프로젝트 JDK 사용 (#4689 by [Griffio][griffio])
 - [IDE 플러그인] IDEA 2023.2 이상에서 "알 수 없는 요소 타입: TYPE_NAME" 오류 수정 (#4727)
 - [IDE 플러그인] 2023.2와의 일부 호환성 문제 수정
-- [Gradle 플러그인] verifyMigrationTask Gradle 작업 문서화 수정 (#4713 by [Josh Friend][joshfriend])
+- [Gradle 플러그인] `verifyMigrationTask` Gradle 작업 문서화 수정 (#4713 by [Josh Friend][joshfriend])
 - [Gradle 플러그인] 사용자가 데이터베이스를 확인하기 전에 데이터베이스를 생성하는 데 도움이 되는 Gradle 작업 출력 메시지 추가 (#4684 by [Jingwei][jingwei99])
 - [PostgreSQL 다이얼렉트] PostgreSQL 열의 다중 이름 변경 수정 (#4566 by [Griffio][griffio])
 - [PostgreSQL 다이얼렉트] 4714번 이슈 수정: postgresql ALTER COLUMN nullability (#4831 by [Griffio][griffio])
@@ -292,7 +294,7 @@
 - [컴파일러] 순수 뷰(pure views)에서 재귀적 원본 테이블 해결 (by [Philip Wedemann][hfhbd])
 - [컴파일러] 테이블 외래 키(foreign key) 절에서 값 클래스 사용 (by [Philip Wedemann][hfhbd])
 - [컴파일러] 괄호 없는 바인드 표현식(bind expression)을 지원하도록 SelectQueryGenerator 수정 (by [Doogie Min][bellatoris])
-- [컴파일러] 트랜잭션 사용 시 `${name}Indexes` 변수의 중복 생성 수정 (by [Andreas Sacher][sachera])
+- [컴파일러] 트랜잭션 사용 시 `${name}Indexes` 변수의 중복 생성 수정 (#5814 by [Andreas Sacher][sachera])
 
 ## [1.5.5] - 2023-01-20
 
@@ -306,8 +308,8 @@ Kotlin 1.7.20 및 AGP 7.3.0 호환성 업데이트입니다.
 
 ### 파괴적 변경
 
-- Paging 3 확장 API가 변경되어 개수(count)에 int 타입만 허용합니다.
-- 코루틴(coroutines) 확장은 이제 기본값 대신 디스패처(dispatcher)를 전달해야 합니다.
+- 페이징 3 확장 API가 개수(count)에 int 타입만 허용하도록 변경되었습니다.
+- 코루틴 확장(coroutines extension)은 이제 기본값 대신 디스패처(dispatcher)를 전달해야 합니다.
 - 다이얼렉트 및 드라이버 클래스는 `final`이며, 대신 위임(delegation)을 사용하십시오.
 
 ### 추가
@@ -315,14 +317,14 @@ Kotlin 1.7.20 및 AGP 7.3.0 호환성 업데이트입니다.
 - [PostgreSQL 다이얼렉트] PostgreSQL: INSERT에서 생성된 열에 DEFAULT 사용 지원 (#3373 by [Philip Wedemann][hfhbd])
 - [PostgreSQL 다이얼렉트] PostgreSQL에 NOW() 추가 (#3403 by [Philip Wedemann][hfhbd])
 - [PostgreSQL 다이얼렉트] PostgreSQL NOT 연산자 추가 (#3504 by [Philip Wedemann][hfhbd])
-- [페이징] *QueryPagingSource에 CoroutineContext 전달 허용 (#3384)
+- [페이징] `*QueryPagingSource`에 CoroutineContext 전달 허용 (#3384)
 - [Gradle 플러그인] 다이얼렉트에 대한 향상된 버전 카탈로그(version catalog) 지원 추가 (#3435)
 - [네이티브 드라이버] NativeSqliteDriver의 DatabaseConfiguration 생성에 연결할(hook into) 콜백 추가 (#3512 by [Sven Jacobs][svenjacobs])
 
 ### 변경
-- [페이징] KeyedQueryPagingSource가 지원하는 QueryPagingSource 함수에 기본 디스패처(dispatcher) 추가 (#3385)
+- [페이징] KeyedQueryPagingSource에 의해 지원되는 QueryPagingSource 함수에 기본 디스패처(dispatcher) 추가 (#3385)
 - [페이징] OffsetQueryPagingSource가 Int 타입에서만 작동하도록 변경 (#3386)
-- [비동기 런타임] await*를 상위 클래스 ExecutableQuery로 이동 (#3524 by [Philip Wedemann][hfhbd])
+- [비동기 런타임] `await*`를 상위 클래스 ExecutableQuery로 이동 (#3524 by [Philip Wedemann][hfhbd])
 - [코루틴 확장] flow 확장에서 기본(default) 매개변수 제거 (#3489)
 
 ### 수정
@@ -336,7 +338,7 @@ Kotlin 1.7.20 및 AGP 7.3.0 호환성 업데이트입니다.
 - [IDE 플러그인] IDEA: UnusedQueryInspection - ArrayIndexOutOfBoundsException 수정. (#3427 by [Niklas Baudy][vanniktech])
 - [IDE 플러그인] 이전 kotlin 플러그인 참조에 대한 리플렉션 사용
 - [컴파일러] 확장 함수가 있는 사용자 정의 다이얼렉트가 임포트(imports)를 생성하지 않음 (#3338 by [Philip Wedemann][hfhbd])
-- [컴파일러] CodeBlock.of("${CodeBlock.toString()}") 이스케이프 처리 수정 (#3340 by [Philip Wedemann][hfhbd])
+- [컴파일러] `CodeBlock.of("${CodeBlock.toString()}")` 이스케이프 처리 수정 (#3340 by [Philip Wedemann][hfhbd])
 - [컴파일러] 마이그레이션에서 비동기 실행 문 대기 (#3352)
 - [컴파일러] AS 수정 (#3370 by [Philip Wedemann][hfhbd])
 - [컴파일러] `getObject` 메서드가 실제 타입 자동 채우기 지원. (#3401 by [Rob X][robx])
@@ -347,9 +349,9 @@ Kotlin 1.7.20 및 AGP 7.3.0 호환성 업데이트입니다.
 - [컴파일러] 항상 데이터베이스 구현 생성 (#3540 by [Philip Wedemann][hfhbd])
 - [컴파일러] javaDoc 완화 및 사용자 정의 매퍼(mapper) 함수에도 추가 (#3554 [Philip Wedemann][hfhbd])
 - [컴파일러] 바인딩의 DEFAULT 수정 (by [Philip Wedemann][hfhbd])
-- [페이징] Paging 3 수정 (#3396)
+- [페이징] 페이징 3 수정 (#3396)
 - [페이징] Long을 사용하여 OffsetQueryPagingSource 생성 허용 (#3409)
-- [페이징] Dispatchers.Main을 정적으로 교체하지 않음 (#3428)
+- [페이징] `Dispatchers.Main`을 정적으로 교체하지 않음 (#3428)
 
 ## [2.0.0-alpha03] - 2022-06-17
 
@@ -395,7 +397,7 @@ sqldelight {
 - [Gradle 플러그인] Gradle 플러그인에 대한 사소한 정리 및 조정 (#3171 by [Matthew Haughton][3flex])
 - [Gradle 플러그인] 생성된 디렉토리에 AGP 문자열을 사용하지 않음
 - [Gradle 플러그인] AGP 네임스페이스 속성 사용 (#3220)
-- [Gradle 플러그인] kotlin-stdlib를 Gradle 플러그인의 런타임 의존성으로 추가하지 않음 (#3245 by [Martin Bonnin][mbonnin])
+- [Gradle 플러그인] `kotlin-stdlib`를 Gradle 플러그인의 런타임 의존성으로 추가하지 않음 (#3245 by [Martin Bonnin][mbonnin])
 - [Gradle 플러그인] 멀티플랫폼 구성 단순화 (#3246 by [Martin Bonnin][mbonnin])
 - [Gradle 플러그인] JS 전용 프로젝트 지원 (#3310 by [Philip Wedemann][hfhbd])
 - [IDE 플러그인] Gradle 툴링 API에 JAVA_HOME 사용 (#3078)
@@ -475,7 +477,7 @@ sqldelight {
 - [컴파일러] ORDER BY 절에서 별칭이 지정된 테이블의 ROWID에 접근할 수 없음
 - [컴파일러] MySQL의 HAVING 절에서 별칭이 지정된 열 이름이 인식되지 않음
 - [컴파일러] 잘못된 'Multiple columns found' 오류
-- [컴파일러] PRAGMA locking_mode = EXCLUSIVE 설정 불가;
+- [컴파일러] `PRAGMA locking_mode = EXCLUSIVE` 설정 불가;
 - [PostgreSQL] postgresql 열 이름 변경
 - [MySQL] UNIX_TIMESTAMP, TO_SECONDS, JSON_ARRAYAGG MySQL 함수 인식되지 않음
 - [SQLite] SQLite 윈도우(window) 기능 수정
@@ -531,7 +533,7 @@ sqldelight {
 - [런타임] 드라이버가 구현하는 쿼리 알림으로 전환.
 - [런타임] 기본 열 어댑터를 별도 모듈로 추출 (#2056, #2060)
 - [컴파일러] 각 모듈에서 쿼리 구현을 다시 하는 대신 모듈이 쿼리 구현을 생성하도록 함
-- [컴파일러] 생성된 데이터 클래스의 사용자 정의 toString 생성 제거. (by [Paul Woitaschek][PaulWoitaschek])
+- [컴파일러] 생성된 데이터 클래스의 사용자 정의 `toString` 생성 제거. (by [Paul Woitaschek][PaulWoitaschek])
 - [JS 드라이버] sql.js 의존성 제거 (by [Derek Ellis][dellisd])
 - [페이징] 안드로이드 페이징 2 확장 제거
 - [IDE 플러그인] SQLDelight 동기화 중 에디터 배너 추가 (#2511)
@@ -541,7 +543,7 @@ sqldelight {
 - [런타임] 할당 및 포인터 추적(pointer chasing)을 줄이기 위해 리스너 목록 평탄화. (by [Anders Ha][andersio])
 - [IDE 플러그인] 오류 메시지 수정: 오류로 점프할 수 있도록 허용 (by [Philip Wedemann][hfhbd])
 - [IDE 플러그인] 누락된 검사 설명 추가 (#2768 by [Alexander Perfilyev][aperfilyev])
-- [IDE 플러그인] GotoDeclarationHandler의 예외 수정 (#2531, #2688, #2804 by [Alexander Perfilyev][aperfilyev])
+- [IDE 플러그인] `GotoDeclarationHandler`의 예외 수정 (#2531, #2688, #2804 by [Alexander Perfilyev][aperfilyev])
 - [IDE 플러그인] import 키워드 강조 (by [Alexander Perfilyev][aperfilyev])
 - [IDE 플러그인] 해결되지 않은 kotlin 타입 수정 (#1678 by [Alexander Perfilyev][aperfilyev])
 - [IDE 플러그인] 해결되지 않은 패키지 강조 수정 (#2543 by [Alexander Perfilyev][aperfilyev])
@@ -559,9 +561,9 @@ sqldelight {
 - [Gradle 플러그인] 코드 생성 시 파일을 정렬하여 멱등성(idempotent) 출력 보장 (by [Zac Sweers][ZacSweers])
 - [컴파일러] 파일 반복에 더 빠른 API 사용 및 전체 PSI 그래프 탐색하지 않음
 - [컴파일러] 함수 매개변수 선택에 키워드 망글링(mangling) 추가 (#2759 by [Alexander Perfilyev][aperfilyev])
-- [컴파일러] 마이그레이션 어댑터의 packageName 수정 (by [Philip Wedemann][hfhbd])
+- [컴파일러] 마이그레이션 어댑터의 `packageName` 수정 (by [Philip Wedemann][hfhbd])
 - [컴파일러] 타입 대신 속성(properties)에 어노테이션(annotations) 방출 (#2798 by [Alexander Perfilyev][aperfilyev])
-- [컴파일러] Query 서브타입에 전달하기 전에 인수 정렬 (#2379 by [Alexander Perfilyev][aperfilyev])
+- [컴파일러] `Query` 서브타입에 전달하기 전에 인수 정렬 (#2379 by [Alexander Perfilyev][aperfilyev])
 
 ## [1.5.3] - 2021-11-23
 ### 추가
@@ -570,12 +572,12 @@ sqldelight {
 - [코루틴 확장] coroutines-extensions에 M1 타겟 추가 (by [Philip Dukhov][PhilipDukhov])
 
 ### 변경
-- [Paging3 확장] sqldelight-android-paging3을 AAR 대신 JAR로 배포 (#2634 by [Marco Romano][julioromano])
+- [페이징3 확장] sqldelight-android-paging3을 AAR 대신 JAR로 배포 (#2634 by [Marco Romano][julioromano])
 - 소프트 키워드(soft keywords)이기도 한 속성 이름은 이제 밑줄(underscores)이 붙습니다. 예를 들어 `value`는 `value_`로 노출됩니다.
 
 ### 수정
 - [컴파일러] 중복 배열 매개변수에 대해 변수 추출하지 않음 (by [Alexander Perfilyev][aperfilyev])
-- [Gradle 플러그인] kotlin.mpp.enableCompatibilityMetadataVariant 추가. (#2628 by [Martin Bonnin][martinbonnin])
+- [Gradle 플러그인] `kotlin.mpp.enableCompatibilityMetadataVariant` 추가. (#2628 by [Martin Bonnin][martinbonnin])
 - [IDE 플러그인] 사용처 찾기(Find usages) 처리에 읽기 액션 필요
 
 ## [1.5.2] - 2021-10-12
@@ -606,23 +608,23 @@ sqldelight {
 - [IDE 플러그인] 사용되지 않는 쿼리 검사 중에 충돌 방지 (#2610)
 - [IDE 플러그인] 데이터베이스 동기화 쓰기를 쓰기 액션 내에서 실행 (#2605)
 - [IDE 플러그인] IDE가 SQLDelight 동기화를 예약하도록 함
-- [IDE 플러그인] JavaTypeMixin의 NPE 수정 (#2603 by [Alexander Perfilyev][aperfilyev])
-- [IDE 플러그인] MismatchJoinColumnInspection에서 IndexOutOfBoundsException 수정 (#2602 by [Alexander Perfilyev][aperfilyev])
-- [IDE 플러그인] UnusedColumnInspection에 대한 설명 추가 (#2600 by [Alexander Perfilyev][aperfilyev])
-- [IDE 플러그인] PsiElement.generatedVirtualFiles를 읽기 액션으로 래핑 (#2599 by [Alexander Perfilyev][aperfilyev])
+- [IDE 플러그인] `JavaTypeMixin`의 NPE 수정 (#2603 by [Alexander Perfilyev][aperfilyev])
+- [IDE 플러그인] `MismatchJoinColumnInspection`에서 IndexOutOfBoundsException 수정 (#2602 by [Alexander Perfilyev][aperfilyev])
+- [IDE 플러그인] `UnusedColumnInspection`에 대한 설명 추가 (#2600 by [Alexander Perfilyev][aperfilyev])
+- [IDE 플러그인] `PsiElement.generatedVirtualFiles`를 읽기 액션으로 래핑 (#2599 by [Alexander Perfilyev][aperfilyev])
 - [IDE 플러그인] 불필요한 nonnull 캐스트 제거 (#2596)
 - [IDE 플러그인] 사용처 찾기(find usages)에 대해 null을 올바르게 처리 (#2595)
 - [IDE 플러그인] Android용으로 생성된 파일에 대한 IDE 자동 완성(autocomplete) 수정 (#2573 by [Martin Bonnin][martinbonnin])
-- [IDE 플러그인] SqlDelightGotoDeclarationHandler의 NPE 수정 (by [Alexander Perfilyev][aperfilyev])
+- [IDE 플러그인] `SqlDelightGotoDeclarationHandler`의 NPE 수정 (by [Alexander Perfilyev][aperfilyev])
 - [IDE 플러그인] INSERT 문 내부 인수에서 kotlin 키워드 망글링(mangle) (#2433 by [Alexander Perfilyev][aperfilyev])
-- [IDE 플러그인] SqlDelightFoldingBuilder의 NPE 수정 (#2382 by [Alexander Perfilyev][aperfilyev])
-- [IDE 플러그인] CopyPasteProcessor에서 ClassCastException 캐치 (#2369 by [Alexander Perfilyev][aperfilyev])
+- [IDE 플러그인] `SqlDelightFoldingBuilder`의 NPE 수정 (#2382 by [Alexander Perfilyev][aperfilyev])
+- [IDE 플러그인] `CopyPasteProcessor`에서 `ClassCastException` 캐치 (#2369 by [Alexander Perfilyev][aperfilyev])
 - [IDE 플러그인] 라이브 템플릿 업데이트 수정 (by [Ilias Redissi][IliasRedissi])
 - [IDE 플러그인] 인텐션 액션에 설명 추가 (#2489 by [Alexander Perfilyev][aperfilyev])
-- [IDE 플러그인] 테이블을 찾을 수 없는 경우 CreateTriggerMixin의 예외 수정 (by [Alexander Perfilyev][aperfilyev])
+- [IDE 플러그인] `CreateTriggerMixin`에서 테이블을 찾을 수 없는 경우 예외 수정 (by [Alexander Perfilyev][aperfilyev])
 - [컴파일러] 테이블 생성 문을 위상적으로 정렬
 - [컴파일러] 디렉토리에서 `forDatabaseFiles` 콜백 호출 중지 (#2532)
-- [Gradle 플러그인] generateDatabaseInterface 작업 의존성을 잠재적 소비자에게 전파 (#2518 by [Martin Bonnin][martinbonnin])
+- [Gradle 플러그인] `generateDatabaseInterface` 작업 의존성을 잠재적 소비자에게 전파 (#2518 by [Martin Bonnin][martinbonnin])
 
 ## [1.5.1] - 2021-07-16
 ### 추가
@@ -645,26 +647,26 @@ sqldelight {
 
 ### 변경
 - [네이티브 드라이버] 가능한 경우 고정(freezing) 및 공유 가능한 데이터 구조를 피하여 네이티브 트랜잭션 성능 향상 (by [Anders Ha][andersio])
-- [Paging 3] Paging3 버전을 3.0.0 stable로 상향
+- [페이징 3] Paging3 버전을 3.0.0 stable로 상향
 - [JS 드라이버] sql.js를 1.5.0으로 업그레이드
 
 ### 수정
-- [JDBC SQLite 드라이버] ThreadLocal을 지우기 전에 연결에 close() 호출 (#2444 by [Hannes Struß][hannesstruss])
+- [JDBC SQLite 드라이버] ThreadLocal을 지우기 전에 연결에 `close()` 호출 (#2444 by [Hannes Struß][hannesstruss])
 - [RX 확장] 구독/폐기(subscription / disposal) 경쟁 누수(race leak) 수정 (#2403 by [Pierre Yves Ricau][pyricau])
 - [코루틴 확장] 알림 전에 쿼리 리스너(listener) 등록 확인
 - [컴파일러] 일관된 kotlin 출력 파일을 위해 notifyQueries 정렬 (by [Jiayu Chen][thomascjy])
-- [컴파일러] @JvmField로 SELECT 쿼리 클래스 속성(properties)에 어노테이션 달지 않음 (by [Eliezer Graber][eygraber])
+- [컴파일러] SELECT 쿼리 클래스 속성(properties)에 `@JvmField` 어노테이션 달지 않음 (by [Eliezer Graber][eygraber])
 - [IDE 플러그인] 임포트 최적화(import optimizer) 수정 (#2350 by [Alexander Perfilyev][aperfilyev])
 - [IDE 플러그인] 사용되지 않는 열 검사 수정 (by [Alexander Perfilyev][aperfilyev])
 - [IDE 플러그인] 임포트 검사(import inspection) 및 클래스 어노테이터(class annotator)에 중첩 클래스(nested classes) 지원 추가 (by [Alexander Perfilyev][aperfilyev])
-- [IDE 플러그인] CopyPasteProcessor의 NPE 수정 (#2363 by [Alexander Perfilyev][aperfilyev])
-- [IDE 플러그인] InlayParameterHintsProvider의 크래시 수정 (#2359 by [Alexander Perfilyev][aperfilyev])
+- [IDE 플러그인] `CopyPasteProcessor`의 NPE 수정 (#2363 by [Alexander Perfilyev][aperfilyev])
+- [IDE 플러그인] `InlayParameterHintsProvider`의 크래시 수정 (#2359 by [Alexander Perfilyev][aperfilyev])
 - [IDE 플러그인] CREATE TABLE stmt에 텍스트를 복사/붙여넣기할 때 빈 줄 삽입 수정 (#2431 by [Alexander Perfilyev][aperfilyev])
 
 ## [1.5.0] - 2021-04-23
 ### 추가
 - [SQLite Javascript 드라이버] sqljs-driver 게시 활성화 (#1667 by [Derek Ellis][dellisd])
-- [Paging3 확장] Android Paging 3 라이브러리용 확장 (#1786 by [Kevin Cianfarini][kevincianfarini])
+- [페이징3 확장] Android Paging 3 라이브러리용 확장 (#1786 by [Kevin Cianfarini][kevincianfarini])
 - [MySQL 다이얼렉트] mysql의 ON DUPLICATE KEY UPDATE 충돌 해결 지원 추가 (by [Ryan Harter][rharter])
 - [SQLite 다이얼렉트] SQLite offsets()에 대한 컴파일러 지원 추가 (by [Quinton Roberts][qjroberts])
 - [IDE 플러그인] 알 수 없는 타입에 대한 임포트 빠른 수정(quick fix) 추가 (#683 by [Alexander Perfilyev][aperfilyev])
@@ -673,7 +675,7 @@ sqldelight {
 - [IDE 플러그인] 사용되지 않는 열 검사 추가 (#569 by [Alexander Perfilyev][aperfilyev])
 - [IDE 플러그인] 복사/붙여넣기 시 임포트 자동 가져오기 (#684 by [Alexander Perfilyev][aperfilyev])
 - [IDE 플러그인] Gradle/IntelliJ 플러그인 버전 간에 호환성 문제가 있을 때 풍선(balloon) 띄우기
-- [IDE 플러그인] Insert Into ... VALUES(?) 매개변수 힌트 (#506 by [Alexander Perfilyev][aperfilyev])
+- [IDE 플러그인] `Insert Into ... VALUES(?)` 매개변수 힌트 (#506 by [Alexander Perfilyev][aperfilyev])
 - [IDE 플러그인] 인라인 매개변수 힌트 (by [Alexander Perfilyev][aperfilyev])
 - [런타임] 콜백을 사용하여 마이그레이션을 실행하기 위한 런타임 API 포함 (#1844)
 
@@ -729,7 +731,7 @@ sqldelight {
 ### 추가
 - [PostgreSQL 다이얼렉트] WITH 절에서 데이터 수정(data-modifying) 문 지원
 - [PostgreSQL 다이얼렉트] SUBSTRING 함수 지원
-- [Gradle 플러그인] SQLDelight 컴파일 중 마이그레이션 유효성 검사를 위한 verifyMigrations 플래그 추가 (#1872)
+- [Gradle 플러그인] SQLDelight 컴파일 중 마이그레이션 유효성 검사를 위한 `verifyMigrations` 플래그 추가 (#1872)
 
 ### 변경
 - [컴파일러] SQLite 특정 함수를 비-SQLite 다이얼렉트에서 알 수 없는 함수로 플래그 지정
@@ -737,7 +739,7 @@ sqldelight {
 
 ### 수정
 - [컴파일러] ORDER BY 절에서 열 이름을 바인딩할 때 오류 보고 (#1187 by [Eliezer Graber][eygraber])
-- [컴파일러] db 인터페이스 생성 시 레지스트리(Registry) 경고 표시 (#1792)
+- [컴파일러] 레지스트리(Registry) 경고가 db 인터페이스 생성 시 표시됨 (#1792)
 - [컴파일러] CASE 문에 대한 잘못된 타입 추론 (#1811)
 - [컴파일러] 버전 없는 마이그레이션 파일에 대해 더 나은 오류 제공 (#2006)
 - [컴파일러] 마샬링(marshal)할 필수 데이터베이스 타입이 일부 데이터베이스 타입 ColumnAdapter에 대해 잘못됨 (#2012)
@@ -752,19 +754,19 @@ sqldelight {
 - [IDE 플러그인] 유효하지 않은 타입에 대해 정상적으로 실패 (#1943)
 - [IDE 플러그인] 알 수 없는 표현식을 만났을 때 더 나은 오류 메시지 발생 (#1958)
 - [Gradle 플러그인] SQLDelight가 IntelliJ 의존성을 빌드 스크립트 클래스 경로에 누출 (#1998)
-- [Gradle 플러그인] *.sq 파일에 메서드 문서 추가 시 "JavadocIntegrationKt not found" 컴파일 오류 (#1982)
-- [Gradle 플러그인] SqlDeslight gradle 플러그인은 Configuration Caching (CoCa)을 지원하지 않음. (#1947 by [Stéphane Nicolas][stephanenicolas])
-- [SQLite JDBC 드라이버] SQLException: 데이터베이스가 자동 커밋 모드임 (#1832)
+- [Gradle 플러그인] "*.sq" 파일에 메서드 문서 추가 시 "JavadocIntegrationKt not found" 컴파일 오류 (#1982)
+- [Gradle 플러그인] SqlDelight Gradle 플러그인은 Configuration Caching (CoCa)을 지원하지 않음. (#1947 by [Stéphane Nicolas][stephanenicolas])
+- [SQLite JDBC 드라이버] `SQLException`: 데이터베이스가 자동 커밋 모드임 (#1832)
 - [코루틴 확장] coroutines-extensions에 대한 IR 백엔드 수정 (#1918 by [Derek Ellis][dellisd])
 
 ## [1.4.3] - 2020-09-04
 ### 추가
-- [MySQL 다이얼렉트] MySQL last_insert_id 함수 지원 추가 (by [Kelvin Law][lawkai])
+- [MySQL 다이얼렉트] MySQL `last_insert_id` 함수 지원 추가 (by [Kelvin Law][lawkai])
 - [PostgreSQL 다이얼렉트] SERIAL 데이터 타입 지원 (by [Veyndan Stuart][VeyndanS] & [Felipe Lima][felipecsl])
 - [PostgreSQL 다이얼렉트] PostgreSQL RETURNING 지원 (by [Veyndan Stuart][VeyndanS])
 
 ### 수정
-- [MySQL 다이얼렉트] MySQL AUTO_INCREMENT를 기본값(default value)을 가지는 것으로 처리 (#1823)
+- [MySQL 다이얼렉트] MySQL `AUTO_INCREMENT`를 기본값(default value)을 가지는 것으로 처리 (#1823)
 - [컴파일러] Upsert 문 컴파일 오류 수정 (#1809 by [Eliezer Graber][eygraber])
 - [컴파일러] 유효하지 않은 Kotlin이 생성되는 문제 수정 (#1925 by [Eliezer Graber][eygraber])
 - [컴파일러] 알 수 없는 함수에 대해 더 나은 오류 메시지 제공 (#1843)
@@ -773,21 +775,21 @@ sqldelight {
 - [IDE 플러그인] null 모듈 시나리오 처리 (#1902)
 - [IDE 플러그인] 구성되지 않은 sq 파일에서 패키지 이름에 대해 빈 문자열 반환 (#1920)
 - [IDE 플러그인] 그룹화된 문(grouped statements) 수정 및 통합 테스트 추가 (#1820)
-- [IDE 플러그인] 요소의 모듈을 찾기 위해 내장 ModuleUtil 사용 (#1854)
+- [IDE 플러그인] 요소의 모듈을 찾기 위해 내장 `ModuleUtil` 사용 (#1854)
 - [IDE 플러그인] 유효한 요소만 조회(lookups)에 추가 (#1909)
 - [IDE 플러그인] 부모(Parent)는 null일 수 있음 (#1857)
 
 ## [1.4.2] - 2020-08-27
 ### 추가
 - [런타임] 새로운 JS IR 백엔드 지원
-- [Gradle 플러그인] generateSqlDelightInterface Gradle 작업 추가. (by [Niklas Baudy][vanniktech])
-- [Gradle 플러그인] verifySqlDelightMigration Gradle 작업 추가. (by [Niklas Baudy][vanniktech])
+- [Gradle 플러그인] `generateSqlDelightInterface` Gradle 작업 추가. (by [Niklas Baudy][vanniktech])
+- [Gradle 플러그인] `verifySqlDelightMigration` Gradle 작업 추가. (by [Niklas Baudy][vanniktech])
 
 ### 수정
 - [IDE 플러그인] Gradle 툴링 API를 사용하여 IDE와 Gradle 간의 데이터 공유 용이하게 함
 - [IDE 플러그인] 스키마 파생(schema derivation)에 대해 기본값으로 false 설정
 - [IDE 플러그인] commonMain 소스 세트(source set) 올바르게 검색
-- [MySQL 다이얼렉트] mySqlFunctionType()에 minute 추가 (by [MaaxGr][maaxgr])
+- [MySQL 다이얼렉트] `mySqlFunctionType()`에 minute 추가 (by [MaaxGr][maaxgr])
 
 ## [1.4.1] - 2020-08-21
 ### 추가
@@ -825,7 +827,7 @@ sqldelight {
 - [문서] 문서 웹사이트 전면 개편 (by [Saket Narayan][SaketN])
 - [Gradle 플러그인] 지원되지 않는 다이얼렉트 오류 메시지 개선 (by [Veyndan Stuart][VeyndanS])
 - [IDE] 다이얼렉트에 따라 파일 아이콘 동적으로 변경 (by [Veyndan Stuart][VeyndanS])
-- [JDBC 드라이버] javax.sql.DataSource에서 JdbcDriver 생성자 노출 (#1614)
+- [JDBC 드라이버] `javax.sql.DataSource`에서 JdbcDriver 생성자 노출 (#1614)
 
 ### 수정
 - [컴파일러] 테이블에 대한 자바독(Javadoc) 지원 및 한 파일에 여러 자바독 수정 (#1224)
@@ -904,13 +906,13 @@ sqldelight {
 * 신규: [런타임] 로깅 드라이버 데코레이터(decorator).
 * 수정: [컴파일러] 2^16 문자보다 긴 문자열 리터럴 분할. (#1254)
 * 수정: [Gradle] #1260 생성된 소스가 멀티플랫폼 프로젝트에서 iOS 소스로 인식됨.
-* 수정: [IDE] #1290 CopyAsSqliteAction.kt:43에서 kotlin.KotlinNullPointerException.
+* 수정: [IDE] #1290 kotlin.KotlinNullPointerException in `CopyAsSqliteAction.kt:43`.
 * 수정: [Gradle] #1268 최근 버전에서 linkDebugFrameworkIos* 작업 실행 실패.
 
 ## [1.1.1] - 2019-03-01
 
 * 수정: [Gradle] Android 프로젝트에 대한 모듈 의존성 컴파일 수정.
-* 수정: [Gradle] #1246 afterEvaluate에서 API 의존성 설정.
+* 수정: [Gradle] #1246 `afterEvaluate`에서 API 의존성 설정.
 * 수정: [컴파일러] 배열 타입이 올바르게 인쇄됩니다.
 
 ## [1.1.0] - 2019-02-27
@@ -932,7 +934,7 @@ sqldelight {
 
 ## [1.0.1] - 2019-01-21
 
-* 개선: [네이티브 드라이버] DatabaseConfiguration에 디렉토리 이름 전달 허용.
+* 개선: [네이티브 드라이버] `DatabaseConfiguration`에 디렉토리 이름 전달 허용.
 * 개선: [컴파일러] #1173 패키지 없는 파일은 컴파일 실패.
 * 수정: [IDE] IDE 오류를 Square에 올바르게 보고.
 * 수정: [IDE] #1162 동일한 패키지의 타입이 오류로 표시되지만 정상 작동.

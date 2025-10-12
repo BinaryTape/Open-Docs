@@ -1,10 +1,8 @@
 [//]: # (title: Kotlin早期アクセスプレビューに参加する)
 
-<!--
 <tldr>
-    <p>Latest Kotlin EAP release: <strong>%kotlinEapVersion%</strong></p>
+    <p>最新のKotlin EAPリリース: <strong>%kotlinEapVersion%</strong></p>
 </tldr>
--->
 
 Kotlin早期アクセスプレビュー (EAP) に参加して、Kotlinの最新機能をリリース前に試すことができます。
 
@@ -34,23 +32,31 @@ Kotlin早期アクセスプレビュー (EAP) に参加して、Kotlinの最新�
 
 ## ビルドの詳細
 
-現在、プレビューバージョンは利用できません。
+<!-- _No preview versions are currently available._ -->
 
-<!--
 <table>
     <tr>
-        <th>Build info</th>
-        <th>Build highlights</th>
+        <th>ビルド情報</th>
+        <th>ビルドのハイライト</th>
     </tr>
     <tr>
-        <td><strong>2.2.20-RC2</strong>
-            <p>Released: <strong>September 1, 2025</strong></p>
-            <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.2.20-RC2" target="_blank">Release on GitHub</a></p>
+        <td><strong>2.3.0-Beta1</strong>
+            <p>リリース日: <strong>2025年10月7日</strong></p>
+            <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.3.0-Beta1" target="_blank">GitHubでリリース</a></p>
         </td>
         <td>
-            <p>A tooling release containing improvements and bug fixes.</p>
-            <p>For more details, please refer to the <a href="https://github.com/JetBrains/kotlin/releases/tag/v2.2.20-RC2">changelog</a> or <a href="whatsnew-eap.md">What's new in Kotlin 2.2.20-RC2</a>.</p>
+            <p>新機能のプレビューとツール更新を含む言語リリースです。</p>
+            <p>詳細については、<a href="https://github.com/JetBrains/kotlin/releases/tag/v2.3.0-Beta1">変更履歴</a>または<a href="whatsnew-eap.md">Kotlin 2.3.0-Beta1の新機能</a>をご参照ください。</p>
         </td>
     </tr>
+    <tr>
+        <td><strong>2.2.21-RC</strong>
+            <p>リリース日: <strong>2025年10月7日</strong></p>
+            <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.2.21-RC" target="_blank">GitHubでリリース</a></p>
+        </td>
+        <td>
+            <p>Xcode 26のサポートを含む、その他の改善とバグ修正を伴うツールリリースです。</p>
+            <p>詳細については、<a href="https://github.com/JetBrains/kotlin/releases/tag/v2.2.21-RC">変更履歴</a>または<a href="whatsnew-eap.md">Kotlin 2.2.21-RCの新機能</a>をご参照ください。</p>
+    </td>
+    </tr>
 </table>
--->

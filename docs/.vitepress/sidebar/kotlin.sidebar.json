@@ -57,6 +57,10 @@
     "text": "kotlin.what-s-new-in-kotlin",
     "items": [
       {
+        "text": "kotlin.whatsnew-eap",
+        "link": "whatsnew-eap"
+      },
+      {
         "text": "kotlin.whatsnew2220",
         "link": "whatsnew2220"
       },
@@ -747,6 +751,10 @@
       {
         "text": "kotlin.javascript",
         "items": [
+          {
+            "text": "kotlin.js-get-started",
+            "link": "js-get-started"
+          },
           {
             "text": "kotlin.js-project-setup",
             "link": "js-project-setup"

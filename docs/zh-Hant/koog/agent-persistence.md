@@ -1,26 +1,26 @@
-# 代理程式持久性 (Agent Persistence)
+# 代理程式持久性
 
 代理程式持久性 (Agent Persistence) 是 Koog 框架中為 AI 智能體提供檢查點功能的一個特性。
 它允許您在執行期間的特定時間點儲存和恢復智能體的狀態，從而實現以下功能：
 
 - 從特定時間點恢復智能體執行
 - 回溯到先前的狀態
-- 跨會話 (session) 持久化智能體狀態
+- 跨會話持久化智能體狀態
 
 ## 關鍵概念
 
-### 檢查點 (Checkpoints)
+### 檢查點
 
 檢查點捕獲智能體在其執行過程中特定時間點的完整狀態，包括：
 
 - 訊息歷史 (使用者、系統、助理和工具之間的所有互動)
-- 目前正在執行的節點 (node)
+- 目前正在執行的節點
 - 目前節點的輸入資料
 - 建立時間戳記
 
 檢查點由唯一 ID 識別，並與特定智能體關聯。
 
-## 先決條件 (Prerequisites)
+## 先決條件
 
 代理程式持久性功能要求智能體策略中的所有節點都具有唯一的名稱。
 這在功能安裝時強制執行：
@@ -42,7 +42,7 @@ require(ctx.strategy.metadata.uniqueNames) {
 
 請確保為圖形中的節點設定唯一的名稱。
 
-## 安裝 (Installation)
+## 安裝
 
 若要使用代理程式持久性功能，請將其新增至智能體的設定中：
 
@@ -72,14 +72,14 @@ val agent = AIAgent(
 
 <!--- KNIT example-agent-persistence-02.kt -->
 
-## 設定選項 (Configuration options)
+## 設定選項
 
 代理程式持久性功能有兩個主要設定選項：
 
 - **儲存提供者 (Storage provider)**：用於儲存和擷取檢查點的提供者。
 - **持續性持久化 (Continuous persistence)**：在每個節點執行後自動建立檢查點。
 
-### 儲存提供者 (Storage provider)
+### 儲存提供者
 
 設定將用於儲存和擷取檢查點的儲存提供者：
 
@@ -116,7 +116,7 @@ install(Persistence) {
 您也可以透過實作 `PersistenceStorageProvider` 介面來實作自訂儲存提供者。
 有關更多資訊，請參閱 [自訂儲存提供者](#custom-storage-providers)。
 
-### 持續性持久化 (Continuous persistence)
+### 持續性持久化
 
 持續性持久化表示在每個節點執行後自動建立檢查點。
 要啟動持續性持久化，請使用以下程式碼：
@@ -148,9 +148,9 @@ install(Persistence) {
 啟用後，智能體將在每個節點執行後自動建立檢查點，
 從而實現細粒度的恢復。
 
-## 基本用法 (Basic usage)
+## 基本用法
 
-### 建立檢查點 (Creating a checkpoint)
+### 建立檢查點
 
 若要了解如何在智能體執行的特定時間點建立檢查點，請參閱以下程式碼範例：
 
@@ -181,7 +181,7 @@ suspend fun example(context: AIAgentContext) {
 
 <!--- KNIT example-agent-persistence-05.kt -->
 
-### 從檢查點恢復 (Restoring from a checkpoint)
+### 從檢查點恢復
 
 若要從特定檢查點恢復智能體的狀態，請依照以下程式碼範例操作：
 
@@ -202,7 +202,7 @@ suspend fun example(context: AIAgentContext, checkpointId: String) {
 
 <!--- KNIT example-agent-persistence-06.kt -->
 
-#### 回溯工具產生的所有副作用 (Rolling back all side-effects produced by tools)
+#### 回溯工具產生的所有副作用
 
 某些工具產生副作用是很常見的。特別是當您在後端執行智能體時，
 某些工具可能會執行資料庫交易。這使得智能體很難回溯時間。
@@ -260,7 +260,7 @@ install(Persistence) {
 
 <!--- KNIT example-agent-persistence-07.kt -->
 
-### 使用延伸函式 (Using extension functions)
+### 使用延伸函式
 
 代理程式持久性功能提供了便利的延伸函式，用於處理檢查點：
 
@@ -292,9 +292,9 @@ suspend fun example(context: AIAgentContext) {
 ```
 <!--- KNIT example-agent-persistence-08.kt -->
 
-## 進階用法 (Advanced usage)
+## 進階用法
 
-### 自訂儲存提供者 (Custom storage providers)
+### 自訂儲存提供者
 
 您可以透過實作 `PersistenceStorageProvider` 介面來實作自訂儲存提供者：
 
@@ -309,19 +309,20 @@ import ai.koog.agents.snapshot.providers.PersistenceStorageProvider
 */
 -->
 ```kotlin
-class MyCustomStorageProvider : PersistenceStorageProvider {
-    override suspend fun getCheckpoints(agentId: String): List<AgentCheckpointData> {
-        // Implementation
+class MyCustomStorageProvider<MyFilterType> : PersistenceStorageProvider<MyFilterType> {
+    override suspend fun getCheckpoints(agentId: String, filter: MyFilterType?): List<AgentCheckpointData> {
+        TODO("Not yet implemented")
     }
-    
+
     override suspend fun saveCheckpoint(agentId: String, agentCheckpointData: AgentCheckpointData) {
-        // Implementation
+        TODO("Not yet implemented")
     }
-    
-    override suspend fun getLatestCheckpoint(agentId: String): AgentCheckpointData? {
-        // Implementation
+
+    override suspend fun getLatestCheckpoint(agentId: String, filter: MyFilterType?): AgentCheckpointData? {
+        TODO("Not yet implemented")
     }
 }
+
 ```
 
 <!--- KNIT example-agent-persistence-09.kt -->
@@ -336,8 +337,8 @@ import ai.koog.agents.snapshot.providers.PersistenceStorageProvider
 import ai.koog.prompt.executor.llms.all.simpleOllamaAIExecutor
 import ai.koog.prompt.llm.OllamaModels
 
-class MyCustomStorageProvider : PersistenceStorageProvider {
-    override suspend fun getCheckpoints(agentId: String): List<AgentCheckpointData> {
+class MyCustomStorageProvider<MyFilterType> : PersistenceStorageProvider<MyFilterType> {
+    override suspend fun getCheckpoints(agentId: String, filter: MyFilterType?): List<AgentCheckpointData> {
         TODO("Not yet implemented")
     }
 
@@ -345,7 +346,7 @@ class MyCustomStorageProvider : PersistenceStorageProvider {
         TODO("Not yet implemented")
     }
 
-    override suspend fun getLatestCheckpoint(agentId: String): AgentCheckpointData? {
+    override suspend fun getLatestCheckpoint(agentId: String, filter: MyFilterType?): AgentCheckpointData? {
         TODO("Not yet implemented")
     }
 }
@@ -361,13 +362,13 @@ val agent = AIAgent(
 
 ```kotlin
 install(Persistence) {
-    storage = MyCustomStorageProvider()
+    storage = MyCustomStorageProvider<Any>()
 }
 ```
 
 <!--- KNIT example-agent-persistence-10.kt -->
 
-### 設定執行點 (Setting execution points)
+### 設定執行點
 
 對於進階控制，您可以直接設定智能體的執行點：
 

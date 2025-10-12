@@ -2,15 +2,14 @@
 
 [Kotlin Multiplatform IDEプラグイン](https://plugins.jetbrains.com/plugin/14936-kotlin-multiplatform)は、Android、iOS、デスクトップ、およびウェブ向けのクロスプラットフォームアプリケーション開発を支援します。Kotlin Multiplatformプロジェクトで作業するために、必ず最新バージョンのプラグインを使用してください。
 
-> このIDEプラグインは現在macOSでのみ利用可能ですが、WindowsとLinuxへの対応も今後予定されています。
+このプラグインは、IntelliJ IDEA（バージョン2025.1.1.1以降）とAndroid Studio（Narwhal 2025.1.1以降）の両方に対応しています。
+
+> WindowsおよびLinuxでKotlin Multiplatformプラグインを使用するには、IntelliJ IDEA 2025.2.2が必要です。
+> Android Studioでは、今後のリリースでWindowsおよびLinuxでのKMP IDEプラグインのサポートが追加される予定です。
 >
 {style="note"}
 
-このプラグインは、IntelliJ IDEA（バージョン2025.1.1.1以降）とAndroid Studio（Narwhal 2025.1.1以降）の両方に対応しています。
-
-> Kotlin Multiplatform Gradleプラグインの詳細については、[DSLリファレンス](multiplatform-dsl-reference.md)および[互換性ガイド](multiplatform-compatibility-guide.md)を参照してください。
->
-{style="tip"}
+Kotlin Multiplatform Gradleプラグインの詳細については、[DSLリファレンス](multiplatform-dsl-reference.md)および[互換性ガイド](multiplatform-compatibility-guide.md)を参照してください。
 
 ## 最新リリースへの更新
 
@@ -21,7 +20,8 @@
 プラグインが正しく動作するためには、互換性のあるKotlinバージョンが必要です。互換性のあるバージョンは、「[リリース詳細](#release-details)」で確認できます。
 Kotlinのバージョンを確認して更新するには、「**Settings** | **Plugins**」または「**Tools** | **Kotlin** | **Configure Kotlin in Project**」に移動します。
 
-> 互換性のあるKotlinバージョンがインストールされていない場合、Kotlin Multiplatformプラグインは無効になります。Kotlinのバージョンを更新してから、「**Settings** | **Plugins**」で再度プラグインを有効にしてください。
+> 互換性のあるKotlinバージョンがインストールされていない場合、Kotlin Multiplatformプラグインは無効になります。
+> Kotlinのバージョンを更新してから、「**Settings** | **Plugins**」で再度プラグインを有効にしてください。
 >
 {style="note"}
 
@@ -29,7 +29,7 @@ Kotlinのバージョンを確認して更新するには、「**Settings** | **
 
 以下の表に、Kotlin Multiplatform IDEプラグインのリリースをリストします。
 
-<table>
+<table> 
 
 <tr>
 <th>
@@ -442,7 +442,7 @@ Kotlin Multiplatformプラグインはゼロから再構築されました。
 *   [プロジェクトウィザードにXcode統合オプションに関する情報を追加](https://youtrack.jetbrains.com/issue/KT-47466)。
 *   [CocoaPodsを含むプロジェクトが生成されたが、CocoaPods gemがインストールされていない場合の通知を追加](https://youtrack.jetbrains.com/issue/KT-47329)。
 *   [Kotlin 1.5.30で生成された共有モジュールにApple M1シミュレータターゲットのサポートを追加](https://youtrack.jetbrains.com/issue/KT-47631)。
-*   [Kotlin 1.5.20で生成されたXcodeプロジェクトをクリーンアップ](https://youtrack.jetbrains.com/issue/KT-47465)。
+*   [Kotlin 1.5.20で生成されたXcodeプロジェクトをクリーンアップ](https://youtrack.com/issue/KT-47465)。
 *   実iOSデバイスでのXcodeリリース構成の起動を修正。
 *   Xcode 12.5でのシミュレーター起動を修正。
 

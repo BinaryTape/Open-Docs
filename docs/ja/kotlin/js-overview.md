@@ -2,7 +2,7 @@
 
 Kotlin/JavaScript (Kotlin/JS) を使用すると、Kotlinコード、Kotlin標準ライブラリ、および互換性のあるすべての依存関係をJavaScriptにトランスパイルできます。これにより、KotlinアプリケーションはJavaScriptをサポートするあらゆる環境で実行できます。
 
-Kotlin/JSは、[Kotlin Multiplatform Gradleプラグイン](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-dsl-reference.html) (`kotlin.multiplatform`) を介して使用し、JavaScriptをターゲットとするKotlinプロジェクトを一元的に設定および管理できます。
+[Kotlin Multiplatform Gradleプラグイン](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-dsl-reference.html) (`kotlin.multiplatform`) を介してKotlin/JSを使用し、JavaScriptをターゲットとするKotlinプロジェクトを一元的に設定および管理できます。
 
 Kotlin Multiplatform Gradleプラグインは、アプリケーションのバンドル制御やnpmからのJavaScript依存関係の直接追加などの機能を提供します。利用可能な設定オプションの概要については、[Kotlin/JSプロジェクトのセットアップ](js-project-setup.md)を参照してください。
 
@@ -59,9 +59,11 @@ Kotlin/JSの作業を開始するための基本と最初のステップを探�
 
 *   Kotlinを初めて使用する場合は、まず[基本構文](basic-syntax.md)を確認し、[Kotlinツアー](kotlin-tour-welcome.md)を探索してください。
 *   インスピレーションを得るために、[Kotlin/JSサンプルプロジェクト](#sample-projects-for-kotlin-js)のリストをチェックしてください。これらのサンプルには、プロジェクトを開始するのに役立つ有用なコードスニペットとパターンが含まれています。
-*   Kotlin/JSを初めて使用する場合は、より高度なトピックを探索する前に、セットアップガイドから始めてください。
+*   Kotlin/JSを初めて使用する場合は、より高度なトピックを探索する前に、[セットアップガイド](js-project-setup.md)から始めてください。
 
-<a href="js-project-setup.md"><img src="js-set-up-project.svg" width="600" alt="Kotlin/JSプロジェクトのセットアップ" style="block"/></a>
+Kotlin/JSを試してみませんか？
+
+<a href="js-get-started.md"><img src="js-get-started-button.svg" width="500" alt="Kotlin/JSを始める" style="block"/></a>
 
 ## Kotlin/JSのサンプルプロジェクト
 

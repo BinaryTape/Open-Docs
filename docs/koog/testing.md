@@ -2,7 +2,7 @@
 
 ## 概述
 
-Koog 框架中的测试特性为 AI 智能体流水线、子图和工具交互提供了全面的框架。它使开发者能够创建受控的测试环境，其中包含模拟的 LLM (大型语言模型) 执行器、工具注册表和智能体环境。
+Koog framework 中的测试特性为 AI 智能体流水线、子图和工具交互提供了全面的框架。它使开发者能够创建受控的测试环境，其中包含模拟的 LLM (大型语言模型) 执行器、工具注册表和智能体环境。
 
 ### 目的
 
@@ -221,8 +221,7 @@ AIAgent(
 <!--- INCLUDE
 
 import ai.koog.agents.core.agent.AIAgent
-import ai.koog.agents.core.tools.ToolResult
-import ai.koog.agents.example.exampleCustomNodes11.ToolArgs
+import ai.koog.agents.core.environment.ReceivedToolResult
 import ai.koog.agents.example.exampleTesting02.mockLLMApi
 import ai.koog.agents.example.exampleTesting02.toolRegistry
 import ai.koog.agents.testing.feature.testGraph
@@ -262,7 +261,7 @@ AIAgent(
 
             // Assert nodes by name
             val askLLM = assertNodeByName<String, Message.Response>("callLLM")
-            val callTool = assertNodeByName<ToolArgs, ToolResult>("executeTool")
+            val callTool = assertNodeByName<Message.Tool.Call, ReceivedToolResult>("executeTool")
 
             // Assert node reachability
             assertReachable(start, askLLM)
@@ -1113,4 +1112,4 @@ getMockExecutor {
 
 1.  验证节点名称是否正确。
 2.  检测图结构是否符合您的预期。
-3.  使用 `startNode()` 和 `finishNode()` 方法获取正确的入口和出口点。
+3.  使用 `startNode()` 和 `finishNode()` 方法获取正确的入口点和出口点。

@@ -308,17 +308,17 @@ import ai.koog.agents.snapshot.providers.PersistenceStorageProvider
 */
 -->
 ```kotlin
-class MyCustomStorageProvider : PersistenceStorageProvider {
-    override suspend fun getCheckpoints(agentId: String): List<AgentCheckpointData> {
-        // 구현
+class MyCustomStorageProvider<MyFilterType> : PersistenceStorageProvider<MyFilterType> {
+    override suspend fun getCheckpoints(agentId: String, filter: MyFilterType?): List<AgentCheckpointData> {
+        TODO("Not yet implemented")
     }
-    
+
     override suspend fun saveCheckpoint(agentId: String, agentCheckpointData: AgentCheckpointData) {
-        // 구현
+        TODO("Not yet implemented")
     }
-    
-    override suspend fun getLatestCheckpoint(agentId: String): AgentCheckpointData? {
-        // 구현
+
+    override suspend fun getLatestCheckpoint(agentId: String, filter: MyFilterType?): AgentCheckpointData? {
+        TODO("Not yet implemented")
     }
 }
 ```
@@ -335,8 +335,8 @@ import ai.koog.agents.snapshot.providers.PersistenceStorageProvider
 import ai.koog.prompt.executor.llms.all.simpleOllamaAIExecutor
 import ai.koog.prompt.llm.OllamaModels
 
-class MyCustomStorageProvider : PersistenceStorageProvider {
-    override suspend fun getCheckpoints(agentId: String): List<AgentCheckpointData> {
+class MyCustomStorageProvider<MyFilterType> : PersistenceStorageProvider<MyFilterType> {
+    override suspend fun getCheckpoints(agentId: String, filter: MyFilterType?): List<AgentCheckpointData> {
         TODO("Not yet implemented")
     }
 
@@ -344,7 +344,7 @@ class MyCustomStorageProvider : PersistenceStorageProvider {
         TODO("Not yet implemented")
     }
 
-    override suspend fun getLatestCheckpoint(agentId: String): AgentCheckpointData? {
+    override suspend fun getLatestCheckpoint(agentId: String, filter: MyFilterType?): AgentCheckpointData? {
         TODO("Not yet implemented")
     }
 }
@@ -360,7 +360,7 @@ val agent = AIAgent(
 
 ```kotlin
 install(Persistence) {
-    storage = MyCustomStorageProvider()
+    storage = MyCustomStorageProvider<Any>()
 }
 ```
 
@@ -389,7 +389,6 @@ fun example(context: AIAgentContext) {
         input = customInput
     )
 }
-
 ```
 
 <!--- KNIT example-agent-persistence-11.kt -->

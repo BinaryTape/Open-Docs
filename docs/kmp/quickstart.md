@@ -17,21 +17,14 @@ Kotlin Multiplatform (KMP) 项目需要特定的环境，但大多数要求都�
 
     对于独立安装，请下载 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/) 或 [Android Studio](https://developer.android.com/studio) 的安装程序。
 
-    Kotlin Multiplatform 所需的插件需要 **IntelliJ IDEA 2025.1.1.1** 或 **Android Studio Narwhal 2025.1.1**。
+    Kotlin Multiplatform 所需的插件需要至少 **IntelliJ IDEA 2025.1.1** 或 **Android Studio Narwhal 2025.1.1**。
 
 2.  安装 [Kotlin Multiplatform IDE 插件](https://plugins.jetbrains.com/plugin/14936-kotlin-multiplatform)（不要与 Kotlin Multiplatform Gradle 插件混淆）。
 
-    > Kotlin Multiplatform 插件尚未在 Windows 或 Linux 上的 IDE 中提供。但它在这些平台上也并非绝对必要：你仍然可以按照教程生成并运行 KMP 项目。
+    > 要在 Windows 和 Linux 上使用 Kotlin Multiplatform 插件，你需要 IntelliJ IDEA 2025.2.2。Android Studio 将在即将发布的版本中添加对 Windows 和 Linux 上的 KMP IDE 插件的支持。
     > {style="note"}
 
 3.  为 IntelliJ IDEA 安装 Kotlin Multiplatform IDE 插件还会安装所有必要的依赖项（如果你还没有安装），Android Studio 已捆绑所有必要的插件。
-
-    如果你在 Windows 或 Linux 上使用 IntelliJ IDEA，请确保手动安装所有必要的插件：
-    *   [Android](https://plugins.jetbrains.com/plugin/22989-android)
-    *   [Android Design Tools](https://plugins.jetbrains.com/plugin/22990-android-design-tools)
-    *   [Jetpack Compose](https://plugins.jetbrains.com/plugin/18409-jetpack-compose)
-    *   [Native Debugging Support](https://plugins.jetbrains.com/plugin/12775-native-debugging-support)
-    *   [Compose Multiplatform for Desktop IDE Support](https://plugins.jetbrains.com/plugin/16541-compose-multiplatform-for-desktop-ide-support)（仅当你没有 Kotlin Multiplatform 插件时才需要）。
 
 4.  如果你的 `ANDROID_HOME` 环境变量未设置，请配置你的系统以识别它：
 
@@ -70,10 +63,6 @@ Kotlin Multiplatform (KMP) 项目需要特定的环境，但大多数要求都�
 
 ## 创建项目
 
-### 在 macOS 上
-
-在 macOS 上，Kotlin Multiplatform 插件在 IDE 内部提供了一个项目生成向导：
-
 <Tabs>
 <TabItem title= "IntelliJ IDEA">
 
@@ -98,6 +87,9 @@ Kotlin Multiplatform (KMP) 项目需要特定的环境，但大多数要求都�
 
 </TabItem>
 <TabItem title= "Android Studio">
+
+> KMP IDE 插件尚不支持 Windows 和 Linux 版本的 Android Studio。
+> {style="warning"}
 
 Kotlin Multiplatform IDE 插件高度依赖 K2 功能，如果没有 K2 功能将无法按所述工作。
 因此，在开始之前，请确保 K2 模式已启用：**Settings** | **Languages & Frameworks** | **Kotlin** | **Enable K2 mode**。
@@ -127,14 +119,6 @@ Kotlin Multiplatform IDE 插件高度依赖 K2 功能，如果没有 K2 功能�
 </TabItem>
 </Tabs>
 
-### 在 Windows 或 Linux 上
-
-如果你在 Windows 或 Linux 上：
-
-1.  使用 [web KMP 向导](https://kmp.jetbrains.com/) 生成项目。
-2.  解压归档文件并在你的 IDE 中打开生成的文件夹。
-3.  等待导入完成，然后前往 [运行示例应用](#run-the-sample-apps) 部分，了解如何构建和运行应用程序。
-
 ## 查阅预检
 
 你可以通过打开 **Project Environment Preflight Checks** 工具窗口来确保项目设置没有环境问题：点击右侧边栏或底部栏上的预检图标 ![带有飞机的预检图标](ide-preflight-checks.png){width="20"}
@@ -149,7 +133,7 @@ Kotlin Multiplatform IDE 插件高度依赖 K2 功能，如果没有 K2 功能�
 ## 运行示例应用
 
 IDE 向导创建的项目包含为 iOS、Android、桌面和 Web 应用程序生成的运行配置，以及用于运行服务器应用程序的 Gradle 任务。
-在 Windows 和 Linux 上，请参阅下方每个平台的 Gradle 命令。
+在 Windows 和 Linux 上，以下列出了每个平台的具体 Gradle 命令。
 
 <Tabs>
 <TabItem title="Android">
@@ -239,7 +223,7 @@ Java 常见问题：
 
 ### Xcode
 
-如果你的 iOS 运行配置报告没有可运行的虚拟设备，请确保启动 Xcode 并查看是否有 iOS 模拟器的任何更新。
+如果你的 iOS 运行配置报告没有可运行的虚拟设备，或者预检失败，请确保启动 Xcode 并查看是否有 iOS 模拟器的任何更新。
 
 ### 获取帮助
 

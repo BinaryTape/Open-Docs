@@ -69,7 +69,7 @@ kotlinc-native main.kt -Xbinary=enableSafepointSignposts=true
         <td width="110">状态</td>
     </tr>
     <tr>
-        <td><a href="whatsnew-eap.md#smaller-binary-size-for-release-binaries"><code>smallBinary</code></a></td>
+        <td><a href="whatsnew2220.md#smaller-binary-size-for-release-binaries"><code>smallBinary</code></a></td>
         <td>
             <list>
                 <li><code>true</code></li>
@@ -80,7 +80,7 @@ kotlinc-native main.kt -Xbinary=enableSafepointSignposts=true
         <td>自 2.2.20 起为实验性的</td>
     </tr>
     <tr>
-        <td><a href="whatsnew-eap.md#support-for-stack-canaries-in-binaries"><code>stackProtector</code></a></td>
+        <td><a href="whatsnew2220.md#support-for-stack-canaries-in-binaries"><code>stackProtector</code></a></td>
         <td>
             <list>
                 <li><code>yes</code></li>
@@ -177,7 +177,7 @@ kotlinc-native main.kt -Xbinary=enableSafepointSignposts=true
         <td><code>preCodegenInlineThreshold</code></td>
         <td><code>UInt</code></td>
         <td>
-            <p>配置 Kotlin IR 编译器中的内联优化过程，该过程在实际代码生成阶段之前（默认为禁用）。</p> 
+            <p>配置 Kotlin IR 编译器中的内联优化过程，该过程在实际代码生成阶段之前（默认为禁用）。</p>
             <p>建议的 token 数量（由编译器解析的代码单元）为 40。</p>
         </td>
         <td>自 2.1.20 起为实验性的</td>

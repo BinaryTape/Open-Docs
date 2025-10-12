@@ -59,21 +59,23 @@ Kotlin/JS 也与最常见的模块系统兼容：[ESM](https://tc39.es/ecma262/#
 
 * 如果你是 Kotlin 新手，请先复习[基本语法](basic-syntax.md)并探索[Kotlin 之旅](kotlin-tour-welcome.md)。
 * 查看 [Kotlin/JS 示例项目](#sample-projects-for-kotlin-js)列表以寻求灵感。这些示例包含有用的代码片段和模式，可以帮助你启动你的项目。
-* 如果你是 Kotlin/JS 新手，请在探索更高级的主题之前，先从设置指南开始：
+* 如果你是 Kotlin/JS 新手，请在探索更高级的主题之前，先从[设置指南](js-project-setup.md)开始。
 
-<a href="js-project-setup.md"><img src="js-set-up-project.svg" width="600" alt="设置 Kotlin/JS 项目" style="block"/></a>
+你想亲自尝试 Kotlin/JS 吗？
+
+<a href="js-get-started.md"><img src="js-get-started-button.svg" width="500" alt="开始使用 Kotlin/JS" style="block"/></a>
 
 ## Kotlin/JS 示例项目
 
 下表列出了一组示例项目，它们演示了各种 Kotlin/JS 用例、架构和代码共享策略：
 
-| 项目                                                                                                                      | 描述                                                                                                                                                                                                                                                                                                                      |
-|-------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| [Petclinic：Spring 与 Angular 之间的公共代码](https://github.com/Kotlin/kmp-spring-petclinic/#readme)                   | 演示了通过共享数据传输对象、验证和认证规则以及 REST API 端点的抽象，如何在企业应用程序中避免代码重复。代码在 [Spring Boot](https://spring.io/projects/spring-boot) 后端和 [Angular](https://angular.dev/) 前端之间共享。                                                                                              |
-| [全栈会议 CMS](https://github.com/Kotlin/kmp-fullstack-conference-cms/#readme)                                        | 展示了多种代码共享方法，范围从最简单到 [Ktor](https://ktor.io/)、[Jetpack Compose](https://developer.android.com/compose) 和 [Vue.js](https://vuejs.org/) 应用程序之间的完全代码共享。                                                                                                                                  |
-| [基于 Compose-HTML 的 Kobweb 框架上的待办应用](https://github.com/varabyte/kobweb-templates/tree/main/examples/todo/#readme) | 演示了如何通过重用 Android 开发者熟悉的方法来创建待办列表应用程序。它构建了一个由 [Kobweb 框架](https://kobweb.varabyte.com/)提供支持的客户端 UI 应用程序。                                                                                                                                                           |
-| [Android、iOS 和 Web 之间的简单逻辑共享](https://github.com/Kotlin/kmp-logic-sharing-simple-example/#readme)          | 包含一个用于构建 Kotlin 公共逻辑项目的模板，该项目被 Android ([Jetpack Compose](https://developer.android.com/compose))、iOS ([SwiftUI](https://developer.apple.com/tutorials/swiftui/)) 和 Web ([React](https://react.dev/)) 上的平台原生 UI 应用程序所使用。                                                      |
-| [全栈协作待办列表](https://github.com/kotlin-hands-on/jvm-js-fullstack/#readme)                                        | 演示了如何使用带有 JS 和 JVM 目标平台的 Kotlin Multiplatform 创建用于协作的待办列表应用程序。它使用 [Ktor](https://ktor.io/) 作为后端，以及 Kotlin/JS 和 React 作为前端。                                                                                                                                             |
+| Project                                                                                                                           | Description                                                                                                                                                                                                                                                                                                                      |
+|-----------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| [Petclinic with common code between Spring and Angular](https://github.com/Kotlin/kmp-spring-petclinic/#readme)                   | 演示了通过共享数据传输对象、验证和认证规则以及 REST API 端点的抽象，如何在企业应用程序中避免代码重复。代码在 [Spring Boot](https://spring.io/projects/spring-boot) 后端和 [Angular](https://angular.dev/) 前端之间共享。                                                                                              |
+| [Fullstack Conference CMS](https://github.com/Kotlin/kmp-fullstack-conference-cms/#readme)                                        | 展示了多种代码共享方法，范围从最简单到 [Ktor](https://ktor.io/)、[Jetpack Compose](https://developer.android.com/compose) 和 [Vue.js](https://vuejs.org/) 应用程序之间的完全代码共享。                                                                                                                                  |
+| [Todo App on a Compose-HTML-based Kobweb framework](https://github.com/varabyte/kobweb-templates/tree/main/examples/todo/#readme) | 演示了如何通过重用 Android 开发者熟悉的方法来创建待办列表应用程序。它构建了一个由 [Kobweb 框架](https://kobweb.varabyte.com/)提供支持的客户端 UI 应用程序。                                                                                                                                                           |
+| [Simple logic sharing between Android, iOS, and web](https://github.com/Kotlin/kmp-logic-sharing-simple-example/#readme)          | 包含一个用于构建 Kotlin 公共逻辑项目的模板，该项目被 Android ([Jetpack Compose](https://developer.android.com/compose))、iOS ([SwiftUI](https://developer.apple.com/tutorials/swiftui/)) 和 Web ([React](https://react.dev/)) 上的平台原生 UI 应用程序所使用。                                                      |
+| [Full-stack collaborative to-do list](https://github.com/kotlin-hands-on/jvm-js-fullstack/#readme)                                | 演示了如何使用带有 JS 和 JVM 目标平台的 Kotlin Multiplatform 创建用于协作的待办列表应用程序。它使用 [Ktor](https://ktor.io/) 作为后端，以及 Kotlin/JS 和 React 作为前端。                                                                                                                                             |
 
 ## Kotlin/JS 框架
 

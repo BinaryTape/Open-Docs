@@ -13,7 +13,7 @@
 
 Koog 框架提供以下實作工具的方法：
 
-*   將 `Tool` 作為所有工具的基礎類別。當您需要傳回非文字結果或需要完全控制工具行為時，應使用此類別。
+*   使用 `Tool` 作為所有工具的基礎類別。當您需要傳回非文字結果或需要完全控制工具行為時，應使用此類別。
 *   使用 `SimpleTool` 類別，它擴展了基礎 `Tool` 類別，並簡化了傳回文字結果的工具建立。當工具只需要傳回文字時，應使用此方法。
 
 這兩種方法都使用相同的核心元件，但在實作和傳回結果方面有所不同。
@@ -56,9 +56,9 @@ object CalculatorTool : Tool<CalculatorTool.Args, Int>() {
     // 計算機工具的引數
     @Serializable
     data class Args(
-        @property:LLMDescription("要加的第一個數字 (0-9)")
+        @property:LLMDescription("The first digit to add (0-9)")
         val digit1: Int,
-        @property:LLMDescription("要加的第二個數字 (0-9)")
+        @property:LLMDescription("The second digit to add (0-9)")
         val digit2: Int
     ) {
         init {
@@ -96,7 +96,7 @@ object CalculatorTool : Tool<CalculatorTool.Args, Int>() {
 |------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `Args`                                   | 定義自訂工具所需引數的可序列化資料類別。                                                                                                                                                                                                                                                        |
 | `argsSerializer`                         | 定義工具引數如何序列化的覆寫變數。另請參閱 [argsSerializer](https://api.koog.ai/agents/agents-tools/ai.koog.agents.core.tools/-tool/args-serializer.html)。                                                                                             |
-| `descriptor`                             | 指定工具中繼資料的覆寫變數：<br/>- `name`<br/>- `description`<br/>- `requiredParameters` (預設為空)<br/>- `optionalParameters` (預設為空)<br/>另請參閱 [descriptor](https://api.koog.ai/agents/agents-tools/ai.koog.agents.core.tools/-tool/descriptor.html)。 |
+| `descriptor`                             | 指定工具中繼資料的覆寫變數：<br/>- `name`<br/>- `description`<br/>- `requiredParameters` (預設為空)<br/> - `optionalParameters` (預設為空)<br/> 另請參閱 [descriptor](https://api.koog.ai/agents/agents-tools/ai.koog.agents.core.tools/-tool/descriptor.html)。 |
 | `doExecute()`                            | 描述工具執行主要動作的覆寫函式。它接受類型為 `Args` 的引數並傳回 `String`。另請參閱 [doExecute()](https://api.koog.ai/agents/agents-tools/ai.koog.agents.core.tools/-simple-tool/do-execute.html)。                                          |
 
 !!! tip
@@ -108,12 +108,8 @@ object CalculatorTool : Tool<CalculatorTool.Args, Int>() {
 
 <!--- INCLUDE
 import ai.koog.agents.core.tools.SimpleTool
-import ai.koog.agents.core.tools.ToolArgs
-import ai.koog.agents.core.tools.ToolDescriptor
-import ai.koog.agents.core.tools.ToolParameterDescriptor
-import ai.koog.agents.core.tools.ToolParameterType
-import kotlinx.serialization.Serializable
 import ai.koog.agents.core.tools.annotations.LLMDescription
+import kotlinx.serialization.Serializable
 -->
 ```kotlin
 // 建立一個將字串表達式轉換為雙精度浮點數值的工具
@@ -121,9 +117,9 @@ object CastToDoubleTool : SimpleTool<CastToDoubleTool.Args>() {
     // 定義工具引數
     @Serializable
     data class Args(
-        @property:LLMDescription("要轉換為雙精度浮點數的表達式")
+        @property:LLMDescription("An expression to case to double")
         val expression: String,
-        @property:LLMDescription("關於如何處理表達式的註解")
+        @property:LLMDescription("A comment on how to process the expression")
         val comment: String
     )
 
@@ -131,7 +127,7 @@ object CastToDoubleTool : SimpleTool<CastToDoubleTool.Args>() {
     override val argsSerializer = Args.serializer()
 
     // 工具的描述，LLM 可見
-    override val description = "casts the passed expression to double or returns 0.0 if the expression is not castable"
+    override val description = "將傳入的表達式轉換為雙精度浮點數，如果無法轉換則傳回 0.0"
     
     // 使用提供的引數執行工具的函式
     override suspend fun doExecute(args: Args): String {
@@ -156,7 +152,6 @@ object CastToDoubleTool : SimpleTool<CastToDoubleTool.Args>() {
 
 <!--- INCLUDE
 import ai.koog.agents.core.tools.Tool
-import ai.koog.agents.core.tools.ToolResult
 import ai.koog.agents.core.tools.ToolDescriptor
 import ai.koog.agents.core.tools.ToolParameterDescriptor
 import ai.koog.agents.core.tools.ToolParameterType
@@ -178,19 +173,19 @@ object EditFile : Tool<EditFile.Args, EditFile.Result>() {
     @Serializable
     public data class Result(
         private val patchApplyResult: PatchApplyResult
-    ) : ToolResult.TextSerializable() {
+    ) {
 
         @Serializable
         public sealed interface PatchApplyResult {
             @Serializable
             public data class Success(val updatedContent: String) : PatchApplyResult
-            
+
             @Serializable
             public sealed class Failure(public val reason: String) : PatchApplyResult
         }
-        
+
         // 工具完成後，LLM 將會看見的文字輸出 (Markdown 格式)。
-        override fun textForLLM(): String = markdown {
+        fun textForLLM(): String = markdown {
             if (patchApplyResult is PatchApplyResult.Success) {
                 line {
                     bold("Successfully").text(" edited file (patch applied)")
@@ -213,7 +208,7 @@ object EditFile : Tool<EditFile.Args, EditFile.Result>() {
 
     // 工具的描述，LLM 可見
     override val description = "Edits the given file"
-    
+
     // 使用提供的引數執行工具的函式
     override suspend fun execute(args: Args): Result {
         return TODO("實作檔案編輯")

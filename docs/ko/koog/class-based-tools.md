@@ -110,12 +110,8 @@ object CalculatorTool : Tool<CalculatorTool.Args, Int>() {
 
 <!--- INCLUDE
 import ai.koog.agents.core.tools.SimpleTool
-import ai.koog.agents.core.tools.ToolArgs
-import ai.koog.agents.core.tools.ToolDescriptor
-import ai.koog.agents.core.tools.ToolParameterDescriptor
-import ai.koog.agents.core.tools.ToolParameterType
-import kotlinx.serialization.Serializable
 import ai.koog.agents.core.tools.annotations.LLMDescription
+import kotlinx.serialization.Serializable
 -->
 ```kotlin
 // Create a tool that casts a string expression to a double value
@@ -148,7 +144,7 @@ object CastToDoubleTool : SimpleTool<CastToDoubleTool.Args>() {
 ```
 <!--- KNIT example-class-based-tools-02.kt --> 
 
-### 사용자 정의 형식으로 LLM에 도구 결과 전송
+### LLM에 도구 결과를 사용자 정의 형식으로 전송
 
 JSON 결과가 LLM에 전송되는 방식이 만족스럽지 않다면 (예를 들어, 어떤 경우에는 도구 출력이 Markdown으로 구조화될 때 LLM이 더 잘 작동할 수 있습니다) 다음 단계를 따라야 합니다.
 1. `ToolResult.TextSerializable` 인터페이스를 구현하고 `textForLLM()` 메서드를 오버라이드합니다.
@@ -158,7 +154,6 @@ JSON 결과가 LLM에 전송되는 방식이 만족스럽지 않다면 (예를 �
 
 <!--- INCLUDE
 import ai.koog.agents.core.tools.Tool
-import ai.koog.agents.core.tools.ToolResult
 import ai.koog.agents.core.tools.ToolDescriptor
 import ai.koog.agents.core.tools.ToolParameterDescriptor
 import ai.koog.agents.core.tools.ToolParameterType
@@ -180,19 +175,19 @@ object EditFile : Tool<EditFile.Args, EditFile.Result>() {
     @Serializable
     public data class Result(
         private val patchApplyResult: PatchApplyResult
-    ) : ToolResult.TextSerializable() {
+    ) {
 
         @Serializable
         public sealed interface PatchApplyResult {
             @Serializable
             public data class Success(val updatedContent: String) : PatchApplyResult
-            
+
             @Serializable
             public sealed class Failure(public val reason: String) : PatchApplyResult
         }
-        
+
         // Textual output (in Markdown format) that will be visible to the LLM after the tool finishes.
-        override fun textForLLM(): String = markdown {
+        fun textForLLM(): String = markdown {
             if (patchApplyResult is PatchApplyResult.Success) {
                 line {
                     bold("Successfully").text(" edited file (patch applied)")
@@ -215,14 +210,14 @@ object EditFile : Tool<EditFile.Args, EditFile.Result>() {
 
     // Description of the tool, visible to LLM
     override val description = "Edits the given file"
-    
+
     // Function that executes the tool with the provided arguments
     override suspend fun execute(args: Args): Result {
         return TODO("Implement file edit")
     }
 }
 ```
-<!--- KNIT example-class-based-tools-03.kt -->
+<!--- KNIT example-class-based-tools-03.kt --> 
 
 도구를 구현한 후에는 도구 레지스트리에 추가한 다음 에이전트와 함께 사용해야 합니다.
 자세한 내용은 [도구 레지스트리](tools-overview.md#tool-registry)를 참조하세요.

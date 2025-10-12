@@ -1,10 +1,8 @@
 [//]: # (title: 参与 Kotlin 抢先体验预览)
 
-<!--
 <tldr>
-    <p>Latest Kotlin EAP release: <strong>%kotlinEapVersion%</strong></p>
+    <p>最新 Kotlin EAP 版本：<strong>%kotlinEapVersion%</strong></p>
 </tldr>
--->
 
 您可以参与 Kotlin 抢先体验预览 (EAP)，以便在最新 Kotlin 特性发布前进行试用。
 
@@ -34,23 +32,31 @@
 
 ## 构建详情
 
-_目前没有可用的预览版本。_
+<!-- _No preview versions are currently available._ -->
 
-<!--
 <table>
     <tr>
-        <th>Build info</th>
-        <th>Build highlights</th>
+        <th>构建信息</th>
+        <th>构建亮点</th>
     </tr>
     <tr>
-        <td><strong>2.2.20-RC2</strong>
-            <p>Released: <strong>September 1, 2025</strong></p>
-            <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.2.20-RC2" target="_blank">Release on GitHub</a></p>
+        <td><strong>2.3.0-Beta1</strong>
+            <p>发布时间：<strong>October 7, 2025</strong></p>
+            <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.3.0-Beta1" target="_blank">在 GitHub 上发布</a></p>
         </td>
         <td>
-            <p>A tooling release containing improvements and bug fixes.</p>
-            <p>For more details, please refer to the <a href="https://github.com/JetBrains/kotlin/releases/tag/v2.2.20-RC2">changelog</a> or <a href="whatsnew-eap.md">What's new in Kotlin 2.2.20-RC2</a>.</p>
+            <p>一个语言版本，包含新特性预览和工具链更新。</p>
+            <p>有关更多详情，请参见 <a href="https://github.com/JetBrains/kotlin/releases/tag/v2.3.0-Beta1">更新日志</a> 或 <a href="whatsnew-eap.md">Kotlin 2.3.0-Beta1 的新特性</a>。</p>
         </td>
     </tr>
+    <tr>
+        <td><strong>2.2.21-RC</strong>
+            <p>发布时间：<strong>October 7, 2025</strong></p>
+            <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.2.21-RC" target="_blank">在 GitHub 上发布</a></p>
+        </td>
+        <td>
+            <p>一个工具链版本，包含对 Xcode 26 的支持，以及其他改进和 bug 修复。</p>
+            <p>有关更多详情，请参见 <a href="https://github.com/JetBrains/kotlin/releases/tag/v2.2.21-RC">更新日志</a> 或 <a href="whatsnew-eap.md">Kotlin 2.2.21-RC 的新特性</a>。</p>
+    </td>
+    </tr>
 </table>
--->

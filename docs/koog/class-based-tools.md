@@ -108,12 +108,8 @@ object CalculatorTool : Tool<CalculatorTool.Args, Int>() {
 
 <!--- INCLUDE
 import ai.koog.agents.core.tools.SimpleTool
-import ai.koog.agents.core.tools.ToolArgs
-import ai.koog.agents.core.tools.ToolDescriptor
-import ai.koog.agents.core.tools.ToolParameterDescriptor
-import ai.koog.agents.core.tools.ToolParameterType
-import kotlinx.serialization.Serializable
 import ai.koog.agents.core.tools.annotations.LLMDescription
+import kotlinx.serialization.Serializable
 -->
 ```kotlin
 // 创建一个将字符串表达式转换为双精度值的工具
@@ -156,7 +152,6 @@ object CastToDoubleTool : SimpleTool<CastToDoubleTool.Args>() {
 
 <!--- INCLUDE
 import ai.koog.agents.core.tools.Tool
-import ai.koog.agents.core.tools.ToolResult
 import ai.koog.agents.core.tools.ToolDescriptor
 import ai.koog.agents.core.tools.ToolParameterDescriptor
 import ai.koog.agents.core.tools.ToolParameterType
@@ -178,19 +173,19 @@ object EditFile : Tool<EditFile.Args, EditFile.Result>() {
     @Serializable
     public data class Result(
         private val patchApplyResult: PatchApplyResult
-    ) : ToolResult.TextSerializable() {
+    ) {
 
         @Serializable
         public sealed interface PatchApplyResult {
             @Serializable
             public data class Success(val updatedContent: String) : PatchApplyResult
-            
+
             @Serializable
             public sealed class Failure(public val reason: String) : PatchApplyResult
         }
-        
+
         // 工具完成后，LLM 将看到的文本输出（Markdown 格式）。
-        override fun textForLLM(): String = markdown {
+        fun textForLLM(): String = markdown {
             if (patchApplyResult is PatchApplyResult.Success) {
                 line {
                     bold("Successfully").text(" edited file (patch applied)")
@@ -213,13 +208,13 @@ object EditFile : Tool<EditFile.Args, EditFile.Result>() {
 
     // 工具描述，对 LLM 可见
     override val description = "Edits the given file"
-    
+
     // 使用提供的实参执行工具的函数
     override suspend fun execute(args: Args): Result {
         return TODO("Implement file edit")
     }
 }
 ```
-<!--- KNIT example-class-based-tools-03.kt -->
+<!--- KNIT example-class-based-tools-03.kt --> 
 
 实现工具后，您需要将其添加到工具注册表，然后与代理一起使用。有关详细信息，请参见 [工具注册表](tools-overview.md#tool-registry)。

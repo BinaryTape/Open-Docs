@@ -229,12 +229,12 @@ fun main() {
 }
 -->
 ```kotlin
-// Define a simple, single-provider prompt executor
+// 단순한 단일 공급자 프롬프트 실행기 정의
 val promptExecutor = simpleOpenAIExecutor(System.getenv("OPENAI_KEY"))
 
-// Make an LLM call that returns a structured response
+// 구조화된 응답을 반환하는 LLM 호출 생성
 val structuredResponse = promptExecutor.executeStructured<WeatherForecast>(
-        // Define the prompt (both system and user messages)
+        // 프롬프트 정의 (시스템 및 사용자 메시지 모두)
         prompt = prompt("structured-data") {
             system(
                 """
@@ -246,11 +246,11 @@ val structuredResponse = promptExecutor.executeStructured<WeatherForecast>(
               "What is the weather forecast for Amsterdam?"
             )
         },
-        // Define the main model that will execute the request
+        // 요청을 실행할 주 모델 정의
         model = OpenAIModels.CostOptimized.GPT4oMini,
-        // Optional: provide examples to help the model understand the format
+        // 선택 사항: 모델이 형식을 이해하는 데 도움이 되는 예시 제공
         examples = exampleForecasts,
-        // Optional: provide a fixing parser for error correction
+        // 선택 사항: 오류 수정을 위한 교정 파서 제공
         fixingParser = StructureFixingParser(
             fixingModel = OpenAIModels.Chat.GPT4o,
             retries = 3
@@ -374,7 +374,7 @@ val agentStrategy = strategy("weather-forecast") {
         "Please provide a weather forecast for Amsterdam"
     }
     
-    // Create a structured output node using delegate syntax
+    // 위임 구문을 사용하여 구조화된 출력 노드 생성
     val getWeatherForecast by nodeLLMRequestStructured<WeatherForecast>(
         name = "forecast-node",
         examples = exampleForecasts,
@@ -428,7 +428,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 -->
 ```kotlin
-// Note: Import statements are omitted for brevity
+// 참고: import 문은 간결성을 위해 생략되었습니다.
 @Serializable
 @SerialName("SimpleWeatherForecast")
 @LLMDescription("Simple weather forecast for a location")
@@ -444,7 +444,7 @@ data class SimpleWeatherForecast(
 val token = System.getenv("OPENAI_KEY") ?: error("Environment variable OPENAI_KEY is not set")
 
 fun main(): Unit = runBlocking {
-    // Create sample forecasts
+    // 샘플 예측 생성
     val exampleForecasts = listOf(
         SimpleWeatherForecast(
             location = "New York",
@@ -458,13 +458,13 @@ fun main(): Unit = runBlocking {
         )
     )
 
-    // Generate JSON Schema
+    // JSON 스키마 생성
     val forecastStructure = JsonStructuredData.createJsonStructure<SimpleWeatherForecast>(
         schemaGenerator = BasicJsonSchemaGenerator.Default,
         examples = exampleForecasts
     )
 
-    // Define the agent strategy
+    // 에이전트 전략 정의
     val agentStrategy = strategy("weather-forecast") {
         val setup by nodeLLMRequest()
   
@@ -484,7 +484,7 @@ fun main(): Unit = runBlocking {
         edge(getStructuredForecast forwardTo nodeFinish)
     }
 
-    // Configure and run the agent
+    // 에이전트 구성 및 실행
     val agentConfig = AIAgentConfig(
         prompt = prompt("weather-forecast-prompt") {
             system(
@@ -539,7 +539,7 @@ import ai.koog.prompt.structure.StructuredOutputConfig
 import ai.koog.prompt.structure.StructureFixingParser
 import ai.koog.prompt.structure.json.JsonStructuredData
 import ai.koog.prompt.structure.json.generator.StandardJsonSchemaGenerator
-import ai.koog.prompt.executor.clients.openai.structure.OpenAIBasicJsonSchemaGenerator
+import ai.koog.prompt.executor.clients.openai.base.structure.OpenAIBasicJsonSchemaGenerator
 import ai.koog.prompt.llm.LLMProvider
 import kotlinx.coroutines.runBlocking
 
@@ -551,7 +551,7 @@ fun main() {
 }
 -->
 ```kotlin
-// Create different schema structures with different generators
+// 다른 생성기로 다른 스키마 구조 생성
 val genericStructure = JsonStructuredData.createJsonStructure<WeatherForecast>(
     schemaGenerator = StandardJsonSchemaGenerator,
     examples = exampleForecasts
@@ -564,7 +564,7 @@ val openAiStructure = JsonStructuredData.createJsonStructure<WeatherForecast>(
 
 val promptExecutor = simpleOpenAIExecutor(System.getenv("OPENAI_KEY"))
 
-// The advanced API uses StructuredOutputConfig instead of simple parameters
+// 고급 API는 단순 매개변수 대신 StructuredOutputConfig를 사용합니다.
 val structuredResponse = promptExecutor.executeStructured(
     prompt = prompt("structured-data") {
         system("You are a weather forecasting assistant.")

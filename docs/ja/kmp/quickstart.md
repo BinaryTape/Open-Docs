@@ -19,26 +19,18 @@ IDE と必要なプラグインから始めます。
 
     スタンドアロンインストールの場合、[IntelliJ IDEA](https://www.jetbrains.com/idea/download/) または [Android Studio](https://developer.android.com/studio) のインストーラーをダウンロードしてください。
 
-    Kotlin Multiplatform に必要なプラグインは、**IntelliJ IDEA 2025.1.1.1** または **Android Studio Narwhal 2025.1.1** を必要とします。
+    Kotlin Multiplatform に必要なプラグインには、少なくとも **IntelliJ IDEA 2025.1.1**
+    または **Android Studio Narwhal 2025.1.1** が必要です。
 
 2.  [Kotlin Multiplatform IDE プラグイン](https://plugins.jetbrains.com/plugin/14936-kotlin-multiplatform)をインストールします (Kotlin Multiplatform Gradle プラグインと混同しないように)。
 
-    > Kotlin Multiplatform プラグインは、Windows または Linux の IDE ではまだ利用できません。
-    > しかし、これらのプラットフォームで厳密に必要というわけでもありません。
-    > KMP プロジェクトを生成して実行するためのチュートリアルは引き続き実行できます。
+    > Windows および Linux で Kotlin Multiplatform プラグインを使用するには、IntelliJ IDEA 2025.2.2 が必要です。
+    > Android Studio は、今後のリリースで Windows および Linux 上の KMP IDE プラグインのサポートを追加する予定です。
     >
     {style="note"}
 
 3.  IntelliJ IDEA 用の Kotlin Multiplatform IDE プラグインをインストールすると、まだ持っていない場合は必要なすべての依存関係もインストールされます
     (Android Studio には必要なすべてのプラグインがバンドルされています)。
-
-    Windows または Linux 用の IntelliJ IDEA を使用している場合は、必要なすべてのプラグインを手動でインストールしていることを確認してください。
-    *   [Android](https://plugins.jetbrains.com/plugin/22989-android)
-    *   [Android Design Tools](https://plugins.jetbrains.com/plugin/22990-android-design-tools)
-    *   [Jetpack Compose](https://plugins.jetbrains.com/plugin/18409-jetpack-compose)
-    *   [Native Debugging Support](https://plugins.jetbrains.com/plugin/12775-native-debugging-support)
-    *   [Compose Multiplatform for Desktop IDE Support](https://plugins.jetbrains.com/plugin/16541-compose-multiplatform-for-desktop-ide-support)
-        (Kotlin Multiplatform プラグインがない場合にのみ必要です)。
 
 4.  `ANDROID_HOME` 環境変数が設定されていない場合は、システムがそれを認識するように設定します。
 
@@ -81,10 +73,6 @@ IDE と必要なプラグインから始めます。
 
 ## プロジェクトを作成
 
-### macOS の場合
-
-macOS では、Kotlin Multiplatform プラグインが IDE 内でプロジェクト生成ウィザードを提供します。
-
 <Tabs>
 <TabItem title= "IntelliJ IDEA">
 
@@ -110,6 +98,10 @@ IDE ウィザードを使用して新しい KMP プロジェクトを作成し�
 
 </TabItem>
 <TabItem title= "Android Studio">
+
+> KMP IDE プラグインは、Android Studio の Windows および Linux バージョンではまだサポートされていません。
+>
+{style="warning"}
 
 Kotlin Multiplatform IDE プラグインは K2 機能に大きく依存しており、それがなければ記載どおりに動作しません。
 したがって、開始する前に K2 モードが有効になっていることを確認してください。
@@ -141,14 +133,6 @@ IDE ウィザードを使用して新しい KMP プロジェクトを作成し�
 </TabItem>
 </Tabs>
 
-### Windows または Linux の場合
-
-Windows または Linux を使用している場合:
-
-1.  [Web KMP ウィザード](https://kmp.jetbrains.com/) を使用してプロジェクトを生成します。
-2.  アーカイブを解凍し、生成されたフォルダを IDE で開きます。
-3.  インポートが完了するのを待ってから、[undefined](#run-the-sample-apps) セクションに進み、アプリのビルドと実行方法について学習します。
-
 ## プリフライトチェックを確認する
 
 **Project Environment Preflight Checks** ツールウィンドウを開いて、プロジェクト設定に環境の問題がないことを確認できます。
@@ -163,9 +147,10 @@ Windows または Linux を使用している場合:
 
 ## サンプルアプリを実行する
 
-IDE ウィザードによって作成されたプロジェクトには、iOS、Android、デスクトップ、および Web アプリケーション用の生成された実行設定、
+IDE ウィザードによって作成されたプロジェクトには、iOS、Android、
+デスクトップ、および Web アプリケーション用の生成された実行設定、
 ならびにサーバーアプリを実行するための Gradle タスクが含まれています。
-Windows および Linux の場合、各プラットフォームの Gradle コマンドについては以下を参照してください。
+各プラットフォームの具体的な Gradle コマンドは以下に示します。
 
 <Tabs>
 <TabItem title="Android">
@@ -174,7 +159,7 @@ Android アプリを実行するには、**composeApp** 実行設定を開始し
 
 ![Android 実行設定がハイライトされたドロップダウン](run-android-configuration.png){width=250}
 
-Windows または Linux で Android アプリを実行するには、**Android App** 実行設定を作成し、モジュールを **[プロジェクト名].composeApp** に選択します。
+Android 実行設定を手動で作成するには、実行設定テンプレートとして **Android App** を選択し、モジュールを **[プロジェクト名].composeApp** に選択します。
 
 デフォルトでは、利用可能な最初の仮想デバイスで実行されます。
 
@@ -204,7 +189,7 @@ iOS アプリを実行すると、内部で Xcode を使用してビルドされ
 
 ![デフォルトのデスクトップ実行設定がハイライトされたドロップダウン](run-desktop-configuration.png){width=250}
 
-Windows または Linux でデスクトップアプリを実行するには、以下のコマンドで **[アプリ名]:composeApp** Gradle プロジェクトを指す **Gradle** 実行設定を作成します。
+デスクトップ実行設定を手動で作成するには、**Gradle** 実行設定テンプレートを選択し、以下のコマンドで **[アプリ名]:composeApp** Gradle プロジェクトを指します。
 
 ```shell
 desktopRun -DmainClass=com.example.myapplication.MainKt --quiet
@@ -221,7 +206,7 @@ Web アプリのデフォルトの実行設定は、**composeApp [wasmJs]** と�
 
 ![デフォルトの Wasm 実行設定がハイライトされたドロップダウン](run-wasm-configuration.png){width=250}
 
-Windows または Linux で Web アプリを実行するには、以下のコマンドで **[アプリ名]:composeApp** Gradle プロジェクトを指す **Gradle** 実行設定を作成します。
+Web 実行設定を手動で作成するには、**Gradle** 実行設定テンプレートを選択し、以下のコマンドで **[アプリ名]:composeApp** Gradle プロジェクトを指します。
 
 ```shell
 wasmJsBrowserDevelopmentRun
@@ -254,11 +239,12 @@ Java に関する一般的な問題:
 
 ### Android ツール
 
-JDK と同様に、`adb` などの Android ツールを起動する際に問題がある場合は、`ANDROID_HOME/tools`、`ANDROID_HOME/tools/bin`、および `ANDROID_HOME/platform-tools` へのパスが `PATH` 環境変数に追加されていることを確認してください。
+JDK と同様に、`adb` などの Android ツールを起動する際に問題がある場合は、`ANDROID_HOME/tools`、`ANDROID_HOME/tools/bin`、および
+`ANDROID_HOME/platform-tools` へのパスが `PATH` 環境変数に追加されていることを確認してください。
 
 ### Xcode
 
-iOS 実行設定が実行する仮想デバイスがないと報告する場合は、Xcode を起動し、iOS シミュレーターのアップデートがないか確認してください。
+iOS 実行設定が実行する仮想デバイスがないと報告する場合、またはプリフライトチェックが失敗する場合は、Xcode を起動し、iOS シミュレーターのアップデートがないか確認してください。
 
 ### ヘルプ
 

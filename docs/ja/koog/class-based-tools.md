@@ -27,7 +27,7 @@ Koogフレームワークは、ツールの実装に関して次のアプロー�
 各ツールは次のコンポーネントで構成されます。
 
 | <div style="width:110px">コンポーネント</div> | 説明                                                                                                                                                                                                                                                                                                                   |
-|------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `Args`                                   | ツールに必要な引数を定義するシリアライズ可能なデータクラス。                                                                                                                                                                                                                                                                       |
 | `Result`                                 | ツールが返す結果のシリアライズ可能な型。ツール結果をカスタムフォーマットで表示したい場合は、[ToolResult.TextSerializable](https://api.koog.ai/agents/agents-tools/ai.koog.agents.core.tools/-tool-result/-text-serializable/index.html) クラスを継承し、`textForLLM(): String` メソッドを実装してください。                                                                                                          |
 | `argsSerializer`                         | ツールの引数をどのようにデシリアライズするかを定義するオーバーライドされた変数。[argsSerializer](https://api.koog.ai/agents/agents-tools/ai.koog.agents.core.tools/-tool/args-serializer.html) も参照してください。                                                                                                                  |
@@ -110,12 +110,8 @@ object CalculatorTool : Tool<CalculatorTool.Args, Int>() {
 
 <!--- INCLUDE
 import ai.koog.agents.core.tools.SimpleTool
-import ai.koog.agents.core.tools.ToolArgs
-import ai.koog.agents.core.tools.ToolDescriptor
-import ai.koog.agents.core.tools.ToolParameterDescriptor
-import ai.koog.agents.core.tools.ToolParameterType
-import kotlinx.serialization.Serializable
 import ai.koog.agents.core.tools.annotations.LLMDescription
+import kotlinx.serialization.Serializable
 -->
 ```kotlin
 // Create a tool that casts a string expression to a double value
@@ -180,19 +176,19 @@ object EditFile : Tool<EditFile.Args, EditFile.Result>() {
     @Serializable
     public data class Result(
         private val patchApplyResult: PatchApplyResult
-    ) : ToolResult.TextSerializable() {
+    ) {
 
         @Serializable
         public sealed interface PatchApplyResult {
             @Serializable
             public data class Success(val updatedContent: String) : PatchApplyResult
-            
+
             @Serializable
             public sealed class Failure(public val reason: String) : PatchApplyResult
         }
-        
+
         // Textual output (in Markdown format) that will be visible to the LLM after the tool finishes.
-        override fun textForLLM(): String = markdown {
+        fun textForLLM(): String = markdown {
             if (patchApplyResult is PatchApplyResult.Success) {
                 line {
                     bold("Successfully").text(" edited file (patch applied)")
@@ -215,7 +211,7 @@ object EditFile : Tool<EditFile.Args, EditFile.Result>() {
 
     // Description of the tool, visible to LLM
     override val description = "Edits the given file"
-    
+
     // Function that executes the tool with the provided arguments
     override suspend fun execute(args: Args): Result {
         return TODO("Implement file edit")

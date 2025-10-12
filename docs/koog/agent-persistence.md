@@ -2,9 +2,9 @@
 
 智能体持久化是一种特性，它为 Koog 框架中的 AI 智能体提供检查点功能。它允许你在执行期间的特定点保存和恢复智能体的状态，从而实现以下功能：
 
-- 从特定点恢复智能体执行。
-- 回滚到以前的状态。
-- 在会话间持久化智能体状态。
+- 从特定点恢复智能体执行
+- 回滚到以前的状态
+- 在会话间持久化智能体状态
 
 ## 关键概念
 
@@ -12,10 +12,10 @@
 
 检查点捕获了智能体在其执行中特定点的完整状态，包括：
 
-- 消息历史（用户、系统、助手和工具之间的所有交互）。
-- 当前正在执行的节点。
-- 当前节点的输入数据。
-- 创建时间戳。
+- 消息历史（用户、系统、助手和工具之间的所有交互）
+- 当前正在执行的节点
+- 当前节点的输入数据
+- 创建时间戳
 
 检查点通过唯一 ID 标识，并与特定智能体相关联。
 
@@ -169,7 +169,7 @@ suspend fun example(context: AIAgentContext) {
         checkpointId = context.runId,
     )
 
-    // The checkpoint ID can be stored for later use
+    // The checkpoint ID 可以存储以供将来使用
     val checkpointId = checkpoint?.checkpointId
 }
 ```
@@ -300,19 +300,20 @@ import ai.koog.agents.snapshot.providers.PersistenceStorageProvider
 */
 -->
 ```kotlin
-class MyCustomStorageProvider : PersistenceStorageProvider {
-    override suspend fun getCheckpoints(agentId: String): List<AgentCheckpointData> {
-        // 实现
+class MyCustomStorageProvider<MyFilterType> : PersistenceStorageProvider<MyFilterType> {
+    override suspend fun getCheckpoints(agentId: String, filter: MyFilterType?): List<AgentCheckpointData> {
+        TODO("Not yet implemented")
     }
-    
+
     override suspend fun saveCheckpoint(agentId: String, agentCheckpointData: AgentCheckpointData) {
-        // 实现
+        TODO("Not yet implemented")
     }
-    
-    override suspend fun getLatestCheckpoint(agentId: String): AgentCheckpointData? {
-        // 实现
+
+    override suspend fun getLatestCheckpoint(agentId: String, filter: MyFilterType?): AgentCheckpointData? {
+        TODO("Not yet implemented")
     }
 }
+
 ```
 
 <!--- KNIT example-agent-persistence-09.kt -->
@@ -327,8 +328,8 @@ import ai.koog.agents.snapshot.providers.PersistenceStorageProvider
 import ai.koog.prompt.executor.llms.all.simpleOllamaAIExecutor
 import ai.koog.prompt.llm.OllamaModels
 
-class MyCustomStorageProvider : PersistenceStorageProvider {
-    override suspend fun getCheckpoints(agentId: String): List<AgentCheckpointData> {
+class MyCustomStorageProvider<MyFilterType> : PersistenceStorageProvider<MyFilterType> {
+    override suspend fun getCheckpoints(agentId: String, filter: MyFilterType?): List<AgentCheckpointData> {
         TODO("Not yet implemented")
     }
 
@@ -336,7 +337,7 @@ class MyCustomStorageProvider : PersistenceStorageProvider {
         TODO("Not yet implemented")
     }
 
-    override suspend fun getLatestCheckpoint(agentId: String): AgentCheckpointData? {
+    override suspend fun getLatestCheckpoint(agentId: String, filter: MyFilterType?): AgentCheckpointData? {
         TODO("Not yet implemented")
     }
 }
@@ -352,7 +353,7 @@ val agent = AIAgent(
 
 ```kotlin
 install(Persistence) {
-    storage = MyCustomStorageProvider()
+    storage = MyCustomStorageProvider<Any>()
 }
 ```
 

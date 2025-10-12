@@ -1,10 +1,8 @@
 [//]: # (title: Kotlin 얼리 액세스 프리뷰 참여)
 
-<!--
 <tldr>
-    <p>Latest Kotlin EAP release: <strong>%kotlinEapVersion%</strong></p>
+    <p>최신 Kotlin EAP 릴리스: <strong>%kotlinEapVersion%</strong></p>
 </tldr>
--->
 
 Kotlin 얼리 액세스 프리뷰(EAP)에 참여하여 최신 Kotlin 기능을 릴리스 전에 미리 사용해 볼 수 있습니다.
 
@@ -34,23 +32,31 @@ Kotlin 얼리 액세스 프리뷰(EAP)에 참여하여 최신 Kotlin 기능을 �
 
 ## 빌드 세부 정보
 
- _현재 미리 보기 버전은 없습니다._ 
+<!-- _현재 미리 보기 버전은 없습니다._ -->
 
-<!--
 <table>
     <tr>
-        <th>Build info</th>
-        <th>Build highlights</th>
+        <th>빌드 정보</th>
+        <th>빌드 주요 사항</th>
     </tr>
     <tr>
-        <td><strong>2.2.20-RC2</strong>
-            <p>Released: <strong>September 1, 2025</strong></p>
-            <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.2.20-RC2" target="_blank">Release on GitHub</a></p>
+        <td><strong>2.3.0-Beta1</strong>
+            <p>릴리스됨: <strong>2025년 10월 7일</strong></p>
+            <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.3.0-Beta1" target="_blank">GitHub에서 릴리스</a></p>
         </td>
         <td>
-            <p>A tooling release containing improvements and bug fixes.</p>
-            <p>For more details, please refer to the <a href="https://github.com/JetBrains/kotlin/releases/tag/v2.2.20-RC2">changelog</a> or <a href="whatsnew-eap.md">What's new in Kotlin 2.2.20-RC2</a>.</p>
+            <p>새로운 기능 미리 보기 및 툴링 업데이트가 포함된 언어 릴리스입니다.</p>
+            <p>자세한 내용은 <a href="https://github.com/JetBrains/kotlin/releases/tag/v2.3.0-Beta1">변경 로그</a> 또는 <a href="whatsnew-eap.md">Kotlin 2.3.0-Beta1의 새로운 기능</a>을 참조하세요.</p>
         </td>
     </tr>
+    <tr>
+        <td><strong>2.2.21-RC</strong>
+            <p>릴리스됨: <strong>2025년 10월 7일</strong></p>
+            <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.2.21-RC" target="_blank">GitHub에서 릴리스</a></p>
+        </td>
+        <td>
+            <p>Xcode 26 지원 및 기타 개선 사항과 버그 수정이 포함된 툴링 릴리스입니다.</p>
+            <p>자세한 내용은 <a href="https://github.com/JetBrains/kotlin/releases/tag/v2.2.21-RC">변경 로그</a> 또는 <a href="whatsnew-eap.md">Kotlin 2.2.21-RC의 새로운 기능</a>을 참조하세요.</p>
+    </td>
+    </tr>
 </table>
--->

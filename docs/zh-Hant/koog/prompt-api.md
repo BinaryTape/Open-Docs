@@ -1,6 +1,6 @@
 # 提示 API
 
-提示 API (Prompt API) 提供了一套全面的工具包，用於在生產環境應用程式中與大型語言模型 (LLMs) 互動。它提供：
+提示 API 提供了一套全面的工具包，用於在生產環境應用程式中與大型語言模型 (LLMs) 互動。它提供：
 
 - 具有型別安全的 **Kotlin DSL**，用於建立結構化提示。
 - **多供應商支援**，支援 OpenAI、Anthropic、Google 及其他 LLM 供應商。
@@ -676,6 +676,7 @@ import ai.koog.prompt.executor.clients.retry.RetryingLLMClient
 import ai.koog.prompt.executor.llms.MultiLLMPromptExecutor
 import ai.koog.prompt.executor.llms.SingleLLMPromptExecutor
 import ai.koog.prompt.llm.LLMProvider
+import aws.sdk.kotlin.runtime.auth.credentials.StaticCredentialsProvider
 
 -->
 ```kotlin
@@ -698,10 +699,13 @@ val multiExecutor = MultiLLMPromptExecutor(
     ),
     // Bedrock 用戶端已內建 AWS SDK 重試
     LLMProvider.Bedrock to BedrockLLMClient(
-        awsAccessKeyId = System.getenv("AWS_ACCESS_KEY_ID"),
-        awsSecretAccessKey = System.getenv("AWS_SECRET_ACCESS_KEY"),
-        awsSessionToken = System.getenv("AWS_SESSION_TOKEN"),
-    ))
+        credentialsProvider = StaticCredentialsProvider {
+            accessKeyId = System.getenv("AWS_ACCESS_KEY_ID")
+            secretAccessKey = System.getenv("AWS_SECRET_ACCESS_KEY")
+            sessionToken = System.getenv("AWS_SESSION_TOKEN")
+        },
+    ),
+)
 ```
 <!--- KNIT example-prompt-api-21.kt -->
 

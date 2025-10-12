@@ -6,7 +6,7 @@
 
 ## 환경 설정
 
-Kotlin Multiplatform(KMP) 프로젝트에는 특정 환경이 필요하지만,
+Kotlin Multiplatform (KMP) 프로젝트에는 특정 환경이 필요하지만,
 대부분의 요구 사항은 IDE의 사전 검사를 통해 명확히 알 수 있습니다.
 
 IDE와 필요한 플러그인부터 시작하세요:
@@ -21,28 +21,19 @@ IDE와 필요한 플러그인부터 시작하세요:
     단독 설치의 경우, [IntelliJ IDEA](https://www.jetbrains.com/idea/download/)
     또는 [Android Studio](https://developer.android.com/studio)용 설치 프로그램을 다운로드하세요.
 
-    Kotlin Multiplatform에 필요한 플러그인은 **IntelliJ IDEA 2025.1.1.1**
+    Kotlin Multiplatform에 필요한 플러그인은 최소 **IntelliJ IDEA 2025.1.1**
     또는 **Android Studio Narwhal 2025.1.1**을 요구합니다.
 
 2.  [Kotlin Multiplatform IDE 플러그인](https://plugins.jetbrains.com/plugin/14936-kotlin-multiplatform)을 설치하세요
     (Kotlin Multiplatform Gradle 플러그인과 혼동하지 마세요).
 
-    > Kotlin Multiplatform 플러그인은 아직 Windows 또는 Linux용 IDE에서는 사용할 수 없습니다.
-    > 하지만 이 플랫폼에서 반드시 필요한 것은 아닙니다.
-    > 여전히 튜토리얼을 따라 KMP 프로젝트를 생성하고 실행할 수 있습니다.
+    > Windows 및 Linux에서 Kotlin Multiplatform 플러그인을 사용하려면 IntelliJ IDEA 2025.2.2가 필요합니다.
+    > Android Studio는 향후 릴리스에서 Windows 및 Linux용 KMP IDE 플러그인 지원을 추가할 예정입니다.
     >
     {style="note"}
 
 3.  IntelliJ IDEA용 Kotlin Multiplatform IDE 플러그인을 설치하면 아직 필요한 종속성이 없는 경우 모든 필수 종속성도 설치됩니다
     (Android Studio에는 모든 필수 플러그인이 번들로 제공됩니다).
-
-    Windows 또는 Linux용 IntelliJ IDEA를 사용하는 경우, 필요한 모든 플러그인을 수동으로 설치해야 합니다:
-    *   [Android](https://plugins.jetbrains.com/plugin/22989-android)
-    *   [Android Design Tools](https://plugins.jetbrains.com/plugin/22990-android-design-tools)
-    *   [Jetpack Compose](https://plugins.jetbrains.com/plugin/18409-jetpack-compose)
-    *   [Native Debugging Support](https://plugins.jetbrains.com/plugin/12775-native-debugging-support)
-    *   [Compose Multiplatform for Desktop IDE Support](https://plugins.jetbrains.com/plugin/16541-compose-multiplatform-for-desktop-ide-support)
-        (Kotlin Multiplatform 플러그인이 없는 경우에만 필요).
 
 4.  `ANDROID_HOME` 환경 변수가 설정되어 있지 않은 경우, 시스템이 이를 인식하도록 구성하세요:
 
@@ -85,10 +76,6 @@ IDE와 필요한 플러그인부터 시작하세요:
 
 ## 프로젝트 생성
 
-### macOS에서
-
-macOS에서는 Kotlin Multiplatform 플러그인이 IDE 내에서 프로젝트 생성 마법사를 제공합니다:
-
 <Tabs>
 <TabItem title= "IntelliJ IDEA">
 
@@ -115,6 +102,10 @@ IDE 마법사를 사용하여 새 KMP 프로젝트를 생성하세요:
 
 </TabItem>
 <TabItem title= "Android Studio">
+
+> KMP IDE 플러그인은 아직 Android Studio의 Windows 및 Linux 버전에서 지원되지 않습니다.
+>
+{style="warning"}
 
 Kotlin Multiplatform IDE 플러그인은 K2 기능에 크게 의존하므로 K2 기능 없이 설명된 대로 작동하지 않습니다.
 따라서 시작하기 전에 K2 모드가 활성화되어 있는지 확인하세요:
@@ -146,17 +137,9 @@ IDE 마법사를 사용하여 새 KMP 프로젝트를 생성하세요:
 </TabItem>
 </Tabs>
 
-### Windows 또는 Linux에서
-
-Windows 또는 Linux를 사용하는 경우:
-
-1.  [웹 KMP 마법사](https://kmp.jetbrains.com/)를 사용하여 프로젝트를 생성합니다.
-2.  아카이브를 압축 해제하고 결과 폴더를 IDE에서 엽니다.
-3.  가져오기가 완료될 때까지 기다린 다음, [샘플 앱 실행](#run-the-sample-apps) 섹션으로 이동하여 앱을 빌드하고 실행하는 방법을 알아보세요.
-
 ## 사전 검사 확인
 
-**Project Environment Preflight Checks** 도구 창을 열어 프로젝트 설정에 환경 문제가 없는지 확인할 수 있습니다:
+**프로젝트 환경 사전 검사(Project Environment Preflight Checks)** 도구 창을 열어 프로젝트 설정에 환경 문제가 없는지 확인할 수 있습니다:
 오른쪽 사이드바 또는 하단 바에서 사전 검사 아이콘을 클릭하세요 ![비행기 아이콘이 있는 사전 검사 아이콘](ide-preflight-checks.png){width="20"}
 
 이 도구 창에서 이러한 검사와 관련된 메시지를 보고, 다시 실행하거나, 설정을 변경할 수 있습니다.
@@ -170,7 +153,7 @@ Windows 또는 Linux를 사용하는 경우:
 
 IDE 마법사가 생성한 프로젝트에는 iOS, Android,
 데스크톱, 웹 애플리케이션에 대한 실행 구성과 서버 앱 실행을 위한 Gradle 작업이 포함되어 있습니다.
-Windows 및 Linux의 경우, 각 플랫폼에 대한 Gradle 명령은 아래를 참조하세요.
+각 플랫폼에 대한 특정 Gradle 명령은 아래에 나열되어 있습니다.
 
 <Tabs>
 <TabItem title="Android">
@@ -179,7 +162,7 @@ Android 앱을 실행하려면 **composeApp** 실행 구성을 시작하세요:
 
 ![Android 실행 구성이 강조 표시된 드롭다운](run-android-configuration.png){width=250}
 
-Windows 또는 Linux에서 Android 앱을 실행하려면 **Android App** 실행 구성을 생성하고
+Android 실행 구성을 수동으로 생성하려면, 실행 구성 템플릿으로 **Android App**을 선택하고
 모듈 **[프로젝트 이름].composeApp**을 선택하세요.
 
 기본적으로 사용 가능한 첫 번째 가상 장치에서 실행됩니다:
@@ -210,8 +193,8 @@ iOS 앱을 실행하면 내부적으로 Xcode로 빌드되고 iOS 시뮬레이�
 
 ![기본 데스크톱 실행 구성이 강조 표시된 드롭다운](run-desktop-configuration.png){width=250}
 
-Windows 또는 Linux에서 데스크톱 앱을 실행하려면,
-**[앱 이름]:composeApp** Gradle 프로젝트를 가리키는 Gradle 실행 구성을 다음 명령과 함께 생성하세요:
+데스크톱 실행 구성을 수동으로 생성하려면, **Gradle** 실행 구성 템플릿을 선택하고
+다음 명령과 함께 **[앱 이름]:composeApp** Gradle 프로젝트를 가리키세요:
 
 ```shell
 desktopRun -DmainClass=com.example.myapplication.MainKt --quiet
@@ -228,8 +211,8 @@ desktopRun -DmainClass=com.example.myapplication.MainKt --quiet
 
 ![기본 Wasm 실행 구성이 강조 표시된 드롭다운](run-wasm-configuration.png){width=250}
 
-Windows 또는 Linux에서 웹 앱을 실행하려면,
-**[앱 이름]:composeApp** Gradle 프로젝트를 가리키는 Gradle 실행 구성을 다음 명령과 함께 생성하세요:
+웹 실행 구성을 수동으로 생성하려면, **Gradle** 실행 구성 템플릿을 선택하고
+다음 명령과 함께 **[앱 이름]:composeApp** Gradle 프로젝트를 가리키세요:
 
 ```shell
 wasmJsBrowserDevelopmentRun
@@ -269,8 +252,8 @@ JDK와 마찬가지로 `adb`와 같은 Android 도구 실행에 문제가 있다
 
 ### Xcode
 
-iOS 실행 구성에서 실행할 가상 장치가 없다고 보고하면,
-Xcode를 실행하고 iOS 시뮬레이터에 대한 업데이트가 있는지 확인하세요.
+iOS 실행 구성에서 실행할 가상 장치가 없다고 보고하거나 사전 검사가 실패하면, Xcode를 실행하고
+iOS 시뮬레이터에 대한 업데이트가 있는지 확인하세요.
 
 ### 도움 받기
 
@@ -282,7 +265,7 @@ Xcode를 실행하고 iOS 시뮬레이터에 대한 업데이트가 있는지 �
 KMP 프로젝트의 구조와 공유 코드 작성에 대해 자세히 알아보세요:
 *   공유 UI 코드 작업에 대한 튜토리얼 시리즈: [Compose Multiplatform 앱 생성](compose-multiplatform-create-first-app.md)
 *   네이티브 UI와 함께 공유 코드 작업에 대한 튜토리얼 시리즈: [Kotlin Multiplatform 앱 생성](multiplatform-create-first-app.md)
-*   Kotlin Multiplatform 문서 심층 탐색:
+*   Kotlin Multiplatform 문서를 심층 탐색:
     *   [프로젝트 구성](multiplatform-project-configuration.md)
     *   [멀티플랫폼 종속성 작업](https://kotlinlang.org/docs/multiplatform-add-dependencies.html)
 *   Compose Multiplatform UI 프레임워크, 기본 사항 및 플랫폼별 기능에 대해 알아보세요:

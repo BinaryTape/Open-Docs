@@ -127,10 +127,10 @@ user(
 
 `attachments` 파라미터는 파일 입력 목록을 취하며, 각 항목은 다음 클래스 중 하나의 인스턴스입니다:
 
-- `Attachment.Image`: 이미지 첨부 파일. 예: `jpg` 또는 `png` 파일.
-- `Attachment.Audio`: 오디오 첨부 파일. 예: `mp3` 또는 `wav` 파일.
-- `Attachment.Video`: 비디오 첨부 파일. 예: `mpg` 또는 `avi` 파일.
-- `Attachment.File`: 일반 파일 첨부 파일. 예: `pdf` 또는 `txt` 파일.
+- `Attachment.Image`: `jpg` 또는 `png` 파일과 같은 이미지 첨부 파일.
+- `Attachment.Audio`: `mp3` 또는 `wav` 파일과 같은 오디오 첨부 파일.
+- `Attachment.Video`: `mpg` 또는 `avi` 파일과 같은 비디오 첨부 파일.
+- `Attachment.File`: `pdf` 또는 `txt` 파일과 같은 일반 파일 첨부 파일.
 
 각 클래스는 다음 파라미터를 사용합니다:
 
@@ -141,7 +141,7 @@ user(
 | `mimeType` | String                                  | `Attachment.File`에만 해당 | 제공된 파일의 MIME 유형. 예: `image/png`.                                                        |
 | `fileName` | String                                  | 아니요                   | 확장자를 포함한 제공된 파일의 이름. 예: `screenshot.png`.                                          |
 
-자세한 내용은 [API reference](https://api.koog.ai/prompt/prompt-model/ai.koog.prompt.message/-attachment/index.html)를 참조하세요.
+자세한 내용은 [API 참조](https://api.koog.ai/prompt/prompt-model/ai.koog.prompt.message/-attachment/index.html)를 참조하세요.
 
 #### AttachmentContent
 
@@ -155,7 +155,7 @@ user(
   |--------|-----------|------|---------------------------|
   | `url`  | String    | 예   | 제공된 콘텐츠의 URL.        |
 
-  [API reference](https://api.koog.ai/prompt/prompt-model/ai.koog.prompt.message/-attachment-content/-u-r-l/index.html)도 참조하세요.
+  [API 참조](https://api.koog.ai/prompt/prompt-model/ai.koog.prompt.message/-attachment-content/-u-r-l/index.html)도 참조하세요.
 
 * `AttachmentContent.Binary.Bytes(val data: ByteArray)`
 
@@ -165,7 +165,7 @@ user(
   |--------|-----------|------|---------------------------------|
   | `data` | ByteArray | 예   | 바이트 배열로 제공되는 파일 콘텐츠. |
 
-  [API reference](https://api.koog.ai/prompt/prompt-model/ai.koog.prompt.message/-attachment-content/-binary/index.html)도 참조하세요.
+  [API 참조](https://api.koog.ai/prompt/prompt-model/ai.koog.prompt.message/-attachment-content/-binary/index.html)도 참조하세요.
 
 * `AttachmentContent.Binary.Base64(val base64: String)`
 
@@ -175,7 +175,7 @@ user(
   |----------|-----------|------|---------------------------------|
   | `base64` | String    | 예   | 파일 데이터를 포함하는 Base64 문자열. |
 
-  [API reference](https://api.koog.ai/prompt/prompt-model/ai.koog.prompt.message/-attachment-content/-binary/index.html)도 참조하세요.
+  [API 참조](https://api.koog.ai/prompt/prompt-model/ai.koog.prompt.message/-attachment-content/-binary/index.html)도 참조하세요.
 
 * `AttachmentContent.PlainText(val text: String)`
 
@@ -188,7 +188,7 @@ user(
   |--------|-----------|------|------------------|
   | `text` | String    | 예   | 파일의 내용.       |
 
-  [API reference](https://api.koog.ai/prompt/prompt-model/ai.koog.prompt.message/-attachment-content/-plain-text/index.html)도 참조하세요.
+  [API 참조](https://api.koog.ai/prompt/prompt-model/ai.koog.prompt.message/-attachment-content/-plain-text/index.html)도 참조하세요.
 
 ### 혼합 첨부 파일 내용
 
@@ -342,7 +342,7 @@ Koog는 두 가지 주요 프롬프트 실행기를 제공합니다:
 | [`SingleLLMPromptExecutor`](https://api.koog.ai/prompt/prompt-executor/prompt-executor-llms/ai.koog.prompt.executor.llms/-single-l-l-m-prompt-executor/index.html)       | 단일 제공자를 위한 단일 LLM 클라이언트를 래핑합니다. 에이전트가 단일 LLM 제공자 내에서 모델을 전환하는 기능만 필요한 경우 이 실행기를 사용하세요.                                                                             |
 | [`MultiLLMPromptExecutor`](https://api.koog.ai/prompt/prompt-executor/prompt-executor-llms/ai.koog.prompt.executor.llms/-multi-l-l-m-prompt-executor/index.html)        | 제공자별로 여러 LLM 클라이언트로 라우팅하며, 요청된 제공자를 사용할 수 없을 때 사용할 각 제공자에 대한 선택적 폴백(fallback)을 제공합니다. 에이전트가 다른 제공자의 모델 간에 전환해야 하는 경우 이 실행기를 사용하세요. |
 
-이들은 LLM으로 프롬프트를 실행하기 위한 [`PromtExecutor`](https://api.koog.ai/prompt/prompt-executor/prompt-executor-model/ai.koog.prompt.executor.model/-prompt-executor/index.html) 인터페이스의 구현입니다.
+이들은 LLM으로 프롬프트를 실행하기 위한 [`PromptExecutor`](https://api.koog.ai/prompt/prompt-executor/prompt-executor-model/ai.koog.prompt.executor.model/-prompt-executor/index.html) 인터페이스의 구현입니다.
 
 ### 단일 제공자 실행기 생성
 
@@ -676,6 +676,7 @@ import ai.koog.prompt.executor.clients.retry.RetryingLLMClient
 import ai.koog.prompt.executor.llms.MultiLLMPromptExecutor
 import ai.koog.prompt.executor.llms.SingleLLMPromptExecutor
 import ai.koog.prompt.llm.LLMProvider
+import aws.sdk.kotlin.runtime.auth.credentials.StaticCredentialsProvider
 
 -->
 ```kotlin
@@ -698,10 +699,13 @@ val multiExecutor = MultiLLMPromptExecutor(
     ),
     // Bedrock 클라이언트는 이미 AWS SDK 재시도 기능이 내장되어 있습니다.
     LLMProvider.Bedrock to BedrockLLMClient(
-        awsAccessKeyId = System.getenv("AWS_ACCESS_KEY_ID"),
-        awsSecretAccessKey = System.getenv("AWS_SECRET_ACCESS_KEY"),
-        awsSessionToken = System.getenv("AWS_SESSION_TOKEN"),
-    ))
+        credentialsProvider = StaticCredentialsProvider {
+            accessKeyId = System.getenv("AWS_ACCESS_KEY_ID")
+            secretAccessKey = System.getenv("AWS_SECRET_ACCESS_KEY")
+            sessionToken = System.getenv("AWS_SESSION_TOKEN")
+        },
+    ),
+)
 ```
 <!--- KNIT example-prompt-api-21.kt -->
 

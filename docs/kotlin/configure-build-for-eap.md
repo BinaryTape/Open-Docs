@@ -1,18 +1,16 @@
-[//]: # (title: 为抢先体验预览配置你的构建)
+[//]: # (title: 为 EAP 配置你的构建)
 
 <tldr>
-    <p>目前没有可用的预览版本。</p>
-    <!--
-    <p>Latest Kotlin EAP release: <strong>%kotlinEapVersion%</strong></p>
-    <p><a href="eap.md#build-details">Explore Kotlin EAP release details</a></p>
-    -->
+    <!-- <p>No preview versions are currently available.</p> -->
+    <p>最新 Kotlin EAP 版本: <strong>%kotlinEapVersion%</strong></p>
+    <p><a href="eap.md#build-details">探索 Kotlin EAP 发布详情</a></p>
 </tldr>
 
-要配置你的构建以使用 Kotlin EAP 版本，你需要：
+为配置你的构建以使用 Kotlin 的 EAP 版本，你需要：
 
-*   指定 Kotlin EAP 版本。[可用的 EAP 版本此处列出](eap.md#build-details)。
+*   指定 Kotlin 的 EAP 版本。[可用的 EAP 版本此处列出](eap.md#build-details)。
 *   将依赖项版本更改为 EAP 版本。
-Kotlin EAP 版本可能无法与之前发布的版本库一起使用。
+Kotlin 的 EAP 版本可能无法与之前发布的版本库一起使用。
 
 以下步骤描述了如何在 Gradle 和 Maven 中配置你的构建：
 

@@ -25,7 +25,7 @@ strategy<StrategyInput, StrategyOutput>("strategy-name") {
         name = "subgraph-name",
         toolSelectionStrategy = ToolSelectionStrategy.ALL
     ) {
-        // Define nodes and edges for this subgraph
+        // 为此子图定义节点和边
     }
 }
 ```
@@ -55,13 +55,13 @@ strategy<StrategyInput, StrategyOutput>("strategy-name") {
        name = "subgraph-name", 
        tools = listOf(firstTool, secondTool)
    ) {
-        // Define nodes and edges for this subgraph
+        // 为此子图定义节点和边
     }
 }
 ```
 <!--- KNIT example-custom-subgraphs-02.kt -->
 
-关于参数和参数值的更多信息，请参见 `subgraph` [API 参考](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.dsl.builder/-a-i-agent-subgraph-builder-base/subgraph.html)。关于工具的更多信息，请参见 [Tools](tools-overview.md)。
+关于形参和形参值的更多信息，请参见 `subgraph` [API 参考](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.dsl.builder/-a-i-agent-subgraph-builder-base/subgraph.html)。关于工具的更多信息，请参见 [Tools](tools-overview.md)。
 
 以下代码示例展示了自定义子图的实际实现：
 
@@ -82,7 +82,7 @@ strategy<String, String>("my-strategy") {
    val mySubgraph by subgraph<String, String>(
       tools = listOf(firstTool, secondTool)
    ) {
-        // Define nodes and edges for this subgraph
+        // 为此子图定义节点和边
         val sendInput by nodeLLMRequest()
         val executeToolCall by nodeExecuteTool()
         val sendToolResult by nodeLLMSendToolResult()
@@ -114,7 +114,7 @@ val str = strategy<String, String>("my-strategy") {
 val mySubgraph by subgraph<String, String>(
    tools = listOf(AskUser)
  ) {
-    // Subgraph definition
+    // 子图定义
  }
 ```
 <!--- KNIT example-custom-subgraphs-04.kt -->
@@ -134,7 +134,7 @@ val str = strategy<String, String>("my-strategy") {
 val mySubgraph by subgraph<String, String>(
     tools = listOf(toolRegistry.getTool("AskUser"))
 ) {
-    // Subgraph definition
+    // 子图定义
 }
 ```
 <!--- KNIT example-custom-subgraphs-05.kt -->
@@ -151,7 +151,7 @@ val str = strategy<String, String>("my-strategy") {
 }
 -->
 ```kotlin
-// Make a set of tools
+// 创建一组工具
 this.llm.writeSession {
     tools = tools.filter { it.name in listOf("first_tool_name", "second_tool_name") }
 }
@@ -181,24 +181,24 @@ val str =
 strategy("complex-workflow") {
    val inputProcessing by subgraph<String, A>(
    ) {
-      // Process the initial input
+      // 处理初始输入
    }
 
    val reasoning by subgraph<A, B>(
    ) {
-      // Perform reasoning based on the processed input
+      // 基于处理后的输入执行推理
    }
 
    val toolRun by subgraph<B, C>(
-      // Optional subset of tools from the tool registry
+      // 工具注册表中可选的工具子集
       tools = listOf(firstTool, secondTool)
    ) {
-      // Run tools based on the reasoning
+      // 根据推理运行工具
    }
 
    val responseGeneration by subgraph<C, String>(
    ) {
-      // Generate a response based on the tool results
+      // 根据工具结果生成响应
    }
 
    nodeStart then inputProcessing then reasoning then toolRun then responseGeneration then nodeFinish
@@ -239,7 +239,8 @@ strategy("complex-workflow") {
 
 ## 示例
 
-以下示例展示了如何在真实世界场景中使用子图创建代理策略。该代码示例包含 `researchSubgraph`、`planSubgraph` 和 `executeSubgraph` 三个已定义的子图，其中每个子图在助手流中都具有定义明确且不同的目的。
+以下示例展示了如何在真实世界场景中使用子图创建代理策略。
+该代码示例包含 `researchSubgraph`、`planSubgraph` 和 `executeSubgraph` 三个已定义的子图，其中每个子图在助手流中都具有定义明确且不同的目的。
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.forwardTo
 import ai.koog.agents.core.dsl.builder.strategy
@@ -249,7 +250,6 @@ import ai.koog.agents.core.dsl.extension.nodeLLMSendToolResult
 import ai.koog.agents.core.dsl.extension.onAssistantMessage
 import ai.koog.agents.core.dsl.extension.onToolCall
 import ai.koog.agents.core.tools.SimpleTool
-import ai.koog.agents.core.tools.ToolArgs
 import ai.koog.agents.core.tools.ToolDescriptor
 import ai.koog.prompt.dsl.prompt
 import kotlinx.serialization.KSerializer
@@ -295,9 +295,9 @@ class DoAnotherAction: SimpleTool<DoAnotherAction.Args>() {
 }
 -->
 ```kotlin
-// Define the agent strategy
+// 定义代理策略
 val strategy = strategy<String, String>("assistant") {
-    // A subgraph that includes a tool call
+    // 包含工具调用的子图
 
     val researchSubgraph by subgraph<String, String>(
         "research_subgraph",

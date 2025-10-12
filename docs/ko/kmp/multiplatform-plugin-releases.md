@@ -2,15 +2,13 @@
 
 [Kotlin Multiplatform IDE 플러그인](https://plugins.jetbrains.com/plugin/14936-kotlin-multiplatform)은 Android, iOS, 데스크톱 및 웹용 크로스 플랫폼 애플리케이션 개발을 돕습니다. Kotlin Multiplatform 프로젝트 작업을 위해 최신 버전의 플러그인이 설치되어 있는지 확인하세요.
 
-> IDE 플러그인은 현재 macOS에서만 사용할 수 있으며, Windows 및 Linux 지원은 개발 중입니다.
+이 플러그인은 IntelliJ IDEA (버전 2025.1.1.1부터) 및 Android Studio (Narwhal 2025.1.1부터)와 호환됩니다.
+
+> Windows 및 Linux에서 Kotlin Multiplatform 플러그인을 사용하려면 IntelliJ IDEA 2025.2.2가 필요합니다. Android Studio는 곧 출시될 버전에서 Windows 및 Linux용 KMP IDE 플러그인 지원을 추가할 예정입니다.
 >
 {style="note"}
 
-이 플러그인은 IntelliJ IDEA (버전 2025.1.1.1부터) 및 Android Studio (Narwhal 2025.1.1부터)와 호환됩니다.
-
-> Kotlin Multiplatform Gradle 플러그인에 대한 정보는 [DSL 참조](multiplatform-dsl-reference.md) 및 [호환성 가이드](multiplatform-compatibility-guide.md)를 참조하세요.
->
-{style="tip"}
+Kotlin Multiplatform Gradle 플러그인에 대한 정보는 [DSL 참조](multiplatform-dsl-reference.md) 및 [호환성 가이드](multiplatform-compatibility-guide.md)를 참조하세요.
 
 ## 최신 릴리스로 업데이트
 
