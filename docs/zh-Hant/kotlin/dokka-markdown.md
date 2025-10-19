@@ -3,6 +3,8 @@
 > Markdown 輸出格式仍處於 Alpha 階段，因此您在使用時可能會遇到錯誤並經歷遷移問題。
 > **您需自行承擔使用風險。**
 >
+> 像 Markdown 和 Jekyll 這樣的實驗性格式在 Dokka 2.0.0 中預設不支援。
+> 啟用這些格式的因應措施將很快加入。
 {style="warning"}
 
 Dokka 能夠產生文件，採用與 [GitHub Flavored](#gfm) 和 [Jekyll](#jekyll) 相容的 Markdown 格式。
@@ -23,7 +25,7 @@ GFM 輸出格式會產生文件，採用 [GitHub Flavored Markdown](https://gith
 | **任務** | **描述** |
 |---|---|
 | `dokkaGfm` | 為單一專案產生 GFM 文件。 |
-| `dokkaGfmMultiModule` | 一個 [`MultiModule`](dokka-gradle.md#multi-project-builds) 任務，僅為多專案建置中的父專案建立。它會為子專案產生文件，並將所有輸出收集到一個具有共同目錄的位置。 |
+| `dokkaGfmMultiModule` | 一個 [`MultiModule`](dokka-gradle.md#multi-project-builds) 任務，僅為多專案建置中的父專案建立。它會為子專案產生文件，並將所有輸出收集到一個具有共同的索引目錄的位置。 |
 | `dokkaGfmCollector` | 一個 [`Collector`](dokka-gradle.md#collector-tasks) 任務，僅為多專案建置中的父專案建立。它會為每個子專案呼叫 `dokkaGfm`，並將所有輸出合併到單一虛擬專案中。 |
 
 </tab>
@@ -98,7 +100,7 @@ Jekyll 輸出格式會產生文件，採用與 [Jekyll](https://jekyllrb.com/) �
 | **任務** | **描述** |
 |---|---|
 | `dokkaJekyll` | 為單一專案產生 Jekyll 文件。 |
-| `dokkaJekyllMultiModule` | 一個 [`MultiModule`](dokka-gradle.md#multi-project-builds) 任務，僅為多專案建置中的父專案建立。它會為子專案產生文件，並將所有輸出收集到一個具有共同目錄的位置。 |
+| `dokkaJekyllMultiModule` | 一個 [`MultiModule`](dokka-gradle.md#multi-project-builds) 任務，僅為多專案建置中的父專案建立。它會為子專案產生文件，並將所有輸出收集到一個具有共同的索引目錄的位置。 |
 | `dokkaJekyllCollector` | 一個 [`Collector`](dokka-gradle.md#collector-tasks) 任務，僅為多專案建置中的父專案建立。它會為每個子專案呼叫 `dokkaJekyll`，並將所有輸出合併到單一虛擬專案中。 |
 
 </tab>

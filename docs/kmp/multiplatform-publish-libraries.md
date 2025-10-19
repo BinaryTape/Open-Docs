@@ -12,7 +12,7 @@
 本教程假设你：
 
 *   正在创建一个开源库。
-*   将库的代码存储在 GitHub **版本库**中。
+*   将库的代码存储在 GitHub 版本库中。
 *   正在使用的是 macOS 或 Linux。如果你是 Windows 用户，请使用 [GnuPG 或 Gpg4win](https://gnupg.org/download) 生成密钥对。
 *   尚未在 Maven Central 注册，或者已有一个适合[发布到 Central Portal](https://central.sonatype.org/publish-ea/publish-ea-guide/) 的现有账户（在 2024 年 3 月 12 日之后创建，或已由其支持迁移到 Central Portal）。
 *   使用 GitHub Actions 进行持续集成。
@@ -26,7 +26,7 @@
 ## 示例库
 
 在本教程中，你将使用 [fibonacci](https://github.com/Kotlin/multiplatform-library-template/) 库作为示例。
-你可以参考该**版本库**的代码，了解发布设置的工作原理。
+你可以参考该版本库的代码，了解发布设置的工作原理。
 
 如果你想重用代码，**必须将所有示例值替换**为你**项目特有**的值。
 
@@ -56,8 +56,8 @@ Maven **构件**通过其[坐标](https://central.sonatype.org/publish/requireme
 
 1.  输入 `io.github.<你的用户名>` 作为你的命名空间，例如 `io.github.kotlinhandson`，然后点击 **Submit**。
 2.  复制新创建命名空间下方显示的**验证密钥**。
-3.  在 GitHub 上，使用你使用的用户名登录，并创建一个新的公共**版本库**，将验证密钥作为**版本库**的名称，例如 `http://github.com/kotlin-hands-on/ex4mpl3c0d`。
-4.  返回 Maven Central 并点击 **Verify Namespace** 按钮。验证成功后，你可以删除你创建的**版本库**。
+3.  在 GitHub 上，使用你使用的用户名登录，并创建一个新的公共版本库，将验证密钥作为版本库的名称，例如 `http://github.com/kotlin-hands-on/ex4mpl3c0d`。
+4.  返回 Maven Central 并点击 **Verify Namespace** 按钮。验证成功后，你可以删除你创建的版本库。
 
 </TabItem>
 <TabItem id="domain" title="使用域名">
@@ -293,7 +293,7 @@ mavenPublishing {
 ### 生成用户令牌
 
 你需要一个 Maven 访问令牌，以便 Maven Central 授权你的发布请求。
-打开[设置基于令牌的身份验证](https://central.sonatype.com/account)页面，然后点击 **Generate User Token** 按钮。
+打开[设置基于令牌的身份验证](https://central.sonatype.com/usertoken)页面，然后点击 **Generate User Token** 按钮。
 
 输出类似于以下示例，包含用户名和密码。
 如果你丢失了这些凭据，稍后需要生成新的凭据，因为 Maven Central 不会存储它们。

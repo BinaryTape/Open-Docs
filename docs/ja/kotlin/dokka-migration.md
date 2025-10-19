@@ -1,10 +1,5 @@
 [//]: # (title: Dokka Gradleプラグインv2への移行)
 
-> Dokka Gradleプラグインv2は[実験的](https://kotlinlang.org/docs/components-stability.html#stability-levels-explained)機能です。
-> これはいつでも変更される可能性があります。[GitHub](https://github.com/Kotlin/dokka/issues)でのフィードバックをお待ちしております。
->
-{style="warning"}
-
 Dokka Gradleプラグイン（DGP）は、GradleでビルドされたKotlinプロジェクト向けに包括的なAPIドキュメントを生成するためのツールです。
 
 DGPは、KotlinのKDocコメントとJavaのJavadocコメントの両方をスムーズに処理し、情報を抽出し、[HTMLまたはJavadoc](#select-documentation-output-format)形式で構造化されたドキュメントを作成します。
@@ -28,12 +23,17 @@ DGP v2はDGPに大幅な改善をもたらし、Gradleのベストプラクテ�
 プロジェクトが最小バージョン要件を満たしていることを確認してください。
 
 | **ツール**                                                                        | **バージョン**   |
-|---------------------------------------------------------------------------------|---------------|
-| [Gradle](https://docs.gradle.org/current/userguide/upgrading_version_8.html)    | 7.6 以降      |
+|-----------------------------------------------------------------------------------|---------------|
+| [Gradle](https://docs.gradle.org/current/userguide/upgrading_version_8.html)      | 7.6 以降      |
 | [Android Gradle plugin](https://developer.android.com/build/agp-upgrade-assistant) | 7.0 以降      |
 | [Kotlin Gradle plugin](https://kotlinlang.org/docs/gradle-configure-project.html) | 1.9 以降      |
 
 ### DGP v2を有効にする
+
+> Dokka 2.1.0以降、DGP v2はデフォルトで有効になります。
+> Dokka 2.1.0以降を使用している場合、または更新する場合は、この手順をスキップして[プロジェクトを移行する](#migrate-your-project)に直接進むことができます。
+>
+{style="note"}
 
 プロジェクトの`build.gradle.kts`ファイルの`plugins {}`ブロックで、Dokkaのバージョンを2.0.0に更新します。
 
@@ -223,7 +223,7 @@ documentedVisibilities.set(
 documentedVisibilities(VisibilityModifier.Public)
 ```
 
-さらに、DGP v2の[ユーティリティ関数](https://github.com/Kotlin/dokka/blob/v2.0.0/dokka-runners/dokka-gradle-plugin/src/main/kotlin/engine/parameters/HasConfigurableVisibilityModifiers.kt#L14-L16)を使用して、ドキュメント化された可視性を追加します。
+さらに、DGP v2の[ユーティリティ関数](https://github.com/Kotlin/dokka/blob/v2.1.0/dokka-runners/dokka-gradle-plugin/src/main/kotlin/engine/parameters/HasConfigurableVisibilityModifiers.kt#L14-L16)を使用して、ドキュメント化された可視性を追加します。
 
 ```kotlin
 fun documentedVisibilities(vararg visibilities: VisibilityModifier): Unit =
@@ -501,7 +501,7 @@ dokka {
 
 DGP v2設定の例については、[Dokkaのバージョン管理プラグイン](https://github.com/Kotlin/dokka/tree/master/examples/gradle-v2/versioning-multimodule-example)を参照してください。
 
-Dokka 2.0.0では、[カスタムプラグインを設定する](https://github.com/Kotlin/dokka/blob/ae3840edb4e4afd7b3e3768a5fddfe8ec0e08f31/examples/gradle-v2/custom-dokka-plugin-example/demo-library/build.gradle.kts)ことで、その機能を拡張できます。カスタムプラグインを使用すると、ドキュメント生成プロセスに追加の処理や変更を加えることができます。
+DGP v2では、[カスタムプラグインを設定する](https://github.com/Kotlin/dokka/blob/ae3840edb4e4afd7b3e3768a5fddfe8ec0e08f31/examples/gradle-v2/custom-dokka-plugin-example/demo-library/build.gradle.kts)ことで、その機能を拡張できます。カスタムプラグインを使用すると、ドキュメント生成プロセスに追加の処理や変更を加えることができます。
 
 ### モジュール間でDokka設定を共有する
 

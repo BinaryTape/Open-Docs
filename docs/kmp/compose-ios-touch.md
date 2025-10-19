@@ -27,7 +27,7 @@
 {style="note"}
 
 ## 选择触控处理策略
-<secondary-label ref="Experimental"/>
+<primary-label ref="Experimental"/>
 
 使用 Compose Multiplatform %org.jetbrains.compose%，你还可以尝试使用实验性的 API 来对互操作 UI 进行更精细的控制。
 

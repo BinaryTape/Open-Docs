@@ -45,6 +45,8 @@ Koog 的主要功能包括：
 
 要使用 Koog，您需要在建置設定中包含所有必要的依賴項。
 
+**請注意！** Ktor [client](https://ktor.io/docs/client-engines.html) 和 [server](https://ktor.io/docs/server-engines.html) 引擎依賴項預設情況下不包含在函式庫中，因此您應該自行添加您選擇的引擎。
+
 ### Gradle
 
 #### Gradle (Kotlin DSL)
@@ -54,8 +56,11 @@ Koog 的主要功能包括：
     ```
     dependencies {
         implementation("ai.koog:koog-agents:LATEST_VERSION")
+       // 明確包含 Ktor client 依賴項
+        implementation("io.ktor:ktor-client-cio:$ktor_version")
     }
     ```
+    Ktor [client](https://ktor.io/docs/client-engines.html) 和 [server](https://ktor.io/docs/server-engines.html) 引擎依賴項預設情況下不包含在函式庫中，因此您應該自行添加您選擇的引擎。
 
 2.  確保您的儲存庫列表中包含 `mavenCentral()`。
 
@@ -66,6 +71,7 @@ Koog 的主要功能包括：
     ```
     dependencies {
         implementation 'ai.koog:koog-agents:LATEST_VERSION'
+        implementation 'io.ktor:ktor-client-cio:KTOR_VERSION'
     }
     ```
 
@@ -75,12 +81,42 @@ Koog 的主要功能包括：
 
 1.  將依賴項新增至 `pom.xml` 檔案：
 
-    ```
+    ```xml
     <dependency>
         <groupId>ai.koog</groupId>
         <artifactId>koog-agents-jvm</artifactId>
         <version>LATEST_VERSION</version>
     </dependency>
+    ```
+
+2.  新增 Ktor 依賴項。請在此處查看 Ktor 版本 [here](https://mvnrepository.com/artifact/io.ktor/ktor-bom)。
+    ```xml
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>io.ktor</groupId>
+                <artifactId>ktor-bom</artifactId>
+                <version>KTOR_VERSION</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+   
+    <dependencies>
+        <dependency>
+            <groupId>io.ktor</groupId>
+            <artifactId>ktor-client-cio-jvm</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <!-- 如果您正在使用 MCP 等功能，請新增 Ktor 伺服器依賴項 -->
+        <dependency>
+            <groupId>io.ktor</groupId>
+            <artifactId>ktor-server-netty-jvm</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+    </dependencies>
+
     ```
 
 2.  確保您的儲存庫列表中包含 `mavenCentral`。

@@ -50,13 +50,13 @@
         </td>
     </tr>
     <tr>
-        <td><strong>2.2.21-RC</strong>
-            <p>发布时间：<strong>October 7, 2025</strong></p>
-            <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.2.21-RC" target="_blank">在 GitHub 上发布</a></p>
+        <td><strong>2.2.21-RC2</strong>
+            <p>发布时间：<strong>October 16, 2025</strong></p>
+            <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.2.21-RC2" target="_blank">在 GitHub 上发布</a></p>
         </td>
         <td>
             <p>一个工具链版本，包含对 Xcode 26 的支持，以及其他改进和 bug 修复。</p>
-            <p>有关更多详情，请参见 <a href="https://github.com/JetBrains/kotlin/releases/tag/v2.2.21-RC">更新日志</a> 或 <a href="whatsnew-eap.md">Kotlin 2.2.21-RC 的新特性</a>。</p>
+            <p>有关更多详情，请参见 <a href="https://github.com/JetBrains/kotlin/releases/tag/v2.2.21-RC2">更新日志</a> 或 <a href="whatsnew2220.md">Kotlin 2.2.20 的新特性</a>。</p>
     </td>
     </tr>
 </table>

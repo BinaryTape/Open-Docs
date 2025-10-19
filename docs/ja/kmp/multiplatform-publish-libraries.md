@@ -293,7 +293,7 @@ mavenPublishing {
 ### ユーザー生成トークン
 
 Maven Centralが公開リクエストを認証するために、Mavenアクセストークンが必要です。
-[Setup Token-Based Authentication](https://central.sonatype.com/account)ページを開き、**Generate User Token**ボタンをクリックします。
+[Setup Token-Based Authentication](https://central.sonatype.com/usertoken)ページを開き、**Generate User Token**ボタンをクリックします。
 
 出力は次の例のようになり、ユーザー名とパスワードが含まれています。
 これらのクレデンシャルを紛失した場合、Maven Centralによって保存されないため、後で新しいものを生成する必要があります。

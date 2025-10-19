@@ -4,7 +4,7 @@
 
 <link-summary>了解如何將客戶端依賴新增至現有專案。</link-summary>
 
-要在專案中使用 Ktor HTTP 客戶端，您需要[設定儲存庫](#repositories)並新增以下依賴：
+要在您的專案中使用 Ktor HTTP 客戶端，您需要[設定儲存庫](#repositories)並新增以下依賴：
 
 - **[ktor-client-core](#client-dependency)**
 
@@ -15,7 +15,7 @@
   請注意，[特定平台](client-supported-platforms.md)可能需要特定的引擎來處理網路請求。
 - (可選) **[日誌依賴](#logging-dependency)**
 
-  提供日誌框架以啟用結構化且靈活的日誌功能。
+  提供日誌框架以啟用結構化且彈性的日誌功能。
 
 - (可選) **[外掛程式依賴](#plugin-dependency)**
 
@@ -87,7 +87,7 @@
 
 ## 新增依賴 {id="add-ktor-dependencies"}
 
-> 對於[不同平台](client-supported-platforms.md)，Ktor 提供帶有後綴的特定平台構件，例如 `-jvm` 或 `-js`，例如 `ktor-client-core-jvm`。請注意，Gradle 會自動解析適用於給定平台的構件，而 Maven 不支援此功能。這表示對於 Maven，您需要手動新增特定平台的後綴。
+> 對於[不同平台](client-supported-platforms.md)，Ktor 提供帶有後綴的特定平台構件，例如 `-jvm` 或 `-js`，舉例來說是 `ktor-client-core-jvm`。請注意，Gradle 會自動解析適用於給定平台的構件，而 Maven 不支援此功能。這表示對於 Maven，您需要手動新增特定平台的後綴。
 >
 {type="tip"}
 
@@ -108,7 +108,7 @@
     </TabItem>
 </Tabs>
 
-您可以將 `$ktor_version` 替換為所需的 Ktor 版本，例如 `%ktor_version%`。
+您可以將 `$ktor_version` 替換為所需的 Ktor 版本，舉例來說是 `%ktor_version%`。
 
 #### 多平台 {id="client-dependency-multiplatform"}
 
@@ -116,10 +116,10 @@
 
 ```kotlin
 [versions]
-ktor = "3.2.3"
+ktor = "3.3.1"
+
 [libraries]
-kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
-ktor-client-okhttp = { module = "io.ktor:ktor-client-okhttp", version.ref = "ktor" }
+ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
 ```
 
 然後，將 `ktor-client-core` 作為依賴新增到 `commonMain` 原始碼集：
@@ -134,7 +134,7 @@ sourceSets {
 
 ### 引擎依賴 {id="engine-dependency"}
 
-[引擎](client-engines.md)負責處理網路請求。有適用於各種平台的不同客戶端引擎，例如 Apache、CIO、Android、iOS 等。例如，您可以如下新增 `CIO` 引擎依賴：
+[引擎](client-engines.md)負責處理網路請求。有適用於各種平台的不同客戶端引擎，例如 Apache、CIO、Android、iOS 等。舉例來說，您可以如下新增 `CIO` 引擎依賴：
 
 <var name="artifact_name" value="ktor-client-cio"/>
 <Tabs group="languages">
@@ -153,14 +153,14 @@ sourceSets {
 
 對於多平台專案，您需要將所需引擎的依賴新增到對應的原始碼集。
 
-例如，要為 Android 新增 `OkHttp` 引擎依賴，您可以先在 `gradle/libs.versions.toml` 檔案中定義 Ktor 版本和 `ktor-client-okhttp` 構件：
+舉例來說，要為 Android 新增 `OkHttp` 引擎依賴，您可以先在 `gradle/libs.versions.toml` 檔案中定義 Ktor 版本和 `ktor-client-okhttp` 構件：
 
 ```kotlin
 [versions]
-ktor = "3.2.3"
+ktor = "3.3.1"
+
 [libraries]
-kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
-ktor-client-darwin = { module = "io.ktor:ktor-client-darwin", version.ref = "ktor" }
+ktor-client-okhttp = { module = "io.ktor:ktor-client-okhttp", version.ref = "ktor" }
 ```
 
 然後，將 `ktor-client-okhttp` 作為依賴新增到 `androidMain` 原始碼集：

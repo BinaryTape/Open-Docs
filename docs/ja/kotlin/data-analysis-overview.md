@@ -4,7 +4,7 @@
 
 データ分析が鍵となるソフトウェア開発業務について考えてみましょう。デバッグ時にコレクションの内部構造を分析したり、メモリダンプやデータベースを掘り下げたり、REST APIと連携する際に大量のデータを含むJSONファイルを受信したりすることなどが挙げられます。
 
-Kotlinの探索的データ分析（EDA）ツールである[Kotlin Notebook](#notebooks)、[Kotlin DataFrame](#kotlin-dataframe)、[Kandy](#kandy)を使用すると、分析スキルを向上させ、さまざまなシナリオに対応するための豊富な機能を利用できます。
+Kotlinの探索的データ分析（EDA）ツール、例えば[Kotlin notebooks](#notebooks)、[Kotlin DataFrame](#kotlin-dataframe)、[Kandy](#kandy)を使用すると、分析スキルを向上させ、さまざまなシナリオに対応するための豊富な機能を利用できます。
 
 *   **さまざまな形式のデータを読み込み、変換し、視覚化する:** Kotlin EDAツールを使用すると、データのフィルタリング、並べ替え、集計などのタスクを実行できます。これらのツールは、CSV、JSON、TXTなどのさまざまなファイル形式からIDE内でデータをシームレスに読み取ることができます。
 
@@ -24,7 +24,7 @@ Kotlinデータ分析ツールを使用すると、データの最初から最�
 
 ## Notebooks
 
-_Notebooks_ は、コード、グラフィック、テキストを単一の環境に統合するインタラクティブなエディターです。ノートブックを使用すると、コードセルを実行し、すぐにその出力を確認できます。
+_Notebook_ は、実行可能なKotlinコードと、テキスト、視覚化、結果を組み合わせて作成できるインタラクティブなドキュメントです。これを、コードをセルに整理し、Markdownでドキュメント化し、生成したコードの隣に（テキストからプロットまでの）出力を即座に表示する機能を備えたKotlin REPLの拡張版と考えてください。
 
 Kotlinは、[Kotlin Notebook](#kotlin-notebook)、[Datalore](#kotlin-notebooks-in-datalore)、[Kotlin-Jupyter Notebook](#jupyter-notebook-with-kotlin-kernel)など、さまざまなノートブックソリューションを提供しており、データの取得、変換、探索、モデリングなどに便利な機能を提供します。これらのKotlinノートブックソリューションは、当社の[Kotlin Kernel](https://github.com/Kotlin/kotlin-jupyter)に基づいています。
 

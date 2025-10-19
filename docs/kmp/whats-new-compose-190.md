@@ -1,4 +1,4 @@
-[//]: # (title: Compose Multiplatform 1.9.0 中的新特性)
+[//]: # (title: Compose Multiplatform 1.9.1 中的新特性)
 
 以下是本次特性发布的亮点：
 
@@ -11,24 +11,23 @@
 *   [Web 目标平台上的辅助功能支持](#accessibility-support)
 *   [嵌入 HTML 内容的新 API](#new-api-for-embedding-html-content)
 
-关于此版本的所有更改列表，请参见 [GitHub](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.9.0-beta01)。
+关于此版本的所有更改列表，请参见 [GitHub](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.9.0)。
 
 ## 依赖项
 
-*   Gradle 插件 `org.jetbrains.compose`，版本 1.9.0。基于 Jetpack Compose 库：
-    *   [Runtime 1.9.0](https://developer.android.com/jetpack/androidx/releases/compose-runtime#1.9.0)
-    *   [UI 1.9.0](https://developer.android.com/jetpack/androidx/releases/compose-ui#1.9.0)
-    *   [Foundation 1.9.0](https://developer.android.com/jetpack/androidx/releases/compose-foundation#1.9.0)
-    *   [Material 1.9.0](https://developer.android.com/jetpack/androidx/releases/compose-material#1.9.0)
-    *   [Material3 1.3.2](https://developer.android.com/jetpack/androidx/releases/compose-material3#1.3.2)
+*   Gradle 插件 `org.jetbrains.compose`，版本 1.9.1。基于 Jetpack Compose 库：
+    *   [Runtime 1.9.3](https://developer.android.com/jetpack/androidx/releases/compose-runtime#1.9.3)
+    *   [UI 1.9.3](https://developer.android.com/jetpack/androidx/releases/compose-ui#1.9.3)
+    *   [Foundation 1.9.3](https://developer.android.com/jetpack/androidx/releases/compose-foundation#1.9.3)
+    *   [Material 1.9.3](https://developer.android.com/jetpack/androidx/releases/compose-material#1.9.3)
+    *   [Material3 1.4.0](https://developer.android.com/jetpack/androidx/releases/compose-material3#1.4.0)
 
-*   Compose Material3 库 `org.jetbrains.compose.material3:1.9.0-beta06`。基于 [Jetpack Material3 1.4.0-beta03](https://developer.android.com/jetpack/androidx/releases/compose-material3#1.4.0-beta03)。
-
-    公共 Material3 库的稳定版本基于 Jetpack Compose Material3 1.3.2，但得益于 Compose Multiplatform 和 Material3 的[解耦版本控制](#decoupled-material3-versioning)，你可以为你的项目选择更新的预发布版本。
-*   Compose Material3 Adaptive 库 `org.jetbrains.compose.material3.adaptive:adaptive*:1.2.0-alpha06`。基于 [Jetpack Material3 Adaptive 1.2.0-alpha11](https://developer.android.com/jetpack/androidx/releases/compose-material3-adaptive#1.2.0-alpha11)
-*   Lifecycle 库 `org.jetbrains.androidx.lifecycle:lifecycle-*:2.9.4`。基于 [Jetpack Lifecycle 2.9.2](https://developer.android.com/jetpack/androidx/releases/lifecycle#2.9.2)
-*   Navigation 库 `org.jetbrains.androidx.navigation:navigation-*:2.9.0`。基于 [Jetpack Navigation 2.9.1](https://developer.android.com/jetpack/androidx/releases/navigation#2.9.1)
-*   Savedstate 库 `org.jetbrains.androidx.savedstate:savedstate:1.3.4`。基于 [Jetpack Savedstate 1.3.1](https://developer.android.com/jetpack/androidx/releases/savedstate#1.3.1)
+*   Compose Material3 库 `org.jetbrains.compose.material3:1.9.0`。基于 [Jetpack Material3 1.4.0](https://developer.android.com/jetpack/androidx/releases/compose-material3#1.4.0)。
+    得益于 Compose Multiplatform 和 Material3 的[解耦版本控制](#decoupled-material3-versioning)，你可以为你的项目选择更新的预发布版本。
+*   Compose Material3 Adaptive 库 `org.jetbrains.compose.material3.adaptive:adaptive*:1.2.0-alpha05`。基于 [Jetpack Material3 Adaptive 1.2.0-alpha10](https://developer.android.com/jetpack/androidx/releases/compose-material3-adaptive#1.2.0-alpha10)
+*   Lifecycle 库 `org.jetbrains.androidx.lifecycle:lifecycle-*:2.9.5`。基于 [Jetpack Lifecycle 2.9.4](https://developer.android.com/jetpack/androidx/releases/lifecycle#2.9.4)
+*   Navigation 库 `org.jetbrains.androidx.navigation:navigation-*:2.9.1`。基于 [Jetpack Navigation 2.9.4](https://developer.android.com/jetpack/androidx/releases/navigation#2.9.4)
+*   Savedstate 库 `org.jetbrains.androidx.savedstate:savedstate:1.3.5`。基于 [Jetpack Savedstate 1.3.3](https://developer.android.com/jetpack/androidx/releases/savedstate#1.3.3)
 *   WindowManager Core 库 `org.jetbrains.androidx.window:window-core:1.4.0`。基于 [Jetpack WindowManager 1.4.0](https://developer.android.com/jetpack/androidx/releases/window#1.4.0)
 
 ## 跨平台
@@ -84,14 +83,14 @@ ComposeFoundationFlags.isNewContextMenuEnabled = true
 有关详细信息，请参见 [上下文菜单 API 参考](https://developer.android.com/reference/kotlin/androidx/compose/foundation/text/contextmenu/data/package-summary)。
 
 ### Material 3 表现力主题
-<secondary-label ref="Experimental"/>
+<primary-label ref="Experimental"/>
 
-Compose Multiplatform 现在支持来自 Material 3 库的实验性 [`MaterialExpressiveTheme`](https://developer.android.com/reference/kotlin/androidx/compose/material3/package-summary?hl=en#MaterialExpressiveTheme(androidx.compose.material3.ColorScheme,androidx.compose.material3.MotionScheme,androidx.compose.material3.Shapes,androidx.compose.material3.Typography,kotlin.Function0))。表现力主题化允许你定制 Material Design 应用，以获得更个性化的体验。
+Compose Multiplatform 现在支持来自 Material 3 库的实验性的 [`MaterialExpressiveTheme`](https://developer.android.com/reference/kotlin/androidx/compose/material3/package-summary?hl=en#MaterialExpressiveTheme(androidx.compose.material3.ColorScheme,androidx.compose.material3.MotionScheme,androidx.compose.material3.Shapes,androidx.compose.material3.Typography,kotlin.Function0))。表现力主题化允许你定制 Material Design 应用，以获得更个性化的体验。
 
 {style="note"}
 >为与 Jetpack Material3 [1.4.0-beta01 版本](https://developer.android.com/jetpack/androidx/releases/compose-material3#1.4.0-beta01) 保持一致，所有带有 `ExperimentalMaterial3ExpressiveApi` 和 `ExperimentalMaterial3ComponentOverrideApi` 标签的公共 API 已被移除。
 >
->如果你想使用这些实验性特性，需要显式包含 Alpha 版本的 Material3。
+>如果你想使用这些实验性的特性，需要显式包含 Alpha 版本的 Material3。
 
 使用表现力主题：
 
@@ -113,7 +112,7 @@ Material 组件，例如 [`Button()`](https://kotlinlang.org/api/compose-multipl
 
 `org.jetbrains.compose.runtime:runtime` 构件保持完全兼容，现在作为别名。
 
-### `runComposeUiTest()` 与挂起 lambda
+### `runComposeUiTest()` 与 `suspend` lambda
 
 `runComposeUiTest()` 函数现在接受一个 `suspend` lambda，允许你使用 `awaitIdle()` 等挂起函数。
 
@@ -278,9 +277,9 @@ Compose Multiplatform 现在包含新的 `SwingFrame()` 和 `SwingDialog()` 可�
 
 ### Material3 版本解耦
 
-Material3 库和 Compose Multiplatform Gradle 插件的版本和稳定级别不再需要对齐。`compose.material3` DSL 别名现在引用 Jetpack Compose 之前稳定版本中的 Material3 1.8.2。
+Material3 库和 Compose Multiplatform Gradle 插件的版本和稳定级别不再需要对齐。`compose.material3` DSL 别名引用 Jetpack Compose 稳定版本中的 Material3 1.9.0，但你可以为你的项目选择预发布版本。
 
-如果你想使用支持表现力设计的更新 Material3 版本，请将 `build.gradle.kts` 中的 Material 3 依赖项替换为以下内容：
+如果你想使用支持表现力设计的 Material3 版本，请将 `build.gradle.kts` 中的 Material 3 依赖项替换为以下内容：
 
 ```kotlin
 implementation("org.jetbrains.compose.material3:material3:1.9.0-alpha04")

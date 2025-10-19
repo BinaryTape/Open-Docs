@@ -1,8 +1,19 @@
 [//]: # (title: Gradle)
 
+> Dokka 2.0.0以降、ドキュメントを生成するためのいくつかの設定オプション、Gradleタスク、および手順が更新されました。これには以下が含まれます。
+>
+> * [設定オプションの調整](dokka-migration.md#adjust-configuration-options)
+> * [マルチモジュールプロジェクトの操作](dokka-migration.md#share-dokka-configuration-across-modules)
+> * [更新されたタスクでのドキュメント生成](dokka-migration.md#generate-documentation-with-the-updated-task)
+> * [出力ディレクトリの指定](dokka-migration.md#output-directory)
+>
+> 変更点の詳細および完全なリストについては、[移行ガイド](dokka-migration.md)を参照してください。
+>
+{style="note"}
+
 Gradleベースのプロジェクトのドキュメントを生成するには、[Dokka用Gradleプラグイン](https://plugins.gradle.org/plugin/org.jetbrains.dokka)を使用できます。
 
-このプラグインにはプロジェクトの基本的な自動設定が付属しており、ドキュメント生成のための便利な[Gradleタスク](#generate-documentation)があり、出力をカスタマイズするための豊富な[設定オプション](#configuration-options)が提供されています。
+これは、プロジェクトの基本的な自動設定が付属しており、ドキュメント生成のための便利な[Gradleタスク](#generate-documentation)があり、出力をカスタマイズするための豊富な[設定オプション](#configuration-options)を提供します。
 
 当社の[Gradleサンプルプロジェクト](https://github.com/Kotlin/dokka/tree/%dokkaVersion%/examples/gradle)にアクセスすると、Dokkaを試してさまざまなプロジェクトでどのように設定できるかを確認できます。
 
@@ -372,7 +383,7 @@ plugins {
     id("org.jetbrains.dokka") version "%dokkaVersion%"
 }
 
-// Configure all single-project Dokka tasks at the same time,
+// Configure all single-project Dokka tasks at the same time, 
 // such as dokkaHtml, dokkaJavadoc and dokkaGfm.
 // dokkaHtml、dokkaJavadoc、dokkaGfmなど、
 // すべてのシングルプロジェクトDokkaタスクを同時に設定します。
@@ -407,7 +418,7 @@ plugins {
     id 'org.jetbrains.dokka' version '%dokkaVersion%'
 }
 
-// Configure all single-project Dokka tasks at the same time,
+// Configure all single-project Dokka tasks at the same time, 
 // such as dokkaHtml, dokkaJavadoc and dokkaGfm.
 // dokkaHtml、dokkaJavadoc、dokkaGfmなど、
 // すべてのシングルプロジェクトDokkaタスクを同時に設定します。
@@ -502,13 +513,11 @@ subprojects {
     apply(plugin = "org.jetbrains.dokka")
 
     // configure only the HTML task
-    // HTMLタスクのみを設定
     tasks.dokkaHtmlPartial {
         outputDirectory.set(layout.buildDirectory.dir("docs/partial"))
     }
 
     // configure all format tasks at once
-    // すべてのフォーマットタスクを一度に設定
     tasks.withType<DokkaTaskPartial>().configureEach {
         dokkaSourceSets.configureEach {
             includes.from("README.md")
@@ -533,13 +542,11 @@ subprojects {
     apply plugin: 'org.jetbrains.dokka'
 
     // configure only the HTML task
-    // HTMLタスクのみを設定
     dokkaHtmlPartial {
         outputDirectory.set(file("build/docs/partial"))
     }
 
     // configure all format tasks at once
-    // すべてのフォーマットタスクを一度に設定
     tasks.withType(DokkaTaskPartial.class) {
         dokkaSourceSets.configureEach {
             includes.from("README.md")
@@ -564,7 +571,6 @@ subprojects {
 apply(plugin = "org.jetbrains.dokka")
 
 // configuration for subproject-A only.
-// subproject-Aのみの設定。
 tasks.dokkaHtmlPartial {
     outputDirectory.set(layout.buildDirectory.dir("docs/partial"))
 }
@@ -579,7 +585,6 @@ tasks.dokkaHtmlPartial {
 apply plugin: 'org.jetbrains.dokka'
 
 // configuration for subproject-A only.
-// subproject-Aのみの設定。
 dokkaHtmlPartial {
     outputDirectory.set(file("build/docs/partial"))
 }
@@ -645,9 +650,9 @@ Dokkaには、あなたと読者の体験をカスタマイズするための多
 ```kotlin
 import org.jetbrains.dokka.gradle.DokkaTask
 
-// Note: To configure multi-project builds, you need
-//       to configure Partial tasks of the subprojects.
-//       See "Configuration example" section of documentation.
+// Note: To configure multi-project builds, you need 
+//       to configure Partial tasks of the subprojects. 
+//       See "Configuration example" section of documentation. 
 // 注: マルチプロジェクトビルドを設定するには、
 //     サブプロジェクトのPartialタスクを設定する必要があります。
 //     ドキュメントの「設定例」セクションを参照してください。
@@ -659,10 +664,9 @@ tasks.withType<DokkaTask>().configureEach {
     suppressObviousFunctions.set(true)
     suppressInheritedMembers.set(false)
     offlineMode.set(false)
-
+    
     // ..
     // source set configuration section
-    // ソースセット設定セクション
     // ..
 }
 ```
@@ -673,9 +677,9 @@ tasks.withType<DokkaTask>().configureEach {
 ```groovy
 import org.jetbrains.dokka.gradle.DokkaTask
 
-// Note: To configure multi-project builds, you need
-//       to configure Partial tasks of the subprojects.
-//       See "Configuration example" section of documentation.
+// Note: To configure multi-project builds, you need 
+//       to configure Partial tasks of the subprojects. 
+//       See "Configuration example" section of documentation. 
 // 注: マルチプロジェクトビルドを設定するには、
 //     サブプロジェクトのPartialタスクを設定する必要があります。
 //     ドキュメントの「設定例」セクションを参照してください。
@@ -690,7 +694,6 @@ tasks.withType(DokkaTask.class) {
 
     // ..
     // source set configuration section
-    // ソースセット設定セクション
     // ..
 }
 ```
@@ -784,16 +787,15 @@ import org.jetbrains.dokka.gradle.DokkaTask
 import org.jetbrains.dokka.Platform
 import java.net.URL
 
-// Note: To configure multi-project builds, you need
-//       to configure Partial tasks of the subprojects.
-//       See "Configuration example" section of documentation.
+// Note: To configure multi-project builds, you need 
+//       to configure Partial tasks of the subprojects. 
+//       See "Configuration example" section of documentation. 
 // 注: マルチプロジェクトビルドを設定するには、
 //     サブプロジェクトのPartialタスクを設定する必要があります。
 //     ドキュメントの「設定例」セクションを参照してください。
 tasks.withType<DokkaTask>().configureEach {
     // ..
     // general configuration section
-    // 一般的な設定セクション
     // ..
 
     dokkaSourceSets {
@@ -825,15 +827,12 @@ tasks.withType<DokkaTask>().configureEach {
 
             sourceLink {
                 // Source link section
-                // ソースリンクセクション
             }
             externalDocumentationLink {
                 // External documentation link section
-                // 外部ドキュメントリンクセクション
             }
             perPackageOption {
                 // Package options section
-                // パッケージオプションセクション
             }
         }
     }
@@ -849,20 +848,19 @@ import org.jetbrains.dokka.gradle.DokkaTask
 import org.jetbrains.dokka.Platform
 import java.net.URL
 
-// Note: To configure multi-project builds, you need
-//       to configure Partial tasks of the subprojects.
-//       See "Configuration example" section of documentation.
+// Note: To configure multi-project builds, you need 
+//       to configure Partial tasks of the subprojects. 
+//       See "Configuration example" section of documentation. 
 // 注: マルチプロジェクトビルドを設定するには、
 //     サブプロジェクトのPartialタスクを設定する必要があります。
 //     ドキュメントの「設定例」セクションを参照してください。
 tasks.withType(DokkaTask.class) {
     // ..
     // general configuration section
-    // 一般的な設定セクション
     // ..
-
+    
     dokkaSourceSets {
-        // configuration exclusive to the 'linux' source set
+        // configuration exclusive to the 'linux' source set 
         // 'linux'ソースセットに限定された設定
         named("linux") {
             dependsOn("native")
@@ -890,15 +888,12 @@ tasks.withType(DokkaTask.class) {
 
             sourceLink {
                 // Source link section
-                // ソースリンクセクション
             }
             externalDocumentationLink {
                 // External documentation link section
-                // 外部ドキュメントリンクセクション
             }
             perPackageOption {
                 // Package options section
-                // パッケージオプションセクション
             }
         }
     }
@@ -914,7 +909,7 @@ tasks.withType(DokkaTask.class) {
         <p>デフォルト: <code>false</code></p>
     </def>
     <def title="displayName">
-        <p>このソースセットを参照するために使用される表示名です。</p>
+        <p>このソースセットを参照するために使用される表示名です。</</p>
         <p>
             名前は、外部（例えば、ドキュメントリーダーに見えるソースセット名）と
             内部（例えば、<code>reportUndocumented</code>のロギングメッセージ）の両方で使用されます。
@@ -1058,24 +1053,22 @@ tasks.withType(DokkaTask.class) {
 import org.jetbrains.dokka.gradle.DokkaTask
 import java.net.URL
 
-// Note: To configure multi-project builds, you need
-//       to configure Partial tasks of the subprojects.
-//       See "Configuration example" section of documentation.
+// Note: To configure multi-project builds, you need 
+//       to configure Partial tasks of the subprojects. 
+//       See "Configuration example" section of documentation. 
 // 注: マルチプロジェクトビルドを設定するには、
 //     サブプロジェクトのPartialタスクを設定する必要があります。
 //     ドキュメントの「設定例」セクションを参照してください。
 tasks.withType<DokkaTask>().configureEach {
     // ..
     // general configuration section
-    // 一般的な設定セクション
     // ..
-
+    
     dokkaSourceSets.configureEach {
         // ..
         // source set configuration section
-        // ソースセット設定セクション
         // ..
-
+        
         sourceLink {
             localDirectory.set(projectDir.resolve("src"))
             remoteUrl.set(URL("https://github.com/kotlin/dokka/tree/master/src"))
@@ -1092,24 +1085,22 @@ tasks.withType<DokkaTask>().configureEach {
 import org.jetbrains.dokka.gradle.DokkaTask
 import java.net.URL
 
-// Note: To configure multi-project builds, you need
-//       to configure Partial tasks of the subprojects.
-//       See "Configuration example" section of documentation.
+// Note: To configure multi-project builds, you need 
+//       to configure Partial tasks of the subprojects. 
+//       See "Configuration example" section of documentation. 
 // 注: マルチプロジェクトビルドを設定するには、
 //     サブプロジェクトのPartialタスクを設定する必要があります。
 //     ドキュメントの「設定例」セクションを参照してください。
 tasks.withType(DokkaTask.class) {
     // ..
     // general configuration section
-    // 一般的な設定セクション
     // ..
-
+    
     dokkaSourceSets.configureEach {
         // ..
         // source set configuration section
-        // ソースセット設定セクション
         // ..
-
+        
         sourceLink {
             localDirectory.set(file("src"))
             remoteUrl.set(new URL("https://github.com/kotlin/dokka/tree/master/src"))
@@ -1165,24 +1156,22 @@ tasks.withType(DokkaTask.class) {
 import org.jetbrains.dokka.DokkaConfiguration.Visibility
 import org.jetbrains.dokka.gradle.DokkaTask
 
-// Note: To configure multi-project builds, you need
-//       to configure Partial tasks of the subprojects.
-//       See "Configuration example" section of documentation.
+// Note: To configure multi-project builds, you need 
+//       to configure Partial tasks of the subprojects. 
+//       See "Configuration example" section of documentation. 
 // 注: マルチプロジェクトビルドを設定するには、
 //     サブプロジェクトのPartialタスクを設定する必要があります。
 //     ドキュメントの「設定例」セクションを参照してください。
 tasks.withType<DokkaTask>().configureEach {
     // ..
     // general configuration section
-    // 一般的な設定セクション
     // ..
-
+    
     dokkaSourceSets.configureEach {
         // ..
         // source set configuration section
-        // ソースセット設定セクション
         // ..
-
+        
         perPackageOption {
             matchingRegex.set(".*api.*")
             suppress.set(false)
@@ -1201,8 +1190,8 @@ tasks.withType<DokkaTask>().configureEach {
 import org.jetbrains.dokka.DokkaConfiguration.Visibility
 import org.jetbrains.dokka.gradle.DokkaTask
 
-// Note: To configure multi-project builds, you need
-//       to configure Partial tasks of the subprojects.
+// Note: To configure multi-project builds, you need 
+//       to configure Partial tasks of the subprojects. 
 //       See "Configuration example" section of documentation.
 // 注: マルチプロジェクトビルドを設定するには、
 //     サブプロジェクトのPartialタスクを設定する必要があります。
@@ -1210,15 +1199,13 @@ import org.jetbrains.dokka.gradle.DokkaTask
 tasks.withType(DokkaTask.class) {
     // ..
     // general configuration section
-    // 一般的な設定セクション
     // ..
-
+    
     dokkaSourceSets.configureEach {
         // ..
         // Source set configuration section
-        // ソースセット設定セクション
         // ..
-
+        
         perPackageOption {
             matchingRegex.set(".*api.*")
             suppress.set(false)
@@ -1282,24 +1269,22 @@ tasks.withType(DokkaTask.class) {
 import org.jetbrains.dokka.gradle.DokkaTask
 import java.net.URL
 
-// Note: To configure multi-project builds, you need
-//       to configure Partial tasks of the subprojects.
-//       See "Configuration example" section of documentation.
+// Note: To configure multi-project builds, you need 
+//       to configure Partial tasks of the subprojects. 
+//       See "Configuration example" section of documentation. 
 // 注: マルチプロジェクトビルドを設定するには、
 //     サブプロジェクトのPartialタスクを設定する必要があります。
 //     ドキュメントの「設定例」セクションを参照してください。
 tasks.withType<DokkaTask>().configureEach {
     // ..
     // general configuration section
-    // 一般的な設定セクション
     // ..
-
+    
     dokkaSourceSets.configureEach {
         // ..
         // source set configuration section
-        // ソースセット設定セクション
         // ..
-
+        
         externalDocumentationLink {
             url.set(URL("https://kotlinlang.org/api/kotlinx.serialization/"))
             packageListUrl.set(
@@ -1317,24 +1302,22 @@ tasks.withType<DokkaTask>().configureEach {
 import org.jetbrains.dokka.gradle.DokkaTask
 import java.net.URL
 
-// Note: To configure multi-project builds, you need
-//       to configure Partial tasks of the subprojects.
-//       See "Configuration example" section of documentation.
+// Note: To configure multi-project builds, you need 
+//       to configure Partial tasks of the subprojects. 
+//       See "Configuration example" section of documentation. 
 // 注: マルチプロジェクトビルドを設定するには、
 //     サブプロジェクトのPartialタスクを設定する必要があります。
 //     ドキュメントの「設定例」セクションを参照してください。
 tasks.withType(DokkaTask.class) {
     // ..
     // general configuration section
-    // 一般的な設定セクション
     // ..
-
+    
     dokkaSourceSets.configureEach {
         // ..
         // source set configuration section
-        // ソースセット設定セクション
         // ..
-
+        
         externalDocumentationLink {
             url.set(new URL("https://kotlinlang.org/api/kotlinx.serialization/"))
             packageListUrl.set(
@@ -1383,9 +1366,9 @@ import org.jetbrains.dokka.gradle.DokkaTask
 import org.jetbrains.dokka.Platform
 import java.net.URL
 
-// Note: To configure multi-project builds, you need
-//       to configure Partial tasks of the subprojects.
-//       See "Configuration example" section of documentation.
+// Note: To configure multi-project builds, you need 
+//       to configure Partial tasks of the subprojects. 
+//       See "Configuration example" section of documentation. 
 // 注: マルチプロジェクトビルドを設定するには、
 //     サブプロジェクトのPartialタスクを設定する必要があります。
 //     ドキュメントの「設定例」セクションを参照してください。
@@ -1422,7 +1405,7 @@ tasks.withType<DokkaTask>().configureEach {
             sourceRoots.from(file("src"))
             classpath.from(project.files(), file("libs/dependency.jar"))
             samples.from(project.files(), "samples/Basic.kt", "samples/Advanced.kt")
-
+            
             sourceLink {
                 localDirectory.set(projectDir.resolve("src"))
                 remoteUrl.set(URL("https://github.com/kotlin/dokka/tree/master/src"))
@@ -1465,9 +1448,9 @@ import org.jetbrains.dokka.gradle.DokkaTask
 import org.jetbrains.dokka.Platform
 import java.net.URL
 
-// Note: To configure multi-project builds, you need
-//       to configure Partial tasks of the subprojects.
-//       See "Configuration example" section of documentation.
+// Note: To configure multi-project builds, you need 
+//       to configure Partial tasks of the subprojects. 
+//       See "Configuration example" section of documentation. 
 // 注: マルチプロジェクトビルドを設定するには、
 //     サブプロジェクトのPartialタスクを設定する必要があります。
 //     ドキュメントの「設定例」セクションを参照してください。

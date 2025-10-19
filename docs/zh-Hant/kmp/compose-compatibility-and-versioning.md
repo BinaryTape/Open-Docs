@@ -37,7 +37,7 @@ Compose Multiplatform 要求套用與 Kotlin Multiplatform 外掛程式版本相
 
 ## 適用於桌面版 Compose Multiplatform 的限制
 
-桌面版 Compose Multiplatform 由於 [Skia](https://skia.org/) 綁定中使用的記憶體管理方案，僅支援 JDK 11 或更高版本。
+由於 [Skia](https://skia.org/) 綁定中使用的記憶體管理方案，桌面版 Compose Multiplatform 僅支援 JDK 11 或更高版本。
 
 此外：
 * 由於 [`jpackage`](https://docs.oracle.com/en/java/javase/17/docs/specs/man/jpackage.html) 的限制，僅支援 JDK 17 或更高版本用於打包原生發佈。
@@ -46,7 +46,7 @@ Compose Multiplatform 要求套用與 Kotlin Multiplatform 外掛程式版本相
 
 ## Jetpack Compose 與 Compose Multiplatform 發佈週期
 
-Compose Multiplatform 與 Google 開發的 Android 框架 [Jetpack Compose](https://developer.android.com/jetpack/compose) 共享大量程式碼。我們將 Compose Multiplatform 的發佈週期與 Jetpack Compose 的發佈週期對齊，以便共同程式碼得到適當的測試和穩定。
+Compose Multiplatform 與由 Google 開發的 Android 框架 [Jetpack Compose](https://developer.android.com/jetpack/compose) 共享大量程式碼。我們將 Compose Multiplatform 的發佈週期與 Jetpack Compose 的發佈週期對齊，以便共同程式碼得到適當的測試和穩定。
 
 當 Jetpack Compose 的新版本發佈時，我們會：
 
@@ -75,7 +75,7 @@ maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
 
 | Compose Multiplatform 版本                                                      | Jetpack Compose 版本 | Jetpack Compose Material3 版本 |
 |-----------------------------------------------------------------------------------|-------------------------|-----------------------------------|
-| [1.9.0](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.9.0)   | 1.9.0                   | 1.3.2                             |
+| [1.9.1](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.9.0)   | 1.9.3                   | 1.4.0                             |
 | [1.8.2](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.8.2)   | 1.8.2                   | 1.3.2                             |
 | [1.7.3](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.7.3)   | 1.7.6                   | 1.3.1                             |
 | [1.7.1](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.7.1)   | 1.7.5                   | 1.3.1                             |

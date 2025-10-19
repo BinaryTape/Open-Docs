@@ -3,7 +3,7 @@
 エージェントの永続化は、KoogフレームワークにおけるAIエージェントにチェックポイント機能を提供する機能です。
 これにより、エージェントの実行中の特定の時点で状態を保存および復元することができ、以下のような機能が可能になります。
 
-- エージェントの実行を特定の時点から再開する
+- 特定の時点からエージェントの実行を再開する
 - 以前の状態にロールバックする
 - セッション間でエージェントの状態を永続化する
 
@@ -18,12 +18,12 @@
 - 現在のノードの入力データ
 - 作成タイムスタンプ
 
-チェックポイントは一意のIDによって識別され、特定のエージェントに関連付けられています。
+チェックポイントは一意のIDによって識別され、特定のAIエージェントに関連付けられています。
 
 ## 前提条件
 
 エージェントの永続化機能を使用するには、エージェントの戦略内のすべてのノードが一意の名前を持っている必要があります。
-これは、機能がインストールされるときに適用されます。
+これは、機能がインストールされるときに強制されます。
 
 <!--- INCLUDE
 /*
@@ -76,8 +76,8 @@ val agent = AIAgent(
 
 エージェントの永続化機能には、主に2つの設定オプションがあります。
 
-- **ストレージプロバイダー**: チェックポイントを保存および取得するために使用されるプロバイダー。
-- **継続的な永続化**: 各ノードの実行後にチェックポイントを自動的に作成する機能。
+-   **ストレージプロバイダー**: チェックポイントを保存および取得するために使用されるプロバイダー。
+-   **継続的な永続化**: 各ノードの実行後にチェックポイントを自動的に作成する機能。
 
 ### ストレージプロバイダー
 
@@ -109,9 +109,9 @@ install(Persistence) {
 
 フレームワークには、以下の組み込みプロバイダーが含まれています。
 
-- `InMemoryPersistenceStorageProvider`: チェックポイントをメモリに保存します（アプリケーションの再起動時に失われます）。
-- `FilePersistenceStorageProvider`: チェックポイントをファイルシステムに永続化します。
-- `NoPersistenceStorageProvider`: チェックポイントを保存しない何もしない (no-op) 実装です。これがデフォルトのプロバイダーです。
+-   `InMemoryPersistenceStorageProvider`: チェックポイントをメモリに保存します（アプリケーションの再起動時に失われます）。
+-   `FilePersistenceStorageProvider`: チェックポイントをファイルシステムに永続化します。
+-   `NoPersistenceStorageProvider`: チェックポイントを保存しない何もしない (no-op) 実装です。これがデフォルトのプロバイダーです。
 
 `PersistenceStorageProvider` インターフェースを実装することで、カスタムストレージプロバイダーを実装することもできます。
 詳細については、[カスタムストレージプロバイダー](#custom-storage-providers)を参照してください。
@@ -171,6 +171,7 @@ suspend fun example(context: AIAgentContext) {
         lastInput = inputData,
         lastInputType = inputType,
         checkpointId = context.runId,
+        version = 0L
     )
 
     // チェックポイントIDは後で使用するために保存できます
@@ -284,6 +285,7 @@ suspend fun example(context: AIAgentContext) {
             lastInput = inputData,
             lastInputType = inputType,
             checkpointId = ctx.runId,
+            version = 0L
         )
     }
 }
@@ -388,7 +390,6 @@ fun example(context: AIAgentContext) {
         input = customInput
     )
 }
-
 ```
 
 <!--- KNIT example-agent-persistence-11.kt -->

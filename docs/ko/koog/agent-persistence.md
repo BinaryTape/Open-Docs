@@ -1,7 +1,7 @@
 # 에이전트 영속성
 
 에이전트 영속성(Agent Persistence)은 Koog 프레임워크에서 AI 에이전트에 체크포인트 기능을 제공하는 기능입니다.
-이 기능을 사용하면 실행 중 특정 시점에 에이전트의 상태를 저장하고 복원하여 다음과 같은 기능을 활성화할 수 있습니다.
+이 기능은 실행 중 특정 시점에 에이전트의 상태를 저장하고 복원하여 다음과 같은 기능을 활성화합니다.
 
 - 특정 지점부터 에이전트 실행 재개
 - 이전 상태로 롤백
@@ -22,7 +22,7 @@
 
 ## 전제 조건
 
-에이전트 영속성 기능을 사용하려면 에이전트 전략의 모든 노드에 고유한 이름이 있어야 합니다.
+에이전트 영속성 기능은 에이전트 전략의 모든 노드에 고유한 이름이 있어야 합니다.
 이 기능이 설치될 때 다음이 적용됩니다.
 
 <!--- INCLUDE
@@ -172,6 +172,7 @@ suspend fun example(context: AIAgentContext) {
         lastInput = inputData,
         lastInputType = inputType,
         checkpointId = context.runId,
+        version = 0L
     )
 
     // 체크포인트 ID는 나중에 사용하기 위해 저장할 수 있습니다.
@@ -285,6 +286,7 @@ suspend fun example(context: AIAgentContext) {
             lastInput = inputData,
             lastInputType = inputType,
             checkpointId = ctx.runId,
+            version = 0L
         )
     }
 }
@@ -321,6 +323,7 @@ class MyCustomStorageProvider<MyFilterType> : PersistenceStorageProvider<MyFilte
         TODO("Not yet implemented")
     }
 }
+
 ```
 
 <!--- KNIT example-agent-persistence-09.kt -->

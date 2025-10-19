@@ -1,5 +1,88 @@
 [//]: # (title: 在 JavaScript 中使用 Kotlin 代码)
 
+根据所选的 [JavaScript Module](js-modules.md) 系统，Kotlin/JS 编译器会生成不同的输出。但通常情况下，Kotlin 编译器会生成常规的 JavaScript 类、函数和属性，你可以自由地从 JavaScript 代码中使用它们。不过，你需要记住一些微妙之处。
+
+## 在 plain 模式下将声明隔离到单独的 JavaScript 对象中
+
+如果你已显式设置模块类型为 `plain`，Kotlin 会创建一个对象，其中包含当前模块的所有 Kotlin 声明。这样做是为了防止污染全局对象。这意味着对于模块 `myModule`，所有声明都可以通过 `myModule` 对象在 JavaScript 中可用。例如：
+
+```kotlin
+fun foo() = "Hello"
+```
+
+此函数可以按如下方式从 JavaScript 调用：
+
+```javascript
+alert(myModule.foo());
+```
+
+当你将 Kotlin 模块编译为 [UMD](https://github.com/umdjs/umd)（`browser` 和 `nodejs` 目标平台的默认设置）、[ESM](https://tc39.es/ecma262/#sec-modules)、[CommonJS](https://nodejs.org/api/modules.html#modules-commonjs-modules) 或 [AMD](https://github.com/amdjs/amdjs-api/wiki/AMD) 等 JavaScript 模块时，直接调用函数的方式不适用。在这些情况下，你的声明会根据所选的 JavaScript 模块系统进行暴露。例如，当使用 UMD、ESM 或 CommonJS 时，你的调用点将如下所示：
+
+```javascript
+alert(require('myModule').foo());
+```
+
+关于 JavaScript 模块系统的更多信息，请参见 [JavaScript 模块](js-modules.md)。
+
+## 包结构
+
+对于大多数模块系统（CommonJS、Plain 和 UMD），Kotlin 会向 JavaScript 暴露其包结构。除非你在根包中定义你的声明，否则你必须在 JavaScript 中使用完全限定名称。例如：
+
+```kotlin
+package my.qualified.packagename
+
+fun foo() = "Hello"
+```
+
+例如，当使用 UMD 或 CommonJS 时，你的调用点可能如下所示：
+
+```javascript
+alert(require('myModule').my.qualified.packagename.foo())
+```
+
+当使用 `plain` 作为模块系统设置时，调用点将是：
+
+```javascript
+alert(myModule.my.qualified.packagename.foo());
+```
+
+当面向 ECMAScript Modules (ESM) 时，包信息不会被保留，以改善应用程序包大小并匹配 ESM 包的典型布局。在这种情况下，ES 模块对 Kotlin 声明的消费如下所示：
+
+```javascript
+import { foo } from 'myModule';
+
+alert(foo());
+```
+
+### @JsName 注解
+
+在某些情况下（例如，为了支持重载），Kotlin 编译器会修饰所生成函数和属性的名称。为了控制生成的名称，你可以使用 `@JsName` 注解：
+
+```kotlin
+// Module 'kjs'
+class Person(val name: String) {
+    fun hello() {
+        println("Hello $name!")
+    }
+
+    @JsName("helloWithGreeting")
+    fun hello(greeting: String) {
+        println("$greeting $name!")
+    }
+}
+```
+
+现在，你可以按以下方式从 JavaScript 使用这个类：
+
+```javascript
+// If necessary, import 'kjs' according to chosen module system
+var person = new kjs.Person("Dmitry");   // refers to module 'kjs'
+person.hello();                          // prints "Hello Dmitry!"
+person.helloWithGreeting("Servus");      // prints "Servus Dmitry!"
+```
+
+如果我们没有指定 `@JsName` 注解，相应函数的名称将包含一个根据函数签名计算出的后缀，例如 `hello_61zpoe`。
+
 请注意，在某些情况下 Kotlin 编译器不会进行名字修饰：
 - `external` 声明不会被修饰。
 - 继承自 `external` 类的非 `external` 类中的任何覆盖函数都不会被修饰。
@@ -94,7 +177,7 @@ kotlin {
 kotlin {
     js {
         ...
-        compilerOptions {
+        compilerOptions { 
             freeCompilerArgs.add("-XXLanguage:+JsAllowLongInExportedDeclarations")
         }
     }
@@ -131,7 +214,7 @@ kotlin {
 | `Throwable`                                                      | `Error`                   |                                                                                       |
 | `enum class Type`                                                | `Type`                    | 枚举条目以静态类属性的形式暴露（`Type.ENTRY`）。                   |
 | Nullable `Type?`                                                 | `Type                     | null                                                                                  | undefined` |                                                                                            |
-| All other Kotlin types, except for those marked with `@JsExport` | Not supported             | 包括 Kotlin 的[无符号整型](unsigned-integer-types.md)。               |
+| 所有其他 Kotlin 类型，除了那些标记有 `@JsExport` 的 | Not supported             | 包括 Kotlin 的[无符号整型](unsigned-integer-types.md)。               |
 
 此外，重要的是要了解：
 

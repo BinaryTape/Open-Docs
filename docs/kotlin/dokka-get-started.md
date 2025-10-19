@@ -5,6 +5,17 @@
 <tabs group="build-script">
 <tab title="Gradle Kotlin DSL" group-key="kotlin">
 
+> 自 Dokka 2.0.0 起，若干配置选项、Gradle 任务以及生成文档的步骤已更新，其中包括：
+>
+> * [调整配置选项](dokka-migration.md#adjust-configuration-options)
+> * [处理多模块项目](dokka-migration.md#share-dokka-configuration-across-modules)
+> * [使用更新后的任务生成文档](dokka-migration.md#generate-documentation-with-the-updated-task)
+> * [指定输出目录](dokka-migration.md#output-directory)
+>
+> 有关更多详细信息和完整更改列表，请参见 [迁移指南](dokka-migration.md)。
+>
+{style="note"}
+
 在您的项目的根构建脚本中应用 Dokka 的 Gradle 插件：
 
 ```kotlin
@@ -13,7 +24,7 @@ plugins {
 }
 ```
 
-当您为 [多项目](https://docs.gradle.org/current/userguide/multi_project_builds.html) 构建生成文档时，您还需要在子项目中应用 Gradle 插件：
+当您为 [多项目](https://docs.gradle.org/current/userguide/multi_project_builds.html) 构建编写文档时，您还需要在子项目中应用 Gradle 插件：
 
 ```kotlin
 subprojects {
@@ -41,7 +52,7 @@ plugins {
 }
 ```
 
-当您为 [多项目](https://docs.gradle.org/current/userguide/multi_project_builds.html) 构建生成文档时，您还需要在子项目中应用 Gradle 插件：
+当您为 [多项目](https://docs.gradle.org/current/userguide/multi_project_builds.html) 构建编写文档时，您还需要在子项目中应用 Gradle 插件：
 
 ```groovy
 subprojects {
@@ -91,13 +102,3 @@ subprojects {
 
 </tab>
 </tabs>
-
-> 在 Dokka 2.0.0 中，若干入门步骤和任务已更新，包括：
->
-> * [配置多项目构建](dokka-migration.md#share-dokka-configuration-across-modules)
-> * [使用更新后的任务生成文档](dokka-migration.md#generate-documentation-with-the-updated-task)
-> * [指定输出目录](dokka-migration.md#output-directory)
-> 
-> 有关更多详细信息和完整更改列表，请参见 [迁移指南](dokka-migration.md)。
-> 
-{style="note"}

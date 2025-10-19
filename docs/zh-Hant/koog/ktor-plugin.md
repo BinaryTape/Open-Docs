@@ -2,11 +2,11 @@
 
 Koog 自然地融入您的 Ktor 伺服器，讓您能夠使用兩端慣用的 Kotlin API 撰寫伺服器端 AI 應用程式。
 
-安裝 Koog 外掛程式一次，在 application.conf/YAML 或程式碼中配置您的 LLM 提供者，然後直接從路由呼叫代理程式。無需再在模組之間連接 LLM 客戶端——您的路由只需請求一個代理程式即可開始運作。
+安裝 Koog 外掛程式一次，在 application.conf/YAML 或程式碼中配置您的 LLM 提供者，然後直接從您的路由呼叫代理程式。無需再在模組之間連接 LLM 客戶端——您的路由只需請求一個代理程式即可開始運作。
 
 ## 總覽
 
-`koog-ktor` 模組為伺服器端代理開發提供了慣用的 Kotlin/Ktor 整合：
+`koog-ktor` 模組為伺服器端代理程式開發提供了慣用的 Kotlin/Ktor 整合：
 
 - 隨插即用的 Ktor 外掛程式：在您的 `Application` 中 `install(Koog)`
 - 一流支援 OpenAI、Anthropic、Google、OpenRouter、DeepSeek 和 Ollama
@@ -53,7 +53,7 @@ koog:
     baseUrl: http://localhost:11434
 ```
 
-可選：配置當請求的提供者未配置時，直接 LLM 呼叫所使用的備用。
+可選：配置當請求的提供者未配置時，由直接 LLM 呼叫所使用的備用。
 
 ```yaml
 koog:
@@ -90,6 +90,7 @@ fun Application.module() {
 ```
 
 注意
+
 - `aiAgent` 需要一個具體的模型 (`LLModel`) – 每個路由、每次使用選擇。
 - 對於較低階的 LLM 存取，直接使用 `llm()` (`PromptExecutor`)。
 
@@ -213,6 +214,7 @@ install(Koog) {
 - Ollama: ollama.meta.llama3.2, ollama.alibaba.qwq:32b, ollama.groq.llama3-grok-tool-use:8b
 
 注意
+
 - 對於 OpenAI，您必須包含類別 (chat, reasoning, costoptimized, audio, embeddings, moderation)。
 - 對於 Ollama，`ollama.model` 和 `ollama.<maker>.<model>` 都受支援。
 

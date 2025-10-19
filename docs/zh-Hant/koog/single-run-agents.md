@@ -31,7 +31,9 @@
 
 ```
 dependencies {
-    implementation("ai.koog:koog-agents:VERSION")
+    implementation("ai.koog:koog-agents:$koog_version")
+    // include Ktor client dependency explicitly
+    implementation("io.ktor:ktor-client-cio:$ktor_version")
 }
 ```
 
@@ -39,7 +41,7 @@ dependencies {
 
 ### 2. 建立代理程式
 
-若要建立代理程式，請建立 `AIAgent` 類別的實例，並提供 `promptExecutor` 和 `llmModel` 參數：
+若要建立代理程式，請建立 `AIAgent` 類別的實例，並提供 `executor` 和 `llmModel` 參數：
 
 <!--- INCLUDE
 import ai.koog.agents.core.agent.AIAgent

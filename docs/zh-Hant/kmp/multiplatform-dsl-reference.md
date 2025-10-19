@@ -1,7 +1,7 @@
 [//]: # (title: 多平台 Gradle DSL 參考)
 
 Kotlin 多平台 Gradle 外掛程式是建立 Kotlin 多平台專案的工具。
-在此提供其內容參考；您可以在撰寫 Kotlin 多平台專案的 Gradle 建置指令碼時，將其作為提示使用。了解 [Kotlin 多平台專案的概念、如何建立和設定它們](multiplatform-discover-project.md)。
+在此提供其內容參考；您可以在撰寫 Kotlin 多平台專案的 Gradle 建置指令碼時，將其作為提示使用。深入了解 [Kotlin 多平台專案的概念，以及如何建立和配置它們](multiplatform-discover-project.md)。
 
 ## ID 與版本
 
@@ -238,7 +238,7 @@ kotlin {
     linuxX64 { // 請改用您的目標。
         binaries {
             executable {
-                // 二進位檔配置。
+                // Binary configuration.
             }
         }
     }
@@ -464,7 +464,7 @@ kotlin {
 |---------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `commonMain`                                | 在所有平台之間共享的程式碼和資源。在所有多平台專案中可用。用於專案的所有主要[編譯](#compilations)。                                                                           |
 | `commonTest`                                | 在所有平台之間共享的測試程式碼和資源。在所有多平台專案中可用。用於專案的所有測試編譯。                                                                                     |
-| _&lt;targetName&gt;&lt;compilationName&gt;_ | 目標特定編譯的原始碼。_&lt;targetName&gt;_ 是預定義目標的名稱，_&lt;compilationName&gt;_ 是此目標編譯的名稱。範例：`jsTest`、`jvmMain`。 |
+| _&lt;targetName&gt;&lt;compilationName&gt;_ | 目標特定原始碼用於編譯。_&lt;targetName&gt;_ 是預定義目標的名稱，_&lt;compilationName&gt;_ 是此目標編譯的名稱。範例：`jsTest`、`jvmMain`。 |
 
 <Tabs group="build-script">
 <TabItem title="Kotlin" group-key="kotlin">
@@ -935,8 +935,9 @@ kotlin {
 
 ### 從 `kotlinOptions {}` 遷移到 `compilerOptions {}` {collapsible="true"}
 
-在 Kotlin 2.2.0 之前，您可以使用 `kotlinOptions {}` 區塊配置編譯器選項。由於 `kotlinOptions {}` 區塊在 Kotlin 2.2.0 中已棄用，您需要在建置指令碼中使用 `compilerOptions {}` 區塊。
-有關更多資訊，請參閱[從 `kotlinOptions{}` 遷移到 `compilerOptions{}`](https://kotlinlang.org/docs/gradle-compiler-options.html#migrate-from-kotlinoptions-to-compileroptions)。
+在 Kotlin 2.2.0 之前，您可以使用 `kotlinOptions {}` 區塊配置編譯器選項。由於 `kotlinOptions {}`
+區塊在 Kotlin 2.2.0 中已棄用，您需要在建置指令碼中使用 `compilerOptions {}` 區塊。
+請參閱[從 `kotlinOptions{}` 遷移到 `compilerOptions{}`](https://kotlinlang.org/docs/gradle-compiler-options.html#migrate-from-kotlinoptions-to-compileroptions)，以獲取更多資訊。
 
 ## 依賴項
 
@@ -1002,7 +1003,7 @@ kotlin {
 在這種情況下，使用 [`dependsOn()`](#source-set-parameters) 關係。
 
 ### 在頂層配置依賴項
-<secondary-label ref="Experimental"/>
+<primary-label ref="Experimental"/>
 
 您可以使用頂層 `dependencies {}` 區塊配置共同依賴項。在此宣告的依賴項行為，如同它們已添加到 `commonMain` 或 `commonTest` 原始碼集一樣。
 

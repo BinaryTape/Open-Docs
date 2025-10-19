@@ -35,10 +35,10 @@ plugins {
 ktor {
     @OptIn(OpenApiPreview::class)
     openApi {
-        title = "OpenAPI 예시"
+        title = "OpenAPI example"
         version = "2.1"
-        summary = "이것은 샘플 API입니다"
-        description = "이것은 더 긴 설명입니다"
+        summary = "This is a sample API"
+        description = "This is a longer description"
         termsOfService = "https://example.com/terms/"
         contact = "contact@example.com"
         license = "Apache/1.0"
@@ -93,7 +93,7 @@ get("/api/users/{id}") {
 
 | 태그             | 형식                                            | 설명                                     |
 |-----------------|-------------------------------------------------|-------------------------------------------------|
-| `@tags`         | `@tags *name`                                   | 엔드포인트를 그룹화를 위한 태그와 연결합니다    |
+| `@tag`          | `@tag *name`                                    | 엔드포인트를 그룹화를 위한 태그와 연결합니다    |
 | `@path`         | `@path [Type] name description`                 | 경로 파라미터를 설명합니다                      |
 | `@query`        | `@query [Type] name description`                | 쿼리 파라미터                                   |
 | `@header`       | `@header [Type] name description`               | 헤더 파라미터                                   |

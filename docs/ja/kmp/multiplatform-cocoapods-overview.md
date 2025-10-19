@@ -4,7 +4,7 @@
    これはローカル統合方法です。以下の場合に役立ちます。<br/>
 
    * CocoaPodsを使用するiOSプロジェクトを含むモノレポ構成である。
-   * Kotlin MultiplatformプロジェクトがCocoaPodsに依存している。<br/>
+   * Kotlin MultiplatformプロジェクトがCocoaPodsの依存関係を持っている。<br/>
 
    [最適な統合方法を選択する](multiplatform-ios-integration-overview.md)
 </tldr>
@@ -26,7 +26,7 @@ Swift/Objective-Cコードを変更したり、Appleシミュレーターまた�
 2. Rubyをインストールします。特定のバージョンを選択できます。
 
     ```bash
-    rvm install ruby 3.0.0
+    rvm install ruby %rubyVersion%
     ```
 
 3. CocoaPodsをインストールします。
@@ -42,13 +42,13 @@ Swift/Objective-Cコードを変更したり、Appleシミュレーターまた�
 2. Rubyをインストールします。特定のバージョンを選択できます。
 
     ```bash
-    rbenv install 3.0.0
+    rbenv install %rubyVersion%
     ```
 
 3. Rubyバージョンを特定のディレクトリのローカル、またはマシン全体のグローバルに設定します。
 
     ```bash
-    rbenv global 3.0.0
+    rbenv global %rubyVersion%
     ```
     
 4. CocoaPodsをインストールします。
@@ -58,7 +58,7 @@ Swift/Objective-Cコードを変更したり、Appleシミュレーターまた�
     ```
 
 </TabItem>
-<TabItem title="デフォルトのRuby">
+<TabItem title="Default Ruby">
 
 > このインストール方法はApple Mチップ搭載デバイスでは動作しません。CocoaPodsで作業するための環境をセットアップするには、他のツールを使用してください。
 >
@@ -241,9 +241,7 @@ CocoaPodsのインストールや動作に問題が発生している場合は�
 
 #### バージョンの互換性
 
-最新のKotlinバージョンを使用することをお勧めします。現在のバージョンが1.7.0より古い場合、追加で[`cocoapods-generate`](https://github.com/square/cocoapods-generate#installation")プラグインをインストールする必要があります。
-
-ただし、`cocoapods-generate`はRuby 3.0.0以降と互換性がありません。この場合、Rubyをダウングレードするか、Kotlinを1.7.0以降にアップグレードしてください。
+最新のKotlinバージョンを使用することをお勧めします。このCocoaPodsセットアップの最小要件バージョンは1.7.0です。
 
 ### Xcode使用時のビルドエラー {initial-collapse-state="collapsed" collapsible="true"}
 

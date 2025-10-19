@@ -31,7 +31,9 @@
 
 ```
 dependencies {
-    implementation("ai.koog:koog-agents:VERSION")
+    implementation("ai.koog:koog-agents:$koog_version")
+    // Ktorクライアントの依存関係を明示的に含める
+    implementation("io.ktor:ktor-client-cio:$ktor_version")
 }
 ```
 

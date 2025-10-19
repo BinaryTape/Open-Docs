@@ -1,6 +1,6 @@
 [//]: # (title: 멀티플랫폼 Gradle DSL 참조)
 
-Kotlin 멀티플랫폼 Gradle 플러그인은 Kotlin 멀티플랫폼 프로젝트를 생성하기 위한 도구입니다. 여기서는 플러그인의 내용에 대한 참조를 제공합니다. Kotlin 멀티플랫폼 프로젝트용 Gradle 빌드 스크립트를 작성할 때 참고 자료로 활용하세요. [Kotlin 멀티플랫폼 프로젝트의 개념과 생성 및 구성 방법](multiplatform-discover-project.md)에 대해 알아보세요.
+Kotlin 멀티플랫폼 Gradle 플러그인은 Kotlin 멀티플랫폼 프로젝트를 생성하기 위한 도구입니다. 여기서는 플러그인의 내용에 대한 참조를 제공합니다. Kotlin 멀티플랫폼 프로젝트용 Gradle 빌드 스크립트를 작성할 때 참고 자료로 활용하세요. [Kotlin 멀티플랫폼 프로젝트의 개념, 생성 및 구성 방법](multiplatform-discover-project.md)에 대해 알아보세요.
 
 ## ID 및 버전
 
@@ -986,7 +986,7 @@ kotlin {
 또한, 소스 세트는 서로 의존하며 계층 구조를 형성할 수 있습니다. 이 경우 [`dependsOn()`](#source-set-parameters) 관계가 사용됩니다.
 
 ### 최상위에서 의존성 구성
-<secondary-label ref="Experimental"/>
+<primary-label ref="Experimental"/>
 
 최상위 `dependencies {}` 블록을 사용하여 공통 의존성을 구성할 수 있습니다. 여기서 선언된 의존성은 `commonMain` 또는 `commonTest` 소스 세트에 추가된 것처럼 작동합니다.
 

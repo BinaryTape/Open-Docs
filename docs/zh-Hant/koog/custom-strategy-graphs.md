@@ -175,6 +175,66 @@ val myStrategy = strategy<String, String>("my-strategy") {
 ```
 <!--- KNIT example-custom-strategy-graphs-05.kt -->
 
+## 可視化策略圖
+
+在 JVM 上，您可以為策略圖產生 [Mermaid 狀態圖](https://mermaid.js.org/syntax/stateDiagram.html)。
+
+對於上一個範例中建立的圖，您可以執行：
+
+<!--- INCLUDE
+import ai.koog.agents.core.agent.asMermaidDiagram
+import ai.koog.agents.core.dsl.builder.forwardTo
+import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.extension.nodeExecuteTool
+import ai.koog.agents.core.dsl.extension.nodeLLMRequest
+import ai.koog.agents.core.dsl.extension.nodeLLMSendToolResult
+import ai.koog.agents.core.dsl.extension.onAssistantMessage
+import ai.koog.agents.core.dsl.extension.onToolCall
+
+fun main() {
+    val myStrategy = strategy("my-strategy") {
+        val nodeCallLLM by nodeLLMRequest()
+        val executeToolCall by nodeExecuteTool()
+        val sendToolResult by nodeLLMSendToolResult()
+    
+        edge(nodeStart forwardTo nodeCallLLM)
+        edge(nodeCallLLM forwardTo nodeFinish onAssistantMessage { true })
+        edge(nodeCallLLM forwardTo executeToolCall onToolCall { true })
+        edge(executeToolCall forwardTo sendToolResult)
+        edge(sendToolResult forwardTo nodeFinish onAssistantMessage { true })
+        edge(sendToolResult forwardTo executeToolCall onToolCall { true })
+    }
+-->
+<!--- SUFFIX
+}
+-->
+
+```kotlin
+val mermaidDiagram: String = myStrategy.asMermaidDiagram()
+
+println(mermaidDiagram)
+```
+
+輸出將是：
+```mermaid
+---
+title: my-strategy
+---
+stateDiagram
+    state "nodeCallLLM" as nodeCallLLM
+    state "executeToolCall" as executeToolCall
+    state "sendToolResult" as sendToolResult
+
+    [*] --> nodeCallLLM
+    nodeCallLLM --> [*] : transformed
+    nodeCallLLM --> executeToolCall : onCondition
+    executeToolCall --> sendToolResult
+    sendToolResult --> [*] : transformed
+    sendToolResult --> executeToolCall : onCondition
+```
+
+<!--- KNIT example-custom-strategy-graphs-06.kt -->
+
 ## 進階策略技巧
 
 ### 歷史壓縮 (History compression)
@@ -205,7 +265,7 @@ val processMultipleResults by nodeLLMSendMultipleToolResults()
 edge(someNode forwardTo executeMultipleTools)
 edge(executeMultipleTools forwardTo processMultipleResults)
 ```
-<!--- KNIT example-custom-strategy-graphs-06.kt -->
+<!--- KNIT example-custom-strategy-graphs-07.kt -->
 
 您還可以使用 `toParallelToolCallsRaw` 擴充函數來串流資料：
 
@@ -218,7 +278,7 @@ edge(executeMultipleTools forwardTo processMultipleResults)
 ```kotlin
 parseMarkdownStreamToBooks(markdownStream).toParallelToolCallsRaw(BookTool::class).collect()
 ```
-<!--- KNIT example-custom-strategy-graphs-07.kt -->
+<!--- KNIT example-custom-strategy-graphs-08.kt -->
 
 要了解更多，請參閱 [工具](tools-overview.md#parallel-tool-calls)。
 
@@ -247,7 +307,7 @@ val calc by parallel<String, Int>(
     selectByMax { it }
 }
 ```
-<!--- KNIT example-custom-strategy-graphs-08.kt -->
+<!--- KNIT example-custom-strategy-graphs-09.kt -->
 
 上面的程式碼建立了一個名為 `calc` 的節點，它會並行執行 `nodeCalcTokens`、`nodeCalcSymbols` 和 `nodeCalcWords` 節點，並將結果作為 `AsyncParallelResult` 的實例返回。
 
@@ -287,7 +347,7 @@ edge(
             onCondition { input -> input.contains("B") }
 )
 ```
-<!--- KNIT example-custom-strategy-graphs-09.kt -->
+<!--- KNIT example-custom-strategy-graphs-10.kt -->
 
 ## 最佳實踐
 
@@ -372,7 +432,7 @@ fun toneStrategy(name: String, toolRegistry: ToolRegistry): AIAgentGraphStrategy
     }
 }
 ```
-<!--- KNIT example-custom-strategy-graphs-10.kt -->
+<!--- KNIT example-custom-strategy-graphs-11.kt -->
 
 此策略執行以下操作：
 

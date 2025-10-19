@@ -16,10 +16,10 @@ Tracing機能は、エージェントの実行に関する詳細情報を捕捉�
 
 ### イベントフロー
 
-1.  Tracing機能は、エージェントパイプライン内のイベントを傍受します。
-2.  イベントは、設定されたメッセージフィルターに基づいてフィルタリングされます。
-3.  フィルタリングされたイベントは、登録されたメッセージプロセッサーに渡されます。
-4.  メッセージプロセッサーはイベントをフォーマットし、それぞれの出力先に送ります。
+1. Tracing機能は、エージェントパイプライン内のイベントを傍受します。
+2. イベントは、設定されたメッセージフィルターに基づいてフィルタリングされます。
+3. フィルタリングされたイベントは、登録されたメッセージプロセッサーに渡されます。
+4. メッセージプロセッサーはイベントをフォーマットし、それぞれの出力先に出力します。
 
 ## 設定と初期化
 
@@ -27,10 +27,10 @@ Tracing機能は、エージェントの実行に関する詳細情報を捕捉�
 
 Tracing機能を使用するには、以下が必要です。
 
-1.  1つ以上のメッセージプロセッサーを用意する（既存のものを使用するか、独自に作成できます）。
-2.  エージェントに`Tracing`をインストールします。
-3.  メッセージフィルターを設定する（オプション）。
-4.  メッセージプロセッサーを機能に追加します。
+1. 1つ以上のメッセージプロセッサーを用意する（既存のものを使用するか、独自に作成できます）。
+2. エージェントに`Tracing`をインストールします。
+3. メッセージフィルターを設定する（オプション）。
+4. メッセージプロセッサーを機能に追加します。
 
 <!--- INCLUDE
 import ai.koog.agents.core.agent.AIAgent
@@ -47,7 +47,7 @@ import kotlinx.io.files.Path
 import kotlinx.io.files.SystemFileSystem
 -->
 ```kotlin
-// トレースメッセージの出力先として使用されるロガー/ファイルを定義しています
+// トレースメッセージの出力先として使用されるロガー/ファイルを定義しています 
 val logger = KotlinLogging.logger { }
 val outputPath = Path("/path/to/trace.log")
 
@@ -367,7 +367,7 @@ import ai.koog.agents.core.feature.model.events.AgentCompletedEvent
 import ai.koog.agents.core.feature.model.events.DefinedFeatureEvent
 import ai.koog.agents.core.feature.remote.client.config.DefaultClientConnectionConfig
 import ai.koog.agents.core.feature.remote.client.FeatureMessageRemoteClient
-import ai.koog.agents.utils.use
+import ai.koog.utils.io.use
 import io.ktor.http.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.consumeAsFlow
@@ -414,9 +414,9 @@ listOf(clientJob).joinAll()
 
 Tracing機能は、以下の主要コンポーネントを持つモジュラーアーキテクチャに従います。
 
-1.  [Tracing](https://api.koog.ai/agents/agents-features/agents-features-trace/ai.koog.agents.features.tracing.feature/-tracing/index.html): エージェントパイプライン内のイベントを傍受する主要な機能クラスです。
-2.  [TraceFeatureConfig](https://api.koog.ai/agents/agents-features/agents-features-trace/ai.koog.agents.features.tracing.feature/-trace-feature-config/index.html): 機能の動作をカスタマイズするための設定クラスです。
-3.  Message Processors: トレースイベントを処理し、出力するコンポーネントです。
+1. [Tracing](https://api.koog.ai/agents/agents-features/agents-features-trace/ai.koog.agents.features.tracing.feature/-tracing/index.html): エージェントパイプライン内のイベントを傍受する主要な機能クラスです。
+2. [TraceFeatureConfig](https://api.koog.ai/agents/agents-features/agents-features-trace/ai.koog.agents.features.tracing.feature/-trace-feature-config/index.html): 機能の動作をカスタマイズするための設定クラスです。
+3. Message Processors: トレースイベントを処理し、出力するコンポーネントです。
     - [TraceFeatureMessageLogWriter](https://api.koog.ai/agents/agents-features/agents-features-trace/ai.koog.agents.features.tracing.writer/-trace-feature-message-log-writer/index.html): トレースイベントをロガーに書き込みます。
     - [TraceFeatureMessageFileWriter](https://api.koog.ai/agents/agents-features/agents-features-trace/ai.koog.agents.features.tracing.writer/-trace-feature-message-file-writer/index.html): トレースイベントをファイルに書き込みます。
     - [TraceFeatureMessageRemoteWriter](https://api.koog.ai/agents/agents-features/agents-features-trace/ai.koog.agents.features.tracing.writer/-trace-feature-message-remote-writer/index.html): トレースイベントをリモートサーバーに送信します。

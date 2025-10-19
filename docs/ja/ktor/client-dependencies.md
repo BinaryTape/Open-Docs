@@ -43,7 +43,7 @@
             <TabItem title="Maven" group-key="maven">
                 <note>
                     <p>
-                        プロジェクトが <a href="https://maven.apache.org/guides/introduction/introduction-to-the-pom.html#super-pom">Super POM</a> からセントラルリポジトリを継承しているため、<path>pom.xml</path> ファイルに Maven セントラルリポジトリを追加する必要はありません。
+                        プロジェクトが <a href="https://maven.apache.org/guides/introduction/introduction-to-the-pom.html#super-pom">Super POM</a> からセントラルリポジリを継承しているため、<path>pom.xml</path> ファイルに Maven セントラルリポジリを追加する必要はありません。
                     </p>
                 </note>
             </TabItem>
@@ -115,10 +115,10 @@
 
 ```kotlin
 [versions]
-ktor = "3.2.3"
+ktor = "3.3.1"
+
 [libraries]
-kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
-ktor-client-okhttp = { module = "io.ktor:ktor-client-okhttp", version.ref = "ktor" }
+ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
 ```
 
 次に、`ktor-client-core` を `commonMain` ソースセットへの依存関係として追加します。
@@ -156,10 +156,10 @@ sourceSets {
 
 ```kotlin
 [versions]
-ktor = "3.2.3"
+ktor = "3.3.1"
+
 [libraries]
-kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
-ktor-client-darwin = { module = "io.ktor:ktor-client-darwin", version.ref = "ktor" }
+ktor-client-okhttp = { module = "io.ktor:ktor-client-okhttp", version.ref = "ktor" }
 ```
 
 次に、`ktor-client-okhttp` を `androidMain` ソースセットへの依存関係として追加します。

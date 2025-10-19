@@ -115,10 +115,10 @@
 
 ```kotlin
 [versions]
-ktor = "3.2.3"
+ktor = "3.3.1"
+
 [libraries]
-kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
-ktor-client-okhttp = { module = "io.ktor:ktor-client-okhttp", version.ref = "ktor" }
+ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
 ```
 
 그런 다음, `commonMain` 소스 세트에 `ktor-client-core`를 종속성으로 추가합니다.
@@ -156,10 +156,10 @@ sourceSets {
 
 ```kotlin
 [versions]
-ktor = "3.2.3"
+ktor = "3.3.1"
+
 [libraries]
-kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
-ktor-client-darwin = { module = "io.ktor:ktor-client-darwin", version.ref = "ktor" }
+ktor-client-okhttp = { module = "io.ktor:ktor-client-okhttp", version.ref = "ktor" }
 ```
 
 그런 다음, `androidMain` 소스 세트에 `ktor-client-okhttp`를 종속성으로 추가합니다.

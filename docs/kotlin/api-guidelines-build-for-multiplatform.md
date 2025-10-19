@@ -10,7 +10,7 @@
 
 如果您的库不支持多平台项目（无论是库还是应用程序）所使用的平台，该项目将难以依赖您的库。在这种情况下，项目可以对某些平台使用您的库，而需要为其他平台实现单独的解决方案，或者它们将完全选择一个支持其所有平台的替代库。
 
-为了简化构件生产，您可以尝试[实验性的交叉编译](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-publish-lib-setup.html#host-requirements)，以便从任何主机发布 Kotlin Multiplatform 库。这允许您无需 Apple 机器即可为 Apple 目标生成 `.klib` 构件。我们计划在未来稳定化此特性并进一步改进库的发布。请在我们的问题跟踪器 [YouTrack](https://youtrack.jetbrains.com/issue/KT-71290) 中留下您对此特性的反馈。
+为了简化构件生产，使用[交叉编译](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-publish-lib-setup.html#host-requirements)以便从任何主机发布 Kotlin Multiplatform 库。这允许您无需 Apple 机器即可为 Apple 目标生成 `.klib` 构件。
 
 > 对于 Kotlin/Native 目标，请考虑使用[分层方法](native-target-support.md#for-library-authors)来支持所有可能的目标。
 >
@@ -45,7 +45,7 @@
 > 如果平台差异不可避免，例如当一个平台
 > 支持更广泛的输入集时，请尽可能减少它们。例如，您可能不想限制一个平台的功能以匹配其他平台。在这种情况下，请清晰地文档化具体差异。
 >
-> {style=”note”}
+{style="note"}
 
 ## 在所有平台上测试
 

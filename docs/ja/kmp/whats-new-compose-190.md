@@ -1,4 +1,4 @@
-`[//]: # (title: Compose Multiplatform 1.9.0 の新機能)`
+`[//]: # (title: Compose Multiplatform 1.9.1 の新機能)`
 
 本機能リリースの主な変更点は以下のとおりです。
 
@@ -11,26 +11,24 @@
 *   [ウェブターゲットでのアクセシビリティサポート](#accessibility-support)
 *   [HTML コンテンツ埋め込み用の新しい API](#new-api-for-embedding-html-content)
 
-このリリースでの変更点の完全なリストは [GitHub](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.9.0-beta01) を参照してください。
+このリリースでの変更点の完全なリストは [GitHub](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.9.0) を参照してください。
 
 ## 依存関係
 
-*   Gradle プラグイン `org.jetbrains.compose`、バージョン 1.9.0。Jetpack Compose ライブラリに基づいています。
-    *   [Runtime 1.9.0](https://developer.android.com/jetpack/androidx/releases/compose-runtime#1.9.0)
-    *   [UI 1.9.0](https://developer.android.com/jetpack/androidx/releases/compose-ui#1.9.0)
-    *   [Foundation 1.9.0](https://developer.android.com/jetpack/androidx/releases/compose-foundation#1.9.0)
-    *   [Material 1.9.0](https://developer.android.com/jetpack/androidx/releases/compose-material#1.9.0)
-    *   [Material3 1.3.2](https://developer.android.com/jetpack/androidx/releases/compose-material3#1.3.2)
+*   Gradle プラグイン `org.jetbrains.compose`、バージョン 1.9.1。Jetpack Compose ライブラリに基づいています。
+    *   [Runtime 1.9.3](https://developer.android.com/jetpack/androidx/releases/compose-runtime#1.9.3)
+    *   [UI 1.9.3](https://developer.android.com/jetpack/androidx/releases/compose-ui#1.9.3)
+    *   [Foundation 1.9.3](https://developer.android.com/jetpack/androidx/releases/compose-foundation#1.9.3)
+    *   [Material 1.9.3](https://developer.android.com/jetpack/androidx/releases/compose-material#1.9.3)
+    *   [Material3 1.4.0](https://developer.android.com/jetpack/androidx/releases/compose-material3#1.4.0)
 
-*   Compose Material3 ライブラリ `org.jetbrains.compose.material3:1.9.0-beta06`。 [Jetpack Material3 1.4.0-beta03](https://developer.android.com/jetpack/androidx/releases/compose-material3#1.4.0-beta03) に基づいています。
-
-    共通の Material3 ライブラリの安定版は Jetpack Compose Material3 1.3.2 に基づいていますが、Compose Multiplatform と Material3 の
-    [バージョン管理の分離](#decoupled-material3-versioning)により、プロジェクトでより新しいプレリリースバージョンを選択できます。
-*   Compose Material3 Adaptive ライブラリ `org.jetbrains.compose.material3.adaptive:adaptive*:1.2.0-alpha06`。 [Jetpack Material3 Adaptive 1.2.0-alpha11](https://developer.android.com/jetpack/androidx/releases/compose-material3-adaptive#1.2.0-alpha11) に基づいています。
-*   Lifecycle ライブラリ `org.jetbrains.androidx.lifecycle:lifecycle-*:2.9.4`。 [Jetpack Lifecycle 2.9.2](https://developer.android.com/jetpack/androidx/releases/lifecycle#2.9.2) に基づいています。
-*   Navigation ライブラリ `org.jetbrains.androidx.navigation:navigation-*:2.9.0`。 [Jetpack Navigation 2.9.1](https://developer.android.com/jetpack/androidx/releases/navigation#2.9.1) に基づいています。
-*   Savedstate ライブラリ `org.jetbrains.androidx.savedstate:savedstate:1.3.4`。 [Jetpack Savedstate 1.3.1](https://developer.android.com/jetpack/androidx/releases/savedstate#1.3.1) に基づいています。
-*   WindowManager Core ライブラリ `org.jetbrains.androidx.window:window-core:1.4.0`。 [Jetpack WindowManager 1.4.0](https://developer.android.com/jetpack/androidx/releases/window#1.4.0) に基づいています。
+*   Compose Material3 ライブラリ `org.jetbrains.compose.material3:1.9.0`。[Jetpack Material3 1.4.0](https://developer.android.com/jetpack/androidx/releases/compose-material3#1.4.0) に基づいています。
+    Compose Multiplatform と Material3 の[バージョン管理の分離](#decoupled-material3-versioning)により、プロジェクトでより新しいプレリリースバージョンを選択できます。
+*   Compose Material3 Adaptive ライブラリ `org.jetbrains.compose.material3.adaptive:adaptive*:1.2.0-alpha05`。[Jetpack Material3 Adaptive 1.2.0-alpha10](https://developer.android.com/jetpack/androidx/releases/compose-material3-adaptive#1.2.0-alpha10) に基づいています。
+*   Lifecycle ライブラリ `org.jetbrains.androidx.lifecycle:lifecycle-*:2.9.5`。[Jetpack Lifecycle 2.9.4](https://developer.android.com/jetpack/androidx/releases/lifecycle#2.9.4) に基づいています。
+*   Navigation ライブラリ `org.jetbrains.androidx.navigation:navigation-*:2.9.1`。[Jetpack Navigation 2.9.4](https://developer.android.com/jetpack/androidx/releases/navigation#2.9.4) に基づいています。
+*   Savedstate ライブラリ `org.jetbrains.androidx.savedstate:savedstate:1.3.5`。[Jetpack Savedstate 1.3.3](https://developer.android.com/jetpack/androidx/releases/savedstate#1.3.3) に基づいています。
+*   WindowManager Core ライブラリ `org.jetbrains.androidx.window:window-core:1.4.0`。[Jetpack WindowManager 1.4.0](https://developer.android.com/jetpack/androidx/releases/window#1.4.0) に基づいています。
 
 ## クロスプラットフォーム
 
@@ -86,7 +84,7 @@ ComposeFoundationFlags.isNewContextMenuEnabled = true
 詳細については、[コンテキストメニュー API リファレンス](https://developer.android.com/reference/kotlin/androidx/compose/foundation/text/contextmenu/data/package-summary)を参照してください。
 
 ### Material 3 Expressive テーマ
-<secondary-label ref="Experimental"/>
+<primary-label ref="Experimental"/>
 
 Compose Multiplatform は、Material 3 ライブラリの実験的な [`MaterialExpressiveTheme`](https://developer.android.com/reference/kotlin/androidx/compose/material3/package-summary?hl=en#MaterialExpressiveTheme(androidx.compose.material3.ColorScheme,androidx.compose.material3.MotionScheme,androidx.compose.material3.Shapes,androidx.compose.material3.Typography,kotlin.Function0)) をサポートするようになりました。Expressive テーマを使用すると、Material Design アプリをカスタマイズして、よりパーソナライズされたエクスペリエンスを実現できます。
 
@@ -286,10 +284,9 @@ Compose Multiplatform には、新しい `SwingFrame()` および `SwingDialog()
 
 ### Material3 のバージョン管理の分離
 
-Material3 ライブラリと Compose Multiplatform Gradle プラグインのバージョンと安定性レベルを合わせる必要がなくなりました。
-`compose.material3` DSL エイリアスは、以前の Jetpack Compose の安定版リリースからの Material3 1.8.2 を参照するようになりました。
+Material3 ライブラリと Compose Multiplatform Gradle プラグインのバージョンと安定性レベルを合わせる必要がなくなりました。`compose.material3` DSL エイリアスは、Jetpack Compose の安定版リリースからの Material3 1.9.0 を参照しますが、プロジェクトでプレリリースバージョンを選択できます。
 
-Expressive デザインサポート付きのより新しい Material3 バージョンを使用したい場合は、`build.gradle.kts` の Material 3 依存関係を以下に置き換えてください。
+Expressive デザインサポート付きの Material3 バージョンを使用したい場合は、`build.gradle.kts` の Material 3 依存関係を以下に置き換えてください。
 
 ```kotlin
 implementation("org.jetbrains.compose.material3:material3:1.9.0-alpha04")

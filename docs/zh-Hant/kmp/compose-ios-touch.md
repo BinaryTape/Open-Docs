@@ -37,7 +37,7 @@
 {style="note"}
 
 ## 選擇觸控處理策略
-<secondary-label ref="Experimental"/>
+<primary-label ref="Experimental"/>
 
 透過 Compose Multiplatform %org.jetbrains.compose%，您還可以嘗試實驗性 API，以更精細地控制互通性 UI。
 

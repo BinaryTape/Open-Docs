@@ -47,6 +47,8 @@ Koog의 주요 기능은 다음과 같습니다.
 
 Koog를 사용하려면 빌드 구성에 필요한 모든 종속성을 포함해야 합니다.
 
+**참고!** Ktor [클라이언트](https://ktor.io/docs/client-engines.html) 및 [서버](https://ktor.io/docs/server-engines.html) 엔진 종속성은 기본적으로 라이브러리에 포함되어 있지 않으므로, 원하는 엔진을 직접 추가해야 합니다.
+
 ### Gradle
 
 #### Gradle (Kotlin DSL)
@@ -56,8 +58,11 @@ Koog를 사용하려면 빌드 구성에 필요한 모든 종속성을 포함해
     ```
     dependencies {
         implementation("ai.koog:koog-agents:LATEST_VERSION")
+       // include Ktor client dependency explicitly
+        implementation("io.ktor:ktor-client-cio:$ktor_version")
     }
     ```
+    Ktor [클라이언트](https://ktor.io/docs/client-engines.html) 및 [서버](https://ktor.io/docs/server-engines.html) 엔진 종속성은 기본적으로 라이브러리에 포함되어 있지 않으므로, 원하는 엔진을 직접 추가해야 합니다.
 
 2.  저장소 목록에 `mavenCentral()`이 있는지 확인하세요.
 
@@ -68,6 +73,7 @@ Koog를 사용하려면 빌드 구성에 필요한 모든 종속성을 포함해
     ```
     dependencies {
         implementation 'ai.koog:koog-agents:LATEST_VERSION'
+        implementation 'io.ktor:ktor-client-cio:KTOR_VERSION'
     }
     ```
 
@@ -77,12 +83,42 @@ Koog를 사용하려면 빌드 구성에 필요한 모든 종속성을 포함해
 
 1.  `pom.xml` 파일에 종속성을 추가합니다.
 
-    ```
+    ```xml
     <dependency>
         <groupId>ai.koog</groupId>
         <artifactId>koog-agents-jvm</artifactId>
         <version>LATEST_VERSION</version>
     </dependency>
+    ```
+
+2.  Ktor 종속성을 추가합니다. Ktor 버전은 [여기](https://mvnrepository.com/artifact/io.ktor/ktor-bom)에서 확인하세요.
+    ```xml
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>io.ktor</groupId>
+                <artifactId>ktor-bom</artifactId>
+                <version>KTOR_VERSION</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+   
+    <dependencies>
+        <dependency>
+            <groupId>io.ktor</groupId>
+            <artifactId>ktor-client-cio-jvm</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <!-- Add a Ktor server dependency if you are using features like MCP -->
+        <dependency>
+            <groupId>io.ktor</groupId>
+            <artifactId>ktor-server-netty-jvm</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+    </dependencies>
+
     ```
 
 2.  저장소 목록에 `mavenCentral`이 있는지 확인하세요.

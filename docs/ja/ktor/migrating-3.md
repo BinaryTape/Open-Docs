@@ -8,7 +8,7 @@
 
 ### `ApplicationEngine`、`ApplicationEnvironment`、および `Application`
 
-設定可能性を向上させ、`ApplicationEngine`、`ApplicationEnvironment`、および`Application`インスタンス間の分離をより明確にするために、いくつかの設計変更が導入されました。
+`ApplicationEngine`、`ApplicationEnvironment`、および`Application`インスタンス間の設定可能性を向上させ、分離をより明確にするために、いくつかの設計変更が導入されました。
 
 v3.0.0より前では、`ApplicationEngine`が`ApplicationEnvironment`を管理し、それがさらに`Application`を管理していました。
 
@@ -570,6 +570,7 @@ Ktor 3.xでは、`ByteReadChannel.readRemaining()`が`Source`を返すように�
     val file = File.createTempFile("files", "index")
     val stream = file.outputStream().asSink()
     val fileSize = 100 * 1024 * 1024
+    val bufferSize = 1024 * 1024
 
     runBlocking {
         client.prepareGet("https://httpbin.org/bytes/$fileSize").execute { httpResponse ->
@@ -577,7 +578,7 @@ Ktor 3.xでは、`ByteReadChannel.readRemaining()`が`Source`を返すように�
             var count = 0L
             stream.use {
                 while (!channel.exhausted()) {
-                    val chunk = channel.readRemaining()
+                    val chunk = channel.readRemaining(bufferSize)
                     count += chunk.remaining
 
                     chunk.transferTo(stream)

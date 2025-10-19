@@ -3,6 +3,7 @@
 > Markdown 输出格式仍处于 Alpha 阶段，因此您在使用时可能会发现错误并遇到迁移问题。
 > **使用它们需自担风险。**
 >
+> Dokka 2.0.0 默认不支持像 Markdown 和 Jekyll 这样的实验性的格式。启用这些格式的变通方法将很快添加。
 {style="warning"}
 
 Dokka 能够生成与 [GitHub Flavored](#gfm) 和 [Jekyll](#jekyll) 兼容的 Markdown 文档。
@@ -20,11 +21,11 @@ GFM 输出格式生成 [GitHub Flavored Markdown](https://github.github.com/gfm/
 
 [Dokka 的 Gradle 插件](dokka-gradle.md)包含 GFM 输出格式。您可以将以下任务与其一起使用：
 
-| **任务** | **描述** |
-|---|---|
-| `dokkaGfm` | 为单个项目生成 GFM 文档。 |
-| `dokkaGfmMultiModule` | 仅为多项目构建中的父项目创建的 [`MultiModule`](dokka-gradle.md#multi-project-builds) 任务。它为子项目生成文档，并将所有输出收集到一个具有公共目录的位置。 |
-| `dokkaGfmCollector` | 仅为多项目构建中的父项目创建的 [`Collector`](dokka-gradle.md#collector-tasks) 任务。它为每个子项目调用 `dokkaGfm`，并将所有输出合并到一个虚拟项目中。 |
+| **任务**              | **描述**                                                                                                                                                                                                                         |
+|-----------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `dokkaGfm`            | 为单个项目生成 GFM 文档。                                                                                                                                                                                                                      |
+| `dokkaGfmMultiModule` | 一个 [`MultiModule`](dokka-gradle.md#multi-project-builds) 任务，仅为多项目构建中的父项目创建。它为子项目生成文档，并将所有输出收集到一个具有公共目录的位置。 |
+| `dokkaGfmCollector`   | 一个 [`Collector`](dokka-gradle.md#collector-tasks) 任务，仅为多项目构建中的父项目创建。它为每个子项目调用 `dokkaGfm`，并将所有输出合并到一个虚拟项目。                                |
 
 </tab>
 <tab title="Maven" group-key="groovy">
@@ -95,11 +96,11 @@ Jekyll 输出格式生成与 [Jekyll](https://jekyllrb.com/) 兼容的 Markdown 
 
 [Dokka 的 Gradle 插件](dokka-gradle.md)包含 Jekyll 输出格式。您可以将以下任务与其一起使用：
 
-| **任务** | **描述** |
-|---|---|
-| `dokkaJekyll` | 为单个项目生成 Jekyll 文档。 |
-| `dokkaJekyllMultiModule` | 仅为多项目构建中的父项目创建的 [`MultiModule`](dokka-gradle.md#multi-project-builds) 任务。它为子项目生成文档，并将所有输出收集到一个具有公共目录的位置。 |
-| `dokkaJekyllCollector` | 仅为多项目构建中的父项目创建的 [`Collector`](dokka-gradle.md#collector-tasks) 任务。它为每个子项目调用 `dokkaJekyll`，并将所有输出合并到一个虚拟项目中。 |
+| **任务**                 | **描述**                                                                                                                                                                                                                         |
+|--------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `dokkaJekyll`            | 为单个项目生成 Jekyll 文档。                                                                                                                                                                                                                   |
+| `dokkaJekyllMultiModule` | 一个 [`MultiModule`](dokka-gradle.md#multi-project-builds) 任务，仅为多项目构建中的父项目创建。它为子项目生成文档，并将所有输出收集到一个具有公共目录的位置。 |
+| `dokkaJekyllCollector`   | 一个 [`Collector`](dokka-gradle.md#collector-tasks) 任务，仅为多项目构建中的父项目创建。它为每个子项目调用 `dokkaJekyll`，并将所有输出合并到一个虚拟项目。                             |
 
 </tab>
 <tab title="Maven" group-key="groovy">

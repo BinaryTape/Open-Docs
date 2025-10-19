@@ -8,11 +8,11 @@
 
 ### `ApplicationEngine`, `ApplicationEnvironment`, 및 `Application`
 
-설정 가능성을 개선하고 `ApplicationEngine`, `ApplicationEnvironment`, `Application` 인스턴스 간에 보다 명확한 분리를 제공하기 위해 여러 디자인 변경 사항이 도입되었습니다.
+`ApplicationEngine`, `ApplicationEnvironment`, `Application` 인스턴스 간의 구성 가능성을 개선하고 보다 명확한 분리를 제공하기 위해 몇 가지 설계 변경 사항이 도입되었습니다.
 
 v3.0.0 이전에는 `ApplicationEngine`이 `ApplicationEnvironment`를 관리했고, `ApplicationEnvironment`는 다시 `Application`을 관리했습니다.
 
-그러나 현재 디자인에서는 `Application`이 `ApplicationEngine`과 `ApplicationEnvironment`를 모두 생성, 소유 및 초기화하는 역할을 담당합니다.
+그러나 현재 설계에서는 `Application`이 `ApplicationEngine`과 `ApplicationEnvironment`를 모두 생성, 소유 및 시작하는 역할을 담당합니다.
 
 이러한 재구성은 다음과 같은 주요 변경 사항을 포함합니다.
 
@@ -146,8 +146,8 @@ fun main(args: Array<String>) {
 
 #### `ServerConfigBuilder` 도입 {id="ServerConfigBuilder"}
 
-서버 속성 구성을 위해 새로운 엔티티인 [`ServerConfigBuilder`](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.application/-server-config-builder/index.html)가 도입되었으며, 이전의 `ApplicationPropertiesBuilder` 구성 메커니즘을 대체합니다.
-`ServerConfigBuilder`는 이전에는 `ApplicationProperties`에 의해 관리되던 모듈, 경로 및 환경 세부 정보를 이제 보유하는 [`ServerConfig`](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.application/-server-config/index.html) 클래스의 인스턴스를 빌드하는 데 사용됩니다.
+새로운 엔티티인 [`ServerConfigBuilder`](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.application/-server-config-builder/index.html)가 서버 속성 구성을 위해 도입되었으며, 이전의 `ApplicationPropertiesBuilder` 구성 메커니즘을 대체합니다.
+`ServerConfigBuilder`는 이제 이전에는 `ApplicationProperties`에 의해 관리되던 모듈, 경로 및 환경 세부 정보를 보유하는 [`ServerConfig`](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.application/-server-config/index.html) 클래스의 인스턴스를 빌드하는 데 사용됩니다.
 
 다음 표는 주요 변경 사항을 요약합니다.
 
@@ -411,7 +411,7 @@ JS 및 WasmJS 환경에서 비동기 작업을 지원하기 위해 `TCPSocketBui
 
 ### 바이너리 및 파일 항목에 대한 새 기본 제한
 
-Ktor 3.0.0에서는 `ApplicationCall.receiveMultipart()`를 사용하여 바이너리 및 파일 항목을 수신하는 데 50MB의 기본 제한이 도입되었습니다.
+Ktor 3.0.0에서는 [`ApplicationCall.receiveMultipart()`](https://api.ktor.io/older/3.0.0/ktor-server/ktor-server-core/io.ktor.server.request/receive-multipart.html)를 사용하여 바이너리 및 파일 항목을 수신하는 데 50MB의 기본 제한이 도입되었습니다.
 수신된 파일 또는 바이너리 항목이 50MB 제한을 초과하면 `IOException`이 발생합니다.
 
 #### 기본 제한 재정의
@@ -428,8 +428,8 @@ val multipartData = call.receiveMultipart(formFieldLimit = 1024 * 1024 * 100)
 
 이전 Ktor 버전에서는 `PartData.FileItem`의 `.streamProvider()` 함수를 사용하여 파일 항목의 내용을 `InputStream`으로 접근했습니다. Ktor 3.0.0부터 이 함수는 사용 중단되었습니다.
 
-애플리케이션을 마이그레이션하려면 `.streamProvider()`를 [`.provider()`](https://api.ktor.io/ktor-http/io.ktor.http.content/-part-data/-file-item/provider.html) 함수로 바꾸세요. `.provider()` 함수는 코루틴 친화적인 비동기 `ByteReadChannel`을 반환하여 바이트 스트림을 점진적으로 읽을 수 있습니다.
-그런 다음 `ByteReadChannel`이 제공하는 `.copyTo()` 또는 `.copyAndClose()` 메서드를 사용하여 채널에서 파일 출력으로 직접 데이터를 스트림할 수 있습니다.
+애플리케이션을 마이그레이션하려면 `.streamProvider()`를 [`.provider()`](https://api.ktor.io/ktor-http/io.ktor.http.content/-part-data/-file-item/provider.html) 함수로 바꾸세요. `.provider()` 함수는 바이트 스트림을 점진적으로 읽기 위한 코루틴 친화적인 비동기 `ByteReadChannel`을 반환합니다.
+그런 다음 `ByteReadChannel`이 제공하는 [`.copyTo()`](https://api.ktor.io/ktor-io/io.ktor.utils.io/copy-to.html) 또는 [`.copyAndClose()`](https://api.ktor.io/ktor-io/io.ktor.utils.io/copy-and-close.html) 메서드를 사용하여 채널에서 파일 출력으로 직접 데이터를 스트림할 수 있습니다.
 
 예시에서 `.copyAndClose()` 메서드는 `ByteReadChannel`에서 파일의 `WritableByteChannel`로 데이터를 전송합니다.
 
@@ -504,11 +504,11 @@ Ktor의 세션 암호화에 대한 자세한 내용은 [세션 데이터 서명 
 
 ### `HttpResponse`의 `content` 속성 이름 변경
 
-Ktor 3.0.0 이전에는 `HttpResponse`의 `content` 속성이 네트워크에서 읽어오는 응답 콘텐츠에 대한 원시 `ByteReadChannel`을 제공했습니다. Ktor 3.0.0부터 `content` 속성은 그 목적을 더 잘 반영하기 위해 `rawContent`로 이름이 변경되었습니다.
+Ktor 3.0.0 이전에는 [`HttpResponse`](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client.statement/-http-response/index.html)의 `content` 속성이 네트워크에서 읽어오는 응답 콘텐츠에 대한 원시 `ByteReadChannel`을 제공했습니다. Ktor 3.0.0부터 `content` 속성은 그 목적을 더 잘 반영하기 위해 `rawContent`로 이름이 변경되었습니다.
 
-### `SocketTimeoutException`이 이제 typealias입니다.
+### `SocketTimeoutException`이 이제 타입 별칭입니다.
 
-`io.ktor.client.network.sockets` 패키지의 [`SocketTimeoutException`](https://api.ktor.io/older/3.0.0/ktor-client/ktor-client-core/io.ktor.client.network.sockets/-socket-timeout-exception/index.html)은 Kotlin 클래스에서 Java 클래스의 별칭으로 변환되었습니다. 이 변경 사항은 특정 경우에 `NoClassDefFoundError`를 발생시킬 수 있으며 기존 코드에 대한 업데이트가 필요할 수 있습니다.
+`io.ktor.client.network.sockets` 패키지의 [`SocketTimeoutException`](https://api.ktor.io/older/3.0.0/ktor-client/ktor-client-core/io.ktor.client.network.sockets/-socket-timeout-exception/index.html)은 Kotlin 클래스에서 Java 클래스의 타입 별칭(typealias)으로 변환되었습니다. 이 변경 사항은 특정 경우에 `NoClassDefFoundError`를 발생시킬 수 있으며 기존 코드에 대한 업데이트가 필요할 수 있습니다.
 
 애플리케이션을 마이그레이션하려면 코드가 이전 클래스를 참조하지 않고 최신 Ktor 버전으로 컴파일되었는지 확인하세요. 예외 검사를 업데이트하는 방법은 다음과 같습니다.
 
@@ -575,6 +575,7 @@ Ktor 3.x에서는 `ByteReadChannel.readRemaining()`이 이제 `Source`를 반환
     val file = File.createTempFile("files", "index")
     val stream = file.outputStream().asSink()
     val fileSize = 100 * 1024 * 1024
+    val bufferSize = 1024 * 1024
 
     runBlocking {
         client.prepareGet("https://httpbin.org/bytes/$fileSize").execute { httpResponse ->
@@ -582,7 +583,7 @@ Ktor 3.x에서는 `ByteReadChannel.readRemaining()`이 이제 `Source`를 반환
             var count = 0L
             stream.use {
                 while (!channel.exhausted()) {
-                    val chunk = channel.readRemaining()
+                    val chunk = channel.readRemaining(bufferSize)
                     count += chunk.remaining
 
                     chunk.transferTo(stream)

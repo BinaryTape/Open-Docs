@@ -93,7 +93,7 @@ get("/api/users/{id}") {
 
 | Tag             | Format                                          | Description                                     |
 |-----------------|-------------------------------------------------|-------------------------------------------------|
-| `@tags`         | `@tags *name`                                   | 將端點與標籤關聯以進行分組                      |
+| `@tag`          | `@tag *name`                                    | 將端點與標籤關聯以進行分組                      |
 | `@path`         | `@path [Type] name description`                 | 描述路徑參數                                    |
 | `@query`        | `@query [Type] name description`                | 查詢參數                                        |
 | `@header`       | `@header [Type] name description`               | 標頭參數                                        |

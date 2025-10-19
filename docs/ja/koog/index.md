@@ -6,7 +6,7 @@ Koogは、JetBrainsが開発したオープンソースのフレームワーク�
 このフレームワークは、以下の種類のエージェントをサポートしています。
 
 *   最小限の設定で単一の入力を処理し、応答を提供するシングルランエージェント。
-    このタイプのエージェントは、ツール呼び出しの単一サイクル内で動作し、タスクを完了して応答を提供します。
+    このタイプのエージェントは、タスクを完了して応答を提供するために、ツール呼び出しの単一サイクル内で動作します。
 *   軽量でカスタマイズ可能なロジックがラムダ関数によって定義され、ユーザー入力を処理し、LLMと対話し、ツールを呼び出し、最終的な出力を生成するファンクショナルエージェント。
 *   カスタム戦略と構成をサポートする高度な機能を備えた複雑なワークフローエージェント。
 
@@ -31,7 +31,7 @@ Koogの主な機能は以下のとおりです。
 
 ## 利用可能なLLMプロバイダーとプラットフォーム
 
-エージェントの機能を強化するために利用できるLLMプロバイダーとプラットフォームは次のとおりです。
+エージェントの機能を強化するために使用できるLLMプロバイダーとプラットフォームは次のとおりです。
 
 - Google
 - OpenAI
@@ -47,6 +47,8 @@ Koogの主な機能は以下のとおりです。
 
 Koogを使用するには、ビルド構成に必要なすべての依存関係を含める必要があります。
 
+**注記！** Ktorの[クライアント](https://ktor.io/docs/client-engines.html)と[サーバー](https://ktor.io/docs/server-engines.html)エンジンの依存関係は、デフォルトではライブラリに含まれていないため、選択したエンジンを自分で追加する必要があります。
+
 ### Gradle
 
 #### Gradle (Kotlin DSL)
@@ -56,8 +58,11 @@ Koogを使用するには、ビルド構成に必要なすべての依存関係�
     ```
     dependencies {
         implementation("ai.koog:koog-agents:LATEST_VERSION")
+       // include Ktor client dependency explicitly
+        implementation("io.ktor:ktor-client-cio:$ktor_version")
     }
     ```
+   Ktorの[クライアント](https://ktor.io/docs/client-engines.html)と[サーバー](https://ktor.io/docs/server-engines.html)エンジンの依存関係は、デフォルトではライブラリに含まれていないため、選択したエンジンを自分で追加する必要があります。
 
 2. `mavenCentral()`がリポジトリのリストに含まれていることを確認してください。
 
@@ -68,6 +73,7 @@ Koogを使用するには、ビルド構成に必要なすべての依存関係�
     ```
     dependencies {
         implementation 'ai.koog:koog-agents:LATEST_VERSION'
+        implementation 'io.ktor:ktor-client-cio:KTOR_VERSION'
     }
     ```
 
@@ -77,12 +83,42 @@ Koogを使用するには、ビルド構成に必要なすべての依存関係�
 
 1. `pom.xml`ファイルに依存関係を追加します。
 
-    ```
+    ```xml
     <dependency>
         <groupId>ai.koog</groupId>
         <artifactId>koog-agents-jvm</artifactId>
         <version>LATEST_VERSION</version>
     </dependency>
+    ```
+
+2. Ktorの依存関係を追加します。Ktorのバージョンは[こちら](https://mvnrepository.com/artifact/io.ktor/ktor-bom)で確認してください。
+    ```xml
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>io.ktor</groupId>
+                <artifactId>ktor-bom</artifactId>
+                <version>KTOR_VERSION</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+   
+    <dependencies>
+        <dependency>
+            <groupId>io.ktor</groupId>
+            <artifactId>ktor-client-cio-jvm</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <!-- Add a Ktor server dependency if you are using features like MCP -->
+        <dependency>
+            <groupId>io.ktor</groupId>
+            <artifactId>ktor-server-netty-jvm</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+    </dependencies>
+
     ```
 
 2. `mavenCentral`がリポジトリのリストに含まれていることを確認してください。

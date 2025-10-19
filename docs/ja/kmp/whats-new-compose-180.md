@@ -19,7 +19,7 @@
     *   [Material 1.8.2](https://developer.android.com/jetpack/androidx/releases/compose-material#1.8.2)
     *   [Material3 1.3.2](https://developer.android.com/jetpack/androidx/releases/compose-material3#1.3.2)
 *   Lifecycleライブラリ `org.jetbrains.androidx.lifecycle:lifecycle-*:2.9.0`。 [Jetpack Lifecycle 2.9.0](https://developer.android.com/jetpack/androidx/releases/lifecycle#2.9.0)に基づいています。
-*   Navigationライブラリ `org.jetbrains.androidx.navigation:navigation-*:2.9.0-beta03`。 [Jetpack Navigation 2.9.0](https://developer.android.com/jetpack/androidx/releases/navigation#2.9.0)に基づいています。
+*   Navigationライブラリ `org.jetbrains.androidx.navigation:navigation-*:2.9.0-beta03`。 [Jetpack Navigation 2.9.0](https://developer.android.com/jetpack/androidx/releases/navigation#1.8.0)に基づいています。
 *   Material3 Adaptiveライブラリ `org.jetbrains.compose.material3.adaptive:adaptive*:1.2.0-alpha03`。 [Jetpack Material3 Adaptive 1.1.0](https://developer.android.com/jetpack/androidx/releases/compose-material3-adaptive#1.1.0)に基づいています。
 *   Savedstateライブラリ `org.jetbrains.androidx.savedstate:savedstate:1.3.1`。 [Jetpack Savedstate 1.3.0](https://developer.android.com/jetpack/androidx/releases/savedstate#1.3.0)に基づいています。
 *   WindowManager Coreライブラリ `org.jetbrains.androidx.window:window-core:1.4.0-alpha07`。 [Jetpack WindowManager 1.4.0-alpha04](https://developer.android.com/jetpack/androidx/releases/window#1.4.0-alpha04)に基づいています。
@@ -253,6 +253,10 @@ Compose Multiplatformコンポーネントのアクセシビリティプロパ�
 
 セマンティクスを調整することで、`DropDown`要素のヒットボックスの欠落、表示されるテキストとアクセシビリティラベルの不一致、ラジオボタンの不正な状態など、アクセシビリティプロパティの誤った計算に関連するいくつかの問題を修正することもできました。
 
+### iOSロギングの安定版API
+
+iOSでのオペレーティングシステムロギングを可能にするAPIが安定版になりました。`enableTraceOSLog()`関数は実験的オプトインを必要とせず、Androidスタイルのロギングと整合するようになりました。このロギングは、デバッグとパフォーマンス分析のためにXcode Instrumentsを使用して分析できるトレース情報を提供します。
+
 ### ドラッグ＆ドロップ
 <secondary-label ref="Experimental"/>
 
@@ -278,7 +282,7 @@ iOS向けCompose Multiplatformは、レンダリングタスクを専用のレ�
 
 ```kotlin
 @OptIn(ExperimentalComposeUiApi::class)
-fun main(varvar args: String) {
+fun main(vararg args: String) {
     UIKitMain {
         ComposeUIViewController(configure = { parallelRendering = true }) {
             // ...

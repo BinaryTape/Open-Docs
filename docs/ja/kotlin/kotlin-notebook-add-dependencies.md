@@ -32,6 +32,13 @@ Kotlin Notebookのオートコンプリート機能を使用して、利用可�
 
 ![Autocompletion feature in Kotlin Notebook](autocompletion-feature-notebook.png){width=700}
 
+> Kotlin Notebookには、ディープラーニングからHTTPネットワーキングまで、さまざまなタスクを実行するための統合されたライブラリセットがあります。
+> [サポートされているライブラリのインポート](https://www.jetbrains.com/help/idea/kotlin-notebook.html#import-libraries)を参照してください。
+> 
+> Kotlin Notebookにまだ統合されていないライブラリも追加して使用できます。 [新しいライブラリの統合](https://www.jetbrains.com/help/idea/kotlin-notebook.html#integrate-new-libraries)を参照してください。
+>
+{style="note"}
+
 ## Kotlin DataFrameおよびKandyライブラリをKotlin Notebookに追加する
 
 Kotlin Notebookに、2つの人気のあるKotlinライブラリの依存関係を追加しましょう。

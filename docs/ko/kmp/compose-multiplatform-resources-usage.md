@@ -2,7 +2,7 @@
 
 <show-structure depth="2"/>
 
-[프로젝트에 리소스를 설정](compose-multiplatform-resources-setup.md)한 후, 프로젝트를 빌드하여 리소스에 접근하는 데 사용되는 특별한 `Res` 클래스를 생성합니다. `Res` 클래스와 모든 리소스 접근자를 재생성하려면 프로젝트를 다시 빌드하거나 IDE에서 프로젝트를 다시 임포트하세요.
+프로젝트에 [리소스를 설정](compose-multiplatform-resources-setup.md)하면, 리소스에 접근할 수 있는 특별한 `Res` 클래스를 생성하기 위해 프로젝트를 빌드합니다. `Res` 클래스와 모든 리소스 접근자를 재생성하려면 프로젝트를 다시 빌드하거나 IDE에서 프로젝트를 다시 임포트하세요.
 
 그 후, 생성된 클래스를 사용하여 코드 또는 외부 라이브러리에서 구성된 멀티플랫폼 리소스에 접근할 수 있습니다.
 
@@ -16,10 +16,10 @@ import project.composeapp.generated.resources.example_image
 ```
 
 여기서:
-*   `project`는 프로젝트 이름입니다.
-*   `composeapp`은 리소스 디렉터리를 배치한 모듈입니다.
-*   `Res`는 생성된 클래스의 기본 이름입니다.
-*   `example_image`는 `composeResources/drawable` 디렉터리에 있는 이미지 파일의 이름입니다(예: `example_image.png`).
+* `project`는 프로젝트 이름입니다.
+* `composeapp`은 리소스 디렉터리를 배치한 모듈입니다.
+* `Res`는 생성된 클래스의 기본 이름입니다.
+* `example_image`는 `composeResources/drawable` 디렉터리에 있는 이미지 파일의 이름입니다(예: `example_image.png`).
 
 ## 접근자 클래스 생성 사용자 지정
 
@@ -36,9 +36,9 @@ compose.resources {
 }
 ```
 
-*   `publicResClass`를 `true`로 설정하면 생성된 `Res` 클래스가 public이 됩니다. 기본적으로 생성된 클래스는 [internal](https://kotlinlang.org/docs/visibility-modifiers.html)(내부)입니다.
-*   `packageOfResClass`를 사용하면 생성된 `Res` 클래스를 특정 패키지에 할당할 수 있습니다 (코드 내 접근 및 최종 아티팩트 내 격리를 위해). 기본적으로 Compose Multiplatform은 `{group name}.{module name}.generated.resources` 패키지를 클래스에 할당합니다.
-*   `generateResClass`를 `always`로 설정하면 프로젝트가 무조건 `Res` 클래스를 생성합니다. 이는 리소스 라이브러리가 전이적으로만 사용 가능할 때 유용할 수 있습니다. 기본적으로 Compose Multiplatform은 `auto` 값을 사용하여 현재 프로젝트에 리소스 라이브러리에 대한 명시적인 `implementation` 또는 `api` 종속성이 있는 경우에만 `Res` 클래스를 생성합니다.
+* `publicResClass`를 `true`로 설정하면 생성된 `Res` 클래스가 public이 됩니다. 기본적으로 생성된 클래스는 [internal](https://kotlinlang.org/docs/visibility-modifiers.html)(내부)입니다.
+* `packageOfResClass`를 사용하면 생성된 `Res` 클래스를 특정 패키지에 할당할 수 있습니다 (코드 내 접근 및 최종 아티팩트 내 격리를 위해). 기본적으로 Compose Multiplatform은 `{group name}.{module name}.generated.resources` 패키지를 클래스에 할당합니다.
+* `generateResClass`를 `always`로 설정하면 프로젝트가 무조건 `Res` 클래스를 생성합니다. 이는 리소스 라이브러리가 전이적으로만 사용 가능할 때 유용할 수 있습니다. 기본적으로 Compose Multiplatform은 `auto` 값을 사용하여 현재 프로젝트에 리소스 라이브러리에 대한 명시적인 `implementation` 또는 `api` 종속성이 있는 경우에만 `Res` 클래스를 생성합니다.
 
 ## 리소스 사용
 
@@ -47,7 +47,7 @@ compose.resources {
 드로어블 리소스는 간단한 이미지, 래스터화된 이미지 또는 XML 벡터로 접근할 수 있습니다.
 SVG 이미지는 Android를 **제외한** 모든 플랫폼에서 지원됩니다.
 
-*   드로어블 리소스를 `Painter` 이미지로 접근하려면 `painterResource()` 함수를 사용하세요:
+* 드로어블 리소스를 `Painter` 이미지로 접근하려면 `painterResource()` 함수를 사용하세요:
 
   ```kotlin
   @Composable
@@ -56,17 +56,17 @@ SVG 이미지는 Android를 **제외한** 모든 플랫폼에서 지원됩니다
 
   `painterResource()` 함수는 리소스 경로를 취하고 `Painter` 값을 반환합니다. 이 함수는 웹을 제외한 모든 타겟에서 동기적으로 작동합니다. 웹 타겟의 경우, 첫 번째 리컴포지션에서는 빈 `Painter`를 반환하며, 이후의 리컴포지션에서 로드된 이미지로 대체됩니다.
 
-  *   `painterResource()`는 `.png`, `.jpg`, `.bmp`, `.webp`와 같은 래스터화된 이미지 형식의 경우 `BitmapPainter`를 로드하거나, Android XML 벡터 드로어블 형식의 경우 `VectorPainter`를 로드합니다.
-  *   XML 벡터 드로어블은 [Android](https://developer.android.com/reference/android/graphics/drawable/VectorDrawable)와 동일한 형식을 가지지만, Android 리소스에 대한 외부 참조는 지원하지 않습니다.
+  * `painterResource()`는 `.png`, `.jpg`, `.bmp`, `.webp`와 같은 래스터화된 이미지 형식의 경우 `BitmapPainter`를 로드하거나, Android XML 벡터 드로어블 형식의 경우 `VectorPainter`를 로드합니다.
+  * XML 벡터 드로어블은 [Android](https://developer.android.com/reference/android/graphics/drawable/VectorDrawable)와 동일한 형식을 가지지만, Android 리소스에 대한 외부 참조는 지원하지 않습니다.
 
-*   드로어블 리소스를 `ImageBitmap` 래스터화된 이미지로 접근하려면 `imageResource()` 함수를 사용하세요:
+* 드로어블 리소스를 `ImageBitmap` 래스터화된 이미지로 접근하려면 `imageResource()` 함수를 사용하세요:
 
   ```kotlin
   @Composable
   fun imageResource(resource: DrawableResource): ImageBitmap {...}
   ```
 
-*   드로어블 리소스를 `ImageVector` XML 벡터로 접근하려면 `vectorResource()` 함수를 사용하세요:
+* 드로어블 리소스를 `ImageVector` XML 벡터로 접근하려면 `vectorResource()` 함수를 사용하세요:
 
   ```kotlin
   @Composable
@@ -77,8 +77,60 @@ SVG 이미지는 Android를 **제외한** 모든 플랫폼에서 지원됩니다
 
 ```kotlin
 Image(
-    painter = painterResource(Res.drawable.my_icon),
+    painter = painterResource(Res.drawable.my_image),
     contentDescription = null
+)
+```
+
+### 아이콘
+
+Material Symbols 라이브러리에서 벡터 Android XML 아이콘을 사용할 수 있습니다:
+
+1.  [Google Fonts Icons](https://fonts.google.com/icons) 갤러리를 열고 아이콘을 선택한 다음, Android 탭으로 이동하여 **다운로드**를 클릭하세요.
+
+2.  다운로드한 XML 아이콘 파일을 멀티플랫폼 리소스의 `drawable` 디렉터리에 추가하세요.
+
+3.  XML 아이콘 파일을 열고 `android:fillColor`를 `#00000000`으로 설정하세요. `android:tint`와 같은 다른 Android 특정 색상 조정 속성은 제거하세요.
+
+    Before:
+
+    ```xml
+    <vector xmlns:android="http://schemas.android.com/apk/res/android"
+         android:width="24dp"
+         android:height="24dp"
+         android:viewportWidth="960"
+         android:viewportHeight="960"
+         android:tint="?attr/colorControlNormal">
+         <path
+             android:fillColor="@android:color/white"
+             android:pathData="..."/>
+     </vector>
+    ```
+
+    After:
+
+    ```xml
+    <vector xmlns:android="http://schemas.android.com/apk/res/android"
+         android:width="24dp"
+         android:height="24dp"
+         android:viewportWidth="960"
+         android:viewportHeight="960">
+         <path
+             android:fillColor="#00000000"
+             android:pathData="..."/>
+    </vector>
+    ```
+
+4.  프로젝트를 빌드하여 리소스 접근자를 생성하거나, [Kotlin Multiplatform 플러그인](https://plugins.jetbrains.com/plugin/14936-kotlin-multiplatform)이 자동으로 처리하도록 하세요.
+
+다음은 Compose Multiplatform 코드에서 `colorFilter` 매개변수를 사용하여 아이콘에 접근하고 색상을 조정하는 방법의 예시입니다:
+
+```kotlin
+Image(
+    painter = painterResource(Res.drawable.ic_sample_icon),
+    contentDescription = "Sample icon",
+    modifier = Modifier.size(24.dp),
+    colorFilter = ColorFilter.tint(Color.Blue)
 )
 ```
 
@@ -141,10 +193,10 @@ coroutineScope.launch {
 
 문자열 리소스에 특수 기호를 사용할 수 있습니다:
 
-*   `
+* `
 ` – 새 줄
-*   `\t` – 탭 기호
-*   `\uXXXX` – 특정 유니코드 문자
+* `\t` – 탭 기호
+* `\uXXXX` – 특정 유니코드 문자
 
 [Android 문자열](https://developer.android.com/guide/topics/resources/string-resource#escaping_quotes)에서처럼 "@" 또는 "?"와 같은 특수 XML 문자를 이스케이프할 필요가 없습니다.
 
@@ -231,8 +283,8 @@ UI가 어떤 것의 수량을 표시할 때, 동일한 것의 다른 수(하나�
 Compose Multiplatform의 개념과 기본 구현은 Android의 수량 문자열과 동일합니다.
 프로젝트에서 복수형을 사용하는 모범 사례 및 뉘앙스에 대한 자세한 내용은 [Android 문서](https://developer.android.com/guide/topics/resources/string-resource#Plurals)를 참조하세요.
 
-*   지원되는 변형은 `zero`, `one`, `two`, `few`, `many`, `other`입니다. 모든 언어에서 모든 변형이 고려되는 것은 아닙니다. 예를 들어, 영어에서는 `zero`가 1을 제외한 다른 복수형과 같기 때문에 무시됩니다. 언어가 실제로 주장하는 구별을 알기 위해 언어 전문가에게 의존하세요.
-*   "Books: 1"과 같이 수량 중립적인 표현을 사용함으로써 수량 문자열을 피할 수 있는 경우가 많습니다. 이것이 사용자 경험을 악화시키지 않는다면,
+* 지원되는 변형은 `zero`, `one`, `two`, `few`, `many`, `other`입니다. 모든 언어에서 모든 변형이 고려되는 것은 아닙니다. 예를 들어, 영어에서는 `zero`가 1을 제외한 다른 복수형과 같기 때문에 무시됩니다. 언어가 실제로 주장하는 구별을 알기 위해 언어 전문가에게 의존하세요.
+* "Books: 1"과 같이 수량 중립적인 표현을 사용함으로써 수량 문자열을 피할 수 있는 경우가 많습니다. 이것이 사용자 경험을 악화시키지 않는다면,
 
 복수형을 정의하려면 `composeResources/values` 디렉터리의 모든 `.xml` 파일에 `<plurals>` 요소를 추가하세요.
 `plurals` 컬렉션은 name 속성을 사용하여 참조되는 단순 리소스입니다 (XML 파일의 이름이 아님).
@@ -340,7 +392,7 @@ private fun InterTypography(): Typography {
 >
 {style="note"}
 
-웹 타겟에서 이모티콘이나 아랍어 스크립트와 같은 특수 문자를 지원하려면 해당 글꼴을 리소스에 추가하고 [Compose Multiplatform preload API를 사용하여 리소스 사전 로드](#preload-resources-using-the-compose-multiplatform-preload-api)해야 합니다.
+웹 타겟에서 이모티콘이나 아랍어 스크립트와 같은 특수 문자를 지원하려면 해당 글꼴을 리소스에 추가하고 [Compose Multiplatform 사전 로드 API를 사용하여 리소스 사전 로드](#preload-resources-using-the-compose-multiplatform-preload-api)해야 합니다.
 
 ### 원시 파일
 
@@ -483,7 +535,7 @@ fun App() {
 
 이 문제의 전형적인 예시는 `Text()` 컴포넌트에 사용자 지정 글꼴로 텍스트가 포함되어 있지만, 필요한 글리프(glyph)가 포함된 글꼴이 아직 로드 중일 때입니다. 이 경우 사용자는 기본 글꼴로 텍스트를 일시적으로 보거나 문자 대신 빈 상자 또는 물음표를 볼 수도 있습니다. 마찬가지로 이미지 또는 드로어블의 경우, 리소스가 완전히 로드될 때까지 빈 상자 또는 검은색 상자와 같은 플레이스홀더를 관찰할 수 있습니다.
 
-시각적 결함을 방지하려면 브라우저의 내장된 사전 로드 기능, Compose Multiplatform 사전 로드 API 또는 이 둘의 조합을 사용할 수 있습니다.
+시각적 결함을 방지하려면 브라우저의 내장된 리소스 사전 로드 기능, Compose Multiplatform 사전 로드 API 또는 이 둘의 조합을 사용할 수 있습니다.
 
 ### 브라우저 기능을 사용하여 리소스 사전 로드
 
@@ -507,7 +559,7 @@ fun App() {
 ```
 
 ### Compose Multiplatform 사전 로드 API를 사용하여 리소스 사전 로드
-<secondary-label ref="Experimental"/>
+<primary-label ref="Experimental"/>
 
 브라우저에서 리소스를 사전 로드하더라도, 리소스는 렌더링에 적합한 형식인 `FontResource` 및 `DrawableResource`로 변환되어야 하는 원시 바이트로 캐시됩니다. 애플리케이션이 리소스를 처음 요청할 때 변환이 비동기적으로 수행되어 다시 깜박임이 발생할 수 있습니다. 경험을 더욱 최적화하기 위해 Compose Multiplatform 리소스는 리소스의 상위 수준 표현을 위한 자체 내부 캐시를 가지며, 이 캐시도 사전 로드될 수 있습니다.
 

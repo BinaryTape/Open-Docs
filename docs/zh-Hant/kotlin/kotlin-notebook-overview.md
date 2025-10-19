@@ -1,8 +1,9 @@
 [//]: # (title: Kotlin Notebook)
 
 Kotlin Notebook 提供了一個互動式環境，用於建立和編輯筆記本，充分發揮 Kotlin 的強大功能。
-
 Kotlin Notebook 仰賴 [Kotlin Notebook 外掛程式](https://plugins.jetbrains.com/plugin/16340-kotlin-notebook)，此程式已預先綑綁並 [預設在 IntelliJ IDEA 中啟用](kotlin-notebook-set-up-env.md)。
+
+筆記本是一種互動式文件，您可以將可執行的 Kotlin 程式碼與文字、結果和視覺效果混合在一起。您可以將其視為一個 Kotlin REPL，擴展了將程式碼組織成儲存格、使用 Markdown 進行文件化，以及即時顯示輸出（從文字到繪圖）與產生它們的程式碼並列的能力。
 
 準備好迎接流暢的編碼體驗，您可以在 IntelliJ IDEA 生態系統內開發和試驗 Kotlin 程式碼、即時接收輸出，並整合程式碼、視覺效果和文字。
 
@@ -23,6 +24,8 @@ Kotlin Notebook 基於我們的 [Kotlin Kernel for Jupyter Notebooks](https://gi
 憑藉這些功能，您可以執行各種任務，從簡單的程式碼試驗到全面的資料專案。
 
 深入探索以下章節，以發現您能用 Kotlin Notebook 實現什麼！
+
+<a href="get-started-with-kotlin-notebooks.md"><img src="notebook-get-started-button.svg" width="600" alt="開始使用 Kotlin Notebook" style="block"/></a>
 
 ## 資料分析與視覺化
 

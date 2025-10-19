@@ -116,10 +116,10 @@
 
 ```kotlin
 [versions]
-ktor = "3.2.3"
+ktor = "3.3.1"
+
 [libraries]
-kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
-ktor-client-okhttp = { module = "io.ktor:ktor-client-okhttp", version.ref = "ktor" }
+ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
 ```
 
 然后，将 `ktor-client-core` 作为依赖项添加到 `commonMain` 源代码集：
@@ -157,10 +157,10 @@ sourceSets {
 
 ```kotlin
 [versions]
-ktor = "3.2.3"
+ktor = "3.3.1"
+
 [libraries]
-kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
-ktor-client-darwin = { module = "io.ktor:ktor-client-darwin", version.ref = "ktor" }
+ktor-client-okhttp = { module = "io.ktor:ktor-client-okhttp", version.ref = "ktor" }
 ```
 
 然后，将 `ktor-client-okhttp` 作为依赖项添加到 `androidMain` 源代码集：

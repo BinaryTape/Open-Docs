@@ -11,7 +11,7 @@ DokkaのJavadoc出力形式は、Javaの
 
 これはJavadocツールによって生成されたHTMLページを視覚的に模倣しようとしますが、直接的な実装や正確なコピーではありません。
 
-![Javadoc出力形式のスクリーンショット](javadoc-format-example.png){width=706}
+![Screenshot of javadoc output format](javadoc-format-example.png){width=706}
 
 すべてのKotlinコードとシグネチャは、Javaの視点から見たものとしてレンダリングされます。これは、この形式ではデフォルトでバンドルされ適用される、弊社の
 [Kotlin as Java Dokkaプラグイン](https://github.com/Kotlin/dokka/tree/%dokkaVersion%/dokka-subprojects/plugin-kotlin-as-java)によって実現されます。
@@ -21,6 +21,9 @@ Javadoc出力形式は[Dokkaプラグイン](dokka-plugins.md)として実装さ
 
 ## Javadocドキュメントの生成
 
+> Dokka 2.0.0以降、[ドキュメント生成のためのGradleタスクが変更されました](dokka-migration.md#select-documentation-output-format)。
+> 変更点の詳細と全リストについては、[移行ガイド](dokka-migration.md)を参照してください。
+>
 > Javadoc形式はマルチプラットフォームプロジェクトをサポートしていません。
 >
 {style="warning"}

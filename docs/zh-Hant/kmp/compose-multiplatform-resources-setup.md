@@ -95,7 +95,7 @@ configureWebResources {
 ```
 
 ### `androidLibrary` 目標中的資源
-<secondary-label ref="Experimental"/>
+<primary-label ref="Experimental"/>
 
 從 Android Gradle plugin 8.8.0 版開始，您可以在 `androidLibrary` 目標中使用生成的 `Res` 類別和資源存取器。
 若要啟用 `androidLibrary` 中多平台資源的支援，請依照以下方式更新您的配置：
@@ -146,7 +146,7 @@ kotlin {
 *   「hdpi」– 240 DPI，1.5x 密度
 *   「xhdpi」– 320 DPI，2x 密度
 *   「xxhdpi」– 480 DPI，3x 密度
-*   「xxxhdpi」– 640dpi，4x 密度
+*   「xxxhdpi」– 640 DPI，4x 密度
 
 資源是根據系統中定義的螢幕密度選擇的。
 

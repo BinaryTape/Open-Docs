@@ -33,6 +33,18 @@ IntelliJ Ktor 外掛程式允許您將 Ktor 專案遷移到最新版本。您可
 </tr>
 
 <tr>
+<td>3.3.1</td><td>October 8, 2025</td><td>
+<p>
+一個修補程式版本，將 Kotlin 更新至 2.2.20，並修正了多個問題，包括 Content-Length parsing errors、<code>ClientSSESession</code> 缺少 serializers、Netty configuration 和 shutdown bugs，並增加了對在 bootJar 中提供 static resources 的支援。
+</p>
+<var name="version" value="3.3.1"/>
+<p>
+    <a href="https://github.com/ktorio/ktor/releases/tag/%version%">在 GitHub 上查看變更日誌</a>
+</p>
+</td>
+</tr>
+
+<tr>
 <td>3.3.0</td><td>September 11, 2025</td><td>
 <p>
 一個次要版本，引入了實驗性的 OpenAPI 生成預覽、改進的靜態內容處理、適用於 Android 和 JS/Wasm 的 WebRTC 用戶端等主要功能，並升級至 Jetty、OkHttp 和 Kotlin 2.2。欲了解更多資訊，請參閱 <Links href="/ktor/whats-new-330" summary="undefined">Ktor 3.3.0 中的新功能</Links>。

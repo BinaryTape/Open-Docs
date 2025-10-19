@@ -13,6 +13,7 @@ Kotlin Notebook 依賴於 [Kotlin Notebook 外掛程式](https://plugins.jetbrai
 建立新的 Kotlin Notebook：
 
 1. 選擇 **檔案** | **新增** | **Kotlin Notebook**。
+
 2. 在您的 Notebook 中，透過執行以下指令來匯入 Kandy 和 Kotlin DataFrame 函式庫：
 
     ```kotlin
@@ -74,17 +75,17 @@ df.head(4)
 ```kotlin
 df.plot {
     line {
-        // 存取用於 X 軸和 Y 軸的 DataFrame 欄位 
+        // Accesses the DataFrame's columns used for the X and Y axes 
         x(Month)
         y(Temperature)
-        // 存取用於類別的 DataFrame 欄位並為這些類別設定顏色
+        // Accesses the DataFrame's column used for categories and sets colors for these categories 
         color(City) {
             scale = categorical("Berlin" to Color.PURPLE, "Madrid" to Color.ORANGE, "Caracas" to Color.GREEN)
         }
-        // 自訂線條大小
+        // Customizes the line's size
         width = 1.5
     }
-    // 自訂圖表佈局大小
+    // Customizes the chart's layout size
     layout.size = 1000 to 450
 }
 ```
@@ -102,17 +103,17 @@ df.plot {
 ```kotlin
 df.plot {
     points {
-        // 存取用於 X 軸和 Y 軸的 DataFrame 欄位 
+        // Accesses the DataFrame's columns used for the X and Y axes 
         x(Month) { axis.name = "Month" }
         y(Temperature) { axis.name = "Temperature" }
-        // 自訂點的大小
+        // Customizes the point's size
         size = 5.5
-        // 存取用於類別的 DataFrame 欄位並為這些類別設定顏色
+        // Accesses the DataFrame's column used for categories and sets colors for these categories 
         color(City) {
             scale = categorical("Berlin" to Color.LIGHT_GREEN, "Madrid" to Color.BLACK, "Caracas" to Color.YELLOW)
         }
     }
-    // 加入圖表標題
+    // Adds a chart heading
     layout.title = "Temperature per month"
 }
 ```
@@ -126,15 +127,15 @@ df.plot {
 最後，讓我們使用與先前圖表相同的資料建立一個按城市分組的長條圖。對於顏色，您也可以使用十六進位碼：
 
 ```kotlin
-// 按城市分組
+// Groups by cities  
 df.groupBy { City }.plot {
-    // 加入圖表標題
+    // Adds a chart heading
     layout.title = "Temperature per month"
     bars {
-        // 存取用於 X 軸和 Y 軸的 DataFrame 欄位 
+        // Accesses the DataFrame's columns used for the X and Y axes 
         x(Month)
         y(Temperature)
-        // 存取用於類別的 DataFrame 欄位並為這些類別設定顏色
+        // Accesses the DataFrame's column used for categories and sets colors for these categories 
         fillColor(City) {
             scale = categorical(
                 "Berlin" to Color.hex("#6F4E37"),

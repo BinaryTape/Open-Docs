@@ -7,13 +7,16 @@
 
 ## 开始之前
 
-Kotlin Notebook 依赖于 [Kotlin Notebook 插件](https://plugins.jetbrains.com/plugin/16340-kotlin-notebook)，该插件在 IntelliJ IDEA 中默认捆绑并启用。
+Kotlin Notebook 依赖于 [Kotlin Notebook 插件](https://plugins.jetbrains.com/plugin/16340-kotlin-notebook)，
+该插件在 IntelliJ IDEA 中默认捆绑并启用。
 
-如果 Kotlin Notebook 特性不可用，请确保该插件已启用。有关更多信息，请参见 [设置环境](kotlin-notebook-set-up-env.md)。
+如果 Kotlin Notebook 特性不可用，请确保该插件已启用。有关更多信息，
+请参见 [设置环境](kotlin-notebook-set-up-env.md)。
 
 创建一个新的 Kotlin Notebook：
 
 1. 选择 **文件** | **新建** | **Kotlin Notebook**。
+
 2. 请确保您有权访问 SQL 数据库，例如 MariaDB 或 MySQL。
 
 ## 连接数据库
@@ -41,7 +44,8 @@ Kotlin Notebook 依赖于 [Kotlin Notebook 插件](https://plugins.jetbrains.com
    import java.util.*
    ```
 
-4. 使用 `DatabaseConfiguration` 类定义您的数据库连接参数，包括 URL、用户名和密码：
+4. 使用 `DatabaseConfiguration` 类定义您的数据库连接参数，
+包括 URL、用户名和密码：
 
    ```kotlin
    val URL = "YOUR_URL"
@@ -70,17 +74,20 @@ Kotlin Notebook 依赖于 [Kotlin Notebook 插件](https://plugins.jetbrains.com
 ## 检索和操作数据
 
 在[建立与 SQL 数据库的连接](#connect-to-database)后，您可以在 Kotlin Notebook 中利用 Kotlin DataFrame 库检索和操作数据。
-您可以使用 `readSqlTable()` 函数检索数据。要操作数据，您可以使用诸如 [`filter`](https://kotlin.github.io/dataframe/filter.html)、[`groupBy`](https://kotlin.github.io/dataframe/groupby.html) 和 [`convert`](https://kotlin.github.io/dataframe/convert.html) 等方法。
+您可以使用 `readSqlTable()` 函数检索数据。要操作数据，您可以使用诸如 [`filter`](https://kotlin.github.io/dataframe/filter.html)、[`groupBy`](https://kotlin.github.io/dataframe/groupby.html)
+和 [`convert`](https://kotlin.github.io/dataframe/convert.html) 等方法。
 
 我们来看一个连接 IMDB 数据库并检索由昆汀·塔伦蒂诺执导的电影数据的示例：
 
-1. 使用 `readSqlTable()` 函数从 "movies" 表检索数据，设置 `limit` 来限制查询到前 100 条记录以提高效率：
+1. 使用 `readSqlTable()` 函数从 "movies" 表检索数据，设置 `limit`
+来限制查询到前 100 条记录以提高效率：
 
    ```kotlin
    val dfs = DataFrame.readSqlTable(dbConfig, tableName = "movies", limit = 100)
    ```
 
-2. 使用 SQL 查询检索与昆汀·塔伦蒂诺执导的电影相关的特定数据集。此查询选择电影详细信息并合并每部电影的类型：
+2. 使用 SQL 查询检索与昆汀·塔伦蒂诺执导的电影相关的特定数据集。
+此查询选择电影详细信息并合并每部电影的类型：
 
    ```kotlin
    val props = Properties()
@@ -129,11 +136,16 @@ Kotlin Notebook 依赖于 [Kotlin Notebook 插件](https://plugins.jetbrains.com
    df
    ```
 
-结果输出是一个 DataFrame，其中 `year` 列中的缺失值使用 [`fillNA`](https://kotlin.github.io/dataframe/fill.html#fillna) 方法替换为 0。`year` 列使用 [`convert`](https://kotlin.github.io/dataframe/convert.html) 方法转换为整数值，数据使用 [`filter`](https://kotlin.github.io/dataframe/filter.html) 方法筛选为仅包含 2000 年及以后的行。
+结果输出是一个 DataFrame，其中 `year` 列中的缺失值使用
+[`fillNA`](https://kotlin.github.io/dataframe/fill.html#fillna) 方法替换为 0。`year` 列使用
+[`convert`](https://kotlin.github.io/dataframe/convert.html) 方法转换为整数值，数据使用
+[`filter`](https://kotlin.github.io/dataframe/filter.html) 方法筛选为仅包含 2000 年及以后的行。
 
 ## 在 Kotlin Notebook 中分析数据
 
-在[建立与 SQL 数据库的连接](#connect-to-database)后，您可以使用 Kotlin Notebook 进行深入的数据分析，利用 [Kotlin DataFrame 库](https://kotlin.github.io/dataframe/home.html)。这包括对数据进行分组、排序和聚合的函数，帮助您发现并理解数据中的模式。
+在[建立与 SQL 数据库的连接](#connect-to-database)后，您可以使用 Kotlin Notebook 进行深入的数据分析，
+利用 [Kotlin DataFrame 库](https://kotlin.github.io/dataframe/home.html)。这包括对数据进行分组、排序和聚合的函数，
+帮助您发现并理解数据中的模式。
 
 我们深入研究一个示例，该示例涉及分析电影数据库中的演员数据，重点关注最常出现的演员名字：
 

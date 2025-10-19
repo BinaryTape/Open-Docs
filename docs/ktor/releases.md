@@ -33,6 +33,18 @@ IntelliJ Ktor 插件允许你将 Ktor 项目迁移到最新版本。你可以从
 </tr>
 
 <tr>
+<td>3.3.1</td><td>2025 年 10 月 8 日</td><td>
+<p>
+一个补丁版本，将 Kotlin 更新到 2.2.20，并修复了多个问题，包括 Content-Length 解析错误、<code>ClientSSESession</code> 缺失序列化器、Netty 配置和关机错误，并增加了在 bootJar 中提供静态资源的支持。
+</p>
+<var name="version" value="3.3.1"/>
+<p>
+    <a href="https://github.com/ktorio/ktor/releases/tag/%version%">在 GitHub 上查看更新日志</a>
+</p>
+</td>
+</tr>
+
+<tr>
 <td>3.3.0</td><td>2025 年 9 月 11 日</td><td>
 <p>
 一个次版本，引入了实验性的 OpenAPI 生成预览、改进的静态内容处理、适用于 Android 和 JS/Wasm 的 WebRTC 客户端等主要特性，并升级到 Jetty、OkHttp 和 Kotlin 2.2。关于更多信息，请参见<Links href="/ktor/whats-new-330" summary="undefined">Ktor 3.3.0 新特性</Links>。
@@ -330,7 +342,7 @@ IntelliJ Ktor 插件允许你将 Ktor 项目迁移到最新版本。你可以从
 <tr>
 <td>2.3.4</td><td>2023 年 8 月 31 日</td><td>
 <p>
-一个补丁版本，包括 HTTP Cookie 头信息和 NoTransformationFoundException 错误中的错误修复。
+一个补丁版本，包括 HTTP Cookie 头信息中的错误修复和 NoTransformationFoundException 错误。
 </p>
 <var name="version" value="2.3.4"/>
 <p>

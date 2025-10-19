@@ -96,7 +96,8 @@ external fun newC()
 
 ### @JsExport 註解
 
-> 此功能為 [實驗性](components-stability.md#stability-levels-explained)。其設計在未來版本中可能會變更。
+> 此功能為 [實驗性](components-stability.md#stability-levels-explained)。
+> 其設計在未來版本中可能會變更。
 >
 {style="warning"} 
 
@@ -110,7 +111,8 @@ external fun newC()
 
 ### @JsStatic
 
-> 此功能為 [實驗性](components-stability.md#stability-levels-explained)。它可能隨時被刪除或更改。僅用於評估目的。我們非常感謝您在 [YouTrack](https://youtrack.jetbrains.com/issue/KT-18891/JS-provide-a-way-to-declare-static-members-JsStatic) 上提供關於它的回饋。
+> 此功能為 [實驗性](components-stability.md#stability-levels-explained)。它可能隨時被刪除或更改。
+> 僅用於評估目的。我們非常感謝您在 [YouTrack](https://youtrack.jetbrains.com/issue/KT-18891/JS-provide-a-way-to-declare-static-members-JsStatic) 上提供關於它的回饋。
 >
 {style="warning"}
 

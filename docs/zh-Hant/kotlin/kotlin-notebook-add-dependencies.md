@@ -2,9 +2,9 @@
 
 <tldr>
    <p>這是《<strong>Kotlin Notebook 入門指南</strong>》教學的第三部分。在繼續之前，請確保您已完成先前的步驟。</p>
-   <p><img src="icon-1-done.svg" width="20" alt="First step"/> <a href="kotlin-notebook-set-up-env.md">設定環境</a><br/>
-      <img src="icon-2-done.svg" width="20" alt="Second step"/> <a href="kotlin-notebook-create.md">建立 Kotlin Notebook</a><br/>
-      <img src="icon-3.svg" width="20" alt="Third step"/> <strong>將依賴項新增至 Kotlin Notebook</strong><br/>
+   <p><img src="icon-1-done.svg" width="20" alt="第一個步驟"/> <a href="kotlin-notebook-set-up-env.md">設定環境</a><br/>
+      <img src="icon-2-done.svg" width="20" alt="第二個步驟"/> <a href="kotlin-notebook-create.md">建立 Kotlin Notebook</a><br/>
+      <img src="icon-3.svg" width="20" alt="第三個步驟"/> <strong>將依賴項新增至 Kotlin Notebook</strong><br/>
   </p>
 </tldr>
 
@@ -31,6 +31,13 @@
 您也可以使用 Kotlin Notebook 中的自動完成功能，快速存取可用的程式庫：
 
 ![Kotlin Notebook 中的自動完成功能](autocompletion-feature-notebook.png){width=700}
+
+> Kotlin Notebook 擁有一組整合程式庫，可以執行各種任務，從深度學習到 HTTP 網路。
+> 請參閱[匯入支援的程式庫](https://www.jetbrains.com/help/idea/kotlin-notebook.html#import-libraries)。
+> 
+> 您也可以新增並使用尚未整合到 Kotlin Notebook 中的程式庫。請參閱[整合新程式庫](https://www.jetbrains.com/help/idea/kotlin-notebook.html#integrate-new-libraries)。
+>
+{style="note"}
 
 ## 將 Kotlin DataFrame 和 Kandy 程式庫新增至您的 Kotlin Notebook
 

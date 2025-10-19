@@ -41,10 +41,10 @@ Android codelab 转换而来。
 关于 Compose Multiplatform 中当前实现的详细信息，请参见 [生命周期](compose-lifecycle.md) 页面。
 
 ## Web 应用中的浏览器导航支持
-<secondary-label ref="Experimental"/>
+<primary-label ref="Experimental"/>
 
 面向 Web 的 Compose Multiplatform 完全支持通用的 Navigation 库 API，
-并且在此基础上允许您的应用从浏览器接收导航输入。
+并且允许您的应用从浏览器接收导航输入。
 用户可以使用浏览器中的“**返回**”和“**前进**”按钮在浏览器历史记录中反映的导航路由之间移动，
 也可以使用地址栏来了解当前位置并直接前往某个目标。
 
@@ -133,7 +133,7 @@ fun main() {
 （`commonMain/kotlin/org.example.app/App.kt`）一起使用：
 
 ```kotlin
-// Serializable object and classes for route arguments in the navigation graph
+// 导航图中用于路由实参的可序列化对象和类
 @Serializable data object StartScreen
 @Serializable data class Id(val id: Long)
 @Serializable data class Patient(val name: String, val age: Long)
@@ -153,7 +153,7 @@ internal fun App(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center
             ) {
-                Text("Starting screen")
+                Text("起始屏幕")
                 // 打开“Id”屏幕并带有合适参数的按钮
                 Button(onClick = { navController.navigate(Id(222)) }) {
                     Text("将 222 作为参数传递给 ID 屏幕")
@@ -200,7 +200,7 @@ fun main() {
                             "#start"
                         }
                         route.startsWith(Id.serializer().descriptor.serialName) -> {
-                            // 访问路由实参
+                            // 路由实参
                             val args = entry.toRoute<Id>()
 
                             // 将对应的 URL 片段设置为 “#find_id_222”
@@ -224,7 +224,8 @@ fun main() {
 ```
 <!--{default-state="collapsed" collapsible="true" collapsed-title="navController.bindToBrowserNavigation() { entry ->"}-->
 
-> 确保每个对应于路由的字符串都以 `#` 字符开头，以将数据保留在 URL 片段中。
+> 确保每个对应于路由的字符串都以 `#` 字符开头，以将数据
+> 保留在 URL 片段中。
 > 否则，当用户复制和粘贴 URL 时，浏览器将尝试访问错误的端点，而不是将控制权传递给您的应用。
 > 
 {style="note"}

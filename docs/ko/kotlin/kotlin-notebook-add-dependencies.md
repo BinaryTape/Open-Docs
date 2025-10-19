@@ -32,6 +32,13 @@ Kotlin Notebook의 자동 완성 기능을 사용하여 사용 가능한 라이�
 
 ![Kotlin Notebook의 자동 완성 기능](autocompletion-feature-notebook.png){width=700}
 
+> Kotlin Notebook에는 딥러닝부터 HTTP 네트워킹에 이르는 다양한 작업을 수행하기 위한 통합 라이브러리 세트가 있습니다.
+> [지원되는 라이브러리 가져오기](https://www.jetbrains.com/help/idea/kotlin-notebook.html#import-libraries)를 참조하세요.
+> 
+> 아직 Kotlin Notebook에 통합되지 않은 라이브러리도 추가하여 사용할 수 있습니다. [새 라이브러리 통합하기](https://www.jetbrains.com/help/idea/kotlin-notebook.html#integrate-new-libraries)를 참조하세요.
+>
+{style="note"}
+
 ## Kotlin Notebook에 Kotlin DataFrame 및 Kandy 라이브러리 추가하기
 
 Kotlin Notebook에 인기 있는 Kotlin 라이브러리 의존성 두 가지를 추가해 봅시다.

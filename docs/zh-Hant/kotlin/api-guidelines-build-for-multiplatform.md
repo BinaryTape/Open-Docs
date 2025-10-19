@@ -10,7 +10,7 @@
 
 如果您的函式庫不支援多平台專案所使用的平台（無論是函式庫還是應用程式），該專案將難以依賴您的函式庫。在這種情況下，專案可以將您的函式庫用於某些平台，但需要為其他平台實作單獨的解決方案，或者他們將完全選擇支援其所有平台的替代函式庫。
 
-為了簡化產物生成，您可以嘗試實驗性的[交叉編譯](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-publish-lib-setup.html#host-requirements)，從任何主機發佈 Kotlin Multiplatform 函式庫。這允許您在沒有 Apple 機器的情況下，為 Apple 目標生成 `.klib` 產物。我們計畫在未來穩定此功能並進一步改進函式庫發佈。請在我們的問題追蹤器 [YouTrack](https://youtrack.jetbrains.com/issue/KT-71290) 中留下您對此功能的意見回饋。
+為了簡化產物生成，請使用[交叉編譯](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-publish-lib-setup.html#host-requirements)從任何主機發佈 Kotlin Multiplatform 函式庫。這允許您在沒有 Apple 機器的情况下，為 Apple 目標生成 `.klib` 產物。
 
 > 對於 Kotlin/Native 目標，請考慮使用[分層方法](native-target-support.md#for-library-authors)來支援所有可能的目標。
 >
@@ -44,7 +44,7 @@
 
 > 如果平台差異不可避免，例如一個平台支援更廣泛的輸入集時，請盡可能地減少它們。例如，您可能不希望限制一個平台的功能以與其他平台匹配。在這種情況下，請清楚地記錄具體差異。
 >
-> {style="note"}
+> {style=”note”}
 
 ## 在所有平台進行測試
 

@@ -28,7 +28,7 @@ Kotlin Notebook 依赖于 [Kotlin Notebook plugin](https://plugins.jetbrains.com
 
 ## 从 API 获取数据
 
-使用 Kotlin Notebook 和 Kotlin DataFrame 库从 API 获取数据通过 [`.read()`](https://kotlin.github.io/dataframe/read.html) 函数实现，这类似于 [从文件](data-analysis-work-with-data-sources.md#retrieve-data-from-a-file)（例如 CSV 或 JSON）检索数据。
+使用 Kotlin Notebook 和 Kotlin DataFrame 库从 API 获取数据通过 [`.read()`](https://kotlin.github.io/dataframe/read.html) 函数实现，这类似于 [从文件](data-analysis-work-work-with-data-sources.md#retrieve-data-from-a-file)（例如 CSV 或 JSON）检索数据。
 然而，在使用基于 Web 的源时，你可能需要额外的格式化来将原始 API 数据转换为结构化格式。
 
 我们来看一个从 [YouTube Data API](https://console.cloud.google.com/apis/library/youtube.googleapis.com) 获取数据的示例：
@@ -60,26 +60,26 @@ Kotlin Notebook 依赖于 [Kotlin Notebook plugin](https://plugins.jetbrains.com
 
     ```kotlin
     fun load(path: String, maxPages: Int): AnyFrame {
-        // Initializes a mutable list to store rows of data.
+        // 初始化一个可变 list 来存储数据行。
         val rows = mutableListOf<AnyRow>()
 
-        // Sets the initial page path for data loading.
+        // 设置数据加载的初始页面路径。
         var pagePath = path
         do {
-            // Loads data from the current page path.
+            // 从当前页面路径加载数据。
             val row = load(pagePath)
-            // Adds the loaded data as a row to the list.
+            // 将加载的数据作为行添加到 list 中。
             rows.add(row)
 
-            // Retrieves the token for the next page, if available.
+            // 检索下一页的 token，如果可用。
             val next = row.getValueOrNull<String>("nextPageToken")
-            // Updates the page path for the next iteration, including the new token.
+            // 更新下一轮迭代的页面路径，包括新的 token。
             pagePath = path + "&pageToken=" + next
 
-            // Continues loading pages until there's no next page.
+            // 继续加载页面，直到没有下一页。
         } while (next != null && rows.size < maxPages) 
 
-        // Concatenates and returns all loaded rows as a DataFrame.
+        // 将所有加载的行连接起来并作为 DataFrame 返回。
         return rows.concat() 
     }
     ```
@@ -102,7 +102,7 @@ Kotlin Notebook 依赖于 [Kotlin Notebook plugin](https://plugins.jetbrains.com
 
 ## 清洗和精炼数据
 
-清洗和精炼数据是为分析准备数据集的关键步骤。 [Kotlin DataFrame 库](https://kotlin.github.io/dataframe/home.html)
+清洗和精炼数据是为分析准备数据集的关键步骤。 [Kotlin DataFrame library](https://kotlin.github.io/dataframe/home.html)
 为这些任务提供了强大的功能。[`move`](https://kotlin.github.io/dataframe/move.html)、
 [`concat`](https://kotlin.github.io/dataframe/concatdf.html)、[`select`](https://kotlin.github.io/dataframe/select.html)、
 [`parse`](https://kotlin.github.io/dataframe/parse.html) 和 [`join`](https://kotlin.github.io/dataframe/join.html)
@@ -149,9 +149,10 @@ Kotlin Notebook 依赖于 [Kotlin Notebook plugin](https://plugins.jetbrains.com
 
 ## 在 Kotlin Notebook 中分析数据
 
-在使用 [Kotlin DataFrame 库](https://kotlin.github.io/dataframe/home.html) 中的函数成功 [获取](#fetch-data-from-an-api) 并 [清洗和精炼数据](#clean-and-refine-data) 后，下一步是分析这个准备好的数据集以提取有意义的洞察。
+在成功 [获取](#fetch-data-from-an-api) 并 [清洗和精炼数据](#clean-and-refine-data)
+使用 [Kotlin DataFrame library](https://kotlin.github.io/dataframe/home.html) 中的函数后，下一步是分析这个准备好的数据集以提取有意义的洞察。
 
-[`groupBy`](https://kotlin.github.io/dataframe/groupby.html) 用于数据分类，[`sum`](https://kotlin.github.io/dataframe/sum.html) 和 [`maxBy`](https://kotlin.github.io/dataframe/maxby.html) 用于 [汇总统计](https://kotlin.github.io/dataframe/summarystatistics.html)，以及 [`sortBy`](https://kotlin.github.io/dataframe/sortby.html) 用于数据排序等方法特别有用。
+`groupBy` 用于数据分类，`sum` 和 `maxBy` 用于 [汇总统计](https://kotlin.github.io/dataframe/summarystatistics.html)，以及 `sortBy` 用于数据排序等方法特别有用。
 这些工具使你能够高效地执行复杂的数据分析任务。
 
 我们来看一个示例，使用 `groupBy` 按频道对视频进行分类，使用 `sum` 计算每个类别的总播放量，以及使用 `maxBy` 查找每个组中最新或播放量最高的视频：
@@ -181,12 +182,12 @@ Kotlin Notebook 依赖于 [Kotlin Notebook plugin](https://plugins.jetbrains.com
     ```kotlin
     val aggregated = channels.aggregate {
         viewCount.sum() into view
-
+    
         val last = maxBy { publishedAt }
         last.title into "last title"
         last.publishedAt into "time"
         last.viewCount into "viewCount"
-        // Sorts the DataFrame in descending order by view count and transform it into a flat structure.
+        // 按播放量降序对 DataFrame 进行排序，并将其转换为扁平结构。
     }.sortByDesc(view).flatten()
     aggregated
     ```
@@ -195,10 +196,10 @@ Kotlin Notebook 依赖于 [Kotlin Notebook plugin](https://plugins.jetbrains.com
 
 ![Analysis results](kotlin-analysis.png){width=700}
 
-关于更高级的技术，请参见 [Kotlin DataFrame 文档](https://kotlin.github.io/dataframe/home.html)。
+关于更高级的技术，请参见 [Kotlin DataFrame documentation](https://kotlin.github.io/dataframe/home.html)。
 
 ## 后续步骤
 
-*   使用 [Kandy 库](https://kotlin.github.io/kandy/examples.html) 探索数据可视化
+*   使用 [Kandy library](https://kotlin.github.io/kandy/examples.html) 探索数据可视化
 *   关于数据可视化的更多信息，请参见 [使用 Kandy 在 Kotlin Notebook 中进行数据可视化](data-analysis-visualization.md)
 *   关于 Kotlin 中可用于数据科学和分析的工具和资源的广泛概述，请参见 [用于数据分析的 Kotlin 和 Java 库](data-analysis-libraries.md)

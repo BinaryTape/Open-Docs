@@ -1,10 +1,5 @@
 [//]: # (title: 遷移至 Dokka Gradle 外掛 v2)
 
-> Dokka Gradle 外掛 v2 是一個[實驗性](https://kotlinlang.org/docs/components-stability.html#stability-levels-explained)功能。
-> 它可能隨時會更改。我們感謝您在 [GitHub](https://github.com/Kotlin/dokka/issues) 上的意見回饋。
->
-{style="warning"}
-
 Dokka Gradle 外掛（DGP）是一款用於為使用 Gradle 建置的 Kotlin 專案產生全面 API 文件的工具。
 
 DGP 無縫地處理 Kotlin 的 KDoc 註解和 Java 的 Javadoc 註解，以提取資訊並以 [HTML 或 Javadoc](#select-documentation-output-format) 格式建立結構化文件。
@@ -34,6 +29,12 @@ DGP v2 對 DGP 引入了顯著改進，使其更緊密地與 Gradle 的最佳實
 | [Kotlin Gradle 外掛](https://kotlinlang.org/docs/gradle-configure-project.html) | 1.9 或更高版本 |
 
 ### 啟用 DGP v2
+
+> 從 Dokka 2.1.0 開始，DGP v2 預設為啟用。
+> 如果您正在使用或更新到 Dokka 2.1.0 或更高版本，
+> 您可以跳過此步驟，直接前往[遷移您的專案](#migrate-your-project)。
+>
+{style="note"}
 
 在您專案的 `build.gradle.kts` 檔案的 `plugins {}` 區塊中，將 Dokka 版本更新為 2.0.0：
 
@@ -227,7 +228,7 @@ documentedVisibilities.set(
 documentedVisibilities(VisibilityModifier.Public)
 ```
 
-此外，使用 DGP v2 的[公用函式](https://github.com/Kotlin/dokka/blob/v2.0.0/dokka-runners/dokka-gradle-plugin/src/main/kotlin/engine/parameters/HasConfigurableVisibilityModifiers.kt#L14-L16)來新增文件可見性：
+此外，使用 DGP v2 的[公用函式](https://github.com/Kotlin/dokka/blob/v2.1.0/dokka-runners/dokka-gradle-plugin/src/main/kotlin/engine/parameters/HasConfigurableVisibilityModifiers.kt#L14-L16)來新增文件可見性：
 
 ```kotlin
 fun documentedVisibilities(vararg visibilities: VisibilityModifier): Unit =
@@ -510,7 +511,7 @@ dokka {
 有關 DGP v2 配置的範例，請參閱
 [Dokka 的版本控制外掛](https://github.com/Kotlin/dokka/tree/master/examples/gradle-v2/versioning-multimodule-example)。
 
-Dokka 2.0.0 允許您透過[配置自訂外掛](https://github.com/Kotlin/dokka/blob/ae3840edb4e4afd7b3e3768a5fddfe8ec0e08f31/examples/gradle-v2/custom-dokka-plugin-example/demo-library/build.gradle.kts)來擴展其功能。
+DGP v2 允許您透過[配置自訂外掛](https://github.com/Kotlin/dokka/blob/ae3840edb4e4afd7b3e3768a5fddfe8ec0e08f31/examples/gradle-v2/custom-dokka-plugin-example/demo-library/build.gradle.kts)來擴展其功能。
 自訂外掛可啟用對文件產生過程的額外處理或修改。
 
 ### 跨模組共用 Dokka 配置
@@ -652,6 +653,7 @@ DGP v2 中的聚合目錄：
 DGP v2 透過保留完整的專案結構來確保每個子專案都有一個唯一的目錄。現在相同的聚合文件遵循此結構：
 
 ```text
+
 turbo-lib/build/dokka/html/turbo-lib/maths/
 ```
 
@@ -740,7 +742,7 @@ DGP v2 的預設輸出格式是 HTML。然而，您可以選擇同時產生 HTML
 
 ### 處理棄用和移除
 
-* **輸出格式支援：** Dokka 2.0.0 僅支援 HTML 和 Javadoc 輸出。Markdown 和 Jekyll 等實驗性格式不再支援。
+* **輸出格式支援：** DGP v2 僅支援 HTML 和 Javadoc 輸出。Markdown 和 Jekyll 等實驗性格式不再支援。
 * **Collector 任務：** `DokkaCollectorTask` 已被移除。現在，您需要為每個子專案單獨產生文件，
   然後在必要時[聚合文件](#update-documentation-aggregation-in-multi-module-projects)。
 

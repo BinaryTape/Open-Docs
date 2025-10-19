@@ -1,6 +1,7 @@
 [//]: # (title: ウェブソースとAPIからデータを取得する)
 
-[Kotlin Notebook](kotlin-notebook-overview.md)は、様々なウェブソースやAPIからデータにアクセスし、操作するための強力なプラットフォームを提供します。各ステップを可視化して明確にするための反復的な環境を提供することで、データ抽出と分析のタスクを簡素化します。これにより、慣れていないAPIを探索する際に特に役立ちます。
+[Kotlin Notebook](kotlin-notebook-overview.md)は、様々なウェブソースやAPIからデータにアクセスし、操作するための強力なプラットフォームを提供します。
+各ステップを可視化して明確にするための反復的な環境を提供することで、データ抽出と分析のタスクを簡素化します。これにより、慣れていないAPIを探索する際に特に役立ちます。
 
 [Kotlin DataFrameライブラリ](https://kotlin.github.io/dataframe/home.html)と組み合わせて使用すると、Kotlin NotebookはAPIへの接続やJSONデータの取得を可能にするだけでなく、包括的な分析と視覚化のためにこのデータを整形するのにも役立ちます。
 
@@ -53,26 +54,26 @@ Kotlin NotebookとKotlin DataFrameライブラリを使用してAPIからデー�
 
     ```kotlin
     fun load(path: String, maxPages: Int): AnyFrame {
-        // Initializes a mutable list to store rows of data.
+        // データ行を格納するためのミュータブルリストを初期化します。
         val rows = mutableListOf<AnyRow>()
 
-        // Sets the initial page path for data loading.
+        // データの読み込みのための初期ページパスを設定します。
         var pagePath = path
         do {
-            // Loads data from the current page path.
+            // 現在のページパスからデータを読み込みます。
             val row = load(pagePath)
-            // Adds the loaded data as a row to the list.
+            // 読み込まれたデータをリストに行として追加します。
             rows.add(row)
 
-            // Retrieves the token for the next page, if available.
+            // 次のページのトークンがあれば取得します。
             val next = row.getValueOrNull<String>("nextPageToken")
-            // Updates the page path for the next iteration, including the new token.
+            // 新しいトークンを含めて、次のイテレーションのためのページパスを更新します。
             pagePath = path + "&pageToken=" + next
 
-            // Continues loading pages until there's no next page.
+            // 次のページがなくなるまでページの読み込みを続けます。
         } while (next != null && rows.size < maxPages) 
 
-        // Concatenates and returns all loaded rows as a DataFrame.
+        // 読み込まれたすべての行を連結し、DataFrameとして返します。
         return rows.concat() 
     }
     ```
@@ -170,7 +171,7 @@ Kotlin NotebookとKotlin DataFrameライブラリを使用してAPIからデー�
         last.title into "last title"
         last.publishedAt into "time"
         last.viewCount into "viewCount"
-        // Sorts the DataFrame in descending order by view count and transform it into a flat structure.
+        // DataFrameを視聴回数の降順でソートし、フラットな構造に変換します。
     }.sortByDesc(view).flatten()
     aggregated
     ```

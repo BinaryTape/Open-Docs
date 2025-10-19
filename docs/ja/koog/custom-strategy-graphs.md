@@ -8,7 +8,7 @@
 
 大まかに見て、戦略グラフは以下のコンポーネントで構成されています。
 
--   **Strategy**: ジェネリックパラメータを使用して指定された入力および出力型で`strategy`関数を使って作成される、グラフのトップレベルのコンテナ。
+-   **Strategy**: `strategy`関数を使って、ジェネリックパラメータで指定された入力および出力型で作成される、グラフのトップレベルのコンテナ。
 -   **Subgraphs**: 独自のツールセットとコンテキストを持つことができるグラフのセクション。
 -   **Nodes**: ワークフロー内の個々の操作または変換。
 -   **Edges**: ノード間の接続で、遷移条件と変換を定義します。
@@ -178,6 +178,66 @@ val myStrategy = strategy<String, String>("my-strategy") {
 ```
 <!--- KNIT example-custom-strategy-graphs-05.kt -->
 
+## 戦略グラフの可視化
+
+JVMでは、戦略グラフの[Mermaidステート図](https://mermaid.js.org/syntax/stateDiagram.html)を生成できます。
+
+前の例で作成されたグラフについては、以下を実行できます。
+
+<!--- INCLUDE
+import ai.koog.agents.core.agent.asMermaidDiagram
+import ai.koog.agents.core.dsl.builder.forwardTo
+import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.extension.nodeExecuteTool
+import ai.koog.agents.core.dsl.extension.nodeLLMRequest
+import ai.koog.agents.core.dsl.extension.nodeLLMSendToolResult
+import ai.koog.agents.core.dsl.extension.onAssistantMessage
+import ai.koog.agents.core.dsl.extension.onToolCall
+
+fun main() {
+    val myStrategy = strategy("my-strategy") {
+        val nodeCallLLM by nodeLLMRequest()
+        val executeToolCall by nodeExecuteTool()
+        val sendToolResult by nodeLLMSendToolResult()
+    
+        edge(nodeStart forwardTo nodeCallLLM)
+        edge(nodeCallLLM forwardTo nodeFinish onAssistantMessage { true })
+        edge(nodeCallLLM forwardTo executeToolCall onToolCall { true })
+        edge(executeToolCall forwardTo sendToolResult)
+        edge(sendToolResult forwardTo nodeFinish onAssistantMessage { true })
+        edge(sendToolResult forwardTo executeToolCall onToolCall { true })
+    }
+-->
+<!--- SUFFIX
+}
+-->
+
+```kotlin
+val mermaidDiagram: String = myStrategy.asMermaidDiagram()
+
+println(mermaidDiagram)
+```
+
+そして、出力は以下のようになります。
+```mermaid
+---
+title: my-strategy
+---
+stateDiagram
+    state "nodeCallLLM" as nodeCallLLM
+    state "executeToolCall" as executeToolCall
+    state "sendToolResult" as sendToolResult
+
+    [*] --> nodeCallLLM
+    nodeCallLLM --> [*] : transformed
+    nodeCallLLM --> executeToolCall : onCondition
+    executeToolCall --> sendToolResult
+    sendToolResult --> [*] : transformed
+    sendToolResult --> executeToolCall : onCondition
+```
+
+<!--- KNIT example-custom-strategy-graphs-06.kt -->
+
 ## 高度な戦略テクニック
 
 ### 履歴圧縮
@@ -208,7 +268,7 @@ val processMultipleResults by nodeLLMSendMultipleToolResults()
 edge(someNode forwardTo executeMultipleTools)
 edge(executeMultipleTools forwardTo processMultipleResults)
 ```
-<!--- KNIT example-custom-strategy-graphs-06.kt -->
+<!--- KNIT example-custom-strategy-graphs-07.kt -->
 
 ストリーミングデータには、`toParallelToolCallsRaw`拡張関数も使用できます。
 
@@ -221,7 +281,7 @@ edge(executeMultipleTools forwardTo processMultipleResults)
 ```kotlin
 parseMarkdownStreamToBooks(markdownStream).toParallelToolCallsRaw(BookTool::class).collect()
 ```
-<!--- KNIT example-custom-strategy-graphs-07.kt -->
+<!--- KNIT example-custom-strategy-graphs-08.kt -->
 
 詳細については、[ツール](tools-overview.md#parallel-tool-calls)を参照してください。
 
@@ -250,7 +310,7 @@ val calc by parallel<String, Int>(
     selectByMax { it }
 }
 ```
-<!--- KNIT example-custom-strategy-graphs-08.kt -->
+<!--- KNIT example-custom-strategy-graphs-09.kt -->
 
 上記のコードは、`nodeCalcTokens`、`nodeCalcSymbols`、`nodeCalcWords`の各ノードを並行して実行し、結果を`AsyncParallelResult`のインスタンスとして返す`calc`という名前のノードを作成します。
 
@@ -290,7 +350,7 @@ edge(
             onCondition { input -> input.contains("B") }
 )
 ```
-<!--- KNIT example-custom-strategy-graphs-09.kt -->
+<!--- KNIT example-custom-strategy-graphs-10.kt -->
 
 ## ベストプラクティス
 
@@ -375,7 +435,7 @@ fun toneStrategy(name: String, toolRegistry: ToolRegistry): AIAgentGraphStrategy
     }
 }
 ```
-<!--- KNIT example-custom-strategy-graphs-10.kt -->
+<!--- KNIT example-custom-strategy-graphs-11.kt -->
 
 この戦略は以下のことを行います。
 

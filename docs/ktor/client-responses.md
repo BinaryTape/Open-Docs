@@ -6,9 +6,12 @@
 了解如何接收响应、获取响应体以及获取响应参数。
 </link-summary>
 
-所有用于[发送 HTTP 请求](client-requests.md)的函数（如 `request`、`get`、`post` 等）都允许你以 [`HttpResponse`](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client.statement/-http-response/index.html) 对象的形式接收响应。
+所有用于[发送 HTTP 请求](client-requests.md)的函数（如 `request`、`get`、`post` 等）都允许你以
+[`HttpResponse`](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client.statement/-http-response/index.html)
+对象的形式接收响应。
 
-`HttpResponse` 暴露了所需的 API，用于以各种方式（原始字节、JSON 对象等）获取[响应体](#body)，以及获取[响应参数](#parameters)，例如状态码、内容类型和标头。例如，你可以通过以下方式接收不带参数的 `GET` 请求的 `HttpResponse`：
+`HttpResponse` 暴露了所需的 API，用于以各种方式（原始字节、JSON 对象等）获取[响应体](#body)，以及获取[响应参数](#parameters)，例如状态码、内容类型和标头。
+例如，你可以通过以下方式接收不带参数的 `GET` 请求的 `HttpResponse`：
 
 ```kotlin
 val response: HttpResponse = client.get("https://ktor.io/docs/welcome.html")
@@ -16,11 +19,14 @@ val response: HttpResponse = client.get("https://ktor.io/docs/welcome.html")
 
 ## 接收响应参数 {id="parameters"}
 
-[`HttpResponse`](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client.statement/-http-response/index.html) 类允许你获取各种响应参数，例如状态码、标头、HTTP 版本等。
+[`HttpResponse`](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client.statement/-http-response/index.html)
+类允许你获取各种响应参数，例如状态码、标头、HTTP 版本等。
 
 ### 状态码 {id="status"}
 
-要获取响应的状态码，请使用 [`HttpResponse.status`](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client.statement/-http-response/status.html) 属性：
+要获取响应的状态码，请使用
+[`HttpResponse.status`](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client.statement/-http-response/status.html)
+属性：
 
 ```kotlin
 import io.ktor.client.*
@@ -36,13 +42,14 @@ if (httpResponse.status.value in 200..299) {
 
 ### 标头 {id="headers"}
 
-[`HttpResponse.headers`](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client.statement/-http-response/index.html) 属性允许你获取一个包含所有响应标头的 [`Headers`](https://api.ktor.io/ktor-http/io.ktor.http/-headers/index.html) 映射。此外，`HttpResponse` 暴露了以下用于接收特定标头值的函数：
+[`HttpResponse.headers`](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client.statement/-http-response/index.html)
+属性允许你获取一个包含所有响应标头的 [`Headers`](https://api.ktor.io/ktor-http/io.ktor.http/-headers/index.html) 映射。此外，`HttpResponse` 暴露了以下用于接收特定标头值的函数：
 
-*   `contentType` 用于 `Content-Type` 标头值
-*   `charset` 用于从 `Content-Type` 标头值获取字符集。
-*   `etag` 用于 `E-Tag` 标头值。
-*   `setCookie` 用于 `Set-Cookie` 标头值。
-    > Ktor 也提供了 [HttpCookies](client-cookies.md) 插件，允许你在调用之间保持 cookie。
+* `contentType` 用于 `Content-Type` 标头值
+* `charset` 用于从 `Content-Type` 标头值获取字符集。
+* `etag` 用于 `E-Tag` 标头值。
+* `setCookie` 用于 `Set-Cookie` 标头值。
+  > Ktor 也提供了 [HttpCookies](client-cookies.md) 插件，允许你在调用之间保持 cookie。
 
 ## 接收响应体 {id="body"}
 
@@ -62,7 +69,8 @@ val httpResponse: HttpResponse = client.get("https://ktor.io/")
 val byteArrayBody: ByteArray = httpResponse.body()
 ```
 
-下面的[可运行示例](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-download-file)展示了如何以 `ByteArray` 的形式获取响应并将其保存到文件：
+下面的[可运行示例](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-download-file)
+展示了如何以 `ByteArray` 的形式获取响应并将其保存到文件：
 
 ```kotlin
     val client = HttpClient()
@@ -80,11 +88,13 @@ val byteArrayBody: ByteArray = httpResponse.body()
     }
 ```
 
-上面示例中的 [`onDownload()`](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client.plugins/on-download.html) 扩展函数用于显示下载进度。
+上面示例中的 [`onDownload()`](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client.plugins/on-download.html)
+扩展函数用于显示下载进度。
 
 对于非流式请求，响应体会自动加载并缓存到内存中，允许重复访问。虽然这对于小负载是高效的，但对于大响应可能会导致高内存使用。
 
-为了高效处理大响应，请使用[流式方法](#streaming)，它会递增地处理响应，而不将其保存在内存中。
+为了高效处理大响应，请使用[流式方法](#streaming)，
+它会递增地处理响应，而不将其保存在内存中。
 
 ### JSON 对象 {id="json"}
 
@@ -96,11 +106,14 @@ val customer: Customer = client.get("http://localhost:8080/customer/3").body()
 
 要了解更多信息，请参见[接收和发送数据](client-serialization.md#receive_send_data)。
 
-> ContentNegotiation 插件适用于[客户端](client-serialization.md)和[服务器](server-serialization.md)。请确保针对你的情况使用正确的插件。
+> ContentNegotiation 插件适用于[客户端](client-serialization.md)和
+> [服务器](server-serialization.md)。请确保针对你的情况使用正确的插件。
 
 ### Multipart 表单数据 {id="multipart"}
 
-当接收到包含 Multipart 表单数据的响应时，你可以将其体读取为 [`MultiPartData`](https://api.ktor.io/ktor-http/io.ktor.http.content/-multi-part-data/index.html) 实例。这允许你处理响应中包含的表单字段和文件。
+当接收到包含 Multipart 表单数据的响应时，你可以将其体读取为
+[`MultiPartData`](https://api.ktor.io/ktor-http/io.ktor.http.content/-multi-part-data/index.html) 实例。
+这允许你处理响应中包含的表单字段和文件。
 
 下面的示例演示了如何处理来自 multipart 响应的文本表单字段和文件上传：
 
@@ -166,13 +179,18 @@ part.dispose()
 
 ### 流式数据 {id="streaming"}
 
-当你调用 `HttpResponse.body` 函数以获取体时，Ktor 会在内存中处理响应并返回完整的响应体。如果你需要顺序获取响应块而不是等待整个响应，请使用带作用域 [`execute`](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client.statement/-http-statement/execute.html) 代码块的 `HttpStatement`。下面的[可运行示例](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-download-streaming)展示了如何以块（字节包）的形式接收响应内容并将其保存到文件：
+当你调用 `HttpResponse.body` 函数以获取体时，Ktor 会在内存中处理响应并返回完整的响应体。如果你需要顺序获取响应块而不是等待整个响应，请使用带作用域
+[`execute`](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client.statement/-http-statement/execute.html)
+代码块的 `HttpStatement`。
+下面的[可运行示例](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-download-streaming)
+展示了如何以块（字节包）的形式接收响应内容并将其保存到文件：
 
 ```kotlin
     val client = HttpClient(CIO)
     val file = File.createTempFile("files", "index")
     val stream = file.outputStream().asSink()
     val fileSize = 100 * 1024 * 1024
+    val bufferSize = 1024 * 1024
 
     runBlocking {
         client.prepareGet("https://httpbin.org/bytes/$fileSize").execute { httpResponse ->
@@ -180,7 +198,7 @@ part.dispose()
             var count = 0L
             stream.use {
                 while (!channel.exhausted()) {
-                    val chunk = channel.readRemaining()
+                    val chunk = channel.readRemaining(bufferSize)
                     count += chunk.remaining
 
                     chunk.transferTo(stream)
@@ -193,9 +211,11 @@ part.dispose()
     }
 ```
 
-在此示例中，[`ByteReadChannel`](https://api.ktor.io/ktor-io/io.ktor.utils.io/-byte-read-channel/index.html) 用于异步读取数据。使用 `ByteReadChannel.readRemaining()` 会检索通道中所有可用的字节，而 `Source.transferTo()` 直接将数据写入文件，从而减少不必要的内存分配。
+在此示例中，[`ByteReadChannel`](https://api.ktor.io/ktor-io/io.ktor.utils.io/-byte-read-channel/index.html) 用于异步读取数据。使用 `ByteReadChannel.readRemaining()` 会检索通道中所有可用的字节，而
+`Source.transferTo()` 直接将数据写入文件，从而减少不必要的内存分配。
 
-若要将响应体保存到文件而无需额外处理，你可以改为使用 [`ByteReadChannel.copyAndClose()`](https://api.ktor.io/ktor-io/io.ktor.utils.io/copy-and-close.html) 函数：
+若要将响应体保存到文件而无需额外处理，你可以改为使用
+[`ByteReadChannel.copyAndClose()`](https://api.ktor.io/ktor-io/io.ktor.utils.io/copy-and-close.html) 函数：
 
 ```Kotlin
 client.prepareGet("https://httpbin.org/bytes/$fileSize").execute { httpResponse ->
@@ -203,3 +223,4 @@ client.prepareGet("https://httpbin.org/bytes/$fileSize").execute { httpResponse 
     channel.copyAndClose(file.writeChannel())
     println("A file saved to ${file.path}")
 }
+```

@@ -3,6 +3,7 @@
 > Markdown の出力形式はまだアルファ版であり、使用する際にバグが見つかったり、移行に関する問題が発生したりする可能性があります。
 > **自己責任でご利用ください。**
 >
+> 実験的な形式（Markdown や Jekyll など）は、Dokka 2.0.0 ではデフォルトでサポートされていません。これらの形式を有効にするための回避策は近日中に追加される予定です。
 {style="warning"}
 
 Dokka は、[GitHub Flavored](#gfm) および [Jekyll](#jekyll) に対応した Markdown でドキュメントを生成できます。
@@ -48,7 +49,7 @@ GFM 形式は[Dokka プラグイン](dokka-plugins.md#apply-dokka-plugins)とし
 </plugin>
 ```
 
-これTを設定した後、`dokka:dokka` ゴールを実行すると GFM 形式でドキュメントが生成されます。
+これを設定した後、`dokka:dokka` ゴールを実行すると GFM 形式でドキュメントが生成されます。
 
 詳細については、Maven プラグインの[その他の出力形式](dokka-maven.md#other-output-formats)のドキュメントを参照してください。
 
@@ -123,7 +124,7 @@ Jekyll 形式は[Dokka プラグイン](dokka-plugins.md#apply-dokka-plugins)と
 </plugin>
 ```
 
-これTを設定した後、`dokka:dokka` ゴールを実行すると GFM 形式でドキュメントが生成されます。
+これを設定した後、`dokka:dokka` ゴールを実行すると GFM 形式でドキュメントが生成されます。
 
 詳細については、Maven プラグインの[その他の出力形式](dokka-maven.md#other-output-formats)のドキュメントを参照してください。
 

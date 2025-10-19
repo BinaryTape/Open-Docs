@@ -90,6 +90,7 @@ fun Application.module() {
 ```
 
 참고
+
 - `aiAgent`는 구체적인 모델(`LLModel`)을 필요로 합니다. 라우트별, 사용별로 선택하세요.
 - 하위 레벨 LLM 접근을 위해서는 `llm() (PromptExecutor)`를 직접 사용하세요.
 
@@ -205,6 +206,7 @@ install(Koog) {
 ## 구성 (폴백) 내 모델 식별자
 
 YAML/CONF에서 `llm.fallback`을 구성할 때는 다음 식별자 형식을 사용하세요.
+
 - OpenAI: `openai.chat.gpt4_1`, `openai.reasoning.o3`, `openai.costoptimized.gpt4_1mini`, `openai.audio.gpt4oaudio`, `openai.moderation.omni`
 - Anthropic: `anthropic.sonnet_3_7`, `anthropic.opus_4`, `anthropic.haiku_3_5`
 - Google: `google.gemini2_5pro`, `google.gemini2_0flash001`
@@ -213,6 +215,7 @@ YAML/CONF에서 `llm.fallback`을 구성할 때는 다음 식별자 형식을 �
 - Ollama: `ollama.meta.llama3.2`, `ollama.alibaba.qwq:32b`, `ollama.groq.llama3-grok-tool-use:8b`
 
 참고
+
 - OpenAI의 경우 카테고리(`chat`, `reasoning`, `costoptimized`, `audio`, `embeddings`, `moderation`)를 반드시 포함해야 합니다.
 - Ollama의 경우, `ollama.model` 및 `ollama.<maker>.<model>` 모두 지원됩니다.
 

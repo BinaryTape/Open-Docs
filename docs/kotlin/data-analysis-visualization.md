@@ -1,4 +1,4 @@
-[//]: # (title: Kotlin Notebook 中结合 Kandy 进行数据可视化)
+[//]: # (title: Kotlin Notebook 中使用 Kandy 进行数据可视化)
 
 Kotlin 提供了一个一站式解决方案，用于强大而灵活的数据可视化，以直观的方式呈现和探索数据，然后再深入复杂的模型。
 
@@ -13,6 +13,7 @@ Kotlin Notebook 依赖于 [Kotlin Notebook 插件](https://plugins.jetbrains.com
 创建新的 Kotlin Notebook:
 
 1. 选择 **File** | **New** | **Kotlin Notebook**。
+
 2. 在你的 Notebook 中，通过运行以下命令导入 Kandy 和 Kotlin DataFrame 库：
 
     ```kotlin

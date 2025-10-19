@@ -12,8 +12,8 @@ Koog 自然地融入你的 Ktor 服务器，使你能够使用惯用的 Kotlin A
 - 对 OpenAI、Anthropic、Google、OpenRouter、DeepSeek 和 Ollama 的一流支持
 - 通过 YAML/CONF 和/或代码进行的集中式配置
 - 智能体设置，包括 Prompt、工具、特性；为路由提供简单的扩展函数
-- 直接使用 LLM（`execute`、`executeStreaming`、`moderate`）
-- 仅限 JVM 的模型上下文协议 (Model Context Protocol, MCP) 工具集成
+- 直接使用 LLM（execute、executeStreaming、moderate）
+- 仅限 JVM 的 Model Context Protocol (MCP) 工具集成
 
 ## 添加依赖项
 
@@ -90,8 +90,9 @@ fun Application.module() {
 ```
 
 注意
-- `aiAgent` 需要一个具体的模型 (LLMModel)——根据每个路由、每次使用进行选择。
-- 对于更底层的 LLM 访问，请直接使用 `llm()` (PromptExecutor)。
+
+- aiAgent 需要一个具体的模型 (LLMModel)——根据每个路由、每次使用进行选择。
+- 对于更底层的 LLM 访问，请直接使用 llm() (PromptExecutor)。
 
 ## 从路由直接使用 LLM
 
@@ -156,7 +157,7 @@ post("/moderated-chat") {
 
 ## 编程配置（在代码中）
 
-所有提供商和智能体行为都可以通过 `install(Koog) {}` 来配置。
+所有提供商和智能体行为都可以通过 install(Koog) {} 来配置。
 
 ```kotlin
 install(Koog) {
@@ -204,17 +205,19 @@ install(Koog) {
 
 ## 配置中的模型标识符（回退）
 
-在 YAML/CONF 中配置 `llm.fallback` 时，请使用这些标识符格式：
-- OpenAI: `openai.chat.gpt4_1`, `openai.reasoning.o3`, `openai.costoptimized.gpt4_1mini`, `openai.audio.gpt4oaudio`, `openai.moderation.omni`
-- Anthropic: `anthropic.sonnet_3_7`, `anthropic.opus_4`, `anthropic.haiku_3_5`
-- Google: `google.gemini2_5pro`, `google.gemini2_0flash001`
-- OpenRouter: `openrouter.gpt4o`, `openrouter.gpt4`, `openrouter.claude3sonnet`
-- DeepSeek: `deepseek.deepseek-chat`, `deepseek.deepseek-reasoner`
-- Ollama: `ollama.meta.llama3.2`, `ollama.alibaba.qwq:32b`, `ollama.groq.llama3-grok-tool-use:8b`
+在 YAML/CONF 中配置 llm.fallback 时，请使用这些标识符格式：
+
+- OpenAI: openai.chat.gpt4_1, openai.reasoning.o3, openai.costoptimized.gpt4_1mini, openai.audio.gpt4oaudio, openai.moderation.omni
+- Anthropic: anthropic.sonnet_3_7, anthropic.opus_4, anthropic.haiku_3_5
+- Google: google.gemini2_5pro, google.gemini2_0flash001
+- OpenRouter: openrouter.gpt4o, openrouter.gpt4, openrouter.claude3sonnet
+- DeepSeek: deepseek.deepseek-chat, deepseek.deepseek-reasoner
+- Ollama: ollama.meta.llama3.2, ollama.alibaba.qwq:32b, ollama.groq.llama3-grok-tool-use:8b
 
 注意
-- 对于 OpenAI，你必须包含类别（`chat`、`reasoning`、`costoptimized`、`audio`、`embeddings`、`moderation`）。
-- 对于 Ollama，`ollama.model` 和 `ollama.<maker>.<model>` 都受支持。
+
+- 对于 OpenAI，你必须包含类别（chat、reasoning、costoptimized、audio、embeddings、moderation）。
+- 对于 Ollama，ollama.model 和 ollama.<maker>.<model> 都受支持。
 
 ## MCP 工具（仅限 JVM）
 

@@ -2,8 +2,7 @@
 
 機能エージェントは、複雑な戦略グラフを構築することなく動作する軽量なAIエージェントです。
 代わりに、エージェントロジックは、ユーザー入力を処理し、LLMと対話し、
-必要に応じてツールを呼び出し、最終的な出力を生成するラムダ関数として実装されます。単一のLLM呼び出しを実行したり、複数のLLM呼び出しを連続して処理したり、
-ユーザー入力、LLM、およびツール出力に基づいてループしたりすることができます。
+必要に応じてツールを呼び出し、最終的な出力を生成するラムダ関数として実装されます。単一のLLM呼び出しを実行したり、複数のLLM呼び出しを連続して処理したり、ユーザー入力、LLM、およびツール出力に基づいてループしたりすることができます。
 
 !!! tip
     - 既にシンプルな[シングルランエージェント](single-run-agents.md)を最初のMVPとして持っているが、タスク固有の制限に直面している場合は、機能エージェントを使用してカスタムロジックをプロトタイプ作成してください。履歴圧縮や自動状態管理を含むKoogのほとんどの機能を使用しながら、純粋なKotlinでカスタム制御フローを実装できます。
@@ -50,8 +49,8 @@ dependencies {
 <!--- INCLUDE
 import ai.koog.agents.core.agent.AIAgent
 import ai.koog.agents.core.agent.functionalStrategy
-import ai.koog.agents.core.agent.asAssistantMessage
-import ai.koog.agents.core.agent.requestLLM
+import ai.koog.agents.core.dsl.extension.asAssistantMessage
+import ai.koog.agents.core.dsl.extension.requestLLM
 import ai.koog.prompt.executor.llms.all.simpleOllamaAIExecutor
 import ai.koog.prompt.llm.OllamaModels
 import kotlinx.coroutines.runBlocking
@@ -95,8 +94,8 @@ The answer to 12 × 9 is 108.
 <!--- INCLUDE
 import ai.koog.agents.core.agent.AIAgent
 import ai.koog.agents.core.agent.functionalStrategy
-import ai.koog.agents.core.agent.asAssistantMessage
-import ai.koog.agents.core.agent.requestLLM
+import ai.koog.agents.core.dsl.extension.asAssistantMessage
+import ai.koog.agents.core.dsl.extension.requestLLM
 import ai.koog.prompt.executor.llms.all.simpleOllamaAIExecutor
 import ai.koog.prompt.llm.OllamaModels
 import kotlinx.coroutines.runBlocking
@@ -209,12 +208,12 @@ import ai.koog.agents.core.tools.reflect.tools
 import ai.koog.agents.core.tools.ToolRegistry
 import ai.koog.agents.core.agent.AIAgent
 import ai.koog.agents.core.agent.functionalStrategy
-import ai.koog.agents.core.agent.asAssistantMessage
-import ai.koog.agents.core.agent.containsToolCalls
-import ai.koog.agents.core.agent.executeMultipleTools
-import ai.koog.agents.core.agent.extractToolCalls
-import ai.koog.agents.core.agent.requestLLMMultiple
-import ai.koog.agents.core.agent.sendMultipleToolResults
+import ai.koog.agents.core.dsl.extension.asAssistantMessage
+import ai.koog.agents.core.dsl.extension.containsToolCalls
+import ai.koog.agents.core.dsl.extension.executeMultipleTools
+import ai.koog.agents.core.dsl.extension.extractToolCalls
+import ai.koog.agents.core.dsl.extension.requestLLMMultiple
+import ai.koog.agents.core.dsl.extension.sendMultipleToolResults
 import ai.koog.prompt.executor.llms.all.simpleOllamaAIExecutor
 import ai.koog.prompt.llm.OllamaModels
 import kotlinx.coroutines.runBlocking
@@ -238,7 +237,7 @@ val mathWithTools = AIAgent<String, String>(
     strategy = functionalStrategy { input -> // ツール呼び出しで拡張されたエージェントロジックを定義
         // ユーザー入力をLLMに送信
         var responses = requestLLMMultiple(input)
-        
+
         // LLMがツールをリクエストしている間だけループする
         while (responses.containsToolCalls()) {
             // レスポンスからツール呼び出しを抽出

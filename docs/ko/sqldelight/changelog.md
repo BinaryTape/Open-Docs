@@ -3,9 +3,11 @@
 ## 미출시
 
 ### 추가
+- [SQLite 다이얼렉트] 공통 테이블 표현식(Common Table Expressions)을 사용하는 MATERIALIZED 쿼리 플래너 힌트(query planner hint)에 대한 Sqlite 3.35 지원 추가 (#5961 by [Griffio][griffio])
+- [PostgreSQL 다이얼렉트] 공통 테이블 표현식(Common Table Expressions)을 사용하는 MATERIALIZED 쿼리 플래너 힌트(query planner hint)에 대한 지원 추가 (#5961 by [Griffio][griffio])
 - [PostgreSQL 다이얼렉트] Postgres JSON 집계 필터(Aggregate FILTER) 지원 추가 (#5957 by [Griffio][griffio])
 - [PostgreSQL 다이얼렉트] Postgres Enum 지원 추가 (#5935 by [Griffio][griffio])
-- [PostgreSQL 다이얼렉트] Postgres 트리거에 대한 제한된 지원 추가 (#5932 by [Griffio][griffio])
+- [PostgreSQL 다이얼렉트] Postgres 트리거(Triggers)에 대한 제한된 지원 추가 (#5932 by [Griffio][griffio])
 - [PostgreSQL 다이얼렉트] SQL 표현식이 JSON으로 파싱될 수 있는지 확인하는 조건자(predicate) 추가 (#5843 by [Griffio][griffio])
 - [PostgreSQL 다이얼렉트] PostgreSql COMMENT ON 문에 대한 제한된 지원 추가 (#5808 by [Griffio][griffio])
 - [MySQL 다이얼렉트] 인덱스 가시성 옵션 지원 추가 (#5785 by [Oren Kislev][orenkislev-faire])
@@ -13,20 +15,20 @@
 - [Gradle 플러그인] 모듈 추가 시 버전 카탈로그(version catalogs) 지원 추가 (#5755 by [Michael Rittmeister][DRSchlaubi])
 
 ### 변경
-- 개발 중인 스냅샷은 이제 https://central.sonatype.com/repository/maven-snapshots/ 에 있는 Central Portal Snapshots 저장소에 게시됩니다.
-- [컴파일러] 생성자 참조를 사용하여 기본 생성된 쿼리 단순화 (#5814 by [Jon Poulton][jonapoul])
+- 개발 중인 스냅샷(snapshots)은 이제 https://central.sonatype.com/repository/maven-snapshots/ 에 있는 Central Portal Snapshots 저장소에 게시됩니다.
+- [컴파일러] 생성자 참조(constructor references)를 사용하여 기본 생성된 쿼리 단순화 (#5814 by [Jon Poulton][jonapoul])
 
 ### 수정
-- [컴파일러] 공통 테이블 표현식(Common Table Expression)을 포함하는 뷰 사용 시 스택 오버플로우 수정 (#5928 by [Griffio][griffio])
+- [컴파일러] 공통 테이블 표현식(Common Table Expression)을 포함하는 뷰 사용 시 스택 오버플로우(stack overflow) 수정 (#5928 by [Griffio][griffio])
 - [Gradle 플러그인] "새 연결(New Connection)" 추가를 위해 SqlDelight 도구 창을 열 때 발생하는 크래시 수정 (#5906 by [Griffio][griffio])
-- [IDE 플러그인] SQLite로 복사(copy-to-sqlite) 거터 액션에서 스레딩 관련 크래시 방지 (#5901 by [Griffio][griffio])
-- [IDE 플러그인] CREATE INDEX 및 CREATE VIEW 스키마 문 사용 시 PostgreSql 다이얼렉트에 대한 수정 (#5772 by [Griffio][griffio])
-- [컴파일러] 열 참조 시 FTS 스택 오버플로우 수정 (#5896 by [Griffio][griffio])
-- [컴파일러] WITH RECURSIVE 스택 오버플로우 수정 (#5892 by [Griffio][griffio])
-- [컴파일러] INSERT | UPDATE | DELETE RETURNING 문에 대한 알림 수정 (#5851 by [Griffio][griffio])
-- [컴파일러] Long을 반환하는 트랜잭션 블록에 대한 비동기 결과 타입 수정 (#5836 by [Griffio][griffio])
-- [컴파일러] SQL 매개변수 바인딩 복잡도를 O(n²)에서 O(n)으로 최적화 (#5898 by [Chen Frenkel][chenf7])
-- [SQLite 다이얼렉트] Sqlite 3.18 버전의 누락된 함수 수정 (#5759 by [Griffio][griffio])
+- [IntelliJ 플러그인] copy-to-sqlite 거터 액션(gutter action)에서 스레딩 관련 크래시 방지 (#5901 by [Griffio][griffio])
+- [IntelliJ 플러그인] CREATE INDEX 및 CREATE VIEW 스키마 문(schema statements) 사용 시 PostgreSql 다이얼렉트에 대한 수정 (#5772 by [Griffio][griffio])
+- [컴파일러] 열 참조 시 FTS 스택 오버플로우(stack overflow) 수정 (#5896 by [Griffio][griffio])
+- [컴파일러] With Recursive 스택 오버플로우 수정 (#5892 by [Griffio][griffio])
+- [컴파일러] INSERT|UPDATE|DELETE RETURNING 문에 대한 알림(Notify) 수정 (#5851 by [Griffio][griffio])
+- [컴파일러] Long을 반환하는 트랜잭션 블록(transaction blocks)에 대한 비동기 결과 타입(async result type) 수정 (#5836 by [Griffio][griffio])
+- [컴파일러] SQL 매개변수 바인딩(parameter binding) 복잡도(complexity)를 O(n²)에서 O(n)으로 최적화 (#5898 by [Chen Frenkel][chenf7])
+- [SQLite 다이얼렉트] Sqlite 3.18 누락된 함수(missing functions) 수정 (#5759 by [Griffio][griffio])
 
 ## [2.1.0] - 2025-05-16
 
@@ -36,9 +38,9 @@
 - [PostgreSQL 다이얼렉트] PostgreSql TSRANGE/TSTZRANGE 지원 (#5297 by [Griffio][griffio])
 - [PostgreSQL 다이얼렉트] PostgreSql RIGHT FULL JOIN (#5086 by [Griffio][griffio])
 - [PostgreSQL 다이얼렉트] Postgresql 시간 관련(temporal) 타입에서 추출 기능 (#5273 by [Griffio][griffio])
-- [PostgreSQL 다이얼렉트] PostgreSql 배열 포함(contains) 연산자 (#4933 by [Griffio][griffio])
+- [PostgreSQL 다이얼렉트] PostgreSql 배열 포함(array contains) 연산자 (#4933 by [Griffio][griffio])
 - [PostgreSQL 다이얼렉트] PostgreSql 제약 조건(constraint) 제거 (#5288 by [Griffio][griffio])
-- [PostgreSQL 다이얼렉트] Postgresql 타입 캐스팅 (#5089 by [Griffio][griffio])
+- [PostgreSQL 다이얼렉트] Postgresql 타입 캐스팅(type casting) (#5089 by [Griffio][griffio])
 - [PostgreSQL 다이얼렉트] 서브쿼리를 위한 PostgreSql LATERAL JOIN 연산자 (#5122 by [Griffio][griffio])
 - [PostgreSQL 다이얼렉트] Postgresql ILIKE 연산자 (#5330 by [Griffio][griffio])
 - [PostgreSQL 다이얼렉트] PostgreSql XML 타입 (#5331 by [Griffio][griffio])
@@ -51,21 +53,21 @@
 - [JSON 확장] JSON 테이블 함수에 별칭(alias) 추가 (#5372 by [Griffio][griffio])
 
 ### 변경
-- [컴파일러] 생성된 쿼리 파일이 단순 뮤테이터(mutator)에 대한 행 개수(row count)를 반환하도록 변경 (#4578 by [Marius Volkhart][MariusV])
+- [컴파일러] 생성된 쿼리 파일이 단순 뮤테이터(simple mutators)에 대한 행 개수(row counts)를 반환하도록 변경 (#4578 by [Marius Volkhart][MariusV])
 - [네이티브 드라이버] NativeSqlDatabase.kt 업데이트: DELETE, INSERT, UPDATE 문에 대한 읽기 전용(readonly) 플래그 변경 (#5680 by [Griffio][griffio])
 - [PostgreSQL 다이얼렉트] PgInterval을 String으로 변경 (#5403 by [Griffio][griffio])
 - [PostgreSQL 다이얼렉트] SqlDelight 모듈이 PostgreSQL 확장 기능을 구현하도록 지원 (#5677 by [Griffio][griffio])
 
 ### 수정
 - [컴파일러] 수정: 결과와 함께 그룹 문을 실행할 때 쿼리 알림 (#5006 by [Vitor Hugo Schwaab][vitorhugods])
-- [컴파일러] SqlDelightModule 타입 리졸버 수정 (#5625 by [Griffio][griffio])
+- [컴파일러] SqlDelightModule 타입 리졸버(type resolver) 수정 (#5625 by [Griffio][griffio])
 - [컴파일러] 5501번 이슈 수정: 객체 이스케이프된 열 삽입 (#5503 by [Griffio][griffio])
-- [컴파일러] 컴파일러: 경로 링크가 올바른 줄 및 문자 위치로 클릭 가능하도록 오류 메시지 개선. (#5604 by [Niklas Baudy][vanniktech])
+- [컴파일러] 컴파일러: 오류 메시지를 개선하여 경로 링크(path links)가 올바른 줄 및 문자 위치(line & char position)로 클릭 가능하도록 함. (#5604 by [Niklas Baudy][vanniktech])
 - [컴파일러] 5298번 이슈 수정: 키워드를 테이블 이름으로 사용할 수 있도록 허용
-- [컴파일러] 명명된(named) 실행 수정 및 테스트 추가
-- [컴파일러] 초기화 문 정렬 시 외래 키(foreign key) 테이블 제약 조건 고려 (#5325 by [Leon Linhart][TheMrMilchmann])
+- [컴파일러] 명명된 실행(named executes) 수정 및 테스트 추가
+- [컴파일러] 초기화 문(initialization statements) 정렬 시 외래 키 테이블 제약 조건(foreign key table constraints) 고려 (#5325 by [Leon Linhart][TheMrMilchmann])
 - [컴파일러] 탭이 포함된 경우 오류 밑줄을 올바르게 정렬 (#5224 by [Drew Dobson][drewd])
-- [JDBC 드라이버] 트랜잭션 종료 중 connectionManager의 메모리 누수(leak) 수정
+- [JDBC 드라이버] 트랜잭션 종료 중 connectionManager의 메모리 누수(memory leak) 수정
 - [JDBC 드라이버] 문서에 언급된 대로 트랜잭션 내에서 SQLite 마이그레이션 실행 (#5218 by [Lukáš Moravec][morki])
 - [JDBC 드라이버] 트랜잭션 커밋/롤백 후 연결 누수(leaking connections) 수정 (#5205 by [Lukáš Moravec][morki])
 - [Gradle 플러그인] `DriverInitializer` 이전에 `GenerateSchemaTask` 실행 (#5562 by [Emeka Nwagu][nwagu])
@@ -74,17 +76,17 @@
 - [PostgreSQL 다이얼렉트] PostgreSql CREATE OR REPLACE VIEW (#5407 by [Griffio][griffio])
 - [PostgreSQL 다이얼렉트] Postgresql TO_JSON (#5606 by [Griffio][griffio])
 - [PostgreSQL 다이얼렉트] PostgreSql 숫자(numeric) 리졸버 (#5399 by [Griffio][griffio])
-- [PostgreSQL 다이얼렉트] SQLite 윈도우(window) 함수 (#2799 by [Griffio][griffio])
+- [PostgreSQL 다이얼렉트] SQLite 윈도우(windows) 함수 (#2799 by [Griffio][griffio])
 - [PostgreSQL 다이얼렉트] PostgreSql SELECT DISTINCT ON (#5345 by [Griffio][griffio])
 - [PostgreSQL 다이얼렉트] ALTER TABLE ADD COLUMN IF NOT EXISTS (#5309 by [Griffio][griffio])
-- [PostgreSQL 다이얼렉트] Postgresql 비동기(async) 바인드 파라미터 (#5313 by [Griffio][griffio])
+- [PostgreSQL 다이얼렉트] Postgresql 비동기(async) 바인드 매개변수 (#5313 by [Griffio][griffio])
 - [PostgreSQL 다이얼렉트] PostgreSql 불리언(boolean) 리터럴 (#5262 by [Griffio][griffio])
 - [PostgreSQL 다이얼렉트] PostgreSql 윈도우(window) 함수 (#5155 by [Griffio][griffio])
 - [PostgreSQL 다이얼렉트] PostgreSql IS NULL IS NOT NULL 타입 (#5173 by [Griffio][griffio])
 - [PostgreSQL 다이얼렉트] PostgreSql SELECT DISTINCT (#5172 by [Griffio][griffio])
 - [페이징 확장] 페이징 초기 로드(initial load) 새로고침 수정 (#5615 by [Eva][evant])
 - [페이징 확장] MacOS 네이티브 타겟 추가 (#5324 by [Vitor Hugo Schwaab][vitorhugods])
-- [IDE 플러그인] K2 지원
+- [IntelliJ 플러그인] K2 지원
 
 ## [2.0.2] - 2024-04-05
 
@@ -100,7 +102,7 @@
 ### 변경
 - [IDE 플러그인] 최소 버전 2023.1 / Android Studio Iguana
 - [컴파일러] encapsulatingType에서 타입 널러블리티(nullability) 재정의 허용 (#4882 by [Eliezer Graber][eygraber])
-- [컴파일러] `SELECT *`에 대한 열 이름 인라인화
+- [컴파일러] `SELECT *`에 대한 열 이름 인라인화 (#4864)
 - [Gradle 플러그인] processIsolation으로 전환 (#5068 by [Emeka Nwagu][nwagu])
 - [Android 런타임] Android minSDK를 21로 상향 (#5094 by [Philip Wedemann][hfhbd])
 - [드라이버] 다이얼렉트 작성자를 위해 더 많은 JDBC/R2DBC 문(statement) 메서드 노출 (#5098 by [Philip Wedemann][hfhbd])
@@ -119,7 +121,7 @@
 - [PostgreSQL 다이얼렉트] 5082번 이슈 수정: TSVECTOR (#5104 by [Griffio][griffio])
 - [PostgreSQL 다이얼렉트] 5032번 이슈 수정: PostgreSql UPDATE FROM 문에 대한 열 인접성(column adjacency) (#5035 by [Griffio][griffio])
 - [SQLite 다이얼렉트] 4897번 이슈 수정: sqlite ALTER TABLE RENAME COLUMN (#4899 by [Griffio][griffio])
-- [IDE 플러그인] 오류 핸들러(handler) 크래시 수정 (#4988 by [Alexander Perfilyev][aperfilyev])
+- [IDE 플러그인] 오류 핸들러(error handler) 크래시 수정 (#4988 by [Alexander Perfilyev][aperfilyev])
 - [IDE 플러그인] IDEA 2023.3에서 BugSnag 초기화 실패 (by [Alexander Perfilyev][aperfilyev])
 - [IDE 플러그인] 플러그인을 통해 IntelliJ에서 .sq 파일 열기 시 PluginException 발생 (by [Alexander Perfilyev][aperfilyev])
 - [IDE 플러그인] kotlin 라이브러리를 intellij 플러그인에 번들링하지 않음 (이미 플러그인 의존성임) (#5126)
@@ -141,9 +143,9 @@
 - [PostgreSQL 다이얼렉트] postgres 다이얼렉트에 TRUNCATE 추가 (#4817 by [Bastien de Luca][de-luca])
 - [SQLite 3.35 다이얼렉트] 순서대로 평가되는 여러 ON CONFLICT 절 허용 (#4551 by [Griffio][griffio])
 - [JDBC 드라이버] 보다 쾌적한 SQL 편집을 위한 언어(Language) 어노테이션 추가 (#4602 by [Marius Volkhart][MariusV])
-- [네이티브 드라이버] 네이티브 드라이버: linuxArm64 지원 추가 (#4792 by [Philip Wedemann][hfhbd])
+- [네이티브 드라이버] Native-driver: linuxArm64 지원 추가 (#4792 by [Philip Wedemann][hfhbd])
 - [Android 드라이버] AndroidSqliteDriver에 windowSizeBytes 매개변수 추가 (#4804 by [Benoit Lubek][BoD])
-- [페이징3 확장] 기능: OffsetQueryPagingSource에 initialOffset 추가 (#4802 by [Mohamad Jaara][MohamadJaara])
+- [Paging3 확장] 기능: OffsetQueryPagingSource에 initialOffset 추가 (#4802 by [Mohamad Jaara][MohamadJaara])
 
 ### 변경
 - [컴파일러] 적절한 경우 Kotlin 타입 선호 (#4517 by [Eliezer Graber][eygraber])
@@ -156,7 +158,7 @@
 - [SQLite Javascript 드라이버] sqljs-driver 제거 (#4613, #4670 by [Derek Ellis][dellisd])
 
 ### 수정
-- [컴파일러] 반환 값은 있지만 매개변수가 없는 그룹화된 문(grouped statements) 컴파일 수정 (#4699 by [Griffio][griffio])
+- [컴파일러] 반환 값은 있지만 매개변수가 없는 그룹화된 문 컴파일 수정 (#4699 by [Griffio][griffio])
 - [컴파일러] SqlBinaryExpr로 인수 바인딩 (#4604 by [Griffio][griffio])
 - [IDE 플러그인] 설정된 경우 IDEA 프로젝트 JDK 사용 (#4689 by [Griffio][griffio])
 - [IDE 플러그인] IDEA 2023.2 이상에서 "알 수 없는 요소 타입: TYPE_NAME" 오류 수정 (#4727)
@@ -171,7 +173,7 @@
 - [SQLite 다이얼렉트] UPDATE FROM 거짓 양성(false positive) 수정: 여러 열이 이름으로 발견됨 (#4777 by [Eliezer Graber][eygraber])
 - [네이티브 드라이버] 명명된 인메모리 데이터베이스 지원 (#4662 by [Matthew Nelson][05nelsonm])
 - [네이티브 드라이버] 쿼리 리스너(listener) 컬렉션의 스레드 안전성 보장 (#4567 by [Kevin Galligan][kpgalligan])
-- [JDBC 드라이버] ConnectionManager에서 연결 누수 수정 (#4589 by [Marius Volkhart][MariusV])
+- [JDBC 드라이버] ConnectionManager에서 연결 누수(connection leak) 수정 (#4589 by [Marius Volkhart][MariusV])
 - [JDBC 드라이버] ConnectionManager 타입 선택 시 JdbcSqliteDriver URL 파싱 수정 (#4656 by [Matthew Nelson][05nelsonm])
 
 ## [2.0.0] - 2023-07-26
@@ -294,7 +296,7 @@
 - [컴파일러] 순수 뷰(pure views)에서 재귀적 원본 테이블 해결 (by [Philip Wedemann][hfhbd])
 - [컴파일러] 테이블 외래 키(foreign key) 절에서 값 클래스 사용 (by [Philip Wedemann][hfhbd])
 - [컴파일러] 괄호 없는 바인드 표현식(bind expression)을 지원하도록 SelectQueryGenerator 수정 (by [Doogie Min][bellatoris])
-- [컴파일러] 트랜잭션 사용 시 `${name}Indexes` 변수의 중복 생성 수정 (#5814 by [Andreas Sacher][sachera])
+- [컴파일러] 트랜잭션 사용 시 `${name}Indexes` 변수의 중복 생성 수정 (by [Andreas Sacher][sachera])
 
 ## [1.5.5] - 2023-01-20
 
@@ -344,7 +346,7 @@ Kotlin 1.7.20 및 AGP 7.3.0 호환성 업데이트입니다.
 - [컴파일러] `getObject` 메서드가 실제 타입 자동 채우기 지원. (#3401 by [Rob X][robx])
 - [컴파일러] 비동기 그룹 반환 문에 대한 코드 생성 수정 (#3411)
 - [컴파일러] 가능한 경우 바인드 매개변수의 Kotlin 타입을 추론하거나, 더 나은 오류 메시지와 함께 실패하도록 변경 (#3413 by [Philip Wedemann][hfhbd])
-- [컴파일러] ABS("foo") 허용하지 않음 (#3430 by [Philip Wedemann][hfhbd])
+- [컴파일러] `ABS("foo")` 허용하지 않음 (#3430 by [Philip Wedemann][hfhbd])
 - [컴파일러] 다른 매개변수에서 kotlin 타입 추론 지원 (#3431 by [Philip Wedemann][hfhbd])
 - [컴파일러] 항상 데이터베이스 구현 생성 (#3540 by [Philip Wedemann][hfhbd])
 - [컴파일러] javaDoc 완화 및 사용자 정의 매퍼(mapper) 함수에도 추가 (#3554 [Philip Wedemann][hfhbd])
@@ -598,7 +600,7 @@ sqldelight {
 
 ### 변경
 - [Gradle 플러그인] Gradle 7.0 명시적으로 요구 (#2572 by [Martin Bonnin][martinbonnin])
-- [Gradle 플러그인] VerifyMigrationTask가 Gradle의 최신 검사(up-to-date checks)를 지원하도록 변경 (#2533 by [Matthew Haughton][3flex])
+- [Gradle 플러그인] `VerifyMigrationTask`가 Gradle의 최신 검사(up-to-date checks)를 지원하도록 변경 (#2533 by [Matthew Haughton][3flex])
 - [IDE 플러그인] 널러블(nullable) 타입과 널러블이 아닌(non-nullable) 타입을 JOIN할 때 "Join compares two columns of different types" 경고 표시하지 않음 (#2550 by [Piotr Chmielowski][pchmielowski])
 - [IDE 플러그인] 열 타입의 소문자 'as'에 대한 오류 명확화 (by [Alexander Perfilyev][aperfilyev])
 
@@ -664,9 +666,10 @@ sqldelight {
 - [IDE 플러그인] CREATE TABLE stmt에 텍스트를 복사/붙여넣기할 때 빈 줄 삽입 수정 (#2431 by [Alexander Perfilyev][aperfilyev])
 
 ## [1.5.0] - 2021-04-23
+
 ### 추가
 - [SQLite Javascript 드라이버] sqljs-driver 게시 활성화 (#1667 by [Derek Ellis][dellisd])
-- [페이징3 확장] Android Paging 3 라이브러리용 확장 (#1786 by [Kevin Cianfarini][kevincianfarini])
+- [Paging3 확장] Android Paging 3 라이브러리용 확장 (#1786 by [Kevin Cianfarini][kevincianfarini])
 - [MySQL 다이얼렉트] mysql의 ON DUPLICATE KEY UPDATE 충돌 해결 지원 추가 (by [Ryan Harter][rharter])
 - [SQLite 다이얼렉트] SQLite offsets()에 대한 컴파일러 지원 추가 (by [Quinton Roberts][qjroberts])
 - [IDE 플러그인] 알 수 없는 타입에 대한 임포트 빠른 수정(quick fix) 추가 (#683 by [Alexander Perfilyev][aperfilyev])
@@ -712,7 +715,7 @@ sqldelight {
 - [IDE 플러그인] 프로젝트가 Gradle 액션 실행 전에 폐기되지 않도록 보장 (#2155)
 - [IDE 플러그인] 널러블 타입에 대한 산술(Arithmetic)도 널러블이어야 함 (#1853)
 - [IDE 플러그인] 'expand * intention'이 추가 프로젝션(projections)과 함께 작동하도록 수정 (#2173 by [Alexander Perfilyev][aperfilyev])
-- [IDE 플러그인] GoTo 중 kotlin 해결 실패 시 sqldelight 파일로 이동 시도하지 않음
+- [IDE 플러그인] Kotlin 해결 실패 시 sqldelight 파일로 이동 시도하지 않음 (GoTo 중)
 - [IDE 플러그인] SQLDelight 인덱싱 중 IntelliJ에서 예외가 발생하면 충돌하지 않음
 - [IDE 플러그인] IDE에서 코드 생성 전 오류 감지 시 발생하는 예외 처리
 - [IDE 플러그인] IDE 플러그인을 동적 플러그인(Dynamic Plugins)과 호환되도록 만듦 (#1536)
@@ -754,7 +757,7 @@ sqldelight {
 - [IDE 플러그인] 유효하지 않은 타입에 대해 정상적으로 실패 (#1943)
 - [IDE 플러그인] 알 수 없는 표현식을 만났을 때 더 나은 오류 메시지 발생 (#1958)
 - [Gradle 플러그인] SQLDelight가 IntelliJ 의존성을 빌드 스크립트 클래스 경로에 누출 (#1998)
-- [Gradle 플러그인] "*.sq" 파일에 메서드 문서 추가 시 "JavadocIntegrationKt not found" 컴파일 오류 (#1982)
+- [Gradle 플러그인] `JavadocIntegrationKt not found` 컴파일 오류 (doc in *.sq 파일 추가 시) (#1982)
 - [Gradle 플러그인] SqlDelight Gradle 플러그인은 Configuration Caching (CoCa)을 지원하지 않음. (#1947 by [Stéphane Nicolas][stephanenicolas])
 - [SQLite JDBC 드라이버] `SQLException`: 데이터베이스가 자동 커밋 모드임 (#1832)
 - [코루틴 확장] coroutines-extensions에 대한 IR 백엔드 수정 (#1918 by [Derek Ellis][dellisd])

@@ -12,7 +12,7 @@
 - 도구 호출
 - 에이전트 그래프 내 노드 실행
 
-이 기능은 에이전트 파이프라인의 주요 이벤트를 가로채어 구성 가능한 메시지 처리기로 전달하는 방식으로 작동합니다. 이 처리기들은 트레이스 정보를 로그 파일 또는 파일 시스템의 다른 유형 파일과 같은 다양한 대상으로 출력할 수 있으며, 이를 통해 개발자는 에이전트 동작에 대한 통찰력을 얻고 문제를 효과적으로 해결할 수 있습니다.
+이 기능은 에이전트 파이프라인의 주요 이벤트를 가로채어 구성 가능한 메시지 처리기로 전달하는 방식으로 작동합니다. 이러한 처리기들은 트레이스 정보를 로그 파일 또는 파일 시스템의 다른 유형 파일과 같은 다양한 대상으로 출력할 수 있으며, 이를 통해 개발자는 에이전트 동작에 대한 통찰력을 얻고 문제를 효과적으로 해결할 수 있습니다.
 
 ### 이벤트 흐름
 
@@ -283,7 +283,7 @@ const val input = "What's the weather like in New York?"
 
 fun main() {
     runBlocking {
-        // Creating an agent
+        // 에이전트 생성
         val agent = AIAgent(
             promptExecutor = simpleOllamaAIExecutor(),
             llmModel = OllamaModels.Meta.LLAMA_3_2,
@@ -367,7 +367,7 @@ import ai.koog.agents.core.feature.model.events.AgentCompletedEvent
 import ai.koog.agents.core.feature.model.events.DefinedFeatureEvent
 import ai.koog.agents.core.feature.remote.client.config.DefaultClientConnectionConfig
 import ai.koog.agents.core.feature.remote.client.FeatureMessageRemoteClient
-import ai.koog.agents.utils.use
+import ai.koog.utils.io.use
 import io.ktor.http.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.consumeAsFlow
@@ -414,9 +414,9 @@ listOf(clientJob).joinAll()
 
 트레이싱 기능은 다음 핵심 구성 요소를 가진 모듈식 아키텍처를 따릅니다:
 
-1.  [Tracing](https://api.koog.ai/agents/agents-features/agents-features-trace/ai.koog.agents.features.tracing.feature/-tracing/index.html): 에이전트 파이프라인의 이벤트를 가로채는 주요 기능 클래스.
-2.  [TraceFeatureConfig](https://api.koog.ai/agents/agents-features/agents-features-trace/ai.koog.agents.features.tracing.feature/-trace-feature-config/index.html): 기능 동작을 사용자 지정하기 위한 구성 클래스.
-3.  메시지 처리기: 트레이스 이벤트를 처리하고 출력하는 구성 요소:
-    -   [TraceFeatureMessageLogWriter](https://api.koog.ai/agents/agents-features/agents-features-trace/ai.koog.agents.features.tracing.writer/-trace-feature-message-log-writer/index.html): 트레이스 이벤트를 로거에 기록합니다.
-    -   [TraceFeatureMessageFileWriter](https://api.koog.ai/agents/agents-features/agents-features-trace/ai.koog.agents.features.tracing.writer/-trace-feature-message-file-writer/index.html): 트레이스 이벤트를 파일에 기록합니다.
-    -   [TraceFeatureMessageRemoteWriter](https://api.koog.ai/agents/agents-features/agents-features-trace/ai.koog.agents.features.tracing.writer/-trace-feature-message-remote-writer/index.html): 트레이스 이벤트를 원격 서버로 보냅니다.
+1. [Tracing](https://api.koog.ai/agents/agents-features/agents-features-trace/ai.koog.agents.features.tracing.feature/-tracing/index.html): 에이전트 파이프라인의 이벤트를 가로채는 주요 기능 클래스.
+2. [TraceFeatureConfig](https://api.koog.ai/agents/agents-features/agents-features-trace/ai.koog.agents.features.tracing.feature/-trace-feature-config/index.html): 기능 동작을 사용자 지정하기 위한 구성 클래스.
+3. 메시지 처리기: 트레이스 이벤트를 처리하고 출력하는 구성 요소:
+    - [TraceFeatureMessageLogWriter](https://api.koog.ai/agents/agents-features/agents-features-trace/ai.koog.agents.features.tracing.writer/-trace-feature-message-log-writer/index.html): 트레이스 이벤트를 로거에 기록합니다.
+    - [TraceFeatureMessageFileWriter](https://api.koog.ai/agents/agents-features/agents-features-trace/ai.koog.agents.features.tracing.writer/-trace-feature-message-file-writer/index.html): 트레이스 이벤트를 파일에 기록합니다.
+    - [TraceFeatureMessageRemoteWriter](https://api.koog.ai/agents/agents-features/agents-features-trace/ai.koog.agents.features.tracing.writer/-trace-feature-message-remote-writer/index.html): 트레이스 이벤트를 원격 서버로 보냅니다.

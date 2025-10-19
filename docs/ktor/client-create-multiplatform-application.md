@@ -3,25 +3,20 @@
 <show-structure for="chapter" depth="2"/>
 
 <tldr>
-<var name="example_name" value="tutorial-client-kmm"/>
+<var name="example_name" value="tutorial-client-kmp"/>
 <p>
     <b>代码示例</b>:
     <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
-<p>
-<b>视频</b>: <a href="https://youtu.be/_Q62iJoNOfg">Ktor 在 Kotlin Multiplatform Mobile 项目中用于网络</a>
-</p>
 </tldr>
 
 <link-summary>
-了解如何创建 Kotlin Multiplatform Mobile 应用程序。
+了解如何在 Kotlin Multiplatform Mobile 应用程序中使用 Ktor 客户端。
 </link-summary>
 
 Ktor HTTP 客户端可用于多平台项目。在本教程中，我们将创建一个简单的 Kotlin Multiplatform Mobile 应用程序，它将发送请求并接收纯 HTML 文本形式的响应体。
-
-> 要了解如何创建你的第一个 Kotlin Multiplatform Mobile 应用程序，请参阅 [创建你的第一个跨平台移动应用](https://kotlinlang.org/docs/multiplatform-mobile-create-first-app.html)。
 
 ## 前提条件 {id="prerequisites"}
 
@@ -33,96 +28,91 @@ Ktor HTTP 客户端可用于多平台项目。在本教程中，我们将创建�
 
 ## 创建新项目 {id="new-project"}
 
-要启动新的 Kotlin Multiplatform 项目，有两种方法可用：
+要创建新项目，你可以在 IntelliJ IDEA 中使用 Kotlin Multiplatform 项目向导。它将创建一个基本的多平台项目，你可以使用客户端和服务对其进行扩展。
 
-- 你可以在 Android Studio 中从模板创建项目。
-- 或者，你可以使用 [Kotlin Multiplatform Wizard](https://kmp.jetbrains.com/) 来生成新项目。该向导提供了自定义项目设置的选项，例如，你可以选择排除 Android 支持或包含 Ktor Server。
+<procedure>
 
-为了本教程的目的，我们将演示从模板创建项目的过程：
+1. 启动 IntelliJ IDEA。
+2. 在 IntelliJ IDEA 中，选择 **File | New | Project**。
+3. 在左侧面板中，选择 **Kotlin Multiplatform**。
+4. 在 **New Project** 窗口中指定以下字段：
+    * **Name**: KmpKtor
+    * **Group**: com.example.ktor
+      ![Kotlin Multiplatform wizard settings](tutorial_client_kmp_create_project.png){ width="450" width="706" border-effect="rounded" style="block" }
+5. 选择 **Android** 和 **iOS** 目标平台。
+6. 对于 iOS，选择 **Do not share UI** 选项以保持 UI 原生。
+7. 点击 **Create** 按钮，等待 IDE 生成并导入项目。
 
-1. 在 Android Studio 中，选择 **File | New | New Project**。
-2. 在项目模板列表中选择 **Kotlin Multiplatform App**，然后点击 **Next**。
-3. 指定你的应用程序名称，然后点击 **Next**。在本教程中，应用程序名称为 `KmmKtor`。
-4. 在下一页，保留默认设置并点击 **Finish** 创建新项目。现在，等待项目设置完成。首次执行此操作时，下载和设置所需组件可能需要一些时间。
-   > 要查看生成的完整多平台项目结构，请在 [Project view](https://developer.android.com/studio/projects#ProjectView) 中从 **Android** 切换到 **Project**。
+</procedure>
 
 ## 配置构建脚本 {id="build-script"}
 
-### 更新 Kotlin Gradle 插件 {id="update_gradle_plugins"}
-
-打开 `gradle/libs.versions.toml` 文件并将 Kotlin 版本更新到最新：
-
-```kotlin
-kotlin = "2.1.20"
-```
-
 ### 添加 Ktor 依赖项 {id="ktor-dependencies"}
 
-要在项目中使用 Ktor HTTP 客户端，你需要添加至少两个依赖项：客户端依赖项和引擎依赖项。
+要在你的项目中使用 Ktor HTTP 客户端，你需要添加至少两个依赖项：客户端依赖项和 [引擎](client-engines.md) 依赖项。
 
-在 `gradle/libs.versions.toml` 文件中添加 Ktor 版本：
+1. 打开
+    <Path>gradle/libs.versions.toml</Path>
+    文件并添加 Ktor 版本：
+    
+    ```kotlin
+    [versions]
+    ktor = "3.3.1"
+    ```
 
-```kotlin
-[versions]
-ktor = "3.2.3"
-```
+2. 在相同的
+    <Path>gradle/libs.versions.toml</Path>
+    文件中定义 Ktor 客户端和引擎库：
+    
+    ```kotlin
+    [libraries]
+    ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
+    ktor-client-okhttp = { module = "io.ktor:ktor-client-okhttp", version.ref = "ktor" }
+    ktor-client-darwin = { module = "io.ktor:ktor-client-darwin", version.ref = "ktor" }
+    ```
 
-<p>
-    要使用 Ktor 的 <b>抢先体验预览</b> 版本，你需要添加一个 <a href="#repositories">Space 版本库</a>。
-</p>
-
-然后，定义 Ktor 客户端和引擎库：
-
-```kotlin
-kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
-ktor-client-okhttp = { module = "io.ktor:ktor-client-okhttp", version.ref = "ktor" }
-ktor-client-darwin = { module = "io.ktor:ktor-client-darwin", version.ref = "ktor" }
-kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
-```
-
-要添加这些依赖项，请打开 `shared/build.gradle.kts` 文件并按照以下步骤操作：
-
-1. 要在公共代码中使用 Ktor 客户端，请将依赖项 `ktor-client-core` 添加到 `commonMain` 源代码集：
-   ```kotlin
-   sourceSets {
-       commonMain.dependencies {
-           implementation(libs.ktor.client.core)
-       }
-   }
-   ```
-
-2. 将每个所需平台的 [引擎依赖项](client-engines.md) 添加到相应的源代码集：
-    - 对于 Android，将 `ktor-client-okhttp` 依赖项添加到 `androidMain` 源代码集：
-      ```kotlin
-      androidMain.dependencies {
-          implementation(libs.ktor.client.okhttp)
-      }
-      ```
-
-      对于 Android，你还可以使用 [其他引擎类型](client-engines.md#jvm-android)。
-    - 对于 iOS，将 `ktor-client-darwin` 依赖项添加到 `iosMain`：
-      ```kotlin
-      iosMain.dependencies {
-          implementation(libs.ktor.client.darwin)
-      }
-      ```
+3. 打开
+    <Path>shared/build.gradle.kts</Path>
+    文件并添加以下依赖项：
+    
+    ```kotlin
+    sourceSets {
+        commonMain.dependencies {
+            implementation(libs.ktor.client.core)
+        }
+        androidMain.dependencies {
+            implementation(libs.ktor.client.okhttp)
+        }
+        iosMain.dependencies {
+            implementation(libs.ktor.client.darwin)
+        }
+    }
+    ```
+    
+    - 将 `ktor-client-core` 添加到 `commonMain` 源代码集，以在共享代码中启用 Ktor 客户端功能。
+    - 在 `androidMain` 源代码集中，包含 `ktor-client-okhttp` 依赖项以在 Android 上使用 `OkHttp` 引擎。或者，你可以从 [其他可用的 Android/JVM 引擎](client-engines.md#jvm-android) 中选择。
+    - 在 `iosMain` 源代码集中，添加 `ktor-client-darwin` 依赖项以在 iOS 上使用 Darwin 引擎。
 
 ### 添加协程 {id="coroutines"}
 
 要在 [Android 代码](#android-activity) 中使用协程，你需要将 `kotlinx.coroutines` 添加到你的项目：
 
-1. 打开 `gradle/libs.versions.toml` 文件并指定协程版本和库：
+1. 打开
+   <Path>gradle/libs.versions.toml</Path>
+   文件并指定协程版本和库：
 
     ```kotlin
     [versions]
-    coroutines = "1.9.0"
-    [libraries]
-    kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
-    kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutines" }
+    kotlinx-coroutines = "1.10.2"
     
+    [libraries]
+    kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinx-coroutines" }
+    kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlinx-coroutines" }
     ```
 
-2. 打开 `build.gradle.kts` 文件并将 `kotlinx-coroutines-core` 依赖项添加到 `commonMain` 源代码集：
+2. 打开
+   <Path>shared/build.gradle.kts</Path>
+   文件并将 `kotlinx-coroutines-core` 依赖项添加到 `commonMain` 源代码集：
 
     ```kotlin
     sourceSets {
@@ -133,91 +123,89 @@ kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-c
     }
     ```
 
-3. 然后，打开 `androidApp/build.gradle.kts` 并添加 `kotlinx-coroutines-android` 依赖项：
+3. 然后，打开
+   <Path>composeApp/build.gradle.kts</Path>
+   文件并将 `kotlinx-coroutines-android` 依赖项添加到 `androidMain` 源代码集：
 
-```kotlin
-dependencies {
-    implementation(libs.kotlinx.coroutines.android)
-}
-```
+   ```kotlin
+   sourceSets {
+       androidMain.dependencies {
+           // ...
+           implementation(libs.kotlinx.coroutines.android)
+       }
+   }
+   ```
 
-点击 `gradle.properties` 文件右上角的 **Sync Now** 以安装添加的依赖项。
+4. 选择 **Build | Sync Project with Gradle Files** 以安装添加的依赖项。
 
 ## 更新你的应用程序 {id="code"}
 
 ### 共享代码 {id="shared-code"}
 
-要更新 Android 和 iOS 之间共享的代码，请打开 `shared/src/commonMain/kotlin/com/example/kmmktor/Greeting.kt` 文件并将以下代码添加到 `Greeting` 类：
+要更新 Android 和 iOS 之间共享的代码，请打开
+<Path>shared/src/commonMain/kotlin/com/example/ktor/kmmktor/Greeting.kt</Path>
+文件并将以下代码添加到 `Greeting` 类：
 
 ```kotlin
-package com.example.kmmktor
+package com.example.ktor.kmpktor
 
-import io.ktor.client.*
-import io.ktor.client.request.*
-import io.ktor.client.statement.*
+import io.ktor.client.HttpClient
+import io.ktor.client.request.get
+import io.ktor.client.statement.bodyAsText
 
 class Greeting {
     private val client = HttpClient()
 
-    suspend fun greeting(): String {
+    suspend fun greet(): String {
         val response = client.get("https://ktor.io/docs/")
         return response.bodyAsText()
     }
 }
 ```
 
-- 要创建 HTTP 客户端，将调用 `HttpClient` 构造函数。
-- 挂起函数 `greeting` 用于发出 [请求](client-requests.md) 并接收 [响应](client-responses.md) 体作为字符串值。
+- `HttpClient` 构造函数用于创建 HTTP 客户端。
+- 挂起函数 `greet()` 用于发出 [请求](client-requests.md) 并接收 [响应](client-responses.md) 体作为字符串值。
 
 ### Android 代码 {id="android-activity"}
 
-要在 Android 代码中调用挂起函数 `greeting`，我们将使用 [rememberCoroutineScope](https://developer.android.com/reference/kotlin/androidx/compose/runtime/package-summary#rememberCoroutineScope(kotlin.Function0))。
-
-打开 `androidApp/src/main/java/com/example/kmmktor/android/MainActivity.kt` 文件并按如下方式更新 `MainActivity` 代码：
+打开
+<Path>composeApp/src/androidMain/kotlin/com/example/ktor/kmmktor/App.kt</Path>
+文件并按如下方式更新代码：
 
 ```kotlin
-package com.example.kmmktor.android
+package com.example.ktor.kmpktor
 
-import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.setValue
+import androidx.compose.foundation.layout.safeContentPadding
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
+import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.example.kmmktor.Greeting
-import kotlinx.coroutines.launch
+import org.jetbrains.compose.ui.tooling.preview.Preview
 
-class MainActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContent {
-            MyApplicationTheme {
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                    val scope = rememberCoroutineScope()
-                    var text by remember { mutableStateOf("Loading") }
-                    LaunchedEffect(true) {
-                        scope.launch {
-                            text = try {
-                                Greeting().greeting()
-                            } catch (e: Exception) {
-                                e.localizedMessage ?: "error"
-                            }
-                        }
-                    }
-                    GreetingView(text)
+@Composable
+@Preview
+fun App() {
+    MaterialTheme {
+        Column(
+            modifier = Modifier
+                .background(MaterialTheme.colorScheme.primaryContainer)
+                .safeContentPadding()
+                .fillMaxSize(),
+            horizontalAlignment = Alignment.CenterHorizontally,
+        ) {
+            var text by remember { mutableStateOf("Loading") }
+            LaunchedEffect(true) {
+                text = try {
+                    Greeting().greet()
+                } catch (e: Exception) {
+                    e.message ?: "error"
                 }
             }
+            GreetingView(text)
         }
     }
 }
@@ -230,67 +218,57 @@ fun GreetingView(text: String) {
 @Preview
 @Composable
 fun DefaultPreview() {
-    MyApplicationTheme {
+    MaterialTheme {
         GreetingView("Hello, Android!")
     }
 }
-
 ```
 
-在创建的作用域内，我们可以调用共享的 `greeting` 函数并处理可能的异常。
+`LaunchedEffect()` 启动一个与可组合项生命周期绑定的协程。在此协程中，将调用共享的 `greet()` 函数，其结果赋值给 `text`，并捕获和处理任何异常。
 
 ### iOS 代码 {id="ios-view"}
 
-1. 打开 `iosApp/iosApp/iOSApp.swift` 文件并更新应用程序的入口点：
-   ```Swift
-   import SwiftUI
-   
-   @main
-   struct iOSApp: App {
-   	var body: some Scene {
-   		WindowGroup {
-   			ContentView(viewModel: ContentView.ViewModel())
-   		}
-   	}
-   }
-   ```
+打开
+<Path>iosApp/iosApp/ContentView.swift</Path>
+文件并按如下方式更新代码：
 
-2. 打开 `iosApp/iosApp/ContentView.swift` 文件并按如下方式更新 `ContentView` 代码：
-   ```Swift
-   import SwiftUI
-   import shared
-   
-   struct ContentView: View {
-       @ObservedObject private(set) var viewModel: ViewModel
-   
-       var body: some View {
-           Text(viewModel.text)
-       }
-   }
-   
-   extension ContentView {
-       class ViewModel: ObservableObject {
-           @Published var text = "Loading..."
-           init() {
-               Greeting().greeting { greeting, error in
-                   DispatchQueue.main.async {
-                       if let greeting = greeting {
-                           self.text = greeting
-                       } else {
-                           self.text = error?.localizedDescription ?? "error"
-                       }
-                   }
-               }
-           }
-       }
-   }
-   ```
+```Swift
+import SwiftUI
+import Shared
 
-   在 iOS 上，挂起函数 `greeting` 可作为带回调的函数使用。
+struct ContentView: View {
+    @StateObject private var viewModel = ViewModel()
+
+    var body: some View {
+        Text(viewModel.text)
+    }
+}
+
+extension ContentView {
+    @MainActor
+    class ViewModel: ObservableObject {
+        @Published var text = "Loading..."
+        init() {
+            Greeting().greet { greeting, error in
+                if let greeting = greeting {
+                    self.text = greeting
+                } else {
+                    self.text = error?.localizedDescription ?? "error"
+                }
+            }
+        }
+    }
+}
+```
+
+在 iOS 上，`greet()` 挂起函数可作为带回调的函数使用。
 
 ## 在 Android 上启用互联网访问 {id="android-internet"}
 
-我们需要做的最后一件事是为 Android 应用程序启用互联网访问。打开 `androidApp/src/main/AndroidManifest.xml` 文件并使用 `uses-permission` 元素启用所需权限：
+我们需要做的最后一件事是为 Android 应用程序启用互联网访问。
+打开
+<Path>composeApp/src/androidMain/AndroidManifest.xml</Path>
+文件并使用 `&lt;uses-permission&gt;` 元素启用所需权限：
 
 ```xml
 <manifest>
@@ -301,20 +279,27 @@ fun DefaultPreview() {
 </manifest> 
 ```
 
-## 运行你的应用程序 {id="run"}
+## 在 Android 上运行你的应用程序 {id="run-android"}
 
-要在 Android 或 iOS 模拟器上运行创建的多平台应用程序，请选择 **androidApp** 或 **iosApp**，然后点击 **Run**。
-模拟器应将接收到的 HTML 文档显示为纯文本。
+1. 在 IntelliJ IDEA 中，在运行配置列表中选择 **composeApp**。
+2. 在配置列表旁边选择一个 Android 虚拟设备，然后点击 **Run**。
+   ![composeApp selected with a Pixel 8 API device](tutorial_client_kmp_run_android.png){width="381" style="block"}
 
-<Tabs>
-<TabItem title="Android">
+   如果列表中没有设备，请创建 [新的 Android 虚拟设备](https://developer.android.com/studio/run/managing-avds#createavd)。
+3. 加载后，模拟器应将接收到的 HTML 文档显示为纯文本。
+   ![Android simulator](tutorial_client_kmp_android.png){width="381" style="block"}
 
-![Android simulator](tutorial_client_kmm_android.png){width="381"}
+> 如果你的 Android 模拟器无法连接到互联网，请尝试执行冷启动。
+> 在 **Device Manager** 工具窗口中，点击已停止设备旁边的 **⋮** (三个点)，然后从菜单中选择 **Cold Boot**。这通常有助于清除可能导致连接问题的损坏模拟器缓存。
+>
+{style="tip"}
 
-</TabItem>
-<TabItem title="iOS">
+## 在 iOS 上运行你的应用程序 {id="run-ios"}
 
-![iOS simulator](tutorial_client_kmm_ios.png){width="351"}
+1. 在 IntelliJ IDEA 中，在运行配置列表中选择 **iosApp**。
+2. 在配置列表旁边选择一个 iOS 模拟设备，然后点击 **Run**。
+   ![iOsApp selected with iPhone 16 device](tutorial_client_kmp_run_ios.png){width="381" style="block"}
 
-</TabItem>
-</Tabs>
+   如果列表中没有可用的 iOS 配置，请添加 [新的运行配置](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-create-first-app.html#run-on-a-new-ios-simulated-device)。
+3. 加载后，模拟器应将接收到的 HTML 文档显示为纯文本。
+   ![iOS simulator](tutorial_client_kmp_ios.png){width="381" style="block"}

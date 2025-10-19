@@ -1,6 +1,6 @@
 # Ktor連携: Koogプラグイン
 
-KoogはKtorサーバーに自然にフィットし、イディオマティックなKotlin APIを使ってサーバーサイドのAIアプリケーションを両側から書くことができます。
+KoogはKtorサーバーに自然にフィットし、イディオマティックなKotlin APIを使ってサーバーサイドのAIアプリケーションを両側から記述できます。
 
 Koogプラグインを一度インストールし、`application.conf`/YAMLまたはコードでLLMプロバイダーを設定すれば、ルートから直接エージェントを呼び出せます。モジュール間でLLMクライアントを接続する手間はもうありません。ルートはエージェントをリクエストするだけで準備完了です。
 
@@ -90,6 +90,7 @@ fun Application.module() {
 ```
 
 注意
+
 - `aiAgent`は具体的なモデル（`LLModel`）を必要とします。ルートごと、使用ごとに選択してください。
 - より低レベルなLLMアクセスには、`llm()`（`PromptExecutor`）を直接使用してください。
 
@@ -141,7 +142,7 @@ post("/moderated-chat") {
     )
 
     if (moderation.isHarmful) {
-        call.respond(HttpStatusCode.BadRequest, "Harmful content detected")
+        call.respond(HttpStatusCode.BadRequest, "有害なコンテンツが検出されました")
         return@post
     }
 
@@ -185,7 +186,7 @@ install(Koog) {
     agentConfig {
         // エージェント用の再利用可能なベースプロンプトを提供
         prompt(name = "agent") {
-            system("You are a helpful server‑side agent")
+            system("あなたは役立つサーバーサイドエージェントです")
         }
 
         // 暴走するツール/ループを制限
@@ -205,6 +206,7 @@ install(Koog) {
 ## 設定におけるモデル識別子（フォールバック）
 
 YAML/CONFで`llm.fallback`を設定する場合、以下の識別子形式を使用します。
+
 - OpenAI: `openai.chat.gpt4_1`, `openai.reasoning.o3`, `openai.costoptimized.gpt4_1mini`, `openai.audio.gpt4oaudio`, `openai.moderation.omni`
 - Anthropic: `anthropic.sonnet_3_7`, `anthropic.opus_4`, `anthropic.haiku_3_5`
 - Google: `google.gemini2_5pro`, `google.gemini2_0flash001`
@@ -213,6 +215,7 @@ YAML/CONFで`llm.fallback`を設定する場合、以下の識別子形式を使
 - Ollama: `ollama.meta.llama3.2`, `ollama.alibaba.qwq:32b`, `ollama.groq.llama3-grok-tool-use:8b`
 
 注意
+
 - OpenAIの場合、カテゴリ（`chat`、`reasoning`、`costoptimized`、`audio`、`embeddings`、`moderation`）を含める必要があります。
 - Ollamaの場合、`ollama.model`と`ollama.<maker>.<model>`の両方がサポートされています。
 

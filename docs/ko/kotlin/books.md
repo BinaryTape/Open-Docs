@@ -7,6 +7,19 @@
 <table style="none">
 <tr>
 <td>
+<img src="kotlin-in-action-second-edition.png" alt="Kotlin in Action" width="250"/>
+</td>
+<td>
+
+[Kotlin in Action](https://www.manning.com/books/kotlin-in-action-second-edition)은 프로덕션 수준의 애플리케이션을 위해 Kotlin 언어를 사용하는 방법을 가르쳐줍니다. Java 또는 다른 객체 지향 언어에 익숙한 개발자를 위해 쓰여진 이 예제 중심의 책은 대부분의 언어 책보다 더 나아갑니다. 두 번째 에디션은 Kotlin 코루틴(coroutine) 라이브러리에 대한 광범위한 섹션으로 더욱 풍부해졌습니다.
+
+이 책은 Kotlin 팀의 현직 또는 전직 멤버인 Sebastian Aigner, Roman Elizarov, Svetlana Isakova, Dmitry Jemerov가 집필했습니다.
+
+</td>
+</tr>
+
+<tr>
+<td>
 <img src="atomic-kotlin.png" alt="Atomic Kotlin" width="250"/>
 </td>
 <td>
@@ -35,21 +48,6 @@ Kotlin을 진정으로 이해하고 싶다면, 이 책이 당신을 위한 책�
 
 <tr>
 <td>
-<img src="kotlin-in-action.png" alt="Kotlin in Action" width="250"/>
-</td>
-<td>
-
-[Kotlin in Action](https://manning.com/books/kotlin-in-action)은 프로덕션 수준의 애플리케이션을 위해 Kotlin 언어를 사용하는 방법을 가르쳐줍니다. 숙련된 Java 개발자를 위해 쓰여진 이 예제 중심의 책은 대부분의 언어 책보다 더 나아가 자연어 구문을 사용하여 DSL을 구축하는 것과 같은 흥미로운 주제를 다룹니다.
-
-이 책은 Kotlin 팀의 개발자인 Dmitry Jemerov와 Svetlana Isakova가 집필했습니다.
-
-Kotlin 타입 시스템을 다루는 6장과 DSL을 다루는 11장은 [출판사 웹사이트](https://www.manning.com/books/kotlin-in-action#downloads)에서 무료 미리보기로 제공됩니다.
-
-</td>
-</tr>
-
-<tr>
-<td>
 <img src="big-nerd-ranch-guide.jpg" alt="Kotlin Programming: The Big Nerd Ranch Guide" width="250"/>
 </td>
 <td>
@@ -69,7 +67,7 @@ Kotlin 타입 시스템을 다루는 6장과 DSL을 다루는 11장은 [출판�
 </td>
 <td>
 
-[Programming Kotlin](https://pragprog.com/book/vskotlin/programming-kotlin)은 Venkat Subramaniam이 집필했습니다.
+[Programming Kotlin](https://pragprog.com/titles/vskotlin/programming-kotlin/)은 Venkat Subramaniam이 집필했습니다.
 
 프로그래머들은 Kotlin을 그저 사용하는 것을 넘어 사랑합니다. 심지어 Google조차 Android 개발을 위한 일등 언어로 채택했습니다.
 

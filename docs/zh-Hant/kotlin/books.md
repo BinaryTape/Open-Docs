@@ -7,6 +7,20 @@
 <table style="none">
 <tr>
 <td>
+<img src="kotlin-in-action-second-edition.png" alt="Kotlin in Action" width="250"/>
+</td>
+<td>
+
+[Kotlin in Action](https://www.manning.com/books/kotlin-in-action-second-edition) 教導您使用 Kotlin 語言開發生產級應用程式。
+本書專為熟悉 Java 或其他物件導向語言的開發人員撰寫，這本範例豐富的書籍比大多數語言書籍更深入。第二版豐富了有關 Kotlin 協程 (coroutines) 函式庫的廣泛章節。
+
+本書由 Sebastian Aigner、Roman Elizarov、Svetlana Isakova 和 Dmitry Jemerov 撰寫，他們都是 Kotlin 團隊的現任或前任成員。
+
+</td>
+</tr>
+
+<tr>
+<td>
 <img src="atomic-kotlin.png" alt="Atomic Kotlin" width="250"/>
 </td>
 <td>
@@ -35,21 +49,6 @@
 
 <tr>
 <td>
-<img src="kotlin-in-action.png" alt="Kotlin in Action" width="250"/>
-</td>
-<td>
-
-[Kotlin in Action](https://manning.com/books/kotlin-in-action) 教導您如何使用 Kotlin 語言開發生產級應用程式。本書專為經驗豐富的 Java 開發人員撰寫，這本範例豐富的書籍比大多數語言書籍更深入，涵蓋諸如使用自然語言語法構建 DSLs (Domain Specific Languages) 等有趣主題。
-
-本書由 Kotlin 團隊的開發人員 Dmitry Jemerov 和 Svetlana Isakova 撰寫。
-
-第 6 章（涵蓋 Kotlin 類型系統）和第 11 章（涵蓋 DSLs）可供在 [出版社網站](https://www.manning.com/books/kotlin-in-action#downloads) 上免費預覽。
-
-</td>
-</tr>
-
-<tr>
-<td>
 <img src="big-nerd-ranch-guide.jpg" alt="Kotlin Programming: The Big Nerd Ranch Guide" width="250"/>
 </td>
 <td>
@@ -69,7 +68,7 @@
 </td>
 <td>
 
-[Programming Kotlin](https://pragprog.com/book/vskotlin/programming-kotlin) 由 Venkat Subramaniam 撰寫。
+[Programming Kotlin](https://pragprog.com/titles/vskotlin/programming-kotlin/) 由 Venkat Subramaniam 撰寫。
 
 程式設計師不僅使用 Kotlin，他們還熱愛它。甚至 Google 也將其視為 Android 開發的第一等語言。
 

@@ -38,7 +38,7 @@ compose.resources {
 
 * `publicResClass` 设置为 `true` 会使生成的 `Res` 类变为公共（public）。默认情况下，生成的类是[内部](https://kotlinlang.org/docs/visibility-modifiers.html)（internal）的。
 * `packageOfResClass` 允许你将生成的 `Res` 类分配给特定的包（以便在代码中访问，以及在最终 artifact 中隔离）。默认情况下，Compose Multiplatform 将 `{group name}.{module name}.generated.resources` 包分配给该类。
-* `generateResClass` 设置为 `always` 会使项目无条件地生成 `Res` 类。当资源库仅通过传递依赖（transitively）可用时，这可能很有用。默认情况下，Compose Multiplatform 使用 `auto` 值，仅当当前项目对资源库有显式的 `implementation` 或 `api` [依赖项](#dependency)时才生成 `Res` 类。
+* `generateResClass` 设置为 `always` 会使项目无条件地生成 `Res` 类。当资源库仅通过传递依赖（transitively）可用时，这可能很有用。默认情况下，Compose Multiplatform 使用 `auto` 值，仅当当前项目对资源库有显式的 `implementation` 或 `api` 依赖项时才生成 `Res` 类。
 
 ## 资源使用
 
@@ -77,8 +77,60 @@ SVG 图片在所有平台都支持，**Android 除外**。
 
 ```kotlin
 Image(
-    painter = painterResource(Res.drawable.my_icon),
+    painter = painterResource(Res.drawable.my_image),
     contentDescription = null
+)
+```
+
+### 图标
+
+你可以使用 Material Symbols 库中的 Android XML 矢量图标：
+
+1. 打开 [Google Fonts Icons](https://fonts.google.com/icons) 图库，选择一个图标，转到 Android 选项卡，然后点击 **Download**。
+
+2. 将下载的 XML 图标文件添加到你的多平台资源的 `drawable` 目录中。
+
+3. 打开 XML 图标文件，并将 `android:fillColor` 设置为 `#00000000`。移除任何其他用于颜色调整的 Android 特有属性，例如 `android:tint`。
+
+   Before:
+
+   ```xml
+   <vector xmlns:android="http://schemas.android.com/apk/res/android"
+        android:width="24dp"
+        android:height="24dp"
+        android:viewportWidth="960"
+        android:viewportHeight="960"
+        android:tint="?attr/colorControlNormal">
+        <path
+            android:fillColor="@android:color/white"
+            android:pathData="..."/>
+    </vector>
+   ```
+   
+   After:
+
+   ```xml
+   <vector xmlns:android="http://schemas.android.com/apk/res/android"
+        android:width="24dp"
+        android:height="24dp"
+        android:viewportWidth="960"
+        android:viewportHeight="960">
+        <path
+            android:fillColor="#00000000"
+            android:pathData="..."/>
+   </vector>
+   ```
+   
+4. 构建项目以生成资源访问器，或让 [Kotlin Multiplatform plugin](https://plugins.jetbrains.com/plugin/14936-kotlin-multiplatform) 自动处理。
+
+以下是如何在 Compose Multiplatform 代码中访问图标并使用 `colorFilter` 形参调整颜色的示例：
+
+```kotlin
+Image(
+    painter = painterResource(Res.drawable.ic_sample_icon),
+    contentDescription = "Sample icon",
+    modifier = Modifier.size(24.dp),
+    colorFilter = ColorFilter.tint(Color.Blue)
 )
 ```
 
@@ -229,9 +281,9 @@ coroutineScope.launch {
 当你的 UI 显示某物的数量时，你可能希望支持相同事物的不同数量的语法一致性（一本_书_，多本_书_等），而无需在程序上创建不相关的字符串。
 
 Compose Multiplatform 中的概念和基本实现与 Android 上的数量字符串相同。
-有关在项目中复数用法的最佳实践和细微差别，请参阅 [Android 文档](https://developer.android.com/guide/topics/resources/string-resource#Plurals)。
+有关在项目中复数用法的最佳实践和细微差别，请参见 [Android 文档](https://developer.android.com/guide/topics/resources/string-resource#Plurals)。
 
-* 支持的变体有 `zero`、`one`、`two`、`few`、`many` 和 `other`。请注意，并非所有语言都考虑所有变体：例如，`zero` 对于英语来说被忽略，因为它与除 1 以外的任何其他复数相同。请依赖语言专家了解该语言实际要求的区别。
+* 支持的变体有 `zero`、`one`、`two`、`few`、`many` 和 `other`。请注意，并非所有变体都考虑所有语言：例如，`zero` 对于英语来说被忽略，因为它与除 1 以外的任何其他复数相同。请依赖语言专家了解该语言实际要求的区别。
 * 通常可以通过使用数量中性的表述方式（例如“书籍：1”）来避免使用数量字符串。如果这不会恶化用户体验，
 
 要定义一个复数，请将一个 `<plurals>` 元素添加到 `composeResources/values` 目录中的任何 `.xml` 文件中。
@@ -508,7 +560,7 @@ fun App() {
 ```
 
 ### 使用 Compose Multiplatform 预加载 API
-<secondary-label ref="Experimental"/>
+<primary-label ref="Experimental"/>
 
 即使你已经在浏览器中预加载了资源，它们仍然作为原始字节缓存，需要转换为适合渲染的格式，例如 `FontResource` 和 `DrawableResource`。当应用程序首次请求资源时，转换是异步进行的，这可能再次导致闪烁。为了进一步优化体验，Compose Multiplatform 资源有自己的内部缓存，用于存储资源的高级表示，这些表示也可以预加载。
 

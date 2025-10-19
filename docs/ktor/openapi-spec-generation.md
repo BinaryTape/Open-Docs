@@ -14,7 +14,8 @@
 Ktor 提供实验性的支持，可以直接从你的 Kotlin 代码生成 OpenAPI 规范。此功能通过 Ktor Gradle 插件提供，并且可以与 [OpenAPI](server-openapi.md) 和 [SwaggerUI](server-swagger-ui.md) 插件结合使用，以提供交互式 API 文档。
 
 > OpenAPI Gradle 扩展需要 Kotlin 2.2.20。使用其他版本可能会导致编译错误。
-> {style="note"}
+>
+{style="note"}
 
 ## 添加 Gradle 插件
 
@@ -92,7 +93,7 @@ get("/api/users/{id}") {
 
 | 标签 | 格式 | 描述 |
 |---|---|---|
-| `@tags` | `@tags *name` | 将端点与标签关联以进行分组 |
+| `@tag` | `@tag *name` | 将端点与标签关联以进行分组 |
 | `@path` | `@path [Type] name description` | 描述路径参数 |
 | `@query` | `@query [Type] name description` | 查询参数 |
 | `@header` | `@header [Type] name description` | 请求头参数 |
@@ -115,7 +116,8 @@ get("/api/users/{id}") {
 此任务运行 Kotlin 编译器，并带有一个自定义插件，该插件会分析你的路由代码并生成一个 JSON 规范。
 
 > 一些构造无法在编译期求值。生成的规范可能不完整。改进计划在未来的 Ktor 版本中实施。
-> {style="note"}
+>
+{style="note"}
 
 ## 提供规范
 

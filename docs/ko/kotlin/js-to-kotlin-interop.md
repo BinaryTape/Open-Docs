@@ -131,7 +131,7 @@ class C {
 }
 ```
 
-이제 `callStatic()` 함수는 JavaScript에서 정적이지만 `callNonStatic()` 함수는 그렇지 않습니다:
+이제, `callStatic()` 함수는 JavaScript에서 정적이지만 `callNonStatic()` 함수는 그렇지 않습니다:
 
 ```javascript
 // JavaScript
@@ -177,7 +177,7 @@ Kotlin의 `Long` 타입은 JavaScript의 `BigInt` 타입으로 컴파일될 수 
 kotlin {
     js {
         ...
-        compilerOptions {
+        compilerOptions { 
             freeCompilerArgs.add("-XXLanguage:+JsAllowLongInExportedDeclarations")
         }
     }
@@ -230,4 +230,3 @@ Kotlin 타입이 JavaScript 타입에 어떻게 매핑되는지 확인하세요:
     ```
 
 *   Kotlin은 JavaScript에서 지연 객체 초기화를 유지합니다.
-*   Kotlin은 JavaScript에서 최상위 속성의 지연 초기화를 구현하지 않습니다.

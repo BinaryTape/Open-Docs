@@ -9,6 +9,13 @@ HTML 是 Dokka 的默认推荐输出格式。它目前处于 Beta 版，并且�
 HTML 作为输出格式受到所有运行器的支持。要生成 HTML 文档，请根据你使用的构建工具或运行器执行以下步骤：
 
 * 对于 [Gradle](dokka-gradle.md#generate-documentation)，运行 `dokkaHtml` 或 `dokkaHtmlMultiModule` 任务。
+
+  > 从 Dokka 2.0.0 开始，[生成文档的 Gradle 任务已更改](dokka-migration.md#generate-documentation-with-the-updated-task)。
+  >
+  > 有关更多详细信息和完整更改列表，请参见[迁移指南](dokka-migration.md)。
+  >
+  {style="note"}
+
 * 对于 [Maven](dokka-maven.md#generate-documentation)，运行 `dokka:dokka` 目标。
 * 对于 [CLI runner](dokka-cli.md#generate-documentation)，运行并设置 HTML 依赖项。
 
@@ -199,7 +206,7 @@ Dokka 所有样式表的源代码[在 GitHub 上可用](https://github.com/Kotli
 
 这些文件会复制到 `<output>/images` 目录。
 
-可以通过提供同名文件来覆盖 Dokka 的图片和图标。其中最有用和相关的是 `logo-icon.svg`，它是页眉中使用的图片。其余大部分是图标。
+也可以通过提供同名文件来覆盖 Dokka 的图片和图标。其中最有用和相关的是 `logo-icon.svg`，它是页眉中使用的图片。其余大部分是图标。
 
 你可以在[GitHub](https://github.com/Kotlin/dokka/tree/%dokkaVersion%/dokka-subprojects/plugin-base/src/main/resources/dokka/images)上找到 Dokka 使用的所有图片。
 

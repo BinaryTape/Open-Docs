@@ -1,8 +1,8 @@
 [//]: # (title: 从文件中检索数据)
 
-[Kotlin Notebook](kotlin-notebook-overview.md) 结合 [Kotlin DataFrame 库](https://kotlin.github.io/dataframe/home.html)，使你能够处理非结构化数据和结构化数据。这种组合提供了将 TXT 文件等非结构化数据转换为结构化数据集的灵活性。
+[Kotlin Notebook](kotlin-notebook-overview.md) 结合 [Kotlin DataFrame 库](https://kotlin.github.io/dataframe/home.html)，使你能够处理非结构化数据和结构化数据。这种组合提供了将非结构化数据（例如 TXT 文件中的数据）转换为结构化数据集的灵活性。
 
-对于数据转换，你可以使用 [`add`](https://kotlin.github.io/dataframe/adddf.html)、[`split`](https://kotlin.github.io/dataframe/split.html)、[`convert`](https://kotlin.github.io/dataframe/convert.html) 和 [`parse`](https://kotlin.github.io/dataframe/parse.html) 等方法。此外，该工具集支持从各种结构化文件格式（包括 CSV、JSON、XLS、XLSX 和 Apache Arrow）中检索和操作数据。
+对于数据转换，你可以使用诸如 [`add`](https://kotlin.github.io/dataframe/adddf.html)、[`split`](https://kotlin.github.io/dataframe/split.html)、[`convert`](https://kotlin.github.io/dataframe/convert.html) 和 [`parse`](https://kotlin.github.io/dataframe/parse.html) 等方法。此外，该工具集支持从各种结构化文件格式（包括 CSV、JSON、XLS、XLSX 和 Apache Arrow）中检索和操作数据。
 
 在本指南中，你将通过多个示例学习如何检索、精炼和处理数据。
 
@@ -76,7 +76,7 @@ dfJson
 
     ```kotlin
     val moviesWithYear = movies
-        .add("year") { 
+        .add("year") {
             "\\d{4}".toRegex()
                 .findAll(title)
                 .lastOrNull()

@@ -83,7 +83,7 @@ val multiExecutor = DefaultMultiLLMPromptExecutor(openAIClient, anthropicClient,
 
 ### 3. 전략 정의
 
-전략은 노드와 엣지를 사용하여 에이전트의 워크플로를 정의합니다. 이 전략은 임의의 입력 및 출력 타입을 가질 수 있으며, 이는 `strategy` 함수 제네릭 매개변수로 지정될 수 있습니다. 이들은 또한 `AIAgent`의 입/출력 타입이 됩니다.
+전략은 노드와 엣지를 사용하여 에이전트의 워크플로를 정의합니다. 이 전략은 임의의 입력 및 출력 타입을 가질 수 있으며, 이는 `strategy` 함수 제네릭 매개변수로 지정될 수 있습니다. 이는 또한 `AIAgent`의 입/출력 타입이 됩니다.
 입력과 출력 모두의 기본 타입은 `String`입니다.
 
 !!! tip
@@ -333,7 +333,7 @@ val agent = AIAgent(
 // install the EventHandler feature
 installFeatures = {
     install(EventHandler) {
-        onAgentStarting { eventContext: AgentStartingContext<*> ->
+        onAgentStarting { eventContext: AgentStartingContext ->
             println("Starting agent: ${eventContext.agent.id}")
         }
         onAgentCompleted { eventContext: AgentCompletedContext ->
@@ -368,7 +368,7 @@ val agent = AIAgent(
     agentConfig = agentConfig,
     installFeatures = {
         install(EventHandler) {
-            onAgentStarting { eventContext: AgentStartingContext<*> ->
+            onAgentStarting { eventContext: AgentStartingContext ->
                 println("Starting agent: ${eventContext.agent.id}")
             }
             onAgentCompleted { eventContext: AgentCompletedContext ->
@@ -511,7 +511,7 @@ val agent = AIAgent(
     agentConfig = agentConfig,
     installFeatures = {
         install(EventHandler) {
-            onAgentStarting { eventContext: AgentStartingContext<*> ->
+            onAgentStarting { eventContext: AgentStartingContext ->
                 println("Starting agent: ${eventContext.agent.id}")
             }
             onAgentCompleted { eventContext: AgentCompletedContext ->

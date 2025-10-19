@@ -1,4 +1,4 @@
-[//]: # (title: Compose Multiplatform 1.9.0의 새로운 기능)
+[//]: # (title: Compose Multiplatform 1.9.1의 새로운 기능)
 
 이번 기능 릴리스의 주요 내용은 다음과 같습니다:
 
@@ -11,24 +11,23 @@
 *   [웹 타겟에서의 접근성 지원](#accessibility-support)
 *   [HTML 콘텐츠 임베딩을 위한 새로운 API](#new-api-for-embedding-html-content)
 
-이번 릴리스의 전체 변경 사항 목록은 [GitHub](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.9.0-beta01)에서 확인할 수 있습니다.
+이번 릴리스의 전체 변경 사항 목록은 [GitHub](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.9.0)에서 확인할 수 있습니다.
 
 ## 의존성
 
-*   Gradle 플러그인 `org.jetbrains.compose`, 버전 1.9.0. Jetpack Compose 라이브러리 기반:
-    *   [Runtime 1.9.0](https://developer.android.com/jetpack/androidx/releases/compose-runtime#1.9.0)
-    *   [UI 1.9.0](https://developer.android.com/jetpack/androidx/releases/compose-ui#1.9.0)
-    *   [Foundation 1.9.0](https://developer.android.com/jetpack/androidx/releases/compose-foundation#1.9.0)
-    *   [Material 1.9.0](https://developer.android.com/jetpack/androidx/releases/compose-material#1.9.0)
-    *   [Material3 1.3.2](https://developer.android.com/jetpack/androidx/releases/compose-material3#1.3.2)
+*   Gradle 플러그인 `org.jetbrains.compose`, 버전 1.9.1. Jetpack Compose 라이브러리 기반:
+    *   [Runtime 1.9.3](https://developer.android.com/jetpack/androidx/releases/compose-runtime#1.9.3)
+    *   [UI 1.9.3](https://developer.android.com/jetpack/androidx/releases/compose-ui#1.9.3)
+    *   [Foundation 1.9.3](https://developer.android.com/jetpack/androidx/releases/compose-foundation#1.9.3)
+    *   [Material 1.9.3](https://developer.android.com/jetpack/androidx/releases/compose-material#1.9.3)
+    *   [Material3 1.4.0](https://developer.android.com/jetpack/androidx/releases/compose-material3#1.4.0)
 
-*   Compose Material3 라이브러리 `org.jetbrains.compose.material3:1.9.0-beta06`. [Jetpack Material3 1.4.0-beta03](https://developer.android.com/jetpack/androidx/releases/compose-material3#1.4.0-beta03) 기반.
-
-    공통 Material3 라이브러리의 안정 버전은 Jetpack Compose Material3 1.3.2를 기반으로 하지만, Compose Multiplatform과 Material3의 [분리된 버전 관리](#decoupled-material3-versioning) 덕분에 프로젝트에 더 새로운 프리릴리스(pre-release) 버전을 선택할 수 있습니다.
-*   Compose Material3 Adaptive 라이브러리 `org.jetbrains.compose.material3.adaptive:adaptive*:1.2.0-alpha06`. [Jetpack Material3 Adaptive 1.2.0-alpha11](https://developer.android.com/jetpack/androidx/releases/compose-material3-adaptive#1.2.0-alpha11) 기반
-*   Lifecycle 라이브러리 `org.jetbrains.androidx.lifecycle:lifecycle-*:2.9.4`. [Jetpack Lifecycle 2.9.2](https://developer.android.com/jetpack/androidx/releases/lifecycle#2.9.2) 기반
-*   Navigation 라이브러리 `org.jetbrains.androidx.navigation:navigation-*:2.9.0`. [Jetpack Navigation 2.9.1](https://developer.android.com/jetpack/androidx/releases/navigation#2.9.1) 기반
-*   Savedstate 라이브러리 `org.jetbrains.androidx.savedstate:savedstate:1.3.4`. [Jetpack Savedstate 1.3.1](https://developer.android.com/jetpack/androidx/releases/savedstate#1.3.1) 기반
+*   Compose Material3 라이브러리 `org.jetbrains.compose.material3:1.9.0`. [Jetpack Material3 1.4.0](https://developer.android.com/jetpack/androidx/releases/compose-material3#1.4.0) 기반.
+    Compose Multiplatform과 Material3의 [분리된 버전](#decoupled-material3-versioning) 덕분에 프로젝트에 더 새로운 프리릴리스(pre-release) 버전을 선택할 수 있습니다.
+*   Compose Material3 Adaptive 라이브러리 `org.jetbrains.compose.material3.adaptive:adaptive*:1.2.0-alpha05`. [Jetpack Material3 Adaptive 1.2.0-alpha10](https://developer.android.com/jetpack/androidx/releases/compose-material3-adaptive#1.2.0-alpha10) 기반
+*   Lifecycle 라이브러리 `org.jetbrains.androidx.lifecycle:lifecycle-*:2.9.5`. [Jetpack Lifecycle 2.9.4](https://developer.android.com/jetpack/androidx/releases/lifecycle#2.9.4) 기반
+*   Navigation 라이브러리 `org.jetbrains.androidx.navigation:navigation-*:2.9.1`. [Jetpack Navigation 2.9.4](https://developer.android.com/jetpack/androidx/releases/navigation#2.9.4) 기반
+*   Savedstate 라이브러리 `org.jetbrains.androidx.savedstate:savedstate:1.3.5`. [Jetpack Savedstate 1.3.3](https://developer.android.com/jetpack/androidx/releases/savedstate#1.3.3) 기반
 *   WindowManager Core 라이브러리 `org.jetbrains.androidx.window:window-core:1.4.0`. [Jetpack WindowManager 1.4.0](https://developer.android.com/jetpack/androidx/releases/window#1.4.0) 기반
 
 ## 모든 플랫폼에서
@@ -82,14 +81,16 @@ Compose Multiplatform 1.9.0에서는 Jetpack Compose의 새로운 그림자 프�
 ComposeFoundationFlags.isNewContextMenuEnabled = true
 ```
 
-자세한 내용은 [컨텍스트 메뉴 API 참조](https://developer.android.com/reference/kotlin/androidx/compose/foundation/text/contextmenu/data/package-summary)를 참조하십시오.
+자세한 내용은 [컨텍스트 메뉴 API 참조](https://developer.android.com/reference/kotlin/androidx/compose/foundation/text/contextmenu/data/package-summary).
 
 ### Material 3 Expressive 테마
-<secondary-label ref="Experimental"/>
+<primary-label ref="Experimental"/>
 
 Compose Multiplatform은 이제 Material 3 라이브러리의 실험적 [`MaterialExpressiveTheme`](https://developer.android.com/reference/kotlin/androidx/compose/material3/package-summary?hl=en#MaterialExpressiveTheme(androidx.compose.material3.ColorScheme,androidx.compose.material3.MotionScheme,androidx.compose.material3.Shapes,androidx.compose.material3.Typography,kotlin.Function0))를 지원합니다. 표현형 테마를 사용하면 Material Design 앱을 사용자 정의하여 더욱 개인화된 경험을 제공할 수 있습니다.
 
->Jetpack Material3 [1.4.0-beta01 릴리스](https://developer.android.com/jetpack/androidx/releases/compose-material3#1.4.0-beta01)에 맞춰, `ExperimentalMaterial3ExpressiveApi` 및 `ExperimentalMaterial3ComponentOverrideApi` 태그가 지정된 모든 공개 API가 제거되었습니다. 이러한 실험적 기능을 계속 사용하려면, Material3 알파 버전을 명시적으로 포함해야 합니다.
+>Jetpack Material3 [1.4.0-beta01 릴리스](https://developer.android.com/jetpack/androidx/releases/compose-material3#1.4.0-beta01)에 맞춰, `ExperimentalMaterial3ExpressiveApi` 및 `ExperimentalMaterial3ComponentOverrideApi` 태그가 지정된 모든 공개 API가 제거되었습니다.
+>
+>이러한 실험적 기능을 계속 사용하려면, Material3 알파 버전을 명시적으로 포함해야 합니다.
 {style="note"}
 
 Expressive 테마를 사용하려면:
@@ -100,7 +101,7 @@ Expressive 테마를 사용하려면:
     implementation("org.jetbrains.compose.material3:material3:1.9.0-alpha04")
     ```
 
-2.  `@OptIn(ExperimentalMaterial3ExpressiveApi::class)` 옵트인(opt-in)과 함께 `MaterialExpressiveTheme()` 함수를 사용하여 `colorScheme`, `motionScheme`, `shapes`, `typography` 파라미터를 설정하여 UI 요소의 전반적인 테마를 구성합니다.
+2.  `MaterialExpressiveTheme()` 함수를 사용하여 UI 요소의 전반적인 테마를 구성합니다. 이 함수는 `@OptIn(ExperimentalMaterial3ExpressiveApi::class)` 옵트인(opt-in)이 필요하며 `colorScheme`, `motionScheme`, `shapes`, `typography`를 지정할 수 있습니다.
 
 그런 다음 [`Button()`](https://kotlinlang.org/api/compose-multiplatform/material3/androidx.compose.material3/-button.html) 및 [`Checkbox()`](https://kotlinlang.org/api/compose-multiplatform/material3/androidx.compose.material3/-checkbox.html)와 같은 Material 컴포넌트가 제공한 값을 자동으로 사용합니다.
 
@@ -277,9 +278,9 @@ Compose Multiplatform은 이제 새로운 `SwingFrame()` 및 `SwingDialog()` 컴
 
 ### 분리된 Material3 버전 관리
 
-Material3 라이브러리 및 Compose Multiplatform Gradle 플러그인의 버전과 안정성 수준이 더 이상 일치할 필요가 없습니다. `compose.material3` DSL 별칭은 이제 Jetpack Compose의 이전 안정 릴리스에서 제공되는 Material3 1.8.2를 참조합니다.
+Material3 라이브러리 및 Compose Multiplatform Gradle 플러그인의 버전과 안정성 수준이 더 이상 일치할 필요가 없습니다. `compose.material3` DSL 별칭은 Jetpack Compose의 안정 버전에서 제공되는 Material3 1.9.0을 참조하지만, 프로젝트에 프리릴리스 버전을 선택할 수 있습니다.
 
-Expressive 디자인 지원이 포함된 최신 Material3 버전을 사용하려면 `build.gradle.kts`의 Material 3 의존성을 다음으로 대체하십시오:
+Expressive 디자인 지원이 포함된 Material3 버전을 사용하려면 `build.gradle.kts`의 Material 3 의존성을 다음으로 대체하십시오:
 
 ```kotlin
 implementation("org.jetbrains.compose.material3:material3:1.9.0-alpha04")

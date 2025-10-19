@@ -26,7 +26,7 @@ Kotlin/Native 提供了与 [CocoaPods 依赖项管理器](https://cocoapods.org/
 2. 安装 Ruby。你可以选择一个特定版本：
 
     ```bash
-    rvm install ruby 3.0.0
+    rvm install ruby %rubyVersion%
     ```
 
 3. 安装 CocoaPods：
@@ -42,13 +42,13 @@ Kotlin/Native 提供了与 [CocoaPods 依赖项管理器](https://cocoapods.org/
 2. 安装 Ruby。你可以选择一个特定版本：
 
     ```bash
-    rbenv install 3.0.0
+    rbenv install %rubyVersion%
     ```
 
 3. 将 Ruby 版本设置为某个目录的本地版本或整个机器的全局版本：
 
     ```bash
-    rbenv global 3.0.0
+    rbenv global %rubyVersion%
     ```
     
 4. 安装 CocoaPods：
@@ -244,9 +244,7 @@ Ruby 1.9 或更高版本内置了 RubyGems 包管理框架，可帮助你安装 
 
 #### 版本兼容性
 
-我们建议使用最新版本的 Kotlin。如果你当前的版本早于 1.7.0，则需要额外安装 [`cocoapods-generate`](https://github.com/square/cocoapods-generate#installation") 插件。
-
-但是，`cocoapods-generate` 与 Ruby 3.0.0 或更高版本不兼容。在这种情况下，请降级 Ruby 或将 Kotlin 升级到 1.7.0 或更高版本。
+我们建议使用最新版本的 Kotlin。此 CocoaPods 设置所需的最低版本为 1.7.0。
 
 ### 使用 Xcode 时出现构建错误 {initial-collapse-state="collapsed" collapsible="true"}
 

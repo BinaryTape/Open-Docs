@@ -36,7 +36,7 @@ import io.ktor.http.*
 
 val httpResponse: HttpResponse = client.get("https://ktor.io/")
 if (httpResponse.status.value in 200..299) {
-    println("Successful response!")
+    println("성공적인 응답!")
 }
 ```
 
@@ -49,7 +49,7 @@ if (httpResponse.status.value in 200..299) {
 *   `charset` for a charset from the `Content-Type` header value.
 *   `etag` for the `E-Tag` header value.
 *   `setCookie` for the `Set-Cookie` header value.
-  > Ktor는 또한 호출 간에 쿠키를 유지할 수 있는 [HttpCookies](client-cookies.md) 플러그인을 제공합니다.
+    > Ktor는 또한 호출 간에 쿠키를 유지할 수 있는 [HttpCookies](client-cookies.md) 플러그인을 제공합니다.
 
 ## 응답 본문 받기 {id="body"}
 
@@ -78,12 +78,12 @@ val byteArrayBody: ByteArray = httpResponse.body()
     runBlocking {
         val httpResponse: HttpResponse = client.get("https://ktor.io/") {
             onDownload { bytesSentTotal, contentLength ->
-                println("Received $bytesSentTotal bytes from $contentLength")
+                println("$contentLength 바이트 중 $bytesSentTotal 바이트 수신")
             }
         }
         val responseBody: ByteArray = httpResponse.body()
         file.writeBytes(responseBody)
-        println("A file saved to ${file.path}")
+        println("파일이 ${file.path}에 저장되었습니다")
     }
 ```
 
@@ -121,12 +121,12 @@ val multipart = response.body<MultiPartData>()
 multipart.forEachPart { part ->
     when (part) {
         is PartData.FormItem -> {
-            println("Form item key: ${part.name}")
+            println("폼 항목 키: ${part.name}")
             val value = part.value
             // ...
         }
         is PartData.FileItem -> {
-            println("file: ${part.name}")
+            println("파일: ${part.name}")
             println(part.originalFileName)
             val fileContent: ByteReadChannel = part.provider()
             // ...
@@ -143,7 +143,7 @@ multipart.forEachPart { part ->
 ```kotlin
 when (part) {
     is PartData.FormItem -> {
-        println("Form item key: ${part.name}")
+        println("폼 항목 키: ${part.name}")
         val value = part.value
         // ...
     }
@@ -157,7 +157,7 @@ when (part) {
 ```kotlin
 when (part) {
     is PartData.FileItem -> {
-        println("file: ${part.name}")
+        println("파일: ${part.name}")
         println(part.originalFileName)
         val fileContent: ByteReadChannel = part.provider()
         // ...
@@ -183,6 +183,7 @@ part.dispose()
     val file = File.createTempFile("files", "index")
     val stream = file.outputStream().asSink()
     val fileSize = 100 * 1024 * 1024
+    val bufferSize = 1024 * 1024
 
     runBlocking {
         client.prepareGet("https://httpbin.org/bytes/$fileSize").execute { httpResponse ->
@@ -190,16 +191,16 @@ part.dispose()
             var count = 0L
             stream.use {
                 while (!channel.exhausted()) {
-                    val chunk = channel.readRemaining()
+                    val chunk = channel.readRemaining(bufferSize)
                     count += chunk.remaining
 
                     chunk.transferTo(stream)
-                    println("Received $count bytes from ${httpResponse.contentLength()}")
+                    println("${httpResponse.contentLength()} 바이트 중 $count 바이트 수신")
                 }
             }
         }
 
-        println("A file saved to ${file.path}")
+        println("파일이 ${file.path}에 저장되었습니다")
     }
 ```
 
@@ -211,5 +212,5 @@ part.dispose()
 client.prepareGet("https://httpbin.org/bytes/$fileSize").execute { httpResponse ->
     val channel: ByteReadChannel = httpResponse.body()
     channel.copyAndClose(file.writeChannel())
-    println("A file saved to ${file.path}")
+    println("파일이 ${file.path}에 저장되었습니다")
 }

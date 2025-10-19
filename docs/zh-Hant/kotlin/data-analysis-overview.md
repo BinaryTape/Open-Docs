@@ -24,7 +24,7 @@
 
 ## 筆記本
 
-_筆記本_ 是將程式碼、圖形和文字整合在單一環境中的互動式編輯器。使用筆記本時，您可以執行程式碼單元格並立即查看輸出。
+_筆記本_ 是一種互動式文件，您可以在其中混合可執行的 Kotlin 程式碼、文字、視覺化內容和結果。您可以將其視為一個 Kotlin REPL，它擴展了將程式碼組織到單元格中、使用 Markdown 進行文件編寫，並立即顯示輸出（從文字到圖表）的功能，與產生這些輸出的程式碼並列。
 
 Kotlin 提供不同的筆記本解決方案，例如 [Kotlin Notebook](#kotlin-notebook)、[Datalore](#kotlin-notebooks-in-datalore) 和 [Kotlin-Jupyter Notebook](#jupyter-notebook-with-kotlin-kernel)，提供方便的資料擷取、轉換、探索、模型建構等功能。這些 Kotlin 筆記本解決方案基於我們的 [Kotlin Kernel](https://github.com/Kotlin/kotlin-jupyter)。
 

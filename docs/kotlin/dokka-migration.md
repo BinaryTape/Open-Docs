@@ -1,10 +1,5 @@
 [//]: # (title: 迁移到 Dokka Gradle 插件 v2)
 
-> Dokka Gradle 插件 v2 是一个[实验性的](https://kotlinlang.org/docs/components-stability.html#stability-levels-explained)特性。
-> 它可能随时更改。我们感谢您在 [GitHub](https://github.com/Kotlin/dokka/issues) 上提供的反馈。
->
-{style="warning"}
-
 Dokka Gradle 插件 (DGP) 是一个用于为使用 Gradle 构建的 Kotlin 项目生成全面 API 文档的工具。
 
 DGP 无缝处理 Kotlin 的 KDoc 注释和 Java 的 Javadoc 注释，以提取信息并创建 [HTML 或 Javadoc](#select-documentation-output-format) 格式的结构化文档。
@@ -35,6 +30,12 @@ DGP v2 对 DGP 引入了重大改进，使其更紧密地与 Gradle 最佳实践
 
 ### 启用 DGP v2
 
+> 从 Dokka 2.1.0 开始，DGP v2 默认启用。
+> 如果您正在使用或更新到 Dokka 2.1.0 或更高版本，
+> 您可以跳过此步骤，直接前往[迁移您的项目](#migrate-your-project)。
+>
+{style="note"}
+
 在您项目的 `build.gradle.kts` 文件的 `plugins {}` 代码块中，将 Dokka 版本更新到 2.0.0：
 
 ```kotlin
@@ -62,7 +63,7 @@ org.jetbrains.dokka.experimental.gradle.pluginMode=V2EnabledWithHelpers
 >
 {style="tip"}
 
-此属性激活带有迁移助手的 DGP v2 插件。当构建脚本引用 DGP v1 中不再可用的任务时，这些助手可以防止编译错误。
+此属性激活带有迁移助手的 DGP v2 插件。这些助手可以防止构建脚本引用 DGP v1 中不再可用的任务时出现编译错误。
 
 > 迁移助手不会主动协助迁移。它们只会防止您的构建脚本在您过渡到新 API 时中断。
 >
@@ -125,7 +126,7 @@ DGP v2 中的配置：
 <tab title="Gradle 配置文件" group-key="gradle">
 
 ```kotlin
-// build.gradle.kts 文件
+// build.gradle.kts
 
 dokka {
     moduleName.set("Project Name")
@@ -153,7 +154,7 @@ dokka {
 <tab title="Kotlin 文件" group-key="kotlin">
 
 ```kotlin
-// CustomPlugin.kt 文件
+// CustomPlugin.kt
 
 import org.gradle.api.Plugin
 import org.gradle.api.Project
@@ -223,7 +224,7 @@ documentedVisibilities.set(
 documentedVisibilities(VisibilityModifier.Public)
 ```
 
-此外，使用 DGP v2 的[实用函数](https://github.com/Kotlin/dokka/blob/v2.0.0/dokka-runners/dokka-gradle-plugin/src/main/kotlin/engine/parameters/HasConfigurableVisibilityModifiers.kt#L14-L16)来添加文档化的可见性：
+此外，使用 DGP v2 的[实用函数](https://github.com/Kotlin/dokka/blob/v2.1.0/dokka-runners/dokka-gradle-plugin/src/main/kotlin/engine/parameters/HasConfigurableVisibilityModifiers.kt#L14-L16)来添加文档化的可见性：
 
 ```kotlin
 fun documentedVisibilities(vararg visibilities: VisibilityModifier): Unit =
@@ -258,7 +259,7 @@ DGP v2 中的配置：
 <tab title="Gradle 配置文件" group-key="gradle">
 
 ```kotlin
-// build.gradle.kts 文件
+// build.gradle.kts
 
 dokka {
     dokkaSourceSets.main {
@@ -275,7 +276,7 @@ dokka {
 <tab title="Kotlin 文件" group-key="kotlin">
 
 ```kotlin
-// CustomPlugin.kt 文件
+// CustomPlugin.kt
 
 import org.gradle.api.Plugin
 import org.gradle.api.Project
@@ -333,7 +334,7 @@ fun remoteUrl(value: Provider<String>): Unit =
 
 #### 外部文档链接
 
-使用 `register()` 方法注册外部文档链接以定义每个链接。`externalDocumentationLinks` API 使用此方法，与 Gradle DSL 约定对齐。
+使用 `register()` 方法注册外部文档链接以定义每个链接。 `externalDocumentationLinks` API 使用此方法，与 Gradle DSL 约定对齐。
 
 DGP v1 中的配置：
 
@@ -365,7 +366,7 @@ dokka {
 
 #### 自定义资源
 
-使用 [`customAssets`](dokka-html.md#customize-assets) 属性与文件集合 ([`FileCollection`)](https://docs.gradle.org/8.10/userguide/lazy_configuration.html#working_with_files_in_lazy_properties)，而不是列表 (`var List<File>`)。
+使用 [`customAssets`](dokka-html.md#customize-assets) 属性与文件集合 ([`FileCollection`)](https://docs.gradle.org/8.10/userguide/lazy_configuration.html#working_with_files_in_lazy_properties)，而不是 `List<File>`。
 
 DGP v1 中的配置：
 
@@ -426,7 +427,7 @@ DGP v2 中的配置：
 <tab title="Gradle 配置文件" group-key="gradle">
 
 ```kotlin
-// build.gradle.kts 文件
+// build.gradle.kts
 
 dokka {
     dokkaPublications.html {
@@ -440,7 +441,7 @@ dokka {
 <tab title="Kotlin 文件" group-key="kotlin">
 
 ```kotlin
-// CustomPlugin.kt 文件
+// CustomPlugin.kt
 
 import org.gradle.api.Plugin
 import org.gradle.api.Project

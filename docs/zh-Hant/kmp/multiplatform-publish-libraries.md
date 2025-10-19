@@ -25,7 +25,8 @@
 
 ## 範例函式庫
 
-在本教學中，您將使用 [fibonacci](https://github.com/Kotlin/multiplatform-library-template/) 函式庫作為範例。您可以參考該儲存庫的程式碼，了解發佈設定的運作方式。
+在本教學中，您將使用 [fibonacci](https://github.com/Kotlin/multiplatform-library-template/) 函式庫作為範例。
+您可以參考該儲存庫的程式碼，了解發佈設定的運作方式。
 
 如果您想重複使用這些程式碼，您**必須將所有範例值**替換為您專案特有的值。
 
@@ -37,7 +38,7 @@
 
 您需要一個經過驗證的命名空間，以便在 Maven Central 上唯一識別您的函式庫構件。
 
-Maven 構件由其[座標](https://central.sonatype.org/publish/requirements/#correct-coordinates)識別，例如 `com.example:fibonacci-library:1.0.0`。這些座標由三部分組成，以冒號分隔：
+Maven 構件由其[座標](https://central.sonatype.org/publish/requirements/#correct-coordinates)識別，例如 `com.example:fibonacci-library:1.0.0`。這些座標由三部分組成，以圓括號分隔：
 
 *   `groupId` 以反向 DNS 格式表示，例如 `com.example`
 *   `artifactId`：函式庫本身的唯一名稱，例如 `fibonacci-library`
@@ -45,7 +46,8 @@ Maven 構件由其[座標](https://central.sonatype.org/publish/requirements/#co
 
 您註冊的命名空間允許您在 Maven Central 上設定 `groupId` 的格式。例如，如果您註冊 `com.example` 命名空間，您可以發佈 `groupId` 設定為 `com.example`、`com.example.libraryname`、`com.example.module.feature` 等的構件。
 
-登入 Maven Central 後，導覽至 [Namespaces](https://central.sonatype.com/publishing/namespaces) 頁面。然後，點擊 **Add Namespace** 按鈕並註冊您的命名空間：
+登入 Maven Central 後，導覽至 [Namespaces](https://central.sonatype.com/publishing/namespaces) 頁面。
+然後，點擊 **Add Namespace** 按鈕並註冊您的命名空間：
 
 <Tabs>
 <TabItem id="github" title="使用 GitHub 儲存庫">
@@ -81,9 +83,10 @@ Maven 構件由其[座標](https://central.sonatype.org/publish/requirements/#co
 *   _私密金鑰_ 用於簽署您的構件，不應與他人分享。
 *   _公開金鑰_ 可以與他人分享，以便他們可以驗證您的構件的簽名。
 
-可為您管理簽名的 `gpg` 工具可在 [GnuPG 網站](https://gnupg.org/download/index.html)上找到。您也可以使用套件管理器（例如 [Homebrew](https://brew.sh/)）進行安裝：
+可為您管理簽名的 `gpg` 工具可在 [GnuPG 網站](https://gnupg.org/download/index.html)上找到。
+您也可以使用套件管理器（例如 [Homebrew](https://brew.sh/)）進行安裝：
 
-```bash
+```bash 
 brew install gpg
 ```
 
@@ -93,7 +96,8 @@ brew install gpg
     gpg --full-generate-key
     ```
 
-2.  選擇建議的預設金鑰類型。您可以將選取留空並按下 <shortcut>Enter</shortcut> 以接受預設值。
+2.  選擇建議的預設金鑰類型。
+    您可以將選取留空並按下 <shortcut>Enter</shortcut> 以接受預設值。
 
     ```text
     Please select what kind of key you want:
@@ -180,7 +184,8 @@ gpg --keyserver keyserver.ubuntu.com --send-keys F175482952A225BFC4A07A715EE6B5F
 
 #### 匯出您的私密金鑰
 
-要讓您的 Gradle 專案存取您的私密金鑰，您需要將其匯出到二進位檔案中。系統將提示您輸入建立金鑰時使用的密碼。
+要讓您的 Gradle 專案存取您的私密金鑰，您需要將其匯出到二進位檔案中。
+系統將提示您輸入建立金鑰時使用的密碼。
 
 使用以下命令，**傳遞您自己的金鑰 ID** 作為參數：
 
@@ -225,7 +230,7 @@ android {
 // <module directory>/build.gradle.kts
 
 plugins {
-    id("com.vanniktech.maven.publish") version "%vanniktechPublishPlugin%"
+    id("com.vanniktech.maven.publish") version "%vanniktechPublishPlugin%" 
 }
 ```
 
@@ -240,12 +245,12 @@ plugins {
 
 mavenPublishing {
     publishToMavenCentral()
-
+    
     signAllPublications()
-
+    
     coordinates(group.toString(), "fibonacci", version.toString())
-
-    pom {
+    
+    pom { 
         name = "Fibonacci library"
         description = "A mathematics calculation library."
         inceptionYear = "2024"
@@ -289,7 +294,7 @@ mavenPublishing {
 ### 產生使用者權杖
 
 您需要 Maven 存取權杖才能讓 Maven Central 授權您的發佈請求。
-開啟 [Setup Token-Based Authentication](https://central.sonatype.com/account) 頁面並點擊 **Generate User Token** 按鈕。
+開啟 [Setup Token-Based Authentication](https://central.sonatype.com/usertoken) 頁面並點擊 **Generate User Token** 按鈕。
 
 輸出看起來像下面的範例，包含一個使用者名稱和一個密碼。
 如果您遺失這些憑證，您需要稍後產生新的憑證，因為 Maven Central 不會儲存它們。
@@ -304,12 +309,13 @@ mavenPublishing {
 
 ### 將機密添加到 GitHub
 
-為了在您的 GitHub Actions 工作流程中使用發佈所需的金鑰和憑證，同時保持它們的私密性，您需要將這些值儲存為機密。
+為了在您的 GitHub Actions 工作流程中使用發佈所需的金鑰和憑證，同時保持它們的私密性，
+您需要將這些值儲存為機密。
 
 1.  在您的 GitHub 儲存庫 **Settings** 頁面，點擊 **Security** | **Secrets and variables** | **Actions**。
 2.  點擊 `New repository secret` 按鈕並添加以下機密：
 
-    *   `MAVEN_CENTRAL_USERNAME` 和 `MAVEN_CENTRAL_PASSWORD` 是由 Central Portal 網站[為 User Token 產生](#generate-the-user-token)的值。
+    *   `MAVEN_CENTRAL_USERNAME` 和 `MAVEN_CENTRAL_PASSWORD` 是由 Central Portal 網站[為使用者權杖產生](#generate-the-user-token)的值。
     *   `SIGNING_KEY_ID` 是您簽署金鑰識別碼的**後 8 個字元**，例如 `F175482952A225BFC4A07A715EE6B5F76620B385CE` 的 `20B385CE`。
     *   `SIGNING_PASSWORD` 是您在產生 GPG 金鑰時提供的密碼。
     *   `GPG_KEY_CONTENTS` 應包含您 [key.gpg 檔案](#export-your-private-key)的完整內容。
@@ -320,7 +326,8 @@ mavenPublishing {
 
 ### 將 GitHub Actions 工作流程添加到您的專案
 
-您可以設定持續整合來自動建構和發佈您的函式庫。我們將以 [GitHub Actions](https://docs.github.com/en/actions) 為例。
+您可以設定持續整合來自動建構和發佈您的函式庫。
+我們將以 [GitHub Actions](https://docs.github.com/en/actions) 為例。
 
 首先，將以下工作流程添加到您的儲存庫的 `.github/workflows/publish.yml` 檔案中：
 
@@ -377,18 +384,18 @@ jobs:
 3.  在右側邊欄中，點擊 **Releases**。
 4.  點擊 **Draft a new release** 按鈕（如果您之前未為此儲存庫建立發行版，則點擊 **Create a new release** 按鈕）。
 5.  每個發行版都有一個標籤。在標籤下拉選單中建立一個新標籤，並設定發行標題（標籤名稱和標題可以相同）。
-
+    
     您可能希望這些與您在 `build.gradle.kts` 檔案中指定的函式庫版本號碼相同。
 
     ![在 GitHub 上建立發行版](create_release_and_tag.png){width=700}
 
 6.  仔細檢查您想要發行版指向的分支（特別是如果它不是預設分支），並為您的新版本添加適當的發行說明。
 7.  使用描述下方的核取方塊將發行版標記為預發行版（對於早期存取版本（例如 alpha、beta 或 RC）很有用）。
-
+    
     您也可以將發行版標記為最新版本（如果您之前已為此儲存庫建立過發行版）。
 8.  點擊 **Publish release** 按鈕以建立新發行版。
 9.  點擊 GitHub 儲存庫頁面頂部的 **Actions** 標籤。在這裡，您會看到新發行版觸發了您的發佈工作流程。
-
+    
     您可以點擊工作流程以查看發佈任務的輸出。
 10. 工作流程執行完成後，導覽至 Maven Central 上的 [Deployments](https://central.sonatype.com/publishing/deployments) 儀表板。您應該會在這裡看到一個新的部署。
 
@@ -399,7 +406,7 @@ jobs:
 
     ![發佈設定](published_on_maven_central.png){width=700}
 
-    > 發行版後，構件需要一些時間（通常約 15-30 分鐘，但可能長達數小時）才能在 Maven Central 儲存庫中公開可用。它們可能需要更長時間才能被索引並在 [Maven Central 網站](https://central.sonatype.com/)上可搜尋。
+    > 發行版後，構件需要一些時間（通常約 15–30 分鐘，但可能長達數小時）才能在 Maven Central 儲存庫中公開可用。它們可能需要更長時間才能被索引並在 [Maven Central 網站](https://central.sonatype.com/)上可搜尋。
     >
     {style="tip"}
 

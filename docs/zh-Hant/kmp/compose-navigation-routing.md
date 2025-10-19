@@ -35,9 +35,9 @@ kotlin {
 每個返回堆疊項目 (圖中包含的每個導覽路由) 都實作 `LifecycleOwner` 介面。應用程式不同畫面之間的切換使其狀態從 `RESUMED` 變為 `STARTED` 再變回原狀。`RESUMED` 也被描述為「已穩定」：當新畫面準備就緒並處於啟用狀態時，導覽即被視為完成。請參閱 [生命週期](compose-lifecycle.md) 頁面，了解 Compose Multiplatform 中目前實作的詳細資訊。
 
 ## 對於網頁應用程式中的瀏覽器導覽支援
-<secondary-label ref="Experimental"/>
+<primary-label ref="Experimental"/>
 
-適用於網頁的 Compose Multiplatform 完全支援通用導覽函式庫 API，除此之外，還允許您的應用程式從瀏覽器接收導覽輸入。使用者可以使用瀏覽器中的「上一頁」和「下一頁」按鈕在反映在瀏覽器歷史記錄中的導覽路由之間移動，以及使用網址列了解他們目前的位置並直接前往目的地。
+適用於網頁的 Compose Multiplatform 完全支援通用導覽函式庫 API，此外還允許您的應用程式從瀏覽器接收導覽輸入。使用者可以使用瀏覽器中的「上一頁」和「下一頁」按鈕在反映在瀏覽器歷史記錄中的導覽路由之間移動，以及使用網址列了解他們目前的位置並直接前往目的地。
 
 若要將網頁應用程式綁定到通用程式碼中定義的導覽圖，您可以在 Kotlin/Wasm 程式碼中使用 `NavController.bindToBrowserNavigation()` 方法。您也可以在 Kotlin/JS 中使用相同的方法，但必須將其包裝在 `onWasmReady {}` 區塊中，以確保 Wasm 應用程式已初始化且 Skia 已準備好繪製圖形。以下是如何設定此項的範例：
 

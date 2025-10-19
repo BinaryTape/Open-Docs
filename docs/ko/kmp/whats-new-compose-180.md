@@ -104,8 +104,8 @@ Compose Multiplatform 1.8.2에서 사용 중단된 API를 사용하는 경우,
 
 ### iOS에서 더 이상 사용되지 않는 `platformLayers` 옵션 제거
 
-`platformLayers` 실험적 옵션은
-[1.6.0에 도입](whats-new-compose-160.md#separate-platform-views-for-popups-dialogs-and-dropdowns-ios-desktop)되어
+`platformLayers`
+실험적 옵션은 [1.6.0에 도입](whats-new-compose-160.md#separate-platform-views-for-popups-dialogs-and-dropdowns-ios-desktop)되어
 대체 레이어링 모드를 활성화하고 팝업 및 대화 상자를 상위 컨테이너의 경계 외부에서 그릴 수 있도록 했습니다.
 
 이 모드는 이제 iOS의 기본 동작이며, 이를 활성화하는 옵션은 더 이상 사용되지 않아 제거되었습니다.
@@ -216,7 +216,7 @@ Compose Multiplatform은 Jetpack Compose의 새로운 `Clipboard` 인터페이�
 텍스트 행은 예약된 공간의 하단, 중앙 또는 상단에 정렬되거나,
 상승 및 하강 값에 따라 비례적으로 조정될 수 있습니다.
 
-<img src="compose-180-LineHeightStyle.png" alt="Line-height alignment" width="508"/>
+![Line-height alignment](compose-180-LineHeightStyle.png){width="508"}
 
 Material3에서 행 높이 정렬의 기본값은 `Center`이며,
 이는 별도로 지정하지 않는 한 모든 플랫폼의 Material3 컴포넌트에서 `lineHeight`가 있는 텍스트에 중앙 정렬이 적용됨을 의미합니다.
@@ -324,7 +324,7 @@ Compose Multiplatform 컴포넌트의 접근성 속성을 UIKit 컴포넌트의 
 iOS에서 운영 체제 로깅을 활성화하는 API가 이제 안정화되었습니다. `enableTraceOSLog()` 함수는 더 이상 실험적 옵트인(opt-in)이 필요 없으며 이제 Android 스타일 로깅과 일치합니다. 이 로깅은 디버깅 및 성능 분석을 위해 Xcode Instruments를 사용하여 분석할 수 있는 추적 정보를 제공합니다.
 
 ### 드래그 앤 드롭
-<secondary-label ref="Experimental"/>
+<primary-label ref="Experimental"/>
 
 iOS용 Compose Multiplatform은 드래그 앤 드롭 기능을 지원하여,
 Compose 애플리케이션 안팎으로 콘텐츠를 드래그할 수 있습니다
@@ -350,7 +350,7 @@ Jetpack Compose 문서의 [전용 문서](https://developer.android.com/develop/
     UI는 모호한 터치 시퀀스를 해결하기 위해 iOS 로직을 면밀히 따릅니다.
 
 ### 동시 렌더링 옵트인(Opt-in)
-<secondary-label ref="Experimental"/>
+<primary-label ref="Experimental"/>
 
 iOS용 Compose Multiplatform은 이제 렌더링 작업을 전용 렌더링 스레드로 오프로드하는 것을 지원합니다.
 동시 렌더링은 UIKit 상호 운용(interop)이 없는 시나리오에서 성능을 향상시킬 수 있습니다.
@@ -387,14 +387,14 @@ Compose Multiplatform으로 빌드된 Kotlin/Wasm 및 Kotlin/JS 애플리케이�
 경로 문자열을 URL 프래그먼트로 변환하는 방식을 사용자 정의할 수 있습니다.
 
 ### 브라우저 커서 설정
-<secondary-label ref="Experimental"/>
+<primary-label ref="Experimental"/>
 
 브라우저 페이지에서 마우스 포인터로 사용될 수 있는 아이콘을 관리하기 위한 실험적인 `PointerIcon.Companion.fromKeyword()` 함수를 도입했습니다. 키워드를 매개변수로 전달하여 컨텍스트에 따라 표시할 커서 유형을 지정할 수 있습니다. 예를 들어, 텍스트 선택, 컨텍스트 메뉴 열기 또는 로딩 프로세스 표시를 위해 다른 포인터 아이콘을 할당할 수 있습니다.
 
 사용 가능한 [키워드](https://developer.mozilla.org/en-US/docs/Web/CSS/cursor)의 전체 목록을 확인하십시오.
 
 ### 리소스 사전 로드
-<secondary-label ref="Experimental"/>
+<primary-label ref="Experimental"/>
 
 Compose Multiplatform 1.8.2는 웹 대상을 위한 폰트 및 이미지 사전 로드를 위한 새로운 실험적 API를 도입합니다.
 사전 로드는 스타일이 지정되지 않은 텍스트의 깜빡임(FOUT) 또는 이미지 및 아이콘의 깜빡임과 같은 시각적 문제를 방지하는 데 도움이 됩니다.
@@ -442,7 +442,7 @@ compose.resources {
 자세한 내용은 [풀 리퀘스트](https://github.com/JetBrains/compose-multiplatform/pull/5296)를 참조하십시오.
 
 ### `androidLibrary` 대상에서 멀티플랫폼 리소스 지원
-<secondary-label ref="Experimental"/>
+<primary-label ref="Experimental"/>
 
 Android Gradle 플러그인 버전 8.8.0부터 새로운 `androidLibrary` 대상에서 생성된 에셋을 사용할 수 있습니다.
 Compose Multiplatform을 이러한 변경 사항과 일치시키기 위해,

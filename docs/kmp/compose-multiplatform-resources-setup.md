@@ -95,7 +95,7 @@ configureWebResources {
 ```
 
 ### `androidLibrary` 目标中的资源
-<secondary-label ref="Experimental"/>
+<primary-label ref="实验性的"/>
 
 从 Android Gradle 插件 8.8.0 版本开始，你可以在 `androidLibrary` 目标中使用生成的 `Res` 类和资源访问器。要在 `androidLibrary` 中启用对多平台资源的支持，请按如下方式更新你的配置：
 

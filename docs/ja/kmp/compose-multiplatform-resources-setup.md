@@ -95,9 +95,9 @@ configureWebResources {
 ```
 
 ### `androidLibrary` ターゲット内のリソース
-<secondary-label ref="Experimental"/>
+<primary-label ref="Experimental"/>
 
-Android Gradle プラグインバージョン 8.8.0 以降では、`androidLibrary` ターゲットで生成された `Res` クラスとリソースアクセサを使用できます。`androidLibrary` でマルチプラットフォームリソースのサポートを有効にするには、次のように構成を更新します：
+Android Gradle プラグインバージョン 8.8.0 以降では、生成された `Res` クラスとリソースアクセサを `androidLibrary` ターゲットで使用できます。`androidLibrary` でマルチプラットフォームリソースのサポートを有効にするには、次のように構成を更新します：
 
 ```
 kotlin {

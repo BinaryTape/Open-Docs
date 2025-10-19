@@ -49,8 +49,8 @@ dependencies {
 <!--- INCLUDE
 import ai.koog.agents.core.agent.AIAgent
 import ai.koog.agents.core.agent.functionalStrategy
-import ai.koog.agents.core.agent.asAssistantMessage
-import ai.koog.agents.core.agent.requestLLM
+import ai.koog.agents.core.dsl.extension.asAssistantMessage
+import ai.koog.agents.core.dsl.extension.requestLLM
 import ai.koog.prompt.executor.llms.all.simpleOllamaAIExecutor
 import ai.koog.prompt.llm.OllamaModels
 import kotlinx.coroutines.runBlocking
@@ -94,8 +94,8 @@ The answer to 12 × 9 is 108.
 <!--- INCLUDE
 import ai.koog.agents.core.agent.AIAgent
 import ai.koog.agents.core.agent.functionalStrategy
-import ai.koog.agents.core.agent.asAssistantMessage
-import ai.koog.agents.core.agent.requestLLM
+import ai.koog.agents.core.dsl.extension.asAssistantMessage
+import ai.koog.agents.core.dsl.extension.requestLLM
 import ai.koog.prompt.executor.llms.all.simpleOllamaAIExecutor
 import ai.koog.prompt.llm.OllamaModels
 import kotlinx.coroutines.runBlocking
@@ -159,10 +159,10 @@ import ai.koog.agents.core.tools.annotations.Tool
 import ai.koog.agents.core.tools.reflect.ToolSet
 -->
 ```kotlin
-@LLMDescription("Simple multiplier")
+@LLMDescription("简单乘法器")
 class MathTools : ToolSet {
     @Tool
-    @LLMDescription("Multiplies two numbers and returns the result")
+    @LLMDescription("将两个数字相乘并返回结果")
     fun multiply(a: Int, b: Int): Int {
         val result = a * b
         return result
@@ -208,12 +208,12 @@ import ai.koog.agents.core.tools.reflect.tools
 import ai.koog.agents.core.tools.ToolRegistry
 import ai.koog.agents.core.agent.AIAgent
 import ai.koog.agents.core.agent.functionalStrategy
-import ai.koog.agents.core.agent.asAssistantMessage
-import ai.koog.agents.core.agent.containsToolCalls
-import ai.koog.agents.core.agent.executeMultipleTools
-import ai.koog.agents.core.agent.extractToolCalls
-import ai.koog.agents.core.agent.requestLLMMultiple
-import ai.koog.agents.core.agent.sendMultipleToolResults
+import ai.koog.agents.core.dsl.extension.asAssistantMessage
+import ai.koog.agents.core.dsl.extension.containsToolCalls
+import ai.koog.agents.core.dsl.extension.executeMultipleTools
+import ai.koog.agents.core.dsl.extension.extractToolCalls
+import ai.koog.agents.core.dsl.extension.requestLLMMultiple
+import ai.koog.agents.core.dsl.extension.sendMultipleToolResults
 import ai.koog.prompt.executor.llms.all.simpleOllamaAIExecutor
 import ai.koog.prompt.llm.OllamaModels
 import kotlinx.coroutines.runBlocking
@@ -237,7 +237,7 @@ val mathWithTools = AIAgent<String, String>(
     strategy = functionalStrategy { input -> // 定义扩展了工具调用的代理逻辑
         // 将用户输入发送到 LLM
         var responses = requestLLMMultiple(input)
-        
+
         // 仅当 LLM 请求工具时才循环
         while (responses.containsToolCalls()) {
             // 从响应中提取工具调用

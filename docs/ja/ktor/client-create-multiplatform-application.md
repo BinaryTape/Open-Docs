@@ -3,25 +3,20 @@
 <show-structure for="chapter" depth="2"/>
 
 <tldr>
-<var name="example_name" value="tutorial-client-kmm"/>
+<var name="example_name" value="tutorial-client-kmp"/>
 <p>
     <b>コード例</b>:
     <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
-<p>
-<b>動画</b>: <a href="https://youtu.be/_Q62iJoNOfg">Ktor for Networking in Kotlin Multiplatform Mobile projects</a> 
-</p>
 </tldr>
 
 <link-summary>
-Kotlin Multiplatform Mobileアプリケーションの作成方法を学びます。
+Kotlin Multiplatform MobileアプリケーションでKtorクライアントを使用する方法を学びます。
 </link-summary>
 
 Ktor HTTPクライアントはマルチプラットフォームプロジェクトで使用できます。このチュートリアルでは、リクエストを送信し、レスポンスボディをプレーンなHTMLテキストとして受け取るシンプルなKotlin Multiplatform Mobileアプリケーションを作成します。
-
-> 最初のKotlin Multiplatform Mobileアプリケーションの作成方法については、[最初のクロスプラットフォームモバイルアプリを作成する](https://kotlinlang.org/docs/multiplatform-mobile-create-first-app.html)を参照してください。
 
 ## 前提条件 {id="prerequisites"}
 
@@ -33,99 +28,81 @@ Ktor HTTPクライアントはマルチプラットフォームプロジェク�
 
 ## 新しいプロジェクトを作成する {id="new-project"}
 
-新しいKotlin Multiplatformプロジェクトを開始するには、2つのアプローチがあります。
+新しいプロジェクトを作成するには、IntelliJ IDEAのKotlin Multiplatformプロジェクトウィザードを使用できます。これにより、クライアントとサービスを拡張できる基本的なマルチプラットフォームプロジェクトが作成されます。
 
--   Android Studio内でテンプレートからプロジェクトを作成できます。
--   あるいは、[Kotlin Multiplatform Wizard](https://kmp.jetbrains.com/)を使用して新しいプロジェクトを生成できます。このウィザードでは、プロジェクトのセットアップをカスタマイズするオプションが提供されており、例えばAndroidサポートを除外したり、Ktorサーバーを含めたりすることができます。
+<procedure>
 
-このチュートリアルでは、テンプレートからプロジェクトを作成するプロセスを説明します。
+1.  IntelliJ IDEAを起動します。
+2.  IntelliJ IDEAで、**File | New | Project**を選択します。
+3.  左側のパネルで、**Kotlin Multiplatform**を選択します。
+4.  **New Project**ウィンドウで、以下のフィールドを指定します。
+    *   **名前**: KmpKtor
+    *   **グループ**: com.example.ktor
+      ![Kotlin Multiplatform wizard settings](tutorial_client_kmp_create_project.png){ width="450" width="706" border-effect="rounded" style="block" }
+5.  **Android**と**iOS**ターゲットを選択します。
+6.  iOSの場合、UIをネイティブに保つために、**Do not share UI**オプションを選択します。
+7.  **Create**ボタンをクリックし、IDEがプロジェクトを生成してインポートするのを待ちます。
 
-1.  Android Studioで、**File | New | New Project**を選択します。
-2.  プロジェクトテンプレートのリストから**Kotlin Multiplatform App**を選択し、**Next**をクリックします。
-3.  アプリケーションの名前を指定し、**Next**をクリックします。このチュートリアルでは、アプリケーション名は`KmmKtor`です。
-4.  次のページで、デフォルト設定のまま**Finish**をクリックして新しいプロジェクトを作成します。
-    これで、プロジェクトがセットアップされるのを待ちます。初回は、必要なコンポーネントのダウンロードとセットアップに時間がかかる場合があります。
-    > 生成されたマルチプラットフォームプロジェクトの完全な構造を表示するには、[プロジェクトビュー](https://developer.android.com/studio/projects#ProjectView)で**Android**から**Project**に切り替えます。
+</procedure>
 
 ## ビルドスクリプトを構成する {id="build-script"}
 
-### Kotlin Gradleプラグインを更新する {id="update_gradle_plugins"}
-
-`gradle/libs.versions.toml`ファイルを開き、Kotlinのバージョンを最新に更新します。
-
-```kotlin
-kotlin = "2.1.20"
-```
-
-undefined
-
 ### Ktorの依存関係を追加する {id="ktor-dependencies"}
 
-プロジェクトでKtor HTTPクライアントを使用するには、少なくとも2つの依存関係、つまりクライアント依存関係とエンジン依存関係を追加する必要があります。
+プロジェクトでKtor HTTPクライアントを使用するには、少なくとも2つの依存関係、つまりクライアント依存関係と[エンジン](client-engines.md)依存関係を追加する必要があります。
 
-`gradle/libs.versions.toml`ファイルにKtorのバージョンを追加します。
+1.  <Path>gradle/libs.versions.toml</Path>ファイルを開き、Ktorのバージョンを追加します。
 
-```kotlin
-[versions]
-ktor = "3.2.3"
-```
+    ```kotlin
+    [versions]
+    ktor = "3.3.1"
+    ```
 
-<p>
-    KtorのEAPバージョンを使用するには、<a href="#repositories">Spaceリポジトリ</a>を追加する必要があります。
-</p>
+2.  同じ<Path>gradle/libs.versions.toml</Path>ファイルで、Ktorクライアントとエンジンライブラリを定義します。
 
-次に、Ktorクライアントとエンジンライブラリを定義します。
+    ```kotlin
+    [libraries]
+    ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
+    ktor-client-okhttp = { module = "io.ktor:ktor-client-okhttp", version.ref = "ktor" }
+    ktor-client-darwin = { module = "io.ktor:ktor-client-darwin", version.ref = "ktor" }
+    ```
 
-```kotlin
-kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
-ktor-client-okhttp = { module = "io.ktor:ktor-client-okhttp", version.ref = "ktor" }
-ktor-client-darwin = { module = "io.ktor:ktor-client-darwin", version.ref = "ktor" }
-kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
-```
+3.  <Path>shared/build.gradle.kts</Path>ファイルを開き、以下の依存関係を追加します。
 
-依存関係を追加するには、`shared/build.gradle.kts`ファイルを開き、以下の手順に従います。
-
-1.  共通コードでKtorクライアントを使用するには、`commonMain`ソースセットに`ktor-client-core`の依存関係を追加します。
     ```kotlin
     sourceSets {
         commonMain.dependencies {
             implementation(libs.ktor.client.core)
         }
+        androidMain.dependencies {
+            implementation(libs.ktor.client.okhttp)
+        }
+        iosMain.dependencies {
+            implementation(libs.ktor.client.darwin)
+        }
     }
     ```
 
-2.  必要な各プラットフォームの[エンジン依存関係](client-engines.md)を対応するソースセットに追加します。
-    -   Androidの場合、`androidMain`ソースセットに`ktor-client-okhttp`の依存関係を追加します。
-      ```kotlin
-      androidMain.dependencies {
-          implementation(libs.ktor.client.okhttp)
-      }
-      ```
-
-        Androidでは、[他のエンジンタイプ](client-engines.md#jvm-android)も使用できます。
-    -   iOSの場合、`iosMain`に`ktor-client-darwin`の依存関係を追加します。
-      ```kotlin
-      iosMain.dependencies {
-          implementation(libs.ktor.client.darwin)
-      }
-      ```
+    -   `ktor-client-core`を`commonMain`ソースセットに追加して、共有コードでKtorクライアント機能を有効にします。
+    -   `androidMain`ソースセットに、Androidで`OkHttp`エンジンを使用するための`ktor-client-okhttp`依存関係を含めます。代替として、[他の利用可能なAndroid/JVMエンジン](client-engines.md#jvm-android)から選択することもできます。
+    -   `iosMain`ソースセットに、iOSでDarwinエンジンを使用するための`ktor-client-darwin`依存関係を追加します。
 
 ### コルーチンを追加する {id="coroutines"}
 
 [Androidコード](#android-activity)でコルーチンを使用するには、`kotlinx.coroutines`をプロジェクトに追加する必要があります。
 
-1.  `gradle/libs.versions.toml`ファイルを開き、コルーチンのバージョンとライブラリを指定します。
+1.  <Path>gradle/libs.versions.toml</Path>ファイルを開き、コルーチンのバージョンとライブラリを指定します。
 
     ```kotlin
     [versions]
-    coroutines = "1.9.0"
-    [libraries]
-    kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
-    kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutines" }
+    kotlinx-coroutines = "1.10.2"
     
+    [libraries]
+    kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinx-coroutines" }
+    kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlinx-coroutines" }
     ```
 
-2.  `build.gradle.kts`ファイルを開き、`kotlinx-coroutines-core`の依存関係を`commonMain`ソースセットに追加します。
+2.  <Path>shared/build.gradle.kts</Path>ファイルを開き、`kotlinx-coroutines-core`依存関係を`commonMain`ソースセットに追加します。
 
     ```kotlin
     sourceSets {
@@ -136,91 +113,83 @@ kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-c
     }
     ```
 
-3.  次に、`androidApp/build.gradle.kts`を開き、`kotlinx-coroutines-android`の依存関係を追加します。
+3.  次に、<Path>composeApp/build.gradle.kts</Path>ファイルを開き、`kotlinx-coroutines-android`依存関係を`androidMain`ソースセットに追加します。
 
-```kotlin
-dependencies {
-    implementation(libs.kotlinx.coroutines.android)
-}
-```
+    ```kotlin
+    sourceSets {
+        androidMain.dependencies {
+            // ...
+            implementation(libs.kotlinx.coroutines.android)
+        }
+    }
+    ```
 
-`gradle.properties`ファイルの右上隅にある**Sync Now**をクリックして、追加した依存関係をインストールします。
+4.  追加した依存関係をインストールするために、**Build | Sync Project with Gradle Files**を選択します。
 
 ## アプリケーションを更新する {id="code"}
 
 ### 共有コード {id="shared-code"}
 
-AndroidとiOSで共有されるコードを更新するには、`shared/src/commonMain/kotlin/com/example/kmmktor/Greeting.kt`ファイルを開き、`Greeting`クラスに以下のコードを追加します。
+AndroidとiOS間で共有されるコードを更新するには、<Path>shared/src/commonMain/kotlin/com/example/ktor/kmmktor/Greeting.kt</Path>ファイルを開き、`Greeting`クラスに以下のコードを追加します。
 
 ```kotlin
-package com.example.kmmktor
+package com.example.ktor.kmpktor
 
-import io.ktor.client.*
-import io.ktor.client.request.*
-import io.ktor.client.statement.*
+import io.ktor.client.HttpClient
+import io.ktor.client.request.get
+import io.ktor.client.statement.bodyAsText
 
 class Greeting {
     private val client = HttpClient()
 
-    suspend fun greeting(): String {
+    suspend fun greet(): String {
         val response = client.get("https://ktor.io/docs/")
         return response.bodyAsText()
     }
 }
 ```
 
--   HTTPクライアントを作成するために、`HttpClient`コンストラクタが呼び出されます。
--   サスペンド関数`greeting`は、[リクエスト](client-requests.md)を行い、[レスポンス](client-responses.md)のボディを文字列値として受け取るために使用されます。
+-   `HttpClient`コンストラクタはHTTPクライアントを作成します。
+-   サスペンド関数`greet()`は[リクエスト](client-requests.md)を行い、[レスポンス](client-responses.md)のボディを文字列値として受け取ります。
 
 ### Androidコード {id="android-activity"}
 
-Androidコードからサスペンド関数`greeting`を呼び出すには、[rememberCoroutineScope](https://developer.android.com/reference/kotlin/androidx/compose/runtime/package-summary#rememberCoroutineScope(kotlin.Function0))を使用します。
-
-`androidApp/src/main/java/com/example/kmmktor/android/MainActivity.kt`ファイルを開き、`MainActivity`のコードを次のように更新します。
+<Path>composeApp/src/androidMain/kotlin/com/example/ktor/kmmktor/App.kt</Path>ファイルを開き、コードを次のように更新します。
 
 ```kotlin
-package com.example.kmmktor.android
+package com.example.ktor.kmpktor
 
-import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.setValue
+import androidx.compose.foundation.layout.safeContentPadding
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
+import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.example.kmmktor.Greeting
-import kotlinx.coroutines.launch
+import org.jetbrains.compose.ui.tooling.preview.Preview
 
-class MainActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContent {
-            MyApplicationTheme {
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                    val scope = rememberCoroutineScope()
-                    var text by remember { mutableStateOf("Loading") }
-                    LaunchedEffect(true) {
-                        scope.launch {
-                            text = try {
-                                Greeting().greeting()
-                            } catch (e: Exception) {
-                                e.localizedMessage ?: "error"
-                            }
-                        }
-                    }
-                    GreetingView(text)
+@Composable
+@Preview
+fun App() {
+    MaterialTheme {
+        Column(
+            modifier = Modifier
+                .background(MaterialTheme.colorScheme.primaryContainer)
+                .safeContentPadding()
+                .fillMaxSize(),
+            horizontalAlignment = Alignment.CenterHorizontally,
+        ) {
+            var text by remember { mutableStateOf("Loading") }
+            LaunchedEffect(true) {
+                text = try {
+                    Greeting().greet()
+                } catch (e: Exception) {
+                    e.message ?: "error"
                 }
             }
+            GreetingView(text)
         }
     }
 }
@@ -233,68 +202,53 @@ fun GreetingView(text: String) {
 @Preview
 @Composable
 fun DefaultPreview() {
-    MyApplicationTheme {
+    MaterialTheme {
         GreetingView("Hello, Android!")
     }
 }
-
 ```
 
-作成されたスコープ内で、共有の`greeting`関数を呼び出し、発生しうる例外を処理できます。
+`LaunchedEffect()`は、コンポーザブルのライフサイクルに関連付けられたコルーチンを起動します。このコルーチン内で、共有の`greet()`関数が呼び出され、その結果が`text`に割り当てられ、発生した例外はキャッチされて処理されます。
 
 ### iOSコード {id="ios-view"}
 
-1.  `iosApp/iosApp/iOSApp.swift`ファイルを開き、アプリケーションのエントリポイントを更新します。
-    ```Swift
-    import SwiftUI
-    
-    @main
-    struct iOSApp: App {
-    	var body: some Scene {
-    		WindowGroup {
-    			ContentView(viewModel: ContentView.ViewModel())
-    		}
-    	}
-    }
-    ```
+<Path>iosApp/iosApp/ContentView.swift</Path>ファイルを開き、コードを次のように更新します。
 
-2.  `iosApp/iosApp/ContentView.swift`ファイルを開き、`ContentView`のコードを次のように更新します。
-    ```Swift
-    import SwiftUI
-    import shared
-    
-    struct ContentView: View {
-        @ObservedObject private(set) var viewModel: ViewModel
-    
-        var body: some View {
-            Text(viewModel.text)
-        }
+```Swift
+import SwiftUI
+import Shared
+
+struct ContentView: View {
+    @StateObject private var viewModel = ViewModel()
+
+    var body: some View {
+        Text(viewModel.text)
     }
-    
-    extension ContentView {
-        class ViewModel: ObservableObject {
-            @Published var text = "Loading..."
-            init() {
-                Greeting().greeting { greeting, error in
-                    DispatchQueue.main.async {
-                        if let greeting = greeting {
-                            self.text = greeting
-                        } else {
-                            self.text = error?.localizedDescription ?? "error"
-                        }
-                    }
+}
+
+extension ContentView {
+    @MainActor
+    class ViewModel: ObservableObject {
+        @Published var text = "Loading..."
+        init() {
+            Greeting().greet { greeting, error in
+                if let greeting = greeting {
+                    self.text = greeting
+                } else {
+                    self.text = error?.localizedDescription ?? "error"
                 }
             }
         }
     }
-    ```
+}
+```
 
-    iOSでは、サスペンド関数`greeting`はコールバックを持つ関数として利用できます。
+iOSでは、サスペンド関数`greet()`はコールバックを持つ関数として利用できます。
 
 ## Androidでインターネットアクセスを有効にする {id="android-internet"}
 
 最後に行う必要があるのは、Androidアプリケーションのインターネットアクセスを有効にすることです。
-`androidApp/src/main/AndroidManifest.xml`ファイルを開き、`uses-permission`要素を使用して必要なパーミッションを有効にします。
+<Path>composeApp/src/androidMain/AndroidManifest.xml</Path>ファイルを開き、`&lt;uses-permission&gt;`要素を使用して必要なパーミッションを有効にします。
 
 ```xml
 <manifest>
@@ -305,20 +259,26 @@ fun DefaultPreview() {
 </manifest> 
 ```
 
-## アプリケーションを実行する {id="run"}
+## Androidでアプリケーションを実行する {id="run-android"}
 
-作成したマルチプラットフォームアプリケーションをAndroidまたはiOSシミュレーターで実行するには、**androidApp**または**iosApp**を選択し、**Run**をクリックします。
-シミュレーターには、受信したHTMLドキュメントがプレーンテキストで表示されるはずです。
+1.  IntelliJ IDEAで、実行構成のリストから**composeApp**を選択します。
+2.  構成リストの横にあるAndroid仮想デバイスを選択し、**Run**をクリックします。
+    ![composeApp selected with a Pixel 8 API device](tutorial_client_kmp_run_android.png){width="381" style="block"}
 
-<Tabs>
-<TabItem title="Android">
+    リストにデバイスがない場合は、[新しいAndroid仮想デバイス](https://developer.android.com/studio/run/managing-avds#createavd)を作成します。
+3.  ロードされると、シミュレーターは受信したHTMLドキュメントをプレーンテキストで表示するはずです。
+    ![Android simulator](tutorial_client_kmp_android.png){width="381" style="block"}
 
-![Androidシミュレーター](tutorial_client_kmm_android.png){width="381"}
+> Androidエミュレーターがインターネットに接続できない場合は、コールドブートを試してください。**Device Manager**ツールウィンドウで、停止しているデバイスの横にある**⋮**（3つの点）をクリックし、メニューから**Cold Boot**を選択します。これは、接続の問題を引き起こす可能性のある破損したエミュレーターキャッシュをクリアするのに役立つことがよくあります。
+>
+{style="tip"}
 
-</TabItem>
-<TabItem title="iOS">
+## iOSでアプリケーションを実行する {id="run-ios"}
 
-![iOSシミュレーター](tutorial_client_kmm_ios.png){width="351"}
+1.  IntelliJ IDEAで、実行構成のリストから**iosApp**を選択します。
+2.  構成リストの横にあるiOSシミュレートされたデバイスを選択し、**Run**をクリックします。
+    ![iOsApp selected with iPhone 16 device](tutorial_client_kmp_run_ios.png){width="381" style="block"}
 
-</TabItem>
-</Tabs>
+    リストに利用可能なiOS構成がない場合は、[新しい実行構成](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-create-first-app.html#run-on-a-new-ios-simulated-device)を追加してください。
+3.  ロードされると、シミュレーターは受信したHTMLドキュメントをプレーンテキストで表示するはずです。
+    ![iOS simulator](tutorial_client_kmp_ios.png){width="381" style="block"}

@@ -1,10 +1,24 @@
 [//]: # (title: Kotlinに関する書籍)
 
-Kotlinの学習に関する書籍が、様々な言語でより多くの著者によって書かれるようになっています。私たちはそのすべての著者に深く感謝しており、プロフェッショナルなKotlin開発者の数を増やすための彼らのあらゆる努力を高く評価しています。
+さまざまな言語で、より多くの著者がKotlin学習のための書籍を執筆しています。私たちはそのすべての方々に深く感謝し、プロフェッショナルなKotlin開発者の数を増やすためのあらゆる努力を高く評価しています。
 
-以下に、私たちがレビューし、Kotlinの学習におすすめする数冊の書籍をご紹介します。より多くの書籍は、[私たちのコミュニティウェブサイト](https://kotlin.link/)でご覧いただけます。
+ここでは、私たちがレビューし、Kotlinの学習におすすめする数冊の書籍をご紹介します。より多くの書籍は、[私たちのコミュニティウェブサイト](https://kotlin.link/)でご覧いただけます。
 
 <table style="none">
+<tr>
+<td>
+<img src="kotlin-in-action-second-edition.png" alt="Kotlin in Action" width="250"/>
+</td>
+<td>
+
+[Kotlin in Action](https://www.manning.com/books/kotlin-in-action-second-edition) は、プロダクション品質のアプリケーションにKotlin言語を使用する方法を教えてくれます。
+Javaやその他のオブジェクト指向言語に慣れた開発者向けに書かれたこの例豊富な書籍は、ほとんどの言語に関する書籍よりも踏み込んでいます。第2版では、Kotlinコルーチンライブラリに関する広範なセクションが加わり、さらに充実しています。
+
+この書籍は、Kotlinチームの現メンバーまたは元メンバーであるSebastian Aigner、Roman Elizarov、Svetlana Isakova、およびDmitry Jemerovによって執筆されました。
+
+</td>
+</tr>
+
 <tr>
 <td>
 <img src="atomic-kotlin.png" alt="Atomic Kotlin" width="250"/>
@@ -37,22 +51,6 @@ Kotlinを本当に理解したいなら、この本がおすすめです。
 
 <tr>
 <td>
-<img src="kotlin-in-action.png" alt="Kotlin in Action" width="250"/>
-</td>
-<td>
-
-[Kotlin in Action](https://manning.com/books/kotlin-in-action) は、プロダクション品質のアプリケーションにKotlin言語を使用する方法を教えてくれます。
-経験豊富なJava開発者向けに書かれたこの例豊富な書籍は、ほとんどの言語に関する書籍よりも踏み込んでおり、自然言語構文でDSLsを構築するような興味深いトピックも扱っています。
-
-この書籍は、Kotlinチームのデベロッパーであるドミトリー・ジェメロフとスヴェトラーナ・イサコワによって書かれました。
-
-Kotlinの型システムを扱う第6章と、DSLsを扱う第11章は、[出版社のウェブサイト](https://www.manning.com/books/kotlin-in-action#downloads)で無料プレビューとして利用可能です。
-
-</td>
-</tr>
-
-<tr>
-<td>
 <img src="big-nerd-ranch-guide.jpg" alt="Kotlin Programming: The Big Nerd Ranch Guide" width="250"/>
 </td>
 <td>
@@ -72,7 +70,7 @@ Kotlinの型システムを扱う第6章と、DSLsを扱う第11章は、[出版
 </td>
 <td>
 
-[Programming Kotlin](https://pragprog.com/book/vskotlin/programming-kotlin) はヴェンカット・スブラマニアムによって書かれました。
+[Programming Kotlin](https://pragprog.com/titles/vskotlin/programming-kotlin/) はヴェンカット・スブラマニアムによって書かれました。
 
 プログラマはKotlinを使うだけでなく、それを愛しています。Googleでさえ、Android開発におけるファーストクラスの言語として採用しています。
 

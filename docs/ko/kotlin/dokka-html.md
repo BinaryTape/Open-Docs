@@ -9,6 +9,13 @@ HTML은 Dokka의 기본 권장 출력 형식입니다. 현재 베타 단계이�
 HTML은 모든 러너에서 지원하는 출력 형식입니다. HTML 문서를 생성하려면 빌드 도구 또는 러너에 따라 다음 단계를 따르세요.
 
 *   [Gradle](dokka-gradle.md#generate-documentation)의 경우, `dokkaHtml` 또는 `dokkaHtmlMultiModule` 작업을 실행합니다.
+
+    > Dokka 2.0.0부터, [문서 생성을 위한 Gradle 작업이 변경되었습니다](dokka-migration.md#generate-documentation-with-the-updated-task).
+    >
+    > 자세한 내용과 변경 사항 전체 목록은 [마이그레이션 가이드](dokka-migration.md)를 참조하세요.
+    >
+    {style="note"}
+
 *   [Maven](dokka-maven.md#generate-documentation)의 경우, `dokka:dokka` 골(goal)을 실행합니다.
 *   [CLI 러너](dokka-cli.md#generate-documentation)의 경우, HTML 의존성을 설정하여 실행합니다.
 

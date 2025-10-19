@@ -49,8 +49,8 @@ dependencies {
 <!--- INCLUDE
 import ai.koog.agents.core.agent.AIAgent
 import ai.koog.agents.core.agent.functionalStrategy
-import ai.koog.agents.core.agent.asAssistantMessage
-import ai.koog.agents.core.agent.requestLLM
+import ai.koog.agents.core.dsl.extension.asAssistantMessage
+import ai.koog.agents.core.dsl.extension.requestLLM
 import ai.koog.prompt.executor.llms.all.simpleOllamaAIExecutor
 import ai.koog.prompt.llm.OllamaModels
 import kotlinx.coroutines.runBlocking
@@ -63,20 +63,20 @@ fun main() {
 }
 -->
 ```kotlin
-// 建立一個 AIAgent 實例並提供一個系統提示、提示執行器和 LLM
+// Create an AIAgent instance and provide a system prompt, prompt executor, and LLM
 val mathAgent = AIAgent<String, String>(
     systemPrompt = "You are a precise math assistant.",
     promptExecutor = simpleOllamaAIExecutor(),
     llmModel = OllamaModels.Meta.LLAMA_3_2,
-    strategy = functionalStrategy { input -> // 定義代理邏輯
-        // 進行一次 LLM 呼叫
+    strategy = functionalStrategy { input -> // Define the agent logic
+        // Make one LLM call
         val response = requestLLM(input)
-        // 從回應中提取並傳回助理訊息內容
+        // Extract and return the assistant message content from the response
         response.asAssistantMessage().content
     }
 )
 
-// 執行代理與使用者輸入並列印結果
+// Run the agent with a user input and print the result
 val result = mathAgent.run("What is 12 × 9?")
 println(result)
 ```
@@ -94,8 +94,8 @@ The answer to 12 × 9 is 108.
 <!--- INCLUDE
 import ai.koog.agents.core.agent.AIAgent
 import ai.koog.agents.core.agent.functionalStrategy
-import ai.koog.agents.core.agent.asAssistantMessage
-import ai.koog.agents.core.agent.requestLLM
+import ai.koog.agents.core.dsl.extension.asAssistantMessage
+import ai.koog.agents.core.dsl.extension.requestLLM
 import ai.koog.prompt.executor.llms.all.simpleOllamaAIExecutor
 import ai.koog.prompt.llm.OllamaModels
 import kotlinx.coroutines.runBlocking
@@ -108,22 +108,22 @@ fun main() {
 }
 -->
 ```kotlin
-// 建立一個 AIAgent 實例並提供一個系統提示、提示執行器和 LLM
+// Create an AIAgent instance and provide a system prompt, prompt executor, and LLM
 val mathAgent = AIAgent<String, String>(
     systemPrompt = "You are a precise math assistant.",
     promptExecutor = simpleOllamaAIExecutor(),
     llmModel = OllamaModels.Meta.LLAMA_3_2,
-    strategy = functionalStrategy { input -> // 定義代理邏輯
-        // 第一次 LLM 呼叫，根據使用者輸入產生初始草稿
+    strategy = functionalStrategy { input -> // Define the agent logic
+        // The first LLM call to produce an initial draft based on the user input
         val draft = requestLLM("Draft: $input").asAssistantMessage().content
-        // 第二次 LLM 呼叫，透過草稿內容再次提示 LLM 來改進草稿
+        // The second LLM call to improve the draft by prompting the LLM again with the draft content
         val improved = requestLLM("Improve and clarify: $draft").asAssistantMessage().content
-        // 最後一次 LLM 呼叫，格式化改進後的文字並傳回最終格式化結果
+        // The final LLM call to format the improved text and return the final formatted result
         requestLLM("Format the result as bold: $improved").asAssistantMessage().content
     }
 )
 
-// 執行代理與使用者輸入並列印結果
+// Run the agent with a user input and print the result
 val result = mathAgent.run("What is 12 × 9?")
 println(result)
 ```
@@ -208,12 +208,12 @@ import ai.koog.agents.core.tools.reflect.tools
 import ai.koog.agents.core.tools.ToolRegistry
 import ai.koog.agents.core.agent.AIAgent
 import ai.koog.agents.core.agent.functionalStrategy
-import ai.koog.agents.core.agent.asAssistantMessage
-import ai.koog.agents.core.agent.containsToolCalls
-import ai.koog.agents.core.agent.executeMultipleTools
-import ai.koog.agents.core.agent.extractToolCalls
-import ai.koog.agents.core.agent.requestLLMMultiple
-import ai.koog.agents.core.agent.sendMultipleToolResults
+import ai.koog.agents.core.dsl.extension.asAssistantMessage
+import ai.koog.agents.core.dsl.extension.containsToolCalls
+import ai.koog.agents.core.dsl.extension.executeMultipleTools
+import ai.koog.agents.core.dsl.extension.extractToolCalls
+import ai.koog.agents.core.dsl.extension.requestLLMMultiple
+import ai.koog.agents.core.dsl.extension.sendMultipleToolResults
 import ai.koog.prompt.executor.llms.all.simpleOllamaAIExecutor
 import ai.koog.prompt.llm.OllamaModels
 import kotlinx.coroutines.runBlocking
@@ -234,26 +234,26 @@ val mathWithTools = AIAgent<String, String>(
     promptExecutor = simpleOllamaAIExecutor(),
     llmModel = OllamaModels.Meta.LLAMA_3_2,
     toolRegistry = toolRegistry,
-    strategy = functionalStrategy { input -> // 定義擴展了工具呼叫的代理邏輯
-        // 將使用者輸入發送到 LLM
+    strategy = functionalStrategy { input -> // Define the agent logic extended with tool calls
+        // Send the user input to the LLM
         var responses = requestLLMMultiple(input)
-        
-        // 僅在 LLM 請求工具時進行迴圈
+
+        // Only loop while the LLM requests tools
         while (responses.containsToolCalls()) {
-            // 從回應中提取工具呼叫
+            // Extract tool calls from the response
             val pendingCalls = extractToolCalls(responses)
-            // 執行工具並傳回結果
+            // Execute the tools and return the results
             val results = executeMultipleTools(pendingCalls)
-            // 將工具結果傳回給 LLM。LLM 可能會呼叫更多工具或傳回最終輸出
+            // Send the tool results back to the LLM. The LLM may call more tools or return a final output
             responses = sendMultipleToolResults(results)
         }
 
-        // 當沒有工具呼叫時，從回應中提取並傳回助理訊息內容
+        // When no tool calls remain, extract and return the assistant message content from the response
         responses.single().asAssistantMessage().content
     }
 )
 
-// 執行代理與使用者輸入並列印結果
+// Run the agent with a user input and print the result
 val reply = mathWithTools.run("Please multiply 12.5 and 4, then add 10 to the result.")
 println(reply)
 ```

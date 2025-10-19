@@ -589,6 +589,7 @@ runBlocking {
     val file = File.createTempFile("files", "index")
     val stream = file.outputStream().asSink()
     val fileSize = 100 * 1024 * 1024
+    val bufferSize = 1024 * 1024
 
     runBlocking {
         client.prepareGet("https://httpbin.org/bytes/$fileSize").execute { httpResponse ->
@@ -596,7 +597,7 @@ runBlocking {
             var count = 0L
             stream.use {
                 while (!channel.exhausted()) {
-                    val chunk = channel.readRemaining()
+                    val chunk = channel.readRemaining(bufferSize)
                     count += chunk.remaining
 
                     chunk.transferTo(stream)
@@ -617,8 +618,7 @@ runBlocking {
 
 ### 属性键现在需要精确类型匹配
 
-在 Ktor 3.0.0 中，[
-`AttributeKey`](https://api.ktor.io/older/3.0.0/ktor-utils/io.ktor.util/-attribute-key.html) 实例现在通过标识进行比较，并在存储和检索值时需要精确的类型匹配。这确保了类型安全，并防止由类型不匹配引起的意外行为。
+在 Ktor 3.0.0 中，[`AttributeKey`](https://api.ktor.io/older/3.0.0/ktor-utils/io.ktor.util/-attribute-key.html) 实例现在通过标识进行比较，并在存储和检索值时需要精确的类型匹配。这确保了类型安全，并防止由类型不匹配引起的意外行为。
 
 以前，可以使用与存储时不同的泛型类型来检索属性，例如使用 `getOrNull<Any>()` 来获取 `AttributeKey<Boolean>`。
 

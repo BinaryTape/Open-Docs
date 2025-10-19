@@ -226,12 +226,12 @@ import ai.koog.agents.core.agent.config.AIAgentConfig
 ```kotlin
 val agentConfig = AIAgentConfig.withSystemPrompt(
     prompt = """
-        You are a simple calculator assistant.
-        You can add two numbers together using the calculator tool.
-        When the user provides input, extract the numbers they want to add.
-        The input might be in various formats like "add 5 and 7", "5 + 7", or just "5 7".
-        Extract the two numbers and use the calculator tool to add them.
-        Always respond with a clear, friendly message showing the calculation and result.
+        あなたはシンプルな電卓アシスタントです。
+        電卓ツールを使用して2つの数値を加算できます。
+        ユーザーが入力すると、加算したい数値を抽出します。
+        入力は「add 5 and 7」、「5 + 7」、または単に「5 7」のような様々な形式である可能性があります。
+        2つの数値を抽出し、電卓ツールを使用して加算します。
+        常に計算と結果を示す明確で親しみやすいメッセージで応答してください。
         """.trimIndent()
 )
 ```
@@ -248,12 +248,12 @@ val agentConfig = AIAgentConfig(
     prompt = Prompt.build("simple-calculator") {
         system(
             """
-                You are a simple calculator assistant.
-                You can add two numbers together using the calculator tool.
-                When the user provides input, extract the numbers they want to add.
-                The input might be in various formats like "add 5 and 7", "5 + 7", or just "5 7".
-                Extract the two numbers and use the calculator tool to add them.
-                Always respond with a clear, friendly message showing the calculation and result.
+                あなたはシンプルな電卓アシスタントです。
+                電卓ツールを使用して2つの数値を加算できます。
+                ユーザーが入力すると、加算したい数値を抽出します。
+                入力は「add 5 and 7」、「5 + 7」、または単に「5 7」のような様々な形式である可能性があります。
+                2つの数値を抽出し、電卓ツールを使用して加算します。
+                常に計算と結果を示す明確で親しみやすいメッセージで応答してください。
                 """.trimIndent()
         )
     },
@@ -278,7 +278,7 @@ import ai.koog.agents.core.tools.reflect.tools
 -->
 ```kotlin
 // 2つの数値を加算できるシンプルな電卓ツールを実装する
-@LLMDescription("Tools for performing basic arithmetic operations")
+@LLMDescription("基本的な算術演算を実行するためのツール")
 class CalculatorTools : ToolSet {
     @Tool
     @LLMDescription("2つの数値を加算し、その合計を返す")
@@ -468,12 +468,12 @@ val agentConfig = AIAgentConfig(
     prompt = Prompt.build("simple-calculator") {
         system(
             """
-                You are a simple calculator assistant.
-                You can add two numbers together using the calculator tool.
-                When the user provides input, extract the numbers they want to add.
-                The input might be in various formats like "add 5 and 7", "5 + 7", or just "5 7".
-                Extract the two numbers and use the calculator tool to add them.
-                Always respond with a clear, friendly message showing the calculation and result.
+                あなたはシンプルな電卓アシスタントです。
+                電卓ツールを使用して2つの数値を加算できます。
+                ユーザーが入力すると、加算したい数値を抽出します。
+                入力は「add 5 and 7」、「5 + 7」、または単に「5 7」のような様々な形式である可能性があります。
+                2つの数値を抽出し、電卓ツールを使用して加算します。
+                常に計算と結果を示す明確で親しみやすいメッセージで応答してください。
                 """.trimIndent()
         )
     },
@@ -482,7 +482,7 @@ val agentConfig = AIAgentConfig(
 )
 
 // 2つの数値を加算できるシンプルな電卓ツールを実装する
-@LLMDescription("Tools for performing basic arithmetic operations")
+@LLMDescription("基本的な算術演算を実行するためのツール")
 class CalculatorTools : ToolSet {
     @Tool
     @LLMDescription("2つの数値を加算し、その合計を返す")

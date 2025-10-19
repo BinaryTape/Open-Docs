@@ -21,6 +21,9 @@ Javadoc 출력 형식은 [Dokka 플러그인](dokka-plugins.md)으로 구현되�
 
 ## Javadoc 문서 생성
 
+> Dokka 2.0.0부터 [문서 생성을 위한 Gradle 작업이 변경되었습니다](dokka-migration.md#select-documentation-output-format).
+> 자세한 내용과 전체 변경 사항 목록은 [마이그레이션 가이드](dokka-migration.md)를 참조하세요.
+>
 > Javadoc 형식은 멀티플랫폼 프로젝트를 지원하지 않습니다.
 >
 {style="warning"}
@@ -50,7 +53,8 @@ Javadoc 출력 형식은 [Dokka 플러그인](dokka-plugins.md)으로 구현되�
 </tab>
 <tab title="CLI" group-key="cli">
 
-Javadoc 출력 형식은 [Dokka 플러그인](dokka-plugins.md#apply-dokka-plugins)이므로, [플러그인의 JAR 파일을 다운로드](https://repo1.maven.org/maven2/org/jetbrains/dokka/javadoc-plugin/%dokkaVersion%/javadoc-plugin-%dokkaVersion%.jar)해야 합니다.
+Javadoc 출력 형식은 [Dokka 플러그인](dokka-plugins.md#apply-dokka-plugins)이므로,
+[플러그인의 JAR 파일을 다운로드](https://repo1.maven.org/maven2/org/jetbrains/dokka/javadoc-plugin/%dokkaVersion%/javadoc-plugin-%dokkaVersion%.jar)해야 합니다.
 
 Javadoc 출력 형식에는 추가 JAR 파일로 제공해야 하는 두 가지 의존성(dependency)이 있습니다:
 

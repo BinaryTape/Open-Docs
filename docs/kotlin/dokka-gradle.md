@@ -1,5 +1,16 @@
 [//]: # (title: Gradle)
 
+> 从 Dokka 2.0.0 开始，一些配置选项、Gradle 任务以及生成文档的步骤已更新，包括：
+>
+> *   [调整配置选项](dokka-migration.md#adjust-configuration-options)
+> *   [使用多模块项目](dokka-migration.md#share-dokka-configuration-across-modules)
+> *   [使用更新的任务生成文档](dokka-migration.md#generate-documentation-with-the-updated-task)
+> *   [指定输出目录](dokka-migration.md#output-directory)
+>
+> 有关更多详细信息和完整的变更列表，请参阅[迁移指南](dokka-migration.md)。
+>
+{style="note"}
+
 要为基于 Gradle 的项目生成文档，你可以使用 [Dokka 的 Gradle 插件](https://plugins.gradle.org/plugin/org.jetbrains.dokka)。
 
 它为你的项目提供了基本的自动配置，拥有方便的 [Gradle 任务](#generate-documentation)用于生成文档，并提供了大量的 [配置选项](#configuration-options)以定制输出。
@@ -31,7 +42,7 @@ plugins {
 </tab>
 </tabs>
 
-当为 [多项目构建](#multi-project-builds)生成文档时，你还需要在子项目中应用 Dokka 的 Gradle 插件。你可以使用 `allprojects {}` 或 `subprojects {}` Gradle 配置来实现：
+当为[多项目](#multi-project-builds)构建生成文档时，你还需要在子项目中应用 Dokka 的 Gradle 插件。你可以使用 `allprojects {}` 或 `subprojects {}` Gradle 配置来实现：
 
 <tabs group="build-script">
 <tab title="Gradle Kotlin DSL" group-key="kotlin">
@@ -54,13 +65,13 @@ subprojects {
 </tab>
 </tabs>
 
-如果你不确定在哪里应用 Dokka，请参阅 [配置示例](#configuration-examples)。
+如果你不确定在哪里应用 Dokka，请参阅[配置示例](#configuration-examples)。
 
-> Dokka 在底层使用 [Kotlin Gradle 插件](https://kotlinlang.org/docs/gradle-configure-project.html#apply-the-plugin)来自动配置需要生成文档的 [源代码集](https://kotlinlang.org/docs/multiplatform-discover-project.html#source-sets)。请确保应用 Kotlin Gradle 插件或手动[配置源代码集](#source-set-configuration)。
+> Dokka 在底层使用 [Kotlin Gradle 插件](https://kotlinlang.org/docs/gradle-configure-project.html#apply-the-plugin)来自动配置需要生成文档的[源代码集](https://kotlinlang.org/docs/multiplatform-discover-project.html#source-sets)。请确保应用 Kotlin Gradle 插件或手动[配置源代码集](#source-set-configuration)。
 >
 {style="note"}
 
-> 如果你在 [预编译脚本插件](https://docs.gradle.org/current/userguide/custom_plugins.html#sec:precompiled_plugins)中使用 Dokka，你需要将 [Kotlin Gradle 插件](https://kotlinlang.org/docs/gradle-configure-project.html#apply-the-plugin)添加为它的依赖项，以使其正常工作。
+> 如果你在[预编译脚本插件](https://docs.gradle.org/current/userguide/custom_plugins.html#sec:precompiled_plugins)中使用 Dokka，你需要将 [Kotlin Gradle 插件](https://kotlinlang.org/docs/gradle-configure-project.html#apply-the-plugin)添加为它的依赖项，以使其正常工作。
 >
 {style="note"}
 
@@ -90,7 +101,7 @@ Dokka 的 Gradle 插件内置了 [HTML](dokka-html.md)、[Markdown](dokka-markdo
 
 ### 多项目构建
 
-为 [多项目构建](https://docs.gradle.org/current/userguide/multi_project_builds.html)生成文档时，请确保在要生成文档的子项目及其父项目中都[应用 Dokka 的 Gradle 插件](#apply-dokka)。
+为[多项目构建](https://docs.gradle.org/current/userguide/multi_project_builds.html)生成文档时，请确保在要生成文档的子项目及其父项目中都[应用 Dokka 的 Gradle 插件](#apply-dokka)。
 
 #### MultiModule 任务
 
@@ -695,7 +706,7 @@ tasks.withType(DokkaTask.class) {
     <def title="outputDirectory">
         <p>生成文档的目录，与格式无关。可以按任务设置。</p>
         <p>
-            默认值是 <code>{project}/{buildDir}/{format}</code>，其中 <code>{format}</code> 是去除了“dokka”前缀的任务名称。对于 <code>dokkaHtmlMultiModule</code> 任务，它是 
+            默认值是 <code>{project}/{buildDir}/{format}</code>，其中 <code>{format}</code> 是去除了“dokka”前缀的任务名称。对于 <code>dokkaHtmlMultiModule</code> 任务，它是
             <code>project/buildDir/htmlMultiModule</code>。
         </p>
     </def>
@@ -727,7 +738,7 @@ tasks.withType(DokkaTask.class) {
         <p>是否抑制在给定类中未显式覆盖的继承成员。</p>
         <p>
             注意：这可以抑制诸如 <code>equals</code> / <code>hashCode</code> / <code>toString</code> 等函数，
-            但不能抑制诸如 <code>dataClass.componentN</code> 和 
+            但不能抑制诸如 <code>dataClass.componentN</code> 和
             <code>dataClass.copy</code> 等合成函数。为此请使用 <code>suppressObviousFunctions</code>。
         </p>
         <p>默认值：<code>false</code></p>
@@ -735,8 +746,8 @@ tasks.withType(DokkaTask.class) {
     <def title="offlineMode">
         <p>是否通过网络解析远程文件/链接。</p>
         <p>
-            这包括用于生成外部文档链接的包列表。 
-            例如，使标准库中的类可点击。 
+            这包括用于生成外部文档链接的包列表。
+            例如，使标准库中的类可点击。
         </p>
         <p>
             将此设置为 <code>true</code> 在某些情况下可以显著加快构建时间，
@@ -829,7 +840,7 @@ tasks.withType(DokkaTask.class) {
     // ..
     
     dokkaSourceSets {
-        // 'linux' 源代码集专属配置 
+        // 'linux' 源代码集专属配置
         named("linux") {
             dependsOn("native")
             sourceRoots.from(file("linux/src"))
@@ -879,7 +890,7 @@ tasks.withType(DokkaTask.class) {
     <def title="displayName">
         <p>用于指代此源代码集的显示名称。</p>
         <p>
-            此名称在外部（例如，文档阅读器可见的源代码集名称）和 
+            此名称在外部（例如，文档阅读器可见的源代码集名称）和
             内部（例如，<code>reportUndocumented</code> 的日志消息）都使用。
         </p>
         <p>默认情况下，该值根据 Kotlin Gradle 插件提供的信息推断。</p>
@@ -922,7 +933,7 @@ tasks.withType(DokkaTask.class) {
             生成的文件预计位于 <code>{project}/{buildDir}/generated</code> 目录下。
         </p>
         <p>
-            如果设置为 <code>true</code>，它会有效地将该目录中的所有文件添加到 
+            如果设置为 <code>true</code>，它会有效地将该目录中的所有文件添加到
             <code>suppressedFiles</code> 选项中，因此你可以手动配置它。
         </p>
         <p>默认值：<code>true</code></p>
@@ -982,7 +993,7 @@ tasks.withType(DokkaTask.class) {
     </def>
     <def title="platform">
         <p>
-            用于设置代码分析和 
+            用于设置代码分析和
             <a href="https://kotlinlang.org/docs/kotlin-doc.html#sample-identifier">@sample</a> 环境的平台。
         </p>
         <p>默认值根据 Kotlin Gradle 插件提供的信息推断。</p>

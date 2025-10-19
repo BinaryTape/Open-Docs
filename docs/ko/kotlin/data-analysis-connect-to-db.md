@@ -13,6 +13,7 @@ Kotlin Notebook 기능이 사용 가능하지 않다면, 플러그인이 활성�
 새 Kotlin Notebook 생성:
 
 1.  **File** | **New** | **Kotlin Notebook**를 선택합니다.
+
 2.  MariaDB 또는 MySQL과 같은 SQL 데이터베이스에 접근할 수 있는지 확인하세요.
 
 ## 데이터베이스 연결

@@ -22,6 +22,15 @@ Dokka 插件作为独立的构件发布，因此要应用 Dokka 插件，你只�
 <tabs group="build-script">
 <tab title="Kotlin" group-key="kotlin">
 
+> 从 Dokka 2.0.0 开始，几个配置选项、Gradle 任务以及生成文档的步骤已更新，其中包括：
+>
+> * [配置 Dokka 插件](dokka-migration.md#configure-dokka-plugins)
+> * [使用多模块项目](dokka-migration.md#share-dokka-configuration-across-modules)
+>
+> 有关更多详细信息和完整更改列表，请参见[迁移指南](dokka-migration.md)。
+>
+> {style="note"}
+
 Dokka 的 Gradle 插件会创建方便的依赖项配置，允许你通用地应用插件，或者仅针对特定输出格式应用插件。
 
 ```kotlin
@@ -44,7 +53,7 @@ dependencies {
 </tab>
 <tab title="Groovy" group-key="groovy">
 
-Dokka 的 Gradle 插件会创建方便的依赖项配置，允许你通用地应用插件，或者仅针对特定输出格式应用插件。
+Dokka 的 Gradle 插件会创建方便的依赖项配置，允许你通用地应用 Dokka 插件，或者仅针对特定输出格式应用插件。
 
 ```groovy
 dependencies {

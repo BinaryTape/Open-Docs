@@ -96,7 +96,8 @@ composable(Destinations.Followers.route) { navBackStackEntry ->
 
 ### iOS 上移除了过时的 `platformLayers` 选项
 
-`platformLayers` 实验性选项[在 1.6.0 中引入](whats-new-compose-160.md#separate-platform-views-for-popups-dialogs-and-dropdowns-ios-desktop)，旨在允许启用替代分层模式并在父容器边界之外绘制弹窗和对话框。
+`platformLayers`
+实验性选项[在 1.6.0 中引入](whats-new-compose-160.md#separate-platform-views-for-popups-dialogs-and-dropdowns-ios-desktop)，旨在允许启用替代分层模式并在父容器边界之外绘制弹窗和对话框。
 
 此模式现在是 iOS 上的默认行为，并且启用它的选项已因过时而被移除。
 
@@ -281,9 +282,9 @@ UI 元素现在提供广泛的辅助功能数据，并且任何 alpha 值为 0 �
 在 iOS 上启用操作系统日志记录的 API 现在已稳定。`enableTraceOSLog()` 函数不再需要实验性选择加入，并且现在与 Android 风格的日志记录保持一致。此日志记录提供可使用 Xcode Instruments 进行分析的跟踪信息，用于调试和性能分析。
 
 ### 拖放
-<secondary-label ref="Experimental"/>
+<primary-label ref="Experimental"/>
 
-Compose Multiplatform for iOS 引入了对拖放功能的​​支持，允许您将内容拖入或拖出 Compose 应用程序（请参见拉取请求 [1690](https://github.com/JetBrains/compose-multiplatform-core/pull/1690) 获取演示视频）。
+Compose Multiplatform for iOS 引入了对拖放功能的​​支持，允许您将内容拖入或拖出 Compose 应用程序（请参见拉取请求 [1690](https://github.Hcom/JetBrains/compose-multiplatform-core/pull/1690) 获取演示视频）。
 要定义可拖动内容和放置目标，请使用 `dragAndDropSource` 和 `dragAndDropTarget` 修饰符。
 
 在 iOS 上，拖放会话数据由 [`UIDragItem`](https://developer.apple.com/documentation/uikit/uidragitem) 表示。
@@ -301,7 +302,7 @@ Compose Multiplatform for iOS 引入了对拖放功能的​​支持，允许�
 * 嵌套的可滚动视图在通用[互操作触控框架](compose-ios-touch.md)内正常工作：当在可滚动的 Compose 视图内滚动原生内容，或在可滚动的原生视图内滚动 Compose 内容时，UI 会严格遵循 iOS 逻辑来解决模糊的触控序列。
 
 ### 选择启用并发渲染
-<secondary-label ref="Experimental"/>
+<primary-label ref="Experimental"/>
 
 Compose Multiplatform for iOS 现在支持将渲染任务卸载到专用的渲染线程。
 并发渲染可能会在没有 UIKit 互操作的情况下提高性能。
@@ -331,7 +332,7 @@ Web 应用程序还将操作浏览器地址栏以反映当前目标路由，并�
 `window.bindToNavigation()` 方法具有可选的 `getBackStackEntryPath` 形参，允许您自定义路由字符串到 URL 片段的转换。
 
 ### 设置浏览器光标
-<secondary-label ref="Experimental"/>
+<primary-label ref="Experimental"/>
 
 我们引入了一个实验性的 `PointerIcon.Companion.fromKeyword()` 函数，用于管理可在浏览器页面上用作鼠标指针的图标。通过传递一个关键字作为形参，您可以根据上下文指定要显示的光标类型。
 例如，您可以为选择文本、打开上下文菜单或指示加载过程分配不同的指针图标。
@@ -339,7 +340,7 @@ Web 应用程序还将操作浏览器地址栏以反映当前目标路由，并�
 查看可用的[关键字](https://developer.mozilla.org/en-US/docs/Web/CSS/cursor)完整列表。
 
 ### 资源预加载
-<secondary-label ref="Experimental"/>
+<primary-label ref="Experimental"/>
 
 Compose Multiplatform 1.8.2 引入了一个新的实验性 API，用于为 Web 目标平台预加载字体和图像。
 预加载有助于防止视觉问题，例如未样式化文本的闪现 (FOUT) 或图像和图标的闪烁。
@@ -384,7 +385,7 @@ compose.resources {
 关于更多详细信息，请参见[拉取请求](https://github.com/JetBrains/compose-multiplatform/pull/5296)。
 
 ### `androidLibrary` 目标平台中对多平台资源的支持
-<secondary-label ref="Experimental"/>
+<primary-label ref="Experimental"/>
 
 从 Android Gradle 插件版本 8.8.0 开始，您可以在新的 `androidLibrary` 目标平台中使用生成的 assets。
 为了使 Compose Multiplatform 与这些更改保持一致，我们引入了对新目标配置的支持，以处理打包到 Android assets 中的多平台资源。

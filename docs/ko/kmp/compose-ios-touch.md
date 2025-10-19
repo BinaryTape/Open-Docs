@@ -20,13 +20,14 @@ iOS에서 Compose Multiplatform은 네이티브 UIKit 및 SwiftUI 프레임워�
 
 상호 운용 뷰가 상호 작용을 위한 것이 아니라면, 모든 터치 처리를 미리 비활성화할 수 있습니다. 그렇게 하려면 `UIKitView` 또는 `UIKitViewController`의 생성자를 `isInteractive` 매개변수를 `false`로 설정하여 호출하세요.
 
-> 상호 운용 뷰 내에서 제스처를 처리하는 더 복잡한 시나리오의 경우, `UIGestureRecognizer` 클래스 또는 그 다양한 서브클래스를 사용하세요.
+> 상호 운용 뷰 내에서 제스처를 처리하는 더 복잡한 시나리오의 경우,
+> `UIGestureRecognizer` 클래스 또는 그 다양한 서브클래스를 사용하세요.
 > 이는 네이티브 상호 운용 뷰에서 원하는 제스처를 감지하고 Compose의 터치 시퀀스를 취소할 수 있게 해줍니다.
 >
 {style="note"}
 
 ## 터치 처리 전략 선택
-<secondary-label ref="Experimental"/>
+<primary-label ref="Experimental"/>
 
 Compose Multiplatform %org.jetbrains.compose%를 사용하면 상호 운용 UI에 대한 더 세밀한 제어를 위한 실험적인 API도 사용해 볼 수 있습니다.
 
@@ -38,7 +39,7 @@ Compose Multiplatform %org.jetbrains.compose%를 사용하면 상호 운용 UI�
 `interactionMode` 매개변수는 `Cooperative` 또는 `NonCooperative`로 설정할 수 있습니다:
 
 *   `Cooperative` 모드는 위에 설명된 새로운 기본값입니다: Compose Multiplatform은 터치 처리에 지연을 도입합니다. 실험적인 API를 사용하면 기본 150ms 대신 다른 값을 시도하여 이 지연을 세밀하게 조정할 수 있습니다.
-*   `NonCooperative` 모드는 이전 전략을 사용하며, Compose Multiplatform은 상호 운용 뷰에서 어떠한 터치 이벤트도 처리하지 않습니다. 위에 나열된 일반적인 문제에도 불구하고, 이 모드는 상호 운용 터치가 Compose 수준에서 처리될 필요가 전혀 없다고 확신하는 경우 유용할 수 있습니다.
+*   NonCooperative 모드는 이전 전략을 사용하며, Compose Multiplatform은 상호 운용 뷰에서 어떠한 터치 이벤트도 처리하지 않습니다. 위에 나열된 일반적인 문제에도 불구하고, 이 모드는 상호 운용 터치가 Compose 수준에서 처리될 필요가 전혀 없다고 확신하는 경우 유용할 수 있습니다.
 *   네이티브 UI와의 상호 작용을 비활성화하려면, 생성자에 `interactionMode = null`을 전달하세요.
 
 ## 다음 단계는 무엇인가요?

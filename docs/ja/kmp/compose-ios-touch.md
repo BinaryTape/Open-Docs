@@ -25,7 +25,7 @@ iOSでは、Compose MultiplatformはネイティブのUIKitおよびSwiftUIフ�
 {style="note"}
 
 ## タッチ処理の戦略の選択
-<secondary-label ref="Experimental"/>
+<primary-label ref="Experimental"/>
 
 Compose Multiplatform %org.jetbrains.compose%では、相互運用UIをよりきめ細かく制御するための実験的APIも試すことができます。
 

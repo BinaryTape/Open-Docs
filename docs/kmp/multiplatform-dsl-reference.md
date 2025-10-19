@@ -1,7 +1,7 @@
 [//]: # (title: 多平台 Gradle DSL 参考)
 
 Kotlin Multiplatform Gradle 插件是用于创建 Kotlin 多平台项目的工具。
-在此，我们提供其内容的参考；在为 Kotlin Multi平台项目编写 Gradle 构建脚本时，可将其作为备忘录。了解 [Kotlin 多平台项目的概念，以及如何创建和配置它们](multiplatform-discover-project.md)。
+在此，我们提供其内容的参考；在为 Kotlin 多平台项目编写 Gradle 构建脚本时，可将其作为备忘录。了解 [Kotlin 多平台项目的概念，以及如何创建和配置它们](multiplatform-discover-project.md)。
 
 ## ID 和版本
 
@@ -169,7 +169,7 @@ kotlin {
 }
 ```
 
-所有 web 目标平台，`js`、`wasmJs` 和 `wasmWasi`，也都支持 `binaries.executable()` 调用。它明确指示 Kotlin 编译器发出可执行文件。有关更多信息，请参见 Kotlin/JS 文档中的 [执行环境](https://kotlinlang.org/docs/js-project-setup.html#execution-environments)。
+所有 web 目标平台，`js`、`wasmJs` 和 `wasmWasi`，也都支持 `binaries.executable()` 调用。它显式指示 Kotlin 编译器发出可执行文件。有关更多信息，请参见 Kotlin/JS 文档中的 [执行环境](https://kotlinlang.org/docs/js-project-setup.html#execution-environments)。
 
 #### 浏览器
 
@@ -238,7 +238,7 @@ kotlin {
     linuxX64 { // 请使用你的目标平台。
         binaries {
             executable {
-                // 二进制配置。
+                // Binary configuration.
             }
         }
     }
@@ -264,31 +264,31 @@ kotlin {
 ```kotlin
 binaries {
     executable("my_executable", listOf(RELEASE)) {
-        // 基于测试编译项构建二进制文件。
+        // Build a binary on the basis of the test compilation.
         compilation = compilations["test"]
 
-        // 链接器的自定义命令行选项。
+        // Custom command line options for the linker.
         linkerOpts = mutableListOf("-L/lib/search/path", "-L/another/search/path", "-lmylib")
 
-        // 输出文件的基础名称。
+        // Base name for the output file.
         baseName = "foo"
 
-        // 自定义入口函数。
+        // Custom entry point function.
         entryPoint = "org.example.main"
 
-        // 访问输出文件。
+        // Accessing the output file.
         println("Executable path: ${outputFile.absolutePath}")
 
-        // 访问链接任务。
+        // Accessing the link task.
         linkTask.dependsOn(additionalPreprocessingTask)
 
-        // 访问运行任务。
-        // 请注意，对于非主机平台，runTask 为 null。
+        // Accessing the run task.
+        // Note that the runTask is null for non-host platforms.
         runTask?.dependsOn(prepareForRun)
     }
 
     framework("my_framework" listOf(RELEASE)) {
-        // 在 framework 中包含静态库而非动态库。
+        // Include a static library instead of a dynamic one into the framework.
         isStatic = true
     }
 }
@@ -300,31 +300,31 @@ binaries {
 ```groovy
 binaries {
     executable('my_executable', [RELEASE]) {
-        // 基于测试编译项构建二进制文件。
+        // Build a binary on the basis of the test compilation.
         compilation = compilations.test
 
-        // 链接器的自定义命令行选项。
+        // Custom command line options for the linker.
         linkerOpts = ['-L/lib/search/path', '-L/another/search/path', '-lmylib']
 
-        // 输出文件的基础名称。
+        // Base name for the output file.
         baseName = 'foo'
 
-        // 自定义入口函数。
+        // Custom entry point function.
         entryPoint = 'org.example.main'
 
-        // 访问输出文件。
+        // Accessing the output file.
         println("Executable path: ${outputFile.absolutePath}")
 
-        // 访问链接任务。
+        // Accessing the link task.
         linkTask.dependsOn(additionalPreprocessingTask)
 
-        // 访问运行任务。
-        // 请注意，对于非主机平台，runTask 为 null。
+        // Accessing the run task.
+        // Note that the runTask is null for non-host platforms.
         runTask?.dependsOn(prepareForRun)
     }
 
     framework('my_framework' [RELEASE]) {
-        // 在 framework 中包含静态库而非动态库。
+        // Include a static library instead of a dynamic one into the framework.
         isStatic = true
     }
 }
@@ -354,26 +354,26 @@ binaries {
 
 ```kotlin
 kotlin {
-    linuxX64 { // 替换为你需要的目标平台。
+    linuxX64 { // Replace with a target you need.
         compilations.getByName("main") {
             val myInterop by cinterops.creating {
-                // 描述原生 API 的定义文件。
-                // 默认路径是 src/nativeInterop/cinterop/<interop-name>.def
+                // Definition file describing the native API.
+                // The default path is src/nativeInterop/cinterop/<interop-name>.def
                 definitionFile.set(project.file("def-file.def"))
 
-                // 放置生成的 Kotlin API 的包。
+                // Package to place the Kotlin API generated.
                 packageName("org.sample")
 
-                // cinterop 工具要传递给编译器的选项。
+                // Options to be passed to compiler by cinterop tool.
                 compilerOpts("-Ipath/to/headers")
 
-                // 用于头文件搜索的目录（-I<path> 编译器选项的类似物）。
+                // Directories for header search (an analogue of the -I<path> compiler option).
                 includeDirs.allHeaders("path1", "path2")
 
-                // includeDirs.allHeaders 的快捷方式。
+                // A shortcut for includeDirs.allHeaders.
                 includeDirs("include/directory", "another/directory")
 
-                // 要包含在绑定中的头文件。
+                // Header files to be included in the bindings.
                 header("path/to/header.h")
                 headers("path/to/header1.h", "path/to/header2.h")
             }
@@ -389,27 +389,27 @@ kotlin {
 
 ```groovy
 kotlin {
-    linuxX64 { // 替换为你需要的目标平台。
+    linuxX64 { // Replace with a target you need.
         compilations.main {
             cinterops {
                 myInterop {
-                    // 描述原生 API 的定义文件。
-                    // 默认路径是 src/nativeInterop/cinterop/<interop-name>.def
+                    // Definition file describing the native API.
+                    // The default path is src/nativeInterop/cinterop/<interop-name>.def
                     definitionFile = project.file("def-file.def")
 
-                    // 放置生成的 Kotlin API 的包。
+                    // Package to place the Kotlin API generated.
                     packageName 'org.sample'
 
-                    // cinterop 工具要传递给编译器的选项。
+                    // Options to be passed to compiler by cinterop tool.
                     compilerOpts '-Ipath/to/headers'
 
-                    // 用于头文件搜索的目录（-I<path> 编译器选项的类似物）。
+                    // Directories for header search (an analogue of the -I<path> compiler option).
                     includeDirs.allHeaders("path1", "path2")
 
-                    // includeDirs.allHeaders 的快捷方式。
+                    // A shortcut for includeDirs.allHeaders.
                     includeDirs("include/directory", "another/directory")
 
-                    // 要包含在绑定中的头文件。
+                    // Header files to be included in the bindings.
                     header("path/to/header.h")
                     headers("path/to/header1.h", "path/to/header2.h")
                 }
@@ -647,7 +647,7 @@ kotlin {
         compilations {
             val main by getting
             val integrationTest by creating {
-                // 导入 main 及其类路径作为依赖项并建立内部可见性
+                // Import main and its classpath as dependencies and establish internal visibility
                 associateWith(main)
                 defaultSourceSet {
                     dependencies {
@@ -656,9 +656,9 @@ kotlin {
                     }
                 }
 
-                // 创建一个测试任务来运行此编译项生成的测试
+                // Create a test task to run the tests produced by this compilation
                 testRuns.create("integration") {
-                    // 配置测试任务
+                    // Configure the test task
                     setExecutionSourceFrom(integrationTest)
                 }
             }
@@ -675,7 +675,7 @@ kotlin {
     jvm {
         compilations.create('integrationTest') {
             def main = compilations.main
-            // 导入 main 及其类路径作为依赖项并建立内部可见性
+            // Import main and its classpath as dependencies and establish internal visibility
             associateWith(main)
             defaultSourceSet {
                 dependencies {
@@ -684,9 +684,9 @@ kotlin {
                 }
             }
 
-            // 创建一个测试任务来运行此编译项生成的测试
+            // Create a test task to run the tests produced by this compilation
             testRuns.create('integration') {
-                // 配置测试任务
+                // Configure the test task
                 setExecutionSourceFrom(compilations.integrationTest)
             }
         }
@@ -807,7 +807,7 @@ kotlin {
 
 ```kotlin
 kotlin {
-    // 配置所有目标平台的所有编译项
+    // Configures all compilations of all targets
     compilerOptions {
         allWarningsAsErrors.set(true)
     }
@@ -819,7 +819,7 @@ kotlin {
 
 ```groovy
 kotlin {
-    // 配置所有目标平台的所有编译项：
+    // Configures all compilations of all targets:
     compilerOptions {
         allWarningsAsErrors = true
     }
@@ -839,7 +839,7 @@ kotlin {
 ```kotlin
 kotlin {
     jvm {
-        // 配置 JVM 目标平台的所有编译项
+        // Configures all compilations of the JVM target
         compilerOptions {
             allWarningsAsErrors.set(true)
         }
@@ -853,7 +853,7 @@ kotlin {
 ```groovy
 kotlin {
     jvm {
-        // 配置 JVM 目标平台的所有编译项
+        // Configures all compilations of the JVM target
         compilerOptions {
             allWarningsAsErrors = true
         }
@@ -903,7 +903,7 @@ kotlin {
     jvm {
         compilations.named(KotlinCompilation.MAIN_COMPILATION_NAME) {
             compileTaskProvider.configure {
-                // 配置 'main' 编译项：
+                // Configures the 'main' compilation:
                 compilerOptions {
                     allWarningsAsErrors.set(true)
                 }
@@ -921,7 +921,7 @@ kotlin {
     jvm {
         compilations.named(KotlinCompilation.MAIN_COMPILATION_NAME) {
             compileTaskProvider.configure {
-                // 配置 'main' 编译项：
+                // Configures the 'main' compilation:
                 compilerOptions {
                     allWarningsAsErrors = true
                 }

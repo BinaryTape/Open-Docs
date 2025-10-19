@@ -18,7 +18,7 @@ AgentMemory 特性通过以下方式解决在 AI 代理交互中保持上下文�
 AgentMemory 特性建立在分层结构之上。
 该结构的元素在以下章节中列出并解释。
 
-#### 事实 
+#### 事实
 
 ***事实 (Facts)*** 是存储在内存中的独立信息片段。
 事实代表实际存储的信息。
@@ -35,8 +35,8 @@ import ai.koog.agents.memory.model.SingleFact
 // 存储最喜欢的 IDE 主题（单个值）
 val themeFact = SingleFact(
     concept = Concept(
-        "ide-theme", 
-        "User's preferred IDE theme", 
+        "ide-theme",
+        "User's preferred IDE theme",
         factType = FactType.SINGLE),
     value = "Dark Theme",
     timestamp = DefaultTimeProvider.getCurrentTimestamp()
@@ -64,13 +64,13 @@ val languagesFact = MultipleFacts(
 ```
 <!--- KNIT example-agent-memory-02.kt -->
 
-#### 概念 
+#### 概念
 
 ***概念 (Concepts)*** 是带有相关元信息的信息类别。
 
 - **Keyword**：概念的唯一标识符。
 - **Description**：概念所代表内容的详细解释。
-- **FactType**：概念存储单个事实还是多个事实（`FactType.SINGLE` 或 `FactType.MULTIPLE`）。
+- **FactType**：概念存储单个事实还是多个事实 (`FactType.SINGLE` 或 `FactType.MULTIPLE`)。
 
 #### 主题
 
@@ -98,7 +98,7 @@ object MemorySubjects {
     data object Machine : MemorySubject() {
         override val name: String = "machine"
         override val promptDescription: String =
-            "技术环境（已安装的工具、包管理器、软件包、SDK、操作系统等）"
+            "Technical environment (installed tools, package managers, packages, SDKs, OS, etc.)"
         override val priorityLevel: Int = 1
     }
 
@@ -110,14 +110,14 @@ object MemorySubjects {
     data object User : MemorySubject() {
         override val name: String = "user"
         override val promptDescription: String =
-            "用户信息（对话偏好、问题历史记录、联系方式等）"
+            "User information (conversation preferences, issue history, contact details, etc.)"
         override val priorityLevel: Int = 1
     }
 }
 ```
 <!--- KNIT example-agent-memory-03.kt -->
 
-#### 作用域 
+#### 作用域
 
 ***内存作用域 (Memory scopes)*** 是事实相关的上下文：
 
@@ -292,6 +292,7 @@ val strategy = strategy("example-agent") {
     val loadPreferences by node<Unit, Unit> {
         withMemory {
             loadFactsToAgent(
+                llm = llm,
                 concept = Concept("user-preference", "User's preferred programming language", FactType.SINGLE),
                 subjects = listOf(MemorySubjects.User)
             )
@@ -379,13 +380,18 @@ fun main() {
 ```kotlin
 val loadProjectInfo by node<Unit, Unit> {
     withMemory {
-        loadFactsToAgent(Concept("preferred-language", "What programming language is preferred by the user?", FactType.SINGLE))
+        loadFactsToAgent(
+            llm = llm,
+            concept = Concept("preferred-language", "What programming language is preferred by the user?", FactType.SINGLE)
+        )
     }
 }
 
 val saveProjectInfo by node<Unit, Unit> {
     withMemory {
-        saveFactsFromHistory(Concept("preferred-language", "What programming language is preferred by the user?", FactType.SINGLE),
+        saveFactsFromHistory(
+            llm = llm,
+            concept = Concept("preferred-language", "What programming language is preferred by the user?", FactType.SINGLE),
             subject = MemorySubjects.User,
             scope = MemoryScope.Product("my-app")
         )
@@ -508,7 +514,7 @@ import ai.koog.agents.memory.model.MemoryScope
 import ai.koog.agents.memory.model.MemorySubject
 import ai.koog.agents.memory.providers.AgentMemoryProvider
 
-/* 
+/*
 // KNIT: Ignore example
 -->
 <!--- SUFFIX

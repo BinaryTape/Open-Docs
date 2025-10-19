@@ -15,6 +15,7 @@ Kotlin Notebookの機能が利用できない場合は、プラグインが有�
 新しいKotlin Notebookを作成する:
 
 1. **File** | **New** | **Kotlin Notebook** を選択します。
+
 2. Kotlin Notebookで、次のコマンドを実行してKotlin DataFrameライブラリをインポートします:
 
    ```kotlin
@@ -64,19 +65,19 @@ Kotlin Notebookのオートコンプリート機能を使用すると、DataFram
 
 Kotlin DataFrameライブラリでデータセットを整形するために利用できるさまざまな操作の中でも、主な例として[グルーピング](https://kotlin.github.io/dataframe/group.html)、[フィルタリング](https://kotlin.github.io/dataframe/filter.html)、[更新](https://kotlin.github.io/dataframe/update.html)、[新しい列の追加](https://kotlin.github.io/dataframe/add.html)があります。これらの関数はデータ分析に不可欠であり、データを効果的に整理、クリーンアップ、変換するのに役立ちます。
 
-データに映画のタイトルと対応する公開年が同じセルに含まれている例を見てみましょう。目標は、このデータセットを分析しやすくするために整形することです。
+データに映画のタイトルと対応する公開年が同じセルに含まれている例を見てみましょう。目標は、このデータセットを分析しやすくするために整形することです:
 
-1. `.read()` 関数を使用してデータをノートブックにロードします。この例では、`movies.csv`という名前のCSVファイルからデータを読み込み、`movies`というDataFrameを作成します。
+1. `.read()` 関数を使用してデータをノートブックにロードします。この例では、`movies.csv`という名前のCSVファイルからデータを読み込み、`movies`というDataFrameを作成します:
 
    ```kotlin
    val movies = DataFrame.read("movies.csv")
    ```
 
-2. 正規表現を使用して映画のタイトルから公開年を抽出し、新しい列として追加します。
+2. 正規表現を使用して映画のタイトルから公開年を抽出し、新しい列として追加します:
 
    ```kotlin
    val moviesWithYear = movies
-       .add("year") {
+       .add("year") { 
            "\\d{4}".toRegex()
                .findAll(title)
                .lastOrNull()
@@ -86,7 +87,7 @@ Kotlin DataFrameライブラリでデータセットを整形するために利�
        }
    ```
 
-3. 各タイトルから公開年を削除して、映画のタイトルを変更します。これにより、タイトルが整形され、一貫性が保たれます。
+3. 各タイトルから公開年を削除して、映画のタイトルを変更します。これにより、タイトルが整形され、一貫性が保たれます:
 
    ```kotlin
    val moviesTitle = moviesWithYear
@@ -95,7 +96,7 @@ Kotlin DataFrameライブラリでデータセットを整形するために利�
        }
    ```
 
-4. `filter` メソッドを使用して特定のデータに焦点を当てます。この場合、データセットは1996年以降に公開された映画に絞り込まれます。
+4. `filter` メソッドを使用して特定のデータに焦点を当てます。この場合、データセットは1996年以降に公開された映画に絞り込まれます:
 
    ```kotlin
    val moviesNew = moviesWithYear.filter { year >= 1996 }
@@ -113,41 +114,41 @@ Kotlin DataFrameライブラリでデータセットを整形するために利�
 これは、Kotlinでデータを効果的に整形および分析するために、Kotlin DataFrameライブラリの `add`、`update`、`filter` などのメソッドをどのように使用できるかを示す実用的なデモンストレーションです。
 
 > 追加のユースケースと詳細な例については、[Kotlin Dataframeの例](https://github.com/Kotlin/dataframe/tree/master/examples)を参照してください。
->
+> 
 {style="tip"}
 
 ## DataFrameを保存する
 
 Kotlin DataFrameライブラリを使用してKotlin Notebookで[データを整形した](#refine-data)後、処理済みのデータを簡単にエクスポートできます。この目的のために、さまざまな[`.write()`](https://kotlin.github.io/dataframe/write.html) 関数を利用できます。これらは、CSV、JSON、XLS、XLSX、Apache Arrow、さらにはHTMLテーブルなど、複数の形式での保存をサポートしています。これは、調査結果の共有、レポートの作成、またはさらなる分析のためにデータを利用可能にするのに特に役立ちます。
 
-DataFrameをフィルタリングし、列を削除し、整形されたデータをJSONファイルに保存し、HTMLテーブルをブラウザで開く方法を次に示します。
+DataFrameをフィルタリングし、列を削除し、整形されたデータをJSONファイルに保存し、HTMLテーブルをブラウザで開く方法を次に示します:
 
-1. Kotlin Notebookで、`.read()` 関数を使用して `movies.csv` という名前のファイルを `moviesDf` という名前のDataFrameにロードします。
+1. Kotlin Notebookで、`.read()` 関数を使用して `movies.csv` という名前のファイルを `moviesDf` という名前のDataFrameにロードします:
 
    ```kotlin
    val moviesDf = DataFrame.read("movies.csv")
    ```
 
-2. `.filter` メソッドを使用して、DataFrameを「アクション」ジャンルに属する映画のみにフィルタリングします。
+2. `.filter` メソッドを使用して、DataFrameを「アクション」ジャンルに属する映画のみにフィルタリングします:
 
    ```kotlin
    val actionMoviesDf = moviesDf.filter { genres.equals("Action") }
    ```
 
-3. `.remove` を使用してDataFrameから `movieId` 列を削除します。
+3. `.remove` を使用してDataFrameから `movieId` 列を削除します:
 
    ```kotlin
    val refinedMoviesDf = actionMoviesDf.remove { movieId }
    refinedMoviesDf
    ```
 
-4. Kotlin DataFrameライブラリは、さまざまな形式でデータを保存するためのさまざまな書き込み関数を提供します。この例では、変更された `movies.csv` をJSONファイルとして保存するために、[`.writeJson()`](https://kotlin.github.io/dataframe/write.html#writing-to-json) 関数が使用されます。
+4. Kotlin DataFrameライブラリは、さまざまな形式でデータを保存するためのさまざまな書き込み関数を提供します。この例では、[`.writeJson()`](https://kotlin.github.io/dataframe/write.html#writing-to-json) 関数が使用され、変更された `movies.csv` をJSONファイルとして保存します:
 
    ```kotlin
    refinedMoviesDf.writeJson("movies.json")
    ```
 
-5. `.toStandaloneHTML()` 関数を使用してDataFrameをスタンドアロンHTMLテーブルに変換し、デフォルトのWebブラウザで開きます。
+5. `.toStandaloneHTML()` 関数を使用してDataFrameをスタンドアロンHTMLテーブルに変換し、デフォルトのWebブラウザで開きます:
 
    ```kotlin
    refinedMoviesDf.toStandaloneHTML(DisplayConfiguration(rowsLimit = null)).openInBrowser()

@@ -172,6 +172,7 @@ suspend fun example(context: AIAgentContext) {
         lastInput = inputData,
         lastInputType = inputType,
         checkpointId = context.runId,
+        version = 0L
     )
 
     // The checkpoint ID can be stored for later use
@@ -286,6 +287,7 @@ suspend fun example(context: AIAgentContext) {
             lastInput = inputData,
             lastInputType = inputType,
             checkpointId = ctx.runId,
+            version = 0L
         )
     }
 }

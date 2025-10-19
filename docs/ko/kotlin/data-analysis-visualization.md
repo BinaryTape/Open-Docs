@@ -13,6 +13,7 @@ Kotlin Notebook 기능이 제공되지 않는다면 플러그인이 활성화되
 새 Kotlin Notebook 생성:
 
 1. **File** | **New** | **Kotlin Notebook**을 선택하세요.
+
 2. Notebook에서 다음 명령을 실행하여 Kandy 및 Kotlin DataFrame 라이브러리를 임포트합니다.
 
     ```kotlin
@@ -97,7 +98,7 @@ df.plot {
 
 이제 `df` DataFrame을 포인트(산점도) 차트로 시각화해 봅시다.
 
-`plot()` 함수 내에서 `points` 차트 유형을 지정합니다. X축과 Y축의 값, 그리고 `df` 열의 범주형 값을 추가합니다. 차트에 제목을 포함할 수도 있습니다.
+`plot()` 함수 내에서 `points` 차트 유형을 지정합니다. X축과 Y축의 값과 `df` 열의 범주형 값을 추가합니다. 차트에 제목을 포함할 수도 있습니다.
 
 ```kotlin
 df.plot {

@@ -13,6 +13,7 @@ Kotlin Notebookの機能が利用できない場合は、プラグインが有�
 新しいKotlin Notebookを作成します。
 
 1.  **File** | **New** | **Kotlin Notebook** を選択します。
+
 2.  ノートブックで、次のコマンドを実行してKandyおよびKotlin DataFrameライブラリをインポートします。
 
     ```kotlin

@@ -1,9 +1,4 @@
-[//]: # (title: Dokka Gradle 플러그인 v2로 마이그레이션)
-
-> Dokka Gradle 플러그인 v2는 [실험적](https://kotlinlang.org/docs/components-stability.html#stability-levels-explained) 기능입니다.
-> 언제든지 변경될 수 있습니다. [GitHub](https://github.com/Kotlin/dokka/issues)에 대한 여러분의 피드백에 감사드립니다.
->
-{style="warning"}
+`[//]: # (title: Dokka Gradle 플러그인 v2로 마이그레이션)
 
 Dokka Gradle 플러그인(DGP)은 Gradle로 빌드된 Kotlin 프로젝트를 위한 포괄적인 API 문서를 생성하는 도구입니다.
 
@@ -34,6 +29,11 @@ DGP v2는 Gradle 모범 사례와 더 밀접하게 일치하도록 DGP에 상당
 | [Kotlin Gradle plugin](https://kotlinlang.org/docs/gradle-configure-project.html) | 1.9 이상       |
 
 ### DGP v2 활성화
+
+> Dokka 2.1.0부터 DGP v2는 기본적으로 활성화됩니다.
+> Dokka 2.1.0 이상을 사용하거나 업데이트하는 경우, 이 단계를 건너뛰고 [프로젝트 마이그레이션](#migrate-your-project)으로 바로 이동할 수 있습니다.
+>
+{style="note"}
 
 프로젝트의 `build.gradle.kts` 파일에 있는 `plugins {}` 블록에서 Dokka 버전을 2.0.0으로 업데이트하세요.
 
@@ -205,7 +205,7 @@ import org.jetbrains.dokka.DokkaConfiguration.Visibility
 // ...
 documentedVisibilities.set(
     setOf(Visibility.PUBLIC)
-)
+) 
 ```
 
 DGP v2에서의 구성:
@@ -223,11 +223,11 @@ documentedVisibilities.set(
 documentedVisibilities(VisibilityModifier.Public)
 ```
 
-또한 DGP v2의 [유틸리티 함수](https://github.com/Kotlin/dokka/blob/v2.0.0/dokka-runners/dokka-gradle-plugin/src/main/kotlin/engine/parameters/HasConfigurableVisibilityModifiers.kt#L14-L16)를 사용하여 문서화된 가시성을 추가하세요.
+또한 DGP v2의 [유틸리티 함수](https://github.com/Kotlin/dokka/blob/v2.1.0/dokka-runners/dokka-gradle-plugin/src/main/kotlin/engine/parameters/HasConfigurableVisibilityModifiers.kt#L14-L16)를 사용하여 문서화된 가시성을 추가하세요.
 
 ```kotlin
 fun documentedVisibilities(vararg visibilities: VisibilityModifier): Unit =
-    documentedVisibilities.set(visibilities.asList())
+    documentedVisibilities.set(visibilities.asList()) 
 ```
 
 #### 소스 링크
@@ -381,7 +381,7 @@ customAssets.from("example.png", "example2.png")
 
 #### 출력 디렉터리
 
-생성된 Dokka 문서의 출력 디렉터리를 지정하려면 `dokka {}` 블록을 사용하세요.
+`dokka {}` 블록을 사용하여 생성된 Dokka 문서의 출력 디렉터리를 지정하세요.
 
 DGP v1에서의 구성:
 
@@ -501,7 +501,7 @@ dokka {
 
 DGP v2 구성의 예시는 [Dokka의 버전 관리 플러그인](https://github.com/Kotlin/dokka/tree/master/examples/gradle-v2/versioning-multimodule-example)을 참조하세요.
 
-Dokka 2.0.0은 [사용자 지정 플러그인을 구성](https://github.com/Kotlin/dokka/blob/ae3840edb4e4afd7b3e3768a5fddfe8ec0e08f31/examples/gradle-v2/custom-dokka-plugin-example/demo-library/build.gradle.kts)하여 기능을 확장할 수 있도록 합니다. 사용자 지정 플러그인은 문서 생성 프로세스에 추가 처리 또는 수정을 가능하게 합니다.
+DGP v2는 [사용자 지정 플러그인을 구성](https://github.com/Kotlin/dokka/blob/ae3840edb4e4afd7b3e3768a5fddfe8ec0e08f31/examples/gradle-v2/custom-dokka-plugin-example/demo-library/build.gradle.kts)하여 기능을 확장할 수 있도록 합니다. 사용자 지정 플러그인은 문서 생성 프로세스에 추가 처리 또는 수정을 가능하게 합니다.
 
 ### 모듈 간 Dokka 구성 공유
 
@@ -540,15 +540,15 @@ Dokka 구성을 공유한 후에는 여러 모듈의 문서를 단일 출력으�
     plugins {
         `kotlin-dsl`
     }
-
+    
     repositories {
         mavenCentral()
         gradlePluginPortal()
     }
-
+    
     dependencies {
         implementation("org.jetbrains.dokka:dokka-gradle-plugin:2.0.0")
-    }
+    }   
     ```
 
 ##### Dokka 컨벤션 플러그인 설정
@@ -560,7 +560,7 @@ Dokka 구성을 공유한 후에는 여러 모듈의 문서를 단일 출력으�
 
     ```kotlin
     plugins {
-        id("org.jetbrains.dokka")
+        id("org.jetbrains.dokka") 
     }
 
     dokka {
@@ -704,9 +704,9 @@ DGP v2의 기본 출력 형식은 HTML입니다. 그러나 API 문서를 HTML, J
 
 다음은 각 형식에 해당하는 플러그인 `id` 및 Gradle 태스크 목록입니다.
 
-|             | **HTML**                          | **Javadoc**                           | **모두**                              |
-|:------------|:----------------------------------|:--------------------------------------|:------------------------------------|
-| 플러그인 `id` | `id("org.jetbrains.dokka")`       | `id("org.jetbrains.dokka-javadoc")`   | HTML 및 Javadoc 플러그인 모두 사용     |
+|             | **HTML**                          | **Javadoc**                          | **모두**                              |
+|:------------|:----------------------------------|:-------------------------------------|:------------------------------------|
+| 플러그인 `id` | `id("org.jetbrains.dokka")`       | `id("org.jetbrains.dokka-javadoc")`  | HTML 및 Javadoc 플러그인 모두 사용     |
 | Gradle 태스크 | `./gradlew :dokkaGeneratePublicationHtml` | `./gradlew :dokkaGeneratePublicationJavadoc` | `./gradlew :dokkaGenerate`          |
 
 > `dokkaGenerate` 태스크는 적용된 플러그인에 따라 사용 가능한 모든 형식으로 문서를 생성합니다. HTML 및 Javadoc 플러그인이 모두 적용된 경우, `dokkaGeneratePublicationHtml` 태스크를 실행하여 HTML만 생성하거나 `dokkaGeneratePublicationJavadoc` 태스크를 실행하여 Javadoc만 생성하도록 선택할 수 있습니다.
@@ -715,7 +715,7 @@ DGP v2의 기본 출력 형식은 HTML입니다. 그러나 API 문서를 HTML, J
 
 ### 사용 중단 및 제거 사항 처리
 
-*   **출력 형식 지원:** Dokka 2.0.0은 HTML 및 Javadoc 출력만 지원합니다. Markdown 및 Jekyll과 같은 실험적 형식은 더 이상 지원되지 않습니다.
+*   **출력 형식 지원:** DGP v2는 HTML 및 Javadoc 출력만 지원합니다. Markdown 및 Jekyll과 같은 실험적 형식은 더 이상 지원되지 않습니다.
 *   **Collector 태스크:** `DokkaCollectorTask`가 제거되었습니다. 이제 각 하위 프로젝트에 대해 별도로 문서를 생성한 다음 필요한 경우 [문서를 집계](#update-documentation-aggregation-in-multi-module-projects)해야 합니다.
 
 ## 마이그레이션 마무리
@@ -803,4 +803,4 @@ Gradle의 JVM 메모리 구성에 대한 자세한 내용은 [Gradle 문서](htt
 
 *   [더 많은 DGP v2 프로젝트 예시 살펴보기](https://github.com/Kotlin/dokka/tree/master/examples/gradle-v2).
 *   [Dokka 시작하기](dokka-get-started.md).
-*   [Dokka 플러그인에 대해 더 알아보기](dokka-plugins.md).
+*   [Dokka 플러그인에 대해 더 알아보기](dokka-plugins.md).`

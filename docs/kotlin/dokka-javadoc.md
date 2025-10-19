@@ -6,18 +6,24 @@
 >
 {style="warning"}
 
-Dokka 的 Javadoc 输出格式类似于 Java 的 [Javadoc HTML 格式](https://docs.oracle.com/en/java/javase/19/docs/api/index.html)。
+Dokka 的 Javadoc 输出格式类似于 Java 的
+[Javadoc HTML 格式](https://docs.oracle.com/en/java/javase/19/docs/api/index.html)。
 
 它试图在视觉上模仿 Javadoc 工具生成的 HTML 页面，但它不是直接实现，也不是精确副本。
 
 ![Javadoc 输出格式的截图](javadoc-format-example.png){width=706}
 
-所有 Kotlin 代码和签名都从 Java 的视角进行渲染。这是通过我们的 [Kotlin as Java Dokka 插件](https://github.com/Kotlin/dokka/tree/%dokkaVersion%/dokka-subprojects/plugin-kotlin-as-java) 实现的，该插件默认捆绑并应用于此格式。
+所有 Kotlin 代码和签名都从 Java 的视角进行渲染。这是通过我们的
+[Kotlin as Java Dokka 插件](https://github.com/Kotlin/dokka/tree/%dokkaVersion%/dokka-subprojects/plugin-kotlin-as-java) 实现的，该插件默认捆绑并应用于此格式。
 
-Javadoc 输出格式作为 [Dokka 插件](dokka-plugins.md) 实现，并由 Dokka 团队维护。它是开源的，你可以在 [GitHub](https://github.com/Kotlin/dokka/tree/%dokkaVersion%/dokka-subprojects/plugin-javadoc) 上找到源代码。
+Javadoc 输出格式作为 [Dokka 插件](dokka-plugins.md) 实现，并由 Dokka 团队维护。
+它是开源的，你可以在 [GitHub](https://github.com/Kotlin/dokka/tree/%dokkaVersion%/dokka-subprojects/plugin-javadoc) 上找到源代码。
 
 ## 生成 Javadoc 文档
 
+> 从 Dokka 2.0.0 开始，[用于生成文档的 Gradle 任务已更改](dokka-migration.md#select-documentation-output-format)。
+> 有关更多详情和完整的更改列表，请参见 [迁移指南](dokka-migration.md)。
+>
 > Javadoc 格式不支持多平台项目。
 >
 {style="warning"}
@@ -25,7 +31,7 @@ Javadoc 输出格式作为 [Dokka 插件](dokka-plugins.md) 实现，并由 Dokk
 <tabs group="build-script">
 <tab title="Gradle" group-key="kotlin">
 
-[Dokka 的 Gradle 插件](dokka-gradle.md) 包含了 Javadoc 输出格式。你可以使用以下任务：
+[Dokka 的 Gradle 插件](dokka-gradle.md) 内置了 Javadoc 输出格式。你可以使用以下任务：
 
 | **任务**                | **描述**                                                                                                                                                                                              |
 |-------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -47,7 +53,8 @@ Javadoc 输出格式作为 [Dokka 插件](dokka-plugins.md) 实现，并由 Dokk
 </tab>
 <tab title="CLI" group-key="cli">
 
-由于 Javadoc 输出格式是 [Dokka 插件](dokka-plugins.md#apply-dokka-plugins)，你需要 [下载该插件的 JAR 文件](https://repo1.maven.org/maven2/org/jetbrains/dokka/javadoc-plugin/%dokkaVersion%/javadoc-plugin-%dokkaVersion%.jar)。
+由于 Javadoc 输出格式是一个 [Dokka 插件](dokka-plugins.md#apply-dokka-plugins)，你需要
+[下载该插件的 JAR 文件](https://repo1.maven.org/maven2/org/jetbrains/dokka/javadoc-plugin/%dokkaVersion%/javadoc-plugin-%dokkaVersion%.jar)。
 
 Javadoc 输出格式有两个依赖项，你需要将其作为附加 JAR 文件提供：
 

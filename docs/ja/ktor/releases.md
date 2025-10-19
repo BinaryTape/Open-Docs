@@ -2,7 +2,7 @@
 
 <show-structure for="chapter" depth="2"/>
 
-Ktor は [セマンティックバージョニング](https://semver.org/) に従います。
+Ktor は [セマンティックバージョニング](https://semver.org/) に従います:
 
 - _メジャーバージョン_ (x.0.0) には、互換性のない API 変更が含まれます。
 - _マイナーバージョン_ (x.y.0) は、後方互換性のある新機能を提供します。
@@ -33,9 +33,21 @@ IntelliJ Ktor プラグインを使用すると、Ktor プロジェクトを最�
 </tr>
 
 <tr>
+<td>3.3.1</td><td>2025年10月8日</td><td>
+<p>
+Kotlin を 2.2.20 に更新し、Content-Length のパースエラー、<code>ClientSSESession</code> のシリアライザーの欠落、Netty の設定およびシャットダウンのバグなど、いくつかの問題を修正し、<code>bootJar</code> 内での静的リソースの提供のサポートを追加するパッチリリースです。
+</p>
+<var name="version" value="3.3.1"/>
+<p>
+    <a href="https://github.com/ktorio/ktor/releases/tag/%version%">GitHub で変更履歴を見る</a>
+</p>
+</td>
+</tr>
+
+<tr>
 <td>3.3.0</td><td>2025年9月11日</td><td>
 <p>
-実験的な OpenAPI (OpenAPI) 生成プレビュー、改善された静的コンテンツ処理、Android および JS/Wasm 用 WebRTC クライアントなどの主要な機能を導入し、Jetty、OkHttp、Kotlin 2.2 へアップグレードするマイナーリリースです。詳細については、<Links href="/ktor/whats-new-330" summary="undefined">Ktor 3.3.0 の新機能</Links> を参照してください。
+実験的な OpenAPI 生成プレビュー、改善された静的コンテンツ処理、Android および JS/Wasm 用 WebRTC クライアントなどの主要な機能を導入し、Jetty、OkHttp、Kotlin 2.2 へアップグレードするマイナーリリースです。詳細については、<Links href="/ktor/whats-new-330" summary="undefined">Ktor 3.3.0 の新機能</Links> を参照してください。
 </p>
 <var name="version" value="3.3.0"/>
 <p>
@@ -47,7 +59,7 @@ IntelliJ Ktor プラグインを使用すると、Ktor プロジェクトを最�
 <tr>
 <td>3.2.3</td><td>2025年7月29日</td><td>
 <p>
-YAML 設定の処理、DI 解決、および Wasm/JS の安定性に対する改善、さらにマルチパート解析、CIO の <code>100 Continue</code> レスポンスフォーマット、<code>ByteReadChannel</code> での無限読み取りループ、サーバーシャットダウンの問題に対する修正を導入するパッチリリースです。
+YAML 設定の処理、DI 解決、および Wasm/JS の安定性に対する改善を導入し、マルチパート解析、CIO の `100 Continue` レスポンスフォーマット、`ByteReadChannel` での無限読み取りループ、およびサーバーシャットダウンの問題に対する修正を含むパッチリリースです。
 </p>
 <var name="version" value="3.2.3"/>
 <p>
@@ -59,7 +71,7 @@ YAML 設定の処理、DI 解決、および Wasm/JS の安定性に対する改
 <tr>
 <td>3.2.2</td><td>2025年7月14日</td><td>
 <p>
-SSE フィールドのシリアライズ順序を改善し、CORS プリフライト処理、テストアプリケーションのストリーミング、設定のデシリアライズにおけるバグ、およびプラットフォームを跨いだヘッダーの欠落 (wasmJs および Darwin ターゲットに影響する 3.2.1 からのリグレッションを含む) など、いくつかの問題を解決するパッチリリースです。
+SSE フィールドのシリアライズ順序を改善し、CORS プリフライト処理、テストアプリケーションのストリーミング、設定のデシリアライズにおけるバグ、およびプラットフォームを跨いだヘッダーの欠落 (<code>wasmJs</code> および <code>Darwin</code> ターゲットに影響する 3.2.1 からのリグレッションを含む) など、いくつかの問題を解決するパッチリリースです。
 </p>
 <var name="version" value="3.2.2"/>
 <p>
@@ -83,7 +95,7 @@ SSE フィールドのシリアライズ順序を改善し、CORS プリフラ�
 <tr>
 <td>3.2.0</td><td>2025年6月12日</td><td>
 <p>
-型付き設定のデシリアライズ、新しい依存性注入と HTMX モジュール、Gradle バージョンカタログのサポート、および suspend モジュールのサポートを導入するマイナーリリースです。詳細については、<Links href="/ktor/whats-new-320" summary="undefined">Ktor 3.2.0 の新機能</Links> を参照してください。
+型付き設定のデシリアライズ、新しい依存性注入と HTMX モジュール、Gradle バージョンカタログのサポート、および <code>suspend</code> モジュールのサポートを導入するマイナーリリースです。詳細については、<Links href="/ktor/whats-new-320" summary="undefined">Ktor 3.2.0 の新機能</Links> を参照してください。
 </p>
 <var name="version" value="3.2.0"/>
 <p>
@@ -248,7 +260,7 @@ Ktor Core および Ktor Server のバグ修正、および Netty と OpenAPI �
 
 <tr>
 <td>2.3.10</td><td>2024年4月8日</td><td><p>
-CallLogging および SSE サーバープラグインの様々なバグ修正、Android クライアントのロギング改善などが含まれるパッチリリースです。
+<code>CallLogging</code> および <code>SSE</code> サーバープラグインの様々なバグ修正、Android クライアントのロギング改善などが含まれるパッチリリースです。
 </p>
 <var name="version" value="2.3.10"/>
 <p>
@@ -259,7 +271,7 @@ CallLogging および SSE サーバープラグインの様々なバグ修正、
 
 <tr>
 <td>2.3.9</td><td>2024年3月4日</td><td><p>
-ContentNegotiation クライアントプラグインのバグ修正、および HTTP 経由でセキュアなクッキーを送信するサポートが追加されたパッチリリースです。
+<code>ContentNegotiation</code> クライアントプラグインのバグ修正、および HTTP 経由でセキュアなクッキーを送信するサポートが追加されたパッチリリースです。
 </p>
 <var name="version" value="2.3.9"/>
 <p>
@@ -270,7 +282,7 @@ ContentNegotiation クライアントプラグインのバグ修正、および 
 
 <tr>
 <td>2.3.8</td><td>2024年1月31日</td><td><p>
-URLBuilder、CORS、および WebSocket プラグインの様々なバグ修正を含むパッチリリースです。
+<code>URLBuilder</code>、<code>CORS</code>、および <code>WebSocket</code> プラグインの様々なバグ修正を含むパッチリリースです。
 </p>
 <var name="version" value="2.3.8"/>
 <p>
@@ -282,7 +294,7 @@ URLBuilder、CORS、および WebSocket プラグインの様々なバグ修正�
 <tr>
 <td>2.3.7</td><td>2023年12月7日</td><td>
 <p>
-ContentNegotiation、WebSockets、および Native Server でのメモリ使用量におけるバグ修正を含むパッチリリースです。
+<code>ContentNegotiation</code>、WebSockets、および Native Server でのメモリ使用量におけるバグ修正を含むパッチリリースです。
 </p>
 <var name="version" value="2.3.7"/>
 <p>
@@ -354,7 +366,7 @@ HTTP Cookie ヘッダーと NoTransformationFoundException エラーのバグ修
 <tr>
 <td>2.3.2</td><td>2023年6月28日</td><td>
 <p>
-Kotlin バージョンを <code>1.8.22</code> にアップグレードし、様々なバグ修正を含むパッチリリースです。
+Kotlin バージョンを `1.8.22` にアップグレードし、様々なバグ修正を含むパッチリリースです。
 </p>
 <var name="version" value="2.3.2"/>
 <p>
@@ -390,7 +402,7 @@ Kotlin バージョンを <code>1.8.22</code> にアップグレードし、様�
 <tr>
 <td>2.2.4</td><td>2023年2月28日</td><td>
 <p>
-HTTP クライアント、ルーティング、ContentNegotiation の様々なバグ修正を含むパッチリリースです。
+HTTP クライアント、ルーティング、および <code>ContentNegotiation</code> の様々なバグ修正を含むパッチリリースです。
 </p>
 <var name="version" value="2.2.4"/>
 <p>
@@ -402,7 +414,7 @@ HTTP クライアント、ルーティング、ContentNegotiation の様々な�
 <tr>
 <td>2.2.3</td><td>2023年1月31日</td><td>
 <p>
-OAuth2 のマルチプラットフォーム機能と様々なバグ修正を含むパッチリリースです。
+<code>OAuth2</code> のマルチプラットフォーム機能と様々なバグ修正を含むパッチリリースです。
 </p>
 <var name="version" value="2.2.3"/>
 <p>
@@ -426,7 +438,7 @@ OAuth2 のマルチプラットフォーム機能と様々なバグ修正を含�
 <tr>
 <td>2.2.1</td><td>2022年12月7日</td><td>
 <p>
-<code>2.2.0</code> における <code>java.lang.NoClassDefFoundError: kotlinx/atomicfu/AtomicFU</code> エラーに対するパッチリリースです。
+<code>2.2.0</code> における `java.lang.NoClassDefFoundError: kotlinx/atomicfu/AtomicFU` エラーに対するパッチリリースです。
 </p>
 <var name="version" value="2.2.1"/>
 <p>
@@ -438,7 +450,7 @@ OAuth2 のマルチプラットフォーム機能と様々なバグ修正を含�
 <tr>
 <td>2.2.0</td><td>2022年12月7日</td><td>
 <p>
-Swagger UI ホスティング、新しいプラグイン API、セッションのマルチプラットフォームサポートなど、複数の機能リリースです。詳細については、<Links href="/ktor/migration-to-22x" summary="undefined">2.0.x から 2.2.x への移行</Links> ガイドを参照してください。
+Swagger UI ホスティング、新しいプラグイン API、<code>Sessions</code> のマルチプラットフォームサポートなど、複数の機能リリースです。詳細については、<Links href="/ktor/migration-to-22x" summary="undefined"><code>2.0.x</code> から <code>2.2.x</code> への移行</Links> ガイドを参照してください。
 </p>
 <var name="version" value="2.2.0"/>
 <p>
@@ -498,7 +510,7 @@ YAML 設定のサポートを追加するマイナーリリースであり、そ
 <tr>
 <td>2.0.3</td><td>2022年6月28日</td><td>
 <p>
-バグ修正と <code>kotlinx.coroutines</code> バージョンを <code>1.6.2</code> にアップグレードしたものを含むパッチリリースです。
+バグ修正と `kotlinx.coroutines` バージョンを `1.6.2` にアップグレードしたものを含むパッチリリースです。
 </p>
 <var name="version" value="2.0.3"/>
 <p>
@@ -522,7 +534,7 @@ YAML 設定のサポートを追加するマイナーリリースであり、そ
 <tr>
 <td>2.0.1</td><td>2022年4月28日</td><td>
 <p>
-様々なバグ修正と Kotlin バージョンを <code>1.6.21</code> に更新したものを含むパッチリリースです。
+様々なバグ修正と Kotlin バージョンを `1.6.21` に更新したものを含むパッチリリースです。
 </p>
 <var name="version" value="2.0.1"/>
 <p>
@@ -534,7 +546,7 @@ YAML 設定のサポートを追加するマイナーリリースであり、そ
 <tr>
 <td>2.0.0</td><td>2022年4月11日</td><td>
 <p>
-更新された API ドキュメントと様々な新機能を含むメジャーリリースです。破壊的変更と <code>1.x.x</code> からの移行方法の詳細については、<Links href="/ktor/migration-to-20x" summary="undefined">移行ガイド</Links> を参照してください。
+更新された API ドキュメントと様々な新機能を含むメジャーリリースです。破壊的変更と `1.x.x` からの移行方法の詳細については、<Links href="/ktor/migration-to-20x" summary="undefined">移行ガイド</Links> を参照してください。
 </p>
 <var name="version" value="2.0.0"/>
 <p>

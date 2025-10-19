@@ -179,7 +179,7 @@ assertEquals("1", text)
 這可能會破壞依賴於渲染由每次 `mainClock.advanceTimeBy()` 呼叫觸發的測試。
 詳情請參閱 [PR 說明](https://github.com/JetBrains/compose-multiplatform-core/pull/1618)。
 
-## Across platforms
+## 跨平台
 
 ### 可變字體
 
@@ -201,14 +201,16 @@ Compose Multiplatform 透過 Skiko 使用的 Skia 版本已更新至 Milestone 1
 
 Compose Multiplatform 已採用 Jetpack Compose 的新 `Clipboard` 介面。
 
-先前使用的 `ClipboardManager` 介面已棄用，改為支援 `Clipboard`，因為該介面在網頁目標上無法存取，原因在於 [Web 上的 Clipboard API](https://developer.mozilla.org/en-US/docs/Web/API/Clipboard_API) 的非同步性質。新介面支援 `suspend` 函式，並與所有目標（包括 Web）相容。
+先前使用的 `ClipboardManager` 介面，由於 [Web 上的 Clipboard API](https://developer.mozilla.org/en-US/docs/Web/API/Clipboard_API) 的非同步性質，在網頁目標上無法存取，
+已棄用，改為支援 `Clipboard`。新介面支援 `suspend` 函式，並與所有目標（包括 Web）相容。
 
 通用程式碼的剪貼簿互動目前受到 API 設計的限制。
 有關詳細資訊，請參閱 [CMP-7624](https://youtrack.jetbrains.com/issue/CMP-7624)。
 
 ### 行高對齊
 
-先前僅由 Compose Multiplatform 在 Android 上支援的行高對齊通用 API，現在已在所有平台上支援。
+行高對齊的通用 API，
+先前僅由 Compose Multiplatform 在 Android 上支援，現在已在所有平台上支援。
 使用 `LineHeightStyle.Alignment`，您可以配置文字行如何在行高提供的空間內對齊。
 文字行可以對齊預留空間的底部、中心或頂部，
 或根據其上升和下降值按比例調整。
@@ -222,8 +224,10 @@ Compose Multiplatform 已採用 Jetpack Compose 的新 `Clipboard` 介面。
 
 ### 深層連結
 
-透過搭配 [org.jetbrains.androidx.navigation.navigation-compose](compose-navigation-routing.md) %org.jetbrains.androidx.navigation% 使用 Compose Multiplatform 1.8.2，
-您可以以通常的 Compose 方式在 iOS 上實作深層連結：將深層連結分配給目的地，並使用 `NavController` 導航到它們。
+透過搭配 [org.jetbrains.androidx.navigation.navigation-compose](compose-navigation-routing.md)
+%org.jetbrains.androidx.navigation% 使用 Compose Multiplatform 1.8.2，
+您可以以通常的 Compose 方式在 iOS 上實作深層連結：
+將深層連結分配給目的地，並使用 `NavController` 導航到它們。
 
 有關將深層連結引入通用程式碼的指南，請參閱[深層連結](compose-navigation-deep-links.md)。
 
@@ -291,7 +295,8 @@ Compose Multiplatform for iOS 現在支援兩種額外的輸入方法來控制�
 您現在可以依賴 Compose Multiplatform 惰性處理此過程，而不是設定特定的同步模式來同步 Compose 語義樹與 iOS 輔助功能樹。
 該樹在來自 iOS 輔助功能引擎的第一個請求後會完全載入，並在螢幕閱讀器停止與其互動時被釋放。
 
-這完全支援 iOS 語音控制、VoiceOver 和其他依賴輔助功能樹的輔助功能工具。
+這完全支援 iOS 語音控制、VoiceOver
+和其他依賴輔助功能樹的輔助功能工具。
 
 用於[配置輔助功能樹同步](compose-ios-accessibility.md#choose-the-tree-synchronization-option)的 `AccessibilitySyncOptions` 類別已移除，因為不再需要。
 
@@ -302,7 +307,7 @@ UI 元素現在提供廣泛的輔助功能資料，
 且任何透明度為 0 的組件不再提供輔助功能語義。
 
 語義對齊也使我們能夠修復幾個與計算不正確相關的問題，
-例如 DropDown 元素的命中框遺失、
+例如 `DropDown` 元素的命中框遺失、
 可見文字與輔助功能標籤不匹配，以及不正確的單選按鈕狀態。
 
 ### iOS 日誌記錄的穩定 API
@@ -310,7 +315,7 @@ UI 元素現在提供廣泛的輔助功能資料，
 在 iOS 上啟用作業系統日誌記錄的 API 現在已穩定。`enableTraceOSLog()` 函式不再需要實驗性選擇加入，並且現在與 Android 風格的日誌記錄對齊。此日誌記錄提供追蹤資訊，可以使用 Xcode Instruments 進行除錯和效能分析。
 
 ### 拖放
-<secondary-label ref="Experimental"/>
+<primary-label ref="Experimental"/>
 
 Compose Multiplatform for iOS 引入了對拖放功能的支援，
 允許您將內容拖入或拖出 Compose 應用程式
@@ -336,7 +341,7 @@ Compose Multiplatform for iOS 引入了對拖放功能的支援，
     UI 會緊密遵循 iOS 邏輯來解決模糊的觸控序列。
 
 ### 選擇加入並發渲染
-<secondary-label ref="Experimental"/>
+<primary-label ref="Experimental"/>
 
 Compose Multiplatform for iOS 現在支援將渲染任務卸載到專用的渲染執行緒。
 並發渲染可以在沒有 UIKit 互操作的場景中提高效能。
@@ -371,14 +376,14 @@ Web 應用程式還會操作瀏覽器地址欄以反映當前的目的地路由�
 它允許您自訂路由字串到 URL 片段的轉換。
 
 ### 設定瀏覽器游標
-<secondary-label ref="Experimental"/>
+<primary-label ref="Experimental"/>
 
 我們引入了一個實驗性 `PointerIcon.Companion.fromKeyword()` 函式，用於管理可用作瀏覽器頁面上滑鼠指標的圖示。透過傳遞一個關鍵字作為參數，您可以根據上下文指定要顯示的游標型別。例如，您可以分配不同的指標圖示來選擇文字、開啟上下文選單或指示載入過程。
 
 查看可用[關鍵字](https://developer.mozilla.org/en-US/docs/Web/CSS/cursor)的完整列表。
 
 ### 資源預載入
-<secondary-label ref="Experimental"/>
+<primary-label ref="Experimental"/>
 
 Compose Multiplatform 1.8.2 引入了一個新的實驗性 API，
 用於網頁目標的字體和圖像預載入。
@@ -428,7 +433,7 @@ compose.resources {
 有關詳細資訊，請參閱 [pull request](https://github.com/JetBrains/compose-multiplatform/pull/5296)。
 
 ### `androidLibrary` 目標中多平台資源的支援
-<secondary-label ref="Experimental"/>
+<primary-label ref="Experimental"/>
 
 從 Android Gradle 外掛 8.8.0 版本開始，您可以在新的 `androidLibrary` 目標中使用生成的資產。
 為了使 Compose Multiplatform 與這些變更保持一致，我們引入了對新目標配置的支援，以處理打包到 Android 資產中的多平台資源。

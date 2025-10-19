@@ -22,11 +22,13 @@
 
 ### 1. 添加依赖项
 
-要使用 `AIAgent` 功能，请在你的构建配置中包含所有必要的依赖项：
+要使用 `AIAgent` 功能性，请在你的构建配置中包含所有必要的依赖项：
 
 ```
 dependencies {
-    implementation("ai.koog:koog-agents:VERSION")
+    implementation("ai.koog:koog-agents:$koog_version")
+    // 显式包含 Ktor 客户端依赖项
+    implementation("io.ktor:ktor-client-cio:$ktor_version")
 }
 ```
 
@@ -34,7 +36,7 @@ dependencies {
 
 ### 2. 创建代理 
 
-要创建代理，请创建 `AIAgent` 类的一个实例，并提供 `promptExecutor` 和 `llmModel` 形参：
+要创建代理，请创建 `AIAgent` 类的一个实例，并提供 `executor` 和 `llmModel` 形参：
 
 <!--- INCLUDE
 import ai.koog.agents.core.agent.AIAgent

@@ -26,7 +26,7 @@ Swift/Objective-C 코드를 변경하거나 Apple 시뮬레이터 또는 기기�
 2. Ruby를 설치합니다. 특정 버전을 선택할 수 있습니다:
 
     ```bash
-    rvm install ruby 3.0.0
+    rvm install ruby %rubyVersion%
     ```
 
 3. CocoaPods를 설치합니다:
@@ -42,13 +42,13 @@ Swift/Objective-C 코드를 변경하거나 Apple 시뮬레이터 또는 기기�
 2. Ruby를 설치합니다. 특정 버전을 선택할 수 있습니다:
 
     ```bash
-    rbenv install 3.0.0
+    rbenv install %rubyVersion%
     ```
 
 3. 특정 디렉토리에는 로컬 Ruby 버전을, 전체 머신에는 전역 Ruby 버전을 설정합니다:
 
     ```bash
-    rbenv global 3.0.0
+    rbenv global %rubyVersion%
     ```
     
 4. CocoaPods를 설치합니다:
@@ -167,7 +167,7 @@ CocoaPods 환경이 설정되면 Pod와 함께 작동하도록 Kotlin Multiplatf
                 // 종속성 내보내기
                 // 주석을 해제하고 다른 프로젝트 모듈이 있다면 지정합니다:
                 // export(project(":<your other KMP module>"))
-                transitiveExport = false // This is default.
+                transitiveExport = false // 이것이 기본값입니다.
             }
 
             // 사용자 지정 Xcode 구성을 NativeBuildType에 매핑합니다
@@ -182,7 +182,7 @@ CocoaPods 환경이 설정되면 Pod와 함께 작동하도록 Kotlin Multiplatf
     {style="note"}
     
 3. IntelliJ IDEA에서 **Build** | **Reload All Gradle Projects** (또는 Android Studio에서 **File** | **Sync Project with Gradle Files**)를 실행하여 프로젝트를 다시 임포트(re-import)합니다.
-4. Xcode 빌드 중 호환성 문제를 방지하려면 [Gradle wrapper](https://docs.gradle.org/current/userguide/gradle_wrapper.html)를 생성합니다.
+4. [Gradle wrapper](https://docs.gradle.org/current/userguide/gradle_wrapper.html)를 생성합니다. Xcode 빌드 중 호환성 문제를 방지합니다.
 
 적용하면 CocoaPods 플러그인은 다음을 수행합니다:
 
@@ -241,9 +241,7 @@ CocoaPods 설치 및 작동에 문제가 발생하면 [이 가이드](https://ww
 
 #### 버전 호환성
 
-최신 Kotlin 버전을 사용하는 것을 권장합니다. 현재 버전이 1.7.0보다 이전이라면 [`cocoapods-generate`](https://github.com/square/cocoapods-generate#installation") 플러그인을 추가로 설치해야 합니다.
-
-그러나 `cocoapods-generate`는 Ruby 3.0.0 이상 버전과 호환되지 않습니다. 이 경우 Ruby 버전을 낮추거나 Kotlin을 1.7.0 이상으로 업그레이드하세요.
+최신 Kotlin 버전을 사용하는 것을 권장합니다. 이 CocoaPods 설정에 필요한 최소 버전은 1.7.0입니다.
 
 ### Xcode 사용 시 빌드 오류 {initial-collapse-state="collapsed" collapsible="true"}
 

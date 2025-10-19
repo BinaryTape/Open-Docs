@@ -265,7 +265,6 @@ class ApplicationTest {
     }
   }
 }
-
 ```
 
 {validate="false"}
@@ -408,11 +407,11 @@ install(WebSockets) {
 
 ### 二進位和檔案項目的新預設限制
 
-在 Ktor 3.0.0 中，使用 [`ApplicationCall.receiveMultipart()`](https://api.ktor.io/older/3.0.0/ktor-server/ktor-server-core/io.ktor.server.request/receive-multipart.html) 接收二進位和檔案項目時，引入了 50MB 的預設限制。如果接收到的檔案或二進位項目超過 50MB 的限制，將會拋出 `IOException`。
+在 Ktor 3.0.0 中，使用 [`ApplicationCall.receiveMultipart()`](https://api.ktor.io/older/3.0.0/ktor-server/ktor-server-core/io.ktor.server.request/receive-multipart.html) 接收二進位和檔案項目時，引入了 50 MB 的預設限制。如果接收到的檔案或二進位項目超過 50 MB 的限制，將會拋出 `IOException`。
 
 #### 覆寫預設限制
 
-如果您的應用程式先前依賴於在沒有明確配置的情況下處理大於 50MB 的檔案，您將需要更新程式碼以避免意外行為。
+如果您的應用程式先前依賴於在沒有明確配置的情況下處理大於 50 MB 的檔案，您將需要更新程式碼以避免意外行為。
 
 若要覆寫預設限制，請在呼叫 `.receiveMultipart()` 時傳遞 `formFieldLimit` 參數：
 
@@ -568,6 +567,7 @@ runBlocking {
     val file = File.createTempFile("files", "index")
     val stream = file.outputStream().asSink()
     val fileSize = 100 * 1024 * 1024
+    val bufferSize = 1024 * 1024
 
     runBlocking {
         client.prepareGet("https://httpbin.org/bytes/$fileSize").execute { httpResponse ->
@@ -575,7 +575,7 @@ runBlocking {
             var count = 0L
             stream.use {
                 while (!channel.exhausted()) {
-                    val chunk = channel.readRemaining()
+                    val chunk = channel.readRemaining(bufferSize)
                     count += chunk.remaining
 
                     chunk.transferTo(stream)

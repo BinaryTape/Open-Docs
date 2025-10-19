@@ -1,8 +1,19 @@
 [//]: # (title: Gradle)
 
+> 從 Dokka 2.0.0 開始，一些配置選項、Gradle 任務以及產生文件的步驟已更新，包括：
+>
+> * [調整配置選項](dokka-migration.md#adjust-configuration-options)
+> * [使用多模組專案](dokka-migration.md#share-dokka-configuration-across-modules)
+> * [使用更新後的任務產生文件](dokka-migration.md#generate-documentation-with-the-updated-task)
+> * [指定輸出目錄](dokka-migration.md#output-directory)
+>
+> 更多詳細資訊和完整的變更清單，請參閱 [遷移指南](dokka-migration.md)。
+>
+{style="note"}
+
 若要為基於 Gradle 的專案產生文件，您可以使用 [Dokka 的 Gradle 外掛程式](https://plugins.gradle.org/plugin/org.jetbrains.dokka)。
 
-它為您的專案提供了基本的自動配置，包含用於產生文件的便利 [Gradle 任務](#generate-documentation)，並提供了大量的 [設定選項](#configuration-options) 來客製化輸出。
+它為您的專案提供了基本的自動配置，包含用於產生文件的便利 [Gradle 任務](#generate-documentation)，並提供了大量的 [配置選項](#configuration-options) 來客製化輸出。
 
 您可以透過瀏覽我們的 [Gradle 範例專案](https://github.com/Kotlin/dokka/tree/%dokkaVersion%/examples/gradle) 來試用 Dokka，並了解如何為各種專案配置它。
 
@@ -94,7 +105,7 @@ Dokka 的 Gradle 外掛程式內建了 [HTML](dokka-html.md)、[Markdown](dokka-
 
 #### MultiModule 任務
 
-MultiModule 任務透過 [`Partial`](#partial-tasks) 任務為每個子專案單獨產生文件，收集並處理所有輸出，並產生包含共同目錄和已解析跨專案參考的完整文件。
+`MultiModule` 任務透過 [`Partial`](#partial-tasks) 任務為每個子專案單獨產生文件，收集並處理所有輸出，並產生包含共同目錄和已解析跨專案參考的完整文件。
 
 Dokka 會自動為**父**專案建立以下任務：
 
@@ -681,28 +692,28 @@ tasks.withType(DokkaTask.class) {
 <deflist collapsible="true">
     <def title="moduleName">
         <p>用於指稱模組的顯示名稱。它用於目錄、導覽、日誌記錄等。</p>
-        <p>如果為單一專案建構或 `MultiModule` 任務設定，則會用作專案名稱。</p>
+        <p>如果為單一專案建構或 <code>MultiModule</code> 任務設定，則會用作專案名稱。</p>
         <p>預設值：Gradle 專案名稱</p>
     </def>
     <def title="moduleVersion">
         <p>
-            模組版本。如果為單一專案建構或 `MultiModule` 任務設定，則會用作專案版本。
+            模組版本。如果為單一專案建構或 <code>MultiModule</code> 任務設定，則會用作專案版本。
         </p>
         <p>預設值：Gradle 專案版本</p>
     </def>
     <def title="outputDirectory">
         <p>無論格式為何，產生文件所到的目錄。它可以根據每個任務進行設定。</p>
         <p>
-            預設值為 `{project}/{buildDir}/{format}`，其中 `{format}` 是移除了「dokka」前綴的任務名稱。對於 `dokkaHtmlMultiModule` 任務，它是 
-            `project/buildDir/htmlMultiModule`。
+            預設值為 <code>{project}/{buildDir}/{format}</code>，其中 <code>{format}</code> 是移除了「dokka」前綴的任務名稱。對於 <code>dokkaHtmlMultiModule</code> 任務，它是 
+            <code>project/buildDir/htmlMultiModule</code>。
         </p>
     </def>
     <def title="failOnWarning">
         <p>
             如果 Dokka 發出警告或錯誤，是否要使文件產生失敗。此程序會等到所有錯誤和警告都發出後才繼續。
         </p>
-        <p>此設定與 `reportUndocumented` 搭配良好。</p>
-        <p>預設值：`false`</p>
+        <p>此設定與 <code>reportUndocumented</code> 搭配良好。</p>
+        <p>預設值：<code>false</code></p>
     </def>
     <def title="suppressObviousFunctions">
         <p>是否抑制明顯的函式。</p>
@@ -710,24 +721,24 @@ tasks.withType(DokkaTask.class) {
             如果函式符合以下條件，則被視為明顯：</p>
             <list>
                 <li>
-                    繼承自 `kotlin.Any`、`Kotlin.Enum`、`java.lang.Object` 或
-                    `java.lang.Enum`，例如 `equals`、`hashCode`、`toString`。
+                    繼承自 <code>kotlin.Any</code>、<code>Kotlin.Enum</code>、<code>java.lang.Object</code> 或
+                    <code>java.lang.Enum</code>，例如 <code>equals</code>、<code>hashCode</code>、<code>toString</code>。
                 </li>
                 <li>
                     合成 (由編譯器產生) 且沒有任何文件，例如
-                    `dataClass.componentN` 或 `dataClass.copy`。
+                    <code>dataClass.componentN</code> 或 <code>dataClass.copy</code>。
                 </li>
             </list>
-        <p>預設值：`true`</p>
+        <p>預設值：<code>true</code></p>
     </def>
     <def title="suppressInheritedMembers">
         <p>是否抑制在給定類別中未明確覆寫的繼承成員。</p>
         <p>
-            注意：這可以抑制 `equals` / `hashCode` / `toString` 等函式，
-            但不能抑制 `dataClass.componentN` 和
-            `dataClass.copy` 等合成函式。為此請使用 `suppressObviousFunctions`。
+            注意：這可以抑制 <code>equals</code> / <code>hashCode</code> / <code>toString</code> 等函式，
+            但不能抑制 <code>dataClass.componentN</code> 和
+            <code>dataClass.copy</code> 等合成函式。為此請使用 <code>suppressObviousFunctions</code>。
         </p>
-        <p>預設值：`false`</p>
+        <p>預設值：<code>false</code></p>
     </def>
     <def title="offlineMode">
         <p>是否透過您的網路解析遠端檔案/連結。</p>
@@ -736,15 +747,15 @@ tasks.withType(DokkaTask.class) {
             例如，使標準函式庫中的類別可點擊。 
         </p>
         <p>
-            將此設定為 `true` 在某些情況下可以顯著加快建構時間，
+            將此設定為 <code>true</code> 在某些情況下可以顯著加快建構時間，
             但也可能降低文件品質和使用者體驗。例如，
             不解析來自您的依賴項（包括標準函式庫）的類別/成員連結。
         </p>
         <p>
             注意：您可以將獲取的檔案快取在本地，並將它們作為本地路徑提供給
-            Dokka。請參閱 `externalDocumentationLinks` 部分。
+            Dokka。請參閱 <code>externalDocumentationLinks</code> 部分。
         </p>
-        <p>預設值：`false`</p>
+        <p>預設值：<code>false</code></p>
     </def>
 </deflist>
 
@@ -872,63 +883,63 @@ tasks.withType(DokkaTask.class) {
 <deflist collapsible="true">
     <def title="suppress">
         <p>產生文件時是否應跳過此原始碼集。</p>
-        <p>預設值：`false`</p>
+        <p>預設值：<code>false</code></p>
     </def>
     <def title="displayName">
         <p>用於指稱此原始碼集的顯示名稱。</p>
         <p>
-            此名稱同時用於外部 (例如，作為文件讀者可見的原始碼集名稱) 和內部 (例如，用於 `reportUndocumented` 的日誌訊息)。
+            此名稱同時用於外部 (例如，作為文件讀者可見的原始碼集名稱) 和內部 (例如，用於 <code>reportUndocumented</code> 的日誌訊息)。
         </p>
         <p>預設情況下，該值是根據 Kotlin Gradle 外掛程式提供的信息推斷出來的。</p>
     </def>
     <def title="documentedVisibilities">
         <p>應記錄的可見性修飾符集。</p>
         <p>
-            如果您想記錄 `protected` / `internal` / `private` 宣告，
-            以及如果您想排除 `public` 宣告並只記錄內部 API，則可以使用此選項。
+            如果您想記錄 <code>protected</code> / <code>internal</code> / <code>private</code> 宣告，
+            以及如果您想排除 <code>public</code> 宣告並只記錄內部 API，則可以使用此選項。
         </p>
         <p>這可以根據每個套件進行配置。</p>
-        <p>預設值：`DokkaConfiguration.Visibility.PUBLIC`</p>
+        <p>預設值：<code>DokkaConfiguration.Visibility.PUBLIC</code></p>
     </def>
     <def title="reportUndocumented">
         <p>
-            是否發出關於可見的未記錄宣告的警告，即經過 `documentedVisibilities` 和其他過濾器過濾後沒有 KDoc 的宣告。
+            是否發出關於可見的未記錄宣告的警告，即經過 <code>documentedVisibilities</code> 和其他過濾器過濾後沒有 KDoc 的宣告。
         </p>
-        <p>此設定與 `failOnWarning` 搭配良好。</p>
+        <p>此設定與 <code>failOnWarning</code> 搭配良好。</p>
         <p>這可以根據每個套件進行配置。</p>
-        <p>預設值：`false`</p>
+        <p>預設值：<code>false</code></p>
     </def>
     <def title="skipEmptyPackages">
         <p>
             在套用各種過濾器後，是否跳過不包含任何可見宣告的套件。
         </p>
         <p>
-            例如，如果 `skipDeprecated` 設定為 `true` 且您的套件只包含已淘汰的宣告，
+            例如，如果 <code>skipDeprecated</code> 設定為 <code>true</code> 且您的套件只包含已淘汰的宣告，
             則該套件被視為空。
         </p>
-        <p>預設值：`true`</p>
+        <p>預設值：<code>true</code></p>
     </def>
     <def title="skipDeprecated">
-        <p>是否記錄帶有 `@Deprecated` 註解的宣告。</p>
+        <p>是否記錄帶有 <code>@Deprecated</code> 註解的宣告。</p>
         <p>這可以根據每個套件進行配置。</p>
-        <p>預設值：`false`</p>
+        <p>預設值：<code>false</code></p>
     </def>
     <def title="suppressGeneratedFiles">
         <p>是否文件化/分析產生檔案。</p>
         <p>
-            產生檔案預期位於 `{project}/{buildDir}/generated` 目錄下。
+            產生檔案預期位於 <code>{project}/{buildDir}/generated</code> 目錄下。
         </p>
         <p>
-            如果設定為 `true`，它會將該目錄中的所有檔案有效地新增到
-            `suppressedFiles` 選項中，以便您可以手動配置它。
+            如果設定為 <code>true</code>，它會將該目錄中的所有檔案有效地新增到
+            <code>suppressedFiles</code> 選項中，以便您可以手動配置它。
         </p>
-        <p>預設值：`true`</p>
+        <p>預設值：<code>true</code></p>
     </def>
     <def title="jdkVersion">
         <p>產生 Java 類型外部文件連結時使用的 JDK 版本。</p>
         <p>
-            例如，如果您在某些公開宣告簽名中使用 `java.util.UUID`，
-            並且此選項設定為 `8`，Dokka 會為其產生一個連結到
+            例如，如果您在某些公開宣告簽名中使用 <code>java.util.UUID</code>，
+            並且此選項設定為 <code>8</code>，Dokka 會為其產生一個連結到
             <a href="https://docs.oracle.com/javase/8/docs/api/java/util/UUID.html">JDK 8 Javadocs</a> 的外部文件連結。
         </p>
         <p>預設值：JDK 8</p>
@@ -947,27 +958,27 @@ tasks.withType(DokkaTask.class) {
             用於設定分析和 <a href="https://kotlinlang.org/docs/kotlin-doc.html#sample-identifier">@sample</a>
             環境。
         </p>
-        <p>預設情況下，它是從 `languageVersion` 推導出來的。</p>
+        <p>預設情況下，它是從 <code>languageVersion</code> 推導出來的。</p>
     </def>
     <def title="noStdlibLink">
         <p>
             是否產生引導至 Kotlin 標準函式庫 API 參考文件的外部文件連結。
         </p>
-        <p>注意：當 `noStdLibLink` 設定為 `false` 時，連結**會**產生。</p>
-        <p>預設值：`false`</p>
+        <p>注意：當 <code>noStdLibLink</code> 設定為 <code>false</code> 時，連結**會**產生。</p>
+        <p>預設值：<code>false</code></p>
     </def>
     <def title="noJdkLink">
         <p>是否產生連結到 JDK Javadoc 的外部文件連結。</p>
-        <p>JDK Javadoc 的版本由 `jdkVersion` 選項決定。</p>
-        <p>注意：當 `noJdkLink` 設定為 `false` 時，連結**會**產生。</p>
-        <p>預設值：`false`</p>
+        <p>JDK Javadoc 的版本由 <code>jdkVersion</code> 選項決定。</p>
+        <p>注意：當 <code>noJdkLink</code> 設定為 <code>false</code> 時，連結**會**產生。</p>
+        <p>預設值：<code>false</code></p>
     </def>
     <def title="noAndroidSdkLink">
         <anchor name="includes"/>
         <p>是否產生連結到 Android SDK API 參考的外部文件連結。</p>
         <p>這僅與 Android 專案相關，否則會被忽略。</p>
-        <p>注意：當 `noAndroidSdkLink` 設定為 `false` 時，連結**會**產生。</p>
-        <p>預設值：`false`</p>
+        <p>注意：當 <code>noAndroidSdkLink</code> 設定為 <code>false</code> 時，連結**會**產生。</p>
+        <p>預設值：<code>false</code></p>
     </def>
     <def title="includes">
         <p>
@@ -989,14 +1000,14 @@ tasks.withType(DokkaTask.class) {
     <def title="sourceRoots">
         <p>
             要分析和記錄的原始碼根目錄。
-            可接受的輸入是目錄和單獨的 `.kt` / `.java` 檔案。
+            可接受的輸入是目錄和單獨的 <code>.kt</code> / <code>.java</code> 檔案。
         </p>
         <p>預設情況下，原始碼根目錄是根據 Kotlin Gradle 外掛程式提供的信息推導出來的。</p>
     </def>
     <def title="classpath">
         <p>用於分析和互動式範例的類別路徑。</p>
         <p>如果某些來自依賴項的類型未自動解析/選取，這會很有用。</p>
-        <p>此選項接受 `.jar` 和 `.klib` 檔案。</p>
+        <p>此選項接受 <code>.jar</code> 和 <code>.klib</code> 檔案。</p>
         <p>預設情況下，類別路徑是根據 Kotlin Gradle 外掛程式提供的信息推導出來的。</p>
     </def>
     <def title="samples">
@@ -1097,17 +1108,17 @@ tasks.withType(DokkaTask.class) {
         </p>
         <p>
             數字本身會附加到指定的後綴。例如，
-            如果此選項設定為 `#L` 且行號為 10，則產生的 URL 後綴
-            為 `#L10`。
+            如果此選項設定為 <code>#L</code> 且行號為 10，則產生的 URL 後綴
+            為 <code>#L10</code>。
         </p>
         <p>
             常用服務使用的後綴：</p>
             <list>
-                <li>GitHub: `#L`</li>
-                <li>GitLab: `#L`</li>
-                <li>Bitbucket: `#lines-`</li>
+                <li>GitHub: <code>#L</code></li>
+                <li>GitLab: <code>#L</code></li>
+                <li>Bitbucket: <code>#lines-</code></li>
             </list>
-        <p>預設值：`#L`</p>
+        <p>預設值：<code>#L</code></p>
     </def>
 </deflist>
 
@@ -1183,33 +1194,33 @@ tasks.withType(DokkaTask.class) {
 <deflist collapsible="true">
     <def title="matchingRegex">
         <p>用於匹配套件的正則表達式。</p>
-        <p>預設值：`.*`</p>
+        <p>預設值：<code>.*</code></p>
     </def>
     <def title="suppress">
         <p>產生文件時是否應跳過此套件。</p>
-        <p>預設值：`false`</p>
+        <p>預設值：<code>false</code></p>
     </def>
     <def title="skipDeprecated">
-        <p>是否記錄帶有 `@Deprecated` 註解的宣告。</p>
+        <p>是否記錄帶有 <code>@Deprecated</code> 註解的宣告。</p>
         <p>這可以在原始碼集層級配置。</p>
-        <p>預設值：`false`</p>
+        <p>預設值：<code>false</code></p>
     </def>
     <def title="reportUndocumented">
         <p>
-            是否發出關於可見的未記錄宣告的警告，即經過 `documentedVisibilities` 和其他過濾器過濾後沒有 KDoc 的宣告。
+            是否發出關於可見的未記錄宣告的警告，即經過 <code>documentedVisibilities</code> 和其他過濾器過濾後沒有 KDoc 的宣告。
         </p>
-        <p>此設定與 `failOnWarning` 搭配良好。</p>
+        <p>此設定與 <code>failOnWarning</code> 搭配良好。</p>
         <p>這可以在原始碼集層級配置。</p>
-        <p>預設值：`false`</p>
+        <p>預設值：<code>false</code></p>
     </def>
     <def title="documentedVisibilities">
         <p>應記錄的可見性修飾符集。</p>
         <p>
-            如果您想記錄此套件中的 `protected` / `internal` / `private` 宣告，
-            以及如果您想排除 `public` 宣告並只記錄內部 API，則可以使用此選項。
+            如果您想記錄此套件中的 <code>protected</code> / <code>internal</code> / <code>private</code> 宣告，
+            以及如果您想排除 <code>public</code> 宣告並只記錄內部 API，則可以使用此選項。
         </p>
         <p>這可以在原始碼集層級配置。</p>
-        <p>預設值：`DokkaConfiguration.Visibility.PUBLIC`</p>
+        <p>預設值：<code>DokkaConfiguration.Visibility.PUBLIC</code></p>
     </def>
 </deflist>
 
@@ -1288,17 +1299,17 @@ tasks.withType(DokkaTask.class) {
     <def title="url">
         <p>要連結的文件根 URL。它**必須**包含尾隨斜線。</p>
         <p>
-            Dokka 會盡力自動尋找 `package-list` 針對給定的 URL，
+            Dokka 會盡力自動尋找 <code>package-list</code> 針對給定的 URL，
             並將宣告連結在一起。
         </p>
         <p>
             如果自動解析失敗或者您想改用本地快取檔案，
-            請考慮設定 `packageListUrl` 選項。
+            請考慮設定 <code>packageListUrl</code> 選項。
         </p>
     </def>
     <def title="packageListUrl">
         <p>
-            `package-list` 的確切位置。這是依賴 Dokka
+            <code>package-list</code> 的確切位置。這是依賴 Dokka
             自動解析的替代方案。
         </p>
         <p>

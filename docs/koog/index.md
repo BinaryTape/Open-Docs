@@ -5,7 +5,7 @@ Koog 是一个开源的 JetBrains 框架，旨在完全以地道的 Kotlin 构�
 该框架支持以下类型的智能体：
 
 *   单次运行智能体，配置最少，处理单个输入并提供响应。此类智能体在单个工具调用周期内运行，以完成其任务并提供响应。
-*   函数式智能体，其轻量且可定制的逻辑由 lambda 表达式定义，用于处理用户输入、与 LLM 交互、调用工具并生成最终输出。
+*   函数式智能体，其轻量且可定制的逻辑由 lambda 函数定义，用于处理用户输入、与 LLM 交互、调用工具并生成最终输出。
 *   复杂工作流智能体，具备高级功能，支持自定义策略和配置。
 
 ## 主要特性
@@ -45,6 +45,8 @@ Koog 的主要特性包括：
 
 要使用 Koog，你需要将所有必要的依赖项包含在你的构建配置中。
 
+**注意！** Ktor [客户端](https://ktor.io/docs/client-engines.html)和[服务器](https://ktor.io/docs/server-engines.html)引擎依赖项默认不包含在库中，因此你需要自行添加选择的引擎。
+
 ### Gradle
 
 #### Gradle (Kotlin DSL)
@@ -54,8 +56,11 @@ Koog 的主要特性包括：
     ```
     dependencies {
         implementation("ai.koog:koog-agents:LATEST_VERSION")
+       // include Ktor client dependency explicitly
+        implementation("io.ktor:ktor-client-cio:$ktor_version")
     }
     ```
+   Ktor [客户端](https://ktor.io/docs/client-engines.html)和[服务器](https://ktor.io/docs/server-engines.html)引擎依赖项默认不包含在库中，因此你需要自行添加选择的引擎。
 
 2.  确保在仓库列表中包含 `mavenCentral()`。
 
@@ -66,6 +71,7 @@ Koog 的主要特性包括：
     ```
     dependencies {
         implementation 'ai.koog:koog-agents:LATEST_VERSION'
+        implementation 'io.ktor:ktor-client-cio:KTOR_VERSION'
     }
     ```
 
@@ -75,12 +81,42 @@ Koog 的主要特性包括：
 
 1.  将依赖项添加到 `pom.xml` 文件：
 
-    ```
+    ```xml
     <dependency>
         <groupId>ai.koog</groupId>
         <artifactId>koog-agents-jvm</artifactId>
         <version>LATEST_VERSION</version>
     </dependency>
+    ```
+
+2.  添加 Ktor 依赖项。请在此处[查看 Ktor 版本](https://mvnrepository.com/artifact/io.ktor/ktor-bom)。
+    ```xml
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>io.ktor</groupId>
+                <artifactId>ktor-bom</artifactId>
+                <version>KTOR_VERSION</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+   
+    <dependencies>
+        <dependency>
+            <groupId>io.ktor</groupId>
+            <artifactId>ktor-client-cio-jvm</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <!-- Add a Ktor server dependency if you are using features like MCP -->
+        <dependency>
+            <groupId>io.ktor</groupId>
+            <artifactId>ktor-server-netty-jvm</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+    </dependencies>
+
     ```
 
 2.  确保在仓库列表中包含 `mavenCentral`。

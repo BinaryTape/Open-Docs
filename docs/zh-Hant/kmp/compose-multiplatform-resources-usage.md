@@ -77,8 +77,61 @@ compose.resources {
 
 ```kotlin
 Image(
-    painter = painterResource(Res.drawable.my_icon),
+    painter = painterResource(Res.drawable.my_image),
     contentDescription = null
+)
+```
+
+### 圖示
+
+您可以使用 Material Symbols 函式庫中的向量 Android XML 圖示：
+
+1. 開啟 [Google Fonts Icons](https://fonts.google.com/icons) 圖庫，選擇一個圖示，前往 Android 頁籤，然後點擊 **Download**。
+
+2. 將下載的 XML 圖示檔案新增到您的多平台資源的 `drawable` 目錄中。
+
+3. 開啟 XML 圖示檔案並將 `android:fillColor` 設定為 `#00000000`。
+   移除任何其他用於顏色調整的 Android 特定屬性，例如 `android:tint`。
+
+   之前：
+
+   ```xml
+   <vector xmlns:android="http://schemas.android.com/apk/res/android"
+        android:width="24dp"
+        android:height="24dp"
+        android:viewportWidth="960"
+        android:viewportHeight="960"
+        android:tint="?attr/colorControlNormal">
+        <path
+            android:fillColor="@android:color/white"
+            android:pathData="..."/>
+    </vector>
+   ```
+   
+   之後：
+
+   ```xml
+   <vector xmlns:android="http://schemas.android.com/apk/res/android"
+        android:width="24dp"
+        android:height="24dp"
+        android:viewportWidth="960"
+        android:viewportHeight="960">
+        <path
+            android:fillColor="#00000000"
+            android:pathData="..."/>
+   </vector>
+   ```
+   
+4. 建置專案以產生資源存取器，或讓 [Kotlin Multiplatform 外掛程式](https://plugins.jetbrains.com/plugin/14936-kotlin-multiplatform)自動處理。
+
+以下是如何在 Compose Multiplatform 程式碼中，使用 `colorFilter` 參數存取圖示並調整顏色的範例：
+
+```kotlin
+Image(
+    painter = painterResource(Res.drawable.ic_sample_icon),
+    contentDescription = "Sample icon",
+    modifier = Modifier.size(24.dp),
+    colorFilter = ColorFilter.tint(Color.Blue)
 )
 ```
 
@@ -508,7 +561,7 @@ fun App() {
 ```
 
 ### 使用 Compose Multiplatform 預載入 API 預載入資源
-<secondary-label ref="Experimental"/>
+<primary-label ref="實驗性"/>
 
 即使您已在瀏覽器中預載入資源，它們仍會以原始位元組形式快取，這些位元組仍需要轉換為適合呈現的格式，例如 `FontResource` 和 `DrawableResource`。當應用程式第一次請求資源時，轉換是異步完成的，這可能會再次導致閃爍。為了進一步最佳化體驗，Compose Multiplatform 資源擁有自己的內部快取，用於資源的更高層次表示，這也可以預載入。
 
@@ -546,7 +599,7 @@ import org.jetbrains.compose.resources.preloadFont
 @OptIn(ExperimentalComposeUiApi::class, ExperimentalResourceApi::class, InternalComposeUiApi::class)
 fun main() {
     configureWebResources {
-        // 覆寫資源位置
+        // Overrides the resource location
         resourcePathMapping { path -> "./$path" }
     }
     CanvasBasedWindow("Resources + K/Wasm") {
@@ -555,13 +608,13 @@ fun main() {
         val emojiFont = preloadFont(Res.font.NotoColorEmoji).value
         var fontsFallbackInitialized by remember { mutableStateOf(false) }
 
-        // 使用預載入的資源作為應用程式內容
+        // Uses the preloaded resource for the app's content
         UseResources()
 
         if (font1 != null && font2 != null && emojiFont != null && fontsFallbackInitialized) {
             println("Fonts are ready")
         } else {
-            // 顯示進度指示器，以解決 FOUT 或應用程式在載入期間暫時無法運作的問題
+            // Displays the progress indicator to address a FOUT or the app being temporarily non-functional during loading
             Box(modifier = Modifier.fillMaxSize().background(Color.White.copy(alpha = 0.8f)).clickable {  }) {
                 CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
             }
@@ -571,7 +624,7 @@ fun main() {
         val fontFamilyResolver = LocalFontFamilyResolver.current
         LaunchedEffect(fontFamilyResolver, emojiFont) {
             if (emojiFont != null) {
-                // 預載入包含表情符號的後備字型，以呈現捆綁字型不支援的缺失字形
+                // Preloads a fallback font with emojis to render missing glyphs that are not supported by the bundled font
                 fontFamilyResolver.preload(FontFamily(listOf(emojiFont)))
                 fontsFallbackInitialized = true
             }
@@ -612,7 +665,7 @@ val uri = Res.getUri("files/my_video.mp4")
 考慮完全轉換到多平台資源函式庫以釋放該潛力。
 
 隨著 Compose Multiplatform 1.7.0 的發佈，`compose.ui` 套件中可用的資源 API 已被棄用。
-如果您仍然需要使用 Java 資源，請將以下實作複製到您的專案中，以確保您的程式碼在升級到 Compose Multiplatform 1.7.0 或更高版本後仍然有效：
+如果您仍然需要使用 Java 資源，請將以下實作複製到您的專案中，以確保您的程式碼在升級到 `Compose Multiplatform 1.7.0` 或更高版本後仍然有效：
 
 ```kotlin
 @Composable

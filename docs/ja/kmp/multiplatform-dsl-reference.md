@@ -1,7 +1,7 @@
 [//]: # (title: マルチプラットフォーム Gradle DSL リファレンス)
 
 Kotlin Multiplatform Gradle プラグインは、Kotlin Multiplatform プロジェクトを作成するためのツールです。
-ここでは、その内容のリファレンスを提供します。Kotlin Multiplatform プロジェクトの Gradle ビルドスクリプトを記述する際の参考にしてください。Kotlin Multiplatform プロジェクトの[概念、作成方法、および構成方法](multiplatform-discover-project.md)について学習してください。
+ここでは、その内容のリファレンスを提供します。Kotlin Multiplatform プロジェクトの Gradle ビルドスクリプトを記述する際の参考にしてください。[Kotlin Multiplatform プロジェクトの概念、作成方法、および構成方法](multiplatform-discover-project.md)について学びましょう。
 
 ## ID とバージョン
 
@@ -130,8 +130,8 @@ kotlin {
 
 ターゲットの構成には2つの部分を含めることができます。
 
-* すべてのターゲットで利用可能な[共通設定](#common-target-configuration)。
-* ターゲット固有の設定。
+*   すべてのターゲットで利用可能な[共通設定](#common-target-configuration)。
+*   ターゲット固有の設定。
 
 各ターゲットは1つ以上の[コンピレーション](#compilations)を持つことができます。
 
@@ -1002,7 +1002,7 @@ kotlin {
 この場合、[`dependsOn()`](#source-set-parameters) 関係が使用されます。
 
 ### トップレベルでの依存関係の設定
-<secondary-label ref="Experimental">実験的</secondary-label>
+<primary-label ref="Experimental">実験的</primary-label>
 
 トップレベルの `dependencies {}` ブロックを使用して共通依存関係を設定できます。ここで宣言された依存関係は、`commonMain` または `commonTest` ソースセットに追加されたかのように動作します。
 

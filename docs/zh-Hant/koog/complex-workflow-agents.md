@@ -1,25 +1,25 @@
 # 複雜工作流程代理程式
 
-除了單次執行代理程式外，`AIAgent` 類別還允許您透過定義自訂策略、工具、配置，以及自訂的輸入/輸出類型來建構處理複雜工作流程的代理程式。
+除了單次執行代理程式外，`AIAgent` 類別還允許您透過定義自訂策略、工具、設定以及自訂的輸入/輸出類型來建構處理複雜工作流程的代理程式。
 
 !!! tip
     如果您剛接觸 Koog 並想建立最簡單的代理程式，請從 [單次執行代理程式](single-run-agents.md) 開始。
 
 建立和配置此類代理程式的過程通常包括以下步驟：
 
-1.  提供提示執行器以與 LLM 溝通。
-2.  定義控制代理程式工作流程的策略。
-3.  配置代理程式行為。
-4.  實作供代理程式使用的工具。
-5.  新增事件處理、記憶體或追蹤等可選功能。
-6.  以使用者輸入執行代理程式。
+1. 提供提示執行器以與 LLM 溝通。
+2. 定義控制代理程式工作流程的策略。
+3. 配置代理程式行為。
+4. 實作供代理程式使用的工具。
+5. 新增事件處理、記憶體或追蹤等可選功能。
+6. 以使用者輸入執行代理程式。
 
 ## 先決條件
 
--   您擁有來自用於實作 AI 代理程式的 LLM 提供者的有效 API 金鑰。有關所有可用提供者的列表，請參閱 [概述](index.md)。
+- 您擁有來自用於實作 AI 代理程式的 LLM 提供者的有效 API 金鑰。有關所有可用提供者的列表，請參閱 [概述](index.md)。
 
 !!! tip
-    使用環境變數或安全的組態管理系統來儲存您的 API 金鑰。
+    使用環境變數或安全的設定管理系統來儲存您的 API 金鑰。
     避免直接在原始碼中硬編碼 API 金鑰。
 
 ## 建立複雜工作流程代理程式
@@ -368,7 +368,7 @@ val agent = AIAgent(
     agentConfig = agentConfig,
     installFeatures = {
         install(EventHandler) {
-            onAgentStarting { eventContext: AgentStartingContext<*> ->
+            onAgentStarting { eventContext: AgentStartingContext ->
                 println("正在啟動代理程式：${eventContext.agent.id}")
             }
             onAgentCompleted { eventContext: AgentCompletedContext ->
@@ -511,7 +511,7 @@ val agent = AIAgent(
     agentConfig = agentConfig,
     installFeatures = {
         install(EventHandler) {
-            onAgentStarting { eventContext: AgentStartingContext<*> ->
+            onAgentStarting { eventContext: AgentStartingContext ->
                 println("正在啟動代理程式：${eventContext.agent.id}")
             }
             onAgentCompleted { eventContext: AgentCompletedContext ->

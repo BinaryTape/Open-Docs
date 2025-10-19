@@ -6,11 +6,11 @@ Kotlin 라이브러리를 생성할 때는 **Kotlin Multiplatform 지원을 포�
 
 ## 도달 범위 극대화
 
-라이브러리를 가능한 한 많은 프로젝트에서 의존성으로 사용할 수 있도록 하려면, **가능한 한 많은 Kotlin Multiplatform [대상 플랫폼](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-dsl-reference.html#targets)을 지원하는 것을 목표로 하세요.**
+라이브러리를 가능한 한 많은 프로젝트에서 의존성으로 사용할 수 있도록 하려면, 가능한 한 많은 Kotlin Multiplatform [대상 플랫폼](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-dsl-reference.html#targets)을 지원하는 것을 목표로 하세요.
 
 라이브러리가 멀티플랫폼 프로젝트(라이브러리든 애플리케이션이든)에서 사용하는 플랫폼을 지원하지 않으면, 해당 프로젝트가 라이브러리에 의존하기 어렵습니다. 이 경우, 프로젝트는 일부 플랫폼에서 라이브러리를 사용하고 다른 플랫폼에는 별도의 솔루션을 구현해야 하거나, 아예 모든 플랫폼을 지원하는 대체 라이브러리를 선택할 것입니다.
 
-아티팩트(artifact) 생성을 간소화하기 위해, 실험적 [크로스 컴파일](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-publish-lib-setup.html#host-requirements)을 통해 어떤 호스트에서도 Kotlin Multiplatform 라이브러리를 게시할 수 있습니다. 이를 통해 Apple 머신 없이도 Apple 대상을 위한 `.klib` 아티팩트를 생성할 수 있습니다. 이 기능을 안정화하고 향후 라이브러리 배포를 더욱 개선할 계획입니다. 이 기능에 대한 피드백은 이슈 트래커 [YouTrack](https://youtrack.jetbrains.com/issue/KT-71290)에 남겨주세요.
+아티팩트(artifact) 생성을 간소화하기 위해, [크로스 컴파일](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-publish-lib-setup.html#host-requirements)을 사용하여 어떤 호스트에서도 Kotlin Multiplatform 라이브러리를 게시할 수 있습니다. 이를 통해 Apple 머신 없이도 Apple 대상을 위한 `.klib` 아티팩트를 생성할 수 있습니다.
 
 > Kotlin/Native 대상의 경우, 모든 가능한 대상을 지원하기 위해 [계층적 접근 방식](native-target-support.md#for-library-authors)을 사용하는 것을 고려하세요.
 >
@@ -44,7 +44,7 @@ API가 플랫폼 간에 일관되게 동작할 때, `commonMain` 소스 세트�
 
 > 플랫폼 간의 차이가 불가피한 경우(예: 한 플랫폼이 더 광범위한 입력을 지원하는 경우)에도 가능한 한 최소화하세요. 예를 들어, 한 플랫폼의 기능을 다른 플랫폼과 일치시키기 위해 제한하고 싶지 않을 수 있습니다. 이러한 경우, 특정 차이점을 명확히 문서화하세요.
 >
-> {style=”note”}
+{style="note"}
 
 ## 모든 플랫폼에서 테스트
 
@@ -52,7 +52,7 @@ API가 플랫폼 간에 일관되게 동작할 때, `commonMain` 소스 세트�
 
 게시된 모든 플랫폼에서 Kotlin/Native 대상을 정기적으로 테스트하는 것은 어려울 수 있습니다. 그러나 더 넓은 호환성을 보장하기 위해, 호환성을 테스트할 때 [계층적 방식](native-target-support.md#for-library-authors)을 사용하여 지원할 수 있는 모든 대상을 위해 라이브러리를 게시하는 것을 고려하세요.
 
-`kotlin-test` 라이브러리를 사용하여 공통 코드에서 테스트를 작성하고 플랫폼별 테스트 러너로 실행합니다.
+[`kotlin-test`](https://kotlinlang.org/api/latest/kotlin.test/) 라이브러리를 사용하여 공통 코드에서 테스트를 작성하고 플랫폼별 테스트 러너로 실행합니다.
 
 ## 비(非)Kotlin 사용자 고려
 

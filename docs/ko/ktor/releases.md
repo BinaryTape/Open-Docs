@@ -33,6 +33,18 @@ IntelliJ Ktor 플러그인을 사용하면 Ktor 프로젝트를 최신 버전으
 </tr>
 
 <tr>
+<td>3.3.1</td><td>2025년 10월 8일</td><td>
+<p>
+Kotlin을 2.2.20으로 업데이트하고, `Content-Length` 파싱 오류, `ClientSSESession`에 대한 누락된 직렬화 도구, Netty 설정 및 종료 버그 등 여러 문제를 해결하며, `bootJar` 내에서 정적 리소스를 제공하는 지원을 추가하는 패치 릴리스입니다.
+</p>
+<var name="version" value="3.3.1"/>
+<p>
+    <a href="https://github.com/ktorio/ktor/releases/tag/%version%">GitHub에서 변경 로그 보기</a>
+</p>
+</td>
+</tr>
+
+<tr>
 <td>3.3.0</td><td>2025년 9월 11일</td><td>
 <p>
 실험적 OpenAPI 생성 미리보기, 개선된 정적 콘텐츠 처리, Android 및 JS/Wasm용 WebRTC 클라이언트와 같은 주요 기능을 도입하고, Jetty, OkHttp 및 Kotlin 2.2로 업그레이드하는 마이너 릴리스입니다. 자세한 내용은 <Links href="/ktor/whats-new-330" summary="undefined">Ktor 3.3.0의 새로운 기능</Links>을 참조하세요.
@@ -47,7 +59,7 @@ IntelliJ Ktor 플러그인을 사용하면 Ktor 프로젝트를 최신 버전으
 <tr>
 <td>3.2.3</td><td>2025년 7월 29일</td><td>
 <p>
-YAML 설정 처리, DI 해상도 및 Wasm/JS 안정성 개선과 함께 멀티파트 파싱, CIO <code>100 Continue</code> 응답 형식 지정, <code>ByteReadChannel</code>의 무한 읽기 루프, 서버 종료 문제에 대한 수정 사항을 포함하는 패치 릴리스입니다.
+YAML 설정 처리, DI 해상도 및 Wasm/JS 안정성 개선과 함께 멀티파트 파싱, CIO `100 Continue` 응답 형식 지정, `ByteReadChannel`의 무한 읽기 루프, 서버 종료 문제에 대한 수정 사항을 포함하는 패치 릴리스입니다.
 </p>
 <var name="version" value="3.2.3"/>
 <p>
@@ -138,7 +150,7 @@ Kotlin을 2.1.20으로 업데이트하고 Base64 디코딩, 인증 토큰 삭제
 
 <tr>
 <td>3.0.3</td><td>2024년 12월 18일</td><td><p>
-<code>browserProductionWebpack</code> 빌드 오류, gzip 콘텐츠 처리, <code>FormFieldLimit</code> 설정 덮어쓰기 등 다양한 버그 수정을 포함하는 패치 릴리스입니다. 이 릴리스에는 핵심 성능 개선 사항 및 올바른 테스트 애플리케이션 종료 기능도 포함됩니다.
+`browserProductionWebpack` 빌드 오류, gzip 콘텐츠 처리, `FormFieldLimit` 설정 덮어쓰기 등 다양한 버그 수정을 포함하는 패치 릴리스입니다. 이 릴리스에는 핵심 성능 개선 사항 및 올바른 테스트 애플리케이션 종료 기능도 포함됩니다.
 </p>
 <var name="version" value="3.0.3"/>
 <p>
@@ -160,7 +172,7 @@ Kotlin을 2.1.20으로 업데이트하고 Base64 디코딩, 인증 토큰 삭제
 
 <tr>
 <td>2.3.13</td><td>2024년 11월 20일</td><td><p>
-버그 수정, 보안 패치 및 개선 사항을 포함하는 패치 릴리스로, <code>watchosDeviceArm64</code> 타겟에 대한 지원이 추가되었습니다.
+버그 수정, 보안 패치 및 개선 사항을 포함하는 패치 릴리스로, `watchosDeviceArm64` 타겟에 대한 지원이 추가되었습니다.
 </p>
 <var name="version" value="2.3.13"/>
 <p>
@@ -204,7 +216,7 @@ Android Native 타겟 지원 추가를 포함한 개선 사항 및 버그 수정
 
 <tr>
 <td>3.0.0-rc-1</td><td>2024년 9월 9일</td><td><p>
-중요한 개선 사항 및 버그 수정을 포함하는 메이저 릴리스 후보입니다. 이 업데이트는 이전 버전과의 호환성을 향상하고 확장된 <code>staticZip</code> 지원을 제공합니다.
+중요한 개선 사항 및 버그 수정을 포함하는 메이저 릴리스 후보입니다. 이 업데이트는 이전 버전과의 호환성을 향상하고 확장된 `staticZip` 지원을 제공합니다.
 </p>
 <var name="version" value="3.0.0-rc-1"/>
 <p>
@@ -342,7 +354,7 @@ HTTP Cookie 헤더 및 NoTransformationFoundException 오류의 버그 수정을
 <tr>
 <td>2.3.3</td><td>2023년 8월 1일</td><td>
 <p>
-<code>linuxArm64</code> 클라이언트 및 서버 지원과 다양한 버그 수정을 포함하는 패치 릴리스입니다.
+`linuxArm64` 클라이언트 및 서버 지원과 다양한 버그 수정을 포함하는 패치 릴리스입니다.
 </p>
 <var name="version" value="2.3.3"/>
 <p>
@@ -354,7 +366,7 @@ HTTP Cookie 헤더 및 NoTransformationFoundException 오류의 버그 수정을
 <tr>
 <td>2.3.2</td><td>2023년 6월 28일</td><td>
 <p>
-Kotlin 버전이 <code>1.8.22</code>로 업그레이드되었으며 다양한 버그 수정을 포함하는 패치 릴리스입니다.
+Kotlin 버전이 `1.8.22`로 업그레이드되었으며 다양한 버그 수정을 포함하는 패치 릴리스입니다.
 </p>
 <var name="version" value="2.3.2"/>
 <p>
@@ -414,7 +426,7 @@ OAuth2의 멀티플랫폼 기능과 다양한 버그 수정을 포함하는 패�
 <tr>
 <td>2.2.2</td><td>2023년 1월 3일</td><td>
 <p>
-<code>2.2.1</code> 버그 수정, Swagger 플러그인 개선 및 수정 등을 포함하는 패치 릴리스입니다.
+`2.2.1` 버그 수정, Swagger 플러그인 개선 및 수정 등을 포함하는 패치 릴리스입니다.
 </p>
 <var name="version" value="2.2.2"/>
 <p>
@@ -426,7 +438,7 @@ OAuth2의 멀티플랫폼 기능과 다양한 버그 수정을 포함하는 패�
 <tr>
 <td>2.2.1</td><td>2022년 12월 7일</td><td>
 <p>
-<code>2.2.0</code>에서 발생한 <code>java.lang.NoClassDefFoundError: kotlinx/atomicfu/AtomicFU</code> 오류에 대한 패치 릴리스입니다.
+`2.2.0`에서 발생한 `java.lang.NoClassDefFoundError: kotlinx/atomicfu/AtomicFU` 오류에 대한 패치 릴리스입니다.
 </p>
 <var name="version" value="2.2.1"/>
 <p>
@@ -498,7 +510,7 @@ YAML 구성 지원 추가 및 기타 다양한 개선 사항과 버그 수정을
 <tr>
 <td>2.0.3</td><td>2022년 6월 28일</td><td>
 <p>
-버그 수정 및 <code>kotlinx.coroutines</code> 버전이 <code>1.6.2</code>로 업그레이드된 패치 릴리스입니다.
+버그 수정 및 `kotlinx.coroutines` 버전이 `1.6.2`로 업그레이드된 패치 릴리스입니다.
 </p>
 <var name="version" value="2.0.3"/>
 <p>
@@ -522,7 +534,7 @@ YAML 구성 지원 추가 및 기타 다양한 개선 사항과 버그 수정을
 <tr>
 <td>2.0.1</td><td>2022년 4월 28일</td><td>
 <p>
-다양한 버그 수정 및 Kotlin 버전이 <code>1.6.21</code>로 업데이트된 패치 릴리스입니다.
+다양한 버그 수정 및 Kotlin 버전이 `1.6.21`로 업데이트된 패치 릴리스입니다.
 </p>
 <var name="version" value="2.0.1"/>
 <p>
@@ -534,7 +546,7 @@ YAML 구성 지원 추가 및 기타 다양한 개선 사항과 버그 수정을
 <tr>
 <td>2.0.0</td><td>2022년 4월 11일</td><td>
 <p>
-업데이트된 API 문서 및 다양한 새로운 기능을 포함하는 메이저 릴리스입니다. 호환성이 깨지는 변경 사항 및 <code>1.x.x</code>에서 마이그레이션하는 방법에 대한 자세한 내용은 <Links href="/ktor/migration-to-20x" summary="undefined">마이그레이션 가이드</Links>를 참조하세요.
+업데이트된 API 문서 및 다양한 새로운 기능을 포함하는 메이저 릴리스입니다. 호환성이 깨지는 변경 사항 및 `1.x.x`에서 마이그레이션하는 방법에 대한 자세한 내용은 <Links href="/ktor/migration-to-20x" summary="undefined">마이그레이션 가이드</Links>를 참조하세요.
 </p>
 <var name="version" value="2.0.0"/>
 <p>

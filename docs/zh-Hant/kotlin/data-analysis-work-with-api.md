@@ -17,12 +17,13 @@ Kotlin Notebook 依賴於 [Kotlin Notebook 外掛程式](https://plugins.jetbrai
 建立一個新的 Kotlin Notebook：
 
 1. 選取 **檔案** | **新增** | **Kotlin Notebook**。
+
 2. 在 Kotlin Notebook 中，透過執行以下命令匯入 Kotlin DataFrame 程式庫：
 
    ```kotlin
    %use dataframe
    ```
-
+   
 ## 從 API 擷取資料
 
 透過 Kotlin Notebook 與 Kotlin DataFrame 程式庫從 API 擷取資料，是透過 [`.read()`](https://kotlin.github.io/dataframe/read.html) 函數實現的，這與 [從檔案擷取資料](data-analysis-work-with-data-sources.md#retrieve-data-from-a-file)（例如 CSV 或 JSON）相似。然而，當處理基於網路的來源時，您可能需要額外的格式設定，以將原始 API 資料轉換為結構化格式。
@@ -93,7 +94,7 @@ Kotlin Notebook 依賴於 [Kotlin Notebook 外掛程式](https://plugins.jetbrai
 
 ## 清理和優化資料
 
-清理和優化資料是準備您的資料集以進行分析的關鍵步驟。[Kotlin DataFrame 程式庫](https://kotlin.github.io/dataframe/home.html) 為這些任務提供了強大的功能。諸如 [`move`](https://kotlin.github.io/dataframe/move.html)、[`concat`](https://kotlin.github.io/dataframe/concatdf.html)、[`select`](https://kotlin.github.io/dataframe/select.html)、[`parse`](https://kotlin.github.io/dataframe/parse.html) 和 [`join`](https://kotlin.github.io/dataframe/join.html) 等方法在組織和轉換您的資料方面發揮著重要作用。
+清理和優化資料是準備您的資料集以進行分析的關鍵步驟。[Kotlin DataFrame 程式庫](https://kotlin.github.io/dataframe/home.html) 為這些任務提供了強大的功能。諸如 [`move`](https://kotlin.github.io/dataframe/move.html)、[`concat`](https://kotlin.github.io/dataframe/concatdf.html)、[`select`](https://kotlin.github.io/dataframe/select.html)、[`parse`](https://kotlin.github.io/dataframe/parse.html) 和 [`join`](https://kotlin.github.io/dataframe/join.html) 等方法在組織和轉換您的資料方面發揮著重要作用。 
 
 讓我們來探討一個資料已從 [YouTube 資料 API 擷取](#fetch-data-from-an-api) 的範例。目標是清理和重組資料集，為深入分析做準備：
 
@@ -136,7 +137,7 @@ Kotlin Notebook 依賴於 [Kotlin Notebook 外掛程式](https://plugins.jetbrai
 
 在您使用 [Kotlin DataFrame 程式庫](https://kotlin.github.io/dataframe/home.html) 的函數成功 [擷取](#fetch-data-from-an-api) 並 [清理和優化資料](#clean-and-refine-data) 後，下一步是分析這個準備好的資料集，以提取有意義的見解。
 
-諸如用於資料分類的 [`groupBy`](https://kotlin.github.io/dataframe/groupby.html)、用於 [摘要統計](https://kotlin.github.io/dataframe/summarystatistics.html) 的 [`sum`](https://kotlin.github.io/dataframe/sum.html) 和 [`maxBy`](https://kotlin.github.io/dataframe/maxby.html)，以及用於資料排序的 [`sortBy`](https://kotlin.github.io/dataframe/sortby.html) 等方法特別有用。這些工具讓您能夠高效地執行複雜的資料分析任務。
+諸如用於資料分類的 [`groupBy`](https://kotlin.github.io/dataframe/groupby.html)、用於 [摘要統計](https://kotlin.github.io/dataframe/summarystatistics.html) 的 [`sum`](https://kotlin.github.io/dataframe/sum.html) 和 [`maxBy`](https://kotlin.github.io/dataframe/maxby.html)，以及用於資料排序的 [`sortBy`](https://kotlin.github.io/dataframe/sortby.html) 等方法特別有用。這些工具讓您能夠高效地執行複雜的資料分析任務。 
 
 讓我們來看一個範例，使用 `groupBy` 按頻道分類影片，使用 `sum` 計算每個類別的總觀看次數，並使用 `maxBy` 尋找每個群組中最新或觀看次數最多的影片：
 
@@ -146,7 +147,7 @@ Kotlin Notebook 依賴於 [Kotlin Notebook 外掛程式](https://plugins.jetbrai
    val view by column<Int>()
    ```
 
-2. 使用 `groupBy` 方法，根據 `channel` 欄位對資料進行分組並排序。
+2. 使用 `groupBy` 方法，根據 `channel` 欄位對資料進行分組並排序。 
 
    ```kotlin
    val channels = joined.groupBy { channel }.sortByCount()

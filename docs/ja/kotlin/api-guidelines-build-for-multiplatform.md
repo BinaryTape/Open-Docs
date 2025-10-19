@@ -15,10 +15,8 @@ Kotlin Multiplatformの[ターゲットプラットフォーム](https://www.jet
 そのような場合、プロジェクトは一部のプラットフォームであなたのライブラリを使用し、他のプラットフォームでは別途ソリューションを実装する必要があるか、
 またはすべてのプラットフォームをサポートする代替ライブラリを完全に選択することになります。
 
-アーティファクトの生成を効率化するために、実験的な[クロスコンパイル](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-publish-lib-setup.html#host-requirements)を試して、任意のホストからKotlin Multiplatformライブラリを公開できます。
+アーティファクトの生成を効率化するために、[クロスコンパイル](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-publish-lib-setup.html#host-requirements)を使用して、任意のホストからKotlin Multiplatformライブラリを公開できます。
 これにより、AppleマシンがなくてもAppleターゲット向けの`.klib`アーティファクトを生成できます。
-この機能は今後安定化させ、ライブラリの公開をさらに改善する予定です。
-この機能に関するフィードバックは、イシュートラッカーの[YouTrack](https://youtrack.jetbrains.com/issue/KT-71290)にお寄せください。
 
 > Kotlin/Nativeターゲットの場合、可能なすべてのターゲットをサポートするために[段階的なアプローチ](native-target-support.md#for-library-authors)の使用を検討してください。
 >
@@ -59,7 +57,7 @@ APIがプラットフォーム間で一貫して動作する場合、`commonMain
 
 > プラットフォームの違いが避けられない場合（例：あるプラットフォームがより広範な入力をサポートしている場合）でも、可能な限りそれらを最小限に抑えてください。たとえば、あるプラットフォームの機能を他のプラットフォームに合わせるために制限したくない場合などです。そのような場合は、具体的な違いを明確に文書化してください。
 >
-> {style=”note”}
+> {style="note"}
 
 ## すべてのプラットフォームでテストする
 

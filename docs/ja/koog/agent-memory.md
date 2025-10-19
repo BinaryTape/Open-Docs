@@ -292,6 +292,7 @@ val strategy = strategy("example-agent") {
     val loadPreferences by node<Unit, Unit> {
         withMemory {
             loadFactsToAgent(
+                llm = llm,
                 concept = Concept("user-preference", "User's preferred programming language", FactType.SINGLE),
                 subjects = listOf(MemorySubjects.User)
             )
@@ -379,13 +380,18 @@ fun main() {
 ```kotlin
 val loadProjectInfo by node<Unit, Unit> {
     withMemory {
-        loadFactsToAgent(Concept("preferred-language", "What programming language is preferred by the user?", FactType.SINGLE))
+        loadFactsToAgent(
+            llm = llm,
+            concept = Concept("preferred-language", "What programming language is preferred by the user?", FactType.SINGLE)
+        )
     }
 }
 
 val saveProjectInfo by node<Unit, Unit> {
     withMemory {
-        saveFactsFromHistory(Concept("preferred-language", "What programming language is preferred by the user?", FactType.SINGLE),
+        saveFactsFromHistory(
+            llm = llm,
+            concept = Concept("preferred-language", "What programming language is preferred by the user?", FactType.SINGLE),
             subject = MemorySubjects.User,
             scope = MemoryScope.Product("my-app")
         )
@@ -460,7 +466,7 @@ fun main() {
 try {
     memoryProvider.save(fact, subject, scope)
 } catch (e: Exception) {
-    println("Oops! Couldn't save: ${e.message}")
+    println("問題が発生しました！ 保存できませんでした: ${e.message}")
 }
 ```
 <!--- KNIT example-agent-memory-14.kt -->

@@ -167,9 +167,10 @@ suspend fun example(context: AIAgentContext) {
         lastInput = inputData,
         lastInputType = inputType,
         checkpointId = context.runId,
+        version = 0L
     )
 
-    // The checkpoint ID 可以存储以供将来使用
+    // 该检查点 ID 可以存储以供将来使用
     val checkpointId = checkpoint?.checkpointId
 }
 ```
@@ -187,10 +188,10 @@ import ai.koog.agents.snapshot.feature.persistence
 
 ```kotlin
 suspend fun example(context: AIAgentContext, checkpointId: String) {
-    // Roll back to a specific checkpoint
+    // 回滚到特定检查点
     context.persistence().rollbackToCheckpoint(checkpointId, context)
 
-    // Or roll back to the latest checkpoint
+    // 或回滚到最新的检查点
     context.persistence().rollbackToLatestCheckpoint(context)
 }
 ```
@@ -277,6 +278,7 @@ suspend fun example(context: AIAgentContext) {
             lastInput = inputData,
             lastInputType = inputType,
             checkpointId = ctx.runId,
+            version = 0L
         )
     }
 }

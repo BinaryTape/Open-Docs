@@ -1,5 +1,16 @@
 [//]: # (title: Gradle)
 
+> Dokka 2.0.0부터 다음과 같이 문서 생성을 위한 여러 구성 옵션, Gradle 태스크 및 단계가 업데이트되었습니다:
+>
+> * [구성 옵션 조정](dokka-migration.md#adjust-configuration-options)
+> * [멀티 모듈 프로젝트 작업](dokka-migration.md#share-dokka-configuration-across-modules)
+> * [업데이트된 태스크로 문서 생성](dokka-migration.md#generate-documentation-with-the-updated-task)
+> * [출력 디렉터리 지정](dokka-migration.md#output-directory)
+>
+> 더 자세한 내용과 전체 변경 사항 목록은 [마이그레이션 가이드](dokka-migration.md)를 참조하세요.
+>
+{style="note"}
+
 Gradle 기반 프로젝트의 문서를 생성하려면 [Dokka용 Gradle 플러그인](https://plugins.gradle.org/plugin/org.jetbrains.dokka)을 사용할 수 있습니다.
 
 이 플러그인은 프로젝트에 대한 기본 자동 구성 기능을 제공하며, 문서 생성을 위한 편리한 [Gradle 태스크](#generate-documentation)와 출력을 사용자 정의할 수 있는 다양한 [구성 옵션](#configuration-options)을 제공합니다.
@@ -646,7 +657,7 @@ tasks.withType<DokkaTask>().configureEach {
     offlineMode.set(false)
     
     // ..
-    // 소스 세트 구성 섹션
+    // source set configuration section
     // ..
 }
 ```
@@ -670,7 +681,7 @@ tasks.withType(DokkaTask.class) {
     offlineMode.set(false)
 
     // ..
-    // 소스 세트 구성 섹션
+    // source set configuration section
     // ..
 }
 ```
@@ -761,16 +772,16 @@ import org.jetbrains.dokka.gradle.DokkaTask
 import org.jetbrains.dokka.Platform
 import java.net.URL
 
-// 참고: 멀티 프로젝트 빌드를 구성하려면
-//       서브프로젝트의 Partial 태스크를 구성해야 합니다.
-//       문서의 "구성 예시" 섹션을 참조하세요.
+// Note: To configure multi-project builds, you need 
+//       to configure Partial tasks of the subprojects. 
+//       See "Configuration example" section of documentation. 
 tasks.withType<DokkaTask>().configureEach {
     // ..
-    // 일반 구성 섹션
+    // general configuration section
     // ..
 
     dokkaSourceSets {
-        // 'linux' 소스 세트에만 적용되는 구성
+        // configuration exclusive to the 'linux' source set
         named("linux") {
             dependsOn("native")
             sourceRoots.from(file("linux/src"))
@@ -796,13 +807,13 @@ tasks.withType<DokkaTask>().configureEach {
             samples.from(project.files(), "samples/Basic.kt", "samples/Advanced.kt")
 
             sourceLink {
-                // 소스 링크 섹션
+                // Source link section
             }
             externalDocumentationLink {
-                // 외부 문서 링크 섹션
+                // External documentation link section
             }
             perPackageOption {
-                // 패키지 옵션 섹션
+                // Package options section
             }
         }
     }
@@ -818,16 +829,16 @@ import org.jetbrains.dokka.gradle.DokkaTask
 import org.jetbrains.dokka.Platform
 import java.net.URL
 
-// 참고: 멀티 프로젝트 빌드를 구성하려면
-//       서브프로젝트의 Partial 태스크를 구성해야 합니다.
-//       문서의 "구성 예시" 섹션을 참조하세요.
+// Note: To configure multi-project builds, you need 
+//       to configure Partial tasks of the subprojects. 
+//       See "Configuration example" section of documentation. 
 tasks.withType(DokkaTask.class) {
     // ..
-    // 일반 구성 섹션
+    // general configuration section
     // ..
     
     dokkaSourceSets {
-        // 'linux' 소스 세트에만 적용되는 구성
+        // configuration exclusive to the 'linux' source set 
         named("linux") {
             dependsOn("native")
             sourceRoots.from(file("linux/src"))
@@ -853,13 +864,13 @@ tasks.withType(DokkaTask.class) {
             samples.from(project.files(), "samples/Basic.kt", "samples/Advanced.kt")
 
             sourceLink {
-                // 소스 링크 섹션
+                // Source link section
             }
             externalDocumentationLink {
-                // 외부 문서 링크 섹션
+                // External documentation link section
             }
             perPackageOption {
-                // 패키지 옵션 섹션
+                // Package options section
             }
         }
     }
@@ -1015,17 +1026,17 @@ tasks.withType(DokkaTask.class) {
 import org.jetbrains.dokka.gradle.DokkaTask
 import java.net.URL
 
-// 참고: 멀티 프로젝트 빌드를 구성하려면
-//       서브프로젝트의 Partial 태스크를 구성해야 합니다.
-//       문서의 "구성 예시" 섹션을 참조하세요.
+// Note: To configure multi-project builds, you need 
+//       to configure Partial tasks of the subprojects. 
+//       See "Configuration example" section of documentation. 
 tasks.withType<DokkaTask>().configureEach {
     // ..
-    // 일반 구성 섹션
+    // general configuration section
     // ..
     
     dokkaSourceSets.configureEach {
         // ..
-        // 소스 세트 구성 섹션
+        // source set configuration section
         // ..
         
         sourceLink {
@@ -1044,17 +1055,17 @@ tasks.withType<DokkaTask>().configureEach {
 import org.jetbrains.dokka.gradle.DokkaTask
 import java.net.URL
 
-// 참고: 멀티 프로젝트 빌드를 구성하려면
-//       서브프로젝트의 Partial 태스크를 구성해야 합니다.
-//       문서의 "구성 예시" 섹션을 참조하세요.
+// Note: To configure multi-project builds, you need 
+//       to configure Partial tasks of the subprojects. 
+//       See "Configuration example" section of documentation. 
 tasks.withType(DokkaTask.class) {
     // ..
-    // 일반 구성 섹션
+    // general configuration section
     // ..
     
     dokkaSourceSets.configureEach {
         // ..
-        // 소스 세트 구성 섹션
+        // source set configuration section
         // ..
         
         sourceLink {
@@ -1112,17 +1123,17 @@ tasks.withType(DokkaTask.class) {
 import org.jetbrains.dokka.DokkaConfiguration.Visibility
 import org.jetbrains.dokka.gradle.DokkaTask
 
-// 참고: 멀티 프로젝트 빌드를 구성하려면
-//       서브프로젝트의 Partial 태스크를 구성해야 합니다.
-//       문서의 "구성 예시" 섹션을 참조하세요.
+// Note: To configure multi-project builds, you need 
+//       to configure Partial tasks of the subprojects. 
+//       See "Configuration example" section of documentation. 
 tasks.withType<DokkaTask>().configureEach {
     // ..
-    // 일반 구성 섹션
+    // general configuration section
     // ..
     
     dokkaSourceSets.configureEach {
         // ..
-        // 소스 세트 구성 섹션
+        // source set configuration section
         // ..
         
         perPackageOption {
@@ -1143,17 +1154,17 @@ tasks.withType<DokkaTask>().configureEach {
 import org.jetbrains.dokka.DokkaConfiguration.Visibility
 import org.jetbrains.dokka.gradle.DokkaTask
 
-// 참고: 멀티 프로젝트 빌드를 구성하려면
-//       서브프로젝트의 Partial 태스크를 구성해야 합니다.
-//       문서의 "구성 예시" 섹션을 참조하세요.
+// Note: To configure multi-project builds, you need 
+//       to configure Partial tasks of the subprojects. 
+//       See "Configuration example" section of documentation.
 tasks.withType(DokkaTask.class) {
     // ..
-    // 일반 구성 섹션
+    // general configuration section
     // ..
     
     dokkaSourceSets.configureEach {
         // ..
-        // 소스 세트 구성 섹션
+        // Source set configuration section
         // ..
         
         perPackageOption {
@@ -1218,17 +1229,17 @@ tasks.withType(DokkaTask.class) {
 import org.jetbrains.dokka.gradle.DokkaTask
 import java.net.URL
 
-// 참고: 멀티 프로젝트 빌드를 구성하려면
-//       서브프로젝트의 Partial 태스크를 구성해야 합니다.
-//       문서의 "구성 예시" 섹션을 참조하세요.
+// Note: To configure multi-project builds, you need 
+//       to configure Partial tasks of the subprojects. 
+//       See "Configuration example" section of documentation. 
 tasks.withType<DokkaTask>().configureEach {
     // ..
-    // 일반 구성 섹션
+    // general configuration section
     // ..
     
     dokkaSourceSets.configureEach {
         // ..
-        // 소스 세트 구성 섹션
+        // source set configuration section
         // ..
         
         externalDocumentationLink {
@@ -1248,17 +1259,17 @@ tasks.withType<DokkaTask>().configureEach {
 import org.jetbrains.dokka.gradle.DokkaTask
 import java.net.URL
 
-// 참고: 멀티 프로젝트 빌드를 구성하려면
-//       서브프로젝트의 Partial 태스크를 구성해야 합니다.
-//       문서의 "구성 예시" 섹션을 참조하세요.
+// Note: To configure multi-project builds, you need 
+//       to configure Partial tasks of the subprojects. 
+//       See "Configuration example" section of documentation. 
 tasks.withType(DokkaTask.class) {
     // ..
-    // 일반 구성 섹션
+    // general configuration section
     // ..
     
     dokkaSourceSets.configureEach {
         // ..
-        // 소스 세트 구성 섹션
+        // source set configuration section
         // ..
         
         externalDocumentationLink {
@@ -1308,9 +1319,9 @@ import org.jetbrains.dokka.gradle.DokkaTask
 import org.jetbrains.dokka.Platform
 import java.net.URL
 
-// 참고: 멀티 프로젝트 빌드를 구성하려면
-//       서브프로젝트의 Partial 태스크를 구성해야 합니다.
-//       문서의 "구성 예시" 섹션을 참조하세요.
+// Note: To configure multi-project builds, you need 
+//       to configure Partial tasks of the subprojects. 
+//       See "Configuration example" section of documentation. 
 tasks.withType<DokkaTask>().configureEach {
     moduleName.set(project.name)
     moduleVersion.set(project.version.toString())
@@ -1387,9 +1398,9 @@ import org.jetbrains.dokka.gradle.DokkaTask
 import org.jetbrains.dokka.Platform
 import java.net.URL
 
-// 참고: 멀티 프로젝트 빌드를 구성하려면
-//       서브프로젝트의 Partial 태스크를 구성해야 합니다.
-//       문서의 "구성 예시" 섹션을 참조하세요.
+// Note: To configure multi-project builds, you need 
+//       to configure Partial tasks of the subprojects. 
+//       See "Configuration example" section of documentation. 
 tasks.withType(DokkaTask.class) {
     moduleName.set(project.name)
     moduleVersion.set(project.version.toString())

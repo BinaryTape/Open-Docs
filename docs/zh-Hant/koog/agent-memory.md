@@ -97,7 +97,7 @@ object MemorySubjects {
     data object Machine : MemorySubject() {
         override val name: String = "machine"
         override val promptDescription: String =
-            "技術環境（已安裝的工具、套件管理器、套件、SDK、作業系統等）"
+            "Technical environment (installed tools, package managers, packages, SDKs, OS, etc.)"
         override val priorityLevel: Int = 1
     }
 
@@ -291,6 +291,7 @@ val strategy = strategy("example-agent") {
     val loadPreferences by node<Unit, Unit> {
         withMemory {
             loadFactsToAgent(
+                llm = llm,
                 concept = Concept("user-preference", "User's preferred programming language", FactType.SINGLE),
                 subjects = listOf(MemorySubjects.User)
             )
@@ -378,13 +379,18 @@ fun main() {
 ```kotlin
 val loadProjectInfo by node<Unit, Unit> {
     withMemory {
-        loadFactsToAgent(Concept("preferred-language", "What programming language is preferred by the user?", FactType.SINGLE))
+        loadFactsToAgent(
+            llm = llm,
+            concept = Concept("preferred-language", "What programming language is preferred by the user?", FactType.SINGLE)
+        )
     }
 }
 
 val saveProjectInfo by node<Unit, Unit> {
     withMemory {
-        saveFactsFromHistory(Concept("preferred-language", "What programming language is preferred by the user?", FactType.SINGLE),
+        saveFactsFromHistory(
+            llm = llm,
+            concept = Concept("preferred-language", "What programming language is preferred by the user?", FactType.SINGLE),
             subject = MemorySubjects.User,
             scope = MemoryScope.Product("my-app")
         )
@@ -470,15 +476,15 @@ try {
 
 `AgentMemory` 功能包含多種機制來處理邊緣情況：
 
-1.  **NoMemory 提供者**：一個不儲存任何內容的預設實作，在未指定記憶體提供者時使用。
+1.  **NoMemory provider**：一個不儲存任何內容的預設實作，在未指定記憶體提供者時使用。
 
-2.  **主題特異性處理**：載入事實時，該功能會根據其定義的 `priorityLevel`，優先處理來自更特定主題的事實。
+2.  **Subject specificity handling**：載入事實時，該功能會根據其定義的 `priorityLevel`，優先處理來自更特定主題的事實。
 
-3.  **範圍過濾**：事實可以按範圍過濾，以確保只載入相關資訊。
+3.  **Scope filtering**：事實可以按範圍過濾，以確保只載入相關資訊。
 
-4.  **時間戳追蹤**：事實與時間戳一起儲存，以追蹤它們的建立時間。
+4.  **Timestamp tracking**：事實與時間戳一起儲存，以追蹤它們的建立時間。
 
-5.  **事實型別處理**：該功能支援單一事實和多個事實，並對每種類型進行適當處理。
+5.  **Fact type handling**：該功能支援單一事實和多個事實，並對每種類型進行適當處理。
 
 ## API 文件
 

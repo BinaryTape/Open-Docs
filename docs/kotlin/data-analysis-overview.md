@@ -18,13 +18,13 @@
 
 <a href="get-started-with-kotlin-notebooks.md"><img src="kotlin-notebooks-button.svg" width="600" alt="开始使用 Kotlin notebook" style="block"/></a>
 
-我们的 Kotlin 数据分析工具让你从头到尾流畅处理数据。你可以在 Kotlin notebook 中通过简单的拖放功能轻松检索数据。仅需几行代码即可清理、转换和可视化数据。此外，只需点击几下即可导出输出图表。
+我们的 Kotlin 数据分析工具让你从头到尾流畅处理数据。你可以在我们的 Kotlin notebook 中通过简单的拖放功能轻松检索数据。仅需几行代码即可清理、转换和可视化数据。此外，只需点击几下即可导出输出图表。
 
 ![Kotlin notebook](data-analysis-notebook.gif){width=700}
 
 ## notebook
 
-_notebook_ 是交互式编辑器，可将代码、图形和文本集成到单一环境中。使用 notebook 时，你可以运行代码单元并立即查看输出。
+_notebook_ 是一种交互式文档，你可以在其中混合可执行的 Kotlin 代码、文本、可视化内容和结果。可以将其视为一个扩展的 Kotlin REPL，它能够将代码组织到单元格中，使用 Markdown 进行文档化，并立即显示与生成这些代码的输出（从文本到图表）。
 
 Kotlin 提供不同的 notebook 解决方案，例如 [Kotlin notebook](#kotlin-notebook)、[Datalore](#kotlin-notebooks-in-datalore) 和 [Kotlin-Jupyter notebook](#jupyter-notebook-with-kotlin-kernel)，提供便捷特性用于数据检索、转换、探索、建模等。这些 Kotlin notebook 解决方案基于我们的 [Kotlin Kernel](https://github.com/Kotlin/kotlin-jupyter)。
 

@@ -48,7 +48,7 @@ val agent = AIAgent(
     systemPrompt = "You are a helpful assistant.",
     installFeatures = {
         install(OpenTelemetry) {
-            // 配置选项放在这里
+            // Configuration options go here
         }
     }
 )
@@ -94,10 +94,10 @@ val agent = AIAgent(
 -->
 ```kotlin
 install(OpenTelemetry) {
-    // 设置您的服务配置
+    // Set your service configuration
     setServiceInfo("my-agent-service", "1.0.0")
     
-    // 添加 Logging 导出器
+    // Add the Logging exporter
     addSpanExporter(LoggingSpanExporter.create())
 }
 ```
@@ -198,16 +198,16 @@ val agent = AIAgent(
 -->
 ```kotlin
 install(OpenTelemetry) {
-    // 设置您的服务配置
+    // Set your service configuration
     setServiceInfo("my-agent-service", "1.0.0")
     
-    // 添加 Logging 导出器
+    // Add the Logging exporter
     addSpanExporter(LoggingSpanExporter.create())
     
-    // 设置采样器 
+    // Set the sampler 
     setSampler(Sampler.traceIdRatioBased(0.5)) 
 
-    // 添加资源属性
+    // Add resource attributes
     addResourceAttributes(mapOf(
         AttributeKey.stringKey("custom.attribute") to "custom-value")
     )
@@ -223,7 +223,7 @@ install(OpenTelemetry) {
 
 - `Sampler.alwaysOn()`：默认采样策略，其中每个 Span（跟踪）都被采样。
 
-有关可用采样器和采样策略的更多信息，请参阅 OpenTelemetry [采样器](https://opentelemetry.io/docs/languages/java/sdk/#sampler)文档。
+有关可用采样器和采样策略的更多信息，请参见 OpenTelemetry [采样器](https://opentelemetry.io/docs/languages/java/sdk/#sampler)文档。
 
 #### 资源属性
 
@@ -315,7 +315,7 @@ Span 也可以附加一个_事件_。事件描述了在特定时间点发生的�
 - **ModerationResponseEvent**：模型审核结果或信号。
 
 !!! note   
-    `optentelemetry-java` SDK 在添加事件时不支持事件正文字段形参。因此，在 Koog 的 OpenTelemetry 支持中，事件正文字段是一个单独的属性，其键为 `body`，值类型为 string。该 string 包含事件正文字段的内容或载荷，通常是类似 JSON 的 object。有关事件正文字段的示例，请参阅 [OpenTelemetry 文档](https://opentelemetry.io/docs/specs/semconv/gen-ai/gen-ai-events/#examples)。有关 `opentelemetry-java` 中事件正文字段支持状态的信息，请参阅相关的 [GitHub 议题](https://github.com/open-telemetry/semantic-conventions/issues/1870)。
+    `optentelemetry-java` SDK 在添加事件时不支持事件正文字段形参。因此，在 Koog 的 OpenTelemetry 支持中，事件正文字段是一个单独的属性，其键为 `body`，值类型为 string。该 string 包含事件正文字段的内容或载荷，通常是类似 JSON 的 object。有关事件正文字段的示例，请参见 [OpenTelemetry 文档](https://opentelemetry.io/docs/specs/semconv/gen-ai/gen-ai-events/#examples)。有关 `opentelemetry-java` 中事件正文字段支持状态的信息，请参见相关的 [GitHub 议题](https://github.com/open-telemetry/semantic-conventions/issues/1870)。
 
 ## 导出器
 
@@ -356,9 +356,9 @@ val agent = AIAgent(
 -->
 ```kotlin
 install(OpenTelemetry) {
-    // 添加日志记录导出器
+    // Add the logging exporter
     addSpanExporter(LoggingSpanExporter.create())
-    // 按需添加更多导出器
+    // Add more exporters as needed
 }
 ```
 <!--- KNIT example-opentelemetry-support-05.kt -->
@@ -389,14 +389,14 @@ val agent = AIAgent(
 -->
 ```kotlin
 install(OpenTelemetry) {
-   // 添加 OpenTelemetry HTTP 导出器 
+   // Add OpenTelemetry HTTP exporter 
    addSpanExporter(
       OtlpHttpSpanExporter.builder()
-         // 设置等待收集器处理导出的 Span 批次的最大时间 
+         // Set the maximum time to wait for the collector to process an exported batch of spans 
          .setTimeout(30, TimeUnit.SECONDS)
-         // 设置要连接的 OpenTelemetry 端点
+         // Set the OpenTelemetry endpoint to connect to
          .setEndpoint("http://localhost:3000/api/public/otel/v1/traces")
-         // 添加授权请求头
+         // Add the authorization header
          .addHeader("Authorization", "Basic $AUTH_STRING")
          .build()
    )
@@ -428,10 +428,10 @@ val agent = AIAgent(
 -->
 ```kotlin
 install(OpenTelemetry) {
-   // 添加 OpenTelemetry gRPC 导出器 
+   // Add OpenTelemetry gRPC exporter 
    addSpanExporter(
       OtlpGrpcSpanExporter.builder()
-          // 设置主机和端口
+          // Set the host and the port
          .setEndpoint("http://localhost:4317")
          .build()
    )
@@ -550,7 +550,7 @@ services:
 <!--- INCLUDE
 import ai.koog.agents.core.agent.AIAgent
 import ai.koog.agents.features.opentelemetry.feature.OpenTelemetry
-import ai.koog.agents.utils.use
+import ai.koog.utils.io.use
 import ai.koog.prompt.executor.clients.openai.OpenAIModels
 import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
 import io.opentelemetry.exporter.logging.LoggingSpanExporter

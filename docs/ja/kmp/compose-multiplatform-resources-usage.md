@@ -2,7 +2,7 @@
 
 <show-structure depth="2"/>
 
-[プロジェクトのリソースを設定](compose-multiplatform-resources-setup.md)したら、プロジェクトをビルドして、リソースへのアクセスを提供する特別な`Res`クラスを生成します。`Res`クラスとすべてのリソースアクセサーを再生成するには、プロジェクトを再度ビルドするか、IDEでプロジェクトを再インポートします。
+プロジェクトの[リソースを設定](compose-multiplatform-resources-setup.md)したら、プロジェクトをビルドして、リソースへのアクセスを提供する特別な`Res`クラスを生成します。`Res`クラスとすべてのリソースアクセサーを再生成するには、プロジェクトを再度ビルドするか、IDEでプロジェクトを再インポートします。
 
 その後、生成されたクラスを使用して、設定されたマルチプラットフォームリソースをコードまたは外部ライブラリからアクセスできます。
 
@@ -77,8 +77,60 @@ Compose Multiplatform コードで画像にアクセスする例を次に示し�
 
 ```kotlin
 Image(
-    painter = painterResource(Res.drawable.my_icon),
+    painter = painterResource(Res.drawable.my_image),
     contentDescription = null
+)
+```
+
+### アイコン
+
+Material SymbolsライブラリのベクターAndroid XMLアイコンを使用できます。
+
+1.  [Google Fonts Icons](https://fonts.google.com/icons) ギャラリーを開き、アイコンを選択し、Androidタブに移動して**ダウンロード**をクリックします。
+
+2.  ダウンロードしたXMLアイコンファイルをマルチプラットフォームリソースの `drawable` ディレクトリに追加します。
+
+3.  XMLアイコンファイルを開き、`android:fillColor` を `#00000000` に設定します。`android:tint` など、色の調整のための他のAndroid固有の属性はすべて削除します。
+
+   変更前：
+
+   ```xml
+   <vector xmlns:android="http://schemas.android.com/apk/res/android"
+        android:width="24dp"
+        android:height="24dp"
+        android:viewportWidth="960"
+        android:viewportHeight="960"
+        android:tint="?attr/colorControlNormal">
+        <path
+            android:fillColor="@android:color/white"
+            android:pathData="..."/>
+    </vector>
+   ```
+
+   変更後：
+
+   ```xml
+   <vector xmlns:android="http://schemas.android.com/apk/res/android"
+        android:width="24dp"
+        android:height="24dp"
+        android:viewportWidth="960"
+        android:viewportHeight="960">
+        <path
+            android:fillColor="#00000000"
+            android:pathData="..."/>
+   </vector>
+   ```
+
+4.  プロジェクトをビルドしてリソースアクセサーを生成するか、[Kotlin Multiplatformプラグイン](https://plugins.jetbrains.com/plugin/14936-kotlin-multiplatform)に自動的に処理させます。
+
+Compose Multiplatformコードでアイコンにアクセスし、`colorFilter` パラメータを使用して色を調整する例を次に示します。
+
+```kotlin
+Image(
+    painter = painterResource(Res.drawable.ic_sample_icon),
+    contentDescription = "Sample icon",
+    modifier = Modifier.size(24.dp),
+    colorFilter = ColorFilter.tint(Color.Blue)
 )
 ```
 
@@ -146,7 +198,7 @@ coroutineScope.launch {
 *   `\t` – タブ記号のため
 *   `\uXXXX` – 特定のUnicode文字のため
 
-[Android文字列の場合](https://developer.android.com/guide/topics/resources/string-resource#escaping_quotes)のように、"@" や "?" のような特殊なXML文字をエスケープする必要はありません。
+[Android文字列の場合](https://developer.android.com/guide/topics/resources/string-resource#escaping_quotes)のように、"`@" や "?" のような特殊なXML文字をエスケープする必要はありません。
 
 #### 文字列テンプレート
 
@@ -508,7 +560,7 @@ fun App() {
 ```
 
 ### Compose MultiplatformプリロードAPIを使用してリソースをプリロードする
-<secondary-label ref="Experimental"/>
+<primary-label ref="Experimental"/>
 
 ブラウザでリソースをプリロードした場合でも、それらは生バイトとしてキャッシュされ、`FontResource` や `DrawableResource` のようなレンダリングに適した形式に変換する必要があります。アプリケーションがリソースを初めて要求するとき、この変換は非同期で行われるため、再びちらつきが発生する可能性があります。エクスペリエンスをさらに最適化するために、Compose Multiplatformリソースには、リソースのより高レベルな表現のための独自の内部キャッシュがあり、これもプリロードできます。
 

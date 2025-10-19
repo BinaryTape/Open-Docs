@@ -4,7 +4,7 @@
 
 라이브러리를 게시하려면 다음을 수행해야 합니다.
 
-1.  Maven Central 계정 및 서명에 사용할 PGP 키를 포함한 자격 증명을 설정합니다.
+1.  Maven Central 계정과 서명에 사용할 PGP 키를 포함한 자격 증명을 설정합니다.
 2.  라이브러리 프로젝트에서 게시 플러그인을 구성합니다.
 3.  게시 플러그인이 아티팩트에 서명하고 업로드할 수 있도록 자격 증명을 제공합니다.
 4.  로컬 또는 지속적 통합을 사용하여 게시 작업을 실행합니다.
@@ -283,7 +283,7 @@ mavenPublishing {
 
 ### 사용자 토큰 생성
 
-Maven Central에 게시 요청을 승인하려면 Maven 액세스 토큰이 필요합니다. [토큰 기반 인증 설정](https://central.sonatype.com/account) 페이지를 열고 **Generate User Token** 버튼을 클릭합니다.
+Maven Central에 게시 요청을 승인하려면 Maven 액세스 토큰이 필요합니다. [토큰 기반 인증 설정](https://central.sonatype.com/usertoken) 페이지를 열고 **Generate User Token** 버튼을 클릭합니다.
 
 출력은 아래 예시와 같이 사용자 이름과 암호를 포함합니다. 이 자격 증명을 분실하면 Maven Central에 저장되지 않으므로 나중에 새 자격 증명을 생성해야 합니다.
 

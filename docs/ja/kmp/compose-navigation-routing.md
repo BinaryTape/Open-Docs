@@ -39,7 +39,7 @@ Jetpack Composeと同様に、ナビゲーションを実装するには、次�
 Compose Multiplatformにおける現在の実装の詳細については、[ライフサイクル](compose-lifecycle.md)ページをご覧ください。
 
 ## Webアプリケーションでのブラウザナビゲーションのサポート
-<secondary-label ref="Experimental"/>
+<primary-label ref="Experimental"/>
 
 Web向けのCompose Multiplatformは、共通のNavigationライブラリAPIを完全にサポートしており、さらにブラウザからのナビゲーション入力をアプリが受け取れるようにします。
 ユーザーはブラウザの**「戻る」**および**「進む」**ボタンを使用してブラウザの履歴に反映されたナビゲーションルート間を移動できるほか、アドレスバーを使用して現在位置を把握し、直接目的地に移動することもできます。
@@ -49,7 +49,7 @@ Kotlin/JSでも同じメソッドを使用できますが、Wasmアプリケー�
 以下にその設定方法の例を示します。
 
 ```kotlin
-// commonMainソースセット
+//commonMain source set
 @Composable
 fun App(
     onNavHostReady: suspend (NavController) -> Unit = {}
@@ -63,7 +63,7 @@ fun App(
     }
 }
 
-// wasmJsMainソースセット
+//wasmJsMain source set
 @OptIn(ExperimentalComposeUiApi::class)
 @ExperimentalBrowserHistoryApi
 fun main() {
@@ -75,7 +75,7 @@ fun main() {
     }
 }
 
-// jsMainソースセット
+//jsMain source set
 @OptIn(ExperimentalComposeUiApi::class)
 @ExperimentalBrowserHistoryApi
 fun main() {
@@ -122,7 +122,7 @@ URLをより読みやすくし、実装をURLパターンから分離したい�
 以下に、以下のWebコードサンプル（`commonMain/kotlin/org.example.app/App.kt`）で使用するシンプルな型安全なナビゲーショングラフの例を示します。
 
 ```kotlin
-// ナビゲーショングラフ内のルート引数用のシリアライズ可能なオブジェクトとクラス
+// Serializable object and classes for route arguments in the navigation graph
 @Serializable data object StartScreen
 @Serializable data class Id(val id: Long)
 @Serializable data class Patient(val name: String, val age: Long)
@@ -143,11 +143,11 @@ internal fun App(
                 verticalArrangement = Arrangement.Center
             ) {
                 Text("Starting screen")
-                // 適切なパラメーターで「Id」画面を開くボタン
+                // Button that opens the 'Id' screen with a suitable parameter
                 Button(onClick = { navController.navigate(Id(222)) }) {
                     Text("Pass 222 as a parameter to the ID screen")
                 }
-                // 適切なパラメーターで「Patient」画面を開くボタン
+                // Button that opens the 'Patient' screen with suitable parameters
                 Button(onClick = { navController.navigate(Patient( "Jane Smith-Baker", 33)) }) {
                     Text("Pass 'Jane Smith-Baker' and 33 to the Person screen")
                 }
@@ -218,7 +218,7 @@ fun main() {
 
 > ルートに対応するすべての文字列が`#`文字で始まることを確認し、データをURLフラグメント内に保持してください。
 > そうしないと、ユーザーがURLをコピー＆ペーストしたときに、ブラウザが誤ったエンドポイントにアクセスしようとし、アプリに制御が渡されなくなります。
->
+> 
 {style="note"}
 
 URLにカスタムフォーマットがある場合、手動で入力されたURLをデスティネーションルートと照合するために、逆処理を追加する必要があります。

@@ -4,7 +4,7 @@
 
 ## 개요
 
-OpenTelemetry는 애플리케이션에서 텔레메트리 데이터(추적)를 생성, 수집 및 내보내기 위한 도구를 제공하는 관측 가능성 프레임워크입니다. Koog OpenTelemetry 기능은 AI 에이전트에 계측(instrument)을 적용하여 텔레메트리 데이터를 수집할 수 있도록 하며, 이는 다음을 돕습니다:
+OpenTelemetry는 애플리케이션에서 텔레메트리 데이터(추적)를 생성, 수집 및 내보내기 위한 도구를 제공하는 관측 가능성(observability) 프레임워크입니다. Koog OpenTelemetry 기능은 AI 에이전트에 계측(instrument)을 적용하여 텔레메트리 데이터를 수집할 수 있도록 하며, 이는 다음을 돕습니다:
 
 - 에이전트 성능 및 동작 모니터링
 - 복잡한 에이전트 워크플로우에서 문제 디버깅
@@ -65,7 +65,7 @@ val agent = AIAgent(
 |:-----------------|:-------------------|:---------------------------|:---------------------------------------------------------|
 | `serviceName`    | `String`           | `ai.koog`                  | 계측되는 서비스의 이름입니다.                                |
 | `serviceVersion` | `String`           | 현재 Koog 라이브러리 버전 | 계측되는 서비스의 버전입니다.                                |
-| `isVerbose`      | `Boolean`          | `false`                    | OpenTelemetry 구성 디버깅을 위한 상세 로깅을 활성화할지 여부입니다. |
+| `isVerbose`      | `Boolean`          | `false`                    | OpenTelemetry 구성을 디버깅하기 위한 상세 로깅을 활성화할지 여부입니다. |
 | `sdk`            | `OpenTelemetrySdk` |                            | 텔레메트리 수집에 사용할 OpenTelemetry SDK 인스턴스입니다. |
 | `tracer`         | `Tracer`           |                            | 스팬 생성을 위해 사용되는 OpenTelemetry 트레이서 인스턴스입니다. |
 
@@ -550,7 +550,7 @@ Jaeger에서 사용할 텔레메트리 데이터를 내보내기 위해 이 예�
 <!--- INCLUDE
 import ai.koog.agents.core.agent.AIAgent
 import ai.koog.agents.features.opentelemetry.feature.OpenTelemetry
-import ai.koog.agents.utils.use
+import ai.koog.utils.io.use
 import ai.koog.prompt.executor.clients.openai.OpenAIModels
 import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
 import io.opentelemetry.exporter.logging.LoggingSpanExporter

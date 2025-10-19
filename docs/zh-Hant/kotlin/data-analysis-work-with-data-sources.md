@@ -15,6 +15,7 @@ Kotlin Notebook 依賴於 [Kotlin Notebook plugin](https://plugins.jetbrains.com
 建立新的 Kotlin Notebook：
 
 1. 選取 **File** | **New** | **Kotlin Notebook**。
+
 2. 在 Kotlin Notebook 中，透過執行以下命令匯入 Kotlin DataFrame library：
 
    ```kotlin
