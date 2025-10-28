@@ -152,7 +152,7 @@ install(OpenTelemetry) {
 
 Langfuseで視覚化されると、トレースは次のようになります:
 ![Langfuse traces](img/opentelemetry-langfuse-exporter-light.png#only-light)
-![Langfuse traces](img/optelemettry-langfuse-exporter-dark.png#only-dark)
+![Langfuse traces](img/opentelemetry-langfuse-exporter-dark.png#only-dark)
 
 Langfuse OpenTelemetryトレースの詳細については、以下を参照してください:
 [Langfuse OpenTelemetry Docs](https://langfuse.com/integrations/native/opentelemetry#opentelemetry-endpoint).

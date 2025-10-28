@@ -38,7 +38,7 @@ Ktor HTTPクライアントはマルチプラットフォームプロジェク�
 4.  **New Project**ウィンドウで、以下のフィールドを指定します。
     *   **名前**: KmpKtor
     *   **グループ**: com.example.ktor
-      ![Kotlin Multiplatform wizard settings](tutorial_client_kmp_create_project.png){ width="450" width="706" border-effect="rounded" style="block" }
+      ![Kotlin Multiplatform wizard settings](tutorial_client_kmp_create_project.png)
 5.  **Android**と**iOS**ターゲットを選択します。
 6.  iOSの場合、UIをネイティブに保つために、**Do not share UI**オプションを選択します。
 7.  **Create**ボタンをクリックし、IDEがプロジェクトを生成してインポートするのを待ちます。

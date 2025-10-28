@@ -29,7 +29,7 @@
     "markdown-it-container": "^4.0.0",
     "p-limit": "^6.2.0",
     "shiki": "^3.7.0",
-    "vitepress": "^2.0.0-alpha.11",
+    "vitepress": "^2.0.0-alpha.12",
     "xml2js": "^0.6.2",
     "@vueuse/core": "^13.7.0",
     "oxc-minify": "^0.82.2"

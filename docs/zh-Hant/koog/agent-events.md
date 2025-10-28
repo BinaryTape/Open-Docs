@@ -145,14 +145,14 @@ Koog 提供了可用於自訂訊息處理器的預定義事件類型。預定義
 | `runId`  | String      | 是   |      | LLM 執行的唯一識別碼。                     |
 | `prompt` | Prompt      | 是   |      | 傳送至模型的提示。詳細資訊請參閱 [Prompt](#prompt)。|
 | `model`  | String      | 是   |      | 模型識別碼，格式為 `llm_provider:model_id`。|
-| `tools`  | List<String> | 是   |      | 模型可呼叫的工具列表。                     |
+| `tools`  | List&lt;String&gt; | 是   |      | 模型可呼叫的工具列表。                     |
 
 <a id="prompt"></a>
 `Prompt` 類別代表提示的資料結構，由訊息列表、唯一識別碼以及語言模型設定的可選參數組成。包含以下欄位：
 
 | 名稱       | 資料類型          | 必要 | 預設        | 說明                                           |
 |------------|-------------------|------|-------------|------------------------------------------------|
-| `messages` | List<Message>     | 是   |             | 提示包含的訊息列表。                           |
+| `messages` | List&lt;Message&gt;     | 是   |             | 提示包含的訊息列表。                           |
 | `id`       | String            | 是   |             | 提示的唯一識別碼。                             |
 | `params`   | LLMParams         | 否   | LLMParams() | 控制 LLM 生成內容方式的設定。                |
 
@@ -165,7 +165,7 @@ Koog 提供了可用於自訂訊息處理器的預定義事件類型。預定義
 | `runId`              | String                 | 是   |      | LLM 執行的唯一識別碼。                     |
 | `prompt`             | Prompt                 | 是   |      | 呼叫中使用的提示。                         |
 | `model`              | String                 | 是   |      | 模型識別碼，格式為 `llm_provider:model_id`。|
-| `responses`          | List<Message.Response> | 是   |      | 模型返回的一個或多個回應。                 |
+| `responses`          | List&lt;Message.Response&gt; | 是   |      | 模型返回的一個或多個回應。                 |
 | `moderationResponse` | ModerationResult       | 否   | null | 審核回應（如果有的話）。                   |
 
 ### LLM 串流事件
@@ -179,7 +179,7 @@ Koog 提供了可用於自訂訊息處理器的預定義事件類型。預定義
 | `runId`  | String      | 是   |      | LLM 執行的唯一識別碼。                     |
 | `prompt` | Prompt      | 是   |      | 傳送至模型的提示。                         |
 | `model`  | String      | 是   |      | 模型識別碼，格式為 `llm_provider:model_id`。|
-| `tools`  | List<String> | 是   |      | 模型可呼叫的工具列表。                     |
+| `tools`  | List&lt;String&gt; | 是   |      | 模型可呼叫的工具列表。                     |
 
 #### LLMStreamingFrameReceivedEvent
 
@@ -208,7 +208,7 @@ Koog 提供了可用於自訂訊息處理器的預定義事件類型。預定義
 | `runId`  | String      | 是   |      | LLM 執行的唯一識別碼。                     |
 | `prompt` | Prompt      | 是   |      | 傳送至模型的提示。                         |
 | `model`  | String      | 是   |      | 模型識別碼，格式為 `llm_provider:model_id`。|
-| `tools`  | List<String> | 是   |      | 模型可呼叫的工具列表。                     |
+| `tools`  | List&lt;String&gt; | 是   |      | 模型可呼叫的工具列表。                     |
 
 ### 工具執行事件
 

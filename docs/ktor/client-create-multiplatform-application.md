@@ -38,7 +38,7 @@ Ktor HTTP 客户端可用于多平台项目。在本教程中，我们将创建�
 4. 在 **New Project** 窗口中指定以下字段：
     * **Name**: KmpKtor
     * **Group**: com.example.ktor
-      ![Kotlin Multiplatform wizard settings](tutorial_client_kmp_create_project.png){ width="450" width="706" border-effect="rounded" style="block" }
+      ![Kotlin Multiplatform wizard settings](tutorial_client_kmp_create_project.png)
 5. 选择 **Android** 和 **iOS** 目标平台。
 6. 对于 iOS，选择 **Do not share UI** 选项以保持 UI 原生。
 7. 点击 **Create** 按钮，等待 IDE 生成并导入项目。

@@ -195,7 +195,7 @@ Ktor 3.3.0 透過 Gradle 外掛程式和編譯器外掛程式引入了一個實�
     - 安全性、描述、棄用和外部文件連結
 - 從 `call.receive()` 和 `call.respond()` 推斷請求和回應主體。
 
-undefined</include>
+
 
 #### 生成 OpenAPI 規範
 

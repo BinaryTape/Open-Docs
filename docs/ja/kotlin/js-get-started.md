@@ -141,7 +141,7 @@ Gradle はプロジェクトのインクリメンタルビルドを自動的に�
 1.  `appendInput()`関数内にリスナーを追加して、入力値を読み取り、変更に反応するようにします。
 
     ```kotlin
-   // Replace the current appendInput() function
+    // Replace the current appendInput() function
     fun Element.appendInput(onChange: (String) -> Unit = {}) {
         val input = document.createElement("input").apply {
             addEventListener("change") { event ->
@@ -163,7 +163,7 @@ Gradle はプロジェクトのインクリメンタルビルドを自動的に�
         // Replace document.body?.appendInput()
         document.body?.appendInput(onChange = { println(it) })
     }
-   ```
+    ```
 
 #### 出力要素を追加する
 

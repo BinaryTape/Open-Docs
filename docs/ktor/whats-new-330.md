@@ -194,7 +194,7 @@ Ktor 3.3.0 通过 Gradle 插件和编译器插件引入了一个实验性的 Ope
     - 安全性、描述、弃用信息和外部文档链接
 - 从 `call.receive()` 和 `call.respond()` 推断请求和响应体。
 
-undefined</include>
+
 
 #### 生成 OpenAPI 规范
 

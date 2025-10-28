@@ -38,7 +38,7 @@ Ktor HTTP 클라이언트는 멀티플랫폼 프로젝트에서 사용할 수 �
 4.  **New Project** 창에서 다음 필드를 지정합니다:
     *   **이름**: KmpKtor
     *   **그룹**: com.example.ktor
-      ![Kotlin Multiplatform wizard settings](tutorial_client_kmp_create_project.png){ width="450" width="706" border-effect="rounded" style="block" }
+      ![Kotlin Multiplatform wizard settings](tutorial_client_kmp_create_project.png)
 5.  **Android** 및 **iOS** 타겟을 선택합니다.
 6.  iOS의 경우, UI를 네이티브로 유지하려면 **UI 공유 안 함** 옵션을 선택합니다.
 7.  **Create** 버튼을 클릭하고 IDE가 프로젝트를 생성하고 임포트할 때까지 기다립니다.

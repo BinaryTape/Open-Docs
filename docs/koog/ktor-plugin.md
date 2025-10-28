@@ -217,7 +217,7 @@ install(Koog) {
 注意
 
 - 对于 OpenAI，你必须包含类别（chat、reasoning、costoptimized、audio、embeddings、moderation）。
-- 对于 Ollama，ollama.model 和 ollama.<maker>.<model> 都受支持。
+- 对于 Ollama，`ollama.model` 和 `ollama.<maker>.<model>` 都受支持。
 
 ## MCP 工具（仅限 JVM）
 

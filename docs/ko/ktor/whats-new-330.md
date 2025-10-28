@@ -194,7 +194,7 @@ Ktor 3.3.0은 Gradle 플러그인과 컴파일러 플러그인을 통해 실험�
     *   보안, 설명, 비추천(deprecation), 외부 문서 링크
 *   `call.receive()` 및 `call.respond()`에서 요청 및 응답 바디를 추론합니다.
 
-undefined</include>
+
 
 #### OpenAPI 사양 생성
 

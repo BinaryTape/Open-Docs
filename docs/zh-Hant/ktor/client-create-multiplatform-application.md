@@ -38,7 +38,7 @@ Ktor HTTP 客戶端可用於多平台專案。在本教學中，我們將建立�
 4. 在 **New Project** 視窗中指定以下欄位：
     * **名稱**：KmpKtor
     * **群組**：com.example.ktor
-      ![Kotlin Multiplatform 專案精靈設定](tutorial_client_kmp_create_project.png){ width="450" width="706" border-effect="rounded" style="block" }
+      ![Kotlin Multiplatform 專案精靈設定](tutorial_client_kmp_create_project.png)
 5. 選擇 **Android** 和 **iOS** 目標。
 6. 對於 iOS，選擇 **Do not share UI** 選項以保持 UI 原生。
 7. 點擊 **Create** 按鈕，然後等待 IDE 產生並匯入專案。

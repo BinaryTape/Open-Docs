@@ -145,14 +145,14 @@ LLM呼び出しの開始を表します。以下のフィールドが含まれ�
 | `runId`  | String             | Yes      |         | LLM実行の一意の識別子。                                                  |
 | `prompt` | Prompt             | Yes      |         | モデルに送信されるプロンプト。詳細については、[Prompt](#prompt) を参照してください。 |
 | `model`  | String             | Yes      |         | `llm_provider:model_id` の形式のモデル識別子。                           |
-| `tools`  | List<String>       | Yes      |         | モデルが呼び出すことができるツールのリスト。                             |
+| `tools`  | List&lt;String&gt;       | Yes      |         | モデルが呼び出すことができるツールのリスト。                             |
 
 <a id="prompt"></a>
 `Prompt` クラスは、メッセージのリスト、一意の識別子、および言語モデル設定のオプションパラメータで構成されるプロンプトのデータ構造を表します。以下のフィールドが含まれます。
 
 | 名前       | データ型           | 必須 | デフォルト     | 説明                                                 |
 |------------|--------------------|----------|-------------|------------------------------------------------------|
-| `messages` | List<Message>       | Yes      |             | プロンプトを構成するメッセージのリスト。             |
+| `messages` | List&lt;Message&gt;       | Yes      |             | プロンプトを構成するメッセージのリスト。             |
 | `id`       | String              | Yes      |             | プロンプトの一意の識別子。                           |
 | `params`   | LLMParams           | No       | LLMParams() | LLMがコンテンツを生成する方法を制御する設定。        |
 
@@ -165,7 +165,7 @@ LLM呼び出しの終了を表します。以下のフィールドが含まれ�
 | `runId`              | String                         | Yes      |         | LLM実行の一意の識別子。                          |
 | `prompt`             | Prompt                         | Yes      |         | 呼び出しで使用されたプロンプト。                 |
 | `model`              | String                         | Yes      |         | `llm_provider:model_id` の形式のモデル識別子。   |
-| `responses`          | List<Message.Response>         | Yes      |         | モデルから返された1つまたは複数の応答。          |
+| `responses`          | List&lt;Message.Response&gt;         | Yes      |         | モデルから返された1つまたは複数の応答。          |
 | `moderationResponse` | ModerationResult               | No       | null    | モデレーション応答（存在する場合）。             |
 
 ### LLMストリーミングイベント
@@ -179,7 +179,7 @@ LLMストリーミング呼び出しの開始を表します。以下のフィ�
 | `runId`  | String       | Yes      |         | LLM実行の一意の識別子。                  |
 | `prompt` | Prompt       | Yes      |         | モデルに送信されるプロンプト。           |
 | `model`  | String       | Yes      |         | `llm_provider:model_id` の形式のモデル識別子。 |
-| `tools`  | List<String> | Yes      |         | モデルが呼び出すことができるツールのリスト。 |
+| `tools`  | List&lt;String&gt; | Yes      |         | モデルが呼び出すことができるツールのリスト。 |
 
 #### `LLMStreamingFrameReceivedEvent`
 
@@ -208,7 +208,7 @@ LLMストリーミング呼び出しの終了を表します。以下のフィ�
 | `runId`  | String       | Yes      |         | LLM実行の一意の識別子。                  |
 | `prompt` | Prompt       | Yes      |         | モデルに送信されるプロンプト。           |
 | `model`  | String       | Yes      |         | `llm_provider:model_id` の形式のモデル識別子。 |
-| `tools`  | List<String> | Yes      |         | モデルが呼び出すことができるツールのリスト。 |
+| `tools`  | List&lt;String&gt; | Yes      |         | モデルが呼び出すことができるツールのリスト。 |
 
 ### ツール実行イベント
 
