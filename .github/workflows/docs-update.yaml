@@ -17,14 +17,20 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+          run_install: false
+
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: "20"
-          cache: "npm"
+          cache: "pnpm"
 
       - name: Install dependencies
-        run: npm install execa fs-extra glob @google/genai p-limit js-yaml xml2js tsx
+        run: pnpm add -D execa fs-extra glob @google/genai p-limit js-yaml xml2js tsx
 
       - name: Run Update and Translation Script
         env:
@@ -32,7 +38,7 @@ jobs:
           GIT_AUTHOR_EMAIL: "github-actions[bot]@users.noreply.github.com"
           GITHUB_HEAD_REF: ${{ github.head_ref || github.ref_name }}
           GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
-        run: npx tsx .github/scripts/docs-pipeline.mjs
+        run: pnpm tsx .github/scripts/docs-pipeline.mjs
 
       - name: Create Summary
         if: always()
