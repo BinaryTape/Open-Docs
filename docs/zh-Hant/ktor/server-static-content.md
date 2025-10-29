@@ -42,7 +42,7 @@
 ## ZIP 檔案 {id="zipped"}
 
 若要從 ZIP 檔案服務靜態內容，Ktor 提供了
-[`staticZip()`](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.http.content/static-zip.html) 函式。
+[`staticZip()`](https://api.ktor.io/ktor-server-core/io.ktor.server.http.content/static-zip.html) 函式。
 這允許您將請求直接映射到 ZIP 壓縮檔的內容，如下列範例所示：
 
  ```kotlin
@@ -64,7 +64,7 @@
 ## 資源 {id="resources"}
 
 若要從類路徑服務內容，請使用
-[`staticResources()`](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.http.content/static-resources.html)
+[`staticResources()`](https://api.ktor.io/ktor-server-core/io.ktor.server.http.content/static-resources.html)
 函式。
 
 ```kotlin

@@ -27,9 +27,9 @@
 - **SingleFact**：與概念相關聯的單一值。例如，IDE 使用者目前偏好的主題：
 <!--- INCLUDE
 import ai.koog.agents.memory.model.Concept
-import ai.koog.agents.memory.model.DefaultTimeProvider
 import ai.koog.agents.memory.model.FactType
 import ai.koog.agents.memory.model.SingleFact
+import kotlinx.datetime.Clock
 -->
 ```kotlin
 // 儲存常用 IDE 主題 (單一值)
@@ -39,16 +39,16 @@ val themeFact = SingleFact(
         "User's preferred IDE theme", 
         factType = FactType.SINGLE),
     value = "Dark Theme",
-    timestamp = DefaultTimeProvider.getCurrentTimestamp()
+    timestamp = Clock.System.now().toEpochMilliseconds(),
 )
 ```
 <!--- KNIT example-agent-memory-01.kt -->
 - **MultipleFacts**：與概念相關聯的多個值。例如，使用者已知的所有語言：
 <!--- INCLUDE
 import ai.koog.agents.memory.model.Concept
-import ai.koog.agents.memory.model.DefaultTimeProvider
 import ai.koog.agents.memory.model.FactType
 import ai.koog.agents.memory.model.MultipleFacts
+import kotlinx.datetime.Clock
 -->
 ```kotlin
 // 儲存程式語言 (多個值)
@@ -59,7 +59,7 @@ val languagesFact = MultipleFacts(
         factType = FactType.MULTIPLE
     ),
     values = listOf("Kotlin", "Java", "Python"),
-    timestamp = DefaultTimeProvider.getCurrentTimestamp()
+    timestamp = Clock.System.now().toEpochMilliseconds(),
 )
 ```
 <!--- KNIT example-agent-memory-02.kt -->
@@ -90,8 +90,8 @@ import kotlinx.serialization.Serializable
 ```kotlin
 object MemorySubjects {
     /**
-     * 與本機環境相關的資訊
-     * 範例：已安裝的工具、SDK、作業系統配置、可用指令
+     * Information specific to the local machine environment
+     * Examples: Installed tools, SDKs, OS configuration, available commands
      */
     @Serializable
     data object Machine : MemorySubject() {
@@ -102,8 +102,8 @@ object MemorySubjects {
     }
 
     /**
-     * 與使用者相關的資訊
-     * 範例：對話偏好、問題歷史紀錄、聯絡資訊
+     * Information specific to the user
+     * Examples: Conversation preferences, issue history, contact information
      */
     @Serializable
     data object User : MemorySubject() {
@@ -209,10 +209,10 @@ val memoryProvider = LocalFileMemoryProvider(
 import ai.koog.agents.example.exampleAgentMemory03.MemorySubjects
 import ai.koog.agents.example.exampleAgentMemory06.memoryProvider
 import ai.koog.agents.memory.model.Concept
-import ai.koog.agents.memory.model.DefaultTimeProvider
 import ai.koog.agents.memory.model.FactType
 import ai.koog.agents.memory.model.MemoryScope
 import ai.koog.agents.memory.model.SingleFact
+import kotlinx.datetime.Clock
 
 suspend fun main() {
 -->
@@ -224,7 +224,7 @@ memoryProvider.save(
     fact = SingleFact(
         concept = Concept("greeting", "User's name", FactType.SINGLE),
         value = "John",
-        timestamp = DefaultTimeProvider.getCurrentTimestamp()
+        timestamp = Clock.System.now().toEpochMilliseconds(),
     ),
     subject = MemorySubjects.User,
     scope = MemoryScope.Product("my-app"),
@@ -332,10 +332,10 @@ val secureStorage = EncryptedStorage(
 import ai.koog.agents.example.exampleAgentMemory03.MemorySubjects
 import ai.koog.agents.example.exampleAgentMemory06.memoryProvider
 import ai.koog.agents.memory.model.Concept
-import ai.koog.agents.memory.model.DefaultTimeProvider
 import ai.koog.agents.memory.model.FactType
 import ai.koog.agents.memory.model.MemoryScope
 import ai.koog.agents.memory.model.SingleFact
+import kotlinx.datetime.Clock
 
 suspend fun main() {
 -->
@@ -347,7 +347,7 @@ memoryProvider.save(
     fact = SingleFact(
         concept = Concept("preferred-language", "What programming language is preferred by the user?", FactType.SINGLE),
         value = "Kotlin",
-        timestamp = DefaultTimeProvider.getCurrentTimestamp()
+        timestamp = Clock.System.now().toEpochMilliseconds(),
     ),
     subject = MemorySubjects.User,
     scope = MemoryScope.Product("my-app")
@@ -441,18 +441,18 @@ val saveAutoDetect by nodeSaveToMemoryAutoDetectFacts<Unit>(
 import ai.koog.agents.example.exampleAgentMemory03.MemorySubjects
 import ai.koog.agents.example.exampleAgentMemory06.memoryProvider
 import ai.koog.agents.memory.model.Concept
-import ai.koog.agents.memory.model.DefaultTimeProvider
 import ai.koog.agents.memory.model.FactType
 import ai.koog.agents.memory.model.MemoryScope
 import ai.koog.agents.memory.model.SingleFact
 import kotlinx.coroutines.runBlocking
+import kotlinx.datetime.Clock
 
 fun main() {
     runBlocking {
         val fact = SingleFact(
             concept = Concept("preferred-language", "What programming language is preferred by the user?", FactType.SINGLE),
             value = "Kotlin",
-            timestamp = DefaultTimeProvider.getCurrentTimestamp()
+            timestamp = Clock.System.now().toEpochMilliseconds()
         )
         val subject = MemorySubjects.User
         val scope = MemoryScope.Product("my-app")

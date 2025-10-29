@@ -41,7 +41,7 @@ suspend fun Application.installEvents() {
 
 #### 동시 모듈 로딩
 
-`ktor.application.startup = concurrent` Gradle 프로퍼티를 추가하여 동시 모듈 로딩을 선택할 수도 있습니다. 이는 모든 애플리케이션 모듈을 독립적으로 시작하여, 하나의 모듈이 suspend될 때 다른 모듈이 차단되지 않도록 합니다. 이를 통해 의존성 주입을 위한 비순차적 로딩과 경우에 따라 더 빠른 로딩이 가능합니다.
+또한 `ktor.application.startup = concurrent` Gradle 프로퍼티를 추가하여 동시 모듈 로딩을 선택할 수도 있습니다. 이는 모든 애플리케이션 모듈을 독립적으로 시작하여, 하나의 모듈이 suspend될 때 다른 모듈이 차단되지 않도록 합니다. 이를 통해 의존성 주입을 위한 비순차적 로딩과 경우에 따라 더 빠른 로딩이 가능합니다.
 
 자세한 내용은 [동시 모듈 로딩](server-modules.md#concurrent-module-loading)을 참조하세요.
 
@@ -246,7 +246,7 @@ val connection: Connection = application.property("connection")
 
 이는 구조화된 구성을 다루는 것을 간소화하고, 기본 타입의 자동 파싱을 지원합니다.
 
-더 많은 정보 및 고급 사용법은 [의존성 주입](server-dependency-injection.md)을 참조하세요.
+더 많은 정보 및 고급 사용법은 [의존성 주입](server-dependency-injection.md).
 
 ### 개발 모드 자동 리로드 회귀 {id="regression"}
 
@@ -296,7 +296,7 @@ client.prepareGet("/some-file").execute { response ->
 
 ### `.wrapWithContent()` 및 `.wrap()` 확장 함수는 더 이상 사용되지 않습니다.
 
-Ktor 3.2.0에서는 [`.wrapWithContent()`](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client.plugins.observer/wrap-with-content.html) 및 [`.wrap()`](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client.plugins.observer/wrap.html) 확장 함수가 새로운 `.replaceResponse()` 함수를 대신하여 더 이상 사용되지 않습니다.
+Ktor 3.2.0에서는 [`.wrapWithContent()`](https://api.ktor.io/ktor-client-core/io.ktor.client.plugins.observer/wrap-with-content.html) 및 [`.wrap()`](https://api.ktor.io/ktor-client-core/io.ktor.client.plugins.observer/wrap.html) 확장 함수가 새로운 `.replaceResponse()` 함수를 대신하여 더 이상 사용되지 않습니다.
 
 `.wrapWithContent()` 및 `.wrap()` 함수는 원본 응답 본문을 한 번만 읽을 수 있는 `ByteReadChannel`로 대체합니다. 새로운 채널을 반환하는 함수 대신 동일한 채널 인스턴스가 직접 전달되면, 본문을 여러 번 읽는 것이 실패합니다. 이는 본문을 먼저 읽는 플러그인이 본문을 소비하기 때문에 응답 본문에 접근하는 여러 플러그인 간의 호환성을 깨뜨릴 수 있습니다:
 
@@ -308,7 +308,7 @@ val decodedResponse = call.wrapWithContent(decodedBody).response
 // The first call returns the body
 decodedResponse.bodyAsText()
 
-// Subsequent calls returns an empty string
+// Subsequent calls return an empty string
 decodedResponse.bodyAsText() 
 ```
 
@@ -344,13 +344,13 @@ Ktor 3.2.0은 `hx-get` 및 `hx-swap`과 같은 HTML 속성을 통해 동적 상�
 
 Ktor의 HTMX 지원은 다음 세 가지 실험적 모듈에서 사용할 수 있습니다:
 
-| Module             | Description                                |
+| Module             | 설명                               |
 |--------------------|--------------------------------------------|
 | `ktor-htmx`        | 핵심 정의 및 헤더 상수                     |
 | `ktor-htmx-html`   | Kotlin HTML DSL과의 통합                   |
 | `ktor-server-htmx` | HTMX 특정 요청에 대한 라우팅 지원            |
 
-모든 API는 `@ExperimentalKtorApi`로 표시되어 있으며 `@OptIn(ExperimentalKtorApi::class)`를 통해 옵트인(opt-in)이 필요합니다. 자세한 내용은 [HTMX 통합](htmx-integration.md)을 참조하세요.
+모든 API는 `@ExperimentalKtorApi`로 표시되어 있으며 `@OptIn(ExperimentalKtorApi::class)`를 통해 옵트인(opt-in)이 필요합니다. 자세한 내용은 [HTMX 통합](htmx-integration.md).
 
 ## 유닉스 도메인 소켓
 
@@ -435,7 +435,7 @@ Ktor 3.2.0은 개발 모드를 활성화하는 것을 간소화합니다. 이전
     ktor {
         development = true
     }
-    ```
+  ```
 
 기본적으로 `ktor.development` 값은 Gradle 프로젝트 프로퍼티 또는 시스템 프로퍼티 `io.ktor.development` 중 하나가 정의되어 있으면 자동으로 해결됩니다. 이를 통해 Gradle CLI 플래그를 사용하여 개발 모드를 직접 활성화할 수 있습니다:
 

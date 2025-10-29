@@ -3,6 +3,23 @@
 A2A Client 使你能够通过网络与 A2A 兼容代理进行通信。
 它提供了 [A2A 协议规范](https://a2a-protocol.org/latest/specification/)的完整实现，处理代理发现、消息交换、任务管理和实时流式响应。
 
+## 依赖项
+
+要在你的项目中使用 A2A 客户端，请将以下依赖项添加到你的 `build.gradle.kts`：
+
+```kotlin
+dependencies {
+    // 核心 A2A 客户端库
+    implementation("ai.koog:a2a-client:$koogVersion")
+
+    // HTTP JSON-RPC 传输（最常用）
+    implementation("ai.koog:a2a-transport-client-jsonrpc-http:$koogVersion")
+
+    // Ktor 客户端引擎（选择适合你需求的一个）
+    implementation("io.ktor:ktor-client-cio:$ktorVersion")
+}
+```
+
 ## 概述
 
 A2A Client 充当你的应用程序与 A2A 兼容代理之间的桥梁。
@@ -145,7 +162,7 @@ Task completed")
 ### 4. 流式发送消息
 
 A2A Client 支持流式响应以实现实时通信。
-它不会接收单个响应，而是返回一个事件 Flow，其中包括消息和任务更新。
+它不会接收单个响应，而是返回一个 `Flow` 的事件，其中包括消息和任务更新。
 
 ```kotlin
 // 检测代理是否支持流式传输

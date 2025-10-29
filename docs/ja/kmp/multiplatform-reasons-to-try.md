@@ -16,16 +16,16 @@ Kotlin Multiplatform (KMP) は、複数のプラットフォーム向けにア�
 本記事ではKotlin Multiplatformがもたらす実践的な利点について説明します。
 開発作業の合理化から広範なプラットフォームサポート、そして堅牢なツールエコシステムに至るまで、実際の企業による事例研究とともに紹介します。
 
-* [Kotlin Multiplatformによりコードの重複を回避できる](#1-kotlin-multiplatform-allows-you-to-avoid-code-duplication)
-* [Kotlin Multiplatformは広範なプラットフォームをサポートしている](#2-kotlin-multiplatform-supports-an-extensive-list-of-platforms)
-* [Kotlinは簡素化されたコード共有メカニズムを提供している](#3-kotlin-provides-simplified-code-sharing-mechanisms)
-* [Kotlin Multiplatformは柔軟なマルチプラットフォーム開発を可能にする](#4-kotlin-multiplatform-allows-for-flexible-multiplatform-development)
-* [Kotlin MultiplatformソリューションでUIコードを共有できる](#5-with-the-kotlin-multiplatform-solution-you-can-share-ui-code)
-* [Kotlin Multiplatformは既存および新規プロジェクトで使用できる](#6-you-can-use-kotlin-multiplatform-in-existing-and-new-projects)
-* [Kotlin Multiplatformを使えば、コードの共有を段階的に開始できる](#7-with-kotlin-multiplatform-you-can-start-sharing-your-code-gradually)
-* [Kotlin Multiplatformはすでに世界中の企業で採用されている](#8-kotlin-multiplatform-is-already-used-by-global-companies)
-* [Kotlin Multiplatformは強力なツールサポートを提供している](#9-kotlin-multiplatform-provides-powerful-tooling-support)
-* [Kotlin Multiplatformは大規模で協力的なコミュニティを誇っている](#10-kotlin-multiplatform-boasts-a-large-and-supportive-community)
+1. [Kotlin Multiplatformによりコードの重複を回避できる](#1-kotlin-multiplatform-helps-you-avoid-code-duplication)
+2. [Kotlin Multiplatformは広範なプラットフォームをサポートしている](#2-kotlin-multiplatform-supports-an-extensive-list-of-platforms)
+3. [Kotlinは簡素化されたコード共有メカニズムを提供している](#3-kotlin-provides-simplified-code-sharing-mechanisms)
+4. [Kotlin Multiplatformは柔軟なマルチプラットフォーム開発を可能にする](#4-kotlin-multiplatform-allows-for-flexible-multiplatform-development)
+5. [Kotlin MultiplatformソリューションでUIコードを共有できる](#5-with-the-kotlin-multiplatform-solution-you-can-share-ui-code)
+6. [Kotlin Multiplatformは既存および新規プロジェクトで使用できる](#6-you-can-use-kotlin-multiplatform-in-existing-and-new-projects)
+7. [Kotlin Multiplatformを使えば、コードの共有を段階的に開始できる](#7-with-kotlin-multiplatform-you-can-start-sharing-your-code-gradually)
+8. [Kotlin Multiplatformはすでに世界中の企業で採用されている](#8-kotlin-multiplatform-is-already-used-by-global-companies)
+9. [Kotlin Multiplatformは強力なツールサポートを提供している](#9-kotlin-multiplatform-provides-powerful-tooling-support)
+10. [Kotlin Multiplatformは大規模で協力的なコミュニティを誇っている](#10-kotlin-multiplatform-boasts-a-large-and-supportive-community)
 
 ### 1. Kotlin Multiplatformによりコードの重複を回避できる
 

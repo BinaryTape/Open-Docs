@@ -35,7 +35,7 @@ Ktor 根据所使用的平台，提供不同的应用程序日志记录方式：
         <code-block lang="Kotlin" code="            implementation(&quot;%group_id%:%artifact_name%:$%version%&quot;)"/>
     </TabItem>
     <TabItem title="Gradle (Groovy)" group-key="groovy">
-        <code-block lang="Groovy" code="            implementation &quot;%group_id%:%artifact_name%:$%version%&quot;"/>
+        <code-block lang="Groovy" code="            implementation &quot;%group_id%:%artifact_name%:$%version%&quot;)"/>
     </TabItem>
     <TabItem title="Maven" group-key="maven">
         <code-block lang="XML" code="            &lt;dependency&gt;&#10;                &lt;groupId&gt;%group_id%&lt;/groupId&gt;&#10;                &lt;artifactId&gt;%artifact_name%&lt;/artifactId&gt;&#10;                &lt;version&gt;${%version%}&lt;/version&gt;&#10;            &lt;/dependency&gt;"/>
@@ -100,7 +100,7 @@ Ktor 根据所使用的平台，提供不同的应用程序日志记录方式：
 例如，_TRACE_ 级别会启用[路由追踪](server-routing.md#trace_routes)，这有助于您确定为什么某些路由未被执行。
 
 ## 在代码中访问记录器 {id="access_logger"}
-Logger 实例由实现 [Logger](https://api.ktor.io/ktor-utils/io.ktor.util.logging/-logger/index.html) 接口的类表示。您可以使用 [Application.log](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.application/log.html) 属性在 `Application` 内部访问 Logger 实例。例如，以下代码片段展示了如何在[模块](server-modules.md)内部在日志中添加消息。
+Logger 实例由实现 [Logger](https://api.ktor.io/ktor-utils/io.ktor.util.logging/-logger/index.html) 接口的类表示。您可以使用 [Application.log](https://api.ktor.io/ktor-server-core/io.ktor.server.application/log.html) 属性在 `Application` 内部访问 Logger 实例。例如，以下代码片段展示了如何在[模块](server-modules.md)内部在日志中添加消息。
 
 ```kotlin
 import io.ktor.server.application.*
@@ -110,7 +110,7 @@ fun Application.module() {
 }
 ```
 
-您还可以使用 `call.application.environment.log` 属性从 [ApplicationCall](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.application/-application-call/index.html) 访问 Logger。
+您还可以使用 `call.application.environment.log` 属性从 [ApplicationCall](https://api.ktor.io/ktor-server-core/io.ktor.server.application/-application-call/index.html) 访问 Logger。
 
 ```kotlin
 routing {
@@ -140,4 +140,3 @@ val RequestTracePlugin = createRouteScopedPlugin("RequestTracePlugin", { }) {
         LOGGER.trace("Processing call: ${call.request.uri}")
     }
 }
-```

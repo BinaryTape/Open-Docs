@@ -35,7 +35,7 @@
 
 ### kotlinx.coroutines
 
-若要將 `kotlinx.coroutines` 加入到您的專案，請在通用原始碼集中指定一個依賴項。為此，請將以下行新增到共享模組的 `build.gradle.kts` 檔案中：
+若要將 `kotlinx.coroutines` 加入到您的專案，請在通用原始碼集中指定一個依賴項。為此，請將以下行新增到 `shared/build.gradle.kts` 檔案中：
 
 ```kotlin
 kotlin {
@@ -53,7 +53,7 @@ kotlin {
 
 ### kotlinx.serialization
 
-若要使用 `kotlinx.serialization` 函式庫，請設定相應的 Gradle 外掛程式。為此，請將以下行新增到共享模組的 `build.gradle.kts` 檔案開頭的現有 `plugins {}` 區塊中：
+若要使用 `kotlinx.serialization` 函式庫，請設定相應的 Gradle 外掛程式。為此，請將以下行新增到 `shared/build.gradle.kts` 檔案開頭的現有 `plugins {}` 區塊中：
 
 ```kotlin
 plugins {
@@ -102,7 +102,7 @@ kotlin {
 
 ### 新增資料模型
 
-在 `shared/src/commonMain/kotlin/.../greetingkmp` 目錄中，建立一個新的 `RocketLaunch.kt` 檔案，並新增一個資料類別，該類別儲存來自 SpaceX API 的資料：
+在 `shared/src/commonMain/.../greetingkmp` 目錄中，建立一個新的 `RocketLaunch.kt` 檔案，並新增一個資料類別，該類別儲存來自 SpaceX API 的資料：
 
 ```kotlin
 import kotlinx.serialization.SerialName
@@ -126,13 +126,13 @@ data class RocketLaunch (
 
 ### 連接 HTTP 客戶端
 
-1. 在 `shared/src/commonMain/kotlin/.../greetingkmp` 目錄中，建立一個新的 `RocketComponent` 類別。
+1. 在 `shared/src/commonMain/.../greetingkmp` 目錄中，建立一個新的 `RocketComponent` 類別。
 2. 新增 `httpClient` 屬性，以透過 HTTP GET 請求檢索火箭發射資訊：
 
     ```kotlin
-    import io.ktor.client.*
-    import io.ktor.client.plugins.contentnegotiation.*
-    import io.ktor.serialization.kotlinx.json.*
+    import io.ktor.client.HttpClient
+    import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
+    import io.ktor.serialization.kotlinx.json.json
     import kotlinx.serialization.json.Json
     
     class RocketComponent {
@@ -166,8 +166,8 @@ data class RocketLaunch (
 4. 呼叫 `httpClient.get()` 函式以檢索有關火箭發射的資訊：
 
    ```kotlin
-   import io.ktor.client.request.*
-   import io.ktor.client.call.*
+   import io.ktor.client.request.get
+   import io.ktor.client.call.body
 
    class RocketComponent {
        // ...
@@ -201,11 +201,13 @@ data class RocketLaunch (
    ```kotlin
    import kotlinx.datetime.TimeZone
    import kotlinx.datetime.toLocalDateTime
+   import kotlin.time.ExperimentalTime
    import kotlin.time.Instant
 
    class RocketComponent {
        // ...
        
+       @OptIn(ExperimentalTime::class)
        private suspend fun getDateOfLastSuccessfulLaunch(): String {
            val rockets: List<RocketLaunch> =
                httpClient.get("https://api.spacexdata.com/v4/launches").body()
@@ -295,18 +297,7 @@ data class RocketLaunch (
 
 現在應用程式變得更複雜了，是時候向名為 `MainActivity` 的 [Android activity](https://developer.android.com/guide/components/activities/intro-activities) 引入一個視圖模型了。它呼叫實現 UI 的 `App()` 函式。視圖模型將管理來自 activity 的資料，並且在 activity 經歷生命週期更改時不會消失。
 
-1. 將以下依賴項新增到您的 `composeApp/build.gradle.kts` 檔案中：
-
-    ```kotlin
-    androidMain.dependencies {
-        // ...
-        implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2")
-        implementation("androidx.lifecycle:lifecycle-runtime-compose:2.6.2")
-        implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2")
-    }
-    ```
-
-2. 在 `composeApp/src/androidMain/kotlin/com/jetbrains/greeting/greetingkmp` 目錄中，建立一個新的 `MainViewModel` Kotlin 類別：
+1. 在 `composeApp/src/androidMain/.../greetingkmp` 目錄中，建立一個新的 `MainViewModel` Kotlin 類別：
 
     ```kotlin
     import androidx.lifecycle.ViewModel
@@ -318,7 +309,7 @@ data class RocketLaunch (
 
    此類別擴展了 Android 的 `ViewModel` 類別，這確保了關於生命週期和配置更改的正確行為。
 
-3. 建立一個 [StateFlow](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/-state-flow/) 類型的 `greetingList` 值及其支援屬性：
+2. 建立一個 [StateFlow](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/-state-flow/) 類型的 `greetingList` 值及其支援屬性：
 
     ```kotlin
     import kotlinx.coroutines.flow.MutableStateFlow
@@ -333,7 +324,7 @@ data class RocketLaunch (
    * 這裡的 `StateFlow` 擴展了 `Flow` 介面，但它只有一個單一值或狀態。
    * 私有支援屬性 `_greetingList` 確保只有此類別的客戶端才能存取唯讀的 `greetingList` 屬性。
 
-4. 在視圖模型的 `init` 函式中，從 `Greeting().greet()` Flow 中收集所有字串：
+3. 在視圖模型的 `init` 函式中，從 `Greeting().greet()` Flow 中收集所有字串：
 
     ```kotlin
    import androidx.lifecycle.viewModelScope
@@ -355,7 +346,7 @@ data class RocketLaunch (
 
    由於 `collect()` 函式是暫停的，因此 `launch` 協程在視圖模型的範圍內使用。這表示 launch 協程只會在視圖模型生命週期的正確階段執行。
 
-5. 在 `collect` trailing lambda 內部，更新 `_greetingList` 的值，將收集到的 `phrase` 附加到 `list` 中的片語列表：
+4. 在 `collect` trailing lambda 內部，更新 `_greetingList` 的值，將收集到的 `phrase` 附加到 `list` 中的片語列表：
 
     ```kotlin
     import kotlinx.coroutines.flow.update
@@ -385,6 +376,7 @@ data class RocketLaunch (
     import androidx.lifecycle.viewmodel.compose.viewModel
     
     @Composable
+    @Preview
     fun App(mainViewModel: MainViewModel = viewModel()) {
         MaterialTheme {
             val greetings by mainViewModel.greetingList.collectAsStateWithLifecycle()
@@ -478,7 +470,7 @@ struct ListView: View {
 >
 {style="note"}
 
-1. 在專案的根 `build.gradle.kts` 檔案中（**不是** `shared/build.gradle.kts` 檔案），將 KSP（Kotlin Symbol Processor）和 KMP-NativeCoroutines 外掛程式新增到 `plugins {}` 區塊中：
+1. 在專案的根 `build.gradle.kts` 檔案中（**不是** `shared/build.gradle.kts` 檔案），將 KSP (Kotlin Symbol Processor) 和 KMP-NativeCoroutines 外掛程式新增到 `plugins {}` 區塊中：
 
     ```kotlin
     plugins {
@@ -610,6 +602,11 @@ plugins {
    id("co.touchlab.skie") version "%skieVersion%"
 }
 ```
+
+> 目前 SKIE 的 0.10.6 版本不支援最新的 Kotlin。
+> 若要使用它，請在 `gradle/libs.versions.toml` 檔案中將您的 Kotlin 版本降級到 2.2.10。
+>
+{style="warning"}
 
 #### 使用 SKIE 消費 Flow
 

@@ -15,7 +15,8 @@ Kotlin 的当前稳定版本是 %kotlinVersion%。请注意特定变更的弃用
 
 | Kotlin Multiplatform 插件版本 | Gradle                                | Android Gradle 插件                               | Xcode   |
 |-------------------------------------|---------------------------------------|-----------------------------------------------------|---------|
-| 2.2.20                              | %minGradleVersion%–%maxGradleVersion% | %minAndroidGradleVersion%–%maxAndroidGradleVersion% | %xcode% |
+| 2.2.21                              | %minGradleVersion%–%maxGradleVersion% | %minAndroidGradleVersion%–%maxAndroidGradleVersion% | %xcode% |
+| 2.2.20                              | 7.6.3–8.14                            | 7.3.1–8.11.1                                        | 16.4    |
 | 2.2.0-2.2.10                        | 7.6.3–8.14                            | 7.3.1–8.10.0                                        | 16.3    |
 | 2.1.21                              | 7.6.3–8.12.1                          | 7.3.1–8.7.2                                         | 16.3    |
 | 2.1.20                              | 7.6.3–8.11                            | 7.4.2–8.7.2                                         | 16.0    |
@@ -481,7 +482,7 @@ kotlin {
     // settings.gradle.kts:
     pluginManagement {
         plugins {
-            // Remove the following line:
+            // 移除以下行：
             kotlin("js") version "1.9.0"
         }
         
@@ -498,7 +499,7 @@ kotlin {
     // settings.gradle.kts:
     pluginManagement {
         plugins {
-            // Add the following line instead:
+            // 替换为以下行：
             kotlin("multiplatform") version "1.9.0"
         }
         
@@ -799,7 +800,7 @@ plugins {
 
 ```kotlin
 dependencies {
-    implementation(project(":my-main-project")) // The name of your parent multiplatform project
+    implementation(project(":my-main-project")) // 您的父多平台项目的名称
 }
 ```
 
@@ -808,7 +809,7 @@ dependencies {
 
 ```groovy
 dependencies {
-    implementation project(':my-main-project') // The name of your parent multiplatform project
+    implementation project(':my-main-project') // 您的父多平台项目的名称
 }
 ```
 

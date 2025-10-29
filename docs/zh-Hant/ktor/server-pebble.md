@@ -21,7 +21,7 @@
     </a>
 </p>
 <p>
-    <b><Links href="/ktor/server-native" summary="模組允許您透過分組路由來組織應用程式。">原生伺服器</Links> 支援</b>: ✖️
+    <b><Links href="/ktor/server-native" summary="Ktor 支援 Kotlin/Native 並允許您在沒有額外執行時或虛擬機器的情況下執行伺服器。">原生伺服器</Links> 支援</b>: ✖️
 </p>
 </tldr>
 
@@ -112,4 +112,3 @@ get("/index") {
     val sampleUser = User(1, "John")
     call.respond(PebbleContent("index.html", mapOf("user" to sampleUser)))
 }
-```

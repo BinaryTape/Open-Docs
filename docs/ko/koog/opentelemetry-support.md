@@ -155,15 +155,14 @@ install(OpenTelemetry) {
 | `verbose` | `Boolean` | 예 | `false` | true인 경우, 애플리케이션은 더 상세한 텔레메트리 데이터를 수집합니다. |
 
 !!! note
-
     보안상의 이유로 OpenTelemetry 스팬의 일부 내용은 기본적으로 마스킹됩니다. 예를 들어, LLM 메시지는 실제 메시지 내용 대신 `HIDDEN:non-empty`로 마스킹됩니다. 내용을 얻으려면 `verbose` 인수의 값을 `true`로 설정하십시오.
 
 #### setSdk
 
 사전 구성된 `OpenTelemetrySdk` 인스턴스를 주입합니다.
 
--   `setSdk(sdk)`를 호출하면 제공된 SDK가 그대로 사용되며, `addSpanExporter`, `addSpanProcessor`, `addResourceAttributes`, `setSampler`를 통해 적용된 모든 사용자 정의 구성은 무시됩니다.
--   트레이서의 계측 범위 이름/버전은 서비스 정보와 일치합니다.
+- `setSdk(sdk)`를 호출하면 제공된 SDK가 그대로 사용되며, `addSpanExporter`, `addSpanProcessor`, `addResourceAttributes`, `setSampler`를 통해 적용된 모든 사용자 정의 구성은 무시됩니다.
+- 트레이서의 계측 범위 이름/버전은 서비스 정보와 일치합니다.
 
 | 이름 | 데이터 유형        | 필수 | 설명                                |
 |:-----|:-------------------|:---|:------------------------------------|
@@ -173,8 +172,8 @@ install(OpenTelemetry) {
 
 더 고급 구성을 위해서는 다음 구성 옵션을 사용자 정의할 수도 있습니다:
 
--   샘플러: 수집된 데이터의 빈도와 양을 조정하기 위한 샘플링 전략을 구성합니다.
--   리소스 속성: 텔레메트리 데이터를 생성하는 프로세스에 대한 추가 정보를 추가합니다.
+- 샘플러: 수집된 데이터의 빈도와 양을 조정하기 위한 샘플링 전략을 구성합니다.
+- 리소스 속성: 텔레메트리 데이터를 생성하는 프로세스에 대한 추가 정보를 추가합니다.
 
 <!--- INCLUDE
 import ai.koog.agents.core.agent.AIAgent
@@ -221,7 +220,7 @@ install(OpenTelemetry) {
 
 기본 샘플링 전략은 다음과 같습니다:
 
--   `Sampler.alwaysOn()`: 모든 스팬(추적)이 샘플링되는 기본 샘플링 전략입니다.
+- `Sampler.alwaysOn()`: 모든 스팬(추적)이 샘플링되는 기본 샘플링 전략입니다.
 
 사용 가능한 샘플러 및 샘플링 전략에 대한 자세한 내용은 OpenTelemetry [Sampler](https://opentelemetry.io/docs/languages/java/sdk/#sampler) 문서를 참조하세요.
 
@@ -229,12 +228,12 @@ install(OpenTelemetry) {
 
 리소스 속성은 텔레메트리 데이터를 생성하는 프로세스에 대한 추가 정보를 나타냅니다. Koog는 기본적으로 설정되는 리소스 속성 집합을 포함합니다:
 
--   `service.name`
--   `service.version`
--   `service.instance.time`
--   `os.type`
--   `os.version`
--   `os.arch`
+- `service.name`
+- `service.version`
+- `service.instance.time`
+- `os.type`
+- `os.version`
+- `os.arch`
 
 `service.name` 속성의 기본값은 `ai.koog`이며, `service.version`의 기본값은 현재 사용 중인 Koog 라이브러리 버전입니다.
 
@@ -298,8 +297,10 @@ Koog는 OpenTelemetry의 [생성형 AI 이벤트에 대한 시맨틱 컨벤션](
 
 또한 Koog는 Koog 고유의 사용자 정의 속성을 포함합니다. 대부분의 속성은 `koog.` 접두사로 식별할 수 있습니다. 사용 가능한 사용자 정의 속성은 다음과 같습니다:
 
--   `koog.agent.strategy.name`: 에이전트 전략의 이름. 전략은 에이전트의 목적을 설명하는 Koog 관련 엔티티입니다. `InvokeAgentSpan` 스팬에서 사용됩니다.
--   `koog.node.name`: 실행 중인 노드의 이름. `NodeExecuteSpan` 스팬에서 사용됩니다.
+- `koog.agent.strategy.name`: 에이전트 전략의 이름. 전략은 에이전트의 목적을 설명하는 Koog 관련 엔티티입니다. `InvokeAgentSpan` 스팬에서 사용됩니다.
+- `koog.node.name`: 실행 중인 노드의 이름. `NodeExecuteSpan` 스팬에서 사용됩니다.
+- `koog.node.input`: 실행 시작 시 노드에 전달된 입력. 노드가 시작될 때 `NodeExecuteSpan`에 존재합니다.
+- `koog.node.output`: 완료 시 노드가 생성한 출력. 노드가 성공적으로 완료될 때 `NodeExecuteSpan`에 존재합니다.
 
 ### 이벤트
 
@@ -314,7 +315,7 @@ OpenTelemetry의 [생성형 AI 이벤트에 대한 시맨틱 컨벤션](https://
 -   **ChoiceEvent**: 모델의 응답 메시지.
 -   **ModerationResponseEvent**: 모델의 조정 결과 또는 신호.
 
-!!! note   
+!!! note
     `optentelemetry-java` SDK는 이벤트를 추가할 때 이벤트 본문 필드 매개변수를 지원하지 않습니다. 따라서 Koog의 OpenTelemetry 지원에서는 이벤트 본문 필드가 키가 `body`이고 값 유형이 문자열인 별도의 속성으로 처리됩니다. 이 문자열에는 일반적으로 JSON과 같은 객체인 이벤트 본문 필드의 내용 또는 페이로드가 포함됩니다. 이벤트 본문 필드의 예시는 [OpenTelemetry 문서](https://opentelemetry.io/docs/specs/semconv/gen-ai/gen-ai-events/#examples)를 참조하세요. `opentelemetry-java`의 이벤트 본문 필드 지원 상태는 관련 [GitHub 이슈](https://github.com/open-telemetry/semantic-conventions/issues/1870)를 참조하세요.
 
 ## 익스포터

@@ -19,13 +19,13 @@
     </a>
 </p>
 <p>
-    <b><Links href="/ktor/server-native" summary="モジュールを使用すると、ルートをグループ化してアプリケーションを構造化できます。">ネイティブサーバー</Links>のサポート</b>: ✖️
+    <b><Links href="/ktor/server-native" summary="KtorはKotlin/Nativeをサポートしており、追加のランタイムや仮想マシンなしでサーバーを実行できます。">ネイティブサーバー</Links>のサポート</b>: ✖️
 </p>
 </tldr>
 
 <link-summary>%plugin_name%プラグインを使用すると、Metricsライブラリを設定して、サーバーと受信リクエストに関する有用な情報を取得できます。</link-summary>
 
-[%plugin_name%](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-metrics/io.ktor.server.metrics.dropwizard/-dropwizard-metrics.html)プラグインは、[Metrics](http://metrics.dropwizard.io/)ライブラリを設定し、サーバーと受信リクエストに関する有用な情報を取得できるようにします。
+[%plugin_name%](https://api.ktor.io/ktor-server-metrics/io.ktor.server.metrics.dropwizard/-dropwizard-metrics.html)プラグインを使用すると、[Metrics](http://metrics.dropwizard.io/)ライブラリを設定して、サーバーと受信リクエストに関する有用な情報を取得できます。
 
 ## 依存関係の追加 {id="add_dependencies"}
 %plugin_name%を有効にするには、ビルドスクリプトに以下のアーティファクトを含める必要があります。
@@ -65,14 +65,14 @@
 ## %plugin_name%のインストール {id="install_plugin"}
 
 <p>
-    <a href="#install">インストール</a>するには、`%plugin_name%`プラグインをアプリケーションの指定された<Links href="/ktor/server-modules" summary="モジュールを使用すると、ルートをグループ化してアプリケーションを構造化できます。">モジュール</Links>の`install`関数に渡します。以下のコードスニペットは、`%plugin_name%`をインストールする方法を示しています...
+    <a href="#install">インストール</a>するには、<code>%plugin_name%</code>プラグインをアプリケーションの指定された<Links href="/ktor/server-modules" summary="モジュールを使用すると、ルートをグループ化してアプリケーションを構造化できます。">モジュール</Links>の<code>install</code>関数に渡します。以下のコードスニペットは、<code>%plugin_name%</code>をインストールする方法を示しています...
 </p>
 <list>
     <li>
-        ... `embeddedServer`関数呼び出し内。
+        ... <code>embeddedServer</code>関数呼び出し内。
     </li>
     <li>
-        ... `Application`クラスの拡張関数である、明示的に定義された`module`内。
+        ... <code>Application</code>クラスの拡張関数である、明示的に定義された<code>module</code>内。
     </li>
 </list>
 <Tabs>

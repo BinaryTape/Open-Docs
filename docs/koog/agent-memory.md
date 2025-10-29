@@ -2,7 +2,7 @@
 
 ## 特性概述
 
-AgentMemory 特性是 Koog 框架的一个组件，它使 AI 代理能够在对话中存储、检索和使用信息。
+AgentMemory 特性是 Koog 框架的一个组件，它使 AI 代理能够在跨对话中存储、检索和使用信息。
 
 ### 目的
 
@@ -27,9 +27,9 @@ AgentMemory 特性建立在分层结构之上。
 - **SingleFact**：与一个概念关联的单个值。例如，IDE 用户当前偏好的主题：
 <!--- INCLUDE
 import ai.koog.agents.memory.model.Concept
-import ai.koog.agents.memory.model.DefaultTimeProvider
 import ai.koog.agents.memory.model.FactType
 import ai.koog.agents.memory.model.SingleFact
+import kotlinx.datetime.Clock
 -->
 ```kotlin
 // 存储最喜欢的 IDE 主题（单个值）
@@ -39,16 +39,16 @@ val themeFact = SingleFact(
         "User's preferred IDE theme",
         factType = FactType.SINGLE),
     value = "Dark Theme",
-    timestamp = DefaultTimeProvider.getCurrentTimestamp()
+    timestamp = Clock.System.now().toEpochMilliseconds(),
 )
 ```
 <!--- KNIT example-agent-memory-01.kt -->
 - **MultipleFacts**：与一个概念关联的多个值。例如，用户了解的所有语言：
 <!--- INCLUDE
 import ai.koog.agents.memory.model.Concept
-import ai.koog.agents.memory.model.DefaultTimeProvider
 import ai.koog.agents.memory.model.FactType
 import ai.koog.agents.memory.model.MultipleFacts
+import kotlinx.datetime.Clock
 -->
 ```kotlin
 // 存储编程语言（多个值）
@@ -59,7 +59,7 @@ val languagesFact = MultipleFacts(
         factType = FactType.MULTIPLE
     ),
     values = listOf("Kotlin", "Java", "Python"),
-    timestamp = DefaultTimeProvider.getCurrentTimestamp()
+    timestamp = Clock.System.now().toEpochMilliseconds(),
 )
 ```
 <!--- KNIT example-agent-memory-02.kt -->
@@ -210,10 +210,10 @@ val memoryProvider = LocalFileMemoryProvider(
 import ai.koog.agents.example.exampleAgentMemory03.MemorySubjects
 import ai.koog.agents.example.exampleAgentMemory06.memoryProvider
 import ai.koog.agents.memory.model.Concept
-import ai.koog.agents.memory.model.DefaultTimeProvider
 import ai.koog.agents.memory.model.FactType
 import ai.koog.agents.memory.model.MemoryScope
 import ai.koog.agents.memory.model.SingleFact
+import kotlinx.datetime.Clock
 
 suspend fun main() {
 -->
@@ -225,7 +225,7 @@ memoryProvider.save(
     fact = SingleFact(
         concept = Concept("greeting", "User's name", FactType.SINGLE),
         value = "John",
-        timestamp = DefaultTimeProvider.getCurrentTimestamp()
+        timestamp = Clock.System.now().toEpochMilliseconds(),
     ),
     subject = MemorySubjects.User,
     scope = MemoryScope.Product("my-app"),
@@ -333,10 +333,10 @@ val secureStorage = EncryptedStorage(
 import ai.koog.agents.example.exampleAgentMemory03.MemorySubjects
 import ai.koog.agents.example.exampleAgentMemory06.memoryProvider
 import ai.koog.agents.memory.model.Concept
-import ai.koog.agents.memory.model.DefaultTimeProvider
 import ai.koog.agents.memory.model.FactType
 import ai.koog.agents.memory.model.MemoryScope
 import ai.koog.agents.memory.model.SingleFact
+import kotlinx.datetime.Clock
 
 suspend fun main() {
 -->
@@ -348,7 +348,7 @@ memoryProvider.save(
     fact = SingleFact(
         concept = Concept("preferred-language", "What programming language is preferred by the user?", FactType.SINGLE),
         value = "Kotlin",
-        timestamp = DefaultTimeProvider.getCurrentTimestamp()
+        timestamp = Clock.System.now().toEpochMilliseconds(),
     ),
     subject = MemorySubjects.User,
     scope = MemoryScope.Product("my-app")
@@ -428,32 +428,32 @@ val saveAutoDetect by nodeSaveToMemoryAutoDetectFacts<Unit>(
 
 ## 最佳实践
 
-1. **循序渐进**
+1.  **循序渐进**
     - 从不带加密的基本存储开始
     - 在使用多个事实之前，先使用单个事实
 
-2. **良好组织**
+2.  **良好组织**
     - 使用清晰的概念名称
     - 添加有用的描述
     - 将相关信息置于同一主题下
 
-3. **错误处理**
+3.  **错误处理**
 <!--- INCLUDE
 import ai.koog.agents.example.exampleAgentMemory03.MemorySubjects
 import ai.koog.agents.example.exampleAgentMemory06.memoryProvider
 import ai.koog.agents.memory.model.Concept
-import ai.koog.agents.memory.model.DefaultTimeProvider
 import ai.koog.agents.memory.model.FactType
 import ai.koog.agents.memory.model.MemoryScope
 import ai.koog.agents.memory.model.SingleFact
 import kotlinx.coroutines.runBlocking
+import kotlinx.datetime.Clock
 
 fun main() {
     runBlocking {
         val fact = SingleFact(
             concept = Concept("preferred-language", "What programming language is preferred by the user?", FactType.SINGLE),
             value = "Kotlin",
-            timestamp = DefaultTimeProvider.getCurrentTimestamp()
+            timestamp = Clock.System.now().toEpochMilliseconds()
         )
         val subject = MemorySubjects.User
         val scope = MemoryScope.Product("my-app")
@@ -477,15 +477,15 @@ try {
 
 AgentMemory 特性包含多种机制来处理边缘情况：
 
-1. **NoMemory provider**：当未指定内存提供者时，使用的默认实现，它不存储任何内容。
+1.  **NoMemory provider**：当未指定内存提供者时，使用的默认实现，它不存储任何内容。
 
-2. **主题特异性处理**：加载事实时，该特性会根据其定义的 `priorityLevel` 优先处理来自更具体主题的事实。
+2.  **主题特异性处理**：加载事实时，该特性会根据其定义的 `priorityLevel` 优先处理来自更具体主题的事实。
 
-3. **作用域过滤**：事实可以按作用域过滤，以确保只加载相关信息。
+3.  **作用域过滤**：事实可以按作用域过滤，以确保只加载相关信息。
 
-4. **时间戳跟踪**：事实随时间戳存储，以跟踪它们的创建时间。
+4.  **时间戳跟踪**：事实随时间戳存储，以跟踪它们的创建时间。
 
-5. **事实类型处理**：该特性支持单个事实和多个事实，并对每种类型进行适当处理。
+5.  **事实类型处理**：该特性支持单个事实和多个事实，并对每种类型进行适当处理。
 
 ## API 文档
 

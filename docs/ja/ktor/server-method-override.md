@@ -26,7 +26,7 @@
 %plugin_name% は、`X-HTTP-Method-Override` ヘッダー内にHTTP動詞をトンネリングする機能を提供します。
 </link-summary>
 
-`[%plugin_name%](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-method-override/io.ktor.server.plugins.methodoverride/-x-http-method-override.html)` プラグインは、`X-HTTP-Method-Override` ヘッダー内にHTTP動詞をトンネリングする機能を提供します。
+`[%plugin_name%](https://api.ktor.io/ktor-server-method-override/io.ktor.server.plugins.methodoverride/-x-http-method-override.html)` プラグインは、`X-HTTP-Method-Override` ヘッダー内にHTTP動詞をトンネリングする機能を提供します。
 これは、サーバーAPIが複数のHTTP動詞（`GET`、`PUT`、`POST`、`DELETE`など）を処理するものの、特定の制限によりクライアントが限られた一連の動詞（例えば`GET`や`POST`）しか使用できない場合に役立つ可能性があります。
 例えば、クライアントが`X-Http-Method-Override`ヘッダーを`DELETE`に設定したリクエストを送信した場合、Ktorは、このリクエストを`delete` [ルートハンドラー](server-routing.md#define_route)を使用して処理します。
 

@@ -50,7 +50,7 @@ val strategy = strategy<String, String>("strategy_name") {
 -->
 ```kotlin
 llm.writeSession {
-    updatePrompt { user("Tell me a joke, then call a tool with JSON args.") }
+    appendPrompt { user("Tell me a joke, then call a tool with JSON args.") }
 
     val stream = requestLLMStreaming() // Flow<StreamFrame>
 
@@ -71,7 +71,7 @@ llm.writeSession {
 ```
 <!--- KNIT example-streaming-api-01.kt -->
 
-值得注意的是，您可以通过直接使用原始字符串流来解析输出。这种方法使您对解析过程具有更大的灵活性和控制权。
+值得注意的是，您可以通过直接使用原始字符串流来解析输出。这种方法使您对解析过程具有更大的灵活性和控制力。
 
 以下是一个带有输出结构 Markdown 定义的原始字符串流：
 
@@ -343,7 +343,7 @@ val agentStrategy = strategy<String, List<Book>>("library-assistant") {
       val mdDefinition = markdownBookDefinition()
 
       llm.writeSession {
-         updatePrompt { user(booksDescription) }
+         appendPrompt { user(booksDescription) }
          // Initiate the response stream in the form of the definition `mdDefinition`
          val markdownStream = requestLLMStreaming(mdDefinition)
          // Call the parser with the result of the response stream and perform actions with the result
@@ -398,7 +398,7 @@ class BookTool(): SimpleTool<Book>() {
         get() = Book.serializer()
 
     override val name: String = NAME
-    override val description = "A tool to parse book information from Markdown"
+    override val description: String = "A tool to parse book information from Markdown"
 }
 ```
 <!--- KNIT example-streaming-api-08.kt -->
@@ -419,7 +419,7 @@ val agentStrategy = strategy<String, Unit>("library-assistant") {
       val mdDefinition = markdownBookDefinition()
 
       llm.writeSession {
-         updatePrompt { user(input) }
+         appendPrompt { user(input) }
          val markdownStream = requestLLMStreaming(mdDefinition)
 
          parseMarkdownStreamToBooks(markdownStream).collect { book ->

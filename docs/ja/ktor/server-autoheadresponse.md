@@ -24,7 +24,7 @@
 %plugin_name% は、GETが定義されているすべてのルートに対して、HEADリクエストに自動的に応答する機能を提供します。
 </link-summary>
 
-[%plugin_name%](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-auto-head-response/io.ktor.server.plugins.autohead/-auto-head-response.html) プラグインは、`GET` が定義されているすべてのルートに対して `HEAD` リクエストに自動的に応答する機能を提供します。実際のコンテンツを取得する前にクライアント側でレスポンスを何らかの形で処理する必要がある場合、`%plugin_name%` を使用して個別の [head](server-routing.md#define_route) ハンドラーを作成する手間を省くことができます。例えば、[respondFile](server-responses.md#file) 関数を呼び出すと、`Content-Length` および `Content-Type` ヘッダーがレスポンスに自動的に追加され、ファイルをダウンロードする前にクライアント側でこの情報を取得できます。
+[%plugin_name%](https://api.ktor.io/ktor-server-auto-head-response/io.ktor.server.plugins.autohead/-auto-head-response.html) プラグインは、`GET` が定義されているすべてのルートに対して `HEAD` リクエストに自動的に応答する機能を提供します。実際のコンテンツを取得する前にクライアント側でレスポンスを何らかの形で処理する必要がある場合、`%plugin_name%` を使用して個別の [head](server-routing.md#define_route) ハンドラーを作成する手間を省くことができます。例えば、[respondFile](server-responses.md#file) 関数を呼び出すと、`Content-Length` および `Content-Type` ヘッダーがレスポンスに自動的に追加され、ファイルをダウンロードする前にクライアント側でこの情報を取得できます。
 
 ## 依存関係の追加 {id="add_dependencies"}
 

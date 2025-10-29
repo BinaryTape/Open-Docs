@@ -8,7 +8,7 @@
 
 ### `ApplicationEngine`、`ApplicationEnvironment` 和 `Application`
 
-為改善可配置性並在 `ApplicationEngine`、`ApplicationEnvironment` 和 `Application` 實例之間提供更明確的分離，引入了多項設計變更。
+引入了多項設計變更，以改善可配置性並在 `ApplicationEngine`、`ApplicationEnvironment` 和 `Application` 實例之間提供更明確的分離。
 
 在 v3.0.0 之前，`ApplicationEngine` 管理 `ApplicationEnvironment`，而 `ApplicationEnvironment` 又管理 `Application`。
 
@@ -33,7 +33,10 @@
 
 #### `ApplicationEngineEnvironment` 中的 `start()` 和 `stop()` 方法已移除 {id="ApplicationEnvironment"}
 
-隨著 `ApplicationEngineEnvironment` 合併至 [`ApplicationEnvironment`](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.application/-application-environment/index.html)，`start()` 和 `stop()` 方法現在只能透過 [`ApplicationEngine`](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.engine/-application-engine/index.html) 存取。
+隨著 `ApplicationEngineEnvironment` 合併至 [
+`ApplicationEnvironment`](https://api.ktor.io/ktor-server-core/io.ktor.server.application/-application-environment/index.html)，
+`start()` 和 `stop()` 方法現在只能透過 [
+`ApplicationEngine`](https://api.ktor.io/ktor-server-core/io.ktor.server.engine/-application-engine/index.html) 存取。
 
 | 2.x.x                                                 | 3.0.x                                |
 |-------------------------------------------------------|--------------------------------------|
@@ -96,7 +99,9 @@ fun defaultServer(module: Application.() -> Unit) =
 
 #### `commandLineEnvironment()` 已移除 {id="CommandLineConfig"}
 
-用於從命令列引數建立 `ApplicationEngineEnvironment` 實例的 `commandLineEnvironment()` 函式已在 Ktor `3.0.0` 中移除。您可以改用 [`CommandLineConfig`](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.engine/-command-line-config.html) 函式將命令列引數解析為配置物件。
+用於從命令列引數建立 `ApplicationEngineEnvironment` 實例的 `commandLineEnvironment()` 函式已在 Ktor `3.0.0` 中移除。您可以改用 [
+`CommandLineConfig`](https://api.ktor.io/ktor-server-core/io.ktor.server.engine/-command-line-config.html)
+函式將命令列引數解析為配置物件。
 
 若要將應用程式從 `commandLineEnvironment` 遷移至 `CommandLineConfig`，請將 `commandLineEnvironment()` 替換為 `configure` 區塊，如下所示。
 
@@ -145,7 +150,11 @@ fun main(args: Array<String>) {
 
 #### 引入 `ServerConfigBuilder` {id="ServerConfigBuilder"}
 
-為配置伺服器屬性，引入了一個新實體 [`ServerConfigBuilder`](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.application/-server-config-builder/index.html)，它取代了先前 `ApplicationPropertiesBuilder` 的配置機制。`ServerConfigBuilder` 用於建構 [`ServerConfig`](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.application/-server-config/index.html) 類別的實例，該類別現在持有先前由 `ApplicationProperties` 管理的模組、路徑和環境詳細資訊。
+為配置伺服器屬性，引入了一個新實體 [
+`ServerConfigBuilder`](https://api.ktor.io/ktor-server-core/io.ktor.server.application/-server-config-builder/index.html)，
+它取代了先前 `ApplicationPropertiesBuilder` 的配置機制。`ServerConfigBuilder` 用於建構 [
+`ServerConfig`](https://api.ktor.io/ktor-server-core/io.ktor.server.application/-server-config/index.html)
+類別的實例，該類別現在持有先前由 `ApplicationProperties` 管理的模組、路徑和環境詳細資訊。
 
 下表總結了主要變更：
 
@@ -174,7 +183,7 @@ fun main(args: Array<String>) {
 
 #### 引入 `EmbeddedServer` {id="EmbeddedServer"}
 
-[`EmbeddedServer`](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.engine/-embedded-server/index.html) 類別被引入，用於取代 `ApplicationEngine` 作為 `embeddedServer()` 函式的回傳類型。
+[`EmbeddedServer`](https://api.ktor.io/ktor-server-core/io.ktor.server.engine/-embedded-server/index.html) 類別被引入，用於取代 `ApplicationEngine` 作為 `embeddedServer()` 函式的回傳類型。
 
 有關模型變更的更多詳細資訊，請參閱 [YouTrack 上的問題 KTOR-3857](https://youtrack.jetbrains.com/issue/KTOR-3857/Environment-Engine-Application-Design)。
 
@@ -217,7 +226,8 @@ fun testRoot() = testApplication {
 
 #### `TestApplication` 模組載入 {id="test-module-loading"}
 
-`TestApplication` 不再自動從配置檔（例如 `application.conf`）載入模組。您必須改為在 `testApplication` 函式中[明確載入您的模組](#explicit-module-loading)或[手動載入配置檔](#configure-env)。
+`TestApplication` 不再自動從配置檔（
+例如 `application.conf`）載入模組。您必須改為在 `testApplication` 函式中[明確載入您的模組](#explicit-module-loading)或[手動載入配置檔](#configure-env)。
 
 ##### 明確的模組載入 {id="explicit-module-loading"}
 
@@ -265,6 +275,7 @@ class ApplicationTest {
     }
   }
 }
+
 ```
 
 {validate="false"}
@@ -288,7 +299,7 @@ fun testHello() = testApplication {
 
 ### `CallLogging` 插件套件已重新命名
 
-[`CallLogging`](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-call-logging/io.ktor.server.plugins.calllogging/index.html) 插件套件因拼寫錯誤而重新命名。
+[`CallLogging`](https://api.ktor.io/ktor-server-call-logging/io.ktor.server.plugins.calllogging/index.html) 插件套件因拼寫錯誤而重新命名。
 
 | 2.x.x                               | 3.0.x                                |
 |-------------------------------------|--------------------------------------|
@@ -296,7 +307,8 @@ fun testHello() = testApplication {
 
 ### `ktor-server-host-common` 模組已移除
 
-由於 `Application` 需要知道 `ApplicationEngine`，`ktor-server-host-common` 模組的內容已合併到 `ktor-server-core` 中，即 [`io.ktor.server.engine`](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.engine/index.html) 套件。
+由於 `Application` 需要知道 `ApplicationEngine`，`ktor-server-host-common` 模組的內容已合併到 `ktor-server-core` 中，即
+[`io.ktor.server.engine`](https://api.ktor.io/ktor-server-core/io.ktor.server.engine/index.html) 套件。
 
 請確保您的依賴項已相應更新。在大多數情況下，您只需移除 `ktor-server-host-common` 依賴項即可。
 
@@ -407,7 +419,8 @@ install(WebSockets) {
 
 ### 二進位和檔案項目的新預設限制
 
-在 Ktor 3.0.0 中，使用 [`ApplicationCall.receiveMultipart()`](https://api.ktor.io/older/3.0.0/ktor-server/ktor-server-core/io.ktor.server.request/receive-multipart.html) 接收二進位和檔案項目時，引入了 50 MB 的預設限制。如果接收到的檔案或二進位項目超過 50 MB 的限制，將會拋出 `IOException`。
+在 Ktor 3.0.0 中，使用 [
+`ApplicationCall.receiveMultipart()`](https://api.ktor.io/3.0.x/ktor-server-core/io.ktor.server.request/receive-multipart.html) 接收二進位和檔案項目時，引入了 50 MB 的預設限制。如果接收到的檔案或二進位項目超過 50 MB 的限制，將會拋出 `IOException`。
 
 #### 覆寫預設限制
 
@@ -423,7 +436,13 @@ val multipartData = call.receiveMultipart(formFieldLimit = 1024 * 1024 * 100)
 
 在 Ktor 的先前版本中，`PartData.FileItem` 中的 `.streamProvider()` 函式用於以 `InputStream` 形式存取檔案項目的內容。從 Ktor 3.0.0 開始，此函式已棄用。
 
-若要遷移您的應用程式，請將 `.streamProvider()` 替換為 [`.provider()`](https://api.ktor.io/ktor-http/io.ktor.http.content/-part-data/-file-item/provider.html) 函式。`.provider()` 函式回傳一個 `ByteReadChannel`，這是一個協程友好、非阻塞的抽象，用於逐步讀取位元組流。然後，您可以直接從通道將資料串流傳輸到檔案輸出，使用 `ByteReadChannel` 提供的 [`.copyTo()`](https://api.ktor.io/ktor-io/io.ktor.utils.io/copy-to.html) 或 [`.copyAndClose()`](https://api.ktor.io/ktor-io/io.ktor.utils.io/copy-and-close.html) 方法。
+若要遷移您的應用程式，請將 `.streamProvider()` 替換為 [
+`.provider()`](https://api.ktor.io/ktor-http/io.ktor.http.content/-part-data/-file-item/provider.html)
+函式。`.provider()` 函式回傳一個 `ByteReadChannel`，這是一個協程友好、非阻塞的抽象，用於逐步讀取位元組流。然後，您可以直接從通道將資料串流傳輸到檔案輸出，使用
+`ByteReadChannel` 提供的 [
+`.copyTo()`](https://api.ktor.io/ktor-io/io.ktor.utils.io/copy-to.html) 或 [
+`.copyAndClose()`](https://api.ktor.io/ktor-io/io.ktor.utils.io/copy-and-close.html)
+方法。
 
 在範例中，`.copyAndClose()` 方法將資料從 `ByteReadChannel` 傳輸到檔案的 `WritableByteChannel`。
 
@@ -498,11 +517,11 @@ install(Sessions) {
 
 ### `HttpResponse` 的 `content` 屬性重新命名
 
-在 Ktor 3.0.0 之前，[`HttpResponse`](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client.statement/-http-response/index.html) 的 `content` 屬性提供了一個原始的 `ByteReadChannel`，用於在從網路讀取時存取回應內容。從 Ktor 3.0.0 開始，`content` 屬性已重新命名為 `rawContent`，以更好地反映其目的。
+在 Ktor 3.0.0 之前，[`HttpResponse`](https://api.ktor.io/ktor-client-core/io.ktor.client.statement/-http-response/index.html) 的 `content` 屬性提供了一個原始的 `ByteReadChannel`，用於在從網路讀取時存取回應內容。從 Ktor 3.0.0 開始，`content` 屬性已重新命名為 `rawContent`，以更好地反映其目的。
 
 ### `SocketTimeoutException` 現在是型別別名
 
-來自 `io.ktor.client.network.sockets` 套件的 [`SocketTimeoutException`](https://api.ktor.io/older/3.0.0/ktor-client/ktor-client-core/io.ktor.client.network.sockets/-socket-timeout-exception/index.html) 已從 Kotlin 類別轉換為 Java 類別的別名。此變更可能在某些情況下導致 `NoClassDefFoundError`，並且可能需要更新現有程式碼。
+來自 `io.ktor.client.network.sockets` 套件的 [`SocketTimeoutException`](https://api.ktor.io/3.0.x/ktor-client-core/io.ktor.client.network.sockets/-socket-timeout-exception/index.html) 已從 Kotlin 類別轉換為 Java 類別的別名。此變更可能在某些情況下導致 `NoClassDefFoundError`，並且可能需要更新現有程式碼。
 
 若要遷移您的應用程式，請確保您的程式碼未引用舊類別，並使用最新的 Ktor 版本編譯。以下是更新例外檢查的方法：
 
@@ -517,7 +536,11 @@ install(Sessions) {
 
 隨著 3.0.0 版本的發布，Ktor 已轉換為使用 `kotlinx-io` 函式庫，該函式庫在 Kotlin 函式庫中提供了標準化且高效的輸入/輸出應用程式介面。此變更提高了效能，減少了記憶體分配，並簡化了輸入/輸出處理。如果您的專案與 Ktor 的底層輸入/輸出應用程式介面互動，您可能需要更新程式碼以確保相容性。
 
-這會影響許多類別，例如 [`ByteReadChannel`](https://api.ktor.io/older/3.0.0/ktor-io/io.ktor.utils.io/-byte-read-channel.html) 和 [`ByteWriteChannel`](https://api.ktor.io/older/3.0.0/ktor-io/io.ktor.utils.io/-byte-write-channel/index.html)。此外，以下 Ktor 類別現在由 `kotlinx-io` 提供支援，其先前的實作已棄用：
+這會影響許多類別，例如 [
+`ByteReadChannel`](https://api.ktor.io/3.0.x/ktor-io/io.ktor.utils.io/-byte-read-channel.html)
+和 [
+`ByteWriteChannel`](https://api.ktor.io/3.0.x/ktor-io/io.ktor.utils.io/-byte-write-channel/index.html)。
+此外，以下 Ktor 類別現在由 `kotlinx-io` 提供支援，其先前的實作已棄用：
 
 | Ktor 2.x                                  | Ktor 3.x                  |
 |-------------------------------------------|---------------------------|
@@ -592,11 +615,13 @@ runBlocking {
 
 有關完整範例，請參閱 [client-download-streaming](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-download-streaming)。
 
-> 有關應用程式介面替換的更多詳細資訊，請參閱 [`kotlinx-io` 文件](https://kotlinlang.org/api/kotlinx-io/)。
+> 有關應用程式介面替換的更多詳細資訊，請參閱 [
+> `kotlinx-io` 文件](https://kotlinlang.org/api/kotlinx-io/)。
 
 ### 屬性鍵現在需要精確的類型匹配
 
-在 Ktor 3.0.0 中，[`AttributeKey`](https://api.ktor.io/older/3.0.0/ktor-utils/io.ktor.util/-attribute-key.html) 實例現在透過識別進行比較，並且在儲存和檢索值時需要精確的類型匹配。這確保了型別安全並防止了因類型不匹配導致的意外行為。
+在 Ktor 3.0.0 中，[`AttributeKey`](https://api.ktor.io/3.0.x/ktor-utils/io.ktor.util/-attribute-key.html)
+實例現在透過識別進行比較，並且在儲存和檢索值時需要精確的類型匹配。這確保了型別安全並防止了因類型不匹配導致的意外行為。
 
 先前，可以使用與儲存時不同的泛型類型來檢索屬性，例如使用 `getOrNull<Any>()` 來獲取 `AttributeKey<Boolean>`。
 

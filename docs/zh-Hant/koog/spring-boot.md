@@ -30,27 +30,27 @@ dependencies {
 在 `application.properties` 中配置您偏好的 LLM 提供者：
 
 ```properties
-# OpenAI 配置
+# OpenAI Configuration
 ai.koog.openai.enabled=true
 ai.koog.openai.api-key=${OPENAI_API_KEY}
 ai.koog.openai.base-url=https://api.openai.com
-# Anthropic 配置
+# Anthropic Configuration  
 ai.koog.anthropic.enabled=true
 ai.koog.anthropic.api-key=${ANTHROPIC_API_KEY}
 ai.koog.anthropic.base-url=https://api.anthropic.com
-# Google 配置
+# Google Configuration
 ai.koog.google.enabled=true
 ai.koog.google.api-key=${GOOGLE_API_KEY}
 ai.koog.google.base-url=https://generativelanguage.googleapis.com
-# OpenRouter 配置
+# OpenRouter Configuration
 ai.koog.openrouter.enabled=true
 ai.koog.openrouter.api-key=${OPENROUTER_API_KEY}
 ai.koog.openrouter.base-url=https://openrouter.ai
-# DeepSeek 配置
+# DeepSeek Configuration
 ai.koog.deepseek.enabled=true
 ai.koog.deepseek.api-key=${DEEPSEEK_API_KEY}
 ai.koog.deepseek.base-url=https://api.deepseek.com
-# Ollama 配置 (本地 - 無需 API 金鑰)
+# Ollama Configuration (local - no API key required)
 ai.koog.ollama.enabled=true
 ai.koog.ollama.base-url=http://localhost:11434
 ```
@@ -89,7 +89,7 @@ ai:
 
 如果提供者支援 API 金鑰（例如 OpenAI、Anthropic、Google），則 `ai.koog.PROVIDER.enabled` 預設為 `true`。
 
-如果提供者不支援 API 金鑰（例如 Ollama），則 `ai.koog.PROVIDER.enabled` 預設為 `false`，並且提供者應在應用程式配置中明確啟用。
+如果提供者不支援 API 金鑰，例如 Ollama，則 `ai.koog.PROVIDER.enabled` 預設為 `false`，並且提供者應在應用程式配置中明確啟用。
 
 提供者的基礎 URL 在 Spring Boot 啟動器中會設定為其預設值，但您可以在應用程式中覆寫它。
 
@@ -244,19 +244,19 @@ class ConfigurableAIService(
 
 ### 可用屬性
 
-| 屬性                            | 描述              | Bean 條件                                                   | 預設值                                      |
-|-------------------------------|-------------------|-------------------------------------------------------------|---------------------------------------------|
-| `ai.koog.openai.api-key`      | OpenAI API 金鑰   | 為 `openAIExecutor` bean 所必需                             | -                                           |
-| `ai.koog.openai.base-url`     | OpenAI 基礎 URL   | 選用                                                        | `https://api.openai.com`                    |
-| `ai.koog.anthropic.api-key`   | Anthropic API 金鑰| 為 `anthropicExecutor` bean 所必需                          | -                                           |
-| `ai.koog.anthropic.base-url`  | Anthropic 基礎 URL| 選用                                                        | `https://api.anthropic.com`                 |
-| `ai.koog.google.api-key`      | Google API 金鑰   | 為 `googleExecutor` bean 所必需                             | -                                           |
-| `ai.koog.google.base-url`     | Google 基礎 URL   | 選用                                                        | `https://generativelanguage.googleapis.com` |
-| `ai.koog.openrouter.api-key`  | OpenRouter API 金鑰| 為 `openRouterExecutor` bean 所必需                         | -                                           |
-| `ai.koog.openrouter.base-url` | OpenRouter 基礎 URL| 選用                                                        | `https://openrouter.ai`                     |
-| `ai.koog.deepseek.api-key`    | DeepSeek API 金鑰 | 為 `deepSeekExecutor` bean 所必需                           | -                                           |
-| `ai.koog.deepseek.base-url`   | DeepSeek 基礎 URL | 選用                                                        | `https://api.deepseek.com`                  |
-| `ai.koog.ollama.base-url`     | Ollama 基礎 URL   | 任何 `ai.koog.ollama.*` 屬性都會啟用 `ollamaExecutor` bean | `http://localhost:11434`                    |
+| 屬性                            | 描述                | Bean 條件                                                   | 預設值                                      |
+|-------------------------------|---------------------|-------------------------------------------------------------|---------------------------------------------|
+| `ai.koog.openai.api-key`      | OpenAI API 金鑰     | 為 `openAIExecutor` bean 所必需                             | -                                           |
+| `ai.koog.openai.base-url`     | OpenAI 基礎 URL     | 選用                                                        | `https://api.openai.com`                    |
+| `ai.koog.anthropic.api-key`   | Anthropic API 金鑰  | 為 `anthropicExecutor` bean 所必需                          | -                                           |
+| `ai.koog.anthropic.base-url`  | Anthropic 基礎 URL  | 選用                                                        | `https://api.anthropic.com`                 |
+| `ai.koog.google.api-key`      | Google API 金鑰     | 為 `googleExecutor` bean 所必需                             | -                                           |
+| `ai.koog.google.base-url`     | Google 基礎 URL     | 選用                                                        | `https://generativelanguage.googleapis.com` |
+| `ai.koog.openrouter.api-key`  | OpenRouter API 金鑰 | 為 `openRouterExecutor` bean 所必需                         | -                                           |
+| `ai.koog.openrouter.base-url` | OpenRouter 基礎 URL | 選用                                                        | `https://openrouter.ai`                     |
+| `ai.koog.deepseek.api-key`    | DeepSeek API 金鑰   | 為 `deepSeekExecutor` bean 所必需                           | -                                           |
+| `ai.koog.deepseek.base-url`   | DeepSeek 基礎 URL   | 選用                                                        | `https://api.deepseek.com`                  |
+| `ai.koog.ollama.base-url`     | Ollama 基礎 URL     | 任何 `ai.koog.ollama.*` 屬性都會啟用 `ollamaExecutor` bean | `http://localhost:11434`                    |
 
 ### Bean 名稱
 
@@ -318,8 +318,8 @@ API key is required but not provided
 
 ## 後續步驟
 
-- 了解 [單次執行代理](single-run-agents.md) 以建立基本的 AI 工作流程
+- 了解 [基本代理](basic-agents.md) 以建立最基礎的 AI 工作流程
 - 探索 [複雜工作流程代理](complex-workflow-agents.md) 以用於進階使用案例
 - 查看 [工具概述](tools-overview.md) 以擴展您的代理功能
 - 查閱 [範例](examples.md) 以了解實際應用
-- 閱讀 [核心概念](key-concepts.md) 以更好地理解該框架
+- 閱讀 [術語表](glossary.md) 以更好地理解該框架

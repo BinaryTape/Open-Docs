@@ -2,7 +2,7 @@
 
 <primary-label ref="client-plugin"/>
 
-[UserAgent](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client.plugins/-user-agent)プラグインは、すべての[リクエスト](client-requests.md)に`User-Agent`ヘッダーを追加します。
+[UserAgent](https://api.ktor.io/ktor-client-core/io.ktor.client.plugins/-user-agent)プラグインは、すべての[リクエスト](client-requests.md)に`User-Agent`ヘッダーを追加します。
 
 ## 依存関係の追加 {id="add_dependencies"}
 

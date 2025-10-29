@@ -17,11 +17,11 @@
 <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-download-file-range">client-download-file-range</a>
 </p>
 <p>
-    <b><Links href="/ktor/server-native" summary="Ktor 支援 Kotlin/Native，並允許您在沒有額外運行時或虛擬機器的情況下運行伺服器。">原生伺服器</Links>支援</b>: ✅
+    <b><Links href="/ktor/server-native" summary="Modules 允許您透過分組路由來組織您的應用程式。">原生伺服器</Links>支援</b>: ✅
 </p>
 </tldr>
 
-[%plugin_name%](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-partial-content/io.ktor.server.plugins.partialcontent/-partial-content.html) 外掛程式新增了處理 [HTTP 範圍請求](https://developer.mozilla.org/en-US/docs/Web/HTTP/Range_requests)的支援，用於僅將 HTTP 訊息的一部分傳送回客戶端。此外掛程式對於串流內容或恢復部分下載非常有用。
+[%plugin_name%](https://api.ktor.io/ktor-server-partial-content/io.ktor.server.plugins.partialcontent/-partial-content.html) 外掛程式新增了處理 [HTTP 範圍請求](https://developer.mozilla.org/en-US/docs/Web/HTTP/Range_requests)的支援，用於僅將 HTTP 訊息的一部分傳送回客戶端。此外掛程式對於串流內容或恢復部分下載非常有用。
 
 `%plugin_name%` 有以下限制：
 - 僅適用於 `HEAD` 和 `GET` 請求，如果客戶端嘗試將 `Range` 標頭與其他方法一起使用，則返回 `405 Method Not Allowed`。
@@ -49,7 +49,7 @@
 
 <p>
     若要將 <code>%plugin_name%</code> 外掛程式<a href="#install">安裝</a>到應用程式中，
-    將其傳遞給指定<Links href="/ktor/server-modules" summary="Modules allow you to structure your application by grouping routes.">模組</Links>中的 <code>install</code> 函數。
+    將其傳遞給指定<Links href="/ktor/server-modules" summary="Modules 允許您透過分組路由來組織您的應用程式。">模組</Links>中的 <code>install</code> 函數。
     以下程式碼片段展示了如何安裝 <code>%plugin_name%</code> ...
 </p>
 <list>

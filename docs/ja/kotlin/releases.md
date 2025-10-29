@@ -54,9 +54,9 @@ plugins {
     // <...>をターゲット環境に適したプラグイン名に置き換えてください
     id 'org.jetbrains.kotlin.<...>' version '%kotlinVersion%'
     // たとえば、ターゲット環境がJVMの場合: 
-    // id 'org.jetbrains.kotlin.jvm' version '%kotlinVersion%'
+    // id 'org.jetbrains.kotlin.jvm' version "%kotlinVersion%"
     // ターゲットがKotlin Multiplatformの場合:
-    // id 'org.jetbrains.kotlin.multiplatform' version '%kotlinVersion%'
+    // id 'org.jetbrains.kotlin.multiplatform' version "%kotlinVersion%"
 }
 ```
 
@@ -130,6 +130,16 @@ K2モードの詳細については、[こちらのブログ](https://blog.jetbr
     <tr>
         <th>ビルド情報</th>
         <th>ビルドのハイライト</th>
+    </tr>
+    <tr>
+        <td><strong>2.2.21</strong>
+            <p>リリース日: <strong>2025年10月23日</strong></p>
+            <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.2.21" target="_blank">GitHubでのリリース</a></p>
+        </td>
+        <td>
+            <p>Xcode 26 のサポートを含むツールリリースで、その他の改善とバグ修正が含まれています。</p>
+            <p>詳細については、<a href="https://github.com/JetBrains/kotlin/releases/tag/v2.2.21">変更ログ</a>を参照してください。</p>
+    </td>
     </tr>
     <tr>
         <td><strong>2.2.20</strong>

@@ -2,6 +2,44 @@
 
 KoogはA2Aプロトコルとのシームレスな統合を提供し、KoogエージェントをA2Aサーバーとして公開したり、Koogエージェントを他のA2A準拠エージェントに接続したりすることを可能にします。
 
+## 依存関係
+
+A2A Koog統合には、ユースケースに応じて特定の機能モジュールが必要です。
+
+### KoogエージェントをA2Aサーバーとして公開する場合
+
+`build.gradle.kts`にこれらの依存関係を追加します。
+
+```kotlin
+dependencies {
+    // Koog A2Aサーバー統合機能
+    implementation("ai.koog:agents-features-a2a-server:$koogVersion")
+
+    // HTTP JSON-RPCトランスポート
+    implementation("ai.koog:a2a-transport-server-jsonrpc-http:$koogVersion")
+
+    // Ktorサーバーエンジン (ニーズに合ったものを選択してください)
+    implementation("io.ktor:ktor-server-netty:$ktorVersion")
+}
+```
+
+### KoogエージェントをA2Aエージェントに接続する場合
+
+`build.gradle.kts`にこれらの依存関係を追加します。
+
+```kotlin
+dependencies {
+    // Koog A2Aクライアント統合機能
+    implementation("ai.koog:agents-features-a2a-client:$koogVersion")
+
+    // HTTP JSON-RPCトランスポート
+    implementation("ai.koog:a2a-transport-client-jsonrpc-http:$koogVersion")
+
+    // Ktorクライアントエンジン (ニーズに合ったものを選択してください)
+    implementation("io.ktor:ktor-client-cio:$ktorVersion")
+}
+```
+
 ## 概要
 
 この統合により、主に2つのパターンが実現されます。
@@ -42,7 +80,7 @@ private fun createAgent(
             // A2AメッセージをKoogメッセージに変換するためのコンビニエンス関数
             val input = inputMessage.toKoogMessage()
             llm.writeSession {
-                updatePrompt {
+                appendPrompt { // プロンプトに追加
                     message(input)
                 }
             }
@@ -68,7 +106,7 @@ private fun createAgent(
             val toolResult = environment.executeTool(toolCall)
 
             llm.writeSession {
-                updatePrompt {
+                appendPrompt { // プロンプトに追加
                     tool {
                         result(toolResult)
                     }
@@ -151,7 +189,7 @@ private suspend fun A2AAgentServer.sendTaskUpdate(
 
 ```kotlin
 // 機能をインストールします
-agent.install(A2AAgentServer) {
+install(A2AAgentServer) {
     this.context = context
     this.eventProcessor = eventProcessor
 }
@@ -164,7 +202,7 @@ Koogエージェントのストラテジーからこれらのエンティティ�
 // エージェントノード内での使用例
 withA2AAgentServer {
     // ここで'this'はA2AAgentServerインスタンスです
-    sendTaskUpdate("Processing your request...", TaskState.Working)
+    eventProcessor.sendTaskUpdate("Processing your request...", TaskState.Working)
 }
 ```
 
@@ -195,7 +233,7 @@ val agentCard = AgentCard(
 // サーバーのセットアップ
 val server = A2AServer(agentExecutor = KoogAgentExecutor(), agentCard = agentCard)
 val transport = HttpJSONRPCServerTransport(server)
-transport.start(engineFactory = CIO, port = 8080, path = "/chat", wait = true)
+transport.start(engineFactory = Netty, port = 8080, path = "/chat", wait = true)
 ```
 
 ## KoogエージェントをA2Aエージェントに接続する

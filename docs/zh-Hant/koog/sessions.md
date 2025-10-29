@@ -119,7 +119,7 @@ val strategy = strategy<Unit, Unit>("strategy-name") {
 ```kotlin
 llm.writeSession {
     // Modify the prompt
-    updatePrompt {
+    appendPrompt {
         user("New user message")
     }
 
@@ -254,7 +254,7 @@ llm.writeSession {
 
 ### 更新提示
 
-在寫入會話中，您可以使用 `updatePrompt` 方法更新提示（對話歷史記錄）：
+在寫入會話中，您可以使用 `appendPrompt` 方法向提示（對話歷史記錄）新增訊息：
 
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
@@ -278,18 +278,20 @@ val strategy = strategy<Unit, Unit>("strategy-name") {
 -->
 ```kotlin
 llm.writeSession {
-    // Add a system message
-    system("You are a helpful assistant.")
+    appendPrompt {
+        // Add a system message
+        system("You are a helpful assistant.")
 
-    // Add a user message
-    user("Hello, can you help me with a coding question?")
+        // Add a user message
+        user("Hello, can you help me with a coding question?")
 
-    // Add an assistant message
-    assistant("Of course! What's your question?")
+        // Add an assistant message
+        assistant("Of course! What's your question?")
 
-    // Add a tool result
-    tool {
-        result(myToolResult)
+        // Add a tool result
+        tool {
+            result(myToolResult)
+        }
     }
 }
 ```
@@ -337,7 +339,7 @@ val strategy = strategy<Unit, Unit>("strategy-name") {
 ```kotlin
 llm.writeSession {
     // Add a user message
-    updatePrompt {
+    appendPrompt {
         user("What's the capital of France?")
     }
 
@@ -478,7 +480,7 @@ llm.writeSession {
 
 4.  **管理歷史記錄大小**：對於長時間運行的對話，使用歷史記錄壓縮來減少令牌使用量。
 
-5.  **偏好高階抽象**：在可能的情況下，使用基於節點的 API。例如，使用 `nodeLLMRequest` 而不是直接操作會話。
+5.  **偏好高階抽象****：在可能的情況下，使用基於節點的 API。例如，使用 `nodeLLMRequest` 而不是直接操作會話。
 
 6.  **注意執行緒安全**：請記住，寫入會話會阻塞其他會話，因此請盡量縮短寫入操作。
 

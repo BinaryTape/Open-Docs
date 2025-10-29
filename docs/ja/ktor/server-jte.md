@@ -23,7 +23,7 @@
 </p>
 </tldr>
 
-Ktorでは、[%plugin_name%](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-jte/io.ktor.server.jte/-jte.html)プラグインをインストールすることで、[JTEテンプレート](https://github.com/casid/jte)をアプリケーション内のビューとして使用できます。
+Ktorでは、`[%plugin_name%](https://api.ktor.io/ktor-server-jte/io.ktor.server.jte/-jte.html)` プラグインをインストールすることで、[JTEテンプレート](https://github.com/casid/jte)をアプリケーション内のビューとして使用できます。
 
 ## 依存関係を追加する {id="add_dependencies"}
 

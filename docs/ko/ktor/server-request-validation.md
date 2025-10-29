@@ -49,7 +49,9 @@
 ## %plugin_name% 설치 {id="install_plugin"}
 
 <p>
-    애플리케이션에 <code>%plugin_name%</code> 플러그인을 <a href="#install">설치</a>하려면, 지정된 <Links href="/ktor/server-modules" summary="모듈을 사용하면 경로를 그룹화하여 애플리케이션을 구조화할 수 있습니다.">모듈</Links>의 <code>install</code> 함수에 전달하세요. 아래 코드 스니펫은 <code>%plugin_name%</code>을(를) 설치하는 방법을 보여줍니다 ...
+    애플리케이션에 <code>%plugin_name%</code> 플러그인을 <a href="#install">설치</a>하려면,
+    지정된 <Links href="/ktor/server-modules" summary="모듈을 사용하면 경로를 그룹화하여 애플리케이션을 구조화할 수 있습니다.">모듈</Links>의 <code>install</code> 함수에 전달하세요.
+    아래 코드 스니펫은 <code>%plugin_name%</code>을(를) 설치하는 방법을 보여줍니다 ...
 </p>
 <list>
     <li>
@@ -68,7 +70,8 @@
     </TabItem>
 </Tabs>
 <p>
-    <code>%plugin_name%</code> 플러그인은 <a href="#install-route">특정 경로에</a>도 설치할 수 있습니다. 이는 서로 다른 애플리케이션 리소스에 대해 다른 <code>%plugin_name%</code> 구성을 필요로 할 때 유용할 수 있습니다.
+    <code>%plugin_name%</code> 플러그인은 <a href="#install-route">특정 경로에</a>도 설치할 수 있습니다.
+    이는 서로 다른 애플리케이션 리소스에 대해 다른 <code>%plugin_name%</code> 구성을 필요로 할 때 유용할 수 있습니다.
 </p>
 
 ## %plugin_name% 구성 {id="configure"}
@@ -94,11 +97,14 @@ routing {
 
 ### 2. 유효성 검사 함수 구성 {id="validation-function"}
 
-요청 본문을 유효성 검사하려면 `validate` 함수를 사용하세요. 이 함수는 성공 또는 실패한 유효성 검사 결과를 나타내는 `ValidationResult` 객체를 반환합니다. 실패한 결과의 경우 **[RequestValidationException](#validation-exception)**이(가) 발생합니다.
+요청 본문을 유효성 검사하려면 `validate` 함수를 사용하세요.
+이 함수는 성공 또는 실패한 유효성 검사 결과를 나타내는 `ValidationResult` 객체를 반환합니다.
+실패한 결과의 경우 **[RequestValidationException](#validation-exception)**이(가) 발생합니다.
 
 `validate` 함수는 두 가지 방식으로 요청 본문을 유효성 검사할 수 있도록 두 가지 오버로드(overload)를 제공합니다:
 
-- 첫 번째 `validate` 오버로드를 사용하면 지정된 타입의 객체로 요청 본문에 접근할 수 있습니다. 아래 예시는 `String` 값을 나타내는 요청 본문을 유효성 검사하는 방법을 보여줍니다:
+- 첫 번째 `validate` 오버로드를 사용하면 지정된 타입의 객체로 요청 본문에 접근할 수 있습니다.
+   아래 예시는 `String` 값을 나타내는 요청 본문을 유효성 검사하는 방법을 보여줍니다:
    ```kotlin
    install(RequestValidation) {
        validate<String> { bodyText ->
@@ -111,11 +117,13 @@ routing {
 
    특정 [직렬 변환기](server-serialization.md#configure_serializer)로 `ContentNegotiation` 플러그인이 설치 및 구성된 경우, 객체 속성을 유효성 검사할 수 있습니다. 자세한 내용은 [예시: 객체 속성 유효성 검사](#example-object)에서 확인하세요.
 
-- 두 번째 `validate` 오버로드는 `ValidatorBuilder`를 허용하며, 사용자 정의 유효성 검사 규칙을 제공할 수 있도록 합니다. 자세한 내용은 [예시: 바이트 배열 유효성 검사](#example-byte-array)에서 확인하세요.
+- 두 번째 `validate` 오버로드는 `ValidatorBuilder`를 허용하며, 사용자 정의 유효성 검사 규칙을 제공할 수 있도록 합니다.
+   자세한 내용은 [예시: 바이트 배열 유효성 검사](#example-byte-array)에서 확인하세요.
 
 ### 3. 유효성 검사 예외 처리 {id="validation-exception"}
 
-요청 유효성 검사에 실패하면, `%plugin_name%`은(는) `RequestValidationException`을(를) 발생시킵니다. 이 예외를 통해 요청 본문에 접근하고 이 요청에 대한 모든 유효성 검사 실패 이유를 얻을 수 있습니다.
+요청 유효성 검사에 실패하면, `%plugin_name%`은(는) `RequestValidationException`을(를) 발생시킵니다.
+이 예외를 통해 요청 본문에 접근하고 이 요청에 대한 모든 유효성 검사 실패 이유를 얻을 수 있습니다.
 
 다음과 같이 [StatusPages](server-status-pages.md) 플러그인을 사용하여 `RequestValidationException`을(를) 처리할 수 있습니다:
 
@@ -131,7 +139,8 @@ install(StatusPages) {
 
 ## 예시: 객체 속성 유효성 검사 {id="example-object"}
 
-이 예시에서는 `%plugin_name%` 플러그인을 사용하여 객체 속성을 유효성 검사하는 방법을 살펴보겠습니다. 서버가 다음 JSON 데이터를 포함하는 `POST` 요청을 수신한다고 가정해 봅시다:
+이 예시에서는 `%plugin_name%` 플러그인을 사용하여 객체 속성을 유효성 검사하는 방법을 살펴보겠습니다.
+서버가 다음 JSON 데이터를 포함하는 `POST` 요청을 수신한다고 가정해 봅시다:
 
 ```HTTP
 POST http://0.0.0.0:8080/json
@@ -181,7 +190,8 @@ Content-Type: application/json
 
 ## 예시: 바이트 배열 유효성 검사 {id="example-byte-array"}
 
-이 예시에서는 바이트 배열로 수신된 요청 본문을 유효성 검사하는 방법을 살펴보겠습니다. 서버가 다음 텍스트 데이터를 포함하는 `POST` 요청을 수신한다고 가정해 봅시다:
+이 예시에서는 바이트 배열로 수신된 요청 본문을 유효성 검사하는 방법을 살펴보겠습니다.
+서버가 다음 텍스트 데이터를 포함하는 `POST` 요청을 수신한다고 가정해 봅시다:
 
 ```HTTP
 POST http://localhost:8080/array
@@ -215,4 +225,3 @@ Content-Type: text/plain
            }
        }
    }
-   ```

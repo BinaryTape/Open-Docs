@@ -46,37 +46,36 @@
     kotlin {
         //... 
         sourceSets {
-            languageSettings.optIn("kotlin.time.ExperimentalTime")
+            all { languageSettings.optIn("kotlin.time.ExperimentalTime") }
+   
             commonMain.dependencies {
-                implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.7.1")
+                implementation("org.jetbrains.kotlinx:kotlinx-datetime:%dateTimeVersion%")
             } 
         }
     }
     ```
 
-3.  点击 **Sync Gradle Changes** 按钮来同步 Gradle 文件：![Synchronize Gradle files](gradle-sync.png){width=50}
-4.  在 `shared/src/commonMain/kotlin` 中，在你的 `Greeting.kt` 文件所在的项目目录下创建一个新文件 `NewYear.kt`。
-5.  使用一个简短函数更新该文件，该函数使用 `date-time` 日期算术计算从今天到新年的天数：
-
-    ```kotlin
-    import kotlinx.datetime.*
-    import kotlin.time.Clock
+3.  选择 **Build | Sync Project with Gradle Files** 菜单项，或点击构建脚本编辑器中的 **Sync Gradle Changes** 按钮来同步 Gradle 文件：![Synchronize Gradle files](gradle-sync.png){width=50}
+4.  在 `shared/src/commonMain/.../greetingkmp` 目录上右键，选择 **New | Kotlin Class/File** 来创建新文件 `NewYear.kt`。
+5.  使用一个简短函数更新该文件，该函数使用 `datetime` 日期算术计算从今天到新年的天数：
+   
+   ```kotlin
+   @OptIn(ExperimentalTime::class)
+   fun daysUntilNewYear(): Int {
+       val today = Clock.System.todayIn(TimeZone.currentSystemDefault())
+       val closestNewYear = LocalDate(today.year + 1, 1, 1)
+       return today.daysUntil(closestNewYear)
+   }
+   
+   fun daysPhrase(): String = "There are only ${daysUntilNewYear()} days left until New Year! 🎆"
+   ```
+6.  根据 IDE 的建议添加所有必要的 import。
+7.  在 `Greeting.kt` 文件中，更新 `Greeting` 类以查看结果：
     
-    fun daysUntilNewYear(): Int {
-        val today = Clock.System.todayIn(TimeZone.currentSystemDefault())
-        val closestNewYear = LocalDate(today.year + 1, 1, 1)
-        return today.daysUntil(closestNewYear)
-    }
-    
-    fun daysPhrase(): String = "There are only ${daysUntilNewYear()} days left until New Year! 🎆"
-    ```
-
-6.  在 `Greeting.kt` 中，更新 `Greeting` 类以查看结果：
-
     ```kotlin
     class Greeting {
         private val platform: Platform = getPlatform()
-    
+   
         fun greet(): List<String> = buildList {
             add(if (Random.nextBoolean()) "Hi!" else "Hello!")
             add("Guess what this is! > ${platform.name.reversed()}!")
@@ -85,7 +84,7 @@
     }
     ```
 
-7.  要查看结果，请从 IntelliJ IDEA 重新运行你的 **composeApp** 和 **iosApp** 配置：
+8.  要查看结果，请从 IntelliJ IDEA 重新运行你的 **composeApp** 和 **iosApp** 配置：
 
 ![Updated mobile multiplatform app with external dependencies](first-multiplatform-project-3.png){width=500}
 

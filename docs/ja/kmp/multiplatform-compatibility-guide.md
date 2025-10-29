@@ -1,4 +1,4 @@
-[//]: # (title: Kotlin Multiplatform 互換性ガイド)
+[//]: # (title: Kotlin Multiplatform の互換性ガイド)
 
 <show-structure depth="1"/>
 
@@ -15,7 +15,8 @@
 
 | Kotlin Multiplatform プラグインバージョン | Gradle                                | Android Gradle プラグイン                               | Xcode   |
 |-------------------------------------|---------------------------------------|-----------------------------------------------------|---------|
-| 2.2.20                              | %minGradleVersion%–%maxGradleVersion% | %minAndroidGradleVersion%–%maxAndroidGradleVersion% | %xcode% |
+| 2.2.21                              | %minGradleVersion%–%maxGradleVersion% | %minAndroidGradleVersion%–%maxAndroidGradleVersion% | %xcode% |
+| 2.2.20                              | 7.6.3–8.14                            | 7.3.1–8.11.1                                        | 16.4    |
 | 2.2.0-2.2.10                        | 7.6.3–8.14                            | 7.3.1–8.10.0                                        | 16.3    |
 | 2.1.21                              | 7.6.3–8.12.1                          | 7.3.1–8.7.2                                         | 16.3    |
 | 2.1.20                              | 7.6.3–8.11                            | 7.4.2–8.7.2                                         | 16.0    |
@@ -479,7 +480,7 @@ Kotlin 1.9.0以降、`kotlin-js` Gradle プラグインは非推奨になりま�
     // settings.gradle.kts:
     pluginManagement {
         plugins {
-            // Remove the following line:
+            // 以下の行を削除してください:
             kotlin("js") version "1.9.0"
         }
         
@@ -496,7 +497,7 @@ Kotlin 1.9.0以降、`kotlin-js` Gradle プラグインは非推奨になりま�
     // settings.gradle.kts:
     pluginManagement {
         plugins {
-            // Add the following line instead:
+            // 代わりに以下の行を追加してください:
             kotlin("multiplatform") version "1.9.0"
         }
         

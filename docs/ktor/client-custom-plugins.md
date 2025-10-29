@@ -22,84 +22,84 @@
 
 在本节中，我们将演示如何创建并安装您的第一个插件，该插件会向每个[请求](client-requests.md)添加自定义标头：
 
-1. 要创建插件，请调用 [createClientPlugin](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client.plugins.api/create-client-plugin.html) 函数，并将插件名称作为实参传递：
-   ```kotlin
-   package com.example.plugins
-   
-   import io.ktor.client.plugins.api.*
-   
-   val CustomHeaderPlugin = createClientPlugin("CustomHeaderPlugin") {
-       // 配置插件 ...
-   }
-   ```
-   此函数返回 `ClientPlugin` 实例，该实例将用于安装插件。
+1.  要创建插件，请调用 [createClientPlugin](https://api.ktor.io/ktor-client-core/io.ktor.client.plugins.api/create-client-plugin.html) 函数，并将插件名称作为实参传递：
+    ```kotlin
+    package com.example.plugins
+    
+    import io.ktor.client.plugins.api.*
+    
+    val CustomHeaderPlugin = createClientPlugin("CustomHeaderPlugin") {
+        // Configure the plugin ...
+    }
+    ```
 
-2. 要向每个请求追加自定义标头，您可以使用 `onRequest` 处理器，它提供对请求形参的访问：
-   ```kotlin
-   package com.example.plugins
-   
-   import io.ktor.client.plugins.api.*
-   
-   val CustomHeaderPlugin = createClientPlugin("CustomHeaderPlugin") {
-       onRequest { request, _ ->
-           request.headers.append("X-Custom-Header", "Default value")
-       }
-   }
-   
-   ```
+    此函数返回 `ClientPlugin` 实例，该实例将用于安装插件。
 
-3. 要[安装插件](client-plugins.md#install)，请将创建的 `ClientPlugin` 实例传递给客户端配置代码块内的 `install` 函数：
-   ```kotlin
-   import com.example.plugins.*
-   
-   val client = HttpClient(CIO) {
-       install(CustomHeaderPlugin)
-   }
-   ```
-   
-   
+2.  要向每个请求追加自定义标头，您可以使用 `onRequest` 处理器，它提供对请求形参的访问：
+    ```kotlin
+    package com.example.plugins
+    
+    import io.ktor.client.plugins.api.*
+    
+    val CustomHeaderPlugin = createClientPlugin("CustomHeaderPlugin") {
+        onRequest { request, _ ->
+            request.headers.append("X-Custom-Header", "Default value")
+        }
+    }
+    
+    ```
+
+3.  要[安装插件](client-plugins.md#install)，请将创建的 `ClientPlugin` 实例传递给客户端配置代码块内的 `install` 函数：
+    ```kotlin
+    import com.example.plugins.*
+    
+    val client = HttpClient(CIO) {
+        install(CustomHeaderPlugin)
+    }
+    ```
+
 您可以在这里找到完整示例：[CustomHeader.kt](https://github.com/ktorio/ktor-documentation/blob/%ktor_version%/codeSnippets/snippets/client-custom-plugin/src/main/kotlin/com/example/plugins/CustomHeader.kt)。在以下章节中，我们将探讨如何提供插件配置以及处理请求和响应。
 
 ## 提供插件配置 {id="plugin-configuration"}
 
-[上一节](#first-plugin)演示了如何创建插件，该插件会向每个请求追加预定义自定义标头。让我们让这个插件更有用，并提供一个配置，用于传递任何自定义标头名称和值：
+[上一节](#first-plugin)演示了如何创建插件，该插件会向每个响应追加预定义自定义标头。让我们让这个插件更有用，并提供一个配置，用于传递任何自定义标头名称和值：
 
-1. 首先，您需要定义一个配置类：
+1.  首先，您需要定义一个配置类：
 
-   ```kotlin
-   class CustomHeaderPluginConfig {
-       var headerName: String = "X-Custom-Header"
-       var headerValue: String = "Default value"
-   }
-   ```
+    ```kotlin
+    class CustomHeaderPluginConfig {
+        var headerName: String = "X-Custom-Header"
+        var headerValue: String = "Default value"
+    }
+    ```
 
-2. 要在插件中使用此配置，请将配置类引用传递给 `createClientPlugin`：
+2.  要在插件中使用此配置，请将配置类引用传递给 `createClientPlugin`：
 
-   ```kotlin
-   import io.ktor.client.plugins.api.*
-   
-   val CustomHeaderConfigurablePlugin = createClientPlugin("CustomHeaderConfigurablePlugin", ::CustomHeaderPluginConfig) {
-       val headerName = pluginConfig.headerName
-       val headerValue = pluginConfig.headerValue
-   
-       onRequest { request, _ ->
-           request.headers.append(headerName, headerValue)
-       }
-   }
-   ```
+    ```kotlin
+    import io.ktor.client.plugins.api.*
+    
+    val CustomHeaderConfigurablePlugin = createClientPlugin("CustomHeaderConfigurablePlugin", ::CustomHeaderPluginConfig) {
+        val headerName = pluginConfig.headerName
+        val headerValue = pluginConfig.headerValue
+    
+        onRequest { request, _ ->
+            request.headers.append(headerName, headerValue)
+        }
+    }
+    ```
 
-   鉴于插件配置字段是可变的，建议将其保存在局部变量中。
+    鉴于插件配置字段是可变的，建议将其保存在局部变量中。
 
-3. 最后，您可以按如下方式安装和配置插件：
+3.  最后，您可以按如下方式安装和配置插件：
 
-   ```kotlin
-   val client = HttpClient(CIO) {
-       install(CustomHeaderConfigurablePlugin) {
-           headerName = "X-Custom-Header"
-           headerValue = "Hello, world!"
-       }
-   }
-   ```
+    ```kotlin
+    val client = HttpClient(CIO) {
+        install(CustomHeaderConfigurablePlugin) {
+            headerName = "X-Custom-Header"
+            headerValue = "Hello, world!"
+        }
+    }
+    ```
 
 > 您可以在这里找到完整示例：[CustomHeaderConfigurable.kt](https://github.com/ktorio/ktor-documentation/blob/%ktor_version%/codeSnippets/snippets/client-custom-plugin/src/main/kotlin/com/example/plugins/CustomHeaderConfigurable.kt)。
 
@@ -109,7 +109,7 @@
 - `onRequest` 和 `onResponse` 分别允许您处理请求和响应。
 - `transformRequestBody` 和 `transformResponseBody` 可用于对请求和响应正文应用必要的转换。
 
-还有 `on(...)` 处理器，它允许您调用可能有助于处理调用其他阶段的特定钩子。下表列出了所有处理器及其执行顺序：
+还有 `on(...)` 处理器，它允许您调用可能有助于处理调用的其他阶段的特定钩子。下表列出了所有处理器及其执行顺序：
 
 <Tabs>
 <TabItem title="基本钩子">
@@ -403,7 +403,7 @@ val ResponseTimePlugin = createClientPlugin("ResponseTimePlugin") {
 
 ## 访问客户端配置 {id="client-config"}
 
-您可以使用 `client` 属性访问客户端配置，该属性返回 `HttpClient` 实例。下面的示例展示了如何获取客户端使用的[代理地址](client-proxy.md)：
+您可以使用 `client` 属性访问客户端配置，该属性返回 [HttpClient](https://api.ktor.io/ktor-client-core/io.ktor.client/-http-client/index.html) 实例。下面的示例展示了如何获取客户端使用的[代理地址](client-proxy.md)：
 
 ```kotlin
 import io.ktor.client.plugins.api.*

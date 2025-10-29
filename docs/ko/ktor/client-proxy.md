@@ -8,7 +8,7 @@ Ktor HTTP 클라이언트를 사용하면 멀티플랫폼 프로젝트에서 프
 
 아래 표는 특정 [엔진들](client-engines.md)에 대한 지원되는 프록시 유형을 보여줍니다.
 
-| 엔진       | HTTP 프록시 | SOCKS 프록시 |
+| Engine     | HTTP proxy | SOCKS proxy |
 |------------|------------|-------------|
 | Apache     | ✅          |   ✖️         |
 | Java       | ✅          |   ✖️         |

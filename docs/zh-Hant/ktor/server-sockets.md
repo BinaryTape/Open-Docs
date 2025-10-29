@@ -19,7 +19,8 @@
 </p>
 </tldr>
 
-除了伺服器和用戶端的 HTTP/WebSocket 處理之外，Ktor 還支援 TCP 和 UDP 原始通訊端。它暴露了一個掛起式 API，底層使用 [java.nio](https://docs.oracle.com/javase/8/docs/api/java/nio/package-summary.html)。
+除了伺服器和用戶端的 HTTP/WebSocket 處理之外，Ktor 還支援 TCP 和 UDP 原始通訊端。
+它暴露了一個掛起式 API，底層使用 [java.nio](https://docs.oracle.com/javase/8/docs/api/java/nio/package-summary.html)。
 
 > 通訊端使用實驗性 API，預計在即將到來的更新中會演進，並可能帶來重大變更。
 >
@@ -56,7 +57,8 @@ val selectorManager = SelectorManager(Dispatchers.IO)
 val serverSocket = aSocket(selectorManager).tcp().bind("127.0.0.1", 9002)
 ```
 
-上面的程式碼片段建立了一個 TCP 通訊端，它是 [ServerSocket](https://api.ktor.io/ktor-network/io.ktor.network.sockets/-server-socket/index.html) 實例。若要建立 UDP 通訊端，請使用 `SocketBuilder.udp()`。
+上面的程式碼片段建立了一個 TCP 通訊端，它是 [ServerSocket](https://api.ktor.io/ktor-network/io.ktor.network.sockets/-server-socket/index.html) 實例。
+若要建立 UDP 通訊端，請使用 `SocketBuilder.udp()`。
 
 ### 接受傳入連線 {id="accepts_connection"}
 
@@ -76,7 +78,8 @@ val socket = serverSocket.accept()
 val receiveChannel = socket.openReadChannel()
 ```
 
-`ByteReadChannel` 提供了非同步讀取資料的 API。例如，您可以使用 `ByteReadChannel.readUTF8Line` 讀取一行 UTF-8 字元：
+`ByteReadChannel` 提供了非同步讀取資料的 API。
+例如，您可以使用 `ByteReadChannel.readUTF8Line` 讀取一行 UTF-8 字元：
 
 ```kotlin
 val name = receiveChannel.readUTF8Line()
@@ -90,7 +93,8 @@ val name = receiveChannel.readUTF8Line()
 val sendChannel = socket.openWriteChannel(autoFlush = true)
 ```
 
-`ByteWriteChannel` 提供了非同步寫入位元組序列的 API。例如，您可以使用 `ByteWriteChannel.writeStringUtf8` 寫入一行 UTF-8 字元：
+`ByteWriteChannel` 提供了非同步寫入位元組序列的 API。
+例如，您可以使用 `ByteWriteChannel.writeStringUtf8` 寫入一行 UTF-8 字元：
 
 ```kotlin
 val name = receiveChannel.readUTF8Line()
@@ -153,7 +157,8 @@ fun main(args: Array<String>) {
 
 ### 建立通訊端 {id="client_create_socket"}
 
-若要建立用戶端通訊端，請建立 `SelectorManager` 實例，在其上呼叫 `SocketBuilder.tcp()` 函式，然後使用 `connect` 建立連線並取得一個已連線通訊端（一個 [Socket](https://api.ktor.io/ktor-network/io.ktor.network.sockets/-socket/index.html) 實例）：
+若要建立用戶端通訊端，請建立 `SelectorManager` 實例，在其上呼叫 `SocketBuilder.tcp()` 函式，
+然後使用 `connect` 建立連線並取得一個已連線通訊端（一個 [Socket](https://api.ktor.io/ktor-network/io.ktor.network.sockets/-socket/index.html) 實例）：
 
 ```kotlin
 val selectorManager = SelectorManager(Dispatchers.IO)
@@ -164,7 +169,8 @@ val socket = aSocket(selectorManager).tcp().connect("127.0.0.1", 9002)
 
 ### 建立安全通訊端 (SSL/TLS) {id="secure"}
 
-安全通訊端允許您建立 TLS 連線。若要使用安全通訊端，您需要新增 [ktor-network-tls](#add_dependencies) 依賴項。
+安全通訊端允許您建立 TLS 連線。
+若要使用安全通訊端，您需要新增 [ktor-network-tls](#add_dependencies) 依賴項。
 然後，在已連線通訊端上呼叫 `Socket.tls` 函式：
 
 ```kotlin
@@ -172,7 +178,7 @@ val selectorManager = SelectorManager(Dispatchers.IO)
 val socket = aSocket(selectorManager).tcp().connect("127.0.0.1", 8443).tls()
 ```
 
-`tls` 函式允許您調整 [TLSConfigBuilder](https://api.ktor.io/ktor-network/ktor-network-tls/io.ktor.network.tls/-t-l-s-config-builder/index.html) 提供的 TLS 參數：
+`tls` 函式允許您調整 [TLSConfigBuilder](https://api.ktor.io/ktor-network-tls/io.ktor.network.tls/-t-l-s-config-builder/index.html) 提供的 TLS 參數：
 
 ```kotlin
 val selectorManager = SelectorManager(Dispatchers.IO)
@@ -195,7 +201,8 @@ val socket = aSocket(selectorManager).tcp().connect("youtrack.jetbrains.com", po
 val receiveChannel = socket.openReadChannel()
 ```
 
-`ByteReadChannel` 提供了非同步讀取資料的 API。例如，您可以使用 `ByteReadChannel.readUTF8Line` 讀取一行 UTF-8 字元：
+`ByteReadChannel` 提供了非同步讀取資料的 API。
+例如，您可以使用 `ByteReadChannel.readUTF8Line` 讀取一行 UTF-8 字元：
 
 ```kotlin
 val greeting = receiveChannel.readUTF8Line()
@@ -209,7 +216,8 @@ val greeting = receiveChannel.readUTF8Line()
 val sendChannel = socket.openWriteChannel(autoFlush = true)
 ```
 
-`ByteWriteChannel` 提供了非同步寫入位元組序列的 API。例如，您可以使用 `ByteWriteChannel.writeStringUtf8` 寫入一行 UTF-8 字元：
+`ByteWriteChannel` 提供了非同步寫入位元組序列的 API。
+例如，您可以使用 `ByteWriteChannel.writeStringUtf8` 寫入一行 UTF-8 字元：
 
 ```kotlin
 val myMessage = readln()

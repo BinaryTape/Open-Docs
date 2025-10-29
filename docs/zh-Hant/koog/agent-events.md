@@ -9,7 +9,7 @@ Agent 事件是在 Agent 工作流程中發生動作或互動。其包含：
 - LLM 串流事件
 - 工具執行事件
 
-注意：功能事件定義在 `agents-core` 模組中，位於 `ai.koog.agents.core.feature.model.events` 套件下。諸如 `agents-features-trace`、`agents-features-debugger` 和 `agents-features-event-handler` 等功能會消耗這些事件，以處理並轉發在 Agent 執行期間建立的訊息。
+注意：功能事件定義在 `agents-core` 模組中，位於 `ai.koog.agents.core.feature.model.events` 套件下。諸如 `agents-features-trace` 和 `agents-features-event-handler` 等功能會消耗這些事件，以處理並轉發在 Agent 執行期間建立的訊息。
 
 ## 預定義事件類型
 
@@ -107,22 +107,22 @@ Koog 提供了可用於自訂訊息處理器的預定義事件類型。預定義
 
 代表節點執行 (run) 的開始。包含以下欄位：
 
-| 名稱       | 資料類型 | 必要 | 預設 | 說明                           |
-|------------|----------|------|------|--------------------------------|
-| `runId`    | String   | 是   |      | 策略執行的唯一識別碼。         |
-| `nodeName` | String   | 是   |      | 開始執行的節點名稱。           |
-| `input`    | String   | 是   |      | 節點的輸入值。                 |
+| 名稱       | 資料類型    | 必要 | 預設 | 說明                           |
+|------------|-------------|------|------|--------------------------------|
+| `runId`    | String      | 是   |      | 策略執行的唯一識別碼。         |
+| `nodeName` | String      | 是   |      | 開始執行的節點名稱。           |
+| `input`    | JsonElement | 否   | null | 節點的輸入值。                 |
 
 #### NodeExecutionCompletedEvent
 
 代表節點執行 (run) 的結束。包含以下欄位：
 
-| 名稱       | 資料類型 | 必要 | 預設 | 說明                           |
-|------------|----------|------|------|--------------------------------|
-| `runId`    | String   | 是   |      | 策略執行的唯一識別碼。         |
-| `nodeName` | String   | 是   |      | 結束執行的節點名稱。           |
-| `input`    | String   | 是   |      | 節點的輸入值。                 |
-| `output`   | String   | 是   |      | 節點產生的輸出值。             |
+| 名稱       | 資料類型    | 必要 | 預設 | 說明                           |
+|------------|-------------|------|------|--------------------------------|
+| `runId`    | String      | 是   |      | 策略執行的唯一識別碼。         |
+| `nodeName` | String      | 是   |      | 結束執行的節點名稱。           |
+| `input`    | JsonElement | 否   | null | 節點的輸入值。                 |
+| `output`   | JsonElement | 否   | null | 節點產生的輸出值。             |
 
 #### NodeExecutionFailedEvent
 
@@ -132,6 +132,7 @@ Koog 提供了可用於自訂訊息處理器的預定義事件類型。預定義
 |------------|--------------|------|------|--------------------------------------------------------------------------------------------------|
 | `runId`    | String       | 是   |      | 策略執行的唯一識別碼。                                                                           |
 | `nodeName` | String       | 是   |      | 發生錯誤的節點名稱。                                                                             |
+| `input`    | JsonElement  | 否   | null | 提供給節點的輸入資料。                                                                           |
 | `error`    | AIAgentError | 是   |      | 在節點執行期間發生的特定錯誤。詳細資訊請參閱 [AIAgentError](#aiagenterror)。|
 
 ### LLM 呼叫事件
@@ -140,11 +141,11 @@ Koog 提供了可用於自訂訊息處理器的預定義事件類型。預定義
 
 代表 LLM 呼叫的開始。包含以下欄位：
 
-| 名稱     | 資料類型    | 必要 | 預設 | 說明                                       |
-|----------|-------------|------|------|--------------------------------------------|
-| `runId`  | String      | 是   |      | LLM 執行的唯一識別碼。                     |
-| `prompt` | Prompt      | 是   |      | 傳送至模型的提示。詳細資訊請參閱 [Prompt](#prompt)。|
-| `model`  | String      | 是   |      | 模型識別碼，格式為 `llm_provider:model_id`。|
+| 名稱     | 資料類型          | 必要 | 預設 | 說明                                       |
+|----------|-------------------|------|------|--------------------------------------------|
+| `runId`  | String            | 是   |      | LLM 執行的唯一識別碼。                     |
+| `prompt` | Prompt            | 是   |      | 傳送至模型的提示。詳細資訊請參閱 [Prompt](#prompt)。|
+| `model`  | String            | 是   |      | 模型識別碼，格式為 `llm_provider:model_id`。|
 | `tools`  | List&lt;String&gt; | 是   |      | 模型可呼叫的工具列表。                     |
 
 <a id="prompt"></a>
@@ -185,9 +186,9 @@ Koog 提供了可用於自訂訊息處理器的預定義事件類型。預定義
 
 代表從 LLM 接收到的串流影格。包含以下欄位：
 
-| 名稱     | 資料類型    | 必要 | 預設 | 說明                       |
-|----------|-------------|------|------|----------------------------|
-| `runId`  | String      | 是   |      | LLM 執行的唯一識別碼。     |
+| 名稱     | 資料類型   | 必要 | 預設 | 說明                       |
+|----------|------------|------|------|----------------------------|
+| `runId`  | String     | 是   |      | LLM 執行的唯一識別碼。     |
 | `frame`  | StreamFrame | 是   |      | 從串流接收到的影格。       |
 
 #### LLMStreamingFailedEvent
@@ -314,7 +315,7 @@ install(Tracing) {
     }
 }
 ```
-<!--- KNIT example-tracing-01.kt -->
+<!--- KNIT example-events-01.kt -->
 
 ### 我可以使用多個訊息處理器嗎？
 
@@ -361,7 +362,7 @@ install(Tracing) {
     addMessageProcessor(TraceFeatureMessageRemoteWriter(connectionConfig))
 }
 ```
-<!--- KNIT example-tracing-02.kt -->
+<!--- KNIT example-events-02.kt -->
 
 ### 如何建立自訂訊息處理器？
 
@@ -397,36 +398,36 @@ fun main() {
 ```kotlin
 class CustomTraceProcessor : FeatureMessageProcessor() {
 
-    // Current open state of the processor
+    // 處理器的目前開放狀態
     private var _isOpen = MutableStateFlow(false)
 
     override val isOpen: StateFlow<Boolean>
         get() = _isOpen.asStateFlow()
     
     override suspend fun processMessage(message: FeatureMessage) {
-        // Custom processing logic
+        // 自訂處理邏輯
         when (message) {
             is NodeExecutionStartingEvent -> {
-                // Process node start event
+                // 處理節點開始事件
             }
 
             is LLMCallCompletedEvent -> {
-                // Process LLM call end event 
+                // 處理 LLM 呼叫結束事件 
             }
-            // Handle other event types 
+            // 處理其他事件類型 
         }
     }
 
     override suspend fun close() {
-        // Close established connections
+        // 關閉建立的連線
     }
 }
 
-// Use your custom processor
+// 使用您的自訂處理器
 install(Tracing) {
     addMessageProcessor(CustomTraceProcessor())
 }
 ```
-<!--- KNIT example-tracing-03.kt -->
+<!--- KNIT example-events-03.kt -->
 
 有關可由訊息處理器處理的現有事件類型的更多資訊，請參閱 [預定義事件類型](#predefined-event-types)。

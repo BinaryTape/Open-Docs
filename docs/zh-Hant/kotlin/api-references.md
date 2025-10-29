@@ -1,3 +1,4 @@
+```xml
 <topic xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:noNamespaceSchemaLocation="https://resources.jetbrains.com/writerside/1.0/topic.v2.xsd"
        id="api-references" title="API 參考資料">
@@ -46,13 +47,6 @@
             <br/>
         </li>
         <li>
-            <a href="https://kotlinlang.org/api/kotlinx-metadata-jvm/"><b>JVM 中繼資料 (kotlin-metadata-jvm)</b></a>
-            <br/>
-            <p>一個用於讀取和寫入儲存在 JVM 類別檔案中的 Kotlin 中繼資料的函式庫。它主要由註解處理器、靜態分析器和編譯器外掛程式等工具使用。</p>
-            <img src="github.svg" width="18" alt="GitHub"/> <a href="https://github.com/JetBrains/kotlin/tree/master/libraries/kotlinx-metadata">kotlinx-metadata</a>
-            <br/>
-        </li>
-        <li>
             <a href="https://kotlinlang.org/api/kotlin-gradle-plugin/"><b>Kotlin Gradle 外掛程式 (kotlin-gradle-plugin)</b></a>
             <br/>
             <p>用於編譯、測試和打包 Kotlin 程式碼的 Kotlin Gradle 外掛程式。這些外掛程式簡化了 JVM 和多平台建置，管理依賴項，並與 IDE 和 CI 系統整合。</p>
@@ -64,6 +58,20 @@
             <br/>
             <p>一個用於使用 Kotlin 在互連系統中建置非同步用戶端和伺服器的框架。Ktor 旨在實現可擴展性和靈活性，並與協程深度整合，以實現非阻塞 I/O 和結構化並行。</p>
             <img src="github.svg" width="18" alt="GitHub"/> <a href="https://github.com/ktorio/ktor">ktor</a>
+            <br/>
+        </li>
+        <li>
+            <a href="https://kotlinlang.org/api/kotlinx-metadata-jvm/"><b>JVM 中繼資料 (kotlin-metadata-jvm)</b></a>
+            <br/>
+            <p>一個用於讀取和寫入儲存在 JVM 類別檔案中的 Kotlin 中繼資料的函式庫。它主要由註解處理器、靜態分析器和編譯器外掛程式等工具使用。</p>
+            <img src="github.svg" width="18" alt="GitHub"/> <a href="https://github.com/JetBrains/kotlin/tree/master/libraries/kotlinx-metadata">kotlinx-metadata</a>
+            <br/>
+        </li>
+        <li>
+            <a href="https://kotlinlang.org/api/compose-multiplatform/material3/"><b>Compose Multiplatform Material3</b></a>
+            <br/>
+            <p>一個用於使用 Material Design 3 元件建置使用者介面的多平台函式庫。API 參考資料包含一個 Material 3 元件圖庫，您可以在其中預覽可組合項。</p>
+            <img src="github.svg" width="18" alt="GitHub"/> <a href="https://github.com/JetBrains/compose-multiplatform-core/tree/jb-main/compose/material3">compose-material3</a>
             <br/>
         </li>
     </list>

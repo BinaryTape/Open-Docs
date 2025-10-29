@@ -132,7 +132,7 @@ get("/login") {
 </TabItem>
 </Tabs>
 
-フォームパラメータをサーバー側で受け取る方法については、[フォームパラメータ](server-requests.md#form_parameters)を参照してください。
+サーバー側でフォームパラメータを受け取る方法については、[フォームパラメータ](server-requests.md#form_parameters)を参照してください。
 
 > kotlinx.htmlを使用したHTMLの生成について詳しく学ぶには、[kotlinx.html wiki](https://github.com/Kotlin/kotlinx.html/wiki)を参照してください。
 
@@ -145,6 +145,7 @@ get("/login") {
 3.  作成されたテンプレートクラス内では、異なるコンテンツタイプ用のプレースホルダーを定義できます。
     *   `[Placeholder](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-html-builder/io.ktor.server.html/-placeholder/index.html)`はコンテンツを挿入するために使用されます。`[PlaceholderList](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-html-builder/io.ktor.server.html/-placeholder-list/index.html)`は、複数回出現するコンテンツ（例：リスト項目）を挿入するために使用できます。
     *   `[TemplatePlaceholder](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-html-builder/io.ktor.server.html/-template-placeholder/index.html)`は、子テンプレートを挿入し、ネストされたレイアウトを作成するために使用できます。
+    
 
 ### 例 {id="example"}
 テンプレートを使用して階層的なレイアウトを作成する方法の[例](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/html-templates)を見てみましょう。次のようなHTMLがあるとします。

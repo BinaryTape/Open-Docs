@@ -16,7 +16,7 @@
 
 ## 添加依賴項 {id="add_dependencies"}
 
-在使用 kotlinx.serialization 轉換器（converter）之前，您需要如 [設置](https://github.com/Kotlin/kotlinx.serialization#setup) 部分所述添加 Kotlin 序列化插件。
+在使用 kotlinx.serialization 轉換器（converter）之前，您需要如 [設置](https://github.com/Kotlin/kotlinx.serialization#setup) 部分所述添加 Kotlin 序列化插件（plugin）。
 
 #### JSON {id="add_json_dependency"}
 
@@ -96,7 +96,7 @@
     </TabItem>
 </Tabs>
 
-> 注意，XML 序列化 [在 `jsNode` 目標上不受支援](https://github.com/pdvrieze/xmlutil/issues/83)。
+> 注意，XML 序列化 [在 `jsNode` 目標（target）上不受支援](https://github.com/pdvrieze/xmlutil/issues/83)。
 {style="note"}
 
 #### CBOR {id="add_cbor_dependency"}

@@ -4,7 +4,7 @@
 
 <var name="artifact_name" value="ktor-server-swagger"/>
 <var name="package_name" value="io.ktor.server.plugins.swagger"/>
-<var name="plugin_api_link" value="https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-swagger/io.ktor.server.plugins.swagger/swagger-u-i.html"/>
+<var name="plugin_api_link" value="https://api.ktor.io/ktor-server-swagger/io.ktor.server.plugins.swagger/swagger-u-i.html"/>
 
 <tldr>
 <p>
@@ -26,7 +26,7 @@
 Swagger UI 插件允许您为项目生成 Swagger UI。
 </link-summary>
 
-Ktor 允许您基于现有 OpenAPI 规范为项目生成并提供 Swagger UI。借助 Swagger UI，您可以可视化 API 资源并与之交互。您可以提供现有的 YAML 或 JSON 规范，也可以使用 Ktor Gradle 插件的 [OpenAPI 扩展](openapi-spec-generation.md) 生成一个。
+Ktor 允许您基于现有 OpenAPI 规范为您的项目生成并提供 Swagger UI。借助 Swagger UI，您可以可视化 API 资源并与之交互。您可以提供现有的 YAML 或 JSON 规范，也可以使用 Ktor Gradle 插件的 [OpenAPI 扩展](openapi-spec-generation.md) 生成一个。
 
 ## 添加依赖项 {id="add_dependencies"}
 
@@ -82,4 +82,3 @@ install(CORS) {
     anyHost()
     allowHeader(HttpHeaders.ContentType)
 }
-```

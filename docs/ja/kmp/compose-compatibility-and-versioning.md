@@ -18,7 +18,7 @@ Compose Multiplatform %org.jetbrains.compose% は、以下のプラットフォ�
 [//]: # (https://youtrack.jetbrains.com/issue/CMP-7539)
 
 > Compose Multiplatformのすべてのリリースは、64ビットプラットフォームのみをサポートしています。
->
+> 
 {style="note"}
 
 ## Kotlinの互換性
@@ -28,13 +28,13 @@ Compose Multiplatform %org.jetbrains.compose% は、以下のプラットフォ�
 いずれかの製品のEAPバージョンを使用すると、まだ不安定になる可能性があることに注意してください。
 
 Compose Multiplatformは、Kotlin Multiplatformプラグインと同じバージョンのCompose Compiler Gradleプラグインが適用されている必要があります。
-詳細については、[未定義](compose-compiler.md#migrating-a-compose-multiplatform-project)を参照してください。
+詳細については、[undefined](compose-compiler.md#migrating-a-compose-multiplatform-project)を参照してください。
 
 > Compose Multiplatform 1.8.0以降、UIフレームワークはK2コンパイラに完全に移行しました。
 > したがって、最新のCompose Multiplatformリリースを使用するには、以下を行う必要があります。
 > * プロジェクトにKotlin 2.1.0以上を使用する、
 > * Compose Multiplatformベースのライブラリは、Kotlin 2.1.0以上でコンパイルされている場合にのみ依存する。
->
+> 
 > すべての依存関係が更新されるまでの後方互換性の問題に対する回避策として、
 > `gradle.properties`ファイルに`kotlin.native.cacheKind=none`を追加することで、Gradleキャッシュをオフにできます。
 > これにより、コンパイル時間が長くなります。
@@ -55,10 +55,10 @@ Compose Multiplatformは、Googleが開発したフレームワークであるAn
 
 Jetpack Composeの新しいバージョンがリリースされると、弊社は以下を行います。
 
-1.  次の[Compose Multiplatform](https://github.com/JetBrains/androidx)バージョンのベースとして、リリースコミットを使用します。
-2.  新しいプラットフォーム機能のサポートを追加します。
-3.  すべてのプラットフォームを安定化させます。
-4.  Compose Multiplatformの新しいバージョンをリリースします。
+1. 次の[Compose Multiplatform](https://github.com/JetBrains/androidx)バージョンのベースとして、リリースコミットを使用します。
+2. 新しいプラットフォーム機能のサポートを追加します。
+3. すべてのプラットフォームを安定化させます。
+4. Compose Multiplatformの新しいバージョンをリリースします。
 
 Compose MultiplatformのリリースとJetpack Composeのリリースの間隔は、通常1〜3ヶ月です。
 
@@ -82,7 +82,7 @@ Android向けにアプリケーションをビルドする際、Compose Multipla
 
 | Compose Multiplatformバージョン                                                     | Jetpack Composeバージョン | Jetpack Compose Material3バージョン |
 |-----------------------------------------------------------------------------------|-------------------------|-----------------------------------|
-| [1.9.1](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.9.0)   | 1.9.3                   | 1.4.0                             |
+| [1.9.2](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.9.2)   | 1.9.4                   | 1.4.0                             |
 | [1.8.2](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.8.2)   | 1.8.2                   | 1.3.2                             |
 | [1.7.3](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.7.3)   | 1.7.6                   | 1.3.1                             |
 | [1.7.1](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.7.1)   | 1.7.5                   | 1.3.1                             |

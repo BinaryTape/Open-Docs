@@ -56,7 +56,7 @@ scope<named("my_scope_name")> {
 ```
 
 :::info
-スコープ空間（`@Scope`を使用）と定義するコンポーネントの種類（`@Scoped`を使用）を示すために、両方のアノテーションが必要です。
+  スコープ空間（`@Scope`を使用）と定義するコンポーネントの種類（`@Scoped`を使用）を示すために、両方のアノテーションが必要です。
 :::
 
 ## スコープからの依存関係の解決
@@ -83,7 +83,7 @@ class MyOtherScopedComponent(
 )
 ```
 
-`MySingle`コンポーネントはルートでシングルトン定義として定義されています。`MyScopedComponent`と`MyOtherScopedComponent`は"my_scope_name"スコープで定義されています。
+コンポーネント`MySingle`はルートで`single`定義として定義されています。`MyScopedComponent`と`MyOtherScopedComponent`は"my_scope_name"スコープで定義されています。
 `MyScopedComponent`からの依存関係の解決は、`MySingle`インスタンスでKoinのルートにアクセスし、現在の"my_scope_name"スコープから`MyOtherScopedComponent`スコープインスタンスにアクセスします。
 
 ## @ScopeIdを用いたスコープ外からの解決 (バージョン1.3.0以降)
@@ -106,5 +106,136 @@ factory { Myfactory(getScope("my_scope_id").get()) }
 この例は、`MyFactory`コンポーネントが`my_scope_id`というIDを持つスコープインスタンスから`MyScopedComponent`コンポーネントを解決することを示しています。`my_scope_id`というIDで作成されたこのスコープは、適切なスコープ定義で作成される必要があります。
 
 :::info
-`MyScopedComponent`コンポーネントはスコープセクション内で定義されている必要があり、スコープインスタンスは"my_scope_id"というIDで作成されている必要があります。
+  `MyScopedComponent`コンポーネントはスコープセクション内で定義されている必要があり、スコープインスタンスは"my_scope_id"というIDで作成されている必要があります。
+:::
+
+## スコープアーキタイプアノテーション
+
+Koin Annotationsは、一般的なスコープパターンに対応する定義済みのスコープアーキタイプアノテーションを提供し、スコープタイプを手動で宣言する手間を省きます。これらのアノテーションは、スコープ宣言とコンポーネント定義を単一のアノテーションにまとめます。
+
+### Androidスコープアーキタイプ
+
+Android開発では、これらの定義済みスコープアノテーションを使用できます。
+
+#### @ActivityScope
+
+Activityスコープでコンポーネントを宣言します。
+
+```kotlin
+@ActivityScope
+class ActivityScopedComponent(val dependency: MyDependency)
+```
+
+これは以下を生成します:
+```kotlin
+activityScope {
+    scoped { ActivityScopedComponent(get()) }
+}
+```
+
+**使用方法:** タグ付けされたクラスは、Activityと`activityScope`関数を使用してスコープをアクティブ化することを意図しています。
+
+#### @ActivityRetainedScope
+
+Activity Retainedスコープでコンポーネントを宣言します（構成変更後も存続します）：
+
+```kotlin
+@ActivityRetainedScope
+class RetainedComponent(val repository: MyRepository)
+```
+
+これは以下を生成します:
+```kotlin
+activityRetainedScope {
+    scoped { RetainedComponent(get()) }
+}
+```
+
+**使用方法:** タグ付けされたクラスは、Activityと`activityRetainedScope`関数を使用してスコープをアクティブ化することを意図しています。
+
+#### @FragmentScope
+
+Fragmentスコープでコンポーネントを宣言します。
+
+```kotlin
+@FragmentScope
+class FragmentScopedComponent(val service: MyService)
+```
+
+これは以下を生成します:
+```kotlin
+fragmentScope {
+    scoped { FragmentScopedComponent(get()) }
+}
+```
+
+**使用方法:** タグ付けされたクラスは、Fragmentと`fragmentScope`関数を使用してスコープをアクティブ化することを意図しています。
+
+### コアスコープアーキタイプ
+
+#### @ViewModelScope
+
+ViewModelスコープでコンポーネントを宣言します。このアノテーションは**Kotlin Multiplatform (KMP) と互換性があり**、Android ViewModelとCompose Multiplatform ViewModelの両方で動作します。
+
+```kotlin
+@ViewModelScope
+class ViewModelScopedRepository(val apiService: ApiService)
+
+@ViewModelScope  
+class ViewModelScopedUseCase(
+    val repository: ViewModelScopedRepository,
+    val analytics: AnalyticsService
+)
+```
+
+これは以下を生成します:
+```kotlin
+viewModelScope {
+    scoped { ViewModelScopedRepository(get()) }
+    scoped { ViewModelScopedUseCase(get(), get()) }
+}
+```
+
+**使用方法:** タグ付けされたクラスは、ViewModelと`viewModelScope`関数を使用してスコープをアクティブ化することを意図しています。
+
+**KMPサポート:** ViewModelが使用されるAndroid、iOS、デスクトップ、Webプラットフォームを含むすべてのKotlin Multiplatformターゲットでシームレスに動作します。
+
+### スコープアーキタイプの使用
+
+スコープアーキタイプアノテーションは、通常のKoinスコープとシームレスに連携します。
+
+```kotlin
+// Regular components
+@Single
+class GlobalService
+
+// Scoped components using archetypes
+@ActivityScope
+class ActivityService(val global: GlobalService)
+
+@FragmentScope  
+class FragmentService(
+    val global: GlobalService,
+    val activity: ActivityService
+)
+```
+
+### 関数定義との組み合わせ
+
+スコープアーキタイプは、モジュール内の関数にも使用できます。
+
+```kotlin
+@Module
+class MyModule {
+    
+    @ActivityScope
+    fun activityComponent(dep: MyDependency) = MyActivityComponent(dep)
+    
+    @FragmentScope
+    fun fragmentComponent(dep: MyDependency) = MyFragmentComponent(dep)
+}
+```
+
+:::info
+スコープアーキタイプアノテーションは、適切なスコープ定義とスコープ化されたコンポーネント宣言を自動的に作成し、一般的なスコープパターンにおけるボイラープレートコードを削減します。
 :::

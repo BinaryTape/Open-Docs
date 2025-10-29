@@ -13,7 +13,7 @@
 </tldr>
 
 <link-summary>
-瞭解如何建立自己的自訂外掛。
+瞭解如何建立您自己的自訂外掛。
 </link-summary>
 
 從 v2.0.0 開始，Ktor 提供了一組新的 API 來建立自訂 [plugins](server-plugins.md)。一般而言，此 API 不需要瞭解 Ktor 的內部概念，例如管線 (pipelines)、階段 (phases) 等。相反地，您可以使用 `onCall`、`onCallReceive` 和 `onCallRespond` 處理器，存取[處理請求與回應](#call-handling)的不同階段。
@@ -222,7 +222,7 @@ val DataTransformationBenchmarkPlugin = createApplicationPlugin(name = "DataTran
 }
 ```
 
-如果您發出 `POST` 請求，意外掛會在主控台中印出延遲：
+如果您發出 `POST` 請求，外掛會在主控台中印出延遲：
 
 ```Bash
 Request URL: http://localhost:8080/transform-data
@@ -447,4 +447,4 @@ val SimplePlugin = createApplicationPlugin(name = "SimplePlugin") {
             database.access(...) // some call to your database
         }
     }
-    ```
+   ```

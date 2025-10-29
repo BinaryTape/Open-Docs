@@ -9,7 +9,7 @@
 [Ktor HTTPクライアント](client-create-and-configure.md)はマルチプラットフォームで、JVM、
 [Android](https://kotlinlang.org/docs/android-overview.html)、[JavaScript](https://kotlinlang.org/docs/js-overview.html)
 (WebAssemblyを含む)、および[Native](https://kotlinlang.org/docs/native-overview.html)ターゲットで動作します。各プラットフォームでは、ネットワークリクエストを処理するために特定のエンジンが必要です。
-例えば、JVMアプリケーションには`Apache`または`Jetty`、Androidには`OkHttp`または`Android`、Kotlin/Nativeをターゲットとするデスクトップアプリケーションには`Curl`を使用できます。すべてのエンジンは機能と構成が若干異なるため、プラットフォームとユースケースのニーズに最適なものを選択できます。
+例えば、JVMアプリケーションには`Apache`または`Jetty`、Androidには`OkHttp`または`Android`、Kotlin/Nativeをターゲットとするデスクトップアプリケーションには`Curl`を使用できます。各エンジンは機能と構成が若干異なるため、プラットフォームとユースケースのニーズに最適なものを選択できます。
 
 ## サポートされるプラットフォーム {id="platforms"}
 
@@ -54,12 +54,12 @@ _* 古いAndroidバージョンでCIOエンジンを使用するには、[Java 8
 
 > Ktorは、`-jvm`や`-js`などのサフィックスを持つプラットフォーム固有のアーティファクト（例: `ktor-client-cio-jvm`）を提供します。依存関係の解決はビルドツールによって異なります。Gradleは指定されたプラットフォームに適したアーティファクトを解決しますが、Mavenはこの機能をサポートしていません。これは、Mavenの場合、プラットフォームサフィックスを手動で指定する必要があることを意味します。
 >
-{style="note"}
+{type="note"}
 
 ## エンジンを指定する {id="create"}
 
 特定のエンジンを使用するには、エンジンクラスを[
-`HttpClient`](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client/-http-client/index.html)コンストラクターに渡します。次の例は、`CIO`エンジンでクライアントを作成します。
+`HttpClient`](https://api.ktor.io/ktor-client-core/io.ktor.client/-http-client/index.html)コンストラクターに渡します。次の例は、`CIO`エンジンでクライアントを作成します。
 
 ```kotlin
 import io.ktor.client.*
@@ -83,7 +83,7 @@ val client = HttpClient()
 ## エンジンを構成する {id="configure"}
 
 エンジンを構成するには、`engine {}`関数を使用します。すべてのエンジンは、[
-`HttpClientEngineConfig`](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client.engine/-http-client-engine-config/index.html)からの共通オプションを使用して構成できます。
+`HttpClientEngineConfig`](https://api.ktor.io/ktor-client-core/io.ktor.client.engine/-http-client-engine-config/index.html)からの共通オプションを使用して構成できます。
 
 ```kotlin
 HttpClient() {
@@ -191,7 +191,7 @@ JVMターゲットは、[`Apache5`](#apache5)、[`Java`](#java)、および
     ```
 
 3.  エンジンを構成するには、`engine {}`ブロックで[
-    `JavaHttpConfig`](https://api.ktor.io/ktor-client/ktor-client-java/io.ktor.client.engine.java/-java-http-config/index.html)からプロパティを設定します。
+    `JavaHttpConfig`](https://api.ktor.io/ktor-client-java/io.ktor.client.engine.java/-java-http-config/index.html)からプロパティを設定します。
 
     ```kotlin
     import io.ktor.client.*
@@ -279,7 +279,7 @@ JVMターゲットは、[`Apache5`](#apache5)、[`Java`](#java)、および
     </Tabs>
 
 2.  [
-    `Android`](https://api.ktor.io/ktor-client/ktor-client-android/io.ktor.client.engine.android/-android/index.html)クラスを`HttpClient`コンストラクターの引数として渡します。
+    `Android`](https://api.ktor.io/ktor-client-android/io.ktor.client.engine.android/-android/index.html)クラスを`HttpClient`コンストラクターの引数として渡します。
 
     ```kotlin
     import io.ktor.client.*
@@ -289,7 +289,7 @@ JVMターゲットは、[`Apache5`](#apache5)、[`Java`](#java)、および
     ```
 
 3.  エンジンを構成するには、`engine {}`ブロックで[
-    `AndroidEngineConfig`](https://api.ktor.io/ktor-client/ktor-client-android/io.ktor.client.engine.android/-android-engine-config/index.html)からプロパティを設定します。
+    `AndroidEngineConfig`](https://api.ktor.io/ktor-client-android/io.ktor.client.engine.android/-android-engine-config/index.html)からプロパティを設定します。
 
     ```kotlin
     import io.ktor.client.*
@@ -327,7 +327,7 @@ JVMターゲットは、[`Apache5`](#apache5)、[`Java`](#java)、および
     </Tabs>
 
 2.  [
-    `OkHttp`](https://api.ktor.io/ktor-client/ktor-client-okhttp/io.ktor.client.engine.okhttp/-ok-http/index.html)クラスを`HttpClient`コンストラクターの引数として渡します。
+    `OkHttp`](https://api.ktor.io/ktor-client-okhttp/io.ktor.client.engine.okhttp/-ok-http/index.html)クラスを`HttpClient`コンストラクターの引数として渡します。
 
     ```kotlin
     import io.ktor.client.*
@@ -337,7 +337,7 @@ JVMターゲットは、[`Apache5`](#apache5)、[`Java`](#java)、および
     ```
 
 3.  エンジンを構成するには、`engine {}`ブロックで[
-    `OkHttpConfig`](https://api.ktor.io/ktor-client/ktor-client-okhttp/io.ktor.client.engine.okhttp/-ok-http-config/index.html)からプロパティを設定します。
+    `OkHttpConfig`](https://api.ktor.io/ktor-client-okhttp/io.ktor.client.engine.okhttp/-ok-http-config/index.html)からプロパティを設定します。
 
     ```kotlin
     import io.ktor.client.*
@@ -397,7 +397,7 @@ Ktorは、[Kotlin/Native](https://kotlinlang.org/docs/native-overview.html)タ�
     ```
 
 3.  `engine {}`ブロックで、[
-    `DarwinClientEngineConfig`](https://api.ktor.io/ktor-client/ktor-client-darwin/io.ktor.client.engine.darwin/-darwin-client-engine-config/index.html)を使用してエンジンを構成します。例えば、`configureRequest`でリクエストを、または`configureSession`でセッションをカスタマイズできます。
+    `DarwinClientEngineConfig`](https://api.ktor.io/ktor-client-darwin/io.ktor.client.engine.darwin/-darwin-client-engine-config/index.html)を使用してエンジンを構成します。例えば、`configureRequest`でリクエストを、または`configureSession`でセッションをカスタマイズできます。
 
     ```kotlin
     val client = HttpClient(Darwin) {
@@ -442,7 +442,7 @@ Ktorは、[Kotlin/Native](https://kotlinlang.org/docs/native-overview.html)タ�
     ```
 
 3.  `engine {}`ブロックで、[
-    `WinHttpClientEngineConfig`](https://api.ktor.io/ktor-client/ktor-client-winhttp/io.ktor.client.engine.winhttp/-winhttp-client-engine-config/index.html)を使用してエンジンを構成します。例えば、`protocolVersion`プロパティを使用してHTTPバージョンを変更できます。
+    `WinHttpClientEngineConfig`](https://api.ktor.io/ktor-client-winhttp/io.ktor.client.engine.winhttp/-winhttp-client-engine-config/index.html)を使用してエンジンを構成します。例えば、`protocolVersion`プロパティを使用してHTTPバージョンを変更できます。
 
     ```kotlin
     val client = HttpClient(WinHttp) {

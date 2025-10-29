@@ -6,7 +6,7 @@
 <var name="artifact_name" value="ktor-server-default-headers"/>
 <var name="package_name" value="io.ktor.server.plugins.defaultheaders"/>
 <var name="plugin_name" value="DefaultHeaders"/>
-<var name="plugin_api_link" value="https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-default-headers/io.ktor.server.plugins.defaultheaders/-default-headers.html"/>
+<var name="plugin_api_link" value="https://api.ktor.io/ktor-server-default-headers/io.ktor.server.plugins.defaultheaders/-default-headers.html"/>
 
 <tldr>
 <p>
@@ -66,7 +66,7 @@
 
 ## 配置 %plugin_name% {id="configure"}
 ### 添加额外标头 {id="add"}
-要自定义默认标头列表，请使用 `header(name, value)` 函数将所需标头传递给 `install`。`name` 形参接受一个 `HttpHeaders` 值，例如：
+要自定义默认标头列表，请使用 `header(name, value)` 函数将所需标头传递给 `install`。<code>name</code> 形参接受一个 <code>HttpHeaders</code> 值，例如：
 ```kotlin
     install(DefaultHeaders) {
         header(HttpHeaders.ETag, "7c876b7e")
@@ -86,4 +86,4 @@
         header(HttpHeaders.Server, "Custom")
     }
 ```
-请注意，`Date` 标头由于性能原因而被缓存，无法使用 `%plugin_name%` 覆盖。
+请注意，<code>Date</code> 标头由于性能原因而被缓存，无法使用 <code>%plugin_name%</code> 覆盖。

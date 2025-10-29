@@ -8,6 +8,8 @@
 *   `tooltipPlacement`，定义工具提示的位置。您可以指定一个锚点（鼠标光标或组件）、一个偏移量和一个对齐方式。
 *   `delayMillis`，工具提示显示前的毫秒时间。默认值为 500 毫秒。
 
+以下示例展示了如何创建一个简单的窗口，该窗口包含一个按钮列表，每个按钮都包裹在 `TooltipArea` 中。当您将鼠标悬停在按钮上时，将显示带有按钮名称的工具提示。将此代码添加到 `composeApp/src/jvmMain/kotlin` 目录下的 `main.kt` 文件中：
+
 ```kotlin
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.TooltipArea

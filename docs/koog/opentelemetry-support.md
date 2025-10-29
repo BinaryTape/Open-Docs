@@ -48,7 +48,7 @@ val agent = AIAgent(
     systemPrompt = "You are a helpful assistant.",
     installFeatures = {
         install(OpenTelemetry) {
-            // Configuration options go here
+            // 配置选项放在这里
         }
     }
 )
@@ -94,10 +94,10 @@ val agent = AIAgent(
 -->
 ```kotlin
 install(OpenTelemetry) {
-    // Set your service configuration
+    // 设置您的服务配置
     setServiceInfo("my-agent-service", "1.0.0")
     
-    // Add the Logging exporter
+    // 添加日志导出器
     addSpanExporter(LoggingSpanExporter.create())
 }
 ```
@@ -198,16 +198,16 @@ val agent = AIAgent(
 -->
 ```kotlin
 install(OpenTelemetry) {
-    // Set your service configuration
+    // 设置您的服务配置
     setServiceInfo("my-agent-service", "1.0.0")
     
-    // Add the Logging exporter
+    // 添加日志导出器
     addSpanExporter(LoggingSpanExporter.create())
     
-    // Set the sampler 
+    // 设置采样器 
     setSampler(Sampler.traceIdRatioBased(0.5)) 
 
-    // Add resource attributes
+    // 添加资源属性
     addResourceAttributes(mapOf(
         AttributeKey.stringKey("custom.attribute") to "custom-value")
     )
@@ -300,6 +300,8 @@ Koog 支持遵循 OpenTelemetry [生成式 AI 事件语义约定](https://opente
 
 - `koog.agent.strategy.name`：代理策略的名称。策略是与 Koog 相关的实体，描述代理的用途。用于 `InvokeAgentSpan` Span。
 - `koog.node.name`：正在运行的节点的名称。用于 `NodeExecuteSpan` Span。
+- `koog.node.input`：在执行开始时传递给节点的输入。当节点启动时存在于 `NodeExecuteSpan` 上。
+- `koog.node.output`：节点完成时产生的输出。当节点成功完成时存在于 `NodeExecuteSpan` 上。
 
 ### 事件
 
@@ -356,9 +358,9 @@ val agent = AIAgent(
 -->
 ```kotlin
 install(OpenTelemetry) {
-    // Add the logging exporter
+    // 添加日志记录导出器
     addSpanExporter(LoggingSpanExporter.create())
-    // Add more exporters as needed
+    // 根据需要添加更多导出器
 }
 ```
 <!--- KNIT example-opentelemetry-support-05.kt -->
@@ -389,14 +391,14 @@ val agent = AIAgent(
 -->
 ```kotlin
 install(OpenTelemetry) {
-   // Add OpenTelemetry HTTP exporter 
+   // 添加 OpenTelemetry HTTP 导出器 
    addSpanExporter(
       OtlpHttpSpanExporter.builder()
-         // Set the maximum time to wait for the collector to process an exported batch of spans 
+         // 设置等待收集器处理已导出 Span 批次的最长时间 
          .setTimeout(30, TimeUnit.SECONDS)
-         // Set the OpenTelemetry endpoint to connect to
+         // 设置要连接的 OpenTelemetry 端点
          .setEndpoint("http://localhost:3000/api/public/otel/v1/traces")
-         // Add the authorization header
+         // 添加授权头
          .addHeader("Authorization", "Basic $AUTH_STRING")
          .build()
    )
@@ -428,10 +430,10 @@ val agent = AIAgent(
 -->
 ```kotlin
 install(OpenTelemetry) {
-   // Add OpenTelemetry gRPC exporter 
+   // 添加 OpenTelemetry gRPC 导出器 
    addSpanExporter(
       OtlpGrpcSpanExporter.builder()
-          // Set the host and the port
+          // 设置主机和端口
          .setEndpoint("http://localhost:4317")
          .build()
    )

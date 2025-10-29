@@ -29,7 +29,7 @@ Ktor를 사용하면 애플리케이션 내에서 바로 원하는 엔진(Netty,
 
 위 접근 방식과 달리, 서블릿 컨테이너는 애플리케이션 라이프사이클 및 연결 설정을 제어해야 합니다. Ktor는 애플리케이션에 대한 제어 권한을 서블릿 컨테이너에 위임하는 특별한 [ServletApplicationEngine](https://api.ktor.io/ktor-server/ktor-server-servlet/io.ktor.server.servlet/-servlet-application-engine/index.html) 엔진을 제공합니다.
 
-> 참고: Ktor 애플리케이션이 서블릿 컨테이너 내에 배포될 때는 [연결 및 SSL 설정](server-configuration-file.topic)이 적용되지 않습니다.
+> 참고: Ktor 애플리케이션이 서블릿 컨테이너 내에 배포될 때는 [연결 및 SSL 설정](server-configuration-file.topic)이 적용되지 않습니다. 
 > [tomcat-war-ssl](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/tomcat-war-ssl) 샘플은 Tomcat에서 SSL을 구성하는 방법을 보여줍니다.
 
 ### 의존성 추가 {id="add-dependencies"}

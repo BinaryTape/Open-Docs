@@ -175,7 +175,7 @@ val nodeBestJoke by parallel<String, String>(
       // Use another LLM to determine the best joke
       llm.writeSession {
          model = OpenAIModels.Chat.GPT4o
-         updatePrompt {
+         appendPrompt {
             system("You are a comedy critic. Select the best joke.")
             user("Here are three jokes: ${jokes.joinToString("
 \n")}")
@@ -244,7 +244,7 @@ val strategy = strategy("best-joke") {
    val nodeOpenAI by node<String, String> { topic ->
       llm.writeSession {
          model = OpenAIModels.Chat.GPT4o
-         updatePrompt {
+         appendPrompt {
             system("You are a comedian. Generate a funny joke about the given topic.")
             user("Tell me a joke about $topic.")
          }
@@ -256,7 +256,7 @@ val strategy = strategy("best-joke") {
    val nodeAnthropicSonnet by node<String, String> { topic ->
       llm.writeSession {
          model = AnthropicModels.Sonnet_3_5
-         updatePrompt {
+         appendPrompt {
             system("You are a comedian. Generate a funny joke about the given topic.")
             user("Tell me a joke about $topic.")
          }
@@ -268,7 +268,7 @@ val strategy = strategy("best-joke") {
    val nodeAnthropicOpus by node<String, String> { topic ->
       llm.writeSession {
          model = AnthropicModels.Opus_3
-         updatePrompt {
+         appendPrompt {
             system("You are a comedian. Generate a funny joke about the given topic.")
             user("Tell me a joke about $topic.")
          }
@@ -285,7 +285,7 @@ val strategy = strategy("best-joke") {
          // Another LLM (e.g., GPT4o) would find the funniest joke:
          llm.writeSession {
             model = OpenAIModels.Chat.GPT4o
-            updatePrompt {
+            appendPrompt {
                prompt("best-joke-selector") {
                   system("You are a comedy critic. Give a critique for the given joke.")
                   user(
@@ -322,21 +322,21 @@ $joke" }.joinToString("
 2.  **コンテキスト管理**: 各並行実行は、フォークされたコンテキストを作成します。結果をマージする際には、どのコンテキストを保持するか、または異なる実行からのコンテキストをどのように結合するかを選択します。
 
 3.  **ユースケースに合わせて最適化する**:
-    -   競合評価（ジョークの例など）の場合、`selectByIndex`を使用して最適な結果を選択します。
-    -   最大値を見つける場合は、`selectByMax`を使用します。
-    -   条件に基づいてフィルタリングする場合は、`selectBy`を使用します。
-    -   集約の場合は、`fold`を使用してすべての結果を結合し、複合的な出力を作成します。
+    - 競合評価（ジョークの例など）の場合、最適な結果を選択するために`selectByIndex`を使用します。
+    - 最大値を見つける場合は、`selectByMax`を使用します。
+    - 条件に基づいてフィルタリングする場合は、`selectBy`を使用します。
+    - 集約の場合は、`fold`を使用してすべての結果を結合し、複合的な出力を作成します。
 
 ## パフォーマンスに関する考慮事項
 
 並行実行はスループットを大幅に向上させることができますが、いくつかのオーバーヘッドを伴います。
 
--   各並行ノードは新しいコルーチンを作成します
--   コンテキストのフォークとマージには、いくらかの計算コストがかかります
--   多数の並行実行では、リソース競合が発生する可能性があります
+- 各並行ノードは新しいコルーチンを作成します
+- コンテキストのフォークとマージには、いくらかの計算コストがかかります
+- 多数の並行実行では、リソース競合が発生する可能性があります
 
 最適なパフォーマンスを得るには、以下のような操作を並列化してください。
 
--   互いに独立している
--   実行にかなりの時間がかかる
--   可変な状態を共有しない
+- 互いに独立している
+- 実行にかなりの時間がかかる
+- 可変な状態を共有しない

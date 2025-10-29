@@ -4,7 +4,7 @@
 
 ### Kotlin Multiplatformとは何ですか？
 
-[Kotlin Multiplatform](https://www.jetbrains.com/kotlin-multiplatform/) (KMP)は、JetBrainsが提供する柔軟なクロスプラットフォーム開発のためのオープンソース技術です。様々なプラットフォーム向けのアプリケーションを作成し、ネイティブプログラミングの利点を維持しながら、コードを効率的に再利用できます。Kotlin Multiplatformを使用すると、Android、iOS、デスクトップ、ウェブ、サーバーサイド、その他のプラットフォーム向けにアプリを開発できます。
+[Kotlin Multiplatform](https://www.jetbrains.com/kotlin-multiplatform/) (KMP)は、JetBrainsが提供する柔軟なクロスプラットフォーム開発のためのオープンソース技術です。様々なプラットフォーム向けにアプリケーションを作成し、ネイティブプログラミングの利点を維持しながら、コードを効率的に再利用できます。Kotlin Multiplatformを使用すると、Android、iOS、デスクトップ、ウェブ、サーバーサイド、その他のプラットフォーム向けにアプリを開発できます。
 
 ### Kotlin MultiplatformでUIを共有できますか？
 
@@ -46,17 +46,11 @@ iOS固有のコードを記述し、シミュレーターまたは実機でiOS�
 
 ### Kotlin Multiplatformプロジェクトで並行処理コードを記述するにはどうすればよいですか？
 
-Kotlin Multiplatformプロジェクトでは、コルーチンとフローを使用して非同期コードを記述できます。このコードの呼び出し方法は、どこからコードを呼び出すかによって異なります。Kotlinコードからサスペンド関数とフローを呼び出す方法は、特にAndroid向けに広くドキュメント化されています。[Swiftコードからそれらを呼び出す](https://kotlinlang.org/docs/native-arc-integration.html#completion-handlers)には、もう少し作業が必要です。詳細については[KT-47610](https://youtrack.jetbrains.com/issue/KT-47610)を参照してください。
-
-<!-- when adding SKIE back to the tutorial, add it here as well
-and uncomment the paragraph below --> 
+Kotlin Multiplatformプロジェクトでは、コルーチンとフローを使用して非同期コードを記述できます。このコードの呼び出し方は、どこからコードを呼び出すかによって異なります。Kotlinコードからサスペンド関数とフローを呼び出す方法は、特にAndroid向けに広くドキュメント化されています。[Swiftコードからそれらを呼び出す](https://kotlinlang.org/docs/native-arc-integration.html#completion-handlers)には、もう少し作業が必要です。詳細については[KT-47610](https://youtrack.jetbrains.com/issue/KT-47610)を参照してください。
 
 Swiftからサスペンド関数とフローを呼び出すための現在の最善のアプローチは、Swiftの`async`/`await`やCombineおよびRxSwiftのようなライブラリと組み合わせて、[KMP-NativeCoroutines](https://github.com/rickclephas/KMP-NativeCoroutines)のようなプラグインやライブラリを使用することです。
 
-<!-- At the moment, KMP-NativeCoroutines is the more
-tried-and-tested solution, and it supports `async`/`await`, Combine, and RxSwift approaches to concurrency. SKIE is easier
-to set up and less verbose. For instance, it maps Kotlin `Flow` to Swift `AsyncSequence` directly. Both of these libraries
-support the proper cancellation of coroutines. -->
+現時点では、KMP-NativeCoroutinesはより実績があり、十分にテストされたソリューションであり、`async`/`await`、Combine、およびRxSwiftといった並行処理へのアプローチをサポートしています。SKIEはセットアップがより簡単で、冗長性が少ないです。例えば、Kotlin `Flow`をSwift `AsyncSequence`に直接マッピングします。これらのライブラリは両方とも、コルーチンの適切なキャンセルをサポートしています。
 
 それらの使用方法については、[iOSとAndroid間でより多くのロジックを共有する](multiplatform-upgrade-app.md)を参照してください。
 
@@ -124,7 +118,7 @@ Materialのテーマ設定機能を使用して、色、フォント、パディ
 
 アプリの移行は、UIの移行とロジックの移行の2つの部分で構成されます。移行の複雑さは、アプリケーションの複雑さと使用しているAndroid固有ライブラリの量によって異なります。ほとんどの画面をCompose Multiplatformにそのまま移行できます。すべてのJetpack Composeウィジェットがサポートされています。ただし、一部のAPIはAndroidターゲットでのみ動作します。これらはAndroid固有であるか、他のプラットフォームにまだ移植されていない可能性があります。たとえば、リソース処理はAndroid固有であるため、[Compose Multiplatformリソースライブラリ](compose-multiplatform-resources.md)に移行するか、コミュニティソリューションを使用する必要があります。Androidの[Navigationライブラリ](https://developer.android.com/jetpack/androidx/releases/navigation)もAndroid固有ですが、[コミュニティの代替手段](compose-navigation-routing.md)が利用可能です。Androidでのみ利用可能なコンポーネントの詳細については、現在の[Android専用APIのリスト](compose-android-only-components.md)を参照してください。
 
-ビジネスロジックを[Kotlin Multiplatformに移行する](multiplatform-integrate-in-existing-app.md)必要があります。コードを共有モジュールに移動しようとすると、Android依存関係を使用している部分がコンパイルされなくなり、それらを書き直す必要があります。
+ビジネスロジックを[Kotlin Multiplatformに移行する](multiplatform-integrate-in-existing-app.md)必要があります。コードを共有モジュールに移動しようとすると、Android依存関係を使用する部分がコンパイルされなくなり、それらを書き直す必要があります。
 
 *   Android専用の依存関係を使用するコードを、代わりにマルチプラットフォームライブラリを使用するように書き換えることができます。一部のライブラリはすでにKotlin Multiplatformをサポートしているため、変更は不要です。[KMP-awesome](https://github.com/terrakok/kmp-awesome)ライブラリリストを確認できます。
 *   あるいは、共通コードをプラットフォーム固有のロジックから分離し、プラットフォームに応じて異なる実装を持つ[共通インターフェースを提供する](multiplatform-connect-to-apis.md)ことができます。Androidでは、実装は既存の機能を使用でき、iOSなどの他のプラットフォームでは、共通インターフェースの新しい実装を提供する必要があります。

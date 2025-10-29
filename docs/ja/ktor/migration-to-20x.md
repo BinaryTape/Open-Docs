@@ -6,7 +6,7 @@
 
 ## Ktorサーバー {id="server"}
 ### サーバーコードは 'io.ktor.server.*' パッケージに移動されました {id="server-package"}
-サーバーとクライアントのAPIを統一し、より明確に区別するため、サーバーコードは`io.ktor.server.*`パッケージに移動されました ([KTOR-2865](https://youtrack.jetbrains.com/issue/KTOR-2865))。
+サーバーAPIとクライアントAPIを統一し、より明確に区別するため、サーバーコードは`io.ktor.server.*`パッケージに移動されました ([KTOR-2865](https://youtrack.jetbrains.com/issue/KTOR-2865))。
 これは、以下に示すように、アプリケーションの[依存関係](#server-package-dependencies)と[インポート](#server-package-imports)を更新する必要があることを意味します。
 
 #### 依存関係 {id="server-package-dependencies"}
@@ -49,7 +49,7 @@
 > すべてのプラグインを一度に追加するには、`io.ktor:ktor-server`アーティファクトを使用できます。
 
 #### インポート {id="server-package-imports"}
-| サブシステム                                           |                 1.6.x                 |                                                2.0.0 |
+| サブシステム                                          |                 1.6.x                 |                                                2.0.0 |
 |:----------------------------------------------------|:-------------------------------------:|-----------------------------------------------------:|
 | [Application](server-create-and-configure.topic)    |    `import io.ktor.application.*`     |                `import io.ktor.server.application.*` |
 | [Configuration](server-configuration-file.topic)    |       `import io.ktor.config.*`       |                     `import io.ktor.server.config.*` |
@@ -103,11 +103,11 @@ WebSocketsコードは`http-cio`から`websockets`パッケージに移動され
 
 ### FeatureはPluginに名称変更されました {id="feature-plugin"}
 
-Ktor 2.0.0では、_Feature_ はリクエスト/レスポンスパイプラインをインターセプトする機能をより適切に記述するため、_[Plugin](server-plugins.md)_ に名称変更されました ([KTOR-2326](https://youtrack.jetbrains.com/issue/KTOR-2326))。
+Ktor 2.0.0では、_Feature_ はリクエスト/レスポンスパイプラインをインターセプトする機能をより適切に記述するため、_[Plugin (プラグイン)](server-plugins.md)_ に名称変更されました ([KTOR-2326](https://youtrack.jetbrains.com/issue/KTOR-2326))。
 これはKtor API全体に影響を与え、以下に説明するようにアプリケーションの更新が必要です。
 
 #### インポート {id="feature-plugin-imports"}
-任意のプラグインをインストールするには、インポートの更新が必要であり、[サーバーコードを`io.ktor.server.*`パッケージに移動すること](#server-package-imports)にも依存します。
+[任意のプラグインをインストールする](server-plugins.md#install)には、インポートの更新が必要であり、[サーバーコードを`io.ktor.server.*`パッケージに移動すること](#server-package-imports)にも依存します。
 
 | 1.6.x                       |                             2.0.0 |
 |:----------------------------|----------------------------------:|
@@ -837,7 +837,7 @@ v2.0.0では、プラグインへのインデックスアクセスは利用で�
 
 ### HttpClient.get(plugin: HttpClientPlugin) 関数は削除されました {id="client-get"}
 
-2.0.0バージョンでは、クライアントプラグインを受け入れる`HttpClient.get`関数は削除されました。代わりに`HttpClient.plugin`関数を使用してください。
+v2.0.0では、クライアントプラグインを受け入れる`HttpClient.get`関数は削除されました。代わりに`HttpClient.plugin`関数を使用してください。
 
 <Tabs group="ktor_versions">
 <TabItem title="1.6.x" group-key="1_6">
@@ -860,11 +860,11 @@ client.plugin(HttpSend).intercept { ... }
 
 ### FeatureはPluginに名称変更されました {id="feature-plugin-client"}
 
-Ktorサーバーと同様に、クライアントAPIでも_Feature_は_Plugin_に名称変更されました。
+Ktorサーバーと同様に、クライアントAPIでも_Feature_は_Plugin (プラグイン)_ に名称変更されました。
 これは以下に説明するように、アプリケーションに影響を与える可能性があります。
 
 #### インポート {id="feature-plugin-imports-client"}
-[プラグインのインストール](client-plugins.md#install)のためのインポートを更新します。
+[プラグインをインストールする](client-plugins.md#install)ためのインポートを更新します。
 
 <table>
 
@@ -878,25 +878,25 @@ Ktorサーバーと同様に、クライアントAPIでも_Feature_は_Plugin_�
 <td>
 <list>
 <li>
-<Links href="/ktor/client-default-request" summary="The DefaultRequest plugin allows you to configure default parameters for all requests.">Default request</Links>
+<Links href="/ktor/client-default-request" summary="The DefaultRequest plugin allows you to configure default parameters for all requests.">Default request (デフォルトリクエスト)</Links>
 </li>
 <li>
-<Links href="/ktor/client-user-agent" summary="undefined">User agent</Links>
+<Links href="/ktor/client-user-agent" summary="undefined">User agent (ユーザーエージェント)</Links>
 </li>
 <li>
-<Links href="/ktor/client-text-and-charsets" summary="undefined">Charsets</Links>
+<Links href="/ktor/client-text-and-charsets" summary="undefined">Charsets (文字セット)</Links>
 </li>
 <li>
-<Links href="/ktor/client-response-validation" summary="Learn how to validate a response depending on its status code.">Response validation</Links>
+<Links href="/ktor/client-response-validation" summary="Learn how to validate a response depending on its status code.">Response validation (レスポンス検証)</Links>
 </li>
 <li>
-<Links href="/ktor/client-timeout" summary="Code example: %example_name%">Timeout</Links>
+<Links href="/ktor/client-timeout" summary="Code example: %example_name%">Timeout (タイムアウト)</Links>
 </li>
 <li>
-<Links href="/ktor/client-caching" summary="The HttpCache plugin allows you to save previously fetched resources in an in-memory or persistent cache.">HttpCache</Links>
+<Links href="/ktor/client-caching" summary="The HttpCache plugin allows you to save previously fetched resources in an in-memory or persistent cache.">HttpCache (HTTPキャッシュ)</Links>
 </li>
 <li>
-<Links href="/ktor/client-http-send" summary="Code example: %example_name%">HttpSend</Links>
+<Links href="/ktor/client-http-send" summary="Code example: %example_name%">HttpSend (HTTP送信)</Links>
 </li>
 </list>
 </td>
@@ -905,7 +905,7 @@ Ktorサーバーと同様に、クライアントAPIでも_Feature_は_Plugin_�
 </tr>
 
 <tr>
-<td><Links href="/ktor/client-auth" summary="The Auth plugin handles authentication and authorization in your client application.">Authentication</Links></td>
+<td><Links href="/ktor/client-auth" summary="The Auth plugin handles authentication and authorization in your client application.">Authentication (認証)</Links></td>
 <td>
 <code>
 import io.ktor.client.features.auth.&#42;
@@ -925,25 +925,25 @@ import io.ktor.client.plugins.auth.providers.&#42;
 </tr>
 
 <tr>
-<td><Links href="/ktor/client-cookies" summary="The HttpCookies plugin handles cookies automatically and keep them between calls in a storage.">Cookies</Links></td>
+<td><Links href="/ktor/client-cookies" summary="The HttpCookies plugin handles cookies automatically and keep them between calls in a storage.">Cookies (クッキー)</Links></td>
 <td><code>import io.ktor.client.features.cookies.&#42;</code></td>
 <td><code>import io.ktor.client.plugins.cookies.&#42;</code></td>
 </tr>
 
 <tr>
-<td><Links href="/ktor/client-logging" summary="Required dependencies: io.ktor:ktor-client-logging Code example: %example_name%">Logging</Links></td>
+<td><Links href="/ktor/client-logging" summary="Required dependencies: io.ktor:ktor-client-logging Code example: %example_name%">Logging (ロギング)</Links></td>
 <td><code>import io.ktor.client.features.logging.&#42;</code></td>
 <td><code>import io.ktor.client.plugins.logging.&#42;</code></td>
 </tr>
 
 <tr>
-<td><Links href="/ktor/client-websockets" summary="The Websockets plugin allows you to create a multi-way communication session between a server and a client.">WebSockets</Links></td>
+<td><Links href="/ktor/client-websockets" summary="The Websockets plugin allows you to create a multi-way communication session between a server and a client.">WebSockets (ウェブソケット)</Links></td>
 <td><code>import io.ktor.client.features.websocket.&#42;</code></td>
 <td><code>import io.ktor.client.plugins.websocket.&#42;</code></td>
 </tr>
 
 <tr>
-<td><Links href="/ktor/client-content-encoding" summary="The ContentEncoding plugin allows you to enable specified compression algorithms (such as 'gzip' and 'deflate') and configure their settings.">Content encoding</Links></td>
+<td><Links href="/ktor/client-content-encoding" summary="The ContentEncoding plugin allows you to enable specified compression algorithms (such as 'gzip' and 'deflate') and configure their settings.">Content encoding (コンテンツエンコーディング)</Links></td>
 <td><code>import io.ktor.client.features.compression.&#42;</code></td>
 <td><code>import io.ktor.client.plugins.compression.&#42;</code></td>
 </tr>

@@ -4,7 +4,7 @@
 
 <tldr>
 <p>
-<b>필수 의존성</b>: <code>io.ktor:ktor-server-test-host</code>, <code>org.jetbrains.kotlin:kotlin-test</code>
+<b>필수 의존성</b>: `io.ktor:ktor-server-test-host`, `org.jetbrains.kotlin:kotlin-test`
 </p>
 </tldr>
 

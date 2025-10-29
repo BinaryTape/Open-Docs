@@ -26,7 +26,7 @@
 %plugin_name% 使得能够将 HTTP 动词通过 X-HTTP-Method-Override header 进行隧道化。
 </link-summary>
 
-[%plugin_name%](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-method-override/io.ktor.server.plugins.methodoverride/-x-http-method-override.html) 插件使得能够将 HTTP 动词通过 `X-HTTP-Method-Override` header 进行隧道化。
+[%plugin_name%](https://api.ktor.io/ktor-server-method-override/io.ktor.server.plugins.methodoverride/-x-http-method-override.html) 插件使得能够将 HTTP 动词通过 `X-HTTP-Method-Override` header 进行隧道化。
 如果您的服务器 API 处理多个 HTTP 动词（例如 `GET`、`PUT`、`POST`、`DELETE` 等），但客户端由于特定限制只能使用有限的动词集合（例如 `GET` 和 `POST`），这可能会很有用。
 例如，如果客户端发送一个 `X-Http-Method-Override` header 设置为 `DELETE` 的请求，Ktor 将使用 `delete` [路由处理器](server-routing.md#define_route) 来处理此请求。
 
@@ -50,7 +50,9 @@
 ## 安装 %plugin_name% {id="install_plugin"}
 
 <p>
-    要将 <code>%plugin_name%</code> 插件<a href="#install">安装</a>到应用程序中，请将其传递给指定<Links href="/ktor/server-modules" summary="模块允许您通过分组路由来组织应用程序。">模块</Links>中的 <code>install</code> 函数。下面的代码片段展示了如何安装 <code>%plugin_name%</code> ...
+    要将 <code>%plugin_name%</code> 插件<a href="#install">安装</a>到应用程序中，
+    请将其传递给指定<Links href="/ktor/server-modules" summary="模块允许您通过分组路由来组织应用程序。">模块</Links>中的 <code>install</code> 函数。
+    下面的代码片段展示了如何安装 <code>%plugin_name%</code> ...
 </p>
 <list>
     <li>

@@ -13,9 +13,13 @@
 Auth 外掛程式處理您用戶端應用程式中的認證與授權。
 </link-summary>
 
-Ktor 提供 [Auth](https://api.ktor.io/ktor-client/ktor-client-plugins/ktor-client-auth/io.ktor.client.plugins.auth/-auth) 外掛程式，用於處理您用戶端應用程式中的認證與授權。典型使用情境包括使用者登入及取得特定資源的存取權。
+Ktor 提供
+[Auth](https://api.ktor.io/ktor-client-auth/io.ktor.client.plugins.auth/-auth)
+外掛程式，用於處理您用戶端應用程式中的認證與授權。
+典型使用情境包括使用者登入及取得特定資源的存取權。
 
-> 在伺服器端，Ktor 提供 [Authentication](server-auth.md) 外掛程式來處理認證與授權。
+> 在伺服器端，Ktor 提供 [Authentication](server-auth.md) 外掛程式來處理認證與
+> 授權。
 
 ## 支援的認證類型 {id="supported"}
 
@@ -59,13 +63,13 @@ val client = HttpClient(CIO) {
     }
 }
 ```
-現在您可以[配置](#configure_authentication) 所需的認證提供者。
+現在您可以 [配置](#configure_authentication) 所需的認證提供者。
 
 ## 配置認證 {id="configure_authentication"}
 
 ### 步驟 1：選擇認證提供者 {id="choose-provider"}
 
-若要使用特定的認證提供者（[基本](client-basic-auth.md)、[摘要](client-digest-auth.md) 或 [承載者](client-bearer-auth.md)），您需要在 `install` 區塊內呼叫對應的函數。例如，若要使用 `basic` 認證，請呼叫 [basic](https://api.ktor.io/ktor-client/ktor-client-plugins/ktor-client-auth/io.ktor.client.plugins.auth.providers/basic.html) 函數：
+若要使用特定的認證提供者（[基本](client-basic-auth.md)、[摘要](client-digest-auth.md) 或 [承載者](client-bearer-auth.md)），您需要在 `install` 區塊內呼叫對應的函數。例如，若要使用 `basic` 認證，請呼叫 [basic](https://api.ktor.io/ktor-client-auth/io.ktor.client.plugins.auth.providers/basic.html) 函數：
 
 ```kotlin
 install(Auth) {
@@ -106,7 +110,7 @@ install(Auth) {
 
 在此情況下，用戶端會根據包含領域的 `WWW-Authenticate` 回應標頭來選擇必要的提供者。
 
-### 步驟 3：配置提供者 {id="configure-provider"}
+### 3：配置提供者 {id="configure-provider"}
 
 若要瞭解如何為特定的[提供者](#supported) 配置設定，請參閱對應的主題：
 *   [Ktor 用戶端中的基本認證](client-basic-auth.md)

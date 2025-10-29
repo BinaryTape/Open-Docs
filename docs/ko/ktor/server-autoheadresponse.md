@@ -24,12 +24,12 @@
 %plugin_name%은(는) GET이 정의된 모든 라우트에 대해 HEAD 요청에 자동으로 응답하는 기능을 제공합니다.
 </link-summary>
 
-[%plugin_name%](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-auto-head-response/io.ktor.server.plugins.autohead/-auto-head-response.html) 플러그인은 `GET`이 정의된 모든 라우트에 대해 `HEAD` 요청에 자동으로 응답하는 기능을 제공합니다. %plugin_name%을(를) 사용하여 실제 콘텐츠를 가져오기 전에 클라이언트에서 응답을 어떤 식으로든 처리해야 하는 경우 별도의 [head](server-routing.md#define_route) 핸들러를 생성하는 것을 피할 수 있습니다. 예를 들어, [respondFile](server-responses.md#file) 함수를 호출하면 `Content-Length` 및 `Content-Type` 헤더가 응답에 자동으로 추가되며, 파일을 다운로드하기 전에 클라이언트에서 이 정보를 얻을 수 있습니다.
+[%plugin_name%](https://api.ktor.io/ktor-server-auto-head-response/io.ktor.server.plugins.autohead/-auto-head-response.html) 플러그인은 `GET`이 정의된 모든 라우트에 대해 `HEAD` 요청에 자동으로 응답하는 기능을 제공합니다. %plugin_name%을(를) 사용하여 실제 콘텐츠를 가져오기 전에 클라이언트에서 응답을 어떤 식으로든 처리해야 하는 경우 별도의 [head](server-routing.md#define_route) 핸들러를 생성하는 것을 피할 수 있습니다. 예를 들어, [respondFile](server-responses.md#file) 함수를 호출하면 `Content-Length` 및 `Content-Type` 헤더가 응답에 자동으로 추가되며, 파일을 다운로드하기 전에 클라이언트에서 이 정보를 얻을 수 있습니다.
 
 ## 종속성 추가 {id="add_dependencies"}
 
 <p>
-    %plugin_name%을(를) 사용하려면 빌드 스크립트에 <code>%artifact_name%</code> 아티팩트를 포함해야 합니다:
+    <code>%plugin_name%</code>을(를) 사용하려면 빌드 스크립트에 <code>%artifact_name%</code> 아티팩트를 포함해야 합니다:
 </p>
 <Tabs group="languages">
     <TabItem title="Gradle (Kotlin)" group-key="kotlin">
@@ -67,4 +67,4 @@ fun Application.main() {
 이 플러그인을 사용하는 경우, 동일한 `GET` 라우트에 대한 사용자 지정 `HEAD` 정의는 무시된다는 점에 유의하는 것이 중요합니다.
 
 ## 옵션
-%plugin_name%은(는) 추가 구성 옵션을 제공하지 않습니다.
+`%plugin_name%`은(는) 추가 구성 옵션을 제공하지 않습니다.

@@ -7,6 +7,7 @@
 * 关于[包含多个 target 的 Xcode 项目如何依赖 Kotlin 库](https://github.com/Kotlin/kmp-with-cocoapods-multitarget-xcode-sample)的示例项目，请查看。
 
 </tldr>
+<show-structure for="chapter,procedure" depth="2"/>
 
 Kotlin CocoaPods Gradle 插件是一个用于创建 Podspec 文件的工具。这些文件是将你的 Kotlin 项目与 [CocoaPods 依赖项管理器](https://cocoapods.org/)集成所必需的。
 

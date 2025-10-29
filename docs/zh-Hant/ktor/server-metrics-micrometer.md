@@ -114,7 +114,7 @@ fun Application.module() {
 
 ## 配置指標 {id="configure_metrics"}
 
-`MicrometerMetrics` 插件提供各種配置選項，可以使用 [MicrometerMetricsConfig](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-metrics-micrometer/io.ktor.server.metrics.micrometer/-micrometer-metrics-config/index.html) 進行存取。
+`MicrometerMetrics` 插件提供各種組態選項，可以使用 [MicrometerMetricsConfig](https://api.ktor.io/ktor-server-metrics-micrometer/io.ktor.server.metrics.micrometer/-micrometer-metrics-config/index.html) 進行存取。
 
 ### 計時器 {id="timers"}
 若要自訂每個計時器的標籤，您可以使用針對每個請求呼叫的 `timers` 函數：

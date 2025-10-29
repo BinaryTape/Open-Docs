@@ -26,7 +26,7 @@
 %plugin_name% 플러그인은 X-HTTP-Method-Override 헤더 내에 HTTP 동사를 터널링하는 기능을 제공합니다.
 </link-summary>
 
-[%plugin_name%](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-method-override/io.ktor.server.plugins.methodoverride/-x-http-method-override.html) 플러그인은 `X-HTTP-Method-Override` 헤더 내에 HTTP 동사(verb)를 터널링하는 기능을 활성화합니다.
+[%plugin_name%](https://api.ktor.io/ktor-server-method-override/io.ktor.server.plugins.methodoverride/-x-http-method-override.html) 플러그인은 `X-HTTP-Method-Override` 헤더 내에 HTTP 동사(verb)를 터널링하는 기능을 활성화합니다.
 이는 서버 API가 여러 HTTP 동사(`GET`, `PUT`, `POST`, `DELETE` 등)를 처리하지만, 클라이언트가 특정 제약으로 인해 제한된 동사(예: `GET` 및 `POST`)만 사용할 수 있는 경우 유용할 수 있습니다.
 예를 들어, 클라이언트가 `X-Http-Method-Override` 헤더를 `DELETE`로 설정하여 요청을 보내면, Ktor는 이 요청을 `delete` [라우트 핸들러](server-routing.md#define_route)를 사용하여 처리합니다.
 

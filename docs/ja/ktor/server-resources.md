@@ -25,7 +25,7 @@
 
 <link-summary>Resourcesプラグインを使用すると、型安全なルーティングを実装できます。</link-summary>
 
-Ktorは、型安全な[ルーティング](server-routing.md)を実装できる[Resources](https://api.ktor.io/ktor-shared/ktor-resources/io.ktor.resources/-resources/index.html)プラグインを提供します。これを実現するには、型付きルートとして機能するクラスを作成し、このクラスに`@Resource`キーワードを使用してアノテーションを付ける必要があります。なお、`@Resource`アノテーションはkotlinx.serializationライブラリによって提供される`@Serializable`の動作を持ちます。
+Ktorは、型安全な[ルーティング](server-routing.md)を実装できる[Resources](https://api.ktor.io/ktor-resources/io.ktor.resources/-resources/index.html)プラグインを提供します。これを実現するには、型付きルートとして機能するクラスを作成し、このクラスに`@Resource`キーワードを使用してアノテーションを付ける必要があります。なお、`@Resource`アノテーションはkotlinx.serializationライブラリによって提供される`@Serializable`の動作を持ちます。
 
 > Ktorクライアントは、サーバーに対して[型付けされたリクエスト](client-resources.md)を行う機能を提供します。
 
@@ -55,7 +55,7 @@ Ktorは、型安全な[ルーティング](server-routing.md)を実装できる[
 ## %plugin_name%のインストール {id="install_plugin"}
 
 <p>
-    <code>%plugin_name%</code>プラグインをアプリケーションに<a href="#install">インストール</a>するには、
+    アプリケーションに<code>%plugin_name%</code>プラグインを<a href="#install">インストール</a>するには、
     指定された<Links href="/ktor/server-modules" summary="Modules allow you to structure your application by grouping routes.">モジュール</Links>内の<code>install</code>関数に渡します。
     以下のコードスニペットは、<code>%plugin_name%</code>をインストールする方法を示しています...
 </p>
@@ -81,7 +81,7 @@ Ktorは、型安全な[ルーティング](server-routing.md)を実装できる[
 <snippet id="resource_classes_server">
 
 各リソースクラスには`@Resource`アノテーションが必要です。
-以下では、単一のパスセグメント、クエリおよびパスパラメーターなどを定義する、いくつかのリソースクラスの例を見ていきます。
+以下では、単一のパスセグメント、クエリパラメーターやパスパラメーターなどを定義する、いくつかのリソースクラスの例を見ていきます。
 
 ### リソースURL {id="resource_url"}
 
@@ -248,7 +248,7 @@ fun Application.module() {
 これは_リバースルーティング_と呼ばれることもあります。
 リソースからリンクを構築することは、[HTML DSL](server-html-dsl.md)で作成されたHTMLドキュメントにこれらのリンクを追加する必要がある場合や、[リダイレクト応答](server-responses.md#redirect)を生成する必要がある場合に役立ちます。
 
-`Resources`プラグインは、`Application`をオーバーロードされた[href](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-resources/io.ktor.server.resources/href.html)メソッドで拡張し、`Resource`からリンクを生成できるようにします。たとえば、以下のコードスニペットは、[上記](#example_crud)で定義された`Edit`リソースのリンクを作成します。
+`Resources`プラグインは、`Application`をオーバーロードされた[href](https://api.ktor.io/ktor-server-resources/io.ktor.server.resources/href.html)メソッドで拡張し、`Resource`からリンクを生成できるようにします。たとえば、以下のコードスニペットは、[上記](#example_crud)で定義された`Edit`リソースのリンクを作成します。
 
 ```kotlin
 val link: String = href(Articles.Id.Edit(Articles.Id(id = 123)))

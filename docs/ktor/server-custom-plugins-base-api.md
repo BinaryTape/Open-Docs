@@ -16,14 +16,16 @@
 >
 {type="note"}
 
-Ktor 提供了用于开发自定义[插件](server-plugins.md)的 API，这些插件可实现常见功能并可在多个应用程序中复用。此 API 允许您拦截不同的[流水线](#pipelines)阶段，从而为请求/响应处理添加自定义逻辑。例如，您可以拦截 `Monitoring` 阶段来记录传入请求或收集指标。
+Ktor 提供了用于开发自定义[插件](server-plugins.md)的 API，这些插件可实现常见功能并可在多个应用程序中复用。
+此 API 允许您拦截不同的[流水线](#pipelines)阶段，从而为请求/响应处理添加自定义逻辑。
+例如，您可以拦截 `Monitoring` 阶段来记录传入请求或收集指标。
 
 ## 创建插件 {id="create"}
 要创建自定义插件，请按照以下步骤操作：
 
 1. 创建插件类并[声明一个伴生对象](#create-companion)，该对象实现以下接口之一：
    - [BaseApplicationPlugin](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.application/-base-application-plugin/index.html)（如果插件应在应用程序级别运行）。
-   - [BaseRouteScopedPlugin](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.application/-base-route-scoped-plugin/index.html)（如果插件可以[安装到特定路由](server-plugins.md#install-route)）。
+   - [BaseRouteScopedPlugin](https://api.ktor.io/ktor-server-core/io.ktor.server.application/-base-route-scoped-plugin/index.html)（如果插件可以[安装到特定路由](server-plugins.md#install-route)）。
 2. [实现](#implement)此伴生对象的 `key` 和 `install` 成员。
 3. 提供[插件配置](#plugin-configuration)。
 4. 通过拦截所需的流水线阶段来[处理调用](#call-handling)。
@@ -278,7 +280,8 @@ Ktor 中的 [Pipeline](https://api.ktor.io/ktor-utils/io.ktor.util.pipeline/-pip
 
 ## 流水线阶段到新 API 处理器映射 {id="mapping"}
 
-从 v2.0.0 开始，Ktor 提供了一种用于[创建自定义插件](server-custom-plugins.md)的新简化 API。通常，此 API 不需要理解 Ktor 内部概念，例如流水线、阶段等。相反，您可以通过使用各种处理器（例如 `onCall`、`onCallReceive`、`onCallRespond` 等）来访问[处理请求和响应](#call-handling)的不同阶段。
+从 v2.0.0 开始，Ktor 提供了一种用于[创建自定义插件](server-custom-plugins.md)的新简化 API。
+通常，此 API 不需要理解 Ktor 内部概念，例如流水线、阶段等。相反，您可以通过使用各种处理器（例如 `onCall`、`onCallReceive`、`onCallRespond` 等）来访问[处理请求和响应](#call-handling)的不同阶段。
 下表显示了流水线阶段如何映射到新 API 中的处理器。
 
 | Base API                               | New API                                                 |

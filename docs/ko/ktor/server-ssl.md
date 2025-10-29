@@ -28,7 +28,7 @@ Ktor는 인증서를 위한 저장소 시설로 [Java KeyStore (JKS)](https://do
 
 ### 코드로 인증서 생성 {id="self-signed-code"}
 
-Ktor는 테스트 목적으로 자체 서명 인증서를 생성할 수 있는 기능을 제공하며, 이는 [buildKeyStore](https://api.ktor.io/ktor-network/ktor-network-tls/ktor-network-tls-certificates/io.ktor.network.tls.certificates/build-key-store.html) 함수를 호출하여 [KeyStore](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/security/KeyStore.html) 인스턴스를 반환합니다.
+Ktor는 테스트 목적으로 자체 서명 인증서를 생성할 수 있는 기능을 제공하며, 이는 [buildKeyStore](https://api.ktor.io/ktor-network-tls-certificates/io.ktor.network.tls.certificates/build-key-store.html) 함수를 호출하여 [KeyStore](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/security/KeyStore.html) 인스턴스를 반환합니다.
 이 함수를 사용하려면 빌드 스크립트에 `ktor-network-tls-certificates` 아티팩트를 추가해야 합니다.
 
 <var name="artifact_name" value="ktor-network-tls-certificates"/>

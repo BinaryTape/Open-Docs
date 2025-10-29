@@ -105,7 +105,7 @@ kotlin -classpath hello.jar HelloKt
 
 `HelloKt`は、Kotlinコンパイラが`hello.kt`というファイルに対して生成するメインクラス名です。
 
-> Kotlin/Nativeライブラリをコンパイルするには、[Kotlin/Nativeコンパイラ](native-libraries.md#kotlin-compiler-specifics)を使用します。
+> Kotlin/Nativeライブラリをコンパイルするには、[Kotlin/Nativeコンパイラ](native-libraries.md#using-kotlin-native-compiler)を使用します。
 >
 {style="note"}
 

@@ -25,7 +25,7 @@ Kotlin Multiplatform 應用程式可以在各種平台上運作，例如 iOS、A
 
 ## 建立專案
 
-1. 在 [快速入門](quickstart.md) 中，完成 [設定 Kotlin Multiplatform 開發環境](quickstart.md#set-up-the-environment) 的指示。
+1. 在 [快速入門](quickstart.md) 中，完成 [設定您的 Kotlin Multiplatform 開發環境](quickstart.md#set-up-the-environment) 的指示。
 2. 在 IntelliJ IDEA 中，選擇 **File** | **New** | **Project**。
 3. 在左側面板中，選擇 **Kotlin Multiplatform**。
 4. 在 **New Project** 視窗中指定以下欄位：
@@ -72,7 +72,7 @@ Kotlin Multiplatform 應用程式可以在各種平台上運作，例如 iOS、A
 
 共用原始碼集包含可在多個目標平台之間使用的共享程式碼。它旨在包含平台獨立的程式碼。如果您嘗試在共用原始碼集中使用平台特定的 API，IDE 將會顯示警告：
 
-1. 開啟 `shared/src/commonMain/kotlin/com/jetbrains/greeting/greetingkmp/Greeting.kt` 檔案，
+1. 開啟 `shared/src/commonMain/.../Greeting.kt` 檔案，
     您可以在其中找到自動產生的 `Greeting` 類別和 `greet()` 函式：
 
     ```kotlin
@@ -85,24 +85,24 @@ Kotlin Multiplatform 應用程式可以在各種平台上運作，例如 iOS、A
     }
     ```
 
-2. 為問候語增加一些變化。從 Kotlin 標準函式庫導入 `kotlin.random.Random`。這是一個可在所有平台運作的 Multiplatform 函式庫，並會自動作為依賴項包含在內。
-3. 使用 Kotlin 標準函式庫中的 `reversed()` 呼叫更新共享程式碼以反轉文字：
+2. 為問候語增加一些變化。
+   使用 Kotlin 標準函式庫中的隨機化和 `reversed()` 呼叫更新共享程式碼以反轉文字：
 
     ```kotlin
-    import kotlin.random.Random
-    
     class Greeting {
         private val platform: Platform = getPlatform()
 
         fun greet(): String {
+            //
             val firstWord = if (Random.nextBoolean()) "Hi!" else "Hello!"
 
             return "$firstWord Guess what this is! > ${platform.name.reversed()}!"
         }
     }
     ```
+3. 根據 IDE 的建議導入 `kotlin.random.Random` 類別。
 
-僅在共用 Kotlin 中編寫程式碼有明顯的限制，因為它無法使用任何平台特定的功能。使用介面和 [expect/actual](multiplatform-connect-to-apis.md) 機制可解決此問題。
+僅在共用 Kotlin 中編寫程式碼有明顯的限制，因為它無法使用任何平台特定功能。使用介面和 [expect/actual](multiplatform-connect-to-apis.md) 機制可解決此問題。
 
 ### 查看平台特定實作
 
@@ -292,7 +292,7 @@ Kotlin Multiplatform 應用程式可以在各種平台上運作，例如 iOS、A
    ZABCW6SXYZ (SampleTech Inc.)
    ```
 
-2. 在 IntelliJ IDEA 中，開啟 `iosApp/Configuration/Config.xcconfig` 並指定您的團隊 ID。
+2. 在 IntelliJ IDEA 中，開啟 `iosApp/Configuration/Config.xcconfig` 並指定您的 Team ID。
 
 或者，在 Xcode 中選擇團隊：
 

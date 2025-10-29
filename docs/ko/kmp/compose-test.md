@@ -9,7 +9,7 @@ Compose Multiplatform에서 UI 테스트는 Jetpack Compose 테스트 API와 동
 
 ## Compose Multiplatform 테스트가 Jetpack Compose와 다른 점
 
-Compose Multiplatform 공통 테스트 API는 JUnit의 `TestRule` 클래스에 의존하지 않습니다. 대신, `runComposeUiTest` 함수를 호출하고 `ComposeUiTest` 리시버(receiver)에서 테스트 함수를 호출합니다.
+Compose Multiplatform 공통 테스트 API는 JUnit의 `TestRule` 클래스에 의존하지 않습니다. 대신, `runComposeUiTest` 함수를 호출하고 `ComposeUiTest` 리시버에서 테스트 함수를 호출합니다.
 
 하지만 JUnit 기반 API는 [데스크톱 타겟](compose-desktop-ui-testing.md)에서 사용할 수 있습니다.
 
@@ -24,13 +24,13 @@ Compose Multiplatform 공통 테스트 API는 JUnit의 `TestRule` 클래스에 �
 공통 테스트 소스 세트를 생성하고 필요한 의존성을 추가합니다:
 
 1. 공통 테스트 소스 세트 디렉터리를 생성합니다: `composeApp/src/commonTest/kotlin`.
-2. `composeApp/build.gradle.kts` 파일에 다음 의존성을 추가합니다:
+2. `composeApp/build.gradle.kts` 파일에 다음 구성을 추가합니다:
 
     ```kotlin
     kotlin {
         //...
         sourceSets { 
-            val desktopTest by getting
+            val jvmTest by getting
    
             // Adds common test dependencies
             commonTest.dependencies {
@@ -41,7 +41,7 @@ Compose Multiplatform 공통 테스트 API는 JUnit의 `TestRule` 클래스에 �
             }
    
             // Adds the desktop test dependency
-            desktopTest.dependencies { 
+            jvmTest.dependencies { 
                 implementation(compose.desktop.currentOs)
             }
         }
@@ -49,7 +49,7 @@ Compose Multiplatform 공통 테스트 API는 JUnit의 `TestRule` 클래스에 �
     ```
 
 3. Android용 계측(instrumented) (에뮬레이터) 테스트를 실행해야 하는 경우, Gradle 설정을 다음과 같이 수정합니다:
-   1. `androidTarget {}` 블록에 다음 코드를 추가하여 계측 테스트 소스 세트가 공통 테스트 소스 세트에 의존하도록 구성합니다. 그런 다음, IDE의 제안에 따라 누락된 import를 추가합니다.
+   1. 계측 테스트 소스 세트가 공통 테스트 소스 세트에 의존하도록 구성하려면 `androidTarget {}` 블록에 다음 코드를 추가합니다.
 
       ```kotlin
       kotlin {
@@ -62,8 +62,8 @@ Compose Multiplatform 공통 테스트 API는 JUnit의 `TestRule` 클래스에 �
           //... 
       }
       ```
-
-   2. `android.defaultConfig {}` 블록에 다음 코드를 추가하여 Android 테스트 계측 러너(instrumentation runner)를 구성합니다:
+   2. 누락된 import를 추가하려면 IDE의 제안을 따르세요.
+   3. Android 테스트 계측 러너(instrumentation runner)를 구성하려면 `android.defaultConfig {}` 블록에 다음 코드를 추가합니다:
 
       ```kotlin
       android {
@@ -75,20 +75,15 @@ Compose Multiplatform 공통 테스트 API는 JUnit의 `TestRule` 클래스에 �
       }
       ```
 
-   3. `androidTarget`에 필요한 의존성을 추가합니다:
+   4. 루트 `dependencies {}` 블록에 필요한 의존성을 추가합니다:
 
        ```kotlin
-       kotlin {
-            // ...
-            androidTarget {
-                // ...
-                dependencies { 
-                    androidTestImplementation("androidx.compose.ui:ui-test-junit4-android:%androidx.compose%")
-                    debugImplementation("androidx.compose.ui:ui-test-manifest:%androidx.compose%")
-                }
-            }
-        }
+       dependencies { 
+           androidTestImplementation("androidx.compose.ui:ui-test-junit4-android:%androidx.compose%")
+           debugImplementation("androidx.compose.ui:ui-test-manifest:%androidx.compose%")
+       }
        ```
+4. 메인 메뉴에서 **Build | Sync Project with Gradle Files**를 선택하거나, 빌드 스크립트 에디터에서 Gradle 새로 고침 버튼을 클릭합니다.
 
 이제 Compose Multiplatform UI를 위한 공통 테스트를 작성하고 실행할 준비가 되었습니다.
 
@@ -97,11 +92,19 @@ Compose Multiplatform 공통 테스트 API는 JUnit의 `TestRule` 클래스에 �
 `composeApp/src/commonTest/kotlin` 디렉터리에 `ExampleTest.kt`라는 파일을 생성하고 다음 코드를 복사합니다:
 
 ```kotlin
-import androidx.compose.material.*
-import androidx.compose.runtime.*
+import androidx.compose.material3.Button
+import androidx.compose.material3.Text
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
-import androidx.compose.ui.test.*
+import androidx.compose.ui.test.ExperimentalTestApi
+import androidx.compose.ui.test.assertTextEquals
+import androidx.compose.ui.test.onNodeWithTag
+import androidx.compose.ui.test.performClick
+import androidx.compose.ui.test.runComposeUiTest
 import kotlin.test.Test
 
 class ExampleTest {
@@ -140,7 +143,7 @@ class ExampleTest {
 <TabItem title="iOS 시뮬레이터">
 
 두 가지 옵션이 있습니다:
-* Android Studio에서 `myTest()` 함수 옆의 거터(gutter)에 있는 녹색 실행 아이콘을 클릭하고, **Run**을 선택한 후 테스트를 위한 iOS 타겟을 선택할 수 있습니다.
+* Android Studio에서 `myTest()` 함수 옆의 거터(gutter)에 있는 녹색 실행 아이콘을 클릭하고, **Run | ExampleTest.myTest**를 선택한 후 테스트를 위한 iOS 타겟을 선택할 수 있습니다.
 * 터미널에서 다음 명령어를 실행합니다:
 
    ```shell
@@ -162,11 +165,11 @@ class ExampleTest {
 <TabItem title="데스크톱">
 
 두 가지 옵션이 있습니다:
-* `myTest()` 함수 옆의 거터(gutter)에 있는 녹색 실행 아이콘을 클릭하고, **Run&nbsp;|&nbsp;desktop**을 선택합니다.
+* `myTest()` 함수 옆의 거터(gutter)에 있는 녹색 실행 아이콘을 클릭하고, **Run | ExampleTest.myTest**를 선택한 후 JVM 타겟을 선택합니다.
 * 터미널에서 다음 명령어를 실행합니다:
 
    ```shell
-   ./gradlew :composeApp:desktopTest
+   ./gradlew :composeApp:jvmTest
    ```
 
 </TabItem>
@@ -187,4 +190,4 @@ class ExampleTest {
 * Kotlin Multiplatform 프로젝트에서 테스트에 대한 일반적인 개요는 [기본 프로젝트 구조 이해하기](multiplatform-discover-project.md#integration-with-tests) 및 [멀티플랫폼 앱 테스트](multiplatform-run-tests.md) 튜토리얼을 참조하세요.
 * 데스크톱 타겟을 위한 JUnit 기반 테스트 설정 및 실행에 대한 자세한 내용은 [JUnit으로 Compose Multiplatform UI 테스트하기](compose-desktop-ui-testing.md)를 참조하세요.
 * 지역화(localization) 테스트에 대해서는 [undefined](compose-localization-tests.md#testing-locales-on-different-platforms)를 참조하세요.
-* 자동화를 포함한 Android Studio의 고급 테스트에 대해서는 Android Studio 문서의 [앱 테스트](https://developer.android.com/studio/test) 아티클에서 다룹니다.
+* 자동화를 포함한 Android Studio의 고급 테스트는 Android Studio 문서의 [앱 테스트](https://developer.android.com/studio/test) 아티클에서 다룹니다.

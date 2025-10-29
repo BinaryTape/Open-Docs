@@ -57,7 +57,7 @@ Ktor의 인증에 대한 일반 정보는 [Ktor 서버의 인증 및 권한 부�
 4.  검증 후, 서버는 보호된 리소스의 내용으로 응답합니다.
 
 ## 베어러 인증 설치 {id="install"}
-`bearer` 인증 프로바이더를 설치하려면 `install` 블록 내에서 [bearer](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-auth/io.ktor.server.auth/bearer.html) 함수를 호출합니다.
+`bearer` 인증 프로바이더를 설치하려면 `install` 블록 내에서 [bearer](https://api.ktor.io/ktor-server-auth/io.ktor.server.auth/bearer.html) 함수를 호출합니다.
 
 ```kotlin
 import io.ktor.server.application.*
@@ -78,7 +78,7 @@ Ktor에서 다양한 인증 프로바이더를 설정하는 방법에 대한 일
 
 ### 1단계: 베어러 프로바이더 설정 {id="configure-provider"}
 
-`bearer` 인증 프로바이더는 [BearerAuthenticationProvider.Configuration](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-auth/io.ktor.server.auth/-bearer-authentication-provider/-config/index.html) 클래스를 통해 설정을 노출합니다. 아래 예제에서는 다음 설정이 지정되어 있습니다.
+`bearer` 인증 프로바이더는 [BearerAuthenticationProvider.Configuration](https://api.ktor.io/ktor-server-auth/io.ktor.server.auth/-bearer-authentication-provider/-config/index.html) 클래스를 통해 설정을 노출합니다. 아래 예제에서는 다음 설정이 지정되어 있습니다.
 *   `realm` 속성은 `WWW-Authenticate` 헤더에 전달될 realm을 설정합니다.
 *   `authenticate` 함수는 클라이언트가 보낸 토큰을 확인하고, 인증 성공 시 `UserIdPrincipal`을 반환하거나 인증 실패 시 `null`을 반환합니다.
 
@@ -99,7 +99,7 @@ install(Authentication) {
 
 ### 2단계: 특정 리소스 보호 {id="authenticate-route"}
 
-`bearer` 프로바이더를 설정한 후, **[authenticate](server-auth.md#authenticate-route)** 함수를 사용하여 애플리케이션의 특정 리소스를 보호할 수 있습니다. 인증 성공 시, 라우트 핸들러 내에서 `call.principal` 함수를 사용하여 인증된 [UserIdPrincipal](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-auth/io.ktor.server.auth/-user-id-principal/index.html)을 검색하고 인증된 사용자의 이름을 가져올 수 있습니다.
+`bearer` 프로바이더를 설정한 후, **[authenticate](server-auth.md#authenticate-route)** 함수를 사용하여 애플리케이션의 특정 리소스를 보호할 수 있습니다. 인증 성공 시, 라우트 핸들러 내에서 `call.principal` 함수를 사용하여 인증된 [UserIdPrincipal](https://api.ktor.io/ktor-server-auth/io.ktor.server.auth/-user-id-principal/index.html)을 검색하고 인증된 사용자의 이름을 가져올 수 있습니다.
 
 ```kotlin
 routing {

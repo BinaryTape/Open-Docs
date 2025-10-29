@@ -1,4 +1,4 @@
-`[//]: # (title: Compose Multiplatform 1.9.1 の新機能)`
+`[//]: # (title: Compose Multiplatform 1.9.2 の新機能)`
 
 本機能リリースの主な変更点は以下のとおりです。
 
@@ -15,16 +15,16 @@
 
 ## 依存関係
 
-*   Gradle プラグイン `org.jetbrains.compose`、バージョン 1.9.1。Jetpack Compose ライブラリに基づいています。
-    *   [Runtime 1.9.3](https://developer.android.com/jetpack/androidx/releases/compose-runtime#1.9.3)
-    *   [UI 1.9.3](https://developer.android.com/jetpack/androidx/releases/compose-ui#1.9.3)
-    *   [Foundation 1.9.3](https://developer.android.com/jetpack/androidx/releases/compose-foundation#1.9.3)
-    *   [Material 1.9.3](https://developer.android.com/jetpack/androidx/releases/compose-material#1.9.3)
+*   Gradle プラグイン `org.jetbrains.compose`、バージョン 1.9.2。Jetpack Compose ライブラリに基づいています。
+    *   [Runtime 1.9.4](https://developer.android.com/jetpack/androidx/releases/compose-runtime#1.9.4)
+    *   [UI 1.9.4](https://developer.android.com/jetpack/androidx/releases/compose-ui#1.9.4)
+    *   [Foundation 1.9.4](https://developer.android.com/jetpack/androidx/releases/compose-foundation#1.9.4)
+    *   [Material 1.9.4](https://developer.android.com/jetpack/androidx/releases/compose-material#1.9.4)
     *   [Material3 1.4.0](https://developer.android.com/jetpack/androidx/releases/compose-material3#1.4.0)
 
 *   Compose Material3 ライブラリ `org.jetbrains.compose.material3:1.9.0`。[Jetpack Material3 1.4.0](https://developer.android.com/jetpack/androidx/releases/compose-material3#1.4.0) に基づいています。
     Compose Multiplatform と Material3 の[バージョン管理の分離](#decoupled-material3-versioning)により、プロジェクトでより新しいプレリリースバージョンを選択できます。
-*   Compose Material3 Adaptive ライブラリ `org.jetbrains.compose.material3.adaptive:adaptive*:1.2.0-alpha05`。[Jetpack Material3 Adaptive 1.2.0-alpha10](https://developer.android.com/jetpack/androidx/releases/compose-material3-adaptive#1.2.0-alpha10) に基づいています。
+*   Compose Material3 Adaptive ライブラリ `org.jetbrains.compose.material3.adaptive:adaptive*:1.2.0`。[Jetpack Material3 Adaptive 1.2.0](https://developer.android.com/jetpack/androidx/releases/compose-material3-adaptive#1.2.0) に基づいています。
 *   Lifecycle ライブラリ `org.jetbrains.androidx.lifecycle:lifecycle-*:2.9.5`。[Jetpack Lifecycle 2.9.4](https://developer.android.com/jetpack/androidx/releases/lifecycle#2.9.4) に基づいています。
 *   Navigation ライブラリ `org.jetbrains.androidx.navigation:navigation-*:2.9.1`。[Jetpack Navigation 2.9.4](https://developer.android.com/jetpack/androidx/releases/navigation#2.9.4) に基づいています。
 *   Savedstate ライブラリ `org.jetbrains.androidx.savedstate:savedstate:1.3.5`。[Jetpack Savedstate 1.3.3](https://developer.android.com/jetpack/androidx/releases/savedstate#1.3.3) に基づいています。
@@ -267,7 +267,7 @@ LaunchedEffect(Unit) {
 }
 ```
 
-## Desktop
+## デスクトップ
 
 ### ディスプレイ前のウィンドウ設定
 

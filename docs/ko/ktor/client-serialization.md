@@ -23,8 +23,7 @@
 ContentNegotiation 플러그인은 클라이언트와 서버 간의 미디어 타입 협상, 그리고 요청을 보내고 응답을 받을 때 특정 형식으로 콘텐츠를 직렬화/역직렬화하는 두 가지 주요 목적을 제공합니다.
 </link-summary>
 
-The [ContentNegotiation](https://api.ktor.io/ktor-client/ktor-client-plugins/ktor-client-content-negotiation/io.ktor.client.plugins.contentnegotiation/-content-negotiation)
-플러그인은 두 가지 주요 목적을 제공합니다:
+[ContentNegotiation](https://api.ktor.io/ktor-client-content-negotiation/io.ktor.client.plugins.contentnegotiation/-content-negotiation) 플러그인은 두 가지 주요 목적을 제공합니다:
 * 클라이언트와 서버 간의 미디어 타입 협상. 이를 위해 `Accept` 및 `Content-Type` 헤더를 사용합니다.
 * [요청](client-requests.md)을 보내고 [응답](client-responses.md)을 받을 때 특정 형식으로 콘텐츠를 직렬화/역직렬화. Ktor는 다음 형식을 기본적으로 지원합니다: JSON, XML, CBOR, ProtoBuf.
 
@@ -219,7 +218,7 @@ val client = HttpClient(CIO) {
 </TabItem>
 <TabItem title="Gson" group-key="gson">
 
-애플리케이션에 Gson 직렬 변환기를 등록하려면 [gson](https://api.ktor.io/ktor-shared/ktor-serialization/ktor-serialization-gson/io.ktor.serialization.gson/gson.html) 메서드를 호출합니다:
+애플리케이션에 Gson 직렬 변환기를 등록하려면 [gson](https://api.ktor.io/ktor-serialization-gson/io.ktor.serialization.gson/gson.html) 메서드를 호출합니다:
 ```kotlin
 import io.ktor.client.plugins.contentnegotiation.*
 import io.ktor.serialization.gson.*
@@ -236,7 +235,7 @@ val client = HttpClient(CIO) {
 </TabItem>
 <TabItem title="Jackson" group-key="jackson">
 
-애플리케이션에 Jackson 직렬 변환기를 등록하려면 [jackson](https://api.ktor.io/ktor-shared/ktor-serialization/ktor-serialization-jackson/io.ktor.serialization.jackson/jackson.html) 메서드를 호출합니다:
+애플리케이션에 Jackson 직렬 변환기를 등록하려면 [jackson](https://api.ktor.io/ktor-serialization-jackson/io.ktor.serialization.jackson/jackson.html) 메서드를 호출합니다:
 
 ```kotlin
 import io.ktor.client.plugins.contentnegotiation.*
@@ -273,8 +272,8 @@ val client = HttpClient(CIO) {
 ```kotlin
 import io.ktor.client.plugins.contentnegotiation.*
 import io.ktor.serialization.kotlinx.xml.*
-import nl.adaptivety.xmlutil.*
-import nl.adaptivety.xmlutil.serialization.*
+import nl.adaptivity.xmlutil.*
+import nl.adaptivty.xmlutil.serialization.*
 
 val client = HttpClient(CIO) {
     install(ContentNegotiation) {

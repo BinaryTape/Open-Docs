@@ -24,21 +24,22 @@
 
 進行一些變更，看看它們如何反映在 UI 中：
 
-1. 導覽至 `composeApp/src/androidMain/kotlin` 中的 `App.kt` 檔案。
+1. 導覽至 `composeApp/src/androidMain/.../greetingkmp` 目錄中的 `App.kt` 檔案。
 2. 找到 `Greeting` 類別的呼叫。選取 `greet()` 函式，右鍵點擊它，然後選取 **Go To** | **Declaration or Usages**。
    您會看到它是您在上一步編輯的 `shared` 模組中的相同類別。
-3. 在 `Greeting.kt` 檔案中，更新 `greet()` 函式：
+3. 在 `Greeting.kt` 檔案中，更新 `Greeting` 類別，使 `greet()` 函式回傳一個字串清單：
 
    ```kotlin
-   import kotlin.random.Random
+   class Greeting {
    
-   fun greet(): List<String> = buildList {
-       add(if (Random.nextBoolean()) "Hi!" else "Hello!")
-       add("Guess what this is! > ${platform.name.reversed()}!")
+       private val platform: Platform = getPlatform()
+   
+       fun greet(): List<String> = buildList {
+           add(if (Random.nextBoolean()) "Hi!" else "Hello!")
+           add("Guess what this is! > ${platform.name.reversed()}!")
+       }
    }
    ```
-
-   現在它會回傳一個字串清單。
 
 4. 返回 `App.kt` 檔案並更新 `App()` 實作：
 
@@ -78,8 +79,8 @@
 
 實作與 Android 應用程式相同的變更：
 
-1. 在 IntelliJ IDEA 中，在 **Project** 工具視窗的專案根目錄中找到 `iosApp` 資料夾。
-2. 開啟 `ContentView.swift` 檔案，右鍵點擊 `Greeting().greet()` 呼叫，然後選取 **Go To** | **Definition**。
+1. 在 IntelliJ IDEA 中，在 **Project** 工具視窗的專案根目錄中找到 `iosApp/iosApp` 資料夾。
+2. 開啟 `iosApp/ContentView.swift` 檔案，右鍵點擊 `Greeting().greet()` 呼叫，然後選取 **Go To** | **Definition**。
 
     您會看到 `shared` 模組中定義的 Kotlin 函式的 Objective-C 宣告。從 Objective-C/Swift 使用 Kotlin 型別時，它們會表示為 Objective-C 型別。在這裡，`greet()` 函式在 Kotlin 中回傳 `List<String>`，從 Swift 看來則回傳 `NSArray<NSString>`。有關型別映射的更多資訊，請參閱[與 Swift/Objective-C 的互通性](https://kotlinlang.org/docs/native-objc-interop.html)。
 

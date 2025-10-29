@@ -22,7 +22,7 @@
 </p>
 </tldr>
 
-当 Ktor 服务器位于反向代理之后时，[ForwardedHeaders](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-forwarded-header/io.ktor.server.plugins.forwardedheaders/-forwarded-headers.html) 和 [XForwardedHeaders](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-forwarded-header/io.ktor.server.plugins.forwardedheaders/-x-forwarded-headers.html) 插件允许您处理反向代理标头，以获取有关原始[请求](server-requests.md)的信息。这对于[日志记录](server-logging.md)目的可能很有用。
+当 Ktor 服务器位于反向代理之后时，[ForwardedHeaders](https://api.ktor.io/ktor-server-forwarded-header/io.ktor.server.plugins.forwardedheaders/-forwarded-headers.html) 和 [XForwardedHeaders](https://api.ktor.io/ktor-server-forwarded-header/io.ktor.server.plugins.forwardedheaders/-x-forwarded-headers.html) 插件允许您处理反向代理标头，以获取有关原始[请求](server-requests.md)的信息。这对于[日志记录](server-logging.md)目的可能很有用。
 
 * `ForwardedHeaders` 处理 `Forwarded` 标头 ([RFC 7239](https://tools.ietf.org/html/rfc7239))
 * `XForwardedHeaders` 处理以下 `X-Forwarded-` 标头：
@@ -72,10 +72,10 @@
 </list>
 <Tabs>
     <TabItem title="embeddedServer">
-        <code-block lang="kotlin" code="            import io.ktor.server.engine.*&#10;            import io.ktor.server.netty.*&#10;            import io.ktor.server.application.*&#10;            import %package_name%.*&#10;&#10;            fun main() {&#10;                embeddedServer(Netty, port = 8080) {&#10;                    install(%plugin_name%)&#10;                    // ...&#10;                }.start(wait = true)&#10;            }"/>
+        <code-block lang="kotlin" code="            import io.ktor.server.engine.*&#10;            import io.ktor.server.netty.*&#10;            import io.ktor.server.application.*&#10;            import %package_name%.*&#10;&#10;            fun main() {&#10                embeddedServer(Netty, port = 8080) {&#10                    install(%plugin_name%)&#10                    // ...&#10                }.start(wait = true)&#10;            }"/>
     </TabItem>
     <TabItem title="module">
-        <code-block lang="kotlin" code="            import io.ktor.server.application.*&#10;            import %package_name%.*&#10;            // ...&#10;            fun Application.module() {&#10;                install(%plugin_name%)&#10;                // ...&#10;            }"/>
+        <code-block lang="kotlin" code="            import io.ktor.server.application.*&#10;            import %package_name%.*&#10;            // ...&#10;            fun Application.module() {&#10                    install(%plugin_name%)&#10                    // ...&#10            }"/>
     </TabItem>
 </Tabs>
 
@@ -99,10 +99,10 @@
 </list>
 <Tabs>
     <TabItem title="embeddedServer">
-        <code-block lang="kotlin" code="            import io.ktor.server.engine.*&#10;            import io.ktor.server.netty.*&#10;            import io.ktor.server.application.*&#10;            import %package_name%.*&#10;&#10;            fun main() {&#10;                embeddedServer(Netty, port = 8080) {&#10;                    install(%plugin_name%)&#10;                    // ...&#10;                }.start(wait = true)&#10;            }"/>
+        <code-block lang="kotlin" code="            import io.ktor.server.engine.*&#10;            import io.ktor.server.netty.*&#10;            import io.ktor.server.application.*&#10;            import %package_name%.*&#10;&#10;            fun main() {&#10                embeddedServer(Netty, port = 8080) {&#10                    install(%plugin_name%)&#10                    // ...&#10                }.start(wait = true)&#10;            }"/>
     </TabItem>
     <TabItem title="module">
-        <code-block lang="kotlin" code="            import io.ktor.server.application.*&#10;            import %package_name%.*&#10;            // ...&#10;            fun Application.module() {&#10;                install(%plugin_name%)&#10;                // ...&#10;            }"/>
+        <code-block lang="kotlin" code="            import io.ktor.server.application.*&#10;            import %package_name%.*&#10;            // ...&#10;            fun Application.module() {&#10                    install(%plugin_name%)&#10                    // ...&#10            }"/>
     </TabItem>
 </Tabs>
 
@@ -115,7 +115,7 @@
 
 ### 代理请求信息 {id="proxy_request_info"}
 
-要获取代理请求信息，请在 [路由处理器](server-routing.md#define_route) 内部使用 [call.request.local](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.request/-application-request/local.html) 属性。
+要获取代理请求信息，请在 [路由处理器](server-routing.md#define_route) 内部使用 [call.request.local](https://api.ktor.io/ktor-server-core/io.ktor.server.request/-application-request/local.html) 属性。
 下面的代码片段展示了如何获取代理地址和请求目标主机的信息：
 
 ```kotlin
@@ -127,7 +127,7 @@ get("/hello") {
 
 ### 原始请求信息 {id="original-request-information"}
 
-要读取原始请求信息，请使用 [call.request.origin](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.plugins/origin.html) 属性：
+要读取原始请求信息，请使用 [call.request.origin](https://api.ktor.io/ktor-server-core/io.ktor.server.plugins/origin.html) 属性：
 
 ```kotlin
 get("/hello") {
@@ -162,7 +162,7 @@ X-Forwarded-For: <client>, <proxy1>, <proxy2>
 
 默认情况下，`XForwardedHeader` 将 `X-Forwarded-For` 中的第一个条目赋值给 `call.request.origin.remoteHost` 属性。
 您还可以提供自定义逻辑来[选择 IP 地址](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Forwarded-For#selecting_an_ip_address)。
-[XForwardedHeadersConfig](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-forwarded-header/io.ktor.server.plugins.forwardedheaders/-x-forwarded-headers-config/index.html) 为此暴露了以下 API：
+[XForwardedHeadersConfig](https://api.ktor.io/ktor-server-forwarded-header/io.ktor.server.plugins.forwardedheaders/-x-forwarded-headers-config/index.html) 为此暴露了以下 API：
 
 - `useFirstProxy` 和 `useLastProxy` 分别允许您从 IP 地址列表中获取第一个或最后一个值。
 - `skipLastProxies` 跳过从右侧开始的指定数量的条目，然后获取下一个条目。
@@ -171,7 +171,7 @@ X-Forwarded-For: <client>, <proxy1>, <proxy2>
    X-Forwarded-For: 10.0.0.123, proxy-1, proxy-2, proxy-3
    ```
 - `skipKnownProxies` 从列表中移除指定条目，然后获取最后一个条目。
-   例如，如果您将 `listOf("proxy-1", "proxy-3")` 传递给此函数，则对于下面的标头，`origin.remoteHost` 将返回 `proxy-2`：
+   例如，如果您将 `list("proxy-1", "proxy-3")` 传递给此函数，则对于下面的标头，`origin.remoteHost` 将返回 `proxy-2`：
    ```HTTP
    X-Forwarded-For: 10.0.0.123, proxy-1, proxy-2, proxy-3
    ```

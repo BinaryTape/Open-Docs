@@ -1,30 +1,30 @@
-[//]: # (title: Compose Multiplatform 1.9.1 的新功能)
+[//]: # (title: Compose Multiplatform 1.9.2 的新功能)
 
-以下是此功能發行版的重要亮點：
+以下是此功能發行版的亮點：
 
 *   [`@Preview` 註解的參數](#parameters-for-the-preview-annotation)
 *   [可自訂陰影](#customizable-shadows)
 *   [新環境選單 API](#new-context-menu-api)
 *   [Material 3 表達性主題](#material-3-expressive-theme)
-*   [iOS 上的畫面更新率配置](#frame-rate-configuration)
+*   [iOS 上的畫面更新率配置](#frame-rate-configuration-on-ios)
 *   [Compose Multiplatform 網頁版進入 Beta 階段](#compose-multiplatform-for-web-in-beta)
-*   [網頁目標上的輔助功能支援](#accessibility-support)
+*   [網頁目標上的輔助功能支援](#accessibility-support-on-web-targets)
 *   [用於嵌入 HTML 內容的新 API](#new-api-for-embedding-html-content)
 
 請參閱 [GitHub](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.9.0) 上此發行版的完整變更列表。
 
 ## 相依性
 
-*   Gradle 外掛程式 `org.jetbrains.compose`，版本 1.9.1。基於 Jetpack Compose 函式庫：
-    *   [Runtime 1.9.3](https://developer.android.com/jetpack/androidx/releases/compose-runtime#1.9.3)
-    *   [UI 1.9.3](https://developer.android.com/jetpack/androidx/releases/compose-ui#1.9.3)
-    *   [Foundation 1.9.3](https://developer.android.com/jetpack/androidx/releases/compose-foundation#1.9.3)
-    *   [Material 1.9.3](https://developer.android.com/jetpack/androidx/releases/compose-material#1.9.3)
+*   Gradle 外掛程式 `org.jetbrains.compose`，版本 1.9.2。基於 Jetpack Compose 函式庫：
+    *   [Runtime 1.9.4](https://developer.android.com/jetpack/androidx/releases/compose-runtime#1.9.4)
+    *   [UI 1.9.4](https://developer.android.com/jetpack/androidx/releases/compose-ui#1.9.4)
+    *   [Foundation 1.9.4](https://developer.android.com/jetpack/androidx/releases/compose-foundation#1.9.4)
+    *   [Material 1.9.4](https://developer.android.com/jetpack/androidx/releases/compose-material#1.9.4)
     *   [Material3 1.4.0](https://developer.android.com/jetpack/androidx/releases/compose-material3#1.4.0)
 
 *   Compose Material3 函式庫 `org.jetbrains.compose.material3:1.9.0`。基於 [Jetpack Material3 1.4.0](https://developer.android.com/jetpack/androidx/releases/compose-material3#1.4.0)。
-    由於 Compose Multiplatform 和 Material3 的[解耦版本控制](#decoupled-material3-versioning)，您可以為專案選擇較新的預發行版本。
-*   Compose Material3 Adaptive 函式庫 `org.jetbrains.compose.material3.adaptive:adaptive*:1.2.0-alpha05`。基於 [Jetpack Material3 Adaptive 1.2.0-alpha10](https://developer.android.com/jetpack/androidx/releases/compose-material3-adaptive#1.2.0-alpha10)
+    由於 Compose Multiplatform 和 Material3 的[解耦版本](#decoupled-material3-versioning)，您可以為專案選擇較新的預發行版本。
+*   Compose Material3 Adaptive 函式庫 `org.jetbrains.compose.material3.adaptive:adaptive*:1.2.0`。基於 [Jetpack Material3 Adaptive 1.2.0](https://developer.android.com/jetpack/androidx/releases/compose-material3-adaptive#1.2.0)
 *   Lifecycle 函式庫 `org.jetbrains.androidx.lifecycle:lifecycle-*:2.9.5`。基於 [Jetpack Lifecycle 2.9.4](https://developer.android.com/jetpack/androidx/releases/lifecycle#2.9.4)
 *   Navigation 函式庫 `org.jetbrains.androidx.navigation:navigation-*:2.9.1`。基於 [Jetpack Navigation 2.9.4](https://developer.android.com/jetpack/androidx/releases/navigation#2.9.4)
 *   Savedstate 函式庫 `org.jetbrains.androidx.savedstate:savedstate:1.3.5`。基於 [Jetpack Savedstate 1.3.3](https://developer.android.com/jetpack/androidx/releases/savedstate#1.3.3)
@@ -144,7 +144,7 @@ Modifier.preferredFrameRate(30f)
 
 ### IME 選項
 
-Compose Multiplatform 1.9.0 引入了對 iOS 特定 IME (Input Method Editor) 自訂文字輸入元件的支援。您現在可以使用 `PlatformImeOptions` 直接在文字欄位元件中配置原生 UIKit 文字輸入特徵，例如鍵盤類型、自動更正和返回鍵行為：
+Compose Multiplatform 1.9.0 引入了對 iOS 特定 IME (Input Method Editor) 自訂文字輸入元件的支援。您現在可以使用 `PlatformImeOptions` 直接在文字欄位元件中配置原生 UIKit 文字輸入特性，例如鍵盤類型、自動更正和返回鍵行為：
 
 ```kotlin
 BasicTextField(
@@ -164,7 +164,7 @@ BasicTextField(
 
 Compose Multiplatform 網頁版現在已進入 Beta 階段，是時候嘗試一下了。請參閱[我們的部落格文章](https://blog.jetbrains.com/kotlin/2025/09/compose-multiplatform-1-9-0-compose-for-web-beta/)，了解為達成此里程碑所做的進展。
 
-在我們邁向穩定發布的過程中，我們的路線圖包括：
+在我們邁向穩定發布的過程中，我們的發展藍圖包括：
 
 *   在行動瀏覽器中實作拖放功能。
 *   改進輔助功能支援。

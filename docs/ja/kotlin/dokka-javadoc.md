@@ -21,8 +21,8 @@ Javadoc出力形式は[Dokkaプラグイン](dokka-plugins.md)として実装さ
 
 ## Javadocドキュメントの生成
 
-> Dokka 2.0.0以降、[ドキュメント生成のためのGradleタスクが変更されました](dokka-migration.md#select-documentation-output-format)。
-> 変更点の詳細と全リストについては、[移行ガイド](dokka-migration.md)を参照してください。
+> これらの手順は、Dokka Gradleプラグイン v1の設定とタスクを反映しています。Dokka 2.0.0以降、[ドキュメント生成のためのGradleタスクが変更されました](dokka-migration.md#select-documentation-output-format)。
+> Dokka Gradleプラグイン v2での変更点の詳細と全リストについては、[移行ガイド](dokka-migration.md)を参照してください。
 >
 > Javadoc形式はマルチプラットフォームプロジェクトをサポートしていません。
 >

@@ -7,7 +7,7 @@
 </link-summary>
 
 [HTTPリクエストの作成](client-requests.md)に使用されるすべての関数 (`request`、`get`、`post` など) を使用すると、
-[`HttpResponse`](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client.statement/-http-response/index.html)
+[`HttpResponse`](https://api.ktor.io/ktor-client-core/io.ktor.client.statement/-http-response/index.html)
 オブジェクトとしてレスポンスを受信できます。
 
 `HttpResponse` は、[レスポンスボディ](#body)をさまざまな方法 (生のバイト、JSONオブジェクトなど) で取得し、
@@ -20,13 +20,13 @@ val response: HttpResponse = client.get("https://ktor.io/docs/welcome.html")
 
 ## レスポンスパラメーターの受信 {id="parameters"}
 
-[`HttpResponse`](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client.statement/-http-response/index.html)
+[`HttpResponse`](https://api.ktor.io/ktor-client-core/io.ktor.client.statement/-http-response/index.html)
 クラスを使用すると、ステータスコード、ヘッダー、HTTPバージョンなど、さまざまなレスポンスパラメーターを取得できます。
 
 ### ステータスコード {id="status"}
 
 レスポンスのステータスコードを取得するには、
-[`HttpResponse.status`](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client.statement/-http-response/status.html)
+[`HttpResponse.status`](https://api.ktor.io/ktor-client-core/io.ktor.client.statement/-http-response/status.html)
 プロパティを使用します。
 
 ```kotlin
@@ -43,7 +43,7 @@ if (httpResponse.status.value in 200..299) {
 
 ### ヘッダー {id="headers"}
 
-[`HttpResponse.headers`](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client.statement/-http-response/index.html)
+[`HttpResponse.headers`](https://api.ktor.io/ktor-client-core/io.ktor.client.statement/-http-response/index.html)
 プロパティを使用すると、すべてのレスポンスヘッダーを含む
 [Headers](https://api.ktor.io/ktor-http/io.ktor.http/-headers/index.html) マップを取得できます。
 さらに、`HttpResponse` は特定のヘッダー値を受信するための以下の関数を公開しています。
@@ -92,7 +92,7 @@ val byteArrayBody: ByteArray = httpResponse.body()
     }
 ```
 
-上記の例の[`onDownload()`](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client.plugins/on-download.html)
+上記の例の[`onDownload()`](https://api.ktor.io/ktor-client-core/io.ktor.client.plugins/on-download.html)
 拡張関数は、ダウンロードの進行状況を表示するために使用されます。
 
 ストリーミングではないリクエストの場合、レスポンスボディは自動的にメモリにロードされキャッシュされるため、繰り返しアクセスできます。
@@ -214,6 +214,10 @@ part.dispose()
         println("A file saved to ${file.path}")
     }
 ```
+
+> Ktor チャネルと `RawSink`、`RawSource`、`OutputStream` などの型との変換については、[I/O 相互運用性](io-interoperability.md)を参照してください。
+>
+{style="tip"}
 
 この例では、[`ByteReadChannel`](https://api.ktor.io/ktor-io/io.ktor.utils.io/-byte-read-channel/index.html)
 を使用してデータを非同期に読み取ります。`ByteReadChannel.readRemaining()` を使用すると、チャネル内の利用可能なすべてのバイトが取得され、

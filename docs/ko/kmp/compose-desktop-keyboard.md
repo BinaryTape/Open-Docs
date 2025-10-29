@@ -12,7 +12,7 @@ Compose Multiplatform 데스크톱에서는 두 가지 다른 범위에서 이�
 일반적인 시나리오는 `TextField`와 같은 활성 컨트롤에 대한 키보드 핸들러를 정의하는 것입니다. 기본 작업을 트리거하기 전에 키 이벤트를 가로채려면 `onKeyEvent` 및 `onPreviewKeyEvent` 수정자를 모두 사용할 수 있습니다.
 `onKeyEvent` 수정자를 사용하면 개별 키 입력을 처리할 수 있으며, `onPreviewKeyEvent`는 단축키를 정의하는 데 선호됩니다.
 
-다음 샘플은 <shortcut>Ctrl</shortcut> 키를 누르고 있는 동안 어떤 키가 눌러지는지에 따라 다른 동작을 수행하는 `TextField` 상호작용을 보여줍니다.
+다음 샘플은 <shortcut>Ctrl</shortcut> 키를 누르고 있는 동안 어떤 키가 눌러지는지에 따라 다른 동작을 수행하는 `TextField` 상호작용을 보여줍니다. `composeApp/src/jvmMain/kotlin` 폴더의 `main.kt` 파일에 이 코드를 추가하세요:
 
 ```kotlin
 import androidx.compose.foundation.layout.fillMaxSize
@@ -66,14 +66,14 @@ fun main() = singleWindowApplication (title = "Key events") {
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="modifier = Modifier.onPreviewKeyEvent { when"}
 
-<img src="compose-desktop-key-focus.animated.gif" alt="Keyboard events in a focused component" width="600" preview-src="compose-desktop-key-focus.png"/>
+<img src="compose-desktop-key-focus.animated.gif" alt="포커스된 컴포넌트의 키보드 이벤트" width="600" preview-src="compose-desktop-key-focus.png"/>
 
 ## 창 범위의 이벤트
 
 현재 창 내에서 항상 활성화되는 키보드 이벤트 핸들러를 정의하려면 `Window`, `singleWindowApplication`, `Dialog` 함수에서 사용할 수 있는 `onPreviewKeyEvent` 및 `onKeyEvent` 매개변수를 사용하세요.
 이벤트가 소비되지 않을 때 이벤트가 전달되는 방식에 차이가 있습니다. `onPreviewKeyEvent`는 이벤트를 첫 번째 자식에게 전달하고, `onKeyEvent`는 이벤트를 컴포저블의 부모에게 전달합니다. 일반적으로 `onPreviewKeyEvent`는 화면 전체에 걸친 키보드 단축키도 구현할 수 있으므로 이벤트를 가로채는 데 선호됩니다.
 
-다음 샘플은 `Escape` 키를 눌러 팝업 대화상자를 닫고, <shortcut>Ctrl+Shift+C</shortcut> 단축키를 눌러 창 내용을 변경하는 등의 창 상호작용을 보여줍니다.
+다음 샘플은 `Escape` 키를 눌러 팝업 대화상자를 닫고, <shortcut>Ctrl+Shift+C</shortcut> 단축키를 눌러 창 내용을 변경하는 등의 창 상호작용을 보여줍니다. `composeApp/src/jvmMain/kotlin` 폴더의 `main.kt` 파일에 이 코드를 추가하세요:
 
 ```kotlin
 import androidx.compose.foundation.layout.Arrangement
@@ -157,7 +157,7 @@ fun App() {
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="if (it.isCtrlPressed && it.isShiftPressed && it.key == Key.C && "}
 
-<img src="compose-desktop-key-window.animated.gif" alt="Keyboard events in a window scope" width="600" preview-src="compose-desktop-key-window.png"/>
+<img src="compose-desktop-key-window.animated.gif" alt="창 범위의 키보드 이벤트" width="600" preview-src="compose-desktop-key-window.png"/>
 
 ## 다음 단계
 

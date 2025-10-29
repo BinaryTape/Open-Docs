@@ -2,6 +2,23 @@
 
 A2A 서버를 사용하면 표준화된 A2A(Agent-to-Agent) 프로토콜을 통해 AI 에이전트를 노출할 수 있습니다. 이 서버는 [A2A 프로토콜 사양](https://a2a-protocol.org/latest/specification/)의 완벽한 구현을 제공하여 클라이언트 요청을 처리하고, 에이전트 로직을 실행하며, 복잡한 태스크 수명 주기를 관리하고, 실시간 스트리밍 응답을 지원합니다.
 
+## 의존성
+
+프로젝트에서 A2A 서버를 사용하려면 `build.gradle.kts`에 다음 의존성을 추가하세요:
+
+```kotlin
+dependencies {
+    // Core A2A server library
+    implementation("ai.koog:a2a-server:$koogVersion")
+
+    // HTTP JSON-RPC transport (most common)
+    implementation("ai.koog:a2a-transport-server-jsonrpc-http:$koogVersion")
+
+    // Ktor server engine (choose one that fits your needs)
+    implementation("io.ktor:ktor-server-netty:$ktorVersion")
+}
+```
+
 ## 개요
 
 A2A 서버는 A2A 프로토콜 전송 계층과 사용자 지정 에이전트 로직 사이의 다리 역할을 합니다. 프로토콜 준수를 유지하고 강력한 세션 관리를 제공하면서 전체 요청 수명 주기를 조율합니다.
@@ -190,7 +207,6 @@ A2A 서버는 다양한 유형의 데이터를 분리하는 플러그형 저장�
 ## 빠른 시작
 
 ### 1. AgentCard 생성
-
 에이전트의 기능과 메타데이터를 정의하세요.
 ```kotlin
 val agentCard = AgentCard(
@@ -228,7 +244,6 @@ val agentCard = AgentCard(
 ```
 
 ### 2. AgentExecutor 생성
-
 실행기에서는 에이전트 로직을 구현하고, 수신 요청을 처리하며, 응답을 보냅니다.
 
 ```kotlin
@@ -256,8 +271,7 @@ class EchoAgentExecutor : AgentExecutor {
 }
 ```
 
-### 2. 서버 생성
-
+### 3. 서버 생성
 에이전트 실행기와 에이전트 카드를 서버에 전달하세요.
 
 ```kotlin
@@ -267,8 +281,7 @@ val server = A2AServer(
 )
 ```
 
-### 3. 전송 계층 추가
-
+### 4. 전송 계층 추가
 전송 계층을 생성하고 서버를 시작하세요.
 ```kotlin
 // HTTP JSON-RPC transport
@@ -344,3 +357,4 @@ class TaskAgentExecutor : AgentExecutor {
         )
     }
 }
+```

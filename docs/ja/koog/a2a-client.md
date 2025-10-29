@@ -3,6 +3,23 @@
 A2Aクライアントを使用すると、ネットワーク経由でA2A準拠のエージェントと通信できます。
 これは、[A2Aプロトコル仕様](https://a2a-protocol.org/latest/specification/)の完全な実装を提供し、エージェントディスカバリ、メッセージ交換、タスク管理、およびリアルタイムストリーミング応答を処理します。
 
+## 依存関係
+
+プロジェクトでA2Aクライアントを使用するには、次の依存関係を`build.gradle.kts`に追加します。
+
+```kotlin
+dependencies {
+    // Core A2A client library
+    implementation("ai.koog:a2a-client:$koogVersion")
+
+    // HTTP JSON-RPC transport (most common)
+    implementation("ai.koog:a2a-transport-client-jsonrpc-http:$koogVersion")
+
+    // Ktor client engine (choose one that fits your needs)
+    implementation("io.ktor:ktor-client-cio:$ktorVersion")
+}
+```
+
 ## 概要
 
 A2Aクライアントは、あなたのアプリケーションとA2A準拠のエージェント間の橋渡し役として機能します。
@@ -44,8 +61,8 @@ A2Aエージェントで最も一般的なトランスポートです。
 
 ```kotlin
 val transport = HttpJSONRPCClientTransport(
-    url = "https://agent.example.com/a2a",        // Agent endpoint URL
-    httpClient = HttpClient(CIO) {                // Optional: custom HTTP client
+    url = "https://agent.example.com/a2a",        // エージェントエンドポイントURL
+    httpClient = HttpClient(CIO) {                // オプション：カスタムHTTPクライアント
         install(ContentNegotiation) {
             json()
         }
@@ -67,9 +84,9 @@ A2Aの慣例に従ってHTTPエンドポイントからエージェントカー�
 
 ```kotlin
 val agentCardResolver = UrlAgentCardResolver(
-    baseUrl = "https://agent.example.com",           // Base URL of the agent service
-    path = "/.well-known/agent-card.json",           // Standard agent card location
-    httpClient = HttpClient(CIO),                    // Optional: custom HTTP client
+    baseUrl = "https://agent.example.com",           // エージェントサービスのベースURL
+    path = "/.well-known/agent-card.json",           // 標準のエージェントカードロケーション
+    httpClient = HttpClient(CIO),                    // オプション：カスタムHTTPクライアント
 )
 ```
 
@@ -101,7 +118,7 @@ val client = A2AClient(transport, agentCardResolver)
 エージェントのカードを持つことで、その機能のクエリを実行したり、他の操作を実行したりできます。例えば、ストリーミングをサポートしているか確認できます。
 
 ```kotlin
-// Connect and retrieve agent capabilities
+// エージェントに接続し、その機能を取得
 client.connect()
 val agentCard = client.cachedAgentCard()
 
@@ -125,18 +142,18 @@ val message = Message(
 val request = Request(data = MessageSendParams(message))
 val response = client.sendMessage(request)
 
-// Handle response
+// 応答の処理
 when (val event = response.data) {
     is Message -> {
         val text = event.parts
             .filterIsInstance<TextPart>()
             .joinToString { it.text }
-        print(text) // Stream partial responses
+        print(text) // 部分的な応答をストリーミング
     }
     is TaskEvent -> {
         if (event.final) {
             println("
-Task completed")
+Task completed") // タスク完了
         }
     }
 }
@@ -148,7 +165,7 @@ A2Aクライアントは、リアルタイム通信のためにストリーミ�
 単一の応答を受け取る代わりに、メッセージとタスク更新を含むイベントの`Flow`を返します。
 
 ```kotlin
-// Check if agent supports streaming
+// エージェントがストリーミングをサポートしているか確認
 if (client.cachedAgentCard()?.capabilities?.streaming == true) {
     client.sendMessageStreaming(request).collect { response ->
         when (val event = response.data) {
@@ -156,20 +173,20 @@ if (client.cachedAgentCard()?.capabilities?.streaming == true) {
                 val text = event.parts
                     .filterIsInstance<TextPart>()
                     .joinToString { it.text }
-                print(text) // Stream partial responses
+                print(text) // 部分的な応答をストリーミング
             }
             is TaskStatusUpdateEvent -> {
                 if (event.final) {
                     println("
-Task completed")
+Task completed") // タスク完了
                 }
             }
         }
     }
 } else {
-    // Fallback to non-streaming
+    // ストリーミングなしにフォールバック
     val response = client.sendMessage(request)
-    // Handle single response
+    // 単一の応答を処理
 }
 ```
 
@@ -178,14 +195,14 @@ Task completed")
 A2Aクライアントは、サーバータスクのステータスを問い合わせたり、キャンセルしたりすることで、それらを制御するためのメソッドを提供します。
 
 ```kotlin
-// Query task status
+// タスクステータスのクエリ
 val taskRequest = Request(data = TaskQueryParams(taskId = "task-123"))
 val taskResponse = client.getTask(taskRequest)
 val task = taskResponse.data
 
 println("Task state: ${task.status.state}")
 
-// Cancel running task
+// 実行中のタスクをキャンセル
 if (task.status.state == TaskState.Working) {
     val cancelRequest = Request(data = TaskIdParams(taskId = "task-123"))
     val cancelledTask = client.cancelTask(cancelRequest).data

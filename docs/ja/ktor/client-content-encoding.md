@@ -21,7 +21,7 @@
 ContentEncoding プラグインを使用すると、指定された圧縮アルゴリズム (gzip や deflate など) を有効にし、その設定を構成できます。
 </link-summary>
 
-Ktor クライアントは、指定された圧縮アルゴリズム (<code>gzip</code> や <code>deflate</code> など) を有効にし、その設定を構成できる [ContentEncoding](https://api.ktor.io/ktor-client/ktor-client-plugins/ktor-client-encoding/io.ktor.client.plugins.compression/-content-encoding) プラグインを提供します。このプラグインには、主に3つの目的があります。
+Ktor クライアントは、指定された圧縮アルゴリズム (<code>gzip</code> や <code>deflate</code> など) を有効にし、その設定を構成できる [ContentEncoding](https://api.ktor.io/ktor-client-encoding/io.ktor.client.plugins.compression/-content-encoding) プラグインを提供します。このプラグインには、主に3つの目的があります。
 * 指定されたQ値（品質値）を持つ `Accept-Encoding` ヘッダーを設定します。
 * 必要に応じてリクエストボディをエンコードします。
 * [サーバーから受信したコンテンツ](client-responses.md#body)をデコードし、元のペイロードを取得します。
@@ -71,7 +71,7 @@ val client = HttpClient(CIO) {
 必要に応じて、`ContentEncoder` インターフェースを実装してカスタムエンコーダを作成し、`customEncoder` 関数に渡すことができます。
 
 ## リクエストボディのエンコード {id="encode_request_body"}
-リクエストボディをエンコードするには、[HttpRequestBuilder](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client.request/-http-request-builder/index.html) ブロック内で `compress()` 関数を使用します。
+リクエストボディをエンコードするには、[HttpRequestBuilder](https://api.ktor.io/ktor-client-core/io.ktor.client.request/-http-request-builder/index.html) ブロック内で `compress()` 関数を使用します。
 ```kotlin
 import io.ktor.client.*
 import io.ktor.client.engine.cio.*
@@ -84,4 +84,3 @@ client.post("/upload") {
     compress("gzip")
     setBody(someLongBody)
 }
-```

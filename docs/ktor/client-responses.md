@@ -45,11 +45,11 @@ if (httpResponse.status.value in 200..299) {
 [`HttpResponse.headers`](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client.statement/-http-response/index.html)
 属性允许你获取一个包含所有响应标头的 [`Headers`](https://api.ktor.io/ktor-http/io.ktor.http/-headers/index.html) 映射。此外，`HttpResponse` 暴露了以下用于接收特定标头值的函数：
 
-* `contentType` 用于 `Content-Type` 标头值
-* `charset` 用于从 `Content-Type` 标头值获取字符集。
-* `etag` 用于 `E-Tag` 标头值。
-* `setCookie` 用于 `Set-Cookie` 标头值。
-  > Ktor 也提供了 [HttpCookies](client-cookies.md) 插件，允许你在调用之间保持 cookie。
+*   `contentType` 用于 `Content-Type` 标头值
+*   `charset` 用于从 `Content-Type` 标头值获取字符集。
+*   `etag` 用于 `E-Tag` 标头值。
+*   `setCookie` 用于 `Set-Cookie` 标头值。
+    > Ktor 也提供了 [HttpCookies](client-cookies.md) 插件，允许你在调用之间保持 cookie。
 
 ## 接收响应体 {id="body"}
 
@@ -88,8 +88,8 @@ val byteArrayBody: ByteArray = httpResponse.body()
     }
 ```
 
-上面示例中的 [`onDownload()`](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client.plugins/on-download.html)
-扩展函数用于显示下载进度。
+上面示例中的 [`onDownload()`](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client.plugins/on-download.html) 扩展
+函数用于显示下载进度。
 
 对于非流式请求，响应体会自动加载并缓存到内存中，允许重复访问。虽然这对于小负载是高效的，但对于大响应可能会导致高内存使用。
 
@@ -211,6 +211,11 @@ part.dispose()
     }
 ```
 
+> 若要在 Ktor 通道与 `RawSink`、`RawSource` 或 `OutputStream` 等类型之间进行转换，请参见
+> [I/O 互操作性](io-interoperability.md)。
+>
+{style="tip"}
+
 在此示例中，[`ByteReadChannel`](https://api.ktor.io/ktor-io/io.ktor.utils.io/-byte-read-channel/index.html) 用于异步读取数据。使用 `ByteReadChannel.readRemaining()` 会检索通道中所有可用的字节，而
 `Source.transferTo()` 直接将数据写入文件，从而减少不必要的内存分配。
 
@@ -223,4 +228,3 @@ client.prepareGet("https://httpbin.org/bytes/$fileSize").execute { httpResponse 
     channel.copyAndClose(file.writeChannel())
     println("A file saved to ${file.path}")
 }
-```

@@ -21,12 +21,12 @@
 </p>
 </tldr>
 
-[%plugin_name%](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-partial-content/io.ktor.server.plugins.partialcontent/-partial-content.html) 插件添加了对处理 [HTTP 范围请求](https://developer.mozilla.org/en-US/docs/Web/HTTP/Range_requests)的支持，这些请求用于仅将 HTTP 消息的一部分发送回客户端。此插件适用于流式传输内容或恢复部分下载。
+[%plugin_name%](https://api.ktor.io/ktor-server-partial-content/io.ktor.server.plugins.partialcontent/-partial-content.html) 插件添加了对处理 [HTTP 范围请求](https://developer.mozilla.org/en-US/docs/Web/HTTP/Range_requests)的支持，这些请求用于仅将 HTTP 消息的一部分发送回客户端。此插件适用于流式传输内容或恢复部分下载。
 
 `%plugin_name%` 有以下限制：
--   仅适用于 `HEAD` 和 `GET` 请求，如果客户端尝试将 `Range` 头部与其它方法一起使用，则返回 `405 Method Not Allowed`。
--   仅适用于已定义 `Content-Length` 头部响应。
--   在提供范围时禁用 [Compression](server-compression.md)。
+- 仅适用于 `HEAD` 和 `GET` 请求，如果客户端尝试将 `Range` 头部与其它方法一起使用，则返回 `405 Method Not Allowed`。
+- 仅适用于已定义 `Content-Length` 头部响应。
+- 在提供范围时禁用 [Compression](server-compression.md)。
 
 ## 添加依赖项 {id="add_dependencies"}
 
@@ -48,7 +48,8 @@
 ## 安装 %plugin_name% {id="install_plugin"}
 
 <p>
-    要将 <code>%plugin_name%</code> 插件<a href="#install">安装</a>到应用程序，请将其传递给指定<Links href="/ktor/server-modules" summary="模块允许您通过分组路由来构建应用程序。">模块</Links>中的 <code>install</code> 函数。
+    要将 <code>%plugin_name%</code> 插件<a href="#install">安装</a>到应用程序，
+    请将其传递给指定<Links href="/ktor/server-modules" summary="模块允许您通过分组路由来构建应用程序。">模块</Links>中的 <code>install</code> 函数。
     以下代码片段展示了如何安装 <code>%plugin_name%</code> ...
 </p>
 <list>
@@ -68,7 +69,8 @@
     </TabItem>
 </Tabs>
 <p>
-    <code>%plugin_name%</code> 插件也可以<a href="#install-route">安装到特定路由</a>。如果您需要针对不同的应用程序资源使用不同的 <code>%plugin_name%</code> 配置，这可能会很有用。
+    <code>%plugin_name%</code> 插件也可以<a href="#install-route">安装到特定路由</a>。
+    如果您需要针对不同的应用程序资源使用不同的 <code>%plugin_name%</code> 配置，这可能会很有用。
 </p>
 
-要了解如何使用 `%plugin_name%` 通过 HTTP 范围请求来提供文件，请参见 [File](server-responses.md#file) 节。
+要了解如何使用 <code>%plugin_name%</code> 通过 HTTP 范围请求来提供文件，请参见 [File](server-responses.md#file) 节。

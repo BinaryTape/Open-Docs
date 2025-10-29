@@ -199,7 +199,7 @@ ktor.application.startup = concurrent
 
 ```kotlin
 suspend fun Application.installEvents() {
-    // Suspends until provided
+    // 提供されるまで中断
     val kubernetesConnection = dependencies.resolve<KubernetesConnection>()
 }
 

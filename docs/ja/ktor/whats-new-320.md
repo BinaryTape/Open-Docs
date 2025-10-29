@@ -64,7 +64,7 @@ database:
 
 以前は、各設定値を個別に取得する必要がありました。新しい`.property()`拡張関数を使用すると、設定セクション全体を一度にロードできます。
 
-<compare>
+<compare first-title="Before" second-title="After">
 <code-block lang="kotlin" code="data class DatabaseConfig(&#10;    val url: String,&#10;    val username: String,&#10;    val password: String? = null,&#10;)&#10;&#10;fun Application.module() {&#10;  val databaseConfig = DatabaseConfig(&#10;    url = environment.config.property(&quot;database.url&quot;).getString(),&#10;    username = environment.config.property(&quot;database.username&quot;).getString(),&#10;    password = environment.config.property(&quot;database.password&quot;).getString(),&#10;  )&#10;  // use configuration&#10;}"/>
 <code-block lang="kotlin" code="@Serializable &#10;data class DatabaseConfig(&#10;    val url: String,&#10;    val username: String,&#10;    val password: String? = null,&#10;)&#10;&#10;fun Application.module() {&#10;  val databaseConfig: DatabaseConfig = property(&quot;database&quot;)&#10;  // use configuration&#10;}"/>
 </compare>
@@ -258,10 +258,10 @@ val connection: Connection = application.property("connection")
 これは、`development`モードでの自動リロードは、サスペンド関数モジュールと設定参照でのみ機能することを意味します。
 
 ```kotlin
-// サスペンド関数参照
+// Suspend function reference
 embeddedServer(Netty, port = 8080, module = Application::mySuspendModule)
 
-// 設定参照
+// Configuration reference
 ktor {
     application {
         modules = [ com.example.ApplicationKt.mySuspendModule ]
@@ -345,7 +345,7 @@ JSおよびWasmプラットフォームでは、`.resolveAddress()`は常に`nul
 
 ### HTMX統合
 
-Ktor 3.2.0では、`hx-get`や`hx-swap`などのHTML属性を介した動的なインタラクションを可能にするモダンなJavaScriptライブラリである[HTMX](https://htmx.org/)の実験的サポートが導入されました。KtorのHTMX統合は以下を提供します。
+Ktor 3.2.0では、[HTMX](https://htmx.org/)の実験的サポートが導入されました。HTMXは、`hx-get`や`hx-swap`などのHTML属性を介した動的なインタラクションを可能にするモダンなJavaScriptライブラリです。KtorのHTMX統合は以下を提供します。
 
 - ヘッダーに基づいてHTMXリクエストを処理するHTMX対応ルーティング。
 - KotlinでHTMX属性を生成するためのHTML DSL拡張。
@@ -446,7 +446,7 @@ Ktor 3.2.0では、開発モードの有効化が簡素化されました。以�
     ktor {
         development = true
     }
-  ```
+    ```
 
 デフォルトでは、`ktor.development`の値は、Gradleプロジェクトプロパティまたはシステムプロパティ`io.ktor.development`のいずれかが定義されている場合に、自動的に解決されます。これにより、Gradle CLIフラグを使用して開発モードを直接有効にすることができます。
 

@@ -25,7 +25,7 @@
 
 <link-summary>MicrometerMetrics 插件在您的 Ktor 服务器应用程序中启用 Micrometer 指标，并允许您选择所需的监控系统，例如 Prometheus、JMX、Elastic 等。</link-summary>
 
-[MicrometerMetrics](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-metrics-micrometer/io.ktor.server.metrics.micrometer/-micrometer-metrics) 插件在您的 Ktor 服务器应用程序中启用 [Micrometer](https://micrometer.io/docs) 指标，并允许您选择所需的监控系统，例如 Prometheus、JMX、Elastic 等。默认情况下，Ktor 暴露用于监控 HTTP 请求的指标和一组用于[监控 JVM][micrometer_jvm_metrics] 的低级指标。您可以自定义这些指标或创建新的指标。
+[MicrometerMetrics](https://api.ktor.io/ktor-server-metrics-micrometer/io.ktor.server.metrics.micrometer/-micrometer-metrics) 插件在您的 Ktor 服务器应用程序中启用 [Micrometer](https://micrometer.io/docs) 指标，并允许您选择所需的监控系统，例如 Prometheus、JMX、Elastic 等。默认情况下，Ktor 暴露用于监控 HTTP 请求的指标和一组用于[监控 JVM][micrometer_jvm_metrics] 的低级指标。您可以自定义这些指标或创建新的指标。
 
 ## 添加依赖项 {id="add_dependencies"}
 要启用 `MicrometerMetrics`，您需要将以下构件包含到构建脚本中：
@@ -101,7 +101,7 @@ Ktor 暴露以下指标用于监控 HTTP 请求：
 
 ## 创建注册表 {id="create_registry"}
 
-安装 `MicrometerMetrics` 后，您需要为[监控系统创建注册表](https://micrometer.o/docs/concepts#_registry)并将其赋值给 `registry` 属性。在下面的示例中，<code>PrometheusMeterRegistry</code> 在 <code>install</code> 代码块外部创建，以便能够在不同的[路由处理器](server-routing.md)中重用此注册表：
+安装 `MicrometerMetrics` 后，您需要为[监控系统创建注册表](https://micrometer.io/docs/concepts#_registry)并将其赋值给 `registry` 属性。在下面的示例中，<code>PrometheusMeterRegistry</code> 在 <code>install</code> 代码块外部创建，以便能够在不同的[路由处理器](server-routing.md)中重用此注册表：
 
 ```kotlin
 fun Application.module() {
@@ -114,7 +114,7 @@ fun Application.module() {
 
 ## 配置指标 {id="configure_metrics"}
 
-<code>MicrometerMetrics</code> 插件提供各种配置选项，可以使用 [MicrometerMetricsConfig](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-metrics-micrometer/io.ktor.server.metrics.micrometer/-micrometer-metrics-config/index.html) 进行访问。
+<code>MicrometerMetrics</code> 插件提供各种配置选项，可以使用 [MicrometerMetricsConfig](https://api.ktor.io/ktor-server-metrics-micrometer/io.ktor.server.metrics.micrometer/-micrometer-metrics-config/index.html) 进行访问。
 
 ### 计时器 {id="timers"}
 要自定义每个计时器的标签，可以使用为每个请求调用的 `timers` 函数：

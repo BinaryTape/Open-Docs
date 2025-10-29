@@ -256,7 +256,7 @@ LLMと対話するノード。
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
 
-val strategy = strategy<String, String>("my-strategy") {
+val strategy = strategy<String, String>("strategy_name") {
 -->
 <!--- SUFFIX
 }
@@ -264,7 +264,7 @@ val strategy = strategy<String, String>("my-strategy") {
 ```kotlin
 val summarizeTextNode by node<String, String>("node_name") { input ->
     llm.writeSession {
-        updatePrompt {
+        appendPrompt {
             user("Please summarize the following text: $input")
         }
 

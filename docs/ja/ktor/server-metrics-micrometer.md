@@ -25,7 +25,7 @@
 
 <link-summary>MicrometerMetricsプラグインは、KtorサーバーアプリケーションでMicrometerメトリクスを有効にし、Prometheus、JMX、Elasticなどの必要な監視システムを選択できるようにします。</link-summary>
 
-[MicrometerMetrics](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-metrics-micrometer/io.ktor.server.metrics.micrometer/-micrometer-metrics)プラグインは、Ktorサーバーアプリケーションで[Micrometer](https://micrometer.io/docs)メトリクスを有効にし、Prometheus、JMX、Elasticなどの必要な監視システムを選択できるようにします。デフォルトでは、KtorはHTTPリクエストを監視するためのメトリクスと、[JVMを監視][micrometer_jvm_metrics]するための一連の低レベルメトリクスを公開します。これらのメトリクスをカスタマイズしたり、新しいメトリクスを作成したりできます。
+[MicrometerMetrics](https://api.ktor.io/ktor-server-metrics-micrometer/io.ktor.server.metrics.micrometer/-micrometer-metrics)プラグインは、Ktorサーバーアプリケーションで[Micrometer](https://micrometer.io/docs)メトリクスを有効にし、Prometheus、JMX、Elasticなどの必要な監視システムを選択できるようにします。デフォルトでは、KtorはHTTPリクエストを監視するためのメトリクスと、[JVMを監視][micrometer_jvm_metrics]するための一連の低レベルメトリクスを公開します。これらのメトリクスをカスタマイズしたり、新しいメトリクスを作成したりできます。
 
 ## 依存関係を追加する {id="add_dependencies"}
 `MicrometerMetrics`を有効にするには、ビルドスクリプトに以下のアーティファクトを含める必要があります。
@@ -114,7 +114,7 @@ fun Application.module() {
 
 ## メトリクスを設定する {id="configure_metrics"}
 
-`MicrometerMetrics`プラグインは、[MicrometerMetricsConfig](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-metrics-micrometer/io.ktor.server.metrics.micrometer/-micrometer-metrics-config/index.html)を使用してアクセスできるさまざまな設定オプションを提供します。
+`MicrometerMetrics`プラグインは、[MicrometerMetricsConfig](https://api.ktor.io/ktor-server-metrics-micrometer/io.ktor.server.metrics.micrometer/-micrometer-metrics-config/index.html)を使用してアクセスできるさまざまな設定オプションを提供します。
 
 ### タイマー {id="timers"}
 各タイマーのタグをカスタマイズするには、各リクエストで呼び出される`timers`関数を使用できます。

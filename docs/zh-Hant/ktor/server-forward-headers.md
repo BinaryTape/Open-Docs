@@ -22,7 +22,7 @@
 </p>
 </tldr>
 
-當 Ktor 伺服器部署在反向代理後方時，[ForwardedHeaders](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-forwarded-header/io.ktor.server.plugins.forwardedheaders/-forwarded-headers.html) 和 [XForwardedHeaders](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-forwarded-header/io.ktor.server.plugins.forwardedheaders/-x-forwarded-headers.html) 外掛允許您處理反向代理標頭，以取得有關原始[請求](server-requests.md)的資訊。這對[日誌記錄](server-logging.md)目的可能很有用。
+當 Ktor 伺服器部署在反向代理後方時，[ForwardedHeaders](https://api.ktor.io/ktor-server-forwarded-header/io.ktor.server.plugins.forwardedheaders/-forwarded-headers.html) 和 [XForwardedHeaders](https://api.ktor.io/ktor-server-forwarded-header/io.ktor.server.plugins.forwardedheaders/-x-forwarded-headers.html) 外掛允許您處理反向代理標頭，以取得有關原始[請求](server-requests.md)的資訊。這對[日誌記錄](server-logging.md)目的可能很有用。
 
 *   `ForwardedHeaders` 處理 `Forwarded` 標頭 ([RFC 7239](https://tools.ietf.org/html/rfc7239))
 *   `XForwardedHeaders` 處理以下 `X-Forwarded-` 標頭：
@@ -115,7 +115,7 @@
 
 ### 代理請求資訊 {id="proxy_request_info"}
 
-要取得有關代理請求的資訊，請在[路由處理器](server-routing.md#define_route)內部使用 [call.request.local](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.request/-application-request/local.html) 屬性。
+要取得有關代理請求的資訊，請在[路由處理器](server-routing.md#define_route)內部使用 [call.request.local](https://api.ktor.io/ktor-server-core/io.ktor.server.request/-application-request/local.html) 屬性。
 下面的程式碼片段展示了如何取得有關代理位址以及請求所發送到的主機的資訊：
 
 ```kotlin
@@ -127,7 +127,7 @@ get("/hello") {
 
 ### 原始請求資訊 {id="original-request-information"}
 
-要讀取有關原始請求的資訊，請使用 [call.request.origin](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.plugins/origin.html) 屬性：
+要讀取有關原始請求的資訊，請使用 [call.request.origin](https://api.ktor.io/ktor-server-core/io.ktor.server.plugins/origin.html) 屬性：
 
 ```kotlin
 get("/hello") {
@@ -162,7 +162,7 @@ X-Forwarded-For: <client>, <proxy1>, <proxy2>
 
 預設情況下，`XForwardedHeader` 將 `X-Forwarded-For` 中的第一個條目分配給 `call.request.origin.remoteHost` 屬性。
 您還可以為[選擇 IP 位址](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Forwarded-For#selecting_an_ip_address)提供自訂邏輯。
-[XForwardedHeadersConfig](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-forwarded-header/io.ktor.server.plugins.forwardedheaders/-x-forwarded-headers-config/index.html) 暴露了以下 API：
+[XForwardedHeadersConfig](https://api.ktor.io/ktor-server-forwarded-header/io.ktor.server.plugins.forwardedheaders/-x-forwarded-headers-config/index.html) 暴露了以下 API：
 
 *   `useFirstProxy` 和 `useLastProxy` 允許您分別從 IP 位址列表中取得第一個或最後一個值。
 *   `skipLastProxies` 會跳過從右側開始的指定數量的條目，並取得下一個條目。

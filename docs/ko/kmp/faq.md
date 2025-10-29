@@ -51,15 +51,9 @@ iOS 전용 코드를 작성하고 iOS 애플리케이션을 시뮬레이터나 �
 
 코틀린 멀티플랫폼 프로젝트에서 비동기 코드를 작성하기 위해 코루틴과 Flow를 계속 사용할 수 있습니다. 이 코드를 어디에서 호출하느냐에 따라 호출 방식이 달라집니다. 코틀린 코드에서 중단 함수(suspending function)와 Flow를 호출하는 방법은 특히 Android용으로 광범위하게 문서화되어 있습니다. [Swift 코드에서 호출하는 방법](https://kotlinlang.org/docs/native-arc-integration.html#completion-handlers)은 약간의 추가 작업이 필요합니다. 자세한 내용은 [KT-47610](https://youtrack.jetbrains.com/issue/KT-47610)을 참조하세요.
 
-<!-- when adding SKIE back to the tutorial, add it here as well
-and uncomment the paragraph below --> 
-
 Swift에서 중단 함수와 Flow를 호출하는 현재 가장 좋은 방법은 [KMP-NativeCoroutines](https://github.com/rickclephas/KMP-NativeCoroutines)와 같은 플러그인 및 라이브러리를 Swift의 `async`/`await` 또는 Combine 및 RxSwift와 같은 라이브러리와 함께 사용하는 것입니다.
 
-<!-- At the moment, KMP-NativeCoroutines is the more
-tried-and-tested solution, and it supports `async`/`await`, Combine, and RxSwift approaches to concurrency. SKIE is easier
-to set up and less verbose. For instance, it maps Kotlin `Flow` to Swift `AsyncSequence` directly. Both of these libraries
-support the proper cancellation of coroutines. -->
+현재 KMP-NativeCoroutines는 더 많이 시도되고 검증된 솔루션이며, Swift의 `async`/`await`, Combine 및 RxSwift와 같은 동시성 처리 방식을 지원합니다. SKIE는 설정이 더 쉽고 간결합니다. 예를 들어, 코틀린 `Flow`를 Swift `AsyncSequence`에 직접 매핑합니다. 이 두 라이브러리 모두 코루틴의 적절한 취소를 지원합니다.
 
 사용 방법을 배우려면 [iOS와 Android 간에 더 많은 로직 공유](multiplatform-upgrade-app.md)를 참조하세요.
 
@@ -145,14 +139,6 @@ Material의 테마 기능(theming capabilities)을 사용하여 색상, 글꼴 �
 
 네, 가능합니다. [SwiftUI 통합](compose-swiftui-integration.md) 및 [UIKit 통합](compose-uikit-integration.md)을 참조하세요.
 
-<!-- Need to revise
-### What happens when my mobile OS updates and introduces new platform capabilities?
-
-You can use them in platform-specific parts of your codebase once Kotlin supports them. We do our best to support them
-in the upcoming Kotlin version. All new Android capabilities provide Kotlin or Java APIs, and wrappers over iOS APIs are
-generated automatically.
--->
-
 ### 모바일 OS가 업데이트되어 시스템 컴포넌트의 시각적 스타일이나 동작이 변경되면 어떻게 되나요?
 
 모든 컴포넌트가 캔버스에 그려지기 때문에 OS 업데이트 후에도 UI는 동일하게 유지됩니다. 화면에 네이티브 iOS 컴포넌트를 포함하는 경우, 업데이트가 해당 모양에 영향을 미칠 수 있습니다.
@@ -167,7 +153,7 @@ generated automatically.
 ### 컴포즈 멀티플랫폼은 언제 Stable 상태가 되나요?
 
 컴포즈 멀티플랫폼은 Android, iOS, 데스크톱에 대해서는 Stable 상태이며, 웹 플랫폼 지원은 베타(Beta) 상태입니다.
-웹 플랫폼의 안정(Stable) 릴리스를 위해 노력 중이며, 정확한 날짜는 추후 발표될 예정입니다.
+저희는 웹 플랫폼의 안정(Stable) 릴리스를 위해 노력 중이며, 정확한 날짜는 추후 발표될 예정입니다.
 
 안정성 상태에 대한 자세한 내용은 [지원되는 플랫폼](supported-platforms.md)을 참조하세요.
 

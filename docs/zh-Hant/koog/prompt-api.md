@@ -61,21 +61,15 @@ val prompt = prompt("multimodal_input") {
 
     user {
         +"Describe these images"
-
-        attachments {
-            image("https://example.com/test.png")
-            image(Path("/User/koog/image.png"))
-        }
+        
+        image("https://example.com/test.png")
+        image(Path("/User/koog/image.png"))
     }
 }
 ```
 <!--- KNIT example-prompt-api-02.kt -->
 
 ### 文字提示內容
-
-為了支援各種附件類型，並在提示中明確區分文字和檔案輸入，您將文字訊息放入使用者提示中專用的 `content` 參數中。
-若要新增檔案輸入，請將其作為列表提供給 `attachments` 參數。
-
 包含文字訊息和附件列表的使用者訊息的一般格式如下：
 
 <!--- INCLUDE
@@ -87,23 +81,23 @@ val prompt = prompt("prompt") {
 }
 -->
 ```kotlin
-user(
-    content = "This is the user message",
-    attachments = listOf(
-        // Add attachments
-    )
-)
+user {
+    +"This is the text part of the user message"
+    // Add attachment
+    image("https://example.com/capture.png")
+    file("https://example.com/data.pdf", "application/pdf")
+}
 ```
 <!--- KNIT example-prompt-api-03.kt -->
 
 ### 檔案附件
 
-若要包含附件，請在 `attachments` 參數中提供檔案，格式如下：
+若要包含附件，請提供檔案，其格式如下：
 
 <!--- INCLUDE
 import ai.koog.prompt.dsl.prompt
-import ai.koog.prompt.message.Attachment
 import ai.koog.prompt.message.AttachmentContent
+import ai.koog.prompt.message.ContentPart
 
 val prompt = prompt("prompt") {
 -->
@@ -111,17 +105,17 @@ val prompt = prompt("prompt") {
 }
 -->
 ```kotlin
-user(
-    content = "Describe this image",
-    attachments = listOf(
-        Attachment.Image(
+user {
+    +"Describe this image"
+    image(
+        ContentPart.Image(
             content = AttachmentContent.URL("https://example.com/capture.png"),
             format = "png",
             mimeType = "image/png",
             fileName = "capture.png"
         )
     )
-)
+}
 ```
 <!--- KNIT example-prompt-api-04.kt -->
 
@@ -192,7 +186,7 @@ user(
 
 ### 混合附件內容
 
-除了在單獨的提示或訊息中提供不同類型的附件外，您還可以在單一 `user` 訊息中提供多種和混合類型的附件，如下所示：
+除了在單獨的提示或訊息中提供不同類型的附件外，您還可以在單一 `user` 訊息中提供多種和混合類型的附件：
 
 <!--- INCLUDE
 import ai.koog.prompt.dsl.prompt
@@ -204,11 +198,9 @@ val prompt = prompt("mixed_content") {
 
     user {
         +"Compare the image with the document content."
-
-        attachments {
-            image(Path("/User/koog/page.png"))
-            binaryFile(Path("/User/koog/page.pdf"), "application/pdf")
-        }
+        image(Path("/User/koog/page.png"))
+        binaryFile(Path("/User/koog/page.pdf"), "application/pdf")
+        +"Structure the result as a table"
     }
 }
 ```
@@ -699,7 +691,7 @@ val multiExecutor = MultiLLMPromptExecutor(
     ),
     // Bedrock 用戶端已內建 AWS SDK 重試
     LLMProvider.Bedrock to BedrockLLMClient(
-        credentialsProvider = StaticCredentialsProvider {
+        identityProvider = StaticCredentialsProvider {
             accessKeyId = System.getenv("AWS_ACCESS_KEY_ID")
             secretAccessKey = System.getenv("AWS_SECRET_ACCESS_KEY")
             sessionToken = System.getenv("AWS_SESSION_TOKEN")

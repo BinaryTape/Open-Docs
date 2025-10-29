@@ -56,7 +56,7 @@ scope<named("my_scope_name")> {
 ```
 
 :::info
-필요한 스코프 공간(`@Scope` 사용)과 정의할 컴포넌트의 종류(`@Scoped` 사용)를 나타내기 위해 두 어노테이션이 모두 필요합니다.
+  필요한 스코프 공간(`@Scope` 사용)과 정의할 컴포넌트의 종류(`@Scoped` 사용)를 나타내기 위해 두 어노테이션이 모두 필요합니다.
 :::
 
 ## 스코프로부터의 의존성 해결
@@ -106,5 +106,136 @@ factory { Myfactory(getScope("my_scope_id").get()) }
 이 예제는 `MyFactory` 컴포넌트가 "my_scope_id" ID를 가진 스코프 인스턴스에서 `MyScopedComponent` 컴포넌트를 해결할 것임을 보여줍니다. 이 "my_scope_id" ID로 생성된 스코프는 올바른 스코프 정의로 생성되어야 합니다.
 
 :::info
-`MyScopedComponent` 컴포넌트는 스코프 섹션에 정의되어야 하며, 스코프 인스턴스는 "my_scope_id" ID로 생성되어야 합니다.
+  `MyScopedComponent` 컴포넌트는 스코프 섹션에 정의되어야 하며, 스코프 인스턴스는 "my_scope_id" ID로 생성되어야 합니다.
+:::
+
+## 스코프 아키타입 어노테이션
+
+Koin Annotations는 일반적인 스코프 패턴에 대해 미리 정의된 스코프 아키타입 어노테이션을 제공하여, 스코프 타입을 수동으로 선언할 필요를 없애줍니다. 이 어노테이션들은 스코프 선언과 컴포넌트 정의를 단일 어노테이션으로 결합합니다.
+
+### Android 스코프 아키타입
+
+Android 개발의 경우, 다음 미리 정의된 스코프 어노테이션을 사용할 수 있습니다.
+
+#### @ActivityScope
+
+Activity 스코프에 컴포넌트를 선언합니다.
+
+```kotlin
+@ActivityScope
+class ActivityScopedComponent(val dependency: MyDependency)
+```
+
+이는 다음을 생성합니다:
+```kotlin
+activityScope {
+    scoped { ActivityScopedComponent(get()) }
+}
+```
+
+**사용법:** 태그된 클래스는 `Activity`와 `activityScope` 함수와 함께 사용하여 스코프를 활성화하도록 되어 있습니다.
+
+#### @ActivityRetainedScope
+
+Activity Retained 스코프(설정 변경 시에도 유지됨)에 컴포넌트를 선언합니다.
+
+```kotlin
+@ActivityRetainedScope
+class RetainedComponent(val repository: MyRepository)
+```
+
+이는 다음을 생성합니다:
+```kotlin
+activityRetainedScope {
+    scoped { RetainedComponent(get()) }
+}
+```
+
+**사용법:** 태그된 클래스는 `Activity`와 `activityRetainedScope` 함수와 함께 사용하여 스코프를 활성화하도록 되어 있습니다.
+
+#### @FragmentScope
+
+Fragment 스코프에 컴포넌트를 선언합니다.
+
+```kotlin
+@FragmentScope
+class FragmentScopedComponent(val service: MyService)
+```
+
+이는 다음을 생성합니다:
+```kotlin
+fragmentScope {
+    scoped { FragmentScopedComponent(get()) }
+}
+```
+
+**사용법:** 태그된 클래스는 `Fragment`와 `fragmentScope` 함수와 함께 사용하여 스코프를 활성화하도록 되어 있습니다.
+
+### 코어 스코프 아키타입
+
+#### @ViewModelScope
+
+ViewModel 스코프에 컴포넌트를 선언합니다. 이 어노테이션은 **Kotlin Multiplatform (KMP) 호환**되며 Android ViewModel과 Compose Multiplatform ViewModel 모두에서 작동합니다.
+
+```kotlin
+@ViewModelScope
+class ViewModelScopedRepository(val apiService: ApiService)
+
+@ViewModelScope  
+class ViewModelScopedUseCase(
+    val repository: ViewModelScopedRepository,
+    val analytics: AnalyticsService
+)
+```
+
+이는 다음을 생성합니다:
+```kotlin
+viewModelScope {
+    scoped { ViewModelScopedRepository(get()) }
+    scoped { ViewModelScopedUseCase(get(), get()) }
+}
+```
+
+**사용법:** 태그된 클래스는 `ViewModel`과 `viewModelScope` 함수와 함께 사용하여 스코프를 활성화하도록 되어 있습니다.
+
+**KMP 지원:** ViewModel이 사용되는 Android, iOS, Desktop, Web 플랫폼을 포함한 모든 Kotlin Multiplatform 타겟에서 원활하게 작동합니다.
+
+### 스코프 아키타입 사용하기
+
+스코프 아키타입 어노테이션은 일반 Koin 스코핑과 원활하게 작동합니다.
+
+```kotlin
+// Regular components
+@Single
+class GlobalService
+
+// Scoped components using archetypes
+@ActivityScope
+class ActivityService(val global: GlobalService)
+
+@FragmentScope  
+class FragmentService(
+    val global: GlobalService,
+    val activity: ActivityService
+)
+```
+
+### 함수 정의와 결합하기
+
+스코프 아키타입은 모듈 내 함수에도 사용될 수 있습니다.
+
+```kotlin
+@Module
+class MyModule {
+    
+    @ActivityScope
+    fun activityComponent(dep: MyDependency) = MyActivityComponent(dep)
+    
+    @FragmentScope
+    fun fragmentComponent(dep: MyDependency) = MyFragmentComponent(dep)
+}
+```
+
+:::info
+스코프 아키타입 어노테이션은 적절한 스코프 정의와 스코프 컴포넌트 선언을 자동으로 생성하여, 일반적인 스코프 패턴에 대한 상용구 코드를 줄여줍니다.
 :::

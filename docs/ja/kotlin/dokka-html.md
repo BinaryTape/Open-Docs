@@ -10,9 +10,9 @@ HTMLは出力形式としてすべてのランナーでサポートされてい�
 
 *   [Gradle](dokka-gradle.md#generate-documentation)の場合、`dokkaHtml`または`dokkaHtmlMultiModule`タスクを実行します。
 
-    > Dokka 2.0.0以降、[ドキュメント生成のためのGradleタスクが変更されました](dokka-migration.md#generate-documentation-with-the-updated-task)。
+    > これらの手順は、Dokka Gradleプラグイン v1 の設定とタスクを反映しています。Dokka 2.0.0以降、[ドキュメント生成のためのGradleタスクが変更されました](dokka-migration.md#generate-documentation-with-the-updated-task)。
     >
-    > 詳細および変更点の全リストについては、[移行ガイド](dokka-migration.md)を参照してください。
+    > 詳細およびDokka Gradle Plugin v2での変更点の全リストについては、[移行ガイド](dokka-migration.md)を参照してください。
     >
     {style="note"}
 
@@ -77,7 +77,7 @@ tasks.withType<DokkaTask>().configureEach {
     """
     pluginsMapConfiguration.set(
         mapOf(
-            // fully qualified plugin name to json configuration
+            // 完全修飾プラグイン名からjson設定へ
             "org.jetbrains.dokka.base.DokkaBase" to dokkaBaseConfiguration
         )
     )
@@ -102,7 +102,7 @@ tasks.withType(DokkaTask.class) {
     }
     """
     pluginsMapConfiguration.set(
-            // fully qualified plugin name to json configuration
+            // 完全修飾プラグイン名からjson設定へ
             ["org.jetbrains.dokka.base.DokkaBase": dokkaBaseConfiguration]
     )
 }
@@ -118,9 +118,9 @@ tasks.withType(DokkaTask.class) {
     ...
     <configuration>
         <pluginsConfiguration>
-            <!-- Fully qualified plugin name -->
+            <!-- 完全修飾プラグイン名 -->
             <org.jetbrains.dokka.base.DokkaBase>
-                <!-- Options by name -->
+                <!-- オプション名 -->
                 <customAssets>
                     <asset>${project.basedir}/my-image.png</asset>
                 </customAssets>

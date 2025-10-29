@@ -3,10 +3,11 @@
 <tldr>
 
 *   Pod依存関係を追加する前に、[初期設定を完了](multiplatform-cocoapods-overview.md#set-up-an-environment-to-work-with-cocoapods)してください。
-*   [異なるPod依存関係が設定されたKotlinプロジェクトのサンプル](https://github.com/Kotlin/kmp-with-cocoapods-multitarget-xcode-sample)を参照してください。
-*   [複数のターゲットを持つXcodeプロジェクトがKotlinライブラリに依存しているサンプルプロジェクト](https://github.com/Kotlin/kmp-with-cocoapods-multitarget-xcode-sample)を確認してください。
+*   Kotlinプロジェクトに[異なるPod依存関係が設定されたサンプルプロジェクトを参照](https://github.com/Kotlin/kmp-with-cocoapods-multitarget-xcode-sample)してください。
+*   複数のターゲットを持つXcodeプロジェクトが[Kotlinライブラリに依存しているサンプルプロジェクトを確認](https://github.com/Kotlin/kmp-with-cocoapods-multitarget-xcode-sample)してください。
 
 </tldr>
+<show-structure for="chapter,procedure" depth="2"/>
 
 Kotlin CocoaPods Gradleプラグインは、Podspecファイルを作成するためのツールです。これらのファイルは、Kotlinプロジェクトを[CocoaPods依存関係マネージャー](https://cocoapods.org/)と統合するために必要です。
 
@@ -126,7 +127,7 @@ kotlin {
 | **名前**                     | **説明**                                                                                                                                                                                                                                                                                    |
 |:-----------------------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `version`                    | ライブラリのバージョン。ライブラリの最新バージョンを使用するには、パラメータを省略します。                                                                                                                                                                                                                 |
-| `source`                     | Podを以下から設定します: <list><li>`git()`を使用してGitリポジトリから。`git()`後のブロックでは、特定のコミットを使用するために`commit`を、特定のタグを使用するために`tag`を、リポジリの特定のブランチを使用するために`branch`を指定できます。</li><li>`path()`を使用してローカルリポジトリから。</li></list> |
+| `source`                     | Podを以下から設定します: <list><li>`git()`を使用してGitリポジトリから。`git()`後のブロックでは、特定のコミットを使用するために`commit`を、特定のタグを使用するために`tag`を、リポジトリの特定のブランチを使用するために`branch`を指定できます。</li><li>`path()`を使用してローカルリポジトリから。</li></list> |
 | `packageName`                | パッケージ名を指定します。                                                                                                                                                                                                                                                                        |
 | `extraOpts`                  | Podライブラリのオプションのリストを指定します。例として、特定のフラグ: <code-block lang="Kotlin" code="extraOpts = listOf(&quot;-compiler-option&quot;)"/>                                                                                                                                        |
 | `linkOnly`                   | CocoaPodsプラグインに、cinteropバインディングを生成せずに動的フレームワークを持つPod依存関係を使用するように指示します。静的フレームワークで使用された場合、このオプションはPod依存関係を完全に削除します。                                                                                           |

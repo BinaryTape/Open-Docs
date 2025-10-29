@@ -56,7 +56,7 @@ Ktor 客户端可用于多平台项目，并支持 Android、JavaScript 和 Nati
    要了解支持哪些引擎适用于每个平台，请参见[添加引擎依赖项](client-engines.md#dependencies)。
 
 ## 创建客户端 {id="create-client"}
-要在多平台项目中创建客户端，请在项目的[公共代码](https://kotlinlang.org/docs/mpp-discover-project.html#source-sets)中调用 [HttpClient](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client/-http-client/index.html) 构造函数：
+要在多平台项目中创建客户端，请在项目的[公共代码](https://kotlinlang.org/docs/mpp-discover-project.html#source-sets)中调用 [HttpClient](https://api.ktor.io/ktor-client-core/io.ktor.client/-http-client/index.html) 构造函数：
 
 ```kotlin
 import io.ktor.client.*
@@ -64,7 +64,7 @@ import io.ktor.client.*
 val client = HttpClient()
 ```
 
-在此代码片段中，`HttpClient` 构造函数不接受引擎作为实参：客户端将根据在[构建脚本中添加](#add-dependencies)的 artifact 为所需平台选择一个引擎。
+在此代码片段中，`HttpClient` 构造函数不接受引擎作为实参：客户端将根据在[构建脚本中添加](#add-dependencies)的构件为所需平台选择一个引擎。
 
 如果你需要调整针对特定平台的引擎配置，请将对应的引擎类作为实参传递给 `HttpClient` 构造函数，并使用 `engine` 方法配置引擎，例如：
 ```kotlin

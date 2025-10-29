@@ -19,13 +19,13 @@
     </a>
 </p>
 <p>
-    <b><Links href="/ktor/server-native" summary="모듈을 사용하면 경로를 그룹화하여 애플리케이션을 구조화할 수 있습니다.">네이티브 서버</Links> 지원</b>: ✖️
+    <b><Links href="/ktor/server-native" summary="Ktor는 Kotlin/Native를 지원하며 추가 런타임이나 가상 머신 없이 서버를 실행할 수 있도록 합니다.">네이티브 서버</Links> 지원</b>: ✖️
 </p>
 </tldr>
 
 <link-summary>%plugin_name% 플러그인은 Metrics 라이브러리를 구성하여 서버 및 수신 요청에 대한 유용한 정보를 얻을 수 있도록 합니다.</link-summary>
 
-[%plugin_name%](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-metrics/io.ktor.server.metrics.dropwizard/-dropwizard-metrics.html) 플러그인은 [Metrics](http://metrics.dropwizard.io/) 라이브러리를 구성하여 서버 및 수신 요청에 대한 유용한 정보를 얻을 수 있도록 합니다.
+[%plugin_name%](https://api.ktor.io/ktor-server-metrics/io.ktor.server.metrics.dropwizard/-dropwizard-metrics.html) 플러그인은 [Metrics](http://metrics.dropwizard.io/) 라이브러리를 구성하여 서버 및 수신 요청에 대한 유용한 정보를 얻을 수 있도록 합니다.
 
 ## 종속성 추가 {id="add_dependencies"}
 `%plugin_name%`을(를) 활성화하려면 빌드 스크립트에 다음 아티팩트를 포함해야 합니다:

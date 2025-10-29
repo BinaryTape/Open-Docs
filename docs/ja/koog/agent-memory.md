@@ -27,9 +27,9 @@ AgentMemory機能は階層構造に基づいて構築されています。
 - **SingleFact**：コンセプトに関連付けられた単一の値。例えば、IDEユーザーの現在の推奨テーマ：
 <!--- INCLUDE
 import ai.koog.agents.memory.model.Concept
-import ai.koog.agents.memory.model.DefaultTimeProvider
 import ai.koog.agents.memory.model.FactType
 import ai.koog.agents.memory.model.SingleFact
+import kotlinx.datetime.Clock
 -->
 ```kotlin
 // お気に入りのIDEテーマを保存 (単一の値)
@@ -39,16 +39,16 @@ val themeFact = SingleFact(
         "User's preferred IDE theme", 
         factType = FactType.SINGLE),
     value = "Dark Theme",
-    timestamp = DefaultTimeProvider.getCurrentTimestamp()
+    timestamp = Clock.System.now().toEpochMilliseconds(),
 )
 ```
 <!--- KNIT example-agent-memory-01.kt -->
 - **MultipleFacts**：コンセプトに関連付けられた複数の値。例えば、ユーザーが知っているすべての言語：
 <!--- INCLUDE
 import ai.koog.agents.memory.model.Concept
-import ai.koog.agents.memory.model.DefaultTimeProvider
 import ai.koog.agents.memory.model.FactType
 import ai.koog.agents.memory.model.MultipleFacts
+import kotlinx.datetime.Clock
 -->
 ```kotlin
 // プログラミング言語を保存 (複数の値)
@@ -59,7 +59,7 @@ val languagesFact = MultipleFacts(
         factType = FactType.MULTIPLE
     ),
     values = listOf("Kotlin", "Java", "Python"),
-    timestamp = DefaultTimeProvider.getCurrentTimestamp()
+    timestamp = Clock.System.now().toEpochMilliseconds(),
 )
 ```
 <!--- KNIT example-agent-memory-02.kt -->
@@ -128,7 +128,7 @@ object MemorySubjects {
 
 ## 構成と初期化
 
-この機能は、`AgentMemory`クラスを通じてエージェントパイプラインと統合されており、ファクトを保存およびロードするためのメソッドを提供し、エージェント設定で機能としてインストールできます。
+この機能は、ファクトを保存およびロードするためのメソッドを提供し、エージェント構成で機能としてインストールできる`AgentMemory`クラスを通じてエージェントパイプラインと統合されています。
 
 ### 構成
 
@@ -210,10 +210,10 @@ val memoryProvider = LocalFileMemoryProvider(
 import ai.koog.agents.example.exampleAgentMemory03.MemorySubjects
 import ai.koog.agents.example.exampleAgentMemory06.memoryProvider
 import ai.koog.agents.memory.model.Concept
-import ai.koog.agents.memory.model.DefaultTimeProvider
 import ai.koog.agents.memory.model.FactType
 import ai.koog.agents.memory.model.MemoryScope
 import ai.koog.agents.memory.model.SingleFact
+import kotlinx.datetime.Clock
 
 suspend fun main() {
 -->
@@ -225,7 +225,7 @@ memoryProvider.save(
     fact = SingleFact(
         concept = Concept("greeting", "User's name", FactType.SINGLE),
         value = "John",
-        timestamp = DefaultTimeProvider.getCurrentTimestamp()
+        timestamp = Clock.System.now().toEpochMilliseconds(),
     ),
     subject = MemorySubjects.User,
     scope = MemoryScope.Product("my-app"),
@@ -333,10 +333,10 @@ val secureStorage = EncryptedStorage(
 import ai.koog.agents.example.exampleAgentMemory03.MemorySubjects
 import ai.koog.agents.example.exampleAgentMemory06.memoryProvider
 import ai.koog.agents.memory.model.Concept
-import ai.koog.agents.memory.model.DefaultTimeProvider
 import ai.koog.agents.memory.model.FactType
 import ai.koog.agents.memory.model.MemoryScope
 import ai.koog.agents.memory.model.SingleFact
+import kotlinx.datetime.Clock
 
 suspend fun main() {
 -->
@@ -348,7 +348,7 @@ memoryProvider.save(
     fact = SingleFact(
         concept = Concept("preferred-language", "What programming language is preferred by the user?", FactType.SINGLE),
         value = "Kotlin",
-        timestamp = DefaultTimeProvider.getCurrentTimestamp()
+        timestamp = Clock.System.now().toEpochMilliseconds(),
     ),
     subject = MemorySubjects.User,
     scope = MemoryScope.Product("my-app")
@@ -442,18 +442,18 @@ val saveAutoDetect by nodeSaveToMemoryAutoDetectFacts<Unit>(
 import ai.koog.agents.example.exampleAgentMemory03.MemorySubjects
 import ai.koog.agents.example.exampleAgentMemory06.memoryProvider
 import ai.koog.agents.memory.model.Concept
-import ai.koog.agents.memory.model.DefaultTimeProvider
 import ai.koog.agents.memory.model.FactType
 import ai.koog.agents.memory.model.MemoryScope
 import ai.koog.agents.memory.model.SingleFact
 import kotlinx.coroutines.runBlocking
+import kotlinx.datetime.Clock
 
 fun main() {
     runBlocking {
         val fact = SingleFact(
             concept = Concept("preferred-language", "What programming language is preferred by the user?", FactType.SINGLE),
             value = "Kotlin",
-            timestamp = DefaultTimeProvider.getCurrentTimestamp()
+            timestamp = Clock.System.now().toEpochMilliseconds()
         )
         val subject = MemorySubjects.User
         val scope = MemoryScope.Product("my-app")
@@ -493,13 +493,13 @@ AgentMemory機能に関連する完全なAPIリファレンスについては、
 
 特定のパッケージのAPIドキュメント：
 
--   [ai.koog.agents.local.memory.feature](https://api.koog.ai/agents/agents-features/agents-features-memory/ai.koog.agents.local.memory.feature/index.html)：`AgentMemory`クラスとAIエージェントメモリ機能のコア実装が含まれます。
--   [ai.koog.agents.local.memory.feature.nodes](https://api.koog.ai/agents/agents-features/agents-features-memory/ai.koog.agents.local.memory.feature.nodes/index.html)：サブグラフで使用できる事前定義されたメモリ関連ノードが含まれます。
--   [ai.koog.agents.local.memory.config](https://api.koog.ai/agents/agents-features/agents-features-memory/ai.koog.agents.local.memory.config/index.html)：メモリ操作に使用されるメモリースコープの定義を提供します。
--   [ai.koog.agents.local.memory.model](https://api.koog.ai/agents/agents-features/agents-features-memory/ai.koog.agents.local.memory.model/index.html)：エージェントが異なるコンテキストや期間にわたって情報を保存、整理、取得できるようにするコアデータ構造とインターフェースの定義が含まれます。
--   [ai.koog.agents.local.memory.feature.history](https://api.koog.ai/agents/agents-features/agents-features-memory/ai.koog.agents.local.memory.feature.history/index.html)：過去のセッション活動または保存されたメモリから特定のコンセプトに関するファクト情報を取得し組み込むための履歴圧縮戦略を提供します。
--   [ai.koog.agents.local.memory.providers](https://api.koog.ai/agents/agents-features/agents-features-memory/ai.koog.agents.local.memory.providers/index.html)：構造化されたコンテキストアウェアな方法で知識を保存および取得するための基本的な操作を定義するコアインターフェースとその実装を提供します。
--   [ai.koog.agents.local.memory.storage](https://api.koog.ai/agents/agents-features/agents-features-memory/ai.koog.agents.local.memory.storage/index.html)：異なるプラットフォームおよびストレージバックエンドでのファイル操作のためのコアインターフェースと特定の実装を提供します。
+- [ai.koog.agents.local.memory.feature](https://api.koog.ai/agents/agents-features/agents-features-memory/ai.koog.agents.local.memory.feature/index.html)：`AgentMemory`クラスとAIエージェントメモリ機能のコア実装が含まれます。
+- [ai.koog.agents.local.memory.feature.nodes](https://api.koog.ai/agents/agents-features/agents-features-memory/ai.koog.agents.local.memory.feature.nodes/index.html)：サブグラフで使用できる事前定義されたメモリ関連ノードが含まれます。
+- [ai.koog.agents.local.memory.config](https://api.koog.ai/agents/agents-features/agents-features-memory/ai.koog.agents.local.memory.config/index.html)：メモリ操作に使用されるメモリースコープの定義を提供します。
+- [ai.koog.agents.local.memory.model](https://api.koog.ai/agents/agents-features/agents-features-memory/ai.koog.agents.local.memory.model/index.html)：エージェントが異なるコンテキストや期間にわたって情報を保存、整理、取得できるようにするコアデータ構造とインターフェースの定義が含まれます。
+- [ai.koog.agents.local.memory.feature.history](https://api.koog.ai/agents/agents-features/agents-features-memory/ai.koog.agents.local.memory.feature.history/index.html)：過去のセッション活動または保存されたメモリから特定のコンセプトに関するファクト情報を取得し組み込むための履歴圧縮戦略を提供します。
+- [ai.koog.agents.local.memory.providers](https://api.koog.ai/agents/agents-features/agents-features-memory/ai.koog.agents.local.memory.providers/index.html)：構造化されたコンテキストアウェアな方法で知識を保存および取得するための基本的な操作を定義するコアインターフェースとその実装を提供します。
+- [ai.koog.agents.local.memory.storage](https://api.koog.ai/agents/agents-features/agents-features-memory/ai.koog.agents.local.memory.storage/index.html)：異なるプラットフォームおよびストレージバックエンドでのファイル操作のためのコアインターフェースと特定の実装を提供します。
 
 ## よくある質問とトラブルシューティング
 

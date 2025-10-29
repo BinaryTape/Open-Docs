@@ -23,7 +23,7 @@
 </p>
 </tldr>
 
-Ktor는 [%plugin_name%](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-jte/io.ktor.server.jte/-jte.html) 플러그인을 설치하여 애플리케이션 내에서 [JTE 템플릿](https://github.com/casid/jte)을 뷰로 사용할 수 있게 합니다.
+Ktor는 [JTE 템플릿](https://github.com/casid/jte)을 애플리케이션 내에서 뷰로 사용할 수 있도록 [%plugin_name%](https://api.ktor.io/ktor-server-jte/io.ktor.server.jte/-jte.html) 플러그인 설치를 허용합니다.
 
 ## 의존성 추가 {id="add_dependencies"}
 
@@ -67,7 +67,7 @@ Ktor는 [%plugin_name%](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor
     </TabItem>
 </Tabs>
 
-`install` 블록 내에서 JTE 템플릿을 로드하는 방법을 [구성](#configure)할 수 있습니다.
+<code>install</code> 블록 내에서 JTE 템플릿을 로드하는 방법을 [구성](#configure)할 수 있습니다.
 
 ## %plugin_name% 구성 {id="configure"}
 ### 템플릿 로딩 구성 {id="template_loading"}

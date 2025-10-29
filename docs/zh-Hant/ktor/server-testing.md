@@ -142,6 +142,7 @@ package com.example
 import io.ktor.client.request.*
 import io.ktor.client.statement.*
 import io.ktor.http.*
+import io.ktor.server.application.*
 import io.ktor.server.testing.*
 import kotlin.test.*
 
@@ -640,7 +641,7 @@ fun Application.main() {
 </TabItem>
 </Tabs>
 
-## Test HTTPS {id="https"}
+## 測試 HTTPS {id="https"}
 
 如果您需要測試 [HTTPS 端點](server-ssl.md)，請使用 [URLBuilder.protocol](client-requests.md#url) 屬性變更用於發出請求的協定：
 

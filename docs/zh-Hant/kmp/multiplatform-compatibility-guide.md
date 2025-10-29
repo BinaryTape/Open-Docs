@@ -6,16 +6,17 @@
 
 Kotlin 目前的穩定版本是 %kotlinVersion%。請注意特定變更的棄用週期與您專案中 Kotlin 版本的關係，例如：
 
-* 從 Kotlin 1.7.0 升級到 Kotlin 1.9.0 時，請檢查在 [Kotlin 1.9.0](#kotlin-1-9-0-1-9-25) 和 [Kotlin 1.7.0−1.8.22](#kotlin-1-7-0-1-8-22) 中生效的不相容變更。
-* 從 Kotlin 1.9.0 升級到 Kotlin 2.0.0 時，請檢查在 [Kotlin 2.0.0 及更高版本](#kotlin-2-0-0-and-later) 和 [Kotlin 1.9.0−1.9.25](#kotlin-1-9-0-1-9-25) 中生效的不相容變更。
+*   從 Kotlin 1.7.0 升級到 Kotlin 1.9.0 時，請檢查在 [Kotlin 1.9.0](#kotlin-1-9-0-1-9-25) 和 [Kotlin 1.7.0−1.8.22](#kotlin-1-7-0-1-8-22) 中生效的不相容變更。
+*   從 Kotlin 1.9.0 升級到 Kotlin 2.0.0 時，請檢查在 [Kotlin 2.0.0 及更高版本](#kotlin-2-0-0-and-later) 和 [Kotlin 1.9.0−1.9.25](#kotlin-1-9-0-1-9-25) 中生效的不相容變更。
 
 ## 版本相容性
 
-設定專案時，請檢查特定版本的 Kotlin Multiplatform Gradle 外掛程式（與您專案中的 Kotlin 版本相同）與 Gradle、Xcode 和 Android Gradle 外掛程式版本的相容性：
+設定您的專案時，請檢查特定版本的 Kotlin Multiplatform Gradle 外掛程式（與您專案中的 Kotlin 版本相同）與 Gradle、Xcode 和 Android Gradle 外掛程式版本的相容性：
 
 | Kotlin Multiplatform 外掛程式版本 | Gradle                                | Android Gradle 外掛程式                               | Xcode   |
 |-------------------------------------|---------------------------------------|-----------------------------------------------------|---------|
-| 2.2.20                              | %minGradleVersion%–%maxGradleVersion% | %minAndroidGradleVersion%–%maxAndroidGradleVersion% | %xcode% |
+| 2.2.21                              | %minGradleVersion%–%maxGradleVersion% | %minAndroidGradleVersion%–%maxAndroidGradleVersion% | %xcode% |
+| 2.2.20                              | 7.6.3–8.14                            | 7.3.1–8.11.1                                        | 16.4    |
 | 2.2.0-2.2.10                        | 7.6.3–8.14                            | 7.3.1–8.10.0                                        | 16.3    |
 | 2.1.21                              | 7.6.3–8.12.1                          | 7.3.1–8.7.2                                         | 16.3    |
 | 2.1.20                              | 7.6.3–8.11                            | 7.4.2–8.7.2                                         | 16.0    |
@@ -49,10 +50,10 @@ Bitcode embedding 在 Xcode 14 中被棄用，並在 Xcode 15 中針對所有 Ap
 
 以下是計劃的棄用週期：
 
-* 2.0.20: Kotlin/Native 編譯器不再支援位元碼嵌入
-* 2.1.0: 在 Kotlin Multiplatform Gradle 外掛程式中，`embedBitcode` DSL 被棄用並發出警告
-* 2.2.0: 警告提升為錯誤
-* 2.3.0: `embedBitcode` DSL 被移除
+*   2.0.20: Kotlin/Native 編譯器不再支援位元碼嵌入
+*   2.1.0: 在 Kotlin Multiplatform Gradle 外掛程式中，`embedBitcode` DSL 被棄用並發出警告
+*   2.2.0: 警告提升為錯誤
+*   2.3.0: `embedBitcode` DSL 被移除
 
 ### 預設建立的 Java 來源集
 
@@ -80,7 +81,7 @@ kotlin {
 
 如果您的專案使用 [Application](https://docs.gradle.org/current/userguide/application_plugin.html) Gradle Java 外掛程式，我們建議遷移到 [新的實驗性 DSL](https://kotlinlang.org/docs/whatsnew2120.html#kotlin-multiplatform-new-dsl-to-replace-gradle-s-application-plugin)。從 Gradle 8.7 開始，Application 外掛程式將不再與 Kotlin Multiplatform Gradle 外掛程式一起使用。
 
-如果您想在多平台專案中同時使用 Kotlin Multiplatform Gradle 外掛程式和其他 Gradle 外掛程式，請參閱 [棄用 Kotlin Multiplatform Gradle 外掛程式與 Gradle Java 外掛程式的相容性](multiplatform-compatibility-guide.md#deprecated-compatibility-with-kotlin-multiplatform-gradle-plugin-and-gradle-java-plugins)。
+如果您想在多平台專案中同時使用 Kotlin Multiplatform Gradle 外掛程式和其他 Gradle Java 外掛程式，請參閱 [棄用 Kotlin Multiplatform Gradle 外掛程式與 Java 外掛程式的相容性](multiplatform-compatibility-guide.md#deprecated-compatibility-with-kotlin-multiplatform-gradle-plugin-and-gradle-java-plugins)。
 
 如果您在 Kotlin 2.1.20 和高於 8.7 的 Gradle 版本中使用 [Java 測試夾具](https://docs.gradle.org/current/userguide/java_testing.html#sec:java_test_fixtures) Gradle 外掛程式，則該外掛程式將無法運作。此問題已在 [Kotlin 2.1.21](https://kotlinlang.org/docs/releases.html#release-details) 中解決，請升級到該版本。
 
@@ -90,9 +91,9 @@ kotlin {
 
 以下是計劃的棄用週期：
 
-* Gradle >8.6: 在使用 `withJava()` 函數的多平台專案中，針對任何先前版本的 Kotlin 引入棄用警告。
-* Gradle 9.0: 將此警告提升為錯誤。
-* 2.1.20: 在任何版本的 Gradle 中使用 `withJava()` 函數時引入棄用警告。
+*   Gradle >8.6: 在使用 `withJava()` 函數的多平台專案中，針對任何先前版本的 Kotlin 引入棄用警告。
+*   Gradle 9.0: 將此警告提升為錯誤。
+*   2.1.20: 在任何版本的 Gradle 中使用 `withJava()` 函數時引入棄用警告。
 
 ### 將 `android` 目標重新命名為 `androidTarget`
 
@@ -110,9 +111,9 @@ kotlin {
 
 以下是計劃的棄用週期：
 
-* 1.9.0: 在 Kotlin Multiplatform 專案中使用 `android` 名稱時引入棄用警告
-* 2.1.0: 將此警告提升為錯誤
-* 2.2.0: 從 Kotlin Multiplatform Gradle 外掛程式中移除 `android` 目標 DSL
+*   1.9.0: 在 Kotlin Multiplatform 專案中使用 `android` 名稱時引入棄用警告
+*   2.1.0: 將此警告提升為錯誤
+*   2.2.0: 從 Kotlin Multiplatform Gradle 外掛程式中移除 `android` 目標 DSL
 
 ### 宣告多個相似目標
 
@@ -165,15 +166,15 @@ kotlin {
 
 此實作帶來了非平凡的組態複雜性：
 
-* 您必須在 `:shared` 端和每個消費者端設定 Gradle 屬性。否則，Gradle 無法在此類專案中解析依賴項，因為沒有額外資訊，不清楚消費者應該接收基於 Ktor 還是基於 OkHttp 的實作。
-* 您必須手動設定 `commonJvmMain` 來源集。
-* 組態涉及許多低階 Gradle 和 Kotlin Gradle 外掛程式的抽象概念和 API。
+*   您必須在 `:shared` 端和每個消費者端設定 Gradle 屬性。否則，Gradle 無法在此類專案中解析依賴項，因為沒有額外資訊，不清楚消費者應該接收基於 Ktor 還是基於 OkHttp 的實作。
+*   您必須手動設定 `commonJvmMain` 來源集。
+*   組態涉及許多低階 Gradle 和 Kotlin Gradle 外掛程式的抽象概念和 API。
 
 **現在的最佳實踐是什麼？**
 
 組態之所以複雜，是因為基於 Ktor 和基於 OkHttp 的實作位於**同一個 Gradle 專案**中。在許多情況下，可以將這些部分提取到獨立的 Gradle 專案中。以下是此類重構的一般概述：
 
-1. 將原始專案中的兩個重複目標替換為單一目標。如果您在這些目標之間有共享來源集，請將其來源和組態移至新建立目標的預設來源集：
+1.  將原始專案中的兩個重複目標替換為單一目標。如果您在這些目標之間有共享來源集，請將其來源和組態移至新建立目標的預設來源集：
 
     ```kotlin
     // shared/build.gradle.kts:
@@ -188,19 +189,19 @@ kotlin {
     }
     ```
 
-2. 新增兩個新的 Gradle 專案，通常透過在您的 `settings.gradle.kts` 檔案中呼叫 `include`。例如：
+2.  新增兩個新的 Gradle 專案，通常透過在您的 `settings.gradle.kts` 檔案中呼叫 `include`。例如：
 
     ```kotlin
     include(":okhttp-impl")
     include(":ktor-impl")
     ```
 
-3. 組態每個新的 Gradle 專案：
+3.  組態每個新的 Gradle 專案：
 
-    * 您很可能不需要套用 `kotlin("multiplatform")` 外掛程式，因為這些專案只編譯到一個目標。在此範例中，您可以套用 `kotlin("jvm")`。
-    * 將原始目標特定來源集的內容移至其各自的專案，例如，從 `jvmKtorMain` 移至 `ktor-impl/src`。
-    * 複製來源集的組態：依賴項、編譯器選項等等。
-    * 從新 Gradle 專案新增對原始專案的依賴項。
+    *   您很可能不需要套用 `kotlin("multiplatform")` 外掛程式，因為這些專案只編譯到一個目標。在此範例中，您可以套用 `kotlin("jvm")`。
+    *   將原始目標特定來源集的內容移至其各自的專案，例如，從 `jvmKtorMain` 移至 `ktor-impl/src`。
+    *   複製來源集的組態：依賴項、編譯器選項等等。
+    *   從新 Gradle 專案新增對原始專案的依賴項。
 
     ```kotlin
     // ktor-impl/build.gradle.kts:
@@ -230,8 +231,8 @@ kotlin {
 
 以下是計劃的棄用週期：
 
-* 1.9.20: 在 Kotlin Multiplatform 專案中使用多個相似目標時引入棄用警告
-* 2.1.0: 在此類情況下報告錯誤，除了 Kotlin/JS 目標；要了解有關此例外的更多資訊，請參閱 [YouTrack](https://youtrack.jetbrains.com/issue/KT-47038/KJS-MPP-Split-JS-target-into-JsBrowser-and-JsNode) 中的問題
+*   1.9.20: 在 Kotlin Multiplatform 專案中使用多個相似目標時引入棄用警告
+*   2.1.0: 在此類情況下報告錯誤，除了 Kotlin/JS 目標；要了解有關此例外的更多資訊，請參閱 [YouTrack](https://youtrack.jetbrains.com/issue/KT-47038/KJS-MPP-Split-JS-target-into-JsBrowser-and-JsNode) 中的問題
 
 ### 棄用對以舊版模式發佈的多平台程式庫的支援
 
@@ -259,9 +260,9 @@ Kotlin 團隊熱衷於幫助生態系統遷移，因此如果您遇到任何問�
 
 以下是計劃的棄用週期：
 
-* 1.9.0: 針對對舊版程式庫的依賴項引入棄用警告
-* 2.0.0: 將對舊版程式庫的依賴項警告提升為錯誤
-* >2.0.0: 移除對舊版程式庫的依賴項支援；使用此類依賴項可能導致建置失敗
+*   1.9.0: 針對對舊版程式庫的依賴項引入棄用警告
+*   2.0.0: 將對舊版程式庫的依賴項警告提升為錯誤
+*   >2.0.0: 移除對舊版程式庫的依賴項支援；使用此類依賴項可能導致建置失敗
 
 ### 棄用對分層結構支援的 Gradle 屬性
 
@@ -275,17 +276,17 @@ Kotlin 團隊熱衷於幫助生態系統遷移，因此如果您遇到任何問�
 
 以下屬性現已棄用：
 
-* `kotlin.internal.mpp.hierarchicalStructureByDefault`
-* `kotlin.mpp.enableCompatibilityMetadataVariant`
-* `kotlin.mpp.hierarchicalStructureSupport`
-* `kotlin.mpp.enableGranularSourceSetsMetadata`
-* `kotlin.native.enableDependencyPropagation`
+*   `kotlin.internal.mpp.hierarchicalStructureByDefault`
+*   `kotlin.mpp.enableCompatibilityMetadataVariant`
+*   `kotlin.mpp.hierarchicalStructureSupport`
+*   `kotlin.mpp.enableGranularSourceSetsMetadata`
+*   `kotlin.native.enableDependencyPropagation`
 
 **現在的最佳實踐是什麼？**
 
-* 從您的 `gradle.properties` 和 `local.properties` 檔案中移除這些屬性。
-* 避免在 Gradle 建置腳本或您的 Gradle 外掛程式中以程式設計方式設定它們。
-* 如果棄用屬性是由您的建置中使用的某些第三方 Gradle 外掛程式設定的，請要求外掛程式維護者不要設定這些屬性。
+*   從您的 `gradle.properties` 和 `local.properties` 檔案中移除這些屬性。
+*   避免在 Gradle 建置腳本或您的 Gradle 外掛程式中以程式設計方式設定它們。
+*   如果棄用屬性是由您的建置中使用的某些第三方 Gradle 外掛程式設定的，請要求外掛程式維護者不要設定這些屬性。
 
 由於 Kotlin 工具鏈的預設行為自 Kotlin 1.6.20 起不包含此類屬性，我們預計不會產生任何嚴重影響。大多數後果將在專案重建後立即顯示。
 
@@ -295,9 +296,9 @@ Kotlin 團隊熱衷於幫助生態系統遷移，因此如果您遇到任何問�
 
 以下是計劃的棄用週期：
 
-* 1.8.20: 在使用已棄用的 Gradle 屬性時報告警告
-* 1.9.20: 將此警告提升為錯誤
-* 2.0.0: 移除已棄用屬性；Kotlin Gradle 外掛程式將忽略其用法
+*   1.8.20: 在使用已棄用的 Gradle 屬性時報告警告
+*   1.9.20: 將此警告提升為錯誤
+*   2.0.0: 移除已棄用屬性；Kotlin Gradle 外掛程式將忽略其用法
 
 萬一您在移除這些屬性後遇到問題，請在 [YouTrack 中建立一個問題](https://kotl.in/issue)。
 
@@ -309,9 +310,9 @@ Kotlin 團隊熱衷於幫助生態系統遷移，因此如果您遇到任何問�
 
 為了減少混淆並提供更清晰的指南，所有與預設相關的 API 現已在 Kotlin Gradle 外掛程式的公共 API 中棄用。這包括：
 
-* `org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension` 中的 `presets` 屬性
-* `org.jetbrains.kotlin.gradle.plugin.KotlinTargetPreset` 介面及其所有繼承者
-* `fromPreset` 多載
+*   `org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension` 中的 `presets` 屬性
+*   `org.jetbrains.kotlin.gradle.plugin.KotlinTargetPreset` 介面及其所有繼承者
+*   `fromPreset` 多載
 
 **現在的最佳實踐是什麼？**
 
@@ -340,9 +341,9 @@ Kotlin 團隊熱衷於幫助生態系統遷移，因此如果您遇到任何問�
 
 以下是計劃的棄用週期：
 
-* 1.9.20: 報告任何預設相關 API 用法上的警告
-* 2.0.0: 將此警告提升為錯誤
-* 2.2.0: 從 Kotlin Gradle 外掛程式的公共 API 中移除預設相關 API；仍然使用它的來源將因「未解析的引用」錯誤而失敗，而二進位檔（例如 Gradle 外掛程式）則可能因連結錯誤而失敗，除非針對最新版本的 Kotlin Gradle 外掛程式重新編譯
+*   1.9.20: 報告任何預設相關 API 用法上的警告
+*   2.0.0: 將此警告提升為錯誤
+*   2.2.0: 從 Kotlin Gradle 外掛程式的公共 API 中移除預設相關 API；仍然使用它的來源將因「未解析的引用」錯誤而失敗，而二進位檔（例如 Gradle 外掛程式）則可能因連結錯誤而失敗，除非針對最新版本的 Kotlin Gradle 外掛程式重新編譯
 
 ### 棄用 Apple 目標捷徑
 
@@ -366,9 +367,9 @@ Kotlin Gradle 外掛程式現在提供了一個內建的階層範本。自 Kotli
 
 以下是計劃的棄用週期：
 
-* 1.9.20: 在使用 `ios()`、`watchos()` 和 `tvos()` 目標捷徑時報告警告；預設階層範本改為預設啟用
-* 2.1.0: 在使用目標捷徑時報告錯誤
-* 2.2.0: 從 Kotlin Multiplatform Gradle 外掛程式中移除目標捷徑 DSL
+*   1.9.20: 在使用 `ios()`、`watchos()` 和 `tvos()` 目標捷徑時報告警告；預設階層範本改為預設啟用
+*   2.1.0: 在使用目標捷徑時報告錯誤
+*   2.2.0: 從 Kotlin Multiplatform Gradle 外掛程式中移除目標捷徑 DSL
 
 ### Kotlin 升級後 iOS 框架版本不正確
 
@@ -380,14 +381,14 @@ Kotlin Gradle 外掛程式現在提供了一個內建的階層範本。自 Kotli
 
 **解決方案是什麼？**
 
-1. 在 Xcode 中，使用 **Product** | **Clean Build Folder** 清理建置目錄。
-2. 在終端機中，執行以下命令：
+1.  在 Xcode 中，使用 **Product** | **Clean Build Folder** 清理建置目錄。
+2.  在終端機中，執行以下命令：
 
-   ```none
-   ./gradlew clean
-   ```
+    ```none
+    ./gradlew clean
+    ```
 
-3. 再次建置應用程式以確保使用新版本的 iOS 框架。
+3.  再次建置應用程式以確保使用新版本的 iOS 框架。
 
 **問題何時會修復？**
 
@@ -459,9 +460,9 @@ kotlin {
 
 以下是計劃的棄用週期：
 
-* 1.9.0: 在使用 `KotlinComplation.source` 時引入棄用警告
-* 1.9.20: 將此警告提升為錯誤
-* 2.2.0: 從 Kotlin Gradle 外掛程式中移除 `KotlinComplation.source`，嘗試使用它會導致建置腳本編譯期間出現「未解析的引用」錯誤
+*   1.9.0: 在使用 `KotlinComplation.source` 時引入棄用警告
+*   1.9.20: 將此警告提升為錯誤
+*   2.2.0: 從 Kotlin Gradle 外掛程式中移除 `KotlinComplation.source`，嘗試使用它會導致建置腳本編譯期間出現「未解析的引用」錯誤
 
 ### 從 `kotlin-js` Gradle 外掛程式遷移到 `kotlin-multiplatform` Gradle 外掛程式 {initial-collapse-state="collapsed" collapsible="true"}
 
@@ -471,115 +472,115 @@ kotlin {
 
 **現在的最佳實踐是什麼？**
 
-1. 從您的專案中移除 `kotlin-js` Gradle 外掛程式，並在 `settings.gradle.kts` 檔案中套用 `kotlin-multiplatform`，如果您使用的是 `pluginManagement {}` 區塊：
+1.  從您的專案中移除 `kotlin-js` Gradle 外掛程式，並在 `settings.gradle.kts` 檔案中套用 `kotlin-multiplatform`，如果您使用的是 `pluginManagement {}` 區塊：
 
-   <Tabs>
-   <TabItem title="kotlin-js">
+    <Tabs>
+    <TabItem title="kotlin-js">
 
-   ```kotlin
-   // settings.gradle.kts:
-   pluginManagement {
-       plugins {
-           // 移除以下行：
-           kotlin("js") version "1.9.0"
-       }
-       
-       repositories {
-           // ...
-       }
-   }
-   ```
+    ```kotlin
+    // settings.gradle.kts:
+    pluginManagement {
+        plugins {
+            // 移除以下行：
+            kotlin("js") version "1.9.0"
+        }
+        
+        repositories {
+            // ...
+        }
+    }
+    ```
 
-   </TabItem>
-   <TabItem title="kotlin-multiplatform">
+    </TabItem>
+    <TabItem title="kotlin-multiplatform">
 
-   ```kotlin
-   // settings.gradle.kts:
-   pluginManagement {
-       plugins {
-           // 改為新增以下行：
-           kotlin("multiplatform") version "1.9.0"
-       }
-       
-       repositories {
-           // ...
-       }
-   }
-   ```
+    ```kotlin
+    // settings.gradle.kts:
+    pluginManagement {
+        plugins {
+            // 改為新增以下行：
+            kotlin("multiplatform") version "1.9.0"
+        }
+        
+        repositories {
+            // ...
+        }
+    }
+    ```
 
-   </TabItem>
-   </Tabs>
+    </TabItem>
+    </Tabs>
 
-   如果您使用不同的方式套用外掛程式，請參閱 [Gradle 文件](https://docs.gradle.org/current/userguide/plugins.html) 以獲取遷移說明。
+    如果您使用不同的方式套用外掛程式，請參閱 [Gradle 文件](https://docs.gradle.org/current/userguide/plugins.html) 以獲取遷移說明。
 
-2. 將您的來源檔案從 `main` 和 `test` 資料夾移動到同一目錄中的 `jsMain` 和 `jsTest` 資料夾。
-3. 調整依賴項宣告：
+2.  將您的來源檔案從 `main` 和 `test` 資料夾移動到同一目錄中的 `jsMain` 和 `jsTest` 資料夾。
+3.  調整依賴項宣告：
 
-   * 我們建議使用 `sourceSets {}` 區塊並配置相應來源集的依賴項，`jsMain {}` 用於生產依賴項，`jsTest {}` 用於測試依賴項。有關更多詳細資訊，請參閱 [新增依賴項](multiplatform-add-dependencies.md)。
-   * 但是，如果您想在頂層區塊中宣告依賴項，請將宣告從 `api("group:artifact:1.0")` 變更為 `add("jsMainApi", "group:artifact:1.0")` 等等。
+    *   我們建議使用 `sourceSets {}` 區塊並配置相應來源集的依賴項，`jsMain {}` 用於生產依賴項，`jsTest {}` 用於測試依賴項。有關更多詳細資訊，請參閱 [新增依賴項](multiplatform-add-dependencies.md)。
+    *   但是，如果您想在頂層區塊中宣告依賴項，請將宣告從 `api("group:artifact:1.0")` 變更為 `add("jsMainApi", "group:artifact:1.0")` 等等。
 
-     > 在這種情況下，請確保頂層的 `dependencies {}` 區塊位於 `kotlin {}` 區塊**之後**。否則，您將收到「Configuration not found」錯誤。
-     >
-     {style="note"}
+      > 在這種情況下，請確保頂層的 `dependencies {}` 區塊位於 `kotlin {}` 區塊**之後**。否則，您將收到「Configuration not found」錯誤。
+      >
+      {style="note"}
 
-   您可以透過以下方式之一變更 `build.gradle.kts` 檔案中的程式碼：
+    您可以透過以下方式之一變更 `build.gradle.kts` 檔案中的程式碼：
 
-   <Tabs>
-   <TabItem title="kotlin-js">
+    <Tabs>
+    <TabItem title="kotlin-js">
 
-   ```kotlin
-   // build.gradle.kts:
-   plugins {
-       kotlin("js") version "1.9.0"
-   }
-   
-   dependencies {
-       testImplementation(kotlin("test"))
-       implementation("org.jetbrains.kotlinx:kotlinx-html:0.8.0")
-   }
-   
-   kotlin {
-       js {
-           // ...
-       }
-   }
-   ```
+    ```kotlin
+    // build.gradle.kts:
+    plugins {
+        kotlin("js") version "1.9.0"
+    }
+    
+    dependencies {
+        testImplementation(kotlin("test"))
+        implementation("org.jetbrains.kotlinx:kotlinx-html:0.8.0")
+    }
+    
+    kotlin {
+        js {
+            // ...
+        }
+    }
+    ```
 
-   </TabItem>
-   <TabItem title="kotlin-multiplatform">
+    </TabItem>
+    <TabItem title="kotlin-multiplatform">
 
-   ```kotlin
-   // build.gradle.kts:
-   plugins {
-       kotlin("multiplatform") version "1.9.0"
-   }
-   
-   kotlin {
-       js {
-           // ...
-       }
-       
-       // 選項 #1。在 sourceSets {} 區塊中宣告依賴項：
-       sourceSets {
-           val jsMain by getting {
-               dependencies {
-                   // 此處不需要 js 前綴，您可以直接從頂層區塊複製貼上
-                   implementation("org.jetbrains.kotlinx:kotlinx-html:0.8.0")
-               }
-          }
-       }
-   }
-   
-   dependencies {
-       // 選項 #2。在依賴項宣告中新增 js 前綴：
-       add("jsTestImplementation", kotlin("test"))
-   }
-   ```
+    ```kotlin
+    // build.gradle.kts:
+    plugins {
+        kotlin("multiplatform") version "1.9.0"
+    }
+    
+    kotlin {
+        js {
+            // ...
+        }
+        
+        // 選項 #1。在 sourceSets {} 區塊中宣告依賴項：
+        sourceSets {
+            val jsMain by getting {
+                dependencies {
+                    // 此處不需要 js 前綴，您可以直接從頂層區塊複製貼上
+                    implementation("org.jetbrains.kotlinx:kotlinx-html:0.8.0")
+                }
+           }
+        }
+    }
+    
+    dependencies {
+        // 選項 #2。在依賴項宣告中新增 js 前綴：
+        add("jsTestImplementation", kotlin("test"))
+    }
+    ```
 
-   </TabItem>
-   </Tabs>
+    </TabItem>
+    </Tabs>
 
-4. Kotlin Gradle 外掛程式在 `kotlin {}` 區塊中提供的 DSL 在大多數情況下保持不變。但是，如果您按名稱引用低階 Gradle 實體，例如任務和配置，您現在需要調整它們，通常是透過新增 `js` 前綴。例如，您可以在 `jsBrowserTest` 名稱下找到 `browserTest` 任務。
+4.  Kotlin Gradle 外掛程式在 `kotlin {}` 區塊中提供的 DSL 在大多數情況下保持不變。但是，如果您按名稱引用低階 Gradle 實體，例如任務和配置，您現在需要調整它們，通常是透過新增 `js` 前綴。例如，您可以在 `jsBrowserTest` 名稱下找到 `browserTest` 任務。
 
 **這些變更何時生效？**
 
@@ -606,9 +607,9 @@ kotlin {
 
 以下是計劃的棄用週期：
 
-* 1.3.40: 在使用 `targetPresets.jvmWithJava` 時引入警告
-* 1.9.20: 將此警告提升為錯誤
-* >1.9.20: 移除 `targetPresets.jvmWithJava` API；嘗試使用它會導致建置腳本編譯失敗
+*   1.3.40: 在使用 `targetPresets.jvmWithJava` 時引入警告
+*   1.9.20: 將此警告提升為錯誤
+*   >1.9.20: 移除 `targetPresets.jvmWithJava` API；嘗試使用它會導致建置腳本編譯失敗
 
 > 儘管整個 `targetPresets` API 已棄用，但 `jvmWithJava` 預設有不同的棄用時間表。
 >
@@ -624,9 +625,9 @@ kotlin {
 
 以下是計劃的棄用週期：
 
-* <=1.9.0: 在使用 `kotlin.mpp.androidSourceSetLayoutVersion=1` 時報告警告；警告可以透過 `kotlin.mpp.androidSourceSetLayoutVersion1.nowarn=true` Gradle 屬性抑制
-* 1.9.20: 將此警告提升為錯誤；此錯誤**無法**抑制
-* >1.9.20: 移除對 `kotlin.mpp.androidSourceSetLayoutVersion=1` 的支援；Kotlin Gradle 外掛程式將忽略該屬性
+*   <=1.9.0: 在使用 `kotlin.mpp.androidSourceSetLayoutVersion=1` 時報告警告；警告可以透過 `kotlin.mpp.androidSourceSetLayoutVersion1.nowarn=true` Gradle 屬性抑制
+*   1.9.20: 將此警告提升為錯誤；此錯誤**無法**抑制
+*   >1.9.20: 移除對 `kotlin.mpp.androidSourceSetLayoutVersion=1` 的支援；Kotlin Gradle 外掛程式將忽略該屬性
 
 ### 棄用帶有自定義 `dependsOn` 的 `commonMain` 和 `commonTest` {initial-collapse-state="collapsed" collapsible="true"}
 
@@ -642,9 +643,9 @@ kotlin {
 
 假設您需要將使用 `commonMain.dependsOn(customCommonMain)` 的 `customCommonMain` 來源集遷移到 1.9.20。在大多數情況下，`customCommonMain` 參與與 `commonMain` 相同的編譯，因此您可以將 `customCommonMain` 合併到 `commonMain` 中：
 
-1. 將 `customCommonMain` 的來源複製到 `commonMain` 中。
-2. 將 `customCommonMain` 的所有依賴項新增到 `commonMain` 中。
-3. 將 `customCommonMain` 的所有編譯器選項設定新增到 `commonMain` 中。
+1.  將 `customCommonMain` 的來源複製到 `commonMain` 中。
+2.  將 `customCommonMain` 的所有依賴項新增到 `commonMain` 中。
+3.  將 `customCommonMain` 的所有編譯器選項設定新增到 `commonMain` 中。
 
 在極少數情況下，`customCommonMain` 可能會參與比 `commonMain` 更多的編譯。此類配置需要建置腳本的額外低階組態。如果您不確定這是否是您的使用案例，那麼它很可能不是。
 
@@ -654,8 +655,8 @@ kotlin {
 
 以下是計劃的棄用週期：
 
-* 1.9.0: 在 `commonMain` 中使用 `dependsOn` 時報告警告
-* >=1.9.20: 在 `commonMain` 或 `commonTest` 中使用 `dependsOn` 時報告錯誤
+*   1.9.0: 在 `commonMain` 中使用 `dependsOn` 時報告警告
+*   >=1.9.20: 在 `commonMain` 或 `commonTest` 中使用 `dependsOn` 時報告錯誤
 
 ### 轉發宣告的新方法 {initial-collapse-state="collapsed" collapsible="true"}
 
@@ -663,53 +664,53 @@ kotlin {
 
 JetBrains 團隊改進了 Kotlin 中轉發宣告的方法，使其行為更可預測：
 
-* 您只能使用 `cnames` 或 `objcnames` 套件匯入轉發宣告。
-* 您需要明確地對應的 C 和 Objective-C 轉發宣告進行轉換（`cast`）。
+*   您只能使用 `cnames` 或 `objcnames` 套件匯入轉發宣告。
+*   您需要明確地對應的 C 和 Objective-C 轉發宣告進行轉換（`cast`）。
 
 **現在的最佳實踐是什麼？**
 
-* 考慮一個帶有 `library.package` 並宣告 `cstructName` 轉發宣告的 C 程式庫。以前，可以直接從程式庫匯入：`import library.package.cstructName`。現在，您只能為此使用一個特殊的轉發宣告套件：`import cnames.structs.cstructName`。對於 `objcnames` 也是如此。
+*   考慮一個帶有 `library.package` 並宣告 `cstructName` 轉發宣告的 C 程式庫。以前，可以直接從程式庫匯入：`import library.package.cstructName`。現在，您只能為此使用一個特殊的轉發宣告套件：`import cnames.structs.cstructName`。對於 `objcnames` 也是如此。
 
-* 考慮兩個 `objcinterop` 程式庫：一個使用 `objcnames.protocols.ForwardDeclaredProtocolProtocol`，另一個具有實際定義：
+*   考慮兩個 `objcinterop` 程式庫：一個使用 `objcnames.protocols.ForwardDeclaredProtocolProtocol`，另一個具有實際定義：
 
-  ```ObjC
-  // 第一個 objcinterop 程式庫
-  #import <Foundation/Foundation.h>
-  
-  @protocol ForwardDeclaredProtocol;
-  
-  NSString* consumeProtocol(id<ForwardDeclaredProtocol> s) {
-      return [NSString stringWithUTF8String:"Protocol"];
-  }
-  ```
+    ```ObjC
+    // First objcinterop library
+    #import <Foundation/Foundation.h>
+    
+    @protocol ForwardDeclaredProtocol;
+    
+    NSString* consumeProtocol(id<ForwardDeclaredProtocol> s) {
+        return [NSString stringWithUTF8String:"Protocol"];
+    }
+    ```
 
-  ```ObjC
-  // 第二個 objcinterop 程式庫
-  // 標頭：
-  #import <Foundation/Foundation.h>
-  @protocol ForwardDeclaredProtocol
-  @end
-  // 實作：
-  @interface ForwardDeclaredProtocolImpl : NSObject <ForwardDeclaredProtocol>
-  @end
+    ```ObjC
+    // Second objcinterop library
+    // Header:
+    #import <Foundation/Foundation.h>
+    @protocol ForwardDeclaredProtocol
+    @end
+    // Implementation:
+    @interface ForwardDeclaredProtocolImpl : NSObject <ForwardDeclaredProtocol>
+    @end
 
-  id<ForwardDeclaredProtocol> produceProtocol() {
-      return [ForwardDeclaredProtocolImpl new];
-  }
-  ```
+    id<ForwardDeclaredProtocol> produceProtocol() {
+        return [ForwardDeclaredProtocolImpl new];
+    }
+    ```
 
-  以前，可以在它們之間無縫傳輸物件。現在，對於轉發宣告，需要明確的 `as` 轉換：
+    以前，可以在它們之間無縫傳輸物件。現在，對於轉發宣告，需要明確的 `as` 轉換：
 
-  ```kotlin
-  // Kotlin 程式碼：
-  fun test() {
-      consumeProtocol(produceProtocol() as objcnames.protocols.ForwardDeclaredProtocolProtocol)
-  }
-  ```
+    ```kotlin
+    // Kotlin code:
+    fun test() {
+        consumeProtocol(produceProtocol() as objcnames.protocols.ForwardDeclaredProtocolProtocol)
+    }
+    ```
 
-  > 您只能將 `objcnames.protocols.ForwardDeclaredProtocolProtocol` 轉換為對應的真實類別。否則，您將收到錯誤。
-  >
-  {style="note"}
+    > 您只能將 `objcnames.protocols.ForwardDeclaredProtocolProtocol` 轉換為對應的真實類別。否則，您將收到錯誤。
+    >
+    {style="note"}
 
 **這些變更何時生效？**
 
@@ -727,9 +728,9 @@ JetBrains 團隊改進了 Kotlin 中轉發宣告的方法，使其行為更可�
 
 我們新增此棄用警告是為了應對 Kotlin Multiplatform 的專案模型與 Gradle 的 Java 生態系統外掛程式之間存在的根本相容性問題。Gradle 的 Java 生態系統外掛程式目前沒有考量到其他外掛程式可能：
 
-* 也以與 Java 生態系統外掛程式不同的方式發佈或編譯 JVM 目標。
-* 在同一個專案中有兩個不同的 JVM 目標，例如 JVM 和 Android。
-* 具有複雜的多平台專案結構，可能有多個非 JVM 目標。
+*   也以與 Java 生態系統外掛程式不同的方式發佈或編譯 JVM 目標。
+*   在同一個專案中有兩個不同的 JVM 目標，例如 JVM 和 Android。
+*   具有複雜的多平台專案結構，可能有多個非 JVM 目標。
 
 遺憾的是，Gradle 目前沒有提供任何 API 來解決這些問題。
 
@@ -740,14 +741,14 @@ JetBrains 團隊改進了 Kotlin 中轉發宣告的方法，使其行為更可�
 **現在的最佳實踐是什麼？**
 
 如果您的多平台專案中出現此棄用警告，我們建議您：
-1. 判斷您是否實際需要在專案中使用 Gradle Java 外掛程式。如果不需要，請考慮移除它。
-2. 檢查 Gradle Java 外掛程式是否僅用於單個任務。如果是這樣，您可能可以在不費太多力氣的情況下移除該外掛程式。例如，如果任務使用 Gradle Java 外掛程式來建立 Javadoc JAR 檔案，您可以手動定義 Javadoc 任務。
+1.  判斷您是否實際需要在專案中使用 Gradle Java 外掛程式。如果不需要，請考慮移除它。
+2.  檢查 Gradle Java 外掛程式是否僅用於單個任務。如果是這樣，您可能可以在不費太多力氣的情況下移除該外掛程式。例如，如果任務使用 Gradle Java 外掛程式來建立 Javadoc JAR 檔案，您可以手動定義 Javadoc 任務。
 
 否則，如果您想在您的多平台專案中同時使用 Kotlin Multiplatform Gradle 外掛程式和這些 Gradle Java 外掛程式，我們建議您：
 
-1. 在您的 Gradle 專案中建立一個獨立的子專案。
-2. 在獨立的子專案中，套用 Gradle Java 外掛程式。
-3. 在獨立的子專案中，新增對父多平台專案的依賴項。
+1.  在您的 Gradle 專案中建立一個獨立的子專案。
+2.  在獨立的子專案中，套用 Gradle Java 外掛程式。
+3.  在獨立的子專案中，新增對父多平台專案的依賴項。
 
 > 獨立子專案**不得**是多平台專案，且您只能使用它來設定對多平台專案的依賴項。
 >
@@ -865,7 +866,7 @@ Kotlin 編譯任務不再繼承具有 `sourceCompatibility` 和 `targetCompatibi
 | `SourceTask.stableSources` 輸入不再可用。        | 改用 `sources` 輸入。此外，`setSource()` 方法仍然可用。                          |
 | `sourceFilesExtensions` 輸入已移除。                      | 編譯任務仍實作 `PatternFilterable` 介面。使用其方法篩選 Kotlin 來源。 |
 | `Gradle destinationDir: File` 輸出已棄用。            | 改用 `destinationDirectory: DirectoryProperty` 輸出。                                              |
-| `KotlinCompile` 任務的 `classpath` 屬性已棄用。 | 所有編譯任務現在都使用 `libraries` 輸入來取得編譯所需的程式庫列表。              |
+| `classpath` 屬性中的 `KotlinCompile` 任務已棄用。 | 所有編譯任務現在都使用 `libraries` 輸入來取得編譯所需的程式庫列表。              |
 
 **這些變更何時生效？**
 

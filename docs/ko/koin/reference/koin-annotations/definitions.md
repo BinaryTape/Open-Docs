@@ -13,29 +13,32 @@ class MyComponent(val myDependency : MyDependency)
 
 Koin 어노테이션은 Koin DSL과 동일한 의미(semantic)를 가집니다. 다음 정의를 사용하여 컴포넌트를 선언할 수 있습니다:
 
--   `@Single` - 싱글톤 인스턴스 (DSL에서는 `single { }`로 선언)
--   `@Factory` - 팩토리 인스턴스. 인스턴스가 필요할 때마다 재생성되는 인스턴스입니다. (DSL에서는 `factory { }`로 선언)
--   `@KoinViewModel` - Android ViewModel 인스턴스 (DSL에서는 `viewModel { }`로 선언)
--   `@KoinWorker` - Android Worker Workmanager 인스턴스 (DSL에서는 `worker { }`로 선언)
+- `@Single` - 싱글톤 인스턴스 (DSL에서는 `single { }`로 선언)
+- `@Factory` - 팩토리 인스턴스. 인스턴스가 필요할 때마다 재생성되는 인스턴스입니다. (DSL에서는 `factory { }`로 선언)
+- `@KoinViewModel` - Android ViewModel 인스턴스 (DSL에서는 `viewModel { }`로 선언)
+- `@KoinWorker` - Android Worker Workmanager 인스턴스 (DSL에서는 `worker { }`로 선언)
 
 스코프에 대해서는 [스코프 선언](/docs/reference/koin-core/scopes.md) 섹션을 참조하세요.
 
 ### Kotlin Multiplatform용 Compose ViewModel 생성 (버전 1.4.0부터)
 
-`@KoinViewModel` 어노테이션은 Android 또는 Compose KMP ViewModel을 생성하는 데 사용될 수 있습니다. 일반 `org.koin.androidx.viewmodel.dsl.viewModel` 대신 `org.koin.compose.viewmodel.dsl.viewModel`을 사용하여 `viewModel` Koin 정의를 생성하려면, `KOIN_USE_COMPOSE_VIEWMODEL` 옵션을 활성화해야 합니다:
+`@KoinViewModel` 어노테이션은 기본적으로 `koin-core-viewmodel`의 메인 DSL을 사용하여 ViewModel을 생성합니다 (2.2.0부터 활성화됨). 이는 Kotlin Multiplatform 호환성을 제공하며 통합 ViewModel API를 사용합니다.
+
+`KOIN_USE_COMPOSE_VIEWMODEL` 옵션은 기본적으로 활성화되어 있습니다:
 
 ```groovy
 ksp {
+    // This is the default behavior since 2.2.0
     arg("KOIN_USE_COMPOSE_VIEWMODEL","true")
 }
 ```
 
-:::note
-`USE_COMPOSE_VIEWMODEL` 키는 `KOIN_USE_COMPOSE_VIEWMODEL`로 인해 더 이상 사용되지 않습니다.
-:::
+이는 멀티플랫폼 호환성을 위해 `org.koin.compose.viewmodel.dsl.viewModel`로 `viewModel` 정의를 생성합니다.
 
-:::note
-Koin 4.0에서는 ViewModel 타입 인자가 동일한 라이브러리에서 오므로 이 두 ViewModel DSL이 하나로 병합될 예정입니다.
+:::info
+- `KOIN_USE_COMPOSE_VIEWMODEL`은 어노테이션 2.2.0부터 기본적으로 활성화됩니다.
+- 이는 모든 플랫폼에서 통합 ViewModel API와의 일관성을 보장합니다.
+- 이전 `USE_COMPOSE_VIEWMODEL` 키는 제거되었습니다.
 :::
 
 ## 자동 또는 특정 바인딩
@@ -51,7 +54,7 @@ Koin은 `MyComponent` 컴포넌트가 `MyInterface`에도 연결되어 있음을
 
 Koin이 자동으로 감지하도록 하는 대신, `binds` 어노테이션 파라미터를 사용하여 실제로 바인딩하려는 타입을 지정할 수도 있습니다:
 
-```kotlin
+ ```kotlin
 @Single(binds = [MyBoundType::class])
 ```
 
@@ -124,8 +127,8 @@ class MyComponent(@InjectedParam val myDependency : MyDependency)
 그런 다음 `MyComponent`를 호출하고 `MyDependency`의 인스턴스를 전달할 수 있습니다:
 
 ```kotlin
-val m = MyDependency
-// Resolve MyComponent while passing  MyDependency
+val m = MyDependency()
+// Resolve MyComponent while passing MyDependency
 koin.get<MyComponent> { parametersOf(m) }
 ```
 
@@ -201,4 +204,138 @@ public class ComponentWithProps(
 }
 ```
 
-생성된 DSL 동등 구문은 `factory { ComponentWithProps(getProperty("id", ComponentWithProps.DEFAAULT_ID)) }`가 됩니다.
+생성된 DSL 동등 구문은 `factory { ComponentWithProps(getProperty("id", ComponentWithProps.DEFAULT_ID)) }`가 됩니다.
+
+## JSR-330 호환성 어노테이션
+
+Koin 어노테이션은 `koin-jsr330` 모듈을 통해 JSR-330 (Jakarta Inject) 호환 어노테이션을 제공합니다. 이 어노테이션은 Hilt, Dagger 또는 Guice와 같은 다른 JSR-330 호환 프레임워크에서 마이그레이션하는 개발자에게 특히 유용합니다.
+
+### 설정
+
+프로젝트에 `koin-jsr330` 의존성을 추가하세요:
+
+```kotlin
+dependencies {
+    implementation "io.insert-koin:koin-jsr330:$koin_version"
+}
+```
+
+### 사용 가능한 JSR-330 어노테이션
+
+#### @Singleton (jakarta.inject.Singleton)
+
+JSR-330 표준 싱글톤 어노테이션으로, Koin의 `@Single`과 동일합니다:
+
+```kotlin
+import jakarta.inject.Singleton
+
+@Singleton
+class DatabaseService
+```
+
+이는 `@Single`과 동일한 결과인 Koin의 싱글톤 인스턴스를 생성합니다.
+
+#### @Named (jakarta.inject.Named)
+
+문자열 기반 한정자(qualifier)를 위한 JSR-330 표준 한정자 어노테이션입니다:
+
+```kotlin
+import jakarta.inject.Named
+import jakarta.inject.Singleton
+
+@Singleton
+@Named("inMemory")
+class InMemoryCache : Cache
+
+@Singleton  
+@Named("redis")
+class RedisCache : Cache
+```
+
+#### @Inject (jakarta.inject.Inject)
+
+JSR-330 표준 주입 어노테이션입니다. Koin 어노테이션은 명시적인 생성자 마킹을 요구하지 않지만, `@Inject`는 JSR-330 호환성을 위해 사용될 수 있습니다:
+
+```kotlin
+import jakarta.inject.Inject
+import jakarta.inject.Singleton
+
+@Singleton
+class UserService @Inject constructor(
+    private val repository: UserRepository
+)
+```
+
+#### @Qualifier (jakarta.inject.Qualifier)
+
+커스텀 한정자 어노테이션을 생성하기 위한 메타 어노테이션입니다:
+
+```kotlin
+import jakarta.inject.Qualifier
+
+@Qualifier
+annotation class Database
+
+@Qualifier  
+annotation class Cache
+
+@Singleton
+@Database
+class DatabaseConfig
+
+@Singleton
+@Cache  
+class CacheConfig
+```
+
+#### @Scope (jakarta.inject.Scope)
+
+커스텀 스코프 어노테이션을 생성하기 위한 메타 어노테이션입니다:
+
+```kotlin
+import jakarta.inject.Scope
+
+@Scope
+annotation class RequestScoped
+
+// Koin의 스코프 시스템과 함께 사용
+@Scope(name = "request") 
+@RequestScoped
+class RequestProcessor
+```
+
+### 혼합 사용
+
+동일한 프로젝트에서 JSR-330 어노테이션과 Koin 어노테이션을 자유롭게 혼합하여 사용할 수 있습니다:
+
+```kotlin
+// JSR-330 style
+@Singleton
+@Named("primary")
+class PrimaryDatabase : Database
+
+// Koin style  
+@Single
+@Named("secondary")
+class SecondaryDatabase : Database
+
+// Mixed in same class
+@Factory
+class DatabaseManager @Inject constructor(
+    @Named("primary") private val primary: Database,
+    @Named("secondary") private val secondary: Database  
+)
+```
+
+### 프레임워크 마이그레이션 이점
+
+JSR-330 어노테이션을 사용하면 프레임워크 마이그레이션에 여러 가지 이점을 제공합니다:
+
+-   **익숙한 API**: Hilt, Dagger 또는 Guice에서 넘어온 개발자는 익숙한 어노테이션을 사용할 수 있습니다.
+-   **점진적 마이그레이션**: 기존 JSR-330 어노테이션이 적용된 코드가 최소한의 변경으로 작동합니다.
+-   **표준 준수**: JSR-330을 따르면 의존성 주입 표준과의 호환성이 보장됩니다.
+-   **팀 온보딩**: 다른 DI 프레임워크에 익숙한 팀에게 더 쉽습니다.
+
+:::info
+Koin의 JSR-330 어노테이션은 Koin의 동등한 어노테이션과 동일한 기본 DSL을 생성합니다. JSR-330 어노테이션과 Koin 어노테이션 중 어떤 것을 선택할지는 순전히 스타일적인 선호도나 마이그레이션 요구 사항에 따라 달라집니다.
+:::

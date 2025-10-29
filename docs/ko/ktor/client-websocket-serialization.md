@@ -16,11 +16,11 @@
 
 ## 의존성 추가 {id="add_dependencies"}
 
-`kotlinx.serialization` 컨버터를 사용하기 전에, `[Setup](https://github.com/Kotlin/kotlinx.serialization#setup)` 섹션에 설명된 대로 Kotlin 직렬화 플러그인을 추가해야 합니다.
+kotlinx.serialization 컨버터를 사용하기 전에, `[Setup](https://github.com/Kotlin/kotlinx.serialization#setup)` 섹션에 설명된 대로 Kotlin 직렬화 플러그인을 추가해야 합니다.
 
 #### JSON {id="add_json_dependency"}
 
-JSON 데이터를 직렬화/역직렬화하려면, 다음 라이브러리 중 하나를 선택할 수 있습니다: `kotlinx.serialization`, `Gson`, 또는 `Jackson`.
+JSON 데이터를 직렬화/역직렬화하려면, 다음 라이브러리 중 하나를 선택할 수 있습니다: kotlinx.serialization, Gson, 또는 Jackson.
 
 <Tabs group="json-libraries">
 <TabItem title="kotlinx.serialization" group-key="kotlinx">
@@ -195,7 +195,6 @@ install(WebSockets) {
 ```
 
 ### CBOR 직렬 변환기 {id="register_cbor"}
-
 웹소켓 `[configuration](client-websockets.topic#install_plugin)`에 CBOR 직렬 변환기를 등록하려면, `Cbor` 매개변수를 사용하여 `KotlinxWebsocketSerializationConverter` 인스턴스를 생성하고, 이 인스턴스를 `contentConverter` 속성에 할당하세요:
 
 ```kotlin
@@ -207,7 +206,6 @@ install(WebSockets) {
 ```
 
 ### ProtoBuf 직렬 변환기 {id="register_protobuf"}
-
 웹소켓 `[configuration](client-websockets.topic#install_plugin)`에 ProtoBuf 직렬 변환기를 등록하려면, `ProtoBuf` 매개변수를 사용하여 `KotlinxWebsocketSerializationConverter` 인스턴스를 생성하고, 이 인스턴스를 `contentConverter` 속성에 할당하세요:
 
 ```kotlin
@@ -227,14 +225,14 @@ install(WebSockets) {
 data class Customer(val id: Int, val firstName: String, val lastName: String)
 ```
 
-`kotlinx.serialization`을 사용하는 경우, 이 클래스에 `@Serializable` 어노테이션이 있는지 확인하세요:
+kotlinx.serialization을 사용하는 경우, 이 클래스에 `@Serializable` 어노테이션이 있는지 확인하세요:
 
 ```kotlin
 @Serializable
 data class Customer(val id: Int, val firstName: String, val lastName: String)
 ```
 
-`kotlinx.serialization`에 대해 더 알아보려면, `[Kotlin Serialization Guide](https://github.com/Kotlin/kotlinx.serialization/blob/master/docs/serialization-guide.md)`를 참조하세요.
+kotlinx.serialization에 대해 더 알아보려면, `[Kotlin Serialization Guide](https://github.com/Kotlin/kotlinx.serialization/blob/master/docs/serialization-guide.md)`를 참조하세요.
 
 ### 데이터 전송 {id="send_data"}
 

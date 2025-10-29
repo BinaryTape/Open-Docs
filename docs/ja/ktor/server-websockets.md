@@ -37,9 +37,9 @@ Ktorは、サーバー側とクライアント側の両方でWebSocketプロト�
 
 Ktorを使用すると、次のことができます。
 
-* 基本的なWebSocket設定（フレームサイズ、ping期間など）を構成できます。
-* サーバーとクライアント間でメッセージを交換するためのWebSocketセッションを処理できます。
-* WebSocket拡張機能を追加できます。例えば、[Deflate](server-websocket-deflate.md)拡張機能を使用したり、[カスタム拡張機能](server-websocket-extensions.md)を実装したりできます。
+*   基本的なWebSocket設定（フレームサイズ、ping期間など）を構成できます。
+*   サーバーとクライアント間でメッセージを交換するためのWebSocketセッションを処理できます。
+*   WebSocket拡張機能を追加できます。例えば、[Deflate](server-websocket-deflate.md)拡張機能を使用したり、[カスタム拡張機能](server-websocket-extensions.md)を実装したりできます。
 
 > クライアント側でのWebSocketサポートについては、[WebSocketsクライアントプラグイン](client-websockets.topic)を参照してください。
 
@@ -89,13 +89,13 @@ Ktorを使用すると、次のことができます。
 
 ## WebSocketsを構成する {id="configure"}
 
-オプションで、[WebSocketOptions](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-websockets/io.ktor.server.websocket/-web-sockets/-web-socket-options/index.html)を渡すことで、`install`ブロック内でプラグインを構成できます。
+オプションで、[WebSocketOptions](https://api.ktor.io/ktor-server-websockets/io.ktor.server.websocket/-web-sockets/-web-socket-options/index.html)を渡すことで、`install`ブロック内でプラグインを構成できます。
 
-* `pingPeriod`プロパティを使用して、ping間の期間を指定します。
-* `timeout`プロパティを使用して、接続が閉じられるまでのタイムアウトを設定します。
-* `maxFrameSize`プロパティを使用して、送受信できる最大フレームを設定します。
-* `masking`プロパティを使用して、マスキングが有効になっているかどうかを指定します。
-* `contentConverter`プロパティを使用して、シリアライゼーション/デシリアライゼーション用のコンバーターを設定します。
+*   `pingPeriod`プロパティを使用して、ping間の期間を指定します。
+*   `timeout`プロパティを使用して、接続が閉じられるまでのタイムアウトを設定します。
+*   `maxFrameSize`プロパティを使用して、送受信できる最大フレームを設定します。
+*   `masking`プロパティを使用して、マスキングが有効になっているかどうかを指定します。
+*   `contentConverter`プロパティを使用して、シリアライゼーション/デシリアライゼーション用のコンバーターを設定します。
 
 ```kotlin
 install(WebSockets) {
@@ -122,20 +122,20 @@ routing {
 
 この例では、[デフォルト構成](server-configuration-file.topic)が使用されている場合、サーバーは`ws://localhost:8080/echo`へのWebSocketリクエストを受け入れます。
 
-`webSocket`ブロック内では、[DefaultWebSocketServerSession](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-websockets/io.ktor.server.websocket/-default-web-socket-server-session/index.html)クラスで表されるWebSocketセッションのハンドラーを定義します。
+`webSocket`ブロック内では、[DefaultWebSocketServerSession](https://api.ktor.io/ktor-server-websockets/io.ktor.server.websocket/-default-web-socket-server-session/index.html)クラスで表されるWebSocketセッションのハンドラーを定義します。
 ブロック内で以下の関数とプロパティを使用できます。
 
-* `send`関数を使用して、テキストコンテンツをクライアントに送信します。
-* `incoming`および`outgoing`プロパティを使用して、WebSocketフレームを受信および送信するためのチャネルにアクセスします。フレームは`Frame`クラスで表されます。
-* `close`関数を使用して、指定された理由でクローズフレームを送信します。
+*   `send`関数を使用して、テキストコンテンツをクライアントに送信します。
+*   `incoming`および`outgoing`プロパティを使用して、WebSocketフレームを受信および送信するためのチャネルにアクセスします。フレームは`Frame`クラスで表されます。
+*   `close`関数を使用して、指定された理由でクローズフレームを送信します。
 
 セッションを処理する際に、フレームタイプを確認できます。例えば：
 
-* `Frame.Text`はテキストフレームです。このフレームタイプの場合、`Frame.Text.readText()`を使用してその内容を読み取ることができます。
-* `Frame.Binary`はバイナリフレームです。このタイプの場合、`Frame.Binary.readBytes()`を使用してその内容を読み取ることができます。
+*   `Frame.Text`はテキストフレームです。このフレームタイプの場合、`Frame.Text.readText()`を使用してその内容を読み取ることができます。
+*   `Frame.Binary`はバイナリフレームです。このタイプの場合、`Frame.Binary.readBytes()`を使用してその内容を読み取ることができます。
 
 > `incoming`チャネルには、ping/pongやクローズフレームなどの制御フレームは含まれていないことに注意してください。
-> 制御フレームを処理し、断片化されたフレームを再構築するには、[webSocketRaw](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-websockets/io.ktor.server.websocket/web-socket-raw.html)関数を使用してWebSocketセッションを処理します。
+> 制御フレームを処理し、断片化されたフレームを再構築するには、[webSocketRaw](https://api.ktor.io/ktor-server-websockets/io.ktor.server.websocket/web-socket-raw.html)関数を使用してWebSocketセッションを処理します。
 >
 {style="note"}
 
@@ -170,14 +170,14 @@ routing {
 
 複数のWebSocketセッションを効率的に管理し、ブロードキャストを処理するには、Kotlinの[`SharedFlow`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/-shared-flow/)を利用できます。このアプローチは、WebSocket通信を管理するためのスケーラブルで並行処理に適した方法を提供します。このパターンを実装する方法を以下に示します。
 
-1. メッセージをブロードキャストするための`SharedFlow`を定義します。
+1.  メッセージをブロードキャストするための`SharedFlow`を定義します。
 
 ```kotlin
 val messageResponseFlow = MutableSharedFlow<MessageResponse>()
 val sharedFlow = messageResponseFlow.asSharedFlow()
 ```
 
-2. WebSocketルートで、ブロードキャストとメッセージ処理ロジックを実装します。
+2.  WebSocketルートで、ブロードキャストとメッセージ処理ロジックを実装します。
 
 ```kotlin
 
@@ -216,10 +216,10 @@ val sharedFlow = messageResponseFlow.asSharedFlow()
 
 [WebSocket APIの標準イベント](https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API)は、Ktorでは次のようにマッピングされます。
 
-* `onConnect`はブロックの開始時に発生します。
-* `onMessage`は、メッセージを正常に読み取った後（例: `incoming.receive()`を使用した場合）、または`for(frame in incoming)`でサスペンドされたイテレーションを使用した後に発生します。
-* `onClose`は、`incoming`チャネルが閉じられたときに発生します。これにより、サスペンドされたイテレーションが完了するか、メッセージを受信しようとしたときに`ClosedReceiveChannelException`がスローされます。
-* `onError`は他の例外と同等です。
+*   `onConnect`はブロックの開始時に発生します。
+*   `onMessage`は、メッセージを正常に読み取った後（例: `incoming.receive()`を使用した場合）、または`for(frame in incoming)`でサスペンドされたイテレーションを使用した後に発生します。
+*   `onClose`は、`incoming`チャネルが閉じられたときに発生します。これにより、サスペンドされたイテレーションが完了するか、メッセージを受信しようとしたときに`ClosedReceiveChannelException`がスローされます。
+*   `onError`は他の例外と同等です。
 
 `onClose`と`onError`の両方で、`closeReason`プロパティが設定されます。
 

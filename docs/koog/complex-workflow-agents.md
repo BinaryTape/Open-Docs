@@ -1,9 +1,9 @@
 # 复杂工作流代理
 
-除了单次运行代理，`AIAgent` 类还允许您通过定义自定义策略、工具、配置以及自定义输入/输出类型来构建处理复杂工作流的代理。
+除了基本代理，`AIAgent` 类还允许您通过定义自定义策略、工具、配置以及自定义输入/输出类型来构建处理复杂工作流的代理。
 
 !!! tip
-    如果您是 Koog 新手并希望创建最简单的代理，请从 [单次运行代理](single-run-agents.md) 开始。
+    如果您是 Koog 新手并希望创建最简单的代理，请从 [基本代理](basic-agents.md) 开始。
 
 创建和配置此类代理的过程通常包括以下步骤：
 
@@ -16,7 +16,7 @@
 
 ## 前提条件
 
--   您拥有用于实现 AI 代理的 LLM 提供商提供的有效 API 密钥。有关所有可用提供商的列表，请参见 [概述](index.md)。
+-   您拥有用于实现 AI 代理的 LLM 提供商提供的有效 API 密钥。有关所有可用提供商的列表，请参见 [LLM 提供商](llm-providers.md)。
 
 !!! tip
     使用环境变量或安全的配置管理系统来存储您的 API 密钥。
@@ -34,7 +34,7 @@ dependencies {
 }
 ```
 
-有关所有可用的安装方法，请参见 [安装](index.md#installation)。
+有关所有可用的安装方法，请参见 [安装 Koog](getting-started.md#install-koog)。
 
 ### 2. 提供提示执行器
 
@@ -108,9 +108,9 @@ val strategy = strategy<InputType, OutputType>("Simple calculator") {
 -->
 ```kotlin
 val processNode by node<InputType, OutputType> { input ->
-    // Process the input and return an output
-    // You can use llm.writeSession to interact with the LLM
-    // You can call tools using callTool, callToolRaw, etc.
+    // 处理输入并返回输出
+    // 您可以使用 llm.writeSession 与 LLM 交互
+    // 您可以使用 callTool、callToolRaw 等调用工具
     transformedOutput
 }
 ```
@@ -130,16 +130,16 @@ const val transformedOutput = "transformed-output"
 val strategy = strategy<String, String>("Simple calculator") {
 
     val sourceNode by node<String, String> { input ->
-        // Process the input and return an output
-        // You can use llm.writeSession to interact with the LLM
-        // You can call tools using callTool, callToolRaw, etc.
+        // 处理输入并返回输出
+        // 您可以使用 llm.writeSession 与 LLM 交互
+        // 您可以使用 callTool、callToolRaw 等调用工具
         transformedOutput
     }
 
     val targetNode by node<String, String> { input ->
-        // Process the input and return an output
-        // You can use llm.writeSession to interact with the LLM
-        // You can call tools using callTool, callToolRaw, etc.
+        // 处理输入并返回输出
+        // 您可以使用 llm.writeSession 与 LLM 交互
+        // 您可以使用 callTool、callToolRaw 等调用工具
         transformedOutput
     }
 -->
@@ -332,7 +332,7 @@ val agent = AIAgent(
 // 安装 EventHandler 特性
 installFeatures = {
     install(EventHandler) {
-        onAgentStarting { eventContext: AgentStartingContext<*> ->
+        onAgentStarting { eventContext: AgentStartingContext ->
             println("正在启动代理: ${eventContext.agent.id}")
         }
         onAgentCompleted { eventContext: AgentCompletedContext ->
@@ -367,7 +367,7 @@ val agent = AIAgent(
     agentConfig = agentConfig,
     installFeatures = {
         install(EventHandler) {
-            onAgentStarting { eventContext: AgentStartingContext<*> ->
+            onAgentStarting { eventContext: AgentStartingContext ->
                 println("正在启动代理: ${eventContext.agent.id}")
             }
             onAgentCompleted { eventContext: AgentCompletedContext ->
@@ -510,7 +510,7 @@ val agent = AIAgent(
     agentConfig = agentConfig,
     installFeatures = {
         install(EventHandler) {
-            onAgentStarting { eventContext: AgentStartingContext<*> ->
+            onAgentStarting { eventContext: AgentStartingContext ->
                 println("正在启动代理: ${eventContext.agent.id}")
             }
             onAgentCompleted { eventContext: AgentCompletedContext ->

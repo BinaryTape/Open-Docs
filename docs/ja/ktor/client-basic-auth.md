@@ -21,7 +21,7 @@ Basic [認証スキーム](client-auth.md)は、ユーザーのログインに�
 
 Basic認証のフローは次のようになります。
 
-1. クライアントは、サーバーアプリケーション内の特定のリソースに対して、`Authorization`ヘッダーなしでリクエストを送信します。
+1. クライアントは、`Authorization`ヘッダーなしでサーバーアプリケーション内の特定のリソースに対してリクエストを送信します。
 2. サーバーは、クライアントに`401` (Unauthorized) レスポンスステータスで応答し、`WWW-Authenticate`レスポンスヘッダーを使用して、Basic認証スキームがルートを保護するために使用されているという情報を提供します。典型的な`WWW-Authenticate`ヘッダーは次のようになります。
 
    ```
@@ -44,8 +44,8 @@ Basic認証のフローは次のようになります。
 
 `Basic`スキームを使用して`Authorization`ヘッダーにユーザーの資格情報を送信するには、`basic`認証プロバイダーを次のように構成する必要があります。
 
-1. `install`ブロック内で[basic](https://api.ktor.io/ktor-client/ktor-client-plugins/ktor-client-auth/io.ktor.client.plugins.auth.providers/basic.html)関数を呼び出します。
-2. [BasicAuthCredentials](https://api.ktor.io/ktor-client/ktor-client-plugins/ktor-client-auth/io.ktor.client.plugins.auth.providers/-basic-auth-credentials/index.html)を使用して必要な資格情報を提供し、このオブジェクトを[credentials](https://api.ktor.io/ktor-client/ktor-client-plugins/ktor-client-auth/io.ktor.client.plugins.auth.providers/-basic-auth-config/credentials.html)関数に渡します。
+1. `install`ブロック内で[basic](https://api.ktor.io/ktor-client-auth/io.ktor.client.plugins.auth.providers/basic.html)関数を呼び出します。
+2. [BasicAuthCredentials](https://api.ktor.io/ktor-client-auth/io.ktor.client.plugins.auth.providers/-basic-auth-credentials/index.html)を使用して必要な資格情報を提供し、このオブジェクトを[credentials](https://api.ktor.io/ktor-client-auth/io.ktor.client.plugins.auth.providers/-basic-auth-config/credentials.html)関数に渡します。
 3. `realm`プロパティを使用してレルムを構成します。
 
    ```kotlin

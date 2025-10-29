@@ -7,8 +7,8 @@
     "text": "kmp.kotlin-multiplatform-overview",
     "items": [
       {
-        "text": "kmp.why-kotlin-multiplatform",
-        "href": "https://www.jetbrains.com/kotlin-multiplatform/"
+        "text": "kmp.kmp-overview",
+        "link": "kmp-overview"
       },
       {
         "text": "kmp.supported-platforms",

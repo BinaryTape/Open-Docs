@@ -61,7 +61,7 @@ Basic認証フローは次のようになります。
 4.  サーバーは、クライアントから送信された認証情報を[検証](#configure-provider)し、リクエストされたコンテンツで応答します。
 
 ## Basic認証のインストール {id="install"}
-`basic`認証プロバイダーをインストールするには、`install`ブロック内で[basic](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-auth/io.ktor.server.auth/basic.html)関数を呼び出します。
+`basic`認証プロバイダーをインストールするには、`install`ブロック内で[basic](https://api.ktor.io/ktor-server-auth/io.ktor.server.auth/basic.html)関数を呼び出します。
 
 ```kotlin
 import io.ktor.server.application.*
@@ -82,7 +82,7 @@ Ktorで様々な認証プロバイダーを構成する方法の一般的な考�
 
 ### ステップ1: Basicプロバイダーの構成 {id="configure-provider"}
 
-`basic`認証プロバイダーは、[BasicAuthenticationProvider.Configuration](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-auth/io.ktor.server.auth/-basic-authentication-provider/-config/index.html)クラスを介して設定を公開します。以下の例では、次の設定が指定されています。
+`basic`認証プロバイダーは、[BasicAuthenticationProvider.Configuration](https://api.ktor.io/ktor-server-auth/io.ktor.server.auth/-basic-authentication-provider/-config/index.html)クラスを介して設定を公開します。以下の例では、次の設定が指定されています。
 *   `realm`プロパティは、`WWW-Authenticate`ヘッダーに渡すレルムを設定します。
 *   `validate`関数は、ユーザー名とパスワードを検証します。
 
@@ -106,7 +106,7 @@ install(Authentication) {
 
 ### ステップ2: 特定のリソースの保護 {id="authenticate-route"}
 
-`basic`プロバイダーを構成した後、**[authenticate](server-auth.md#authenticate-route)**関数を使用してアプリケーション内の特定のリソースを保護できます。認証が成功した場合、ルートハンドラー内で`call.principal`関数を使用して認証された[UserIdPrincipal](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-auth/io.ktor.server.auth/-user-id-principal/index.html)を取得し、認証されたユーザーの名前を取得できます。
+`basic`プロバイダーを構成した後、**[authenticate](server-auth.md#authenticate-route)**関数を使用してアプリケーション内の特定のリソースを保護できます。認証が成功した場合、ルートハンドラー内で`call.principal`関数を使用して認証された[UserIdPrincipal](https://api.ktor.io/ktor-server-auth/io.ktor.server.auth/-user-id-principal/index.html)を取得し、認証されたユーザーの名前を取得できます。
 
 ```kotlin
 routing {
@@ -144,7 +144,7 @@ Ktorでは、ユーザー名とパスワードのハッシュを保持するイ�
    )
    ```
    
-3.  `validate`関数内で、[UserHashedTableAuth.authenticate](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-auth/io.ktor.server.auth/-user-hashed-table-auth/authenticate.html)関数を呼び出してユーザーを認証し、認証情報が有効な場合は`UserIdPrincipal`のインスタンスを返します。
+3.  `validate`関数内で、[UserHashedTableAuth.authenticate](https://api.ktor.io/ktor-server-auth/io.ktor.server.auth/-user-hashed-table-auth/authenticate.html)関数を呼び出してユーザーを認証し、認証情報が有効な場合は`UserIdPrincipal`のインスタンスを返します。
 
    ```kotlin
    install(Authentication) {

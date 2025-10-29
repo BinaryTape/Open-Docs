@@ -1,4 +1,4 @@
-[//]: # (title: Compose Multiplatform 1.9.1 中的新特性)
+[//]: # (title: Compose Multiplatform 1.9.2 中的新特性)
 
 以下是本次特性发布的亮点：
 
@@ -15,16 +15,16 @@
 
 ## 依赖项
 
-*   Gradle 插件 `org.jetbrains.compose`，版本 1.9.1。基于 Jetpack Compose 库：
-    *   [Runtime 1.9.3](https://developer.android.com/jetpack/androidx/releases/compose-runtime#1.9.3)
-    *   [UI 1.9.3](https://developer.android.com/jetpack/androidx/releases/compose-ui#1.9.3)
-    *   [Foundation 1.9.3](https://developer.android.com/jetpack/androidx/releases/compose-foundation#1.9.3)
-    *   [Material 1.9.3](https://developer.android.com/jetpack/androidx/releases/compose-material#1.9.3)
+*   Gradle 插件 `org.jetbrains.compose`，版本 1.9.2。基于 Jetpack Compose 库：
+    *   [Runtime 1.9.4](https://developer.android.com/jetpack/androidx/releases/compose-runtime#1.9.4)
+    *   [UI 1.9.4](https://developer.android.com/jetpack/androidx/releases/compose-ui#1.9.4)
+    *   [Foundation 1.9.4](https://developer.android.com/jetpack/androidx/releases/compose-foundation#1.9.4)
+    *   [Material 1.9.4](https://developer.android.com/jetpack/androidx/releases/compose-material#1.9.4)
     *   [Material3 1.4.0](https://developer.android.com/jetpack/androidx/releases/compose-material3#1.4.0)
 
 *   Compose Material3 库 `org.jetbrains.compose.material3:1.9.0`。基于 [Jetpack Material3 1.4.0](https://developer.android.com/jetpack/androidx/releases/compose-material3#1.4.0)。
-    得益于 Compose Multiplatform 和 Material3 的[解耦版本控制](#decoupled-material3-versioning)，你可以为你的项目选择更新的预发布版本。
-*   Compose Material3 Adaptive 库 `org.jetbrains.compose.material3.adaptive:adaptive*:1.2.0-alpha05`。基于 [Jetpack Material3 Adaptive 1.2.0-alpha10](https://developer.android.com/jetpack/androidx/releases/compose-material3-adaptive#1.2.0-alpha10)
+    得益于 Compose Multiplatform 和 Material3 [解耦的版本](#decoupled-material3-versioning)，你可以为你的项目选择更新的预发布版本。
+*   Compose Material3 Adaptive 库 `org.jetbrains.compose.material3.adaptive:adaptive*:1.2.0`。基于 [Jetpack Material3 Adaptive 1.2.0](https://developer.android.com/jetpack/androidx/releases/compose-material3-adaptive#1.2.0)
 *   Lifecycle 库 `org.jetbrains.androidx.lifecycle:lifecycle-*:2.9.5`。基于 [Jetpack Lifecycle 2.9.4](https://developer.android.com/jetpack/androidx/releases/lifecycle#2.9.4)
 *   Navigation 库 `org.jetbrains.androidx.navigation:navigation-*:2.9.1`。基于 [Jetpack Navigation 2.9.4](https://developer.android.com/jetpack/androidx/releases/navigation#2.9.4)
 *   Savedstate 库 `org.jetbrains.androidx.savedstate:savedstate:1.3.5`。基于 [Jetpack Savedstate 1.3.3](https://developer.android.com/jetpack/androidx/releases/savedstate#1.3.3)

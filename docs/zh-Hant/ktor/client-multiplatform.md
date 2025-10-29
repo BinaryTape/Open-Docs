@@ -56,7 +56,7 @@ Ktor 用戶端可用於多平台專案，並支援 Android、JavaScript 和 Nati
    若要了解每個平台支援哪些引擎，請參閱 [新增引擎依賴項](client-engines.md#dependencies)。
 
 ## 建立用戶端 {id="create-client"}
-若要在多平台專案中建立用戶端，請在專案的 [通用程式碼](https://kotlinlang.org/docs/mpp-discover-project.html#source-sets) 中呼叫 [HttpClient](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client/-http-client/index.html) 建構函式：
+若要在多平台專案中建立用戶端，請在專案的 [通用程式碼](https://kotlinlang.org/docs/mpp-discover-project.html#source-sets) 中呼叫 [HttpClient](https://api.ktor.io/ktor-client-core/io.ktor.client/-http-client/index.html) 建構函式：
 
 ```kotlin
 import io.ktor.client.*
@@ -78,7 +78,7 @@ val client = HttpClient(Android) {
         // this: AndroidEngineConfig
         connectTimeout = 100_000
         socketTimeout = 100_000
-        proxy = Proxy(Proxy.Type.HTTP, new InetSocketAddress("localhost", 8080))
+        proxy = Proxy(Proxy.Type.HTTP, InetSocketAddress("localhost", 8080))
     }
 }
 ```

@@ -24,7 +24,7 @@ Koogフレームワークは2種類のセッションを提供します。
 
 1.  **書き込みセッション** (`AIAgentLLMWriteSession`): プロンプトとツールを変更し、LLMリクエストを行い、ツールを実行できます。書き込みセッションで行われた変更は、LLMコンテキストに永続化されます。
 
-2.  **読み取りセッション** (`AIAgentLLMReadSession`): プロンプトとツールへの読み取り専用アクセスを提供します。変更を加えることなく現在の状態を検査するのに役立ちます。
+2.  **読み取りセッション** (`AIAgentLLMReadSession`): プロンプトとツールへの読み取り専用アクセスを提供します。これらは、変更を加えることなく現在の状態を検査するのに役立ちます。
 
 主な違いは、書き込みセッションは会話履歴を変更できるのに対し、読み取りセッションは変更できない点です。
 
@@ -119,7 +119,7 @@ val strategy = strategy<Unit, Unit>("strategy-name") {
 ```kotlin
 llm.writeSession {
     // Modify the prompt
-    updatePrompt {
+    appendPrompt {
         user("New user message")
     }
 
@@ -254,7 +254,7 @@ llm.writeSession {
 
 ### プロンプトの更新
 
-書き込みセッションでは、`updatePrompt` メソッドを使用してプロンプト（会話履歴）を更新できます。
+書き込みセッションでは、`appendPrompt` メソッドを使用してプロンプト（会話履歴）にメッセージを追加できます。
 
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
@@ -278,7 +278,7 @@ val strategy = strategy<Unit, Unit>("strategy-name") {
 -->
 ```kotlin
 llm.writeSession {
-    updatePrompt {
+    appendPrompt {
         // Add a system message
         system("You are a helpful assistant.")
 
@@ -339,7 +339,7 @@ val strategy = strategy<Unit, Unit>("strategy-name") {
 ```kotlin
 llm.writeSession {
     // Add a user message
-    updatePrompt {
+    appendPrompt {
         user("What's the capital of France?")
     }
 

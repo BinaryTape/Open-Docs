@@ -54,7 +54,7 @@ v2.0.0부터 Ktor는 커스텀 [플러그인](server-plugins.md) 생성을 위�
 
 커스텀 플러그인에서 호출의 다양한 단계에 접근을 제공하는 핸들러 세트를 사용하여 [요청](server-requests.md)과 [응답](server-responses.md)을 처리할 수 있습니다:
 
-*   [`onCall`](#on-call)을 사용하면 요청/응답 정보를 가져오고 응답 매개변수(예: 커스텀 헤더 추가) 등을 수정할 수 있습니다.
+*   [`onCall`](#on-call)을 사용하면 요청/응답 정보를 가져오고 응답 매개변수(예: [커스텀 헤더 추가](#custom-header)) 등을 수정할 수 있습니다.
 *   [`onCallReceive`](#on-call-receive)를 사용하면 클라이언트로부터 수신된 데이터를 얻고 변환할 수 있습니다.
 *   [`onCallRespond`](#on-call-respond)를 사용하면 클라이언트에 데이터를 보내기 전에 데이터를 변환할 수 있습니다.
 *   [`on(...)`](#other)을 사용하면 호출의 다른 단계 또는 호출 중 발생한 예외를 처리하는 데 유용할 수 있는 특정 훅(hook)을 호출할 수 있습니다.
@@ -428,7 +428,7 @@ val SimplePlugin = createApplicationPlugin(name = "SimplePlugin") {
 
 *   suspendable 데이터베이스와 함께 커스텀 플러그인을 사용할 수 있나요?
 
-    네, 모든 핸들러는 suspending 함수이므로 플러그인 내에서 suspendable 데이터베이스 작업을 수행할 수 있습니다. 하지만 특정 호출에 대한 리소스 할당을 해제하는 것을 잊지 마세요(예: [`on(ResponseSent)`](#other) 사용).
+    네. 모든 핸들러는 suspending 함수이므로 플러그인 내에서 suspendable 데이터베이스 작업을 수행할 수 있습니다. 하지만 특정 호출에 대한 리소스 할당을 해제하는 것을 잊지 마세요(예: [`on(ResponseSent)`](#other) 사용).
 
 *   블로킹 데이터베이스와 함께 커스텀 플러그인을 사용하는 방법은 무엇인가요?
 
@@ -443,4 +443,3 @@ val SimplePlugin = createApplicationPlugin(name = "SimplePlugin") {
             database.access(...) // some call to your database
         }
     }
-    ```

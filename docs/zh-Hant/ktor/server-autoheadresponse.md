@@ -67,4 +67,4 @@ fun Application.main() {
 值得注意的是，如果我們使用此外掛程式，針對相同 `GET` 路由的自訂 `HEAD` 定義將被忽略。
 
 ## 選項
-%plugin_name% 不提供任何額外的設定選項。
+`%plugin_name%` 不提供任何額外的設定選項。

@@ -58,7 +58,6 @@ install(Authentication) {
 ```
 
 `validate` 函数将用于检测用户凭证。
- 
 
 ### 步骤 2: 认证 LDAP 用户 {id="authenticate"}
 

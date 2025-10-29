@@ -9,7 +9,7 @@
     <p>이것은 <strong>공유 로직과 네이티브 UI로 Kotlin Multiplatform 앱 만들기</strong> 튜토리얼의 두 번째 파트입니다. 계속하기 전에 이전 단계를 완료했는지 확인하세요.</p>
     <p><img src="icon-1-done.svg" width="20" alt="첫 번째 단계"/> <Links href="/kmp/multiplatform-create-first-app" summary="This tutorial uses IntelliJ IDEA, but you can also follow it in Android Studio – both IDEs share the same core functionality and Kotlin Multiplatform support. This is the first part of the Create a Kotlin Multiplatform app with shared logic and native UI tutorial. Create your Kotlin Multiplatform app Update the user interface Add dependencies Share more logic Wrap up your project">Kotlin Multiplatform 앱 만들기</Links><br/>
        <img src="icon-2.svg" width="20" alt="두 번째 단계"/> <strong>사용자 인터페이스 업데이트</strong><br/>
-       <img src="icon-3-todo.svg" width="20" alt="세 번째 단계"/> 종속성 추가<br/>       
+       <img src="icon-3-todo.svg" width="20" alt="세 번째 단계"/> 종속성 추가<br/>
        <img src="icon-4-todo.svg" width="20" alt="네 번째 단계"/> 더 많은 로직 공유<br/>
        <img src="icon-5-todo.svg" width="20" alt="다섯 번째 단계"/> 프로젝트 마무리<br/>
     </p>
@@ -23,21 +23,22 @@
 
 몇 가지 변경 사항을 적용하고 UI에 어떻게 반영되는지 확인해 보세요:
 
-1.  `composeApp/src/androidMain/kotlin` 경로의 `App.kt` 파일로 이동합니다.
+1.  `composeApp/src/androidMain/.../greetingkmp` 경로의 `App.kt` 파일로 이동합니다.
 2.  `Greeting` 클래스 호출을 찾습니다. `greet()` 함수를 선택하고 마우스 오른쪽 버튼을 클릭한 다음 **Go To** | **Declaration or Usages**를 선택합니다.
     이것이 이전 단계에서 편집했던 `shared` 모듈의 동일한 클래스임을 알 수 있습니다.
-3.  `Greeting.kt` 파일에서 `greet()` 함수를 업데이트합니다:
+3.  `Greeting.kt` 파일에서 `Greeting` 클래스를 업데이트하여 `greet()` 함수가 문자열 목록을 반환하도록 합니다:
 
     ```kotlin
-    import kotlin.random.Random
+    class Greeting {
     
-    fun greet(): List<String> = buildList {
-        add(if (Random.nextBoolean()) "Hi!" else "Hello!")
-        add("Guess what this is! > ${platform.name.reversed()}!")
+        private val platform: Platform = getPlatform()
+    
+        fun greet(): List<String> = buildList {
+            add(if (Random.nextBoolean()) "Hi!" else "Hello!")
+            add("Guess what this is! > ${platform.name.reversed()}!")
+        }
     }
     ```
-
-    이제 문자열 목록을 반환합니다.
 
 4.  `App.kt` 파일로 돌아가서 `App()` 구현을 업데이트합니다:
 
@@ -77,8 +78,8 @@
 
 Android 앱에서와 동일한 변경 사항을 구현합니다:
 
-1.  IntelliJ IDEA에서 **Project** 툴 창에서 프로젝트 루트에 있는 `iosApp` 폴더를 찾습니다.
-2.  `ContentView.swift` 파일을 열고, `Greeting().greet()` 호출을 마우스 오른쪽 버튼으로 클릭한 다음 **Go To** | **Definition**을 선택합니다.
+1.  IntelliJ IDEA에서 **Project** 툴 창에서 프로젝트 루트에 있는 `iosApp/iosApp` 폴더를 찾습니다.
+2.  `iosApp/ContentView.swift` 파일을 열고, `Greeting().greet()` 호출을 마우스 오른쪽 버튼으로 클릭한 다음 **Go To** | **Definition**을 선택합니다.
 
     `shared` 모듈에 정의된 Kotlin 함수의 Objective-C 선언을 볼 수 있습니다. Kotlin 타입은 Objective-C/Swift에서 사용될 때 Objective-C 타입으로 표현됩니다. 여기서 `greet()` 함수는 Kotlin에서는 `List<String>`을 반환하고, Swift에서는 `NSArray<NSString>`을 반환하는 것으로 보입니다. 타입 매핑에 대한 자세한 내용은 [Swift/Objective-C와의 상호 운용성(Interoperability)](https://kotlinlang.org/docs/native-objc-interop.html)을 참조하세요.
 

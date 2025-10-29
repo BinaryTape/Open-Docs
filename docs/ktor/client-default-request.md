@@ -123,12 +123,12 @@ defaultRequest {
 ```kotlin
 val client = HttpClient(CIO)
 
-// Sending a single request to a Unix domain socket
+// 向 Unix 域套接字发送单个请求
 val response: HttpResponse = client.get("/") {
     unixSocket("/tmp/test-unix-socket-ktor.sock")
 }
 
-// Setting up the socket for all requests from that client
+// 为该客户端的所有请求设置套接字
 val clientDefault = HttpClient(CIO) {
     defaultRequest {
         unixSocket("/tmp/test-unix-socket-ktor.sock")

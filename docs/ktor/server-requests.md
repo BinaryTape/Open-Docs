@@ -4,14 +4,16 @@
 
 <link-summary>了解如何在路由处理器内处理传入请求。</link-summary>
 
-Ktor 允许您在[路由处理器](server-routing.md#define_route)内处理传入传入请求并发送[响应](server-responses.md)。处理请求时，您可以执行多种操作：
+Ktor 允许您在[路由处理器](server-routing.md#define_route)内处理传入请求并发送[响应](server-responses.md)。处理请求时，您可以执行多种操作：
+
 * 获取[请求信息](#request_information)，例如请求头、Cookie 等。
 * 获取[路径参数](#path_parameters)值。
 * 获取[查询字符串](#query_parameters)的参数。
 * 接收[正文内容](#body_contents)，例如数据对象、表单参数和文件。
 
 ## 常规请求信息 {id="request_information"}
-在路由处理器内，您可以使用 [call.request](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.application/-application-call/request.html) 属性访问请求。这会返回 [ApplicationRequest](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.request/-application-request/index.html) 实例，并提供对各种请求参数的访问。例如，以下代码片段展示了如何获取请求 URI：
+在路由处理器内，您可以使用 [`call.request`](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.application/-application-call/request.html) 属性访问请求。这会返回 [`ApplicationRequest`](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.request/-application-request/index.html) 实例，并提供对各种请求参数的访问。例如，以下代码片段展示了如何获取请求 URI：
+
 ```kotlin
 routing {
     get("/") {
@@ -20,20 +22,29 @@ routing {
     }
 }
 ```
-> [call.respondText](server-responses.md#plain-text) 方法用于向客户端发送响应。
+[`call.respondText()`](server-responses.md#plain-text) 方法用于向客户端发送响应。
 
-[ApplicationRequest](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.request/-application-request/index.html) 对象允许您访问各种请求数据，例如：
-* 请求头  
-  要访问所有请求头，请使用 [ApplicationRequest.headers](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.request/-application-request/headers.html) 属性。您还可以使用专用的扩展函数访问特定请求头，例如 `acceptEncoding`、`contentType`、`cacheControl` 等。
-* Cookie  
-  [ApplicationRequest.cookies](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.request/-application-request/cookies.html) 属性提供对与请求相关的 Cookie 的访问。要了解如何使用 Cookie 处理会话，请参阅[会话](server-sessions.md)部分。
-* 连接详情  
-  使用 [ApplicationRequest.local](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.request/-application-request/local.html) 属性访问连接详情，例如主机名、端口、方案等。
-* `X-Forwarded-` 请求头  
-  要获取通过 HTTP 代理或负载均衡器传递的请求信息，请安装 [Forwarded headers](server-forward-headers.md) 插件并使用 [ApplicationRequest.origin](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.plugins/origin.html) 属性。
+[`ApplicationRequest`](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.request/-application-request/index.html) 对象允许您访问各种请求数据，例如：
+
+* **请求头**
+
+  要访问所有请求头，请使用 [`ApplicationRequest.headers`](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.request/-application-request/headers.html) 属性。您还可以使用专用的扩展函数访问特定请求头，例如 `acceptEncoding`、`contentType`、`cacheControl` 等。
+
+* **Cookie**  
+
+  [`ApplicationRequest.cookies`](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.request/-application-request/cookies.html) 属性提供对与请求相关的 Cookie 的访问。要了解如何使用 Cookie 处理会话，请参阅[会话](server-sessions.md)部分。
+
+* **连接详情**
+
+  使用 [`ApplicationRequest.local`](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.request/-application-request/local.html) 属性访问连接详情，例如主机名、端口、方案等。
+
+* **`X-Forwarded-` 请求头**
+
+  要获取通过 HTTP 代理或负载均衡器传递的请求信息，请安装 [Forwarded headers](server-forward-headers.md) 插件并使用 [`ApplicationRequest.origin`](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.plugins/origin.html) 属性。
 
 ## 路径参数 {id="path_parameters"}
 处理请求时，您可以使用 `call.parameters` 属性访问[路径参数](server-routing.md#path_parameter)值。例如，以下代码片段中的 `call.parameters["login"]` 对于 `/user/admin` 路径将返回 _admin_：
+
 ```kotlin
 get("/user/{login}") {
     if (call.parameters["login"] == "admin") {
@@ -44,7 +55,7 @@ get("/user/{login}") {
 
 ## 查询参数 {id="query_parameters"}
 
-要访问<emphasis tooltip="query_string">查询字符串</emphasis>的参数，您可以使用 [ApplicationRequest.queryParameters](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.request/-application-request/query-parameters.html) 属性。例如，如果向 `/products?price=asc` 发出请求，您可以按以下方式访问 `price` 查询参数：
+要访问<emphasis tooltip="query_string">查询字符串</emphasis>的参数，您可以使用 [`ApplicationRequest.queryParameters()`](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.request/-application-request/query-parameters.html) 属性。例如，如果向 `/products?price=asc` 发出请求，您可以按以下方式访问 `price` 查询参数：
 
 ```kotlin
 get("/products") {
@@ -54,15 +65,14 @@ get("/products") {
 }
 ```
 
-您还可以使用 [ApplicationRequest.queryString](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.request/query-string.html) 函数获取整个查询字符串。
+您还可以使用 [`ApplicationRequest.queryString()`](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.request/query-string.html) 函数获取整个查询字符串。
 
 ## 正文内容 {id="body_contents"}
 本节展示了如何接收随 `POST`、`PUT` 或 `PATCH` 请求发送的正文内容。
 
 ### 原始有效负载 {id="raw"}
 
-要访问原始正文有效负载并手动解析它，请使用 [ApplicationCall.receive](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.request/receive.html) 函数，该函数接受要接收的有效负载类型。
-假设您有以下 HTTP 请求：
+要访问原始正文有效负载并手动解析它，请使用 [`ApplicationCall.receive()`](https://api.ktor.io/ktor-server-core/io.ktor.server.request/receive.html) 函数，该函数接受要接收的有效负载类型。假设您有以下 HTTP 请求：
 
 ```HTTP
 POST http://localhost:8080/text
@@ -76,7 +86,7 @@ Hello, world!
 - **字符串**
 
    要将请求正文作为 String 值接收，请使用 `call.receive<String>()`。
-   您也可以使用 [receiveText](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.request/receive-text.html) 来达到相同的结果：
+   您也可以使用 [`.receiveText()`](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.request/receive-text.html) 来达到相同的结果：
    ```kotlin
    post("/text") {
        val text = call.receiveText()
@@ -95,11 +105,11 @@ Hello, world!
    ```
 - **ByteReadChannel**
 
-   您可以使用 `call.receive<ByteReadChannel>()` 或 [receiveChannel](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.request/receive-channel.html) 来接收 [ByteReadChannel](https://api.ktor.io/ktor-io/io.ktor.utils.io/-byte-read-channel/index.html)，它支持字节序列的异步读取：
+   您可以使用 `call.receive<ByteReadChannel>()` 或 [`.receiveChannel()`](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.request/receive-channel.html) 来接收 [`ByteReadChannel`](https://api.ktor.io/ktor-io/io.ktor.utils.io/-byte-read-channel/index.html)，它支持字节序列的异步读取：
    ```kotlin
    post("/channel") {
        val readChannel = call.receiveChannel()
-       val text = readChannel.readRemaining().readText()
+       val text = readChannel.readRemaining().readString()
        call.respondText(text)
    }
    ```
@@ -113,19 +123,27 @@ Hello, world!
    }
    ```
 
-您可以在此处找到完整示例：[post-raw-data](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/post-raw-data)。
+> 关于在 Ktor channel 和诸如 `RawSink`、`RawSource` 或 `OutputStream` 等类型之间进行转换，请参见[I/O 互操作性](io-interoperability.md)。
+>
+{style="tip"}
+
+> 关于完整示例，请参见 [post-raw-data](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/post-raw-data)。
 
 ### 对象 {id="objects"}
-Ktor 提供了一个 [ContentNegotiation](server-serialization.md) 插件，用于协商请求的媒体类型并将内容反序列化为所需类型的对象。要接收并转换请求的内容，请调用 [ApplicationCall.receive](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.request/receive.html) 函数，该函数接受数据类作为参数：
-```kotlin
 
-        post("/customer") {
-            val customer = call.receive<Customer>()
-            customerStorage.add(customer)
-            call.respondText("Customer stored correctly", status = HttpStatusCode.Created)
+Ktor 提供了一个 [ContentNegotiation](server-serialization.md) 插件，用于协商请求的媒体类型并将内容反序列化为所需类型的对象。
+
+要接收并转换请求的内容，请调用 [`ApplicationCall.receive()`](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.request/receive.html) 函数，该函数接受数据类作为参数：
+
+```kotlin
+post("/customer") {
+    val customer = call.receive<Customer>()
+    customerStorage.add(customer)
+    call.respondText("Customer stored correctly", status = HttpStatusCode.Created)
+}
 ```
 
-您可以从 [Ktor Server 中的内容协商和序列化](server-serialization.md)了解更多信息。
+> 关于更多信息，请参见 [Ktor Server 中的内容协商和序列化](server-serialization.md)。
 
 ### 表单参数 {id="form_parameters"}
 Ktor 允许您使用 [receiveParameters](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.request/receive-parameters.html) 函数接收随 `x-www-form-urlencoded` 和 `multipart/form-data` 类型发送的表单参数。以下示例展示了一个 [HTTP 客户端](https://www.jetbrains.com/help/idea/http-client-in-product-code-editor.html) `POST` 请求，表单参数通过正文传递：
@@ -145,12 +163,12 @@ post("/signup") {
 }
 ```
 
-您可以在此处找到完整示例：[post-form-parameters](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/post-form-parameters)。
+> 关于完整示例，请参见 [post-form-parameters](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/post-form-parameters)。
 
 ### 多部分表单数据 {id="form_data"}
 
 要接收作为多部分请求一部分发送的文件，请调用
-[.receiveMultipart()](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.request/receive-multipart.html)
+[`.receiveMultipart()`](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.request/receive-multipart.html)
 函数，然后根据需要遍历每个部分。
 
 多部分请求数据是按顺序处理的，因此您无法直接访问它的特定部分。此外，
@@ -260,5 +278,5 @@ post("/upload") {
 part.dispose()
 ```
 
-要了解如何运行此示例，请参阅
-[upload-file](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/upload-file)。
+> 要了解如何运行此示例，请参见
+> [upload-file](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/upload-file)。

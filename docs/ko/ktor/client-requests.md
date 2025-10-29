@@ -19,15 +19,18 @@
 </link-summary>
 
 [클라이언트를 구성](client-create-and-configure.md)한 후 HTTP 요청을 시작할 수 있습니다. 이를 위한 주요 방법은 URL을 파라미터로 받는
-[`.request()`](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client.request/request.html) 함수를 사용하는 것입니다. 이 함수 내에서 다양한 요청 파라미터를 구성할 수 있습니다:
+[`.request()`](https://api.ktor.io/ktor-client-core/io.ktor.client.request/request.html)
+함수를 사용하는 것입니다. 이 함수 내에서 다양한 요청 파라미터를 구성할 수 있습니다:
 
 *   `GET`, `POST`, `PUT`, `DELETE`, `HEAD`, `OPTIONS`, `PATCH`와 같은 HTTP 메서드를 지정합니다.
 *   URL을 문자열로 구성하거나, 도메인, 경로, 쿼리 파라미터와 같은 구성 요소를 개별적으로 구성합니다.
 *   Unix 도메인 소켓을 사용합니다.
 *   헤더와 쿠키를 추가합니다.
-*   요청 본문을 포함합니다. 예를 들어, 일반 텍스트, 데이터 객체 또는 폼 파라미터가 있습니다.
+*   요청 본문을 포함합니다 – 예를 들어, 일반 텍스트, 데이터 객체 또는 폼 파라미터가 있습니다.
 
-이러한 파라미터는 [`HttpRequestBuilder`](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client.request/-http-request-builder/index.html) 클래스에 의해 노출됩니다.
+이러한 파라미터는
+[`HttpRequestBuilder`](https://api.ktor.io/ktor-client-core/io.ktor.client.request/-http-request-builder/index.html)
+클래스에 의해 노출됩니다.
 
 ```kotlin
 import io.ktor.client.request.*
@@ -46,7 +49,7 @@ val response: HttpResponse = client.request("https://ktor.io/") {
 
 ### HTTP 메서드 지정 {id="http-method"}
 
-`.request()` 함수를 호출할 때 `method` 속성을 사용하여 원하는 HTTP 메서드를 지정할 수 있습니다.
+`.request()` 함수를 호출할 때 `method` 속성을 사용하여 원하는 HTTP 메서드를 지정할 수 있습니다:
 
 ```kotlin
 import io.ktor.client.request.*
@@ -58,17 +61,22 @@ val response: HttpResponse = client.request("https://ktor.io/") {
 }
 ```
 
-`.request()` 외에도 `HttpClient`는 [`.get()`](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client.request/get.html), [`.post()`](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client.request/post.html), [`.put()`](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client.request/put.html)와 같은 기본 HTTP 메서드를 위한 특정 함수를 제공합니다. 위 예시는 `.get()` 함수를 사용하여 다음과 같이 간소화할 수 있습니다:
+`.request()` 외에도 `HttpClient`는
+[`.get()`](https://api.ktor.io/ktor-client-core/io.ktor.client.request/get.html),
+[`.post()`](https://api.ktor.io/ktor-client-core/io.ktor.client.request/post.html),
+[`.put()`](https://api.ktor.io/ktor-client-core/io.ktor.client.request/put.html)과
+같은 기본 HTTP 메서드를 위한 특정 함수를 제공합니다. 위 예시는 `.get()` 함수를 사용하여 다음과 같이 간소화할 수 있습니다:
 
 ```kotlin
 val response: HttpResponse = client.get("https://ktor.io/docs/welcome.html")
 ```
 
-두 예시 모두에서 요청 URL은 문자열로 지정됩니다. 또한 [`HttpRequestBuilder`](#url)를 사용하여 URL 구성 요소를 개별적으로 구성할 수 있습니다.
+두 예시 모두에서 요청 URL은 문자열로 지정됩니다. 또한
+[`HttpRequestBuilder`](#url)를 사용하여 URL 구성 요소를 개별적으로 구성할 수 있습니다.
 
 ## 요청 URL 지정 {id="url"}
 
-Ktor 클라이언트는 여러 가지 방법으로 요청 URL을 구성할 수 있도록 합니다.
+Ktor 클라이언트는 여러 가지 방법으로 요청 URL을 구성할 수 있도록 합니다:
 
 ### 전체 URL 문자열 전달
 
@@ -88,7 +96,8 @@ client.get {
 }
 ```
 
-이 경우 `HttpRequestBuilder`가 제공하는 `url` 파라미터가 사용됩니다. 이는 [`URLBuilder`](https://api.ktor.io/ktor-http/io.ktor.http/-u-r-l-builder/index.html) 인스턴스를 받아 복잡한 URL을 구성하는 데 더 많은 유연성을 제공합니다.
+이 경우 `HttpRequestBuilder`가 제공하는 `url` 파라미터가 사용됩니다. 이는
+[`URLBuilder`](https://api.ktor.io/ktor-http/io.ktor.http/-u-r-l-builder/index.html) 인스턴스를 받아 복잡한 URL을 구성하는 데 더 많은 유연성을 제공합니다.
 
 > 모든 요청에 대한 기본 URL을 구성하려면 [`DefaultRequest`](client-default-request.md#url) 플러그인을 사용하세요.
 
@@ -110,7 +119,7 @@ client.get("https://ktor.io") {
 
 ### 쿼리 파라미터 {id="query_parameters"}
 
-<emphasis tooltip="query_string">쿼리 문자열</emphasis> 파라미터를 추가하려면 `URLBuilder.parameters` 속성을 사용하세요.
+<emphasis tooltip="query_string">쿼리 문자열</emphasis> 파라미터를 추가하려면 `URLBuilder.parameters` 속성을 사용하세요:
 
 ```kotlin
 client.get("https://ktor.io") {
@@ -148,7 +157,7 @@ client.get("https://ktor.io") {
 >
 {style="note"}
 
-Unix 도메인 소켓을 수신 대기하는 서버에 요청을 보내려면, CIO 클라이언트를 사용할 때 `unixSocket()` 함수를 호출하세요.
+Unix 도메인 소켓을 수신 대기하는 서버에 요청을 보내려면, CIO 클라이언트를 사용할 때 `unixSocket()` 함수를 호출하세요:
 
 ```kotlin
 val client = HttpClient(CIO)
@@ -166,11 +175,11 @@ HTTP 메서드, 헤더, 쿠키를 포함한 다양한 요청 파라미터를 지
 
 ### 헤더 {id="headers"}
 
-여러 가지 방법으로 요청에 헤더를 추가할 수 있습니다.
+여러 가지 방법으로 요청에 헤더를 추가할 수 있습니다:
 
 #### 여러 헤더 추가
 
-[`headers`](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client.request/headers.html) 함수를 사용하면 여러 헤더를 한 번에 추가할 수 있습니다.
+[`headers`](https://api.ktor.io/ktor-client-core/io.ktor.client.request/headers.html) 함수를 사용하면 여러 헤더를 한 번에 추가할 수 있습니다:
 
 ```kotlin
 client.get("https://ktor.io") {
@@ -184,7 +193,7 @@ client.get("https://ktor.io") {
 
 #### 단일 헤더 추가
 
-[`header`](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client.request/header.html) 함수를 사용하면 단일 헤더를 추가할 수 있습니다.
+[`header`](https://api.ktor.io/ktor-client-core/io.ktor.client.request/header.html) 함수를 사용하면 단일 헤더를 추가할 수 있습니다.
 
 #### 인증에 `basicAuth` 또는 `bearerAuth` 사용
 
@@ -194,7 +203,8 @@ client.get("https://ktor.io") {
 
 ### 쿠키 {id="cookies"}
 
-쿠키를 보내려면 [`cookie()`](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client.request/cookie.html) 함수를 사용하세요.
+쿠키를 보내려면
+[`cookie()`](https://api.ktor.io/ktor-client-core/io.ktor.client.request/cookie.html) 함수를 사용하세요:
 
 ```kotlin
 client.get("https://ktor.io") {
@@ -213,11 +223,13 @@ Ktor는 또한 호출 간에 쿠키를 유지할 수 있는 [`HttpCookies`](clie
 
 ## 요청 본문 설정 {id="body"}
 
-요청 본문을 설정하려면 [`HttpRequestBuilder`](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client.request/-http-request-builder/index.html)가 제공하는 `setBody()` 함수를 호출하세요. 이 함수는 일반 텍스트, 임의 클래스 인스턴스, 폼 데이터, 바이트 배열을 포함한 다양한 유형의 페이로드를 허용합니다.
+요청 본문을 설정하려면
+[`HttpRequestBuilder`](https://api.ktor.io/ktor-client-core/io.ktor.client.request/-http-request-builder/index.html)가 제공하는 `setBody()` 함수를 호출하세요.
+이 함수는 일반 텍스트, 임의 클래스 인스턴스, 폼 데이터, 바이트 배열을 포함한 다양한 유형의 페이로드를 허용합니다.
 
 ### 텍스트 {id="text"}
 
-본문으로 일반 텍스트를 보내는 것은 다음과 같이 구현할 수 있습니다.
+본문으로 일반 텍스트를 보내는 것은 다음과 같이 구현할 수 있습니다:
 
 ```kotlin
 import io.ktor.client.request.*
@@ -231,7 +243,8 @@ val response: HttpResponse = client.post("http://localhost:8080/post") {
 
 ### 객체 {id="objects"}
 
-[`ContentNegotiation`](client-serialization.md) 플러그인을 활성화하면 요청 본문 내에서 클래스 인스턴스를 JSON으로 보낼 수 있습니다. 이를 위해 `setBody()` 함수에 클래스 인스턴스를 전달하고 [`contentType()`](https://api.ktor.io/ktor-http/io.ktor.http/content-type.html) 함수를 사용하여 콘텐츠 타입을 `application/json`으로 설정합니다.
+[`ContentNegotiation`](client-serialization.md) 플러그인을 활성화하면 요청 본문 내에서 클래스 인스턴스를 JSON으로 보낼 수 있습니다. 이를 위해 `setBody()` 함수에 클래스 인스턴스를 전달하고
+[`contentType()`](https://api.ktor.io/ktor-http/io.ktor.http/content-type.html) 함수를 사용하여 콘텐츠 타입을 `application/json`으로 설정합니다:
 
 ```kotlin
 val response: HttpResponse = client.post("http://localhost:8080/customer") {
@@ -244,7 +257,9 @@ val response: HttpResponse = client.post("http://localhost:8080/customer") {
 
 ### 폼 파라미터 {id="form_parameters"}
 
-Ktor 클라이언트는 `application/x-www-form-urlencoded` 타입으로 폼 파라미터를 보내기 위한 [`submitForm()`](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client.request.forms/submit-form.html) 함수를 제공합니다. 다음 예시는 그 사용법을 보여줍니다.
+Ktor 클라이언트는 `application/x-www-form-urlencoded` 타입으로 폼 파라미터를 보내기 위한
+[`submitForm()`](https://api.ktor.io/ktor-client-core/io.ktor.client.request.forms/submit-form.html)
+함수를 제공합니다. 다음 예시는 그 사용법을 보여줍니다:
 
 ```kotlin
 val client = HttpClient(CIO)
@@ -268,12 +283,15 @@ val response: HttpResponse = client.submitForm(
 
 ### 파일 업로드 {id="upload_file"}
 
-폼과 함께 파일을 보내야 하는 경우 다음 방법을 사용할 수 있습니다.
+폼과 함께 파일을 보내야 하는 경우 다음 방법을 사용할 수 있습니다:
 
-*   [`.submitFormWithBinaryData()`](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client.request.forms/submit-form-with-binary-data.html) 함수를 사용합니다. 이 경우 경계(boundary)가 자동으로 생성됩니다.
-*   `post` 함수를 호출하고 `MultiPartFormDataContent` 인스턴스를 `setBody` 함수에 전달합니다. `MultiPartFormDataContent` 생성자는 경계 값을 전달할 수도 있습니다.
+*   [`.submitFormWithBinaryData()`](https://api.ktor.io/ktor-client-core/io.ktor.client.request.forms/submit-form-with-binary-data.html) 함수를 사용합니다. 이 경우 경계(boundary)가 자동으로 생성됩니다.
+*   `post` 함수를 호출하고
+    [`MultiPartFormDataContent`](https://api.ktor.io/ktor-client-core/io.ktor.client.request.forms/-multi-part-form-data-content/index.html)
+    인스턴스를 `setBody` 함수에 전달합니다. `MultiPartFormDataContent` 생성자는 경계 값을 전달할 수도 있습니다.
 
-두 가지 접근 방식 모두 [`formData {}`](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client.request.forms/form-data.html) 함수를 사용하여 폼 데이터를 구성해야 합니다.
+두 가지 접근 방식 모두
+[`formData {}`](https://api.ktor.io/ktor-client-core/io.ktor.client.request.forms/form-data.html) 함수를 사용하여 폼 데이터를 구성해야 합니다.
 
 #### `.submitFormWithBinaryData()` 사용
 
@@ -294,11 +312,13 @@ val response: HttpResponse = client.submitForm(
         )
 ```
 
-전체 예시는 [client-upload](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-upload)를 참조하세요.
+전체 예시는
+[client-upload](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-upload)를 참조하세요.
 
 #### `MultiPartFormDataContent` 사용
 
-크거나 동적인 콘텐츠를 효율적으로 스트리밍하려면 `InputProvider`와 함께 `MultiPartFormDataContent`를 사용할 수 있습니다. `InputProvider`를 사용하면 파일 데이터를 전체를 메모리로 로드하는 대신 버퍼링된 스트림으로 공급할 수 있으므로 대용량 파일에 적합합니다. `MultiPartFormDataContent`를 사용하면 `onUpload` 콜백을 사용하여 업로드 진행 상황을 모니터링할 수도 있습니다.
+크거나 동적인 콘텐츠를 효율적으로 스트리밍하려면 `InputProvider`와 함께 `MultiPartFormDataContent`를 사용할 수 있습니다.
+`InputProvider`를 사용하면 파일 데이터를 전체를 메모리로 로드하는 대신 버퍼링된 스트림으로 공급할 수 있으므로 대용량 파일에 적합합니다. `MultiPartFormDataContent`를 사용하면 `onUpload` 콜백을 사용하여 업로드 진행 상황을 모니터링할 수도 있습니다.
 
 ```kotlin
         val client = HttpClient(CIO)
@@ -328,13 +348,13 @@ val response: HttpResponse = client.submitForm(
         }
 ```
 
-멀티플랫폼 프로젝트에서는 `InputProvider`와 함께 `SystemFileSystem.source()`를 사용할 수 있습니다.
+멀티플랫폼 프로젝트에서는 `InputProvider`와 함께 `SystemFileSystem.source()`를 사용할 수 있습니다:
 
 ```kotlin
 InputProvider { SystemFileSystem.source(Path("ktor_logo.png")).buffered() }
 ```
 
-또한 사용자 지정 경계 및 콘텐츠 타입으로 `MultiPartFormDataContent`를 수동으로 구성할 수도 있습니다.
+또한 사용자 지정 경계 및 콘텐츠 타입으로 `MultiPartFormDataContent`를 수동으로 구성할 수도 있습니다:
 
 ```kotlin
 fun customMultiPartMixedDataContent(parts: List<PartData>): MultiPartFormDataContent {
@@ -344,12 +364,14 @@ fun customMultiPartMixedDataContent(parts: List<PartData>): MultiPartFormDataCon
 }
 ```
 
-전체 예시는 [client-upload-progress](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-upload-progress)를 참조하세요.
+전체 예시는
+[client-upload-progress](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-upload-progress)를 참조하세요.
 
 ### 바이너리 데이터 {id="binary"}
 
-`application/octet-stream` 콘텐츠 타입으로 바이너리 데이터를 보내려면 [`ByteReadChannel`](https://api.ktor.io/ktor-io/io.ktor.utils.io/-byte-read-channel/index.html) 인스턴스를 `setBody()` 함수에 전달합니다.
-예를 들어, [`File.readChannel()`](https://api.ktor.io/ktor-utils/io.ktor.util.cio/read-channel.html) 함수를 사용하여 파일에 대한 읽기 채널을 열 수 있습니다.
+`application/octet-stream` 콘텐츠 타입으로 바이너리 데이터를 보내려면
+[`ByteReadChannel`](https://api.ktor.io/ktor-io/io.ktor.utils.io/-byte-read-channel/index.html) 인스턴스를 `setBody()` 함수에 전달합니다.
+예를 들어, [`File.readChannel()`](https://api.ktor.io/ktor-utils/io.ktor.util.cio/read-channel.html) 함수를 사용하여 파일에 대한 읽기 채널을 열 수 있습니다:
 
 ```kotlin
 val response = client.post("http://0.0.0.0:8080/upload") {
@@ -357,11 +379,15 @@ val response = client.post("http://0.0.0.0:8080/upload") {
 }
 ```
 
-전체 예시는 [client-upload-binary-data](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-upload-binary-data)를 참조하세요.
+전체 예시는
+[client-upload-binary-data](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-upload-binary-data)를 참조하세요.
 
 ## 병렬 요청 {id="parallel_requests"}
 
-기본적으로 여러 요청을 순차적으로 보내면 클라이언트는 이전 요청이 완료될 때까지 각 호출을 정지합니다. 여러 요청을 동시에 수행하려면 [`launch()`](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/launch.html) 또는 [`async()`](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/async.html) 함수를 사용하세요. 다음 예시는 `async()`를 사용하여 두 개의 요청을 병렬로 실행하는 방법을 보여줍니다.
+기본적으로 여러 요청을 순차적으로 보내면 클라이언트는 이전 요청이 완료될 때까지 각 호출을 정지합니다. 여러 요청을 동시에 수행하려면
+[`launch()`](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/launch.html)
+또는 [`async()`](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/async.html)
+함수를 사용하세요. 다음 예시는 `async()`를 사용하여 두 개의 요청을 병렬로 실행하는 방법을 보여줍니다:
 
 ```kotlin
 coroutineScope {
@@ -373,12 +399,14 @@ coroutineScope {
 }
 ```
 
-전체 예시는 [client-parallel-requests](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-parallel-requests)를 참조하세요.
+전체 예시는
+[client-parallel-requests](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-parallel-requests)를 참조하세요.
 
 ## 요청 취소 {id="cancel-request"}
 
 요청을 취소하려면 해당 요청을 실행하는 코루틴을 취소합니다.
-[`launch()`](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/launch.html) 함수는 실행 중인 코루틴을 취소하는 데 사용할 수 있는 `Job`을 반환합니다.
+[`launch()`](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/launch.html)
+함수는 실행 중인 코루틴을 취소하는 데 사용할 수 있는 `Job`을 반환합니다:
 
 ```kotlin
 import kotlinx.coroutines.*

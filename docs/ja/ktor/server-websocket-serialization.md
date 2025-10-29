@@ -231,11 +231,11 @@ data class Customer(val id: Int, val firstName: String, val lastName: String)
 ```kotlin
 webSocket("/customer") {
     val customer = receiveDeserialized<Customer>()
-    println("A customer with id ${customer.id} is received by the server.")
+    println("IDが${customer.id}の顧客がサーバーによって受信されました。")
 }
 ```
 
-[incoming](server-websockets.md#api-overview)チャネルからデシリアライズされたフレームを受信するには、[WebsocketContentConverter.deserialize](https://api.ktor.io/ktor-shared/ktor-serialization/io.ktor.serialization/-websocket-content-converter/deserialize.html)関数を使用します。`WebsocketContentConverter`は`WebSocketServerSession.converter`プロパティを通じて利用可能です。
+[incoming](server-websockets.md#api-overview)チャネルからデシリアライズされたフレームを受信するには、[WebsocketContentConverter.deserialize](https://api.ktor.io/ktor-serialization/io.ktor.serialization/-websocket-content-converter/deserialize.html)関数を使用します。`WebsocketContentConverter`は`WebSocketServerSession.converter`プロパティを通じて利用可能です。
 
 ### データの送信 {id="send_data"}
 [指定されたフォーマット](#configure_serializer)を使用してデータオブジェクトをテキストフレームで渡すには、`sendSerialized`関数を使用できます。

@@ -22,7 +22,7 @@
 </p>
 </tldr>
 
-`[%plugin_name%](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-double-receive/io.ktor.server.plugins.doublereceive/-double-receive.html)`プラグインは、`RequestAlreadyConsumedException`例外なしに[リクエストボディを複数回受け取る](server-requests.md#body_contents)機能を提供します。
+`%plugin_name%`プラグインは、`RequestAlreadyConsumedException`例外なしに[リクエストボディを複数回受け取る](server-requests.md#body_contents)機能を提供します。
 これは、[プラグイン](server-plugins.md)がすでにリクエストボディを消費してしまい、ルートハンドラー内でそれを受け取ることができない場合に役立ちます。
 例えば、`%plugin_name%`を使用して、[CallLogging](server-call-logging.md)プラグインでリクエストボディをログに記録し、その後`post` [ルートハンドラー](server-routing.md#define_route)内で再度ボディを受け取ることができます。
 
@@ -63,10 +63,10 @@
 </list>
 <Tabs>
     <TabItem title="embeddedServer">
-        <code-block lang="kotlin" code="            import io.ktor.server.engine.*&#10;            import io.ktor.server.netty.*&#10;            import io.ktor.server.application.*&#10;            import %package_name%.*&#10;&#10;            fun main() {&#10;                embeddedServer(Netty, port = 8080) {&#10;                    install(%plugin_name%)&#10;                    // ...&#10;                }.start(wait = true)&#10;            }"/>
+        <code-block lang="kotlin" code="            import io.ktor.server.engine.*&#10;            import io.ktor.server.netty.*&#10;            import io.ktor.server.application.*&#10;            import %package_name%.*&#10;&#10;            fun main() {&#10                embeddedServer(Netty, port = 8080) {&#10                    install(%plugin_name%)&#10                    // ...&#10                }.start(wait = true)&#10            }"/>
     </TabItem>
     <TabItem title="module">
-        <code-block lang="kotlin" code="            import io.ktor.server.application.*&#10;            import %package_name%.*&#10;            // ...&#10;            fun Application.module() {&#10;                install(%plugin_name%)&#10;                // ...&#10;            }"/>
+        <code-block lang="kotlin" code="            import io.ktor.server.application.*&#10;            import %package_name%.*&#10;            // ...&#10;            fun Application.module() {&#10                install(%plugin_name%)&#10                // ...&#10            }"/>
     </TabItem>
 </Tabs>
 <p>
@@ -118,4 +118,3 @@ post("/") {
 install(DoubleReceive) {
     cacheRawRequest = false
 }
-```

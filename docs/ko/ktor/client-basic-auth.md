@@ -44,8 +44,8 @@
 
 `Basic` 체계를 사용하여 `Authorization` 헤더에 사용자 자격 증명을 보내려면 `basic` 인증 공급자를 다음과 같이 구성해야 합니다:
 
-1. `install` 블록 내에서 [basic](https://api.ktor.io/ktor-client/ktor-client-plugins/ktor-client-auth/io.ktor.client.plugins.auth.providers/basic.html) 함수를 호출합니다.
-2. [BasicAuthCredentials](https://api.ktor.io/ktor-client/ktor-client-plugins/ktor-client-auth/io.ktor.client.plugins.auth.providers/-basic-auth-credentials/index.html)를 사용하여 필요한 자격 증명을 제공하고 이 객체를 [credentials](https://api.ktor.io/ktor-client/ktor-client-plugins/ktor-client-auth/io.ktor.client.plugins.auth.providers/-basic-auth-config/credentials.html) 함수에 전달합니다.
+1. `install` 블록 내에서 [basic](https://api.ktor.io/ktor-client-auth/io.ktor.client.plugins.auth.providers/basic.html) 함수를 호출합니다.
+2. [BasicAuthCredentials](https://api.ktor.io/ktor-client-auth/io.ktor.client.plugins.auth.providers/-basic-auth-credentials/index.html)를 사용하여 필요한 자격 증명을 제공하고 이 객체를 [credentials](https://api.ktor.io/ktor-client-auth/io.ktor.client.plugins.auth.providers/-basic-auth-config/credentials.html) 함수에 전달합니다.
 3. `realm` 속성을 사용하여 렐름(realm)을 구성합니다.
 
    ```kotlin

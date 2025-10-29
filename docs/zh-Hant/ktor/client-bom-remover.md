@@ -28,7 +28,7 @@ BOMRemover 外掛程式可讓您從回應本文中移除位元組順序標記 (B
 BOM 的存在是可選的，當由不清楚如何處理 BOM 的軟體讀取時，它可能會造成問題。
 
 Ktor 用戶端提供了
-[BOMRemover](https://api.ktor.io/ktor-client/ktor-client-plugins/ktor-client-bom-remover/io.ktor.client.plugins.bomremover/index.html)
+[BOMRemover](https://api.ktor.io/ktor-client-bom-remover/io.ktor.client.plugins.bomremover/index.html)
 外掛程式，該外掛程式可從 UTF-8、UTF-16 (BE)、UTF-16 (LE)、UTF-32 (BE) 和 UTF-32 (LE)
 編碼的回應本文中移除 BOM。
 

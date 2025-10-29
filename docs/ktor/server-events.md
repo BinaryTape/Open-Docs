@@ -12,11 +12,12 @@
 </p>
 </tldr>
 
-Ktor 提供了通过使用事件来监控服务器应用程序的能力。您可以处理与应用程序生命周期相关的预定义事件（例如应用程序启动、停止等），也可以使用自定义事件来处理特定情况。您还可以使用 [MonitoringEvent](server-custom-plugins.md#handle-app-events) 钩子来处理自定义插件的事件。
+Ktor 提供了通过使用事件来监控服务器应用程序的功能。
+您可以处理与应用程序生命周期相关的预定义事件（例如应用程序启动、停止等），也可以使用自定义事件来处理特定情况。您还可以使用 [MonitoringEvent](server-custom-plugins.md#handle-app-events) 钩子来处理自定义插件的事件。
 
 ## 事件定义 {id="event-definition"}
 
-每个事件都由 [EventDefinition](https://api.ktor.io/ktor-shared/ktor-events/io.ktor.events/-event-definition/index.html) 类实例表示。此类别带有一个 `T` 类型形参，用于指定传递给事件的值的类型。此值可在[事件处理程序](#handle-events-application)中作为 lambda 实参访问。例如，大多数[预定义事件](#predefined-events)接受 `Application` 作为形参，允许您在事件处理程序中访问应用程序属性。
+每个事件都由 [EventDefinition](https://api.ktor.io/ktor-events/io.ktor.events/-event-definition/index.html) 类实例表示。此类别带有一个 `T` 类型形参，用于指定传递给事件的值的类型。此值可在[事件处理程序](#handle-events-application)中作为 lambda 实参访问。例如，大多数[预定义事件](#predefined-events)接受 `Application` 作为形参，允许您在事件处理程序中访问应用程序属性。
 
 对于[自定义事件](#custom-events)，您可以传入此事件所需的类型形参。以下代码片段展示了如何创建一个接受 `ApplicationCall` 实例的自定义 `NotFoundEvent`。
 
@@ -30,18 +31,18 @@ val NotFoundEvent: EventDefinition<ApplicationCall> = EventDefinition()
 
 Ktor 提供以下与应用程序生命周期相关的预定义事件：
 
-- [ApplicationStarting](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.application/-application-starting.html)
-- [ApplicationStarted](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.application/-application-started.html)
-- [ServerReady](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.application/-server-ready.html)
-- [ApplicationStopPreparing](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.application/-application-stop-preparing.html)
-- [ApplicationStopping](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.application/-application-stopping.html)
-- [ApplicationStopped](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.application/-application-stopped.html)
+- [ApplicationStarting](https://api.ktor.io/ktor-server-core/io.ktor.server.application/-application-starting.html)
+- [ApplicationStarted](https://api.ktor.io/ktor-server-core/io.ktor.server.application/-application-started.html)
+- [ServerReady](https://api.ktor.io/ktor-server-core/io.ktor.server.application/-server-ready.html)
+- [ApplicationStopPreparing](https://api.ktor.io/ktor-server-core/io.ktor.server.application/-application-stop-preparing.html)
+- [ApplicationStopping](https://api.ktor.io/ktor-server-core/io.ktor.server.application/-application-stopping.html)
+- [ApplicationStopped](https://api.ktor.io/ktor-server-core/io.ktor.server.application/-application-stopped.html)
 
 例如，您可以订阅 `ApplicationStopped` 事件以释放应用程序资源。
 
 ## 在应用程序中处理事件 {id="handle-events-application"}
 
-要处理指定 `Application` 实例的事件，请使用 `monitor` 属性。此属性提供对 [Events](https://api.ktor.io/ktor-shared/ktor-events/io.ktor.events/-events/index.html) 实例的访问，该实例暴露以下函数，允许您处理应用程序事件：
+要处理指定 `Application` 实例的事件，请使用 `monitor` 属性。此属性提供对 [Events](https://api.ktor.io/ktor-events/io.ktor.events/-events/index.html) 实例的访问，该实例暴露以下函数，允许您处理应用程序事件：
 
 - `subscribe`: 订阅由 [EventDefinition](#event-definition) 指定的事件。
 - `unsubscribe`: 取消订阅由 [EventDefinition](#event-definition) 指定的事件。
@@ -137,7 +138,7 @@ val ApplicationMonitoringPlugin = createApplicationPlugin(name = "ApplicationMon
     fun Application.module() {
         install(ApplicationMonitoringPlugin)
         monitor.subscribe(NotFoundEvent) { call ->
-            log.info("No page was found for the URI: ${call.request.uri}")
+            log.info("未找到 URI：${call.request.uri} 对应的页面")
         }
     }
     ```

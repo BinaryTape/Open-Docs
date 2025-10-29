@@ -1,4 +1,4 @@
-[//]: # (title: Ktor 클라이언트의 다이제스트 인증)
+`[//]: # (title: Ktor 클라이언트의 다이제스트 인증)
 
 <tldr>
 <p>
@@ -76,3 +76,4 @@ val client = HttpClient(CIO) {
 ```
 
 > 전체 예시는 여기에서 찾을 수 있습니다: [client-auth-digest](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-auth-digest).
+`

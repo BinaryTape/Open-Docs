@@ -2,6 +2,23 @@
 
 A2A 伺服器讓您能夠透過標準化的 A2A (Agent-to-Agent) 協定公開 AI 代理程式。它提供了 [A2A 協定規範](https://a2a-protocol.org/latest/specification/)的完整實作，負責處理用戶端請求、執行代理程式邏輯、管理複雜的任務生命週期，並支援即時串流回應。
 
+## 相依性
+
+要在您的專案中使用 A2A 伺服器，請將以下相依性新增至 `build.gradle.kts`：
+
+```kotlin
+dependencies {
+    // 核心 A2A 伺服器函式庫
+    implementation("ai.koog:a2a-server:$koogVersion")
+
+    // HTTP JSON-RPC 傳輸 (最常見)
+    implementation("ai.koog:a2a-transport-server-jsonrpc-http:$koogVersion")
+
+    // Ktor 伺服器引擎 (選擇符合您需求的)
+    implementation("io.ktor:ktor-server-netty:$ktorVersion")
+}
+```
+
 ## 總覽
 
 A2A 伺服器作為 A2A 協定傳輸層與您的自訂代理程式邏輯之間的橋樑。它協調整個請求生命週期，同時保持協定合規性並提供強大的會話管理。
@@ -70,7 +87,7 @@ eventProcessor.sendTaskEvent(
         taskId = context.taskId,
         status = TaskStatus(
             state = TaskState.Working,
-            message = Message(/* 進度更新 */),
+            message = Message(/* progress update */), // 進度更新
             timestamp = Clock.System.now()
         ),
         final = false  // 還有更多更新會到來
@@ -165,7 +182,7 @@ val agentCard = AgentCard(
 
 ### 傳輸層
 
-A2A 本身支援多種傳輸協定，用於與用戶端通訊。Koog 目前提供透過 HTTP 的 JSON-RPC 伺服器傳輸實作。
+A2A 本身支援多種傳輸協定，用於與用戶端通訊。目前，Koog 提供透過 HTTP 的 JSON-RPC 伺服器傳輸實作。
 
 #### HTTP JSON-RPC 傳輸
 

@@ -105,7 +105,7 @@ val jettyClient = HttpClient(Jetty) {
 #### CIO {id="cio"}
 
 CIOエンジンでは、`https`ブロック内でHTTPS設定を構成できます。
-このブロック内では、[TLSConfigBuilder](https://api.ktor.io/ktor-network/ktor-network-tls/io.ktor.network.tls/-t-l-s-config-builder/index.html)が提供するTLSパラメータにアクセスできます。
+このブロック内では、[TLSConfigBuilder](https://api.ktor.io/ktor-network-tls/io.ktor.network.tls/-t-l-s-config-builder/index.html)が提供するTLSパラメータにアクセスできます。
 この例では、`TrustManager`インスタンスが証明書を構成するために使用されます。
 
 ```kotlin
@@ -152,4 +152,4 @@ val okHttpClient = HttpClient(OkHttp) {
 
 ### Darwin {id="darwin"}
 
-Darwinエンジンで信頼された証明書を構成するには、[CertificatePinner](https://api.ktor.io/ktor-client/ktor-client-darwin/io.ktor.client.engine.darwin.certificates/-certificate-pinner/index.html)を使用します。
+Darwinエンジンで信頼された証明書を構成するには、[CertificatePinner](https://api.ktor.io/ktor-client-darwin/io.ktor.client.engine.darwin.certificates/-certificate-pinner/index.html)を使用します。

@@ -175,9 +175,9 @@ val nodeBestJoke by parallel<String, String>(
       // 또 다른 LLM을 사용하여 가장 좋은 농담을 결정
       llm.writeSession {
          model = OpenAIModels.Chat.GPT4o
-         updatePrompt {
-            system("당신은 코미디 평론가입니다. 가장 좋은 농담을 선택하세요.")
-            user("여기 세 가지 농담이 있습니다: ${jokes.joinToString("
+         appendPrompt {
+            system("You are a comedy critic. Select the best joke.")
+            user("Here are three jokes: ${jokes.joinToString("
 \n")}")
          }
          val response = requestLLMStructured<JokeRating>()
@@ -244,9 +244,9 @@ val strategy = strategy("best-joke") {
    val nodeOpenAI by node<String, String> { topic ->
       llm.writeSession {
          model = OpenAIModels.Chat.GPT4o
-         updatePrompt {
-            system("당신은 코미디언입니다. 주어진 주제에 대한 재미있는 농담을 생성하세요.")
-            user("$topic 에 대한 농담을 해주세요.")
+         appendPrompt {
+            system("You are a comedian. Generate a funny joke about the given topic.")
+            user("Tell me a joke about $topic.")
          }
          val response = requestLLMWithoutTools()
          response.content
@@ -256,9 +256,9 @@ val strategy = strategy("best-joke") {
    val nodeAnthropicSonnet by node<String, String> { topic ->
       llm.writeSession {
          model = AnthropicModels.Sonnet_3_5
-         updatePrompt {
-            system("당신은 코미디언입니다. 주어진 주제에 대한 재미있는 농담을 생성하세요.")
-            user("$topic 에 대한 농담을 해주세요.")
+         appendPrompt {
+            system("You are a comedian. Generate a funny joke about the given topic.")
+            user("Tell me a joke about $topic.")
          }
          val response = requestLLMWithoutTools()
          response.content
@@ -268,9 +268,9 @@ val strategy = strategy("best-joke") {
    val nodeAnthropicOpus by node<String, String> { topic ->
       llm.writeSession {
          model = AnthropicModels.Opus_3
-         updatePrompt {
-            system("당신은 코미디언입니다. 주어진 주제에 대한 재미있는 농담을 생성하세요.")
-            user("$topic 에 대한 농담을 해주세요.")
+         appendPrompt {
+            system("You are a comedian. Generate a funny joke about the given topic.")
+            user("Tell me a joke about $topic.")
          }
          val response = requestLLMWithoutTools()
          response.content
@@ -285,9 +285,9 @@ val strategy = strategy("best-joke") {
          // 또 다른 LLM(예: GPT4o)이 가장 재미있는 농담을 찾습니다:
          llm.writeSession {
             model = OpenAIModels.Chat.GPT4o
-            updatePrompt {
+            appendPrompt {
                prompt("best-joke-selector") {
-                  system("당신은 코미디 평론가입니다. 주어진 농담에 대한 비평을 해주세요.")
+                  system("You are a comedy critic. Give a critique for the given joke.")
                   user(
                      """
                             여기 같은 주제에 대한 세 가지 농담이 있습니다:

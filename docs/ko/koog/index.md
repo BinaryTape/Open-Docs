@@ -1,156 +1,156 @@
 # 개요
 
-Koog는 완전히 관용적인 Kotlin으로 AI 에이전트를 빌드하고 실행하도록 설계된 오픈 소스 JetBrains 프레임워크입니다.
+Koog는 특히 JVM 및 Kotlin 개발자를 위해 설계된, 관용적이고 타입 세이프한 Kotlin DSL을 사용하여 AI 에이전트를 빌드하기 위한 오픈 소스 JetBrains 프레임워크입니다.
 이 프레임워크를 통해 도구와 상호작용하고, 복잡한 워크플로를 처리하며, 사용자와 소통할 수 있는 에이전트를 생성할 수 있습니다.
 
-이 프레임워크는 다음 유형의 에이전트를 지원합니다.
+모듈형 기능 시스템을 통해 에이전트 기능을 사용자 지정하고, Kotlin Multiplatform을 사용하여 JVM, JS, WasmJS, Android 및 iOS 타겟 전반에 걸쳐 에이전트를 배포할 수 있습니다.
 
-*   최소한의 구성으로 단일 입력을 처리하고 응답을 제공하는 단일 실행 에이전트입니다.
-    이 유형의 에이전트는 작업을 완료하고 응답을 제공하기 위해 단일 도구 호출 주기 내에서 작동합니다.
-*   람다 함수로 정의된 경량의 사용자 지정 가능한 로직을 갖춘 함수형 에이전트로, 사용자 입력을 처리하고, LLM과 상호작용하며, 도구를 호출하고, 최종 출력을 생성합니다.
-*   사용자 지정 전략 및 구성을 지원하는 고급 기능을 갖춘 복잡한 워크플로 에이전트입니다.
+<div class="grid cards" markdown>
 
-## 주요 기능
+-   :material-rocket-launch:{ .lg .middle } [**시작하기**](getting-started.md)
 
-Koog의 주요 기능은 다음과 같습니다.
+    ---
 
--   **멀티플랫폼 개발**: Kotlin Multiplatform을 사용하여 JVM, JS, WasmJS, Android 및 iOS 타겟 모두에 에이전트를 배포합니다.
--   **안정성과 내결함성**: 내장된 재시도 기능으로 실패를 처리하고 에이전트 지속성 기능을 사용하여 실행 중 특정 시점에서 에이전트 상태를 복원합니다.
--   **지능형 히스토리 압축**: 고급 내장 히스토리 압축 기술을 사용하여 장기 실행 대화에서 컨텍스트를 유지하면서 토큰 사용을 최적화합니다.
--   **엔터프라이즈 통합 기능**: Spring Boot 및 Ktor와 같은 인기 있는 JVM 프레임워크와의 통합을 활용하여 Koog를 애플리케이션에 임베드합니다.
--   **OpenTelemetry 익스포터를 통한 관측 가능성**: 인기 있는 관측 가능성 제공업체(W&B Weave, Langfuse)에 대한 내장 지원을 통해 애플리케이션을 모니터링하고 디버그합니다.
--   **LLM 전환 및 원활한 히스토리 적응**: 기존 대화 기록을 잃지 않고 언제든지 다른 LLM으로 전환하거나 여러 LLM 제공업체 간에 경로를 재지정합니다.
--   **JVM 및 Kotlin 애플리케이션 통합**: JVM 및 Kotlin 개발자를 위해 특별히 설계된 관용적이고 타입 세이프한 Kotlin DSL로 AI 에이전트를 빌드합니다.
--   **Model Context Protocol 통합**: AI 에이전트에서 Model Context Protocol (MCP) 도구를 사용합니다.
--   **지식 검색 및 메모리**: 벡터 임베딩, 순위가 매겨진 문서 저장소 및 공유 에이전트 메모리를 사용하여 대화 전반에 걸쳐 지식을 유지하고 검색합니다.
--   **강력한 스트리밍 API**: 스트리밍 지원 및 병렬 도구 호출을 통해 응답을 실시간으로 처리합니다.
--   **모듈형 기능 시스템**: 구성 가능한 아키텍처를 통해 에이전트 기능을 사용자 지정합니다.
--   **유연한 그래프 워크플로**: 직관적인 그래프 기반 워크플로를 사용하여 복잡한 에이전트 동작을 설계합니다.
--   **사용자 지정 도구 생성**: 외부 시스템 및 API에 접근하는 도구로 에이전트를 확장합니다.
--   **포괄적인 트레이싱**: 상세하고 구성 가능한 트레이싱을 통해 에이전트 실행을 디버그하고 모니터링합니다.
+    첫 AI 에이전트 빌드 및 실행
 
-## 사용 가능한 LLM 제공업체 및 플랫폼
+-   :material-book-open-variant:{ .lg .middle } [**용어집**](glossary.md)
 
-에이전트 기능을 구현하는 데 사용할 수 있는 LLM 제공업체 및 플랫폼은 다음과 같습니다.
+    ---
 
-- Google
-- OpenAI
-- Anthropic
-- DeepSeek
-- OpenRouter
-- Ollama
-- Bedrock
+    필수 용어 학습
 
-전용 LLM 클라이언트와 함께 이러한 제공업체를 사용하는 방법에 대한 자세한 지침은 [Runnning prompts with LLM clients](prompt-api.md#running-prompts-with-llm-clients)를 참조하세요.
+</div>
 
-## 설치
+## 에이전트 유형
 
-Koog를 사용하려면 빌드 구성에 필요한 모든 종속성을 포함해야 합니다.
+<div class="grid cards" markdown>
 
-**참고!** Ktor [클라이언트](https://ktor.io/docs/client-engines.html) 및 [서버](https://ktor.io/docs/server-engines.html) 엔진 종속성은 기본적으로 라이브러리에 포함되어 있지 않으므로, 원하는 엔진을 직접 추가해야 합니다.
+-   :material-robot-outline:{ .lg .middle } [**기본 에이전트**](basic-agents.md)
 
-### Gradle
+    ---
 
-#### Gradle (Kotlin DSL)
+    단일 입력을 처리하고 응답을 제공하는 에이전트 생성 및 실행
 
-1.  `build.gradle.kts` 파일에 종속성을 추가합니다.
+-   :material-script-text-outline:{ .lg .middle } [**함수형 에이전트**](functional-agents.md)
 
-    ```
-    dependencies {
-        implementation("ai.koog:koog-agents:LATEST_VERSION")
-       // include Ktor client dependency explicitly
-        implementation("io.ktor:ktor-client-cio:$ktor_version")
-    }
-    ```
-    Ktor [클라이언트](https://ktor.io/docs/client-engines.html) 및 [서버](https://ktor.io/docs/server-engines.html) 엔진 종속성은 기본적으로 라이브러리에 포함되어 있지 않으므로, 원하는 엔진을 직접 추가해야 합니다.
+    ---
 
-2.  저장소 목록에 `mavenCentral()`이 있는지 확인하세요.
+    일반 Kotlin으로 사용자 지정 로직을 갖춘 경량 에이전트 생성 및 실행
 
-#### Gradle (Groovy)
+-   :material-graph-outline:{ .lg .middle } [**복잡한 워크플로 에이전트**](complex-workflow-agents.md)
 
-1.  `build.gradle` 파일에 종속성을 추가합니다.
+    ---
 
-    ```
-    dependencies {
-        implementation 'ai.koog:koog-agents:LATEST_VERSION'
-        implementation 'io.ktor:ktor-client-cio:KTOR_VERSION'
-    }
-    ```
+    사용자 지정 전략으로 복잡한 워크플로를 처리하는 에이전트 생성 및 실행
 
-2.  저장소 목록에 `mavenCentral()`이 있는지 확인하세요.
+</div>
 
-### Maven
+## 핵심 기능
 
-1.  `pom.xml` 파일에 종속성을 추가합니다.
+<div class="grid cards" markdown>
 
-    ```xml
-    <dependency>
-        <groupId>ai.koog</groupId>
-        <artifactId>koog-agents-jvm</artifactId>
-        <version>LATEST_VERSION</version>
-    </dependency>
-    ```
+-   :material-chat-processing-outline:{ .lg .middle } [**프롬프트**](prompt-api.md)
 
-2.  Ktor 종속성을 추가합니다. Ktor 버전은 [여기](https://mvnrepository.com/artifact/io.ktor/ktor-bom)에서 확인하세요.
-    ```xml
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>io.ktor</groupId>
-                <artifactId>ktor-bom</artifactId>
-                <version>KTOR_VERSION</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
-   
-    <dependencies>
-        <dependency>
-            <groupId>io.ktor</groupId>
-            <artifactId>ktor-client-cio-jvm</artifactId>
-            <scope>runtime</scope>
-        </dependency>
-        <!-- Add a Ktor server dependency if you are using features like MCP -->
-        <dependency>
-            <groupId>io.ktor</groupId>
-            <artifactId>ktor-server-netty-jvm</artifactId>
-            <scope>runtime</scope>
-        </dependency>
-    </dependencies>
+    ---
 
-    ```
+    프롬프트 생성, LLM 클라이언트 또는 프롬프트 실행기를 사용하여 실행,
+    LLM 및 제공업체 간 전환, 내장된 재시도 기능으로 실패 처리
 
-2.  저장소 목록에 `mavenCentral`이 있는지 확인하세요.
+-   :material-wrench:{ .lg .middle } [**도구**](tools-overview.md)
 
-## 빠른 시작 예시
+    ---
 
-AI 에이전트를 시작하는 데 도움이 되도록 단일 실행 에이전트의 간단한 예시가 있습니다.
+    외부 시스템 및 API에 접근할 수 있는 내장, 어노테이션 기반 또는 클래스 기반 도구로 에이전트 강화
 
-!!! note
-    예시를 실행하기 전에 해당 API 키를 환경 변수로 할당하세요. 자세한 내용은 [시작하기](single-run-agents.md)를 참조하세요.
+-   :material-share-variant-outline:{ .lg .middle } [**전략**](predefined-agent-strategies.md)
 
-<!--- INCLUDE
-import ai.koog.agents.core.agent.AIAgent
-import ai.koog.prompt.executor.clients.openai.OpenAIModels
-import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
-import kotlinx.coroutines.runBlocking
--->
-```kotlin
-fun main() {
-    runBlocking {
-        val apiKey = System.getenv("OPENAI_API_KEY") // or Anthropic, Google, OpenRouter, etc.
+    ---
 
-        val agent = AIAgent(
-            promptExecutor = simpleOpenAIExecutor(apiKey), // or Anthropic, Google, OpenRouter, etc.
-            systemPrompt = "You are a helpful assistant. Answer user questions concisely.",
-            llmModel = OpenAIModels.Chat.GPT4o
-        )
+    직관적인 그래프 기반 워크플로를 사용하여 복잡한 에이전트 동작 설계
 
-        val result = agent.run("Hello! How can you help me?")
-        println(result)
-    }
-}
-```
-<!--- KNIT example-index-01.kt -->
-자세한 내용은 [시작하기](single-run-agents.md)를 참조하세요.
+-   :material-bell-outline:{ .lg .middle } [**이벤트**](agent-events.md)
+
+    ---
+
+    미리 정의된 핸들러로 에이전트 라이프사이클, 전략, 노드, LLM 호출 및 도구 호출 이벤트 모니터링 및 처리
+
+</div>
+
+## 고급 사용법
+
+<div class="grid cards" markdown>
+
+-   :material-history:{ .lg .middle } [**히스토리 압축**](history-compression.md)
+
+    ---
+
+    고급 기술을 사용하여 장기 실행 대화에서 컨텍스트를 유지하면서 토큰 사용 최적화
+
+-   :material-state-machine:{ .lg .middle } [**에이전트 지속성**](agent-persistence.md)
+
+    ---
+
+    실행 중 특정 시점에서 에이전트 상태 복원
+        
+
+-   :material-code-braces:{ .lg .middle } [**구조화된 출력**](structured-output.md)
+
+    ---
+
+    구조화된 형식으로 응답 생성
+
+-   :material-waves:{ .lg .middle } [**스트리밍 API**](streaming-api.md)
+
+    ---
+
+    스트리밍 지원 및 병렬 도구 호출로 응답 실시간 처리
+
+-   :material-database-search:{ .lg .middle } [**지식 검색**](embeddings.md)
+
+    ---
+
+    [벡터 임베딩](embeddings.md), [순위가 매겨진 문서 저장소](ranked-document-storage.md) 및 [공유 에이전트 메모리](agent-memory.md)를 사용하여 대화 전반에 걸쳐 지식 유지 및 검색
+
+-   :material-timeline-text:{ .lg .middle } [**트레이싱**](tracing.md)
+
+    ---
+
+    상세하고 구성 가능한 트레이싱으로 에이전트 실행 디버그 및 모니터링
+
+</div>
+
+## 통합 기능
+
+<div class="grid cards" markdown>
+
+-   :material-puzzle:{ .lg .middle } [**Model Context Protocol (MCP)**](model-context-protocol.md)
+
+    ---
+
+    AI 에이전트에서 MCP 도구 직접 사용
+
+-   :material-leaf:{ .lg .middle } [**Spring Boot**](spring-boot.md)
+
+    ---
+
+    Spring 애플리케이션에 Koog 추가
+
+-   :material-cloud-outline:{ .lg .middle } [**Ktor**](ktor-plugin.md)
+
+    ---
+
+    Koog를 Ktor 서버와 통합
+
+-   :material-chart-timeline-variant:{ .lg .middle } [**OpenTelemetry**](opentelemetry-support.md)
+
+    ---
+
+    인기 있는 관측 가능성 도구를 사용하여 에이전트 트레이스, 로그 및 측정
+
+-   :material-lan:{ .lg .middle } [**A2A 프로토콜**](a2a-protocol-overview.md)
+
+    ---
+
+    공유 프로토콜을 통해 에이전트 및 서비스 연결
+
+</div>

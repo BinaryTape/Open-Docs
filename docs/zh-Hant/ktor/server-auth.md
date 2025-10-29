@@ -18,7 +18,7 @@ Authentication 外掛程式處理 Ktor 中的認證與授權。
 </link-summary>
 
 Ktor 提供
-[Authentication](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-auth/io.ktor.server.auth/-authentication/index.html)
+[Authentication](https://api.ktor.io/ktor-server-auth/io.ktor.server.auth/-authentication/index.html)
 外掛程式來處理認證與授權。典型的使用情境包括登入使用者、授予對特定資源的存取權限以及在各方之間安全地傳輸資訊。您也可以將 `Authentication`
 與 [Sessions](server-sessions.md) 搭配使用，以在請求之間保留使用者的資訊。
 
@@ -41,7 +41,7 @@ HTTP 提供了一個用於存取控制與認證的[通用框架](https://develop
 [JSON Web Token](server-jwt.md) 是一種用於在各方之間安全傳輸資訊的開放標準，以 JSON 物件形式呈現。您可以將 JSON Web Token 用於授權：當使用者登入後，每個請求都將包含一個 token，允許使用者存取該 token 允許的資源。在 Ktor 中，您可以使用 `jwt` 認證來驗證 token 並驗證其中包含的 claims。
 
 ### LDAP {id="ldap"}
-[LDAP](server-ldap.md) 是一種開放且跨平台的協議，用於目錄服務認證。Ktor 提供 [ldapAuthenticate](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-auth-ldap/io.ktor.server.auth.ldap/ldap-authenticate.html) 函數，用於根據指定的 LDAP 伺服器驗證使用者憑證。
+[LDAP](server-ldap.md) 是一種開放且跨平台的協議，用於目錄服務認證。Ktor 提供 [ldapAuthenticate](https://api.ktor.io/ktor-server-auth-ldap/io.ktor.server.auth.ldap/ldap-authenticate.html) 函數，用於根據指定的 LDAP 伺服器驗證使用者憑證。
 
 ### OAuth {id="oauth"}
 [OAuth](server-oauth.md) 是一種用於保護 API 存取的開放標準。Ktor 中的 `oauth` 供應器允許您使用 Google、Facebook、Twitter 等外部供應器來實作認證。
@@ -105,7 +105,7 @@ Ktor 還提供一個用於建立[自訂外掛程式](server-custom-plugins.md)�
 供應器，例如 [basic](server-basic-auth.md)、[digest](server-digest-auth.md) 或 [form](server-form-based-auth.md)，
 您需要在 `install` 區塊內呼叫對應的函數。例如，要使用基本認證，
 請呼叫 [
-`.basic()`](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-auth/io.ktor.server.auth/basic.html)
+`.basic()`](https://api.ktor.io/ktor-server-auth/io.ktor.server.auth/basic.html)
 函數：
 
 ```kotlin
@@ -124,8 +124,8 @@ install(Authentication) {
 ### 步驟 2：指定供應器名稱 {id="provider-name"}
 
 [使用特定供應器](#choose-provider)的函數允許您選擇性地指定供應器名稱。下面的程式碼範例分別使用 `"auth-basic"` 和 `"auth-form"` 名稱安裝
-[basic](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-auth/io.ktor.server.auth/basic.html)
-和 [form](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-auth/io.ktor.server.auth/form.html) 供應器：
+[basic](https://api.ktor.io/ktor-server-auth/io.ktor.server.auth/basic.html)
+和 [form](https://api.ktor.io/ktor-server-auth/io.ktor.server.auth/form.html) 供應器：
 
 ```kotlin
 install(Authentication) {
@@ -148,10 +148,10 @@ install(Authentication) {
 ### 步驟 3：設定供應器 {id="configure-provider"}
 
 每個[供應器類型](#choose-provider)都有其自己的設定。例如，
-[`BasicAuthenticationProvider.Config`](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-auth/io.ktor.server.auth/-basic-authentication-provider/-config/index.html)
+[`BasicAuthenticationProvider.Config`](https://api.ktor.io/ktor-server-auth/io.ktor.server.auth/-basic-authentication-provider/-config/index.html)
 類別為
-[`.basic()`](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-auth/io.ktor.server.auth/basic.html)
-函數提供了選項。此類別中的關鍵函數是 [`validate()`](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-auth/io.ktor.server.auth/-basic-authentication-provider/-config/validate.html)，
+[`.basic()`](https://api.ktor.io/ktor-server-auth/io.ktor.server.auth/basic.html)
+函數提供了選項。此類別中的關鍵函數是 [`validate()`](https://api.ktor.io/ktor-server-auth/io.ktor.server.auth/-basic-authentication-provider/-config/validate.html)，
 它負責驗證使用者名稱和密碼。以下程式碼範例展示了其用法：
 
 ```kotlin
@@ -173,23 +173,23 @@ install(Authentication) {
 
 * _主體_ 是一個可以被認證的實體：使用者、電腦、服務等。在 Ktor 中，各種
   認證供應器可能會使用不同的主體。例如，`basic`、`digest` 和 `form` 供應器
-  認證 [`UserIdPrincipal`](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-auth/io.ktor.server.auth/-user-id-principal/index.html)，
+  認證 [`UserIdPrincipal`](https://api.ktor.io/ktor-server-auth/io.ktor.server.auth/-user-id-principal/index.html)，
   而 `jwt` 供應器
-  驗證 [`JWTPrincipal`](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-auth-jwt/io.ktor.server.auth.jwt/-j-w-t-principal/index.html)。
+  驗證 [`JWTPrincipal`](https://api.ktor.io/ktor-server-auth-jwt/io.ktor.server.auth.jwt/-j-w-t-principal/index.html)。
   > 您也可以建立自訂主體。這在以下情況中可能很有用：
   > - 將憑證映射到自訂主體允許您在[路由處理器](#get-principal)內部擁有關於已認證主體的額外資訊。
   > - 如果您使用[會話認證](server-session-auth.md)，主體可能是一個儲存會話資料的資料類別。
 * _憑證_ 是一組用於伺服器認證主體的屬性：使用者/密碼對、API 金鑰等等。例如，`basic` 和 `form` 供應器
   使用 [
-  `UserPasswordCredential`](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-auth/io.ktor.server.auth/-user-password-credential/index.html)
+  `UserPasswordCredential`](https://api.ktor.io/ktor-server-auth/io.ktor.server.auth/-user-password-credential/index.html)
   來驗證使用者名稱和密碼，而 `jwt`
   驗證 [
-  `JWTCredential`](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-auth-jwt/io.ktor.server.auth.jwt/-j-w-t-credential/index.html)。
+  `JWTCredential`](https://api.ktor.io/ktor-server-auth-jwt/io.ktor.server.auth.jwt/-j-w-t-credential/index.html)。
 
 因此，`validate()` 函數檢查指定的憑證，並在認證成功時傳回一個 `Any` 主體，如果認證失敗則傳回 `null`。
 
 > 若要根據特定條件跳過認證，
-> 請使用 [`skipWhen()`](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-auth/io.ktor.server.auth/-authentication-provider/-config/skip-when.html)。
+> 請使用 [`skipWhen()`](https://api.ktor.io/ktor-server-auth/io.ktor.server.auth/-authentication-provider/-config/skip-when.html)。
 > 例如，如果[會話](server-sessions.md)已存在，您可以跳過 `basic` 認證：
 > ```kotlin
 > basic {
@@ -199,7 +199,7 @@ install(Authentication) {
 ### 步驟 4：保護特定資源 {id="authenticate-route"}
 
 最後一步是保護應用程式中的特定資源。您可以使用
-[`authenticate()`](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-auth/io.ktor.server.auth/authenticate.html)
+[`authenticate()`](https://api.ktor.io/ktor-server-auth/io.ktor.server.auth/authenticate.html)
 函數來完成此操作。此函數接受兩個可選參數：
 
 - 用於認證巢狀路由的[供應器名稱](#provider-name)。
@@ -221,7 +221,7 @@ install(Authentication) {
    ```
 - 用於解析巢狀認證供應器的策略。
   此策略由
-  [`AuthenticationStrategy`](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-auth/io.ktor.server.auth/-authentication-strategy/index.html)
+  [`AuthenticationStrategy`](https://api.ktor.io/ktor-server-auth/io.ktor.server.auth/-authentication-strategy/index.html)
   列舉值表示。
 
   例如，客戶端應為所有使用 `AuthenticationStrategy.Required` 策略註冊的供應器提供認證資料。

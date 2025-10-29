@@ -23,7 +23,7 @@ The EventHandler entity consists of five main handler types:
 
 ### 설치 및 구성
 
-`EventHandler` 기능은 `EventHandler` 클래스를 통해 에이전트 워크플로와 통합되며, 이 클래스는 다양한 에이전트 이벤트에 대한 콜백을 등록하는 방법을 제공하고 에이전트 구성에 기능으로 설치될 수 있습니다. 자세한 내용은 [API 참조](https://api.koog.ai/agents/agents-features/agents-features-event-handler/ai.koog.agents.features.eventHandler.feature/-event-handler/index.html)를 참조하세요.
+`EventHandler` 기능은 에이전트 워크플로와 `EventHandler` 클래스를 통해 통합되며, 다양한 에이전트 이벤트에 대한 콜백을 등록하는 방법을 제공하고 에이전트 구성에 기능으로 설치될 수 있습니다. 자세한 내용은 [API 참조](https://api.koog.ai/agents/agents-features/agents-features-event-handler/ai.koog.agents.features.eventHandler.feature/-event-handler/index.html)를 참조하세요.
 
 이 기능을 설치하고 에이전트에 대한 이벤트 핸들러를 구성하려면 다음을 수행하세요:
 
@@ -38,8 +38,8 @@ val agent = AIAgent(
     llmModel = OllamaModels.Meta.LLAMA_3_2,
 ) {
 -->
-<!--- SUFFIX 
-} 
+<!--- SUFFIX
+}
 -->
 
 ```kotlin
@@ -56,7 +56,7 @@ handleEvents {
     // 다른 이벤트 핸들러
 }
 ```
-<!--- KNIT example-events-01.kt -->
+<!--- KNIT example-event-handlers-01.kt -->
 
 이벤트 핸들러 구성에 대한 자세한 내용은 [API 참조](https://api.koog.ai/agents/agents-features/agents-features-event-handler/ai.koog.agents.features.eventHandler.feature/-event-handler-config/index.html)를 참조하세요.
 
@@ -87,4 +87,4 @@ val agent = AIAgent(
     }
 }
 ```
-<!--- KNIT example-events-02.kt -->
+<!--- KNIT example-event-handlers-02.kt -->

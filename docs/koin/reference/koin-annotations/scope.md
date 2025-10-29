@@ -6,7 +6,7 @@ title: Koin 注解中的作用域
 
 ## 使用 @Scope 定义作用域
 
-Koin 允许使用作用域，有关其基础知识的更多详细信息，请参阅 [Koin 作用域](/docs/reference/koin-core/scopes.md) 部分。
+Koin 允许使用作用域。有关其基础知识的更多详细信息，请参阅 [Koin 作用域](/docs/reference/koin-core/scopes.md) 部分。
 
 要使用注解声明作用域，只需在类上使用 `@Scope` 注解，如下所示：
 
@@ -22,7 +22,7 @@ class MyScopeClass
 >}
 > ```
 
-此外，如果你更需要一个作用域名称而不是类型，你需要使用 `@Scope(name = )` 注解，并通过 `name` 参数来标记一个类：
+此外，如果你更需要一个作用域名称而不是类型，你需要使用 `@Scope(name = )` 注解，并通过 `name` 形参来标记一个类：
 
 ```kotlin
 @Scope(name = "my_scope_name")
@@ -107,4 +107,135 @@ factory { Myfactory(getScope("my_scope_id").get()) }
 
 :::info
   `MyScopedComponent` 组件需要在作用域段落中定义，并且作用域实例需要以 "my_scope_id" 为 ID 创建。
+:::
+
+## 作用域原型注解
+
+Koin Annotations 提供了预定义的作用域原型注解，用于常见的作用域模式，无需手动声明作用域类型。这些注解在一个注解中结合了作用域声明和组件定义。
+
+### Android 作用域原型
+
+对于 Android 开发，你可以使用这些预定义的作用域注解：
+
+#### @ActivityScope
+
+在 Activity 作用域中声明一个组件：
+
+```kotlin
+@ActivityScope
+class ActivityScopedComponent(val dependency: MyDependency)
+```
+
+这将生成：
+```kotlin
+activityScope {
+    scoped { ActivityScopedComponent(get()) }
+}
+```
+
+**用法：** 此标记类旨在与 Activity 和 `activityScope` 函数一起使用，以激活作用域。
+
+#### @ActivityRetainedScope
+
+在 Activity Retained 作用域中声明一个组件（可在配置更改时保留）：
+
+```kotlin
+@ActivityRetainedScope
+class RetainedComponent(val repository: MyRepository)
+```
+
+这将生成：
+```kotlin
+activityRetainedScope {
+    scoped { RetainedComponent(get()) }
+}
+```
+
+**用法：** 此标记类旨在与 Activity 和 `activityRetainedScope` 函数一起使用，以激活作用域。
+
+#### @FragmentScope
+
+在 Fragment 作用域中声明一个组件：
+
+```kotlin
+@FragmentScope
+class FragmentScopedComponent(val service: MyService)
+```
+
+这将生成：
+```kotlin
+fragmentScope {
+    scoped { FragmentScopedComponent(get()) }
+}
+```
+
+**用法：** 此标记类旨在与 Fragment 和 `fragmentScope` 函数一起使用，以激活作用域。
+
+### 核心作用域原型
+
+#### @ViewModelScope
+
+在 ViewModel 作用域中声明一个组件。此注解**兼容 Kotlin Multiplatform (KMP)**，并且适用于 Android ViewModel 和 Compose Multiplatform ViewModel：
+
+```kotlin
+@ViewModelScope
+class ViewModelScopedRepository(val apiService: ApiService)
+
+@ViewModelScope  
+class ViewModelScopedUseCase(
+    val repository: ViewModelScopedRepository,
+    val analytics: AnalyticsService
+)
+```
+
+这将生成：
+```kotlin
+viewModelScope {
+    scoped { ViewModelScopedRepository(get()) }
+    scoped { ViewModelScopedUseCase(get(), get()) }
+}
+```
+
+**用法：** 此标记类旨在与 ViewModel 和 `viewModelScope` 函数一起使用，以激活作用域。
+
+**KMP 支持：** 可在所有 Kotlin Multiplatform 目标平台（包括使用 ViewModel 的 Android、iOS、桌面和 Web 平台）上无缝工作。
+
+### 使用作用域原型
+
+作用域原型注解可与常规 Koin 作用域无缝协作：
+
+```kotlin
+// Regular components
+@Single
+class GlobalService
+
+// Scoped components using archetypes
+@ActivityScope
+class ActivityService(val global: GlobalService)
+
+@FragmentScope  
+class FragmentService(
+    val global: GlobalService,
+    val activity: ActivityService
+)
+```
+
+### 与函数定义结合使用
+
+作用域原型也可以在模块内的函数上使用：
+
+```kotlin
+@Module
+class MyModule {
+    
+    @ActivityScope
+    fun activityComponent(dep: MyDependency) = MyActivityComponent(dep)
+    
+    @FragmentScope
+    fun fragmentComponent(dep: MyDependency) = MyFragmentComponent(dep)
+}
+```
+
+:::info
+作用域原型注解会自动创建适当的作用域定义和作用域组件声明，从而减少常见作用域模式的样板代码。
 :::

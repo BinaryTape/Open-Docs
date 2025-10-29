@@ -4,7 +4,7 @@
 
 ## 功能概述
 
-EventHandler 功能讓您能夠掛接到各種代理程式事件。它作為一種事件委派機制，能夠：
+`EventHandler` 功能讓您能夠掛接到各種代理程式事件。它作為一種事件委派機制，能夠：
 
 -   管理 AI 代理程式操作的生命週期。
 -   提供掛接點，用於監控和回應工作流程的不同階段。
@@ -23,7 +23,7 @@ The EventHandler entity consists of five main handler types:
 
 ### 安裝與設定
 
-EventHandler 功能透過 `EventHandler` 類別整合到代理程式工作流程中，該類別提供了註冊不同代理程式事件回呼的方式，並可作為代理程式設定中的一個功能進行安裝。詳細資訊請參閱 [API reference](https://api.koog.ai/agents/agents-features/agents-features-event-handler/ai.koog.agents.features.eventHandler.feature/-event-handler/index.html)。
+`EventHandler` 功能透過 `EventHandler` 類別整合到代理程式工作流程中，該類別提供了註冊不同代理程式事件回呼的方式，並可作為代理程式設定中的一個功能進行安裝。詳細資訊請參閱 [API reference](https://api.koog.ai/agents/agents-features/agents-features-event-handler/ai.koog.agents.features.eventHandler.feature/-event-handler/index.html)。
 
 若要安裝此功能並為代理程式設定事件處理器，請執行以下操作：
 
@@ -44,19 +44,19 @@ val agent = AIAgent(
 
 ```kotlin
 handleEvents {
-    // Handle tool calls
+    // 處理工具呼叫
     onToolCallStarting { eventContext ->
         println("Tool called: ${eventContext.tool.name} with args ${eventContext.toolArgs}")
     }
-    // Handle event triggered when the agent completes its execution
+    // 處理代理程式完成執行時觸發的事件
     onAgentCompleted { eventContext ->
         println("Agent finished with result: ${eventContext.result}")
     }
 
-    // Other event handlers
+    // 其他事件處理器
 }
 ```
-<!--- KNIT example-events-01.kt -->
+<!--- KNIT example-event-handlers-01.kt -->
 
 有關事件處理器設定的更多詳細資訊，請參閱 [API reference](https://api.koog.ai/agents/agents-features/agents-features-event-handler/ai.koog.agents.features.eventHandler.feature/-event-handler-config/index.html)。
 
@@ -74,17 +74,17 @@ val agent = AIAgent(
     llmModel = OllamaModels.Meta.LLAMA_3_2,
 ){
     handleEvents {
-        // Handle tool calls
+        // 處理工具呼叫
         onToolCallStarting { eventContext ->
             println("Tool called: ${eventContext.tool.name} with args ${eventContext.toolArgs}")
         }
-        // Handle event triggered when the agent completes its execution
+        // 處理代理程式完成執行時觸發的事件
         onAgentCompleted { eventContext ->
             println("Agent finished with result: ${eventContext.result}")
         }
 
-        // Other event handlers
+        // 其他事件處理器
     }
 }
 ```
-<!--- KNIT example-events-02.kt -->
+<!--- KNIT example-event-handlers-02.kt -->

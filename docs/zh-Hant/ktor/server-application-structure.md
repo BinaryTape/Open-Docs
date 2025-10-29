@@ -8,7 +8,7 @@ Ktor 的優勢之一在於它在應用程式結構化方面提供了極大的彈
 
 ## 按檔案分組 {id="group_by_file"}
 
-一種方法是將相關的路由分組到單一檔案中。例如，如果我們的應用程式處理客戶 (Customers) 和訂單 (Orders)，這意味著將會有 `CustomerRoutes.kt` 和 `OrderRoutes.kt` 兩個檔案：
+一種方法是將相關的路由分組到單一檔案中。例如，如果我們的應用程式處理客戶和訂單，這意味著將會有 `CustomerRoutes.kt` 和 `OrderRoutes.kt` 兩個檔案：
 
 <Tabs>
 <TabItem title="CustomerRoutes.kt">
@@ -49,7 +49,7 @@ fun Route.totalizeOrderRoute() {
 
 ## 分組路由定義 {id="group_routing_definitions"}
 
-這種方法的一個優勢是，我們還可以按檔案分組路由定義，以及潛在的功能。例如，假設我們遵循上述的按檔案分組佈局。儘管路由位於不同的檔案中，我們仍需要在 Application 層級聲明它們。因此，我們的應用程式會看起來像這樣：
+這種方法的一個優勢是，我們還可以按檔案分組路由定義，以及潛在的功能。例如，假設我們遵循上述的按檔案分組佈局。儘管路由位於不同的檔案中，我們仍需要在 `Application` 層級聲明它們。因此，我們的應用程式會看起來像這樣：
 
 ```kotlin
 routing {
@@ -116,7 +116,7 @@ fun Application.module() {
 
 ## 按功能分組 {id="group_by_feature"}
 
-諸如 ASP.NET MVC 或 Ruby on Rails 等框架，具有使用三個資料夾（Model、View 和 Controllers (Routes)）來構建應用程式的概念。
+諸如 ASP.NET MVC 或 Ruby on Rails 等框架，具有使用三個資料夾（模型、視圖和控制器 (路由)）來構建應用程式的概念。
 
 ![模型、視圖、控制器](ktor-routing-2.png){width="350" border-effect="rounded"}
 

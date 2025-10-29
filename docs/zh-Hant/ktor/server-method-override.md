@@ -8,7 +8,7 @@
 
 <tldr>
 <p>
-<b>所需依賴</b>: <code>io.ktor:%artifact_name%</code>
+<b>所需依賴項</b>: <code>io.ktor:%artifact_name%</code>
 </p>
 <var name="example_name" value="json-kotlinx-method-override"/>
 <p>
@@ -26,7 +26,7 @@
 %plugin_name% 啟用在 X-HTTP-Method-Override 標頭內部通道 HTTP 動詞的功能。
 </link-summary>
 
-[%plugin_name%](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-method-override/io.ktor.server.plugins.methodoverride/-x-http-method-override.html) 外掛程式啟用在 `X-HTTP-Method-Override` 標頭內部通道 HTTP 動詞的功能。
+[%plugin_name%](https://api.ktor.io/ktor-server-method-override/io.ktor.server.plugins.methodoverride/-x-http-method-override.html) 外掛程式啟用在 `X-HTTP-Method-Override` 標頭內部通道 HTTP 動詞的功能。
 如果您的伺服器 API 處理多個 HTTP 動詞（如 `GET`、`PUT`、`POST`、`DELETE` 等），但客戶端由於特定限制只能使用有限的動詞集合（例如 `GET` 和 `POST`），這可能會很有用。
 舉例來說，如果客戶端傳送一個請求，其中 `X-Http-Method-Override` 標頭設定為 `DELETE`，Ktor 將使用 `delete` [路由處理器](server-routing.md#define_route) 來處理此請求。
 
@@ -64,10 +64,10 @@
 </list>
 <Tabs>
     <TabItem title="embeddedServer">
-        <code-block lang="kotlin" code="            import io.ktor.server.engine.*&#10;            import io.ktor.server.netty.*&#10;            import io.ktor.server.application.*&#10;            import %package_name%.*&#10;&#10;            fun main() {&#10;                embeddedServer(Netty, port = 8080) {&#10;                    install(%plugin_name%)&#10;                    // ...&#10;                }.start(wait = true)&#10;            }"/>
+        <code-block lang="kotlin" code="            import io.ktor.server.engine.*&#10;            import io.ktor.server.netty.*&#10;            import io.ktor.server.application.*&#10;            import %package_name%.*&#10;&#10;            fun main() {&#10;                embeddedServer(Netty, port = 8080) {&#10;                    install(%plugin_name%)&#10;                    // ...&#10                }.start(wait = true)&#10;            }"/>
     </TabItem>
     <TabItem title="module">
-        <code-block lang="kotlin" code="            import io.ktor.server.application.*&#10;            import %package_name%.*&#10;            // ...&#10;            fun Application.module() {&#10;                install(%plugin_name%)&#10;                // ...&#10;            }"/>
+        <code-block lang="kotlin" code="            import io.ktor.server.application.*&#10;            import %package_name%.*&#10;            // ...&#10;            fun Application.module() {&#10;                install(%plugin_name%)&#10;                // ...&#10            }"/>
     </TabItem>
 </Tabs>
 

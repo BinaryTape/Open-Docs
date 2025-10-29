@@ -19,11 +19,11 @@
     </a>
 </p>
 <p>
-    <b><Links href="/ktor/server-native" summary="模块允许你通过分组路由来组织应用程序。">原生服务器</Links>支持</b>: ✖️
+    <b><Links href="/ktor/server-native" summary="Ktor 支持 Kotlin/Native，并允许你在没有额外运行时或虚拟机的情况下运行服务器。">原生服务器</Links>支持</b>: ✖️
 </p>
 </tldr>
 
-Ktor 允许你通过安装 [%plugin_name%](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-jte/io.ktor.server.jte/-jte.html) 插件，在应用程序中使用 [JTE 模板](https://github.com/casid/jte) 作为视图。
+Ktor 允许你通过安装 [%plugin_name%](https://api.ktor.io/ktor-server-jte/io.ktor.server.jte/-jte.html) 插件，在应用程序中使用 [JTE 模板](https://github.com/casid/jte) 作为视图。
 
 ## 添加依赖项 {id="add_dependencies"}
 
@@ -105,10 +105,9 @@ fun Application.module() {
 </html>
 ```
 
-要将模板用于指定的路由，请按照以下方式将 `JteContent` 传递给 `call.respond` 方法：
+要将模板用于指定的 [路由](server-routing.md)，请按照以下方式将 `JteContent` 传递给 `call.respond` 方法：
 ```kotlin
 get("/index") {
     val params = mapOf("id" to 1, "name" to "John")
     call.respond(JteContent("index.kte", params))
 }
-```

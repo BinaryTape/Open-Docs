@@ -23,14 +23,14 @@
 </tldr>
 
 <link-summary>
-Webjars 插件可啟用提供由 WebJars 提供的用戶端函式庫。
+%plugin_name% 插件可啟用提供由 WebJars 提供的用戶端函式庫。
 </link-summary>
 
-[Webjars](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-webjars/io.ktor.server.webjars/-webjars.html) 插件可啟用提供由 [WebJars](https://www.webjars.org/) 提供的用戶端函式庫。它允許您將 JavaScript 和 CSS 函式庫等資產打包為您的 [獨立 JAR 檔](server-fatjar.md) 的一部分。
+[%plugin_name%](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-webjars/io.ktor.server.webjars/-webjars.html) 插件可啟用提供由 [WebJars](https://www.webjars.org/) 提供的用戶端函式庫。它允許您將 JavaScript 和 CSS 函式庫等資產打包為您的 [獨立 JAR 檔](server-fatjar.md) 的一部分。
 
 ## 新增依賴 {id="add_dependencies"}
-若要啟用 Webjars，您需要將以下構件包含在建置腳本中：
-* 新增 <code>ktor-server-webjars</code> 依賴：
+若要啟用 %plugin_name%，您需要將以下構件包含在建置腳本中：
+* 新增 <code>%artifact_name%</code> 依賴：
 
   <Tabs group="languages">
       <TabItem title="Gradle (Kotlin)" group-key="kotlin">
@@ -63,12 +63,12 @@ Webjars 插件可啟用提供由 WebJars 提供的用戶端函式庫。
   
   您可以將 <code>$bootstrap_version</code> 替換為 <code>bootstrap</code> 構件 (artifact) 的所需版本，例如 <code>%bootstrap_version%</code>。
 
-## 安裝 Webjars {id="install_plugin"}
+## 安裝 %plugin_name% {id="install_plugin"}
 
 <p>
-    若要將 <code>Webjars</code> 插件<a href="#install">安裝</a>到應用程式，
+    若要將 <code>%plugin_name%</code> 插件<a href="#install">安裝</a>到應用程式，
     請將其傳遞給指定<Links href="/ktor/server-modules" summary="模組允許您透過分組路由來組織應用程式。">模組</Links>中的 <code>install</code> 函式。
-    下方程式碼片段展示如何安裝 <code>Webjars</code> ...
+    下方程式碼片段展示如何安裝 <code>%plugin_name%</code> ...
 </p>
 <list>
     <li>
@@ -87,9 +87,9 @@ Webjars 插件可啟用提供由 WebJars 提供的用戶端函式庫。
     </TabItem>
 </Tabs>
 
-## 配置 Webjars {id="configure"}
+## 配置 %plugin_name% {id="configure"}
 
-預設情況下，Webjars 在 <code>/webjars</code> 路徑上提供 WebJars 資產。下方範例展示如何更改此設定並在 <code>/assets</code> 路徑上提供任何 WebJars 資產：
+預設情況下，%plugin_name% 在 <code>/webjars</code> 路徑上提供 WebJars 資產。下方範例展示如何更改此設定並在 <code>/assets</code> 路徑上提供任何 WebJars 資產：
 
 ```kotlin
 import io.ktor.server.application.*
@@ -110,6 +110,6 @@ fun Application.module() {
 </head>
 ```
 
-請注意，Webjars 允許您更改依賴的版本，而無需更改用於載入它們的路徑。
+請注意，%plugin_name% 允許您更改依賴的版本，而無需更改用於載入它們的路徑。
 
 > 您可以在此處找到完整範例：[webjars](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/webjars)。

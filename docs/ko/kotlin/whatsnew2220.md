@@ -13,8 +13,8 @@ Kotlin 2.2.20 릴리스가 출시되어 웹 개발을 위한 중요한 변경 �
 또한, 주요 내용은 다음과 같습니다:
 
 *   **Kotlin Multiplatform**: [Swift export가 기본적으로 제공](#swift-export-available-by-default)되며, [Kotlin 라이브러리를 위한 안정적인 크로스 플랫폼 컴파일](#stable-cross-platform-compilation-for-kotlin-libraries), 그리고 [공통 의존성을 선언하는 새로운 접근 방식](#new-approach-for-declaring-common-dependencies)이 도입되었습니다.
-*   **언어**: [람다를 `suspend` 함수 타입의 오버로드에 전달할 때 오버로드 결정 개선](#improved-overload-resolution-for-lambdas-with-suspend-function-types)이 이루어졌습니다.
-*   **Kotlin/Native**: [바이너리에서 스택 카나리(stack canaries) 지원](#support-for-stack-canaries-in-binaries) 및 [릴리스 바이너리의 바이너리 크기 축소](#smaller-binary-size-for-release-binaries)가 추가되었습니다.
+*   **언어**: [람다를 suspend 함수 타입의 오버로드에 전달할 때 오버로드 결정 개선](#improved-overload-resolution-for-lambdas-with-suspend-function-types)이 이루어졌습니다.
+*   **Kotlin/Native**: [Xcode 26 지원, 스택 카나리 및 릴리스 바이너리의 바이너리 크기 축소](#kotlin-native)가 추가되었습니다.
 *   **Kotlin/JS**: [`Long` 값이 JavaScript `BigInt`로 컴파일](#usage-of-the-bigint-type-to-represent-kotlin-s-long-type)됩니다.
 
 > 웹용 Compose Multiplatform이 이제 베타 버전입니다. 자세한 내용은 [블로그 게시물](https://blog.jetbrains.com/kotlin/2025/09/compose-multiplatform-1-9-0-compose-for-web-beta/)에서 알아보세요.
@@ -29,7 +29,7 @@ Kotlin 2.2.20을 지원하는 Kotlin 플러그인은 최신 버전의 IntelliJ I
 
 ## 언어
 
-Kotlin 2.2.20에서는 Kotlin 2.3.0에 예정된 다음 언어 기능을 시험해 볼 수 있습니다. [람다를 `suspend` 함수 타입의 오버로드에 전달할 때 오버로드 결정 개선](#improved-overload-resolution-for-lambdas-with-suspend-function-types)과 [명시적 반환 타입이 있는 표현식 본문에서 `return` 문 지원](#support-for-return-statements-in-expression-bodies-with-explicit-return-types)이 포함됩니다. 또한 이번 릴리스에는 [`when` 표현식에 대한 완전성 검사 개선](#data-flow-based-exhaustiveness-checks-for-when-expressions), [재실체화된(reified) `Throwable` 캐치](#support-for-reified-types-in-catch-clauses), 그리고 [Kotlin 계약(contracts) 개선](#improved-kotlin-contracts)도 포함되어 있습니다.
+Kotlin 2.2.20에서는 Kotlin 2.3.0에 예정된 다음 언어 기능을 시험해 볼 수 있습니다. [`suspend` 함수 타입을 사용하는 오버로드에 람다를 전달할 때 오버로드 결정 개선](#improved-overload-resolution-for-lambdas-with-suspend-function-types)과 [명시적 반환 타입이 있는 표현식 본문에서 `return` 문 지원](#support-for-return-statements-in-expression-bodies-with-explicit-return-types)이 포함됩니다. 또한 이번 릴리스에는 [`when` 표현식에 대한 완전성 검사 개선](#data-flow-based-exhaustiveness-checks-for-when-expressions), [재실체화된(reified) `Throwable` 캐치](#support-for-reified-types-in-catch-clauses), 그리고 [Kotlin 계약(contracts) 개선](#improved-kotlin-contracts)도 포함되어 있습니다.
 
 ### `suspend` 함수 타입을 사용하는 람다에 대한 오버로드 결정 개선
 
@@ -44,7 +44,7 @@ fun test() {
     // Fails with overload resolution ambiguity
     transform({ 42 })
 
-    // Uses an explicit cast, but the compiler incorrectly reports
+    // Uses an explicit cast, but the compiler incorrectly reports 
     // a "No cast needed" warning
     transform({ 42 } as () -> Int)
 }
@@ -158,7 +158,7 @@ fun getPermissionLevel(role: UserRole): Int {
     return when (role) {
         UserRole.MEMBER -> 10
         UserRole.GUEST -> 1
-        // You no longer have to include this else branch
+        // You no longer have to include this else branch 
         // else -> throw IllegalStateException()
     }
 }
@@ -234,7 +234,7 @@ Kotlin 2.2.20은 [Kotlin 계약(contracts)](https://kotlinlang.org/api/core/kotl
 *   조건이 충족될 때 null이 아닌 반환 값을 보장하는 방법으로 [계약에서 `returnsNotNull()` 함수 지원](#support-for-the-returnsnotnull-function-in-contracts).
 *   [새로운 `holdsIn` 키워드](#new-holdsin-keyword), 람다 내부로 전달될 때 조건이 참이라고 가정할 수 있습니다.
 
-이러한 개선 사항은 [실험적](components-stability.md#stability-levels-explained)입니다. 옵트인하려면 여전히 계약을 선언할 때 `@OptIn(ExperimentalContracts::class)` 주석을 사용해야 합니다. `holdsIn` 키워드와 `returnsNotNull()` 함수에도 `@OptIn(ExperimentalExtendedContracts::class)` 주석이 필요합니다.
+이러한 개선 사항은 [실험적](components-stability.md#stability-levels-explained)입니다. 이를 활성화하려면 여전히 계약을 선언할 때 `@OptIn(ExperimentalContracts::class)` 주석을 사용해야 합니다. `holdsIn` 키워드와 `returnsNotNull()` 함수에도 `@OptIn(ExperimentalExtendedContracts::class)` 주석이 필요합니다.
 
 이러한 개선 사항을 사용하려면 아래 각 섹션에 설명된 컴파일러 옵션도 추가해야 합니다.
 
@@ -533,7 +533,7 @@ Swift export를 사용해 보려면 Xcode 프로젝트를 다음과 같이 구�
    ./gradlew :<Shared module name>:embedSwiftExportForXcode
    ```
 
-   ![Swift export 스크립트 추가](xcode-swift-export-run-script-phase.png){width=700}
+   ![Add the Swift export script](xcode-swift-export-run-script-phase.png){width=700}
 
 4.  프로젝트를 빌드합니다. Swift 모듈은 빌드 출력 디렉토리에 생성됩니다.
 
@@ -591,7 +591,7 @@ suspend fun readCopiedText(): String {
 이 변경으로 `web` 소스 세트는 `js` 및 `wasmJs` 소스 세트 모두의 부모가 됩니다. 업데이트된 소스 세트
 계층 구조는 다음과 같습니다:
 
-![웹과 함께 기본 계층 템플릿을 사용하는 예시](default-hierarchy-example-with-web.svg)
+![An example of using the default hierarchy template with web](default-hierarchy-example-with-web.svg)
 
 새로운 소스 세트는 `js` 및 `wasmJs` 타겟 모두를 위해 하나의 코드를 작성할 수 있도록 합니다.
 공유 코드를 `webMain`에 넣어두면 자동으로 두 타겟 모두에서 작동합니다:
@@ -685,7 +685,12 @@ Kotlin 2.2.20은 각 의존성이 어떤 타겟을 지원하고 어떤 타겟을
 
 ## Kotlin/Native
 
-Kotlin 2.2.20은 Objective-C/Swift와의 상호 운용성, 디버깅, 그리고 새로운 바이너리 옵션에 대한 개선 사항을 제공합니다.
+이번 릴리스에서는 Xcode 26 지원, Objective-C/Swift와의 상호 운용성 개선, 디버깅 및 새로운 바이너리 옵션을 제공합니다.
+
+### Xcode 26 지원
+
+Kotlin 2.2.2**1**부터 Kotlin/Native 컴파일러는 Xcode 26(최신 안정 버전의 Xcode)을 지원합니다.
+이제 Xcode를 업데이트하고 최신 API에 액세스하여 Apple 운영 체제용 Kotlin 프로젝트 작업을 계속할 수 있습니다.
 
 ### 바이너리에서 스택 카나리(stack canaries) 지원
 
@@ -841,7 +846,7 @@ import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 kotlin {
     iosArm64 {
         binaries {
-            framework {
+            framework { 
                 baseName = "sdk"
                 @OptIn(ExperimentalKotlinGradlePluginApi::class)
                 exportKdoc.set(false)
@@ -1058,7 +1063,7 @@ Kotlin/JS는 사용자 정의 `Long` 표현을 사용했기 때문에 JavaScript
     kotlin {
         js {
             ...
-            compilerOptions {
+            compilerOptions {                   
                 freeCompilerArgs.add("-XXLanguage:+JsAllowLongInExportedDeclarations")
             }
         }
@@ -1091,7 +1096,7 @@ fun main(args: Array<String>) {
 
 ```kotlin
 fun main(args: Array<String>) {
-    // No need for drop() and only your custom arguments are included
+    // No need for drop() and only your custom arguments are included 
     println(args.joinToString(", "))
 }
 ```
@@ -1309,7 +1314,7 @@ fun main() {
 
 이 섹션에서는 주목해야 할 중요한 호환성이 깨지는 변경 사항과 사용 중단 사항을 강조합니다:
 
-*   [`kapt` 컴파일러 플러그인](kapt.md)은 이제 기본적으로 K2 컴파일러를 사용합니다. 결과적으로 플러그인이 K2 컴파일러를 사용할지 여부를 제어하는 `kapt.use.k2` 속성은 사용 중단되었습니다. 이 속성을 `false`로 설정하여 K2 컴파일러 사용을 옵트아웃하면 Gradle에서 경고를 표시합니다.
+*   [`kapt` 컴파일러 플러그인](kapt.md)은 이제 기본적으로 K2 컴파일러를 사용합니다. 결과적으로 플러그인이 K2 컴파일러를 사용할지 여부를 제어하는 `kapt.use.k2` 속성은 사용 중단되었습니다. 이 속성을 `false`로 설정하여 K2 컴파일러 사용을 옵트아웃(opt-out)하면 Gradle에서 경고를 표시합니다.
 
 ## 문서 업데이트
 

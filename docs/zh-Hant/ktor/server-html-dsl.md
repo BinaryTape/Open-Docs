@@ -36,7 +36,7 @@ HTML DSL 不需要 [安裝](server-plugins.md#install)，但需要 `%artifact_na
   
 
 ## 在回應中發送 HTML {id="html_response"}
-若要發送 HTML 回應，請在所需的 [路由](server-routing.md) 內呼叫 [respondHtml](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-html-builder/io.ktor.server.html/respond-html.html) 方法。
+若要發送 HTML 回應，請在所需的 [路由](server-routing.md) 內呼叫 [respondHtml](https://api.ktor.io/ktor-server-html-builder/io.ktor.server.html/respond-html.html) 方法。
 以下範例展示了一個範例 HTML DSL 和一個將發送給客戶端的對應 HTML：
 
 <Tabs>
@@ -140,11 +140,11 @@ get("/login") {
 
 除了生成純 HTML 外，Ktor 還提供了一個範本引擎，可用於建構複雜的版面配置。您可以為 HTML 頁面的不同部分建立範本的層次結構，例如，用於整個頁面的根範本，用於頁面標頭和頁尾的子範本等等。Ktor 暴露了以下用於處理範本的 API：
 
-1. 若要回應基於指定範本建構的 HTML，請呼叫 [respondHtmlTemplate](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-html-builder/io.ktor.server.html/respond-html-template.html) 方法。
-2. 若要建立範本，您需要實作 [Template](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-html-builder/io.ktor.server.html/-template/index.html) 介面並覆寫提供 HTML 的 `Template.apply` 方法。
+1. 若要回應基於指定範本建構的 HTML，請呼叫 [respondHtmlTemplate](https://api.ktor.io/ktor-server-html-builder/io.ktor.server.html/respond-html-template.html) 方法。
+2. 若要建立範本，您需要實作 [Template](https://api.ktor.io/ktor-server-html-builder/io.ktor.server.html/-template/index.html) 介面並覆寫提供 HTML 的 `Template.apply` 方法。
 3. 在建立的範本類別中，您可以定義不同內容類型的佔位符：
-    * [Placeholder](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-html-builder/io.ktor.server.html/-placeholder/index.html) 用於插入內容。[PlaceholderList](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-html-builder/io.ktor.server.html/-placeholder-list/index.html) 可用於插入多次出現的內容（例如，列表項目）。
-    * [TemplatePlaceholder](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-html-builder/io.ktor.server.html/-template-placeholder/index.html) 可用於插入子範本並建立巢狀版面配置。
+    * [Placeholder](https://api.ktor.io/ktor-server-html-builder/io.ktor.server.html/-placeholder/index.html) 用於插入內容。[PlaceholderList](https://api.ktor.io/ktor-server-html-builder/io.ktor.server.html/-placeholder-list/index.html) 可用於插入多次出現的內容（例如，列表項目）。
+    * [TemplatePlaceholder](https://api.ktor.io/ktor-server-html-builder/io.ktor.server.html/-template-placeholder/index.html) 可用於插入子範本並建立巢狀版面配置。
     
 
 ### 範例 {id="example"}

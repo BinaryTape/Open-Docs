@@ -36,7 +36,7 @@ HTML DSL은 [설치](server-plugins.md#install)가 필요 없지만 `%artifact_n
   
 
 ## HTML 응답 전송 {id="html_response"}
-HTML 응답을 전송하려면, 필요한 [경로](server-routing.md) 내에서 [respondHtml](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-html-builder/io.ktor.server.html/respond-html.html) 메서드를 호출하세요.
+HTML 응답을 전송하려면, 필요한 [경로](server-routing.md) 내에서 [respondHtml](https://api.ktor.io/ktor-server-html-builder/io.ktor.server.html/respond-html.html) 메서드를 호출하세요.
 아래 예시는 HTML DSL 샘플과 클라이언트에 전송될 해당 HTML을 보여줍니다:
 
 <Tabs>
@@ -140,11 +140,11 @@ get("/login") {
 
 일반 HTML을 생성하는 것 외에도, Ktor는 템플릿 엔진을 제공하여 복잡한 레이아웃을 구축하는 데 사용할 수 있습니다. HTML 페이지의 다른 부분에 대한 템플릿 계층을 만들 수 있습니다. 예를 들어, 전체 페이지의 루트 템플릿, 페이지 헤더 및 푸터에 대한 자식 템플릿 등을 만들 수 있습니다. Ktor는 템플릿 작업을 위한 다음 API를 제공합니다:
 
-1.  지정된 템플릿을 기반으로 구축된 HTML로 응답하려면, [respondHtmlTemplate](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-html-builder/io.ktor.server.html/respond-html-template.html) 메서드를 호출하세요.
-2.  템플릿을 생성하려면, [Template](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-html-builder/io.ktor.server.html/-template/index.html) 인터페이스를 구현하고 HTML을 제공하는 `Template.apply` 메서드를 오버라이드(override)해야 합니다.
+1.  지정된 템플릿을 기반으로 구축된 HTML로 응답하려면, [respondHtmlTemplate](https://api.ktor.io/ktor-server-html-builder/io.ktor.server.html/respond-html-template.html) 메서드를 호출하세요.
+2.  템플릿을 생성하려면, [Template](https://api.ktor.io/ktor-server-html-builder/io.ktor.server.html/-template/index.html) 인터페이스를 구현하고 HTML을 제공하는 `Template.apply` 메서드를 오버라이드(override)해야 합니다.
 3.  생성된 템플릿 클래스 내에서 다양한 콘텐츠 유형에 대한 플레이스홀더를 정의할 수 있습니다:
-    *   [Placeholder](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-html-builder/io.ktor.server.html/-placeholder/index.html)는 콘텐츠를 삽입하는 데 사용됩니다. [PlaceholderList](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-html-builder/io.ktor.server.html/-placeholder-list/index.html)는 콘텐츠가 여러 번 나타나는 경우(예: 목록 항목) 삽입하는 데 사용될 수 있습니다.
-    *   [TemplatePlaceholder](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-html-builder/io.ktor.server.html/-template-placeholder/index.html)는 자식 템플릿을 삽입하고 중첩된 레이아웃을 생성하는 데 사용될 수 있습니다.
+    *   [Placeholder](https://api.ktor.io/ktor-server-html-builder/io.ktor.server.html/-placeholder/index.html)는 콘텐츠를 삽입하는 데 사용됩니다. [PlaceholderList](https://api.ktor.io/ktor-server-html-builder/io.ktor.server.html/-placeholder-list/index.html)는 콘텐츠가 여러 번 나타나는 경우(예: 목록 항목) 삽입하는 데 사용될 수 있습니다.
+    *   [TemplatePlaceholder](https://api.ktor.io/ktor-server-html-builder/io.ktor.server.html/-template-placeholder/index.html)는 자식 템플릿을 삽입하고 중첩된 레이아웃을 생성하는 데 사용될 수 있습니다.
     
 
 ### 예시 {id="example"}
@@ -168,105 +168,106 @@ get("/login") {
 
 이러한 레이아웃을 단계별로 구현해 보겠습니다:
   
-1.  ``respondHtmlTemplate` 메서드를 호출하고 템플릿 클래스를 파라미터로 전달하세요. 이 경우, `LayoutTemplate` 클래스는 `Template` 인터페이스를 구현해야 합니다:`
-    ```kotlin
-    get("/") {
-        call.respondHtmlTemplate(LayoutTemplate()) {
-            // ...
-        }
-    }
-    ```
-    블록 내에서, 템플릿에 접근하여 속성 값을 지정할 수 있습니다. 이 값들은 템플릿 클래스에 지정된 플레이스홀더를 대체합니다. 다음 단계에서 `LayoutTemplate`을 생성하고 그 속성을 정의할 것입니다.
+1.  `respondHtmlTemplate` 메서드를 호출하고 템플릿 클래스를 파라미터로 전달하세요. 이 경우, `LayoutTemplate` 클래스는 `Template` 인터페이스를 구현해야 합니다:
+   ```kotlin
+   get("/") {
+       call.respondHtmlTemplate(LayoutTemplate()) {
+           // ...
+       }
+   }
+   ```
+   블록 내에서, 템플릿에 접근하여 속성 값을 지정할 수 있습니다. 이 값들은 템플릿 클래스에 지정된 플레이스홀더를 대체합니다. 다음 단계에서 `LayoutTemplate`을 생성하고 그 속성을 정의할 것입니다.
   
 2.  루트 레이아웃 템플릿은 다음과 같이 보일 것입니다:
-    ```kotlin
-    class LayoutTemplate: Template<HTML> {
-        val header = Placeholder<FlowContent>()
-        val content = TemplatePlaceholder<ArticleTemplate>()
-        override fun HTML.apply() {
-            body {
-                h1 {
-                    insert(header)
-                }
-                insert(ArticleTemplate(), content)
-            }
-        }
-    }
-    ```
+   ```kotlin
+   class LayoutTemplate: Template<HTML> {
+       val header = Placeholder<FlowContent>()
+       val content = TemplatePlaceholder<ArticleTemplate>()
+       override fun HTML.apply() {
+           body {
+               h1 {
+                   insert(header)
+               }
+               insert(ArticleTemplate(), content)
+           }
+       }
+   }
+   ```
 
-    이 클래스는 두 가지 속성을 노출합니다:
-    *   `header` 속성은 `h1` 태그 내에 삽입되는 콘텐츠를 지정합니다.
-    *   `content` 속성은 기사 콘텐츠를 위한 자식 템플릿을 지정합니다.
+   이 클래스는 두 가지 속성을 노출합니다:
+   *   `header` 속성은 `h1` 태그 내에 삽입되는 콘텐츠를 지정합니다.
+   *   `content` 속성은 기사 콘텐츠를 위한 자식 템플릿을 지정합니다.
 
 3.  자식 템플릿은 다음과 같이 보일 것입니다:
-    ```kotlin
-    class ArticleTemplate : Template<FlowContent> {
-        val articleTitle = Placeholder<FlowContent>()
-        val articleText = Placeholder<FlowContent>()
-        val list = TemplatePlaceholder<ListTemplate>()
-        override fun FlowContent.apply() {
-            article {
-                h2 {
-                    insert(articleTitle)
-                }
-                p {
-                    insert(articleText)
-                }
-                insert(ListTemplate(), list)
-            }
-        }
-    }
-    ```
+   ```kotlin
+   class ArticleTemplate : Template<FlowContent> {
+       val articleTitle = Placeholder<FlowContent>()
+       val articleText = Placeholder<FlowContent>()
+       val list = TemplatePlaceholder<ListTemplate>()
+       override fun FlowContent.apply() {
+           article {
+               h2 {
+                   insert(articleTitle)
+               }
+               p {
+                   insert(articleText)
+               }
+               insert(ListTemplate(), list)
+           }
+       }
+   }
+   ```
 
-    이 템플릿은 `articleTitle`, `articleText`, `list` 속성을 노출하며, 이 값들은 `article` 내에 삽입될 것입니다.
+   이 템플릿은 `articleTitle`, `articleText`, `list` 속성을 노출하며, 이 값들은 `article` 내에 삽입될 것입니다.
 
 4.  템플릿으로 값 목록을 제공하려면, 다음과 같은 새 클래스를 생성하세요: 
-    ```kotlin
-    class ListTemplate : Template<FlowContent> {
-        val item = PlaceholderList<UL, FlowContent>()
-        override fun FlowContent.apply() {
-            if (!item.isEmpty()) {
-                ul {
-                    each(item) {
-                        li {
-                            if (it.first) {
-                                b {
-                                    insert(it)
-                                }
-                            } else {
-                                insert(it)
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-    ```
+   ```kotlin
+   class ListTemplate : Template<FlowContent> {
+       val item = PlaceholderList<UL, FlowContent>()
+       override fun FlowContent.apply() {
+           if (!item.isEmpty()) {
+               ul {
+                   each(item) {
+                       li {
+                           if (it.first) {
+                               b {
+                                   insert(it)
+                               }
+                           } else {
+                               insert(it)
+                           }
+                       }
+                   }
+               }
+           }
+       }
+   }
+   ```
 
-    이 템플릿은 `PlaceholderList` 클래스를 사용하여 제공된 항목으로부터 비순서 목록(`UL`)을 생성합니다. 또한 첫 번째 항목을 강조하기 위해 `<b>` 요소로 감쌉니다.
+   이 템플릿은 `PlaceholderList` 클래스를 사용하여 제공된 항목으로부터 비순서 목록(`UL`)을 생성합니다.
+   또한 첫 번째 항목을 강조하기 위해 `<b>` 요소로 감쌉니다.
 
 5.  이제 지정된 속성 값을 사용하여 HTML을 구축하고 보낼 준비가 되었습니다:
-    ```kotlin
-    get("/") {
-        call.respondHtmlTemplate(LayoutTemplate()) {
-            header {
-                +"Ktor"
-            }
-            content {
-                articleTitle {
-                    +"Hello from Ktor!"
-                }
-                articleText {
-                    +"Kotlin Framework for creating connected systems."
-                }
-                list {
-                    item { +"One" }
-                    item { +"Two" }
-                }
-            }
-        }
-    }
-    ```
+   ```kotlin
+   get("/") {
+       call.respondHtmlTemplate(LayoutTemplate()) {
+           header {
+               +"Ktor"
+           }
+           content {
+               articleTitle {
+                   +"Hello from Ktor!"
+               }
+               articleText {
+                   +"Kotlin Framework for creating connected systems."
+               }
+               list {
+                   item { +"One" }
+                   item { +"Two" }
+               }
+           }
+       }
+   }
+   ```
 
 전체 예시는 다음에서 찾을 수 있습니다: [html-templates](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/html-templates).

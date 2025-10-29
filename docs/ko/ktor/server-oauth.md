@@ -18,11 +18,11 @@
     </a>
 </p>
 <p>
-    <b><Links href="/ktor/server-native" summary="Ktor supports Kotlin/Native and allows you to run a server without an additional runtime or virtual machine.">네이티브 서버</Links> 지원</b>: ✅
+    <b><Links href="/ktor/server-native" summary="Ktor는 Kotlin/Native를 지원하며 추가 런타임이나 가상 머신 없이 서버를 실행할 수 있습니다.">네이티브 서버</Links> 지원</b>: ✅
 </p>
 </tldr>
 
-[OAuth](https://oauth.net/)는 액세스 위임을 위한 개방형 표준입니다. OAuth는 Google, Facebook, Twitter 등과 같은 외부 제공자(provider)를 사용하여 애플리케이션 사용자를 인증하는 데 사용될 수 있습니다.
+[OAuth](https://oauth.net/)는 액세스 위임을 위한 개방형 표준입니다. OAuth는 Google, Facebook, Twitter 등과 같은 외부 제공자(provider)를 사용하여 애플리케이션 사용자를 인가하는 데 사용될 수 있습니다.
 
 `oauth` 프로바이더는 인가 코드 흐름(authorization code flow)을 지원합니다. OAuth 매개변수를 한 곳에서 구성할 수 있으며, Ktor는 필요한 매개변수를 사용하여 지정된 인가 서버(authorization server)에 자동으로 요청을 보냅니다.
 
@@ -96,6 +96,7 @@ fun Application.main(httpClient: HttpClient = applicationHttpClient) {
     install(Authentication) {
         oauth("auth-oauth-google") {
             // Configure oauth authentication
+            urlProvider = { "http://localhost:8080/callback" }
         }
     }
 }
@@ -127,7 +128,9 @@ Google API에 액세스하려면 Google Cloud Console에서 인가 자격 증명
 ```kotlin
 val applicationHttpClient = HttpClient(CIO) {
     install(ContentNegotiation) {
-        json()
+        json(Json {
+            ignoreUnknownKeys = true
+        })
     }
 }
 ```
@@ -169,6 +172,7 @@ install(Authentication) {
         }
         client = httpClient
     }
+}
 ```
 
 *   `urlProvider`는 인가가 완료될 때 호출될 [리디렉션 경로](#redirect-route)를 지정합니다.

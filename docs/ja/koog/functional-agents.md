@@ -1,12 +1,11 @@
 # 機能エージェント
 
 機能エージェントは、複雑な戦略グラフを構築することなく動作する軽量なAIエージェントです。
-代わりに、エージェントロジックは、ユーザー入力を処理し、LLMと対話し、
-必要に応じてツールを呼び出し、最終的な出力を生成するラムダ関数として実装されます。単一のLLM呼び出しを実行したり、複数のLLM呼び出しを連続して処理したり、ユーザー入力、LLM、およびツール出力に基づいてループしたりすることができます。
+代わりに、エージェントロジックは、ユーザー入力を処理し、LLMと対話し、必要に応じてツールを呼び出し、最終的な出力を生成するラムダ関数として実装されます。単一のLLM呼び出しを実行したり、複数のLLM呼び出しを連続して処理したり、ユーザー入力、LLM、およびツール出力に基づいてループしたりすることができます。
 
 !!! tip
-    - 既にシンプルな[シングルランエージェント](single-run-agents.md)を最初のMVPとして持っているが、タスク固有の制限に直面している場合は、機能エージェントを使用してカスタムロジックをプロトタイプ作成してください。履歴圧縮や自動状態管理を含むKoogのほとんどの機能を使用しながら、純粋なKotlinでカスタム制御フローを実装できます。
-    - 実運用レベルのニーズに対しては、フォールトトレランスのための制御可能なロールバックによる永続性と、ネストされたグラフイベントによる高度なOpenTelemetryトレースを提供するため、機能エージェントを戦略グラフを持つ[複雑なワークフローエージェント](complex-workflow-agents.md)にリファクタリングしてください。
+    - 既に[基本的なエージェント](basic-agents.md)を最初のMVPとして持っているが、タスク固有の制限に直面している場合は、機能エージェントを使用してカスタムロジックをプロトタイプ作成してください。履歴圧縮や自動状態管理を含むKoogのほとんどの機能を使用しながら、純粋なKotlinでカスタム制御フローを実装できます。
+    - 実運用レベルのニーズに対しては、戦略グラフを持つ[複雑なワークフローエージェント](complex-workflow-agents.md)に機能エージェントをリファクタリングしてください。これは、フォールトトレランスのための制御可能なロールバックによる永続性と、ネストされたグラフイベントによる高度なOpenTelemetryトレースを提供します。
 
 このページでは、最小限の機能エージェントを作成し、それをツールで拡張するために必要な手順を説明します。
 
@@ -14,9 +13,9 @@
 
 開始する前に、以下が揃っていることを確認してください。
 
-- Gradleを使用した動作可能なKotlin/JVMプロジェクト。
+- 動作可能なKotlin/JVMプロジェクト。
 - Java 17以降がインストールされていること。
-- AIエージェントを実装するために使用するLLMプロバイダーからの有効なAPIキー。利用可能なすべてのプロバイダーのリストについては、[概要](index.md)を参照してください。
+- AIエージェントを実装するために使用するLLMプロバイダーからの有効なAPIキー。利用可能なすべてのプロバイダーのリストについては、[LLMプロバイダー](llm-providers.md)を参照してください。
 - (任意) Ollamaを使用する場合、Ollamaがローカルにインストールされ、実行されていること。
 
 !!! tip
@@ -33,7 +32,7 @@ dependencies {
     implementation("ai.koog:koog-agents:VERSION")
 }
 ```
-利用可能なすべてのインストール方法については、[インストール](index.md#installation)を参照してください。
+利用可能なすべてのインストール方法については、[Koogのインストール](getting-started.md#install-koog)を参照してください。
 
 ## 最小限の機能エージェントを作成する
 
@@ -63,20 +62,20 @@ fun main() {
 }
 -->
 ```kotlin
-// AIAgentインスタンスを作成し、システムプロンプト、プロンプトエグゼキューター、LLMを提供する
+// Create an AIAgent instance and provide a system prompt, prompt executor, and LLM
 val mathAgent = AIAgent<String, String>(
     systemPrompt = "You are a precise math assistant.",
     promptExecutor = simpleOllamaAIExecutor(),
     llmModel = OllamaModels.Meta.LLAMA_3_2,
-    strategy = functionalStrategy { input -> // エージェントロジックを定義
-        // 1回のLLM呼び出しを行う
+    strategy = functionalStrategy { input -> // Define the agent logic
+        // Make one LLM call
         val response = requestLLM(input)
-        // レスポンスからアシスタントメッセージの内容を抽出し、返す
+        // Extract and return the assistant message content from the response
         response.asAssistantMessage().content
     }
 )
 
-// ユーザー入力でエージェントを実行し、結果を出力する
+// Run the agent with a user input and print the result
 val result = mathAgent.run("What is 12 × 9?")
 println(result)
 ```
@@ -108,12 +107,12 @@ fun main() {
 }
 -->
 ```kotlin
-// AIAgentインスタンスを作成し、システムプロンプト、プロンプトエグゼキューター、LLMを提供する
+// Create an AIAgent instance and provide a system prompt, prompt executor, and LLM
 val mathAgent = AIAgent<String, String>(
     systemPrompt = "You are a precise math assistant.",
     promptExecutor = simpleOllamaAIExecutor(),
     llmModel = OllamaModels.Meta.LLAMA_3_2,
-    strategy = functionalStrategy { input -> // エージェントロジックを定義
+    strategy = functionalStrategy { input -> // Define the agent logic
         // ユーザー入力に基づいて最初のドラフトを生成する最初のLLM呼び出し
         val draft = requestLLM("Draft: $input").asAssistantMessage().content
         // ドラフトの内容を再度LLMにプロンプトして、ドラフトを改善する2番目のLLM呼び出し
@@ -123,7 +122,7 @@ val mathAgent = AIAgent<String, String>(
     }
 )
 
-// ユーザー入力でエージェントを実行し、結果を出力する
+// Run the agent with a user input and print the result
 val result = mathAgent.run("What is 12 × 9?")
 println(result)
 ```

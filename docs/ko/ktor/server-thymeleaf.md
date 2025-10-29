@@ -23,7 +23,7 @@
 </p>
 </tldr>
 
-Ktor를 사용하면 [Thymeleaf](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-thymeleaf/io.ktor.server.thymeleaf/-thymeleaf) 플러그인을 설치하여 애플리케이션 내에서 [Thymeleaf 템플릿](https://www.thymeleaf.org/)을 뷰로 사용할 수 있습니다.
+Ktor를 사용하면 [Thymeleaf 템플릿](https://www.thymeleaf.org/)을 뷰로 애플리케이션 내에서 [Thymeleaf](https://api.ktor.io/ktor-server-thymeleaf/io.ktor.server.thymeleaf/-thymeleaf) 플러그인을 설치하여 사용할 수 있습니다.
 
 ## 의존성 추가 {id="add_dependencies"}
 
@@ -100,7 +100,7 @@ fun Application.module() {
 data class User(val id: Int, val name: String)
 ```
 
-지정된 [경로](server-routing.md)에 템플릿을 사용하려면, 다음과 같이 [ThymeleafContent](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-thymeleaf/io.ktor.server.thymeleaf/-thymeleaf-content/index.html)를 `call.respond` 메서드에 전달합니다:
+지정된 [경로](server-routing.md)에 템플릿을 사용하려면, 다음과 같이 [ThymeleafContent](https://api.ktor.io/ktor-server-thymeleaf/io.ktor.server.thymeleaf/-thymeleaf-content/index.html)를 `call.respond` 메서드에 전달합니다:
 ```kotlin
 get("/index") {
     val sampleUser = User(1, "John")

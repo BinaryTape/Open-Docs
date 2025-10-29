@@ -71,7 +71,7 @@ KtorにおけるJWT認証フローは次のようになります。
 6. 検証後、サーバーは保護されたリソースの内容で応答します。
 
 ## JWTのインストール {id="install"}
-<code>jwt</code>認証プロバイダーをインストールするには、<code>install</code>ブロック内で[<code>jwt</code>関数](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-auth-jwt/io.ktor.server.auth.jwt/jwt.html)を呼び出します。
+<code>jwt</code>認証プロバイダーをインストールするには、<code>install</code>ブロック内で[<code>jwt</code>関数](https://api.ktor.io/ktor-server-auth-jwt/io.ktor.server.auth.jwt/jwt.html)を呼び出します。
 
 ```kotlin
 import io.ktor.server.application.*

@@ -40,7 +40,6 @@ dependencies {
 <!--- INCLUDE
 import ai.koog.agents.core.tools.ToolRegistry
 import ai.koog.agents.testing.tools.getMockExecutor
-import ai.koog.agents.testing.tools.mockLLMAnswer
 
 val toolRegistry = ToolRegistry {}
 
@@ -912,7 +911,7 @@ fun testMultiSubgraphAgentStructure() = runTest {
             val sendToolResult by nodeLLMSendToolResult()
             val giveFeedback by node<String, String> { input ->
                 llm.writeSession {
-                    updatePrompt {
+                    appendPrompt {
                         user("Call tools! Don't chat!")
                     }
                 }
@@ -1080,7 +1079,6 @@ testGraph<Unit, String>("test") {
 
 <!--- INCLUDE
 import ai.koog.agents.testing.tools.getMockExecutor
-import ai.koog.agents.testing.tools.mockLLMAnswer
 
 val promptExecutor = 
 -->

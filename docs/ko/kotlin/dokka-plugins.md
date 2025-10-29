@@ -22,12 +22,12 @@ Dokka 플러그인은 별도의 아티팩트로 게시되므로, Dokka 플러그
 <tabs group="build-script">
 <tab title="Kotlin" group-key="kotlin">
 
-> Dokka 2.0.0부터 다음과 같이 문서 생성과 관련된 여러 구성 옵션, Gradle 태스크, 단계가 업데이트되었습니다.
+> 이 지침은 Dokka Gradle 플러그인 v1 구성 및 태스크를 반영합니다. Dokka 2.0.0부터 문서 생성과 관련된 여러 구성 옵션, Gradle 태스크, 단계가 업데이트되었으며, 다음이 포함됩니다.
 >
 > * [Dokka 플러그인 구성](dokka-migration.md#configure-dokka-plugins)
 > * [멀티 모듈 프로젝트 작업](dokka-migration.md#share-dokka-configuration-across-modules)
 >
-> 자세한 내용과 전체 변경 사항 목록은 [마이그레이션 가이드](dokka-migration.md)를 참조하세요.
+> 자세한 내용과 Dokka Gradle Plugin v2의 전체 변경 사항 목록은 [마이그레이션 가이드](dokka-migration.md)를 참조하세요.
 >
 > {style="note"}
 
@@ -124,7 +124,7 @@ java -jar dokka-cli-%dokkaVersion%.jar \
 
 Dokka 플러그인은 자체 구성 옵션을 가질 수도 있습니다. 사용 가능한 옵션을 확인하려면 사용 중인 플러그인의 문서를 참조하세요.
 
-[HTML](dokka-html.md) 문서를 생성하는 `DokkaBase` 플러그인을 사용자 정의 이미지(`customAssets` 옵션), 사용자 정의 스타일시트(`customStyleSheets` 옵션) 추가 및 푸터 메시지(`footerMessage` 옵션) 수정을 통해 구성하는 방법을 살펴보겠습니다.
+[HTML](dokka-html.md) 문서를 생성하는 `DokkaBase` 플러그인을 사용자 정의 이미지(`customAssets` 옵션) 추가, 사용자 정의 스타일시트(`customStyleSheets` 옵션) 추가 및 푸터 메시지(`footerMessage` 옵션) 수정을 통해 구성하는 방법을 살펴보겠습니다.
 
 <tabs group="build-script">
 <tab title="Kotlin" group-key="kotlin">

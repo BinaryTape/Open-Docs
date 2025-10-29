@@ -25,7 +25,7 @@
 </p>
 </tldr>
 
-Ktor 允许您通过安装 [Velocity](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-velocity/io.ktor.server.velocity/-velocity) 插件，在应用程序中使用 [Velocity 模板](https://velocity.apache.org/engine/) 作为视图。
+Ktor 允许您通过安装 [Velocity](https://api.ktor.io/ktor-server-velocity/io.ktor.server.velocity/-velocity) 插件，在应用程序中使用 [Velocity 模板](https://velocity.apache.org/engine/) 作为视图。
 
 ## 添加依赖项 {id="add_dependencies"}
 

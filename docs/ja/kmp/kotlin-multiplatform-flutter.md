@@ -1,6 +1,6 @@
 # Kotlin MultiplatformとFlutter: クロスプラットフォーム開発ソリューション
 
-<web-summary>この記事では、Kotlin MultiplatformとFlutterを探求し、それらの機能と、クロスプラットフォームプロジェクトに最適な選択を行う方法を理解するのに役立ちます。</web-summary> 
+<web-summary>この記事ではKotlin MultiplatformとFlutterを探求し、それらの機能と、クロスプラットフォームプロジェクトに最適な選択を行う方法を理解するのに役立ちます。</web-summary> 
 
 急速に進化するテクノロジーの世界において、開発者は高品質なアプリケーションを構築するための効率的なフレームワークやツールを常に探しています。しかし、利用可能な選択肢の中から選ぶ際、いわゆる「最良の選択肢」を見つけることに重点を置きすぎないことが重要です。このアプローチは、必ずしも最も適切な選択肢につながるとは限りません。
 
@@ -32,7 +32,9 @@ Kotlin Multiplatformでは、さまざまな選択肢があります。アプリ
 
 ![Kotlin Multiplatform is a technology for reusing up to 100% of your code](kmp-logic-and-ui.svg){ width="700" }
 
-Kotlin Multiplatformは2017年にKotlin 1.2の一部として初めて導入されました。2023年11月、Kotlin Multiplatformは[安定版](https://blog.jetbrains.com/kotlin/2023/11/kotlin-multiplatform-stable/)になりました。Google I/O 2024では、GoogleがAndroidおよびiOS間でビジネスロジックを共有するための[Kotlin Multiplatformのサポート](https://android-developers.googleblog.com/2024/05/android-support-for-kotlin-multiplatform-to-share-business-logic-across-mobile-web-server-desktop.html)をAndroid向けに発表しました。
+Kotlin Multiplatformは2017年にKotlin 1.2の一部として初めて導入されました。2023年11月、Kotlin Multiplatformは安定版になりました。Google I/O 2024では、GoogleがAndroidおよびiOS間でビジネスロジックを共有するための[Kotlin Multiplatformのサポート](https://android-developers.googleblog.com/2024/05/android-support-for-kotlin-multiplatform-to-share-business-logic-across-mobile-web-server-desktop.html)を発表しました。
+
+Kotlin Multiplatformの全体的な方向性についてさらに詳しく知りたい場合は、私たちのブログ記事「[What’s Next for Kotlin Multiplatform and Compose Multiplatform](https://blog.jetbrains.com/kotlin/2025/08/kmp-roadmap-aug-2025/)」をご覧ください。
 
 [![Discover Kotlin Multiplatform](discover-kmp.svg){width="500"}](https://www.jetbrains.com/kotlin-multiplatform/)
 

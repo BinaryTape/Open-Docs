@@ -18,7 +18,7 @@
 了解如何發出請求並指定各種請求參數：請求 URL、HTTP 方法、標頭和請求主體。
 </link-summary>
 
-在[配置客戶端](client-create-and-configure.md)後，您就可以開始發送 HTTP 請求。執行此操作的主要方式是使用接受 URL 作為參數的 [`.request()`](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client.request/request.html) 函數。在這個函數中，您可以配置各種請求參數：
+在[配置客戶端](client-create-and-configure.md)後，您就可以開始發送 HTTP 請求。執行此操作的主要方式是使用接受 URL 作為參數的 [`.request()`](https://api.ktor.io/ktor-client-core/io.ktor.client.request/request.html) 函數。在這個函數中，您可以配置各種請求參數：
 
 *   指定 HTTP 方法，例如 `GET`、`POST`、`PUT`、`DELETE`、`HEAD`、`OPTIONS` 或 `PATCH`。
 *   將 URL 配置為字串，或單獨配置其組件（例如網域、路徑和查詢參數）。
@@ -26,7 +26,7 @@
 *   新增標頭和 Cookie。
 *   包含請求主體 – 例如，純文字、資料物件或表單參數。
 
-這些參數由 [`HttpRequestBuilder`](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client.request/-http-request-builder/index.html) 類別公開。
+這些參數由 [`HttpRequestBuilder`](https://api.ktor.io/ktor-client-core/io.ktor.client.request/-http-request-builder/index.html) 類別公開。
 
 ```kotlin
 import io.ktor.client.request.*
@@ -57,7 +57,7 @@ val response: HttpResponse = client.request("https://ktor.io/") {
 }
 ```
 
-除了 `.request()` 之外，`HttpClient` 還提供了用於基本 HTTP 方法的特定函數，例如 [`.get()`](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client.request/get.html)、[`.post()`](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client.request/post.html) 和 [`.put()`](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client.request/put.html)。上面的範例可以使用 `.get()` 函數簡化：
+除了 `.request()` 之外，`HttpClient` 還提供了用於基本 HTTP 方法的特定函數，例如 [`.get()`](https://api.ktor.io/ktor-client-core/io.ktor.client.request/get.html)、[`.post()`](https://api.ktor.io/ktor-client-core/io.ktor.client.request/post.html) 和 [`.put()`](https://api.ktor.io/ktor-client-core/io.ktor.client.request/put.html)。上面的範例可以使用 `.get()` 函數簡化：
 
 ```kotlin
 val response: HttpResponse = client.get("https://ktor.io/docs/welcome.html")
@@ -163,7 +163,7 @@ val response: HttpResponse = client.get("/") {
 
 #### 新增多個標頭
 
-[`headers`](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client.request/headers.html) 函數允許您一次新增多個標頭：
+[`headers`](https://api.ktor.io/ktor-client-core/io.ktor.client.request/headers.html) 函數允許您一次新增多個標頭：
 
 ```kotlin
 client.get("https://ktor.io") {
@@ -177,7 +177,7 @@ client.get("https://ktor.io") {
 
 #### 新增單個標頭
 
-[`header`](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client.request/header.html) 函數允許您附加單個標頭。
+[`header`](https://api.ktor.io/ktor-client-core/io.ktor.client.request/header.html) 函數允許您附加單個標頭。
 
 #### 使用 `basicAuth` 或 `bearerAuth` 進行授權
 
@@ -187,7 +187,7 @@ client.get("https://ktor.io") {
 
 ### Cookie {id="cookies"}
 
-若要發送 Cookie，請使用 [`cookie()`](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client.request/cookie.html) 函數：
+若要發送 Cookie，請使用 [`cookie()`](https://api.ktor.io/ktor-client-core/io.ktor.client.request/cookie.html) 函數：
 
 ```kotlin
 client.get("https://ktor.io") {
@@ -206,7 +206,7 @@ Ktor 還提供了 [`HttpCookies`](client-cookies.md) 插件，它允許您在呼
 
 ## 設定請求主體 {id="body"}
 
-若要設定請求主體，請呼叫 [`HttpRequestBuilder`](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client.request/-http-request-builder/index.html) 提供的 `setBody()` 函數。此函數接受不同類型的負載，包括純文字、任意類別實例、表單資料和位元組陣列。
+若要設定請求主體，請呼叫 [`HttpRequestBuilder`](https://api.ktor.io/ktor-client-core/io.ktor.client.request/-http-request-builder/index.html) 提供的 `setBody()` 函數。此函數接受不同類型的負載，包括純文字、任意類別實例、表單資料和位元組陣列。
 
 ### 文字 {id="text"}
 
@@ -237,7 +237,7 @@ val response: HttpResponse = client.post("http://localhost:8080/customer") {
 
 ### 表單參數 {id="form_parameters"}
 
-Ktor 客戶端提供了 [`submitForm()`](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client.request.forms/submit-form.html) 函數，用於發送 `application/x-www-form-urlencoded` 類型的表單參數。以下範例演示了其用法：
+Ktor 客戶端提供了 [`submitForm()`](https://api.ktor.io/ktor-client-core/io.ktor.client.request.forms/submit-form.html) 函數，用於發送 `application/x-www-form-urlencoded` 類型的表單參數。以下範例演示了其用法：
 
 ```kotlin
 val client = HttpClient(CIO)
@@ -263,10 +263,10 @@ val response: HttpResponse = client.submitForm(
 
 如果您需要透過表單發送檔案，可以使用以下方法：
 
-*   使用 [`.submitFormWithBinaryData()`](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client.request.forms/submit-form-with-binary-data.html) 函數。在這種情況下，將自動生成一個 boundary。
-*   呼叫 `post` 函數，並將 [`MultiPartFormDataContent`](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client.request.forms/-multi-part-form-data-content/index.html) 實例傳遞給 `setBody` 函數。`MultiPartFormDataContent` 構造函數也允許您傳遞 boundary 值。
+*   使用 [`.submitFormWithBinaryData()`](https://api.ktor.io/ktor-client-core/io.ktor.client.request.forms/submit-form-with-binary-data.html) 函數。在這種情況下，將自動生成一個 boundary。
+*   呼叫 `post` 函數，並將 [`MultiPartFormDataContent`](https://api.ktor.io/ktor-client-core/io.ktor.client.request.forms/-multi-part-form-data-content/index.html) 實例傳遞給 `setBody` 函數。`MultiPartFormDataContent` 構造函數也允許您傳遞 boundary 值。
 
-對於這兩種方法，您都需要使用 [`formData {}`](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client.request.forms/form-data.html) 函數建構表單資料。
+對於這兩種方法，您都需要使用 [`formData {}`](https://api.ktor.io/ktor-client-core/io.ktor.client.request.forms/form-data.html) 函數建構表單資料。
 
 #### 使用 `.submitFormWithBinaryData()`
 

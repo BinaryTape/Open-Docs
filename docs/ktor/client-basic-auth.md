@@ -44,8 +44,8 @@ Basic [认证方案](client-auth.md) 可用于用户登录。在此方案中，�
 
 为了在 `Authorization` 请求头中使用 `Basic` 方案发送用户凭据，你需要按如下方式配置基本认证提供者：
 
-1. 在 `install` 代码块中调用 [basic](https://api.ktor.io/ktor-client/ktor-client-plugins/ktor-client-auth/io.ktor.client.plugins.auth.providers/basic.html) 函数。
-2. 使用 [BasicAuthCredentials](https://api.ktor.io/ktor-client/ktor-client-plugins/ktor-client-auth/io.ktor.client.plugins.auth.providers/-basic-auth-credentials/index.html) 提供所需凭据，并将此对象传递给 [credentials](https://api.ktor.io/ktor-client/ktor-client-plugins/ktor-client-auth/io.ktor.client.plugins.auth.providers/-basic-auth-config/credentials.html) 函数。
+1. 在 `install` 代码块中调用 [basic](https://api.ktor.io/ktor-client-auth/io.ktor.client.plugins.auth.providers/basic.html) 函数。
+2. 使用 [BasicAuthCredentials](https://api.ktor.io/ktor-client-auth/io.ktor.client.plugins.auth.providers/-basic-auth-credentials/index.html) 提供所需凭据，并将此对象传递给 [credentials](https://api.ktor.io/ktor-client-auth/io.ktor.client.plugins.auth.providers/-basic-auth-config/credentials.html) 函数。
 3. 使用 `realm` 属性配置认证领域。
 
    ```kotlin

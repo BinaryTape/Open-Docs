@@ -4,7 +4,7 @@
 <primary-label ref="server-plugin"/>
 
 <link-summary>
-路由是处理服务器应用程序中传入请求的核心插件。
+路由是用于处理服务器应用程序中传入请求的核心插件。
 </link-summary>
 
 路由是 Ktor 用于处理服务器应用程序中传入请求的核心 [插件](server-plugins.md)。当客户端向特定 URL（例如，`/hello`）发出请求时，路由机制允许我们定义如何处理此请求。
@@ -70,7 +70,7 @@ routing {
 
 * **路径模式**
 
-  指定一个用于 [匹配 URL 路径](#match_url) 的路径模式，例如 `/hello`、`/customer/{id}`。你可以将路径模式直接传递给 `get`/`post`/`etc.` 函数，或者使用 `route` 函数来分组 [路由处理程序](#multiple_routes) 并定义 [嵌套路由](#nested_routes)。
+  指定一个用于 [匹配 URL 路径](#match_url) 的路径模式，例如 `/hello`、`/customer/{id}`。你可以将路径模式直接传递给 `get`/`post`/etc. 函数，或者使用 `route` 函数来分组 [路由处理程序](#multiple_routes) 并定义 [嵌套路由](#nested_routes)。
   
 * **处理程序**
 
@@ -81,8 +81,6 @@ routing {
 传递给 [路由](#define_route) 函数（`route`、`get`、`post` 等）的路径模式用于匹配 URL 的 _路径_ 部分。路径可以包含由斜杠 `/` 字符分隔的一系列路径段。
 
 > 注意，Ktor 区分带尾部斜杠和不带尾部斜杠的路径。你可以通过 [安装](server-plugins.md#install) `IgnoreTrailingSlash` 插件来改变此行为。
->
-> {type="note"}
 
 下面是几个路径示例：
 * `/hello`  

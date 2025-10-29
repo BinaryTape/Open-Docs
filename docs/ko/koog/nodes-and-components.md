@@ -12,7 +12,7 @@ _# 사전 정의된 노드 및 컴포넌트
 
 ### nodeDoNothing
 
-아무 작업도 하지 않고 입력을 출력으로 반환하는 간단한 패스스루 노드입니다. 자세한 내용은 [API 레퍼런스](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.dsl.extension/node-do-nothing.html)를 참조하세요.
+아무 작업도 하지 않고 입력을 출력으로 반환하는 간단한 패스스루 노드입니다. 자세한 내용은 [API 레퍼런스](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.dsl.extension/node-do-nothing.html).
 
 이 노드는 다음 목적으로 사용할 수 있습니다:
 
@@ -41,10 +41,10 @@ edge(passthrough forwardTo nodeFinish)
 
 ## LLM 노드
 
-### nodeUpdatePrompt
+### nodeAppendPrompt
 
 제공된 프롬프트 빌더를 사용하여 LLM 프롬프트에 메시지를 추가하는 노드입니다.
-이는 실제 LLM 요청을 하기 전에 대화 컨텍스트를 수정하는 데 유용합니다. 자세한 내용은 [API 레퍼런스](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.dsl.extension/node-update-prompt.html)를 참조하세요.
+이는 실제 LLM 요청을 하기 전에 대화 컨텍스트를 수정하는 데 유용합니다. 자세한 내용은 [API 레퍼런스](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.dsl.extension/node-update-prompt.html).
 
 이 노드는 다음 목적으로 사용할 수 있습니다:
 
@@ -57,7 +57,7 @@ edge(passthrough forwardTo nodeFinish)
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.forwardTo
 import ai.koog.agents.core.dsl.builder.strategy
-import ai.koog.agents.core.dsl.extension.nodeUpdatePrompt
+import ai.koog.agents.core.dsl.extension.nodeAppendPrompt
 
 typealias Input = Unit
 typealias Output = Unit
@@ -69,15 +69,15 @@ val strategy = strategy<String, String>("strategy_name") {
 -->
 ```kotlin
 val firstNode by node<Input, Output> {
-    // 입력을 출력으로 변환
+    // Transform input to output
 }
 
 val secondNode by node<Output, Output> {
-    // 출력을 출력으로 변환
+    // Transform output to output
 }
 
 // 노드는 이전 노드에서 Output 타입의 값을 입력으로 받아 다음 노드로 전달합니다.
-val setupContext by nodeUpdatePrompt<Output>("setupContext") {
+val setupContext by nodeAppendPrompt<Output>("setupContext") {
     system("You are a helpful assistant specialized in Kotlin programming.")
     user("I need help with Kotlin coroutines.")
 }
@@ -102,7 +102,7 @@ LLM 프롬프트에 사용자 메시지를 추가하고 선택적 도구 사용�
 
 이 노드는 다음 목적으로 사용할 수 있습니다:
 
-- LLM이 도구 호출을 생성할 수 있는지 제어하여 현재 프롬프트에 대한 LLM 응답을 생성합니다.
+- 현재 프롬프트에 대한 LLM 응답을 생성합니다. 이때 LLM이 도구 호출을 생성하도록 허용할지 여부를 제어합니다.
 
 예시는 다음과 같습니다:
 
@@ -405,7 +405,7 @@ edge(lengthNode forwardTo nodeFinish)
 
 ### subgraphWithTask
 
-제공된 도구를 사용하여 특정 작업을 수행하고 구조화된 결과를 반환하는 서브그래프입니다. 이 서브그래프는 더 큰 워크플로 내에서 자체 포함된 작업을 처리하도록 설계되었습니다. 자세한 내용은 [API 레퍼런스](https://api.koog.ai/agents/agents-ext/ai.koog.agents.ext.agent/subgraph-with-task.html)를 참조하세요.
+제공된 도구를 사용하여 특정 작업을 수행하고 구조화된 결과를 반환하는 서브그래프입니다. 이 서브그래프는 다중 응답 LLM 상호 작용(어시스턴트가 도구 호출과 섞인 여러 응답을 생성할 수 있음)을 지원하며 도구 호출이 실행되는 방식을 제어할 수 있습니다. 자세한 내용은 [API 레퍼런스](https://api.koog.ai/agents/agents-ext/ai.koog.agents.ext.agent/subgraph-with-task.html).
 
 이 서브그래프는 다음 목적으로 사용할 수 있습니다:
 
@@ -414,7 +414,12 @@ edge(lengthNode forwardTo nodeFinish)
 - 작업별 도구, 모델 및 프롬프트를 설정합니다.
 - 자동 압축으로 대화 기록을 관리합니다.
 - 구조화된 에이전트 워크플로 및 작업 실행 파이프라인을 개발합니다.
-- LLM 작업 실행에서 구조화된 결과를 생성합니다.
+- 다중 어시스턴트 응답 및 도구 호출이 포함된 흐름을 포함하여 LLM 작업 실행에서 구조화된 결과를 생성합니다.
+
+API를 사용하면 선택적 매개변수를 사용하여 실행을 세밀하게 조정할 수 있습니다:
+
+- `runMode`: 작업 중 도구 호출이 실행되는 방식을 제어합니다(기본값은 순차적). 이는 기본 모델/실행기가 지원할 때 다양한 도구 실행 전략 간에 전환하는 데 사용됩니다.
+- `assistantResponseRepeatMax`: 작업이 완료될 수 없다고 결론 내리기 전에 허용되는 어시스턴트 응답 수를 제한합니다(제공되지 않으면 안전한 내부 제한으로 기본 설정됨).
 
 서브그래프에 텍스트로 작업을 제공하고, 필요한 경우 LLM을 설정하고, 필요한 도구를 제공하면 서브그래프가 작업을 처리하고 해결합니다. 예시는 다음과 같습니다:
 
@@ -423,6 +428,7 @@ import ai.koog.agents.core.dsl.builder.strategy
 import ai.koog.agents.ext.tool.SayToUser
 import ai.koog.prompt.executor.clients.openai.OpenAIModels
 import ai.koog.agents.ext.agent.subgraphWithTask
+import ai.koog.agents.core.agent.ToolCalls
 
 val searchTool = SayToUser
 val calculatorTool = SayToUser
@@ -437,6 +443,8 @@ val strategy = strategy<String, String>("strategy_name") {
 val processQuery by subgraphWithTask<String, String>(
     tools = listOf(searchTool, calculatorTool, weatherTool),
     llmModel = OpenAIModels.Chat.GPT4o,
+    runMode = ToolCalls.SEQUENTIAL,
+    assistantResponseRepeatMax = 3,
 ) { userQuery ->
     """
     You are a helpful assistant that can answer questions about various topics.
@@ -449,7 +457,7 @@ val processQuery by subgraphWithTask<String, String>(
 
 ### subgraphWithVerification
 
-`subgraphWithTask`의 특수 버전으로, 작업이 올바르게 수행되었는지 확인하고 발생한 문제에 대한 세부 정보를 제공합니다. 이 서브그래프는 유효성 검사 또는 품질 확인이 필요한 워크플로에 유용합니다. 자세한 내용은 [API 레퍼런스](https://api.koog.ai/agents/agents-ext/ai.koog.agents.ext.agent/subgraph-with-verification.html)를 참조하세요.
+`subgraphWithTask`의 특수 버전으로, 작업이 올바르게 수행되었는지 확인하고 발생한 문제에 대한 세부 정보를 제공합니다. 이 서브그래프는 유효성 검사 또는 품질 확인이 필요한 워크플로에 유용합니다. 자세한 내용은 [API 레퍼런스](https://api.koog.ai/agents/agents-ext/ai.koog.agents.ext.agent/subgraph-with-verification.html).
 
 이 서브그래프는 다음 목적으로 사용할 수 있습니다:
 
@@ -458,7 +466,7 @@ val processQuery by subgraphWithTask<String, String>(
 - 자체 검증 컴포넌트를 생성합니다.
 - 성공/실패 상태 및 상세 피드백을 포함한 구조화된 검증 결과를 생성합니다.
 
-이 서브그래프는 LLM이 워크플로의 끝에서 검증 도구를 호출하여 작업이 성공적으로 완료되었는지 확인하도록 보장합니다. 이는 이 검증이 최종 단계로 수행되도록 보장하며, 작업이 성공적으로 완료되었는지 여부를 나타내고 상세한 피드백을 제공하는 `CriticResult`를 반환합니다.
+서브그래프는 LLM이 워크플로의 끝에서 검증 도구를 호출하여 작업이 성공적으로 완료되었는지 확인하도록 보장합니다. 이는 이 검증이 최종 단계로 수행되도록 보장하며, 작업이 성공적으로 완료되었는지 여부를 나타내고 상세한 피드백을 제공하는 `CriticResult`를 반환합니다.
 예시는 다음과 같습니다:
 
 <!--- INCLUDE
@@ -466,6 +474,7 @@ import ai.koog.agents.core.dsl.builder.strategy
 import ai.koog.agents.ext.tool.SayToUser
 import ai.koog.prompt.executor.clients.anthropic.AnthropicModels
 import ai.koog.agents.ext.agent.subgraphWithVerification
+import ai.koog.agents.core.agent.ToolCalls
 
 val runTestsTool = SayToUser
 val analyzeTool = SayToUser
@@ -479,7 +488,9 @@ val strategy = strategy<String, String>("strategy_name") {
 ```kotlin
 val verifyCode by subgraphWithVerification<String>(
     tools = listOf(runTestsTool, analyzeTool, readFileTool),
-    llmModel = AnthropicModels.Sonnet_3_7
+    llmModel = AnthropicModels.Sonnet_3_7,
+    runMode = ToolCalls.SEQUENTIAL,
+    assistantResponseRepeatMax = 3,
 ) { codeToVerify ->
     """
     You are a code reviewer. Please verify that the following code meets all requirements:
@@ -604,8 +615,8 @@ val agentStrategy = strategy<String, List<Book>>("library-assistant") {
         val books = mutableListOf<Book>()
         val mdDefinition = markdownBookDefinition()
 
-        llm.writeSession {
-            updatePrompt { user(booksDescription) }
+        llm.writeSession { 
+            appendPrompt { user(booksDescription) }
             // 정의 `mdDefinition` 형태로 응답 스트림 시작
             val markdownStream = requestLLMStreaming(mdDefinition)
             // 응답 스트림 결과로 파서를 호출하고 결과에 따라 작업 수행

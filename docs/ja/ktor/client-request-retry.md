@@ -18,7 +18,8 @@ HttpRequestRetry プラグインを使用すると、失敗したリクエスト
 </link-summary>
 
 デフォルトでは、Ktor クライアントはネットワークまたはサーバーのエラーにより失敗した[リクエスト](client-requests.md)を再試行しません。
-[HttpRequestRetry](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client.plugins/-http-request-retry) プラグインを使用すると、失敗したリクエストの再試行ポリシーをさまざまな方法で構成できます。具体的には、再試行回数の指定、リクエストを再試行する条件の構成、または再試行前のリクエストの変更が可能です。
+[HttpRequestRetry](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client.plugins/-http-request-retry)
+プラグインを使用すると、失敗したリクエストの再試行ポリシーをさまざまな方法で構成できます。具体的には、再試行回数の指定、リクエストを再試行する条件の構成、または再試行前のリクエストの変更が可能です。
 
 ## 依存関係の追加 {id="add_dependencies"}
 `HttpRequestRetry` は [ktor-client-core](client-dependencies.md) アーティファクトのみを必要とし、特定の依存関係は必要ありません。
@@ -86,4 +87,3 @@ install(HttpRequestRetry) {
         request.headers.append("x-retry-count", retryCount.toString())
     }
 }
-```

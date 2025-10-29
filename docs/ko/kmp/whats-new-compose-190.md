@@ -1,4 +1,4 @@
-[//]: # (title: Compose Multiplatform 1.9.1의 새로운 기능)
+[//]: # (title: Compose Multiplatform 1.9.2의 새로운 기능)
 
 이번 기능 릴리스의 주요 내용은 다음과 같습니다:
 
@@ -15,16 +15,16 @@
 
 ## 의존성
 
-*   Gradle 플러그인 `org.jetbrains.compose`, 버전 1.9.1. Jetpack Compose 라이브러리 기반:
-    *   [Runtime 1.9.3](https://developer.android.com/jetpack/androidx/releases/compose-runtime#1.9.3)
-    *   [UI 1.9.3](https://developer.android.com/jetpack/androidx/releases/compose-ui#1.9.3)
-    *   [Foundation 1.9.3](https://developer.android.com/jetpack/androidx/releases/compose-foundation#1.9.3)
-    *   [Material 1.9.3](https://developer.android.com/jetpack/androidx/releases/compose-material#1.9.3)
+*   Gradle 플러그인 `org.jetbrains.compose`, 버전 1.9.2. Jetpack Compose 라이브러리 기반:
+    *   [Runtime 1.9.4](https://developer.android.com/jetpack/androidx/releases/compose-runtime#1.9.4)
+    *   [UI 1.9.4](https://developer.android.com/jetpack/androidx/releases/compose-ui#1.9.4)
+    *   [Foundation 1.9.4](https://developer.android.com/jetpack/androidx/releases/compose-foundation#1.9.4)
+    *   [Material 1.9.4](https://developer.android.com/jetpack/androidx/releases/compose-material#1.9.4)
     *   [Material3 1.4.0](https://developer.android.com/jetpack/androidx/releases/compose-material3#1.4.0)
 
 *   Compose Material3 라이브러리 `org.jetbrains.compose.material3:1.9.0`. [Jetpack Material3 1.4.0](https://developer.android.com/jetpack/androidx/releases/compose-material3#1.4.0) 기반.
     Compose Multiplatform과 Material3의 [분리된 버전](#decoupled-material3-versioning) 덕분에 프로젝트에 더 새로운 프리릴리스(pre-release) 버전을 선택할 수 있습니다.
-*   Compose Material3 Adaptive 라이브러리 `org.jetbrains.compose.material3.adaptive:adaptive*:1.2.0-alpha05`. [Jetpack Material3 Adaptive 1.2.0-alpha10](https://developer.android.com/jetpack/androidx/releases/compose-material3-adaptive#1.2.0-alpha10) 기반
+*   Compose Material3 Adaptive 라이브러리 `org.jetbrains.compose.material3.adaptive:adaptive*:1.2.0`. [Jetpack Material3 Adaptive 1.2.0](https://developer.android.com/jetpack/androidx/releases/compose-material3-adaptive#1.2.0) 기반
 *   Lifecycle 라이브러리 `org.jetbrains.androidx.lifecycle:lifecycle-*:2.9.5`. [Jetpack Lifecycle 2.9.4](https://developer.android.com/jetpack/androidx/releases/lifecycle#2.9.4) 기반
 *   Navigation 라이브러리 `org.jetbrains.androidx.navigation:navigation-*:2.9.1`. [Jetpack Navigation 2.9.4](https://developer.android.com/jetpack/androidx/releases/navigation#2.9.4) 기반
 *   Savedstate 라이브러리 `org.jetbrains.androidx.savedstate:savedstate:1.3.5`. [Jetpack Savedstate 1.3.3](https://developer.android.com/jetpack/androidx/releases/savedstate#1.3.3) 기반

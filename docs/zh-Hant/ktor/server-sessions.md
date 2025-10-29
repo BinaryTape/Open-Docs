@@ -25,7 +25,7 @@
 Sessions 外掛提供了一種在不同 HTTP 請求之間持久化資料的機制。
 </link-summary>
 
-The [%plugin_name%](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-sessions/io.ktor.server.sessions/-sessions.html) 外掛提供了一種在不同 HTTP 請求之間持久化資料的機制。典型應用場景包括儲存已登入使用者的 ID、購物籃的內容或在客戶端保留使用者偏好設定。在 Ktor 中，您可以透過使用 Cookie 或自訂標頭來實作會話，選擇將會話資料儲存在伺服器上還是傳遞給客戶端，以及簽署和加密會話資料等等。
+The [%plugin_name%](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-sessions/io.ktor.server.sessions/-sessions.html) 外掛提供了一種在不同 HTTP 請求之間持久化資料的機制。典型應用場景包括儲存已登入使用者的 ID、購物籃的內容，或在客戶端保留使用者偏好設定。在 Ktor 中，您可以透過使用 Cookie 或自訂標頭來實作會話，選擇將會話資料儲存在伺服器上還是傳遞給客戶端，以及簽署和加密會話資料等等。
 
 在本主題中，我們將探討如何安裝 `%plugin_name%` 外掛、配置它以及在[路由處理程式](server-routing.md#define_route)內部存取會話資料。
 

@@ -1,30 +1,47 @@
 # A2A 클라이언트
 
 A2A 클라이언트를 사용하면 네트워크를 통해 A2A 호환 에이전트와 통신할 수 있습니다.
-이 클라이언트는 [A2A 프로토콜 사양](https://a2a-protocol.org/latest/specification/)의 완벽한 구현을 제공하며, 에이전트 검색, 메시지 교환, 작업 관리 및 실시간 스트리밍 응답을 처리합니다.
+이는 [A2A 프로토콜 사양](https://a2a-protocol.org/latest/specification/)의 완전한 구현을 제공하며, 에이전트 검색, 메시지 교환, 작업 관리 및 실시간 스트리밍 응답을 처리합니다.
+
+## 의존성
+
+프로젝트에서 A2A 클라이언트를 사용하려면, 다음 의존성을 `build.gradle.kts`에 추가하세요:
+
+```kotlin
+dependencies {
+    // 코어 A2A 클라이언트 라이브러리
+    implementation("ai.koog:a2a-client:$koogVersion")
+
+    // HTTP JSON-RPC 트랜스포트 (가장 일반적)
+    implementation("ai.koog:a2a-transport-client-jsonrpc-http:$koogVersion")
+
+    // Ktor 클라이언트 엔진 (필요에 맞는 것을 선택하세요)
+    implementation("io.ktor:ktor-client-cio:$ktorVersion")
+}
+```
 
 ## 개요
 
 A2A 클라이언트는 애플리케이션과 A2A 호환 에이전트 사이의 가교 역할을 합니다.
-프로토콜 준수를 유지하고 견고한 세션 관리를 제공하면서 전체 통신 수명 주기를 조율합니다.
+이는 프로토콜 준수를 유지하고 견고한 세션 관리를 제공하면서 전체 통신 수명 주기를 조율합니다.
 
 ## 핵심 구성 요소
 
 ### A2AClient
 
-완전한 A2A 프로토콜을 구현하는 메인 클라이언트 클래스입니다. 다음을 수행하는 중앙 코디네이터 역할을 합니다.
+완전한 A2A 프로토콜을 구현하는 메인 클라이언트 클래스입니다. 다음을 수행하는 중앙 코디네이터 역할을 합니다:
 
 -   플러그형 리졸버를 통해 연결 및 에이전트 검색을 **관리합니다.**
 -   자동 프로토콜 준수를 통해 메시지 교환 및 작업 동작을 **조율합니다.**
 -   에이전트가 지원하는 경우 스트리밍 응답 및 실시간 통신을 **처리합니다.**
 -   견고한 애플리케이션을 위한 포괄적인 오류 처리 및 폴백(fallback) 메커니즘을 **제공합니다.**
 
-`A2AClient`는 두 가지 필수 매개변수를 받습니다.
+`A2AClient`는 두 가지 필수 매개변수를 받습니다:
 
 *   네트워크 통신 계층을 처리하는 `ClientTransport`
 *   에이전트 검색 및 메타데이터 검색을 처리하는 `AgentCardResolver`
 
-`A2AClient` 인터페이스는 A2A 에이전트와 상호 작용하기 위한 몇 가지 주요 메서드를 제공합니다.
+`A2AClient` 인터페이스는 A2A 에이전트와 상호 작용하기 위한 몇 가지 주요 메서드를 제공합니다:
 
 *   `connect` 메서드 - 에이전트에 연결하고 에이전트의 기능을 검색합니다. 이 메서드는 에이전트가 수행할 수 있는 작업을 발견하고 `AgentCard`를 캐시합니다.
 *   `sendMessage` 메서드 - 에이전트에 메시지를 보내고 간단한 요청-응답 패턴에 대한 단일 응답을 받습니다.
@@ -40,7 +57,7 @@ A2A 클라이언트는 애플리케이션과 A2A 호환 에이전트 사이의 �
 
 #### HTTP JSON-RPC 트랜스포트
 
-A2A 에이전트를 위한 가장 일반적인 트랜스포트입니다.
+A2A 에이전트를 위한 가장 일반적인 트랜스포트입니다:
 
 ```kotlin
 val transport = HttpJSONRPCClientTransport(
@@ -63,7 +80,7 @@ val transport = HttpJSONRPCClientTransport(
 
 #### URL 에이전트 카드 리졸버
 
-A2A 규칙을 따르는 HTTP 엔드포인트에서 에이전트 카드를 가져옵니다.
+A2A 규칙을 따르는 HTTP 엔드포인트에서 에이전트 카드를 가져옵니다:
 
 ```kotlin
 val agentCardResolver = UrlAgentCardResolver(
@@ -131,12 +148,12 @@ when (val event = response.data) {
         val text = event.parts
             .filterIsInstance<TextPart>()
             .joinToString { it.text }
-        print(text) // Stream partial responses
+        print(text) // 부분 응답 스트림
     }
     is TaskEvent -> {
         if (event.final) {
             println("
-Task completed")
+작업이 완료되었습니다")
         }
     }
 }
@@ -156,12 +173,12 @@ if (client.cachedAgentCard()?.capabilities?.streaming == true) {
                 val text = event.parts
                     .filterIsInstance<TextPart>()
                     .joinToString { it.text }
-                print(text) // Stream partial responses
+                print(text) // 부분 응답 스트림
             }
             is TaskStatusUpdateEvent -> {
                 if (event.final) {
                     println("
-Task completed")
+작업이 완료되었습니다")
                 }
             }
         }
@@ -183,11 +200,11 @@ val taskRequest = Request(data = TaskQueryParams(taskId = "task-123"))
 val taskResponse = client.getTask(taskRequest)
 val task = taskResponse.data
 
-println("Task state: ${task.status.state}")
+println("작업 상태: ${task.status.state}")
 
 // Cancel running task
 if (task.status.state == TaskState.Working) {
     val cancelRequest = Request(data = TaskIdParams(taskId = "task-123"))
     val cancelledTask = client.cancelTask(cancelRequest).data
-    println("Task cancelled: ${cancelledTask.status.state}")
+    println("작업 취소됨: ${cancelledTask.status.state}")
 }

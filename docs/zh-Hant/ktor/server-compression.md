@@ -19,11 +19,11 @@
     </a>
 </p>
 <p>
-    <b><Links href="/ktor/server-native" summary="模組允許您透過分組路由來組織應用程式。">原生伺服器</Links>支援</b>：✖️
+    <b><Links href="/ktor/server-native" summary="Ktor 支援 Kotlin/Native，並允許您在沒有額外執行時或虛擬機器的情況下執行伺服器。">原生伺服器</Links>支援</b>：✖️
 </p>
 </tldr>
 
-Ktor 提供了使用 [Compression](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-compression/io.ktor.server.plugins.compression/-compression.html) 外掛程式壓縮回應主體和解壓縮請求主體的能力。
+Ktor 提供了使用 [Compression](https://api.ktor.io/ktor-server-compression/io.ktor.server.plugins.compression/-compression.html) 外掛程式來壓縮回應主體和解壓縮請求主體的能力。
 您可以使用不同的壓縮演算法，包括 `gzip` 和 `deflate`，指定壓縮資料所需的條件（例如內容類型或回應大小），甚至可以根據特定的請求參數壓縮資料。
 
 > 請注意，`%plugin_name%` 外掛程式目前不支援 `SSE` 回應。
@@ -172,4 +172,4 @@ install(Compression) {
 ## 實作自訂編碼器 {id="custom_encoder"}
 
 如有必要，您可以透過實作 [ContentEncoder](https://api.ktor.io/ktor-utils/io.ktor.util/-content-encoder/index.html) 介面來提供您自己的編碼器。
-請參閱 [GzipEncoder](https://github.com/ktorio/ktor/blob/b5b59ca3ae61601e6175f334e6a1252609638e61/ktor-server/ktor-server-compression/jvm/src/io/ktor/server/plugins/compression/Encoders.kt#L41) 作為實作範例。
+請參閱 [GzipEncoder](https://github.com/ktorio/ktor/blob/b5b59ca3ae61601e6175f334e6a1252609638e61/ktor-server/ktor-server-plugins/ktor-server-compression/jvm/src/io/ktor/server/plugins/compression/Encoders.kt#L41) 作為實作範例。

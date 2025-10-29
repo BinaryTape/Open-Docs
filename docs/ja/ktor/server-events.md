@@ -17,8 +17,7 @@ Ktorは、イベントを使用することでサーバーアプリケーショ�
 
 ## イベント定義 {id="event-definition"}
 
-各イベントは、[EventDefinition](https://api.ktor.io/ktor-shared/ktor-events/io.ktor.events/-event-definition/index.html)クラスのインスタンスによって表現されます。
-このクラスには、イベントに渡される値の型を指定する`T`型パラメータがあります。この値は、ラムダ引数として[イベントハンドラー](#handle-events-application)内でアクセスできます。たとえば、ほとんどの[事前定義されたイベント](#predefined-events)は`Application`をパラメータとして受け入れるため、イベントハンドラー内でアプリケーションのプロパティにアクセスできます。
+各イベントは、[EventDefinition](https://api.ktor.io/ktor-events/io.ktor.events/-event-definition/index.html)クラスのインスタンスによって表現されます。このクラスには、イベントに渡される値の型を指定する`T`型パラメータがあります。この値は、ラムダ引数として[イベントハンドラー](#handle-events-application)内でアクセスできます。たとえば、ほとんどの[事前定義されたイベント](#predefined-events)は`Application`をパラメータとして受け入れるため、イベントハンドラー内でアプリケーションのプロパティにアクセスできます。
 
 [カスタムイベント](#custom-events)の場合、このイベントに必要な型パラメータを渡すことができます。
 以下のコードスニペットは、`ApplicationCall`インスタンスを受け入れるカスタム`NotFoundEvent`を作成する方法を示しています。
@@ -33,19 +32,19 @@ val NotFoundEvent: EventDefinition<ApplicationCall> = EventDefinition()
 
 Ktorは、アプリケーションのライフサイクルに関連する以下の事前定義されたイベントを提供します。
 
-- [ApplicationStarting](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.application/-application-starting.html)
-- [ApplicationStarted](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.application/-application-started.html)
-- [ServerReady](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.application/-server-ready.html)
-- [ApplicationStopPreparing](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.application/-application-stop-preparing.html)
-- [ApplicationStopping](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.application/-application-stopping.html)
-- [ApplicationStopped](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.application/-application-stopped.html)
+- [ApplicationStarting](https://api.ktor.io/ktor-server-core/io.ktor.server.application/-application-starting.html)
+- [ApplicationStarted](https://api.ktor.io/ktor-server-core/io.ktor.server.application/-application-started.html)
+- [ServerReady](https://api.ktor.io/ktor-server-core/io.ktor.server.application/-server-ready.html)
+- [ApplicationStopPreparing](https://api.ktor.io/ktor-server-core/io.ktor.server.application/-application-stop-preparing.html)
+- [ApplicationStopping](https://api.ktor.io/ktor-server-core/io.ktor.server.application/-application-stopping.html)
+- [ApplicationStopped](https://api.ktor.io/ktor-server-core/io.ktor.server.application/-application-stopped.html)
 
 たとえば、`ApplicationStopped`イベントを購読して、アプリケーションリソースを解放できます。
 
 ## アプリケーションでイベントを処理する {id="handle-events-application"}
 
 指定された`Application`インスタンスのイベントを処理するには、`monitor`プロパティを使用します。
-このプロパティは、アプリケーションイベントを処理できる以下の関数を公開する[Events](https://api.ktor.io/ktor-shared/ktor-events/io.ktor.events/-events/index.html)インスタンスへのアクセスを提供します。
+このプロパティは、アプリケーションイベントを処理できる以下の関数を公開する[Events](https://api.ktor.io/ktor-events/io.ktor.events/-events/index.html)インスタンスへのアクセスを提供します。
 
 - `subscribe`: [EventDefinition](#event-definition)で指定されたイベントを購読します。
 - `unsubscribe`: [EventDefinition](#event-definition)で指定されたイベントの購読を解除します。
@@ -80,7 +79,7 @@ fun Application.module() {
 
 ## カスタムプラグインでイベントを処理する {id="handle-events-plugin"}
 
-`MonitoringEvent`フックを使用して、[カスタムプラグイン](server-custom-plugins.md#handle-app-events)でイベントを処理できます。
+[カスタムプラグイン](server-custom-plugins.md#handle-app-events)でイベントを処理するには、`MonitoringEvent`フックを使用できます。
 以下の例は、`ApplicationMonitoringPlugin`プラグインを作成し、`ApplicationStarted`および`ApplicationStopped`イベントを処理する方法を示しています。
 
 ```kotlin
@@ -114,7 +113,7 @@ val ApplicationMonitoringPlugin = createApplicationPlugin(name = "ApplicationMon
    ```kotlin
    val NotFoundEvent: EventDefinition<ApplicationCall> = EventDefinition()
    ```
-2. イベントを発生させるには、`Events.raise`関数を呼び出します。以下のサンプルは、`ResponseSent` [フック](server-custom-plugins.md#other)を処理して、呼び出しのステータスコードが`404`の場合に新しく作成されたイベントを発生させる方法を示しています。
+2. イベントを発生させるには、`Events.raise`関数を呼び出します。以下のサンプルは、呼び出しのステータスコードが`404`の場合に、`ResponseSent` [フック](server-custom-plugins.md#other)を処理して、新しく作成されたイベントを発生させる方法を示しています。
 
    ```kotlin
    import io.ktor.events.EventDefinition

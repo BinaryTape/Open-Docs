@@ -1,6 +1,6 @@
 [//]: # (title: Kotlin 컴파일러 옵션)
 
-Kotlin의 각 릴리스에는 지원되는 타겟인 JVM, JavaScript, 그리고 [지원되는 플랫폼](native-overview.md#target-platforms)을 위한 네이티브 바이너리용 컴파일러가 포함되어 있습니다.
+각 Kotlin 릴리스에는 지원되는 타겟인 JVM, JavaScript, 그리고 [지원되는 플랫폼](native-overview.md#target-platforms)을 위한 네이티브 바이너리용 컴파일러가 포함되어 있습니다.
 
 이 컴파일러는 다음에서 사용됩니다:
 * IDE에서, Kotlin 프로젝트의 __Compile__ 또는 __Run__ 버튼을 클릭할 때.
@@ -160,6 +160,11 @@ kotlinc -Xannotation-default-target=param-property
 
 참일 경우 경고를 발생하는 [추가 선언, 표현식 및 타입 컴파일러 검사](whatsnew21.md#extra-compiler-checks)를 활성화합니다.
 
+#### -Xrender-internal-diagnostic-names
+<primary-label ref="experimental-general"/>
+
+경고와 함께 내부 진단 이름을 출력합니다. 이는 `-Xwarning-level` 옵션에 대해 구성된 `DIAGNOSTIC_NAME`을 식별하는 데 유용합니다.
+
 #### -Xwarning-level
 <primary-label ref="experimental-general"/>
 
@@ -182,6 +187,8 @@ kotlinc -Xwarning-level=DIAGNOSTIC_NAME:(error|warning|disabled)
 | `-Wextra -Xwarning-level=DIAGNOSTIC_NAME:disabled` | 지정된 검사를 제외한 모든 추가 검사를 활성화합니다. |
 
 일반 규칙에서 제외할 경고가 많은 경우, [`@argfile`](#argfile)을 사용하여 별도의 파일에 나열할 수 있습니다.
+
+[`-Xrender-internal-diagnostic-names`](#xrender-internal-diagnostic-names)를 사용하여 `DIAGNOSTIC_NAME`을 확인할 수 있습니다.
 
 ### -Xdata-flow-based-exhaustiveness
 <primary-label ref="experimental-general"/>

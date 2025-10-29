@@ -21,8 +21,8 @@ Javadoc 输出格式作为 [Dokka 插件](dokka-plugins.md) 实现，并由 Dokk
 
 ## 生成 Javadoc 文档
 
-> 从 Dokka 2.0.0 开始，[用于生成文档的 Gradle 任务已更改](dokka-migration.md#select-documentation-output-format)。
-> 有关更多详情和完整的更改列表，请参见 [迁移指南](dokka-migration.md)。
+> 这些说明反映了 Dokka Gradle 插件 v1 的配置和任务。从 Dokka 2.0.0 开始，[用于生成文档的 Gradle 任务已更改](dokka-migration.md#select-documentation-output-format)。
+> 有关更多详情和 Dokka Gradle 插件 v2 中的完整更改列表，请参见 [迁移指南](dokka-migration.md)。
 >
 > Javadoc 格式不支持多平台项目。
 >

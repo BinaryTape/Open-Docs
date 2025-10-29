@@ -900,52 +900,52 @@ Ktor 서버와 마찬가지로 클라이언트 API에서도 _Feature_가 _Plugin
 </li>
 </list>
 </td>
-<td>`import io.ktor.client.features.*`</td>
-<td>`import io.ktor.client.plugins.*`</td>
+<td><code>import io.ktor.client.features.*</code></td>
+<td><code>import io.ktor.client.plugins.*</code></td>
 </tr>
 
 <tr>
 <td><Links href="/ktor/client-auth" summary="The Auth plugin handles authentication and authorization in your client application.">인증</Links></td>
 <td>
-`
+<code>
 import io.ktor.client.features.auth.*
-`
-`
+</code>
+<code>
 import io.ktor.client.features.auth.providers.*
-`
+</code>
 </td>
 <td>
-`
+<code>
 import io.ktor.client.plugins.auth.*
-`
-`
+</code>
+<code>
 import io.ktor.client.plugins.auth.providers.*
-`
+</code>
 </td>
 </tr>
 
 <tr>
 <td><Links href="/ktor/client-cookies" summary="The HttpCookies plugin handles cookies automatically and keep them between calls in a storage.">쿠키</Links></td>
-<td>`import io.ktor.client.features.cookies.*`</td>
-<td>`import io.ktor.client.plugins.cookies.*`</td>
+<td><code>import io.ktor.client.features.cookies.*</code></td>
+<td><code>import io.ktor.client.plugins.cookies.*</code></td>
 </tr>
 
 <tr>
 <td><Links href="/ktor/client-logging" summary="Required dependencies: io.ktor:ktor-client-logging Code example: %example_name%">로깅</Links></td>
-<td>`import io.ktor.client.features.logging.*`</td>
-<td>`import io.ktor.client.plugins.logging.*`</td>
+<td><code>import io.ktor.client.features.logging.*</code></td>
+<td><code>import io.ktor.client.plugins.logging.*</code></td>
 </tr>
 
 <tr>
 <td><Links href="/ktor/client-websockets" summary="The Websockets plugin allows you to create a multi-way communication session between a server and a client.">WebSockets</Links></td>
-<td>`import io.ktor.client.features.websocket.*`</td>
-<td>`import io.ktor.client.plugins.websocket.*`</td>
+<td><code>import io.ktor.client.features.websocket.*</code></td>
+<td><code>import io.ktor.client.plugins.websocket.*</code></td>
 </tr>
 
 <tr>
 <td><Links href="/ktor/client-content-encoding" summary="The ContentEncoding plugin allows you to enable specified compression algorithms (such as 'gzip' and 'deflate') and configure their settings.">콘텐츠 인코딩</Links></td>
-<td>`import io.ktor.client.features.compression.*`</td>
-<td>`import io.ktor.client.plugins.compression.*`</td>
+<td><code>import io.ktor.client.features.compression.*</code></td>
+<td><code>import io.ktor.client.plugins.compression.*</code></td>
 </tr>
 
 </table>

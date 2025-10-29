@@ -23,7 +23,7 @@
 ContentNegotiation 插件主要服务于两个目的：在客户端和服务器之间协商媒体类型，以及在发送请求和接收响应时以特定格式序列化/反序列化内容。
 </link-summary>
 
-[ContentNegotiation](https://api.ktor.io/ktor-client/ktor-client-plugins/ktor-client-content-negotiation/io.ktor.client.plugins.contentnegotiation/-content-negotiation)
+[ContentNegotiation](https://api.ktor.io/ktor-client-content-negotiation/io.ktor.client.plugins.contentnegotiation/-content-negotiation)
 插件主要服务于两个目的：
 *   在客户端和服务器之间协商媒体类型。为此，它使用 `Accept` 和 `Content-Type` 头部。
 *   在发送[请求](client-requests.md)和接收[响应](client-responses.md)时，以特定格式序列化/反序列化内容。Ktor 开箱即用支持以下格式：JSON、XML、CBOR 和 ProtoBuf。

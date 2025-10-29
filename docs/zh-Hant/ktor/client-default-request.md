@@ -17,7 +17,7 @@
 DefaultRequest 外掛程式允許您為所有請求設定預設參數。
 </link-summary>
 
-[DefaultRequest](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client.plugins/-default-request/index.html) 外掛程式允許您為所有[請求](client-requests.md)設定預設參數：指定基礎 URL、新增標頭、設定查詢參數等。
+[DefaultRequest](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client.plugins/-default-request/index.html) 外掛程式允許您為所有[請求](client-requests.md)設定預設參數：指定基礎 URL、新增標頭、設定查詢參數，等等。
 
 ## 新增依賴項 {id="add_dependencies"}
 

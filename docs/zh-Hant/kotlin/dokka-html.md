@@ -10,9 +10,9 @@ HTML 作為輸出格式受到所有執行器支援。要生成 HTML 文件，請
 
 *   對於 [Gradle](dokka-gradle.md#generate-documentation)，執行 `dokkaHtml` 或 `dokkaHtmlMultiModule` 任務。
 
-    > 從 Dokka 2.0.0 開始，[用於生成文件的 Gradle 任務已變更](dokka-migration.md#generate-documentation-with-the-updated-task)。
+    > 這些指示反映了 Dokka Gradle 外掛程式 v1 的配置和任務。從 Dokka 2.0.0 開始，[用於生成文件的 Gradle 任務已變更](dokka-migration.md#generate-documentation-with-the-updated-task)。
     >
-    > 如需更多詳細資訊和完整的變更清單，請參閱[遷移指南](dokka-migration.md)。
+    > 如需更多詳細資訊和 Dokka Gradle 外掛程式 v2 中的完整變更清單，請參閱[遷移指南](dokka-migration.md)。
     >
     {style="note"}
 

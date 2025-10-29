@@ -2,7 +2,7 @@
 
 <primary-label ref="client-plugin"/>
 
-[UserAgent](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client.plugins/-user-agent) 外掛會新增一個 `User-Agent` 標頭到所有[請求](client-requests.md)。
+[UserAgent](https://api.ktor.io/ktor-client-core/io.ktor.client.plugins/-user-agent) 外掛會新增一個 `User-Agent` 標頭到所有[請求](client-requests.md)。
 
 ## 新增相依性 {id="add_dependencies"}
 
@@ -29,8 +29,7 @@ Ktor 也允許您使用對應的函數來新增一個瀏覽器或 curl 類似的
 ```kotlin
 val client = HttpClient(CIO) {
     BrowserUserAgent()
-    // ... 或
+    // ... or
     CurlUserAgent()
 }
-
 ```

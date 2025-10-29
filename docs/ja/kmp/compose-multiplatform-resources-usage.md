@@ -90,12 +90,12 @@ Material SymbolsライブラリのベクターAndroid XMLアイコンを使用�
 
 2.  ダウンロードしたXMLアイコンファイルをマルチプラットフォームリソースの `drawable` ディレクトリに追加します。
 
-3.  XMLアイコンファイルを開き、`android:fillColor` を `#00000000` に設定します。`android:tint` など、色の調整のための他のAndroid固有の属性はすべて削除します。
+3.  XMLアイコンファイルを開き、`android:fillColor` を `#000000` に設定します。`android:tint` など、色の調整のための他のAndroid固有の属性はすべて削除します。
 
    変更前：
 
    ```xml
-   <vector xmlns:android="http://schemas.android.com/apk/res/android"
+   <vector xmlns:android="http://schemas.com/apk/res/android"
         android:width="24dp"
         android:height="24dp"
         android:viewportWidth="960"
@@ -106,7 +106,7 @@ Material SymbolsライブラリのベクターAndroid XMLアイコンを使用�
             android:pathData="..."/>
     </vector>
    ```
-
+   
    変更後：
 
    ```xml
@@ -116,11 +116,11 @@ Material SymbolsライブラリのベクターAndroid XMLアイコンを使用�
         android:viewportWidth="960"
         android:viewportHeight="960">
         <path
-            android:fillColor="#00000000"
+            android:fillColor="#000000"
             android:pathData="..."/>
    </vector>
    ```
-
+   
 4.  プロジェクトをビルドしてリソースアクセサーを生成するか、[Kotlin Multiplatformプラグイン](https://plugins.jetbrains.com/plugin/14936-kotlin-multiplatform)に自動的に処理させます。
 
 Compose Multiplatformコードでアイコンにアクセスし、`colorFilter` パラメータを使用して色を調整する例を次に示します。
@@ -198,7 +198,7 @@ coroutineScope.launch {
 *   `\t` – タブ記号のため
 *   `\uXXXX` – 特定のUnicode文字のため
 
-[Android文字列の場合](https://developer.android.com/guide/topics/resources/string-resource#escaping_quotes)のように、"`@" や "?" のような特殊なXML文字をエスケープする必要はありません。
+Android文字列の場合のように、"`@" や "?" のような特殊なXML文字をエスケープする必要はありません。
 
 #### 文字列テンプレート
 

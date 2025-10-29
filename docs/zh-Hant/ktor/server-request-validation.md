@@ -27,7 +27,7 @@
 %plugin_name% 提供了驗證傳入請求主體的能力。
 </link-summary>
 
-[%plugin_name%](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-request-validation/io.ktor.server.plugins.requestvalidation/-request-validation.html) 外掛程式提供了驗證傳入請求主體的能力。如果安裝了包含[序列化器](server-serialization.md#configure_serializer)的 `ContentNegotiation` 外掛程式，您可以驗證原始請求主體或指定的請求物件屬性。如果請求主體驗證失敗，此外掛程式將引發 `RequestValidationException`，該例外可使用 [StatusPages](server-status-pages.md) 外掛程式處理。
+[%plugin_name%](https://api.ktor.io/ktor-server-request-validation/io.ktor.server.plugins.requestvalidation/-request-validation.html) 外掛程式提供了驗證傳入請求主體的能力。如果安裝了包含[序列化器](server-serialization.md#configure_serializer)的 `ContentNegotiation` 外掛程式，您可以驗證原始請求主體或指定的請求物件屬性。如果請求主體驗證失敗，此外掛程式將引發 `RequestValidationException` 請求驗證例外，該例外可使用 [StatusPages](server-status-pages.md) 狀態頁面外掛程式處理。
 
 ## 新增依賴項 {id="add_dependencies"}
 
@@ -99,9 +99,9 @@ routing {
 
 若要驗證請求主體，請使用 `validate` 函數。
 此函數回傳一個 `ValidationResult` 物件，代表成功或不成功的驗證結果。
-對於不成功的結果，將引發 **[RequestValidationException](#validation-exception)**。
+對於不成功的結果，將引發 **[RequestValidationException](#validation-exception)** 請求驗證例外。
 
-<code>validate</code> 函數有兩個重載，允許您透過兩種方式驗證請求主體：
+`validate` 函數有兩個重載，允許您透過兩種方式驗證請求主體：
 
 - 第一個 `validate` 重載允許您將請求主體作為指定型別的物件來存取。
    下面的範例展示了如何驗證代表 `String` 值的請求主體：
@@ -117,15 +117,15 @@ routing {
 
    如果您的 `ContentNegotiation` 外掛程式已安裝並配置了特定的[序列化器](server-serialization.md#configure_serializer)，您可以驗證物件屬性。從[範例：驗證物件屬性](#example-object)中了解更多資訊。
 
-- 第二個 `validate` 重載接受 `ValidatorBuilder` 並允許您提供自訂驗證規則。
+- 第二個 `validate` 重載接受 `ValidatorBuilder` 驗證器建構器並允許您提供自訂驗證規則。
    您可以從[範例：驗證位元組陣列](#example-byte-array)中了解更多資訊。
 
 ### 3. 處理驗證例外 {id="validation-exception"}
 
-如果請求驗證失敗，`%plugin_name%` 將引發 `RequestValidationException`。
+如果請求驗證失敗，`%plugin_name%` 將引發 `RequestValidationException` 請求驗證例外。
 此例外允許您存取請求主體並獲取此請求所有驗證失敗的原因。
 
-您可以按如下方式使用 [StatusPages](server-status-pages.md) 外掛程式處理 `RequestValidationException`：
+您可以按如下方式使用 [StatusPages](server-status-pages.md) 狀態頁面外掛程式處理 `RequestValidationException`：
 
 ```kotlin
 install(StatusPages) {
@@ -161,7 +161,7 @@ Content-Type: application/json
    data class Customer(val id: Int, val firstName: String, val lastName: String)
    ```
 
-2. 安裝包含 [JSON 序列化器](server-serialization.md#register_json)的 `ContentNegotiation` 外掛程式：
+2. 安裝包含 [JSON 序列化器](server-serialization.md#register_json)的 `ContentNegotiation` 內容協商外掛程式：
    ```kotlin
    install(ContentNegotiation) {
        json()
@@ -175,7 +175,7 @@ Content-Type: application/json
        call.respond(customer)
    }
    ```
-4. 在 `%plugin_name%` 外掛程式配置中，新增 `id` 屬性的驗證，以確保其落在指定的範圍內：
+4. 在 `%plugin_name%` 外掛程式配置中，新增 `id` 屬性的驗證，以確保其落在指定範圍內：
    ```kotlin
    install(RequestValidation) {
        validate<Customer> { customer ->
@@ -186,7 +186,7 @@ Content-Type: application/json
    }
    ```
    
-   在此情況下，如果 `id` 值小於或等於 `0`，`%plugin_name%` 將引發 **[RequestValidationException](#validation-exception)**。
+   在此情況下，如果 `id` 值小於或等於 `0`，`%plugin_name%` 將引發 **[RequestValidationException](#validation-exception)** 請求驗證例外。
 
 ## 範例：驗證位元組陣列 {id="example-byte-array"}
 
@@ -209,7 +209,7 @@ Content-Type: text/plain
        call.respond(String(body))
    }
    ```
-2. 若要驗證接收到的資料，我們將使用接受 `ValidatorBuilder` 並允許您提供自訂驗證規則的第二個 `validate` [函數重載](#validation-function)：
+2. 若要驗證接收到的資料，我們將使用接受 `ValidatorBuilder` 驗證器建構器並允許您提供自訂驗證規則的第二個 `validate` [函數重載](#validation-function)：
    ```kotlin
    install(RequestValidation) {
        validate {
@@ -225,4 +225,3 @@ Content-Type: text/plain
            }
        }
    }
-   ```

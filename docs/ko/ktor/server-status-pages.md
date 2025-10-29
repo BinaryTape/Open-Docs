@@ -72,7 +72,7 @@
 
 ## %plugin_name% 구성 {id="configure"}
 
-`%plugin_name%` 플러그인에서 제공하는 세 가지 주요 구성 옵션이 있습니다:
+<code>%plugin_name%</code> 플러그인에서 제공하는 세 가지 주요 구성 옵션이 있습니다:
 
 - [예외](#exceptions): 매핑된 예외 클래스를 기반으로 응답을 구성합니다.
 - [상태](#status): 상태 코드 값에 대한 응답을 구성합니다.

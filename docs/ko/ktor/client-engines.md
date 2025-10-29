@@ -8,7 +8,7 @@
 
 [Ktor HTTP 클라이언트](client-create-and-configure.md)는 멀티플랫폼을 지원하며 JVM,
 [Android](https://kotlinlang.org/docs/android-overview.html), [JavaScript](https://kotlinlang.org/docs/js-overview.html)
-(WebAssembly 포함), [Native](https://kotlinlang.org/docs/native-overview.html) 타겟에서 실행됩니다. 각 플랫폼은
+(웹어셈블리 (WebAssembly) 포함), [Native](https://kotlinlang.org/docs/native-overview.html) 타겟에서 실행됩니다. 각 플랫폼은
 네트워크 요청을 처리하기 위한 특정 엔진이 필요합니다.
 예를 들어, JVM 애플리케이션에는 `Apache` 또는 `Jetty`를, Android에는 `OkHttp` 또는 `Android`를, Kotlin/Native를 대상으로 하는 데스크톱 애플리케이션에는 `Curl`을 사용할 수 있습니다. 모든 엔진은 기능과
 구성에서 약간씩 다르므로, 플랫폼과 사용 사례 요구 사항에 가장 적합한 엔진을 선택할 수 있습니다.
@@ -273,7 +273,7 @@ JVM 타겟은 [`Apache5`](#apache5), [`Java`](#java), [`Jetty`](#jetty) 엔진�
             <code-block lang="XML" code="               &lt;dependency&gt;&#10;                   &lt;groupId&gt;io.ktor&lt;/groupId&gt;&#10;                   &lt;artifactId&gt;%artifact_name%-jvm&lt;/artifactId&gt;&#10;                   &lt;version&gt;${ktor_version}&lt;/version&gt;&#10;               &lt;/dependency&gt;"/>
         </TabItem>
     </Tabs>
-2.  [`Android`](https://api.ktor.io/ktor-client/ktor-client-android/io.ktor.client.engine.android/-android/index.html)
+2.  [`Android`](https://api.ktor.io/ktor-client-android/io.ktor.client.engine.android/-android/index.html)
     클래스를 `HttpClient` 생성자의 인수로 전달합니다:
     ```kotlin
     import io.ktor.client.*
@@ -283,7 +283,7 @@ JVM 타겟은 [`Apache5`](#apache5), [`Java`](#java), [`Jetty`](#jetty) 엔진�
     ```
 3.  엔진을 구성하려면 `engine {}` 블록에서
     [
-    `AndroidEngineConfig`](https://api.ktor.io/ktor-client/ktor-client-android/io.ktor.client.engine.android/-android-engine-config/index.html)의 속성을 설정합니다:
+    `AndroidEngineConfig`](https://api.ktor.io/ktor-client-android/io.ktor.client.engine.android/-android-engine-config/index.html)의 속성을 설정합니다:
     ```kotlin
     import io.ktor.client.*
     import io.ktor.client.engine.android.*
@@ -385,7 +385,7 @@ Ktor는 [Kotlin/Native](https://kotlinlang.org/docs/native-overview.html) 타겟
     val client = HttpClient(Darwin)
     ```
 3.  `engine {}` 블록에서 [
-    `DarwinClientEngineConfig`](https://api.ktor.io/ktor-client/ktor-client-darwin/io.ktor.client.engine.darwin/-darwin-client-engine-config/index.html)을 사용하여 엔진을 구성합니다.
+    `DarwinClientEngineConfig`](https://api.ktor.io/ktor-client-darwin/io.ktor.client.engine.darwin/-darwin-client-engine-config/index.html)을 사용하여 엔진을 구성합니다.
     예를 들어, `configureRequest`로 요청을 사용자 지정하거나 `configureSession`으로 세션을 사용자 지정할 수 있습니다:
     ```kotlin
     val client = HttpClient(Darwin) {
@@ -427,7 +427,7 @@ Ktor는 [Kotlin/Native](https://kotlinlang.org/docs/native-overview.html) 타겟
     val client = HttpClient(WinHttp)
     ```
 3.  `engine {}` 블록에서 [
-    `WinHttpClientEngineConfig`](https://api.ktor.io/ktor-client/ktor-client-winhttp/io.ktor.client.engine.winhttp/-winhttp-client-engine-config/index.html)을 사용하여 엔진을 구성합니다.
+    `WinHttpClientEngineConfig`](https://api.ktor.io/ktor-client-winhttp/io.ktor.client.engine.winhttp/-winhttp-client-engine-config/index.html)을 사용하여 엔진을 구성합니다.
     예를 들어, `protocolVersion` 속성을 사용하여 HTTP 버전을 변경할 수 있습니다:
     ```kotlin
     val client = HttpClient(WinHttp) {
@@ -509,7 +509,7 @@ CIO 엔진은 JVM, Android, Native, JavaScript 및 WebAssembly JavaScript (WasmJ
     ```
 
 3.  `engine {}` 블록에서 [
-    `CIOEngineConfig`](https://api.ktor.io/ktor-client/ktor-client-cio/io.ktor.client.engine.cio/-c-i-o-engine-config/index.html)를 사용하여 엔진을 구성합니다:
+    `CIOEngineConfig`](https://api.ktor.io/ktor-client-cio/io.ktor.client.engine.cio/-c-i-o-engine-config/index.html)를 사용하여 엔진을 구성합니다:
     ```kotlin
     import io.ktor.client.*
     import io.ktor.client.engine.cio.*

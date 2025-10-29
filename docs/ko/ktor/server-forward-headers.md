@@ -22,7 +22,7 @@
 </p>
 </tldr>
 
-[ForwardedHeaders](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-forwarded-header/io.ktor.server.plugins.forwardedheaders/-forwarded-headers.html) 및 [XForwardedHeaders](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-forwarded-header/io.ktor.server.plugins.forwardedheaders/-x-forwarded-headers.html) 플러그인을 사용하면 Ktor 서버가 리버스 프록시 뒤에 배치될 때 리버스 프록시 헤더를 처리하여 원본 [요청](server-requests.md)에 대한 정보를 얻을 수 있습니다. 이는 [로깅](server-logging.md) 목적에 유용할 수 있습니다.
+[ForwardedHeaders](https://api.ktor.io/ktor-server-forwarded-header/io.ktor.server.plugins.forwardedheaders/-forwarded-headers.html) 및 [XForwardedHeaders](https://api.ktor.io/ktor-server-forwarded-header/io.ktor.server.plugins.forwardedheaders/-x-forwarded-headers.html) 플러그인은 Ktor 서버가 리버스 프록시 뒤에 배치될 때, 리버스 프록시 헤더를 처리하여 원본 [요청](server-requests.md)에 대한 정보를 얻을 수 있도록 합니다. 이는 [로깅](server-logging.md) 목적에 유용할 수 있습니다.
 
 *   `ForwardedHeaders`는 `Forwarded` 헤더 ([RFC 7239](https://tools.ietf.org/html/rfc7239))를 처리합니다.
 *   `XForwardedHeaders`는 다음 `X-Forwarded-` 헤더를 처리합니다.
@@ -116,7 +116,7 @@
 
 ### 프록시 요청 정보 {id="proxy_request_info"}
 
-프록시 요청에 대한 정보를 얻으려면 [라우트 핸들러](server-routing.md#define_route) 내에서 [call.request.local](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.request/-application-request/local.html) 속성을 사용하세요.
+프록시 요청에 대한 정보를 얻으려면 [라우트 핸들러](server-routing.md#define_route) 내에서 [call.request.local](https://api.ktor.io/ktor-server-core/io.ktor.server.request/-application-request/local.html) 속성을 사용하세요.
 아래 코드 스니펫은 프록시 주소와 요청이 이루어진 호스트에 대한 정보를 얻는 방법을 보여줍니다.
 
 ```kotlin
@@ -128,7 +128,7 @@ get("/hello") {
 
 ### 원본 요청 정보 {id="original-request-information"}
 
-원본 요청에 대한 정보를 읽으려면 [call.request.origin](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.plugins/origin.html) 속성을 사용하세요.
+원본 요청에 대한 정보를 읽으려면 [call.request.origin](https://api.ktor.io/ktor-server-core/io.ktor.server.plugins/origin.html) 속성을 사용하세요.
 
 ```kotlin
 get("/hello") {
@@ -163,7 +163,7 @@ X-Forwarded-For: <client>, <proxy1>, <proxy2>
 
 기본적으로 `XForwardedHeader`는 `X-Forwarded-For`의 첫 번째 항목을 `call.request.origin.remoteHost` 속성에 할당합니다.
 [IP 주소 선택](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Forwarded-For#selecting_an_ip_address)을 위한 사용자 지정 로직을 제공할 수도 있습니다.
-[XForwardedHeadersConfig](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-forwarded-header/io.ktor.server.plugins.forwardedheaders/-x-forwarded-headers-config/index.html)는 이를 위해 다음 API를 노출합니다.
+[XForwardedHeadersConfig](https://api.ktor.io/ktor-server-forwarded-header/io.ktor.server.plugins.forwardedheaders/-x-forwarded-headers-config/index.html)는 이를 위해 다음 API를 노출합니다.
 
 *   `useFirstProxy` 및 `useLastProxy`는 각각 IP 주소 목록에서 첫 번째 또는 마지막 값을 가져오도록 허용합니다.
 *   `skipLastProxies`는 오른쪽부터 지정된 수의 항목을 건너뛰고 다음 항목을 가져옵니다.

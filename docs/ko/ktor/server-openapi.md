@@ -4,7 +4,7 @@
 
 <var name="artifact_name" value="ktor-server-openapi"/>
 <var name="package_name" value="io.ktor.server.plugins.openapi"/>
-<var name="plugin_api_link" value="https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-openapi/io.ktor.server.plugins.openapi/open-a-p-i.html"/>
+<var name="plugin_api_link" value="https://api.ktor.io/ktor-server-openapi/io.ktor.server.plugins.openapi/open-a-p-i.html"/>
 
 <tldr>
 <p>
@@ -77,11 +77,9 @@ routing {
 }
 ```
 
-이 메서드는 애플리케이션 리소스에서 OpenAPI 명세를 찾아봅니다.
-그렇지 않으면 `java.io.File`을 사용하여 파일 시스템에서 OpenAPI 명세를 읽으려고 시도합니다.
+이 메서드는 애플리케이션 리소스에서 OpenAPI 명세를 찾아봅니다. 그렇지 않으면 `java.io.File`을 사용하여 파일 시스템에서 OpenAPI 명세를 읽으려고 시도합니다.
 
-기본적으로 문서는 `StaticHtml2Codegen`을 사용하여 생성됩니다.
-`openAPI` 블록 내에서 생성 설정을 사용자 정의할 수 있습니다:
+기본적으로 문서는 `StaticHtml2Codegen`을 사용하여 생성됩니다. `openAPI` 블록 내에서 생성 설정을 사용자 정의할 수 있습니다:
 
 ```kotlin
 routing {

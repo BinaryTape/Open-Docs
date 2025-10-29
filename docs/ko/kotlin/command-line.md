@@ -44,7 +44,7 @@ brew update
 brew install kotlin
 ```
 
-### Snap
+### Snap package
 
 Ubuntu 16.04 이상에서 [Snap](https://snapcraft.io/)을 사용하는 경우 명령줄에서 컴파일러를 설치할 수 있습니다.
 
@@ -106,7 +106,7 @@ kotlin -classpath hello.jar HelloKt
 
 `HelloKt`는 Kotlin 컴파일러가 `hello.kt`라는 파일에 대해 생성하는 메인 클래스 이름입니다.
 
-> Kotlin/Native 라이브러리를 컴파일하려면 [Kotlin/Native 컴파일러](native-libraries.md#kotlin-compiler-specifics)를 사용합니다.
+> Kotlin/Native 라이브러리를 컴파일하려면 [Kotlin/Native 컴파일러](native-libraries.md#using-kotlin-native-compiler)를 사용합니다.
 >
 {style="note"}
 

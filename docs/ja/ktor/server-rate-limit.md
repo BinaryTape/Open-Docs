@@ -6,7 +6,7 @@
 <var name="plugin_name" value="RateLimit"/>
 <var name="package_name" value="io.ktor.server.plugins.ratelimit"/>
 <var name="artifact_name" value="ktor-server-rate-limit"/>
-<var name="plugin_api_link" value="https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-rate-limit/io.ktor.server.plugins.ratelimit/-rate-limit.html"/>
+<var name="plugin_api_link" value="https://api.ktor.io/ktor-server-rate-limit/io.ktor.server.plugins.ratelimit/-rate-limit.html"/>
 
 <tldr>
 <p>
@@ -20,7 +20,7 @@
     </a>
 </p>
 <p>
-    <b><Links href="/ktor/server-native" summary="モジュールを使用すると、ルートをグループ化してアプリケーションを構造化できます。">ネイティブサーバー</Links>のサポート</b>: ✅
+    <b><Links href="/ktor/server-native" summary="KtorはKotlin/Nativeをサポートしており、追加のランタイムや仮想マシンなしでサーバーを実行できます。">ネイティブサーバー</Links>のサポート</b>: ✅
 </p>
 </tldr>
 
@@ -264,7 +264,6 @@ fun Application.module() {
         }
     }
 }
-
 ```
 
 完全な例はこちらにあります: [rate-limit](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/rate-limit)。

@@ -62,20 +62,14 @@ val prompt = prompt("multimodal_input") {
     user {
         +"Describe these images"
 
-        attachments {
-            image("https://example.com/test.png")
-            image(Path("/User/koog/image.png"))
-        }
+        image("https://example.com/test.png")
+        image(Path("/User/koog/image.png"))
     }
 }
 ```
 <!--- KNIT example-prompt-api-02.kt -->
 
 ### 텍스트 프롬프트 내용
-
-다양한 첨부 파일 유형 지원을 수용하고 프롬프트 내에서 텍스트 입력과 파일 입력을 명확하게 구분하기 위해, 사용자 프롬프트 내 전용 `content` 파라미터에 텍스트 메시지를 넣습니다.
-파일 입력을 추가하려면, `attachments` 파라미터 내에 목록으로 제공하세요.
-
 텍스트 메시지와 첨부 파일 목록을 포함하는 사용자 메시지의 일반적인 형식은 다음과 같습니다:
 
 <!--- INCLUDE
@@ -87,23 +81,23 @@ val prompt = prompt("prompt") {
 }
 -->
 ```kotlin
-user(
-    content = "This is the user message",
-    attachments = listOf(
-        // 첨부 파일 추가
-    )
-)
+user {
+    +"This is the text part of the user message"
+    // 첨부 파일 추가
+    image("https://example.com/capture.png")
+    file("https://example.com/data.pdf", "application/pdf")
+}
 ```
 <!--- KNIT example-prompt-api-03.kt -->
 
 ### 파일 첨부
 
-첨부 파일을 포함하려면, 아래 형식에 따라 `attachments` 파라미터에 파일을 제공하세요:
+첨부 파일을 포함하려면, 아래 형식에 따라 파일을 제공하세요:
 
 <!--- INCLUDE
 import ai.koog.prompt.dsl.prompt
-import ai.koog.prompt.message.Attachment
 import ai.koog.prompt.message.AttachmentContent
+import ai.koog.prompt.message.ContentPart
 
 val prompt = prompt("prompt") {
 -->
@@ -111,17 +105,17 @@ val prompt = prompt("prompt") {
 }
 -->
 ```kotlin
-user(
-    content = "Describe this image",
-    attachments = listOf(
-        Attachment.Image(
+user {
+    +"Describe this image"
+    image(
+        ContentPart.Image(
             content = AttachmentContent.URL("https://example.com/capture.png"),
             format = "png",
             mimeType = "image/png",
             fileName = "capture.png"
         )
     )
-)
+}
 ```
 <!--- KNIT example-prompt-api-04.kt -->
 
@@ -132,7 +126,7 @@ user(
 - `Attachment.Video`: `mpg` 또는 `avi` 파일과 같은 비디오 첨부 파일.
 - `Attachment.File`: `pdf` 또는 `txt` 파일과 같은 일반 파일 첨부 파일.
 
-각 클래스는 다음 파라미터를 사용합니다:
+위 각 클래스는 다음 파라미터를 사용합니다:
 
 | 이름       | 데이터 유형                             | 필수                   | 설명                                                                                             |
 |------------|-----------------------------------------|------------------------|--------------------------------------------------------------------------------------------------|
@@ -204,11 +198,9 @@ val prompt = prompt("mixed_content") {
 
     user {
         +"Compare the image with the document content."
-
-        attachments {
-            image(Path("/User/koog/page.png"))
-            binaryFile(Path("/User/koog/page.pdf"), "application/pdf")
-        }
+        image(Path("/User/koog/page.png"))
+        binaryFile(Path("/User/koog/page.pdf"), "application/pdf")
+        +"Structure the result as a table"
     }
 }
 ```
@@ -623,25 +615,25 @@ val customClient = RetryingLLMClient(
 
 기본적으로 재시도 메커니즘은 일반적인 일시적 오류를 인식합니다:
 
-* **HTTP 상태 코드**:
-    * `429`: 속도 제한
-    * `500`: 내부 서버 오류
-    * `502`: Bad Gateway
-    * `503`: 서비스 사용 불가
-    * `504`: 게이트웨이 타임아웃
-    * `529`: Anthropic 과부하
+*   **HTTP 상태 코드**:
+    *   `429`: 속도 제한
+    *   `500`: 내부 서버 오류
+    *   `502`: Bad Gateway
+    *   `503`: 서비스 사용 불가
+    *   `504`: 게이트웨이 타임아웃
+    *   `529`: Anthropic 과부하
 
-* **오류 키워드**:
-    * rate limit
-    * too many requests
-    * request timeout
-    * connection timeout
-    * read timeout
-    * write timeout
-    * connection reset by peer
-    * connection refused
-    * temporarily unavailable
-    * service unavailable
+*   **오류 키워드**:
+    *   rate limit
+    *   too many requests
+    *   request timeout
+    *   connection timeout
+    *   read timeout
+    *   write timeout
+    *   connection reset by peer
+    *   connection refused
+    *   temporarily unavailable
+    *   service unavailable
 
 특정 요구 사항에 맞게 사용자 정의 패턴을 정의할 수 있습니다:
 
@@ -695,11 +687,11 @@ val multiExecutor = MultiLLMPromptExecutor(
     ),
     LLMProvider.Anthropic to RetryingLLMClient(
         AnthropicLLMClient(System.getenv("ANTHROPIC_API_KEY")),
-        RetryConfig.AGGRESSIVE  
+        RetryConfig.AGGRESSIVE
     ),
     // Bedrock 클라이언트는 이미 AWS SDK 재시도 기능이 내장되어 있습니다.
     LLMProvider.Bedrock to BedrockLLMClient(
-        credentialsProvider = StaticCredentialsProvider {
+        identityProvider = StaticCredentialsProvider {
             accessKeyId = System.getenv("AWS_ACCESS_KEY_ID")
             secretAccessKey = System.getenv("AWS_SECRET_ACCESS_KEY")
             sessionToken = System.getenv("AWS_SESSION_TOKEN")
@@ -773,10 +765,10 @@ val client = OpenAILLMClient(
 
 프로덕션 환경에서 LLM과 작업할 때, 오류 처리 전략을 구현해야 합니다:
 
-- 예상치 못한 오류를 처리하기 위해 **try-catch 블록을 사용합니다.**
-- 디버깅을 위해 **컨텍스트와 함께 오류를 로깅합니다.**
-- 중요 작업에 대한 **대체 전략을 구현합니다.**
-- 시스템적 문제를 식별하기 위해 **재시도 패턴을 모니터링합니다.**
+-   예상치 못한 오류를 처리하기 위해 **try-catch 블록을 사용합니다.**
+-   디버깅을 위해 **컨텍스트와 함께 오류를 로깅합니다.**
+-   중요 작업에 대한 **대체 전략을 구현합니다.**
+-   시스템적 문제를 식별하기 위해 **재시도 패턴을 모니터링합니다.**
 
 포괄적인 오류 처리 예시:
 
@@ -796,7 +788,7 @@ fun main() {
         )
         val prompt = prompt("test") { user("Hello") }
         val model = OpenAIModels.Chat.GPT4o
-        
+
         fun processResponse(response: Any) { /* ... */ }
         fun scheduleRetryLater() { /* ... */ }
         fun notifyAdministrator() { /* ... */ }
@@ -812,7 +804,7 @@ try {
     processResponse(response)
 } catch (e: Exception) {
     logger.error("LLM operation failed", e)
-    
+
     when {
         e.message?.contains("rate limit") == true -> {
             // 속도 제한을 구체적으로 처리합니다.

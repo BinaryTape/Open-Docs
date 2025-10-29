@@ -102,6 +102,54 @@ suspend fun openAIEmbed(text: String) {
 ```
 <!--- KNIT example-embeddings-02.kt -->
 
+## AWS Bedrock 임베딩
+
+AWS Bedrock 임베딩 모델을 사용하여 임베딩을 생성하려면 `BedrockLLMClient` 인스턴스와 선택한 모델의 `embed` 메서드를 사용하세요. 예시:
+
+<!--- INCLUDE
+import ai.koog.embeddings.local.LLMEmbedder
+import ai.koog.prompt.executor.clients.bedrock.BedrockClientSettings
+import ai.koog.prompt.executor.clients.bedrock.BedrockLLMClient
+import ai.koog.prompt.executor.clients.bedrock.BedrockModels
+import aws.sdk.kotlin.runtime.auth.credentials.StaticCredentialsProvider
+-->
+```kotlin
+suspend fun bedrockEmbed(text: String) {
+    // Get AWS credentials from environment/configuration
+    val awsAccessKeyId = System.getenv("AWS_ACCESS_KEY_ID") ?: error("AWS_ACCESS_KEY_ID not set")
+    val awsSecretAccessKey = System.getenv("AWS_SECRET_ACCESS_KEY") ?: error("AWS_SECRET_ACCESS_KEY not set")
+    // (Optional) AWS_SESSION_TOKEN for temporary credentials
+    val awsSessionToken = System.getenv("AWS_SESSION_TOKEN")
+    // Create a BedrockLLMClient instance
+    val client = BedrockLLMClient(
+        identityProvider = StaticCredentialsProvider {
+            this.accessKeyId = awsAccessKeyId
+            this.secretAccessKey = awsSecretAccessKey
+            awsSessionToken?.let { this.sessionToken = it }
+        },
+        settings = BedrockClientSettings()
+    )
+    // Create an embedder
+    val embedder = LLMEmbedder(client, BedrockModels.Embeddings.AmazonTitanEmbedText)
+    // Create embeddings
+    val embedding = embedder.embed(text)
+    // Print embeddings to the output
+    println(embedding)
+}
+```
+<!--- KNIT example-embeddings-03.kt -->
+
+### 지원되는 AWS Bedrock 임베딩 모델
+
+| 제공자 | 모델 이름                   | 모델 ID                       | 입력 | 출력    | 차원 | 컨텍스트 길이 | 참고                                                                                                 |
+|----------|------------------------------|--------------------------------|-------|-----------|------------|----------------|-------------------------------------------------------------------------------------------------------|
+| Amazon   | Titan Embeddings G1 - Text   | `amazon.titan-embed-text-v1`   | Text  | Embedding | 1,536      | 8192           | 25개 이상의 언어, 검색, 의미론적 유사성, 클러스터링에 최적화; 긴 문서를 검색을 위해 분할.|
+| Amazon   | Titan Text Embeddings V2     | `amazon.titan-embed-text-v2:0` | Text  | Embedding | 1,024      | 8192           | 고정확도, 유연한 차원, 다국어(100개 이상); 더 작은 차원은 저장 공간 절약, 정규화된 출력.|
+| Cohere   | Cohere Embed English v3      | `cohere.embed-english-v3`      | Text  | Embedding | 1,024      | 8192           | 검색, 검색 및 텍스트 뉘앙스 이해를 위한 SOTA 영어 텍스트 임베딩.                   |
+| Cohere   | Cohere Embed Multilingual v3 | `cohere.embed-multilingual-v3` | Text  | Embedding | 1,024      | 8192           | 다국어 임베딩, 언어 전반의 검색 및 의미론적 이해를 위한 SOTA.                 |
+
+> 가장 최신 모델 지원에 대해서는 [AWS Bedrock 지원 모델 문서](https://docs.aws.amazon.com/bedrock/latest/userguide/models-supported.html)를 참조하세요.
+
 ## 예시
 
 다음 예시들은 임베딩을 사용하여 코드를 텍스트 또는 다른 코드 스니펫과 비교하는 방법을 보여줍니다.
@@ -146,7 +194,7 @@ suspend fun compareCodeToText(embedder: Embedder) { // Embedder type
     }
 }
 ```
-<!--- KNIT example-embeddings-03.kt -->
+<!--- KNIT example-embeddings-04.kt -->
 
 ### 코드-코드 비교
 
@@ -208,7 +256,7 @@ suspend fun compareCodeToCode(embedder: Embedder) { // Embedder type
     }
 }
 ```
-<!--- KNIT example-embeddings-04.kt -->
+<!--- KNIT example-embeddings-05.kt -->
 
 ## API 문서
 

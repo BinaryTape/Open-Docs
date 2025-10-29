@@ -17,11 +17,11 @@
 <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-download-file-range">client-download-file-range</a>
 </p>
 <p>
-    <b><Links href="/ktor/server-native" summary="모듈을 사용하면 경로를 그룹화하여 애플리케이션을 구조화할 수 있습니다.">Native 서버</Links> 지원</b>: ✅
+    <b><Links href="/ktor/server-native" summary="Ktor는 Kotlin/Native를 지원하며 추가 런타임이나 가상 머신 없이 서버를 실행할 수 있습니다.">Native 서버</Links> 지원</b>: ✅
 </p>
 </tldr>
 
-[%plugin_name%](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-partial-content/io.ktor.server.plugins.partialcontent/-partial-content.html) 플러그인은 클라이언트에 HTTP 메시지의 일부만 다시 보내는 데 사용되는 [HTTP 범위 요청](https://developer.mozilla.org/en-US/docs/Web/HTTP/Range_requests) 처리를 지원합니다. 이 플러그인은 콘텐츠 스트리밍 또는 부분 다운로드 재개에 유용합니다.
+[%plugin_name%](https://api.ktor.io/ktor-server-partial-content/io.ktor.server.plugins.partialcontent/-partial-content.html) 플러그인은 클라이언트에 HTTP 메시지의 일부만 다시 보내는 데 사용되는 [HTTP 범위 요청](https://developer.mozilla.org/en-US/docs/Web/HTTP/Range_requests) 처리를 지원합니다. 이 플러그인은 콘텐츠 스트리밍 또는 부분 다운로드 재개에 유용합니다.
 
 `%plugin_name%`에는 다음과 같은 제한 사항이 있습니다:
 - `HEAD` 및 `GET` 요청에서만 작동하며, 클라이언트가 다른 메서드와 함께 `Range` 헤더를 사용하려고 하면 `405 Method Not Allowed`를 반환합니다.

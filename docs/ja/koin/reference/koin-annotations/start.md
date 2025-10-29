@@ -2,11 +2,11 @@
 title: Koin Annotationsを始める
 ---
 
-Koin Annotationsプロジェクトの目的は、Koinの定義を非常に高速かつ直感的な方法で宣言できるよう支援し、基盤となるすべてのKoin DSLを自動生成することです。これは、Kotlinコンパイラのおかげで、開発者エクスペリエンスを拡大し、迅速な開発を可能にすることを目的としています 🚀。
+Koin Annotationsプロジェクトの目的は、Koinの定義を高速かつ直感的な方法で宣言できるよう支援し、基盤となるすべてのKoin DSLを自動生成することです。Kotlinコンパイラのおかげで、開発者エクスペリエンスを拡大し、迅速な開発を可能にすることを目指しています 🚀。
 
 ## はじめに
 
-Koinに馴染みがないですか？まずは[Koin入門](https://insert-koin.io/docs/quickstart/kotlin)をご覧ください。
+Koinに馴染みがないですか？まずは[Koin入門](https://insert-koin.io/docs/quickstart/kotlin/)をご覧ください。
 
 コンポーネントを定義（definition）およびモジュール（module）アノテーションでタグ付けし、通常のKoin APIを使用します。
 
@@ -16,34 +16,66 @@ Koinに馴染みがないですか？まずは[Koin入門](https://insert-koin.i
 class MyComponent
 ```
 
+### 基本的なモジュールの設定
+
 ```kotlin
 // モジュールを宣言し、アノテーションをスキャンします
 @Module
-@ComponentScan
 class MyModule
 ```
 
-生成されたコードを使用できるように、`org.koin.ksp.generated.*`のインポートを次のように使用してください。
+これで、`@KoinApplication`を使用してKoinアプリケーションを開始し、使用するモジュールを明示的に指定できます。
 
 ```kotlin
-// Koin Generationを使用
+// 以下のimportにより、生成された拡張関数にアクセスできます
+// 例: MyModule.moduleやMyApp.startKoin() 
 import org.koin.ksp.generated.*
 
+@KoinApplication(modules = [MyModule::class])
+object MyApp
+
 fun main() {
-    val koin = startKoin {
+    MyApp.startKoin {
         printLogger()
-        modules(
-          // モジュールクラスに生成された「.module」拡張子を付けて、ここでモジュールを使用します
-          MyModule().module
-        )
     }
 
-    // 通常のKoin APIとして使用するだけです
-    koin.get<MyComponent>()
+    // 通常どおりKoin APIを使用するだけです
+    KoinPlatform.getKoin().get<MyComponent>()
 }
 ```
 
-これで完了です。通常のKoin APIを使って、Koinで新しい定義を使用できます。
+### 設定ベースのモジュール設定
+
+別の方法として、`@Configuration`を使用して自動的にロードされるモジュールを作成できます。
+
+```kotlin
+// 設定付きモジュール - デフォルト設定に自動的に含まれる
+@Module
+@Configuration
+class MyModule
+```
+
+設定を使用すると、モジュールを明示的に指定する必要はありません。
+
+```kotlin
+// 以下のimportにより、生成された拡張関数にアクセスできます
+// このアプローチでは、@Configurationでマークされたすべてのモジュールが自動的にロードされます
+import org.koin.ksp.generated.*
+
+@KoinApplication
+object MyApp
+
+fun main() {
+    MyApp.startKoin {
+        printLogger()
+    }
+
+    // 通常どおりKoin APIを使用するだけです
+    KoinPlatform.getKoin().get<MyComponent>()
+}
+```
+
+これで完了です。Koinで新しい定義を[通常のKoin API](https://insert-koin.io/docs/reference/introduction)とともに使用できます。
 
 ## KSPオプション
 
@@ -76,17 +108,24 @@ class MyProvidedComponent
 class MyPresenter(@Provided val provided : MyProvidedComponent)
 ```
 
-### デフォルトモジュールの無効化（バージョン1.3.0以降）
+### デフォルトモジュール（バージョン1.3.0以降非推奨）
 
-デフォルトでは、Koinコンパイラはモジュールにバインドされていない定義を検出し、プロジェクトのルートに生成される「デフォルトモジュール」と呼ばれるKoinモジュールに配置します。次のオプションを使用すると、デフォルトモジュールの使用と生成を無効にできます。
+:::warning
+デフォルトモジュールのアプローチは、Annotations 1.3.0以降非推奨です。より良い構成と明確化のために、`@Module`および`@Configuration`アノテーションを使用した明示的なモジュールを使用することをお勧めします。
+:::
 
+以前は、Koinコンパイラはモジュールにバインドされていない定義を検出し、「デフォルトモジュール」に配置していました。このアプローチは現在、`@Configuration`と`@KoinApplication`アノテーションの使用が推奨されるため、非推奨となっています。
+
+**非推奨のアプローチ**（使用を避ける）：
 ```groovy
 // build.gradleまたはbuild.gradle.kts内
 
 ksp {
-    arg("KOIN_DEFAULT_MODULE","false")
+    arg("KOIN_DEFAULT_MODULE","true")
 }
 ```
+
+**推奨されるアプローチ**：`@Configuration`と`@KoinApplication`を使用した上記の例に示すように、明示的なモジュール構成を使用してください。
 
 ### Kotlin KMPのセットアップ
 
@@ -104,3 +143,4 @@ Koin AnnotationsアプリケーションをSDKとして組み込む場合は、�
 
 # Koinアノテーションが付与されたクラスを保持  
 -keep @org.koin.core.annotation.* class * { *; }
+```

@@ -2,6 +2,23 @@
 
 A2A 服务器使您能够通过标准化的 A2A（Agent-to-Agent）协议公开 AI 代理。它提供了 [A2A 协议规范](https://a2a-protocol.org/latest/specification/) 的完整实现，负责处理客户端请求、执行代理逻辑、管理复杂的任务生命周期，并支持实时流式响应。
 
+## 依赖项
+
+要在您的项目中配置 A2A 服务器，请将以下依赖项添加到您的 `build.gradle.kts` 文件中：
+
+```kotlin
+dependencies {
+    // 核心 A2A 服务器库
+    implementation("ai.koog:a2a-server:$koogVersion")
+
+    // HTTP JSON-RPC 传输（最常用）
+    implementation("ai.koog:a2a-transport-server-jsonrpc-http:$koogVersion")
+
+    // Ktor 服务器引擎（选择适合您需求的）
+    implementation("io.ktor:ktor-server-netty:$ktorVersion")
+}
+```
+
 ## 概述
 
 A2A 服务器充当 A2A 协议传输层与您的自定义代理逻辑之间的桥梁。它编排整个请求生命周期，同时保持协议合规性并提供健壮的会话管理。
@@ -183,7 +200,7 @@ transport.start(
 
 A2A 服务器采用可插拔存储架构，分离不同类型的数据。所有存储实现都是可选的，并在开发时默认为内存变体。
 
-- **TaskStorage**：任务生命周期管理 - 存储和管理任务状态、历史记录和 artifact
+- **TaskStorage**：任务生命周期管理 - 存储和管理任务状态、历史记录和构件
 - **MessageStorage**：对话历史记录 - 管理对话上下文中的消息历史记录
 - **PushNotificationConfigStorage**：Webhook 管理 - 管理用于异步通知的 webhook 配置
 

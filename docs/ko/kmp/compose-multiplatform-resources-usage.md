@@ -2,7 +2,7 @@
 
 <show-structure depth="2"/>
 
-프로젝트에 [리소스를 설정](compose-multiplatform-resources-setup.md)하면, 리소스에 접근할 수 있는 특별한 `Res` 클래스를 생성하기 위해 프로젝트를 빌드합니다. `Res` 클래스와 모든 리소스 접근자를 재생성하려면 프로젝트를 다시 빌드하거나 IDE에서 프로젝트를 다시 임포트하세요.
+[프로젝트에 리소스를 설정](compose-multiplatform-resources-setup.md)하면, 리소스에 접근할 수 있는 특별한 `Res` 클래스를 생성하기 위해 프로젝트를 빌드합니다. `Res` 클래스와 모든 리소스 접근자를 재생성하려면 프로젝트를 다시 빌드하거나 IDE에서 프로젝트를 다시 임포트하세요.
 
 그 후, 생성된 클래스를 사용하여 코드 또는 외부 라이브러리에서 구성된 멀티플랫폼 리소스에 접근할 수 있습니다.
 
@@ -90,7 +90,8 @@ Material Symbols 라이브러리에서 벡터 Android XML 아이콘을 사용할
 
 2.  다운로드한 XML 아이콘 파일을 멀티플랫폼 리소스의 `drawable` 디렉터리에 추가하세요.
 
-3.  XML 아이콘 파일을 열고 `android:fillColor`를 `#00000000`으로 설정하세요. `android:tint`와 같은 다른 Android 특정 색상 조정 속성은 제거하세요.
+3.  XML 아이콘 파일을 열고 `android:fillColor`를 `#000000`으로 설정하세요.
+    `android:tint`와 같은 다른 Android 특정 색상 조정 속성은 제거하세요.
 
     Before:
 
@@ -116,10 +117,10 @@ Material Symbols 라이브러리에서 벡터 Android XML 아이콘을 사용할
          android:viewportWidth="960"
          android:viewportHeight="960">
          <path
-             android:fillColor="#00000000"
-             android:pathData="..."/>
-    </vector>
-    ```
+            android:fillColor="#000000"
+            android:pathData="..."/>
+   </vector>
+   ```
 
 4.  프로젝트를 빌드하여 리소스 접근자를 생성하거나, [Kotlin Multiplatform 플러그인](https://plugins.jetbrains.com/plugin/14936-kotlin-multiplatform)이 자동으로 처리하도록 하세요.
 
@@ -198,7 +199,7 @@ coroutineScope.launch {
 * `\t` – 탭 기호
 * `\uXXXX` – 특정 유니코드 문자
 
-[Android 문자열](https://developer.android.com/guide/topics/resources/string-resource#escaping_quotes)에서처럼 "@" 또는 "?"와 같은 특수 XML 문자를 이스케이프할 필요가 없습니다.
+Android 문자열에서처럼 "@" 또는 "?"와 같은 특수 XML 문자를 이스케이프할 필요가 없습니다.
 
 #### 문자열 템플릿
 
@@ -284,7 +285,7 @@ Compose Multiplatform의 개념과 기본 구현은 Android의 수량 문자열�
 프로젝트에서 복수형을 사용하는 모범 사례 및 뉘앙스에 대한 자세한 내용은 [Android 문서](https://developer.android.com/guide/topics/resources/string-resource#Plurals)를 참조하세요.
 
 * 지원되는 변형은 `zero`, `one`, `two`, `few`, `many`, `other`입니다. 모든 언어에서 모든 변형이 고려되는 것은 아닙니다. 예를 들어, 영어에서는 `zero`가 1을 제외한 다른 복수형과 같기 때문에 무시됩니다. 언어가 실제로 주장하는 구별을 알기 위해 언어 전문가에게 의존하세요.
-* "Books: 1"과 같이 수량 중립적인 표현을 사용함으로써 수량 문자열을 피할 수 있는 경우가 많습니다. 이것이 사용자 경험을 악화시키지 않는다면,
+* 수량 문자열을 피하기 위해 "Books: 1"과 같이 수량 중립적인 표현을 사용하는 것이 종종 가능합니다. 이것이 사용자 경험을 악화시키지 않는다면,
 
 복수형을 정의하려면 `composeResources/values` 디렉터리의 모든 `.xml` 파일에 `<plurals>` 요소를 추가하세요.
 `plurals` 컬렉션은 name 속성을 사용하여 참조되는 단순 리소스입니다 (XML 파일의 이름이 아님).
@@ -386,6 +387,7 @@ private fun InterTypography(): Typography {
     }
 }
 ```
+
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="@Composable private fun InterTypography(): Typography { val interFont = FontFamily("}
 
 > `Font`가 컴포저블일 때, `TextStyle` 및 `Typography`와 같은 종속 컴포넌트도 컴포저블인지 확인하세요.

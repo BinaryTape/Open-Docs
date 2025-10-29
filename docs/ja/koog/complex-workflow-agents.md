@@ -1,9 +1,9 @@
 # 複雑なワークフローエージェント
 
-単一実行エージェントに加え、`AIAgent` クラスを使用すると、カスタム戦略、ツール、構成、およびカスタム入出力タイプを定義することで、複雑なワークフローを処理するエージェントを構築できます。
+基本的なエージェントに加えて、`AIAgent` クラスを使用すると、カスタム戦略、ツール、構成、およびカスタム入出力タイプを定義することで、複雑なワークフローを処理するエージェントを構築できます。
 
 !!! tip
-    Koogを初めて利用し、最もシンプルなエージェントを作成したい場合は、[単一実行エージェント](single-run-agents.md)から始めてください。
+    Koogを初めて利用し、最もシンプルなエージェントを作成したい場合は、[基本エージェント](basic-agents.md)から始めてください。
 
 このようなエージェントを作成および構成するプロセスには、通常、以下の手順が含まれます。
 
@@ -16,7 +16,7 @@
 
 ## 前提条件
 
--   AIエージェントの実装に使用するLLMプロバイダーから有効なAPIキーを持っていること。利用可能なすべてのプロバイダーのリストについては、「[概要](index.md)」を参照してください。
+-   AIエージェントの実装に使用するLLMプロバイダーから有効なAPIキーを持っていること。利用可能なすべてのプロバイダーのリストについては、「[LLMプロバイダー](llm-providers.md)」を参照してください。
 
 !!! tip
     APIキーは環境変数または安全な構成管理システムを使用して保存してください。
@@ -34,7 +34,7 @@ dependencies {
 }
 ```
 
-利用可能なすべてのインストール方法については、「[インストール](index.md#installation)」を参照してください。
+利用可能なすべてのインストール方法については、「[Koogのインストール](getting-started.md#install-koog)」を参照してください。
 
 ### 2. プロンプトエグゼキュータの提供
 
@@ -330,14 +330,14 @@ val agent = AIAgent(
 )
 -->
 ```kotlin
-// EventHandler 機能をインストールする
+// install the EventHandler feature
 installFeatures = {
     install(EventHandler) {
-        onAgentStarting { eventContext: AgentStartingContext<*> ->
-            println("エージェントの開始: ${eventContext.agent.id}")
+        onAgentStarting { eventContext: AgentStartingContext ->
+            println("Starting agent: ${eventContext.agent.id}")
         }
         onAgentCompleted { eventContext: AgentCompletedContext ->
-            println("結果: ${eventContext.result}")
+            println("Result: ${eventContext.result}")
         }
     }
 }
@@ -368,11 +368,11 @@ val agent = AIAgent(
     agentConfig = agentConfig,
     installFeatures = {
         install(EventHandler) {
-            onAgentStarting { eventContext: AgentStartingContext<*> ->
-                println("エージェントの開始: ${eventContext.agent.id}")
+            onAgentStarting { eventContext: AgentStartingContext ->
+                println("Starting agent: ${eventContext.agent.id}")
             }
             onAgentCompleted { eventContext: AgentCompletedContext ->
-                println("結果: ${eventContext.result}")
+                println("Result: ${eventContext.result}")
             }
         }
     }
@@ -380,12 +380,12 @@ val agent = AIAgent(
 
 fun main() {
     runBlocking {
-        println("2つの数値を入力して追加してください（例：「add 5 and 7」または「5 + 7」）：")
+        println("Enter two numbers to add (e.g., 'add 5 and 7' or '5 + 7'):")
 
-        // ユーザー入力を読み取り、エージェントに送信します
+        // Read the user input and send it to the agent
         val userInput = readlnOrNull() ?: ""
         val agentResult = agent.run(userInput)
-        println("エージェントが返した内容: $agentResult")
+        println("The agent returned: $agentResult")
     }
 }
 ```
@@ -511,11 +511,11 @@ val agent = AIAgent(
     agentConfig = agentConfig,
     installFeatures = {
         install(EventHandler) {
-            onAgentStarting { eventContext: AgentStartingContext<*> ->
-                println("エージェントの開始: ${eventContext.agent.id}")
+            onAgentStarting { eventContext: AgentStartingContext ->
+                println("Starting agent: ${eventContext.agent.id}")
             }
             onAgentCompleted { eventContext: AgentCompletedContext ->
-                println("結果: ${eventContext.result}")
+                println("Result: ${eventContext.result}")
             }
         }
     }
@@ -523,12 +523,12 @@ val agent = AIAgent(
 
 fun main() {
     runBlocking {
-        println("2つの数値を入力して追加してください（例：「add 5 and 7」または「5 + 7」）：")
+        println("Enter two numbers to add (e.g., 'add 5 and 7' or '5 + 7'):")
 
         // ユーザー入力を読み取り、エージェントに送信します
         val userInput = readlnOrNull() ?: ""
         val agentResult = agent.run(userInput)
-        println("エージェントが返した内容: $agentResult")
+        println("The agent returned: $agentResult")
     }
 }
 ```

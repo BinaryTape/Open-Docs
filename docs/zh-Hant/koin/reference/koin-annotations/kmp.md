@@ -42,15 +42,21 @@ dependencies {
 
 ## 在共同程式碼中定義定義與模組
 
-在您的 `commonMain` sourceSet 中，宣告您的模組，掃描定義，或將函式定義為常規的 Kotlin Koin 宣告。請參閱 [定義](definitions.md) 和 [模組](./modules.md)。
+在您的 `commonMain` sourceSet 中，宣告您的模組，掃描定義，或將函式定義為常規的 Kotlin Koin 宣告。請參閱 [定義](./definitions.md) 和 [模組](./modules.md)。
 
 ## 共享模式
 
 在本節中，我們將一起探討使用定義和模組共享元件的幾種方式。
 
-在 Kotlin 多平台應用程式中，某些元件必須針對每個平台具體實作。您可以在定義層級共享這些元件，並在給定類別（定義或模組）上使用 expected/actual。您可以共享具有 expect/actual 實作的定義，或共享具有 expect/actual 的模組。
+在 Kotlin 多平台應用程式中，某些元件必須針對每個平台具體實作。您可以在定義層級共享這些元件，並在給定類別（定義或模組）上使用 expect/actual。您可以共享具有 expect/actual 實作的定義，或共享具有 expect/actual 的模組。
 
+:::info
 請參閱 [多平台 Expect & Actual 規則](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-expect-actual.html) 文件以獲取通用的 Kotlin 指導。
+:::
+
+:::warning
+Expect/Actual 類別不能針對每個平台有不同的建構函式。您需要遵守在共同空間中設計的目前建構函式合約。
+:::
 
 ### 共享用於原生實作的定義
 
@@ -129,14 +135,14 @@ actual class PlatformComponentB {
 
 // package com.jetbrains.kmpapp.native
 actual class PlatformComponentB {
-    actual fun sayHello() : String = "I'm iOS - A"
+    actual fun sayHello() : String = "I'm iOS - B"
 }
 ```
 
 ### 共享具有不同原生合約的定義
 
 :::info
-我們旨在透過 Expect/Actual 共同模組 + 共同介面 + 原生實作
+我們旨在透過 Expect/Actual 共同模組 + 共同 Interface + 原生實作
 :::
 
 在某些情況下，您需要每個原生實作上具有不同的建構函式參數。那麼 Expect/Actual 類別就不是您的解決方案。您需要使用一個 `interface` 在每個平台上實作，以及一個 Expect/Actual 類別模組，以允許模組定義您正確的平台實作：
@@ -163,12 +169,12 @@ interface PlatformComponentD {
 @Module
 actual class NativeModuleD {
     @Factory
-    actual fun providesPlatformComponentD(scope : org.koin.core.scope.Scope) : PlatformComponentD = PlatformComponentDAndroid(ctx)
+    actual fun providesPlatformComponentD(scope : org.koin.core.scope.Scope) : PlatformComponentD = PlatformComponentDAndroid(scope)
 }
 
 class PlatformComponentDAndroid(scope : org.koin.core.scope.Scope) : PlatformComponentD{
     val context : Context = scope.get()
-    override fun sayHello() : String = "I'm Android - D - with ${ctx.context}"
+    override fun sayHello() : String = "I'm Android - D - with ${context}"
 }
 
 // iOSMain
@@ -264,7 +270,7 @@ expect class PlatformComponentA(ctx : ContextWrapper) {
 
 // package com.jetbrains.kmpapp.native
 actual class PlatformComponentA actual constructor(val ctx : ContextWrapper) {
-    actual fun sayHello() : String = "I'm Android - A - with context: ${ctx.context"
+    actual fun sayHello() : String = "I'm Android - A - with context: ${ctx.context}"
 }
 
 // iOSMain

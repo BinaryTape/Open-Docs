@@ -175,7 +175,7 @@ val nodeBestJoke by parallel<String, String>(
       // Use another LLM to determine the best joke
       llm.writeSession {
          model = OpenAIModels.Chat.GPT4o
-         updatePrompt {
+         appendPrompt {
             system("You are a comedy critic. Select the best joke.")
             user("Here are three jokes: ${jokes.joinToString("
 \n")}")
@@ -188,7 +188,7 @@ val nodeBestJoke by parallel<String, String>(
 ```
 <!--- KNIT example-parallel-node-execution-05.kt -->
 
-這會使用另一個大型語言模型 (LLM) 呼叫來判斷最佳笑話的索引。
+這會使用另一個 LLM 呼叫來判斷最佳笑話的索引。
 
 #### fold
 
@@ -244,7 +244,7 @@ val strategy = strategy("best-joke") {
    val nodeOpenAI by node<String, String> { topic ->
       llm.writeSession {
          model = OpenAIModels.Chat.GPT4o
-         updatePrompt {
+         appendPrompt {
             system("You are a comedian. Generate a funny joke about the given topic.")
             user("Tell me a joke about $topic.")
          }
@@ -256,7 +256,7 @@ val strategy = strategy("best-joke") {
    val nodeAnthropicSonnet by node<String, String> { topic ->
       llm.writeSession {
          model = AnthropicModels.Sonnet_3_5
-         updatePrompt {
+         appendPrompt {
             system("You are a comedian. Generate a funny joke about the given topic.")
             user("Tell me a joke about $topic.")
          }
@@ -268,7 +268,7 @@ val strategy = strategy("best-joke") {
    val nodeAnthropicOpus by node<String, String> { topic ->
       llm.writeSession {
          model = AnthropicModels.Opus_3
-         updatePrompt {
+         appendPrompt {
             system("You are a comedian. Generate a funny joke about the given topic.")
             user("Tell me a joke about $topic.")
          }
@@ -285,7 +285,7 @@ val strategy = strategy("best-joke") {
          // 另一個 LLM (例如 GPT4o) 會找到最有趣的笑話：
          llm.writeSession {
             model = OpenAIModels.Chat.GPT4o
-            updatePrompt {
+            appendPrompt {
                prompt("best-joke-selector") {
                   system("You are a comedy critic. Give a critique for the given joke.")
                   user(

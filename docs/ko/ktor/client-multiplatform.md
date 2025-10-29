@@ -56,7 +56,7 @@ Ktor 클라이언트는 멀티플랫폼 프로젝트에서 사용할 수 있으�
    각 플랫폼에서 어떤 엔진이 지원되는지 알아보려면 [엔진 의존성 추가](client-engines.md#dependencies)를 참조하세요.
 
 ## 클라이언트 생성 {id="create-client"}
-멀티플랫폼 프로젝트에서 클라이언트를 생성하려면 프로젝트의 [공통 코드](https://kotlinlang.org/docs/mpp-discover-project.html#source-sets)에서 [HttpClient](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client/-http-client/index.html) 생성자를 호출합니다.
+멀티플랫폼 프로젝트에서 클라이언트를 생성하려면 프로젝트의 [공통 코드](https://kotlinlang.org/docs/mpp-discover-project.html#source-sets)에서 [HttpClient](https://api.ktor.io/ktor-client-core/io.ktor.client/-http-client/index.html) 생성자를 호출합니다.
 
 ```kotlin
 import io.ktor.client.*
@@ -78,7 +78,7 @@ val client = HttpClient(Android) {
         // this: AndroidEngineConfig
         connectTimeout = 100_000
         socketTimeout = 100_000
-        proxy = Proxy(Proxy.Type.HTTP, InetSocketAddress("localhost", 8080))
+        proxy = Proxy(Proxy.Type.HTTP, new InetSocketAddress("localhost", 8080))
     }
 }
 ```

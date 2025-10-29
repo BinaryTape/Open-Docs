@@ -27,7 +27,7 @@
 ContentNegotiation 플러그인은 클라이언트와 서버 간의 미디어 타입 협상 및 특정 형식으로 콘텐츠를 직렬화/역직렬화하는 두 가지 주요 목적을 수행합니다.
 </link-summary>
 
-[ContentNegotiation](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-content-negotiation/io.ktor.server.plugins.contentnegotiation/-content-negotiation.html) 플러그인은 두 가지 주요 목적을 수행합니다:
+[ContentNegotiation](https://api.ktor.io/ktor-server-content-negotiation/io.ktor.server.plugins.contentnegotiation/-content-negotiation.html) 플러그인은 두 가지 주요 목적을 수행합니다:
 * 클라이언트와 서버 간의 미디어 타입 협상. 이를 위해 `Accept` 및 `Content-Type` 헤더를 사용합니다.
 * 특정 형식으로 콘텐츠를 직렬화/역직렬화. Ktor는 기본적으로 다음 형식을 지원합니다: JSON, XML, CBOR, ProtoBuf.
 

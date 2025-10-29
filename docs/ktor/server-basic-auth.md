@@ -12,7 +12,7 @@
 <b>代码示例</b>: <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/auth-basic">auth-basic</a>, <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/auth-basic-hash-table">auth-basic-hash-table</a>
 </p>
 <p>
-    <b><Links href="/ktor/server-native" summary="Ktor 支持 Kotlin/Native，允许您在没有额外运行时或虚拟机的情况下运行服务器。">对原生服务器的支持</Links></b>: ✅
+    <b><Links href="/ktor/server-native" summary="Ktor 支持 Kotlin/Native，允许您在没有额外运行时或虚拟机的情况下运行服务器。">原生服务器</Links> 支持</b>: ✅
 </p>
 </tldr>
 
@@ -61,7 +61,7 @@ Ktor 允许您使用基本认证来登录用户和保护特定 [路由](server-r
 4.  服务器 [验证](#configure-provider) 客户端发送的凭据，并响应请求的内容。
 
 ## 安装基本认证 {id="install"}
-要安装 `basic` 认证提供者，请在 `install` 代码块中调用 [basic](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-auth/io.ktor.server.auth/basic.html) 函数：
+要安装 `basic` 认证提供者，请在 `install` 代码块中调用 [basic](https://api.ktor.io/ktor-server-auth/io.ktor.server.auth/basic.html) 函数：
 
 ```kotlin
 import io.ktor.server.application.*
@@ -69,7 +69,7 @@ import io.ktor.server.auth.*
 // ...
 install(Authentication) {
     basic {
-        // 配置基本认证
+        // Configure basic authentication
     }
 }
 ```
@@ -82,7 +82,7 @@ install(Authentication) {
 
 ### 步骤 1：配置 basic 提供者 {id="configure-provider"}
 
-`basic` 认证提供者通过 [BasicAuthenticationProvider.Configuration](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-auth/io.ktor.server.auth/-basic-authentication-provider/-config/index.html) 类暴露其设置。在以下示例中，指定了以下设置：
+`basic` 认证提供者通过 [BasicAuthenticationProvider.Configuration](https://api.ktor.io/ktor-server-auth/io.ktor.server.auth/-basic-authentication-provider/-config/index.html) 类暴露其设置。在以下示例中，指定了以下设置：
 *   `realm` 属性设置要传递给 `WWW-Authenticate` 请求头的 `realm`。
 *   `validate` 函数验证用户名和密码。
 
@@ -106,7 +106,7 @@ install(Authentication) {
 
 ### 步骤 2：保护特定资源 {id="authenticate-route"}
 
-配置 `basic` 提供者后，您可以使用 **[authenticate](server-auth.md#authenticate-route)** 函数保护应用程序中的特定资源。在认证成功的情况下，您可以使用 `call.principal` 函数在路由处理程序中检索已认证的 [UserIdPrincipal](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-auth/io.ktor.server.auth/-user-id-principal/index.html)，并获取已认证用户的名称。
+配置 `basic` 提供者后，您可以使用 **[authenticate](server-auth.md#authenticate-route)** 函数保护应用程序中的特定资源。在认证成功的情况下，您可以使用 `call.principal` 函数在路由处理程序中检索已认证的 [UserIdPrincipal](https://api.ktor.io/ktor-server-auth/io.ktor.server.auth/-user-id-principal/index.html)，并获取已认证用户的名称。
 
 ```kotlin
 routing {
@@ -144,7 +144,7 @@ Ktor 允许您使用 [UserHashedTableAuth](#validate-user-hash) 来 [验证](#co
    )
    ```
    
-3.  在 `validate` 函数内部，调用 [UserHashedTableAuth.authenticate](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-auth/io.ktor.server.auth/-user-hashed-table-auth/authenticate.html) 函数来认证用户，如果凭据有效则返回 `UserIdPrincipal` 的实例：
+3.  在 `validate` 函数内部，调用 [UserHashedTableAuth.authenticate](https://api.ktor.io/ktor-server-auth/io.ktor.server.auth/-user-hashed-table-auth/authenticate.html) 函数来认证用户，如果凭据有效则返回 `UserIdPrincipal` 的实例：
 
    ```kotlin
    install(Authentication) {
@@ -155,4 +155,3 @@ Ktor 允许您使用 [UserHashedTableAuth](#validate-user-hash) 来 [验证](#co
            }
        }
    }
-   ```

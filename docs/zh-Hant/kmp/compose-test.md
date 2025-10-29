@@ -19,7 +19,7 @@ Compose Multiplatform 通用測試 API 不依賴於 JUnit 的 `TestRule` 類別�
 
 ### 建立測試原始碼集並將測試函式庫新增至相依性
 
-為了提供具體範例，本頁上的說明遵循 [Kotlin Multiplatform Wizard](https://kmp.jetbrains.com/) 產生的專案結構。如果您要為現有專案新增測試，則可能需要將路徑和指令中的 `composeApp` 替換為您正在測試的模組名稱（例如 `shared`）。
+為了提供具體範例，本頁上的說明遵循 [Kotlin Multiplatform wizard](https://kmp.jetbrains.com/) 產生的專案結構。如果您要為現有專案新增測試，則可能需要將路徑和指令中的 `composeApp` 替換為您正在測試的模組名稱（例如 `shared`）。
 
 建立一個通用測試原始碼集並新增必要的相依性：
 
@@ -29,19 +29,19 @@ Compose Multiplatform 通用測試 API 不依賴於 JUnit 的 `TestRule` 類別�
     ```kotlin
     kotlin {
         //...
-        sourceSets {
-            val desktopTest by getting
-
+        sourceSets { 
+            val jvmTest by getting
+   
             // Adds common test dependencies
             commonTest.dependencies {
                 implementation(kotlin("test"))
-
+            
                 @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
                 implementation(compose.uiTest)
             }
-
+   
             // Adds the desktop test dependency
-            desktopTest.dependencies {
+            jvmTest.dependencies { 
                 implementation(compose.desktop.currentOs)
             }
         }
@@ -49,21 +49,21 @@ Compose Multiplatform 通用測試 API 不依賴於 JUnit 的 `TestRule` 類別�
     ```
 
 3.  如果您需要為 Android 執行儀器化 (模擬器) 測試，請修改您的 Gradle 組態，如下所示：
-    1.  將以下程式碼新增到 `androidTarget {}` 區塊，以組態儀器化測試原始碼集，使其依賴於通用測試原始碼集。然後，按照 IDE 的建議新增任何缺失的 import。
+    1.  將以下程式碼新增到 `androidTarget {}` 區塊，以組態儀器化測試原始碼集，使其依賴於通用測試原始碼集。
 
         ```kotlin
         kotlin {
             //...
-            androidTarget {
+            androidTarget { 
                 @OptIn(ExperimentalKotlinGradlePluginApi::class)
                 instrumentedTestVariant.sourceSetTree.set(KotlinSourceSetTree.test)
                 //...
             }
-            //...
+            //... 
         }
         ```
-
-    2.  將以下程式碼新增到 `android.defaultConfig {}` 區塊，以組態 Android 測試儀器化執行器：
+    2.  按照 IDE 的建議新增任何缺失的 import。
+    3.  將以下程式碼新增到 `android.defaultConfig {}` 區塊，以組態 Android 測試儀器化執行器：
 
         ```kotlin
         android {
@@ -75,20 +75,15 @@ Compose Multiplatform 通用測試 API 不依賴於 JUnit 的 `TestRule` 類別�
         }
         ```
 
-    3.  為 `androidTarget` 新增所需的相依性：
+    4.  將所需的相依性新增到根 `dependencies {}` 區塊中：
 
         ```kotlin
-        kotlin {
-             // ...
-             androidTarget {
-                 // ...
-                 dependencies {
-                     androidTestImplementation("androidx.compose.ui:ui-test-junit4-android:%androidx.compose%")
-                     debugImplementation("androidx.compose.ui:ui-test-manifest:%androidx.compose%")
-                 }
-             }
-         }
+        dependencies { 
+            androidTestImplementation("androidx.compose.ui:ui-test-junit4-android:%androidx.compose%")
+            debugImplementation("androidx.compose.ui:ui-test-manifest:%androidx.compose%")
+        }
         ```
+4.  在主選單中選取 **Build | Sync Project with Gradle Files**，或按一下組建腳本編輯器中的 Gradle 重新整理按鈕。
 
 現在，您已準備好為 Compose Multiplatform UI 編寫和執行通用測試。
 
@@ -97,11 +92,19 @@ Compose Multiplatform 通用測試 API 不依賴於 JUnit 的 `TestRule` 類別�
 在 `composeApp/src/commonTest/kotlin` 目錄中，建立一個名為 `ExampleTest.kt` 的檔案，並將以下程式碼複製到其中：
 
 ```kotlin
-import androidx.compose.material.*
-import androidx.compose.runtime.*
+import androidx.compose.material3.Button
+import androidx.compose.material3.Text
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
-import androidx.compose.ui.test.*
+import androidx.compose.ui.test.ExperimentalTestApi
+import androidx.compose.ui.test.assertTextEquals
+import androidx.compose.ui.test.onNodeWithTag
+import androidx.compose.ui.test.performClick
+import androidx.compose.ui.test.runComposeUiTest
 import kotlin.test.Test
 
 class ExampleTest {
@@ -140,7 +143,7 @@ class ExampleTest {
 <TabItem title="iOS 模擬器">
 
 您有兩個選項：
-*   在 Android Studio 中，您可以按一下 `myTest()` 函數旁邊行號區中的綠色執行圖示，選擇 **Run** 並選擇 iOS 目標進行測試。
+*   在 Android Studio 中，您可以按一下 `myTest()` 函數旁邊行號區中的綠色執行圖示，選擇 **Run | ExampleTest.myTest**，然後選擇 iOS 目標進行測試。
 *   在終端中執行以下指令：
 
     ```shell
@@ -162,11 +165,11 @@ class ExampleTest {
 <TabItem title="桌面">
 
 您有兩個選項：
-*   按一下 `myTest()` 函數旁邊行號區中的綠色執行圖示，然後選擇 **Run&nbsp;|&nbsp;desktop**。
+*   按一下 `myTest()` 函數旁邊行號區中的綠色執行圖示，然後選擇 **Run | ExampleTest.myTest**，然後選取 JVM 目標。
 *   在終端中執行以下指令：
 
     ```shell
-    ./gradlew :composeApp:desktopTest
+    ./gradlew :composeApp:jvmTest
     ```
 
 </TabItem>
@@ -187,4 +190,4 @@ class ExampleTest {
 *   有關 Kotlin Multiplatform 專案中測試的總體概述，請參閱 [了解基本專案結構](multiplatform-discover-project.md#integration-with-tests) 和 [測試您的多平台應用程式](multiplatform-run-tests.md) 教學課程。
 *   有關設定和執行桌面目標的 JUnit 測試的詳細資訊，請參閱 [使用 JUnit 測試 Compose Multiplatform UI](compose-desktop-ui-testing.md)。
 *   有關本地化測試，請參閱 [undefined](compose-localization-tests.md#testing-locales-on-different-platforms)。
-*   Android Studio 文件中的 [測試您的應用程式](https://developer.android.com/studio/test) 文章涵蓋了 Android Studio 中更進階的測試，包括自動化。
+*   Android Studio 中更進階的測試，包括自動化，涵蓋在 Android Studio 文件中的 [測試您的應用程式](https://developer.android.com/studio/test) 文章。

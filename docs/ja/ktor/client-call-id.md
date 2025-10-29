@@ -74,7 +74,7 @@
 
 ## %plugin_name%の構成 {id="configure"}
 
-%plugin_name%プラグインの構成は、[CallIdConfig](https://api.ktor.io/ktor-client/ktor-client-plugins/ktor-client-call-id/io.ktor.client.plugins.callid/-call-id-config/index.html)クラスによって提供され、コールIDを生成してコールコンテキストに追加できます。
+%plugin_name%プラグインの構成は、[CallIdConfig](https://api.ktor.io/ktor-client-call-id/io.ktor.client.plugins.callid/-call-id-config/index.html)クラスによって提供され、コールIDを生成してコールコンテキストに追加できます。
 
 ### コールIDの生成
 

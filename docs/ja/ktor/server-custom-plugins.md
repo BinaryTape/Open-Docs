@@ -24,7 +24,7 @@ v2.0.0以降、Ktorはカスタム[プラグイン](server-plugins.md)を作成�
 
 このセクションでは、最初のプラグインを作成してインストールする方法を説明します。[新しいKtorプロジェクトの作成、オープン、実行](server-create-a-new-project.topic)チュートリアルで作成されたアプリケーションを開始プロジェクトとして使用できます。
 
-1. プラグインを作成するには、[createApplicationPlugin](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.application/create-application-plugin.html)関数を呼び出し、プラグイン名を渡します。
+1. プラグインを作成するには、[createApplicationPlugin](https://api.ktor.io/ktor-server-core/io.ktor.server.application/create-application-plugin.html)関数を呼び出し、プラグイン名を渡します。
    ```kotlin
    import io.ktor.server.application.*
    
@@ -34,7 +34,7 @@ v2.0.0以降、Ktorはカスタム[プラグイン](server-plugins.md)を作成�
    ```
 
    この関数は、次のステップでプラグインをインストールするために使用される`ApplicationPlugin`インスタンスを返します。
-   > また、[特定のルートにインストール](server-plugins.md#install-route)できるプラグインを作成できる[createRouteScopedPlugin](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.application/create-route-scoped-plugin.html)関数もあります。
+   > また、[特定のルートにインストール](server-plugins.md#install-route)できるプラグインを作成できる[createRouteScopedPlugin](https://api.ktor.io/ktor-server-core/io.ktor.server.application/create-route-scoped-plugin.html)関数もあります。
 2. [プラグインをインストール](server-plugins.md#install)するには、作成した`ApplicationPlugin`インスタンスをアプリケーションの初期化コードの`install`関数に渡します。
    ```kotlin
    fun Application.module() {
@@ -189,7 +189,7 @@ onCallRespond { call ->
 - `ResponseBodyReadyForSend`は、レスポンスボディがすべての変換を通過し、送信準備が整ったときに呼び出されます。
 - `ResponseSent`は、レスポンスがクライアントに正常に送信されたときに呼び出されます。
 - `CallFailed`は、呼び出しが例外で失敗したときに呼び出されます。
-- [AuthenticationChecked](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-auth/io.ktor.server.auth/-authentication-checked/index.html)は、[認証](server-auth.md)資格情報がチェックされた後に実行されます。以下の例は、このフックを使用して認可を実装する方法を示しています: [custom-plugin-authorization](https://github.com/ktorio/ktor-documentation/blob/%ktor_version%/codeSnippets/snippets/custom-plugin-authorization)。
+- [AuthenticationChecked](https://api.ktor.io/ktor-server-auth/io.ktor.server.auth/-authentication-checked/index.html)は、[認証](server-auth.md)資格情報がチェックされた後に実行されます。以下の例は、このフックを使用して認可を実装する方法を示しています: [custom-plugin-authorization](https://github.com/ktorio/ktor-documentation/blob/%ktor_version%/codeSnippets/snippets/custom-plugin-authorization)。
 
 以下の例は、`CallSetup`を処理する方法を示しています。
 
@@ -387,7 +387,7 @@ Ktorでは、[設定ファイル](server-create-and-configure.topic#engine-main)
 
 ### 構成 {id="config"}
 
-`applicationConfig`プロパティを使用してサーバー構成にアクセスできます。これは[ApplicationConfig](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.config/-application-config/index.html)インスタンスを返します。以下の例は、サーバーが使用するホストとポートを取得する方法を示しています。
+`applicationConfig`プロパティを使用してサーバー構成にアクセスできます。これは[ApplicationConfig](https://api.ktor.io/ktor-server-core/io.ktor.server.config/-application-config/index.html)インスタンスを返します。以下の例は、サーバーが使用するホストとポートを取得する方法を示しています。
 
 ```kotlin
 val SimplePlugin = createApplicationPlugin(name = "SimplePlugin") {
@@ -449,4 +449,3 @@ val SimplePlugin = createApplicationPlugin(name = "SimplePlugin") {
            database.access(...) // some call to your database
        }
    }
-   ```

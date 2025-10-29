@@ -251,10 +251,10 @@ client.webSocket(method = HttpMethod.Get, host = "127.0.0.1", port = 8080, path 
 ```kotlin
 client.webSocket(method = HttpMethod.Get, host = "127.0.0.1", port = 8080, path = "/customer/1") {
     val customer = receiveDeserialized<Customer>()
-    println("A customer with id ${customer.id} is received by the client.")
+    println("客户端收到了 ID 为 ${customer.id} 的客户。")
 }
 ```
 
-要从 [incoming](client-websockets.topic#incoming) 通道接收反序列化的帧，请使用 [WebsocketContentConverter.deserialize](https://api.ktor.io/ktor-shared/ktor-serialization/io.ktor.serialization/-websocket-content-converter/deserialize.html) 函数。`WebsocketContentConverter` 可通过 `DefaultClientWebSocketSession.converter` 属性获取。
+要从 [incoming](client-websockets.topic#incoming) 通道接收反序列化的帧，请使用 [WebsocketContentConverter.deserialize](https://api.ktor.io/ktor-serialization/io.ktor.serialization/-websocket-content-converter/deserialize.html) 函数。`WebsocketContentConverter` 可通过 `DefaultClientWebSocketSession.converter` 属性获取。
 
 > 你可以在这里找到完整的示例：[client-websockets-serialization](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-websockets-serialization)。

@@ -69,7 +69,7 @@ fun main() = singleWindowApplication (title = "Key events") {
 
 ## 窗口作用域中的事件
 
-要定义在当前窗口中始终处于活动状态的键盘事件处理程序，请使用 `Window`、`singleWindowApplication` 和 `Dialog` 函数可用的 `onPreviewKeyEvent` 和 `onKeyEvent` 参数。它们的区别在于事件未被消费时如何分派：`onPreviewKeyEvent` 将事件分派给其第一个子级，而 `onKeyEvent` 将事件分派给可组合项的父级。通常，`onPreviewKeyEvent` 更适合拦截事件，因为它允许实现甚至全屏范围的键盘快捷方式。
+要定义在当前窗口中始终处于活动状态的键盘事件处理程序，请使用 `onPreviewKeyEvent` 和 `onKeyEvent` 参数，它们适用于 `Window`、`singleWindowApplication` 和 `Dialog` 函数。它们的区别在于事件未被消费时如何分派：`onPreviewKeyEvent` 将事件分派给其第一个子级，而 `onKeyEvent` 将事件分派给可组合项的父级。通常，`onPreviewKeyEvent` 更适合拦截事件，因为它允许实现甚至全屏范围的键盘快捷方式。
 
 以下示例演示了窗口交互，例如通过按 `Escape` 键关闭弹出对话框，以及通过按 <shortcut>Ctrl+Shift+C</shortcut> 快捷方式更改窗口内容：
 

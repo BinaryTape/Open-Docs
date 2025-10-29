@@ -12,7 +12,7 @@ Compose Multiplatform for Desktop では、キーボードイベントを2つの
 典型的なシナリオは、`TextField` のようなアクティブなコントロールにキーボードハンドラーを定義することです。キーイベントがデフォルトのアクションをトリガーする前にインターセプトするには、`onKeyEvent` と `onPreviewKeyEvent` の両方のモディファイアを使用できます。
 `onKeyEvent` モディファイアを使用すると個々のキーストロークを処理でき、`onPreviewKeyEvent` はショートカットを定義するのに適しています。
 
-次のサンプルは、<shortcut>Ctrl</shortcut> を押しながら、どのキーが押されたかに応じて異なるアクションを実行する `TextField` のインタラクションを示しています。
+次のサンプルは、<shortcut>Ctrl</shortcut> を押しながら、どのキーが押されたかに応じて異なるアクションを実行する `TextField` のインタラクションを示しています。このコードを `composeApp/src/jvmMain/kotlin` の `main.kt` ファイルに追加してください。
 
 ```kotlin
 import androidx.compose.foundation.layout.fillMaxSize
@@ -73,7 +73,7 @@ fun main() = singleWindowApplication (title = "Key events") {
 現在のウィンドウ内で常にアクティブなキーボードイベントハンドラーを定義するには、`Window`、`singleWindowApplication`、`Dialog` 関数で利用可能な `onPreviewKeyEvent` および `onKeyEvent` パラメーターを使用します。
 これらは、イベントが消費されなかった場合のディスパッチ方法が異なります。`onPreviewKeyEvent` はイベントを最初の子にディスパッチし、`onKeyEvent` はイベントをコンポーザブルの親にディスパッチします。通常、`onPreviewKeyEvent` はイベントのインターセプトに推奨されます。これは、画面全体のキーボードショートカットさえも実装できるためです。
 
-次のサンプルは、`Escape` キーを押してポップアップダイアログを閉じたり、<shortcut>Ctrl+Shift+C</shortcut> ショートカットを押してウィンドウの内容を変更したりするなど、ウィンドウのインタラクションを示しています。
+次のサンプルは、`Escape` キーを押してポップアップダイアログを閉じたり、<shortcut>Ctrl+Shift+C</shortcut> ショートカットを押してウィンドウの内容を変更したりするなど、ウィンドウのインタラクションを示しています。このコードを `composeApp/src/jvmMain/kotlin` の `main.kt` ファイルに追加してください。
 
 ```kotlin
 import androidx.compose.foundation.layout.Arrangement

@@ -25,7 +25,7 @@
 
 <link-summary>Resources 플러그인을 사용하면 타입 안전 라우팅을 구현할 수 있습니다.</link-summary>
 
-Ktor는 타입 안전 [라우팅](server-routing.md)을 구현할 수 있도록 [Resources](https://api.ktor.io/ktor-shared/ktor-resources/io.ktor.resources/-resources/index.html) 플러그인을 제공합니다. 이를 위해 타입이 지정된 라우트 역할을 할 클래스를 생성하고, `@Resource` 키워드를 사용하여 이 클래스에 어노테이션을 달아야 합니다. `@Resource` 어노테이션은 kotlinx.serialization 라이브러리에서 제공하는 `@Serializable` 동작을 포함하고 있습니다.
+Ktor는 타입 안전 [라우팅](server-routing.md)을 구현할 수 있도록 [Resources](https://api.ktor.io/ktor-resources/io.ktor.resources/-resources/index.html) 플러그인을 제공합니다. 이를 위해 타입이 지정된 라우트 역할을 할 클래스를 생성하고, `@Resource` 키워드를 사용하여 이 클래스에 어노테이션을 달아야 합니다. `@Resource` 어노테이션은 kotlinx.serialization 라이브러리에서 제공하는 `@Serializable` 동작을 포함하고 있습니다.
 
 > Ktor 클라이언트는 서버에 [타입이 지정된 요청](client-resources.md)을 수행하는 기능을 제공합니다.
 

@@ -55,19 +55,19 @@ fun main() {
 
 下表提供了可用 Ollama 嵌入模型的概述。
 
-| 模型 ID           | Ollama ID                 | 参数   | 维度   | 上下文长度 | 性能                                                            | 权衡                                                             |
-| :---------------- | :------------------------ | :----- | :----- | :--------- | :-------------------------------------------------------------- | :--------------------------------------------------------------- |
-| NOMIC_EMBED_TEXT  | nomic-embed-text          | 137M   | 768    | 8192       | 高质量嵌入，适用于语义搜索和文本相似度任务                      | 在质量和效率之间取得平衡                                         |
-| ALL_MINILM        | all-minilm                | 33M    | 384    | 512        | 快速推理，对通用文本嵌入具有良好质量                            | 模型尺寸更小，上下文长度缩短，但效率极高                         |
+| 模型 ID           | Ollama ID                     | 参数   | 维度   | 上下文长度 | 性能                                                            | 权衡                                                             |
+| :---------------- | :---------------------------- | :----- | :----- | :--------- | :-------------------------------------------------------------- | :--------------------------------------------------------------- |
+| NOMIC_EMBED_TEXT  | nomic-embed-text              | 137M   | 768    | 8192       | 高质量嵌入，适用于语义搜索和文本相似度任务                      | 在质量和效率之间取得平衡                                         |
+| ALL_MINILM        | all-minilm                    | 33M    | 384    | 512        | 快速推断，对通用文本嵌入具有良好质量                            | 模型尺寸更小，上下文长度缩短，但效率极高                         |
 | MULTILINGUAL_E5   | zylonai/multilingual-e5-large | 300M   | 768    | 512        | 在 100 多种语言中表现出色                                       | 模型尺寸更大，但提供出色的多语言能力                             |
-| BGE_LARGE         | bge-large                 | 335M   | 1024   | 512        | 非常适用于英文文本检索和语义搜索                                | 模型尺寸更大，但提供高质量嵌入                                   |
-| MXBAI_EMBED_LARGE | mxbai-embed-large         | -      | -      | -          | 文本数据的高维嵌入                                              | 专为创建高维嵌入而设计                                           |
+| BGE_LARGE         | bge-large                     | 335M   | 1024   | 512        | 非常适用于英文文本检索和语义搜索                                | 模型尺寸更大，但提供高质量嵌入                                   |
+| MXBAI_EMBED_LARGE | mxbai-embed-large             | -      | -      | -          | 文本数据的高维嵌入                                              | 专为创建高维嵌入而设计                                           |
 
 有关这些模型的更多信息，请参见 Ollama 的 [Embedding Models](https://ollama.com/blog/embedding-models) 博客文章。
 
 ### 选择模型
 
-以下是根据您的需求选择 Ollama 嵌入模型的一些一般建议：
+以下是根据您的要求选择 Ollama 嵌入模型的一些一般建议：
 
 -   对于通用文本嵌入，请使用 `NOMIC_EMBED_TEXT`。
 -   对于多语言支持，请使用 `MULTILINGUAL_E5`。
@@ -99,6 +99,54 @@ suspend fun openAIEmbed(text: String) {
 }
 ```
 <!--- KNIT example-embeddings-02.kt -->
+
+## AWS Bedrock 嵌入
+
+要使用 AWS Bedrock 嵌入模型创建嵌入，请使用 `BedrockLLMClient` 实例及其选择的模型（如以下示例所示）的 `embed` 方法。
+
+<!--- INCLUDE
+import ai.koog.embeddings.local.LLMEmbedder
+import ai.koog.prompt.executor.clients.bedrock.BedrockClientSettings
+import ai.koog.prompt.executor.clients.bedrock.BedrockLLMClient
+import ai.koog.prompt.executor.clients.bedrock.BedrockModels
+import aws.sdk.kotlin.runtime.auth.credentials.StaticCredentialsProvider
+-->
+```kotlin
+suspend fun bedrockEmbed(text: String) {
+    // Get AWS credentials from environment/configuration
+    val awsAccessKeyId = System.getenv("AWS_ACCESS_KEY_ID") ?: error("AWS_ACCESS_KEY_ID not set")
+    val awsSecretAccessKey = System.getenv("AWS_SECRET_ACCESS_KEY") ?: error("AWS_SECRET_ACCESS_KEY not set")
+    // (Optional) AWS_SESSION_TOKEN for temporary credentials
+    val awsSessionToken = System.getenv("AWS_SESSION_TOKEN")
+    // Create a BedrockLLMClient instance
+    val client = BedrockLLMClient(
+        identityProvider = StaticCredentialsProvider {
+            this.accessKeyId = awsAccessKeyId
+            this.secretAccessKey = awsSecretAccessKey
+            awsSessionToken?.let { this.sessionToken = it }
+        },
+        settings = BedrockClientSettings()
+    )
+    // Create an embedder
+    val embedder = LLMEmbedder(client, BedrockModels.Embeddings.AmazonTitanEmbedText)
+    // Create embeddings
+    val embedding = embedder.embed(text)
+    // Print embeddings to the output
+    println(embedding)
+}
+```
+<!--- KNIT example-embeddings-03.kt -->
+
+### 支持的 AWS Bedrock 嵌入模型
+
+| 供应商 | 模型名称                   | 模型 ID                        | 输入 | 输出    | 维度   | 上下文长度 | 备注                                                                                                 |
+| :----- | :------------------------- | :----------------------------- | :--- | :------ | :----- | :--------- | :--------------------------------------------------------------------------------------------------- |
+| Amazon | Titan Embeddings G1 - Text | `amazon.titan-embed-text-v1`   | Text | Embedding | 1,536  | 8192       | 25+ 种语言，针对检索、语义相似度、聚类进行优化；长文档可分段进行搜索。                             |
+| Amazon | Titan Text Embeddings V2   | `amazon.titan-embed-text-v2:0` | Text | Embedding | 1,024  | 8192       | 高准确度、灵活的维度、多语言（100+）；较小维度可节省存储空间，输出归一化。                           |
+| Cohere | Cohere Embed English v3    | `cohere.embed-english-v3`      | Text | Embedding | 1,024  | 8192       | 针对搜索、检索和理解文本细微差别的最先进英文文本嵌入。                                               |
+| Cohere | Cohere Embed Multilingual v3 | `cohere.embed-multilingual-v3` | Text | Embedding | 1,024  | 8192       | 多语言嵌入，针对跨语言搜索和语义理解的最先进技术。                                                   |
+
+> 关于最新的模型支持，请参考 [AWS Bedrock 支持的模型文档](https://docs.aws.amazon.com/bedrock/latest/userguide/models-supported.html)。
 
 ## 示例
 
@@ -144,7 +192,7 @@ suspend fun compareCodeToText(embedder: Embedder) { // Embedder type
     }
 }
 ```
-<!--- KNIT example-embeddings-03.kt -->
+<!--- KNIT example-embeddings-04.kt -->
 
 ### 代码到代码比较
 
@@ -206,7 +254,7 @@ suspend fun compareCodeToCode(embedder: Embedder) { // Embedder type
     }
 }
 ```
-<!--- KNIT example-embeddings-04.kt -->
+<!--- KNIT example-embeddings-05.kt -->
 
 ## API 文档
 

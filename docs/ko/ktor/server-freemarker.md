@@ -21,11 +21,11 @@
     </a>
 </p>
 <p>
-    <b><Links href="/ktor/server-native" summary="Ktor는 Kotlin/Native를 지원하며 추가 런타임이나 가상 머신 없이 서버를 실행할 수 있게 합니다.">네이티브 서버</Links> 지원</b>: ✖️
+    <b><Links href="/ktor/server-native" summary="모듈을 사용하면 경로를 그룹화하여 애플리케이션을 구조화할 수 있습니다.">네이티브 서버</Links> 지원</b>: ✖️
 </p>
 </tldr>
 
-Ktor를 사용하면 [FreeMarker 템플릿](https://freemarker.apache.org/)을 애플리케이션 내 뷰로 [FreeMarker](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-freemarker/io.ktor.server.freemarker/-free-marker) 플러그인을 설치하여 사용할 수 있습니다.
+Ktor는 [FreeMarker 템플릿](https://freemarker.apache.org/)을 애플리케이션 내 뷰로 [FreeMarker](https://api.ktor.io/ktor-server-freemarker/io.ktor.server.freemarker/-free-marker) 플러그인을 설치하여 사용할 수 있도록 합니다.
 
 ## 의존성 추가 {id="add_dependencies"}
 
@@ -59,7 +59,7 @@ Ktor를 사용하면 [FreeMarker 템플릿](https://freemarker.apache.org/)을 �
 </list>
 <Tabs>
     <TabItem title="embeddedServer">
-        <code-block lang="kotlin" code="            import io.ktor.server.engine.*&#10;            import io.ktor.server.netty.*&#10;            import io.ktor.server.application.*&#10;            import %package_name%.*&#10;&#10;            fun main() {&#10;                embeddedServer(Netty, port = 8080) {&#10;                    install(%plugin_name%)&#10;                    // ...&#10;                }.start(wait = true)&#10;            }"/>
+        <code-block lang="kotlin" code="            import io.ktor.server.engine.*&#10;            import io.ktor.server.netty.*&#10;            import io.ktor.server.application.*&#10;            import %package_name%.*&#10;&#10;            fun main() {&#10;                embeddedServer(Netty, port = 8080) {&#10;                    install(%plugin_name%)&#10;                    // ...&#10                }.start(wait = true)&#10;            }"/>
     </TabItem>
     <TabItem title="module">
         <code-block lang="kotlin" code="            import io.ktor.server.application.*&#10;            import %package_name%.*&#10;            // ...&#10;            fun Application.module() {&#10;                install(%plugin_name%)&#10;                // ...&#10;            }"/>
@@ -104,3 +104,4 @@ get("/index") {
     val sampleUser = User(1, "John")
     call.respond(FreeMarkerContent("index.ftl", mapOf("user" to sampleUser)))
 }
+```

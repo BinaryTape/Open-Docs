@@ -23,15 +23,20 @@ Compose Multiplatform %org.jetbrains.compose% 支援以下平台：
 
 ## Kotlin 兼容性
 
-最新版本的 Compose Multiplatform 始終與最新版本的 Kotlin 兼容。無需手動對齊它們的版本。請記住，使用任一產品的 EAP 版本仍可能不穩定。
+最新版本的 Compose Multiplatform 始終與最新版本的 Kotlin 兼容。
+無需手動對齊它們的版本。
+請記住，使用任一產品的 EAP 版本仍可能不穩定。
 
-Compose Multiplatform 要求套用與 Kotlin Multiplatform 外掛程式版本相同的 Compose Compiler Gradle 外掛程式。詳情請參閱 [undefined](compose-compiler.md#migrating-a-compose-multiplatform-project)。
+Compose Multiplatform 要求套用與 Kotlin Multiplatform 外掛程式版本相同的 Compose Compiler Gradle 外掛程式。
+詳情請參閱 [undefined](compose-compiler.md#migrating-a-compose-multiplatform-project)。
 
-> 從 Compose Multiplatform 1.8.0 開始，UI 框架已完全過渡到 K2 編譯器。因此，要使用最新的 Compose Multiplatform 版本，您應該：
+> 從 Compose Multiplatform 1.8.0 開始，UI 框架已完全過渡到 K2 編譯器。
+> 因此，要使用最新的 Compose Multiplatform 版本，您應該：
 > * 您的專案至少使用 Kotlin 2.1.0，
 > * 僅當基於 Compose Multiplatform 的函式庫至少以 Kotlin 2.1.0 編譯時，才依賴這些函式庫。
 >
-> 作為向後兼容性問題的變通方法，直到您的所有依賴項都更新為止，您可以將 `kotlin.native.cacheKind=none` 新增到您的 `gradle.properties` 檔案中以關閉 Gradle 快取。這會增加編譯時間。
+> 作為向後兼容性問題的變通方法，直到您的所有依賴項都更新為止，您可以將 `kotlin.native.cacheKind=none` 新增到您的 `gradle.properties` 檔案中以關閉 Gradle 快取。
+> 這會增加編譯時間。
 >
 {style="warning"}
 
@@ -61,7 +66,8 @@ Compose Multiplatform 發佈與 Jetpack Compose 發佈之間的間隔通常為 1
 
 Compose Multiplatform 編譯器外掛程式的開發版本（例如 `1.8.2+dev2544`）是無固定排程建置的，用於測試正式版本之間的更新。
 
-這些建置在 [Maven Central](https://central.sonatype.com/) 中不可用。要存取它們，請將此行新增到您的儲存庫列表中：
+這些建置在 [Maven Central](https://central.sonatype.com/) 中不可用。
+要存取它們，請將此行新增到您的儲存庫列表中：
 
 ```kotlin
 maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
@@ -69,13 +75,15 @@ maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
 
 ### 使用的 Jetpack Compose Artifacts
 
-當您為 Android 建置應用程式時，Compose Multiplatform 會使用 Google 發佈的 Artifacts。例如，如果您應用 Compose Multiplatform 1.5.0 Gradle 外掛程式並將 `implementation(compose.material3)` 新增到您的 `dependencies` 中，那麼您的專案將在 Android 目標中使用 `androidx.compose.material3:material3:1.1.1` Artifact（但在其他目標中則使用 `org.jetbrains.compose.material3:material3:1.5.0`）。
+當您為 Android 建置應用程式時，Compose Multiplatform 會使用 Google 發佈的 Artifacts。
+例如，如果您應用 Compose Multiplatform 1.5.0 Gradle 外掛程式並將 `implementation(compose.material3)` 新增到您的 `dependencies` 中，那麼您的
+專案將在 Android 目標中使用 `androidx.compose.material3:material3:1.1.1` Artifact（但在其他目標中則使用 `org.jetbrains.compose.material3:material3:1.5.0`）。
 
 下表列出了每個 Compose Multiplatform 版本使用的 Jetpack Compose Artifact 版本：
 
 | Compose Multiplatform 版本                                                      | Jetpack Compose 版本 | Jetpack Compose Material3 版本 |
 |-----------------------------------------------------------------------------------|-------------------------|-----------------------------------|
-| [1.9.1](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.9.0)   | 1.9.3                   | 1.4.0                             |
+| [1.9.2](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.9.2)   | 1.9.4                   | 1.4.0                             |
 | [1.8.2](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.8.2)   | 1.8.2                   | 1.3.2                             |
 | [1.7.3](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.7.3)   | 1.7.6                   | 1.3.1                             |
 | [1.7.1](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.7.1)   | 1.7.5                   | 1.3.1                             |

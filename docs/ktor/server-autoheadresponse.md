@@ -67,4 +67,4 @@ fun Application.main() {
 需要注意的是，如果我们使用此插件，对于相同的 `GET` 路由，自定义的 `HEAD` 定义将被忽略。
 
 ## 选项
-%plugin_name% 不提供任何额外的配置选项。
+`%plugin_name%` 不提供任何额外的配置选项。

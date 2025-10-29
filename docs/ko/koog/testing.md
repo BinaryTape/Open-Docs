@@ -40,7 +40,6 @@ dependencies {
 <!--- INCLUDE
 import ai.koog.agents.core.tools.ToolRegistry
 import ai.koog.agents.testing.tools.getMockExecutor
-import ai.koog.agents.testing.tools.mockLLMAnswer
 
 val toolRegistry = ToolRegistry {}
 
@@ -167,7 +166,7 @@ mockTool(SearchTool) returns "Found results" onArgumentsMatching { args ->
 ```
 <!--- KNIT example-testing-03.kt -->
 
-위 예시는 도구를 모의하는 다양한 방법을 간단한 것부터 복잡한 것까지 보여줍니다:
+위 예시는 간단한 것부터 복잡한 것까지 도구를 모의하는 다양한 방법을 보여줍니다:
 
 1.  `alwaysReturns`: 가장 간단한 형태로, 람다 없이 직접 값을 반환합니다.
 2.  `alwaysTells`: 추가 작업을 수행해야 할 때 람다를 사용합니다.
@@ -912,7 +911,7 @@ fun testMultiSubgraphAgentStructure() = runTest {
             val sendToolResult by nodeLLMSendToolResult()
             val giveFeedback by node<String, String> { input ->
                 llm.writeSession {
-                    updatePrompt {
+                    appendPrompt {
                         user("Call tools! Don't chat!")
                     }
                 }
@@ -1080,7 +1079,6 @@ testGraph<Unit, String>("test") {
 
 <!--- INCLUDE
 import ai.koog.agents.testing.tools.getMockExecutor
-import ai.koog.agents.testing.tools.mockLLMAnswer
 
 val promptExecutor = 
 -->

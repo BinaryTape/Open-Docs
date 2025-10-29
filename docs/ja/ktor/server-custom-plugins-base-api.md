@@ -1,4 +1,4 @@
-[//]: # (title: カスタムプラグイン - ベースAPI)
+[//]: # (title: カスタムプラグイン - Base API)
 
 <show-structure for="chapter" depth="2"/>
 

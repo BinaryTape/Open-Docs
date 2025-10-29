@@ -27,7 +27,8 @@ Ktorサーバーアプリケーションを実行するには、まずサーバ�
 
 ## 依存関係の追加 {id="dependencies"}
 
-使用したいエンジンを使用する前に、対応する依存関係を[ビルドスクリプト](server-dependencies.topic)に追加する必要があります。
+使用したいエンジンを使用する前に、対応する依存関係を
+[ビルドスクリプト](server-dependencies.topic)に追加する必要があります。
 
 * `ktor-server-netty`
 * `ktor-server-jetty-jakarta`
@@ -51,11 +52,17 @@ Ktorサーバーアプリケーションを実行するには、まずサーバ�
 
 ## サーバーの作成方法を選択する {id="choose-create-server"}
 
-Ktorサーバーアプリケーションは、[2つの方法](server-create-and-configure.topic#embedded)で作成および実行できます。[embeddedServer](#embeddedServer)を使用してコード内でサーバーパラメータを迅速に渡す方法、または[EngineMain](#EngineMain)を使用して外部の`application.conf`または`application.yaml`ファイルから設定を読み込む方法です。
+Ktorサーバーアプリケーションは、[2つの方法](server-create-and-configure.topic#embedded)で作成および実行できます。
+
+* [`embeddedServer`](#embeddedServer)を使用してコード内でサーバーパラメータを迅速に渡す方法
+* [`EngineMain`](#EngineMain)を使用して外部の
+<Path>application.conf</Path>または<Path>application.yaml</Path>ファイルから設定を読み込む方法です。
 
 ### embeddedServer {id="embeddedServer"}
 
-[`embeddedServer()`](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.engine/embedded-server.html)関数は、特定の型のエンジンを作成するために使用されるエンジンファクトリを受け入れます。以下の例では、Nettyエンジンでサーバーを実行し、ポート`8080`をリッスンするために、[`Netty`](https://api.ktor.io/ktor-server/ktor-server-netty/io.ktor.server.netty/-netty/index.html)ファクトリを渡しています。
+[`embeddedServer()`](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.engine/embedded-server.html)
+関数は、特定の型のエンジンを作成するために使用されるエンジンファクトリを受け入れます。以下の例では、Nettyエンジンでサーバーを実行し、ポート`8080`をリッスンするために、
+[`Netty`](https://api.ktor.io/ktor-server/ktor-server-netty/io.ktor.server.netty/-netty/index.html)ファクトリを渡しています。
 
 ```kotlin
 import io.ktor.server.response.*
@@ -83,7 +90,9 @@ fun main(args: Array<String>) {
 * `io.ktor.server.tomcat.jakarta.EngineMain`
 * `io.ktor.server.cio.EngineMain`
 
-`EngineMain.main`関数は、選択されたエンジンでサーバーを起動し、外部[設定ファイル](server-configuration-file.topic)で指定された[アプリケーションモジュール](server-modules.md)を読み込みます。以下の例では、アプリケーションの`main`関数からサーバーを起動しています。
+#### サーバーの作成と起動
+
+`EngineMain.main()`関数は、選択されたエンジンでサーバーを起動し、外部[設定ファイル](server-configuration-file.topic)で指定された[アプリケーションモジュール](server-modules.md)を読み込みます。以下の例では、アプリケーションの`main`関数からサーバーを起動しています。
 
 <Tabs>
 <TabItem title="Application.kt">
@@ -168,6 +177,18 @@ mainClassName = "io.ktor.server.netty.EngineMain"
 </TabItem>
 </Tabs>
 
+#### サーバーインスタンスを起動せずに作成する {id="createServer"}
+
+`EngineMain.main()`を直接呼び出してサーバーを即座に起動するだけでなく、`EngineMain.createServer()`を呼び出すことで、サーバーを起動せずに`EmbeddedServer`インスタンスを返すことができます。
+
+このアプローチにより、`.start()`や`.stop()`をいつ呼び出すか、またはサーバーがリクエストの受け入れを開始する前に任意の操作を実行するかを制御できます。
+
+```Kotlin
+// Example using Netty
+val server = io.ktor.server.netty.EngineMain.createServer(args)
+// perform additional initialization, logging, instrumentation, etc.
+server.start(wait = true)
+```
 ## エンジンの設定 {id="configure-engine"}
 
 このセクションでは、さまざまなエンジン固有のオプションを指定する方法を見ていきます。

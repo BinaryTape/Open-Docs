@@ -22,7 +22,7 @@
 </p>
 </tldr>
 
-[ConditionalHeaders](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-conditional-headers/io.ktor.server.plugins.conditionalheaders/-conditional-headers.html) 插件避免在内容自上次请求以来未更改时发送其正文。这是通过使用以下标头实现的：
+[ConditionalHeaders](https://api.ktor.io/ktor-server-conditional-headers/io.ktor.server.plugins.conditionalheaders/-conditional-headers.html) 插件避免在内容自上次请求以来未更改时发送其正文。这是通过使用以下标头实现的：
 * `Last-Modified` 响应标头包含资源修改时间。例如，如果客户端请求包含 `If-Modified-Since` 值，Ktor 将仅在资源在给定日期之后被修改时发送完整响应。请注意，对于[静态文件](server-static-content.md)，Ktor 会在[安装](#install_plugin) `ConditionalHeaders` 后自动附加 `Last-Modified` 标头。
 * `Etag` 响应标头是特定资源版本的标识符。例如，如果客户端请求包含 `If-None-Match` 值，并且此值与 `Etag` 匹配，Ktor 将不会发送完整响应。你可以在[配置](#configure) `ConditionalHeaders` 时指定 `Etag` 值。
 
@@ -73,9 +73,9 @@
 
 ## 配置标头 {id="configure"}
 
-要配置 <code>%plugin_name%</code>，你需要在 <code>install</code> 代码块内调用 [version](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-conditional-headers/io.ktor.server.plugins.conditionalheaders/-conditional-headers-config/version.html) 函数。此函数提供了对给定 <code>ApplicationCall</code> 和 <code>OutgoingContent</code> 的资源版本列表的访问权限。你可以通过使用 [EntityTagVersion](https://api.ktor.io/ktor-http/io.ktor.http.content/-entity-tag-version/index.html) 和 [LastModifiedVersion](https://api.ktor.io/ktor-http/io.ktor.http.content/-last-modified-version/index.html) 类对象来指定所需的版本。
+要配置 `%plugin_name%`，你需要在 `install` 代码块内调用 [version](https://api.ktor.io/ktor-server-conditional-headers/io.ktor.server.plugins.conditionalheaders/-conditional-headers-config/version.html) 函数。此函数提供了对给定 `ApplicationCall` 和 `OutgoingContent` 的资源版本列表的访问权限。你可以通过使用 [EntityTagVersion](https://api.ktor.io/ktor-http/io.ktor.http.content/-entity-tag-version/index.html) 和 [LastModifiedVersion](https://api.ktor.io/ktor-http/io.ktor.http.content/-last-modified-version/index.html) 类对象来指定所需的版本。
 
-下面的代码片段展示了如何为 CSS 添加 <code>Etag</code> 和 <code>Last-Modified</code> 标头：
+下面的代码片段展示了如何为 CSS 添加 `Etag` 和 `Last-Modified` 标头：
 ```kotlin
 install(ConditionalHeaders) {
     val file = File("src/main/kotlin/com/example/Application.kt")

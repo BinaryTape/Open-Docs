@@ -88,15 +88,15 @@ routing {
 *   `/order/shipment`  
     여러 경로 세그먼트를 포함하는 경로입니다. 이러한 경로는 [route/get/등](#define_route) 함수에 그대로 전달하거나 여러 `route` 함수를 [중첩](#multiple_routes)하여 하위 라우트를 구성할 수 있습니다.
 *   `/user/{login}`  
-    `login` [경로 파라미터](#path_parameter)가 있는 경로로, 해당 값은 라우트 핸들러 내에서 접근할 수 있습니다.
+    `login` [경로 파라미터(path parameter)](#path_parameter)가 있는 경로로, 해당 값은 라우트 핸들러 내에서 접근할 수 있습니다.
 *   `/user/*`  
-    [와일드카드 문자](#wildcard)가 있는 경로로, 모든 경로 세그먼트와 일치합니다.
+    [와일드카드 문자(wildcard character)](#wildcard)가 있는 경로로, 모든 경로 세그먼트와 일치합니다.
 *   `/user/{...}`  
-    [테일카드](#tailcard)가 있는 경로로, URL 경로의 나머지 전부와 일치합니다.
+    [테일카드(tailcard)](#tailcard)가 있는 경로로, URL 경로의 나머지 전부와 일치합니다.
 *   `/user/{param...}`  
-    [테일카드를 포함한 경로 파라미터](#path_parameter_tailcard)를 포함하는 경로입니다.
+    [테일카드를 포함한 경로 파라미터(path parameter with tailcard)](#path_parameter_tailcard)를 포함하는 경로입니다.
 *   `Regex("/.+/hello")`  
-    [정규 표현식](#regular_expression)을 포함하는 경로로, `/hello`의 마지막 발생까지의 경로 세그먼트와 일치합니다.
+    [정규 표현식(regular expression)](#regular_expression)을 포함하는 경로로, `/hello`의 마지막 발생까지의 경로 세그먼트와 일치합니다.
 
 ### 와일드카드 (Wildcard) {id="wildcard"}
 _와일드카드_ (`*`)는 모든 경로 세그먼트와 일치하며 생략될 수 없습니다. 예를 들어, `/user/*`는 `/user/john`과 일치하지만, `/user`와는 일치하지 않습니다.

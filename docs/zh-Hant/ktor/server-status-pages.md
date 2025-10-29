@@ -27,7 +27,7 @@
 %plugin_name% 允許 Ktor 應用程式根據拋出的例外或狀態碼，適當地回應任何失敗狀態。
 </link-summary>
 
-[%plugin_name%](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-status-pages/io.ktor.server.plugins.statuspages/-status-pages.html) 插件允許 Ktor 應用程式根據拋出的例外或狀態碼，適當地[回應](server-responses.md)任何失敗狀態。
+[%plugin_name%](https://api.ktor.io/ktor-server-status-pages/io.ktor.server.plugins.statuspages/-status-pages.html) 插件允許 Ktor 應用程式根據拋出的例外或狀態碼，適當地[回應](server-responses.md)任何失敗狀態。
 
 ## 新增依賴項 {id="add_dependencies"}
 

@@ -108,7 +108,7 @@ kotlin -classpath hello.jar HelloKt
 
 `HelloKt` 是 Kotlin 編譯器為名為 `hello.kt` 的檔案產生主類別名稱。
 
-> 若要編譯 Kotlin/Native 函式庫，請使用 [Kotlin/Native 編譯器](native-libraries.md#kotlin-compiler-specifics)。
+> 若要編譯 Kotlin/Native 函式庫，請使用 [Kotlin/Native 編譯器](native-libraries.md#using-kotlin-native-compiler)。
 >
 {style="note"}
 

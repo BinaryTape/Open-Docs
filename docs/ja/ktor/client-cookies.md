@@ -20,8 +20,7 @@ Ktorクライアントでは、以下の方法でクッキーを手動で処理�
 * `cookie`関数を使用すると、特定の[リクエスト](client-requests.md#cookies)にクッキーを追加できます。
 * `setCookie`関数を使用すると、[レスポンス](client-responses.md#headers)で受信した`Set-Cookie`ヘッダーの値をパースできます。
 
-[HttpCookies](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client.plugins.cookies/-http-cookies/index.html)プラグインはクッキーを自動的に処理し、呼び出し間でストレージに保持します。
-デフォルトでは、インメモリストレージを使用しますが、[CookiesStorage](#custom_storage)を使用して永続ストレージを実装することもできます。
+[HttpCookies](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client.plugins.cookies/-http-cookies/index.html)プラグインはクッキーを自動的に処理し、呼び出し間でストレージに保持します。デフォルトでは、インメモリストレージを使用しますが、[CookiesStorage](#custom_storage)を使用して永続ストレージを実装することもできます。
 
 ## 依存関係を追加する {id="add_dependencies"}
 `HttpCookies`は[ktor-client-core](client-dependencies.md)アーティファクトのみを必要とし、特定の依存関係は必要ありません。

@@ -75,7 +75,7 @@
 
 ## 配置 %plugin_name% {id="configure"}
 
-%plugin_name% 插件配置由 [CallIdConfig](https://api.ktor.io/ktor-client/ktor-client-plugins/ktor-client-call-id/io.ktor.client.plugins.callid/-call-id-config/index.html) 类提供，
+%plugin_name% 插件配置由 [CallIdConfig](https://api.ktor.io/ktor-client-plugins/ktor-client-call-id/io.ktor.client.plugins.callid/-call-id-config/index.html) 类提供，
 允许你生成调用 ID 并将其添加到调用上下文。
 
 ### 生成调用 ID

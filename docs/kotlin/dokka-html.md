@@ -1,6 +1,6 @@
 [//]: # (title: HTML)
 
-HTML 是 Dokka 的默认推荐输出格式。它目前处于 Beta 版，并且正在接近稳定版发布。
+HTML 是 Dokka 的默认和推荐输出格式。它目前处于 Beta 版，并且正在接近稳定版发布。
 
 你可以浏览 [kotlinx.coroutines](https://kotlinlang.org/api/kotlinx.coroutines/) 的文档来查看输出示例。
 
@@ -8,16 +8,16 @@ HTML 是 Dokka 的默认推荐输出格式。它目前处于 Beta 版，并且�
 
 HTML 作为输出格式受到所有运行器的支持。要生成 HTML 文档，请根据你使用的构建工具或运行器执行以下步骤：
 
-* 对于 [Gradle](dokka-gradle.md#generate-documentation)，运行 `dokkaHtml` 或 `dokkaHtmlMultiModule` 任务。
+*   对于 [Gradle](dokka-gradle.md#generate-documentation)，运行 `dokkaHtml` 或 `dokkaHtmlMultiModule` 任务。
 
-  > 从 Dokka 2.0.0 开始，[生成文档的 Gradle 任务已更改](dokka-migration.md#generate-documentation-with-the-updated-task)。
-  >
-  > 有关更多详细信息和完整更改列表，请参见[迁移指南](dokka-migration.md)。
-  >
-  {style="note"}
+    > 这些说明反映了 Dokka Gradle 插件 v1 的配置和任务。从 Dokka 2.0.0 开始，[生成文档的 Gradle 任务已更改](dokka-migration.md#generate-documentation-with-the-updated-task)。
+    >
+    > 有关更多详细信息和 Dokka Gradle 插件 v2 中的完整更改列表，请参见[迁移指南](dokka-migration.md)。
+    >
+    {style="note"}
 
-* 对于 [Maven](dokka-maven.md#generate-documentation)，运行 `dokka:dokka` 目标。
-* 对于 [CLI runner](dokka-cli.md#generate-documentation)，运行并设置 HTML 依赖项。
+*   对于 [Maven](dokka-maven.md#generate-documentation)，运行 `dokka:dokka` 目标。
+*   对于 [CLI runner](dokka-cli.md#generate-documentation)，运行并设置 HTML 依赖项。
 
 > 通过此格式生成的 HTML 页面需要托管在 Web 服务器上才能正确渲染所有内容。
 >
@@ -272,4 +272,4 @@ Dokka 使用以下模板：
 |-----------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `<@content/>`   | 主要页面内容。                                                                                                                                                                                                |
 | `<@resources/>` | 脚本和样式表等资源。                                                                                                                                                                            |
-| `<@version/>`   | 从配置中获取的模块版本。如果应用了[版本化插件](https://github.com/Kotlin/dokka/tree/%dokkaVersion%/dokka-subprojects/plugin-versioning)，它将被版本导航器替换。 |
+| `<@version/>`   | 从配置中获取的模块版本。如果应用了[版本化插件](https://github.com/Kotlin/dokka/tree/%dokkaVersion%/dokka-subprojects/plugin-versioning)是，它将被版本导航器替换。 |

@@ -57,7 +57,7 @@ Bearer 认证方案是 [HTTP 框架](https://developer.mozilla.org/en-US/docs/We
 4. 验证后，服务器响应受保护资源的内容。
 
 ## 安装 Bearer 认证 {id="install"}
-要安装 `bearer` 认证提供程序，请在 `install` 代码块内调用 [bearer](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-auth/io.ktor.server.auth/bearer.html) 函数：
+要安装 `bearer` 认证提供程序，请在 `install` 代码块内调用 [bearer](https://api.ktor.io/ktor-server-auth/io.ktor.server.auth/bearer.html) 函数：
 
 ```kotlin
 import io.ktor.server.application.*
@@ -78,7 +78,7 @@ install(Authentication) {
 
 ### 步骤 1：配置 Bearer 提供程序 {id="configure-provider"}
 
-`bearer` 认证提供程序通过 [BearerAuthenticationProvider.Configuration](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-auth/io.ktor.server.auth/-bearer-authentication-provider/-config/index.html) 类公开其设置。在下面的示例中，指定了以下设置：
+`bearer` 认证提供程序通过 [BearerAuthenticationProvider.Configuration](https://api.ktor.io/ktor-server-auth/io.ktor.server.auth/-bearer-authentication-provider/-config/index.html) 类公开其设置。在下面的示例中，指定了以下设置：
 * `realm` 属性设置将要在 `WWW-Authenticate` 头中传递的 realm。
 * `authenticate` 函数检测客户端发送的令牌，并在认证成功时返回一个 `UserIdPrincipal`，如果认证失败则返回 `null`。
 
@@ -99,7 +99,7 @@ install(Authentication) {
 
 ### 步骤 2：保护特定资源 {id="authenticate-route"}
 
-配置完 `bearer` 提供程序后，您可以使用 **[authenticate](server-auth.md#authenticate-route)** 函数保护应用程序中的特定资源。如果认证成功，您可以在路由处理程序内部使用 `call.principal` 函数检索已认证的 [UserIdPrincipal](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-auth/io.ktor.server.auth/-user-id-principal/index.html)，并获取已认证用户的名称。
+配置完 `bearer` 提供程序后，您可以使用 **[authenticate](server-auth.md#authenticate-route)** 函数保护应用程序中的特定资源。如果认证成功，您可以在路由处理程序内部使用 `call.principal` 函数检索已认证的 [UserIdPrincipal](https://api.ktor.io/ktor-server-auth/io.ktor.server.auth/-user-id-principal/index.html)，并获取已认证用户的名称。
 
 ```kotlin
 routing {
@@ -109,3 +109,4 @@ routing {
         }
     }
 }
+```

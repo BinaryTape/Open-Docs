@@ -1,4 +1,4 @@
-[//]: # (title: 提供單頁應用程式)
+[//]: # (title: 供應單頁應用程式)
 
 <show-structure for="chapter" depth="2"/>
 

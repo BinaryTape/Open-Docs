@@ -23,7 +23,7 @@
 </p>
 </tldr>
 
-Ktor는 [Compression](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-compression/io.ktor.server.plugins.compression/-compression.html) 플러그인을 사용하여 응답 본문을 압축하고 요청 본문을 압축 해제하는 기능을 제공합니다.
+Ktor는 [Compression](https://api.ktor.io/ktor-server-compression/io.ktor.server.plugins.compression/-compression.html) 플러그인을 사용하여 응답 본문을 압축하고 요청 본문을 압축 해제하는 기능을 제공합니다.
 `gzip` 및 `deflate`를 포함한 다양한 압축 알고리즘을 사용할 수 있으며, 데이터 압축에 필요한 조건(예: 콘텐츠 유형 또는 응답 크기)을 지정하거나, 특정 요청 매개변수에 따라 데이터를 압축할 수도 있습니다.
 
 > `%plugin_name%` 플러그인은 현재 `SSE` 응답을 지원하지 않습니다.
@@ -105,7 +105,7 @@ install(Compression) {
 }
 ```
 
-위 예시에서는 `deflate`가 더 높은 우선순위 값을 가지며 `gzip`보다 우선합니다. 서버는 먼저 [Accept-Encoding](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Accept-Encoding) 헤더 내의 [품질 값](https://developer.mozilla.org/en-US/docs/Glossary/Quality_Values)을 확인한 다음 지정된 우선순위를 고려합니다.
+위 예시에서는 `deflate`가 더 높은 우선순위 값을 가지며 `gzip`보다 우선합니다. 서버는 먼저 [Accept-Encoding](https://developer.mozilla.org/en-US/docs/Glossary/Quality_Values) 헤더 내의 [품질 값](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Accept-Encoding)을 확인한 다음 지정된 우선순위를 고려합니다.
 
 ### 콘텐츠 유형 구성 {id="configure_content_type"}
 

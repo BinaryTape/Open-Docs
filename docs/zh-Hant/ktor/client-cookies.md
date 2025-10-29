@@ -20,7 +20,8 @@ Ktor 客戶端允許您透過以下方式手動處理 Cookie：
 * `cookie` 函式允許您將 Cookie 附加到 [特定請求](client-requests.md#cookies)。
 * `setCookie` 函式使您能夠解析在 [回應](client-responses.md#headers) 中接收到的 `Set-Cookie` 標頭值。
 
-[HttpCookies](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client.plugins.cookies/-http-cookies/index.html) 插件會自動處理 Cookie 並將它們保留在呼叫之間的儲存中。預設情況下，它使用記憶體內儲存，但您也可以使用 [CookiesStorage](#custom_storage) 實作持久性儲存。
+[HttpCookies](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client.plugins.cookies/-http-cookies/index.html) 插件會自動處理 Cookie 並將它們保留在呼叫之間的儲存中。
+預設情況下，它使用記憶體內儲存，但您也可以使用 [CookiesStorage](#custom_storage) 實作持久性儲存。
 
 ## 新增依賴項 {id="add_dependencies"}
 `HttpCookies` 僅需要 [ktor-client-core](client-dependencies.md) 構件，不需要任何特定的依賴項。

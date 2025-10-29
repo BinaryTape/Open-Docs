@@ -2,7 +2,7 @@
 
 Kotlin 멀티플랫폼 공유 모듈을 iOS 앱에 통합할 수 있습니다. 이를 위해 공유 모듈에서 [iOS 프레임워크](https://developer.apple.com/library/archive/documentation/MacOSX/Conceptual/BPFrameworks/Concepts/WhatAreFrameworks.html)를 생성한 다음, 이를 iOS 프로젝트에 의존성으로 추가합니다.
 
-![iOS 통합 방식](ios-integration-scheme.svg)
+![iOS integration scheme](ios-integration-scheme.svg)
 
 이 프레임워크를 로컬 또는 원격 의존성으로 사용할 수 있습니다. 전체 코드베이스를 완전히 제어하고 공통 코드가 변경될 때 최종 애플리케이션에 즉시 업데이트를 반영하려면 로컬 통합을 선택하세요.
 

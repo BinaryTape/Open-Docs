@@ -55,7 +55,8 @@ val client = HttpClient(CIO) {
 
 ### 기본 URL {id="url"}
 
-`DefaultRequest`를 사용하면 [요청 URL](client-requests.md#url)과 병합될 URL의 기본 부분을 구성할 수 있습니다. 예를 들어, 아래 `url` 함수는 모든 요청에 대한 기본 URL을 지정합니다:
+`DefaultRequest`를 사용하면 [요청 URL](client-requests.md#url)과 병합될 URL의 기본 부분을 구성할 수 있습니다.
+예를 들어, 아래 `url` 함수는 모든 요청에 대한 기본 URL을 지정합니다:
 
 ```kotlin
 defaultRequest {
@@ -69,7 +70,8 @@ defaultRequest {
 val response: HttpResponse = client.get("welcome.html")
 ```
 
-... 결과 URL은 `https://ktor.io/docs/welcome.html`이 됩니다. 기본 URL과 요청 URL이 어떻게 병합되는지 알아보려면, [DefaultRequest](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client.plugins/-default-request/index.html)를 참조하세요.
+... 결과 URL은 `https://ktor.io/docs/welcome.html`이 됩니다.
+기본 URL과 요청 URL이 어떻게 병합되는지 알아보려면, [DefaultRequest](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client.plugins/-default-request/index.html)를 참조하세요.
 
 ### URL 파라미터 {id="url-params"}
 
@@ -112,9 +114,11 @@ defaultRequest {
 >
 {style="note"}
 
-[유닉스 도메인 소켓으로 개별 요청을 빌드할](client-requests.md#specify-a-unix-domain-socket) 수 있지만, 소켓 파라미터를 사용하여 기본 요청을 구성할 수도 있습니다.
+[유닉스 도메인 소켓으로 개별 요청을 빌드할](client-requests.md#specify-a-unix-domain-socket) 수 있지만,
+소켓 파라미터를 사용하여 기본 요청을 구성할 수도 있습니다.
 
-그렇게 하려면, 소켓 경로와 함께 `unixSocket` 호출을 `defaultRequest` 함수에 전달하세요. 예를 들어:
+그렇게 하려면, 소켓 경로와 함께 `unixSocket` 호출을 `defaultRequest` 함수에 전달하세요.
+예를 들어:
 
 ```kotlin
 val client = HttpClient(CIO)

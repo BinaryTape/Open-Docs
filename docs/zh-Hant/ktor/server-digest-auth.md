@@ -69,18 +69,18 @@ Ktor 允許您使用摘要認證來登入使用者並保護特定的 [路由](se
    {style="block"}
 
    `response` 值透過以下方式生成：
-
+   
    a. `HA1 = MD5(username:realm:password)`
    > 此部分[儲存](#digest-table)在伺服器上，Ktor 可以使用此部分來驗證使用者憑證。
-
+   
    b. `HA2 = MD5(method:digestURI)`
-
+   
    c. `response = MD5(HA1:nonce:HA2)`
 
 4.  伺服器[驗證](#configure-provider)客戶端傳送的憑證，並回應所請求的內容。
 
 ## 安裝摘要認證 {id="install"}
-若要安裝 `digest` 認證提供者，請在 `install` 區塊內呼叫 [digest](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-auth/io.ktor.server.auth/digest.html) 函式：
+若要安裝 `digest` 認證提供者，請在 `install` 區塊內呼叫 [digest](https://api.ktor.io/ktor-server-auth/io.ktor.server.auth/digest.html) 函式：
 
 ```kotlin
 import io.ktor.server.application.*
@@ -114,7 +114,7 @@ val userTable: Map<String, ByteArray> = mapOf(
 
 ### 步驟 2：配置摘要提供者 {id="configure-provider"}
 
-`digest` 認證提供者透過 [DigestAuthenticationProvider.Config](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-auth/io.ktor.server.auth/-digest-authentication-provider/-config/index.html) 類別公開其設定。在下面的範例中，指定了以下設定：
+`digest` 認證提供者透過 [DigestAuthenticationProvider.Config](https://api.ktor.io/ktor-server-auth/io.ktor.server.auth/-digest-authentication-provider/-config/index.html) 類別公開其設定。在下面的範例中，指定了以下設定：
 *   `realm` 屬性設定要在 `WWW-Authenticate` 標頭中傳遞的領域。
 *   `digestProvider` 函式為指定的使用者名稱提取摘要的 `HA1` 部分。
 *   (可選) `validate` 函式允許您將憑證映射到自訂主體。
@@ -141,11 +141,11 @@ fun Application.main() {
 data class CustomPrincipal(val userName: String, val realm: String)
 ```
 
-您也可以使用 [nonceManager](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-auth/io.ktor.server.auth/-digest-authentication-provider/-config/nonce-manager.html) 屬性來指定如何生成一次性隨機數 (nonce) 值。
+您也可以使用 [nonceManager](https://api.ktor.io/ktor-server-auth/io.ktor.server.auth/-digest-authentication-provider/-config/nonce-manager.html) 屬性來指定如何生成一次性隨機數 (nonce) 值。
 
 ### 步驟 3：保護特定資源 {id="authenticate-route"}
 
-配置 `digest` 提供者後，您可以使用 **[authenticate](server-auth.md#authenticate-route)** 函式保護應用程式中的特定資源。如果認證成功，您可以在路由處理器內部使用 `call.principal` 函式擷取已認證的 [Principal](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-auth/io.ktor.server.auth/-principal/index.html) 主體，並取得已認證使用者的名稱。
+配置 `digest` 提供者後，您可以使用 **[authenticate](server-auth.md#authenticate-route)** 函式保護應用程式中的特定資源。如果認證成功，您可以在路由處理器內部使用 `call.principal` 函式擷取已認證的 [Principal](https://api.ktor.io/ktor-server-auth/io.ktor.server.auth/-principal/index.html) 主體，並取得已認證使用者的名稱。
 
 ```kotlin
 routing {

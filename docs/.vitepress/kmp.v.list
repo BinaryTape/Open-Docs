@@ -4,20 +4,20 @@
 
 <vars>
     <!-- Kotlin -->
-    <var name="kotlinVersion" value="2.2.20" type="string"/>
+    <var name="kotlinVersion" value="2.2.21" type="string"/>
     <var name="languageVersion" value="2.2" type="string"/>
     <var name="apiVersion" value="2.2" type="string"/>
 
     <!-- Compose Multiplatform -->
-    <var name="org.jetbrains.compose" value="1.9.1" type="string"/>
+    <var name="org.jetbrains.compose" value="1.9.2" type="string"/>
     <var name="org.jetbrains.compose-eap" value="1.9.0-rc02" type="string"/>
     <var name="org.jetbrains.androidx.navigation" value="2.9.1" type="string"/>
     <var name="org.jetbrains.androidx.lifecycle" value="2.9.5" type="string"/>
-    <var name="org.jetbrains.compose.material3.adaptive" value="1.2.0-alpha06" type="string"/>
+    <var name="org.jetbrains.compose.material3.adaptive" value="1.2.0" type="string"/>
     <var name="org.jetbrains.compose.material3" value="1.9.0" type="string"/>
 
     <!-- Jetpack Compose -->
-    <var name="androidx.compose" value="1.9.0" type="string"/>
+    <var name="androidx.compose" value="1.9.4" type="string"/>
     <var name="androidx.compose.material3-stable" value="1.4.0" type="string"/>
 
     <!-- Compose Hot Reload -->
@@ -30,7 +30,7 @@
     <var name="minAndroidGradleVersion" value="7.3.1" type="string"/>
     <var name="maxAndroidGradleVersion" value="8.11.1" type="string"/>
 
-    <var name="xcode" value="16.4" type="string"/>
+    <var name="xcode" value="26.0" type="string"/>
 
     <!-- Libraries and Frameworks -->
     <var name="coroutinesVersion" value="1.10.2" type="string"/>
@@ -39,7 +39,7 @@
     <var name="ktorVersion" value="3.3.1" type="string"/>
     <var name="dateTimeVersion" value="0.7.1" type="string"/>
     <var name="koinVersion" value="4.1.0" type="string"/>
-    <var name="skieVersion" value="0.10.4" type="string"/>
+    <var name="skieVersion" value="0.10.6" type="string"/>
     <var name="kmpncVersion" value="1.0.0-ALPHA-45" type="string"/>
     <var name="kspVersion" value="2.2.10-2.0.2" type="string"/>
     <var name="vanniktechPublishPlugin" value="0.34.0" type="string"/>

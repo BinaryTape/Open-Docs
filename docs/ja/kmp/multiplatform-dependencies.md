@@ -45,23 +45,22 @@ Kotlin Multiplatformプロジェクトで利用できる依存関係には、次
     ```kotlin
     kotlin {
         //... 
-        sourceSets
-            languageSettings.optIn("kotlin.time.ExperimentalTime")
+        sourceSets {
+            all { languageSettings.optIn("kotlin.time.ExperimentalTime") }
+   
             commonMain.dependencies {
-                implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.7.1")
+                implementation("org.jetbrains.kotlinx:kotlinx-datetime:%dateTimeVersion%")
             } 
         }
     }
     ```
 
-3. **Sync Gradle Changes**ボタンをクリックして、Gradleファイルを同期します。 ![Synchronize Gradle files](gradle-sync.png){width=50}
-4. `shared/src/commonMain/kotlin`内で、`Greeting.kt`ファイルがあるプロジェクトディレクトリに、新しいファイル`NewYear.kt`を作成します。
-5. `date-time`の日付計算を使用して、今日から新年までの日数を計算する短い関数でファイルを更新します。
+3. 「**Build | Sync Project with Gradle Files**」メニュー項目を選択するか、ビルドスクリプトエディターで**Sync Gradle Changes**ボタンをクリックしてGradleファイルを同期します: ![Synchronize Gradle files](gradle-sync.png){width=50}
+4. `shared/src/commonMain/.../greetingkmp` ディレクトリを右クリックし、「**New | Kotlin Class/File**」を選択して、新しいファイル `NewYear.kt` を作成します。
+5. `datetime`の日付計算を使用して、今日から新年までの日数を計算する短い関数でファイルを更新します。
    
    ```kotlin
-   import kotlinx.datetime.*
-   import kotlin.time.Clock
-   
+   @OptIn(ExperimentalTime::class)
    fun daysUntilNewYear(): Int {
        val today = Clock.System.todayIn(TimeZone.currentSystemDefault())
        val closestNewYear = LocalDate(today.year + 1, 1, 1)
@@ -70,8 +69,8 @@ Kotlin Multiplatformプロジェクトで利用できる依存関係には、次
    
    fun daysPhrase(): String = "There are only ${daysUntilNewYear()} days left until New Year! 🎆"
    ```
-
-6. `Greeting.kt`で、結果を確認するために`Greeting`クラスを更新します。
+6. IDEが提案するように、必要なすべてのインポートを追加します。
+7. `Greeting.kt`ファイルで、結果を確認するために`Greeting`クラスを更新します。
     
     ```kotlin
     class Greeting {
@@ -85,7 +84,7 @@ Kotlin Multiplatformプロジェクトで利用できる依存関係には、次
     }
     ```
 
-7. 結果を確認するには、IntelliJ IDEAから**composeApp**と**iosApp**の構成を再実行します。
+8. 結果を確認するには、IntelliJ IDEAから**composeApp**と**iosApp**の構成を再実行します。
 
 ![Updated mobile multiplatform app with external dependencies](first-multiplatform-project-3.png){width=500}
 

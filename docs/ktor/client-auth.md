@@ -13,7 +13,9 @@
 Auth 插件用于处理客户端应用程序中的认证与授权。
 </link-summary>
 
-Ktor 提供了 [Auth](https://api.ktor.io/ktor-client/ktor-client-plugins/ktor-client-auth/io.ktor.client.plugins.auth/-auth) 插件，用于处理客户端应用程序中的认证与授权。典型的用法场景包括用户登录和获取特定资源的访问权限。
+Ktor 提供了
+[Auth](https://api.ktor.io/ktor-client-auth/io.ktor.client.plugins.auth/-auth)
+插件，用于处理客户端应用程序中的认证与授权。典型的用法场景包括用户登录和获取特定资源的访问权限。
 
 > 在服务器端，Ktor 提供了 [Authentication](server-auth.md) 插件用于处理认证与授权。
 
@@ -65,7 +67,7 @@ val client = HttpClient(CIO) {
 
 ### 步骤 1：选择认证提供者 {id="choose-provider"}
 
-要使用特定的认证提供者（[Basic](client-basic-auth.md)、[Digest](client-digest-auth.md) 或 [Bearer](client-bearer-auth.md)），你需要调用 `install` 代码块内相应的函数。例如，要使用 `basic` 认证，请调用 [basic](https://api.ktor.io/ktor-client/ktor-client-plugins/ktor-client-auth/io.ktor.client.plugins.auth.providers/basic.html) 函数：
+要使用特定的认证提供者（[Basic](client-basic-auth.md)、[Digest](client-digest-auth.md) 或 [Bearer](client-bearer-auth.md)），你需要调用 `install` 代码块内相应的函数。例如，要使用 `basic` 认证，请调用 [basic](https://api.ktor.io/ktor-client-auth/io.ktor.client.plugins.auth.providers/basic.html) 函数：
 
 ```kotlin
 install(Auth) {
@@ -76,7 +78,7 @@ install(Auth) {
 ```
 在该代码块内，你可以配置此提供者特有的设置。
 
-### 步骤 2：（可选）配置域 {id="realm"}
+### 2：（可选）配置域 {id="realm"}
 
 可选地，你可以使用 `realm` 属性来配置域：
 
@@ -106,7 +108,7 @@ install(Auth) {
 
 在这种情况下，客户端会根据 `WWW-Authenticate` 响应标头选择必要的提供者，该标头中包含域信息。
 
-### 步骤 3：配置提供者 {id="configure-provider"}
+### 3：配置提供者 {id="configure-provider"}
 
 要了解如何配置特定[提供者](#supported)的设置，请参阅相应的专题：
 * [Ktor 客户端中的 Basic 认证](client-basic-auth.md)

@@ -486,8 +486,8 @@ install(Sessions) {
     // ...
     transform(
       SessionTransportTransformerEncrypt(
-        secretEncryptKey, // your encrypt key here
-        secretSignKey, // your sign key here
+        secretEncryptKey, // ここに暗号化キー
+        secretSignKey, // ここに署名キー
         backwardCompatibleRead = true
       )
     )

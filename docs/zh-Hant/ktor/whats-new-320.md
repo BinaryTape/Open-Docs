@@ -162,7 +162,7 @@ fun provideDatabase(@Property("database.connectionUrl") connectionUrl: String): 
   PostgresDatabase(connectionUrl)
 
 class UserRepository(val db: Database) {
-  // implementation 
+  // 實作 
 }
 ```
 
@@ -332,15 +332,15 @@ val rawAddress = address.resolveAddress()
 
 它將解析的 IP 位址作為 `ByteArray` 返回，如果無法解析該位址則返回 `null`。返回的 `ByteArray` 的大小取決於 IP 版本：對於 IPv4 位址，它將包含 4 位元組；對於 IPv6 位址，它將包含 16 位元組。在 JS 和 Wasm 平台上，`.resolveAddress()` 將始終返回 `null`。
 
-## Shared
+## 共用
 
 ### HTMX 整合
 
 Ktor 3.2.0 引入了對 [HTMX](https://htmx.org/) 的實驗性支援，HTMX 是一個現代 JavaScript 函式庫，可透過 `hx-get` 和 `hx-swap` 等 HTML 屬性實現動態互動。Ktor 的 HTMX 整合提供：
 
-- 支援 HTMX 的路由，用於根據標頭處理 HTMX 請求。
-- HTML DSL 擴充功能，用於在 Kotlin 中生成 HTMX 屬性。
-- HTMX 標頭常數和值，以消除字串常值。
+-   支援 HTMX 的路由，用於根據標頭處理 HTMX 請求。
+-   HTML DSL 擴充功能，用於在 Kotlin 中生成 HTMX 屬性。
+-   HTMX 標頭常數和值，以消除字串常值。
 
 Ktor 的 HTMX 支援可在三個實驗性模組中使用：
 
@@ -383,7 +383,7 @@ val response: HttpResponse = client.get("/") {
 
 您還可以在[預設請求](client-default-request.md#unix-domain-sockets)中使用 Unix 網域通訊端。
 
-## Infrastructure
+## 基礎設施
 
 ### 已發布的版本目錄
 
@@ -442,3 +442,4 @@ Ktor 3.2.0 簡化了開發模式的啟用。以前，啟用開發模式需要 `a
 
 ```bash
 ./gradlew run -Pio.ktor.development=true
+```

@@ -6,7 +6,7 @@
 
 Kotlin 얼리 액세스 프리뷰(EAP)에 참여하여 최신 Kotlin 기능을 릴리스 전에 미리 사용해 볼 수 있습니다.
 
-모든 언어(_2.x.0_) 및 툴링(_2.x.20_) 릴리스 전에 몇 가지 베타(_Beta_) 및 릴리스 후보(_RC_) 빌드를 제공합니다.
+저희는 모든 언어(_2.x.0_) 및 툴링(_2.x.20_) 릴리스 전에 몇 가지 베타(_Beta_) 및 릴리스 후보(_RC_) 빌드를 제공합니다.
 
 저희 이슈 트래커 [YouTrack](https://kotl.in/issue)에 버그를 찾아 보고해 주시면 매우 감사하겠습니다. 최종 릴리스 전에 버그를 수정할 수 있을 가능성이 매우 높으므로, 문제 해결을 위해 다음 Kotlin 릴리스까지 기다릴 필요가 없을 것입니다.
 
@@ -40,23 +40,13 @@ Kotlin 얼리 액세스 프리뷰(EAP)에 참여하여 최신 Kotlin 기능을 �
         <th>빌드 주요 사항</th>
     </tr>
     <tr>
-        <td><strong>2.3.0-Beta1</strong>
-            <p>릴리스됨: <strong>2025년 10월 7일</strong></p>
-            <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.3.0-Beta1" target="_blank">GitHub에서 릴리스</a></p>
+        <td><strong>2.3.0-Beta2</strong>
+            <p>릴리스됨: <strong>2025년 10월 28일</strong></p>
+            <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.3.0-Beta2" target="_blank">GitHub에서 릴리스</a></p>
         </td>
         <td>
             <p>새로운 기능 미리 보기 및 툴링 업데이트가 포함된 언어 릴리스입니다.</p>
-            <p>자세한 내용은 <a href="https://github.com/JetBrains/kotlin/releases/tag/v2.3.0-Beta1">변경 로그</a> 또는 <a href="whatsnew-eap.md">Kotlin 2.3.0-Beta1의 새로운 기능</a>을 참조하세요.</p>
+            <p>자세한 내용은 <a href="https://github.com/JetBrains/kotlin/releases/tag/v2.3.0-Beta2">변경 로그</a> 또는 <a href="whatsnew-eap.md">Kotlin 2.3.0-Beta2의 새로운 기능</a>을 참조하세요.</p>
         </td>
-    </tr>
-    <tr>
-        <td><strong>2.2.21-RC2</strong>
-            <p>릴리스됨: <strong>2025년 10월 16일</strong></p>
-            <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.2.21-RC2" target="_blank">GitHub에서 릴리스</a></p>
-        </td>
-        <td>
-            <p>Xcode 26 지원 및 기타 개선 사항과 버그 수정이 포함된 툴링 릴리스입니다.</p>
-            <p>자세한 내용은 <a href="https://github.com/JetBrains/kotlin/releases/tag/v2.2.21-RC2">변경 로그</a> 또는 <a href="whatsnew2220.md">Kotlin 2.2.20의 새로운 기능</a>을 참조하세요.</p>
-    </td>
     </tr>
 </table>

@@ -2,11 +2,11 @@
 title: Koin Annotations 시작하기
 ---
 
-Koin Annotations 프로젝트의 목표는 Koin 정의를 매우 빠르고 직관적인 방식으로 선언하고, 기저의 모든 Koin DSL을 자동으로 생성하는 것입니다. Kotlin 컴파일러 덕분에 개발자 경험을 확장하고 빠르게 진행할 수 있도록 돕는 것이 목표입니다 🚀.
+Koin Annotations 프로젝트의 목표는 Koin 정의를 빠르고 직관적인 방식으로 선언하고, 모든 기저 Koin DSL을 자동으로 생성하는 데 도움을 주는 것입니다. Kotlin 컴파일러 덕분에 개발자들이 확장을 경험하고 빠르게 나아갈 수 있도록 돕는 것이 목표입니다 🚀.
 
 ## 시작하기
 
-Koin에 익숙하지 않으신가요? 먼저 [Koin 시작하기](https://insert-koin.io/docs/quickstart/kotlin)를 살펴보세요.
+Koin에 익숙하지 않으신가요? 먼저 [Koin 시작하기](https://insert-koin.io/docs/quickstart/kotlin/)를 살펴보세요.
 
 컴포넌트에 정의 및 모듈 애너테이션을 태그하고, 일반 Koin API를 사용하세요.
 
@@ -16,30 +16,62 @@ Koin에 익숙하지 않으신가요? 먼저 [Koin 시작하기](https://insert-
 class MyComponent
 ```
 
+### 기본 모듈 설정
+
 ```kotlin
 // 모듈을 선언하고 애너테이션을 스캔합니다.
 @Module
-@ComponentScan
 class MyModule
 ```
 
-생성된 코드를 사용하려면 `org.koin.ksp.generated.*` 임포트를 다음과 같이 사용하세요:
+이제 `@KoinApplication`을 사용하여 Koin 애플리케이션을 시작하고 사용할 모듈을 명시적으로 지정할 수 있습니다:
 
 ```kotlin
-// Koin 생성 기능을 사용합니다.
+// 아래 임포트는 생성된 확장 함수에 접근할 수 있도록 해줍니다
+// MyModule.module 및 MyApp.startKoin()와 같은
 import org.koin.ksp.generated.*
 
+@KoinApplication(modules = [MyModule::class])
+object MyApp
+
 fun main() {
-    val koin = startKoin {
+    MyApp.startKoin {
         printLogger()
-        modules(
-          // 여기서 생성된 ".module" 확장 프로퍼티가 있는 모듈 클래스를 사용합니다.
-          MyModule().module
-        )
     }
 
     // 평소처럼 Koin API를 사용하면 됩니다.
-    koin.get<MyComponent>()
+    KoinPlatform.getKoin().get<MyComponent>()
+}
+```
+
+### 구성 기반 모듈 설정
+
+또는 `@Configuration`을 사용하여 자동으로 로드되는 모듈을 생성할 수 있습니다:
+
+```kotlin
+// 구성이 있는 모듈 - 기본 구성에 자동으로 포함됩니다
+@Module
+@Configuration
+class MyModule
+```
+
+구성을 사용하면 모듈을 명시적으로 지정할 필요가 없습니다:
+
+```kotlin
+// 아래 임포트는 생성된 확장 함수에 접근할 수 있도록 해줍니다
+// 이 접근 방식은 @Configuration으로 표시된 모든 모듈을 자동으로 로드합니다
+import org.koin.ksp.generated.*
+
+@KoinApplication
+object MyApp
+
+fun main() {
+    MyApp.startKoin {
+        printLogger()
+    }
+
+    // 평소처럼 Koin API를 사용하면 됩니다.
+    KoinPlatform.getKoin().get<MyComponent>()
 }
 ```
 
@@ -76,17 +108,24 @@ class MyProvidedComponent
 class MyPresenter(@Provided val provided : MyProvidedComponent)
 ```
 
-### 기본 모듈 비활성화 (1.3.0 버전부터)
+### 기본 모듈 (1.3.0 버전부터 사용 중단됨)
 
-기본적으로 Koin 컴파일러는 모듈에 바인딩되지 않은 모든 정의를 감지하여 프로젝트 루트에 생성되는 "기본 모듈(default module)"에 포함시킵니다. 다음 옵션을 사용하여 기본 모듈의 사용 및 생성을 비활성화할 수 있습니다:
+:::warning
+기본 모듈 접근 방식은 Annotations 1.3.0부터 사용 중단되었습니다. 더 나은 구성과 명확성을 위해 `@Module` 및 `@Configuration` 애너테이션을 사용하여 명시적인 모듈을 사용하는 것을 권장합니다.
+:::
 
+이전에는 Koin 컴파일러가 모듈에 바인딩되지 않은 모든 정의를 감지하여 "기본 모듈"에 포함시켰습니다. 이 접근 방식은 이제 `@Configuration` 및 `@KoinApplication` 애너테이션을 사용하는 방식으로 사용 중단되었습니다.
+
+**사용 중단된 접근 방식** (사용 자제):
 ```groovy
 // build.gradle 또는 build.gradle.kts 파일에서
 
 ksp {
-    arg("KOIN_DEFAULT_MODULE","false")
+    arg("KOIN_DEFAULT_MODULE","true")
 }
 ```
+
+**권장되는 접근 방식**: 위 예시에서 `@Configuration` 및 `@KoinApplication`을 사용하여 보여진 것처럼 명시적인 모듈 구성을 사용하세요.
 
 ### Kotlin KMP 설정
 
@@ -102,6 +141,6 @@ Koin Annotations 애플리케이션을 SDK로 임베드하려는 경우, 다음 
 # 애너테이션 정의 유지
 -keep class org.koin.core.annotation.** { *; }
 
-# Koin 애너테이션이 붙은 클래스 유지  
+# Koin 애너테이션이 붙은 클래스 유지
 -keep @org.koin.core.annotation.* class * { *; }
 ```

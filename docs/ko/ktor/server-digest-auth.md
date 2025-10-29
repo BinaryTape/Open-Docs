@@ -80,7 +80,7 @@ Ktor는 다이제스트 인증을 사용하여 사용자 로그인 및 특정 [�
 4. 서버는 클라이언트가 보낸 자격 증명을 [검증](#configure-provider)하고 요청된 콘텐츠로 응답합니다.
 
 ## 다이제스트 인증 설치 {id="install"}
-`digest` 인증 제공자를 설치하려면 `install` 블록 내에서 [digest](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-auth/io.ktor.server.auth/digest.html) 함수를 호출합니다.
+`digest` 인증 제공자를 설치하려면 `install` 블록 내에서 [digest](https://api.ktor.io/ktor-server-auth/io.ktor.server.auth/digest.html) 함수를 호출합니다.
 
 ```kotlin
 import io.ktor.server.application.*
@@ -114,7 +114,7 @@ val userTable: Map<String, ByteArray> = mapOf(
 
 ### 2단계: 다이제스트 제공자 구성 {id="configure-provider"}
 
-`digest` 인증 제공자는 [DigestAuthenticationProvider.Config](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-auth/io.ktor.server.auth/-digest-authentication-provider/-config/index.html) 클래스를 통해 설정을 노출합니다. 아래 예시에서는 다음 설정이 지정됩니다.
+`digest` 인증 제공자는 [DigestAuthenticationProvider.Config](https://api.ktor.io/ktor-server-auth/io.ktor.server.auth/-digest-authentication-provider/-config/index.html) 클래스를 통해 설정을 노출합니다. 아래 예시에서는 다음 설정이 지정됩니다.
 * `realm` 속성은 `WWW-Authenticate` 헤더에 전달될 realm을 설정합니다.
 * `digestProvider` 함수는 지정된 사용자 이름에 대한 다이제스트의 `HA1` 부분을 가져옵니다.
 * (선택 사항) `validate` 함수는 자격 증명을 사용자 정의 principal에 매핑할 수 있도록 합니다.
@@ -141,11 +141,11 @@ fun Application.main() {
 data class CustomPrincipal(val userName: String, val realm: String)
 ```
 
-또한 [nonceManager](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-auth/io.ktor.server.auth/-digest-authentication-provider/-config/nonce-manager.html) 속성을 사용하여 nonce 값을 생성하는 방법을 지정할 수도 있습니다.
+또한 [nonceManager](https://api.ktor.io/ktor-server-auth/io.ktor.server.auth/-digest-authentication-provider/-config/nonce-manager.html) 속성을 사용하여 nonce 값을 생성하는 방법을 지정할 수도 있습니다.
 
 ### 3단계: 특정 리소스 보호 {id="authenticate-route"}
 
-`digest` 제공자를 구성한 후 **[authenticate](server-auth.md#authenticate-route)** 함수를 사용하여 애플리케이션의 특정 리소스를 보호할 수 있습니다. 인증에 성공한 경우 `call.principal` 함수를 사용하여 라우트 핸들러 내에서 인증된 [Principal](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-auth/io.ktor.server.auth/-principal/index.html)을 검색하고 인증된 사용자의 이름을 가져올 수 있습니다.
+`digest` 제공자를 구성한 후 **[authenticate](server-auth.md#authenticate-route)** 함수를 사용하여 애플리케이션의 특정 리소스를 보호할 수 있습니다. 인증에 성공한 경우 `call.principal` 함수를 사용하여 라우트 핸들러 내에서 인증된 [Principal](https://api.ktor.io/ktor-server-auth/io.ktor.server.auth/-principal/index.html)을 검색하고 인증된 사용자의 이름을 가져올 수 있습니다.
 
 ```kotlin
 routing {
@@ -155,3 +155,4 @@ routing {
         }
     }
 }
+```

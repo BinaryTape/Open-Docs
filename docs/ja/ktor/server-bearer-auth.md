@@ -57,7 +57,7 @@ Ktorでの認証に関する一般的な情報は、[Ktorサーバーでの認�
 4.  検証後、サーバーは保護されたリソースの内容を応答します。
 
 ## ベアラー認証のインストール {id="install"}
-`bearer`認証プロバイダーをインストールするには、`install`ブロック内で[bearer](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-auth/io.ktor.server.auth/bearer.html)関数を呼び出します。
+`bearer`認証プロバイダーをインストールするには、`install`ブロック内で[bearer](https://api.ktor.io/ktor-server-auth/io.ktor.server.auth/bearer.html)関数を呼び出します。
 
 ```kotlin
 import io.ktor.server.application.*
@@ -78,7 +78,7 @@ Ktorでさまざまな認証プロバイダーを構成する方法の一般的�
 
 ### ステップ1：ベアラープロバイダーの構成 {id="configure-provider"}
 
-`bearer`認証プロバイダーは、その設定を[BearerAuthenticationProvider.Configuration](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-auth/io.ktor.server.auth/-bearer-authentication-provider/-config/index.html)クラスを介して公開します。以下の例では、次の設定が指定されています。
+`bearer`認証プロバイダーは、その設定を[BearerAuthenticationProvider.Configuration](https://api.ktor.io/ktor-server-auth/io.ktor.server.auth/-bearer-authentication-provider/-config/index.html)クラスを介して公開します。以下の例では、次の設定が指定されています。
 *   `realm`プロパティは、`WWW-Authenticate`ヘッダーで渡されるレルムを設定します。
 *   `authenticate`関数は、クライアントによって送信されたトークンをチェックし、認証が成功した場合は`UserIdPrincipal`を返し、認証が失敗した場合は`null`を返します。
 
@@ -99,7 +99,7 @@ install(Authentication) {
 
 ### ステップ2：特定のリソースを保護 {id="authenticate-route"}
 
-`bearer`プロバイダーを構成した後、**[authenticate](server-auth.md#authenticate-route)**関数を使用してアプリケーション内の特定のリソースを保護できます。認証が成功した場合、`call.principal`関数を使用してルートハンドラー内で認証された[UserIdPrincipal](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-auth/io.ktor.server.auth/-user-id-principal/index.html)を取得し、認証されたユーザーの名前を取得できます。
+`bearer`プロバイダーを構成した後、**[authenticate](server-auth.md#authenticate-route)**関数を使用してアプリケーション内の特定のリソースを保護できます。認証が成功した場合、`call.principal`関数を使用してルートハンドラー内で認証された[UserIdPrincipal](https://api.ktor.io/ktor-server-auth/io.ktor.server.auth/-user-id-principal/index.html)を取得し、認証されたユーザーの名前を取得できます。
 
 ```kotlin
 routing {

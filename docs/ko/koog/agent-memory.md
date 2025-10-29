@@ -6,7 +6,7 @@ AgentMemory 기능은 AI 에이전트가 대화 전반에 걸쳐 정보를 저�
 
 ### 목적
 
-AgentMemory 기능은 다음과 같은 방법으로 AI 에이전트 상호 작용에서 컨텍스트를 유지하는 문제를 해결합니다.
+AgentMemory 기능은 다음과 같은 방법으로 AI 에이전트 상호 작용에서 컨텍스트를 유지하는 문제를 해결합니다:
 
 - 대화에서 추출된 중요한 팩트(Facts) 저장.
 - 개념(Concepts), 주제(Subjects) 및 범위(Scopes)별 정보 구성.
@@ -22,14 +22,14 @@ AgentMemory 기능은 계층적 구조로 구축됩니다.
 
 ***팩트(Facts)***는 메모리에 저장되는 개별 정보 조각입니다.
 팩트는 실제로 저장된 정보를 나타냅니다.
-팩트에는 두 가지 유형이 있습니다.
+팩트에는 두 가지 유형이 있습니다:
 
 - **단일 팩트 (SingleFact)**: 하나의 개념과 연관된 단일 값. 예를 들어, IDE 사용자의 현재 선호 테마:
 <!--- INCLUDE
 import ai.koog.agents.memory.model.Concept
-import ai.koog.agents.memory.model.DefaultTimeProvider
 import ai.koog.agents.memory.model.FactType
 import ai.koog.agents.memory.model.SingleFact
+import kotlinx.datetime.Clock
 -->
 ```kotlin
 // Storing favorite IDE theme (single value)
@@ -39,16 +39,16 @@ val themeFact = SingleFact(
         "User's preferred IDE theme", 
         factType = FactType.SINGLE),
     value = "Dark Theme",
-    timestamp = DefaultTimeProvider.getCurrentTimestamp()
+    timestamp = Clock.System.now().toEpochMilliseconds(),
 )
 ```
 <!--- KNIT example-agent-memory-01.kt -->
 - **다중 팩트 (MultipleFacts)**: 하나의 개념과 연관된 다중 값. 예를 들어, 사용자가 아는 모든 언어:
 <!--- INCLUDE
 import ai.koog.agents.memory.model.Concept
-import ai.koog.agents.memory.model.DefaultTimeProvider
 import ai.koog.agents.memory.model.FactType
 import ai.koog.agents.memory.model.MultipleFacts
+import kotlinx.datetime.Clock
 -->
 ```kotlin
 // Storing programming languages (multiple values)
@@ -59,7 +59,7 @@ val languagesFact = MultipleFacts(
         factType = FactType.MULTIPLE
     ),
     values = listOf("Kotlin", "Java", "Python"),
-    timestamp = DefaultTimeProvider.getCurrentTimestamp()
+    timestamp = Clock.System.now().toEpochMilliseconds(),
 )
 ```
 <!--- KNIT example-agent-memory-02.kt -->
@@ -210,10 +210,10 @@ val memoryProvider = LocalFileMemoryProvider(
 import ai.koog.agents.example.exampleAgentMemory03.MemorySubjects
 import ai.koog.agents.example.exampleAgentMemory06.memoryProvider
 import ai.koog.agents.memory.model.Concept
-import ai.koog.agents.memory.model.DefaultTimeProvider
 import ai.koog.agents.memory.model.FactType
 import ai.koog.agents.memory.model.MemoryScope
 import ai.koog.agents.memory.model.SingleFact
+import kotlinx.datetime.Clock
 
 suspend fun main() {
 -->
@@ -225,7 +225,7 @@ memoryProvider.save(
     fact = SingleFact(
         concept = Concept("greeting", "User's name", FactType.SINGLE),
         value = "John",
-        timestamp = DefaultTimeProvider.getCurrentTimestamp()
+        timestamp = Clock.System.now().toEpochMilliseconds(),
     ),
     subject = MemorySubjects.User,
     scope = MemoryScope.Product("my-app"),
@@ -263,7 +263,7 @@ if (greeting.size > 1) {
 
 #### 메모리 노드 사용하기
 
-AgentMemory 기능은 에이전트 전략에서 사용할 수 있는 다음 사전 정의된 메모리 노드를 제공합니다.
+AgentMemory 기능은 에이전트 전략에서 사용할 수 있는 다음 사전 정의된 메모리 노드를 제공합니다:
 
 *   [nodeLoadAllFactsFromMemory](https://api.koog.ai/agents/agents-features/agents-features-memory/ai.koog.agents.local.memory.feature.nodes/node-load-all-facts-from-memory.html): 주어진 개념에 대해 주제에 대한 모든 팩트를 메모리에서 로드합니다.
 *   [nodeLoadFromMemory](https://api.koog.ai/agents/agents-features/agents-features-memory/ai.koog.agents.local.memory.feature.nodes/node-load-from-memory.html): 주어진 개념에 대해 메모리에서 특정 팩트를 로드합니다.
@@ -333,10 +333,10 @@ val secureStorage = EncryptedStorage(
 import ai.koog.agents.example.exampleAgentMemory03.MemorySubjects
 import ai.koog.agents.example.exampleAgentMemory06.memoryProvider
 import ai.koog.agents.memory.model.Concept
-import ai.koog.agents.memory.model.DefaultTimeProvider
 import ai.koog.agents.memory.model.FactType
 import ai.koog.agents.memory.model.MemoryScope
 import ai.koog.agents.memory.model.SingleFact
+import kotlinx.datetime.Clock
 
 suspend fun main() {
 -->
@@ -348,7 +348,7 @@ memoryProvider.save(
     fact = SingleFact(
         concept = Concept("preferred-language", "What programming language is preferred by the user?", FactType.SINGLE),
         value = "Kotlin",
-        timestamp = DefaultTimeProvider.getCurrentTimestamp()
+        timestamp = Clock.System.now().toEpochMilliseconds(),
     ),
     subject = MemorySubjects.User,
     scope = MemoryScope.Product("my-app")
@@ -442,18 +442,18 @@ val saveAutoDetect by nodeSaveToMemoryAutoDetectFacts<Unit>(
 import ai.koog.agents.example.exampleAgentMemory03.MemorySubjects
 import ai.koog.agents.example.exampleAgentMemory06.memoryProvider
 import ai.koog.agents.memory.model.Concept
-import ai.koog.agents.memory.model.DefaultTimeProvider
 import ai.koog.agents.memory.model.FactType
 import ai.koog.agents.memory.model.MemoryScope
 import ai.koog.agents.memory.model.SingleFact
 import kotlinx.coroutines.runBlocking
+import kotlinx.datetime.Clock
 
 fun main() {
     runBlocking {
         val fact = SingleFact(
             concept = Concept("preferred-language", "What programming language is preferred by the user?", FactType.SINGLE),
             value = "Kotlin",
-            timestamp = DefaultTimeProvider.getCurrentTimestamp()
+            timestamp = Clock.System.now().toEpochMilliseconds()
         )
         val subject = MemorySubjects.User
         val scope = MemoryScope.Product("my-app")

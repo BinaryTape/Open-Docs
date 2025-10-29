@@ -60,7 +60,7 @@
 4.  服务器[检测](#configure-provider)客户端发送的凭证，并响应请求的内容。
 
 ## 安装 form 认证 {id="install"}
-要安装 `form` 认证提供者，请在 `install` 代码块中调用 [form](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-auth/io.ktor.server.auth/form.html) 函数：
+要安装 `form` 认证提供者，请在 `install` 代码块中调用 [form](https://api.ktor.io/ktor-server-auth/io.ktor.server.auth/form.html) 函数：
 
 ```kotlin
 import io.ktor.server.application.*
@@ -78,11 +78,11 @@ install(Authentication) {
 ## 配置 form 认证 {id="configure"}
 
 ### 步骤 1: 配置 form 提供者 {id="configure-provider"}
-`form` 认证提供者通过 [FormAuthenticationProvider.Config](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-auth/io.ktor.server.auth/-form-authentication-provider/-config/index.html) 类暴露其设置。在下面的示例中，指定了以下设置：
+`form` 认证提供者通过 [FormAuthenticationProvider.Config](https://api.ktor.io/ktor-server-auth/io.ktor.server.auth/-form-authentication-provider/-config/index.html) 类暴露其设置。在下面的示例中，指定了以下设置：
 *   `userParamName` 和 `passwordParamName` 属性指定了用于获取用户名和密码的参数名。
 *   `validate` 函数检测用户名和密码。
     `validate` 函数检测 `UserPasswordCredential`，并在成功认证的情况下返回 `UserIdPrincipal`，如果认证失败则返回 `null`。
-*   `challenge` 函数指定了认证失败时执行的操作。例如，您可以重定向回登录页或发送 [UnauthorizedResponse](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-auth/io.ktor.server.auth/-unauthorized-response/index.html)。
+*   `challenge` 函数指定了认证失败时执行的操作。例如，您可以重定向回登录页或发送 [UnauthorizedResponse](https://api.ktor.io/ktor-server-auth/io.ktor.server.auth/-unauthorized-response/index.html)。
 
 ```kotlin
 install(Authentication) {
@@ -109,7 +109,7 @@ install(Authentication) {
 
 配置完 `form` 提供者之后，您需要定义一个 `post` 路由，数据将发送到该路由。
 然后，将此路由添加到 **[authenticate](server-auth.md#authenticate-route)** 函数内部。
-如果认证成功，您可以使用 `call.principal` 函数在路由处理程序中检索认证的 [UserIdPrincipal](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-auth/io.ktor.server.auth/-user-id-principal/index.html)，并获取认证用户的名称。
+如果认证成功，您可以使用 `call.principal` 函数在路由处理程序中检索认证的 [UserIdPrincipal](https://api.ktor.io/ktor-server-auth/io.ktor.server.auth/-user-id-principal/index.html)，并获取认证用户的名称。
 
 ```kotlin
 routing {

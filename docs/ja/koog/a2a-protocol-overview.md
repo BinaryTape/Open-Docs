@@ -8,6 +8,16 @@ A2A (Agent-to-Agent) プロトコルは、AIエージェントが相互に、ま
 これは、一貫性のある相互運用可能なエージェント通信を可能にする、一連のメソッド、メッセージ形式、および動作を定義します。
 A2Aプロトコルの詳細情報と詳細な仕様については、公式の [A2Aプロトコルウェブサイト](https://a2a-protocol.org/latest/) を参照してください。
 
+## 利用開始
+
+**重要**: A2Aの依存関係は、デフォルトでは `koog-agents` メタ依存関係に含まれていません。必要なA2Aモジュールをプロジェクトに明示的に追加する必要があります。
+
+プロジェクトでA2Aを使用するには、ユースケースに基づいて依存関係を追加してください:
+
+- **A2Aクライアントの場合**: [A2A Client documentation](a2a-client.md#dependencies) を参照してください。
+- **A2Aサーバーの場合**: [A2A Server documentation](a2a-server.md#dependencies) を参照してください。
+- **Koog統合の場合**: [A2A Koog Integration documentation](a2a-koog-integration.md#dependencies) を参照してください。
+
 ## 主要なA2Aコンポーネント
 
 Koogは、A2Aプロトコルv0.3.0のクライアントとサーバーの両方に対する完全な実装に加え、Koogエージェントフレームワークとの統合も提供します。

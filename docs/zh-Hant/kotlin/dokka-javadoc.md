@@ -21,8 +21,8 @@ Javadoc 輸出格式作為 [Dokka 外掛](dokka-plugins.md) 實作，並由 Dokk
 
 ## 產生 Javadoc 文件
 
-> 從 Dokka 2.0.0 開始，[產生文件的 Gradle 任務已變更](dokka-migration.md#select-documentation-output-format)。
-> 有關更多詳細資訊和完整的變更清單，請參閱 [遷移指南](dokka-migration.md)。
+> 這些說明反映了 Dokka Gradle 外掛 v1 的配置和任務。從 Dokka 2.0.0 開始，[產生文件的 Gradle 任務已變更](dokka-migration.md#select-documentation-output-format)。
+> 有關 Dokka Gradle 外掛 v2 的更多詳細資訊和完整的變更清單，請參閱[遷移指南](dokka-migration.md)。
 >
 > Javadoc 格式不支援多平台專案。
 >
@@ -58,7 +58,7 @@ Javadoc 輸出格式作為 [Dokka 外掛](dokka-plugins.md) 實作，並由 Dokk
 
 Javadoc 輸出格式有兩個相依性，您需要將它們作為額外的 JAR 檔案提供：
 
-* [kotlin-as-java plugin](https://repo1.maven.org/maven2/org/jetbrains/dokka/kotlin-as-java-plugin/%dokkaVersion%/kotlin-as-java-plugin-%dokkaVersion%.jar)
+* [kotlin-as-java plugin](https://repo1.maven.org/maven2/org/jetbrains/dokka/kotlin-as-java-plugin/%dokkaVersion%/kotlin-as-java-plugin/%dokkaVersion%.jar)
 * [korte-jvm](https://repo1.maven.org/maven2/com/soywiz/korlibs/korte/korte-jvm/3.3.0/korte-jvm-3.3.0.jar)
 
 透過 [命令列選項](dokka-cli.md#run-with-command-line-options)：

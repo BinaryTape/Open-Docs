@@ -15,11 +15,12 @@
 <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/sockets-client-tls">sockets-client-tls</a>
 </p>
 <p>
-    <b><Links href="/ktor/server-native" summary="Ktor supports Kotlin/Native and allows you to run a server without an additional runtime or virtual machine.">네이티브 서버</Links> 지원</b>: ✅
+    <b><Links href="/ktor/server-native" summary="Ktor는 Kotlin/Native를 지원하며 추가 런타임이나 가상 머신 없이 서버를 실행할 수 있도록 합니다.">네이티브 서버</Links> 지원</b>: ✅
 </p>
 </tldr>
 
-서버 및 클라이언트의 HTTP/WebSocket 처리 외에도 Ktor는 TCP 및 UDP 로우 소켓을 지원합니다. Ktor는 내부적으로 [java.nio](https://docs.oracle.com/javase/8/docs/api/java/nio/package-summary.html)를 사용하는 코루틴 기반 API를 제공합니다.
+Ktor는 서버 및 클라이언트의 HTTP/WebSocket 처리 외에도 TCP 및 UDP 로우 소켓을 지원합니다.
+내부적으로 [java.nio](https://docs.oracle.com/javase/8/docs/api/java/nio/package-summary.html)를 사용하는 코루틴 기반 API를 제공합니다.
 
 > 소켓은 향후 업데이트에서 호환성이 깨지는 변경 사항과 함께 발전할 것으로 예상되는 실험적인 API를 사용합니다.
 >

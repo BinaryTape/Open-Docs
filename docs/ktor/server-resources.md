@@ -25,7 +25,7 @@
 
 <link-summary>Resources 插件允许您实现类型安全的路由。</link-summary>
 
-Ktor 提供了 [Resources](https://api.ktor.io/ktor-shared/ktor-resources/io.ktor.resources/-resources/index.html) 插件，允许您实现类型安全的[路由](server-routing.md)。为此，您需要创建一个类作为类型化路由，然后使用 `@Resource` 关键字注解此 class。请注意，`@Resource` 注解具有由 kotlinx.serialization 库提供的 `@Serializable` 行为。
+Ktor 提供了 [Resources](https://api.ktor.io/ktor-resources/io.ktor.resources/-resources/index.html) 插件，允许您实现类型安全的[路由](server-routing.md)。为此，您需要创建一个类作为类型化路由，然后使用 `@Resource` 关键字注解此 class。请注意，`@Resource` 注解具有由 kotlinx.serialization 库提供的 `@Serializable` 行为。
 
 > Ktor 客户端提供了向服务器发出[类型化请求](client-resources.md)的功能。
 

@@ -18,7 +18,7 @@ Kotlin 2.2.20 がリリースされ、Web開発に重要な変更が加えられ
 
 *   **Kotlin Multiplatform**: [Swiftエクスポートがデフォルトで利用可能に](#swift-export-available-by-default)、[Kotlinライブラリの安定したクロスプラットフォームコンパイル](#stable-cross-platform-compilation-for-kotlin-libraries)、および[共通依存関係を宣言するための新しいアプローチ](#new-approach-for-declaring-common-dependencies)。
 *   **言語**: [suspend関数型を持つオーバーロードにラムダを渡す際のオーバーロード解決の改善](#improved-overload-resolution-for-lambdas-with-suspend-function-types)。
-*   **Kotlin/Native**: [バイナリにおけるスタックカナリアのサポート](#support-for-stack-canaries-in-binaries)、および[リリースバイナリのバイナリサイズの縮小](#smaller-binary-size-for-release-binaries)。
+*   **Kotlin/Native**: [Xcode 26のサポート、スタックカナリア、およびリリースバイナリのバイナリサイズの縮小](#kotlin-native)。
 *   **Kotlin/JS**: [JavaScriptの`BigInt`型にコンパイルされる`Long`値](#usage-of-the-bigint-type-to-represent-kotlin-s-long-type)。
 
 > Web向けCompose Multiplatformがベータ版になりました。詳細は[ブログ記事](https://blog.jetbrains.com/kotlin/2025/09/compose-multiplatform-1-9-0-compose-for-web-beta/)をご覧ください。
@@ -145,7 +145,7 @@ kotlin {
 <primary-label ref="experimental-opt-in"/>
 
 > IntelliJ IDEAでのこの機能のコード分析、コード補完、ハイライトのサポートは、現在[2025.3 EAPビルド](https://www.jetbrains.com/idea/nextversion/)でのみ利用可能です。
-> 
+>
 {style = "note"}
 
 Kotlin 2.2.20では、`when`式の**データフローに基づく**網羅性チェックが導入されました。
@@ -185,7 +185,7 @@ kotlin {
 <primary-label ref="experimental-opt-in"/>
 
 > IntelliJ IDEAでのこの機能のコード分析、コード補完、ハイライトのサポートは、現在[2025.3 EAPビルド](https://www.jetbrains.com/idea/nextversion/)でのみ利用可能です。
-> 
+>
 {style = "note"}
 
 Kotlin 2.2.20では、コンパイラは`inline`関数の`catch`句で[reifiedジェネリック型パラメータ](inline-functions.md#reified-type-parameters)の使用を許可するようになりました。
@@ -230,7 +230,7 @@ Kotlinチームは、外部コントリビューターの[Iven Krall](https://gi
 <primary-label ref="experimental-opt-in"/>
 
 > IntelliJ IDEAでのこの機能のコード分析、コード補完、ハイライトのサポートは、現在[2025.3 EAPビルド](https://www.jetbrains.com/idea/nextversion/)でのみ利用可能です。
-> 
+>
 {style = "note"}
 
 Kotlin 2.2.20では、[Kotlinコントラクト](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.contracts/contract.html)にいくつかの改善が導入されました。これには以下が含まれます。
@@ -446,7 +446,7 @@ kotlin {
 ```
 
 ## Kotlin/JVM: `when`式での`invokedynamic`のサポート
-<primary-label ref="experimental-opt-in"/> 
+<primary-label ref="experimental-opt-in"/>
 
 Kotlin 2.2.20では、`when`式を`invokedynamic`でコンパイルできるようになりました。これまで、複数の型チェックを含む`when`式は、バイトコードで長い`instanceof`チェックの連鎖にコンパイルされていました。
 
@@ -501,7 +501,7 @@ kotlin {
 Kotlin 2.2.20では、Kotlin Multiplatformに重要な変更が導入されました。Swiftエクスポートがデフォルトで利用可能になり、新しい共有ソースセットが追加され、共通依存関係を管理する新しいアプローチを試すことができます。
 
 ### Swiftエクスポートがデフォルトで利用可能に
-<primary-label ref="experimental-general"/> 
+<primary-label ref="experimental-general"/>
 
 Kotlin 2.2.20では、Swiftエクスポートの実験的なサポートが導入されました。
 これにより、Kotlinソースを直接エクスポートし、Objective-Cヘッダーが不要になるため、SwiftからKotlinコードを慣用的に呼び出すことができます。
@@ -598,6 +598,14 @@ suspend fun readCopiedText(): String {
 expect suspend fun readCopiedText(): String
 
 // webMain
+@OptIn(ExperimentalWasmJsInterop::class)
+private suspend fun <R : JsAny?> Promise<R>.await(): R = suspendCancellableCoroutine { continuation ->
+    this.then(
+        onFulfilled = { continuation.resumeWith(Result.success(it)); null },
+        onRejected = { continuation.resumeWithException(it.asJsException()); null }
+    )
+}
+
 external interface Navigator { val clipboard: Clipboard }
 external interface Clipboard { fun readText(): Promise<JsString> }
 external val navigator: Navigator
@@ -679,7 +687,12 @@ Kotlin 2.2.20では、各依存関係がどのターゲットをサポートし�
 
 ## Kotlin/Native
 
-Kotlin 2.2.20では、Objective-C/Swiftとの相互運用性、デバッグ、新しいバイナリオプションに改善が加えられました。
+このリリースでは、Xcode 26のサポート、Objective-C/Swiftとの相互運用性、デバッグ、新しいバイナリオプションに改善が加えられました。
+
+### Xcode 26のサポート
+
+Kotlin 2.2.2**1**以降、Kotlin/NativeコンパイラはXcode 26をサポートします。これはXcodeの最新の安定バージョンです。
+Xcodeをアップデートし、最新のAPIにアクセスして、Appleオペレーティングシステム向けのKotlinプロジェクトの開発を継続できます。
 
 ### バイナリにおけるスタックカナリアのサポート
 
@@ -701,7 +714,7 @@ kotlin.native.binary.stackProtector=yes
 場合によっては、スタック保護がパフォーマンスコストを伴う可能性があることに注意してください。
 
 ### リリースバイナリのバイナリサイズの縮小
-<primary-label ref="experimental-opt-in"/> 
+<primary-label ref="experimental-opt-in"/>
 
 Kotlin 2.2.20では、リリースバイナリのバイナリサイズを削減できる`smallBinary`オプションが導入されました。
 この新しいオプションは、LLVMコンパイルフェーズ中のコンパイラのデフォルトの最適化引数として、事実上`-Oz`を設定します。
@@ -1146,7 +1159,7 @@ Kotlin 2.2.20では、KotlinデーモンのデフォルトJVM引数をカスタ�
 Kotlin 2.2.20では、[`org.jetbrains.kotlin:kotlin-compiler-arguments-description`](https://central.sonatype.com/artifact/org.jetbrains.kotlin/kotlin-compiler-arguments-description)の下で公開されているすべてのコンパイラオプションの共通スキーマが導入されました。
 このアーティファクトには、すべてのコンパイラオプション、それらの説明、および各オプションが導入または安定化されたバージョンなどのメタデータの、コード表現とJSON相当 (非JVMコンシューマ向け) の両方が含まれています。このスキーマを使用して、オプションのカスタムビューを生成したり、必要に応じて分析したりできます。
 
-## Kotlin標準ライブラリ
+## 標準ライブラリ
 
 このリリースでは、標準ライブラリに新しい実験的な機能が導入されました。Kotlin/JSでのインターフェース型識別のためのリフレクションサポート、共通アトミック型用の更新関数、および配列サイズ変更のための`copyOf()`オーバーロードです。
 

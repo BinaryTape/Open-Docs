@@ -25,7 +25,7 @@
 
 <link-summary>MicrometerMetrics 플러그인은 Ktor 서버 애플리케이션에서 Micrometer 메트릭을 활성화하고 Prometheus, JMX, Elastic 등 필요한 모니터링 시스템을 선택할 수 있도록 합니다.</link-summary>
 
-[MicrometerMetrics](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-metrics-micrometer/io.ktor.server.metrics.micrometer/-micrometer-metrics) 플러그인은 Ktor 서버 애플리케이션에서 [Micrometer](https://micrometer.io/docs) 메트릭을 활성화하고 Prometheus, JMX, Elastic 등 필요한 모니터링 시스템을 선택할 수 있도록 합니다. 기본적으로 Ktor는 HTTP 요청 모니터링을 위한 메트릭과 [JVM 모니터링][micrometer_jvm_metrics]을 위한 일련의 저수준 메트릭을 노출합니다. 이러한 메트릭을 사용자 정의하거나 새로운 메트릭을 생성할 수 있습니다.
+[MicrometerMetrics](https://api.ktor.io/ktor-server-metrics-micrometer/io.ktor.server.metrics.micrometer/-micrometer-metrics) 플러그인은 Ktor 서버 애플리케이션에서 [Micrometer](https://micrometer.io/docs) 메트릭을 활성화하고 Prometheus, JMX, Elastic 등 필요한 모니터링 시스템을 선택할 수 있도록 합니다. 기본적으로 Ktor는 HTTP 요청 모니터링을 위한 메트릭과 [JVM 모니터링][micrometer_jvm_metrics]을 위한 일련의 저수준 메트릭을 노출합니다. 이러한 메트릭을 사용자 정의하거나 새로운 메트릭을 생성할 수 있습니다.
 
 ## 종속성 추가 {id="add_dependencies"}
 `MicrometerMetrics`를 활성화하려면 빌드 스크립트에 다음 아티팩트를 포함해야 합니다.
@@ -114,7 +114,7 @@ fun Application.module() {
 
 ## 메트릭 구성 {id="configure_metrics"}
 
-`MicrometerMetrics` 플러그인은 [MicrometerMetricsConfig](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-metrics-micrometer/io.ktor.server.metrics.micrometer/-micrometer-metrics-config/index.html)를 사용하여 액세스할 수 있는 다양한 구성 옵션을 제공합니다.
+`MicrometerMetrics` 플러그인은 [MicrometerMetricsConfig](https://api.ktor.io/ktor-server-metrics-micrometer/io.ktor.server.metrics.micrometer/-micrometer-metrics-config/index.html)를 사용하여 액세스할 수 있는 다양한 구성 옵션을 제공합니다.
 
 ### 타이머 {id="timers"}
 각 타이머의 태그를 사용자 정의하려면 각 요청에 대해 호출되는 `timers` 함수를 사용할 수 있습니다.
@@ -144,7 +144,7 @@ install(MicrometerMetrics) {
 ```
 
 ### JVM 및 시스템 메트릭 {id="jvm_metrics"}
-[HTTP 메트릭](#ktor_metrics) 외에도 Ktor는 [JVM 모니터링][micrometer_jvm_metrics]을 위한 일련의 메트릭을 노출합니다. `meterBinders` 속성을 사용하여 이러한 메트릭 목록을 사용자 정의할 수 있습니다. 예를 들면 다음과 같습니다.
+HTTP 메트릭 외에도 Ktor는 [JVM 모니터링][micrometer_jvm_metrics]을 위한 일련의 메트릭을 노출합니다. `meterBinders` 속성을 사용하여 이러한 메트릭 목록을 사용자 정의할 수 있습니다. 예를 들면 다음과 같습니다.
 
 ```kotlin
 install(MicrometerMetrics) {

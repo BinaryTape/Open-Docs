@@ -5,14 +5,14 @@
 <tabs group="build-script">
 <tab title="Gradle Kotlin DSL" group-key="kotlin">
 
-> 自 Dokka 2.0.0 起，多個設定選項、Gradle 任務以及產生文件的步驟已更新，其中包括：
+> 這些說明反映了 Dokka Gradle 外掛程式 v1 的配置和任務。從 Dokka 2.0.0 開始，一些設定選項、Gradle 任務以及產生文件的步驟已更新，其中包括：
 >
 > * [調整設定選項](dokka-migration.md#adjust-configuration-options)
 > * [處理多模組專案](dokka-migration.md#share-dokka-configuration-across-modules)
 > * [使用更新的任務產生文件](dokka-migration.md#generate-documentation-with-the-updated-task)
 > * [指定輸出目錄](dokka-migration.md#output-directory)
 >
-> 有關更多詳細資訊和完整的變更列表，請參閱 [遷移指南](dokka-migration.md)。
+> 有關 Dokka Gradle 外掛程式 v2 的更多詳細資訊和完整的變更列表，請參閱 [遷移指南](dokka-migration.md)。
 >
 {style="note"}
 

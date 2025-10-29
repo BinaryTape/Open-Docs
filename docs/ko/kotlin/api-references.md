@@ -6,7 +6,7 @@
         <li>
             <a href="https://kotlinlang.org/api/core/kotlin-stdlib/"><b>표준 라이브러리 (stdlib)</b></a>
             <br/>
-            <p>Kotlin 표준 라이브러리(stdlib)는 컬렉션, 텍스트 및 문자열 처리, 범위, 시퀀스 등 필수 API를 포함하여 Kotlin 프로그래밍을 위한 핵심 기능을 제공합니다. 이 라이브러리는 플랫폼별 API를 확장하고, 해당 API를 사용할 수 있는 Kotlin 우선 API를 제공합니다.</p>
+            <p>Kotlin 표준 라이브러리는 컬렉션, 텍스트 및 문자열 처리, 범위, 시퀀스 등 필수 API를 포함하여 Kotlin 프로그래밍을 위한 핵심 기능을 제공합니다. 이 라이브러리는 플랫폼별 API를 확장하고, 해당 API를 사용할 수 있는 Kotlin 우선 API를 제공합니다.</p>
             <img src="github.svg" width="18" alt="GitHub"/> <a href="https://github.com/JetBrains/kotlin">kotlin</a>
             <br/>
         </li>
@@ -27,7 +27,7 @@
         <li>
             <a href="https://kotlinlang.org/api/kotlinx.serialization/"><b>직렬화 (kotlinx.serialization)</b></a>
             <br/>
-            <p>멀티플랫폼 직렬화 라이브러리입니다. Kotlin 객체를 JSON, CBOR, Protocol Buffers와 같은 다양한 형식으로 변환하는 타입 안정적이고 컴파일 시점 메커니즘을 제공합니다.</p>
+            <p>멀티플랫폼 직렬화 라이브러리입니다. Kotlin 객체를 JSON, CBOR, Protocol Buffers와 같은 다양한 형식으로 변환하는 타입 안전적이고 컴파일 시점 메커니즘을 제공합니다.</p>
             <img src="github.svg" width="18" alt="GitHub"/> <a href="https://github.com/Kotlin/kotlinx.serialization">kotlinx.serialization</a>
             <br/>
         </li>
@@ -46,13 +46,6 @@
             <br/>
         </li>
         <li>
-            <a href="https://kotlinlang.org/api/kotlinx-metadata-jvm/"><b>JVM 메타데이터 (kotlin-metadata-jvm)</b></a>
-            <br/>
-            <p>JVM 클래스 파일에 저장된 Kotlin 메타데이터를 읽고 쓰는 라이브러리입니다. 주로 어노테이션 프로세서, 정적 분석기, 컴파일러 플러그인과 같은 도구에서 사용됩니다.</p>
-            <img src="github.svg" width="18" alt="GitHub"/> <a href="https://github.com/JetBrains/kotlin/tree/master/libraries/kotlinx-metadata">kotlinx-metadata</a>
-            <br/>
-        </li>
-        <li>
             <a href="https://kotlinlang.org/api/kotlin-gradle-plugin/"><b>Kotlin Gradle 플러그인 (kotlin-gradle-plugin)</b></a>
             <br/>
             <p>Kotlin 코드 컴파일, 테스트 및 패키징을 위한 Kotlin Gradle 플러그인입니다. 이 플러그인은 JVM 및 멀티플랫폼 빌드를 간소화하고, 종속성을 관리하며, IDE 및 CI 시스템과 통합됩니다.</p>
@@ -66,5 +59,19 @@
             <img src="github.svg" width="18" alt="GitHub"/> <a href="https://github.com/ktorio/ktor">ktor</a>
             <br/>
         </li>
-</list>
+        <li>
+            <a href="https://kotlinlang.org/api/kotlinx-metadata-jvm/"><b>JVM 메타데이터 (kotlin-metadata-jvm)</b></a>
+            <br/>
+            <p>JVM 클래스 파일에 저장된 Kotlin 메타데이터를 읽고 쓰는 라이브러리입니다. 주로 어노테이션 프로세서, 정적 분석기, 컴파일러 플러그인과 같은 도구에서 사용됩니다.</p>
+            <img src="github.svg" width="18" alt="GitHub"/> <a href="https://github.com/JetBrains/kotlin/tree/master/libraries/kotlinx-metadata">kotlinx-metadata</a>
+            <br/>
+        </li>
+        <li>
+            <a href="https://kotlinlang.org/api/compose-multiplatform/material3/"><b>Compose Multiplatform Material3</b></a>
+            <br/>
+            <p>Material Design 3 컴포넌트로 사용자 인터페이스를 구축하기 위한 멀티플랫폼 라이브러리입니다. 이 API 참조에는 컴포저블을 미리 볼 수 있는 Material 3 컴포넌트 갤러리가 포함되어 있습니다.</p>
+            <img src="github.svg" width="18" alt="GitHub"/> <a href="https://github.com/JetBrains/compose-multiplatform-core/tree/jb-main/compose/material3">compose-material3</a>
+            <br/>
+        </li>
+    </list>
 </topic>

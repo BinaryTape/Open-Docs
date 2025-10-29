@@ -22,7 +22,9 @@
 </p>
 </tldr>
 
-[%plugin_name%](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-double-receive/io.ktor.server.plugins.doublereceive/-double-receive.html) 플러그인은 `RequestAlreadyConsumedException` 예외 없이 [요청 바디를](server-requests.md#body_contents) 여러 번 수신할 수 있는 기능을 제공합니다. 이는 [플러그인](server-plugins.md)이 요청 바디를 이미 소비하여 라우트 핸들러 내에서 이를 수신할 수 없는 경우에 유용할 수 있습니다. 예를 들어, [CallLogging](server-call-logging.md) 플러그인을 사용하여 요청 바디를 로깅한 다음, `post` [라우트 핸들러](server-routing.md#define_route) 내에서 바디를 한 번 더 수신하는 데 `%plugin_name%`을 사용할 수 있습니다.
+[%plugin_name%](https://api.ktor.io/ktor-server-double-receive/io.ktor.server.plugins.doublereceive/-double-receive.html) 플러그인은 `RequestAlreadyConsumedException` 예외 없이 [요청 바디를](server-requests.md#body_contents) 여러 번 수신할 수 있는 기능을 제공합니다.
+이는 [플러그인](server-plugins.md)이 요청 바디를 이미 소비하여 라우트 핸들러 내에서 이를 수신할 수 없는 경우에 유용할 수 있습니다.
+예를 들어, [CallLogging](server-call-logging.md) 플러그인을 사용하여 요청 바디를 로깅한 다음, `post` [라우트 핸들러](server-routing.md#define_route) 내에서 바디를 한 번 더 수신하는 데 `%plugin_name%`을 사용할 수 있습니다.
 
 > `%plugin_name%` 플러그인은 향후 업데이트에서 잠재적으로 호환성이 깨지는 변경 사항과 함께 발전할 것으로 예상되는 실험적인 API를 사용합니다.
 >
@@ -48,7 +50,8 @@
 ## %plugin_name% 설치 {id="install_plugin"}
 
 <p>
-    애플리케이션에 <code>%plugin_name%</code> 플러그인을 <a href="#install">설치</a>하려면, 지정된 <Links href="/ktor/server-modules" summary="모듈을 사용하면 라우트를 그룹화하여 애플리케이션을 구조화할 수 있습니다.">모듈</Links>의 <code>install</code> 함수에 전달하세요. 아래 코드 스니펫은 <code>%plugin_name%</code>을 설치하는 방법을 보여줍니다...
+    애플리케이션에 <code>%plugin_name%</code> 플러그인을 <a href="#install">설치</a>하려면, 지정된 <Links href="/ktor/server-modules" summary="모듈을 사용하면 라우트를 그룹화하여 애플리케이션을 구조화할 수 있습니다.">모듈</Links>의 <code>install</code> 함수에 전달하세요.
+    아래 코드 스니펫은 <code>%plugin_name%</code>을 설치하는 방법을 보여줍니다...
 </p>
 <list>
     <li>
@@ -67,10 +70,12 @@
     </TabItem>
 </Tabs>
 <p>
-    <code>%plugin_name%</code> 플러그인은 <a href="#install-route">특정 라우트에 설치</a>할 수도 있습니다. 이는 애플리케이션의 리소스별로 다른 <code>%plugin_name%</code> 설정을 필요로 할 때 유용할 수 있습니다.
+    <code>%plugin_name%</code> 플러그인은 <a href="#install-route">특정 라우트에 설치</a>할 수도 있습니다.
+    이는 애플리케이션의 리소스별로 다른 <code>%plugin_name%</code> 설정을 필요로 할 때 유용할 수 있습니다.
 </p>
 
-`%plugin_name%`을 설치한 후에는 [요청 바디를](server-requests.md#body_contents) 여러 번 수신할 수 있으며, 각 호출은 동일한 인스턴스를 반환합니다. 예를 들어, [CallLogging](server-call-logging.md) 플러그인을 사용하여 요청 바디 로깅을 활성화할 수 있습니다...
+`%plugin_name%`을 설치한 후에는 [요청 바디를](server-requests.md#body_contents) 여러 번 수신할 수 있으며, 각 호출은 동일한 인스턴스를 반환합니다.
+예를 들어, [CallLogging](server-call-logging.md) 플러그인을 사용하여 요청 바디 로깅을 활성화할 수 있습니다...
 
 ```kotlin
 install(CallLogging) {
@@ -113,3 +118,4 @@ post("/") {
 install(DoubleReceive) {
     cacheRawRequest = false
 }
+```

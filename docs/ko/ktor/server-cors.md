@@ -24,7 +24,7 @@
 </tldr>
 
 서버가 [교차 출처 요청](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS)을 처리해야 하는 경우,
-[CORS](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-cors/io.ktor.server.plugins.cors.routing/-c-o-r-s.html)
+[CORS](https://api.ktor.io/ktor-server-cors/io.ktor.server.plugins.cors.routing/-c-o-r-s.html)
 Ktor 플러그인을 설치하고 구성해야 합니다. 이 플러그인을 사용하면 허용된 호스트, HTTP 메서드, 클라이언트가 설정한 헤더 등을 구성할 수 있습니다.
 
 ## 종속성 추가 {id="add_dependencies"}
@@ -77,7 +77,7 @@ Ktor 플러그인을 설치하고 구성해야 합니다. 이 플러그인을 �
 ## CORS 구성 {id="configure"}
 
 CORS 관련 구성 설정은
-[CORSConfig](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-cors/io.ktor.server.plugins.cors/-c-o-r-s-config/index.html)
+[CORSConfig](https://api.ktor.io/ktor-server-cors/io.ktor.server.plugins.cors/-c-o-r-s-config/index.html)
 클래스에서 제공됩니다. 이러한 설정을 구성하는 방법을 살펴보겠습니다.
 
 ### 개요 {id="overview"}
@@ -109,7 +109,7 @@ function saveCustomer() {
 
 ```
 
-백엔드에서 이러한 요청을 허용하려면 다음과 같이 `CORS` 플러그인을 구성해야 합니다:
+백엔드에서 이러한 요청을 허용하려면 다음과 같이 <code>CORS</code> 플러그인을 구성해야 합니다:
 
 ```kotlin
 install(CORS) {
@@ -183,7 +183,7 @@ install(CORS) {
 ```
 
 > <code>allowHeaders</code> 또는 <code>allowHeadersPrefixed</code>는 비단순(non-simple) 콘텐츠 타입에 대해
-[allowNonSimpleContentTypes](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-cors/io.ktor.server.plugins.cors/-c-o-r-s-config/allow-non-simple-content-types.html)
+[allowNonSimpleContentTypes](https://api.ktor.io/ktor-server-cors/io.ktor.server.plugins.cors/-c-o-r-s-config/allow-non-simple-content-types.html)
 속성을 <code>true</code>로 설정해야 합니다.
 
 ### 헤더 노출 {id="expose-headers"}
@@ -221,4 +221,4 @@ install(CORS) {
 }
 ```
 
-다른 구성 옵션은 [CORSConfig](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-cors/io.ktor.server.plugins.cors/-c-o-r-s-config/index.html)에서 확인할 수 있습니다.
+다른 구성 옵션은 [CORSConfig](https://api.ktor.io/ktor-server-cors/io.ktor.server.plugins.cors/-c-o-r-s-config/index.html)에서 확인할 수 있습니다.

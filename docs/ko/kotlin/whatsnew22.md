@@ -1,6 +1,362 @@
 [//]: # (title: Kotlin 2.2.0의 새로운 기능)
 
-에서 멀티-달러 문자 처리 개선](strings.md#multi-dollar-string-interpolation)
+[출시: 2025년 6월 23일](releases.md#release-details)
+
+Kotlin 2.2.0이 출시되었습니다! 주요 내용은 다음과 같습니다:
+
+*   **언어**: [컨텍스트 파라미터](#preview-of-context-parameters)를 포함한 새로운 언어 기능 미리보기.
+    가드 조건, 비지역(non-local) `break` 및 `continue`, 멀티-달러 인터폴레이션 등 [이전에 실험적이었던 여러 기능이 이제 Stable](#stable-features-guard-conditions-non-local-break-and-continue-and-multi-dollar-interpolation)로 변경되었습니다.
+*   **Kotlin 컴파일러**: [컴파일러 경고의 통합 관리](#kotlin-compiler-unified-management-of-compiler-warnings).
+*   **Kotlin/JVM**: [인터페이스 함수의 기본 메서드 생성 변경](#changes-to-default-method-generation-for-interface-functions).
+*   **Kotlin/Native**: [LLVM 19 및 메모리 소비 추적 및 조정용 새로운 기능](#kotlin-native).
+*   **Kotlin/Wasm**: [Wasm 타겟 분리](#build-infrastructure-for-wasm-target-separated-from-javascript-target) 및 [프로젝트별 Binaryen 구성](#per-project-binaryen-configuration) 기능.
+*   **Kotlin/JS**: [`@JsPlainObject` 인터페이스에 생성된 `copy()` 메서드 수정](#fix-for-copy-in-jsplainobject-interfaces).
+*   **Gradle**: [Kotlin Gradle 플러그인에 바이너리 호환성 검증 포함](#binary-compatibility-validation-included-in-kotlin-gradle-plugin).
+*   **표준 라이브러리**: [Stable Base64 및 HexFormat API](#stable-base64-encoding-and-decoding).
+*   **문서**: [문서 설문조사가 진행 중](https://surveys.jetbrains.com/s3/Kotlin-Docs-2025)이며, [Kotlin 문서에 상당한 개선 사항이 적용](#documentation-updates)되었습니다.
+
+Kotlin 언어 발전팀이 새로운 기능을 논의하고 질문에 답변하는 다음 비디오를 시청할 수도 있습니다:
+
+<video src="https://www.youtube.com/watch?v=jne3923lWtw" title="What's new in Kotlin 2.2.0"/>
+
+## IDE 지원
+
+2.2.0을 지원하는 Kotlin 플러그인은 IntelliJ IDEA 및 Android Studio의 최신 버전에 번들로 제공됩니다.
+IDE에서 Kotlin 플러그인을 업데이트할 필요가 없습니다.
+빌드 스크립트에서 Kotlin 버전을 2.2.0으로 [변경](configure-build-for-eap.md#adjust-the-kotlin-version)하기만 하면 됩니다.
+
+자세한 내용은 [새 릴리스로 업데이트](releases.md#update-to-a-new-kotlin-version)를 참조하세요.
+
+## 언어
+
+이번 릴리스에서는 가드 조건,
+비지역(non-local) `break` 및 `continue`,
+멀티-달러 인터폴레이션이 [Stable](components-stability.md#stability-levels-explained)로 [승격](#stable-features-guard-conditions-non-local-break-and-continue-and-multi-dollar-interpolation)되었습니다.
+또한,
+[컨텍스트 파라미터](#preview-of-context-parameters) 및 [컨텍스트-인식 확인(context-sensitive resolution)](#preview-of-context-sensitive-resolution)과 같은 여러 기능이 미리보기로 도입되었습니다.
+
+### 컨텍스트 파라미터 미리보기
+<primary-label ref="experimental-general"/>
+
+컨텍스트 파라미터를 사용하면 함수와 프로퍼티가 주변 컨텍스트에서 암묵적으로 사용 가능한 의존성을 선언할 수 있습니다.
+
+컨텍스트 파라미터를 사용하면 함수 호출 세트 전반에 걸쳐 공유되고 거의 변경되지 않는 서비스나 의존성 같은 값들을 수동으로 전달할 필요가 없습니다.
+
+컨텍스트 파라미터는 컨텍스트 리시버(context receivers)라는 이전 실험적 기능을 대체합니다. 컨텍스트 리시버에서 컨텍스트 파라미터로 마이그레이션하려면 [블로그 게시물](https://blog.jetbrains.com/kotlin/2025/04/update-on-context-parameters/)에 설명된 대로 IntelliJ IDEA의 지원을 활용할 수 있습니다.
+
+주요 차이점은 컨텍스트 파라미터가 함수 본문에서 리시버로 도입되지 않는다는 것입니다. 따라서 컨텍스트가 암묵적으로 사용 가능했던 컨텍스트 리시버와 달리, 컨텍스트 파라미터의 멤버에 접근하려면 컨텍스트 파라미터의 이름을 사용해야 합니다.
+
+Kotlin의 컨텍스트 파라미터는 간소화된 의존성 주입, 향상된 DSL 설계, 범위 지정된(scoped) 작업을 통해 의존성 관리에 있어 상당한 개선을 나타냅니다. 더 자세한 정보는 해당 기능의 [KEEP](https://github.com/Kotlin/KEEP/blob/context-parameters/proposals/context-parameters.md) 제안을 참조하세요.
+
+#### 컨텍스트 파라미터 선언 방법
+
+프로퍼티와 함수에 `context` 키워드 뒤에 `name: Type` 형식의 파라미터 목록을 사용하여 컨텍스트 파라미터를 선언할 수 있습니다. `UserService` 인터페이스에 대한 의존성을 가진 예시는 다음과 같습니다:
+
+```kotlin
+// UserService는 컨텍스트에서 필요한 의존성을 정의합니다.
+interface UserService {
+    fun log(message: String)
+    fun findUserById(id: Int): String
+}
+
+// 컨텍스트 파라미터가 있는 함수를 선언합니다.
+context(users: UserService)
+fun outputMessage(message: String) {
+    // 컨텍스트에서 log를 사용합니다.
+    users.log("Log: $message")
+}
+
+// 컨텍스트 파라미터가 있는 프로퍼티를 선언합니다.
+context(users: UserService)
+val firstUser: String
+    // 컨텍스트에서 findUserById를 사용합니다.
+    get() = users.findUserById(1)
+```
+
+컨텍스트 파라미터 이름으로 `_`를 사용할 수 있습니다. 이 경우 파라미터 값은 확인(resolution)에 사용할 수 있지만, 블록 내부에서는 이름으로 접근할 수 없습니다:
+
+```kotlin
+// "_"를 컨텍스트 파라미터 이름으로 사용합니다.
+context(_: UserService)
+fun logWelcome() {
+    // UserService에서 적절한 log 함수를 찾습니다.
+    outputMessage("Welcome!")
+}
+```
+
+#### 컨텍스트 파라미터 활성화 방법
+
+프로젝트에서 컨텍스트 파라미터를 활성화하려면 명령줄에서 다음 컴파일러 옵션을 사용하세요:
+
+```Bash
+-Xcontext-parameters
+```
+
+또는 Gradle 빌드 파일의 `compilerOptions {}` 블록에 추가하세요:
+
+```kotlin
+// build.gradle.kts
+kotlin {
+    compilerOptions {
+        freeCompilerArgs.add("-Xcontext-parameters")
+    }
+}
+```
+
+> `-Xcontext-receivers`와 `-Xcontext-parameters` 컴파일러 옵션을 동시에 지정하면 오류가 발생합니다.
+>
+{style="warning"}
+
+#### 피드백 남기기
+
+이 기능은 향후 Kotlin 릴리스에서 안정화되고 개선될 예정입니다.
+이슈 트래커 [YouTrack](https://youtrack.jetbrains.com/issue/KT-10468/Context-Parameters-expanding-extension-receivers-to-work-with-scopes)에 피드백을 남겨주시면 감사하겠습니다.
+
+### 컨텍스트-인식 확인 미리보기
+<primary-label ref="experimental-general"/>
+
+Kotlin 2.2.0은 컨텍스트-인식 확인(context-sensitive resolution) 구현을 미리보기로 도입합니다.
+
+이전에는 타입이 컨텍스트에서 추론될 수 있는 경우에도 enum 엔트리 또는 봉인된(sealed) 클래스 멤버의 전체 이름을 작성해야 했습니다.
+예를 들어:
+
+```kotlin
+enum class Problem {
+    CONNECTION, AUTHENTICATION, DATABASE, UNKNOWN
+}
+
+fun message(problem: Problem): String = when (problem) {
+    Problem.CONNECTION -> "connection"
+    Problem.AUTHENTICATION -> "authentication"
+    Problem.DATABASE -> "database"
+    Problem.UNKNOWN -> "unknown"
+}
+```
+
+이제 컨텍스트-인식 확인을 통해 예상 타입이 알려진 컨텍스트에서는 타입 이름을 생략할 수 있습니다:
+
+```kotlin
+enum class Problem {
+    CONNECTION, AUTHENTICATION, DATABASE, UNKNOWN
+}
+
+// 알려진 문제 타입에 따라 enum 엔트리를 확인합니다.
+fun message(problem: Problem): String = when (problem) {
+    CONNECTION -> "connection"
+    AUTHENTICATION -> "authentication"
+    DATABASE -> "database"
+    UNKNOWN -> "unknown"
+}
+```
+
+컴파일러는 이 컨텍스트 타입 정보를 사용하여 올바른 멤버를 확인합니다. 이 정보에는 다음이 포함됩니다:
+
+*   `when` 표현식의 대상
+*   명시적 반환 타입
+*   선언된 변수 타입
+*   타입 검사 (`is`) 및 캐스트 (`as`)
+*   봉인된(sealed) 클래스 계층의 알려진 타입
+*   선언된 파라미터 타입
+
+> 컨텍스트-인식 확인은 함수, 파라미터가 있는 프로퍼티, 리시버가 있는 확장 프로퍼티에는 적용되지 않습니다.
+>
+{style="note"}
+
+프로젝트에서 컨텍스트-인식 확인을 시도하려면 명령줄에서 다음 컴파일러 옵션을 사용하세요:
+
+```bash
+-Xcontext-sensitive-resolution
+```
+
+또는 Gradle 빌드 파일의 `compilerOptions {}` 블록에 추가하세요:
+
+```kotlin
+// build.gradle.kts
+kotlin {
+    compilerOptions {
+        freeCompilerArgs.add("-Xcontext-sensitive-resolution")
+    }
+}
+```
+
+이 기능은 향후 Kotlin 릴리스에서 안정화되고 개선될 예정이며, 이슈 트래커 [YouTrack](https://youtrack.jetbrains.com/issue/KT-16768/Context-sensitive-resolution)에 피드백을 남겨주시면 감사하겠습니다.
+
+### 어노테이션 사용-위치 타겟을 위한 기능 미리보기
+<primary-label ref="experimental-general"/>
+
+Kotlin 2.2.0은 어노테이션 사용-위치(use-site) 타겟 작업에 더욱 편리함을 제공하는 몇 가지 기능을 도입합니다.
+
+#### 프로퍼티를 위한 `@all` 메타-타겟
+<primary-label ref="experimental-general"/>
+
+Kotlin은 [사용-위치 타겟(use-site targets)](annotations.md#annotation-use-site-targets)으로 알려진 선언의 특정 부분에 어노테이션을 첨부할 수 있도록 합니다.
+하지만 각 타겟에 개별적으로 어노테이션을 다는 것은 복잡하고 오류가 발생하기 쉬웠습니다:
+
+```kotlin
+data class User(
+    val username: String,
+
+    @param:Email      // 생성자 파라미터
+    @field:Email      // 백킹 필드
+    @get:Email        // 게터 메서드
+    @property:Email   // Kotlin 프로퍼티 참조
+    val email: String,
+) {
+    @field:Email
+    @get:Email
+    @property:Email
+    val secondaryEmail: String? = null
+}
+```
+
+이를 단순화하기 위해 Kotlin은 프로퍼티를 위한 새로운 `@all` 메타-타겟을 도입합니다.
+이 기능은 컴파일러에게 어노테이션을 프로퍼티의 모든 관련 부분에 적용하도록 지시합니다. 이를 사용하면 `@all`은 어노테이션을 다음 항목에 적용하려고 시도합니다:
+
+*   **`param`**: 주 생성자에서 선언된 경우 생성자 파라미터.
+*   **`property`**: Kotlin 프로퍼티 자체.
+*   **`field`**: 백킹 필드(backing field)가 존재하는 경우.
+*   **`get`**: 게터 메서드.
+*   **`setparam`**: 프로퍼티가 `var`로 정의된 경우 세터 메서드의 파라미터.
+*   **`RECORD_COMPONENT`**: 클래스가 `@JvmRecord`인 경우, 어노테이션은 [Java 레코드 컴포넌트](#improved-support-for-annotating-jvm-records)에 적용됩니다. 이 동작은 Java가 레코드 컴포넌트에 어노테이션을 처리하는 방식을 모방합니다.
+
+컴파일러는 주어진 프로퍼티의 타겟에만 어노테이션을 적용합니다.
+
+아래 예시에서 `@Email` 어노테이션은 각 프로퍼티의 모든 관련 타겟에 적용됩니다:
+
+```kotlin
+data class User(
+    val username: String,
+
+    // @Email을 param, property, field,
+    // get, setparam (var인 경우)에 적용합니다.
+    @all:Email val email: String,
+) {
+    // @Email을 property, field, get에 적용합니다.
+    // (생성자에 없으므로 param에는 적용되지 않습니다.)
+    @all:Email val secondaryEmail: String? = null
+}
+```
+
+주 생성자 내부 및 외부의 모든 프로퍼티에서 `@all` 메타-타겟을 사용할 수 있습니다. 그러나 [여러 어노테이션](https://kotlinlang.org/spec/syntax-and-grammar.html#grammar-rule-annotation)과 함께 `@all` 메타-타겟을 사용할 수는 없습니다.
+
+이 새로운 기능은 문법을 단순화하고, 일관성을 보장하며, Java 레코드와의 상호 운용성을 개선합니다.
+
+프로젝트에서 `@all` 메타-타겟을 활성화하려면 명령줄에서 다음 컴파일러 옵션을 사용하세요:
+
+```Bash
+-Xannotation-target-all
+```
+
+또는 Gradle 빌드 파일의 `compilerOptions {}` 블록에 추가하세요:
+
+```kotlin
+// build.gradle.kts
+kotlin {
+    compilerOptions {
+        freeCompilerArgs.add("-Xannotation-target-all")
+    }
+}
+```
+
+이 기능은 미리보기(preview) 상태입니다. 문제 발생 시 [YouTrack](https://kotl.in/issue) 이슈 트래커에 보고해 주세요. `@all` 메타-타겟에 대한 자세한 정보는 [KEEP](https://github.com/Kotlin/KEEP/blob/master/proposals/annotation-target-in-properties.md) 제안을 참조하세요.
+
+#### 사용-위치 어노테이션 타겟을 위한 새로운 기본 규칙
+<primary-label ref="experimental-general"/>
+
+Kotlin 2.2.0은 파라미터, 필드, 프로퍼티로 어노테이션을 전파하기 위한 새로운 기본 규칙을 도입합니다.
+이전에는 어노테이션이 기본적으로 `param`, `property`, `field` 중 하나에만 적용되었지만, 이제 기본값은 어노테이션에 기대되는 것과 더욱 일치합니다.
+
+적용 가능한 타겟이 여러 개 있는 경우, 다음과 같이 하나 이상이 선택됩니다:
+
+*   생성자 파라미터 타겟 (`param`)이 적용 가능하다면, 이를 사용합니다.
+*   프로퍼티 타겟 (`property`)이 적용 가능하다면, 이를 사용합니다.
+*   필드 타겟 (`field`)이 적용 가능하지만 `property`는 적용 불가능하다면, `field`를 사용합니다.
+
+타겟이 여러 개 있고 `param`, `property`, `field` 중 어느 것도 적용 가능하지 않다면, 어노테이션은 오류를 발생시킵니다.
+
+이 기능을 활성화하려면 Gradle 빌드 파일의 `compilerOptions {}` 블록에 추가하세요:
+
+```kotlin
+// build.gradle.kts
+kotlin {
+    compilerOptions {
+        freeCompilerArgs.add("-Xannotation-default-target=param-property")
+    }
+}
+```
+
+또는 컴파일러에 다음 명령줄 인수를 사용하세요:
+
+```Bash
+-Xannotation-default-target=param-property
+```
+
+이전 동작을 사용하고 싶다면 다음을 수행할 수 있습니다:
+
+*   특정 경우에, 예를 들어 `@Annotation` 대신 `@param:Annotation`을 사용하여 필요한 타겟을 명시적으로 정의할 수 있습니다.
+*   전체 프로젝트의 경우 Gradle 빌드 파일에 이 플래그를 사용하세요:
+
+    ```kotlin
+    // build.gradle.kts
+    kotlin {
+        compilerOptions {
+            freeCompilerArgs.add("-Xannotation-default-target=first-only")
+        }
+    }
+    ```
+
+이 기능은 미리보기(preview) 상태입니다. 문제 발생 시 [YouTrack](https://kotl.in/issue) 이슈 트래커에 보고해 주세요. 어노테이션 사용-위치 타겟의 새로운 기본 규칙에 대한 자세한 정보는 [KEEP](https://github.com/Kotlin/KEEP/blob/master/proposals/annotation-target-in-properties.md) 제안을 참조하세요.
+
+### 중첩된 타입 별칭 지원
+<primary-label ref="beta"/>
+
+이전에는 Kotlin 파일의 최상위(top level)에서만 [타입 별칭(type aliases)](type-aliases.md)을 선언할 수 있었습니다. 이는 내부 또는 도메인별 타입 별칭조차도 사용되는 클래스 외부에서 정의되어야 함을 의미했습니다.
+
+2.2.0부터는 타입 별칭이 외부 클래스에서 타입 파라미터를 캡처하지 않는 한, 다른 선언 내부에 타입 별칭을 정의할 수 있습니다:
+
+```kotlin
+class Dijkstra {
+    typealias VisitedNodes = Set<Node>
+
+    private fun step(visited: VisitedNodes, ...) = ...
+}
+```
+
+중첩된 타입 별칭에는 타입 파라미터를 언급할 수 없는 것과 같은 몇 가지 추가 제약 조건이 있습니다. 전체 규칙 집합은 [문서](type-aliases.md#nested-type-aliases)를 확인하세요.
+
+중첩된 타입 별칭은 캡슐화 개선, 패키지 수준의 복잡성 감소, 내부 구현 단순화를 통해 더 깔끔하고 유지보수하기 쉬운 코드를 가능하게 합니다.
+
+#### 중첩된 타입 별칭 활성화 방법
+
+프로젝트에서 중첩된 타입 별칭을 활성화하려면 명령줄에서 다음 컴파일러 옵션을 사용하세요:
+
+```bash
+-Xnested-type-aliases
+```
+
+또는 Gradle 빌드 파일의 `compilerOptions {}` 블록에 추가하세요:
+
+```kotlin
+// build.gradle.kts
+kotlin {
+    compilerOptions {
+        freeCompilerArgs.add("-Xnested-type-aliases")
+    }
+}
+```
+
+#### 피드백 공유
+
+중첩된 타입 별칭은 현재 [베타(Beta)](components-stability.md#stability-levels-explained) 상태입니다. 문제 발생 시 [YouTrack](https://kotl.in/issue) 이슈 트래커에 보고해 주세요. 이 기능에 대한 자세한 정보는 [KEEP](https://github.com/Kotlin/KEEP/blob/master/proposals/nested-typealias.md) 제안을 참조하세요.
+
+### Stable 기능: 가드 조건, 비지역(non-local) `break` 및 `continue`, 멀티-달러 인터폴레이션
+
+Kotlin 2.1.0에서는 여러 새로운 언어 기능이 미리보기로 도입되었습니다.
+이번 릴리스에서는 다음 언어 기능이 [Stable](components-stability.md#stability-levels-explained)로 제공됨을 발표하게 되어 기쁩니다:
+
+*   [대상(subject)이 있는 `when`에서의 가드 조건](control-flow.md#guard-conditions-in-when-expressions)
+*   [비지역(non-local) `break` 및 `continue`](inline-functions.md#break-and-continue)
+*   [멀티-달러 인터폴레이션: 문자열 리터럴에서의 `$ ` 처리 개선](strings.md#multi-dollar-string-interpolation)
 
 [Kotlin 언어 설계 기능 및 제안의 전체 목록](kotlin-language-features-and-proposals.md)을 참조하세요.
 
@@ -436,7 +792,7 @@ Kotlin 멀티플랫폼 프로젝트에서 [`expect/actual` 메커니즘](https:/
 ```kotlin
 // commonMain
 
-// Produced error, but now works correctly 
+// 오류를 발생시켰으나, 이제 올바르게 작동합니다.
 @JsExport
 expect class WindowManager {
     fun close()
@@ -472,14 +828,14 @@ JavaScript 소스 세트의 해당 `actual` 구현에도 `@JsExport` 어노테�
 이러한 제한이 제거되었습니다. 이제 다음 코드는 오류 없이 컴파일됩니다:
 
 ```kotlin
-// Worked correctly before
+// 이전에는 올바르게 작동했습니다.
 @JsExport
 fun fooInt(): Promise<Int> = GlobalScope.promise {
     delay(100)
     return@promise 42
 }
 
-// Produced error, but now works correctly
+// 오류를 발생시켰으나, 이제 올바르게 작동합니다.
 @JsExport
 fun fooUnit(): Promise<Unit> = GlobalScope.promise {
     delay(100)
@@ -628,7 +984,7 @@ BTA를 사용해 보려면:
 
 ```kotlin
 kotlin.compiler.runViaBuildToolsApi=true
-```   
+```
 
 *   Maven의 경우, 아무것도 할 필요가 없습니다. 기본적으로 활성화되어 있습니다.
 
@@ -661,20 +1017,20 @@ BTA는 이를 가능하게 합니다. `build.gradle.kts` 파일에서 다음과 
 import org.jetbrains.kotlin.buildtools.api.ExperimentalBuildToolsApi
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 
-plugins { 
+plugins {
     kotlin("jvm") version "2.2.0"
 }
 
 group = "org.jetbrains.example"
 version = "1.0-SNAPSHOT"
 
-repositories { 
+repositories {
     mavenCentral()
 }
 
-kotlin { 
+kotlin {
     jvmToolchain(8)
-    @OptIn(ExperimentalBuildToolsApi::class, ExperimentalKotlinGradlePluginApi::class) 
+    @OptIn(ExperimentalBuildToolsApi::class, ExperimentalKotlinGradlePluginApi::class)
     compilerVersion.set("2.1.21") // 2.2.0과 다른 버전
 }
 
@@ -705,7 +1061,7 @@ Kotlin 2.2.0에서 [Base64 API](https://kotlinlang.org/api/core/kotlin-stdlib/ko
 
 *   [`Base64.UrlSafe`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.io.encoding/-base64/-default/-url-safe.html)는 ["URL 및 파일명 안전"](https://www.rfc-editor.org/rfc/rfc4648#section-5) 인코딩 방식을 사용합니다.
 *   [`Base64.Mime`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.io.encoding/-base64/-default/-mime.html)은 [MIME](https://www.rfc-editor.org/rfc/rfc2045#section-6.8)
-    인코딩 방식을 사용하며, 인코딩 시 76자마다 줄 구분 기호를 삽입하고 디코딩 시 유효하지 않은 문자를 건너뜁니다.
+    인코딩 방식을 사용하며, 인코딩 시 76자마다 줄 구분 기호를 삽입하고 디코딩 시 유효하지 않은 문자를 건너뜱니다.
 *   `Base64.Pem`은 `Base64.Mime`처럼 데이터를 인코딩하지만 줄 길이를 64자로 제한합니다.
 
 Base64 API를 사용하여 바이너리 데이터를 Base64 문자열로 인코딩하고 다시 바이트로 디코딩할 수 있습니다.
@@ -739,7 +1095,7 @@ fun main() {
     val base64Output = output.encodingWith(Base64.Default)
 
     base64Output.use { stream ->
-        stream.write("Hello World!!".encodeToByteArray()) 
+        stream.write("Hello World!!".encodeToByteArray())
     }
 
     println(output.toString())

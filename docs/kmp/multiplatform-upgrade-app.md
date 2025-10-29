@@ -70,7 +70,7 @@ plugins {
 
 * 添加 `ContentNegotiation` 功能 (`ktor-client-content-negotiation`)，它允许以特定格式序列化和反序列化内容。
 * 添加 `ktor-serialization-kotlinx-json` 依赖项以指示 Ktor 使用 JSON 格式和 `kotlinx.serialization` 作为序列化库。Ktor 将预期 JSON 数据并在接收响应时将其反序列化为数据类。
-* 通过在平台源代码集中添加对应构件的依赖项来提供平台引擎 (`ktor-client-android`、`ktor-client-darwin`)。
+* 通过在平台源代码集中添加对应 artifact 的依赖项来提供平台引擎 (`ktor-client-android`、`ktor-client-darwin`)。
 
 ```kotlin
 kotlin {
@@ -131,9 +131,9 @@ data class RocketLaunch (
 2. 添加 `httpClient` 属性，以便通过 HTTP GET 请求检索火箭发射信息：
 
     ```kotlin
-    import io.ktor.client.*
-    import io.ktor.client.plugins.contentnegotiation.*
-    import io.ktor.serialization.kotlinx.json.*
+    import io.ktor.client.HttpClient
+    import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
+    import io.ktor.serialization.kotlinx.json.json
     import kotlinx.serialization.json.Json
     
     class RocketComponent {
@@ -167,8 +167,8 @@ data class RocketLaunch (
 4. 调用 `httpClient.get()` 函数以检索火箭发射信息：
 
    ```kotlin
-   import io.ktor.client.request.*
-   import io.ktor.client.call.*
+   import io.ktor.client.request.get
+   import io.ktor.client.call.body
 
    class RocketComponent {
        // ...
@@ -202,11 +202,13 @@ data class RocketLaunch (
    ```kotlin
    import kotlinx.datetime.TimeZone
    import kotlinx.datetime.toLocalDateTime
+   import kotlin.time.ExperimentalTime
    import kotlin.time.Instant
 
    class RocketComponent {
        // ...
        
+       @OptIn(ExperimentalTime::class)
        private suspend fun getDateOfLastSuccessfulLaunch(): String {
            val rockets: List<RocketLaunch> =
                httpClient.get("https://api.spacexdata.com/v4/launches").body()
@@ -297,18 +299,7 @@ data class RocketLaunch (
 现在应用程序变得更加复杂，是时候为名为 `MainActivity` 的 [Android activity](https://developer.android.com/guide/components/activities/intro-activities) 引入视图模型了。它调用实现 UI 的 `App()` 函数。
 视图模型将管理来自 activity 的数据，并且在 activity 经历生命周期变化时不会消失。
 
-1. 将以下依赖项添加到你的 `composeApp/build.gradle.kts` 文件中：
-
-    ```kotlin
-    androidMain.dependencies {
-        // ...
-        implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2")
-        implementation("androidx.lifecycle:lifecycle-runtime-compose:2.6.2")
-        implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2")
-    }
-    ```
-
-2. 在 `composeApp/src/androidMain/kotlin/com/jetbrains/greeting/greetingkmp` 目录中，创建一个新的 `MainViewModel` Kotlin 类：
+1. 在 `composeApp/src/androidMain/kotlin/com/jetbrains/greeting/greetingkmp` 目录中，创建一个新的 `MainViewModel` Kotlin 类：
 
     ```kotlin
     import androidx.lifecycle.ViewModel
@@ -320,7 +311,7 @@ data class RocketLaunch (
 
    此类别继承 Android 的 `ViewModel` 类，这确保了关于生命周期和配置更改的正确行为。
 
-3. 创建 [StateFlow](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/-state-flow/) 类型的 `greetingList` 值及其幕后属性：
+2. 创建 [StateFlow](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/-state-flow/) 类型的 `greetingList` 值及其幕后属性：
 
     ```kotlin
     import kotlinx.coroutines.flow.MutableStateFlow
@@ -335,7 +326,7 @@ data class RocketLaunch (
    * 此处的 `StateFlow` 继承了 `Flow` 接口，但它只有一个值或状态。
    * 私有幕后属性 `_greetingList` 确保只有此类的客户端可以访问只读 `greetingList` 属性。
 
-4. 在视图模型的 `init` 函数中，从 `Greeting().greet()` 流中收集所有字符串：
+3. 在视图模型的 `init` 函数中，从 `Greeting().greet()` 流中收集所有字符串：
 
     ```kotlin
    import androidx.lifecycle.viewModelScope
@@ -358,7 +349,7 @@ data class RocketLaunch (
    由于 `collect()` 函数是挂起的，因此 `launch` 协程在视图模型的作用域内使用。
    这意味着 `launch` 协程将仅在视图模型生命周期的正确阶段运行。
 
-5. 在 `collect` 尾部 lambda 表达式中，更新 `_greetingList` 的值，将收集到的 `phrase` 附加到 `list` 中的短语列表：
+4. 在 `collect` 尾部 lambda 表达式中，更新 `_greetingList` 的值，将收集到的 `phrase` 附加到 `list` 中的短语列表：
 
     ```kotlin
     import kotlinx.coroutines.flow.update
@@ -388,6 +379,7 @@ data class RocketLaunch (
     import androidx.lifecycle.viewmodel.compose.viewModel
     
     @Composable
+    @Preview
     fun App(mainViewModel: MainViewModel = viewModel()) {
         MaterialTheme {
             val greetings by mainViewModel.greetingList.collectAsStateWithLifecycle()
@@ -619,6 +611,10 @@ plugins {
    id("co.touchlab.skie") version "%skieVersion%"
 }
 ```
+
+> 截至撰写本文时，SKIE 0.10.6 版本不支持最新的 Kotlin。要使用它，请将 `gradle/libs.versions.toml` 文件中的 Kotlin 版本降级到 2.2.10。
+>
+{style="warning"}
 
 #### 使用 SKIE 消费流
 

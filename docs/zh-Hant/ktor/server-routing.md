@@ -7,7 +7,7 @@
 路由是一個用於處理伺服器應用程式中傳入請求的核心外掛。
 </link-summary>
 
-路由是 Ktor 核心的 [外掛](server-plugins.md)，用於處理伺服器應用程式中傳入的請求。當客戶端向特定 URL（例如 `/hello`）發出請求時，路由機制允許我們定義如何處理此請求。
+路由是 Ktor 核心的 [外掛](server-plugins.md)，用於處理伺服器應用程式中傳入的請求。當客戶端向特定 URL (例如 `/hello`) 發出請求時，路由機制允許我們定義如何處理此請求。
 
 ## 安裝路由 {id="install_plugin"}
 
@@ -83,19 +83,19 @@ routing {
 > 請注意，Ktor 區分帶有和不帶有結尾斜線的路徑。您可以透過[安裝](server-plugins.md#install) `IgnoreTrailingSlash` 外掛來更改此行為。
 
 以下是一些路徑範例：
-*   `/hello`
+*   `/hello`  
     包含單個路徑區段的路徑。
-*   `/order/shipment`
+*   `/order/shipment`  
     包含多個路徑區段的路徑。您可以按原樣將此類路徑傳遞給 [route/get/等](#define_route) 函式，或者透過[巢狀](#multiple_routes)多個 `route` 函式來組織子路由。
-*   `/user/{login}`
+*   `/user/{login}`  
     帶有 `login` [路徑參數](#path_parameter)的路徑，其值可以在路由處理器內部存取。
-*   `/user/*`
+*   `/user/*`  
     帶有[萬用字元](#wildcard)的路徑，可匹配任何路徑區段。
-*   `/user/{...}`
+*   `/user/{...}`  
     帶有[尾部萬用字元](#tailcard)的路徑，可匹配 URL 路徑的所有其餘部分。
-*   `/user/{param...}`
+*   `/user/{param...}`  
     包含[帶有尾部萬用字元的路徑參數](#path_parameter_tailcard)的路徑。
-*   `Regex("/.+/hello")`
+*   `Regex("/.+/hello")`  
     包含[正規表達式](#regular_expression)的路徑，該正規表達式匹配路徑區段，直到並包括最後一個 `/hello` 的出現。
 
 ### 萬用字元 {id="wildcard"}
@@ -108,9 +108,9 @@ _尾部萬用字元_ (`{...}`) 匹配 URL 路徑的所有其餘部分，可以�
 _路徑參數_ (`{param}`) 匹配一個路徑區段並將其作為名為 `param` 的參數捕獲。這個路徑區段是強制性的，但您可以透過添加問號使其成為可選的：`{param?}`。例如：
 *   `/user/{login}` 匹配 `/user/john`，但不匹配 `/user`。
 *   `/user/{login?}` 匹配 `/user/john` 以及 `/user`。
-   > 請注意，可選的路徑參數 `{param?}` 只能用於路徑的末尾。
-   >
-   {type="note"}
+    > 請注意，可選的路徑參數 `{param?}` 只能用於路徑的末尾。
+    >
+    {type="note"}
 
 要在路由處理器內部存取參數值，請使用 `call.parameters` 屬性。例如，在下面的程式碼片段中，對於 `/user/admin` 路徑，`call.parameters["login"]` 將傳回 _admin_：
 ```kotlin

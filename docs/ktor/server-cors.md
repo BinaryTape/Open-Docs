@@ -23,7 +23,7 @@
 </p>
 </tldr>
 
-如果你的服务器需要处理[跨域请求](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS)，则需要安装并配置 [CORS](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-cors/io.ktor.server.plugins.cors.routing/-c-o-r-s.html) Ktor 插件。此插件允许你配置允许的主机、HTTP 方法、客户端设置的请求头等等。
+如果你的服务器需要处理[跨域请求](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS)，则需要安装并配置 [CORS](https://api.ktor.io/ktor-server-cors/io.ktor.server.plugins.cors.routing/-c-o-r-s.html) Ktor 插件。此插件允许你配置允许的主机、HTTP 方法、客户端设置的请求头等等。
 
 ## 添加依赖项 {id="add_dependencies"}
 
@@ -71,7 +71,7 @@
 
 ## 配置 CORS {id="configure"}
 
-CORS 特有的配置设置由 [CORSConfig](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-cors/io.ktor.server.plugins.cors/-c-o-r-s-config/index.html) 类公开。让我们看看如何配置这些设置。
+CORS 特有的配置设置由 [CORSConfig](https://api.ktor.io/ktor-server-cors/io.ktor.server.plugins.cors/-c-o-r-s-config/index.html) 类公开。让我们看看如何配置这些设置。
 
 ### 概述 {id="overview"}
 
@@ -170,7 +170,7 @@ install(CORS) {
 }
 ```
 
-> 请注意，对于非简单内容类型，`allowHeaders` 或 `allowHeadersPrefixed` 需要将 [allowNonSimpleContentTypes](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-cors/io.ktor.server.plugins.cors/-c-o-r-s-config/allow-non-simple-content-types.html) 属性设置为 `true`。
+> 请注意，对于非简单内容类型，`allowHeaders` 或 `allowHeadersPrefixed` 需要将 [allowNonSimpleContentTypes](https://api.ktor.io/ktor-server-cors/io.ktor.server.plugins.cors/-c-o-r-s-config/allow-non-simple-content-types.html) 属性设置为 `true`。
 
 ### 暴露请求头 {id="expose-headers"}
 
@@ -204,4 +204,4 @@ install(CORS) {
 }
 ```
 
-你可以从 [CORSConfig](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-cors/io.ktor.server.plugins.cors/-c-o-r-s-config/index.html) 中了解其他配置选项。
+你可以从 [CORSConfig](https://api.ktor.io/ktor-server-cors/io.ktor.server.plugins.cors/-c-o-r-s-config/index.html) 中了解其他配置选项。

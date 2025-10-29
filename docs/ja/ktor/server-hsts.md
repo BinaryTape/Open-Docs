@@ -22,7 +22,7 @@
 </p>
 </tldr>
 
-[%plugin_name%](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-hsts/io.ktor.server.plugins.hsts/-h-s-t-s.html)プラグインは、[RFC 6797](https://tools.ietf.org/html/rfc6797)に従って、必要な_HTTP Strict Transport Security (HSTS)_ヘッダーをリクエストに追加します。ブラウザがHSTSポリシーヘッダーを受信すると、指定された期間、安全でない接続でサーバーへの接続を試みなくなります。
+[%plugin_name%](https://api.ktor.io/ktor-server-hsts/io.ktor.server.plugins.hsts/-h-s-t-s.html)プラグインは、[RFC 6797](https://tools.ietf.org/html/rfc6797)に従って、必要な_HTTP Strict Transport Security_ヘッダーをリクエストに追加します。ブラウザがHSTSポリシーヘッダーを受信すると、指定された期間、安全でない接続でサーバーへの接続を試みなくなります。
 
 > HSTSポリシーヘッダーは、安全でないHTTP接続では無視されることに注意してください。HSTSが有効になるためには、[セキュアな](server-ssl.md)接続を介して提供される必要があります。
 
@@ -70,7 +70,7 @@
 
 ## %plugin_name%の設定 {id="configure"}
 
-<code>%plugin_name%</code>は、[HSTSConfig](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-hsts/io.ktor.server.plugins.hsts/-h-s-t-s-config/index.html)を介してその設定を公開します。以下の例は、<code>maxAgeInSeconds</code>プロパティを使用して、クライアントが既知のHSTSホストのリストにホストを保持すべき期間を指定する方法を示しています:
+<code>%plugin_name%</code>は、[HSTSConfig](https://api.ktor.io/ktor-server-hsts/io.ktor.server.plugins.hsts/-h-s-t-s-config/index.html)を介してその設定を公開します。以下の例は、<code>maxAgeInSeconds</code>プロパティを使用して、クライアントが既知のHSTSホストのリストにホストを保持すべき期間を指定する方法を示しています:
 
 ```kotlin
 install(HSTS) {

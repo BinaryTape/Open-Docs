@@ -18,7 +18,7 @@
 リクエストの送信方法と、リクエストURL、HTTPメソッド、ヘッダー、リクエストボディなど、さまざまなリクエストパラメーターの指定方法を学びます。
 </link-summary>
 
-[クライアントの設定](client-create-and-configure.md)後、HTTPリクエストの送信を開始できます。これを行う主な方法は、URLをパラメーターとして受け取る[`.request()`](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client.request/request.html)関数を使用することです。この関数内で、さまざまなリクエストパラメーターを設定できます。
+[クライアントの設定](client-create-and-configure.md)後、HTTPリクエストの送信を開始できます。これを行う主な方法は、URLをパラメーターとして受け取る[`.request()`](https://api.ktor.io/ktor-client-core/io.ktor.client.request/request.html)関数を使用することです。この関数内で、さまざまなリクエストパラメーターを設定できます。
 
 *   `GET`、`POST`、`PUT`、`DELETE`、`HEAD`、`OPTIONS`、`PATCH`などのHTTPメソッドを指定します。
 *   URLを文字列として設定するか、そのコンポーネント（ドメイン、パス、クエリパラメーターなど）を個別に設定します。
@@ -26,7 +26,7 @@
 *   ヘッダーとCookieを追加します。
 *   リクエストボディ（例：プレーンテキスト、データオブジェクト、フォームパラメーター）を含めます。
 
-これらのパラメーターは[`HttpRequestBuilder`](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client.request/-http-request-builder/index.html)クラスによって公開されます。
+これらのパラメーターは[`HttpRequestBuilder`](https://api.ktor.io/ktor-client-core/io.ktor.client.request/-http-request-builder/index.html)クラスによって公開されます。
 
 ```kotlin
 import io.ktor.client.request.*
@@ -57,7 +57,7 @@ val response: HttpResponse = client.request("https://ktor.io/") {
 }
 ```
 
-`.request()`に加えて、`HttpClient`は、[`.get()`](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client.request/get.html)、[`.post()`](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client.request/post.html)、[`.put()`](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client.request/put.html)などの基本的なHTTPメソッドに特化した関数を提供します。上記の例は、`.get()`関数を使用すると簡略化できます。
+`.request()`に加えて、`HttpClient`は、[`.get()`](https://api.ktor.io/ktor-client-core/io.ktor.client.request/get.html)、[`.post()`](https://api.ktor.io/ktor-client-core/io.ktor.client.request/post.html)、[`.put()`](https://api.ktor.io/ktor-client-core/io.ktor.client.request/put.html)などの基本的なHTTPメソッドに特化した関数を提供します。上記の例は、`.get()`関数を使用すると簡略化できます。
 
 ```kotlin
 val response: HttpResponse = client.get("https://ktor.io/docs/welcome.html")
@@ -164,7 +164,7 @@ HTTPメソッド、ヘッダー、Cookieなど、さまざまなリクエスト�
 
 #### 複数のヘッダーを追加する
 
-[`headers`](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client.request/headers.html)関数を使用すると、一度に複数のヘッダーを追加できます。
+[`headers`](https://api.ktor.io/ktor-client-core/io.ktor.client.request/headers.html)関数を使用すると、一度に複数のヘッダーを追加できます。
 
 ```kotlin
 client.get("https://ktor.io") {
@@ -178,7 +178,7 @@ client.get("https://ktor.io") {
 
 #### 単一のヘッダーを追加する
 
-[`header`](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client.request/header.html)関数を使用すると、単一のヘッダーを追加できます。
+[`header`](https://api.ktor.io/ktor-client-core/io.ktor.client.request/header.html)関数を使用すると、単一のヘッダーを追加できます。
 
 #### 認証に`basicAuth`または`bearerAuth`を使用する
 
@@ -188,7 +188,7 @@ client.get("https://ktor.io") {
 
 ### Cookie {id="cookies"}
 
-Cookieを送信するには、[`cookie()`](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client.request/cookie.html)関数を使用します。
+Cookieを送信するには、[`cookie()`](https://api.ktor.io/ktor-client-core/io.ktor.client.request/cookie.html)関数を使用します。
 
 ```kotlin
 client.get("https://ktor.io") {
@@ -207,7 +207,7 @@ Ktorには、呼び出し間でCookieを保持できる[`HttpCookies`](client-co
 
 ## リクエストボディの設定 {id="body"}
 
-リクエストボディを設定するには、[`HttpRequestBuilder`](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client.request/-http-request-builder/index.html)によって提供される`setBody()`関数を呼び出します。この関数は、プレーンテキスト、任意のクラスインスタンス、フォームデータ、バイト配列など、さまざまな種類のペイロードを受け入れます。
+リクエストボディを設定するには、[`HttpRequestBuilder`](https://api.ktor.io/ktor-client-core/io.ktor.client.request/-http-request-builder/index.html)によって提供される`setBody()`関数を呼び出します。この関数は、プレーンテキスト、任意のクラスインスタンス、フォームデータ、バイト配列など、さまざまな種類のペイロードを受け入れます。
 
 ### テキスト {id="text"}
 
@@ -238,7 +238,7 @@ val response: HttpResponse = client.post("http://localhost:8080/customer") {
 
 ### フォームパラメーター {id="form_parameters"}
 
-Ktorクライアントは、`application/x-www-form-urlencoded`タイプのフォームパラメーターを送信するための[`submitForm()`](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client.request.forms/submit-form.html)関数を提供します。以下の例はその使用方法を示しています。
+Ktorクライアントは、`application/x-www-form-urlencoded`タイプのフォームパラメーターを送信するための[`submitForm()`](https://api.ktor.io/ktor-client-core/io.ktor.client.request.forms/submit-form.html)関数を提供します。以下の例はその使用方法を示しています。
 
 ```kotlin
 val client = HttpClient(CIO)
@@ -264,10 +264,10 @@ val response: HttpResponse = client.submitForm(
 
 フォームでファイルを送信する必要がある場合、次のアプローチを使用できます。
 
-*   [`.submitFormWithBinaryData()`](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client.request.forms/submit-form-with-binary-data.html)関数を使用します。この場合、境界が自動的に生成されます。
-*   `post`関数を呼び出し、[`MultiPartFormDataContent`](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client.request.forms/-multi-part-form-data-content/index.html)インスタンスを`setBody`関数に渡します。`MultiPartFormDataContent`コンストラクターでは、境界値を渡すこともできます。
+*   [`.submitFormWithBinaryData()`](https://api.ktor.io/ktor-client-core/io.ktor.client.request.forms/submit-form-with-binary-data.html)関数を使用します。この場合、境界が自動的に生成されます。
+*   `post`関数を呼び出し、[`MultiPartFormDataContent`](https://api.ktor.io/ktor-client-core/io.ktor.client.request.forms/-multi-part-form-data-content/index.html)インスタンスを`setBody`関数に渡します。`MultiPartFormDataContent`コンストラクターでは、境界値を渡すこともできます。
 
-どちらのアプローチでも、[`formData {}`](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client.request.forms/form-data.html)関数を使用してフォームデータを構築する必要があります。
+どちらのアプローチでも、[`formData {}`](https://api.ktor.io/ktor-client-core/io.ktor.client.request.forms/form-data.html)関数を使用してフォームデータを構築する必要があります。
 
 #### `.submitFormWithBinaryData()`の使用
 

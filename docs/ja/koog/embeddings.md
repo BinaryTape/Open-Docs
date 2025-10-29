@@ -101,6 +101,54 @@ suspend fun openAIEmbed(text: String) {
 ```
 <!--- KNIT example-embeddings-02.kt -->
 
+## AWS Bedrock埋め込み
+
+AWS Bedrock埋め込みモデルを使用して埋め込みを作成するには、`BedrockLLMClient` インスタンスと選択したモデルの `embed` メソッドを使用します。例:
+
+<!--- INCLUDE
+import ai.koog.embeddings.local.LLMEmbedder
+import ai.koog.prompt.executor.clients.bedrock.BedrockClientSettings
+import ai.koog.prompt.executor.clients.bedrock.BedrockLLMClient
+import ai.koog.prompt.executor.clients.bedrock.BedrockModels
+import aws.sdk.kotlin.runtime.auth.credentials.StaticCredentialsProvider
+-->
+```kotlin
+suspend fun bedrockEmbed(text: String) {
+    // 環境/設定からAWS認証情報を取得
+    val awsAccessKeyId = System.getenv("AWS_ACCESS_KEY_ID") ?: error("AWS_ACCESS_KEY_ID not set")
+    val awsSecretAccessKey = System.getenv("AWS_SECRET_ACCESS_KEY") ?: error("AWS_SECRET_ACCESS_KEY not set")
+    // (オプション) 一時的な認証情報のためのAWS_SESSION_TOKEN
+    val awsSessionToken = System.getenv("AWS_SESSION_TOKEN")
+    // BedrockLLMClientインスタンスを作成
+    val client = BedrockLLMClient(
+        identityProvider = StaticCredentialsProvider {
+            this.accessKeyId = awsAccessKeyId
+            this.secretAccessKey = awsSecretAccessKey
+            awsSessionToken?.let { this.sessionToken = it }
+        },
+        settings = BedrockClientSettings()
+    )
+    // エンベッダーを作成
+    val embedder = LLMEmbedder(client, BedrockModels.Embeddings.AmazonTitanEmbedText)
+    // 埋め込みを作成
+    val embedding = embedder.embed(text)
+    // 埋め込みを出力
+    println(embedding)
+}
+```
+<!--- KNIT example-embeddings-03.kt -->
+
+### サポートされているAWS Bedrock埋め込みモデル
+
+| プロバイダー | モデル名                   | モデルID                       | 入力 | 出力    | 次元 | コンテキスト長 | 注記                                                                                                         |
+|------------|----------------------------|--------------------------------|------|---------|------------|----------------|--------------------------------------------------------------------------------------------------------------|
+| Amazon     | Titan Embeddings G1 - Text | `amazon.titan-embed-text-v1`   | テキスト | 埋め込み | 1,536      | 8192           | 25以上の言語、検索、セマンティック類似性、クラスタリング用に最適化。長いドキュメントは検索のためにセグメント化。 |
+| Amazon     | Titan Text Embeddings V2   | `amazon.titan-embed-text-v2:0` | テキスト | 埋め込み | 1,024      | 8192           | 高精度、柔軟な次元、多言語対応（100以上）。小さい次元はストレージを節約、正規化された出力。                     |
+| Cohere     | Cohere Embed English v3    | `cohere.embed-english-v3`      | テキスト | 埋め込み | 1,024      | 8192           | 検索、取得、テキストのニュアンス理解のためのSOTA英語テキスト埋め込み。                                   |
+| Cohere     | Cohere Embed Multilingual v3 | `cohere.embed-multilingual-v3` | テキスト | 埋め込み | 1,024      | 8192           | 多言語埋め込み、言語間の検索とセマンティック理解のためのSOTA。                                               |
+
+> 最新のモデルサポートについては、[AWS Bedrockのサポートされているモデルに関するドキュメント](https://docs.aws.amazon.com/bedrock/latest/userguide/models-supported.html)を参照してください。
+
 ## 例
 
 以下の例は、埋め込みを使用してコードとテキスト、または他のコードスニペットを比較する方法を示しています。
@@ -145,7 +193,7 @@ suspend fun compareCodeToText(embedder: Embedder) { // Embedder型
     }
 }
 ```
-<!--- KNIT example-embeddings-03.kt -->
+<!--- KNIT example-embeddings-04.kt -->
 
 ### コードとコードの比較
 
@@ -207,7 +255,7 @@ suspend fun compareCodeToCode(embedder: Embedder) { // Embedder型
     }
 }
 ```
-<!--- KNIT example-embeddings-04.kt -->
+<!--- KNIT example-embeddings-05.kt -->
 
 ## APIドキュメント
 

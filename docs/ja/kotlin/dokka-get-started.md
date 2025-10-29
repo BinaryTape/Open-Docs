@@ -1,18 +1,18 @@
 [//]: # (title: Dokkaを始める)
 
-Dokkaの利用を開始するのに役立つ簡単な手順を以下に示します。
+以下に、Dokkaの利用を開始するのに役立つ簡単な手順を示します。
 
 <tabs group="build-script">
 <tab title="Gradle Kotlin DSL" group-key="kotlin">
 
-> Dokka 2.0.0以降、いくつかの設定オプション、Gradleタスク、およびドキュメント生成の手順が更新されました。これには以下が含まれます。
+> これらの手順は、Dokka Gradleプラグインv1の設定とタスクを反映しています。Dokka 2.0.0以降、いくつかの設定オプション、Gradleタスク、およびドキュメント生成の手順が更新されました。これには以下が含まれます。
 >
 > * [設定オプションの調整](dokka-migration.md#adjust-configuration-options)
 > * [マルチモジュールプロジェクトの操作](dokka-migration.md#share-dokka-configuration-across-modules)
 > * [更新されたタスクでのドキュメントの生成](dokka-migration.md#generate-documentation-with-the-updated-task)
 > * [出力ディレクトリの指定](dokka-migration.md#output-directory)
 >
-> 詳細および変更点の全リストについては、[マイグレーションガイド](dokka-migration.md)を参照してください。
+> Dokka Gradleプラグインv2における詳細および変更点の全リストについては、[マイグレーションガイド](dokka-migration.md)を参照してください。
 >
 {style="note"}
 

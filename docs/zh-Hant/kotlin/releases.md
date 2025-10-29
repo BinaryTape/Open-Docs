@@ -132,6 +132,16 @@ IntelliJ IDEA 和 Android Studio 中的 K2 模式使用 K2 編譯器來改進程
         <th>建置亮點</th>
     </tr>
     <tr>
+        <td><strong>2.2.21</strong>
+            <p>發布日期：<strong>2025 年 10 月 23 日</strong></p>
+            <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.2.21" target="_blank">在 GitHub 上發布</a></p>
+        </td>
+        <td>
+            <p>一個工具發布版本，包含對 Xcode 26 的支援，以及其他改進和錯誤修正。</p>
+            <p>詳情請參閱<a href="https://github.com/JetBrains/kotlin/releases/tag/v2.2.21">變更日誌</a>。</p>
+    </td>
+    </tr>
+    <tr>
         <td><strong>2.2.20</strong>
             <p>發布日期：<strong>2025 年 9 月 10 日</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.2.20" target="_blank">在 GitHub 上發布</a></p>

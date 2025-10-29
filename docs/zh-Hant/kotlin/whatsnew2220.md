@@ -17,8 +17,8 @@ Kotlin 2.2.20 版本已發布，為網頁開發帶來了重要的變更。[Kotli
 此外，以下是一些主要亮點：
 
 *   **Kotlin Multiplatform**：[Swift 匯出預設可用](#swift-export-available-by-default)、[Kotlin 函式庫的穩定跨平台編譯](#stable-cross-platform-compilation-for-kotlin-libraries)，以及[宣告共同依賴的新方法](#new-approach-for-declaring-common-dependencies)。
-*   **語言**：[將 Lambda 傳遞給帶有 suspend 函式型別的多載時，改進多載解析](#improved-overload-resolution-for-lambdas-with-suspend-function-types)。
-*   **Kotlin/Native**：[二進位檔案中支援堆疊金絲雀](#support-for-stack-canaries-in-binaries)，以及[發布版本二進位檔案大小更小](#smaller-binary-size-for-release-binaries)。
+*   **語言**：[將 Lambda 傳遞給帶有 `suspend` 函式型別的多載時，改進多載解析](#improved-overload-resolution-for-lambdas-with-suspend-function-types)。
+*   **Kotlin/Native**：[支援 Xcode 26、堆疊金絲雀，以及發布版本二進位檔案大小更小](#kotlin-native)。
 *   **Kotlin/JS**：[`Long` 值編譯為 JavaScript `BigInt`](#usage-of-the-bigint-type-to-represent-kotlin-s-long-type)。
 
 > Compose Multiplatform for web 已進入 Beta 階段。請在我們的[部落格文章](https://blog.jetbrains.com/kotlin/2025/09/compose-multiplatform-1-9-0-compose-for-web-beta/)中了解更多資訊。
@@ -59,7 +59,7 @@ fun test() {
 }
 ```
 
-透過此變更，當您定義常規和 `suspend` 函式型別多載時，沒有轉型的 Lambda 將解析為常規多載。使用 `suspend` 關鍵字來明確解析為 suspend 多載：
+透過此變更，當您定義常規和 `suspend` 函式型別多載時，沒有轉型的 Lambda 將解析為常規多載。使用 `suspend` 關鍵字來明確解析為 `suspend` 多載：
 
 ```kotlin
 // Resolves to transform(() -> Int)
@@ -605,6 +605,14 @@ suspend fun readCopiedText(): String {
 expect suspend fun readCopiedText(): String
 
 // webMain
+@OptIn(ExperimentalWasmJsInterop::class)
+private suspend fun <R : JsAny?> Promise<R>.await(): R = suspendCancellableCoroutine { continuation ->
+    this.then(
+        onFulfilled = { continuation.resumeWith(Result.success(it)); null },
+        onRejected = { continuation.resumeWithException(it.asJsException()); null }
+    )
+}
+
 external interface Navigator { val clipboard: Clipboard }
 external interface Clipboard { fun readText(): Promise<JsString> }
 external val navigator: Navigator
@@ -690,7 +698,12 @@ Kotlin 2.2.20 引入了一個新的診斷，清楚地顯示每個依賴關係支
 
 ## Kotlin/Native
 
-Kotlin 2.2.20 為與 Objective-C/Swift 的互通性、偵錯和新的二進位選項帶來了改進。
+此版本帶來了對 Xcode 26 的支援，以及與 Objective-C/Swift 的互通性、偵錯和新的二進位選項的改進。
+
+### 支援 Xcode 26
+
+從 Kotlin 2.2.2**1** 開始，Kotlin/Native 編譯器支援 Xcode 26 – Xcode 的最新穩定版本。
+您現在可以更新您的 Xcode 並存取最新的 API，以繼續為 Apple 作業系統開發您的 Kotlin 專案。
 
 ### 二進位檔案中支援堆疊金絲雀
 
@@ -911,7 +924,7 @@ Kotlin/Wasm 現已進入 Beta 階段，提供了更高的穩定性以及改進�
 
 此外，專案目錄內的鎖定檔案僅包含使用者定義的依賴。
 
-此改進使您的鎖定檔案僅專注於您自己的依賴，有助於維護更整潔的專案，並
+此改進使得您的鎖定檔案僅專注於您自己的依賴，有助於維護更整潔的專案，並
 減少檔案中不必要的變更。
 
 此變更預設為 `wasm-js` 目標啟用。此變更尚未針對 `js` 目標實作。雖然
@@ -1203,7 +1216,7 @@ Kotlin 2.2.20 引入了在 [`org.jetbrains.kotlin:kotlin-compiler-arguments-desc
 它們的描述以及中繼資料，例如每個選項引入或穩定的版本。您可以使用此
 模式生成選項的自訂視圖或根據需要分析它們。
 
-## Kotlin 標準函式庫
+## 標準函式庫
 
 此版本在標準函式庫中引入了新的實驗性功能：Kotlin/JS 中用於識別介面型別的反射支援、
 常用原子型別的更新函式，以及用於陣列大小調整的 `copyOf()` 多載。
@@ -1240,7 +1253,7 @@ Kotlin 2.2.20 引入了用於更新常用原子型別及其陣列對應物元素
 *   [`updateAndFetch()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.concurrent.atomics/update-and-fetch.html) 和 [`updateAndFetchAt()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.concurrent.atomics/update-and-fetch-at.html) 設定一個新值並回傳變更後的新值。
 
 您可以使用這些函式來實作不開箱即用的原子轉換，例如乘法或位元運算。
-在這次變更之前，遞增常用原子型別並讀取舊值需要使用 [`compareAndSet()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.concurrent/-atomic-int/compare-and-set.html) 函式進行迴圈。
+在這次變更之前，遞增常用原子型別並讀取舊值需要使用 [`compareAndSet()` 函式](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.concurrent/-atomic-int/compare-and-set.html) 進行迴圈。
 
 與所有用於常用原子型別的 API 一樣，這些函式是 [實驗性的](components-stability.md#stability-levels-explained)。
 要啟用，請使用 `@OptIn(ExperimentalAtomicApi::class)` 註解。

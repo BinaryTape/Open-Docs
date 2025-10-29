@@ -1,18 +1,18 @@
 [//]: # (title: 함수형 (SAM) 인터페이스)
 
-추상 멤버 함수가 하나만 있는 인터페이스를 _함수형 인터페이스 (functional interface)_ 또는 _단일 추상 메서드(SAM) 인터페이스 (Single Abstract Method (SAM) interface)_라고 합니다. 함수형 인터페이스는 여러 비추상 멤버 함수를 가질 수 있지만, 추상 멤버 함수는 하나만 가질 수 있습니다.
+추상 멤버 함수가 하나만 있는 인터페이스를 _함수형 인터페이스_ 또는 _단일 추상 메서드(SAM) 인터페이스_라고 합니다. 함수형 인터페이스는 여러 비추상 멤버 함수를 가질 수 있지만, 추상 멤버 함수는 하나만 가질 수 있습니다.
 
 Kotlin에서 함수형 인터페이스를 선언하려면 `fun` 한정자를 사용합니다.
 
 ```kotlin
 fun interface KRunnable {
-   fun invoke()
+    fun invoke()
 }
 ```
 
 ## SAM 변환
 
-함수형 인터페이스의 경우, [람다 식 (lambda expressions)](lambdas.md#lambda-expressions-and-anonymous-functions)을 사용하여 코드를 더 간결하고 읽기 쉽게 만들어주는 SAM 변환 (SAM conversions)을 사용할 수 있습니다.
+함수형 인터페이스의 경우, [람다 식 (lambda expressions)](lambdas.md#lambda-expressions-and-anonymous-functions)을 사용하여 코드를 더 간결하고 읽기 쉽게 만들어주는 SAM 변환을 사용할 수 있습니다.
 
 함수형 인터페이스를 수동으로 구현하는 클래스를 만드는 대신, 람다 식을 사용할 수 있습니다. SAM 변환을 사용하면 Kotlin은 인터페이스의 단일 메서드 시그니처와 일치하는 모든 람다 식을 인터페이스 구현을 동적으로 인스턴스화하는 코드로 변환할 수 있습니다.
 
@@ -20,25 +20,25 @@ fun interface KRunnable {
 
 ```kotlin
 fun interface IntPredicate {
-   fun accept(i: Int): Boolean
+    fun accept(i: Int): Boolean
 }
 ```
 
 SAM 변환을 사용하지 않으면 다음과 같은 코드를 작성해야 합니다.
 
 ```kotlin
-// Creating an instance of a class
+// 클래스의 인스턴스 생성
 val isEven = object : IntPredicate {
-   override fun accept(i: Int): Boolean {
-       return i % 2 == 0
-   }
+    override fun accept(i: Int): Boolean {
+        return i % 2 == 0
+    }
 }
 ```
 
 Kotlin의 SAM 변환을 활용하면 대신 다음의 동등한 코드를 작성할 수 있습니다.
 
 ```kotlin
-// Creating an instance using lambda
+// 람다를 사용하여 인스턴스 생성
 val isEven = IntPredicate { it % 2 == 0 }
 ```
 
@@ -46,13 +46,13 @@ val isEven = IntPredicate { it % 2 == 0 }
 
 ```kotlin
 fun interface IntPredicate {
-   fun accept(i: Int): Boolean
+    fun accept(i: Int): Boolean
 }
 
 val isEven = IntPredicate { it % 2 == 0 }
 
 fun main() {
-   println("Is 7 even? - ${isEven.accept(7)}")
+    println("Is 7 even? - ${isEven.accept(7)}")
 }
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.4"}
@@ -61,14 +61,16 @@ fun main() {
 
 ## 생성자 함수가 있는 인터페이스에서 함수형 인터페이스로의 마이그레이션
 
-1.6.20부터 Kotlin은 함수형 인터페이스 생성자 (functional interface constructors)에 대한 [호출 가능한 참조 (callable references)](reflection.md#callable-references)를 지원하며, 이는 생성자 함수가 있는 인터페이스에서 함수형 인터페이스로 마이그레이션하는 소스 호환 가능한 방법을 추가합니다. 다음 코드를 고려해 보세요.
+1.6.20부터 Kotlin은 함수형 인터페이스 생성자에 대한 [호출 가능한 참조](reflection.md#callable-references)를 지원하며, 이는 생성자 함수가 있는 인터페이스에서 함수형 인터페이스로 마이그레이션하는 소스 호환 가능한 방법을 추가합니다. 다음 코드를 고려해 보세요.
 
 ```kotlin
 interface Printer { 
     fun print() 
 }
 
-fun Printer(block: () -> Unit): Printer = object : Printer { override fun print() = block() }
+fun Printer(block: () -> Unit): Printer = object : Printer {
+    override fun print() = block()
+}
 ```
 
 함수형 인터페이스 생성자에 대한 호출 가능한 참조가 활성화되면 이 코드는 단순히 함수형 인터페이스 선언으로 대체될 수 있습니다.
@@ -94,7 +96,7 @@ fun Printer(...) {...}
 
 ## 함수형 인터페이스 vs. 타입 별칭
 
-위 내용을 [타입 별칭 (type alias)](type-aliases.md)을 사용하여 함수형 타입 (functional type)으로 단순히 재작성할 수도 있습니다.
+위 내용을 [타입 별칭 (type alias)](type-aliases.md)을 사용하여 함수형 타입으로 단순히 재작성할 수도 있습니다.
 
 ```kotlin
 typealias IntPredicate = (i: Int) -> Boolean
@@ -102,7 +104,7 @@ typealias IntPredicate = (i: Int) -> Boolean
 val isEven: IntPredicate = { it % 2 == 0 }
 
 fun main() {
-   println("Is 7 even? - ${isEven(7)}")
+    println("Is 7 even? - ${isEven(7)}")
 }
 ```
 

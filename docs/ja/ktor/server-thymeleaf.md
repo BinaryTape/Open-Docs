@@ -23,7 +23,7 @@
 </p>
 </tldr>
 
-Ktorでは、[Thymeleaf](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-thymeleaf/io.ktor.server.thymeleaf/-thymeleaf)プラグインをインストールすることで、アプリケーション内で[Thymeleafテンプレート](https://www.thymeleaf.org/)をビューとして使用できます。
+Ktorでは、[Thymeleaf](https://api.ktor.io/ktor-server-thymeleaf/io.ktor.server.thymeleaf/-thymeleaf)プラグインをインストールすることで、アプリケーション内で[Thymeleafテンプレート](https://www.thymeleaf.org/)をビューとして使用できます。
 
 ## 依存関係の追加 {id="add_dependencies"}
 
@@ -100,7 +100,7 @@ fun Application.module() {
 data class User(val id: Int, val name: String)
 ```
 
-指定された[ルート](server-routing.md)でテンプレートを使用するには、`call.respond`メソッドに[ThymeleafContent](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-thymeleaf/io.ktor.server.thymeleaf/-thymeleaf-content/index.html)を以下のように渡します。
+指定された[ルート](server-routing.md)でテンプレートを使用するには、`call.respond`メソッドに[ThymeleafContent](https://api.ktor.io/ktor-server-thymeleaf/io.ktor.server.thymeleaf/-thymeleaf-content/index.html)を以下のように渡します。
 ```kotlin
 get("/index") {
     val sampleUser = User(1, "John")

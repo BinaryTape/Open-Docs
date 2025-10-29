@@ -22,9 +22,9 @@
 </p>
 </tldr>
 
-[ConditionalHeaders](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-conditional-headers/io.ktor.server.plugins.conditionalheaders/-conditional-headers.html) 外掛程式可避免在內容自上次請求後未發生變化時發送其內容主體。這是透過使用以下標頭來實現的：
+[ConditionalHeaders](https://api.ktor.io/ktor-server-conditional-headers/io.ktor.server.plugins.conditionalheaders/-conditional-headers.html) 外掛程式可避免在內容自上次請求後未發生變化時發送其內容主體。這是透過使用以下標頭來實現的：
 *   `Last-Modified` 回應標頭包含資源修改時間。例如，如果用戶端請求包含 `If-Modified-Since` 值，Ktor 將僅在資源於給定日期之後被修改時才發送完整回應。請注意，對於[靜態檔案](server-static-content.md)，Ktor 會在[安裝](#install_plugin) `ConditionalHeaders` 後自動附加 `Last-Modified` 標頭。
-*   `Etag` 回應標頭是特定資源版本的識別碼。例如，如果用戶端請求包含 `If-None-Match` 值，則當此值與 `Etag` 匹配時，Ktor 將不會發送完整回應。您可以在[配置](#configure) `ConditionalHeaders` 時指定 `Etag` 值。
+*   `Etag` 回應標頭是特定資源版本的一個識別碼。例如，如果用戶端請求包含 `If-None-Match` 值，則當此值與 `Etag` 匹配時，Ktor 將不會發送完整回應。您可以在[配置](#configure) `ConditionalHeaders` 時指定 `Etag` 值。
 
 ## 添加依賴項 {id="add_dependencies"}
 
@@ -73,7 +73,7 @@
 
 ## 配置標頭 {id="configure"}
 
-要配置 `%plugin_name%`，您需要在 <code>install</code> 區塊內部呼叫 [version](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-conditional-headers/io.ktor.server.plugins.conditionalheaders/-conditional-headers-config/version.html) 函數。此函數提供了存取給定 <code>ApplicationCall</code> 和 <code>OutgoingContent</code> 的資源版本列表。您可以透過使用 [EntityTagVersion](https://api.ktor.io/ktor-http/io.ktor.http.content/-entity-tag-version/index.html) 和 [LastModifiedVersion](https://api.ktor.io/ktor-http/io.ktor.http.content/-last-modified-version/index.html) 類別物件來指定所需的版本。
+要配置 `%plugin_name%`，您需要在 <code>install</code> 區塊內部呼叫 [version](https://api.ktor.io/ktor-server-conditional-headers/io.ktor.server.plugins.conditionalheaders/-conditional-headers-config/version.html) 函數。此函數提供了存取給定 <code>ApplicationCall</code> 和 <code>OutgoingContent</code> 的資源版本列表。您可以透過使用 [EntityTagVersion](https://api.ktor.io/ktor-http/io.ktor.http.content/-entity-tag-version/index.html) 和 [LastModifiedVersion](https://api.ktor.io/ktor-http/io.ktor.http.content/-last-modified-version/index.html) 類別物件來指定所需的版本。
 
 以下程式碼片段展示了如何為 CSS 添加 <code>Etag</code> 和 <code>Last-Modified</code> 標頭：
 ```kotlin

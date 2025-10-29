@@ -135,11 +135,9 @@ suspend fun solveUserRequest(query: String) {
         prompt = prompt("context") {
             system("You are a helpful assistant. Use the provided context to answer the user's question accurately.")
             user {
-                "Relevant context"
-                attachments {
-                    relevantDocuments.forEach {
-                        file(it.pathString, "text/plain")
-                    }
+                +"Relevant context:"
+                relevantDocuments.forEach {
+                    file(it.pathString, "text/plain")
                 }
             }
         },
@@ -259,7 +257,7 @@ RAG 시스템의 편리하고 쉬운 구현을 위해 Koog는 벡터 저장소, 
 
 #### InMemoryVectorStorage
 
-문서를 메모리에 저장하고 벡터 임베딩을 수행하는 간단한 인메모리 구현입니다. 테스트 또는 소규모 애플리케이션에 적합합니다.
+문서와 해당 벡터 임베딩을 메모리에 저장하는 간단한 인메모리 구현입니다. 테스트 또는 소규모 애플리케이션에 적합합니다.
 
 <!--- INCLUDE
 import ai.koog.rag.vector.InMemoryVectorStorage
@@ -274,7 +272,7 @@ val inMemoryStorage = InMemoryVectorStorage<Path>()
 
 #### FileVectorStorage
 
-문서를 디스크에 저장하고 벡터 임베딩을 수행하는 파일 기반 구현입니다. 애플리케이션 재시작 전반에 걸쳐 영구 저장소에 적합합니다.
+문서와 해당 벡터 임베딩을 디스크에 저장하는 파일 기반 구현입니다. 애플리케이션 재시작 전반에 걸쳐 영구 저장소에 적합합니다.
 
 <!--- INCLUDE
 /*

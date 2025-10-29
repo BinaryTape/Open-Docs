@@ -2,6 +2,45 @@
        xsi:noNamespaceSchemaLocation="https://resources.jetbrains.com/writerside/1.0/topic.v2.xsd"
        id="kotlin-multiplatform-react-native"
        title="Kotlin Multiplatform 對比 React Native：跨平台比較">
+<include-in-head>
+<![CDATA[
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          "mainEntity": [{
+            "@type": "Question",
+            "name": "Kotlin Multiplatform 是否已可用於正式環境？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Kotlin Multiplatform 是一項穩定技術，已可用於正式環境。這表示您可以在生產環境中，跨 Android、iOS、桌面 (JVM)、伺服器端 (JVM) 和網頁共享程式碼，即使在最保守的使用情境下也無妨。Compose Multiplatform 是一個用於跨平台構建共享 UI 的框架 (由 Kotlin Multiplatform 和 Google 的 Jetpack Compose 提供支援)，在 iOS、Android 和桌面端已穩定。網頁支援目前處於 Beta 階段。如果您想了解更多關於 Kotlin Multiplatform 的整體發展方向，請參考我們的部落格文章《What’s Next for Kotlin Multiplatform and Compose Multiplatform》。"
+            }
+          }, {
+            "@type": "Question",
+            "name": "Kotlin Multiplatform 比 React Native 更好嗎？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Kotlin Multiplatform 和 React Native 各有其優點，選擇取決於您專案的特定目標、技術要求和團隊專業知識。在上述比較中，我們概述了程式碼共享、建構工具、編譯和生態系統等方面的關鍵差異，以幫助您決定哪種選項最適合您的使用情境。"
+            }
+          }, {
+            "@type": "Question",
+            "name": "Google 是否支援 Kotlin Multiplatform？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "在 Google I/O 2024 上，Google 宣布正式支援在 Android 上使用 Kotlin Multiplatform，以在 Android 和 iOS 之間共享業務邏輯。"
+            }
+          }, {
+            "@type": "Question",
+            "name": "學習 Kotlin Multiplatform 值得嗎？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "如果您有興趣在 Android、iOS、桌面和網頁之間共享程式碼，同時保留原生效能和彈性，那麼學習 Kotlin Multiplatform 是值得的。它由 JetBrains 支持，並由 Google 在 Android 上正式支援，以在 Android 和 iOS 之間共享業務邏輯。此外，KMP 搭配 Compose Multiplatform 正日益被構建多平台應用程式的公司用於正式環境中。"
+            }
+          }]
+        }
+        </script>
+]]>
+</include-in-head>
 <web-summary>探索 Kotlin Multiplatform 搭配 Compose Multiplatform 與 React Native 在程式碼共享、生態系統和 UI 渲染方面的比較 — 了解哪種工具組合最適合您的團隊。
     </web-summary>
 <tip>
@@ -16,7 +55,7 @@
         <p><a href="https://www.jetbrains.com/kotlin-multiplatform/">Kotlin Multiplatform (KMP)</a> 是一項由 JetBrains 開發的開源技術，可實現 Android、iOS、桌面 (Windows、macOS、Linux)、網頁和後端之間的程式碼共享。它允許開發人員在多個環境中重用 Kotlin，同時保持原生功能和效能。</p>
         <p>採用率正在穩步上升：在過去兩次 <a href="https://www.jetbrains.com/lp/devecosystem-2024/">開發人員生態系統調查</a> 的受訪者中，Kotlin Multiplatform 的使用量在一年內增加了一倍多 — 從 2024 年的 7% 增長到 2025 年的 18% — 這清楚表明了其日益增長的發展勢頭。</p>
         <img src="kmp-growth-deveco.svg"
-             alt="KMP usage increased from 7% in 2024 to 18% in 2025 among respondents to the last two Developer Ecosystem surveys"
+             alt="KMP 使用量在過去兩次開發人員生態系統調查的受訪者中，從 2024 年的 7% 增加到 2025 年的 18%"
              width="700"/>
         <p><a href="https://www.jetbrains.com/kotlin-multiplatform/"><img src="discover-kmp.svg"
                                                                           alt="探索 Kotlin Multiplatform"
@@ -162,9 +201,12 @@
         <p>
             <control>Q: Kotlin Multiplatform 是否已可用於正式環境？</control>
         </p>
-        <p>A: Kotlin Multiplatform 是一項<a
-                href="https://blog.jetbrains.com/kotlin/2023/11/kotlin-multiplatform-stable/">穩定技術，已可用於正式環境</a>。這意味著您可以在生產環境中，跨 Android、iOS、桌面 (JVM)、伺服器端 (JVM) 和網頁共享程式碼，即使在最保守的使用情境下也無妨。</p>
-        <p>Compose Multiplatform 是一個用於跨平台構建共享 UI 的框架 (由 Kotlin Multiplatform 和 Google 的 Jetpack Compose 提供支援)，在 iOS、Android 和桌面端已穩定。網頁支援目前處於 Beta 階段。</p>
+        <p>A: Kotlin Multiplatform 是一項穩定技術，已可用於正式環境。
+            這意味著您可以在生產環境中，跨 Android、iOS、桌面 (JVM)、伺服器端 (JVM) 和網頁共享程式碼，即使在最保守的使用情境下也無妨。</p>
+        <p>Compose Multiplatform 是一個用於跨平台構建共享 UI 的框架 (由 Kotlin Multiplatform
+            和 Google 的 Jetpack Compose 提供支援)，在 iOS、Android 和桌面端已穩定。網頁支援目前處於
+            Beta 階段。</p>
+        <p>如果您想了解更多關於 Kotlin Multiplatform 的整體發展方向，請參考我們的部落格文章《<a href="https://blog.jetbrains.com/kotlin/2025/08/kmp-roadmap-aug-2025/">What’s Next for Kotlin Multiplatform and Compose Multiplatform</a>》。</p>
         <p>
             <control>Q: Kotlin Multiplatform 比 React Native 更好嗎？</control>
         </p>
@@ -177,6 +219,7 @@
         <p>
             <control>Q: 學習 Kotlin Multiplatform 值得嗎？</control>
         </p>
-        <p>A: 如果您有興趣在 Android、iOS、桌面和網頁之間共享程式碼，同時保留原生效能和彈性，那麼學習 Kotlin Multiplatform 是值得的。它由 JetBrains 支持，並由 Google 在 Android 上正式支援，以在 Android 和 iOS 之間共享業務邏輯。此外，KMP 與 Compose Multiplatform 正日益被構建多平台應用程式的公司用於正式環境中。</p>
+        <p>A: 如果您有興趣在 Android、iOS、桌面和網頁之間共享程式碼，同時保留原生效能和彈性，那麼學習 Kotlin Multiplatform 是值得的。它由 JetBrains 支持，並由 Google 在 Android 上正式支援，以在 Android 和 iOS 之間共享業務邏輯。此外，KMP 搭配 Compose Multiplatform 正日益被構建多平台應用程式的公司用於正式環境中。
+        </p>
     </chapter>
 </topic>

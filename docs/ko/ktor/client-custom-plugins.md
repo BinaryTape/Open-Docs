@@ -23,7 +23,7 @@ v2.2.0부터 Ktor는 사용자 지정 클라이언트 [플러그인](client-plug
 
 이 섹션에서는 각 [요청](client-requests.md)에 사용자 지정 헤더를 추가하는 첫 번째 플러그인을 생성하고 설치하는 방법을 보여줍니다.
 
-1.  플러그인을 생성하려면 [createClientPlugin](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client.plugins.api/create-client-plugin.html) 함수를 호출하고 플러그인 이름을 인수로 전달합니다.
+1.  플러그인을 생성하려면 [createClientPlugin](https://api.ktor.io/ktor-client-core/io.ktor.client.plugins.api/create-client-plugin.html) 함수를 호출하고 플러그인 이름을 인수로 전달합니다.
     ```kotlin
     package com.example.plugins
     
@@ -397,7 +397,7 @@ val ResponseTimePlugin = createClientPlugin("ResponseTimePlugin") {
 
 ## 클라이언트 구성 접근 {id="client-config"}
 
-`HttpClient` 인스턴스를 반환하는 `client` 속성을 사용하여 클라이언트 구성에 접근할 수 있습니다. 다음 예시는 클라이언트가 사용하는 [프록시 주소](client-proxy.md)를 얻는 방법을 보여줍니다.
+`client` 속성을 사용하여 클라이언트 구성에 접근할 수 있습니다. 이는 [HttpClient](https://api.ktor.io/ktor-client-core/io.ktor.client/-http-client/index.html) 인스턴스를 반환합니다. 다음 예시는 클라이언트가 사용하는 [프록시 주소](client-proxy.md)를 얻는 방법을 보여줍니다.
 
 ```kotlin
 import io.ktor.client.plugins.api.*

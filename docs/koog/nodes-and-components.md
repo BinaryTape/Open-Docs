@@ -41,7 +41,7 @@ edge(passthrough forwardTo nodeFinish)
 
 ## LLM 节点
 
-### nodeUpdatePrompt
+### nodeAppendPrompt
 
 一个使用所提供的 prompt 构建器向 LLM prompt 添加消息的节点。
 这对于在进行实际 LLM 请求之前修改对话上下文很有用。关于详细信息，请参见 [API reference](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.dsl.extension/node-update-prompt.html)。
@@ -57,7 +57,7 @@ edge(passthrough forwardTo nodeFinish)
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.forwardTo
 import ai.koog.agents.core.dsl.builder.strategy
-import ai.koog.agents.core.dsl.extension.nodeUpdatePrompt
+import ai.koog.agents.core.dsl.extension.nodeAppendPrompt
 
 typealias Input = Unit
 typealias Output = Unit
@@ -76,8 +76,8 @@ val secondNode by node<Output, Output> {
     // Transform output to output
 }
 
-// Node will get the value of type Output as input from the previous node and path through it to the next node
-val setupContext by nodeUpdatePrompt<Output>("setupContext") {
+// 节点将从上一个节点获取 Output 类型的值作为输入，并将其路径传递到下一个节点
+val setupContext by nodeAppendPrompt<Output>("setupContext") {
     system("You are a helpful assistant specialized in Kotlin programming.")
     user("I need help with Kotlin coroutines.")
 }
@@ -404,7 +404,7 @@ edge(lengthNode forwardTo nodeFinish)
 
 ### subgraphWithTask
 
-一个使用所提供 tool 执行特定任务并返回结构化结果的子图。此子图旨在处理更大工作流中的自包含任务。关于详细信息，请参见 [API reference](https://api.koog.ai/agents/agents-ext/ai.koog.agents.ext.agent/subgraph-with-task.html)。
+一个使用所提供 tool 执行特定任务并返回结构化结果的子图。它支持多响应 LLM 交互（助手可能会生成多个与 tool 调用交错的响应），并允许你控制 tool 调用如何执行。关于详细信息，请参见 [API reference](https://api.koog.ai/agents/agents-ext/ai.koog.agents.ext.agent/subgraph-with-task.html)。
 
 你可以将此子图用于以下目的：
 
@@ -413,15 +413,21 @@ edge(lengthNode forwardTo nodeFinish)
 - 配置任务特有的 tool、模型和 prompt。
 - 通过自动压缩管理对话 history。
 - 开发结构化 agent 工作流和任务执行流水线。
-- 从 LLM 任务执行生成结构化结果。
+- 从 LLM 任务执行生成结构化结果，包括带多个助手响应和 tool 调用的流。
 
-你可以以文本形式向子图提供任务，并在需要时配置 LLM 并提供必要的 tool，子图将处理并解决该任务。例如：
+API 允许你使用可选参数微调执行：
+
+- `runMode`：控制任务期间 tool 调用如何执行（默认为顺序）。当底层模型/执行器支持时，使用此参数可在不同 tool 执行策略之间切换。
+- `assistantResponseRepeatMax`：限制在认定任务无法完成之前允许的助手响应数量（如果未提供，则默认为安全的内部限制）。
+
+你可以以文本形式向子图提供任务，在需要时配置 LLM 并提供必要的 tool，子图将处理并解决该任务。例如：
 
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
 import ai.koog.agents.ext.tool.SayToUser
 import ai.koog.prompt.executor.clients.openai.OpenAIModels
 import ai.koog.agents.ext.agent.subgraphWithTask
+import ai.koog.agents.core.agent.ToolCalls
 
 val searchTool = SayToUser
 val calculatorTool = SayToUser
@@ -436,6 +442,8 @@ val strategy = strategy<String, String>("strategy_name") {
 val processQuery by subgraphWithTask<String, String>(
     tools = listOf(searchTool, calculatorTool, weatherTool),
     llmModel = OpenAIModels.Chat.GPT4o,
+    runMode = ToolCalls.SEQUENTIAL,
+    assistantResponseRepeatMax = 3,
 ) { userQuery ->
     """
     You are a helpful assistant that can answer questions about various topics.
@@ -464,6 +472,7 @@ import ai.koog.agents.core.dsl.builder.strategy
 import ai.koog.agents.ext.tool.SayToUser
 import ai.koog.prompt.executor.clients.anthropic.AnthropicModels
 import ai.koog.agents.ext.agent.subgraphWithVerification
+import ai.koog.agents.core.agent.ToolCalls
 
 val runTestsTool = SayToUser
 val analyzeTool = SayToUser
@@ -477,7 +486,9 @@ val strategy = strategy<String, String>("strategy_name") {
 ```kotlin
 val verifyCode by subgraphWithVerification<String>(
     tools = listOf(runTestsTool, analyzeTool, readFileTool),
-    llmModel = AnthropicModels.Sonnet_3_7
+    llmModel = AnthropicModels.Sonnet_3_7,
+    runMode = ToolCalls.SEQUENTIAL,
+    assistantResponseRepeatMax = 3,
 ) { codeToVerify ->
     """
     You are a code reviewer. Please verify that the following code meets all requirements:
@@ -601,8 +612,8 @@ val agentStrategy = strategy<String, List<Book>>("library-assistant") {
         val books = mutableListOf<Book>()
         val mdDefinition = markdownBookDefinition()
 
-        llm.writeSession {
-            updatePrompt { user(booksDescription) }
+        llm.writeSession { 
+            appendPrompt { user(booksDescription) }
             // 以定义 `mdDefinition` 的形式启动响应流
             val markdownStream = requestLLMStreaming(mdDefinition)
             // 使用响应流的结果调用解析器，并对结果执行操作

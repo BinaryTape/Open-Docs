@@ -25,7 +25,7 @@
 </p>
 </tldr>
 
-Ktor 允许你通过安装 [Pebble](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-pebble/io.ktor.server.pebble/-pebble) 插件，在应用程序中将 [Pebble 模板](https://pebbletemplates.io/) 用作视图。
+Ktor 允许你通过安装 [Pebble](https://api.ktor.io/ktor-server-pebble/io.ktor.server.pebble/-pebble) 插件，在应用程序中将 [Pebble 模板](https://pebbletemplates.io/) 用作视图。
 
 ## 添加依赖项 {id="add_dependencies"}
 
@@ -112,4 +112,3 @@ get("/index") {
     val sampleUser = User(1, "John")
     call.respond(PebbleContent("index.html", mapOf("user" to sampleUser)))
 }
-```

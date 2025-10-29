@@ -11,9 +11,9 @@ Prompt API 提供了一个全面的工具包，用于在生产应用程序中与
 
 Prompt API 由三个主要层组成：
 
-- **LLM 客户端**：连接特定提供方（OpenAI、Anthropic 等）的底层接口。
-- **装饰器**：可选的包装器，用于添加重试逻辑等功能。
-- **提示词执行器**：管理客户端生命周期并简化使用的高级抽象。
+- **LLM clients**：连接特定提供方（OpenAI、Anthropic 等）的底层接口。
+- **Decorators**：可选的包装器，用于添加重试逻辑等功能。
+- **Prompt executors**：管理客户端生命周期并简化使用的高级抽象。
 
 ## 创建提示词
 
@@ -31,16 +31,16 @@ import ai.koog.prompt.params.LLMParams
 -->
 ```kotlin
 val prompt = prompt("prompt_name", LLMParams()) {
-    // 添加 system 消息以设置上下文
+    // Add a system message to set the context
     system("You are a helpful assistant.")
 
-    // 添加 user 消息
+    // Add a user message
     user("Tell me about Kotlin")
 
-    // 你还可以添加 assistant 消息用于少样本示例
+    // You can also add assistant messages for few-shot examples
     assistant("Kotlin is a modern programming language...")
 
-    // 再添加一条 user 消息
+    // Add another user message
     user("What are its key features?")
 }
 ```
@@ -60,23 +60,17 @@ val prompt = prompt("multimodal_input") {
     system("You are a helpful assistant.")
 
     user {
-        +"描述这些图像"
-
-        attachments {
-            image("https://example.com/test.png")
-            image(Path("/User/koog/image.png"))
-        }
+        +"Describe these images"
+        
+        image("https://example.com/test.png")
+        image(Path("/User/koog/image.png"))
     }
 }
 ```
 <!--- KNIT example-prompt-api-02.kt -->
 
 ### 文本提示词内容
-
-为了支持各种附件类型并在提示词中区分文本输入和文件输入，你可以将文本消息放在 `user` 提示词中一个专用的 `content` 形参中。
-要添加文件输入，请将它们作为列表提供给 `attachments` 形参。
-
-包含文本消息和附件列表的 `user` 消息的通用格式如下：
+包含文本消息和附件列表的 user 消息的通用格式如下：
 
 <!--- INCLUDE
 import ai.koog.prompt.dsl.prompt
@@ -87,23 +81,23 @@ val prompt = prompt("prompt") {
 }
 -->
 ```kotlin
-user(
-    content = "This is the user message",
-    attachments = listOf(
-        // 添加附件
-    )
-)
+user {
+    +"This is the text part of the user message"
+    // Add attachment
+    image("https://example.com/capture.png")
+    file("https://example.com/data.pdf", "application/pdf")
+}
 ```
 <!--- KNIT example-prompt-api-03.kt -->
 
 ### 文件附件
 
-要包含附件，请将文件提供给 `attachments` 形参，格式如下：
+要包含附件，请提供以下格式的文件：
 
 <!--- INCLUDE
 import ai.koog.prompt.dsl.prompt
-import ai.koog.prompt.message.Attachment
 import ai.koog.prompt.message.AttachmentContent
+import ai.koog.prompt.message.ContentPart
 
 val prompt = prompt("prompt") {
 -->
@@ -111,21 +105,21 @@ val prompt = prompt("prompt") {
 }
 -->
 ```kotlin
-user(
-    content = "Describe this image",
-    attachments = listOf(
-        Attachment.Image(
+user {
+    +"Describe this image"
+    image(
+        ContentPart.Image(
             content = AttachmentContent.URL("https://example.com/capture.png"),
             format = "png",
             mimeType = "image/png",
             fileName = "capture.png"
         )
     )
-)
+}
 ```
 <!--- KNIT example-prompt-api-04.kt -->
 
-`attachments` 形参接受一个文件输入列表，其中每个项都是以下某个类的实例：
+`attachments` 形参接受一个文件输入 list，其中每个项都是以下某个类的实例：
 
 - `Attachment.Image`：图像附件，例如 `jpg` 或 `png` 文件。
 - `Attachment.Audio`：音频附件，例如 `mp3` 或 `wav` 文件。
@@ -203,12 +197,10 @@ val prompt = prompt("mixed_content") {
     system("You are a helpful assistant.")
 
     user {
-        +"比较图像与文档内容。"
-
-        attachments {
-            image(Path("/User/koog/page.png"))
-            binaryFile(Path("/User/koog/page.pdf"), "application/pdf")
-        }
+        +"Compare the image with the document content."
+        image(Path("/User/koog/page.png"))
+        binaryFile(Path("/User/koog/page.pdf"), "application/pdf")
+        +"Structure the result as a table"
     }
 }
 ```
@@ -219,7 +211,8 @@ val prompt = prompt("mixed_content") {
 在使用 Prompt API 时，你可以使用 LLM 客户端或提示词执行器来运行提示词。要在这两者之间进行选择，请考虑以下因素：
 
 - 如果你使用单个 LLM 提供方并且不需要高级生命周期管理，请直接使用 LLM 客户端。要了解更多信息，请参见 [使用 LLM 客户端运行提示词](#running-prompts-with-llm-clients)。
-- 如果你需要更高级别的抽象来管理 LLM 及其生命周期，或者你希望通过跨多个提供方的统一 API 运行提示词并动态切换它们，请使用提示词执行器。要了解更多信息，请参见 [使用提示词执行器运行提示词](#running-prompts-with-prompt-executors)。
+- 如果你需要更高级别的抽象来管理 LLM 及其生命周期，或者你希望通过跨多个提供方的统一 API 运行提示词并动态切换它们，请使用提示词执行器。
+  要了解更多信息，请参见 [使用提示词执行器运行提示词](#running-prompts-with-prompt-executors)。
 
 !!!note
     LLM 客户端和提示词执行器都允许你流式传输响应、生成多个选择和运行内容审核。有关更多信息，请参考特定客户端或执行器的 [API 参考](https://api.koog.ai/index.html)。
@@ -245,7 +238,7 @@ import ai.koog.prompt.executor.clients.openai.OpenAILLMClient
 const val apiKey = "apikey"
 -->
 ```kotlin
-// 创建一个 OpenAI 客户端
+// Create an OpenAI client
 val client = OpenAILLMClient(apiKey)
 ```
 <!--- KNIT example-prompt-api-06.kt -->
@@ -266,10 +259,10 @@ runBlocking {
 }
 -->
 ```kotlin
-// 执行提示词
+// Execute the prompt
 val response = client.execute(
     prompt = prompt,
-    model = OpenAIModels.Chat.GPT4o  // 你可以选择不同的模型
+    model = OpenAIModels.Chat.GPT4o  // You can choose different models
 )
 ```
 <!--- KNIT example-prompt-api-07.kt -->
@@ -287,26 +280,26 @@ import kotlinx.coroutines.runBlocking
 
 fun main() {
     runBlocking {
-        // 使用你的 API 密钥设置 OpenAI 客户端
+        // Set up the OpenAI client with your API key
         val token = System.getenv("OPENAI_API_KEY")
         val client = OpenAILLMClient(token)
 
-        // 创建提示词
+        // Create a prompt
         val prompt = prompt("prompt_name", LLMParams()) {
-            // 添加 system 消息以设置上下文
+            // Add a system message to set the context
             system("You are a helpful assistant.")
 
-            // 添加 user 消息
+            // Add a user message
             user("Tell me about Kotlin")
 
-            // 你还可以添加 assistant 消息用于少样本示例
+            // You can also add assistant messages for few-shot examples
             assistant("Kotlin is a modern programming language...")
 
-            // 再添加一条 user 消息
+            // Add another user message
             user("What are its key features?")
         }
 
-        // 执行提示词并获取响应
+        // Execute the prompt and get the response
         val response = client.execute(prompt = prompt, model = OpenAIModels.Chat.GPT4o)
         println(response)
     }
@@ -330,8 +323,8 @@ fun main() {
 
 Koog 提供两种主要的提示词执行器：
 
-| 名称                                                                                                                                              | 描述                                                                                                                                                                                                                             |
-|:--------------------------------------------------------------------------------------------------------------------------------------------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| <div style="width:175px">名称</div> | 描述                                                                                                                                                                                                                             |
+|-------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | [`SingleLLMPromptExecutor`](https://api.koog.ai/prompt/prompt-executor/prompt-executor-llms/ai.koog.prompt.executor.llms/-single-l-l-m-prompt-executor/index.html) | 包装单个 LLM 客户端用于一个提供方。如果你的代理仅需要在一个 LLM 提供方内切换模型，请使用此执行器。                                                                                                                                                 |
 | [`MultiLLMPromptExecutor`](https://api.koog.ai/prompt/prompt-executor/prompt-executor-llms/ai.koog.prompt.executor.llms/-multi-l-l-m-prompt-executor/index.html)  | 按提供方路由到多个 LLM 客户端，并为每个提供方提供可选的回退机制，以便在请求的提供方不可用时使用。如果你的代理需要在不同提供方的模型之间切换，请使用此执行器。 |
 
@@ -422,10 +415,10 @@ fun main() {
 }
 -->
 ```kotlin
-// 创建一个 OpenAI 执行器
+// Create an OpenAI executor
 val promptExecutor = simpleOpenAIExecutor("OPENAI_KEY")
 
-// 创建一个包含 OpenAI、Anthropic 和 Google LLM 客户端的 DefaultMultiLLMPromptExecutor
+// Create a DefaultMultiLLMPromptExecutor with OpenAI, Anthropic, and Google LLM clients
 val openAIClient = OpenAILLMClient("OPENAI_KEY")
 val anthropicClient = AnthropicLLMClient("ANTHROPIC_KEY")
 val googleClient = GoogleLLMClient("GOOGLE_KEY")
@@ -453,7 +446,7 @@ fun main() {
 }
 -->
 ```kotlin
-// 执行提示词
+// Execute a prompt
 val response = promptExecutor.execute(
     prompt = prompt,
     model = OpenAIModels.Chat.GPT4o
@@ -490,7 +483,7 @@ import ai.koog.prompt.cache.files.FilePromptCache
 import ai.koog.prompt.executor.cached.CachedPromptExecutor
 import kotlin.io.path.Path
 import kotlinx.coroutines.runBlocking
--->
+--> 
 ```kotlin
 val cachedExecutor = CachedPromptExecutor(
     cache = FilePromptCache(Path("/cache_directory")),
@@ -516,7 +509,7 @@ fun main() {
 <!--- SUFFIX
     }
 }
--->
+--> 
 ```kotlin
 val response = cachedExecutor.execute(prompt, OpenAIModels.Chat.GPT4o)
 ```
@@ -688,7 +681,7 @@ val multiExecutor = MultiLLMPromptExecutor(
     ),
     // Bedrock 客户端已内置 AWS SDK 重试功能
     LLMProvider.Bedrock to BedrockLLMClient(
-        credentialsProvider = StaticCredentialsProvider {
+        identityProvider = StaticCredentialsProvider {
             accessKeyId = System.getenv("AWS_ACCESS_KEY_ID")
             secretAccessKey = System.getenv("AWS_SECRET_ACCESS_KEY")
             sessionToken = System.getenv("AWS_SESSION_TOKEN")

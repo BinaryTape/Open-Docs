@@ -16,11 +16,11 @@
 
 ## 添加依赖项 {id="add_dependencies"}
 
-在使用 `kotlinx.serialization` 转换器之前，你需要按照 [Setup](https://github.com/Kotlin/kotlinx.serialization#setup) 部分的描述添加 Kotlin 序列化插件。
+在使用 kotlinx.serialization 转换器之前，你需要按照 [Setup](https://github.com/Kotlin/kotlinx.serialization#setup) 部分的描述添加 Kotlin 序列化插件。
 
 #### JSON {id="add_json_dependency"}
 
-要序列化/反序列化 JSON 数据，你可以选择以下库之一：`kotlinx.serialization`、`Gson` 或 `Jackson`。
+要序列化/反序列化 JSON 数据，你可以选择以下库之一：kotlinx.serialization、Gson 或 Jackson。
 
 <Tabs group="json-libraries">
 <TabItem title="kotlinx.serialization" group-key="kotlinx">
@@ -220,7 +220,7 @@ install(WebSockets) {
 data class Customer(val id: Int, val firstName: String, val lastName: String)
 ```
 
-如果你使用 `kotlinx.serialization`，请确保此数据类具有 `@Serializable` 注解：
+如果你使用 kotlinx.serialization，请确保此数据类具有 `@Serializable` 注解：
 ```kotlin
 @Serializable
 data class Customer(val id: Int, val firstName: String, val lastName: String)

@@ -42,7 +42,7 @@ dependencies {
 
 ## 在通用代码中定义和模块
 
-在你的 `commonMain` sourceSet 中，声明你的模块，扫描定义，或者将函数定义为常规的 Kotlin Koin 声明。请参阅 [定义](definitions.md) 和 [模块](./modules.md)。
+在你的 `commonMain` sourceSet 中，声明你的 Module，扫描定义，或者将函数定义为常规的 Kotlin Koin 声明。请参阅 [定义](./definitions.md) 和 [模块](./modules.md)。
 
 ## 共享模式
 
@@ -50,7 +50,13 @@ dependencies {
 
 在 Kotlin Multiplatform 应用程序中，某些组件必须针对每个平台进行特定实现。你可以在定义级别共享这些组件，通过对给定类（定义或模块）使用 expect/actual。你可以通过 expect/actual 实现来共享定义，或者共享一个带有 expect/actual 的模块。
 
-请查阅 [Multiplatform Expect & Actual 规则](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-expect-actual.html) 文档，获取通用的 Kotlin 指导。
+:::info
+关于通用 Kotlin 指导，请查阅 [Multiplatform Expect & Actual 规则](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-expect-actual.html) 文档。
+:::
+
+:::warning
+Expect/Actual 类不能为每个平台拥有不同的构造函数。你需要遵守在通用空间中设计的当前构造函数契约。
+:::
 
 ### 为原生实现共享定义
 
@@ -79,7 +85,7 @@ expect class PlatformComponentA() {
 }
 ```
 
-在原生源码中，实现我们的实际类：
+在原生源码中，实现我们的 actual 类：
 
 ```kotlin
 // androidMain
@@ -115,7 +121,7 @@ expect class PlatformComponentB() {
 }
 ```
 
-在原生源码中，实现我们的实际类：
+在原生源码中，实现我们的 actual 类：
 
 ```kotlin
 // androidMain
@@ -129,17 +135,18 @@ actual class PlatformComponentB {
 
 // package com.jetbrains.kmpapp.native
 actual class PlatformComponentB {
-    actual fun sayHello() : String = "I'm iOS - A"
+    actual fun sayHello() : String = "I'm iOS - B"
 }
 ```
 
-### 通过不同的原生实现共享定义
+### 通过不同的原生契约共享定义
 
 :::info
 我们以 Expect/Actual 通用模块 + 通用接口 + 原生实现为目标进行共享。
 :::
 
-在某些情况下，你可能需要在每个原生实现上使用不同的构造函数参数。此时，Expect/Actual 类就不是你的解决方案。你需要使用一个 `interface` 在每个平台上进行实现，并使用一个 Expect/Actual 类模块，让该模块定义正确的平台实现：
+在某些情况下，你可能需要在每个原生实现上使用不同的构造函数实参。此时，Expect/Actual 类就不是你的解决方案。
+你需要使用一个 `interface` 在每个平台上进行实现，并使用一个 Expect/Actual 类模块，让该模块定义正确的平台实现：
 
 在 commonMain 中：
 ```kotlin
@@ -155,7 +162,7 @@ interface PlatformComponentD {
 }
 ```
 
-在原生源码中，实现我们的实际类：
+在原生源码中，实现我们的 actual 类：
 
 ```kotlin
 // androidMain
@@ -163,12 +170,12 @@ interface PlatformComponentD {
 @Module
 actual class NativeModuleD {
     @Factory
-    actual fun providesPlatformComponentD(scope : org.koin.core.scope.Scope) : PlatformComponentD = PlatformComponentDAndroid(ctx)
+    actual fun providesPlatformComponentD(scope : org.koin.core.scope.Scope) : PlatformComponentD = PlatformComponentDAndroid(scope)
 }
 
 class PlatformComponentDAndroid(scope : org.koin.core.scope.Scope) : PlatformComponentD{
     val context : Context = scope.get()
-    override fun sayHello() : String = "I'm Android - D - with ${ctx.context}"
+    override fun sayHello() : String = "I'm Android - D - with ${context}"
 }
 
 // iOSMain
@@ -211,7 +218,7 @@ expect class ContextModule() {
 }
 ```
 
-在原生源码中，实现我们的实际类：
+在原生源码中，实现我们的 actual 类：
 
 ```kotlin
 // androidMain
@@ -240,7 +247,7 @@ actual class ContextModule {
 通过这种方式，你可以将动态平台连接最小化到一个定义中，并在整个系统中安全注入。
 :::
 
-你现在可以从通用代码中使用 `ContextWrapper`，并轻松地将其传递到你的 Expect/Actual 类中：
+你现在可以从通用代码中使用你的 `ContextWrapper`，并轻松地将其传递到你的 Expect/Actual 类中：
 
 在 commonMain 中：
 ```kotlin
@@ -257,14 +264,14 @@ expect class PlatformComponentA(ctx : ContextWrapper) {
 }
 ```
 
-在原生源码中，实现我们的实际类：
+在原生源码中，实现我们的 actual 类：
 
 ```kotlin
 // androidMain
 
 // package com.jetbrains.kmpapp.native
 actual class PlatformComponentA actual constructor(val ctx : ContextWrapper) {
-    actual fun sayHello() : String = "I'm Android - A - with context: ${ctx.context"
+    actual fun sayHello() : String = "I'm Android - A - with context: ${ctx.context}"
 }
 
 // iOSMain

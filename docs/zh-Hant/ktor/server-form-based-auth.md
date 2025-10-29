@@ -42,10 +42,10 @@
 表單式身份驗證流程可能如下所示：
 
 1. 未經身份驗證的客戶端向伺服器應用程式中的特定 [路由](server-routing.md) 發出請求。
-2. 伺服器返回一個 HTML 頁面，該頁面至少包含一個基於 HTML 的網頁表單，提示使用者輸入使用者名稱和密碼。 
+2. 伺服器返回一個 HTML 頁面，該頁面至少包含一個基於 HTML 的網頁表單，提示使用者輸入使用者名稱和密碼。
    > Ktor 允許您使用 [Kotlin DSL](server-html-dsl.md) 建立表單，或者您可以選擇各種 JVM 模板引擎，例如 FreeMarker、Velocity 等。
 3. 當使用者提交使用者名稱和密碼時，客戶端會向伺服器發出一個包含網頁表單資料 (其中包括使用者名稱和密碼) 的請求。
-   
+
    ```kotlin
    POST http://localhost:8080/login
    Content-Type: application/x-www-form-urlencoded
@@ -53,7 +53,7 @@
    username=jetbrains&password=foobar
    
    ```
-   
+
    在 Ktor 中，您需要 [指定參數名稱](#configure-provider) 以用於獲取使用者名稱和密碼。
 
 4. 伺服器 [驗證](#configure-provider) 客戶端發送的憑證，並回應所請求的內容。

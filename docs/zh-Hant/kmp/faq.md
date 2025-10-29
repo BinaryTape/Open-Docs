@@ -48,15 +48,9 @@ Kotlin Multiplatform 支援 Android、iOS、桌面、網頁、伺服器端及其
 
 您仍然可以在 Kotlin Multiplatform 專案中使用 coroutines 和 flows 編寫非同步程式碼。如何呼叫此程式碼取決於您從何處呼叫。從 Kotlin 程式碼呼叫 suspending functions 和 flows 已有廣泛文件記載，尤其是針對 Android。[從 Swift 程式碼呼叫它們](https://kotlinlang.org/docs/native-arc-integration.html#completion-handlers) 需要多一點工作，詳情請參閱 [KT-47610](https://youtrack.jetbrains.com/issue/KT-47610)。
 
-<!-- when adding SKIE back to the tutorial, add it here as well
-and uncomment the paragraph below --> 
-
 目前從 Swift 呼叫 suspending functions 和 flows 的最佳方法是使用 [KMP-NativeCoroutines](https://github.com/rickclephas/KMP-NativeCoroutines) 等外掛程式和函式庫，並結合 Swift 的 `async`/`await` 或 Combine 和 RxSwift 等函式庫。
 
-<!-- At the moment, KMP-NativeCoroutines is the more
-tried-and-tested solution, and it supports `async`/`await`, Combine, and RxSwift approaches to concurrency. SKIE is easier
-to set up and less verbose. For instance, it maps Kotlin `Flow` to Swift `AsyncSequence` directly. Both of these libraries
-support the proper cancellation of coroutines. -->
+目前，KMP-NativeCoroutines 是經過更多試驗和驗證的解決方案，它支援 `async`/`await`、Combine 和 RxSwift 等並行方法。SKIE 設定起來可能更容易，並且不那麼冗長。例如，它將 Kotlin `Flow` 直接映射到 Swift `AsyncSequence`。這兩個函式庫都支援 coroutines 的正確取消。
 
 要了解如何使用它們，請參閱 [在 iOS 和 Android 之間共享更多邏輯](multiplatform-upgrade-app.md)。
 
@@ -136,14 +130,6 @@ Compose Multiplatform 的 Android、iOS 和桌面目標已穩定。您可以在�
 ### 我可以將 UIKit 或 SwiftUI 元件整合到 Compose 畫面中嗎？
 
 是的，您可以。請參閱 [與 SwiftUI 整合](compose-swiftui-integration.md) 和 [與 UIKit 整合](compose-uikit-integration.md)。
-
-<!-- Need to revise
-### What happens when my mobile OS updates and introduces new platform capabilities?
-
-You can use them in platform-specific parts of your codebase once Kotlin supports them. We do our best to support them
-in the upcoming Kotlin version. All new Android capabilities provide Kotlin or Java APIs, and wrappers over iOS APIs are
-generated automatically.
--->
 
 ### 當我的行動作業系統更新並更改系統元件的視覺樣式或行為時會發生什麼？
 

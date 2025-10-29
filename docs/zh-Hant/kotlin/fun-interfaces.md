@@ -6,7 +6,7 @@
 
 ```kotlin
 fun interface KRunnable {
-   fun invoke()
+    fun invoke()
 }
 ```
 
@@ -20,7 +20,7 @@ fun interface KRunnable {
 
 ```kotlin
 fun interface IntPredicate {
-   fun accept(i: Int): Boolean
+    fun accept(i: Int): Boolean
 }
 ```
 
@@ -29,9 +29,9 @@ fun interface IntPredicate {
 ```kotlin
 // Creating an instance of a class
 val isEven = object : IntPredicate {
-   override fun accept(i: Int): Boolean {
-       return i % 2 == 0
-   }
+    override fun accept(i: Int): Boolean {
+        return i % 2 == 0
+    }
 }
 ```
 
@@ -46,13 +46,13 @@ val isEven = IntPredicate { it % 2 == 0 }
 
 ```kotlin
 fun interface IntPredicate {
-   fun accept(i: Int): Boolean
+    fun accept(i: Int): Boolean
 }
 
 val isEven = IntPredicate { it % 2 == 0 }
 
 fun main() {
-   println("Is 7 even? - ${isEven.accept(7)}")
+    println("Is 7 even? - ${isEven.accept(7)}")
 }
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.4"}
@@ -69,7 +69,9 @@ interface Printer {
     fun print() 
 }
 
-fun Printer(block: () -> Unit): Printer = object : Printer { override fun print() = block() }
+fun Printer(block: () -> Unit): Printer = object : Printer {
+    override fun print() = block()
+}
 ```
 
 啟用函數式介面建構函式的可呼叫參考後，這段程式碼可以替換為單純的函數式介面宣告：
@@ -103,7 +105,7 @@ typealias IntPredicate = (i: Int) -> Boolean
 val isEven: IntPredicate = { it % 2 == 0 }
 
 fun main() {
-   println("Is 7 even? - ${isEven(7)}")
+    println("Is 7 even? - ${isEven(7)}")
 }
 ```
 

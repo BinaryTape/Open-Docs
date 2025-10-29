@@ -4,7 +4,7 @@
 
 <var name="artifact_name" value="ktor-server-swagger"/>
 <var name="package_name" value="io.ktor.server.plugins.swagger"/>
-<var name="plugin_api_link" value="https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-swagger/io.ktor.server.plugins.swagger/swagger-u-i.html"/>
+<var name="plugin_api_link" value="https://api.ktor.io/ktor-server-swagger/io.ktor.server.plugins.swagger/swagger-u-i.html"/>
 
 <tldr>
 <p>
@@ -26,7 +26,8 @@
 SwaggerUI プラグインを使用すると、プロジェクト用の Swagger UI を生成できます。
 </link-summary>
 
-Ktor は、既存の OpenAPI 仕様に基づいて、プロジェクト用の Swagger UI を生成して提供できます。Swagger UI を使用すると、API リソースを視覚化し、操作できます。既存の YAML または JSON 仕様を提供したり、Ktor Gradle プラグインの [OpenAPI 拡張機能](openapi-spec-generation.md)を使用して生成したりできます。
+Ktor は、既存の OpenAPI 仕様に基づいて、プロジェクト用の Swagger UI を生成して提供できます。
+Swagger UI を使用すると、API リソースを視覚化し、操作できます。既存の YAML または JSON 仕様を提供したり、Ktor Gradle プラグインの [OpenAPI 拡張機能](openapi-spec-generation.md)を使用して生成したりできます。
 
 ## 依存関係を追加する {id="add_dependencies"}
 
@@ -57,9 +58,11 @@ routing {
 }
 ```
 
-このメソッドは、アプリケーションリソース内で OpenAPI 仕様を検索しようとします。それ以外の場合は、`java.io.File` を使用してファイルシステムから OpenAPI 仕様を読み込もうとします。
+このメソッドは、アプリケーションリソース内で OpenAPI 仕様を検索しようとします。
+それ以外の場合は、`java.io.File` を使用してファイルシステムから OpenAPI 仕様を読み込もうとします。
 
-オプションで、`swaggerUI` ブロック内で Swagger UI をカスタマイズできます。たとえば、別の Swagger UI バージョンを使用したり、カスタムスタイルを適用したりできます。
+オプションで、`swaggerUI` ブロック内で Swagger UI をカスタマイズできます。
+たとえば、別の Swagger UI バージョンを使用したり、カスタムスタイルを適用したりできます。
 
 ```kotlin
 routing {

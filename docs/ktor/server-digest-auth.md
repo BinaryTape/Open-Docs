@@ -80,7 +80,7 @@ Ktor 允许您使用摘要认证来登录用户和保护特定的[路由](server
 4. 服务器[验证](#configure-provider)客户端发送的凭据并响应所请求的内容。
 
 ## 安装摘要认证 {id="install"}
-要安装 `digest` 认证提供者，请在 `install` 代码块中调用 [digest](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-auth/io.ktor.server.auth/digest.html) 函数：
+要安装 `digest` 认证提供者，请在 `install` 代码块中调用 [digest](https://api.ktor.io/ktor-server-auth/io.ktor.server.auth/digest.html) 函数：
 
 ```kotlin
 import io.ktor.server.application.*
@@ -114,7 +114,7 @@ val userTable: Map<String, ByteArray> = mapOf(
 
 ### 步骤 2：配置摘要提供者 {id="configure-provider"}
 
-`digest` 认证提供者通过 [DigestAuthenticationProvider.Config](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-auth/io.ktor.server.auth/-digest-authentication-provider/-config/index.html) 类公开其设置。在下面的示例中，指定了以下设置：
+`digest` 认证提供者通过 [DigestAuthenticationProvider.Config](https://api.ktor.io/ktor-server-auth/io.ktor.server.auth/-digest-authentication-provider/-config/index.html) 类公开其设置。在下面的示例中，指定了以下设置：
 * `realm` 属性设置要传递到 `WWW-Authenticate` 请求头中的 realm。
 * `digestProvider` 函数获取指定用户名的摘要的 `HA1` 部分。
 * (可选) `validate` 函数允许您将凭据映射到自定义 Principal。
@@ -141,11 +141,11 @@ fun Application.main() {
 data class CustomPrincipal(val userName: String, val realm: String)
 ```
 
-您还可以使用 [nonceManager](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-auth/io.ktor.server.auth/-digest-authentication-provider/-config/nonce-manager.html) 属性来指定如何生成 nonce 值。
+您还可以使用 [nonceManager](https://api.ktor.io/ktor-server-auth/io.ktor.server.auth/-digest-authentication-provider/-config/nonce-manager.html) 属性来指定如何生成 nonce 值。
 
 ### 步骤 3：保护特定资源 {id="authenticate-route"}
 
-配置 `digest` 提供者后，您可以使用 **[authenticate](server-auth.md#authenticate-route)** 函数保护应用程序中的特定资源。如果认证成功，您可以在路由处理程序中使用 `call.principal` 函数检索经过认证的 [Principal](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-auth/io.ktor.server.auth/-principal/index.html)，并获取认证用户的名称。
+配置 `digest` 提供者后，您可以使用 **[authenticate](server-auth.md#authenticate-route)** 函数保护应用程序中的特定资源。如果认证成功，您可以在路由处理程序中使用 `call.principal` 函数检索经过认证的 [Principal](https://api.ktor.io/ktor-server-auth/io.ktor.server.auth/-principal/index.html)，并获取认证用户的名称。
 
 ```kotlin
 routing {
@@ -155,4 +155,3 @@ routing {
         }
     }
 }
-```

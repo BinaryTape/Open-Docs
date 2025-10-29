@@ -19,13 +19,13 @@ aside: false
             <a href="multiplatform-create-first-app.md" summary="Kotlin Multiplatform を理解し、Android と iOS の両方で動作するモバイルアプリを Android Studio で作成する">ロジックを共有し、UI はネイティブのままにする</a>
             <a href="compose-multiplatform-create-first-app.md" summary="Compose Multiplatform を使用して、Android、iOS、デスクトップ間で UI を共有するアプリケーションを作成する">ロジックと UI の両方を共有する</a>
             <a href="multiplatform-ktor-sqldelight.md" summary="Android と iOS 間で共有データアクセスレイヤーを持つマルチプラットフォームアプリを作成する">ロジックの一部を共有する</a>
-            <a href="multiplatform-integrate-in-existing-app.md" summary="Android アプリケーションを iOS で動作させる">アプリをマルチプラットフォーム対応にする</a>
+            <a href="multiplatform-integrate-in-existing-app.md" summary="Android アプリケーションを Android および iOS 向け Kotlin Multiplatform に移行する">アプリをマルチプラットフォーム対応にする</a>
         </primary>
         <secondary>
             <title>Kotlin Multiplatform テクノロジー</title>
+            <a href="kmp-overview.md" summary="KMP とは何か、その利点とユースケース">Kotlin Multiplatform を選択する理由</a>
             <a href="multiplatform-discover-project.md" summary="基本を学ぶ: 共通コードとプラットフォーム固有コード、ターゲット、ソースセット">プロジェクト構造の主要な概念</a>
             <a href="multiplatform-expect-actual.md" summary="expected および actual 宣言を使用して、プラットフォーム固有の API にアクセスする">Expected および actual 宣言</a>
-            <a href="multiplatform-hierarchy.md" summary="共通コードを共有するためのソースセットの階層を構成する">階層型プロジェクト構造</a>
             <a href="multiplatform-ios-integration-overview.md" summary="Kotlin Multiplatform 共有モジュールを iOS アプリに統合する">iOS 統合をセットアップする</a>
         </secondary>
         <misc>

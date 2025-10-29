@@ -60,7 +60,7 @@ KtorでWebフォームを作成するには、[HTML DSL](server-html-dsl.md#html
 4.  サーバーはクライアントから送信された資格情報（クレデンシャル）を[検証](#configure-provider)し、要求されたコンテンツで応答します。
 
 ## フォーム認証のインストール {id="install"}
-`form`認証プロバイダーをインストールするには、`install`ブロック内で[form](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-auth/io.ktor.server.auth/form.html)関数を呼び出します。
+`form`認証プロバイダーをインストールするには、`install`ブロック内で[form](https://api.ktor.io/ktor-server-auth/io.ktor.server.auth/form.html)関数を呼び出します。
 
 ```kotlin
 import io.ktor.server.application.*
@@ -78,11 +78,11 @@ install(Authentication) {
 ## フォーム認証の設定 {id="configure"}
 
 ### ステップ1: フォームプロバイダーの設定 {id="configure-provider"}
-`form`認証プロバイダーは、[FormAuthenticationProvider.Config](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-auth/io.ktor.server.auth/-form-authentication-provider/-config/index.html)クラスを介してその設定を公開します。以下の例では、次の設定が指定されています。
+`form`認証プロバイダーは、[FormAuthenticationProvider.Config](https://api.ktor.io/ktor-server-auth/io.ktor.server.auth/-form-authentication-provider/-config/index.html)クラスを介してその設定を公開します。以下の例では、次の設定が指定されています。
 *   `userParamName`プロパティと`passwordParamName`プロパティは、ユーザー名とパスワードの取得に使用されるパラメーター名を指定します。
 *   `validate`関数は、ユーザー名とパスワードを検証します。
     `validate`関数は`UserPasswordCredential`をチェックし、認証が成功した場合は`UserIdPrincipal`を返し、認証が失敗した場合は`null`を返します。
-*   `challenge`関数は、認証が失敗した場合に実行されるアクションを指定します。例えば、ログインページにリダイレクトするか、[UnauthorizedResponse](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-auth/io.ktor.server.auth/-unauthorized-response/index.html)を送信できます。
+*   `challenge`関数は、認証が失敗した場合に実行されるアクションを指定します。例えば、ログインページにリダイレクトするか、[UnauthorizedResponse](https://api.ktor.io/ktor-server-auth/io.ktor.server.auth/-unauthorized-response/index.html)を送信できます。
 
 ```kotlin
 install(Authentication) {
@@ -109,7 +109,7 @@ install(Authentication) {
 
 `form`プロバイダーを設定した後、データが送信される`post`ルートを定義する必要があります。
 次に、このルートを**[authenticate](server-auth.md#authenticate-route)**関数内に追加します。
-認証が成功した場合、ルートハンドラー内で`call.principal`関数を使用して認証された[UserIdPrincipal](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-auth/io.ktor.server.auth/-user-id-principal/index.html)を取得し、認証されたユーザーの名前を取得できます。
+認証が成功した場合、ルートハンドラー内で`call.principal`関数を使用して認証された[UserIdPrincipal](https://api.ktor.io/ktor-server-auth/io.ktor.server.auth/-user-id-principal/index.html)を取得し、認証されたユーザーの名前を取得できます。
 
 ```kotlin
 routing {

@@ -2,7 +2,7 @@
 
 Dokka 從頭打造，旨在易於擴展和高度客製化，這使得社群能夠為那些開箱即用功能所欠缺或非常特定的功能實作外掛程式。
 
-Dokka 外掛程式的範圍涵蓋從支援其他程式語言原始碼到各種不尋常的輸出格式。您可以添加對您自己的 KDoc 標籤或註解的支援，教導 Dokka 如何呈現 KDoc 描述中發現的不同 DSL，視覺上重新設計 Dokka 頁面使其無縫整合到您公司的網站，將其與其他工具整合等等。
+Dokka 外掛程式的範圍涵蓋從支援其他程式語言原始碼到各種不尋常的輸出格式。您可以添加對您自己的 KDoc 標籤或註解的支援，教導 Dokka 如何呈現 KDoc 描述中發現的不同 DSLs，視覺上重新設計 Dokka 頁面使其無縫整合到您公司的網站，將其與其他工具整合等等。
 
 如果您想了解如何建立 Dokka 外掛程式，請參閱
 [開發者指南](https://kotlin.github.io/dokka/%dokkaVersion%/developer_guide/introduction/)。
@@ -24,12 +24,12 @@ Dokka 外掛程式以獨立構件的形式發布，因此要套用 Dokka 外掛�
 <tabs group="build-script">
 <tab title="Kotlin" group-key="kotlin">
 
-> 從 Dokka 2.0.0 開始，一些配置選項、Gradle 任務以及生成文件的步驟都已更新，其中包括：
+> 這些說明反映了 Dokka Gradle 外掛程式 v1 的配置與任務。從 Dokka 2.0.0 開始，一些配置選項、Gradle 任務以及生成文件的步驟都已更新，其中包括：
 >
 > * [配置 Dokka 外掛程式](dokka-migration.md#configure-dokka-plugins)
 > * [處理多模組專案](dokka-migration.md#share-dokka-configuration-across-modules)
 >
-> 有關更多詳細資訊和完整的變更列表，請參閱 [遷移指南](dokka-migration.md)。
+> 有關更多詳細資訊以及 Dokka Gradle 外掛程式 v2 中完整的變更列表，請參閱 [遷移指南](dokka-migration.md)。
 >
 > {style="note"}
 
@@ -97,7 +97,8 @@ dependencies {
 </tab>
 <tab title="CLI" group-key="cli">
 
-如果您使用帶有 [命令列選項](dokka-cli.md#run-with-command-line-options) 的 [CLI](dokka-cli.md) 執行器，Dokka 外掛程式應作為 `.jar` 檔案傳遞給 `-pluginsClasspath`：
+如果您使用帶有 [命令列選項](dokka-cli.md#run-with-command-line-options) 的 [CLI](dokka-cli.md) 執行器，
+Dokka 外掛程式應作為 `.jar` 檔案傳遞給 `-pluginsClasspath`：
 
 ```Shell
 java -jar dokka-cli-%dokkaVersion%.jar \
@@ -105,7 +106,8 @@ java -jar dokka-cli-%dokkaVersion%.jar \
      ...
 ```
 
-如果您使用 [JSON 配置](dokka-cli.md#run-with-json-configuration)，Dokka 外掛程式應在 `pluginsClasspath` 下指定。
+如果您使用 [JSON 配置](dokka-cli.md#run-with-json-configuration)，Dokka 外掛程式應在
+`pluginsClasspath` 下指定。
 
 ```json
 {
@@ -131,7 +133,8 @@ Dokka 外掛程式也可以有自己的配置選項。要查看哪些選項可�
 <tabs group="build-script">
 <tab title="Kotlin" group-key="kotlin">
 
-Gradle 的 Kotlin DSL 允許型別安全的外掛程式配置。這可以透過將外掛程式的構件添加到 `buildscript` 區塊中的類別路徑依賴項，然後導入外掛程式和配置類別來實現：
+Gradle 的 Kotlin DSL 允許型別安全的外掛程式配置。這可以透過將外掛程式的構件添加到
+`buildscript` 區塊中的類別路徑依賴項，然後導入外掛程式和配置類別來實現：
 
 ```kotlin
 import org.jetbrains.dokka.base.DokkaBase

@@ -5,7 +5,7 @@
 選擇性地呼叫工具，並產生最終輸出。它可以執行單一 LLM 呼叫，依序處理多個 LLM 呼叫，或者根據使用者輸入以及 LLM 和工具的輸出進行迴圈。
 
 !!! tip
-    - 如果您已有一個簡單的 [單次執行代理 (single-run agent)](single-run-agents.md) 作為您的第一個 MVP，但遇到了任務限制，請使用功能型代理來原型化自訂邏輯。您可以實作純 Kotlin 中的自訂控制流，同時仍使用大多數 Koog 功能，包括歷史壓縮和自動狀態管理。
+    - 如果您已有一個 [基本代理 (basic agent)](basic-agents.md) 作為您的第一個 MVP，但遇到了任務限制，請使用功能型代理來原型化自訂邏輯。您可以實作純 Kotlin 中的自訂控制流，同時仍使用大多數 Koog 功能，包括歷史壓縮和自動狀態管理。
     - 對於生產環境需求，請將您的功能型代理重構為具有策略圖的 [複雜工作流程代理 (complex workflow agent)](complex-workflow-agents.md)。這提供了持久性與可控的復原功能，以實現容錯，以及帶有巢狀圖事件的進階 OpenTelemetry 追蹤。
 
 本頁將引導您完成建立最小功能型代理並使用工具擴展它的必要步驟。
@@ -14,9 +14,9 @@
 
 在您開始之前，請確保您具備以下項目：
 
-- 一個可運作的 Kotlin/JVM 專案與 Gradle。
+- 一個可運作的 Kotlin/JVM 專案。
 - 已安裝 Java 17+。
-- 來自用於實作 AI 代理的 LLM 供應商的有效 API 金鑰。有關所有可用供應商的列表，請參閱 [概覽 (Overview)](index.md)。
+- 來自用於實作 AI 代理的 LLM 供應商的有效 API 金鑰。有關所有可用供應商的列表，請參閱 [LLM 供應商 (LLM providers)](llm-providers.md)。
 - （可選）如果您使用 Ollama，請安裝並在本機運行它。
 
 !!! tip
@@ -33,7 +33,7 @@ dependencies {
     implementation("ai.koog:koog-agents:VERSION")
 }
 ```
-所有可用的安裝方法，請參閱 [安裝 (Installation)](index.md#installation)。
+所有可用的安裝方法，請參閱 [安裝 Koog (Install Koog)](getting-started.md#install-koog)。
 
 ## 建立最小功能型代理
 

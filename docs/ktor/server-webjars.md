@@ -23,10 +23,10 @@
 </tldr>
 
 <link-summary>
-Webjars 插件支持提供由 WebJars 提供的客户端库。
+%plugin_name% 插件支持提供由 WebJars 提供的客户端库。
 </link-summary>
 
-[%plugin_name%](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-webjars/io.ktor.server.webjars/-webjars.html) 插件支持提供由 [WebJars](https://www.webjars.org/) 提供的客户端库。它允许您将 JavaScript 和 CSS 库等资源作为 [fat JAR](server-fatjar.md) 的一部分进行打包。
+[%plugin_name%](https://api.ktor.io/ktor-server-webjars/io.ktor.server.webjars/-webjars.html) 插件支持提供由 [WebJars](https://www.webjars.org/) 提供的客户端库。它允许您将 JavaScript 和 CSS 库等资源作为 [fat JAR](server-fatjar.md) 的一部分进行打包。
 
 ## 添加依赖项 {id="add_dependencies"}
 要启用 `%plugin_name%`，您需要在构建脚本中包含以下构件：

@@ -68,7 +68,7 @@ Ktor 應用程式中的 OAuth 授權流程可能如下所示：
 
 1.  使用者在 Ktor 應用程式中開啟登入頁面。
 2.  Ktor 會自動重新導向至特定提供者的授權頁面，並傳遞必要的 [參數](#configure-oauth-provider)：
-    *   用於存取所選提供者 API 的用戶端 ID (client ID)。
+    *   用於存取所選提供者 API 的用戶端 ID。
     *   回調 (callback) 或重新導向 (redirect) URL，指定授權完成後將開啟的 Ktor 應用程式頁面。
     *   Ktor 應用程式所需之第三方資源的範圍 (scopes)。
     *   用於取得存取權杖的授權類型 (grant type) (Authorization Code)。
@@ -86,7 +86,7 @@ Ktor 應用程式中的 OAuth 授權流程可能如下所示：
 
 ## 安裝 OAuth {id="install"}
 
-若要安裝 `oauth` 驗證提供者，請在 `install` 區塊中呼叫 [oauth](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-auth/io.ktor.server.auth/oauth.html) 函式。您可以選用性地 [指定提供者名稱](server-auth.md#provider-name)。
+若要安裝 `oauth` 驗證提供者，請在 `install` 區塊中呼叫 [oauth](https://api.ktor.io/ktor-server-auth/io.ktor.server.auth/oauth.html) 函式。您可以選用性地 [指定提供者名稱](server-auth.md#provider-name)。
 例如，若要安裝名稱為 "auth-oauth-google" 的 `oauth` 提供者，它將如下所示：
 
 ```kotlin
@@ -97,6 +97,7 @@ fun Application.main(httpClient: HttpClient = applicationHttpClient) {
     install(Authentication) {
         oauth("auth-oauth-google") {
             // Configure oauth authentication
+            urlProvider = { "http://localhost:8080/callback" }
         }
     }
 }
@@ -120,7 +121,7 @@ fun Application.main(httpClient: HttpClient = applicationHttpClient) {
         在 Ktor 中，[urlProvider](#configure-oauth-provider) 屬性用於指定授權完成後將開啟的重新導向路由。
 
 5.  按一下 **CREATE**。
-6.  在彈出的對話框中，複製所建立的用戶端 ID (client ID) 和用戶端密鑰 (client secret)，這些將用於配置 `oauth` 提供者。
+6.  在彈出的對話框中，複製所建立的用戶端 ID 和用戶端密鑰，這些將用於配置 `oauth` 提供者。
 
 ### 步驟 1：建立 HTTP 用戶端 {id="create-http-client"}
 
@@ -129,7 +130,9 @@ fun Application.main(httpClient: HttpClient = applicationHttpClient) {
 ```kotlin
 val applicationHttpClient = HttpClient(CIO) {
     install(ContentNegotiation) {
-        json()
+        json(Json {
+            ignoreUnknownKeys = true
+        })
     }
 }
 ```
@@ -171,11 +174,12 @@ install(Authentication) {
         }
         client = httpClient
     }
+}
 ```
 
 *   `urlProvider` 指定一個 [重新導向路由](#redirect-route)，該路由將在授權完成時被呼叫。
     > 確保此路由已添加到 [**已授權的重新導向 URI (Authorised redirect URIs)**](#authorization-credentials) 列表中。
-*   `providerLookup` 允許您為所需的提供者指定 OAuth 設定。這些設定由 [OAuthServerSettings](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-auth/io.ktor.server.auth/-o-auth-server-settings/index.html) 類別表示，並允許 Ktor 自動向 OAuth 伺服器發出請求。
+*   `providerLookup` 允許您為所需的提供者指定 OAuth 設定。這些設定由 [OAuthServerSettings](https://api.ktor.io/ktor-server-auth/io.ktor.server.auth/-o-auth-server-settings/index.html) 類別表示，並允許 Ktor 自動向 OAuth 伺服器發出請求。
 *   `client` 屬性指定由 Ktor 用於向 OAuth 伺服器發出請求的 [HttpClient](#create-http-client)。
 
 ### 步驟 3：新增登入路由 {id="login-route"}
@@ -198,7 +202,7 @@ routing {
 
 除了登入路由之外，您還需要為 `urlProvider` 建立重新導向路由，如 [步驟 2：配置 OAuth 提供者](#configure-oauth-provider) 中所指定。
 
-在此路由中，您可以使用 `call.principal` 函式擷取 [OAuthAccessTokenResponse](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-auth/io.ktor.server.auth/-o-auth-access-token-response/index.html) 物件。`OAuthAccessTokenResponse` 允許您存取 OAuth 伺服器傳回的權杖和其他參數。
+在此路由中，您可以使用 `call.principal` 函式擷取 [OAuthAccessTokenResponse](https://api.ktor.io/ktor-server-auth/io.ktor.server.auth/-o-auth-access-token-response/index.html) 物件。`OAuthAccessTokenResponse` 允許您存取 OAuth 伺服器傳回的權杖和其他參數。
 
 ```kotlin
     routing {

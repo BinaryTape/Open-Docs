@@ -26,7 +26,7 @@
 %plugin_name% 플러그인은 WebJars가 제공하는 클라이언트 측 라이브러리를 서빙할 수 있도록 합니다.
 </link-summary>
 
-[%plugin_name%](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-webjars/io.ktor.server.webjars/-webjars.html) 플러그인은 [WebJars](https://www.webjars.org/)가 제공하는 클라이언트 측 라이브러리를 서빙할 수 있도록 합니다. 이를 통해 JavaScript 및 CSS 라이브러리와 같은 애셋을 [fat JAR](server-fatjar.md)의 일부로 패키징할 수 있습니다.
+[%plugin_name%](https://api.ktor.io/ktor-server-webjars/io.ktor.server.webjars/-webjars.html) 플러그인은 [WebJars](https://www.webjars.org/)가 제공하는 클라이언트 측 라이브러리를 서빙할 수 있도록 합니다. 이를 통해 JavaScript 및 CSS 라이브러리와 같은 애셋을 [fat JAR](server-fatjar.md)의 일부로 패키징할 수 있습니다.
 
 ## 의존성 추가 {id="add_dependencies"}
 `%plugin_name%`을(를) 활성화하려면 빌드 스크립트에 다음 아티팩트를 포함해야 합니다.
@@ -37,7 +37,7 @@
           <code-block lang="Kotlin" code="              implementation(&quot;io.ktor:%artifact_name%:$ktor_version&quot;)"/>
       </TabItem>
       <TabItem title="Gradle (Groovy)" group-key="groovy">
-          <code-block lang="Groovy" code="              implementation &quot;io.ktor:%artifact_name%:$ktor_version&quot;"/>
+          <code-block lang="Groovy" code="              implementation &quot;io.ktor:%artifact_name%:$ktor_version&quot;)"/>
       </TabItem>
       <TabItem title="Maven" group-key="maven">
           <code-block lang="XML" code="              &lt;dependency&gt;&#10;                  &lt;groupId&gt;io.ktor&lt;/groupId&gt;&#10;                  &lt;artifactId&gt;%artifact_name%-jvm&lt;/artifactId&gt;&#10;                  &lt;version&gt;${ktor_version}&lt;/version&gt;&#10;              &lt;/dependency&gt;"/>
@@ -54,7 +54,7 @@
           <code-block lang="Kotlin" code="              implementation(&quot;%group_id%:%artifact_name%:$%version%&quot;)"/>
       </TabItem>
       <TabItem title="Gradle (Groovy)" group-key="groovy">
-          <code-block lang="Groovy" code="              implementation &quot;%group_id%:%artifact_name%:$%version%&quot;"/>
+          <code-block lang="Groovy" code="              implementation &quot;%group_id%:%artifact_name%:$%version%&quot;)"/>
       </TabItem>
       <TabItem title="Maven" group-key="maven">
           <code-block lang="XML" code="              &lt;dependency&gt;&#10;                  &lt;groupId&gt;%group_id%&lt;/groupId&gt;&#10;                  &lt;artifactId&gt;%artifact_name%&lt;/artifactId&gt;&#10;                  &lt;version&gt;${%version%}&lt;/version&gt;&#10;              &lt;/dependency&gt;"/>

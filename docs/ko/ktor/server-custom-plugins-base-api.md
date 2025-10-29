@@ -23,21 +23,21 @@ Ktor는 공통 기능을 구현하고 여러 애플리케이션에서 재사용�
 ## 플러그인 생성 {id="create"}
 커스텀 플러그인을 생성하려면 다음 단계를 따르십시오:
 
-1. 플러그인 클래스를 생성하고 다음 인터페이스 중 하나를 구현하는 [컴패니언 오브젝트를 선언합니다](#create-companion):
-   - 플러그인이 애플리케이션 수준에서 작동해야 하는 경우 [BaseApplicationPlugin](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.application/-base-application-plugin/index.html).
-   - 플러그인이 [특정 라우트에 설치될 수 있는 경우](server-plugins.md#install-route) [BaseRouteScopedPlugin](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.application/-base-route-scoped-plugin/index.html).
-2. 이 컴패니언 오브젝트의 `key` 및 `install` 멤버를 [구현합니다](#implement).
-3. [플러그인 설정](#plugin-configuration)을 제공합니다.
-4. 필요한 파이프라인 페이즈를 가로채서 [호출을 처리합니다](#call-handling).
-5. [플러그인을 설치합니다](#install).
+1.  플러그인 클래스를 생성하고 다음 인터페이스 중 하나를 구현하는 [컴패니언 오브젝트를 선언합니다](#create-companion):
+    -   플러그인이 애플리케이션 수준에서 작동해야 하는 경우 [BaseApplicationPlugin](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.application/-base-application-plugin/index.html).
+    -   플러그인이 [특정 라우트에 설치될 수 있는 경우](server-plugins.md#install-route) [BaseRouteScopedPlugin](https://api.ktor.io/ktor-server-core/io.ktor.server.application/-base-route-scoped-plugin/index.html).
+2.  이 컴패니언 오브젝트의 `key` 및 `install` 멤버를 [구현합니다](#implement).
+3.  [플러그인 설정](#plugin-configuration)을 제공합니다.
+4.  필요한 파이프라인 페이즈를 가로채서 [호출을 처리합니다](#call-handling).
+5.  [플러그인을 설치합니다](#install).
 
 ### 컴패니언 오브젝트 생성 {id="create-companion"}
 
 커스텀 플러그인 클래스에는 `BaseApplicationPlugin` 또는 `BaseRouteScopedPlugin` 인터페이스를 구현하는 컴패니언 오브젝트가 있어야 합니다.
 `BaseApplicationPlugin` 인터페이스는 세 가지 타입 파라미터를 받습니다:
-- 이 플러그인과 호환되는 파이프라인의 타입.
-- 이 플러그인에 대한 [설정 객체 타입](#plugin-configuration).
-- 플러그인 객체의 인스턴스 타입.
+-   이 플러그인과 호환되는 파이프라인의 타입.
+-   이 플러그인에 대한 [설정 객체 타입](#plugin-configuration).
+-   플러그인 객체의 인스턴스 타입.
 
 ```kotlin
 class CustomHeader() {
@@ -50,8 +50,8 @@ class CustomHeader() {
 ### 'key' 및 'install' 멤버 구현 {id="implement"}
 
 `BaseApplicationPlugin` 인터페이스의 하위 요소로서, 컴패니언 오브젝트는 두 멤버를 구현해야 합니다:
-- `key` 프로퍼티는 플러그인을 식별하는 데 사용됩니다. Ktor는 모든 속성의 맵을 가지고 있으며, 각 플러그인은 지정된 키를 사용하여 자신을 이 맵에 추가합니다.
-- `install` 함수는 플러그인이 작동하는 방식을 설정할 수 있게 해줍니다. 여기에서 파이프라인을 가로채고 플러그인 인스턴스를 반환해야 합니다. 파이프라인을 가로채고 호출을 처리하는 방법은 [다음 챕터](#call-handling)에서 살펴보겠습니다.
+-   `key` 프로퍼티는 플러그인을 식별하는 데 사용됩니다. Ktor는 모든 속성의 맵을 가지고 있으며, 각 플러그인은 지정된 키를 사용하여 자신을 이 맵에 추가합니다.
+-   `install` 함수는 플러그인이 작동하는 방식을 설정할 수 있게 해줍니다. 여기에서 파이프라인을 가로채고 플러그인 인스턴스를 반환해야 합니다. 파이프라인을 가로채고 호출을 처리하는 방법은 [다음 챕터](#call-handling)에서 살펴보겠습니다.
 
 ```kotlin
 class CustomHeader() {
@@ -70,9 +70,9 @@ class CustomHeader() {
 
 커스텀 플러그인에서 [기존 파이프라인 페이즈](#pipelines) 또는 새로 정의된 페이즈를 가로채서 요청과 응답을 처리할 수 있습니다. 예를 들어, [Authentication](server-auth.md) 플러그인은 `Authenticate` 및 `Challenge` 커스텀 페이즈를 기본 파이프라인에 추가합니다. 따라서 특정 파이프라인을 가로채면 호출의 다양한 단계에 접근할 수 있습니다. 예를 들어:
 
-- `ApplicationCallPipeline.Monitoring`: 이 페이즈를 가로채는 것은 요청 로깅 또는 메트릭 수집에 사용될 수 있습니다.
-- `ApplicationCallPipeline.Plugins`: 응답 파라미터를 수정하는 데 사용될 수 있으며, 예를 들어 커스텀 헤더를 추가할 수 있습니다.
-- `ApplicationReceivePipeline.Transform` 및 `ApplicationSendPipeline.Transform`: 클라이언트로부터 수신된 데이터를 얻고 [변환](#transform)하며, 데이터를 다시 보내기 전에 변환할 수 있게 해줍니다.
+-   `ApplicationCallPipeline.Monitoring`: 이 페이즈를 가로채는 것은 요청 로깅 또는 메트릭 수집에 사용될 수 있습니다.
+-   `ApplicationCallPipeline.Plugins`: 응답 파라미터를 수정하는 데 사용될 수 있으며, 예를 들어 커스텀 헤더를 추가할 수 있습니다.
+-   `ApplicationReceivePipeline.Transform` 및 `ApplicationSendPipeline.Transform`: 클라이언트로부터 수신된 데이터를 얻고 [변환](#transform)하며, 데이터를 다시 보내기 전에 변환할 수 있게 해줍니다.
 
 아래 예시는 `ApplicationCallPipeline.Plugins` 페이즈를 가로채서 각 응답에 커스텀 헤더를 추가하는 방법을 보여줍니다:
 
@@ -229,8 +229,8 @@ class CustomHeader(configuration: Configuration) {
 ### 본문 변환 {id="transform"}
 
 아래 예시는 다음을 보여줍니다:
-- 클라이언트로부터 수신된 데이터를 변환하는 방법;
-- 클라이언트로 전송될 데이터를 변환하는 방법.
+-   클라이언트로부터 수신된 데이터를 변환하는 방법;
+-   클라이언트로 전송될 데이터를 변환하는 방법.
 
 ```kotlin
 package com.example.plugins
@@ -270,13 +270,13 @@ class DataTransformation {
 
 Ktor의 [파이프라인](https://api.ktor.io/ktor-utils/io.ktor.util.pipeline/-pipeline/index.html)은 하나 이상의 정렬된 페이즈로 그룹화된 인터셉터들의 집합입니다. 각 인터셉터는 요청을 처리하기 전과 후에 커스텀 로직을 수행할 수 있습니다.
 
-[ApplicationCallPipeline](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.application/-application-call-pipeline/index.html)은 애플리케이션 호출을 실행하기 위한 파이프라인입니다. 이 파이프라인은 5가지 페이즈를 정의합니다:
+[ApplicationCallPipeline](https://api.ktor.io/ktor-server-core/io.ktor.server.application/-application-call-pipeline/index.html)은 애플리케이션 호출을 실행하기 위한 파이프라인입니다. 이 파이프라인은 5가지 페이즈를 정의합니다:
 
-- `Setup`: 호출과 해당 속성을 처리하기 위해 준비하는 데 사용되는 페이즈.
-- `Monitoring`: 호출을 추적하기 위한 페이즈입니다. 요청 로깅, 메트릭 수집, 오류 처리 등에 유용할 수 있습니다.
-- `Plugins`: [호출을 처리](#call-handling)하는 데 사용되는 페이즈입니다. 대부분의 플러그인은 이 페이즈에서 가로챕니다.
-- `Call`: 호출을 완료하는 데 사용되는 페이즈.
-- `Fallback`: 처리되지 않은 호출을 처리하기 위한 페이즈.
+-   `Setup`: 호출과 해당 속성을 처리하기 위해 준비하는 데 사용되는 페이즈.
+-   `Monitoring`: 호출을 추적하기 위한 페이즈입니다. 요청 로깅, 메트릭 수집, 오류 처리 등에 유용할 수 있습니다.
+-   `Plugins`: [호출을 처리](#call-handling)하는 데 사용되는 페이즈입니다. 대부분의 플러그인은 이 페이즈에서 가로챕니다.
+-   `Call`: 호출을 완료하는 데 사용되는 페이즈.
+-   `Fallback`: 처리되지 않은 호출을 처리하기 위한 페이즈.
 
 ## 파이프라인 페이즈를 새 API 핸들러에 매핑 {id="mapping"}
 
@@ -285,7 +285,7 @@ Ktor는 v2.0.0부터 [커스텀 플러그인 생성](server-custom-plugins.md)�
 아래 표는 파이프라인 페이즈가 새 API의 핸들러에 어떻게 매핑되는지 보여줍니다.
 
 | 기존 API                               | 새로운 API                                                 |
-|----------------------------------------|---------------------------------------------------------|
+|:---------------------------------------|:---------------------------------------------------------|
 | before `ApplicationCallPipeline.Setup` | [on(CallFailed)](server-custom-plugins.md#other)               |
 | `ApplicationCallPipeline.Setup`        | [on(CallSetup)](server-custom-plugins.md#other)                |
 | `ApplicationCallPipeline.Plugins`      | [onCall](server-custom-plugins.md#on-call)                     |

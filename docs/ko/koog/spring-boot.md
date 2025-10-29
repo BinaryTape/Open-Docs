@@ -318,8 +318,8 @@ API key is required but not provided
 
 ## 다음 단계
 
--   기본 AI 워크플로를 구축하려면 [단일 실행 에이전트(Single Run Agents)](single-run-agents.md)에 대해 알아보세요.
--   고급 사용 사례를 위해 [복합 워크플로 에이전트(Complex Workflow Agents)](complex-workflow-agents.md)를 탐색하세요.
--   에이전트의 기능을 확장하려면 [도구 개요(Tools Overview)](tools-overview.md)를 참조하세요.
--   실제 구현 예시는 [예제(Examples)](examples.md)를 확인하세요.
--   프레임워크를 더 잘 이해하려면 [핵심 개념(Key Concepts)](key-concepts.md)을 읽어보세요.
+-   최소한의 AI 워크플로를 구축하려면 [기본 에이전트](basic-agents.md)에 대해 알아보세요.
+-   고급 사용 사례를 위해 [복합 워크플로 에이전트](complex-workflow-agents.md)를 탐색하세요.
+-   에이전트의 기능을 확장하려면 [도구 개요](tools-overview.md)를 참조하세요.
+-   실제 구현 예시는 [예제](examples.md)를 확인하세요.
+-   프레임워크를 더 잘 이해하려면 [용어집](glossary.md)을 읽어보세요.

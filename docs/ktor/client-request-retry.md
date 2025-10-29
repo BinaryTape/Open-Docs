@@ -17,7 +17,8 @@
 HttpRequestRetry 插件允许您配置失败请求的重试策略。
 </link-summary>
 
-默认情况下，Ktor 客户端不会重试由于网络或服务器错误而失败的[请求](client-requests.md)。您可以使用
+默认情况下，Ktor 客户端不会重试由于网络或服务器错误而失败的[请求](client-requests.md)。
+您可以使用
 [HttpRequestRetry](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client.plugins/-http-request-retry)
 插件以各种方式配置失败请求的重试策略：指定重试次数、配置重试请求的条件，或在重试前修改请求。
 
@@ -52,8 +53,8 @@ val client = HttpClient(CIO) {
 }
 ```
 
-* `retryOnServerErrors` 函数会在从服务器收到 `5xx` 响应时启用请求重试，并指定重试次数。
-* `exponentialDelay` 指定了重试之间的指数延迟，该延迟使用指数退避算法计算。
+*   `retryOnServerErrors` 函数会在从服务器收到 `5xx` 响应时启用请求重试，并指定重试次数。
+*   `exponentialDelay` 指定了重试之间的指数延迟，该延迟使用指数退避算法计算。
 
 您可以从 [HttpRequestRetryConfig](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client.plugins/-http-request-retry-config) 了解更多支持的配置选项。
 

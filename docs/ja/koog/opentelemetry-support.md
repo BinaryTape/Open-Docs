@@ -300,6 +300,8 @@ Koogは、OpenTelemetryの[生成AIイベントのセマンティック規約](h
 
 - `koog.agent.strategy.name`: エージェント戦略の名前。戦略は、エージェントの目的を説明するKoog関連エンティティです。`InvokeAgentSpan`スパンで使用されます。
 - `koog.node.name`: 実行中のノードの名前。`NodeExecuteSpan`スパンで使用されます。
+- `koog.node.input`: 実行開始時にノードに渡された入力。ノード開始時の`NodeExecuteSpan`に存在します。
+- `koog.node.output`: 完了時にノードによって生成された出力。ノードが正常に完了した際の`NodeExecuteSpan`に存在します。
 
 ### イベント
 

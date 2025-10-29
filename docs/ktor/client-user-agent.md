@@ -32,4 +32,3 @@ val client = HttpClient(CIO) {
     // ... or
     CurlUserAgent()
 }
-```

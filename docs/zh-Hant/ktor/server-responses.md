@@ -7,7 +7,7 @@
 Ktor 允許您在 [路由處理器](server-routing.md#define_route) 內處理傳入的 [請求](server-requests.md) 並傳送回應。您可以傳送不同類型的回應：純文字、HTML 文件與範本、序列化資料物件等等。對於每個回應，您還可以配置各種 [回應參數](#parameters)，例如內容類型、標頭和 Cookie。
 
 在路由處理器中，以下 API 可用於處理回應：
-* 一組針對 [傳送特定內容類型](#payload) 的函式，例如 [call.respondText](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.response/respond-text.html)、[call.respondHtml](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-html-builder/io.ktor.server.html/respond-html.html) 等等。
+* 一組針對 [傳送特定內容類型](#payload) 的函式，例如 [call.respondText](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.response/respond-text.html)、[call.respondHtml](https://api.ktor.io/ktor-server-html-builder/io.ktor.server.html/respond-html.html) 等等。
 * [call.respond](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.response/respond.html) 函式，允許您在回應中 [傳送任何資料](#payload)。例如，透過啟用 [ContentNegotiation](server-serialization.md) 外掛程式，您可以傳送以特定格式序列化的資料物件。
 * [call.response](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.application/-application-call/response.html) 屬性，回傳 [ApplicationResponse](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.response/-application-response/index.html) 物件，該物件提供 [回應參數](#parameters) 的存取權，並允許您設定狀態碼、新增標頭和配置 Cookie。
 * [call.respondRedirect](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.response/respond-redirect.html) 提供新增重新導向的功能。
@@ -26,7 +26,7 @@ Ktor 提供了兩種主要方式來傳送 HTML 回應給用戶端：
 * 透過使用 Kotlin HTML DSL 建構 HTML。
 * 透過使用 JVM 範本引擎，例如 FreeMarker、Velocity 等等。
 
-若要傳送使用 Kotlin DSL 建構的 HTML，請使用 [call.respondHtml](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-html-builder/io.ktor.server.html/respond-html.html) 函式：
+若要傳送使用 Kotlin DSL 建構的 HTML，請使用 [call.respondHtml](https://api.ktor.io/ktor-server-html-builder/io.ktor.server.html/respond-html.html) 函式：
 ```kotlin
 routing {
     get("/") {
@@ -47,7 +47,7 @@ routing {
 }
 ```
 
-若要在回應中傳送範本，請呼叫包含特定內容的 [call.respond](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.response/respond.html) 函式...
+若要在回應中傳送範本，請呼叫包含特定內容的 [call.respond](https://api.ktor.io/ktor-server-core/io.ktor.server.response/respond.html) 函式...
 ```kotlin
 get("/index") {
     val sampleUser = User(1, "John")
@@ -55,7 +55,7 @@ get("/index") {
 }
 ```
 
-... 或使用適當的 [call.respondTemplate](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-freemarker/io.ktor.server.freemarker/respond-template.html) 函式：
+... 或使用適當的 [call.respondTemplate](https://api.ktor.io/ktor-server-freemarker/io.ktor.server.freemarker/respond-template.html) 函式：
 ```kotlin
 get("/index") {
     val sampleUser = User(1, "John")
@@ -65,7 +65,7 @@ get("/index") {
 您可以從 [範本](server-templating.md) 說明章節瞭解更多。
 
 ### 物件 {id="object"}
-若要啟用 Ktor 中的資料物件序列化，您需要安裝 [ContentNegotiation](server-serialization.md) 外掛程式並註冊所需的轉換器（例如 JSON）。然後，您可以使用 [call.respond](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.response/respond.html) 函式在回應中傳遞資料物件：
+若要啟用 Ktor 中的資料物件序列化，您需要安裝 [ContentNegotiation](server-serialization.md) 外掛程式並註冊所需的轉換器（例如 JSON）。然後，您可以使用 [call.respond](https://api.ktor.io/ktor-server-core/io.ktor.server.response/respond.html) 函式在回應中傳遞資料物件：
 
 ```kotlin
 routing {

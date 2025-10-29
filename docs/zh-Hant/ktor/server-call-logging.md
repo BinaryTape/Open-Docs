@@ -69,7 +69,7 @@ Ktor 提供了使用 [SLF4J](http://www.slf4j.org/) 函式庫記錄應用程式�
 
 ## 設定記錄選項 {id="configure"}
 
-您可以透過多種方式設定 %plugin_name%：指定記錄級別、根據指定條件篩選請求、自訂記錄訊息等等。您可以在 [CallLoggingConfig](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-call-logging/io.ktor.server.plugins.calllogging/-call-logging-config/index.html) 查看可用的組態設定。
+您可以透過多種方式設定 %plugin_name%：指定記錄級別、根據指定條件篩選請求、自訂記錄訊息等等。您可以在 [CallLoggingConfig](https://api.ktor.io/ktor-server-call-logging/io.ktor.server.plugins.calllogging/-call-logging-config/index.html) 查看可用的組態設定。
 
 ### 設定記錄級別 {id="logging_level"}
 
@@ -128,4 +128,3 @@ install(CallLogging) {
 import org.slf4j.MDC
 // ...
 MDC.get("name-parameter")
-```

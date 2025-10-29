@@ -22,7 +22,7 @@
 </p>
 </tldr>
 
-[ForwardedHeaders](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-forwarded-header/io.ktor.server.plugins.forwardedheaders/-forwarded-headers.html)と[XForwardedHeaders](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-forwarded-header/io.ktor.server.plugins.forwardedheaders/-x-forwarded-headers.html)プラグインは、Ktorサーバーがリバースプロキシの背後に配置されている場合に、リバースプロキシヘッダーを処理して元の[リクエスト](server-requests.md)に関する情報を取得できるようにします。これは[ロギング](server-logging.md)目的で役立つ場合があります。
+[ForwardedHeaders](https://api.ktor.io/ktor-server-forwarded-header/io.ktor.server.plugins.forwardedheaders/-forwarded-headers.html)と[XForwardedHeaders](https://api.ktor.io/ktor-server-forwarded-header/io.ktor.server.plugins.forwardedheaders/-x-forwarded-headers.html)プラグインは、Ktorサーバーがリバースプロキシの背後に配置されている場合に、リバースプロキシヘッダーを処理して元の[リクエスト](server-requests.md)に関する情報を取得できるようにします。これは[ロギング](server-logging.md)目的で役立つ場合があります。
 
 *   `ForwardedHeaders`は`Forwarded`ヘッダー（[RFC 7239](https://tools.ietf.org/html/rfc7239)）を処理します。
 *   `XForwardedHeaders`は以下の`X-Forwarded-`ヘッダーを処理します。
@@ -115,7 +115,7 @@
 
 ### プロキシリクエスト情報 {id="proxy_request_info"}
 
-プロキシリクエストに関する情報を取得するには、[ルートハンドラ](server-routing.md#define_route)内で[call.request.local](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.request/-application-request/local.html)プロパティを使用します。以下のコードスニペットは、プロキシアドレスとリクエストが送信されたホストに関する情報を取得する方法を示しています。
+プロキシリクエストに関する情報を取得するには、[ルートハンドラ](server-routing.md#define_route)内で[call.request.local](https://api.ktor.io/ktor-server-core/io.ktor.server.request/-application-request/local.html)プロパティを使用します。以下のコードスニペットは、プロキシアドレスとリクエストが送信されたホストに関する情報を取得する方法を示しています。
 
 ```kotlin
 get("/hello") {
@@ -126,7 +126,7 @@ get("/hello") {
 
 ### 元のリクエスト情報 {id="original-request-information"}
 
-元のリクエストに関する情報を読み取るには、[call.request.origin](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.plugins/origin.html)プロパティを使用します。
+元のリクエストに関する情報を読み取るには、[call.request.origin](https://api.ktor.io/ktor-server-core/io.ktor.server.plugins/origin.html)プロパティを使用します。
 
 ```kotlin
 get("/hello") {
@@ -158,7 +158,7 @@ get("/hello") {
 X-Forwarded-For: <client>, <proxy1>, <proxy2>
 ```
 
-デフォルトでは、`XForwardedHeader`は`X-Forwarded-For`の最初のエントリを`call.request.origin.remoteHost`プロパティに割り当てます。[IPアドレスの選択](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Forwarded-For#selecting_an_ip_address)のためにカスタムロジックを提供することもできます。[XForwardedHeadersConfig](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-forwarded-header/io.ktor.server.plugins.forwardedheaders/-x-forwarded-headers-config/index.html)は、これに以下のAPIを公開しています。
+デフォルトでは、`XForwardedHeader`は`X-Forwarded-For`の最初のエントリを`call.request.origin.remoteHost`プロパティに割り当てます。[IPアドレスの選択](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Forwarded-For#selecting_an_ip_address)のためにカスタムロジックを提供することもできます。[XForwardedHeadersConfig](https://api.ktor.io/ktor-server-forwarded-header/io.ktor.server.plugins.forwardedheaders/-x-forwarded-headers-config/index.html)は、これに以下のAPIを公開しています。
 
 *   `useFirstProxy`と`useLastProxy`は、IPアドレスのリストからそれぞれ最初または最後の値を取得できます。
 *   `skipLastProxies`は、右から指定された数のエントリをスキップし、次のエントリを取得します。例えば、`proxiesCount`パラメーターが`3`に等しい場合、以下のヘッダーに対して`origin.remoteHost`は`10.0.0.123`を返します。
@@ -170,5 +170,3 @@ X-Forwarded-For: <client>, <proxy1>, <proxy2>
     X-Forwarded-For: 10.0.0.123, proxy-1, proxy-2, proxy-3
     ```
 *   `extractEdgeProxy`は、`X-Forward-*`ヘッダーから値を抽出するためのカスタムロジックを提供できます。
-
-    ```

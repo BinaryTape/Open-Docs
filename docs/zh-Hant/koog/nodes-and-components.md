@@ -41,7 +41,7 @@ edge(passthrough forwardTo nodeFinish)
 
 ## LLM 節點
 
-### nodeUpdatePrompt
+### nodeAppendPrompt
 
 一個使用提供的提示詞建構器 (prompt builder) 將訊息新增到 LLM 提示詞的節點。
 這對於在發出實際 LLM 請求之前修改對話上下文非常有用。如需詳細資訊，請參閱 [API reference](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.dsl.extension/node-update-prompt.html)。
@@ -57,7 +57,7 @@ edge(passthrough forwardTo nodeFinish)
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.forwardTo
 import ai.koog.agents.core.dsl.builder.strategy
-import ai.koog.agents.core.dsl.extension.nodeUpdatePrompt
+import ai.koog.agents.core.dsl.extension.nodeAppendPrompt
 
 typealias Input = Unit
 typealias Output = Unit
@@ -77,7 +77,7 @@ val secondNode by node<Output, Output> {
 }
 
 // Node will get the value of type Output as input from the previous node and path through it to the next node
-val setupContext by nodeUpdatePrompt<Output>("setupContext") {
+val setupContext by nodeAppendPrompt<Output>("setupContext") {
     system("You are a helpful assistant specialized in Kotlin programming.")
     user("I need help with Kotlin coroutines.")
 }
@@ -407,16 +407,12 @@ edge(lengthNode forwardTo nodeFinish)
 
 ### subgraphWithTask
 
-一個使用提供的工具執行特定任務並返回結構化結果的子圖。此子圖旨在處理較大工作流程中的獨立任務。如需詳細資訊，請參閱 [API reference](https://api.koog.ai/agents/agents-ext/ai.koog.agents.ext.agent/subgraph-with-task.html)。
+一個使用提供的工具執行特定任務並返回結構化結果的子圖。它支援多回應 LLM 互動（助手可能會產生多個回應，並穿插工具呼叫），並允許您控制工具呼叫的執行方式。如需詳細資訊，請參閱 [API reference](https://api.koog.ai/agents/agents-ext/ai.koog.agents.ext.agent/subgraph-with-task.html)。
 
-您可以將此子圖用於以下目的：
+API 允許您透過選用參數微調執行：
 
-- 建立在較大工作流程中處理特定任務的特殊元件。
-- 封裝具有清晰輸入和輸出介面的複雜邏輯。
-- 配置任務專用的工具、模型和提示詞。
-- 透過自動壓縮管理對話歷史記錄。
-- 開發結構化代理工作流程和任務執行管道。
-- 從 LLM 任務執行中生成結構化結果。
+- `runMode`：控制任務執行期間工具呼叫的執行方式（預設為循序）。當底層模型/執行器支援時，使用此參數可在不同的工具執行策略之間切換。
+- `assistantResponseRepeatMax`：限制在任務無法完成之前允許的助手回應數量（如果未提供，則預設為安全內部限制）。
 
 您可以將任務以文字形式提供給子圖，如果需要，配置 LLM，並提供必要的工具，子圖將處理並解決該任務。以下是一個範例：
 
@@ -425,6 +421,7 @@ import ai.koog.agents.core.dsl.builder.strategy
 import ai.koog.agents.ext.tool.SayToUser
 import ai.koog.prompt.executor.clients.openai.OpenAIModels
 import ai.koog.agents.ext.agent.subgraphWithTask
+import ai.koog.agents.core.agent.ToolCalls
 
 val searchTool = SayToUser
 val calculatorTool = SayToUser
@@ -439,6 +436,8 @@ val strategy = strategy<String, String>("strategy_name") {
 val processQuery by subgraphWithTask<String, String>(
     tools = listOf(searchTool, calculatorTool, weatherTool),
     llmModel = OpenAIModels.Chat.GPT4o,
+    runMode = ToolCalls.SEQUENTIAL,
+    assistantResponseRepeatMax = 3,
 ) { userQuery ->
     """
     You are a helpful assistant that can answer questions about various topics.
@@ -468,6 +467,7 @@ import ai.koog.agents.core.dsl.builder.strategy
 import ai.koog.agents.ext.tool.SayToUser
 import ai.koog.prompt.executor.clients.anthropic.AnthropicModels
 import ai.koog.agents.ext.agent.subgraphWithVerification
+import ai.koog.agents.core.agent.ToolCalls
 
 val runTestsTool = SayToUser
 val analyzeTool = SayToUser
@@ -481,7 +481,9 @@ val strategy = strategy<String, String>("strategy_name") {
 ```kotlin
 val verifyCode by subgraphWithVerification<String>(
     tools = listOf(runTestsTool, analyzeTool, readFileTool),
-    llmModel = AnthropicModels.Sonnet_3_7
+    llmModel = AnthropicModels.Sonnet_3_7,
+    runMode = ToolCalls.SEQUENTIAL,
+    assistantResponseRepeatMax = 3,
 ) { codeToVerify ->
     """
     You are a code reviewer. Please verify that the following code meets all requirements:
@@ -606,8 +608,8 @@ val agentStrategy = strategy<String, List<Book>>("library-assistant") {
         val books = mutableListOf<Book>()
         val mdDefinition = markdownBookDefinition()
 
-        llm.writeSession {
-            updatePrompt { user(booksDescription) }
+        llm.writeSession { 
+            appendPrompt { user(booksDescription) }
             // Initiate the response stream in the form of the definition `mdDefinition`
             val markdownStream = requestLLMStreaming(mdDefinition)
             // Call the parser with the result of the response stream and perform actions with the result

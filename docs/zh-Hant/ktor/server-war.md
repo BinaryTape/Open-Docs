@@ -4,8 +4,8 @@
 
 <tldr>
 <p>
-<b>程式碼範例</b>:
-<a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/jetty-war">jetty-war</a>,
+<b>程式碼範例</b>: 
+<a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/jetty-war">jetty-war</a>, 
 <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/tomcat-war">tomcat-war</a>,
 <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/tomcat-war-ssl">tomcat-war-ssl</a>
 </p>
@@ -27,9 +27,9 @@
 
 Ktor 允許您在應用程式中直接使用所需的引擎（例如 Netty、Jetty 或 Tomcat）[建立並啟動伺服器](server-create-and-configure.topic)。在這種情況下，您的應用程式可以控制引擎設定、連線及 SSL 選項。
 
-與上述方法相比，servlet 容器應該控制應用程式生命週期和連線設定。Ktor 提供了一個特殊的 [ServletApplicationEngine](https://api.ktor.io/ktor-server/ktor-server-servlet/io.ktor.server.servlet/-servlet-application-engine/index.html) 引擎，它將應用程式的控制權委託給 servlet 容器。
+與上述方法相比，servlet 容器應該控制應用程式生命週期和連線設定。Ktor 提供了一個特殊的 [ServletApplicationEngine](https://api.ktor.io/ktor-server-servlet/io.ktor.server.servlet/-servlet-application-engine/index.html) 引擎，它將應用程式的控制權委託給 servlet 容器。
 
-> 請注意，當 Ktor 應用程式部署在 servlet 容器中時，[連線和 SSL 設定](server-configuration-file.topic)不會生效。
+> 請注意，當 Ktor 應用程式部署在 servlet 容器中時，[連線和 SSL 設定](server-configuration-file.topic)不會生效。 
 > [tomcat-war-ssl](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/tomcat-war-ssl) 範例展示了如何在 Tomcat 中配置 SSL。
 
 ### 添加依賴項 {id="add-dependencies"}

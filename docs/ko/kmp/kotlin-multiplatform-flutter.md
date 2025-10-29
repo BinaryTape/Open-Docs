@@ -4,7 +4,7 @@
 
 빠르게 발전하는 기술 세계에서 개발자들은 고품질 애플리케이션을 구축하는 데 도움이 되는 효율적인 프레임워크와 도구를 끊임없이 찾고 있습니다. 그러나 사용 가능한 여러 옵션 중에서 선택할 때, 이른바 '최고의 옵션'을 찾는 데 너무 많은 강조를 두는 것은 피해야 합니다. 이러한 접근 방식이 항상 가장 적합한 선택으로 이어지지는 않을 수 있기 때문입니다.
 
-각 프로젝트는 고유하며 특정 요구 사항을 가지고 있습니다. 이 글은 Kotlin Multiplatform 또는 Flutter와 같은 기술 중 어떤 것이 귀하의 프로젝트에 가장 적합한지 더 잘 이해하여 정보에 입각한 결정을 내릴 수 있도록 선택을 안내하는 것을 목표로 합니다.
+각 프로젝트는 고유하며 특정 요구 사항을 가지고 있습니다. 이 글은 선택을 안내하고 Kotlin Multiplatform 또는 Flutter와 같은 어떤 기술이 귀하의 프로젝트에 가장 적합한지 더 잘 이해하여 정보에 입각한 결정을 내릴 수 있도록 돕는 것을 목표로 합니다.
 
 ## 크로스 플랫폼 개발: 현대적인 애플리케이션 구축을 위한 통합 접근 방식
 
@@ -32,7 +32,9 @@ Kotlin Multiplatform을 사용하면 다양한 옵션을 선택할 수 있습니
 
 ![Kotlin Multiplatform은 코드의 최대 100%를 재사용하기 위한 기술입니다.](kmp-logic-and-ui.svg){ width="700" }
 
-Kotlin Multiplatform은 2017년 Kotlin 1.2의 일부로 처음 소개되었습니다. 2023년 11월, Kotlin Multiplatform은 [안정화](https://blog.jetbrains.com/kotlin/2023/11/kotlin-multiplatform-stable/)되었습니다. Google I/O 2024에서 Google은 Android와 iOS 간의 비즈니스 로직 공유를 위한 Android의 [Kotlin Multiplatform 지원](https://android-developers.googleblog.com/2024/05/android-support-for-kotlin-multiplatform-to-share-business-logic-across-mobile-web-server-desktop.html)을 발표했습니다.
+Kotlin Multiplatform은 2017년 Kotlin 1.2의 일부로 처음 소개되었습니다. 2023년 11월, Kotlin Multiplatform은 안정화되었습니다. Google I/O 2024에서 Google은 Android와 iOS 간의 비즈니스 로직 공유를 위한 [Kotlin Multiplatform 지원](https://android-developers.googleblog.com/2024/05/android-support-for-kotlin-multiplatform-to-share-business-logic-across-mobile-web-server-desktop.html)을 발표했습니다.
+
+Kotlin Multiplatform의 전반적인 방향에 대해 더 자세히 알고 싶다면, 저희 블로그 게시물 [What’s Next for Kotlin Multiplatform and Compose Multiplatform](https://blog.jetbrains.com/kotlin/2025/08/kmp-roadmap-aug-2025/)을 살펴보세요.
 
 [![Discover Kotlin Multiplatform](discover-kmp.svg){width="500"}](https://www.jetbrains.com/kotlin-multiplatform/)
 
@@ -81,7 +83,7 @@ Compose Multiplatform은 현재 [iOS](https://blog.jetbrains.com/kotlin/2025/05/
 <tr>
 <td><b>패키지, 종속성 및 생태계</b></td>
         <td>패키지는 <a href="https://central.sonatype.com/">Maven Central</a> 및 다음을 포함한 다른 저장소에서 사용할 수 있습니다.
-            <p><a href="http://klibs.io">klibs.io</a> (알파 버전)는 KMP 라이브러리 검색을 간소화하기 위해 설계되었습니다.</p>
+            <p><a href="http://klibs.io">klibs.io</a> (Alpha version)는 KMP 라이브러리 검색을 간소화하기 위해 설계되었습니다.</p>
             <p>이 <a href="https://github.com/terrakok/kmp-awesome">목록</a>에는 가장 인기 있는 KMP 라이브러리 및 도구 중 일부가 포함되어 있습니다.</p> </td>
         <td>패키지는 <a href="https://pub.dev/">Pub.dev</a>에서 사용할 수 있습니다.</td>
 </tr>

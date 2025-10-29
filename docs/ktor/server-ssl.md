@@ -24,7 +24,7 @@
 
 ### 通过代码生成证书 {id="self-signed-code"}
 
-Ktor 提供通过调用 [buildKeyStore](https://api.ktor.io/ktor-network/ktor-network-tls/ktor-network-tls-certificates/io.ktor.network.tls.certificates/build-key-store.html) 函数来生成自签名证书以供测试目的的能力，该函数返回一个 [KeyStore](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/security/KeyStore.html) 实例。要使用此函数，你需要在构建脚本中添加 `ktor-network-tls-certificates` 构件：
+Ktor 提供通过调用 [buildKeyStore](https://api.ktor.io/ktor-network-tls-certificates/io.ktor.network.tls.certificates/build-key-store.html) 函数来生成自签名证书以供测试目的的能力，该函数返回一个 [KeyStore](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/security/KeyStore.html) 实例。要使用此函数，你需要在构建脚本中添加 `ktor-network-tls-certificates` 构件：
 
 <var name="artifact_name" value="ktor-network-tls-certificates"/>
 <Tabs group="languages">

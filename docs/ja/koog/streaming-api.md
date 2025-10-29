@@ -50,7 +50,7 @@ val strategy = strategy<String, String>("strategy_name") {
 -->
 ```kotlin
 llm.writeSession {
-    updatePrompt { user("Tell me a joke, then call a tool with JSON args.") }
+    appendPrompt { user("Tell me a joke, then call a tool with JSON args.") }
 
     val stream = requestLLMStreaming() // Flow<StreamFrame>
 
@@ -346,7 +346,7 @@ val agentStrategy = strategy<String, List<Book>>("library-assistant") {
       val mdDefinition = markdownBookDefinition()
 
       llm.writeSession {
-         updatePrompt { user(booksDescription) }
+         appendPrompt { user(booksDescription) }
          // 定義 `mdDefinition` の形式で応答ストリームを開始する
          val markdownStream = requestLLMStreaming(mdDefinition)
          // 応答ストリームの結果でパーサーを呼び出し、結果に対してアクションを実行する
@@ -402,7 +402,7 @@ class BookTool(): SimpleTool<Book>() {
         get() = Book.serializer()
 
     override val name: String = NAME
-    override val description: String = "A tool to parse book information from Markdown"
+    override val description = "A tool to parse book information from Markdown"
 }
 ```
 <!--- KNIT example-streaming-api-08.kt -->
@@ -423,7 +423,7 @@ val agentStrategy = strategy<String, Unit>("library-assistant") {
       val mdDefinition = markdownBookDefinition()
 
       llm.writeSession {
-         updatePrompt { user(input) }
+         appendPrompt { user(input) }
          val markdownStream = requestLLMStreaming(mdDefinition)
 
          parseMarkdownStreamToBooks(markdownStream).collect { book ->

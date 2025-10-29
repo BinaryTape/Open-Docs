@@ -2,13 +2,14 @@
 
 <show-structure for="chapter" depth="2"/>
 
-Ktor HTTPクライアントでは、マルチプラットフォームプロジェクトでプロキシ設定を行うことができます。サポートされているプロキシのタイプは、[HTTP](https://en.wikipedia.org/wiki/Proxy_server#Web_proxy_servers) と [SOCKS](https://en.wikipedia.org/wiki/SOCKS) の2種類です。
+Ktor HTTPクライアントでは、マルチプラットフォームプロジェクトでプロキシ設定を行うことができます。
+サポートされているプロキシのタイプは、[HTTP](https://en.wikipedia.org/wiki/Proxy_server#Web_proxy_servers) と [SOCKS](https://en.wikipedia.org/wiki/SOCKS) の2種類です。
 
 ### サポートされているエンジン {id="supported_engines"}
 
 以下の表は、特定の[エンジン](client-engines.md)でサポートされているプロキシの種類を示しています。
 
-| エンジン     | HTTPプロキシ | SOCKSプロキシ |
+| Engine     | HTTP proxy | SOCKS proxy |
 |------------|------------|-------------|
 | Apache     | ✅          |   ✖️         |
 | Java       | ✅          |   ✖️         |
@@ -30,7 +31,8 @@ Ktor HTTPクライアントでは、マルチプラットフォームプロジ�
 
 ## プロキシの設定 {id="configure_proxy"}
 
-プロキシ設定を行うには、[クライアント設定ブロック](client-create-and-configure.md#configure-client)内で`engine`関数を呼び出し、`proxy`プロパティを使用します。このプロパティは、[ProxyBuilder](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client.engine/-proxy-builder/index.html)ファクトリを使用して作成できる`ProxyConfig`インスタンスを受け入れます。
+プロキシ設定を行うには、[クライアント設定ブロック](client-create-and-configure.md#configure-client)内で`engine`関数を呼び出し、`proxy`プロパティを使用します。
+このプロパティは、[ProxyBuilder](https://api.ktor.io/ktor-client-core/io.ktor.client.engine/-proxy-builder/index.html)ファクトリを使用して作成できる`ProxyConfig`インスタンスを受け入れます。
 
 ```kotlin
 val client = HttpClient() {
@@ -86,7 +88,8 @@ val client = HttpClient() {
 
 ## プロキシの認証と認可 {id="proxy_auth"}
 
-プロキシの認証と認可はエンジン固有であり、手動で処理する必要があります。例えば、基本認証を使用してKtorクライアントをHTTPプロキシサーバーに認証するには、[各リクエスト](client-default-request.md)に`Proxy-Authorization`ヘッダーを次のように追加します。
+プロキシの認証と認可はエンジン固有であり、手動で処理する必要があります。
+例えば、基本認証を使用してKtorクライアントをHTTPプロキシサーバーに認証するには、[各リクエスト](client-default-request.md)に`Proxy-Authorization`ヘッダーを次のように追加します。
 
 ```kotlin
 val client = HttpClient() {

@@ -22,7 +22,7 @@
 </p>
 </tldr>
 
-[%plugin_name%](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-hsts/io.ktor.server.plugins.hsts/-h-s-t-s.html) 外掛會根據 [RFC 6797](https://tools.ietf.org/html/rfc6797) 將所需的 *HTTP 嚴格傳輸安全性* 標頭添加到請求中。當瀏覽器收到 HSTS 策略標頭時，它在指定期間內不再嘗試使用不安全的連線連接到伺服器。
+[%plugin_name%](https://api.ktor.io/ktor-server-hsts/io.ktor.server.plugins.hsts/-h-s-t-s.html) 外掛會根據 [RFC 6797](https://tools.ietf.org/html/rfc6797) 將所需的 *HTTP 嚴格傳輸安全性* 標頭添加到請求中。當瀏覽器收到 HSTS 策略標頭時，它在指定期間內不再嘗試使用不安全的連線連接到伺服器。
 
 > 請注意，HSTS 策略標頭在不安全的 HTTP 連線下會被忽略。為了讓 HSTS 生效，它應該透過[安全](server-ssl.md)連線提供服務。
 
@@ -46,7 +46,9 @@
 ## 安裝 %plugin_name% {id="install_plugin"}
 
 <p>
-    為了將 <code>%plugin_name%</code> 外掛[安裝](#install)到應用程式中，請將其傳遞給指定<Links href="/ktor/server-modules" summary="模組允許您透過分組路由來組織應用程式。">模組</Links>中的 <code>install</code> 函數。下面的程式碼片段展示了如何安裝 <code>%plugin_name%</code> ...
+    為了將 <code>%plugin_name%</code> 外掛[安裝](#install)到應用程式中，
+    請將其傳遞給指定<Links href="/ktor/server-modules" summary="模組允許您透過分組路由來組織應用程式。">模組</Links>中的 <code>install</code> 函數。
+    下面的程式碼片段展示了如何安裝 <code>%plugin_name%</code> ...
 </p>
 <list>
     <li>
@@ -65,12 +67,13 @@
     </TabItem>
 </Tabs>
 <p>
-    <code>%plugin_name%</code> 外掛也可以[安裝](#install-route)到特定路由。如果您需要針對不同的應用程式資源使用不同的 <code>%plugin_name%</code> 配置，這可能很有用。
+    <code>%plugin_name%</code> 外掛也可以[安裝](#install-route)到特定路由。
+    如果您需要針對不同的應用程式資源使用不同的 <code>%plugin_name%</code> 配置，這可能很有用。
 </p>
 
 ## 配置 %plugin_name% {id="configure"}
 
-<code>%plugin_name%</code> 透過 [HSTSConfig](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-hsts/io.ktor.server.plugins.hsts/-h-s-t-s-config/index.html) 公開其設定。下面的範例展示了如何使用 <code>maxAgeInSeconds</code> 屬性來指定客戶端應將主機保留在已知 HSTS 主機清單中的時間長度：
+`%plugin_name%` 透過 [HSTSConfig](https://api.ktor.io/ktor-server-hsts/io.ktor.server.plugins.hsts/-h-s-t-s-config/index.html) 公開其設定。下面的範例展示了如何使用 `maxAgeInSeconds` 屬性來指定客戶端應將主機保留在已知 HSTS 主機清單中的時間長度：
 
 ```kotlin
 install(HSTS) {
@@ -78,7 +81,7 @@ install(HSTS) {
 }
 ```
 
-您還可以針對不同主機提供不同的 HSTS 配置，使用 <code>withHost</code>：
+您還可以針對不同主機提供不同的 HSTS 配置，使用 `withHost`：
 
 ```kotlin
 install(HSTS) {

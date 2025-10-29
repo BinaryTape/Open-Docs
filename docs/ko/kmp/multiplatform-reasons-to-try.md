@@ -1,6 +1,6 @@
 [//]: # (title: Kotlin Multiplatform를 도입하여 프로젝트를 초고속으로 발전시켜야 하는 10가지 이유)
 
-<web-summary>Kotlin Multiplatform를 프로젝트에서 사용해야 하는 10가지 이유를 알아보세요. 기업의 실제 사례를 통해 이 기술을 멀티플랫폼 개발에 활용하는 방법을 확인하세요.</web-summary>
+<web-summary>프로젝트에서 Kotlin Multiplatform를 사용해야 하는 10가지 이유를 알아보세요. 기업의 실제 사례를 통해 이 기술을 멀티플랫폼 개발에 활용하는 방법을 확인하세요.</web-summary>
 
 오늘날 다양한 기술 환경에서 개발자들은 개발 시간을 최적화하고 사용자 생산성을 높이면서, 여러 플랫폼에서 원활하게 작동하는 애플리케이션을 구축해야 하는 과제에 직면해 있습니다. Kotlin Multiplatform (KMP)은 여러 플랫폼을 위한 앱을 만들고, 네이티브 프로그래밍의 이점을 유지하면서 코드 재사용을 용이하게 하는 솔루션을 제공합니다.
 
@@ -10,16 +10,16 @@
 
 효율성 향상을 추구하든 새로운 기술을 탐구하고 싶든, 이 문서는 개발 노력을 간소화하는 능력부터 광범위한 플랫폼 지원 및 강력한 툴링 생태계에 이르기까지 Kotlin Multiplatform가 가져다주는 실질적인 이점과 실제 기업의 사례 연구를 설명할 것입니다.
 
-*   [Kotlin Multiplatform는 코드 중복을 피할 수 있게 해줍니다.](#1-kotlin-multiplatform-allows-you-to-avoid-code-duplication)
-*   [Kotlin Multiplatform는 광범위한 플랫폼 목록을 지원합니다.](#2-kotlin-multiplatform-supports-an-extensive-list-of-platforms)
-*   [Kotlin은 간소화된 코드 공유 메커니즘을 제공합니다.](#3-kotlin-provides-simplified-code-sharing-mechanisms)
-*   [Kotlin Multiplatform는 유연한 멀티플랫폼 개발을 가능하게 합니다.](#4-kotlin-multiplatform-allows-for-flexible-multiplatform-development)
-*   [Kotlin Multiplatform 솔루션을 사용하면 UI 코드를 공유할 수 있습니다.](#5-with-the-kotlin-multiplatform-solution-you-can-share-ui-code)
-*   [Kotlin Multiplatform는 기존 및 새로운 프로젝트에서 사용할 수 있습니다.](#6-you-can-use-kotlin-multiplatform-in-existing-and-new-projects)
-*   [Kotlin Multiplatform를 사용하면 코드를 점진적으로 공유할 수 있습니다.](#7-with-kotlin-multiplatform-you-can-start-sharing-your-code-gradually)
-*   [Kotlin Multiplatform는 이미 글로벌 기업에서 사용되고 있습니다.](#8-kotlin-multiplatform-is-already-used-by-global-companies)
-*   [Kotlin Multiplatform는 강력한 툴링 지원을 제공합니다.](#9-kotlin-multiplatform-provides-powerful-tooling-support)
-*   [Kotlin Multiplatform는 크고 지원적인 커뮤니티를 자랑합니다.](#10-kotlin-multiplatform-boasts-a-large-and-supportive-community)
+1.  [Kotlin Multiplatform는 코드 중복을 피할 수 있게 해줍니다.](#1-kotlin-multiplatform-helps-you-avoid-code-duplication)
+2.  [Kotlin Multiplatform는 광범위한 플랫폼 목록을 지원합니다.](#2-kotlin-multiplatform-supports-an-extensive-list-of-platforms)
+3.  [Kotlin은 간소화된 코드 공유 메커니즘을 제공합니다.](#3-kotlin-provides-simplified-code-sharing-mechanisms)
+4.  [Kotlin Multiplatform는 유연한 멀티플랫폼 개발을 가능하게 합니다.](#4-kotlin-multiplatform-allows-for-flexible-multiplatform-development)
+5.  [Kotlin Multiplatform 솔루션을 사용하면 UI 코드를 공유할 수 있습니다.](#5-with-the-kotlin-multiplatform-solution-you-can-share-ui-code)
+6.  [Kotlin Multiplatform는 기존 및 새로운 프로젝트에서 사용할 수 있습니다.](#6-you-can-use-kotlin-multiplatform-in-existing-and-new-projects)
+7.  [Kotlin Multiplatform를 사용하면 코드를 점진적으로 공유할 수 있습니다.](#7-with-kotlin-multiplatform-you-can-start-sharing-your-code-gradually)
+8.  [Kotlin Multiplatform는 이미 글로벌 기업에서 사용되고 있습니다.](#8-kotlin-multiplatform-is-already-used-by-global-companies)
+9.  [Kotlin Multiplatform는 강력한 툴링 지원을 제공합니다.](#9-kotlin-multiplatform-provides-powerful-tooling-support)
+10. [Kotlin Multiplatform는 크고 지원적인 커뮤니티를 자랑합니다.](#10-kotlin-multiplatform-boasts-a-large-and-supportive-community)
 
 ### 1. Kotlin Multiplatform는 코드 중복을 피할 수 있게 해줍니다.
 
@@ -39,7 +39,7 @@ Baidu 팀은 Kotlin Multiplatform를 실험하기로 결정했으며, 데이터 
 *   유지보수 및 테스트 비용을 절감했습니다.
 *   팀 내 생산성이 크게 향상되었습니다.
 
-[![Explore real-world Kotlin Multiplatform use cases](kmp-use-cases-1.svg){width="700"}](https://www.jetbrains.com/help/kotlin-multiplatform-dev/case-studies.html)
+[![실제 Kotlin Multiplatform 사용 사례 살펴보기](kmp-use-cases-1.svg){width="700"}](https://www.jetbrains.com/help/kotlin-multiplatform-dev/case-studies.html)
 
 ### 2. Kotlin Multiplatform는 광범위한 플랫폼 목록을 지원합니다.
 
@@ -83,11 +83,11 @@ Kotlin Multiplatform를 사용하면 개발자는 더 이상 네이티브 개발
 
 Kotlin Multiplatform 이전에는 개발자들이 모든 것을 네이티브로 작성해야 했습니다.
 
-![Before Kotlin Multiplatform: writing all code natively](before-kotlin-multiplatform.svg){width="700"}
+![Kotlin Multiplatform 이전: 모든 코드를 네이티브로 작성](before-kotlin-multiplatform.svg){width="700"}
 
 Kotlin Multiplatform를 사용하면 [Compose Multiplatform](https://www.jetbrains.com/lp/compose-multiplatform/) 덕분에 개발자는 비즈니스 로직, 프레젠테이션 로직 또는 심지어 UI 로직까지 공유할 수 있습니다.
 
-![With Kotlin Multiplatform and Compose Multiplatform: developers can share business logic, presentation logic, or even UI logic](with-compose-multiplatform.svg){width="700"}
+![Kotlin Multiplatform 및 Compose Multiplatform 사용 시: 개발자는 비즈니스 로직, 프레젠테이션 로직 또는 UI 로직까지 공유할 수 있습니다](with-compose-multiplatform.svg){width="700"}
 
 이제 플랫폼별 코드를 제외하고 거의 모든 것을 공유할 수 있습니다.
 
@@ -99,7 +99,7 @@ JetBrains는 Kotlin과 Jetpack Compose를 기반으로 Android (Jetpack Compose�
 
 Compose Multiplatform의 공식 샘플인 [ImageViewer App](https://github.com/JetBrains/compose-multiplatform/tree/master/examples/imageviewer)은 Android, iOS, 데스크톱 및 웹에서 실행되며 지도 및 카메라와 같은 네이티브 구성 요소와 통합됩니다. 커뮤니티 샘플인 [New York Times App](https://github.com/xxfast/NYTimes-KMP) 클론도 있으며, 이는 스마트워치 운영 체제인 Wear OS에서도 실행됩니다. 더 많은 예시를 보려면 [Kotlin Multiplatform 및 Compose Multiplatform 샘플](multiplatform-samples.md) 목록을 확인하세요.
 
-[![Explore Compose Multiplatform](explore-compose.svg){width="700"}](https://www.jetbrains.com/compose-multiplatform/)
+[![Compose Multiplatform 살펴보기](explore-compose.svg){width="700"}](https://www.jetbrains.com/compose-multiplatform/)
 
 ### 6. Kotlin Multiplatform는 기존 및 새로운 프로젝트에서 사용할 수 있습니다.
 
@@ -119,7 +119,7 @@ Compose Multiplatform의 공식 샘플인 [ImageViewer App](https://github.com/J
 
 JetBrains에서는 Kotlin Multiplatform 설문조사를 자주 실시하며, 커뮤니티에 서로 다른 플랫폼 간에 어떤 코드 부분을 공유하는지 묻습니다. 이 설문조사에 따르면 데이터 모델, 데이터 직렬화, 네트워킹, 분석 및 내부 유틸리티가 이 기술이 상당한 영향을 미치는 주요 영역 중 하나로 나타났습니다.
 
-![Parts of code users are able to share between platforms with Kotlin Multiplatform: survey results](parts-of-code-share.png){width="700"}
+![Kotlin Multiplatform를 사용하여 사용자가 플랫폼 간에 공유할 수 있는 코드 부분: 설문조사 결과](parts-of-code-share.png){width="700"}
 
 ### 8. Kotlin Multiplatform는 이미 글로벌 기업에서 사용되고 있습니다.
 
@@ -148,7 +148,7 @@ Kotlin과 Kotlin Multiplatform는 매우 지원적인 커뮤니티를 가지고 
 
 Kotlin Multiplatform 생태계는 번성하고 있습니다. 전 세계 수많은 Kotlin 개발자들이 열정적으로 이를 육성하고 있습니다. 다음은 연도별 Kotlin Multiplatform 라이브러리 생성 수를 보여주는 다이어그램입니다.
 
-![The number of Kotlin Multiplatform libraries over the years.](kmp-libs-over-years.png){width="700"}
+![연도별 Kotlin Multiplatform 라이브러리 수.](kmp-libs-over-years.png){width="700"}
 
 보시다시피, 2021년에 확실한 증가세가 있었고, 라이브러리 수는 그 이후로 계속 증가하고 있습니다.
 
@@ -166,7 +166,7 @@ Kotlin Multiplatform를 시도하기로 이미 결정했다면, 시작하는 데
 *   **계획 수립**. 예상되는 결과와 구현 및 분석 방법을 가설로 설정하여 명확한 실험 계획을 개발하세요. 공유 코드에 기여할 역할을 정의하고 변경 사항을 효과적으로 배포하기 위한 워크플로우를 구축하세요.
 *   **평가 및 회고 진행**. 팀과 함께 회고 미팅을 진행하여 실험의 성공을 평가하고 과제 또는 개선 영역을 식별하세요. 성공했다면 범위를 확장하여 더 많은 코드를 공유할 수 있습니다. 그렇지 않다면 이 실험이 성공하지 못한 이유를 이해해야 합니다.
 
-[![See Kotlin Multiplatform in action! Get Started now](kmp-get-started-action.svg){width="700"}](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html)
+[![Kotlin Multiplatform 작동 확인! 지금 시작하기](kmp-get-started-action.svg){width="700"}](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html)
 
 팀이 Kotlin Multiplatform를 시작하는 데 도움을 주고 싶은 분들을 위해 실용적인 팁이 포함된 [상세 가이드](multiplatform-introduce-your-team.md)를 준비했습니다.
 

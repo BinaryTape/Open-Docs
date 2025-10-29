@@ -25,7 +25,7 @@
 </p>
 </tldr>
 
-Ktor는 [Pebble](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-pebble/io.ktor.server.pebble/-pebble) 플러그인을 설치하여 애플리케이션 내에서 [Pebble 템플릿](https://pebbletemplates.io/)을 뷰로 사용할 수 있도록 합니다.
+Ktor는 [Pebble](https://api.ktor.io/ktor-server-pebble/io.ktor.server.pebble/-pebble) 플러그인을 설치하여 애플리케이션 내에서 [Pebble 템플릿](https://pebbletemplates.io/)을 뷰로 사용할 수 있도록 합니다.
 
 ## 종속성 추가 {id="add_dependencies"}
 

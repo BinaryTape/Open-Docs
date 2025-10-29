@@ -16,7 +16,7 @@
 </p>
 </tldr>
 
-기본 인증 스키마는 접근 제어 및 인증에 사용되는 [HTTP 프레임워크](https://developer.mozilla.org/en-US/Web/HTTP/Authentication)의 일부입니다. 이 스키마에서는 사용자 자격 증명(credentials)이 Base64로 인코딩된 사용자 이름/비밀번호 쌍으로 전송됩니다.
+기본 인증 스키마는 접근 제어 및 인증에 사용되는 [HTTP 프레임워크](https://developer.mozilla.org/en-US/docs/Web/HTTP/Authentication)의 일부입니다. 이 스키마에서는 사용자 자격 증명(credentials)이 Base64로 인코딩된 사용자 이름/비밀번호 쌍으로 전송됩니다.
 
 Ktor를 사용하면 사용자 로그인 및 특정 [경로](server-routing.md) 보호를 위해 기본 인증을 사용할 수 있습니다. Ktor의 인증에 대한 일반적인 정보는 [Ktor 서버의 인증 및 권한 부여](server-auth.md) 섹션에서 얻을 수 있습니다.
 
@@ -61,7 +61,7 @@ Ktor를 사용하면 사용자 로그인 및 특정 [경로](server-routing.md) 
 4.  서버는 클라이언트가 보낸 자격 증명을 [검증](#configure-provider)하고 요청된 콘텐츠로 응답합니다.
 
 ## 기본 인증 설치 {id="install"}
-`basic` 인증 공급자(provider)를 설치하려면 `install` 블록 내에서 [basic](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-auth/io.ktor.server.auth/basic.html) 함수를 호출합니다:
+`basic` 인증 공급자(provider)를 설치하려면 `install` 블록 내에서 [basic](https://api.ktor.io/ktor-server-auth/io.ktor.server.auth/basic.html) 함수를 호출합니다:
 
 ```kotlin
 import io.ktor.server.application.*
@@ -82,7 +82,7 @@ Ktor에서 다양한 인증 공급자(provider)를 구성하는 방법에 대한
 
 ### 1단계: 기본 공급자 구성 {id="configure-provider"}
 
-`basic` 인증 공급자(provider)는 [BasicAuthenticationProvider.Configuration](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-auth/io.ktor.server.auth/-basic-authentication-provider/-config/index.html) 클래스를 통해 설정을 노출합니다. 아래 예시에서는 다음 설정이 지정되어 있습니다:
+`basic` 인증 공급자(provider)는 [BasicAuthenticationProvider.Configuration](https://api.ktor.io/ktor-server-auth/io.ktor.server.auth/-basic-authentication-provider/-config/index.html) 클래스를 통해 설정을 노출합니다. 아래 예시에서는 다음 설정이 지정되어 있습니다:
 *   `realm` 속성은 `WWW-Authenticate` 헤더에 전달될 realm을 설정합니다.
 *   `validate` 함수는 사용자 이름과 비밀번호를 검증합니다.
 
@@ -106,7 +106,7 @@ install(Authentication) {
 
 ### 2단계: 특정 리소스 보호 {id="authenticate-route"}
 
-`basic` 공급자(provider)를 구성한 후, **[authenticate](server-auth.md#authenticate-route)** 함수를 사용하여 애플리케이션의 특정 리소스를 보호할 수 있습니다. 인증에 성공한 경우, 라우트 핸들러 내에서 `call.principal` 함수를 사용하여 인증된 [UserIdPrincipal](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-auth/io.ktor.server.auth/-user-id-principal/index.html)을 검색하고 인증된 사용자의 이름을 얻을 수 있습니다.
+`basic` 공급자(provider)를 구성한 후, **[authenticate](server-auth.md#authenticate-route)** 함수를 사용하여 애플리케이션의 특정 리소스를 보호할 수 있습니다. 인증에 성공한 경우, 라우트 핸들러 내에서 `call.principal` 함수를 사용하여 인증된 [UserIdPrincipal](https://api.ktor.io/ktor-server-auth/io.ktor.server.auth/-user-id-principal/index.html)을 검색하고 인증된 사용자의 이름을 얻을 수 있습니다.
 
 ```kotlin
 routing {
@@ -144,7 +144,7 @@ Ktor를 사용하면 사용자 이름과 비밀번호 해시를 보관하는 인
    )
    ```
    
-3.  `validate` 함수 내부에서 [UserHashedTableAuth.authenticate](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-auth/io.ktor.server.auth/-user-hashed-table-auth/authenticate.html) 함수를 호출하여 사용자를 인증하고, 자격 증명이 유효하면 `UserIdPrincipal` 인스턴스를 반환합니다:
+3.  `validate` 함수 내부에서 [UserHashedTableAuth.authenticate](https://api.ktor.io/ktor-server-auth/io.ktor.server.auth/-user-hashed-table-auth/authenticate.html) 함수를 호출하여 사용자를 인증하고, 자격 증명이 유효하면 `UserIdPrincipal` 인스턴스를 반환합니다:
 
    ```kotlin
    install(Authentication) {

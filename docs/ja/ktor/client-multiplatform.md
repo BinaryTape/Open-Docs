@@ -56,7 +56,7 @@ Ktorクライアントはマルチプラットフォームプロジェクトで�
    各プラットフォームでサポートされているエンジンを確認するには、[エンジン依存関係の追加](client-engines.md#dependencies)を参照してください。
 
 ## クライアントの作成 {id="create-client"}
-マルチプラットフォームプロジェクトでクライアントを作成するには、プロジェクトの[共通コード](https://kotlinlang.org/docs/mpp-discover-project.html#source-sets)で[HttpClient](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client/-http-client/index.html)コンストラクタを呼び出します。
+マルチプラットフォームプロジェクトでクライアントを作成するには、プロジェクトの[共通コード](https://kotlinlang.org/docs/mpp-discover-project.html#source-sets)で[HttpClient](https://api.ktor.io/ktor-client-core/io.ktor.client/-http-client/index.html)コンストラクタを呼び出します。
 
 ```kotlin
 import io.ktor.client.*

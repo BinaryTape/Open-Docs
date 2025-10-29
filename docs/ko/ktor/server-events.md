@@ -17,8 +17,7 @@ Ktor는 이벤트를 사용하여 서버 애플리케이션을 모니터링하�
 
 ## 이벤트 정의 {id="event-definition"}
 
-각 이벤트는 [EventDefinition](https://api.ktor.io/ktor-shared/ktor-events/io.ktor.events/-event-definition/index.html) 클래스 인스턴스로 표현됩니다.
-이 클래스에는 이벤트로 전달되는 값의 타입을 지정하는 `T` 타입 파라미터가 있습니다. 이 값은 [이벤트 핸들러](#handle-events-application)에서 람다 인자로 접근할 수 있습니다. 예를 들어, 대부분의 [미리 정의된 이벤트](#predefined-events)는 `Application`을 파라미터로 받아 이벤트 핸들러 내에서 애플리케이션 속성에 접근할 수 있도록 합니다.
+각 이벤트는 [EventDefinition](https://api.ktor.io/ktor-events/io.ktor.events/-event-definition/index.html) 클래스 인스턴스로 표현됩니다. 이 클래스에는 이벤트로 전달되는 값의 타입을 지정하는 `T` 타입 파라미터가 있습니다. 이 값은 [이벤트 핸들러](#handle-events-application)에서 람다 인자로 접근할 수 있습니다. 예를 들어, 대부분의 [미리 정의된 이벤트](#predefined-events)는 `Application`을 파라미터로 받아 이벤트 핸들러 내에서 애플리케이션 속성에 접근할 수 있도록 합니다.
 
 [사용자 정의 이벤트](#custom-events)의 경우, 해당 이벤트에 필요한 타입 파라미터를 전달할 수 있습니다.
 아래 코드 스니펫은 `ApplicationCall` 인스턴스를 받는 사용자 정의 `NotFoundEvent`를 생성하는 방법을 보여줍니다.
@@ -33,19 +32,19 @@ val NotFoundEvent: EventDefinition<ApplicationCall> = EventDefinition()
 
 Ktor는 애플리케이션의 라이프사이클과 관련된 다음 미리 정의된 이벤트를 제공합니다.
 
-- [ApplicationStarting](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.application/-application-starting.html)
-- [ApplicationStarted](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.application/-application-started.html)
-- [ServerReady](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.application/-server-ready.html)
-- [ApplicationStopPreparing](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.application/-application-stop-preparing.html)
-- [ApplicationStopping](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.application/-application-stopping.html)
-- [ApplicationStopped](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.application/-application-stopped.html)
+- [ApplicationStarting](https://api.ktor.io/ktor-server-core/io.ktor.server.application/-application-starting.html)
+- [ApplicationStarted](https://api.ktor.io/ktor-server-core/io.ktor.server.application/-application-started.html)
+- [ServerReady](https://api.ktor.io/ktor-server-core/io.ktor.server.application/-server-ready.html)
+- [ApplicationStopPreparing](https://api.ktor.io/ktor-server-core/io.ktor.server.application/-application-stop-preparing.html)
+- [ApplicationStopping](https://api.ktor.io/ktor-server-core/io.ktor.server.application/-application-stopping.html)
+- [ApplicationStopped](https://api.ktor.io/ktor-server-core/io.ktor.server.application/-application-stopped.html)
 
 예를 들어, 애플리케이션 리소스를 해제하기 위해 `ApplicationStopped` 이벤트에 구독할 수 있습니다.
 
 ## 애플리케이션에서 이벤트 처리 {id="handle-events-application"}
 
 지정된 `Application` 인스턴스에 대한 이벤트를 처리하려면 `monitor` 속성을 사용하세요.
-이 속성은 애플리케이션 이벤트를 처리할 수 있는 다음 함수들을 노출하는 [Events](https://api.ktor.io/ktor-shared/ktor-events/io.ktor.events/-events/index.html) 인스턴스에 접근할 수 있도록 합니다.
+이 속성은 애플리케이션 이벤트를 처리할 수 있는 다음 함수들을 노출하는 [Events](https://api.ktor.io/ktor-events/io.ktor.events/-events/index.html) 인스턴스에 접근할 수 있도록 합니다.
 
 - `subscribe`: [EventDefinition](#event-definition)으로 지정된 이벤트에 구독합니다.
 - `unsubscribe`: [EventDefinition](#event-definition)으로 지정된 이벤트에서 구독을 해지합니다.

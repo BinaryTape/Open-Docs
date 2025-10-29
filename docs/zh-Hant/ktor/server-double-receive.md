@@ -31,7 +31,7 @@
 ## 新增依賴項 {id="add_dependencies"}
 
 <p>
-    若要使用 `%plugin_name%`，您需要在建置腳本中納入 `%artifact_name%` artifact：
+    若要使用 <code>%plugin_name%</code>，您需要在建置腳本中納入 <code>%artifact_name%</code> artifact：
 </p>
 <Tabs group="languages">
     <TabItem title="Gradle (Kotlin)" group-key="kotlin">
@@ -48,9 +48,9 @@
 ## 安裝 %plugin_name% {id="install_plugin"}
 
 <p>
-    若要將 `%plugin_name%` 外掛[安裝](#install)到應用程式，
-    請將其傳遞給指定[模組](<Links href="/ktor/server-modules" summary="模組允許您透過分組路由來組織應用程式。">模組</Links>)中的 `install` 函式。
-    下方的程式碼片段展示了如何安裝 `%plugin_name%` ...
+    若要將 <code>%plugin_name%</code> 外掛[安裝](#install)到應用程式，
+    請將其傳遞給指定<Links href="/ktor/server-modules" summary="模組允許您透過分組路由來組織應用程式。">模組</Links>中的 `install` 函式。
+    下方的程式碼片段展示了如何安裝 <code>%plugin_name%</code> ...
 </p>
 <list>
     <li>
@@ -69,8 +69,8 @@
     </TabItem>
 </Tabs>
 <p>
-    `%plugin_name%` 外掛也可以[安裝](#install-route)到特定的路由。
-    如果您需要為不同的應用程式資源設定不同的 `%plugin_name%` 配置，這可能很有用。
+    <code>%plugin_name%</code> 外掛也可以[安裝](#install-route)到特定的路由。
+    如果您需要為不同的應用程式資源設定不同的 <code>%plugin_name%</code> 配置，這可能很有用。
 </p>
 
 安裝 `%plugin_name%` 後，您可以多次[接收請求主體](server-requests.md#body_contents)，並且每次呼叫都返回相同的實例。

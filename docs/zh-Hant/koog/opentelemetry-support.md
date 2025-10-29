@@ -300,6 +300,8 @@ Koog 支援一組預定義的 Attribute，這些 Attribute 遵循 OpenTelemetry 
 
 - `koog.agent.strategy.name`：代理策略的名稱。策略是一個與 Koog 相關的實體，描述代理的目的。用於 `InvokeAgentSpan` Span。
 - `koog.node.name`：正在運行的節點名稱。用於 `NodeExecuteSpan` Span。
+- `koog.node.input`：在執行開始時傳遞給節點的輸入。當節點開始時出現在 `NodeExecuteSpan` 上。
+- `koog.node.output`：節點完成時產生的輸出。當節點成功完成時出現在 `NodeExecuteSpan` 上。
 
 ### Event
 

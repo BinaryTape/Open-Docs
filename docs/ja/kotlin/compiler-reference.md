@@ -9,12 +9,12 @@ Kotlinの各リリースには、サポートされているターゲット（JV
 
 Kotlinコンパイラは、[コマンドラインコンパイラでの作業](command-line.md)チュートリアルで説明されているように、コマンドラインから手動で実行することもできます。
 
-## コンパイラのオプション
+## コンパイラオプション
 
 Kotlinコンパイラには、コンパイルプロセスを調整するための多数のオプションがあります。
 異なるターゲット向けのコンパイラオプションは、それぞれの説明とともにこのページにリストされています。
 
-コンパイラのオプションとその値（_コンパイラ引数_）を設定するには、いくつかの方法があります。
+コンパイラオプションとその値（_コンパイラ引数_）を設定するには、いくつかの方法があります。
 *   IntelliJ IDEAで、**Settings/Preferences** | **Build, Execution, Deployment** | **Compiler** | **Kotlin Compiler** の**Additional command line parameters**テキストボックスにコンパイラ引数を入力します。
 *   Gradleを使用している場合は、Kotlinコンパイルタスクの`compilerOptions`プロパティにコンパイラ引数を指定します。詳細については、[Gradleコンパイラオプション](gradle-compiler-options.md#how-to-define-options)を参照してください。
 *   Mavenを使用している場合は、Mavenプラグインノードの`<configuration>`要素にコンパイラ引数を指定します。詳細については、[Maven](maven.md#specify-compiler-options)を参照してください。
@@ -34,7 +34,7 @@ Kotlinコンパイラには、コンパイルプロセスを調整するため�
 
 ## コンパイラオプションのスキーマ
 
-すべてのコンパイラオプションの共通スキーマは、JARアーティファクトとして[`org.jetbrains.kotlin:kotlin-compiler-arguments-description`](https://central.sonatype.com/artifact/org.jetbrains.kotlin/kotlin-compiler-arguments-description)の下で公開されています。このアーティファクトには、すべてのコンパイラオプションの説明（Kotlin以外のコンシューマ向け）のコード表現とJSON形式の両方が含まれています。また、各オプションが導入または安定化されたバージョンなどのメタデータも含まれています。
+すべてのコンパイラオプションの共通スキーマは、[`org.jetbrains.kotlin:kotlin-compiler-arguments-description`](https://central.sonatype.com/artifact/org.jetbrains.kotlin/kotlin-compiler-arguments-description)の下でJARアーティファクトとして公開されています。このアーティファクトには、すべてのコンパイラオプションの説明（Kotlin以外のコンシューマ向け）のコード表現とJSON形式の両方が含まれています。また、各オプションが導入または安定化されたバージョンなどのメタデータも含まれています。
 
 ## 共通オプション
 
@@ -160,6 +160,11 @@ kotlinc -Xannotation-default-target=param-property
 
 真の場合に警告を発する[追加の宣言、式、および型コンパイラチェック](whatsnew21.md#extra-compiler-checks)を有効にします。
 
+#### -Xrender-internal-diagnostic-names
+<primary-label ref="experimental-general"/>
+
+警告とともに内部診断名を出力します。これは、`-Xwarning-level`オプション用に設定された`DIAGNOSTIC_NAME`を識別するのに役立ちます。
+
 #### -Xwarning-level
 <primary-label ref="experimental-general"/>
 
@@ -182,6 +187,8 @@ kotlinc -Xwarning-level=DIAGNOSTIC_NAME:(error|warning|disabled)
 | `-Wextra -Xwarning-level=DIAGNOSTIC_NAME:disabled` | 指定されたチェックを除くすべての追加チェックを有効にします。 |
 
 一般的なルールから除外する警告が多数ある場合は、[`@argfile`](#argfile)を使用して別のファイルにリストできます。
+
+`DIAGNOSTIC_NAME`を検出するには、[`-Xrender-internal-diagnostic-names`](#xrender-internal-diagnostic-names)を使用できます。
 
 ### -Xdata-flow-based-exhaustiveness
 <primary-label ref="experimental-general"/>
@@ -210,9 +217,11 @@ kotlinc -Xwarning-level=DIAGNOSTIC_NAME:(error|warning|disabled)
 
 コントラクトで`holdsIn`キーワードを使用し、ラムダ内でブール条件が`true`であると想定することを許可します。
 
-## Kotlin/JVMコンパイラのオプション
+## Kotlin/JVMコンパイラオプション
 
-Kotlin/JVMコンパイラは、KotlinソースファイルをJavaクラスファイルにコンパイルします。KotlinからJVMへのコンパイルのためのコマンドラインツールは、`kotlinc`および`kotlinc-jvm`です。これらを使用してKotlinスクリプトファイルを実行することもできます。
+Kotlin/JVMコンパイラは、KotlinソースファイルをJavaクラスファイルにコンパイルします。
+KotlinからJVMへのコンパイルのためのコマンドラインツールは、`kotlinc`および`kotlinc-jvm`です。
+これらを使用してKotlinスクリプトファイルを実行することもできます。
 
 [共通オプション](#common-options)に加えて、Kotlin/JVMコンパイラは以下のオプションを持っています。
 
@@ -289,9 +298,10 @@ Kotlin/JVM stdlib（`kotlin-stdlib.jar`）およびKotlinリフレクション�
 | `no-compatibility` | 互換性ブリッジと`DefaultImpls`クラスをスキップし、インターフェースにのみデフォルト実装を生成します。                      |
 | `disable`          | デフォルトメソッドをスキップし、互換性ブリッジと`DefaultImpls`クラスのみを生成します。                                    |
 
-## Kotlin/JSコンパイラのオプション
+## Kotlin/JSコンパイラオプション
 
-Kotlin/JSコンパイラは、KotlinソースファイルをJavaScriptコードにコンパイルします。KotlinからJSへのコンパイルのためのコマンドラインツールは、`kotlinc-js`です。
+Kotlin/JSコンパイラは、KotlinソースファイルをJavaScriptコードにコンパイルします。
+KotlinからJSへのコンパイルのためのコマンドラインツールは、`kotlinc-js`です。
 
 [共通オプション](#common-options)に加えて、Kotlin/JSコンパイラは以下のオプションを持っています。
 
@@ -369,9 +379,10 @@ Kotlinコードで宣言した変数名と関数名をソースマップに追�
 
 モダンJavaScript（ES2020）にコンパイルする際、Kotlinの`Long`値を表現するためにJavaScriptの`BigInt`型へのサポートを有効にします。
 
-## Kotlin/Nativeコンパイラのオプション
+## Kotlin/Nativeコンパイラオプション
 
-Kotlin/Nativeコンパイラは、Kotlinソースファイルを[対応プラットフォーム](native-overview.md#target-platforms)向けのネイティブバイナリにコンパイルします。Kotlin/Nativeコンパイルのためのコマンドラインツールは、`kotlinc-native`です。
+Kotlin/Nativeコンパイラは、Kotlinソースファイルを[対応プラットフォーム](native-overview.md#target-platforms)向けのネイティブバイナリにコンパイルします。
+Kotlin/Nativeコンパイルのためのコマンドラインツールは、`kotlinc-native`です。
 
 [共通オプション](#common-options)に加えて、Kotlin/Nativeコンパイラは以下のオプションを持っています。
 

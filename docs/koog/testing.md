@@ -2,7 +2,7 @@
 
 ## 概述
 
-Koog framework 中的测试特性为 AI 智能体流水线、子图和工具交互提供了全面的框架。它使开发者能够创建受控的测试环境，其中包含模拟的 LLM (大型语言模型) 执行器、工具注册表和智能体环境。
+Koog framework 中的测试特性为 AI 智能体流水线、子图和工具交互提供了全面的框架。它使开发者能够创建受控的测试环境，其中包含模拟的 LLM（大型语言模型）执行器、工具注册表和智能体环境。
 
 ### 目的
 
@@ -40,7 +40,6 @@ dependencies {
 <!--- INCLUDE
 import ai.koog.agents.core.tools.ToolRegistry
 import ai.koog.agents.testing.tools.getMockExecutor
-import ai.koog.agents.testing.tools.mockLLMAnswer
 
 val toolRegistry = ToolRegistry {}
 
@@ -912,7 +911,7 @@ fun testMultiSubgraphAgentStructure() = runTest {
             val sendToolResult by nodeLLMSendToolResult()
             val giveFeedback by node<String, String> { input ->
                 llm.writeSession {
-                    updatePrompt {
+                    appendPrompt {
                         user("Call tools! Don't chat!")
                     }
                 }
@@ -1080,7 +1079,6 @@ testGraph<Unit, String>("test") {
 
 <!--- INCLUDE
 import ai.koog.agents.testing.tools.getMockExecutor
-import ai.koog.agents.testing.tools.mockLLMAnswer
 
 val promptExecutor = 
 -->

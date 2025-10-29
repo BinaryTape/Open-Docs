@@ -25,7 +25,7 @@
 </p>
 </tldr>
 
-Ktor 允許您透過安裝 [Mustache](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-mustache/io.ktor.server.mustache/-mustache) 外掛程式，在應用程式中使用 [Mustache 模板](https://github.com/spullara/mustache.java) 作為視圖。
+Ktor 允許您透過安裝 [Mustache](https://api.ktor.io/ktor-server-mustache/io.ktor.server.mustache/-mustache) 外掛程式，在應用程式中使用 [Mustache 模板](https://github.com/spullara/mustache.java) 作為視圖。
 
 ## 新增依賴項 {id="add_dependencies"}
 

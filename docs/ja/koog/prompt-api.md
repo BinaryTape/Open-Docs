@@ -1,4 +1,4 @@
-# Prompt API
+# プロンプト API
 
 プロンプト API は、本番アプリケーションで大規模言語モデル (LLM) と対話するための包括的なツールキットを提供します。これは以下の機能を提供します。
 
@@ -61,21 +61,15 @@ val prompt = prompt("multimodal_input") {
 
     user {
         +"Describe these images"
-
-        attachments {
-            image("https://example.com/test.png")
-            image(Path("/User/koog/image.png"))
-        }
+        
+        image("https://example.com/test.png")
+        image(Path("/User/koog/image.png"))
     }
 }
 ```
 <!--- KNIT example-prompt-api-02.kt -->
 
 ### テキストプロンプトコンテンツ
-
-さまざまなアタッチメントタイプをサポートし、プロンプト内のテキスト入力とファイル入力を明確に区別するために、テキストメッセージはユーザープロンプト内の専用の`content`パラメータに配置します。
-ファイル入力を追加するには、`attachments`パラメータ内のリストとして提供します。
-
 テキストメッセージとアタッチメントのリストを含むユーザーメッセージの一般的な形式は以下のとおりです。
 
 <!--- INCLUDE
@@ -87,23 +81,23 @@ val prompt = prompt("prompt") {
 }
 -->
 ```kotlin
-user(
-    content = "This is the user message",
-    attachments = listOf(
-        // アタッチメントを追加
-    )
-)
+user {
+    +"This is the text part of the user message"
+    // Add attachment
+    image("https://example.com/capture.png")
+    file("https://example.com/data.pdf", "application/pdf")
+}
 ```
 <!--- KNIT example-prompt-api-03.kt -->
 
 ### ファイルアタッチメント
 
-アタッチメントを含めるには、以下の形式に従って`attachments`パラメータにファイルを提供します。
+アタッチメントを含めるには、以下の形式に従ってファイルを提供します。
 
 <!--- INCLUDE
 import ai.koog.prompt.dsl.prompt
-import ai.koog.prompt.message.Attachment
 import ai.koog.prompt.message.AttachmentContent
+import ai.koog.prompt.message.ContentPart
 
 val prompt = prompt("prompt") {
 -->
@@ -111,17 +105,17 @@ val prompt = prompt("prompt") {
 }
 -->
 ```kotlin
-user(
-    content = "Describe this image",
-    attachments = listOf(
-        Attachment.Image(
+user {
+    +"Describe this image"
+    image(
+        ContentPart.Image(
             content = AttachmentContent.URL("https://example.com/capture.png"),
             format = "png",
             mimeType = "image/png",
             fileName = "capture.png"
         )
     )
-)
+}
 ```
 <!--- KNIT example-prompt-api-04.kt -->
 
@@ -204,11 +198,9 @@ val prompt = prompt("mixed_content") {
 
     user {
         +"Compare the image with the document content."
-
-        attachments {
-            image(Path("/User/koog/page.png"))
-            binaryFile(Path("/User/koog/page.pdf"), "application/pdf")
-        }
+        image(Path("/User/koog/page.png"))
+        binaryFile(Path("/User/koog/page.pdf"), "application/pdf")
+        +"Structure the result as a table"
     }
 }
 ```
@@ -236,7 +228,7 @@ Koog は以下の LLM クライアントを提供します。
 * [AnthropicLLMClient](https://api.koog.ai/prompt/prompt-executor/prompt-executor-clients/prompt-executor-anthropic-client/ai.koog.prompt.executor.clients.anthropic/-anthropic-l-l-m-client/index.html)
 * [GoogleLLMClient](https://api.koog.ai/prompt/prompt-executor/prompt-executor-clients/prompt-executor-google-client/ai.koog.prompt.executor.clients.google/-google-l-l-m-client/index.html)
 * [OpenRouterLLMClient](https://api.koog.ai/prompt/prompt-executor/prompt-executor-clients/prompt-executor-openrouter-client/ai.koog.prompt.executor.clients.openrouter/-open-router-l-l-m-client/index.html)
-* [DeepSeekLLMClient](https://api.koog.ai/prompt/prompt-executor/prompt-executor-clients/prompt-executor-deepseek-client/ai.koog.prompt.executor.clients.deepseek/-deep-seek-l-l-m-client/index.html)
+* [DeepSeekLLMClient](https://api.koog.prompt.executor.clients.deepseek/-deep-seek-l-l-m-client/index.html)
 * [OllamaClient](https://api.koog.ai/prompt/prompt-executor/prompt-executor-clients/prompt-executor-ollama-client/ai.koog.prompt.executor.ollama.client/-ollama-client/index.html)
 * [BedrockLLMClient](https://api.koog.ai/prompt/prompt-executor/prompt-executor-clients/prompt-executor-bedrock-client/ai.koog.prompt.executor.clients.bedrock/-bedrock-l-l-m-client/index.html) (JVM のみ)
 
@@ -699,7 +691,7 @@ val multiExecutor = MultiLLMPromptExecutor(
     ),
     // Bedrock クライアントにはすでに AWS SDK のリトライ機能が組み込まれています
     LLMProvider.Bedrock to BedrockLLMClient(
-        credentialsProvider = StaticCredentialsProvider {
+        identityProvider = StaticCredentialsProvider {
             accessKeyId = System.getenv("AWS_ACCESS_KEY_ID")
             secretAccessKey = System.getenv("AWS_SECRET_ACCESS_KEY")
             sessionToken = System.getenv("AWS_SESSION_TOKEN")

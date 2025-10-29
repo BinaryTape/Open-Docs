@@ -7,6 +7,7 @@
 *   請查閱[一個具有多個目標的 Xcode 專案依賴於 Kotlin 函式庫的範例專案](https://github.com/Kotlin/kmp-with-cocoapods-multitarget-xcode-sample)。
 
 </tldr>
+<show-structure for="chapter,procedure" depth="2"/>
 
 Kotlin CocoaPods Gradle 外掛程式是一個用於建立 Podspec 檔案的工具。這些檔案對於將您的 Kotlin 專案與 [CocoaPods 依賴管理器](https://cocoapods.org/)整合是必要的。
 

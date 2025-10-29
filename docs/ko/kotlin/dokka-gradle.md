@@ -1,13 +1,13 @@
 [//]: # (title: Gradle)
 
-> Dokka 2.0.0부터 다음과 같이 문서 생성을 위한 여러 구성 옵션, Gradle 태스크 및 단계가 업데이트되었습니다:
+> 이 지침은 Dokka Gradle 플러그인 v1의 구성 및 태스크를 반영합니다. Dokka 2.0.0부터 다음을 포함하여 문서 생성을 위한 여러 구성 옵션, Gradle 태스크 및 단계가 업데이트되었습니다:
 >
 > * [구성 옵션 조정](dokka-migration.md#adjust-configuration-options)
 > * [멀티 모듈 프로젝트 작업](dokka-migration.md#share-dokka-configuration-across-modules)
 > * [업데이트된 태스크로 문서 생성](dokka-migration.md#generate-documentation-with-the-updated-task)
 > * [출력 디렉터리 지정](dokka-migration.md#output-directory)
 >
-> 더 자세한 내용과 전체 변경 사항 목록은 [마이그레이션 가이드](dokka-migration.md)를 참조하세요.
+> Dokka Gradle 플러그인 v2의 더 자세한 내용과 전체 변경 사항 목록은 [마이그레이션 가이드](dokka-migration.md)를 참조하세요.
 >
 {style="note"}
 
@@ -182,14 +182,15 @@ Dokka는 **부모** 프로젝트에 대해 자동으로 다음 태스크를 생�
 
 #### Partial 태스크
 
-각 서브프로젝트에는 `Partial` 태스크가 생성됩니다: `dokkaHtmlPartial`, `dokkaGfmPartial`, `dokkaJekyllPartial`.
+각 서브프로젝트에는 `Partial` 태스크가 생성됩니다: `dokkaHtmlPartial`,`dokkaGfmPartial`,
+및 `dokkaJekyllPartial`.
 
 이 태스크들은 독립적으로 실행되도록 의도된 것이 아니며, 부모의 [`MultiModule`](#multimodule-tasks) 태스크에 의해 호출됩니다.
 
 하지만 [부분](#subproject-configuration) 태스크를 [구성](#subproject-configuration)하여 서브프로젝트에 대한 Dokka를 사용자 정의할 수 있습니다.
 
 > `Partial` 태스크에 의해 생성된 출력에는 미해결된 HTML 템플릿 및 참조가 포함되어 있어 부모의 [`MultiModule`](#multimodule-tasks) 태스크에 의한 후처리 없이는 단독으로 사용할 수 없습니다.
->
+> 
 {style="warning"}
 
 > 단일 서브프로젝트에 대해서만 문서를 생성하려면 [단일 프로젝트 태스크](#single-project-builds)를 사용하세요. 예: `:subprojectName:dokkaHtml`.
@@ -367,7 +368,7 @@ dokkaGfm {
 </tab>
 </tabs>
 
-또는 모든 태스크와 출력 형식을 한 번에 구성할 수 있습니다.
+또는 모든 태스크와 출력 형식을 한 번에 구성할 수 있습니다. 
 
 <tabs group="build-script">
 <tab title="Kotlin" group-key="kotlin">
@@ -719,7 +720,7 @@ tasks.withType(DokkaTask.class) {
     <def title="suppressObviousFunctions">
         <p>명백한 함수를 억제할지 여부입니다.</p>
         <p>
-            다음과 같은 경우 함수는 명백한 것으로 간주됩니다.</p>
+            다음과 같은 경우 함수는 명백한 것으로 간주됩니다:</p>
             <list>
                 <li>
                     <code>kotlin.Any</code>, <code>Kotlin.Enum</code>, <code>java.lang.Object</code> 또는
@@ -744,7 +745,7 @@ tasks.withType(DokkaTask.class) {
         <p>네트워크를 통해 원격 파일/링크를 확인할지 여부입니다.</p>
         <p>
             여기에는 외부 문서 링크 생성을 위해 사용되는 패키지 목록이 포함됩니다. 
-            예를 들어, 표준 라이브러리의 클래스를 클릭 가능하게 만드는 데 사용됩니다.
+            예를 들어, 표준 라이브러리의 클래스를 클릭 가능하게 만드는 데 사용됩니다. 
         </p>
         <p>
             이것을 <code>true</code>로 설정하면 특정 경우에 빌드 시간을 크게 단축할 수 있지만, 
@@ -772,16 +773,16 @@ import org.jetbrains.dokka.gradle.DokkaTask
 import org.jetbrains.dokka.Platform
 import java.net.URL
 
-// Note: To configure multi-project builds, you need 
-//       to configure Partial tasks of the subprojects. 
-//       See "Configuration example" section of documentation. 
+// 참고: 멀티 프로젝트 빌드를 구성하려면
+//       서브프로젝트의 Partial 태스크를 구성해야 합니다.
+//       문서의 "구성 예시" 섹션을 참조하세요.
 tasks.withType<DokkaTask>().configureEach {
     // ..
     // general configuration section
     // ..
 
     dokkaSourceSets {
-        // configuration exclusive to the 'linux' source set
+        // 'linux' 소스 세트에만 적용되는 구성
         named("linux") {
             dependsOn("native")
             sourceRoots.from(file("linux/src"))
@@ -829,16 +830,16 @@ import org.jetbrains.dokka.gradle.DokkaTask
 import org.jetbrains.dokka.Platform
 import java.net.URL
 
-// Note: To configure multi-project builds, you need 
-//       to configure Partial tasks of the subprojects. 
-//       See "Configuration example" section of documentation. 
+// 참고: 멀티 프로젝트 빌드를 구성하려면
+//       서브프로젝트의 Partial 태스크를 구성해야 합니다.
+//       문서의 "구성 예시" 섹션을 참조하세요.
 tasks.withType(DokkaTask.class) {
     // ..
     // general configuration section
     // ..
     
     dokkaSourceSets {
-        // configuration exclusive to the 'linux' source set 
+        // 'linux' 소스 세트에만 적용되는 구성
         named("linux") {
             dependsOn("native")
             sourceRoots.from(file("linux/src"))
@@ -921,7 +922,7 @@ tasks.withType(DokkaTask.class) {
     </def>
     <def title="skipDeprecated">
         <p><code>@Deprecated</code>로 주석된 선언을 문서화할지 여부입니다.</p>
-        <p>이는 소스 세트 수준에서 구성할 수 있습니다.</p>
+        <p>이는 패키지별로 구성할 수 있습니다.</p>
         <p>기본값: <code>false</code></p>
     </def>
     <def title="suppressGeneratedFiles">
@@ -1026,9 +1027,9 @@ tasks.withType(DokkaTask.class) {
 import org.jetbrains.dokka.gradle.DokkaTask
 import java.net.URL
 
-// Note: To configure multi-project builds, you need 
-//       to configure Partial tasks of the subprojects. 
-//       See "Configuration example" section of documentation. 
+// 참고: 멀티 프로젝트 빌드를 구성하려면
+//       서브프로젝트의 Partial 태스크를 구성해야 합니다.
+//       문서의 "구성 예시" 섹션을 참조하세요.
 tasks.withType<DokkaTask>().configureEach {
     // ..
     // general configuration section
@@ -1055,9 +1056,9 @@ tasks.withType<DokkaTask>().configureEach {
 import org.jetbrains.dokka.gradle.DokkaTask
 import java.net.URL
 
-// Note: To configure multi-project builds, you need 
-//       to configure Partial tasks of the subprojects. 
-//       See "Configuration example" section of documentation. 
+// 참고: 멀티 프로젝트 빌드를 구성하려면
+//       서브프로젝트의 Partial 태스크를 구성해야 합니다.
+//       문서의 "구성 예시" 섹션을 참조하세요.
 tasks.withType(DokkaTask.class) {
     // ..
     // general configuration section
@@ -1123,9 +1124,9 @@ tasks.withType(DokkaTask.class) {
 import org.jetbrains.dokka.DokkaConfiguration.Visibility
 import org.jetbrains.dokka.gradle.DokkaTask
 
-// Note: To configure multi-project builds, you need 
-//       to configure Partial tasks of the subprojects. 
-//       See "Configuration example" section of documentation. 
+// 참고: 멀티 프로젝트 빌드를 구성하려면
+//       서브프로젝트의 Partial 태스크를 구성해야 합니다.
+//       문서의 "구성 예시" 섹션을 참조하세요.
 tasks.withType<DokkaTask>().configureEach {
     // ..
     // general configuration section
@@ -1154,9 +1155,9 @@ tasks.withType<DokkaTask>().configureEach {
 import org.jetbrains.dokka.DokkaConfiguration.Visibility
 import org.jetbrains.dokka.gradle.DokkaTask
 
-// Note: To configure multi-project builds, you need 
-//       to configure Partial tasks of the subprojects. 
-//       See "Configuration example" section of documentation.
+// 참고: 멀티 프로젝트 빌드를 구성하려면
+//       서브프로젝트의 Partial 태스크를 구성해야 합니다.
+//       문서의 "구성 예시" 섹션을 참조하세요.
 tasks.withType(DokkaTask.class) {
     // ..
     // general configuration section
@@ -1229,9 +1230,9 @@ tasks.withType(DokkaTask.class) {
 import org.jetbrains.dokka.gradle.DokkaTask
 import java.net.URL
 
-// Note: To configure multi-project builds, you need 
-//       to configure Partial tasks of the subprojects. 
-//       See "Configuration example" section of documentation. 
+// 참고: 멀티 프로젝트 빌드를 구성하려면
+//       서브프로젝트의 Partial 태스크를 구성해야 합니다.
+//       문서의 "구성 예시" 섹션을 참조하세요.
 tasks.withType<DokkaTask>().configureEach {
     // ..
     // general configuration section
@@ -1259,9 +1260,9 @@ tasks.withType<DokkaTask>().configureEach {
 import org.jetbrains.dokka.gradle.DokkaTask
 import java.net.URL
 
-// Note: To configure multi-project builds, you need 
-//       to configure Partial tasks of the subprojects. 
-//       See "Configuration example" section of documentation. 
+// 참고: 멀티 프로젝트 빌드를 구성하려면
+//       서브프로젝트의 Partial 태스크를 구성해야 합니다.
+//       문서의 "구성 예시" 섹션을 참조하세요.
 tasks.withType(DokkaTask.class) {
     // ..
     // general configuration section
@@ -1319,9 +1320,9 @@ import org.jetbrains.dokka.gradle.DokkaTask
 import org.jetbrains.dokka.Platform
 import java.net.URL
 
-// Note: To configure multi-project builds, you need 
-//       to configure Partial tasks of the subprojects. 
-//       See "Configuration example" section of documentation. 
+// 참고: 멀티 프로젝트 빌드를 구성하려면
+//       서브프로젝트의 Partial 태스크를 구성해야 합니다.
+//       문서의 "구성 예시" 섹션을 참조하세요.
 tasks.withType<DokkaTask>().configureEach {
     moduleName.set(project.name)
     moduleVersion.set(project.version.toString())
@@ -1398,9 +1399,9 @@ import org.jetbrains.dokka.gradle.DokkaTask
 import org.jetbrains.dokka.Platform
 import java.net.URL
 
-// Note: To configure multi-project builds, you need 
-//       to configure Partial tasks of the subprojects. 
-//       See "Configuration example" section of documentation. 
+// 참고: 멀티 프로젝트 빌드를 구성하려면
+//       서브프로젝트의 Partial 태스크를 구성해야 합니다.
+//       문서의 "구성 예시" 섹션을 참조하세요.
 tasks.withType(DokkaTask.class) {
     moduleName.set(project.name)
     moduleVersion.set(project.version.toString())

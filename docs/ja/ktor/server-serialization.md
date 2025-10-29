@@ -19,7 +19,7 @@
     </a>
 </p>
 <p>
-    <b><Links href="/ktor/server-native" summary="KtorはKotlin/Nativeをサポートしており、追加のランタイムや仮想マシンなしでサーバーを実行できます。">ネイティブサーバー</Links>のサポート</b>: ✅
+    <b><Links href="/ktor/server-native" summary="KtorはKotlin/Nativeをサポートしており、追加のランタイムや仮想マシンなしでサーバーを実行できます。">ネイティブサーバー</Links>サポート</b>: ✅
 </p>
 </tldr>
 
@@ -27,7 +27,7 @@
 ContentNegotiationプラグインには主に2つの目的があります。クライアントとサーバー間のメディアタイプネゴシエーションと、特定のフォーマットでのコンテンツのシリアライゼーション/デシリアライゼーションです。
 </link-summary>
 
-[ContentNegotiation](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-content-negotiation/io.ktor.server.plugins.contentnegotiation/-content-negotiation.html)プラグインには主に2つの目的があります。
+[ContentNegotiation](https://api.ktor.io/ktor-server-content-negotiation/io.ktor.server.plugins.contentnegotiation/-content-negotiation.html)プラグインには主に2つの目的があります。
 * クライアントとサーバー間のメディアタイプをネゴシエーションする。これには`Accept`ヘッダーと`Content-Type`ヘッダーが使用されます。
 * 特定のフォーマットでコンテンツをシリアライズ/デシリアライズする。Ktorは以下のフォーマットをそのままサポートしています: JSON、XML、CBOR、ProtoBuf。
 
@@ -457,7 +457,7 @@ routing {
 
 ## カスタムシリアライザーの実装 {id="implement_custom_serializer"}
 
-Ktorでは、データのシリアライゼーション/デシリアライゼーションのために独自の[シリアライザー](#configure_serializer)を作成できます。これを行うには、[ContentConverter](https://api.ktor.io/ktor-shared/ktor-serialization/io.ktor.serialization/-content-converter/index.html)インターフェースを実装する必要があります:
+Ktorでは、データのシリアライゼーション/デシリアライゼーションのために独自の[シリアライザー](#configure_serializer)を作成できます。これを行うには、[ContentConverter](https://api.ktor.io/ktor-serialization/io.ktor.serialization/-content-converter/index.html)インターフェースを実装する必要があります:
 ```kotlin
 interface ContentConverter {
     suspend fun serialize(contentType: ContentType, charset: Charset, typeInfo: TypeInfo, value: Any): OutgoingContent?

@@ -18,7 +18,8 @@ Kotlin 的每个版本都附带一个独立的编译器。你可以手动下载�
 要手动安装 Kotlin 编译器：
 
 1. 从 [GitHub Releases](%kotlinLatestUrl%) 下载最新版本（`kotlin-compiler-%kotlinVersion%.zip`）。
-2. 将独立编译器解压到某个目录中，并可选地将 `bin` 目录添加到系统路径。`bin` 目录包含在 Windows、macOS 和 Linux 上编译和运行 Kotlin 所需的脚本。
+2. 将独立编译器解压到某个目录中，并可选地将 `bin` 目录添加到系统路径。
+`bin` 目录包含在 Windows、macOS 和 Linux 上编译和运行 Kotlin 所需的脚本。
 
 > 如果你想在 Windows 上使用 Kotlin 命令行编译器，我们建议手动安装它。
 > 
@@ -26,7 +27,8 @@ Kotlin 的每个版本都附带一个独立的编译器。你可以手动下载�
 
 ### SDKMAN!
 
-在基于 UNIX 的系统（例如 macOS、Linux、Cygwin、FreeBSD 和 Solaris）上安装 Kotlin 更简单的方法是 [SDKMAN!](https://sdkman.io)。它也适用于 Bash 和 ZSH shell。了解如何 [安装 SDKMAN!](https://sdkman.io/install)。
+在基于 UNIX 的系统（例如 macOS、Linux、Cygwin、FreeBSD 和 Solaris）上安装 Kotlin 更简单的方法是 
+[SDKMAN!](https://sdkman.io)。它也适用于 Bash 和 ZSH shell。了解如何 [安装 SDKMAN!](https://sdkman.io/install)。
 
 要通过 SDKMAN! 安装 Kotlin 编译器，请在终端中运行以下命令：
 
@@ -104,7 +106,7 @@ kotlin -classpath hello.jar HelloKt
 
 `HelloKt` 是 Kotlin 编译器为名为 `hello.kt` 的文件生成的主类名。
 
-> 要编译 Kotlin/Native 库，请使用 [Kotlin/Native 编译器](native-libraries.md#kotlin-compiler-specifics)。
+> 要编译 Kotlin/Native 库，请使用 [Kotlin/Native 编译器](native-libraries.md#using-kotlin-native-compiler)。
 >
 {style="note"}
 

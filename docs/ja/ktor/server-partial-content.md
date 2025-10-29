@@ -21,7 +21,7 @@
 </p>
 </tldr>
 
-[%plugin_name%](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-partial-content/io.ktor.server.plugins.partialcontent/-partial-content.html)プラグインは、HTTPメッセージの一部のみをクライアントに送信するために使用される[HTTPレンジリクエスト](https://developer.mozilla.org/en-US/docs/Web/HTTP/Range_requests)の処理をサポートします。このプラグインは、コンテンツのストリーミングや部分的なダウンロードの再開に役立ちます。
+[%plugin_name%](https://api.ktor.io/ktor-server-partial-content/io.ktor.server.plugins.partialcontent/-partial-content.html)プラグインは、HTTPメッセージの一部のみをクライアントに送信するために使用される[HTTPレンジリクエスト](https://developer.mozilla.org/en-US/docs/Web/HTTP/Range_requests)の処理をサポートします。このプラグインは、コンテンツのストリーミングや部分的なダウンロードの再開に役立ちます。
 
 `%plugin_name%` には以下の制限があります:
 - `HEAD` および `GET` リクエストのみで動作し、クライアントが他のメソッドで `Range` ヘッダーを使用しようとすると `405 Method Not Allowed` を返します。
@@ -48,7 +48,8 @@
 ## %plugin_name% のインストール {id="install_plugin"}
 
 <p>
-    アプリケーションに <code>%plugin_name%</code> プラグインを<a href="#install">インストール</a>するには、指定された<Links href="/ktor/server-modules" summary="モジュールを使用すると、ルートをグループ化してアプリケーションを構造化できます。">モジュール</Links>の <code>install</code> 関数に渡します。
+    アプリケーションに <code>%plugin_name%</code> プラグインを<a href="#install">インストール</a>するには、
+    指定された<Links href="/ktor/server-modules" summary="モジュールを使用すると、ルートをグループ化してアプリケーションを構造化できます。">モジュール</Links>の <code>install</code> 関数に渡します。
     以下のコードスニペットは、<code>%plugin_name%</code> をインストールする方法を示しています...
 </p>
 <list>

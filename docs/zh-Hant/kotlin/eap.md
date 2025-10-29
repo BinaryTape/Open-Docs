@@ -40,23 +40,13 @@
         <th>組建亮點</th>
     </tr>
     <tr>
-        <td><strong>2.3.0-Beta1</strong>
-            <p>發布：<strong>2025 年 10 月 7 日</strong></p>
-            <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.3.0-Beta1" target="_blank">GitHub 發布</a></p>
+        <td><strong>2.3.0-Beta2</strong>
+            <p>發布：<strong>2025 年 10 月 28 日</strong></p>
+            <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.3.0-Beta2" target="_blank">GitHub 發布</a></p>
         </td>
         <td>
             <p>一個包含新功能預覽和工具更新的語言版本發布。</p>
-            <p>更多詳情請參閱 <a href="https://github.com/JetBrains/kotlin/releases/tag/v2.3.0-Beta1">changelog</a> 或 <a href="whatsnew-eap.md">Kotlin 2.3.0-Beta1 中的新功能</a>。</p>
+            <p>更多詳情請參閱 <a href="https://github.com/JetBrains/kotlin/releases/tag/v2.3.0-Beta2">changelog</a> 或 <a href="whatsnew-eap.md">Kotlin 2.3.0-Beta2 中的新功能</a>。</p>
         </td>
-    </tr>
-    <tr>
-        <td><strong>2.2.21-RC2</strong>
-            <p>發布：<strong>2025 年 10 月 16 日</strong></p>
-            <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.2.21-RC2" target="_blank">GitHub 發布</a></p>
-        </td>
-        <td>
-            <p>一個包含對 Xcode 26 支援，以及其他改進和錯誤修復的工具版本發布。</p>
-            <p>更多詳情請參閱 <a href="https://github.com/JetBrains/kotlin/releases/tag/v2.2.21-RC2">changelog</a> 或 <a href="whatsnew2220.md">Kotlin 2.2.20 中的新功能</a>。</p>
-    </td>
     </tr>
 </table>

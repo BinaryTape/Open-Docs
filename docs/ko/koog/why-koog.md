@@ -25,7 +25,7 @@ Koog는 에이전트 시스템 개발을 간소화하고 가속화하는 사전 
 Koog는 다양한 플랫폼 및 환경 전반에서 에이전트 애플리케이션의 개발 및 배포를 지원합니다.
 
 *   **멀티플랫폼 지원.** JVM, JS, WasmJS, Android 및 iOS 대상에 에이전트 애플리케이션을 배포할 수 있습니다.
-*   **광범위한 AI 통합.** Koog는 OpenAI 및 Anthropic을 포함한 주요 LLM 제공업체는 물론, Bedrock과 같은 엔터프라이즈급 AI 클라우드와도 통합됩니다. 또한 Ollama와 같은 로컬 모델도 지원합니다. 사용 가능한 제공업체 전체 목록은 [사용 가능한 LLM 제공업체 및 플랫폼](https://docs.koog.ai/#available-llm-providers-and-platforms)을 참조하십시오.
+*   **광범위한 AI 통합.** Koog는 OpenAI 및 Anthropic을 포함한 주요 LLM 제공업체는 물론, Bedrock과 같은 엔터프라이즈급 AI 클라우드와도 통합됩니다. 또한 Ollama와 같은 로컬 모델도 지원합니다. 사용 가능한 제공업체 전체 목록은 [LLM 제공업체](https://docs.koog.ai/llm-providers/)를 참조하십시오.
 *   **OpenTelemetry 지원.** Koog는 AI 애플리케이션 모니터링 및 디버깅을 위해 [W&B Weave](https://wandb.ai/site/weave/) 및 [Langfuse](https://langfuse.com/)와 같은 인기 있는 관측 가능성 제공업체와의 즉시 사용 가능한 통합을 제공합니다. 네이티브 OpenTelemetry 지원을 통해 시스템에서 이미 사용하는 동일한 도구를 사용하여 에이전트를 추적, 로깅 및 측정할 수 있습니다. 더 자세히 알아보려면 [OpenTelemetry](https://docs.koog.ai/opentelemetry-support/)를 참조하십시오.
 *   **Spring Boot 및 Ktor 통합.** Koog는 널리 사용되는 엔터프라이즈 환경과 통합됩니다.
     *   Ktor 서버가 있는 경우, Koog를 플러그인으로 설치하고 구성 파일을 사용하여 제공업체를 구성하며, LLM 클라이언트를 수동으로 연결하지 않고도 모든 경로에서 에이전트를 직접 호출할 수 있습니다.
@@ -46,6 +46,6 @@ Koog 팀은 강력한 개발자 커뮤니티를 구축하는 데 깊이 전념�
 ## 시작하는 방법
 
 *   [개요](https://docs.koog.ai/)에서 Koog의 기능을 살펴보세요.
-*   [시작하기](https://docs.koog.ai/single-run-agents/) 가이드로 첫 번째 Koog 에이전트를 구축하세요.
+*   [시작하기](https://docs.koog.ai/getting-started/) 가이드로 첫 번째 Koog 에이전트를 구축하세요.
 *   Koog의 최신 업데이트는 [릴리스 노트](https://github.com/JetBrains/koog/blob/main/CHANGELOG.md)에서 확인하세요.
 *   [예제](https://docs.koog.ai/examples/)에서 배우세요.

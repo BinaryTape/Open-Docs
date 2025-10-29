@@ -27,7 +27,7 @@
 %plugin_name% 允许 Ktor 应用程序根据抛出的异常或状态码对任何失败状态做出适当的响应。
 </link-summary>
 
-[%plugin_name%](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-status-pages/io.ktor.server.plugins.statuspages/-status-pages.html) 插件允许 Ktor 应用程序根据抛出的异常或状态码对任何失败状态做出适当的[响应](server-responses.md)。
+[%plugin_name%](https://api.ktor.io/ktor-server-status-pages/io.ktor.server.plugins.statuspages/-status-pages.html) 插件允许 Ktor 应用程序根据抛出的异常或状态码对任何失败状态做出适当的[响应](server-responses.md)。
 
 ## 添加依赖项 {id="add_dependencies"}
 
@@ -71,7 +71,7 @@
 
 ## 配置 %plugin_name% {id="configure"}
 
-<code>%plugin_name%</code> 插件提供了三个主要的配置选项：
+%plugin_name% 插件提供了三个主要的配置选项：
 
 - [异常](#exceptions)：根据映射的异常类配置响应
 - [状态](#status)：配置对状态码值的响应
@@ -118,7 +118,6 @@ install(StatusPages) {
 ### 状态文件 {id="status-file"}
 
 `statusFile` 处理程序允许你根据状态码提供 HTML 页面。假设你的项目在 `resources` 文件夹中包含 `error401.html` 和 `error402.html` HTML 页面。在这种情况下，你可以按如下方式使用 `statusFile` 处理 `401` 和 `402` 状态码：
-
 ```kotlin
 install(StatusPages) {
     statusFile(HttpStatusCode.Unauthorized, HttpStatusCode.PaymentRequired, filePattern = "error#.html")

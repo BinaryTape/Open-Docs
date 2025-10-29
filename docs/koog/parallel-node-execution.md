@@ -175,7 +175,7 @@ val nodeBestJoke by parallel<String, String>(
       // 使用另一个 LLM 来确定最佳笑话
       llm.writeSession {
          model = OpenAIModels.Chat.GPT4o
-         updatePrompt {
+         appendPrompt {
             system("You are a comedy critic. Select the best joke.")
             user("Here are three jokes: ${jokes.joinToString("
 \n")}")
@@ -244,7 +244,7 @@ val strategy = strategy("best-joke") {
    val nodeOpenAI by node<String, String> { topic ->
       llm.writeSession {
          model = OpenAIModels.Chat.GPT4o
-         updatePrompt {
+         appendPrompt {
             system("You are a comedian. Generate a funny joke about the given topic.")
             user("Tell me a joke about $topic.")
          }
@@ -256,7 +256,7 @@ val strategy = strategy("best-joke") {
    val nodeAnthropicSonnet by node<String, String> { topic ->
       llm.writeSession {
          model = AnthropicModels.Sonnet_3_5
-         updatePrompt {
+         appendPrompt {
             system("You are a comedian. Generate a funny joke about the given topic.")
             user("Tell me a joke about $topic.")
          }
@@ -268,7 +268,7 @@ val strategy = strategy("best-joke") {
    val nodeAnthropicOpus by node<String, String> { topic ->
       llm.writeSession {
          model = AnthropicModels.Opus_3
-         updatePrompt {
+         appendPrompt {
             system("You are a comedian. Generate a funny joke about the given topic.")
             user("Tell me a joke about $topic.")
          }
@@ -285,7 +285,7 @@ val strategy = strategy("best-joke") {
          // 另一个 LLM（例如，GPT4o）将找到最有趣的笑话：
          llm.writeSession {
             model = OpenAIModels.Chat.GPT4o
-            updatePrompt {
+            appendPrompt {
                prompt("best-joke-selector") {
                   system("You are a comedy critic. Give a critique for the given joke.")
                   user(
@@ -317,7 +317,7 @@ $joke" }.joinToString("
 
 ## 最佳实践
 
-1.  **考虑资源限制**：在并行执行节点时，请注意资源使用情况，尤其是在同时进行多个 LLM API 调用时。
+1.  **考量资源限制**：在并行执行节点时，请注意资源使用情况，尤其是在同时进行多个 LLM API 调用时。
 
 2.  **上下文管理**：每次并行执行都会创建一个派生上下文。合并结果时，请选择要保留哪个上下文或如何组合来自不同执行的上下文。
 

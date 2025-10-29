@@ -28,7 +28,7 @@ Ktor 使用 [Java KeyStore (JKS)](https://docs.oracle.com/javase/8/docs/api/java
 
 ### 在程式碼中產生憑證 {id="self-signed-code"}
 
-Ktor 提供了透過呼叫 [buildKeyStore](https://api.ktor.io/ktor-network/ktor-network-tls/ktor-network-tls-certificates/io.ktor.network.tls.certificates/build-key-store.html) 函數來產生自簽憑證以用於測試目的的功能，
+Ktor 提供了透過呼叫 [buildKeyStore](https://api.ktor.io/ktor-network-tls-certificates/io.ktor.network.tls.certificates/build-key-store.html) 函數來產生自簽憑證以用於測試目的的功能，
 該函數會回傳一個 [KeyStore](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/security/KeyStore.html) 實例。
 要使用此函數，您需要在建置腳本中添加 `ktor-network-tls-certificates` artifact：
 

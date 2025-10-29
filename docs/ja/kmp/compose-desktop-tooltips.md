@@ -8,6 +8,8 @@
 *   `tooltipPlacement`：ツールチップの位置を定義します。アンカー（マウスカーソルまたはコンポーネント）、オフセット、およびアラインメントを指定できます。
 *   `delayMillis`：ツールチップが表示されるまでの時間（ミリ秒単位）。デフォルト値は500ミリ秒です。
 
+以下の例は、`TooltipArea`でラップされたボタンのリストを含むシンプルなウィンドウを作成する方法を示しています。ボタンにカーソルを合わせると、ボタンの名前が表示されたツールチップが現れます。このコードを`composeApp/src/jvmMain/kotlin`の`main.kt`ファイルに追加してください。
+
 ```kotlin
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.TooltipArea

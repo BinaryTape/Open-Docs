@@ -56,7 +56,7 @@ handleEvents {
     // 其他事件处理程序
 }
 ```
-<!--- KNIT example-events-01.kt -->
+<!--- KNIT example-event-handlers-01.kt -->
 
 有关事件处理程序配置的更多详细信息，请参见 [API 参考](https://api.koog.ai/agents/agents-features/agents-features-event-handler/ai.koog.agents.features.eventHandler.feature/-event-handler-config/index.html)。
 
@@ -87,4 +87,4 @@ val agent = AIAgent(
     }
 }
 ```
-<!--- KNIT example-events-02.kt -->
+<!--- KNIT example-event-handlers-02.kt -->

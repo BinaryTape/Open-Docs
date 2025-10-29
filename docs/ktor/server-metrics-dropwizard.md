@@ -25,7 +25,7 @@
 
 <link-summary>%plugin_name% 插件允许你配置 Metrics 库，以获取关于服务器和传入请求的有用信息。</link-summary>
 
-[%plugin_name%](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-metrics/io.ktor.server.metrics.dropwizard/-dropwizard-metrics.html) 插件允许你配置 [Metrics](http://metrics.dropwizard.io/) 库，以获取关于服务器和传入请求的有用信息。
+[%plugin_name%](https://api.ktor.io/ktor-server-metrics/io.ktor.server.metrics.dropwizard/-dropwizard-metrics.html) 插件允许你配置 [Metrics](http://metrics.dropwizard.io/) 库，以获取关于服务器和传入请求的有用信息。
 
 ## 添加依赖项 {id="add_dependencies"}
 要启用 `%plugin_name%`，你需要将以下 artifact 包含在构建脚本中：

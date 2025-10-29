@@ -2,7 +2,7 @@
 
 <primary-label ref="client-plugin"/>
 
-[UserAgent](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client.plugins/-user-agent) 플러그인은 모든 [요청](client-requests.md)에 `User-Agent` 헤더를 추가합니다.
+[UserAgent](https://api.ktor.io/ktor-client-core/io.ktor.client.plugins/-user-agent) 플러그인은 모든 [요청](client-requests.md)에 `User-Agent` 헤더를 추가합니다.
 
 ## 종속성 추가 {id="add_dependencies"}
 
@@ -32,4 +32,3 @@ val client = HttpClient(CIO) {
     // ... or
     CurlUserAgent()
 }
-```

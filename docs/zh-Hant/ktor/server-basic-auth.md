@@ -61,7 +61,7 @@ Ktor 允許您使用基本認證來登入使用者並保護特定的 [路由](se
 4. 伺服器 [驗證](#configure-provider) 用戶端發送的憑證，並回應所請求的內容。
 
 ## 安裝基本認證 {id="install"}
-若要安裝 `basic` 認證供應器，請在 `install` 區塊內呼叫 [basic](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-auth/io.ktor.server.auth/basic.html) 函數：
+若要安裝 `basic` 認證供應器，請在 `install` 區塊內呼叫 [basic](https://api.ktor.io/ktor-server-auth/io.ktor.server.auth/basic.html) 函數：
 
 ```kotlin
 import io.ktor.server.application.*
@@ -69,7 +69,7 @@ import io.ktor.server.auth.*
 // ...
 install(Authentication) {
     basic {
-        // 設定基本認證
+        // Configure basic authentication
     }
 }
 ```
@@ -82,7 +82,7 @@ install(Authentication) {
 
 ### 步驟 1：設定基本供應器 {id="configure-provider"}
 
-`basic` 認證供應器透過 [BasicAuthenticationProvider.Configuration](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-auth/io.ktor.server.auth/-basic-authentication-provider/-config/index.html) 類別公開其設定。在下面的範例中，指定了以下設定：
+`basic` 認證供應器透過 [BasicAuthenticationProvider.Configuration](https://api.ktor.io/ktor-server-auth/io.ktor.server.auth/-basic-authentication-provider/-config/index.html) 類別公開其設定。在下面的範例中，指定了以下設定：
 * `realm` 屬性設定要在 `WWW-Authenticate` 標頭中傳遞的 realm。
 * `validate` 函數驗證使用者名稱和密碼。
 
@@ -106,7 +106,7 @@ install(Authentication) {
 
 ### 步驟 2：保護特定資源 {id="authenticate-route"}
 
-設定 `basic` 供應器後，您可以使用 **[authenticate](server-auth.md#authenticate-route)** 函數保護應用程式中的特定資源。在成功認證的情況下，您可以使用 `call.principal` 函數在路由處理常式中擷取已認證的 [UserIdPrincipal](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-auth/io.ktor.server.auth/-user-id-principal/index.html)，並取得已認證使用者的名稱。
+設定 `basic` 供應器後，您可以使用 **[authenticate](server-auth.md#authenticate-route)** 函數保護應用程式中的特定資源。在成功認證的情況下，您可以使用 `call.principal` 函數在路由處理常式中擷取已認證的 [UserIdPrincipal](https://api.ktor.io/ktor-server-auth/io.ktor.server.auth/-user-id-principal/index.html)，並取得已認證使用者的名稱。
 
 ```kotlin
 routing {
@@ -144,7 +144,7 @@ Ktor 允許您使用 [UserHashedTableAuth](#validate-user-hash) 來 [驗證](#co
    )
    ```
    
-3. 在 `validate` 函數內部，呼叫 [UserHashedTableAuth.authenticate](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-auth/io.ktor.server.auth/-user-hashed-table-auth/authenticate.html) 函數來認證使用者，並在憑證有效時返回 `UserIdPrincipal` 的實例：
+3. 在 `validate` 函數內部，呼叫 [UserHashedTableAuth.authenticate](https://api.ktor.io/ktor-server-auth/io.ktor.server.auth/-user-hashed-table-auth/authenticate.html) 函數來認證使用者，並在憑證有效時返回 `UserIdPrincipal` 的實例：
 
    ```kotlin
    install(Authentication) {

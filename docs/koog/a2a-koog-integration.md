@@ -2,12 +2,50 @@
 
 Koog 提供了与 A2A 协议的无缝整合，允许你将 Koog 代理暴露为 A2A 服务器，并将 Koog 代理连接到其他符合 A2A 规范的代理。
 
+## 依赖项
+
+A2A Koog 整合需要特定的特性模块，具体取决于你的用例：
+
+### 用于将 Koog 代理暴露为 A2A 服务器
+
+将这些依赖项添加到你的 `build.gradle.kts`：
+
+```kotlin
+dependencies {
+    // Koog A2A 服务器整合特性
+    implementation("ai.koog:agents-features-a2a-server:$koogVersion")
+
+    // HTTP JSON-RPC 传输
+    implementation("ai.koog:a2a-transport-server-jsonrpc-http:$koogVersion")
+
+    // Ktor 服务器引擎（选择适合你需求的）
+    implementation("io.ktor:ktor-server-netty:$ktorVersion")
+}
+```
+
+### 用于将 Koog 代理连接到 A2A 代理
+
+将这些依赖项添加到你的 `build.gradle.kts`：
+
+```kotlin
+dependencies {
+    // Koog A2A 客户端整合特性
+    implementation("ai.koog:agents-features-a2a-client:$koogVersion")
+
+    // HTTP JSON-RPC 传输
+    implementation("ai.koog:a2a-transport-client-jsonrpc-http:$koogVersion")
+
+    // Ktor 客户端引擎（选择适合你需求的）
+    implementation("io.ktor:ktor-client-cio:$ktorVersion")
+}
+```
+
 ## 概述
 
 该整合实现了两种主要模式：
 
-1. **将 Koog 代理暴露为 A2A 服务器** - 使你的 Koog 代理通过 A2A 协议可发现和可访问
-2. **将 Koog 代理连接到 A2A 代理** - 让你的 Koog 代理与其他符合 A2A 规范的代理通信
+1.  **将 Koog 代理暴露为 A2A 服务器** - 使你的 Koog 代理通过 A2A 协议可发现和可访问
+2.  **将 Koog 代理连接到 A2A 代理** - 让你的 Koog 代理与其他符合 A2A 规范的代理通信
 
 ## 将 Koog 代理暴露为 A2A 服务器
 
@@ -42,7 +80,7 @@ private fun createAgent(
             // 将 A2A 消息转换为 Koog 消息的便捷函数
             val input = inputMessage.toKoogMessage()
             llm.writeSession {
-                updatePrompt {
+                appendPrompt {
                     message(input)
                 }
             }
@@ -68,7 +106,7 @@ private fun createAgent(
             val toolResult = environment.executeTool(toolCall)
 
             llm.writeSession {
-                updatePrompt {
+                appendPrompt {
                     tool {
                         result(toolResult)
                     }
@@ -149,7 +187,7 @@ private suspend fun A2AAgentServer.sendTaskUpdate(
 要安装该特性，请在代理上调用 `install` 函数，并传入 `A2AAgentServer` 特性以及 `RequestContext` 和 `SessionEventProcessor`：
 ```kotlin
 // 安装特性
-agent.install(A2AAgentServer) {
+install(A2AAgentServer) {
     this.context = context
     this.eventProcessor = eventProcessor
 }
@@ -161,7 +199,7 @@ agent.install(A2AAgentServer) {
 // 在代理节点中的用法
 withA2AAgentServer {
     // 'this' 现在是 A2AAgentServer 实例
-    sendTaskUpdate("Processing your request...", TaskState.Working)
+    eventProcessor.sendTaskUpdate("Processing your request...", TaskState.Working)
 }
 ```
 
@@ -191,7 +229,7 @@ val agentCard = AgentCard(
 // 服务器设置
 val server = A2AServer(agentExecutor = KoogAgentExecutor(), agentCard = agentCard)
 val transport = HttpJSONRPCServerTransport(server)
-transport.start(engineFactory = CIO, port = 8080, path = "/chat", wait = true)
+transport.start(engineFactory = Netty, port = 8080, path = "/chat", wait = true)
 ```
 
 ## 将 Koog 代理连接到 A2A 代理
@@ -209,8 +247,8 @@ client.connect()
 ```
 
 ### 创建 Koog 代理并将 A2A 客户端添加到 A2AAgentClient 特性
-
-要从你的 Koog 代理连接到 A2A 代理，你可以使用 A2AAgentClient 特性，它提供了一个用于连接 A2A 代理的客户端 API。客户端的原理与服务器相同：你安装该特性并传入 `A2AAgentClient` 特性以及 `RequestContext` 和 `SessionEventProcessor`。
+要从你的 Koog 代理连接到 A2A 代理，你可以使用 A2AAgentClient 特性，它提供了一个用于连接 A2A 代理的客户端 API。
+客户端的原理与服务器相同：你安装该特性并传入 `A2AAgentClient` 特性以及 `RequestContext` 和 `SessionEventProcessor`。
 
 ```kotlin
 val agent = AIAgent(

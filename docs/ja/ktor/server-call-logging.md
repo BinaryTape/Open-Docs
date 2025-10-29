@@ -68,7 +68,7 @@ Ktorは、[SLF4J](http://www.slf4j.org/)ライブラリを使用してアプリ�
 
 ## ロギング設定を構成する {id="configure"}
 
-`%plugin_name%`は、複数の方法で構成できます。ロギングレベルの指定、指定された条件に基づくリクエストのフィルタリング、ログメッセージのカスタマイズなどです。利用可能な構成設定は、[CallLoggingConfig](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-call-logging/io.ktor.server.plugins.calllogging/-call-logging-config/index.html)で確認できます。
+`%plugin_name%`は、複数の方法で構成できます。ロギングレベルの指定、指定された条件に基づくリクエストのフィルタリング、ログメッセージのカスタマイズなどです。利用可能な構成設定は、[CallLoggingConfig](https://api.ktor.io/ktor-server-call-logging/io.ktor.server.plugins.calllogging/-call-logging-config/index.html)で確認できます。
 
 ### ロギングレベルを設定する {id="logging_level"}
 
@@ -94,7 +94,7 @@ install(CallLogging) {
 
 ### ログメッセージの形式をカスタマイズする {id="format"}
 
-`format`関数を使用すると、リクエスト/レスポンスに関連する任意のデータをログに記録できます。以下の例は、各リクエストに対するレスポンスステータス、リクエストHTTPメソッド、および`User-Agent`ヘッダー値をログに記録する方法を示しています。
+`format`関数を使用すると、リクエスト/レスポンスに関連する任意のデータをログに記録できます。以下の例は、各リクエストに対するレスポンスステータス、リクエストHTTPメソッド、および`User-Agent`ヘッダー値をログに記録する方法を示します。
 
 ```kotlin
 install(CallLogging) {

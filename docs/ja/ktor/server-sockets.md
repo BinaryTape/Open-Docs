@@ -19,7 +19,8 @@
 </p>
 </tldr>
 
-サーバーとクライアントにおけるHTTP/WebSocket処理に加えて、KtorはTCPおよびUDPのrawソケットをサポートしています。Ktorは、内部で[java.nio](https://docs.oracle.com/javase/8/docs/api/java/nio/package-summary.html)を使用するサスペンドAPIを公開しています。
+Ktorは、サーバーとクライアントにおけるHTTP/WebSocket処理に加えて、TCPおよびUDPのrawソケットをサポートしています。
+内部で[java.nio](https://docs.oracle.com/javase/8/docs/api/java/nio/package-summary.html)を使用するサスペンドAPIを公開しています。
 
 > ソケットは実験的なAPIを使用しており、今後のアップデートで破壊的変更が行われる可能性があります。
 >
@@ -56,7 +57,8 @@ val selectorManager = SelectorManager(Dispatchers.IO)
 val serverSocket = aSocket(selectorManager).tcp().bind("127.0.0.1", 9002)
 ```
 
-上記のスニペットは、[ServerSocket](https://api.ktor.io/ktor-network/io.ktor.network.sockets/-server-socket/index.html)インスタンスであるTCPソケットを作成します。UDPソケットを作成するには、`SocketBuilder.udp()`を使用します。
+上記のスニペットは、[ServerSocket](https://api.ktor.io/ktor-network/io.ktor.network.sockets/-server-socket/index.html)インスタンスであるTCPソケットを作成します。
+UDPソケットを作成するには、`SocketBuilder.udp()`を使用します。
 
 ### 着信接続を受け入れる {id="accepts_connection"}
 
@@ -76,7 +78,8 @@ val socket = serverSocket.accept()
 val receiveChannel = socket.openReadChannel()
 ```
 
-`ByteReadChannel`はデータの非同期読み取りのためのAPIを提供します。例えば、`ByteReadChannel.readUTF8Line`を使用してUTF-8文字の行を読み取ることができます。
+`ByteReadChannel`はデータの非同期読み取りのためのAPIを提供します。
+例えば、`ByteReadChannel.readUTF8Line`を使用してUTF-8文字の行を読み取ることができます。
 
 ```kotlin
 val name = receiveChannel.readUTF8Line()
@@ -90,7 +93,8 @@ val name = receiveChannel.readUTF8Line()
 val sendChannel = socket.openWriteChannel(autoFlush = true)
 ```
 
-`ByteWriteChannel`はバイトシーケンスの非同期書き込みのためのAPIを提供します。例えば、`ByteWriteChannel.writeStringUtf8`を使用してUTF-8文字の行を書き込むことができます。
+`ByteWriteChannel`はバイトシーケンスの非同期書き込みのためのAPIを提供します。
+例えば、`ByteWriteChannel.writeStringUtf8`を使用してUTF-8文字の行を書き込むことができます。
 
 ```kotlin
 val name = receiveChannel.readUTF8Line()
@@ -164,7 +168,8 @@ val socket = aSocket(selectorManager).tcp().connect("127.0.0.1", 9002)
 
 ### セキュアソケットを作成する (SSL/TLS) {id="secure"}
 
-セキュアソケットを使用すると、TLS接続を確立できます。セキュアソケットを使用するには、[ktor-network-tls](#add_dependencies)の依存関係を追加する必要があります。
+セキュアソケットを使用すると、TLS接続を確立できます。
+セキュアソケットを使用するには、[ktor-network-tls](#add_dependencies)の依存関係を追加する必要があります。
 その後、接続されたソケットで`Socket.tls`関数を呼び出します。
 
 ```kotlin
@@ -172,7 +177,7 @@ val selectorManager = SelectorManager(Dispatchers.IO)
 val socket = aSocket(selectorManager).tcp().connect("127.0.0.1", 8443).tls()
 ```
 
-`tls`関数を使用すると、[TLSConfigBuilder](https://api.ktor.io/ktor-network/ktor-network-tls/io.ktor.network.tls/-t-l-s-config-builder/index.html)によって提供されるTLSパラメーターを調整できます。
+`tls`関数を使用すると、[TLSConfigBuilder](https://api.ktor.io/ktor-network-tls/io.ktor.network.tls/-t-l-s-config-builder/index.html)によって提供されるTLSパラメーターを調整できます。
 
 ```kotlin
 val selectorManager = SelectorManager(Dispatchers.IO)
@@ -195,7 +200,8 @@ val socket = aSocket(selectorManager).tcp().connect("youtrack.jetbrains.com", po
 val receiveChannel = socket.openReadChannel()
 ```
 
-`ByteReadChannel`はデータの非同期読み取りのためのAPIを提供します。例えば、`ByteReadChannel.readUTF8Line`を使用してUTF-8文字の行を読み取ることができます。
+`ByteReadChannel`はデータの非同期読み取りのためのAPIを提供します。
+例えば、`ByteReadChannel.readUTF8Line`を使用してUTF-8文字の行を読み取ることができます。
 
 ```kotlin
 val greeting = receiveChannel.readUTF8Line()
@@ -209,7 +215,8 @@ val greeting = receiveChannel.readUTF8Line()
 val sendChannel = socket.openWriteChannel(autoFlush = true)
 ```
 
-`ByteWriteChannel`はバイトシーケンスの非同期書き込みのためのAPIを提供します。例えば、`ByteWriteChannel.writeStringUtf8`を使用してUTF-8文字の行を書き込むことができます。
+`ByteWriteChannel`はバイトシーケンスの非同期書き込みのためのAPIを提供します。
+例えば、`ByteWriteChannel.writeStringUtf8`を使用してUTF-8文字の行を書き込むことができます。
 
 ```kotlin
 val myMessage = readln()

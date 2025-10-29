@@ -25,7 +25,7 @@
 セッションプラグインは、異なるHTTPリクエスト間でデータを永続化するメカニズムを提供します。
 </link-summary>
 
-`[%plugin_name%](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-sessions/io.ktor.server.sessions/-sessions.html)`プラグインは、異なるHTTPリクエスト間でデータを永続化するメカニズムを提供します。一般的な使用例としては、ログイン中のユーザーIDの保存、ショッピングカートの内容、またはクライアント上でのユーザー設定の保持などがあります。Ktorでは、Cookieまたはカスタムヘッダーを使用してセッションを実装し、セッションデータをサーバーに保存するかクライアントに渡すかを選択したり、セッションデータを署名・暗号化したりすることができます。
+`[%plugin_name%](https://api.ktor.io/ktor-server-sessions/io.ktor.server.sessions/-sessions.html)`プラグインは、異なるHTTPリクエスト間でデータを永続化するメカニズムを提供します。一般的な使用例としては、ログイン中のユーザーIDの保存、ショッピングカートの内容、またはクライアント上でのユーザー設定の保持などがあります。Ktorでは、Cookieまたはカスタムヘッダーを使用してセッションを実装し、セッションデータをサーバーに保存するかクライアントに渡すかを選択したり、セッションデータを署名・暗号化したりすることができます。
 
 このトピックでは、`%plugin_name%`プラグインのインストール方法、構成方法、および[ルートハンドラー](server-routing.md#define_route)内でのセッションデータへのアクセス方法について説明します。
 
@@ -123,7 +123,7 @@ install(Sessions) {
     }
 }
 ```
-利用可能な設定の詳細については、[CookieConfiguration](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-sessions/io.ktor.server.sessions/-cookie-configuration/index.html)を参照してください。
+利用可能な設定の詳細については、[CookieConfiguration](https://api.ktor.io/ktor-server-sessions/io.ktor.server.sessions/-cookie-configuration/index.html)を参照してください。
 
 > アプリケーションを本番環境に[デプロイ](server-deployment.md)する前に、`secure`プロパティが`true`に設定されていることを確認してください。
 > これにより、[安全な接続](server-ssl.md)を介したCookieの転送のみが有効になり、HTTPSダウングレード攻撃からセッションデータを保護します。
@@ -165,7 +165,7 @@ Ktorでは、セッションデータを2つの方法で管理できます。
 Ktorでは、セッションデータを[サーバーに保存](#client_server)し、セッションIDのみをサーバーとクライアント間で渡すことができます。この場合、サーバー上でペイロードをどこに保持するかを選択できます。
 
 ### インメモリストレージ {id="in_memory_storage"}
-[SessionStorageMemory](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-sessions/io.ktor.server.sessions/-session-storage-memory/index.html)を使用すると、セッションの内容をメモリに保存できます。このストレージは、サーバーの実行中にデータを保持し、サーバーが停止すると情報を破棄します。たとえば、次のようにCookieをサーバーメモリに保存できます。
+[SessionStorageMemory](https://api.ktor.io/ktor-server-sessions/io.ktor.server.sessions/-session-storage-memory/index.html)を使用すると、セッションの内容をメモリに保存できます。このストレージは、サーバーの実行中にデータを保持し、サーバーが停止すると情報を破棄します。たとえば、次のようにCookieをサーバーメモリに保存できます。
 
 ```kotlin
 cookie<CartSession>("cart_session", SessionStorageMemory()) {
@@ -178,7 +178,7 @@ cookie<CartSession>("cart_session", SessionStorageMemory()) {
 
 ### ディレクトリストレージ {id="directory_storage"}
 
-[directorySessionStorage](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-sessions/io.ktor.server.sessions/directory-session-storage.html)は、指定されたディレクトリ内のファイルにセッションデータを保存するために使用できます。たとえば、`build/.sessions`ディレクトリ内のファイルにセッションデータを保存するには、次のように`directorySessionStorage`を作成します。
+[directorySessionStorage](https://api.ktor.io/ktor-server-sessions/io.ktor.server.sessions/directory-session-storage.html)は、指定されたディレクトリ内のファイルにセッションデータを保存するために使用できます。たとえば、`build/.sessions`ディレクトリ内のファイルにセッションデータを保存するには、次のように`directorySessionStorage`を作成します。
 ```kotlin
 header<CartSession>("cart_session", directorySessionStorage(File("build/.sessions"))) {
 }
@@ -188,7 +188,7 @@ header<CartSession>("cart_session", directorySessionStorage(File("build/.session
 
 ### カスタムストレージ {id="custom_storage"}
 
-Ktorは、カスタムストレージを実装できる[SessionStorage](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-sessions/io.ktor.server.sessions/-session-storage/index.html)インターフェースを提供します。
+Ktorは、カスタムストレージを実装できる[SessionStorage](https://api.ktor.io/ktor-server-sessions/io.ktor.server.sessions/-session-storage/index.html)インターフェースを提供します。
 ```kotlin
 interface SessionStorage {
     suspend fun invalidate(id: String)

@@ -25,7 +25,7 @@
 </p>
 </tldr>
 
-Ktorは、[FreeMarker](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-freemarker/io.ktor.server.freemarker/-free-marker)プラグインをインストールすることで、アプリケーション内で[FreeMarkerテンプレート](https://freemarker.apache.org/)をビューとして使用できます。
+Ktorは、[FreeMarker](https://api.ktor.io/ktor-server-freemarker/io.ktor.server.freemarker/-free-marker)プラグインをインストールすることで、アプリケーション内で[FreeMarkerテンプレート](https://freemarker.apache.org/)をビューとして使用できます。
 
 ## 依存関係を追加 {id="add_dependencies"}
 
@@ -106,4 +106,3 @@ get("/index") {
     val sampleUser = User(1, "John")
     call.respond(FreeMarkerContent("index.ftl", mapOf("user" to sampleUser)))
 }
-```

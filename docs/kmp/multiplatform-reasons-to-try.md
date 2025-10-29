@@ -10,16 +10,16 @@
 
 无论您是追求效率提升，还是渴望探索新技术，本文都将阐释 Kotlin Multiplatform 带来的诸多实际益处，包括其简化开发工作、广泛的平台支持和强大的工具生态系统等能力，并附有真实公司的案例研究。
 
-* [Kotlin Multiplatform 助您避免代码重复](#1-kotlin-multiplatform-allows-you-to-avoid-code-duplication)
-* [Kotlin Multiplatform 支持广泛的平台列表](#2-kotlin-multiplatform-supports-an-extensive-list-of-platforms)
-* [Kotlin 提供简化的代码共享机制](#3-kotlin-provides-simplified-code-sharing-mechanisms)
-* [Kotlin Multiplatform 实现灵活的多平台开发](#4-kotlin-multiplatform-allows-for-flexible-multiplatform-development)
-* [借助 Kotlin Multiplatform 解决方案，您可以共享 UI 代码](#5-with-the-kotlin-multiplatform-solution-you-can-share-ui-code)
-* [您可在现有和新项目中使用 Kotlin Multiplatform](#6-you-can-use-kotlin-multiplatform-in-existing-and-new-projects)
-* [借助 Kotlin Multiplatform，您可以逐步共享代码](#7-with-kotlin-multiplatform-you-can-start-sharing-your-code-gradually)
-* [Kotlin Multiplatform 已被全球公司采用](#8-kotlin-multiplatform-is-already-used-by-global-companies)
-* [Kotlin Multiplatform 提供强大的工具支持](#9-kotlin-multiplatform-provides-powerful-tooling-support)
-* [Kotlin Multiplatform 拥有庞大且支持性的社区](#10-kotlin-multiplatform-boasts-a-large-and-supportive-community)
+1. [Kotlin Multiplatform 助您避免代码重复](#1-kotlin-multiplatform-helps-you-avoid-code-duplication)
+2. [Kotlin Multiplatform 支持广泛的平台列表](#2-kotlin-multiplatform-supports-an-extensive-list-of-platforms)
+3. [Kotlin 提供简化的代码共享机制](#3-kotlin-provides-simplified-code-sharing-mechanisms)
+4. [Kotlin Multiplatform 实现灵活的多平台开发](#4-kotlin-multiplatform-allows-for-flexible-multiplatform-development)
+5. [借助 Kotlin Multiplatform 解决方案，您可以共享 UI 代码](#5-with-the-kotlin-multiplatform-solution-you-can-share-ui-code)
+6. [您可在现有和新项目中使用 Kotlin Multiplatform](#6-you-can-use-kotlin-multiplatform-in-existing-and-new-projects)
+7. [借助 Kotlin Multiplatform，您可以逐步共享代码](#7-with-kotlin-multiplatform-you-can-start-sharing-your-code-gradually)
+8. [Kotlin Multiplatform 已被全球公司采用](#8-kotlin-multiplatform-is-already-used-by-global-companies)
+9. [Kotlin Multiplatform 提供强大的工具支持](#9-kotlin-multiplatform-provides-powerful-tooling-support)
+10. [Kotlin Multiplatform 拥有庞大且支持性的社区](#10-kotlin-multiplatform-boasts-a-large-and-supportive-community)
 
 ### 1. Kotlin Multiplatform 助您避免代码重复
 
@@ -67,7 +67,7 @@ Quizlet 团队尝试了 JavaScript、React Native、C++、Rust 和 Go 等技术�
 
 * **代码复用优于纯粹的表达性**。它不仅仅是解决许多问题，更是关于识别模式和创建可复用的库。通过利用现有解决方案并提取共同点，Kotlin 使开发者能够最大限度地提高代码效率。
 
-* **互操作性优于独创性**。Kotlin 没有另起炉灶，而是拥抱与 Java 等成熟语言的兼容性。这种互操作性不仅允许与庞大的 Java 生态系统无缝集成，还有助于采用经过验证的实践和从过往经验中汲取的教训。
+* **互操作性优于独创性**。Kotlin 没有另起炉灶，而是拥抱与 Java 等成熟语言的兼容性。这种互操作性不仅允许与庞大的 Java 生态系统无缝集成，还有助于采用经过验证的实践和从过往经验中汲取的经验教训。
 
 * **安全性与工具优于健全性**。Kotlin 使开发者能够及早捕获错误，确保您的程序不会进入无效状态。通过在编译期或在 IDE 中编写代码时检测问题，Kotlin 提高了软件可靠性，最大限度地降低了运行时错误的风险。
 
@@ -119,7 +119,7 @@ Compose Multiplatform 有一个官方示例，名为 [ImageViewer App](https://g
 
 在 JetBrains，我们经常进行 Kotlin Multiplatform 调查，并询问社区他们在不同平台之间共享了哪些部分的代码。这些调查显示，数据模型、数据序列化、网络、分析和内部工具是这项技术产生重大影响的关键领域。
 
-![Parts of code users are able to share between platforms with Kotlin Multiplatform: survey results](parts-of-code-share.png){width=700}
+![Parts of code users are able to share between platforms with Kotlin Multiplatform: survey results](parts-of-code-share.png){width="700"}
 
 ### 8. Kotlin Multiplatform 已被全球公司采用
 

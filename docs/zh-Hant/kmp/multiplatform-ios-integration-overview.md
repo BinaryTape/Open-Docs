@@ -4,7 +4,7 @@
 
 ![iOS 整合方案](ios-integration-scheme.svg)
 
-可以將此框架作為本地或遠端依賴項來使用。如果您想完全控制整個程式碼庫並在常用程式碼變更時即時更新最終應用程式，請選擇本地整合。
+此框架可以作為本地或遠端依賴項來使用。如果您希望對整個程式碼庫擁有完全控制權，並且在常用程式碼變更時，最終應用程式能夠立即獲得更新，請選擇本地整合。
 
 如果您想將最終應用程式的程式碼庫與常用程式碼庫明確分離，請設定遠端整合。在這種情況下，共享程式碼將像常規的第三方依賴項一樣整合到最終應用程式中。
 
@@ -14,7 +14,7 @@
 
 ### 直接整合
 
-您可以透過向您的 Xcode 專案新增一個特殊腳本，直接從 Kotlin Multiplatform 專案連接 iOS 框架。該腳本會整合到您專案建置設定的建置階段中。
+您可以透過向您的 Xcode 專案新增一個特殊腳本，直接從 Kotlin Multiplatform 專案連結 iOS 框架。該腳本會整合到您專案建置設定的建置階段中。
 
 如果您的 Kotlin Multiplatform 專案中**沒有**匯入 CocoaPods 依賴項，此整合方法則適用於您。
 
@@ -28,8 +28,8 @@
 
 此整合方法適用於以下情況：
 
-* 您有一個使用 CocoaPods 的 iOS 專案的單一儲存庫設定
-* 您在 Kotlin Multiplatform 專案中匯入 CocoaPods 依賴項
+*   您有一個使用 CocoaPods 的 iOS 專案的單一儲存庫設定
+*   您在 Kotlin Multiplatform 專案中匯入 CocoaPods 依賴項
 
 要設定一個包含本地 CocoaPods 依賴項的工作流程，您可以手動編輯腳本。
 
@@ -41,7 +41,7 @@
 
 ### Swift Package Manager 與 XCFrameworks
 
-您可以使用 XCFrameworks 設定 Swift Package Manager (SPM) 依賴項，以連結來自 Kotlin Multiplatform 專案的 iOS 框架。
+您可以設定一個使用 XCFrameworks 的 Swift Package Manager (SPM) 依賴項，以連結來自 Kotlin Multiplatform 專案的 iOS 框架。
 
 如需更多資訊，請參閱 [Swift 套件匯出設定](multiplatform-spm-export.md)。
 

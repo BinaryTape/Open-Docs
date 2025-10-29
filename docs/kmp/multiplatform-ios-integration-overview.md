@@ -6,7 +6,7 @@
 
 可以将此 framework 作为本地或远程依赖项使用。如果您想完全控制整个代码库，并在公共代码更改时即时更新最终应用，请选择本地集成。
 
-如果您想将最终应用的代码库与公共代码库显式分离，请设置远程集成。在这种情况下，共享代码将像常规第三方依赖项一样集成到最终应用中。
+如果您想将最终应用程序的代码库与公共代码库显式分离，请设置远程集成。在这种情况下，共享代码将像常规第三方依赖项一样集成到最终应用中。
 
 ## 本地集成
 
@@ -18,7 +18,7 @@
 
 如果您的 Kotlin Multiplatform 项目中**不**导入 CocoaPods 依赖项，则此集成方法可以适用。
 
-如果您使用 [Kotlin Multiplatform IDE plugin]https://plugins.jetbrains.com/plugin/14936-kotlin-multiplatform)，则默认应用直接集成。
+如果您使用 [Kotlin Multiplatform IDE plugin](https://plugins.jetbrains.com/plugin/14936-kotlin-multiplatform)，则默认应用直接集成。
 
 关于直接集成，请参见[Direct integration](multiplatform-direct-integration.md)。
 

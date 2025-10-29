@@ -29,10 +29,10 @@
 
 在使用所需的引擎之前，您需要將對應的依賴項新增到您的 [建置腳本](server-dependencies.topic) 中：
 
-*   `ktor-server-netty`
-*   `ktor-server-jetty-jakarta`
-*   `ktor-server-tomcat-jakarta`
-*   `ktor-server-cio`
+* `ktor-server-netty`
+* `ktor-server-jetty-jakarta`
+* `ktor-server-tomcat-jakarta`
+* `ktor-server-cio`
 
 以下是為 Netty 新增依賴項的範例：
 
@@ -51,8 +51,10 @@
 
 ## 選擇如何建立伺服器 {id="choose-create-server"}
 
-Ktor 伺服器應用程式可以透過 [兩種方式建立和執行](server-create-and-configure.topic#embedded)：使用
-[`embeddedServer`](#embeddedServer) 在程式碼中快速傳遞伺服器參數，或使用 [`EngineMain`](#EngineMain) 從外部的 `application.conf` 或 `application.yaml` 檔案載入設定。
+Ktor 伺服器應用程式可以透過 [兩種方式建立和執行](server-create-and-configure.topic#embedded)：
+
+* 使用 [`embeddedServer`](#embeddedServer) 在程式碼中快速傳遞伺服器參數
+* 使用 [`EngineMain`](#EngineMain) 從外部的 <Path>application.conf</Path> 或 <Path>application.yaml</Path> 檔案載入設定。
 
 ### embeddedServer {id="embeddedServer"}
 
@@ -82,14 +84,16 @@ fun main(args: Array<String>) {
 
 `EngineMain` 代表一個用於執行伺服器的引擎。您可以使用以下引擎：
 
-*   `io.ktor.server.netty.EngineMain`
-*   `io.ktor.server.jetty.jakarta.EngineMain`
-*   `io.ktor.server.tomcat.jakarta.EngineMain`
-*   `io.ktor.server.cio.EngineMain`
+* `io.ktor.server.netty.EngineMain`
+* `io.ktor.server.jetty.jakarta.EngineMain`
+* `io.ktor.server.tomcat.jakarta.EngineMain`
+* `io.ktor.server.cio.EngineMain`
 
-`EngineMain.main` 函式用於以選定的引擎啟動伺服器，並載入
+#### 建立並啟動伺服器
+
+`EngineMain.main()` 函式用於以選定的引擎啟動伺服器，並載入
 外部 [設定檔](server-configuration-file.topic) 中指定的 [應用程式模組](server-modules.md)。在
-下面的範例中，我們從應用程式的 `main` 函式啟動伺服器：
+下面的範例中，應用程式的 `main` 函式啟動伺服器：
 
 <Tabs>
 <TabItem title="Application.kt">
@@ -174,6 +178,19 @@ mainClassName = "io.ktor.server.netty.EngineMain"
 </TabItem>
 </Tabs>
 
+#### 建立伺服器實例而不立即啟動它 {id="createServer"}
+
+除了直接呼叫 `EngineMain.main()` 以立即啟動伺服器之外，您也可以呼叫
+`EngineMain.createServer()`，它會回傳一個 `EmbeddedServer` 實例，但不會立即啟動它。
+
+這種方法讓您能夠控制何時呼叫 `.start()`、`.stop()`，或在伺服器開始接受請求之前對伺服器執行任何操作。
+
+```Kotlin
+// Example using Netty
+val server = io.ktor.server.netty.EngineMain.createServer(args)
+// perform additional initialization, logging, instrumentation, etc.
+server.start(wait = true)
+```
 ## 設定引擎 {id="configure-engine"}
 
 在本節中，我們將探討如何指定各種引擎特有的選項。
@@ -188,7 +205,8 @@ mainClassName = "io.ktor.server.netty.EngineMain"
     類別公開。
 </p>
 <p>
-    下面的範例展示了如何使用 <code>Netty</code> 引擎設定伺服器。在 <code>configure</code> 區塊內，我們定義了一個 <code>connector</code> 來指定主機和連接埠，並
+    下面的範例展示了如何使用 <code>Netty</code> 引擎設定伺服器。在
+    <code>configure</code> 區塊內，我們定義了一個 <code>connector</code> 來指定主機和連接埠，並
     自訂各種伺服器參數：
 </p>
 <code-block lang="kotlin" code="import io.ktor.server.response.*&#10;import io.ktor.server.routing.*&#10;import io.ktor.server.engine.*&#10;import io.ktor.server.netty.*&#10;&#10;fun main(args: Array&lt;String&gt;) {&#10;    embeddedServer(Netty, configure = {&#10;        connectors.add(EngineConnectorBuilder().apply {&#10;            host = &quot;127.0.0.1&quot;&#10;            port = 8080&#10;        })&#10;        connectionGroupSize = 2&#10;        workerGroupSize = 5&#10;        callGroupSize = 10&#10;        shutdownGracePeriod = 2000&#10;        shutdownTimeout = 3000&#10;    }) {&#10;        routing {&#10;            get(&quot;/&quot;) {&#10;                call.respondText(&quot;Hello, world!&quot;)&#10;            }&#10;        }&#10;    }.start(wait = true)&#10;}"/>
@@ -240,7 +258,7 @@ mainClassName = "io.ktor.server.netty.EngineMain"
 </chapter>
 <chapter title="Tomcat" id="tomcat-code">
     <p>如果您使用 Tomcat 作為引擎，您可以使用
-        <a href="https://api.ktor.io/ktor-server/ktor-server-tomcat-jakarta/io.ktor.server.tomcat.jakarta/-tomcat-application-engine/-configuration/configure-tomcat.html">
+        <a href="https://api.ktor.io/ktor-server-tomcat-jakarta/io.ktor.server.tomcat.jakarta/-tomcat-application-engine/-configuration/configure-tomcat.html">
             configureTomcat
         </a>
         屬性來設定它，該屬性提供了對
@@ -265,7 +283,8 @@ mainClassName = "io.ktor.server.netty.EngineMain"
 </Tabs>
 <chapter title="Netty" id="netty-file">
     <p>
-        您也可以在設定檔中設定 Netty 特有的選項，在 <code>ktor.deployment</code> 群組中：
+        您也可以在設定檔中設定 Netty 特有的選項，在
+        <code>ktor.deployment</code> 群組中：
     </p>
     <Tabs group="config">
         <TabItem title="application.conf" group-key="hocon" id="application-conf-1">

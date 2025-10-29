@@ -40,9 +40,9 @@ edge(passthrough forwardTo nodeFinish)
 
 ## LLMノード
 
-### nodeUpdatePrompt
+### nodeAppendPrompt
 
-提供されたプロンプトビルダーを使用して、LLMプロンプトにメッセージを追加するノードです。
+提供されたプロンプトビルダーを使用してLLMプロンプトにメッセージを追加するノードです。
 これは、実際のLLMリクエストを行う前に会話コンテキストを変更する場合に役立ちます。詳細については、[APIリファレンス](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.dsl.extension/node-update-prompt.html)。
 
 このノードは次の目的で使用できます。
@@ -56,7 +56,7 @@ edge(passthrough forwardTo nodeFinish)
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.forwardTo
 import ai.koog.agents.core.dsl.builder.strategy
-import ai.koog.agents.core.dsl.extension.nodeUpdatePrompt
+import ai.koog.agents.core.dsl.extension.nodeAppendPrompt
 
 typealias Input = Unit
 typealias Output = Unit
@@ -76,7 +76,7 @@ val secondNode by node<Output, Output> {
 }
 
 // Node will get the value of type Output as input from the previous node and path through it to the next node
-val setupContext by nodeUpdatePrompt<Output>("setupContext") {
+val setupContext by nodeAppendPrompt<Output>("setupContext") {
     system("You are a helpful assistant specialized in Kotlin programming.")
     user("I need help with Kotlin coroutines.")
 }
@@ -403,7 +403,7 @@ edge(lengthNode forwardTo nodeFinish)
 
 ### subgraphWithTask
 
-提供されたツールを使用して特定のタスクを実行し、構造化された結果を返すサブグラフです。このサブグラフは、より大きなワークフロー内で自己完結型のタスクを処理するように設計されています。詳細については、[APIリファレンス](https://api.koog.ai/agents/agents-ext/ai.koog.agents.ext.agent/subgraph-with-task.html)を参照してください。
+提供されたツールを使用して特定のタスクを実行し、構造化された結果を返すサブグラフです。複数の応答を伴うLLMインタラクション（アシスタントがツール呼び出しを挟んで複数の応答を生成する場合）をサポートし、ツール呼び出しの実行方法を制御できます。詳細については、[APIリファレンス](https://api.koog.ai/agents/agents-ext/ai.koog.agents.ext.agent/subgraph-with-task.html)を参照してください。
 
 このサブグラフは次の目的で使用できます。
 
@@ -412,7 +412,12 @@ edge(lengthNode forwardTo nodeFinish)
 - タスク固有のツール、モデル、プロンプトを設定する。
 - 自動圧縮で会話履歴を管理する。
 - 構造化されたエージェントワークフローとタスク実行パイプラインを開発する。
-- LLMタスク実行から構造化された結果を生成する。
+- 複数のアシスタント応答とツール呼び出しを含むフローなど、LLMタスク実行から構造化された結果を生成する。
+
+APIは、オプションパラメーターを使用して実行を微調整することを可能にします。
+
+-   実行モード (runMode)：タスク実行中のツール呼び出しの実行方法を制御します（デフォルトはシーケンシャル）。基盤となるモデル/エグゼキュータがサポートしている場合、これを使用して異なるツール実行戦略を切り替えます。
+-   アシスタント応答最大繰り返し数 (assistantResponseRepeatMax)：タスクが完了できないと判断されるまでに許可されるアシスタント応答の数を制限します（提供されない場合は安全な内部制限がデフォルトとなります）。
 
 サブグラフにタスクをテキストとして提供し、必要に応じてLLMを設定し、必要なツールを提供すると、サブグラフがそのタスクを処理して解決します。以下に例を示します:
 
@@ -421,6 +426,7 @@ import ai.koog.agents.core.dsl.builder.strategy
 import ai.koog.agents.ext.tool.SayToUser
 import ai.koog.prompt.executor.clients.openai.OpenAIModels
 import ai.koog.agents.ext.agent.subgraphWithTask
+import ai.koog.agents.core.agent.ToolCalls
 
 val searchTool = SayToUser
 val calculatorTool = SayToUser
@@ -435,6 +441,8 @@ val strategy = strategy<String, String>("strategy_name") {
 val processQuery by subgraphWithTask<String, String>(
     tools = listOf(searchTool, calculatorTool, weatherTool),
     llmModel = OpenAIModels.Chat.GPT4o,
+    runMode = ToolCalls.SEQUENTIAL,
+    assistantResponseRepeatMax = 3,
 ) { userQuery ->
     """
     You are a helpful assistant that can answer questions about various topics.
@@ -464,6 +472,7 @@ import ai.koog.agents.core.dsl.builder.strategy
 import ai.koog.agents.ext.tool.SayToUser
 import ai.koog.prompt.executor.clients.anthropic.AnthropicModels
 import ai.koog.agents.ext.agent.subgraphWithVerification
+import ai.koog.agents.core.agent.ToolCalls
 
 val runTestsTool = SayToUser
 val analyzeTool = SayToUser
@@ -477,7 +486,9 @@ val strategy = strategy<String, String>("strategy_name") {
 ```kotlin
 val verifyCode by subgraphWithVerification<String>(
     tools = listOf(runTestsTool, analyzeTool, readFileTool),
-    llmModel = AnthropicModels.Sonnet_3_7
+    llmModel = AnthropicModels.Sonnet_3_7,
+    runMode = ToolCalls.SEQUENTIAL,
+    assistantResponseRepeatMax = 3,
 ) { codeToVerify ->
     """
     You are a code reviewer. Please verify that the following code meets all requirements:
@@ -602,8 +613,8 @@ val agentStrategy = strategy<String, List<Book>>("library-assistant") {
         val books = mutableListOf<Book>()
         val mdDefinition = markdownBookDefinition()
 
-        llm.writeSession {
-            updatePrompt { user(booksDescription) }
+        llm.writeSession { 
+            appendPrompt { user(booksDescription) }
             // Initiate the response stream in the form of the definition `mdDefinition`
             val markdownStream = requestLLMStreaming(mdDefinition)
             // Call the parser with the result of the response stream and perform actions with the result

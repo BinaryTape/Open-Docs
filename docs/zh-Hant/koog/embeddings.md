@@ -100,6 +100,54 @@ suspend fun openAIEmbed(text: String) {
 ```
 <!--- KNIT example-embeddings-02.kt -->
 
+## AWS Bedrock 嵌入
+
+若要使用 AWS Bedrock 嵌入模型建立嵌入，請使用 `BedrockLLMClient` 實例的 `embed` 方法和您所選的模型。範例：
+
+<!--- INCLUDE
+import ai.koog.embeddings.local.LLMEmbedder
+import ai.koog.prompt.executor.clients.bedrock.BedrockClientSettings
+import ai.koog.prompt.executor.clients.bedrock.BedrockLLMClient
+import ai.koog.prompt.executor.clients.bedrock.BedrockModels
+import aws.sdk.kotlin.runtime.auth.credentials.StaticCredentialsProvider
+-->
+```kotlin
+suspend fun bedrockEmbed(text: String) {
+    // 從環境/設定中取得 AWS 憑證
+    val awsAccessKeyId = System.getenv("AWS_ACCESS_KEY_ID") ?: error("AWS_ACCESS_KEY_ID not set")
+    val awsSecretAccessKey = System.getenv("AWS_SECRET_ACCESS_KEY") ?: error("AWS_SECRET_ACCESS_KEY not set")
+    // (可選) AWS_SESSION_TOKEN 用於暫時憑證
+    val awsSessionToken = System.getenv("AWS_SESSION_TOKEN")
+    // 建立一個 BedrockLLMClient 實例
+    val client = BedrockLLMClient(
+        identityProvider = StaticCredentialsProvider {
+            this.accessKeyId = awsAccessKeyId
+            this.secretAccessKey = awsSecretAccessKey
+            awsSessionToken?.let { this.sessionToken = it }
+        },
+        settings = BedrockClientSettings()
+    )
+    // 建立一個嵌入器
+    val embedder = LLMEmbedder(client, BedrockModels.Embeddings.AmazonTitanEmbedText)
+    // 建立嵌入
+    val embedding = embedder.embed(text)
+    // 將嵌入輸出到控制台
+    println(embedding)
+}
+```
+<!--- KNIT example-embeddings-03.kt -->
+
+### 支援的 AWS Bedrock 嵌入模型
+
+| 提供者 | 模型名稱                   | 模型 ID                        | 輸入 | 輸出    | 維度     | 上下文長度   | 備註                                                                                                 |
+|----------|------------------------------|--------------------------------|-------|-----------|------------|----------------|-------------------------------------------------------------------------------------------------------|
+| Amazon   | Titan Embeddings G1 - Text   | `amazon.titan-embed-text-v1`   | 文字  | 嵌入      | 1,536      | 8192           | 支援 25 種以上語言，針對檢索、語義相似性和群集進行優化；將長文件分段以進行搜尋。|
+| Amazon   | Titan Text Embeddings V2     | `amazon.titan-embed-text-v2:0` | 文字  | 嵌入      | 1,024      | 8192           | 高準確度、靈活的維度、多語言 (100+)；較小的維度可節省儲存空間，正規化輸出。|
+| Cohere   | Cohere Embed English v3      | `cohere.embed-english-v3`      | 文字  | 嵌入      | 1,024      | 8192           | 最先進的英文文字嵌入，用於搜尋、檢索和理解文字細微差別。                   |
+| Cohere   | Cohere Embed Multilingual v3 | `cohere.embed-multilingual-v3` | 文字  | 嵌入      | 1,024      | 8192           | 多語言嵌入，最先進的搜尋和跨語言語義理解功能。                 |
+
+> 有關最新模型支援資訊，請參閱 [AWS Bedrock 支援模型文件](https://docs.aws.amazon.com/bedrock/latest/userguide/models-supported.html)。
+
 ## 範例
 
 以下範例顯示如何使用嵌入來比較程式碼與文字或其他程式碼片段。
@@ -144,7 +192,7 @@ suspend fun compareCodeToText(embedder: Embedder) { // Embedder type
     }
 }
 ```
-<!--- KNIT example-embeddings-03.kt -->
+<!--- KNIT example-embeddings-04.kt -->
 
 ### 程式碼到程式碼比較
 
@@ -206,7 +254,7 @@ suspend fun compareCodeToCode(embedder: Embedder) { // Embedder type
     }
 }
 ```
-<!--- KNIT example-embeddings-04.kt -->
+<!--- KNIT example-embeddings-05.kt -->
 
 ## API 文件
 

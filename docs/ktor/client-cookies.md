@@ -17,10 +17,10 @@ HttpCookies 插件自动处理 cookie，并将其在调用之间保留在存储�
 </link-summary>
 
 Ktor 客户端允许您通过以下方式手动处理 cookie：
-*   `cookie` 函数允许您向[特定请求](client-requests.md#cookies)附加一个 cookie。
-*   `setCookie` 函数使您能够解析在[响应](client-responses.md#headers)中接收到的 `Set-Cookie` 标头值。
+* `cookie` 函数允许您向[特定请求](client-requests.md#cookies)附加一个 cookie。
+* `setCookie` 函数使您能够解析在[响应](client-responses.md#headers)中接收到的 `Set-Cookie` 标头值。
 
-[HttpCookies](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client.plugins.cookies/-http-cookies/index.html) 插件自动处理 cookie，并将其在调用之间保留在存储中。默认情况下，它使用内存存储，但您也可以使用 [CookiesStorage](#custom_storage) 实现持久化存储。
+[HttpCookies](https://api.ktor.io/ktor-client-core/io.ktor.client.plugins.cookies/-http-cookies/index.html) 插件自动处理 cookie，并将其在调用之间保留在存储中。默认情况下，它使用内存存储，但您也可以使用 [CookiesStorage](#custom_storage) 实现持久化存储。
 
 ## 添加依赖项 {id="add_dependencies"}
 `HttpCookies` 只需 [ktor-client-core](client-dependencies.md) artifact，不需要任何特定的依赖项。
@@ -56,7 +56,7 @@ client.cookies("http://0.0.0.0:8080/")
 
 ## 自定义 cookie 存储 {id="custom_storage"}
 
-如果需要，您可以通过实现 [CookiesStorage](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client.plugins.cookies/-cookies-storage/index.html) 接口来创建自定义 cookie 存储：
+如果需要，您可以通过实现 [CookiesStorage](https://api.ktor.io/ktor-client-core/io.ktor.client.plugins.cookies/-cookies-storage/index.html) 接口来创建自定义 cookie 存储：
 
 ```kotlin
 val client = HttpClient(CIO) {

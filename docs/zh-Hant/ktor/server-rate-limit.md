@@ -6,7 +6,7 @@
 <var name="plugin_name" value="RateLimit"/>
 <var name="package_name" value="io.ktor.server.plugins.ratelimit"/>
 <var name="artifact_name" value="ktor-server-rate-limit"/>
-<var name="plugin_api_link" value="https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-rate-limit/io.ktor.server.plugins.ratelimit/-rate-limit.html"/>
+<var name="plugin_api_link" value="https://api.ktor.io/ktor-server-rate-limit/io.ktor.server.plugins.ratelimit/-rate-limit.html"/>
 
 <tldr>
 <p>
@@ -20,7 +20,7 @@
     </a>
 </p>
 <p>
-    <b><Links href="/ktor/server-native" summary="Ktor supports Kotlin/Native and allows you to run a server without an additional runtime or virtual machine.">原生伺服器</Links>支援</b>：✅
+    <b><Links href="/ktor/server-native" summary="Ktor 支援 Kotlin/Native，並允許您在沒有額外執行時或虛擬機器的情況下執行伺服器。">原生伺服器</Links>支援</b>：✅
 </p>
 </tldr>
 
@@ -28,7 +28,7 @@
 %plugin_name% 提供了驗證傳入請求主體的能力。
 </link-summary>
 
-[%plugin_name%](%plugin_api_link%) 外掛程式允許您限制客戶端在特定時間段內可發出的 [請求](server-requests.md) 數量。
+The [%plugin_name%](%plugin_api_link%) 外掛程式允許您限制客戶端在特定時間段內可發出的 [請求](server-requests.md) 數量。
 Ktor 提供了不同的方式來配置速率限制，例如：
 - 您可以為整個應用程式全域啟用速率限制，或為不同的 [資源](server-routing.md) 配置不同的速率限制。
 - 您可以基於特定的請求參數配置速率限制：IP 位址、API 密鑰或存取權杖等。

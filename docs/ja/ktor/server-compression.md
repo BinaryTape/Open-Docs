@@ -23,7 +23,7 @@
 </p>
 </tldr>
 
-Ktor は、[Compression](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-compression/io.ktor.server.plugins.compression/-compression.html) プラグインを使用して、レスポンスボディの圧縮とリクエストボディの解凍を行う機能を提供します。
+Ktor は、[Compression](https://api.ktor.io/ktor-server-compression/io.ktor.server.plugins.compression/-compression.html) プラグインを使用することで、レスポンスボディの圧縮とリクエストボディの解凍機能を提供します。
 `gzip` や `deflate` などの様々な圧縮アルゴリズムを使用したり、データ圧縮に必要な条件（コンテンツタイプやレスポンスサイズなど）を指定したり、特定の要求パラメータに基づいてデータを圧縮したりすることも可能です。
 
 > `%plugin_name%` プラグインは現在、`SSE` レスポンスをサポートしていないことに注意してください。
@@ -52,7 +52,8 @@ Ktor は、[Compression](https://api.ktor.io/ktor-server/ktor-server-plugins/kto
 ## %plugin_name% のインストール {id="install_plugin"}
 
 <p>
-    <code>%plugin_name%</code> プラグインをアプリケーションに<a href="#install">インストール</a>するには、指定された<Links href="/ktor/server-modules" summary="モジュールを使用すると、ルートをグループ化してアプリケーションを構造化できます。">モジュール</Links>内で <code>install</code> 関数に渡します。
+    <code>%plugin_name%</code> プラグインをアプリケーションに<a href="#install">インストール</a>するには、
+    指定された<Links href="/ktor/server-modules" summary="モジュールを使用すると、ルートをグループ化してアプリケーションを構造化できます。">モジュール</Links>内で <code>install</code> 関数に渡します。
     以下のコードスニペットは、<code>%plugin_name%</code> をインストールする方法を示しています...
 </p>
 <list>

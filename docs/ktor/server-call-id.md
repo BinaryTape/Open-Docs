@@ -27,7 +27,7 @@
 %plugin_name% 服务器插件允许您使用唯一的调用 ID 跟踪客户端请求。
 </link-summary>
 
-[%plugin_name%](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-call-id/io.ktor.server.plugins.callid/-call-id.html) 插件允许您使用唯一的请求 ID 或调用 ID 端到端地跟踪客户端请求。通常，在 Ktor 中使用调用 ID 的流程如下：
+[%plugin_name%](https://api.ktor.io/ktor-server-call-id/io.ktor.server.plugins.callid/-call-id.html) 插件允许您使用唯一的请求 ID 或调用 ID 端到端地跟踪客户端请求。通常，在 Ktor 中使用调用 ID 的流程如下：
 1. 首先，您需要通过以下方式之一为特定请求获取一个调用 ID：
    * 反向代理（例如 Nginx）或云服务提供商（例如 [Heroku](heroku.md)）可能会在特定请求头中添加调用 ID，例如 `X-Request-Id`。在这种情况下，Ktor 允许您[检索](#retrieve)调用 ID。
    * 否则，如果请求未包含调用 ID，您可以在 Ktor 服务器上[生成](#generate)它。

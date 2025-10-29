@@ -47,7 +47,8 @@
 
 ## 安装 Sessions 插件
 
-为避免客户端每次尝试访问受保护资源时都请求授权，你可以在成功授权后将访问令牌存储在会话中。然后，你可以在受保护路由的处理程序中从当前会话中检索访问令牌，并使用它来请求资源。
+为避免客户端每次尝试访问受保护资源时都请求授权，你可以在成功授权后将访问令牌存储在会话中。
+然后，你可以在受保护路由的处理程序中从当前会话中检索访问令牌，并使用它来请求资源。
 
 ```kotlin
 import io.ktor.server.sessions.*
@@ -70,7 +71,7 @@ Ktor 应用程序中的 OAuth 授权流程可能如下所示：
     *   用于访问所选提供商 API 的客户端 ID。
     *   一个回调或重定向 URL，指定授权完成后将打开的 Ktor 应用程序页面。
     *   Ktor 应用程序所需第三方资源的范围。
-    *   用于获取访问令牌的授权类型（授权码）。
+    *   用于获取访问令牌的授权类型（Authorization Code）。
     *   用于缓解 CSRF 攻击和重定向用户的 `state` 参数。
     *   特定提供商特有的可选参数。
 3.  授权页面显示一个同意屏幕，其中包含 Ktor 应用程序所需的权限级别。这些权限取决于指定的范围，如[步骤 2：配置 OAuth 提供商](#configure-oauth-provider)中所配置。
@@ -95,6 +96,7 @@ fun Application.main(httpClient: HttpClient = applicationHttpClient) {
     install(Authentication) {
         oauth("auth-oauth-google") {
             // Configure oauth authentication
+            urlProvider = { "http://localhost:8080/callback" }
         }
     }
 }
@@ -121,12 +123,14 @@ fun Application.main(httpClient: HttpClient = applicationHttpClient) {
 
 ### 步骤 1：创建 HTTP 客户端 {id="create-http-client"}
 
-在配置 `oauth` 提供商之前，你需要创建 [HttpClient](client-create-and-configure.md)，服务器将使用它向 OAuth 服务器发出请求。要[请求 API](#request-api) 后反序列化接收到的 JSON 数据，需要使用带有 JSON 序列化器的 [ContentNegotiation](client-serialization.md) 客户端插件。
+在配置 `oauth` 提供商之前，你需要创建 [HttpClient](client-create-and-configure.md)，服务器将使用它向 OAuth 服务器发出请求。需要使用带有 JSON 序列化器的 [ContentNegotiation](client-serialization.md) 客户端插件，以便在[请求 API](#request-api) 后反序列化接收到的 JSON 数据。
 
 ```kotlin
 val applicationHttpClient = HttpClient(CIO) {
     install(ContentNegotiation) {
-        json()
+        json(Json {
+            ignoreUnknownKeys = true
+        })
     }
 }
 ```
@@ -138,7 +142,7 @@ fun Application.main(httpClient: HttpClient = applicationHttpClient) {
 }
 ```
 
-### 步骤 2：配置 OAuth 提供商 {id="configure-oauth-provider"}
+### 2：配置 OAuth 提供商 {id="configure-oauth-provider"}
 
 以下代码片段展示了如何创建和配置名为 `auth-oauth-google` 的 `oauth` 提供商。
 
@@ -159,7 +163,7 @@ install(Authentication) {
                 defaultScopes = listOf("https://www.googleapis.com/auth/userinfo.profile"),
                 extraAuthParameters = listOf("access_type" to "offline"),
                 onStateCreated = { call, state ->
-                    //saves new state with redirect url value
+                    //将新状态与重定向 URL 值一同保存
                     call.request.queryParameters["redirectUrl"]?.let {
                         redirects[state] = it
                     }
@@ -168,9 +172,10 @@ install(Authentication) {
         }
         client = httpClient
     }
+}
 ```
 
-*   `urlProvider` 指定了一个[重定向路由](#redirect-route)，该路由将在授权完成后被调用。
+*   `urlProvider` 指定一个[重定向路由](#redirect-route)，该路由将在授权完成后被调用。
     > 确保此路由已添加到[**授权重定向 URI**](#authorization-credentials)列表中。
 *   `providerLookup` 允许你为所需提供商指定 OAuth 设置。这些设置由 [OAuthServerSettings](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-auth/io.ktor.server.auth/-o-auth-server-settings/index.html) 类表示，并允许 Ktor 自动向 OAuth 服务器发出请求。
 *   `client` 属性指定 Ktor 用于向 OAuth 服务器发出请求的 [HttpClient](#create-http-client)。

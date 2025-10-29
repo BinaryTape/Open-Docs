@@ -12,10 +12,10 @@
 </p>
 </tldr>
 
-[HttpTimeout](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client.plugins/-http-timeout)プラグインを使用すると、以下のタイムアウトを設定できます。
-*   __リクエストタイムアウト__ — HTTP呼び出しの処理に必要な期間（リクエストの送信からレスポンスの受信まで）。
-*   __コネクションタイムアウト__ — クライアントがサーバーとの接続を確立すべき期間。
-*   __ソケットタイムアウト__ — サーバーとのデータ交換中に、2つのデータパケット間での最大非アクティブ時間。
+[HttpTimeout](https://api.ktor.io/ktor-client-core/io.ktor.client.plugins/-http-timeout)プラグインを使用すると、以下のタイムアウトを設定できます。
+* __リクエストタイムアウト__ — HTTP呼び出しの処理に必要な期間（リクエストの送信からレスポンスの受信まで）。
+* __コネクションタイムアウト__ — クライアントがサーバーとの接続を確立すべき期間。
+* __ソケットタイムアウト__ — サーバーとのデータ交換中に、2つのデータパケット間での最大非アクティブ時間。
 
 これらのタイムアウトは、すべてのリクエストに対して指定することも、特定のリクエストに対してのみ指定することもできます。
 
@@ -39,9 +39,9 @@ val client = HttpClient(CIO) {
 
 タイムアウトを設定するには、対応するプロパティを使用できます。
 
-*   [requestTimeoutMillis](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client.plugins/-http-timeout-config/request-timeout-millis.html)は、HTTP呼び出し全体（リクエストの送信からレスポンスの受信まで）のタイムアウトを指定します。
-*   [connectTimeoutMillis](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client.plugins/-http-timeout-config/connect-timeout-millis.html)は、サーバーとの接続確立のためのタイムアウトを指定します。
-*   [socketTimeoutMillis](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client.plugins/-http-timeout-config/socket-timeout-millis.html)は、サーバーとのデータ交換中に、2つのデータパケット間の最大非アクティブ時間のタイムアウトを指定します。
+* [requestTimeoutMillis](https://api.ktor.io/ktor-client-core/io.ktor.client.plugins/-http-timeout-config/request-timeout-millis.html)は、HTTP呼び出し全体（リクエストの送信からレスポンスの受信まで）のタイムアウトを指定します。
+* [connectTimeoutMillis](https://api.ktor.io/ktor-client-core/io.ktor.client.plugins/-http-timeout-config/connect-timeout-millis.html)は、サーバーとの接続確立のためのタイムアウトを指定します。
+* [socketTimeoutMillis](https://api.ktor.io/ktor-client-core/io.ktor.client.plugins/-http-timeout-config/socket-timeout-millis.html)は、サーバーとのデータ交換中に、2つのデータパケット間の最大非アクティブ時間のタイムアウトを指定します。
 
 `install`ブロック内で、すべてのリクエストに対するタイムアウトを指定できます。以下のコードサンプルは、`requestTimeoutMillis`を使用してリクエストタイムアウトを設定する方法を示しています。
 ```kotlin
@@ -52,7 +52,7 @@ val client = HttpClient(CIO) {
 }
 ```
 
-特定のリクエストに対してのみタイムアウトを設定する必要がある場合は、[HttpRequestBuilder.timeout](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client.plugins/timeout.html)プロパティを使用します。
+特定のリクエストに対してのみタイムアウトを設定する必要がある場合は、[HttpRequestBuilder.timeout](https://api.ktor.io/ktor-client-core/io.ktor.client.plugins/timeout.html)プロパティを使用します。
 
 ```kotlin
 val response: HttpResponse = client.get("http://0.0.0.0:8080/path1") {

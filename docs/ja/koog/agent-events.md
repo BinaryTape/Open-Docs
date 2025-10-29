@@ -9,7 +9,7 @@
 - LLMストリーミングイベント
 - ツール実行イベント
 
-注記：フィーチャーイベントは `agents-core` モジュールで定義されており、`ai.koog.agents.core.feature.model.events` パッケージの下にあります。`agents-features-trace`、`agents-features-debugger`、`agents-features-event-handler` などのフィーチャーは、これらのイベントを利用して、エージェントの実行中に作成されたメッセージを処理および転送します。
+注記：フィーチャーイベントは `agents-core` モジュールで定義されており、`ai.koog.agents.core.feature.model.events` パッケージの下にあります。`agents-features-trace`、`agents-features-event-handler` などのフィーチャーは、これらのイベントを利用して、エージェントの実行中に作成されたメッセージを処理および転送します。
 
 ## 事前定義されたイベントタイプ
 
@@ -24,7 +24,7 @@ Koog は、カスタムメッセージプロセッサーで使用できる事前
 
 ### エージェントイベント
 
-#### `AgentStartingEvent`
+#### AgentStartingEvent
 
 エージェントの実行開始を表します。以下のフィールドが含まれます。
 
@@ -33,7 +33,7 @@ Koog は、カスタムメッセージプロセッサーで使用できる事前
 | `agentId`  | String    | Yes      |         | AIエージェントの一意の識別子。           |
 | `runId`    | String    | Yes      |         | AIエージェント実行の一意の識別子。       |
 
-#### `AgentCompletedEvent`
+#### AgentCompletedEvent
 
 エージェントの実行終了を表します。以下のフィールドが含まれます。
 
@@ -43,7 +43,7 @@ Koog は、カスタムメッセージプロセッサーで使用できる事前
 | `runId`    | String    | Yes      |         | AIエージェント実行の一意の識別子。                   |
 | `result`   | String    | Yes      |         | エージェント実行の結果。結果がない場合は `null` になります。 |
 
-#### `AgentExecutionFailedEvent`
+#### AgentExecutionFailedEvent
 
 エージェント実行中にエラーが発生したことを表します。以下のフィールドが含まれます。
 
@@ -53,7 +53,7 @@ Koog は、カスタムメッセージプロセッサーで使用できる事前
 | `runId`   | String        | Yes      |         | AIエージェント実行の一意の識別子。                                                           |
 | `error`   | AIAgentError  | Yes      |         | エージェント実行中に発生した特定のエラー。詳細については、[AIAgentError](#aiagenterror) を参照してください。 |
 
-#### `AgentClosingEvent`
+#### AgentClosingEvent
 
 エージェントのクローズまたは終了を表します。以下のフィールドが含まれます。
 
@@ -72,7 +72,7 @@ Koog は、カスタムメッセージプロセッサーで使用できる事前
 
 ### ストラテジーイベント
 
-#### `GraphStrategyStartingEvent`
+#### GraphStrategyStartingEvent
 
 グラフベースのストラテジー実行の開始を表します。以下のフィールドが含まれます。
 
@@ -82,7 +82,7 @@ Koog は、カスタムメッセージプロセッサーで使用できる事前
 | `strategyName`  | String                 | Yes      |         | ストラテジーの名前。                             |
 | `graph`         | StrategyEventGraph     | Yes      |         | ストラテジーワークフローを表すグラフ構造。       |
 
-#### `FunctionalStrategyStartingEvent`
+#### FunctionalStrategyStartingEvent
 
 機能的ストラテジー実行の開始を表します。以下のフィールドが含まれます。
 
@@ -91,7 +91,7 @@ Koog は、カスタムメッセージプロセッサーで使用できる事前
 | `runId`         | String    | Yes      |         | ストラテジー実行の一意の識別子。   |
 | `strategyName`  | String    | Yes      |         | ストラテジーの名前。               |
 
-#### `StrategyCompletedEvent`
+#### StrategyCompletedEvent
 
 ストラテジー実行の終了を表します。以下のフィールドが含まれます。
 
@@ -103,28 +103,28 @@ Koog は、カスタムメッセージプロセッサーで使用できる事前
 
 ### ノードイベント
 
-#### `NodeExecutionStartingEvent`
+#### NodeExecutionStartingEvent
 
 ノード実行の開始を表します。以下のフィールドが含まれます。
 
-| 名前       | データ型 | 必須 | デフォルト | 説明                             |
-|------------|-----------|----------|---------|----------------------------------|
-| `runId`    | String    | Yes      |         | ストラテジー実行の一意の識別子。 |
-| `nodeName` | String    | Yes      |         | 実行が開始されたノードの名前。   |
-| `input`    | String    | Yes      |         | ノードへの入力値。               |
+| 名前       | データ型   | 必須 | デフォルト | 説明                             |
+|------------|-------------|----------|---------|----------------------------------|
+| `runId`    | String      | Yes      |         | ストラテジー実行の一意の識別子。 |
+| `nodeName` | String      | Yes      |         | 実行が開始されたノードの名前。   |
+| `input`    | JsonElement | No       | null    | ノードへの入力値。               |
 
-#### `NodeExecutionCompletedEvent`
+#### NodeExecutionCompletedEvent
 
 ノード実行の終了を表します。以下のフィールドが含まれます。
 
-| 名前       | データ型 | 必須 | デフォルト | 説明                           |
-|------------|-----------|----------|---------|--------------------------------|
-| `runId`    | String    | Yes      |         | ストラテジー実行の一意の識別子。 |
-| `nodeName` | String    | Yes      |         | 実行が終了したノードの名前。   |
-| `input`    | String    | Yes      |         | ノードへの入力値。             |
-| `output`   | String    | Yes      |         | ノードによって生成された出力値。 |
+| 名前       | データ型   | 必須 | デフォルト | 説明                           |
+|------------|-------------|----------|---------|--------------------------------|
+| `runId`    | String      | Yes      |         | ストラテジー実行の一意の識別子。 |
+| `nodeName` | String      | Yes      |         | 実行が終了したノードの名前。   |
+| `input`    | JsonElement | No       | null    | ノードへの入力値。             |
+| `output`   | JsonElement | No       | null    | ノードによって生成された出力値。 |
 
-#### `NodeExecutionFailedEvent`
+#### NodeExecutionFailedEvent
 
 ノード実行中に発生したエラーを表します。以下のフィールドが含まれます。
 
@@ -132,11 +132,12 @@ Koog は、カスタムメッセージプロセッサーで使用できる事前
 |------------|---------------|----------|---------|----------------------------------------------------------------------------------------------|
 | `runId`    | String        | Yes      |         | ストラテジー実行の一意の識別子。                                                             |
 | `nodeName` | String        | Yes      |         | エラーが発生したノードの名前。                                                               |
+| `input`    | JsonElement  | No       | null    | ノードに提供された入力データ。                                                               |
 | `error`    | AIAgentError  | Yes      |         | ノード実行中に発生した特定のエラー。詳細については、[AIAgentError](#aiagenterror) を参照してください。 |
 
 ### LLM呼び出しイベント
 
-#### `LLMCallStartingEvent`
+#### LLMCallStartingEvent
 
 LLM呼び出しの開始を表します。以下のフィールドが含まれます。
 
@@ -156,7 +157,7 @@ LLM呼び出しの開始を表します。以下のフィールドが含まれ�
 | `id`       | String              | Yes      |             | プロンプトの一意の識別子。                           |
 | `params`   | LLMParams           | No       | LLMParams() | LLMがコンテンツを生成する方法を制御する設定。        |
 
-#### `LLMCallCompletedEvent`
+#### LLMCallCompletedEvent
 
 LLM呼び出しの終了を表します。以下のフィールドが含まれます。
 
@@ -170,7 +171,7 @@ LLM呼び出しの終了を表します。以下のフィールドが含まれ�
 
 ### LLMストリーミングイベント
 
-#### `LLMStreamingStartingEvent`
+#### LLMStreamingStartingEvent
 
 LLMストリーミング呼び出しの開始を表します。以下のフィールドが含まれます。
 
@@ -181,7 +182,7 @@ LLMストリーミング呼び出しの開始を表します。以下のフィ�
 | `model`  | String       | Yes      |         | `llm_provider:model_id` の形式のモデル識別子。 |
 | `tools`  | List&lt;String&gt; | Yes      |         | モデルが呼び出すことができるツールのリスト。 |
 
-#### `LLMStreamingFrameReceivedEvent`
+#### LLMStreamingFrameReceivedEvent
 
 LLMから受信したストリーミングフレームを表します。以下のフィールドが含まれます。
 
@@ -190,7 +191,7 @@ LLMから受信したストリーミングフレームを表します。以下�
 | `runId`  | String      | Yes      |         | LLM実行の一意の識別子。            |
 | `frame`  | StreamFrame | Yes      |         | ストリームから受信したフレーム。   |
 
-#### `LLMStreamingFailedEvent`
+#### LLMStreamingFailedEvent
 
 LLMストリーミング呼び出し中にエラーが発生したことを表します。以下のフィールドが含まれます。
 
@@ -199,7 +200,7 @@ LLMストリーミング呼び出し中にエラーが発生したことを表�
 | `runId` | String        | Yes      |         | LLM実行の一意の識別子。                                                                      |
 | `error` | AIAgentError  | Yes      |         | ストリーミング中に発生した特定のエラー。詳細については、[AIAgentError](#aiagenterror) を参照してください。 |
 
-#### `LLMStreamingCompletedEvent`
+#### LLMStreamingCompletedEvent
 
 LLMストリーミング呼び出しの終了を表します。以下のフィールドが含まれます。
 
@@ -212,7 +213,7 @@ LLMストリーミング呼び出しの終了を表します。以下のフィ�
 
 ### ツール実行イベント
 
-#### `ToolExecutionStartingEvent`
+#### ToolExecutionStartingEvent
 
 モデルがツールを呼び出すイベントを表します。以下のフィールドが含まれます。
 
@@ -223,7 +224,7 @@ LLMストリーミング呼び出しの終了を表します。以下のフィ�
 | `toolName`    | String      | Yes      |         | ツールの名前。                           |
 | `toolArgs`    | JsonObject  | Yes      |         | ツールに提供される引数。                 |
 
-#### `ToolValidationFailedEvent`
+#### ToolValidationFailedEvent
 
 ツール呼び出し中に検証エラーが発生したことを表します。以下のフィールドが含まれます。
 
@@ -235,7 +236,7 @@ LLMストリーミング呼び出しの終了を表します。以下のフィ�
 | `toolArgs`    | JsonObject  | Yes      |         | ツールに提供される引数。                 |
 | `error`       | String      | Yes      |         | 検証エラーメッセージ。                   |
 
-#### `ToolExecutionFailedEvent`
+#### ToolExecutionFailedEvent
 
 ツールの実行失敗を表します。以下のフィールドが含まれます。
 
@@ -247,7 +248,7 @@ LLMストリーミング呼び出しの終了を表します。以下のフィ�
 | `toolArgs`    | JsonObject    | Yes      |         | ツールに提供される引数。                                                                     |
 | `error`       | AIAgentError  | Yes      |         | ツールを呼び出そうとしたときに発生した特定のエラー。詳細については、[AIAgentError](#aiagenterror) を参照してください。 |
 
-#### `ToolExecutionCompletedEvent`
+#### ToolExecutionCompletedEvent
 
 結果を返してツール呼び出しが成功したことを表します。以下のフィールドが含まれます。
 
@@ -265,7 +266,7 @@ LLMストリーミング呼び出しの終了を表します。以下のフィ�
 
 ### エージェント実行の特定の箇所のみをトレースするにはどうすればよいですか？
 
-イベントをフィルタリングするには、`messageFilter` プロパティを使用します。たとえば、ノードの実行のみをトレースするには、次のようにします。
+イベントをフィルタリングするには、`messageFilter` プロパティを使用します。たとえば、LLM呼び出しのみをトレースするには、次のようにします。
 
 <!--- INCLUDE
 import ai.koog.agents.core.agent.AIAgent
@@ -314,7 +315,7 @@ install(Tracing) {
     }
 }
 ```
-<!--- KNIT example-tracing-01.kt -->
+<!--- KNIT example-events-01.kt -->
 
 ### 複数のメッセージプロセッサーを使用できますか？
 
@@ -361,7 +362,7 @@ install(Tracing) {
     addMessageProcessor(TraceFeatureMessageRemoteWriter(connectionConfig))
 }
 ```
-<!--- KNIT example-tracing-02.kt -->
+<!--- KNIT example-events-02.kt -->
 
 ### カスタムメッセージプロセッサーを作成するにはどうすればよいですか？
 
@@ -427,6 +428,6 @@ install(Tracing) {
     addMessageProcessor(CustomTraceProcessor())
 }
 ```
-<!--- KNIT example-tracing-03.kt -->
+<!--- KNIT example-events-03.kt -->
 
 メッセージプロセッサーで処理できる既存のイベントタイプに関する詳細については、[事前定義されたイベントタイプ](#predefined-event-types) を参照してください。

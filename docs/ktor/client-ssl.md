@@ -1,4 +1,4 @@
-[//]: # (title: Ktor Client 中的 SSL)
+[//]: # (title: Ktor 客户端中的 SSL)
 
 <show-structure for="chapter" depth="3"/>
 <primary-label ref="client-plugin"/>
@@ -148,7 +148,8 @@ val okHttpClient = HttpClient(OkHttp) {
         }
     }
 }
+```
 
 ### Darwin {id="darwin"}
 
-要为 Darwin 引擎配置受信任证书，请使用 [CertificatePinner](https://api.ktor.io/ktor-client/ktor-client-darwin/io.ktor.client.engine.darwin.certificates/-certificate-pinner/index.html)。
+要为 Darwin 引擎配置受信任证书，请使用 [CertificatePinner](https://api.ktor.io/ktor-client-darwin/io.ktor.client.engine.darwin.certificates/-certificate-pinner/index.html)。

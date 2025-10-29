@@ -51,11 +51,14 @@
 
 ## 选择如何创建服务器 {id="choose-create-server"}
 
-Ktor 服务器应用程序可以通过[两种方式创建和运行](server-create-and-configure.topic#embedded)：使用 [embeddedServer](#embeddedServer) 在代码中快速传递服务器形参，或者使用 [EngineMain](#EngineMain) 从外部的 `application.conf` 或 `application.yaml` 文件加载配置。
+Ktor 服务器应用程序可以通过[两种方式创建和运行](server-create-and-configure.topic#embedded)：
+
+* 使用 [`embeddedServer`](#embeddedServer) 在代码中快速传递服务器形参
+* 使用 [`EngineMain`](#EngineMain) 从外部的 `application.conf` 或 `application.yaml` 文件加载配置。
 
 ### embeddedServer {id="embeddedServer"}
 
-[`embeddedServer()`](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.engine/embedded-server.html) 函数接受一个引擎工厂，用于创建特定类型的引擎。在以下示例中，我们传入 [`Netty`](https://api.ktor.io/ktor-server/ktor-server-netty/io.ktor.server.netty/-netty/index.html) 工厂，以 Netty 引擎运行服务器并监听 `8080` 端口：
+[`embeddedServer()`](https://api.ktor.io/ktor-server-core/io.ktor.server.engine/embedded-server.html) 函数接受一个引擎工厂，用于创建特定类型的引擎。在以下示例中，我们传入 [`Netty`](https://api.ktor.io/ktor-server-netty/io.ktor.server.netty/-netty/index.html) 工厂，以 Netty 引擎运行服务器并监听 `8080` 端口：
 
 ```kotlin
 import io.ktor.server.response.*
@@ -83,7 +86,9 @@ fun main(args: Array<String>) {
 * `io.ktor.server.tomcat.jakarta.EngineMain`
 * `io.ktor.server.cio.EngineMain`
 
-`EngineMain.main` 函数用于启动具有所选引擎的服务器，并加载外部[配置文件](server-configuration-file.topic)中指定的[应用程序模块](server-modules.md)。在以下示例中，我们从应用程序的 `main` 函数启动服务器：
+#### 创建并启动服务器
+
+`EngineMain.main()` 函数用于启动具有所选引擎的服务器，并加载外部[配置文件](server-configuration-file.topic)中指定的[应用程序模块](server-modules.md)。在以下示例中，应用程序的 `main` 函数启动服务器：
 
 <Tabs>
 <TabItem title="Application.kt">
@@ -168,6 +173,18 @@ mainClassName = "io.ktor.server.netty.EngineMain"
 </TabItem>
 </Tabs>
 
+#### 创建服务器实例但不启动它 {id="createServer"}
+
+除了直接调用 `EngineMain.main()` 立即启动服务器之外，您还可以调用 `EngineMain.createServer()`，它会返回一个 `EmbeddedServer` 实例，但不会启动它。
+
+这种方法让您可以控制何时调用 `.start()`、`.stop()`，或者在服务器开始接受请求之前执行任何操作。
+
+```Kotlin
+// Example using Netty
+val server = io.ktor.server.netty.EngineMain.createServer(args)
+// perform additional initialization, logging, instrumentation, etc.
+server.start(wait = true)
+```
 ## 配置引擎 {id="configure-engine"}
 
 在本节中，我们将介绍如何指定各种引擎特有的选项。
@@ -176,7 +193,7 @@ mainClassName = "io.ktor.server.netty.EngineMain"
 
 <p>
     <code>embeddedServer</code> 函数允许您使用 <code>configure</code> 形参传递引擎特有的选项。此形参包含所有引擎共有的选项，并由
-    <a href="https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.engine/-application-engine/-configuration/index.html">
+    <a href="https://api.ktor.io/ktor-server-core/io.ktor.server.engine/-application-engine/-configuration/index.html">
         ApplicationEngine.Configuration
     </a>
     类公开。

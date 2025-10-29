@@ -6,7 +6,7 @@
 
 通用 RAG 系统的核心组件包括：
 
--   **文档存储**：包含信息的文档、文件或文本块的文档库。
+-   **文档存储**：包含信息的文档、文件或文本块的存储库。
 -   **向量嵌入**：捕获语义含义的文本数值表示。关于 Koog 中嵌入的更多信息，请参见 [Embeddings](embeddings.md)。
 -   **检索机制**：根据查询查找最相关文档的系统。
 -   **生成组件**：使用检索到的信息生成回复的 LLM。
@@ -60,32 +60,32 @@ fun main() {
 }
 -->
 ```kotlin
-// 使用 Ollama 创建一个嵌入器
+// Create an embedder using Ollama
 val embedder = LLMEmbedder(OllamaClient(), OllamaEmbeddingModels.NOMIC_EMBED_TEXT)
-// 你也可以使用 OpenAI 嵌入，代码如下：
+// You may also use OpenAI embeddings with:
 // val embedder = LLMEmbedder(OpenAILLMClient("API_KEY"), OpenAIModels.Embeddings.TextEmbeddingAda3Large)
 
-// 创建一个 JVM 特有的文档嵌入器
+// Create a JVM-specific document embedder
 val documentEmbedder = JVMTextDocumentEmbedder(embedder)
 
-// 使用内存向量存储创建一个排序后的文档存储
+// Create a ranked document storage using in-memory vector storage
 val rankedDocumentStorage = EmbeddingBasedDocumentStorage(documentEmbedder, InMemoryVectorStorage())
 
-// 将文档存储到存储中
+// Store documents in the storage
 rankedDocumentStorage.store(Path.of("./my/documents/doc1.txt"))
 rankedDocumentStorage.store(Path.of("./my/documents/doc2.txt"))
 rankedDocumentStorage.store(Path.of("./my/documents/doc3.txt"))
-// ... 根据需要存储更多文档
+// ... store more documents as needed
 rankedDocumentStorage.store(Path.of("./my/documents/doc100.txt"))
 
-// 查找用户查询最相关的文档
+// Find the most relevant documents for a user query
 val query = "I want to open a bank account but I'm getting a 404 when I open your website. I used to be your client with a different account 5 years ago before you changed your firm name"
 val relevantFiles = rankedDocumentStorage.mostRelevantDocuments(query, count = 3)
 
-// 处理相关文件
+// Process the relevant files
 relevantFiles.forEach { file ->
     println("Relevant file: ${file.toAbsolutePath()}")
-    // 根据需要处理文件内容
+    // Process the file content as needed
 }
 ```
 <!--- KNIT example-ranked-document-storage-01.kt -->
@@ -127,23 +127,21 @@ const val apiKey = "apikey"
 -->
 ```kotlin
 suspend fun solveUserRequest(query: String) {
-    // 从文档提供程序中检索前 5 个文档
+    // Retrieve top-5 documents from the document provider
     val relevantDocuments = rankedDocumentStorage.mostRelevantDocuments(query, count = 5)
 
-    // 使用相关上下文创建一个 AI 代理
+    // Create an AI Agent with the relevant context
     val agentConfig = AIAgentConfig(
         prompt = prompt("context") {
             system("You are a helpful assistant. Use the provided context to answer the user's question accurately.")
             user {
-                "Relevant context"
-                attachments {
-                    relevantDocuments.forEach {
-                        file(it.pathString, "text/plain")
-                    }
+                +"Relevant context:"
+                relevantDocuments.forEach {
+                    file(it.pathString, "text/plain")
                 }
             }
         },
-        model = OpenAIModels.Chat.GPT4o, // 或者你选择的其他模型
+        model = OpenAIModels.Chat.GPT4o, // Or a different model of your choice
         maxAgentIterations = 100,
     )
 
@@ -152,10 +150,10 @@ suspend fun solveUserRequest(query: String) {
         llmModel = OpenAIModels.Chat.GPT4o
     )
 
-    // 运行代理以获取响应
+    // Run the agent to get a response
     val response = agent.run(query)
 
-    // 返回或处理响应
+    // Return or process the response
     println("Agent response: $response")
 }
 ```
@@ -481,15 +479,15 @@ import kotlinx.coroutines.flow.flow
 import java.nio.file.Path
 -->
 ```kotlin
-// 定义一个 PDFDocument 类
+// Define a PDFDocument class
 class PDFDocument(private val path: Path) {
     fun readText(): String {
-        // 使用 PDF 库从 PDF 中提取文本
+        // Use a PDF library to extract text from the PDF
         return "Text extracted from PDF at $path"
     }
 }
 
-// 为 PDFDocument 实现一个 DocumentProvider
+// Implement a DocumentProvider for PDFDocument
 class PDFDocumentProvider : DocumentProvider<Path, PDFDocument> {
     override suspend fun document(path: Path): PDFDocument? {
         return if (path.toString().endsWith(".pdf")) {
@@ -504,7 +502,7 @@ class PDFDocumentProvider : DocumentProvider<Path, PDFDocument> {
     }
 }
 
-// 为 PDFDocument 实现一个 DocumentEmbedder
+// Implement a DocumentEmbedder for PDFDocument
 class PDFDocumentEmbedder(private val embedder: Embedder) : DocumentEmbedder<PDFDocument> {
     override suspend fun embed(document: PDFDocument): Vector {
         val text = document.readText()
@@ -520,7 +518,7 @@ class PDFDocumentEmbedder(private val embedder: Embedder) : DocumentEmbedder<PDF
     }
 }
 
-// 为 PDF 文档创建一个自定义向量存储
+// Create a custom vector storage for PDF documents
 class PDFVectorStorage(
     private val pdfProvider: PDFDocumentProvider,
     private val embedder: PDFDocumentEmbedder,
@@ -558,7 +556,7 @@ class PDFVectorStorage(
     }
 }
 
-// 使用示例
+// Usage example
 suspend fun main() {
     val pdfProvider = PDFDocumentProvider()
     val embedder = LLMEmbedder(OllamaClient(), OllamaEmbeddingModels.NOMIC_EMBED_TEXT)
@@ -566,11 +564,11 @@ suspend fun main() {
     val storage = InMemoryVectorStorage<PDFDocument>()
     val pdfStorage = PDFVectorStorage(pdfProvider, pdfEmbedder, storage)
 
-    // 存储 PDF 文档
+    // Store PDF documents
     val pdfDocument = PDFDocument(Path.of("./documents/sample.pdf"))
     pdfStorage.store(pdfDocument)
 
-    // 查询相关的 PDF 文档
+    // Query for relevant PDF documents
     val relevantPDFs = pdfStorage.mostRelevantDocuments("information about climate change", count = 3)
 
 }
@@ -605,15 +603,15 @@ class KeywordBasedDocumentStorage<Document>(
 ) : RankedDocumentStorage<Document> {
 
     override fun rankDocuments(query: String): Flow<RankedDocument<Document>> = flow {
-        // 将查询拆分为关键词
+        // Split the query into keywords
         val keywords = query.lowercase().split(Regex("\\W+")).filter { it.length > 2 }
 
-        // 处理每个文档
+        // Process each document
         storage.allDocuments().collect { document ->
-            // 获取文档文本
+            // Get the document text
             val documentText = documentProvider.text(document).toString().lowercase()
 
-            // 根据关键词频率计算一个简单的相似性分数
+            // Calculate a simple similarity score based on keyword frequency
             var similarity = 0.0
             for (keyword in keywords) {
                 val count = countOccurrences(documentText, keyword)
@@ -622,7 +620,7 @@ class KeywordBasedDocumentStorage<Document>(
                 }
             }
 
-            // 发出文档及其相似性分数
+            // Emit the document with its similarity score
             emit(RankedDocument(document, similarity))
         }
     }
@@ -684,14 +682,14 @@ class TimeBasedDocumentStorage<Document>(
             val timestamp = getDocumentTimestamp(document)
             val ageInHours = (currentTime - timestamp) / (1000.0 * 60 * 60)
 
-            // 根据文档时长计算衰减因子（新文档得分更高）
+            // Calculate a decay factor based on age (newer documents get higher scores)
             val decayFactor = Math.exp(-0.01 * ageInHours)
 
             emit(RankedDocument(document, decayFactor))
         }
     }
 
-    // 实现 RankedDocumentStorage 的其他所需方法
+    // Implement other required methods from RankedDocumentStorage
     override suspend fun store(document: Document, data: Unit): String {
         return storage.store(document)
     }

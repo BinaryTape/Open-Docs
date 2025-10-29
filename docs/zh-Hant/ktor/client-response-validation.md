@@ -47,8 +47,10 @@ val client = HttpClient(CIO) {
 ## 自訂驗證 {id="custom"}
 
 您可以為 2xx 回應新增額外驗證，或透過使用
-[HttpCallValidator](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client.plugins/-http-call-validator) 插件（plugin）來自訂預設驗證。若要安裝 `HttpCallValidator`，請在 [用戶端配置區塊](client-create-and-configure.md#configure-client) 內呼叫
-[HttpResponseValidator](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client.plugins/-http-response-validator.html) 函數：
+[HttpCallValidator](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client.plugins/-http-call-validator)
+插件（plugin）來自訂預設驗證。若要安裝 `HttpCallValidator`，請在 [用戶端配置區塊](client-create-and-configure.md#configure-client) 內呼叫
+[HttpResponseValidator](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client.plugins/-http-response-validator.html)
+函數：
 
 ```kotlin
 val client = HttpClient(CIO) {
@@ -61,8 +63,8 @@ val client = HttpClient(CIO) {
 ### 驗證 2xx 回應 {id="2xx"}
 
 如上所述，[預設驗證](#default) 會針對非 2xx 錯誤回應拋出例外狀況。如果您需要新增
-更嚴格的驗證並檢查 2xx 回應，請使用 `HttpCallValidator` 中可用的
-[validateResponse](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client.plugins/-http-call-validator-config/validate-response.html) 函數。
+更嚴格的驗證並檢查 2xx 回應，請使用
+`HttpCallValidator` 中可用的 [validateResponse](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client.plugins/-http-call-validator-config/validate-response.html) 函數。
 
 在下面的 [範例](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-validate-2xx-response) 中，用戶端收到一個包含錯誤詳細資訊的 2xx 回應，其格式為 [JSON](client-serialization.md)。
 `validateResponse` 用於引發 `CustomResponseException`：

@@ -33,8 +33,10 @@ v3.0.0 이전에는 `ApplicationEngine`이 `ApplicationEnvironment`를 관리했
 
 #### `ApplicationEngineEnvironment`에서 `start()` 및 `stop()` 메서드가 제거되었습니다. {id="ApplicationEnvironment"}
 
-`ApplicationEngineEnvironment`가 [`ApplicationEnvironment`](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.application/-application-environment/index.html)로 병합됨에 따라,
-`start()` 및 `stop()` 메서드는 이제 [`ApplicationEngine`](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.engine/-application-engine/index.html)를 통해서만 접근할 수 있습니다.
+`ApplicationEngineEnvironment`가 [
+`ApplicationEnvironment`](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.application/-application-environment/index.html)로 병합됨에 따라,
+`start()` 및 `stop()` 메서드는 이제 [
+`ApplicationEngine`](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.engine/-application-engine/index.html)를 통해서만 접근할 수 있습니다.
 
 | 2.x.x                                                 | 3.0.x                                |
 |-------------------------------------------------------|--------------------------------------|
@@ -97,7 +99,8 @@ fun defaultServer(module: Application.() -> Unit) =
 
 #### `commandLineEnvironment()`가 제거되었습니다. {id="CommandLineConfig"}
 
-명령줄 인수로부터 `ApplicationEngineEnvironment` 인스턴스를 생성하는 데 사용되던 `commandLineEnvironment()` 함수가 Ktor `3.0.0`에서 제거되었습니다. 대신 [`CommandLineConfig`](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.engine/-command-line-config.html) 함수를 사용하여 명령줄 인수를 구성 객체로 파싱할 수 있습니다.
+명령줄 인수로부터 `ApplicationEngineEnvironment` 인스턴스를 생성하는 데 사용되던 `commandLineEnvironment()` 함수가 Ktor `3.0.0`에서 제거되었습니다. 대신,
+[`CommandLineConfig`](https://api.ktor.io/ktor-server-core/io.ktor.server.engine/-command-line-config.html) 함수를 사용하여 명령줄 인수를 구성 객체로 파싱할 수 있습니다.
 
 애플리케이션을 `commandLineEnvironment`에서 `CommandLineConfig`로 마이그레이션하려면, 아래와 같이 `commandLineEnvironment()`를 `configure` 블록으로 대체하세요.
 
@@ -146,8 +149,12 @@ fun main(args: Array<String>) {
 
 #### `ServerConfigBuilder` 도입 {id="ServerConfigBuilder"}
 
-새로운 엔티티인 [`ServerConfigBuilder`](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.application/-server-config-builder/index.html)가 서버 속성 구성을 위해 도입되었으며, 이전의 `ApplicationPropertiesBuilder` 구성 메커니즘을 대체합니다.
-`ServerConfigBuilder`는 이제 이전에는 `ApplicationProperties`에 의해 관리되던 모듈, 경로 및 환경 세부 정보를 보유하는 [`ServerConfig`](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.application/-server-config/index.html) 클래스의 인스턴스를 빌드하는 데 사용됩니다.
+새로운
+엔티티인, [
+`ServerConfigBuilder`](https://api.ktor.io/ktor-server-core/io.ktor.server.application/-server-config-builder/index.html)가
+서버 속성 구성을 위해 도입되었으며, 이전의 `ApplicationPropertiesBuilder` 구성 메커니즘을 대체합니다.
+`ServerConfigBuilder`는 이제 이전에는 `ApplicationProperties`에 의해 관리되던 모듈, 경로 및 환경 세부 정보를 보유하는
+[`ServerConfig`](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.application/-server-config/index.html) 클래스의 인스턴스를 빌드하는 데 사용됩니다.
 
 다음 표는 주요 변경 사항을 요약합니다.
 
@@ -177,7 +184,8 @@ fun main(args: Array<String>) {
 
 #### `EmbeddedServer` 도입 {id="EmbeddedServer"}
 
-[`EmbeddedServer`](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.engine/-embedded-server/index.html) 클래스가 도입되어 `embeddedServer()` 함수의 반환 타입으로 `ApplicationEngine`를 대체합니다.
+[`EmbeddedServer`](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.engine/-embedded-server/index.html) 클래스가
+도입되어 `embeddedServer()` 함수의 반환 타입으로 `ApplicationEngine`를 대체합니다.
 
 모델 변경에 대한 자세한 내용은 YouTrack의 [이슈 KTOR-3857](https://youtrack.jetbrains.com/issue/KTOR-3857/Environment-Engine-Application-Design)을 참조하세요.
 
@@ -220,7 +228,8 @@ fun testRoot() = testApplication {
 
 #### `TestApplication` 모듈 로딩 {id="test-module-loading"}
 
-`TestApplication`은 더 이상 구성 파일(예: `application.conf`)에서 모듈을 자동으로 로드하지 않습니다. 대신 `testApplication` 함수 내에서 [명시적으로 모듈을 로드](#explicit-module-loading)하거나 [구성 파일을 수동으로 로드](#configure-env)해야 합니다.
+`TestApplication`은 더 이상 구성 파일(
+예: `application.conf`)에서 모듈을 자동으로 로드하지 않습니다. 대신, `testApplication` 함수 내에서 [명시적으로 모듈을 로드](#explicit-module-loading)하거나 [구성 파일을 수동으로 로드](#configure-env)해야 합니다.
 
 ##### 명시적 모듈 로딩 {id="explicit-module-loading"}
 
@@ -292,7 +301,8 @@ fun testHello() = testApplication {
 
 ### `CallLogging` 플러그인 패키지 이름이 변경되었습니다.
 
-[`CallLogging`](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-call-logging/io.ktor.server.plugins.calllogging/index.html) 플러그인 패키지는 오타로 인해 이름이 변경되었습니다.
+[`CallLogging`](https://api.ktor.io/ktor-server-call-logging/io.ktor.server.plugins.calllogging/index.html) 플러그인 패키지는
+오타로 인해 이름이 변경되었습니다.
 
 | 2.x.x                               | 3.0.x                                |
 |-------------------------------------|--------------------------------------|
@@ -300,7 +310,8 @@ fun testHello() = testApplication {
 
 ### `ktor-server-host-common` 모듈이 제거되었습니다.
 
-`Application`이 `ApplicationEngine`에 대한 지식을 요구함에 따라, `ktor-server-host-common` 모듈의 내용은 `ktor-server-core`의 [`io.ktor.server.engine`](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.engine/index.html) 패키지로 병합되었습니다.
+`Application`이 `ApplicationEngine`에 대한 지식을 요구함에 따라, `ktor-server-host-common` 모듈의 내용은 `ktor-server-core`의
+[`io.ktor.server.engine`](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.engine/index.html) 패키지로 병합되었습니다.
 
 종속성이 이에 따라 업데이트되었는지 확인하세요. 대부분의 경우 `ktor-server-host-common` 종속성을 제거하기만 하면 됩니다.
 
@@ -393,7 +404,8 @@ install(WebSockets) {
 
 ### 서버 소켓 `.bind()`가 이제 suspending 함수입니다.
 
-JS 및 WasmJS 환경에서 비동기 작업을 지원하기 위해 `TCPSocketBuilder`](https://api.ktor.io/ktor-network/io.ktor.network.sockets/-tcp-socket-builder/index.html)와 [`UDPSocketBuilder`](https://api.ktor.io/ktor-network/io.ktor.network.sockets/-u-d-p-socket-builder/index.html) 모두에서 서버 소켓의 `.bind()` 함수가 suspending 함수로 업데이트되었습니다. 이는 `.bind()` 호출이 이제 코루틴 내에서 이루어져야 함을 의미합니다.
+JS 및 WasmJS 환경에서 비동기 작업을 지원하기 위해 [`TCPSocketBuilder`](https://api.ktor.io/ktor-network/io.ktor.network.sockets/-tcp-socket-builder/index.html)와
+[`UDPSocketBuilder`](https://api.ktor.io/ktor-network/io.ktor.network.sockets/-u-d-p-socket-builder/index.html) 모두에서 서버 소켓의 `.bind()` 함수가 suspending 함수로 업데이트되었습니다. 이는 `.bind()` 호출이 이제 코루틴 내에서 이루어져야 함을 의미합니다.
 
 마이그레이션하려면 `.bind()`가 코루틴 또는 suspending 함수 내에서만 호출되도록 하세요. `runBlocking`을 사용하는 예시는 다음과 같습니다.
 
@@ -411,7 +423,7 @@ JS 및 WasmJS 환경에서 비동기 작업을 지원하기 위해 `TCPSocketBui
 
 ### 바이너리 및 파일 항목에 대한 새 기본 제한
 
-Ktor 3.0.0에서는 [`ApplicationCall.receiveMultipart()`](https://api.ktor.io/older/3.0.0/ktor-server/ktor-server-core/io.ktor.server.request/receive-multipart.html)를 사용하여 바이너리 및 파일 항목을 수신하는 데 50MB의 기본 제한이 도입되었습니다.
+Ktor 3.0.0에서는 [`ApplicationCall.receiveMultipart()`](https://api.ktor.io/3.0.x/ktor-server-core/io.ktor.server.request/receive-multipart.html)를 사용하여 바이너리 및 파일 항목을 수신하는 데 50MB의 기본 제한이 도입되었습니다.
 수신된 파일 또는 바이너리 항목이 50MB 제한을 초과하면 `IOException`이 발생합니다.
 
 #### 기본 제한 재정의
@@ -504,11 +516,11 @@ Ktor의 세션 암호화에 대한 자세한 내용은 [세션 데이터 서명 
 
 ### `HttpResponse`의 `content` 속성 이름 변경
 
-Ktor 3.0.0 이전에는 [`HttpResponse`](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client.statement/-http-response/index.html)의 `content` 속성이 네트워크에서 읽어오는 응답 콘텐츠에 대한 원시 `ByteReadChannel`을 제공했습니다. Ktor 3.0.0부터 `content` 속성은 그 목적을 더 잘 반영하기 위해 `rawContent`로 이름이 변경되었습니다.
+Ktor 3.0.0 이전에는 [`HttpResponse`](https://api.ktor.io/ktor-client-core/io.ktor.client.statement/-http-response/index.html)의 `content` 속성이 네트워크에서 읽어오는 응답 콘텐츠에 대한 원시 `ByteReadChannel`을 제공했습니다. Ktor 3.0.0부터 `content` 속성은 그 목적을 더 잘 반영하기 위해 `rawContent`로 이름이 변경되었습니다.
 
 ### `SocketTimeoutException`이 이제 타입 별칭입니다.
 
-`io.ktor.client.network.sockets` 패키지의 [`SocketTimeoutException`](https://api.ktor.io/older/3.0.0/ktor-client/ktor-client-core/io.ktor.client.network.sockets/-socket-timeout-exception/index.html)은 Kotlin 클래스에서 Java 클래스의 타입 별칭(typealias)으로 변환되었습니다. 이 변경 사항은 특정 경우에 `NoClassDefFoundError`를 발생시킬 수 있으며 기존 코드에 대한 업데이트가 필요할 수 있습니다.
+`io.ktor.client.network.sockets` 패키지의 [`SocketTimeoutException`](https://api.ktor.io/3.0.x/ktor-client-core/io.ktor.client.network.sockets/-socket-timeout-exception/index.html)은 Kotlin 클래스에서 Java 클래스의 타입 별칭(typealias)으로 변환되었습니다. 이 변경 사항은 특정 경우에 `NoClassDefFoundError`를 발생시킬 수 있으며 기존 코드에 대한 업데이트가 필요할 수 있습니다.
 
 애플리케이션을 마이그레이션하려면 코드가 이전 클래스를 참조하지 않고 최신 Ktor 버전으로 컴파일되었는지 확인하세요. 예외 검사를 업데이트하는 방법은 다음과 같습니다.
 
@@ -523,8 +535,8 @@ Ktor 3.0.0 이전에는 [`HttpResponse`](https://api.ktor.io/ktor-client/ktor-cl
 
 3.0.0 릴리스와 함께 Ktor는 `kotlinx-io` 라이브러리 사용으로 전환했습니다. 이 라이브러리는 Kotlin 라이브러리 전반에 걸쳐 표준화되고 효율적인 I/O API를 제공합니다. 이 변경 사항은 성능을 개선하고, 메모리 할당을 줄이며, I/O 처리를 간소화합니다. 프로젝트가 Ktor의 저수준 I/O API와 상호 작용하는 경우 호환성을 보장하기 위해 코드를 업데이트해야 할 수 있습니다.
 
-이것은 [`ByteReadChannel`](https://api.ktor.io/older/3.0.0/ktor-io/io.ktor.utils.io/-byte-read-channel.html)
-및 [`ByteWriteChannel`](https://api.ktor.io/older/3.0.0/ktor-io/io.ktor.utils.io/-byte-write-channel/index.html)과
+이것은 [`ByteReadChannel`](https://api.ktor.io/3.0.x/ktor-io/io.ktor.utils.io/-byte-read-channel.html)
+및 [`ByteWriteChannel`](https://api.ktor.io/3.0.x/ktor-io/io.ktor.utils.io/-byte-write-channel/index.html)과
 같은 많은 클래스에 영향을 미칩니다. 또한, 다음 Ktor 클래스는 이제 `kotlinx-io`에 의해 지원되며, 이전 구현은 사용 중단되었습니다.
 
 | Ktor 2.x                                  | Ktor 3.x                  |
@@ -604,7 +616,8 @@ Ktor 3.x에서는 `ByteReadChannel.readRemaining()`이 이제 `Source`를 반환
 
 ### 속성 키는 이제 정확한 타입 매칭을 요구합니다.
 
-Ktor 3.0.0에서는 [`AttributeKey`](https://api.ktor.io/older/3.0.0/ktor-utils/io.ktor.util/-attribute-key.html) 인스턴스가 이제 ID로 비교되며 값을 저장하고 검색할 때 정확한 타입 매칭을 요구합니다. 이는 타입 안전성(type-safety)을 보장하고 타입 불일치로 인해 발생하는 의도하지 않은 동작을 방지합니다.
+Ktor 3.0.0에서는 [`AttributeKey`](https://api.ktor.io/3.0.x/ktor-utils/io.ktor.util/-attribute-key.html) 인스턴스가
+이제 ID로 비교되며 값을 저장하고 검색할 때 정확한 타입 매칭을 요구합니다. 이는 타입 안전성(type-safety)을 보장하고 타입 불일치로 인해 발생하는 의도하지 않은 동작을 방지합니다.
 
 이전에는 `getOrNull<Any>()`를 사용하여 `AttributeKey<Boolean>`을 가져오는 것처럼, 저장된 것과 다른 제네릭 타입으로 속성을 검색하는 것이 가능했습니다.
 

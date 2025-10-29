@@ -4,7 +4,7 @@
 
 <link-summary>Ktorクライアントを作成および設定する方法を学びます。</link-summary>
 
-[クライアントの依存関係](client-dependencies.md)を追加したら、[HttpClient](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client/-http-client/index.html)クラスのインスタンスを作成し、[エンジン](client-engines.md)をパラメータとして渡すことで、クライアントをインスタンス化できます。
+[クライアントの依存関係](client-dependencies.md)を追加したら、[HttpClient](https://api.ktor.io/ktor-client-core/io.ktor.client/-http-client/index.html)クラスのインスタンスを作成し、[エンジン](client-engines.md)をパラメータとして渡すことで、クライアントをインスタンス化できます。
 
 ```kotlin
 import io.ktor.client.*
@@ -13,7 +13,7 @@ import io.ktor.client.engine.cio.*
 val client = HttpClient(CIO)
 ```
 
-この例では、[CIO](https://api.ktor.io/ktor-client/ktor-client-cio/io.ktor.client.engine.cio/-c-i-o/index.html)エンジンを使用しています。
+この例では、[CIO](https://api.ktor.io/ktor-client-cio/io.ktor.client.engine.cio/-c-i-o/index.html)エンジンを使用しています。
 エンジンを省略することもできます。
 
 ```kotlin
@@ -28,7 +28,7 @@ val client = HttpClient()
 
 ### 基本的な構成 {id="basic-config"}
 
-クライアントを構成するには、クライアントコンストラクタに追加の関数型パラメータを渡すことができます。[HttpClientConfig](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client/-http-client-config/index.html)クラスは、クライアントを構成するためのベースクラスです。例えば、`expectSuccess`プロパティを使用して[レスポンス検証](client-response-validation.md)を有効にできます。
+クライアントを構成するには、クライアントコンストラクタに追加の関数型パラメータを渡すことができます。[HttpClientConfig](https://api.ktor.io/ktor-client-core/io.ktor.client/-http-client-config/index.html)クラスは、クライアントを構成するためのベースクラスです。例えば、`expectSuccess`プロパティを使用して[レスポンス検証](client-response-validation.md)を有効にできます。
 
 ```kotlin
 import io.ktor.client.*

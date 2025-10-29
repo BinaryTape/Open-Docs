@@ -2,15 +2,15 @@
 
 <tldr>
 <p>
-<b>코드 예시</b>:
-<a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/embedded-server-modules">embedded-server-modules</a>,
+<b>코드 예시</b>: 
+<a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/embedded-server-modules">embedded-server-modules</a>, 
 <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/engine-main-modules">engine-main-modules</a>
 </p>
 </tldr>
 
 <link-summary>모듈을 사용하면 라우트를 그룹화하여 애플리케이션을 구조화할 수 있습니다.</link-summary>
 
-Ktor는 특정 모듈 내에 특정 [라우트](server-routing.md) 세트를 정의하여 애플리케이션을 [구조화](server-application-structure.md)하기 위해 모듈을 사용할 수 있도록 합니다. 모듈은 [Application](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.application/-application/index.html) 클래스의 _[확장 함수](https://kotlinlang.org/docs/extensions.html)_입니다. 아래 예시에서 `module1` 확장 함수는 `/module1` URL 경로로 이루어진 GET 요청을 수락하는 모듈을 정의합니다.
+Ktor는 특정 모듈 내에 특정 [라우트](server-routing.md) 세트를 정의하여 애플리케이션을 [구조화](server-application-structure.md)하기 위해 모듈을 사용할 수 있도록 합니다. 모듈은 [Application](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.application/-application/index.html) 클래스의 _[확장 함수](https://kotlinlang.org/docs/extensions.html)_입니다. 아래 예시에서, `module1` 확장 함수는 `/module1` URL 경로로 이루어진 GET 요청을 수락하는 모듈을 정의합니다.
 
 ```kotlin
 import io.ktor.server.application.*
@@ -32,7 +32,10 @@ fun Application.module1() {
 
 ## embeddedServer {id="embedded-server"}
 
-일반적으로 `embeddedServer` 함수는 모듈을 람다 인자(argument)로 암시적으로 받습니다. 예시는 [코드 내 설정](server-create-and-configure.topic#embedded-server) 섹션에서 확인할 수 있습니다. 또한, 애플리케이션 로직을 별도의 모듈로 추출하고 이 모듈에 대한 참조를 `module` 파라미터로 전달할 수 있습니다:
+일반적으로, `embeddedServer` 함수는 모듈을 람다 인자(argument)로 암시적으로 받습니다. 
+예시는 [코드 내 설정](server-create-and-configure.topic#embedded-server) 섹션에서 확인할 수 있습니다.
+또한, 애플리케이션 로직을 별도의 모듈로 추출하고 
+이 모듈에 대한 참조를 `module` 파라미터로 전달할 수 있습니다:
 
 ```kotlin
 package com.example
@@ -74,7 +77,7 @@ fun Application.module2() {
 
 ## 설정 파일 {id="hocon"}
 
-서버를 설정하기 위해 `application.conf` 또는 `application.yaml` 파일을 사용하는 경우, `ktor.application.modules` 속성을 사용하여 로드할 모듈을 지정해야 합니다.
+서버를 설정하기 위해 `application.conf` 또는 `application.yaml` 파일을 사용하는 경우, `ktor.application.modules` 속성을 사용하여 로드할 모듈을 지정해야 합니다. 
 
 두 개의 패키지에 세 개의 모듈이 정의되어 있다고 가정해 보겠습니다. `com.example` 패키지에 두 개, `org.sample` 패키지에 한 개의 모듈이 있습니다.
 
@@ -131,7 +134,8 @@ fun Application.module3() {
 </TabItem>
 </Tabs>
 
-설정 파일에서 이 모듈들을 참조하려면 정규화된 이름(fully qualified name)을 제공해야 합니다. 정규화된 모듈 이름은 클래스의 정규화된 이름과 확장 함수 이름을 포함합니다.
+설정 파일에서 이 모듈들을 참조하려면 정규화된 이름(fully qualified name)을 제공해야 합니다.
+정규화된 모듈 이름은 클래스의 정규화된 이름과 확장 함수 이름을 포함합니다.
 
 <Tabs group="config">
 <TabItem title="application.conf" group-key="hocon">
@@ -173,7 +177,8 @@ suspend fun Application.installEvents() {
 }
 ```
 
-또한, 모든 애플리케이션 모듈을 독립적으로 시작할 수 있으므로, 하나의 모듈이 일시 중단되어도 다른 모듈은 차단되지 않습니다. 이를 통해 의존성 주입(dependency injection)을 위한 비순차적 로딩과 경우에 따라 더 빠른 로딩이 가능합니다.
+또한, 모든 애플리케이션 모듈을 독립적으로 시작할 수 있으므로, 하나의 모듈이 일시 중단되어도 다른 모듈은 차단되지 않습니다.
+이를 통해 의존성 주입(dependency injection)을 위한 비순차적 로딩과 경우에 따라 더 빠른 로딩이 가능합니다.
 
 ### 설정 옵션
 

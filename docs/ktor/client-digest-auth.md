@@ -22,7 +22,7 @@
 摘要认证流程如下：
 
 1. 客户端向服务器应用程序中的特定资源发出不带 `Authorization` 头部信息的请求。
-2. 服务器向客户端响应 401（未授权）响应状态，并使用 `WWW-Authenticate` 响应头部提供信息，表明该路由受摘要认证方案保护。典型的 `WWW-Authenticate` 头部如下所示：
+2. 服务器向客户端响应 `401`（未授权）响应状态，并使用 `WWW-Authenticate` 响应头部提供信息，表明该路由受摘要认证方案保护。典型的 `WWW-Authenticate` 头部如下所示：
 
    ```
    WWW-Authenticate: Digest
@@ -58,8 +58,8 @@
 
 要在 `Authorization` 头部中使用 `Digest` 方案发送用户凭据，您需要按如下方式配置 `digest` 认证提供者：
 
-1. 在 `install` 代码块内调用 [digest](https://api.ktor.io/ktor-client/ktor-client-plugins/ktor-client-auth/io.ktor.client.plugins.auth.providers/digest.html) 函数。
-2. 使用 [DigestAuthCredentials](https://api.ktor.io/ktor-client/ktor-client-plugins/ktor-client-auth/io.ktor.client.plugins.auth.providers/-digest-auth-credentials/index.html) 提供所需的凭据，并将此对象传递给 [credentials](https://api.ktor.io/ktor-client/ktor-client-plugins/ktor-client-auth/io.ktor.client.plugins.auth.providers/-digest-auth-config/credentials.html) 函数。
+1. 在 `install` 代码块内调用 [digest](https://api.ktor.io/ktor-client-auth/io.ktor.client.plugins.auth.providers/digest.html) 函数。
+2. 使用 [DigestAuthCredentials](https://api.ktor.io/ktor-client-auth/io.ktor.client.plugins.auth.providers/-digest-auth-credentials/index.html) 提供所需的凭据，并将此对象传递给 [credentials](https://api.ktor.io/ktor-client-auth/io.ktor.client.plugins.auth.providers/-digest-auth-config/credentials.html) 函数。
 3. 可选地，使用 `realm` 属性配置 realm。
 
 ```kotlin

@@ -96,4 +96,3 @@ val client = HttpClient(CIO) {
         }
     }
 }
-```

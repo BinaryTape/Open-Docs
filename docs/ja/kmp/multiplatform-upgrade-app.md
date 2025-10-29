@@ -7,9 +7,9 @@
     <p>このチュートリアルではIntelliJ IDEAを使用していますが、Android Studioでも同じように進めることができます。どちらのIDEも同じコア機能とKotlin Multiplatformサポートを共有しています。</p>
     <br/>
     <p>これは、「<strong>共有ロジックとネイティブUIを備えたKotlin Multiplatformアプリを作成する</strong>」チュートリアルの第4部です。先に進む前に、前のステップを完了していることを確認してください。</p>
-    <p><img src="icon-1-done.svg" width="20" alt="First step"/> <Links href="/kmp/multiplatform-create-first-app" summary="このチュートリアルではIntelliJ IDEAを使用していますが、Android Studioでも同じように進めることができます。どちらのIDEも同じコア機能とKotlin Multiplatformサポートを共有しています。これは、共有ロジックとネイティブUIを備えたKotlin Multiplatformアプリを作成するチュートリアルの第1部です。Kotlin Multiplatformアプリを作成する、ユーザーインターフェースを更新する、依存関係を追加する、より多くのロジックを共有する、プロジェクトを締めくくる">Kotlin Multiplatformアプリを作成する</Links><br/>
-      <img src="icon-2-done.svg" width="20" alt="Second step"/> <Links href="/kmp/multiplatform-update-ui" summary="このチュートリアルではIntelliJ IDEAを使用していますが、Android Studioでも同じように進めることができます。どちらのIDEも同じコア機能とKotlin Multiplatformサポートを共有しています。これは、「共有ロジックとネイティブUIを備えたKotlin Multiplatformアプリを作成する」チュートリアルの第2部です。先に進む前に、前のステップを完了していることを確認してください。Kotlin Multiplatformアプリを作成する、ユーザーインターフェースを更新する、依存関係を追加する、より多くのロジックを共有する、プロジェクトを締めくくる">ユーザーインターフェースを更新する</Links><br/>
-      <img src="icon-3-done.svg" width="20" alt="Third step"/> <Links href="/kmp/multiplatform-dependencies" summary="このチュートリアルではIntelliJ IDEAを使用していますが、Android Studioでも同じように進めることができます。どちらのIDEも同じコア機能とKotlin Multiplatformサポートを共有しています。これは、「共有ロジックとネイティブUIを備えたKotlin Multiplatformアプリを作成する」チュートリアルの第3部です。先に進む前に、前のステップを完了していることを確認してください。Kotlin Multiplatformアプリを作成する、ユーザーインターフェースを更新する、依存関係を追加する、より多くのロジックを共有する、プロジェクトを締めくくる">依存関係を追加する</Links><br/>
+    <p><img src="icon-1-done.svg" width="20" alt="First step"/> <Links href="/kmp/multiplatform-create-first-app" summary="This tutorial uses IntelliJ IDEA, but you can also follow it in Android Studio – both IDEs share the same core functionality and Kotlin Multiplatform support. This is the first part of the Create a Kotlin Multiplatform app with shared logic and native UI tutorial. Create your Kotlin Multiplatform app Update the user interface Add dependencies Share more logic Wrap up your project">Kotlin Multiplatformアプリを作成する</Links><br/>
+      <img src="icon-2-done.svg" width="20" alt="Second step"/> <Links href="/kmp/multiplatform-update-ui" summary="This tutorial uses IntelliJ IDEA, but you can also follow it in Android Studio – both IDEs share the same core functionality and Kotlin Multiplatform support. This is the second part of the Create a Kotlin Multiplatform app with shared logic and native UI tutorial. Before proceeding, make sure you've completed previous steps. Create your Kotlin Multiplatform app Update the user interface Add dependencies Share more logic Wrap up your project">ユーザーインターフェースを更新する</Links><br/>
+      <img src="icon-3-done.svg" width="20" alt="Third step"/> <Links href="/kmp/multiplatform-dependencies" summary="This tutorial uses IntelliJ IDEA, but you can also follow it in Android Studio – both IDEs share the same core functionality and Kotlin Multiplatform support. This is the third part of the Kotlin Multiplatform app with shared logic and native UI tutorial. Before proceeding, make sure you've completed previous steps. Create your Kotlin Multiplatform app Update the user interface Add dependencies Share more logic Wrap up your project">依存関係を追加する</Links><br/>
       <img src="icon-4.svg" width="20" alt="Fourth step"/> <strong>より多くのロジックを共有する</strong><br/>
       <img src="icon-5-todo.svg" width="20" alt="Fifth step"/> プロジェクトを締めくくる<br/>
     </p>
@@ -35,7 +35,7 @@
 
 ### kotlinx.coroutines
 
-`kotlinx.coroutines`をプロジェクトに追加するには、共通ソースセットで依存関係を指定します。これを行うには、共有モジュールの`build.gradle.kts`ファイルに次の行を追加します。
+`kotlinx.coroutines`をプロジェクトに追加するには、共通ソースセットで依存関係を指定します。これを行うには、`shared/build.gradle.kts`ファイルに次の行を追加します。
 
 ```kotlin
 kotlin {
@@ -54,7 +54,7 @@ Multiplatform Gradleプラグインは、`kotlinx.coroutines`のプラットフ�
 ### kotlinx.serialization
 
 `kotlinx.serialization`ライブラリを使用するには、対応するGradleプラグインを設定します。
-これを行うには、共有モジュールの`build.gradle.kts`ファイルの冒頭にある既存の`plugins {}`ブロックに次の行を追加します。
+これを行うには、`shared/build.gradle.kts`ファイルの冒頭にある既存の`plugins {}`ブロックに次の行を追加します。
 
 ```kotlin
 plugins {
@@ -103,7 +103,7 @@ kotlin {
 
 ### データモデルを追加する
 
-`shared/src/commonMain/kotlin/.../greetingkmp`ディレクトリに新しい`RocketLaunch.kt`ファイルを作成し、SpaceX APIからデータを格納するデータクラスを追加します。
+`shared/src/commonMain/.../greetingkmp`ディレクトリに新しい`RocketLaunch.kt`ファイルを作成し、SpaceX APIからデータを格納するデータクラスを追加します。
 
 ```kotlin
 import kotlinx.serialization.SerialName
@@ -127,13 +127,13 @@ data class RocketLaunch (
 
 ### HTTPクライアントを接続する
 
-1.  `shared/src/commonMain/kotlin/.../greetingkmp`ディレクトリに新しい`RocketComponent`クラスを作成します。
+1.  `shared/src/commonMain/.../greetingkmp`ディレクトリに新しい`RocketComponent`クラスを作成します。
 2.  HTTP GETリクエストを通じてロケット打ち上げ情報を取得するための`httpClient`プロパティを追加します。
 
     ```kotlin
-    import io.ktor.client.*
-    import io.ktor.client.plugins.contentnegotiation.*
-    import io.ktor.serialization.kotlinx.json.*
+    import io.ktor.client.HttpClient
+    import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
+    import io.ktor.serialization.kotlinx.json.json
     import kotlinx.serialization.json.Json
     
     class RocketComponent {
@@ -167,8 +167,8 @@ data class RocketLaunch (
 4.  `httpClient.get()`関数を呼び出して、ロケット打ち上げ情報を取得します。
 
     ```kotlin
-    import io.ktor.client.request.*
-    import io.ktor.client.call.*
+    import io.ktor.client.request.get
+    import io.ktor.client.call.body
 
     class RocketComponent {
         // ...
@@ -202,11 +202,13 @@ data class RocketLaunch (
     ```kotlin
     import kotlinx.datetime.TimeZone
     import kotlinx.datetime.toLocalDateTime
+    import kotlin.time.ExperimentalTime
     import kotlin.time.Instant
 
     class RocketComponent {
         // ...
         
+        @OptIn(ExperimentalTime::class)
         private suspend fun getDateOfLastSuccessfulLaunch(): String {
             val rockets: List<RocketLaunch> =
                 httpClient.get("https://api.spacexdata.com/v4/launches").body()
@@ -298,18 +300,7 @@ data class RocketLaunch (
 アプリケーションがより複雑になるにつれて、UIを実装する`App()`関数を呼び出す[Androidアクティビティ](https://developer.android.com/guide/components/activities/intro-activities)である`MainActivity`にビューモデルを導入する時が来ました。
 ビューモデルはアクティビティからのデータを管理し、アクティビティがライフサイクル変更を受けても消滅しません。
 
-1.  `composeApp/build.gradle.kts`ファイルに以下の依存関係を追加します。
-
-    ```kotlin
-    androidMain.dependencies {
-        // ...
-        implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2")
-        implementation("androidx.lifecycle:lifecycle-runtime-compose:2.6.2")
-        implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2")
-    }
-    ```
-
-2.  `composeApp/src/androidMain/kotlin/com/jetbrains/greeting/greetingkmp`ディレクトリに、新しい`MainViewModel` Kotlinクラスを作成します。
+1.  `composeApp/src/androidMain/.../greetingkmp`ディレクトリに、新しい`MainViewModel` Kotlinクラスを作成します。
 
     ```kotlin
     import androidx.lifecycle.ViewModel
@@ -321,7 +312,7 @@ data class RocketLaunch (
 
     このクラスはAndroidの`ViewModel`クラスを拡張しており、ライフサイクルと設定変更に関して正しい動作を保証します。
 
-3.  [StateFlow](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/-state-flow/)型の`greetingList`値と、そのバッキングプロパティを作成します。
+2.  [StateFlow](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/-state-flow/)型の`greetingList`値と、そのバッキングプロパティを作成します。
 
     ```kotlin
     import kotlinx.coroutines.flow.MutableStateFlow
@@ -336,30 +327,30 @@ data class RocketLaunch (
     *   ここでの`StateFlow`は`Flow`インターフェースを拡張していますが、単一の値または状態を持ちます。
     *   プライベートなバッキングプロパティ`_greetingList`は、このクラスのクライアントのみが読み取り専用の`greetingList`プロパティにアクセスできることを保証します。
 
-4.  View Modelの`init`関数で、`Greeting().greet()`フローからすべての文字列を収集します。
+3.  View Modelの`init`関数で、`Greeting().greet()`フローからすべての文字列を収集します。
 
     ```kotlin
-    import androidx.lifecycle.viewModelScope
-    import kotlinx.coroutines.launch
-    
-    class MainViewModel : ViewModel() {
-        private val _greetingList = MutableStateFlow<List<String>>(listOf())
-        val greetingList: StateFlow<List<String>> get() = _greetingList
-        
-        init {
-            viewModelScope.launch {
-                Greeting().greet().collect { phrase ->
-                     //...
-                }
-            }
-        }
-     }
+   import androidx.lifecycle.viewModelScope
+   import kotlinx.coroutines.launch
+   
+   class MainViewModel : ViewModel() {
+       private val _greetingList = MutableStateFlow<List<String>>(listOf())
+       val greetingList: StateFlow<List<String>> get() = _greetingList
+       
+       init {
+           viewModelScope.launch {
+               Greeting().greet().collect { phrase ->
+                    //...
+               }
+           }
+       }
+    }
     ```
 
     `collect()`関数はサスペンドされるため、ビューモデルのスコープ内で`launch`コルーチンが使用されます。
     これは、`launch`コルーチンがビューモデルのライフサイクルの正しいフェーズ中のみ実行されることを意味します。
 
-5.  `collect`の後続ラムダ内で、収集された`phrase`を`list`内のフレーズのリストに追加するように`_greetingList`の値を更新します。
+4.  `collect`の後続ラムダ内で、収集された`phrase`を`list`内のフレーズのリストに追加するように`_greetingList`の値を更新します。
 
     ```kotlin
     import kotlinx.coroutines.flow.update
@@ -389,6 +380,7 @@ data class RocketLaunch (
     import androidx.lifecycle.viewmodel.compose.viewModel
     
     @Composable
+    @Preview
     fun App(mainViewModel: MainViewModel = viewModel()) {
         MaterialTheme {
             val greetings by mainViewModel.greetingList.collectAsStateWithLifecycle()
@@ -417,7 +409,7 @@ data class RocketLaunch (
 
 ## ネイティブiOS UIを更新する
 
-プロジェクトのiOS部分では、ビジネスロジックをすべて含む共有モジュールにUIを接続するために、[Model–View–ViewModel (MVVM)](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93viewmodel)パターンを再び利用します。
+プロジェクトのiOS部分では、ビジネスロジックをすべて含む共有モジュールにUIを接続するために、[Model–view–viewmodel](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93viewmodel)パターンを再び利用します。
 
 モジュールは`ContentView.swift`ファイルに`import Shared`宣言で既にインポートされています。
 
@@ -525,7 +517,7 @@ struct ListView: View {
     }
     ```
 
-4.  **Sync Gradle Changes**ボタンをクリックしてGradleファイルを同期します。
+4.  **Sync Gradle Changes**ボタンをクリックして、Gradleファイルを同期します。
 
 #### KMP-NativeCoroutinesでFlowをマークする
 
@@ -620,6 +612,10 @@ plugins {
    id("co.touchlab.skie") version "%skieVersion%"
 }
 ```
+
+> 執筆時点での最新であるSKIEのバージョン0.10.6は、最新のKotlinをサポートしていません。これを使用するには、`gradle/libs.versions.toml`ファイルでKotlinのバージョンを2.2.10にダウングレードしてください。
+>
+{style="warning"}
 
 #### SKIEを使用してFlowを消費する
 

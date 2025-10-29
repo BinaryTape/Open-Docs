@@ -35,7 +35,7 @@
 
 ### kotlinx.coroutines
 
-`kotlinx.coroutines`를 프로젝트에 추가하려면, common 소스 세트에 의존성을 지정합니다. 이를 위해, 공유 모듈의 `build.gradle.kts` 파일에 다음 줄을 추가합니다.
+`kotlinx.coroutines`를 프로젝트에 추가하려면, common 소스 세트에 의존성을 지정합니다. 이를 위해, `shared/build.gradle.kts` 파일에 다음 줄을 추가합니다.
 
 ```kotlin
 kotlin {
@@ -54,7 +54,7 @@ kotlin {
 ### kotlinx.serialization
 
 `kotlinx.serialization` 라이브러리를 사용하려면, 해당하는 Gradle 플러그인을 설정해야 합니다.
-이를 위해, 공유 모듈의 `build.gradle.kts` 파일 맨 앞에 있는 기존 `plugins {}` 블록에 다음 줄을 추가합니다.
+이를 위해, `shared/build.gradle.kts` 파일 맨 앞에 있는 기존 `plugins {}` 블록에 다음 줄을 추가합니다.
 
 ```kotlin
 plugins {
@@ -131,9 +131,9 @@ data class RocketLaunch (
 2.  HTTP GET 요청을 통해 로켓 발사 정보를 검색할 `httpClient` 프로퍼티를 추가합니다.
 
     ```kotlin
-    import io.ktor.client.*
-    import io.ktor.client.plugins.contentnegotiation.*
-    import io.ktor.serialization.kotlinx.json.*
+    import io.ktor.client.HttpClient
+    import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
+    import io.ktor.serialization.kotlinx.json.json
     import kotlinx.serialization.json.Json
     
     class RocketComponent {
@@ -167,9 +167,9 @@ data class RocketLaunch (
 4.  `httpClient.get()` 함수를 호출하여 로켓 발사에 대한 정보를 검색합니다.
 
     ```kotlin
-    import io.ktor.client.request.*
-    import io.ktor.client.call.*
-    
+    import io.ktor.client.request.get
+    import io.ktor.client.call.body
+
     class RocketComponent {
         // ...
         
@@ -202,11 +202,13 @@ data class RocketLaunch (
     ```kotlin
     import kotlinx.datetime.TimeZone
     import kotlinx.datetime.toLocalDateTime
+    import kotlin.time.ExperimentalTime
     import kotlin.time.Instant
-    
+
     class RocketComponent {
         // ...
         
+        @OptIn(ExperimentalTime::class)
         private suspend fun getDateOfLastSuccessfulLaunch(): String {
             val rockets: List<RocketLaunch> =
                 httpClient.get("https://api.spacexdata.com/v4/launches").body()
@@ -339,10 +341,10 @@ data class RocketLaunch (
 4.  뷰 모델의 `init` 함수에서 `Greeting().greet()` Flow의 모든 문자열을 수집합니다.
 
     ```kotlin
-    import androidx.lifecycle.viewModelScope
-    import kotlinx.coroutines.launch
+   import androidx.lifecycle.viewModelScope
+   import kotlinx.coroutines.launch
    
-    class MainViewModel : ViewModel() {
+   class MainViewModel : ViewModel() {
        private val _greetingList = MutableStateFlow<List<String>>(listOf())
        val greetingList: StateFlow<List<String>> get() = _greetingList
        
@@ -389,6 +391,7 @@ data class RocketLaunch (
     import androidx.lifecycle.viewmodel.compose.viewModel
     
     @Composable
+    @Preview
     fun App(mainViewModel: MainViewModel = viewModel()) {
         MaterialTheme {
             val greetings by mainViewModel.greetingList.collectAsStateWithLifecycle()
@@ -620,6 +623,11 @@ plugins {
    id("co.touchlab.skie") version "%skieVersion%"
 }
 ```
+
+> 작성 시점 최신 SKIE 0.10.6 버전은 최신 Kotlin을 지원하지 않습니다.
+> 이를 사용하려면 `gradle/libs.versions.toml` 파일에서 Kotlin 버전을 2.2.10으로 다운그레이드하십시오.
+> 
+{style="warning"}
 
 #### SKIE를 사용하여 Flow 소비하기
 

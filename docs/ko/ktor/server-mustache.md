@@ -25,7 +25,7 @@
 </p>
 </tldr>
 
-Ktor는 [Mustache 템플릿](https://github.com/spullara/mustache.java)을 애플리케이션 내 뷰로 사용할 수 있도록 [Mustache](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-mustache/io.ktor.server.mustache/-mustache) 플러그인을 설치할 수 있습니다.
+Ktor는 [Mustache](https://api.ktor.io/ktor-server-mustache/io.ktor.server.mustache/-mustache) 플러그인을 설치하여 애플리케이션 내에서 [Mustache 템플릿](https://github.com/spullara/mustache.java)을 뷰로 사용할 수 있도록 합니다.
 
 ## 의존성 추가 {id="add_dependencies"}
 
@@ -48,7 +48,7 @@ Ktor는 [Mustache 템플릿](https://github.com/spullara/mustache.java)을 애�
 
 <p>
     <code>%plugin_name%</code> 플러그인을 애플리케이션에 <a href="#install">설치</a>하려면,
-    지정된 <Links href="/ktor/server-modules" summary="모듈을 사용하면 라우트를 그룹화하여 애플리케이션을 구조화할 수 있습니다.">모듈</Links>에서 <code>install</code> 함수에 전달합니다.
+    지정된 <Links href="/ktor/server-modules" summary="모듈을 사용하면 라우트를 그룹화하여 애플리케이션을 구조화할 수 있습니다.">모듈</Links>의 <code>install</code> 함수에 전달합니다.
     아래 코드 스니펫은 <code>%plugin_name%</code>을 설치하는 방법을 보여줍니다...
 </p>
 <list>
@@ -101,10 +101,9 @@ fun Application.module() {
 data class User(val id: Int, val name: String)
 ```
 
-지정된 [경로](server-routing.md)에 템플릿을 사용하려면 다음과 같이 `call.respond` 메서드에 `MustacheContent`를 전달합니다:
+지정된 [경로](server-routing.md)에 템플릿을 사용하려면 다음과 같이 `MustacheContent`를 `call.respond` 메서드에 전달합니다:
 ```kotlin
 get("/index") {
     val sampleUser = User(1, "John")
     call.respond(MustacheContent("index.hbs", mapOf("user" to sampleUser)))
 }
-```

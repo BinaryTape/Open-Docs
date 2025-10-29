@@ -6,7 +6,7 @@
 
 ```kotlin
 fun interface KRunnable {
-   fun invoke()
+    fun invoke()
 }
 ```
 
@@ -20,25 +20,25 @@ fun interface KRunnable {
 
 ```kotlin
 fun interface IntPredicate {
-   fun accept(i: Int): Boolean
+    fun accept(i: Int): Boolean
 }
 ```
 
 如果你不使用 SAM 转换，你需要编写类似这样的代码：
 
 ```kotlin
-// 创建类的实例
+// Creating an instance of a class
 val isEven = object : IntPredicate {
-   override fun accept(i: Int): Boolean {
-       return i % 2 == 0
-   }
+    override fun accept(i: Int): Boolean {
+        return i % 2 == 0
+    }
 }
 ```
 
 通过利用 Kotlin 的 SAM 转换，你可以编写以下等效代码：
 
 ```kotlin
-// 使用 lambda 创建实例
+// Creating an instance using lambda
 val isEven = IntPredicate { it % 2 == 0 }
 ```
 
@@ -46,13 +46,13 @@ val isEven = IntPredicate { it % 2 == 0 }
 
 ```kotlin
 fun interface IntPredicate {
-   fun accept(i: Int): Boolean
+    fun accept(i: Int): Boolean
 }
 
 val isEven = IntPredicate { it % 2 == 0 }
 
 fun main() {
-   println("Is 7 even? - ${isEven.accept(7)}")
+    println("Is 7 even? - ${isEven.accept(7)}")
 }
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.4"}
@@ -65,17 +65,19 @@ fun main() {
 考虑以下代码：
 
 ```kotlin
-interface Printer {
-    fun print()
+interface Printer { 
+    fun print() 
 }
 
-fun Printer(block: () -> Unit): Printer = object : Printer { override fun print() = block() }
+fun Printer(block: () -> Unit): Printer = object : Printer {
+    override fun print() = block()
+}
 ```
 
 在启用函数式接口构造函数的可调用引用后，此代码只需通过函数式接口声明即可替换：
 
 ```kotlin
-fun interface Printer {
+fun interface Printer { 
     fun print()
 }
 ```
@@ -103,7 +105,7 @@ typealias IntPredicate = (i: Int) -> Boolean
 val isEven: IntPredicate = { it % 2 == 0 }
 
 fun main() {
-   println("Is 7 even? - ${isEven(7)}")
+    println("Is 7 even? - ${isEven(7)}")
 }
 ```
 

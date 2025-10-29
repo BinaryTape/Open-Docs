@@ -202,12 +202,12 @@ class RobustAIService(
                 val result = executor.execute(prompt)
                 return result.text
             } catch (e: Exception) {
-                logger.warn("Executor failed, trying next: ${e.message}")
+                logger.warn("执行器失败，尝试下一个：${e.message}")
                 continue
             }
         }
 
-        throw IllegalStateException("All AI providers failed")
+        throw IllegalStateException("所有 AI 提供商均失败")
     }
 
     companion object {
@@ -305,7 +305,7 @@ class MyService(
 API key is required but not provided
 ```
 
-**解决方案：** 检测您的环境变量是否已正确设置并可供 Spring Boot 应用程序访问。
+**解决方案：** 检测您的环境变量是否已正确设置并可供您的 Spring Boot 应用程序访问。
 
 ## 最佳实践
 
@@ -318,8 +318,8 @@ API key is required but not provided
 
 ## 下一步
 
-- 了解 [Single Run Agents](single-run-agents.md) 以构建基本的 AI 工作流
-- 探索 [Complex Workflow Agents](complex-workflow-agents.md) 以应对高级用例
-- 参阅 [Tools Overview](tools-overview.md) 以扩展您的代理功能
-- 查看 [Examples](examples.md) 以获取实际实现
-- 阅读 [Key Concepts](key-concepts.md) 以更好地理解该框架
+- 了解 [基本代理](basic-agents.md) 以构建基本的 AI 工作流
+- 探索 [复杂工作流代理](complex-workflow-agents.md) 以应对高级用例
+- 参阅 [工具概述](tools-overview.md) 以扩展您的代理功能
+- 查看 [示例](examples.md) 以获取实际实现
+- 阅读 [术语表](glossary.md) 以更好地理解该框架

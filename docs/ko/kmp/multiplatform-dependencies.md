@@ -44,38 +44,37 @@ Kotlin Multiplatform 프로젝트에서 사용할 수 있는 의존성 유형에
     ```kotlin
     kotlin {
         //... 
-        sourceSets
-            languageSettings.optIn("kotlin.time.ExperimentalTime")
+        sourceSets {
+            all { languageSettings.optIn("kotlin.time.ExperimentalTime") }
+   
             commonMain.dependencies {
-                implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.7.1")
+                implementation("org.jetbrains.kotlinx:kotlinx-datetime:%dateTimeVersion%")
             } 
         }
     }
     ```
 
-3.  **Gradle 변경사항 동기화(Sync Gradle Changes)** 버튼을 클릭하여 Gradle 파일을 동기화합니다. ![Synchronize Gradle files](gradle-sync.png){width=50}
-4.  `shared/src/commonMain/kotlin`에서 `Greeting.kt` 파일이 있는 프로젝트 디렉터리에 `NewYear.kt`라는 새 파일을 생성합니다.
-5.  `date-time` 날짜 연산을 사용하여 오늘부터 새해까지 남은 일수를 계산하는 짧은 함수로 파일을 업데이트합니다.
+3.  **Build | Sync Project with Gradle Files** 메뉴 항목을 선택하거나 빌드 스크립트 편집기에서 **Gradle 변경사항 동기화(Sync Gradle Changes)** 버튼을 클릭하여 Gradle 파일을 동기화합니다. ![Synchronize Gradle files](gradle-sync.png){width=50}
+4.  `shared/src/commonMain/.../greetingkmp` 디렉터리를 마우스 오른쪽 버튼으로 클릭하고 **New | Kotlin Class/File**을 선택하여 새 파일 `NewYear.kt`를 생성합니다.
+5.  `datetime` 날짜 연산을 사용하여 오늘부터 새해까지 남은 일수를 계산하는 짧은 함수로 파일을 업데이트합니다.
 
     ```kotlin
-    import kotlinx.datetime.*
-    import kotlin.time.Clock
-    
+    @OptIn(ExperimentalTime::class)
     fun daysUntilNewYear(): Int {
         val today = Clock.System.todayIn(TimeZone.currentSystemDefault())
         val closestNewYear = LocalDate(today.year + 1, 1, 1)
         return today.daysUntil(closestNewYear)
     }
-    
+   
     fun daysPhrase(): String = "There are only ${daysUntilNewYear()} days left until New Year! 🎆"
     ```
-
-6.  `Greeting.kt`에서 결과를 확인하기 위해 `Greeting` 클래스를 업데이트합니다.
+6.  IDE가 제안하는 대로 필요한 모든 import를 추가합니다.
+7.  `Greeting.kt` 파일에서 결과를 확인하기 위해 `Greeting` 클래스를 업데이트합니다.
 
     ```kotlin
     class Greeting {
         private val platform: Platform = getPlatform()
-    
+   
         fun greet(): List<String> = buildList {
             add(if (Random.nextBoolean()) "Hi!" else "Hello!")
             add("Guess what this is! > ${platform.name.reversed()}!")
@@ -84,7 +83,7 @@ Kotlin Multiplatform 프로젝트에서 사용할 수 있는 의존성 유형에
     }
     ```
 
-7.  결과를 확인하려면 IntelliJ IDEA에서 **composeApp** 및 **iosApp** 구성을 다시 실행합니다.
+8.  결과를 확인하려면 IntelliJ IDEA에서 **composeApp** 및 **iosApp** 구성을 다시 실행합니다.
 
 ![Updated mobile multiplatform app with external dependencies](first-multiplatform-project-3.png){width=500}
 

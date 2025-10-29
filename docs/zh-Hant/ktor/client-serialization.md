@@ -23,7 +23,7 @@
 ContentNegotiation 外掛程式主要有兩個用途：在用戶端和伺服器之間協商媒體類型，以及在傳送請求和接收回應時以特定格式序列化/反序列化內容。
 </link-summary>
 
-[ContentNegotiation](https://api.ktor.io/ktor-client/ktor-client-plugins/ktor-client-content-negotiation/io.ktor.client.plugins.contentnegotiation/-content-negotiation)
+[ContentNegotiation](https://api.ktor.io/ktor-client-content-negotiation/io.ktor.client.plugins.contentnegotiation/-content-negotiation)
 外掛程式主要有兩個用途：
 *   在用戶端和伺服器之間協商媒體類型。為此，它使用 `Accept` 和 `Content-Type` 標頭。
 *   在傳送[請求](client-requests.md)和接收[回應](client-responses.md)時，以特定格式序列化/反序列化內容。Ktor 開箱即用支援以下格式：JSON、XML、CBOR 和 ProtoBuf。

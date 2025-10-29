@@ -42,7 +42,7 @@ react-app
     └── ...
 ```
 
-이 애플리케이션을 제공하려면 [routing](server-routing.md) 블록 내에서 [singlePageApplication](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.http.content/single-page-application.html)을 호출하고
+이 애플리케이션을 제공하려면 [routing](server-routing.md) 블록 내에서 [singlePageApplication](https://api.ktor.io/ktor-server-core/io.ktor.server.http.content/single-page-application.html)을 호출하고
 폴더 이름을 `react` 함수에 전달합니다:
 
 ```kotlin

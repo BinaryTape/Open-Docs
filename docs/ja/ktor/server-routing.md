@@ -11,7 +11,7 @@
 
 ## ルーティングのインストール {id="install_plugin"}
 
-「ルーティング」プラグインは、次の方法でインストールできます。
+ルーティングプラグインは、次の方法でインストールできます。
 
 ```Kotlin
 import io.ktor.server.routing.*
@@ -21,7 +21,7 @@ install(RoutingRoot) {
 }
 ```
 
-「ルーティング」プラグインはあらゆるアプリケーションで非常に一般的であるため、ルーティングのインストールを簡素化する便利な `routing` 関数があります。以下のコードスニペットでは、`install(RoutingRoot)` が `routing` 関数に置き換えられています。
+ルーティングプラグインはあらゆるアプリケーションで非常に一般的であるため、ルーティングのインストールを簡素化する便利な `routing` 関数があります。以下のコードスニペットでは、`install(RoutingRoot)` が `routing` 関数に置き換えられています。
 
 ```kotlin
 import io.ktor.server.routing.*
@@ -33,7 +33,7 @@ routing {
 
 ## ルートハンドラーの定義 {id="define_route"}
 
-「ルーティング」プラグインを[インストール](#install_plugin)した後、`routing` 内で[route](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.routing/route.html) 関数を呼び出してルートを定義できます。
+ルーティングプラグインを[インストール](#install_plugin)した後、`routing` 内で[route](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.routing/route.html) 関数を呼び出してルートを定義できます。
 ```kotlin
 import io.ktor.server.routing.*
 import io.ktor.http.*
@@ -173,7 +173,7 @@ routing {
 以下のコードでは、`(?<id>\d+)` 名前付きグループがリクエストされたパスから整数識別子 `id` をキャプチャするために使用され、
 `call.parameters` プロパティがハンドラー関数でキャプチャされた `id` パラメータにアクセスするために使用されています。
 
-無名グループは正規表現ルートハンドラー内ではアクセスできませんが、パスをマッチさせるために使用できます。例えば、`hello/world` というパスはマッチしますが、`hello/World` はマッチしません。
+無名グループは正規表現ルートハンドラー内ではアクセスできませんが、パスをマッチさせるために使用できます。例えば、パス `hello/world` はマッチしますが、`hello/World` はマッチしません。
 
 ```kotlin
 import io.ktor.server.routing.*
@@ -246,10 +246,10 @@ routing {
     route("/order") {
         route("/shipment") {
             get {
-
+                
             }
             post {
-
+                
             }
         }
     }
@@ -279,13 +279,13 @@ fun Route.listOrdersRoute() {
 
 fun Route.getOrderRoute() {
     get("/order/{id}") {
-
+        
     }
 }
 
 fun Route.totalizeOrderRoute() {
     get("/order/{id}/total") {
-
+        
     }
 }
 ```

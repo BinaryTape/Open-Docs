@@ -469,6 +469,10 @@
             "text": "ktor.publishing",
             "items": [
               {
+                "text": "ktor.azure-app-service",
+                "link": "azure-app-service"
+              },
+              {
                 "text": "ktor.google-app-engine",
                 "link": "google-app-engine"
               },
@@ -732,6 +736,10 @@
       }
     ],
     "collapsed": true
+  },
+  {
+    "text": "ktor.io-interoperability",
+    "link": "io-interoperability"
   },
   {
     "text": "ktor.releases",

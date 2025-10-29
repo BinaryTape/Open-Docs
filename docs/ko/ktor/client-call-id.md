@@ -73,7 +73,9 @@
 
 ## %plugin_name% 구성 {id="configure"}
 
-%plugin_name% 플러그인 구성은 [CallIdConfig](https://api.ktor.io/ktor-client/ktor-client-plugins/ktor-client-call-id/io.ktor.client.plugins.callid/-call-id-config/index.html) 클래스에 의해 제공되며, 호출 ID를 생성하여 호출 컨텍스트에 추가할 수 있도록 합니다.
+%plugin_name% 플러그인 구성은
+[CallIdConfig](https://api.ktor.io/ktor-client-call-id/io.ktor.client.plugins.callid/-call-id-config/index.html)
+클래스에 의해 제공되며, 호출 ID를 생성하여 호출 컨텍스트에 추가할 수 있도록 합니다.
 
 ### 호출 ID 생성
 
@@ -123,7 +125,7 @@
 
 ## 예시
 
-다음 예제에서는 Ktor 클라이언트용 %plugin_name% 플러그인이 새로운 호출 ID를 생성하고 이를 헤더에 추가하도록 구성되어 있습니다:
+다음 예제에서는 Ktor 클라이언트용 `%plugin_name%` 플러그인이 새로운 호출 ID를 생성하고 이를 헤더에 추가하도록 구성되어 있습니다:
 
  ```kotlin
  val client = HttpClient(CIO) {

@@ -21,8 +21,8 @@
 ContentEncoding 플러그인을 사용하면 지정된 압축 알고리즘('gzip', 'deflate' 등)을 활성화하고 해당 설정을 구성할 수 있습니다.
 </link-summary>
 
-Ktor 클라이언트는 [ContentEncoding](https://api.ktor.io/ktor-client/ktor-client-plugins/ktor-client-encoding/io.ktor.client.plugins.compression/-content-encoding) 플러그인을 제공하여 지정된 압축 알고리즘(`gzip`, `deflate` 등)을 활성화하고 해당 설정을 구성할 수 있도록 합니다. 이 플러그인의 주요 목적은 다음과 같습니다:
-* 지정된 품질 값으로 `Accept-Encoding` 헤더를 설정합니다.
+Ktor 클라이언트는 [ContentEncoding](https://api.ktor.io/ktor-client-encoding/io.ktor.client.plugins.compression/-content-encoding) 플러그인을 제공하여 지정된 압축 알고리즘(`gzip` 및 `deflate` 등)을 활성화하고 해당 설정을 구성할 수 있도록 합니다. 이 플러그인은 세 가지 주요 목적을 가집니다:
+* `Accept-Encoding` 헤더를 지정된 품질 값으로 설정합니다.
 * 선택적으로 요청 본문을 인코딩합니다.
 * [서버로부터 수신된 콘텐츠](client-responses.md#body)를 디코딩하여 원본 페이로드를 얻습니다.
 

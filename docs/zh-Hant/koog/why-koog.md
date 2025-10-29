@@ -31,7 +31,7 @@ Koog 包含預建、可組合的解決方案，以簡化和加速代理系統的
 Koog 支援在各種平台和環境中開發和部署代理應用程式：
 
 *   **多平台支援**。您可以將您的代理應用程式部署到 JVM、JS、WasmJS、Android 和 iOS 目標。
-*   **廣泛的 AI 整合**。Koog 整合了主要的 LLM 提供者，包括 OpenAI 和 Anthropic，以及企業級 AI 雲端服務，如 Bedrock。它還支援 Ollama 等本地模型。有關可用提供者的完整列表，請參閱 [可用的 LLM 提供者和平台 (Available LLM providers and platforms)](https://docs.koog.ai/#available-llm-providers-and-platforms)。
+*   **廣泛的 AI 整合**。Koog 整合了主要的 LLM 提供者，包括 OpenAI 和 Anthropic，以及企業級 AI 雲端服務，如 Bedrock。它還支援 Ollama 等本地模型。有關可用提供者的完整列表，請參閱 [LLM 提供者 (LLM providers)](https://docs.koog.ai/llm-providers/)。
 *   **OpenTelemetry 支援**。Koog 開箱即用地整合了流行的可觀察性提供者，例如 [W&B Weave](https://wandb.ai/site/weave/) 和 [Langfuse](https://langfuse.com/)，用於監控和除錯 AI 應用程式。憑藉原生的 OpenTelemetry 支援，您可以使用系統中已有的相同工具來追蹤、記錄和量測您的代理程式。要了解更多資訊，請參閱 [OpenTelemetry](https://docs.koog.ai/opentelemetry-support/)。
 *   **Spring Boot 和 Ktor 整合**。Koog 整合了廣泛使用的企業環境。
     *   如果您有 Ktor 伺服器，您可以將 Koog 安裝為外掛程式，使用配置檔設定提供者，並直接從任何路由呼叫代理程式，而無需手動連接 LLM 用戶端。
@@ -56,6 +56,6 @@ Koog 團隊深入致力於建立一個強大的開發者社群。
 ## 從何開始
 
 *   在 [概觀 (Overview)](https://docs.koog.ai/) 中探索 Koog 的功能。
-*   使用我們的 [入門指南 (Getting started)](https://docs.koog.ai/single-run-agents/) 建構您的第一個 Koog 代理程式。
+*   使用我們的 [入門 (Getting started)](https://docs.koog.ai/getting-started/) 指南建構您的第一個 Koog 代理程式。
 *   在 Koog [發行說明 (release notes)](https://github.com/JetBrains/koog/blob/main/CHANGELOG.md) 中查看最新更新。
 *   從 [範例 (Examples)](https://docs.koog.ai/examples/) 中學習。

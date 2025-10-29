@@ -1,13 +1,13 @@
 [//]: # (title: Gradle)
 
-> 從 Dokka 2.0.0 開始，一些配置選項、Gradle 任務以及產生文件的步驟已更新，包括：
+> 這些說明反映了 Dokka Gradle 外掛程式 v1 的配置和任務。從 Dokka 2.0.0 開始，一些配置選項、Gradle 任務以及產生文件的步驟已更新，包括：
 >
 > * [調整配置選項](dokka-migration.md#adjust-configuration-options)
 > * [使用多模組專案](dokka-migration.md#share-dokka-configuration-across-modules)
 > * [使用更新後的任務產生文件](dokka-migration.md#generate-documentation-with-the-updated-task)
 > * [指定輸出目錄](dokka-migration.md#output-directory)
 >
-> 更多詳細資訊和完整的變更清單，請參閱 [遷移指南](dokka-migration.md)。
+> 更多詳細資訊和 Dokka Gradle 外掛程式 v2 的完整變更清單，請參閱 [遷移指南](dokka-migration.md)。
 >
 {style="note"}
 

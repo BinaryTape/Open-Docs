@@ -48,15 +48,9 @@ Kotlin Multiplatform 支持 Android、iOS、桌面、Web、服务端以及其他
 
 你仍然可以使用协程和流在 Kotlin Multiplatform 项目中编写异步代码。如何调用这些代码取决于你从何处调用它们。从 Kotlin 代码中调用挂起函数和流已被广泛记录，尤其是对于 Android。从 [Swift 代码中调用它们](https://kotlinlang.org/docs/native-arc-integration.html#completion-handlers) 需要更多一些工作，更多详细信息请参见 [KT-47610](https://youtrack.jetbrains.com/issue/KT-47610)。
 
-<!-- when adding SKIE back to the tutorial, add it here as well
-and uncomment the paragraph below -->
-
 目前从 Swift 调用挂起函数和流的最佳方法是使用像 [KMP-NativeCoroutines](https://github.com/rickclephas/KMP-NativeCoroutines) 这样的插件和库，结合 Swift 的 `async`/`await` 或像 Combine 和 RxSwift 这样的库。
 
-<!-- At the moment, KMP-NativeCoroutines is the more
-tried-and-tested solution, and it supports `async`/`await`, Combine, and RxSwift approaches to concurrency. SKIE is easier
-to set up and less verbose. For instance, it maps Kotlin `Flow` to Swift `AsyncSequence` directly. Both of these libraries
-support the proper cancellation of coroutines. -->
+目前，KMP-NativeCoroutines 是更成熟的解决方案，它支持 `async`/`await`、Combine 和 RxSwift 等并发方法。SKIE 设置起来更简单，也更简洁。例如，它将 Kotlin 的 `Flow` 直接映射到 Swift 的 `AsyncSequence`。这两个库都支持协程的正确取消。
 
 要了解如何使用它们，请参见 [在 iOS 和 Android 之间共享更多逻辑](multiplatform-upgrade-app.md)。
 

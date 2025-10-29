@@ -23,7 +23,7 @@
 </p>
 </tldr>
 
-[CachingHeaders](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-caching-headers/io.ktor.server.plugins.cachingheaders/-caching-headers.html) 插件增加了配置用於 HTTP 快取的 `Cache-Control` 和 `Expires` 標頭的能力。您可以透過以下方式 [配置快取](#configure)：
+[CachingHeaders](https://api.ktor.io/ktor-server-caching-headers/io.ktor.server.plugins.cachingheaders/-caching-headers.html) 插件增加了配置用於 HTTP 快取的 `Cache-Control` 和 `Expires` 標頭的能力。您可以透過以下方式[配置快取](#configure)：
 - 為特定的內容類型配置不同的快取策略，例如圖片、CSS 和 JavaScript 檔案等。
 - 在不同層級指定快取選項：應用程式層級的全域配置、路由層級的配置，或針對特定呼叫的配置。
 
@@ -75,7 +75,7 @@
 安裝 `%plugin_name%` 後，您可以 [配置](#configure) 各種內容類型的快取設定。
 
 ## 配置快取 {id="configure"}
-若要配置 `%plugin_name%` 插件，您需要定義 [options](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-caching-headers/io.ktor.server.plugins.cachingheaders/-caching-headers-config/options.html) 函數，為給定的 `ApplicationCall` 和內容類型提供指定的快取選項。來自 [caching-headers](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/caching-headers) 範例的程式碼片段展示了如何為純文字和 HTML 新增帶有 `max-age` 選項的 `Cache-Control` 標頭：
+若要配置 `%plugin_name%` 插件，您需要定義 [options](https://api.ktor.io/ktor-server-caching-headers/io.ktor.server.plugins.cachingheaders/-caching-headers-config/options.html) 函數，為給定的 `ApplicationCall` 和內容類型提供指定的快取選項。來自 [caching-headers](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/caching-headers) 範例的程式碼片段展示了如何為純文字和 HTML 新增帶有 `max-age` 選項的 `Cache-Control` 標頭：
 
 ```kotlin
 fun Application.module() {

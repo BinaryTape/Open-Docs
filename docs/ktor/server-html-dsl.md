@@ -36,7 +36,7 @@ HTML DSL 不需要[安装](server-plugins.md#install)，但需要 `%artifact_nam
   
 
 ## 发送 HTML 响应 {id="html_response"}
-要发送 HTML 响应，请在所需的[路由](server-routing.md)内调用 [respondHtml](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-html-builder/io.ktor.server.html/respond-html.html) 方法。
+要发送 HTML 响应，请在所需的[路由](server-routing.md)内调用 [respondHtml](https://api.ktor.io/ktor-server-html-builder/io.ktor.server.html/respond-html.html) 方法。
 以下示例展示了 HTML DSL 示例以及要发送到客户端的相应 HTML：
 
 <Tabs>
@@ -140,11 +140,11 @@ get("/login") {
 
 除了生成纯 HTML，Ktor 还提供了一个模板引擎，可用于构建复杂布局。您可以为 HTML 页面的不同部分创建模板层级结构，例如，一个用于整个页面的根模板，用于页面页眉和页脚的子模板等。Ktor 暴露了以下使用模板的 API：
 
-1. 要响应基于指定模板构建的 HTML，请调用 [respondHtmlTemplate](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-html-builder/io.ktor.server.html/respond-html-template.html) 方法。
-2. 要创建模板，您需要实现 [Template](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-html-builder/io.ktor.server.html/-template/index.html) 接口并覆盖提供 HTML 的 `Template.apply` 方法。
+1. 要响应基于指定模板构建的 HTML，请调用 [respondHtmlTemplate](https://api.ktor.io/ktor-server-html-builder/io.ktor.server.html/respond-html-template.html) 方法。
+2. 要创建模板，您需要实现 [Template](https://api.ktor.io/ktor-server-html-builder/io.ktor.server.html/-template/index.html) 接口并覆盖提供 HTML 的 `Template.apply` 方法。
 3. 在创建的模板类中，您可以为不同的内容类型定义占位符：
-    * [Placeholder](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-html-builder/io.ktor.server.html/-placeholder/index.html) 用于插入内容。[PlaceholderList](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-html-builder/io.ktor.server.html/-placeholder-list/index.html) 可用于插入多次出现的内容（例如，列表项）。
-    * [TemplatePlaceholder](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-html-builder/io.ktor.server.html/-template-placeholder/index.html) 可用于插入子模板并创建嵌套布局。
+    * [Placeholder](https://api.ktor.io/ktor-server-html-builder/io.ktor.server.html/-placeholder/index.html) 用于插入内容。[PlaceholderList](https://api.ktor.io/ktor-server-html-builder/io.ktor.server.html/-placeholder-list/index.html) 可用于插入多次出现的内容（例如，列表项）。
+    * [TemplatePlaceholder](https://api.ktor.io/ktor-server-html-builder/io.ktor.server.html/-template-placeholder/index.html) 可用于插入子模板并创建嵌套布局。
     
 
 ### 示例 {id="example"}
@@ -163,7 +163,7 @@ get("/login") {
 </body>
 ```
 我们可以将此页面的布局拆分为两部分：
-* 一个用于页面标题的根布局模板，以及一个用于文章的子模板。
+* 一个用于页面页眉的根布局模板，以及一个用于文章的子模板。
 * 一个用于文章内容的子模板。
 
 让我们逐步实现这些布局：

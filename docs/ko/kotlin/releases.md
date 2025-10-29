@@ -2,7 +2,7 @@
 
 <tldr>
     <p>최신 Kotlin 버전: <strong>%kotlinVersion%</strong></p>
-    <p><a href="%kotlinLatestWhatsnew%">Kotlin 2.2.20의 새로운 기능</a>을 참조하세요.</p>
+    <p><a href="%kotlinLatestWhatsnew%">Kotlin 2.2.20의 새로운 기능</a>을 참조하세요. <!--and find the bug fix details in the <a href="%kotlinLatestUrl%">changelog</a>--></p>
 </tldr>
 
 Kotlin 2.0.0부터 다음과 같은 유형의 릴리스를 제공합니다.
@@ -132,8 +132,18 @@ K2 모드에 대한 자세한 내용은 [저희 블로그](https://blog.jetbrain
         <th>빌드 하이라이트</th>
     </tr>
     <tr>
+        <td><strong>2.2.21</strong>
+            <p>릴리스됨: <strong>October 23, 2025</strong></p>
+            <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.2.21" target="_blank">GitHub에서 릴리스</a></p>
+        </td>
+        <td>
+            <p>Xcode 26 지원 및 기타 개선 사항과 버그 수정을 포함하는 툴링 릴리스입니다.</p>
+            <p>자세한 내용은 <a href="https://github.com/JetBrains/kotlin/releases/tag/v2.2.21">변경 로그</a>를 참조하세요.</p>
+    </td>
+    </tr>
+    <tr>
         <td><strong>2.2.20</strong>
-            <p>릴리스됨: <strong>2025년 9월 10일</strong></p>
+            <p>릴리스됨: <strong>September 10, 2025</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.2.20" target="_blank">GitHub에서 릴리스</a></p>
         </td>
         <td>
@@ -143,7 +153,7 @@ K2 모드에 대한 자세한 내용은 [저희 블로그](https://blog.jetbrain
     </tr>
     <tr>
         <td><strong>2.2.10</strong>
-            <p>릴리스됨: <strong>2025년 8월 14일</strong></p>
+            <p>릴리스됨: <strong>August 14, 2025</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.2.10" target="_blank">GitHub에서 릴리스</a></p>
         </td>
         <td>
@@ -153,7 +163,7 @@ K2 모드에 대한 자세한 내용은 [저희 블로그](https://blog.jetbrain
     </tr>
     <tr>
         <td><strong>2.2.0</strong>
-            <p>릴리스됨: <strong>2025년 6월 23일</strong></p>
+            <p>릴리스됨: <strong>June 23, 2025</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.2.0" target="_blank">GitHub에서 릴리스</a></p>
         </td>
         <td>
@@ -163,7 +173,7 @@ K2 모드에 대한 자세한 내용은 [저희 블로그](https://blog.jetbrain
     </tr> 
     <tr>
         <td><strong>2.1.21</strong>
-            <p>릴리스됨: <strong>2025년 5월 13일</strong></p>
+            <p>릴리스됨: <strong>May 13, 2025</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.1.21" target="_blank">GitHub에서 릴리스</a></p>
         </td>
         <td>
@@ -173,7 +183,7 @@ K2 모드에 대한 자세한 내용은 [저희 블로그](https://blog.jetbrain
     </tr> 
    <tr>
         <td><strong>2.1.20</strong>
-            <p>릴리스됨: <strong>2025년 3월 20일</strong></p>
+            <p>릴리스됨: <strong>March 20, 2025</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.1.20" target="_blank">GitHub에서 릴리스</a></p>
         </td>
         <td>
@@ -183,7 +193,7 @@ K2 모드에 대한 자세한 내용은 [저희 블로그](https://blog.jetbrain
     </tr>
     <tr>
         <td><strong>2.1.10</strong>
-            <p>릴리스됨: <strong>2025년 1월 27일</strong></p>
+            <p>릴리스됨: <strong>January 27, 2025</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.1.10" target="_blank">GitHub에서 릴리스</a></p>
         </td>
         <td>
@@ -193,7 +203,7 @@ K2 모드에 대한 자세한 내용은 [저희 블로그](https://blog.jetbrain
     </tr>
     <tr>
         <td><strong>2.1.0</strong>
-            <p>릴리스됨: <strong>2024년 11월 27일</strong></p>
+            <p>릴리스됨: <strong>November 27, 2024</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.1.0" target="_blank">GitHub에서 릴리스</a></p>
         </td>
         <td>
@@ -203,7 +213,7 @@ K2 모드에 대한 자세한 내용은 [저희 블로그](https://blog.jetbrain
     </tr>
     <tr>
         <td><strong>2.0.21</strong>
-            <p>릴리스됨: <strong>2024년 10월 10일</strong></p>
+            <p>릴리스됨: <strong>October 10, 2024</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.0.21" target="_blank">GitHub에서 릴리스</a></p>
         </td>
         <td>
@@ -213,7 +223,7 @@ K2 모드에 대한 자세한 내용은 [저희 블로그](https://blog.jetbrain
     </tr>
     <tr>
         <td><strong>2.0.20</strong>
-            <p>릴리스됨: <strong>2024년 8월 22일</strong></p>
+            <p>릴리스됨: <strong>August 22, 2024</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.0.20" target="_blank">GitHub에서 릴리스</a></p>
         </td>
         <td>
@@ -224,7 +234,7 @@ K2 모드에 대한 자세한 내용은 [저희 블로그](https://blog.jetbrain
     </tr>
     <tr>
         <td><strong>2.0.10</strong>
-            <p>릴리스됨: <strong>2024년 8월 6일</strong></p>
+            <p>릴리스됨: <strong>August 6, 2024</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.0.10" target="_blank">GitHub에서 릴리스</a></p>
         </td>
         <td>
@@ -234,7 +244,7 @@ K2 모드에 대한 자세한 내용은 [저희 블로그](https://blog.jetbrain
     </tr>
     <tr>
         <td><strong>2.0.0</strong>
-            <p>릴리스됨: <strong>2024년 5월 21일</strong></p>
+            <p>릴리스됨: <strong>May 21, 2024</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.0.0" target="_blank">GitHub에서 릴리스</a></p>
         </td>
         <td>
@@ -244,7 +254,7 @@ K2 모드에 대한 자세한 내용은 [저희 블로그](https://blog.jetbrain
     </tr>
     <tr>
         <td><strong>1.9.25</strong>
-            <p>릴리스됨: <strong>2024년 7월 19일</strong></p>
+            <p>릴리스됨: <strong>July 19, 2024</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.9.25" target="_blank">GitHub에서 릴리스</a></p>
         </td>
         <td>
@@ -254,7 +264,7 @@ K2 모드에 대한 자세한 내용은 [저희 블로그](https://blog.jetbrain
     </tr>
     <tr>
         <td><strong>1.9.24</strong>
-            <p>릴리스됨: <strong>2024년 5월 7일</strong></p>
+            <p>릴리스됨: <strong>May 7, 2024</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.9.24" target="_blank">GitHub에서 릴리스</a></p>
         </td>
         <td>
@@ -264,7 +274,7 @@ K2 모드에 대한 자세한 내용은 [저희 블로그](https://blog.jetbrain
     </tr>
     <tr>
         <td><strong>1.9.23</strong>
-            <p>릴리스됨: <strong>2024년 3월 7일</strong></p>
+            <p>릴리스됨: <strong>March 7, 2024</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.9.23" target="_blank">GitHub에서 릴리스</a></p>
         </td>
         <td>
@@ -274,7 +284,7 @@ K2 모드에 대한 자세한 내용은 [저희 블로그](https://blog.jetbrain
     </tr>
     <tr>
         <td><strong>1.9.22</strong>
-            <p>릴리스됨: <strong>2023년 12월 21일</strong></p>
+            <p>릴리스됨: <strong>December 21, 2023</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.9.22" target="_blank">GitHub에서 릴리스</a></p>
         </td>
         <td>
@@ -284,7 +294,7 @@ K2 모드에 대한 자세한 내용은 [저희 블로그](https://blog.jetbrain
     </tr>
     <tr>
         <td><strong>1.9.21</strong>
-            <p>릴리스됨: <strong>2023년 11월 23일</strong></p>
+            <p>릴리스됨: <strong>November 23, 2023</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.9.21" target="_blank">GitHub에서 릴리스</a></p>
         </td>
         <td>
@@ -294,7 +304,7 @@ K2 모드에 대한 자세한 내용은 [저희 블로그](https://blog.jetbrain
     </tr>
     <tr>
         <td><strong>1.9.20</strong>
-            <p>릴리스됨: <strong>2023년 11월 1일</strong></p>
+            <p>릴리스됨: <strong>November 1, 2023</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.9.20" target="_blank">GitHub에서 릴리스</a></p>
         </td>
         <td>
@@ -307,7 +317,7 @@ K2 모드에 대한 자세한 내용은 [저희 블로그](https://blog.jetbrain
     </tr>
     <tr>
         <td><strong>1.9.10</strong>
-            <p>릴리스됨: <strong>2023년 8월 23일</strong></p>
+            <p>릴리스됨: <strong>August 23, 2023</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.9.10" target="_blank">GitHub에서 릴리스</a></p>
         </td>
         <td>
@@ -318,7 +328,7 @@ K2 모드에 대한 자세한 내용은 [저희 블로그](https://blog.jetbrain
     </tr>
     <tr>
         <td><strong>1.9.0</strong>
-            <p>릴리스됨: <strong>2023년 7월 6일</strong></p>
+            <p>릴리스됨: <strong>July 6, 2023</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.9.0" target="_blank">GitHub에서 릴리스</a></p>
         </td>
         <td>
@@ -333,7 +343,7 @@ K2 모드에 대한 자세한 내용은 [저희 블로그](https://blog.jetbrain
     </tr>
     <tr>
         <td><strong>1.8.22</strong>
-            <p>릴리스됨: <strong>2023년 6월 8일</strong></p>
+            <p>릴리스됨: <strong>June 8, 2023</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.8.22" target="_blank">GitHub에서 릴리스</a></p>
         </td>
         <td>
@@ -343,7 +353,7 @@ K2 모드에 대한 자세한 내용은 [저희 블로그](https://blog.jetbrain
     </tr>
     <tr>
         <td><strong>1.8.21</strong>
-            <p>릴리스됨: <strong>2023년 4월 25일</strong></p>
+            <p>릴리스됨: <strong>April 25, 2023</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.8.21" target="_blank">GitHub에서 릴리스</a></p>
         </td>
         <td>
@@ -354,7 +364,7 @@ K2 모드에 대한 자세한 내용은 [저희 블로그](https://blog.jetbrain
     </tr>
     <tr>
         <td><strong>1.8.20</strong>
-            <p>릴리스됨: <strong>2023년 4월 3일</strong></p>
+            <p>릴리스됨: <strong>April 3, 2023</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.8.20" target="_blank">GitHub에서 릴리스</a></p>
         </td>
         <td>
@@ -369,7 +379,7 @@ K2 모드에 대한 자세한 내용은 [저희 블로그](https://blog.jetbrain
     </tr>
     <tr>
         <td><strong>1.8.10</strong>
-            <p>릴리스됨: <strong>2023년 2월 2일</strong></p>
+            <p>릴리스됨: <strong>February 2, 2023</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.8.10" target="_blank">GitHub에서 릴리스</a></p>
         </td>
         <td>
@@ -380,7 +390,7 @@ K2 모드에 대한 자세한 내용은 [저희 블로그](https://blog.jetbrain
     </tr>
     <tr>
         <td><strong>1.8.0</strong>
-            <p>릴리스됨: <strong>2022년 12월 28일</strong></p>
+            <p>릴리스됨: <strong>December 28, 2022</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.8.0" target="_blank">GitHub에서 릴리스</a></p>
         </td>
         <td>
@@ -394,7 +404,7 @@ K2 모드에 대한 자세한 내용은 [저희 블로그](https://blog.jetbrain
     </tr>
     <tr>
         <td><strong>1.7.21</strong>
-            <p>릴리스됨: <strong>2022년 11월 9일</strong></p>
+            <p>릴리스됨: <strong>November 9, 2022</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.7.21" target="_blank">GitHub에서 릴리스</a></p>
         </td>
         <td>
@@ -405,7 +415,7 @@ K2 모드에 대한 자세한 내용은 [저희 블로그](https://blog.jetbrain
     </tr>
     <tr>
         <td><strong>1.7.20</strong>
-            <p>릴리스됨: <strong>2022년 9월 29일</strong></p>
+            <p>릴리스됨: <strong>September 29, 2022</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.7.20" target="_blank">GitHub에서 릴리스</a></p>
         </td>
         <td>
@@ -422,7 +432,7 @@ K2 모드에 대한 자세한 내용은 [저희 블로그](https://blog.jetbrain
     </tr>
     <tr>
         <td><strong>1.7.10</strong>
-            <p>릴리스됨: <strong>2022년 7월 7일</strong></p>
+            <p>릴리스됨: <strong>July 7, 2022</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.7.10" target="_blank">GitHub에서 릴리스</a></p>
         </td>
         <td>
@@ -433,7 +443,7 @@ K2 모드에 대한 자세한 내용은 [저희 블로그](https://blog.jetbrain
     </tr>
     <tr>
         <td><strong>1.7.0</strong>
-            <p>릴리스됨: <strong>2022년 6월 9일</strong></p>
+            <p>릴리스됨: <strong>June 9, 2022</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.7.0" target="_blank">GitHub에서 릴리스</a></p>
         </td>
         <td>
@@ -448,7 +458,7 @@ K2 모드에 대한 자세한 내용은 [저희 블로그](https://blog.jetbrain
     </tr>
     <tr>
         <td><strong>1.6.21</strong>
-            <p>릴리스됨: <strong>2022년 4월 20일</strong></p>
+            <p>릴리스됨: <strong>April 20, 2022</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.6.21" target="_blank">GitHub에서 릴리스</a></p>
         </td>
         <td>
@@ -458,7 +468,7 @@ K2 모드에 대한 자세한 내용은 [저희 블로그](https://blog.jetbrain
     </tr>
     <tr>
         <td><strong>1.6.20</strong>
-            <p>릴리스됨: <strong>2022년 4월 4일</strong></p>
+            <p>릴리스됨: <strong>April 4, 2022</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.6.20" target="_blank">GitHub에서 릴리스</a></p>
         </td>
         <td>
@@ -476,7 +486,7 @@ K2 모드에 대한 자세한 내용은 [저희 블로그](https://blog.jetbrain
     </tr>
     <tr>
         <td><strong>1.6.10</strong>
-            <p>릴리스됨: <strong>2021년 12월 14일</strong></p>
+            <p>릴리스됨: <strong>December 14, 2021</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.6.10" target="_blank">GitHub에서 릴리스</a></p>
         </td>
         <td>
@@ -486,7 +496,7 @@ K2 모드에 대한 자세한 내용은 [저희 블로그](https://blog.jetbrain
     </tr>
     <tr>
         <td><strong>1.6.0</strong>
-            <p>릴리스됨: <strong>2021년 11월 16일</strong></p>
+            <p>릴리스됨: <strong>November 16, 2021</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.6.0" target="_blank">GitHub에서 릴리스</a></p>
         </td>
         <td>
@@ -501,7 +511,7 @@ K2 모드에 대한 자세한 내용은 [저희 블로그](https://blog.jetbrain
     </tr>
     <tr>
         <td><strong>1.5.32</strong>
-            <p>릴리스됨: <strong>2021년 11월 29일</strong></p>
+            <p>릴리스됨: <strong>November 29, 2021</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.5.32" target="_blank">GitHub에서 릴리스</a></p>
         </td>
         <td>
@@ -511,7 +521,7 @@ K2 모드에 대한 자세한 내용은 [저희 블로그](https://blog.jetbrain
     </tr>
     <tr>
         <td><strong>1.5.31</strong>
-            <p>릴리스됨: <strong>2021년 9월 20일</strong></p>
+            <p>릴리스됨: <strong>September 20, 2021</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.5.31" target="_blank">GitHub에서 릴리스</a></p>
         </td>
         <td>
@@ -521,7 +531,7 @@ K2 모드에 대한 자세한 내용은 [저희 블로그](https://blog.jetbrain
     </tr>
     <tr>
         <td><strong>1.5.30</strong>
-            <p>릴리스됨: <strong>2021년 8월 23일</strong></p>
+            <p>릴리스됨: <strong>August 23, 2021</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.5.30" target="_blank">GitHub에서 릴리스</a></p>
         </td>
         <td>
@@ -543,7 +553,7 @@ K2 모드에 대한 자세한 내용은 [저희 블로그](https://blog.jetbrain
     </tr>
     <tr>
         <td><strong>1.5.21</strong>
-            <p>릴리스됨: <strong>2021년 7월 13일</strong></p>
+            <p>릴리스됨: <strong>July 13, 2021</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.5.21" target="_blank">GitHub에서 릴리스</a></p>
         </td>
         <td>
@@ -553,15 +563,15 @@ K2 모드에 대한 자세한 내용은 [저희 블로그](https://blog.jetbrain
     </tr>
     <tr>
         <td><strong>1.5.20</strong>
-            <p>릴리스됨: <strong>2021년 6월 24일</strong></p>
+            <p>릴리스됨: <strong>June 24, 2021</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.5.20" target="_blank">GitHub에서 릴리스</a></p>
         </td>
         <td>
             <p>다음과 같은 다양한 개선 사항을 포함하는 점진적 릴리스입니다:</p>
             <list>
-                <li>JVM에서 기본적으로 `invokedynamic`을 통한 문자열 연결</li>
+                <li>JVM에서 기본적으로 <code>invokedynamic</code>을 통한 문자열 연결</li>
                 <li>Lombok 지원 개선 및 JSpecify 지원</li>
-                <li>Kotlin/Native: Objective-C 헤더로 KDoc 내보내기 및 단일 배열 내에서 더 빠른 `Array.copyInto()`</li>
+                <li>Kotlin/Native: Objective-C 헤더로 KDoc 내보내기 및 단일 배열 내에서 더 빠른 <code>Array.copyInto()</code></li>
                 <li>Gradle: 어노테이션 프로세서 클래스로더 캐싱 및 `--parallel` Gradle 속성 지원</li>
                 <li>플랫폼 전반에 걸쳐 stdlib 함수 동작 일치</li>
             </list>
@@ -574,7 +584,7 @@ K2 모드에 대한 자세한 내용은 [저희 블로그](https://blog.jetbrain
     </tr>
     <tr>
         <td><strong>1.5.10</strong>
-            <p>릴리스됨: <strong>2021년 5월 24일</strong></p>
+            <p>릴리스됨: <strong>May 24, 2021</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.5.10" target="_blank">GitHub에서 릴리스</a></p>
         </td>
         <td>
@@ -584,7 +594,7 @@ K2 모드에 대한 자세한 내용은 [저희 블로그](https://blog.jetbrain
     </tr>
     <tr>
         <td><strong>1.5.0</strong>
-            <p>릴리스됨: <strong>2021년 5월 5일</strong></p>
+            <p>릴리스됨: <strong>May 5, 2021</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.5.0" target="_blank">GitHub에서 릴리스</a></p>
         </td>
         <td>
@@ -599,7 +609,7 @@ K2 모드에 대한 자세한 내용은 [저희 블로그](https://blog.jetbrain
     </tr>
     <tr>
         <td><strong>1.4.32</strong>
-            <p>릴리스됨: <strong>2021년 3월 22일</strong></p>
+            <p>릴리스됨: <strong>March 22, 2021</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.4.32" target="_blank">GitHub에서 릴리스</a></p>
         </td>
         <td>
@@ -609,7 +619,7 @@ K2 모드에 대한 자세한 내용은 [저희 블로그](https://blog.jetbrain
     </tr>
     <tr>
         <td><strong>1.4.31</strong>
-            <p>릴리스됨: <strong>2021년 2월 25일</strong></p>
+            <p>릴리스됨: <strong>February 25, 2021</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.4.31" target="_blank">GitHub에서 릴리스</a></p>
         </td>
         <td>
@@ -619,7 +629,7 @@ K2 모드에 대한 자세한 내용은 [저희 블로그](https://blog.jetbrain
     </tr>
     <tr>
         <td><strong>1.4.30</strong>
-            <p>릴리스됨: <strong>2021년 2월 3일</strong></p>
+            <p>릴리스됨: <strong>February 3, 2021</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.4.30" target="_blank">GitHub에서 릴리스</a></p>
         </td>
         <td>
@@ -639,7 +649,7 @@ K2 모드에 대한 자세한 내용은 [저희 블로그](https://blog.jetbrain
     </tr>
     <tr>
         <td><strong>1.4.21</strong>
-            <p>릴리스됨: <strong>2020년 12월 7일</strong></p>
+            <p>릴리스됨: <strong>December 7, 2020</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.4.21" target="_blank">GitHub에서 릴리스</a></p>
         </td>
         <td>
@@ -649,15 +659,15 @@ K2 모드에 대한 자세한 내용은 [저희 블로그](https://blog.jetbrain
     </tr>
     <tr>
         <td><strong>1.4.20</strong>
-            <p>릴리스됨: <strong>2020년 11월 23일</strong></p>
+            <p>릴리스됨: <strong>November 23, 2020</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.4.20" target="_blank">GitHub에서 릴리스</a></p>
         </td>
         <td>
             <p>다음과 같은 다양한 개선 사항을 포함하는 점진적 릴리스입니다:</p>
             <list>
-                <li>`invokedynamic`을 통한 문자열 연결과 같은 새로운 JVM 기능 지원</li>
+                <li><code>invokedynamic</code>을 통한 문자열 연결과 같은 새로운 JVM 기능 지원</li>
                 <li>Kotlin 멀티플랫폼 모바일 프로젝트의 성능 및 예외 처리 개선</li>
-                <li>JDK `Path` 확장: `Path("dir") / "file.txt"`</li>
+                <li>JDK <code>Path</code> 확장: <code>Path("dir") / "file.txt"</code></li>
             </list>
             <p>자세한 내용은 다음을 참조하세요:</p>
             <list>
@@ -668,7 +678,7 @@ K2 모드에 대한 자세한 내용은 [저희 블로그](https://blog.jetbrain
     </tr>
     <tr>
         <td><strong>1.4.10</strong>
-            <p>릴리스됨: <strong>2020년 9월 7일</strong></p>
+            <p>릴리스됨: <strong>September 7, 2020</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.4.10" target="_blank">GitHub에서 릴리스</a></p>
         </td>
         <td>
@@ -678,7 +688,7 @@ K2 모드에 대한 자세한 내용은 [저희 블로그](https://blog.jetbrain
     </tr>
     <tr>
         <td><strong>1.4.0</strong>
-            <p> 릴리스됨: <strong>2020년 8월 17일</strong></p>
+            <p> 릴리스됨: <strong>August 17, 2020</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.4.0" target="_blank">GitHub에서 릴리스</a></p>
         </td>
         <td>
@@ -694,7 +704,7 @@ K2 모드에 대한 자세한 내용은 [저희 블로그](https://blog.jetbrain
     </tr>
     <tr>
         <td><strong>1.3.72</strong>
-            <p> 릴리스됨: <strong>2020년 4월 15일</strong></p>
+            <p> 릴리스됨: <strong>April 15, 2020</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.3.72" target="_blank">GitHub에서 릴리스</a></p>
         </td>
         <td>

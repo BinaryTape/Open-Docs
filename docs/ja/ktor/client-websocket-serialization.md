@@ -255,6 +255,6 @@ client.webSocket(method = HttpMethod.Get, host = "127.0.0.1", port = 8080, path 
 }
 ```
 
-[incoming](client-websockets.topic#incoming)チャネルからデシリアライズされたフレームを受信するには、[WebsocketContentConverter.deserialize](https://api.ktor.io/ktor-shared/ktor-serialization/io.ktor.serialization/-websocket-content-converter/deserialize.html)関数を使用します。`WebsocketContentConverter`は`DefaultClientWebSocketSession.converter`プロパティを介して利用可能です。
+[incoming](client-websockets.topic#incoming)チャネルからデシリアライズされたフレームを受信するには、[WebsocketContentConverter.deserialize](https://api.ktor.io/ktor-serialization/io.ktor.serialization/-websocket-content-converter/deserialize.html)関数を使用します。`WebsocketContentConverter`は`DefaultClientWebSocketSession.converter`プロパティを介して利用可能です。
 
 > 完全な例はこちらで見つけることができます: [client-websockets-serialization](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-websockets-serialization)。

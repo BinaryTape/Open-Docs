@@ -51,11 +51,14 @@ Ktor 서버 애플리케이션을 실행하려면 먼저 서버를 [생성](serv
 
 ## 서버 생성 방법 선택 {id="choose-create-server"}
 
-Ktor 서버 애플리케이션은 [두 가지 방법](server-create-and-configure.topic#embedded)으로 [생성 및 실행]할 수 있습니다. 코드에서 서버 매개변수를 빠르게 전달하는 [embeddedServer](#embeddedServer)를 사용하거나, 외부 `application.conf` 또는 `application.yaml` 파일에서 구성을 로드하는 [EngineMain](#EngineMain)을 사용하는 방법입니다.
+Ktor 서버 애플리케이션은 [두 가지 방법](server-create-and-configure.topic#embedded)으로 [생성 및 실행]할 수 있습니다.
+
+*   [`embeddedServer`](#embeddedServer)를 사용하여 코드에서 서버 매개변수를 빠르게 전달하는 방법
+*   [`EngineMain`](#EngineMain)을 사용하여 외부 <Path>application.conf</Path> 또는 <Path>application.yaml</Path> 파일에서 구성을 로드하는 방법.
 
 ### embeddedServer {id="embeddedServer"}
 
-[`embeddedServer()`](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.engine/embedded-server.html) 함수는 특정 유형의 엔진을 생성하는 데 사용되는 엔진 팩토리를 받습니다. 아래 예시에서는 [`Netty`](https://api.ktor.io/ktor-server/ktor-server-netty/io.ktor.server.netty/-netty/index.html) 팩토리를 전달하여 Netty 엔진으로 서버를 실행하고 `8080` 포트에서 수신 대기합니다.
+[`embeddedServer()`](https://api.ktor.io/ktor-server-core/io.ktor.server.engine/embedded-server.html) 함수는 특정 유형의 엔진을 생성하는 데 사용되는 엔진 팩토리를 받습니다. 아래 예시에서는 [`Netty`](https://api.ktor.io/ktor-server-netty/io.ktor.server.netty/-netty/index.html) 팩토리를 전달하여 Netty 엔진으로 서버를 실행하고 `8080` 포트에서 수신 대기합니다.
 
 ```kotlin
 import io.ktor.server.response.*
@@ -83,7 +86,9 @@ fun main(args: Array<String>) {
 * `io.ktor.server.tomcat.jakarta.EngineMain`
 * `io.ktor.server.cio.EngineMain`
 
-`EngineMain.main` 함수는 선택한 엔진으로 서버를 시작하고 외부 [설정 파일](server-configuration-file.topic)에 지정된 [애플리케이션 모듈](server-modules.md)을 로드하는 데 사용됩니다. 아래 예시에서는 애플리케이션의 `main` 함수에서 서버를 시작합니다.
+#### 서버 생성 및 시작
+
+`EngineMain.main()` 함수는 선택한 엔진으로 서버를 시작하고 외부 [설정 파일](server-configuration-file.topic)에 지정된 [애플리케이션 모듈](server-modules.md)을 로드하는 데 사용됩니다. 아래 예시에서는 애플리케이션의 `main` 함수에서 서버를 시작합니다.
 
 <Tabs>
 <TabItem title="Application.kt">
@@ -168,6 +173,18 @@ mainClassName = "io.ktor.server.netty.EngineMain"
 </TabItem>
 </Tabs>
 
+#### 서버 인스턴스 생성 (시작하지 않고) {id="createServer"}
+
+`EngineMain.main()`을 직접 호출하여 서버를 즉시 시작하는 것 외에도, `EngineMain.createServer()`를 호출하여 서버를 시작하지 않고 `EmbeddedServer` 인스턴스를 반환받을 수 있습니다.
+
+이 접근 방식은 `.start()`, `.stop()`을 호출하거나 서버가 요청을 수락하기 시작하기 전에 서버로 다른 작업을 수행할 시점을 제어할 수 있게 합니다.
+
+```Kotlin
+// Example using Netty
+val server = io.ktor.server.netty.EngineMain.createServer(args)
+// perform additional initialization, logging, instrumentation, etc.
+server.start(wait = true)
+```
 ## 엔진 구성 {id="configure-engine"}
 
 이 섹션에서는 다양한 엔진별 옵션을 지정하는 방법을 살펴봅니다.
@@ -176,7 +193,7 @@ mainClassName = "io.ktor.server.netty.EngineMain"
 
 <p>
     <code>embeddedServer</code> 함수는 <code>configure</code> 매개변수를 사용하여 엔진별 옵션을 전달할 수 있도록 합니다. 이 매개변수에는 모든 엔진에 공통적이며
-    <a href="https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.engine/-application-engine/-configuration/index.html">
+    <a href="https://api.ktor.io/ktor-server-core/io.ktor.server.engine/-application-engine/-configuration/index.html">
         ApplicationEngine.Configuration
     </a>
     클래스에 의해 노출되는 옵션이 포함됩니다.
@@ -184,7 +201,11 @@ mainClassName = "io.ktor.server.netty.EngineMain"
 <p>
     아래 예시는 <code>Netty</code> 엔진을 사용하여 서버를 구성하는 방법을 보여줍니다. <code>configure</code> 블록 내에서 <code>connector</code>를 정의하여 호스트와 포트를 지정하고, 다양한 서버 매개변수를 사용자 지정합니다.
 </p>
-<code-block lang="kotlin" code="import io.ktor.server.response.*&#10;import io.ktor.server.routing.*&#10;import io.ktor.server.engine.*&#10;import io.ktor.server.netty.*&#10;&#10;fun main(args: Array&lt;String&gt;) {&#10;    embeddedServer(Netty, configure = {&#10;        connectors.add(EngineConnectorBuilder().apply {&#10;            host = &quot;127.0.0.1&quot;&#10;            port = 8080&#10;        })&#10;        connectionGroupSize = 2&#10;        workerGroupSize = 5&#10;        callGroupSize = 10&#10;        shutdownGracePeriod = 2000&#10;        shutdownTimeout = 3000&#10;    }) {&#10;        routing {&#10;            get(&quot;/&quot;) {&#10;                call.respondText(&quot;Hello, world!&quot;)&#10;            }&#10;        }&#10;    }.start(wait = true)&#10;}"/>
+<code-block lang="kotlin" code="import io.ktor.server.response.*&#10;import io.ktor.server.routing.*&#10;import io.ktor.server.engine.*&#10;import io.ktor.server.netty.*&#10;&#10;fun main(args: Array&lt;String&gt;) {&#10;    embeddedServer(Netty, configure = {&#10;        connectors.add(EngineConnectorBuilder().apply {&#10;            host = &quot;127.0.0.1&quot;&#10;            port = 8080&#10;        })&#10;        connectionGroupSize = 2&#10;        workerGroupSize = 5&#10;        callGroupSize = 10&#10;        shutdownGracePeriod = 2000&#10;        shutdownTimeout = 3000&#10;    }) {&#10;        routing {&#10;            get(&quot;/&quot;) {&#10;                call.respondText(&quot;Hello, world!&quot;)
+            }
+        }
+    }.start(wait = true)
+}"/>
 <p>
     <code>connectors.add()</code> 메서드는 지정된 호스트(<code>127.0.0.1</code>) 및 포트(<code>8080</code>)로 커넥터를 정의합니다.
 </p>

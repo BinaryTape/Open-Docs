@@ -4,7 +4,7 @@
 
 <link-summary>了解如何建立和設定 Ktor 客戶端。</link-summary>
 
-在新增 [客戶端依賴](client-dependencies.md) 後，您可以透過建立 [HttpClient](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client/-http-client/index.html) 類別實例並傳遞一個 [引擎](client-engines.md) 作為參數來實例化客戶端：
+在新增 [客戶端依賴](client-dependencies.md) 後，您可以透過建立 [HttpClient](https://api.ktor.io/ktor-client-core/io.ktor.client/-http-client/index.html) 類別實例並傳遞一個 [引擎](client-engines.md) 作為參數來實例化客戶端：
 
 ```kotlin
 import io.ktor.client.*
@@ -13,7 +13,7 @@ import io.ktor.client.engine.cio.*
 val client = HttpClient(CIO)
 ```
 
-在此範例中，我們使用 [CIO](https://api.ktor.io/ktor-client/ktor-client-cio/io.ktor.client.engine.cio/-c-i-o/index.html) 引擎。
+在此範例中，我們使用 [CIO](https://api.ktor.io/ktor-client-cio/io.ktor.client.engine.cio/-c-i-o/index.html) 引擎。
 您也可以省略引擎：
 
 ```kotlin
@@ -29,7 +29,7 @@ val client = HttpClient()
 ### 基本設定 {id="basic-config"}
 
 若要設定客戶端，您可以將額外的函式參數傳遞給客戶端建構函式。
-[HttpClientConfig](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client/-http-client-config/index.html) 類別是設定客戶端的基礎類別。
+[HttpClientConfig](https://api.ktor.io/ktor-client-core/io.ktor.client/-http-client-config/index.html) 類別是設定客戶端的基礎類別。
 例如，您可以使用 `expectSuccess` 屬性啟用 [回應驗證](client-response-validation.md)：
 
 ```kotlin

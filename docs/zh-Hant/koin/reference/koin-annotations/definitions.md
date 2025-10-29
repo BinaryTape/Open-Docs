@@ -2,7 +2,7 @@
 title: 帶有註解的定義
 ---
 
-Koin 註解 (Koin Annotations) 允許像常規的 Koin DSL 一樣宣告相同類型的定義，但改用註解方式。只需使用所需的註解標記您的類別，它將為您生成所有內容！
+Koin 註解允許像常規的 Koin DSL 一樣宣告相同類型的定義，但改用註解方式。只需使用所需的註解標記您的類別，它將為您生成所有內容！
 
 例如，等同於 `single { MyComponent(get()) }` DSL 宣告的方式，只需像這樣使用 `@Single` 標記：
 
@@ -22,20 +22,23 @@ Koin 註解保持與 Koin DSL 相同的語義。您可以使用以下定義來�
 
 ### 為 Kotlin Multiplatform 生成 Compose ViewModel (自 1.4.0 起)
 
-`@KoinViewModel` 註解可用於生成 Android 或 Compose KMP ViewModel。要在 Koin 定義中生成 `viewModel` (使用 `org.koin.compose.viewmodel.dsl.viewModel` 而非常規的 `org.koin.androidx.viewmodel.dsl.viewModel`)，您需要啟用 `KOIN_USE_COMPOSE_VIEWMODEL` 選項：
+`@KoinViewModel` 註解預設情況下會使用 `koin-core-viewmodel` 主要 DSL 生成 ViewModel (自 2.2.0 起啟用)。這提供了 Kotlin Multiplatform 相容性並使用統一的 ViewModel API。
+
+`KOIN_USE_COMPOSE_VIEWMODEL` 選項預設為啟用：
 
 ```groovy
 ksp {
+    // This is the default behavior since 2.2.0
     arg("KOIN_USE_COMPOSE_VIEWMODEL","true")
 }
 ```
 
-:::note
-`USE_COMPOSE_VIEWMODEL` 鍵已被棄用，請改用 `KOIN_USE_COMPOSE_VIEWMODEL`。
-:::
+這會使用 `org.koin.compose.viewmodel.dsl.viewModel` 生成 `viewModel` 定義，以實現多平台相容性。
 
-:::note
-Koin 4.0 應會將這兩個 ViewModel DSL 合併為一個，因為 ViewModel 類型參數來自同一個函式庫。
+:::info
+- `KOIN_USE_COMPOSE_VIEWMODEL` 自 Annotations 2.2.0 起預設為啟用
+- 這確保了跨所有平台的統一 ViewModel API 的一致性
+- 舊的 `USE_COMPOSE_VIEWMODEL` 鍵已被移除
 :::
 
 ## 自動或特定綁定
@@ -51,7 +54,7 @@ Koin 將宣告您的 `MyComponent` 元件也與 `MyInterface` 綁定。其 DSL �
 
 除了讓 Koin 為您檢測，您也可以透過 `binds` 註解參數來指定您真正想要綁定的類型：
 
-```kotlin
+ ```kotlin
 @Single(binds = [MyBoundType::class])
 ```
 
@@ -124,8 +127,8 @@ class MyComponent(@InjectedParam val myDependency : MyDependency)
 然後您可以呼叫您的 `MyComponent` 並傳遞 `MyDependency` 的實例：
 
 ```kotlin
-val m = MyDependency
-// Resolve MyComponent while passing  MyDependency
+val m = MyDependency()
+// Resolve MyComponent while passing MyDependency
 koin.get<MyComponent> { parametersOf(m) }
 ```
 
@@ -201,4 +204,138 @@ public class ComponentWithProps(
 }
 ```
 
-生成的 DSL 等效將是 `factory { ComponentWithProps(getProperty("id", ComponentWithProps.DEFAAULT_ID)) }`
+生成的 DSL 等效將是 `factory { ComponentWithProps(getProperty("id", ComponentWithProps.DEFAULT_ID)) }`
+
+## JSR-330 相容性註解
+
+Koin 註解透過 `koin-jsr330` 模組提供了 JSR-330 (Jakarta Inject) 相容的註解。這些註解對於從其他 JSR-330 相容框架 (例如 Hilt、Dagger 或 Guice) 遷移的開發者來說特別有用。
+
+### 設定
+
+將 `koin-jsr330` 依賴項加入您的專案：
+
+```kotlin
+dependencies {
+    implementation "io.insert-koin:koin-jsr330:$koin_version"
+}
+```
+
+### 可用的 JSR-330 註解
+
+#### @Singleton (jakarta.inject.Singleton)
+
+JSR-330 標準單例註解，等同於 Koin 的 `@Single`：
+
+```kotlin
+import jakarta.inject.Singleton
+
+@Singleton
+class DatabaseService
+```
+
+這會生成與 `@Single` 相同的結果 – 在 Koin 中產生一個單例實例。
+
+#### @Named (jakarta.inject.Named)
+
+JSR-330 標準限定符註解，用於基於字串的限定符：
+
+```kotlin
+import jakarta.inject.Named
+import jakarta.inject.Singleton
+
+@Singleton
+@Named("inMemory")
+class InMemoryCache : Cache
+
+@Singleton  
+@Named("redis")
+class RedisCache : Cache
+```
+
+#### @Inject (jakarta.inject.Inject)
+
+JSR-330 標準注入註解。雖然 Koin 註解不需要明確的建構子標記，但 `@Inject` 可用於 JSR-330 相容性：
+
+```kotlin
+import jakarta.inject.Inject
+import jakarta.inject.Singleton
+
+@Singleton
+class UserService @Inject constructor(
+    private val repository: UserRepository
+)
+```
+
+#### @Qualifier (jakarta.inject.Qualifier)
+
+用於建立自訂限定符註解的元註解：
+
+```kotlin
+import jakarta.inject.Qualifier
+
+@Qualifier
+annotation class Database
+
+@Qualifier  
+annotation class Cache
+
+@Singleton
+@Database
+class DatabaseConfig
+
+@Singleton
+@Cache  
+class CacheConfig
+```
+
+#### @Scope (jakarta.inject.Scope)
+
+用於建立自訂作用域註解的元註解：
+
+```kotlin
+import jakarta.inject.Scope
+
+@Scope
+annotation class RequestScoped
+
+// Use with Koin's scope system
+@Scope(name = "request") 
+@RequestScoped
+class RequestProcessor
+```
+
+### 混合使用
+
+您可以在同一個專案中自由混用 JSR-330 註解和 Koin 註解：
+
+```kotlin
+// JSR-330 style
+@Singleton
+@Named("primary")
+class PrimaryDatabase : Database
+
+// Koin style  
+@Single
+@Named("secondary")
+class SecondaryDatabase : Database
+
+// Mixed in same class
+@Factory
+class DatabaseManager @Inject constructor(
+    @Named("primary") private val primary: Database,
+    @Named("secondary") private val secondary: Database  
+)
+```
+
+### 框架遷移優點
+
+使用 JSR-330 註解為框架遷移提供了多項優點：
+
+- **熟悉的 API**：來自 Hilt、Dagger 或 Guice 的開發者可以使用熟悉的註解
+- **漸進式遷移**：現有的 JSR-330 註解程式碼僅需少量修改即可運作
+- **標準合規性**：遵循 JSR-330 可確保與依賴注入標準的相容性
+- **團隊上手**：讓熟悉其他 DI 框架的團隊更容易上手
+
+:::info
+Koin 中的 JSR-330 註解會生成與其 Koin 等效項相同的底層 DSL。JSR-330 和 Koin 註解之間的選擇純粹是風格上的考量，並基於團隊偏好或遷移需求。
+:::

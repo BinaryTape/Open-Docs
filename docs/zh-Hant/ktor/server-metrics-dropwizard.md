@@ -25,7 +25,7 @@
 
 <link-summary>%plugin_name% 插件讓您能夠配置 Metrics 庫，以獲取關於伺服器和傳入請求的有用資訊。</link-summary>
 
-[%plugin_name%](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-metrics/io.ktor.server.metrics.dropwizard/-dropwizard-metrics.html) 插件讓您能夠配置 [Metrics](http://metrics.dropwizard.io/) 庫，以獲取關於伺服器和傳入請求的有用資訊。
+[%plugin_name%](https://api.ktor.io/ktor-server-metrics/io.ktor.server.metrics.dropwizard/-dropwizard-metrics.html) 插件讓您能夠配置 [Metrics](http://metrics.dropwizard.io/) 庫，以獲取關於伺服器和傳入請求的有用資訊。
 
 ## 添加依賴項 {id="add_dependencies"}
 若要啟用 `%plugin_name%`，您需要將以下構件包含在構建腳本中：

@@ -9,13 +9,13 @@
 
 <tldr>
 <p>
-<b>필수 의존성</b>: <code>io.ktor:%artifact_name%</code>
+<b>필수 의존성</b>: <code>io.ktor:ktor-server-caching-headers</code>
 </p>
 <var name="example_name" value="caching-headers"/>
 <p>
     <b>코드 예시</b>:
     <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
-        %example_name%
+        caching-headers
     </a>
 </p>
 <p>
@@ -23,14 +23,14 @@
 </p>
 </tldr>
 
-[CachingHeaders](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-caching-headers/io.ktor.server.plugins.cachingheaders/-caching-headers.html) 플러그인은 HTTP 캐싱에 사용되는 `Cache-Control` 및 `Expires` 헤더를 구성하는 기능을 추가합니다. 다음 방법으로 [캐싱을 구성](#configure)할 수 있습니다:
+[CachingHeaders](https://api.ktor.io/ktor-server-caching-headers/io.ktor.server.plugins.cachingheaders/-caching-headers.html) 플러그인은 HTTP 캐싱에 사용되는 `Cache-Control` 및 `Expires` 헤더를 구성하는 기능을 추가합니다. 다음 방법으로 [캐싱을 구성](#configure)할 수 있습니다:
 - 이미지, CSS, JavaScript 파일 등 특정 콘텐츠 유형에 대해 다양한 캐싱 전략을 구성합니다.
 - 애플리케이션 수준에서 전역적으로, 경로 수준에서, 또는 특정 호출에 대해 캐싱 옵션을 지정합니다.
 
 ## 의존성 추가 {id="add_dependencies"}
 
 <p>
-    <code>%plugin_name%</code>을(를) 사용하려면 빌드 스크립트에 <code>%artifact_name%</code> 아티팩트를 포함해야 합니다:
+    <code>CachingHeaders</code>을(를) 사용하려면 빌드 스크립트에 <code>ktor-server-caching-headers</code> 아티팩트를 포함해야 합니다:
 </p>
 <Tabs group="languages">
     <TabItem title="Gradle (Kotlin)" group-key="kotlin">
@@ -44,12 +44,12 @@
     </TabItem>
 </Tabs>
 
-## %plugin_name% 설치 {id="install_plugin"}
+## CachingHeaders 설치 {id="install_plugin"}
 
 <p>
-    애플리케이션에 <code>%plugin_name%</code> 플러그인을 [<a href="#install">설치</a>]하려면,
+    <code>CachingHeaders</code> 플러그인을 애플리케이션에 [<a href="#install">설치</a>]하려면,
     지정된 <Links href="/ktor/server-modules" summary="모듈을 사용하면 경로를 그룹화하여 애플리케이션을 구조화할 수 있습니다.">모듈</Links>의 <code>install</code> 함수에 전달합니다.
-    아래 코드 스니펫은 <code>%plugin_name%</code>을(를) 설치하는 방법을 보여줍니다...
+    아래 코드 스니펫은 <code>CachingHeaders</code>을(를) 설치하는 방법을 보여줍니다...
 </p>
 <list>
     <li>
@@ -68,14 +68,14 @@
     </TabItem>
 </Tabs>
 <p>
-    <code>%plugin_name%</code> 플러그인은 <a href="#install-route">특정 경로에도 설치</a>할 수 있습니다.
-    이는 다양한 애플리케이션 리소스에 대해 다른 <code>%plugin_name%</code> 구성이 필요한 경우 유용할 수 있습니다.
+    <code>CachingHeaders</code> 플러그인은 <a href="#install-route">특정 경로에도 설치</a>할 수 있습니다.
+    이는 다양한 애플리케이션 리소스에 대해 다른 <code>CachingHeaders</code> 구성이 필요한 경우 유용할 수 있습니다.
 </p>
 
-`%plugin_name%`을(를) 설치한 후에는 다양한 콘텐츠 유형에 대한 캐싱 설정을 [구성](#configure)할 수 있습니다.
+<code>CachingHeaders</code>을(를) 설치한 후에는 다양한 콘텐츠 유형에 대한 캐싱 설정을 [구성](#configure)할 수 있습니다.
 
 ## 캐싱 구성 {id="configure"}
-`%plugin_name%` 플러그인을 구성하려면 지정된 `ApplicationCall` 및 콘텐츠 유형에 대한 캐싱 옵션을 제공하기 위해 [options](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-caching-headers/io.ktor.server.plugins.cachingheaders/-caching-headers-config/options.html) 함수를 정의해야 합니다. [caching-headers](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/caching-headers) 예시의 코드 스니펫은 일반 텍스트 및 HTML에 `max-age` 옵션을 사용하여 `Cache-Control` 헤더를 추가하는 방법을 보여줍니다:
+<code>CachingHeaders</code> 플러그인을 구성하려면 주어진 `ApplicationCall` 및 콘텐츠 유형에 대해 지정된 캐싱 옵션을 제공하기 위해 [options](https://api.ktor.io/ktor-server-caching-headers/io.ktor.server.plugins.cachingheaders/-caching-headers-config/options.html) 함수를 정의해야 합니다. [caching-headers](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/caching-headers) 예시의 코드 스니펫은 일반 텍스트 및 HTML에 `max-age` 옵션을 사용하여 `Cache-Control` 헤더를 추가하는 방법을 보여줍니다:
 
 ```kotlin
 fun Application.module() {

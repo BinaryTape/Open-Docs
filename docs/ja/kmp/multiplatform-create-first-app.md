@@ -6,7 +6,7 @@
 <tldr>
     <p>このチュートリアルではIntelliJ IDEAを使用しますが、Android Studioでも同様に実行できます。どちらのIDEもコア機能とKotlin Multiplatformのサポートは共通しています。</p>
     <br/>
-    <p>これは、<strong>共有ロジックとネイティブUIを持つKotlin Multiplatformアプリを作成する</strong>チュートリアルの最初のパートです。</p>
+    <p>これは、**共有ロジックとネイティブUIを持つKotlin Multiplatformアプリを作成する**チュートリアルの最初のパートです。</p>
     <p><img src="icon-1.svg" width="20" alt="最初のステップ"/> <strong>Kotlin Multiplatformアプリを作成する</strong><br/>
        <img src="icon-2-todo.svg" width="20" alt="2番目のステップ"/> ユーザーインターフェースを更新する<br/>
        <img src="icon-3-todo.svg" width="20" alt="3番目のステップ"/> 依存関係を追加する<br/>       
@@ -87,23 +87,22 @@ iOSフレームワークとしてビルドされると、共通KotlinはKotlin/N
     }
     ```
 
-2.  挨拶に少しバリエーションを加えます。Kotlin標準ライブラリから `kotlin.random.Random` をインポートします。
-    これは、すべてのプラットフォームで動作し、依存関係として自動的に含まれるマルチプラットフォームライブラリです。
-3.  テキストを反転させるために、Kotlin標準ライブラリの `reversed()` 呼び出しで共有コードを更新します。
+2.  挨拶に少しバリエーションを加えます。
+    Kotlin標準ライブラリの `reversed()` 呼び出しで共有コードを更新し、テキストを反転させます。
 
     ```kotlin
-    import kotlin.random.Random
-    
     class Greeting {
         private val platform: Platform = getPlatform()
 
         fun greet(): String {
+            //
             val firstWord = if (Random.nextBoolean()) "Hi!" else "Hello!"
 
             return "$firstWord Guess what this is! > ${platform.name.reversed()}!"
         }
     }
     ```
+3.  IDEの提案に従って、`kotlin.random.Random` クラスをインポートします。これは、すべてのプラットフォームで動作し、依存関係として自動的に含まれるマルチプラットフォームライブラリです。
 
 コードを共通Kotlinのみで記述することには、プラットフォーム固有の機能を使用できないという明白な制限があります。
 インターフェースと[expect/actual](multiplatform-connect-to-apis.md)メカニズムを使用することで、これを解決します。

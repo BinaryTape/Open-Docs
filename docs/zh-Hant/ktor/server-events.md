@@ -5,19 +5,19 @@
 <tldr>
 <var name="example_name" value="events"/>
 <p>
-    <b>Code example</b>:
+    <b>程式碼範例</b>:
     <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
 </tldr>
 
-Ktor 提供了使用事件監控伺服器應用程式的功能。
+Ktor 提供了使用事件監控您的伺服器應用程式的功能。
 您可以處理與應用程式生命週期相關的預定義事件（應用程式啟動、停止等），或使用自訂事件來處理特定情況。您也可以使用 [MonitoringEvent](server-custom-plugins.md#handle-app-events) 掛鉤來處理自訂外掛程式的事件。
 
 ## 事件定義 {id="event-definition"}
 
-每個事件都由 [EventDefinition](https://api.ktor.io/ktor-shared/ktor-events/io.ktor.events/-event-definition/index.html) 類別實例表示。此類別具有一個 `T` 類型參數，用於指定傳遞給事件的值類型。此值可以在 [事件處理器](#handle-events-application) 中作為 Lambda 參數存取。例如，大多數 [預定義事件](#predefined-events) 都接受 `Application` 作為參數，允許您在事件處理器內部存取應用程式屬性。
+每個事件都由 [EventDefinition](https://api.ktor.io/ktor-events/io.ktor.events/-event-definition/index.html) 類別實例表示。此類別具有一個 `T` 類型參數，用於指定傳遞給事件的值類型。此值可以在 [事件處理器](#handle-events-application) 中作為 Lambda 參數存取。例如，大多數 [預定義事件](#predefined-events) 都接受 `Application` 作為參數，允許您在事件處理器內部存取應用程式屬性。
 
 對於 [自訂事件](#custom-events)，您可以傳遞此事件所需的類型參數。
 下面的程式碼片段展示了如何建立一個接受 `ApplicationCall` 實例的自訂 `NotFoundEvent`。
@@ -32,19 +32,19 @@ val NotFoundEvent: EventDefinition<ApplicationCall> = EventDefinition()
 
 Ktor 提供了以下與應用程式生命週期相關的預定義事件：
 
-- [ApplicationStarting](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.application/-application-starting.html)
-- [ApplicationStarted](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.application/-application-started.html)
-- [ServerReady](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.application/-server-ready.html)
-- [ApplicationStopPreparing](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.application/-application-stop-preparing.html)
-- [ApplicationStopping](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.application/-application-stopping.html)
-- [ApplicationStopped](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.application/-application-stopped.html)
+- [ApplicationStarting](https://api.ktor.io/ktor-server-core/io.ktor.server.application/-application-starting.html)
+- [ApplicationStarted](https://api.ktor.io/ktor-server-core/io.ktor.server.application/-application-started.html)
+- [ServerReady](https://api.ktor.io/ktor-server-core/io.ktor.server.application/-server-ready.html)
+- [ApplicationStopPreparing](https://api.ktor.io/ktor-server-core/io.ktor.server.application/-application-stop-preparing.html)
+- [ApplicationStopping](https://api.ktor.io/ktor-server-core/io.ktor.server.application/-application-stopping.html)
+- [ApplicationStopped](https://api.ktor.io/ktor-server-core/io.ktor.server.application/-application-stopped.html)
 
 例如，您可以訂閱 `ApplicationStopped` 事件以釋放應用程式資源。
 
 ## 在應用程式中處理事件 {id="handle-events-application"}
 
 要處理指定 `Application` 實例的事件，請使用 `monitor` 屬性。
-此屬性提供對 [Events](https://api.ktor.io/ktor-shared/ktor-events/io.ktor.events/-events/index.html) 實例的存取，該實例公開了以下函數，允許您處理應用程式事件：
+此屬性提供對 [Events](https://api.ktor.io/ktor-events/io.ktor.events/-events/index.html) 實例的存取，該實例公開了以下函數，允許您處理應用程式事件：
 
 - `subscribe`: 訂閱由 [EventDefinition](#event-definition) 指定的事件。
 - `unsubscribe`: 取消訂閱由 [EventDefinition](#event-definition) 指定的事件。

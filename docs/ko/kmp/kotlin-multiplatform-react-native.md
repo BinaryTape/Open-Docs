@@ -2,6 +2,45 @@
        xsi:noNamespaceSchemaLocation="https://resources.jetbrains.com/writerside/1.0/topic.v2.xsd"
        id="kotlin-multiplatform-react-native"
        title="Kotlin Multiplatform vs. React Native: 크로스 플랫폼 비교">
+<include-in-head>
+<![CDATA[
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          "mainEntity": [{
+            "@type": "Question",
+            "name": "Q: Kotlin Multiplatform은 프로덕션에 사용할 준비가 되었나요?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Kotlin Multiplatform은 프로덕션에서 사용할 준비가 된 안정적인 기술입니다. 이는 가장 보수적인 사용 시나리오에서도 Android, iOS, 데스크톱 (JVM), 서버 측 (JVM) 및 웹 전반에서 프로덕션 코드 공유에 Kotlin Multiplatform을 사용할 수 있음을 의미합니다. Kotlin Multiplatform과 Google의 Jetpack Compose를 기반으로 하는, 여러 플랫폼에서 공유 UI를 구축하기 위한 프레임워크인 Compose Multiplatform은 iOS, Android, 데스크톱에서 안정적입니다. 웹 지원은 현재 베타 단계입니다. Kotlin Multiplatform의 전반적인 방향에 대해 더 자세히 알아보려면, 저희 블로그 게시물 Kotlin Multiplatform 및 Compose Multiplatform의 다음 단계를 확인하세요."
+            }
+          }, {
+            "@type": "Question",
+            "name": "Q: Kotlin Multiplatform이 React Native보다 좋나요?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Kotlin Multiplatform과 React Native는 모두 고유한 강점을 가지고 있으며, 선택은 프로젝트의 특정 목표, 기술 요구사항 및 팀 전문성에 따라 달라집니다. 위 비교에서는 코드 공유, 빌드 도구, 컴파일 및 생태계와 같은 주요 차이점을 설명하여 사용 사례에 가장 적합한 옵션을 결정하는 데 도움을 드렸습니다."
+            }
+          }, {
+            "@type": "Question",
+            "name": "Q: Google은 Kotlin Multiplatform을 지원하나요?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Google I/O 2024에서 Google은 Android와 iOS 간의 비즈니스 로직 공유를 위해 Android에서 Kotlin Multiplatform 사용에 대한 공식 지원을 발표했습니다."
+            }
+          }, {
+            "@type": "Question",
+            "name": "Q: Kotlin Multiplatform을 배울 가치가 있나요?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "네이티브 성능과 유연성을 유지하면서 Android, iOS, 데스크톱 및 웹 전반에서 코드를 공유하는 데 관심이 있다면 Kotlin Multiplatform은 배울 가치가 있습니다. JetBrains의 지원을 받고 있으며, Android에서 Android와 iOS 간의 비즈니스 로직을 공유하는 데 Google의 공식 지원을 받습니다. 또한, Compose Multiplatform과 함께하는 KMP는 다중 플랫폼 앱을 구축하는 기업에서 프로덕션에 점점 더 많이 채택되고 있습니다."
+            }
+          }]
+        }
+        </script>
+]]>
+</include-in-head>
 <web-summary>Kotlin Multiplatform과 Compose Multiplatform이 React Native와 코드 공유, 생태계, UI 렌더링 측면에서 어떻게 비교되는지 살펴보세요. 어떤 도구 스택이 팀에 가장 적합한지 알아보세요.
 </web-summary>
 <tip>
@@ -23,8 +62,8 @@
                                                                       style="block"
                                                                       width="500"/></a></p>
     <p>KMP를 사용하면 앱 진입점을 제외한 모든 코드를 공유하는 것부터, 단일 로직 (네트워크 또는 데이터베이스 모듈과 같은)을 공유하거나, UI를 네이티브로 유지하면서 비즈니스 로직을 공유하는 등 다양한 공유 전략을 선택할 수 있습니다.</p>
-    <p>플랫폼 간 UI 코드를 공유하려면 Kotlin Multiplatform과 Google의 Jetpack Compose를 기반으로 구축된 JetBrains의 최신 선언형 프레임워크인 <a
-            href="https://blog.jetbrains.com/kotlin/2023/11/kotlin-multiplatform-stable/">Compose Multiplatform</a>을 사용할 수 있습니다. 이 프레임워크는
+    <p>플랫폼 간 UI 코드를 공유하려면 <a
+            href="https://blog.jetbrains.com/kotlin/2023/11/kotlin-multiplatform-stable/">Compose Multiplatform</a> — Kotlin Multiplatform과 Google의 Jetpack Compose를 기반으로 구축된 JetBrains의 최신 선언형 프레임워크를 사용할 수 있습니다. 이 프레임워크는
         <a href="https://blog.jetbrains.com/kotlin/2023/11/kotlin-multiplatform-stable/?_gl=1*dcswc7*_gcl_au*MTE5NzY3MzgyLjE3NDk3MDk0NjI.*FPAU*MTE5NzY3MzgyLjE3NDk3MDk0NjI.*_ga*MTM4NjAyOTM0NS4xNzM2ODUwMzA5*_ga_9J976DJZ68*czE3NTA2NzU0MzQkbzM2JGcxJHQxNzUwNjc1NjEwJGo2MCRsMCRoMA..">iOS</a>, Android 및 데스크톱에서 안정적이며, 웹 지원은 현재 베타 단계에 있습니다.</p>
     <p><a href="https://www.jetbrains.com/compose-multiplatform/"><img src="explore-compose.svg"
                                                                        alt="Compose Multiplatform 탐색하기"
@@ -159,8 +198,10 @@
         <control>Q: Kotlin Multiplatform은 프로덕션에 사용할 준비가 되었나요?</control>
     </p>
     <p>A: Kotlin Multiplatform은 <a
-            href="https://blog.jetbrains.com/kotlin/2023/11/kotlin-multiplatform-stable/">프로덕션에서 사용할 준비가 된 안정적인 기술</a>입니다. 즉, 가장 보수적인 사용 시나리오에서도 Android, iOS, 데스크톱 (JVM), 서버 측 (JVM) 및 웹에서 코드를 공유하는 데 Kotlin Multiplatform을 사용할 수 있습니다.</p>
+            href="https://blog.jetbrains.com/kotlin/2023/11/kotlin-multiplatform-stable/">프로덕션에서 사용할 준비가 된 안정적인 기술</a>입니다.
+        이는 가장 보수적인 사용 시나리오에서도 Android, iOS, 데스크톱 (JVM), 서버 측 (JVM) 및 웹 전반에서 코드를 공유하는 데 Kotlin Multiplatform을 사용할 수 있음을 의미합니다.</p>
     <p>Compose Multiplatform, 여러 플랫폼에서 공유 UI를 구축하기 위한 프레임워크 (Kotlin Multiplatform 및 Google의 Jetpack Compose 기반)는 iOS, Android, 데스크톱에서 안정적입니다. 웹 지원은 현재 베타 단계입니다.</p>
+    <p>Kotlin Multiplatform의 전반적인 방향에 대해 더 자세히 알아보려면, 저희 블로그 게시물 <a href="https://blog.jetbrains.com/kotlin/2025/08/kmp-roadmap-aug-2025/">Kotlin Multiplatform 및 Compose Multiplatform의 다음 단계</a>를 확인하세요.</p>
     <p>
         <control>Q: Kotlin Multiplatform이 React Native보다 좋나요?</control>
     </p>
@@ -173,6 +214,6 @@
     <p>
         <control>Q: Kotlin Multiplatform을 배울 가치가 있나요?</control>
     </p>
-    <p>A: 네이티브 성능과 유연성을 유지하면서 Android, iOS, 데스크톱 및 웹 전반에서 코드를 공유하는 데 관심이 있다면 Kotlin Multiplatform은 배울 가치가 있습니다. JetBrains의 지원을 받고 있으며, Android에서 Android와 iOS 간의 비즈니스 로직을 공유하는 데 Google의 공식 지원을 받습니다. 또한, Compose Multiplatform과 함께하는 KMP는 다중 플랫폼 앱을 구축하는 기업에서 프로덕션에 점점 더 많이 채택되고 있습니다.</p>
+    <p>A: 네이티브 성능과 유연성을 유지하면서 Android, iOS, 데스크톱 및 웹 전반에서 코드를 공유하는 데 관심이 있다면 Kotlin Multiplatform은 배울 가치가 있습니다. JetBrains의 지원을 받고 있으며, Android에서 Android와 iOS 간의 비즈니스 로직을 공유하는 데 Google의 공식 지원을 받습니다. 또한, Compose Multiplatform과 함께하는 KMP는 다중 플랫폼 앱을 구축하는 기업에서 프로덕션에 점점 더 많이 채택되고 있습니다.
+    </p>
 </chapter>
-</topic>

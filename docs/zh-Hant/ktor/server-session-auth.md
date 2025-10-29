@@ -97,7 +97,7 @@ install(Authentication) {
 data class UserSession(val name: String, val count: Int)
 ```
 
-### 步驟 2：安裝並配置工作階段 {id="install-session"}
+### 2：安裝並配置工作階段 {id="install-session"}
 
 建立資料類別後，您需要安裝並配置 `Sessions` 外掛程式。下面的範例
 安裝並配置了一個帶有指定 Cookie 路徑和過期時間的 Cookie 工作階段。

@@ -47,7 +47,8 @@
 
 ## セッションプラグインをインストールする
 
-クライアントが保護されたリソースにアクセスしようとするたびに認可を要求するのを避けるため、認可が成功した際にアクセストークンをセッションに保存することができます。その後、保護されたルートのハンドラー内で現在のセッションからアクセストークンを取得し、それを使用してリソースを要求できます。
+クライアントが保護されたリソースにアクセスしようとするたびに認可を要求するのを避けるため、認可が成功した際にアクセストークンをセッションに保存することができます。
+その後、保護されたルートのハンドラー内で現在のセッションからアクセストークンを取得し、それを使用してリソースを要求できます。
 
 ```kotlin
 import io.ktor.server.sessions.*
@@ -85,7 +86,7 @@ KtorアプリケーションにおけるOAuth認可フローは以下のよう�
 
 ## OAuthのインストール {id="install"}
 
-`oauth`認証プロバイダーをインストールするには、`install`ブロック内で[oauth](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-auth/io.ktor.server.auth/oauth.html)関数を呼び出します。オプションで、[プロバイダー名を指定](server-auth.md#provider-name)できます。例えば、"auth-oauth-google"という名前で`oauth`プロバイダーをインストールするには、以下のようになります:
+`oauth`認証プロバイダーをインストールするには、`install`ブロック内で[oauth](https://api.ktor.io/ktor-server-auth/io.ktor.server.auth/oauth.html)関数を呼び出します。オプションで、[プロバイダー名を指定](server-auth.md#provider-name)できます。例えば、"auth-oauth-google"という名前で`oauth`プロバイダーをインストールするには、以下のようになります:
 
 ```kotlin
 import io.ktor.server.application.*
@@ -95,6 +96,7 @@ fun Application.main(httpClient: HttpClient = applicationHttpClient) {
     install(Authentication) {
         oauth("auth-oauth-google") {
             // Configure oauth authentication
+            urlProvider = { "http://localhost:8080/callback" }
         }
     }
 }
@@ -126,7 +128,9 @@ Google APIにアクセスするには、Google Cloud Consoleで認可クレデ�
 ```kotlin
 val applicationHttpClient = HttpClient(CIO) {
     install(ContentNegotiation) {
-        json()
+        json(Json {
+            ignoreUnknownKeys = true
+        })
     }
 }
 ```
@@ -168,11 +172,12 @@ install(Authentication) {
         }
         client = httpClient
     }
+}
 ```
 
 *   `urlProvider`は、認可が完了したときに呼び出される[リダイレクトルート](#redirect-route)を指定します。
     > このルートが[**承認済みのリダイレクトURI**](#authorization-credentials)のリストに追加されていることを確認してください。
-*   `providerLookup`を使用すると、必要なプロバイダーのOAuth設定を指定できます。これらの設定は[OAuthServerSettings](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-auth/io.ktor.server.auth/-o-auth-server-settings/index.html)クラスによって表現され、KtorがOAuthサーバーへ自動的にリクエストを行うことを可能にします。
+*   `providerLookup`を使用すると、必要なプロバイダーのOAuth設定を指定できます。これらの設定は[OAuthServerSettings](https://api.ktor.io/ktor-server-auth/io.ktor.server.auth/-o-auth-server-settings/index.html)クラスによって表現され、KtorがOAuthサーバーへ自動的にリクエストを行うことを可能にします。
 *   `client`プロパティは、KtorがOAuthサーバーへリクエストを行うために使用する[HttpClient](#create-http-client)を指定します。
 
 ### ステップ3: ログインルートを追加する {id="login-route"}
@@ -195,7 +200,7 @@ routing {
 
 ログインルートとは別に、[ステップ2: OAuthプロバイダーの設定](#configure-oauth-provider)で指定されているように、`urlProvider`のリダイレクトルートを作成する必要があります。
 
-このルート内では、`call.principal`関数を使用して[OAuthAccessTokenResponse](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-auth/io.ktor.server.auth/-o-auth-access-token-response/index.html)オブジェクトを取得できます。`OAuthAccessTokenResponse`を使用すると、OAuthサーバーから返されたトークンやその他のパラメーターにアクセスできます。
+このルート内では、`call.principal`関数を使用して[OAuthAccessTokenResponse](https://api.ktor.io/ktor-server-auth/io.ktor.server.auth/-o-auth-access-token-response/index.html)オブジェクトを取得できます。`OAuthAccessTokenResponse`を使用すると、OAuthサーバーから返されたトークンやその他のパラメーターにアクセスできます。
 
 ```kotlin
     routing {

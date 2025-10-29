@@ -29,7 +29,7 @@
 [%plugin_name%](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-webjars/io.ktor.server.webjars/-webjars.html)プラグインは、[WebJars](https://www.webjars.org/)によって提供されるクライアントサイドライブラリの提供を可能にします。これにより、JavaScriptやCSSライブラリなどのアセットを[fat JAR](server-fatjar.md)の一部としてパッケージ化できます。
 
 ## 依存関係を追加する {id="add_dependencies"}
-%plugin_name%を有効にするには、ビルドスクリプトに以下のアーティファクトを含める必要があります:
+`%plugin_name%`を有効にするには、ビルドスクリプトに以下のアーティファクトを含める必要があります:
 * `%artifact_name%`依存関係を追加します:
 
   <Tabs group="languages">

@@ -24,13 +24,12 @@
 </tldr>
 
 <link-summary>
-Websockets 插件允许您在服务器和客户端之间创建多向通信会话。
+WebSockets 插件允许您在服务器和客户端之间创建多向通信会话。
 </link-summary>
 
 <snippet id="websockets-description">
 
-WebSocket 是一种协议，它通过单个 TCP 连接在用户浏览器和服务器之间提供全双工通信会话。
-它对于创建需要从服务器和向服务器实时数据传输的应用程序特别有用。
+WebSocket 是一种协议，它通过单个 TCP 连接在用户浏览器和服务器之间提供全双工通信会话。它对于创建需要从服务器和向服务器实时数据传输的应用程序特别有用。
 
 Ktor 在服务端和客户端都支持 WebSocket 协议。
 
@@ -51,7 +50,7 @@ Ktor 允许您：
 ## 添加依赖项 {id="add_dependencies"}
 
 <p>
-    要使用 <code>%plugin_name%</code>，您需要在构建脚本中引入 <code>%artifact_name%</code> artifact：
+    要使用 <code>%plugin_name%</code>，您需要在构建脚本中引入 <code>%artifact_name%</code> 构件：
 </p>
 <Tabs group="languages">
     <TabItem title="Gradle (Kotlin)" group-key="kotlin">
@@ -77,7 +76,7 @@ Ktor 允许您：
         ...在 <code>embeddedServer</code> 函数调用内部。
     </li>
     <li>
-        ...在显式定义的 <code>module</code> 内部，`module` 是 <code>Application</code> 类的扩展函数。
+        ...在显式定义的 <code>module</code> 内部，<code>module</code> 是 <code>Application</code> 类的扩展函数。
     </li>
 </list>
 <Tabs>
@@ -211,7 +210,7 @@ val sharedFlow = messageResponseFlow.asSharedFlow()
 
 `runCatching` 代码块处理传入消息并将其发送到 `SharedFlow`，然后 `SharedFlow` 广播给所有收集者。
 
-通过使用此模式，您可以有效地管理多个 WebSocket 会话，而无需手动跟踪单个连接。此方法对于具有许多并发 WebSocket 连接的应用程序具有良好的伸缩性，并提供了一种清晰、反应式的方式来处理消息广播。
+通过使用此模式，您可以有效地管理多个 WebSocket 会话，而无需手动跟踪单个连接。此方法对于具有许多并发 WebSocket 连接的应用程序具有良好的可伸缩性，并提供了一种清晰、反应式的方式来处理消息广播。
 
 有关完整示例，请参见 [server-websockets-sharedflow](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/server-websockets-sharedflow)。
 
@@ -245,4 +244,3 @@ webSocket("/echo") {
         e.printStackTrace()
     }
 }
-```

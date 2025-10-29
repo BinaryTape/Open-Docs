@@ -114,7 +114,7 @@ jwt {
 
 ```
 jwt {
-    privateKey = "MIIBVQIBADANBgkqhki9w0BAQEFAASCAT8wggE7AgEAAkEAtfJaLrzXILUg1U3N1KV8yJr92GHn5OtYZR7qWk1Mc4cy4JGjklYup7weMjBD9f3bBVoIsiUVX6xNcYIr0Ie0AQIDAQABAkEAg+FBquToDeYcAWBe1EaLVyC45HG60zwfG1S4S3IB+y4INz1FHuZppDjBh09jptQNd+kSMlG1LkAc/3znKTPJ7QIhANpyB0OfTK44lpH4ScJmCxjZV52mIrQcmnS3QzkxWQCDAiEA1Tn7qyoh+0rOO/9vJHP8U/beo51SiQMw0880a1UaiisCIQDNwY46EbhGeiLJR1cidr+JHl86rRwPDsolmeEF5AdzRQIgK3KXL3d0WSoS//K6iOkBX3KMRzaFXNnDl0U/XyeGMuUCIHaXv+n+Brz5BDnRbWS+2vkgIe9bUNlkiArpjWvX+2we"
+    privateKey = "MIIBVQIBADANBgkqhkiG9w0BAQEFAASCAT8wggE7AgEAAkEAtfJaLrzXILUg1U3N1KV8yJr92GHn5OtYZR7qWk1Mc4cy4JGjklYup7weMjBD9f3bBVoIsiUVX6xNcYIr0Ie0AQIDAQABAkEAg+FBquToDeYcAWBe1EaLVyC45HG60zwfG1S4S3IB+y4INz1FHuZppDjBh09jptQNd+kSMlG1LkAc/3znKTPJ7QIhANpyB0OfTK44lpH4ScJmCxjZV52mIrQcmnS3QzkxWQCDAiEA1Tn7qyoh+0rOO/9vJHP8U/beo51SiQMw0880a1UaiisCIQDNwY46EbhGeiLJR1cidr+JHl86rRwPDsolmeEF5AdzRQIgK3KXL3d0WSoS//K6iOkBX3KMRzaFXNnDl0U/XyeGMuUCIHaXv+n+Brz5BDnRbWS+2vkgIe9bUNlkiArpjWvX+2we"
     issuer = "http://0.0.0.0:8080/"
     audience = "http://0.0.0.0:8080/hello"
     realm = "Access to 'hello'"
@@ -163,7 +163,7 @@ val myRealm = environment.config.property("jwt.realm").getString()
 ```kotlin
 post("/login") {
     val user = call.receive<User>()
-    // Check username and password
+    // 檢查使用者名稱和密碼
     // ...
     val token = JWT.create()
         .withAudience(audience)
@@ -181,7 +181,7 @@ post("/login") {
 ```kotlin
 post("/login") {
     val user = call.receive<User>()
-    // Check username and password
+    // 檢查使用者名稱和密碼
     // ...
     val publicKey = jwkProvider.get("6f8856ed-9189-488f-9011-0ff4b6c08edc").publicKey
     val keySpecPKCS8 = PKCS8EncodedKeySpec(Base64.getDecoder().decode(privateKeyString))
@@ -206,7 +206,7 @@ post("/login") {
    * 對於 `RS256`，使用公鑰/私鑰對。
 4. `call.respond` [將](server-serialization.md#send_data) token 作為 JSON 物件發送給客戶端。
 
-### 步驟 3：配置 realm {id="realm"}
+### 3. 配置 realm {id="realm"}
 `realm` 屬性允許您設定在存取 [受保護路由](#authenticate-route) 時要在 `WWW-Authenticate` 標頭中傳遞的 `realm`。
 
 ```kotlin
@@ -312,3 +312,4 @@ routing {
         }
     }
 }
+```

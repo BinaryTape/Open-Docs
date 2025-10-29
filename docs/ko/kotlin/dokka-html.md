@@ -10,9 +10,9 @@ HTML은 모든 러너에서 지원하는 출력 형식입니다. HTML 문서를 
 
 *   [Gradle](dokka-gradle.md#generate-documentation)의 경우, `dokkaHtml` 또는 `dokkaHtmlMultiModule` 작업을 실행합니다.
 
-    > Dokka 2.0.0부터, [문서 생성을 위한 Gradle 작업이 변경되었습니다](dokka-migration.md#generate-documentation-with-the-updated-task).
+    > 이 지침은 Dokka Gradle 플러그인 v1 구성 및 작업을 반영합니다. Dokka 2.0.0부터, [문서 생성을 위한 Gradle 작업이 변경되었습니다](dokka-migration.md#generate-documentation-with-the-updated-task).
     >
-    > 자세한 내용과 변경 사항 전체 목록은 [마이그레이션 가이드](dokka-migration.md)를 참조하세요.
+    > Dokka Gradle 플러그인 v2의 자세한 내용과 전체 변경 목록은 [마이그레이션 가이드](dokka-migration.md)를 참조하세요.
     >
     {style="note"}
 
@@ -269,7 +269,7 @@ Dokka는 다음 템플릿을 사용합니다.
 다음 Dokka 정의 [지시문](https://freemarker.apache.org/docs/ref_directive_userDefined.html)을 사용할 수도 있습니다.
 
 | **변수**    | **설명**                                                                                                                                                                                                       |
-|-----------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|-----------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `<@content/>`   | 기본 페이지 콘텐츠.                                                                                                                                                                                                |
 | `<@resources/>` | 스크립트 및 스타일시트와 같은 리소스.                                                                                                                                                                            |
 | `<@version/>`   | 구성에서 가져온 모듈 버전입니다. [버전 관리 플러그인](https://github.com/Kotlin/dokka/tree/%dokkaVersion%/dokka-subprojects/plugin-versioning)이 적용된 경우 버전 내비게이터로 대체됩니다. |

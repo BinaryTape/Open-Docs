@@ -15,7 +15,8 @@ Kotlin의 현재 Stable 버전은 %kotlinVersion%입니다. 프로젝트에서 �
 
 | Kotlin Multiplatform plugin version | Gradle                                | Android Gradle plugin                               | Xcode   |
 |-------------------------------------|---------------------------------------|-----------------------------------------------------|---------|
-| 2.2.20                              | %minGradleVersion%–%maxGradleVersion% | %minAndroidGradleVersion%–%maxAndroidGradleVersion% | %xcode% |
+| 2.2.21                              | %minGradleVersion%–%maxGradleVersion% | %minAndroidGradleVersion%–%maxAndroidGradleVersion% | %xcode% |
+| 2.2.20                              | 7.6.3–8.14                            | 7.3.1–8.11.1                                        | 16.4    |
 | 2.2.0-2.2.10                        | 7.6.3–8.14                            | 7.3.1–8.10.0                                        | 16.3    |
 | 2.1.21                              | 7.6.3–8.12.1                          | 7.3.1–8.7.2                                         | 16.3    |
 | 2.1.20                              | 7.6.3–8.11                            | 7.4.2–8.7.2                                         | 16.0    |
@@ -639,7 +640,7 @@ Kotlin 1.9.0부터 `kotlin-js` Gradle 플러그인은 사용 중단되었습니�
 
 이러한 구성을 유지하려면 멀티플랫폼 빌드 내부 에 대한 추가적인 노력과 지식이 필요합니다. 또한, `commonMain`이 `main` 소스 세트 계층 구조의 루트인지 확실히 하려면 특정 빌드 스크립트를 읽어야 하므로 코드 가독성과 재사용성이 떨어집니다.
 
-따라서 `commonMain` 및 `commonTest`에서 `dependsOn`에 접근하는 것은 이제 사용 중단되었습니다.
+따라서 `dependsOn`을 `commonMain` 및 `commonTest`에서 접근하는 것은 이제 사용 중단되었습니다.
 
 **현재의 모범 사례는 무엇인가요?**
 
@@ -873,7 +874,7 @@ Kotlin 컴파일 작업은 더 이상 `sourceCompatibility` 및 `targetCompatibi
 | `SourceTask.stableSources` 입력은 더 이상 사용할 수 없습니다. | 대신 `sources` 입력을 사용하세요. 또한 `setSource()` 메서드는 여전히 사용할 수 있습니다.              |
 | `sourceFilesExtensions` 입력이 제거되었습니다.            | 컴파일 작업은 여전히 `PatternFilterable` 인터페이스를 구현합니다. Kotlin 소스를 필터링하려면 해당 메서드를 사용하세요. |
 | `Gradle destinationDir: File` 출력이 사용 중단되었습니다.   | 대신 `destinationDirectory: DirectoryProperty` 출력을 사용하세요.                                              |
-| `KotlinCompile` 작업의 `classpath` 속성이 사용 중단되었습니다. | 모든 컴파일 작업은 이제 컴파일에 필요한 라이브러리 목록에 `libraries` 입력을 사용합니다.              |
+| `classpath` 속성이 `KotlinCompile` 작업에서 사용 중단되었습니다. | 모든 컴파일 작업은 이제 컴파일에 필요한 라이브러리 목록에 `libraries` 입력을 사용합니다.              |
 
 **언제부터 변경 사항이 적용되나요?**
 

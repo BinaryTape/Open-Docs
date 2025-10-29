@@ -2,6 +2,23 @@
 
 A2Aサーバーを使用すると、標準化されたA2A (Agent-to-Agent) プロトコルを介してAIエージェントを公開できます。これは、[A2Aプロトコル仕様](https://a2a-protocol.org/latest/specification/)の完全な実装を提供し、クライアントリクエストの処理、エージェントロジックの実行、複雑なタスクライフサイクルの管理、およびリアルタイムのストリーミング応答をサポートします。
 
+## 依存関係
+
+プロジェクトでA2Aサーバーを使用するには、`build.gradle.kts` に次の依存関係を追加します。
+
+```kotlin
+dependencies {
+    // コアA2Aサーバーライブラリ
+    implementation("ai.koog:a2a-server:$koogVersion")
+
+    // HTTP JSON-RPCトランスポート (最も一般的)
+    implementation("ai.koog:a2a-transport-server-jsonrpc-http:$koogVersion")
+
+    // Ktorサーバーエンジン (ニーズに合わせていずれかを選択)
+    implementation("io.ktor:ktor-server-netty:$ktorVersion")
+}
+```
+
 ## 概要
 
 A2Aサーバーは、A2Aプロトコルのトランスポート層とカスタムエージェントロジック間の架け橋として機能します。プロトコル準拠を維持しながらリクエストライフサイクル全体を調整し、堅牢なセッション管理を提供します。
@@ -33,7 +50,7 @@ class MyAgentExecutor : AgentExecutor {
         context: RequestContext<MessageSendParams>,
         eventProcessor: SessionEventProcessor
     ) {
-        // Agent logic here
+        // ここにエージェントロジックを記述
     }
 
     override suspend fun cancel(
@@ -41,7 +58,7 @@ class MyAgentExecutor : AgentExecutor {
         eventProcessor: SessionEventProcessor,
         agentJob: Deferred<Unit>?
     ) {
-        // Cancel agent here, optional
+        // ここでエージェントをキャンセル、オプション
     }
 }
 ```
@@ -53,7 +70,7 @@ class MyAgentExecutor : AgentExecutor {
 - **`sendTaskEvent(event)`**: タスク関連の更新を送信します (長時間実行される操作)
 
 ```kotlin
-// For immediate responses (like chatbots)
+// 即時応答の場合 (チャットボットなど)
 eventProcessor.sendMessage(
     Message(
         messageId = generateId(),
@@ -63,7 +80,7 @@ eventProcessor.sendMessage(
     )
 )
 
-// For task-based operations
+// タスクベースの操作の場合
 eventProcessor.sendTaskEvent(
     TaskStatusUpdateEvent(
         contextId = context.contextId,
@@ -73,7 +90,7 @@ eventProcessor.sendTaskEvent(
             message = Message(/* progress update */),
             timestamp = Clock.System.now()
         ),
-        final = false  // More updates to come
+        final = false  // さらに更新が続く
     )
 )
 ```
@@ -84,33 +101,33 @@ eventProcessor.sendTaskEvent(
 
 ```kotlin
 val agentCard = AgentCard(
-    // Basic Identity
+    // 基本情報
     name = "Advanced Recipe Assistant",
     description = "AI agent specialized in cooking advice, recipe generation, and meal planning",
     version = "2.1.0",
     protocolVersion = "0.3.0",
 
-    // Communication Settings
+    // 通信設定
     url = "https://api.example.com/a2a",
     preferredTransport = TransportProtocol.JSONRPC,
 
-    // Optional: Multiple transport support
+    // オプション: 複数トランスポートのサポート
     additionalInterfaces = listOf(
         AgentInterface("https://api.example.com/a2a", TransportProtocol.JSONRPC),
     ),
 
-    // Capabilities Declaration
+    // 機能宣言
     capabilities = AgentCapabilities(
-        streaming = true,              // Support real-time responses
-        pushNotifications = true,      // Send async notifications
-        stateTransitionHistory = true  // Maintain task history
+        streaming = true,              // リアルタイム応答をサポート
+        pushNotifications = true,      // 非同期通知を送信
+        stateTransitionHistory = true  // タスク履歴を保持
     ),
 
-    // Content Type Support
+    // コンテンツタイプサポート
     defaultInputModes = listOf("text/plain", "text/markdown", "image/jpeg"),
     defaultOutputModes = listOf("text/plain", "text/markdown", "application/json"),
 
-    // Define available security schemes
+    // 利用可能なセキュリティスキームを定義
     securitySchemes = mapOf(
         "bearer" to HTTPAuthSecurityScheme(
             scheme = "Bearer",
@@ -124,16 +141,16 @@ val agentCard = AgentCard(
         )
     ),
 
-    // Specify security requirements (logical OR of requirements)
+    // セキュリティ要件を指定 (要件の論理OR)
     security = listOf(
-        mapOf("bearer" to listOf("read", "write")),  // Option 1: JWT with read/write scopes
-        mapOf("api-key" to emptyList())              // Option 2: API key
+        mapOf("bearer" to listOf("read", "write")),  // オプション1: 読み書きスコープ付きJWT
+        mapOf("api-key" to emptyList())              // オプション2: APIキー
     ),
 
-    // Enable extended card for authenticated users
+    // 認証済みユーザー向けに拡張カードを有効化
     supportsAuthenticatedExtendedCard = true,
     
-    // Skills/Capabilities
+    // スキル/機能
     skills = listOf(
         AgentSkill(
             id = "recipe-generation",
@@ -153,7 +170,7 @@ val agentCard = AgentCard(
         )
     ),
 
-    // Optional: Branding
+    // オプション: ブランド
     iconUrl = "https://example.com/agent-icon.png",
     documentationUrl = "https://docs.example.com/recipe-agent",
     provider = AgentProvider(
@@ -172,10 +189,10 @@ A2A自体は、クライアントと通信するために複数のトランス�
 ```kotlin
 val transport = HttpJSONRPCServerTransport(server)
 transport.start(
-    engineFactory = CIO,           // Ktor engine (CIO, Netty, Jetty)
-    port = 8080,                   // Server port
-    path = "/a2a",                 // API endpoint path
-    wait = true                    // Block until server stops
+    engineFactory = CIO,           // Ktorエンジン (CIO, Netty, Jetty)
+    port = 8080,                   // サーバーポート
+    path = "/a2a",                 // APIエンドポイントパス
+    wait = true                    // サーバーが停止するまでブロック
 )
 ```
 
@@ -183,9 +200,9 @@ transport.start(
 
 A2Aサーバーは、異なる種類のデータを分離するプラガブルなストレージアーキテクチャを使用します。すべてのストレージ実装はオプションであり、開発用にデフォルトでインメモリ版が使用されます。
 
-- **TaskStorage**: タスクライフサイクル管理 - タスクの状態、履歴、アーティファクトを保存および管理します
-- **MessageStorage**: 会話履歴 - 会話コンテキスト内のメッセージ履歴を管理します
-- **PushNotificationConfigStorage**: Webhook管理 - 非同期通知用のWebhook構成を管理します
+- **`TaskStorage`**: タスクライフサイクル管理 - タスクの状態、履歴、アーティファクトを保存および管理します
+- **`MessageStorage`**: 会話履歴 - 会話コンテキスト内のメッセージ履歴を管理します
+- **`PushNotificationConfigStorage`**: Webhook管理 - 非同期通知用のWebhook構成を管理します
 
 ## クイックスタート
 
@@ -198,23 +215,23 @@ val agentCard = AgentCard(
     version = "2.1.0",
     protocolVersion = "0.3.0",
 
-    // Communication Settings
+    // 通信設定
     url = "https://api.example.com/a2a",
     preferredTransport = TransportProtocol.JSONRPC,
 
-    // Capabilities Declaration
+    // 機能宣言
     capabilities =
         AgentCapabilities(
-            streaming = true,              // Support real-time responses
-            pushNotifications = true,      // Send async notifications
-            stateTransitionHistory = true  // Maintain task history
+            streaming = true,              // リアルタイム応答をサポート
+            pushNotifications = true,      // 非同期通知を送信
+            stateTransitionHistory = true  // タスク履歴を保持
         ),
 
-    // Content Type Support
+    // コンテンツタイプサポート
     defaultInputModes = listOf("text/plain", "text/markdown", "image/jpeg"),
     defaultOutputModes = listOf("text/plain", "text/markdown", "application/json"),
 
-    // Skills/Capabilities
+    // スキル/機能
     skills = listOf(
         AgentSkill(
             id = "echo",
@@ -240,7 +257,7 @@ class EchoAgentExecutor : AgentExecutor {
             .filterIsInstance<TextPart>()
             .joinToString(" ") { it.text }
 
-        // Echo the user's message back
+        // ユーザーのメッセージをエコーバック
         val response = Message(
             messageId = UUID.randomUUID().toString(),
             role = Role.Agent,
@@ -267,7 +284,7 @@ val server = A2AServer(
 ### 3. トランスポート層の追加
 トランスポート層を作成し、サーバーを起動します。
 ```kotlin
-// HTTP JSON-RPC transport
+// HTTP JSON-RPCトランスポート
 val transport = HttpJSONRPCServerTransport(server)
 transport.start(
     engineFactory = CIO,
@@ -309,7 +326,7 @@ class TaskAgentExecutor : AgentExecutor {
         context: RequestContext<MessageSendParams>,
         eventProcessor: SessionEventProcessor
     ) {
-        // Send working status
+        // 処理中のステータスを送信
         eventProcessor.sendTaskEvent(
             TaskStatusUpdateEvent(
                 contextId = context.contextId,
@@ -322,9 +339,9 @@ class TaskAgentExecutor : AgentExecutor {
             )
         )
 
-        // Do work...
+        // 処理を実行...
 
-        // Send completion
+        // 完了を送信
         eventProcessor.sendTaskEvent(
             TaskStatusUpdateEvent(
                 contextId = context.contextId,

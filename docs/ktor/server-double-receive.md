@@ -22,7 +22,9 @@
 </p>
 </tldr>
 
-[`%plugin_name%`](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-double-receive/io.ktor.server.plugins.doublereceive/-double-receive.html) 插件提供了多次[接收请求体](server-requests.md#body_contents)的能力，且不会抛出 `RequestAlreadyConsumedException` 异常。如果某个[插件](server-plugins.md)已经消费了请求体，导致你无法在路由处理函数内部接收它，那么此功能会很有用。例如，你可以使用 `%plugin_name%` 通过 [CallLogging](server-call-logging.md) 插件来记录请求体日志，然后再次在 `post` [路由处理函数](server-routing.md#define_route)内部接收请求体。
+[`%plugin_name%`](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-double-receive/io.ktor.server.plugins.doublereceive/-double-receive.html) 插件提供了多次[接收请求体](server-requests.md#body_contents)的能力，且不会抛出 `RequestAlreadyConsumedException` 异常。
+如果某个[插件](server-plugins.md)已经消费了请求体，导致你无法在路由处理函数内部接收它，那么此功能会很有用。
+例如，你可以使用 `%plugin_name%` 通过 [CallLogging](server-call-logging.md) 插件来记录请求体日志，然后再次在 `post` [路由处理函数](server-routing.md#define_route)内部接收请求体。
 
 > `%plugin_name%` 插件使用了一个实验性的 API，预计在即将到来的更新中会有所演进，并可能包含破坏性变更。
 >
@@ -48,7 +50,9 @@
 ## 安装 %plugin_name% {id="install_plugin"}
 
 <p>
-    要将 `<code>%plugin_name%</code>` 插件<a href="#install">安装</a>到应用程序，请在指定的<Links href="/ktor/server-modules" summary="模块允许你通过对路由进行分组来组织应用程序。">模块</Links>中将其传递给 `<code>install</code>` 函数。以下代码片段展示了如何安装 `<code>%plugin_name%</code>` ...
+    要将 `<code>%plugin_name%</code>` 插件<a href="#install">安装</a>到应用程序，
+    请在指定的<Links href="/ktor/server-modules" summary="模块允许你通过对路由进行分组来组织应用程序。">模块</Links>中将其传递给 `<code>install</code>` 函数。
+    以下代码片段展示了如何安装 `<code>%plugin_name%</code>` ...
 </p>
 <list>
     <li>
@@ -67,10 +71,12 @@
     </TabItem>
 </Tabs>
 <p>
-    `<code>%plugin_name%</code>` 插件也可以<a href="#install-route">安装到特定路由</a>。如果你需要针对不同的应用程序资源使用不同的 `<code>%plugin_name%</code>` 配置，这可能会很有用。
+    `<code>%plugin_name%</code>` 插件也可以<a href="#install-route">安装到特定路由</a>。
+    如果你需要针对不同的应用程序资源使用不同的 `<code>%plugin_name%</code>` 配置，这可能会很有用。
 </p>
 
-安装 `%plugin_name%` 后，你可以多次[接收请求体](server-requests.md#body_contents)，并且每次调用都会返回相同的实例。例如，你可以使用 [CallLogging](server-call-logging.md) 插件启用请求体日志记录...
+安装 `%plugin_name%` 后，你可以多次[接收请求体](server-requests.md#body_contents)，并且每次调用都会返回相同的实例。
+例如，你可以使用 [CallLogging](server-call-logging.md) 插件启用请求体日志记录...
 
 ```kotlin
 install(CallLogging) {
@@ -113,3 +119,4 @@ post("/") {
 install(DoubleReceive) {
     cacheRawRequest = false
 }
+```

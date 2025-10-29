@@ -46,13 +46,6 @@
             <br/>
         </li>
         <li>
-            <a href="https://kotlinlang.org/api/kotlinx-metadata-jvm/"><b>JVM Metadata (kotlin-metadata-jvm)</b></a>
-            <br/>
-            <p>一个用于读写存储在 JVM 类文件中的 Kotlin 元数据的库。它主要由注解处理器、静态分析器和编译器插件等工具使用。</p>
-            <img src="github.svg" width="18" alt="GitHub"/> <a href="https://github.com/JetBrains/kotlin/tree/master/libraries/kotlinx-metadata">kotlinx-metadata</a>
-            <br/>
-        </li>
-        <li>
             <a href="https://kotlinlang.org/api/kotlin-gradle-plugin/"><b>Kotlin Gradle plugins (kotlin-gradle-plugin)</b></a>
             <br/>
             <p>用于编译、测试和打包 Kotlin 代码的 Kotlin Gradle 插件。这些插件简化了 JVM 和多平台构建，管理依赖项，并与 IDE 和 CI 系统集成。</p>
@@ -64,6 +57,20 @@
             <br/>
             <p>一个用于使用 Kotlin 在互联系统中构建异步客户端和服务器的框架。Ktor 旨在实现可伸缩性和灵活性，并与协程深度集成，以实现非阻塞 I/O 和结构化并发。</p>
             <img src="github.svg" width="18" alt="GitHub"/> <a href="https://github.com/ktorio/ktor">ktor</a>
+            <br/>
+        </li>
+        <li>
+            <a href="https://kotlinlang.org/api/kotlinx-metadata-jvm/"><b>JVM Metadata (kotlin-metadata-jvm)</b></a>
+            <br/>
+            <p>一个用于读写存储在 JVM 类文件中的 Kotlin 元数据的库。它主要由注解处理器、静态分析器和编译器插件等工具使用。</p>
+            <img src="github.svg" width="18" alt="GitHub"/> <a href="https://github.com/JetBrains/kotlin/tree/master/libraries/kotlinx-metadata">kotlinx-metadata</a>
+            <br/>
+        </li>
+        <li>
+            <a href="https://kotlinlang.org/api/compose-multiplatform/material3/"><b>Compose Multiplatform Material3</b></a>
+            <br/>
+            <p>一个用于使用 Material Design 3 组件构建用户界面的多平台库。API 参考包括一个 Material 3 组件画廊，您可以在其中预览可组合项。</p>
+            <img src="github.svg" width="18" alt="GitHub"/> <a href="https://github.com/JetBrains/compose-multiplatform-core/tree/jb-main/compose/material3">compose-material3</a>
             <br/>
         </li>
 </list>

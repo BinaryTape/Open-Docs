@@ -23,7 +23,8 @@
 </p>
 </tldr>
 
-サーバーが[クロスオリジンリクエスト](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS)を処理するように想定されている場合、[CORS](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-cors/io.ktor.server.plugins.cors.routing/-c-o-r-s.html) Ktorプラグインをインストールして設定する必要があります。このプラグインを使用すると、許可されたホスト、HTTPメソッド、クライアントによって設定されたヘッダーなどを設定できます。
+サーバーが[クロスオリジンリクエスト](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS)を処理するように想定されている場合、
+[CORS](https://api.ktor.io/ktor-server-cors/io.ktor.server.plugins.cors.routing/-c-o-r-s.html) Ktorプラグインをインストールして設定する必要があります。このプラグインを使用すると、許可されたホスト、HTTPメソッド、クライアントによって設定されたヘッダーなどを設定できます。
 
 ## 依存関係の追加 {id="add_dependencies"}
 
@@ -45,7 +46,9 @@
 ## %plugin_name%のインストール {id="install_plugin"}
 
 <p>
-    <code>%plugin_name%</code>プラグインをアプリケーションに<a href="#install">インストール</a>するには、指定された<Links href="/ktor/server-modules" summary="モジュールを使用すると、ルートをグループ化してアプリケーションを構造化できます。">モジュール</Links>内の<code>install</code>関数に渡します。以下のコードスニペットは、<code>%plugin_name%</code>をインストールする方法を示しています...
+    <code>%plugin_name%</code>プラグインをアプリケーションに<a href="#install">インストール</a>するには、
+    指定された<Links href="/ktor/server-modules" summary="モジュールを使用すると、ルートをグループ化してアプリケーションを構造化できます。">モジュール</Links>内の<code>install</code>関数に渡します。
+    以下のコードスニペットは、<code>%plugin_name%</code>をインストールする方法を示しています...
 </p>
 <list>
     <li>
@@ -64,18 +67,25 @@
     </TabItem>
 </Tabs>
 <p>
-    <code>%plugin_name%</code>プラグインは、<a href="#install-route">特定のルートにもインストール</a>できます。これは、異なるアプリケーションリソースに対して異なる<code>%plugin_name%</code>構成が必要な場合に役立ちます。
+    <code>%plugin_name%</code>プラグインは、<a href="#install-route">特定のルートにもインストール</a>できます。
+    これは、異なるアプリケーションリソースに対して異なる<code>%plugin_name%</code>構成が必要な場合に役立ちます。
 </p>
 
-> <code>CORS</code>プラグインを特定のルートにインストールする場合、このルートに<code>options</code> [ハンドラー](server-routing.md#define_route)を追加する必要があります。これにより、KtorはCORSプリフライトリクエストに正しく応答できます。
+> `CORS`プラグインを特定のルートにインストールする場合、このルートに
+`options` [ハンドラー](server-routing.md#define_route)を追加する必要があります。これにより、KtorはCORS
+プリフライトリクエストに正しく応答できます。
 
 ## CORSの設定 {id="configure"}
 
-CORS固有の設定は、[CORSConfig](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-cors/io.ktor.server.plugins.cors/-c-o-r-s-config/index.html)クラスによって公開されています。これらの設定を構成する方法を見てみましょう。
+CORS固有の設定は、
+[CORSConfig](https://api.ktor.io/ktor-server-cors/io.ktor.server.plugins.cors/-c-o-r-s-config/index.html)
+クラスによって公開されています。これらの設定を構成する方法を見てみましょう。
 
 ### 概要 {id="overview"}
 
-<code>8080</code>ポートでリッスンし、<code>/customer</code> [ルート](server-routing.md)が[JSON](server-serialization.md#send_data)データを応答するサーバーがあるとします。以下のコードスニペットは、別のポートで動作するクライアントからFetch APIを使用して行われたサンプルリクエストを示しており、このリクエストがクロスオリジンになるようにしています。
+<code>8080</code>ポートでリッスンし、`/customer` [ルート](server-routing.md)が
+[JSON](server-serialization.md#send_data)データを応答するサーバーがあるとします。以下のコードスニペットは、
+別のポートで動作するクライアントからFetch APIを使用して行われたサンプルリクエストを示しており、このリクエストがクロスオリジンになるようにしています。
 
 ```javascript
 function saveCustomer() {
@@ -100,7 +110,7 @@ function saveCustomer() {
 
 ```
 
-バックエンド側でこのようなリクエストを許可するには、<code>CORS</code>プラグインを次のように構成する必要があります:
+バックエンド側でこのようなリクエストを許可するには、`CORS`プラグインを次のように構成する必要があります:
 
 ```kotlin
 install(CORS) {
@@ -113,7 +123,8 @@ install(CORS) {
 
 ### ホスト {id="hosts"}
 
-クロスオリジンリクエストを行うことができる許可されたホストを指定するには、<code>allowHost</code>関数を使用します。ホスト名の他に、ポート番号、サブドメインのリスト、またはサポートされているHTTPスキームを指定できます。
+クロスオリジンリクエストを行うことができる許可されたホストを指定するには、`allowHost`関数を使用します。ホスト名の他に、
+ポート番号、サブドメインのリスト、またはサポートされているHTTPスキームを指定できます。
 
 ```kotlin
 install(CORS) {
@@ -124,7 +135,7 @@ install(CORS) {
 }
 ```
 
-任意のホストからのクロスオリジンリクエストを許可するには、<code>anyHost</code>関数を使用します。
+任意のホストからのクロスオリジンリクエストを許可するには、`anyHost`関数を使用します。
 
 ```kotlin
 install(CORS) {
@@ -134,7 +145,8 @@ install(CORS) {
 
 ### HTTPメソッド {id="methods"}
 
-デフォルトでは、<code>%plugin_name%</code>プラグインは<code>GET</code>、<code>POST</code>、<code>HEAD</code>のHTTPメソッドを許可します。追加のメソッドを追加するには、<code>allowMethod</code>関数を使用します。
+デフォルトでは、`%plugin_name%`プラグインは`GET`、`POST`、`HEAD`のHTTPメソッドを許可します。追加のメソッドを追加するには、
+`allowMethod`関数を使用します。
 
 ```kotlin
 install(CORS) {
@@ -147,13 +159,13 @@ install(CORS) {
 
 ### ヘッダーの許可 {id="headers"}
 
-デフォルトでは、<code>%plugin_name%</code>プラグインは<code>Access-Control-Allow-Headers</code>によって管理される以下のクライアントヘッダーを許可します:
+デフォルトでは、`%plugin_name%`プラグインは`Access-Control-Allow-Headers`によって管理される以下のクライアントヘッダーを許可します:
 
-*   <code>Accept</code>
-*   <code>Accept-Language</code>
-*   <code>Content-Language</code>
+*   `Accept`
+*   `Accept-Language`
+*   `Content-Language`
 
-追加のヘッダーを許可するには、<code>allowHeader</code>関数を使用します。
+追加のヘッダーを許可するには、`allowHeader`関数を使用します。
 
 ```kotlin
 install(CORS) {
@@ -162,7 +174,8 @@ install(CORS) {
 }
 ```
 
-カスタムヘッダーを許可するには、<code>allowHeaders</code>関数または<code>allowHeadersPrefixed</code>関数を使用します。例えば、以下のコードスニペットは、<code>custom-</code>で始まるヘッダーを許可する方法を示しています。
+カスタムヘッダーを許可するには、`allowHeaders`関数または`allowHeadersPrefixed`関数を使用します。例えば、以下のコードスニペットは、
+`custom-`で始まるヘッダーを許可する方法を示しています。
 
 ```kotlin
 install(CORS) {
@@ -170,11 +183,14 @@ install(CORS) {
 }
 ```
 
-> <code>allowHeaders</code>または<code>allowHeadersPrefixed</code>は、非単純なコンテンツタイプの場合、[allowNonSimpleContentTypes](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-cors/io.ktor.server.plugins.cors/-c-o-r-s-config/allow-non-simple-content-types.html)プロパティを<code>true</code>に設定する必要があることに注意してください。
+> `allowHeaders`または`allowHeadersPrefixed`は、非単純なコンテンツタイプの場合、
+[allowNonSimpleContentTypes](https://api.ktor.io/ktor-server-cors/io.ktor.server.plugins.cors/-c-o-r-s-config/allow-non-simple-content-types.html)
+プロパティを`true`に設定する必要があることに注意してください。
 
 ### ヘッダーの公開 {id="expose-headers"}
 
-<code>Access-Control-Expose-Headers</code>ヘッダーは、ブラウザのJavaScriptがアクセスできる許可リストに指定されたヘッダーを追加します。このようなヘッダーを構成するには、<code>exposeHeader</code>関数を使用します。
+`Access-Control-Expose-Headers`ヘッダーは、ブラウザのJavaScriptがアクセスできる許可リストに指定されたヘッダーを追加します。
+このようなヘッダーを構成するには、`exposeHeader`関数を使用します。
 
 ```kotlin
 install(CORS) {
@@ -186,7 +202,8 @@ install(CORS) {
 
 ### 認証情報 {id="credentials"}
 
-デフォルトでは、ブラウザはクロスオリジンリクエストで認証情報（クッキーや認証情報など）を送信しません。この情報の受け渡しを許可するには、<code>allowCredentials</code>プロパティを使用して<code>Access-Control-Allow-Credentials</code>応答ヘッダーを<code>true</code>に設定します。
+デフォルトでは、ブラウザはクロスオリジンリクエストで認証情報（クッキーや認証情報など）を送信しません。この情報の受け渡しを許可するには、
+`allowCredentials`プロパティを使用して`Access-Control-Allow-Credentials`応答ヘッダーを`true`に設定します。
 
 ```kotlin
 install(CORS) {
@@ -196,7 +213,8 @@ install(CORS) {
 
 ### その他 {id="misc"}
 
-<code>%plugin_name%</code>プラグインは、他のCORS関連の設定も指定できます。例えば、<code>maxAgeInSeconds</code>を使用すると、プリフライトリクエストに対する応答を、別のプリフライトリクエストを送信することなくキャッシュできる期間を指定できます。
+`%plugin_name%`プラグインは、他のCORS関連の設定も指定できます。例えば、
+`maxAgeInSeconds`を使用すると、プリフライトリクエストに対する応答を、別のプリフライトリクエストを送信することなくキャッシュできる期間を指定できます。
 
 ```kotlin
 install(CORS) {
@@ -204,4 +222,5 @@ install(CORS) {
 }
 ```
 
-その他の設定オプションについては、[CORSConfig](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-cors/io.ktor.server.plugins.cors/-c-o-r-s-config/index.html)で確認できます。
+その他の設定オプションについては、
+[CORSConfig](https://api.ktor.io/ktor-server-cors/io.ktor.server.plugins.cors/-c-o-r-s-config/index.html)で確認できます。

@@ -60,32 +60,32 @@ fun main() {
 }
 -->
 ```kotlin
-// Ollama を使用してエンベッダーを作成
+// Create an embedder using Ollama
 val embedder = LLMEmbedder(OllamaClient(), OllamaEmbeddingModels.NOMIC_EMBED_TEXT)
-// OpenAI の埋め込みも使用できます:
+// You may also use OpenAI embeddings with:
 // val embedder = LLMEmbedder(OpenAILLMClient("API_KEY"), OpenAIModels.Embeddings.TextEmbeddingAda3Large)
 
-// JVM 固有のドキュメントエンベッダーを作成
+// Create a JVM-specific document embedder
 val documentEmbedder = JVMTextDocumentEmbedder(embedder)
 
-// インメモリベクトルストレージを使用してランク付けされたドキュメントストレージを作成
+// Create a ranked document storage using in-memory vector storage
 val rankedDocumentStorage = EmbeddingBasedDocumentStorage(documentEmbedder, InMemoryVectorStorage())
 
-// ストレージにドキュメントを保存
+// Store documents in the storage
 rankedDocumentStorage.store(Path.of("./my/documents/doc1.txt"))
 rankedDocumentStorage.store(Path.of("./my/documents/doc2.txt"))
 rankedDocumentStorage.store(Path.of("./my/documents/doc3.txt"))
-// ... 必要に応じてさらにドキュメントを保存
+// ... store more documents as needed
 rankedDocumentStorage.store(Path.of("./my/documents/doc100.txt"))
 
-// ユーザーのクエリに最も関連性の高いドキュメントを見つける
+// Find the most relevant documents for a user query
 val query = "I want to open a bank account but I'm getting a 404 when I open your website. I used to be your client with a different account 5 years ago before you changed your firm name"
 val relevantFiles = rankedDocumentStorage.mostRelevantDocuments(query, count = 3)
 
-// 関連ファイルを処理
+// Process the relevant files
 relevantFiles.forEach { file ->
     println("Relevant file: ${file.toAbsolutePath()}")
-    // 必要に応じてファイルコンテンツを処理
+    // Process the file content as needed
 }
 ```
 <!--- KNIT example-ranked-document-storage-01.kt -->
@@ -111,15 +111,15 @@ import ai.koog.rag.vector.InMemoryVectorStorage
 import ai.koog.rag.vector.JVMTextDocumentEmbedder
 import kotlin.io.path.pathString
 
-// Ollama を使用してエンベッダーを作成
+// Create an embedder using Ollama
 val embedder = LLMEmbedder(OllamaClient(), OllamaEmbeddingModels.NOMIC_EMBED_TEXT)
-// OpenAI の埋め込みも使用できます:
+// You may also use OpenAI embeddings with:
 // val embedder = LLMEmbedder(OpenAILLMClient("API_KEY"), OpenAIModels.Embeddings.TextEmbeddingAda3Large)
 
-// JVM 固有のドキュメントエンベッダーを作成
+// Create a JVM-specific document embedder
 val documentEmbedder = JVMTextDocumentEmbedder(embedder)
 
-// インメモリベクトルストレージを使用してランク付けされたドキュメントストレージを作成
+// Create a ranked document storage using in-memory vector storage
 val rankedDocumentStorage = EmbeddingBasedDocumentStorage(documentEmbedder, InMemoryVectorStorage())
 
 const val apiKey = "apikey"
@@ -127,23 +127,21 @@ const val apiKey = "apikey"
 -->
 ```kotlin
 suspend fun solveUserRequest(query: String) {
-    // ドキュメントプロバイダーから上位 5 つのドキュメントを取得
+    // Retrieve top-5 documents from the document provider
     val relevantDocuments = rankedDocumentStorage.mostRelevantDocuments(query, count = 5)
 
-    // 関連コンテキストを持つ AI エージェントを作成
+    // Create an AI Agent with the relevant context
     val agentConfig = AIAgentConfig(
         prompt = prompt("context") {
             system("You are a helpful assistant. Use the provided context to answer the user's question accurately.")
             user {
-                "Relevant context"
-                attachments {
-                    relevantDocuments.forEach {
-                        file(it.pathString, "text/plain")
-                    }
+                +"Relevant context:"
+                relevantDocuments.forEach {
+                    file(it.pathString, "text/plain")
                 }
             }
         },
-        model = OpenAIModels.Chat.GPT4o, // または、選択した別のモデル
+        model = OpenAIModels.Chat.GPT4o, // Or a different model of your choice
         maxAgentIterations = 100,
     )
 
@@ -152,10 +150,10 @@ suspend fun solveUserRequest(query: String) {
         llmModel = OpenAIModels.Chat.GPT4o
     )
 
-    // エージェントを実行して応答を取得
+    // Run the agent to get a response
     val response = agent.run(query)
 
-    // 応答を返すか処理
+    // Return or process the response
     println("Agent response: $response")
 }
 ```
@@ -185,15 +183,15 @@ import ai.koog.rag.vector.JVMTextDocumentEmbedder
 import kotlinx.coroutines.runBlocking
 import java.nio.file.Files
 
-// Ollama を使用してエンベッダーを作成
+// Create an embedder using Ollama
 val embedder = LLMEmbedder(OllamaClient(), OllamaEmbeddingModels.NOMIC_EMBED_TEXT)
-// OpenAI の埋め込みも使用できます:
+// You may also use OpenAI embeddings with:
 // val embedder = LLMEmbedder(OpenAILLMClient("API_KEY"), OpenAIModels.Embeddings.TextEmbeddingAda3Large)
 
-// JVM 固有のドキュメントエンベッダーを作成
+// Create a JVM-specific document embedder
 val documentEmbedder = JVMTextDocumentEmbedder(embedder)
 
-// インメモリベクトルストレージを使用してランク付けされたドキュメントストレージを作成
+// Create a ranked document storage using in-memory vector storage
 val rankedDocumentStorage = EmbeddingBasedDocumentStorage(documentEmbedder, InMemoryVectorStorage())
 
 const val apiKey = "apikey"
@@ -212,7 +210,7 @@ suspend fun searchDocuments(
         rankedDocumentStorage.mostRelevantDocuments(query, count = count, similarityThreshold = 0.9).toList()
 
     if (!relevantDocuments.isEmpty()) {
-        return "No relevant documents found for the query: $query"
+        return "クエリ「$query」に関連ドキュメントは見つかりませんでした"
     }
 
     val result = StringBuilder("関連ドキュメントが ${relevantDocuments.size} 件見つかりました:

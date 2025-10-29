@@ -46,13 +46,6 @@
             <br/>
         </li>
         <li>
-            <a href="https://kotlinlang.org/api/kotlinx-metadata-jvm/"><b>JVMメタデータ (kotlin-metadata-jvm)</b></a>
-            <br/>
-            <p>JVMクラスファイルに保存されているKotlinメタデータを読み書きするためのライブラリです。主にアノテーションプロセッサ、静的アナライザ、コンパイラプラグインなどのツールで使用されます。</p>
-            <img src="github.svg" width="18" alt="GitHub"/> <a href="https://github.com/JetBrains/kotlin/tree/master/libraries/kotlinx-metadata">kotlinx-metadata</a>
-            <br/>
-        </li>
-        <li>
             <a href="https://kotlinlang.org/api/kotlin-gradle-plugin/"><b>Kotlin Gradleプラグイン (kotlin-gradle-plugin)</b></a>
             <br/>
             <p>Kotlinコードのコンパイル、テスト、パッケージングを行うためのKotlin Gradleプラグインです。これらのプラグインは、JVMおよびマルチプラットフォームビルドを簡素化し、依存関係を管理し、IDEやCIシステムと統合します。</p>
@@ -64,6 +57,20 @@
             <br/>
             <p>Kotlinを使用して接続システムで非同期クライアントとサーバーを構築するためのフレームワークです。Ktorはスケーラビリティと柔軟性のために設計されており、非ブロッキングI/Oと構造化された並行処理のためにコルーチンと深く統合されています。</p>
             <img src="github.svg" width="18" alt="GitHub"/> <a href="https://github.com/ktorio/ktor">ktor</a>
+            <br/>
+        </li>
+        <li>
+            <a href="https://kotlinlang.org/api/kotlinx-metadata-jvm/"><b>JVMメタデータ (kotlin-metadata-jvm)</b></a>
+            <br/>
+            <p>JVMクラスファイルに保存されているKotlinメタデータを読み書きするためのライブラリです。主にアノテーションプロセッサ、静的アナライザ、コンパイラプラグインなどのツールで使用されます。</p>
+            <img src="github.svg" width="18" alt="GitHub"/> <a href="https://github.com/JetBrains/kotlin/tree/master/libraries/kotlinx-metadata">kotlinx-metadata</a>
+            <br/>
+        </li>
+        <li>
+            <a href="https://kotlinlang.org/api/compose-multiplatform/material3/"><b>Compose Multiplatform Material3</b></a>
+            <br/>
+            <p>Material Design 3コンポーネントを使用してユーザーインターフェースを構築するためのマルチプラットフォームライブラリです。APIリファレンスには、コンポーザブルをプレビューできるMaterial 3コンポーネントのギャラリーが含まれています。</p>
+            <img src="github.svg" width="18" alt="GitHub"/> <a href="https://github.com/JetBrains/compose-multiplatform-core/tree/jb-main/compose/material3">compose-material3</a>
             <br/>
         </li>
 </list>

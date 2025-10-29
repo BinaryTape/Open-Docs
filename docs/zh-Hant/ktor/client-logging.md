@@ -19,7 +19,7 @@
 日誌記錄是一種追蹤程式執行情況並透過記錄重要事件、錯誤或資訊性訊息來診斷問題的方式。
 
 Ktor 提供使用
-[Logging](https://api.ktor.io/ktor-client/ktor-client-plugins/ktor-client-logging/io.ktor.client.plugins.logging/-logging)
+[Logging](https://api.ktor.io/ktor-client-logging/io.ktor.client.plugins.logging/-logging)
 外掛程式來記錄 HTTP 呼叫的功能。
 此外掛程式為不同的平台提供不同的日誌記錄器類型。
 
@@ -123,7 +123,7 @@ val client = HttpClient(CIO) {
 ## 配置 Logging {id="configure_plugin"}
 
 `Logging` 外掛程式的配置由
-[Logging.Config](https://api.ktor.io/ktor-client/ktor-client-plugins/ktor-client-logging/io.ktor.client.plugins.logging/-logging-config)
+[Logging.Config](https://api.ktor.io/ktor-client-logging/io.ktor.client.plugins.logging/-logging-config)
 類別提供。以下範例顯示一個範例配置：
 
 `logger`

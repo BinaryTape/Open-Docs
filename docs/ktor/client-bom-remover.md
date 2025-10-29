@@ -24,7 +24,10 @@ BOMRemover 插件允许你从响应体中移除字节顺序标记 (BOM)。
 
 在某些情况下，有必要从响应体中移除 BOM。例如，在 UTF-8 编码中，BOM 的存在是可选的，并且当被不知道如何处理 BOM 的软件读取时，可能会导致问题。
 
-Ktor 客户端提供了 [BOMRemover](https://api.ktor.io/ktor-client/ktor-client-plugins/ktor-client-bom-remover/io.ktor.client.plugins.bomremover/index.html) 插件，该插件可以从 UTF-8、UTF-16 (BE)、UTF-16 (LE)、UTF-32 (BE) 和 UTF-32 (LE) 编码的响应体中移除 BOM。
+Ktor 客户端提供了
+[BOMRemover](https://api.ktor.io/ktor-client-bom-remover/io.ktor.client.plugins.bomremover/index.html)
+插件，该插件可以从 UTF-8、UTF-16 (BE)、UTF-16 (LE)、UTF-32 (BE) 和 UTF-32 (LE)
+编码的响应体中移除 BOM。
 
 > 请注意，在移除 BOM 时，Ktor 不会改变 `Content-Length` 标头，该标头会保留初始响应的长度。
 >
@@ -51,7 +54,8 @@ Ktor 客户端提供了 [BOMRemover](https://api.ktor.io/ktor-client/ktor-client
 
 ## 安装 BOMRemover {id="install_plugin"}
 
-要安装 `BOMRemover`，请将其传递给 [客户端配置块](client-create-and-configure.md#configure-client) 内的 `install` 函数：
+要安装 `BOMRemover`，请将其传递给
+[客户端配置块](client-create-and-configure.md#configure-client) 内的 `install` 函数：
 
 ```kotlin
 import io.ktor.client.*

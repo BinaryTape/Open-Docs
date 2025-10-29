@@ -2,8 +2,8 @@
 
 <tldr>
 <p>
-<b>代码示例</b>:
-<a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/embedded-server-modules">embedded-server-modules</a>,
+<b>代码示例</b>: 
+<a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/embedded-server-modules">embedded-server-modules</a>, 
 <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/engine-main-modules">engine-main-modules</a>
 </p>
 </tldr>
@@ -67,6 +67,7 @@ fun Application.module2() {
         }
     }
 }
+
 ```
 
 你可以在这里找到完整示例：[embedded-server-modules](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/embedded-server-modules)。
@@ -104,6 +105,7 @@ fun Application.module2() {
         }
     }
 }
+
 ```
 
 </TabItem>
@@ -123,6 +125,7 @@ fun Application.module3() {
         }
     }
 }
+
 ```
 
 </TabItem>
@@ -176,10 +179,10 @@ suspend fun Application.installEvents() {
 
 以下 Gradle 配置属性可用：
 
-| 属性                                  | 类型                        | 描述                                          | 默认值      |
-|-------------------------------------|-----------------------------|-----------------------------------------------|--------------|
-| `ktor.application.startup`          | `sequential` / `concurrent` | 定义应用程序模块的加载方式                    | `sequential` |
-| `ktor.application.startupTimeoutMillis` | `Long`                      | 应用程序模块加载的超时时间（毫秒）            | `100000`     |
+| 属性                                | 类型                        | 描述                                              | 默认值      |
+|-------------------------------------|-----------------------------|---------------------------------------------------|--------------|
+| `ktor.application.startup`              | `sequential` / `concurrent` | 定义应用程序模块的加载方式                        | `sequential` |
+| `ktor.application.startupTimeoutMillis` | `Long`                      | 应用程序模块加载的超时时间（毫秒）                | `100000`     |
 
 ### 启用并发模块加载
 
@@ -193,7 +196,7 @@ ktor.application.startup = concurrent
 
 ```kotlin
 suspend fun Application.installEvents() {
-    // Suspends until provided
+    // 挂起直到提供
     val kubernetesConnection = dependencies.resolve<KubernetesConnection>()
 }
 

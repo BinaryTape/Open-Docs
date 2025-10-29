@@ -4,7 +4,7 @@
 
 <tldr>
 <p>
-<b>所需依赖项</b>：`io.ktor:ktor-server-test-host`、`org.jetbrains.kotlin:kotlin-test`
+<b>必需依赖项</b>：`io.ktor:ktor-server-test-host`、`org.jetbrains.kotlin:kotlin-test`
 </p>
 </tldr>
 
@@ -191,7 +191,7 @@ fun testHello() = testApplication {
        }
    }
    ```
-
+   
    你可以在此处找到包含测试的完整示例：[auth-oauth-google](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/auth-oauth-google)。
 
 #### 自定义环境 {id="environment"}
@@ -290,7 +290,7 @@ fun testHello() = testApplication {
 
 ### 步骤 4：断言结果 {id="assert"}
 
-接收到[响应](#make-request)后，你可以通过 `kotlin.test` 库提供的断言来验证结果：
+接收到[响应](#make-request)后，你可以通过 [kotlin.test](https://kotlinlang.org/api/latest/kotlin.test/) 库提供的断言来验证结果：
 
 ```kotlin
     @Test
@@ -317,11 +317,11 @@ fun testHello() = testApplication {
 
 ### 发送表单数据 {id="form-data"}
 
-要在测试 `POST`/`PUT` 请求中发送表单数据，你需要设置 `Content-Type` 头并指定请求体。为此，你可以分别使用 `header` 和 `setBody` 函数。以下示例展示了如何使用 `x-www-form-urlencoded` 和 `multipart/form-data` 类型发送表单数据。
+要在测试 `POST`/`PUT` 请求中发送表单数据，你需要设置 `Content-Type` 头并指定请求体。为此，你可以分别使用 [header](client-requests.md#headers) 和 [setBody](client-requests.md#body) 函数。以下示例展示了如何使用 `x-www-form-urlencoded` 和 `multipart/form-data` 类型发送表单数据。
 
 #### x-www-form-urlencoded {id="x-www-form-urlencoded"}
 
-以下来自 [post-form-parameters](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/post-form-parameters) 示例的测试展示了如何使用 `x-www-form-urlencoded` 内容类型发送带表单参数的测试请求。请注意，`formUrlEncode` 函数用于从键值对列表编码表单参数。
+以下来自 [post-form-parameters](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/post-form-parameters) 示例的测试展示了如何使用 `x-www-form-urlencoded` 内容类型发送带表单参数的测试请求。请注意，[formUrlEncode](https://api.ktor.io/ktor-http/io.ktor.http/form-url-encode.html) 函数用于从键值对列表编码表单参数。
 
 <Tabs>
 <TabItem title="Test">
@@ -482,7 +482,7 @@ fun Application.main() {
 
 ### 发送 JSON 数据 {id="json-data"}
 
-要在测试 `POST`/`PUT` 请求中发送 JSON 数据，你需要创建一个新客户端并安装 [ContentNegotiation](client-serialization.md) 插件，该插件允许以特定格式序列化/反序列化内容。在请求内部，你可以使用 `contentType` 函数指定 `Content-Type` 头，并使用 `setBody` 函数指定请求体。以下[示例](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/json-kotlinx)展示了如何测试处理 `POST` 请求的 `/customer` 端点。
+要在测试 `POST`/`PUT` 请求中发送 JSON 数据，你需要创建一个新客户端并安装 [ContentNegotiation](client-serialization.md) 插件，该插件允许以特定格式序列化/反序列化内容。在请求内部，你可以使用 `contentType` 函数指定 `Content-Type` 头，并使用 [setBody](client-requests.md#body) 函数指定请求体。以下[示例](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/json-kotlinx)展示了如何测试处理 `POST` 请求的 `/customer` 端点。
 
 <Tabs>
 <TabItem title="Test">

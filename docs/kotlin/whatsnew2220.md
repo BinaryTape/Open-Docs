@@ -9,7 +9,10 @@ _[发布日期：2025 年 9 月 10 日](releases.md#release-details)_
 >
 {style="note"}
 
-Kotlin 2.2.20 版本现已发布，为 Web 开发带来了重要变更。[Kotlin/Wasm 现已进入 Beta 阶段](#kotlin-wasm)，并改进了 [JavaScript 互操作中的异常处理](#improved-exception-handling-in-kotlin-wasm-and-javascript-interop)、[npm 依赖项管理](#separated-npm-dependencies)、[内置浏览器调试支持](#support-for-debugging-in-browsers-without-configuration)，以及为 `js` 和 `wasmJs` 目标平台引入了新的[共享源代码集](#shared-source-set-for-js-and-wasmjs-targets)。
+Kotlin 2.2.20 版本现已发布，为 Web 开发带来了重要变更。[Kotlin/Wasm 现已进入 Beta 阶段](#kotlin-wasm)，
+并改进了 [JavaScript 互操作中的异常处理](#improved-exception-handling-in-kotlin-wasm-and-javascript-interop)、
+[npm 依赖项管理](#separated-npm-dependencies)、[内置浏览器调试支持](#support-for-debugging-in-browsers-without-configuration)，
+以及为 `js` 和 `wasmJs` 目标平台引入了新的[共享源代码集](#shared-source-set-for-js-and-wasmjs-targets)。
 
 此外，以下是一些主要亮点：
 
@@ -30,7 +33,11 @@ Kotlin 2.2.20 版本现已发布，为 Web 开发带来了重要变更。[Kotlin
 
 ## 语言
 
-在 Kotlin 2.2.20 中，您可以试用计划用于 Kotlin 2.3.0 的即将推出的语言特性，包括[将 lambda 传递给挂起函数类型重载时，改进的重载决议](#improved-overload-resolution-for-lambdas-with-suspend-function-types)，以及[支持在具有显式返回类型的表达式体中使用 `return` 语句](#support-for-return-statements-in-expression-bodies-with-explicit-return-types)。此版本还包括对 [`when` 表达式的穷尽性检测](#data-flow-based-exhaustiveness-checks-for-when-expressions)、[具体化 `Throwable` 捕获](#support-for-reified-types-in-catch-clauses)和 [Kotlin 契约](#improved-kotlin-contracts)的改进。
+在 Kotlin 2.2.20 中，您可以试用计划用于 Kotlin 2.3.0 的即将推出的语言特性，包括
+[将 lambda 传递给挂起函数类型重载时，改进的重载决议](#improved-overload-resolution-for-lambdas-with-suspend-function-types)
+和[支持在具有显式返回类型的表达式体中使用 `return` 语句](#support-for-return-statements-in-expression-bodies-with-explicit-return-types)。此版本还包括对
+[`when` 表达式的穷尽性检测](#data-flow-based-exhaustiveness-checks-for-when-expressions)、
+[具体化 `Throwable` 捕获](#support-for-reified-types-in-catch-clauses)和 [Kotlin 契约](#improved-kotlin-contracts)的改进。
 
 ### 将 lambda 传递给挂起函数类型重载时，改进的重载决议
 
@@ -133,7 +140,7 @@ kotlin {
 
 我们非常感谢您在我们的问题跟踪器 [YouTrack](https://youtrack.jetbrains.com/issue/KT-76926) 中提供反馈。
 
-### when 表达式的基于数据流的穷尽性检测
+### `when` 表达式的基于数据流的穷尽性检测
 <primary-label ref="experimental-opt-in"/>
 
 > IntelliJ IDEA 中对该特性的代码分析、代码补全和高亮显示支持目前仅在 [2025.3 EAP 构建版](https://www.jetbrains.com/idea/nextversion/)中提供。
@@ -170,7 +177,7 @@ kotlin {
 }
 ```
 
-### catch 子句中具体化类型的支持
+### `catch` 子句中具体化类型的支持
 <primary-label ref="experimental-opt-in"/>
 
 > IntelliJ IDEA 中对该特性的代码分析、代码补全和高亮显示支持目前仅在 [2025.3 EAP 构建版](https://www.jetbrains.com/idea/nextversion/)中提供。
@@ -192,11 +199,11 @@ inline fun <reified ExceptionType : Throwable> handleException(block: () -> Unit
 }
 
 fun main() {
-    // 尝试执行可能抛出 IOException 的操作
+    // Tries to perform an action that might throw an IOException
     handleException<java.io.IOException> {
         throw java.io.IOException("File not found")
     }
-    // 捕获到特定异常: IOException
+    // Caught specific exception: IOException
 }
 ```
 
@@ -252,7 +259,7 @@ sealed class Result<out T, out F : Failure> {
 }
 
 @OptIn(ExperimentalContracts::class)
-// 使用契约断言泛型类型
+// Uses a contract to assert a generic type
 fun <T, F : Failure> Result<T, F>.isHttpError(): Boolean {
     contract {
         returns(true) implies (this@isHttpError is Result.Failed<Failure.HttpError>)
@@ -536,7 +543,7 @@ Kotlin 2.2.20 引入了对 Swift 导出的实验性支持。它允许您直接�
 *   直接在 Kotlin Slack 中联系开发团队 – [获取邀请](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up?_gl=1*ju6cbn*_ga*MTA3MTk5NDkzMC4xNjQ2MDY3MDU4*_ga_9J976DJZ68*MTY1ODMzNzA3OS4xMDAuMS4xNjU4MzQwODEwLjYw)并加入 [#swift-export](https://kotlinlang.slack.com/archives/C073GUW6WN9) 频道。
 *   在 [YouTrack](https://kotl.in/issue) 中报告您在使用 Swift 导出时遇到的任何问题。
 
-### js 和 wasmJs 目标平台的共享源代码集
+### `js` 和 `wasmJs` 目标平台的共享源代码集
 
 此前，Kotlin Multiplatform 默认不包含 JavaScript (`js`) 和 WebAssembly (`wasmJs`) Web 目标平台的共享源代码集。要在 `js` 和 `wasmJs` 之间共享代码，您必须手动配置自定义源代码集，或者在两个地方编写代码，一个版本用于 `js`，另一个版本用于 `wasmJs`。例如：
 
@@ -546,12 +553,12 @@ expect suspend fun readCopiedText(): String
 
 // jsMain
 external interface Navigator { val clipboard: Clipboard }
-// JS 和 Wasm 中不同的互操作
+// Different interop in JS and Wasm
 external interface Clipboard { fun readText(): Promise<String> }
 external val navigator: Navigator
 
 suspend fun readCopiedText(): String {
-    // JS 和 Wasm 中不同的互操作
+    // Different interop in JS and Wasm
     return navigator.clipboard.readText().await()
 }
 
@@ -578,6 +585,14 @@ suspend fun readCopiedText(): String {
 expect suspend fun readCopiedText(): String
 
 // webMain
+@OptIn(ExperimentalWasmJsInterop::class)
+private suspend fun <R : JsAny?> Promise<R>.await(): R = suspendCancellableCoroutine { continuation ->
+    this.then(
+        onFulfilled = { continuation.resumeWith(Result.success(it)); null },
+        onRejected = { continuation.resumeWithException(it.asJsException()); null }
+    )
+}
+
 external interface Navigator { val clipboard: Clipboard }
 external interface Clipboard { fun readText(): Promise<JsString> }
 external val navigator: Navigator
@@ -599,7 +614,7 @@ kotlin {
     js()
     wasmJs()
 
-    // 启用默认源代码集层级，包括 webMain 和 webTest
+    // Enables the default source set hierarchy, including webMain and webTest
     applyDefaultHierarchyTemplate()
 }
 ```
@@ -635,7 +650,7 @@ Kotlin 2.2.20 完成了一项重要的[路线图项](https://youtrack.jetbrains.
 kotlin {
     @OptIn(ExperimentalKotlinGradlePluginApi::class)
     dependencies {
-        // implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:%coroutinesVersion%")
+        implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:%coroutinesVersion%")
     }
 }
 ```
@@ -657,7 +672,12 @@ Kotlin 2.2.20 引入了一项新的诊断，清晰显示每个依赖项支持哪
 
 ## Kotlin/Native
 
-Kotlin 2.2.20 改进了与 Objective-C/Swift 的互操作性、调试功能和新的二进制选项。
+此版本改进了与 Objective-C/Swift 的互操作性、调试功能和新的二进制选项。
+
+### 支持 Xcode 26
+
+从 Kotlin 2.2.2**1** 开始，Kotlin/Native 编译器支持 Xcode 26 – 最新稳定版 Xcode。
+您现在可以更新您的 Xcode 并访问最新 API，以继续为 Apple 操作系统上的 Kotlin 项目工作。
 
 ### 二进制文件中对栈保护（stack canaries）的支持
 
@@ -839,7 +859,9 @@ Apple 在几年前停止生产配备 Intel 芯片的设备，并且[最近宣布
 
 ## Kotlin/Wasm
 
-Kotlin/Wasm 现已进入 Beta 阶段，提供了更高的稳定性，并改进了 npm 依赖项分离、[JavaScript 互操作中更精细的异常处理](#improved-exception-handling-in-kotlin-wasm-and-javascript-interop)、[内置浏览器调试支持](#support-for-debugging-in-browsers-without-configuration)等功能。
+Kotlin/Wasm 现已进入 Beta 阶段，提供了更高的稳定性，并改进了 npm 依赖项分离、
+[JavaScript 互操作中更精细的异常处理](#improved-exception-handling-in-kotlin-wasm-and-javascript-interop)、
+[内置浏览器调试支持](#support-for-debugging-in-browsers-without-configuration)等功能。
 
 ### 分离的 npm 依赖项
 
@@ -1092,7 +1114,7 @@ kotlin.incremental.jvm.fir=true
 
 ## Maven：`kotlin-maven-plugin` 中对 Kotlin 守护进程的支持
 
-Kotlin 2.2.20 通过在 `kotlin-maven-plugin` 中添加对 [Kotlin 守护进程](kotlin-daemon.md)的支持，进一步推动了 [Kotlin 2.2.0 中引入的实验性构建工具 API](#new-experimental-build-tools-api)。使用 Kotlin 守护进程时，Kotlin 编译器在单独的隔离进程中运行，这可以防止其他 Maven 插件覆盖系统属性。您可以在此 [YouTrack 问题](https://youtrack.jetbrains.com/issue/KT-43894/Maven-Windows-error-RuntimeException-Could-not-find-installation-home-path)中看到一个示例。
+Kotlin 2.2.20 通过在 `kotlin-maven-plugin` 中添加对 [Kotlin 守护进程](kotlin-daemon.md)的支持，进一步推动了 [Kotlin 2.2.0 中引入的实验性构建工具 API](whatsnew22.md#new-experimental-build-tools-api)。使用 Kotlin 守护进程时，Kotlin 编译器在单独的隔离进程中运行，这可以防止其他 Maven 插件覆盖系统属性。您可以在此 [YouTrack 问题](https://youtrack.jetbrains.com/issue/KT-43894/Maven-Windows-error-RuntimeException-Could-not-find-installation-home-path)中看到一个示例。
 
 从 Kotlin 2.2.20 开始，Kotlin 守护进程默认使用。如果您想恢复到之前的行为，请通过将 `pom.xml` 文件中的以下属性设置为 `false` 来选择退出：
 
@@ -1161,13 +1183,13 @@ fun main() {
     val counter = AtomicLong(Random.nextLong())
     val minSetBitsThreshold = 20
 
-    // 设置一个新值而不使用结果
+    // Sets a new value without using the result
     counter.update { if (it < 0xDECAF) 0xCACA0 else 0xC0FFEE }
 
-    // 检索当前值，然后更新它
+    // Retrieves the current value, then updates it
     val previousValue = counter.fetchAndUpdate { 0x1CEDL.shl(Long.SIZE_BITS - it.countLeadingZeroBits()) or it }
 
-    // 更新值，然后检索结果
+    // Updates the value, then retrieves the result
     val current = counter.updateAndFetch {
         if (it.countOneBits() < minSetBitsThreshold) it.shl(20) or 0x15BADL else it
     }
@@ -1200,7 +1222,7 @@ Kotlin 2.2.20 引入了 [`copyOf()`](https://kotlinlang.org/api/core/kotlin-stdl
 @OptIn(ExperimentalStdlibApi::class)
 fun main() {
     val row1: Array<String> = arrayOf("one", "two")
-    // 调整数组大小并使用 lambda 填充新元素
+    // Resizes the array and populates the new elements using the lambda
     val row2: Array<String> = row1.copyOf(4) { "default" }
     println(row2.contentToString())
     // [one, two, default, default]

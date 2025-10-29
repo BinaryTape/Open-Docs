@@ -73,9 +73,9 @@
 
 ## ヘッダーの設定 {id="configure"}
 
-<code>%plugin_name%</code>を設定するには、<code>install</code>ブロック内で[version](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-conditional-headers/io.ktor.server.plugins.conditionalheaders/-conditional-headers-config/version.html)関数を呼び出す必要があります。この関数は、特定の<code>ApplicationCall</code>と<code>OutgoingContent</code>に対するリソースバージョンのリストへのアクセスを提供します。必要なバージョンは、[EntityTagVersion](https://api.ktor.io/ktor-http/io.ktor.http.content/-entity-tag-version/index.html)および[LastModifiedVersion](https://api.ktor.io/ktor-http/io.ktor.http.content/-last-modified-version/index.html)クラスオブジェクトを使用して指定できます。
+`%plugin_name%`を設定するには、`install`ブロック内で[version](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-conditional-headers/io.ktor.server.plugins.conditionalheaders/-conditional-headers-config/version.html)関数を呼び出す必要があります。この関数は、特定の`ApplicationCall`と`OutgoingContent`に対するリソースバージョンのリストへのアクセスを提供します。必要なバージョンは、[EntityTagVersion](https://api.ktor.io/ktor-http/io.ktor.http.content/-entity-tag-version/index.html)および[LastModifiedVersion](https://api.ktor.io/ktor-http/io.ktor.http.content/-last-modified-version/index.html)クラスオブジェクトを使用して指定できます。
 
-以下のコードスニペットは、CSSに<code>Etag</code>と<code>Last-Modified</code>ヘッダーを追加する方法を示しています。
+以下のコードスニペットは、CSSに`Etag`と`Last-Modified`ヘッダーを追加する方法を示しています。
 ```kotlin
 install(ConditionalHeaders) {
     val file = File("src/main/kotlin/com/example/Application.kt")

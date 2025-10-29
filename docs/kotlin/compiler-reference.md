@@ -11,7 +11,7 @@
 
 ## 编译器选项
 
-Kotlin 编译器提供了多种选项，用于定制编译过程。针对不同目标的编译器选项及其描述都列在本页中。
+Kotlin 编译器提供了诸多选项，用于定制编译过程。针对不同目标的编译器选项及其描述都列在本页中。
 
 有几种方式可以设置编译器选项及其值（_编译器实参_）：
 * 在 IntelliJ IDEA 中，将编译器实参写入“**附加命令行参数**”文本框内，该文本框位于“**设置/偏好设置** | **构建、执行、部署** | **编译器** | **Kotlin 编译器**”中。
@@ -33,7 +33,7 @@ Kotlin 编译器提供了多种选项，用于定制编译过程。针对不同�
 
 ## 编译器选项的架构
 
-所有编译器选项的通用架构发布在 [`org.jetbrains.kotlin:kotlin-compiler-arguments-description`](https://central.sonatype.com/artifact/org.jetbrains.kotlin/kotlin-compiler-arguments-description) 下，作为 JAR 构件。该构件包含所有编译器选项描述的代码表示和 JSON 等效表示（供非 Kotlin 消费者使用），以及每个选项引入或稳定时的版本等元数据。
+所有编译器选项的通用架构发布在 [`org.jetbrains.kotlin:kotlin-compiler-arguments-description`](https://central.sonatype.com/artifact/org.jetbrains.kotlin/kotlin-compiler-arguments-description) 下，作为 JAR artifact。该 artifact 包含所有编译器选项描述的代码表示和 JSON 等效表示（供非 Kotlin 消费者使用），以及每个选项引入或稳定时的版本等元数据。
 
 ## 通用选项
 
@@ -64,11 +64,11 @@ Kotlin 编译器提供了多种选项，用于定制编译过程。针对不同�
 ### -kotlin-home _path_
 
 指定 Kotlin 编译器的自定义路径，用于发现运行时库。
-
+  
 ### -P plugin:pluginId:optionName=value
 
 将选项传递给 Kotlin 编译器插件。核心插件及其选项列在文档的[核心编译器插件](components-stability.md#core-compiler-plugins)章节中。
-
+  
 ### -language-version _version_
 
 提供与指定 Kotlin 版本的源码兼容性。
@@ -156,6 +156,11 @@ kotlinc -Xannotation-default-target=param-property
 
 启用[额外的声明、表达式和类型编译器检测](whatsnew21.md#extra-compiler-checks)，如果为 true 则会发出警告。
 
+#### -Xrender-internal-diagnostic-names
+<primary-label ref="experimental-general"/>
+
+打印内部诊断名称伴随警告。这有助于识别为 `-Xwarning-level` 选项配置的 `DIAGNOSTIC_NAME`。
+
 #### -Xwarning-level
 <primary-label ref="experimental-general"/>
 
@@ -178,6 +183,8 @@ kotlinc -Xwarning-level=DIAGNOSTIC_NAME:(error|warning|disabled)
 | `-Wextra -Xwarning-level=DIAGNOSTIC_NAME:disabled` | 启用除指定检测外的所有额外检测。 |
 
 如果您有许多警告需要从通用规则中排除，可以使用 [`@argfile`](#argfile) 将它们列在单独的文件中。
+
+您可以使用 [`-Xrender-internal-diagnostic-names`](#xrender-internal-diagnostic-names) 来发现 `DIAGNOSTIC_NAME`。
 
 ### -Xdata-flow-based-exhaustiveness
 <primary-label ref="experimental-general"/>
@@ -232,7 +239,7 @@ kotlinc -Xwarning-level=DIAGNOSTIC_NAME:(error|warning|disabled)
 
 <primary-label ref="experimental-general"/>
 
-指定生成的 JVM 字节码的目标版本。将 classpath 中 JDK 的 API 限制为指定的 Java 版本。自动设置 [`-jvm-target version`](#jvm-target-version)。可能的值为 `1.8`、`9`、`10`、...、`24`。
+指定生成的 JVM 字节码的目标版本。限制 classpath 中 JDK 的 API 到指定的 Java 版本。自动设置 [`-jvm-target version`](#jvm-target-version)。可能的值为 `1.8`、`9`、`10`、...、`24`。
 
 > 此选项[不保证](https://youtrack.jetbrains.com/issue/KT-29974)对每个 JDK 发行版都有效。
 >
@@ -249,7 +256,7 @@ kotlinc -Xwarning-level=DIAGNOSTIC_NAME:(error|warning|disabled)
 ### -module-name _name_ (JVM)
 
 为生成的 `.kotlin_module` 文件设置自定义名称。
-
+  
 ### -no-jdk
 
 不要自动将 Java 运行时包含到 classpath 中。
@@ -261,7 +268,7 @@ kotlinc -Xwarning-level=DIAGNOSTIC_NAME:(error|warning|disabled)
 ### -no-stdlib (JVM)
 
 不要自动将 Kotlin/JVM 标准库 (`kotlin-stdlib.jar`) 和 Kotlin 反射 (`kotlin-reflect.jar`) 包含到 classpath 中。
-
+  
 ### -script-templates _classnames[,]_
 
 脚本定义模板类。使用全限定类名，并用逗号（**，**）分隔它们。
@@ -312,7 +319,7 @@ Kotlin 库 `.meta.js` 和 `.kjsm` 文件的路径，由系统路径分隔符分�
 - `commonjs` - 一个 [CommonJS](http://www.commonjs.org/) 模块
 - `amd` - 一个 [Asynchronous Module Definition](https://en.wikipedia.org/wiki/Asynchronous_module_definition) 模块
 - `plain` - 一个 plain JS 模块
-
+    
 关于不同种类 JS 模块及其区别的更多信息，请参见[这篇文章](https://www.davidbcalhoun.com/2014/what-is-amd-commonjs-and-umd/)。
 
 ### -no-stdlib (JS)
@@ -360,7 +367,7 @@ Kotlin 库 `.meta.js` 和 `.kjsm` 文件的路径，由系统路径分隔符分�
 ### -Xes-long-as-bigint
 <primary-label ref="experimental-general"/>
 
-当编译到现代 JavaScript (ES2020) 时，启用对 JavaScript `BigInt` 类型的支持，以表示 Kotlin `Long` 值。
+当编译到现代 JavaScript (ES2020) 时，启用对 JavaScript `BigInt` 类型支持，以表示 Kotlin `Long` 值。
 
 ## Kotlin/Native 编译器选项
 
@@ -375,7 +382,7 @@ Kotlin/Native 编译器将 Kotlin 源文件编译成适用于[支持平台](nati
 ### -g
 
 启用发出调试信息。此选项会降低优化级别，不应与 [`-opt`](#opt) 选项结合使用。
-
+    
 ### -generate-test-runner (-tr)
 
 生成一个用于从项目运行单元测试的应用程序。
@@ -390,12 +397,12 @@ Kotlin/Native 编译器将 Kotlin 源文件编译成适用于[支持平台](nati
 
 ### -library _path_ (-l _path_)
 
-链接到库。关于在 Kotlin/native 项目中使用库的更多信息，请参见[Kotlin/Native 库](native-libraries.md)。
+链接到库。关于在 Kotlin/Native 项目中使用库的更多信息，请参见[Kotlin/Native 库](native-libraries.md)。
 
 ### -library-version _version_ (-lv _version_)
 
 设置库版本。
-
+    
 ### -list-targets
 
 列出可用的硬件目标。

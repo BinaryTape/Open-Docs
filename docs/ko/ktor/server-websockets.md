@@ -88,7 +88,7 @@ Ktor를 사용하면 다음을 수행할 수 있습니다.
 
 ## WebSockets 구성 {id="configure"}
 
-선택적으로, `install` 블록 내에서 [WebSocketOptions](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-websockets/io.ktor.server.websocket/-web-sockets/-web-socket-options/index.html)을(를) 전달하여 플러그인을 구성할 수 있습니다:
+선택적으로, `install` 블록 내에서 [WebSocketOptions](https://api.ktor.io/ktor-server-websockets/io.ktor.server.websocket/-web-sockets/-web-socket-options/index.html)을(를) 전달하여 플러그인을 구성할 수 있습니다:
 
 *   `pingPeriod` 속성을 사용하여 핑 간의 지속 시간을 지정합니다.
 *   `timeout` 속성을 사용하여 연결이 닫힐 시간 초과를 설정합니다.
@@ -121,7 +121,7 @@ routing {
 
 이 예시에서, [기본 구성](server-configuration-file.topic)이 사용될 때 서버는 `ws://localhost:8080/echo`로 WebSocket 요청을 수락합니다.
 
-`webSocket` 블록 내에서 WebSocket 세션에 대한 핸들러를 정의하며, 이는 [DefaultWebSocketServerSession](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-websockets/io.ktor.server.websocket/-default-web-socket-server-session/index.html) 클래스로 표현됩니다.
+`webSocket` 블록 내에서 WebSocket 세션에 대한 핸들러를 정의하며, 이는 [DefaultWebSocketServerSession](https://api.ktor.io/ktor-server-websockets/io.ktor.server.websocket/-default-web-socket-server-session/index.html) 클래스로 표현됩니다.
 블록 내에서 다음 함수와 속성을 사용할 수 있습니다:
 
 *   `send` 함수를 사용하여 클라이언트에 텍스트 콘텐츠를 보냅니다.
@@ -134,7 +134,7 @@ routing {
 *   `Frame.Binary`는 바이너리 프레임입니다. 이 유형의 경우 `Frame.Binary.readBytes()`를 사용하여 콘텐츠를 읽을 수 있습니다.
 
 > `incoming` 채널에는 핑/퐁 또는 종료 프레임과 같은 제어 프레임이 포함되어 있지 않습니다.
-> 제어 프레임을 처리하고 분할된 프레임을 재조립하려면 [webSocketRaw](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-websockets/io.ktor.server.websocket/web-socket-raw.html) 함수를 사용하여 WebSocket 세션을 처리하세요.
+> 제어 프레임을 처리하고 분할된 프레임을 재조립하려면 [webSocketRaw](https://api.ktor.io/ktor-server-websockets/io.ktor.server.websocket/web-socket-raw.html) 함수를 사용하여 WebSocket 세션을 처리하세요.
 >
 {style="note"}
 

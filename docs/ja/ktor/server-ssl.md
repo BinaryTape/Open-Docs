@@ -28,7 +28,7 @@ KeyStoreに保存されている証明書を変換および管理するには、
 
 ### コードで証明書を生成する {id="self-signed-code"}
 
-Ktorは、テスト目的で自己署名証明書を生成する機能を提供しており、これは[buildKeyStore](https://api.ktor.io/ktor-network/ktor-network-tls/ktor-network-tls-certificates/io.ktor.network.tls.certificates/build-key-store.html)関数を呼び出すことで可能で、この関数は[KeyStore](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/security/KeyStore.html)インスタンスを返します。
+Ktorは、テスト目的で自己署名証明書を生成する機能を提供しており、これは[buildKeyStore](https://api.ktor.io/ktor-network-tls-certificates/io.ktor.network.tls.certificates/build-key-store.html)関数を呼び出すことで可能で、この関数は[KeyStore](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/security/KeyStore.html)インスタンスを返します。
 この関数を使用するには、ビルドスクリプトに`ktor-network-tls-certificates`アーティファクトを追加する必要があります。
 
 <var name="artifact_name" value="ktor-network-tls-certificates"/>
@@ -79,18 +79,18 @@ keytool -keystore keystore.jks -alias sampleAlias -genkeypair -keyalg RSA -keysi
 これには`openssl`と`keytool`ユーティリティを使用できます。
 例えば、`key.pem`ファイルに秘密鍵があり、`cert.pem`に公開証明書がある場合、変換プロセスは次のようになります。
 
-1.  `openssl`を使用してPEMをPKCS12形式に変換します。以下のコマンドを使用します。
-    ```Bash
-    openssl pkcs12 -export -in cert.pem -inkey key.pem -out keystore.p12 -name "sampleAlias"
-    ```
-    `key.pem`のパスフレーズと`keystore.p12`の新しいパスワードの入力を求められます。
+1. `openssl`を使用してPEMをPKCS12形式に変換します。以下のコマンドを使用します。
+   ```Bash
+   openssl pkcs12 -export -in cert.pem -inkey key.pem -out keystore.p12 -name "sampleAlias"
+   ```
+   `key.pem`のパスフレーズと`keystore.p12`の新しいパスワードの入力を求められます。
 
-2.  `keytool`を使用してPKCS12をJKS形式に変換します。
-    ```Bash
-    keytool -importkeystore -srckeystore keystore.p12 -srcstoretype pkcs12 -destkeystore keystore.jks
-    ```
-    `keystore.p12`ファイルのパスワードと`keystore.jks`の新しいパスワードの入力を求められます。
-    `keystore.jks`が生成されます。
+2. `keytool`を使用してPKCS12をJKS形式に変換します。
+   ```Bash
+   keytool -importkeystore -srckeystore keystore.p12 -srcstoretype pkcs12 -destkeystore keystore.jks
+   ```
+   `keystore.p12`ファイルのパスワードと`keystore.jks`の新しいパスワードの入力を求められます。
+   `keystore.jks`が生成されます。
 
 ## KtorでSSLを設定する {id="configure-ssl-ktor"}
 
@@ -100,64 +100,64 @@ KtorでのSSL設定の指定は、[Ktorサーバーの設定](server-create-and-
 
 サーバーが`application.conf`または`application.yaml`の[設定ファイル](server-configuration-file.topic)で設定されている場合、以下の[プロパティ](server-configuration-file.topic#predefined-properties)を使用してSSLを有効にできます。
 
-1.  `ktor.deployment.sslPort`プロパティを使用してSSLポートを指定します。
+1. `ktor.deployment.sslPort`プロパティを使用してSSLポートを指定します。
 
-    <Tabs group="config">
-    <TabItem title="application.conf" group-key="hocon">
+   <Tabs group="config">
+   <TabItem title="application.conf" group-key="hocon">
 
-    ```shell
-    ktor {
-        deployment {
-            sslPort = 8443
-        }
-    }
-    ```
+   ```shell
+   ktor {
+       deployment {
+           sslPort = 8443
+       }
+   }
+   ```
 
-    </TabItem>
-    <TabItem title="application.yaml" group-key="yaml">
+   </TabItem>
+   <TabItem title="application.yaml" group-key="yaml">
 
-    ```yaml
-    ktor:
-        deployment:
-            sslPort: 8443
-    ```
+   ```yaml
+   ktor:
+       deployment:
+           sslPort: 8443
+   ```
 
-    </TabItem>
-    </Tabs>
+   </TabItem>
+   </Tabs>
 
-2.  別の`security`グループでキーストア設定を提供します。
+2. 別の`security`グループでキーストア設定を提供します。
 
-    <Tabs group="config">
-    <TabItem title="application.conf" group-key="hocon">
+   <Tabs group="config">
+   <TabItem title="application.conf" group-key="hocon">
 
-    ```shell
-    ktor {
-        security {
-            ssl {
-                keyStore = keystore.jks
-                keyAlias = sampleAlias
-                keyStorePassword = foobar
-                privateKeyPassword = foobar
-            }
-        }
-    }
-    ```
+   ```shell
+   ktor {
+       security {
+           ssl {
+               keyStore = keystore.jks
+               keyAlias = sampleAlias
+               keyStorePassword = foobar
+               privateKeyPassword = foobar
+           }
+       }
+   }
+   ```
 
-    </TabItem>
-    <TabItem title="application.yaml" group-key="yaml">
+   </TabItem>
+   <TabItem title="application.yaml" group-key="yaml">
 
-    ```yaml
-    ktor:
-        security:
-            ssl:
-                keyStore: keystore.jks
-                keyAlias: sampleAlias
-                keyStorePassword: foobar
-                privateKeyPassword: foobar
-    ```
+   ```yaml
+   ktor:
+       security:
+           ssl:
+               keyStore: keystore.jks
+               keyAlias: sampleAlias
+               keyStorePassword: foobar
+               privateKeyPassword: foobar
+   ```
 
-    </TabItem>
-    </Tabs>
+   </TabItem>
+   </Tabs>
 
 完全な例は、[ssl-engine-main](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/ssl-engine-main)を参照してください。
 

@@ -23,52 +23,53 @@
 
 いくつかの変更を加えて、それらがUIにどのように反映されるかを確認してください。
 
-1.  `composeApp/src/androidMain/kotlin`にある`App.kt`ファイルに移動します。
-2.  `Greeting`クラスの呼び出しを見つけます。`greet()`関数を選択して右クリックし、**Go To** | **Declaration or Usages**を選択します。これは、前の手順で編集した`shared`モジュールと同じクラスであることがわかります。
-3.  `Greeting.kt`ファイルで、`greet()`関数を更新します。
+1. `composeApp/src/androidMain/.../greetingkmp`ディレクトリにある`App.kt`ファイルに移動します。
+2. `Greeting`クラスの呼び出しを見つけます。`greet()`関数を選択して右クリックし、**Go To** | **Declaration or Usages**を選択します。これは、前の手順で編集した`shared`モジュールと同じクラスであることがわかります。
+3. `Greeting.kt`ファイルで、`greet()`関数が文字列のリストを返すように`Greeting`クラスを更新します。
 
-    ```kotlin
-    import kotlin.random.Random
-    
-    fun greet(): List<String> = buildList {
-        add(if (Random.nextBoolean()) "Hi!" else "Hello!")
-        add("Guess what this is! > ${platform.name.reversed()}!")
-    }
-    ```
+   ```kotlin
+   class Greeting {
+   
+       private val platform: Platform = getPlatform()
+   
+       fun greet(): List<String> = buildList {
+           add(if (Random.nextBoolean()) "Hi!" else "Hello!")
+           add("Guess what this is! > ${platform.name.reversed()}!")
+       }
+   }
+   ```
 
-    これで文字列のリストを返します。
+4. `App.kt`ファイルに戻り、`App()`の実装を更新します。
 
-4.  `App.kt`ファイルに戻り、`App()`の実装を更新します。
+   ```kotlin
+   @Composable
+   @Preview
+   fun App() {
+       MaterialTheme {
+           val greeting = remember { Greeting().greet() }
+   
+           Column(
+               modifier = Modifier
+                   .padding(all = 10.dp)
+                   .safeContentPadding()
+                   .fillMaxSize(),
+               verticalArrangement = Arrangement.spacedBy(8.dp),
+           ) {
+               greeting.forEach { greeting ->
+                   Text(greeting)
+                   HorizontalDivider()
+               }
+           }
+       }
+   }
+   ```
 
-    ```kotlin
-    @Composable
-    @Preview
-    fun App() {
-        MaterialTheme {
-            val greeting = remember { Greeting().greet() }
-    
-            Column(
-                modifier = Modifier
-                    .padding(all = 10.dp)
-                    .safeContentPadding()
-                    .fillMaxSize(),
-                verticalArrangement = Arrangement.spacedBy(8.dp),
-            ) {
-                greeting.forEach { greeting ->
-                    Text(greeting)
-                    HorizontalDivider()
-                }
-            }
-        }
-    }
-    ```
+   ここでは、`Column`コンポーザブルが`Text`アイテムのそれぞれを表示し、それらの周りにパディングを、それらの間にスペースを追加します。
 
-    ここでは、`Column`コンポーザブルが`Text`アイテムのそれぞれを表示し、それらの周りにパディングを、それらの間にスペースを追加します。
+5. IntelliJ IDEAの提案に従って、不足している依存関係をインポートします。
+6. これでAndroidアプリを実行して、文字列のリストがどのように表示されるかを確認できます。
 
-5.  IntelliJ IDEAの提案に従って、不足している依存関係をインポートします。
-6.  これでAndroidアプリを実行して、文字列のリストがどのように表示されるかを確認できます。
-
-    ![Android Multiplatformアプリの更新されたUI](first-multiplatform-project-on-android-2.png){width=300}
+   ![Android Multiplatformアプリの更新されたUI](first-multiplatform-project-on-android-2.png){width=300}
 
 ## iOSモジュールを操作する
 
@@ -76,12 +77,12 @@
 
 Androidアプリと同様の変更を実装します。
 
-1.  IntelliJ IDEAで、**Project**ツールウィンドウでプロジェクトのルートにある`iosApp`フォルダーを見つけます。
-2.  `ContentView.swift`ファイルを開き、`Greeting().greet()`呼び出しを右クリックし、**Go To** | **Definition**を選択します。
+1. IntelliJ IDEAで、**Project**ツールウィンドウでプロジェクトのルートにある`iosApp/iosApp`フォルダーを見つけます。
+2. `iosApp/ContentView.swift`ファイルを開き、`Greeting().greet()`呼び出しを右クリックし、**Go To** | **Definition**を選択します。
 
     `shared`モジュールで定義されたKotlin関数のObjective-C宣言が表示されます。Kotlinの型は、Objective-C/Swiftから使用されるときにObjective-Cの型として表現されます。ここでは、`greet()`関数はKotlinでは`List<String>`を返し、Swiftからは`NSArray<NSString>`を返すものとして見なされます。型マッピングの詳細については、[Swift/Objective-Cとの相互運用](https://kotlinlang.org/docs/native-objc-interop.html)を参照してください。
 
-3.  Androidアプリと同様の方法でアイテムのリストを表示するようにSwiftUIコードを更新します。
+3. Androidアプリと同様の方法でアイテムのリストを表示するようにSwiftUIコードを更新します。
 
     ```Swift
     struct ContentView: View {
@@ -91,14 +92,14 @@ Androidアプリと同様の変更を実装します。
            List(phrases, id: \.self) {
                Text($0)
            }
-        }
+       }
     }
     ```
 
-    *   `greet()`呼び出しの結果は`phrases`変数に格納されます（Swiftの`let`はKotlinの`val`に似ています）。
-    *   `List`関数は`Text`アイテムのリストを生成します。
+    * `greet()`呼び出しの結果は`phrases`変数に格納されます（Swiftの`let`はKotlinの`val`に似ています）。
+    * `List`関数は`Text`アイテムのリストを生成します。
 
-4.  変更を確認するためにiOS実行構成を開始します。
+4. 変更を確認するためにiOS実行構成を開始します。
 
     ![iOS Multiplatformアプリの更新されたUI](first-multiplatform-project-on-ios-2.png){width=300}
 
@@ -120,5 +121,5 @@ Xcodeを使用している場合、キャッシュされたバイナリをクリ
 
 ## ヘルプ
 
-*   **Kotlin Slack**。 [招待状を取得](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up)して、[#multiplatform](https://kotlinlang.slack.com/archives/C3PQML5NU)チャンネルに参加してください。
-*   **Kotlinイシュートラッカー**。[新しいイシューを報告する](https://youtrack.jetbrains.com/newIssue?project=KT)。
+* **Kotlin Slack**。 [招待状を取得](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up)して、[#multiplatform](https://kotlinlang.slack.com/archives/C3PQML5NU)チャンネルに参加してください。
+* **Kotlinイシュートラッカー**。[新しいイシューを報告する](https://youtrack.jetbrains.com/newIssue?project=KT)。

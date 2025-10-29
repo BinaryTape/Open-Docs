@@ -13,7 +13,7 @@
 Authプラグインは、クライアントアプリケーションにおける認証と認可を処理します。
 </link-summary>
 
-Ktorは、クライアントアプリケーションにおける認証と認可を処理するための[Auth](https://api.ktor.io/ktor-client/ktor-client-plugins/ktor-client-auth/io.ktor.client.plugins.auth/-auth)プラグインを提供します。典型的な使用シナリオには、ユーザーのログインや、特定のリソースへのアクセス権の取得が含まれます。
+Ktorは、クライアントアプリケーションにおける認証と認可を処理するための[Auth](https://api.ktor.io/ktor-client-auth/io.ktor.client.plugins.auth/-auth)プラグインを提供します。典型的な使用シナリオには、ユーザーのログインや、特定のリソースへのアクセス権の取得が含まれます。
 
 > サーバー側では、Ktorは認証と認可を処理するための[Authentication](server-auth.md)プラグインを提供しています。
 
@@ -21,9 +21,9 @@ Ktorは、クライアントアプリケーションにおける認証と認可�
 
 HTTPは、アクセス制御と認証のための[一般的なフレームワーク](https://developer.mozilla.org/en-US/docs/Web/HTTP/Authentication)を提供しています。Ktorクライアントでは、以下のHTTP認証スキームを使用できます。
 
-* [Basic](client-basic-auth.md) - `Base64`エンコーディングを使用してユーザー名とパスワードを提供します。HTTPSと組み合わせて使用しない限り、一般的に推奨されません。
-* [Digest](client-digest-auth.md) - ユーザー名とパスワードにハッシュ関数を適用することで、暗号化された形式でユーザー認証情報を通信する認証方法です。
-* [Bearer](client-bearer-auth.md) - ベアラートークンと呼ばれるセキュリティトークンを使用する認証スキームです。例えば、OAuthフローの一部としてこのスキームを使用して、Google、Facebook、Twitterなどの外部プロバイダーを利用してアプリケーションのユーザーを認可できます。
+*   [Basic](client-basic-auth.md) - `Base64`エンコーディングを使用してユーザー名とパスワードを提供します。HTTPSと組み合わせて使用しない限り、一般的に推奨されません。
+*   [Digest](client-digest-auth.md) - ユーザー名とパスワードにハッシュ関数を適用することで、暗号化された形式でユーザー認証情報を通信する認証方法です。
+*   [Bearer](client-bearer-auth.md) - ベアラートークンと呼ばれるセキュリティトークンを使用する認証スキームです。例えば、OAuthフローの一部としてこのスキームを使用して、Google、Facebook、Twitterなどの外部プロバイダーを利用してアプリケーションのユーザーを認可できます。
 
 ## 依存関係の追加 {id="add_dependencies"}
 
@@ -55,7 +55,7 @@ import io.ktor.client.plugins.auth.*
 //...
 val client = HttpClient(CIO) {
     install(Auth) {
-        // 認証を設定
+        // Configure authentication
     }
 }
 ```
@@ -65,12 +65,12 @@ val client = HttpClient(CIO) {
 
 ### ステップ1：認証プロバイダーの選択 {id="choose-provider"}
 
-特定の認証プロバイダー（[basic](client-basic-auth.md)、[digest](client-digest-auth.md)、または[bearer](client-bearer-auth.md)）を使用するには、`install`ブロック内で対応する関数を呼び出す必要があります。例えば、`basic`認証を使用するには、[basic](https://api.ktor.io/ktor-client/ktor-client-plugins/ktor-client-auth/io.ktor.client.plugins.auth.providers/basic.html)関数を呼び出します。
+特定の認証プロバイダー（[basic](client-basic-auth.md)、[digest](client-digest-auth.md)、または[bearer](client-bearer-auth.md)）を使用するには、`install`ブロック内で対応する関数を呼び出す必要があります。例えば、`basic`認証を使用するには、[basic](https://api.ktor.io/ktor-client-auth/io.ktor.client.plugins.auth.providers/basic.html)関数を呼び出します。
 
 ```kotlin
 install(Auth) {
     basic {
-        // Basic認証を設定
+        // Configure basic authentication
     }
 }
 ```
@@ -109,6 +109,6 @@ install(Auth) {
 ### ステップ3：プロバイダーの設定 {id="configure-provider"}
 
 特定の[プロバイダー](#supported)の設定方法については、以下の対応するトピックを参照してください。
-* [Ktor ClientにおけるBasic認証](client-basic-auth.md)
-* [Ktor ClientにおけるDigest認証](client-digest-auth.md)
-* [Ktor ClientにおけるBearer認証](client-bearer-auth.md)
+*   [Ktor ClientにおけるBasic認証](client-basic-auth.md)
+*   [Ktor ClientにおけるDigest認証](client-digest-auth.md)
+*   [Ktor ClientにおけるBearer認証](client-bearer-auth.md)

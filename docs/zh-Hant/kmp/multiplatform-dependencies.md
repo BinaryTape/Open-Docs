@@ -26,7 +26,7 @@
     許多現代 Android 函式庫已經支援多平台，例如 [Koin](https://insert-koin.io/)、[Apollo](https://www.apollographql.com/) 和 [Okio](https://square.github.io/okio/)。在 [klibs.io](https://klibs.io/) 上尋找更多多平台函式庫，這是 JetBrains 用於發現 Kotlin 多平台函式庫的實驗性搜尋服務。
 
 *   _原生依賴項_。這些是來自相關生態系統的常規函式庫。在原生專案中，您通常使用 Android 的 Gradle 和 iOS 的 CocoaPods 或其他依賴項管理器來使用它們。
-  
+
     當您使用共享模組時，通常在您想要使用平台 API（例如安全儲存）時，仍然需要原生依賴項。您可以將原生依賴項新增至原生原始碼集 (`androidMain` 和 `iosMain`)。
 
 對於這兩種依賴項類型，您可以使用本機和外部儲存庫。
@@ -45,23 +45,22 @@
     ```kotlin
     kotlin {
         //... 
-        sourceSets
-            languageSettings.optIn("kotlin.time.ExperimentalTime")
+        sourceSets {
+            all { languageSettings.optIn("kotlin.time.ExperimentalTime") }
+   
             commonMain.dependencies {
-                implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.7.1")
+                implementation("org.jetbrains.kotlinx:kotlinx-datetime:%dateTimeVersion%")
             } 
         }
     }
     ```
 
-3.  按一下「**同步 Gradle 變更**」按鈕以同步 Gradle 檔案：![同步 Gradle 檔案](gradle-sync.png){width=50}
-4.  在 `shared/src/commonMain/kotlin` 中，在您的 `Greeting.kt` 檔案所在的專案目錄中建立一個新檔案 `NewYear.kt`。
-5.  使用一個簡短的函數更新檔案，該函數使用日期時間（`date-time`）日期算術計算從今天到新年的天數：
+3.  選取「**Build | Sync Project with Gradle Files**」選單項目，或按一下建置指令碼編輯器中的「**同步 Gradle 變更**」按鈕，以同步 Gradle 檔案：![Synchronize Gradle files](gradle-sync.png){width=50}
+4.  在 `shared/src/commonMain/.../greetingkmp` 目錄上按一下滑鼠右鍵，然後選取「**New | Kotlin Class/File**」以建立新檔案 `NewYear.kt`。
+5.  使用一個簡短的函數更新檔案，該函數使用 `datetime` 日期算術計算從今天到新年的天數：
    
    ```kotlin
-   import kotlinx.datetime.*
-   import kotlin.time.Clock
-   
+   @OptIn(ExperimentalTime::class)
    fun daysUntilNewYear(): Int {
        val today = Clock.System.todayIn(TimeZone.currentSystemDefault())
        val closestNewYear = LocalDate(today.year + 1, 1, 1)
@@ -70,8 +69,8 @@
    
    fun daysPhrase(): String = "There are only ${daysUntilNewYear()} days left until New Year! 🎆"
    ```
-
-6.  在 `Greeting.kt` 中，更新 `Greeting` 類別以查看結果：
+6.  新增 IDE 建議的所有必要 import。
+7.  在 `Greeting.kt` 檔案中，更新 `Greeting` 類別以查看結果：
     
     ```kotlin
     class Greeting {
@@ -85,7 +84,7 @@
     }
     ```
 
-7.  要查看結果，請從 IntelliJ IDEA 重新執行您的 `composeApp` 和 `iosApp` 配置：
+8.  要查看結果，請從 IntelliJ IDEA 重新執行您的 **composeApp** 和 **iosApp** 配置：
 
 ![Updated mobile multiplatform app with external dependencies](first-multiplatform-project-3.png){width=500}
 

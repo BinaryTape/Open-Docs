@@ -19,7 +19,8 @@
 </p>
 </tldr>
 
-除了服务器和客户端的 HTTP/WebSocket 处理外，Ktor 还支持 TCP 和 UDP 原始 socket。它公开了一个底层使用 [java.nio](https://docs.oracle.com/javase/8/docs/api/java/nio/package-summary.html) 的挂起 API。
+除了服务器和客户端的 HTTP/WebSocket 处理外，Ktor 还支持 TCP 和 UDP 原始 socket。
+它公开了一个底层使用 [java.nio](https://docs.oracle.com/javase/8/docs/api/java/nio/package-summary.html) 的挂起 API。
 
 > Socket 使用的是实验性的 API，预计会在未来的更新中演进，并可能带来破坏性变更。
 >
@@ -49,18 +50,21 @@
 
 ### 创建服务端 socket {id="server_create_socket"}
 
-要构建服务端 socket，请创建 `SelectorManager` 实例，在其上调用 `SocketBuilder.tcp()` 函数，然后使用 `bind` 将服务端 socket 绑定到特定端口：
+要构建服务端 socket，请创建 `SelectorManager` 实例，在其上调用 `SocketBuilder.tcp()` 函数，
+然后使用 `bind` 将服务端 socket 绑定到特定端口：
 
 ```kotlin
 val selectorManager = SelectorManager(Dispatchers.IO)
 val serverSocket = aSocket(selectorManager).tcp().bind("127.0.0.1", 9002)
 ```
 
-上述代码片段创建了一个 TCP socket，它是 `ServerSocket` 实例。要创建 UDP socket，请使用 `SocketBuilder.udp()`。
+上述代码片段创建了一个 TCP socket，它是 [ServerSocket](https://api.ktor.io/ktor-network/io.ktor.network.sockets/-server-socket/index.html) 实例。
+要创建 UDP socket，请使用 `SocketBuilder.udp()`。
 
 ### 接受传入连接 {id="accepts_connection"}
 
-创建服务端 socket 后，你需要调用 `ServerSocket.accept` 函数，该函数接受一个 socket 连接并返回一个已连接的 socket（一个 `Socket` 实例）：
+创建服务端 socket 后，你需要调用 `ServerSocket.accept` 函数，该函数接受一个 socket 连接并
+返回一个已连接的 socket（一个 [Socket](https://api.ktor.io/ktor-network/io.ktor.network.sockets/-socket/index.html) 实例）：
 
 ```kotlin
 val socket = serverSocket.accept()
@@ -70,13 +74,14 @@ val socket = serverSocket.accept()
 
 ### 接收数据 {id="server_receive"}
 
-要从客户端接收数据，你需要调用 `Socket.openReadChannel` 函数，该函数返回 `ByteReadChannel`：
+要从客户端接收数据，你需要调用 `Socket.openReadChannel` 函数，该函数返回 [ByteReadChannel](https://api.ktor.io/ktor-io/io.ktor.utils.io/-byte-read-channel/index.html)：
 
 ```kotlin
 val receiveChannel = socket.openReadChannel()
 ```
 
-`ByteReadChannel` 提供了用于异步读取数据的 API。例如，你可以使用 `ByteReadChannel.readUTF8Line` 读取一行 UTF-8 字符：
+`ByteReadChannel` 提供了用于异步读取数据的 API。
+例如，你可以使用 `ByteReadChannel.readUTF8Line` 读取一行 UTF-8 字符：
 
 ```kotlin
 val name = receiveChannel.readUTF8Line()
@@ -84,13 +89,14 @@ val name = receiveChannel.readUTF8Line()
 
 ### 发送数据 {id="server_send"}
 
-要向客户端发送数据，请调用 `Socket.openWriteChannel` 函数，该函数返回 `ByteWriteChannel`：
+要向客户端发送数据，请调用 `Socket.openWriteChannel` 函数，该函数返回 [ByteWriteChannel](https://api.ktor.io/ktor-io/io.ktor.utils.io/-byte-write-channel/index.html)：
 
 ```kotlin
 val sendChannel = socket.openWriteChannel(autoFlush = true)
 ```
 
-`ByteWriteChannel` 提供了用于异步写入字节序列的 API。例如，你可以使用 `ByteWriteChannel.writeStringUtf8` 写入一行 UTF-8 字符：
+`ByteWriteChannel` 提供了用于异步写入字节序列的 API。
+例如，你可以使用 `ByteWriteChannel.writeStringUtf8` 写入一行 UTF-8 字符：
 
 ```kotlin
 val name = receiveChannel.readUTF8Line()
@@ -153,7 +159,8 @@ fun main(args: Array<String>) {
 
 ### 创建 socket {id="client_create_socket"}
 
-要构建客户端 socket，请创建 `SelectorManager` 实例，在其上调用 `SocketBuilder.tcp()` 函数，然后使用 `connect` 建立连接并获取已连接的 socket（一个 `Socket` 实例）：
+要构建客户端 socket，请创建 `SelectorManager` 实例，在其上调用 `SocketBuilder.tcp()` 函数，
+然后使用 `connect` 建立连接并获取已连接的 socket（一个 [Socket](https://api.ktor.io/ktor-network/io.ktor.network.sockets/-socket/index.html) 实例）：
 
 ```kotlin
 val selectorManager = SelectorManager(Dispatchers.IO)
@@ -164,14 +171,16 @@ val socket = aSocket(selectorManager).tcp().connect("127.0.0.1", 9002)
 
 ### 创建安全 socket (SSL/TLS) {id="secure"}
 
-安全 socket 允许你建立 TLS 连接。要使用安全 socket，你需要添加 [ktor-network-tls](#add_dependencies) 依赖项。然后，在已连接的 socket 上调用 `Socket.tls` 函数：
+安全 socket 允许你建立 TLS 连接。
+要使用安全 socket，你需要添加 [ktor-network-tls](#add_dependencies) 依赖项。
+然后，在已连接的 socket 上调用 `Socket.tls` 函数：
 
 ```kotlin
 val selectorManager = SelectorManager(Dispatchers.IO)
 val socket = aSocket(selectorManager).tcp().connect("127.0.0.1", 8443).tls()
 ```
 
-`tls` 函数允许你调整由 [TLSConfigBuilder](https://api.ktor.io/ktor-network/ktor-network-tls/io.ktor.network.tls/-t-l-s-config-builder/index.html) 提供的 TLS 参数：
+`tls` 函数允许你调整由 [TLSConfigBuilder](https://api.ktor.io/ktor-network-tls/io.ktor.network.tls/-t-l-s-config-builder/index.html) 提供的 TLS 参数：
 
 ```kotlin
 val selectorManager = SelectorManager(Dispatchers.IO)
@@ -188,13 +197,14 @@ val socket = aSocket(selectorManager).tcp().connect("youtrack.jetbrains.com", po
 
 ### 接收数据 {id="client_receive"}
 
-要从服务器接收数据，你需要调用 `Socket.openReadChannel` 函数，该函数返回 `ByteReadChannel`：
+要从服务器接收数据，你需要调用 `Socket.openReadChannel` 函数，该函数返回 [ByteReadChannel](https://api.ktor.io/ktor-io/io.ktor.utils.io/-byte-read-channel/index.html)：
 
 ```kotlin
 val receiveChannel = socket.openReadChannel()
 ```
 
-`ByteReadChannel` 提供了用于异步读取数据的 API。例如，你可以使用 `ByteReadChannel.readUTF8Line` 读取一行 UTF-8 字符：
+`ByteReadChannel` 提供了用于异步读取数据的 API。
+例如，你可以使用 `ByteReadChannel.readUTF8Line` 读取一行 UTF-8 字符：
 
 ```kotlin
 val greeting = receiveChannel.readUTF8Line()
@@ -202,13 +212,14 @@ val greeting = receiveChannel.readUTF8Line()
 
 ### 发送数据 {id="client_send"}
 
-要向服务器发送数据，请调用 `Socket.openWriteChannel` 函数，该函数返回 `ByteWriteChannel`：
+要向服务器发送数据，请调用 `Socket.openWriteChannel` 函数，该函数返回 [ByteWriteChannel](https://api.ktor.io/ktor-io/io.ktor.utils.io/-byte-write-channel/index.html)：
 
 ```kotlin
 val sendChannel = socket.openWriteChannel(autoFlush = true)
 ```
 
-`ByteWriteChannel` 提供了用于异步写入字节序列的 API。例如，你可以使用 `ByteWriteChannel.writeStringUtf8` 写入一行 UTF-8 字符：
+`ByteWriteChannel` 提供了用于异步写入字节序列的 API。
+例如，你可以使用 `ByteWriteChannel.writeStringUtf8` 写入一行 UTF-8 字符：
 
 ```kotlin
 val myMessage = readln()

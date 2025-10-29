@@ -34,7 +34,7 @@ Koog 프레임워크는 두 가지 유형의 세션을 제공합니다:
 
 1.  **생성**: `llm.writeSession { ... }` 또는 `llm.readSession { ... }`을 사용하여 세션이 생성됩니다.
 2.  **활성 단계**: 람다 블록이 실행되는 동안 세션이 활성화됩니다.
-3.  **종료**: 람다 블록이 완료되면 세션이 자동으로 닫힙니다.
+3.  **종료**: 람다 블록이 완료되면 세션은 자동으로 닫힙니다.
 
 세션은 `AutoCloseable` 인터페이스를 구현하여 예외가 발생하더라도 제대로 정리되도록 보장합니다.
 
@@ -119,7 +119,7 @@ val strategy = strategy<Unit, Unit>("strategy-name") {
 ```kotlin
 llm.writeSession {
     // Modify the prompt
-    updatePrompt {
+    appendPrompt {
         user("New user message")
     }
 
@@ -254,7 +254,7 @@ llm.writeSession {
 
 ### 프롬프트 업데이트하기
 
-쓰기 세션에서는 `updatePrompt` 메서드를 사용하여 프롬프트(대화 기록)를 업데이트할 수 있습니다:
+쓰기 세션에서는 `appendPrompt` 메서드를 사용하여 프롬프트(대화 기록)에 메시지를 추가할 수 있습니다:
 
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
@@ -278,7 +278,7 @@ val strategy = strategy<Unit, Unit>("strategy-name") {
 -->
 ```kotlin
 llm.writeSession {
-    updatePrompt {
+    appendPrompt {
         // Add a system message
         system("You are a helpful assistant.")
 
@@ -339,7 +339,7 @@ val strategy = strategy<Unit, Unit>("strategy-name") {
 ```kotlin
 llm.writeSession {
     // Add a user message
-    updatePrompt {
+    appendPrompt {
         user("What's the capital of France?")
     }
 

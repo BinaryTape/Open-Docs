@@ -19,13 +19,13 @@ aside: false
             <a href="multiplatform-create-first-app.md" summary="瞭解 Kotlin Multiplatform 並在 Android Studio 中建立適用於 Android 和 iOS 的行動應用程式">共用邏輯但保留原生 UI</a>
             <a href="compose-multiplatform-create-first-app.md" summary="使用 Compose Multiplatform 建立在 Android、iOS 和桌面平台之間共用 UI 的應用程式">共用邏輯與 UI</a>
             <a href="multiplatform-ktor-sqldelight.md" summary="建立一個在 Android 和 iOS 之間共用資料存取層的多平台應用程式">共用部分邏輯</a>
-            <a href="multiplatform-integrate-in-existing-app.md" summary="使您的 Android 應用程式可在 iOS 上運行">使您的應用程式支援多平台</a>
+            <a href="multiplatform-integrate-in-existing-app.md" summary="將您的 Android 應用程式遷移到 Kotlin Multiplatform，以支援 Android 和 iOS">使您的應用程式支援多平台</a>
         </primary>
         <secondary>
             <title>Kotlin Multiplatform 技術</title>
+            <a href="kmp-overview.md" summary="KMP 是什麼，它的優勢與使用案例為何">為何選擇 Kotlin Multiplatform</a>
             <a href="multiplatform-discover-project.md" summary="學習基本知識：通用和平台特定程式碼、目標以及原始碼集">專案結構的關鍵概念</a>
             <a href="multiplatform-expect-actual.md" summary="使用預期與實際宣告來存取平台特定 API">預期與實際宣告</a>
-            <a href="multiplatform-hierarchy.md" summary="安排原始碼集的階層結構以共用通用程式碼">階層式專案結構</a>
             <a href="multiplatform-ios-integration-overview.md" summary="將 Kotlin Multiplatform 共用模組整合到您的 iOS 應用程式中">設定 iOS 整合</a>
         </secondary>
         <misc>

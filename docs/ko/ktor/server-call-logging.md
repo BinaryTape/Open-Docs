@@ -33,13 +33,13 @@ Ktor는 [SLF4J](http://www.slf4j.org/) 라이브러리를 사용하여 애플리
     <code>%plugin_name%</code>을(를) 사용하려면 빌드 스크립트에 <code>%artifact_name%</code> 아티팩트를 포함해야 합니다.
 </p>
 <Tabs group="languages">
-    <TabItem title="그레이들 (코틀린)" group-key="kotlin">
+    <TabItem title="Gradle (Kotlin)" group-key="kotlin">
         <code-block lang="Kotlin" code="            implementation(&quot;io.ktor:%artifact_name%:$ktor_version&quot;)"/>
     </TabItem>
-    <TabItem title="그레이들 (그루비)" group-key="groovy">
+    <TabItem title="Gradle (Groovy)" group-key="groovy">
         <code-block lang="Groovy" code="            implementation &quot;io.ktor:%artifact_name%:$ktor_version&quot;"/>
     </TabItem>
-    <TabItem title="메이븐" group-key="maven">
+    <TabItem title="Maven" group-key="maven">
         <code-block lang="XML" code="            &lt;dependency&gt;&#10;                &lt;groupId&gt;io.ktor&lt;/groupId&gt;&#10;                &lt;artifactId&gt;%artifact_name%-jvm&lt;/artifactId&gt;&#10;                &lt;version&gt;${ktor_version}&lt;/version&gt;&#10;            &lt;/dependency&gt;"/>
     </TabItem>
 </Tabs>
@@ -60,7 +60,7 @@ Ktor는 [SLF4J](http://www.slf4j.org/) 라이브러리를 사용하여 애플리
 </list>
 <Tabs>
     <TabItem title="embeddedServer">
-        <code-block lang="kotlin" code="            import io.ktor.server.engine.*&#10;            import io.ktor.server.netty.*&#10;            import io.ktor.server.application.*&#10;            import %package_name%.*&#10;&#10;            fun main() {&#10                embeddedServer(Netty, port = 8080) {&#10;                    install(%plugin_name%)&#10;                    // ...&#10                }.start(wait = true)&#10;            }"/>
+        <code-block lang="kotlin" code="            import io.ktor.server.engine.*&#10;            import io.ktor.server.netty.*&#10;            import io.ktor.server.application.*&#10;            import %package_name%.*&#10;&#10;            fun main() {&#10;                embeddedServer(Netty, port = 8080) {&#10;                    install(%plugin_name%)&#10;                    // ...&#10                }.start(wait = true)&#10;            }"/>
     </TabItem>
     <TabItem title="module">
         <code-block lang="kotlin" code="            import io.ktor.server.application.*&#10;            import %package_name%.*&#10;            // ...&#10;            fun Application.module() {&#10;                install(%plugin_name%)&#10;                // ...&#10            }"/>
@@ -128,3 +128,4 @@ install(CallLogging) {
 import org.slf4j.MDC
 // ...
 MDC.get("name-parameter")
+```

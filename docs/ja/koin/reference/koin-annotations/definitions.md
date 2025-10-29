@@ -2,7 +2,7 @@
 title: アノテーションによる定義
 ---
 
-Koinアノテーションを使用すると、通常のKoin DSLと同じ種類の定義を宣言できますが、アノテーションを使って行います。クラスに必要なアノテーションをタグ付けするだけで、すべてが自動的に生成されます！
+Koin Annotationsを使用すると、通常のKoin DSLと同じ種類の定義を宣言できますが、アノテーションを使って行います。必要なアノテーションでクラスをタグ付けするだけで、すべてが自動的に生成されます！
 
 例えば、`single { MyComponent(get()) }`というDSL宣言に相当するものは、次のように`@Single`でタグ付けするだけで実現できます。
 
@@ -11,7 +11,7 @@ Koinアノテーションを使用すると、通常のKoin DSLと同じ種類�
 class MyComponent(val myDependency : MyDependency)
 ```
 
-Koinアノテーションは、Koin DSLと同じセマンティクスを維持します。以下の定義でコンポーネントを宣言できます。
+Koin Annotationsは、Koin DSLと同じセマンティクスを維持します。以下の定義でコンポーネントを宣言できます。
 
 - `@Single` - シングルトンインスタンス（DSLでは`single { }`として宣言されます）
 - `@Factory` - ファクトリーインスタンス。インスタンスが必要になるたびに再作成されるインスタンス用。（DSLでは`factory { }`として宣言されます）
@@ -20,25 +20,28 @@ Koinアノテーションは、Koin DSLと同じセマンティクスを維持�
 
 スコープについては、[Declaring Scopes](/docs/reference/koin-core/scopes.md)セクションを参照してください。
 
-### Kotlin Multipaltform向けCompose ViewModelの生成 (1.4.0以降)
+### Kotlin Multiplatform向けCompose ViewModelの生成 (1.4.0以降)
 
-`@KoinViewModel`アノテーションは、AndroidまたはCompsoe KMP ViewModelのいずれかを生成するために使用できます。通常の`org.koin.androidx.viewmodel.dsl.viewModel`の代わりに`org.koin.compose.viewmodel.dsl.viewModel`を使用して`viewModel` Koin定義を生成するには、`KOIN_USE_COMPOSE_VIEWMODEL`オプションを有効にする必要があります。
+`@KoinViewModel`アノテーションは、デフォルトで`koin-core-viewmodel`メインDSLを使用してViewModelを生成します（2.2.0以降で有効）。これにより、Kotlin Multiplatformの互換性が提供され、統合されたViewModel APIが使用されます。
+
+`KOIN_USE_COMPOSE_VIEWMODEL`オプションはデフォルトで有効になっています。
 
 ```groovy
 ksp {
+    // This is the default behavior since 2.2.0
     arg("KOIN_USE_COMPOSE_VIEWMODEL","true")
 }
 ```
 
-:::note
-`USE_COMPOSE_VIEWMODEL`キーは、`KOIN_USE_COMPOSE_VIEWMODEL`の使用が推奨されるため、非推奨です。
+これにより、マルチプラットフォームの互換性のために、`org.koin.compose.viewmodel.dsl.viewModel`で`viewModel`定義が生成されます。
+
+:::info
+- `KOIN_USE_COMPOSE_VIEWMODEL`はAnnotations 2.2.0以降、デフォルトで有効です。
+- これにより、すべてのプラットフォームで統合されたViewModel APIとの一貫性が保証されます。
+- 古い`USE_COMPOSE_VIEWMODEL`キーは削除されました。
 :::
 
-:::note
-Koin 4.0では、ViewModel型argiumentが同じライブラリから提供されるため、これら2つのViewModel DSLが1つに統合される予定です。
-:::
-
-## 自動バインディングまたは特定バインディング
+## 自動または特定バインディング
 
 コンポーネントを宣言する際、検出されたすべての「バインディング」（関連するスーパークラス）は、すでに準備されています。例えば、以下の定義の場合：
 
@@ -88,7 +91,7 @@ class LoggerLocalDataSource(private val logDao: LogDao) : LoggerDataSource
 val logger: LoggerDataSource by inject(named("InMemoryLogger"))
 ```
 
-カスタムQualifierアノテーションを作成することも可能です。前の例を使用すると：
+カスタムqualifierアノテーションを作成することも可能です。前の例を使用すると：
 
 ```kotlin
 @Named
@@ -124,8 +127,8 @@ class MyComponent(@InjectedParam val myDependency : MyDependency)
 その後、`MyComponent`を呼び出し、`MyDependency`のインスタンスを渡すことができます。
 
 ```kotlin
-val m = MyDependency
-// Resolve MyComponent while passing  MyDependency
+val m = MyDependency()
+// Resolve MyComponent while passing MyDependency
 koin.get<MyComponent> { parametersOf(m) }
 ```
 
@@ -133,7 +136,7 @@ koin.get<MyComponent> { parametersOf(m) }
 
 ## 遅延依存関係の注入 - `Lazy<T>`
 
-Koinは遅延依存関係を自動的に検出して解決できます。例えば、ここでは`LoggerDataSource`の定義を遅延解決したいとします。`Lazy` Kotlin型を次のように使用するだけです。
+Koinは遅延依存関係を自動的に検出して解決できます。ここでは、例えば、`LoggerDataSource`定義を遅延解決したいとします。`Lazy` Kotlin型を次のように使用するだけです。
 
 ```kotlin
 @Single
@@ -151,7 +154,7 @@ single { LoggerAggregator(inject()) }
 
 ## 依存関係のリストの注入 - `List<T>`
 
-Koinは、すべての依存関係のリストを自動的に検出して解決できます。例えば、ここではすべての`LoggerDataSource`定義を解決したいとします。`List` Kotlin型を次のように使用するだけです。
+Koinは、すべての依存関係のリストを自動的に検出して解決できます。ここでは、例えば、すべての`LoggerDataSource`定義を解決したいとします。`List` Kotlin型を次のように使用するだけです。
 
 ```kotlin
 @Single
@@ -187,7 +190,7 @@ public class ComponentWithProps(
 
 ### `@PropertyValue` - デフォルト値を持つプロパティ (1.4以降)
 
-Koinアノテーションは、`@PropertyValue`アノテーションを使用して、コードから直接プロパティのデフォルト値を定義する機能を提供します。
+Koin Annotationsは、`@PropertyValue`アノテーションを使用して、コードから直接プロパティのデフォルト値を定義する機能を提供します。
 例を見てみましょう：
 
 ```kotlin
@@ -202,4 +205,138 @@ public class ComponentWithProps(
 }
 ```
 
-生成されるDSLの等価なものは`factory { ComponentWithProps(getProperty("id", ComponentWithProps.DEFAAULT_ID)) }`となります。
+生成されるDSLの等価なものは`factory { ComponentWithProps(getProperty("id", ComponentWithProps.DEFAULT_ID)) }`となります。
+
+## JSR-330互換アノテーション
+
+Koin Annotationsは、`koin-jsr330`モジュールを介してJSR-330（Jakarta Inject）互換のアノテーションを提供します。これらのアノテーションは、Hilt、Dagger、Guiceなどの他のJSR-330互換フレームワークから移行する開発者にとって特に有用です。
+
+### セットアップ
+
+プロジェクトに`koin-jsr330`依存関係を追加します。
+
+```kotlin
+dependencies {
+    implementation "io.insert-koin:koin-jsr330:$koin_version"
+}
+```
+
+### 利用可能なJSR-330アノテーション
+
+#### @Singleton (jakarta.inject.Singleton)
+
+JSR-330標準のシングルトンアノテーションで、Koinの`@Single`と同等です。
+
+```kotlin
+import jakarta.inject.Singleton
+
+@Singleton
+class DatabaseService
+```
+
+これは`@Single`と同じ結果、つまりKoin内のシングルトンインスタンスを生成します。
+
+#### @Named (jakarta.inject.Named)
+
+文字列ベースのqualifierのためのJSR-330標準qualifierアノテーションです。
+
+```kotlin
+import jakarta.inject.Named
+import jakarta.inject.Singleton
+
+@Singleton
+@Named("inMemory")
+class InMemoryCache : Cache
+
+@Singleton  
+@Named("redis")
+class RedisCache : Cache
+```
+
+#### @Inject (jakarta.inject.Inject)
+
+JSR-330標準のインジェクションアノテーションです。Koin Annotationsは明示的なコンストラクタのマーキングを必要としませんが、`@Inject`はJSR-330互換性のために使用できます。
+
+```kotlin
+import jakarta.inject.Inject
+import jakarta.inject.Singleton
+
+@Singleton
+class UserService @Inject constructor(
+    private val repository: UserRepository
+)
+```
+
+#### @Qualifier (jakarta.inject.Qualifier)
+
+カスタムqualifierアノテーションを作成するためのメタアノテーションです。
+
+```kotlin
+import jakarta.inject.Qualifier
+
+@Qualifier
+annotation class Database
+
+@Qualifier  
+annotation class Cache
+
+@Singleton
+@Database
+class DatabaseConfig
+
+@Singleton
+@Cache  
+class CacheConfig
+```
+
+#### @Scope (jakarta.inject.Scope)
+
+カスタムスコープアノテーションを作成するためのメタアノテーションです。
+
+```kotlin
+import jakarta.inject.Scope
+
+@Scope
+annotation class RequestScoped
+
+// Use with Koin's scope system
+@Scope(name = "request") 
+@RequestScoped
+class RequestProcessor
+```
+
+### 混合使用
+
+同じプロジェクト内でJSR-330アノテーションとKoinアノテーションを自由に混用できます。
+
+```kotlin
+// JSR-330 style
+@Singleton
+@Named("primary")
+class PrimaryDatabase : Database
+
+// Koin style  
+@Single
+@Named("secondary")
+class SecondaryDatabase : Database
+
+// Mixed in same class
+@Factory
+class DatabaseManager @Inject constructor(
+    @Named("primary") private val primary: Database,
+    @Named("secondary") private val secondary: Database  
+)
+```
+
+### フレームワーク移行のメリット
+
+JSR-330アノテーションを使用すると、フレームワーク移行においていくつかの利点があります。
+
+- **使い慣れたAPI**: Hilt、Dagger、Guice出身の開発者は、使い慣れたアノテーションを使用できます。
+- **段階的な移行**: 既存のJSR-330アノテーション付きコードが最小限の変更で動作します。
+- **標準への準拠**: JSR-330に準拠することで、依存性注入（Dependency Injection）の標準との互換性が保証されます。
+- **チームのオンボーディング**: 他のDIフレームワークに慣れているチームにとって、より簡単になります。
+
+:::info
+KoinにおけるJSR-330アノテーションは、Koinの同等のものと同じ基盤となるDSLを生成します。JSR-330とKoinアノテーションのどちらを選択するかは、純粋にスタイルの問題であり、チームの好みや移行要件に基づきます。
+:::

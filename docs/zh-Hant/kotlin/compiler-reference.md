@@ -1,6 +1,7 @@
 [//]: # (title: Kotlin 編譯器選項)
 
-每個 Kotlin 版本都包含針對其支援目標的編譯器：JVM、JavaScript，以及針對 [支援平台](native-overview.md#target-platforms) 的原生二進位檔。
+每個 Kotlin 版本都包含針對其支援目標的編譯器：
+JVM、JavaScript，以及針對 [支援平台](native-overview.md#target-platforms) 的原生二進位檔。
 
 這些編譯器由以下工具使用：
 * IDE，當您點擊 Kotlin 專案的 __編譯__ 或 __執行__ 按鈕時。
@@ -65,11 +66,11 @@ Kotlin 編譯器有許多選項可用於客製化編譯過程。
 ### -kotlin-home _path_
 
 指定 Kotlin 編譯器的自訂路徑，用於尋找執行期函式庫。
-
+  
 ### -P plugin:pluginId:optionName=value
 
-將選項傳遞給 Kotlin 編譯器插件。核心插件及其選項列於文件中 [核心編譯器插件](components-stability.md#core-compiler-plugins) 章節。
-
+將選項傳遞給 Kotlin 編譯器套件。核心套件及其選項列於文件中 [核心編譯器套件](components-stability.md#core-compiler-plugins) 章節。
+  
 ### -language-version _version_
 
 提供與指定 Kotlin 版本的原始碼相容性。
@@ -157,6 +158,11 @@ kotlinc -Xannotation-default-target=param-property
 
 啟用 [額外的宣告、表達式和型別編譯器檢查](whatsnew21.md#extra-compiler-checks)，若為真則發出警告。
 
+#### -Xrender-internal-diagnostic-names
+<primary-label ref="experimental-general"/>
+
+顯示內部診斷名稱以及警告。這對於識別為 `-Xwarning-level` 選項配置的 `DIAGNOSTIC_NAME` 非常有用。
+
 #### -Xwarning-level
 <primary-label ref="experimental-general"/>
 
@@ -179,6 +185,8 @@ kotlinc -Xwarning-level=DIAGNOSTIC_NAME:(error|warning|disabled)
 | `-Wextra -Xwarning-level=DIAGNOSTIC_NAME:disabled` | 啟用所有額外檢查，但指定的檢查除外。 |
 
 如果您有許多警告要從一般規則中排除，您可以使用 [`@argfile`](#argfile) 將它們列在單獨的檔案中。
+
+您可以使用 [`-Xrender-internal-diagnostic-names`](#xrender-internal-diagnostic-names) 來發現 `DIAGNOSTIC_NAME`。
 
 ### -Xdata-flow-based-exhaustiveness
 <primary-label ref="experimental-general"/>
@@ -250,7 +258,7 @@ kotlinc -Xwarning-level=DIAGNOSTIC_NAME:(error|warning|disabled)
 ### -module-name _name_ (JVM)
 
 為生成的 `.kotlin_module` 檔案設定自訂名稱。
-
+  
 ### -no-jdk
 
 不要自動將 Java 執行期包含在類別路徑中。
@@ -262,7 +270,7 @@ kotlinc -Xwarning-level=DIAGNOSTIC_NAME:(error|warning|disabled)
 ### -no-stdlib (JVM)
 
 不要自動將 Kotlin/JVM 標準函式庫 (`kotlin-stdlib.jar`) 和 Kotlin 反射 (`kotlin-reflect.jar`) 包含在類別路徑中。
-
+  
 ### -script-templates _classnames[,] _
 
 腳本定義範本類別。使用完整限定類別名稱並以逗號 (**,**) 分隔。
@@ -313,7 +321,7 @@ kotlinc -Xwarning-level=DIAGNOSTIC_NAME:(error|warning|disabled)
 - `commonjs` - [CommonJS](http://www.commonjs.org/) 模組
 - `amd` - [非同步模組定義](https://en.wikipedia.org/wiki/Asynchronous_module_definition) 模組
 - `plain` - 純 JS 模組
-
+    
 若要了解更多有關不同類型 JS 模組及其區別的資訊，請參閱 [這篇](https://www.davidbcalhoun.com/2014/what-is-amd-commonjs-and-umd/) 文章。
 
 ### -no-stdlib (JS)
@@ -376,7 +384,7 @@ Kotlin/Native 編譯器將 Kotlin 原始碼檔案編譯為針對 [支援平台](
 ### -g
 
 啟用發出偵錯資訊。此選項會降低最佳化級別，不應與 [`-opt`](#opt) 選項結合使用。
-
+    
 ### -generate-test-runner (-tr)
 
 生成用於從專案運行單元測試的應用程式。
@@ -396,7 +404,7 @@ Kotlin/Native 編譯器將 Kotlin 原始碼檔案編譯為針對 [支援平台](
 ### -library-version _version_ (-lv _version_)
 
 設定函式庫版本。
-
+    
 ### -list-targets
 
 列出可用的硬體目標。

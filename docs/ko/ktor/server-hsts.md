@@ -22,7 +22,7 @@
 </p>
 </tldr>
 
-[%plugin_name%](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-hsts/io.ktor.server.plugins.hsts/-h-s-t-s.html) 플러그인은 [RFC 6797](https://tools.ietf.org/html/rfc6797)에 따라 필요한 _HTTP Strict Transport Security_ 헤더를 요청에 추가합니다. 브라우저가 HSTS 정책 헤더를 수신하면, 지정된 기간 동안 더 이상 안전하지 않은 연결로 서버에 연결을 시도하지 않습니다.
+[%plugin_name%](https://api.ktor.io/ktor-server-hsts/io.ktor.server.plugins.hsts/-h-s-t-s.html) 플러그인은 [RFC 6797](https://tools.ietf.org/html/rfc6797)에 따라 필요한 _HTTP Strict Transport Security_ 헤더를 요청에 추가합니다. 브라우저가 HSTS 정책 헤더를 수신하면, 지정된 기간 동안 더 이상 안전하지 않은 연결로 서버에 연결을 시도하지 않습니다.
 
 > HSTS 정책 헤더는 안전하지 않은 HTTP 연결에서는 무시됩니다. HSTS가 적용되려면 [보안](server-ssl.md) 연결을 통해 제공되어야 합니다.
 
@@ -73,7 +73,7 @@
 
 ## %plugin_name% 구성 {id="configure"}
 
-`%plugin_name%`은 [HSTSConfig](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-hsts/io.ktor.server.plugins.hsts/-h-s-t-s-config/index.html)를 통해 설정을 노출합니다. 아래 예시는 클라이언트가 호스트를 알려진 HSTS 호스트 목록에 유지해야 하는 기간을 지정하기 위해 `maxAgeInSeconds` 속성을 사용하는 방법을 보여줍니다:
+`%plugin_name%`은 [HSTSConfig](https://api.ktor.io/ktor-server-hsts/io.ktor.server.plugins.hsts/-h-s-t-s-config/index.html)를 통해 설정을 노출합니다. 아래 예시는 클라이언트가 호스트를 알려진 HSTS 호스트 목록에 유지해야 하는 기간을 지정하기 위해 `maxAgeInSeconds` 속성을 사용하는 방법을 보여줍니다:
 
 ```kotlin
 install(HSTS) {

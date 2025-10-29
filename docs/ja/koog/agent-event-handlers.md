@@ -56,7 +56,7 @@ handleEvents {
     // その他のイベントハンドラー
 }
 ```
-<!--- KNIT example-events-01.kt -->
+<!--- KNIT example-event-handlers-01.kt -->
 
 イベントハンドラーの設定に関する詳細については、[APIリファレンス](https://api.koog.ai/agents/agents-features/agents-features-event-handler/ai.koog.agents.features.eventHandler.feature/-event-handler-config/index.html)を参照してください。
 
@@ -87,4 +87,4 @@ val agent = AIAgent(
     }
 }
 ```
-<!--- KNIT example-events-02.kt -->
+<!--- KNIT example-event-handlers-02.kt -->

@@ -43,8 +43,7 @@ if (httpResponse.status.value in 200..299) {
 ### 標頭 {id="headers"}
 
 [`HttpResponse.headers`](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client.statement/-http-response/index.html)
-屬性允許您獲取包含所有回應標頭的 [Headers](https://api.ktor.io/ktor-http/io.ktor.http/-headers/index.html) 對映。
-此外，`HttpResponse` 提供了以下用於接收特定標頭值的函數：
+屬性允許您獲取包含所有回應標頭的 [Headers](https://api.ktor.io/ktor-http/io.ktor.http/-headers/index.html) 對映。此外，`HttpResponse` 提供了以下用於接收特定標頭值的函數：
 
 *   `contentType` 用於 `Content-Type` 標頭值
 *   `charset` 用於 `Content-Type` 標頭值中的字元集。
@@ -110,7 +109,8 @@ val customer: Customer = client.get("http://localhost:8080/customer/3").body()
 
 ### 多部分表單資料 {id="multipart"}
 
-當您接收包含多部分表單資料的回應時，您可以將其主體讀取為 [`MultiPartData`](https://api.ktor.io/ktor-http/io.ktor.http.content/-multi-part-data/index.html) 實例。
+當您接收包含多部分表單資料的回應時，您可以將其主體讀取為
+[`MultiPartData`](https://api.ktor.io/ktor-http/io.ktor.http.content/-multi-part-data/index.html) 實例。
 這允許您處理回應中包含的表單欄位和檔案。
 
 以下範例展示了如何處理多部分回應中的文字表單欄位和檔案上傳：
@@ -177,7 +177,7 @@ part.dispose()
 
 ### 串流資料 {id="streaming"}
 
-當您呼叫 `HttpResponse.body` 函數來獲取主體時，Ktor 會在記憶體中處理回應並傳回完整的回應主體。如果您需要依序取得回應的區塊（chunk），而不是等待整個回應，請使用具有範圍 [execute](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client.statement/-http-statement/execute.html) 區塊的 `HttpStatement`。
+當您呼叫 `HttpResponse.body` 函數來獲取主體時，Ktor 會在記憶體中處理回應並傳回完整的回應主體。如果您需要依序取得回應的區塊，而不是等待整個回應，請使用具有範圍 [execute](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client.statement/-http-statement/execute.html) 區塊的 `HttpStatement`。
 以下[可執行範例](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-download-streaming)
 展示了如何以區塊（位元組封包）形式接收回應內容並將其儲存到檔案中：
 
@@ -207,6 +207,10 @@ part.dispose()
     }
 ```
 
+> 若要在 Ktor 通道與 `RawSink`、`RawSource` 或 `OutputStream` 等類型之間轉換，請參閱 [I/O 互通性](io-interoperability.md)。
+>
+{style="tip"}
+
 在此範例中，[`ByteReadChannel`](https://api.ktor.io/ktor-io/io.ktor.utils.io/-byte-read-channel/index.html) 用於非同步讀取資料。使用 `ByteReadChannel.readRemaining()` 可擷取通道中所有可用的位元組，而 `Source.transferTo()` 則直接將資料寫入檔案，減少不必要的記憶體分配。
 
 若要將回應主體儲存到檔案而不進行額外處理，您可以改用
@@ -218,4 +222,3 @@ client.prepareGet("https://httpbin.org/bytes/$fileSize").execute { httpResponse 
     channel.copyAndClose(file.writeChannel())
     println("A file saved to ${file.path}")
 }
-```

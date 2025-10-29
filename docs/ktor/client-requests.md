@@ -15,11 +15,11 @@
 </tldr>
 
 <link-summary>
-了解如何发送请求以及如何指定各种请求参数：请求 URL、HTTP 方法、请求头和请求体。
+了解如何发送请求以及如何指定各种请求形参：请求 URL、HTTP 方法、请求头和请求体。
 </link-summary>
 
 在[配置客户端](client-create-and-configure.md)后，你可以开始发送 HTTP 请求。主要方法是使用接受 URL 作为形参的
-[`.request()`](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client.request/request.html)函数。在该函数内部，你可以配置各种请求形参：
+[`.request()`](https://api.ktor.io/ktor-client-core/io.ktor.client.request/request.html)函数。在该函数内部，你可以配置各种请求形参：
 
 *   指定 HTTP 方法，例如 `GET`、`POST`、`PUT`、`DELETE`、`HEAD`、`OPTIONS` 或 `PATCH`。
 *   将 URL 配置为字符串，或者单独配置其组成部分（例如域、路径和查询形参）。
@@ -28,7 +28,8 @@
 *   包含请求体——例如，纯文本、数据对象或表单形参。
 
 这些形参由
-[`HttpRequestBuilder`](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client.request/-http-request-builder/index.html)类暴露。
+[`HttpRequestBuilder`](https://api.ktor.io/ktor-client-core/io.ktor.client.request/-http-request-builder/index.html)
+类暴露。
 
 ```kotlin
 import io.ktor.client.request.*
@@ -61,9 +62,9 @@ val response: HttpResponse = client.request("https://ktor.io/") {
 ```
 
 除了 `.request()` 之外，`HttpClient` 还为基本的 HTTP 方法提供了特定的函数，例如
-[`.get()`](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client.request/get.html)、
-[`.post()`](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client.request/post.html)和
-[`.put()`](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client.request/put.html)。
+[`.get()`](https://api.ktor.io/ktor-client-core/io.ktor.client.request/get.html)、
+[`.post()`](https://api.ktor.io/ktor-client-core/io.ktor.client.request/post.html)和
+[`.put()`](https://api.ktor.io/ktor-client-core/io.ktor.client.request/put.html)。
 上面的示例可以使用 `.get()` 函数进行简化：
 
 ```kotlin
@@ -178,7 +179,7 @@ val response: HttpResponse = client.get("/") {
 
 #### 添加多个请求头
 
-[`headers`](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client.request/headers.html) 函数允许你一次性添加多个请求头：
+[`headers`](https://api.ktor.io/ktor-client-core/io.ktor.client.request/headers.html) 函数允许你一次性添加多个请求头：
 
 ```kotlin
 client.get("https://ktor.io") {
@@ -192,7 +193,7 @@ client.get("https://ktor.io") {
 
 #### 添加单个请求头
 
-[`header`](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client.request/header.html) 函数允许你追加单个请求头。
+[`header`](https://api.ktor.io/ktor-client-core/io.ktor.client.request/header.html) 函数允许你追加单个请求头。
 
 #### 使用 `basicAuth` 或 `bearerAuth` 进行授权
 
@@ -203,7 +204,7 @@ client.get("https://ktor.io") {
 ### Cookie {id="cookies"}
 
 要发送 cookie，请使用
-[`cookie()`](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client.request/cookie.html) 函数：
+[`cookie()`](https://api.ktor.io/ktor-client-core/io.ktor.client.request/cookie.html) 函数：
 
 ```kotlin
 client.get("https://ktor.io") {
@@ -223,7 +224,7 @@ Ktor 还提供了 [`HttpCookies`](client-cookies.md) 插件，它允许你在多
 ## 设置请求体 {id="body"}
 
 要设置请求体，请调用
-[`HttpRequestBuilder`](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client.request/-http-request-builder/index.html)提供的 `setBody()` 函数。
+[`HttpRequestBuilder`](https://api.ktor.io/ktor-client-core/io.ktor.client.request/-http-request-builder/index.html)提供的 `setBody()` 函数。
 此函数接受不同类型的载荷，包括纯文本、任意类实例、表单数据和字节数组。
 
 ### 文本 {id="text"}
@@ -256,7 +257,7 @@ val response: HttpResponse = client.post("http://localhost:8080/customer") {
 ### 表单形参 {id="form_parameters"}
 
 Ktor 客户端提供了
-[`submitForm()`](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client.request.forms/submit-form.html)
+[`submitForm()`](https://api.ktor.io/ktor-client-core/io.ktor.client.request.forms/submit-form.html)
 函数，用于发送 `application/x-www-form-urlencoded` 类型的表单形参。以下示例演示了其用法：
 
 ```kotlin
@@ -312,7 +313,8 @@ val response: HttpResponse = client.submitForm(
         )
 ```
 
-关于完整示例，请参见 [client-upload](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-upload)。
+关于完整示例，请参见
+[client-upload](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-upload)。
 
 #### 使用 `MultiPartFormDataContent`
 

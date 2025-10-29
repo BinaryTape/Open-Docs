@@ -18,7 +18,7 @@
 
 ロギングとは、重要なイベント、エラー、または情報メッセージを記録することで、プログラムの動作を追跡し、問題を診断する方法です。
 
-Ktorは、[Logging](https://api.ktor.io/ktor-client/ktor-client-plugins/ktor-client-logging/io.ktor.client.plugins.logging/-logging)プラグインを使用してHTTPコールをログに記録する機能を提供します。
+Ktorは、[Logging](https://api.ktor.io/ktor-client-logging/io.ktor.client.plugins.logging/-logging)プラグインを使用してHTTPコールをログに記録する機能を提供します。
 このプラグインは、異なるプラットフォーム向けに異なるロガータイプを提供します。
 
 > サーバー側では、Ktorはアプリケーションロギング用の[Logging](server-logging.md)プラグインと、クライアントリクエストのロギング用の[CallLogging](server-call-logging.md)プラグインを提供します。
@@ -115,7 +115,7 @@ val client = HttpClient(CIO) {
 
 ## ロギングの設定 {id="configure_plugin"}
 
-`Logging`プラグインの設定は、[Logging.Config](https://api.ktor.io/ktor-client/ktor-client-plugins/ktor-client-logging/io.ktor.client.plugins.logging/-logging-config)クラスによって提供されます。以下の例は、設定のサンプルを示しています。
+`Logging`プラグインの設定は、[Logging.Config](https://api.ktor.io/ktor-client-logging/io.ktor.client.plugins.logging/-logging-config)クラスによって提供されます。以下の例は、設定のサンプルを示しています。
 
 `logger`
 : Loggerインスタンスを指定します。`Logger.DEFAULT`はSLF4Jロギングフレームワークを使用します。Nativeターゲットの場合、このプロパティを`Logger.SIMPLE`に設定します。
@@ -197,4 +197,4 @@ fun main() {
 
 ```
 
-完全な例については、[client-logging-napier](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-logging-napier)を参照してください。
+完全な例については、[client-logging-napier](https://github.com/AAkira/Napier)を参照してください。

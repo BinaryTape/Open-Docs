@@ -16,7 +16,7 @@
 了解如何创建您自己的自定义插件。
 </link-summary>
 
-从 v2.0.0 版本开始，Ktor 提供了一个新的 API 用于创建自定义 [插件](server-plugins.md)。通常，此 API 不需要理解 Ktor 内部概念，例如管道、阶段等。相反，您可以通过使用 `onCall`、`onCallReceive` 和 `onCallRespond` 处理程序来访问 [调用处理](#call-handling) 的不同阶段。
+从 v2.0.0 版本开始，Ktor 提供了一个新的 API 用于创建自定义 [插件](server-plugins.md)。通常，此 API 不需要理解 Ktor 内部概念，例如流水线、阶段等。相反，您可以通过使用 `onCall`、`onCallReceive` 和 `onCallRespond` 处理程序来访问 [请求和响应处理](#call-handling) 的不同阶段。
 
 > 本主题中描述的 API 适用于 v2.0.0 及更高版本。对于旧版本，您可以使用 [基础 API](server-custom-plugins-base-api.md)。
 
@@ -195,7 +195,7 @@ onCallRespond { call ->
 -   `ResponseBodyReadyForSend` 当响应正文经过所有转换并准备好发送时被调用。
 -   `ResponseSent` 当响应成功发送到客户端时被调用。
 -   `CallFailed` 当调用因异常而失败时被调用。
--   [AuthenticationChecked](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-auth/io.ktor.server.auth/-authentication-checked/index.html)
+-   [AuthenticationChecked](https://api.ktor.io/ktor-server-auth/io.ktor.server.auth/-authentication-checked/index.html)
     在 [身份验证](server-auth.md) 凭据检测后执行。以下示例展示了如何使用此钩子来实现
     授权：[custom-plugin-authorization](https://github.com/ktorio/ktor-documentation/blob/%ktor_version%/codeSnippets/snippets/custom-plugin-authorization)。
 
@@ -267,7 +267,7 @@ val ApplicationMonitoringPlugin = createApplicationPlugin(name = "ApplicationMon
     }
     on(MonitoringEvent(ApplicationStopped)) { application ->
         application.log.info("Server is stopped")
-        // Release resources and unsubscribe from events
+        // 释放资源并取消订阅事件
         application.monitor.unsubscribe(ApplicationStarted) {}
         application.monitor.unsubscribe(ApplicationStopped) {}
     }

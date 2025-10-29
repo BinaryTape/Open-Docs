@@ -21,7 +21,9 @@ Ktorを使用すると、[フォルダ](#folders)、[ZIPファイル](#zipped)�
 
 ## フォルダ {id="folders"}
 
-ローカルファイルシステムから静的ファイルを提供するには、[`staticFiles()`](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.http.content/static-files.html)関数を使用します。この場合、相対パスは現在の作業ディレクトリを使用して解決されます。
+ローカルファイルシステムから静的ファイルを提供するには、
+[`staticFiles()`](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.http.content/static-files.html)
+関数を使用します。この場合、相対パスは現在の作業ディレクトリを使用して解決されます。
 
  ```kotlin
  routing {
@@ -32,11 +34,14 @@ Ktorを使用すると、[フォルダ](#folders)、[ZIPファイル](#zipped)�
 上記の例では、`/resources` からのすべてのリクエストは、現在の作業ディレクトリ内の物理フォルダ `files` にマッピングされます。
 Ktorは、URLパスと物理ファイル名が一致する限り、`files` から任意のファイルを再帰的に提供します。
 
-完全な例については、[static-files](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/static-files)を参照してください。
+完全な例については、
+[static-files](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/static-files)を参照してください。
 
 ## ZIPファイル {id="zipped"}
 
-ZIPファイルから静的コンテンツを提供するために、Ktorは[`staticZip()`](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.http.content/static-zip.html)関数を提供します。これにより、以下の例に示すように、リクエストをZIPアーカイブのコンテンツに直接マッピングできます。
+ZIPファイルから静的コンテンツを提供するために、Ktorは[
+`staticZip()`](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.http.content/static-zip.html) 関数を提供します。
+これにより、以下の例に示すように、リクエストをZIPアーカイブのコンテンツに直接マッピングできます。
 
  ```kotlin
  routing {
@@ -50,11 +55,14 @@ ZIPファイルから静的コンテンツを提供するために、Ktorは[`st
 
 `staticZip()` 関数は自動リロードもサポートしています。ZIPファイルの親ディレクトリで変更が検出された場合、次のリクエストでZIPファイルシステムがリロードされます。これにより、サーバーの再起動を必要とせずに、提供されるコンテンツが最新の状態に保たれます。
 
-完全な例については、[static-zip](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/static-zip)を参照してください。
+完全な例については、
+[static-zip](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/static-zip)を参照してください。
 
 ## リソース {id="resources"}
 
-クラスパスからコンテンツを提供するには、[`staticResources()`](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.http.content/static-resources.html)関数を使用します。
+クラスパスからコンテンツを提供するには、
+[`staticResources()`](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.http.content/static-resources.html)
+関数を使用します。
 
 ```kotlin
 routing {
@@ -65,7 +73,8 @@ routing {
 これは、`/resources` からのすべてのリクエストを、アプリケーションリソース内の `static` パッケージにマッピングします。
 この場合、Ktorは、URLパスとリソースへのパスが一致する限り、`static` パッケージから任意のファイルを再帰的に提供します。
 
-完全な例については、[static-resources](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/static-resources)を参照してください。
+完全な例については、
+[static-resources](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/static-resources)を参照してください。
 
 ## 追加設定 {id="configuration"}
 
@@ -83,7 +92,8 @@ staticResources("/custom", "static", index = "custom_index.html")
 
 ### 事前圧縮ファイル {id="precompressed"}
 
-Ktorは、事前圧縮ファイルを提供し、[動的圧縮](server-compression.md)の使用を避ける機能を提供します。この機能を使用するには、`preCompressed()` 関数をブロックステートメント内に定義します。
+Ktorは、事前圧縮ファイルを提供し、[動的圧縮](server-compression.md)の使用を避ける機能を提供します。
+この機能を使用するには、`preCompressed()` 関数をブロックステートメント内に定義します。
 
 ```kotlin
 staticFiles("/", File("files")) {

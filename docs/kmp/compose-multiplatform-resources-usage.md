@@ -86,11 +86,11 @@ Image(
 
 你可以使用 Material Symbols 库中的 Android XML 矢量图标：
 
-1. 打开 [Google Fonts Icons](https://fonts.google.com/icons) 图库，选择一个图标，转到 Android 选项卡，然后点击 **Download**。
+1. 打开 [Google Fonts Icons](https://fonts.google.com/icons) 图库，选择一个图标，转到 Android 选项卡，然后点击 **下载**。
 
 2. 将下载的 XML 图标文件添加到你的多平台资源的 `drawable` 目录中。
 
-3. 打开 XML 图标文件，并将 `android:fillColor` 设置为 `#00000000`。移除任何其他用于颜色调整的 Android 特有属性，例如 `android:tint`。
+3. 打开 XML 图标文件，并将 `android:fillColor` 设置为 `#000000`。移除任何其他用于颜色调整的 Android 特有属性，例如 `android:tint`。
 
    Before:
 
@@ -116,7 +116,7 @@ Image(
         android:viewportWidth="960"
         android:viewportHeight="960">
         <path
-            android:fillColor="#00000000"
+            android:fillColor="#000000"
             android:pathData="..."/>
    </vector>
    ```
@@ -241,7 +241,7 @@ Text(stringResource(Res.string.str_template, "User_name", 100.1f))
 </resources>
 ```
 
-要获取对应的 list，请使用以下代码：
+要获取对应的列表，请使用以下代码：
 
 <Tabs>
 <TabItem title= "从可组合代码">

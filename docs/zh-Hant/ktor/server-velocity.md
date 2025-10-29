@@ -21,11 +21,11 @@
     </a>
 </p>
 <p>
-    <b><Links href="/ktor/server-native" summary="模組允許您透過將路由分組來建構應用程式。">原生伺服器</Links>支援</b>: ✖️
+    <b><Links href="/ktor/server-native" summary="Ktor 支援 Kotlin/Native 並允許您在無需額外執行時間或虛擬機器的情況下執行伺服器。">原生伺服器</Links>支援</b>: ✖️
 </p>
 </tldr>
 
-Ktor 允許您透過安裝 [Velocity](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-velocity/io.ktor.server.velocity/-velocity) 外掛程式，在應用程式中將 [Velocity 範本](https://velocity.apache.org/engine/) 作為視圖使用。
+Ktor 允許您透過安裝 [Velocity](https://api.ktor.io/ktor-server-velocity/io.ktor.server.velocity/-velocity) 外掛程式，在應用程式中將 [Velocity 範本](https://velocity.apache.org/engine/) 作為視圖使用。
 
 ## 新增依賴項 {id="add_dependencies"}
 

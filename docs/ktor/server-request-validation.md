@@ -84,7 +84,7 @@
 
 ### 1. 接收请求体 {id="receive-body"}
 
-%plugin_name%` 插件会在你使用类型参数调用 **[receive](server-requests.md#body_contents)** 函数时验证请求体。例如，下面的代码片段展示了如何以 `String` 值接收请求体：`
+当你使用类型参数调用 **[receive](server-requests.md#body_contents)** 函数时，`%plugin_name%` 插件会验证请求体。例如，下面的代码片段展示了如何以 `String` 值接收请求体：
 
 ```kotlin
 routing {
@@ -101,9 +101,9 @@ routing {
 此函数返回一个 `ValidationResult` 对象，表示成功或不成功的验证结果。
 对于不成功的结果，会抛出 **[RequestValidationException](#validation-exception)** 异常。
 
-<code>validate</code> 函数有两个重载，允许你通过两种方式验证请求体：
+`validate` 函数有两个重载，允许你通过两种方式验证请求体：
 
-- 第一个 <code>validate</code> 重载允许你将请求体作为指定类型的对象进行访问。
+- 第一个 `validate` 重载允许你将请求体作为指定类型的对象进行访问。
    下面的示例展示了如何验证表示 `String` 值的请求体：
    ```kotlin
    install(RequestValidation) {
@@ -117,7 +117,7 @@ routing {
 
    如果你安装了配置了特定[序列化器](server-serialization.md#configure_serializer)的 `ContentNegotiation` 插件，你可以验证对象属性。从[示例：验证对象属性](#example-object)了解更多。
 
-- 第二个 <code>validate</code> 重载接受 `ValidatorBuilder`，并允许你提供自定义的验证规则。
+- 第二个 `validate` 重载接受 `ValidatorBuilder`，并允许你提供自定义的验证规则。
    你可以从[示例：验证字节数组](#example-byte-array)了解更多。
 
 ### 3. 处理验证异常 {id="validation-exception"}
@@ -209,7 +209,7 @@ Content-Type: text/plain
        call.respond(String(body))
    }
    ```
-2. 要验证接收到的数据，我们将使用第二个 <code>validate</code> [函数重载](#validation-function)，它接受 `ValidatorBuilder` 并允许你提供自定义的验证规则：
+2. 要验证接收到的数据，我们将使用第二个 `validate` [函数重载](#validation-function)，它接受 `ValidatorBuilder` 并允许你提供自定义的验证规则：
    ```kotlin
    install(RequestValidation) {
        validate {
@@ -225,4 +225,3 @@ Content-Type: text/plain
            }
        }
    }
-   ```

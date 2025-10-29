@@ -25,7 +25,7 @@
 
 <link-summary>Resources 外掛程式允許您實作型別安全的路由。</link-summary>
 
-Ktor 提供了 [Resources](https://api.ktor.io/ktor-shared/ktor-resources/io.ktor.resources/-resources/index.html) 外掛程式，允許您實作型別安全的 [路由](server-routing.md)。為此，您需要建立一個將作為型別化路由的類別，然後使用 `@Resource` 關鍵字註解此類別。請注意，`@Resource` 註解具有由 kotlinx.serialization 函式庫提供的 `@Serializable` 行為。
+Ktor 提供了 [Resources](https://api.ktor.io/ktor-resources/io.ktor.resources/-resources/index.html) 外掛程式，允許您實作型別安全的 [路由](server-routing.md)。為此，您需要建立一個將作為型別化路由的類別，然後使用 `@Resource` 關鍵字註解此類別。請注意，`@Resource` 註解具有由 kotlinx.serialization 函式庫提供的 `@Serializable` 行為。
 
 > Ktor 客戶端提供了向伺服器發送[型別化請求](client-resources.md)的能力。
 

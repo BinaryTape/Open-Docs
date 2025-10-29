@@ -151,4 +151,4 @@ val okHttpClient = HttpClient(OkHttp) {
 
 ### Darwin {id="darwin"}
 
-若要為 Darwin 引擎設定信任憑證，請使用 [CertificatePinner](https://api.ktor.io/ktor-client/ktor-client-darwin/io.ktor.client.engine.darwin.certificates/-certificate-pinner/index.html)。
+若要為 Darwin 引擎設定信任憑證，請使用 [CertificatePinner](https://api.ktor.io/ktor-client-darwin/io.ktor.client.engine.darwin.certificates/-certificate-pinner/index.html)。

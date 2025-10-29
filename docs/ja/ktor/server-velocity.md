@@ -25,7 +25,7 @@
 </p>
 </tldr>
 
-Ktorを使用すると、[Velocityテンプレート](https://velocity.apache.org/engine/)をアプリケーション内のビューとして、[Velocity](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-velocity/io.ktor.server.velocity/-velocity)プラグインをインストールすることで利用できます。
+Ktorを使用すると、[Velocityテンプレート](https://velocity.apache.org/engine/)をアプリケーション内のビューとして、[Velocity](https://api.ktor.io/ktor-server-velocity/io.ktor.server.velocity/-velocity)プラグインをインストールすることで利用できます。
 
 ## 依存関係を追加する {id="add_dependencies"}
 
@@ -47,7 +47,9 @@ Ktorを使用すると、[Velocityテンプレート](https://velocity.apache.or
 ## Velocityをインストールする {id="install_plugin"}
 
 <p>
-    アプリケーションに<code>%plugin_name%</code>プラグインを<a href="#install">インストール</a>するには、指定された<Links href="/ktor/server-modules" summary="モジュールを使用すると、ルートをグループ化してアプリケーションを構造化できます。">モジュール</Links>内の<code>install</code>関数に渡します。以下のコードスニペットは、<code>%plugin_name%</code>をインストールする方法を示しています...
+    アプリケーションに<code>%plugin_name%</code>プラグインを<a href="#install">インストール</a>するには、
+    指定された<Links href="/ktor/server-modules" summary="モジュールを使用すると、ルートをグループ化してアプリケーションを構造化できます。">モジュール</Links>内の<code>install</code>関数に渡します。
+    以下のコードスニペットは、<code>%plugin_name%</code>をインストールする方法を示しています...
 </p>
 <list>
     <li>
@@ -62,7 +64,7 @@ Ktorを使用すると、[Velocityテンプレート](https://velocity.apache.or
         <code-block lang="kotlin" code="            import io.ktor.server.engine.*&#10;            import io.ktor.server.netty.*&#10;            import io.ktor.server.application.*&#10;            import %package_name%.*&#10;&#10;            fun main() {&#10;                embeddedServer(Netty, port = 8080) {&#10;                    install(%plugin_name%)&#10;                    // ...&#10;                }.start(wait = true)&#10;            }"/>
     </TabItem>
     <TabItem title="module">
-        <code-block lang="kotlin" code="            import io.ktor.server.application.*&#10;            import %package_name%.*&#10;            // ...&#10;            fun Application.module() {&#10;                install(%plugin_name%)&#10;                // ...&#10;            }"/>
+        <code-block lang="kotlin" code="            import io.ktor.server.application.*&#10;            import %package_name%.*&#10;            // ...&#10;            fun Application.module() {&#10;                install(%plugin_name%)&#10;                // ...&#10            }"/>
     </TabItem>
 </Tabs>
 
@@ -115,13 +117,12 @@ get("/index") {
 ```kotlin
 install(VelocityTools) {
     engine {
-        // Engine configuration
+        // エンジン設定
         setProperty("resource.loader", "string")
         addProperty("resource.loader.string.name", "myRepo")
         addProperty("resource.loader.string.class", StringResourceLoader::class.java.name)
         addProperty("resource.loader.string.repository.name", "myRepo")
     }
-    addDefaultTools() // Add a default tool
-    tool("foo", MyCustomTool::class.java) // Add a custom tool
+    addDefaultTools() // デフォルトのツールを追加
+    tool("foo", MyCustomTool::class.java) // カスタムツールを追加
 }
-```

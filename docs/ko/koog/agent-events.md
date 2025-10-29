@@ -9,7 +9,7 @@
 - LLM 스트리밍 이벤트
 - 도구 실행 이벤트
 
-참고: 기능(Feature) 이벤트는 `agents-core` 모듈에 정의되어 있으며, `ai.koog.agents.core.feature.model.events` 패키지 아래에 있습니다. 예를 들어, `agents-features-trace`, `agents-features-debugger`, `agents-features-event-handler`와 같은 기능들은 이러한 이벤트를 사용하여 에이전트 실행 중에 생성된 메시지를 처리하고 전달합니다.
+참고: 기능(Feature) 이벤트는 `agents-core` 모듈에 정의되어 있으며, `ai.koog.agents.core.feature.model.events` 패키지 아래에 있습니다. `agents-features-trace` 및 `agents-features-event-handler`와 같은 기능들은 이러한 이벤트를 사용하여 에이전트 실행 중에 생성된 메시지를 처리하고 전달합니다.
 
 ## 사전 정의된 이벤트 유형
 
@@ -107,22 +107,22 @@ Koog는 사용자 정의 메시지 프로세서에서 사용할 수 있는 사�
 
 노드 실행의 시작을 나타냅니다. 다음 필드를 포함합니다:
 
-| 이름       | 데이터 타입 | 필수 | 기본값 | 설명                           |
-|------------|-----------|----|------|--------------------------------|
-| `runId`    | String    | Yes  |      | 전략 실행의 고유 식별자.       |
-| `nodeName` | String    | Yes  |      | 실행이 시작된 노드의 이름입니다. |
-| `input`    | String    | Yes  |      | 노드의 입력값입니다.           |
+| 이름       | 데이터 타입   | 필수 | 기본값 | 설명                           |
+|------------|-------------|----|------|--------------------------------|
+| `runId`    | String      | Yes  |      | 전략 실행의 고유 식별자.       |
+| `nodeName` | String      | Yes  |      | 실행이 시작된 노드의 이름입니다. |
+| `input`    | JsonElement | No   | null | 노드의 입력값입니다.           |
 
 #### NodeExecutionCompletedEvent
 
 노드 실행의 종료를 나타냅니다. 다음 필드를 포함합니다:
 
-| 이름       | 데이터 타입 | 필수 | 기본값 | 설명                           |
-|------------|-----------|----|------|--------------------------------|
-| `runId`    | String    | Yes  |      | 전략 실행의 고유 식별자.       |
-| `nodeName` | String    | Yes  |      | 실행이 종료된 노드의 이름입니다. |
-| `input`    | String    | Yes  |      | 노드의 입력값입니다.           |
-| `output`   | String    | Yes  |      | 노드에 의해 생성된 출력값입니다. |
+| 이름       | 데이터 타입   | 필수 | 기본값 | 설명                           |
+|------------|-------------|----|------|--------------------------------|
+| `runId`    | String      | Yes  |      | 전략 실행의 고유 식별자.       |
+| `nodeName` | String      | Yes  |      | 실행이 종료된 노드의 이름입니다. |
+| `input`    | JsonElement | No   | null | 노드의 입력값입니다.           |
+| `output`   | JsonElement | No   | null | 노드에 의해 생성된 출력값입니다. |
 
 #### NodeExecutionFailedEvent
 
@@ -132,6 +132,7 @@ Koog는 사용자 정의 메시지 프로세서에서 사용할 수 있는 사�
 |------------|--------------|----|------|-----------------------------------------------------------------------------------------------------------------------------------|
 | `runId`    | String       | Yes  |      | 전략 실행의 고유 식별자.                                                                                                        |
 | `nodeName` | String       | Yes  |      | 오류가 발생한 노드의 이름입니다.                                                                                                  |
+| `input`    | JsonElement  | No   | null | 노드에 제공된 입력 데이터입니다.                                                                                                  |
 | `error`    | AIAgentError | Yes  |      | 노드 실행 중에 발생한 특정 오류입니다. 자세한 내용은 [AIAgentError](#aiagenterror)를 참조하세요. |
 
 ### LLM 호출 이벤트
@@ -265,7 +266,7 @@ LLM 스트리밍 호출의 종료를 나타냅니다. 다음 필드를 포함합
 
 ### 에이전트 실행의 특정 부분만 추적하려면 어떻게 해야 하나요?
 
-`messageFilter` 속성을 사용하여 이벤트를 필터링합니다. 예를 들어, LLM 호출만 추적하려면 다음을 사용합니다.
+`messageFilter` 속성을 사용하여 이벤트를 필터링합니다. 예를 들어, 노드 실행만 추적하려면 다음을 사용합니다.
 
 <!--- INCLUDE
 import ai.koog.agents.core.agent.AIAgent
@@ -308,13 +309,13 @@ install(Tracing) {
     )
     addMessageProcessor(fileWriter)
     
-    // LLM 호출만 추적
+    // Only trace LLM calls
     fileWriter.setMessageFilter { message ->
         message is LLMCallStartingEvent || message is LLMCallCompletedEvent
     }
 }
 ```
-<!--- KNIT example-tracing-01.kt -->
+<!--- KNIT example-events-01.kt -->
 
 ### 여러 메시지 프로세서를 사용할 수 있나요?
 
@@ -361,7 +362,7 @@ install(Tracing) {
     addMessageProcessor(TraceFeatureMessageRemoteWriter(connectionConfig))
 }
 ```
-<!--- KNIT example-tracing-02.kt -->
+<!--- KNIT example-events-02.kt -->
 
 ### 사용자 정의 메시지 프로세서를 어떻게 생성할 수 있나요?
 
@@ -427,6 +428,6 @@ install(Tracing) {
     addMessageProcessor(CustomTraceProcessor())
 }
 ```
-<!--- KNIT example-tracing-03.kt -->
+<!--- KNIT example-events-03.kt -->
 
 메시지 프로세서로 처리할 수 있는 기존 이벤트 유형에 대한 자세한 내용은 [사전 정의된 이벤트 유형](#predefined-event-types)을 참조하세요.

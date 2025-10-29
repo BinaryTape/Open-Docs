@@ -107,4 +107,3 @@ get("/index") {
     val sampleUser = User(1, "John")
     call.respond(MustacheContent("index.hbs", mapOf("user" to sampleUser)))
 }
-```

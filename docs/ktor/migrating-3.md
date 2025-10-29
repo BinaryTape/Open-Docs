@@ -26,7 +26,7 @@
 
 #### 已重命名类 {id="renamed-classes"}
 
-| Package | 2.x.x | 3.0.x |
+| 包 | 2.x.x | 3.0.x |
 |---|---|---|
 | `io.ktor:ktor-server-core` | `ApplicationEngineEnvironmentBuilder` | `ApplicationEnvironmentBuilder` |
 | `io.ktor:ktor-server-core` | `applicationEngineEnvironment` | `applicationEnvironment` |
@@ -34,8 +34,8 @@
 #### `start()` 和 `stop()` 方法已从 `ApplicationEngineEnvironment` 中移除 {id="ApplicationEnvironment"}
 
 随着 `ApplicationEngineEnvironment` 合并到 [
-`ApplicationEnvironment`](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.application/-application-environment/index.html)，`start()` 和 `stop()` 方法现在只能通过 [
-`ApplicationEngine`](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.engine/-application-engine/index.html) 访问。
+`ApplicationEnvironment`](https://api.ktor.io/ktor-server-core/io.ktor.server.application/-application-environment/index.html)，`start()` 和 `stop()` 方法现在只能通过 [
+`ApplicationEngine`](https://api.ktor.io/ktor-server-core/io.ktor.server.engine/-application-engine/index.html) 访问。
 
 | 2.x.x | 3.0.x |
 |---|---|
@@ -99,7 +99,7 @@ fun defaultServer(module: Application.() -> Unit) =
 #### `commandLineEnvironment()` 已移除 {id="CommandLineConfig"}
 
 `commandLineEnvironment()` 函数，用于从命令行实参创建 `ApplicationEngineEnvironment` 实例，已在 Ktor `3.0.0` 中移除。取而代之的是，你可以使用 [
-`CommandLineConfig`](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.engine/-command-line-config.html) 函数将命令行实参解析为配置对象。
+`CommandLineConfig`](https://api.ktor.io/ktor-server-core/io.ktor.server.engine/-command-line-config.html) 函数将命令行实参解析为配置对象。
 
 要将应用程序从 `commandLineEnvironment` 迁移到 `CommandLineConfig`，请将 `commandLineEnvironment()` 替换为 `configure` 代码块，如下所示。
 
@@ -149,13 +149,13 @@ fun main(args: Array<String>) {
 #### `ServerConfigBuilder` 的引入 {id="ServerConfigBuilder"}
 
 为了配置服务器属性，引入了一个新实体 [
-`ServerConfigBuilder`](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.application/-server-config-builder/index.html)，它取代了 `ApplicationPropertiesBuilder` 的旧有配置机制。
+`ServerConfigBuilder`](https://api.ktor.io/ktor-server-core/io.ktor.server.application/-server-config-builder/index.html)，它取代了 `ApplicationPropertiesBuilder` 的旧有配置机制。
 `ServerConfigBuilder` 用于构建 [
-`ServerConfig`](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.application/-server-config/index.html) 类的实例，该类现在持有先前由 `ApplicationProperties` 管理的模块、路径和环境详细信息。
+`ServerConfig`](https://api.ktor.io/ktor-server-core/io.ktor.server.application/-server-config/index.html) 类的实例，该类现在持有先前由 `ApplicationProperties` 管理的模块、路径和环境详细信息。
 
 下表总结了主要变更：
 
-| Package | 2.x.x | 3.0.x |
+| 包 | 2.x.x | 3.0.x |
 |---|---|---|
 | `io.ktor:ktor-server-core` | `ApplicationProperties` | `ServerConfig` |
 | `io.ktor:ktor-server-core` | `ApplicationPropertiesBuilder` | `ServerConfigBuilder` |
@@ -182,7 +182,7 @@ fun main(args: Array<String>) {
 #### `EmbeddedServer` 的引入 {id="EmbeddedServer"}
 
 [
-`EmbeddedServer`](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.engine/-embedded-server/index.html) 类被引入并用于替代 `ApplicationEngine` 作为 `embeddedServer()` 函数的返回类型。
+`EmbeddedServer`](https://api.ktor.io/ktor-server-core/io.ktor.server.engine/-embedded-server/index.html) 类被引入并用于替代 `ApplicationEngine` 作为 `embeddedServer()` 函数的返回类型。
 
 关于模型变更的更多详情，请参见 [YouTrack 上的 KTOR-3857 问题](https://youtrack.jetbrains.com/issue/KTOR-3857/Environment-Engine-Application-Design)。
 
@@ -298,7 +298,7 @@ fun testHello() = testApplication {
 ### `CallLogging` 插件包已重命名
 
 [
-`CallLogging`](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-call-logging/io.ktor.server.plugins.calllogging/index.html) 插件包因拼写错误已重命名。
+`CallLogging`](https://api.ktor.io/ktor-server-plugins/ktor-server-call-logging/io.ktor.server.plugins.calllogging/index.html) 插件包因拼写错误已重命名。
 
 | 2.x.x | 3.0.x |
 |---|---|
@@ -307,7 +307,7 @@ fun testHello() = testApplication {
 ### `ktor-server-host-common` 模块已移除
 
 由于 `Application` 需要了解 `ApplicationEngine`，`ktor-server-host-common` 模块的内容已合并到 `ktor-server-core` 中，即 [
-`io.ktor.server.engine`](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.engine/index.html) 包。
+`io.ktor.server.engine`](https://api.ktor.io/ktor-server-core/io.ktor.server.engine/index.html) 包。
 
 确保你的依赖项已相应更新。在大多数情况下，你只需移除 `ktor-server-host-common` 依赖项即可。
 
@@ -515,12 +515,11 @@ install(Sessions) {
 ### `HttpResponse` 的 `content` 属性重命名
 
 在 Ktor 3.0.0 之前，[
-`HttpResponse`](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client.statement/-http-response/index.html) 的 `content` 属性提供了一个原始的 `ByteReadChannel`，用于从网络读取响应内容。从 Ktor 3.0.0 开始，`content` 属性已重命名为 `rawContent`，以更好地反映其用途。
+`HttpResponse`](https://api.ktor.io/ktor-client-core/io.ktor.client.statement/-http-response/index.html) 的 `content` 属性提供了一个原始的 `ByteReadChannel`，用于从网络读取响应内容。从 Ktor 3.0.0 开始，`content` 属性已重命名为 `rawContent`，以更好地反映其用途。
 
 ### `SocketTimeoutException` 现在是一个类型别名 (typealias)
 
-`io.ktor.client.network.sockets` 包中的 [
-`SocketTimeoutException`](https://api.ktor.io/older/3.0.0/ktor-client/ktor-client-core/io.ktor.client.network.sockets/-socket-timeout-exception/index.html) 已从 Kotlin 类转换为 Java 类的别名。
+[`SocketTimeoutException`](https://api.ktor.io/older/3.0.0/ktor-client/ktor-client-core/io.ktor.client.network.sockets/-socket-timeout-exception/index.html) 已从 Kotlin 类转换为 Java 类的别名。
 此更改在某些情况下可能导致 `NoClassDefFoundError`，并可能需要更新现有代码。
 
 要迁移你的应用程序，请确保你的代码没有引用旧类，并且已使用最新的 Ktor 版本进行编译。以下是更新异常检测的方法：

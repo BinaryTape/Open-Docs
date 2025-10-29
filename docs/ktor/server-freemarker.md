@@ -21,7 +21,7 @@
     </a>
 </p>
 <p>
-    <b><Links href="/ktor/server-native" summary="模块允许你通过对路由进行分组来组织应用程序。">原生服务器</Links> 支持</b>: ✖️
+    <b><Links href="/ktor/server-native" summary="Ktor 支持 Kotlin/Native，并允许你在没有额外运行时或虚拟机的情况下运行服务器。">原生服务器</Links> 支持</b>: ✖️
 </p>
 </tldr>
 
@@ -106,4 +106,3 @@ get("/index") {
     val sampleUser = User(1, "John")
     call.respond(FreeMarkerContent("index.ftl", mapOf("user" to sampleUser)))
 }
-```

@@ -25,7 +25,7 @@
 </p>
 </tldr>
 
-Ktor를 사용하면 [Velocity 템플릿](https://velocity.apache.org/engine/)을 애플리케이션 내에서 뷰로 사용할 수 있습니다. 이를 위해 [Velocity](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-velocity/io.ktor.server.velocity/-velocity) 플러그인을 설치하면 됩니다.
+Ktor를 사용하면 [Velocity 템플릿](https://velocity.apache.org/engine/)을 애플리케이션 내에서 뷰로 사용할 수 있습니다. 이를 위해 [Velocity](https://api.ktor.io/ktor-server-velocity/io.ktor.server.velocity/-velocity) 플러그인을 설치하면 됩니다.
 
 ## 의존성 추가 {id="add_dependencies"}
 
@@ -125,4 +125,3 @@ install(VelocityTools) {
     addDefaultTools() // Add a default tool
     tool("foo", MyCustomTool::class.java) // Add a custom tool
 }
-```

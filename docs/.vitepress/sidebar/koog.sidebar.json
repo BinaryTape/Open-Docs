@@ -4,18 +4,35 @@
     "items": [
       {
         "text": "koog.overview",
-        "link": "index.md"
-      },
-      {
-        "text": "koog.key-concepts",
-        "link": "key-concepts"
+        "items": [
+          {
+            "text": "koog._0"
+          },
+          {
+            "text": "koog.key-features",
+            "link": "key-features"
+          },
+          {
+            "text": "koog.llm-providers",
+            "link": "llm-providers"
+          },
+          {
+            "text": "koog.glossary",
+            "link": "glossary"
+          }
+        ],
+        "collapsed": true
       },
       {
         "text": "koog.getting-started",
+        "link": "getting-started"
+      },
+      {
+        "text": "koog.agent-types",
         "items": [
           {
-            "text": "koog.single-run-agents",
-            "link": "single-run-agents"
+            "text": "koog.basic-agents",
+            "link": "basic-agents"
           },
           {
             "text": "koog.functional-agents",
@@ -29,7 +46,7 @@
         "collapsed": true
       },
       {
-        "text": "koog.prompt-api",
+        "text": "koog.prompts",
         "link": "prompt-api"
       },
       {
@@ -55,11 +72,11 @@
         "collapsed": true
       },
       {
-        "text": "koog.agent-events",
+        "text": "koog.events",
         "link": "agent-events"
       },
       {
-        "text": "koog.agent-strategies",
+        "text": "koog.strategies",
         "items": [
           {
             "text": "koog.pre-defined-nodes-and-components",
@@ -183,6 +200,10 @@
               {
                 "text": "koog.overview",
                 "link": "features-overview"
+              },
+              {
+                "text": "koog.event-handlers",
+                "link": "agent-event-handlers"
               },
               {
                 "text": "koog.tracing",

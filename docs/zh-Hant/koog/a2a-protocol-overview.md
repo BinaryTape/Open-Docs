@@ -4,7 +4,19 @@
 
 ## 什麼是 A2A 協定？
 
-A2A (Agent-to-Agent) 協定是一種標準化的通訊協定，讓 AI 代理能夠彼此以及與客戶端應用程式互動。它定義了一組方法、訊息格式和行為，以實現一致且可互通的代理通訊。如需更多資訊和 A2A 協定的詳細規格，請參閱官方的 [A2A Protocol website](https://a2a-protocol.org/latest/)。
+A2A (Agent-to-Agent) 協定是一種標準化的通訊協定，讓 AI 代理能夠彼此以及與客戶端應用程式互動。
+它定義了一組方法、訊息格式和行為，以實現一致且可互通的代理通訊。
+如需更多資訊和 A2A 協定的詳細規格，請參閱官方的 [A2A Protocol website](https://a2a-protocol.org/latest/)。
+
+## 開始使用
+
+**重要**：A2A 依賴項預設**不**包含在 `koog-agents` 元依賴項中。您必須明確地將所需的 A2A 模組新增到您的專案。
+
+若要在專案中使用 A2A，請根據您的使用情境新增依賴項：
+
+- **對於 A2A 客戶端**：請參閱 [A2A 客戶端文件](a2a-client.md#dependencies)
+- **對於 A2A 伺服器**：請參閱 [A2A 伺服器文件](a2a-server.md#dependencies)
+- **對於 Koog 整合**：請參閱 [A2A Koog 整合文件](a2a-koog-integration.md#dependencies)
 
 ## A2A 關鍵組件
 

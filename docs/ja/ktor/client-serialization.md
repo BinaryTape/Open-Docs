@@ -23,7 +23,7 @@
 ContentNegotiationプラグインは、主に2つの目的を果たします。クライアントとサーバー間でメディアタイプをネゴシエートすること、そしてリクエスト送信時およびレスポンス受信時にコンテンツを特定の形式でシリアライズ/デシリアライズすることです。
 </link-summary>
 
-[ContentNegotiation](https://api.ktor.io/ktor-client/ktor-client-plugins/ktor-client-content-negotiation/io.ktor.client.plugins.contentnegotiation/-content-negotiation)プラグインは、主に2つの目的を果たします。
+[ContentNegotiation](https://api.ktor.io/ktor-client-content-negotiation/io.ktor.client.plugins.contentnegotiation/-content-negotiation)プラグインは、主に2つの目的を果たします。
 * クライアントとサーバー間でメディアタイプをネゴシエートすること。これには`Accept`および`Content-Type`ヘッダーを使用します。
 * [リクエスト](client-requests.md)送信時および[レスポンス](client-responses.md)受信時に、コンテンツを特定の形式でシリアライズ/デシリアライズすること。Ktorは、JSON、XML、CBOR、ProtoBufといった形式をすぐに使用できるようにサポートしています。
 

@@ -4,9 +4,11 @@
 
 `TooltipArea` 컴포저블은 다음과 같은 주요 매개변수를 가집니다:
 
-* `tooltip`: 툴팁의 컴포저블 콘텐츠.
-* `tooltipPlacement`: 툴팁 위치를 정의합니다. 앵커(마우스 커서 또는 컴포넌트), 오프셋, 정렬을 지정할 수 있습니다.
-* `delayMillis`: 툴팁이 표시되는 데 걸리는 밀리초 단위 시간. 기본값은 500ms입니다.
+*   `tooltip`, 툴팁의 컴포저블 콘텐츠.
+*   `tooltipPlacement`, 툴팁 위치를 정의합니다. 앵커(마우스 커서 또는 컴포넌트), 오프셋, 정렬을 지정할 수 있습니다.
+*   `delayMillis`, 툴팁이 표시되는 데 걸리는 밀리초 단위 시간. 기본값은 500ms입니다.
+
+다음 예제는 각 버튼이 `TooltipArea`로 래핑된 버튼 목록을 포함하는 간단한 창을 만드는 방법을 보여줍니다. 버튼 위에 마우스를 올리면 버튼 이름이 포함된 툴팁이 나타납니다. 이 코드를 `composeApp/src/jvmMain/kotlin`의 `main.kt` 파일에 추가하세요:
 
 ```kotlin
 import androidx.compose.foundation.ExperimentalFoundationApi
@@ -70,7 +72,7 @@ fun main() = singleWindowApplication(
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="TooltipArea(tooltip = { Surface( "}
 
-<img src="compose-desktop-tooltips.animated.gif" alt="Tooltips" width="288" preview-src="compose-desktop-tooltips.png"/>
+<img src="compose-desktop-tooltips.animated.gif" alt="툴팁" width="288" preview-src="compose-desktop-tooltips.png"/>
 
 ## 다음은 무엇인가요?
 

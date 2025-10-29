@@ -1,6 +1,6 @@
 # Kotlin Multiplatform 和 Flutter：跨平台開發解決方案
 
-<web-summary>本文探討 Kotlin Multiplatform 和 Flutter，協助您瞭解它們的功能，並為您的跨平台專案選擇最適合的方案。</web-summary>
+<web-summary>本文探討 Kotlin Multiplatform 和 Flutter，協助您瞭解它們的功能，並為您的跨平台專案選擇最適合的方案。</web-summary> 
 
 在快速發展的科技世界中，開發人員不斷尋求高效的框架和工具以協助他們建構高品質的應用程式。然而，在眾多可能性中進行選擇時，重要的是要避免過度強調尋找所謂的「最佳」選項，因為這種方法不一定總能帶來最合適的選擇。
 
@@ -32,7 +32,9 @@ Flutter 開發者社群龐大且高度活躍，提供持續的改進和支援。
 
 ![Kotlin Multiplatform 是一種可重用高達 100% 程式碼的技術](kmp-logic-and-ui.svg){ width="700" }
 
-Kotlin Multiplatform 最初於 2017 年作為 Kotlin 1.2 的一部分推出。2023 年 11 月，Kotlin Multiplatform 變得 [穩定](https://blog.jetbrains.com/kotlin/2023/11/kotlin-multiplatform-stable/)。在 Google I/O 2024 期間，Google 宣布其 [對 Kotlin Multiplatform 的支援](https://android-developers.googleblog.com/2024/05/android-support-for-kotlin-multiplatform-to-share-business-logic-across-mobile-web-server-desktop.html)，用於在 Android 上共用 Android 和 iOS 之間的業務邏輯。
+Kotlin Multiplatform 最初於 2017 年作為 Kotlin 1.2 的一部分推出。2023 年 11 月，Kotlin Multiplatform 變得穩定。在 Google I/O 2024 期間，Google 宣布其 [對 Kotlin Multiplatform 的支援](https://android-developers.googleblog.com/2024/05/android-support-for-kotlin-multiplatform-to-share-business-logic-across-mobile-web-server-desktop.html)，用於在 Android 上共用 Android 和 iOS 之間的業務邏輯。
+
+如果您想深入瞭解 Kotlin Multiplatform 的整體發展方向，請參閱我們的部落格文章 [What’s Next for Kotlin Multiplatform and Compose Multiplatform](https://blog.jetbrains.com/kotlin/2025/08/kmp-roadmap-aug-2025/)。
 
 [![探索 Kotlin Multiplatform](discover-kmp.svg){width="500"}](https://www.jetbrains.com/kotlin-multiplatform/)
 
@@ -135,15 +137,15 @@ Compose Multiplatform 目前在 [iOS](https://blog.jetbrains.com/kotlin/2025/05/
 <tr>
 <td><b>使用該技術的公司</b></td>
         <td><a href="https://www.forbes.com/sites/forbes-engineering/2023/11/13/forbes-mobile-app-shifts-to-kotlin-multiplatform/">Forbes</a>、<a href="https://www.youtube.com/watch?v=z-o9MqN86eE">Todoist</a>、<a href="https://medium.com/mcdonalds-technical-blog/mobile-multiplatform-development-at-mcdonalds-3b72c8d44ebc">McDonald’s</a>、<a href="https://www.youtube.com/watch?v=5sOXv-X43vc">Google Workspace</a>、<a href="https://www.youtube.com/watch?v=hZPL8QqiLi8">Philips</a>、<a href="https://raymondctc.medium.com/adopting-kotlin-multiplatform-mobile-kmm-on-9gag-app-dfe526d9ce04">9gag</a>、<a href="https://kotlinlang.org/lp/multiplatform/case-studies/baidu">Baidu</a>、<a href="https://kotlinlang.org/lp/multiplatform/case-studies/autodesk/">Autodesk</a>、<a href="https://touchlab.co/">TouchLab</a>、<a href="https://www.youtube.com/watch?v=YsQ-2lQYQ8M">Instabee</a>，以及更多公司列在我們的 <Links href="/kmp/case-studies" summary="undefined">KMP 案例研究</Links> 中。</td>
-        <td><a href="https://flutter.dev/showcase/xiaomi">小米</a>、<a href="https://flutter.dev/showcase/wolt">Wolt</a>、<a href="https://flutter.dev/showcase/universal-studios">環球影城</a>、<a href="https://flutter.dev/showcase/alibaba-group">阿里巴巴集團</a>、<a href="https://flutter.dev/showcase/bytedance">字節跳動</a>、<a href="https://www.geico.com/techblog/flutter-as-the-multi-channel-ux-framework/">Geico</a>、<a href="https://flutter.dev/showcase/ebay">eBay Motors</a>、<a href="https://flutter.dev/showcase/google-pay">Google Pay</a>、<a href="https://flutter.dev/showcase/so-vegan">So Vegan</a>，以及更多公司列在 <a href="https://flutter.dev/showcase">Flutter 展示</a> 中。</td>
+        <td><a href="https://flutter.dev/showcase/xiaomi">Xiaomi</a>、<a href="https://flutter.dev/showcase/wolt">Wolt</a>、<a href="https://flutter.dev/showcase/universal-studios">Universal Studios</a>、<a href="https://flutter.dev/showcase/alibaba-group">Alibaba Group</a>、<a href="https://flutter.dev/showcase/bytedance">ByteDance</a>、<a href="https://www.geico.com/techblog/flutter-as-the-multi-channel-ux-framework/">Geico</a>、<a href="https://flutter.dev/showcase/ebay">eBay Motors</a>、<a href="https://flutter.dev/showcase/google-pay">Google Pay</a>、<a href="https://flutter.dev/showcase/so-vegan">So Vegan</a>，以及更多公司列在 <a href="https://flutter.dev/showcase">Flutter 展示</a> 中。</td>
 </tr>
 
 </table>
 
 [![探索全球公司利用 Kotlin Multiplatform 進行跨平台開發的實際用例。](kmp-use-cases-1.svg){width="500"}](https://www.jetbrains.com/help/kotlin-multiplatform-dev/case-studies.html)
 
-您還可以查看 Google 的部落格文章，[讓開發人員更輕鬆地進行跨平台開發](https://developers.googleblog.com/en/making-development-across-platforms-easier-for-developers/)，其中提供了關於為您的專案選擇正確技術堆疊的指導。
+您還可以查看 Google 的部落格文章，[Making Development Across Platforms Easier for Developers](https://developers.googleblog.com/en/making-development-across-platforms-easier-for-developers/)，其中提供了關於為您的專案選擇正確技術堆疊的指導。
 
-如果您正在尋找 Kotlin Multiplatform 和 Flutter 之間的額外比較，您還可以觀看 Philipp Lackner 製作的 [KMP 與 Flutter 影片](https://www.youtube.com/watch?v=dzog64ENKG0)。在這部影片中，他分享了一些關於這些技術的有趣觀察，包括程式碼共用、UI 渲染、效能以及這兩種技術的未來。
+如果您正在尋找 Kotlin Multiplatform 和 Flutter 之間的額外比較，您還可以觀看 Philipp Lackner 製作的 [KMP vs. Flutter 影片](https://www.youtube.com/watch?v=dzog64ENKG0)。在這部影片中，他分享了一些關於這些技術的有趣觀察，包括程式碼共用、UI 渲染、效能以及這兩種技術的未來。
 
 透過仔細評估您的特定業務需求、目標和任務，您可以確定最符合您需求的跨平台解決方案。

@@ -23,9 +23,9 @@ aside: false
         </primary>
         <secondary>
             <title>Kotlin Multiplatform 技术</title>
+            <a href="kmp-overview.md" summary="什么是 KMP，它的优势和用例是什么">为何选择 Kotlin Multiplatform</a>
             <a href="multiplatform-discover-project.md" summary="了解基础知识：公共代码和平台特有代码、目标平台和源代码集">项目结构的关键概念</a>
             <a href="multiplatform-expect-actual.md" summary="使用预期和实际声明访问平台特有的 API">预期与实际声明</a>
-            <a href="multiplatform-hierarchy.md" summary="组织源代码集层次结构以共享公共代码">分层项目结构</a>
             <a href="multiplatform-ios-integration-overview.md" summary="将 Kotlin Multiplatform 共享模块集成到您的 iOS 应用中">设置 iOS 集成</a>
         </secondary>
         <misc>

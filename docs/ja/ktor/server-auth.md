@@ -17,7 +17,9 @@
 AuthenticationプラグインはKtorにおける認証と認可を扱います。
 </link-summary>
 
-Ktorは、認証と認可を処理するために[Authentication](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-auth/io.ktor.server.auth/-authentication/index.html)プラグインを提供します。典型的な使用シナリオには、ユーザーのログイン、特定のリソースへのアクセス許可、関係者間での情報の安全な送信などがあります。`Authentication`を[セッション](server-sessions.md)と併用して、リクエスト間でユーザー情報を保持することもできます。
+Ktorは、認証と認可を処理するために
+[Authentication](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-auth/io.ktor.server.auth/-authentication/index.html)
+プラグインを提供します。典型的な使用シナリオには、ユーザーのログイン、特定のリソースへのアクセス許可、関係者間での情報の安全な送信などがあります。`Authentication`を[セッション](server-sessions.md)と併用して、リクエスト間でユーザー情報を保持することもできます。
 
 > クライアント側では、Ktorは認証と認可を処理するための[Authentication](client-auth.md)プラグインを提供します。
 
@@ -136,7 +138,10 @@ install(Authentication) {
 
 ### ステップ3: プロバイダーを設定する {id="configure-provider"}
 
-各[プロバイダータイプ](#choose-provider)には独自の構成があります。例えば、[`BasicAuthenticationProvider.Config`](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-auth/io.ktor.server.auth/-basic-authentication-provider/-config/index.html)クラスは[`.basic()`](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-auth/io.ktor.server.auth/basic.html)関数にオプションを提供します。このクラスの主要な関数は[`validate()`](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-auth/io.ktor.server.auth/-basic-authentication-provider/-config/validate.html)で、ユーザー名とパスワードを検証する役割を担っています。以下のコード例はその使用法を示しています。
+各[プロバイダータイプ](#choose-provider)には独自の構成があります。例えば、
+[`BasicAuthenticationProvider.Config`](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-auth/io.ktor.server.auth/-basic-authentication-provider/-config/index.html)
+クラスは[`.basic()`](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-auth/io.ktor.server.auth/basic.html)関数にオプションを提供します。このクラスの主要な関数は
+[`validate()`](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-auth/io.ktor.server.auth/-basic-authentication-provider/-config/validate.html)で、ユーザー名とパスワードを検証する役割を担っています。以下のコード例はその使用法を示しています。
 
 ```kotlin
 install(Authentication) {
@@ -191,7 +196,8 @@ install(Authentication) {
        }
    }
    ```
-- ネストされた認証プロバイダーを解決するために使用される戦略。この戦略は[`AuthenticationStrategy`](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-auth/io.ktor.server.auth/-authentication-strategy/index.html)列挙値で表されます。
+- ネストされた認証プロバイダーを解決するために使用される戦略。この戦略は
+  [`AuthenticationStrategy`](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-auth/io.ktor.server.auth/-authentication-strategy/index.html)列挙値で表されます。
 
   例えば、クライアントは`AuthenticationStrategy.Required`戦略で登録されたすべてのプロバイダーに対して認証データを提供する必要があります。
   以下のコードスニペットでは、[セッション認証](server-session-auth.md)を通過したユーザーのみがbasic認証を使用して`/admin`ルートにアクセスできます。

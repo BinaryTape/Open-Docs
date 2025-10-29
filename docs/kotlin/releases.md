@@ -65,9 +65,9 @@ plugins {
 </tab>
 </tabs>
 
-如果你的项目是用更早的 Kotlin 版本创建的，请检查你是否还需要[更新任何 kotlinx 库的版本](gradle-configure-project.md#set-a-dependency-on-a-kotlinx-library)。
+如果你的项目是用更早的 Kotlin 版本创建的，请检测你是否还需要[更新任何 kotlinx 库的版本](gradle-configure-project.md#set-a-dependency-on-a-kotlinx-library)。
 
-如果你要迁移到新的语言版本，Kotlin 插件的迁移工具将帮助你完成此过程。
+如果你正在迁移到新的语言版本，Kotlin 插件的迁移工具将帮助你完成此过程。
 
 > 关于如何在项目中使用 Gradle 的更多信息，请参见[配置 Gradle 项目](gradle-configure-project.md)。
 > 
@@ -83,7 +83,7 @@ plugins {
 </properties>
 ```
 
-或者，你也可以更改 `pom.xml` 文件中 `kotlin-maven-plugin` 的版本：
+此外，你也可以更改 `pom.xml` 文件中 `kotlin-maven-plugin` 的版本：
 
 ```xml
 <plugins>
@@ -95,7 +95,7 @@ plugins {
 </plugins>
 ```
 
-如果你的项目是用更早的 Kotlin 版本创建的，请检查你是否还需要[更新任何 kotlinx 库的版本](maven.md#set-dependencies)。
+如果你的项目是用更早的 Kotlin 版本创建的，请检测你是否还需要[更新任何 kotlinx 库的版本](maven.md#set-dependencies)。
 
 > 关于如何在项目中使用 Maven 的更多信息，请参见 [Maven](maven.md)。
 >
@@ -134,8 +134,18 @@ IntelliJ IDEA 和 Android Studio 中的 K2 模式使用 K2 编译器来改进代
         <th>构建亮点</th>
     </tr>
     <tr>
+        <td><strong>2.2.21</strong>
+            <p>发布时间：<strong>October 23, 2025</strong></p>
+            <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.2.21" target="_blank">GitHub 发布页</a></p>
+        </td>
+        <td>
+            <p>一个工具版本，包含对 Xcode 26 的支持，以及其他改进和错误修复。</p>
+            <p>关于更多详情，请参见<a href="https://github.com/JetBrains/kotlin/releases/tag/v2.2.21">更新日志</a>。</p>
+    </td>
+    </tr>
+    <tr>
         <td><strong>2.2.20</strong>
-            <p>发布时间：<strong>2025 年 9 月 10 日</strong></p>
+            <p>发布时间：<strong>September 10, 2025</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.2.20" target="_blank">GitHub 发布页</a></p>
         </td>
         <td>
@@ -145,7 +155,7 @@ IntelliJ IDEA 和 Android Studio 中的 K2 模式使用 K2 编译器来改进代
     </tr>
     <tr>
         <td><strong>2.2.10</strong>
-            <p>发布时间：<strong>2025 年 8 月 14 日</strong></p>
+            <p>发布时间：<strong>August 14, 2025</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.2.10" target="_blank">GitHub 发布页</a></p>
         </td>
         <td>
@@ -155,7 +165,7 @@ IntelliJ IDEA 和 Android Studio 中的 K2 模式使用 K2 编译器来改进代
     </tr>
     <tr>
         <td><strong>2.2.0</strong>
-            <p>发布时间：<strong>2025 年 6 月 23 日</strong></p>
+            <p>发布时间：<strong>June 23, 2025</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.2.0" target="_blank">GitHub 发布页</a></p>
         </td>
         <td>
@@ -165,7 +175,7 @@ IntelliJ IDEA 和 Android Studio 中的 K2 模式使用 K2 编译器来改进代
     </tr> 
     <tr>
         <td><strong>2.1.21</strong>
-            <p>发布时间：<strong>2025 年 5 月 13 日</strong></p>
+            <p>发布时间：<strong>May 13, 2025</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.1.21" target="_blank">GitHub 发布页</a></p>
         </td>
         <td>
@@ -175,7 +185,7 @@ IntelliJ IDEA 和 Android Studio 中的 K2 模式使用 K2 编译器来改进代
     </tr> 
    <tr>
         <td><strong>2.1.20</strong>
-            <p>发布时间：<strong>2025 年 3 月 20 日</strong></p>
+            <p>发布时间：<strong>March 20, 2025</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.1.20" target="_blank">GitHub 发布页</a></p>
         </td>
         <td>
@@ -185,7 +195,7 @@ IntelliJ IDEA 和 Android Studio 中的 K2 模式使用 K2 编译器来改进代
     </tr>
     <tr>
         <td><strong>2.1.10</strong>
-            <p>发布时间：<strong>2025 年 1 月 27 日</strong></p>
+            <p>发布时间：<strong>January 27, 2025</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.1.10" target="_blank">GitHub 发布页</a></p>
         </td>
         <td>
@@ -195,7 +205,7 @@ IntelliJ IDEA 和 Android Studio 中的 K2 模式使用 K2 编译器来改进代
     </tr>
     <tr>
         <td><strong>2.1.0</strong>
-            <p>发布时间：<strong>2024 年 11 月 27 日</strong></p>
+            <p>发布时间：<strong>November 27, 2024</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.1.0" target="_blank">GitHub 发布页</a></p>
         </td>
         <td>
@@ -205,7 +215,7 @@ IntelliJ IDEA 和 Android Studio 中的 K2 模式使用 K2 编译器来改进代
     </tr>
     <tr>
         <td><strong>2.0.21</strong>
-            <p>发布时间：<strong>2024 年 10 月 10 日</strong></p>
+            <p>发布时间：<strong>October 10, 2024</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.0.21" target="_blank">GitHub 发布页</a></p>
         </td>
         <td>
@@ -215,7 +225,7 @@ IntelliJ IDEA 和 Android Studio 中的 K2 模式使用 K2 编译器来改进代
     </tr>
     <tr>
         <td><strong>2.0.20</strong>
-            <p>发布时间：<strong>2024 年 8 月 22 日</strong></p>
+            <p>发布时间：<strong>August 22, 2024</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.0.20" target="_blank">GitHub 发布页</a></p>
         </td>
         <td>
@@ -225,7 +235,7 @@ IntelliJ IDEA 和 Android Studio 中的 K2 模式使用 K2 编译器来改进代
     </tr>
     <tr>
         <td><strong>2.0.10</strong>
-            <p>发布时间：<strong>2024 年 8 月 6 日</strong></p>
+            <p>发布时间：<strong>August 6, 2024</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.0.10" target="_blank">GitHub 发布页</a></p>
         </td>
         <td>
@@ -235,7 +245,7 @@ IntelliJ IDEA 和 Android Studio 中的 K2 模式使用 K2 编译器来改进代
     </tr>
     <tr>
         <td><strong>2.0.0</strong>
-            <p>发布时间：<strong>2024 年 5 月 21 日</strong></p>
+            <p>发布时间：<strong>May 21, 2024</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.0.0" target="_blank">GitHub 发布页</a></p>
         </td>
         <td>
@@ -245,7 +255,7 @@ IntelliJ IDEA 和 Android Studio 中的 K2 模式使用 K2 编译器来改进代
     </tr>
     <tr>
         <td><strong>1.9.25</strong>
-            <p>发布时间：<strong>2024 年 7 月 19 日</strong></p>
+            <p>发布时间：<strong>July 19, 2024</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.9.25" target="_blank">GitHub 发布页</a></p>
         </td>
         <td>
@@ -255,7 +265,7 @@ IntelliJ IDEA 和 Android Studio 中的 K2 模式使用 K2 编译器来改进代
     </tr>
     <tr>
         <td><strong>1.9.24</strong>
-            <p>发布时间：<strong>2024 年 5 月 7 日</strong></p>
+            <p>发布时间：<strong>May 7, 2024</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.9.24" target="_blank">GitHub 发布页</a></p>
         </td>
         <td>
@@ -265,7 +275,7 @@ IntelliJ IDEA 和 Android Studio 中的 K2 模式使用 K2 编译器来改进代
     </tr>
     <tr>
         <td><strong>1.9.23</strong>
-            <p>发布时间：<strong>2024 年 3 月 7 日</strong></p>
+            <p>发布时间：<strong>March 7, 2024</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.9.23" target="_blank">GitHub 发布页</a></p>
         </td>
         <td>
@@ -275,7 +285,7 @@ IntelliJ IDEA 和 Android Studio 中的 K2 模式使用 K2 编译器来改进代
     </tr>
     <tr>
         <td><strong>1.9.22</strong>
-            <p>发布时间：<strong>2023 年 12 月 21 日</strong></p>
+            <p>发布时间：<strong>December 21, 2023</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.9.22" target="_blank">GitHub 发布页</a></p>
         </td>
         <td>
@@ -285,7 +295,7 @@ IntelliJ IDEA 和 Android Studio 中的 K2 模式使用 K2 编译器来改进代
     </tr>
     <tr>
         <td><strong>1.9.21</strong>
-            <p>发布时间：<strong>2023 年 11 月 23 日</strong></p>
+            <p>发布时间：<strong>November 23, 2023</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.9.21" target="_blank">GitHub 发布页</a></p>
         </td>
         <td>
@@ -295,7 +305,7 @@ IntelliJ IDEA 和 Android Studio 中的 K2 模式使用 K2 编译器来改进代
     </tr>
     <tr>
         <td><strong>1.9.20</strong>
-            <p>发布时间：<strong>2023 年 11 月 1 日</strong></p>
+            <p>发布时间：<strong>November 1, 2023</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.9.20" target="_blank">GitHub 发布页</a></p>
         </td>
         <td>
@@ -308,7 +318,7 @@ IntelliJ IDEA 和 Android Studio 中的 K2 模式使用 K2 编译器来改进代
     </tr>
     <tr>
         <td><strong>1.9.10</strong>
-            <p>发布时间：<strong>2023 年 8 月 23 日</strong></p>
+            <p>发布时间：<strong>August 23, 2023</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.9.10" target="_blank">GitHub 发布页</a></p>
         </td>
         <td>
@@ -319,7 +329,7 @@ IntelliJ IDEA 和 Android Studio 中的 K2 模式使用 K2 编译器来改进代
     </tr>
     <tr>
         <td><strong>1.9.0</strong>
-            <p>发布时间：<strong>2023 年 7 月 6 日</strong></p>
+            <p>发布时间：<strong>July 6, 2023</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.9.0" target="_blank">GitHub 发布页</a></p>
         </td>
         <td>
@@ -333,7 +343,7 @@ IntelliJ IDEA 和 Android Studio 中的 K2 模式使用 K2 编译器来改进代
     </tr>
     <tr>
         <td><strong>1.8.22</strong>
-            <p>发布时间：<strong>2023 年 6 月 8 日</strong></p>
+            <p>发布时间：<strong>June 8, 2023</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.8.22" target="_blank">GitHub 发布页</a></p>
         </td>
         <td>
@@ -343,7 +353,7 @@ IntelliJ IDEA 和 Android Studio 中的 K2 模式使用 K2 编译器来改进代
     </tr>
     <tr>
         <td><strong>1.8.21</strong>
-            <p>发布时间：<strong>2023 年 4 月 25 日</strong></p>
+            <p>发布时间：<strong>April 25, 2023</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.8.21" target="_blank">GitHub 发布页</a></p>
         </td>
         <td>
@@ -354,7 +364,7 @@ IntelliJ IDEA 和 Android Studio 中的 K2 模式使用 K2 编译器来改进代
     </tr>
     <tr>
         <td><strong>1.8.20</strong>
-            <p>发布时间：<strong>2023 年 4 月 3 日</strong></p>
+            <p>发布时间：<strong>April 3, 2023</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.8.20" target="_blank">GitHub 发布页</a></p>
         </td>
         <td>
@@ -368,7 +378,7 @@ IntelliJ IDEA 和 Android Studio 中的 K2 模式使用 K2 编译器来改进代
     </tr>
     <tr>
         <td><strong>1.8.10</strong>
-            <p>发布时间：<strong>2023 年 2 月 2 日</strong></p>
+            <p>发布时间：<strong>February 2, 2023</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.8.10" target="_blank">GitHub 发布页</a></p>
         </td>
         <td>
@@ -379,7 +389,7 @@ IntelliJ IDEA 和 Android Studio 中的 K2 模式使用 K2 编译器来改进代
     </tr>
     <tr>
         <td><strong>1.8.0</strong>
-            <p>发布时间：<strong>2022 年 12 月 28 日</strong></p>
+            <p>发布时间：<strong>December 28, 2022</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.8.0" target="_blank">GitHub 发布页</a></p>
         </td>
         <td>
@@ -393,7 +403,7 @@ IntelliJ IDEA 和 Android Studio 中的 K2 模式使用 K2 编译器来改进代
     </tr>
     <tr>
         <td><strong>1.7.21</strong>
-            <p>发布时间：<strong>2022 年 11 月 9 日</strong></p>
+            <p>发布时间：<strong>November 9, 2022</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.7.21" target="_blank">GitHub 发布页</a></p>
         </td>
         <td>
@@ -404,7 +414,7 @@ IntelliJ IDEA 和 Android Studio 中的 K2 模式使用 K2 编译器来改进代
     </tr>
     <tr>
         <td><strong>1.7.20</strong>
-            <p>发布时间：<strong>2022 年 9 月 29 日</strong></p>
+            <p>发布时间：<strong>September 29, 2022</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.7.20" target="_blank">GitHub 发布页</a></p>
         </td>
         <td>
@@ -420,7 +430,7 @@ IntelliJ IDEA 和 Android Studio 中的 K2 模式使用 K2 编译器来改进代
     </tr>
     <tr>
         <td><strong>1.7.10</strong>
-            <p>发布时间：<strong>2022 年 7 月 7 日</strong></p>
+            <p>发布时间：<strong>July 7, 2022</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.7.10" target="_blank">GitHub 发布页</a></p>
         </td>
         <td>
@@ -431,7 +441,7 @@ IntelliJ IDEA 和 Android Studio 中的 K2 模式使用 K2 编译器来改进代
     </tr>
     <tr>
         <td><strong>1.7.0</strong>
-            <p>发布时间：<strong>2022 年 6 月 9 日</strong></p>
+            <p>发布时间：<strong>June 9, 2022</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.7.0" target="_blank">GitHub 发布页</a></p>
         </td>
         <td>
@@ -446,7 +456,7 @@ IntelliJ IDEA 和 Android Studio 中的 K2 模式使用 K2 编译器来改进代
     </tr>
     <tr>
         <td><strong>1.6.21</strong>
-            <p>发布时间：<strong>2022 年 4 月 20 日</strong></p>
+            <p>发布时间：<strong>April 20, 2022</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.6.21" target="_blank">GitHub 发布页</a></p>
         </td>
         <td>
@@ -456,7 +466,7 @@ IntelliJ IDEA 和 Android Studio 中的 K2 模式使用 K2 编译器来改进代
     </tr>
     <tr>
         <td><strong>1.6.20</strong>
-            <p>发布时间：<strong>2022 年 4 月 4 日</strong></p>
+            <p>发布时间：<strong>April 4, 2022</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.6.20" target="_blank">GitHub 发布页</a></p>
         </td>
         <td>
@@ -474,7 +484,7 @@ IntelliJ IDEA 和 Android Studio 中的 K2 模式使用 K2 编译器来改进代
     </tr>
     <tr>
         <td><strong>1.6.10</strong>
-            <p>发布时间：<strong>2021 年 12 月 14 日</strong></p>
+            <p>发布时间：<strong>December 14, 2021</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.6.10" target="_blank">GitHub 发布页</a></p>
         </td>
         <td>
@@ -484,7 +494,7 @@ IntelliJ IDEA 和 Android Studio 中的 K2 模式使用 K2 编译器来改进代
     </tr>
     <tr>
         <td><strong>1.6.0</strong>
-            <p>发布时间：<strong>2021 年 11 月 16 日</strong></p>
+            <p>发布时间：<strong>November 16, 2021</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.6.0" target="_blank">GitHub 发布页</a></p>
         </td>
         <td>
@@ -499,7 +509,7 @@ IntelliJ IDEA 和 Android Studio 中的 K2 模式使用 K2 编译器来改进代
     </tr>
     <tr>
         <td><strong>1.5.32</strong>
-            <p>发布时间：<strong>2021 年 11 月 29 日</strong></p>
+            <p>发布时间：<strong>November 29, 2021</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.5.32" target="_blank">GitHub 发布页</a></p>
         </td>
         <td>
@@ -509,7 +519,7 @@ IntelliJ IDEA 和 Android Studio 中的 K2 模式使用 K2 编译器来改进代
     </tr>
     <tr>
         <td><strong>1.5.31</strong>
-            <p>发布时间：<strong>2021 年 9 月 20 日</strong></p>
+            <p>发布时间：<strong>September 20, 2021</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.5.31" target="_blank">GitHub 发布页</a></p>
         </td>
         <td>
@@ -519,7 +529,7 @@ IntelliJ IDEA 和 Android Studio 中的 K2 模式使用 K2 编译器来改进代
     </tr>
     <tr>
         <td><strong>1.5.30</strong>
-            <p>发布时间：<strong>2021 年 8 月 23 日</strong></p>
+            <p>发布时间：<strong>August 23, 2021</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.5.30" target="_blank">GitHub 发布页</a></p>
         </td>
         <td>
@@ -541,7 +551,7 @@ IntelliJ IDEA 和 Android Studio 中的 K2 模式使用 K2 编译器来改进代
     </tr>
     <tr>
         <td><strong>1.5.21</strong>
-            <p>发布时间：<strong>2021 年 7 月 13 日</strong></p>
+            <p>发布时间：<strong>July 13, 2021</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.5.21" target="_blank">GitHub 发布页</a></p>
         </td>
         <td>
@@ -551,16 +561,16 @@ IntelliJ IDEA 和 Android Studio 中的 K2 模式使用 K2 编译器来改进代
     </tr>
     <tr>
         <td><strong>1.5.20</strong>
-            <p>发布时间：<strong>2021 年 6 月 24 日</strong></p>
+            <p>发布时间：<strong>June 24, 2021</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.5.20" target="_blank">GitHub 发布页</a></p>
         </td>
         <td>
             <p>一个增量发布版本，包含各种改进，例如：</p>
             <list>
-                <li>默认通过 `invokedynamic` 进行 JVM 上的字符串连接</li>
+                <li>默认通过 <code>invokedynamic</code> 进行 JVM 上的字符串连接</li>
                 <li>改进的 Lombok 支持和 JSpecify 支持</li>
-                <li>Kotlin/Native：KDoc 导出到 Objective-C 头文件，以及在单个数组内更快地执行 `Array.copyInto()`</li>
-                <li>Gradle：注解处理器类加载器缓存和支持 `--parallel` Gradle 属性</li>
+                <li>Kotlin/Native：KDoc 导出到 Objective-C 头文件，以及在单个数组内更快地执行 <code>Array.copyInto()</code></li>
+                <li>Gradle：注解处理器类加载器缓存和支持 <code>--parallel</code> Gradle 属性</li>
                 <li>跨平台 stdlib 函数行为统一</li>
             </list>
             <p>关于更多信息，请参见：</p>
@@ -572,7 +582,7 @@ IntelliJ IDEA 和 Android Studio 中的 K2 模式使用 K2 编译器来改进代
     </tr>
     <tr>
         <td><strong>1.5.10</strong>
-            <p>发布时间：<strong>2021 年 5 月 24 日</strong></p>
+            <p>发布时间：<strong>May 24, 2021</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.5.10" target="_blank">GitHub 发布页</a></p>
         </td>
         <td>
@@ -582,7 +592,7 @@ IntelliJ IDEA 和 Android Studio 中的 K2 模式使用 K2 编译器来改进代
     </tr>
     <tr>
         <td><strong>1.5.0</strong>
-            <p>发布时间：<strong>2021 年 5 月 5 日</strong></p>
+            <p>发布时间：<strong>May 5, 2021</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.5.0" target="_blank">GitHub 发布页</a></p>
         </td>
         <td>
@@ -597,7 +607,7 @@ IntelliJ IDEA 和 Android Studio 中的 K2 模式使用 K2 编译器来改进代
     </tr>
     <tr>
         <td><strong>1.4.32</strong>
-            <p>发布时间：<strong>2021 年 3 月 22 日</strong></p>
+            <p>发布时间：<strong>March 22, 2021</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.4.32" target="_blank">GitHub 发布页</a></p>
         </td>
         <td>
@@ -607,7 +617,7 @@ IntelliJ IDEA 和 Android Studio 中的 K2 模式使用 K2 编译器来改进代
     </tr>
     <tr>
         <td><strong>1.4.31</strong>
-            <p>发布时间：<strong>2021 年 2 月 25 日</strong></p>
+            <p>发布时间：<strong>February 25, 2021</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.4.31" target="_blank">GitHub 发布页</a></p>
         </td>
         <td>
@@ -617,7 +627,7 @@ IntelliJ IDEA 和 Android Studio 中的 K2 模式使用 K2 编译器来改进代
     </tr>
     <tr>
         <td><strong>1.4.30</strong>
-            <p>发布时间：<strong>2021 年 2 月 3 日</strong></p>
+            <p>发布时间：<strong>February 3, 2021</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.4.30" target="_blank">GitHub 发布页</a></p>
         </td>
         <td>
@@ -637,7 +647,7 @@ IntelliJ IDEA 和 Android Studio 中的 K2 模式使用 K2 编译器来改进代
     </tr>
     <tr>
         <td><strong>1.4.21</strong>
-            <p>发布时间：<strong>2020 年 12 月 7 日</strong></p>
+            <p>发布时间：<strong>December 7, 2020</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.4.21" target="_blank">GitHub 发布页</a></p>
         </td>
         <td>
@@ -647,15 +657,15 @@ IntelliJ IDEA 和 Android Studio 中的 K2 模式使用 K2 编译器来改进代
     </tr>
     <tr>
         <td><strong>1.4.20</strong>
-            <p>发布时间：<strong>2020 年 11 月 23 日</strong></p>
+            <p>发布时间：<strong>November 23, 2020</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.4.20" target="_blank">GitHub 发布页</a></p>
         </td>
         <td>
             <p>一个增量发布版本，包含各种改进，例如：</p>
             <list>
-                <li>支持新的 JVM 特性，例如通过 `invokedynamic` 进行字符串连接</li>
+                <li>支持新的 JVM 特性，例如通过 <code>invokedynamic</code> 进行字符串连接</li>
                 <li>改进的 Kotlin 多平台移动项目性能和异常处理</li>
-                <li>JDK Path 的扩展：`Path("dir") / "file.txt"`</li>
+                <li>JDK Path 的扩展：<code>Path("dir") / "file.txt"</code></li>
             </list>
             <p>关于更多信息，请参见：</p>
             <list>
@@ -666,7 +676,7 @@ IntelliJ IDEA 和 Android Studio 中的 K2 模式使用 K2 编译器来改进代
     </tr>
     <tr>
         <td><strong>1.4.10</strong>
-            <p>发布时间：<strong>2020 年 9 月 7 日</strong></p>
+            <p>发布时间：<strong>September 7, 2020</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.4.10" target="_blank">GitHub 发布页</a></p>
         </td>
         <td>
@@ -676,7 +686,7 @@ IntelliJ IDEA 和 Android Studio 中的 K2 模式使用 K2 编译器来改进代
     </tr>
     <tr>
         <td><strong>1.4.0</strong>
-            <p> 发布时间：<strong>2020 年 8 月 17 日</strong></p>
+            <p> 发布时间：<strong>August 17, 2020</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.4.0" target="_blank">GitHub 发布页</a></p>
         </td>
         <td>
@@ -692,7 +702,7 @@ IntelliJ IDEA 和 Android Studio 中的 K2 模式使用 K2 编译器来改进代
     </tr>
     <tr>
         <td><strong>1.3.72</strong>
-            <p> 发布时间：<strong>2020 年 4 月 15 日</strong></p>
+            <p> 发布时间：<strong>April 15, 2020</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.3.72" target="_blank">GitHub 发布页</a></p>
         </td>
         <td>

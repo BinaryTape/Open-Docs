@@ -22,12 +22,12 @@ Dokka 插件作为独立的构件发布，因此要应用 Dokka 插件，你只�
 <tabs group="build-script">
 <tab title="Kotlin" group-key="kotlin">
 
-> 从 Dokka 2.0.0 开始，几个配置选项、Gradle 任务以及生成文档的步骤已更新，其中包括：
+> 这些说明反映了 Dokka Gradle 插件 v1 的配置和任务。从 Dokka 2.0.0 开始，几个配置选项、Gradle 任务以及生成文档的步骤已更新，其中包括：
 >
 > * [配置 Dokka 插件](dokka-migration.md#configure-dokka-plugins)
 > * [使用多模块项目](dokka-migration.md#share-dokka-configuration-across-modules)
 >
-> 有关更多详细信息和完整更改列表，请参见[迁移指南](dokka-migration.md)。
+> 有关更多详细信息和 Dokka Gradle 插件 v2 的完整更改列表，请参见[迁移指南](dokka-migration.md)。
 >
 > {style="note"}
 

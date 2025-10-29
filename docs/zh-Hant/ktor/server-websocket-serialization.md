@@ -231,7 +231,7 @@ data class Customer(val id: Int, val firstName: String, val lastName: String)
 ```kotlin
 webSocket("/customer") {
     val customer = receiveDeserialized<Customer>()
-    println("A customer with id ${customer.id} is received by the server.")
+    println("伺服器已收到 ID 為 ${customer.id} 的客戶。")
 }
 ```
 

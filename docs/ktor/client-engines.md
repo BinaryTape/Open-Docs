@@ -10,7 +10,7 @@
 [Android](https://kotlinlang.org/docs/android-overview.html)、[JavaScript](https://kotlinlang.org/docs/js-overview.html)
 （包括 WebAssembly）以及 [Native](https://kotlinlang.org/docs/native-overview.html) 目标平台运行。每个平台都需要
 一个特定的引擎来处理网络请求。
-例如，对于 JVM 应用程序，可以使用 `Apache` 或 `Jetty`；对于 Android，可以使用 `OkHttp` 或 `Android`；
+例如，对于 JVM 应用程序，你可以使用 `Apache` 或 `Jetty`；对于 Android，可以使用 `OkHttp` 或 `Android`；
 对于面向 Kotlin/Native 的桌面应用程序，可以使用 `Curl`。每个引擎在特性和
 配置上略有不同，因此你可以选择最符合你的平台和用例需求的引擎。
 
@@ -62,7 +62,7 @@ _* 要在旧版 Android 上使用 CIO 引擎，你需要启用 [Java 8 API desug
 ## 指定引擎 {id="create"}
 
 要使用特定引擎，请将引擎类作为实参传递给 [
-`HttpClient`](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client/-http-client/index.html) 构造函数。以下示例创建了一个使用 `CIO` 引擎的客户端：
+`HttpClient`](https://api.ktor.com/ktor-client/ktor-client-core/io.ktor.client/-http-client/index.html) 构造函数。以下示例创建了一个使用 `CIO` 引擎的客户端：
 
 ```kotlin
 import io.ktor.client.*
@@ -86,7 +86,7 @@ val client = HttpClient()
 ## 配置引擎 {id="configure"}
 
 要配置引擎，请使用 `engine {}` 函数。所有引擎都可以使用 [
-`HttpClientEngineConfig`](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client.engine/-http-client-engine-config/index.html) 中的通用选项进行配置：
+`HttpClientEngineConfig`](https://api.ktor.com/ktor-client/ktor-client-core/io.ktor.client.engine/-http-client-engine-config/index.html) 中的通用选项进行配置：
 
 ```kotlin
 HttpClient() {
@@ -181,7 +181,7 @@ JVM 目标平台支持 [`Apache5`](#apache5)、[`Java`](#java) 和
            <code-block lang="XML" code="               &lt;dependency&gt;&#10;                   &lt;groupId&gt;io.ktor&lt;/groupId&gt;&#10;                   &lt;artifactId&gt;%artifact_name%-jvm&lt;/artifactId&gt;&#10;                   &lt;version&gt;${ktor_version}&lt;/version&gt;&#10;               &lt;/dependency&gt;"/>
        </TabItem>
    </Tabs>
-2. 将 [Java](https://api.ktor.io/ktor-client/ktor-client-java/io.ktor.client.engine.java/-java/index.html) 类作为实参传递给 `HttpClient` 构造函数：
+2. 将 [Java](https://api.ktor.com/ktor-client-java/io.ktor.client.engine.java/-java/index.html) 类作为实参传递给 `HttpClient` 构造函数：
    ```kotlin
    import io.ktor.client.*
    import io.ktor.client.engine.java.*
@@ -189,7 +189,7 @@ JVM 目标平台支持 [`Apache5`](#apache5)、[`Java`](#java) 和
    val client = HttpClient(Java)
    ```
 3. 要配置引擎，请在 `engine {}` 代码块中设置 [
-   `JavaHttpConfig`](https://api.ktor.io/ktor-client/ktor-client-java/io.ktor.client.engine.java/-java-http-config/index.html) 中的属性：
+   `JavaHttpConfig`](https://api.ktor.com/ktor-client-java/io.ktor.client.engine.java/-java-http-config/index.html) 中的属性：
    ```kotlin
    import io.ktor.client.*
    import io.ktor.client.engine.*
@@ -225,7 +225,7 @@ JVM 目标平台支持 [`Apache5`](#apache5)、[`Java`](#java) 和
        </TabItem>
    </Tabs>
 2. 将
-   [`Jetty`](https://api.ktor.io/ktor-client/ktor-client-jetty-jakarta/io.ktor.client.engine.jetty.jakarta/-jetty/index.html)
+   [`Jetty`](https://api.ktor.com/ktor-client-jetty-jakarta/io.ktor.client.engine.jetty.jakarta/-jetty/index.html)
    类作为实参传递给 `HttpClient` 构造函数：
    ```kotlin
    import io.ktor.client.*
@@ -234,7 +234,7 @@ JVM 目标平台支持 [`Apache5`](#apache5)、[`Java`](#java) 和
    val client = HttpClient(Jetty)
    ```
 3. 要配置引擎，请在 `engine {}` 代码块中设置
-   [`JettyEngineConfig`](https://api.ktor.io/ktor-client/ktor-client-jetty-jakarta/io.ktor.client.engine.jetty.jakarta/-jetty-engine-config/index.html) 中的属性：
+   [`JettyEngineConfig`](https://api.ktor.com/ktor-client-jetty-jakarta/io.ktor.client.engine.jetty.jakarta/-jetty-engine-config/index.html) 中的属性：
    ```kotlin
    import io.ktor.client.*
    import io.ktor.client.engine.jetty.jakarta.*
@@ -272,7 +272,7 @@ JVM 目标平台支持 [`Apache5`](#apache5)、[`Java`](#java) 和
        </TabItem>
    </Tabs>
 2. 将
-   [`Android`](https://api.ktor.io/ktor-client/ktor-client-android/io.ktor.client.engine.android/-android/index.html)
+   [`Android`](https://api.ktor.com/ktor-client-android/io.ktor.client.engine.android/-android/index.html)
    类作为实参传递给 `HttpClient` 构造函数：
    ```kotlin
    import io.ktor.client.*
@@ -282,7 +282,7 @@ JVM 目标平台支持 [`Apache5`](#apache5)、[`Java`](#java) 和
    ```
 3. 要配置引擎，请在 `engine {}` 代码块中设置
    [
-   `AndroidEngineConfig`](https://api.ktor.io/ktor-client/ktor-client-android/io.ktor.client.engine.android/-android-engine-config/index.html) 中的属性：
+   `AndroidEngineConfig`](https://api.ktor.com/ktor-client-android/io.ktor.client.engine.android/-android-engine-config/index.html) 中的属性：
    ```kotlin
    import io.ktor.client.*
    import io.ktor.client.engine.android.*
@@ -318,7 +318,7 @@ JVM 目标平台支持 [`Apache5`](#apache5)、[`Java`](#java) 和
        </TabItem>
    </Tabs>
 2. 将
-   [`OkHttp`](https://api.ktor.io/ktor-client/ktor-client-okhttp/io.ktor.client.engine.okhttp/-ok-http/index.html)
+   [`OkHttp`](https://api.ktor.com/ktor-client-okhttp/io.ktor.client.engine.okhttp/-ok-http/index.html)
    类作为实参传递给 `HttpClient` 构造函数：
    ```kotlin
    import io.ktor.client.*
@@ -328,7 +328,7 @@ JVM 目标平台支持 [`Apache5`](#apache5)、[`Java`](#java) 和
    ```
 3. 要配置引擎，请在 `engine {}` 代码块中设置
    [
-   `OkHttpConfig`](https://api.ktor.io/ktor-client/ktor-client-okhttp/io.ktor.client.engine.okhttp/-ok-http-config/index.html) 中的属性：
+   `OkHttpConfig`](https://api.ktor.com/ktor-client-okhttp/io.ktor.client.engine.okhttp/-ok-http-config/index.html) 中的属性：
    ```kotlin
    import io.ktor.client.*
    import io.ktor.client.engine.okhttp.*
@@ -353,7 +353,7 @@ JVM 目标平台支持 [`Apache5`](#apache5)、[`Java`](#java) 和
 
 Ktor 为 [Kotlin/Native](https://kotlinlang.org/docs/native-overview.html) 目标平台提供了 [`Darwin`](#darwin)、[`WinHttp`](#winhttp) 和 [`Curl`](#curl) 引擎。
 
-> 在 Kotlin/Native 项目中使用 Ktor 需要新的内存管理器，该管理器从 Kotlin 1.7.20 开始默认启用。
+> 在 Kotlin/Native 项目中使用 Ktor 需要新的[内存管理器](https://kotlinlang.org/docs/native-memory-manager.html)，该管理器从 Kotlin 1.7.20 开始默认启用。
 >
 {id="newmm-note" style="note"}
 
@@ -385,7 +385,7 @@ Ktor 为 [Kotlin/Native](https://kotlinlang.org/docs/native-overview.html) 目�
    ```
 3. 在 `engine {}` 代码块中使用
    [
-   `DarwinClientEngineConfig`](https://api.ktor.io/ktor-client/ktor-client-darwin/io.ktor.client.engine.darwin/-darwin-client-engine-config/index.html) 配置引擎。例如，你可以使用 `configureRequest` 来自定义请求，或使用 `configureSession` 来自定义会话：
+   `DarwinClientEngineConfig`](https://api.ktor.com/ktor-client-darwin/io.ktor.client.engine.darwin/-darwin-client-engine-config/index.html) 配置引擎。例如，你可以使用 `configureRequest` 来自定义请求，或使用 `configureSession` 来自定义会话：
    ```kotlin
    val client = HttpClient(Darwin) {
        engine {
@@ -427,7 +427,7 @@ Ktor 为 [Kotlin/Native](https://kotlinlang.org/docs/native-overview.html) 目�
    ```
 3. 在 `engine {}` 代码块中使用
    [
-   `WinHttpClientEngineConfig`](https://api.ktor.io/ktor-client/ktor-client-winhttp/io.ktor.client.engine.winhttp/-winhttp-client-engine-config/index.html) 配置引擎。例如，你可以使用 `protocolVersion` 属性更改 HTTP 版本：
+   `WinHttpClientEngineConfig`](https://api.ktor.com/ktor-client-winhttp/io.ktor.client.engine.winhttp/-winhttp-client-engine-config/index.html) 配置引擎。例如，你可以使用 `protocolVersion` 属性更改 HTTP 版本：
    ```kotlin
    val client = HttpClient(WinHttp) {
        engine {
@@ -497,7 +497,7 @@ CIO 引擎是一个完全异步的基于协程的引擎，可在 JVM、Android�
            <code-block lang="XML" code="               &lt;dependency&gt;&#10;                   &lt;groupId&gt;io.ktor&lt;/groupId&gt;&#10;                   &lt;artifactId&gt;%artifact_name%-jvm&lt;/artifactId&gt;&#10;                   &lt;version&gt;${ktor_version}&lt;/version&gt;&#10;               &lt;/dependency&gt;"/>
        </TabItem>
    </Tabs>
-2. 将 [`CIO`](https://api.ktor.io/ktor-client/ktor-client-cio/io.ktor.client.engine.cio/-c-i-o/index.html) 类作为实参传递给 `HttpClient` 构造函数：
+2. 将 [`CIO`](https://api.ktor.com/ktor-client-cio/io.ktor.client.engine.cio/-c-i-o/index.html) 类作为实参传递给 `HttpClient` 构造函数：
    ```kotlin
    import io.ktor.client.*
    import io.ktor.client.engine.cio.*
@@ -507,7 +507,7 @@ CIO 引擎是一个完全异步的基于协程的引擎，可在 JVM、Android�
 
 3. 在 `engine {}` 代码块中使用
    [
-   `CIOEngineConfig`](https://api.ktor.io/ktor-client/ktor-client-cio/io.ktor.client.engine.cio/-c-i-o-engine-config/index.html) 配置引擎：
+   `CIOEngineConfig`](https://api.ktor.com/ktor-client-cio/io.ktor.client.engine.cio/-c-i-o-engine-config/index.html) 配置引擎：
    ```kotlin
    import io.ktor.client.*
    import io.ktor.client.engine.cio.*
@@ -527,7 +527,7 @@ CIO 引擎是一个完全异步的基于协程的引擎，可在 JVM、Android�
            }
            https {
                // this: TLSConfigBuilder
-               serverName = "api.ktor.io"
+               serverName = "api.ktor.com"
                cipherSuites = CIOCipherSuites.SupportedSuites
                trustManager = myCustomTrustManager
                random = mySecureRandom

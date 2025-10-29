@@ -22,7 +22,7 @@
 </p>
 </tldr>
 
-[%plugin_name%](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-http-redirect/io.ktor.server.plugins.httpsredirect/-https-redirect.html) プラグインは、呼び出しを処理する前に、すべてのHTTPリクエストを[HTTPS版](server-ssl.md)にリダイレクトします。デフォルトでは、リソースは `301 Moved Permanently` を返しますが、`302 Found` に設定することも可能です。
+[%plugin_name%](https://api.ktor.io/ktor-server-http-redirect/io.ktor.server.plugins.httpsredirect/-https-redirect.html) プラグインは、呼び出しを処理する前に、すべてのHTTPリクエストを[HTTPS版](server-ssl.md)にリダイレクトします。デフォルトでは、リソースは `301 Moved Permanently` を返しますが、`302 Found` に設定することも可能です。
 
 ## 依存関係を追加する {id="add_dependencies"}
 
@@ -44,7 +44,8 @@
 ## %plugin_name% をインストールする {id="install_plugin"}
 
 <p>
-    アプリケーションに <code>%plugin_name%</code> プラグインを<a href="#install">インストール</a>するには、指定された<Links href="/ktor/server-modules" summary="Modules allow you to structure your application by grouping routes.">モジュール</Links>内の <code>install</code> 関数に渡します。
+    アプリケーションに <code>%plugin_name%</code> プラグインを<a href="#install">インストール</a>するには、
+    指定された<Links href="/ktor/server-modules" summary="Modules allow you to structure your application by grouping routes.">モジュール</Links>内の <code>install</code> 関数に渡します。
     以下のコードスニペットは、<code>%plugin_name%</code> をインストールする方法を示しています...
 </p>
 <list>

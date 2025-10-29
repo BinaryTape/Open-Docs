@@ -41,7 +41,7 @@ LDAP 是一種用於處理各種目錄服務的協定，這些服務可以儲存
 
 ### 步驟 1: 選擇驗證提供者 {id="choose-auth"}
 
-若要驗證 LDAP 使用者，您首先需要選擇一個用於使用者名稱和密碼驗證的驗證提供者。在 Ktor 中，[basic](server-basic-auth.md)、[digest](server-digest-auth.md) 或 [form-based](server-form-based-auth.md) 提供者都可以用於此目的。例如，要使用 `basic` 驗證提供者，請在 `install` 區塊內呼叫 [basic](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-auth/io.ktor.server.auth/basic.html) 函數。
+若要驗證 LDAP 使用者，您首先需要選擇一個用於使用者名稱和密碼驗證的驗證提供者。在 Ktor 中，[basic](server-basic-auth.md)、[digest](server-digest-auth.md) 或 [form-based](server-form-based-auth.md) 提供者都可以用於此目的。例如，要使用 `basic` 驗證提供者，請在 `install` 區塊內呼叫 [basic](https://api.ktor.io/ktor-server-auth/io.ktor.server.auth/basic.html) 函數。
 
 ```kotlin
 import io.ktor.server.application.*
@@ -62,7 +62,7 @@ install(Authentication) {
 
 ### 步驟 2: 驗證 LDAP 使用者 {id="authenticate"}
 
-若要驗證 LDAP 使用者，您需要呼叫 [ldapAuthenticate](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-auth-ldap/io.ktor.server.auth.ldap/ldap-authenticate.html) 函數。此函數接受 [UserPasswordCredential](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-auth/io.ktor.server.auth/-user-password-credential/index.html) 並根據指定的 LDAP 伺服器進行驗證。
+若要驗證 LDAP 使用者，您需要呼叫 [ldapAuthenticate](https://api.ktor.io/ktor-server-auth-ldap/io.ktor.server.auth.ldap/ldap-authenticate.html) 函數。此函數接受 [UserPasswordCredential](https://api.ktor.io/ktor-server-auth/io.ktor.server.auth/-user-password-credential/index.html) 並根據指定的 LDAP 伺服器進行驗證。
 
 ```kotlin
 install(Authentication) {
@@ -74,7 +74,7 @@ install(Authentication) {
 }
 ```
 
-`validate` 函數在成功驗證的情況下會傳回一個 [UserIdPrincipal](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-auth/io.ktor.server.auth/-user-id-principal/index.html)，如果驗證失敗則傳回 `null`。
+`validate` 函數在成功驗證的情況下會傳回一個 [UserIdPrincipal](https://api.ktor.io/ktor-server-auth/io.ktor.server.auth/-user-id-principal/index.html)，如果驗證失敗則傳回 `null`。
 
 您可以選擇性地為已驗證的使用者新增額外的驗證。
 
@@ -96,7 +96,7 @@ install(Authentication) {
 
 ### 步驟 3: 保護特定資源 {id="authenticate-route"}
 
-設定 LDAP 後，您可以使用 **[authenticate](server-auth.md#authenticate-route)** 函數來保護應用程式中的特定資源。在成功驗證的情況下，您可以使用 `call.principal` 函數在路由處理器 (route handler) 內部擷取 (retrieve) 已驗證的 [UserIdPrincipal](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-auth/io.ktor.server.auth/-user-id-principal/index.html)，並取得已驗證使用者的名稱。
+設定 LDAP 後，您可以使用 **[authenticate](server-auth.md#authenticate-route)** 函數來保護應用程式中的特定資源。在成功驗證的情況下，您可以使用 `call.principal` 函數在路由處理器 (route handler) 內部擷取 (retrieve) 已驗證的 [UserIdPrincipal](https://api.ktor.io/ktor-server-auth/io.ktor.server.auth/-user-id-principal/index.html)，並取得已驗證使用者的名稱。
 
 ```kotlin
 routing {

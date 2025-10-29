@@ -25,7 +25,7 @@
 세션 플러그인은 다른 HTTP 요청 간에 데이터를 지속시키는 메커니즘을 제공합니다.
 </link-summary>
 
-`[%plugin_name%](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-sessions/io.ktor.server.sessions/-sessions.html)` 플러그인은 다른 HTTP 요청 간에 데이터를 지속시키는 메커니즘을 제공합니다. 일반적인 사용 사례로는 로그인한 사용자의 ID, 장바구니 내용 저장 또는 클라이언트에서 사용자 기본 설정 유지 등이 있습니다. Ktor에서는 쿠키나 사용자 지정 헤더를 사용하여 세션을 구현할 수 있으며, 세션 데이터를 서버에 저장할지 클라이언트에 전달할지 선택하고, 세션 데이터를 서명하고 암호화하는 등의 작업을 할 수 있습니다.
+`[%plugin_name%](https://api.ktor.io/ktor-server-sessions/io.ktor.server.sessions/-sessions.html)` 플러그인은 다른 HTTP 요청 간에 데이터를 지속시키는 메커니즘을 제공합니다. 일반적인 사용 사례로는 로그인한 사용자의 ID, 장바구니 내용 저장 또는 클라이언트에서 사용자 기본 설정 유지 등이 있습니다. Ktor에서는 쿠키나 사용자 지정 헤더를 사용하여 세션을 구현할 수 있으며, 세션 데이터를 서버에 저장할지 클라이언트에 전달할지 선택하고, 세션 데이터를 서명하고 암호화하는 등의 작업을 할 수 있습니다.
 
 이 토픽에서는 `%plugin_name%` 플러그인을 설치하고, 구성하며, [경로 핸들러](server-routing.md#define_route) 내에서 세션 데이터에 접근하는 방법을 살펴보겠습니다.
 
@@ -84,7 +84,7 @@
 
 ## 데이터 클래스 생성 {id="data_class"}
 
-세션을 구성하기 전에 세션 데이터를 저장하기 위한 [데이터 클래스](https://kotlinlang.org/docs/data-classes.html)를 생성해야 합니다. 
+세션을 구성하기 전에 세션 데이터를 저장하기 위한 [데이터 클래스](https://kotlinlang.org/docs/data-classes.html)를 생성해야 합니다.
 예를 들어, 아래의 `UserSession` 클래스는 세션 ID와 페이지 뷰 수를 저장하는 데 사용될 것입니다.
 
 ```kotlin
@@ -122,7 +122,7 @@ install(Sessions) {
     }
 }
 ```
-사용 가능한 구성 설정에 대해 자세히 알아보려면 [CookieConfiguration](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-sessions/io.ktor.server.sessions/-cookie-configuration/index.html)을 참조하세요.
+사용 가능한 구성 설정에 대해 자세히 알아보려면 [CookieConfiguration](https://api.ktor.io/ktor-server-sessions/io.ktor.server.sessions/-cookie-configuration/index.html)을 참조하세요.
 
 > 애플리케이션을 프로덕션 환경에 [배포](server-deployment.md)하기 전에 `secure` 속성이 `true`로 설정되어 있는지 확인하세요. 이는 [보안 연결](server-ssl.md)을 통해서만 쿠키를 전송할 수 있게 하고 HTTPS 다운그레이드 공격으로부터 세션 데이터를 보호합니다.
 >
@@ -137,7 +137,7 @@ install(Sessions) {
 }
 ```
 
-위 예시에서는 `cart_session` 사용자 지정 헤더를 사용하여 세션 데이터가 클라이언트에 전달됩니다. 
+위 예시에서는 `cart_session` 사용자 지정 헤더를 사용하여 세션 데이터가 클라이언트에 전달됩니다.
 클라이언트 측에서는 세션 데이터를 가져오기 위해 각 요청에 이 헤더를 추가해야 합니다.
 
 > 크로스 오리진 요청을 처리하기 위해 [CORS](server-cors.md) 플러그인을 사용하는 경우, 다음과 같이 사용자 지정 헤더를 `CORS` 구성에 추가하세요.
@@ -163,7 +163,7 @@ Ktor에서는 두 가지 방식으로 세션 데이터를 관리할 수 있습�
 Ktor를 사용하면 세션 데이터를 [서버에 저장](#client_server)하고 세션 ID만 서버와 클라이언트 간에 전달할 수 있습니다. 이 경우 서버에서 페이로드를 보관할 위치를 선택할 수 있습니다.
 
 ### 인메모리 저장소 {id="in_memory_storage"}
-[SessionStorageMemory](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-sessions/io.ktor.server.sessions/-session-storage-memory/index.html)는 세션의 콘텐츠를 메모리에 저장할 수 있게 합니다. 이 저장소는 서버가 실행되는 동안 데이터를 유지하고 서버가 중지되면 정보를 폐기합니다. 예를 들어, 다음과 같이 서버 메모리에 쿠키를 저장할 수 있습니다.
+[SessionStorageMemory](https://api.ktor.io/ktor-server-sessions/io.ktor.server.sessions/-session-storage-memory/index.html)는 세션의 콘텐츠를 메모리에 저장할 수 있게 합니다. 이 저장소는 서버가 실행되는 동안 데이터를 유지하고 서버가 중지되면 정보를 폐기합니다. 예를 들어, 다음과 같이 서버 메모리에 쿠키를 저장할 수 있습니다.
 
 ```kotlin
 cookie<CartSession>("cart_session", SessionStorageMemory()) {
@@ -176,7 +176,7 @@ cookie<CartSession>("cart_session", SessionStorageMemory()) {
 
 ### 디렉터리 저장소 {id="directory_storage"}
 
-[directorySessionStorage](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-sessions/io.ktor.server.sessions/directory-session-storage.html)는 지정된 디렉터리 아래의 파일에 세션 데이터를 저장하는 데 사용될 수 있습니다. 예를 들어, `build/.sessions` 디렉터리 아래의 파일에 세션 데이터를 저장하려면 다음과 같이 `directorySessionStorage`를 생성합니다.
+[directorySessionStorage](https://api.ktor.io/ktor-server-sessions/io.ktor.server.sessions/directory-session-storage.html)는 지정된 디렉터리 아래의 파일에 세션 데이터를 저장하는 데 사용될 수 있습니다. 예를 들어, `build/.sessions` 디렉터리 아래의 파일에 세션 데이터를 저장하려면 다음과 같이 `directorySessionStorage`를 생성합니다.
 ```kotlin
 header<CartSession>("cart_session", directorySessionStorage(File("build/.sessions"))) {
 }
@@ -186,7 +186,7 @@ header<CartSession>("cart_session", directorySessionStorage(File("build/.session
 
 ### 사용자 지정 저장소 {id="custom_storage"}
 
-Ktor는 사용자 지정 저장소를 구현할 수 있도록 [SessionStorage](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-sessions/io.ktor.server.sessions/-session-storage/index.html) 인터페이스를 제공합니다.
+Ktor는 사용자 지정 저장소를 구현할 수 있도록 [SessionStorage](https://api.ktor.io/ktor-server-sessions/io.ktor.server.sessions/-session-storage/index.html) 인터페이스를 제공합니다.
 ```kotlin
 interface SessionStorage {
     suspend fun invalidate(id: String)
@@ -213,7 +213,7 @@ install(Sessions) {
 }
 ```
 
-`SessionTransportTransformerMessageAuthentication`은 기본 인증 알고리즘으로 `HmacSHA256`을 사용하며, 이는 변경할 수 있습니다. 
+`SessionTransportTransformerMessageAuthentication`은 기본 인증 알고리즘으로 `HmacSHA256`을 사용하며, 이는 변경할 수 있습니다.
 
 ### 세션 데이터 서명 및 암호화 {id="sign_encrypt_session"}
 
@@ -236,7 +236,7 @@ install(Sessions) {
 >
 {style="note"}
 
-기본적으로 `SessionTransportTransformerEncrypt`는 `AES` 및 `HmacSHA256` 알고리즘을 사용하며, 이는 변경할 수 있습니다. 
+기본적으로 `SessionTransportTransformerEncrypt`는 `AES` 및 `HmacSHA256` 알고리즘을 사용하며, 이는 변경할 수 있습니다.
 
 > 서명/암호화 키는 코드에 명시적으로 지정해서는 안 됩니다. [구성 파일](server-configuration-file.topic#configuration-file-overview)에서 사용자 지정 그룹을 사용하여 서명/암호화 키를 저장하고, [환경 변수](server-configuration-file.topic#environment-variables)를 사용하여 초기화할 수 있습니다.
 >

@@ -19,13 +19,13 @@
     </a>
 </p>
 <p>
-    <b><Links href="/ktor/server-native" summary="模組允許您透過分組路由來組織應用程式。">原生伺服器</Links>支援</b>: ✅
+    <b><Links href="/ktor/server-native" summary="Ktor 支援 Kotlin/Native，並允許您在沒有額外執行時或虛擬機器的情況下執行伺服器。">原生伺服器</Links>支援</b>: ✅
 </p>
 </tldr>
 
 如果您的伺服器需要處理[跨來源請求](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS)，
 您需要安裝並配置
-[CORS](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-cors/io.ktor.server.plugins.cors.routing/-c-o-r-s.html)
+[CORS](https://api.ktor.io/ktor-server-cors/io.ktor.server.plugins.cors.routing/-c-o-r-s.html)
 Ktor 外掛。此外掛允許您配置允許的主機、HTTP 方法、客戶端設定的標頭等等。
 
 ## 添加依賴 {id="add_dependencies"}
@@ -78,7 +78,7 @@ Ktor 外掛。此外掛允許您配置允許的主機、HTTP 方法、客戶端�
 ## 配置 CORS {id="configure"}
 
 CORS 特定的配置設定由
-[CORSConfig](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-cors/io.ktor.server.plugins.cors/-c-o-r-s-config/index.html)
+[CORSConfig](https://api.ktor.io/ktor-server-cors/io.ktor.server.plugins.cors/-c-o-r-s-config/index.html)
 類別提供。讓我們看看如何配置這些設定。
 
 ### 概述 {id="overview"}
@@ -157,9 +157,9 @@ install(CORS) {
 
 預設情況下，`%plugin_name%` 外掛允許由 `Access-Control-Allow-Headers` 管理的以下客戶端標頭：
 
-* `Accept`
-* `Accept-Language`
-* `Content-Language`
+*   `Accept`
+*   `Accept-Language`
+*   `Content-Language`
 
 若要允許額外的標頭，請使用 `allowHeader` 函數。
 
@@ -178,7 +178,7 @@ install(CORS) {
 }
 ```
 
-> 請注意，`allowHeaders` 或 `allowHeadersPrefixed` 需要將 [allowNonSimpleContentTypes](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-cors/io.ktor.server.plugins.cors/-c-o-r-s-config/allow-non-simple-content-types.html) 屬性設定為 `true`，以處理非簡單的內容類型。
+> 請注意，`allowHeaders` 或 `allowHeadersPrefixed` 需要將 [allowNonSimpleContentTypes](https://api.ktor.io/ktor-server-cors/io.ktor.server.plugins.cors/-c-o-r-s-config/allow-non-simple-content-types.html) 屬性設定為 `true`，以處理非簡單的內容類型。
 
 ### 公開標頭 {id="expose-headers"}
 
@@ -213,4 +213,4 @@ install(CORS) {
 }
 ```
 
-您可以從 [CORSConfig](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-cors/io.ktor.server.plugins.cors/-c-o-r-s-config/index.html) 了解其他配置選項。
+您可以從 [CORSConfig](https://api.ktor.io/ktor-server-cors/io.ktor.server.plugins.cors/-c-o-r-s-config/index.html) 了解其他配置選項。

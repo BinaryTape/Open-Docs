@@ -27,7 +27,7 @@
 %plugin_name% は、受信リクエストのボディをバリデートする機能を提供します。
 </link-summary>
 
-[%plugin_name%](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-request-validation/io.ktor.server.plugins.requestvalidation/-request-validation.html)プラグインは、受信リクエストのボディをバリデートする機能を提供します。[シリアライザー](server-serialization.md#configure_serializer)が設定された`ContentNegotiation`プラグインがインストールされている場合、生のRequestBodyまたは指定されたリクエストオブジェクトのプロパティをバリデートできます。RequestBodyのバリデーションに失敗した場合、このプラグインは`RequestValidationException`をスローします。この例外は、[StatusPages](server-status-pages.md)プラグインを使用して処理できます。
+[%plugin_name%](https://api.ktor.io/ktor-server-request-validation/io.ktor.server.plugins.requestvalidation/-request-validation.html)プラグインは、受信リクエストのボディをバリデートする機能を提供します。[シリアライザー](server-serialization.md#configure_serializer)が設定された`ContentNegotiation`プラグインがインストールされている場合、生のRequestBodyまたは指定されたリクエストオブジェクトのプロパティをバリデートできます。RequestBodyのバリデーションに失敗した場合、このプラグインは`RequestValidationException`をスローします。この例外は、[StatusPages](server-status-pages.md)プラグインを使用して処理できます。
 
 ## 依存関係の追加 {id="add_dependencies"}
 

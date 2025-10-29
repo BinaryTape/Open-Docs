@@ -6,10 +6,10 @@ _[发布日期：2025 年 6 月 12 日](releases.md#release-details)_
 
 本次特性发布的主要亮点如下：
 
-* [版本目录](#published-version-catalog)
-* [依赖项注入](#dependency-injection)
-* [一流的 HTMX 支持](#htmx-integration)
-* [可挂起模块函数](#suspendable-module-functions)
+*   [版本目录](#published-version-catalog)
+*   [依赖项注入](#dependency-injection)
+*   [一流的 HTMX 支持](#htmx-integration)
+*   [可挂起模块函数](#suspendable-module-functions)
 
 ## Ktor 服务器
 
@@ -71,7 +71,7 @@ database:
 
 ### `ApplicationTestBuilder` 的 `client` 可配置
 
-从 Ktor 3.2.0 开始，`client` 属性在 `ApplicationTestBuilder` 类中是可变的。以前，它是只读的。此更改允许您配置自己的测试客户端，并在 `ApplicationTestBuilder` 类可用的任何地方重用它。例如，您可以从扩展函数中访问客户端：
+从 Ktor 3.2.0 开始，`ApplicationTestBuilder` 类中的 `client` 属性是可变的。以前，它是只读的。此更改允许您配置自己的测试客户端，并在 `ApplicationTestBuilder` 类可用的任何地方重用它。例如，您可以从扩展函数中访问客户端：
 
 ```kotlin
 @Test
@@ -338,11 +338,11 @@ val rawAddress = address.resolveAddress()
 
 Ktor 3.2.0 引入了对 [HTMX](https://htmx.org/) 的实验性支持，HTMX 是一个现代 JavaScript 库，它通过 `hx-get` 和 `hx-swap` 等 HTML 属性实现动态交互。Ktor 的 HTMX 集成提供了：
 
-- HTMX 感知路由，用于根据请求头处理 HTMX 请求。
-- HTML DSL 扩展，用于在 Kotlin 中生成 HTMX 属性。
-- HTMX 请求头常量和值，用于消除字符串字面量。
+-   HTMX 感知路由，用于根据请求头处理 HTMX 请求。
+-   HTML DSL 扩展，用于在 Kotlin 中生成 HTMX 属性。
+-   HTMX 请求头常量和值，用于消除字符串字面量。
 
-Ktor 的 HTMX 支持通过三个实验性模块提供：
+Ktor 的 HTMX 支持通过三个实验性的模块提供：
 
 | 模块             | 描述                                |
 |--------------------|--------------------------------------------|
@@ -423,13 +423,13 @@ dependencies {
 
 Ktor 3.2.0 简化了开发模式的启用。以前，启用开发模式需要在 `application` 代码块中进行显式配置。现在，您可以使用 `ktor.development` 属性来启用它，无论是动态还是显式地：
 
-* 根据项目属性动态启用开发模式。
-  ```kotlin
+*   根据项目属性动态启用开发模式。
+    ```kotlin
     ktor {
         development = project.ext.has("development")
     }
-  ```
-* 显式将开发模式设置为 true。
+    ```
+*   显式将开发模式设置为 true。
 
     ```kotlin
     ktor {
@@ -441,4 +441,3 @@ Ktor 3.2.0 简化了开发模式的启用。以前，启用开发模式需要在
 
 ```bash
 ./gradlew run -Pio.ktor.development=true
-```

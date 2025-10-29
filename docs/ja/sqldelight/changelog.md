@@ -3,12 +3,14 @@
 ## 未リリース
 
 ### 追加
+-   [Compiler] `CAST` が必要な場合に、ソースファイルの位置を含めるようにコンパイラのエラーメッセージを改善 (#5979 by [Griffio][griffio])
+-   [PostgreSQL Dialect] Postgres `JSON` オペレーターのパス抽出のサポートを追加 (#5971 by [Griffio][griffio])
 -   [SQLite Dialect] 共通テーブル式 (`Common Table Expressions`) を使用した `MATERIALIZED` クエリプランナーヒントの `Sqlite 3.35` サポートを追加 (#5961 by [Griffio][griffio])
 -   [PostgreSQL Dialect] 共通テーブル式 (`Common Table Expressions`) を使用した `MATERIALIZED` クエリプランナーヒントのサポートを追加 (#5961 by [Griffio][griffio])
 -   [PostgreSQL Dialect] `Postgres JSON Aggregate FILTER` のサポートを追加 (#5957 by [Griffio][griffio])
 -   [PostgreSQL Dialect] `Postgres Enum` のサポートを追加 (#5935 by [Griffio][griffio])
 -   [PostgreSQL Dialect] `Postgres Triggers` の限定的なサポートを追加 (#5932 by [Griffio][griffio])
--   [PostgreSQL Dialect] SQL式が `JSON` として解析できるかをチェックする述語を追加 (#5843 by [Griffio][griffio])
+-   [PostgreSQL Dialect] `SQL` 式が `JSON` として解析できるかをチェックする述語を追加 (#5843 by [Griffio][griffio])
 -   [PostgreSQL Dialect] `PostgreSql Comment On` ステートメントに対する限定的なサポートを追加 (#5808 by [Griffio][griffio])
 -   [MySQL Dialect] インデックス可視性オプションのサポートを追加 (#5785 by [Oren Kislev][orenkislev-faire])
 -   [PostgreSql Dialect] `TSQUERY` データ型のサポートを追加 (#5779 by [Griffio][griffio])
@@ -45,7 +47,7 @@
 -   [PostgreSQL Dialect] `Postgresql ILIKE operator` をサポート (#5330 by [Griffio][griffio])
 -   [PostgreSQL Dialect] `PostgreSql XML type` をサポート (#5331 by [Griffio][griffio])
 -   [PostgreSQL Dialect] `PostgreSql AT TIME ZONE` をサポート (#5243 by [Griffio][griffio])
--   [PostgreSQL Dialect] `postgresql order by nulls` のサポート (#5199 by [Griffio][griffio])
+-   [PostgreSQL Dialect] `postgresql order by nulls` のサポートを追加 (#5199 by [Griffio][griffio])
 -   [PostgreSQL Dialect] PostgreSQL の現在日時関数 (`current date/time function`) サポートを追加 (#5226 by [Drew Dobson][drewd])
 -   [PostgreSQL Dialect] `PostgreSql Regex operators` をサポート (#5137 by [Griffio][griffio])
 -   [PostgreSQL Dialect] `brin gist` を追加 (#5059 by [Griffio][griffio])
@@ -96,7 +98,7 @@
 -   [PostgreSQL Dialect] `PostgreSql alter column sequence parameters` を追加 (#4916 by [Griffio][griffio])
 -   [PostgreSQL Dialect] `INSERT` ステートメントの `postgresql alter column default` サポートを追加 (#4912 by [Griffio][griffio])
 -   [PostgreSQL Dialect] `PostgreSql alter sequence` と `drop sequence` を追加 (#4920 by [Griffio][griffio])
--   [PostgreSQL Dialect] `Postgres Regex function definitions` を追加 (#5025 by [Marius Volkhart][MariusV])
+-   [PostgreSQL Dialect] 追加の `Postgres Regex function definitions` を追加 (#5025 by [Marius Volkhart][MariusV])
 -   [PostgreSQL Dialect] `GIN` の文法 (`grammar`) を追加 (#5027 by [Griffio][griffio])
 
 ### 変更
@@ -122,7 +124,7 @@
 -   [PostgreSQL Dialect] `5032 PostgreSql UPDATE FROM statement` での `column adjacency` を修正 (#5035 by [Griffio][griffio])
 -   [SQLite Dialect] `4897 sqlite alter table rename column` を修正 (#4899 by [Griffio][griffio])
 -   [IDE Plugin] エラーハンドラ (`error handler`) のクラッシュを修正 (#4988 by [Alexander Perfilyev][aperfilyev])
--   [IDE Plugin] IDEA `2023.3` で `BugSnag` の初期化に失敗 (`fails to init`) (by [Alexander Perfilyev][aperfilyev])
+-   [IDE Plugin] `IDEA 2023.3` で `BugSnag` の初期化に失敗 (`fails to init`) (by [Alexander Perfilyev][aperfilyev])
 -   [IDE Plugin] プラグイン (`plugin`) を介して `IntelliJ` で `.sq` ファイルを開く際の `PluginException` を修正 (by [Alexander Perfilyev][aperfilyev])
 -   [IDE Plugin] Kotlin ライブラリがすでにプラグインの依存関係 (`plugin dependency`) にあるため、`IntelliJ` プラグインにバンドルしないよう修正 (#5126)
 -   [IDE Plugin] ストリーム (`stream`) の代わりに `extensions` 配列を使用するよう修正 (#5127)
@@ -191,7 +193,7 @@
 ### 修正
 -   [IDE Plugin] 必要になるまでデータベースプロジェクトサービス (`database project service`) をインスタンス化 (`instantiate`) しないように修正 (#4382)
 -   [IDE Plugin] 使用箇所の検索 (`find usages`) 中のプロセスキャンセル (`process cancellation`) を処理 (#4340)
--   [IDE Plugin] IDEでの非同期コード生成 (`async code`) を修正 (#4406)
+-   [IDE Plugin] `IDE`での非同期コード生成 (`async code`) を修正 (#4406)
 -   [IDE Plugin] パッケージ構造 (`package structure`) のアセンブリ (`assembly`) を `EDT` から離れた一度計算 (`one-time computed`) されるように移動 (#4417)
 -   [IDE Plugin] `2023.2` での `kotlin type resolution` に正しいスタブインデックスキー (`stub index key`) を使用するように修正 (#4416)
 -   [IDE Plugin] 検索 (`search`) を実行する前にインデックス (`index`) が準備できるのを待つ (`Wait for the index to be ready`) ように修正 (#4419)
@@ -260,7 +262,7 @@
 -   [Compiler] 仮想テーブル (`virtual tables`) の型を生成しない (`Dont generate types`) ように修正 (#4015)
 -   [Gradle Plugin] 小規模な `Gradle plugin QoL improvements` を修正 (#3930 by [Zac Sweers][zacsweers])
 -   [IDE Plugin] 未解決の Kotlin 型 (`unresolved kotlin types`) を修正 (#3924 by [Alexander Perfilyev][aperfilyev])
--   [IDE Plugin] `wildcard intention` 展開がクオリファイア (`qualifier`) で機能するように修正 (#3979 by [Alexander Perfilyev][aperfilyev])
+-   [IDE Plugin] ワイルドカード展開インテンション (`expand wildcard intention`) がクオリファイア (`qualifier`) で機能するように修正 (#3979 by [Alexander Perfilyev][aperfilyev])
 -   [IDE Plugin] `java home` が欠落している場合、利用可能な `jdk` を使用するように修正 (#3925 by [Alexander Perfilyev][aperfilyev])
 -   [IDE Plugin] パッケージ名 (`package names`) に対する使用箇所の検索 (`find usages`) を修正 (#4010)
 -   [IDE Plugin] 無効な要素 (`invalid elements`) に対して自動インポート (`auto imports`) を表示しないように修正 (#4008)
@@ -278,13 +280,13 @@
 -   [Paging] マルチプラットフォームページング拡張 (`Multiplatform paging extension`) (by [Jeff Lockhart][jeffdgr8])
 -   [Runtime] `Listener` インターフェースに `fun` 修飾子 (`fun modifier`) を追加。
 -   [SQLite Dialect] `SQLite 3.33` サポート (`UPDATE FROM`) を追加 (by [Eliezer Graber][eygraber])
--   [PostgreSQL Dialect] `postgresql` で `UPDATE FROM` をサポート (by [Eliezer Graber][eygraber])
+-   [PostgreSQL Dialect] Postgres で `UPDATE FROM` をサポート (by [Eliezer Graber][eygraber])
 
 ### 変更
 -   [RDBC Driver] 接続 (`connection`) を公開 (`Expose`) (by [Philip Wedemann][hfhbd])
--   [Runtime] マイグレーションコールバック (`migration callbacks`) をメインの `migrate fun` に移動 (`Move migration callbacks into main migrate fun`)
+-   [Runtime] マイグレーションコールバック (`migration callbacks`) をメインの `migrate` 関数に移動 (`Move migration callbacks into main migrate fun`)
 -   [Gradle Plugin] ダウンストリームプロジェクト (`downstream projects`) から設定 (`Configurations`) を非表示 (`Hide`) に
--   [Gradle Plugin] `Intellij` のみをシェード (`Only shade Intellij`) するように変更 (by [Philip Wedemann][hfhbd])
+-   [Gradle Plugin] `IntelliJ` のみをシェード (`Only shade Intellij`) するように変更 (by [Philip Wedemann][hfhbd])
 -   [Gradle Plugin] `Kotlin 1.8.0-Beta` をサポートし、マルチバージョン `Kotlin` テスト (`multi version Kotlin test`) を追加 (by [Philip Wedemann][hfhbd])
 
 ### 修正
@@ -295,8 +297,8 @@
 -   [IDE Plugin] `intellij` を `221.6008.13` にバンプ (`Bump intellij to 221.6008.13`) (by [Philip Wedemann][hfhbd])
 -   [Compiler] 純粋なビュー (`pure views`) からの再帰的な `origin table` を解決 (`Resolve recursive origin table`) (by [Philip Wedemann][hfhbd])
 -   [Compiler] テーブル外部キー句 (`table foreign key clause`) から値クラス (`value classes`) を使用 (`Use value classes from table foreign key clause`) (by [Philip Wedemann][hfhbd])
--   [Compiler] `SelectQueryGenerator` が括弧なしのバインド式 (`bind expression without parenthesis`) をサポートするように修正 (#5306 by [Doogie Min][bellatoris])
--   [Compiler] トランザクション使用時に `${name}Indexes` 変数の重複生成 (`duplicate generation`) を修正 (#5306 by [Andreas Sacher][sachera])
+-   [Compiler] `SelectQueryGenerator` が括弧なしのバインド式 (`bind expression without parenthesis`) をサポートするように修正 (by [Doogie Min][bellatoris])
+-   [Compiler] トランザクション使用時に `${name}Indexes` 変数の重複生成 (`duplicate generation`) を修正 (by [Andreas Sacher][sachera])
 
 ## [1.5.5] - 2023-01-20
 
@@ -310,7 +312,7 @@
 
 ### 破壊的変更点
 
--   Paging 3 拡張 API は変更され、カウント (`count`) の `int` 型のみが許可されるようになりました。
+-   Paging 3 拡張 `API` は変更され、カウント (`count`) の `int` 型のみが許可されるようになりました。
 -   コルーチン拡張 (`coroutines extension`) は、デフォルトではなくディスパッチャ (`dispatcher`) を渡すことが必須になりました。
 -   ダイアレクト (`Dialect`) およびドライバー (`Driver`) クラスは `final` になりました。代わりに委譲 (`delegation`) を使用してください。
 
@@ -343,7 +345,7 @@
 -   [Compiler] `CodeBlock.of("${CodeBlock.toString()}")` のエスケープ (`escaping`) を修正 (#3340 by [Philip Wedemann][hfhbd])
 -   [Compiler] マイグレーション (`migrations`) で非同期実行ステートメント (`async execute statements`) を待機 (`Await`) するように修正 (#3352)
 -   [Compiler] `AS` を修正 (#3370 by [Philip Wedemann][hfhbd])
--   [Compiler] ``getObject` メソッドが実際の型の自動埋め込み (`automatic filling of the actual type`) をサポートするように修正 (#3401 by [Rob X][robx])
+-   [Compiler] `getObject` メソッドが実際の型の自動埋め込み (`automatic filling of the actual type`) をサポートするように修正 (#3401 by [Rob X][robx])
 -   [Compiler] 非同期グループ化 `returning` ステートメント (`async grouped returning statements`) のコード生成 (`codegen`) を修正 (#3411)
 -   [Compiler] 可能であればバインドパラメータ (`bind parameter`) の `Kotlin` 型を推論 (`Infer the Kotlin type`) し、そうでなければより良いエラーメッセージ (`better error message`) で失敗するように修正 (#3413 by [Philip Wedemann][hfhbd])
 -   [Compiler] `ABS("foo")` を許可しないように修正 (#3430 by [Philip Wedemann][hfhbd])
@@ -393,7 +395,7 @@ sqldelight {
 -   [Compiler] 未使用のアダプター (`unused adapters`) をスキップ (`Skip`) (#3162 by [Eliezer Graber][eygraber])
 -   [Compiler] `PrepareStatement` で `0` ベースのインデックス (`zero based index`) を使用するように変更 (#3269 by [Philip Wedemann][hfhbd])
 -   [Gradle Plugin] ダイアレクト (`dialect`) も文字列 (`string`) ではなく、適切な `gradle` 依存関係 (`proper gradle dependency`) にする (`make the dialect a proper gradle dependency`) ように変更 (#3085)
--   [Gradle Plugin] `Gradle Verify Task`: データベースファイルが欠落 (`missing database file`) している場合にエラーをスロー (`Throw when missing database file`) するように修正 (#3126 by [Niklas Baudy][vanniktech])
+-   [Gradle Plugin] Gradle Verify Task: データベースファイルが欠落 (`missing database file`) している場合にエラーをスロー (`Throw when missing database file`) するように修正 (#3126 by [Niklas Baudy][vanniktech])
 
 ### 修正
 -   [Gradle Plugin] Gradle プラグインの軽微なクリーンアップと調整 (`Minor cleanups and tweaks`) を修正 (#3171 by [Matthew Haughton][3flex])
@@ -536,7 +538,7 @@ sqldelight {
 -   [Runtime] デフォルトの列アダプター (`default column adapters`) を別のモジュール (`separate module`) に抽出 (`Extract`) (#2056, #2060)
 -   [Compiler] 各モジュールで再実行 (`redoing`) する代わりに、モジュールがクエリ実装 (`queries implementations`) を生成 (`generate`) するように変更
 -   [Compiler] 生成されたデータクラス (`generated data classes`) のカスタム `toString` 生成を削除 (by [Paul Woitaschek][PaulWoitaschek])
--   [JS Driver] `sqljs-driver` から `sql.js` 依存関係 (`dependency`) を削除 (by [Derek Ellis][dellisd])
+-   [JS Driver] `sql.js` 依存関係 (`dependency`) を `sqljs-driver` から削除 (by [Derek Ellis][dellisd])
 -   [Paging] `android paging 2 extension` を削除
 -   [IDE Plugin] `SQLDelight` が同期中 (`syncing`) にエディタバナー (`editor banner`) を追加 (#2511)
 -   [IDE Plugin] サポートされる `IntelliJ` の最小バージョン (`Minimum supported IntelliJ version`) は `2021.1` になりました。
@@ -555,7 +557,7 @@ sqldelight {
 -   [IDE Plugin] 元に戻すアクション (`undo action`) が実行されたスレッドの外 (`outside of the thread`) でデータベース (`database`) を再生成 (`Regenerate`) するように修正
 -   [IDE Plugin] 参照 (`reference`) が解決できない場合 (`cannot be resolves`)、空の `java type` を使用 (`use a blank java type`) するように修正
 -   [IDE Plugin] ファイル解析 (`file parsing`) 中にメインスレッド (`main thread`) から適切に移動 (`Correctly move off`) し、書き込み時 (`write`) のみメインスレッドに戻る (`move back on`) ように修正
--   [IDE Plugin] 古い `IntelliJ` バージョンとの互換性 (`compatibility`) を改善 (#3flex)
+-   [IDE Plugin] 古い `IntelliJ` バージョンとの互換性 (`compatibility`) を改善 (by [Matthew Haughton][3flex])
 -   [IDE Plugin] 高速なアノテーション `API` (`faster annotation API`) を使用
 -   [Gradle Plugin] ランタイム (`runtime`) 追加時に `js/android` プラグインを明示的にサポート (`Explicitly support`) (by [Zac Sweers][ZacSweers])
 -   [Gradle Plugin] マイグレーション (`migrations`) からスキーマ (`schemas`) を導出 (`derviving`) せずにマイグレーション出力タスク (`migration output task`) を登録 (`Register`) するように修正 (#2744 by [Kevin Cianfarini][kevincianfarini])
@@ -762,7 +764,7 @@ sqldelight {
 -   [IDE Plugin] 未知の式 (`unknown expression`) に遭遇した場合 (`encountering`) に、より良いエラーメッセージ (`better error message`) をスロー (`Throw`) する (#1958)
 -   [Gradle Plugin] `SQLDelight` が `IntelliJ` の依存関係 (`dependencies`) をビルドスクリプトクラスパス (`buildscript class path`) に漏らす (`bleeds`) (#1998)
 -   [Gradle Plugin] `*.sq` ファイルにメソッドドキュメント (`method doc`) を追加する際に「`JavadocIntegrationKt not found`」コンパイルエラー (`compilation error`) (#1982)
--   [Gradle Plugin] `SqlDelight gradle plugin` は `Configuration Caching (CoCa)` をサポートしていない (`doesn't support`) (#1947 by [Stéphane Nicolas][stephanenicolas])
+-   [Gradle Plugin] `SqlDeslight gradle plugin` は `Configuration Caching (CoCa)` をサポートしていない (`doesn't support`) (#1947 by [Stéphane Nicolas][stephanenicolas])
 -   [SQLite JDBC Driver] `SQLException`: `database in auto-commit mode` (#1832)
 -   [Coroutines Extension] `coroutines-extensions` の `IR backend` を修正 (#1918 by [Derek Ellis][dellisd])
 
@@ -821,7 +823,7 @@ sqldelight {
 ## [1.4.0] - 2020-06-22
 
 ### 追加
--   [MySQL Dialect] `MySQL` サポート (by [Jeff Gulbronson][JeffG] & [Veyndan Stuart][VeyndanS])
+-   [MySQL Dialect] MySQL サポート (by [Jeff Gulbronson][JeffG] & [Veyndan Stuart][VeyndanS])
 -   [PostgreSQL Dialect] 実験的な `PostgreSQL` サポート (by [Veyndan Stuart][VeyndanS])
 -   [HSQL Dialect] 実験的な `H2` サポート (by [Marius Volkhart][MariusV])
 -   [SQLite Dialect] `SQLite FTS5` サポート (by [Ben Asher][BenA] & [James Palawaga][JamesP])
@@ -917,7 +919,7 @@ sqldelight {
 *   新規: [Runtime] `#1267 Logging driver decorator` を追加。
 *   修正: [Compiler] `#1254` `2^16` 文字より長い文字列リテラル (`string literals`) を分割 (`Split`)。
 *   修正: [Gradle] `#1260` マルチプラットフォームプロジェクト (`Multiplatform Project`) で生成されたソース (`generated sources`) が `iOS` ソースとして認識 (`recognized`) される。
-*   修正: [IDE] `#1290 CopyAsSqliteAction.kt:43` における `kotlin.KotlinNullPointerException`。
+*   修正: [IDE] `#1290 kotlin.KotlinNullPointerException` in `CopyAsSqliteAction.kt:43`。
 *   修正: [Gradle] `#1268 linkDebugFrameworkIos* tasks` が最近のバージョンで失敗 (`fail`) する。
 
 ## [1.1.1] - 2019-03-01
@@ -1094,79 +1096,3 @@ sqldelight {
 ## [0.1.0] - 2016-02-12
 
 初回リリース。
-
-[JeffG]: https://github.com/JGulbronson
-[VeyndanS]: https://github.com/veyndan
-[BenA]: https://github.com/benasher44
-[JamesP]: https://github.com/jpalawaga
-[MariusV]: https://github.com/MariusVolkhart
-[SaketN]: https://github.com/saket
-[RomanZ]: https://github.com/romtsn
-[ZacSweers]: https://github.com/ZacSweers
-[AngusH]: https://github.com/angusholder
-[drampelt]: https://github.com/drampelt
-[endanke]: https://github.com/endanke
-[rharter]: https://github.com/rharter
-[vanniktech]: https://github.com/vanniktech
-[maaxgr]: https://github.com/maaxgr
-[eygraber]: https://github.com/eygraber
-[lawkai]: https://github.com/lawkai
-[felipecsl]: https://github.com/felipecsl
-[dellisd]: https://github.com/dellisd
-[stephanenicolas]: https://github.com/stephanenicolas
-[oldergod]: https://github.com/oldergod
-[qjroberts]: https://github.com/qjroberts
-[kevincianfarini]: https://github.com/kevincianfarini
-[andersio]: https://github.com/andersio
-[ilmat192]: https://github.com/ilmat192
-[3flex]: https://github.com/3flex
-[aperfilyev]: https://github.com/aperfilyev
-[satook]: https://github.com/Satook
-[thomascjy]: https://github.com/ThomasCJY
-[pyricau]: https://github.com/pyricau
-[hannesstruss]: https://github.com/hannesstruss
-[martinbonnin]: https://github.com/martinbonnin
-[enginegl]: https://github.com/enginegl
-[pchmielowski]: https://github.com/pchmielowski
-[chippmann]: https://github.com/chippmann
-[IliasRedissi]: https://github.com/IliasRedissi
-[ahmedre]: https://github.com/ahmedre
-[pabl0rg]: https://github.com/pabl0rg
-[hfhbd]: https://github.com/hfhbd
-[sdoward]: https://github.com/sdoward
-[PhilipDukhov]: https://github.com/PhilipDukhov
-[julioromano]: https://github.com/julioromano
-[PaulWoitaschek]: https://github.com/PaulWoitaschek
-[kpgalligan]: https://github.com/kpgalligan
-[robx]: https://github.com/robxyy
-[madisp]: https://github.com/madisp
-[svenjacobs]: https://github.com/svenjacobs
-[jeffdgr8]: https://github.com/jeffdgr8
-[bellatoris]: https://github.com/bellatoris
-[sachera]: https://github.com/sachera
-[sproctor]: https://github.com/sproctor
-[davidwheeler123]: https://github.com/davidwheeler123
-[C2H6O]: https://github.com/C2H6O
-[griffio]: https://github.com/griffio
-[shellderp]: https://github.com/shellderp
-[joshfriend]: https://github.com/joshfriend
-[daio]: https://github.com/daio
-[morki]: https://github.com/morki
-[Adriel-M]: https://github.com/Adriel-M
-[05nelsonm]: https://github.com/05nelsonm
-[jingwei99]: https://github.com/jingwei99
-[anddani]: https://github.com/anddani
-[BoD]: https://github.com/BoD
-[de-luca]: https://github.com/de-luca
-[MohamadJaara]: https://github.com/MohamadJaara
-[nwagu]: https://github.com/nwagu
-[IlyaGulya]: https://github.com/IlyaGulya
-[edenman]: https://github.com/edenman
-[vitorhugods]: https://github.com/vitorhugods
-[evant]: https://github.com/evant
-[TheMrMilchmann]: https://github.com/TheMrMilchmann
-[drewd]: https://github.com/drewd
-[orenkislev-faire]: https://github.com/orenkislev-faire
-[janbina]: https://github.com/janbina
-[DRSchlaubi]: https://github.com/DRSchlaubi
-[jonapoul]: https://github.com/jonapoul

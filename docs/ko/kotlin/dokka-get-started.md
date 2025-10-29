@@ -5,14 +5,14 @@
 <tabs group="build-script">
 <tab title="Gradle Kotlin DSL" group-key="kotlin">
 
-> Dokka 2.0.0부터는 여러 구성 옵션, Gradle 작업 및 문서 생성 단계가 업데이트되었습니다. 다음이 포함됩니다:
+> 이 지침은 Dokka Gradle 플러그인 v1의 구성 및 작업을 반영합니다. Dokka 2.0.0부터는 여러 구성 옵션, Gradle 작업 및 문서 생성 단계가 업데이트되었습니다. 다음이 포함됩니다:
 >
 > * [구성 옵션 조정](dokka-migration.md#adjust-configuration-options)
 > * [멀티 모듈 프로젝트 작업](dokka-migration.md#share-dokka-configuration-across-modules)
 > * [업데이트된 작업으로 문서 생성](dokka-migration.md#generate-documentation-with-the-updated-task)
 > * [출력 디렉터리 지정](dokka-migration.md#output-directory)
 >
-> 자세한 내용 및 전체 변경 목록은 [마이그레이션 가이드](dokka-migration.md)를 참조하세요.
+> Dokka Gradle 플러그인 v2의 변경 사항에 대한 자세한 내용 및 전체 목록은 [마이그레이션 가이드](dokka-migration.md)를 참조하세요.
 >
 {style="note"}
 

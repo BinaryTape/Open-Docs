@@ -11,7 +11,7 @@ Koog 的 **流式 API** 讓您能夠以 `Flow<StreamFrame>` 形式**逐步接收
 資料流會傳遞**型別化框架**：
 
 - `StreamFrame.Append(text: String)` — 增量輔助程式文字
-- `StreamFrame.ToolCall(id: String?, name: String, content: String)` — 工具呼叫 (安全地組合)
+- `StreamFrame.ToolCall(id: String?, name: String, content: String)` — 工具叫用 (安全地組合)
 - `StreamFrame.End(finishReason: String?)` — 資料流結束標記
 
 提供了輔助函數，用於提取純文字、將框架轉換為 `Message.Response` 物件，並安全地**組合分塊的工具呼叫**。
@@ -50,7 +50,7 @@ val strategy = strategy<String, String>("strategy_name") {
 -->
 ```kotlin
 llm.writeSession {
-    updatePrompt { user("Tell me a joke, then call a tool with JSON args.") }
+    appendPrompt { user("Tell me a joke, then call a tool with JSON args.") }
 
     val stream = requestLLMStreaming() // Flow<StreamFrame>
 
@@ -98,7 +98,7 @@ llm.writeSession {
     // 直接存取原始字串區塊
     stream.collect { chunk ->
         // 處理每個抵達的文字區塊
-        println("Received chunk: $chunk") // 這些區塊會共同構成遵循 mdDefinition 結構描述的文字
+        println("已接收區塊: $chunk") // 這些區塊會共同構成遵循 mdDefinition 結構描述的文字
     }
 }
 ```
@@ -343,13 +343,13 @@ val agentStrategy = strategy<String, List<Book>>("library-assistant") {
       val mdDefinition = markdownBookDefinition()
 
       llm.writeSession {
-         updatePrompt { user(booksDescription) }
+         appendPrompt { user(booksDescription) }
          // 以 `mdDefinition` 的定義形式啟動回應資料流
          val markdownStream = requestLLMStreaming(mdDefinition)
          // 使用回應資料流的結果呼叫解析器並對結果執行操作
          parseMarkdownStreamToBooks(markdownStream).collect { book ->
             books.add(book)
-            println("Parsed Book: ${book.title} by ${book.author}")
+            println("已解析書籍: ${book.title} by ${book.author}")
          }
       }
 
@@ -398,7 +398,7 @@ class BookTool(): SimpleTool<Book>() {
         get() = Book.serializer()
 
     override val name: String = NAME
-    override val description = "A tool to parse book information from Markdown"
+    override val description: String = "A tool to parse book information from Markdown"
 }
 ```
 <!--- KNIT example-streaming-api-08.kt -->
@@ -419,7 +419,7 @@ val agentStrategy = strategy<String, Unit>("library-assistant") {
       val mdDefinition = markdownBookDefinition()
 
       llm.writeSession {
-         updatePrompt { user(input) }
+         appendPrompt { user(input) }
          val markdownStream = requestLLMStreaming(mdDefinition)
 
          parseMarkdownStreamToBooks(markdownStream).collect { book ->

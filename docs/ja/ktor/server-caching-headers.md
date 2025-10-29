@@ -23,7 +23,7 @@
 </p>
 </tldr>
 
-[CachingHeaders](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-caching-headers/io.ktor.server.plugins.cachingheaders/-caching-headers.html) プラグインは、HTTP キャッシュに使用される `Cache-Control` ヘッダーと `Expires` ヘッダーを設定する機能を追加します。キャッシュは以下の方法で[設定](#configure)できます。
+[CachingHeaders](https://api.ktor.io/ktor-server-caching-headers/io.ktor.server.plugins.cachingheaders/-caching-headers.html) プラグインは、HTTP キャッシュに使用される `Cache-Control` ヘッダーと `Expires` ヘッダーを設定する機能を追加します。キャッシュは以下の方法で[設定](#configure)できます。
 - 画像、CSS、JavaScript ファイルなど、特定のコンテンツタイプに対して異なるキャッシュ戦略を設定する。
 - キャッシュオプションをさまざまなレベルで指定する：アプリケーションレベルでグローバルに、ルートレベルで、または特定の呼び出しに対して。
 
@@ -74,7 +74,7 @@
 `%plugin_name%` をインストールしたら、さまざまなコンテンツタイプに対してキャッシュ設定を[構成](#configure)できます。
 
 ## キャッシュの構成 {id="configure"}
-`%plugin_name%` プラグインを構成するには、特定の `ApplicationCall` およびコンテンツタイプに対して指定されたキャッシュオプションを提供するために、[options](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-caching-headers/io.ktor.server.plugins.cachingheaders/-caching-headers-config/options.html) 関数を定義する必要があります。[caching-headers](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/caching-headers) の例のコードスニペットは、プレーンテキストおよび HTML に対して `max-age` オプションを持つ `Cache-Control` ヘッダーを追加する方法を示しています。
+`%plugin_name%` プラグインを構成するには、特定の `ApplicationCall` およびコンテンツタイプに対して指定されたキャッシュオプションを提供するために、[options](https://api.ktor.io/ktor-server-caching-headers/io.ktor.server.plugins.cachingheaders/-caching-headers-config/options.html) 関数を定義する必要があります。[caching-headers](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/caching-headers) の例のコードスニペットは、プレーンテキストおよび HTML に対して `max-age` オプションを持つ `Cache-Control` ヘッダーを追加する方法を示しています。
 
 ```kotlin
 fun Application.module() {

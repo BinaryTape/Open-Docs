@@ -8,7 +8,7 @@
 
 ## 跨平台开发：现代应用程序构建的统一方法
 
-跨平台开发提供了一种使用单一代码库构建可在多个平台运行的应用程序的方式，从而无需为每个系统重复编写相同的功能性。虽然通常与[移动开发](cross-platform-mobile-development.md)相关联——面向 Android 和 iOS——但这种方法远超移动领域，涵盖了 Web、桌面甚至服务端环境。
+跨平台开发提供了一种使用单一代码库构建可在多个平台运行的应用程序的方式，从而无需为每个系统重复编写相同的功能性。虽然通常与[移动开发](cross-platform-mobile-development.md)相关联——面向 Android 和 iOS——但这种方法远超移动领域，涵盖了 Web、桌面甚至服务器端环境。
 
 其核心思想是最大限度地复用代码，同时确保在必要时仍能实现平台特有的特性，从而简化开发流程并减少维护工作。团队可以加快开发周期、降低成本，并确保跨平台的一致性，使得跨平台开发在当今日益多样化的应用程序生态中成为一个明智的选择。
 
@@ -32,7 +32,9 @@ Flutter 开发者社区庞大且高度活跃，提供持续的改进和支持。
 
 ![Kotlin Multiplatform 是一种可以复用高达 100% 代码的技术](kmp-logic-and-ui.svg){ width="700" }
 
-Kotlin Multiplatform 于 2017 年作为 Kotlin 1.2 的一部分首次推出。2023 年 11 月，Kotlin Multiplatform 达到[稳定](https://blog.jetbrains.com/kotlin/2023/11/kotlin-multiplatform-stable/)版本。在 Google I/O 2024 期间，Google 宣布其[支持 Kotlin Multiplatform](https://android-developers.googleblog.com/2024/05/android-support-for-kotlin-multiplatform-to-share-business-logic-across-mobile-web-server-desktop.html) 在 Android 上共享 Android 和 iOS 之间的业务逻辑。
+Kotlin Multiplatform 于 2017 年作为 Kotlin 1.2 的一部分首次推出。2023 年 11 月，Kotlin Multiplatform 达到稳定版本。在 Google I/O 2024 期间，Google 宣布其[支持 Kotlin Multiplatform](https://android-developers.googleblog.com/2024/05/android-support-for-kotlin-multiplatform-to-share-business-logic-across-mobile-web-server-desktop.html) 在 Android 上共享 Android 和 iOS 之间的业务逻辑。
+
+如果您想了解 Kotlin Multiplatform 的总体发展方向，请查阅我们的博客文章：[Kotlin Multiplatform 和 Compose Multiplatform 的未来展望](https://blog.jetbrains.com/kotlin/2025/08/kmp-roadmap-aug-2025/)。
 
 [![探索 Kotlin Multiplatform](discover-kmp.svg){width="500"}](https://www.jetbrains.com/kotlin-multiplatform/)
 

@@ -87,3 +87,4 @@ install(HttpRequestRetry) {
         request.headers.append("x-retry-count", retryCount.toString())
     }
 }
+```

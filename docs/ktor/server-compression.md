@@ -23,10 +23,10 @@
 </p>
 </tldr>
 
-Ktor 提供了通过使用 [Compression](https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-compression/io.ktor.server.plugins.compression/-compression.html) plugin 来压缩响应体和解压缩请求体的能力。
+Ktor 提供了通过使用 [Compression](https://api.ktor.io/ktor-server-compression/io.ktor.server.plugins.compression/-compression.html) plugin 来压缩响应体和解压缩请求体的能力。
 您可以使用不同的压缩算法，包括 `gzip` 和 `deflate`，指定压缩数据所需的条件（例如内容类型或响应大小），甚至可以根据特定的请求参数来压缩数据。
 
-> 请注意，%plugin_name% plugin 当前不支持 SSE 响应。
+> 请注意，%plugin_name% plugin 当前不支持 `SSE` 响应。
 >
 {style="warning"}
 
@@ -172,5 +172,5 @@ install(Compression) {
 
 ## 实现自定义编码器 {id="custom_encoder"}
 
-如有必要，您可以通过实现 [ContentEncoder](https://api.ktor.io/ktor-utils/io.ktor.util/-content-encoder/index.html) interface 来提供自己的编码器。
+如有必要，您可以通过实现 [ContentEncoder](https://api.ktor.io/ktor-utils/io.ktor.util/-content-encoder/index.html) 接口来提供自己的编码器。
 有关实现的示例，请参见 [GzipEncoder](https://github.com/ktorio/ktor/blob/b5b59ca3ae61601e6175f334e6a1252609638e61/ktor-server/ktor-server-plugins/ktor-server-compression/jvm/src/io/ktor/server/plugins/compression/Encoders.kt#L41)。

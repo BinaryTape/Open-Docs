@@ -6,7 +6,7 @@
 <var name="plugin_name" value="RateLimit"/>
 <var name="package_name" value="io.ktor.server.plugins.ratelimit"/>
 <var name="artifact_name" value="ktor-server-rate-limit"/>
-<var name="plugin_api_link" value="https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-rate-limit/io.ktor.server.plugins.ratelimit/-rate-limit.html"/>
+<var name="plugin_api_link" value="https://api.ktor.io/ktor-server-rate-limit/io.ktor.server.plugins.ratelimit/-rate-limit.html"/>
 
 <tldr>
 <p>
@@ -20,7 +20,7 @@
     </a>
 </p>
 <p>
-    <b><Links href="/ktor/server-native" summary="Ktor는 Kotlin/Native를 지원하며 추가 런타임이나 가상 머신 없이 서버를 실행할 수 있습니다.">네이티브 서버</Links> 지원</b>: ✅
+    <b><Links href="/ktor/server-native" summary="모듈을 사용하면 경로를 그룹화하여 애플리케이션을 구조화할 수 있습니다.">네이티브 서버</Links> 지원</b>: ✅
 </p>
 </tldr>
 
@@ -53,7 +53,9 @@ Ktor는 속도 제한을 구성하기 위한 다양한 방법을 제공합니다
 ## %plugin_name% 설치 {id="install_plugin"}
 
 <p>
-    애플리케이션에 <code>%plugin_name%</code> 플러그인을 <a href="#install">설치</a>하려면, 지정된 <Links href="/ktor/server-modules" summary="모듈을 사용하면 경로를 그룹화하여 애플리케이션을 구조화할 수 있습니다.">모듈</Links>의 <code>install</code> 함수에 플러그인을 전달합니다. 아래 코드 스니펫은 <code>%plugin_name%</code>을(를) 설치하는 방법을 보여줍니다...
+    애플리케이션에 <code>%plugin_name%</code> 플러그인을 <a href="#install">설치</a>하려면,
+    지정된 <Links href="/ktor/server-modules" summary="모듈을 사용하면 경로를 그룹화하여 애플리케이션을 구조화할 수 있습니다.">모듈</Links>의 <code>install</code> 함수에 플러그인을 전달합니다.
+    아래 코드 스니펫은 <code>%plugin_name%</code>을(를) 설치하는 방법을 보여줍니다...
 </p>
 <list>
     <li>
@@ -65,10 +67,10 @@ Ktor는 속도 제한을 구성하기 위한 다양한 방법을 제공합니다
 </list>
 <Tabs>
     <TabItem title="embeddedServer">
-        <code-block lang="kotlin" code="            import io.ktor.server.engine.*&#10;            import io.ktor.server.netty.*&#10;            import io.ktor.server.application.*&#10;            import %package_name%.*&#10;&#10;            fun main() {&#10;                embeddedServer(Netty, port = 8080) {&#10;                    install(%plugin_name%)&#10;                    // ...&#10;                }.start(wait = true)&#10;            }"/>
+        <code-block lang="kotlin" code="            import io.ktor.server.engine.*&#10;            import io.ktor.server.netty.*&#10;            import io.ktor.server.application.*&#10;            import %package_name%.*&#10;&#10;            fun main() {&#10                embeddedServer(Netty, port = 8080) {&#10                    install(%plugin_name%)&#10                    // ...&#10                }.start(wait = true)&#10            }"/>
     </TabItem>
     <TabItem title="module">
-        <code-block lang="kotlin" code="            import io.ktor.server.application.*&#10;            import %package_name%.*&#10;            // ...&#10;            fun Application.module() {&#10;                install(%plugin_name%)&#10;                // ...&#10;            }"/>
+        <code-block lang="kotlin" code="            import io.ktor.server.application.*&#10;            import %package_name%.*&#10;            // ...&#10            fun Application.module() {&#10                install(%plugin_name%)&#10                // ...&#10            }"/>
     </TabItem>
 </Tabs>
 
@@ -83,12 +85,12 @@ Ktor는 속도 제한을 위해 _토큰 버킷_ 알고리즘을 사용하며, �
         - `X-RateLimit-Limit`: 지정된 버킷 용량.
         - `X-RateLimit-Remaining`: 버킷에 남아있는 토큰 수.
         - `X-RateLimit-Reset`: 버킷을 다시 채울 시간(초 단위 UTC 타임스탬프)을 지정합니다.
-    - 용량이 부족하면 서버는 `429 Too Many Requests` 응답을 사용하여 요청을 거부하고, 클라이언트가 다음 요청을 보내기 전에 기다려야 하는 시간(초 단위)을 나타내는 `Retry-After` 헤더를 추가합니다.
+    - 용량이 부족하면 서버는 <code>429 Too Many Requests</code> 응답을 사용하여 요청을 거부하고, 클라이언트가 다음 요청을 보내기 전에 기다려야 하는 시간(초 단위)을 나타내는 <code>Retry-After</code> 헤더를 추가합니다.
 3. 지정된 시간이 경과하면 버킷 용량이 다시 채워집니다.
 
 ### 속도 제한기 등록 {id="register"}
 Ktor를 사용하면 속도 제한을 전체 애플리케이션에 전역적으로 적용하거나 특정 경로에 적용할 수 있습니다:
-- 전체 애플리케이션에 속도 제한을 적용하려면 `global` 메서드를 호출하고 구성된 속도 제한기를 전달합니다.
+- 전체 애플리케이션에 속도 제한을 적용하려면, <code>global</code> 메서드를 호출하고 구성된 속도 제한기를 전달합니다.
    ```kotlin
    install(RateLimit) {
        global {
@@ -97,7 +99,7 @@ Ktor를 사용하면 속도 제한을 전체 애플리케이션에 전역적으�
    }
    ```
 
-- `register` 메서드는 특정 경로에 적용할 수 있는 속도 제한기를 등록합니다.
+- <code>register</code> 메서드는 특정 경로에 적용할 수 있는 속도 제한기를 등록합니다.
    ```kotlin
    install(RateLimit) {
        register {
@@ -106,13 +108,13 @@ Ktor를 사용하면 속도 제한을 전체 애플리케이션에 전역적으�
    }
    ```
 
-위 코드 샘플은 `%plugin_name%` 플러그인의 최소 구성을 보여주지만, `register` 메서드를 사용하여 등록된 속도 제한기의 경우 [특정 경로](#rate-limiting-scope)에도 적용해야 합니다.
+위 코드 샘플은 <code>%plugin_name%</code> 플러그인의 최소 구성을 보여주지만, <code>register</code> 메서드를 사용하여 등록된 속도 제한기의 경우 [특정 경로](#rate-limiting-scope)에도 적용해야 합니다.
 
 ### 속도 제한 구성 {id="configure-rate-limiting"}
 
 이 섹션에서는 속도 제한을 구성하는 방법을 살펴보겠습니다:
 
-1. (선택 사항) `register` 메서드를 사용하면 [특정 경로](#rate-limiting-scope)에 속도 제한 규칙을 적용하는 데 사용할 수 있는 속도 제한기 이름을 지정할 수 있습니다:
+1. (선택 사항) <code>register</code> 메서드를 사용하면 [특정 경로](#rate-limiting-scope)에 속도 제한 규칙을 적용하는 데 사용할 수 있는 속도 제한기 이름을 지정할 수 있습니다:
    ```kotlin
        install(RateLimit) {
            register(RateLimitName("protected")) {
@@ -121,15 +123,15 @@ Ktor를 사용하면 속도 제한을 전체 애플리케이션에 전역적으�
        }
    ```
 
-2. `rateLimiter` 메서드는 두 개의 매개변수로 속도 제한기를 생성합니다: `limit`는 버킷 용량을 정의하고, `refillPeriod`는 이 버킷의 재충전 기간을 지정합니다. 아래 예시의 속도 제한기는 분당 30개의 요청을 처리할 수 있습니다:
+2. <code>rateLimiter</code> 메서드는 두 개의 매개변수로 속도 제한기를 생성합니다: <code>limit</code>는 버킷 용량을 정의하고, <code>refillPeriod</code>는 이 버킷의 재충전 기간을 지정합니다. 아래 예시의 속도 제한기는 분당 30개의 요청을 처리할 수 있습니다:
    ```kotlin
    register(RateLimitName("protected")) {
        rateLimiter(limit = 30, refillPeriod = 60.seconds)
    }
    ```
 
-3. (선택 사항) `requestKey`를 사용하면 요청에 대한 키를 반환하는 함수를 지정할 수 있습니다. 키가 다른 요청은 독립적인 속도 제한을 가집니다.
-   아래 예시에서 `login` [쿼리 매개변수](server-requests.md#query_parameters)는 다른 사용자를 구분하는 데 사용되는 키입니다:
+3. (선택 사항) <code>requestKey</code>를 사용하면 요청에 대한 키를 반환하는 함수를 지정할 수 있습니다. 키가 다른 요청은 독립적인 속도 제한을 가집니다.
+   아래 예시에서 <code>login</code> [쿼리 매개변수](server-requests.md#query_parameters)는 다른 사용자를 구분하는 데 사용되는 키입니다:
    ```kotlin
    register(RateLimitName("protected")) {
        requestKey { applicationCall ->
@@ -138,9 +140,9 @@ Ktor를 사용하면 속도 제한을 전체 애플리케이션에 전역적으�
    }
    ```
 
-   > 키는 `equals` 및 `hashCode` 구현이 잘 되어 있어야 합니다.
+   > 키는 <code>equals</code> 및 <code>hashCode</code> 구현이 잘 되어 있어야 합니다.
 
-4. (선택 사항) `requestWeight`는 요청이 소비하는 토큰 수를 반환하는 함수를 설정합니다.
+4. (선택 사항) <code>requestWeight</code>는 요청이 소비하는 토큰 수를 반환하는 함수를 설정합니다.
    아래 예시에서 요청 키는 요청 가중치를 구성하는 데 사용됩니다:
    ```kotlin
    register(RateLimitName("protected")) {
@@ -156,7 +158,7 @@ Ktor를 사용하면 속도 제한을 전체 애플리케이션에 전역적으�
    }
    ```
 
-5. (선택 사항) `modifyResponse`를 사용하면 각 요청과 함께 전송되는 기본 `X-RateLimit-*` 헤더를 재정의할 수 있습니다:
+5. (선택 사항) <code>modifyResponse</code>를 사용하면 각 요청과 함께 전송되는 기본 <code>X-RateLimit-*</code> 헤더를 재정의할 수 있습니다:
    ```kotlin
    register(RateLimitName("protected")) {
        modifyResponse { applicationCall, state ->
@@ -167,7 +169,7 @@ Ktor를 사용하면 속도 제한을 전체 애플리케이션에 전역적으�
 
 ### 속도 제한 범위 정의 {id="rate-limiting-scope"}
 
-속도 제한기를 구성한 후, `rateLimit` 메서드를 사용하여 특정 경로에 해당 규칙을 적용할 수 있습니다:
+속도 제한기를 구성한 후, <code>rateLimit</code> 메서드를 사용하여 특정 경로에 해당 규칙을 적용할 수 있습니다:
 
 ```kotlin
 routing {
@@ -196,8 +198,8 @@ routing {
 
 ## 예제 {id="example"}
 
-아래 코드 샘플은 `RateLimit` 플러그인을 사용하여 다양한 리소스에 다른 속도 제한기를 적용하는 방법을 보여줍니다.
-`429 Too Many Requests` 응답이 전송된 거부된 요청을 처리하기 위해 [StatusPages](server-status-pages.md) 플러그인이 사용됩니다.
+아래 코드 샘플은 <code>RateLimit</code> 플러그인을 사용하여 다양한 리소스에 다른 속도 제한기를 적용하는 방법을 보여줍니다.
+<code>429 Too Many Requests</code> 응답이 전송된 거부된 요청을 처리하기 위해 [StatusPages](server-status-pages.md) 플러그인이 사용됩니다.
 
 ```kotlin
 package com.example

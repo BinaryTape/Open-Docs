@@ -22,16 +22,16 @@ Dokkaプラグインは個別の成果物として公開されているため、
 <tabs group="build-script">
 <tab title="Kotlin" group-key="kotlin">
 
-> Dokka 2.0.0以降、いくつかの構成オプション、Gradleタスク、およびドキュメント生成手順が更新されました。これには以下が含まれます:
+> これらの手順はDokka Gradleプラグインv1の構成とタスクを反映しています。Dokka 2.0.0以降、いくつかの構成オプション、Gradleタスク、およびドキュメント生成手順が更新されました。これには以下が含まれます:
 >
 > * [Dokkaプラグインの構成](dokka-migration.md#configure-dokka-plugins)
 > * [マルチモジュールプロジェクトの操作](dokka-migration.md#share-dokka-configuration-across-modules)
 >
-> 変更点の詳細および完全なリストについては、[移行ガイド](dokka-migration.md)を参照してください。
+> Dokka Gradle Plugin v2での変更点の詳細および完全なリストについては、[移行ガイド](dokka-migration.md)を参照してください。
 >
 > {style="note"}
 
-Dokka用Gradleプラグインは、プラグインを全体的に適用するか、特定の出力形式のみに適用することを可能にする便利な依存関係構成を作成します。
+Dokka用Gradleプラグインは、Dokkaプラグインを全体的に適用するか、特定の出力形式のみに適用することを可能にする便利な依存関係構成を作成します。
 
 ```kotlin
 dependencies {
@@ -57,13 +57,13 @@ Dokka用Gradleプラグインは、Dokkaプラグインを全体的に適用す�
 
 ```groovy
 dependencies {
-    // Is applied universally
+    // 全体的に適用されます
     dokkaPlugin 'org.jetbrains.dokka:mathjax-plugin:%dokkaVersion%'
 
-    // Is applied for the single-module dokkaHtml task only
+    // シングルモジュールのdokkaHtmlタスクにのみ適用されます
     dokkaHtmlPlugin 'org.jetbrains.dokka:kotlin-as-java-plugin:%dokkaVersion%'
 
-    // Is applied for HTML format in multi-project builds
+    // マルチプロジェクトビルドのHTML形式に適用されます
     dokkaHtmlPartialPlugin 'org.jetbrains.dokka:kotlin-as-java-plugin:%dokkaVersion%'
 }
 ```

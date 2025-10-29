@@ -1,7 +1,45 @@
 # A2A 및 Koog 통합
 
-Koog는 A2A 프로토콜과의 원활한 통합을 제공하여, Koog 에이전트를 A2A 서버로 노출하고
+Koog는 A2A 프로토콜과 원활하게 통합되어, Koog 에이전트를 A2A 서버로 노출하고
 Koog 에이전트를 다른 A2A 호환 에이전트에 연결할 수 있도록 합니다.
+
+## 종속성
+
+A2A Koog 통합은 사용 사례에 따라 특정 기능 모듈이 필요합니다:
+
+### Koog 에이전트를 A2A 서버로 노출하는 경우
+
+`build.gradle.kts`에 다음 종속성을 추가하세요:
+
+```kotlin
+dependencies {
+    // Koog A2A 서버 통합 기능
+    implementation("ai.koog:agents-features-a2a-server:$koogVersion")
+
+    // HTTP JSON-RPC 전송
+    implementation("ai.koog:a2a-transport-server-jsonrpc-http:$koogVersion")
+
+    // Ktor 서버 엔진 (필요에 맞는 것을 선택하세요)
+    implementation("io.ktor:ktor-server-netty:$ktorVersion")
+}
+```
+
+### Koog 에이전트를 A2A 에이전트에 연결하는 경우
+
+`build.gradle.kts`에 다음 종속성을 추가하세요:
+
+```kotlin
+dependencies {
+    // Koog A2A 클라이언트 통합 기능
+    implementation("ai.koog:agents-features-a2a-client:$koogVersion")
+
+    // HTTP JSON-RPC 전송
+    implementation("ai.koog:a2a-transport-client-jsonrpc-http:$koogVersion")
+
+    // Ktor 클라이언트 엔진 (필요에 맞는 것을 선택하세요)
+    implementation("io.ktor:ktor-client-cio:$ktorVersion")
+}
+```
 
 ## 개요
 
@@ -15,7 +53,7 @@ Koog 에이전트를 다른 A2A 호환 에이전트에 연결할 수 있도록 �
 ### A2A 기능을 사용하여 Koog 에이전트 정의
 
 먼저 Koog 에이전트를 정의해 봅시다. 에이전트의 로직은 다양할 수 있지만, 여기 도구를 포함한 기본적인 단일 실행 에이전트 예시가 있습니다.
-이 에이전트는 사용자로부터 받은 메시지를 다시 저장하고, 이를 LLM(대규모 언어 모델)으로 전달합니다.
+에이전트는 사용자로부터 받은 메시지를 다시 저장하고, 이를 LLM으로 전달합니다.
 LLM 응답에 도구 호출이 포함되어 있으면 에이전트는 도구를 실행하고 그 결과를 LLM으로 전달합니다.
 LLM 응답에 어시스턴트 메시지가 포함되어 있으면 에이전트는 어시스턴트 메시지를 사용자에게 보내고 작업을 완료합니다.
 
@@ -36,31 +74,31 @@ private fun createAgent(
         LLMProvider.Google to GoogleLLMClient("api-key")
     ),
     toolRegistry = ToolRegistry {
-        // Declare tools here
+        // 여기에 도구를 선언하세요
     },
     strategy = strategy<A2AMessage, Unit>("test") {
         val nodeSetup by node<A2AMessage, Unit> { inputMessage ->
-            // Convenience function to transform A2A message into Koog message
+            // A2A 메시지를 Koog 메시지로 변환하는 편의 함수
             val input = inputMessage.toKoogMessage()
             llm.writeSession {
-                updatePrompt {
+                appendPrompt {
                     message(input)
                 }
             }
-            // Send update event to A2A client
+            // A2A 클라이언트에 업데이트 이벤트 전송
             withA2AAgentServer {
                 sendTaskUpdate("Request submitted: ${input.content}", TaskState.Submitted)
             }
         }
 
-        // Calling llm
+        // LLM 호출
         val nodeLLMRequest by node<Unit, Message> {
             llm.writeSession {
                 requestLLM()
             }
         }
 
-        // Executing tool
+        // 도구 실행
         val nodeProcessTool by node<Message.Tool.Call, Unit> { toolCall ->
             withA2AAgentServer {
                 sendTaskUpdate("Executing tool: ${toolCall.content}", TaskState.Working)
@@ -69,7 +107,7 @@ private fun createAgent(
             val toolResult = environment.executeTool(toolCall)
 
             llm.writeSession {
-                updatePrompt {
+                appendPrompt {
                     tool {
                         result(toolResult)
                     }
@@ -80,7 +118,7 @@ private fun createAgent(
             }
         }
 
-        // Sending assistant message
+        // 어시스턴트 메시지 전송
         val nodeProcessAssistant by node<String, Unit> { assistantMessage ->
             withA2AAgentServer {
                 sendTaskUpdate(assistantMessage, TaskState.Completed)
@@ -90,11 +128,11 @@ private fun createAgent(
         edge(nodeStart forwardTo nodeSetup)
         edge(nodeSetup forwardTo nodeLLMRequest)
 
-        // If a tool call is returned from llm, forward to the tool processing node and then back to llm
+        // LLM에서 도구 호출이 반환되면 도구 처리 노드로 전달한 다음 LLM으로 다시 전달합니다.
         edge(nodeLLMRequest forwardTo nodeProcessTool onToolCall { true })
         edge(nodeProcessTool forwardTo nodeLLMRequest)
 
-        // If an assistant message is returned from llm, forward to the assistant processing node and then to finish
+        // LLM에서 어시스턴트 메시지가 반환되면 어시스턴트 처리 노드로 전달한 다음 완료합니다.
         edge(nodeLLMRequest forwardTo nodeProcessAssistant onAssistantMessage { true })
         edge(nodeProcessAssistant forwardTo nodeFinish)
     },
@@ -111,9 +149,9 @@ private fun createAgent(
 }
 
 /**
- * Convenience function to send task update event to A2A client
- * @param content The message content
- * @param state The task state
+ * A2A 클라이언트에 작업 업데이트 이벤트를 보내는 편의 함수
+ * @param content 메시지 내용
+ * @param state 작업 상태
  */
 @OptIn(ExperimentalUuidApi::class)
 private suspend fun A2AAgentServer.sendTaskUpdate(
@@ -148,27 +186,29 @@ private suspend fun A2AAgentServer.sendTaskUpdate(
 `A2AAgentServer`는 Koog 에이전트와 A2A 프로토콜 간의 원활한 통합을 가능하게 하는 Koog 에이전트 기능입니다.
 `A2AAgentServer` 기능은 `RequestContext` 및 `SessionEventProcessor` 엔티티에 대한 접근을 제공하며, 이들은 Koog 에이전트 내부의 A2A 클라이언트와 통신하는 데 사용됩니다.
 
-이 기능을 설치하려면, 에이전트에서 `install` 함수를 호출하고 `A2AAgentServer` 기능과 함께 `RequestContext` 및 `SessionEventProcessor`를 전달합니다.
+이 기능을 설치하려면, 에이전트에서 `install` 함수를 호출하고 `A2AAgentServer` 기능과 함께 `RequestContext` 및 `SessionEventProcessor`를 전달합니다:
+
 ```kotlin
-// Install the feature
-agent.install(A2AAgentServer) {
+// 기능 설치
+install(A2AAgentServer) {
     this.context = context
     this.eventProcessor = eventProcessor
 }
 ```
 
-Koog 에이전트 전략에서 이러한 엔티티에 접근하려면, 이 기능은 `withA2AAgentServer` 함수를 제공하여 에이전트 노드가 실행 컨텍스트 내에서 A2A 서버 기능에 접근할 수 있도록 합니다.
+Koog 에이전트 전략에서 이러한 엔티티에 접근하려면, 이 기능은 에이전트 노드가 실행 컨텍스트 내에서 A2A 서버 기능에 접근할 수 있도록 하는 `withA2AAgentServer` 함수를 제공합니다.
 이 함수는 설치된 `A2AAgentServer` 기능을 검색하여 액션 블록의 리시버(receiver)로 제공합니다.
 
 ```kotlin
-// Usage within agent nodes
+// 에이전트 노드 내 사용
 withA2AAgentServer {
-    // 'this' is now A2AAgentServer instance
-    sendTaskUpdate("Processing your request...", TaskState.Working)
+    // 'this'는 이제 A2AAgentServer 인스턴스입니다.
+    eventProcessor.sendTaskUpdate("Processing your request...", TaskState.Working)
 }
 ```
 
 ### A2A 서버 시작
+
 서버를 실행한 후 Koog 에이전트는 A2A 프로토콜을 통해 검색 및 접근 가능하게 됩니다.
 
 ```kotlin
@@ -191,10 +231,10 @@ val agentCard = AgentCard(
         )
     )
 )
-// Server setup
+// 서버 설정
 val server = A2AServer(agentExecutor = KoogAgentExecutor(), agentCard = agentCard)
 val transport = HttpJSONRPCServerTransport(server)
-transport.start(engineFactory = CIO, port = 8080, path = "/chat", wait = true)
+transport.start(engineFactory = Netty, port = 8080, path = "/chat", wait = true)
 ```
 
 ## Koog 에이전트를 A2A 에이전트에 연결
@@ -212,7 +252,8 @@ client.connect()
 ```
 
 ### Koog 에이전트 생성 및 A2AAgentClient 기능에 A2A 클라이언트 추가
-Koog 에이전트에서 A2A 에이전트에 연결하려면, `A2AAgentClient` 기능을 사용할 수 있으며, 이는 A2A 에이전트에 연결하기 위한 클라이언트 API를 제공합니다.
+
+Koog 에이전트에서 A2A 에이전트에 연결하려면, A2A 에이전트에 연결하기 위한 클라이언트 API를 제공하는 `A2AAgentClient` 기능을 사용할 수 있습니다.
 클라이언트의 원리는 서버와 동일합니다: 기능을 설치하고 `A2AAgentClient` 기능과 함께 `RequestContext` 및 `SessionEventProcessor`를 전달합니다.
 
 ```kotlin
@@ -221,7 +262,7 @@ val agent = AIAgent(
         LLMProvider.Google to GoogleLLMClient("api-key")
     ),
     toolRegistry = ToolRegistry {
-        // declare tools here
+        // 여기에 도구를 선언하세요
     },
     strategy = strategy<String, Unit>("test") {
 
@@ -264,7 +305,7 @@ val agent = AIAgent(
             }
         }
 
-        // If streaming is supported, send a message, process response and finish
+        // 스트리밍이 지원되면 메시지를 보내고 응답을 처리한 다음 완료합니다.
         edge(nodeStart forwardTo nodeCheckStreaming transformed { agentId })
         edge(
             nodeCheckStreaming forwardTo nodeA2ASendMessageStreaming
@@ -273,7 +314,7 @@ val agent = AIAgent(
         edge(nodeA2ASendMessageStreaming forwardTo nodeProcessStreaming)
         edge(nodeProcessStreaming forwardTo nodeFinish)
 
-        // If streaming is not supported, send a message, process response and finish
+        // 스트리밍이 지원되지 않으면 메시지를 보내고 응답을 처리한 다음 완료합니다.
         edge(
             nodeCheckStreaming forwardTo nodeA2ASendMessage
                 onCondition { it == false } transformed { buildA2ARequest(agentId) }
@@ -281,7 +322,7 @@ val agent = AIAgent(
         edge(nodeA2ASendMessage forwardTo nodeProcessEvent)
         edge(nodeProcessEvent forwardTo nodeFinish)
 
-        // If streaming is not supported, send a message, process response and finish
+        // 스트리밍이 지원되지 않으면 메시지를 보내고 응답을 처리한 다음 완료합니다.
         edge(nodeCheckStreaming forwardTo nodeFinish onCondition { it == null }
             transformed { println("Failed to get agents card") }
         )

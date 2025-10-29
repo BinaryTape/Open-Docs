@@ -50,13 +50,11 @@ Ktorは、Webサーバーを作成せず、ソケットにバインドせず、�
 
 > [ネイティブサーバー](server-native.md#add-dependencies)をテストするには、`nativeTest` ソースセットにテストアーティファクトを追加してください。
 
-  
-
 ## テストの概要 {id="overview"}
 
 テストエンジンを使用するには、以下の手順に従います。
 1. JUnitテストクラスとテスト関数を作成します。
-2. [testApplication](https://api.ktor.io/ktor-server/ktor-server-test-host/io.ktor.server.testing/test-application.html) 関数を使用して、ローカルで実行されるテストアプリケーションの設定済みインスタンスをセットアップします。
+2. [testApplication](https://api.ktor.io/ktor-server-test-host/io.ktor.server.testing/test-application.html) 関数を使用して、ローカルで実行されるテストアプリケーションの設定済みインスタンスをセットアップします。
 3. テストアプリケーション内の[Ktor HTTPクライアント](client-create-and-configure.md)インスタンスを使用して、サーバーにリクエストを作成し、レスポンスを受け取り、アサーションを実行します。
 
 以下のコードは、`/` パスへのGETリクエストを受け入れ、プレーンテキストのレスポンスを返す最もシンプルなKtorアプリケーションをテストする方法を示しています。
@@ -210,7 +208,7 @@ fun testHello() = testApplication {
 }
 ```
 
-設定プロパティを指定するもう1つの方法は、[MapApplicationConfig](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.config/-map-application-config/index.html)を使用することです。これは、アプリケーションが起動する前にアプリケーション設定にアクセスしたい場合に役立つかもしれません。以下の例は、`config` プロパティを使用して `MapApplicationConfig` を `testApplication` 関数に渡す方法を示しています。
+設定プロパティを指定するもう1つの方法は、[MapApplicationConfig](https://api.ktor.io/ktor-server-core/io.ktor.server.config/-map-application-config/index.html)を使用することです。これは、アプリケーションが起動する前にアプリケーション設定にアクセスしたい場合に役立つかもしれません。以下の例は、`config` プロパティを使用して `MapApplicationConfig` を `testApplication` 関数に渡す方法を示しています。
 
 ```kotlin
 @Test

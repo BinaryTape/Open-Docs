@@ -4,7 +4,7 @@
 
 <var name="artifact_name" value="ktor-server-openapi"/>
 <var name="package_name" value="io.ktor.server.plugins.openapi"/>
-<var name="plugin_api_link" value="https://api.ktor.io/ktor-server/ktor-server-plugins/ktor-server-openapi/io.ktor.server.plugins.openapi/open-a-p-i.html"/>
+<var name="plugin_api_link" value="https://api.ktor.io/ktor-server-openapi/io.ktor.server.plugins.openapi/open-a-p-i.html"/>
 
 <tldr>
 <p>
@@ -26,8 +26,9 @@
 OpenAPI 插件允许您为项目生成 OpenAPI 文档。
 </link-summary>
 
-Ktor 允许您基于现有的 OpenAPI 规范为您的项目生成并提供 OpenAPI 文档。
-您可以提供现有的 YAML 或 JSON 规范，也可以使用 Ktor Gradle 插件的 [OpenAPI 扩展](openapi-spec-generation.md) 生成一个。
+Ktor 允许您基于现有的 OpenAPI 规范，为您的项目生成并提供 OpenAPI 文档。
+您可以提供现有的 YAML 或 JSON 规范，也可以使用 Ktor Gradle 插件的
+[OpenAPI 扩展](openapi-spec-generation.md) 生成一个。
 
 ## 添加依赖项 {id="add_dependencies"}
 
@@ -77,9 +78,11 @@ routing {
 }
 ```
 
-此方法会尝试在应用程序资源中查找 OpenAPI 规范。否则，它会尝试使用 `java.io.File` 从文件系统读取 OpenAPI 规范。
+此方法会尝试在应用程序资源中查找 OpenAPI 规范。
+否则，它会尝试使用 `java.io.File` 从文件系统读取 OpenAPI 规范。
 
-默认情况下，文档是使用 `StaticHtml2Codegen` 生成的。您可以在 `openAPI` 代码块内自定义生成设置：
+默认情况下，文档是使用 `StaticHtml2Codegen` 生成的。
+您可以在 `openAPI` 代码块内自定义生成设置：
 
 ```kotlin
 routing {

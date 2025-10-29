@@ -1,190 +1,189 @@
 [//]: # (title: Kotlin/Native ライブラリ)
 
-## Kotlin コンパイラの詳細
+## ライブラリのコンパイル
 
-Kotlin/Native コンパイラでライブラリを生成するには、`-produce library` または `-p library` フラグを使用します。例:
+プロジェクトのビルドファイルまたはKotlin/Nativeコンパイラを使用して、ライブラリの `*.klib` アーティファクトを生成できます。
 
-```bash
-$ kotlinc-native foo.kt -p library -o bar
-```
+### Gradleビルドファイルの使用
 
-このコマンドは `foo.kt` のコンパイル済みコンテンツを含む `bar.klib` を生成します。
+Gradleビルドファイルで [Kotlin/Nativeターゲット](native-target-support.md) を指定することで、`*.klib` ライブラリアーティファクトをコンパイルできます。
 
-ライブラリにリンクするには、`-library <name>` または `-l <name>` フラグを使用します。例:
+1.  `build.gradle(.kts)` ファイルで、少なくとも1つのKotlin/Nativeターゲットを宣言します。例:
 
-```bash
-$ kotlinc-native qux.kt -l bar
-```
-
-このコマンドは `qux.kt` と `bar.klib` から `program.kexe` を生成します。
-
-## cinterop ツール詳細
-
-**cinterop** ツールは、ネイティブライブラリ用の `.klib` ラッパーを主要な出力として生成します。
-例えば、Kotlin/Native ディストリビューションで提供されているシンプルな `libgit2.def` ネイティブライブラリ定義ファイルを使用すると
-
-```bash
-$ cinterop -def samples/gitchurn/src/nativeInterop/cinterop/libgit2.def -compiler-option -I/usr/local/include -o libgit2
-```
-
-`libgit2.klib` が得られます。
-
-詳細については [C Interop](native-c-interop.md) を参照してください。
-
-## klib ユーティリティ
-
-**klib** ライブラリ管理ユーティリティを使用すると、ライブラリの検査とインストールを行うことができます。
-
-以下のコマンドが利用可能です。
-
-*   `content` – ライブラリの内容をリスト表示します。
-
-    ```bash
-    $ klib contents <name>
+    ```kotlin
+    // build.gradle.kts
+    plugins {
+        kotlin("multiplatform") version "%kotlinVersion%"
+    }
+    
+    kotlin {
+        macosArm64()    // on macOS
+        // linuxArm64() // on Linux
+        // mingwX64()   // on Windows
+    }
     ```
 
-*   `info` – ライブラリの管理情報を検査します。
+2.  `<target>Klib` タスクを実行します。例:
 
     ```bash
-    $ klib info <name>
+    ./gradlew macosArm64Klib
     ```
 
-*   `install` – ライブラリをデフォルトの場所にインストールします。
+Gradleは、そのターゲットのソースファイルを自動的にコンパイルし、プロジェクトの `build/libs` ディレクトリに `.klib` アーティファクトを生成します。
+
+### Kotlin/Nativeコンパイラの使用
+
+Kotlin/Nativeコンパイラでライブラリを生成するには:
+
+1.  [Kotlin/Nativeコンパイラをダウンロードしてインストールします。](native-get-started.md#download-and-install-the-compiler)
+2.  Kotlin/Nativeソースファイルをライブラリにコンパイルするには、`-produce library` または `-p library` オプションを使用します。
 
     ```bash
-    $ klib install <name>
+    kotlinc-native foo.kt -p library -o bar
     ```
 
-*   `remove` – ライブラリをデフォルトのリポジトリから削除します。
+    このコマンドは、`foo.kt` ファイルの内容を `bar` という名前のライブラリにコンパイルし、`bar.klib` アーティファクトを生成します。
+
+3.  別のファイルをライブラリにリンクするには、`-library <name>` または `-l <name>` オプションを使用します。例:
 
     ```bash
-    $ klib remove <name>
+    kotlinc-native qux.kt -l bar
     ```
 
-上記のすべてのコマンドは、デフォルト以外のリポジトリを指定するための追加の `-repository <directory>` 引数を受け入れます。
+    このコマンドは、`qux.kt` ソースファイルと `bar.klib` ライブラリの内容をコンパイルし、最終的な実行可能バイナリ `program.kexe` を生成します。
+
+## klibユーティリティ
+
+**klib** ライブラリ管理ユーティリティを使用すると、以下の構文でライブラリを検査できます。
 
 ```bash
-$ klib <command> <name> -repository <directory>
+klib <command> <library path> [<option>]
 ```
 
-## いくつかの例
+現在、以下のコマンドが利用可能です。
 
-まず、ライブラリを作成しましょう。
-小さなライブラリのソースコードを `kotlinizer.kt` に配置します。
+| Command                       | 説明                                                                                                                                                                                                                                                                                                                                                    |
+|-------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `info`                        | ライブラリに関する一般情報。                                                                                                                                                                                                                                                                                                                                 |
+| `dump-abi`                    | ライブラリのABIスナップショットをダンプします。スナップショットの各行は1つの宣言に対応します。宣言にABI非互換の変更が発生した場合、スナップショットの対応する行でそれが確認できます。                                                                                                                                                                      |
+| `dump-ir`                     | ライブラリ宣言の中間表現 (IR) を出力にダンプします。デバッグ目的でのみ使用してください。                                                                                                                                                                                                                                                                       |
+| `dump-ir-signatures`          | すべての非プライベートなライブラリ宣言と、このライブラリによって消費されるすべての非プライベートな宣言のIRシグネチャをダンプします（2つの別々のリストとして）。このコマンドは純粋にIR内のデータに依存します。                                                                                                                                       |
+| `dump-ir-inlinable-functions` | ライブラリ内のインライン化可能な関数のIRを出力にダンプします。デバッグ目的でのみ使用してください。                                                                                                                                                                                                                                                           |
+| `dump-metadata`               | すべてのライブラリ宣言のメタデータを出力にダンプします。デバッグ目的でのみ使用してください。                                                                                                                                                                                                                                                                   |
+| `dump-metadata-signatures`    | ライブラリのメタデータに基づいて、すべての非プライベートなライブラリ宣言のIRシグネチャをダンプします。ほとんどの場合、IRに基づいてシグネチャをレンダリングする `dump-ir-signatures` コマンドと同じ出力になります。ただし、コンパイル中にIR変換コンパイラプラグイン（Composeなど）が使用される場合、パッチが適用された宣言は異なるシグネチャを持つ可能性があります。 |
 
-```kotlin
-package kotlinizer
-val String.kotlinized
-    get() = "Kotlin $this"
-```
+上記のすべてのダンプコマンドは、シグネチャをダンプする際にどのIRシグネチャバージョンをレンダリングするかをklibユーティリティに指示する追加の `-signature-version {N}` 引数を受け入れます。指定しない場合、ライブラリによってサポートされている最新バージョンが使用されます。例:
 
 ```bash
-$ kotlinc-native kotlinizer.kt -p library -o kotlinizer
+klib dump-metadata-signatures mylib.klib -signature-version 1
 ```
 
-ライブラリは現在のディレクトリに作成されました。
+さらに、`dump-metadata` コマンドは、klibユーティリティに出力内のすべての宣言のIRシグネチャを出力するように指示する `-print-signatures {true|false}` 引数を受け入れます。
 
-```bash
-$ ls kotlinizer.klib
-kotlinizer.klib
-```
+## ライブラリの作成と使用
 
-次に、ライブラリの内容を確認しましょう。
+1.  `kotlinizer.kt` にソースコードを配置してライブラリを作成します。
 
-```bash
-$ klib contents kotlinizer
-```
+    ```kotlin
+    package kotlinizer
+    
+    val String.kotlinized
+        get() = "Kotlin $this"
+    ```
 
-`kotlinizer` をデフォルトのリポジトリにインストールできます。
+2.  ライブラリを `.klib` にコンパイルします。
 
-```bash
-$ klib install kotlinizer
-```
+    ```bash
+    kotlinc-native kotlinizer.kt -p library -o kotlinizer
+    ```
 
-現在のディレクトリからその痕跡をすべて削除します。
+3.  作成されたライブラリを現在のディレクトリで確認します。
 
-```bash
-$ rm kotlinizer.klib
-```
+    ```bash
+    ls kotlinizer.klib
+    ```
 
-非常に短いプログラムを作成し、`use.kt` に配置します。
+4.  ライブラリに関する一般情報を確認します。
 
-```kotlin
-import kotlinizer.*
+    ```bash
+    klib info kotlinizer.klib
+    ```
 
-fun main(args: Array<String>) {
-    println("Hello, ${"world".kotlinized}!")
-}
-```
+5.  `use.kt` ファイルに短いプログラムを作成します。
 
-次に、今作成したライブラリとリンクしてプログラムをコンパイルします。
+    ```kotlin
+    import kotlinizer.*
+    
+    fun main(args: Array<String>) {
+        println("Hello, ${"world".kotlinized}!")
+    }
+    ```
 
-```bash
-$ kotlinc-native use.kt -l kotlinizer -o kohello
-```
+6.  `use.kt` ソースファイルをライブラリにリンクして、プログラムをコンパイルします。
 
-そしてプログラムを実行します。
+    ```bash
+    kotlinc-native use.kt -l kotlinizer -o kohello
+    ```
 
-```bash
-$ ./kohello.kexe
-Hello, Kotlin world!
-```
+7.  プログラムを実行します。
 
-お楽しみください！
+    ```bash
+    ./kohello.kexe
+    ```
 
-## 高度なトピック
+出力に `Hello, Kotlin world!` と表示されるはずです。
 
-### ライブラリの検索シーケンス
+## ライブラリの検索シーケンス
 
-`-library foo` フラグが指定された場合、コンパイラは `foo` ライブラリを以下の順序で検索します。
+> ライブラリの検索メカニズムは間もなく変更されます。このセクションの更新に注意し、非推奨のフラグへの依存は避けてください。
+>
+{style="note"}
 
-*   現在のコンパイルディレクトリ、または絶対パス。
-*   `-repo` フラグで指定されたすべてのリポジトリ。
-*   デフォルトリポジトリにインストールされたライブラリ。
+`-library foo` オプションが指定された場合、コンパイラは以下の順序で `foo` ライブラリを検索します。
+
+1.  現在のコンパイルディレクトリ、または絶対パス。
+2.  デフォルトリポジトリにインストールされているライブラリ。
 
     > デフォルトのリポジトリは `~/.konan` です。`kotlin.data.dir` Gradle プロパティを設定することで変更できます。
     >
-    > または、`-Xkonan-data-dir` コンパイラオプションを使用して、`cinterop` および `konanc` ツールを介してカスタムパスをディレクトリに設定することもできます。
+    > または、`-Xkonan-data-dir` コンパイラオプションを使用して、`cinterop` および `konanc` ツールを介してディレクトリへのカスタムパスを設定することもできます。
     >
     {style="note"}
 
-*   `$installation/klib` ディレクトリにインストールされたライブラリ。
+3.  `$installation/klib` ディレクトリにインストールされているライブラリ。
 
-### ライブラリのフォーマット
+## ライブラリのフォーマット
 
-Kotlin/Native ライブラリは、事前に定義されたディレクトリ構造を含む zip ファイルで、以下のレイアウトを持ちます。
+Kotlin/Nativeライブラリは、事前に定義されたディレクトリ構造を含むzipファイルであり、以下のレイアウトを持ちます。
 
 `foo.klib` を `foo/` として展開すると、以下のようになります。
 
 ```text
-  - foo/
-    - $component_name/
-      - ir/
-        - シリアライズされた Kotlin IR。
-      - targets/
-        - $platform/
-          - kotlin/
-            - LLVM ビットコードにコンパイルされた Kotlin。
-          - native/
-            - 追加のネイティブオブジェクトのビットコードファイル。
-        - $another_platform/
-          - 複数のプラットフォーム固有の Kotlin とネイティブのペアが存在する場合があります。
-      - linkdata/
-        - シリアライズされたリンケージメタデータを含む ProtoBuf ファイルのセット。
-      - resources/
-        - 画像などの一般的なリソース。（まだ使用されていません）。
-      - manifest - ライブラリを記述する Java プロパティ形式のファイル。
+- foo/
+  - $component_name/
+    - ir/
+      - シリアライズされた Kotlin IR。
+    - targets/
+      - $platform/
+        - kotlin/
+          - LLVM ビットコードにコンパイルされた Kotlin。
+        - native/
+          - 追加のネイティブオブジェクトのビットコードファイル。
+      - $another_platform/
+        - 複数のプラットフォーム固有の Kotlin とネイティブのペアが存在する場合があります。
+    - linkdata/
+      - シリアライズされたリンケージメタデータを含む ProtoBuf ファイルのセット。
+    - resources/
+      - 画像などの一般的なリソース。（まだ使用されていません）。
+    - manifest - ライブラリを記述するJavaプロパティ形式のファイル。
 ```
 
-インストールディレクトリの `klib/stdlib` にレイアウトの例があります。
+レイアウトの例は、Kotlin/Nativeコンパイラのインストールの `klib/common/stdlib` ディレクトリで見つけることができます。
 
-### klib での相対パスの使用
+## klibでの相対パスの使用
 
-> klib での相対パスの使用は Kotlin 1.6.20 以降で利用可能です。
->
-{style="note"}
+ソースファイルのシリアライズされたIR表現は、klibライブラリの [一部](#library-format) です。これには、適切なデバッグ情報を生成するためのファイルのパスが含まれます。デフォルトでは、保存されるパスは絶対パスです。
 
-ソースファイルのシリアライズされた IR 表現は、`klib` ライブラリの [一部](#library-format) です。これには、適切なデバッグ情報を生成するためのファイルのパスが含まれます。デフォルトでは、保存されるパスは絶対パスです。
 `-Xklib-relative-path-base` コンパイラオプションを使用すると、フォーマットを変更し、アーティファクト内で相対パスのみを使用できます。これを機能させるには、ソースファイルの1つまたは複数のベースパスを引数として渡します。
 
 <tabs group="build-script">
@@ -213,7 +212,11 @@ tasks.named('compileKotlin', KotlinCompilationTask) {
         freeCompilerArgs.add("-Xklib-relative-path-base=$base")
     }
 }
-```
+``` 
 
 </tab>
 </tabs>
+
+## 次のステップ
+
+[cinteropツールを使用して `*.klib` アーティファクトを生成する方法を学びましょう](native-definition-file.md)

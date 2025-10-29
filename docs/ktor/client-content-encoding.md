@@ -21,7 +21,9 @@
 ContentEncoding 插件允许你启用指定的压缩算法（例如 'gzip' 和 'deflate'）并配置其设置。
 </link-summary>
 
-Ktor 客户端提供了 [ContentEncoding](https://api.ktor.io/ktor-client/ktor-client-plugins/ktor-client-encoding/io.ktor.client.plugins.compression/-content-encoding) 插件，允许你启用指定的压缩算法（例如 `gzip` 和 `deflate`）并配置其设置。该插件主要有三个用途：
+Ktor 客户端提供了 [ContentEncoding](https://api.ktor.io/ktor-client-encoding/io.ktor.client.plugins.compression/-content-encoding) 
+插件，允许你启用指定的压缩算法（例如 `gzip` 和 `deflate`）并配置其设置。
+该插件主要有三个用途：
 * 设置 `Accept-Encoding` 请求头并带上指定的质量值。
 * 可选地编码请求体。
 * 解码[从服务器接收到的内容](client-responses.md#body)以获取原始载荷。
@@ -71,7 +73,7 @@ val client = HttpClient(CIO) {
 如果需要，你可以实现 `ContentEncoder` 接口来创建自定义编码器，并将其传递给 `customEncoder` 函数。
 
 ## 编码请求体 {id="encode_request_body"}
-要编码请求体，请在 [HttpRequestBuilder](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client.request/-http-request-builder/index.html) 块中使用 `compress()` 函数。
+要编码请求体，请在 [HttpRequestBuilder](https://api.ktor.io/ktor-client-core/io.ktor.client.request/-http-request-builder/index.html) 块中使用 `compress()` 函数。
 ```kotlin
 import io.ktor.client.*
 import io.ktor.client.engine.cio.*

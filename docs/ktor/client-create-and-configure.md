@@ -4,7 +4,7 @@
 
 <link-summary>学习如何创建和配置 Ktor 客户端。</link-summary>
 
-添加[客户端依赖项](client-dependencies.md)后，您可以通过创建 `HttpClient` 类实例并传入一个 [engine](client-engines.md) 作为形参来实例化客户端：
+添加[客户端依赖项](client-dependencies.md)后，您可以通过创建 [HttpClient](https://api.ktor.io/ktor-client-core/io.ktor.client/-http-client/index.html) 类实例并传入一个 [engine](client-engines.md) 作为形参来实例化客户端：
 
 ```kotlin
 import io.ktor.client.*
@@ -13,7 +13,7 @@ import io.ktor.client.engine.cio.*
 val client = HttpClient(CIO)
 ```
 
-在此示例中，我们使用了 CIO 引擎。
+在此示例中，我们使用了 [CIO](https://api.ktor.io/ktor-client-cio/io.ktor.client.engine.cio/-c-i-o/index.html) 引擎。
 您也可以省略 engine：
 
 ```kotlin
@@ -29,7 +29,7 @@ val client = HttpClient()
 ### 基本配置 {id="basic-config"}
 
 要配置客户端，您可以向客户端构造函数传入一个额外的函数式形参。
-`HttpClientConfig` 类是配置客户端的基类。
+[HttpClientConfig](https://api.ktor.io/ktor-client-core/io.ktor.client/-http-client-config/index.html) 类是配置客户端的基类。
 例如，您可以使用 `expectSuccess` 属性来启用[响应验证](client-response-validation.md)：
 
 ```kotlin
