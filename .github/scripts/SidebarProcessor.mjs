@@ -142,7 +142,7 @@ async function parseWSSidebar(source, docType) {
 
 async function parseMKSidebar(source, docType, baseUrl) {
     let yamlStr = await fs.readFile(source, 'utf8');
-    yamlStr = yamlStr.replace(/!!python\/name:[^\s\n]+/g, 'null');
+    yamlStr = preprocessPythonTags(yamlStr);
     yamlStr = yamlStr.replace(/!ENV\s*\[([^\]]+)\]/g, 'null');
 
     const yamlObj = yaml.load(yamlStr);
@@ -191,6 +191,14 @@ async function parseMKSidebar(source, docType, baseUrl) {
         node.collapsed = node.items.length > 0 ? true : undefined;
 
         return node;
+    }
+
+    function preprocessPythonTags(yml) {
+        return yml
+            // object/apply
+            .replace(/!!python\/object\/apply:[\w.]+/g, '')
+            // name
+            .replace(/!!python\/name:[^\s\n]+/g, 'null');
     }
 
     const sidebarNodes = (yamlObj.nav || [])
