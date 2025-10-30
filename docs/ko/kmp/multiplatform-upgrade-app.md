@@ -341,10 +341,10 @@ data class RocketLaunch (
 4.  뷰 모델의 `init` 함수에서 `Greeting().greet()` Flow의 모든 문자열을 수집합니다.
 
     ```kotlin
-   import androidx.lifecycle.viewModelScope
-   import kotlinx.coroutines.launch
+    import androidx.lifecycle.viewModelScope
+    import kotlinx.coroutines.launch
    
-   class MainViewModel : ViewModel() {
+    class MainViewModel : ViewModel() {
        private val _greetingList = MutableStateFlow<List<String>>(listOf())
        val greetingList: StateFlow<List<String>> get() = _greetingList
        

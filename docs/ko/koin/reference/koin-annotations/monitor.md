@@ -1,5 +1,5 @@
 ---
-title: Koin 내장 성능 모니터링: @Monitor
+title: "Koin 내장 성능 모니터링: @Monitor"
 ---
 
 `@Monitor` 어노테이션(Koin Annotations 2.2.0부터 사용 가능)은 Koin의 공식 툴링 플랫폼인 [Kotzilla Platform](https://kotzilla.io)을 통해 Koin 컴포넌트에 대한 자동 성능 모니터링 및 트레이싱을 활성화합니다.

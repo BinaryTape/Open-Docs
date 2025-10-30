@@ -30,6 +30,7 @@ import markdownItWsTopicTitle from "./markdown-it-ws-topicTitle";
 import { markdownItCollapsed } from "./markdownItCollapsed.mts";
 import generateSidebar from "./config/sidebar.config";
 import markdownItWsRemoveCodeAttr from "./markdown-it-ws-remove-code-attr";
+import matter from "gray-matter";
 
 const mkDiffGrammarPath = resolve(__dirname, './shiki-mk-diff.json')
 const mkDiffGrammar = JSON.parse(readFileSync(mkDiffGrammarPath, 'utf-8'))
@@ -371,8 +372,8 @@ export default defineConfig({
                 const parts = env.relativePath.split('/');
                 const docType = parts.find(p => DOCS_TYPES.includes(p));
 
-                // The auto-titling logic is skipped for the 'kotlin' documentation type.
-                if (docType === 'kotlin') {
+                // The auto-titling logic is skipped for the 'kotlin' documentation type and the index page.
+                if (docType === 'kotlin' || docType === undefined) {
                     return originalParse.call(this, modifiedSrc, env);
                 }
 
@@ -380,8 +381,9 @@ export default defineConfig({
                 let hasH1 = false;
 
                 // Check if the document already contains a level-1 heading (e.g., '# Title').
-                for (const line of lines) {
-                    if (line.trim().startsWith('# ')) {
+                for (let i = 0; i < Math.min(lines.length, 20); i++) {
+                    const line = lines[i].trim();
+                    if (line.startsWith('# ')) {
                         hasH1 = true;
                         break;
                     }
@@ -389,16 +391,12 @@ export default defineConfig({
 
                 // If no H1 heading is found, prepend one automatically.
                 if (!hasH1) {
-                    let title = '';
                     // Priority 1: Use the title from the page's frontmatter.
-                    if (env.frontmatter && env.frontmatter.title) {
-                        title = env.frontmatter.title;
-                    } else {
-                        // Priority 2: Fallback to a title derived from the sidebar configuration.
-                        title = getSidebarTitle(env.relativePath);
-                    }
+                    const parsed = matter(modifiedSrc)
+                    let title = parsed.data?.title || getSidebarTitle(env.relativePath)
 
                     if (title) {
+                        modifiedSrc = modifiedSrc.replace(/^---[\s\S]*?---\n*/, '');
                         modifiedSrc = `# ${title}\n\n${modifiedSrc}`;
                     }
                 }

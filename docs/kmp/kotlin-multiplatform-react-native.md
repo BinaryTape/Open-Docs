@@ -2,45 +2,6 @@
        xsi:noNamespaceSchemaLocation="https://resources.jetbrains.com/writerside/1.0/topic.v2.xsd"
        id="kotlin-multiplatform-react-native"
        title="Kotlin Multiplatform 与 React Native：跨平台对比">
-    <include-in-head>
-    <![CDATA[
-        <script type="application/ld+json">
-        {
-          "@context": "https://schema.org",
-          "@type": "FAQPage",
-          "mainEntity": [{
-            "@type": "Question",
-            "name": "问：Kotlin Multiplatform 是否已为生产环境做好准备？",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Kotlin Multiplatform 是一项已准备好在生产环境使用的稳定技术。这意味着您可以使用 Kotlin Multiplatform 在 Android、iOS、桌面 (JVM)、服务器端 (JVM) 和 Web 之间共享代码，即使在最保守的使用场景中也是如此。Compose Multiplatform 是一个用于跨平台构建共享 UI 的框架（由 Kotlin Multiplatform 和 Google 的 Jetpack Compose 提供支持），在 iOS、Android 和桌面端已稳定。Web 支持目前处于 Beta 阶段。如果您想了解更多关于 Kotlin Multiplatform 的总体发展方向，请参阅我们的博客文章《Kotlin Multiplatform 和 Compose Multiplatform 的未来发展》。"
-            }
-          }, {
-            "@type": "Question",
-            "name": "问：Kotlin Multiplatform 比 React Native 更好吗？",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Kotlin Multiplatform 和 React Native 各有优势，选择取决于您项目的具体目标、技术要求和团队专业知识。在上面的对比中，我们概述了代码共享、构建工具、编译和生态系统等方面的关键区别，以帮助您决定哪个选项最适合您的用例。"
-            }
-          }, {
-            "@type": "Question",
-            "name": "问：Google 是否支持 Kotlin Multiplatform？",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "在 Google I/O 2024 大会上，Google 宣布官方支持在 Android 上使用 Kotlin Multiplatform，以便在 Android 和 iOS 之间共享业务逻辑。"
-            }
-          }, {
-            "@type": "Question",
-            "name": "问：学习 Kotlin Multiplatform 值得吗？",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "如果您有兴趣在保留原生性能和灵活性的同时，在 Android、iOS、桌面和 Web 之间共享代码，那么 Kotlin Multiplatform 值得学习。它由 JetBrains 提供支持，并得到 Google 在 Android 上的官方支持，以在 Android 和 iOS 之间共享业务逻辑。更重要的是，结合 Compose Multiplatform 的 KMP 正日益被构建多平台应用程序的公司在生产环境中采用。"
-            }
-          }]
-        }
-        </script>
-    ]]>
-    </include-in-head>
     <web-summary>探索 Kotlin Multiplatform 与 Compose Multiplatform 如何在代码共享、生态系统和 UI 渲染方面与 React Native 进行对比，并了解哪种工具栈最适合您的团队。
     </web-summary>
     <tip>

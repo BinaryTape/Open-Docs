@@ -1,5 +1,5 @@
 ---
-title: @Monitor を使用したKoinの組み込みパフォーマンスモニタリング
+title: "@Monitor を使用したKoinの組み込みパフォーマンスモニタリング"
 ---
 
 `@Monitor` アノテーション (Koin Annotations 2.2.0以降で利用可能) は、Koinの公式ツーリングプラットフォームである[Kotzilla Platform](https://kotzilla.io)を介して、Koinコンポーネントの自動パフォーマンスモニタリングとトレースを可能にします。

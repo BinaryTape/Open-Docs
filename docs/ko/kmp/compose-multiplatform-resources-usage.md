@@ -119,8 +119,8 @@ Material Symbols 라이브러리에서 벡터 Android XML 아이콘을 사용할
          <path
             android:fillColor="#000000"
             android:pathData="..."/>
-   </vector>
-   ```
+    </vector>
+    ```
 
 4.  프로젝트를 빌드하여 리소스 접근자를 생성하거나, [Kotlin Multiplatform 플러그인](https://plugins.jetbrains.com/plugin/14936-kotlin-multiplatform)이 자동으로 처리하도록 하세요.
 
