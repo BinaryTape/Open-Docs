@@ -18,7 +18,7 @@ fun main() = application {
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="application { Window(onCloseRequest = ::exitApplication)"}
 
-`Window()`はコンポーザブル関数であるため、そのプロパティを宣言的に変更できます。たとえば、1つのタイトルでウィンドウを開き、後でタイトルを変更できます。
+コンポーザブル関数として、`Window()`を使用すると、そのプロパティを宣言的に変更できます。たとえば、1つのタイトルでウィンドウを開き、後でタイトルを変更できます。
 
 ```kotlin
 import androidx.compose.material.Button
@@ -205,7 +205,7 @@ private class MyWindowState(
 
 <img src="compose-multiple-windows.animated.gif" alt="複数ウィンドウ" preview-src="compose-multiple-windows.png" width="600"/>
 
-より複雑な例については、[notepad](https://github.com/JetBrains/compose-multiplatform/tree/master/examples/notepad)サンプルを参照してください。
+より複雑な例については、[Code Viewer](https://github.com/JetBrains/compose-multiplatform/tree/master/examples/codeviewer)サンプルを参照してください。
 
 ## ウィンドウをシステムトレイに最小化する
 

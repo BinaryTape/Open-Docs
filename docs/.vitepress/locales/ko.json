@@ -511,5 +511,6 @@
   "koog.prompts": "프롬프트",
   "koog.events": "이벤트",
   "koog.strategies": "전략",
-  "koog.event-handlers": "이벤트 핸들러"
+  "koog.event-handlers": "이벤트 핸들러",
+  "kmp.kmp-tooling": "KMP 툴링"
 }

@@ -259,9 +259,9 @@ fun main() {
 
 若要宣告不包含結束值的範圍，請使用 `..<` 運算子。例如，`1..<4` 等同於 `1, 2, 3`。
 
-若要宣告反向順序的範圍，請使用 `downTo`。例如，`4 downTo 1` 等同於 `4, 3, 2, 1`。
+若要宣告反向順序的範圍，請使用 [`downTo`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.ranges/down-to.html)。例如，`4 downTo 1` 等同於 `4, 3, 2, 1`。
 
-若要宣告增量不是 1 的範圍，請使用 `step` 和您期望的增量值。例如，`1..5 step 2` 等同於 `1, 3, 5`。
+若要宣告增量不是 1 的範圍，請使用 [`step`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.ranges/step.html) 和您期望的增量值。例如，`1..5 step 2` 等同於 `1, 3, 5`。
 
 您也可以對 `Char` 範圍做同樣的事情：
 

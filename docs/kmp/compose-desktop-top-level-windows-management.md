@@ -89,8 +89,7 @@ fun main() = application {
 
 <img src="compose-window-condition.animated.gif" alt="带条件的窗口" preview-src="compose-window-condition.png" width="600"/>
 
-如果你想在应用程序退出时使用自定义逻辑，例如显示对话框，可以使用 `onCloseRequest` 回调覆盖关闭操作。
-在下面的代码示例中，我们没有使用命令式方法 (`window.close()`)，而是使用声明式方法，并根据状态变更 (`isOpen = false`) 关闭窗口。
+如果你想在应用程序退出时使用自定义逻辑，例如显示对话框，可以使用 `onCloseRequest` 回调覆盖关闭操作。在下面的代码示例中，我们没有使用命令式方法 (`window.close()`)，而是使用声明式方法，并根据状态变更 (`isOpen = false`) 关闭窗口。
 
 ```kotlin
 import androidx.compose.material.Button
@@ -205,7 +204,7 @@ private class MyWindowState(
 
 <img src="compose-multiple-windows.animated.gif" alt="多个窗口" preview-src="compose-multiple-windows.png" width="600"/>
 
-关于更复杂的示例，请参见 [notepad](https://github.com/JetBrains/compose-multiplatform/tree/master/examples/notepad) 示例。
+关于更复杂的示例，请参见 [Code Viewer](https://github.com/JetBrains/compose-multiplatform/tree/master/examples/codeviewer) 示例。
 
 ## 最小化窗口到系统托盘
 
@@ -330,8 +329,7 @@ fun main() = application {
 
 ## 改变窗口状态
 
-`WindowState` 是一个独立的 API 类，用于窗口布局、当前位置和大小。`placement` 属性允许你指定窗口在屏幕上的放置方式：浮动、最大化/最小化或全屏。
-状态的任何改变都会触发自动重组。要改变窗口状态，请使用回调或在可组合项中观察它：
+`WindowState` 是一个独立的 API 类，用于窗口布局、当前位置和大小。`placement` 属性允许你指定窗口在屏幕上的放置方式：浮动、最大化/最小化或全屏。状态的任何改变都会触发自动重组。要改变窗口状态，请使用回调或在可组合项中观察它：
 
 ```kotlin
 import androidx.compose.foundation.clickable

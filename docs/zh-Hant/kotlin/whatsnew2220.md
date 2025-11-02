@@ -2,12 +2,7 @@
 
 _[發布日期：2025 年 9 月 10 日](releases.md#release-details)_
 
-> 分享您對 Kotlin 的想法！
->
-> [請填寫我們的 Kotlin 開發者問卷](https://surveys.jetbrains.com/s3/7e238a7b85e5)。這只需要大約 10 分鐘。
-> 您的回饋將幫助我們改進語言、工具和生態系統。
->
-{style="note"}
+<tldr><p>有關錯誤修正版本 2.2.21 的詳細資訊，請參閱 [變更日誌](https://github.com/JetBrains/kotlin/releases/tag/v2.2.21)。</p></tldr>
 
 Kotlin 2.2.20 版本已發布，為網頁開發帶來了重要的變更。[Kotlin/Wasm 現已進入 Beta 階段](#kotlin-wasm)，
 並改進了 [JavaScript 互通中的例外處理](#improved-exception-handling-in-kotlin-wasm-and-javascript-interop)、
@@ -24,6 +19,10 @@ Kotlin 2.2.20 版本已發布，為網頁開發帶來了重要的變更。[Kotli
 > Compose Multiplatform for web 已進入 Beta 階段。請在我們的[部落格文章](https://blog.jetbrains.com/kotlin/2025/09/compose-multiplatform-1-9-0-compose-for-web-beta/)中了解更多資訊。
 >
 {style="note"}
+
+您也可以在此影片中找到更新的簡要概述：
+
+<video src="https://www.youtube.com/v/QWpp5-LlTqA" title="What's new in Kotlin 2.2.21"/>
 
 ## IDE 支援
 
@@ -627,7 +626,7 @@ actual suspend fun readCopiedText(): String {
 *   如果您是函式庫作者，並且希望添加對 `js` 和 `wasmJs` 目標的支援，而無需重複程式碼。
 *   如果您正在開發以網頁為目標的 Compose Multiplatform 應用程式，可以為 `js` 和 `wasmJs` 目標啟用跨編譯，以獲得更廣泛的瀏覽器相容性。考慮到這種回退模式，當您建立網站時，它會在所有瀏覽器中開箱即用，因為現代瀏覽器使用 `wasmJs`，而舊瀏覽器使用 `js`。
 
-要試用此功能，請在 `build.gradle(.kts)` 檔案的 `kotlin {}` 區塊中使用[預設階層範本](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-hierarchy.html#default-hierarchy-template)：
+要試用此功能，請透過在您的 `build.gradle(.kts)` 檔案的 `kotlin {}` 區塊中使用[預設階層範本](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-hierarchy.html#default-hierarchy-template)：
 
 ```kotlin
 kotlin {

@@ -511,5 +511,6 @@
   "koog.prompts": "プロンプト",
   "koog.events": "イベント",
   "koog.strategies": "戦略",
-  "koog.event-handlers": "イベントハンドラー"
+  "koog.event-handlers": "イベントハンドラー",
+  "kmp.kmp-tooling": "KMP tooling"
 }

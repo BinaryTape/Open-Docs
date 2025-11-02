@@ -66,7 +66,6 @@
     koin = "%koinVersion%"
     ktor = "%ktorVersion%"
     sqlDelight = "%sqlDelightVersion%"
-    lifecycleViewmodelCompose = "2.9.1"
     material3 = "1.3.2"
     ```
     {initial-collapse-state="collapsed" collapsible="true" collapsed-title="[versions]"}
@@ -88,7 +87,6 @@
     ktor-serialization-kotlinx-json = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" }
     native-driver = { module = "app.cash.sqldelight:native-driver", version.ref = "sqlDelight" }
     runtime = { module = "app.cash.sqldelight:runtime", version.ref = "sqlDelight" }
-    androidx-lifecycle-viewmodel-compose = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-compose", version.ref = "lifecycleViewmodelCompose" }
     androidx-compose-material3 = { module = "androidx.compose.material3:material3", version.ref="material3" }
     ```
     {initial-collapse-state="collapsed" collapsible="true" collapsed-title="[libraries]"}
@@ -114,7 +112,7 @@
     }
     ```
 
-6.  共通ソースセットには、各ライブラリのコアアーティファクトと、ネットワークリクエストおよびレスポンスを処理するために `kotlinx.serialization` を使用する Ktor の [シリアライズ機能](https://ktor.io/docs/serialization-client.html) が必要です。
+6.  共通ソースセットには、各ライブラリのコアアーティファクトと、ネットワークリクエストおよびレスポンスを処理するために `kotlinx.serialization` を使用する Ktor の[シリアライズ機能](https://ktor.io/docs/serialization-client.html)が必要です。
     iOS および Android のソースセットには、SQLDelight と Ktor のプラットフォームドライバーも必要です。
 
     同じ `shared/build.gradle.kts` ファイルに、必要なすべての依存関係を追加します。
@@ -290,48 +288,48 @@ SQLDelight は SQLite ドライバーの複数のプラットフォーム固有�
 1.  データベースドライバー用のインターフェースを作成します。そのためには、`shared/src/commonMain/kotlin/com/jetbrains/spacetutorial/` ディレクトリに `cache` パッケージを作成します。
 2.  `cache` パッケージ内に `DatabaseDriverFactory` インターフェースを作成します。
 
-    ```kotlin
-    package com.jetbrains.spacetutorial.cache
-    
-    import app.cash.sqldelight.db.SqlDriver
+   ```kotlin
+   package com.jetbrains.spacetutorial.cache
+   
+   import app.cash.sqldelight.db.SqlDriver
 
-    interface DatabaseDriverFactory {
-        fun createDriver(): SqlDriver
-    }
-    ```
+   interface DatabaseDriverFactory {
+       fun createDriver(): SqlDriver
+   }
+   ```
 
 3.  Android 用にこのインターフェースを実装するクラスを作成します。`shared/src/androidMain/kotlin` ディレクトリに `com.jetbrains.spacetutorial.cache` パッケージを作成し、その中に `DatabaseDriverFactory.kt` ファイルを作成します。
 4.  Android では、SQLite ドライバーは `AndroidSqliteDriver` クラスによって実装されます。`DatabaseDriverFactory.kt` ファイルで、データベース情報とコンテキストリンクを `AndroidSqliteDriver` クラスのコンストラクタに渡します。
 
-    ```kotlin
-    package com.jetbrains.spacetutorial.cache
-    
-    import android.content.Context
-    import app.cash.sqldelight.db.SqlDriver
-    import app.cash.sqldelight.driver.android.AndroidSqliteDriver
+   ```kotlin
+   package com.jetbrains.spacetutorial.cache
+   
+   import android.content.Context
+   import app.cash.sqldelight.db.SqlDriver
+   import app.cash.sqldelight.driver.android.AndroidSqliteDriver
 
-    class AndroidDatabaseDriverFactory(private val context: Context) : DatabaseDriverFactory {
-        override fun createDriver(): SqlDriver {
-            return AndroidSqliteDriver(AppDatabase.Schema, context, "launch.db")
-        }
-    }
-    ```
+   class AndroidDatabaseDriverFactory(private val context: Context) : DatabaseDriverFactory {
+       override fun createDriver(): SqlDriver {
+           return AndroidSqliteDriver(AppDatabase.Schema, context, "launch.db")
+       }
+   }
+   ```
 
 5.  iOS の場合、`shared/src/iosMain/kotlin/com/jetbrains/spacetutorial/` ディレクトリに `cache` パッケージを作成します。
 6.  `cache` パッケージ内に `DatabaseDriverFactory.kt` ファイルを作成し、以下のコードを追加します。
 
-    ```kotlin
-    package com.jetbrains.spacetutorial.cache
-    
-    import app.cash.sqldelight.db.SqlDriver
-    import app.cash.sqldelight.driver.native.NativeSqliteDriver
+   ```kotlin
+   package com.jetbrains.spacetutorial.cache
+   
+   import app.cash.sqldelight.db.SqlDriver
+   import app.cash.sqldelight.driver.native.NativeSqliteDriver
 
-    class IOSDatabaseDriverFactory : DatabaseDriverFactory {
-        override fun createDriver(): SqlDriver {
-            return NativeSqliteDriver(AppDatabase.Schema, "launch.db")
-        }
-    }
-    ```
+   class IOSDatabaseDriverFactory : DatabaseDriverFactory {
+       override fun createDriver(): SqlDriver {
+           return NativeSqliteDriver(AppDatabase.Schema, "launch.db")
+       }
+   }
+   ```
 
 これらのドライバーのインスタンスは、後でプロジェクトのプラットフォーム固有のコードで実装します。
 
@@ -344,16 +342,16 @@ SQLDelight は SQLite ドライバーの複数のプラットフォーム固有�
 
 2.  `AppDatabase` のドライバーを提供するために、抽象的な `DatabaseDriverFactory` インスタンスを `Database` クラスのコンストラクタに渡します。
 
-    ```kotlin
-    package com.jetbrains.spacetutorial.cache
+   ```kotlin
+   package com.jetbrains.spacetutorial.cache
 
-    internal class Database(databaseDriverFactory: DatabaseDriverFactory) {
-        private val database = AppDatabase(databaseDriverFactory.createDriver())
-        private val dbQuery = database.appDatabaseQueries
-    }
-    ```
+   internal class Database(databaseDriverFactory: DatabaseDriverFactory) {
+       private val database = AppDatabase(databaseDriverFactory.createDriver())
+       private val dbQuery = database.appDatabaseQueries
+   }
+   ```
 
-    このクラスの [可視性](https://kotlinlang.org/docs/visibility-modifiers.html#class-members) は `internal` に設定されており、これはマルチプラットフォームモジュール内からのみアクセス可能であることを意味します。
+   このクラスの [可視性](https://kotlinlang.org/docs/visibility-modifiers.html#class-members) は `internal` に設定されており、これはマルチプラットフォームモジュール内からのみアクセス可能であることを意味します。
 
 3.  `Database` クラス内に、いくつかのデータ処理操作を実装します。
     まず、すべてのロケット打ち上げのリストを返す `getAllLaunches` 関数を作成します。
@@ -398,7 +396,7 @@ SQLDelight は SQLite ドライバーの複数のプラットフォーム固有�
         }
     }
     ```
-    {initial-collapse-state="collapsed" collapsible="true" collapsed-title="internal fun getAllLaunches()"}
+   {initial-collapse-state="collapsed" collapsible="true" collapsed-title="internal fun getAllLaunches()"}
 
 4.  データベースをクリアし、新しいデータを挿入するための `clearAndCreateLaunches` 関数を追加します。
 
@@ -545,7 +543,7 @@ kotlin {
         androidMain.dependencies {
             implementation(libs.androidx.compose.material3)
             implementation(libs.koin.androidx.compose)
-            implementation(libs.androidx.lifecycle.viewmodel.compose)
+            implementation(libs.androidx.lifecycle.viewmodelCompose)
         }
         // ... 
     }
@@ -646,50 +644,50 @@ Jetpack Compose と Material 3 を使用して Android UI を実装します。�
 
 1.  `composeApp/src/androidMain` ソースセット、`com.jetbrains.spacetutorial` パッケージに、`RocketLaunchViewModel.kt` ファイルを作成します。
 
-    ```kotlin
-    package com.jetbrains.spacetutorial
+   ```kotlin
+   package com.jetbrains.spacetutorial
+   
+   import androidx.compose.runtime.State
+   import androidx.compose.runtime.mutableStateOf
+   import androidx.lifecycle.ViewModel
+   import com.jetbrains.spacetutorial.entity.RocketLaunch
     
-    import androidx.compose.runtime.State
-    import androidx.compose.runtime.mutableStateOf
-    import androidx.lifecycle.ViewModel
-    import com.jetbrains.spacetutorial.entity.RocketLaunch
+   class RocketLaunchViewModel(private val sdk: SpaceXSDK) : ViewModel() {
+       private val _state = mutableStateOf(RocketLaunchScreenState())
+       val state: State<RocketLaunchScreenState> = _state
     
-    class RocketLaunchViewModel(private val sdk: SpaceXSDK) : ViewModel() {
-        private val _state = mutableStateOf(RocketLaunchScreenState())
-        val state: State<RocketLaunchScreenState> = _state
+   }
     
-    }
-    
-    data class RocketLaunchScreenState(
-        val isLoading: Boolean = false,
-        val launches: List<RocketLaunch> = emptyList()
-    )
-    ```
+   data class RocketLaunchScreenState(
+       val isLoading: Boolean = false,
+       val launches: List<RocketLaunch> = emptyList()
+   )
+   ```
 
-    `RocketLaunchScreenState` インスタンスは、SDK から受信したデータとリクエストの現在の状態を格納します。
+   `RocketLaunchScreenState` インスタンスは、SDK から受信したデータとリクエストの現在の状態を格納します。
 
 2.  このビューモデルのコルーチンスコープで SDK の `getLaunches` 関数を呼び出す `loadLaunches` 関数を追加します。
 
-    ```kotlin
-    import androidx.lifecycle.viewModelScope
-    import kotlinx.coroutines.launch
-    
-    class RocketLaunchViewModel(private val sdk: SpaceXSDK) : ViewModel() {
-        //...
-        
-        fun loadLaunches() {
-            viewModelScope.launch { 
-                _state.value = _state.value.copy(isLoading = true, launches = emptyList())
-                try {
-                    val launches = sdk.getLaunches(forceReload = true)
-                    _state.value = _state.value.copy(isLoading = false, launches = launches)
-                } catch (e: Exception) {
-                    _state.value = _state.value.copy(isLoading = false, launches = emptyList())
-                }
-            }
-        }
-    }
-    ```
+   ```kotlin
+   import androidx.lifecycle.viewModelScope
+   import kotlinx.coroutines.launch
+   
+   class RocketLaunchViewModel(private val sdk: SpaceXSDK) : ViewModel() {
+       //...
+       
+       fun loadLaunches() {
+           viewModelScope.launch { 
+               _state.value = _state.value.copy(isLoading = true, launches = emptyList())
+               try {
+                   val launches = sdk.getLaunches(forceReload = true)
+                   _state.value = _state.value.copy(isLoading = false, launches = launches)
+               } catch (e: Exception) {
+                   _state.value = _state.value.copy(isLoading = false, launches = emptyList())
+               }
+           }
+       }
+   }
+   ```
 
 3.  次に、`RocketLaunchViewModel` オブジェクトが作成されるとすぐに API からデータを要求するように、クラスの `init {}` ブロックに `loadLaunches()` 呼び出しを追加します。
 
@@ -880,7 +878,7 @@ Jetpack Compose と Material 3 を使用して Android UI を実装します。�
     ```
     {initial-collapse-state="collapsed" collapsible="true" collapsed-title="import com.jetbrains.spacetutorial.theme.AppTheme"}
 
-3.  最後に、`MainActivity` クラスを `AndroidManifest.xml` ファイルの `<activity>` タグに指定します。
+3.  最後に、`AndroidManifest.xml` ファイルの `<activity>` タグに `MainActivity` クラスを指定します。
 
     ```xml
     <manifest xmlns:android="http://schemas.android.com/apk/res/android">
@@ -917,8 +915,11 @@ iOS でネイティブの SQLDelight ドライバーを使用するためには�
 
 1.  IntelliJ IDEA で、**File** | **Open Project in Xcode** オプションを選択して Xcode でプロジェクトを開きます。
 2.  Xcode で、プロジェクト名をダブルクリックして設定を開きます。
-3.  **Build Settings** タブに切り替え、**Other Linker Flags** フィールドを検索します。
-4.  フィールドの値をダブルクリックし、**+** をクリックして `-lsqlite3` 文字列を追加します。
+3.  **Build Settings** タブに切り替え、**All** リストに切り替え、**Other Linker Flags** フィールドを検索します。
+4.  フィールドを展開し、**Debug** フィールドの横にあるプラス記号を押し、`-lsqlite3` 文字列を **Any Architecture | Any SDK** に貼り付けます。
+5.  **Other Linker Flags** | **Release** フィールドについても同様のプロセスを繰り返します。
+
+![The result of correctly adding the linker flag to the Xcode project](xcode-other-linker-flags.png){width="434"}
 
 ### iOS 依存性注入用の Koin クラスを準備する
 
@@ -943,7 +944,7 @@ Swift コードで Koin クラスと関数を使用するためには、特別�
     }
     ```
 
-3.  `KoinHelper` クラスの後ろに、Swift で iOS Koin モジュールを初期化および開始するために使用する `initKoin` 関数を追加します。
+3.  `KoinHelper` クラスの下に、Swift で iOS Koin モジュールを初期化および開始するために使用する `initKoin` 関数を追加します。
 
     ```kotlin
     import com.jetbrains.spacetutorial.cache.IOSDatabaseDriverFactory
@@ -1089,24 +1090,24 @@ Swift コードで Koin クラスと関数を使用するためには、特別�
 
 1.  `ContentView.swift` ファイルで、`ViewModel` クラスを拡張して、`KoinHelper` オブジェクトと `loadLaunches` 関数を含めます。
 
-    ```Swift
-    extension ContentView {
-        // ...
-        @MainActor
-        class ViewModel: ObservableObject {
-            // ...
-            let helper: KoinHelper = KoinHelper()
+   ```Swift
+   extension ContentView {
+       // ...
+       @MainActor
+       class ViewModel: ObservableObject {
+           // ...
+           let helper: KoinHelper = KoinHelper()
+   
+           init() {
+               self.loadLaunches(forceReload: false)
+           }
     
-            init() {
-                self.loadLaunches(forceReload: false)
-            }
-    
-            func loadLaunches(forceReload: Bool) {
-                // TODO: retrieve data
-            }
-        }
-    }
-    ```
+           func loadLaunches(forceReload: Bool) {
+               // TODO: retrieve data
+           }
+       }
+   }
+   ```
 
 2.  `KoinHelper.getLaunches()` 関数（`SpaceXSDK` クラスへの呼び出しをプロキシする）を呼び出し、結果を `launches` プロパティに保存します。
 
@@ -1149,7 +1150,7 @@ Swift コードで Koin クラスと関数を使用するためには、特別�
     }
     ```
 
-4.  IntelliJ IDEA で、`iosApp` 構成に切り替え、エミュレーターを選択し、実行して結果を確認します。
+4.  IntelliJ IDEA で、**iosApp** 構成に切り替え、エミュレーターを選択し、実行して結果を確認します。
 
 ![iOS Application](ios-application.png){width=350}
 

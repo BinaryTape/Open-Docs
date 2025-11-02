@@ -6,7 +6,7 @@
 </p>
 </tldr>
 
-[Maven Assemblyプラグイン](http://maven.apache.org/plugins/maven-assembly-plugin/)を使用すると、プロジェクトの出力を、依存関係、モジュール、サイトドキュメント、その他のファイルを含む単一の配布可能なアーカイブに結合できます。
+[Maven Assemblyプラグイン](http://maven.apache.org/plugins/maven-assembly-plugin/)は、プロジェクトの出力を、依存関係、モジュール、サイトドキュメント、その他のファイルを含む単一の配布可能なアーカイブに結合する機能を提供します。
 
 ## Assemblyプラグインを設定する {id="configure-plugin"}
 
@@ -15,19 +15,18 @@
 1.  **pom.xml**ファイルに移動し、[メインアプリケーションクラス](server-dependencies.topic#create-entry-point)が指定されていることを確認します。
     ```xml
     <properties>
-        <main.class>com.example.ApplicationKt</main.class>
+        <main.class>io.ktor.server.netty.EngineMain</main.class>
     </properties>
     ```
 
-    > `main()`関数を明示的に使用せずに[EngineMain](server-create-and-configure.topic#engine-main)を使用する場合、アプリケーションのメインクラスは使用するエンジンに依存し、次のようになります: `io.ktor.server.netty.EngineMain`。
-    {style="tip"}
+    この例では、サーバーを作成するために`EngineMain`が使用されているため、アプリケーションのメインクラスは使用するエンジンに依存します。[embeddedServer](server-create-and-configure.topic#embedded-server)を使用する場合、アプリケーションのメインクラスは`com.example.ApplicationKt`です。
 
 2.  `maven-assembly-plugin`を`plugins`ブロックに次のように追加します。
     ```xml
     <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-assembly-plugin</artifactId>
-        <version>2.6</version>
+        <version>3.7.1</version>
         <configuration>
             <descriptorRefs>
                 <descriptorRef>jar-with-dependencies</descriptorRef>
@@ -77,5 +76,5 @@ mvn package
     ```
 3.  URLリンクをクリックして、アプリケーションをデフォルトのブラウザで開きます。
 
-    <img src="server_get_started_ktor_sample_app_output.png" alt="Output of generated ktor project"
+    <img src="server_get_started_ktor_sample_app_output.png" alt="生成されたKtorプロジェクトの出力"
                        border-effect="rounded" width="706"/>

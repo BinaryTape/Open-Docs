@@ -8,6 +8,7 @@ Koog 集成主流 LLM 提供商，并通过与 [Ollama](https://ollama.com/) 集
 - DeepSeek
 - OpenRouter
 - Bedrock
+- Mistral
 - Ollama
 
 !!! note

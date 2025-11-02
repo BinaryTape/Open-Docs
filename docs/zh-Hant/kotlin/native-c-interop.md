@@ -107,27 +107,20 @@ val originalPtr = longValue.toCPointer<T>()
 原生記憶體可以使用 `NativePlacement` 介面進行配置，例如：
 
 ```kotlin
+@file:OptIn(ExperimentalForeignApi::class)
 import kotlinx.cinterop.*
 
-@OptIn(ExperimentalForeignApi::class)
+val placement: NativePlacement = // 請參閱下方配置範例
 val byteVar = placement.alloc<ByteVar>()
-```
-
-或者：
-
-```kotlin
-import kotlinx.cinterop.*
-
-@OptIn(ExperimentalForeignApi::class)
 val bytePtr = placement.allocArray<ByteVar>(5)
 ```
 
 最合理的配置是在 `nativeHeap` 物件中。它對應於使用 `malloc` 配置原生記憶體，並提供額外的 `.free()` 操作來釋放已配置的記憶體：
 
 ```kotlin
+@file:OptIn(ExperimentalForeignApi::class)
 import kotlinx.cinterop.*
 
-@OptIn(kotlinx.cinterop.ExperimentalForeignApi::class)
 fun main() {
     val size: Long = 0
     val buffer = nativeHeap.allocArray<ByteVar>(size)
@@ -142,10 +135,10 @@ fun main() {
 例如，可以像這樣使用透過指標參數回傳值的 C 函數：
 
 ```kotlin
+@file:OptIn(ExperimentalForeignApi::class)
 import kotlinx.cinterop.*
 import platform.posix.*
 
-@OptIn(ExperimentalForeignApi::class)
 val fileSize = memScoped {
     val statBuf = alloc<stat>()
     val error = stat("/", statBuf.ptr)
@@ -209,8 +202,8 @@ import kotlinx.cinterop.*
 
 @OptIn(kotlinx.cinterop.ExperimentalForeignApi::class)
 memScoped {
-    LoadCursorA(null, "cursor.bmp".cstr.ptr)  // for ASCII or UTF-8 version
-    LoadCursorW(null, "cursor.bmp".wcstr.ptr) // for UTF-16 version
+    LoadCursorA(null, "cursor.bmp".cstr.ptr)  // 適用於 ASCII 或 UTF-8 版本
+    LoadCursorW(null, "cursor.bmp".wcstr.ptr) // 適用於 UTF-16 版本
 }
 ```
 
@@ -306,7 +299,7 @@ int foo(int);
 
 在這種情況下，`FOO` 在 Kotlin 中可用。
 
-要支援其他巨集，您可以透過將它們包裝在支援的宣告中來手動公開它們。例如，函數式巨集 `FOO` 可以透過[將自訂宣告新增](native-definition-file.md#add-custom-declarations)到函式庫中，將其公開為函數 `foo()`：
+要支援其他巨集，您可以透過將它們包裝在支援的宣告中來手動公開它們。例如，函式式巨集 `FOO` 可以透過[將自訂宣告新增](native-definition-file.md#add-custom-declarations)到函式庫中，將其公開為函數 `foo()`：
 
 ```c
 headers = library/base.h
@@ -365,7 +358,7 @@ Kotlin 物件可以被釘選，亦即它們在記憶體中的位置保證穩定�
                 if (length <= 0) {
                     break
                 }
-                // Now `buffer` has raw data obtained from the `recv()` call.
+                // 現在 `buffer` 具有從 `recv()` 呼叫中取得的原始資料。
             }
         }
     }
@@ -388,7 +381,7 @@ Kotlin 物件可以被釘選，亦即它們在記憶體中的位置保證穩定�
             if (length <= 0) {
                 break
             }
-            // Now `buffer` has raw data obtained from the `recv()` call.
+            // 現在 `buffer` 具有從 `recv()` 呼叫中取得的原始資料。
         }
     }
     ```
@@ -402,7 +395,7 @@ Kotlin 物件可以被釘選，亦即它們在記憶體中的位置保證穩定�
 考慮兩個 cinterop 函式庫：一個具有結構的前置宣告，另一個在不同套件中具有實際實作：
 
 ```C
-// First C library
+// 第一個 C 函式庫
 #include <stdio.h>
 
 struct ForwardDeclaredStruct;
@@ -414,15 +407,15 @@ void consumeStruct(struct ForwardDeclaredStruct* s) {
 ```
 
 ```C
-// Second C library
-// Header:
+// 第二個 C 函式庫
+// 標頭檔:
 #include <stdlib.h>
 
 struct ForwardDeclaredStruct {
     int data;
 };
 
-// Implementation:
+// 實作:
 struct ForwardDeclaredStruct* produceStruct() {
     struct ForwardDeclaredStruct* s = malloc(sizeof(struct ForwardDeclaredStruct));
     s->data = 42;
@@ -433,7 +426,7 @@ struct ForwardDeclaredStruct* produceStruct() {
 要在兩個函式庫之間傳輸物件，請在您的 Kotlin 程式碼中使用顯式 `as` 轉換：
 
 ```kotlin
-// Kotlin code:
+// Kotlin 程式碼:
 fun test() {
     consumeStruct(produceStruct() as CPointer<cnames.structs.ForwardDeclaredStruct>)
 }

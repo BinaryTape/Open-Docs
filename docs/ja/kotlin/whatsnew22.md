@@ -113,6 +113,10 @@ kotlin {
 
 Kotlin 2.2.0は、コンテキスト依存の解決のプレビュー版実装を導入します。
 
+この機能の概要は以下のビデオで確認できます。
+
+<video src="https://www.youtube.com/v/aF8RYQrJI8Q" title="Kotlin 2.2.0におけるコンテキスト依存の解決"/>
+
 以前は、型がコンテキストから推論できる場合でも、enumエントリまたはsealedクラスのメンバーの完全な名前を記述する必要がありました。
 例:
 
@@ -312,6 +316,12 @@ kotlin {
 
 ### ネストされた型エイリアスのサポート
 <primary-label ref="beta"/>
+
+Kotlin 2.2.0は、他の宣言内に型エイリアスを定義するサポートを追加しました。
+
+この機能の概要は以下のビデオで確認できます。
+
+<video src="https://www.youtube.com/v/1W6d45IOwWk" title="Kotlin 2.2.0におけるネストされた型エイリアス"/>
 
 以前は、[型エイリアス](type-aliases.md)はKotlinファイルのトップレベルでのみ宣言できました。これは、内部またはドメイン固有の型エイリアスでさえ、使用されるクラスの外に存在する必要があることを意味していました。
 
@@ -531,6 +541,10 @@ fun main() {
 
 Kotlin 2.2.0は、新しい実験的なアノテーション[`@JvmExposeBoxed`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.jvm/-jvm-expose-boxed/)を導入します。このアノテーションは、Javaから[インライン値クラス](inline-classes.md)を使用しやすくします。
 
+この機能の概要は以下のビデオで確認できます。
+
+<video src="https://www.youtube.com/v/KSvq7jHr1lo" title="Kotlin 2.2.0におけるJava用の公開インライン値クラス"/>
+
 デフォルトでは、Kotlinはインライン値クラスを**アンボックス化された表現**を使用するようにコンパイルします。これはパフォーマンスが向上しますが、Javaから使用するのが困難または不可能な場合が多いです。例:
 
 ```kotlin
@@ -649,7 +663,6 @@ Kotlinは現在、[JVM](https://openjdk.org/jeps/254)と同様に、Latin-1エ�
 ```none
 kotlin.native.binary.latin1Strings=true
 ```
-
 #### 既知の問題
 
 この機能が実験的である限り、cinterop拡張関数[`String.pin`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlinx.cinterop/pin.html)、[`String.usePinned`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlinx.cinterop/use-pinned.html)、および[`String.refTo`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlinx.cinterop/ref-to.html)は効率が低下します。それらへの各呼び出しは、自動的な文字列のUTF-16変換をトリガーする可能性があります。
@@ -982,7 +995,7 @@ BTAを試すには:
 
 ```kotlin
 kotlin.compiler.runViaBuildToolsApi=true
-```
+```   
 
 *   Mavenの場合、何もする必要はありません。デフォルトで有効になっています。
 
@@ -1014,22 +1027,23 @@ BTAはこれを可能にします。`build.gradle.kts`ファイルで次のよ�
 import org.jetbrains.kotlin.buildtools.api.ExperimentalBuildToolsApi
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 
-plugins {
+plugins { 
     kotlin("jvm") version "2.2.0"
 }
 
 group = "org.jetbrains.example"
 version = "1.0-SNAPSHOT"
 
-repositories {
+repositories { 
     mavenCentral()
 }
 
-kotlin {
+kotlin { 
     jvmToolchain(8)
-    @OptIn(ExperimentalBuildToolsApi::class, ExperimentalKotlinGradlePluginApi::class)
+    @OptIn(ExperimentalBuildToolsApi::class, ExperimentalKotlinGradlePluginApi::class) 
     compilerVersion.set("2.1.21") // 2.2.0とは異なるバージョン
 }
+
 ```
 
 BTAは、KGPとKotlinコンパイラバージョンを、過去3つのメジャーバージョンと将来の1つのメジャーバージョンで設定することをサポートします。したがって、KGP 2.2.0では、Kotlinコンパイラバージョン2.1.x、2.0.x、および1.9.25がサポートされます。KGP 2.2.0は、将来のKotlinコンパイラバージョン2.2.xおよび2.3.xとも互換性があります。
@@ -1089,7 +1103,7 @@ fun main() {
     val base64Output = output.encodingWith(Base64.Default)
 
     base64Output.use { stream ->
-        stream.write("Hello World!!".encodeToByteArray())
+        stream.write("Hello World!!".encodeToByteArray()) 
     }
 
     println(output.toString())

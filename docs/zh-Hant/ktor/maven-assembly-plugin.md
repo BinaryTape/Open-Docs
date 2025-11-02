@@ -15,19 +15,18 @@
 1. 導覽至 **pom.xml** 檔案並確保已指定[主應用程式類別](server-dependencies.topic#create-entry-point)：
    ```xml
    <properties>
-       <main.class>com.example.ApplicationKt</main.class>
+       <main.class>io.ktor.server.netty.EngineMain</main.class>
    </properties>
    ```
 
-   > 如果您使用 [EngineMain](server-create-and-configure.topic#engine-main) 而沒有明確的 `main()` 函數，應用程式的主類別取決於所使用的引擎，並且可能如下所示：`io.ktor.server.netty.EngineMain`。
-   {style="tip"}
+    在此範例中，使用 `EngineMain` 來建立伺服器，因此應用程式的主類別取決於所使用的引擎。如果您使用 [embeddedServer](server-create-and-configure.topic#embedded-server)，應用程式的主類別是：`com.example.ApplicationKt`。
 
 2. 如下所示將 `maven-assembly-plugin` 加入到 `plugins` 區塊：
    ```xml
    <plugin>
        <groupId>org.apache.maven.plugins</groupId>
        <artifactId>maven-assembly-plugin</artifactId>
-       <version>2.6</version>
+       <version>3.7.1</version>
        <configuration>
            <descriptorRefs>
                <descriptorRef>jar-with-dependencies</descriptorRef>

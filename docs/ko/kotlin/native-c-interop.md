@@ -48,7 +48,7 @@ C 라이브러리를 사용해야 하는 프로젝트 작업 시 일반적인 �
 
 `CPointer<T>`의 타입 인자 `T`는 위에서 설명한 lvalue 타입 중 하나여야 합니다. 예를 들어, C 타입 `struct S*`는 `CPointer<S>`로, `int8_t*`는 `CPointer<int_8tVar>`로, `char**`는 `CPointer<CPointerVar<ByteVar>>`로 매핑됩니다.
 
-C null 포인터는 Kotlin의 `null`로 표현되며, 포인터 타입 `CPointer<T>`는 null을 허용하지 않지만 `CPoorter<T>?`는 허용합니다. 이 타입의 값은 `null` 처리에 관련된 모든 Kotlin 연산을 지원합니다. 예를 들어 `?:`, `?.`, `!!` 등이 있습니다:
+C null 포인터는 Kotlin의 `null`로 표현되며, 포인터 타입 `CPointer<T>`는 null을 허용하지 않지만 `CPointer<T>?`는 허용합니다. 이 타입의 값은 `null` 처리에 관련된 모든 Kotlin 연산을 지원합니다. 예를 들어 `?:`, `?.`, `!!` 등이 있습니다:
 
 ```kotlin
 val path = getenv("PATH")?.toKString() ?: ""
@@ -107,27 +107,20 @@ val originalPtr = longValue.toCPointer<T>()
 네이티브 메모리는 `NativePlacement` 인터페이스를 사용하여 할당할 수 있습니다. 예를 들어:
 
 ```kotlin
+@file:OptIn(ExperimentalForeignApi::class)
 import kotlinx.cinterop.*
 
-@OptIn(ExperimentalForeignApi::class)
+val placement: NativePlacement = // See below for placement examples
 val byteVar = placement.alloc<ByteVar>()
-```
-
-또는:
-
-```kotlin
-import kotlinx.cinterop.*
-
-@OptIn(ExperimentalForeignApi::class)
 val bytePtr = placement.allocArray<ByteVar>(5)
 ```
 
 가장 논리적인 배치는 `nativeHeap` 객체에 있습니다. 이는 `malloc`을 사용하여 네이티브 메모리를 할당하는 것에 해당하며, 할당된 메모리를 해제하기 위한 추가적인 `.free()` 연산을 제공합니다:
 
 ```kotlin
+@file:OptIn(ExperimentalForeignApi::class)
 import kotlinx.cinterop.*
 
-@OptIn(kotlinx.cinterop.ExperimentalForeignApi::class)
 fun main() {
     val size: Long = 0
     val buffer = nativeHeap.allocArray<ByteVar>(size)
@@ -142,10 +135,10 @@ fun main() {
 예를 들어, 포인터 매개변수를 통해 값을 반환하는 C 함수는 다음과 같이 사용할 수 있습니다:
 
 ```kotlin
+@file:OptIn(ExperimentalForeignApi::class)
 import kotlinx.cinterop.*
 import platform.posix.*
 
-@OptIn(ExperimentalForeignApi::class)
 val fileSize = memScoped {
     val statBuf = alloc<stat>()
     val error = stat("/", statBuf.ptr)

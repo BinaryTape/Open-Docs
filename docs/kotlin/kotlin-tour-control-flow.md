@@ -52,7 +52,7 @@ fun main() {
 Kotlin 中没有三元操作符 `condition ? then : else`。相反，`if` 可以用作表达式。如果每个动作只有一行代码，花括号 `{}` 是可选的：
 
 ```kotlin
-fun main() { 
+fun main() {
 //sampleStart
     val a = 1
     val b = 2
@@ -88,7 +88,7 @@ fun main() {
         // 检测 obj 是否等于 "Hello"
         "Hello" -> println("Greeting")
         // 默认语句
-        else -> println("Unknown")     
+        else -> println("Unknown")
     }
     // Greeting
 //sampleEnd
@@ -106,9 +106,9 @@ fun main() {
 
 ```kotlin
 fun main() {
-//sampleStart    
-    val obj = "Hello"    
-    
+//sampleStart
+    val obj = "Hello"
+
     val result = when (obj) {
         // 如果 obj 等于 "1"，则将 result 设置为 "one"
         "1" -> "One"
@@ -158,7 +158,7 @@ fun main() {
         else -> "Malfunction"
     }
 
-    println(trafficAction)  
+    println(trafficAction)
     // Stop
 }
 ```
@@ -237,7 +237,7 @@ fun main() {
 ```kotlin
 fun main() {
     val button = "A"
-    
+
     println(
         when (button) {
             "A" -> "Yes"
@@ -259,9 +259,9 @@ fun main() {
 
 要声明一个不包含结束值的区间，请使用 `..<` 操作符。例如，`1..<4` 等同于 `1, 2, 3`。
 
-要声明一个倒序区间，请使用 `downTo`。例如，`4 downTo 1` 等同于 `4, 3, 2, 1`。
+要声明一个倒序区间，请使用 [`downTo`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.ranges/down-to.html)。例如，`4 downTo 1` 等同于 `4, 3, 2, 1`。
 
-要声明一个以不为 1 的步长递增的区间，请使用 `step` 和你想要的递增值。
+要声明一个以不为 1 的步长递增的区间，请使用 [`step`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.ranges/step.html) 和你想要的递增值。
 例如，`1..5 step 2` 等同于 `1, 3, 5`。
 
 你也可以对 `Char` 区间执行相同的操作：
@@ -282,7 +282,7 @@ fun main() {
 ```kotlin
 fun main() {
 //sampleStart
-    for (number in 1..5) { 
+    for (number in 1..5) {
         // number 是迭代器，1..5 是区间
         print(number)
     }
@@ -295,7 +295,7 @@ fun main() {
 集合也可以通过循环迭代：
 
 ```kotlin
-fun main() { 
+fun main() {
 //sampleStart
     val cakes = listOf("carrot", "cheese", "chocolate")
 

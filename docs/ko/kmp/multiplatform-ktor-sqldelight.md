@@ -66,7 +66,6 @@
     koin = "%koinVersion%"
     ktor = "%ktorVersion%"
     sqlDelight = "%sqlDelightVersion%"
-    lifecycleViewmodelCompose = "2.9.1"
     material3 = "1.3.2"
     ```
     {initial-collapse-state="collapsed" collapsible="true" collapsed-title="[versions]"}
@@ -88,7 +87,6 @@
     ktor-serialization-kotlinx-json = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" }
     native-driver = { module = "app.cash.sqldelight:native-driver", version.ref = "sqlDelight" }
     runtime = { module = "app.cash.sqldelight:runtime", version.ref = "sqlDelight" }
-    androidx-lifecycle-viewmodel-compose = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-compose", version.ref = "lifecycleViewmodelCompose" }
     androidx-compose-material3 = { module = "androidx.compose.material3:material3", version.ref="material3" }
     ```
     {initial-collapse-state="collapsed" collapsible="true" collapsed-title="[libraries]"}
@@ -114,7 +112,7 @@
     }
     ```
 
-6.  공통 소스 세트(`common source set`)는 각 라이브러리의 핵심 아티팩트뿐만 아니라 네트워크 요청 및 응답 처리를 위해 `kotlinx.serialization`을 사용하는 Ktor [직렬화 기능](https://ktor.io/docs/serialization-client.html)을 필요로 합니다. iOS 및 Android 소스 세트는 SQLDelight 및 Ktor 플랫폼 드라이버도 필요합니다.
+6.  공통 소스 세트는 각 라이브러리의 핵심 아티팩트뿐만 아니라 네트워크 요청 및 응답 처리를 위해 `kotlinx.serialization`을 사용하는 Ktor [직렬화 기능](https://ktor.io/docs/serialization-client.html)을 필요로 합니다. iOS 및 Android 소스 세트는 SQLDelight 및 Ktor 플랫폼 드라이버도 필요합니다.
 
     동일한 `shared/build.gradle.kts` 파일에 필요한 모든 의존성을 추가합니다:
 
@@ -531,7 +529,7 @@ kotlin {
         androidMain.dependencies {
             implementation(libs.androidx.compose.material3)
             implementation(libs.koin.androidx.compose)
-            implementation(libs.androidx.lifecycle.viewmodel.compose)
+            implementation(libs.androidx.lifecycle.viewmodelCompose)
         }
         // ... 
     }
@@ -897,8 +895,11 @@ iOS에서 네이티브 SQLDelight 드라이버를 사용하려면 Xcode 툴링�
 
 1.  IntelliJ IDEA에서 **File** | **Open Project in Xcode** 옵션을 선택하여 Xcode에서 프로젝트를 엽니다.
 2.  Xcode에서 프로젝트 이름을 두 번 클릭하여 설정을 엽니다.
-3.  **Build Settings** 탭으로 전환하고 **Other Linker Flags** 필드를 검색합니다.
-4.  필드 값을 두 번 클릭하고 **+**를 클릭한 다음 `-lsqlite3` 문자열을 추가합니다.
+3.  **Build Settings** 탭으로 전환하고, 거기서 **All** 목록으로 전환한 후 **Other Linker Flags** 필드를 검색합니다.
+4.  필드를 확장하고, **Debug** 필드 옆에 있는 더하기 버튼을 누른 다음, `-lsqlite3` 문자열을 **Any Architecture | Any SDK**에 붙여넣습니다.
+5.  **Other Linker Flags** | **Release** 필드에 대해서도 이 과정을 반복합니다.
+
+![The result of correctly adding the linker flag to the Xcode project](xcode-other-linker-flags.png){width="434"}
 
 ### iOS 의존성 주입을 위한 Koin 클래스 준비
 
@@ -923,7 +924,7 @@ Swift 코드에서 Koin 클래스와 함수를 사용하려면 특수 `KoinCompo
     }
     ```
 
-3.  `KoinHelper` 클래스 뒤에 `initKoin` 함수를 추가합니다. 이 함수는 Swift에서 iOS Koin 모듈을 초기화하고 시작하는 데 사용됩니다:
+3.  `KoinHelper` 클래스 뒤에 `initKoin()` 함수를 추가합니다. 이 함수는 Swift에서 iOS Koin 모듈을 초기화하고 시작하는 데 사용됩니다:
 
     ```kotlin
     import com.jetbrains.spacetutorial.cache.IOSDatabaseDriverFactory

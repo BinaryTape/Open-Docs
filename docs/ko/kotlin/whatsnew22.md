@@ -1,6 +1,6 @@
 [//]: # (title: Kotlin 2.2.0의 새로운 기능)
 
-[출시: 2025년 6월 23일](releases.md#release-details)
+_[출시: 2025년 6월 23일](releases.md#release-details)_
 
 Kotlin 2.2.0이 출시되었습니다! 주요 내용은 다음과 같습니다:
 
@@ -116,6 +116,10 @@ kotlin {
 <primary-label ref="experimental-general"/>
 
 Kotlin 2.2.0은 컨텍스트-인식 확인(context-sensitive resolution) 구현을 미리보기로 도입합니다.
+
+이 기능에 대한 개요는 다음 비디오에서 확인할 수 있습니다:
+
+<video src="https://www.youtube.com/v/aF8RYQrJI8Q" title="Context-sensitive resolution in Kotlin 2.2.0"/>
 
 이전에는 타입이 컨텍스트에서 추론될 수 있는 경우에도 enum 엔트리 또는 봉인된(sealed) 클래스 멤버의 전체 이름을 작성해야 했습니다.
 예를 들어:
@@ -309,6 +313,12 @@ kotlin {
 
 ### 중첩된 타입 별칭 지원
 <primary-label ref="beta"/>
+
+Kotlin 2.2.0은 다른 선언 내부에 타입 별칭을 정의하는 것을 지원합니다.
+
+이 기능에 대한 개요는 다음 비디오에서 확인할 수 있습니다:
+
+<video src="https://www.youtube.com/v/1W6d45IOwWk" title="Nested type aliases in Kotlin 2.2.0"/>
 
 이전에는 Kotlin 파일의 최상위(top level)에서만 [타입 별칭(type aliases)](type-aliases.md)을 선언할 수 있었습니다. 이는 내부 또는 도메인별 타입 별칭조차도 사용되는 클래스 외부에서 정의되어야 함을 의미했습니다.
 
@@ -528,6 +538,10 @@ fun main() {
 {style = "note"}
 
 Kotlin 2.2.0은 새로운 실험적 어노테이션인 [`@JvmExposeBoxed`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.jvm/-jvm-expose-boxed/)를 도입합니다. 이 어노테이션은 [인라인 값 클래스](inline-classes.md)를 Java에서 사용하기 쉽게 만듭니다.
+
+이 기능에 대한 개요는 다음 비디오에서 확인할 수 있습니다:
+
+<video src="https://www.youtube.com/v/KSvq7jHr1lo" title="Exposed inline value classes for Java in Kotlin 2.2.0"/>
 
 기본적으로 Kotlin은 인라인 값 클래스를 **언박스된 표현(unboxed representations)**을 사용하도록 컴파일합니다. 이는 성능이 좋지만 Java에서는 사용하기 어렵거나 심지어 불가능한 경우가 많습니다. 예를 들어:
 

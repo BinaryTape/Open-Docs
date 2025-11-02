@@ -42,7 +42,7 @@ fun main() = application {
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="Window(onCloseRequest = ::exitApplication, title = "}
 
-<img src="compose-window-properties.animated.gif" alt="Window properties: change title" preview-src="compose-window-properties.png" width="600"/>
+<img src="compose-window-properties.animated.gif" alt="視窗屬性：變更標題" preview-src="compose-window-properties.png" width="600"/>
 
 ### 加入條件
 
@@ -87,7 +87,7 @@ fun main() = application {
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="if (isPerformingTask) { Window(onCloseRequest = ::exitApplication,"}
 
-<img src="compose-window-condition.animated.gif" alt="Windows with conditions" preview-src="compose-window-condition.png" width="600"/>
+<img src="compose-window-condition.animated.gif" alt="具有條件的視窗" preview-src="compose-window-condition.png" width="600"/>
 
 如果您想在應用程式退出時使用自訂邏輯，例如顯示對話方塊，您可以透過 `onCloseRequest` 回呼來覆寫關閉動作。
 在以下程式碼範例中，我們使用宣告式方法來關閉視窗以回應狀態變更 (`isOpen = false`)，而不是使用命令式方法 (`window.close()`)。
@@ -130,7 +130,7 @@ fun main() = application {
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="Window(onCloseRequest = { isAskingToClose = true }"}
 
-<img src="compose-window-ask-to-close.animated.gif" alt="Close with confirmation" preview-src="compose-window-ask-to-close.png" width="600"/>
+<img src="compose-window-ask-to-close.animated.gif" alt="關閉前確認" preview-src="compose-window-ask-to-close.png" width="600"/>
 
 ## 使用多個視窗
 
@@ -203,9 +203,9 @@ private class MyWindowState(
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="MyApplicationState { val windows = mutableStateListOf<MyWindowState>()"}
 
-<img src="compose-multiple-windows.animated.gif" alt="Multiple windows" preview-src="compose-multiple-windows.png" width="600"/>
+<img src="compose-multiple-windows.animated.gif" alt="多個視窗" preview-src="compose-multiple-windows.png" width="600"/>
 
-有關更複雜的範例，請參閱 [notepad](https://github.com/JetBrains/compose-multiplatform/tree/master/examples/notepad) 範例。
+有關更複雜的範例，請參閱 [Code Viewer](https://github.com/JetBrains/compose-multiplatform/tree/master/examples/codeviewer) 範例。
 
 ## 將視窗最小化到系統匣
 
@@ -267,7 +267,7 @@ object TrayIcon : Painter() {
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="Window(onCloseRequest = { isVisible = false },"}
 
-<img src="compose-window-hide-tray.animated.gif" alt="Hide instead of closing" preview-src="compose-window-hide-tray.png" width="600"/>
+<img src="compose-window-hide-tray.animated.gif" alt="隱藏而非關閉" preview-src="compose-window-hide-tray.png" width="600"/>
 
 ## singleWindowApplication() 函式
 
@@ -327,7 +327,7 @@ fun main() = application {
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="state = rememberWindowState(width = Dp.Unspecified, height = Dp.Unspecified)"}
 
-<img src="compose-window-adaptive-size.png" alt="Adaptive window size" width="451"/>
+<img src="compose-window-adaptive-size.png" alt="自適應視窗大小" width="451"/>
 
 ## 變更視窗狀態
 
@@ -409,7 +409,7 @@ fun main() = application {
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="val state = rememberWindowState(placement = WindowPlacement.Maximized)"}
 
-<img src="compose-window-minimize.animated.gif" alt="Changing the state" preview-src="compose-window-minimize.png" width="600"/>
+<img src="compose-window-minimize.animated.gif" alt="變更狀態" preview-src="compose-window-minimize.png" width="600"/>
 
 ## 監聽視窗狀態
 
@@ -553,7 +553,7 @@ private fun WindowScope.AppWindowTitleBar() = WindowDraggableArea {
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="private fun WindowScope.AppWindowTitleBar() = WindowDraggableArea {"}
 
-<img src="compose-window-draggable-area.animated.gif" alt="Draggable area" preview-src="compose-window-draggable-area.png" width="600"/>
+<img src="compose-window-draggable-area.animated.gif" alt="可拖曳區域" preview-src="compose-window-draggable-area.png" width="600"/>
 
 ## 透明視窗及其他自訂
 

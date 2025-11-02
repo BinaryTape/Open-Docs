@@ -478,5 +478,6 @@
   "koog.prompts": "Prompts",
   "koog.events": "Events",
   "koog.strategies": "Strategies",
-  "koog.event-handlers": "Event handlers"
+  "koog.event-handlers": "Event handlers",
+  "kmp.kmp-tooling": "KMP tooling"
 }

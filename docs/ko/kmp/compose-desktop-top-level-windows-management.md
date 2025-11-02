@@ -205,7 +205,7 @@ private class MyWindowState(
 
 <img src="compose-multiple-windows.animated.gif" alt="Multiple windows" preview-src="compose-multiple-windows.png" width="600"/>
 
-더 복잡한 예제는 [메모장(notepad)](https://github.com/JetBrains/compose-multiplatform/tree/master/examples/notepad) 샘플을 참조하세요.
+더 복잡한 예제는 [코드 뷰어(Code Viewer)](https://github.com/JetBrains/compose-multiplatform/tree/master/examples/codeviewer) 샘플을 참조하세요.
 
 ## 창을 시스템 트레이로 최소화하기
 
@@ -285,12 +285,13 @@ fun main() = singleWindowApplication {
     // Content of the window
 }
 ```
+{initial-collapse-state="collapsed" collapsible="true" collapsed-title="singleWindowApplication {"}
 
 대안으로 `application` 진입점에서 [`Window()` 컴포저블](#open-and-close-windows)을 사용할 수 있습니다.
 
 ## 적응형 창 크기
 
-예상되는 콘텐츠의 크기를 모르고 최적의 창 크기를 미리 지정할 수 없는 경우, `WindowSize`의 하나 또는 두 차원(Dimensions)을 `Dp.Unspecified`로 설정할 수 있습니다. 데스크톱용 Compose Multiplatform은 콘텐츠에 맞게 창의 초기 크기를 자동으로 조정합니다.
+예상되는 콘텐츠의 크기를 모르고 최적의 창 크기를 미리 지정할 수 없는 경우, `WindowSize`의 하나 또는 두 차원을 `Dp.Unspecified`로 설정할 수 있습니다. 데스크톱용 Compose Multiplatform은 콘텐츠에 맞게 창의 초기 크기를 자동으로 조정합니다.
 
 ```kotlin
 import androidx.compose.foundation.background

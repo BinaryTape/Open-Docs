@@ -6,7 +6,7 @@
 </p>
 </tldr>
 
-[Maven Assembly 插件](http://maven.apache.org/plugins/maven-assembly-plugin/) 提供了将项目输出组合成一个单一的可分发归档文件的能力，该归档文件包含依赖项、模块、站点文档和其他文件。
+[Maven Assembly 插件](http://maven.apache.org/plugins/maven-assembly-plugin/) 提供了将项目输出组合成一个单一的可分发归档文件的能力，该归档文件包含依赖项、模块、站点文档以及其他文件。
 
 ## 配置 Assembly 插件 {id="configure-plugin"}
 
@@ -15,19 +15,18 @@
 1.  前往 **pom.xml** 文件并确保已指定[主应用程序类](server-dependencies.topic#create-entry-point)：
     ```xml
     <properties>
-        <main.class>com.example.ApplicationKt</main.class>
+        <main.class>io.ktor.server.netty.EngineMain</main.class>
     </properties>
     ```
 
-    > 如果你使用不带显式 `main()` 函数的 [EngineMain](server-create-and-configure.topic#engine-main)，则应用程序的主类取决于所使用的引擎，并可能如下所示：`io.ktor.server.netty.EngineMain`。
-    {style="tip"}
+    在此示例中，`EngineMain` 用于创建服务器，因此应用程序主类取决于所使用的引擎。如果你使用 [embeddedServer](server-create-and-configure.topic#embedded-server)，则应用程序主类为：`com.example.ApplicationKt`。
 
-2.  将 `maven-assembly-plugin` 添加到 `plugins` 代码块中，如下所示：
+2.  将 `maven-assembly-plugin` 添加到 `plugins` 代码块中：
     ```xml
     <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-assembly-plugin</artifactId>
-        <version>2.6</version>
+        <version>3.7.1</version>
         <configuration>
             <descriptorRefs>
                 <descriptorRef>jar-with-dependencies</descriptorRef>
@@ -78,4 +77,4 @@ mvn package
 3.  点击 URL 链接，在默认浏览器中打开应用程序：
 
     <img src="server_get_started_ktor_sample_app_output.png" alt="生成的 Ktor 项目输出"
-                       border-effect="rounded" width="706"/>
+                     border-effect="rounded" width="706"/>

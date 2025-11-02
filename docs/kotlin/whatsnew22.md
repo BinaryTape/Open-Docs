@@ -1,6 +1,6 @@
 [//]: # (title: Kotlin 2.2.0 新特性)
 
-发布日期：2025 年 6 月 23 日](releases.md#release-details)
+_[发布日期：2025 年 6 月 23 日](releases.md#release-details)_
 
 Kotlin 2.2.0 版本现已发布！以下是主要亮点：
 
@@ -8,7 +8,7 @@ Kotlin 2.2.0 版本现已发布！以下是主要亮点：
 *   **Kotlin 编译器**：[统一管理编译器警告](#kotlin-compiler-unified-management-of-compiler-warnings)。
 *   **Kotlin/JVM**：[接口函数默认方法生成的更改](#changes-to-default-method-generation-for-interface-functions)。
 *   **Kotlin/Native**：[LLVM 19 以及用于跟踪和调整内存消耗的新特性](#kotlin-native)。
-*   **Kotlin/Wasm**：[分离的 Wasm 目标平台](#build-infrastructure-for-wasm-target-separated-from-javascript-target)和[每项目 Binaryen 配置](per-project-binaryen-configuration)的能力。
+*   **Kotlin/Wasm**：[分离的 Wasm 目标平台](#build-infrastructure-for-wasm-target-separated-from-javascript-target)和[每项目 Binaryen 配置](#per-project-binaryen-configuration)的能力。
 *   **Kotlin/JS**：[修复了 `@JsPlainObject` 接口生成的 `copy()` 方法](#fix-for-copy-in-jsplainobject-interfaces)。
 *   **Gradle**：[Kotlin Gradle 插件中包含二进制兼容性验证](#binary-compatibility-validation-included-in-kotlin-gradle-plugin)。
 *   **标准库**：[稳定的 Base64 和 HexFormat API](#stable-base64-encoding-and-decoding)。
@@ -16,7 +16,7 @@ Kotlin 2.2.0 版本现已发布！以下是主要亮点：
 
 你也可以观看这段 Kotlin 语言演进团队讨论新特性和回答问题的视频：
 
-<video src="https://www.youtube.com/watch?v=jne3923lWtw" title="What's new in Kotlin 2.2.0"/>
+<video src="https://www.youtube.com/watch?v=jne3923lWtw" title="Kotlin 2.2.0 新特性"/>
 
 ## IDE 支持
 
@@ -112,6 +112,10 @@ kotlin {
 <primary-label ref="experimental-general"/>
 
 Kotlin 2.2.0 在预览版中引入了上下文敏感解析的实现。
+
+你可以在此视频中找到此特性的概述：
+
+<video src="https://www.youtube.com/v/aF8RYQrJI8Q" title="Kotlin 2.2.0 中的上下文敏感解析"/>
 
 以前，即使可以从上下文中推断出类型，你也必须编写枚举条目或密封类成员的完整名称。
 例如：
@@ -309,6 +313,12 @@ kotlin {
 
 ### 支持嵌套类型别名
 <primary-label ref="beta"/>
+
+Kotlin 2.2.0 添加了在其他声明中定义类型别名的支持。
+
+你可以在此视频中找到此特性的概述：
+
+<video src="https://www.youtube.com/v/1W6d45IOwWk" title="Kotlin 2.2.0 中的嵌套类型别名"/>
 
 以前，你只能在 Kotlin 文件的顶层声明[类型别名](type-aliases.md)。这意味着
 即使是内部或领域特定的类型别名也必须存在于使用它们的类之外。
@@ -531,6 +541,10 @@ fun main() {
 {style = "note"}
 
 Kotlin 2.2.0 引入了一个新的实验性注解：[`@JvmExposeBoxed`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.jvm/-jvm-expose-boxed/)。此注解使得从 Java 中使用[内联值类](inline-classes.md)变得更容易。
+
+你可以在此视频中找到此特性的概述：
+
+<video src="https://www.youtube.com/v/KSvq7jHr1lo" title="Kotlin 2.2.0 中为 Java 暴露的内联值类"/>
 
 默认情况下，Kotlin 将内联值类编译为使用**未装箱表示**，这更具性能，但通常
 很难甚至不可能从 Java 中使用。例如：

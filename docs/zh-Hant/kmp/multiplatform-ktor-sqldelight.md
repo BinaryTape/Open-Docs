@@ -66,7 +66,6 @@
     koin = "%koinVersion%"
     ktor = "%ktorVersion%"
     sqlDelight = "%sqlDelightVersion%"
-    lifecycleViewmodelCompose = "2.9.1"
     material3 = "1.3.2"
     ```
     {initial-collapse-state="collapsed" collapsible="true" collapsed-title="[版本]"}
@@ -88,7 +87,6 @@
     ktor-serialization-kotlinx-json = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" }
     native-driver = { module = "app.cash.sqldelight:native-driver", version.ref = "sqlDelight" }
     runtime = { module = "app.cash.sqldelight:runtime", version.ref = "sqlDelight" }
-    androidx-lifecycle-viewmodel-compose = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-compose", version.ref = "lifecycleViewmodelCompose" }
     androidx-compose-material3 = { module = "androidx.compose.material3:material3", version.ref="material3" }
     ```
     {initial-collapse-state="collapsed" collapsible="true" collapsed-title="[函式庫]"}
@@ -189,42 +187,7 @@ Gradle 同步後，您就完成了專案配置，可以開始編寫程式碼了�
 2.  宣告基本實體的所有資料類別：
 
     ```kotlin
-    package com.jetbrains.spacetutorial.entity
     
-    import kotlinx.serialization.SerialName
-    import kotlinx.serialization.Serializable
-    
-    @Serializable
-    data class RocketLaunch(
-        @SerialName("flight_number")
-        val flightNumber: Int,
-        @SerialName("mission_name")
-        val missionName: String,
-        @SerialName("launch_date_utc")
-        val launchDateUTC: String,
-        @SerialName("details")
-        val details: String?,
-        @SerialName("launch_success")
-        val launchSuccess: Boolean?,
-        @SerialName("links")
-        val links: Links
-    )
-    
-    @Serializable
-    data class Links(
-        @SerialName("patch")
-        val patch: Patch?,
-        @SerialName("article_link")
-        val article: String?
-    )
-    
-    @Serializable
-    data class Patch(
-        @SerialName("small")
-        val small: String?,
-        @SerialName("large")
-        val large: String?
-    )
     ```
 
 每個可序列化類別都必須標記有 `@Serializable` 註解。`kotlinx.serialization` 外掛程式會自動為 `@Serializable` 類別生成預設序列化器，除非您在註解引數中明確傳遞序列化器的連結。
@@ -578,7 +541,7 @@ kotlin {
         androidMain.dependencies {
             implementation(libs.androidx.compose.material3)
             implementation(libs.koin.androidx.compose)
-            implementation(libs.androidx.lifecycle.viewmodel.compose)
+            implementation(libs.androidx.lifecycle.viewmodelCompose)
         }
         // ... 
     }
@@ -951,7 +914,11 @@ IntelliJ IDEA 生成的 iOS 專案已連接到共享模組。Kotlin 模組以 `s
 1.  在 IntelliJ IDEA 中，選取 **File** | **Open Project in Xcode** 選項以在 Xcode 中開啟您的專案。
 2.  在 Xcode 中，雙擊專案名稱以開啟其設定。
 3.  切換到 **Build Settings** 分頁並搜尋 **Other Linker Flags** 欄位。
-4.  雙擊欄位值，按一下 **+**，然後新增 `-lsqlite3` 字串。
+4.  展開該欄位，按一下 **Debug** 欄位旁邊的加號，
+    然後將 `-lsqlite3` 字串貼到 **Any Architecture | Any SDK** 中。
+5.  對 **Other Linker Flags** | **Release** 欄位重複此過程。
+
+![The result of correctly adding the linker flag to the Xcode project](xcode-other-linker-flags.png){width="434"}
 
 ### 為 iOS 依賴注入準備 Koin 類別
 
@@ -976,7 +943,7 @@ IntelliJ IDEA 生成的 iOS 專案已連接到共享模組。Kotlin 模組以 `s
     }
     ```
 
-3.  在 `KoinHelper` 類別之後，新增 `initKoin` 函數，您將在 Swift 中使用它來初始化和啟動 iOS Koin 模組：
+3.  在 `KoinHelper` 類別之後，新增 `initKoin()` 函數，您將在 Swift 中使用它來初始化和啟動 iOS Koin 模組：
 
     ```kotlin
     import com.jetbrains.spacetutorial.cache.IOSDatabaseDriverFactory

@@ -1,4 +1,4 @@
-[//]: # (title: 与 C 语言的互操作)
+[//]: # (title: 与 C 的互操作)
 
 > C 库导入目前处于 [Beta](native-c-interop-stability.md) 阶段。所有通过 cinterop 工具从 C 库生成的 Kotlin 声明都应带有 `@ExperimentalForeignApi` 注解。
 >
@@ -29,7 +29,7 @@
 {style="note"}
 
 在许多情况下，无需配置与 C 库的自定义互操作性。相反，你可以使用[平台库](native-platform-libs.md)中可用的平台标准化绑定 API。例如，
-在 Linux/macOS 平台上的 POSIX、Windows 平台上的 Win32，或者 macOS/iOS 上的 Apple frameworks 都可以通过这种方式使用。
+Linux/macOS 平台上的 POSIX、Windows 平台上的 Win32，或者 macOS/iOS 上的 Apple frameworks 都可以通过这种方式使用。
 
 ## 绑定
 
@@ -114,27 +114,20 @@ val originalPtr = longValue.toCPointer<T>()
 原生内存可以使用 `NativePlacement` 接口进行分配，例如：
 
 ```kotlin
+@file:OptIn(ExperimentalForeignApi::class)
 import kotlinx.cinterop.*
 
-@OptIn(ExperimentalForeignApi::class)
+val placement: NativePlacement = // See below for placement examples
 val byteVar = placement.alloc<ByteVar>()
-```
-
-或者：
-
-```kotlin
-import kotlinx.cinterop.*
-
-@OptIn(ExperimentalForeignApi::class)
 val bytePtr = placement.allocArray<ByteVar>(5)
 ```
 
 最合理的放置位置是对象 `nativeHeap`。它对应于使用 `malloc` 分配原生内存，并提供额外的 `.free()` 操作来释放已分配的内存：
 
 ```kotlin
+@file:OptIn(ExperimentalForeignApi::class)
 import kotlinx.cinterop.*
 
-@OptIn(kotlinx.cinterop.ExperimentalForeignApi::class)
 fun main() {
     val size: Long = 0
     val buffer = nativeHeap.allocArray<ByteVar>(size)
@@ -150,10 +143,10 @@ fun main() {
 例如，可以通过指针形参返回值的 C 函数可以这样使用：
 
 ```kotlin
+@file:OptIn(ExperimentalForeignApi::class)
 import kotlinx.cinterop.*
 import platform.posix.*
 
-@OptIn(ExperimentalForeignApi::class)
 val fileSize = memScoped {
     val statBuf = alloc<stat>()
     val error = stat("/", statBuf.ptr)

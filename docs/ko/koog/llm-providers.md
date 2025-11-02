@@ -8,6 +8,7 @@ Koog는 주요 LLM 제공업체와 연동되며, [Ollama](https://ollama.com/)�
 - DeepSeek
 - OpenRouter
 - Bedrock
+- Mistral
 - Ollama
 
 !!! note

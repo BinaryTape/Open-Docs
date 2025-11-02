@@ -3,13 +3,13 @@
 <no-index/>
 
 <tldr>
-    <p><img src="icon-1-done.svg" width="20" alt="First step" /> <a href="kotlin-tour-hello-world.md">헬로 월드</a><br />
-        <img src="icon-2-done.svg" width="20" alt="Second step" /> <a href="kotlin-tour-basic-types.md">기본 타입</a><br />
-        <img src="icon-3-done.svg" width="20" alt="Third step" /> <a href="kotlin-tour-collections.md">컬렉션</a><br />
-        <img src="icon-4.svg" width="20" alt="Fourth step" /> <strong>제어 흐름</strong><br />
-        <img src="icon-5-todo.svg" width="20" alt="Fifth step" /> <a href="kotlin-tour-functions.md">함수</a><br />
-        <img src="icon-6-todo.svg" width="20" alt="Sixth step" /> <a href="kotlin-tour-classes.md">클래스</a><br />
-        <img src="icon-7-todo.svg" width="20" alt="Final step" /> <a href="kotlin-tour-null-safety.md">널 안전성</a></p>
+    <p><img src="icon-1-done.svg" width="20" alt="첫 번째 단계" /> <a href="kotlin-tour-hello-world.md">헬로 월드</a><br />
+        <img src="icon-2-done.svg" width="20" alt="두 번째 단계" /> <a href="kotlin-tour-basic-types.md">기본 타입</a><br />
+        <img src="icon-3-done.svg" width="20" alt="세 번째 단계" /> <a href="kotlin-tour-collections.md">컬렉션</a><br />
+        <img src="icon-4.svg" width="20" alt="네 번째 단계" /> <strong>제어 흐름</strong><br />
+        <img src="icon-5-todo.svg" width="20" alt="다섯 번째 단계" /> <a href="kotlin-tour-functions.md">함수</a><br />
+        <img src="icon-6-todo.svg" width="20" alt="여섯 번째 단계" /> <a href="kotlin-tour-classes.md">클래스</a><br />
+        <img src="icon-7-todo.svg" width="20" alt="마지막 단계" /> <a href="kotlin-tour-null-safety.md">널 안전성</a></p>
 </tldr>
 
 다른 프로그래밍 언어와 마찬가지로, Kotlin은 코드 조각이 true로 평가되는지 여부에 따라 결정을 내릴 수 있습니다. 이러한 코드 조각을 **조건식**이라고 합니다. Kotlin은 또한 루프를 생성하고 반복할 수 있습니다.
@@ -113,6 +113,7 @@ fun main() {
         // obj가 "1"과 같으면, result를 "one"으로 설정
         "1" -> "One"
         // obj가 "Hello"와 같으면, result를 "Greeting"으로 설정
+        "Hello" -> "Greeting"
         // 이전 조건이 만족되지 않으면 result를 "Unknown"으로 설정
         else -> "Unknown"
     }
@@ -258,9 +259,9 @@ Kotlin에서 범위를 만드는 가장 일반적인 방법은 `..` 연산자를
 
 끝 값을 포함하지 않는 범위를 선언하려면 `..<` 연산자를 사용하세요. 예를 들어, `1..<4`는 `1, 2, 3`과 동일합니다.
 
-역순으로 범위를 선언하려면 `downTo`를 사용하세요. 예를 들어, `4 downTo 1`은 `4, 3, 2, 1`과 동일합니다.
+역순으로 범위를 선언하려면 [`downTo`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.ranges/down-to.html)를 사용하세요. 예를 들어, `4 downTo 1`은 `4, 3, 2, 1`과 동일합니다.
 
-1이 아닌 단계(step)로 증가하는 범위를 선언하려면 `step`과 원하는 증가 값을 사용하세요. 예를 들어, `1..5 step 2`는 `1, 3, 5`와 동일합니다.
+1이 아닌 단계(step)로 증가하는 범위를 선언하려면 [`step`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.ranges/step.html)과 원하는 증가 값을 사용하세요. 예를 들어, `1..5 step 2`는 `1, 3, 5`와 동일합니다.
 
 `Char` 범위에서도 동일하게 할 수 있습니다.
 

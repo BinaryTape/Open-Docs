@@ -512,5 +512,6 @@
   "koog.prompts": "提示",
   "koog.events": "事件",
   "koog.strategies": "策略",
-  "koog.event-handlers": "事件處理器"
+  "koog.event-handlers": "事件處理器",
+  "kmp.kmp-tooling": "KMP 工具"
 }

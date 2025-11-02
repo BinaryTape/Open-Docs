@@ -66,7 +66,6 @@
     koin = "%koinVersion%"
     ktor = "%ktorVersion%"
     sqlDelight = "%sqlDelightVersion%"
-    lifecycleViewmodelCompose = "2.9.1"
     material3 = "1.3.2"
     ```
     {initial-collapse-state="collapsed" collapsible="true" collapsed-title="[versions]"}
@@ -88,7 +87,6 @@
     ktor-serialization-kotlinx-json = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" }
     native-driver = { module = "app.cash.sqldelight:native-driver", version.ref = "sqlDelight" }
     runtime = { module = "app.cash.sqldelight:runtime", version.ref = "sqlDelight" }
-    androidx-lifecycle-viewmodel-compose = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-compose", version.ref = "lifecycleViewmodelCompose" }
     androidx-compose-material3 = { module = "androidx.compose.material3:material3", version.ref="material3" }
     ```
     {initial-collapse-state="collapsed" collapsible="true" collapsed-title="[libraries]"}
@@ -534,7 +532,7 @@ kotlin {
         androidMain.dependencies {
             implementation(libs.androidx.compose.material3)
             implementation(libs.koin.androidx.compose)
-            implementation(libs.androidx.lifecycle.viewmodel.compose)
+            implementation(libs.androidx.lifecycle.viewmodelCompose)
         }
         // ... 
     }
@@ -903,8 +901,11 @@ IntelliJ IDEA 会生成一个已连接到共享模块的 iOS 项目。Kotlin 模
 
 1.  在 IntelliJ IDEA 中，选择 **File** | **Open Project in Xcode** 选项以在 Xcode 中打开你的项目。
 2.  在 Xcode 中，双击项目名称以打开其设置。
-3.  切换到 **Build Settings** 标签页并搜索 **Other Linker Flags** 字段。
-4.  双击字段值，点击 **+**，然后添加 `-lsqlite3` 字符串。
+3.  切换到 **Build Settings** 标签页，然后切换到 **All** list 并搜索 **Other Linker Flags** 字段。
+4.  展开该字段，点击 **Debug** 字段旁边的加号，然后将 `-lsqlite3` 字符串粘贴到 **Any Architecture | Any SDK** 中。
+5.  为 **Other Linker Flags** | **Release** 字段重复此过程。
+
+![The result of correctly adding the linker flag to the Xcode project](xcode-other-linker-flags.png){width="434"}
 
 ### 准备用于 iOS 依赖项注入的 Koin 类
 

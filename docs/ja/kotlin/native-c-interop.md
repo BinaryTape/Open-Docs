@@ -40,7 +40,7 @@ Cライブラリを使用する必要があるプロジェクトでの一般的�
 *   構造体と共用体は、ドット表記（例: `someStructInstance.field1`）でフィールドにアクセスできる型にマッピングされます。
 *   `typedef`は`typealias`として表現されます。
 
-また、任意のCの型は、その型の左辺値（lvalue）を表すKotlinの型を持っています。これは、単純な不変の自己完結型値ではなく、メモリに配置された値を意味します。類似の概念としてC++の参照を考えてみてください。構造体（および構造体への`typedef`）の場合、この表現が主要なものであり、構造体自体と同じ名前を持ちます。Kotlinの列挙型の場合、`${type}.Var`と名付けられます。`CPointer<T>`の場合、`CPointerVar<T>`と名付けられます。その他のほとんどの型では、`${type}Var`と名付けられます。
+また、任意のCの型は、その型の左辺値（lvalue）を表すKotlinの型を持っています。これは、単純な不変の自己完結型値ではなく、メモリに配置された値を意味します。C++の参照と同様の概念と考えてください。構造体（および構造体への`typedef`）の場合、この表現が主要なものであり、構造体自体と同じ名前を持ちます。Kotlinの列挙型の場合、`${type}.Var`と名付けられ、`CPointer<T>`の場合は`CPointerVar<T>`、その他のほとんどの型では`${type}Var`と名付けられます。
 
 両方の表現を持つ型の場合、左辺値を持つ方は、値にアクセスするための可変な`.value`プロパティを持ちます。
 
@@ -107,27 +107,20 @@ val originalPtr = longValue.toCPointer<T>()
 ネイティブメモリは、たとえば`NativePlacement`インターフェースを使用して割り当てることができます。
 
 ```kotlin
+@file:OptIn(ExperimentalForeignApi::class)
 import kotlinx.cinterop.*
 
-@OptIn(ExperimentalForeignApi::class)
+val placement: NativePlacement = // 配置例については以下を参照
 val byteVar = placement.alloc<ByteVar>()
-```
-
-または：
-
-```kotlin
-import kotlinx.cinterop.*
-
-@OptIn(ExperimentalForeignApi::class)
 val bytePtr = placement.allocArray<ByteVar>(5)
 ```
 
 最も論理的な配置は、オブジェクト`nativeHeap`内です。これは`malloc`によるネイティブメモリの割り当てに対応し、割り当てられたメモリを解放するための追加の`.free()`操作を提供します。
 
 ```kotlin
+@file:OptIn(ExperimentalForeignApi::class)
 import kotlinx.cinterop.*
 
-@OptIn(kotlinx.cinterop.ExperimentalForeignApi::class)
 fun main() {
     val size: Long = 0
     val buffer = nativeHeap.allocArray<ByteVar>(size)
@@ -142,10 +135,10 @@ fun main() {
 たとえば、ポインタパラメータを介して値を返すC関数は次のように使用できます。
 
 ```kotlin
+@file:OptIn(ExperimentalForeignApi::class)
 import kotlinx.cinterop.*
 import platform.posix.*
 
-@OptIn(ExperimentalForeignApi::class)
 val fileSize = memScoped {
     val statBuf = alloc<stat>()
     val error = stat("/", statBuf.ptr)
@@ -359,7 +352,7 @@ Kotlinオブジェクトはピンニングできます。つまり、それら�
                 if (length <= 0) {
                     break
                 }
-                // Now `buffer` has raw data obtained from the `recv()` call.
+                // これで`buffer`には`recv()`呼び出しから取得した生データが含まれます。
             }
         }
     }
@@ -382,7 +375,7 @@ Kotlinオブジェクトはピンニングできます。つまり、それら�
             if (length <= 0) {
                 break
             }
-            // Now `buffer` has raw data obtained from the `recv()` call.
+            // これで`buffer`には`recv()`呼び出しから取得した生データが含まれます。
         }
     }
     ```

@@ -2,11 +2,7 @@
 
 _[릴리스: 2025년 9월 10일](releases.md#release-details)_
 
-> Kotlin에 대한 여러분의 의견을 듣고 싶습니다!
->
-> [Kotlin 개발자 설문조사에 참여해 주세요.](https://surveys.jetbrains.com/s3/7e238a7b85e5) 약 10분 정도 소요되며, 여러분의 피드백은 언어, 도구 및 생태계를 개선하는 데 도움이 될 것입니다.
->
-{style="note"}
+<tldr><p>버그 수정 릴리스 2.2.21에 대한 자세한 내용은 <a href="https://github.com/JetBrains/kotlin/releases/tag/v2.2.21">변경 로그</a>를 참조하세요.</p></tldr>
 
 Kotlin 2.2.20 릴리스가 출시되어 웹 개발을 위한 중요한 변경 사항을 제공합니다. [Kotlin/Wasm은 이제 베타 버전](#kotlin-wasm)이며, [JavaScript 상호 운용성에서 예외 처리 개선](#improved-exception-handling-in-kotlin-wasm-and-javascript-interop), [npm 의존성 관리](#separated-npm-dependencies), [내장 브라우저 디버깅 지원](#support-for-debugging-in-browsers-without-configuration), 그리고 `js` 및 `wasmJs` 타겟을 위한 새로운 [공유 소스 세트](#shared-source-set-for-js-and-wasmjs-targets)를 포함한 개선 사항이 있습니다.
 
@@ -20,6 +16,10 @@ Kotlin 2.2.20 릴리스가 출시되어 웹 개발을 위한 중요한 변경 �
 > 웹용 Compose Multiplatform이 이제 베타 버전입니다. 자세한 내용은 [블로그 게시물](https://blog.jetbrains.com/kotlin/2025/09/compose-multiplatform-1-9-0-compose-for-web-beta/)에서 알아보세요.
 >
 {style="note"}
+
+이 비디오에서 업데이트에 대한 간략한 개요를 찾을 수 있습니다:
+
+<video src="https://www.youtube.com/v/QWpp5-LlTqA" title="What's new in Kotlin 2.2.21"/>
 
 ## IDE 지원
 
@@ -601,6 +601,14 @@ suspend fun readCopiedText(): String {
 expect suspend fun readCopiedText(): String
 
 // webMain
+@OptIn(ExperimentalWasmJsInterop::class)
+private suspend fun <R : JsAny?> Promise<R>.await(): R = suspendCancellableCoroutine { continuation ->
+    this.then(
+        onFulfilled = { continuation.resumeWith(Result.success(it)); null },
+        onRejected = { continuation.resumeWithException(it.asJsException()); null }
+    )
+}
+
 external interface Navigator { val clipboard: Clipboard }
 external interface Clipboard { fun readText(): Promise<JsString> }
 external val navigator: Navigator

@@ -2,12 +2,7 @@
 
 _[发布日期：2025 年 9 月 10 日](releases.md#release-details)_
 
-> 分享您对 Kotlin 的看法！
->
-> [参与我们的 Kotlin 开发者调查](https://surveys.jetbrains.com/s3/7e238a7b85e5)。仅需约 10 分钟。
-> 您的反馈有助于我们改进语言、工具和生态系统。
->
-{style="note"}
+<tldr><p>有关 Bug 修复版本 2.2.21 的详细信息，请参见<a href="https://github.com/JetBrains/kotlin/releases/tag/v2.2.21">变更日志</a></p></tldr>
 
 Kotlin 2.2.20 版本现已发布，为 Web 开发带来了重要变更。[Kotlin/Wasm 现已进入 Beta 阶段](#kotlin-wasm)，
 并改进了 [JavaScript 互操作中的异常处理](#improved-exception-handling-in-kotlin-wasm-and-javascript-interop)、
@@ -18,12 +13,16 @@ Kotlin 2.2.20 版本现已发布，为 Web 开发带来了重要变更。[Kotlin
 
 *   **Kotlin Multiplatform**：[Swift 导出功能默认可用](#swift-export-available-by-default)、[Kotlin 库的稳定跨平台编译](#stable-cross-platform-compilation-for-kotlin-libraries)，以及[声明公共依赖项的新方法](#new-approach-for-declaring-common-dependencies)。
 *   **语言**：[将 lambda 传递给挂起函数类型重载时，改进的重载决议](#improved-overload-resolution-for-lambdas-with-suspend-function-types)。
-*   **Kotlin/Native**：[二进制文件中对栈保护（stack canaries）的支持](#support-for-stack-canaries-in-binaries)和[减小发布二进制文件大小](#smaller-binary-size-for-release-binaries)。
+*   **Kotlin/Native**：[支持 Xcode 26、栈保护（stack canaries）和减小发布二进制文件大小](#kotlin-native)。
 *   **Kotlin/JS**：[`Long` 值编译为 JavaScript `BigInt`](#usage-of-the-bigint-type-to-represent-kotlin-s-long-type)。
 
 > Web 平台的 Compose Multiplatform 进入 Beta 阶段。请在我们的[博客文章](https://blog.jetbrains.com/kotlin/2025/09/compose-multiplatform-1-9-0-compose-for-web-beta/)中了解更多信息。
 >
 {style="note"}
+
+您还可以在此视频中找到更新的简短概述：
+
+<video src="https://www.youtube.com/v/QWpp5-LlTqA" title="Kotlin 2.2.21 有哪些新特性"/>
 
 ## IDE 支持
 
@@ -52,7 +51,7 @@ fun test() {
     // Fails with overload resolution ambiguity
     transform({ 42 })
 
-    // Uses an explicit cast, but the compiler incorrectly reports
+    // Uses an explicit cast, but the compiler incorrectly reports 
     // a "No cast needed" warning
     transform({ 42 } as () -> Int)
 }
@@ -155,13 +154,13 @@ Kotlin 2.2.20 引入了针对 `when` 表达式的**基于数据流的**穷尽性
 enum class UserRole { ADMIN, MEMBER, GUEST }
 
 fun getPermissionLevel(role: UserRole): Int {
-    // 涵盖了 `when` 表达式之外的 Admin 情况
+    // Covers the Admin case outside of the when expression
     if (role == UserRole.ADMIN) return 99
 
     return when (role) {
         UserRole.MEMBER -> 10
         UserRole.GUEST -> 1
-        // 您不再需要包含此 `else` 分支
+        // You no longer have to include this else branch 
         // else -> throw IllegalStateException()
     }
 }
@@ -192,7 +191,7 @@ kotlin {
 inline fun <reified ExceptionType : Throwable> handleException(block: () -> Unit) {
     try {
         block()
-        // 此更改后，这现在被允许
+        // This is now allowed after the change
     } catch (e: ExceptionType) {
         println("Caught specific exception: ${e::class.simpleName}")
     }
@@ -292,14 +291,14 @@ import kotlin.contracts.*
 val Any.isHelloString: Boolean
     get() {
         @OptIn(ExperimentalContracts::class)
-        // 当 getter 返回 true 时，启用将接收者智能类型转换为 String
+        // Enables smart casting the receiver to String when the getter returns true
         contract { returns(true) implies (this@isHelloString is String) }
         return "hello" == this
     }
 
 fun printIfHelloString(x: Any) {
     if (x.isHelloString) {
-        // 在将接收者智能类型转换为 String 后打印长度
+        // Prints the length after the smart cast of the receiver to String
         println(x.length)
         // 5
     }
@@ -323,7 +322,7 @@ import kotlin.contracts.*
 
 class Runner {
     @OptIn(ExperimentalContracts::class)
-    // 启用 lambda 内部赋值的变量的初始化
+    // Enables initialization of variables assigned inside the lambda
     operator fun invoke(block: () -> Unit) {
         contract {
             callsInPlace(block, InvocationKind.EXACTLY_ONCE)
@@ -337,7 +336,7 @@ fun testOperator(runner: Runner) {
     runner {
         number = 1
     }
-    // 打印由契约保证的确定初始化后的值
+    // Prints the value after definite initialization guaranteed by the contract
     println(number)
     // 1
 }
@@ -363,7 +362,7 @@ import kotlin.contracts.*
 @OptIn(ExperimentalContracts::class, ExperimentalExtendedContracts::class)
 fun decode(encoded: String?): String? {
     contract {
-        // 当输入非空时，保证返回非空值
+        // Guarantees a non-null return value when the input is non-null
         (encoded != null) implies (returnsNotNull())
     }
     if (encoded == null) return null
@@ -371,10 +370,10 @@ fun decode(encoded: String?): String? {
 }
 
 fun useDecodedValue(s: String?) {
-    // 使用安全调用，因为返回值可能为空
+    // Uses a safe call since the return value may be null
     decode(s)?.length
     if (s != null) {
-        // 智能类型转换后将返回值视为非空
+        // Treats the return value as non-null after the smart cast
         decode(s).length
     }
 }
@@ -404,9 +403,9 @@ import kotlin.contracts.*
 @OptIn(ExperimentalContracts::class, ExperimentalExtendedContracts::class)
 fun <T> T.alsoIf(condition: Boolean, block: (T) -> Unit): T {
     contract {
-        // 声明 lambda 最多运行一次
+        // Declares that the lambda runs at most once
         callsInPlace(block, InvocationKind.AT_MOST_ONCE)
-        // 声明条件在 lambda 内部被假定为 true
+        // Declares that the condition is assumed to be true inside the lambda
         condition holdsIn block
     }
     if (condition) block(this)
@@ -417,8 +416,8 @@ fun useApplyIf(input: Any) {
     val result = listOf(1, 2, 3)
         .first()
         .alsoIf(input is Int) {
-            // 输入形参在 lambda 内部被智能类型转换为 Int
-            // 打印输入与列表第一个元素的和
+            // The input parameter is smart cast to Int inside the lambda
+            // Prints the sum of input and first list element
             println(input + it)
             // 2
         }
@@ -437,7 +436,7 @@ kotlin {
 ```
 
 ## Kotlin/JVM：支持 `invokedynamic` 和 `when` 表达式
-<primary-label ref="experimental-opt-in"/>
+<primary-label ref="experimental-opt-in"/> 
 
 在 Kotlin 2.2.20 中，您现在可以使用 `invokedynamic` 编译 `when` 表达式。此前，带有多个类型检测的 `when` 表达式会编译成字节码中一长串的 `instanceof` 检测。
 
@@ -459,7 +458,7 @@ class B : Example()
 class C : Example()
 
 fun test(e: Example) = when (e) {
-    // 使用 invokedynamic 和 SwitchBootstraps.typeSwitch
+    // Uses invokedynamic with SwitchBootstraps.typeSwitch
     is A -> 1
     is B -> 2
     is C -> 3
@@ -492,7 +491,7 @@ kotlin {
 Kotlin 2.2.20 为 Kotlin Multiplatform 带来了重大变化：Swift 导出功能默认可用，引入了新的共享源代码集，并且您可以尝试一种管理公共依赖项的新方法。
 
 ### Swift 导出功能默认可用
-<primary-label ref="experimental-general"/>
+<primary-label ref="experimental-general"/> 
 
 Kotlin 2.2.20 引入了对 Swift 导出的实验性支持。它允许您直接导出 Kotlin 源代码并以符合 Swift 习惯的方式调用 Kotlin 代码，无需 Objective-C 头文件。
 
@@ -672,7 +671,7 @@ Kotlin 2.2.20 引入了一项新的诊断，清晰显示每个依赖项支持哪
 
 ## Kotlin/Native
 
-此版本改进了与 Objective-C/Swift 的互操作性、调试功能和新的二进制选项。
+此版本带来了对 Xcode 26 的支持、改进了与 Objective-C/Swift 的互操作性、调试功能和新的二进制选项。
 
 ### 支持 Xcode 26
 
@@ -699,7 +698,7 @@ kotlin.native.binary.stackProtector=yes
 请注意，在某些情况下，栈保护可能会带来性能开销。
 
 ### 减小发布二进制文件大小
-<primary-label ref="experimental-opt-in"/>
+<primary-label ref="experimental-opt-in"/> 
 
 Kotlin 2.2.20 引入了 `smallBinary` 选项，可以帮助您减小发布二进制文件的大小。新选项有效地将 `-Oz` 设置为 LLVM 编译阶段编译器默认的优化实参。
 
@@ -828,7 +827,7 @@ import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 kotlin {
     iosArm64 {
         binaries {
-            framework {
+            framework { 
                 baseName = "sdk"
                 @OptIn(ExperimentalKotlinGradlePluginApi::class)
                 exportKdoc.set(false)
@@ -889,7 +888,7 @@ Kotlin/Wasm 现已进入 Beta 阶段，提供了更高的稳定性，并改进�
 
 此前，Kotlin 很难理解 JavaScript (JS) 中抛出并跨越到 Kotlin/Wasm 代码的异常（错误）。
 
-在某些情况下，当异常从 Wasm 代码抛出或传递到 JS 并被包装成 `WebAssembly.Exception` 而没有任何细节时，也会出现相反的问题。这些 Kotlin 异常处理问题使调试变得困难。
+在某些情况下，该问题也会出现相反的问题，当异常从 Wasm 代码抛出或传递到 JS 并被包装成 `WebAssembly.Exception` 而没有任何细节时。这些 Kotlin 异常处理问题使调试变得困难。
 
 从 Kotlin 2.2.20 开始，异常的开发者体验在两个方向上都有所改进：
 
@@ -948,7 +947,7 @@ if (config.devServer) {
 
 此前，Kotlin Gradle 插件 (KGP) 会自动生成一个 `yarn.lock` 文件，其中包含 Kotlin 工具链所需的 npm 包信息，以及项目中或使用的库中任何现有的 [npm](https://www.npmjs.com/) 依赖项。
 
-现在，KGP 单独管理工具链依赖项，并且不再生成项目级别的 `yarn.lock` 文件，除非项目有 npm 依赖项。
+现在，KGP 单独管理工具链依赖项，并且一个项目级别的 `yarn.lock` 文件不再生成，除非项目有 npm 依赖项。
 
 当添加 npm 依赖项时，KGP 会自动创建 `yarn.lock` 文件；当移除 npm 依赖项时，它会删除 `yarn.lock` 文件。
 
@@ -1027,7 +1026,7 @@ kotlin {
     kotlin {
         js {
             ...
-            compilerOptions {
+            compilerOptions {                   
                 freeCompilerArgs.add("-XXLanguage:+JsAllowLongInExportedDeclarations")
             }
         }
@@ -1060,7 +1059,7 @@ fun main(args: Array<String>) {
 
 ```kotlin
 fun main(args: Array<String>) {
-    // 无需 `drop()`，只包含您的自定义实参
+    // No need for drop() and only your custom arguments are included 
     println(args.joinToString(", "))
 }
 ```
@@ -1081,7 +1080,7 @@ kotlin {
 
 ## Gradle
 
-Kotlin 2.2.20 在 Gradle 构建报告中为 Kotlin/Native 任务添加了新的编译器性能指标，并改进了增量编译的体验，使其更易于阅读。
+Kotlin 2.2.20 在 Gradle 构建报告中为 Kotlin/Native 任务添加了新的编译器性能指标，并改进了增量编译的体验。
 
 ### Kotlin/Native 任务构建报告中的新编译器性能指标
 
@@ -1136,7 +1135,7 @@ Kotlin 2.2.20 还引入了一个新的 `jvmArgs` 属性，您可以使用它来�
 
 Kotlin 2.2.20 引入了所有编译器选项的通用 Schema，发布在 [`org.jetbrains.kotlin:kotlin-compiler-arguments-description`](https://central.sonatype.com/artifact/org.jetbrains.kotlin/kotlin-compiler-arguments-description) 下。此构件包括所有编译器选项的代码表示和 JSON 等效形式（适用于非 JVM 消费者）、其描述以及元数据，例如每个选项被引入或稳定的版本。您可以使用此 Schema 生成自定义视图或根据需要分析它们。
 
-## Kotlin 标准库
+## 标准库
 
 此版本在标准库中引入了新的实验性特性：Kotlin/JS 中通过反射识别接口类型的支持、公共原子类型的更新函数，以及用于数组大小调整的 `copyOf()` 重载。
 
@@ -1152,7 +1151,7 @@ Kotlin 2.2.20 将[实验性的](components-stability.md#stability-levels-explain
 ```kotlin
 @OptIn(ExperimentalStdlibApi::class)
 fun inspect(klass: KClass<*>) {
-    // 为接口打印 true
+    // Prints true for interfaces
     println(klass.isInterface)
 }
 ```
@@ -1245,16 +1244,16 @@ Compose 编译器从 Kotlin 2.1.0 开始支持抽象函数中的默认形参，�
 
 ### K2 编译器的可组合目标警告
 
-此版本添加了关于使用 K2 编译器时 [`@ComposableTarget`](https://developer.android.com/reference/kotlin/androidx/compose/runtime/ComposableTarget) 不匹配的警告。
+此版本添加了关于 [`@ComposableTarget`](https://developer.android.com/reference/kotlin/androidx/compose/runtime/ComposableTarget) 不匹配的警告。
 
 例如：
 
 ```text
 @Composable fun App() {
-  Box { // <-- `Box` 是一个 `@UiComposable`
-    Path(...) // <-- `Path` 是一个 `@VectorComposable`
+  Box { // <-- `Box` is a `@UiComposable`
+    Path(...) // <-- `Path` is a `@VectorComposable`
     ^^^^^^^^^
-    警告: 在预期 UI 可组合函数的位置调用 Vector 可组合函数
+    warning: Calling a Vector composable function where a UI composable was expected
   }
 }
 ```
@@ -1268,7 +1267,7 @@ Compose 编译器从 Kotlin 2.1.0 开始支持抽象函数中的默认形参，�
 
 本节重点介绍了值得注意的重大变更和弃用：
 
-*   [`kapt` 编译器插件](kapt.md)现在默认使用 K2 编译器。因此，控制插件是否使用 K2 编译器的 `kapt.use.k2` 属性已被弃用。如果您将此属性设置为 `false` 以选择退出使用 K2 编译器，Gradle 会显示警告。
+*   [`kapt` 编译器插件](kapt.md)现在默认使用 K2 编译器。结果，控制插件是否使用 K2 编译器的 `kapt.use.k2` 属性已被弃用。如果您将此属性设置为 `false` 以选择退出使用 K2 编译器，Gradle 会显示警告。
 
 ## 文档更新
 

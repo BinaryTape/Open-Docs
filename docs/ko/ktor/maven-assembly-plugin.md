@@ -15,19 +15,18 @@
 1.  **pom.xml** 파일로 이동하여 [메인 애플리케이션 클래스](server-dependencies.topic#create-entry-point)가 지정되었는지 확인합니다.
     ```xml
     <properties>
-        <main.class>com.example.ApplicationKt</main.class>
+        <main.class>io.ktor.server.netty.EngineMain</main.class>
     </properties>
     ```
 
-    > [EngineMain](server-create-and-configure.topic#engine-main)을 명시적인 `main()` 함수 없이 사용하는 경우, 애플리케이션의 메인 클래스는 사용된 엔진에 따라 `io.ktor.server.netty.EngineMain`과 같이 보일 수 있습니다.
-    {style="tip"}
+    이 예시에서는 `EngineMain`이 서버를 생성하는 데 사용되므로, 애플리케이션의 메인 클래스는 사용된 엔진에 따라 달라집니다. `embeddedServer`를 사용하는 경우, 애플리케이션의 메인 클래스는 `com.example.ApplicationKt`입니다.
 
 2.  `maven-assembly-plugin`을 `plugins` 블록에 다음과 같이 추가합니다.
     ```xml
     <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-assembly-plugin</artifactId>
-        <version>2.6</version>
+        <version>3.7.1</version>
         <configuration>
             <descriptorRefs>
                 <descriptorRef>jar-with-dependencies</descriptorRef>
@@ -61,7 +60,7 @@ mvn package
 
 이 명령어는 어셈블리용 새 **target** 디렉터리를 생성하며, 이 디렉터리에는 **.jar** 파일이 포함됩니다.
 
-> 결과 패키지를 사용하여 Docker로 애플리케이션을 배포하는 방법을 알아보려면 [Docker](docker.md) 도움말 항목을 참조하세요.
+> 결과 패키지를 사용하여 Docker로 애플리케이션을 배포하는 방법을 알아보려면 [Docker](docker.md) 도움말 항목을 참조하십시오.
 
 ## 애플리케이션 실행 {id="run"}
 
@@ -77,5 +76,5 @@ mvn package
     ```
 3.  URL 링크를 클릭하여 기본 브라우저에서 애플리케이션을 엽니다.
 
-    <img src="server_get_started_ktor_sample_app_output.png" alt="Output of generated ktor project"
-                         border-effect="rounded" width="706"/>
+   <img src="server_get_started_ktor_sample_app_output.png" alt="Output of generated ktor project"
+                     border-effect="rounded" width="706"/>

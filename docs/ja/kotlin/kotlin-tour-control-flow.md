@@ -4,12 +4,12 @@
 
 <tldr>
     <p><img src="icon-1-done.svg" width="20" alt="最初のステップ" /> <a href="kotlin-tour-hello-world.md">Hello world</a><br />
-        <img src="icon-2-done.svg" width="20" alt="2番目のステップ" /> <a href="kotlin-tour-basic-types.md">基本型</a><br />
-        <img src="icon-3-done.svg" width="20" alt="3番目のステップ" /> <a href="kotlin-tour-collections.md">コレクション</a><br />
+        <img src="icon-2-done.svg" width="20" alt="2番目のステップ" /> <a href="kotlin-tour-basic-types.md">Basic types</a><br />
+        <img src="icon-3-done.svg" width="20" alt="3番目のステップ" /> <a href="kotlin-tour-collections.md">Collections</a><br />
         <img src="icon-4.svg" width="20" alt="4番目のステップ" /> <strong>制御フロー</strong><br />
-        <img src="icon-5-todo.svg" width="20" alt="5番目のステップ" /> <a href="kotlin-tour-functions.md">関数</a><br />
-        <img src="icon-6-todo.svg" width="20" alt="6番目のステップ" /> <a href="kotlin-tour-classes.md">クラス</a><br />
-        <img src="icon-7-todo.svg" width="20" alt="最後のステップ" /> <a href="kotlin-tour-null-safety.md">null安全性</a></p>
+        <img src="icon-5-todo.svg" width="20" alt="5番目のステップ" /> <a href="kotlin-tour-functions.md">Functions</a><br />
+        <img src="icon-6-todo.svg" width="20" alt="6番目のステップ" /> <a href="kotlin-tour-classes.md">Classes</a><br />
+        <img src="icon-7-todo.svg" width="20" alt="最後のステップ" /> <a href="kotlin-tour-null-safety.md">Null safety</a></p>
 </tldr>
 
 他のプログラミング言語と同様に、Kotlinはコードの評価が真であるかどうかに基づいて判断を下すことができます。このようなコードは**条件式**と呼ばれます。Kotlinはループを作成して反復処理することもできます。
@@ -259,9 +259,9 @@ Kotlinでレンジを作成する最も一般的な方法は、`..`演算子を�
 
 終端の値を含まないレンジを宣言するには、`..<`演算子を使用します。例えば、`1..<4`は`1, 2, 3`と同じです。
 
-逆順のレンジを宣言するには、`downTo`を使用します。例えば、`4 downTo 1`は`4, 3, 2, 1`と同じです。
+逆順のレンジを宣言するには、[`downTo`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.ranges/down-to.html)を使用します。例えば、`4 downTo 1`は`4, 3, 2, 1`と同じです。
 
-1以外のステップで増分するレンジを宣言するには、`step`と目的の増分値を使用します。
+1以外のステップで増分するレンジを宣言するには、[`step`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.ranges/step.html)と目的の増分値を使用します。
 例えば、`1..5 step 2`は`1, 3, 5`と同じです。
 
 `Char`レンジでも同様にできます。

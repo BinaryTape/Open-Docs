@@ -1,13 +1,8 @@
 [//]: # (title: Kotlin 2.2.20 の新機能)
 
-_[リリース日: 2025年9月10日](releases.md#release-details)_
+_[公開日: 2025年9月10日](releases.md#release-details)_
 
-> Kotlinについてのご意見をお聞かせください！
-> 
-> [Kotlin開発者アンケートにご協力ください](https://surveys.jetbrains.com/s3/7e238a7b85e5)。わずか10分ほどで完了します。
-> 皆様からのフィードバックは言語、ツール、エコシステムの改善に役立てられます。
-> 
-{style="note"}
+<tldr><p>バグ修正リリース 2.2.21 の詳細については、<a href="https://github.com/JetBrains/kotlin/releases/tag/v2.2.21">変更履歴</a>をご覧ください。</p></tldr>
 
 Kotlin 2.2.20 がリリースされ、Web開発に重要な変更が加えられました。[Kotlin/Wasm は現在ベータ版](#kotlin-wasm)であり、
 [JavaScript相互運用における例外処理の改善](#improved-exception-handling-in-kotlin-wasm-and-javascript-interop)、
@@ -19,11 +14,15 @@ Kotlin 2.2.20 がリリースされ、Web開発に重要な変更が加えられ
 *   **Kotlin Multiplatform**: [Swiftエクスポートがデフォルトで利用可能に](#swift-export-available-by-default)、[Kotlinライブラリの安定したクロスプラットフォームコンパイル](#stable-cross-platform-compilation-for-kotlin-libraries)、および[共通依存関係を宣言するための新しいアプローチ](#new-approach-for-declaring-common-dependencies)。
 *   **言語**: [suspend関数型を持つオーバーロードにラムダを渡す際のオーバーロード解決の改善](#improved-overload-resolution-for-lambdas-with-suspend-function-types)。
 *   **Kotlin/Native**: [Xcode 26のサポート、スタックカナリア、およびリリースバイナリのバイナリサイズの縮小](#kotlin-native)。
-*   **Kotlin/JS**: [JavaScriptの`BigInt`型にコンパイルされる`Long`値](#usage-of-the-bigint-type-to-represent-kotlin-s-long-type)。
+*   **Kotlin/JS**: [Kotlinの`Long`値がJavaScriptの`BigInt`型にコンパイル](#usage-of-the-bigint-type-to-represent-kotlin-s-long-type)。
 
 > Web向けCompose Multiplatformがベータ版になりました。詳細は[ブログ記事](https://blog.jetbrains.com/kotlin/2025/09/compose-multiplatform-1-9-0-compose-for-web-beta/)をご覧ください。
 >
 {style="note"}
+
+この動画で、アップデートの簡単な概要もご覧いただけます。
+
+<video src="https://www.youtube.com/v/QWpp5-LlTqA" title="Kotlin 2.2.21 の新機能"/>
 
 ## IDEサポート
 
@@ -185,7 +184,7 @@ kotlin {
 <primary-label ref="experimental-opt-in"/>
 
 > IntelliJ IDEAでのこの機能のコード分析、コード補完、ハイライトのサポートは、現在[2025.3 EAPビルド](https://www.jetbrains.com/idea/nextversion/)でのみ利用可能です。
->
+> 
 {style = "note"}
 
 Kotlin 2.2.20では、コンパイラは`inline`関数の`catch`句で[reifiedジェネリック型パラメータ](inline-functions.md#reified-type-parameters)の使用を許可するようになりました。
@@ -446,7 +445,7 @@ kotlin {
 ```
 
 ## Kotlin/JVM: `when`式での`invokedynamic`のサポート
-<primary-label ref="experimental-opt-in"/>
+<primary-label ref="experimental-opt-in"/> 
 
 Kotlin 2.2.20では、`when`式を`invokedynamic`でコンパイルできるようになりました。これまで、複数の型チェックを含む`when`式は、バイトコードで長い`instanceof`チェックの連鎖にコンパイルされていました。
 
@@ -501,7 +500,7 @@ kotlin {
 Kotlin 2.2.20では、Kotlin Multiplatformに重要な変更が導入されました。Swiftエクスポートがデフォルトで利用可能になり、新しい共有ソースセットが追加され、共通依存関係を管理する新しいアプローチを試すことができます。
 
 ### Swiftエクスポートがデフォルトで利用可能に
-<primary-label ref="experimental-general"/>
+<primary-label ref="experimental-general"/> 
 
 Kotlin 2.2.20では、Swiftエクスポートの実験的なサポートが導入されました。
 これにより、Kotlinソースを直接エクスポートし、Objective-Cヘッダーが不要になるため、SwiftからKotlinコードを慣用的に呼び出すことができます。
@@ -513,7 +512,7 @@ Kotlin 2.2.20では、Swiftエクスポートの実験的なサポートが導�
 *   **マルチモジュールサポート**。各Kotlinモジュールは個別のSwiftモジュールとしてエクスポートされ、関数呼び出しを簡素化します。
 *   **パッケージサポート**。Kotlinパッケージはエクスポート中に明示的に保持され、生成されたSwiftコードでの命名衝突を回避します。
 *   **型エイリアス**。Kotlinの型エイリアスはSwiftにエクスポートされ、保持されるため、可読性が向上します。
-*   **プリミティブのnull許容性の強化**。null許容性を保持するために`Int?`のような型を`KotlinInt`のようなラッパークラスにボックス化する必要があったObjective-C相互運用とは異なり、Swiftエクスポートはnull許容性情報を直接変換します。
+*   **プリミティブのnull許容性の強化**。`Int?`のような型を`KotlinInt`のようなラッパークラスにボックス化してnull許容性を保持する必要があったObjective-C相互運用とは異なり、Swiftエクスポートはnull許容性情報を直接変換します。
 *   **オーバーロード**。Kotlinのオーバーロードされた関数をSwiftで曖昧さなく呼び出すことができます。
 *   **フラット化されたパッケージ構造**。KotlinパッケージをSwiftのenumに変換し、生成されたSwiftコードからパッケージプレフィックスを削除できます。
 *   **モジュール名のカスタマイズ**。KotlinプロジェクトのGradle設定で、結果のSwiftモジュール名をカスタマイズできます。
@@ -714,7 +713,7 @@ kotlin.native.binary.stackProtector=yes
 場合によっては、スタック保護がパフォーマンスコストを伴う可能性があることに注意してください。
 
 ### リリースバイナリのバイナリサイズの縮小
-<primary-label ref="experimental-opt-in"/>
+<primary-label ref="experimental-opt-in"/> 
 
 Kotlin 2.2.20では、リリースバイナリのバイナリサイズを削減できる`smallBinary`オプションが導入されました。
 この新しいオプションは、LLVMコンパイルフェーズ中のコンパイラのデフォルトの最適化引数として、事実上`-Oz`を設定します。

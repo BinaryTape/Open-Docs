@@ -117,6 +117,10 @@ kotlin {
 
 Kotlin 2.2.0 引入了上下文相關解析的預覽實作。
 
+您可以在這段影片中找到此功能的概述：
+
+<video src="https://www.youtube.com/v/aF8RYQrJI8Q" title="Context-sensitive resolution in Kotlin 2.2.0"/>
+
 以前，即使可以從上下文中推斷出型別，您也必須寫出列舉項目或密封類別成員的完整名稱。
 例如：
 
@@ -319,6 +323,12 @@ kotlin {
 ### 支援巢狀型別別名
 <primary-label ref="beta"/>
 
+Kotlin 2.2.0 添加了對在其他宣告內部定義型別別名的支援。
+
+您可以在這段影片中找到此功能的概述：
+
+<video src="https://www.youtube.com/v/1W6d45IOwWk" title="Nested type aliases in Kotlin 2.2.0"/>
+
 以前，您只能在 Kotlin 檔案的頂層宣告[型別別名](type-aliases.md)。這意味著即使是內部或特定領域的型別別名也必須位於使用它們的類別之外。
 
 從 2.2.0 開始，您可以在其他宣告內部定義型別別名，只要它們不從其外部類別捕獲型別參數：
@@ -365,7 +375,7 @@ kotlin {
 
 *   [帶主體的 `when` 表達式中的守衛條件](control-flow.md#guard-conditions-in-when-expressions)
 *   [非局部 `break` 和 `continue`](inline-functions.md#break-and-continue)
-*   [多美元字串插值：改進多美元字串插值的處理](strings.md#multi-dollar-string-interpolation)
+*   [多美元字串插值：改進字串字面值中多美元字串插值的處理](strings.md#multi-dollar-string-interpolation)
 
 [查看 Kotlin 語言設計功能和提案的完整列表](kotlin-language-features-and-proposals.md)。
 
@@ -539,6 +549,10 @@ fun main() {
 {style = "note"}
 
 Kotlin 2.2.0 引入了一個新的實驗性註解：[`@JvmExposeBoxed`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.jvm/-jvm-expose-boxed/)。此註解使從 Java 消耗[內聯值類別](inline-classes.md)變得更容易。
+
+您可以在這段影片中找到此功能的概述：
+
+<video src="https://www.youtube.com/v/KSvq7jHr1lo" title="Exposed inline value classes for Java in Kotlin 2.2.0"/>
 
 預設情況下，Kotlin 會將內聯值類別編譯為使用**未裝箱表示**，這種表示效能更高，但通常
 難以甚至無法從 Java 使用。例如：
