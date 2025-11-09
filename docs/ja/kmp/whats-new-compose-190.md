@@ -1,4 +1,4 @@
-`[//]: # (title: Compose Multiplatform 1.9.2 の新機能)`
+`[//]: # (title: Compose Multiplatform 1.9.3 の新機能)`
 
 本機能リリースの主な変更点は以下のとおりです。
 
@@ -15,7 +15,7 @@
 
 ## 依存関係
 
-*   Gradle プラグイン `org.jetbrains.compose`、バージョン 1.9.2。Jetpack Compose ライブラリに基づいています。
+*   Gradle プラグイン `org.jetbrains.compose`、バージョン 1.9.3。Jetpack Compose ライブラリに基づいています。
     *   [Runtime 1.9.4](https://developer.android.com/jetpack/androidx/releases/compose-runtime#1.9.4)
     *   [UI 1.9.4](https://developer.android.com/jetpack/androidx/releases/compose-ui#1.9.4)
     *   [Foundation 1.9.4](https://developer.android.com/jetpack/androidx/releases/compose-foundation#1.9.4)
@@ -25,9 +25,9 @@
 *   Compose Material3 ライブラリ `org.jetbrains.compose.material3:1.9.0`。[Jetpack Material3 1.4.0](https://developer.android.com/jetpack/androidx/releases/compose-material3#1.4.0) に基づいています。
     Compose Multiplatform と Material3 の[バージョン管理の分離](#decoupled-material3-versioning)により、プロジェクトでより新しいプレリリースバージョンを選択できます。
 *   Compose Material3 Adaptive ライブラリ `org.jetbrains.compose.material3.adaptive:adaptive*:1.2.0`。[Jetpack Material3 Adaptive 1.2.0](https://developer.android.com/jetpack/androidx/releases/compose-material3-adaptive#1.2.0) に基づいています。
-*   Lifecycle ライブラリ `org.jetbrains.androidx.lifecycle:lifecycle-*:2.9.5`。[Jetpack Lifecycle 2.9.4](https://developer.android.com/jetpack/androidx/releases/lifecycle#2.9.4) に基づいています。
+*   Lifecycle ライブラリ `org.jetbrains.androidx.lifecycle:lifecycle-*:2.9.6`。[Jetpack Lifecycle 2.9.4](https://developer.android.com/jetpack/androidx/releases/lifecycle#2.9.4) に基づいています。
 *   Navigation ライブラリ `org.jetbrains.androidx.navigation:navigation-*:2.9.1`。[Jetpack Navigation 2.9.4](https://developer.android.com/jetpack/androidx/releases/navigation#2.9.4) に基づいています。
-*   Savedstate ライブラリ `org.jetbrains.androidx.savedstate:savedstate:1.3.5`。[Jetpack Savedstate 1.3.3](https://developer.android.com/jetpack/androidx/releases/savedstate#1.3.3) に基づいています。
+*   Savedstate ライブラリ `org.jetbrains.androidx.savedstate:savedstate:1.3.6`。[Jetpack Savedstate 1.3.3](https://developer.android.com/jetpack/androidx/releases/savedstate#1.3.3) に基づいています。
 *   WindowManager Core ライブラリ `org.jetbrains.androidx.window:window-core:1.4.0`。[Jetpack WindowManager 1.4.0](https://developer.android.com/jetpack/androidx/releases/window#1.4.0) に基づいています。
 
 ## クロスプラットフォーム
@@ -296,3 +296,10 @@ implementation("org.jetbrains.compose.material3:material3:1.9.0-alpha04")
 
 新しい `composeCompatibilityBrowserDistribution` Gradle タスクは、Kotlin/JS と Kotlin/Wasm ディストリビューションを単一のパッケージに結合します。
 これにより、最新の Wasm 機能がブラウザでサポートされていない場合でも、Wasm アプリケーションが JS ターゲットにフォールバックできるようになります。
+
+### AGP 9.0.0 のサポート
+
+Compose Multiplatform は、Android Gradle プラグイン (AGP) バージョン 9.0.0 のサポートを導入しました。
+新しい AGP バージョンとの互換性を確保するには、Compose Multiplatform 1.9.3 または 1.10.0 にアップグレードしてください。
+
+長期的に更新プロセスをよりスムーズにするために、AGP の使用を専用の Android モジュールに分離するようにプロジェクト構造を変更することをお勧めします。

@@ -1,6 +1,6 @@
 !!! info "SQLDelight 2.0"
 
-    현재 SQLDelight 1.x를 사용 중이라면, SQLDelight 2.0으로 업그레이드하는 방법에 대한 [문서](upgrading-2.0)를 확인하세요!
+현재 SQLDelight 1.x를 사용 중이라면, SQLDelight 2.0으로 업그레이드하는 방법에 대한 [문서](upgrading-2.0)를 확인하세요!
 
 SQLDelight는 SQL 문(statement)으로부터 타입-세이프(typesafe)한 Kotlin API를 생성합니다. 컴파일 시점(compile-time)에 스키마, 문 및 마이그레이션을 검증하며, 자동 완성(autocomplete) 및 리팩토링(refactoring)과 같은 IDE 기능을 제공하여 SQL 작성 및 유지를 간단하게 만듭니다.
 
@@ -78,7 +78,7 @@ SQLDelight는 다양한 SQL 다이얼렉트와 플랫폼을 지원합니다.
 
 ## 스냅샷
 
-개발 버전의 스냅샷(IDE 플러그인 ZIP 포함)은 [Sonatype의 `snapshots` 저장소](https://oss.sonatype.org/content/repositories/snapshots/app/cash/sqldelight/)에서 이용할 수 있습니다. 참고로, 2.0.0+ SNAPSHOTs의 경우 모든 코디네이트가 `com.squareup.sqldelight` 대신 `app.cash.sqldelight`입니다.
+개발 버전의 스냅샷(IDE 플러그인 ZIP 포함)은 [Central Portal Snapshots 저장소](https://central.sonatype.com/repository/maven-snapshots)에서 이용할 수 있습니다. 참고로, 2.0.0+ SNAPSHOTs의 경우 모든 코디네이트가 `com.squareup.sqldelight` 대신 `app.cash.sqldelight`입니다.
 
 최신 스냅샷 버전에 대한 문서 페이지는 [여기](https://sqldelight.github.io/sqldelight/snapshot)에서 찾을 수 있습니다.
 
@@ -88,7 +88,7 @@ SQLDelight는 다양한 SQL 다이얼렉트와 플랫폼을 지원합니다.
     pluginManagement {
         repositories {
             gradlePluginPortal()
-            maven(url = "https://oss.sonatype.org/content/repositories/snapshots")
+            maven(url = "https://central.sonatype.com/repository/maven-snapshots")
         }
     }
     
@@ -98,7 +98,7 @@ SQLDelight는 다양한 SQL 다이얼렉트와 플랫폼을 지원합니다.
     }
     
     repositories {
-        maven(url = "https://oss.sonatype.org/content/repositories/snapshots")
+        maven(url = "https://central.sonatype.com/repository/maven-snapshots")
     }
     ```
 === "Groovy"
@@ -107,7 +107,7 @@ SQLDelight는 다양한 SQL 다이얼렉트와 플랫폼을 지원합니다.
     pluginManagement {
         repositories {
             gradlePluginPortal()
-            maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
+            maven { url "https://central.sonatype.com/repository/maven-snapshots" }
         }
     }
     
@@ -117,7 +117,7 @@ SQLDelight는 다양한 SQL 다이얼렉트와 플랫폼을 지원합니다.
     }
     
     repositories {
-        maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
+        maven { url "https://central.sonatype.com/repository/maven-snapshots" }
     }
     ```
 

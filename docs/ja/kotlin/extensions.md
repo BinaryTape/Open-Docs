@@ -1,48 +1,171 @@
 [//]: # (title: 拡張)
 
-Kotlinは、クラスを継承したり、_Decorator_のようなデザインパターンを使用したりすることなく、クラスやインターフェースに新しい機能を追加する機能を提供します。これは、_拡張_と呼ばれる特別な宣言を通じて行われます。
+Kotlinの_拡張_は、継承や_Decorator_のようなデザインパターンを使用することなく、クラスやインターフェースに新しい機能を追加できます。これらは、直接変更できないサードパーティ製ライブラリを扱う際に役立ちます。一度作成すれば、これらの拡張は、あたかも元のクラスやインターフェースのメンバーであるかのように呼び出すことができます。
 
-例えば、変更できないサードパーティ製ライブラリのクラスやインターフェースに対して、新しい関数を記述できます。これらの関数は、あたかも元のクラスのメソッドであるかのように、通常の方法で呼び出すことができます。このメカニズムは_拡張関数_と呼ばれます。既存のクラスに新しいプロパティを定義できる_拡張プロパティ_もあります。
+拡張の最も一般的な形式は、[_拡張関数_](#extension-functions)と[_拡張プロパティ_](#extension-properties)です。
+
+重要なこととして、拡張は拡張するクラスやインターフェースを変更しません。拡張を定義しても、新しいメンバーを追加するわけではありません。同じ構文を使って、新しい関数を呼び出したり、新しいプロパティにアクセスできるようにするだけです。
+
+## レシーバー
+
+拡張は常にレシーバーで呼び出されます。レシーバーは、拡張されるクラスまたはインターフェースと同じ型を持つ必要があります。拡張を使用するには、レシーバーの後に` .`と関数またはプロパティ名を付けてプレフィックスとして付けます。
+
+例えば、標準ライブラリの[`appendLine()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.text/append-line.html)拡張関数は`StringBuilder`クラスを拡張します。したがって、この場合、レシーバーは`StringBuilder`インスタンスであり、_レシーバー型_は`StringBuilder`です。
+
+```kotlin
+fun main() { 
+//sampleStart
+    // builder is an instance of StringBuilder
+    val builder = StringBuilder()
+        // Calls .appendLine() extension function on builder
+        .appendLine("Hello")
+        .appendLine()
+        .appendLine("World")
+    println(builder.toString())
+    // Hello
+    //
+    // World
+}
+//sampleEnd
+```
+{kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-extension-function-stringbuilder"}
 
 ## 拡張関数
 
-拡張関数を宣言するには、その名前に_レシーバー型_（拡張される型を指す）をプレフィックスとして付けます。
-以下の例は、`MutableList<Int>`に`swap`関数を追加します。
+独自の拡張関数を作成する前に、Kotlinの[標準ライブラリ](https://kotlinlang.org/api/core/kotlin-stdlib/)に既に探しているものがあるかどうかを確認してください。
+標準ライブラリは、以下のような多くの便利な拡張関数を提供します。
+
+*   コレクションの操作: [`map()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/map.html)、[`filter()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/filter.html)、[`reduce()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/reduce.html)、[`fold()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/fold.html)、[`groupBy()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/group-by.html)。
+*   文字列への変換: [`joinToString()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/join-to-string.html)。
+*   null値の操作: [`filterNotNull()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/filter-not-null.html)。
+
+独自の拡張関数を作成するには、その名前にレシーバー型と` .`をプレフィックスとして付けます。この例では、`.truncate()`関数は`String`クラスを拡張するため、レシーバー型は`String`です。
 
 ```kotlin
-fun MutableList<Int>.swap(index1: Int, index2: Int) {
-    val tmp = this[index1] // 'this'はリストに対応します
-    this[index1] = this[index2]
-    this[index2] = tmp
+fun String.truncate(maxLength: Int): String {
+    return if (this.length <= maxLength) this else take(maxLength - 3) + "..."
+}
+
+fun main() {
+    val shortUsername = "KotlinFan42"
+    val longUsername = "JetBrainsLoverForever"
+
+    println("Short username: ${shortUsername.truncate(15)}") 
+    // KotlinFan42
+    println("Long username:  ${longUsername.truncate(15)}")
+    // JetBrainsLov...
 }
 ```
+{kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-extension-function-truncate"}
 
-拡張関数内の`this`キーワードは、レシーバーオブジェクト（ドットの前に渡されるもの）に対応します。
-これで、任意の`MutableList<Int>`に対してこのような関数を呼び出すことができます。
+`.truncate()`関数は、呼び出された文字列を指定された`maxLength`で切り詰め、省略記号`...`を追加します。文字列が`maxLength`より短い場合、関数は元の文字列を返します。
 
-```kotlin
-val list = mutableListOf(1, 2, 3)
-list.swap(0, 2) // 'swap()'内の'this'は'list'の値を保持します
-```
-
-この関数は任意の`MutableList<T>`に対して意味を持ち、ジェネリックにすることもできます。
+この例では、`.displayInfo()`関数は`User`インターフェースを拡張します。
 
 ```kotlin
-fun <T> MutableList<T>.swap(index1: Int, index2: Int) {
-    val tmp = this[index1] // 'this'はリストに対応します
-    this[index1] = this[index2]
-    this[index2] = tmp
+interface User {
+    val name: String
+    val email: String
+}
+
+fun User.displayInfo(): String = "User(name=$name, email=$email)"
+
+// Inherits from and implements the properties of the User interface
+class RegularUser(override val name: String, override val email: String) : User
+
+fun main() {
+    val user = RegularUser("Alice", "alice@example.com")
+    println(user.displayInfo()) 
+    // User(name=Alice, email=alice@example.com)
 }
 ```
+{kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-extension-function-interface"}
 
-レシーバー型式でジェネリック型パラメータを利用できるようにするには、関数名の前にその宣言が必要です。
+`.displayInfo()`関数は、`RegularUser`インスタンスの`name`と`email`を含む文字列を返します。このようにインターフェースに拡張を定義することは、インターフェースを実装するすべての型に一度だけ機能を追加したい場合に便利です。
+
+この例では、`.mostVoted()`関数は`Map<String, Int>`クラスを拡張します。
+
+```kotlin
+fun Map<String, Int>.mostVoted(): String? {
+    return maxByOrNull { (key, value) -> value }?.key
+}
+
+fun main() {
+    val poll = mapOf(
+        "Cats" to 37,
+        "Dogs" to 58,
+        "Birds" to 22
+    )
+
+    println("Top choice: ${poll.mostVoted()}") 
+    // Dogs
+}
+```
+{kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-extension-function-mostvoted"}
+
+`.mostVoted()`関数は、呼び出されたマップのキーと値のペアを反復処理し、[`maxByOrNull()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/max-by-or-null.html)関数を使用して最大値を含むペアのキーを返します。マップが空の場合、`maxByOrNull()`関数は`null`を返します。`mostVoted()`関数は、`maxByOrNull()`関数が非null値を返す場合にのみ`key`プロパティにアクセスするために、セーフコール`?.`を使用します。
+
+### ジェネリックな拡張関数
+
+ジェネリックな拡張関数を作成するには、関数名の前にジェネリック型パラメータを宣言して、レシーバー型式で利用できるようにします。この例では、`.endpoints()`関数は`List<T>`を拡張しており、`T`は任意の型です。
+
+```kotlin
+fun <T> List<T>.endpoints(): Pair<T, T> {
+    return first() to last()
+}
+
+fun main() {
+    val cities = listOf("Paris", "London", "Berlin", "Prague")
+    val temperatures = listOf(21.0, 19.5, 22.3)
+
+    val cityEndpoints = cities.endpoints()
+    val tempEndpoints = temperatures.endpoints()
+
+    println("First and last cities: $cityEndpoints")
+    // (Paris, Prague)
+    println("First and last temperatures: $tempEndpoints") 
+    // (21.0, 22.3)
+}
+```
+{kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-extension-function-endpoints"}
+
+`.endpoints()`関数は、呼び出されたリストの最初と最後の要素を含むペアを返します。関数本体内では、`first()`関数と`last()`関数を呼び出し、`to`中置関数を使用して返された値を`Pair`に結合します。
+
 ジェネリクスに関する詳細については、[ジェネリック関数](generics.md)を参照してください。
 
-## 拡張は_静的に_解決される
+### Null許容レシーバー
 
-拡張は、実際に拡張するクラスを変更しません。拡張を定義することで、クラスに新しいメンバーを挿入するのではなく、この型の変数でドット記法を使って新しい関数を呼び出せるようにするだけです。
+null許容レシーバー型で拡張関数を定義できます。これにより、その値がnullであっても変数に対して呼び出すことができます。レシーバーが`null`の場合、`this`も`null`になります。関数内でnull許容性を正しく処理するようにしてください。例えば、関数本体内で`this == null`チェック、[セーフコール`?.`](null-safety.md#safe-call-operator)、または[エルビス演算子`?:`](null-safety.md#elvis-operator)を使用します。
 
-拡張関数は_静的に_ディスパッチされます。したがって、どの拡張関数が呼び出されるかは、レシーバー型に基づいてコンパイル時にすでに決定されます。例：
+この例では、`toString()`関数をnullチェックなしで呼び出すことができます。なぜなら、そのチェックは既に拡張関数内で実行されているからです。
+
+```kotlin
+fun main() {
+    //sampleStart
+    // Extension function on nullable Any
+    fun Any?.toString(): String {
+        if (this == null) return "null"
+        // After null check, `this` is smart-cast to non-nullable Any
+        // So this call resolves to the regular toString() function
+        return toString()
+    }
+    
+    val number: Int? = 42
+    val nothing: Any? = null
+    
+    println(number.toString())
+    // 42
+    println(nothing.toString()) 
+    // null
+    //sampleEnd
+}
+```
+{kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-extension-function-nullable-receiver"}
+
+### 拡張関数とメンバー関数
+
+拡張関数とメンバー関数の呼び出しは同じ表記であるため、コンパイラはどちらを使用すべきかをどのように判断するのでしょうか？
+拡張関数は_静的に_ディスパッチされます。つまり、コンパイラはコンパイル時にレシーバー型に基づいてどの関数を呼び出すかを決定します。例えば：
 
 ```kotlin
 fun main() {
@@ -53,104 +176,370 @@ fun main() {
     fun Shape.getName() = "Shape"
     fun Rectangle.getName() = "Rectangle"
     
-    fun printClassName(s: Shape) {
-        println(s.getName())
+    fun printClassName(shape: Shape) {
+        println(shape.getName())
     }
     
     printClassName(Rectangle())
+    // Shape
 //sampleEnd
 }
 ```
-{kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
+{kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-extension-function-shape"}
 
-この例では_Shape_が出力されます。これは、呼び出される拡張関数が、`Shape`クラスであるパラメータ`s`の宣言された型にのみ依存するためです。
+この例では、パラメータ`shape`が`Shape`型として宣言されているため、コンパイラは`Shape.getName()`拡張関数を呼び出します。拡張関数は静的に解決されるため、コンパイラは実際のインスタンスではなく、宣言された型に基づいて関数を選択します。
 
-あるクラスがメンバー関数を持ち、かつ、同じレシーバー型、同じ名前で、指定された引数に適用可能な拡張関数が定義されている場合、_常にメンバーが優先されます_。例：
+したがって、例では`Rectangle`インスタンスを渡していますが、変数が`Shape`型として宣言されているため、`.getName()`関数は`Shape.getName()`に解決されます。
+
+あるクラスがメンバー関数を持ち、かつ、同じレシーバー型、同じ名前で、互換性のある引数を持つ拡張関数が定義されている場合、メンバー関数が優先されます。例えば：
 
 ```kotlin
 fun main() {
 //sampleStart
     class Example {
-        fun printFunctionType() { println("Class method") }
+        fun printFunctionType() { println("Member function") }
     }
     
     fun Example.printFunctionType() { println("Extension function") }
     
     Example().printFunctionType()
+    // Member function
 //sampleEnd
 }
 ```
-{kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
+{kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-extension-function-member-function"}
 
-このコードは_Class method_を出力します。
-
-ただし、拡張関数が同じ名前で異なるシグネチャを持つメンバー関数をオーバーロードすることはまったく問題ありません。
+ただし、拡張関数は、同じ名前でも_異なる_シグネチャを持つメンバー関数をオーバーロードできます。
 
 ```kotlin
 fun main() {
 //sampleStart
     class Example {
-        fun printFunctionType() { println("Class method") }
+        fun printFunctionType() { println("Member function") }
     }
     
-    fun Example.printFunctionType(i: Int) { println("Extension function #$i") }
+    // Same name but different signature
+    fun Example.printFunctionType(index: Int) { println("Extension function #$index") }
     
     Example().printFunctionType(1)
+    // Extension function #1
 //sampleEnd
 }
 ```
-{kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
+{kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-extension-function-member-function-overload"}
 
-## Null許容レシーバー
+この例では、`.printFunctionType()`関数に`Int`が渡されるため、コンパイラはシグネチャに一致する拡張関数を選択します。コンパイラは引数を取らないメンバー関数を無視します。
 
-拡張は、null許容レシーバー型で定義できることに注意してください。これらの拡張は、その値がnullであってもオブジェクト変数に対して呼び出すことができます。レシーバーが`null`の場合、`this`も`null`になります。したがって、null許容レシーバー型で拡張を定義する場合、コンパイラエラーを避けるために、関数本体内で`this == null`チェックを実行することをお勧めします。
+### 匿名拡張関数
 
-Kotlinでは`toString()`をnullチェックなしで呼び出すことができます。なぜなら、そのチェックはすでに拡張関数内で実行されているからです。
+拡張関数に名前を付けずに定義できます。これは、グローバルな名前空間を汚染したくない場合や、拡張動作をパラメータとして渡す必要がある場合に役立ちます。
+
+例えば、名前を付けずに、データクラスを1回限りの関数で拡張して送料を計算したいとします。
 
 ```kotlin
-fun Any?.toString(): String {
-    if (this == null) return "null"
-    // nullチェックの後、'this'は非null許容型に自動キャストされるため、以下のtoString()は
-    // Anyクラスのメンバー関数として解決されます
-    return toString()
+fun main() {
+    //sampleStart
+    data class Order(val weight: Double)
+    val calculateShipping = fun Order.(rate: Double): Double = this.weight * rate
+    
+    val order = Order(2.5)
+    val cost = order.calculateShipping(3.0)
+    println("Shipping cost: $cost") 
+    // Shipping cost: 7.5
 }
 ```
+{kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-extension-function-anonymous"}
+
+拡張動作をパラメータとして渡すには、型アノテーション付きの[ラムダ式](lambdas.md#lambda-expression-syntax)を使用します。例えば、名前付き関数を定義せずに、数値が範囲内にあるかどうかをチェックしたいとします。
+
+```kotlin
+fun main() {
+    val isInRange: Int.(min: Int, max: Int) -> Boolean = { min, max -> this in min..max }
+
+    println(5.isInRange(1, 10))
+    // true
+    println(20.isInRange(1, 10))
+    // false
+}
+```
+ {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-extension-function-anonymous-lambda"}
+
+この例では、`isInRange`変数は`Int.(min: Int, max: Int) -> Boolean`型の関数を保持しています。この型は、`min`と`max`パラメータを取り`Boolean`を返す`Int`クラスの拡張関数です。
+
+ラムダ本体`{ min, max -> this in min..max }`は、関数が呼び出される`Int`値が`min`と`max`パラメータ間の範囲内にあるかどうかをチェックします。チェックが成功した場合、ラムダは`true`を返します。
+
+詳細については、[ラムダ式と匿名関数](lambdas.md)を参照してください。
 
 ## 拡張プロパティ
 
-Kotlinは関数と同様に拡張プロパティもサポートしています。
+Kotlinは拡張プロパティをサポートしており、これは、作業しているクラスを汚染することなく、データ変換を実行したり、UI表示ヘルパーを作成したりするのに役立ちます。
+
+拡張プロパティを作成するには、拡張したいクラスの名前の後に` .`とプロパティ名を記述します。
+
+例えば、名と姓を持つユーザーを表すデータクラスがあり、アクセス時にメール形式のユーザー名を返すプロパティを作成したいとします。コードは次のようになります。
 
 ```kotlin
-val <T> List<T>.lastIndex: Int
-    get() = size - 1
+data class User(val firstName: String, val lastName: String)
+
+// An extension property to get a username-style email handle
+val User.emailUsername: String
+    get() = "${firstName.lowercase()}.${lastName.lowercase()}"
+
+fun main() {
+    val user = User("Mickey", "Mouse")
+    // Calls extension property
+    println("Generated email username: ${user.emailUsername}")
+    // Generated email username: mickey.mouse
+}
 ```
+{kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-extension-function-property"}
 
-> 拡張は実際にはクラスにメンバーを挿入しないため、拡張プロパティが[バッキングフィールド](properties.md#backing-fields)を持つ効率的な方法はありません。このため、_拡張プロパティには初期化子を許可していません_。その動作は、明示的にゲッター/セッターを提供することによってのみ定義できます。
->
-{style="note"}
-
-例：
+拡張は実際にクラスにメンバーを追加しないため、拡張プロパティが[バッキングフィールド](properties.md#backing-fields)を持つ効率的な方法はありません。そのため、拡張プロパティには初期化子は許可されていません。その動作は、明示的にゲッターとセッターを提供することによってのみ定義できます。例えば：
 
 ```kotlin
-val House.number = 1 // エラー: 拡張プロパティに初期化子は許可されていません
+data class House(val streetName: String)
+
+// Doesn't compile because there is no getter and setter
+// var House.number = 1
+// Error: Initializers are not allowed for extension properties
+
+// Compiles successfully
+val houseNumbers = mutableMapOf<House, Int>()
+var House.number: Int
+    get() = houseNumbers[this] ?: 1
+    set(value) {
+        println("Setting house number for ${this.streetName} to $value")
+        houseNumbers[this] = value
+    }
+
+fun main() {
+    val house = House("Maple Street")
+
+    // Shows the default
+    println("Default number: ${house.number} ${house.streetName}") 
+    // Default number: 1 Maple Street
+    
+    house.number = 99
+    // Setting house number for Maple Street to 99
+
+    // Shows the updated number
+    println("Updated number: ${house.number} ${house.streetName}") 
+    // Updated number: 99 Maple Street
+}
 ```
+{kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-extension-function-property-error"}
+
+この例では、ゲッターは[エルビス演算子](null-safety.md#elvis-operator)を使用して、`houseNumbers`マップに家の番号が存在する場合はその番号を返し、そうでない場合は`1`を返します。ゲッターとセッターの書き方について詳しく知るには、[カスタムゲッターとセッター](properties.md#custom-getters-and-setters)を参照してください。
 
 ## コンパニオンオブジェクト拡張
 
-クラスに[コンパニオンオブジェクト](object-declarations.md#companion-objects)が定義されている場合、そのコンパニオンオブジェクトに対して拡張関数やプロパティを定義することもできます。コンパニオンオブジェクトの通常のメンバーと同様に、クラス名を修飾子として使用するだけで呼び出すことができます。
+クラスが[コンパニオンオブジェクト](object-declarations.md#companion-objects)を定義している場合、そのコンパニオンオブジェクトに対して拡張関数やプロパティを定義することもできます。コンパニオンオブジェクトの通常のメンバーと同様に、クラス名を修飾子として使用するだけで呼び出すことができます。コンパイラはデフォルトでコンパニオンオブジェクトを`Companion`と名付けます。
 
 ```kotlin
-class MyClass {
-    companion object { }  // "Companion"と名付けられます
+class Logger {
+    companion object { }
 }
 
-fun MyClass.Companion.printCompanion() { println("companion") }
+fun Logger.Companion.logStartupMessage() {
+    println("Application started.")
+}
 
 fun main() {
-    MyClass.printCompanion()
+    Logger.logStartupMessage()
+    // Application started.
 }
 ```
-{kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
+{kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-extension-function-companion-object"}
+
+## メンバーとしての拡張の宣言
+
+あるクラスの内部で、別のクラスの拡張を宣言することができます。このような拡張には複数の_暗黙のレシーバー_があります。暗黙のレシーバーとは、[`this`](this-expressions.md#qualified-this)で修飾することなくメンバーにアクセスできるオブジェクトのことです。
+
+*   拡張を宣言するクラスが_ディスパッチレシーバー_です。
+*   拡張関数のレシーバー型が_拡張レシーバー_です。
+
+`Connection`クラスに`Host`クラスの拡張関数`printConnectionString()`がある次の例を考えてみましょう。
+
+```kotlin
+class Host(val hostname: String) {
+    fun printHostname() { print(hostname) }
+}
+
+class Connection(val host: Host, val port: Int) {
+    fun printPort() { print(port) }
+
+    // Host is the extension receiver
+    fun Host.printConnectionString() {
+        // Calls Host.printHostname()
+        printHostname() 
+        print(":")
+        // Calls Connection.printPort()
+        // Connection is the dispatch receiver
+        printPort()
+    }
+
+    fun connect() {
+        /*...*/
+        // Calls the extension function
+        host.printConnectionString() 
+    }
+}
+
+fun main() {
+    Connection(Host("kotl.in"), 443).connect()
+    // kotl.in:443
+    
+    // Triggers an error because the extension function isn't available outside Connection
+    // Host("kotl.in").printConnectionString()
+    // Unresolved reference 'printConnectionString'.
+}
+```
+{kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-extension-function-members"}
+
+この例では、`printConnectionString()`関数を`Connection`クラスの内部で宣言しているため、`Connection`クラスがディスパッチレシーバーです。拡張関数のレシーバー型は`Host`クラスであるため、`Host`クラスが拡張レシーバーです。
+
+ディスパッチレシーバーと拡張レシーバーに同じ名前のメンバーがある場合、拡張レシーバーのメンバーが優先されます。ディスパッチレシーバーに明示的にアクセスするには、[修飾`this`構文](this-expressions.md#qualified-this)を使用します。
+
+```kotlin
+class Connection {
+    fun Host.getConnectionString() {
+        // Calls Host.toString()
+        toString()
+        // Calls Connection.toString()
+        this@Connection.toString()
+    }
+}
+```
+
+### メンバー拡張のオーバーライド
+
+メンバー拡張を`open`として宣言し、サブクラスでオーバーライドできます。これは、各サブクラスで拡張の動作をカスタマイズしたい場合に役立ちます。コンパイラは各レシーバー型を異なる方法で処理します。
+
+| レシーバー型 | 解決時間 | ディスパッチ型 |
+|---|---|---|
+| ディスパッチレシーバー | 実行時 | 仮想 |
+| 拡張レシーバー | コンパイル時 | 静的 |
+
+`User`クラスが`open`で、`Admin`クラスがそれを継承している次の例を考えてみましょう。`NotificationSender`クラスは`User`と`Admin`クラスの両方に`sendNotification()`拡張関数を定義し、`SpecialNotificationSender`クラスはそれらをオーバーライドします。
+
+```kotlin
+open class User
+
+class Admin : User()
+
+open class NotificationSender {
+    open fun User.sendNotification() {
+        println("Sending user notification from normal sender")
+    }
+
+    open fun Admin.sendNotification() {
+        println("Sending admin notification from normal sender")
+    }
+
+    fun notify(user: User) {
+        user.sendNotification()
+    }
+}
+
+class SpecialNotificationSender : NotificationSender() {
+    override fun User.sendNotification() {
+        println("Sending user notification from special sender")
+    }
+
+    override fun Admin.sendNotification() {
+        println("Sending admin notification from special sender")
+    }
+}
+
+fun main() {
+    // Dispatch receiver is NotificationSender
+    // Extension receiver is User
+    // Resolves to User.sendNotification() in NotificationSender
+    NotificationSender().notify(User())
+    // Sending user notification from normal sender
+    
+    // Dispatch receiver is SpecialNotificationSender
+    // Extension receiver is User
+    // Resolves to User.sendNotification() in SpecialNotificationSender
+    SpecialNotificationSender().notify(User())
+    // Sending user notification from special sender 
+    
+    // Dispatch receiver is SpecialNotificationSender
+    // Extension receiver is User NOT Admin
+    // The notify() function declares user as type User
+    // Statically resolves to User.sendNotification() in SpecialNotificationSender
+    SpecialNotificationSender().notify(Admin())
+    // Sending user notification from special sender 
+}
+```
+{kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-extension-open"}
+
+ディスパッチレシーバーは仮想ディスパッチを使用して実行時に解決されるため、`main()`関数の動作を理解しやすくなります。驚くかもしれませんが、`Admin`インスタンスで`notify()`関数を呼び出す際、コンパイラは宣言された型である`user: User`に基づいて拡張を選択します。これは、拡張レシーバーを静的に解決するためです。
+
+## 拡張と可視性修飾子
+
+拡張は、他のクラスのメンバーとして宣言された拡張を含め、同じスコープで宣言された通常の関数と同じ[可視性修飾子](visibility-modifiers.md)を使用します。
+
+例えば、ファイルのトップレベルで宣言された拡張は、同じファイル内の他の`private`トップレベル宣言にアクセスできます。
+
+```kotlin
+// File: StringUtils.kt
+
+private fun removeWhitespace(input: String): String {
+    return input.replace("\\s".toRegex(), "")
+}
+
+fun String.cleaned(): String {
+    return removeWhitespace(this)
+}
+
+fun main() {
+    val rawEmail = "  user @example. com  "
+    val cleaned = rawEmail.cleaned()
+    println("Raw:     '$rawEmail'")
+    // Raw:     '  user @example. com  '
+    println("Cleaned: '$cleaned'")
+    // Cleaned: 'user@example.com'
+    println("Looks like an email: ${cleaned.contains("@") && cleaned.contains(".")}") 
+    // Looks like an email: true
+}
+```
+{kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-extension-visibility-top-level"}
+
+また、拡張がそのレシーバー型の外部で宣言されている場合、レシーバーの`private`または`protected`メンバーにアクセスできません。
+
+```kotlin
+class User(private val password: String) {
+    fun isLoggedIn(): Boolean = true
+    fun passwordLength(): Int = password.length
+}
+
+// Extension declared outside the class
+fun User.isSecure(): Boolean {
+    // Can't access password because it's private:
+    // return password.length >= 8
+
+    // Instead, we rely on public members:
+    return passwordLength() >= 8 && isLoggedIn()
+}
+
+fun main() {
+    val user = User("supersecret")
+    println("Is user secure: ${user.isSecure()}") 
+    // Is user secure: true
+}
+```
+{kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-extension-visibility-outside-receiver"}
+
+拡張が`internal`とマークされている場合、その[モジュール](visibility-modifiers.md#modules)内でのみアクセス可能です。
+
+```kotlin
+// Networking module
+// JsonParser.kt
+internal fun String.parseJson(): Map<String, Any> {
+    return mapOf("fakeKey" to "fakeValue")
+}
+```
 
 ## 拡張のスコープ
 
@@ -176,91 +565,3 @@ fun main() {
 ```
 
 詳細については、[インポート](packages.md#imports)を参照してください。
-
-## メンバーとしての拡張の宣言
-
-あるクラスの内部で、別のクラスの拡張を宣言することができます。このような拡張の内部では、複数の_暗黙のレシーバー_、つまり修飾子なしでメンバーにアクセスできるオブジェクトが存在します。拡張が宣言されているクラスのインスタンスは_ディスパッチレシーバー_と呼ばれ、拡張メソッドのレシーバー型のインスタンスは_拡張レシーバー_と呼ばれます。
-
-```kotlin
-class Host(val hostname: String) {
-    fun printHostname() { print(hostname) }
-}
-
-class Connection(val host: Host, val port: Int) {
-    fun printPort() { print(port) }
-
-    fun Host.printConnectionString() {
-        printHostname()   // Host.printHostname()を呼び出す
-        print(":")
-        printPort()   // Connection.printPort()を呼び出す
-    }
-
-    fun connect() {
-        /*...*/
-        host.printConnectionString()   // 拡張関数を呼び出す
-    }
-}
-
-fun main() {
-    Connection(Host("kotl.in"), 443).connect()
-    //Host("kotl.in").printConnectionString()  // エラー、拡張関数はConnectionの外部では利用できません
-}
-```
-{kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
-
-ディスパッチレシーバーと拡張レシーバーのメンバー間で名前の競合が発生した場合、拡張レシーバーが優先されます。ディスパッチレシーバーのメンバーを参照するには、[修飾`this`構文](this-expressions.md#qualified-this)を使用できます。
-
-```kotlin
-class Connection {
-    fun Host.getConnectionString() {
-        toString()         // Host.toString()を呼び出す
-        this@Connection.toString()  // Connection.toString()を呼び出す
-    }
-}
-```
-
-メンバーとして宣言された拡張は`open`として宣言でき、サブクラスでオーバーライドできます。これは、これらの関数のディスパッチはディスパッチレシーバー型に関しては仮想的ですが、拡張レシーバー型に関しては静的であることを意味します。
-
-```kotlin
-open class Base { }
-
-class Derived : Base() { }
-
-open class BaseCaller {
-    open fun Base.printFunctionInfo() {
-        println("Base extension function in BaseCaller")
-    }
-
-    open fun Derived.printFunctionInfo() {
-        println("Derived extension function in BaseCaller")
-    }
-
-    fun call(b: Base) {
-        b.printFunctionInfo()   // 拡張関数を呼び出す
-    }
-}
-
-class DerivedCaller: BaseCaller() {
-    override fun Base.printFunctionInfo() {
-        println("Base extension function in DerivedCaller")
-    }
-
-    override fun Derived.printFunctionInfo() {
-        println("Derived extension function in DerivedCaller")
-    }
-}
-
-fun main() {
-    BaseCaller().call(Base())   // "Base extension function in BaseCaller"
-    DerivedCaller().call(Base())  // "Base extension function in DerivedCaller" - ディスパッチレシーバーは仮想的に解決される
-    DerivedCaller().call(Derived())  // "Base extension function in DerivedCaller" - 拡張レシーバーは静的に解決される
-}
-```
-{kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
-
-## 可視性に関する注意
-
-拡張は、同じスコープで宣言された通常の関数と同じ[可視性修飾子](visibility-modifiers.md)を利用します。例えば：
-
-*   ファイルのトップレベルで宣言された拡張は、同じファイル内の他の`private`トップレベル宣言にアクセスできます。
-*   拡張がそのレシーバー型の外部で宣言されている場合、レシーバーの`private`または`protected`メンバーにアクセスできません。

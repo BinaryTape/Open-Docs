@@ -4,7 +4,7 @@ Compose Multiplatform 릴리스는 Kotlin 및 Jetpack Compose 릴리스와 별�
 
 ## 지원되는 플랫폼
 
-Compose Multiplatform %org.jetbrains.compose%는 다음 플랫폼을 지원합니다.
+Compose Multiplatform %org.jetbrains.compose%는 다음 플랫폼을 지원합니다:
 
 | 플랫폼  | 최소 버전                                                                                        |
 |---------|--------------------------------------------------------------------------------------------------|
@@ -74,7 +74,7 @@ Android용 애플리케이션을 빌드할 때 Compose Multiplatform는 Google�
 
 | Compose Multiplatform 버전                                                     | Jetpack Compose 버전 | Jetpack Compose Material3 버전 |
 |-----------------------------------------------------------------------------------|-------------------------|-----------------------------------|
-| [1.9.2](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.9.2)   | 1.9.4                   | 1.4.0                             |
+| [1.9.3](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.9.3)   | 1.9.4                   | 1.4.0                             |
 | [1.8.2](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.8.2)   | 1.8.2                   | 1.3.2                             |
 | [1.7.3](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.7.3)   | 1.7.6                   | 1.3.1                             |
 | [1.7.1](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.7.1)   | 1.7.5                   | 1.3.1                             |

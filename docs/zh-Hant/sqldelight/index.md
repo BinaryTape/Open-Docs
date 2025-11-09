@@ -1,6 +1,6 @@
 !!! info "SQLDelight 2.0"
 
-    如果您目前正在使用 SQLDelight 1.x，請[查閱說明文件](upgrading-2.0)以升級到 SQLDelight 2.0！
+如果您目前正在使用 SQLDelight 1.x，請[查閱說明文件](upgrading-2.0)以升級到 SQLDelight 2.0！
 
 SQLDelight 會根據您的 SQL 語句產生型別安全 (typesafe) 的 Kotlin API。它會在編譯時驗證您的結構描述、語句和遷移，並提供自動完成和重構等 IDE 功能，使編寫和維護 SQL 變得簡單。
 
@@ -20,7 +20,7 @@ CREATE TABLE hockey_player (
 
 ---
 
-## 支援的 SQL 變體與平台
+## 支援的變體與平台
 
 SQLDelight 支援多種 SQL 變體與平台。
 
@@ -78,7 +78,7 @@ SQLDelight 支援多種 SQL 變體與平台。
 
 ## 快照
 
-開發版本的快照 (包含 IDE 外掛壓縮檔) 可在 [Sonatype 的 `snapshots` 儲存庫](https://oss.sonatype.org/content/repositories/snapshots/app/cash/sqldelight/)中取得。請注意，對於 2.0.0+ SNAPSHOT，所有座標都是 `app.cash.sqldelight` 而不是 `com.squareup.sqldelight`。
+開發版本的快照 (包含 IDE 外掛壓縮檔) 可在 [Central Portal Snapshots 儲存庫](https://central.sonatype.com/repository/maven-snapshots)中取得。請注意，對於 2.0.0+ SNAPSHOT，所有座標都是 `app.cash.sqldelight` 而不是 `com.squareup.sqldelight`。
 
 最新快照版本的說明文件頁面可[在此處找到](https://sqldelight.github.io/sqldelight/snapshot)。
 
@@ -88,7 +88,7 @@ SQLDelight 支援多種 SQL 變體與平台。
     pluginManagement {
         repositories {
             gradlePluginPortal()
-            maven(url = "https://oss.sonatype.org/content/repositories/snapshots")
+            maven(url = "https://central.sonatype.com/repository/maven-snapshots")
         }
     }
     
@@ -98,7 +98,7 @@ SQLDelight 支援多種 SQL 變體與平台。
     }
     
     repositories {
-        maven(url = "https://oss.sonatype.org/content/repositories/snapshots")
+        maven(url = "https://central.sonatype.com/repository/maven-snapshots")
     }
     ```
 === "Groovy"
@@ -107,7 +107,7 @@ SQLDelight 支援多種 SQL 變體與平台。
     pluginManagement {
         repositories {
             gradlePluginPortal()
-            maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
+            maven { url "https://central.sonatype.com/repository/maven-snapshots" }
         }
     }
     
@@ -117,7 +117,7 @@ SQLDelight 支援多種 SQL 變體與平台。
     }
     
     repositories {
-        maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
+        maven { url "https://central.sonatype.com/repository/maven-snapshots" }
     }
     ```
 

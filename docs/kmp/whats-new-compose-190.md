@@ -1,4 +1,4 @@
-[//]: # (title: Compose Multiplatform 1.9.2 中的新特性)
+[//]: # (title: Compose Multiplatform 1.9.3 中的新特性)
 
 以下是本次特性发布的亮点：
 
@@ -15,7 +15,7 @@
 
 ## 依赖项
 
-*   Gradle 插件 `org.jetbrains.compose`，版本 1.9.2。基于 Jetpack Compose 库：
+*   Gradle 插件 `org.jetbrains.compose`，版本 1.9.3。基于 Jetpack Compose 库：
     *   [Runtime 1.9.4](https://developer.android.com/jetpack/androidx/releases/compose-runtime#1.9.4)
     *   [UI 1.9.4](https://developer.android.com/jetpack/androidx/releases/compose-ui#1.9.4)
     *   [Foundation 1.9.4](https://developer.android.com/jetpack/androidx/releases/compose-foundation#1.9.4)
@@ -25,9 +25,9 @@
 *   Compose Material3 库 `org.jetbrains.compose.material3:1.9.0`。基于 [Jetpack Material3 1.4.0](https://developer.android.com/jetpack/androidx/releases/compose-material3#1.4.0)。
     得益于 Compose Multiplatform 和 Material3 [解耦的版本](#decoupled-material3-versioning)，你可以为你的项目选择更新的预发布版本。
 *   Compose Material3 Adaptive 库 `org.jetbrains.compose.material3.adaptive:adaptive*:1.2.0`。基于 [Jetpack Material3 Adaptive 1.2.0](https://developer.android.com/jetpack/androidx/releases/compose-material3-adaptive#1.2.0)
-*   Lifecycle 库 `org.jetbrains.androidx.lifecycle:lifecycle-*:2.9.5`。基于 [Jetpack Lifecycle 2.9.4](https://developer.android.com/jetpack/androidx/releases/lifecycle#2.9.4)
+*   Lifecycle 库 `org.jetbrains.androidx.lifecycle:lifecycle-*:2.9.6`。基于 [Jetpack Lifecycle 2.9.4](https://developer.android.com/jetpack/androidx/releases/lifecycle#2.9.4)
 *   Navigation 库 `org.jetbrains.androidx.navigation:navigation-*:2.9.1`。基于 [Jetpack Navigation 2.9.4](https://developer.android.com/jetpack/androidx/releases/navigation#2.9.4)
-*   Savedstate 库 `org.jetbrains.androidx.savedstate:savedstate:1.3.5`。基于 [Jetpack Savedstate 1.3.3](https://developer.android.com/jetpack/androidx/releases/savedstate#1.3.3)
+*   Savedstate 库 `org.jetbrains.androidx.savedstate:savedstate:1.3.6`。基于 [Jetpack Savedstate 1.3.3](https://developer.android.com/jetpack/androidx/releases/savedstate#1.3.3)
 *   WindowManager Core 库 `org.jetbrains.androidx.window:window-core:1.4.0`。基于 [Jetpack WindowManager 1.4.0](https://developer.android.com/jetpack/androidx/releases/window#1.4.0)
 
 ## 跨平台
@@ -288,3 +288,11 @@ implementation("org.jetbrains.compose.material3:material3:1.9.0-alpha04")
 ### 统一的 Web 分发
 
 新的 `composeCompatibilityBrowserDistribution` Gradle 任务将 Kotlin/JS 和 Kotlin/Wasm 分发包组合成一个单独的包。这允许 Wasm 应用程序在浏览器不支持现代 Wasm 特性时回退到 JS 目标平台。
+
+### 支持 AGP 9.0.0
+
+Compose Multiplatform 引入了对 Android Gradle 插件 (AGP) 9.0.0 版本的支持。
+为了与新的 AGP 版本兼容，请务必升级到 Compose Multiplatform 1.9.3 或 1.10.0。
+
+为了长期平稳地更新，
+我们建议更改你的项目结构，将 AGP 的使用隔离到专门的 Android 模块中。

@@ -300,7 +300,7 @@ switch color {
 
 <primary-label ref="experimental-opt-in"/>
 
-Kotlinの[サスペンド関数](coroutines-basics.md)（`suspend`）は、生成されるObjective-Cヘッダーではコールバック付き関数として、Swift/Objective-Cの用語では[完了ハンドラ](https://developer.apple.com/documentation/swift/calling_objective-c_apis_ asynchronously)として表現されます。
+Kotlinの[サスペンド関数](coroutines-basics.md)（`suspend`）は、生成されるObjective-Cヘッダーではコールバック付き関数として、Swift/Objective-Cの用語では[完了ハンドラ](https://developer.apple.com/documentation/swift/calling_objective-c_apis_asynchronously)として表現されます。
 
 Swift 5.5以降、Kotlinの`suspend`関数は、完了ハンドラを使用せずに`async`関数としてSwiftから呼び出すことも可能です。現在、この機能は非常に実験的であり、特定の制限があります。詳細については、[このYouTrackの課題](https://youtrack.jetbrains.com/issue/KT-47610)を参照してください。
 
@@ -497,7 +497,7 @@ Objective-Cのジェネリクスは、KotlinまたはSwiftのすべての機能�
 
 #### ヌル許容性
 
-KotlinとSwiftはどちらも型指定の一部としてヌル許容性を定義しますが、Objective-Cは型のメソッドとプロパティに対してヌル許容性を定義します。したがって、以下のKotlinコード：
+KotlinとSwiftはどちらも型指定の一部としてヌル許容性を定義しますが、Objective-Cは型のメソッドとプロパティに対してヌル許容性を定義します。そのため、以下のKotlinコード：
 
 ```kotlin
 class Sample<T>() {
@@ -604,10 +604,17 @@ fun test() {
 Kotlinコードを記述する際、オブジェクトをKotlin型から同等のSwift/Objective-C型に（またはその逆に）変換する必要がある場合があります。この場合、例えば以下のように通常のKotlinキャストを使用できます。
 
 ```kotlin
-val nsArray = listOf(1, 2, 3) as NSArray
-val string = nsString as String
+@file:Suppress("CAST_NEVER_SUCCEEDS")
+import platform.Foundation.*
+
 val nsNumber = 42 as NSNumber
+val nsArray = listOf(1, 2, 3) as NSArray
+val nsString = "Hello" as NSString
+val string = nsString as String
 ```
+
+IDEは「このキャストは決して成功しない可能性があります」という警告を誤って発行する場合があります。
+そのような場合は、`@Suppress("CAST_NEVER_SUCCEEDS")`アノテーションを使用してください。
 
 ## サブクラス化
 

@@ -621,10 +621,17 @@ fun test() {
 編寫 Kotlin 程式碼時，可能需要將物件從 Kotlin 類型轉換為等效的 Swift/Objective-C 類型（反之亦然）。在這種情況下，可以使用普通的 Kotlin 轉換，例如：
 
 ```kotlin
-val nsArray = listOf(1, 2, 3) as NSArray
-val string = nsString as String
+@file:Suppress("CAST_NEVER_SUCCEEDS")
+import platform.Foundation.*
+
 val nsNumber = 42 as NSNumber
+val nsArray = listOf(1, 2, 3) as NSArray
+val nsString = "Hello" as NSString
+val string = nsString as String
 ```
+
+IDE 可能會錯誤地發出「This cast can never succeed」警告。
+在這種情況下，請使用 `@Suppress("CAST_NEVER_SUCCEEDS")` 註解。
 
 ## 子類別化 (Subclassing)
 

@@ -332,6 +332,15 @@ val rawAddress = address.resolveAddress()
 
 它將解析的 IP 位址作為 `ByteArray` 返回，如果無法解析該位址則返回 `null`。返回的 `ByteArray` 的大小取決於 IP 版本：對於 IPv4 位址，它將包含 4 位元組；對於 IPv6 位址，它將包含 16 位元組。在 JS 和 Wasm 平台上，`.resolveAddress()` 將始終返回 `null`。
 
+### HTTP 快取清除
+
+您現在可以使用 [`CacheStorage`](https://api.ktor.io/ktor-client-core/io.ktor.client.plugins.cache.storage/-cache-storage/index.html) 上的新方法來清除已快取的 HTTP 回應。
+
+-   `.removeAll(url)` 移除所有與指定 URL 相符的快取項目。
+-   `.remove(url, varyKeys)` 移除與指定 URL 和 `Vary` 鍵相符的特定快取項目。
+
+這些方法讓您能更有效控制快取無效化，以及管理過時或特定的快取回應。
+
 ## 共用
 
 ### HTMX 整合
@@ -442,4 +451,3 @@ Ktor 3.2.0 簡化了開發模式的啟用。以前，啟用開發模式需要 `a
 
 ```bash
 ./gradlew run -Pio.ktor.development=true
-```

@@ -1,6 +1,6 @@
 !!! info "SQLDelight 2.0"
 
-    現在SQLDelight 1.xをご利用の場合は、SQLDelight 2.0へのアップグレードに関する[ドキュメント](upgrading-2.0)をご確認ください！
+現在SQLDelight 1.xをご利用の場合は、SQLDelight 2.0へのアップグレードに関する[ドキュメント](upgrading-2.0)をご確認ください！
 
 SQLDelightは、SQLステートメントから型安全なKotlin APIを生成します。コンパイル時にスキーマ、ステートメント、マイグレーションを検証し、オートコンプリートやリファクタリングといったIDE機能を提供することで、SQLの記述と保守を容易にします。
 
@@ -78,7 +78,7 @@ SQLDelightは、さまざまなSQLダイアレクトとプラットフォーム�
 
 ## スナップショット
 
-開発バージョンのスナップショット（IDEプラグインのzipを含む）は、[Sonatypeの`snapshots`リポジトリ](https://oss.sonatype.org/content/repositories/snapshots/app/cash/sqldelight/)で利用可能です。2.0.0以上のSNAPSHOTでは、すべての座標が`com.squareup.sqldelight`ではなく`app.cash.sqldelight`になることに注意してください。
+開発バージョンのスナップショット（IDEプラグインのzipを含む）は、[Central Portal Snapshotsリポジトリ](https://central.sonatype.com/repository/maven-snapshots)で利用可能です。2.0.0以上のSNAPSHOTでは、すべての座標が`com.squareup.sqldelight`ではなく`app.cash.sqldelight`になることに注意してください。
 
 最新のスナップショットバージョンのドキュメントページは[こちら](https://sqldelight.github.io/sqldelight/snapshot)で確認できます。
 
@@ -88,7 +88,7 @@ SQLDelightは、さまざまなSQLダイアレクトとプラットフォーム�
     pluginManagement {
         repositories {
             gradlePluginPortal()
-            maven(url = "https://oss.sonatype.org/content/repositories/snapshots")
+            maven(url = "https://central.sonatype.com/repository/maven-snapshots")
         }
     }
     
@@ -98,7 +98,7 @@ SQLDelightは、さまざまなSQLダイアレクトとプラットフォーム�
     }
     
     repositories {
-        maven(url = "https://oss.sonatype.org/content/repositories/snapshots")
+        maven(url = "https://central.sonatype.com/repository/maven-snapshots")
     }
     ```
 === "Groovy"
@@ -107,7 +107,7 @@ SQLDelightは、さまざまなSQLダイアレクトとプラットフォーム�
     pluginManagement {
         repositories {
             gradlePluginPortal()
-            maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
+            maven { url "https://central.sonatype.com/repository/maven-snapshots" }
         }
     }
     
@@ -117,7 +117,7 @@ SQLDelightは、さまざまなSQLダイアレクトとプラットフォーム�
     }
     
     repositories {
-        maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
+        maven { url "https://central.sonatype.com/repository/maven-snapshots" }
     }
     ```
 

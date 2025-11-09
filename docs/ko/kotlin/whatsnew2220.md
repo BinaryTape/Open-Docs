@@ -179,7 +179,7 @@ kotlin {
 <primary-label ref="experimental-opt-in"/>
 
 > IntelliJ IDEA의 [2025.3 EAP 빌드](https://www.jetbrains.com/idea/nextversion/)에서만 현재 이 기능에 대한 코드 분석, 코드 완성 및 하이라이팅 지원이 제공됩니다.
->
+> 
 {style = "note"}
 
 Kotlin 2.2.20에서는 컴파일러가 `inline` 함수의 `catch` 절에서 [재실체화된 제네릭 타입 매개변수](inline-functions.md#reified-type-parameters)를 사용하는 것을 허용합니다.
@@ -445,7 +445,7 @@ kotlin {
 ```
 
 ## Kotlin/JVM: `when` 표현식에서 `invokedynamic` 지원
-<primary-label ref="experimental-opt-in"/>
+<primary-label ref="experimental-opt-in"/> 
 
 Kotlin 2.2.20에서는 이제 `invokedynamic`를 사용하여 `when` 표현식을 컴파일할 수 있습니다. 이전에는 여러 타입 검사가 있는 `when` 표현식이 바이트코드에서 긴 `instanceof` 검사 체인으로 컴파일되었습니다.
 
@@ -501,7 +501,7 @@ Kotlin 2.2.20은 Kotlin Multiplatform에 중요한 변화를 도입합니다: Sw
 새로운 공유 소스 세트가 있고, 공통 의존성을 관리하는 새로운 접근 방식을 시도할 수 있습니다.
 
 ### Swift export가 기본적으로 제공
-<primary-label ref="experimental-general"/>
+<primary-label ref="experimental-general"/> 
 
 Kotlin 2.2.20은 Swift export에 대한 실험적 지원을 도입합니다. 이를 통해 Kotlin 소스를 직접 내보내고
 Swift에서 Kotlin 코드를 관용적으로 호출할 수 있어 Objective-C 헤더의 필요성이 사라집니다.
@@ -721,7 +721,7 @@ kotlin.native.binary.stackProtector=yes
 일부 경우 스택 보호 기능이 성능 비용을 수반할 수 있다는 점에 유의하세요.
 
 ### 릴리스 바이너리의 바이너리 크기 축소
-<primary-label ref="experimental-opt-in"/>
+<primary-label ref="experimental-opt-in"/> 
 
 Kotlin 2.2.20은 릴리스 바이너리의 크기를 줄이는 데 도움이 되는 `smallBinary` 옵션을 도입합니다.
 새로운 옵션은 LLVM 컴파일 단계에서 컴파일러의 기본 최적화 인수로 효과적으로 `-Oz`를 설정합니다.
@@ -838,7 +838,7 @@ Kotlin 2.2.20부터 `kotlin-native.jar`는 더 이상 게시되지 않습니다.
 
 ### KDoc을 Objective-C 헤더로 기본 내보내기
 
-이제 Kotlin/Native 최종 바이너리 컴파일 시 Objective-C 헤더를 생성할 때 [KDoc](kotlin-doc.md) 주석이 기본적으로 내보내집니다.
+[KDoc](kotlin-doc.md) 주석은 이제 Kotlin/Native 최종 바이너리 컴파일 시 Objective-C 헤더를 생성할 때 기본적으로 내보내집니다.
 
 이전에는 빌드 파일에 `-Xexport-kdoc` 옵션을 수동으로 추가해야 했습니다. 이제는 컴파일 태스크에 자동으로 전달됩니다.
 
@@ -1155,6 +1155,62 @@ kotlin.incremental.jvm.fir=true
 Kotlin 2.2.20 이전에는 증분 컴파일을 활성화하고 인라인 함수의 람다 내부 로직을 변경해도 컴파일러가 다른 모듈의 해당 인라인 함수의 호출 지점을 재컴파일하지 않았습니다. 결과적으로 해당 호출 지점은 이전 버전의 람다를 사용하여 예상치 못한 동작을 일으킬 수 있었습니다.
 
 Kotlin 2.2.20에서는 이제 컴파일러가 인라인 함수의 람다 변경 사항을 감지하고 해당 호출 지점을 자동으로 재컴파일합니다.
+
+### 라이브러리 게시 개선
+
+Kotlin 2.2.20은 라이브러리 게시를 더 쉽게 만드는 새로운 Gradle 태스크를 추가합니다. 이 태스크는 키 쌍 생성, 공개 키 업로드, 그리고 Maven Central 저장소에 업로드하기 전에 검증 프로세스가 성공하는지 확인하기 위한 로컬 검사 실행을 돕습니다.
+
+게시 프로세스의 일부로 이러한 태스크를 사용하는 방법에 대한 자세한 내용은 [라이브러리를 Maven Central에 게시](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-publish-libraries.html)를 참조하세요.
+
+#### PGP 키 생성 및 업로드를 위한 새로운 Gradle 태스크
+
+Kotlin 2.2.20 이전에는 멀티플랫폼 라이브러리를 Maven Central 저장소에 게시하려면 `gpg`와 같은 타사 프로그램을 설치하여 게시물 서명을 위한 키 쌍을 생성해야 했습니다. 이제 Kotlin Gradle 플러그인에는 키 쌍을 생성하고 공개 키를 업로드하는 Gradle 태스크가 포함되어 있어 다른 프로그램을 설치할 필요가 없습니다.
+
+##### 키 쌍 생성
+
+`generatePgpKeys` 태스크는 키 쌍을 생성합니다. 이 태스크를 실행할 때, 개인 키 저장소의 비밀번호와 다음 형식으로 이름을 제공해야 합니다:
+
+```bash
+./gradlew -Psigning.password=example-password generatePgpKeys --name "John Smith <john@example.com>"
+```
+
+이 태스크는 키 쌍을 `build/pgp` 디렉토리에 저장합니다.
+
+> 키 쌍을 실수로 삭제하거나 무단 액세스를 방지하기 위해 안전한 위치로 옮기세요.
+> 
+{style="warning"}
+
+##### 공개 키 업로드
+
+`uploadPublicPgpKey` 태스크는 공개 키를 Ubuntu의 키 서버인 `keyserver.ubuntu.com`에 업로드합니다. 이 태스크를 실행할 때, `.asc` 형식의 공개 키 경로를 제공하세요:
+
+```bash
+./gradlew uploadPublicPgpKey --keyring /path_to/build/pgp/public_KEY_ID.asc
+```
+
+#### 로컬에서 검증을 테스트하기 위한 새로운 Gradle 태스크
+
+Kotlin 2.2.20은 라이브러리를 Maven Central 저장소에 업로드하기 전에 로컬에서 검증을 테스트하기 위한 Gradle 태스크도 추가합니다.
+
+Kotlin Gradle 플러그인을 Gradle의 [Signing Plugin](https://docs.gradle.org/current/userguide/signing_plugin.html) 및 [Maven Publish Plugin](https://docs.gradle.org/current/userguide/publishing_maven.html)과 함께 사용하는 경우, `checkSigningConfiguration` 및 `checkPomFileFor<PUBLICATION_NAME>Publication` 태스크를 실행하여 설정이 Maven Central의 요구 사항을 충족하는지 확인할 수 있습니다. `<PUBLICATION_NAME>`을 게시물의 이름으로 바꾸세요.
+
+이 태스크는 `build` 또는 `check` Gradle 태스크의 일부로 자동으로 실행되지 않으므로 수동으로 실행해야 합니다.
+예를 들어 `KotlinMultiplatform` 게시물이 있는 경우:
+
+```bash
+./gradlew checkSigningConfiguration checkPomFileForKotlinMultiplatformPublication
+```
+
+`checkSigningConfiguration` 태스크는 다음을 확인합니다:
+
+*   Signing Plugin에 키가 구성되어 있습니다.
+*   구성된 공개 키가 `keyserver.ubuntu.com` 또는 `keys.openpgp.org` 키 서버 중 하나에 업로드되었습니다.
+*   모든 게시물에 서명이 활성화되어 있습니다.
+
+이러한 검사 중 하나라도 실패하면, 태스크는 문제 해결 방법에 대한 정보와 함께 오류를 반환합니다.
+
+`checkPomFileFor<PUBLICATION_NAME>Publication` 태스크는 `pom.xml` 파일이 Maven Central의 [요구 사항](https://central.sonatype.org/publish/requirements/#required-pom-metadata)을 충족하는지 확인합니다.
+만족하지 못하면, 태스크는 `pom.xml` 파일의 어떤 부분이 비준수인지에 대한 세부 정보와 함께 오류를 반환합니다.
 
 ## Maven: `kotlin-maven-plugin`의 Kotlin 데몬 지원
 

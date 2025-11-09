@@ -23,6 +23,10 @@
         "link": "multiplatform-samples"
       },
       {
+        "text": "kmp.kmp-learning-resources",
+        "link": "kmp-learning-resources"
+      },
+      {
         "text": "kmp.faq",
         "link": "faq"
       },
@@ -52,20 +56,30 @@
             "link": "whats-new-compose-190"
           },
           {
-            "text": "kmp.whats-new-compose-180",
-            "link": "whats-new-compose-180"
+            "text": "kmp.whats-new-compose-110",
+            "link": "whats-new-compose-110"
           },
           {
-            "text": "kmp.whats-new-compose-170",
-            "link": "whats-new-compose-170"
-          },
-          {
-            "text": "kmp.whats-new-compose-1610",
-            "link": "whats-new-compose-1610"
-          },
-          {
-            "text": "kmp.whats-new-compose-160",
-            "link": "whats-new-compose-160"
+            "text": "kmp.earlier-versions",
+            "items": [
+              {
+                "text": "kmp.whats-new-compose-180",
+                "link": "whats-new-compose-180"
+              },
+              {
+                "text": "kmp.whats-new-compose-170",
+                "link": "whats-new-compose-170"
+              },
+              {
+                "text": "kmp.whats-new-compose-1610",
+                "link": "whats-new-compose-1610"
+              },
+              {
+                "text": "kmp.whats-new-compose-160",
+                "link": "whats-new-compose-160"
+              }
+            ],
+            "collapsed": true
           }
         ],
         "collapsed": true

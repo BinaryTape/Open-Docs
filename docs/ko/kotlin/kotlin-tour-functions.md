@@ -214,6 +214,12 @@ fun main() {
 >
 {style="tip"}
 
+<deflist collapsible="true" id="kotlin-tour-functions-exercise-1-hint">
+    <def title="힌트">
+        원의 면적을 계산하는 공식은 <math>πr^2</math>이며, 여기서 <math>r</math>은 반지름입니다.
+    </def>
+</deflist>
+
 |---|---|
 ```kotlin
 import kotlin.math.PI

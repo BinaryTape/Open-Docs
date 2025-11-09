@@ -436,7 +436,7 @@ kotlin {
 ```
 
 ## Kotlin/JVM：支持 `invokedynamic` 和 `when` 表达式
-<primary-label ref="experimental-opt-in"/> 
+<primary-label ref="experimental-opt-in"/>
 
 在 Kotlin 2.2.20 中，您现在可以使用 `invokedynamic` 编译 `when` 表达式。此前，带有多个类型检测的 `when` 表达式会编译成字节码中一长串的 `instanceof` 检测。
 
@@ -491,7 +491,7 @@ kotlin {
 Kotlin 2.2.20 为 Kotlin Multiplatform 带来了重大变化：Swift 导出功能默认可用，引入了新的共享源代码集，并且您可以尝试一种管理公共依赖项的新方法。
 
 ### Swift 导出功能默认可用
-<primary-label ref="experimental-general"/> 
+<primary-label ref="experimental-general"/>
 
 Kotlin 2.2.20 引入了对 Swift 导出的实验性支持。它允许您直接导出 Kotlin 源代码并以符合 Swift 习惯的方式调用 Kotlin 代码，无需 Objective-C 头文件。
 
@@ -698,7 +698,7 @@ kotlin.native.binary.stackProtector=yes
 请注意，在某些情况下，栈保护可能会带来性能开销。
 
 ### 减小发布二进制文件大小
-<primary-label ref="experimental-opt-in"/> 
+<primary-label ref="experimental-opt-in"/>
 
 Kotlin 2.2.20 引入了 `smallBinary` 选项，可以帮助您减小发布二进制文件的大小。新选项有效地将 `-Oz` 设置为 LLVM 编译阶段编译器默认的优化实参。
 
@@ -915,7 +915,7 @@ devServer = (devServer ?: KotlinWebpackConfig.DevServer()).apply {
 }
 ```
 
-从 Kotlin 2.2.20 开始，在[现代浏览器](wasm-configuration.md#browser-versions)中调试您的应用程序可以开箱即用。当您运行 Gradle 开发任务 (`*DevRun`) 时，Kotlin 会自动向浏览器提供源文件，允许您设置断点、探查变量并单步调试 Kotlin 代码，无需额外设置。
+从 Kotlin 2.2.20 开始，调试您的应用程序可以开箱即用。当您运行 Gradle 开发任务 (`*DevRun`) 时，Kotlin 会自动向浏览器提供源文件，允许您设置断点、探查变量并单步调试 Kotlin 代码，无需额外设置。
 
 此更改通过消除手动配置的需要来简化调试。所需的配置现在包含在 Kotlin Gradle 插件中。如果您此前已将此配置添加到 `build.gradle(.kts)` 文件中，则应将其移除以避免冲突。
 
@@ -1110,6 +1110,60 @@ kotlin.incremental.jvm.fir=true
 在 Kotlin 2.2.20 之前，如果您启用增量编译并更改了内联函数中 lambda 内部的逻辑，编译器不会重新编译该内联函数在其他模块中的调用点。结果是，那些调用点使用了 lambda 的先前版本，这可能导致意外行为。
 
 在 Kotlin 2.2.20 中，编译器现在可以检测内联函数中 lambda 的更改，并自动重新编译它们的调用点。
+
+### 库发布的改进
+
+Kotlin 2.2.20 添加了新的 Gradle 任务，使库发布更加容易。这些任务可帮助您生成密钥对、上传公钥，并运行本地检测以确保验证过程成功，然后再上传到 Maven Central 版本库。
+
+有关如何将这些任务作为发布过程的一部分使用的更多信息，请参见[将您的库发布到 Maven Central](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-publish-libraries.html)。
+
+#### 用于生成和上传 PGP 密钥的新 Gradle 任务
+
+在 Kotlin 2.2.20 之前，如果您想将多平台库发布到 Maven Central 版本库，您必须安装第三方程序（例如 `gpg`）来生成密钥对以签署您的发布项。现在，Kotlin Gradle 插件附带了 Gradle 任务，可让您生成密钥对并上传公钥，这样您就不必安装其他程序。
+
+##### 生成密钥对
+
+`generatePgpKeys` 任务会生成密钥对。运行它时，您必须提供私有密钥库的密码和您的姓名，格式如下：
+
+```bash
+./gradlew -Psigning.password=example-password generatePgpKeys --name "John Smith <john@example.com>"
+```
+
+该任务将密钥对存储在 `build/pgp` 目录中。
+
+> 将您的密钥对移动到安全位置，以防止意外删除或未经授权的访问。
+>
+{style="warning"}
+
+##### 上传公钥
+
+`uploadPublicPgpKey` 任务将公钥上传到 Ubuntu 的密钥服务器：`keyserver.ubuntu.com`。运行它时，请提供 `.asc` 格式公钥的路径：
+
+```bash
+./gradlew uploadPublicPgpKey --keyring /path_to/build/pgp/public_KEY_ID.asc
+```
+
+#### 用于本地测试验证的新 Gradle 任务
+
+Kotlin 2.2.20 还添加了 Gradle 任务，用于在将您的库上传到 Maven Central 版本库之前进行本地测试验证。
+
+如果您将 Kotlin Gradle 插件与 Gradle 的 [Signing Plugin](https://docs.gradle.org/current/userguide/signing_plugin.html) 和 [Maven Publish Plugin](https://docs.gradle.org/current/userguide/publishing_maven.html) 一起使用，您可以运行 `checkSigningConfiguration` 和 `checkPomFileFor<PUBLICATION_NAME>Publication` 任务来验证您的设置是否符合 Maven Central 的要求。将 `<PUBLICATION_NAME>` 替换为您的发布项的名称。
+
+这些任务不会作为 `build` 或 `check` Gradle 任务的一部分自动运行，因此您需要手动运行它们。例如，如果您有一个 `KotlinMultiplatform` 发布项：
+
+```bash
+./gradlew checkSigningConfiguration checkPomFileForKotlinMultiplatformPublication
+```
+
+`checkSigningConfiguration` 任务检测以下内容：
+
+*   Signing Plugin 已配置密钥。
+*   已配置的公钥已上传到 `keyserver.ubuntu.com` 或 `keys.openpgp.org` 密钥服务器。
+*   所有发布项都启用了签名。
+
+如果任何这些检测失败，任务将返回一个错误，并提供有关如何修复该问题的信息。
+
+`checkPomFileFor<PUBLICATION_NAME>Publication` 任务检测 `pom.xml` 文件是否符合 Maven Central 的[要求](https://central.sonatype.org/publish/requirements/#required-pom-metadata)。如果不符合，任务将返回一个错误，其中包含 `pom.xml` 文件中哪些部分不合规的详细信息。
 
 ## Maven：`kotlin-maven-plugin` 中对 Kotlin 守护进程的支持
 

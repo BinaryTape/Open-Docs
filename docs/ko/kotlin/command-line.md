@@ -17,7 +17,7 @@
 Kotlin 컴파일러를 수동으로 설치하려면 다음을 수행하세요.
 
 1. [GitHub Releases](%kotlinLatestUrl%)에서 최신 버전(`kotlin-compiler-%kotlinVersion%.zip`)을 다운로드합니다.
-2. 독립 실행형 컴파일러를 디렉터리에 압축 해제하고 선택적으로 `bin` 디렉터리를 시스템 경로에 추가합니다.
+2. 독립 실행형 컴파일러를 디렉터리에 압축 해제하고 선택적으로 `kotlinc/bin` 디렉터리를 시스템 경로에 추가합니다.
 `bin` 디렉터리에는 Windows, macOS, Linux에서 Kotlin을 컴파일하고 실행하는 데 필요한 스크립트가 포함되어 있습니다.
 
 > Windows에서 Kotlin 명령줄 컴파일러를 사용하려면 수동 설치를 권장합니다.

@@ -6,19 +6,19 @@ Ktor HTTP 클라이언트를 사용하면 멀티플랫폼 프로젝트에서 프
 
 ### 지원되는 엔진 {id="supported_engines"}
 
-아래 표는 특정 [엔진들](client-engines.md)에 대한 지원되는 프록시 유형을 보여줍니다.
+아래 표는 특정 [엔진들](client-engines.md)에 대한 지원되는 프록시 유형을 보여줍니다:
 
 | Engine     | HTTP proxy | SOCKS proxy |
 |------------|------------|-------------|
-| Apache     | ✅          |   ✖️         |
-| Java       | ✅          |   ✖️         |
-| Jetty      | ✖️          |   ✖️         |
-| CIO        | ✅          |   ✖️         |
-| Android    | ✅          |   ✅         |
-| OkHttp     | ✅          |   ✅         |
-| JavaScript | ✖️          |   ✖️         |
-| Darwin     | ✅          |   ✖️          |
-| Curl       | ✅          |   ✅         |
+| Apache     | ✅          | ✖️          |
+| Java       | ✅          | ✖️          |
+| Jetty      | ✖️         | ✖️          |
+| CIO        | ✅          | ✖️          |
+| Android    | ✅          | ✅           |
+| OkHttp     | ✅          | ✅           |
+| JavaScript | ✖️         | ✖️          |
+| Darwin     | ✅          | ✅           |
+| Curl       | ✅          | ✅           |
 
 > 참고: 현재 Darwin 엔진의 HTTP 프록시로는 HTTPS 요청이 지원되지 않습니다.
 
@@ -31,7 +31,7 @@ Ktor HTTP 클라이언트를 사용하면 멀티플랫폼 프로젝트에서 프
 ## 프록시 구성 {id="configure_proxy"}
 
 프록시 설정을 구성하려면 [클라이언트 구성 블록](client-create-and-configure.md#configure-client) 내에서 `engine` 함수를 호출한 다음 `proxy` 속성을 사용합니다.
-이 속성은 [ProxyBuilder](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client.engine/-proxy-builder/index.html) 팩토리를 사용하여 생성할 수 있는 `ProxyConfig` 인스턴스를 허용합니다.
+이 속성은 [ProxyBuilder](https://api.ktor.io/ktor-client-core/io.ktor.client.engine/-proxy-builder/index.html) 팩토리를 사용하여 생성할 수 있는 `ProxyConfig` 인스턴스를 허용합니다.
 
 ```kotlin
 val client = HttpClient() {

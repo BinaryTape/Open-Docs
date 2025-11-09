@@ -28,11 +28,11 @@ fun main() {
 
 在 Kotlin 中：
 
-* 函数形参写在圆括号 `()` 内。
-* 每个形参都必须有类型，多个形参之间必须用逗号 `,` 分隔。
-* 返回类型写在函数圆括号 `()` 之后，并用冒号 `:` 分隔。
-* 函数体写在花括号 `{}` 内。
-* `return` 关键字用于退出函数或从函数中返回内容。
+*   函数形参写在圆括号 `()` 内。
+*   每个形参都必须有类型，多个形参之间必须用逗号 `,` 分隔。
+*   返回类型写在函数圆括号 `()` 之后，并用冒号 `:` 分隔。
+*   函数体写在花括号 `{}` 内。
+*   `return` 关键字用于退出函数或从函数中返回内容。
 
 > 如果函数不返回任何有用的内容，可以省略返回类型和 `return` 关键字。有关更多信息，请参阅[不返回内容的函数](#functions-without-return)。
 >
@@ -40,10 +40,10 @@ fun main() {
 
 在以下示例中：
 
-* `x` 和 `y` 是函数形参。
-* `x` 和 `y` 的类型是 `Int`。
-* 函数的返回类型是 `Int`。
-* 调用该函数时，它会返回 `x` 和 `y` 的和。
+*   `x` 和 `y` 是函数形参。
+*   `x` 和 `y` 的类型是 `Int`。
+*   函数的返回类型是 `Int`。
+*   调用该函数时，它会返回 `x` 和 `y` 的和。
 
 ```kotlin
 fun sum(x: Int, y: Int): Int {
@@ -210,6 +210,12 @@ fun main() {
 >
 {style="tip"}
 
+<deflist collapsible="true" id="kotlin-tour-functions-exercise-1-hint">
+    <def title="提示">
+        计算圆面积的公式是 <math>πr^2</math>，其中 <math>r</math> 是半径。
+    </def>
+</deflist>
+
 |---|---|
 ```kotlin
 import kotlin.math.PI
@@ -234,7 +240,7 @@ fun main() {
     println(circleArea(2)) // 12.566370614359172
 }
 ```
-{initial-collapse-state="collapsed" collapsible="true" collapsed-title="Example solution" id="kotlin-tour-functions-solution-1"}
+{initial-collapse-state="collapsed" collapsible="true" collapsed-title="示例解答" id="kotlin-tour-functions-solution-1"}
 
 ### 练习 2 {initial-collapse-state="collapsed" collapsible="true" id="functions-exercise-2"}
 
@@ -262,7 +268,7 @@ fun main() {
     println(circleArea(2)) // 12.566370614359172
 }
 ```
-{initial-collapse-state="collapsed" collapsible="true" collapsed-title="Example solution" id="kotlin-tour-functions-solution-2"}
+{initial-collapse-state="collapsed" collapsible="true" collapsed-title="示例解答" id="kotlin-tour-functions-solution-2"}
 
 ### 练习 3 {initial-collapse-state="collapsed" collapsible="true" id="functions-exercise-3"}
 
@@ -296,7 +302,7 @@ fun main() {
     println(intervalInSeconds(hours = 1, seconds = 1))
 }
 ```
-{initial-collapse-state="collapsed" collapsible="true" collapsed-title="Example solution" id="kotlin-tour-functions-solution-3"}
+{initial-collapse-state="collapsed" collapsible="true" collapsed-title="示例解答" id="kotlin-tour-functions-solution-3"}
 
 ## lambda 表达式
 
@@ -330,17 +336,17 @@ lambda 表达式初看可能难以理解，让我们来分解一下。lambda 表
 
 在 lambda 表达式中，你写道：
 
-* 形参后跟 `->`。
-* `->` 后的函数体。
+*   形参后跟 `->`。
+*   `->` 后的函数体。
 
 在前面的示例中：
 
-* `text` 是一个函数形参。
-* `text` 的类型是 `String`。
-* 该函数返回在 `text` 上调用 [`.uppercase()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/uppercase.html) 函数的结果。
-* 整个 lambda 表达式通过赋值操作符 `=` 赋值给 `upperCaseString` 变量。
-* 该 lambda 表达式通过将变量 `upperCaseString` 像函数一样使用，并以字符串 `"hello"` 作为形参来调用。
-* `println()` 函数打印结果。
+*   `text` 是一个函数形参。
+*   `text` 的类型是 `String`。
+*   该函数返回在 `text` 上调用 [`.uppercase()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/uppercase.html) 函数的结果。
+*   整个 lambda 表达式通过赋值操作符 `=` 赋值给 `upperCaseString` 变量。
+*   该 lambda 表达式通过将变量 `upperCaseString` 像函数一样使用，并以字符串 `"hello"` 作为形参来调用。
+*   `println()` 函数打印结果。
 
 > 如果你声明一个没有形参的 lambda 表达式，则无需使用 `->`。例如：
 > ```kotlin
@@ -351,9 +357,9 @@ lambda 表达式初看可能难以理解，让我们来分解一下。lambda 表
 
 lambda 表达式可以以多种方式使用。你可以：
 
-* [将 lambda 表达式作为形参传递给另一个函数](#pass-to-another-function)
-* [从函数返回 lambda 表达式](#return-from-a-function)
-* [单独调用 lambda 表达式](#invoke-separately)
+*   [将 lambda 表达式作为形参传递给另一个函数](#pass-to-another-function)
+*   [从函数返回 lambda 表达式](#return-from-a-function)
+*   [单独调用 lambda 表达式](#invoke-separately)
 
 ### 传递给另一个函数
 
@@ -378,15 +384,15 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-tour-lambda-filter"}
 
-`.filter()` 函数接受一个 lambda 表达式作为谓词并将其应用于列表中的每个元素。只有当谓词返回 `true` 时，函数才会保留该元素：
+`.filter()` 函数接受一个 lambda 表达式作为谓词并将其应用于 list 中的每个元素。只有当谓词返回 `true` 时，函数才会保留该元素：
 
-* `{ x -> x > 0 }` 返回 `true` 如果元素为正。
-* `{ x -> x < 0 }` 返回 `true` 如果元素为负。
+*   `{ x -> x > 0 }` 返回 `true` 如果元素为正。
+*   `{ x -> x < 0 }` 返回 `true` 如果元素为负。
 
 此示例演示了将 lambda 表达式传递给函数的两种方式：
 
-* 对于正数，示例直接在 `.filter()` 函数中添加 lambda 表达式。
-* 对于负数，示例将 lambda 表达式赋值给 `isNegative` 变量。然后，`isNegative` 变量作为函数形参在 `.filter()` 函数中使用。在这种情况下，你必须在 lambda 表达式中指定函数形参 (`x`) 的类型。
+*   对于正数，示例直接在 `.filter()` 函数中添加 lambda 表达式。
+*   对于负数，示例将 lambda 表达式赋值给 `isNegative` 变量。然后，`isNegative` 变量作为函数形参在 `.filter()` 函数中使用。在这种情况下，你必须在 lambda 表达式中指定函数形参 (`x`) 的类型。
 
 > 如果 lambda 表达式是唯一的函数形参，你可以省略函数圆括号 `()`：
 >
@@ -420,8 +426,8 @@ fun main() {
 
 `.map()` 函数接受一个 lambda 表达式作为转换函数：
 
-* `{ x -> x * 2 }` 获取列表中的每个元素，并返回该元素乘以 2 的结果。
-* `{ x -> x * 3 }` 获取列表中的每个元素，并返回该元素乘以 3 的结果。
+*   `{ x -> x * 2 }` 获取 list 中的每个元素，并返回该元素乘以 2 的结果。
+*   `{ x -> x * 3 }` 获取 list 中的每个元素，并返回该元素乘以 3 的结果。
 
 ### 函数类型
 
@@ -431,8 +437,8 @@ fun main() {
 
 函数类型的语法包含：
 
-* 每个形参的类型写在圆括号 `()` 内，并用逗号 `,` 分隔。
-* 返回类型写在 `->` 之后。
+*   每个形参的类型写在圆括号 `()` 内，并用逗号 `,` 分隔。
+*   返回类型写在 `->` 之后。
 
 例如：`(String) -> String` 或 `(Int, Int) -> Int`。
 
@@ -526,7 +532,7 @@ fun main() {
 
 ### 练习 1 {initial-collapse-state="collapsed" collapsible="true" id="lambdas-exercise-1"}
 
-你有一个由 Web 服务支持的动作列表、所有请求的通用前缀以及特定资源的 ID。要通过 ID 为 5 的资源请求动作 `title`，你需要创建以下 URL：`https://example.com/book-info/5/title`。使用 lambda 表达式从动作列表中创建 URL 列表。
+你有一个由 Web 服务支持的动作 list、所有请求的通用前缀以及特定资源的 ID。要通过 ID 为 5 的资源请求动作 `title`，你需要创建以下 URL：`https://example.com/book-info/5/title`。使用 lambda 表达式从动作 list 中创建 URL list。
 
 |---|---|
 ```kotlin
@@ -550,7 +556,7 @@ fun main() {
     println(urls)
 }
 ```
-{initial-collapse-state="collapsed" collapsible="true" collapsed-title="Example solution" id="kotlin-tour-lambdas-solution-1"}
+{initial-collapse-state="collapsed" collapsible="true" collapsed-title="示例解答" id="kotlin-tour-lambdas-solution-1"}
 
 ### 练习 2 {initial-collapse-state="collapsed" collapsible="true" id="lambdas-exercise-2"}
 
@@ -582,7 +588,7 @@ fun main() {
     }
 }
 ```
-{initial-collapse-state="collapsed" collapsible="true" collapsed-title="Example solution" id="kotlin-tour-lambdas-solution-2"}
+{initial-collapse-state="collapsed" collapsible="true" collapsed-title="示例解答" id="kotlin-tour-lambdas-solution-2"}
 
 ## 下一步
 

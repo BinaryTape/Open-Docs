@@ -64,17 +64,17 @@ routing {
 
 总而言之，你需要指定以下设置来定义一个路由：
 
-* **HTTP 动词**
+*   **HTTP 动词**
 
-  选择 HTTP 动词，例如 `GET`、`POST`、`PUT` 等。最方便的方式是使用专门的动词函数，例如 `get`、`post`、`put` 等。
+    选择 HTTP 动词，例如 `GET`、`POST`、`PUT` 等。最方便的方式是使用专门的动词函数，例如 `get`、`post`、`put` 等。
 
-* **路径模式**
+*   **路径模式**
 
-  指定一个用于 [匹配 URL 路径](#match_url) 的路径模式，例如 `/hello`、`/customer/{id}`。你可以将路径模式直接传递给 `get`/`post`/etc. 函数，或者使用 `route` 函数来分组 [路由处理程序](#multiple_routes) 并定义 [嵌套路由](#nested_routes)。
-  
-* **处理程序**
+    指定一个用于 [匹配 URL 路径](#match_url) 的路径模式，例如 `/hello`、`/customer/{id}`。你可以将路径模式直接传递给 `get`/`post`/etc. 函数，或者使用 `route` 函数来分组 [路由处理程序](#multiple_routes) 并定义 [嵌套路由](#nested_routes)。
 
-  指定如何处理 [请求](server-requests.md) 和 [响应](server-responses.md)。在处理程序内部，你可以访问 `ApplicationCall`，处理客户端请求并发送响应。
+*   **处理程序**
+
+    指定如何处理 [请求](server-requests.md) 和 [响应](server-responses.md)。在处理程序内部，你可以访问 `ApplicationCall`，处理客户端请求并发送响应。
 
 ## 指定路径模式 {id="match_url"}
 
@@ -83,20 +83,20 @@ routing {
 > 注意，Ktor 区分带尾部斜杠和不带尾部斜杠的路径。你可以通过 [安装](server-plugins.md#install) `IgnoreTrailingSlash` 插件来改变此行为。
 
 下面是几个路径示例：
-* `/hello`  
-  包含单个路径段的路径。
-* `/order/shipment`  
-  包含多个路径段的路径。你可以将此类路径原样传递给 [route/get/etc.](#define_route) 函数，或者通过 [嵌套](#multiple_routes) 多个 `route` 函数来组织子路由。
-* `/user/{login}`  
-  带 `login` [路径参数](#path_parameter) 的路径，其值可在路由处理程序内部访问。
-* `/user/*`  
-  带 [通配符](#wildcard) 的路径，匹配任何路径段。
-* `/user/{...}`  
-  带 [尾部通配符](#tailcard) 的路径，匹配 URL 路径的其余所有部分。
-* `/user/{param...}`  
-  包含带 [尾部通配符的路径参数](#path_parameter_tailcard) 的路径。
-* `Regex("/.+/hello")`  
-  包含 [正则表达式](#regular_expression) 的路径，匹配路径段直到并包括最后一次出现的 `/hello`。
+*   `/hello`  
+    包含单个路径段的路径。
+*   `/order/shipment`  
+    包含多个路径段的路径。你可以将此类路径原样传递给 [route/get/etc.](#define_route) 函数，或者通过 [嵌套](#multiple_routes) 多个 `route` 函数来组织子路由。
+*   `/user/{login}`  
+    带 `login` [路径参数](#path_parameter) 的路径，其值可在路由处理程序内部访问。
+*   `/user/*`  
+    带 [通配符](#wildcard) 的路径，匹配任何路径段。
+*   `/user/{...}`  
+    带 [尾部通配符](#tailcard) 的路径，匹配 URL 路径的其余所有部分。
+*   `/user/{param...}`  
+    包含带 [尾部通配符的路径参数](#path_parameter_tailcard) 的路径。
+*   `Regex("/.+/hello")`  
+    包含 [正则表达式](#regular_expression) 的路径，匹配路径段直到并包括最后一次出现的 `/hello`。
 
 ### 通配符 {id="wildcard"}
 _通配符_（`*`）匹配任何路径段且不能为空。例如，`/user/*` 匹配 `/user/john`，但不匹配 `/user`。
@@ -106,11 +106,11 @@ _尾部通配符_（`{...}`）匹配 URL 路径的其余所有部分，可以包
 
 ### 路径参数 {id="path_parameter"}
 _路径参数_（`{param}`）匹配一个路径段并将其捕获为名为 `param` 的参数。此路径段是强制性的，但你可以通过添加问号使其可选：`{param?}`。例如：
-* `/user/{login}` 匹配 `/user/john`，但不匹配 `/user`。
-* `/user/{login?}` 匹配 `/user/john` 以及 `/user`。
-   > 请注意，可选的路径参数 `{param?}` 只能用在路径的末尾。
-   >
-   {type="note"}
+*   `/user/{login}` 匹配 `/user/john`，但不匹配 `/user`。
+*   `/user/{login?}` 匹配 `/user/john` 以及 `/user`。
+    > 请注意，可选的路径参数 `{param?}` 只能用在路径的末尾。
+    >
+    {type="note"}
 
 要访问路由处理程序内的参数值，请使用 `call.parameters` 属性。例如，在下面的代码片段中，`call.parameters["login"]` 对于 `/user/admin` 路径将返回 _admin_：
 ```kotlin
@@ -289,7 +289,7 @@ fun Route.totalizeOrderRoute() {
 
 > 为了使我们的应用程序在可维护性方面实现可伸缩性，建议遵循某些 [结构化模式](server-application-structure.md)。
 >
-> {type="note"}
+{type="note"}
 
 ## 追踪路由 {id="trace_routes"}
 
@@ -299,7 +299,7 @@ fun Route.totalizeOrderRoute() {
 TRACE Application - Trace for [missing-page]
 /, segment:0 -> SUCCESS @ /
   /, segment:0 -> SUCCESS @ /
-    /(method:GET), segment:0 -> FAILURE "Not all segments matched" @ /(method:GET)
+    / [(method:GET)], segment:0 -> FAILURE "Not all segments matched" @ / [(method:GET)]
 Matched routes:
   No results
 Route resolve result:
@@ -308,4 +308,4 @@ Route resolve result:
 
 > 要在 [原生服务器](server-native.md) 上启用路由追踪，在 [运行](server-run.md) 应用程序时将 _TRACE_ 值传递给 `KTOR_LOG_LEVEL` 环境变量。
 >
-> {type="note"}
+{type="note"}

@@ -1,6 +1,6 @@
 [//]: # (title: 兼容性與版本)
 
-Compose Multiplatform 的版本發佈與 Kotlin 和 Jetpack Compose 的版本發佈是分開的。此頁面包含有關 Compose Multiplatform 版本、Compose 發佈週期以及組件兼容性的資訊。
+Compose Multiplatform 的發佈與 Kotlin 和 Jetpack Compose 的發佈是分開的。此頁面包含有關 Compose Multiplatform 發佈、Compose 發佈週期以及組件兼容性的資訊。
 
 ## 支援的平台
 
@@ -40,7 +40,7 @@ Compose Multiplatform 要求套用與 Kotlin Multiplatform 外掛程式版本相
 >
 {style="warning"}
 
-## 適用於桌面版 Compose Multiplatform 的限制
+## 桌面版 Compose Multiplatform 的限制
 
 由於 [Skia](https://skia.org/) 綁定中使用的記憶體管理方案，桌面版 Compose Multiplatform 僅支援 JDK 11 或更高版本。
 
@@ -83,7 +83,7 @@ maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
 
 | Compose Multiplatform 版本                                                      | Jetpack Compose 版本 | Jetpack Compose Material3 版本 |
 |-----------------------------------------------------------------------------------|-------------------------|-----------------------------------|
-| [1.9.2](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.9.2)   | 1.9.4                   | 1.4.0                             |
+| [1.9.3](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.9.3)   | 1.9.4                   | 1.4.0                             |
 | [1.8.2](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.8.2)   | 1.8.2                   | 1.3.2                             |
 | [1.7.3](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.7.3)   | 1.7.6                   | 1.3.1                             |
 | [1.7.1](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.7.1)   | 1.7.5                   | 1.3.1                             |

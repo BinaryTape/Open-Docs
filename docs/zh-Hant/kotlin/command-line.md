@@ -18,8 +18,8 @@
 若要手動安裝 Kotlin 編譯器：
 
 1. 從 [GitHub Releases](%kotlinLatestUrl%) 下載最新版本 (`kotlin-compiler-%kotlinVersion%.zip`)。
-2. 將獨立編譯器解壓縮到一個目錄中，並可選擇將 `bin` 目錄新增至系統路徑。
-`bin` 目錄包含在 Windows、macOS 和 Linux 上編譯及執行 Kotlin 所需的腳本。
+2. 將獨立編譯器解壓縮到一個目錄中，並可選擇將 `kotlinc/bin` 目錄新增至系統路徑。
+此 `bin` 目錄包含在 Windows、macOS 和 Linux 上編譯及執行 Kotlin 所需的腳本。
 
 > 如果您想在 Windows 上使用 Kotlin 命令列編譯器，建議您手動安裝。
 >

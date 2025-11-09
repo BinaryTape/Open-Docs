@@ -209,6 +209,12 @@ fun main() {
 >
 {style="tip"}
 
+<deflist collapsible="true" id="kotlin-tour-functions-exercise-1-hint">
+    <def title="ヒント">
+        円の面積を計算する公式は <math>πr^2</math> で、ここで、<math>r</math> は半径です。
+    </def>
+</deflist>
+
 |---|---|
 ```kotlin
 import kotlin.math.PI

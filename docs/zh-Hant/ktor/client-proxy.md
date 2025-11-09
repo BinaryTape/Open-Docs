@@ -11,15 +11,15 @@ Ktor HTTP 用戶端允許您在多平台專案中配置代理設定。
 
 | 引擎     | HTTP 代理 | SOCKS 代理 |
 |------------|------------|-------------|
-| Apache     | ✅          |   ✖️         |
-| Java       | ✅          |   ✖️         |
-| Jetty      | ✖️          |   ✖️         |
-| CIO        | ✅          |   ✖️         |
-| Android    | ✅          |   ✅         |
-| OkHttp     | ✅          |   ✅         |
-| JavaScript | ✖️          |   ✖️         |
-| Darwin     | ✅          |   ✖️          |
-| Curl       | ✅          |   ✅         |
+| Apache     | ✅          | ✖️          |
+| Java       | ✅          | ✖️          |
+| Jetty      | ✖️         | ✖️          |
+| CIO        | ✅          | ✖️          |
+| Android    | ✅          | ✅           |
+| OkHttp     | ✅          | ✅           |
+| JavaScript | ✖️         | ✖️          |
+| Darwin     | ✅          | ✅           |
+| Curl       | ✅          | ✅           |
 
 > 請注意，目前 Darwin 引擎的 HTTP 代理不支援 HTTPS 請求。
 

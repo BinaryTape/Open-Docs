@@ -80,8 +80,8 @@ Kotlinには、アプリケーションで使用できる広範な標準ライ�
 
 ```xml
 <build>
-    <sourceDirectory>${project.basedir}/src/main/kotlin</sourceDirectory>
-    <testSourceDirectory>${project.basedir}/src/test/kotlin</testSourceDirectory>
+    <sourceDirectory>src/main/kotlin</sourceDirectory>
+    <testSourceDirectory>src/test/kotlin</testSourceDirectory>
 </build>
 ```
 
@@ -143,8 +143,8 @@ KotlinとJavaのソースコードを含むプロジェクトをコンパイル�
                     </goals>
                     <configuration>
                         <sourceDirs>
-                            <sourceDir>${project.basedir}/src/main/kotlin</sourceDir>
-                            <sourceDir>${project.basedir}/src/main/java</sourceDir>
+                            <sourceDir>src/main/kotlin</sourceDir>
+                            <sourceDir>src/main/java</sourceDir>
                         </sourceDirs>
                     </configuration>
                 </execution>
@@ -155,8 +155,8 @@ KotlinとJavaのソースコードを含むプロジェクトをコンパイル�
                     </goals>
                     <configuration>
                         <sourceDirs>
-                            <sourceDir>${project.basedir}/src/test/kotlin</sourceDir>
-                            <sourceDir>${project.basedir}/src/test/java</sourceDir>
+                            <sourceDir>src/test/kotlin</sourceDir>
+                            <sourceDir>src/test/java</sourceDir>
                         </sourceDirs>
                     </configuration>
                 </execution>
@@ -323,7 +323,7 @@ java -jar target/mymodule-0.0.1-SNAPSHOT-jar-with-dependencies.jar
 ### JVM固有の属性
 
 | 名前              | プロパティ名                   | 説明                                                                                | 可能な値                                     | デフォルト値                |
-|-------------------|---------------------------------|-------------------------------------------------------------------------------------|----------------------------------------------|-----------------------------
+|-------------------|---------------------------------|-------------------------------------------------------------------------------------|----------------------------------------------|-----------------------------|
 | `nowarn`          |                                 | 警告を生成しない                                                                    | true, false                                  | false                       |
 | `languageVersion` | kotlin.compiler.languageVersion | 指定されたKotlinバージョンとのソース互換性を提供します                               | "1.8", "1.9", "2.0", "2.1", "2.2" (EXPERIMENTAL) |                             |
 | `apiVersion`      | kotlin.compiler.apiVersion      | 指定されたバージョンのバンドルされたライブラリからの宣言のみを使用できるようにします | "1.8", "1.9", "2.0", "2.1", "2.2" (EXPERIMENTAL) |                             |

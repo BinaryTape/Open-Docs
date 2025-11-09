@@ -38,7 +38,7 @@ Ktor HTTPクライアントはマルチプラットフォームプロジェク�
 4.  **New Project**ウィンドウで、以下のフィールドを指定します。
     *   **名前**: KmpKtor
     *   **グループ**: com.example.ktor
-      ![Kotlin Multiplatform wizard settings](tutorial_client_kmp_create_project.png)
+      ![Kotlin Multiplatform wizard settings](tutorial_client_kmp_create_project.png){ width="450" width="706" border-effect="rounded" style="block" }
 5.  **Android**と**iOS**ターゲットを選択します。
 6.  iOSの場合、UIをネイティブに保つために、**Do not share UI**オプションを選択します。
 7.  **Create**ボタンをクリックし、IDEがプロジェクトを生成してインポートするのを待ちます。
@@ -55,7 +55,7 @@ Ktor HTTPクライアントはマルチプラットフォームプロジェク�
 
     ```kotlin
     [versions]
-    ktor = "3.3.1"
+    ktor = "3.3.2"
     ```
 
 2.  同じ<Path>gradle/libs.versions.toml</Path>ファイルで、Ktorクライアントとエンジンライブラリを定義します。
@@ -82,7 +82,7 @@ Ktor HTTPクライアントはマルチプラットフォームプロジェク�
         }
     }
     ```
-
+    
     -   `ktor-client-core`を`commonMain`ソースセットに追加して、共有コードでKtorクライアント機能を有効にします。
     -   `androidMain`ソースセットに、Androidで`OkHttp`エンジンを使用するための`ktor-client-okhttp`依存関係を含めます。代替として、[他の利用可能なAndroid/JVMエンジン](client-engines.md#jvm-android)から選択することもできます。
     -   `iosMain`ソースセットに、iOSでDarwinエンジンを使用するための`ktor-client-darwin`依存関係を追加します。
@@ -130,7 +130,7 @@ Ktor HTTPクライアントはマルチプラットフォームプロジェク�
 
 ### 共有コード {id="shared-code"}
 
-AndroidとiOS間で共有されるコードを更新するには、<Path>shared/src/commonMain/kotlin/com/example/ktor/kmmktor/Greeting.kt</Path>ファイルを開き、`Greeting`クラスに以下のコードを追加します。
+AndroidとiOS間で共有されるコードを更新するには、<Path>shared/src/commonMain/kotlin/com/example/ktor/kmpktor/Greeting.kt</Path>ファイルを開き、`Greeting`クラスに以下のコードを追加します。
 
 ```kotlin
 package com.example.ktor.kmpktor
@@ -154,7 +154,7 @@ class Greeting {
 
 ### Androidコード {id="android-activity"}
 
-<Path>composeApp/src/androidMain/kotlin/com/example/ktor/kmmktor/App.kt</Path>ファイルを開き、コードを次のように更新します。
+<Path>composeApp/src/androidMain/kotlin/com/example/ktor/kmpktor/App.kt</Path>ファイルを開き、コードを次のように更新します。
 
 ```kotlin
 package com.example.ktor.kmpktor

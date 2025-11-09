@@ -38,7 +38,7 @@ Ktor HTTP 客戶端可用於多平台專案。在本教學中，我們將建立�
 4. 在 **New Project** 視窗中指定以下欄位：
     * **名稱**：KmpKtor
     * **群組**：com.example.ktor
-      ![Kotlin Multiplatform 專案精靈設定](tutorial_client_kmp_create_project.png)
+      ![Kotlin Multiplatform 專案精靈設定](tutorial_client_kmp_create_project.png){ width="450" width="706" border-effect="rounded" style="block" }
 5. 選擇 **Android** 和 **iOS** 目標。
 6. 對於 iOS，選擇 **Do not share UI** 選項以保持 UI 原生。
 7. 點擊 **Create** 按鈕，然後等待 IDE 產生並匯入專案。
@@ -57,7 +57,7 @@ Ktor HTTP 客戶端可用於多平台專案。在本教學中，我們將建立�
     
     ```kotlin
     [versions]
-    ktor = "3.3.1"
+    ktor = "3.3.2"
     ```
 
 2. 在相同的
@@ -143,7 +143,7 @@ Ktor HTTP 客戶端可用於多平台專案。在本教學中，我們將建立�
 ### 共享程式碼 {id="shared-code"}
 
 若要更新 Android 和 iOS 之間共享的程式碼，請開啟
-<Path>shared/src/commonMain/kotlin/com/example/ktor/kmmktor/Greeting.kt</Path>
+<Path>shared/src/commonMain/kotlin/com/example/ktor/kmpktor/Greeting.kt</Path>
 檔案並將以下程式碼新增到 `Greeting` 類別中：
 
 ```kotlin
@@ -169,7 +169,7 @@ class Greeting {
 ### Android 程式碼 {id="android-activity"}
 
 開啟
-<Path>composeApp/src/androidMain/kotlin/com/example/ktor/kmmktor/App.kt</Path>
+<Path>composeApp/src/androidMain/kotlin/com/example/ktor/kmpktor/App.kt</Path>
 檔案並按如下方式更新程式碼：
 
 ```kotlin

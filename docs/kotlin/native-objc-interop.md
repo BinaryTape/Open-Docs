@@ -3,7 +3,7 @@
 > Objective-C 库的导入功能目前处于 [Beta](native-c-interop-stability.md) 阶段。
 > 所有由 cinterop 工具从 Objective-C 库生成的 Kotlin 声明都应带有 `@ExperimentalForeignApi` 注解。
 >
-> Kotlin/Native 附带的原生平台 库（例如 Foundation、UIKit 和 POSIX）仅对部分 API 要求选择启用。
+> Kotlin/Native 附带的原生平台库（例如 Foundation、UIKit 和 POSIX）仅对部分 API 要求选择启用。
 >
 {style="note"}
 
@@ -19,7 +19,7 @@ Kotlin/Native 通过 Objective-C 提供与 Swift 的间接互操作。本文档�
 Objective-C 框架和库如果正确导入到构建中（系统框架默认导入），就可以在 Kotlin 代码中使用。有关更多详细信息，请参见：
 
 *   [创建并配置库定义文件](native-definition-file.md)
-*   [配置原生 库的编译](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-configure-compilations.html#configure-interop-with-native-languages)
+*   [配置原生库的编译](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-configure-compilations.html#configure-interop-with-native-languages)
 
 如果 Swift 库的 API 使用 `@objc` 导出到 Objective-C，则可以在 Kotlin 代码中使用。纯 Swift 模块尚不支持。
 
@@ -27,10 +27,12 @@ Objective-C 框架和库如果正确导入到构建中（系统框架默认导�
 
 如果 Kotlin 模块编译成框架，则可以在 Swift/Objective-C 代码中使用：
 
-*   请参阅 [构建最终 原生 二进制文件](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-build-native-binaries.html#declare-binaries) 以了解如何声明二进制文件。
-*   请查看 [Kotlin Multiplatform 示例 项目](https://github.com/Kotlin/kmm-basic-sample) 获取示例。
+*   请参阅 [构建最终原生二进制文件](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-build-native-binaries.html#declare-binaries) 以了解如何声明二进制文件。
+*   请查看 [Kotlin Multiplatform 示例项目](https://github.com/Kotlin/kmm-basic-sample) 获取示例。
 
 ### 从 Objective-C 和 Swift 隐藏 Kotlin 声明
+
+<primary-label ref="experimental-opt-in"/>
 
 为了让你的 Kotlin 代码对 Swift/Objective-C 更友好，请使用 `@HiddenFromObjC` 注解来从 Objective-C 和 Swift 中隐藏 Kotlin 声明。它会禁用函数或属性导出到 Objective-C。
 
@@ -39,6 +41,8 @@ Objective-C 框架和库如果正确导入到构建中（系统框架默认导�
 [在 Kotlin-Swift interopedia 中查看示例](https://github.com/kotlin-hands-on/kotlin-swift-interopedia/blob/main/docs/overview/HiddenFromObjC.md)。
 
 ### 在 Swift 中使用 refining
+
+<primary-label ref="experimental-opt-in"/>
 
 `@ShouldRefineInSwift` 有助于将 Kotlin 声明替换为 Swift 编写的包装器。此注解在生成的 Objective-C API 中将函数或属性标记为 `swift_private`。此类声明会获得 `__` 前缀，这使得它们在 Swift 中不可见。
 
@@ -49,6 +53,8 @@ Objective-C 框架和库如果正确导入到构建中（系统框架默认导�
 
 ### 更改声明名称
 
+<primary-label ref="experimental-opt-in"/>
+
 为了避免重命名 Kotlin 声明，请使用 `@ObjCName` 注解。它指示 Kotlin 编译器为带注解的类、接口或任何其他 Kotlin 实体使用自定义的 Objective-C 和 Swift 名称：
 
 ```kotlin
@@ -58,7 +64,7 @@ class MyKotlinArray {
     fun indexOf(@ObjCName("of") element: String): Int = TODO()
 }
 
-// Usage with the ObjCName annotations
+// ObjCName 注解的使用
 let array = MySwiftArray()
 let index = array.index(of: "element")
 ```
@@ -154,7 +160,7 @@ kotlin {
 
 #### 名称翻译
 
-Objective-C 类以其原始名称导入到 Kotlin。协议（Protocols）以 `Protocol` 名称后缀作为接口（interfaces）导入，例如 `@protocol Foo` -> `interface FooProtocol`。
+Objective-C 类以其原始名称导入到 Kotlin。协议以 `Protocol` 名称后缀作为接口导入，例如 `@protocol Foo` -> `interface FooProtocol`。
 这些类和接口被放置在 [构建配置中指定的](#importing-swift-objective-c-libraries-to-kotlin) 包中（预配置的系统框架使用 `platform.*` 包）。
 
 当 Kotlin 类和接口导入到 Objective-C 时，它们的名称会被加上前缀。该前缀派生自框架名称。
@@ -237,7 +243,7 @@ player.moveTo(UP, byInches = 42)
 
 ### 错误与异常
 
-所有 Kotlin 异常都是非检查型的，这意味着错误在运行时捕获。然而，Swift 只有在编译期处理的检查型错误。因此，如果 Swift 或 Objective-C 代码调用抛出异常的 Kotlin 方法，该 Kotlin 方法应使用 `@Throws` 注解标记，并指定“预期”异常类的列表。
+所有 Kotlin 异常都是非检查型的，这意味着错误在运行时捕获。然而，Swift 只有在编译期处理的检查型错误。所以，如果 Swift 或 Objective-C 代码调用抛出异常的 Kotlin 方法，该 Kotlin 方法应使用 `@Throws` 注解标记，并指定“预期”异常类的列表。
 
 当编译到 Swift/Objective-C 框架时，带有或继承 `@Throws` 注解的非 `suspend` 函数在 Objective-C 中表示为生成 `NSError*` 的方法，在 Swift 中表示为 `throws` 方法。`suspend` 函数的表示总是在 completion handler 中包含 `NSError*`/`Error` 形参。
 
@@ -284,9 +290,11 @@ switch color {
 
 ### 挂起函数
 
+<primary-label ref="experimental-opt-in"/>
+
 Kotlin 的[挂起函数](coroutines-basics.md) (`suspend`) 在生成的 Objective-C 头文件中呈现为带回调的函数，或 Swift/Objective-C 术语中的[完成处理程序](https://developer.apple.com/documentation/swift/calling_objective-c_apis_asynchronously)。
 
-从 Swift 5.5 开始，Kotlin 的 `suspend` 函数也可以作为 `async` 函数从 Swift 调用，而无需使用完成处理程序。目前，此功能是高度实验性的，并且存在某些限制。有关详细信息，请参阅[此 YouTrack issue](https://youtrack.jetbrains.com/issue/KT-47610)。
+从 Swift 5.5 开始，Kotlin 的 `suspend` 函数也可以作为 `async` 函数从 Swift 调用，而无需使用完成处理程序。目前，此功能高度实验性的，并且存在某些限制。有关详细信息，请参阅[此 YouTrack issue](https://youtrack.jetbrains.com/issue/KT-47610)。
 
 *   了解更多关于 Swift 文档中的 [`async`/`await` 机制](https://docs.swift.org/swift-book/LanguageGuide/Concurrency.html)。
 *   在 [Kotlin-Swift interopedia](https://github.com/kotlin-hands-on/kotlin-swift-interopedia/blob/main/docs/coroutines/Suspend%20functions.md) 中查看实现相同功能的第三方库的示例和建议。
@@ -354,7 +362,7 @@ MyClass.Companion.shared
 
 Kotlin 原生类型包装器映射到特殊的 Swift/Objective-C 类。例如，`kotlin.Int` 包装器在 Swift 中表示为 `KotlinInt` 类实例（或在 Objective-C 中表示为 `${prefix}Int` 实例，其中 `prefix` 是框架的名称前缀）。这些类派生自 `NSNumber`，因此这些实例是支持所有相应操作的 `NSNumber`。
 
-当 `NSNumber` 类型用作 Swift/Objective-C 形参类型或返回值时，它不会自动转换为 Kotlin 原生类型。原因是 `NSNumber` 类型没有提供足够关于包装的原生值类型的信息，例如，`NSNumber` 在静态上不确定是 `Byte`、`Boolean` 还是 `Double`。因此，Kotlin 原生值应[手动与 `NSNumber` 之间进行类型转换](#casting-between-mapped-types)。
+当 `NSNumber` 类型用作 Swift/Objective-C 形参类型或返回值时，它不会自动转换为 Kotlin 原生类型。原因是 `NSNumber` 类型没有提供足够关于包装的原生值类型的信息，例如，`NSNumber` 在静态上不确定是 `Byte`、`Boolean` 还是 `Double`。所以 Kotlin 原生值应[手动与 `NSNumber` 之间进行类型转换](#casting-between-mapped-types)。
 
 ### 字符串
 
@@ -374,7 +382,7 @@ Kotlin 中不可用 `NSMutableString` Objective-C 类。
 
 当 Kotlin 集合传递给 Swift 时，它首先转换为 Objective-C 等效类型，然后 Swift 编译器复制整个集合并将其转换为 Swift 原生集合，如[映射表](#mappings) 中所述。
 
-最后这种转换会导致性能开销。为防止这种情况，在 Swift 中使用 Kotlin 集合时，请将其显式转换为其 Objective-C 对应类型：`NSDictionary`、`NSArray` 或 `NSSet`。
+最后这种转换会导致性能开销。为防止这种情况，当在 Swift 中使用 Kotlin 集合时，请将其显式转换为其 Objective-C 对应类型：`NSDictionary`、`NSArray` 或 `NSSet`。
 
 ##### 查看转换示例 {initial-collapse-state="collapsed" collapsible="true"}
 
@@ -474,7 +482,7 @@ greetUserBlock:^(NSString *name) {
 
 Objective-C 支持在类中定义的“轻量级泛型”，其特性集相对有限。Swift 可以导入在类中定义的泛型，以帮助为编译器提供额外的类型信息。
 
-Objective-C 和 Swift 对泛型特性的支持与 Kotlin 不同，因此翻译不可避免地会丢失一些信息，但支持的特性仍保留有意义的信息。
+Objective-C 和 Swift 对泛型特性的支持与 Kotlin 不同，所以翻译不可避免地会丢失一些信息，但支持的特性仍保留有意义的信息。
 
 有关如何在 Swift 中使用 Kotlin 泛型的具体示例，请参阅 [Kotlin-Swift interopedia](https://github.com/kotlin-hands-on/kotlin-swift-interopedia/blob/main/docs/overview/ShouldRefineInSwift.md)。
 
@@ -486,7 +494,7 @@ Objective-C 泛型不支持 Kotlin 或 Swift 的所有特性，因此在翻译�
 
 #### 可空性
 
-Kotlin 和 Swift 都将可空性定义为类型规范的一部分，而 Objective-C 则在方法的类型及其属性上定义可空性。因此，以下 Kotlin 代码：
+Kotlin 和 Swift 都将可空性定义为类型规范的一部分，而 Objective-C 则在方法的类型及其属性上定义可空性。所以，以下 Kotlin 代码：
 
 ```kotlin
 class Sample<T>() {
@@ -504,7 +512,7 @@ class Sample<T>() {
 
 为了支持可能的可空类型，Objective-C 头文件需要使用可空返回值来定义 `myVal`。
 
-为了缓解这种情况，在定义泛型类时，如果泛型类型_绝不_可空，请提供一个非空类型约束：
+为了缓解这种情况，当定义你的泛型类时，如果泛型类型_绝不_可空，请提供一个非空类型约束：
 
 ```kotlin
 class Sample<T : Any>() {
@@ -589,13 +597,20 @@ fun test() {
 
 ## 映射类型之间的类型转换
 
-在编写 Kotlin 代码时，一个对象可能需要从 Kotlin 类型转换为等效的 Swift/Objective-C 类型（反之亦然）。在这种情况下，可以使用普通的 Kotlin 类型转换，例如：
+在编写 Kotlin 代码时，一个对象可能需要从 Kotlin 类型转换为等效的 Swift/Objective-C 类型（反之亦然）。在这种情况下，你可以使用普通的 Kotlin 类型转换，例如：
 
 ```kotlin
-val nsArray = listOf(1, 2, 3) as NSArray
-val string = nsString as String
+@file:Suppress("CAST_NEVER_SUCCEEDS")
+import platform.Foundation.*
+
 val nsNumber = 42 as NSNumber
+val nsArray = listOf(1, 2, 3) as NSArray
+val nsString = "Hello" as NSString
+val string = nsString as String
 ```
+
+IDE 可能会错误地发出“This cast can never succeed”警告。
+在这种情况下，请使用 `@Suppress("CAST_NEVER_SUCCEEDS")` 注解。
 
 ## 子类化
 
@@ -607,7 +622,7 @@ Kotlin 类和接口可以被 Swift/Objective-C 类和协议子类化。
 
 Swift/Objective-C 类和协议可以被 Kotlin 的 `final` 类子类化。继承 Swift/Objective-C 类型的非 `final` Kotlin 类尚不支持，因此无法声明继承 Swift/Objective-C 类型的复杂类层次结构。
 
-可以使用 Kotlin 的 `override` 关键字覆盖普通方法。在这种情况下，覆盖方法必须与被覆盖方法具有相同的形参名称。
+普通方法可以使用 Kotlin 的 `override` 关键字覆盖。在这种情况下，覆盖方法必须与被覆盖方法具有相同的形参名称。
 
 有时需要覆盖初始化器，例如在子类化 `UIViewController` 时。作为 Kotlin 构造函数导入的初始化器可以被标记有 `@OverrideInit` 注解的 Kotlin 构造函数覆盖：
 
@@ -623,7 +638,7 @@ class ViewController : UIViewController {
 
 为了覆盖具有冲突 Kotlin 签名的不同方法，你可以将 `@ObjCSignatureOverride` 注解添加到类中。当从 Objective-C 类继承的多个函数具有相同的实参类型但不同的实参名称时，此注解指示 Kotlin 编译器忽略冲突的重载。
 
-默认情况下，Kotlin/Native 编译器不允许将非指定 Objective-C 初始化器作为 `super()` 构造函数调用。如果 Objective-C 库中没有正确标记指定初始化器，则此行为可能会造成不便。要禁用这些编译器检测，请将 `disableDesignatedInitializerChecks = true` 添加到库的 [`.def` 文件](native-definition-file.md) 中。
+默认情况下，Kotlin/Native 编译器不允许将非指定 Objective-C 初始化器作为 `super()` 构造函数调用。此行为可能会造成不便，如果 Objective-C 库中没有正确标记指定初始化器。要禁用这些编译器检测，请将 `disableDesignatedInitializerChecks = true` 添加到库的 [`.def` 文件](native-definition-file.md) 中。
 
 ## C 特性
 

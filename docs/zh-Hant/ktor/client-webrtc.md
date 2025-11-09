@@ -91,22 +91,22 @@ val androidClient = WebRtcClient(AndroidWebRtc) {
 3. 兩個對等端都應用對方的描述來完成設定。
 
 ```kotlin
-// Caller creates a connection and an offer
+// 呼叫者建立連線和 offer
 val caller = jsClient.createPeerConnection()
 val offer = caller.createOffer()
 caller.setLocalDescription(offer)
-// send offer.sdp to the remote peer via your signaling mechanism
+// 透過您的訊號傳輸機制將 offer.sdp 傳送給遠端對等端
 
-// Callee receives the offer and creates an answer
+// 被呼叫者接收 offer 並建立 answer
 val callee = jsClient.createPeerConnection()
 callee.setRemoteDescription(
     WebRtc.SessionDescription(WebRtc.SessionDescriptionType.OFFER, remoteOfferSdp)
 )
 val answer = callee.createAnswer()
 callee.setLocalDescription(answer)
-// send answer.sdp back to the caller via signaling
+// 透過訊號傳輸將 answer.sdp 傳送回呼叫者
 
-// Caller applies the answer
+// 呼叫者應用 answer
 caller.setRemoteDescription(
     WebRtc.SessionDescription(WebRtc.SessionDescriptionType.ANSWER, remoteAnswerSdp)
 )
@@ -121,17 +121,17 @@ SDP 協商完成後，對等端仍需要發現如何跨網路連線。[互動式
 - 一旦兩個對等端都新增了對方的候選者，連線即可成功。
 
 ```kotlin
-// Collect and send local candidates
+// 收集並傳送本地候選者
 scope.launch {
     caller.iceCandidates.collect { candidate ->
-        // send candidate.candidate, candidate.sdpMid, candidate.sdpMLineIndex to remote peer
+        // 將 candidate.candidate、candidate.sdpMid、candidate.sdpMLineIndex 傳送給遠端對等端
     }
 }
 
-// Receive and add remote candidates
+// 接收並新增遠端候選者
 callee.addIceCandidate(WebRtc.IceCandidate(candidateString, sdpMid, sdpMLineIndex))
 
-// Optionally wait until all candidates are gathered
+// (可選) 等待所有候選者收集完成
 callee.awaitIceGatheringComplete()
 ```
 
@@ -170,10 +170,10 @@ scope.launch {
 通道使用類似 `Channel` 的 API，這對 Kotlin 開發人員來說很熟悉：
 
 ```kotlin
-// Send a message
+// 傳送訊息
 scope.launch { channel.send("hello") }
 
-// Receive messages
+// 接收訊息
 scope.launch { println("received: " + channel.receiveText()) }
 ```
 
@@ -186,22 +186,23 @@ scope.launch { println("received: " + channel.receiveText()) }
 您可以從本地設備 (麥克風、相機) 請求音訊或視訊軌：
 
 ```kotlin
-val audioConstraints = WebRtcMedia.AudioTrackConstraints(
-  echoCancellation = true
-)
-val videoConstraints = WebRtcMedia.VideoTrackConstraints(
-  width = 1280,
-  height = 720
-)
-val audio = rtcClient.createAudioTrack(audioConstraints)
-val video = rtcClient.createVideoTrack(videoConstraints)
+val audio = rtcClient.createAudioTrack {
+    echoCancellation = true
+}
+val video = rtcClient.createVideoTrack {
+    width = 1280
+    height = 720
+}
 
 val pc = jsClient.createPeerConnection()
 pc.addTrack(audio)
 pc.addTrack(video)
 ```
 
-在網路上，這會使用 `navigator.mediaDevices.getUserMedia`。在 Android 上，它使用 Camera2 API，您必須手動請求麥克風/相機權限。
+在網路上，這會使用 `navigator.mediaDevices.getUserMedia`。在 Android 上，它使用 Camera2 API，您必須手動請求麥克風/相機權限。在 iOS 上，它使用 AVFoundation API，您也應該手動請求任何權限。客戶端將嘗試根據指定的約束找到最合適的媒體設備，否則將拋出 `WebRtcMedia.DeviceException`。
+
+> `WebRtcClient`、`WebRtcPeerConnection`、`WebRtcMedia.Track` 及其他介面均為 `AutoCloseable`。請確保在不再需要時呼叫 `close()` 方法以釋放資源。
+{style="note"}
 
 ### 接收遠端軌
 

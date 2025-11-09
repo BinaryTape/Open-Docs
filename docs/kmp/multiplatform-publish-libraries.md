@@ -28,7 +28,7 @@
 在本教程中，你将使用 [fibonacci](https://github.com/Kotlin/multiplatform-library-template/) 库作为示例。
 你可以参考该版本库的代码，了解发布设置的工作原理。
 
-如果你想重用代码，**必须将所有示例值替换**为你**项目特有**的值。
+如果你想重用代码，**必须将所有示例值替换**为你**项目特有的**值。
 
 ## 准备账户和凭据
 
@@ -76,12 +76,30 @@ Maven **构件**通过其[坐标](https://central.sonatype.org/publish/requireme
 
 #### 生成密钥对
 
-在发布内容到 Maven Central 之前，你需要使用 [PGP 签名](https://central.sonatype.org/publish/requirements/gpg/)签署你的**构件**，这允许用户验证**构件**的来源。
+在你发布内容到 Maven Central 之前，你需要使用 [PGP 签名](https://central.sonatype.org/publish/requirements/gpg/)签署你的**构件**，这允许用户验证**构件**的来源。
 
 要开始签名，你需要生成一个密钥对：
 
 *   _私钥_ 用于签署你的**构件**，绝不应与他人共享。
 *   _公钥_ 可以与他人共享，以便他们可以验证你的**构件**的签名。
+
+<Tabs group ="key-pair-tools">
+<TabItem title="使用 Kotlin Gradle 插件" group-key="kgp">
+
+Kotlin Gradle 插件有一个 Gradle **任务**，你可以用它来生成密钥对。
+
+1.  使用以下命令生成密钥对。以 `“John Smith <john@example.com>”` 格式提供私钥库的密码和你的姓名：
+
+    ```bash
+    ./gradlew -Psigning.password=example-password generatePgpKeys --name "John Smith <john@example.com>"
+    ```
+
+   密钥对存储在 `build/pgp` 目录中。
+
+2.  将你的密钥对从 `build/pgp` 目录移动到安全位置，以防止意外删除或未经授权的访问。
+
+</TabItem>
+<TabItem title="使用 gpg 工具" group-key="gpg">
 
 用于管理签名的 `gpg` 工具可在 [GnuPG 网站](https://gnupg.org/download/index.html)上获取。
 你也可以使用 [Homebrew](https://brew.sh/) 等包管理器安装它：
@@ -117,10 +135,10 @@ brew install gpg
     Your selection? 1
     ```
 
-    > 在撰写本文时，这是 `ECC (签名和加密)`，使用 `Curve 25519`。
-    > 较旧的 `gpg` 版本可能默认为 `RSA`，密钥大小为 `3072` 位。
-    >
-    {style="note"}
+   > 在撰写本文时，这是 `ECC (签名和加密)`，使用 `Curve 25519`。
+   > 较旧的 `gpg` 版本可能默认为 `RSA`，密钥大小为 `3072` 位。
+   >
+   {style="note"}
 
 3.  当提示指定密钥有效期时，你可以选择不设置过期日期的默认选项。
 
@@ -157,22 +175,41 @@ brew install gpg
 
 6.  使用以下命令查看你创建的密钥：
 
-   ```bash
-   gpg --list-keys
-   ```
+    ```bash
+    gpg --list-keys
+    ```
 
-输出将类似于：
+   输出将类似于：
 
-```text
-pub   ed25519 2024-10-06 [SC]
-      F175482952A225BFD4A07A713EE6B5F76620B385CE
-uid   [ultimate] Jane Doe <janedoe@example.com>
-      sub   cv25519 2024-10-06 [E]
-```
+    ```text
+    pub   ed25519 2024-10-06 [SC]
+          F175482952A225BFD4A07A713EE6B5F76620B385CE
+    uid   [ultimate] Jane Doe <janedoe@example.com>
+          sub   cv25519 2024-10-06 [E]
+    ```
 
-在接下来的步骤中，你需要使用输出中出现的密钥长字母数字标识符。
+    在接下来的步骤中，你需要使用输出中出现的密钥长字母数字标识符。
+
+</TabItem>
+</Tabs>
 
 #### 上传公钥
+
+你需要[将公钥上传到密钥服务器](https://central.sonatype.org/publish/requirements/gpg/#distributing-your-public-key)，以便 Maven Central 接受它。有多个可用密钥服务器，我们选择 `keyserver.ubuntu.com` 作为默认选项。
+
+<Tabs group ="key-pair-tools">
+<TabItem title="使用 Kotlin Gradle 插件" group-key="kgp">
+
+Kotlin Gradle 插件有一个 Gradle **任务**，你可以用它来上传公钥。
+
+运行以下命令以上传你的公钥，提供其路径：
+
+```bash
+./gradlew uploadPublicPgpKey --keyring /path_to/build/pgp/public_KEY_ID.asc
+```
+
+</TabItem>
+<TabItem title="使用 gpg 工具" group-key="gpg">
 
 你需要[将公钥上传到密钥服务器](https://central.sonatype.org/publish/requirements/gpg/#distributing-your-public-key)，以便 Maven Central 接受它。有多个可用密钥服务器，我们选择 `keyserver.ubuntu.com` 作为默认选项。
 
@@ -182,7 +219,7 @@ uid   [ultimate] Jane Doe <janedoe@example.com>
 gpg --keyserver keyserver.ubuntu.com --send-keys F175482952A225BFC4A07A715EE6B5F76620B385CE
 ```
 
-#### 导出私钥
+**导出私钥** {id="export-your-private-key"}
 
 为了让你的 Gradle **项目**访问你的私钥，你需要将其导出为二进制文件。
 系统将提示你输入创建密钥时使用的密码短语。
@@ -199,11 +236,14 @@ gpg --no-armor --export-secret-keys F175482952A225BFC4A07A715EE6B5F76620B385CE >
 >
 {style="warning"}
 
+</TabItem>
+</Tabs>
+
 ## 配置**项目**
 
 ### 准备你的库**项目**
 
-如果你从模板**项目**开始开发库，现在是更改**项目**中所有默认名称以匹配你自己的库名称的好时机。这包括你的库模块名称和**顶层** `build.gradle.kts` 文件中根**项目**的名称。
+如果你从模板**项目**开始开发库，现在是更改**项目**中所有默认名称以匹配你自己的库名称的好时机。这包括你的库模块名称和你的**顶层** `build.gradle.kts` 文件中根**项目**的名称。
 
 如果你的**项目**中包含 Android **目标平台**，你应该遵循[准备 Android 库发布](https://developer.android.com/build/publish-library/prep-lib-release)的步骤。
 至少，此过程要求你为库[指定适当的命名空间](https://developer.android.com/build/publish-library/prep-lib-release#choose-namespace)，以便在编译其资源时生成唯一的 `R` 类。
@@ -287,6 +327,40 @@ mavenPublishing {
 *   [许可](https://central.sonatype.org/publish/requirements/#license-information)，你的库在此许可下发布。
 *   [开发者信息](https://central.sonatype.org/publish/requirements/#developer-information)，列出库的作者。
 *   [SCM（源代码管理）信息](https://central.sonatype.org/publish/requirements/#scm-information)，它指定库源代码的托管位置。
+
+### 运行本地检测
+
+在发布到 Maven Central 之前，最好在本地**检测**你的**项目**是否配置正确。
+
+#### 本地检测签名
+
+运行以下命令来验证你的密钥是否已正确配置用于签名：
+
+```bash
+./gradlew checkSigningConfiguration
+```
+
+这个 Gradle **任务**会**检测**你的公钥是否已上传到 `keyserver.ubuntu.com` 或 `keys.openpgp.org` 密钥服务器。
+
+如果**任务**报告错误，请查看输出以获取有关如何修复的详细信息。
+
+#### 本地检测 `pom.xml` 文件
+
+要将你的库发布到 Maven Central，`pom.xml` 文件必须满足 Maven Central 的[要求](https://central.sonatype.org/publish/requirements/#required-pom-metadata)。
+
+对于你计划发布的每个库，运行以下命令，将 `<PUBLICATION_NAME>` 替换为发布项名称：
+
+```bash
+./gradlew checkPomFileFor<PUBLICATION_NAME>Publication
+```
+
+使用 [vanniktech/gradle-maven-publish-plugin](https://github.com/vanniktech/gradle-maven-publish-plugin) 时，发布项通常命名为 `Maven`。在这种情况下，该**任务**变为：
+
+```bash
+./gradlew checkPomFileForMavenPublication
+```
+
+如果**任务**报告错误，请查看输出以获取有关如何修复的详细信息。
 
 ## 使用持续集成发布到 Maven Central
 
@@ -386,7 +460,7 @@ jobs:
 
    ![Create a release on GitHub](create_release_and_tag.png){width=700}
 
-6.  仔细检查你想要发布的目标分支（尤其如果它不是默认分支），并为你的新版本添加适当的发布说明。
+6.  仔细**检测**你想要发布的目标分支（尤其如果它不是默认分支），并为你的新版本添加适当的发布说明。
 7.  使用描述下方的复选框将发布标记为预发布版本（对于**抢先体验预览**版本如 alpha、beta 或 RC 很有用）。
 
    你也可以将发布标记为最新版本（如果你之前已经为此**版本库**创建过发布）。
@@ -396,14 +470,14 @@ jobs:
    你可以点击工作流查看发布**任务**的输出。
 10. 工作流运行完成后，导航到 Maven Central 上的[部署](https://central.sonatype.com/publishing/deployments)仪表板。你应该会在这里看到一个新部署。
 
-    在 Maven Central 执行检测时，此部署可能会在 _pending_ 或 _validating_ 状态下停留一段时间。
+    在 Maven Central 执行**检测**时，此部署可能会在 _pending_ 或 _validating_ 状态下停留一段时间。
 
 11. 一旦你的部署进入 _validated_ 状态，**检测**它是否包含你上传的所有**构件**。
     如果一切看起来正确，点击 **Publish** 按钮以发布这些**构件**。
 
     ![Publishing settings](published_on_maven_central.png){width=700}
 
-    > 发布后，**构件**需要一些时间（通常约为 15-30 分钟，但可能需要数小时）才能在 Maven Central **版本库**中公开可用。它们可能需要更长时间才能被索引并在 [Maven Central 网站](https://central.sonatype.com/)上可搜索。
+    > 发布后，**构件**需要一些时间（通常约为 15–30 分钟，但可能需要数小时）才能在 Maven Central **版本库**中公开可用。它们可能需要更长时间才能被索引并在 [Maven Central 网站](https://central.sonatype.com/)上可搜索。
     >
     {style="tip"}
 

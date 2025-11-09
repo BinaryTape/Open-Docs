@@ -1,10 +1,5 @@
 [//]: # (title: Lombokコンパイラープラグイン)
-
-> Lombokコンパイラープラグインは[実験的](components-stability.md)なものです。
-> いつでも変更または削除される可能性があります。評価目的でのみ使用してください。
-> [YouTrack](https://youtrack.jetbrains.com/issue/KT-7112)でのフィードバックをお待ちしております。
->
-{style="warning"}
+<primary-label ref="experimental-opt-in"/>
 
 Kotlin Lombokコンパイラープラグインを使用すると、同じJava/Kotlin混在モジュール内でKotlinコードによるJavaのLombok宣言の生成と使用が可能になります。
 別のモジュールからそのような宣言を呼び出す場合、そのモジュールのコンパイルにはこのプラグインを使用する必要はありません。
@@ -181,4 +176,3 @@ LombokコンパイラープラグインのJARは、Kotlinコンパイラーの�
 # オプションは複数指定できます。
 
 -P plugin:org.jetbrains.kotlin.lombok:config=<PATH_TO_CONFIG_FILE>
-```

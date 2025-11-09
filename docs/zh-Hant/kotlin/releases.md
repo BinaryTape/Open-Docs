@@ -8,7 +8,8 @@
 自 Kotlin 2.0.0 起，我們發布以下類型的版本：
 
 *   _語言發布版本_ (2._x_._0_) 帶來語言的主要變更並包含工具更新。每 6 個月發布一次。
-*   _工具發布版本_ (2._x_._20_) 在語言發布版本之間發布，包含工具更新、效能改進和錯誤修正。在相應的 _語言發布版本_ 後 3 個月內發布。
+*   _工具發布版本_ (2._x_._20_) 在語言發布版本之間發布，包含工具更新、
+    效能改進和錯誤修正。在相應的 _語言發布版本_ 後 3 個月內發布。
 *   _錯誤修正發布版本_ (2._x_._yz_) 包含 _工具發布版本_ 的錯誤修正。這些發布版本沒有確切的發布排程。
 
 <!-- TODO: uncomment with 2.1.0 release
@@ -20,9 +21,18 @@
 
 對於每個語言和工具發布版本，我們還會發布數個預覽 (_EAP_) 版本，供您在新功能發布前試用。詳情請參閱 [搶先體驗預覽](eap.md)。
 
-> 若要接收新 Kotlin 發布版本的通知，請訂閱 [Kotlin 電子報](https://lp.jetbrains.com/subscribe-to-kotlin-news/)、追蹤 [Kotlin 在 X 平台](https://x.com/kotlin)，或在 [Kotlin GitHub 儲存庫](https://github.com/JetBrains/kotlin) 上啟用 **Watch | Custom | Releases** 選項。
+> 若要接收新 Kotlin 發布版本的通知，請訂閱 [Kotlin 電子報](https://lp.jetbrains.com/subscribe-to-kotlin-news/)、
+> 追蹤 [Kotlin 在 X 平台](https://x.com/kotlin)，
+> 或在 [Kotlin GitHub 儲存庫](https://github.com/JetBrains/kotlin) 上啟用 **Watch | Custom | Releases** 選項。
 > 
 {style="note"}
+
+## 即將推出的 Kotlin 發布版本
+
+以下是即將推出的穩定版 Kotlin 發布版本的大致排程：
+
+*   **2.3.0**：規劃於 2025 年 12 月 – 2026 年 1 月
+*   **2.3.20**：規劃於 2026 年 3 月 – 4 月
 
 ## 更新至新 Kotlin 版本
 
@@ -207,7 +217,7 @@ IntelliJ IDEA 和 Android Studio 中的 K2 模式使用 K2 編譯器來改進程
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.1.0" target="_blank">在 GitHub 上發布</a></p>
         </td>
         <td>
-            <p>引入新語言功能的一個語言發布版本。</p>
+            <p>一個語言發布版本，引入新語言功能。</p>
             <p>在<a href="whatsnew21.md" target="_blank">Kotlin 2.1.0 新功能</a>中深入了解 Kotlin 2.1.0。</p>
         </td>
     </tr>
@@ -331,7 +341,10 @@ IntelliJ IDEA 和 Android Studio 中的 K2 模式使用 K2 編譯器來改進程
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.9.0" target="_blank">在 GitHub 上發布</a></p>
         </td>
         <td>
-            <p>一個功能發布版本，包含 Kotlin K2 編譯器更新、新的 enum class 值函式、用於開放式範圍的新運算子、Kotlin Multiplatform 中 Gradle 配置快取的預覽、Kotlin Multiplatform 中 Android 目標支援的變更、Kotlin/Native 中自訂記憶體分配器的預覽。</p>
+            <p>一個功能發布版本，包含 Kotlin K2 編譯器更新、新的 enum class 值函式、
+                用於開放式範圍的新運算子、Kotlin Multiplatform 中 Gradle 配置快取的預覽、
+                Kotlin Multiplatform 中 Android 目標支援的變更、Kotlin/Native 中自訂記憶體分配器的預覽。
+            </p>
             <p>深入了解：</p>
             <list>
                 <li><a href="whatsnew19.md" target="_blank">Kotlin 1.9.0 新功能</a></li>
@@ -366,7 +379,9 @@ IntelliJ IDEA 和 Android Studio 中的 K2 模式使用 K2 編譯器來改進程
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.8.20" target="_blank">在 GitHub 上發布</a></p>
         </td>
         <td>
-            <p>一個功能發布版本，包含 Kotlin K2 編譯器更新、stdlib 中的 AutoCloseable 介面和 Base64 編碼、預設啟用新的 JVM 增量編譯、新的 Kotlin/Wasm 編譯器後端。</p>
+            <p>一個功能發布版本，包含 Kotlin K2 編譯器更新、stdlib 中的 AutoCloseable 介面和 Base64 編碼、
+                預設啟用新的 JVM 增量編譯、新的 Kotlin/Wasm 編譯器後端。
+            </p>
             <p>深入了解：</p>
             <list>
                 <li><a href="whatsnew1820.md" target="_blank">Kotlin 1.8.20 新功能</a></li>
@@ -416,7 +431,9 @@ IntelliJ IDEA 和 Android Studio 中的 K2 模式使用 K2 編譯器來改進程
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.7.20" target="_blank">在 GitHub 上發布</a></p>
         </td>
         <td>
-            <p>一個增量發布版本，包含新的語言功能、Kotlin K2 編譯器中對多個編譯器外掛程式的支援、預設啟用新的 Kotlin/Native 記憶體管理器，以及對 Gradle 7.1 的支援。</p>
+            <p>一個增量發布版本，包含新的語言功能、Kotlin K2 編譯器中對多個編譯器外掛程式的支援、
+                預設啟用新的 Kotlin/Native 記憶體管理器，以及對 Gradle 7.1 的支援。
+            </p>
             <p>深入了解：</p>
             <list>
                 <li><a href="whatsnew1720.md" target="_blank">Kotlin 1.7.20 新功能</a></li>
@@ -684,7 +701,7 @@ IntelliJ IDEA 和 Android Studio 中的 K2 模式使用 K2 編譯器來改進程
     </tr>
     <tr>
         <td><strong>1.4.0</strong>
-            <p> 發布日期：<strong>2020 年 8 月 17 日</strong></p>
+            <p>發布日期：<strong>2020 年 8 月 17 日</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.4.0" target="_blank">在 GitHub 上發布</a></p>
         </td>
         <td>
@@ -700,7 +717,7 @@ IntelliJ IDEA 和 Android Studio 中的 K2 模式使用 K2 編譯器來改進程
     </tr>
     <tr>
         <td><strong>1.3.72</strong>
-            <p> 發布日期：<strong>2020 年 4 月 15 日</strong></p>
+            <p>發布日期：<strong>2020 年 4 月 15 日</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.3.72" target="_blank">在 GitHub 上發布</a></p>
         </td>
         <td>

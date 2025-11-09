@@ -16,11 +16,13 @@ Ktor は [セマンティックバージョニング](https://semver.org/) に�
 
 ## IntelliJ Ultimate プラグイン {id="intellij"}
 
-[IntelliJ Ktor プラグイン](https://www.jetbrains.com/help/idea/ktor.html) は、Ktor フレームワークとは独立してリリースされ、[IntelliJ IDEA Ultimate](https://www.jetbrains.com/idea/download/other.html) と同じリリースサイクルを使用します。
+[IntelliJ Ktor プラグイン](https://www.jetbrains.com/help/idea/ktor.html) は、Ktor フレームワークとは独立してリリースされ、
+[IntelliJ IDEA Ultimate](https://www.jetbrains.com/idea/download/other.html) と同じリリースサイクルを使用します。
 
 ### 新しいリリースへの更新 {id="update"}
 
-IntelliJ Ktor プラグインを使用すると、Ktor プロジェクトを最新バージョンに移行できます。詳細については、[プロジェクトの移行](https://www.jetbrains.com/help/idea/ktor.html#migrate) セクションを参照してください。
+IntelliJ Ktor プラグインを使用すると、Ktor プロジェクトを最新バージョンに移行できます。
+詳細については、[プロジェクトの移行](https://www.jetbrains.com/help/idea/ktor.html#migrate) セクションを参照してください。
 
 ## リリース詳細 {id="release-details"}
 
@@ -30,6 +32,18 @@ IntelliJ Ktor プラグインを使用すると、Ktor プロジェクトを最�
 
 <tr>
 <td>バージョン</td><td>リリース日</td><td>ハイライト</td>
+</tr>
+
+<tr>
+<td>3.3.2</td><td>2025年11月5日</td><td>
+<p>
+Darwin 向けの SOCKS プロキシのサポートを追加し、WebRTC クライアントターゲットと Java プロキシ処理を洗練し、HTTP の再試行、OpenAPI、キャッシュ、および Android 上の Netty における複数の問題を修正するパッチリリースです。
+</p>
+<var name="version" value="3.3.2"/>
+<p>
+    <a href="https://github.com/ktorio/ktor/releases/tag/%version%">GitHub で変更履歴を見る</a>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -59,7 +73,7 @@ Kotlin を 2.2.20 に更新し、Content-Length のパースエラー、<code>Cl
 <tr>
 <td>3.2.3</td><td>2025年7月29日</td><td>
 <p>
-YAML 設定の処理、DI 解決、および Wasm/JS の安定性に対する改善を導入し、マルチパート解析、CIO の `100 Continue` レスポンスフォーマット、`ByteReadChannel` での無限読み取りループ、およびサーバーシャットダウンの問題に対する修正を含むパッチリリースです。
+YAML 設定の処理、DI 解決、および Wasm/JS の安定性に対する改善を導入し、マルチパート解析、CIO の <code>100 Continue</code> レスポンスフォーマット、<code>ByteReadChannel</code> での無限読み取りループ、およびサーバーシャットダウンの問題に対する修正を含むパッチリリースです。
 </p>
 <var name="version" value="3.2.3"/>
 <p>
@@ -95,7 +109,7 @@ SSE フィールドのシリアライズ順序を改善し、CORS プリフラ�
 <tr>
 <td>3.2.0</td><td>2025年6月12日</td><td>
 <p>
-型付き設定のデシリアライズ、新しい依存性注入と HTMX モジュール、Gradle バージョンカタログのサポート、および <code>suspend</code> モジュールのサポートを導入するマイナーリリースです。詳細については、<Links href="/ktor/whats-new-320" summary="undefined">Ktor 3.2.0 の新機能</Links> を参照してください。
+型付き設定のデシリアライズ、新しい依存性注入と HTMX モジュール、Gradle バージョンカタログのサポート、および suspend モジュールのサポートを導入するマイナーリリースです。詳細については、<Links href="/ktor/whats-new-320" summary="undefined">Ktor 3.2.0 の新機能</Links> を参照してください。
 </p>
 <var name="version" value="3.2.0"/>
 <p>
@@ -366,7 +380,7 @@ HTTP Cookie ヘッダーと NoTransformationFoundException エラーのバグ修
 <tr>
 <td>2.3.2</td><td>2023年6月28日</td><td>
 <p>
-Kotlin バージョンを `1.8.22` にアップグレードし、様々なバグ修正を含むパッチリリースです。
+Kotlin バージョンを <code>1.8.22</code> にアップグレードし、様々なバグ修正を含むパッチリリースです。
 </p>
 <var name="version" value="2.3.2"/>
 <p>
@@ -402,7 +416,7 @@ Kotlin バージョンを `1.8.22` にアップグレードし、様々なバグ
 <tr>
 <td>2.2.4</td><td>2023年2月28日</td><td>
 <p>
-HTTP クライアント、ルーティング、および <code>ContentNegotiation</code> の様々なバグ修正を含むパッチリリースです。
+HTTP クライアント、Routing、および ContentNegotiation の様々なバグ修正を含むパッチリリースです。
 </p>
 <var name="version" value="2.2.4"/>
 <p>
@@ -414,7 +428,7 @@ HTTP クライアント、ルーティング、および <code>ContentNegotiatio
 <tr>
 <td>2.2.3</td><td>2023年1月31日</td><td>
 <p>
-<code>OAuth2</code> のマルチプラットフォーム機能と様々なバグ修正を含むパッチリリースです。
+OAuth2 のマルチプラットフォーム機能と様々なバグ修正を含むパッチリリースです。
 </p>
 <var name="version" value="2.2.3"/>
 <p>
@@ -438,7 +452,7 @@ HTTP クライアント、ルーティング、および <code>ContentNegotiatio
 <tr>
 <td>2.2.1</td><td>2022年12月7日</td><td>
 <p>
-<code>2.2.0</code> における `java.lang.NoClassDefFoundError: kotlinx/atomicfu/AtomicFU` エラーに対するパッチリリースです。
+<code>2.2.0</code> における <code>java.lang.NoClassDefFoundError: kotlinx/atomicfu/AtomicFU</code> エラーに対するパッチリリースです。
 </p>
 <var name="version" value="2.2.1"/>
 <p>
@@ -450,7 +464,8 @@ HTTP クライアント、ルーティング、および <code>ContentNegotiatio
 <tr>
 <td>2.2.0</td><td>2022年12月7日</td><td>
 <p>
-Swagger UI ホスティング、新しいプラグイン API、<code>Sessions</code> のマルチプラットフォームサポートなど、複数の機能リリースです。詳細については、<Links href="/ktor/migration-to-22x" summary="undefined"><code>2.0.x</code> から <code>2.2.x</code> への移行</Links> ガイドを参照してください。
+Swagger UI ホスティング、新しいプラグイン API、Sessions のマルチプラットフォームサポートなど、複数の機能リリースです。
+詳細については、<Links href="/ktor/migration-to-22x" summary="undefined">2.0.x から 2.2.x への移行</Links> ガイドを参照してください。
 </p>
 <var name="version" value="2.2.0"/>
 <p>
@@ -474,7 +489,7 @@ Swagger UI ホスティング、新しいプラグイン API、<code>Sessions</c
 <tr>
 <td>2.1.2</td><td>2022年9月29日</td><td>
 <p>
-ルーティング、テストエンジン、および Ktor クライアントのバグ修正を含むパッチリリースです。
+Routing、Testing engine、および Ktor クライアントのバグ修正を含むパッチリリースです。
 </p>
 <var name="version" value="2.1.2"/>
 <p>
@@ -510,7 +525,7 @@ YAML 設定のサポートを追加するマイナーリリースであり、そ
 <tr>
 <td>2.0.3</td><td>2022年6月28日</td><td>
 <p>
-バグ修正と `kotlinx.coroutines` バージョンを `1.6.2` にアップグレードしたものを含むパッチリリースです。
+バグ修正と <code>kotlinx.coroutines</code> バージョンを <code>1.6.2</code> にアップグレードしたものを含むパッチリリースです。
 </p>
 <var name="version" value="2.0.3"/>
 <p>
@@ -534,7 +549,7 @@ YAML 設定のサポートを追加するマイナーリリースであり、そ
 <tr>
 <td>2.0.1</td><td>2022年4月28日</td><td>
 <p>
-様々なバグ修正と Kotlin バージョンを `1.6.21` に更新したものを含むパッチリリースです。
+様々なバグ修正と Kotlin バージョンを <code>1.6.21</code> に更新したものを含むパッチリリースです。
 </p>
 <var name="version" value="2.0.1"/>
 <p>
@@ -546,7 +561,7 @@ YAML 設定のサポートを追加するマイナーリリースであり、そ
 <tr>
 <td>2.0.0</td><td>2022年4月11日</td><td>
 <p>
-更新された API ドキュメントと様々な新機能を含むメジャーリリースです。破壊的変更と `1.x.x` からの移行方法の詳細については、<Links href="/ktor/migration-to-20x" summary="undefined">移行ガイド</Links> を参照してください。
+更新された API ドキュメントと様々な新機能を含むメジャーリリースです。破壊的変更と <code>1.x.x</code> からの移行方法の詳細については、<Links href="/ktor/migration-to-20x" summary="undefined">移行ガイド</Links> を参照してください。
 </p>
 <var name="version" value="2.0.0"/>
 <p>

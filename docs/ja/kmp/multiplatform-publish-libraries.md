@@ -83,6 +83,24 @@ Maven Centralに何かを公開する前に、アーティファクトを[PGP署
 *   _秘密鍵_はアーティファクトの署名に使用され、他者と決して共有してはなりません。
 *   _公開鍵_は他者と共有できるため、彼らはアーティファクトの署名を検証できます。
 
+<Tabs group ="key-pair-tools">
+<TabItem title="Kotlin Gradleプラグインを使用する場合" group-key="kgp">
+
+Kotlin Gradleプラグインには、鍵ペアを生成するために使用できるGradleタスクがあります。
+
+1.  次のコマンドを使用して鍵ペアを生成します。秘密鍵ストアのパスワードと、次の形式で名前を指定します。
+
+    ```bash
+    ./gradlew -Psigning.password=example-password generatePgpKeys --name "John Smith <john@example.com>"
+    ```
+
+    鍵ペアは`build/pgp`ディレクトリに保存されます。
+
+2.  鍵ペアを`build/pgp`ディレクトリから安全な場所に移動し、偶発的な削除や不正アクセスを防ぎます。
+
+</TabItem>
+<TabItem title="gpgツールを使用する場合" group-key="gpg">
+
 署名を管理できる`gpg`ツールは、[GnuPGウェブサイト](https://gnupg.org/download/index.html)で入手できます。
 [Homebrew](https://brew.sh/)などのパッケージマネージャーを使用してインストールすることもできます。
 
@@ -161,18 +179,37 @@ brew install gpg
     gpg --list-keys
     ```
 
-出力は次のようになります。
+    出力は次のようになります。
 
-```text
-pub   ed25519 2024-10-06 [SC]
-      F175482952A225BFD4A07A713EE6B5F76620B385CE
-uid   [ultimate] Jane Doe <janedoe@example.com>
-      sub   cv25519 2024-10-06 [E]
-```
+    ```text
+    pub   ed25519 2024-10-06 [SC]
+          F175482952A225BFD4A07A713EE6B5F76620B385CE
+    uid   [ultimate] Jane Doe <janedoe@example.com>
+          sub   cv25519 2024-10-06 [E]
+    ```
 
-次の手順では、出力に表示される鍵の長い英数字の識別子を使用する必要があります。
+    次の手順では、出力に表示される鍵の長い英数字の識別子を使用する必要があります。
+
+</TabItem>
+</Tabs>
 
 #### 公開鍵をアップロードする
+
+Maven Centralに承認されるためには、[公開鍵をキーサーバーにアップロードする](https://central.sonatype.org/publish/requirements/gpg/#distributing-your-public-key)必要があります。利用可能なキーサーバーは複数ありますが、ここではデフォルトの選択として`keyserver.ubuntu.com`を使用します。
+
+<Tabs group ="key-pair-tools">
+<TabItem title="Kotlin Gradleプラグインを使用する場合" group-key="kgp">
+
+Kotlin Gradleプラグインには、公開鍵をアップロードするために使用できるGradleタスクがあります。
+
+次のコマンドを実行して、公開鍵のパスを指定しアップロードします。
+
+```bash
+./gradlew uploadPublicPgpKey --keyring /path_to/build/pgp/public_KEY_ID.asc
+```
+
+</TabItem>
+<TabItem title="gpgツールを使用する場合" group-key="gpg">
 
 Maven Centralに承認されるためには、[公開鍵をキーサーバーにアップロードする](https://central.sonatype.org/publish/requirements/gpg/#distributing-your-public-key)必要があります。利用可能なキーサーバーは複数ありますが、ここではデフォルトの選択として`keyserver.ubuntu.com`を使用します。
 
@@ -182,7 +219,7 @@ Maven Centralに承認されるためには、[公開鍵をキーサーバーに
 gpg --keyserver keyserver.ubuntu.com --send-keys F175482952A225BFC4A07A715EE6B5F76620B385CE
 ```
 
-#### 秘密鍵をエクスポートする
+#### 秘密鍵をエクスポートする {id="export-your-private-key"}
 
 Gradleプロジェクトから秘密鍵にアクセスできるようにするには、秘密鍵をバイナリファイルにエクスポートする必要があります。
 鍵を作成した際に使用したパスフレーズを入力するよう求められます。
@@ -198,6 +235,9 @@ gpg --no-armor --export-secret-keys F175482952A225BFC4A07A715EE6B5F76620B385CE >
 > 秘密鍵ファイルは誰とも共有しないでください。秘密鍵はあなたのクレデンシャルでファイルに署名することを可能にするため、あなただけがアクセスできるべきです。
 >
 {style="warning"}
+
+</TabItem>
+</Tabs>
 
 ## プロジェクトを設定する
 
@@ -287,6 +327,40 @@ mavenPublishing {
 *   ライブラリが公開される[ライセンス](https://central.sonatype.org/publish/requirements/#license-information)。
 *   ライブラリの作者を一覧表示する[開発者情報](https://central.sonatype.org/publish/requirements/#developer-information)。
 *   ライブラリのソースコードがホストされている場所を指定する[SCM（ソースコード管理）情報](https://central.sonatype.org/publish/requirements/#scm-information)。
+
+### ローカルチェックを実行する
+
+Maven Centralに公開する前に、プロジェクトが正しく設定されているかローカルで確認することをお勧めします。
+
+#### ローカルで署名をチェックする
+
+次のコマンドを実行して、署名用に鍵が正しく設定されていることを確認します。
+
+```bash
+./gradlew checkSigningConfiguration
+```
+
+このGradleタスクは、公開鍵が`keyserver.ubuntu.com`または`keys.openpgp.org`のキーサーバーにアップロードされていることを確認します。
+
+タスクがエラーを報告した場合は、その修正方法の詳細について出力を確認してください。
+
+#### ローカルで`pom.xml`ファイルをチェックする
+
+ライブラリをMaven Centralに公開するには、`pom.xml`ファイルがMaven Centralの[要件](https://central.sonatype.org/publish/requirements/#required-pom-metadata)を満たす必要があります。
+
+公開を予定している各ライブラリについて、`<PUBLICATION_NAME>`を公開名に置き換えて次のコマンドを実行します。
+
+```bash
+./gradlew checkPomFileFor<PUBLICATION_NAME>Publication
+```
+
+[vanniktech/gradle-maven-publish-plugin](https://github.com/vanniktech/gradle-maven-publish-plugin)を使用する場合、公開名は通常`Maven`です。この場合、タスクは次のようになります。
+
+```bash
+./gradlew checkPomFileForMavenPublication
+```
+
+タスクがエラーを報告した場合は、その修正方法の詳細について出力を確認してください。
 
 ## 継続的インテグレーションを使用してMaven Centralに公開する
 

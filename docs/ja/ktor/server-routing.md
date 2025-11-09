@@ -33,7 +33,7 @@ routing {
 
 ## ルートハンドラーの定義 {id="define_route"}
 
-ルーティングプラグインを[インストール](#install_plugin)した後、`routing` 内で[route](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.routing/route.html) 関数を呼び出してルートを定義できます。
+ルーティングプラグインを[インストール](#install_plugin)した後、`routing` 内で[route](https://api.ktor.io/ktor-server-core/io.ktor.server.routing/route.html) 関数を呼び出してルートを定義できます。
 ```kotlin
 import io.ktor.server.routing.*
 import io.ktor.http.*
@@ -48,7 +48,7 @@ routing {
 }
 ```
 
-Ktorはまた、ルートハンドラーの定義をはるかに簡単かつ簡潔にする一連の関数も提供しています。例えば、前のコードは、URLとリクエストを処理するコードのみを必要とする[get](https://api.ktor.io/ktor-server/ktor-server-core/io.ktor.server.routing/get.html) 関数に置き換えることができます。
+Ktorはまた、ルートハンドラーの定義をはるかに簡単かつ簡潔にする一連の関数も提供しています。例えば、前のコードは、URLとリクエストを処理するコードのみを必要とする[get](https://api.ktor.io/ktor-server-core/io.ktor.server.routing/get.html) 関数に置き換えることができます。
 
 ```kotlin
 import io.ktor.server.routing.*
@@ -71,7 +71,7 @@ routing {
 *   **パスパターン**
 
     `/hello`、`/customer/{id}`などのURLパスを[照合](#match_url)するために使用されるパスパターンを指定します。パスパターンを `get`/`post`/などの関数に直接渡すことも、`route` 関数を使用して[ルートハンドラー](#multiple_routes)をグループ化し、[ネストされたルート](#nested_routes)を定義することもできます。
-
+  
 *   **ハンドラー**
 
     [リクエスト](server-requests.md)と[レスポンス](server-responses.md)を処理する方法を指定します。ハンドラー内では、`ApplicationCall` にアクセスし、クライアントリクエストを処理し、レスポンスを送信できます。
@@ -83,19 +83,19 @@ routing {
 > Ktorは末尾のスラッシュの有無でパスを区別することに注意してください。この動作は、`IgnoreTrailingSlash` プラグインを[インストール](server-plugins.md#install)することで変更できます。
 
 以下にいくつかのパスの例を示します。
-*   `/hello`
+*   `/hello`  
     単一のパスセグメントを含むパス。
-*   `/order/shipment`
+*   `/order/shipment`  
     複数のパスセグメントを含むパス。このようなパスは、そのまま[route/get/etc.](#define_route)関数に渡すことも、複数の `route` 関数を[ネスト](#multiple_routes)してサブルートを整理することもできます。
-*   `/user/{login}`
+*   `/user/{login}`  
     `login` [パスパラメータ](#path_parameter)を持つパスで、その値はルートハンドラー内でアクセスできます。
-*   `/user/*`
+*   `/user/*`  
     任意のパスセグメントにマッチする[ワイルドカード文字](#wildcard)を持つパス。
-*   `/user/{...}`
+*   `/user/{...}`  
     URLパスの残りのすべてにマッチする[テールカード](#tailcard)を持つパス。
-*   `/user/{param...}`
+*   `/user/{param...}`  
     [テールカード付きパスパラメータ](#path_parameter_tailcard)を含むパス。
-*   `Regex("/.+/hello")`
+*   `Regex("/.+/hello")`  
     `/hello` の最後の出現箇所を含むパスセグメントまでを照合する[正規表現](#regular_expression)を含むパス。
 
 ### ワイルドカード {id="wildcard"}
@@ -205,7 +205,7 @@ routing {
 
     }
     get("/order/{id}") {
-
+    
     }
 }
 ```
@@ -296,17 +296,20 @@ fun Route.totalizeOrderRoute() {
 
 ## ルートのトレース {id="trace_routes"}
 
-[ロギング](server-logging.md)が構成されている場合、Ktorはルートトレースを有効にし、一部のルートが実行されない理由を特定するのに役立ちます。例えば、アプリケーションを[実行](server-run.md)し、指定されたエンドポイントにリクエストを行うと、アプリケーションの出力は次のようになる場合があります。
+[ロギング](server-logging.md)が構成されている場合、Ktorはルートトレースを有効にし、一部のルートが実行されない理由を特定するのに役立ちます。
+例えば、アプリケーションを[実行](server-run.md)し、指定されたエンドポイントにリクエストを行うと、
+アプリケーションの出力は次のようになる場合があります。
 
 ```Console
 TRACE Application - Trace for [missing-page]
 /, segment:0 -> SUCCESS @ /
   /, segment:0 -> SUCCESS @ /
-    /(method:GET), segment:0 -> FAILURE "Not all segments matched" @ /(method:GET)
+    / [(method:GET)], segment:0 -> FAILURE "Not all segments matched" @ / [(method:GET)]
 Matched routes:
   No results
 Route resolve result:
   FAILURE "No matched subtrees found" @ /
 ```
 
-> [Nativeサーバー](server-native.md)でルートトレースを有効にするには、アプリケーションを[実行](server-run.md)する際に `KTOR_LOG_LEVEL` 環境変数に _TRACE_ 値を渡します。
+> [Nativeサーバー](server-native.md)でルートトレースを有効にするには、
+> アプリケーションを[実行](server-run.md)する際に `KTOR_LOG_LEVEL` 環境変数に _TRACE_ 値を渡します。

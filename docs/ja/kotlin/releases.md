@@ -24,6 +24,13 @@ Kotlin 2.0.0以降、以下の種類のリリースを提供しています。
 >
 {style="note"}
 
+## 今後のKotlinリリース
+
+今後の安定版Kotlinリリースの概算スケジュールは以下の通りです:
+
+*   **2.3.0**: 2025年12月～2026年1月に予定
+*   **2.3.20**: 2026年3月～4月に予定
+
 ## 新しいKotlinバージョンへのアップデート
 
 プロジェクトを新しいリリースにアップグレードするには、ビルドシステムでKotlinのバージョンを更新してください。
@@ -144,7 +151,7 @@ K2モードの詳細については、[こちらのブログ](https://blog.jetbr
     <tr>
         <td><strong>2.2.20</strong>
             <p>リリース日: <strong>2025年9月10日</strong></p>
-            <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.2.20" target="_blank">GitHubでのリリース</a></p>
+            <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.2.20" target="_blank">Release on GitHub</a></p>
         </td>
         <td>
             <p>Kotlin 2.2.0 向けのツールリリースで、ウェブ開発における重要な変更やその他の改善が含まれています。</p>

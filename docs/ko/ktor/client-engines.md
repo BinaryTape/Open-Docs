@@ -499,7 +499,7 @@ CIO 엔진은 JVM, Android, Native, JavaScript 및 WebAssembly JavaScript (WasmJ
             <code-block lang="XML" code="               &lt;dependency&gt;&#10;                   &lt;groupId&gt;io.ktor&lt;/groupId&gt;&#10;                   &lt;artifactId&gt;%artifact_name%-jvm&lt;/artifactId&gt;&#10;                   &lt;version&gt;${ktor_version}&lt;/version&gt;&#10;               &lt;/dependency&gt;"/>
         </TabItem>
     </Tabs>
-2.  [`CIO`](https://api.ktor.io/ktor-client/ktor-client-cio/io.ktor.client.engine.cio/-c-i-o/index.html) 클래스를
+2.  [`CIO`](https://api.ktor.io/ktor-client-cio/io.ktor.client.engine.cio/-c-i-o/index.html) 클래스를
     `HttpClient` 생성자의 인수로 전달합니다:
     ```kotlin
     import io.ktor.client.*
@@ -596,7 +596,7 @@ CIO 엔진은 JVM, Android, Native, JavaScript 및 WebAssembly JavaScript (WasmJ
 | `Js`        | ✅      | ✅          |
 | `Darwin`    | ✅      | ✅          |
 | `WinHttp`   | ✅      | ✅          |
-| `Curl`      | ✅      | ✅          |
+| `Curl`    | ✅      | ✅          |
 
 ### 보안
 
@@ -623,13 +623,13 @@ CIO 엔진은 JVM, Android, Native, JavaScript 및 WebAssembly JavaScript (WasmJ
 
 <procedure>
 
-1.  **shared/src/commonMain/kotlin/com/example/kmmktor/Platform.kt**
+1.  **shared/src/commonMain/kotlin/com/example/kmpktor/Platform.kt**
     파일을 열고 구성 블록을 받아 `HttpClient`를 반환하는 최상위 `httpClient()` 함수를 추가합니다:
     ```kotlin
     expect fun httpClient(config: HttpClientConfig<*>.() -> Unit = {}): HttpClient
     ```
 
-2.  **shared/src/androidMain/kotlin/com/example/kmmktor/Platform.kt**
+2.  **shared/src/androidMain/kotlin/com/example/kmpktor/Platform.kt**
     를 열고 Android 모듈용 `httpClient()` 함수의 actual 선언을 추가합니다:
     ```kotlin
     import io.ktor.client.*
@@ -652,7 +652,7 @@ CIO 엔진은 JVM, Android, Native, JavaScript 및 WebAssembly JavaScript (WasmJ
     >
     {style="tip"}
 
-3.  **shared/src/iosMain/kotlin/com/example/kmmktor/Platform.kt**를 열고 iOS 모듈용 `httpClient()`
+3.  **shared/src/iosMain/kotlin/com/example/kmpktor/Platform.kt**를 열고 iOS 모듈용 `httpClient()`
     함수의 actual 선언을 추가합니다:
     ```kotlin
     import io.ktor.client.*
@@ -669,7 +669,7 @@ CIO 엔진은 JVM, Android, Native, JavaScript 및 WebAssembly JavaScript (WasmJ
     ```
     이제 공유 코드에서 어떤 엔진이 사용되는지 걱정할 필요 없이 `httpClient()`를 호출할 수 있습니다.
 
-4.  공유 코드에서 클라이언트를 사용하려면 **shared/src/commonMain/kotlin/com/example/kmmktor/Greeting.kt**를 열고
+4.  공유 코드에서 클라이언트를 사용하려면 **shared/src/commonMain/kotlin/com/example/kmpktor/Greeting.kt**를 열고
     `HttpClient()` 생성자를 `httpClient()` 함수 호출로 바꿉니다:
     ```kotlin
     private val client = httpClient()

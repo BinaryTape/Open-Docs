@@ -80,8 +80,8 @@ JDK 17을 사용하려면 `.mvn/jvm.config` 파일에 다음을 추가합니다:
 
 ```xml
 <build>
-    <sourceDirectory>${project.basedir}/src/main/kotlin</sourceDirectory>
-    <testSourceDirectory>${project.basedir}/src/test/kotlin</testSourceDirectory>
+    <sourceDirectory>src/main/kotlin</sourceDirectory>
+    <testSourceDirectory>src/test/kotlin</testSourceDirectory>
 </build>
 ```
 
@@ -143,8 +143,8 @@ JDK 17을 사용하려면 `.mvn/jvm.config` 파일에 다음을 추가합니다:
                     </goals>
                     <configuration>
                         <sourceDirs>
-                            <sourceDir>${project.basedir}/src/main/kotlin</sourceDir>
-                            <sourceDir>${project.basedir}/src/main/java</sourceDir>
+                            <sourceDir>src/main/kotlin</sourceDir>
+                            <sourceDir>src/main/java</sourceDir>
                         </sourceDirs>
                     </configuration>
                 </execution>
@@ -155,8 +155,8 @@ JDK 17을 사용하려면 `.mvn/jvm.config` 파일에 다음을 추가합니다:
                     </goals>
                     <configuration>
                         <sourceDirs>
-                            <sourceDir>${project.basedir}/src/test/kotlin</sourceDir>
-                            <sourceDir>${project.basedir}/src/test/java</sourceDir>
+                            <sourceDir>src/test/kotlin</sourceDir>
+                            <sourceDir>src/test/java</sourceDir>
                         </sourceDirs>
                     </configuration>
                 </execution>

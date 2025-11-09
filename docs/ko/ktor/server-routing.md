@@ -71,7 +71,7 @@ routing {
 *   **경로 패턴**
 
     URL 경로를 [일치](#match_url)시키는 데 사용되는 경로 패턴을 지정합니다. 예를 들어, `/hello`, `/customer/{id}`와 같습니다. `get`/`post`/등 함수에 경로 패턴을 바로 전달할 수 있으며, [라우트 핸들러](#multiple_routes)를 그룹화하고 [중첩 라우트](#nested_routes)를 정의하기 위해 `route` 함수를 사용할 수도 있습니다.
-
+    
 *   **핸들러**
 
     [요청](server-requests.md)과 [응답](server-responses.md)을 처리하는 방법을 지정합니다. 핸들러 내에서 `ApplicationCall`에 접근하여, 클라이언트 요청을 처리하고 응답을 보낼 수 있습니다.
@@ -258,8 +258,7 @@ routing {
 
 ## 라우트 확장 함수 {id="route_extension_function"}
 
-일반적인 패턴은 `Route` 타입에 대한 확장 함수를 사용하여 실제 라우트를 정의하는 것입니다. 이를 통해 동사(verb)에 쉽게 접근하고 모든 라우트가 단일 라우팅 함수에 있는 복잡함을 없앨 수 있습니다. 이 패턴은 라우트를 그룹화하는 방식과 관계없이 적용할 수 있습니다.
-따라서 첫 번째 예시는 더 깔끔한 방식으로 표현될 수 있습니다:
+일반적인 패턴은 `Route` 타입에 대한 확장 함수를 사용하여 실제 라우트를 정의하는 것입니다. 이를 통해 동사(verb)에 쉽게 접근하고 모든 라우트가 단일 라우팅 함수에 있는 복잡함을 없앨 수 있습니다. 이 패턴은 라우트를 그룹화하는 방식과 관계없이 적용할 수 있습니다. 따라서 첫 번째 예시는 더 깔끔한 방식으로 표현될 수 있습니다:
 
 ```kotlin
 routing {
@@ -303,7 +302,7 @@ fun Route.totalizeOrderRoute() {
 TRACE Application - Trace for [missing-page]
 /, segment:0 -> SUCCESS @ /
   /, segment:0 -> SUCCESS @ /
-    /(method:GET), segment:0 -> FAILURE "Not all segments matched" @ /(method:GET)
+    / [(method:GET)], segment:0 -> FAILURE "Not all segments matched" @ / [(method:GET)]
 Matched routes:
   No results
 Route resolve result:
@@ -311,4 +310,3 @@ Route resolve result:
 ```
 
 > [네이티브 서버](server-native.md)에서 라우트 추적을 활성화하려면, 애플리케이션을 [실행](server-run.md)할 때 `KTOR_LOG_LEVEL` 환경 변수에 _TRACE_ 값을 전달하세요.
->

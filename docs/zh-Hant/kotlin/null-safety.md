@@ -291,7 +291,7 @@ fun main() {
 
 ## 可空接收者
 
-您可以將擴充函式與[可空接收者類型](extensions.md#nullable-receiver)一起使用，允許在可能為 `null` 的變數上呼叫這些函式。
+您可以將擴充函式與[可空接收者類型](extensions.md#nullable-receivers)一起使用，允許在可能為 `null` 的變數上呼叫這些函式。
 
 透過在可空接收者類型上定義擴充函式，您可以在函式內部處理 `null` 值，而不是在每次呼叫函式的地方檢查 `null`。
 

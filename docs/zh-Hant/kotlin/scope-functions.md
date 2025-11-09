@@ -66,13 +66,13 @@ fun main() {
 
 以下是根據預期目的選擇作用域函式的簡短指南：
 
-* 在非空物件上執行 lambda：`let`
-* 在局部作用域中將表達式引入為變數：`let`
-* 物件配置：`apply`
-* 物件配置並計算結果：`run`
-* 在需要表達式的地方執行語句：非擴充 `run`
-* 額外作用：`also`
-* 在物件上分組函式呼叫：`with`
+*   在非空物件上執行 lambda：`let`
+*   在局部作用域中將表達式引入為變數：`let`
+*   物件配置：`apply`
+*   物件配置並計算結果：`run`
+*   在需要表達式的地方執行語句：非擴充 `run`
+*   額外作用：`also`
+*   在物件上分組函式呼叫：`with`
 
 不同作用域函式的使用場景重疊，因此您可以根據專案或團隊中使用的特定慣例來選擇要使用的函式。
 
@@ -81,8 +81,8 @@ fun main() {
 ## 區別
 
 由於作用域函式本質上相似，因此了解它們之間的差異非常重要。每個作用域函式之間有兩個主要區別：
-* 它們引用上下文物件的方式。
-* 它們的回傳值。
+*   它們引用上下文物件的方式。
+*   它們的回傳值。
 
 ### 上下文物件：`this` 或 `it`
 
@@ -181,8 +181,8 @@ fun main() {
 ### 回傳值
 
 作用域函式根據它們回傳的結果而有所不同：
-* `apply` 和 `also` 回傳上下文物件。
-* `let`、`run` 和 `with` 回傳 lambda 結果。
+*   `apply` 和 `also` 回傳上下文物件。
+*   `let`、`run` 和 `with` 回傳 lambda 結果。
 
 您應該根據程式碼中下一步想要做什麼，仔細考慮您想要什麼回傳值。這有助於您選擇最佳的作用域函式。
 
@@ -272,8 +272,8 @@ fun main() {
 
 ### `let`
 
-- **上下文物件**作為引數 (`it`) 可用。
-- **回傳值**是 lambda 結果。
+-   **上下文物件**作為引數 (`it`) 可用。
+-   **回傳值**是 lambda 結果。
 
 [`let`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/let.html) 可用於在呼叫鏈的結果上調用一個或多個函式。例如，以下程式碼印出對集合執行兩次操作的結果：
 
@@ -315,7 +315,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-`let` 常用於執行包含非空值的程式碼區塊。若要對非空物件執行操作，請在其上使用 [安全呼叫運算子 `?.`](null-safety.md#safe-call-operator)，並在其 lambda 中呼叫 `let` 並執行操作。
+`let` 常用於執行包含非空值的程式碼區塊。若要對可空物件執行操作，請在其上使用 [安全呼叫運算子 `?.`](null-safety.md#safe-call-operator)，並在其 lambda 中呼叫 `let` 並執行操作。
 
 ```kotlin
 fun processNonNullString(str: String) {}
@@ -352,8 +352,8 @@ fun main() {
 
 ### `with`
 
-- **上下文物件**作為接收器 (`this`) 可用。
-- **回傳值**是 lambda 結果。
+-   **上下文物件**作為接收器 (`this`) 可用。
+-   **回傳值**是 lambda 結果。
 
 由於 [`with`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/with.html) 不是擴充函式：上下文物件作為引數傳遞，但在 lambda 內部，它作為接收器 (`this`) 可用。
 
@@ -390,8 +390,8 @@ fun main() {
 
 ### `run`
 
-- **上下文物件**作為接收器 (`this`) 可用。
-- **回傳值**是 lambda 結果。
+-   **上下文物件**作為接收器 (`this`) 可用。
+-   **回傳值**是 lambda 結果。
 
 [`run`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/run.html) 的作用與 `with` 相同，但它作為擴充函式實現。因此，與 `let` 類似，您可以使用點記法在上下文物件上呼叫它。
 
@@ -447,8 +447,8 @@ fun main() {
 
 ### `apply`
 
-- **上下文物件**作為接收器 (`this`) 可用。
-- **回傳值**是物件本身。
+-   **上下文物件**作為接收器 (`this`) 可用。
+-   **回傳值**是物件本身。
 
 由於 [`apply`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/apply.html) 回傳上下文物件本身，我們建議您將它用於不回傳值且主要操作接收物件成員的程式碼區塊。`apply` 最常見的使用場景是物件配置。此類呼叫可解讀為 "_將以下賦值應用於此物件。_"
 
@@ -471,8 +471,8 @@ fun main() {
 
 ### `also`
 
-- **上下文物件**作為引數 (`it`) 可用。
-- **回傳值**是物件本身。
+-   **上下文物件**作為引數 (`it`) 可用。
+-   **回傳值**是物件本身。
 
 [`also`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/also.html) 對於執行一些將上下文物件作為引數的操作非常有用。當您需要物件的引用而非其屬性與函式，或者您不想遮蔽外部作用域的 `this` 引用時，請使用 `also`。
 

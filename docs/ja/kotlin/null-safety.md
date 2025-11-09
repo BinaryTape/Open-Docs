@@ -291,7 +291,7 @@ fun main() {
 
 ## ヌル許容レシーバー
 
-[ヌル許容レシーバー型 (nullable receiver type)](extensions.md#nullable-receiver)を持つ拡張関数を使用でき、これにより、`null`になる可能性のある変数でこれらの関数を呼び出すことができます。
+[ヌル許容レシーバー型 (nullable receiver type)](extensions.md#nullable-receivers)を持つ拡張関数を使用でき、これにより、`null`になる可能性のある変数でこれらの関数を呼び出すことができます。
 
 ヌル許容レシーバー型に拡張関数を定義することで、関数を呼び出すすべての場所で`null`をチェックする代わりに、関数内で`null`値を処理できます。
 

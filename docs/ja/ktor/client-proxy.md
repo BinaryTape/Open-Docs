@@ -2,8 +2,7 @@
 
 <show-structure for="chapter" depth="2"/>
 
-Ktor HTTPクライアントでは、マルチプラットフォームプロジェクトでプロキシ設定を行うことができます。
-サポートされているプロキシのタイプは、[HTTP](https://en.wikipedia.org/wiki/Proxy_server#Web_proxy_servers) と [SOCKS](https://en.wikipedia.org/wiki/SOCKS) の2種類です。
+Ktor HTTPクライアントでは、マルチプラットフォームプロジェクトでプロキシ設定を行うことができます。サポートされているプロキシのタイプは、[HTTP](https://en.wikipedia.org/wiki/Proxy_server#Web_proxy_servers) と [SOCKS](https://en.wikipedia.org/wiki/SOCKS) の2種類です。
 
 ### サポートされているエンジン {id="supported_engines"}
 
@@ -11,15 +10,15 @@ Ktor HTTPクライアントでは、マルチプラットフォームプロジ�
 
 | Engine     | HTTP proxy | SOCKS proxy |
 |------------|------------|-------------|
-| Apache     | ✅          |   ✖️         |
-| Java       | ✅          |   ✖️         |
-| Jetty      | ✖️          |   ✖️         |
-| CIO        | ✅          |   ✖️         |
-| Android    | ✅          |   ✅         |
-| OkHttp     | ✅          |   ✅         |
-| JavaScript | ✖️          |   ✖️         |
-| Darwin     | ✅          |   ✖️          |
-| Curl       | ✅          |   ✅         |
+| Apache     | ✅          | ✖️          |
+| Java       | ✅          | ✖️          |
+| Jetty      | ✖️         | ✖️          |
+| CIO        | ✅          | ✖️          |
+| Android    | ✅          | ✅           |
+| OkHttp     | ✅          | ✅           |
+| JavaScript | ✖️         | ✖️          |
+| Darwin     | ✅          | ✅           |
+| Curl       | ✅          | ✅           |
 
 > なお、現在、DarwinエンジンではHTTPプロキシによるHTTPSリクエストはサポートされていません。
 

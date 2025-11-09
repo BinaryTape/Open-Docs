@@ -17,7 +17,7 @@ Kotlinの各リリースには、スタンドアロンバージョンのコン�
 Kotlinコンパイラを手動でインストールするには：
 
 1.  [GitHub Releases](%kotlinLatestUrl%)から最新バージョン（`kotlin-compiler-%kotlinVersion%.zip`）をダウンロードします。
-2.  ダウンロードしたスタンドアロンコンパイラを任意のディレクトリに解凍し、必要に応じて`bin`ディレクトリをシステムパスに追加します。
+2.  ダウンロードしたスタンドアロンコンパイラを任意のディレクトリに解凍し、必要に応じて`kotlinc/bin`ディレクトリをシステムパスに追加します。
     `bin`ディレクトリには、Windows、macOS、LinuxでKotlinをコンパイルおよび実行するために必要なスクリプトが含まれています。
 
 > WindowsでKotlinコマンドラインコンパイラを使用したい場合は、手動でインストールすることをお勧めします。
@@ -111,7 +111,7 @@ kotlin -classpath hello.jar HelloKt
 
 ## REPLの実行
 
-対話型シェルを利用するには、コンパイラを[`-Xrepl`コンパイラオプション](compiler-reference.md#xrepl)とともに実行します。このシェルでは、任意の有効なKotlinコードを入力して結果を確認できます。
+コンパイラを[`-Xrepl`コンパイラオプション](compiler-reference.md#xrepl)とともに実行すると、対話型シェルを利用できます。このシェルでは、任意の有効なKotlinコードを入力して結果を確認できます。
 
 ## スクリプトの実行
 
@@ -121,7 +121,7 @@ Kotlinスクリプトは、トップレベルの実行可能コードを含むKo
 ```kotlin
 import java.io.File
 
-// Get the passed in path, i.e. "-d some/path" or use the current path.
+// 渡されたパス (例: "-d some/path") を取得するか、現在のパスを使用します。
 val path = if (args.contains("-d")) args[1 + args.indexOf("-d")]
            else "."
 

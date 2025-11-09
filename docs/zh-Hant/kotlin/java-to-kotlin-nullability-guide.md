@@ -81,7 +81,7 @@ fun stringLength(a: String?): Int = if (a != null) a.length else 0
 檢查成功通過後，編譯器在執行檢查的範圍內將該變數視為非空型別 `String`。
 
 如果您不執行此檢查，程式碼將無法編譯並顯示以下訊息：
-「僅允許在 String 型別的 [可為空接收者](extensions.md#nullable-receiver) 上執行 [安全呼叫運算子 (?. )](null-safety.md#safe-call-operator) 或 [非空斷言運算子 (!!.) 呼叫](null-safety.md#not-null-assertion-operator)。」
+「僅允許在 String 型別的 [可為空接收者](extensions.md#nullable-receivers) 上執行 [安全呼叫運算子 (?. )](null-safety.md#safe-call-operator) 或 [非空斷言運算子 (!!.) 呼叫](null-safety.md#not-null-assertion-operator)。」
 
 您可以寫得更短——使用 [安全呼叫運算子 ?. (If-not-null 簡寫)](idioms.md#if-not-null-shorthand)，它允許您將 null 檢查和方法呼叫組合到一個操作中：
 

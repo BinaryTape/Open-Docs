@@ -1,10 +1,5 @@
 [//]: # (title: Power-assert 编译器插件)
-
-> Power-assert 编译器插件是[实验性的](components-stability.md)。
-> 它可能随时更改。仅将其用于评估目的。
-> 我们非常感谢您在 [YouTrack](https://kotl.in/issue) 中提供反馈。
->
-{style="warning"}
+<primary-label ref="experimental-opt-in"/>
 
 Kotlin Power-assert 编译器插件通过提供包含上下文信息的详细失败消息，改善了调试体验。它通过在失败消息中自动生成中间值来简化测试编写过程。它帮助您无需复杂的断言库即可理解测试失败的原因。
 
@@ -30,6 +25,8 @@ Power-assert 插件的主要特性：
 
 ## 应用插件
 
+### Gradle
+
 要启用 Power-assert 插件，请按如下配置您的 `build.gradle(.kts)` 文件：
 
 <tabs group="build-script">
@@ -38,8 +35,8 @@ Power-assert 插件的主要特性：
 ```kotlin
 // build.gradle.kts
 plugins {
-    kotlin("multiplatform") version "2.0.0"
-    kotlin("plugin.power-assert") version "2.0.0"
+    kotlin("multiplatform") version "%kotlinVersion%"
+    kotlin("plugin.power-assert") version "%kotlinVersion%"
 }
 ```
 
@@ -49,15 +46,13 @@ plugins {
 ```groovy
 // build.gradle
 plugins {
-    id 'org.jetbrains.kotlin.multiplatform' version '2.0.0'
-    id 'org.jetbrains.kotlin.plugin.power-assert' version '2.0.0'
+    id 'org.jetbrains.kotlin.multiplatform' version '%kotlinVersion%'
+    id 'org.jetbrains.kotlin.plugin.power-assert' version '%kotlinVersion%'
 }
 ```
 
 </tab>
 </tabs>
-
-## 配置插件
 
 Power-assert 插件提供了几个选项来定制其行为：
 
@@ -102,13 +97,81 @@ powerAssert {
 }
 ```
 
-## 使用插件
+### Maven
+
+要在 Maven 项目中启用 Power-assert 编译器插件，请更新 `pom.xml` 文件中 `kotlin-maven-plugin` 的 `<plugin>` 部分：
+
+```xml
+<build>
+    <plugins>
+        <plugin>
+            <artifactId>kotlin-maven-plugin</artifactId>
+            <groupId>org.jetbrains.kotlin</groupId>
+            <version>%kotlinVersion%</version>
+            <executions>
+                <execution>
+                    <id>compile</id>
+                    <phase>process-sources</phase>
+                    <goals>
+                        <goal>compile</goal>
+                    </goals>
+                </execution>
+                <execution>
+                    <id>test-compile</id>
+                    <phase>process-test-sources</phase>
+                    <goals>
+                        <goal>test-compile</goal>
+                    </goals>
+                </execution>
+            </executions>
+
+            <configuration>
+                <!-- 指定 Power-assert 插件 -->
+                <compilerPlugins>
+                    <plugin>power-assert</plugin>
+                </compilerPlugins>
+            </configuration>
+
+            <!-- 添加 Power-assert 插件依赖项 -->
+            <dependencies>
+                <dependency>
+                    <groupId>org.jetbrains.kotlin</groupId>
+                    <artifactId>kotlin-maven-power-assert</artifactId>
+                    <version>%kotlinVersion%</version>
+                </dependency>
+            </dependencies>
+        </plugin>
+    </plugins>
+</build>
+```
+
+您可以通过使用 `function` 选项来定制 Power-assert 插件转换哪些函数。例如，您可以包含 `kotlin.test.assertTrue()`、`kotlin.test.assertEquals()` 等。如果未指定，默认情况下仅转换 `kotlin.assert()` 调用。
+
+在 `kotlin-maven-plugin` 的 `<configuration>` 部分中指定此选项：
+
+```xml
+<configuration>
+    <!-- 指定要转换的函数 -->
+    <pluginOptions>
+        <option>power-assert:function=kotlin.assert</option>
+        <option>power-assert:function=kotlin.test.assertTrue</option>
+        <option>power-assert:function=kotlin.test.AssertEquals</option>
+    </pluginOptions>
+</configuration>
+```
+
+## 使用 Power-assert 插件
 
 本节提供了使用 Power-assert 编译器插件的示例。
 
-关于所有这些示例，请参见构建脚本文件 `build.gradle.kts` 的完整代码：
+关于所有这些示例，请参见构建脚本文件 `build.gradle.kts` 或 `pom.xml` 的完整代码：
+
+<tabs group="build-script">
+<tab title="Gradle (Kotlin)" group-key="kotlin">
 
 ```kotlin
+// build.gradle.kts
+
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 
 plugins {
@@ -116,7 +179,7 @@ plugins {
     kotlin("plugin.power-assert") version "%kotlinVersion%"
 }
 
-group = "org.example"
+group = "com.example"
 version = "1.0-SNAPSHOT"
 
 repositories {
@@ -133,12 +196,172 @@ tasks.test {
 
 @OptIn(ExperimentalKotlinGradlePluginApi::class)
 powerAssert {
-    functions = listOf("kotlin.assert", "kotlin.test.assertEquals", "kotlin.test.assertTrue", "kotlin.test.assertNull", "kotlin.require", "org.example.AssertScope.assert")
+    functions = listOf("kotlin.assert", "kotlin.test.assertEquals", "kotlin.test.assertTrue", "kotlin.test.assertNull", "kotlin.require", "com.example.AssertScope.assert")
 }
 ```
 {initial-collapse-state="collapsed" collapsible="true"}
 
-### `assert` 函数
+</tab>
+<tab title="Gradle (Groovy)" group-key="groovy">
+
+```groovy
+// build.gradle
+plugins {
+    id 'org.jetbrains.kotlin.jvm' version '%kotlinVersion%'
+    id 'org.jetbrains.kotlin.plugin.power-assert' version '%kotlinVersion%'
+}
+
+group = 'com.example'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation 'org.jetbrains.kotlin:kotlin-test'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+powerAssert {
+    functions = [
+            'kotlin.assert',
+            'kotlin.test.assertEquals',
+            'kotlin.test.assertTrue',
+            'kotlin.test.assertNull',
+            'kotlin.require',
+            'com.example.AssertScope.assert'
+    ]
+}
+```
+{initial-collapse-state="collapsed" collapsible="true"}
+
+</tab>
+<tab title="Maven" group-key="maven">
+
+```xml
+<!-- pom.xml -->
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.example</groupId>
+    <artifactId>maven-power-assert-plugin-demo</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <kotlin.code.style>official</kotlin.code.style>
+        <kotlin.compiler.jvmTarget>1.8</kotlin.compiler.jvmTarget>
+    </properties>
+
+    <repositories>
+        <repository>
+            <id>mavenCentral</id>
+            <url>https://repo1.maven.org/maven2/</url>
+        </repository>
+    </repositories>
+
+    <build>
+        <sourceDirectory>src/main/kotlin</sourceDirectory>
+        <testSourceDirectory>src/test/kotlin</testSourceDirectory>
+        <plugins>
+            <plugin>
+                <groupId>org.jetbrains.kotlin</groupId>
+                <artifactId>kotlin-maven-plugin</artifactId>
+                <version>%kotlinVersion%</version>
+                <executions>
+                    <execution>
+                        <id>compile</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>compile</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>test-compile</id>
+                        <phase>test-compile</phase>
+                        <goals>
+                            <goal>test-compile</goal>
+                        </goals>
+                    </execution>
+                </executions>
+
+                <configuration>
+                    <compilerPlugins>
+                        <plugin>power-assert</plugin>
+                    </compilerPlugins>
+
+                    <pluginOptions>
+                        <option>power-assert:function=kotlin.assert</option>
+                        <option>power-assert:function=kotlin.require</option>
+                        <option>power-assert:function=kotlin.test.assertTrue</option>
+                        <option>power-assert:function=kotlin.test.assertEquals</option>
+                        <option>power-assert:function=kotlin.test.assertNull</option>
+                        <option>power-assert:function=com.example.AssertScope.assert</option>
+                    </pluginOptions>
+                </configuration>
+
+                <dependencies>
+                    <dependency>
+                        <groupId>org.jetbrains.kotlin</groupId>
+                        <artifactId>kotlin-maven-power-assert</artifactId>
+                        <version>%kotlinVersion%</version>
+                    </dependency>
+                </dependencies>
+
+            </plugin>
+            <plugin>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.22.2</version>
+            </plugin>
+            <plugin>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <version>2.22.2</version>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>1.6.0</version>
+                <configuration>
+                    <mainClass>MainKt</mainClass>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.jetbrains.kotlin</groupId>
+            <artifactId>kotlin-test-junit5</artifactId>
+            <version>%kotlinVersion%</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>5.10.0</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jetbrains.kotlin</groupId>
+            <artifactId>kotlin-stdlib</artifactId>
+            <version>%kotlinVersion%</version>
+        </dependency>
+    </dependencies>
+</project>
+```
+{initial-collapse-state="collapsed" collapsible="true"}
+
+</tab>
+</tabs>
+
+### Assert 函数
 
 考虑以下使用 `assert()` 函数的测试：
 
@@ -230,11 +453,14 @@ assert(person.name.startsWith("A") && person.name.length > 3 && person.age > 20 
        Person(name=Alice, age=10)
 ```
 
-### 超越 `assert` 函数
+### 超越 assert 函数
 
-Power-assert 插件可以转换除 `assert`（默认转换）之外的各种函数。如果 `require()`、`check()`、`assertTrue()`、`assertEqual()` 等函数的形式允许将 `String` 或 `() -> String` 值作为最后一个形参，它们也可以被转换。
+Power-assert 插件可以转换除 `assert`（默认转换）之外的各种函数。`require()`、`check()`、`assertTrue()`、`assertEqual()` 等函数的形式如果允许将 `String` 或 `() -> String` 值作为最后一个形参，它们也可以被转换。
 
-在测试中使用新函数之前，请在构建脚本文件的 `powerAssert {}` 代码块中指定该函数。例如，`require()` 函数：
+在测试中使用新函数之前，请将该函数添加到您的构建文件。例如，`require()` 函数：
+
+<tabs group="build-script">
+<tab title="Gradle (Kotlin)" group-key="kotlin">
 
 ```kotlin
 // build.gradle.kts
@@ -246,7 +472,34 @@ powerAssert {
 }
 ```
 
-添加函数后，您可以在测试中使用它：
+</tab>
+<tab title="Gradle (Groovy)" group-key="groovy">
+
+```groovy
+powerAssert {
+    functions = [
+            'kotlin.assert',
+            'kotlin.require'
+    ]
+}
+```
+
+</tab>
+<tab title="Maven" group-key="maven">
+
+```xml
+<!-- pom.xml -->
+<configuration>
+    <pluginOptions>
+        <option>power-assert:function=kotlin.assert</option>
+        <option>power-assert:function=kotlin.require</option>
+    </pluginOptions>
+</configuration>
+```
+</tab>
+</tabs>
+
+添加函数后，您可以在您的测试中使用它：
 
 ```kotlin
 class RequireExampleTest {
@@ -336,14 +589,49 @@ class AssertScopeImpl : AssertScope {
 }
 ```
 
-将这些函数添加到 `powerAssert {}` 代码块中，使它们可供 Power-assert 插件使用：
+将这些函数添加到您的构建文件，使它们可供 Power-assert 插件使用：
+
+<tabs group="build-script">
+<tab title="Gradle (Kotlin)" group-key="kotlin">
 
 ```kotlin
+// build.gradle.kts
+import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
+
 @OptIn(ExperimentalKotlinGradlePluginApi::class)
 powerAssert {
-    functions = listOf("kotlin.assert", "kotlin.test.assert", "org.example.AssertScope.assert")
+    functions = listOf("kotlin.assert", "kotlin.test.assert", "com.example.AssertScope.assert")
 }
 ```
+
+</tab>
+<tab title="Gradle (Groovy)" group-key="groovy">
+
+```groovy
+powerAssert {
+    functions = [
+            'kotlin.assert',
+            'kotlin.test.assert',
+            'com.example.AssertScope.assert'
+    ]
+}
+```
+
+</tab>
+<tab title="Maven" group-key="maven">
+
+```xml
+<!-- pom.xml -->
+<configuration>
+    <pluginOptions>
+        <option>power-assert:function=kotlin.assert</option>
+        <option>power-assert:function=kotlin.require</option>
+        <option>power-assert:function=com.example.AssertScope.assert</option>
+    </pluginOptions>
+</configuration>
+```
+</tab>
+</tabs>
 
 > 您应该指定声明 `AssertScope.assert()` 函数的包的完整名称。
 >
@@ -353,7 +641,7 @@ powerAssert {
 
 ```kotlin
 // 导入 assertSoftly() 函数
-import org.example.assertSoftly
+import com.example.assertSoftly
         
 class SoftAssertExampleTest1 {
 
@@ -398,4 +686,4 @@ assert(employee.age < 100) { "${employee.name} has an invalid age: ${employee.ag
 ## 接下来
 
 *   查阅一个[已启用插件的简单项目](https://github.com/JetBrains/kotlin/tree/master/libraries/tools/kotlin-gradle-plugin-integration-tests/src/test/resources/testProject/powerAssertSourceSets)
-    和一个[包含多个源代码集的更复杂项目](https://github.com/JetBrains/kotlin/tree/master/libraries/tools/kotlin-gradle-plugin-integration-tests/src/test/resources/testProject/powerAssertSimple)。
+    和一个[包含多个源代码集的更复杂项目](https://github.Brains/kotlin/tree/master/libraries/tools/kotlin-gradle-plugin-integration-tests/src/test/resources/testProject/powerAssertSimple)。

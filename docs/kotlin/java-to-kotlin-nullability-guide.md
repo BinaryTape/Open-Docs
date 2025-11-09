@@ -15,7 +15,7 @@ Kotlin 如何处理[来自 Java 代码的类型](#platform-types)。第二部分
 
 [详细了解 Kotlin 中的空安全](null-safety.md)。
 
-## 可空类型的支持
+## 对可空类型的支持
 
 Kotlin 与 Java 类型系统之间最重要的区别是 Kotlin 对[可空类型](null-safety.md)的显式支持。
 这是一种表明哪些变量可能持有 `null` 值的方式。
@@ -86,9 +86,9 @@ fun stringLength(a: String?): Int = if (a != null) a.length else 0
 
 如果你不执行此检测，代码将无法编译，并显示以下消息：
 “Only [safe (?.)](null-safety.md#safe-call-operator) or [non-nullable asserted (!!.) calls](null-safety.md#not-null-assertion-operator) are allowed
-on a [nullable receiver](extensions.md#nullable-receiver) of type String?”。
+on a [nullable receiver](extensions.md#nullable-receivers) of type String?”。
 
-你可以写得更短——使用[安全调用操作符 ?.（非空速记）](idioms.md#if-not-null-shorthand)，
+你可以写得更短——使用[安全调用操作符 ?.（非空即else 速记）](idioms.md#if-not-null-shorthand)，
 它允许你将 `null` 检测和方法调用合并为单个操作：
 
 ```kotlin
@@ -115,7 +115,7 @@ fun stringLength(a: String?): Int = a?.length ?: 0
 
 详细了解[从 Kotlin 调用 Java（关于空安全和平台类型）](java-interop.md#null-safety-and-platform-types)。
 
-## 确定非空类型的支持
+## 对确定非空类型的支持
 
 在 Kotlin 中，如果你想覆盖一个 Java 方法，并且该方法包含 `@NotNull` 作为实参，则你需要 Kotlin 的确定非空类型。
 
@@ -182,14 +182,14 @@ data class Customer(val name: String)
 
 val order = findOrder()
 
-// 直接转换
+// Direct conversion
 if (order != null){
     processCustomer(order.customer)
 }
 ```
 {id="process-customer-if-not-null-kotlin"}
 
-结合标准库中的任何[作用域函数](scope-functions.md)，使用[安全调用操作符 `?.`（非空速记）](idioms.md#if-not-null-shorthand)。
+结合标准库中的任何[作用域函数](scope-functions.md)，使用[安全调用操作符 `?.`（非空即else 速记）](idioms.md#if-not-null-shorthand)。
 通常为此使用 `let` 函数：
 
 ```kotlin
@@ -244,7 +244,7 @@ numbers.add(1);
 numbers.add(2);
 
 System.out.println(numbers.get(0));
-//numbers.get(5) // 异常！
+//numbers.get(5) // Exception!
 ```
 {id="functions-returning-null-java"}
 

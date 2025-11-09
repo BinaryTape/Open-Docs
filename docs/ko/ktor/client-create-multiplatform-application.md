@@ -38,7 +38,7 @@ Ktor HTTP 클라이언트는 멀티플랫폼 프로젝트에서 사용할 수 �
 4.  **New Project** 창에서 다음 필드를 지정합니다:
     *   **이름**: KmpKtor
     *   **그룹**: com.example.ktor
-      ![Kotlin Multiplatform wizard settings](tutorial_client_kmp_create_project.png)
+      ![Kotlin Multiplatform wizard settings](tutorial_client_kmp_create_project.png){ width="450" width="706" border-effect="rounded" style="block" }
 5.  **Android** 및 **iOS** 타겟을 선택합니다.
 6.  iOS의 경우, UI를 네이티브로 유지하려면 **UI 공유 안 함** 옵션을 선택합니다.
 7.  **Create** 버튼을 클릭하고 IDE가 프로젝트를 생성하고 임포트할 때까지 기다립니다.
@@ -55,7 +55,7 @@ Ktor HTTP 클라이언트는 멀티플랫폼 프로젝트에서 사용할 수 �
 
     ```kotlin
     [versions]
-    ktor = "3.3.1"
+    ktor = "3.3.2"
     ```
 
 2.  동일한 <Path>gradle/libs.versions.toml</Path> 파일에서 Ktor 클라이언트 및 엔진 라이브러리를 정의합니다:
@@ -130,7 +130,7 @@ Ktor HTTP 클라이언트는 멀티플랫폼 프로젝트에서 사용할 수 �
 
 ### 공유 코드 {id="shared-code"}
 
-Android와 iOS 간에 공유되는 코드를 업데이트하려면 <Path>shared/src/commonMain/kotlin/com/example/ktor/kmmktor/Greeting.kt</Path> 파일을 열고 `Greeting` 클래스에 다음 코드를 추가합니다:
+Android와 iOS 간에 공유되는 코드를 업데이트하려면 <Path>shared/src/commonMain/kotlin/com/example/ktor/kmpktor/Greeting.kt</Path> 파일을 열고 `Greeting` 클래스에 다음 코드를 추가합니다:
 
 ```kotlin
 package com.example.ktor.kmpktor
@@ -154,7 +154,7 @@ class Greeting {
 
 ### Android 코드 {id="android-activity"}
 
-<Path>composeApp/src/androidMain/kotlin/com/example/ktor/kmmktor/App.kt</Path> 파일을 열고 코드를 다음과 같이 업데이트합니다:
+<Path>composeApp/src/androidMain/kotlin/com/example/ktor/kmpktor/App.kt</Path> 파일을 열고 코드를 다음과 같이 업데이트합니다:
 
 ```kotlin
 package com.example.ktor.kmpktor
@@ -164,7 +164,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.safeContentPadding
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
+import androidx.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier

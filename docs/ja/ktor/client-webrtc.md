@@ -30,7 +30,7 @@ KtorのWebRTCクライアントは、マルチプラットフォームプロジ�
 
 ## 依存関係の追加 {id="add-dependencies"}
 
-`WebRtclient`を使用するには、ビルドスクリプトに`%artifact_name%`アーティファクトを含める必要があります。
+`WebRtcClient`を使用するには、ビルドスクリプトに`%artifact_name%`アーティファクトを含める必要があります。
 
 <Tabs group="languages">
     <TabItem title="Gradle (Kotlin)" group-key="kotlin">
@@ -156,8 +156,8 @@ val channel = caller.createDataChannel("chat")
 scope.launch {
     callee.dataChannelEvents.collect { event ->
         when (event) {
-            is DataChannelEvent.Open -> println("チャネルが開かれました: ${event.channel}")
-            is DataChannelEvent.Closed -> println("チャネルが閉じられました")
+            is DataChannelEvent.Open -> println("Channel opened: ${event.channel}")
+            is DataChannelEvent.Closed -> println("Channel closed")
             else -> {}
         }
     }
@@ -185,22 +185,23 @@ scope.launch { println("received: " + channel.receiveText()) }
 ローカルデバイス（マイク、カメラ）からオーディオまたはビデオトラックをリクエストできます。
 
 ```kotlin
-val audioConstraints = WebRtcMedia.AudioTrackConstraints(
-  echoCancellation = true
-)
-val videoConstraints = WebRtcMedia.VideoTrackConstraints(
-  width = 1280,
-  height = 720
-)
-val audio = rtcClient.createAudioTrack(audioConstraints)
-val video = rtcClient.createVideoTrack(videoConstraints)
+val audio = rtcClient.createAudioTrack {
+    echoCancellation = true
+}
+val video = rtcClient.createVideoTrack {
+    width = 1280
+    height = 720
+}
 
 val pc = jsClient.createPeerConnection()
 pc.addTrack(audio)
 pc.addTrack(video)
 ```
 
-Web上では、これは`navigator.mediaDevices.getUserMedia`を使用します。Android上では、Camera2 APIを使用し、マイク/カメラのパーミッションを手動でリクエストする必要があります。
+Web上では、これは`navigator.mediaDevices.getUserMedia`を使用します。Android上では、Camera2 APIを使用し、マイク/カメラのパーミッションを手動でリクエストする必要があります。iOS上では、AVFoundation APIを使用し、同様にパーミッションを手動でリクエストする必要があります。クライアントは、指定された制約に従って最適なメディアデバイスを見つけようとします。見つからない場合は`WebRtcMedia.DeviceException`をスローします。
+
+> `WebRtcClient`、`WebRtcPeerConnection`、`WebRtcMedia.Track`およびその他のインターフェースは`AutoCloseable`です。不要になったときにリソースを解放するため、必ず`close()`メソッドを呼び出してください。
+{style="note"}
 
 ### リモートトラックの受信
 
@@ -210,8 +211,8 @@ Web上では、これは`navigator.mediaDevices.getUserMedia`を使用します�
 scope.launch {
     pc.trackEvents.collect { event ->
         when (event) {
-            is TrackEvent.Add -> println("リモートトラックが追加されました: ${event.track.id}")
-            is TrackEvent.Remove -> println("リモートトラックが削除されました: ${event.track.id}")
+            is TrackEvent.Add -> println("Remote track added: ${event.track.id}")
+            is TrackEvent.Remove -> println("Remote track removed: ${event.track.id}")
         }
     }
 }

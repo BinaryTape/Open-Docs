@@ -71,7 +71,7 @@ database:
 
 ### `ApplicationTestBuilder` 的 `client` 可配置
 
-从 Ktor 3.2.0 开始，`ApplicationTestBuilder` 类中的 `client` 属性是可变的。以前，它是只读的。此更改允许您配置自己的测试客户端，并在 `ApplicationTestBuilder` 类可用的任何地方重用它。例如，您可以从扩展函数中访问客户端：
+从 Ktor 3.2.0 开始，`client` 属性在 `ApplicationTestBuilder` 类中是可变的。以前，它是只读的。此更改允许您配置自己的测试客户端，并在 `ApplicationTestBuilder` 类可用的任何地方重用它。例如，您可以从扩展函数中访问客户端：
 
 ```kotlin
 @Test
@@ -331,6 +331,15 @@ val rawAddress = address.resolveAddress()
 ```
 
 它将已解析的 IP 地址作为 `ByteArray` 返回，如果地址无法解析，则返回 `null`。返回的 `ByteArray` 的大小取决于 IP 版本：IPv4 地址将包含 4 字节，IPv6 地址将包含 16 字节。在 JS 和 Wasm 平台，`.resolveAddress()` 将始终返回 `null`。
+
+### HTTP 缓存清除
+
+现在，您可以使用 [`CacheStorage`](https://api.ktor.io/ktor-client-core/io.ktor.client.plugins.cache.storage/-cache-storage/index.html) 上的新方法来清除缓存的 HTTP 响应。
+
+-   `.removeAll(url)` 移除所有匹配指定 URL 的缓存条目。
+-   `.remove(url, varyKeys)` 移除匹配给定 URL 和 `Vary` 键的特定缓存条目。
+
+这些方法使您能够更好地控制缓存失效，以及管理过期或特定的缓存响应。
 
 ## 共享
 

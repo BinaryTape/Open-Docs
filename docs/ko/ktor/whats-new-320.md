@@ -62,7 +62,7 @@ database:
 
 이전에는 각 구성 값을 개별적으로 가져와야 했습니다. 새로운 `.property()` 확장 함수를 사용하면 전체 구성 섹션을 한 번에 로드할 수 있습니다:
 
-<compare>
+<compare first-title="Before" second-title="After">
 <code-block lang="kotlin" code="data class DatabaseConfig(&#10;    val url: String,&#10;    val username: String,&#10;    val password: String? = null,&#10;)&#10;&#10;fun Application.module() {&#10;  val databaseConfig = DatabaseConfig(&#10;    url = environment.config.property(&quot;database.url&quot;).getString(),&#10;    username = environment.config.property(&quot;database.username&quot;).getString(),&#10;    password = environment.config.property(&quot;database.password&quot;).getString(),&#10;  )&#10;  // use configuration&#10;}"/>
 <code-block lang="kotlin" code="@Serializable &#10;data class DatabaseConfig(&#10;    val url: String,&#10;    val username: String,&#10;    val password: String? = null,&#10;)&#10;&#10;fun Application.module() {&#10;  val databaseConfig: DatabaseConfig = property(&quot;database&quot;)&#10;  // use configuration&#10;}"/>
 </compare>
@@ -332,6 +332,15 @@ val rawAddress = address.resolveAddress()
 
 이 함수는 확인된 IP 주소를 `ByteArray`로 반환하며, 주소를 확인할 수 없는 경우 `null`을 반환합니다. 반환되는 `ByteArray`의 크기는 IP 버전에 따라 다릅니다: IPv4 주소의 경우 4바이트를, IPv6 주소의 경우 16바이트를 포함합니다. JS 및 Wasm 플랫폼에서는 `.resolveAddress()`가 항상 `null`을 반환합니다.
 
+### HTTP 캐시 지우기
+
+이제 필요할 때 캐시된 HTTP 응답을 지우기 위해 [`CacheStorage`](https://api.ktor.io/ktor-client-core/io.ktor.client.plugins.cache.storage/-cache-storage/index.html)의 새로운 메서드를 사용할 수 있습니다.
+
+- `.removeAll(url)`은 지정된 URL과 일치하는 모든 캐시 항목을 제거합니다.
+- `.remove(url, varyKeys)`는 주어진 URL 및 `Vary` 키와 일치하는 특정 캐시 항목을 제거합니다.
+
+이 메서드들은 캐시 무효화 및 오래되거나 특정 캐시된 응답을 관리하는 방법에 대한 더 많은 제어권을 제공합니다.
+
 ## 공유
 
 ### HTMX 통합
@@ -354,7 +363,7 @@ Ktor의 HTMX 지원은 다음 세 가지 실험적 모듈에서 사용할 수 �
 
 ## 유닉스 도메인 소켓
 
-3.2.0부터 Ktor 클라이언트가 유닉스 도메인 소켓(Unix domain sockets)에 연결하고 Ktor 서버가 해당 소켓을 수신하도록 설정할 수 있습니다. 현재 유닉스 도메인 소켓은 CIO 엔진에서만 지원됩니다.
+3.2.0부터 Ktor 클라이언트가 유닉스 도메인 소켓에 연결하고 Ktor 서버가 해당 소켓을 수신하도록 설정할 수 있습니다. 현재 유닉스 도메인 소켓은 CIO 엔진에서만 지원됩니다.
 
 서버 구성 예시:
 
@@ -435,7 +444,7 @@ Ktor 3.2.0은 개발 모드를 활성화하는 것을 간소화합니다. 이전
     ktor {
         development = true
     }
-  ```
+    ```
 
 기본적으로 `ktor.development` 값은 Gradle 프로젝트 프로퍼티 또는 시스템 프로퍼티 `io.ktor.development` 중 하나가 정의되어 있으면 자동으로 해결됩니다. 이를 통해 Gradle CLI 플래그를 사용하여 개발 모드를 직접 활성화할 수 있습니다:
 

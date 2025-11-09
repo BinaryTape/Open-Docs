@@ -71,7 +71,7 @@ routing {
 *   **路徑模式**
 
     指定用於[匹配 URL 路徑](#match_url)的路徑模式，例如 `/hello`、`/customer/{id}`。您可以將路徑模式直接傳遞給 `get`/`post`/等函式，或者您可以使用 `route` 函式來將[路由處理器](#multiple_routes)分組並定義[巢狀路由](#nested_routes)。
-
+    
 *   **處理器**
 
     指定如何處理[請求](server-requests.md)和[回應](server-responses.md)。在處理器內部，您可以存取 `ApplicationCall`，處理客戶端請求，並傳送回應。
@@ -301,7 +301,7 @@ fun Route.totalizeOrderRoute() {
 TRACE Application - Trace for [missing-page]
 /, segment:0 -> SUCCESS @ /
   /, segment:0 -> SUCCESS @ /
-    /(method:GET), segment:0 -> FAILURE "Not all segments matched" @ /(method:GET)
+    / [(method:GET)], segment:0 -> FAILURE "Not all segments matched" @ / [(method:GET)]
 Matched routes:
   No results
 Route resolve result:

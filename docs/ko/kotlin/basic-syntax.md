@@ -154,7 +154,7 @@ fun main() {
 
 Kotlin에서는 `val` 또는 `var` 키워드로 시작하고 변수 이름이 뒤따르는 방식으로 변수를 선언합니다.
 
-`val` 키워드는 값이 한 번만 할당되는 변수를 선언하는 데 사용합니다. 이러한 변수는 변경 불가능(immutable)하며, 읽기 전용 지역 변수로, 초기화 후 다른 값으로 다시 할당할 수 없습니다.
+`val` 키워드는 값이 한 번만 할당되는 변수를 선언하는 데 사용합니다. 이러한 변수는 변경 불가능(immutable)하며, 초기화 후 다른 값으로 다시 할당할 수 없는 읽기 전용 지역 변수입니다.
 
 ```kotlin
 fun main() {
@@ -687,7 +687,7 @@ fun main() {
 //sampleStart
 fun getStringLength(obj: Any): Int? {
     // `obj`는 `&&`의 오른쪽에서 자동으로 `String`으로 캐스트됩니다
-    if (obj is String && obj.length > 0) {
+    if (obj is String && obj.length >= 0) {
         return obj.length
     }
 

@@ -2,7 +2,7 @@
 
 <tldr>
     <p>최신 Kotlin 버전: <strong>%kotlinVersion%</strong></p>
-    <p><a href="%kotlinLatestWhatsnew%">Kotlin 2.2.20의 새로운 기능</a>을 참조하세요. <!--and find the bug fix details in the <a href="%kotlinLatestUrl%">changelog</a>--></p>
+    <p><a href="%kotlinLatestWhatsnew%">Kotlin 2.2.20의 새로운 기능</a>을 참조하세요. <!--and find the bug fix details in the <a href="%kotlinLatestUrl%">changelog</a>-->.</p>
 </tldr>
 
 Kotlin 2.0.0부터 다음과 같은 유형의 릴리스를 제공합니다.
@@ -23,6 +23,13 @@ Kotlin 2.0.0부터 다음과 같은 유형의 릴리스를 제공합니다.
 > 새로운 Kotlin 릴리스에 대한 알림을 받고 싶다면, [Kotlin 뉴스레터](https://lp.jetbrains.com/subscribe-to-kotlin-news/)를 구독하거나, [X의 Kotlin](https://x.com/kotlin)을 팔로우하거나, [Kotlin GitHub 저장소](https://github.com/JetBrains/kotlin)에서 **Watch | Custom | Releases** 옵션을 활성화하세요.
 > 
 {style="note"}
+
+## 예정된 Kotlin 릴리스
+
+예정된 안정적인 Kotlin 릴리스에 대한 대략적인 일정은 다음과 같습니다.
+
+*   **2.3.0**: 2025년 12월 – 2026년 1월 예정
+*   **2.3.20**: 2026년 3월 – 4월 예정
 
 ## 새 Kotlin 버전으로 업데이트
 
@@ -154,7 +161,7 @@ K2 모드에 대한 자세한 내용은 [저희 블로그](https://blog.jetbrain
     <tr>
         <td><strong>2.2.10</strong>
             <p>릴리스됨: <strong>August 14, 2025</strong></p>
-            <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.2.10" target="_blank">GitHub에서 릴리스</a></p>
+            <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.2.10" target="_blank">Release on GitHub</a></p>
         </td>
         <td>
             <p>Kotlin 2.2.0의 버그 수정 릴리스입니다.</p>
@@ -332,7 +339,7 @@ K2 모드에 대한 자세한 내용은 [저희 블로그](https://blog.jetbrain
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.9.0" target="_blank">GitHub에서 릴리스</a></p>
         </td>
         <td>
-            <p>Kotlin K2 컴파일러 업데이트, 새로운 enum 클래스 값 함수, 개방형 범위용 새 연산자 (new operator for open-ended ranges), Kotlin 멀티플랫폼의 Gradle 설정 캐시 미리보기, Kotlin 멀티플랫폼의 Android 대상 지원 변경 사항, Kotlin/Native의 사용자 정의 메모리 할당자 미리보기를 포함하는 기능 릴리스입니다.
+            <p>Kotlin K2 컴파일러 업데이트, 새로운 enum 클래스 값 함수, 개방형 범위용 새 연산자, Kotlin 멀티플랫폼의 Gradle 설정 캐시 미리보기, Kotlin 멀티플랫폼의 Android 대상 지원 변경 사항, Kotlin/Native의 사용자 정의 메모리 할당자 미리보기를 포함하는 기능 릴리스입니다.
             </p>
             <p>자세한 내용은 다음을 참조하세요:</p>
             <list>

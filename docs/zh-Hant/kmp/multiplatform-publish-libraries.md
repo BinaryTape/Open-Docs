@@ -38,7 +38,7 @@
 
 您需要一個經過驗證的命名空間，以便在 Maven Central 上唯一識別您的函式庫構件。
 
-Maven 構件由其[座標](https://central.sonatype.org/publish/requirements/#correct-coordinates)識別，例如 `com.example:fibonacci-library:1.0.0`。這些座標由三部分組成，以圓括號分隔：
+Maven 構件由其[座標](https://central.sonatype.org/publish/requirements/#correct-coordinates)識別，例如 `com.example:fibonacci-library:1.0.0`。這些座標由三部分組成，以冒號分隔：
 
 *   `groupId` 以反向 DNS 格式表示，例如 `com.example`
 *   `artifactId`：函式庫本身的唯一名稱，例如 `fibonacci-library`
@@ -76,12 +76,30 @@ Maven 構件由其[座標](https://central.sonatype.org/publish/requirements/#co
 
 #### 產生金鑰對
 
-在您將內容發佈到 Maven Central 之前，您需要使用 [PGP 簽名](https://central.sonatype.org/publish/requirements/gpg/)來簽署您的構件，這允許使用者驗證構件的來源。
+在您將內容發佈到 Maven Central 之前，您需要使用 [PGP 簽章](https://central.sonatype.org/publish/requirements/gpg/)來簽署您的構件，這允許使用者驗證構件的來源。
 
 要開始簽署，您需要產生一個金鑰對：
 
 *   _私密金鑰_ 用於簽署您的構件，不應與他人分享。
 *   _公開金鑰_ 可以與他人分享，以便他們可以驗證您的構件的簽名。
+
+<Tabs group ="key-pair-tools">
+<TabItem title="使用 Kotlin Gradle 外掛程式" group-key="kgp">
+
+Kotlin Gradle 外掛程式有一個 Gradle 任務，您可以用來產生金鑰對。
+
+1.  使用以下命令產生金鑰對。提供私密金鑰儲存的密碼和您的姓名，格式如下：
+
+    ```bash
+    ./gradlew -Psigning.password=example-password generatePgpKeys --name "John Smith <john@example.com>"
+    ```
+
+    金鑰對儲存在 `build/pgp` 目錄中。
+
+2.  將您的金鑰對從 `build/pgp` 目錄移至安全位置，以防止意外刪除或未經授權的存取。
+
+</TabItem>
+<TabItem title="使用 gpg 工具" group-key="gpg">
 
 可為您管理簽名的 `gpg` 工具可在 [GnuPG 網站](https://gnupg.org/download/index.html)上找到。
 您也可以使用套件管理器（例如 [Homebrew](https://brew.sh/)）進行安裝：
@@ -161,18 +179,37 @@ brew install gpg
     gpg --list-keys
     ```
 
-輸出看起來會像這樣：
+    輸出看起來會像這樣：
 
-```text
-pub   ed25519 2024-10-06 [SC]
-      F175482952A225BFD4A07A713EE6B5F76620B385CE
-uid   [ultimate] Jane Doe <janedoe@example.com>
-      sub   cv25519 2024-10-06 [E]
-```
+    ```text
+    pub   ed25519 2024-10-06 [SC]
+          F175482952A225BFD4A07A713EE6B5F76620B385CE
+    uid   [ultimate] Jane Doe <janedoe@example.com>
+          sub   cv25519 2024-10-06 [E]
+    ```
 
-在接下來的步驟中，您需要使用輸出中顯示的金鑰的長型英數字元識別碼。
+    在接下來的步驟中，您需要使用輸出中顯示的金鑰的長型英數字元識別碼。
+
+</TabItem>
+</Tabs>
 
 #### 上傳公開金鑰
+
+您需要[將公開金鑰上傳到金鑰伺服器](https://central.sonatype.org/publish/requirements/gpg/#distributing-your-public-key)，以便 Maven Central 接受它。有多個可用的金鑰伺服器，讓我們使用 `keyserver.ubuntu.com` 作為預設選擇。
+
+<Tabs group ="key-pair-tools">
+<TabItem title="使用 Kotlin Gradle 外掛程式" group-key="kgp">
+
+Kotlin Gradle 外掛程式有一個 Gradle 任務，您可以用來上傳公開金鑰。
+
+執行以下命令以上傳您的公開金鑰，提供其路徑：
+
+```bash
+./gradlew uploadPublicPgpKey --keyring /path_to/build/pgp/public_KEY_ID.asc
+```
+
+</TabItem>
+<TabItem title="使用 gpg 工具" group-key="gpg">
 
 您需要[將公開金鑰上傳到金鑰伺服器](https://central.sonatype.org/publish/requirements/gpg/#distributing-your-public-key)，以便 Maven Central 接受它。有多個可用的金鑰伺服器，讓我們使用 `keyserver.ubuntu.com` 作為預設選擇。
 
@@ -182,7 +219,7 @@ uid   [ultimate] Jane Doe <janedoe@example.com>
 gpg --keyserver keyserver.ubuntu.com --send-keys F175482952A225BFC4A07A715EE6B5F76620B385CE
 ```
 
-#### 匯出您的私密金鑰
+**匯出您的私密金鑰** {id="export-your-private-key"}
 
 要讓您的 Gradle 專案存取您的私密金鑰，您需要將其匯出到二進位檔案中。
 系統將提示您輸入建立金鑰時使用的密碼。
@@ -199,6 +236,9 @@ gpg --no-armor --export-secret-keys F175482952A225BFC4A07A715EE6B5F76620B385CE >
 > 因為私密金鑰允許使用您的憑證簽署檔案。
 >
 {style="warning"}
+
+</TabItem>
+</Tabs>
 
 ## 配置專案
 
@@ -287,7 +327,41 @@ mavenPublishing {
 *   `coordinates`，它指定您的函式庫的 `groupId`、`artifactId` 和 `version`。
 *   [license](https://central.sonatype.org/publish/requirements/#license-information)，您的函式庫在此許可下發佈。
 *   [developer information](https://central.sonatype.org/publish/requirements/#developer-information)，列出了函式庫的作者。
-*   [SCM (Source Code Management) information](https://central.sonatype.org/publish/requirements/#scm-information)，指定函式庫原始碼的託管位置。
+*   [SCM (原始碼管理) information](https://central.sonatype.org/publish/requirements/#scm-information)，指定函式庫原始碼的託管位置。
+
+### 執行本機檢查
+
+在發佈到 Maven Central 之前，最好在本機檢查您的專案是否配置正確。
+
+#### 在本機檢查簽署
+
+透過執行以下命令驗證您的金鑰是否已正確配置用於簽署：
+
+```bash
+./gradlew checkSigningConfiguration
+```
+
+此 Gradle 任務會檢查您的公開金鑰是否已上傳到 `keyserver.ubuntu.com` 或 `keys.openpgp.org` 金鑰伺服器。
+
+如果任務報告錯誤，請查看輸出以了解如何修復的詳細資訊。
+
+#### 在本機檢查 `pom.xml` 檔案
+
+要將您的函式庫發佈到 Maven Central，`pom.xml` 檔案必須符合 Maven Central 的[要求](https://central.sonatype.org/publish/requirements/#required-pom-metadata)。
+
+對於您計劃發佈的每個函式庫，執行以下命令，將 `<PUBLICATION_NAME>` 替換為發佈名稱：
+
+```bash
+./gradlew checkPomFileFor<PUBLICATION_NAME>Publication
+```
+
+使用 [vanniktech/gradle-maven-publish-plugin](https://github.com/vanniktech/gradle-maven-publish-plugin) 時，發佈通常命名為 `Maven`。在這種情況下，任務變為：
+
+```bash
+./gradlew checkPomFileForMavenPublication
+```
+
+如果任務報告錯誤，請查看輸出以了解如何修復的詳細資訊。
 
 ## 使用持續整合發佈到 Maven Central
 

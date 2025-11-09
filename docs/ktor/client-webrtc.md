@@ -30,7 +30,7 @@ Ktor 中的 WebRTC 客户端支持在多平台项目中进行实时点对点通�
 
 ## 添加依赖项 {id="add-dependencies"}
 
-要使用 `WebRtclient`，你需要将 `%artifact_name%` 构件包含在构建脚本中：
+要使用 `WebRtcClient`，你需要将 `%artifact_name%` 构件包含在构建脚本中：
 
 <Tabs group="languages">
     <TabItem title="Gradle (Kotlin)" group-key="kotlin">
@@ -69,7 +69,7 @@ val jsClient = WebRtcClient(JsWebRtc) {
 
 ```kotlin
 val androidClient = WebRtcClient(AndroidWebRtc) {
-    context = appContext // Required: provide Android context
+    context = appContext // 必需：提供 Android 上下文
     defaultConnectionConfig = {
         iceServers = listOf(WebRtc.IceServer("stun:stun.l.google.com:19302"))
     }
@@ -179,29 +179,31 @@ scope.launch { println("已接收: " + channel.receiveText()) }
 
 ## 添加和观察媒体轨道
 
-除了数据通道，WebRTC 还支持音频和视频的媒体轨道。这允许你构建视频通话或屏幕共享等应用程序。
+除了数据通道，WebRTC 还支持音频和视频的媒体轨道。这允许你构建应用程序，例如视频通话或屏幕共享。
 
 ### 创建本地轨道
 
 你可以从本地设备（麦克风、摄像头）请求音频或视频轨道：
 
 ```kotlin
-val audioConstraints = WebRtcMedia.AudioTrackConstraints(
-  echoCancellation = true
-)
-val videoConstraints = WebRtcMedia.VideoTrackConstraints(
-  width = 1280,
-  height = 720
-)
-val audio = rtcClient.createAudioTrack(audioConstraints)
-val video = rtcClient.createVideoTrack(videoConstraints)
+val audio = rtcClient.createAudioTrack {
+    echoCancellation = true
+}
+val video = rtcClient.createVideoTrack {
+    width = 1280
+    height = 720
+}
 
 val pc = jsClient.createPeerConnection()
 pc.addTrack(audio)
 pc.addTrack(video)
 ```
 
-在 Web 端，这使用 `navigator.mediaDevices.getUserMedia`。在 Android 上，它使用 Camera2 API，你必须手动请求麦克风/摄像头权限。
+在 Web 端，这使用 `navigator.mediaDevices.getUserMedia`。在 Android 上，它使用 Camera2 API，你必须手动请求麦克风/摄像头权限。在 iOS 上，它使用 AVFoundation API，并且你也应该手动请求任何权限。客户端将尝试根据指定的约束查找最合适的媒体设备，否则将抛出 `WebRtcMedia.DeviceException`。
+
+> `WebRtcClient`、`WebRtcPeerConnection`、`WebRtcMedia.Track` 及其他接口是 `AutoCloseable`。
+> 确保在不再需要时调用 `close()` 方法来释放资源。
+{style="note"}
 
 ### 接收远程轨道
 

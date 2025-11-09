@@ -92,8 +92,8 @@ let index = array.index(of: "element")
 
 ```kotlin
 /**
- * Prints the sum of the arguments.
- * Properly handles the case when the sum doesn't fit in 32-bit integer.
+ * 인수의 합계를 출력합니다.
+ * 합계가 32비트 정수에 맞지 않는 경우를 적절하게 처리합니다.
  */
 fun printSum(a: Int, b: Int) = println(a.toLong() + b)
 ```
@@ -102,8 +102,8 @@ fun printSum(a: Int, b: Int) = println(a.toLong() + b)
 
 ```objc
 /**
- * Prints the sum of the arguments.
- * Properly handles the case when the sum doesn't fit in 32-bit integer.
+ * 인수의 합계를 출력합니다.
+ * 합계가 32비트 정수에 맞지 않는 경우를 적절하게 처리합니다.
  */
 + (void)printSumA:(int32_t)a b:(int32_t)b __attribute__((swift_name("printSum(a:b:)")));
 ```
@@ -142,30 +142,30 @@ kotlin {
 
 | Kotlin                 | Swift                            | Objective-C                      | 참고                                                                              |
 |------------------------|----------------------------------|----------------------------------|------------------------------------------------------------------------------------|
-| `class`                | `class`                          | `@interface`                     | [참고](#classes)                                                                   |
+| `class`                | `class`                          | `@interface`                     | [note](#classes)                                                                   |
 | `interface`            | `protocol`                       | `@protocol`                      |                                                                                    |
-| `constructor`/`create` | Initializer                      | Initializer                      | [참고](#initializers)                                                              |
-| 프로퍼티               | Property                         | Property                         | [참고 1](#top-level-functions-and-properties), [참고 2](#setters)                  |
-| 메서드                 | Method                           | Method                           | [참고 1](#top-level-functions-and-properties), [참고 2](#method-names-translation) |
-| `enum class`           | `class`                          | `@interface`                     | [참고](#enums)                                                                     |
-| `suspend` ->           | `completionHandler:`/ `async`    | `completionHandler:`             | [참고 1](#errors-and-exceptions), [참고 2](#suspending-functions)                  |
-| `@Throws fun`          | `throws`                         | `error:(NSError**)error`         | [참고](#errors-and-exceptions)                                                     |
-| 확장                   | Extension                        | Category member                  | [참고](#extensions-and-category-members)                                           |
-| `companion` 멤버 <-    | Class method or property         | Class method or property         |                                                                                    |
+| `constructor`/`create` | Initializer                      | Initializer                      | [note](#initializers)                                                              |
+| Property               | Property                         | Property                         | [note 1](#top-level-functions-and-properties), [note 2](#setters)                  |
+| Method                 | Method                           | Method                           | [note 1](#top-level-functions-and-properties), [note 2](#method-names-translation) |
+| `enum class`           | `class`                          | `@interface`                     | [note](#enums)                                                                     |
+| `suspend` ->           | `completionHandler:`/ `async`    | `completionHandler:`             | [note 1](#errors-and-exceptions), [note 2](#suspending-functions)                  |
+| `@Throws fun`          | `throws`                         | `error:(NSError**)error`         | [note](#errors-and-exceptions)                                                     |
+| Extension              | Extension                        | Category member                  | [note](#extensions-and-category-members)                                           |
+| `companion` member <-  | Class method or property         | Class method or property         |                                                                                    |
 | `null`                 | `nil`                            | `nil`                            |                                                                                    |
-| 싱글톤                 | `shared` or `companion` property | `shared` or `companion` property | [참고](#kotlin-singletons)                                                         |
-| 원시 타입              | Primitive type / `NSNumber`      |                                  | [참고](#primitive-types)                                                           |
-| `Unit` 반환 타입       | `Void`                           | `void`                           |                                                                                    |
-| `String`               | `String`                         | `NSString`                       | [참고](#strings)                                                                   |
-| `String`               | `NSMutableString`                | `NSMutableString`                | [참고](#nsmutablestring)                                                           |
+| Singleton              | `shared` or `companion` property | `shared` or `companion` property | [note](#kotlin-singletons)                                                         |
+| Primitive type         | Primitive type / `NSNumber`      |                                  | [note](#primitive-types)                                                           |
+| `Unit` return type     | `Void`                           | `void`                           |                                                                                    |
+| `String`               | `String`                         | `NSString`                       | [note](#strings)                                                                   |
+| `String`               | `NSMutableString`                | `NSMutableString`                | [note](#nsmutablestring)                                                           |
 | `List`                 | `Array`                          | `NSArray`                        |                                                                                    |
 | `MutableList`          | `NSMutableArray`                 | `NSMutableArray`                 |                                                                                    |
 | `Set`                  | `Set`                            | `NSSet`                          |                                                                                    |
-| `MutableSet`           | `NSMutableSet`                   | `NSMutableSet`                   | [참고](#collections)                                                               |
+| `MutableSet`           | `NSMutableSet`                   | `NSMutableSet`                   | [note](#collections)                                                               |
 | `Map`                  | `Dictionary`                     | `NSDictionary`                   |                                                                                    |
-| `MutableMap`           | `NSMutableDictionary`            | `NSMutableDictionary`            | [참고](#collections)                                                               |
-| 함수 타입              | Function type                    | Block pointer type               | [참고](#function-types)                                                            |
-| 인라인 클래스          | Unsupported                      | Unsupported                      | [참고](#unsupported)                                                               |
+| `MutableMap`           | `NSMutableDictionary`            | `NSMutableDictionary`            | [note](#collections)                                                               |
+| Function type          | Function type                    | Block pointer type               | [note](#function-types)                                                            |
+| Inline classes         | Unsupported                      | Unsupported                      | [note](#unsupported)                                                               |
 
 ### 클래스
 
@@ -182,8 +182,8 @@ Objective-C는 프레임워크 내에서 패키지를 지원하지 않습니다.
 
 #### 강력한 링크
 
-Kotlin 소스에서 Objective-C 클래스를 사용할 때마다 강력하게 링크된 심볼로 마크됩니다. 결과 빌드 아티팩트(artifact)에는 관련 심볼이
-강력한 외부 참조로 언급됩니다.
+Kotlin 소스에서 Objective-C 클래스를 사용할 때마다 강력하게 링크된 심볼로 마크됩니다. 결과 빌드
+아티팩트(artifact)에는 관련 심볼이 강력한 외부 참조로 언급됩니다.
 
 이는 앱이 실행 중 동적으로 심볼을 링크하려고 시도하며, 사용할 수 없는 경우 앱이 충돌한다는 의미입니다. 심볼이 한 번도 사용되지 않았더라도
 충돌이 발생할 수 있습니다. 심볼이 특정 기기 또는 OS 버전에서 사용할 수 없을 수도 있습니다.
@@ -209,7 +209,8 @@ Kotlin 생성자는 Swift/Objective-C로 이니셜라이저로 임포트됩니�
 
 ### 최상위 함수 및 프로퍼티
 
-최상위 Kotlin 함수와 프로퍼티는 특수 클래스의 멤버로 접근할 수 있습니다. 각 Kotlin 파일은 그러한 클래스로 변환됩니다. 예를 들면:
+최상위 Kotlin 함수와 프로퍼티는 특수 클래스의 멤버로 접근할 수 있습니다.
+각 Kotlin 파일은 그러한 클래스로 변환됩니다. 예를 들면:
 
 ```kotlin
 // MyLibraryUtils.kt
@@ -232,8 +233,8 @@ Kotlin-Swift interopedia에서 최상위 Kotlin 선언에 접근하는 예제 �
 
 ### 메서드 이름 변환
 
-일반적으로 Swift 인수 레이블(argument label)과 Objective-C 셀렉터 조각(selector piece)은 Kotlin 매개변수 이름으로 매핑됩니다.
-이 두 개념은 의미론(semantics)이 다르므로, 때때로 Swift/Objective-C 메서드가 충돌하는 Kotlin 시그니처로 임포트될 수 있습니다.
+일반적으로 Swift 인수 레이블(argument label)과 Objective-C 셀렉터 조각(selector piece)은 Kotlin 매개변수 이름으로 매핑됩니다. 이 두 개념은
+의미론(semantics)이 다르므로, 때때로 Swift/Objective-C 메서드가 충돌하는 Kotlin 시그니처로 임포트될 수 있습니다.
 이 경우, 충돌하는 메서드는 Kotlin에서 이름 있는 인수(named argument)를 사용하여 호출할 수 있습니다. 예를 들면:
 
 ```swift
@@ -274,7 +275,7 @@ Swift/Objective-C 프레임워크로 컴파일할 때, `@Throws` 어노테이션
 Swift/Objective-C 코드에서 호출된 Kotlin 함수가 `@Throws`로 지정된 클래스 중 하나 또는 해당 서브클래스의 인스턴스인 예외를 던지는 경우,
 해당 예외는 `NSError`로 전파됩니다. Swift/Objective-C에 도달하는 다른 Kotlin 예외는 처리되지 않은 것으로 간주되어 프로그램 종료를 유발합니다.
 
-`@Throws`가 없는 `suspend` 함수는 `CancellationException`만 전파합니다(`NSError`로). `@Throws`가 없는
+`suspend` 함수는 `@Throws` 없이 `CancellationException`만 전파합니다(`NSError`로). `@Throws`가 없는
 비-`suspend` 함수는 Kotlin 예외를 전혀 전파하지 않습니다.
 
 반대 방향의 역변환은 아직 구현되지 않았습니다. 즉, Swift/Objective-C 오류 던지기(error-throwing) 메서드는 예외 던지기(exception-throwing)로 Kotlin에 임포트되지 않습니다.
@@ -283,8 +284,8 @@ Swift/Objective-C 코드에서 호출된 Kotlin 함수가 `@Throws`로 지정된
 
 ### Enum
 
-Kotlin enum은 Objective-C로는 `@interface`로, Swift로는 `class`로 임포트됩니다. 이러한 데이터 구조는 각 enum 값에 해당하는
-프로퍼티를 가집니다. 다음 Kotlin 코드를 고려해 보세요:
+Kotlin enum은 Objective-C로는 `@interface`로, Swift로는 `class`로 임포트됩니다.
+이러한 데이터 구조는 각 enum 값에 해당하는 프로퍼티를 가집니다. 다음 Kotlin 코드를 고려해 보세요:
 
 ```kotlin
 // Kotlin
@@ -525,8 +526,8 @@ greetUserBlock:^(NSString *name) {
 
 ### 제네릭(Generics)
 
-Objective-C는 클래스에 정의된 "경량 제네릭(lightweight generics)"을 지원하지만, 기능 집합이 비교적 제한적입니다.
-Swift는 클래스에 정의된 제네릭을 임포트하여 컴파일러에 추가 타입 정보를 제공하는 데 도움을 줄 수 있습니다.
+Objective-C는 클래스에 정의된 "경량 제네릭(lightweight generics)"을 지원하지만, 기능 집합이 비교적 제한적입니다. Swift는 클래스에 정의된
+제네릭을 임포트하여 컴파일러에 추가 타입 정보를 제공하는 데 도움을 줄 수 있습니다.
 
 Objective-C 및 Swift의 제네릭 기능 지원은 Kotlin과 다르므로, 변환 시 일부 정보가 필연적으로 손실되지만, 지원되는 기능은 의미 있는 정보를 유지합니다.
 
@@ -655,10 +656,17 @@ Kotlin 코드를 작성할 때, 객체가 Kotlin 타입에서 동등한 Swift/Ob
 이 경우 일반적인 Kotlin 형변환(cast)을 사용할 수 있습니다. 예를 들면:
 
 ```kotlin
-val nsArray = listOf(1, 2, 3) as NSArray
-val string = nsString as String
+@file:Suppress("CAST_NEVER_SUCCEEDS")
+import platform.Foundation.*
+
 val nsNumber = 42 as NSNumber
+val nsArray = listOf(1, 2, 3) as NSArray
+val nsString = "Hello" as NSString
+val string = nsString as String
 ```
+
+IDEs might incorrectly emit "This cast can never succeed" warnings.
+In such cases, use the `@Suppress("CAST_NEVER_SUCCEEDS")` annotation.
 
 ## 서브클래싱(Subclassing)
 

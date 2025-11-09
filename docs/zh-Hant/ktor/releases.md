@@ -33,6 +33,18 @@ IntelliJ Ktor 外掛程式允許您將 Ktor 專案遷移到最新版本。您可
 </tr>
 
 <tr>
+<td>3.3.2</td><td>November 5, 2025</td><td>
+<p>
+一個修補程式版本，新增對 Darwin 的 SOCKS proxy 支援，優化 WebRTC 用戶端目標和 Java proxy 處理，並修正了 HTTP retries、OpenAPI、caching 和 Android 上的 Netty 中的多個問題。
+</p>
+<var name="version" value="3.3.2"/>
+<p>
+    <a href="https://github.com/ktorio/ktor/releases/tag/%version%">在 GitHub 上查看變更日誌</a>
+</p>
+</td>
+</tr>
+
+<tr>
 <td>3.3.1</td><td>October 8, 2025</td><td>
 <p>
 一個修補程式版本，將 Kotlin 更新至 2.2.20，並修正了多個問題，包括 Content-Length parsing errors、<code>ClientSSESession</code> 缺少 serializers、Netty configuration 和 shutdown bugs，並增加了對在 bootJar 中提供 static resources 的支援。

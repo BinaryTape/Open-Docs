@@ -106,7 +106,7 @@ HttpClient() {
 
 ## JVM {id="jvm"}
 
-JVM 目標平台支援 [`Apache5`](#apache5)、[`Java`](#java) 和
+JVM 目標支援 [`Apache5`](#apache5)、[`Java`](#java) 和
 [`Jetty`](#jetty) 引擎。
 
 ### Apache5 {id="apache5"}
@@ -187,7 +187,7 @@ JVM 目標平台支援 [`Apache5`](#apache5)、[`Java`](#java) 和
             <code-block lang="XML" code="               &lt;dependency&gt;&#10;                   &lt;groupId&gt;io.ktor&lt;/groupId&gt;&#10;                   &lt;artifactId&gt;%artifact_name%-jvm&lt;/artifactId&gt;&#10;                   &lt;version&gt;${ktor_version}&lt;/version&gt;&#10;               &lt;/dependency&gt;"/>
         </TabItem>
     </Tabs>
-2.  將 [Java](https://api.ktor.io/ktor-client/ktor-client-java/io.ktor.client.engine.java/-java/index.html) 類別作為引數傳遞給 `HttpClient` 建構函式：
+2.  將 [Java](https://api.ktor.io/ktor-client-java/io.ktor.client.engine.java/-java/index.html) 類別作為引數傳遞給 `HttpClient` 建構函式：
     ```kotlin
     import io.ktor.client.*
     import io.ktor.client.engine.java.*
@@ -195,7 +195,7 @@ JVM 目標平台支援 [`Apache5`](#apache5)、[`Java`](#java) 和
     val client = HttpClient(Java)
     ```
 3.  若要設定引擎，請在 `engine {}` 區塊中設定 [
-    `JavaHttpConfig`](https://api.ktor.io/ktor-client/ktor-client-java/io.ktor.client.engine.java/-java-http-config/index.html) 中的屬性：
+    `JavaHttpConfig`](https://api.ktor.io/ktor-client-java/io.ktor.client.engine.java/-java-http-config/index.html) 中的屬性：
     ```kotlin
     import io.ktor.client.*
     import io.ktor.client.engine.*
@@ -231,7 +231,7 @@ JVM 目標平台支援 [`Apache5`](#apache5)、[`Java`](#java) 和
         </TabItem>
     </Tabs>
 2.  將
-    [`Jetty`](https://api.ktor.io/ktor-client/ktor-client-jetty-jakarta/io.ktor.client.engine.jetty.jakarta/-jetty/index.html)
+    [`Jetty`](https://api.ktor.io/ktor-client-jetty-jakarta/io.ktor.client.engine.jetty.jakarta/-jetty/index.html)
     類別作為引數傳遞給 `HttpClient` 建構函式：
     ```kotlin
     import io.ktor.client.*
@@ -240,7 +240,7 @@ JVM 目標平台支援 [`Apache5`](#apache5)、[`Java`](#java) 和
     val client = HttpClient(Jetty)
     ```
 3.  若要設定引擎，請在 `engine {}` 區塊中設定
-    [`JettyEngineConfig`](https://api.ktor.io/ktor-client/ktor-client-jetty-jakarta/io.ktor.client.engine.jetty.jakarta/-jetty-engine-config/index.html) 中的屬性：
+    [`JettyEngineConfig`](https://api.ktor.io/ktor-client-jetty-jakarta/io.ktor.client.engine.jetty.jakarta/-jetty-engine-config/index.html) 中的屬性：
     ```kotlin
     import io.ktor.client.*
     import io.ktor.client.engine.jetty.jakarta.*
@@ -283,8 +283,6 @@ JVM 目標平台支援 [`Apache5`](#apache5)、[`Java`](#java) 和
     ```kotlin
     import io.ktor.client.*
     import io.ktor.client.engine.android.*
-    import java.net.Proxy
-    import java.net.InetSocketAddress
     
     val client = HttpClient(Android)
     ```
@@ -449,15 +447,7 @@ Ktor 為 [Kotlin/Native](https://kotlinlang.org/docs/native-overview.html) 目�
 
 對於桌面平台，Ktor 提供了 `Curl` 引擎。它支援 `linuxX64`、`linuxArm64`、`macosX64`、`macosArm64` 和 `mingwX64`。若要使用 `Curl` 引擎，請遵循以下步驟：
 
-1.  安裝 [libcurl library](https://curl.se/libcurl/)。
-    > 在 Linux 上，您必須安裝 `gnutls` 版本的 libcurl。
-    > 若要在 Ubuntu 上安裝此版本，您可以執行：
-    ```bash
-    sudo apt-get install libcurl4-gnutls-dev
-    ```
-
-    > 在 Windows 上，您可能需要考慮 [MinGW/MSYS2](FAQ.topic#native-curl) `curl` 二進位檔。
-2.  新增 `ktor-client-curl` 依賴項：
+1.  新增 `ktor-client-curl` 依賴項：
 
     <var name="artifact_name" value="ktor-client-curl"/>
     <var name="target" value="-macosx64"/>
@@ -622,7 +612,7 @@ CIO 引擎是一個完全非同步的基於協程的引擎，可在 JVM、Androi
 
 ### 逾時
 
-[HttpTimeout](client-timeout.md) 外掛程式對於特定引擎有一些限制。如需完整列表，請參閱[逾時限制](client-timeout.md#limitations)。
+[HttpTimeout](client-timeout.md) 外掛程式對於特定引擎有一些限制。如需完整列表，請參閱[逾時限制](client-timeout.topic#limitations)。
 
 ## 範例：如何在多平台行動專案中設定引擎 {id="mpp-config"}
 
@@ -631,13 +621,13 @@ CIO 引擎是一個完全非同步的基於協程的引擎，可在 JVM、Androi
 
 <procedure>
 
-1.  開啟 **shared/src/commonMain/kotlin/com/example/kmmktor/Platform.kt**
+1.  開啟 **shared/src/commonMain/kotlin/com/example/kmpktor/Platform.kt**
     檔案並新增一個接受配置區塊並返回 `HttpClient` 的頂層 `httpClient()` 函數：
     ```kotlin
     expect fun httpClient(config: HttpClientConfig<*>.() -> Unit = {}): HttpClient
     ```
 
-2.  開啟 **shared/src/androidMain/kotlin/com/example/kmmktor/Platform.kt**
+2.  開啟 **shared/src/androidMain/kotlin/com/example/kmpktor/Platform.kt**
     並為 Android 模組新增 `httpClient()` 函數的實際聲明：
     ```kotlin
     import io.ktor.client.*
@@ -660,7 +650,7 @@ CIO 引擎是一個完全非同步的基於協程的引擎，可在 JVM、Androi
     >
     {style="tip"}
 
-3.  開啟 **shared/src/iosMain/kotlin/com/example/kmmktor/Platform.kt** 並為 iOS 模組新增 `httpClient()`
+3.  開啟 **shared/src/iosMain/kotlin/com/example/kmpktor/Platform.kt** 並為 iOS 模組新增 `httpClient()`
     函數的實際聲明：
     ```kotlin
     import io.ktor.client.*
@@ -677,7 +667,7 @@ CIO 引擎是一個完全非同步的基於協程的引擎，可在 JVM、Androi
     ```
     您現在可以在共用程式碼中呼叫 `httpClient()`，而無需擔心使用哪個引擎。
 
-4.  若要在共用程式碼中使用用戶端，請開啟 **shared/src/commonMain/kotlin/com/example/kmmktor/Greeting.kt** 並將
+4.  若要在共用程式碼中使用用戶端，請開啟 **shared/src/commonMain/kotlin/com/example/kmpktor/Greeting.kt** 並將
     `HttpClient()` 建構函式替換為 `httpClient()` 函數呼叫：
     ```kotlin
     private val client = httpClient()

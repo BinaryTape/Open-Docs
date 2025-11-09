@@ -18,7 +18,7 @@ Kotlin 的每个版本都附带一个独立的编译器。你可以手动下载�
 要手动安装 Kotlin 编译器：
 
 1. 从 [GitHub Releases](%kotlinLatestUrl%) 下载最新版本（`kotlin-compiler-%kotlinVersion%.zip`）。
-2. 将独立编译器解压到某个目录中，并可选地将 `bin` 目录添加到系统路径。
+2. 将独立编译器解压到某个目录中，并可选地将 `kotlinc/bin` 目录添加到系统路径。
 `bin` 目录包含在 Windows、macOS 和 Linux 上编译和运行 Kotlin 所需的脚本。
 
 > 如果你想在 Windows 上使用 Kotlin 命令行编译器，我们建议手动安装它。
@@ -121,7 +121,7 @@ kotlin -classpath hello.jar HelloKt
 ```kotlin
 import java.io.File
 
-// 获取传入的路径，即 “-d some/path” 或使用当前路径。
+// Get the passed in path, i.e. "-d some/path" or use the current path.
 val path = if (args.contains("-d")) args[1 + args.indexOf("-d")]
            else "."
 

@@ -57,8 +57,8 @@ fun main() {
 |---|---|---|---|
 | [`let`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/let.html) |`it`|Lambda result|Yes|
 | [`run`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/run.html) |`this`|Lambda result|Yes|
-| [`run`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/run.html) |-|Lambda result|No: called without the context object|
-| [`with`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/with.html) |`this`|Lambda result|No: takes the context object as an argument.|
+| [`run`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/run.html) |-|Lambda result|No: 컨텍스트 객체 없이 호출됩니다.|
+| [`with`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/with.html) |`this`|Lambda result|No: 컨텍스트 객체를 인자로 받습니다.|
 | [`apply`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/apply.html) |`this`|Context object|Yes|
 | [`also`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/also.html) |`it`|Context object|Yes|
 
@@ -316,7 +316,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-`let`은 널이 아닌 값을 포함하는 코드 블록을 실행하는 데 자주 사용됩니다. 널이 아닌 객체에 대해 작업을 수행하려면, 객체에 안전 호출 연산자(`?.`)를 사용하고 람다 내의 작업과 함께 `let`을 호출합니다.
+`let`은 널이 아닌 값을 포함하는 코드 블록을 실행하는 데 자주 사용됩니다. 널이 아닌 객체에 대해 작업을 수행하려면, 객체에 [안전 호출 연산자 `?.`](null-safety.md#safe-call-operator)를 사용하고 람다 내의 작업과 함께 `let`을 호출합니다.
 
 ```kotlin
 fun processNonNullString(str: String) {}

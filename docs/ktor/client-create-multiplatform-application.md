@@ -20,7 +20,7 @@ Ktor HTTP 客户端可用于多平台项目。在本教程中，我们将创建�
 
 ## 前提条件 {id="prerequisites"}
 
-首先，你需要在合适的操作系统上安装必要的工具，以设置跨平台移动开发环境。关于如何执行此操作，请参阅 [设置环境](https://kotlinlang.org/docs/multiplatform-mobile-setup.html) 部分。
+首先，你需要通过在合适的操作系统上安装必要的工具来设置跨平台移动开发环境。关于如何执行此操作，请参阅 [设置环境](https://kotlinlang.org/docs/multiplatform-mobile-setup.html) 部分。
 
 > 你需要一台装有 macOS 的 Mac 电脑来完成本教程中的某些步骤，其中包括编写 iOS 特有的代码和运行 iOS 应用程序。
 >
@@ -38,7 +38,7 @@ Ktor HTTP 客户端可用于多平台项目。在本教程中，我们将创建�
 4. 在 **New Project** 窗口中指定以下字段：
     * **Name**: KmpKtor
     * **Group**: com.example.ktor
-      ![Kotlin Multiplatform wizard settings](tutorial_client_kmp_create_project.png)
+      ![Kotlin Multiplatform 向导设置](tutorial_client_kmp_create_project.png){ width="450" width="706" border-effect="rounded" style="block" }
 5. 选择 **Android** 和 **iOS** 目标平台。
 6. 对于 iOS，选择 **Do not share UI** 选项以保持 UI 原生。
 7. 点击 **Create** 按钮，等待 IDE 生成并导入项目。
@@ -57,7 +57,7 @@ Ktor HTTP 客户端可用于多平台项目。在本教程中，我们将创建�
     
     ```kotlin
     [versions]
-    ktor = "3.3.1"
+    ktor = "3.3.2"
     ```
 
 2. 在相同的
@@ -143,7 +143,7 @@ Ktor HTTP 客户端可用于多平台项目。在本教程中，我们将创建�
 ### 共享代码 {id="shared-code"}
 
 要更新 Android 和 iOS 之间共享的代码，请打开
-<Path>shared/src/commonMain/kotlin/com/example/ktor/kmmktor/Greeting.kt</Path>
+<Path>shared/src/commonMain/kotlin/com/example/ktor/kmpktor/Greeting.kt</Path>
 文件并将以下代码添加到 `Greeting` 类：
 
 ```kotlin
@@ -169,7 +169,7 @@ class Greeting {
 ### Android 代码 {id="android-activity"}
 
 打开
-<Path>composeApp/src/androidMain/kotlin/com/example/ktor/kmmktor/App.kt</Path>
+<Path>composeApp/src/androidMain/kotlin/com/example/ktor/kmpktor/App.kt</Path>
 文件并按如下方式更新代码：
 
 ```kotlin
@@ -283,11 +283,11 @@ extension ContentView {
 
 1. 在 IntelliJ IDEA 中，在运行配置列表中选择 **composeApp**。
 2. 在配置列表旁边选择一个 Android 虚拟设备，然后点击 **Run**。
-   ![composeApp selected with a Pixel 8 API device](tutorial_client_kmp_run_android.png){width="381" style="block"}
+   ![composeApp 选择了 Pixel 8 API 设备](tutorial_client_kmp_run_android.png){width="381" style="block"}
 
    如果列表中没有设备，请创建 [新的 Android 虚拟设备](https://developer.android.com/studio/run/managing-avds#createavd)。
 3. 加载后，模拟器应将接收到的 HTML 文档显示为纯文本。
-   ![Android simulator](tutorial_client_kmp_android.png){width="381" style="block"}
+   ![Android 模拟器](tutorial_client_kmp_android.png){width="381" style="block"}
 
 > 如果你的 Android 模拟器无法连接到互联网，请尝试执行冷启动。
 > 在 **Device Manager** 工具窗口中，点击已停止设备旁边的 **⋮** (三个点)，然后从菜单中选择 **Cold Boot**。这通常有助于清除可能导致连接问题的损坏模拟器缓存。
@@ -298,8 +298,8 @@ extension ContentView {
 
 1. 在 IntelliJ IDEA 中，在运行配置列表中选择 **iosApp**。
 2. 在配置列表旁边选择一个 iOS 模拟设备，然后点击 **Run**。
-   ![iOsApp selected with iPhone 16 device](tutorial_client_kmp_run_ios.png){width="381" style="block"}
+   ![iosApp 选择了 iPhone 16 设备](tutorial_client_kmp_run_ios.png){width="381" style="block"}
 
    如果列表中没有可用的 iOS 配置，请添加 [新的运行配置](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-create-first-app.html#run-on-a-new-ios-simulated-device)。
 3. 加载后，模拟器应将接收到的 HTML 文档显示为纯文本。
-   ![iOS simulator](tutorial_client_kmp_ios.png){width="381" style="block"}
+   ![iOS 模拟器](tutorial_client_kmp_ios.png){width="381" style="block"}

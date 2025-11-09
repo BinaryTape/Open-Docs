@@ -80,8 +80,8 @@ Kotlin 擁有豐富的標準函式庫，可用於您的應用程式。若要在�
 
 ```xml
 <build>
-    <sourceDirectory>${project.basedir}/src/main/kotlin</sourceDirectory>
-    <testSourceDirectory>${project.basedir}/src/test/kotlin</testSourceDirectory>
+    <sourceDirectory>src/main/kotlin</sourceDirectory>
+    <testSourceDirectory>src/test/kotlin</testSourceDirectory>
 </build>
 ```
 
@@ -144,8 +144,8 @@ Kotlin 擁有豐富的標準函式庫，可用於您的應用程式。若要在�
                     </goals>
                     <configuration>
                         <sourceDirs>
-                            <sourceDir>${project.basedir}/src/main/kotlin</sourceDir>
-                            <sourceDir>${project.basedir}/src/main/java</sourceDir>
+                            <sourceDir>src/main/kotlin</sourceDir>
+                            <sourceDir>src/main/java</sourceDir>
                         </sourceDirs>
                     </configuration>
                 </execution>
@@ -156,8 +156,8 @@ Kotlin 擁有豐富的標準函式庫，可用於您的應用程式。若要在�
                     </goals>
                     <configuration>
                         <sourceDirs>
-                            <sourceDir>${project.basedir}/src/test/kotlin</sourceDir>
-                            <sourceDir>${project.basedir}/src/test/java</sourceDir>
+                            <sourceDir>src/test/kotlin</sourceDir>
+                            <sourceDir>src/test/java</sourceDir>
                         </sourceDirs>
                     </configuration>
                 </execution>
@@ -200,7 +200,7 @@ Kotlin 擁有豐富的標準函式庫，可用於您的應用程式。若要在�
 
 ## 配置 Kotlin 編譯器執行策略
 
-Kotlin 編譯器執行策略定義了 Kotlin 編譯器執行的位置。有兩種可用策略：
+_Kotlin 編譯器執行策略_定義了 Kotlin 編譯器執行的位置。有兩種可用策略：
 
 | 策略                | Kotlin 編譯器執行的位置 |
 |-------------------------|---------------------------------------|

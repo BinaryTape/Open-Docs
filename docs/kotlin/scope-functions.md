@@ -1,6 +1,8 @@
 [//]: # (title: 作用域函数)
 
-Kotlin 标准库包含一些函数，其唯一目的是在对象的上下文内执行一段代码块。当你对一个对象调用这类函数并提供一个 [lambda 表达式](lambdas.md)时，它会形成一个临时作用域。在这个作用域内，你可以无需其名称即可访问该对象。这类函数被称为 _作用域函数_。它们共有五种：[`let`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/let.html)、[`run`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/run.html)、[`with`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/with.html)、[`apply`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/apply.html) 和 [`also`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/also.html)。
+Kotlin 标准库包含一些函数，其唯一目的是在对象的上下文内执行一段代码块。当你对一个对象调用这类函数并提供一个 [lambda 表达式](lambdas.md)时，它会形成一个临时作用域。在这个作用域内，你可以无需其名称即可访问该对象。这类函数被称为 _作用域函数_。它们共有五种：[`let`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/let.html)、[`run`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/run.html)
+、[`with`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/with.html)、[`apply`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/apply.html)
+和 [`also`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/also.html)。
 
 基本上，这些函数都执行相同的操作：对一个对象执行一段代码块。不同之处在于该对象在代码块内部如何变得可用，以及整个表达式的结果是什么。
 
@@ -87,7 +89,8 @@ fun main() {
 
 ### 上下文对象：this 或 it
 
-在传递给作用域函数的 lambda 表达式内部，上下文对象可以通过短引用而不是其实际名称来访问。每个作用域函数都使用两种方式之一来引用上下文对象：作为 lambda [接收者](lambdas.md#function-literals-with-receiver) (`this`) 或作为 lambda 实参 (`it`)。两者都提供相同的功能，因此我们描述了它们在不同用例中的优缺点，并提供了使用建议。
+在传递给作用域函数的 lambda 表达式内部，上下文对象可以通过短引用而不是其实际名称来访问。每个作用域函数都使用两种方式之一来引用上下文对象：作为 lambda [接收者](lambdas.md#function-literals-with-receiver)
+(`this`) 或作为 lambda 实参 (`it`)。两者都提供相同的功能，因此我们描述了它们在不同用例中的优缺点，并提供了使用建议。
 
 ```kotlin
 fun main() {
@@ -494,7 +497,8 @@ fun main() {
 
 ## takeIf 和 takeUnless
 
-除了作用域函数之外，标准库还包含函数 [`takeIf`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/take-if.html) 和 [`takeUnless`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/take-unless.html)。这些函数允许你在调用链中嵌入对象状态的检测。
+除了作用域函数之外，标准库还包含函数 [`takeIf`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/take-if.html)
+和 [`takeUnless`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/take-unless.html)。这些函数允许你在调用链中嵌入对象状态的检测。
 
 当对一个对象调用 `takeIf` 并提供一个谓词时，如果该对象满足给定谓词，它将返回此对象。否则，它返回 `null`。因此，`takeIf` 是一个针对单个对象的过滤函数。
 
@@ -517,7 +521,8 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-> 当在 `takeIf` 和 `takeUnless` 之后链式调用其他函数时，不要忘记执行空检测或使用安全调用 (`?.`)，因为它们的返回值是可空的。
+> 当在 `takeIf` 和 `takeUnless` 之后链式调用其他函数时，不要忘记执行空检测或使用安全调用
+> (`?.`)，因为它们的返回值是可空的。
 >
 {style="tip"}
 
@@ -533,7 +538,10 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-`takeIf` 和 `takeUnless` 在与作用域函数结合使用时特别有用。例如，你可以将 `takeIf` 和 `takeUnless` 与 `let` 链式调用，以对符合给定谓词的对象运行代码块。要做到这一点，请对对象调用 `takeIf`，然后使用安全调用 (`?`) 调用 `let`。对于不符合谓词的对象，`takeIf` 返回 `null`，并且 `let` 不会被调用。
+`takeIf` 和 `takeUnless` 在与作用域函数结合使用时特别有用。例如，你可以将
+`takeIf` 和 `takeUnless` 与 `let` 链式调用，以对符合给定谓词的对象运行代码块。要做到这一点，
+请对对象调用 `takeIf`，然后使用安全调用 (`?`) 调用 `let`。对于不符合谓词的对象，
+`takeIf` 返回 `null`，并且 `let` 不会被调用。
 
 ```kotlin
 fun main() {

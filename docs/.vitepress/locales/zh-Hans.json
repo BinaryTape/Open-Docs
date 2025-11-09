@@ -464,7 +464,7 @@
   "kotlin.kotlin-tour": "Kotlin 导览",
   "kmp.what-s-next-for-kmp": "KMP 的后续发展",
   "kmp.what-s-new": "新特性",
-  "kmp.whats-new-compose-190": "Compose Multiplatform 1.9.2",
+  "kmp.whats-new-compose-190": "Compose Multiplatform 1.9.3",
   "kmp.whats-new-compose-180": "Compose Multiplatform 1.8.2",
   "kmp.whats-new-compose-170": "Compose Multiplatform 1.7.3",
   "kmp.whats-new-compose-1610": "Compose Multiplatform 1.6.10",
@@ -513,5 +513,8 @@
   "koog.events": "事件",
   "koog.strategies": "策略",
   "koog.event-handlers": "事件处理器",
-  "kmp.kmp-tooling": "KMP 工具"
+  "kmp.kmp-tooling": "KMP 工具",
+  "kotlin.compose-multiplatform-material3": "Compose Multiplatform Material3",
+  "kmp.whats-new-compose-110": "Compose Multiplatform 1.10.0-beta01",
+  "kmp.earlier-versions": "更早版本"
 }

@@ -1015,6 +1015,10 @@
       {
         "text": "kotlin.kotlin-gradle-plugins-kotlin-gradle-plugin",
         "href": "https://kotlinlang.org/api/kotlin-gradle-plugin/"
+      },
+      {
+        "text": "kotlin.compose-multiplatform-material3",
+        "href": "https://kotlinlang.org/api/compose-multiplatform/material3/"
       }
     ],
     "collapsed": true

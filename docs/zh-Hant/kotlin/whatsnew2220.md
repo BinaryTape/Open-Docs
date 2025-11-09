@@ -1184,6 +1184,66 @@ Lambda 的先前版本，這可能會導致意外行為。
 
 在 Kotlin 2.2.20 中，編譯器現在會偵測 inline 函式中 Lambda 的變更並自動重新編譯其呼叫點。
 
+### 函式庫發布的改進
+
+Kotlin 2.2.20 添加了新的 Gradle 任務，讓函式庫發布變得更容易。這些任務可幫助您生成金鑰對、上傳公開金鑰，並執行本機檢查以確保驗證過程在上傳到 Maven Central 儲存庫之前成功。
+
+有關如何在發布過程中利用這些任務的更多資訊，請參閱[將您的函式庫發布到 Maven Central](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-publish-libraries.html)。
+
+#### 用於生成和上傳 PGP 金鑰的新 Gradle 任務
+
+在 Kotlin 2.2.20 之前，如果您想將 Multiplatform 函式庫發布到 Maven Central 儲存庫，您必須安裝
+`gpg` 等第三方程式來生成用於簽署您發布的金鑰對。現在，Kotlin Gradle 插件隨附了
+Gradle 任務，可讓您生成金鑰對並上傳公開金鑰，因此您無需安裝其他程式。
+
+##### 生成金鑰對
+
+`generatePgpKeys` 任務生成金鑰對。當您執行它時，您必須提供私密金鑰儲存庫的密碼
+和您的名稱，格式如下：
+
+```bash
+./gradlew -Psigning.password=example-password generatePgpKeys --name "John Smith <john@example.com>"
+```
+
+該任務將金鑰對儲存在 `build/pgp` 目錄中。
+
+> 將您的金鑰對移至安全位置，以防止意外刪除或未經授權的存取。
+>
+{style="warning"}
+
+##### 上傳公開金鑰
+
+`uploadPublicPgpKey` 任務將公開金鑰上傳到 Ubuntu 的金鑰伺服器：`keyserver.ubuntu.com`。當您執行它時，
+請提供 `.asc` 格式公開金鑰的路徑：
+
+```bash
+./gradlew uploadPublicPgpKey --keyring /path_to/build/pgp/public_KEY_ID.asc
+```
+
+#### 用於在本機測試驗證的新 Gradle 任務
+
+Kotlin 2.2.20 還添加了用於在本機測試驗證的 Gradle 任務，然後再將您的函式庫上傳到 Maven Central 儲存庫。
+
+如果您將 Kotlin Gradle 插件與 Gradle 的 [Signing Plugin](https://docs.gradle.org/current/userguide/signing_plugin.html) 和 [Maven Publish Plugin](https://docs.gradle.org/current/userguide/publishing_maven.html) 一起使用，您可以執行 `checkSigningConfiguration` 和 `checkPomFileFor<PUBLICATION_NAME>Publication` 任務，以驗證您的設定是否符合 Maven Central 的要求。將 `<PUBLICATION_NAME>` 替換為您的發布名稱。
+
+這些任務不會作為 `build` 或 `check` Gradle 任務的一部分自動執行，因此您需要手動執行它們。
+例如，如果您有 `KotlinMultiplatform` 發布：
+
+```bash
+./gradlew checkSigningConfiguration checkPomFileForKotlinMultiplatformPublication
+```
+
+`checkSigningConfiguration` 任務檢查：
+
+*   Signing Plugin 是否已配置金鑰。
+*   已配置的公開金鑰是否已上傳到 `keyserver.ubuntu.com` 或 `keys.openpgp.org` 金鑰伺服器。
+*   所有發布是否都已啟用簽署。
+
+如果這些檢查中的任何一個失敗，該任務將回傳錯誤，並附上如何解決問題的資訊。
+
+`checkPomFileFor<PUBLICATION_NAME>Publication` 任務檢查 `pom.xml` 檔案是否符合 Maven Central 的[要求](https://central.sonatype.org/publish/requirements/#required-pom-metadata)。
+如果不符合，該任務將回傳錯誤，並詳細說明 `pom.xml` 檔案的哪些部分不符合規定。
+
 ## Maven：`kotlin-maven-plugin` 中支援 Kotlin 常駐程式
 
 Kotlin 2.2.20 透過在 `kotlin-maven-plugin` 中添加對 [Kotlin 常駐程式](kotlin-daemon.md) 的支援，使 [Kotlin 2.2.0 中引入的實驗性建置工具 API](whatsnew22.md#new-experimental-build-tools-api) 更進一步。當使用 Kotlin 常駐程式時，Kotlin

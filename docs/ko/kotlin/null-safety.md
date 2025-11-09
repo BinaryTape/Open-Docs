@@ -201,14 +201,14 @@ if (person != null && person.department != null) {
 }
 ```
 
-## 엘비스 연산자
+## 엘비스 연산자 `?:`
 
 널 허용 타입으로 작업할 때 `null`을 확인하고 대안 값을 제공할 수 있습니다. 예를 들어, `b`가 `null`이 아니면 `b.length`에 접근합니다. 그렇지 않으면 대안 값을 반환합니다:
 
 ```kotlin
 fun main() {
 //sampleStart
-    // 널 허용 변수에 null 할당
+    // 널 허용 변수에 null 할당  
     val b: String? = null
     // 널 허용성 확인. null이 아니면 길이 반환. null이면 0 반환
     val l: Int = if (b != null) b.length else 0
@@ -224,7 +224,7 @@ fun main() {
 ```kotlin
 fun main() {
 //sampleStart
-    // 널 허용 변수에 null 할당
+    // 널 허용 변수에 null 할당  
     val b: String? = null
     // 널 허용성 확인. null이 아니면 길이 반환. null이면 널이 아닌 값 반환
     val l = b?.length ?: 0
@@ -241,15 +241,15 @@ Kotlin에서 `throw`와 `return`은 표현식이기 때문에 엘비스 연산�
 
 ```kotlin
 fun foo(node: Node): String? {
-    // `getParent()` 확인. null이 아니면 parent에 할당. null이면 null 반환
+    // getParent() 확인. null이 아니면 parent에 할당. null이면 null 반환
     val parent = node.getParent() ?: return null
-    // `getName()` 확인. null이 아니면 name에 할당. null이면 예외 발생
+    // getName() 확인. null이 아니면 name에 할당. null이면 예외 발생
     val name = node.getName() ?: throw IllegalArgumentException("name expected")
     // ...
 }
 ```
 
-## 널 아님 단언 연산자
+## 널 아님 단언 연산자 `!!`
 
 널 아님 단언 연산자 `!!`는 모든 값을 널이 아닌 타입으로 변환합니다.
 
@@ -276,11 +276,11 @@ fun main() {
 ```kotlin
 fun main() {
 //sampleStart
-    // 널 허용 변수에 null 할당
+    // 널 허용 변수에 null 할당  
     val b: String? = null
     // b를 널이 아닌 것으로 처리하고 길이에 접근 시도
     val l = b!!.length
-    println(l)
+    println(l) 
     // Exception in thread "main" java.lang.NullPointerException
 //sampleEnd
 }
@@ -291,7 +291,7 @@ fun main() {
 
 ## 널 허용 리시버
 
-[널 허용 리시버 타입](extensions.md#nullable-receiver)이 있는 확장 함수를 사용할 수 있으며, 이를 통해 `null`일 수 있는 변수에서 이러한 함수를 호출할 수 있습니다.
+널 허용 [리시버 타입](extensions.md#nullable-receivers)이 있는 확장 함수를 사용할 수 있으며, 이를 통해 `null`일 수 있는 변수에서 이러한 함수를 호출할 수 있습니다.
 
 널 허용 리시버 타입에 확장 함수를 정의함으로써, 함수를 호출하는 모든 곳에서 `null`을 확인하는 대신 함수 내에서 `null` 값을 처리할 수 있습니다.
 
@@ -300,10 +300,10 @@ fun main() {
 ```kotlin
 //sampleStart
 fun main() {
-    // `person` 변수에 저장된 널 허용 `Person` 객체에 null 할당
+    // person 변수에 저장된 널 허용 Person 객체에 null 할당
     val person: Person? = null
 
-    // 널 허용 `person` 변수에 `.toString`을 적용하고 문자열 출력
+    // 널 허용 person 변수에 .toString을 적용하고 문자열 출력
     println(person.toString())
     // null
 }

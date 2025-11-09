@@ -8,24 +8,24 @@ Ktor HTTP 客户端允许你在多平台项目中配置代理设置。支持两�
 
 下表显示了特定 [引擎](client-engines.md) 支持的代理类型：
 
-| 引擎         | HTTP 代理  | SOCKS 代理 |
-|------------|------------|-------------|
-| Apache     | ✅          |   ✖️         |
-| Java       | ✅          |   ✖️         |
-| Jetty      | ✖️          |   ✖️         |
-| CIO        | ✅          |   ✖️         |
-| Android    | ✅          |   ✅         |
-| OkHttp     | ✅          |   ✅         |
-| JavaScript | ✖️          |   ✖️         |
-| Darwin     | ✅          |   ✖️          |
-| Curl       | ✅          |   ✅         |
+| 引擎         | HTTP 代理 | SOCKS 代理 |
+|------------|-----------|------------|
+| Apache     | ✅         | ✖️         |
+| Java       | ✅         | ✖️         |
+| Jetty      | ✖️         | ✖️         |
+| CIO        | ✅         | ✖️         |
+| Android    | ✅         | ✅          |
+| OkHttp     | ✅         | ✅          |
+| JavaScript | ✖️         | ✖️         |
+| Darwin     | ✅         | ✅          |
+| Curl       | ✅         | ✅          |
 
 > 请注意，目前 Darwin 引擎的 HTTP 代理不支持 HTTPS 请求。
 
 ## 添加依赖项 {id="add_dependencies"}
 
 要在客户端中配置代理，你无需添加特定依赖项。所需的依赖项是：
-- [ktor-client-core](client-dependencies.md#client-dependency)；
+- [ktor-client-core](client-dependencies.md#client-dependency);
 - [引擎依赖项](client-dependencies.md#engine-dependency)。
 
 ## 配置代理 {id="configure_proxy"}

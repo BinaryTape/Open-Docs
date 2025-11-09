@@ -163,7 +163,7 @@ fun getPermissionLevel(role: UserRole): Int {
     return when (role) {
         UserRole.MEMBER -> 10
         UserRole.GUEST -> 1
-        // You no longer have to include this else branch 
+        // このelseブランチを含める必要がなくなりました
         // else -> throw IllegalStateException()
     }
 }
@@ -195,14 +195,14 @@ Kotlin 2.2.20では、コンパイラは`inline`関数の`catch`句で[reified�
 inline fun <reified ExceptionType : Throwable> handleException(block: () -> Unit) {
     try {
         block()
-        // This is now allowed after the change
+        // この変更後、これは許可されます
     } catch (e: ExceptionType) {
         println("Caught specific exception: ${e::class.simpleName}")
     }
 }
 
 fun main() {
-    // Tries to perform an action that might throw an IOException
+    // IOExceptionをスローする可能性のあるアクションを実行しようとします
     handleException<java.io.IOException> {
         throw java.io.IOException("File not found")
     }
@@ -236,8 +236,8 @@ Kotlin 2.2.20では、[Kotlinコントラクト](https://kotlinlang.org/api/core
 
 *   [コントラクト型アサーションにおけるジェネリクスのサポート](#support-for-generics-in-contract-type-assertions)。
 *   [プロパティアクセサーおよび特定の演算子関数内でのコントラクトのサポート](#support-for-contracts-inside-property-accessors-and-specific-operator-functions)。
-*   [条件が満たされたときに非nullの戻り値を保証する手段としての、コントラクトにおける`returnsNotNull()`関数のサポート](#support-for-the-returnsnotnull-function-in-contracts)。
-*   [ラムダ内で条件が`true`であると仮定できる新しい`holdsIn`キーワード](#new-holdsin-keyword)。
+*   [コントラクトにおける`returnsNotNull()`関数のサポート](#support-for-the-returnsnotnull-function-in-contracts) (条件が満たされたときに非nullの戻り値を保証する手段として)。
+*   [新しい`holdsIn`キーワード](#new-holdsin-keyword)。ラムダ内で条件が`true`であると仮定することを可能にします。
 
 これらの改善は[Experimental](components-stability.md#stability-levels-explained)です。オプトインするには、コントラクトを宣言する際に`@OptIn(ExperimentalContracts::class)`アノテーションを使用する必要があります。`holdsIn`キーワードと`returnsNotNull()`関数も`@OptIn(ExperimentalExtendedContracts::class)`アノテーションを必要とします。
 
@@ -263,7 +263,7 @@ sealed class Result<out T, out F : Failure> {
 }
 
 @OptIn(ExperimentalContracts::class)
-// Uses a contract to assert a generic type
+// ジェネリック型をアサートするためにコントラクトを使用します
 fun <T, F : Failure> Result<T, F>.isHttpError(): Boolean {
     contract {
         returns(true) implies (this@isHttpError is Result.Failed<Failure.HttpError>)
@@ -297,14 +297,14 @@ import kotlin.contracts.*
 val Any.isHelloString: Boolean
     get() {
         @OptIn(ExperimentalContracts::class)
-        // Enables smart casting the receiver to String when the getter returns true
+        // ゲッターがtrueを返すときにレシーバーをStringにスマートキャストできるようにします
         contract { returns(true) implies (this@isHelloString is String) }
         return "hello" == this
     }
 
 fun printIfHelloString(x: Any) {
     if (x.isHelloString) {
-        // Prints the length after the smart cast of the receiver to String
+        // レシーバーをStringにスマートキャストした後、長さを出力します
         println(x.length)
         // 5
     }
@@ -328,7 +328,7 @@ import kotlin.contracts.*
 
 class Runner {
     @OptIn(ExperimentalContracts::class)
-    // Enables initialization of variables assigned inside the lambda
+    // ラムダ内で割り当てられた変数の初期化を有効にします
     operator fun invoke(block: () -> Unit) {
         contract {
             callsInPlace(block, InvocationKind.EXACTLY_ONCE)
@@ -342,7 +342,7 @@ fun testOperator(runner: Runner) {
     runner {
         number = 1
     }
-    // Prints the value after definite initialization guaranteed by the contract
+    // コントラクトによって保証された明確な初期化の後、値を出力します
     println(number)
     // 1
 }
@@ -370,7 +370,7 @@ import kotlin.contracts.*
 @OptIn(ExperimentalContracts::class, ExperimentalExtendedContracts::class)
 fun decode(encoded: String?): String? {
     contract {
-        // Guarantees a non-null return value when the input is non-null
+        // 入力が非nullの場合に非nullの戻り値を保証します
         (encoded != null) implies (returnsNotNull())
     }
     if (encoded == null) return null
@@ -378,10 +378,10 @@ fun decode(encoded: String?): String? {
 }
 
 fun useDecodedValue(s: String?) {
-    // Uses a safe call since the return value may be null
+    // 戻り値がnullになる可能性があるため、セーフコールを使用します
     decode(s)?.length
     if (s != null) {
-        // Treats the return value as non-null after the smart cast
+        // スマートキャスト後、戻り値を非nullとして扱います
         decode(s).length
     }
 }
@@ -399,7 +399,7 @@ kotlin {
 }
 ```
 
-#### 新しいholdsInキーワード
+#### 新しい`holdsIn`キーワード
 
 Kotlin 2.2.20では、コントラクト用の新しい[`holdsIn`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.contracts/-contract-builder/holds-in.html)キーワードが導入されました。
 これを使用して、特定のラムダ内でブール条件が`true`であると仮定されることを保証できます。これにより、コントラクトを使用して条件付きスマートキャストを持つDSLを構築できます。
@@ -412,9 +412,9 @@ import kotlin.contracts.*
 @OptIn(ExperimentalContracts::class, ExperimentalExtendedContracts::class)
 fun <T> T.alsoIf(condition: Boolean, block: (T) -> Unit): T {
     contract {
-        // Declares that the lambda runs at most once
+        // ラムダが最大1回実行されることを宣言します
         callsInPlace(block, InvocationKind.AT_MOST_ONCE)
-        // Declares that the condition is assumed to be true inside the lambda
+        // 条件がラムダ内でtrueであると仮定されることを宣言します
         condition holdsIn block
     }
     if (condition) block(this)
@@ -425,8 +425,8 @@ fun useApplyIf(input: Any) {
     val result = listOf(1, 2, 3)
         .first()
         .alsoIf(input is Int) {
-            // The input parameter is smart cast to Int inside the lambda
-            // Prints the sum of input and first list element
+            // 入力パラメータはラムダ内でIntにスマートキャストされます
+            // 入力とリストの最初の要素の合計を出力します
             println(input + it)
             // 2
         }
@@ -467,7 +467,7 @@ class B : Example()
 class C : Example()
 
 fun test(e: Example) = when (e) {
-    // Uses invokedynamic with SwitchBootstraps.typeSwitch
+    // SwitchBootstraps.typeSwitchでinvokedynamicを使用します
     is A -> 1
     is B -> 2
     is C -> 3
@@ -532,7 +532,7 @@ Swiftエクスポートを試すには、Xcodeプロジェクトを設定しま�
    ./gradlew :<Shared module name>:embedSwiftExportForXcode
    ```
 
-   ![Swiftエクスポートスクリプトを追加](xcode-swift-export-run-script-phase.png){width=700}
+   ![Add the Swift export script](xcode-swift-export-run-script-phase.png){width=700}
 
 4.  プロジェクトをビルドします。Swiftモジュールはビルド出力ディレクトリに生成されます。
 
@@ -565,12 +565,12 @@ expect suspend fun readCopiedText(): String
 
 // jsMain
 external interface Navigator { val clipboard: Clipboard }
-// Different interop in JS and Wasm
+// JSとWasmで異なる相互運用
 external interface Clipboard { fun readText(): Promise<String> }
 external val navigator: Navigator
 
 suspend fun readCopiedText(): String {
-    // Different interop in JS and Wasm
+    // JSとWasmで異なる相互運用
     return navigator.clipboard.readText().await()
 }
 
@@ -626,7 +626,7 @@ kotlin {
     js()
     wasmJs()
 
-    // Enables the default source set hierarchy, including webMain and webTest
+    // webMainとwebTestを含むデフォルトのソースセット階層を有効にします
     applyDefaultHierarchyTemplate()
 }
 ```
@@ -829,7 +829,7 @@ Kotlin 2.2.20から、`kotlin-native.jar`は公開されなくなりました。
 
 ### Objective-CヘッダーへのKDocのエクスポートがデフォルトに
 
-Kotlin/Nativeの最終バイナリのコンパイル中にObjective-Cヘッダーを生成する際、[KDoc](kotlin-doc.md)コメントがデフォルトでエクスポートされるようになりました。
+[KDoc](kotlin-doc.md)コメントがデフォルトでエクスポートされるようになりました。Kotlin/Nativeの最終バイナリのコンパイル中にObjective-Cヘッダーを生成する際。
 
 これまで、`-Xexport-kdoc`オプションはビルドファイルに手動で追加する必要がありました。現在では、コンパイルタスクに自動的に渡されます。
 
@@ -1081,7 +1081,7 @@ fun main(args: Array<String>) {
 
 ```kotlin
 fun main(args: Array<String>) {
-    // No need for drop() and only your custom arguments are included 
+    // drop()は不要になり、カスタム引数のみが含まれます
     println(args.joinToString(", "))
 }
 ```
@@ -1133,6 +1133,61 @@ Kotlin 2.2.20以前は、インクリメンタルコンパイルを有効にし�
 
 Kotlin 2.2.20では、コンパイラはインライン関数のラムダの変更を検出し、その呼び出しサイトを自動的に再コンパイルするようになりました。
 
+### ライブラリ公開の改善
+
+Kotlin 2.2.20では、ライブラリ公開を容易にする新しいGradleタスクが追加されました。これらのタスクは、キーペアの生成、公開鍵のアップロード、およびMaven Centralリポジトリへのアップロード前に検証プロセスが成功することを確認するためのローカルチェックの実行に役立ちます。
+
+これらのタスクを公開プロセスの一部として使用する方法の詳細については、[Maven Centralへのライブラリ公開](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-publish-libraries.html)をご覧ください。
+
+#### PGPキーを生成およびアップロードするための新しいGradleタスク
+
+Kotlin 2.2.20以前は、マルチプラットフォームライブラリをMaven Centralリポジトリに公開したい場合、公開物に署名するためのキーペアを生成するために`gpg`のようなサードパーティプログラムをインストールする必要がありました。現在、Kotlin Gradleプラグインには、キーペアを生成し、公開鍵をアップロードできるGradleタスクが付属しているため、別のプログラムをインストールする必要がありません。
+
+##### キーペアの生成
+
+`generatePgpKeys`タスクはキーペアを生成します。実行する際、プライベートキーストアのパスワードとあなたの名前を以下の形式で指定する必要があります。
+
+```bash
+./gradlew -Psigning.password=example-password generatePgpKeys --name "John Smith <john@example.com>"
+```
+
+このタスクはキーペアを`build/pgp`ディレクトリに保存します。
+
+> 偶発的な削除や不正アクセスを防ぐため、キーペアを安全な場所に移動してください。
+> 
+{style="warning"}
+
+##### 公開鍵のアップロード
+
+`uploadPublicPgpKey`タスクは、公開鍵をUbuntuのキーサーバーである`keyserver.ubuntu.com`にアップロードします。実行する際、`.asc`形式の公開鍵へのパスを指定してください。
+
+```bash
+./gradlew uploadPublicPgpKey --keyring /path_to/build/pgp/public_KEY_ID.asc
+```
+
+#### ローカルで検証をテストするための新しいGradleタスク
+
+Kotlin 2.2.20では、ライブラリをMaven Centralリポジトリにアップロードする前に、ローカルで検証をテストするためのGradleタスクも追加されました。
+
+Kotlin GradleプラグインをGradleの[Signing Plugin](https://docs.gradle.org/current/userguide/signing_plugin.html)および[Maven Publish Plugin](https://docs.gradle.org/current/userguide/publishing_maven.html)と共に使用している場合、`checkSigningConfiguration`および`checkPomFileFor<PUBLICATION_NAME>Publication`タスクを実行して、セットアップがMaven Centralの要件を満たしているか検証できます。`<PUBLICATION_NAME>`を公開物の名前に置き換えてください。
+
+これらのタスクは`build`または`check` Gradleタスクの一部として自動的に実行されないため、手動で実行する必要があります。たとえば、`KotlinMultiplatform`公開物がある場合:
+
+```bash
+./gradlew checkSigningConfiguration checkPomFileForKotlinMultiplatformPublication
+```
+
+`checkSigningConfiguration`タスクは以下をチェックします。
+
+*   Signing Pluginにキーが設定されていること。
+*   設定された公開鍵が`keyserver.ubuntu.com`または`keys.openpgp.org`のキーサーバーのいずれかにアップロードされていること。
+*   すべての公開物に署名が有効になっていること。
+
+これらのチェックのいずれかが失敗した場合、タスクは問題を修正する方法に関する情報とともにエラーを返します。
+
+`checkPomFileFor<PUBLICATION_NAME>Publication`タスクは、`pom.xml`ファイルがMaven Centralの[要件](https://central.sonatype.org/publish/requirements/#required-pom-metadata)を満たしているかチェックします。
+満たしていない場合、タスクは`pom.xml`ファイルのどの部分が非準拠であるかについての詳細とともにエラーを返します。
+
 ## Maven: `kotlin-maven-plugin`におけるKotlinデーモンのサポート
 
 Kotlin 2.2.20では、[Kotlin 2.2.0で導入されたビルドツールAPI](whatsnew22.md#new-experimental-build-tools-api)をさらに一歩進め、`kotlin-maven-plugin`で[Kotlinデーモン](kotlin-daemon.md)のサポートを追加しました。Kotlinデーモンを使用すると、Kotlinコンパイラは独立した別のプロセスで実行され、他のMavenプラグインがシステムプロパティを上書きするのを防ぎます。この[YouTrack課題](https://youtrack.jetbrains.com/issue/KT-43894/Maven-Windows-error-RuntimeException-Could-not-find-installation-home-path)で例を見ることができます。
@@ -1174,7 +1229,7 @@ Kotlin 2.2.20は、[Experimental](components-stability.md#stability-levels-expla
 ```kotlin
 @OptIn(ExperimentalStdlibApi::class)
 fun inspect(klass: KClass<*>) {
-    // Prints true for interfaces
+    // インターフェースの場合はtrueを出力します
     println(klass.isInterface)
 }
 ```
@@ -1208,13 +1263,13 @@ fun main() {
     val counter = AtomicLong(Random.nextLong())
     val minSetBitsThreshold = 20
 
-    // Sets a new value without using the result
+    // 結果を使用せずに新しい値を設定します
     counter.update { if (it < 0xDECAF) 0xCACA0 else 0xC0FFEE }
 
-    // Retrieves the current value, then updates it
+    // 現在の値を取得し、それを更新します
     val previousValue = counter.fetchAndUpdate { 0x1CEDL.shl(Long.SIZE_BITS - it.countLeadingZeroBits()) or it }
 
-    // Updates the value, then retrieves the result
+    // 値を更新し、結果を取得します
     val current = counter.updateAndFetch {
         if (it.countOneBits() < minSetBitsThreshold) it.shl(20) or 0x15BADL else it
     }
@@ -1249,7 +1304,7 @@ Kotlin 2.2.20では、[`copyOf()`](https://kotlinlang.org/api/core/kotlin-stdlib
 @OptIn(ExperimentalStdlibApi::class)
 fun main() {
     val row1: Array<String> = arrayOf("one", "two")
-    // Resizes the array and populates the new elements using the lambda
+    // ラムダを使用して配列のサイズを変更し、新しい要素を設定します
     val row2: Array<String> = row1.copyOf(4) { "default" }
     println(row2.contentToString())
     // [one, two, default, default]
@@ -1278,10 +1333,10 @@ fun main() {
 
 ```text
 @Composable fun App() {
-  Box { // <-- `Box` is a `@UiComposable`
-    Path(...) // <-- `Path` is a `@VectorComposable`
+  Box { // <-- `Box`は`@UiComposable`です
+    Path(...) // <-- `Path`は`@VectorComposable`です
     ^^^^^^^^^
-    warning: Calling a Vector composable function where a UI composable was expected
+    warning: UI composableが期待される場所でVector composable関数を呼び出しています
   }
 }
 ```

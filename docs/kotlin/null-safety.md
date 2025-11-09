@@ -13,7 +13,7 @@ Kotlin 的空安全通过在编译期而不是运行时捕获潜在的空值相�
 *   显式调用 [`throw NullPointerException()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-null-pointer-exception/)。
 *   使用[非空断言操作符 `!!`](#not-null-assertion-operator)。
 *   初始化期间的数据不一致，例如：
-    *   构造函数中可用的未初始化 `this` 在其他地方被使用（[“this 泄漏”](https://youtrack.jetbrains.com/issue/KTIJ-9751)）。
+    *   构造函数中可用的未初始化 `this` 在其他地方被使用（[“this 泄漏”](https://youtrack.com/issue/KTIJ-9751)）。
     *   超类构造函数调用[开放成员](inheritance.md#derived-class-initialization-order)，而该成员在派生类中的实现使用了未初始化状态。
 *   Java 互操作：
     *   尝试访问[平台类型](java-interop.md#null-safety-and-platform-types)的 `null` 引用的成员。
@@ -291,7 +291,7 @@ fun main() {
 
 ## 可空接收者
 
-你可以对[可空接收者类型](extensions.md#nullable-receiver)使用扩展函数，这允许在可能为 `null` 的变量上调用这些函数。
+你可以对[可空接收者类型](extensions.md#nullable-receivers)使用扩展函数，这允许在可能为 `null` 的变量上调用这些函数。
 
 通过在可空接收者类型上定义扩展函数，你可以在函数本身内部处理 `null` 值，而无需在每个调用函数的地方检测 `null`。
 

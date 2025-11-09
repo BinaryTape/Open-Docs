@@ -1,10 +1,5 @@
 [//]: # (title: Lombok 编译器插件)
-
-> Lombok 编译器插件是[实验性的](components-stability.md)。
-> 它可能随时被弃用或修改。仅将其用于求值目的。
-> 我们感谢您在 [YouTrack](https://youtrack.jetbrains.com/issue/KT-7112) 上提供有关它的反馈。
->
-{style="warning"}
+<primary-label ref="experimental-opt-in"/>
 
 Kotlin Lombok 编译器插件允许 Kotlin 代码在同一 Java/Kotlin 混合模块中生成和使用 Java 的 Lombok 声明。
 如果你从另一个模块调用此类声明，则无需为该模块的编译使用此插件。
@@ -163,7 +158,7 @@ kapt {
 
 查阅使用 kapt 和 Lombok 编译器插件的测试项目示例：
 * [Gradle](https://github.com/JetBrains/kotlin/tree/master/libraries/tools/kotlin-gradle-plugin-integration-tests/src/test/resources/testProject/lombokProject/yeskapt) 用法。
-* [Maven](https://github.com/kotlin-hands-on/kotlin-lombok-examples/tree/master/kotlin_lombok_maven/yeskapt) 用法
+* [Maven](https://github.com/kotlin-hands-on/kotlin-lombok-examples/tree/master/kotlin_lombok_maven/yeskapt) 用法。
 
 ## 命令行编译器
 
@@ -176,7 +171,7 @@ Lombok 编译器插件 JAR 可在 Kotlin 编译器的二进制发行版中找到
 如果你想使用 `lombok.config` 文件，请将 `<PATH_TO_CONFIG_FILE>` 替换为你的 `lombok.config` 文件路径：
 
 ```bash
-# 插件选项格式为："-P plugin:<plugin id>:<key>=<value>"。
+# 插件选项格式为："-P plugin:<plugin id>:<key>=<value>"。 
 # 选项可重复。
 
 -P plugin:org.jetbrains.kotlin.lombok:config=<PATH_TO_CONFIG_FILE>

@@ -186,22 +186,23 @@ scope.launch { println("received: " + channel.receiveText()) }
 로컬 장치 (마이크, 카메라)에서 오디오 또는 비디오 트랙을 요청할 수 있습니다.
 
 ```kotlin
-val audioConstraints = WebRtcMedia.AudioTrackConstraints(
-  echoCancellation = true
-)
-val videoConstraints = WebRtcMedia.VideoTrackConstraints(
-  width = 1280,
-  height = 720
-)
-val audio = rtcClient.createAudioTrack(audioConstraints)
-val video = rtcClient.createVideoTrack(videoConstraints)
+val audio = rtcClient.createAudioTrack {
+    echoCancellation = true
+}
+val video = rtcClient.createVideoTrack {
+    width = 1280
+    height = 720
+}
 
 val pc = jsClient.createPeerConnection()
 pc.addTrack(audio)
 pc.addTrack(video)
 ```
 
-웹에서는 `navigator.mediaDevices.getUserMedia`를 사용합니다. Android에서는 Camera2 API를 사용하며 마이크/카메라 권한을 수동으로 요청해야 합니다.
+웹에서는 `navigator.mediaDevices.getUserMedia`를 사용합니다. Android에서는 Camera2 API를 사용하며 마이크/카메라 권한을 수동으로 요청해야 합니다. iOS에서는 AVFoundation API를 사용하며 모든 권한을 수동으로 요청해야 합니다. 클라이언트는 지정된 제약 조건에 따라 가장 적합한 미디어 장치를 찾으려고 시도하거나 `WebRtcMedia.DeviceException`을 발생시킵니다.
+
+> `WebRtcClient`, `WebRtcPeerConnection`, `WebRtcMedia.Track` 및 기타 인터페이스는 `AutoCloseable`입니다. 더 이상 필요하지 않을 때 리소스를 해제하려면 `close()` 메서드를 호출해야 합니다.
+{style="note"}
 
 ### 원격 트랙 수신
 

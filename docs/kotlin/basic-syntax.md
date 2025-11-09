@@ -209,7 +209,7 @@ fun main() {
     val c: Int
     // 在声明后初始化变量 c
     c = 3
-    // 5
+    // 5 
     // 3
 //sampleEnd
     println(x)
@@ -255,7 +255,7 @@ class Shape
 
 ```kotlin
 class Rectangle(val height: Double, val length: Double) {
-    val perimeter = (height + length) * 2
+    val perimeter = (height + length) * 2 
 }
 ```
 
@@ -263,7 +263,7 @@ class Rectangle(val height: Double, val length: Double) {
 
 ```kotlin
 class Rectangle(val height: Double, val length: Double) {
-    val perimeter = (height + length) * 2
+    val perimeter = (height + length) * 2 
 }
 fun main() {
     val rectangle = Rectangle(5.0, 2.0)
@@ -278,7 +278,7 @@ fun main() {
 open class Shape
 
 class Rectangle(val height: Double, val length: Double): Shape() {
-    val perimeter = (height + length) * 2
+    val perimeter = (height + length) * 2 
 }
 ```
 
@@ -299,7 +299,7 @@ Kotlin 中的块注释可以嵌套：
 
 ```kotlin
 /* 注释从此处开始
-/* 包含一个嵌套注释 */
+/* 包含一个嵌套注释 */     
 并在此处结束。 */
 ```
 
@@ -312,8 +312,8 @@ fun main() {
 //sampleStart
     var a = 1
     // 模板中的简单名称：
-    val s1 = "a is $a"
-
+    val s1 = "a is $a" 
+    
     a = 2
     // 模板中的任意表达式：
     val s2 = "${s1.replace("is", "was")}, but now is $a"
@@ -456,7 +456,7 @@ fun main() {
 fun main() {
 //sampleStart
     val list = listOf("a", "b", "c")
-
+    
     if (-1 !in 0..list.lastIndex) {
         println("-1 is out of range")
     }
@@ -580,7 +580,7 @@ fun printProduct(arg1: String, arg2: String) {
     }
     else {
         println("'$arg1' or '$arg2' is not a number")
-    }
+    }    
 }
 //sampleEnd
 
@@ -602,7 +602,7 @@ fun parseInt(str: String): Int? {
 fun printProduct(arg1: String, arg2: String) {
     val x = parseInt(arg1)
     val y = parseInt(arg2)
-
+    
 //sampleStart
     // ...
     if (x == null) {
@@ -687,7 +687,7 @@ fun main() {
 //sampleStart
 fun getStringLength(obj: Any): Int? {
     // 在 `&&` 的右侧，`obj` 会自动转换为 `String` 类型
-    if (obj is String && obj.length > 0) {
+    if (obj is String && obj.length >= 0) {
         return obj.length
     }
 

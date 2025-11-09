@@ -80,8 +80,8 @@ Kotlin 拥有一个丰富的标准库，可以在你的应用程序中使用。�
 
 ```xml
 <build>
-    <sourceDirectory>${project.basedir}/src/main/kotlin</sourceDirectory>
-    <testSourceDirectory>${project.basedir}/src/test/kotlin</testSourceDirectory>
+    <sourceDirectory>src/main/kotlin</sourceDirectory>
+    <testSourceDirectory>src/test/kotlin</testSourceDirectory>
 </build>
 ```
 
@@ -117,11 +117,11 @@ Kotlin Maven 插件需要被引用才能编译源代码：
 
 从 Kotlin 1.8.20 开始，你可以将上述整个 `<executions>` 元素替换为 `<extensions>true</extensions>`。启用扩展会自动将 `compile`、`test-compile`、`kapt` 和 `test-kapt` 执行项添加到你的构建中，并将它们绑定到其相应的[生命周期阶段](https://maven.apache.org/guides/introduction/introduction-to-the-lifecycle.html)。如果你需要配置某个执行项，则需要指定其 ID。你可以在下一节中找到一个示例。
 
-> 如果有多个构建插件覆盖了默认生命周期，并且你还启用了 `extensions` 选项，则 `<build>` 部分中的最后一个插件在生命周期设置方面具有优先级。所有较早的生命周期设置更改都将被忽略。
+> 如果有多个构建插件覆盖了默认生命周期并且你还启用了 `extensions` 选项，则 `<build>` 部分中的最后一个插件在生命周期设置方面具有优先级。所有较早的生命周期设置更改都将被忽略。
 >
 {style="note"}
 
-[//]: # (title: 以下标题用于 Mari 链接服务。如果你希望在此处更改它，请同时更改那里的链接)
+<!-- 以下标题用于 Mari 链接服务。如果你希望在此处更改它，请同时更改那里的链接 -->
 
 ## 编译 Kotlin 和 Java 源代码
 
@@ -134,32 +134,29 @@ Kotlin Maven 插件需要被引用才能编译源代码：
             <groupId>org.jetbrains.kotlin</groupId>
             <artifactId>kotlin-maven-plugin</artifactId>
             <version>${kotlin.version}</version>
-            <extensions>true</extensions> <!-- You can set this option 
-            to automatically take information about lifecycles -->
+            <extensions>true</extensions> <!-- 你可以设置此选项以自动获取有关生命周期的信息 -->
             <executions>
                 <execution>
                     <id>compile</id>
                     <goals>
-                        <goal>compile</goal> <!-- You can skip the <goals> element 
-                        if you enable extensions for the plugin -->
+                        <goal>compile</goal> <!-- 如果你为插件启用了扩展，则可以跳过 <goals> 元素 -->
                     </goals>
                     <configuration>
                         <sourceDirs>
-                            <sourceDir>${project.basedir}/src/main/kotlin</sourceDir>
-                            <sourceDir>${project.basedir}/src/main/java</sourceDir>
+                            <sourceDir>src/main/kotlin</sourceDir>
+                            <sourceDir>src/main/java</sourceDir>
                         </sourceDirs>
                     </configuration>
                 </execution>
                 <execution>
                     <id>test-compile</id>
                     <goals> 
-                        <goal>test-compile</goal> <!-- You can skip the <goals> element 
-                    if you enable extensions for the plugin -->
+                        <goal>test-compile</goal> <!-- 如果你为插件启用了扩展，则可以跳过 <goals> 元素 -->
                     </goals>
                     <configuration>
                         <sourceDirs>
-                            <sourceDir>${project.basedir}/src/test/kotlin</sourceDir>
-                            <sourceDir>${project.basedir}/src/test/java</sourceDir>
+                            <sourceDir>src/test/kotlin</sourceDir>
+                            <sourceDir>src/test/java</sourceDir>
                         </sourceDirs>
                     </configuration>
                 </execution>
@@ -209,7 +206,7 @@ _Kotlin 编译器执行策略_ 定义了 Kotlin 编译器的运行位置。有�
 | Kotlin daemon (默认) | 在其自身的 daemon 进程中 |
 | 进程内 | 在 Maven 进程中 |
 
-默认情况下，使用 [Kotlin daemon](kotlin-daemon.md)。你可以通过在 `pom.xml` 文件中设置以下属性来切换到“进程内”策略：
+默认情况下，使用 [Kotlin daemon](kotlin-daemon.md)。你可以通过在你的 `pom.xml` 文件中设置以下属性来切换到“进程内”策略：
 
 ```xml
 <properties>
@@ -299,12 +296,12 @@ java -jar target/mymodule-0.0.1-SNAPSHOT-jar-with-dependencies.jar
     <groupId>org.jetbrains.kotlin</groupId>
     <artifactId>kotlin-maven-plugin</artifactId>
     <version>${kotlin.version}</version>
-    <extensions>true</extensions> <!-- If you want to enable automatic addition of executions to your build -->
+    <extensions>true</extensions> <!-- 如果你希望自动将执行项添加到你的构建中 -->
     <executions>...</executions>
     <configuration>
-        <nowarn>true</nowarn>  <!-- Disable warnings -->
+        <nowarn>true</nowarn>  <!-- 禁用警告 -->
         <args>
-            <arg>-Xjsr305=strict</arg> <!-- Enable strict mode for JSR-305 annotations -->
+            <arg>-Xjsr305=strict</arg> <!-- 启用 JSR-305 注解的严格模式 -->
             ...
         </args>
     </configuration>

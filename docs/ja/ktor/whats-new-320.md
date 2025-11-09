@@ -6,10 +6,10 @@ _[リリース日: 2025年6月12日](releases.md#release-details)_
 
 この機能リリースの主なハイライトは以下のとおりです。
 
-* [バージョンカタログ](#published-version-catalog)
-* [依存性注入](#dependency-injection)
-* [ファーストクラスのHTMXサポート](#htmx-integration)
-* [サスペンド可能なモジュール関数](#suspendable-module-functions)
+*   [バージョンカタログ](#published-version-catalog)
+*   [依存性注入](#dependency-injection)
+*   [ファーストクラスのHTMXサポート](#htmx-integration)
+*   [サスペンド可能なモジュール関数](#suspendable-module-functions)
 
 ## Ktorサーバー
 
@@ -64,7 +64,7 @@ database:
 
 以前は、各設定値を個別に取得する必要がありました。新しい`.property()`拡張関数を使用すると、設定セクション全体を一度にロードできます。
 
-<compare first-title="Before" second-title="After">
+<compare>
 <code-block lang="kotlin" code="data class DatabaseConfig(&#10;    val url: String,&#10;    val username: String,&#10;    val password: String? = null,&#10;)&#10;&#10;fun Application.module() {&#10;  val databaseConfig = DatabaseConfig(&#10;    url = environment.config.property(&quot;database.url&quot;).getString(),&#10;    username = environment.config.property(&quot;database.username&quot;).getString(),&#10;    password = environment.config.property(&quot;database.password&quot;).getString(),&#10;  )&#10;  // use configuration&#10;}"/>
 <code-block lang="kotlin" code="@Serializable &#10;data class DatabaseConfig(&#10;    val url: String,&#10;    val username: String,&#10;    val password: String? = null,&#10;)&#10;&#10;fun Application.module() {&#10;  val databaseConfig: DatabaseConfig = property(&quot;database&quot;)&#10;  // use configuration&#10;}"/>
 </compare>
@@ -341,6 +341,15 @@ val rawAddress = address.resolveAddress()
 返される`ByteArray`のサイズはIPバージョンによって異なり、IPv4アドレスの場合は4バイト、IPv6アドレスの場合は16バイトになります。
 JSおよびWasmプラットフォームでは、`.resolveAddress()`は常に`null`を返します。
 
+### HTTPキャッシュのクリア
+
+必要に応じて、新しい[`CacheStorage`](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client.plugins.cache.storage/-cache-storage/index.html)メソッドを使用してキャッシュされたHTTPレスポンスをクリアできるようになりました。
+
+*   `.removeAll(url)` は、指定されたURLに一致するすべてのキャッシュエントリを削除します。
+*   `.remove(url, varyKeys)` は、指定されたURLと`Vary`キーに一致する特定のキャッシュエントリを削除します。
+
+これらのメソッドは、キャッシュ無効化と、古くなった、または特定のキャッシュされたレスポンスを管理する方法をより詳細に制御できるようにします。
+
 ## 共通
 
 ### HTMX統合
@@ -434,13 +443,13 @@ dependencies {
 
 Ktor 3.2.0では、開発モードの有効化が簡素化されました。以前は、開発モードを有効にするには`application`ブロックで明示的な設定が必要でした。現在では、`ktor.development`プロパティを使用して、動的または明示的に有効にできます。
 
-* プロジェクトプロパティに基づいて開発モードを動的に有効にする。
-  ```kotlin
+*   プロジェクトプロパティに基づいて開発モードを動的に有効にする。
+    ```kotlin
     ktor {
         development = project.ext.has("development")
     }
-  ```
-* 開発モードを明示的にtrueに設定する。
+    ```
+*   開発モードを明示的にtrueに設定する。
 
     ```kotlin
     ktor {

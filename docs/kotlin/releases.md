@@ -26,6 +26,13 @@
 > 
 {style="note"}
 
+## 即将发布的 Kotlin 版本
+
+以下是即将发布的稳定 Kotlin 版本的近似时间表：
+
+*   **2.3.0**：计划于 2025 年 12 月 – 2026 年 1 月发布
+*   **2.3.20**：计划于 2026 年 3 月 – 4 月发布
+
 ## 更新到新 Kotlin 版本
 
 要将项目升级到新版本，请在构建系统中更新 Kotlin 版本。
@@ -418,7 +425,7 @@ IntelliJ IDEA 和 Android Studio 中的 K2 模式使用 K2 编译器来改进代
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.7.20" target="_blank">GitHub 发布页</a></p>
         </td>
         <td>
-            <p>一个增量发布版本，带有新的语言特性、Kotlin K2 编译器对多个编译器插件的支持、默认启用的新 Kotlin/Native 内存管理器以及对 Gradle 7.1 的支持。</p>
+            <p>一个增量发布版本，带有新语言特性、Kotlin K2 编译器对多个编译器插件的支持、默认启用的新 Kotlin/Native 内存管理器以及对 Gradle 7.1 的支持。</p>
             <p>关于更多信息，请参见：</p>
             <list>
                 <li><a href="whatsnew1720.md" target="_blank">Kotlin 1.7.20 新特性</a></li>
@@ -686,7 +693,7 @@ IntelliJ IDEA 和 Android Studio 中的 K2 模式使用 K2 编译器来改进代
     </tr>
     <tr>
         <td><strong>1.4.0</strong>
-            <p> 发布时间：<strong>August 17, 2020</strong></p>
+            <p>发布时间：<strong>August 17, 2020</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.4.0" target="_blank">GitHub 发布页</a></p>
         </td>
         <td>
@@ -702,7 +709,7 @@ IntelliJ IDEA 和 Android Studio 中的 K2 模式使用 K2 编译器来改进代
     </tr>
     <tr>
         <td><strong>1.3.72</strong>
-            <p> 发布时间：<strong>April 15, 2020</strong></p>
+            <p>发布时间：<strong>April 15, 2020</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.3.72" target="_blank">GitHub 发布页</a></p>
         </td>
         <td>

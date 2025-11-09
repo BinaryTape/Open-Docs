@@ -16,7 +16,7 @@ Null 포인터 예외가 발생할 가능성을 최소화하기 위해 코드를
 
 ## Null 허용 타입 지원
 
-Kotlin과 Java의 타입 시스템 간의 가장 중요한 차이점은 Kotlin이 [Null 허용 타입](null-safety.md)을 명시적으로 지원한다는 것입니다.
+Kotlin과 Java의 타입 시스템 간의 가장 중요한 차이점은 Kotlin의 [Null 허용 타입](null-safety.md)에 대한 명시적 지원입니다.
 이는 어떤 변수가 `null` 값을 가질 수 있는지를 나타내는 방법입니다.
 변수가 `null`일 수 있다면, 해당 변수에 대해 메서드를 호출하는 것은 안전하지 않습니다. 왜냐하면 `NullPointerException`이 발생할 수 있기 때문입니다.
 Kotlin은 컴파일 시 이러한 호출을 금지하여 많은 잠재적 예외를 방지합니다.
@@ -82,7 +82,7 @@ fun stringLength(a: String?): Int = if (a != null) a.length else 0
 
 이 검사를 수행하지 않으면 코드는 다음 메시지와 함께 컴파일에 실패합니다:
 "Only [safe (?.)](null-safety.md#safe-call-operator) or [non-nullable asserted (!!.) calls](null-safety.md#not-null-assertion-operator) are allowed
-on a [nullable receiver](extensions.md#nullable-receiver) of type String?".
+on a [nullable receiver](extensions.md#nullable-receivers) of type String?".
 
 더 짧게 작성할 수 있습니다. Null 검사와 메서드 호출을 단일 작업으로 결합할 수 있게 해주는 [안전 호출 연산자 `?.` (If-not-null 단축 표현)](idioms.md#if-not-null-shorthand)를 사용하세요:
 

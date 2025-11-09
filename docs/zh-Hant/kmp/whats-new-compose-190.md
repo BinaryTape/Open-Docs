@@ -1,4 +1,4 @@
-[//]: # (title: Compose Multiplatform 1.9.2 的新功能)
+[//]: # (title: Compose Multiplatform 1.9.3 的新功能)
 
 以下是此功能發行版的亮點：
 
@@ -6,16 +6,16 @@
 *   [可自訂陰影](#customizable-shadows)
 *   [新環境選單 API](#new-context-menu-api)
 *   [Material 3 表達性主題](#material-3-expressive-theme)
-*   [iOS 上的畫面更新率配置](#frame-rate-configuration-on-ios)
+*   [iOS 上的畫面更新率配置](#frame-rate-configuration)
 *   [Compose Multiplatform 網頁版進入 Beta 階段](#compose-multiplatform-for-web-in-beta)
-*   [網頁目標上的輔助功能支援](#accessibility-support-on-web-targets)
+*   [網頁目標上的輔助功能支援](#accessibility-support)
 *   [用於嵌入 HTML 內容的新 API](#new-api-for-embedding-html-content)
 
 請參閱 [GitHub](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.9.0) 上此發行版的完整變更列表。
 
 ## 相依性
 
-*   Gradle 外掛程式 `org.jetbrains.compose`，版本 1.9.2。基於 Jetpack Compose 函式庫：
+*   Gradle 外掛程式 `org.jetbrains.compose`，版本 1.9.3。基於 Jetpack Compose 函式庫：
     *   [Runtime 1.9.4](https://developer.android.com/jetpack/androidx/releases/compose-runtime#1.9.4)
     *   [UI 1.9.4](https://developer.android.com/jetpack/androidx/releases/compose-ui#1.9.4)
     *   [Foundation 1.9.4](https://developer.android.com/jetpack/androidx/releases/compose-foundation#1.9.4)
@@ -25,9 +25,9 @@
 *   Compose Material3 函式庫 `org.jetbrains.compose.material3:1.9.0`。基於 [Jetpack Material3 1.4.0](https://developer.android.com/jetpack/androidx/releases/compose-material3#1.4.0)。
     由於 Compose Multiplatform 和 Material3 的[解耦版本](#decoupled-material3-versioning)，您可以為專案選擇較新的預發行版本。
 *   Compose Material3 Adaptive 函式庫 `org.jetbrains.compose.material3.adaptive:adaptive*:1.2.0`。基於 [Jetpack Material3 Adaptive 1.2.0](https://developer.android.com/jetpack/androidx/releases/compose-material3-adaptive#1.2.0)
-*   Lifecycle 函式庫 `org.jetbrains.androidx.lifecycle:lifecycle-*:2.9.5`。基於 [Jetpack Lifecycle 2.9.4](https://developer.android.com/jetpack/androidx/releases/lifecycle#2.9.4)
+*   Lifecycle 函式庫 `org.jetbrains.androidx.lifecycle:lifecycle-*:2.9.6`。基於 [Jetpack Lifecycle 2.9.4](https://developer.android.com/jetpack/androidx/releases/lifecycle#2.9.4)
 *   Navigation 函式庫 `org.jetbrains.androidx.navigation:navigation-*:2.9.1`。基於 [Jetpack Navigation 2.9.4](https://developer.android.com/jetpack/androidx/releases/navigation#2.9.4)
-*   Savedstate 函式庫 `org.jetbrains.androidx.savedstate:savedstate:1.3.5`。基於 [Jetpack Savedstate 1.3.3](https://developer.android.com/jetpack/androidx/releases/savedstate#1.3.3)
+*   Savedstate 函式庫 `org.jetbrains.androidx.savedstate:savedstate:1.3.6`。基於 [Jetpack Savedstate 1.3.3](https://developer.android.com/jetpack/androidx/releases/savedstate#1.3.3)
 *   WindowManager Core 函式庫 `org.jetbrains.androidx.window:window-core:1.4.0`。基於 [Jetpack WindowManager 1.4.0](https://developer.android.com/jetpack/androidx/releases/window#1.4.0)
 
 ## 跨平台
@@ -288,3 +288,10 @@ implementation("org.jetbrains.compose.material3:material3:1.9.0-alpha04")
 ### 統一網頁發行版
 
 新的 `composeCompatibilityBrowserDistribution` Gradle 任務將 Kotlin/JS 和 Kotlin/Wasm 發行版合併為單一套件。這允許 Wasm 應用程式在瀏覽器不支援現代 Wasm 功能時回退到 JS 目標。
+
+### 支援 AGP 9.0.0
+
+Compose Multiplatform 引入了對 Android Gradle 外掛程式 (AGP) 9.0.0 版本的支援。
+為了與新版 AGP 相容，請確保您已升級至 Compose Multiplatform 1.9.3 或 1.10.0。
+
+為了讓長期更新過程更順暢，我們建議您變更專案結構，將 AGP 的使用範圍隔離至專用的 Android 模組。

@@ -4,10 +4,10 @@
 
 _Null許容性_とは、変数が`null`値を保持できる能力のことです。
 変数が`null`を含んでいる場合、その変数を参照解除しようとすると`NullPointerException`が発生します。
-nullポインタ例外が発生する可能性を最小限に抑えるためにコードを書く方法はたくさんあります。
+nullポインタ例外を受け取る可能性を最小限に抑えるためにコードを書く方法はたくさんあります。
 
 このガイドでは、JavaとKotlinの、nullになりうる変数を扱うアプローチの違いについて説明します。
-これは、JavaからKotlinへの移行を助け、Kotlinらしいコードを書くのに役立つでしょう。
+これは、JavaからKotlinへの移行を助け、Kotlinらしいスタイルでコードを書くのに役立ちます。
 
 このガイドの最初のパートでは、最も重要な違いであるKotlinにおけるnull許容型のサポートと、Kotlinが[Javaコードからの型](#platform-types)をどのように処理するかについて説明します。2番目のパートでは、[関数呼び出しの結果のチェック](#checking-the-result-of-a-function-call)から始めて、いくつかの具体的なケースを検証し、特定の違いを解説します。
 
@@ -77,9 +77,9 @@ fun stringLength(a: String?): Int = if (a != null) a.length else 0
 ```
 {id="get-length-of-null-kotlin"}
 
-チェックが正常にパスされた後、コンパイラは、チェックが実行されるスコープ内でその変数を非null許容型の`String`であるかのように扱います。
+チェックが正常にパスされた後、コンパイラは、チェックを実行するスコープ内でその変数を非null許容型の`String`であるかのように扱います。
 
-このチェックを行わない場合、コードは「Only [safe (?.)](null-safety.md#safe-call-operator) or [non-nullable asserted (!!.) calls](null-safety.md#not-null-assertion-operator) are allowed on a [nullable receiver](extensions.md#nullable-receiver) of type String? (String?型の[null許容レシーバー](extensions.md#nullable-receiver)では、[セーフコール(?.)](null-safety.md#safe-call-operator)または[非nullアサート(!!.)呼び出し](null-safety.md#not-null-assertion-operator)のみが許可されます)」というメッセージでコンパイルに失敗します。
+このチェックを行わない場合、コードは「Only [safe (?.)](null-safety.md#safe-call-operator) or [non-nullable asserted (!!.) calls](null-safety.md#not-null-assertion-operator) are allowed on a [nullable receiver](extensions.md#nullable-receivers) of type String? (String?型の[null許容レシーバー](extensions.md#nullable-receivers)では、[セーフコール(?.)](null-safety.md#safe-call-operator)または[非nullアサート(!!.)呼び出し](null-safety.md#not-null-assertion-operator)のみが許可されます)」というメッセージでコンパイルに失敗します。
 
 同じことをより短く書くことができます。nullチェックとメソッド呼び出しを単一の操作に結合できる[セーフコール演算子 `?.` (If-not-null shorthand)](idioms.md#if-not-null-shorthand)を使用します。
 

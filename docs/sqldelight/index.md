@@ -1,6 +1,6 @@
 !!! info "SQLDelight 2.0"
 
-    如果您目前正在使用 SQLDelight 1.x，请[查阅文档](upgrading-2.0)了解如何升级到 SQLDelight 2.0！
+如果您目前正在使用 SQLDelight 1.x，请[查阅文档](upgrading-2.0)了解如何升级到 SQLDelight 2.0！
 
 SQLDelight 从您的 SQL 语句生成类型安全的 Kotlin API。它在编译时验证您的模式、语句和迁移，并提供自动补全和重构等 IDE 功能，使编写和维护 SQL 变得简单。
 
@@ -78,7 +78,7 @@ SQLDelight 支持多种 SQL 变体和平台。
 
 ## 快照
 
-开发版本（包括 IDE 插件压缩包）的快照可在 [Sonatype 的 `snapshots` 仓库](https://oss.sonatype.org/content/repositories/snapshots/app/cash/sqldelight/)中获取。请注意，对于 2.0.0+ SNAPSHOT，所有坐标均为 `app.cash.sqldelight` 而非 `com.squareup.sqldelight`。
+开发版本（包括 IDE 插件压缩包）的快照可在 [Central Portal 快照仓库](https://central.sonatype.com/repository/maven-snapshots)中获取。请注意，对于 2.0.0+ SNAPSHOT，所有坐标均为 `app.cash.sqldelight` 而非 `com.squareup.sqldelight`。
 
 最新快照版本的文档页面可[在此处](https://sqldelight.github.io/sqldelight/snapshot)找到。
 
@@ -88,7 +88,7 @@ SQLDelight 支持多种 SQL 变体和平台。
     pluginManagement {
         repositories {
             gradlePluginPortal()
-            maven(url = "https://oss.sonatype.org/content/repositories/snapshots")
+            maven(url = "https://central.sonatype.com/repository/maven-snapshots")
         }
     }
     
@@ -98,7 +98,7 @@ SQLDelight 支持多种 SQL 变体和平台。
     }
     
     repositories {
-        maven(url = "https://oss.sonatype.org/content/repositories/snapshots")
+        maven(url = "https://central.sonatype.com/repository/maven-snapshots")
     }
     ```
 === "Groovy"
@@ -107,7 +107,7 @@ SQLDelight 支持多种 SQL 变体和平台。
     pluginManagement {
         repositories {
             gradlePluginPortal()
-            maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
+            maven { url "https://central.sonatype.com/repository/maven-snapshots" }
         }
     }
     
@@ -117,11 +117,11 @@ SQLDelight 支持多种 SQL 变体和平台。
     }
     
     repositories {
-        maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
+        maven { url "https://central.sonatype.com/repository/maven-snapshots" }
     }
     ```
 
 [Alpha 版 IDE 插件也可通过](https://plugins.jetbrains.com/plugin/8191-sqldelight/versions/alpha)使用 IntelliJ 中的 Alpha 通道获取：`https://plugins.jetbrains.com/plugins/alpha/com.squareup.sqldelight`。
-快照也可用 [EAP](https://plugins.jetbrains.com/plugin/8191-sqldelight/versions/eap) 通道获取：`https://plugins.jetbrains.com/plugins/eap/com.squareup.sqldelight`
+快照也可用 [EAP](https://plugins.jetbrains.com/plugin/8191-sqldelight/versions/eap) 通道获取：`https://plugins.jetbrains.com/plugins/eap/com.squareup.sqldelight` 
 
 <img width="738" alt="IntelliJ_alpha_channel" src="https://user-images.githubusercontent.com/22521688/168236653-e32deb26-167f-46ce-9277-ea169cbb22d6.png">
