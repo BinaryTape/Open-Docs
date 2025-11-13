@@ -147,14 +147,14 @@ Koog 提供了可用于自定义消息处理器的预定义事件类型。这些
 | `callId` | String      | Yes      |         | LLM 调用的唯一标识符，用于关联相关事件。                                    |
 | `prompt` | Prompt      | Yes      |         | 发送给模型的 Prompt。关于详情，请参见 [Prompt](#prompt)。                     |
 | `model`  | String      | Yes      |         | 模型标识符，格式为 `llm_provider:model_id`。                                |
-| `tools`  | List<String> | Yes      |         | 模型可以调用的工具 list。                                                   |
+| `tools`  | List&lt;String&gt; | Yes      |         | 模型可以调用的工具 list。                                                   |
 
 <a id="prompt"></a>
 `Prompt` 类表示一个 Prompt 的数据结构，由消息 list、唯一标识符和用于语言模型设置的可选形参组成。包括以下字段：
 
 | 名称       | 数据类型          | 必需 | 默认        | 描述                                                       |
 |------------|-------------------|----------|-------------|------------------------------------------------------------|
-| `messages` | List<Message>     | Yes      |             | 构成 Prompt 的消息 list。                                  |
+| `messages` | List&lt;Message&gt;     | Yes      |             | 构成 Prompt 的消息 list。                                  |
 | `id`       | String            | Yes      |             | Prompt 的唯一标识符。                                      |
 | `params`   | LLMParams         | No       | LLMParams() | 控制 LLM 生成内容方式的设置。                            |
 
@@ -168,7 +168,7 @@ Koog 提供了可用于自定义消息处理器的预定义事件类型。这些
 | `callId`             | String                 | Yes      |         | LLM 调用的唯一标识符，用于关联相关事件。                     |
 | `prompt`             | Prompt                 | Yes      |         | 调用中使用的 Prompt。                                        |
 | `model`              | String                 | Yes      |         | 模型标识符，格式为 `llm_provider:model_id`。                 |
-| `responses`          | List<Message.Response> | Yes      |         | 模型返回的一个或多个响应。                                   |
+| `responses`          | List&lt;Message.Response&gt; | Yes      |         | 模型返回的一个或多个响应。                                   |
 | `moderationResponse` | ModerationResult       | No       | null    | 如果可用，表示审核响应。                                     |
 
 ### LLM 流式事件
@@ -183,7 +183,7 @@ Koog 提供了可用于自定义消息处理器的预定义事件类型。这些
 | `callId` | String      | Yes      |         | LLM 调用的唯一标识符，用于关联相关事件。                   |
 | `prompt` | Prompt      | Yes      |         | 发送给模型的 Prompt。                                      |
 | `model`  | String      | Yes      |         | 模型标识符，格式为 `llm_provider:model_id`。               |
-| `tools`  | List<String> | Yes      |         | 模型可以调用的工具 list。                                  |
+| `tools`  | List&lt;String&gt; | Yes      |         | 模型可以调用的工具 list。                                  |
 
 #### LLMStreamingFrameReceivedEvent
 
@@ -215,7 +215,7 @@ Koog 提供了可用于自定义消息处理器的预定义事件类型。这些
 | `callId` | String      | Yes      |         | LLM 调用的唯一标识符，用于关联相关事件。                   |
 | `prompt` | Prompt      | Yes      |         | 发送给模型的 Prompt。                                      |
 | `model`  | String      | Yes      |         | 模型标识符，格式为 `llm_provider:model_id`。               |
-| `tools`  | List<String> | Yes      |         | 模型可以调用的工具 list。                                  |
+| `tools`  | List&lt;String&gt; | Yes      |         | 模型可以调用的工具 list。                                  |
 
 ### 工具执行事件
 
