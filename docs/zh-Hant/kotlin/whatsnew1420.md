@@ -129,7 +129,7 @@ rootProject.plugins.withType<YarnPlugin> {
 
 ### IR 編譯器忽略編譯錯誤
 
-> _忽略編譯錯誤_ 模式是 [實驗性](components-stability.md) 功能。它可能隨時被移除或變更。需要明確啟用（詳情請見下文）。僅用於評估目的。我們非常感謝您在 [YouTrack](https://youtrack.jetbrains.com/issues/KT) 上提供關於此功能的意見回饋。
+> _忽略編譯錯誤_ 模式是 [實驗性](components-stability.md) 功能。它可能隨時被移除或變更。需要明確啟用（詳情請見下文）。僅用於評估目的。我們非常感謝您在 [YouTrack](https://youtrack.com/issues/KT) 上提供關於此功能的意見回饋。
 >
 {style="warning"}
 
@@ -147,7 +147,7 @@ Kotlin/JS 的 [IR 編譯器](js-ir-compiler.md) 帶有新的實驗性模式—�
 ## Kotlin/Native
 
 Kotlin/Native 在 1.4.20 中的優先事項是效能和完善現有功能。以下是顯著的改進：
-
+  
 - [逃逸分析](#escape-analysis)
 - [效能改進與錯誤修正](#performance-improvements-and-bug-fixes)
 - [明確啟用 Objective-C 異常包裝](#opt-in-wrapping-of-objective-c-exceptions)
@@ -168,7 +168,7 @@ Kotlin/Native 收到一個新的 [逃逸分析](https://en.wikipedia.org/wiki/Es
 
 ### 效能改進與錯誤修正
 
-Kotlin/Native 在各個元件中都收到了效能改進與錯誤修正，包括在 1.4.0 中新增的元件，例如 [程式碼共享機制](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-share-on-platforms.html#share-code-on-similar-platforms)。
+Kotlin/Native 在各個元件中都收到了效能改進與錯誤修正，包括在 1.4.0 中新增的元件，例如 [程式碼共享機制](https://kotlinlang.org/docs/multiplatform/multiplatform-share-on-platforms.html#share-code-on-similar-platforms)。
 
 ### 明確啟用 Objective-C 異常包裝
 
@@ -180,7 +180,7 @@ Kotlin/Native 現在可以在執行時處理從 Objective-C 程式碼拋出的�
 
 您可以選擇將 `NSException` 包裝成 `ForeignException` 類型的 Kotlin 異常。它們持有對原始 `NSException` 的參考。這讓您可以獲取根本原因的資訊並正確處理它。
 
-若要啟用 Objective-C 異常的包裝，請在 `cinterop` 呼叫中指定 `-Xforeign-exception-mode objc-wrap` 選項，或將 `foreignExceptionMode = objc-wrap` 屬性新增到 `.def` 檔案中。如果您使用 [CocoaPods 整合](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-cocoapods-overview.html)，請在依賴項的 `pod {}` 建置指令碼區塊中指定該選項，如下所示：
+若要啟用 Objective-C 異常的包裝，請在 `cinterop` 呼叫中指定 `-Xforeign-exception-mode objc-wrap` 選項，或將 `foreignExceptionMode = objc-wrap` 屬性新增到 `.def` 檔案中。如果您使用 [CocoaPods 整合](https://kotlinlang.org/docs/multiplatform/multiplatform-cocoapods-overview.html)，請在依賴項的 `pod {}` 建置指令碼區塊中指定該選項，如下所示：
 
 ```kotlin
 pod("foo") {
@@ -204,7 +204,7 @@ CocoaPods 外掛程式獲得了改進的任務執行流程。例如，如果您�
 
 #### 擴展的 DSL
 
-將 [CocoaPods](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-cocoapods-overview.html) 依賴項新增到 Kotlin 專案的 DSL 獲得了新功能。
+將 [CocoaPods](https://kotlinlang.org/docs/multiplatform/multiplatform-cocoapods-overview.html) 依賴項新增到 Kotlin 專案的 DSL 獲得了新功能。
 
 除了本地 Pods 和來自 CocoaPods 儲存庫的 Pods 之外，您還可以新增對以下類型函式庫的依賴項：
 * 來自自訂 spec 儲存庫的函式庫。
@@ -213,7 +213,7 @@ CocoaPods 外掛程式獲得了改進的任務執行流程。例如，如果您�
 * 靜態函式庫。
 * 具有自訂 cinterop 選項的函式庫。
 
-了解更多關於在 Kotlin 專案中 [新增 CocoaPods 依賴項](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-cocoapods-libraries.html) 的資訊。在 [Kotlin with CocoaPods 範例](https://github.com/Kotlin/kmm-with-cocoapods-sample) 中找到範例。
+了解更多關於在 Kotlin 專案中 [新增 CocoaPods 依賴項](https://kotlinlang.org/docs/multiplatform/multiplatform-cocoapods-libraries.html) 的資訊。在 [Kotlin with CocoaPods 範例](https://github.com/Kotlin/kmm-with-cocoapods-sample) 中找到範例。
 
 #### 更新與 Xcode 的整合
 
@@ -224,10 +224,10 @@ CocoaPods 外掛程式獲得了改進的任務執行流程。例如，如果您�
 
 現在整合錯誤在 IDEA 中有詳細描述。因此，如果您的 Podfile 有問題，您會立即知道如何修正它們。
 
-了解更多關於 [建立 Kotlin pods](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-cocoapods-xcode.html) 的資訊。
+了解更多關於 [建立 Kotlin pods](https://kotlinlang.org/docs/multiplatform/multiplatform-cocoapods-xcode.html) 的資訊。
 
 ### 支援 Xcode 12 函式庫
-
+    
 我們增加了對 Xcode 12 隨附的新函式庫的支援。現在您可以從 Kotlin 程式碼中使用它們。
 
 ## Kotlin Multiplatform
@@ -236,11 +236,11 @@ CocoaPods 外掛程式獲得了改進的任務執行流程。例如，如果您�
 
 從 Kotlin 1.4.20 開始，不再有單獨的元資料發佈。元資料構件現在包含在代表整個函式庫的 _根_ 發佈中，當作為依賴項新增到通用原始碼集時，會自動解析為適當的特定平台構件。
 
-了解更多關於 [發佈多平台函式庫](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-publish-lib-setup.html) 的資訊。
+了解更多關於 [發佈多平台函式庫](https://kotlinlang.org/docs/multiplatform/multiplatform-publish-lib-setup.html) 的資訊。
 
 #### 與早期版本的相容性
 
-此結構變更破壞了具有 [分層專案結構](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-share-on-platforms.html#share-code-on-similar-platforms) 的專案之間的相容性。如果多平台專案及其所依賴的函式庫都具有分層專案結構，那麼您需要同時將它們更新到 Kotlin 1.4.20 或更高版本。使用 Kotlin 1.4.20 發佈的函式庫不能用於早期版本發佈的專案。
+此結構變更破壞了具有 [分層專案結構](https://kotlinlang.org/docs/multiplatform/multiplatform-share-on-platforms.html#share-code-on-similar-platforms) 的專案之間的相容性。如果多平台專案及其所依賴的函式庫都具有分層專案結構，那麼您需要同時將它們更新到 Kotlin 1.4.20 或更高版本。使用 Kotlin 1.4.20 發佈的函式庫不能用於早期版本發佈的專案。
 
 不帶有分層專案結構的專案和函式庫保持相容。
 

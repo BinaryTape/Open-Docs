@@ -1,5 +1,7 @@
 `[//]: # (title: Kotlin %kotlinEapVersion% の新機能)`
 
+<primary-label ref="eap"/>
+
 _[リリース日: %kotlinEapReleaseDate%](eap.md#build-details)_
 
 > このドキュメントは早期アクセスプレビュー (EAP) リリースのすべての機能を網羅しているわけではありませんが、
@@ -203,7 +205,7 @@ val color = Color.RED
 public enum Color: Swift.CaseIterable, Swift.LosslessStringConvertible, Swift.RawRepresentable {
     case RED, GREEN, BLUE
 
-    var rgb: Int { get }
+    var rgb: Int { get } 
 }
 ```
 
@@ -401,7 +403,7 @@ Suppressed: androidx.compose.runtime.DiagnosticComposeException: Composition sta
           ...
 ```
 
-このモードでJetpack Compose 1.10によって生成されたスタックトレースには、グループキーのみが含まれており、これらはまだ難読化を解除する必要があります。これはKotlin 2.3.0リリースで対処され、ComposeコンパイラのGradleプラグインがR8によって生成されるProGuardマッピングファイルにグループキーエントリを追加するようになりました。コンパイラが一部の関数のマッピングを作成できない場合に新しい警告が表示される場合は、[Google IssueTracker](https://issuetracker.google.com/issues/new?component=610764&template=1424126)に報告してください。
+このモードでJetpack Compose 1.10によって生成されたスタックトレースには、まだ難読化を解除する必要があるグループキーのみが含まれています。これはKotlin 2.3.0リリースで対処され、ComposeコンパイラのGradleプラグインがR8によって生成されるProGuardマッピングファイルにグループキーエントリを追加するようになりました。コンパイラが一部の関数のマッピングを作成できない場合に新しい警告が表示される場合は、[Google IssueTracker](https://issuetracker.google.com/issues/new?component=610764&template=1424126)に報告してください。
 
 > ComposeコンパイラGradleプラグインは、R8マッピングファイルへの依存関係があるため、
 > ビルドでR8が有効になっている場合にのみ、グループキースタックトレースの難読化解除マッピングを作成します。

@@ -34,7 +34,7 @@ class OrdersList: IndexedContainer {
 * 함수가 없거나 모호하면 컴파일 오류입니다.
 * 함수가 존재하고 반환 타입이 `R`이면 표현식 `+a`의 타입은 `R`입니다.
 
-> 이 연산들은 다른 모든 연산과 마찬가지로 [기본 타입](basic-types.md)에 최적화되어 있으며, 이들에 대한 함수 호출 오버헤드를 발생시키지 않습니다.
+> 이 연산들은 다른 모든 연산과 마찬가지로 [기본 타입](types-overview.md)에 최적화되어 있으며, 이들에 대한 함수 호출 오버헤드를 발생시키지 않습니다.
 >
 {style="note"}
 
@@ -190,7 +190,7 @@ Kotlin은 `==` 표현식에서 어느 피연산자도 `null`과 직접 비교되
 
 ### 프로퍼티 위임 연산자
 
-`provideDelegate`, `getValue`, `setValue` 연산자 함수는 [위임된 프로퍼티](delegated-properties.md)에서 설명합니다.
+`provideDelegate`, `getValue` 및 `setValue` 연산자 함수는 [위임된 프로퍼티](delegated-properties.md)에서 설명합니다.
 
 ## 이름 있는 함수에 대한 중위 호출
 

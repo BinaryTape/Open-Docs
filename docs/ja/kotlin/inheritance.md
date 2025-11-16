@@ -1,5 +1,10 @@
 [//]: # (title: 継承)
 
+> クラスで継承階層を作成する前に、[抽象クラス](classes.md#abstract-classes)または[インターフェース](interfaces.md)の使用を検討してください。
+> 抽象クラスとインターフェースはデフォルトで継承可能です。それらは、他のクラスがそのメンバーを継承し、実装できるように設計されています。
+>
+{style="tip"}
+
 Kotlinのすべてのクラスは共通のスーパータイプである`Any`を持ちます。これは、スーパークラスが明示的に宣言されていないクラスのデフォルトのスーパータイプです。
 
 ```kotlin
@@ -15,7 +20,7 @@ open class Base // Class is open for inheritance
 
 ```
 
-詳細については、[Openキーワード](#open-keyword)を参照してください。
+[詳細については、Openキーワードを参照してください](#open-keyword)。
 
 明示的なスーパークラスを宣言するには、クラスヘッダーのコロンの後に型を配置します。
 
@@ -42,17 +47,17 @@ class MyView : View {
 Kotlinでは、`open`キーワードは、クラスまたはメンバー（関数やプロパティ）がサブクラスでオーバーライド可能であることを示します。デフォルトでは、Kotlinのクラスとそのメンバーは_final_であり、明示的に`open`とマークしない限り、継承（クラスの場合）またはオーバーライド（メンバーの場合）できません。
 
 ```kotlin
-// 継承を許可するopenキーワードを持つ基底クラス
+// Base class with the open keyword to allow inheritance
 open class Person(
     val name: String
 ) {
-    // サブクラスでオーバーライド可能なopen関数
+    // Open function that can be overridden in a subclass
     open fun introduce() {
         println("Hello, my name is $name.")
     }
 }
 
-// Personを継承し、introduce()関数をオーバーライドするサブクラス
+// Subclass inheriting from Person and overriding the introduce() function
 class Student(
     name: String,
     val school: String
@@ -66,17 +71,17 @@ class Student(
 基底クラスのメンバーをオーバーライドする場合、オーバーライドするメンバーもデフォルトでは`open`です。この動作を変更し、クラスのサブクラスがあなたの実装をオーバーライドすることを禁止したい場合は、オーバーライドするメンバーを明示的に`final`とマークできます。
 
 ```kotlin
-// 継承を許可するopenキーワードを持つ基底クラス
+// Base class with the open keyword to allow inheritance
 open class Person(val name: String) {
-    // サブクラスでオーバーライド可能なopen関数
+    // Open function that can be overridden in a subclass
     open fun introduce() {
         println("Hello, my name is $name.")
     }
 }
 
-// Personを継承し、introduce()関数をオーバーライドするサブクラス
+//  A subclass that inherits from Person and overrides the introduce() function
 class Student(name: String, val school: String) : Person(name) {
-    // finalキーワードは、サブクラスでのさらなるオーバーライドを防ぎます
+    // The final keyword prevents further overrides in subclasses
     final override fun introduce() {
         println("Hi, I'm $name, and I study at $school.")
     }

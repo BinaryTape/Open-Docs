@@ -1,6 +1,6 @@
 [//]: # (title: K2コンパイラー移行ガイド)
 
-Kotlin言語とエコシステムが進化し続けるにつれて、Kotlinコンパイラーも進化してきました。最初のステップは、ロジックを共有し、異なるプラットフォームのターゲット向けのコード生成を簡素化する、新しいJVMおよびJS IR（中間表現）バックエンドの導入でした。そして今、その進化の次の段階として、K2として知られる新しいフロントエンドが登場します。
+Kotlin言語とエコシステムが進化を続けるにつれて、Kotlinコンパイラーも進化してきました。最初のステップは、ロジックを共有し、異なるプラットフォームのターゲット向けのコード生成を簡素化する、新しいJVMおよびJS IR（中間表現）バックエンドの導入でした。そして今、その進化の次の段階として、K2として知られる新しいフロントエンドが登場します。
 
 ![Kotlin K2 compiler architecture](k2-compiler-architecture.svg){width=700}
 
@@ -309,7 +309,7 @@ K2コンパイラーには、Kotlin Multiplatformに関連する以下の分野�
 
 以前は、Kotlinコンパイラーの設計により、コンパイル時に共通ソースセットとプラットフォームソースセットを分離することができませんでした。その結果、共通コードがプラットフォームコードにアクセスでき、プラットフォーム間で異なる動作を引き起こしていました。さらに、共通コードからのいくつかのコンパイラー設定と依存関係がプラットフォームコードに漏洩していました。
 
-Kotlin 2.0.0では、新しいKotlin K2コンパイラーの実装に、共通ソースセットとプラットフォームソースセット間の厳密な分離を確実にするためのコンパイルスキームの再設計が含まれています。この変更は、[expectedおよびactual関数](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-expect-actual.html#expected-and-actual-functions)を使用する際に最も顕著です。以前は、共通コードの関数呼び出しがプラットフォームコードの関数に解決されることが可能でした。例えば：
+Kotlin 2.0.0では、新しいKotlin K2コンパイラーの実装に、共通ソースセットとプラットフォームソースセット間の厳密な分離を確実にするためのコンパイルスキームの再設計が含まれています。この変更は、[expectedおよびactual関数](https://kotlinlang.org/docs/multiplatform/multiplatform-expect-actual.html#expected-and-actual-functions)を使用する際に最も顕著です。以前は、共通コードの関数呼び出しがプラットフォームコードの関数に解決されることが可能でした。例えば：
 
 <table>
    <tr>
@@ -349,7 +349,7 @@ fun foo(x: Int) = println("platform foo")
 
 Kotlin 2.0.0では、共通コードはプラットフォームコードにアクセスできないため、両方のプラットフォームで`foo()`関数が共通コードの`foo()`関数に正常に解決されます：`common foo`。
 
-プラットフォーム間の動作の一貫性が向上したことに加えて、IntelliJ IDEAまたはAndroid Studioとコンパイラーの間で競合する動作があったケースを修正するために努力しました。例えば、[expectedおよびactualクラス](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-expect-actual.html#expected-and-actual-classes)を使用した場合、以下のことが起こりました。
+プラットフォーム間の動作の一貫性が向上したことに加えて、IntelliJ IDEAまたはAndroid Studioとコンパイラーの間で競合する動作があったケースを修正するために努力しました。例えば、[expectedおよびactualクラス](https://kotlinlang.org/docs/multiplatform/multiplatform-expect-actual.html#expected-and-actual-classes)を使用した場合、以下のことが起こりました。
 
 <table>
    <tr>
@@ -441,7 +441,7 @@ fun whichFun(x: Int) = println("platform function")
 
 #### expectedおよびactual宣言の異なる可視性レベル
 
-Kotlin 2.0.0より前は、Kotlin Multiplatformプロジェクトで[expectedおよびactual宣言](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-expect-actual.html)を使用する場合、それらは同じ[可視性レベル](visibility-modifiers.md)を持つ必要がありました。Kotlin 2.0.0では、異なる可視性レベルもサポートするようになりましたが、これはactual宣言がexpected宣言よりも_許容範囲が広い_場合に**のみ**です。例えば：
+Kotlin 2.0.0より前は、Kotlin Multiplatformプロジェクトで[expectedおよびactual宣言](https://kotlinlang.org/docs/multiplatform/multiplatform-expect-actual.html)を使用する場合、それらは同じ[可視性レベル](visibility-modifiers.md)を持つ必要がありました。Kotlin 2.0.0では、異なる可視性レベルもサポートするようになりましたが、これはactual宣言がexpected宣言よりも_許容範囲が広い_場合に**のみ**です。例えば：
 
 ```kotlin
 expect internal class Attribute // Visibility is internal
@@ -486,7 +486,7 @@ kotlin.build.report.output=file
 | `file` | ビルドレポートを人間が読める形式でローカルファイルに保存します。デフォルトでは、`${project_folder}/build/reports/kotlin-build/${project_name}-timestamp.txt` です。 |
 | `single_file` | ビルドレポートをオブジェクト形式で指定されたローカルファイルに保存します。 |
 | `build_scan` | ビルドレポートを[ビルドスキャン](https://scans.gradle.com/)の`custom values`セクションに保存します。Gradle Enterpriseプラグインは、カスタム値の数とその長さを制限することに注意してください。大規模なプロジェクトでは、一部の値が失われる可能性があります。 |
-| `http` | HTTP(S)を使用してビルドレポートを投稿します。POSTメソッドはJSON形式でメトリクスを送信します。送信されるデータの現在のバージョンは、[Kotlinリポジトリ](https://github.com/JetBrains/kotlin/blob/master/libraries/tools/kotlin-gradle-plugin/src/common/kotlin/org/jetbrains/kotlin/gradle/report/data/GradleCompileStatisticsData.kt)で確認できます。HTTPエンドポイントのサンプルは、[このブログ記事](https://blog.jetbrains.com/kotlin/2022/06/introducing-kotlin-build-reports/?_gl=1*1a7pghy*_ga*MTcxMjc1NzE5Ny4xNjY1NDAzNjkz*_ga_9J976DJZ68*MTcxNTA3NjA2NS4zNzcuMS4xNzE1MDc2MDc5LjQ2LjAuMA..&_ga=2.265800915.1124071296.1714976764-1712757197.1665403693#enable_build_reports)で確認できます。 |
+| `http` | HTTP(S)を使用してビルドレポートを投稿します。POSTメソッドはJSON形式でメトリクスを送信します。送信されるデータの現在のバージョンは、[Kotlinリポジトリ](https://github.com/JetBrains/kotlin/blob/master/libraries/tools/kotlin-gradle-plugin/src/common/kotlin/org/jetbrains/kotlin/gradle/report/data/GradleCompileStatisticsData.kt)で確認できます。HTTPエンドポイントのサンプルは、[このブログ記事](https://blog.jetbrains.com/kotlin/2022/06/introducing-kotlin-build-reports/?_gl=1*1a7pghy*_ga*MTcxMjc1NzE5Ny4xNjY1NDAzNjkz*_ga_9J976DJZ68*MTcxNTA3NjA2NS4zNzcuMS4xNzE1MDc2MDc5LjQ2LjAuMA..&_ga=2.265800911.1124071296.1714976764-1712757197.1665403693#enable_build_reports)で確認できます。 |
 | `json` | ビルドレポートをJSON形式でローカルファイルに保存します。ビルドレポートの場所は`kotlin.build.report.json.directory`で設定します。デフォルトでは、名前は`${project_name}-build-<date-time>-<index>.json` です。 |
 
 ビルドレポートで可能なことに関する詳細は、[ビルドレポート](gradle-compilation-and-caches.md#build-reports)を参照してください。
@@ -1180,7 +1180,7 @@ Kotlin Multiplatformを使用している場合、K2コンパイラーはKotlin�
 
 ### カスタムコンパイラープラグインをアップグレードする
 
-> カスタムコンパイラープラグインは、[実験的](components-stability.md#stability-levels-explained)なプラグインAPIを使用します。そのため、APIはいつでも変更される可能性があり、後方互換性は保証できません。
+> カスタムコンパイラープラグインは、[Experimental](components-stability.md#stability-levels-explained)なプラグインAPIを使用します。そのため、APIはいつでも変更される可能性があり、後方互換性は保証できません。
 >
 {style="warning"}
 

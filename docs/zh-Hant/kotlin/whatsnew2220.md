@@ -41,7 +41,7 @@ Kotlin 2.2.20 版本已發布，為網頁開發帶來了重要的變更。[Kotli
 
 ### 將 Lambda 傳遞給帶有 `suspend` 函式型別的多載時，改進多載解析
 
-以前，使用常規函式型別和 `suspend` 函式型別多載函式時，在傳遞 Lambda 時會導致歧義錯誤。您可以透過明確的型別轉型來解決此錯誤，但編譯器錯誤地報告了 `No cast needed` 警告：
+以前，使用常規函式型別和 `suspend` 函式型別多載函式時，在傳遞 lambda 時會導致歧義錯誤。您可以透過明確的型別轉型來解決此錯誤，但編譯器錯誤地報告了 `No cast needed` 警告：
 
 ```kotlin
 // Defines two overloads
@@ -58,7 +58,7 @@ fun test() {
 }
 ```
 
-透過此變更，當您定義常規和 `suspend` 函式型別多載時，沒有轉型的 Lambda 將解析為常規多載。使用 `suspend` 關鍵字來明確解析為 `suspend` 多載：
+透過此變更，當您定義常規和 `suspend` 函式型別多載時，沒有轉型的 lambda 將解析為常規多載。使用 `suspend` 關鍵字來明確解析為 `suspend` 多載：
 
 ```kotlin
 // Resolves to transform(() -> Int)
@@ -105,7 +105,7 @@ fun getDisplayNameOrDefault(userId: String?): String = getDisplayName(userId ?: 
 fun getDisplayNameOrDefault(userId: String?) = getDisplayName(userId ?: return "default")
 ```
 
-同樣，在帶有表達式主體的函式中，Lambda 和巢狀表達式內的 `return` 陳述式以前會無意中編譯。Kotlin 現在支援這些情況，只要明確指定回傳型別即可。沒有明確回傳型別的情況將在 Kotlin 2.3.0 中廢棄：
+同樣，在帶有表達式主體的函式中，lambda 和巢狀表達式內的 `return` 陳述式以前會無意中編譯。Kotlin 現在支援這些情況，只要明確指定回傳型別即可。沒有明確回傳型別的情況將在 Kotlin 2.3.0 中廢棄：
 
 ```kotlin
 // Return type isn't explicitly specified, and the return statement is inside a lambda
@@ -240,7 +240,7 @@ Kotlin 2.2.20 引入了 [Kotlin 契約](https://kotlinlang.org/api/core/kotlin-s
 *   [契約型別斷言中支援泛型](#support-for-generics-in-contract-type-assertions)。
 *   [屬性存取器和特定運算子函式內部支援契約](#support-for-contracts-inside-property-accessors-and-specific-operator-functions)。
 *   [契約中支援 `returnsNotNull()` 函式](#support-for-the-returnsnotnull-function-in-contracts)，以確保在滿足條件時回傳非空值。
-*   [新的 `holdsIn` 關鍵字](#new-holdsin-keyword)，允許您假定條件在 Lambda 內部為真。
+*   [新的 `holdsIn` 關鍵字](#new-holdsin-keyword)，允許您假定條件在 lambda 內部為真。
 
 這些改進是 [實驗性的](components-stability.md#stability-levels-explained)。要啟用，您仍然需要在宣告契約時使用 `@OptIn(ExperimentalContracts::class)` 註解。`holdsIn` 關鍵字和 `returnsNotNull()` 函式也需要 `@OptIn(ExperimentalExtendedContracts::class)` 註解。
 
@@ -324,7 +324,7 @@ fun printIfHelloString(x: Any) {
 *   `unaryPlus`, `unaryMinus`, `not`
 *   `inc`, `dec`
 
-這是一個在運算子函式中使用契約以確保 Lambda 內部變數初始化的範例：
+這是一個在運算子函式中使用契約以確保 lambda 內部變數初始化的範例：
 
 ```kotlin
 import kotlin.contracts.*
@@ -405,7 +405,7 @@ kotlin {
 #### 新的 `holdsIn` 關鍵字
 
 Kotlin 2.2.20 引入了用於契約的新 [`holdsIn`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.contracts/-contract-builder/holds-in.html) 關鍵字。
-您可以使用它來確保布林條件在特定 Lambda 內部被假定為 `true`。這讓您可以使用契約建構具有條件智慧型轉型的 DSL。
+您可以使用它來確保布林條件在特定 lambda 內部被假定為 `true`。這讓您可以使用契約建構具有條件智慧型轉型的 DSL。
 
 這是一個範例：
 
@@ -523,7 +523,7 @@ Kotlin 2.2.20 引入了對 Swift 匯出的實驗性支援。它允許您直接�
 
 #### 如何啟用 Swift 匯出
 
-此功能目前是 [實驗性的](components-stability.md#stability-levels-explained)，僅適用於使用 [直接整合](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-direct-integration.html)
+此功能目前是 [實驗性的](components-stability.md#stability-levels-explained)，僅適用於使用 [直接整合](https://kotlinlang.org/docs/multiplatform/multiplatform-direct-integration.html)
 將 iOS 框架連接到 Xcode 專案的專案。這是使用 IntelliJ IDEA 中 Kotlin Multiplatform 插件或透過 [網路精靈](https://kmp.jetbrains.com/) 建立的 Multiplatform 專案的標準配置。
 
 要試用 Swift 匯出，請配置您的 Xcode 專案：
@@ -589,7 +589,7 @@ suspend fun readCopiedText(): String {
 }
 ```
 
-從此版本開始，當您使用[預設階層範本](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-hierarchy.html#default-hierarchy-template) 時，Kotlin Gradle 插件會為網頁添加新的共享原始碼集（包括 `webMain` 和 `webTest`）。
+從此版本開始，當您使用[預設階層範本](https://kotlinlang.org/docs/multiplatform/multiplatform-hierarchy.html#default-hierarchy-template) 時，Kotlin Gradle 插件會為網頁添加新的共享原始碼集（包括 `webMain` 和 `webTest`）。
 
 透過此變更，`web` 原始碼集成為 `js` 和 `wasmJs` 原始碼集的父級。更新後的原始碼集
 階層結構如下：
@@ -626,7 +626,7 @@ actual suspend fun readCopiedText(): String {
 *   如果您是函式庫作者，並且希望添加對 `js` 和 `wasmJs` 目標的支援，而無需重複程式碼。
 *   如果您正在開發以網頁為目標的 Compose Multiplatform 應用程式，可以為 `js` 和 `wasmJs` 目標啟用跨編譯，以獲得更廣泛的瀏覽器相容性。考慮到這種回退模式，當您建立網站時，它會在所有瀏覽器中開箱即用，因為現代瀏覽器使用 `wasmJs`，而舊瀏覽器使用 `js`。
 
-要試用此功能，請透過在您的 `build.gradle(.kts)` 檔案的 `kotlin {}` 區塊中使用[預設階層範本](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-hierarchy.html#default-hierarchy-template)：
+要試用此功能，請透過在您的 `build.gradle(.kts)` 檔案的 `kotlin {}` 區塊中使用[預設階層範本](https://kotlinlang.org/docs/multiplatform/multiplatform-hierarchy.html#default-hierarchy-template)：
 
 ```kotlin
 kotlin {
@@ -642,7 +642,7 @@ kotlin {
 
 ### Kotlin 函式庫的穩定跨平台編譯
 
-Kotlin 2.2.20 完成了一個重要的[發展藍圖項目](https://youtrack.jetbrains.com/issue/KT-71290)，穩定
+Kotlin 2.2.20 完成了一個重要的[發展藍圖項目](https://youtrack.com/issue/KT-71290)，穩定
 了 Kotlin 函式庫的跨平台編譯。
 
 您現在可以使用任何主機為發布 Kotlin 函式庫產生 `.klib` 成品。這顯著簡化了
@@ -654,10 +654,10 @@ Kotlin 2.2.20 完成了一個重要的[發展藍圖項目](https://youtrack.jetb
 遺憾的是，仍然存在一些限制。在以下情況下，您仍然需要使用 Mac 機器：
 
 *   您的函式庫或任何依賴模組具有 [cinterop 依賴](native-c-interop.md)。
-*   您的專案中設定了 [CocoaPods 整合](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-cocoapods-overview.html)。
-*   您需要為 Apple 目標建置或測試[最終二進位檔案](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-build-native-binaries.html)。
+*   您的專案中設定了 [CocoaPods 整合](https://kotlinlang.org/docs/multiplatform/multiplatform-cocoapods-overview.html)。
+*   您需要為 Apple 目標建置或測試[最終二進位檔案](https://kotlinlang.org/docs/multiplatform/multiplatform-build-native-binaries.html)。
 
-有關 Multiplatform 函式庫發布的更多資訊，請參閱我們的[文件](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-publish-lib-setup.html)。
+有關 Multiplatform 函式庫發布的更多資訊，請參閱我們的[文件](https://kotlinlang.org/docs/multiplatform/multiplatform-publish-lib-setup.html)。
 
 ### 宣告共同依賴的新方法
 <primary-label ref="experimental-opt-in"/>
@@ -1178,17 +1178,17 @@ kotlin.incremental.jvm.fir=true
 
 ### 增量編譯偵測 inline 函式中 Lambda 的變更
 
-在 Kotlin 2.2.20 之前，如果您啟用增量編譯並更改了 inline 函式中 Lambda 的邏輯，
+在 Kotlin 2.2.20 之前，如果您啟用增量編譯並更改了 inline 函式中 lambda 的邏輯，
 編譯器不會重新編譯其他模組中該 inline 函式的呼叫點。結果，那些呼叫點使用
-Lambda 的先前版本，這可能會導致意外行為。
+lambda 的先前版本，這可能會導致意外行為。
 
-在 Kotlin 2.2.20 中，編譯器現在會偵測 inline 函式中 Lambda 的變更並自動重新編譯其呼叫點。
+在 Kotlin 2.2.20 中，編譯器現在會偵測 inline 函式中 lambda 的變更並自動重新編譯其呼叫點。
 
 ### 函式庫發布的改進
 
 Kotlin 2.2.20 添加了新的 Gradle 任務，讓函式庫發布變得更容易。這些任務可幫助您生成金鑰對、上傳公開金鑰，並執行本機檢查以確保驗證過程在上傳到 Maven Central 儲存庫之前成功。
 
-有關如何在發布過程中利用這些任務的更多資訊，請參閱[將您的函式庫發布到 Maven Central](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-publish-libraries.html)。
+有關如何在發布過程中利用這些任務的更多資訊，請參閱[將您的函式庫發布到 Maven Central](https://kotlinlang.org/docs/multiplatform/multiplatform-publish-libraries.html)。
 
 #### 用於生成和上傳 PGP 金鑰的新 Gradle 任務
 
@@ -1360,7 +1360,7 @@ fun main() {
 Kotlin 2.2.20 引入了 [`copyOf()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/copy-of.html) 函式的實驗性多載。
 它適用於泛型型別 `Array<T>` 的陣列和所有基本陣列型別。
 
-您可以使用此函式來增大陣列並使用初始化 Lambda 的值填充新元素。
+您可以使用此函式來增大陣列並使用初始化 lambda 的值填充新元素。
 這可以幫助您減少自訂樣板程式碼，並解決調整泛型 `Array<T>` 大小會產生可空結果 (`Array<T?>`) 的常見痛點。
 
 這是一個範例：

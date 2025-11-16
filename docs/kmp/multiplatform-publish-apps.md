@@ -26,7 +26,7 @@ Kotlin Multiplatform 项目中的 iOS 应用是基于典型的 Xcode 项目构�
 {style="note"}
 
 Kotlin Multiplatform 项目的特殊之处在于，它会将共享的 Kotlin 模块编译成一个 framework 并将其链接到 Xcode 项目中。
-通常，共享模块与 Xcode 项目之间的集成是由 [Kotlin Multiplatform plugin for Android Studio](https://plugins.jetbrains.com/plugin/14936-kotlin-multiplatform-mobile) 自动完成的。
+通常，共享模块与 Xcode 项目之间的集成是由 [Kotlin Multiplatform 插件](https://plugins.jetbrains.com/plugin/14936-kotlin-multiplatform) 自动完成的。
 但是，如果您不使用该插件，在 Xcode 中构建和打包 iOS 项目时请牢记以下几点：
 
 * 共享的 Kotlin 库会编译为原生 framework。
@@ -37,7 +37,7 @@ Kotlin Multiplatform 项目的特殊之处在于，它会将共享的 Kotlin 模
 有两种方法可以将共享的 Kotlin 模块连接到 iOS 项目：
 * 使用 [Kotlin CocoaPods Gradle plugin](multiplatform-cocoapods-overview.md)，它允许您在 iOS 项目中使用带有原生目标的 Multiplatform 项目作为 CocoaPods 依赖项。
 * 手动配置您的 Multiplatform 项目以创建 iOS framework，并配置 Xcode 项目以获取其最新版本。
-  Kotlin Multiplatform 向导或 Kotlin Multiplatform plugin for Android Studio 通常会执行此配置。
+  Kotlin Multiplatform 向导或 Kotlin Multiplatform IDE 插件通常会执行此配置。
   关于 [连接 framework 到您的 iOS 项目](multiplatform-integrate-in-existing-app.md#configure-the-ios-project-to-use-a-kmp-framework)
   请参阅，了解如何在 Xcode 中直接添加该 framework。
 
@@ -59,7 +59,7 @@ Kotlin Multiplatform 项目的特殊之处在于，它会将共享的 Kotlin 模
 * 如果您已经打开了 Android Studio 中的项目，请执行以下操作：
 
   1. 关闭项目。
-  2. 在任何文本编辑器中，更改 `iosApp/Configuration/Config.xcconfig` 文件中的 `APP_NAME` 选项。
+  2. 在任何文本编辑器中，更改 `APP_NAME` 选项在 `iosApp/Configuration/Config.xcconfig` 文件中。
   3. 重新在 Android Studio 中打开项目。
 
 如果您需要配置其他设置，请使用 Xcode：在 Android Studio 中打开项目后，
@@ -68,12 +68,13 @@ Kotlin Multiplatform 项目的特殊之处在于，它会将共享的 Kotlin 模
 ### 符号化崩溃报告
 
 为了帮助开发者改进其应用，iOS 提供了一种分析应用崩溃的方法。为了进行详细的崩溃分析，
-它使用特殊的调试符号 (`.dSYM`) 文件，将崩溃报告中的内存地址与源代码中的位置（例如函数或行号）进行匹配。
+它使用特殊的调试符号 (`.dSYM`) 文件，将崩溃报告中的内存地址与源代码中的位置，
+例如函数或行号，进行匹配。
 
-默认情况下，从共享 Kotlin 模块生成的 iOS framework 的发布版本都附带一个 `.dSYM` 文件。
-这有助于您分析共享模块代码中发生的崩溃。
+默认情况下，从共享 Kotlin 模块生成的 iOS framework 的发布版本都附带一个 `.dSYM`
+文件。这有助于您分析共享模块代码中发生的崩溃。
 
-有关崩溃报告符号化的更多信息，请参阅 [Kotlin/Native 文档](https://kotlinlang.org/docs/native-debugging.html#debug-ios-applications)。
+有关崩溃报告符号化的更多信息，请参见 [Kotlin/Native 文档](https://kotlinlang.org/docs/native-debugging.html#debug-ios-applications)。
 
 ## Web 应用
 
@@ -123,4 +124,5 @@ Kotlin Multiplatform 项目的特殊之处在于，它会将共享的 Kotlin 模
 ### 调试您的 Web 应用程序
 
 您可以开箱即用地在浏览器中调试您的 Web 应用程序，无需额外配置。要了解如何在浏览器中调试，
-请参阅 Kotlin 文档中的 [在浏览器中调试](https://kotlinlang.org/docs/wasm-debugging.html#debug-in-your-browser) 指南。
+请参阅 Kotlin 文档中的 [在浏览器中调试](https://kotlinlang.org/docs/wasm-debugging.html#debug-in-your-browser)
+指南。

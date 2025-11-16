@@ -85,7 +85,7 @@ Kotlin 语言特性可以有以下状态之一：
 
 *   **KEEP 讨论**。我们相当确定该特性应添加到语言中。我们旨在在一个名为 _KEEP_ 的文档中提供动机、用例、设计和其他重要细节。我们期望用户反馈集中讨论 KEEP 中提供的所有信息。
 
-*   **预览中**。特性原型已准备就绪，您可以使用特性特定的编译器选项启用它。我们寻求您使用该特性的体验反馈，包括它如何轻松集成到您的代码库中、它如何与现有代码交互以及任何 IDE 支持问题或建议。该特特性的设计可能会发生显著变化，或可能根据反馈完全撤销。当特性处于 _预览中_ 时，它具有一个 [稳定性级别](components-stability.md#stability-levels-explained)。
+*   **预览中**。特性原型已准备就绪，您可以使用特性特定的编译器选项启用它。我们寻求您使用该特性的体验反馈，包括它如何轻松集成到您的代码库中、它如何与现有代码交互以及任何 IDE 支持问题或建议。该特特性的设计可能会发生显著变化，或可能根据反馈完全撤销。当特性处于 _预览中_ 时，它具有 Experimental 或 Beta [稳定性级别](components-stability.md#stability-levels-explained)。
 
 *   **稳定**。该语言特性现在是 Kotlin 语言中的一等公民。我们保证其向后兼容性，并保证提供工具支持。
 
@@ -126,11 +126,16 @@ Kotlin 语言特性可以有以下状态之一：
 
 ### 兼容性选项
 
-我们提供 `-language-version X.Y` 和 `-api-version X.Y` 选项，使新版本能够模拟旧版本的行为以实现兼容性目的。为了给您更多迁移时间，除了最新的稳定版本外，我们还 [支持](compatibility-modes.md) 之前三个语言和 API 版本。
+我们提供 `-language-version X.Y` 和 `-api-version X.Y` 选项，使新版本能够模拟旧版本的行为以实现兼容性目的：
+
+*   `-language-version X.Y` - Kotlin 语言版本 X.Y 的兼容模式，报告所有后续推出的语言特性的错误。
+*   `-api-version X.Y` - Kotlin API 版本 X.Y 的兼容模式，报告所有使用 Kotlin 标准库中较新 API 的代码的错误（包括编译器生成的代码）。
+
+为了给您更多迁移时间，除了最新的稳定版本外，我们还 [支持](compatibility-modes.md) 之前三个语言和 API 版本。
 
 积极维护的代码库可以从尽快获得错误修复中受益，无需等待完整的弃用周期完成。目前，此类项目可以启用 `-progressive` 选项，即使在工具发布版本中也能启用此类修复。
 
-所有选项都可以在命令行以及 [Gradle](gradle-compiler-options.md) 和 [Maven](maven.md#specify-compiler-options) 中使用。
+所有选项都可以在 IDE、命令行以及 [Gradle](gradle-compiler-options.md) 和 [Maven](maven.md#specify-compiler-options) 中使用。
 
 ### 演进二进制格式
 

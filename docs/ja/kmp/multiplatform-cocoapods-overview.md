@@ -146,31 +146,31 @@ CocoaPods環境がセットアップされたら、Podで動作するようにKo
     kotlin {
         cocoapods {
             // Required properties
-            // ここで必要なPodバージョンを指定します
-            // 指定しない場合、Gradleプロジェクトバージョンが使用されます
+            // Specify the required Pod version here
+            // Otherwise, the Gradle project version is used
             version = "1.0"
             summary = "Some description for a Kotlin/Native module"
             homepage = "Link to a Kotlin/Native module homepage"
    
             // Optional properties
-            // Gradleプロジェクト名を変更する代わりに、ここでPod名を構成します
+            // Configure the Pod name here instead of changing the Gradle project name
             name = "MyCocoaPod"
 
             framework {
                 // Required properties              
-                // フレームワーク名の構成。非推奨の'frameworkName'の代わりにこのプロパティを使用します
+                // Framework name configuration. Use this property instead of deprecated 'frameworkName'
                 baseName = "MyFramework"
                 
                 // Optional properties
-                // フレームワークのリンクタイプを指定します。デフォルトは動的です。 
+                // Specify the framework linking type. It's dynamic by default. 
                 isStatic = false
-                // 依存関係のエクスポート
-                // 別のプロジェクトモジュールがある場合は、コメントを解除して指定します。
+                // Dependency export
+                // Uncomment and specify another project module if you have one:
                 // export(project(":<your other KMP module>"))
-                transitiveExport = false // これがデフォルトです。
+                transitiveExport = false // This is default.
             }
 
-            // カスタムXcode構成をNativeBuildTypeにマッピングします
+            // Maps custom Xcode configuration to NativeBuildType
             xcodeConfigurationToNativeBuildType["CUSTOM_DEBUG"] = NativeBuildType.DEBUG
             xcodeConfigurationToNativeBuildType["CUSTOM_RELEASE"] = NativeBuildType.RELEASE
         }

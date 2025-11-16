@@ -31,7 +31,7 @@ Kotlin 1.8.0 版本已发布，以下是其一些重要亮点：
 从 1.8.0 版本开始，编译器可以生成字节码版本与 JVM 19 对应的类。新语言版本还包括：
 
 *   [一个用于关闭 JVM 注解目标生成的编译器选项](#ability-to-not-generate-type-use-and-type-parameter-annotation-targets)
-*   [一个新的 -Xdebug 编译器选项，用于禁用优化](#a-new-compiler-option-for-disabling-optimizations)
+*   [一个新的 `-Xdebug` 编译器选项，用于禁用优化](#a-new-compiler-option-for-disabling-optimizations)
 *   [旧后端已移除](#removal-of-the-old-backend)
 *   [支持 Lombok 的 @Builder 注解](#support-for-lombok-s-builder-annotation)
 
@@ -134,7 +134,7 @@ kotlin {
 
 如果你有一个使用静态链接类型的现有项目，并且你升级到 Kotlin 1.8.0（或显式更改链接类型），你可能会遇到项目执行错误。要解决此问题，请关闭你的 Xcode 项目并在 Podfile 目录中运行 `pod install`。
 
-有关更多信息，请参阅 [CocoaPods Gradle 插件 DSL 参考](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-cocoapods-dsl-reference.html)。
+有关更多信息，请参阅 [CocoaPods Gradle 插件 DSL 参考](https://kotlinlang.org/docs/multiplatform/multiplatform-cocoapods-dsl-reference.html)。
 
 ## Kotlin 多平台：新的 Android 源代码集布局
 
@@ -344,7 +344,7 @@ Kotlin 1.8.0 **完全**支持 Gradle 7.2 和 7.3 版本。你也可以使用直�
 *   [提升最低支持版本](#bumping-the-minimum-supported-versions)
 *   [禁用 Kotlin daemon 回退策略的能力](#ability-to-disable-the-kotlin-daemon-fallback-strategy)
 *   [在传递性依赖项中使用最新 kotlin-stdlib 版本](#usage-of-the-latest-kotlin-stdlib-version-in-transitive-dependencies)
-*   [强制检查相关 Kotlin 和 Java 编译任务的 JVM 目标兼容性](#obligatory-check-for-jvm-targets-of-related-kotlin-and-java-compile-tasks)
+*   [强制检测相关 Kotlin 和 Java 编译任务的 JVM 目标兼容性](#obligatory-check-for-jvm-targets-of-related-kotlin-and-java-compile-tasks)
 *   [Kotlin Gradle 插件传递性依赖项的解析](#resolution-of-kotlin-gradle-plugins-transitive-dependencies)
 *   [弃用与移除](#deprecations-and-removals)
 
@@ -364,7 +364,7 @@ Kotlin 1.8.0 **完全**支持 Gradle 7.2 和 7.3 版本。你也可以使用直�
 
 *   Kotlin 工具任务 `KotlinJsDce` 和 `KotlinNativeLink` 新增了 `toolOptions` 输入，它与现有的 `kotlinOptions` 输入类似。
 *   新输入具有 [`@Nested` Gradle 注解](https://docs.gradle.org/current/javadoc/org/gradle/api/tasks/Nested.html)。输入中的每个属性都具有相关的 Gradle 注解，例如 [`@Input` 或 `@Internal`](https://docs.gradle.org/current/userguide/more_about_tasks.html#sec:up_to_date_checks)。
-*   Kotlin Gradle 插件 API artifact 具有两个新接口：
+*   Kotlin Gradle 插件 API 构件具有两个新接口：
     *   `org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask`，它具有 `compilerOptions` 输入和 `compileOptions()` 方法。所有 Kotlin 编译任务都实现了此接口。
     *   `org.jetbrains.kotlin.gradle.tasks.KotlinToolTask`，它具有 `toolOptions` 输入和 `toolOptions()` 方法。所有 Kotlin 工具任务 —— `KotlinJsDce`、`KotlinNativeLink` 和 `KotlinNativeLinkArtifactTask` —— 都实现了此接口。
 *   一些 `compilerOptions` 使用新类型而非 `String` 类型：
@@ -377,7 +377,7 @@ Kotlin 1.8.0 **完全**支持 Gradle 7.2 和 7.3 版本。你也可以使用直�
     例如，你可以使用 `compilerOptions.jvmTarget.set(JvmTarget.JVM_11)` 而不是 `kotlinOptions.jvmTarget = "11"`。
 
     `kotlinOptions` 类型没有改变，它们在内部转换为 `compilerOptions` 类型。
-*   Kotlin Gradle 插件 API 与之前的版本二进制兼容。然而，`kotlin-gradle-plugin` artifact 中存在一些源代码和 ABI 不兼容的变更。这些变更大多涉及某些内部类型的额外泛型形参。一个重要的变更是 `KotlinNativeLink` 任务不再继承 `AbstractKotlinNativeCompile` 任务。
+*   Kotlin Gradle 插件 API 与之前的版本二进制兼容。然而，`kotlin-gradle-plugin` 构件中存在一些源代码和 ABI 不兼容的变更。这些变更大多涉及某些内部类型的额外泛型形参。一个重要的变更是 `KotlinNativeLink` 任务不再继承 `AbstractKotlinNativeCompile` 任务。
 *   `KotlinJsCompilerOptions.outputFile` 和相关的 `KotlinJsOptions.outputFile` 选项已弃用。请改用 `Kotlin2JsCompile.outputFileProperty` 任务输入。
 
 > Kotlin Gradle 插件仍然将 `KotlinJvmOptions` DSL 添加到 Android 扩展中：
@@ -483,13 +483,13 @@ Kotlin 1.8.0：
 
 在 Kotlin 1.8.0 中，标准库（`kotlin-stdlib`、`kotlin-reflect` 和 `kotlin-script-*`）使用 JVM 目标 1.8 进行编译。以前，标准库使用 JVM 目标 1.6 进行编译。
 
-Kotlin 1.8.0 不再支持 JVM 目标 1.6 和 1.7。因此，你不再需要在构建脚本中单独声明 `kotlin-stdlib-jdk7` 和 `kotlin-stdlib-jdk8`，因为这些 artifact 的内容已合并到 `kotlin-stdlib` 中。
+Kotlin 1.8.0 不再支持 JVM 目标 1.6 和 1.7。因此，你不再需要在构建脚本中单独声明 `kotlin-stdlib-jdk7` 和 `kotlin-stdlib-jdk8`，因为这些构件的内容已合并到 `kotlin-stdlib` 中。
 
 > 如果你在构建脚本中显式声明了 `kotlin-stdlib-jdk7` 和 `kotlin-stdlib-jdk8` 作为依赖项，那么你应该用 `kotlin-stdlib` 替换它们。
 >
 {style="note"}
 
-请注意，混合不同版本的 stdlib artifact 可能会导致类重复或类缺失。为避免这种情况，Kotlin Gradle 插件可以帮助你[对齐 stdlib 版本](#usage-of-the-latest-kotlin-stdlib-version-in-transitive-dependencies)。
+请注意，混合不同版本的 stdlib 构件可能会导致类重复或类缺失。为避免这种情况，Kotlin Gradle 插件可以帮助你[对齐 stdlib 版本](#usage-of-the-latest-kotlin-stdlib-version-in-transitive-dependencies)。
 
 ### cbrt()
 
@@ -659,8 +659,8 @@ Kotlin 文档收到了一些显著的变更：
 ### 新增与更新的教程
 
 *   [Gradle 和 Kotlin/JVM 入门](get-started-with-jvm-gradle-project.md) —— 使用 IntelliJ IDEA 和 Gradle 创建控制台应用程序。
-*   [使用 Ktor 和 SQLDelight 创建多平台应用](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-ktor-sqldelight.html) —— 使用 Kotlin Multiplatform Mobile 为 iOS 和 Android 创建移动应用程序。
-*   [Kotlin 多平台入门](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-create-first-app.html) —— 了解使用 Kotlin 进行跨平台移动开发，并创建一个同时适用于 Android 和 iOS 的应用。
+*   [使用 Ktor 和 SQLDelight 创建多平台应用](https://kotlinlang.org/docs/multiplatform/multiplatform-ktor-sqldelight.html) —— 使用 Kotlin Multiplatform Mobile 为 iOS 和 Android 创建移动应用程序。
+*   [Kotlin 多平台入门](https://kotlinlang.org/docs/multiplatform/multiplatform-create-first-app.html) —— 了解使用 Kotlin 进行跨平台移动开发，并创建一个同时适用于 Android 和 iOS 的应用。
 
 ## 安装 Kotlin 1.8.0
 
@@ -670,7 +670,7 @@ Kotlin 文档收到了一些显著的变更：
 >
 {style="note"}
 
-对于 Android Studio Electric Eel (221) 和 Flamingo (222)，1.8.0 版本的 Kotlin 插件将随即将发布的 Android Studio 更新一同提供。新的命令行编译器可在 [GitHub 发布页面](https://github.com/JetBrains/kotlin/releases/tag/v1.8.0) 下载。
+对于 Android Studio Electric Eel (221) 和 Flamingo (222)，1.8.0 版本的 Kotlin 插件将随即将发布的 Android Studios 更新一同提供。新的命令行编译器可在 [GitHub 发布页面](https://github.com/JetBrains/kotlin/releases/tag/v1.8.0) 下载。
 
 ## Kotlin 1.8.0 兼容性指南
 

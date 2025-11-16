@@ -35,7 +35,7 @@
 
 ### kotlinx.coroutines
 
-要将 `kotlinx.coroutines` 添加到你的项目，请在公共源代码集中指定一个依赖项。为此，请将以下行添加到共享模块的 `build.gradle.kts` 文件中：
+要将 `kotlinx.coroutines` 添加到你的项目，请在公共源代码集中指定一个依赖项。为此，请将以下行添加到 `shared/build.gradle.kts` 文件中：
 
 ```kotlin
 kotlin {
@@ -49,12 +49,12 @@ kotlin {
 }
 ```
 
-Multiplatform Gradle 插件会自动为 `kotlinx.coroutines` 的平台特有（iOS 和 Android）部分添加一个依赖项。
+Kotlin Multiplatform Gradle 插件会自动为 `kotlinx.coroutines` 的平台特有（iOS 和 Android）部分添加一个依赖项。
 
 ### kotlinx.serialization
 
 要使用 `kotlinx.serialization` 库，请设置相应的 Gradle 插件。
-为此，请将以下行添加到共享模块的 `build.gradle.kts` 文件开头的现有 `plugins {}` 代码块中：
+为此，请将以下行添加到 `shared/build.gradle.kts` 文件开头的现有 `plugins {}` 代码块中：
 
 ```kotlin
 plugins {
@@ -103,7 +103,7 @@ kotlin {
 
 ### 添加数据模型
 
-在 `shared/src/commonMain/kotlin/.../greetingkmp` 目录中，创建一个新的 `RocketLaunch.kt` 文件并添加一个数据类，用于存储来自 SpaceX API 的数据：
+在 `shared/src/commonMain/.../greetingkmp` 目录中，创建一个新的 `RocketLaunch.kt` 文件并添加一个数据类，用于存储来自 SpaceX API 的数据：
 
 ```kotlin
 import kotlinx.serialization.SerialName
@@ -127,7 +127,7 @@ data class RocketLaunch (
 
 ### 连接 HTTP 客户端
 
-1. 在 `shared/src/commonMain/kotlin/.../greetingkmp` 目录中，创建一个新的 `RocketComponent` 类。
+1. 在 `shared/src/commonMain/.../greetingkmp` 目录中，创建一个新的 `RocketComponent` 类。
 2. 添加 `httpClient` 属性，以便通过 HTTP GET 请求检索火箭发射信息：
 
     ```kotlin
@@ -299,7 +299,7 @@ data class RocketLaunch (
 现在应用程序变得更加复杂，是时候为名为 `MainActivity` 的 [Android activity](https://developer.android.com/guide/components/activities/intro-activities) 引入视图模型了。它调用实现 UI 的 `App()` 函数。
 视图模型将管理来自 activity 的数据，并且在 activity 经历生命周期变化时不会消失。
 
-1. 在 `composeApp/src/androidMain/kotlin/com/jetbrains/greeting/greetingkmp` 目录中，创建一个新的 `MainViewModel` Kotlin 类：
+1. 在 `composeApp/src/androidMain/.../greetingkmp` 目录中，创建一个新的 `MainViewModel` Kotlin 类：
 
     ```kotlin
     import androidx.lifecycle.ViewModel
@@ -326,7 +326,7 @@ data class RocketLaunch (
    * 此处的 `StateFlow` 继承了 `Flow` 接口，但它只有一个值或状态。
    * 私有幕后属性 `_greetingList` 确保只有此类的客户端可以访问只读 `greetingList` 属性。
 
-3. 在视图模型的 `init` 函数中，从 `Greeting().greet()` 流中收集所有字符串：
+3. 在视图模型的 `init` 函数中，收集所有字符串从 `Greeting().greet()` 流中：
 
     ```kotlin
    import androidx.lifecycle.viewModelScope
@@ -404,7 +404,7 @@ data class RocketLaunch (
 
 2. 要查看结果，请重新运行你的 **composeApp** 配置：
 
-   ![最终结果](multiplatform-mobile-upgrade-android.png){width=300}
+   ![Final results](multiplatform-mobile-upgrade-android.png){width=300}
 
 ## 更新原生 iOS UI
 

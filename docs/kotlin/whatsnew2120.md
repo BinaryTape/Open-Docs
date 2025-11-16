@@ -85,23 +85,23 @@ kotlin {
     jvm {
         @OptIn(ExperimentalKotlinGradlePluginApi::class)
         binaries {
-            // Configures a JavaExec task named "runJvm" and a Gradle distribution for the "main" compilation in this target
+            // 为此目标平台中的 "main" 编译项配置名为 "runJvm" 的 JavaExec 任务和 Gradle 分发
             executable {
                 mainClass.set("foo.MainKt")
             }
 
-            // Configures a JavaExec task named "runJvmAnother" and a Gradle distribution for the "main" compilation
+            // 为 "main" 编译项配置名为 "runJvmAnother" 的 JavaExec 任务和 Gradle 分发
             executable(KotlinCompilation.MAIN_COMPILATION_NAME, "another") {
-                // Set a different class
+                // 设置不同的类
                 mainClass.set("foo.MainAnotherKt")
             }
 
-            // Configures a JavaExec task named "runJvmTest" and a Gradle distribution for the "test" compilation
+            // 为 "test" 编译项配置名为 "runJvmTest" 的 JavaExec 任务和 Gradle 分发
             executable(KotlinCompilation.TEST_COMPILATION_NAME) {
                 mainClass.set("foo.MainTestKt")
             }
 
-            // Configures a JavaExec task named "runJvmTestAnother" and a Gradle distribution for the "test" compilation
+            // 为 "test" 编译项配置名为 "runJvmTestAnother" 的 JavaExec 任务和 Gradle 分发
             executable(KotlinCompilation.TEST_COMPILATION_NAME, "another") {
                 mainClass.set("foo.MainAnotherTestKt")
             }
@@ -276,20 +276,20 @@ Kotlin 2.1.20 引入了对添加自定义 [Gradle 发布变体](https://docs.gra
 
 ```kotlin
 plugins {
-    // Only JVM and Multiplatform are supported
+    // 仅支持 JVM 和 Multiplatform
     kotlin("jvm")
-    // or
+    // 或
     kotlin("multiplatform")
 }
 
 kotlin {
     @OptIn(ExperimentalKotlinGradlePluginApi::class)
     publishing {
-        // Returns an instance of AdhocSoftwareComponent
+        // 返回一个 AdhocSoftwareComponent 实例
         adhocSoftwareComponent()
-        // Alternatively, you can configure AdhocSoftwareComponent in the DSL block as follows
+        // 或者，您可以通过以下方式在 DSL 代码块中配置 AdhocSoftwareComponent
         adhocSoftwareComponent {
-            // Add your custom variants here using the AdhocSoftwareComponent API
+            // 在此处使用 AdhocSoftwareComponent API 添加您的自定义变体
         }
     }
 }
@@ -433,9 +433,9 @@ fun main() {
 
 为了提供与其他语言的互操作性，还提供了额外的转换函数：
 
-*   `.toKotlinInstant()` 将时间值转换为 `kotlin.time.Instant` 实例。
-*   `.toJavaInstant()` 将 `kotlin.time.Instant` 值转换为 `java.time.Instant` 值。
-*   `Instant.toJSDate()` 将 `kotlin.time.Instant` 值转换为 JS `Date` 类的一个实例。此转换不精确；JS 使用毫秒精度表示日期，而 Kotlin 允许纳秒分辨率。
+*   [`toKotlinInstant()`](https://kotlinlang.org/api/core/2.1/kotlin-stdlib/kotlin.time/to-kotlin-instant.html) 将时间值转换为 `kotlin.time.Instant` 实例。
+*   [`toJavaInstant()`](https://kotlinlang.org/api/core/2.1/kotlin-stdlib/kotlin.time/to-java-instant.html) 将 `kotlin.time.Instant` 值转换为 `java.time.Instant` 值。
+*   [`Instant.toJSDate()`](https://kotlinlang.org/api/core/2.1/kotlin-stdlib/kotlin.time/to-j-s-date.html) 将 `kotlin.time.Instant` 值转换为 JS `Date` 类的一个实例。此转换不精确；JS 使用毫秒精度表示日期，而 Kotlin 允许纳秒分辨率。
 
 标准库的新时间特性仍处于[实验阶段](components-stability.md#stability-levels-explained)。
 要选择启用，请使用 `@OptIn(ExperimentalTime::class)` 注解：
@@ -498,7 +498,7 @@ Compose 编译器 Gradle 插件在 Android 上已默认启用[包含源代码信
 ## 重大变更与弃用
 
 *   为了使 Kotlin Multiplatform 与 Gradle 即将进行的更改保持一致，我们正在逐步淘汰 `withJava()` 函数。
-    [Java 源代码集现在默认创建](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-compatibility-guide.html#java-source-sets-created-by-default)。如果您使用 [Java 测试夹具](https://docs.gradle.org/current/userguide/java_testing.html#sec:java_test_fixtures) Gradle 插件，
+    [Java 源代码集现在默认创建](https://kotlinlang.org/docs/multiplatform/multiplatform-compatibility-guide.html#java-source-sets-created-by-default)。如果您使用 [Java 测试夹具](https://docs.gradle.org/current/userguide/java_testing.html#sec:java_test_fixtures) Gradle 插件，
     请直接升级到 [Kotlin 2.1.21](releases.md#release-details) 以避免兼容性问题。
 *   JetBrains 团队正在继续弃用 `kotlin-android-extensions` 插件。如果您尝试在项目中使用它，您现在将收到配置错误，并且不会执行任何插件代码。
 *   旧版 `kotlin.incremental.classpath.snapshot.enabled` 属性已从 Kotlin Gradle 插件中移除。
@@ -513,16 +513,16 @@ Kotlin 文档收到了一些显著的更改：
 
 *   [Kotlin 路线图](roadmap.md) – 查看 Kotlin 在语言和生态系统演进方面的更新优先级列表。
 *   [Gradle 最佳实践](gradle-best-practices.md)页面 – 了解优化 Gradle 构建和提高性能的基本最佳实践。
-*   [Compose Multiplatform 和 Jetpack Compose](https://www.jetbrains.com/help/kotlin-multiplatform-dev/compose-multiplatform-and-jetpack-compose.html)
+*   [Compose Multiplatform 和 Jetpack Compose](https://kotlinlang.org/docs/multiplatform/compose-multiplatform-and-jetpack-compose.html)
     – 两个 UI 框架之间关系的概述。
-*   [Kotlin Multiplatform 和 Flutter](https://www.jetbrains.com/help/kotlin-multiplatform-dev/kotlin-multiplatform-flutter.html)
+*   [Kotlin Multiplatform 和 Flutter](https://kotlinlang.org/docs/multiplatform/kotlin-multiplatform-flutter.html)
     – 查看两个流行的跨平台框架的比较。
 *   [与 C 的互操作性](native-c-interop.md) – 探索 Kotlin 与 C 互操作性的详细信息。
 *   [数字](numbers.md) – 了解用于表示数字的不同 Kotlin 类型。
 
 ### 新增和更新的教程
 
-*   [将您的库发布到 Maven Central](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-publish-libraries.html)
+*   [将您的库发布到 Maven Central](https://kotlinlang.org/docs/multiplatform/multiplatform-publish-libraries.html)
     – 了解如何将 KMP 库构件发布到最流行的 Maven 版本库。
 *   [Kotlin/Native 作为动态库](native-dynamic-libraries.md) – 创建一个动态 Kotlin 库。
 *   [Kotlin/Native 作为 Apple framework](apple-framework.md) – 创建您自己的 framework，并在 macOS 和 iOS 上从 Swift/Objective-C 应用程序中使用 Kotlin/Native 代码。
@@ -531,4 +531,5 @@ Kotlin 文档收到了一些显著的更改：
 
 从 IntelliJ IDEA 2023.3 和 Android Studio Iguana (2023.2.1) Canary 15 开始，Kotlin 插件作为捆绑插件分发，包含在您的 IDE 中。这意味着您无法再从 JetBrains Marketplace 安装该插件。
 
-要更新到新的 Kotlin 版本，请在构建脚本中[将 Kotlin 版本更改](releases.md#update-to-a-new-kotlin-version)为 2.1.20。
+要更新到新的 Kotlin 版本，请在构建脚本中[将 Kotlin 版本更改](releases.md#update-to-a-new-kotlin-version)
+为 2.1.20。

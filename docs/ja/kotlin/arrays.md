@@ -2,7 +2,7 @@
 
 配列とは、同じ型またはそのサブタイプの固定数の値を保持するデータ構造です。Kotlin で最も一般的な配列の型は、[`Array`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-array/) クラスで表現されるオブジェクト型配列です。
 
-> オブジェクト型配列でプリミティブ（型）を使用すると、プリミティブがオブジェクトに[ボックス化](https://docs.oracle.com/javase/tutorial/java/data/autoboxing.html)されるため、パフォーマンスに影響を与えます。ボックス化のオーバーヘッドを避けるには、代わりに[プリミティブ型配列](#primitive-type-arrays)を使用してください。
+> オブジェクト型配列でプリミティブを使用すると、プリミティブがオブジェクトに[ボックス化](https://docs.oracle.com/javase/tutorial/java/data/autoboxing.html)されるため、パフォーマンスに影響を与えます。ボックス化のオーバーヘッドを避けるには、代わりに[プリミティブ型配列](#primitive-type-arrays)を使用してください。
 >
 {style="note"}
 
@@ -347,5 +347,5 @@ fun main() {
 ## 次のステップ
 
 * ほとんどのユースケースでコレクションの使用を推奨する理由の詳細については、「[コレクションの概要](collections-overview.md)」を参照してください。
-* その他の[基本型](basic-types.md)について学びます。
+* その他の[基本型](types-overview.md)について学びます。
 * Java 開発者の方は、[コレクション](java-to-kotlin-collections-guide.md)に関する Java から Kotlin への移行ガイドをお読みください。

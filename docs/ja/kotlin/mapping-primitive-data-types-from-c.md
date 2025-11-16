@@ -15,7 +15,7 @@
 >
 {style="note"}
 
-どのCデータ型がKotlin/Nativeで可視になるか（またその逆も）を探り、Kotlin/Nativeと[マルチプラットフォーム](gradle-configure-project.md#targeting-multiple-platforms)Gradleビルドにおける高度なC相互運用関連のユースケースを調べましょう。
+Kotlin/NativeでどのCデータ型が可視になるか（またその逆も）を探り、Kotlin/Nativeと[マルチプラットフォーム](gradle-configure-project.md#targeting-multiple-platforms)Gradleビルドにおける高度なC相互運用関連のユースケースを調べましょう。
 
 このチュートリアルでは、以下のことを行います。
 
@@ -115,11 +115,11 @@ Cライブラリを作成するには：
     }
     
     kotlin {
-        macosArm64("native") {    // Apple Silicon macOS
+        macosArm64("native") {    // macOS on Apple Silicon
         // macosX64("native") {   // macOS on x86_64 platforms
         // linuxArm64("native") { // Linux on ARM64 platforms 
         // linuxX64("native") {   // Linux on x86_64 platforms
-        // mingwX64("native") {   // Windows
+        // mingwX64("native") {   // on Windows
             val main by compilations.getting
             val interop by main.cinterops.creating
         
@@ -173,7 +173,7 @@ Cライブラリを作成するには：
     </tabs>
 
    このプロジェクトファイルは、C相互運用をビルドステップとして追加で設定します。
-   設定のさまざまな方法については、[Multiplatform Gradle DSL リファレンス](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-dsl-reference.html)を参照してください。
+   設定のさまざまな方法については、[Multiplatform Gradle DSL リファレンス](https://kotlinlang.org/docs/multiplatform/multiplatform-dsl-reference.html)を参照してください。
 
 2.  `interop.def`、`lib.h`、`lib.def`ファイルを`src/nativeInterop/cinterop`ディレクトリに移動します。
 3.  `src/nativeMain/kotlin`ディレクトリを作成します。Gradleの規約に従い、ここにすべてのソースファイルを配置します。

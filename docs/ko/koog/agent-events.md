@@ -18,6 +18,7 @@ Koog는 사용자 정의 메시지 프로세서에서 사용할 수 있는 사�
 - [에이전트 이벤트](#agent-events)
 - [전략 이벤트](#strategy-events)
 - [노드 이벤트](#node-events)
+- [서브그래프 이벤트](#subgraph-events)
 - [LLM 호출 이벤트](#llm-call-events)
 - [LLM 스트리밍 이벤트](#llm-streaming-events)
 - [도구 실행 이벤트](#tool-execution-events)
@@ -135,28 +136,73 @@ Koog는 사용자 정의 메시지 프로세서에서 사용할 수 있는 사�
 | `input`    | JsonElement  | No   | null | 노드에 제공된 입력 데이터입니다.                                                                                                  |
 | `error`    | AIAgentError | Yes  |      | 노드 실행 중에 발생한 특정 오류입니다. 자세한 내용은 [AIAgentError](#aiagenterror)를 참조하세요. |
 
+### 서브그래프 이벤트
+
+#### SubgraphExecutionStartingEvent
+
+서브그래프 실행의 시작을 나타냅니다. 다음 필드를 포함합니다:
+
+| 이름           | 데이터 타입   | 필수 | 기본값 | 설명                            |
+|----------------|-------------|----|------|---------------------------------|
+| `runId`        | String      | Yes  |      | 전략 실행의 고유 식별자.        |
+| `subgraphName` | String      | Yes  |      | 실행이 시작된 서브그래프의 이름입니다. |
+| `input`        | JsonElement | No   | null | 서브그래프의 입력값입니다.      |
+
+#### SubgraphExecutionCompletedEvent
+
+서브그래프 실행의 종료를 나타냅니다. 다음 필드를 포함합니다:
+
+| 이름           | 데이터 타입   | 필수 | 기본값 | 설명                            |
+|----------------|-------------|----|------|---------------------------------|
+| `runId`        | String      | Yes  |      | 전략 실행의 고유 식별자.        |
+| `subgraphName` | String      | Yes  |      | 실행이 종료된 서브그래프의 이름입니다. |
+| `input`        | JsonElement | No   | null | 서브그래프의 입력값입니다.      |
+| `output`       | JsonElement | No   | null | 서브그래프에 의해 생성된 출력값입니다. |
+
+#### SubgraphExecutionFailedEvent
+
+서브그래프 실행 중에 발생한 오류를 나타냅니다. 다음 필드를 포함합니다:
+
+| 이름           | 데이터 타입  | 필수 | 기본값 | 설명                                                                                                                              |
+|----------------|--------------|----|------|-----------------------------------------------------------------------------------------------------------------------------------|
+| `runId`        | String       | Yes  |      | 전략 실행의 고유 식별자.                                                                                                        |
+| `subgraphName` | String       | Yes  |      | 오류가 발생한 서브그래프의 이름입니다.                                                                                          |
+| `input`        | JsonElement  | No   | null | 서브그래프에 제공된 입력 데이터입니다.                                                                                          |
+| `error`        | AIAgentError | Yes  |      | 서브그래프 실행 중에 발생한 특정 오류입니다. 자세한 내용은 [AIAgentError](#aiagenterror)를 참조하세요. |
+
 ### LLM 호출 이벤트
 
 #### LLMCallStartingEvent
 
 LLM 호출의 시작을 나타냅니다. 다음 필드를 포함합니다:
 
-| 이름     | 데이터 타입  | 필수 | 기본값 | 설명                                                                                   |
-|----------|--------------|----|------|----------------------------------------------------------------------------------------|
-| `runId`  | String       | Yes  |      | LLM 실행의 고유 식별자.                                                                |
-| `callId` | String       | Yes  |      | 관련 이벤트를 상호 연관시키는 LLM 호출의 고유 식별자. |
-| `prompt` | Prompt       | Yes  |      | 모델로 전송되는 프롬프트입니다. 자세한 내용은 [Prompt](#prompt)를 참조하세요. |
-| `model`  | String       | Yes  |      | `llm_provider:model_id` 형식의 모델 식별자입니다.                                    |
-| `tools`  | List&lt;String&gt; | Yes  |      | 모델이 호출할 수 있는 도구 목록입니다.                                                 |
+| 이름     | 데이터 타입   | 필수 | 기본값 | 설명                                                                                   |
+|----------|-------------|----|------|----------------------------------------------------------------------------------------|
+| `runId`  | String      | Yes  |      | LLM 실행의 고유 식별자.                                                                |
+| `callId` | String      | Yes  |      | 관련 이벤트를 상호 연관시키는 LLM 호출의 고유 식별자. |
+| `prompt` | Prompt      | Yes  |      | 모델로 전송되는 프롬프트입니다. 자세한 내용은 [Prompt](#prompt)를 참조하세요. |
+| `model`  | ModelInfo   | Yes  |      | 모델 정보입니다. [ModelInfo](#modelinfo)를 참조하세요.         |
+| `tools`  | List<String> | Yes  |      | 모델이 호출할 수 있는 도구 목록입니다.                                                 |
 
 <a id="prompt"></a>
 `Prompt` 클래스는 메시지 목록, 고유 식별자, 언어 모델 설정에 대한 선택적 매개변수로 구성된 프롬프트의 데이터 구조를 나타냅니다. 다음 필드를 포함합니다:
 
 | 이름       | 데이터 타입        | 필수 | 기본값      | 설명                                         |
 |------------|--------------------|----|-----------|----------------------------------------------|
-| `messages` | List&lt;Message&gt; | Yes  |           | 프롬프트가 구성되는 메시지 목록입니다.         |
+| `messages` | List<Message>      | Yes  |           | 프롬프트가 구성되는 메시지 목록입니다.         |
 | `id`       | String             | Yes  |           | 프롬프트의 고유 식별자입니다.                |
 | `params`   | LLMParams          | No   | LLMParams() | LLM이 콘텐츠를 생성하는 방식을 제어하는 설정입니다. |
+
+<a id="modelinfo"></a>
+`ModelInfo` 클래스는 공급자, 모델 식별자 및 특성을 포함하여 언어 모델에 대한 정보를 나타냅니다. 다음 필드를 포함합니다:
+
+| 이름              | 데이터 타입 | 필수 | 기본값 | 설명                                                         |
+|-------------------|-----------|----|------|--------------------------------------------------------------|
+| `provider`        | String    | Yes  |      | 공급자 식별자(예: "openai", "google", "anthropic").         |
+| `model`           | String    | Yes  |      | 모델 식별자(예: "gpt-4", "claude-3").                        |
+| `displayName`     | String    | No   | null | 모델의 선택적 사람이 읽을 수 있는 표시 이름.                |
+| `contextLength`   | Long      | No   | null | 모델이 처리할 수 있는 최대 토큰 수.                          |
+| `maxOutputTokens` | Long      | No   | null | 모델이 생성할 수 있는 최대 토큰 수.                          |
 
 #### LLMCallCompletedEvent
 
@@ -167,8 +213,8 @@ LLM 호출의 종료를 나타냅니다. 다음 필드를 포함합니다:
 | `runId`              | String                   | Yes  |      | LLM 실행의 고유 식별자.                                         |
 | `callId`             | String                   | Yes  |      | 관련 이벤트를 상호 연관시키는 LLM 호출의 고유 식별자. |
 | `prompt`             | Prompt                   | Yes  |      | 호출에 사용된 프롬프트입니다.                                   |
-| `model`              | String                   | Yes  |      | `llm_provider:model_id` 형식의 모델 식별자입니다.             |
-| `responses`          | List&lt;Message.Response&gt; | Yes  |      | 모델에 의해 반환된 하나 이상의 응답입니다.                      |
+| `model`              | ModelInfo                | Yes  |      | 모델 정보입니다. [ModelInfo](#modelinfo)를 참조하세요.         |
+| `responses`          | List<Message.Response> | Yes  |      | 모델에 의해 반환된 하나 이상의 응답입니다.                      |
 | `moderationResponse` | ModerationResult         | No   | null | 조정(moderation) 응답(있는 경우).                               |
 
 ### LLM 스트리밍 이벤트
@@ -177,22 +223,22 @@ LLM 호출의 종료를 나타냅니다. 다음 필드를 포함합니다:
 
 LLM 스트리밍 호출의 시작을 나타냅니다. 다음 필드를 포함합니다:
 
-| 이름     | 데이터 타입  | 필수 | 기본값 | 설명                                                            |
-|----------|--------------|----|------|-----------------------------------------------------------------|
-| `runId`  | String       | Yes  |      | LLM 실행의 고유 식별자.                                         |
-| `callId` | String       | Yes  |      | 관련 이벤트를 상호 연관시키는 LLM 호출의 고유 식별자. |
-| `prompt` | Prompt       | Yes  |      | 모델로 전송되는 프롬프트입니다.                                 |
-| `model`  | String       | Yes  |      | `llm_provider:model_id` 형식의 모델 식별자입니다.             |
-| `tools`  | List&lt;String&gt; | Yes  |      | 모델이 호출할 수 있는 도구 목록입니다.                          |
+| 이름     | 데이터 타입   | 필수 | 기본값 | 설명                                                            |
+|----------|-------------|----|------|-----------------------------------------------------------------|
+| `runId`  | String      | Yes  |      | LLM 실행의 고유 식별자.                                         |
+| `callId` | String      | Yes  |      | 관련 이벤트를 상호 연관시키는 LLM 호출의 고유 식별자. |
+| `prompt` | Prompt      | Yes  |      | 모델로 전송되는 프롬프트입니다.                                 |
+| `model`  | ModelInfo   | Yes  |      | 모델 정보입니다. [ModelInfo](#modelinfo)를 참조하세요.         |
+| `tools`  | List<String> | Yes  |      | 모델이 호출할 수 있는 도구 목록입니다.                          |
 
 #### LLMStreamingFrameReceivedEvent
 
 LLM으로부터 수신된 스트리밍 프레임을 나타냅니다. 다음 필드를 포함합니다:
 
-| 이름    | 데이터 타입  | 필수 | 기본값 | 설명                                                            |
-|---------|------------|----|------|-----------------------------------------------------------------|
-| `runId` | String     | Yes  |      | LLM 실행의 고유 식별자.                                         |
-| `callId`| String     | Yes  |      | 관련 이벤트를 상호 연관시키는 LLM 호출의 고유 식별자. |
+| 이름    | 데이터 타입   | 필수 | 기본값 | 설명                                                            |
+|---------|-------------|----|------|-----------------------------------------------------------------|
+| `runId` | String      | Yes  |      | LLM 실행의 고유 식별자.                                         |
+| `callId`| String      | Yes  |      | 관련 이벤트를 상호 연관시키는 LLM 호출의 고유 식별자. |
 | `frame` | StreamFrame | Yes  |      | 스트림에서 수신된 프레임입니다.                                 |
 
 #### LLMStreamingFailedEvent
@@ -209,13 +255,13 @@ LLM 스트리밍 호출 중 오류 발생을 나타냅니다. 다음 필드를 �
 
 LLM 스트리밍 호출의 종료를 나타냅니다. 다음 필드를 포함합니다:
 
-| 이름     | 데이터 타입  | 필수 | 기본값 | 설명                                                            |
-|----------|------------|----|------|-----------------------------------------------------------------|
-| `runId`  | String     | Yes  |      | LLM 실행의 고유 식별자.                                         |
-| `callId` | String     | Yes  |      | 관련 이벤트를 상호 연관시키는 LLM 호출의 고유 식별자. |
-| `prompt` | Prompt     | Yes  |      | 모델로 전송되는 프롬프트입니다.                                 |
-| `model`  | String     | Yes  |      | `llm_provider:model_id` 형식의 모델 식별자입니다.             |
-| `tools`  | List&lt;String&gt; | Yes  |      | 모델이 호출할 수 있는 도구 목록입니다.                          |
+| 이름     | 데이터 타입   | 필수 | 기본값 | 설명                                                            |
+|----------|-------------|----|------|-----------------------------------------------------------------|
+| `runId`  | String      | Yes  |      | LLM 실행의 고유 식별자.                                         |
+| `callId` | String      | Yes  |      | 관련 이벤트를 상호 연관시키는 LLM 호출의 고유 식별자. |
+| `prompt` | Prompt      | Yes  |      | 모델로 전송되는 프롬프트입니다.                                 |
+| `model`  | ModelInfo   | Yes  |      | 모델 정보입니다. [ModelInfo](#modelinfo)를 참조하세요.         |
+| `tools`  | List<String> | Yes  |      | 모델이 호출할 수 있는 도구 목록입니다.                          |
 
 ### 도구 실행 이벤트
 
@@ -223,24 +269,24 @@ LLM 스트리밍 호출의 종료를 나타냅니다. 다음 필드를 포함합
 
 모델이 도구를 호출하는 이벤트를 나타냅니다. 다음 필드를 포함합니다:
 
-| 이름          | 데이터 타입 | 필수 | 기본값 | 설명                                |
-|---------------|-------------|----|------|-------------------------------------|
-| `runId`       | String      | Yes  |      | 전략/에이전트 실행의 고유 식별자.   |
-| `toolCallId`  | String      | No   | null | 도구 호출 식별자(사용 가능한 경우). |
-| `toolName`    | String      | Yes  |      | 도구의 이름입니다.                  |
-| `toolArgs`    | JsonObject  | Yes  |      | 도구에 제공되는 인수입니다.         |
+| 이름          | 데이터 타입  | 필수 | 기본값 | 설명                                |
+|---------------|------------|----|------|-------------------------------------|
+| `runId`       | String     | Yes  |      | 전략/에이전트 실행의 고유 식별자.   |
+| `toolCallId`  | String     | No   | null | 도구 호출 식별자(사용 가능한 경우). |
+| `toolName`    | String     | Yes  |      | 도구의 이름입니다.                  |
+| `toolArgs`    | JsonObject | Yes  |      | 도구에 제공되는 인수입니다.         |
 
 #### ToolValidationFailedEvent
 
 도구 호출 중 유효성 검사 오류 발생을 나타냅니다. 다음 필드를 포함합니다:
 
-| 이름          | 데이터 타입 | 필수 | 기본값 | 설명                                |
-|---------------|-------------|----|------|-------------------------------------|
-| `runId`       | String      | Yes  |      | 전략/에이전트 실행의 고유 식별자.   |
-| `toolCallId`  | String      | No   | null | 도구 호출 식별자(사용 가능한 경우). |
-| `toolName`    | String      | Yes  |      | 유효성 검사에 실패한 도구의 이름입니다. |
-| `toolArgs`    | JsonObject  | Yes  |      | 도구에 제공되는 인수입니다.         |
-| `error`       | String      | Yes  |      | 유효성 검사 오류 메시지입니다.      |
+| 이름          | 데이터 타입  | 필수 | 기본값 | 설명                                |
+|---------------|------------|----|------|-------------------------------------|
+| `runId`       | String     | Yes  |      | 전략/에이전트 실행의 고유 식별자.   |
+| `toolCallId`  | String     | No   | null | 도구 호출 식별자(사용 가능한 경우). |
+| `toolName`    | String     | Yes  |      | 유효성 검사에 실패한 도구의 이름입니다. |
+| `toolArgs`    | JsonObject | Yes  |      | 도구에 제공되는 인수입니다.         |
+| `error`       | String     | Yes  |      | 유효성 검사 오류 메시지입니다.      |
 
 #### ToolExecutionFailedEvent
 
@@ -258,13 +304,13 @@ LLM 스트리밍 호출의 종료를 나타냅니다. 다음 필드를 포함합
 
 결과를 반환하는 성공적인 도구 호출을 나타냅니다. 다음 필드를 포함합니다:
 
-| 이름          | 데이터 타입 | 필수 | 기본값 | 설명                           |
-|---------------|-----------|----|------|--------------------------------|
-| `runId`       | String    | Yes  |      | 실행의 고유 식별자.            |
-| `toolCallId`  | String    | No   | null | 도구 호출 식별자.              |
-| `toolName`    | String    | Yes  |      | 도구의 이름입니다.             |
+| 이름          | 데이터 타입  | 필수 | 기본값 | 설명                           |
+|---------------|------------|----|------|--------------------------------|
+| `runId`       | String     | Yes  |      | 실행의 고유 식별자.            |
+| `toolCallId`  | String     | No   | null | 도구 호출 식별자.              |
+| `toolName`    | String     | Yes  |      | 도구의 이름입니다.             |
 | `toolArgs`    | JsonObject | Yes  |      | 도구에 제공된 인수입니다.      |
-| `result`      | String    | Yes  |      | 도구 호출 결과(nullable). |
+| `result`      | String     | Yes  |      | 도구 호출 결과(nullable). |
 
 ## 자주 묻는 질문 및 문제 해결
 

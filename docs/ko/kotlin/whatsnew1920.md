@@ -92,7 +92,8 @@ Kotlin K2 컴파일러를 활성화하고 테스트하려면 `pom.xml` 파일의
 
 #### IntelliJ IDEA에서 K2 활성화
 
-IntelliJ IDEA에서 Kotlin K2 컴파일러를 활성화하고 테스트하려면 **Settings** | **Build, Execution, Deployment** | **Compiler** | **Kotlin Compiler**로 이동하여 **Language Version** 필드를 `2.0 (experimental)`로 업데이트하세요.
+IntelliJ IDEA에서 Kotlin K2 컴파일러를 활성화하고 테스트하려면 **Settings** | **Build, Execution, Deployment** |
+**Compiler** | **Kotlin Compiler**로 이동하여 **Language Version** 필드를 `2.0 (experimental)`으로 업데이트하세요.
 
 ### 새로운 K2 컴파일러에 대한 피드백 남기기
 
@@ -108,7 +109,7 @@ IntelliJ IDEA에서 Kotlin K2 컴파일러를 활성화하고 테스트하려면
 
 ## Kotlin/Native
 
-Kotlin 1.9.20에는 새로운 메모리 할당자가 기본으로 활성화된 안정적인 메모리 관리자, 가비지 컬렉터 성능 향상 및 기타 업데이트가 포함되어 있습니다:
+Kotlin 1.9.20에는 새로운 메모리 할당자 기본 활성화가 적용된 안정적인 메모리 관리자, 가비지 컬렉터 성능 향상 및 기타 업데이트가 포함되어 있습니다:
 
 *   [커스텀 메모리 할당자 기본 활성화](#custom-memory-allocator-enabled-by-default)
 *   [가비지 컬렉터 성능 향상](#performance-improvements-for-the-garbage-collector)
@@ -191,12 +192,11 @@ kotlin.incremental.native=true
 
 ### 라이브러리 연결(linkage) 문제 관리
 
-이번 릴리스에서는 Kotlin/Native 컴파일러가 Kotlin 라이브러리 내의 연결(linkage) 문제를 처리하는 방식이 개선되었습니다. 이제 오류 메시지에 해시(hash) 대신 시그니처 이름(signature name)을 사용하여 더 읽기 쉬운 선언이 포함되어 문제를 더 쉽게 찾고 해결할 수 있습니다. 다음은 예시입니다:
+이번 릴리스에서는 Kotlin/Native 컴파일러가 Kotlin 라이브러리 내의 연결(linkage) 문제를 처리하는 방식이 개선되었습니다. 오류 메시지에 이제 해시(hash) 대신 시그니처 이름(signature name)을 사용하여 더 읽기 쉬운 선언이 포함되어 문제를 더 쉽게 찾고 해결할 수 있습니다. 다음은 예시입니다:
 
 ```text
 No function found for symbol 'org.samples/MyClass.removedFunction|removedFunction(kotlin.Int;kotlin.String){}[0]'
 ```
-
 Kotlin/Native 컴파일러는 서드파티 Kotlin 라이브러리 간의 연결(linkage) 문제를 감지하고 런타임에 오류를 보고합니다. 한 서드파티 Kotlin 라이브러리의 작성자가 다른 서드파티 Kotlin 라이브러리가 사용하는 실험적 API에 호환되지 않는 변경을 가하는 경우 이러한 문제가 발생할 수 있습니다.
 
 Kotlin 1.9.20부터 컴파일러는 기본적으로 연결 문제를 자동으로 감지합니다. 프로젝트에서 이 설정을 조정할 수 있습니다:
@@ -251,7 +251,7 @@ fun main() {
 
 Kotlin 1.9.20부터 `cinterop` 도구가 C 및 Objective-C 라이브러리(예: libcurl, libxml)에서 생성한 모든 Kotlin 선언은 `@ExperimentalForeignApi`로 표시됩니다. 옵트인 어노테이션이 없으면 코드가 컴파일되지 않습니다.
 
-이 요구 사항은 C 및 Objective-C 라이브러리 임포트의 [Experimental](components-stability.md#stability-levels-explained) 상태를 반영합니다. 프로젝트의 특정 영역으로 사용을 제한하는 것이 좋습니다. 이는 임포트 안정화 작업이 시작되면 마이그레이션을 더 쉽게 해줄 것입니다.
+이 요구 사항은 C 및 Objective-C 라이브러리 임포트의 [Experimental](components-stability.md#stability-levels-explained) (실험적 기능) 상태를 반영합니다. 프로젝트의 특정 영역으로 사용을 제한하는 것이 좋습니다. 이는 임포트 안정화 작업이 시작되면 마이그레이션을 더 쉽게 해줄 것입니다.
 
 > Kotlin/Native와 함께 제공되는 네이티브 플랫폼 라이브러리(예: Foundation, UIKit, POSIX)의 경우, 일부 API에만 `@ExperimentalForeignApi`를 통한 옵트인(opt-in)이 필요합니다. 이 경우, 옵트인 요구 사항에 대한 경고가 표시됩니다.
 >
@@ -261,7 +261,7 @@ Kotlin 1.9.20부터 `cinterop` 도구가 C 및 Objective-C 라이브러리(예: 
 
 라이브러리 작성자인 경우, 이제 커스텀 메시지를 통해 사용자가 링커 오류를 해결하도록 도울 수 있습니다.
 
-Kotlin 라이브러리가 C 또는 Objective-C 라이브러리에 의존하는 경우(예: [CocoaPods 통합](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-cocoapods-overview.html) 사용), 해당 라이브러리 사용자는 이러한 종속 라이브러리를 로컬 머신에 가지고 있거나 프로젝트 빌드 스크립트에 명시적으로 구성해야 합니다. 그렇지 않은 경우, 사용자는 혼란스러운 "Framework not found" 메시지를 받곤 했습니다.
+Kotlin 라이브러리가 C 또는 Objective-C 라이브러리에 의존하는 경우(예: [CocoaPods 통합](https://kotlinlang.org/docs/multiplatform/multiplatform-cocoapods-overview.html) 사용), 해당 라이브러리 사용자는 이러한 종속 라이브러리를 로컬 머신에 가지고 있거나 프로젝트 빌드 스크립트에 명시적으로 구성해야 합니다. 그렇지 않은 경우, 사용자는 혼란스러운 "Framework not found" 메시지를 받곤 했습니다.
 
 이제 컴파일 실패 메시지에 특정 지침이나 링크를 제공할 수 있습니다. 이를 위해 `-Xuser-setup-hint` 컴파일러 옵션을 `cinterop`에 전달하거나, `.def` 파일에 `userSetupHint=message` 속성을 추가하세요.
 
@@ -306,13 +306,13 @@ Kotlin 1.9.20은 Kotlin Multiplatform의 안정화에 중점을 두고 있으며
 
 ### Kotlin Multiplatform 안정화(Stable)
 
-1.9.20 릴리스는 Kotlin의 발전에 있어 중요한 이정표를 세웠습니다: [Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html)이 드디어 안정화(Stable)되었습니다. 이는 이 기술이 프로젝트에서 안전하게 사용될 수 있으며, 프로덕션 준비가 100% 완료되었음을 의미합니다. 또한 Kotlin Multiplatform의 향후 개발은 엄격한 [하위 호환성 규칙](https://kotlinfoundation.org/language-committee-guidelines/)에 따라 계속될 것임을 의미합니다.
+1.9.20 릴리스는 Kotlin의 발전에 있어 중요한 이정표를 세웠습니다: [Kotlin Multiplatform](https://kotlinlang.org/docs/multiplatform/get-started.html)이 드디어 안정화(Stable)되었습니다. 이는 이 기술이 프로젝트에서 안전하게 사용될 수 있으며, 프로덕션 준비가 100% 완료되었음을 의미합니다. 또한 Kotlin Multiplatform의 향후 개발은 엄격한 [하위 호환성 규칙](https://kotlinfoundation.org/language-committee-guidelines/)에 따라 계속될 것임을 의미합니다.
 
 Kotlin Multiplatform의 일부 고급 기능은 아직 발전 중임을 유의하세요. 이러한 기능을 사용할 때, 사용 중인 기능의 현재 안정화 상태를 설명하는 경고가 표시될 것입니다. IntelliJ IDEA에서 실험적 기능을 사용하기 전에, **Settings** | **Advanced Settings** | **Kotlin** | **Experimental Multiplatform**에서 명시적으로 활성화해야 합니다.
 
 *   Kotlin Multiplatform 안정화 및 향후 계획에 대해 자세히 알아보려면 [Kotlin 블로그](https://blog.jetbrains.com/kotlin/2023/11/kotlin-multiplatform-stable/)를 방문하세요.
-*   안정화 과정에서 어떤 중요한 변경 사항이 있었는지 확인하려면 [멀티플랫폼 호환성 가이드](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-compatibility-guide.html)를 참조하세요.
-*   이번 릴리스에서 부분적으로 안정화된 Kotlin Multiplatform의 중요한 부분인 [expected 및 actual 선언 메커니즘](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-expect-actual.html)에 대해 읽어보세요.
+*   안정화 과정에서 어떤 중요한 변경 사항이 있었는지 확인하려면 [멀티플랫폼 호환성 가이드](https://kotlinlang.org/docs/multiplatform/multiplatform-compatibility-guide.html)를 참조하세요.
+*   이번 릴리스에서 부분적으로 안정화된 Kotlin Multiplatform의 중요한 부분인 [expected 및 actual 선언 메커니즘](https://kotlinlang.org/docs/multiplatform/multiplatform-expect-actual.html)에 대해 읽어보세요.
 
 ### 멀티플랫폼 프로젝트 구성을 위한 템플릿
 
@@ -326,8 +326,8 @@ Android 및 iPhone 기기를 모두 타겟팅하고 Apple 실리콘 MacBook에�
 
 <table>
    <tr>
-       <td>Kotlin 1.9.0 및 이전 버전 (표준 설정)</td>
-       <td>Kotlin 1.9.20</td>
+       <td>표준 라이브러리 버전 1.9.10 및 이전</td>
+       <td>표준 라이브러리 버전 1.9.20</td>
    </tr>
    <tr>
 <td>
@@ -491,7 +491,7 @@ JetBrains 팀은 크로스 플랫폼 프로젝트를 생성하는 새로운 방�
 
 이전에는 Kotlin 멀티플랫폼 라이브러리에서 사용할 수 있었던 Gradle 설정 캐시의 [미리보기](whatsnew19.md#preview-of-the-gradle-configuration-cache)를 도입했습니다. 1.9.20에서는 Kotlin Multiplatform 플러그인이 한 단계 더 나아갑니다.
 
-이제 [Kotlin CocoaPods Gradle 플러그인](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-cocoapods-dsl-reference.html)뿐만 아니라 `embedAndSignAppleFrameworkForXcode`와 같이 Xcode 빌드에 필요한 통합 작업에서도 Gradle 설정 캐시를 지원합니다.
+이제 [Kotlin CocoaPods Gradle 플러그인](https://kotlinlang.org/docs/multiplatform/multiplatform-cocoapods-dsl-reference.html)뿐만 아니라 `embedAndSignAppleFrameworkForXcode`와 같이 Xcode 빌드에 필요한 통합 작업에서도 Gradle 설정 캐시를 지원합니다.
 
 이제 모든 멀티플랫폼 프로젝트에서 개선된 빌드 시간을 활용할 수 있습니다. Gradle 설정 캐시는 구성 단계의 결과를 후속 빌드에 재사용하여 빌드 프로세스를 가속화합니다. 자세한 내용과 설정 지침은 [Gradle 문서](https://docs.gradle.org/current/userguide/configuration_cache.html#config_cache:usage)를 참조하세요.
 
@@ -559,9 +559,9 @@ kotlin {
 
 ### 서드파티 cinterop 라이브러리 기본 지원
 
-Kotlin 1.9.20은 [Kotlin CocoaPods Gradle](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-cocoapods-overview.html) 플러그인이 적용된 프로젝트에서 모든 cinterop 의존성에 대해 기본 지원(옵트인 지원 대신)을 추가합니다.
+Kotlin 1.9.20은 [Kotlin CocoaPods Gradle](https://kotlinlang.org/docs/multiplatform/multiplatform-cocoapods-overview.html) 플러그인이 적용된 프로젝트에서 모든 cinterop 의존성에 대해 기본 지원(옵트인 지원 대신)을 추가합니다.
 
-이는 이제 플랫폼별 의존성에 제한받지 않고 더 많은 네이티브 코드를 공유할 수 있음을 의미합니다. 예를 들어, `iosMain` 공유 소스 세트에 [Pod 라이브러리에 대한 의존성](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-cocoapods-libraries.html)을 추가할 수 있습니다.
+이는 이제 플랫폼별 의존성에 제한받지 않고 더 많은 네이티브 코드를 공유할 수 있음을 의미합니다. 예를 들어, `iosMain` 공유 소스 세트에 [Pod 라이브러리에 대한 의존성](https://kotlinlang.org/docs/multiplatform/multiplatform-cocoapods-libraries.html)을 추가할 수 있습니다.
 
 이전에는 Kotlin/Native 배포판과 함께 제공되는 [플랫폼별 라이브러리](native-platform-libs.md)(예: Foundation, UIKit, POSIX)에서만 작동했습니다. 이제 모든 서드파티 Pod 라이브러리는 기본적으로 공유 소스 세트에서 사용할 수 있습니다. 더 이상 별도의 Gradle 속성을 지정하여 지원할 필요가 없습니다.
 
@@ -569,7 +569,7 @@ Kotlin 1.9.20은 [Kotlin CocoaPods Gradle](https://www.jetbrains.com/help/kotlin
 
 이번 릴리스는 Compose Multiplatform 컴파일러 플러그인과의 호환성 문제를 해결하며, 주로 iOS용 Compose Multiplatform 프로젝트에 영향을 미쳤습니다.
 
-이 문제를 해결하기 위해 `kotlin.native.cacheKind=none` Gradle 속성을 사용하여 캐싱을 비활성화해야 했습니다. 그러나 이 해결 방법은 성능 저하를 초래했습니다. Kotlin/Native 컴파일러에서 캐싱이 작동하지 않아 컴파일 시간이 느려졌습니다.
+이 문제를 해결하기 위해 `kotlin.native.cacheKind=none` Gradle 속성을 사용하여 캐싱을 비활성화해야 했습니다. 그러나 이 해결 방법은 성능 저하를 초래했습니다: Kotlin/Native 컴파일러에서 캐싱이 작동하지 않아 컴파일 시간이 느려졌습니다.
 
 이제 문제가 해결되었으므로, `gradle.properties` 파일에서 `kotlin.native.cacheKind=none`을 제거하고 Compose Multiplatform 프로젝트에서 개선된 컴파일 시간을 누릴 수 있습니다.
 
@@ -762,7 +762,7 @@ Size metrics:
 
 ## 표준 라이브러리
 
-Kotlin 1.9.20에서는 [Kotlin/Native 표준 라이브러리가 안정화](#the-kotlin-native-standard-library-becomes-stable)되며, 몇 가지 새로운 기능이 있습니다:
+Kotlin 1.9.20에서는 [Kotlin/Native 표준 라이브러리가 안정화(Stable)되며](#the-kotlin-native-standard-library-becomes-stable), 몇 가지 새로운 기능이 있습니다:
 *   [Enum 클래스 values 제네릭 함수 대체](#replacement-of-the-enum-class-values-generic-function)
 *   [Kotlin/JS에서 HashMap 작업 성능 향상](#improved-performance-of-hashmap-operations-in-kotlin-js)
 
@@ -813,7 +813,8 @@ Kotlin 1.9.0에서 저희는 Kotlin/Native 표준 라이브러리를 안정화 �
 Kotlin 1.9.0에서 저희는 Atomics API가 Kotlin/Native 표준 라이브러리가 안정화될 때 안정화될 준비가 될 것이라고 말씀드렸습니다. Kotlin 1.9.20에는 다음과 같은 추가 변경 사항이 포함되어 있습니다:
 
 *   실험적인 `AtomicIntArray`, `AtomicLongArray`, `AtomicArray<T>` 클래스가 도입되었습니다. 이 새로운 클래스들은 Java의 아토믹 배열(atomic array)과 일관성을 유지하도록 특별히 설계되어, 향후 공통 표준 라이브러리에 포함될 수 있습니다.
-  > `AtomicIntArray`, `AtomicLongArray`, `AtomicArray<T>` 클래스는 [Experimental](components-stability.md#stability-levels-explained) (실험적 기능)입니다. 언제든지 삭제되거나 변경될 수 있습니다. 사용하려면 `@OptIn(ExperimentalStdlibApi)`로 옵트인(opt-in)하세요. 평가 목적으로만 사용해야 합니다. [YouTrack](https://kotl.in/issue)에 대한 피드백을 주시면 감사하겠습니다.
+  > `AtomicIntArray`, `AtomicLongArray`, `AtomicArray<T>` 클래스는
+  > [Experimental](components-stability.md#stability-levels-explained) (실험적 기능)입니다. 언제든지 삭제되거나 변경될 수 있습니다. 사용하려면 `@OptIn(ExperimentalStdlibApi)`로 옵트인(opt-in)하세요. 평가 목적으로만 사용해야 합니다. [YouTrack](https://kotl.in/issue)에 대한 피드백을 주시면 감사하겠습니다.
   >
   {style="warning"}
 *   `kotlin.native.concurrent` 패키지에서 Kotlin 1.9.0에서 `WARNING` 사용 중단 수준으로 사용 중단되었던 Atomics API의 사용 중단 수준이 `ERROR`로 상향 조정되었습니다.
@@ -837,7 +838,7 @@ Kotlin 문서에 몇 가지 주목할 만한 변경 사항이 있었습니다:
 *   [Kotlin 둘러보기](kotlin-tour-welcome.md)의 개선된 컬렉션(Collections) 챕터 – 이론과 실습이 모두 포함된 챕터를 통해 Kotlin 프로그래밍 언어의 기본을 배우세요.
 *   [확정적으로 non-nullable한 타입](generics.md#definitely-non-nullable-types) – 확정적으로 non-nullable한 제네릭 타입에 대해 알아보세요.
 *   개선된 [배열(Arrays) 페이지](arrays.md) – 배열과 배열을 사용해야 할 때를 알아보세요.
-*   [Kotlin Multiplatform의 expected 및 actual 선언](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-expect-actual.html) – Kotlin Multiplatform의 expected 및 actual 선언 메커니즘에 대해 알아보세요.
+*   [Kotlin Multiplatform의 expected 및 actual 선언](https://kotlinlang.org/docs/multiplatform/multiplatform-expect-actual.html) – Kotlin Multiplatform의 expected 및 actual 선언 메커니즘에 대해 알아보세요.
 
 ## Kotlin 1.9.20 설치
 

@@ -50,7 +50,7 @@ Kotlin/Native는 [Objective-C를 통한 Swift와의 상호 운용성](native-obj
 
 Kotlin/Native는 프로젝트 간 Kotlin 코드 공유를 돕는 사전 빌드된 [플랫폼 라이브러리](native-platform-libs.md) 세트를 포함합니다. POSIX, gzip, OpenGL, Metal, Foundation 및 기타 여러 인기 라이브러리와 Apple 프레임워크는 컴파일러 패키지에 Kotlin/Native 라이브러리로 미리 임포트되고 포함됩니다.
 
-Kotlin/Native는 Android, iOS, JVM, 웹, 네이티브를 포함한 여러 플랫폼에서 공통 코드를 공유하는 데 도움이 되는 [Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html) 기술의 일부입니다. 멀티플랫폼 라이브러리는 공통 Kotlin 코드에 필요한 API를 제공하고 프로젝트의 공유 부분을 한 곳에서 Kotlin으로 작성할 수 있도록 합니다.
+Kotlin/Native는 Android, iOS, JVM, 웹, 네이티브를 포함한 여러 플랫폼에서 공통 코드를 공유하는 데 도움이 되는 [Kotlin Multiplatform](https://kotlinlang.org/docs/multiplatform/get-started.html) 기술의 일부입니다. 멀티플랫폼 라이브러리는 공통 Kotlin 코드에 필요한 API를 제공하고 프로젝트의 공유 부분을 한 곳에서 Kotlin으로 작성할 수 있도록 합니다.
 
 ## 메모리 관리자
 

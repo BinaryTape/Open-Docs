@@ -1,4 +1,4 @@
-[//]: # (title: Kotlin 1.7 相容性指南)
+[//]: # (title: Kotlin 1.7.0 相容性指南)
 
 _[讓語言保持現代 (Keeping the Language Modern)](kotlin-evolution-principles.md)_ 和 _[舒適的更新 (Comfortable Updates)](kotlin-evolution-principles.md)_ 是 Kotlin 語言設計的根本原則之一。前者指出應移除阻礙語言演進的結構，後者則表示此類移除應事先充分溝通，以使程式碼遷移盡可能順暢。
 
@@ -57,7 +57,7 @@ _[讓語言保持現代 (Keeping the Language Modern)](kotlin-evolution-principl
 > **元件 (Component)**: 核心語言 (Core language)
 >
 > **不相容變更型別 (Incompatible change type)**: 原始碼 (source)
-> 
+>
 > **簡要概述 (Short summary)**: Kotlin 將在顯式或隱式 `super` 呼叫委派給超類別的 _抽象_ 成員時報告編譯錯誤，即使超介面中存在預設實作。
 >
 > **棄用週期 (Deprecation cycle)**:
@@ -181,7 +181,7 @@ _[讓語言保持現代 (Keeping the Language Modern)](kotlin-evolution-principl
 
 ### 棄用編譯器選項 -Xjvm-default 的啟用和相容模式
 
-> **問題 (Issue)**: [KT-46329](https://youtrack.com/issue/KT-46329)
+> **問題 (Issue)**: [KT-46329](https://youtrack.jetbrains.com/issue/KT-46329)
 >
 > **元件 (Component)**: Kotlin/JVM
 >
@@ -387,9 +387,9 @@ _[讓語言保持現代 (Keeping the Language Modern)](kotlin-evolution-principl
 >
 > **簡要概述 (Short summary)**: 移除用於選擇在模組中使用 API 的隱藏 `useExperimentalAnnotation()` Gradle 函數。
 > 可以改用 `optIn()` 函數。
-> 
+>
 > **棄用週期 (Deprecation cycle)**:
-> 
+>
 > - 1.6.0: 隱藏棄用選項
 > - 1.7.0: 移除棄用選項
 

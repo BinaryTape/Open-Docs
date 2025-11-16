@@ -12,14 +12,14 @@ aside: false
         </description>
         <spotlight>
             <a href="quickstart.md" type="cross-platform" summary="设置并运行您的第一个 KMP 项目">Kotlin Multiplatform 快速入门</a>
-            <a href="compose-multiplatform.topic" summary="探索 JetBrains 开发的基于 Kotlin 的声明式多平台 UI 框架" type="creative">Compose Multiplatform</a>
+            <a href="kmp-overview.md" summary="了解 Kotlin Multiplatform 的特性和优势" type="idea">什么是 Kotlin Multiplatform</a>
         </spotlight>
         <primary>
             <title>常见用例</title>
-            <a href="multiplatform-create-first-app.md" summary="了解 Kotlin Multiplatform 并使用 Android Studio 创建一个在 Android 和 iOS 上均可运行的移动应用">共享逻辑但保持原生 UI</a>
             <a href="compose-multiplatform-create-first-app.md" summary="使用 Compose Multiplatform 创建一个在 Android、iOS 和桌面平台之间共享 UI 的应用程序">共享逻辑和 UI</a>
+            <a href="multiplatform-create-first-app.md" summary="了解 Kotlin Multiplatform 并使用 Android Studio 创建一个在 Android 和 iOS 上均可运行的移动应用">共享逻辑但保持原生 UI</a>
             <a href="multiplatform-ktor-sqldelight.md" summary="创建一个在 Android 和 iOS 之间共享数据访问层的多平台应用">共享部分逻辑</a>
-            <a href="multiplatform-integrate-in-existing-app.md" summary="使您的 Android 应用程序在 iOS 上运行">使您的应用多平台化</a>
+            <a href="multiplatform-integrate-in-existing-app.md" summary="将您的 Android 应用程序迁移到适用于 Android 和 iOS 的 Kotlin Multiplatform">使您的应用多平台化</a>
         </primary>
         <secondary>
             <title>Kotlin Multiplatform 技术</title>
@@ -31,7 +31,7 @@ aside: false
         <misc>
             <links narrow="true">
                 <group>
-                    <title>教程与示例</title>
+                    <title>教程 &amp; 示例</title>
                     <a href="quickstart.md" summary="设置并运行您的第一个 KMP 项目">设置并运行您的第一个 KMP 项目</a>
                     <a href="multiplatform-integrate-in-existing-app.md" summary="使您的 Android 应用程序在 iOS 上运行">使您的应用多平台化</a>
                     <a href="multiplatform-run-tests.md" summary="了解如何创建和测试 Kotlin Multiplatform 应用程序">测试您的多平台应用</a>
@@ -48,7 +48,7 @@ aside: false
                     <a href="amper.md" summary="使用 Amper 进行项目配置">Amper 配置工具</a>
                 </group>
                 <group>
-                    <title>社区与帮助</title>
+                    <title>社区 &amp; 帮助</title>
                     <a href="https://kotlinlang.slack.com/archives/C3PQML5NU" summary="Kotlin Slack">加入我们的 Slack 频道</a>
                     <a href="https://stackoverflow.com/questions/tagged/kotlin-multiplatform" summary="订阅 kotlin-multiplatform 标签">在 StackOverflow 上订阅我们的标签</a>
                     <a href="https://youtrack.jetbrains.com/newIssue?project=KT" summary="Kotlin 问题跟踪器">在 YouTrack 中报告问题</a>

@@ -2,13 +2,11 @@
 
 <web-summary>选择最符合您 KMP 经验水平的学习资料。</web-summary>
 
-本指南整理了 Kotlin Multiplatform (KMP) 和 Compose Multiplatform 的关键学习资料。您可以根据技能水平浏览，查找适合您经验的教程、课程和文章。
+我们收集了超过 30 份重要的 Kotlin Multiplatform (KMP) 和 Compose Multiplatform 学习资料。按技能水平浏览，查找适合您经验的教程、课程和文章：
 
-以下是级别描述：
+🌱 **初学者**。通过 JetBrains 和 Google 的官方教程学习 KMP 和 Compose 基础知识。使用 Room、Ktor 和 SQLDelight 等核心库构建简单的应用程序。
 
-🌱 **初学者**。通过 JetBrains 和 Google 的官方教程学习 KMP 和 Compose 的基础知识。使用 Room、Ktor 和 SQLDelight 等核心库构建简单的应用程序。
-
-🌿 **中级**。使用多平台 ViewModel、基于 Koin 的依赖注入和整洁架构开发实际应用。包含 JetBrains 和社区教育者提供的课程。
+🌿 **中级**。使用共享 ViewModel、基于 Koin 的依赖注入和整洁架构开发实际应用。通过 JetBrains 和社区教育者提供的课程进行学习。
 
 🌳 **高级**。深入全规模 KMP 工程，涵盖后端和游戏开发用例，以及大型多团队项目的架构扩展和采纳指南。
 
@@ -78,7 +76,7 @@ JetBrains
 </td>
 
 <td>
-KMP 的核心价值，了解实际用例，并为您的项目找到正确的学习路径。
+KMP 的核心价值，实际用例，并为您的项目找到正确的学习路径。
 </td>
 <td>
 免费
@@ -110,7 +108,7 @@ JetBrains
 免费
 </td>
 <td>
-1-2h
+1–2 h
 </td>
 </tr>
 
@@ -126,17 +124,19 @@ JetBrains
 
 </td>
 <td>
-Google/ Android
+Google
+
+Android
 </td>
 
 <td>
-如何将共享的 KMP 模块添加到现有 Android 项目并将其与 iOS 集成，使用 SKIE 插件从您的 Kotlin 代码生成地道的 Swift API。
+如何将共享 KMP 模块添加到现有 Android 项目并将其与 iOS 集成，使用 SKIE 插件从您的 Kotlin 代码生成地道的 Swift API。
 </td>
 <td>
 免费
 </td>
 <td>
-1-2h
+1–2 h
 </td>
 </tr>
 
@@ -162,7 +162,7 @@ JetBrains
 免费
 </td>
 <td>
-2-3h
+2–3 h
 </td>
 </tr>
 
@@ -188,7 +188,7 @@ JetBrains
 免费
 </td>
 <td>
-4-6h
+4–6 h
 </td>
 </tr>
 
@@ -214,7 +214,7 @@ JetBrains
 免费
 </td>
 <td>
-1-2h
+1–2 h
 </td>
 </tr>
 
@@ -267,10 +267,10 @@ Gumroad
 如何通过掌握 expect/actual 和源代码集等 KMP 基础知识，将您现有的 Android 开发技能扩展到 iOS，然后使用 Ktor (网络通信) 和 Room (持久化) 等现代库构建一个完整的应用栈。
 </td>
 <td>
-付费 (~$60)
+~$60
 </td>
 <td>
-8-12h (进行中)
+8–12 h
 </td>
 </tr>
 
@@ -295,10 +295,10 @@ Udemy
 如何从头开始应用整洁架构和 MVI 来构建一个完整的 KMP 应用程序，集成 Ktor、SQLDelight 和 Koin 等一系列基本库，并结合原生的 Jetpack Compose 和 SwiftUI UI。
 </td>
 <td>
-付费 (€10-20)
+€10–€20
 </td>
 <td>
-6h
+6 h
 </td>
 </tr>
 
@@ -326,7 +326,7 @@ YouTube
 免费
 </td>
 <td>
-20h
+20 h
 </td>
 </tr>
 
@@ -351,10 +351,10 @@ LinkedIn Learning
 如何在 Compose Multiplatform 和原生 UI 之间进行架构选择，理解 Swift 互操作的基础知识，并全面概览 KMP 在网络通信、持久化和依赖注入方面的基本生态系统。
 </td>
 <td>
-付费 (~$30-40/月)
+~$30–$40/month
 </td>
 <td>
-3h
+3 h
 </td>
 </tr>
 
@@ -377,10 +377,10 @@ Kodeco Team (Kevin D. Moore, Carlos Mota, Saeed Taheri)
 通过将原生 UI 连接到 KMP 共享模块，实现网络通信、序列化和持久化来共享代码的基础知识。您还将了解如何应用依赖注入、测试和现代架构来构建可维护且可伸缩的实际应用。
 </td>
 <td>
-付费 (~$60)
+~$60
 </td>
 <td>
-40-60h
+40–60 h
 </td>
 </tr>
 
@@ -410,7 +410,7 @@ JetBrains
 免费
 </td>
 <td>
-2h
+2 h
 </td>
 </tr>
 
@@ -426,7 +426,9 @@ JetBrains
 
 </td>
 <td>
-Google/ Android
+Google
+
+Android
 </td>
 
 <td>
@@ -436,7 +438,7 @@ Google/ Android
 免费
 </td>
 <td>
-2h
+2 h
 </td>
 </tr>
 
@@ -492,7 +494,7 @@ YouTube
 免费
 </td>
 <td>
-5h
+5 h
 </td>
 </tr>
 
@@ -502,7 +504,7 @@ YouTube
 </td>
 <td>
 
-[使用 KMP 构建工业级多平台应用](https://pl-coding.com/kmp/)
+[构建工业级多平台应用](https://pl-coding.com/kmp/)
 
 视频课程
 
@@ -518,10 +520,10 @@ Philipp Lackner
 如何通过在原生 UI (Jetpack Compose & SwiftUI) 之间共享 ViewModel 和业务逻辑来构建一个实际的翻译应用，涵盖从整洁架构到两个平台的单元测试、UI 测试和端到端测试的完整开发生命周期。
 </td>
 <td>
-付费 (~€99)
+~€99
 </td>
 <td>
-20h
+20 h
 </td>
 </tr>
 
@@ -531,7 +533,7 @@ Philipp Lackner
 </td>
 <td>
 
-[构建工业级 Compose Multiplatform Android & iOS 应用](https://pl-coding.com/cmp-mobile)
+[构建工业级 Compose Multiplatform Android 和 iOS 应用](https://pl-coding.com/cmp-mobile)
 
 视频课程
 
@@ -547,10 +549,10 @@ Philipp Lackner
 如何使用完整的 Compose Multiplatform 技术栈从头开始构建一个大型的、离线优先的聊天应用程序，包括 Ktor (实时 WebSocket)、Room (本地持久化) 和 Koin (多模块依赖注入)。
 </td>
 <td>
-付费 (~€199)
+~€199
 </td>
 <td>
-34h
+34 h
 </td>
 </tr>
 
@@ -560,7 +562,7 @@ Philipp Lackner
 </td>
 <td>
 
-[Ultimate Compose Multiplatform: Android/iOS + 测试](https://www.udemy.com/course/ultimate-compose-multiplatform-androidios-testing-kotlin/)
+[Ultimate Compose Multiplatform: Android/iOS 和测试](https://www.udemy.com/course/ultimate-compose-multiplatform-androidios-testing-kotlin/)
 
 视频课程
 
@@ -576,10 +578,10 @@ Udemy
 如何完全使用 Compose Multiplatform 构建一个功能丰富的虚拟加密钱包应用，不仅涵盖核心技术栈 (Ktor, Room, Koin)，还包括健壮的单元/UI 测试和生物识别认证等高级平台集成。
 </td>
 <td>
-付费 (~€20)
+~€20
 </td>
 <td>
-8h
+8 h
 </td>
 </tr>
 <!-- END OF INTERMEDIATE BLOCK -->
@@ -610,7 +612,7 @@ GitHub
 免费
 </td>
 <td>
-2h
+2 h
 </td>
 </tr>
 
@@ -620,7 +622,7 @@ GitHub
 </td>
 <td>
 
-[适用于 Android & iOS 的多模块电商应用 (KMP)](https://www.udemy.com/course/multi-modular-ecommerce-app-for-android-ios-kmp/)
+[适用于 Android 和 iOS 的多模块电商应用 (KMP)](https://www.udemy.com/course/multi-modular-ecommerce-app-for-android-ios-kmp/)
 
 视频课程
 
@@ -635,10 +637,10 @@ Udemy
 完整的产品生命周期，从设计电商应用 Figma UI 到使用 Compose Multiplatform 构建一个完整的、带共享 UI 的多模块应用程序，同时创建并集成一个完整的后端，使用 Firebase 服务实现认证、数据库和自动化 Cloud Functions。
 </td>
 <td>
-付费 (~€50)
+~€50
 </td>
 <td>
-30h
+30 h
 </td>
 </tr>
 
@@ -663,10 +665,10 @@ LinkedIn Learning
 如何构建一个全栈 Kotlin 应用程序，首先创建并将安全的 Ktor 后端部署到 AWS，然后使用 Kotlin Multiplatform 构建带有共享代码的原生客户端来消费您的 API。
 </td>
 <td>
-付费 (~$30-40/月)
+~$30–$40/month
 </td>
 <td>
-2-3h
+2-3 h
 </td>
 </tr>
 
@@ -676,7 +678,7 @@ LinkedIn Learning
 </td>
 <td>
 
-[全栈游戏开发 - Kotlin & Compose Multiplatform](https://www.udemy.com/course/full-stack-game-development-kotlin-compose-multiplatform/)
+[全栈游戏开发 - Kotlin 和 Compose Multiplatform](https://www.udemy.com/course/full-stack-game-development-kotlin-compose-multiplatform/)
 
 视频课程
 
@@ -691,10 +693,10 @@ Udemy
 如何使用 Compose Multiplatform 构建一个完整的 2D 游戏，涵盖物理、碰撞检测、精灵表动画，并将其部署到 Android、iOS、桌面和 Web (通过 Kotlin/Wasm)。
 </td>
 <td>
-付费 (~€99)
+~€99
 </td>
 <td>
-8-10h
+8–10 h
 </td>
 </tr>
 
@@ -704,7 +706,7 @@ Udemy
 </td>
 <td>
 
-[Philipp Lackner 全栈捆绑包: KMP + Spring Boot](https://pl-coding.com/full-stack-bundle)
+[Philipp Lackner 全栈捆绑包: KMP 和 Spring Boot](https://pl-coding.com/full-stack-bundle)
 
 视频课程
 
@@ -720,10 +722,10 @@ Philipp Lackner
 如何架构、构建和部署一个完整的全栈聊天应用程序，涵盖从带有 WebSocket 的多模块 Spring Boot 后端，到离线优先的 Compose Multiplatform 客户端 (Android、iOS、桌面、Web) 和完整的 CI/CD 流水线。
 </td>
 <td>
-付费 (~€429)
+~€429
 </td>
 <td>
-55h
+55 h
 </td>
 </tr>
 
@@ -749,7 +751,7 @@ Touchlab
 免费
 </td>
 <td>
-6-8h
+6–8 h
 </td>
 </tr>
 
@@ -779,7 +781,7 @@ JetBrains
 免费
 </td>
 <td>
-1-2h
+1–2 h
 </td>
 </tr>
 
@@ -805,7 +807,7 @@ JetBrains
 免费
 </td>
 <td>
-2-3h
+2–3 h
 </td>
 </tr>
 
@@ -817,7 +819,7 @@ JetBrains
 
 [使用 Dokka 进行文档编写](https://kotlinlang.org/docs/dokka-introduction.html)
 
-文档/ GitHub
+文档
 
 </td>
 <td>
@@ -831,7 +833,7 @@ JetBrains
 免费
 </td>
 <td>
-2-3h
+2–3 h
 </td>
 </tr>
 
@@ -859,7 +861,7 @@ GitHub
 免费
 </td>
 <td>
-1h
+1 h
 </td>
 </tr>
 
@@ -885,7 +887,7 @@ JetBrains
 免费
 </td>
 <td>
-3-4h
+3–4 h
 </td>
 </tr>
 
@@ -908,10 +910,10 @@ LinkedIn Learning
 创建 KMP 库的完整生命周期，从高效的 API 设计和代码共享策略到最终分发和最佳实践。
 </td>
 <td>
-付费 (~$30-40/月)
+~$30–$40/month
 </td>
 <td>
-2-3h
+2-3 h
 </td>
 </tr>
 

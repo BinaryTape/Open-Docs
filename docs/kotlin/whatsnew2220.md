@@ -180,7 +180,7 @@ kotlin {
 <primary-label ref="experimental-opt-in"/>
 
 > IntelliJ IDEA 中对该特性的代码分析、代码补全和高亮显示支持目前仅在 [2025.3 EAP 构建版](https://www.jetbrains.com/idea/nextversion/)中提供。
->
+> 
 {style = "note"}
 
 在 Kotlin 2.2.20 中，编译器现在允许在 `inline` 函数的 `catch` 子句中使用[具体化泛型类型形参](inline-functions.md#reified-type-parameters)。
@@ -436,7 +436,7 @@ kotlin {
 ```
 
 ## Kotlin/JVM：支持 `invokedynamic` 和 `when` 表达式
-<primary-label ref="experimental-opt-in"/>
+<primary-label ref="experimental-opt-in"/> 
 
 在 Kotlin 2.2.20 中，您现在可以使用 `invokedynamic` 编译 `when` 表达式。此前，带有多个类型检测的 `when` 表达式会编译成字节码中一长串的 `instanceof` 检测。
 
@@ -491,11 +491,11 @@ kotlin {
 Kotlin 2.2.20 为 Kotlin Multiplatform 带来了重大变化：Swift 导出功能默认可用，引入了新的共享源代码集，并且您可以尝试一种管理公共依赖项的新方法。
 
 ### Swift 导出功能默认可用
-<primary-label ref="experimental-general"/>
+<primary-label ref="experimental-general"/> 
 
 Kotlin 2.2.20 引入了对 Swift 导出的实验性支持。它允许您直接导出 Kotlin 源代码并以符合 Swift 习惯的方式调用 Kotlin 代码，无需 Objective-C 头文件。
 
-这应该会显著改善 Apple 目标平台的跨平台开发。例如，如果您有一个具有顶层函数的 Kotlin 模块，Swift 导出功能可以实现清晰、模块特定的导入，从而移除令人困惑的 Objective-C 下划线和名字修饰。
+这应该会显著改善 Apple 目标平台的跨平台开发。例如，如果您有一个具有顶层函数的 Kotlin 模块，Swift 导出功能可以实现清晰、模块特有的导入，从而移除令人困惑的 Objective-C 下划线和名字修饰。
 
 主要特性包括：
 
@@ -509,7 +509,7 @@ Kotlin 2.2.20 引入了对 Swift 导出的实验性支持。它允许您直接�
 
 #### 如何启用 Swift 导出
 
-此特性目前是[实验性的](components-stability.md#stability-levels-explained)，并且仅适用于使用[直接集成](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-direct-integration.html)将 iOS framework 连接到 Xcode 项目的项目。这是使用 IntelliJ IDEA 中的 Kotlin Multiplatform 插件或通过[网页向导](https://kmp.jetbrains.com/)创建的多平台项目的标准配置。
+此特性目前是[实验性的](components-stability.md#stability-levels-explained)，并且仅适用于使用[直接集成](https://kotlinlang.org/docs/multiplatform/multiplatform-direct-integration.html)将 iOS framework 连接到 Xcode 项目的项目。这是使用 IntelliJ IDEA 中的 Kotlin Multiplatform 插件或通过[网页向导](https://kmp.jetbrains.com/)创建的多平台项目的标准配置。
 
 要试用 Swift 导出功能，请配置您的 Xcode 项目：
 
@@ -571,7 +571,7 @@ suspend fun readCopiedText(): String {
 }
 ```
 
-从此版本开始，当您使用[默认层级模板](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-hierarchy.html#default-hierarchy-template)时，Kotlin Gradle 插件会添加一个新的 Web 共享源代码集（包含 `webMain` 和 `webTest`）。
+从此版本开始，当您使用[默认层级模板](https://kotlinlang.org/docs/multiplatform/multiplatform-hierarchy.html#default-hierarchy-template)时，Kotlin Gradle 插件会添加一个新的 Web 共享源代码集（包含 `webMain` 和 `webTest`）。
 
 通过此更改，`web` 源代码集成为 `js` 和 `wasmJs` 源代码集的父级。更新后的源代码集层级结构如下：
 
@@ -606,7 +606,7 @@ actual suspend fun readCopiedText(): String {
 *   如果您是库作者，并且希望在不复制代码的情况下支持 `js` 和 `wasmJs` 目标平台。
 *   如果您正在开发面向 Web 的 Compose Multiplatform 应用程序，可以为 `js` 和 `wasmJs` 目标平台启用交叉编译，以实现更广泛的浏览器兼容性。鉴于这种回退模式，当您创建网站时，它可以在所有浏览器上开箱即用，因为现代浏览器使用 `wasmJs`，而旧版浏览器使用 `js`。
 
-要试用此特性，请在您的 `build.gradle(.kts)` 文件中的 `kotlin {}` 代码块中使用[默认层级模板](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-hierarchy.html#default-hierarchy-template)：
+要试用此特性，请在您的 `build.gradle(.kts)` 文件中的 `kotlin {}` 代码块中使用[默认层级模板](https://kotlinlang.org/docs/multiplatform/multiplatform-hierarchy.html#default-hierarchy-template)：
 
 ```kotlin
 kotlin {
@@ -624,17 +624,17 @@ kotlin {
 
 Kotlin 2.2.20 完成了一项重要的[路线图项](https://youtrack.jetbrains.com/issue/KT-71290)，稳定了 Kotlin 库的跨平台编译。
 
-您现在可以使用任何主机来生成 `.klib` 构件以发布 Kotlin 库。这显著简化了发布过程，特别是对于以前需要 Mac 机器的 Apple 目标平台。
+您现在可以使用任何主机来生成 `.klib` artifact 以发布 Kotlin 库。这显著简化了发布过程，特别是对于以前需要 Mac 机器的 Apple 目标平台。
 
 此特性默认可用。如果您已经使用 `kotlin.native.enableKlibsCrossCompilation=true` 启用了交叉编译，现在可以从 `gradle.properties` 文件中移除它。
 
 不幸的是，仍然存在一些限制。在以下情况下，您仍然需要使用 Mac 机器：
 
 *   您的库或任何依赖模块具有 [cinterop 依赖项](native-c-interop.md)。
-*   您已在项目中设置了 [CocoaPods 集成](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-cocoapods-overview.html)。
-*   您需要为 Apple 目标平台[构建或测试最终二进制文件](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-build-native-binaries.html)。
+*   您已在项目中设置了 [CocoaPods 集成](https://kotlinlang.org/docs/multiplatform/multiplatform-cocoapods-overview.html)。
+*   您需要为 Apple 目标平台[构建或测试最终二进制文件](https://kotlinlang.org/docs/multiplatform/multiplatform-build-native-binaries.html)。
 
-有关多平台库发布的更多信息，请参见我们的[文档](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-publish-lib-setup.html)。
+有关多平台库发布的更多信息，请参见我们的[文档](https://kotlinlang.org/docs/multiplatform/multiplatform-publish-lib-setup.html)。
 
 ### 声明公共依赖项的新方法
 <primary-label ref="experimental-opt-in"/>
@@ -666,7 +666,7 @@ Kotlin 2.2.20 引入了一项新的诊断，清晰显示每个依赖项支持哪
 
 | 属性                                                     | 描述                                     |
 |:---------------------------------------------------------|:-----------------------------------------|
-| `kotlin.kmp.eagerUnresolvedDependenciesDiagnostic=false` | 仅对元数据编译和导入运行诊断               |
+| `kotlin.kmp.eagerUnresolvedDependenciesDiagnostic=false` | 仅对元数据编译项和导入运行诊断               |
 | `kotlin.kmp.unresolvedDependenciesDiagnostic=false`      | 完全禁用此诊断                           |
 
 ## Kotlin/Native
@@ -698,7 +698,7 @@ kotlin.native.binary.stackProtector=yes
 请注意，在某些情况下，栈保护可能会带来性能开销。
 
 ### 减小发布二进制文件大小
-<primary-label ref="experimental-opt-in"/>
+<primary-label ref="experimental-opt-in"/> 
 
 Kotlin 2.2.20 引入了 `smallBinary` 选项，可以帮助您减小发布二进制文件的大小。新选项有效地将 `-Oz` 设置为 LLVM 编译阶段编译器默认的优化实参。
 
@@ -714,7 +714,7 @@ Kotlin 团队感谢 [Troels Lund](https://github.com/troelsbjerre) 对此特性�
 
 ### 改进的调试器对象摘要
 
-Kotlin/Native 现在为 LLDB 和 GDB 等调试工具生成更清晰的对象摘要。这提高了生成的调试信息的可读性，并简化了您的调试体验。
+Kotlin/Native 现在为 LLDB 和 GDB 等调试工具生成更清晰的对象摘要。这提高了生成的调试信息的阅读性，并简化了您的调试体验。
 
 例如，考虑以下对象：
 
@@ -845,7 +845,7 @@ Apple 在几年前停止生产配备 Intel 芯片的设备，并且[最近宣布
 
 这使得我们越来越难以在构建代理上正确测试这些目标平台，尤其是在未来的 Kotlin 版本中，我们将更新 macOS 26 附带的受支持 Xcode 版本。
 
-从 Kotlin 2.2.20 开始，`macosX64` 和 `iosX64` 目标平台被降级到支持层级 2。这意味着目标平台会在 CI 上定期测试以确保其能够编译，但可能不会自动测试以确保其能够运行。
+从 Kotlin 2.2.20 开始，`macosX64` 和 `iosX64` 目标平台被降级到支持层级 2。这意味着目标平台会在 CI 上定期检测以确保其能够编译，但可能不会自动检测以确保其能够运行。
 
 我们计划在 Kotlin 2.2.20−2.4.0 发布周期内逐步弃用所有 `x86_64` Apple 目标平台，并最终移除对其支持。这包括以下目标平台：
 
@@ -1115,7 +1115,7 @@ kotlin.incremental.jvm.fir=true
 
 Kotlin 2.2.20 添加了新的 Gradle 任务，使库发布更加容易。这些任务可帮助您生成密钥对、上传公钥，并运行本地检测以确保验证过程成功，然后再上传到 Maven Central 版本库。
 
-有关如何将这些任务作为发布过程的一部分使用的更多信息，请参见[将您的库发布到 Maven Central](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-publish-libraries.html)。
+有关如何将这些任务作为发布过程的一部分使用的更多信息，请参见[将您的库发布到 Maven Central](https://kotlinlang.org/docs/multiplatform/multiplatform-publish-libraries.html)。
 
 #### 用于生成和上传 PGP 密钥的新 Gradle 任务
 
@@ -1132,7 +1132,7 @@ Kotlin 2.2.20 添加了新的 Gradle 任务，使库发布更加容易。这些�
 该任务将密钥对存储在 `build/pgp` 目录中。
 
 > 将您的密钥对移动到安全位置，以防止意外删除或未经授权的访问。
->
+> 
 {style="warning"}
 
 ##### 上传公钥
@@ -1187,7 +1187,7 @@ Kotlin 2.2.20 还引入了一个新的 `jvmArgs` 属性，您可以使用它来�
 
 ## Kotlin 编译器选项的新通用 Schema
 
-Kotlin 2.2.20 引入了所有编译器选项的通用 Schema，发布在 [`org.jetbrains.kotlin:kotlin-compiler-arguments-description`](https://central.sonatype.com/artifact/org.jetbrains.kotlin/kotlin-compiler-arguments-description) 下。此构件包括所有编译器选项的代码表示和 JSON 等效形式（适用于非 JVM 消费者）、其描述以及元数据，例如每个选项被引入或稳定的版本。您可以使用此 Schema 生成自定义视图或根据需要分析它们。
+Kotlin 2.2.20 引入了所有编译器选项的通用 Schema，发布在 [`org.jetbrains.kotlin:kotlin-compiler-arguments-description`](https://central.sonatype.com/artifact/org.jetbrains.kotlin/kotlin-compiler-arguments-description) 下。此 artifact 包括所有编译器选项的代码表示和 JSON 等效形式（适用于非 JVM 消费者）、其描述以及元数据，例如每个选项被引入或稳定的版本。您可以使用此 Schema 生成自定义视图或根据需要分析它们。
 
 ## 标准库
 

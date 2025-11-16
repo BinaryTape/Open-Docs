@@ -54,18 +54,18 @@ Gradle 프로젝트에서 K2를 활성화하면 특정 제한 사항이 발생�
 
 *   `buildSrc`, 모든 Gradle 플러그인 및 해당 종속성에 대한 언어 버전을 설정합니다.
 
-    ```kotlin
-    kotlin {
-        compilerOptions {
-            languageVersion.set(org.jetbrains.kotlin.gradle.dsl.KotlinVersion.KOTLIN_1_9)
-            apiVersion.set(org.jetbrains.kotlin.gradle.dsl.KotlinVersion.KOTLIN_1_9)
-        }
-    }
-    ```
+  ```kotlin
+  kotlin {
+      compilerOptions {
+          languageVersion.set(org.jetbrains.kotlin.gradle.dsl.KotlinVersion.KOTLIN_1_9)
+          apiVersion.set(org.jetbrains.kotlin.gradle.dsl.KotlinVersion.KOTLIN_1_9)
+      }
+  }
+  ```
 
-    > 특정 태스크에 대해 언어 및 API 버전을 구성하는 경우, 이 값들은 `compilerOptions` 확장에 의해 설정된 값을 재정의합니다. 이 경우 언어 및 API 버전은 1.9보다 높아서는 안 됩니다.
-    >
-    {style="note"}
+  > 특정 태스크에 대해 언어 및 API 버전을 구성하는 경우, 이 값들은 `compilerOptions` 확장에 의해 설정된 값을 재정의합니다. 이 경우 언어 및 API 버전은 1.9보다 높아서는 안 됩니다.
+  >
+  {style="note"}
 
 *   프로젝트의 Gradle 버전을 8.3 이상으로 업데이트합니다.
 
@@ -338,7 +338,7 @@ Kotlin 2.0.0에서는 K2 컴파일러와 관련하여 Kotlin Multiplatform의 �
 
 이전에는 Kotlin 컴파일러의 설계로 인해 컴파일 시점에 공통 및 플랫폼 소스 세트를 분리할 수 없었습니다. 그 결과, 공통 코드가 플랫폼 코드에 접근하여 플랫폼 간에 다른 동작을 초래했습니다. 또한, 공통 코드의 일부 컴파일러 설정 및 종속성이 플랫폼 코드로 누출되곤 했습니다.
 
-Kotlin 2.0.0에서는 새로운 Kotlin K2 컴파일러 구현에 컴파일 스키마를 재설계하여 공통 및 플랫폼 소스 세트 간의 엄격한 분리를 보장했습니다. 이 변경 사항은 [expected 및 actual 함수](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-expect-actual.html#expected-and-actual-functions)를 사용할 때 가장 두드러집니다. 이전에는 공통 코드의 함수 호출이 플랫폼 코드의 함수로 해결될 수 있었습니다. 예를 들어:
+Kotlin 2.0.0에서는 새로운 Kotlin K2 컴파일러 구현에 컴파일 스키마를 재설계하여 공통 및 플랫폼 소스 세트 간의 엄격한 분리를 보장했습니다. 이 변경 사항은 [expected 및 actual 함수](https://kotlinlang.org/docs/multiplatform/multiplatform-expect-actual.html#expected-and-actual-functions)를 사용할 때 가장 두드러집니다. 이전에는 공통 코드의 함수 호출이 플랫폼 코드의 함수로 해결될 수 있었습니다. 예를 들어:
 
 <table>
    <tr>
@@ -378,7 +378,7 @@ fun foo(x: Int) = println("platform foo")
 
 Kotlin 2.0.0에서는 공통 코드가 플랫폼 코드에 접근할 수 없으므로, 두 플랫폼 모두 `foo()` 함수를 공통 코드의 `foo()` 함수(`common foo`)로 성공적으로 해결합니다.
 
-플랫폼 전반에 걸친 동작의 일관성 향상 외에도, IntelliJ IDEA 또는 Android Studio와 컴파일러 간에 동작이 충돌하는 경우를 수정하기 위해 노력했습니다. 예를 들어, [expected 및 actual 클래스](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-expect-actual.html#expected-and-actual-classes)를 사용했을 때 다음과 같은 일이 발생했습니다.
+플랫폼 전반에 걸친 동작의 일관성 향상 외에도, IntelliJ IDEA 또는 Android Studio와 컴파일러 간에 동작이 충돌하는 경우를 수정하기 위해 노력했습니다. 예를 들어, [expected 및 actual 클래스](https://kotlinlang.org/docs/multiplatform/multiplatform-expect-actual.html#expected-and-actual-classes)를 사용했을 때 다음과 같은 일이 발생했습니다.
 
 <table>
    <tr>
@@ -472,7 +472,7 @@ fun whichFun(x: Int) = println("platform function")
 
 #### expected 및 actual 선언의 다른 가시성 수준
 
-Kotlin 2.0.0 이전에는 Kotlin Multiplatform 프로젝트에서 [expected 및 actual 선언](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-expect-actual.html)을 사용하면 동일한 [가시성 수준](visibility-modifiers.md)을 가져야 했습니다. Kotlin 2.0.0은 이제 다른 가시성 수준도 지원하지만, 실제 선언이 예상 선언보다 _더_ 관대할 때만 가능합니다. 예를 들어:
+Kotlin 2.0.0 이전에는 Kotlin Multiplatform 프로젝트에서 [expected 및 actual 선언](https://kotlinlang.org/docs/multiplatform/multiplatform-expect-actual.html)을 사용하면 동일한 [가시성 수준](visibility-modifiers.md)을 가져야 했습니다. Kotlin 2.0.0은 이제 다른 가시성 수준도 지원하지만, 실제 선언이 예상 선언보다 _더_ 관대할 때만 가능합니다. 예를 들어:
 
 ```kotlin
 expect internal class Attribute // 가시성은 internal
@@ -674,7 +674,7 @@ Objective-C 메서드는 이름은 다르지만, 동일한 수와 타입의 파�
 
 이전에는 Kotlin/Native 컴파일러가 표준 라이브러리 및 플랫폼 종속성을 암시적으로 해결하여 Kotlin Gradle 플러그인이 Kotlin 타겟 전반에 걸쳐 작동하는 방식에 불일치를 초래했습니다.
 
-이제 각 Kotlin/Native Gradle 컴파일은 `compileDependencyFiles` [컴파일 파라미터](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-dsl-reference.html#compilation-parameters)를 통해 표준 라이브러리 및 플랫폼 종속성을 컴파일 시간 라이브러리 경로에 명시적으로 포함합니다.
+이제 각 Kotlin/Native Gradle 컴파일은 `compileDependencyFiles` [컴파일 파라미터](https://kotlinlang.org/docs/multiplatform/multiplatform-dsl-reference.html#compilation-parameters)를 통해 표준 라이브러리 및 플랫폼 종속성을 컴파일 시간 라이브러리 경로에 명시적으로 포함합니다.
 
 ### Gradle 구성 캐시의 태스크 오류
 
@@ -1118,7 +1118,7 @@ kotlin {
 
 프로젝트에서 새로운 Compose 컴파일러를 사용하려면 `build.gradle(.kts)` 파일에 `org.jetbrains.kotlin.plugin.compose` Gradle 플러그인을 적용하고 버전을 Kotlin 2.0.0과 동일하게 설정하세요.
 
-이 변경 사항에 대해 자세히 알아보고 마이그레이션 지침을 보려면 [Compose 컴파일러](https://www.jetbrains.com/help/kotlin-multiplatform-dev/compose-compiler.html) 문서를 참조하세요.
+이 변경 사항에 대해 자세히 알아보고 마이그레이션 지침을 보려면 [Compose 컴파일러](https://kotlinlang.org/docs/multiplatform/compose-compiler.html) 문서를 참조하세요.
 
 ### JVM 및 Android 게시 라이브러리를 구별하는 새로운 속성
 

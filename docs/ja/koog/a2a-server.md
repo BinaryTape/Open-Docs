@@ -35,6 +35,7 @@ A2Aサーバーは、A2Aプロトコルのトランスポート層とカスタ�
 - メッセージ送信、タスククエリ、キャンセル、プッシュ通知といったすべてのプロトコル操作を**処理します**
 
 `A2AServer` は2つの必須パラメータを受け取ります。
+
 * エージェントのビジネスロジック実装を定義する `AgentExecutor`
 * エージェントの機能とメタデータを定義する `AgentCard`
 
@@ -66,6 +67,7 @@ class MyAgentExecutor : AgentExecutor {
 `RequestContext` は、現在のセッションの `contextId` と `taskId`、送信された `message`、リクエストの `params` など、現在のリクエストに関する豊富な情報を提供します。
 
 `SessionEventProcessor` はクライアントと通信します。
+
 - **`sendMessage(message)`**: 即時応答を送信します (チャット形式の対話)
 - **`sendTaskEvent(event)`**: タスク関連の更新を送信します (長時間実行される操作)
 

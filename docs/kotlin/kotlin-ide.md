@@ -55,5 +55,5 @@ JetBrains 不为其他 IDE 提供 Kotlin 插件。
 
 ## 下一步？
 
-* [使用 IntelliJ IDEA IDE 启动你的第一个项目](jvm-get-started.md)
-* [使用 Android Studio 创建你的第一个跨平台移动应用](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-create-first-app.html)
+* [在 IntelliJ IDEA 中创建控制台应用程序](jvm-get-started.md)
+* [使用 Android Studio 创建你的第一个跨平台移动应用](https://kotlinlang.org/docs/multiplatform/multiplatform-create-first-app.html)

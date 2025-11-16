@@ -24,7 +24,7 @@ Kotlin 更簡潔。粗略估計，程式碼行數約可減少 40%。它也更型
  
 ### Kotlin 與 Java 程式語言相容嗎？
 
-是的。Kotlin 與 Java 程式語言 100% 互通，並且主要重點是確保您現有的程式碼庫能與 Kotlin 正確互動。您可以輕鬆地從 [Java 呼叫 Kotlin 程式碼](java-to-kotlin-interop.md) 以及從 [Kotlin 呼叫 Java 程式碼](java-interop.md)。這使得採用更容易、風險更低。IDE 中也內建了自動化的 [Java 轉 Kotlin 轉換器](mixing-java-kotlin-intellij.md#converting-an-existing-java-file-to-kotlin-with-j2k)，簡化了現有程式碼的遷移。
+是的。Kotlin 與 Java 程式語言 100% 互通，並且主要重點是確保您現有的程式碼庫能與 Kotlin 正確互動。您可以輕鬆地從 [Java 呼叫 Kotlin 程式碼](java-to-kotlin-interop.md) 以及從 [Kotlin 呼叫 Java 程式碼](java-interop.md)。這使得採用更容易、風險更低。IDE 中也內建了自動化的 [Java 轉 Kotlin 轉換器](mixing-java-kotlin-intellij.md#convert-java-files-to-kotlin)，簡化了現有程式碼的遷移。
 
 ### Kotlin 可以用來做什麼？
 

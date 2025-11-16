@@ -1,4 +1,4 @@
-[//]: # (title: Kotlin 2.1 相容性指南)
+[//]: # (title: Kotlin 2.1.x 相容性指南)
 
 _[保持語言現代化](kotlin-evolution-principles.md)_ 和 _[舒適的更新](kotlin-evolution-principles.md)_ 是 Kotlin 語言設計的根本原則。前者指出，阻礙語言演進的建構應予移除，後者則要求此類移除必須事先充分溝通，以使程式碼遷移盡可能順暢。
 
@@ -118,7 +118,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_ 和 _[舒適的更新]
 >
 > - 2.1.0：啟用新行為
 
-### 更正覆寫 `protected val` 的 `var` 屬性之 getter 和 setter 的可見性對齊
+### 更正覆寫 `protected val` 屬性的 `var` 屬性之 getter 和 setter 的可見性對齊
 
 > **問題**：[KTLC-36](https://youtrack.jetbrains.com/issue/KTLC-36)
 >

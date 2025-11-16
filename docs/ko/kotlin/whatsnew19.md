@@ -483,7 +483,7 @@ Kotlin 1.9.0부터 새로운 Android 소스 세트 레이아웃이 기본으로 
 * Gradle 구성에 대한 명확한 명명 스키마 – 이제 `KotlinSourceSets` 및 `AndroidSourceSets` 모두에서 스키마가 더욱 일관되고 예측 가능해졌습니다.
 
 새로운 레이아웃은 Android Gradle 플러그인 버전 7.0 이상을 필요로 하며 Android Studio 2022.3 이상에서 지원됩니다. `build.gradle(.kts)` 파일에
-필요한 변경 사항을 적용하려면 [마이그레이션 가이드](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-android-layout.html)를 참조하세요.
+필요한 변경 사항을 적용하려면 [마이그레이션 가이드](https://kotlinlang.org/docs/multiplatform/multiplatform-android-layout.html)를 참조하세요.
 
 ### 멀티플랫폼 프로젝트에서 Gradle 설정 캐시 미리 보기
 
@@ -496,7 +496,7 @@ Gradle 설정 캐시는 설정 단계의 결과를 후속 빌드에서 재사용
 안정화되었습니다. 이를 활성화하려면 [Gradle 문서](https://docs.gradle.org/current/userguide/configuration_cache.html#config_cache:usage)의 지침을 따르세요.
 
 > Kotlin Multiplatform 플러그인은 Xcode 통합 작업 또는
-> [Kotlin CocoaPods Gradle 플러그인](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-cocoapods-dsl-reference.html)과 함께 Gradle 설정 캐시를 아직 지원하지 않습니다.
+> [Kotlin CocoaPods Gradle 플러그인](https://kotlinlang.org/docs/multiplatform/multiplatform-cocoapods-dsl-reference.html)과 함께 Gradle 설정 캐시를 아직 지원하지 않습니다.
 > 이 기능은 향후 Kotlin 릴리스에서 추가될 예정입니다.
 >
 {style="note"}
@@ -592,7 +592,7 @@ fun computeAck(m: Int, n: Int) {
 * [외부 enum 사용 중단](#deprecation-of-external-enum)
 * [ES2015 클래스 및 모듈에 대한 실험적 지원](#experimental-support-for-es2015-classes-and-modules)
 * [JS 프로덕션 배포의 기본 대상 변경](#changed-default-destination-of-js-production-distribution)
-* [stdlib-js에서 org.w3c 선언 추출](#extract-org.w3c-declarations-from-stdlib-js)
+* [stdlib-js에서 org.w3c 선언 추출](#extract-org-w3c-declarations-from-stdlib-js)
 
 > 버전 1.9.0부터 [부분 라이브러리 연결(partial library linkage)](#library-linkage-in-kotlin-native)도 Kotlin/JS에 대해 활성화됩니다.
 >
@@ -614,7 +614,7 @@ Kotlin 1.9.0부터 `kotlin-js` Gradle 플러그인은
 Kotlin/JS Gradle 플러그인의 기능은 본질적으로 `kotlin-multiplatform` 플러그인과 중복되었으며 내부적으로 동일한
 구현을 공유했습니다. 이러한 중복은 혼란을 야기하고 Kotlin 팀의 유지 보수 부담을 증가시켰습니다.
 
-마이그레이션 지침은 [Kotlin Multiplatform 호환성 가이드](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-compatibility-guide.html#migration-from-kotlin-js-gradle-plugin-to-kotlin-multiplatform-gradle-plugin)를
+마이그레이션 지침은 [Kotlin Multiplatform 호환성 가이드](https://kotlinlang.org/docs/multiplatform/multiplatform-compatibility-guide.html#migration-from-kotlin-js-gradle-plugin-to-kotlin-multiplatform-gradle-plugin)를
 참조하세요. 가이드에 포함되지 않은 문제가 발견되면 [이슈 트래커](http://kotl.in/issue)에 보고해 주세요.
 
 ### 외부 enum 사용 중단
@@ -652,12 +652,12 @@ Kotlin 1.9.0부터 외부 enum의 사용은 사용 중단으로 표시됩니다.
 // build.gradle.kts
 kotlin {
     js(IR) {
-        useEsModules() // ES2015 모듈 활성화
+        useEsModules() // Enables ES2015 modules
         browser()
     }
 }
 
-// ES2015 클래스 생성 활성화
+// Enables ES2015 classes generation
 tasks.withType<KotlinJsCompile>().configureEach {
     kotlinOptions {
         useEsClasses = true
@@ -1173,8 +1173,8 @@ println("0x3a".hexToInt(HexFormat { number.prefix = "0x" })) // "58"
 
 Kotlin 문서는 몇 가지 주목할 만한 변경 사항을 받았습니다:
 * [Kotlin 둘러보기(tour of Kotlin)](kotlin-tour-welcome.md) – 이론과 실습을 포함한 챕터로 Kotlin 프로그래밍 언어의 기본을 배웁니다.
-* [Android 소스 세트 레이아웃](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-android-layout.html) – 새로운 Android 소스 세트 레이아웃에 대해 배웁니다.
-* [Kotlin Multiplatform 호환성 가이드](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-compatibility-guide.html) – Kotlin Multiplatform으로 프로젝트를 개발할 때 발생할 수 있는 호환되지 않는 변경 사항에 대해 배웁니다.
+* [Android 소스 세트 레이아웃](https://kotlinlang.org/docs/multiplatform/multiplatform-android-layout.html) – 새로운 Android 소스 세트 레이아웃에 대해 배웁니다.
+* [Kotlin Multiplatform 호환성 가이드](https://kotlinlang.org/docs/multiplatform/multiplatform-compatibility-guide.html) – Kotlin Multiplatform으로 프로젝트를 개발할 때 발생할 수 있는 호환되지 않는 변경 사항에 대해 배웁니다.
 * [Kotlin Wasm](wasm-overview.md) – Kotlin/Wasm과 Kotlin Multiplatform 프로젝트에서 이를 사용하는 방법에 대해 배웁니다.
 
 ## Kotlin 1.9.0 설치

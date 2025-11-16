@@ -9,7 +9,7 @@ Kotlin 멀티플랫폼 프로젝트는 아티팩트를 생성하기 위해 컴�
 
 ![Compilations](compilations.svg)
 
-프로덕션 코드 및 단위 테스트 외에 통합 테스트 또는 성능 테스트와 같은 다른 것을 컴파일해야 하는 경우, [사용자 지정 컴필레이션을 생성](#create-a-custom-compilation)할 수 있습니다.
+프로덕션 코드 및 단위 테스트 외에, 예를 들어 통합 테스트 또는 성능 테스트와 같은 다른 것을 컴파일해야 하는 경우, [사용자 지정 컴필레이션을 생성](#create-a-custom-compilation)할 수 있습니다.
 
 아티팩트가 생성되는 방법을 다음에서 구성할 수 있습니다:
 
@@ -124,7 +124,7 @@ kotlin {
 
 사용자 지정 컴필레이션의 경우 모든 의존성을 수동으로 설정해야 합니다. 사용자 지정 컴필레이션의 기본 소스 세트는 `commonMain` 및 `commonTest` 소스 세트에 의존하지 않습니다.
 
-예를 들어, `jvm` 타겟의 통합 테스트를 위한 사용자 지정 컴필레이션을 생성하려면, `integrationTest` 및 `main` 컴필레이션 사이에 `associateWith` 관계를 설정합니다:
+예를 들어, `jvm` 타겟의 통합 테스트를 위한 사용자 지정 컴필레이션을 생성하려면, `integrationTest` 및 `main` 컴필레이션 사이에 [`associateWith`](https://kotlinlang.org/docs/gradle-configure-project.html#associate-compiler-tasks) 관계를 설정합니다:
 
 <Tabs group="build-script">
 <TabItem title="Kotlin" group-key="kotlin">
@@ -195,13 +195,13 @@ kotlin {
 
 ## JVM용 컴필레이션
 
-멀티플랫폼 프로젝트에 `jvm` 타겟을 선언하면 Kotlin Multiplatform 플러그인은 자동으로 Java 소스 세트를 생성하고 이를 JVM 타겟의 컴필레이션에 포함합니다.
+멀티플랫폼 프로젝트에 `jvm` 타겟을 선언하면 Kotlin Multiplatform Gradle 플러그인은 자동으로 Java 소스 세트를 생성하고 이를 JVM 타겟의 컴필레이션에 포함합니다.
 
 공통 소스 세트에는 Java 리소스가 포함될 수 없으므로, 해당 리소스를 멀티플랫폼 프로젝트의 해당 하위 디렉터리에 배치해야 합니다. 예를 들어:
 
 ![Java source files](java-source-paths.png){width=200}
 
-현재 Kotlin Multiplatform 플러그인은 Java 플러그인에 의해 구성된 일부 태스크를 대체합니다:
+현재 Kotlin Multiplatform Gradle 플러그인은 Java 플러그인에 의해 구성된 일부 태스크를 대체합니다:
 
 *   JAR 태스크: 표준 `jar` 대신, 아티팩트 이름에 기반한 타겟별 태스크를 사용합니다. 예를 들어, `jvm()` 타겟 선언의 경우 `jvmJar`, `jvm("desktop")`의 경우 `desktopJar`와 같습니다.
 *   테스트 태스크: 표준 `test` 대신, 아티팩트 이름에 기반한 타겟별 태스크를 사용합니다. 예를 들어, `jvmTest`와 같습니다.
@@ -268,7 +268,7 @@ kotlin {
 </TabItem>
 </Tabs>
 
-이 타겟은 Kotlin Multiplatform 플러그인에 의해 게시되며 Java 플러그인에 특정한 단계는 필요하지 않습니다.
+이 타겟은 Kotlin Multiplatform Gradle 플러그인에 의해 게시되며 Java 플러그인에 특정한 단계는 필요하지 않습니다.
 
 ## 네이티브 언어와의 상호 운용성 구성
 
@@ -401,10 +401,7 @@ Kotlin은 `dependsOn` 관계로 [소스 세트 계층](multiplatform-share-on-pl
 
 ## Gradle의 Isolated Projects 기능 구성
 
-> 이 기능은 [실험적](supported-platforms.md#general-kotlin-stability-levels)이며 현재 Gradle에서 프리 알파(pre-alpha) 상태입니다.
-> Gradle 버전 8.10 이상에서만 평가 목적으로 사용하세요. 이 기능은 언제든지 제거되거나 변경될 수 있습니다.
-> [YouTrack](https://youtrack.jetbrains.com/issue/KT-57279/Support-Gradle-Project-Isolation-Feature-for-Kotlin-Multiplatform)에 대한 귀하의 피드백을 환영합니다.
-> 옵트인(Opt-in)이 필요합니다(자세한 내용은 아래 참조).
+> 이 기능은 [실험적](supported-platforms.md#general-kotlin-stability-levels)이며 현재 Gradle에서 프리 알파(pre-alpha) 상태입니다. Gradle 버전 8.10 이상에서만 평가 목적으로 사용하세요. 이 기능은 언제든지 제거되거나 변경될 수 있습니다. [YouTrack](https://youtrack.jetbrains.com/issue/KT-57279/Support-Gradle-Project-Isolation-Feature-for-Kotlin-Multiplatform)에 대한 귀하의 피드백을 환영합니다. 옵트인(Opt-in)이 필요합니다(자세한 내용은 아래 참조).
 > 
 {style="warning"}
 

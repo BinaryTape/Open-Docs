@@ -1,7 +1,7 @@
 [//]: # (title: 프로퍼티)
 
 Kotlin에서 프로퍼티는 데이터에 접근하거나 데이터를 변경하는 함수를 작성하지 않고도 데이터를 저장하고 관리할 수 있도록 해줍니다.
-프로퍼티는 [클래스](classes.md), [인터페이스](interfaces.md), [객체](object-declarations.md), [동반 객체](object-declarations.md#companion-objects) 내에서 사용할 수 있으며,
+[클래스](classes.md), [인터페이스](interfaces.md), [객체](object-declarations.md), [동반 객체](object-declarations.md#companion-objects) 내에서 프로퍼티를 사용할 수 있으며,
 이러한 구조 외부에서 최상위 프로퍼티로도 사용할 수 있습니다.
 
 모든 프로퍼티에는 이름, 타입, 그리고 게터라고 불리는 자동으로 생성된 `get()` 함수가 있습니다. 게터를 사용하여
@@ -29,25 +29,25 @@ var counter = 0
 클래스, 인터페이스 또는 객체 내에서도 프로퍼티를 선언할 수 있습니다.
 
 ```kotlin
-// Class with properties
+// 클래스에 프로퍼티
 class Address {
     var name: String = "Holmes, Sherlock"
     var street: String = "Baker"
     var city: String = "London"
 }
 
-// Interface with a property
+// 인터페이스에 프로퍼티
 interface ContactInfo {
     val email: String
 }
 
-// Object with properties
+// 객체에 프로퍼티
 object Company {
     var name: String = "Detective Inc."
     val country: String = "UK"
 }
 
-// Class implementing the interface
+// 인터페이스를 구현하는 클래스
 class PersonContact : ContactInfo {
     override val email: String = "sherlock@example.com"
 }
@@ -78,7 +78,7 @@ class PersonContact : ContactInfo {
 //sampleStart
 fun copyAddress(address: Address): Address {
     val result = Address()
-    // Accesses properties in the result instance
+    // 결과 인스턴스의 프로퍼티에 접근
     result.name = address.name
     result.street = address.street
     result.city = address.city
@@ -88,18 +88,18 @@ fun copyAddress(address: Address): Address {
 fun main() {
     val sherlockAddress = Address()
     val copy = copyAddress(sherlockAddress)
-    // Accesses properties in the copy instance
+    // 복사 인스턴스의 프로퍼티에 접근
     println("Copied address: ${copy.name}, ${copy.street}, ${copy.city}")
     // Copied address: Holmes, Sherlock, Baker, London
 
-    // Accesses properties in the Company object
+    // Company 객체의 프로퍼티에 접근
     println("Company: ${Company.name} in ${Company.country}")
     // Company: Detective Inc. in UK
     
     val contact = PersonContact()
-    // Access properties in the contact instance
+    // contact 인스턴스의 프로퍼티에 접근
     println("Email: ${contact.email}")
-    // Email: sherlock@email.com
+    // Email: sherlock@example.com
 }
 //sampleEnd
 ```
@@ -179,7 +179,7 @@ Kotlin에서는 기본 구현을 대체하지 않고도 접근자 가시성을 �
 ```kotlin
 class BankAccount(initialBalance: Int) {
     var balance: Int = initialBalance
-        // Only the class can modify the balance
+        // 클래스만 잔액을 수정할 수 있음
         private set 
 
     fun deposit(amount: Int) {
@@ -205,7 +205,7 @@ fun main() {
     // 80
 
     // account.balance = 1000  
-    // Error: cannot assign because setter is private
+    // 오류: 세터가 private이므로 할당할 수 없음
 }
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-private-setter"}
@@ -213,13 +213,13 @@ fun main() {
 접근자에 어노테이션을 달려면 `get` 또는 `set` 키워드 앞에 어노테이션을 사용하십시오.
 
 ```kotlin
-// Defines an annotation that can be applied to a getter
+// 게터에 적용할 수 있는 어노테이션을 정의
 @Target(AnnotationTarget.PROPERTY_GETTER)
 annotation class Inject
 
 class Service {
     var dependency: String = "Default Service"
-        // Annotates the getter
+        // 게터에 어노테이션을 적용
         @Inject get 
 }
 
@@ -261,7 +261,7 @@ class Scoreboard {
     var score: Int = 0
         set(value) {
             field = value
-            // Adds logging when updating the value
+            // 값을 업데이트할 때 로깅 추가
             println("Score updated to $field")
         }
 }
@@ -289,10 +289,10 @@ _백킹 프로퍼티_라고 불리는 코딩 패턴을 사용할 수 있습니�
 
 ```kotlin
 class ShoppingCart {
-    // Backing property
+    // 백킹 프로퍼티
     private val _items = mutableListOf<String>()
 
-    // Public read-only view
+    // public 읽기 전용 뷰
     val items: List<String>
         get() = _items
 
@@ -333,7 +333,7 @@ JVM에서 컴파일러는 함수 호출 오버헤드를 피하기 위해 기본 
 
 ```kotlin
 class Temperature {
-    // Backing property storing temperature in Celsius
+    // 섭씨 온도를 저장하는 백킹 프로퍼티
     private var _celsius: Double = 0.0
 
     var celsius: Double
@@ -368,17 +368,17 @@ fun main() {
 더 효율적으로 접근됩니다.
 
 ```kotlin
-// File: AppConfig.kt
+// 파일: AppConfig.kt
 package com.example
 
-// Compile-time constant
+// 컴파일 시간 상수
 const val MAX_LOGIN_ATTEMPTS = 3
 ```
 
 컴파일 시간 상수는 다음 요구 사항을 충족해야 합니다.
 
 *   최상위 프로퍼티이거나, [`object` 선언](object-declarations.md#object-declarations-overview) 또는 [동반 객체](object-declarations.md#companion-objects)의 멤버여야 합니다.
-*   `String` 타입 또는 [원시 타입](basic-types.md)의 값으로 초기화되어야 합니다.
+*   `String` 타입 또는 [원시 타입](types-overview.md)의 값으로 초기화되어야 합니다.
 *   커스텀 게터를 가질 수 없습니다.
 
 컴파일 시간 상수는 여전히 백킹 필드를 가지므로, [리플렉션](reflection.md)을 사용하여 상호 작용할 수 있습니다.
@@ -408,8 +408,7 @@ public class OrderServiceTest {
     }
 
     @Test fun processesOrderSuccessfully() {
-        // Calls orderService directly without checking for null
-        // or initialization
+        // null 또는 초기화 여부 확인 없이 orderService를 직접 호출
         orderService.processOrder()  
     }
 }
@@ -426,7 +425,7 @@ public class OrderServiceTest {
 *   주 생성자에서 선언할 수 없습니다.
 *   커스텀 게터나 세터를 가질 수 없습니다.
 
-모든 경우에 프로퍼티나 변수는 널 불가능해야 하며, [원시 타입](basic-types.md)이어서는 안 됩니다.
+모든 경우에 프로퍼티나 변수는 널 불가능해야 하며, [원시 타입](types-overview.md)이어서는 안 됩니다.
 
 `lateinit` 프로퍼티에 초기화하기 전에 접근하면, Kotlin은 접근되는 초기화되지 않은 프로퍼티를 명확하게 식별하는
 특정 예외를 발생시킵니다.
@@ -436,8 +435,7 @@ class ReportGenerator {
     lateinit var report: String
 
     fun printReport() {
-        // Throws an exception as it's accessed before
-        // initialization
+        // 초기화되기 전에 접근되었으므로 예외를 발생시킴
         println(report)
     }
 }
@@ -458,7 +456,7 @@ class WeatherStation {
     lateinit var latestReading: String
 
     fun printReading() {
-        // Checks whether the property is initialized
+        // 프로퍼티가 초기화되었는지 확인
         if (this::latestReading.isInitialized) {
             println("Latest reading: $latestReading")
         } else {

@@ -115,11 +115,11 @@ val mathAgent = AIAgent<String, String>(
     llmModel = OllamaModels.Meta.LLAMA_3_2,
     strategy = functionalStrategy { input -> // Define the agent logic
         // The first LLM call to produce an initial draft based on the user input
-        val draft = requestLLM("Draft: $input").asAssistantMessage().content
+        val draft = requestLLM("草稿: $input").asAssistantMessage().content
         // The second LLM call to improve the draft by prompting the LLM again with the draft content
-        val improved = requestLLM("Improve and clarify: $draft").asAssistantMessage().content
+        val improved = requestLLM("改進與澄清。").asAssistantMessage().content
         // The final LLM call to format the improved text and return the final formatted result
-        requestLLM("Format the result as bold: $improved").asAssistantMessage().content
+        requestLLM("將結果格式化為粗體。").asAssistantMessage().content
     }
 )
 
@@ -157,12 +157,12 @@ Alternatively, we can also use the distributive property to calculate this:
 import ai.koog.agents.core.tools.annotations.LLMDescription
 import ai.koog.agents.core.tools.annotations.Tool
 import ai.koog.agents.core.tools.reflect.ToolSet
--->
+--> 
 ```kotlin
-@LLMDescription("Simple multiplier")
+@LLMDescription("簡單乘數")
 class MathTools : ToolSet {
     @Tool
-    @LLMDescription("Multiplies two numbers and returns the result")
+    @LLMDescription("將兩個數字相乘並傳回結果")
     fun multiply(a: Int, b: Int): Int {
         val result = a * b
         return result
@@ -230,7 +230,7 @@ fun main() {
 -->
 ```kotlin
 val mathWithTools = AIAgent<String, String>(
-    systemPrompt = "You are a precise math assistant. When multiplication is needed, use the multiplication tool.",
+    systemPrompt = "您是一位精確的數學助手。當需要乘法時，請使用乘法工具。",
     promptExecutor = simpleOllamaAIExecutor(),
     llmModel = OllamaModels.Meta.LLAMA_3_2,
     toolRegistry = toolRegistry,
@@ -254,7 +254,7 @@ val mathWithTools = AIAgent<String, String>(
 )
 
 // Run the agent with a user input and print the result
-val reply = mathWithTools.run("Please multiply 12.5 and 4, then add 10 to the result.")
+val reply = mathWithTools.run("請將 12.5 和 4 相乘，然後將結果加上 10。")
 println(reply)
 ```
 <!--- KNIT example-functional-agent-05.kt -->

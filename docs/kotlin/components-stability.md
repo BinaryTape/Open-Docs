@@ -56,7 +56,9 @@ Kotlin 语言和工具集被划分为许多组件，例如面向 JVM、JS 和 Na
 * 一个 Stable API 可能包含实验性的类或函数；
 * 一个 Stable 命令行工具可能包含实验性的选项。
 
-我们确保精确地记录哪些子组件不是 **Stable**。我们还会尽最大努力尽可能地警告用户，并要求他们显式选择加入，以避免意外使用尚未发布为 Stable 的特性。
+我们确保精确地记录哪些子组件不是 **Stable**。
+我们还会尽最大努力尽可能地警告用户，并要求他们显式选择加入，
+以避免意外使用尚未发布为 Stable 的特性。
 
 ## Kotlin 组件的当前稳定性
 
@@ -102,7 +104,7 @@ Kotlin 语言和工具集被划分为许多组件，例如面向 JVM、JS 和 Na
 | **组件**                                       | **状态** | **状态始于版本** | **备注**                                                                                                   |
 |------------------------------------------------|------------|--------------------|------------------------------------------------------------------------------------------------------------|
 | Kotlin Multiplatform                           | Stable     | 1.9.20             |                                                                                                            |
-| Kotlin Multiplatform plugin for Android Studio | Beta       | 0.8.0              | [独立于语言版本化](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-plugin-releases.html) |
+| Kotlin Multiplatform plugin for Android Studio | Beta       | 0.8.0              | [独立于语言版本化](https://kotlinlang.org/docs/multiplatform/multiplatform-plugin-releases.html) |
 
 ### Kotlin/Native
 

@@ -1,4 +1,4 @@
-[//]: # (title: Kotlin 1.8 相容性指南)
+[//]: # (title: Kotlin 1.8.x 相容性指南)
 
 _[保持語言現代化](kotlin-evolution-principles.md)_ 和 _[舒適的更新](kotlin-evolution-principles.md)_ 是 Kotlin 語言設計中的基本原則。前者指出，阻礙語言演進的結構應被移除，而後者則說明，此移除應事先充分溝通，以使程式碼遷移盡可能順暢。
 
@@ -40,7 +40,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_ 和 _[舒適的更新]
 > **Component**: 核心語言
 >
 > **Incompatible change type**: 原始碼
-> 
+>
 > **Short summary**: Kotlin 將會報告編譯錯誤，當明確或隱式的父類別呼叫被委派給父類別的 _抽象_ 成員時，即使父介面中有預設實作
 >
 > **Deprecation cycle**:
@@ -53,7 +53,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_ 和 _[舒適的更新]
 
 ### 在 when 帶主題的語句中棄用令人困惑的語法
 
-> **Issue**: [KT-48385](https://youtrack.com/issue/KT-48385)
+> **Issue**: [KT-48385](https://youtrack.jetbrains.com/issue/KT-48385)
 >
 > **Component**: 核心語言
 >
@@ -69,7 +69,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_ 和 _[舒適的更新]
 
 ### 防止不同數值型別之間的隱式強制轉換
 
-> **Issue**: [KT-48645](https://youtrack.com/issue/KT-48645)
+> **Issue**: [KT-48645](https://youtrack.jetbrains.com/issue/KT-48645)
 >
 > **Component**: Kotlin/JVM
 >
@@ -85,7 +85,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_ 和 _[舒適的更新]
 
 ### 讓密封類別的私有建構子真正私有化
 
-> **Issue**: [KT-44866](https://youtrack.com/issue/KT-44866)
+> **Issue**: [KT-44866](https://youtrack.jetbrains.com/issue/KT-44866)
 >
 > **Component**: 核心語言
 >
@@ -98,9 +98,9 @@ _[保持語言現代化](kotlin-evolution-principles.md)_ 和 _[舒適的更新]
 > - 1.6.20: 當密封類別的私有建構子在該類別外部被呼叫時，報告警告（或在漸進模式下報告錯誤）
 > - 1.8.0: 對私有建構子使用預設可見性規則（對私有建構子的呼叫只能在對應的類別內部解析），可透過指定 `-XXLanguage:-UseConsistentRulesForPrivateConstructorsOfSealedClasses` 編譯器參數暫時恢復舊行為
 
-### 在建構器推斷上下文中使用操作符 == 於不相容數值型別上時禁止
+### 禁止在建構器推斷上下文中使用操作符 == 於不相容數值型別上時禁止
 
-> **Issue**: [KT-45508](https://youtrack.com/issue/KT-45508)
+> **Issue**: [KT-45508](https://youtrack.jetbrains.com/issue/KT-45508)
 >
 > **Component**: 核心語言
 >
@@ -115,7 +115,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_ 和 _[舒適的更新]
 
 ### 禁止在 Elvis 操作符右側使用沒有 else 的 if 和非窮盡的 when
 
-> **Issue**: [KT-44705](https://youtrack.com/issue/KT-44705)
+> **Issue**: [KT-44705](https://youtrack.jetbrains.com/issue/KT-44705)
 >
 > **Component**: 核心語言
 >
@@ -130,7 +130,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_ 和 _[舒適的更新]
 
 ### 禁止泛型型別別名使用中違反上限（一個型別參數用於別名型別的多個型別引數中）
 
-> **Issues**: [KT-29168](https://youtrack.com/issue/KT-29168)
+> **Issues**: [KT-29168](https://youtrack.jetbrains.com/issue/KT-29168)
 >
 > **Component**: 核心語言
 >
@@ -145,7 +145,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_ 和 _[舒適的更新]
 
 ### 禁止泛型型別別名使用中違反上限（型別參數用於別名型別的型別引數的泛型型別引數中）
 
-> **Issue**: [KT-54066](https://youtrack.com/issue/KT-54066)
+> **Issue**: [KT-54066](https://youtrack.jetbrains.com/issue/KT-54066)
 >
 > **Component**: 核心語言
 >
@@ -160,7 +160,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_ 和 _[舒適的更新]
 
 ### 禁止在委託內部使用為擴展屬性宣告的型別參數
 
-> **Issue**: [KT-24643](https://youtrack.com/issue/KT-24643)
+> **Issue**: [KT-24643](https://youtrack.jetbrains.com/issue/KT-24643)
 >
 > **Component**: 核心語言
 >
@@ -175,7 +175,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_ 和 _[舒適的更新]
 
 ### 禁止在 suspend 函式上使用 @Synchronized 註解
 
-> **Issue**: [KT-48516](https://youtrack.com/issue/KT-48516)
+> **Issue**: [KT-48516](https://youtrack.jetbrains.com/issue/KT-48516)
 >
 > **Component**: 核心語言
 >
@@ -190,7 +190,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_ 和 _[舒適的更新]
 
 ### 禁止使用展開運算符將參數傳遞給非可變引數（non-vararg）參數
 
-> **Issue**: [KT-48162](https://youtrack.com/issue/KT-48162)
+> **Issue**: [KT-48162](https://youtrack.jetbrains.com/issue/KT-48162)
 >
 > **Component**: 核心語言
 >
@@ -205,7 +205,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_ 和 _[舒適的更新]
 
 ### 禁止在傳遞給透過 lambda 回傳型別重載的函式的 lambda 中違反 null 安全性
 
-> **Issue**: [KT-49658](https://youtrack.com/issue/KT-49658)
+> **Issue**: [KT-49658](https://youtrack.jetbrains.com/issue/KT-49658)
 >
 > **Component**: 核心語言
 >
@@ -220,7 +220,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_ 和 _[舒適的更新]
 
 ### 在公開簽名中近似本地型別時保留可空性
 
-> **Issue**: [KT-53982](https://youtrack.com/issue/KT-53982)
+> **Issue**: [KT-53982](https://youtrack.jetbrains.com/issue/KT-53982)
 >
 > **Component**: 核心語言
 >
@@ -236,7 +236,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_ 和 _[舒適的更新]
 
 ### 不透過覆寫傳播棄用
 
-> **Issue**: [KT-47902](https://youtrack.com/issue/KT-47902)
+> **Issue**: [KT-47902](https://youtrack.jetbrains.com/issue/KT-47902)
 >
 > **Component**: 核心語言
 >
@@ -251,7 +251,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_ 和 _[舒適的更新]
 
 ### 禁止在建構器推斷上下文中的上限中隱式推斷型別變數
 
-> **Issue**: [KT-47986](https://youtrack.com/issue/KT-47986)
+> **Issue**: [KT-47986](https://youtrack.jetbrains.com/issue/KT-47986)
 >
 > **Component**: 核心語言
 >
@@ -266,7 +266,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_ 和 _[舒適的更新]
 
 ### 禁止在註解類別中除參數宣告以外的任何地方使用集合字面值
 
-> **Issue**: [KT-39041](https://youtrack.com/issue/KT-39041)
+> **Issue**: [KT-39041](https://youtrack.jetbrains.com/issue/KT-39041)
 >
 > **Component**: 核心語言
 >
@@ -281,7 +281,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_ 和 _[舒適的更新]
 
 ### 禁止在預設值表達式中向前引用帶有預設值的參數
 
-> **Issue**: [KT-25694](https://youtrack.com/issue/KT-25694)
+> **Issue**: [KT-25694](https://youtrack.jetbrains.com/issue/KT-25694)
 >
 > **Component**: 核心語言
 >
@@ -296,7 +296,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_ 和 _[舒適的更新]
 
 ### 禁止在 inline 函式參數上進行擴展呼叫
 
-> **Issue**: [KT-52502](https://youtrack.com/issue/KT-52502)
+> **Issue**: [KT-52502](https://youtrack.jetbrains.com/issue/KT-52502)
 >
 > **Component**: 核心語言
 >
@@ -311,7 +311,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_ 和 _[舒適的更新]
 
 ### 禁止呼叫以匿名函式引數命名的 infix 函式 suspend
 
-> **Issue**: [KT-49264](https://youtrack.com/issue/KT-49264)
+> **Issue**: [KT-49264](https://youtrack.jetbrains.com/issue/KT-49264)
 >
 > **Component**: 核心語言
 >
@@ -327,7 +327,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_ 和 _[舒適的更新]
 
 ### 禁止在內部類別中使用捕獲的型別參數，違反其型變
 
-> **Issue**: [KT-50947](https://youtrack.com/issue/KT-50947)
+> **Issue**: [KT-50947](https://youtrack.jetbrains.com/issue/KT-50947)
 >
 > **Component**: 核心語言
 >
@@ -342,7 +342,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_ 和 _[舒適的更新]
 
 ### 禁止在複合賦值運算符中遞迴呼叫沒有明確回傳型別的函式
 
-> **Issue**: [KT-48546](https://youtrack.com/issue/KT-48546)
+> **Issue**: [KT-48546](https://youtrack.jetbrains.com/issue/KT-48546)
 >
 > **Component**: 核心語言
 >
@@ -372,7 +372,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_ 和 _[舒適的更新]
 
 ### 禁止從列舉的條目初始化器中存取列舉類別伴侶的成員
 
-> **Issue**: [KT-49110](https://youtrack.com/issue/KT-49110)
+> **Issue**: [KT-49110](https://youtrack.jetbrains.com/issue/KT-49110)
 >
 > **Component**: 核心語言
 >
@@ -387,7 +387,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_ 和 _[舒適的更新]
 
 ### 棄用並移除 Enum.declaringClass 合成屬性
 
-> **Issue**: [KT-49653](https://youtrack.com/issue/KT-49653)
+> **Issue**: [KT-49653](https://youtrack.jetbrains.com/issue/KT-49653)
 >
 > **Component**: Kotlin/JVM
 >
@@ -403,7 +403,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_ 和 _[舒適的更新]
 
 ### 棄用編譯器選項 -Xjvm-default 的啟用和相容性模式
 
-> **Issue**: [KT-46329](https://youtrack.com/issue/KT-46329)
+> **Issue**: [KT-46329](https://youtrack.jetbrains.com/issue/KT-46329)
 >
 > **Component**: Kotlin/JVM
 >
@@ -436,7 +436,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_ 和 _[舒適的更新]
 
 ### 將宣告從 kotlin.dom 和 kotlin.browser 套件遷移到 kotlinx.*
 
-> **Issue**: [KT-39330](https://youtrack.com/issue/KT-39330)
+> **Issue**: [KT-39330](https://youtrack.jetbrains.com/issue/KT-39330)
 >
 > **Component**: kotlin-stdlib (JS)
 >
@@ -454,7 +454,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_ 和 _[舒適的更新]
 
 ### 棄用部分僅適用於 JS 的 API
 
-> **Issue**: [KT-48587](https://youtrack.com/issue/KT-48587)
+> **Issue**: [KT-48587](https://youtrack.jetbrains.com/issue/KT-48587)
 >
 > **Component**: kotlin-stdlib (JS)
 >
@@ -472,7 +472,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_ 和 _[舒適的更新]
 
 ### 提升 KotlinCompile 任務的 classpath 屬性的棄用級別
 
-> **Issue**: [KT-51679](https://youtrack.com/issue/KT-51679)
+> **Issue**: [KT-51679](https://youtrack.jetbrains.com/issue/KT-51679)
 >
 > **Component**: Gradle
 >
@@ -488,7 +488,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_ 和 _[舒適的更新]
 
 ### 移除 kapt.use.worker.api Gradle 屬性
 
-> **Issue**: [KT-48827](https://youtrack.com/issue/KT-48827)
+> **Issue**: [KT-48827](https://youtrack.jetbrains.com/issue/KT-48827)
 >
 > **Component**: Gradle
 >
@@ -503,7 +503,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_ 和 _[舒適的更新]
 
 ### 移除 kotlin.compiler.execution.strategy 系統屬性
 
-> **Issue**: [KT-51831](https://youtrack.com/issue/KT-51831)
+> **Issue**: [KT-51831](https://youtrack.jetbrains.com/issue/KT-51831)
 >
 > **Component**: Gradle
 >
@@ -518,7 +518,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_ 和 _[舒適的更新]
 
 ### 編譯器選項的變更
 
-> **Issues**: [KT-27301](https://youtrack.com/issue/KT-27301), [KT-48532](https://youtrack.com/issue/KT-48532)
+> **Issues**: [KT-27301](https://youtrack.jetbrains.com/issue/KT-27301), [KT-48532](https://youtrack.jetbrains.com/issue/KT-48532)
 >
 > **Component**: Gradle
 >
@@ -532,15 +532,15 @@ _[保持語言現代化](kotlin-evolution-principles.md)_ 和 _[舒適的更新]
 
 ### 棄用 kotlin.internal.single.build.metrics.file 屬性
 
-> **Issue**: [KT-53357](https://youtrack.com/issue/KT-53357)
+> **Issue**: [KT-53357](https://youtrack.jetbrains.com/issue/KT-53357)
 >
 > **Component**: Gradle
 >
 > **Incompatible change type**: 原始碼
 >
-> **Short summary**: 棄用用於定義單一檔案用於建置報告的 `kotlin.internal.single.build.metrics.file` 屬性。請改用 `kotlin.build.report.single_file` 屬性與 `kotlin.build.report.output=single_file` 
+> **Short summary**: 棄用用於定義單一檔案用於建置報告的 `kotlin.internal.single.build.metrics.file` 屬性。請改用 `kotlin.build.report.single_file` 屬性與 `kotlin.build.report.output=single_file`
 >
 > **Deprecation cycle:**
 >
 > - 1.8.0: 將棄用級別提升為警告
-> &gt;= 1.9: 刪除此屬性
+> - &gt;= 1.9: 刪除此屬性

@@ -1,5 +1,10 @@
 [//]: # (title: 类)
 
+> 在创建类之前，如果目的是存储数据，请考虑使用[数据类](data-classes.md)。
+> 或者，考虑使用[扩展](extensions.md)来扩展现有类，而不是从头创建新类。
+>
+{style="tip"}
+
 与其它面向对象语言类似，Kotlin 使用 _类_ 来封装数据（属性）和行为（函数），以实现可重用、结构化的代码。
 
 类是对象的蓝图或模板，你通过[构造函数](#constructors-and-initializer-blocks)创建对象。当你[创建类的实例](#creating-instances)时，你正在基于该蓝图创建一个具体对象。

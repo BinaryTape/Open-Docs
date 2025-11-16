@@ -64,7 +64,7 @@ browser {
 
 了解更多关于 [配置 webpack 打包](js-project-setup.md#webpack-bundling) 的信息。
 
-#### 通过 Gradle 进行 package.json 自定义
+#### `package.json` 通过 Gradle 自定义
 
 为了更好地控制 Kotlin/JS 包管理和发布，你现在可以通过 Gradle DSL 将属性添加到项目文件 [`package.json`](https://nodejs.dev/learn/the-package-json-guide) 中。
 

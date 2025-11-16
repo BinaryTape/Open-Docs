@@ -340,6 +340,6 @@ fun main() {
 ## 接下來做什麼？
 
 * 瀏覽其他 [Kotlin 慣用語](idioms.md)。
-* 學習如何使用 [Java 到 Kotlin 轉換器](mixing-java-kotlin-intellij.md#converting-an-existing-java-file-to-kotlin-with-j2k) 將現有的 Java 程式碼轉換為 Kotlin。
+* 學習如何使用 [Java 到 Kotlin 轉換器](mixing-java-kotlin-intellij.md#convert-java-files-to-kotlin) 將現有的 Java 程式碼轉換為 Kotlin。
 
 如果您有喜歡的慣用語，歡迎您透過傳送 Pull Request 來分享。

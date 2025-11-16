@@ -19,7 +19,7 @@ Kotlin/Native 通过 Objective-C 提供与 Swift 的间接互操作。本文档�
 Objective-C 框架和库如果正确导入到构建中（系统框架默认导入），就可以在 Kotlin 代码中使用。有关更多详细信息，请参见：
 
 *   [创建并配置库定义文件](native-definition-file.md)
-*   [配置原生库的编译](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-configure-compilations.html#configure-interop-with-native-languages)
+*   [配置原生库的编译](https://kotlinlang.org/docs/multiplatform/multiplatform-configure-compilations.html#configure-interop-with-native-languages)
 
 如果 Swift 库的 API 使用 `@objc` 导出到 Objective-C，则可以在 Kotlin 代码中使用。纯 Swift 模块尚不支持。
 
@@ -27,7 +27,7 @@ Objective-C 框架和库如果正确导入到构建中（系统框架默认导�
 
 如果 Kotlin 模块编译成框架，则可以在 Swift/Objective-C 代码中使用：
 
-*   请参阅 [构建最终原生二进制文件](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-build-native-binaries.html#declare-binaries) 以了解如何声明二进制文件。
+*   请参阅 [构建最终原生二进制文件](https://kotlinlang.org/docs/multiplatform/multiplatform-build-native-binaries.html#declare-binaries) 以了解如何声明二进制文件。
 *   请查看 [Kotlin Multiplatform 示例项目](https://github.com/Kotlin/kmm-basic-sample) 获取示例。
 
 ### 从 Objective-C 和 Swift 隐藏 Kotlin 声明
@@ -310,13 +310,13 @@ Objective-C 类别和 Swift 扩展的成员通常作为扩展导入到 Kotlin。
 Kotlin 对“常规”Kotlin 类的扩展会分别作为扩展和类别成员导入到 Swift 和 Objective-C。Kotlin 对其他类型的扩展被视为带有额外接收者形参的[顶层声明](#top-level-functions-and-properties)。这些类型包括：
 
 *   Kotlin `String` type
-*   Kotlin collection types and subtypes
-*   Kotlin `interface` types
-*   Kotlin primitive types
-*   Kotlin `inline` classes
+*   Kotlin 集合类型和子类型
+*   Kotlin `interface` type
+*   Kotlin 原生类型
+*   Kotlin `inline` 类
 *   Kotlin `Any` type
-*   Kotlin function types and subtypes
-*   Objective-C classes and protocols
+*   Kotlin 函数类型和子类型
+*   Objective-C 类和协议
 
 [在 Kotlin-Swift interopedia 中查看示例集合](https://github.com/kotlin-hands-on/kotlin-swift-interopedia/tree/main/docs/extensions)。
 
@@ -636,7 +636,7 @@ class ViewController : UIViewController {
 
 覆盖构造函数必须与被覆盖构造函数具有相同的形参名称和类型。
 
-为了覆盖具有冲突 Kotlin 签名的不同方法，你可以将 `@ObjCSignatureOverride` 注解添加到类中。当从 Objective-C 类继承的多个函数具有相同的实参类型但不同的实参名称时，此注解指示 Kotlin 编译器忽略冲突的重载。
+为了覆盖具有冲突 Kotlin 签名的不同方法，你可以将 `@ObjCSignatureOverride` 注解添加到类中。此注解指示 Kotlin 编译器忽略冲突的重载，在多个函数具有相同的实参类型但不同的实参名称，并且从 Objective-C 类继承的情况下。
 
 默认情况下，Kotlin/Native 编译器不允许将非指定 Objective-C 初始化器作为 `super()` 构造函数调用。此行为可能会造成不便，如果 Objective-C 库中没有正确标记指定初始化器。要禁用这些编译器检测，请将 `disableDesignatedInitializerChecks = true` 添加到库的 [`.def` 文件](native-definition-file.md) 中。
 
@@ -648,6 +648,6 @@ class ViewController : UIViewController {
 
 Kotlin 编程语言的一些特性尚未映射到 Objective-C 或 Swift 的相应特性中。目前，以下特性未在生成的框架头文件中正确公开：
 
-*   Inline classes（实参映射为底层原生类型或 `id`）
+*   内联类（实参映射为底层原生类型或 `id`）
 *   实现标准 Kotlin 集合接口（`List`、`Map`、`Set`）及其他特殊类的自定义类
 *   Objective-C 类的 Kotlin 子类

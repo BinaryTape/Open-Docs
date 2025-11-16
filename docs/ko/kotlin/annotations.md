@@ -426,7 +426,7 @@ annotation class Tag(val name: String)
 // 컴파일러가 @Tag.Container 컨테이닝 어노테이션을 생성합니다.
 ```
 
-[`@kotlin.jvm.JvmRepeatable`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.jvm/-jvmrepeatable/) 메타 어노테이션을 적용하고 명시적으로 선언된 컨테이닝 어노테이션 클래스를 인수로 전달하여 컨테이닝 어노테이션에 사용자 지정 이름을 설정할 수 있습니다.
+[`@kotlin.jvm.JvmRepeatable`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.jvm/-jvm-repeatable/) 메타 어노테이션을 적용하고 명시적으로 선언된 컨테이닝 어노테이션 클래스를 인수로 전달하여 컨테이닝 어노테이션에 사용자 지정 이름을 설정할 수 있습니다.
 
 ```kotlin
 @JvmRepeatable(Tags::class)

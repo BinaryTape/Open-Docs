@@ -6,7 +6,7 @@ Kotlin/Wasm 允許您在 Kotlin 中使用 JavaScript 程式碼，並在 JavaScri
 
 與 [Kotlin/JS](js-overview.md) 一樣，Kotlin/Wasm 編譯器也具備與 JavaScript 的互通性。如果您熟悉 Kotlin/JS 的互通性，您會注意到 Kotlin/Wasm 的互通性與其相似。然而，仍有一些關鍵差異需要考量。
 
-> Kotlin/Wasm 處於 [Alpha 階段](components-stability.md)。它隨時可能變更。請在生產環境前的情境中使用。我們歡迎您在 [YouTrack](https://youtrack.jetbrains.com/issue/KT-56492) 提供意見回饋。
+> Kotlin/Wasm 處於 [Beta 階段](components-stability.md)。它隨時可能變更。請在生產環境前的情境中使用。我們歡迎您在 [YouTrack](https://youtrack.jetbrains.com/issue/KT-56492) 提供意見回饋。
 >
 {style="note"}
 
@@ -98,7 +98,7 @@ function createUser (name, age) {
 }
 ```
 
-了解如何使用 `external interface User` 類型在 Kotlin 中描述其形狀：
+了解如何使用 `external interface User` 型別在 Kotlin 中描述其形狀：
 
 ```kotlin
 external interface User : JsAny {
@@ -109,7 +109,7 @@ external interface User : JsAny {
 external fun createUser(name: String, age: Int): User
 ```
 
-外部介面沒有執行時類型資訊，並且只是一個編譯時概念。
+外部介面沒有執行時型別資訊，並且只是一個編譯時概念。
 因此，與常規介面相比，外部介面有一些限制：
 * 您不能在 `is` 檢查的右側使用它們。
 * 您不能在類別常值表達式（例如 `User::class`）中使用它們。
@@ -230,10 +230,10 @@ external class User : JsAny {
 val list: List<JsString> =
     listOf("Kotlin", "Wasm").map { it.toJsString() }
 
-// Uses .toJsArray() to convert List or Array to JsArray
+// 使用 .toJsArray() 將 List 或 Array 轉換為 JsArray
 val jsArray: JsArray<JsString> = list.toJsArray()
 
-// Uses .toArray() and .toList() to convert it back to Kotlin types 
+// 使用 .toArray() 和 .toList() 將其轉換回 Kotlin 型別 
 val kotlinArray: Array<JsString> = jsArray.toArray()
 val kotlinList: List<JsString> = jsArray.toList()
 ```
@@ -249,10 +249,10 @@ import org.khronos.webgl.*
 
     val intArray: IntArray = intArrayOf(1, 2, 3)
     
-    // Uses .toInt32Array() to convert Kotlin IntArray to JavaScript Int32Array
+    // 使用 .toInt32Array() 將 Kotlin IntArray 轉換為 JavaScript Int32Array
     val jsInt32Array: Int32Array = intArray.toInt32Array()
     
-    // Uses toIntArray() to convert JavaScript Int32Array back to Kotlin IntArray
+    // 使用 toIntArray() 將 JavaScript Int32Array 轉換回 Kotlin IntArray
     val kotlnIntArray: IntArray = jsInt32Array.toIntArray()
 ```
 
@@ -404,15 +404,15 @@ fun main() {
         JSON.parse("an invalid JSON")
     } catch (e: JsException) {
         println("Thrown value is: ${e.thrownValue}")
-        // SyntaxError: Unexpected token 'a', "an invalid JSON" is not valid JSON
+        // SyntaxError: 意外的符記 'a'，"an invalid JSON" 不是有效的 JSON
 
         println("Message: ${e.message}")
-        // Message: Unexpected token 'a', "an invalid JSON" is not valid JSON
+        // 訊息: 意外的符記 'a'，"an invalid JSON" 不是有效的 JSON
 
         println("Stacktrace:")
-        // Stacktrace:
+        // 堆疊追蹤:
 
-        // Prints the full JavaScript stack trace 
+        // 列印完整的 JavaScript 堆疊追蹤 
         e.printStackTrace()
     }
 }
@@ -440,7 +440,7 @@ fun main() {
 | **陣列**                | 尚未直接在互通中支援。您可以改用新的 `JsArray` 型別。                                                                                                                                                                 | 實作為 JavaScript 陣列。                                                                                                                            |
 | **其他型別**            | 需要 `JsReference<>` 才能將 Kotlin 物件傳遞給 JavaScript。                                                                                                                                                          | 允許在外部宣告中使用非外部 Kotlin 類別型別。                                                                                                        |
 | **異常處理**          | 您可以使用 `JsException` 和 `Throwable` 型別捕獲任何 JavaScript 異常。                                                                                                                                              | 可以使用 `Throwable` 型別捕獲 JavaScript `Error`。它可以使用 `dynamic` 型別捕獲任何 JavaScript 異常。                                            |
-| **動態型別**            | 不支援 `dynamic` 型別。請改用 `JsAny`（請參閱下方範例程式碼）。                                                                                                                                                      | 支援 `dynamic` 型別。                                                                                                                               |
+| **動態型別**          | 不支援 `dynamic` 型別。請改用 `JsAny`（請參閱下方範例程式碼）。                                                                                                                                                      | 支援 `dynamic` 型別。                                                                                                                               |
 
 > Kotlin/JS 的 [動態型別](dynamic-type.md) 用於與非型別或鬆散型別物件的互通性，在 Kotlin/Wasm 中不受支援。您可以使用 `JsAny` 型別代替 `dynamic` 型別：
 >
@@ -467,7 +467,7 @@ fun main() {
 
 ## Web 相關瀏覽器 API
 
-[`kotlinx-browser` 函式庫](https://github.com/kotlin/kotlinx-browser) 是一個獨立函式庫，提供 JavaScript 瀏覽器 API，包括：
+[`kotlinx-browser` 函式庫](https://github.com/Kotlin/kotlinx-browser) 是一個獨立函式庫，提供 JavaScript 瀏覽器 API，包括：
 * 套件 `org.khronos.webgl`：
   * 型別化陣列，例如 `Int8Array`。
   * WebGL 型別。

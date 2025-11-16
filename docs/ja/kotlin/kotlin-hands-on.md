@@ -55,10 +55,10 @@ Kotlin/Native と libcurl を使用して、複数のプラットフォームで
 
 Ktor と SQLDelight を使用して Kotlin Multiplatform で Android および iOS 向けのモバイルアプリケーションを作成する方法を学びます。
 
-[**開始**](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-ktor-sqldelight.html)
+[**開始**](https://kotlinlang.org/docs/multiplatform/multiplatform-ktor-sqldelight.html)
 
 ## Kotlin Multiplatform を使用して iOS と Android を対象とする
 
 Kotlin Multiplatform を使用して、iOS と Android の両方を対象とするモバイルアプリケーションを作成する方法を学びます。
 
-[**開始**](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-create-first-app.html)
+[**開始**](https://kotlinlang.org/docs/multiplatform/multiplatform-create-first-app.html)

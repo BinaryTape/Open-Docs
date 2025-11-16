@@ -2,7 +2,7 @@
 
 <show-structure depth="2"/>
 
-プロジェクトの[リソースを設定](compose-multiplatform-resources-setup.md)したら、プロジェクトをビルドして、リソースへのアクセスを提供する特別な`Res`クラスを生成します。`Res`クラスとすべてのリソースアクセサーを再生成するには、プロジェクトを再度ビルドするか、IDEでプロジェクトを再インポートします。
+[プロジェクトの[リソースを設定](compose-multiplatform-resources-setup.md)]したら、プロジェクトをビルドして、リソースへのアクセスを提供する特別な`Res`クラスを生成します。`Res`クラスとすべてのリソースアクセサーを再生成するには、プロジェクトを再度ビルドするか、IDEでプロジェクトを再インポートします。
 
 その後、生成されたクラスを使用して、設定されたマルチプラットフォームリソースをコードまたは外部ライブラリからアクセスできます。
 
@@ -95,7 +95,7 @@ Material SymbolsライブラリのベクターAndroid XMLアイコンを使用�
    変更前：
 
    ```xml
-   <vector xmlns:android="http://schemas.com/apk/res/android"
+   <vector xmlns:android="http://schemas.android.com/apk/res/android"
         android:width="24dp"
         android:height="24dp"
         android:viewportWidth="960"
@@ -121,7 +121,7 @@ Material SymbolsライブラリのベクターAndroid XMLアイコンを使用�
    </vector>
    ```
    
-4.  プロジェクトをビルドしてリソースアクセサーを生成するか、[Kotlin Multiplatformプラグイン](https://plugins.jetbrains.com/plugin/14936-kotlin-multiplatform)に自動的に処理させます。
+4.  プロジェクトをビルドしてリソースアクセサーを生成するか、[Kotlin Multiplatform IDEプラグイン](https://plugins.jetbrains.com/plugin/14936-kotlin-multiplatform)に自動的に処理させます。
 
 Compose Multiplatformコードでアイコンにアクセスし、`colorFilter` パラメータを使用して色を調整する例を次に示します。
 
@@ -198,7 +198,7 @@ coroutineScope.launch {
 *   `\t` – タブ記号のため
 *   `\uXXXX` – 特定のUnicode文字のため
 
-Android文字列の場合のように、"`@" や "?" のような特殊なXML文字をエスケープする必要はありません。
+[Android文字列の場合のように](https://developer.android.com/guide/topics/resources/string-resource#escaping_quotes)、"`@" や "?" のような特殊なXML文字をエスケープする必要はありません。
 
 #### 文字列テンプレート
 

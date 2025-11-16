@@ -5,12 +5,12 @@ _[公開日: 2023年11月1日](releases.md#release-details)_
 Kotlin 1.9.20がリリースされました。全てのターゲットに対応した[K2コンパイラがベータ版になりました](#new-kotlin-k2-compiler-updates)、
 そして[Kotlin Multiplatformが安定版になりました](#kotlin-multiplatform-is-stable)。さらに、主なハイライトは以下の通りです。
 
-* [マルチプラットフォームプロジェクトの設定における新しいデフォルト階層テンプレート](#template-for-configuring-multiplatform-projects)
-* [Kotlin MultiplatformにおけるGradle Configuration Cacheの完全サポート](#full-support-for-the-gradle-configuration-cache-in-kotlin-multiplatform)
-* [Kotlin/Nativeでカスタムメモリ割り当て機能がデフォルトで有効に](#custom-memory-allocator-enabled-by-default)
-* [Kotlin/Nativeにおけるガベージコレクタのパフォーマンス改善](#performance-improvements-for-the-garbage-collector)
-* [Kotlin/Wasmにおける新しいターゲットと名称変更されたターゲット](#new-wasm-wasi-target-and-the-renaming-of-the-wasm-target-to-wasm-js)
-* [Kotlin/Wasmの標準ライブラリにおけるWASI APIのサポート](#support-for-the-wasi-api-in-the-standard-library)
+*   [マルチプラットフォームプロジェクトの設定における新しいデフォルト階層テンプレート](#template-for-configuring-multiplatform-projects)
+*   [Kotlin MultiplatformにおけるGradle Configuration Cacheの完全サポート](#full-support-for-the-gradle-configuration-cache-in-kotlin-multiplatform)
+*   [Kotlin/Nativeでカスタムメモリ割り当て機能がデフォルトで有効に](#custom-memory-allocator-enabled-by-default)
+*   [Kotlin/Nativeにおけるガベージコレクタのパフォーマンス改善](#performance-improvements-for-the-garbage-collector)
+*   [Kotlin/Wasmにおける新しいターゲットと名称変更されたターゲット](#new-wasm-wasi-target-and-the-renaming-of-the-wasm-target-to-wasm-js)
+*   [Kotlin/Wasmの標準ライブラリにおけるWASI APIのサポート](#support-for-the-wasi-api-in-the-standard-library)
 
 これらのアップデートの簡単な概要は、こちらのビデオでもご覧いただけます。
 
@@ -104,9 +104,9 @@ IntelliJ IDEAでKotlin K2コンパイラを有効にしてテストするには�
 
 皆様からのフィードバックをお待ちしております！
 
-* Kotlin SlackのK2開発者に直接フィードバックを送る – [招待状を取得](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up?_gl=1*ju6cbn*_ga*MTA3MTk5NDkzMC4xNjQ2MDY3MDU4*_ga_9J976DJZ68*MTY1ODMzNzA3OS4xMDAuMS4xNjU4MzQwODEwLjYw)し、[#k2-early-adopters](https://kotlinlang.slack.com/archives/C03PK0PE257)チャンネルに参加してください。
-* 新しいK2コンパイラで直面した問題は、[課題トラッカー](https://kotl.in/issue)に報告してください。
-* K2の使用に関する匿名データをJetBrainsが収集できるように、[使用統計の送信オプションを有効にする](https://www.jetbrains.com/help/idea/settings-usage-statistics.html)。
+*   Kotlin SlackのK2開発者に直接フィードバックを送る – [招待状を取得](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up?_gl=1*ju6cbn*_ga*MTA3MTk5NDkzMC4xNjQ2MDY3MDU4*_ga_9J976DJZ68*MTY1ODMzNzA3OS4xMDAuMS4xNjU4MzQwODEwLjYw)し、[#k2-early-adopters](https://kotlinlang.slack.com/archives/C03PK0PE257)チャンネルに参加してください。
+*   新しいK2コンパイラで直面した問題は、[課題トラッカー](https://kotl.in/issue)に報告してください。
+*   K2の使用に関する匿名データをJetBrainsが収集できるように、[使用統計の送信オプションを有効にする](https://www.jetbrains.com/help/idea/settings-usage-statistics.html)。
 
 ## Kotlin/JVM
 
@@ -116,15 +116,15 @@ IntelliJ IDEAでKotlin K2コンパイラを有効にしてテストするには�
 
 Kotlin 1.9.20には、新しいメモリ割り当て機能がデフォルトで有効になった安定版メモリマネージャ、ガベージコレクタのパフォーマンス改善、その他のアップデートが含まれます。
 
-* [カスタムメモリ割り当て機能がデフォルトで有効に](#custom-memory-allocator-enabled-by-default)
-* [ガベージコレクタのパフォーマンス改善](#performance-improvements-for-the-garbage-collector)
-* [`klib`成果物のインクリメンタルコンパイル](#incremental-compilation-of-klib-artifacts)
-* [ライブラリリンクの問題の管理](#managing-library-linkage-issues)
-* [クラスコンストラクタ呼び出し時のコンパニオンオブジェクト初期化](#companion-object-initialization-on-class-constructor-calls)
-* [全てのcinterop宣言に対するオプトイン要件](#opt-in-requirement-for-all-cinterop-declarations)
-* [リンカエラーのカスタムメッセージ](#custom-message-for-linker-errors)
-* [レガシーメモリマネージャの削除](#removal-of-the-legacy-memory-manager)
-* [ターゲットティアポリシーの変更](#change-to-our-target-tiers-policy)
+*   [カスタムメモリ割り当て機能がデフォルトで有効に](#custom-memory-allocator-enabled-by-default)
+*   [ガベージコレクタのパフォーマンス改善](#performance-improvements-for-the-garbage-collector)
+*   [`klib`成果物のインクリメンタルコンパイル](#incremental-compilation-of-klib-artifacts)
+*   [ライブラリリンクの問題の管理](#managing-library-linkage-issues)
+*   [クラスコンストラクタ呼び出し時のコンパニオンオブジェクト初期化](#companion-object-initialization-on-class-constructor-calls)
+*   [全てのcinterop宣言に対するオプトイン要件](#opt-in-requirement-for-all-cinterop-declarations)
+*   [リンカエラーのカスタムメッセージ](#custom-message-for-linker-errors)
+*   [レガシーメモリマネージャの削除](#removal-of-the-legacy-memory-manager)
+*   [ターゲットティアポリシーの変更](#change-to-our-target-tiers-policy)
 
 ### カスタムメモリ割り当て機能がデフォルトで有効に
 
@@ -159,8 +159,8 @@ Kotlin 1.9.20以降、新しいメモリ割り当て機能がデフォルトで�
 Kotlinチームは、新しいKotlin/Nativeメモリマネージャのパフォーマンスと安定性の改善を続けています。
 このリリースでは、ガベージコレクタ（GC）にいくつかの重要な変更が加えられ、1.9.20のハイライトは以下の通りです。
 
-* [](#full-parallel-mark-to-reduce-the-pause-time-for-the-gc)
-* [](#tracking-memory-in-big-chunks-to-improve-the-allocation-performance)
+*   [GCのポーズ時間を短縮するための完全並行マーク](#full-parallel-mark-to-reduce-the-pause-time-for-the-gc)
+*   [割り当てパフォーマンスを向上させるための大きなチャンクでのメモリ追跡](#tracking-memory-in-big-chunks-to-improve-the-allocation-performance)
 
 #### GCのポーズ時間を短縮するための完全並行マーク
 
@@ -172,8 +172,8 @@ Kotlinチームは、新しいKotlin/Nativeメモリマネージャのパフォ�
 
 現在、GCは一時停止中のミューテータ、GCスレッド、およびオプションのマーカースレッドを組み合わせてマークキューを処理する完全並行マークを使用しています。デフォルトでは、マーク処理は以下によって実行されます。
 
-* 一時停止中のミューテータ。自身のルートを処理し、コードをアクティブに実行していない間アイドル状態になるのではなく、マークプロセス全体に貢献します。
-* GCスレッド。これにより、少なくとも1つのスレッドがマーキングを実行します。
+*   一時停止中のミューテータ。自身のルートを処理し、コードをアクティブに実行していない間アイドル状態になるのではなく、マークプロセス全体に貢献します。
+*   GCスレッド。これにより、少なくとも1つのスレッドがマーキングを実行します。
 
 この新しいアプローチにより、マーキングプロセスがより効率的になり、GCのポーズ時間が短縮されます。
 
@@ -197,8 +197,8 @@ Kotlin 1.9.20では、Kotlin/Nativeの新しいコンパイル時間最適化が
 
 デバッグモードでKotlinソースコードをネイティブバイナリにコンパイルする場合、コンパイルは2つのステージを経て行われます。
 
-1. ソースコードが`klib`成果物にコンパイルされます。
-2. `klib`成果物が、依存関係と共にバイナリにコンパイルされます。
+1.  ソースコードが`klib`成果物にコンパイルされます。
+2.  `klib`成果物が、依存関係と共にバイナリにコンパイルされます。
 
 第2ステージでのコンパイル時間を最適化するために、チームは既に依存関係のコンパイラキャッシュを実装しています。
 これらは一度だけネイティブコードにコンパイルされ、その結果はバイナリがコンパイルされるたびに再利用されます。
@@ -226,8 +226,8 @@ Kotlin/Nativeコンパイラは、サードパーティのKotlinライブラリ�
 
 Kotlin 1.9.20以降、コンパイラはデフォルトでサイレントモードでリンクの問題を検出します。プロジェクトでこの設定を調整できます。
 
-* これらの問題をコンパイルログに記録したい場合は、`-Xpartial-linkage-loglevel=WARNING`コンパイラオプションで警告を有効にします。
-* 報告された警告の重大度を`-Xpartial-linkage-loglevel=ERROR`でコンパイルエラーに上げることも可能です。
+*   これらの問題をコンパイルログに記録したい場合は、`-Xpartial-linkage-loglevel=WARNING`コンパイラオプションで警告を有効にします。
+*   報告された警告の重大度を`-Xpartial-linkage-loglevel=ERROR`でコンパイルエラーに上げることも可能です。
 この場合、コンパイルは失敗し、コンパイルログに全てのエラーが表示されます。このオプションを使用して、リンクの問題をより詳細に調べることができます。
 
 ```kotlin
@@ -265,7 +265,7 @@ class Greeting {
 }
 
 fun main() {
-    val start = Greeting() // Prints "Hello, Kotlin!"
+    val start = Greeting() // "Hello, Kotlin!" を出力
 }
 ```
 
@@ -304,19 +304,19 @@ KotlinライブラリがCまたはObjective-Cライブラリに依存してい�
 [Tier 1サポート](native-target-support.md#tier-1)の要件をアップグレードすることにしました。Kotlinチームは現在、
 Tier 1に該当するターゲットについて、コンパイラリリース間でソースおよびバイナリ互換性を提供することにコミットしています。また、コンパイルと実行ができるようにCIツールで定期的にテストされる必要があります。現在、Tier 1にはmacOSホスト向けの以下のターゲットが含まれます。
 
-* `macosX64`
-* `macosArm64`
-* `iosSimulatorArm64`
-* `iosX64`
+*   `macosX64`
+*   `macosArm64`
+*   `iosSimulatorArm64`
+*   `iosX64`
 
 Kotlin 1.9.20では、以前非推奨となっていたいくつかのターゲットも削除しました。具体的には以下の通りです。
 
-* `iosArm32`
-* `watchosX86`
-* `wasm32`
-* `mingwX86`
-* `linuxMips32`
-* `linuxMipsel32`
+*   `iosArm32`
+*   `watchosX86`
+*   `wasm32`
+*   `mingwX86`
+*   `linuxMips32`
+*   `linuxMipsel32`
 
 現在[サポートされているターゲット](native-target-support.md)の全リストを参照してください。
 
@@ -324,14 +324,14 @@ Kotlin 1.9.20では、以前非推奨となっていたいくつかのターゲ�
 
 Kotlin 1.9.20は、Kotlin Multiplatformの安定化に重点を置き、新しいプロジェクトウィザードやその他の注目すべき機能により開発者エクスペリエンスを向上させるための新たな一歩を踏み出します。
 
-* [Kotlin Multiplatformが安定版になりました](#kotlin-multiplatform-is-stable)
-* [マルチプラットフォームプロジェクト構成用テンプレート](#template-for-configuring-multiplatform-projects)
-* [新しいプロジェクトウィザード](#new-project-wizard)
-* [Gradle Configuration Cacheの完全サポート](#full-support-for-the-gradle-configuration-cache-in-kotlin-multiplatform)
-* [Gradleにおける新しい標準ライブラリバージョンの設定をより簡単に](#easier-configuration-of-new-standard-library-versions-in-gradle)
-* [サードパーティcinteropライブラリのデフォルトサポート](#default-support-for-third-party-cinterop-libraries)
-* [Compose MultiplatformプロジェクトにおけるKotlin/Nativeコンパイルキャッシュのサポート](#support-for-kotlin-native-compilation-caches-in-compose-multiplatform-projects)
-* [互換性ガイドライン](#compatibility-guidelines)
+*   [Kotlin Multiplatformが安定版になりました](#kotlin-multiplatform-is-stable)
+*   [マルチプラットフォームプロジェクト構成用テンプレート](#template-for-configuring-multiplatform-projects)
+*   [新しいプロジェクトウィザード](#new-project-wizard)
+*   [Gradle Configuration Cacheの完全サポート](#full-support-for-the-gradle-configuration-cache-in-kotlin-multiplatform)
+*   [Gradleにおける新しい標準ライブラリバージョンの設定をより簡単に](#easier-configuration-of-new-standard-library-versions-in-gradle)
+*   [サードパーティcinteropライブラリのデフォルトサポート](#default-support-for-third-party-cinterop-libraries)
+*   [Compose MultiplatformプロジェクトにおけるKotlin/Nativeコンパイルキャッシュのサポート](#support-for-kotlin-native-compilation-caches-in-compose-multiplatform-projects)
+*   [互換性ガイドライン](#compatibility-guidelines)
 
 ### Kotlin Multiplatformが安定版になりました
 
@@ -340,9 +340,9 @@ Kotlin 1.9.20は、Kotlin Multiplatformの安定化に重点を置き、新し�
 
 Kotlin Multiplatformの一部の高度な機能はまだ進化中であることに注意してください。それらを使用する際には、使用している機能の現在の安定性ステータスを説明する警告が表示されます。IntelliJ IDEAで実験的な機能を使用する前に、**Settings** | **Advanced Settings** | **Kotlin** | **Experimental Multiplatform** で明示的に有効にする必要があります。
 
-* Kotlin Multiplatformの安定化と今後の計画について詳しくは、[Kotlinブログ](https://blog.jetbrains.com/kotlin/2023/11/kotlin-multiplatform-stable/)をご覧ください。
-* 安定化に向けてどのような重要な変更が行われたかについては、[Multiplatform互換性ガイド](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-compatibility-guide.html)をご確認ください。
-* このリリースで部分的に安定化されたKotlin Multiplatformの重要な要素である、[expectedおよびactual宣言のメカニズム](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-expect-actual.html)についてお読みください。
+*   [Kotlinブログ](https://blog.jetbrains.com/kotlin/2023/11/kotlin-multiplatform-stable/)にアクセスして、Kotlin Multiplatformの安定化と今後の計画について詳しくご覧ください。
+*   安定化に向けてどのような重要な変更が行われたかについては、[Multiplatform互換性ガイド](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-compatibility-guide.html)をご確認ください。
+*   このリリースで部分的に安定化されたKotlin Multiplatformの重要な要素である、[expectedおよびactual宣言のメカニズム](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-expect-actual.html)についてお読みください。
 
 ### マルチプラットフォームプロジェクト構成用テンプレート
 
@@ -459,42 +459,42 @@ Kotlin 1.9.20以降、デフォルト階層テンプレートは自動的に有�
 しかし、1.9.20より前に作成された既存のプロジェクトを移行している場合、以前に
 `dependsOn()`呼び出しで手動で中間ソースを導入していた場合に警告に遭遇する可能性があります。この問題を解決するには、以下の手順を実行してください。
 
-* 中間ソースセットが現在デフォルト階層テンプレートでカバーされている場合、全ての手動`dependsOn()`
-  呼び出しと`by creating`構成で作成されたソースセットを削除します。
+*   中間ソースセットが現在デフォルト階層テンプレートでカバーされている場合、全ての手動`dependsOn()`
+    呼び出しと`by creating`構成で作成されたソースセットを削除します。
 
-  全てのデフォルトソースセットのリストを確認するには、[完全な階層テンプレート](#see-the-full-hierarchy-template)を参照してください。
+    全てのデフォルトソースセットのリストを確認するには、[完全な階層テンプレート](#see-the-full-hierarchy-template)を参照してください。
 
-* デフォルト階層テンプレートが提供しない追加のソースセット（例えば、macOSとJVMターゲット間でコードを共有するソースセット）を持ちたい場合は、`applyDefaultHierarchyTemplate()`でテンプレートを明示的に再適用し、通常通り`dependsOn()`で追加ソースセットを手動で設定して階層を調整します。
+*   デフォルト階層テンプレートが提供しない追加のソースセット（例えば、macOSとJVMターゲット間でコードを共有するソースセット）を持ちたい場合は、`applyDefaultHierarchyTemplate()`でテンプレートを明示的に再適用し、通常通り`dependsOn()`で追加ソースセットを手動で設定して階層を調整します。
 
-  ```kotlin
-  kotlin {
-      jvm()
-      macosArm64()
-      iosArm64()
-      iosSimulatorArm64()
+    ```kotlin
+    kotlin {
+        jvm()
+        macosArm64()
+        iosArm64()
+        iosSimulatorArm64()
 
-      // Apply the default hierarchy explicitly. It'll create, for example, the iosMain source set:
-      applyDefaultHierarchyTemplate()
+        // Apply the default hierarchy explicitly. It'll create, for example, the iosMain source set:
+        applyDefaultHierarchyTemplate()
 
-      sourceSets {
-          // Create an additional jvmAndMacos source set
-          val jvmAndMacos by creating {
-              dependsOn(commonMain.get())
-          }
+        sourceSets {
+            // Create an additional jvmAndMacos source set
+            val jvmAndMacos by creating {
+                dependsOn(commonMain.get())
+            }
 
-          macosArm64Main.get().dependsOn(jvmAndMacos)
-          jvmMain.get().dependsOn(jvmAndMacos)
-      }
-  }
-  ```
+            macosArm64Main.get().dependsOn(jvmAndMacos)
+            jvmMain.get().dependsOn(jvmAndMacos)
+        }
+    }
+    ```
 
-* プロジェクトに、テンプレートによって生成されるものと全く同じ名前だが、異なるターゲットセット間で共有されているソースセットが既に存在する場合、テンプレートのソースセット間のデフォルトの`dependsOn`関係を現在変更する方法はありません。
+*   プロジェクトに、テンプレートによって生成されるものと全く同じ名前だが、異なるターゲットセット間で共有されているソースセットが既に存在する場合、テンプレートのソースセット間のデフォルトの`dependsOn`関係を現在変更する方法はありません。
 
-  ここで可能な選択肢は、デフォルト階層テンプレート内または手動で作成されたソースセットの中から、目的に合った異なるソースセットを見つけることです。もう1つの選択肢は、テンプレートから完全にオプトアウトすることです。
+    ここで可能な選択肢は、デフォルト階層テンプレート内または手動で作成されたソースセットの中から、目的に合った異なるソースセットを見つけることです。もう1つの選択肢は、テンプレートから完全にオプトアウトすることです。
 
-  オプトアウトするには、`kotlin.mpp.applyDefaultHierarchyTemplate=false`を`gradle.properties`に追加し、他の全てのソースセットを手動で設定します。
+    オプトアウトするには、`kotlin.mpp.applyDefaultHierarchyTemplate=false`を`gradle.properties`に追加し、他の全てのソースセットを手動で設定します。
 
-  現在、そのような場合のセットアッププロセスを簡素化するために、独自の階層テンプレートを作成するためのAPIに取り組んでいます。
+    現在、そのような場合のセットアッププロセスを簡素化するために、独自の階層テンプレートを作成するためのAPIに取り組んでいます。
 
 #### 完全な階層テンプレートを見る {initial-collapse-state="collapsed" collapsible="true"}
 
@@ -635,7 +635,7 @@ Kotlin 1.9.20では、[Kotlin CocoaPods Gradle](https://www.jetbrains.com/help/k
 プロジェクトを設定する際には、Kotlin Multiplatform Gradleプラグインと、利用可能なGradle、Xcode、
 Android Gradleプラグイン（AGP）のバージョンとの互換性を確認してください。
 
-| Kotlin Multiplatform Gradleプラグイン | Gradle | Android Gradleプラグイン | Xcode |
+| Kotlin Multiplatform Gradle plugin | Gradle | Android Gradle plugin | Xcode |
 |---|---|---|---|
 | 1.9.20 | 7.5 以降 | 7.4.2–8.2 | 15.0。詳細は下記参照 |
 
@@ -649,10 +649,10 @@ Xcode 15に同梱されているライブラリは表示されますが、アク
 
 1.9.20で、Kotlin Wasmは安定性の[アルファレベル](components-stability.md)に達しました。
 
-* [Wasm GCフェーズ4および最終オペコードとの互換性](#compatibility-with-wasm-gc-phase-4-and-final-opcodes)
-* [新しい`wasm-wasi`ターゲット、および`wasm`ターゲットの`wasm-js`への名称変更](#new-wasm-wasi-target-and-the-renaming-of-the-wasm-target-to-wasm-js)
-* [標準ライブラリにおけるWASI APIのサポート](#support-for-the-wasi-api-in-the-standard-library)
-* [Kotlin/Wasm APIの改善](#kotlin-wasm-api-improvements)
+*   [Wasm GCフェーズ4および最終オペコードとの互換性](#compatibility-with-wasm-gc-phase-4-and-final-opcodes)
+*   [新しい`wasm-wasi`ターゲット、および`wasm`ターゲットの`wasm-js`への名称変更](#new-wasm-wasi-target-and-the-renaming-of-the-wasm-target-to-wasm-js)
+*   [標準ライブラリにおけるWASI APIのサポート](#support-for-the-wasi-api-in-the-standard-library)
+*   [Kotlin/Wasm APIの改善](#kotlin-wasm-api-improvements)
 
 > Kotlin Wasmは[Alpha (アルファ版)](components-stability.md)です。
 > いつでも変更される可能性があります。評価目的のみで使用してください。
@@ -666,8 +666,8 @@ Xcode 15に同梱されているライブラリは表示されますが、アク
 Wasm GCは最終フェーズに移行し、バイナリ表現で使用される定数であるオペコードの更新が必要です。
 Kotlin 1.9.20は最新のオペコードをサポートしているため、Wasmプロジェクトを最新バージョンのKotlinに更新することを強くお勧めします。
 また、Wasm環境で最新バージョンのブラウザを使用することもお勧めします。
-* ChromeおよびChromiumベースのブラウザではバージョン119以降。
-* Firefoxではバージョン119以降。Firefox 119では、Wasm GCを[手動で有効にする](wasm-troubleshooting.md)必要があることに注意してください。
+*   ChromeおよびChromiumベースのブラウザではバージョン119以降。
+*   Firefoxではバージョン119以降。Firefox 119では、[Wasm GCを手動で有効にする](wasm-configuration.md)必要があることに注意してください。
 
 ### 新しい`wasm-wasi`ターゲット、および`wasm`ターゲットの`wasm-js`への名称変更
 
@@ -690,8 +690,8 @@ kotlin {
 以前に導入された`wasm {}`ブロックは、`wasmJs {}`を優先して非推奨になりました。
 
 既存のKotlin/Wasmプロジェクトを移行するには、以下の手順を実行してください。
-* `build.gradle.kts`ファイルで、`wasm {}`ブロックを`wasmJs {}`に名称変更します。
-* プロジェクト構造で、`wasmMain`ディレクトリを`wasmJsMain`に名称変更します。
+*   `build.gradle.kts`ファイルで、`wasm {}`ブロックを`wasmJs {}`に名称変更します。
+*   プロジェクト構造で、`wasmMain`ディレクトリを`wasmJsMain`に名称変更します。
 
 ### 標準ライブラリにおけるWASI APIのサポート
 
@@ -757,9 +757,9 @@ Kotlin 1.9.20はGradle 6.8.3から8.1まで完全に互換性があります。�
 リリースまでのバージョンも使用できますが、その場合、非推奨警告に遭遇したり、一部の新しいGradle機能が動作しない可能性があることに留意してください。
 
 このバージョンには以下の変更が含まれています。
-* [内部宣言にアクセスするためのテストフィクスチャのサポート](#support-for-test-fixtures-to-access-internal-declarations)
-* [Konanディレクトリへのパスを設定する新しいプロパティ](#new-property-to-configure-paths-to-konan-directories)
-* [Kotlin/Nativeタスクの新しいビルドレポートメトリクス](#new-build-report-metrics-for-kotlin-native-tasks)
+*   [内部宣言にアクセスするためのテストフィクスチャのサポート](#support-for-test-fixtures-to-access-internal-declarations)
+*   [Konanディレクトリへのパスを設定する新しいプロパティ](#new-property-to-configure-paths-to-konan-directories)
+*   [Kotlin/Nativeタスクの新しいビルドレポートメトリクス](#new-build-report-metrics-for-kotlin-native-tasks)
 
 ### 内部宣言にアクセスするためのテストフィクスチャのサポート
 
@@ -829,8 +829,8 @@ Size metrics:
 ## 標準ライブラリ
 
 Kotlin 1.9.20では、[Kotlin/Native標準ライブラリが安定版](#the-kotlin-native-standard-library-becomes-stable)になり、いくつかの新機能が追加されました。
-* [Enumクラスの`values`汎用関数の置き換え](#replacement-of-the-enum-class-values-generic-function)
-* [Kotlin/JSにおけるHashMap操作のパフォーマンス改善](#improved-performance-of-hashmap-operations-in-kotlin-js)
+*   [Enumクラスの`values`汎用関数の置き換え](#replacement-of-the-enum-class-values-generic-function)
+*   [Kotlin/JSにおけるHashMap操作のパフォーマンス改善](#improved-performance-of-hashmap-operations-in-kotlin-js)
 
 ### Enumクラスの`values`汎用関数の置き換え
 
@@ -867,32 +867,32 @@ printAllValues<RGB>()
 
 ### Kotlin/Native標準ライブラリが安定版に
 
-Kotlin 1.9.0で、Kotlin/Native標準ライブラリの安定化目標に近づけるために取った行動を[説明しました](whatsnew19.md#the-kotlin-native-standard-library-s-journey-towards-stabilization)。Kotlin 1.9.20では、
+Kotlin 1.9.0で、Kotlin/Native標準ライブラリが安定版になる際に取った行動を[説明しました](whatsnew19.md#the-kotlin-native-standard-library-s-journey-towards-stabilization)。Kotlin 1.9.20では、
 この作業を最終的に完了し、Kotlin/Native標準ライブラリを安定版にしました。このリリースの主なハイライトは以下の通りです。
 
-* [`Vector128`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlinx.cinterop/-vector128/)クラスは`kotlin.native`パッケージから`kotlinx.cinterop`パッケージに移動されました。
-* Kotlin 1.9.0の一部として導入された`ExperimentalNativeApi`および`NativeRuntimeApi`アノテーションのオプトイン要件レベルが、`WARNING`から`ERROR`に引き上げられました。
-* Kotlin/Nativeコレクションは、例えば[`ArrayList`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-array-list/)や[`HashMap`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-hash-map/)コレクションでの同時変更を検出するようになりました。
-* `Throwable`クラスの[`printStackTrace()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/print-stack-trace.html)関数は、`STDOUT`ではなく`STDERR`に出力されるようになりました。
-  > `printStackTrace()`の出力形式は安定版ではなく、変更される可能性があります。
-  >
-  {style="warning"}
+*   [`Vector128`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlinx.cinterop/-vector128/)クラスは`kotlin.native`パッケージから`kotlinx.cinterop`パッケージに移動されました。
+*   Kotlin 1.9.0の一部として導入された`ExperimentalNativeApi`および`NativeRuntimeApi`アノテーションのオプトイン要件レベルが、`WARNING`から`ERROR`に引き上げられました。
+*   Kotlin/Nativeコレクションは、例えば[`ArrayList`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-array-list/)や[`HashMap`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-hash-map/)コレクションでの同時変更を検出するようになりました。
+*   `Throwable`クラスの[`printStackTrace()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/print-stack-trace.html)関数は、`STDOUT`ではなく`STDERR`に出力されるようになりました。
+    > `printStackTrace()`の出力形式は安定版ではなく、変更される可能性があります。
+    >
+    {style="warning"}
 
 #### Atomics APIの改善
 
 Kotlin 1.9.0で、Kotlin/Native標準ライブラリが安定版になる際にAtomics APIも安定版になる準備が整うとお伝えしました。Kotlin 1.9.20には、以下の追加の変更が含まれます。
 
-* 実験的な`AtomicIntArray`、`AtomicLongArray`、`AtomicArray<T>`クラスが導入されました。これらの新しいクラスは、
+*   実験的な`AtomicIntArray`、`AtomicLongArray`、`AtomicArray<T>`クラスが導入されました。これらの新しいクラスは、
 Javaのatomic配列と一貫性を持つように特別に設計されており、将来的に共通標準ライブラリに含めることができます。
-  > `AtomicIntArray`、`AtomicLongArray`、`AtomicArray<T>`クラスは
-  > [Experimental (実験的)](components-stability.md#stability-levels-explained)です。これらはいつでも削除または変更される可能性があります。
-  > 試すには、`@OptIn(ExperimentalStdlibApi)`でオプトインしてください。評価目的のみで使用してください。
-  > [YouTrack](https://kotl.in/issue)でのフィードバックをお待ちしております。
-  >
-  {style="warning"}
-* `kotlin.native.concurrent`パッケージにおいて、Kotlin 1.9.0で非推奨レベル`WARNING`で非推奨化されたAtomics APIの非推奨レベルが`ERROR`に引き上げられました。
-* `kotlin.concurrent`パッケージにおいて、非推奨レベル`ERROR`であった[`AtomicInt`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.concurrent/-atomic-int/index.html)および[`AtomicLong`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.concurrent/-atomic-long/index.html)クラスの[メンバ関数](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.concurrent/-atomic-reference/#functions)が削除されました。
-* `AtomicReference`クラスの全ての[メンバ関数](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.concurrent/-atomic-reference/#functions)がatomic intrinsic関数を使用するようになりました。
+    > `AtomicIntArray`、`AtomicLongArray`、`AtomicArray<T>`クラスは
+    > [Experimental (実験的)](components-stability.md#stability-levels-explained)です。これらはいつでも削除または変更される可能性があります。
+    > 試すには、`@OptIn(ExperimentalStdlibApi)`でオプトインしてください。評価目的のみで使用してください。
+    > [YouTrack](https://kotl.in/issue)でのフィードバックをお待ちしております。
+    >
+    {style="warning"}
+*   `kotlin.native.concurrent`パッケージにおいて、Kotlin 1.9.0で非推奨レベル`WARNING`で非推奨化されたAtomics APIの非推奨レベルが`ERROR`に引き上げられました。
+*   `kotlin.concurrent`パッケージにおいて、非推奨レベル`ERROR`であった[`AtomicInt`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.concurrent/-atomic-int/index.html)および[`AtomicLong`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.concurrent/-atomic-long/index.html)クラスの[メンバ関数](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.concurrent/-atomic-reference/#functions)が削除されました。
+*   `AtomicReference`クラスの全ての[メンバ関数](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.concurrent/-atomic-reference/#functions)がatomic intrinsic関数を使用するようになりました。
 
 Kotlin 1.9.20の全ての変更に関する詳細については、[YouTrackチケット](https://youtrack.jetbrains.com/issue/KT-61028/Behavioural-changes-to-the-Native-stdlib-API)を参照してください。
 
@@ -901,19 +901,19 @@ Kotlin 1.9.20の全ての変更に関する詳細については、[YouTrackチ�
 Kotlin 1.9.20では、Kotlin/JSにおける`HashMap`操作のパフォーマンスが向上し、メモリフットプリントが削減されました。内部的には、
 Kotlin/JSはその内部実装をオープンアドレス方式に変更しました。これにより、以下の状況でパフォーマンスの改善が見られるはずです。
 
-* `HashMap`に新しい要素を挿入する。
-* `HashMap`内の既存要素を検索する。
-* `HashMap`内のキーまたは値をイテレートする。
+*   `HashMap`に新しい要素を挿入する。
+*   `HashMap`内の既存要素を検索する。
+*   `HashMap`内のキーまたは値をイテレートする。
 
 ## ドキュメントの更新
 
 Kotlinドキュメントにいくつかの注目すべき変更がありました。
-* [JVM Metadata](https://kotlinlang.org/api/kotlinx-metadata-jvm/) APIリファレンス – Kotlin/JVMでメタデータを解析する方法を探る。
-* [時間計測ガイド](time-measurement.md) – Kotlinで時間を計算および測定する方法を学ぶ。
-* [Kotlinツアー](kotlin-tour-welcome.md)のCollections章が改善されました – 理論と実践の両方を含む章で、Kotlinプログラミング言語の基本を学ぶ。
-* [明確な非NULL許容型](generics.md#definitely-non-nullable-types) – 明確な非NULL許容ジェネリック型について学ぶ。
-* 改善された[配列ページ](arrays.md) – 配列とその使用時期について学ぶ。
-* [Kotlin Multiplatformにおけるexpectedおよびactual宣言](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-expect-actual.html) – Kotlin Multiplatformにおけるexpectedおよびactual宣言のKotlinメカニズムについて学ぶ。
+*   [JVM Metadata](https://kotlinlang.org/api/kotlinx-metadata-jvm/) APIリファレンス – Kotlin/JVMでメタデータを解析する方法を探る。
+*   [時間計測ガイド](time-measurement.md) – Kotlinで時間を計算および測定する方法を学ぶ。
+*   [Kotlinツアー](kotlin-tour-welcome.md)のCollections章が改善されました – 理論と実践の両方を含む章で、Kotlinプログラミング言語の基本を学ぶ。
+*   [明確な非NULL許容型](generics.md#definitely-non-nullable-types) – 明確な非NULL許容ジェネリック型について学ぶ。
+*   改善された[配列ページ](arrays.md) – 配列とその使用時期について学ぶ。
+*   [Kotlin Multiplatformにおけるexpectedおよびactual宣言](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-expect-actual.html) – Kotlin Multiplatformにおけるexpectedおよびactual宣言のKotlinメカニズムについて学ぶ。
 
 ## Kotlin 1.9.20のインストール
 

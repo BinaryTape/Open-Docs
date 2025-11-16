@@ -8,7 +8,8 @@ Kotlin은 JVM, Android, JavaScript, Wasm 및 Native를 대상으로 하는 오�
 
 ### Kotlin의 현재 버전은 무엇인가요?
 
-현재 릴리스된 버전은 %kotlinReleaseDate%에 게시된 %kotlinVersion%입니다. 더 자세한 정보는 [GitHub](https://github.com/jetbrains/kotlin)에서 확인할 수 있습니다.
+현재 릴리스된 버전은 %kotlinVersion%이며, %kotlinReleaseDate%에 게시되었습니다.
+더 자세한 정보는 [GitHub](https://github.com/jetbrains/kotlin)에서 확인할 수 있습니다.
 
 ### Kotlin은 무료인가요?
 
@@ -24,7 +25,7 @@ Kotlin은 더 간결합니다. 대략적인 추정치에 따르면 코드 줄 �
 
 ### Kotlin은 Java 프로그래밍 언어와 호환되나요?
 
-네. Kotlin은 Java 프로그래밍 언어와 100% 상호 운용 가능하며, 기존 코드베이스가 Kotlin과 제대로 상호 작용할 수 있도록 하는 데 중점을 두었습니다. [Java에서 Kotlin 코드 호출](java-to-kotlin-interop.md)과 [Kotlin에서 Java 코드 호출](java-interop.md)이 쉽습니다. 이로 인해 도입이 훨씬 쉽고 위험 부담이 줄어듭니다. 또한 IDE에 내장된 자동 [Java-Kotlin 변환기](mixing-java-kotlin-intellij.md#converting-an-existing-java-file-to-kotlin-with-j2k)가 있어 기존 코드 마이그레이션을 간소화합니다.
+네. Kotlin은 Java 프로그래밍 언어와 100% 상호 운용 가능하며, 기존 코드베이스가 Kotlin과 제대로 상호 작용할 수 있도록 하는 데 중점을 두었습니다. [Java에서 Kotlin 코드 호출](java-to-kotlin-interop.md)과 [Kotlin에서 Java 코드 호출](java-interop.md)이 쉽습니다. 이로 인해 도입이 훨씬 쉽고 위험 부담이 줄어듭니다. 또한 IDE에 내장된 자동 [Java-Kotlin 변환기](mixing-java-kotlin-intellij.md#convert-java-files-to-kotlin)가 있어 기존 코드 마이그레이션을 간소화합니다.
 
 ### Kotlin을 어디에 사용할 수 있나요?
 
@@ -86,7 +87,7 @@ Kotlin을 사용하는 회사가 너무 많아 모두 나열하기 어렵습니�
 
 ### 누가 Kotlin을 개발하나요?
 
-Kotlin은 [JetBrains](https://www.jetbrains.com)의 엔지니어 팀(현재 100명 이상)이 개발합니다. 수석 언어 디자이너는 Michail Zarečenskij입니다. 코어 팀 외에도 250명 이상의 외부 기여자들이 GitHub에서 활동하고 있습니다.
+Kotlin은 [JetBrains](https://www.jetbrains.com)의 엔지니어 팀(현재 100명 이상)이 개발합니다. 수석 언어 디자이너는 Michail Zarečenskij입니다. 코어 팀 외에도 250명 이상의 외부 기여자들도 GitHub에서 활동하고 있습니다.
 
 ### Kotlin에 대해 더 자세히 알아볼 수 있는 곳은 어디인가요?
 

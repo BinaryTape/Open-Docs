@@ -177,26 +177,32 @@ suspend fun Application.installEvents() {
 
 ### 配置选项
 
-以下 Gradle 配置属性可用：
+以下配置属性可用：
 
-| 属性                                | 类型                        | 描述                                              | 默认值      |
-|-------------------------------------|-----------------------------|---------------------------------------------------|--------------|
+| Property                                | Type                        | 描述                                              | 默认值      |
+|-----------------------------------------|-----------------------------|---------------------------------------------------|--------------|
 | `ktor.application.startup`              | `sequential` / `concurrent` | 定义应用程序模块的加载方式                        | `sequential` |
-| `ktor.application.startupTimeoutMillis` | `Long`                      | 应用程序模块加载的超时时间（毫秒）                | `100000`     |
+| `ktor.application.startupTimeoutMillis` | `Long`                      | 应用程序模块加载的超时时间（毫秒）                | `10000`      |
 
 ### 启用并发模块加载
 
-要启用并发模块加载，请将以下属性添加到你的 `gradle.properties` 文件中：
+要启用并发模块加载，请将以下内容添加到你的服务器配置文件中：
 
-```none
-ktor.application.startup = concurrent
+```yaml
+# application.conf
+
+ktor {
+    application {
+        startup = concurrent
+    }
+}
 ```
 
 对于依赖注入，你可以按出现顺序加载以下模块而不会出现问题：
 
 ```kotlin
 suspend fun Application.installEvents() {
-    // 挂起直到提供
+    // Suspends until provided
     val kubernetesConnection = dependencies.resolve<KubernetesConnection>()
 }
 

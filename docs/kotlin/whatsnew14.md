@@ -306,7 +306,7 @@ fun test(xs: List<Int>) {
 
 **调试工具窗口**现在包含一个新的 **Coroutines** 标签页。在此标签页中，你可以找到有关当前运行和挂起协程的信息。协程按其运行的调度器分组。
 
-![调试协程](coroutine-debugger-wn.png)
+![Debugging coroutines](coroutine-debugger-wn.png)
 
 现在你可以：
 * 轻松检测每个协程的状态。
@@ -315,7 +315,7 @@ fun test(xs: List<Int>) {
 
 如果你需要包含每个协程状态及其堆栈的完整报告，请右键单击 **Coroutines** 标签页，然后单击 **Get Coroutines Dump**。目前，协程转储（dump）相当简单，但我们将在未来的 Kotlin 版本中使其更具可读性和实用性。
 
-![协程转储](coroutines-dump-wn.png)
+![Coroutines Dump](coroutines-dump-wn.png)
 
 在 [这篇博客文章](https://blog.jetbrains.com/kotlin/2020/07/kotlin-1-4-rc-debugging-coroutines/) 和 [IntelliJ IDEA 文档](https://www.jetbrains.com/help/idea/debug-kotlin-coroutines.html) 中了解更多关于调试协程的信息。
 
@@ -436,7 +436,7 @@ fun main() {
 
 #### 具有不同实参的 Java 接口的 SAM 转换
 
-Kotlin 从一开始就支持 Java 接口的 SAM 转换，但有一种情况不被支持，这在使用现有 Java 库时有时会很烦人。如果你调用的 Java 方法将两个 SAM 接口作为形参，那么两个实参都需要是 lambda 表达式或普通对象。你不能将一个实参作为 lambda 表达式传入，另一个作为对象传入。
+Kotlin 从一开始就支持 Java 接口的 SAM 转换，但有一种情况不被支持，这在使用现有 Java library 时有时会很烦人。如果你调用的 Java 方法将两个 SAM 接口作为形参，那么两个实参都需要是 lambda 表达式或普通对象。你不能将一个实参作为 lambda 表达式传入，另一个作为对象传入。
 
 新算法修复了这个问题，你现在在任何情况下都可以传入 lambda 表达式来代替 SAM 接口，这正是你自然期望的工作方式。
 
@@ -523,7 +523,7 @@ kotlinOptions.useIR = true
 
 ### 用于空检测的统一异常类型
 
-从 Kotlin 1.4.0 开始，所有运行时空检测都将抛出 `java.lang.NullPointerException`，而不是 `KotlinNullPointerException`、`IllegalStateException`、`IllegalArgumentException` 和 `TypeCastException`。这适用于：`!!` 操作符、方法前导中的形参空检测、平台类型表达式空检测以及带有非空类型的使用 `as` 操作符。这不适用于 `lateinit` 空检测和显式库函数调用，如 `checkNotNull` 或 `requireNotNull`。
+从 Kotlin 1.4.0 开始，所有运行时空检测都将抛出 `java.lang.NullPointerException`，而不是 `KotlinNullPointerException`、`IllegalStateException`、`IllegalArgumentException` 和 `TypeCastException`。这适用于：`!!` 操作符、方法前导中的形参空检测、平台类型表达式空检测以及带有非空类型的使用 `as` 操作符。这不适用于 `lateinit` 空检测和显式 library 函数调用，如 `checkNotNull` 或 `requireNotNull`。
 
 此更改增加了 Kotlin 编译器或各种字节码处理工具（例如 Android [R8 优化器](https://developer.android.com/studio/build/shrink-code)）可以执行的空检测优化次数。
 
@@ -599,7 +599,7 @@ kotlin {
 
 在 1.4.0 中，Kotlin/Native 获得了大量新特性和改进，包括：
 
-* [在 Swift 和 Objective-C 中支持挂起函数](#support-for-kotlin-s-suspending-functions-in-swift-and-objective-c)
+* [在 Swift 和 Objective-C 中支持 Kotlin 的挂起函数](#support-for-kotlin-s-suspending-functions-in-swift-and-objective-c)
 * [默认支持 Objective-C 泛型](#objective-c-generics-support-by-default)
 * [Objective-C/Swift 互操作中的异常处理](#exception-handling-in-objective-c-swift-interop)
 * [默认在 Apple 目标上生成 release .dSYMs](#generate-release-dsyms-on-apple-targets-by-default)
@@ -685,7 +685,7 @@ Kotlin/Native 获得了一系列性能改进，加速了开发过程和执行。
 
 ### 简化 CocoaPods 依赖项管理
 
-以前，一旦你将项目与 CocoaPods 依赖项管理器集成，你只能在 Xcode 中构建项目的 iOS、macOS、watchOS 或 tvOS 部分，而不能与多平台项目的其他部分一起构建。这些其他部分可以在 IntelliJ IDEA 中构建。
+以前，一旦你将项目与依赖项管理器 CocoaPods 集成，你只能在 Xcode 中构建项目的 iOS、macOS、watchOS 或 tvOS 部分，而不能与多平台项目的其他部分一起构建。这些其他部分可以在 IntelliJ IDEA 中构建。
 
 而且，每当你添加对存储在 CocoaPods 中的 Objective-C library（Pod library）的依赖项时，你都必须从 IntelliJ IDEA 切换到 Xcode，调用 `pod install`，并在那里运行 Xcode 构建。
 
@@ -699,7 +699,7 @@ Kotlin/Native 获得了一系列性能改进，加速了开发过程和执行。
 
 完成初始配置后，当你向 `cocoapods` 添加新的依赖项时，只需在 IntelliJ IDEA 中重新导入项目。新依赖项将自动添加。无需额外步骤。
 
-[了解如何添加依赖项](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-cocoapods-libraries.html)。
+[了解如何添加依赖项](https://kotlinlang.org/docs/multiplatform/multiplatform-cocoapods-libraries.html)。
 
 ## Kotlin 多平台
 
@@ -707,7 +707,7 @@ Kotlin/Native 获得了一系列性能改进，加速了开发过程和执行。
 >
 {style="warning"}
 
-[Kotlin 多平台](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html) 减少了为 [不同平台](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-dsl-reference.html#targets) 编写和维护相同代码的时间，同时保留了原生编程的灵活性和优势。我们继续投入精力在多平台特性和改进上：
+[Kotlin 多平台](https://kotlinlang.org/docs/multiplatform/get-started.html) 减少了为 [不同平台](https://kotlinlang.org/docs/multiplatform/multiplatform-dsl-reference.html#targets) 编写和维护相同代码的时间，同时保留了原生编程的灵活性和优势。我们继续投入精力在多平台特性和改进上：
 
 * [通过分层项目结构在多个目标之间共享代码](#sharing-code-in-several-targets-with-the-hierarchical-project-structure)
 * [在分层结构中利用原生 library](#leveraging-native-libs-in-the-hierarchical-structure)
@@ -719,11 +719,11 @@ Kotlin/Native 获得了一系列性能改进，加速了开发过程和执行。
 
 ### 通过分层项目结构在多个目标之间共享代码
 
-通过新的分层项目结构支持，你可以在 [多平台项目](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-discover-project.html) 中，在 [多个平台](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-dsl-reference.html#targets) 之间共享代码。
+通过新的分层项目结构支持，你可以在 [多平台项目](https://kotlinlang.org/docs/multiplatform/multiplatform-discover-project.html) 中，在 [多个平台](https://kotlinlang.org/docs/multiplatform/multiplatform-dsl-reference.html#targets) 之间共享代码。
 
-以前，添加到多平台项目中的任何代码都可以放在平台特有的源代码集（仅限于一个目标且不能被任何其他平台复用）中，或者放在公共源代码集（例如 `commonMain` 或 `commonTest`，在项目中的所有平台之间共享）中。在公共源代码集中，你只能通过使用需要平台特有 `actual` 实现的 [`expect` 声明](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-expect-actual.html) 来调用平台特有 API。
+以前，添加到多平台项目中的任何代码都可以放在平台特有的源代码集（仅限于一个目标且不能被任何其他平台复用）中，或者放在公共源代码集（例如 `commonMain` 或 `commonTest`，在项目中的所有平台之间共享）中。在公共源代码集中，你只能通过使用需要平台特有 `actual` 实现的 [`expect` 声明](https://kotlinlang.org/docs/multiplatform/multiplatform-expect-actual.html) 来调用平台特有 API。
 
-这使得在 [所有平台](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-share-on-platforms.html#share-code-on-all-platforms) 上共享代码变得容易，但在 [部分目标之间](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-share-on-platforms.html#share-code-on-similar-platforms) 共享代码就不那么容易了，特别是那些可能复用大量公共逻辑和第三方 API 的相似平台。
+这使得在 [所有平台](https://kotlinlang.org/docs/multiplatform/multiplatform-share-on-platforms.html#share-code-on-all-platforms) 上共享代码变得容易，但在 [部分目标之间](https://kotlinlang.org/docs/multiplatform/multiplatform-share-on-platforms.html#share-code-on-similar-platforms) 共享代码就不那么容易了，特别是那些可能复用大量公共逻辑和第三方 API 的相似平台。
 
 例如，在典型的面向 iOS 的多平台项目中，有两个与 iOS 相关的目标：一个用于 iOS ARM64 设备，另一个用于 x64 模拟器。它们有独立的平台特有源代码集，但实际上，设备和模拟器的代码很少需要不同，它们的依赖项也大同小异。因此 iOS 特有代码可以在它们之间共享。
 
@@ -731,7 +731,7 @@ Kotlin/Native 获得了一系列性能改进，加速了开发过程和执行。
 
 ![iOS 目标共享的代码](iosmain-hierarchy.png){width=300}
 
-现在你可以通过 [分层项目结构支持](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-share-on-platforms.html#share-code-on-similar-platforms) 来实现，它根据哪些目标使用它们来推断和调整每个源代码集中可用的 API 和语言特性。
+现在你可以通过 [分层项目结构支持](https://kotlinlang.org/docs/multiplatform/multiplatform-share-on-platforms.html#share-code-on-similar-platforms) 来实现，它根据哪些目标使用它们来推断和调整每个源代码集中可用的 API 和语言特性。
 
 对于常见的目标组合，你可以创建带有目标快捷方式的分层结构。
 例如，使用 `ios()` 快捷方式创建两个 iOS 目标和上面所示的共享源代码集：
@@ -742,7 +742,7 @@ kotlin {
 }
 ```
 
-对于其他目标组合，可以通过 `dependsOn` 关系连接源代码集来 [手动创建层次结构](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-hierarchy.html#manual-configuration)。
+对于其他目标组合，可以通过 `dependsOn` 关系连接源代码集来 [手动创建层次结构](https://kotlinlang.org/docs/multiplatform/multiplatform-hierarchy.html#manual-configuration)。
 
 ![分层结构](manual-hierarchical-structure.svg)
 
@@ -794,7 +794,7 @@ kotlin {
 </tab>
 </tabs>
 
-得益于分层项目结构，library 也可以为目标的子 set 提供公共 API。了解更多关于 [在 library 中共享代码](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-share-on-platforms.html#share-code-in-libraries) 的信息。
+得益于分层项目结构，library 也可以为目标的子 set 提供公共 API。了解更多关于 [在 library 中共享代码](https://kotlinlang.org/docs/multiplatform/multiplatform-share-on-platforms.html#share-code-in-libraries) 的信息。
 
 ### 在分层结构中利用原生 library
 
@@ -802,7 +802,7 @@ kotlin {
 
 无需额外步骤 – 一切都是自动完成的。IntelliJ IDEA 将帮助你检测可以在共享代码中使用的公共声明。
 
-[了解更多关于平台依赖 library 使用方法的信息](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-share-on-platforms.html#connect-platform-specific-libraries)。
+[了解更多关于平台依赖 library 使用方法的信息](https://kotlinlang.org/docs/multiplatform/multiplatform-share-on-platforms.html#connect-platform-specific-libraries)。
 
 ### 只指定一次 kotlinx 依赖项
 

@@ -2,7 +2,7 @@
 
 Kotlin의 각 릴리스에는 지원되는 대상인 JVM, JavaScript 및 [지원되는 플랫폼](native-overview.md#target-platforms)용 네이티브 바이너리에 대한 컴파일러가 포함됩니다.
 
-이러한 컴파일러는 다음에서 사용됩니다.
+이 컴파일러는 다음에서 사용됩니다:
 * Kotlin 프로젝트에서 **Compile**(컴파일) 또는 **Run**(실행) 버튼을 클릭할 때 IDE.
 * 콘솔 또는 IDE에서 `gradle build`를 호출할 때 Gradle.
 * 콘솔 또는 IDE에서 `mvn compile` 또는 `mvn test-compile`을 호출할 때 Maven.
@@ -13,21 +13,21 @@ Kotlin의 각 릴리스에는 지원되는 대상인 JVM, JavaScript 및 [지원
 
 Kotlin 컴파일러는 컴파일 프로세스를 맞춤 설정하기 위한 다양한 옵션을 제공합니다.
 
-Gradle DSL은 컴파일러 옵션에 대한 포괄적인 구성을 허용합니다. 이는 [Kotlin 멀티플랫폼](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-dsl-reference.html#compiler-options) 및 [JVM/Android](#target-the-jvm) 프로젝트에서 사용할 수 있습니다.
+Gradle DSL은 컴파일러 옵션에 대한 포괄적인 구성을 허용합니다. 이는 [Kotlin 멀티플랫폼](https://kotlinlang.org/docs/multiplatform/multiplatform-dsl-reference.html#compiler-options) 및 [JVM/Android](#target-the-jvm) 프로젝트에서 사용할 수 있습니다.
 
-Gradle DSL을 사용하면 빌드 스크립트 내에서 세 가지 수준으로 컴파일러 옵션을 구성할 수 있습니다.
+Gradle DSL을 사용하면 빌드 스크립트 내에서 세 가지 수준으로 컴파일러 옵션을 구성할 수 있습니다:
 * **[확장 레벨](#extension-level)**: 모든 타겟 및 공유 소스 세트를 위한 `kotlin {}` 블록.
 * **[타겟 레벨](#target-level)**: 특정 타겟을 위한 블록.
 * **[컴파일 단위 레벨](#compilation-unit-level)**: 일반적으로 특정 컴파일 태스크.
 
 ![Kotlin compiler options levels](compiler-options-levels.svg){width=700}
 
-상위 레벨의 설정은 하위 레벨의 관례(기본값)로 사용됩니다.
+상위 레벨의 설정은 하위 레벨의 관례(기본값)로 사용됩니다:
 
 * 확장 레벨에서 설정된 컴파일러 옵션은 `commonMain`, `nativeMain`, `commonTest`와 같은 공유 소스 세트를 포함하여 타겟 레벨 옵션의 기본값입니다.
 * 타겟 레벨에서 설정된 컴파일러 옵션은 `compileKotlinJvm` 및 `compileTestKotlinJvm` 태스크와 같은 컴파일 단위 (태스크) 레벨 옵션의 기본값입니다.
 
-반대로, 하위 레벨에서 이루어진 구성은 상위 레벨의 관련 설정을 재정의합니다.
+반대로, 하위 레벨에서 이루어진 구성은 상위 레벨의 관련 설정을 재정의합니다:
 
 * 태스크 레벨 컴파일러 옵션은 타겟 또는 확장 레벨의 관련 구성을 재정의합니다.
 * 타겟 레벨 컴파일러 옵션은 확장 레벨의 관련 구성을 재정의합니다.
@@ -43,7 +43,7 @@ JVM 및 JS/WASM 태스크의 경우 로그 내에서 `"Kotlin compiler args:"` �
 
 ### 확장 레벨
 
-모든 타겟 및 공유 소스 세트에 대한 공통 컴파일러 옵션은 최상위 `compilerOptions {}` 블록에서 구성할 수 있습니다.
+모든 타겟 및 공유 소스 세트에 대한 공통 컴파일러 옵션은 최상위 `compilerOptions {}` 블록에서 구성할 수 있습니다:
 
 ```kotlin
 kotlin {
@@ -55,7 +55,7 @@ kotlin {
 
 ### 타겟 레벨
 
-JVM/Android 타겟에 대한 컴파일러 옵션은 `target {}` 블록 내부의 `compilerOptions {}` 블록에서 구성할 수 있습니다.
+JVM/Android 타겟에 대한 컴파일러 옵션은 `target {}` 블록 내부의 `compilerOptions {}` 블록에서 구성할 수 있습니다:
 
 ```kotlin
 kotlin {
@@ -67,11 +67,11 @@ kotlin {
 }
 ```
 
-Kotlin 멀티플랫폼 프로젝트에서는 특정 타겟 내부에서 컴파일러 옵션을 구성할 수 있습니다. 예를 들어, `jvm { compilerOptions {}}`와 같습니다. 자세한 내용은 [멀티플랫폼 Gradle DSL 참조](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-dsl-reference.html)를 참조하십시오.
+Kotlin 멀티플랫폼 프로젝트에서는 특정 타겟 내부에서 컴파일러 옵션을 구성할 수 있습니다. 예를 들어, `jvm { compilerOptions {}}`와 같습니다. 자세한 내용은 [멀티플랫폼 Gradle DSL 참조](https://kotlinlang.org/docs/multiplatform/multiplatform-dsl-reference.html)를 참조하십시오.
 
 ### 컴파일 단위 레벨
 
-특정 컴파일 단위 또는 태스크에 대한 컴파일러 옵션은 태스크 구성 내부의 `compilerOptions {}` 블록에서 구성할 수 있습니다.
+특정 컴파일 단위 또는 태스크에 대한 컴파일러 옵션은 태스크 구성 내부의 `compilerOptions {}` 블록에서 구성할 수 있습니다:
 
 ```kotlin
 tasks.named<KotlinJvmCompile>("compileKotlin"){
@@ -81,7 +81,7 @@ tasks.named<KotlinJvmCompile>("compileKotlin"){
 }
 ```
 
-`KotlinCompilation`을 통해 컴파일 단위 레벨에서 컴파일러 옵션에 접근하고 구성할 수도 있습니다.
+`KotlinCompilation`을 통해 컴파일 단위 레벨에서 컴파일러 옵션에 접근하고 구성할 수도 있습니다:
 
 ```kotlin
 kotlin {
@@ -97,7 +97,7 @@ kotlin {
 }
 ```
 
-JVM/Android 및 [Kotlin 멀티플랫폼](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-dsl-reference.html)과 다른 타겟의 플러그인을 구성하려면 해당 Kotlin 컴파일 태스크의 `compilerOptions {}` 속성을 사용하십시오. 다음 예시는 Kotlin 및 Groovy DSL 모두에서 이 구성을 설정하는 방법을 보여줍니다.
+JVM/Android 및 [Kotlin 멀티플랫폼](https://kotlinlang.org/docs/multiplatform/multiplatform-dsl-reference.html)과 다른 타겟의 플러그인을 구성하려면 해당 Kotlin 컴파일 태스크의 `compilerOptions {}` 속성을 사용하십시오. 다음 예시는 Kotlin 및 Groovy DSL 모두에서 이 구성을 설정하는 방법을 보여줍니다:
 
 <tabs group="build-script">
 <tab title="Kotlin" group-key="kotlin">
@@ -126,7 +126,7 @@ tasks.named('compileKotlin', org.jetbrains.kotlin.gradle.tasks.KotlinCompilation
 
 ### `kotlinOptions {}`에서 `compilerOptions {}`로 마이그레이션 {initial-collapse-state="collapsed" collapsible="true"}
 
-Kotlin 2.2.0 이전에는 `kotlinOptions {}` 블록을 사용하여 컴파일러 옵션을 구성할 수 있었습니다. `kotlinOptions {}` 블록이 Kotlin 2.0.0부터 사용 중단됨에 따라, 이 섹션에서는 빌드 스크립트를 `compilerOptions {}` 블록을 사용하도록 마이그레이션하기 위한 지침 및 권장 사항을 제공합니다.
+Kotlin 2.2.0 이전에는 `kotlinOptions {}` 블록을 사용하여 컴파일러 옵션을 구성할 수 있었습니다. `kotlinOptions {}` 블록이 Kotlin 2.0.0부터 사용 중단됨에 따라, 이 섹션에서는 빌드 스크립트를 `compilerOptions {}` 블록을 사용하도록 마이그레이션하기 위한 지침 및 권장 사항을 제공합니다:
 
 * [컴파일러 옵션 중앙화 및 타입 사용](#centralize-compiler-options-and-use-types)
 * [`android.kotlinOptions`에서 마이그레이션](#migrate-away-from-android-kotlinoptions)
@@ -175,7 +175,7 @@ tasks.withType(KotlinCompile).configureEach {
 </tab>
 </tabs>
 
-마이그레이션 후에는 다음과 같아야 합니다.
+마이그레이션 후에는 다음과 같아야 합니다:
 
 <tabs group="build-script">
 <tab title="Kotlin" group-key="kotlin">
@@ -270,7 +270,7 @@ android {
 </tab>
 </tabs>
 
-다음과 같이 업데이트하십시오.
+다음과 같이 업데이트하십시오:
 
 <tabs group="build-script">
 <tab title="Kotlin" group-key="kotlin">
@@ -350,7 +350,7 @@ kotlin {
 </tab>
 </tabs>
 
-다음과 같이 업데이트하십시오.
+다음과 같이 업데이트하십시오:
 
 <tabs group="build-script">
 <tab title="Kotlin" group-key="kotlin">
@@ -396,12 +396,12 @@ kotlin {
 * 모든 `+=` 연산을 `add()` 또는 `addAll()` 함수로 대체하십시오.
 * `-opt-in` 컴파일러 옵션을 사용하는 경우 [KGP API 참조](https://kotlinlang.org/api/kotlin-gradle-plugin/kotlin-gradle-plugin-api/)에 특화된 DSL이 이미 있는지 확인하고 대신 사용하십시오.
 * `-progressive` 컴파일러 옵션의 모든 사용을 전용 DSL인 `progressiveMode.set(true)`을 사용하도록 마이그레이션하십시오.
-* `-Xjvm-default` 컴파일러 옵션의 모든 사용을 [전용 DSL](gradle-compiler-options.md#attributes-specific-to-jvm)인 `jvmDefault.set()`을 사용하도록 마이그레이션하십시오. 옵션에 대한 다음 매핑을 사용하십시오.
+* `-Xjvm-default` 컴파일러 옵션의 모든 사용을 [전용 DSL](gradle-compiler-options.md#attributes-specific-to-jvm)인 `jvmDefault.set()`을 사용하도록 마이그레이션하십시오. 옵션에 대한 다음 매핑을 사용하십시오:
 
   | 이전                            | 이후                                             |
   |-----------------------------------|---------------------------------------------------|
   | `-Xjvm-default=all-compatibility` | `jvmDefault.set(JvmDefaultMode.ENABLE)`           |
-  | `-Xjvm-default=all`               | `jvmDefault.set(JvmDefaultMode.NO_COMPATIBILITY)` |
+  | `-Xjvm-default=all`               | `jvmDefault.set(JvmDefaultMode.NO_COMPATIBILITY)` | 
   | `-Xjvm-default=disable`           | `jvmDefault.set(JvmDefaultMode.DISABLE)`          |
 
 예를 들어 다음과 같은 코드가 있다면:
@@ -429,7 +429,7 @@ kotlinOptions {
 </tab>
 </tabs>
 
-다음과 같이 마이그레이션하십시오.
+다음과 같이 마이그레이션하십시오:
 
 <tabs group="build-script">
 <tab title="Kotlin" group-key="kotlin">
@@ -479,7 +479,7 @@ kotlin {
 
 JavaScript 컴파일 태스크는 프로덕션 코드의 경우 `compileKotlinJs`, 테스트 코드의 경우 `compileTestKotlinJs`, 사용자 지정 소스 세트의 경우 `compile<Name>KotlinJs`입니다.
 
-단일 태스크를 구성하려면 이름을 사용하십시오.
+단일 태스크를 구성하려면 이름을 사용하십시오:
 
 <tabs group="build-script">
 <tab title="Kotlin" group-key="kotlin">
@@ -518,7 +518,7 @@ JS 및 공통 타겟의 경우 각각 `Kotlin2JsCompile` 및 `KotlinCompileCommo
 
 ## 모든 Kotlin 컴파일 태스크
 
-프로젝트의 모든 Kotlin 컴파일 태스크를 구성하는 것도 가능합니다.
+프로젝트의 모든 Kotlin 컴파일 태스크를 구성하는 것도 가능합니다:
 
 <tabs group="build-script">
 <tab title="Kotlin" group-key="kotlin">
@@ -549,7 +549,7 @@ tasks.named('compileKotlin', KotlinCompilationTask) {
 
 ## 모든 컴파일러 옵션
 
-다음은 Gradle 컴파일러의 전체 옵션 목록입니다.
+다음은 Gradle 컴파일러의 전체 옵션 목록입니다:
 
 ### 공통 속성
 
@@ -577,8 +577,8 @@ tasks.named('compileKotlin', KotlinCompilationTask) {
 | `suppressWarnings` | 경고 생성 안 함 |                                                                | false |
 | `verbose` | 상세 로깅 출력 활성화. [Gradle 디버그 로그 레벨이 활성화된 경우](https://docs.gradle.org/current/userguide/logging.html)에만 작동 |                                                                | false |
 | `freeCompilerArgs` | 추가 컴파일러 인자 목록. 실험적 `-X` 인자도 여기에 사용할 수 있습니다. [추가 인자 사용 예시](#example-of-additional-arguments-usage-via-freecompilerargs) 참조 |                                                                | [] |
-| `apiVersion`      | 번들 라이브러리의 지정된 버전 선언 사용 제한 | "1.8", "1.9", "2.0", "2.1", "2.2" (실험적) |               |
-| `languageVersion` | 지정된 Kotlin 버전과의 소스 호환성 제공                         | "1.8", "1.9", "2.0", "2.1", "2.2" (실험적)  |               |
+| `apiVersion`      | 번들 라이브러리의 지정된 버전 선언 사용 제한 | "1.8", "1.9", "2.0", "2.1", "2.2" (EXPERIMENTAL) |               |
+| `languageVersion` | 지정된 Kotlin 버전과의 소스 호환성 제공                         | "1.8", "1.9", "2.0", "2.1", "2.2" (EXPERIMENTAL)  |               |
 
 > 향후 릴리스에서는 `freeCompilerArgs` 속성을 사용 중단할 예정입니다. Kotlin Gradle DSL에 누락된 옵션이 있다면, [이슈를 제기](https://youtrack.jetbrains.com/newissue?project=kt)해 주십시오.
 >
@@ -587,7 +587,7 @@ tasks.named('compileKotlin', KotlinCompilationTask) {
 #### `freeCompilerArgs`를 통한 추가 인자 사용 예시 {initial-collapse-state="collapsed" collapsible="true"}
 
 `freeCompilerArgs` 속성을 사용하여 추가 (실험적 포함) 컴파일러 인자를 제공할 수 있습니다.
-이 속성에 단일 인자 또는 인자 목록을 추가할 수 있습니다.
+이 속성에 단일 인자 또는 인자 목록을 추가할 수 있습니다:
 
 <tabs group="build-script">
 <tab title="Kotlin" group-key="kotlin">
@@ -653,7 +653,7 @@ tasks.named('compileKotlin', KotlinCompilationTask) {
 
 #### `languageVersion` 설정 예시 {initial-collapse-state="collapsed" collapsible="true"}
 
-언어 버전을 설정하려면 다음 구문을 사용하십시오.
+언어 버전을 설정하려면 다음 구문을 사용하십시오:
 
 <tabs group="build-script">
 <tab title="Kotlin" group-key="kotlin">
@@ -699,7 +699,7 @@ tasks
 
 ### 컴파일러 옵션 타입
 
-일부 `compilerOptions`는 `String` 타입 대신 새로운 타입을 사용합니다.
+일부 `compilerOptions`는 `String` 타입 대신 새로운 타입을 사용합니다:
 
 | 옵션                             | 타입                                                                                                                                                                                                              | 예시                                                                                              |
 |------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------|
@@ -712,8 +712,8 @@ tasks
 
 ## 다음은 무엇입니까?
 
-다음에 대해 자세히 알아보십시오.
-* [Kotlin 멀티플랫폼 DSL 참조](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-dsl-reference.html).
+다음에 대해 자세히 알아보십시오:
+* [Kotlin 멀티플랫폼 DSL 참조](https://kotlinlang.org/docs/multiplatform/multiplatform-dsl-reference.html). 
 * [증분 컴파일, 캐시 지원, 빌드 보고서 및 Kotlin 데몬](gradle-compilation-and-caches.md).
 * [Gradle 기본 사항 및 세부 사항](https://docs.gradle.org/current/userguide/userguide.html).
 * [Gradle 플러그인 변형 지원](gradle-plugin-variants.md).

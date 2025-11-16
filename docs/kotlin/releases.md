@@ -18,7 +18,7 @@
 {style="tip"}
 -->
 
-对于每个语言版本和工具版本，我们还会发布多个抢先体验预览 (_EAP_) 版本，供你在新特性发布前进行尝试。关于详情，请参见[抢先体验预览](eap.md)。
+对于每个语言版本和工具版本，我们还会发布多个预览 (_EAP_) 版本，供你在新特性发布前进行尝试。关于详情，请参见[抢先体验预览](eap.md)。
 
 > 如果你想收到新 Kotlin 版本的通知，请订阅 [Kotlin 新闻通讯](https://lp.jetbrains.com/subscribe-to-kotlin-news/)，
 > 关注 [X 上的 Kotlin](https://x.com/kotlin)，
@@ -72,7 +72,7 @@ plugins {
 </tab>
 </tabs>
 
-如果你的项目是用更早的 Kotlin 版本创建的，请检测你是否还需要[更新任何 kotlinx 库的版本](gradle-configure-project.md#set-a-dependency-on-a-kotlinx-library)。
+如果你有项目是用更早的 Kotlin 版本创建的，请检测你是否还需要[更新任何 kotlinx 库的版本](gradle-configure-project.md#set-a-dependency-on-a-kotlinx-library)。
 
 如果你正在迁移到新的语言版本，Kotlin 插件的迁移工具将帮助你完成此过程。
 
@@ -102,7 +102,7 @@ plugins {
 </plugins>
 ```
 
-如果你的项目是用更早的 Kotlin 版本创建的，请检测你是否还需要[更新任何 kotlinx 库的版本](maven.md#set-dependencies)。
+如果你有项目是用更早的 Kotlin 版本创建的，请检测你是否还需要[更新任何 kotlinx 库的版本](maven.md#dependency-on-a-kotlinx-library)。
 
 > 关于如何在项目中使用 Maven 的更多信息，请参见 [Maven](maven.md)。
 >

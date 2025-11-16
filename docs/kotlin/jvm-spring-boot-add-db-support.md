@@ -9,11 +9,11 @@
 
 本教程的这一部分中，您将使用 _Java 数据库连接_ (JDBC) 为项目添加和配置数据库。
 在 JVM 应用程序中，您使用 JDBC 与数据库交互。
-为了方便，Spring Framework 提供了 `JdbcTemplate` 类，该类简化了 JDBC 的使用并有助于避免常见错误。
+为了方便，Spring 框架提供了 `JdbcTemplate` 类，该类简化了 JDBC 的使用并有助于避免常见错误。
 
 ## 添加数据库支持
 
-在基于 Spring Framework 的应用程序中，常见的做法是在所谓的 _服务_ 层中实现数据库访问逻辑 —— 这是业务逻辑所在的地方。
+在基于 Spring 框架的应用程序中，常见的做法是在所谓的 _服务_ 层中实现数据库访问逻辑 —— 这是业务逻辑所在的地方。
 在 Spring 中，您应该使用 `@Service` 注解标记类，以表示该类属于应用程序的服务层。
 在此应用程序中，您将为此目的创建 `MessageService` 类。
 
@@ -54,11 +54,11 @@ class MessageService(private val db: JdbcTemplate) {
       </code-block>
   </def>
    <def title="尾随 lambda 表达式与 SAM 转换">
-      <p><code>findMessages()</code> 函数调用 <code>JdbcTemplate</code> 类的 <code>query()</code> 函数。<code>query()</code> 函数接受两个实参：一个作为 String 实例的 SQL 查询，以及一个将每行映射为一个对象的回调：</p>
+      <p><code>findMessages()</code> 函数调用 <code>JdbcTemplate</code> 类的 <code>query()</code> 函数。<code>query()</code> 函数接受两个实参：一个作为 String 实例的 SQL 查询，以及一个将每行映射为一个对象的 callback（回调）：</p>
       <code-block lang="sql">
       db.query("...", RowMapper { ... } )
       </code-block><br/>
-      <p><code>RowMapper</code> 接口只声明了一个方法，因此可以通过省略接口名称，用 lambda 表达式实现它。Kotlin 编译器知道 lambda 表达式需要转换成的接口，因为您将其用作函数调用的形参。这在 Kotlin 中被称为 <a href="java-interop.md#sam-conversions">SAM 转换</a>：</p>
+      <p><code>RowMapper</code> 接口只声明了一个方法，因此可以通过省略接口名称，用 lambda 表达式实现它。Kotlin 编译器知道 lambda 表达式需要转换成的接口，因为您将其用作函数调用的实参。这在 Kotlin 中被称为 <a href="java-interop.md#sam-conversions">SAM 转换</a>：</p>
       <code-block lang="sql">
       db.query("...", { ... } )
       </code-block><br/>
@@ -197,7 +197,7 @@ class MessageService(private val db: JdbcTemplate) {
    ```
 
    这些设置用于为 Spring Boot 应用程序启用数据库。  
-   请参阅 [Spring 文档](https://docs.spring.io/spring-boot/docs/current/reference/html/appendix-application-properties.html) 中常见应用程序属性的完整列表。
+   请参阅 [Spring 文档](https://docs.spring.io/spring-boot/appendix/application-properties/index.html) 中常见应用程序属性的完整列表。
 
 ## 通过 HTTP 请求向数据库添加消息
 
@@ -308,16 +308,16 @@ curl -X GET --location "http://localhost:8080"
         <p><code>query()</code> 函数的第二个形参被声明为 _可变实参_ (<code>vararg</code>)。在 Kotlin 中，可变实参形参的位置不要求是形参列表中的最后一个。</p>
     </def>
     <def title="singleOrNull() 函数">
-       <p><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/single-or-null.html"><code>singleOrNull()</code></a> 函数返回单个元素，如果数组为空或有多个具有相同值的元素，则返回 <code>null</code>。</p>
+       <p><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/single-or-null.html"><code>singleOrNull()</code></a> 函数返回单个元素，如果集合为空或有多个元素，则返回 <code>null</code>。</p>
     </def>
    </deflist>
     
     > 用于通过其 id 获取消息的 `.query()` 函数是一个 [Kotlin 扩展函数](extensions.md#extension-functions)，
-    > 由 Spring Framework 提供。它需要额外导入 `import org.springframework.jdbc.core.query`，如上面代码所示。
+    > 由 Spring 框架提供。它需要额外导入 `import org.springframework.jdbc.core.query`，如上面代码所示。
     >
     {style="warning"}
 
-2. 向 `MessageController` 类添加新的 `index(...)` 函数，带有 `id` 形参：
+2. 向 `MessageController` 类添加新的 `getMessage(...)` 函数，带有 `id` 形参：
 
     ```kotlin
     // MessageController.kt
@@ -356,10 +356,10 @@ curl -X GET --location "http://localhost:8080"
 
     <deflist collapsible="true">
     <def title="从上下文路径中检索值">
-       <p>消息 <code>id</code> 由 Spring Framework 从上下文路径中检索，因为您使用 <code>@GetMapping(&quot;/{id}&quot;)</code> 注解了新函数。通过使用 <code>@PathVariable</code> 注解函数实参，您告诉框架将检索到的值用作函数实参。新函数调用 <code>MessageService</code>，以通过其 id 检索单个消息。</p>
+       <p>消息 <code>id</code> 由 Spring 框架从上下文路径中检索，因为您使用 <code>@GetMapping(&quot;/{id}&quot;)</code> 注解了新函数。通过使用 <code>@PathVariable</code> 注解函数实参，您告诉框架将检索到的值用作函数实参。新函数调用 <code>MessageService</code>，以通过其 id 检索单个消息。</p>
     </def>
     <def title="带可空接收者的扩展函数">
-         <p>扩展可以被定义为带可空接收者类型。如果接收者为 <code>null</code>，那么 <code>this</code> 也为 <code>null</code>。因此，在定义带可空接收者类型的扩展时，建议在函数体内部执行 <code>this == null</code> 检测。</p>
+         <p>扩展可以被定义为带可空接收者类型。如果接收者为 <code>null</code>，那么 <code>this</code> 也为 <code>null</code>。所以，在定义带可空接收者类型的扩展时，建议在函数体内部执行 <code>this == null</code> 检测。</p>
          <p>您也可以使用空安全调用操作符 (<code>?.</code>) 来执行空检测，如上面的 <code>toResponseEntity()</code> 函数所示：</p>
          <code-block lang="kotlin">
          this?.let { ResponseEntity.ok(it) }

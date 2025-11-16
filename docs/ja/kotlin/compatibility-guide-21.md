@@ -1,6 +1,6 @@
-[//]: # (title: Kotlin 2.1 互換性ガイド)
+[//]: # (title: Kotlin 2.1.x 互換性ガイド)
 
-「[言語を現代的に保つ (Keeping the Language Modern)](kotlin-evolution-principles.md)」と「[快適なアップデート (Comfortable Updates)](kotlin-evolution-principles.md)」は、Kotlin言語設計における基本的な原則です。前者は言語の進化を妨げる構文は削除すべきであると述べ、後者はコードの移行が可能な限りスムーズになるよう、この削除は事前に十分に通知されるべきであると述べています。
+「[言語を現代的に保つ (Keeping the Language Modern)](kotlin-evolution-principles.md)」と「[快適なアップデート (Comfortable Updates)](kotlin-evolution-principles.md)」は、Kotlin言語設計における基本的な原則です。前者は言語の進化を妨げる構文は削除すべきであると述べ、後者は、この削除はコードの移行が可能な限りスムーズになるよう、事前に十分に通知されるべきであると述べています。
 
 ほとんどの言語変更は、更新履歴やコンパイラ警告などの他のチャネルを通じてすでに発表されていますが、このドキュメントはそれらすべてをまとめ、Kotlin 2.0からKotlin 2.1への移行に関する完全なリファレンスを提供します。
 
@@ -134,7 +134,7 @@
 
 ### JSpecify null許容性不一致診断の重大度をエラーに引き上げ
 
-> **課題**: [KTLC-11](https://youtrack.jetbrains.com/issue/KTLC-11)
+> **課題**: [KTLC-11](https://youtrack.com/issue/KTLC-11)
 >
 > **コンポーネント**: コア言語
 >
@@ -145,13 +145,13 @@
 > **非推奨サイクル**:
 >
 > - 1.6.0: 潜在的なnull許容性の不一致に対して警告を報告
-> - 1.8.20: `@Nullable`, `@NullnessUnspecified`, `@NullMarked`、および `org.jspecify.nullness` 内のレガシーアノテーション（JSpecify 0.2以前）を含む特定のJSpecifyアノテーションに警告を拡張
+> - 1.8.20: 特定のJSpecifyアノテーションに警告を拡張し、以下を含む: `@Nullable`, `@NullnessUnspecified`, `@NullMarked`、および `org.jspecify.nullness` 内のレガシーアノテーション（JSpecify 0.2以前）
 > - 2.0.0: `@NonNull` アノテーションのサポートを追加
 > - 2.1.0: JSpecifyアノテーションのデフォルトモードを `strict` に変更し、警告をエラーに変換。デフォルトの動作を上書きするには、`-Xnullability-annotations=@org.jspecify.annotations:warning` または `-Xnullability-annotations=@org.jspecify.annotations:ignore` を使用
 
 ### あいまいなケースでのオーバーロード解決において、invoke呼び出しよりも拡張関数を優先するように変更
 
-> **課題**: [KTLC-37](https://youtrack.jetbrains.com/issue/KTLC-37)
+> **課題**: [KTLC-37](https://youtrack.com/issue/KTLC-37)
 >
 > **コンポーネント**: コア言語
 >
@@ -165,7 +165,7 @@
 
 ### JDK関数インターフェースのSAMコンストラクタにおけるラムダからのnull許容値の返却を禁止
 
-> **課題**: [KTLC-42](https://youtrack.jetbrains.com/issue/KTLC-42)
+> **課題**: [KTLC-42](https://youtrack.com/issue/KTLC-42)
 >
 > **コンポーネント**: コア言語
 >
@@ -180,7 +180,7 @@
 
 ### Kotlin/Nativeにおけるprivateメンバーとpublicメンバーの競合処理の修正
 
-> **課題**: [KTLC-43](https://youtrack.jetbrains.com/issue/KTLC-43)
+> **課題**: [KTLC-43](https://youtrack.com/issue/KTLC-43)
 >
 > **コンポーネント**: コア言語
 >
@@ -194,7 +194,7 @@
 
 ### publicインライン関数におけるprivate演算子関数へのアクセスを禁止
 
-> **課題**: [KTLC-71](https://youtrack.jetbrains.com/issue/KTLC-71)
+> **課題**: [KTLC-71](https://youtrack.com/issue/KTLC-71)
 >
 > **コンポーネント**: コア言語
 >
@@ -209,7 +209,7 @@
 
 ### @UnsafeVarianceアノテーションが付けられた不変パラメータへの無効な引数渡しを禁止
 
-> **課題**: [KTLC-72](https://youtrack.jetbrains.com/issue/KTLC-72)
+> **課題**: [KTLC-72](https://youtrack.com/issue/KTLC-72)
 >
 > **コンポーネント**: コア言語
 >
@@ -223,7 +223,7 @@
 
 ### 警告レベルのJava型のエラーレベルnull許容引数に対するnull許容性エラーを報告
 
-> **課題**: [KTLC-100](https://youtrack.jetbrains.com/issue/KTLC-100)
+> **課題**: [KTLC-100](https://youtrack.com/issue/KTLC-100)
 >
 > **コンポーネント**: コア言語
 >
@@ -238,7 +238,7 @@
 
 ### アクセス不可能な型の暗黙的な使用を報告
 
-> **課題**: [KTLC-3](https://youtrack.jetbrains.com/issue/KTLC-3)
+> **課題**: [KTLC-3](https://youtrack.com/issue/KTLC-3)
 >
 > **コンポーネント**: コア言語
 >

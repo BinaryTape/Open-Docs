@@ -50,7 +50,7 @@ actual fun hello(world: String): String =
 actual typealias URL = java.net.URL
 ```
 
-다중 플랫폼 프로젝트 구축에 대한 자세한 내용과 단계는 [다중 플랫폼 프로그래밍 문서](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html)를 참조하세요.
+다중 플랫폼 프로젝트 구축에 대한 자세한 내용과 단계는 [다중 플랫폼 프로그래밍 문서](https://kotlinlang.org/docs/multiplatform/get-started.html)를 참조하세요.
 
 ## 기타 언어 기능
 
@@ -69,7 +69,7 @@ public class BookRepositoryImpl {
 
 ### lateinit 최상위 프로퍼티 및 지역 변수
 
-`lateinit` 변경자는 이제 최상위 프로퍼티와 지역 변수에서 사용할 수 있습니다. 후자는 예를 들어, 한 객체의 생성자 인수로 전달된 람다가 나중에 정의되어야 하는 다른 객체를 참조할 때 사용할 수 있습니다.
+`lateinit` 변경자는 이제 최상위 프로퍼티와 지역 변수에서 사용할 수 있습니다. 후자는 예를 들어, 한 객체의 생성자 인수로 전달된 람다가 나중에 정의되어야 하는 다른 객체를 참조할 때 사용할 수 있습니다:
 
 ```kotlin
 class Node<T>(val value: T, val next: () -> Node<T>)
@@ -91,7 +91,7 @@ fun main(args: Array<String>) {
 
 ### lateinit var 초기화 여부 확인
 
-이제 프로퍼티 참조에 `isInitialized`를 사용하여 `lateinit var`가 초기화되었는지 확인할 수 있습니다.
+이제 프로퍼티 참조에 `isInitialized`를 사용하여 `lateinit var`가 초기화되었는지 확인할 수 있습니다:
 
 ```kotlin
 class Foo {
@@ -114,7 +114,7 @@ fun main(args: Array<String>) {
 
 ### 기본 함수 파라미터를 가진 인라인 함수
 
-인라인 함수는 이제 인라인된 함수 파라미터에 대한 기본값을 가질 수 있습니다.
+인라인 함수는 이제 인라인된 함수 파라미터에 대한 기본값을 가질 수 있습니다:
 
 ```kotlin
 //sampleStart
@@ -144,7 +144,7 @@ val button = findViewById(R.id.button) as Button
 
 ### 스마트 캐스트 개선 사항
 
-변수가 안전 호출 식에서 할당되고 null 검사가 이루어질 때, 스마트 캐스트는 이제 안전 호출 리시버에도 적용됩니다.
+변수가 안전 호출 식에서 할당되고 null 검사가 이루어질 때, 스마트 캐스트는 이제 안전 호출 리시버에도 적용됩니다:
 
 ```kotlin
 fun countFirst(s: Any): Int {
@@ -172,7 +172,7 @@ fun main(args: Array<String>) {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-또한, 람다 내부의 스마트 캐스트는 람다 이전에만 수정되는 지역 변수에 대해 허용됩니다.
+또한, 람다 내부의 스마트 캐스트는 람다 이전에만 수정되는 지역 변수에 대해 허용됩니다:
 
 ```kotlin
 fun main(args: Array<String>) {
@@ -239,7 +239,7 @@ Kotlin 표준 라이브러리는 이제 Java 9 모듈 시스템과 완벽하게 
 
 새로운 모듈 시스템과의 호환성을 보장하기 위한 또 다른 변경 사항은 `kotlin-reflect` 라이브러리에서 `kotlin.reflect` 패키지의 지원 중단된 선언을 제거하는 것입니다. 만약 이를 사용하고 있었다면, Kotlin 1.1부터 지원되는 `kotlin.reflect.full` 패키지의 선언을 사용하도록 전환해야 합니다.
 
-### `windowed`, `chunked`, `zipWithNext`
+### windowed, chunked, zipWithNext
 
 `Iterable<T>`, `Sequence<T>`, `CharSequence`를 위한 새로운 확장 함수는 버퍼링 또는 배치 처리(`chunked`), 슬라이딩 윈도우 및 슬라이딩 평균 계산(`windowed`), 연속된 항목 쌍 처리(`zipWithNext`)와 같은 사용 사례를 다룹니다:
 
@@ -267,9 +267,9 @@ fun main(args: Array<String>) {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-### `fill`, `replaceAll`, `shuffle`/`shuffled`
+### fill, replaceAll, shuffle/shuffled
 
-리스트 조작을 위한 확장 함수 세트가 추가되었습니다: `MutableList`를 위한 `fill`, `replaceAll`, `shuffle`, 그리고 읽기 전용 `List`를 위한 `shuffled`입니다.
+리스트 조작을 위한 확장 함수 세트가 추가되었습니다: `MutableList`를 위한 `fill`, `replaceAll`, `shuffle`, 그리고 읽기 전용 `List`를 위한 `shuffled`입니다:
 
 ```kotlin
 fun main(args: Array<String>) {
@@ -289,7 +289,7 @@ fun main(args: Array<String>) {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-### `kotlin-stdlib`의 수학 연산
+### kotlin-stdlib의 수학 연산
 
 오랜 요청에 부응하여 Kotlin 1.2는 JVM과 JS에 공통으로 사용되는 수학 연산을 위한 `kotlin.math` API를 추가했으며, 다음을 포함합니다:
 
@@ -313,7 +313,7 @@ fun main(args: Array<String>) {
 
 동일한 함수 세트(상수 제외)는 `Float` 인자에 대해서도 사용 가능합니다.
 
-### `BigInteger` 및 `BigDecimal` 연산자 및 변환
+### BigInteger 및 BigDecimal 연산자 및 변환
 
 Kotlin 1.2는 `BigInteger` 및 `BigDecimal`와 연산하고 다른 숫자 타입에서 이들을 생성하기 위한 함수 세트를 도입합니다. 다음은 다음과 같습니다:
 
@@ -330,11 +330,11 @@ Kotlin 1.2는 `BigInteger` 및 `BigDecimal`와 연산하고 다른 숫자 타입
 *   `Double`의 경우 `Long`, `Float`의 경우 `Int`를 반환하는 `toBits` 및 `toRawBits`
 *   비트 표현에서 부동 소수점 숫자를 생성하기 위한 `Double.fromBits` 및 `Float.fromBits`
 
-### `Regex`가 이제 직렬화 가능
+### Regex가 이제 직렬화 가능
 
 `kotlin.text.Regex` 클래스는 `Serializable`이 되었으며 이제 직렬화 가능한 계층 구조에서 사용할 수 있습니다.
 
-### `Closeable.use`는 가능하면 `Throwable.addSuppressed`를 호출합니다.
+### Closeable.use는 가능하면 Throwable.addSuppressed를 호출합니다.
 
 `Closeable.use` 함수는 다른 예외 발생 후 리소스를 닫는 도중 예외가 발생할 경우 `Throwable.addSuppressed`를 호출합니다.
 
@@ -358,7 +358,7 @@ Kotlin 1.0 버전부터 Kotlin은 try-catch 식 및 인라인 함수 호출과 �
 
 Kotlin 1.2 이전에는 JVM 1.6을 대상으로 하면서 Java 기본 메서드를 오버라이드하는 인터페이스 멤버가 슈퍼 호출에서 `Super calls to Java default methods are deprecated in JVM target 1.6. Recompile with '-jvm-target 1.8'` 경고를 발생시켰습니다. Kotlin 1.2에서는 대신 **오류**가 발생하므로, 해당 코드는 JVM 타겟 1.8로 컴파일해야 합니다.
 
-### 변경 사항: 플랫폼 타입에 대한 `x.equals(null)`의 일관된 동작
+### 변경 사항: 플랫폼 타입에 대한 x.equals(null)의 일관된 동작
 
 Java 기본 타입(`Int!`, `Boolean!`, `Short!`, `Long!`, `Float!`, `Double!`, `Char!`)에 매핑되는 플랫폼 타입에서 `x.equals(null)`을 호출하면 `x`가 null일 때 잘못되게 `true`를 반환했습니다. Kotlin 1.2부터 플랫폼 타입의 null 값에 대해 `x.equals(...)`를 호출하면 **NPE를 발생시킵니다**(하지만 `x == ...`는 그렇지 않습니다).
 
@@ -386,4 +386,3 @@ Kotlin 기본 배열(예: `IntArray`, `DoubleArray`)을 [JavaScript TypedArray](
 compileKotlin {
     kotlinOptions.allWarningsAsErrors = true
 }
-```

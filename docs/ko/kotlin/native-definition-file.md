@@ -63,8 +63,8 @@ C 라이브러리용 정의 파일을 생성하고 바인딩을 만들어 봅시
 | [`compilerOpts`](#pass-compiler-and-linker-options)                                 | cinterop 도구가 C 컴파일러에 전달하는 컴파일러 옵션입니다.                                                                                                                                                        |
 | [`linkerOpts`](#pass-compiler-and-linker-options)                                   | cinterop 도구가 링커에 전달하는 링커 옵션입니다.                                                                                                                                                              |
 | [`excludedFunctions`](#ignore-specific-functions)                                   | 무시해야 할 함수 이름의 공백으로 구분된 목록입니다.                                                                                                                                                         |
-| [`staticLibraries`](#include-a-static-library)                                      | [실험적](components-stability.md#stability-levels-explained). 정적 라이브러리를 `.klib`에 포함합니다.                                                                                                              |
-| [`libraryPaths`](#include-a-static-library)                                         | [실험적](components-stability.md#stability-levels-explained). cinterop 도구가 `.klib`에 포함될 라이브러리를 검색하는 디렉터리 목록(공백으로 구분)입니다.                                    |
+| [`staticLibraries`](#include-a-static-library)                                      | <primary-label ref="experimental-general"/> 정적 라이브러리를 `.klib`에 포함합니다.                                                                                                              |
+| [`libraryPaths`](#include-a-static-library)                                         | <primary-label ref="experimental-general"/> cinterop 도구가 `.klib`에 포함될 라이브러리를 검색하는 디렉터리 목록(공백으로 구분)입니다.                                    |
 | `packageName`                                                                       | 생성된 Kotlin API의 패키지 접두사입니다.                                                                                                                                                                             |
 | [`headerFilter`](#filter-headers-by-globs)                                          | 글롭(glob)을 기준으로 헤더를 필터링하고 라이브러리를 임포트할 때 해당 헤더만 포함합니다.                                                                                                                                                |
 | [`excludeFilter`](#exclude-headers)                                                 | 라이브러리를 임포트할 때 특정 헤더를 제외하며, `headerFilter`보다 우선합니다.                                                                                                                               |
@@ -182,7 +182,7 @@ Objective-C 예외를 Kotlin으로 전파하려면, `foreignExceptionMode = objc
 
 ### 링커 오류 해결 지원
 
-Kotlin 라이브러리가 C 또는 Objective-C 라이브러리에 의존하는 경우, 예를 들어 [CocoaPods 통합](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-cocoapods-overview.html)을 사용할 때 링커 오류가 발생할 수 있습니다. 종속 라이브러리가 로컬 머신에 설치되어 있지 않거나 프로젝트 빌드 스크립트에 명시적으로 구성되어 있지 않으면 "Framework not found" 오류가 발생합니다.
+Kotlin 라이브러리가 C 또는 Objective-C 라이브러리에 의존하는 경우, 예를 들어 [CocoaPods 통합](https://kotlinlang.org/docs/multiplatform/multiplatform-cocoapods-overview.html)을 사용할 때 링커 오류가 발생할 수 있습니다. 종속 라이브러리가 로컬 머신에 설치되어 있지 않거나 프로젝트 빌드 스크립트에 명시적으로 구성되어 있지 않으면 "Framework not found" 오류가 발생합니다.
 
 라이브러리 작성자라면 사용자 지정 메시지를 통해 사용자가 링커 오류를 해결하도록 도울 수 있습니다. 이렇게 하려면 `.def` 파일에 `userSetupHint=message` 속성을 추가하거나 `cinterop`에 `-Xuser-setup-hint` 컴파일러 옵션을 전달합니다.
 

@@ -22,4 +22,4 @@
 
 ![Gradle 等待更改](waiting-for-changes.png){width=700}
 
-一旦检测到更改，程序将自动重新编译。如果您在浏览器中仍然打开该页面，开发服务器将触发页面自动重新加载，并且更改将可见。这得益于由 [Kotlin Multiplatform Gradle plugin](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-dsl-reference.html) 管理的集成 [`webpack-dev-server`](https://webpack.js.org/configuration/dev-server/)。
+一旦检测到更改，程序将自动重新编译。如果您在浏览器中仍然打开该页面，开发服务器将触发页面自动重新加载，并且更改将可见。这得益于由 [Kotlin Multiplatform Gradle plugin](https://kotlinlang.org/docs/multiplatform/multiplatform-dsl-reference.html) 管理的集成 [`webpack-dev-server`](https://webpack.js.org/configuration/dev-server/)。

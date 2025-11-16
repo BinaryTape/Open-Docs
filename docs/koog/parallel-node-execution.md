@@ -150,7 +150,7 @@ val nodeLongestJoke by parallel<String, String>(
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
 import ai.koog.prompt.executor.clients.openai.OpenAIModels
-import ai.koog.prompt.structure.json.JsonStructuredData
+import ai.koog.prompt.structure.json.JsonStructure
 
 typealias Input = String
 typealias Output = String
@@ -181,7 +181,7 @@ val nodeBestJoke by parallel<String, String>(
 \n")}")
          }
          val response = requestLLMStructured<JokeRating>()
-         response.getOrNull()!!.structure.bestJokeIndex
+         response.getOrNull()!!.data.bestJokeIndex
       }
    }
 }
@@ -303,7 +303,7 @@ $joke" }.joinToString("
             }
 
             val response = requestLLMStructured<JokeRating>()
-            val bestJoke = response.getOrNull()!!.structure
+            val bestJoke = response.getOrNull()!!.data
             bestJoke.bestJokeIndex
          }
       }

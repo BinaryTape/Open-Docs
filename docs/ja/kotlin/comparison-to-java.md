@@ -15,7 +15,7 @@ Kotlinは、Javaが抱える一連の問題を解決します。
 ## JavaにあってKotlinにはないもの
 
 * [チェック例外](exceptions.md)
-* クラスではない[プリミティブ型](basic-types.md)。バイトコードは可能な限りプリミティブを使用しますが、明示的に利用することはできません。
+* クラスではない[プリミティブ型](types-overview.md)。バイトコードは可能な限りプリミティブを使用しますが、明示的に利用することはできません。
 * [静的メンバー](classes.md)は、[コンパニオンオブジェクト](object-declarations.md#companion-objects)、[トップレベル関数](functions.md)、[拡張関数](extensions.md#extension-functions)、または[`@JvmStatic`](java-to-kotlin-interop.md#static-methods)に置き換えられます。
 * [ワイルドカード型](generics.md)は、[宣言サイト変性](generics.md#declaration-site-variance)と[型プロジェクション](generics.md#type-projections)に置き換えられます。
 * [三項演算子 `a ? b : c`](control-flow.md#if-expression)は[if式](control-flow.md#if-expression)に置き換えられます。
@@ -33,7 +33,7 @@ Kotlinは、Javaが抱える一連の問題を解決します。
 * [プロパティ](properties.md)
 * [プライマリコンストラクタ](classes.md)
 * [ファーストクラスのデリゲーション](delegation.md)
-* [変数およびプロパティ型の型推論](basic-types.md) (**Java 10**: [ローカル変数型推論](https://openjdk.org/jeps/286))
+* [変数およびプロパティ型の型推論](types-overview.md) (**Java 10**: [ローカル変数型推論](https://openjdk.org/jeps/286))
 * [シングルトン](object-declarations.md)
 * [宣言サイト変性 & 型プロジェクション](generics.md)
 * [範囲式](ranges.md)
@@ -45,7 +45,7 @@ Kotlinは、Javaが抱える一連の問題を解決します。
 * [デフォルト値を持つパラメータ](functions.md#parameters-with-default-values)
 * [名前付きパラメータ](functions.md#named-arguments)
 * [中置関数](functions.md#infix-notation)
-* [`expect`および`actual`宣言](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-expect-actual.html)
+* [`expect`および`actual`宣言](https://kotlinlang.org/docs/multiplatform/multiplatform-expect-actual.html)
 * [明示的APIモード](whatsnew14.md#explicit-api-mode-for-library-authors)と[APIサーフェスのより良い制御](opt-in-requirements.md)
 
 ## 次は何ですか？

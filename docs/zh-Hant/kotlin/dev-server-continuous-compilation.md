@@ -22,4 +22,4 @@
 
 ![Gradle 等待變更](waiting-for-changes.png){width=700}
 
-一旦偵測到變更，程式將會自動重新編譯。如果瀏覽器中仍開啟著該網頁，開發伺服器將觸發頁面自動重新載入，並且這些變更將會可見。這要歸功於整合的 [`webpack-dev-server`](https://webpack.js.org/configuration/dev-server/)，該伺服器由 [Kotlin 多平台 Gradle 外掛程式](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-dsl-reference.html) 管理。
+一旦偵測到變更，程式將會自動重新編譯。如果瀏覽器中仍開啟著該網頁，開發伺服器將觸發頁面自動重新載入，並且這些變更將會可見。這要歸功於整合的 [`webpack-dev-server`](https://webpack.js.org/configuration/dev-server/)，該伺服器由 [Kotlin 多平台 Gradle 外掛程式](https://kotlinlang.org/docs/multiplatform/multiplatform-dsl-reference.html) 管理。

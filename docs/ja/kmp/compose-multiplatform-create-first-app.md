@@ -7,7 +7,7 @@
     <p>このチュートリアルではIntelliJ IDEAを使用していますが、Android Studioでも同様に進めることができます。どちらのIDEもコア機能とKotlin Multiplatformのサポートは共通しています。</p>
     <br/>
     <p>これは**共有ロジックとUIを持つCompose Multiplatformアプリの作成**チュートリアルの最初のパートです。</p>
-    <p><img src="icon-1.svg" width="20" alt="First step"/> **Compose Multiplatformアプリの作成**<br/>
+    <p><img src="icon-1.svg" width="20" alt="First step"/> **Compose Multiplatformアプリを作成する**<br/>
         <img src="icon-2-todo.svg" width="20" alt="Second step"/> コンポーザブルコードを探索する <br/>
         <img src="icon-3-todo.svg" width="20" alt="Third step"/> プロジェクトの変更 <br/>      
         <img src="icon-4-todo.svg" width="20" alt="Fourth step"/> 独自のアプリケーションを作成する <br/>

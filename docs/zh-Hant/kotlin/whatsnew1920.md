@@ -20,9 +20,9 @@ Kotlin 1.9.20 版本現已推出，[所有目標平台的 K2 編譯器現已進�
 
 支援 1.9.20 的 Kotlin 外掛程式適用於：
 
-| IDE            | 支援版本                     |
-|----------------|----------------------------------------|
-| IntelliJ IDEA  | 2023.1.x, 2023.2.x, 2023.x             |
+| IDE | 支援版本 |
+|---|---|
+| IntelliJ IDEA | 2023.1.x, 2023.2.x, 2023.x |
 | Android Studio | Hedgehog (2023.1.1), Iguana (2023.2.1) |
 
 > 自 IntelliJ IDEA 2023.3.x 和 Android Studio Iguana (2023.2.1) Canary 15 起，Kotlin 外掛程式會自動
@@ -136,7 +136,7 @@ Kotlin 1.9.20 預設啟用新的記憶體分配器。它旨在取代先前的預
 以提高垃圾收集的效率並改善 [Kotlin/Native 記憶體管理員](native-memory-manager.md) 的執行時間效能。
 
 新的自訂分配器將系統記憶體劃分為頁面，允許以連續順序獨立掃描。
-每個分配都成為頁面內的記憶體區塊，頁面會追蹤區塊大小。
+每個分配都成為頁面內部的記憶體區塊，頁面會追蹤區塊大小。
 不同的頁面類型針對各種分配大小進行了優化。
 記憶體區塊的連續排列確保了對所有已分配區塊的高效迭代。
 
@@ -303,7 +303,7 @@ Multiplatform 專案中共享程式碼變得更容易。
 
 如果您是函式庫作者，您現在可以透過自訂訊息幫助使用者解決連結器錯誤。
 
-如果您的 Kotlin 函式庫依賴於 C 或 Objective-C 函式庫，例如，使用 [CocoaPods 整合](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-cocoapods-overview.html)，
+如果您的 Kotlin 函式庫依賴於 C 或 Objective-C 函式庫，例如，使用 [CocoaPods 整合](https://kotlinlang.org/docs/multiplatform/multiplatform-cocoapods-overview.html)，
 其使用者需要將這些依賴函式庫在本機上或在專案建置腳本中明確配置它們。
 如果不是這樣，使用者通常會收到令人困惑的「Framework not found」訊息。
 
@@ -356,7 +356,7 @@ Kotlin 1.9.20 專注於 Kotlin Multiplatform 的穩定化，並透過新的專�
 
 ### Kotlin Multiplatform 穩定版
 
-1.9.20 版本標誌著 Kotlin 演變的重要里程碑：[Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html) 終於
+1.9.20 版本標誌著 Kotlin 演變的重要里程碑：[Kotlin Multiplatform](https://kotlinlang.org/docs/multiplatform/get-started.html) 終於
 變得穩定。這意味著該技術可以安全地用於您的專案，並且 100% 準備好用於生產環境。它還
 意味著 Kotlin Multiplatform 的進一步開發將繼續遵循我們嚴格的 [向後相容性規則](https://kotlinfoundation.org/language-committee-guidelines/)。
 
@@ -365,8 +365,8 @@ Kotlin 1.9.20 專注於 Kotlin Multiplatform 的穩定化，並透過新的專�
 您需要明確地在 **Settings (設定)** | **Advanced Settings (進階設定)** | **Kotlin** | **Experimental Multiplatform (實驗性多平台)** 中啟用它。
 
 *   造訪 [Kotlin 部落格](https://blog.jetbrains.com/kotlin/2023/11/kotlin-multiplatform-stable/) 以了解更多關於 Kotlin Multiplatform 穩定化和未來計畫的資訊。
-*   查看 [Multiplatform 相容性指南](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-compatibility-guide.html) 以了解在穩定化過程中進行了哪些重大變更。
-*   閱讀有關 [預期和實際宣告機制](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-expect-actual.html) 的資訊，這是 Kotlin Multiplatform 的重要組成部分，在此版本中也部分穩定化。
+*   查看 [Multiplatform 相容性指南](https://kotlinlang.org/docs/multiplatform/multiplatform-compatibility-guide.html) 以了解在穩定化過程中進行了哪些重大變更。
+*   閱讀有關 [預期和實際宣告機制](https://kotlinlang.org/docs/multiplatform/multiplatform-expect-actual.html) 的資訊，這是 Kotlin Multiplatform 的重要組成部分，在此版本中也部分穩定化。
 
 ### 配置多平台專案的範本
 
@@ -425,7 +425,7 @@ kotlin {
     iosArm64()
     iosSimulatorArm64()
 
-    // iosMain 原始碼集會自動建立
+    // The iosMain source set is created automatically
 }
 ```
 
@@ -531,7 +531,7 @@ w: Accessed 'source set jvmMain' without registering the jvm target:
 當您宣告專案要編譯的目標時，
 外掛程式會相應地從範本中選擇共用原始碼集並在您的專案中建立它們。
 
-![預設階層範本](full-template-hierarchy.svg)
+![Default hierarchy template](full-template-hierarchy.svg)
 
 > 此範例僅顯示專案的生產部分，省略了 `Main` 後綴
 > (例如，使用 `common` 而不是 `commonMain`)。然而，對於 `*Test` 原始碼，一切都是相同的。
@@ -569,7 +569,7 @@ IDE 中，您需要等待下一個版本。
 
 以前，我們為 Kotlin 多平台函式庫引入了 Gradle 配置快取的 [預覽版](whatsnew19.md#preview-of-the-gradle-configuration-cache)。在 1.9.20 中，Kotlin Multiplatform 外掛程式更進一步。
 
-它現在支援 [Kotlin CocoaPods Gradle 外掛程式](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-cocoapods-dsl-reference.html) 中的 Gradle 配置快取，
+它現在支援 [Kotlin CocoaPods Gradle 外掛程式](https://kotlinlang.org/docs/multiplatform/multiplatform-cocoapods-dsl-reference.html) 中的 Gradle 配置快取，
 以及 Xcode 建置所需的整合任務，例如 `embedAndSignAppleFrameworkForXcode`。
 
 現在所有多平台專案都可以利用改進的建置時間。
@@ -596,21 +596,21 @@ Gradle 配置快取透過重複使用配置階段的結果來加速建置過程�
 ```kotlin
 kotlin {
     sourceSets {
-        // 對於 common 原始碼集
+        // For the common source set
         val commonMain by getting {
             dependencies {
                 implementation("org.jetbrains.kotlin:kotlin-stdlib-common:1.9.10")
             }
         }
 
-        // 對於 JVM 原始碼集
+        // For the JVM source set
         val jvmMain by getting {
             dependencies {
                 implementation("org.jetbrains.kotlin:kotlin-stdlib:1.9.10")
             }
         }
 
-        // 對於 JS 原始碼集
+        // For the JS source set
         val jsMain by getting {
             dependencies {
                 implementation("org.jetbrains.kotlin:kotlin-stdlib-js:1.9.10")
@@ -645,10 +645,10 @@ Gradle 自動解析其他原始碼集的正確標準函式庫構件。
 ### 預設支援第三方 cinterop 函式庫
 
 Kotlin 1.9.20 新增了對所有 cinterop 依賴項的預設支援（而非選用加入），適用於套用了
-[Kotlin CocoaPods Gradle](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-cocoapods-overview.html) 外掛程式的專案。
+[Kotlin CocoaPods Gradle](https://kotlinlang.org/docs/multiplatform/multiplatform-cocoapods-overview.html) 外掛程式的專案。
 
 這意味著您現在可以共用更多原生程式碼，而無需受限於平台特定的依賴項。例如，您可以將
-[對 Pod 函式庫的依賴項](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-cocoapods-libraries.html) 新增到 `iosMain` 共用原始碼集。
+[對 Pod 函式庫的依賴項](https://kotlinlang.org/docs/multiplatform/multiplatform-cocoapods-libraries.html) 新增到 `iosMain` 共用原始碼集。
 
 以前，這僅適用於 Kotlin/Native
 發行版隨附的[平台特定函式庫](native-platform-libs.md)（例如 Foundation、UIKit 和 POSIX）。所有第三方 Pod 函式庫現在預設在共用原始碼集中可用。您不再需要指定單獨的 Gradle 屬性來支援它們。
@@ -672,8 +672,8 @@ iOS 的 Compose Multiplatform 專案。
 和 Android Gradle 外掛程式 (AGP) 版本的相容性：
 
 | Kotlin Multiplatform Gradle 外掛程式 | Gradle | Android Gradle 外掛程式 | Xcode |
-|---------------------------|------|----|----|
-| 1.9.20        | 7.5 及更高版本 | 7.4.2–8.2 | 15.0。請參閱下方詳細資訊 |
+|---|---|---|---|
+| 1.9.20 | 7.5 及更高版本 | 7.4.2–8.2 | 15.0。請參閱下方詳細資訊 |
 
 截至此版本，Xcode 的推薦版本為 15.0。Xcode 15.0 隨附的函式庫已完全支援，
 您可以從 Kotlin 程式碼中的任何位置存取它們。
@@ -703,7 +703,7 @@ Wasm GC 進入最後階段，需要更新操作碼 – 在二進位表示中使�
 Kotlin 1.9.20 支援最新的操作碼，所以我們強烈建議您將 Wasm 專案更新到最新的 Kotlin 版本。
 我們還建議在 Wasm 環境中使用最新版本的瀏覽器：
 *   Chrome 和基於 Chromium 的瀏覽器版本 119 或更高版本。
-*   Firefox 版本 119 或更高版本。請注意，在 Firefox 119 中，您需要[手動開啟 Wasm GC](wasm-troubleshooting.md)。
+*   Firefox 版本 119 或更高版本。請注意，在 Firefox 119 中，您需要[手動開啟 Wasm GC](wasm-configuration.md)。
 
 ### 新的 wasm-wasi 目標，以及將 wasm 目標重新命名為 wasm-js
 
@@ -957,7 +957,7 @@ Kotlin 文件收到了一些值得注意的變更：
 *   [Kotlin 導覽](kotlin-tour-welcome.md) 中改進的集合章節 – 學習 Kotlin 程式設計語言的基礎知識，章節包括理論和實踐。
 *   [明確不可為 null 的類型](generics.md#definitely-non-nullable-types) – 學習明確不可為 null 的泛型類型。
 *   改進的 [陣列頁面](arrays.md) – 學習陣列以及何時使用它們。
-*   [Expected and actual declarations in Kotlin Multiplatform (Kotlin Multiplatform 中的預期和實際宣告)](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-expect-actual.html) – 學習 Kotlin Multiplatform 中 Kotlin 預期和實際宣告機制。
+*   [Expected and actual declarations in Kotlin Multiplatform (Kotlin Multiplatform 中的預期和實際宣告)](https://kotlinlang.org/docs/multiplatform/multiplatform-expect-actual.html) – 學習 Kotlin Multiplatform 中 Kotlin 預期和實際宣告機制。
 
 ## 安裝 Kotlin 1.9.20
 

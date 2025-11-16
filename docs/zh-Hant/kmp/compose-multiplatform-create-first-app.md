@@ -14,11 +14,11 @@
     </p>
 </tldr>
 
-在此，您將學習如何使用 IntelliJ IDEA 建立並執行您的第一個 Compose 多平台應用程式。
+在此，您將學習如何使用 IntelliJ IDEA 建立並執行您的第一個 Compose Multiplatform 應用程式。
 
-藉助 [Compose Multiplatform](https://www.jetbrains.com/lp/compose-multiplatform/) UI 框架，您可以將 Kotlin 多平台的程式碼共享能力推向應用程式邏輯之外。您可以實作一次使用者介面，然後將其用於 Compose 多平台支援的所有平台。
+藉助 [Compose Multiplatform](https://www.jetbrains.com/lp/compose-multiplatform/) UI 框架，您可以將 Kotlin Multiplatform 的程式碼共享能力推向應用程式邏輯之外。您可以實作一次使用者介面，然後將其用於 Compose Multiplatform 支援的所有平台。
 
-在本教學課程中，您將建置一個可在 Android、iOS、桌面和網路執行的範例應用程式。為了建立使用者介面，您將使用 Compose 多平台框架並了解其基礎知識：可組合函式、主題、佈局、事件和修飾符。
+在本教學課程中，您將建置一個可在 Android、iOS、桌面和網路執行的範例應用程式。為了建立使用者介面，您將使用 Compose Multiplatform 框架並了解其基礎知識：可組合函式、主題、佈局、事件和修飾符。
 
 本教學課程注意事項：
 * 無需 Compose Multiplatform、Android 或 iOS 的先前經驗。我們建議您在開始之前熟悉 [Kotlin 基礎知識](https://kotlinlang.org/docs/getting-started.html)。
@@ -56,8 +56,8 @@
 在 IntelliJ IDEA 中，導覽至 `ComposeDemo` 資料夾。
 如果您在精靈中沒有選擇 iOS，您將不會有以「ios」或「apple」開頭的資料夾。
 
-> IntelliJ IDEA 可能會自動建議將專案中的 Android Gradle plugin 升級到最新版本。
-> 我們不建議升級，因為 Kotlin 多平台與最新的 AGP 版本不相容
+> IDE 可能會自動建議將專案中的 Android Gradle plugin 升級到最新版本。
+> 我們不建議升級，因為 Kotlin Multiplatform 與最新的 AGP 版本不相容
 > （請參閱[相容性表格](https://kotlinlang.org/docs/multiplatform-compatibility-guide.html#version-compatibility)）。
 >
 {style="note"}
@@ -70,7 +70,7 @@
   ![Compose 多平台專案結構](compose-project-structure.png)
 
 **composeApp** 模組由以下原始碼集組成：`androidMain`、`commonMain`、`iosMain`、`jsMain`、`jvmMain`、`wasmJsMain` 和 `webMain`（如果您選擇包含測試，則包含 `commonTest`）。
-_原始碼集_ 是 Gradle 中將多個檔案邏輯分組在一起的概念，其中每個組都有自己的相依性。在 Kotlin 多平台中，不同的原始碼集可以目標不同的平台。
+_原始碼集_ 是 Gradle 中將多個檔案邏輯分組在一起的概念，其中每個組都有自己的相依性。在 Kotlin Multiplatform 中，不同的原始碼集可以目標不同的平台。
 
 `commonMain` 原始碼集包含通用 Kotlin 程式碼，而平台原始碼集則包含各目標平台特定的 Kotlin 程式碼：
 * `jvmMain` 是用於桌面的原始檔，它使用 Kotlin/JVM。
@@ -86,7 +86,7 @@ _原始碼集_ 是 Gradle 中將多個檔案邏輯分組在一起的概念，其
 
 通常，盡可能將您的實作寫成通用程式碼，而不是在平台特定原始碼集中重複功能。
 
-在 `composeApp/src/commonMain/kotlin` 目錄中，開啟 `App.kt` 檔案。它包含 `App()` 函式，該函式實作一個簡約但完整的 Compose 多平台 UI：
+在 `composeApp/src/commonMain/kotlin` 目錄中，開啟 `App.kt` 檔案。它包含 `App()` 函式，該函式實作一個簡約但完整的 Compose Multiplatform UI：
 
 ```kotlin
 @Composable
@@ -126,7 +126,7 @@ fun App() {
 
 您可以在 Android、iOS、桌面和網路應用程式上執行。您不必以任何特定順序執行應用程式，因此從您最熟悉的平台開始。
 
-> 您不需要使用 Gradle 建置任務。在多平台應用程式中，這將建置所有支援目標的偵錯版和發佈版。根據多平台精靈中選擇的平台，這可能需要一些時間。
+> 您不需要使用 Gradle 建置任務。在多平台應用程式中，這將建置所有支援目標的偵錯版和發佈版。根據 Multiplatform 精靈中選擇的平台，這可能需要一些時間。
 > 使用執行設定要快得多；在這種情況下，只建置選定的目標。
 >
 {style="tip"}
@@ -216,7 +216,7 @@ fun App() {
 4. 導覽至 **Signing & Capabilities**。
 5. 在 **Team** 清單中，選擇您的團隊。
 
-   如果您尚未設定您的團隊，請使用 **Team** 清單中的 **Add an Account** 選項並按照 Xcode 指示操作。
+   如果您尚未設定您的團隊，請使用 **Add an Account** 選項在 **Team** 清單中，並按照 Xcode 指示操作。
 
 6. 確保 Bundle Identifier 是唯一的，並且 Signing Certificate 已成功指派。
 
@@ -278,7 +278,7 @@ fun App() {
 1. 透過選擇 **View | Tool Windows | Gradle** 來開啟 Gradle 工具視窗。
 2. 在 **composedemo | Tasks | compose** 中，選擇並執行 **composeCompatibilityBrowserDistribution** 任務。
 
-   > 您的 Gradle JVM 需要至少 Java 11 才能成功載入任務，我們通常建議 Compose 多平台專案使用至少 JetBrains Runtime 17。
+   > 您需要至少 Java 11 作為您的 Gradle JVM 才能成功載入任務，我們通常建議 Compose Multiplatform 專案使用至少 JetBrains Runtime 17。
    >
    {style="note"}
 
@@ -290,8 +290,10 @@ fun App() {
     ./gradlew composeCompatibilityBrowserDistribution
     ```
 
-Gradle 任務完成後，相容的 artifacts 將在 `composeApp/build/dist/composeWebCompatibility/productionExecutable` 目錄中生成。
-您可以使用這些 artifacts 來[發佈您的應用程式](https://kotlinlang.org/docs/wasm-get-started.html#publish-the-application)，使其同時適用於 `js` 和 `wasmJs` 目標。
+Gradle 任務完成後，相容的 artifacts 將在
+`composeApp/build/dist/composeWebCompatibility/productionExecutable` 目錄中生成。
+您可以使用這些 artifacts 來[發佈您的應用程式](https://kotlinlang.org/docs/wasm-get-started.html#publish-the-application)，
+使其同時適用於 `js` 和 `wasmJs` 目標。
 
 ## 下一步
 
@@ -303,4 +305,4 @@ Gradle 任務完成後，相容的 artifacts 將在 `composeApp/build/dist/compo
 
 * **Kotlin Slack**。取得[邀請](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up)並加入
   [#multiplatform](https://kotlinlang.slack.com/archives/C3PQML5NU) 頻道。
-* **Kotlin 問題追蹤器**。[報告新問題](https://youtrack.jetbrains.com/newIssue?project=KT)。
+* **Kotlin issue tracker**。[報告新問題](https://youtrack.jetbrains.com/newIssue?project=KT)。

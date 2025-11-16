@@ -43,7 +43,7 @@ val strategy = strategy<String, String>("strategy_name") {
 val nodeName by parallel<Input, Output>(
    firstNode, secondNode, thirdNode /* Add more nodes if needed */
 ) {
-   // Merge strategy goes here, for example: 
+   // 合併策略在此，例如： 
    selectByMax { it.length }
 }
 ```
@@ -150,7 +150,7 @@ val nodeLongestJoke by parallel<String, String>(
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
 import ai.koog.prompt.executor.clients.openai.OpenAIModels
-import ai.koog.prompt.structure.json.JsonStructuredData
+import ai.koog.prompt.structure.json.JsonStructure
 
 typealias Input = String
 typealias Output = String
@@ -172,7 +172,7 @@ val nodeBestJoke by parallel<String, String>(
    nodeOpenAI, nodeAnthropicSonnet, nodeAnthropicOpus,
 ) {
    selectByIndex { jokes ->
-      // Use another LLM to determine the best joke
+      // 使用另一個 LLM 來判斷最佳笑話
       llm.writeSession {
          model = OpenAIModels.Chat.GPT4o
          appendPrompt {
@@ -181,7 +181,7 @@ val nodeBestJoke by parallel<String, String>(
 \n")}")
          }
          val response = requestLLMStructured<JokeRating>()
-         response.getOrNull()!!.structure.bestJokeIndex
+         response.getOrNull()!!.data.bestJokeIndex
       }
    }
 }
@@ -303,7 +303,7 @@ $joke" }.joinToString("
             }
 
             val response = requestLLMStructured<JokeRating>()
-            val bestJoke = response.getOrNull()!!.structure
+            val bestJoke = response.getOrNull()!!.data
             bestJoke.bestJokeIndex
          }
       }

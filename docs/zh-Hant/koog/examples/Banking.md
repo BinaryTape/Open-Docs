@@ -26,7 +26,7 @@ https://raw.githubusercontent.com/JetBrains/koog/develop/examples/notebooks/Bank
 %useLatestDescriptors
 %use datetime
 
-// 取消註解此行以使用 Maven Central 的 Koog
+// uncomment this for using koog from Maven Central
 // %use koog
 ```
 
@@ -203,7 +203,7 @@ val transferAgentService = AIAgentService(
     executor = openAIExecutor,
     llmModel = OpenAIModels.Reasoning.GPT4oMini,
     systemPrompt = bankingAssistantSystemPrompt,
-    temperature = 0.0,  // 對於金融操作使用確定性回應
+    temperature = 0.0,  // Use deterministic responses for financial operations
     toolRegistry = ToolRegistry {
         tool(AskUser)
         tools(MoneyTransferTools().asTools())
@@ -271,8 +271,8 @@ data class Transaction(
 
 ```kotlin
 val transactionAnalysisPrompt = """
-今天是 2025-05-22。
-可用的交易類別：${TransactionCategory.availableCategories()}
+Today is 2025-05-22.
+Available categories for transactions: ${TransactionCategory.availableCategories()}
 """
 
 val sampleTransactions = listOf(
@@ -358,19 +358,19 @@ class TransactionAnalysisTools : ToolSet {
     ): String {
         var filteredTransactions = sampleTransactions
 
-        // 驗證 userId (在生產環境中，這將查詢實際資料庫)
+        // Validate userId (in production, this would query a real database)
         if (userId != null && userId != "123") {
             return "找不到使用者 $userId 的交易。"
         }
 
-        // 套用類別篩選器
+        // Apply category filter
         category?.let { cat ->
             val categoryEnum = TransactionCategory.fromString(cat)
                 ?: return "無效類別：$cat。可用類別：${TransactionCategory.availableCategories()}"
             filteredTransactions = filteredTransactions.filter { it.category == categoryEnum }
         }
 
-        // 套用日期範圍篩選器
+        // Apply date range filters
         startDate?.let { date ->
             val startDateTime = parseDate(date, startOfDay = true)
             filteredTransactions = filteredTransactions.filter { it.date >= startDateTime }
@@ -448,7 +448,7 @@ runBlocking {
     交易分析助理已啟動
 
     您本月在餐廳共花費 $517.64。
-
+    
     任務已成功完成。
 
 ## 使用圖形建立代理程式
@@ -520,7 +520,7 @@ val strategy = strategy<String, String>("銀行助理") {
                 )
             ),
             fixingParser = StructureFixingParser(
-                fixingModel = OpenAIModels.CostOptimized.GPT4oMini,
+                model = OpenAIModels.CostOptimized.GPT4oMini,
                 retries = 2,
             )
         )
@@ -534,7 +534,7 @@ val strategy = strategy<String, String>("銀行助理") {
         edge(
             requestClassification forwardTo nodeFinish
                 onCondition { it.isSuccess }
-                transformed { it.getOrThrow().structure }
+                transformed { it.getOrThrow().data }
         )
 
         edge(
@@ -723,8 +723,8 @@ runBlocking {
 
 ## 最佳實踐
 
-1.  **清晰的工具描述：** 編寫詳細的 `LLMDescription` 註釋以幫助 AI 理解工具的使用方式
-2.  **慣用 Kotlin：** 使用 Kotlin 功能，例如資料類別、擴充函式和作用域函式
-3.  **錯誤處理：** 始終驗證輸入並提供有意義的錯誤訊息
-4.  **使用者體驗：** 對於資金轉帳等關鍵操作，包含確認步驟
-5.  **模組化：** 將不同關注點分離到不同的工具和代理程式中，以提高可維護性
+1.  清晰的工具描述：編寫詳細的 `LLMDescription` 註釋以幫助 AI 理解工具的使用方式
+2.  慣用 Kotlin：使用 Kotlin 功能，例如資料類別、擴充函式和作用域函式
+3.  錯誤處理：始終驗證輸入並提供有意義的錯誤訊息
+4.  使用者體驗：對於資金轉帳等關鍵操作，包含確認步驟
+5.  模組化：將不同關注點分離到不同的工具和代理程式中，以提高可維護性

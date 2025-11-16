@@ -412,15 +412,15 @@ fun main() {
 
 從 Kotlin 2.1.20 開始，標準函式庫提供了表示時間點的能力。此功能以前僅在官方 Kotlin 函式庫 [`kotlinx-datetime`](https://kotlinlang.org/api/kotlinx-datetime/) 中可用。
 
-[`kotlinx.datetime.Clock`](https://kotlinlang.org/api/kotlinx-datetime/kotlinx-datetime/kotlinx.datetime/-clock/) 介面作為 `kotlin.time.Clock` 被引入標準函式庫，而 [`kotlinx.datetime.Instant`](https://kotlinlang.org/api/kotlinx-datetime/kotlinx-datetime/kotlinx.datetime/-instant/) 類別則作為 `kotlin.time.Instant` 被引入。這些概念自然地與標準函式庫中的 `time` 套件對齊，因為它們只關注時間點，而 `kotlinx-datetime` 中保留了更複雜的日曆和時區功能。
+[`kotlinx.datetime.Clock`](https://kotlinlang.org/api/kotlinx-datetime/kotlinx-datetime/kotlinx.datetime/-clock/) 介面作為 [`kotlin.time.Clock`](https://kotlinlang.org/api/core/2.1/kotlin-stdlib/kotlin.time/-clock/) 被引入標準函式庫，而 `kotlinx.datetime.Instant` 類別則作為 [`kotlin.time.Instant`](https://kotlinlang.org/api/core/2.1/kotlin-stdlib/kotlin.time/-instant/) 被引入。這些概念自然地與標準函式庫中的 `time` 套件對齊，因為它們只關注時間點，而 `kotlinx-datetime` 中保留了更複雜的日曆和時區功能。
 
 `Instant` 和 `Clock` 在您需要精確時間追蹤而不考慮時區或日期時非常有用。例如，您可以使用它們來記錄帶有時間戳的事件、測量兩個時間點之間的持續時間，以及獲取系統進程的當前時間點。
 
 為了提供與其他語言的互通性，還提供了額外的轉換函數：
 
-*   `.toKotlinInstant()` 將時間值轉換為 `kotlin.time.Instant` 實例。
-*   `.toJavaInstant()` 將 `kotlin.time.Instant` 值轉換為 `java.time.Instant` 值。
-*   `Instant.toJSDate()` 將 `kotlin.time.Instant` 值轉換為 JS `Date` 類別的實例。此轉換不精確；JS 使用毫秒精度表示日期，而 Kotlin 允許奈秒解析度。
+*   [`toKotlinInstant()`](https://kotlinlang.org/api/core/2.1/kotlin-stdlib/kotlin.time/to-kotlin-instant.html) 將時間值轉換為 `kotlin.time.Instant` 實例。
+*   [`toJavaInstant()`](https://kotlinlang.org/api/core/2.1/kotlin-stdlib/kotlin.time/to-java-instant.html) 將 `kotlin.time.Instant` 值轉換為 `java.time.Instant` 值。
+*   [`Instant.toJSDate()`](https://kotlinlang.org/api/core/2.1/kotlin-stdlib/kotlin.time/to-j-s-date.html) 將 `kotlin.time.Instant` 值轉換為 JS `Date` 類別的實例。此轉換不精確；JS 使用毫秒精度表示日期，而 Kotlin 允許奈秒解析度。
 
 標準函式庫的新時間功能仍為[實驗性](components-stability.md#stability-levels-explained)。若要選擇啟用，請使用 `@OptIn(ExperimentalTime::class)` 註解：
 
@@ -464,7 +464,7 @@ Compose 編譯器在 [1.5.8 版本](https://developer.android.com/jetpack/androi
 
 升級到 Kotlin 2.1.20 後，您可能會在受影響的函數中觀察到一些行為變化。若要強制使用舊版中的不可重啟邏輯，請將 `@NonRestartableComposable` 註解應用於該函數。
 
-### ComposableSingletons 從公共 API 中移除
+### `ComposableSingletons` 從公共 API 中移除
 
 `ComposableSingletons` 是 Compose 編譯器在最佳化 `@Composable` 匿名函數時建立的一個類別。不捕獲任何參數的匿名函數會被分配一次並快取在類別的一個屬性中，從而在執行時節省了分配。該類別以內部可見性生成，僅用於最佳化編譯單元（通常是一個檔案）內的匿名函數。
 
@@ -478,7 +478,7 @@ Compose 編譯器 Gradle 外掛在 Android 上已預設啟用[包含來源資訊
 
 ## 重大變更與棄用
 
-*   為了使 Kotlin Multiplatform 與 Gradle 即將推出的變更保持一致，我們正在逐步淘汰 `withJava()` 函數。[Java 原始碼集現在預設建立](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-compatibility-guide.html#java-source-sets-created-by-default)。如果您使用 [Java test fixtures](https://docs.gradle.org/current/userguide/java_testing.html#sec:java_test_fixtures) Gradle 外掛，請直接升級到 [Kotlin 2.1.21](releases.md#release-details) 以避免相容性問題。
+*   為了使 Kotlin Multiplatform 與 Gradle 即將推出的變更保持一致，我們正在逐步淘汰 `withJava()` 函數。[Java 原始碼集現在預設建立](https://kotlinlang.org/docs/multiplatform/multiplatform-compatibility-guide.html#java-source-sets-created-by-default)。如果您使用 [Java test fixtures](https://docs.gradle.org/current/userguide/java_testing.html#sec:java_test_fixtures) Gradle 外掛，請直接升級到 [Kotlin 2.1.21](releases.md#release-details) 以避免相容性問題。
 *   JetBrains 團隊正在推進 `kotlin-android-extensions` 外掛的棄用。如果您嘗試在專案中使用它，現在將會收到配置錯誤，並且不會執行任何外掛程式碼。
 *   舊版 `kotlin.incremental.classpath.snapshot.enabled` 屬性已從 Kotlin Gradle 外掛中移除。該屬性過去提供了在 JVM 上回退到內建 ABI 快照的機會。該外掛現在使用其他方法來偵測和避免不必要的重新編譯，使得該屬性變得多餘。
 
@@ -490,14 +490,14 @@ Kotlin 文件已進行了一些顯著的更改：
 
 *   [Kotlin 路線圖](roadmap.md) – 查看 Kotlin 在語言和生態系統演進方面的優先級更新列表。
 *   [Gradle 最佳實踐](gradle-best-practices.md)頁面 – 學習最佳化您的 Gradle 建置並提升效能的基本最佳實踐。
-*   [Compose Multiplatform 與 Jetpack Compose](https://www.jetbrains.com/help/kotlin-multiplatform-dev/compose-multiplatform-and-jetpack-compose.html) – 兩種 UI 框架之間關係的概述。
-*   [Kotlin Multiplatform 與 Flutter](https://www.jetbrains.com/help/kotlin-multiplatform-dev/kotlin-multiplatform-flutter.html) – 查看兩種流行跨平台框架的比較。
+*   [Compose Multiplatform 與 Jetpack Compose](https://kotlinlang.org/docs/multiplatform/compose-multiplatform-and-jetpack-compose.html) – 兩種 UI 框架之間關係的概述。
+*   [Kotlin Multiplatform 與 Flutter](https://kotlinlang.org/docs/multiplatform/kotlin-multiplatform-flutter.html) – 查看兩種流行跨平台框架的比較。
 *   [與 C 的互通性](native-c-interop.md) – 探索 Kotlin 與 C 的互通性細節。
 *   [數字](numbers.md) – 了解不同用於表示數字的 Kotlin 型別。
 
 ### 新增與更新的教學
 
-*   [將您的函式庫發佈到 Maven Central](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-publish-libraries.html) – 了解如何將 KMP 函式庫 artifact 發佈到最受歡迎的 Maven 儲存庫。
+*   [將您的函式庫發佈到 Maven Central](https://kotlinlang.org/docs/multiplatform/multiplatform-publish-libraries.html) – 了解如何將 KMP 函式庫 artifact 發佈到最受歡迎的 Maven 儲存庫。
 *   [Kotlin/Native 作為動態函式庫](native-dynamic-libraries.md) – 建立一個動態 Kotlin 函式庫。
 *   [Kotlin/Native 作為 Apple 框架](apple-framework.md) – 建立您自己的框架，並在 macOS 和 iOS 上從 Swift/Objective-C 應用程式中使用 Kotlin/Native 程式碼。
 
@@ -507,4 +507,4 @@ Kotlin 文件已進行了一些顯著的更改：
 
 這意味著您無法再從 JetBrains Marketplace 安裝該外掛。
 
-若要更新到新的 Kotlin 版本，請在您的建置指令稿中將 [Kotlin 版本更改](releases.md#update-to-a-new-kotlin-version)為 2.1.20。
+若要更新到新的 Kotlin 版本，[請在您的建置指令碼中將 Kotlin 版本更改](releases.md#update-to-a-new-kotlin-version)為 2.1.20。

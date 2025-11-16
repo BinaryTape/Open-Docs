@@ -9,7 +9,7 @@
    [選擇最適合您的整合方法](multiplatform-ios-integration-overview.md)
 </tldr>
 
-Kotlin/Native 提供了與 [CocoaPods 依賴項管理器](https://cocoapods.org/)的整合。您可以添加對 Pod 函式庫的依賴項，也可以將 Kotlin 專案用作 CocoaPods 依賴項。
+Kotlin/Native 提供與 [CocoaPods 依賴項管理器](https://cocoapods.org/)的整合。您可以添加對 Pod 函式庫的依賴項，也可以將 Kotlin 專案用作 CocoaPods 依賴項。
 
 您可以直接在 IntelliJ IDEA 或 Android Studio 中管理 Pod 依賴項，並享有所有附加功能，例如程式碼高亮顯示與補齊。您可以在不切換到 Xcode 的情況下，使用 Gradle 建置整個 Kotlin 專案。
 

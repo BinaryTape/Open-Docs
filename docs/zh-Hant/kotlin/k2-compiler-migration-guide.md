@@ -2,7 +2,7 @@
 
 隨著 Kotlin 語言和生態系統的不斷演進，Kotlin 編譯器也隨之發展。第一步是引入了新的 JVM 和 JS IR（中介表示法）後端，這些後端共享邏輯，簡化了針對不同平台目標的程式碼生成。現在，其演進的下一個階段帶來了一個名為 K2 的新前端。
 
-![Kotlin K2 編譯器架構](k2-compiler-architecture.svg){width=700}
+![Kotlin K2 compiler architecture](k2-compiler-architecture.svg){width=700}
 
 隨著 K2 編譯器的到來，Kotlin 前端已被完全重寫，並具備了嶄新且更有效率的架構。新編譯器帶來的根本性變化是採用了一種統一的資料結構，其中包含更多語義資訊。此前端負責執行語義分析、呼叫解析和型別推斷。
 
@@ -489,7 +489,7 @@ kotlin.build.report.output=file
 | `file`       | 將建構報告以人類可讀的格式儲存到本機檔案。預設為 `${project_folder}/build/reports/kotlin-build/${project_name}-timestamp.txt`                                                                                                                                                                                                                          |
 | `single_file` | 將建構報告以物件格式儲存到指定的本機檔案。                                                                                                                                                                                                                                                                  |
 | `build_scan` | 將建構報告儲存到[建構掃描](https://scans.gradle.com/)的 `custom values` 區段中。請注意，Gradle Enterprise 外掛程式限制了自訂值的數量和長度。在大型專案中，某些值可能會丟失。                                                                                                                                                                      |
-| `http`       | 使用 HTTP(S) 發布建構報告。POST 方法以 JSON 格式發送度量。您可以在[Kotlin 儲存庫](https://github.com/JetBrains/kotlin/blob/master/libraries/tools/kotlin-gradle-plugin/src/common/kotlin/org/jetbrains/kotlin/gradle/report/data/GradleCompileStatisticsData.kt)中查看發送資料的當前版本。您可以在[此部落格文章](https://blog.jetbrains.com/kotlin/2024/04/k2-compiler-performance-benchmarks-and-how-to-measure-them-on-your-projects/)中找到 HTTP 端點範例。 |
+| `http`       | 使用 HTTP(S) 發布建構報告。POST 方法以 JSON 格式發送度量。您可以在[Kotlin 儲存庫](https://github.com/JetBrains/kotlin/blob/master/libraries/tools/kotlin-gradle-plugin/src/common/kotlin/org/jetbrains/kotlin/gradle/report/data/GradleCompileStatisticsData.kt)中查看發送資料的當前版本。您可以在[此部落格文章](https://blog.jetbrains.com/kotlin/2022/06/introducing-kotlin-build-reports/?_gl=1*1a7pghy*_ga*MTcxMjc1NzE5Ny4xNjY1NDAzNjkz*_ga_9J976DJZ68*MTcxNTA3NjA2NS4zNzcuMS4xNzE1MDc2MDc5LjQ2LjAuMA..&_ga=2.265800911.1124071296.1714976764-1712757197.1665403693#enable_build_reports)中找到 HTTP 端點範例。 |
 | `json`       | 將建構報告以 JSON 格式儲存到本機檔案。在 `kotlin.build.report.json.directory` 中設定建構報告的位置。預設名稱為 `${project_name}-build-<date-time>-<index>.json`。                                                                                                                                                                                        |
 
 有關建構報告功能的更多資訊，請參閱[建構報告](gradle-compilation-and-caches.md#build-reports)。
@@ -820,7 +820,7 @@ fun main() {
 在 Kotlin 2.0.0 中，範例中的解析行為是一致的，確保 Kotlin 屬性取代同名的 Java 欄位。現在，`b` 解析為：`Derived.b`。
 
 > 在 Kotlin 2.0.0 之前，如果您使用 IntelliJ IDEA 跳轉到 `a` 的宣告或使用位置，它會錯誤地導航到 Java 欄位，而實際上應該導航到 Kotlin 屬性。
-> 
+>
 > 從 Kotlin 2.0.0 開始，IntelliJ IDEA 會正確地導航到與編譯器相同的位置。
 >
 {style="note"}

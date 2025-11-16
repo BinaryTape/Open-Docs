@@ -4,7 +4,7 @@
     <p>這是**映射 Kotlin 與 C** 教學系列的第一部分。</p>
     <p><img src="icon-1.svg" width="20" alt="第一步"/> **從 C 語言映射基本資料型別**<br/>
        <img src="icon-2-todo.svg" width="20" alt="第二步"/> <a href="mapping-struct-union-types-from-c.md">從 C 語言映射結構與聯集型別</a><br/>
-       <img src="icon-3-todo.svg" width="20" alt="第三步"/> <a href="mapping-function-pointers-from-c.md">映射函式指標</a><br/>
+       <img src="icon-3-todo.svg" width="20" alt="第三步"/> <a href="mapping-function-pointers-from-c.md">從 C 語言映射函式指標</a><br/>
        <img src="icon-4-todo.svg" width="20" alt="第四步"/> <a href="mapping-strings-from-c.md">從 C 語言映射字串</a><br/>
     </p>
 </tldr>
@@ -19,9 +19,9 @@
 
 在本教學中，您將：
 
-* [了解 C 語言中的資料型別](#types-in-c-language)
-* [建立一個在匯出中使用這些型別的 C 函式庫](#create-a-c-library)
-* [檢查從 C 函式庫生成的 Kotlin API](#inspect-generated-kotlin-apis-for-a-c-library)
+*   [了解 C 語言中的資料型別](#types-in-c-language)
+*   [建立一個在匯出中使用這些型別的 C 函式庫](#create-a-c-library)
+*   [檢查從 C 函式庫生成的 Kotlin API](#inspect-generated-kotlin-apis-for-a-c-library)
 
 您可以使用命令列來生成 Kotlin 函式庫，無論是直接生成還是透過腳本檔案（例如 `.sh` 或 `.bat` 檔案）。然而，這種方法不適用於擁有數百個檔案和函式庫的大型專案。使用建構系統可透過下載並快取 Kotlin/Native 編譯器二進位檔和具有轉譯相依性的函式庫，以及執行編譯器和測試來簡化過程。Kotlin/Native 可以透過 [Kotlin 多平台外掛程式](gradle-configure-project.md#targeting-multiple-platforms) 使用 [Gradle](https://gradle.org) 建構系統。
 
@@ -29,16 +29,16 @@
 
 C 程式語言具有以下 [資料型別](https://en.wikipedia.org/wiki/C_data_types)：
 
-* 基本型別：`char, int, float, double` 以及修飾符 `signed, unsigned, short, long`
-* 結構、聯集、陣列
-* 指標
-* 函式指標
+*   基本型別：`char, int, float, double` 以及修飾符 `signed, unsigned, short, long`
+*   結構、聯集、陣列
+*   指標
+*   函式指標
 
 還有更特定的型別：
 
-* 布林型別（來自 [C99](https://en.wikipedia.org/wiki/C99)）
-* `size_t` 和 `ptrdiff_t`（還有 `ssize_t`）
-* 固定寬度整數型別，例如 `int32_t` 或 `uint64_t`（來自 [C99](https://en.wikipedia.org/wiki/C99)）
+*   布林型別（來自 [C99](https://en.wikipedia.org/wiki/C99)）
+*   `size_t` 和 `ptrdiff_t`（還有 `ssize_t`）
+*   固定寬度整數型別，例如 `int32_t` 或 `uint64_t`（來自 [C99](https://en.wikipedia.org/wiki/C99)）
 
 C 語言中還有以下型別限定符：`const`、`volatile`、`restrict`、`atomic`。
 
@@ -52,40 +52,40 @@ cinterop 工具會為每組 `.h` 檔案生成一個 Kotlin/Native 函式庫（�
 
 建立 C 函式庫：
 
-1. 為您未來的專案建立一個空資料夾。
-2. 在其中，建立一個 `lib.h` 檔案，其中包含以下內容，以查看 C 函式如何映射到 Kotlin：
+1.  為您未來的專案建立一個空資料夾。
+2.  在其中，建立一個 `lib.h` 檔案，其中包含以下內容，以查看 C 函式如何映射到 Kotlin：
 
-   ```c
-   #ifndef LIB2_H_INCLUDED
-   #define LIB2_H_INCLUDED
+    ```c
+    #ifndef LIB2_H_INCLUDED
+    #define LIB2_H_INCLUDED
 
-   void ints(char c, short d, int e, long f);
-   void uints(unsigned char c, unsigned short d, unsigned int e, unsigned long f);
-   void doubles(float a, double b);
-   
-   #endif
-   ```
-
-   該檔案沒有 `extern "C"` 區塊，本範例不需要它，但如果您使用 C++ 和重載函式，則可能需要。請參閱此 [Stackoverflow 討論串](https://stackoverflow.com/questions/1041866/what-is-the-effect-of-extern-c-in-c) 以獲取更多詳細資訊。
-
-3. 建立 `lib.def` [定義檔](native-definition-file.md)，其中包含以下內容：
-
-   ```c
-   headers = lib.h
-   ```
-
-4. 將巨集或其他 C 定義包含在由 cinterop 工具生成的程式碼中會很有幫助。這樣，方法主體也會被編譯並完全包含在二進位檔中。藉由這項功能，您可以建立一個可執行的範例而不需要 C 編譯器。
-
-   為此，請在 `---` 分隔符之後，將 `lib.h` 檔案中的 C 函式實作新增到新的 `interop.def` 檔案中：
-
-   ```c
-   
-   ---
+    void ints(char c, short d, int e, long f);
+    void uints(unsigned char c, unsigned short d, unsigned int e, unsigned long f);
+    void doubles(float a, double b);
     
-   void ints(char c, short d, int e, long f) { }
-   void uints(unsigned char c, unsigned short d, unsigned int e, unsigned long f) { }
-   void doubles(float a, double b) { }
-   ```
+    #endif
+    ```
+
+    該檔案沒有 `extern "C"` 區塊，本範例不需要它，但如果您使用 C++ 和重載函式，則可能需要。請參閱此 [Stackoverflow 討論串](https://stackoverflow.com/questions/1041866/what-is-the-effect-of-extern-c-in-c) 以獲取更多詳細資訊。
+
+3.  建立 `lib.def` [定義檔](native-definition-file.md)，其中包含以下內容：
+
+    ```c
+    headers = lib.h
+    ```
+
+4.  將巨集或其他 C 定義包含在由 cinterop 工具生成的程式碼中會很有幫助。這樣，方法主體也會被編譯並完全包含在二進位檔中。藉由這項功能，您可以建立一個可執行的範例而不需要 C 編譯器。
+
+    為此，請在 `---` 分隔符之後，將 `lib.h` 檔案中的 C 函式實作新增到新的 `interop.def` 檔案中：
+
+    ```c
+    
+    ---
+     
+    void ints(char c, short d, int e, long f) { }
+    void uints(unsigned char c, unsigned short d, unsigned int e, unsigned long f) { }
+    void doubles(float a, double b) { }
+    ```
 
 `interop.def` 檔案提供了所有必要的內容，以便編譯、執行或在 IDE 中開啟應用程式。
 
@@ -97,7 +97,7 @@ cinterop 工具會為每組 `.h` 檔案生成一個 Kotlin/Native 函式庫（�
 
 建立專案檔案：
 
-1. 在您的專案資料夾中，建立一個 `build.gradle(.kts)` Gradle 建構檔案，其中包含以下內容：
+1.  在您的專案資料夾中，建立一個 `build.gradle(.kts)` Gradle 建構檔案，其中包含以下內容：
 
     <tabs group="build-script">
     <tab title="Kotlin" group-key="kotlin">
@@ -146,7 +146,7 @@ cinterop 工具會為每組 `.h` 檔案生成一個 Kotlin/Native 函式庫（�
     
     kotlin {
         macosArm64("native") {    // Apple Silicon macOS
-        // macosX64("native") {   // x86_64 平台上的 macOS
+        // macosX64("native") {   // macOS on x86_64 平台
         // linuxArm64("native") { // Linux on ARM64 平台
         // linuxX64("native") {   // Linux on x86_64 平台
         // mingwX64("native") {   // Windows
@@ -169,14 +169,14 @@ cinterop 工具會為每組 `.h` 檔案生成一個 Kotlin/Native 函式庫（�
     </tab>
     </tabs>
 
-   專案檔案將 C interop 配置為一個額外的建構步驟。請查看 [多平台 Gradle DSL 參考](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-dsl-reference.html) 以了解不同的配置方式。
+    專案檔案將 C interop 配置為一個額外的建構步驟。請查看 [多平台 Gradle DSL 參考](https://kotlinlang.org/docs/multiplatform/multiplatform-dsl-reference.html) 以了解不同的配置方式。
 
-2. 將您的 `interop.def`、`lib.h` 和 `lib.def` 檔案移動到 `src/nativeInterop/cinterop` 目錄。
-3. 建立 `src/nativeMain/kotlin` 目錄。這裡就是您應該放置所有原始檔的地方，遵循 Gradle 關於使用約定而非配置的建議。
+2.  將您的 `interop.def`、`lib.h` 和 `lib.def` 檔案移動到 `src/nativeInterop/cinterop` 目錄。
+3.  建立 `src/nativeMain/kotlin` 目錄。這裡就是您應該放置所有原始檔的地方，遵循 Gradle 關於使用約定而非配置的建議。
 
-   預設情況下，所有來自 C 的符號都會匯入到 `interop` 套件中。
+    預設情況下，所有來自 C 的符號都會匯入到 `interop` 套件中。
 
-4. 在 `src/nativeMain/kotlin` 中，建立一個 `hello.kt` 骨架檔案，其中包含以下內容：
+4.  在 `src/nativeMain/kotlin` 中，建立一個 `hello.kt` 骨架檔案，其中包含以下內容：
 
     ```kotlin
     import interop.*

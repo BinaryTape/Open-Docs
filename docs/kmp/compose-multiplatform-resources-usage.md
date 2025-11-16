@@ -25,7 +25,7 @@ import project.composeapp.generated.resources.example_image
 
 你可以使用 Gradle 设置自定义生成的 `Res` 类以满足你的需求。
 
-在 `build.gradle.kts` 文件的 `compose.resources {}` 代码块中，你可以指定影响项目 `Res` 类生成方式的多个设置。
+在 `compose.resources {}` 代码块中，你可以指定影响项目 `Res` 类生成方式的多个设置。
 一个配置示例类似这样：
 
 ```kotlin
@@ -611,21 +611,19 @@ fun main() {
         UseResources()
 
         if (font1 != null && font2 != null && emojiFont != null && fontsFallbackInitialized) {
-            println("Fonts are ready") // 字体已准备就绪
+            println("Fonts are ready")
         } else {
             // Displays the progress indicator to address a FOUT or the app being temporarily non-functional during loading
-            // 显示进度指示器以解决 FOUT 或应用程序在加载期间暂时无法运行的问题
             Box(modifier = Modifier.fillMaxSize().background(Color.White.copy(alpha = 0.8f)).clickable {  }) {
                 CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
             }
-            println("Fonts are not ready yet") // 字体尚未准备就绪
+            println("Fonts are not ready yet")
         }
 
         val fontFamilyResolver = LocalFontFamilyResolver.current
         LaunchedEffect(fontFamilyResolver, emojiFont) {
             if (emojiFont != null) {
                 // Preloads a fallback font with emojis to render missing glyphs that are not supported by the bundled font
-                // 预加载带有表情符号的回退字体，以渲染捆绑字体不支持的缺失字形
                 fontFamilyResolver.preload(FontFamily(listOf(emojiFont)))
                 fontsFallbackInitialized = true
             }

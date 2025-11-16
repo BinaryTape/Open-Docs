@@ -1,6 +1,6 @@
 [//]: # (title: Kotlin/JS 시작하기)
 
-이 튜토리얼에서는 Kotlin/JavaScript(Kotlin/JS)를 사용하여 브라우저용 웹 애플리케이션을 만드는 방법을 보여줍니다.
+이 튜토리얼은 Kotlin/JavaScript(Kotlin/JS)를 사용하여 브라우저용 웹 애플리케이션을 만드는 방법을 보여줍니다.
 앱을 만들려면 워크플로에 가장 적합한 도구를 선택하세요.
 
 *   **[IntelliJ IDEA](#create-your-application-in-intellij-idea)**: 버전 관리에서 프로젝트 템플릿을 클론하고 IntelliJ IDEA에서 작업합니다.
@@ -18,7 +18,7 @@ Kotlin/JS 웹 애플리케이션을 만들려면 [IntelliJ IDEA](https://www.jet
 ### 환경 설정하기
 
 1.  [IntelliJ IDEA](https://www.jetbrains.com/idea/) 최신 버전을 다운로드하고 설치합니다.
-2.  [Kotlin 멀티플랫폼 개발을 위한 환경을 설정](https://www.jetbrains.com/help/kotlin-multiplatform-dev/quickstart.html#set-up-the-environment)합니다.
+2.  [Kotlin 멀티플랫폼 개발을 위한 환경을 설정](https://kotlinlang.org/docs/multiplatform/quickstart.html#set-up-the-environment)합니다.
 
 ### 프로젝트 만들기
 
@@ -50,7 +50,7 @@ Kotlin/JS 웹 애플리케이션을 만들려면 [IntelliJ IDEA](https://www.jet
 
     또는 Gradle 도구 창에서 새로 고침 버튼을 클릭합니다.
 
-멀티플랫폼 프로젝트용 Gradle 구성에 대한 자세한 내용은 [Multiplatform Gradle DSL 참조](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-dsl-reference.html)를 참조하세요.
+멀티플랫폼 프로젝트용 Gradle 구성에 대한 자세한 내용은 [Multiplatform Gradle DSL 참조](https://kotlinlang.org/docs/multiplatform/multiplatform-dsl-reference.html)를 참조하세요.
 
 ### 애플리케이션 빌드 및 실행
 
@@ -118,8 +118,8 @@ Kotlin/JS 웹 애플리케이션을 만들려면 [IntelliJ IDEA](https://www.jet
 
     ```kotlin
     fun main() {
-        // Replace document.body!!.appendMessage(message)
-        document.body?.appendInput()
+       // Replace document.body!!.appendMessage(message)
+       document.body?.appendInput()
     }
     ```
 
@@ -134,7 +134,7 @@ Kotlin/JS 웹 애플리케이션을 만들려면 [IntelliJ IDEA](https://www.jet
 1.  `appendInput()` 함수 내부에 입력 값을 읽고 변경 사항에 반응하는 리스너(listener)를 추가합니다.
 
     ```kotlin
-    // Replace the current appendInput() function
+   // Replace the current appendInput() function
     fun Element.appendInput(onChange: (String) -> Unit = {}) {
         val input = document.createElement("input").apply {
             addEventListener("change") { event ->
@@ -156,7 +156,7 @@ Kotlin/JS 웹 애플리케이션을 만들려면 [IntelliJ IDEA](https://www.jet
         // Replace document.body?.appendInput()
         document.body?.appendInput(onChange = { println(it) })
     }
-    ```
+   ```
 
 #### 출력 요소 추가하기
 
@@ -175,11 +175,11 @@ Kotlin/JS 웹 애플리케이션을 만들려면 [IntelliJ IDEA](https://www.jet
         // Creates a text container for our output
         // Replace val message = Message(topic = "Kotlin/JS", content = "Hello!")
         val output = document.body?.appendTextContainer()
-    
+   
         // Reads the input value
         document.body?.appendInput(onChange = { println(it) })
     }
-    ```
+   ```
 
 #### 글자 수를 세기 위해 입력 처리하기
 
@@ -242,7 +242,7 @@ fun main() {
     fun main() {
         // Creates a text container for our output
         val output = document.body?.appendTextContainer()
-    
+   
         // Reads the input value
         document.body?.appendInput(onChange = { name ->
             name.replace(" ", "").let {
@@ -288,7 +288,7 @@ Gradle은 Kotlin/JS 및 Kotlin Multiplatform 프로젝트의 기본 빌드 시�
 
     kotlin {
         js {
-            // Use browser() for running in a browser or nodejs() for running in Node.js
+            // 브라우저에서 실행하려면 browser()를 사용하고 Node.js에서 실행하려면 nodejs()를 사용하세요.
             browser() 
             binaries.executable()
         }
@@ -310,7 +310,7 @@ Gradle은 Kotlin/JS 및 Kotlin Multiplatform 프로젝트의 기본 빌드 시�
 
     kotlin {
         js {
-            // Use browser() for running in a browser or nodejs() for running in Node.js
+            // 브라우저에서 실행하려면 browser()를 사용하고 Node.js에서 실행하려면 nodejs()를 사용하세요.
             browser() 
             binaries.executable()
         }
@@ -407,5 +407,5 @@ IntelliJ IDEA는 Kotlin/JS 프로젝트인지 자동으로 감지합니다. 프�
 *   [Kotlin/JS 프로젝트를 설정](js-project-setup.md)합니다.
 *   [Kotlin/JS 애플리케이션을 디버그](js-debugging.md)하는 방법을 배웁니다.
 *   [Kotlin/JS로 테스트를 작성하고 실행](js-running-tests.md)하는 방법을 배웁니다.
-*   [실제 Kotlin/JS 프로젝트용 Gradle 빌드 스크립트를 작성](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-dsl-reference.html)하는 방법을 배웁니다.
+*   [실제 Kotlin/JS 프로젝트용 Gradle 빌드 스크립트를 작성](https://kotlinlang.org/docs/multiplatform/multiplatform-dsl-reference.html)하는 방법을 배웁니다.
 *   [Gradle 빌드 시스템](gradle.md)에 대해 더 알아봅니다.

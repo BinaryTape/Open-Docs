@@ -45,11 +45,11 @@ Gradle을 사용한 첫 컴파일은 종속성 다운로드, 캐시 빌드 및 �
 *   `linkDebug*`. 개발 중에 코드를 실행하려면 일반적으로 하나의 바이너리만 필요하므로 해당 `linkDebug*` 작업을 실행하는 것으로 충분합니다.
 *   `embedAndSignAppleFrameworkForXcode`. iOS 시뮬레이터와 장치는 프로세서 아키텍처가 다르기 때문에 Kotlin/Native 바이너리를 유니버설(fat) 프레임워크로 배포하는 것이 일반적인 접근 방식입니다.
 
-    하지만 로컬 개발 중에는 사용 중인 플랫폼에 대해서만 `.framework` 파일을 빌드하는 것이 더 빠릅니다. 플랫폼별 프레임워크를 빌드하려면 [embedAndSignAppleFrameworkForXcode](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-direct-integration.html#connect-the-framework-to-your-project) 작업을 사용하세요.
+    하지만 로컬 개발 중에는 사용 중인 플랫폼에 대해서만 `.framework` 파일을 빌드하는 것이 더 빠릅니다. 플랫폼별 프레임워크를 빌드하려면 [embedAndSignAppleFrameworkForXcode](https://kotlinlang.org/docs/multiplatform/multiplatform-direct-integration.html#connect-the-framework-to-your-project) 작업을 사용하세요.
 
 ### 필요한 타겟에 대해서만 빌드
 
-위의 권장 사항과 마찬가지로 모든 네이티브 플랫폼에 대한 바이너리를 한 번에 빌드하지 마세요. 예를 들어, [XCFramework](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-build-native-binaries.html#build-xcframeworks)를 컴파일하는 것(`*XCFramework` 작업을 사용)은 모든 타겟에 대해 동일한 코드를 빌드하므로 단일 타겟을 빌드하는 것보다 비례적으로 더 많은 시간이 걸립니다.
+위의 권장 사항과 마찬가지로 모든 네이티브 플랫폼에 대한 바이너리를 한 번에 빌드하지 마세요. 예를 들어, [XCFramework](https://kotlinlang.org/docs/multiplatform/multiplatform-build-native-binaries.html#build-xcframeworks)를 컴파일하는 것(`*XCFramework` 작업을 사용)은 모든 타겟에 대해 동일한 코드를 빌드하므로 단일 타겟을 빌드하는 것보다 비례적으로 더 많은 시간이 걸립니다.
 
 설정에서 XCFramework가 정말 필요한 경우 타겟 수를 줄일 수 있습니다. 예를 들어, Intel 기반 Mac에서 iOS 시뮬레이터로 이 프로젝트를 실행하지 않는다면 `iosX64`가 필요하지 않습니다.
 
@@ -59,7 +59,7 @@ Gradle을 사용한 첫 컴파일은 종속성 다운로드, 캐시 빌드 및 �
 
 ### 불필요한 릴리스 바이너리 빌드하지 않기
 
-Kotlin/Native는 [디버그 및 릴리스](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-build-native-binaries.html#declare-binaries)의 두 가지 빌드 모드를 지원합니다. 릴리스는 고도로 최적화되어 있으며, 이는 많은 시간이 소요됩니다. 릴리스 바이너리 컴파일은 디버그 바이너리보다 몇 배 더 많은 시간이 걸립니다.
+Kotlin/Native는 [디버그 및 릴리스](https://kotlinlang.org/docs/multiplatform/multiplatform-build-native-binaries.html#declare-binaries)의 두 가지 빌드 모드를 지원합니다. 릴리스는 고도로 최적화되어 있으며, 이는 많은 시간이 소요됩니다. 릴리스 바이너리 컴파일은 디버그 바이너리보다 몇 배 더 많은 시간이 걸립니다.
 
 실제 릴리스를 제외하고 일반적인 개발 주기에서는 이러한 모든 최적화가 불필요할 수 있습니다. 개발 프로세스 중에 이름에 `Release`가 포함된 작업을 사용하는 경우 `Debug`로 대체하는 것을 고려해 보세요. 마찬가지로, `assembleXCFramework`를 실행하는 대신 예를 들어 `assembleSharedDebugXCFramework`를 실행할 수 있습니다.
 
@@ -73,11 +73,11 @@ Kotlin/Native는 [디버그 및 릴리스](https://www.jetbrains.com/help/kotlin
 
 ### 전이적 내보내기 사용하지 않기
 
-[`transitiveExport = true`](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-build-native-binaries.html#export-dependencies-to-binaries)를 사용하면 많은 경우에 데드 코드 제거를 비활성화하므로 컴파일러가 사용되지 않는 많은 코드를 처리해야 합니다. 이는 컴파일 시간을 증가시킵니다. 대신, 필요한 프로젝트와 종속성을 내보내기 위해 `export` 메서드를 명시적으로 사용하세요.
+[`transitiveExport = true`](https://kotlinlang.org/docs/multiplatform/multiplatform-build-native-binaries.html#export-dependencies-to-binaries)를 사용하면 많은 경우에 데드 코드 제거를 비활성화하므로 컴파일러가 사용되지 않는 많은 코드를 처리해야 합니다. 이는 컴파일 시간을 증가시킵니다. 대신, 필요한 프로젝트와 종속성을 내보내기 위해 `export` 메서드를 명시적으로 사용하세요.
 
 ### 모듈을 너무 많이 내보내지 않기
 
-불필요한 [모듈 내보내기](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-build-native-binaries.html#export-dependencies-to-binaries)를 피하려고 노력하세요. 내보내진 각 모듈은 컴파일 시간과 바이너리 크기에 부정적인 영향을 미칩니다.
+불필요한 [모듈 내보내기](https://kotlinlang.org/docs/multiplatform/multiplatform-build-native-binaries.html#export-dependencies-to-binaries)를 피하려고 노력하세요. 내보내진 각 모듈은 컴파일 시간과 바이너리 크기에 부정적인 영향을 미칩니다.
 
 ### Gradle 빌드 캐싱 사용
 

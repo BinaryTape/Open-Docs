@@ -16,6 +16,22 @@ _[保持語言現代化](kotlin-evolution-principles.md)_ 和 _[舒適的更新]
 
 ## 語言
 
+### 停止支援 `-language-version` 的 1.6 和 1.7 版本
+
+> **問題**：[KT-71793](https://youtrack.jetbrains.com/issue/KT-71793)
+>
+> **組件**：編譯器
+>
+> **不相容變更類型**：原始碼
+>
+> **簡要總結**：從 Kotlin 2.2 開始，編譯器不再支援 [`-language-version=1.6`](compiler-reference.md#language-version-version) 或 `-language-version=1.7`。
+> 這表示 1.8 之前版本的語言功能集將不再受支援。然而，語言本身仍與 Kotlin 1.0 完全向後相容。
+>
+> **棄用週期**：
+>
+> - 2.1.0：當使用 `-language-version` 搭配 1.6 和 1.7 版本時，報告警告
+> - 2.2.0：當使用 `-language-version` 搭配 1.8 和 1.9 版本時，報告警告；將 1.6 和 1.7 版本的警告升級為錯誤
+
 ### 預設為帶註解的 Lambda 啟用 invokedynamic
 
 > **問題**：[KTLC-278](https://youtrack.jetbrains.com/issue/KTLC-278)
@@ -509,7 +525,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_ 和 _[舒適的更新]
 >
 > **不相容變更類型**：原始碼
 >
-> **簡要總結**：實驗性的 `kotlinArtifacts` API 已棄用。請使用 Kotlin Gradle 外掛程式中現有的 DSL 來[建構最終的原生二進位檔](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-build-native-binaries.html)。如果這不足以進行遷移，請在[此 YT 問題](https://youtrack.jetbrains.com/issue/KT-74953)中留言。
+> **簡要總結**：實驗性的 `kotlinArtifacts` API 已棄用。請使用 Kotlin Gradle 外掛程式中現有的 DSL 來[建構最終的原生二進位檔](https://kotlinlang.org/docs/multiplatform/multiplatform-build-native-binaries.html)。如果這不足以進行遷移，請在[此 YT 問題](https://youtrack.jetbrains.com/issue/KT-74953)中留言。
 >
 > **棄用週期**：
 >

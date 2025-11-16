@@ -7,12 +7,11 @@ Compose コンパイラは Kotlin 2.0.0 から Kotlin リポジトリにマー�
 これにより、Compose コンパイラが Kotlin と同時に提供され、常に同バージョンの Kotlin と互換性があるため、プロジェクトの Kotlin 2.0.0 以降への移行がスムーズになります。
 
 プロジェクトで新しい Compose コンパイラプラグインを使用するには、Compose を使用するモジュールごとに適用します。
-Jetpack Compose プロジェクトを移行する方法の詳細については、[こちら](#migrating-a-jetpack-compose-project)をお読みください。Compose Multiplatform プロジェクトについては、[Multiplatform 移行ガイド](https://www.jetbrains.com/help/kotlin-multiplatform-dev/compose-compiler.html#migrating-a-compose-multiplatform-project)を参照してください。
+Jetpack Compose プロジェクトを移行する方法の詳細については、[こちら](#migrating-a-jetpack-compose-project)をお読みください。Compose Multiplatform プロジェクトについては、[Multiplatform 移行ガイド](https://kotlinlang.org/docs/multiplatform/compose-compiler.html#migrating-a-compose-multiplatform-project)を参照してください。
 
 ## Jetpack Compose プロジェクトの移行
 
-Kotlin 1.9 から Kotlin 2.0.0 以降に移行する場合、Compose コンパイラの扱い方に応じてプロジェクト設定を調整する必要があります。
-設定管理を自動化するために、Kotlin Gradle プラグインと Compose コンパイラ Gradle プラグインを使用することをお勧めします。
+Kotlin 1.9 から Kotlin 2.0.0 以降に移行する場合、Compose コンパイラの扱い方に応じてプロジェクト設定を調整する必要があります。設定管理を自動化するために、Kotlin Gradle プラグインと Compose コンパイラ Gradle プラグインを使用することをお勧めします。
 
 ### Gradle プラグインによる Compose コンパイラの管理
 
@@ -64,4 +63,4 @@ Gradle プラグインを使用して Compose コンパイラを管理してい�
 ## 次のステップ
 
 *   Compose コンパイラが Kotlin リポジトリに移行することに関する [Google のアナウンス](https://android-developers.googleblog.com/2024/04/jetpack-compose-compiler-moving-to-kotlin-repository.html)を参照してください。
-*   Jetpack Compose を使用して Android アプリを構築している場合は、[Multiplatform 化する方法に関するガイド](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-integrate-in-existing-app.html)を確認してください。
+*   Jetpack Compose を使用して Android アプリを構築している場合は、[Multiplatform 化する方法に関するガイド](https://kotlinlang.org/docs/multiplatform/multiplatform-integrate-in-existing-app.html)を確認してください。

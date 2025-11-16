@@ -32,32 +32,35 @@ Kotlin 已包含在每個 [IntelliJ IDEA](https://www.jetbrains.com/idea/downloa
 
 <tab id="backend" title="後端">
 
-在這裡您將學習如何使用 Kotlin 開發後端應用程式。
+在這裡您將學習如何使用 Kotlin 開發伺服器端後端應用程式。
 
-1. **建立您的第一個後端應用程式：**
+* **將 Kotlin 引入您的 Java 專案：**
 
-     * [使用 Spring Boot 建立 RESTful Web 服務](jvm-get-started-spring-boot.md)
-     * [使用 Ktor 建立 HTTP API](https://ktor.io/docs/creating-http-apis.html)
+  * [設定 Java 專案以使用 Kotlin](mixing-java-kotlin-intellij.md)
+  * [將 Kotlin 測試新增至您的 Java Maven 專案](jvm-test-using-junit.md)
 
-2. **[了解如何在您的應用程式中混合使用 Kotlin 和 Java 程式碼](mixing-java-kotlin-intellij.md)。**
+* **使用 Kotlin 從頭開始建立後端應用程式：**
+
+  * [使用 Spring Boot 建立 RESTful Web 服務](jvm-get-started-spring-boot.md)
+  * [使用 Ktor 建立 HTTP API](https://ktor.io/docs/creating-http-apis.html)
 
 </tab>
 
 <tab id="cross-platform-mobile" title="跨平台">
 
-在這裡您將學習如何使用 [Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html) 開發跨平台應用程式。
+在這裡您將學習如何使用 [Kotlin Multiplatform](https://kotlinlang.org/docs/multiplatform/get-started.html) 開發跨平台應用程式。
 
-1. **[設定您的跨平台開發環境](https://www.jetbrains.com/help/kotlin-multiplatform-dev/quickstart.html)。**
+1. **[設定您的跨平台開發環境](https://kotlinlang.org/docs/multiplatform/quickstart.html)。**
 
 2. **建立您的第一個 iOS 和 Android 應用程式：**
 
    * 從頭開始建立一個跨平台應用程式，並：
-     * [在保持原生 UI 的同時共用業務邏輯](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-create-first-app.html)
-     * [共用業務邏輯和 UI](https://www.jetbrains.com/help/kotlin-multiplatform-dev/compose-multiplatform-create-first-app.html)
-   * [讓您現有的 Android 應用程式在 iOS 上運行](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-integrate-in-existing-app.html)
-   * [使用 Ktor 和 SQLdelight 建立跨平台應用程式](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-ktor-sqldelight.html)
+     * [在保持原生 UI 的同時共用業務邏輯](https://kotlinlang.org/docs/multiplatform/multiplatform-create-first-app.html)
+     * [共用業務邏輯和 UI](https://kotlinlang.org/docs/multiplatform/compose-multiplatform-create-first-app.html)
+   * [讓您現有的 Android 應用程式在 iOS 上運行](https://kotlinlang.org/docs/multiplatform/multiplatform-integrate-in-existing-app.html)
+   * [使用 Ktor 和 SQLdelight 建立跨平台應用程式](https://kotlinlang.org/docs/multiplatform/multiplatform-ktor-sqldelight.html)
 
-3. **探索 [範例專案](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-samples.html)**。
+3. **探索 [範例專案](https://kotlinlang.org/docs/multiplatform/multiplatform-samples.html)**。
 
 </tab>
 
@@ -93,7 +96,7 @@ Kotlin 已包含在每個 [IntelliJ IDEA](https://www.jetbrains.com/idea/downloa
 * 加入我們：
   * ![Slack](slack.svg){width=25}{type="joined"} Slack：[取得邀請](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up)。
   * ![StackOverflow](stackoverflow.svg){width=25}{type="joined"} StackOverflow：訂閱 ["kotlin"](https://stackoverflow.com/questions/tagged/kotlin) 標籤。
-* 在 ![YouTube](youtube.svg){width=25}{type="joined"} [Youtube](https://www.youtube.com/channel/UCP7uiEZIqci43m22KDl0sNw)、![Twitter](twitter.svg){width=18}{type="joined"} [Twitter](https://twitter.com/kotlin)、![Bluesky](bsky.svg){width=18}{type="joined"} [Bluesky](https://bsky.app/profile/kotlinlang.org) 和 ![Reddit](reddit.svg){width=25}{type="joined"} [Reddit](https://www.reddit.com/r/Kotlin/) 上關注 Kotlin。
+* 在 ![YouTube](youtube.svg){width=25}{type="joined"} [Youtube](https://www.youtube.com/channel/UCP7uiEZIqci43m22KDl0sNw)、![Twitter](twitter.svg){width=18}{type="joined"} [Twitter](https://twitter.com/kotlin)、![Bluesky](bsky.app/profile/kotlinlang.org){width=18}{type="joined"} [Bluesky](https://bsky.app/profile/kotlinlang.org) 和 ![Reddit](reddit.svg){width=25}{type="joined"} [Reddit](https://www.reddit.com/r/Kotlin/) 上關注 Kotlin。
 * 訂閱 [Kotlin 新聞](https://info.jetbrains.com/kotlin-communication-center.html)。
 
 如果您遇到任何困難或問題，請在我們的 [問題追蹤器](https://youtrack.jetbrains.com/issues/KT) 中回報。

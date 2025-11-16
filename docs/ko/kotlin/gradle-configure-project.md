@@ -1,6 +1,6 @@
 [//]: # (title: Gradle 프로젝트 구성하기)
 
-[Gradle](https://docs.gradle.org/current/userguide/userguide.html)로 Kotlin 프로젝트를 빌드하려면, 빌드 스크립트 파일인 `build.gradle(.kts)`에 [Kotlin Gradle 플러그인 추가](#apply-the-plugin)와 [프로젝트의 종속성 구성](#configure-dependencies)을 해야 합니다.
+[Gradle](https://docs.gradle.org/current/userguide/userguide.html)로 Kotlin 프로젝트를 빌드하려면, 빌드 스크립트 파일 `build.gradle(.kts)`에 [Kotlin Gradle 플러그인을 추가](#apply-the-plugin)하고 [프로젝트의 종속성을 구성](#configure-dependencies)해야 합니다.
 
 > 빌드 스크립트 내용에 대해 더 자세히 알아보려면,
 > [빌드 스크립트 살펴보기](get-started-with-jvm-gradle-project.md#explore-the-build-script) 섹션을 참조하세요.
@@ -63,7 +63,7 @@ plugins {
 > *Kotlin 2.0.20–2.0.21 및 Kotlin 2.1.0–2.1.10은 Gradle 8.6까지 완벽하게 호환됩니다.
 > Gradle 버전 8.7–8.10도 지원되지만, 한 가지 예외가 있습니다: Kotlin Multiplatform Gradle 플러그인을 사용하는 경우,
 > JVM 타겟에서 `withJava()` 함수를 호출하는 멀티플랫폼 프로젝트에서 deprecation 경고가 표시될 수 있습니다.
-> 자세한 내용은 [기본으로 생성되는 Java 소스 세트](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-compatibility-guide.html#java-source-sets-created-by-default)를 참조하세요.
+> 자세한 내용은 [기본으로 생성되는 Java 소스 세트](https://kotlinlang.org/docs/multiplatform/multiplatform-compatibility-guide.html#java-source-sets-created-by-default)를 참조하세요.
 >
 {style="warning"}
 
@@ -515,8 +515,6 @@ tasks.named("compileJava", JavaCompile.class) {
 
 ### 기타 세부 사항
 
-[Kotlin/JVM](jvm-get-started.md)에 대해 자세히 알아보세요.
-
 #### 컴파일 태스크에서 아티팩트 사용 비활성화
 
 드물게 순환 종속성 오류로 인해 빌드 실패가 발생할 수 있습니다. 예를 들어, 여러 컴파일이 있어 한 컴파일이 다른 컴파일의 모든 내부 선언을 볼 수 있고, 생성된 아티팩트가 두 컴파일 태스크의 출력에 의존하는 경우입니다:
@@ -560,7 +558,7 @@ tasks.jar(type: Jar) {
 
 ## 여러 플랫폼 타겟팅하기
 
-[멀티플랫폼 프로젝트](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html)라고 불리는 [여러 플랫폼](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-dsl-reference.html#targets)을 타겟팅하는 프로젝트는 `kotlin-multiplatform` 플러그인을 필요로 합니다.
+[멀티플랫폼 프로젝트](https://kotlinlang.org/docs/multiplatform/get-started.html)라고 불리는 [여러 플랫폼](https://kotlinlang.org/docs/multiplatform/multiplatform-dsl-reference.html#targets)을 타겟팅하는 프로젝트는 `kotlin-multiplatform` 플러그인을 필요로 합니다.
 
 > `kotlin-multiplatform` 플러그인은 Gradle %minGradleVersion% 이상에서 작동합니다.
 >
@@ -587,8 +585,8 @@ plugins {
 </tab>
 </tabs>
 
-[다양한 플랫폼을 위한 Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html) 및 
-[iOS 및 Android를 위한 Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-getting-started.html)에 대해 자세히 알아보세요.
+[다양한 플랫폼을 위한 Kotlin Multiplatform](https://kotlinlang.org/docs/multiplatform/get-started.html) 및 
+[iOS 및 Android를 위한 Kotlin Multiplatform](https://kotlinlang.org/docs/multiplatform/multiplatform-getting-started.html)에 대해 자세히 알아보세요.
 
 ## Android 타겟팅하기
 
@@ -611,7 +609,7 @@ Kotlin은 Kotlin Multiplatform을 통해 웹 개발을 위한 두 가지 접근 
 *   JavaScript/TypeScript 코드베이스와 비즈니스 로직 공유
 *   Kotlin으로 공유 불가능한 웹 앱 구축
 
-더 자세한 내용은 [Kotlin Multiplatform 프로젝트를 위한 올바른 웹 타겟 선택](https://www.jetbrains.com/help/kotlin-multiplatform-dev/choosing-web-target.html)을 참조하세요.
+더 자세한 내용은 [Kotlin Multiplatform 프로젝트를 위한 올바른 웹 타겟 선택](https://kotlinlang.org/docs/multiplatform/choosing-web-target.html)을 참조하세요.
 
 JavaScript를 타겟팅할 때 `kotlin-multiplatform` 플러그인을 사용하세요:
 
@@ -646,14 +644,14 @@ kotlin {
 }
 ```
 
-> [JavaScript용 Gradle 구성에 대한 추가 세부 정보](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-dsl-reference.html#web-targets)를 참조하고 [Kotlin/JS 프로젝트 설정](js-project-setup.md)에 대해 자세히 알아보세요.
+> [JavaScript용 Gradle 구성에 대한 추가 세부 정보](https://kotlinlang.org/docs/multiplatform/multiplatform-dsl-reference.html#web-targets)를 참조하고 [Kotlin/JS 프로젝트 설정](js-project-setup.md)에 대해 자세히 알아보세요.
 >
 {style="note"}
 
 ### WebAssembly 타겟팅하기
 
 여러 플랫폼에서 로직과 UI를 모두 공유하고 싶다면 Kotlin/Wasm을 사용하세요. 더 자세한 내용은
-[Kotlin Multiplatform 프로젝트를 위한 올바른 웹 타겟 선택](https://www.jetbrains.com/help/kotlin-multiplatform-dev/choosing-web-target.html)을 참조하세요.
+[Kotlin Multiplatform 프로젝트를 위한 올바른 웹 타겟 선택](https://kotlinlang.org/docs/multiplatform/choosing-web-target.html)을 참조하세요.
 
 JavaScript와 마찬가지로, WebAssembly (Wasm)를 타겟팅할 때 `kotlin-multiplatform` 플러그인을 사용하세요:
 
@@ -707,7 +705,7 @@ kotlin {
 }
 ```
 
-> [Wasm용 Gradle 구성에 대한 추가 세부 정보](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-dsl-reference.html#web-targets)를 참조하세요.
+> [Wasm용 Gradle 구성에 대한 추가 세부 정보](https://kotlinlang.org/docs/multiplatform/multiplatform-dsl-reference.html#web-targets)를 참조하세요.
 >
 {style="note"}
 
@@ -1254,7 +1252,7 @@ repositories {
 
 인기 있는 저장소로는 [Maven Central](https://central.sonatype.com/)과 [Google의 Maven 저장소](https://maven.google.com/web/index.html)가 있습니다.
 
-> Maven 프로젝트와도 작업하는 경우, `mavenLocal()`을 저장소로 추가하는 것을 피하는 것이 좋습니다. Gradle과 Maven 프로젝트 사이를 전환할 때 문제가 발생할 수 있습니다. `mavenLocal()` 저장소를 반드시 추가해야 한다면, `repositories{}` 블록의 마지막 저장소로 추가하세요. 자세한 내용은 [mavenLocal() 사용 사례](https://docs.gradle.org/current/userguide/declaring_repositories.html#sec:case-for-maven-local)를 참조하세요.
+> Maven 프로젝트와도 작업하는 경우, `mavenLocal()`을 저장소로 추가하는 것이 좋습니다. Gradle과 Maven 프로젝트 사이를 전환할 때 문제가 발생할 수 있습니다. `mavenLocal()` 저장소를 반드시 추가해야 한다면, `repositories{}` 블록의 마지막 저장소로 추가하세요. 자세한 내용은 [mavenLocal() 사용 사례](https://docs.gradle.org/current/userguide/declaring_repositories.html#sec:case-for-maven-local)를 참조하세요.
 > 
 {style="warning"}
 

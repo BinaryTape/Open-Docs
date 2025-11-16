@@ -378,7 +378,7 @@ Kotlin 函数和属性名称原样转换。Kotlin 的 `String` 被转换为 Swif
 
 现在你可以将生成的 framework 作为依赖项连接到你的 iOS 项目。有多种设置它的方法并自动化此过程，请选择最适合你的方法：
 
-<a href="https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-ios-integration-overview.html"><img src="choose-ios-integration.svg" width="700" alt="选择 iOS 集成方法" style="block"/></a>
+<a href="https://kotlinlang.org/docs/multiplatform/multiplatform-ios-integration-overview.html"><img src="choose-ios-integration.svg" width="700" alt="选择 iOS 集成方法" style="block"/></a>
 
 ## 接下来
 

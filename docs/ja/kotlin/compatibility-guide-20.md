@@ -1,4 +1,4 @@
-[//]: # (title: Kotlin 2.0 互換性ガイド)
+[//]: # (title: Kotlin 2.0.x 互換性ガイド)
 
 _[Keeping the Language Modern](kotlin-evolution-principles.md)_ および _[Comfortable Updates](kotlin-evolution-principles.md)_ は、Kotlin言語設計における基本的な原則の1つです。前者は、言語の進化を妨げる構文は削除されるべきであると述べており、後者は、コード移行を可能な限りスムーズにするために、この削除が事前に十分に通知されるべきであると述べています。
 
@@ -202,7 +202,7 @@ _[Keeping the Language Modern](kotlin-evolution-principles.md)_ および _[Comf
 
 ### プライベートインライン関数からの匿名型の露出を禁止
 
-> **Issue**: [KT-33917](https://youtrack.jetbrains.com/issue/KT-33917)
+> **Issue**: [KT-33917](https://youtrack.com/issue/KT-33917)
 >
 > **Component**: Core language
 >
@@ -584,7 +584,7 @@ _[Keeping the Language Modern](kotlin-evolution-principles.md)_ および _[Comf
 >
 > - 2.0.0: 警告を報告
 
-### `KotlinCompilation` DSLにおける `compilerOptions` の廃止
+### `compilerOptions` in KotlinCompilation DSLの廃止
 
 > **Issue**: [KT-65568](https://youtrack.jetbrains.com/issue/KT-65568)
 >

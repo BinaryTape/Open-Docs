@@ -1,5 +1,7 @@
 [//]: # (title: Kotlin %kotlinEapVersion% 有哪些新变化)
 
+<primary-label ref="eap"/>
+
 _[发布时间：%kotlinEapReleaseDate%](eap.md#build-details)_
 
 > 本文档并未涵盖抢先体验预览 (EAP) 版本的所有特性，
@@ -67,7 +69,7 @@ Kotlin %kotlinEapVersion% 引入了一项新特性，即无用返回值检测器
 fun formatGreeting(name: String): String {
     if (name.isBlank()) return "Hello, anonymous user!"
     if (!name.contains(' ')) {
-        // 检测器会报告此结果被忽略的警告
+        // The checker reports a warning that this result is ignored
         "Hello, " + name.replaceFirstChar(Char::titlecase) + "!"
     }
     val (first, last) = name.split(' ')
@@ -95,7 +97,7 @@ kotlin {
 例如，您可以标记整个文件：
 
 ```kotlin
-// 标记此文件中的所有函数和类，以便检测器报告无用返回值
+// Marks all functions and classes in this file so the checker reports unused return values
 @file:MustUseReturnValues
 
 package my.project
@@ -106,7 +108,7 @@ fun someFunction(): String
 或特定类：
 
 ```kotlin
-// 标记此类中的所有函数，以便检测器报告无用返回值
+// Marks all functions in this class so the checker reports unused return values
 @MustUseReturnValues
 class Greeter {
     fun greet(name: String): String = "Hello, $name"
@@ -144,15 +146,15 @@ fun <T> MutableList<T>.addAndIgnoreResult(element: T): Boolean {
 为此，请将结果赋值给一个带有下划线语法 (`_`) 的特殊未命名变量：
 
 ```kotlin
-// 非可忽略函数
+// Non-ignorable function
 fun computeValue(): Int = 42
 
 fun main() {
 
-    // 报告警告：结果被忽略
+    // Reports a warning: result is ignored
     computeValue()
 
-    // 仅在此调用位置使用特殊无用变量抑制警告
+    // Suppresses the warning only at this call site with a special unused variable
     val _ = computeValue()
 }
 ```
@@ -205,7 +207,7 @@ val color = Color.RED
 public enum Color: Swift.CaseIterable, Swift.LosslessStringConvertible, Swift.RawRepresentable {
     case RED, GREEN, BLUE
 
-    var rgb: Int { get }
+    var rgb: Int { get } 
 }
 ```
 
@@ -239,7 +241,7 @@ func log(_ messages: String...)
 fun main() {
     val list = listOf("hello")
     val x = (list as List<Int>)[0]
-    println(x) // 现在会抛出 ClassCastException 错误
+    println(x) // Now throws a ClassCastException error
 }
 ```
 
@@ -421,7 +423,7 @@ kotlin.sourceSets.getByName("main").generatedKotlin.srcDir(generatorTask)
 Composer.setDiagnosticStackTraceMode(ComposeStackTraceMode.GroupKeys)
 ```
 
-启用这些堆栈轨迹后，即使应用程序被精简，Compose 运行时也会在组合、测量或绘制过程中捕获崩溃后附加自己的堆栈轨迹：
+启用这些堆栈轨迹后，即使应用程序被精简，Compose runtime 也会在组合、测量或绘制过程中捕获崩溃后附加自己的堆栈轨迹：
 
 ```text
 java.lang.IllegalStateException: <message>

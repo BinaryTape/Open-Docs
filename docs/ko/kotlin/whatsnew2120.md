@@ -547,7 +547,7 @@ Compose 컴파일러 Gradle 플러그인은 Android에서 [소스 정보 포함]
 ## 호환성 파괴 변경 및 사용 중단
 
 *   Kotlin 멀티플랫폼을 Gradle의 향후 변경 사항과 일치시키기 위해 `withJava()` 함수를 단계적으로 제거하고 있습니다.
-    [Java 소스 세트는 이제 기본적으로 생성됩니다](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-compatibility-guide.html#java-source-sets-created-by-default). [Java 테스트 픽스처](https://docs.gradle.org/current/userguide/java_testing.html#sec:java_test_fixtures) Gradle 플러그인을 사용하는 경우,
+    [Java 소스 세트는 이제 기본적으로 생성됩니다](https://kotlinlang.org/docs/multiplatform/multiplatform-compatibility-guide.html#java-source-sets-created-by-default). [Java 테스트 픽스처](https://docs.gradle.org/current/userguide/java_testing.html#sec:java_test_fixtures) Gradle 플러그인을 사용하는 경우,
     호환성 문제를 피하기 위해 [Kotlin 2.1.21](releases.md#release-details)로 직접 업그레이드하십시오.
 *   JetBrains 팀은 `kotlin-android-extensions` 플러그인의 사용 중단을 진행하고 있습니다. 프로젝트에서 이를 사용하려고 하면
     이제 구성 오류가 발생하며 플러그인 코드가 실행되지 않습니다.
@@ -564,16 +564,16 @@ Kotlin 문서는 몇 가지 주목할 만한 변경 사항이 있었습니다.
 *   [Kotlin 로드맵](roadmap.md) – Kotlin 언어 및 생태계 발전의 업데이트된 우선순위 목록을 참조하십시오.
 *   [Gradle 모범 사례](gradle-best-practices.md) 페이지 – Gradle 빌드를 최적화하고 성능을
     향상시키는 필수 모범 사례를 배우십시오.
-*   [Compose 멀티플랫폼 및 Jetpack Compose](https://www.jetbrains.com/help/kotlin-multiplatform-dev/compose-multiplatform-and-jetpack-compose.html)
+*   [Compose 멀티플랫폼 및 Jetpack Compose](https://kotlinlang.org/docs/multiplatform/compose-multiplatform-and-jetpack-compose.html)
     – 두 UI 프레임워크 간의 관계 개요.
-*   [Kotlin 멀티플랫폼 및 Flutter](https://www.jetbrains.com/help/kotlin-multiplatform-dev/kotlin-multiplatform-flutter.html)
+*   [Kotlin 멀티플랫폼 및 Flutter](https://kotlinlang.org/docs/multiplatform/kotlin-multiplatform-flutter.html)
     – 두 가지 인기 있는 크로스플랫폼 프레임워크의 비교를 참조하십시오.
 *   [C 언어와의 상호 운용성](native-c-interop.md) – Kotlin과 C 언어 간의 상호 운용성에 대한 자세한 내용을 살펴보십시오.
 *   [숫자](numbers.md) – 숫자를 나타내는 다양한 Kotlin 타입에 대해 알아보십시오.
 
 ### 새로운 튜토리얼 및 업데이트된 튜토리얼
 
-*   [라이브러리를 Maven Central에 배포](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-publish-libraries.html)
+*   [라이브러리를 Maven Central에 배포](https://kotlinlang.org/docs/multiplatform/multiplatform-publish-libraries.html)
     – 가장 인기 있는 Maven 저장소에 KMP 라이브러리 아티팩트를 배포하는 방법을 배우십시오.
 *   [동적 라이브러리로서의 Kotlin/Native](native-dynamic-libraries.md) – 동적 Kotlin 라이브러리를 생성하십시오.
 *   [Apple 프레임워크로서의 Kotlin/Native](apple-framework.md) – 자체 프레임워크를 생성하고 macOS 및 iOS에서 Swift/Objective-C 애플리케이션에서 Kotlin/Native 코드를 사용하십시오.

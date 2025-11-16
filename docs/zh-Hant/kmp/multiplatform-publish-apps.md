@@ -19,7 +19,7 @@ Kotlin Multiplatform 專案中的 iOS 應用程式是從典型的 Xcode 專案�
 >
 {style="note"}
 
-Kotlin Multiplatform 專案的特殊之處在於將共享的 Kotlin 模組編譯為框架並將其連結到 Xcode 專案。通常，共享模組與 Xcode 專案之間的整合由 [Kotlin Multiplatform plugin for Android Studio](https://plugins.jetbrains.com/plugin/14936-kotlin-multiplatform-mobile) 自動完成。然而，如果您不使用該外掛程式，在 Xcode 中建構和打包 iOS 專案時請記住以下事項：
+Kotlin Multiplatform 專案的特殊之處在於將共享的 Kotlin 模組編譯為框架並將其連結到 Xcode 專案。通常，共享模組與 Xcode 專案之間的整合由 [Kotlin Multiplatform plugin](https://plugins.jetbrains.com/plugin/14936-kotlin-multiplatform) 自動完成。然而，如果您不使用該外掛程式，在 Xcode 中建構和打包 iOS 專案時請記住以下事項：
 
 *   共享的 Kotlin 函式庫會編譯成原生框架。
 *   您需要將針對特定平台編譯的框架連接到 iOS 應用程式專案。
@@ -48,7 +48,7 @@ Kotlin Multiplatform 專案的特殊之處在於將共享的 Kotlin 模組編譯
 *   如果您已在 Android Studio 中開啟專案，請執行以下操作：
 
     1.  關閉專案。
-    2.  在任何文字編輯器中，更改 `iosApp/Configuration/Config.xcconfig` 檔案中的 `APP_NAME` 選項。
+    2.  在任何文字編輯器中，更改 `APP_NAME` 選項在 `iosApp/Configuration/Config.xcconfig` 檔案中。
     3.  在 Android Studio 中重新開啟專案。
 
 如果您需要配置其他設定，請使用 Xcode：在 Android Studio 中開啟專案後，在 Xcode 中開啟 `iosApp/iosApp.xcworkspace` 檔案並在那裡進行更改。

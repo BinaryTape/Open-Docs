@@ -50,18 +50,18 @@ Kotlin 編譯器不會阻止您使用在您的部署目標中不可用的 Object
 ## 第三方函式庫
 
 除了系統平台函式庫之外，Kotlin/Native 還允許匯入第三方原生函式庫。
-例如，您可以使用 [CocoaPods 整合](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-cocoapods-overview.html)
-或設定 [cinterops 配置](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-dsl-reference.html#cinterops)。
+例如，您可以使用 [CocoaPods 整合](https://kotlinlang.org/docs/multiplatform/multiplatform-cocoapods-overview.html)
+或設定 [cinterops 配置](https://kotlinlang.org/docs/multiplatform/multiplatform-dsl-reference.html#cinterops)。
 
 ### 匯入具有不符 Xcode 版本的函式庫
 
 匯入第三方原生函式庫可能會導致與不同 Xcode 版本的相容性問題。
 
-在處理原生函式庫時，編譯器通常使用來自本地安裝 Xcode 的標頭檔，因為幾乎所有原生函式庫標頭都會匯入來自 Xcode 的「標準」標頭（例如 `stdint.h`）。
+當處理原生函式庫時，編譯器通常使用來自本地安裝 Xcode 的標頭檔，因為幾乎所有原生函式庫標頭都會匯入來自 Xcode 的「標準」標頭（例如 `stdint.h`）。
 
 這就是為什麼 Xcode 版本會影響原生函式庫匯入 Kotlin 的原因。這也是為什麼當使用第三方原生函式庫時，[從非 Mac 主機交叉編譯 Apple 目標](whatsnew21.md#ability-to-publish-kotlin-libraries-from-any-host) 仍然不可能的原因之一。
 
-每個 Kotlin 版本與單一 Xcode 版本的相容性最佳。這是推薦版本，針對對應的 Kotlin 版本進行了最充分的測試。請在 [相容性表格](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-compatibility-guide.html#version-compatibility) 中檢查與特定 Xcode 版本的相容性。
+每個 Kotlin 版本與單一 Xcode 版本的相容性最佳。這是推薦版本，針對對應的 Kotlin 版本進行了最充分的測試。請在 [相容性表格](https://kotlinlang.org/docs/multiplatform/multiplatform-compatibility-guide.html#version-compatibility) 中檢查與特定 Xcode 版本的相容性。
 
 使用更新或更舊的 Xcode 版本通常可行，但可能會導致問題，通常會影響第三方原生函式庫的匯入。
 
@@ -134,8 +134,8 @@ public fun getDate(): String = NSDate().toString()
 
 若要為第三方原生函式庫使用自訂名稱：
 
-*   透過 CocoaPods 整合匯入原生函式庫時，請在 Gradle 建置指令碼的 `pod {}` 區塊中使用 [`packageName`](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-cocoapods-dsl-reference.html#pod-function) 屬性。
-*   使用 `cinterops` 配置匯入原生函式庫時，請在配置區塊中使用 [`packageName`](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-dsl-reference.html#cinterops) 屬性。
+*   透過 CocoaPods 整合匯入原生函式庫時，請在 Gradle 建置指令碼的 `pod {}` 區塊中使用 [`packageName`](https://kotlinlang.org/docs/multiplatform/multiplatform-cocoapods-dsl-reference.html#pod-function) 屬性。
+*   使用 `cinterops` 配置匯入原生函式庫時，請在配置區塊中使用 [`packageName`](https://kotlinlang.org/docs/multiplatform/multiplatform-dsl-reference.html#cinterops) 屬性。
 
 #### 檢查與舊版 Kotlin 的相容性
 

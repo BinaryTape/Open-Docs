@@ -180,7 +180,7 @@ val strategy = strategy<Unit, Unit>("strategy-name") {
 
 ### 将代理转换为工具
 
-要将代理转换为工具，请使用 `asTool()` 扩展函数：
+要将代理转换为工具，请使用 `AIAgentService` 和 `createAgentTool()` 扩展函数：
 
 <!--- INCLUDE
 import ai.koog.agents.core.agent.AIAgent
@@ -252,6 +252,6 @@ val coordinatorAgent = AIAgent(
 
 ### 将代理用作工具的优势
 
--   **模块化**：将复杂的工作流分解为专门的代理。
--   **可重用性**：在多个协调代理中重用相同的专门代理。
--   **关注点分离**：每个代理可以专注于其特定的领域。
+- **模块化**：将复杂的工作流分解为专门的代理。
+- **可重用性**：在多个协调代理中重用相同的专门代理。
+- **关注点分离**：每个代理可以专注于其特定的领域。

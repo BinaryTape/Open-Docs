@@ -71,7 +71,7 @@ Kotlin 编译器提供了诸多选项，用于定制编译过程。针对不同�
   
 ### -language-version _version_
 
-提供与指定 Kotlin 版本的源码兼容性。
+此选项根据指定的语言版本设置支持的语法和语义。例如，使用 Kotlin 编译器 2.2.0 版本配合 `-language-version=1.9`，您将只能使用 1.9 版或更早版本中的语言特性和标准库 API。这有助于逐步迁移到更新的 Kotlin 版本。
 
 ### -api-version _version_
 

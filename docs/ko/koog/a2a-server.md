@@ -35,6 +35,7 @@ A2A 서버는 A2A 프로토콜 전송 계층과 사용자 지정 에이전트 �
 - 메시지 전송, 태스크 조회, 취소, 푸시 알림과 같은 모든 프로토콜 작업을 **처리**합니다.
 
 `A2AServer`는 두 가지 필수 파라미터를 허용합니다.
+
 * `AgentExecutor`: 에이전트의 비즈니스 로직 구현을 정의합니다.
 * `AgentCard`: 에이전트 기능 및 메타데이터를 정의합니다.
 
@@ -66,6 +67,7 @@ class MyAgentExecutor : AgentExecutor {
 `RequestContext`는 현재 세션의 `contextId` 및 `taskId`, 전송된 `message`, 요청의 `params`를 포함하여 현재 요청에 대한 풍부한 정보를 제공합니다.
 
 `SessionEventProcessor`는 클라이언트와 통신합니다.
+
 - **`sendMessage(message)`**: 즉각적인 응답을 보냅니다(채팅 스타일 상호 작용).
 - **`sendTaskEvent(event)`**: 태스크 관련 업데이트를 보냅니다(장기 실행 작업).
 
@@ -357,4 +359,3 @@ class TaskAgentExecutor : AgentExecutor {
         )
     }
 }
-```

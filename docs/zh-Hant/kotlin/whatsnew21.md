@@ -1,176 +1,11 @@
-[//]: # (title: Kotlin 2.1.0 的新功能)
-
-_[發佈日期：2024 年 11 月 27 日](releases.md#release-details)_
-
-Kotlin 2.1.0 版本現已推出！以下是主要亮點：
-
-* **預覽版中新的語言功能**：[`when` 條件式中帶有主體的防護條件](#guard-conditions-in-when-with-a-subject)、
-  [非局部 `break` 和 `continue`](#non-local-break-and-continue)，以及 [多美元符號字串插值](#multi-dollar-string-interpolation)。
-* **K2 編譯器更新**：[編譯器檢查的更大彈性](#extra-compiler-checks) 和 [kapt 實作的改進](#improved-k2-kapt-implementation)。
-* **Kotlin 多平台**：引入了 [對 Swift 匯出的基本支援](#basic-support-for-swift-export)、
-  [編譯器選項的穩定 Gradle DSL](#new-gradle-dsl-for-compiler-options-in-multiplatform-projects-promoted-to-stable) 等。
-* **Kotlin/Native**：[`iosArm64` 支援度提升](#iosarm64-promoted-to-tier-1) 和其他更新。
-* **Kotlin/Wasm**：多項更新，包括 [支援增量編譯](#support-for-incremental-compilation)。
-* **Gradle 支援**：[與較新版本 Gradle 及 Android Gradle 外掛程式的相容性提升](#gradle-improvements)，
-  以及 [Kotlin Gradle 外掛程式 API 的更新](#new-api-for-kotlin-gradle-plugin-extensions)。
-* **文件**：[Kotlin 文件有顯著改進](#documentation-updates)。
-
-## IDE 支援
-
-支援 2.1.0 的 Kotlin 外掛程式已捆綁在最新版 IntelliJ IDEA 和 Android Studio 中。
-您不需要更新 IDE 中的 Kotlin 外掛程式。
-您所需要做的就是將建置腳本中的 Kotlin 版本更改為 2.1.0。
-
-有關詳細資訊，請參閱 [更新至新的 Kotlin 版本](releases.md#update-to-a-new-kotlin-version)。
-
-## 語言
-
-在 K2 編譯器隨 Kotlin 2.0.0 發佈後，JetBrains 團隊正專注於透過新功能改進語言。
-在此版本中，我們很高興宣布數項新的語言設計改進。
-
-這些功能已提供預覽，我們鼓勵您嘗試並分享您的回饋：
-
-* [`when` 條件式中帶有主體的防護條件](#guard-conditions-in-when-with-a-subject)
-* [非局部 `break` 和 `continue`](#non-local-break-and-continue)
-* [多美元符號插值 (Multi-dollar Interpolation)：改進字串字面值中 `$` 的處理方式](#multi-dollar-string-interpolation)
-
-> 所有功能在啟用 K2 模式的最新版 IntelliJ IDEA 2024.3 中均有 IDE 支援。
->
-> 在 [IntelliJ IDEA 2024.3 部落格文章](https://blog.jetbrains.com/idea/2024/11/intellij-idea-2024-3/) 中了解更多資訊。
->
-{style="tip"}
-
-[查看 Kotlin 語言設計功能和提案的完整列表](kotlin-language-features-and-proposals.md)。
-
-此版本也帶來了以下語言更新：
-
-* [](#support-for-requiring-opt-in-to-extend-apis)
-* [](#improved-overload-resolution-for-functions-with-generic-types)
-* [](#improved-exhaustiveness-checks-for-when-expressions-with-sealed-classes)
-
-### `when` 條件式中帶有主體的防護條件
-
-> 此功能處於 [預覽](kotlin-evolution-principles.md#pre-stable-features) 階段，需要選擇啟用 (詳情請見下文)。
->
-> 我們非常感謝您在 [YouTrack](https://youtrack.jetbrains.com/issue/KT-71140) 中提供回饋。
->
-{style="warning"}
-
-從 2.1.0 開始，您可以在帶有主體的 `when` 條件式或陳述式中使用防護條件 (guard conditions)。
-
-防護條件允許您為 `when` 條件式的分支包含多個條件，使複雜的控制流更為明確和簡潔，並簡化程式碼結構。
-
-要在分支中包含防護條件，請將其放置在主要條件之後，並以 `if` 分隔：
-
-```kotlin
-sealed interface Animal {
-    data class Cat(val mouseHunter: Boolean) : Animal {
-        fun feedCat() {}
-    }
-
-    data class Dog(val breed: String) : Animal {
-        fun feedDog() {}
-    }
-}
-
-fun feedAnimal(animal: Animal) {
-    when (animal) {
-        // 僅包含主要條件的分支。當 `animal` 為 `Dog` 時呼叫 `feedDog()`。
-        is Animal.Dog -> animal.feedDog()
-        // 包含主要條件和防護條件的分支。當 `animal` 為 `Cat` 且非 `mouseHunter` 時呼叫 `feedCat()`。
-        is Animal.Cat if !animal.mouseHunter -> animal.feedCat()
-        // 若上述條件均不符合，則印出 "Unknown animal"。
-        else -> println("Unknown animal")
-    }
-}
-```
-
-在單個 `when` 條件式中，您可以組合帶有和不帶防護條件的分支。
-帶有防護條件的分支中的程式碼僅在主要條件和防護條件均為 `true` 時執行。
-如果主要條件不匹配，則不會評估防護條件。
-此外，防護條件也支援 `else if`。
-
-若要在專案中啟用防護條件，請在命令列中使用以下編譯器選項：
-
-```bash
-kotlinc -Xwhen-guards main.kt
-```
-
-或將其添加到 Gradle 建置檔案的 `compilerOptions {}` 區塊中：
-
-```kotlin
-// build.gradle.kts
-kotlin {
-    compilerOptions {
-        freeCompilerArgs.add("-Xwhen-guards")
-    }
-}
-```
-
-### 非局部 break 和 continue
-
-> 此功能處於 [預覽](kotlin-evolution-principles.md#pre-stable-features) 階段，需要選擇啟用 (詳情請見下文)。
->
-> 我們非常感謝您在 [YouTrack](https://youtrack.jetbrains.com/issue/KT-1436) 中提供回饋。
->
-{style="warning"}
-
-Kotlin 2.1.0 新增了另一項期待已久的功能預覽：使用非局部 (non-local) `break` 和 `continue` 的能力。
-此功能擴展了您在內聯函數範圍內可以使用的工具集，並減少了專案中的重複程式碼。
-
-以前，您只能使用非局部返回 (non-local returns)。
-現在，Kotlin 也支援非局部 (non-locally) 的 `break` 和 `continue` [跳轉表達式](returns.md)。
-這意味著您可以在作為引數傳遞給包含迴圈的內聯函數的 lambda 表達式中使用它們：
-
-```kotlin
-fun processList(elements: List<Int>): Boolean {
-    for (element in elements) {
-        val variable = element.nullableMethod() ?: run {
-            log.warning("Element is null or invalid, continuing...")
-            continue
-        }
-        if (variable == 0) return true // 如果變數為零，返回 true
-    }
-    return false
-}
-```
-
-若要在您的專案中嘗試此功能，請在命令列中使用 `-Xnon-local-break-continue` 編譯器選項：
-
-```bash
-kotlinc -Xnon-local-break-continue main.kt
-```
-
-或將其添加到 Gradle 建置檔案的 `compilerOptions {}` 區塊中：
-
-```kotlin
-// build.gradle.kts
-kotlin {
-    compilerOptions {
-        freeCompilerArgs.add("-Xnon-local-break-continue")
-    }
-}
-```
-
-我們計劃在未來的 Kotlin 版本中使此功能穩定 (Stable)。
-如果您在使用非局部 `break` 和 `continue` 時遇到任何問題，請向我們的 [問題追蹤器](https://youtrack.jetbrains.com/issue/KT-1436) 回報。
-
-### 多美元符號字串插值
-
-> 此功能處於 [預覽](kotlin-evolution-principles.md#pre-stable-features) 階段，需要選擇啟用 (詳情請見下文)。
->
-> 我們非常感謝您在 [YouTrack](https://youtrack.jetbrains.com/issue/KT-2425) 中提供回饋。
->
-{style="warning"}
-
-Kotlin 2.1.0 引入了多美元符號字串插值 (multi-dollar string interpolation) 的支援，改進了字串字面值中美元符號 (`$`) 的處理方式。
+) 的處理方式。
 此功能在需要多個美元符號的環境中非常有用，例如模板引擎、JSON 綱要或其它資料格式。
 
 Kotlin 中的字串插值使用單個美元符號。
 然而，在字串中使用字面值美元符號 (這在財務資料和模板系統中很常見) 需要變通方法，例如 `${'$'}`。
 啟用多美元符號插值功能後，您可以設定多少個美元符號會觸發插值，而較少數量的美元符號則被視為字串字面值。
 
-以下是如何使用 `:` 產生帶有預留位置的 JSON 綱要多行字串的範例：
+以下是如何使用 `$` 產生帶有預留位置的 JSON 綱要多行字串的範例：
 
 ```kotlin
 val KClass<*>.jsonSchema : String
@@ -208,11 +43,12 @@ kotlin {
 ```
 
 如果您的程式碼已經使用單個美元符號的標準字串插值，則無需更改。
-當您需要在字串中使用字面值美元符號時，可以使用 `$`。
+當您需要在字串中使用字面值美元符號時，可以使用 `$$`。
 
 ### 支援要求選擇啟用以擴展 API
 
-Kotlin 2.1.0 引入了 [`@SubclassOptInRequired`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-subclass-opt-in-required/) 註解，它允許函式庫作者在使用者實作實驗性介面或擴展實驗性類別之前，要求明確的選擇啟用 (opt-in)。
+Kotlin 2.1.0 引入了 [`@SubclassOptInRequired`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-subclass-opt-in-required/) 註解，
+它允許函式庫作者在使用者實作實驗性介面或擴展實驗性類別之前，要求明確的選擇啟用 (opt-in)。
 
 當函式庫 API 穩定到足以使用，但可能會隨著新的抽象函數而演進，導致繼承不穩定時，此功能會很有用。
 
@@ -837,7 +673,7 @@ val wasmJsMain by getting {
 
 ### 改善 Kotlin/Wasm 的偵錯體驗
 
-以前，在網頁瀏覽器中偵錯 Kotlin/Wasm 程式碼時，您可能會遇到偵錯介面中變數值的低階表示。
+以前，當偵錯 Kotlin/Wasm 程式碼時，在網頁瀏覽器中您可能會遇到偵錯介面中變數值的低階表示。
 這通常使得追蹤應用程式的目前狀態變得困難。
 
 ![Kotlin/Wasm old debugger](wasm-old-debugger.png){width=700}
@@ -1297,7 +1133,7 @@ composeCompiler {
 ### 效能改進
 
 Compose 編譯器以前會創建模組 IR 的完整副本以轉換 `@Composable` 類型。
-除了複製與 Compose 無關的元素時增加記憶體消耗外，這種行為還在 [某些邊緣情況下](https://issu-tracker.google.com/365066530) 破壞了下游編譯器外掛程式。
+除了複製與 Compose 無關的元素時增加記憶體消耗外，這種行為還在 [某些邊緣情況下](https://issuetracker.google.com/365066530) 破壞了下游編譯器外掛程式。
 
 此複製操作已移除，可能導致更快的編譯時間。
 

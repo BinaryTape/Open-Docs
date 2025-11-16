@@ -7,7 +7,7 @@ _[公開日: 2025年9月10日](releases.md#release-details)_
 Kotlin 2.2.20 がリリースされ、Web開発に重要な変更が加えられました。[Kotlin/Wasm は現在ベータ版](#kotlin-wasm)であり、
 [JavaScript相互運用における例外処理の改善](#improved-exception-handling-in-kotlin-wasm-and-javascript-interop)、
 [npm依存関係管理](#separated-npm-dependencies)、[組み込みのブラウザデバッグサポート](#support-for-debugging-in-browsers-without-configuration)、
-および[jsおよびwasmJsターゲット用の新しい共有ソースセット](#shared-source-set-for-js-and-wasmjs-targets)が含まれています。
+および`js`および`wasmJs`ターゲット用の新しい[共有ソースセット](#shared-source-set-for-js-and-wasmjs-targets)が含まれています。
 
 さらに、主なハイライトは次のとおりです。
 
@@ -163,7 +163,7 @@ fun getPermissionLevel(role: UserRole): Int {
     return when (role) {
         UserRole.MEMBER -> 10
         UserRole.GUEST -> 1
-        // このelseブランチを含める必要がなくなりました
+        // You no longer have to include this else branch 
         // else -> throw IllegalStateException()
     }
 }
@@ -195,14 +195,14 @@ Kotlin 2.2.20では、コンパイラは`inline`関数の`catch`句で[reified�
 inline fun <reified ExceptionType : Throwable> handleException(block: () -> Unit) {
     try {
         block()
-        // この変更後、これは許可されます
+        // This is now allowed after the change
     } catch (e: ExceptionType) {
         println("Caught specific exception: ${e::class.simpleName}")
     }
 }
 
 fun main() {
-    // IOExceptionをスローする可能性のあるアクションを実行しようとします
+    // Tries to perform an action that might throw an IOException
     handleException<java.io.IOException> {
         throw java.io.IOException("File not found")
     }
@@ -263,7 +263,7 @@ sealed class Result<out T, out F : Failure> {
 }
 
 @OptIn(ExperimentalContracts::class)
-// ジェネリック型をアサートするためにコントラクトを使用します
+// Uses a contract to assert a generic type
 fun <T, F : Failure> Result<T, F>.isHttpError(): Boolean {
     contract {
         returns(true) implies (this@isHttpError is Result.Failed<Failure.HttpError>)
@@ -297,14 +297,14 @@ import kotlin.contracts.*
 val Any.isHelloString: Boolean
     get() {
         @OptIn(ExperimentalContracts::class)
-        // ゲッターがtrueを返すときにレシーバーをStringにスマートキャストできるようにします
+        // Enables smart casting the receiver to String when the getter returns true
         contract { returns(true) implies (this@isHelloString is String) }
         return "hello" == this
     }
 
 fun printIfHelloString(x: Any) {
     if (x.isHelloString) {
-        // レシーバーをStringにスマートキャストした後、長さを出力します
+        // Prints the length after the smart cast of the receiver to String
         println(x.length)
         // 5
     }
@@ -328,7 +328,7 @@ import kotlin.contracts.*
 
 class Runner {
     @OptIn(ExperimentalContracts::class)
-    // ラムダ内で割り当てられた変数の初期化を有効にします
+    // Enables initialization of variables assigned inside the lambda
     operator fun invoke(block: () -> Unit) {
         contract {
             callsInPlace(block, InvocationKind.EXACTLY_ONCE)
@@ -342,7 +342,7 @@ fun testOperator(runner: Runner) {
     runner {
         number = 1
     }
-    // コントラクトによって保証された明確な初期化の後、値を出力します
+    // Prints the value after definite initialization guaranteed by the contract
     println(number)
     // 1
 }
@@ -370,7 +370,7 @@ import kotlin.contracts.*
 @OptIn(ExperimentalContracts::class, ExperimentalExtendedContracts::class)
 fun decode(encoded: String?): String? {
     contract {
-        // 入力が非nullの場合に非nullの戻り値を保証します
+        // Guarantees a non-null return value when the input is non-null
         (encoded != null) implies (returnsNotNull())
     }
     if (encoded == null) return null
@@ -378,10 +378,10 @@ fun decode(encoded: String?): String? {
 }
 
 fun useDecodedValue(s: String?) {
-    // 戻り値がnullになる可能性があるため、セーフコールを使用します
+    // Uses a safe call since the return value may be null
     decode(s)?.length
     if (s != null) {
-        // スマートキャスト後、戻り値を非nullとして扱います
+        // Treats the return value as non-null after the smart cast
         decode(s).length
     }
 }
@@ -412,9 +412,9 @@ import kotlin.contracts.*
 @OptIn(ExperimentalContracts::class, ExperimentalExtendedContracts::class)
 fun <T> T.alsoIf(condition: Boolean, block: (T) -> Unit): T {
     contract {
-        // ラムダが最大1回実行されることを宣言します
+        // Declares that the lambda runs at most once
         callsInPlace(block, InvocationKind.AT_MOST_ONCE)
-        // 条件がラムダ内でtrueであると仮定されることを宣言します
+        // Declares that the condition is assumed to be true inside the lambda
         condition holdsIn block
     }
     if (condition) block(this)
@@ -425,8 +425,8 @@ fun useApplyIf(input: Any) {
     val result = listOf(1, 2, 3)
         .first()
         .alsoIf(input is Int) {
-            // 入力パラメータはラムダ内でIntにスマートキャストされます
-            // 入力とリストの最初の要素の合計を出力します
+            // The input parameter is smart cast to Int inside the lambda
+            // Prints the sum of input and first list element
             println(input + it)
             // 2
         }
@@ -467,7 +467,7 @@ class B : Example()
 class C : Example()
 
 fun test(e: Example) = when (e) {
-    // SwitchBootstraps.typeSwitchでinvokedynamicを使用します
+    // Uses invokedynamic with SwitchBootstraps.typeSwitch
     is A -> 1
     is B -> 2
     is C -> 3
@@ -519,7 +519,7 @@ Kotlin 2.2.20では、Swiftエクスポートの実験的なサポートが導�
 
 #### Swiftエクスポートを有効にする方法
 
-この機能は現在[Experimental](components-stability.md#stability-levels-explained)であり、iOSフレームワークをXcodeプロジェクトに接続するために[直接統合](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-direct-integration.html)を使用するプロジェクトでのみ機能します。
+この機能は現在[Experimental](components-stability.md#stability-levels-explained)であり、iOSフレームワークをXcodeプロジェクトに接続するために[直接統合](https://kotlinlang.org/docs/multiplatform/multiplatform-direct-integration.html)を使用するプロジェクトでのみ機能します。
 これは、IntelliJ IDEAのKotlin Multiplatformプラグインまたは[Webウィザード](https://kmp.jetbrains.com/)で作成されたマルチプラットフォームプロジェクトの標準的な設定です。
 
 Swiftエクスポートを試すには、Xcodeプロジェクトを設定します。
@@ -565,12 +565,12 @@ expect suspend fun readCopiedText(): String
 
 // jsMain
 external interface Navigator { val clipboard: Clipboard }
-// JSとWasmで異なる相互運用
+// Different interop in JS and Wasm
 external interface Clipboard { fun readText(): Promise<String> }
 external val navigator: Navigator
 
 suspend fun readCopiedText(): String {
-    // JSとWasmで異なる相互運用
+    // Different interop in JS and Wasm
     return navigator.clipboard.readText().await()
 }
 
@@ -584,11 +584,11 @@ suspend fun readCopiedText(): String {
 }
 ```
 
-このリリースから、[デフォルト階層テンプレート](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-hierarchy.html#default-hierarchy-template)を使用すると、Kotlin GradleプラグインがWeb用の新しい共有ソースセット (`webMain`と`webTest`で構成) を追加します。
+このリリースから、[デフォルト階層テンプレート](https://kotlinlang.org/docs/multiplatform/multiplatform-hierarchy.html#default-hierarchy-template)を使用すると、Kotlin GradleプラグインがWeb用の新しい共有ソースセット (`webMain`と`webTest`で構成) を追加します。
 
 この変更により、`web`ソースセットは`js`と`wasmJs`の両方のソースセットの親となります。更新されたソースセット階層は次のようになります。
 
-![Webでデフォルト階層テンプレートを使用する例](default-hierarchy-example-with-web.svg)
+![An example of using the default hierarchy template with web](default-hierarchy-example-with-web.svg)
 
 新しいソースセットにより、`js`と`wasmJs`の両方のターゲットに対して1つのコードを記述できます。共有コードを`webMain`に配置すると、両方で自動的に機能します。
 
@@ -619,14 +619,14 @@ actual suspend fun readCopiedText(): String {
 *   ライブラリ作者で、コードを重複させることなく`js`と`wasmJs`の両方のターゲットをサポートしたい場合。
 *   WebをターゲットとするCompose Multiplatformアプリケーションを開発している場合、より広範なブラウザ互換性のために`js`と`wasmJs`の両方のターゲットのクロスコンパイルを有効にします。このフォールバックモードにより、Webサイトを作成すると、現代のブラウザは`wasmJs`を使用し、古いブラウザは`js`を使用するため、すべてのブラウザでそのまま動作します。
 
-この機能を試すには、`build.gradle(.kts)`ファイルの`kotlin {}`ブロックで[デフォルト階層テンプレート](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-hierarchy.html#default-hierarchy-template)を使用してください。
+この機能を試すには、`build.gradle(.kts)`ファイルの`kotlin {}`ブロックで[デフォルト階層テンプレート](https://kotlinlang.org/docs/multiplatform/multiplatform-hierarchy.html#default-hierarchy-template)を使用してください。
 
 ```kotlin
 kotlin {
     js()
     wasmJs()
 
-    // webMainとwebTestを含むデフォルトのソースセット階層を有効にします
+    // Enables the default source set hierarchy, including webMain and webTest
     applyDefaultHierarchyTemplate()
 }
 ```
@@ -635,7 +635,7 @@ kotlin {
 
 ### Kotlinライブラリの安定したクロスプラットフォームコンパイル
 
-Kotlin 2.2.20では、重要な[ロードマップ項目](https://youtrack.jetbrains.com/issue/KT-71290)が完了し、Kotlinライブラリのクロスプラットフォームコンパイルが安定化されました。
+Kotlin 2.2.20は、重要な[ロードマップ項目](https://youtrack.jetbrains.com/issue/KT-71290)を完了し、Kotlinライブラリのクロスプラットフォームコンパイルを安定化させました。
 
 Kotlinライブラリを公開するための`.klib`アーティファクトを、どのホストでも生成できるようになりました。これにより、特にこれまでMacマシンが必要だったAppleターゲットの公開プロセスが大幅に合理化されます。
 
@@ -644,10 +644,10 @@ Kotlinライブラリを公開するための`.klib`アーティファクトを�
 残念ながら、いくつかの制限はまだ存在します。以下の場合は、引き続きMacマシンを使用する必要があります。
 
 *   ライブラリまたは依存するモジュールに[cinteropの依存関係](native-c-interop.md)がある場合。
-*   プロジェクトに[CocoaPodsの統合](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-cocoapods-overview.html)が設定されている場合。
-*   Appleターゲット用の[最終バイナリ](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-build-native-binaries.html)をビルドまたはテストする必要がある場合。
+*   プロジェクトに[CocoaPodsの統合](https://kotlinlang.org/docs/multiplatform/multiplatform-cocoapods-overview.html)が設定されている場合。
+*   Appleターゲット用の[最終バイナリ](https://kotlinlang.org/docs/multiplatform/multiplatform-build-native-binaries.html)をビルドまたはテストする必要がある場合。
 
-マルチプラットフォームライブラリの公開に関する詳細については、弊社の[ドキュメント](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-publish-lib-setup.html)をご覧ください。
+マルチプラットフォームライブラリの公開に関する詳細については、弊社の[ドキュメント](https://kotlinlang.org/docs/multiplatform/multiplatform-publish-lib-setup.html)をご覧ください。
 
 ### 共通依存関係を宣言するための新しいアプローチ
 <primary-label ref="experimental-opt-in"/>
@@ -1081,7 +1081,7 @@ fun main(args: Array<String>) {
 
 ```kotlin
 fun main(args: Array<String>) {
-    // drop()は不要になり、カスタム引数のみが含まれます
+    // No need for drop() and only your custom arguments are included 
     println(args.joinToString(", "))
 }
 ```
@@ -1137,7 +1137,7 @@ Kotlin 2.2.20では、コンパイラはインライン関数のラムダの変�
 
 Kotlin 2.2.20では、ライブラリ公開を容易にする新しいGradleタスクが追加されました。これらのタスクは、キーペアの生成、公開鍵のアップロード、およびMaven Centralリポジトリへのアップロード前に検証プロセスが成功することを確認するためのローカルチェックの実行に役立ちます。
 
-これらのタスクを公開プロセスの一部として使用する方法の詳細については、[Maven Centralへのライブラリ公開](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-publish-libraries.html)をご覧ください。
+これらのタスクを公開プロセスの一部として使用する方法の詳細については、[Maven Centralへのライブラリ公開](https://kotlinlang.org/docs/multiplatform/multiplatform-publish-libraries.html)をご覧ください。
 
 #### PGPキーを生成およびアップロードするための新しいGradleタスク
 
@@ -1229,7 +1229,7 @@ Kotlin 2.2.20は、[Experimental](components-stability.md#stability-levels-expla
 ```kotlin
 @OptIn(ExperimentalStdlibApi::class)
 fun inspect(klass: KClass<*>) {
-    // インターフェースの場合はtrueを出力します
+    // Prints true for interfaces
     println(klass.isInterface)
 }
 ```
@@ -1263,13 +1263,13 @@ fun main() {
     val counter = AtomicLong(Random.nextLong())
     val minSetBitsThreshold = 20
 
-    // 結果を使用せずに新しい値を設定します
+    // Sets a new value without using the result
     counter.update { if (it < 0xDECAF) 0xCACA0 else 0xC0FFEE }
 
-    // 現在の値を取得し、それを更新します
+    // Retrieves the current value, then updates it
     val previousValue = counter.fetchAndUpdate { 0x1CEDL.shl(Long.SIZE_BITS - it.countLeadingZeroBits()) or it }
 
-    // 値を更新し、結果を取得します
+    // Updates the value, then retrieves the result
     val current = counter.updateAndFetch {
         if (it.countOneBits() < minSetBitsThreshold) it.shl(20) or 0x15BADL else it
     }
@@ -1304,7 +1304,7 @@ Kotlin 2.2.20では、[`copyOf()`](https://kotlinlang.org/api/core/kotlin-stdlib
 @OptIn(ExperimentalStdlibApi::class)
 fun main() {
     val row1: Array<String> = arrayOf("one", "two")
-    // ラムダを使用して配列のサイズを変更し、新しい要素を設定します
+    // Resizes the array and populates the new elements using the lambda
     val row2: Array<String> = row1.copyOf(4) { "default" }
     println(row2.contentToString())
     // [one, two, default, default]
@@ -1333,10 +1333,10 @@ fun main() {
 
 ```text
 @Composable fun App() {
-  Box { // <-- `Box`は`@UiComposable`です
-    Path(...) // <-- `Path`は`@VectorComposable`です
+  Box { // <-- `Box` is a `@UiComposable`
+    Path(...) // <-- `Path` is a `@VectorComposable`
     ^^^^^^^^^
-    warning: UI composableが期待される場所でVector composable関数を呼び出しています
+    warning: Calling a Vector composable function where a UI composable was expected
   }
 }
 ```

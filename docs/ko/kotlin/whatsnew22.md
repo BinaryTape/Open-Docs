@@ -698,7 +698,7 @@ Kotlin 2.2.0에서 LLVM이 버전 16에서 19로 업데이트되었습니다.
 
 이 업데이트는 코드에 영향을 미치지 않아야 하지만, 문제가 발생하면 [이슈 트래커](http://kotl.in/issue)에 보고해 주세요.
 
-### Windows 7 타겟 Deprecated
+### Windows 7 타겟 지원 중단
 
 Kotlin 2.2.0부터 지원되는 최소 Windows 버전이 Windows 7에서 Windows 10으로 상향되었습니다. Microsoft가 2025년 1월에 Windows 7 지원을 종료했으므로, 이 레거시 타겟도 더 이상 사용하지 않기로 결정했습니다.
 
@@ -770,9 +770,9 @@ external interface User {
 
 fun main() {
     val user = User(name = "SomeUser", age = 21)
-    // This syntax is not valid anymore
+    // 이 구문은 더 이상 유효하지 않습니다.
     val copy = user.copy(age = 35)      
-    // This is the correct syntax
+    // 이것이 올바른 구문입니다.
     val copy = User.copy(user, age = 35)
 }
 ```
@@ -798,7 +798,7 @@ typealias SomeClass = Any
 
 ### 멀티플랫폼 `expect` 선언에서 `@JsExport` 지원
 
-Kotlin 멀티플랫폼 프로젝트에서 [`expect/actual` 메커니즘](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-expect-actual.html)으로 작업할 때,
+Kotlin 멀티플랫폼 프로젝트에서 [`expect/actual` 메커니즘](https://kotlinlang.org/docs/multiplatform/multiplatform-expect-actual.html)으로 작업할 때,
 공통 코드의 `expect` 선언에 `@JsExport` 어노테이션을 사용할 수 없었습니다.
 
 이번 릴리스부터 `@JsExport`를 `expect` 선언에 직접 적용할 수 있습니다:
@@ -880,7 +880,7 @@ Kotlin 라이브러리는 JVM 클래스 파일 또는 `klib` 두 가지 바이�
 kotlin {
     @OptIn(org.jetbrains.kotlin.gradle.dsl.abi.ExperimentalAbiValidation::class)
     abiValidation {
-        // Use the set() function to ensure compatibility with older Gradle versions
+        // set() 함수를 사용하여 이전 Gradle 버전과의 호환성을 보장합니다.
         enabled.set(true)
     }
 }
@@ -1022,7 +1022,7 @@ kotlin.compiler.execution.strategy=in-process
 
 ### Kotlin에서 다른 컴파일러 버전을 구성할 수 있는 유연성
 
-때로는 빌드 스크립트 deprecation을 계속 처리하면서 새로운 언어 기능을 시도하기 위해, KGP는 이전 버전을 유지한 채 코드에서 더 새로운 Kotlin 컴파일러 버전을 사용하고 싶을 수 있습니다. 또는 KGP 버전을 업데이트하되 이전 Kotlin 컴파일러 버전을 유지하고 싶을 수도 있습니다.
+때로는 빌드 스크립트 지원 중단 사항을 계속 처리하면서 새로운 언어 기능을 시도하기 위해, KGP는 이전 버전을 유지한 채 코드에서 더 새로운 Kotlin 컴파일러 버전을 사용하고 싶을 수 있습니다. 또는 KGP 버전을 업데이트하되 이전 Kotlin 컴파일러 버전을 유지하고 싶을 수도 있습니다.
 
 BTA는 이를 가능하게 합니다. `build.gradle.kts` 파일에서 다음과 같이 구성할 수 있습니다:
 
@@ -1047,7 +1047,6 @@ kotlin {
     @OptIn(ExperimentalBuildToolsApi::class, ExperimentalKotlinGradlePluginApi::class)
     compilerVersion.set("2.1.21") // 2.2.0과 다른 버전
 }
-
 ```
 
 BTA는 KGP와 Kotlin 컴파일러 버전을 이전 세 가지 주요 버전 및 다음 하나의 주요 버전과 함께 구성하는 것을 지원합니다. 따라서 KGP 2.2.0에서는 Kotlin 컴파일러 버전 2.1.x, 2.0.x 및 1.9.25가 지원됩니다. KGP 2.2.0은 또한 향후 Kotlin 컴파일러 버전 2.2.x 및 2.3.x와 호환됩니다.
@@ -1188,7 +1187,9 @@ composeCompiler {
 
 이 섹션에서는 주목할 만한 중요한 호환성이 깨지는 변경 사항 및 지원 중단 사항을 강조합니다. 이 릴리스의 모든 호환성이 깨지는 변경 사항 및 지원 중단 사항에 대한 전체 개요는 [호환성 가이드](compatibility-guide-22.md)를 참조하세요.
 
-*   Kotlin 2.2.0부터 [](ant.md) 빌드 시스템에 대한 지원이 중단됩니다. Ant에 대한 Kotlin 지원은 오랫동안 활발히 개발되지 않았으며, 상대적으로 작은 사용자 기반으로 인해 더 이상 유지보수할 계획이 없습니다.
+*   Kotlin 2.2.0부터 컴파일러는 [`-language-version=1.6` 또는 `-language-version=1.7`을 더 이상 지원하지 않습니다](compatibility-guide-22.md#drop-support-in-language-version-for-1-6-and-1-7). 1.8보다 오래된 언어 기능 세트는 지원되지 않지만 언어 자체는 Kotlin 1.0과 완전히 하위 호환됩니다.
+
+*   [](ant.md) 빌드 시스템에 대한 지원이 중단됩니다. Ant에 대한 Kotlin 지원은 오랫동안 활발히 개발되지 않았으며, 상대적으로 작은 사용자 기반으로 인해 더 이상 유지보수할 계획이 없습니다.
 
     2.3.0에서는 Ant 지원을 제거할 계획입니다. 그러나 Kotlin은 [기여](contribute.md)에 열려 있습니다. Ant의 외부 유지보수자가 되는 데 관심이 있다면, [이 YouTrack 이슈](https://youtrack.jetbrains.com/issue/KT-75875/)에 "jetbrains-team" 가시성 설정을 사용하여 댓글을 남겨주세요.
 
@@ -1214,7 +1215,7 @@ composeCompiler {
 *   더 이상 사용되지 않는 `kotlin-android-extensions` 플러그인은 [Kotlin 2.2.0에서 제거](compatibility-guide-22.md#deprecate-kotlin-android-extensions-plugin)되었습니다.
     `Parcelable` 구현 생성기에는 `kotlin-parcelize` 플러그인을 사용하고, 합성 뷰(synthetic views)에는 Android Jetpack의 [뷰 바인딩](https://developer.android.com/topic/libraries/view-binding)을 사용하세요.
 *   실험적 `kotlinArtifacts` API는 [Kotlin 2.2.0에서 지원 중단](compatibility-guide-22.md#deprecate-kotlinartifacts-api)되었습니다.
-    최종 네이티브 바이너리를 [빌드](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-build-native-binaries.html)하려면 Kotlin Gradle 플러그인에서 현재 사용 가능한 DSL을 사용하세요. 마이그레이션에 충분하지 않다면, [이 YT 이슈](https://youtrack.jetbrains.com/issue/KT-74953)에 댓글을 남겨주세요.
+    최종 네이티브 바이너리를 [빌드](https://kotlinlang.org/docs/multiplatform/multiplatform-build-native-binaries.html)하려면 Kotlin Gradle 플러그인에서 현재 사용 가능한 DSL을 사용하세요. 마이그레이션에 충분하지 않다면, [이 YT 이슈](https://youtrack.jetbrains.com/issue/KT-74953)에 댓글을 남겨주세요.
 *   Kotlin 1.9.0에서 지원 중단된 `KotlinCompilation.source`는 이제 [Kotlin Gradle 플러그인에서 제거](compatibility-guide-22.md#deprecate-kotlincompilation-source-api)되었습니다.
 *   실험적인 공통화 모드(commonization modes)의 파라미터는 [Kotlin 2.2.0에서 지원 중단](compatibility-guide-22.md#deprecate-commonization-parameters)되었습니다.
     유효하지 않은 컴파일 아티팩트를 삭제하려면 공통화 캐시를 지우세요.
@@ -1225,17 +1226,9 @@ composeCompiler {
 
 ## 문서 업데이트
 
-이번 릴리스에서는 Kotlin Multiplatform 문서가 [KMP 포털](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html)로 마이그레이션되는 것을 포함하여 주목할 만한 문서 변경 사항이 있습니다.
+이번 릴리스에서는 Kotlin Multiplatform 문서가 [KMP 포털](https://kotlinlang.org/docs/multiplatform/get-started.html)로 마이그레이션되는 것을 포함하여 주목할 만한 문서 변경 사항이 있습니다.
 
 또한 문서 설문조사를 시작하고, 새로운 페이지와 튜토리얼을 만들고, 기존 페이지를 개편했습니다.
-
-### Kotlin 문서 설문조사
-
-Kotlin 문서 개선을 위한 진정한 피드백을 찾고 있습니다.
-
-설문조사는 약 15분 정도 소요되며, 귀하의 의견은 Kotlin 문서의 미래를 형성하는 데 도움이 될 것입니다.
-
-[여기서 설문조사에 참여하세요](https://surveys.jetbrains.com/s3/Kotlin-Docs-2025).
 
 ### 새롭고 개편된 튜토리얼
 
@@ -1244,21 +1237,21 @@ Kotlin 문서 개선을 위한 진정한 피드백을 찾고 있습니다.
 *   [](jvm-create-project-with-spring-boot.md) – IntelliJ IDEA의 **새 프로젝트** 마법사를 사용하여 Gradle로 Spring Boot 프로젝트를 만드는 방법을 배우세요.
 *   [Kotlin 및 C 매핑 튜토리얼 시리즈](mapping-primitive-data-types-from-c.md) – Kotlin과 C 간에 다른 타입 및 구성 요소가 어떻게 매핑되는지 배우세요.
 *   [C interop 및 libcurl을 사용하여 앱 생성](native-app-with-c-and-libcurl.md) – libcurl C 라이브러리를 사용하여 네이티브로 실행할 수 있는 간단한 HTTP 클라이언트를 만드세요.
-*   [Kotlin Multiplatform 라이브러리 생성](https://www.jetbrains.com/help/kotlin-multiplatform-dev/create-kotlin-multiplatform-library.html) – IntelliJ IDEA를 사용하여 멀티플랫폼 라이브러리를 생성하고 게시하는 방법을 배우세요.
+*   [Kotlin Multiplatform 라이브러리 생성](https://kotlinlang.org/docs/multiplatform/create-kotlin-multiplatform-library.html) – IntelliJ IDEA를 사용하여 멀티플랫폼 라이브러리를 생성하고 게시하는 방법을 배우세요.
 *   [Ktor 및 Kotlin Multiplatform로 풀스택 애플리케이션 구축](https://ktor.io/docs/full-stack-development-with-kotlin-multiplatform.html) – 이 튜토리얼은 이제 Fleet 대신 IntelliJ IDEA를 Material 3 및 최신 버전의 Ktor와 Kotlin과 함께 사용합니다.
-*   [Compose Multiplatform 앱에서 로컬 리소스 환경 관리](https://www.jetbrains.com/help/kotlin-multiplatform-dev/compose-resource-environment.html) – 인앱 테마 및 언어와 같은 애플리케이션의 리소스 환경을 관리하는 방법을 배우세요.
+*   [Compose Multiplatform 앱에서 로컬 리소스 환경 관리](https://kotlinlang.org/docs/multiplatform/compose-resource-environment.html) – 인앱 테마 및 언어와 같은 애플리케이션의 리소스 환경을 관리하는 방법을 배우세요.
 
 ### 새롭고 개편된 페이지
 
 *   [AI용 Kotlin 개요](kotlin-ai-apps-development-overview.md) – AI 기반 애플리케이션 구축을 위한 Kotlin의 기능을 알아보세요.
 *   [Dokka 마이그레이션 가이드](https://kotlinlang.org/docs/dokka-migration.html) – Dokka Gradle 플러그인 v2로 마이그레이션하는 방법을 배우세요.
 *   [](metadata-jvm.md) – JVM용으로 컴파일된 Kotlin 클래스에 대한 메타데이터를 읽고, 수정하고, 생성하는 지침을 살펴보세요.
-*   [CocoaPods 통합](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-cocoapods-overview.html) – 튜토리얼과 샘플 프로젝트를 통해 환경 설정, Pod 종속성 추가 또는 Kotlin 프로젝트를 CocoaPod 종속성으로 사용하는 방법을 배우세요.
+*   [CocoaPods 통합](https://kotlinlang.org/docs/multiplatform/multiplatform-cocoapods-overview.html) – 튜토리얼과 샘플 프로젝트를 통해 환경 설정, Pod 종속성 추가 또는 Kotlin 프로젝트를 CocoaPod 종속성으로 사용하는 방법을 배우세요.
 *   iOS Stable 릴리스를 지원하기 위한 Compose Multiplatform의 새로운 페이지:
-    *   특히 [내비게이션](https://www.jetbrains.com/help/kotlin-multiplatform-dev/compose-navigation.html) 및 [딥 링크](https://www.jetbrains.com/help/kotlin-multiplatform-dev/compose-navigation-deep-links.html).
-    *   [Compose에서 레이아웃 구현](https://www.jetbrains.com/help/kotlin-multiplatform-dev/compose-layout.html).
-    *   [문자열 현지화](https://www.jetbrains.com/help/kotlin-multiplatform-dev/compose-localize-strings.html) 및 RTL 언어 지원과 같은 기타 i18n 페이지.
-*   [Compose Hot Reload](https://www.jetbrains.com/help/kotlin-multiplatform-dev/compose-hot-reload.html) – 데스크톱 타겟에서 Compose Hot Reload를 사용하는 방법과 기존 프로젝트에 추가하는 방법을 배우세요.
+    *   특히 [내비게이션](https://kotlinlang.org/docs/multiplatform/compose-navigation.html) 및 [딥 링크](https://kotlinlang.org/docs/multiplatform/compose-navigation-deep-links.html).
+    *   [Compose에서 레이아웃 구현](https://kotlinlang.org/docs/multiplatform/compose-layout.html).
+    *   [문자열 현지화](https://kotlinlang.org/docs/multiplatform/compose-localize-strings.html) 및 RTL 언어 지원과 같은 기타 i18n 페이지.
+*   [Compose Hot Reload](https://kotlinlang.org/docs/multiplatform/compose-hot-reload.html) – 데스크톱 타겟에서 Compose Hot Reload를 사용하는 방법과 기존 프로젝트에 추가하는 방법을 배우세요.
 *   [Exposed 마이그레이션](https://www.jetbrains.com/help/exposed/migrations.html) – 데이터베이스 스키마 변경 관리를 위해 Exposed가 제공하는 도구에 대해 배우세요.
 
 ## Kotlin 2.2.0으로 업데이트하는 방법

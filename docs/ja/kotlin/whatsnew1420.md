@@ -1,6 +1,6 @@
 [//]: # (title: Kotlin 1.4.20 の新機能)
 
-[リリース日: 2020年11月23日](releases.md#release-details)
+_[リリース日: 2020年11月23日](releases.md#release-details)_
 
 Kotlin 1.4.20では、多数の新しい実験的機能が提供され、1.4.0で追加された機能を含む既存の機能に対する修正と改善が行われています。
 
@@ -31,10 +31,8 @@ Kotlin 1.4.20では、文字列結合をJVM 9+ターゲット上で[動的呼び
 - 単一の非定数引数を持つもの以外の文字列テンプレート（[KT-42457](https://youtrack.jetbrains.com/issue/KT-42457)を参照）。
 
 `invokedynamic`文字列結合を有効にするには、以下のいずれかの値とともに`-Xstring-concat`コンパイラオプションを追加します。
-- `indy-with-constants` を使用して文字列に`invokedynamic`結合を実行します。
-  [StringConcatFactory.makeConcatWithConstants()](https://docs.oracle.com/javase/9/docs/api/java/lang/invoke/StringConcatFactory.html#makeConcatWithConstants-java.lang.invoke.MethodHandles.Lookup-java.lang.String-java.lang.invoke.MethodType-java.lang.String-java.lang.Object...-) を使用します。
-- `indy` を使用して文字列に`invokedynamic`結合を実行します。
-  [StringConcatFactory.makeConcat()](https://docs.oracle.com/javase/9/docs/api/java/lang/invoke/StringConcatFactory.html#makeConcat-java.lang.invoke.MethodHandles.Lookup-java.lang.String-java.lang.invoke.MethodType-) を使用します。
+- `indy-with-constants` を使用して文字列に`invokedynamic`結合を実行します。[StringConcatFactory.makeConcatWithConstants()](https://docs.oracle.com/javase/9/docs/api/java/lang/invoke/StringConcatFactory.html#makeConcatWithConstants-java.lang.invoke.MethodHandles.Lookup-java.lang.String-java.lang.invoke.MethodType-java.lang.String-java.lang.Object...-) を使用します。
+- `indy` を使用して文字列に`invokedynamic`結合を実行します。[StringConcatFactory.makeConcat()](https://docs.oracle.com/javase/9/docs/api/java/lang/invoke/StringConcatFactory.html#makeConcat-java.lang.invoke.MethodHandles.Lookup-java.lang.String-java.lang.invoke.MethodType-) を使用します。
 - `inline` を使用して`StringBuilder.append()`による従来の結合に戻します。
 
 ## Kotlin/JS
@@ -66,7 +64,7 @@ browser {
 
 [webpackバンドルの設定](js-project-setup.md#webpack-bundling)の詳細については、こちらを参照してください。
 
-#### Gradleからの`package.json`カスタマイズ
+#### `package.json`のGradleからのカスタマイズ
 
 Kotlin/JSのパッケージ管理と配布をより詳細に制御するために、Gradle DSLを介してプロジェクトファイル[`package.json`](https://nodejs.dev/learn/the-package-json-guide)にプロパティを追加できるようになりました。
 
@@ -168,7 +166,7 @@ Kotlin/Nativeには、新しい[エスケープ解析](https://en.wikipedia.org/
 
 ### パフォーマンスの改善とバグ修正
 
-Kotlin/Nativeでは、1.4.0で追加された[コード共有メカニズム](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-share-on-platforms.html#share-code-on-similar-platforms)を含む、さまざまなコンポーネントでパフォーマンスの改善とバグ修正が行われています。
+Kotlin/Nativeでは、1.4.0で追加された[コード共有メカニズム](https://kotlinlang.org/docs/multiplatform/multiplatform-share-on-platforms.html#share-code-on-similar-platforms)を含む、さまざまなコンポーネントでパフォーマンスの改善とバグ修正が行われています。
 
 ### Objective-C例外のオプトインによるラッピング
 
@@ -180,7 +178,7 @@ Kotlin/Nativeは、Objective-Cコードからスローされた例外をラン�
 
 `NSException`を`ForeignException`型のKotlin例外にラップするようにオプトインできます。これにより、元の`NSException`への参照が保持され、根本原因に関する情報を取得し、適切に処理できるようになります。
 
-Objective-C例外のラッピングを有効にするには、`cinterop`呼び出しで`-Xforeign-exception-mode objc-wrap`オプションを指定するか、`.def`ファイルに`foreignExceptionMode = objc-wrap`プロパティを追加します。[CocoaPods統合](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-cocoapods-overview.html)を使用している場合は、依存関係の`pod {}`ビルドスクリプトブロックで次のようにオプションを指定します。
+Objective-C例外のラッピングを有効にするには、`cinterop`呼び出しで`-Xforeign-exception-mode objc-wrap`オプションを指定するか、`.def`ファイルに`foreignExceptionMode = objc-wrap`プロパティを追加します。[CocoaPods統合](https://kotlinlang.org/docs/multiplatform/multiplatform-cocoapods-overview.html)を使用している場合は、依存関係の`pod {}`ビルドスクリプトブロックで次のようにオプションを指定します。
 
 ```kotlin
 pod("foo") {
@@ -204,7 +202,7 @@ CocoaPodsプラグインは、タスク実行フローが改善されました�
 
 #### 拡張されたDSL
 
-Kotlinプロジェクトに[CocoaPods](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-cocoapods-overview.html)依存関係を追加するためのDSLに、新しい機能が追加されました。
+Kotlinプロジェクトに[CocoaPods](https://kotlinlang.org/docs/multiplatform/multiplatform-cocoapods-overview.html)依存関係を追加するためのDSLに、新しい機能が追加されました。
 
 ローカルのPodとCocoaPodsリポジトリのPodに加えて、以下の種類のライブラリへの依存関係を追加できます。
 * カスタムスペックリポジトリからのライブラリ。
@@ -213,7 +211,7 @@ Kotlinプロジェクトに[CocoaPods](https://www.jetbrains.com/help/kotlin-mul
 * 静的ライブラリ。
 * カスタムcinteropオプションを持つライブラリ。
 
-Kotlinプロジェクトでの[CocoaPods依存関係の追加](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-cocoapods-libraries.html)の詳細については、こちらを参照してください。[Kotlin with CocoaPodsサンプル](https://github.com/Kotlin/kmm-with-cocoapods-sample)で例を見つけることができます。
+Kotlinプロジェクトでの[CocoaPods依存関係の追加](https://kotlinlang.org/docs/multiplatform/multiplatform-cocoapods-libraries.html)の詳細については、こちらを参照してください。[Kotlin with CocoaPodsサンプル](https://github.com/Kotlin/kmm-with-cocoapods-sample)で例を見つけることができます。
 
 #### Xcodeとの統合の更新
 
@@ -224,7 +222,7 @@ Xcodeと正しく連携するには、KotlinでPodfileをいくつか変更す�
 
 これにより、統合エラーにはIDEAで詳細な説明が表示されるようになりました。Podfileに問題がある場合、すぐに修正方法がわかります。
 
-[Kotlin Podの作成](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-cocoapods-xcode.html)の詳細については、こちらを参照してください。
+[Kotlin Podの作成](https://kotlinlang.org/docs/multiplatform/multiplatform-cocoapods-xcode.html)の詳細については、こちらを参照してください。
 
 ### Xcode 12ライブラリのサポート
     
@@ -236,11 +234,11 @@ Xcode 12に付属する新しいライブラリのサポートを追加しまし
 
 Kotlin 1.4.20以降、個別のメタデータ公開はなくなりました。メタデータアーティファクトは、ライブラリ全体を表す_ルート_公開に含まれるようになり、共通ソースセットへの依存関係として追加されると、適切なプラットフォーム固有のアーティファクトに自動的に解決されます。
 
-[マルチプラットフォームライブラリの公開](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-publish-lib-setup.html)の詳細については、こちらを参照してください。
+[マルチプラットフォームライブラリの公開](https://kotlinlang.org/docs/multiplatform/multiplatform-publish-lib-setup.html)の詳細については、こちらを参照してください。
 
 #### 以前のバージョンとの互換性
 
-この構造変更により、[階層型プロジェクト構造](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-share-on-platforms.html#share-code-on-similar-platforms)を持つプロジェクト間の互換性が損なわれます。マルチプラットフォームプロジェクトとそれが依存するライブラリの両方が階層型プロジェクト構造を持つ場合、両方をKotlin 1.4.20以降に同時に更新する必要があります。Kotlin 1.4.20で公開されたライブラリは、以前のバージョンで公開されたプロジェクトからは使用できません。
+この構造変更により、[階層型プロジェクト構造](https://kotlinlang.org/docs/multiplatform/multiplatform-share-on-platforms.html#share-code-on-similar-platforms)を持つプロジェクト間の互換性が損なわれます。マルチプラットフォームプロジェクトとそれが依存するライブラリの両方が階層型プロジェクト構造を持つ場合、両方をKotlin 1.4.20以降に同時に更新する必要があります。Kotlin 1.4.20で公開されたライブラリは、以前のバージョンで公開されたプロジェクトからは使用できません。
 
 階層型プロジェクト構造を持たないプロジェクトとライブラリは互換性を維持します。
 

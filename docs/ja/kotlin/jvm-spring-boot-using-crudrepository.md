@@ -219,9 +219,6 @@ Kotlinの機能を知り、学習の進捗を追跡するのに役立つパー�
    <img src="get-kotlin-language-map.png" width="700" alt="Kotlin言語マップを入手" style="block"/>
 </a>
 
-*   [KotlinコードからJavaを呼び出す](java-interop.md)方法と[JavaコードからKotlinを呼び出す](java-to-kotlin-interop.md)方法について詳しく学習します。
-*   [Java-to-Kotlinコンバーター](mixing-java-kotlin-intellij.md#converting-an-existing-java-file-to-kotlin-with-j2k)を使用して、既存のJavaコードをKotlinに変換する方法を学習します。
-*   JavaからKotlinへの移行ガイドを確認してください。
-    *   [JavaとKotlinにおける文字列](java-to-kotlin-idioms-strings.md)。
-    *   [JavaとKotlinにおけるコレクション](java-to-kotlin-collections-guide.md)。
-    *   [JavaとKotlinにおけるヌル許容性](java-to-kotlin-nullability-guide.md)。
+*   [Spring Framework](https://docs.spring.io/spring-framework/docs/current/reference/html/languages.html#languages)のドキュメントを確認します。
+*   [Spring BootとKotlinでWebアプリケーションを構築する](https://spring.io/guides/tutorials/spring-boot-kotlin)チュートリアルを完了します。
+*   [Spring BootとKotlinコルーチンおよびRSocketでチャットアプリケーションを作成する](https://spring.io/guides/tutorials/spring-webflux-kotlin-rsocket/)チュートリアルでチャットアプリケーションを作成します。

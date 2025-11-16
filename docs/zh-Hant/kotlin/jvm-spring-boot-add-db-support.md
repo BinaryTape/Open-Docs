@@ -197,7 +197,7 @@ class MessageService(private val db: JdbcTemplate) {
    ```
 
    這些設定為 Spring Boot 應用程式啟用資料庫。  
-   請參閱 [Spring 文件](https://docs.spring.io/spring-boot/docs/current/reference/html/appendix-application-properties.html) 中的常用應用程式屬性完整清單。
+   請參閱 [Spring 文件](https://docs.spring.io/spring-boot/appendix/application-properties/index.html) 中的常用應用程式屬性完整清單。
 
 ## 透過 HTTP 請求將訊息新增至資料庫
 

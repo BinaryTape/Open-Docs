@@ -1,6 +1,6 @@
 [//]: # (title: Kotlin/Nativeバイナリオプション)
 
-このページでは、Kotlin/Nativeの[最終バイナリ](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-build-native-binaries.html)を設定するために使用できる、役立つKotlin/Nativeバイナリオプションと、プロジェクトでバイナリオプションを設定する方法を一覧表示します。
+このページでは、Kotlin/Nativeの[最終バイナリ](https://kotlinlang.org/docs/multiplatform/multiplatform-build-native-binaries.html)を設定するために使用できる、役立つKotlin/Nativeバイナリオプションと、プロジェクトでバイナリオプションを設定する方法を一覧表示します。
 
 ## 有効化する方法
 
@@ -214,7 +214,7 @@ kotlinc-native main.kt -Xbinary=enableSafepointSignposts=true
                 <li><code>String</code></li>
             </list>
         </td>
-        <td><code>Info.plst</code>ファイルにバンドルID（<code>CFBundleIdentifier</code>）を設定します。</td>
+        <td>`Info.plst`ファイルにバンドルID（`CFBundleIdentifier`）を設定します。</td>
         <td>1.7.20から利用可能</td>
     </tr>
     <tr>
@@ -224,7 +224,7 @@ kotlinc-native main.kt -Xbinary=enableSafepointSignposts=true
                 <li><code>String</code></li>
             </list>
         </td>
-        <td><code>Info.plst</code>ファイルに短いバンドルバージョン（<code>CFBundleShortVersionString</code>）を設定します。</td>
+        <td>`Info.plst`ファイルに短いバンドルバージョン（`CFBundleShortVersionString`）を設定します。</td>
         <td>1.7.20から利用可能</td>
     </tr>
     <tr>
@@ -234,7 +234,7 @@ kotlinc-native main.kt -Xbinary=enableSafepointSignposts=true
                 <li><code>String</code></li>
             </list>
         </td>
-        <td><code>Info.plst</code>ファイルにバンドルバージョン（<code>CFBundleVersion</code>）を設定します。</td>
+        <td>`Info.plst`ファイルにバンドルバージョン（`CFBundleVersion`）を設定します。</td>
         <td>1.7.20から利用可能</td>
     </tr>
     <tr>
@@ -322,4 +322,4 @@ kotlinc-native main.kt -Xbinary=enableSafepointSignposts=true
 
 ## 次のステップ
 
-[最終ネイティブバイナリをビルドする](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-build-native-binaries.html)方法を学びましょう。
+[最終ネイティブバイナリをビルドする](https://kotlinlang.org/docs/multiplatform/multiplatform-build-native-binaries.html)方法を学びましょう。

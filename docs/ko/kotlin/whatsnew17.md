@@ -12,9 +12,9 @@ Kotlin 1.7.0이 릴리스되었습니다. 이 버전은 새로운 Kotlin/JVM K2 
 
 *   [새로운 Kotlin K2 컴파일러는 현재 알파 버전입니다](#new-kotlin-k2-compiler-for-the-jvm-in-alpha). 이 컴파일러는 상당한 성능 개선을 제공합니다. JVM에서만 사용할 수 있으며, kapt를 포함한 어떤 컴파일러 플러그인도 이와 함께 작동하지 않습니다.
 *   [Gradle에서 점진적 컴파일에 대한 새로운 접근 방식](#a-new-approach-to-incremental-compilation). 이제 종속된 비-Kotlin 모듈 내의 변경 사항에 대해서도 점진적 컴파일이 지원되며 Gradle과 호환됩니다.
-*   옵트인 (opt-in) 요구 사항 어노테이션, 명확히 null을 허용하지 않는 타입, 빌더 추론을 안정화했습니다.
+*   저희는 [옵트인 (opt-in) 요구 사항 어노테이션](#stable-opt-in-requirements), [명확히 null을 허용하지 않는 타입](#stable-definitely-non-nullable-types) 및 [빌더 추론](#stable-builder-inference)을 안정화했습니다.
 *   [이제 타입 인자에 대한 언더스코어 연산자가 있습니다](#underscore-operator-for-type-arguments). 다른 타입이 지정되었을 때 인자의 타입을 자동으로 추론하는 데 사용할 수 있습니다.
-*   [이번 릴리스에서는 인라인 클래스의 인라인된 값에 대한 위임을 통한 구현을 허용합니다](#allow-implementation-by-delegation-to-an-inlined-value-of-an-inline-class). 이제 대부분의 경우 메모리를 할당하지 않는 경량 래퍼를 생성할 수 있습니다.
+*   [이번 릴리스에서는 인라인 클래스의 인라인된 값에 위임을 통한 구현을 허용합니다](#allow-implementation-by-delegation-to-an-inlined-value-of-an-inline-class). 이제 대부분의 경우 메모리를 할당하지 않는 경량 래퍼를 생성할 수 있습니다.
 
 이 비디오에서 변경 사항에 대한 간략한 개요를 확인할 수도 있습니다.
 
@@ -29,7 +29,7 @@ Kotlin 1.7.0이 릴리스되었습니다. 이 버전은 새로운 Kotlin/JVM K2 
 *   [새로운 Kotlin 컴파일러를 향한 여정 (The Road to the New Kotlin Compiler)](https://www.youtube.com/watch?v=iTdJJq_LyoY)
 *   [K2 컴파일러: 탑다운 뷰 (K2 Compiler: a Top-Down View)](https://www.youtube.com/watch?v=db19VFLZqJM)
 
-새로운 K2 컴파일러의 알파 버전은 주로 성능 개선에 중점을 두었으며 JVM 프로젝트에서만 작동한다는 점을 강조하는 것이 중요합니다. Kotlin/JS, Kotlin/Native 또는 다른 멀티플랫폼 프로젝트를 지원하지 않으며, [kapt](kapt.md)를 포함한 어떤 컴파일러 플러그인도 함께 작동하지 않습니다.
+새로운 K2 컴파일러의 알파 버전은 주로 성능 개선에 중점을 두었으며 JVM 프로젝트에서만 작동한다는 점을 강조하는 것이 중요합니다. Kotlin/JS, Kotlin/Native 또는 다른 멀티플랫폼 프로젝트를 지원하지 않으며, [kapt](kapt.md)를 포함한 어떤 컴파일러 플러그인도 이와 함께 작동하지 않습니다.
 
 저희 벤치마크는 내부 프로젝트에서 뛰어난 결과를 보여줍니다.
 
@@ -60,7 +60,7 @@ Kotlin K2 컴파일러에서 성능 문제가 발생하는 경우 [이슈 트래
 
 Kotlin 1.7.0은 위임을 통한 구현 (implementation by delegation) 지원과 타입 인자를 위한 새로운 언더스코어 연산자를 도입합니다. 또한 이전 릴리스에서 프리뷰 (preview)로 소개되었던 여러 언어 기능을 안정화합니다.
 
-*   [인라인 클래스의 인라인된 값에 위임을 통한 구현 허용](#allow-implementation-by-delegation-to-an-inlined-value-of-an-inline-class)
+*   [인라인 클래스의 인라인된 값에 위임을 통한 구현](#allow-implementation-by-delegation-to-an-inlined-value-of-an-inline-class)
 *   [타입 인자를 위한 언더스코어 연산자](#underscore-operator-for-type-arguments)
 *   [안정적인 빌더 추론](#stable-builder-inference)
 *   [안정적인 옵트인 (opt-in) 요구 사항](#stable-opt-in-requirements)
@@ -267,11 +267,11 @@ Kotlin 코드를 Swift/Objective-C 코드에서 호출하거나(또는 그 반�
 
 Kotlin 1.7.0부터 프로젝트에 CocoaPods를 통합하려면 더 이상 `cocoapods-generate` 플러그인을 설치할 필요가 없습니다.
 
-이전에는 Kotlin Multiplatform Mobile 프로젝트에서 [iOS 종속성](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-ios-dependencies.html#with-cocoapods)을 처리하는 등 CocoaPods를 사용하려면 CocoaPods 종속성 관리자와 `cocoapods-generate` 플러그인을 모두 설치해야 했습니다.
+이전에는 Kotlin Multiplatform Mobile 프로젝트에서 [iOS 종속성](https://kotlinlang.org/docs/multiplatform/multiplatform-ios-dependencies.html#with-cocoapods)을 처리하는 등 CocoaPods를 사용하려면 CocoaPods 종속성 관리자와 `cocoapods-generate` 플러그인을 모두 설치해야 했습니다.
 
 이제 CocoaPods 통합 설정이 더 쉬워졌으며, Ruby 3 이상에서 `cocoapods-generate`가 설치되지 않던 문제를 해결했습니다. 이제 Apple M1에서 더 잘 작동하는 최신 Ruby 버전도 지원합니다.
 
-[초기 CocoaPods 통합 설정 방법](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-cocoapods-overview.html#set-up-an-environment-to-work-with-cocoapods)을 참조하십시오.
+[초기 CocoaPods 통합 설정 방법](https://kotlinlang.org/docs/multiplatform/multiplatform-cocoapods-overview.html#set-up-an-environment-to-work-with-cocoapods)을 참조하십시오.
 
 ### Kotlin/Native 컴파일러 다운로드 URL 재정의
 
@@ -418,7 +418,7 @@ fun main() {
 
 광범위한 이전 Kotlin 버전에서 소비될 수 있는 라이브러리를 개발하는 라이브러리 작성자를 지원하고, 주요 Kotlin 릴리스의 증가하는 빈도에 대처하기 위해 이전 언어 및 API 버전에 대한 지원을 확장했습니다.
 
-Kotlin 1.7.0부터는 이전 언어 및 API 버전을 두 개가 아닌 세 개를 지원합니다. 즉, Kotlin 1.7.0은 Kotlin 버전 1.4.0까지의 라이브러리 개발을 지원합니다. 하위 호환성에 대한 자세한 내용은 [호환성 모드](compatibility-modes.md)를 참조하십시오.
+Kotlin 1.7.0부터는 이전 언어 및 API 버전을 두 개가 아닌 세 개를 지원합니다. 즉, Kotlin 1.7.0은 Kotlin 버전 1.4.0까지의 라이브러리 개발을 지원합니다. 하위 호환성에 대한 자세한 내용은 [호환성 옵션](kotlin-evolution-principles.md#compatibility-options)을 참조하십시오.
 
 ### 리플렉션을 통한 어노테이션 접근
 
@@ -666,7 +666,7 @@ kotlin.build.report.output=file
 
 ### 최소 지원 버전 올리기
 
-Kotlin 1.7.0부터 최소 지원 Gradle 버전은 6.7.1입니다. 저희는 [버전을 올려야 했습니다](https://youtrack.jetbrains.com/issue/KT-49733/Bump-minimal-supported-Gradle-version-to-6-7-1)를 지원하기 위해 [Gradle 플러그인 변형](#support-for-gradle-plugin-variants)과 새로운 Gradle API를 지원하기 위해 [버전을 올려야 했습니다](https://youtrack.jetbrains.com/issue/KT-49733/Bump-minimal-supported-Gradle-version-to-6-7-1). 앞으로는 Gradle 플러그인 변형 기능 덕분에 최소 지원 버전을 자주 올릴 필요가 없을 것입니다.
+Kotlin 1.7.0부터 최소 지원 Gradle 버전은 6.7.1입니다. 저희는 [Gradle 플러그인 변형](#support-for-gradle-plugin-variants)과 새로운 Gradle API를 지원하기 위해 [버전을 올려야 했습니다](https://youtrack.jetbrains.com/issue/KT-49733/Bump-minimal-supported-Gradle-version-to-6-7-1). 앞으로는 Gradle 플러그인 변형 기능 덕분에 최소 지원 버전을 자주 올릴 필요가 없을 것입니다.
 
 또한, 최소 지원 Android Gradle 플러그인 버전은 이제 3.6.4입니다.
 
@@ -781,7 +781,7 @@ Kotlin 1.6.20은 [Kotlin 컴파일러 실행 전략을 정의하기 위한 새�
 kotlin.compiler.execution.strategy=out-of-process
 ```
 
-컴파일 태스크 속성 `compilerExecutionStrategy`도 사용할 수 있습니다. [Gradle 페이지](gradle-compilation-and-caches.md#defining-kotlin-compiler-execution-strategy)에서 이에 대해 자세히 알아보십시오.
+또한 컴파일 태스크 속성 `compilerExecutionStrategy`도 사용할 수 있습니다. [Gradle 페이지](gradle-compilation-and-caches.md#defining-kotlin-compiler-execution-strategy)에서 이에 대해 자세히 알아보십시오.
 
 ### 지원 중단된 옵션, 메서드 및 플러그인 제거
 

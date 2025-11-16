@@ -34,7 +34,7 @@ class OrdersList: IndexedContainer {
 *   その関数が存在しないか、曖昧な場合は、コンパイルエラーとなる。
 *   その関数が存在し、戻り値の型が`R`である場合、式`+a`は型`R`を持つ。
 
-> これらの演算は、他のすべての演算と同様に、[基本型](basic-types.md)向けに最適化されており、それらに対する関数呼び出しのオーバーヘッドを発生させません。
+> これらの演算は、他のすべての演算と同様に、[基本型](types-overview.md)向けに最適化されており、それらに対する関数呼び出しのオーバーヘッドを発生させません。
 >
 {style="note"}
 
@@ -169,7 +169,7 @@ data class Counter(val dayIndex: Int) {
 | `a == b` | `a?.equals(b) ?: (b === null)` |
 | `a != b` | `!(a?.equals(b) ?: (b === null))` |
 
-これらの演算子は、カスタムの等値チェック実装を提供するためにオーバーライドできる関数[`equals(other: Any?): Boolean`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/equals.html)とのみ連携します。同じ名前の他の関数（`equals(other: Foo)`など）は呼び出されません。
+これらの演算子は、カスタムの等値チェック実装を提供するためにオーバーライドできる関数[`equals(other: Any?): Boolean`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/equals.html)とのみ連携します。同じ名前の他の関数（`equals(other: Foo)`など）は無視されます。
 
 Kotlinは、`==`式でどちらのオペランドも直接`null`と比較されず、比較が2つの浮動小数点型間で行われない場合に`.equals()`を呼び出します。
 それ以外の場合、Kotlinは直接の`null`比較には`===`を使用し、非`null`の浮動小数点値は数値で比較します。

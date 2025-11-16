@@ -90,7 +90,7 @@ Image(
 
 2. 將下載的 XML 圖示檔案新增到您的多平台資源的 `drawable` 目錄中。
 
-3. 開啟 XML 圖示檔案並將 `android:fillColor` 設定為 `#00000000`。
+3. 開啟 XML 圖示檔案並將 `android:fillColor` 設定為 `#000000`。
    移除任何其他用於顏色調整的 Android 特定屬性，例如 `android:tint`。
 
    之前：
@@ -117,7 +117,7 @@ Image(
         android:viewportWidth="960"
         android:viewportHeight="960">
         <path
-            android:fillColor="#00000000"
+            android:fillColor="#000000"
             android:pathData="..."/>
    </vector>
    ```
@@ -284,7 +284,7 @@ coroutineScope.launch {
 Compose Multiplatform 中的概念和基本實作與 Android 上的數量字串相同。
 請參閱 [Android 文件](https://developer.android.com/guide/topics/resources/string-resource#Plurals)，以了解在專案中使用複數的最佳實踐和細微差異。
 
-* 支援的變體有 `zero`、`one`、`two`、`few`、`many` 和 `other`。請注意，並非所有語言都考慮所有變體：例如，英語中會忽略 `zero`，因為它與除 1 之外的任何其他複數相同。請依賴語言專家來了解該語言實際堅持的區別。
+* 支援的變體有 `zero`、`one`、`two`、`few`、`many` 和 `other`。請注意，並非所有變體都考慮所有語言：例如，英語中會忽略 `zero`，因為它與除 1 之外的任何其他複數相同。請依賴語言專家來了解該語言實際堅持的區別。
 * 通常可以透過使用數量中性的表達方式來避免數量字串，例如「書本：1」。如果這不會惡化使用者體驗，
 
 若要定義複數，請將 `<plurals>` 元素新增至 `composeResources/values` 目錄中的任何 `.xml` 檔案。

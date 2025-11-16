@@ -2,11 +2,9 @@
 
 [Kotlin Multiplatform IDE 플러그인](https://plugins.jetbrains.com/plugin/14936-kotlin-multiplatform)은 Android, iOS, 데스크톱 및 웹용 크로스 플랫폼 애플리케이션 개발을 돕습니다. Kotlin Multiplatform 프로젝트 작업을 위해 최신 버전의 플러그인이 설치되어 있는지 확인하세요.
 
-이 플러그인은 IntelliJ IDEA (버전 2025.1.1.1부터) 및 Android Studio (Narwhal 2025.1.1부터)와 호환됩니다.
-
-> Windows 및 Linux에서 Kotlin Multiplatform 플러그인을 사용하려면 IntelliJ IDEA 2025.2.2가 필요합니다. Android Studio는 곧 출시될 버전에서 Windows 및 Linux용 KMP IDE 플러그인 지원을 추가할 예정입니다.
->
-{style="note"}
+이 플러그인은 IntelliJ IDEA 및 Android Studio와 호환됩니다:
+* IntelliJ IDEA는 macOS에서는 2025.1.1.1 버전부터, Windows 및 Linux에서는 2025.2.2 버전부터 플러그인을 지원합니다.
+* Android Studio는 macOS에서는 Narwhal 2025.1.1 버전부터, Windows 및 Linux에서는 Otter 2025.2.1 버전부터 플러그인을 지원합니다.
 
 Kotlin Multiplatform Gradle 플러그인에 대한 정보는 [DSL 참조](multiplatform-dsl-reference.md) 및 [호환성 가이드](multiplatform-compatibility-guide.md)를 참조하세요.
 
@@ -24,9 +22,9 @@ IDE는 새로운 Kotlin Multiplatform 플러그인 릴리스가 제공되는 즉
 
 ## 릴리스 정보
 
-다음 표는 Kotlin Multiplatform IDE 플러그인의 릴리스를 나열합니다:
+다음 표는 Kotlin Multiplatform IDE 플러그인의 릴리스를 나열합니다: 
 
-<table>
+<table> 
 
 <tr>
 <th>
@@ -528,7 +526,7 @@ Kotlin Multiplatform 플러그인이 완전히 재구축되었습니다:
 *   [iOS 통합을 위한 프로젝트 마법사에서 CocoaPods 의존성 관리자 사용 기능](https://youtrack.jetbrains.com/issue/KT-45478).
 *   [새 프로젝트에서 `gradle.properties`의 가독성 향상](https://youtrack.jetbrains.com/issue/KT-42908).
 *   [`공유 모듈용 샘플 테스트 추가`가 선택 해제된 경우 샘플 테스트 더 이상 생성되지 않음](https://youtrack.jetbrains.com/issue/KT-43441).
-*   [수정 및 기타 개선 사항](https://youtrack.jetbrains.com/issues?q=Subsystems:%20%7BKMM%20Plugin%7D%20Type:%20Feature,%20Bug%20State:%20-Obsolete,%2C%20-%7BAs%20designed%7D,%20-Answered,%20-Incomplete%20resolved%20date:%202021-03-10%20..%202021-03-25).
+*   [수정 및 기타 개선 사항](https://youtrack.jetbrains.com/issues?q=Subsystems:%20%7BKMM%20Plugin%7D%20Type:%20Feature,%20Bug%20State:%20-Obsolete,%20-%7BAs%20designed%7D,%20-Answered,%20-Incomplete%20resolved%20date:%202021-03-10%20..%202021-03-25).
 
 </td>
 <td>
@@ -598,7 +596,7 @@ Kotlin Multiplatform 플러그인이 완전히 재구축되었습니다:
 *   [iOS 실행 구성에 사용자 정의 빌드 단계 추가 기능](https://youtrack.jetbrains.com/issue/KT-41678).
 *   [사용자 정의 Kotlin/Native 바이너리 디버깅 기능](https://youtrack.jetbrains.com/issue/KT-40954).
 *   [Kotlin Multiplatform Mobile 마법사가 생성하는 코드 간소화](https://youtrack.jetbrains.com/issue/KT-41712).
-*   Kotlin 1.4.20에서 더 이상 사용되지 않는 [Kotlin Android Extensions 플러그인 지원 제거](https://youtrack.jetbrains.com/issue/KT-42121).
+*   [Kotlin 1.4.20에서 더 이상 사용되지 않는 Kotlin Android Extensions 플러그인 지원 제거](https://youtrack.jetbrains.com/issue/KT-42121).
 *   [호스트 연결 해제 후 물리적 장치 구성 저장 문제 수정](https://youtrack.jetbrains.com/issue/KT-42390).
 *   기타 수정 및 개선 사항.
 

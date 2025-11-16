@@ -170,7 +170,7 @@ class MessageService(private val db: JdbcTemplate) {
 
 1.  `src/main/resources` ディレクトリに `schema.sql` ファイルを作成します。このファイルにはデータベースオブジェクトの定義が格納されます。
 
-    ![データベーススキーマを作成する](create-database-schema.png){width=400}
+    ![Create database schema](create-database-schema.png){width=400}
 
 2.  `src/main/resources/schema.sql` ファイルを次のコードで更新します。
 
@@ -197,7 +197,7 @@ class MessageService(private val db: JdbcTemplate) {
     ```
 
     これらの設定は、Spring Bootアプリケーションのデータベースを有効にします。
-    一般的なアプリケーションプロパティの完全なリストは、[Spring ドキュメント](https://docs.spring.io/spring-boot/docs/current/reference/html/appendix-application-properties.html)を参照してください。
+    一般的なアプリケーションプロパティの完全なリストは、[Spring ドキュメント](https://docs.spring.io/spring-boot/appendix/application-properties/index.html)を参照してください。
 
 ## HTTPリクエストを介してデータベースにメッセージを追加する
 
@@ -241,11 +241,11 @@ class MessageService(private val db: JdbcTemplate) {
 3.  すべてのPOSTリクエストを実行します。リクエスト宣言の横にあるガターの緑色の**実行**アイコンを使用します。
     これらのリクエストは、テキストメッセージをデータベースに書き込みます。
 
-    ![POSTリクエストを実行](execute-post-requests.png)
+    ![Execute POST request](execute-post-requests.png)
 
 4.  GETリクエストを実行し、**Run**ツールウィンドウで結果を確認します。
 
-    ![GETリクエストを実行](execute-get-requests.png)
+    ![Execute GET requests](execute-get-requests.png)
 
 ### リクエストを実行する別の方法 {initial-collapse-state="collapsed" collapsible="true"}
 
@@ -298,19 +298,19 @@ idで個別のメッセージを取得する機能のアプリケーションを
     ```
     
     <deflist collapsible="true">
-        <def title="パラメータリストにおける可変引数 (vararg) の位置">
-            <p><code>query()</code> 関数は3つの引数を取ります。</p>
-            <list>
-                <li>実行にパラメータを必要とするSQLクエリ文字列</li>
-                <li>String型のパラメータである <code>id</code></li>
-                <li>ラムダ式で実装される <code>RowMapper</code> インスタンス</li>
-            </list>
-            <p><code>query()</code> 関数の2番目のパラメータは、可変引数 (<code>vararg</code>) として宣言されています。Kotlinでは、可変引数パラメータの位置はパラメータリストの最後である必要はありません。</p>
-        </def>
-        <def title="singleOrNull() 関数">
-           <p><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/single-or-null.html"><code>singleOrNull()</code></a> 関数は、配列が空の場合、または同じ値を持つ要素が複数ある場合は <code>null</code> を返し、それ以外の場合は単一の要素を返します。</p>
-        </def>
-    </deflist>
+    <def title="パラメータリストにおける可変引数 (vararg) の位置">
+        <p><code>query()</code> 関数は3つの引数を取ります。</p>
+        <list>
+            <li>実行にパラメータを必要とするSQLクエリ文字列</li>
+            <li>String型のパラメータである <code>id</code></li>
+            <li>ラムダ式で実装される <code>RowMapper</code> インスタンス</li>
+        </list>
+        <p><code>query()</code> 関数の2番目のパラメータは、可変引数 (<code>vararg</code>) として宣言されています。Kotlinでは、可変引数パラメータの位置はパラメータリストの最後である必要はありません。</p>
+    </def>
+    <def title="singleOrNull() 関数">
+       <p><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/single-or-null.html"><code>singleOrNull()</code></a> 関数は、配列が空の場合、または同じ値を持つ要素が複数ある場合は <code>null</code> を返し、それ以外の場合は単一の要素を返します。</p>
+    </def>
+   </deflist>
     
     > `.query()` 関数は、メッセージをIDで取得するために使用され、Spring Frameworkによって提供される[Kotlin拡張関数](extensions.md#extension-functions)です。上記のコードで示されているように、追加のインポート `import org.springframework.jdbc.core.query` が必要です。
     >
@@ -489,7 +489,7 @@ Springアプリケーションを実行する準備ができました。
 
 5.  GETリクエストを実行し、**Run**ツールウィンドウで結果を確認します。
 
-    ![idでメッセージを取得](retrieve-message-by-its-id.png){width=706}
+    ![Retrieve message by its id](retrieve-message-by-its-id.png){width=706}
 
 ## 次のステップ
 

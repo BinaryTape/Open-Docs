@@ -427,7 +427,7 @@ annotation class Tag(val name: String)
 // コンパイラは@Tag.Container コンテナアノテーションを生成します
 ```
 
-コンテナアノテーションのカスタム名を設定するには、[`@kotlin.jvm.JvmRepeatable`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.jvm/-jvmRepeatable/)メタアノテーションを適用し、引数として明示的に宣言されたコンテナアノテーションクラスを渡します。
+コンテナアノテーションのカスタム名を設定するには、[`@kotlin.jvm.JvmRepeatable`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.jvm/-jvm-repeatable/)メタアノテーションを適用し、引数として明示的に宣言されたコンテナアノテーションクラスを渡します。
 
 ```kotlin
 @JvmRepeatable(Tags::class)

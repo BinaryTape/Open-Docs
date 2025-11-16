@@ -345,5 +345,5 @@ fun main() {
 ## 接下来是什么？
 
 * 要了解我们为何建议在大多数用例中使用集合的更多信息，请参阅我们的[集合概览](collections-overview.md)。
-* 了解其他[基本类型](basic-types.md)。
+* 了解其他[基本类型](types-overview.md)。
 * 如果你是 Java 开发者，请参阅我们的 Java 到 Kotlin [集合](java-to-kotlin-collections-guide.md)迁移指南。

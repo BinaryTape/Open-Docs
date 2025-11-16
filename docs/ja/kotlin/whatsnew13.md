@@ -4,7 +4,7 @@ _リリース日: 2018年10月29日_
 
 ## コルーチンのリリース
 
-長い期間にわたる広範な実戦テストを経て、コルーチンが正式にリリースされました！これは、Kotlin 1.3以降、言語サポートとAPIが[完全に安定版](components-stability.md)になったことを意味します。新しい[コルーチンの概要](coroutines-overview.md)ページをご覧ください。
+長期間にわたる広範な実戦テストを経て、コルーチンが正式にリリースされました！これは、Kotlin 1.3以降、言語サポートとAPIが[完全に安定版](components-stability.md)になったことを意味します。新しい[コルーチンの概要](coroutines-overview.md)ページをご覧ください。
 
 Kotlin 1.3では、`suspend`関数における呼び出し可能参照と、リフレクションAPIにおけるコルーチンのサポートが導入されました。
 
@@ -20,14 +20,14 @@ Kotlin 1.3では、Nativeターゲットの改善と洗練が引き続き行わ�
 
   * 古いモデルでは、共通コードとプラットフォーム固有のコードは、`expectedBy`依存関係によってリンクされた個別のモジュールに配置する必要がありました。
     現在では、共通コードとプラットフォーム固有のコードは、同じモジュールの異なるソースルートに配置されるため、プロジェクトの設定が容易になります。
-  * 現在、さまざまなサポート対象プラットフォーム向けに多数の[プリセットプラットフォーム構成](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-dsl-reference.html#targets)が用意されています。
-  * [依存関係の構成](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-add-dependencies.html)が変更されました。依存関係は
+  * 現在、さまざまなサポート対象プラットフォーム向けに多数の[プリセットプラットフォーム構成](https://kotlinlang.org/docs/multiplatform/multiplatform-dsl-reference.html#targets)が用意されています。
+  * [依存関係の構成](https://kotlinlang.org/docs/multiplatform/multiplatform-add-dependencies.html)が変更されました。依存関係は
     各ソースルートで個別に指定されるようになりました。
   * ソースセットは、プラットフォームの任意のサブセット間で共有できるようになりました
   (たとえば、JS、Android、iOSをターゲットとするモジュールでは、AndroidとiOSの間でのみ共有されるソースセットを持つことができます)。
-  * [マルチプラットフォームライブラリの公開](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-publish-lib-setup.html)がサポートされるようになりました。
+  * [マルチプラットフォームライブラリの公開](https://kotlinlang.org/docs/multiplatform/multiplatform-publish-lib-setup.html)がサポートされるようになりました。
 
-詳細については、[マルチプラットフォームプログラミングのドキュメント](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html)を参照してください。
+詳細については、[マルチプラットフォームプログラミングのドキュメント](https://kotlinlang.org/docs/multiplatform/get-started.html)を参照してください。
 
 ## コントラクト
 
@@ -35,7 +35,7 @@ Kotlinコンパイラは、警告を提供し、ボイラープレートを削�
 
 ```kotlin
 fun foo(s: String?) {
-    if (s != null) s.length // Compiler automatically casts 's' to 'String'
+    if (s != null) s.length // コンパイラは自動的に's'を'String'にキャストします
 }
 ```
 
@@ -45,7 +45,7 @@ fun foo(s: String?) {
 fun String?.isNotNull(): Boolean = this != null
 
 fun foo(s: String?) {
-    if (s.isNotNull()) s.length // No smartcast :(
+    if (s.isNotNull()) s.length // スマートキャストなし :(
 }
 ```
 
@@ -58,16 +58,16 @@ fun foo(s: String?) {
 
 ```kotlin
 fun require(condition: Boolean) {
-    // This is a syntax form which tells the compiler:
-    // "if this function returns successfully, then the passed 'condition' is true"
+    // これはコンパイラに伝える構文形式です。
+    // 「この関数が正常に返された場合、渡された'condition'はtrueである」
     contract { returns() implies condition }
     if (!condition) throw IllegalArgumentException(...)
 }
 
 fun foo(s: String?) {
     require(s is String)
-    // s is smartcast to 'String' here, because otherwise
-    // 'require' would have thrown an exception
+    // ここで's'は'String'にスマートキャストされます。なぜなら、そうでなければ
+    // 'require'が例外をスローするからです
 }
 ```
 
@@ -75,19 +75,19 @@ fun foo(s: String?) {
 
 ```kotlin
 fun synchronize(lock: Any?, block: () -> Unit) {
-    // It tells the compiler:
-    // "This function will invoke 'block' here and now, and exactly one time"
+    // これはコンパイラに伝えます。
+    // 「この関数は'block'をここですぐに、そして正確に1回呼び出す」
     contract { callsInPlace(block, EXACTLY_ONCE) }
 }
 
 fun foo() {
     val x: Int
     synchronize(lock) {
-        x = 42 // Compiler knows that lambda passed to 'synchronize' is called
-               // exactly once, so no reassignment is reported
+        x = 42 // コンパイラは、'synchronize'に渡されたラムダが呼び出されることを知っています。
+               // 厳密に1回なので、再割り当ては報告されません
     }
-    println(x) // Compiler knows that lambda will be definitely called, performing
-               // initialization, so 'x' is considered to be initialized here
+    println(x) // コンパイラは、ラムダが間違いなく呼び出され、初期化を実行することを知っています。
+               // そのため、'x'はここで初期化されていると見なされます
 }
 ```
 
@@ -100,7 +100,7 @@ fun foo() {
 //sampleStart
 fun bar(x: String?) {
     if (!x.isNullOrEmpty()) {
-        println("length of '$x' is ${x.length}") // Yay, smartcast to not-null!
+        println("length of '$x' is ${x.length}") // やった、非nullへのスマートキャスト！
     }
 }
 //sampleEnd
@@ -250,8 +250,8 @@ Kotlinコンパイラはこの制限を利用して、インラインクラス�
 inline class Name(val s: String)
 //sampleStart
 fun main() {
-    // In the next line no constructor call happens, and
-    // at the runtime 'name' contains just string "Kotlin"
+    // 次の行ではコンストラクタ呼び出しは発生せず、
+    // 実行時には'name'には文字列 "Kotlin"のみが含まれます
     val name = Name("Kotlin")
     println(name.s) 
 }
@@ -281,17 +281,17 @@ Kotlin 1.3では、符号なし整数型が導入されました。
 ```kotlin
 fun main() {
 //sampleStart
-// You can define unsigned types using literal suffixes
+// リテラルサフィックスを使用して符号なし型を定義できます
 val uint = 42u 
 val ulong = 42uL
 val ubyte: UByte = 255u
 
-// You can convert signed types to unsigned and vice versa via stdlib extensions:
+// stdlib拡張機能を使用して符号付き型を符号なしに変換したり、その逆を行ったりできます。
 val int = uint.toInt()
 val byte = ubyte.toByte()
 val ulong2 = byte.toULong()
 
-// Unsigned types support similar operators:
+// 符号なし型は同様の演算子をサポートしています。
 val x = 20u + 22u
 val y = 1u shl 8
 val z = "128".toUByte()
@@ -320,7 +320,7 @@ Kotlinは、Java 6やJava 7など、インターフェースでのデフォル�
 
 ```kotlin
 interface Foo {
-    // Will be generated as 'default' method
+    // 'default'メソッドとして生成されます
     @JvmDefault
     fun foo(): Int = 42
 }
@@ -342,7 +342,7 @@ import kotlin.random.Random
 
 fun main() {
 //sampleStart
-    val number = Random.nextInt(42)  // number is in range [0, limit)
+    val number = Random.nextInt(42)  // numberは範囲[0, limit)内です
     println(number)
 //sampleEnd
 }

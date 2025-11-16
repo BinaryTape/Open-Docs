@@ -8,7 +8,7 @@ Compose Hot Reloadは、現時点では、マルチプラットフォームプ�
 
 今後、他のターゲットに対するサポートを追加することを検討しています。その間、デスクトップアプリをサンドボックスとして使用することで、作業の流れを中断することなく共通コードでのUIの変更を素早く試すことができます。
 
-![Compose Hot Reload](compose-hot-reload.gif){width=500}
+![Compose Hot Reload](compose-hot-reload.gif){width=350}
 
 ## プロジェクトにCompose Hot Reloadを追加する
 
@@ -26,17 +26,18 @@ Compose Hot Reloadは、以下の2つの方法で追加できます。
 3.  左側のパネルで、**Kotlin Multiplatform**を選択します。
 4.  **新規プロジェクト**ウィンドウで、**Name**、**Group**、および**Artifact**フィールドを指定します。
 5.  **Desktop**ターゲットを選択し、**Create**をクリックします。
-    ![Create multiplatform project with desktop target](create-desktop-project.png){width=700}
+    ![Create multiplatform project with desktop target](create-desktop-project.png){width=600 style="block"}
 
 ### 既存のプロジェクトに
 
 このセクションでは、既存のマルチプラットフォームプロジェクトにCompose Hot Reloadを追加する手順を説明します。これらの手順は、[共有ロジックとUIを持つアプリを作成する](compose-multiplatform-create-first-app.md)チュートリアルのプロジェクトを参照としています。
 
-> Compose Hot Reloadの最新バージョンについては、[Releases](https://github.com/JetBrains/compose-hot-reload/releases)を参照してください。
+> Compose Multiplatform 1.10.0以降、デスクトップターゲットを含むプロジェクトでは、Compose Hot Reloadプラグインが[バンドル](whats-new-compose-110.md#compose-hot-reload-integration)され、デフォルトで有効になっているため、別途設定する必要はありません。ただし、特定のバージョンを使用するためにCompose Hot Reloadプラグインを明示的に宣言することは可能です。
 >
-{style="tip"}
+{style="note"}
 
-1.  プロジェクトで、バージョンカタログを更新します。`gradle/libs.versions.toml`に、以下のコードを追加します。
+1.  プロジェクトで、[Releases](https://github.com/JetBrains/compose-hot-reload/releases)を参照して、Compose Hot Reloadの最新バージョンでバージョンカタログを更新します。
+    `gradle/libs.versions.toml`に、以下のコードを追加します。
     ```kotlin
     composeHotReload = { id = "org.jetbrains.compose.hot-reload", version.ref = "composeHotReload"}
     ```
@@ -117,7 +118,7 @@ Compose Hot Reloadは、以下の2つの方法で追加できます。
 
 5.  `greet()`関数から返される文字列を更新し、その後全てのファイルを保存する (<shortcut>⌘ S</shortcut> / <shortcut>Ctrl+S</shortcut>) と、デスクトップアプリが自動的に更新されるのを確認できます。
 
-    ![Compose Hot Reload](compose-hot-reload.gif){width=500}
+    ![Compose Hot Reload](compose-hot-reload.gif){width=350}
 
 おめでとうございます！Compose Hot Reloadが動作しているのを確認できました。これで、変更のたびにデスクトップ実行構成を再起動することなく、テキスト、画像、書式設定、UI構造などの変更を試すことができます。
 

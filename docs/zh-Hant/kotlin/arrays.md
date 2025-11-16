@@ -11,7 +11,7 @@
 在 Kotlin 中，當您需要滿足特殊的底層需求時，請使用陣列。例如，如果您的效能需求超出了常規應用程式所需的範圍，或者您需要建立自訂資料結構。如果您沒有這些限制，請改用[集合](collections-overview.md)。
 
 與陣列相比，集合具有以下優點：
-* 集合可以是唯讀的，這使您擁有更多控制權，並允許您編寫意圖清晰的健壯程式碼。
+* 集合可以是唯讀的，這使您擁有更多控制權，並允許您編寫意圖清晰的穩健程式碼。
 * 從集合中新增或移除元素很簡單。相比之下，陣列的大小是固定的。從陣列中新增或移除元素的唯一方法是每次都建立一個新陣列，這非常低效：
 
   ```kotlin
@@ -48,7 +48,7 @@ fun main() {
     val simpleArray = arrayOf(1, 2, 3)
     println(simpleArray.joinToString())
     // 1, 2, 3
-//sampleEnd
+//end
 }
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="arrays-simple-array-kotlin"}
@@ -347,5 +347,5 @@ fun main() {
 ## 接下來是什麼？
 
 * 若要深入了解我們為何建議在大多數使用案例中使用集合，請閱讀我們的[集合總覽](collections-overview.md)。
-* 了解其他[基本類型](basic-types.md)。
+* 了解其他[基本類型](types-overview.md)。
 * 如果您是 Java 開發者，請閱讀我們的 [Java 到 Kotlin 集合遷移指南](java-to-kotlin-collections-guide.md)。

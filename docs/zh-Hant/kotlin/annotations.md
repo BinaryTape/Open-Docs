@@ -427,7 +427,7 @@ annotation class Tag(val name: String)
 // 編譯器產生 @Tag.Container 包含註解
 ```
 
-您可以透過應用 [`@kotlin.jvm.JvmRepeatable`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.jvm/-jvmrepeatable/) 元註解並傳遞一個明確宣告的包含註解類別作為引數來為包含註解設定自訂名稱：
+您可以透過應用 [`@kotlin.jvm.JvmRepeatable`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.jvm/-jvm-repeatable/) 元註解並傳遞一個明確宣告的包含註解類別作為引數來為包含註解設定自訂名稱：
 
 ```kotlin
 @JvmRepeatable(Tags::class)

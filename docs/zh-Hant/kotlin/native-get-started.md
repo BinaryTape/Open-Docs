@@ -21,7 +21,7 @@
 ### 建立專案
 
 1.  下載並安裝最新版本的 [IntelliJ IDEA](https://www.jetbrains.com/idea/)。
-2.  在 IntelliJ IDEA 中選擇 **File** | **New** | **Project from Version Control** (檔案 | 新增 | 從版本控制建立專案) 並使用此 URL，複製[專案範本](https://github.com/Kotlin/kmp-native-wizard)：
+2.  透過在 IntelliJ IDEA 中選擇 **File** | **New** | **Project from Version Control** (檔案 | 新增 | 從版本控制建立專案) 並使用此 URL，複製[專案範本](https://github.com/Kotlin/kmp-native-wizard)：
 
     ```none
     https://github.com/Kotlin/kmp-native-wizard
@@ -38,7 +38,7 @@
 
     ![載入 Gradle 變更按鈕](load-gradle-changes.png){width=295}
 
-有關這些設定的更多資訊，請參閱 [Multiplatform Gradle DSL 參考](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-dsl-reference.html)。
+有關這些設定的更多資訊，請參閱 [Multiplatform Gradle DSL 參考](https://kotlinlang.org/docs/multiplatform/multiplatform-dsl-reference.html)。
 
 ### 建置並執行應用程式
 
@@ -341,5 +341,5 @@ kotlinc-native hello.kt -o hello
 ## 下一步是什麼？
 
 *   完成[使用 C 互通性與 libcurl 建立應用程式](native-app-with-c-and-libcurl.md)教學，其中解釋了如何建立原生 HTTP 用戶端以及與 C 函式庫互通。
-*   學習如何[為實際的 Kotlin/Native 專案編寫 Gradle 建置指令碼](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-dsl-reference.html)。
+*   學習如何[為實際的 Kotlin/Native 專案編寫 Gradle 建置指令碼](https://kotlinlang.org/docs/multiplatform/multiplatform-dsl-reference.html)。
 *   在[文件中](gradle.md)閱讀更多關於 Gradle 建置系統的資訊。

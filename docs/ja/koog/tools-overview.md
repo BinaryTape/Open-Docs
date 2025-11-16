@@ -79,12 +79,12 @@ import ai.koog.prompt.executor.clients.openai.OpenAIModels
 import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
 -->
 ```kotlin
-// エージェントの初期化
+// Agent initialization
 val agent = AIAgent(
     promptExecutor = simpleOpenAIExecutor(System.getenv("OPENAI_API_KEY")),
     systemPrompt = "You are a helpful assistant with strong mathematical skills.",
     llmModel = OpenAIModels.Chat.GPT4o,
-    // ツールレジストリをエージェントに渡します
+    // Pass your tool registry to the agent
     toolRegistry = toolRegistry
 )
 ```
@@ -183,7 +183,7 @@ val strategy = strategy<Unit, Unit>("strategy-name") {
 
 ### エージェントをツールに変換する
 
-エージェントをツールに変換するには、`asTool()`拡張関数を使用します。
+エージェントをツールに変換するには、`AIAgentService`と`createAgentTool()`拡張関数を使用します。
 
 <!--- INCLUDE
 import ai.koog.agents.core.agent.AIAgent
@@ -200,7 +200,7 @@ val analysisToolRegistry = ToolRegistry {}
 
 -->
 ```kotlin
-// 財務分析エージェントの作成を担当する、専門のエージェントサービスを作成します。
+// Create a specialized agent service, responsible for creating financial analysis agents.
 val analysisAgentService = AIAgentService(
     promptExecutor = simpleOpenAIExecutor(apiKey),
     llmModel = OpenAIModels.Chat.GPT4o,
@@ -208,7 +208,7 @@ val analysisAgentService = AIAgentService(
     toolRegistry = analysisToolRegistry
 )
 
-// 呼び出されると財務分析エージェントを実行するツールを作成します。
+// Create a tool that would run financial analysis agent once called.
 val analysisAgentTool = analysisAgentService.createAgentTool(
     agentName = "analyzeTransactions",
     agentDescription = "Performs financial transaction analysis",
@@ -232,14 +232,14 @@ const val apiKey = ""
 
 -->
 ```kotlin
-// 専門のエージェントをツールとして使用できるコーディネーターエージェントを作成
+// Create a coordinator agent that can use specialized agents as tools
 val coordinatorAgent = AIAgent(
     promptExecutor = simpleOpenAIExecutor(apiKey),
     llmModel = OpenAIModels.Chat.GPT4o,
     systemPrompt = "You coordinate different specialized services.",
     toolRegistry = ToolRegistry {
         tool(analysisAgentTool)
-        // 必要に応じて他のツールを追加
+        // Add other tools as needed
     }
 )
 ```

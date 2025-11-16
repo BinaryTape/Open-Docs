@@ -5,7 +5,7 @@ _[发布日期：2024 年 5 月 21 日](releases.md#release-details)_
 Kotlin 2.0.0 版本已发布，并且[新的 Kotlin K2 编译器](#kotlin-k2-compiler)已稳定！此外，以下是一些其他亮点：
 
 *   [新的 Compose 编译器 Gradle 插件](#new-compose-compiler-gradle-plugin)
-*   [使用 invokedynamic 生成 lambda 函数](#generation-of-lambda-functions-using-invokedynamic)
+*   [使用 invokedynamic 生成 lambda 表达式](#generation-of-lambda-functions-using-invokedynamic)
 *   [kotlinx-metadata-jvm 库现已稳定](#the-kotlinx-metadata-jvm-library-is-stable)
 *   [使用 signpost 在 Apple 平台上监控 Kotlin/Native 的 GC 性能](#monitoring-gc-performance-with-signposts-on-apple-platforms)
 *   [解决 Kotlin/Native 中与 Objective-C 方法的冲突](#resolving-conflicts-with-objective-c-methods)
@@ -18,7 +18,7 @@ Kotlin 2.0.0 版本已发布，并且[新的 Kotlin K2 编译器](#kotlin-k2-com
 
 Kotlin 2.0 是 JetBrains 团队的一个重要里程碑。此次发布是 KotlinConf 2024 的核心。请观看开幕主题演讲，我们在其中宣布了激动人心的更新，并介绍了 Kotlin 语言的最新工作：
 
-<video src="https://www.youtube.com/v/Ar73Axsz2YA" title="KotlinConf'24 - 主题演讲"/>
+<video src="https://www.youtube.com/v/Ar73Axsz2YA" title="KotlinConf'24 - Keynote"/>
 
 ## IDE 支持
 
@@ -43,7 +43,7 @@ JetBrains 团队通过成功编译选定的用户和内部项目中的 1000 万�
 
 您还可以观看 Michail Zarečenskij（首席语言设计者）在 KotlinConf 2024 上进行的此次演讲，他讨论了 Kotlin 中的特性演进和 K2 编译器：
 
-<video src="https://www.youtube.com/v/tAGJ5zJXJ7w" title="Kotlin 2.0 及更高版本的语言特性"/>
+<video src="https://www.youtube.com/v/tAGJ5zJXJ7w" title="Kotlin Language Features in 2.0 and Beyond"/>
 
 ### 当前 K2 编译器限制
 
@@ -165,7 +165,7 @@ fun signalCheck(signalStatus: Any) {
 在 Kotlin 2.0.0 中，K2 编译器以不同的方式处理内联函数，
 结合其他编译器分析，判断进行智能转换是否安全。
 
-具体来说，内联函数现在被视为具有隐式的 [`callsInPlace`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.contracts/-contract-builder/calls-in-place.html) 契约。这意味着传递给内联函数的任何 lambda 函数都会在原地调用。由于 lambda 函数是在原地调用的，编译器知道 lambda 函数不会泄露对其函数体中包含的任何变量的引用。
+具体来说，内联函数现在被视为具有隐式的 [`callsInPlace`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.contracts/-contract-builder/calls-in-place.html) 契约。这意味着传递给内联函数的任何 lambda 表达式都会在原地调用。由于 lambda 表达式是在原地调用的，编译器知道 lambda 表达式不会泄露对其函数体中包含的任何变量的引用。
 
 编译器使用此知识以及其他编译器分析来决定智能转换任何捕获的变量是否安全。例如：
 
@@ -346,7 +346,7 @@ fun main(input: Rho) {
 
 此前，Kotlin 编译器的设计使其无法在编译期保持公共和平台源代码集的分离。结果是，公共代码可以访问平台代码，这导致了不同平台之间行为不一致。此外，一些编译器设置和公共代码的依赖项也曾泄露到平台代码中。
 
-在 Kotlin 2.0.0 中，我们新的 Kotlin K2 编译器实现包括对编译方案的重新设计，以确保公共和平台源代码集之间的严格分离。当您使用 [expected 和 actual 函数](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-expect-actual.html#expected-and-actual-functions)时，此更改最为明显。此前，您的公共代码中的函数调用可能解析为平台代码中的函数。例如：
+在 Kotlin 2.0.0 中，我们新的 Kotlin K2 编译器实现包括对编译方案的重新设计，以确保公共和平台源代码集之间的严格分离。当您使用 [expected 和 actual 函数](https://kotlinlang.org/docs/multiplatform/multiplatform-expect-actual.html#expected-and-actual-functions)时，此更改最为明显。此前，您的公共代码中的函数调用可能解析为平台代码中的函数。例如：
 
 <table>
    <tr>
@@ -387,7 +387,7 @@ fun foo(x: Int) = println("platform foo")
 
 在 Kotlin 2.0.0 中，公共代码无法访问平台代码，因此两个平台都成功将 `foo()` 函数解析为公共代码中的 `foo()` 函数：`common foo`。
 
-除了跨平台行为一致性得到改进之外，我们还努力修复了 IntelliJ IDEA 或 Android Studio 与编译器之间行为冲突的情况。例如，当您使用 [expected 和 actual 类](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-expect-actual.html#expected-and-actual-classes)时，会出现以下情况：
+除了跨平台行为一致性得到改进之外，我们还努力修复了 IntelliJ IDEA 或 Android Studio 与编译器之间行为冲突的情况。例如，当您使用 [expected 和 actual 类](https://kotlinlang.org/docs/multiplatform/multiplatform-expect-actual.html#expected-and-actual-classes)时，会出现以下情况：
 
 <table>
    <tr>
@@ -482,7 +482,7 @@ fun whichFun(x: Int) = println("platform function")
 
 #### expected 和 actual 声明的不同可见性级别
 
-在 Kotlin 2.0.0 之前，如果您在 Kotlin 多平台项目中使用 [expected 和 actual 声明](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-expect-actual.html)，它们必须具有相同的[可见性级别](visibility-modifiers.md)。
+在 Kotlin 2.0.0 之前，如果您在 Kotlin 多平台项目中使用 [expected 和 actual 声明](https://kotlinlang.org/docs/multiplatform/multiplatform-expect-actual.html)，它们必须具有相同的[可见性级别](visibility-modifiers.md)。
 Kotlin 2.0.0 现在也支持不同的可见性级别，但**仅当** actual 声明比 expected 声明_更宽松_时。例如：
 
 ```kotlin
@@ -608,20 +608,20 @@ IDE 将使用其 K2 模式分析您的代码。
 从 2.0.0 版本开始，编译器可以生成包含 Java 22 字节码的类。
 此版本还带来了以下更改：
 
-*   [使用 invokedynamic 生成 lambda 函数](#generation-of-lambda-functions-using-invokedynamic)
+*   [使用 invokedynamic 生成 lambda 表达式](#generation-of-lambda-functions-using-invokedynamic)
 *   [kotlinx-metadata-jvm 库现已稳定](#the-kotlinx-metadata-jvm-library-is-stable)
 
-### 使用 invokedynamic 生成 lambda 函数
+### 使用 invokedynamic 生成 lambda 表达式
 
-Kotlin 2.0.0 引入了一种新的默认方法，即使用 `invokedynamic` 生成 lambda 函数。与传统的匿名类生成相比，此更改减少了应用程序的二进制大小。
+Kotlin 2.0.0 引入了一种新的默认方法，即使用 `invokedynamic` 生成 lambda 表达式。与传统的匿名类生成相比，此更改减少了应用程序的二进制大小。
 
-自第一个版本以来，Kotlin 一直将 lambda 作为匿名类生成。然而，从 [Kotlin 1.5.0](whatsnew15.md#lambdas-via-invokedynamic) 开始，通过使用 `-Xlambdas=indy` 编译器选项，`invokedynamic` 生成选项已可用。在 Kotlin 2.0.0 中，`invokedynamic` 已成为 lambda 生成的默认方法。此方法生成更轻量级的二进制文件，并使 Kotlin 与 JVM 优化保持一致，确保应用程序受益于正在进行和未来的 JVM 性能改进。
+自第一个版本以来，Kotlin 一直将 lambda 表达式作为匿名类生成。然而，从 [Kotlin 1.5.0](whatsnew15.md#lambdas-via-invokedynamic) 开始，通过使用 `-Xlambdas=indy` 编译器选项，`invokedynamic` 生成选项已可用。在 Kotlin 2.0.0 中，`invokedynamic` 已成为 lambda 表达式生成的默认方法。此方法生成更轻量级的二进制文件，并使 Kotlin 与 JVM 优化保持一致，确保应用程序受益于正在进行和未来的 JVM 性能改进。
 
 目前，与普通 lambda 编译相比，它有三个限制：
 
-*   编译为 `invokedynamic` 的 lambda 不可序列化。
-*   实验性的 [`reflect()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect.jvm/reflect.html) API 不支持由 `invokedynamic` 生成的 lambda。
-*   在此类 lambda 上调用 `.toString()` 会生成可读性较差的字符串表示：
+*   编译为 `invokedynamic` 的 lambda 表达式不可序列化。
+*   实验性的 [`reflect()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect.jvm/reflect.html) API 不支持由 `invokedynamic` 生成的 lambda 表达式。
+*   在此类 lambda 表达式上调用 `.toString()` 会生成可读性较差的字符串表示：
 
     ```kotlin
     fun main() {
@@ -635,10 +635,10 @@ Kotlin 2.0.0 引入了一种新的默认方法，即使用 `invokedynamic` 生�
     }
     ```
 
-要保留生成 lambda 函数的旧行为，您可以：
+要保留生成 lambda 表达式的旧行为，您可以：
 
-*   使用 `@JvmSerializableLambda` 注解特定的 lambda。
-*   使用编译器选项 `-Xlambdas=class` 以旧方法生成模块中的所有 lambda。
+*   使用 `@JvmSerializableLambda` 注解特定的 lambda 表达式。
+*   使用编译器选项 `-Xlambdas=class` 以旧方法生成模块中的所有 lambda 表达式。
 
 ### kotlinx-metadata-jvm 库已稳定
 
@@ -691,7 +691,7 @@ Objective-C 方法可以有不同的名称，但形参的数量和类型相同�
 
 此前，Kotlin/Native 编译器隐式地解析标准库和平台依赖项，这导致 Kotlin Gradle 插件在不同 Kotlin 目标之间工作方式不一致。
 
-现在，每个 Kotlin/Native Gradle 编译都通过 `compileDependencyFiles` [编译形参](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-dsl-reference.html#compilation-parameters)显式地将标准库和平台依赖项包含在其编译期库路径中。
+现在，每个 Kotlin/Native Gradle 编译都通过 `compileDependencyFiles` [编译形参](https://kotlinlang.org/docs/multiplatform/multiplatform-dsl-reference.html#compilation-parameters)显式地将标准库和平台依赖项包含在其编译期库路径中。
 
 ### Gradle 配置缓存中的任务错误
 
@@ -720,7 +720,7 @@ Kotlin 2.0.0 改进了性能和与 JavaScript 的互操作性：
 
 ### 默认使用 Binaryen 优化生产构建
 
-Kotlin/Wasm 工具链现在在生产编译期间将 Binaryen 工具应用于所有项目，而不是之前的手动设置方法。根据我们的估计，这应该可以提高项目的运行时性能并减小二进制大小。
+Kotlin/Wasm 工具链现在在生产编译期间将 [Binaryen](https://github.com/WebAssembly/binaryen) 工具应用于所有项目，而不是之前的手动设置方法。根据我们的估计，这应该可以提高项目的运行时性能并减小二进制大小。
 
 > 此更改仅影响生产编译。开发编译过程保持不变。
 >
@@ -846,7 +846,7 @@ kotlin {
 
 使用生成器而不是状态机应该会减小项目最终打包的大小。例如，JetBrains 团队通过使用 ES2015 生成器成功将其 Space 项目的打包大小减少了 20%。
 
-在[官方文档](https://262.ecma-international.org/6.0/)中了解有关 ES2015 (ECMAScript 2015, ES6) 的更多信息。
+[在官方文档](https://262.ecma-international.org/6.0/)中了解有关 ES2015 (ECMAScript 2015, ES6) 的更多信息。
 
 ### 向 main 函数传递实参
 
@@ -1144,7 +1144,7 @@ Jetpack Compose 编译器（将可组合项转换为 Kotlin 代码）现已合�
 
 要在您的项目中使用新的 Compose 编译器，请在 `build.gradle(.kts)` 文件中应用 `org.jetbrains.kotlin.plugin.compose` Gradle 插件，并将其版本设置为与 Kotlin 2.0.0 相同。
 
-要了解有关此更改的更多信息并查看迁移说明，请参见 [Compose 编译器](https://www.jetbrains.com/help/kotlin-multiplatform-dev/compose-compiler.html) 文档。
+要了解有关此更改的更多信息并查看迁移说明，请参见 [Compose 编译器](https://kotlinlang.org/docs/multiplatform/compose-compiler.html) 文档。
 
 ### 区分 JVM 和 Android 已发布库的新属性
 
@@ -1266,7 +1266,7 @@ kotlin {
 *   Kotlin extension
 *   Kotlin target
 *   Kotlin compilation
-*   Kotlin compilation task
+*   Kotlin 编译任务
 
 对于最常见的情况，我们添加了编译器警告，并提供了关于如何修复构建脚本配置不正确的建议。例如：
 
@@ -1366,7 +1366,7 @@ kotlin.native.distribution.downloadFromMaven=false
             }
         }
     }
-    ```
+```
 
 *   `KotlinCompilation` 接口中的 `kotlinOptions` DSL。
 *   `KotlinNativeArtifactConfig` 接口、`KotlinNativeLink` 类和 `KotlinNativeLinkArtifactTask` 类中的 `kotlinOptions` DSL。请改用 `toolOptions` DSL。

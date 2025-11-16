@@ -55,10 +55,10 @@
 
 了解如何使用 Kotlin Multiplatform 与 Ktor 和 SQLDelight 为 Android 和 iOS 创建移动应用程序。
 
-[**开始**](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-ktor-sqldelight.html)
+[**开始**](https://kotlinlang.org/docs/multiplatform/multiplatform-ktor-sqldelight.html)
 
 ## 使用 Kotlin Multiplatform 面向 iOS 和 Android
 
 了解如何使用 Kotlin Multiplatform 创建一个可同时面向 iOS 和 Android 的移动应用程序。
 
-[**开始**](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-create-first-app.html)
+[**开始**](https://kotlinlang.org/docs/multiplatform/multiplatform-create-first-app.html)

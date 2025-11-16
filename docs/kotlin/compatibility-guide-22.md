@@ -16,6 +16,21 @@ _[保持语言现代性](kotlin-evolution-principles.md)_ 和 _[舒适的更新]
 
 ## 语言
 
+### 废弃对 `-language-version` 中 1.6 和 1.7 版本的支持
+
+> **问题**：[KT-71793](https://youtrack.jetbrains.com/issue/KT-71793)
+>
+> **组件**：编译器
+>
+> **不兼容变更类型**：源代码
+>
+> **简要概括**：从 Kotlin 2.2 开始，编译器不再支持 [`-language-version=1.6`](compiler-reference.md#language-version-version) 或 `-language-version=1.7`。这意味着早于 1.8 版本的语言特性集将不再受支持。然而，语言本身与 Kotlin 1.0 保持完全向后兼容。
+>
+> **废弃周期**：
+>
+> - 2.1.0：当使用 `-language-version` 与 1.6 和 1.7 版本时报告警告
+> - 2.2.0：当使用 `-language-version` 与 1.8 和 1.9 版本时报告警告；将 1.6 和 1.7 版本的警告提升为错误
+
 ### 默认启用带注解 lambda 表达式的 invokedynamic
 
 > **问题**：[KTLC-278](https://youtrack.jetbrains.com/issue/KTLC-278)
@@ -220,7 +235,7 @@ _[保持语言现代性](kotlin-evolution-principles.md)_ 和 _[舒适的更新]
 >
 > **不兼容变更类型**：行为
 >
-> **简要概括**：[`KotlinCompileTool`](https://kotlinlang.org/api/kotlin-gradle-plugin/kotlin-gradle-plugin-api/org.jetbrains.kotlin.gradle.tasks/-kotlin-compile-tool/#) 接口中的 [`setSource()`](https://kotlinlang.org/api/kotlin-gradle-plugin/kotlin-gradle-plugin-api/org.jetbrains.kotlin.gradle.tasks/-kotlin-compile-tool/set-source.html#) 函数现在会替换已配置的源代码，而不是向其添加。如果您想添加源代码而不替换现有源代码，请使用 `source()` 函数。
+> **简要概括**：[`setSource()`](https://kotlinlang.org/api/kotlin-gradle-plugin/kotlin-gradle-plugin-api/org.jetbrains.kotlin.gradle.tasks/-kotlin-compile-tool/set-source.html#) 函数在 [`KotlinCompileTool`](https://kotlinlang.org/api/kotlin-gradle-plugin/kotlin-gradle-plugin-api/org.jetbrains.kotlin.gradle.tasks/-kotlin-compile-tool/#) 接口中现在会替换已配置的源代码，而不是向其添加。如果您想添加源代码而不替换现有源代码，请使用 `source()` 函数。
 >
 > **废弃周期**：
 >
@@ -468,7 +483,7 @@ _[保持语言现代性](kotlin-evolution-principles.md)_ 和 _[舒适的更新]
 > - 2.1.0：将此警告提升为错误
 > - 2.2.0：从 Kotlin 多平台 Gradle 插件中移除 `android` 目标 DSL
 
-### 废弃 `CInteropProcess` 中的 `konanVersion`
+### 废弃 `konanVersion` 在 `CInteropProcess` 中
 
 > **问题**：[KT-71069](https://youtrack.jetbrains.com/issue/KT-71069)
 >
@@ -484,7 +499,7 @@ _[保持语言现代性](kotlin-evolution-principles.md)_ 和 _[舒适的更新]
 > - 2.2.0：将此警告提升为错误
 > - 2.3.0：从 Kotlin Gradle 插件中移除 `konanVersion` 属性
 
-### 废弃 `CInteropProcess` 中的 `destinationDir`
+### 废弃 `destinationDir` 在 `CInteropProcess` 中
 
 > **问题**：[KT-71068](https://youtrack.jetbrains.com/issue/KT-71068)
 >
@@ -508,7 +523,7 @@ _[保持语言现代性](kotlin-evolution-principles.md)_ 和 _[舒适的更新]
 >
 > **不兼容变更类型**：源代码
 >
-> **简要概括**：实验性的 `kotlinArtifacts` API 已废弃。请使用 Kotlin Gradle 插件中当前可用的 DSL 来[构建最终的原生二进制文件](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-build-native-binaries.html)。如果这不足以进行迁移，请在[此 YouTrack 问题](https://youtrack.jetbrains.com/issue/KT-74953)中留下评论。
+> **简要概括**：实验性的 `kotlinArtifacts` API 已废弃。请使用 Kotlin Gradle 插件中当前可用的 DSL 来[构建最终的原生二进制文件](https://kotlinlang.org/docs/multiplatform/multiplatform-build-native-binaries.html)。如果这不足以进行迁移，请在[此 YouTrack 问题](https://youtrack.jetbrains.com/issue/KT-74953)中留下评论。
 >
 > **废弃周期**：
 >

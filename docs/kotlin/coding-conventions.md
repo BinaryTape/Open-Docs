@@ -7,7 +7,7 @@
 
 Kotlin 最流行的两个 IDE——[IntelliJ IDEA](https://www.jetbrains.com/idea/) 和 [Android Studio](https://developer.android.com/studio/)
 提供了强大的代码风格支持。你可以配置它们以自动格式化你的代码，使其与给定的代码风格保持一致。
-
+ 
 ### 应用风格指南
 
 1.  前往 **Settings/Preferences | Editor | Code Style | Kotlin**。
@@ -19,6 +19,10 @@ Kotlin 最流行的两个 IDE——[IntelliJ IDEA](https://www.jetbrains.com/ide
 1.  前往 **Settings/Preferences | Editor | Inspections | General**。
 2.  开启 **Incorrect formatting** 检测。
 其他用于验证风格指南中描述的其他问题（例如命名约定）的检测默认是启用的。
+
+<!-- Replace with an external link when the guide is moved -->
+
+有关更多信息，请参见[使用 IntelliJ IDEA 迁移到 Kotlin 代码风格](code-style-migration-guide.md)指南。
 
 ## 源代码组织
 
@@ -142,7 +146,7 @@ Kotlin 中的包和类命名规则非常简单：
     ```
 
 ### 函数名称
-
+ 
 函数、属性和局部变量的名称以小写字母开头，并使用驼峰式，不带下划线：
 
 ```kotlin
@@ -196,7 +200,7 @@ val PersonComparator: Comparator<Person> = /*...*/
 
 对于枚举常量，可以根据用法使用全大写、下划线分隔的名称（[尖叫蛇形命名法 (screaming snake case)](https://en.wikipedia.org/wiki/Snake_case)）
 （`enum class Color { RED, GREEN }`）或大驼峰式名称。
-
+   
 ### 幕后属性的名称
 
 如果一个类有两个概念上相同但一个属于公共 API，另一个是实现细节的属性，
@@ -283,9 +287,9 @@ fun bar() {
 *   当它用于分隔类型和超类型时。
 *   当委托给超类构造函数或同一类的不同构造函数时。
 *   在 `object` 关键字之后。
-
+    
 当冒号分隔声明及其类型时，冒号前不留空格。
-
+ 
 冒号后始终留一个空格。
 
 ```kotlin
@@ -296,7 +300,7 @@ abstract class Foo<out T : Any> : IFoo {
 class FooImpl : Foo() {
     constructor(x: String) : this(x) { /*...*/ }
 
-    val x = object : IFoo { /*...*/ }
+    val x = object : IFoo { /*...*/ } 
 }
 ```
 
@@ -351,7 +355,7 @@ class MyFavouriteVeryLongClassHolder :
 class MyFavouriteVeryLongClassHolder :
     MyLongHolder<MyFavouriteVeryLongClass>(),
     SomeOtherInterface,
-    AndAnotherOne
+    AndAnotherOne 
 {
     fun foo() { /*...*/ }
 }
@@ -375,7 +379,7 @@ tailrec
 vararg
 suspend
 inner
-enum / annotation / fun // as a modifier in `fun interface`
+enum / annotation / fun // as a modifier in `fun interface` 
 companion
 inline / value
 infix
@@ -445,7 +449,7 @@ fun longMethodName(
 
 ```kotlin
 fun foo(): Int {     // bad
-    return 1
+    return 1 
 }
 
 fun foo() = 1        // good
@@ -671,7 +675,7 @@ class Customer(
 
 ```kotlin
 fun powerOf(
-    number: Int,
+    number: Int, 
     exponent: Int, // trailing comma
 ) { /*...*/ }
 constructor(
@@ -1145,7 +1149,7 @@ fun main() {
 
 ### 作用域函数 apply/with/run/also/let
 
-Kotlin 提供了一组函数，用于在给定对象的上下文中执行代码块：`let`、`run`、`with`、`apply` 和 `also`。
+Kotlin 提供了一组函数，用于在给定对象的上下文 中执行代码块：`let`、`run`、`with`、`apply` 和 `also`。
 关于如何为你的用例选择合适作用域函数的指导，请参考[作用域函数](scope-functions.md)。
 
 ## 库的编码约定

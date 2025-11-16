@@ -1,4 +1,4 @@
-[//]: # (title: コンピレーションの構成)
+[//]: # (title: コンピレーションを構成する)
 
 Kotlinマルチプラットフォームプロジェクトは、アーティファクトを生成するためにコンピレーションを使用します。各ターゲットには、たとえば製品用とテスト用など、1つ以上のコンピレーションを含めることができます。
 
@@ -290,26 +290,26 @@ kotlin {
     linuxX64 { // Replace with a target you need.
         compilations.getByName("main") {
             val myInterop by cinterops.creating {
-                // Def-file describing the native API.
-                // The default path is src/nativeInterop/cinterop/<interop-name>.def
+                // ネイティブAPIを記述するDef-file。
+                // デフォルトのパスはsrc/nativeInterop/cinterop/<interop-name>.def
                 definitionFile.set(project.file("def-file.def"))
                 
-                // Package to place the Kotlin API generated.
+                // 生成されたKotlin APIを配置するパッケージ。
                 packageName("org.sample")
                 
-                // Options to be passed to compiler by cinterop tool.
+                // cinteropツールによってコンパイラに渡されるオプション。
                 compilerOpts("-Ipath/to/headers")
               
-                // Directories to look for headers.
+                // ヘッダーを検索するディレクトリ。
                 includeDirs.apply {
-                    // Directories for header search (an equivalent of the -I<path> compiler option).
+                    // ヘッダー検索用のディレクトリ（-I<path>コンパイラオプションと同等）。
                     allHeaders("path1", "path2")
                     
-                    // Additional directories to search headers listed in the 'headerFilter' def-file option.
-                    // -headerFilterAdditionalSearchPrefix command line option equivalent.
+                    // 'headerFilter' def-fileオプションにリストされているヘッダーを検索する追加ディレクトリ。
+                    // -headerFilterAdditionalSearchPrefixコマンドラインオプションと同等。
                     headerFilterOnly("path1", "path2")
                 }
-                // A shortcut for includeDirs.allHeaders.
+                // includeDirs.allHeadersのショートカット。
                 includeDirs("include/directory", "another/directory")
             }
             
@@ -328,24 +328,24 @@ kotlin {
         compilations.main {
             cinterops {
                 myInterop {
-                    // Def-file describing the native API.
-                    // The default path is src/nativeInterop/cinterop/<interop-name>.def
+                    // ネイティブAPIを記述するDef-file。
+                    // デフォルトのパスはsrc/nativeInterop/cinterop/<interop-name>.def
                     definitionFile = project.file("def-file.def")
                     
-                    // Package to place the Kotlin API generated.
+                    // 生成されたKotlin APIを配置するパッケージ。
                     packageName 'org.sample'
                     
-                    // Options to be passed to compiler by cinterop tool.
+                    // cinteropツールによってコンパイラに渡されるオプション。
                     compilerOpts '-Ipath/to/headers'
                     
-                    // Directories for header search (an equivalent of the -I<path> compiler option).
+                    // ヘッダー検索用のディレクトリ（-I<path>コンパイラオプションと同等）。
                     includeDirs.allHeaders("path1", "path2")
                     
-                    // Additional directories to search headers listed in the 'headerFilter' def-file option.
-                    // -headerFilterAdditionalSearchPrefix command line option equivalent.
+                    // 'headerFilter' def-fileオプションにリストされているヘッダーを検索する追加ディレクトリ。
+                    // -headerFilterAdditionalSearchPrefixコマンドラインオプションと同等。
                     includeDirs.headerFilterOnly("path1", "path2")
                     
-                    // A shortcut for includeDirs.allHeaders.
+                    // includeDirs.allHeadersのショートカット。
                     includeDirs("include/directory", "another/directory")
                 }
                 

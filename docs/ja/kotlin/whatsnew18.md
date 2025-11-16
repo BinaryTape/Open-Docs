@@ -105,17 +105,17 @@ KotlinとObjective-C/Swiftの相互運用性を高めるために、3つの新�
 
     このアノテーションは、Kotlinコンパイラに対し、このクラス、プロパティ、パラメータ、または関数にカスタムのObjective-CおよびSwift名を使用するよう指示します。
 
-    ```kotlin
-    @ObjCName(swiftName = "MySwiftArray")
-    class MyKotlinArray {
-        @ObjCName("index")
-        fun indexOf(@ObjCName("of") element: String): Int = TODO()
-    }
+   ```kotlin
+   @ObjCName(swiftName = "MySwiftArray")
+   class MyKotlinArray {
+       @ObjCName("index")
+       fun indexOf(@ObjCName("of") element: String): Int = TODO()
+   }
 
-    // Usage with the ObjCName annotations
-    let array = MySwiftArray()
-    let index = array.index(of: "element")
-    ```
+   // Usage with the ObjCName annotations
+   let array = MySwiftArray()
+   let index = array.index(of: "element")
+   ```
 
 *   [`@HiddenFromObjC`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.native/-hidden-from-obj-c/)は、
     Kotlin宣言をObjective-Cから隠すことができます。
@@ -161,7 +161,7 @@ kotlin {
 プロジェクトの実行でエラーが発生する可能性があります。これを解決するには、Xcodeプロジェクトを閉じ、
 Podfileディレクトリで`pod install`を実行してください。
 
-詳細については、[CocoaPods GradleプラグインDSLリファレンス](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-cocoapods-dsl-reference.html)を参照してください。
+詳細については、[CocoaPods GradleプラグインDSLリファレンス](https://kotlinlang.org/docs/multiplatform/multiplatform-cocoapods-dsl-reference.html)を参照してください。
 
 ## Kotlin Multiplatform: 新しいAndroidソースセットレイアウト
 
@@ -228,11 +228,10 @@ Kotlin 1.8.0では、以前のディレクトリ命名スキームに代わる�
 新しいAndroidソースセットレイアウトは、Android計装テスト（新しいレイアウトでは`androidInstrumentedTest`に改名）と
 共通テストの関係を変更します。
 
-以前は、`androidAndroidTest`と`commonTest`の間にデフォルトの`dependsOn`関係がありました。
-実際には、これは以下のことを意味していました。
+以前は、`androidAndroidTest`と`commonTest`の間にデフォルトの`dependsOn`関係がありました。実際には、これは以下のことを意味していました。
 
 *   `commonTest`のコードは`androidAndroidTest`で利用可能でした。
-*   `expect`宣言には、`androidAndroidTest`に対応する`actual`実装が必要でした。
+*   `commonTest`の`expect`宣言には、`androidAndroidTest`に対応する`actual`実装が必要でした。
 *   `commonTest`で宣言されたテストも、Android計装テストとして実行されました。
 
 新しいAndroidソースセットレイアウトでは、`dependsOn`関係はデフォルトでは追加されません。
@@ -253,7 +252,7 @@ kotlin {
 #### Androidフレーバーのサポート
 
 以前は、Kotlin Gradleプラグインは、`debug`および`release`ビルドタイプ、または`demo`や`full`などのカスタムフレーバーに対応するAndroidソースセットを
-eagerly に作成していました。
+先行して作成していました。
 これにより、`val androidDebug by getting { ... }`のような構成でアクセスできるようになりました。
 
 新しいAndroidソースセットレイアウトでは、これらのソースセットは`afterEvaluate`フェーズで作成されます。
@@ -409,13 +408,13 @@ Kotlin 1.8.0は、Gradleバージョン7.2および7.3を**完全に**サポー�
     戻り値の型としてGradle Properties APIの[`Property`](https://docs.gradle.org/current/javadoc/org/gradle/api/provider/Property.html)
     を使用する新しい`compilerOptions`入力があります。
 
-    ```kotlin
-    tasks.named("compileKotlin", org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile::class.java) {
-        compilerOptions {
-            useK2.set(true)
-        }
-    }
-    ```
+  ```kotlin
+  tasks.named("compileKotlin", org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile::class.java) {
+      compilerOptions {
+          useK2.set(true)
+      }
+  }
+  ```
 
 *   Kotlinツールタスク`KotlinJsDce`と`KotlinNativeLink`には、既存の`kotlinOptions`入力に似た新しい`toolOptions`入力があります。
 *   新しい入力は[`@Nested` Gradleアノテーション](https://docs.gradle.org/current/javadoc/org/gradle/api/tasks/Nested.html)を持ちます。
@@ -434,9 +433,9 @@ Kotlin 1.8.0は、Gradleバージョン7.2および7.3を**完全に**サポー�
     *   [`JsModuleKind`](https://github.com/JetBrains/kotlin/blob/1.8.0/libraries/tools/kotlin-gradle-compiler-types/src/generated/kotlin/org/jetbrains/kotlin/gradle/dsl/JsModuleKind.kt)
     *   [`JsSourceMapEmbedMode`](https://github.com/JetBrains/kotlin/blob/1.8.0/libraries/tools/kotlin-gradle-compiler-types/src/generated/kotlin/org/jetbrains/kotlin/gradle/dsl/JsSourceMapEmbedMode.kt)
 
-    例：`kotlinOptions.jvmTarget = "11"`の代わりに`compilerOptions.jvmTarget.set(JvmTarget.JVM_11)`を使用できます。
+  例：`kotlinOptions.jvmTarget = "11"`の代わりに`compilerOptions.jvmTarget.set(JvmTarget.JVM_11)`を使用できます。
 
-    `kotlinOptions`の型は変更されておらず、内部的には`compilerOptions`の型に変換されます。
+  `kotlinOptions`の型は変更されておらず、内部的には`compilerOptions`の型に変換されます。
 *   Kotlin GradleプラグインAPIは以前のリリースとバイナリ互換です。
     ただし、`kotlin-gradle-plugin`アーティファクトにはソースおよびABI破壊的変更がいくつかあります。
     これらの変更のほとんどは、一部の内部型への追加のジェネリックパラメータに関係します。
@@ -528,7 +527,7 @@ implementation(platform("org.jetbrains.kotlin:kotlin-bom:1.8.0"))
 >
 {style="note"}
 
-[このリリースから](https://youtrack.com/issue/KT-54993/Raise-kotlin.jvm.target.validation.mode-check-default-level-to-error-when-build-is-running-on-Gradle-8)、
+[このリリースから](https://youtrack.jetbrains.com/issue/KT-54993/Raise-kotlin.jvm.target.validation.mode-check-default-level-to-error-when-build-is-running-on-Gradle-8)、
 Gradle 8.0以降（このバージョンのGradleはまだリリースされていません）のプロジェクトでは、
 [`kotlin.jvm.target.validation.mode`プロパティ](gradle-configure-project.md#check-for-jvm-target-compatibility-of-related-compile-tasks)のデフォルト値が`error`になり、
 JVMターゲットに互換性がない場合にプラグインはビルドを失敗させます。
@@ -800,8 +799,8 @@ Kotlinのドキュメントにいくつかの注目すべき変更が加えら�
 ### 新規および更新されたチュートリアル
 
 *   [GradleとKotlin/JVMを始める](get-started-with-jvm-gradle-project.md) – IntelliJ IDEAとGradleを使用してコンソールアプリケーションを作成します。
-*   [KtorとSQLDelightを使用したマルチプラットフォームアプリの作成](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-ktor-sqldelight.html) – Kotlin Multiplatform Mobileを使用してiOSとAndroid向けのモバイルアプリケーションを作成します。
-*   [Kotlin Multiplatformを始める](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-create-first-app.html) – Kotlinを使用したクロスプラットフォームモバイル開発について学び、AndroidとiOSの両方で動作するアプリを作成します。
+*   [KtorとSQLDelightを使用したマルチプラットフォームアプリの作成](https://kotlinlang.org/docs/multiplatform/multiplatform-ktor-sqldelight.html) – Kotlin Multiplatform Mobileを使用してiOSとAndroid向けのモバイルアプリケーションを作成します。
+*   [Kotlin Multiplatformを始める](https://kotlinlang.org/docs/multiplatform/multiplatform-create-first-app.html) – Kotlinを使用したクロスプラットフォームモバイル開発について学び、AndroidとiOSの両方で動作するアプリを作成します。
 
 ## Kotlin 1.8.0のインストール
 

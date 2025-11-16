@@ -20,4 +20,4 @@ Android 개발에 Kotlin을 사용하면 다음과 같은 이점을 얻을 수 �
 Kotlin 사용을 시작하려면:
 
 *   Android 개발의 경우, [Kotlin으로 Android 앱 개발을 위한 Google 문서](https://developer.android.com/kotlin/get-started)를 참조하세요.
-*   크로스 플랫폼 모바일 애플리케이션 개발의 경우, [공유 로직 및 네이티브 UI로 앱 만들기](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-create-first-app.html)를 참조하세요.
+*   크로스 플랫폼 모바일 애플리케이션 개발의 경우, [공유 로직 및 네이티브 UI로 앱 만들기](https://kotlinlang.org/docs/multiplatform/multiplatform-create-first-app.html)를 참조하세요.

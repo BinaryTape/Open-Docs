@@ -50,7 +50,7 @@ import kotlin.time.*
 
 별표 `*`는 Kotlin에게 해당 패키지 내의 모든 것을 가져오도록 지시하는 와일드카드 가져오기(wildcard import)입니다. 별표 `*`는 컴패니언 객체와 함께 사용할 수 없습니다. 대신 사용하려는 컴패니언 객체의 멤버를 명시적으로 선언해야 합니다.
 
-예를 들면 다음과 같습니다.
+예를 들면 다음과 같습니다:
 
 ```kotlin
 import kotlin.time.Duration
@@ -66,7 +66,7 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-tour-libraries-time"}
 
-이 예시는 다음을 보여줍니다.
+이 예시는 다음을 보여줍니다:
 
 * `Duration` 클래스와 해당 컴패니언 객체의 `hours` 및 `minutes` 확장 프로퍼티를 가져옵니다.
 * `minutes` 프로퍼티를 사용하여 `30`을 30분 `Duration`으로 변환합니다.
@@ -90,7 +90,7 @@ fun main() {
 
 유용한 라이브러리는 [검색 플랫폼](https://klibs.io/)에서 찾을 수 있습니다. 이러한 라이브러리를 사용하려면 의존성(dependency)을 추가하거나 플러그인을 설치하는 등의 추가 단계가 필요합니다. 각 라이브러리에는 Kotlin 프로젝트에 포함하는 방법에 대한 지침이 있는 GitHub 저장소가 있습니다.
 
-라이브러리를 추가하면 그 안에 있는 모든 패키지를 가져올 수 있습니다. 다음은 뉴욕의 현재 시간을 찾기 위해 `kotlinx-datetime` 패키지를 가져오는 방법의 예시입니다.
+라이브러리를 추가하면 그 안에 있는 모든 패키지를 가져올 수 있습니다. 다음은 뉴욕의 현재 시간을 찾기 위해 `kotlinx-datetime` 패키지를 가져오는 방법의 예시입니다:
 
 ```kotlin
 import kotlinx.datetime.*
@@ -106,7 +106,7 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-tour-libraries-datetime"}
 
-이 예시는 다음을 보여줍니다.
+이 예시는 다음을 보여줍니다:
 
 * `kotlinx.datetime` 패키지를 가져옵니다.
 * `Clock.System.now()` 함수를 사용하여 현재 시간을 포함하는 `Instant` 클래스의 인스턴스를 생성하고 그 결과를 `now` 변수에 할당합니다.
@@ -137,13 +137,13 @@ This declaration needs opt-in. Its usage should be marked with '@...' or '@OptIn
 inline fun uintArrayOf(vararg elements: UInt): UIntArray
 ```
 
-코드에서 옵트인은 다음과 같습니다.
+코드에서 옵트인은 다음과 같습니다:
 
 ```kotlin
 @OptIn(ExperimentalUnsignedTypes::class)
 ```
 
-다음은 `uintArrayOf()` 함수를 사용하여 부호 없는 정수 배열을 생성하고 그 요소 중 하나를 수정하기 위해 옵트인하는 예시입니다.
+다음은 `uintArrayOf()` 함수를 사용하여 부호 없는 정수 배열을 생성하고 그 요소 중 하나를 수정하기 위해 옵트인하는 예시입니다:
 
 ```kotlin
 @OptIn(ExperimentalUnsignedTypes::class)
@@ -235,16 +235,16 @@ fun main() {
 
 fun main() {
     val timeTaken = /* 여기에 코드를 작성하세요 */ {
-    // 데이터 처리 시뮬레이션
-    val data = List(1000) { it * 2 }
-    val filteredData = data.filter { it % 3 == 0 }
+        // 데이터 처리 시뮬레이션
+        val data = List(1000) { it * 2 }
+        val filteredData = data.filter { it % 3 == 0 }
 
-    // 필터링된 데이터 처리 시뮬레이션
-    val processedData = filteredData.map { it / 2 }
-    println("Processed data")
-}
+        // 필터링된 데이터 처리 시뮬레이션
+        val processedData = filteredData.map { it / 2 }
+        println("Processed data")
+    }
 
-println("Time taken: $timeTaken") // e.g. 16 ms
+    println("Time taken: $timeTaken") // e.g. 16 ms
 }
 ```
 {validate="false" kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-tour-libraries-exercise-2"}
@@ -285,5 +285,5 @@ fun main() {
 
 * [Spring Boot와 Kotlin으로 백엔드 애플리케이션 만들기](jvm-create-project-with-spring-boot.md)
 * Android 및 iOS용 크로스 플랫폼 애플리케이션을 처음부터 만들고:
-    * [UI는 네이티브로 유지하면서 비즈니스 로직 공유하기](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-create-first-app.html)
-    * [비즈니스 로직과 UI 공유하기](https://www.jetbrains.com/help/kotlin-multiplatform-dev/compose-multiplatform-create-first-app.html)
+    * [UI는 네이티브로 유지하면서 비즈니스 로직 공유하기](https://kotlinlang.org/docs/multiplatform/multiplatform-create-first-app.html)
+    * [비즈니스 로직과 UI 공유하기](https://kotlinlang.org/docs/multiplatform/compose-multiplatform-create-first-app.html)

@@ -16,9 +16,24 @@ _[言語の現代性を保つ](kotlin-evolution-principles.md)_ および _[快�
 
 ## 言語
 
+### `-language-version` における 1.6 および 1.7 のサポートを廃止
+
+> **イシュー**: [KT-71793](https://youtrack.jetbrains.com/issue/KT-71793)
+>
+> **コンポーネント**: コンパイラ
+>
+> **非互換変更の種類**: ソース
+>
+> **概要**: Kotlin 2.2 以降、コンパイラは [`-language-version=1.6`](compiler-reference.md#language-version-version) または `-language-version=1.7` をサポートしなくなりました。これは、1.8 よりも古い言語機能セットがサポート対象外となることを意味します。ただし、Kotlin 言語自体は Kotlin 1.0 と完全に後方互換性を保っています。
+>
+> **非推奨サイクル**:
+>
+> - 2.1.0: `-language-version` をバージョン 1.6 および 1.7 で使用した場合に警告を報告
+> - 2.2.0: `-language-version` をバージョン 1.8 および 1.9 で使用した場合に警告を報告。バージョン 1.6 および 1.7 の警告をエラーに昇格
+
 ### アノテーション付きラムダに対する invokedynamic のデフォルト有効化
 
-> **イシュー**: [KTLC-278](https://youtrack.jetbrains.com/issue/KTLC-278)
+> **イシュー**: [KTLC-278](https://youtrack.com/issue/KTLC-278)
 >
 > **コンポーネント**: コア言語
 >
@@ -32,7 +47,7 @@ _[言語の現代性を保つ](kotlin-evolution-principles.md)_ および _[快�
 
 ### K2における、展開型で分散を持つ型エイリアスでのコンストラクタ呼び出しと継承の禁止
 
-> **イシュー**: [KTLC-4](https://youtrack.jetbrains.com/issue/KTLC-4)
+> **イシュー**: [KTLC-4](https://youtrack.com/issue/KTLC-4)
 >
 > **コンポーネント**: コア言語
 >
@@ -47,7 +62,7 @@ _[言語の現代性を保つ](kotlin-evolution-principles.md)_ および _[快�
 
 ### Kotlinゲッターからの合成プロパティの禁止
 
-> **イシュー**: [KTLC-272](https://youtrack.jetbrains.com/issue/KTLC-272)
+> **イシュー**: [KTLC-272](https://youtrack.com/issue/KTLC-272)
 >
 > **コンポーネント**: コア言語
 >
@@ -62,7 +77,7 @@ _[言語の現代性を保つ](kotlin-evolution-principles.md)_ および _[快�
 
 ### JVM上のインターフェース関数に対するデフォルトメソッド生成の変更
 
-> **イシュー**: [KTLC-269](https://youtrack.jetbrains.com/issue/KTLC-269)
+> **イシュー**: [KTLC-269](https://youtrack.com/issue/KTLC-269)
 >
 > **コンポーネント**: コア言語
 >
@@ -76,7 +91,7 @@ _[言語の現代性を保つ](kotlin-evolution-principles.md)_ および _[快�
 
 ### アノテーションプロパティに対するフィールドターゲットアノテーションの禁止
 
-> **イシュー**: [KTLC-7](https://youtrack.jetbrains.com/issue/KTLC-7)
+> **イシュー**: [KTLC-7](https://youtrack.com/issue/KTLC-7)
 >
 > **コンポーネント**: コア言語
 >
@@ -92,7 +107,7 @@ _[言語の現代性を保つ](kotlin-evolution-principles.md)_ および _[快�
 
 ### 型エイリアスにおける具象化型パラメータの禁止
 
-> **イシュー**: [KTLC-5](https://youtrack.jetbrains.com/issue/KTLC-5)
+> **イシュー**: [KTLC-5](https://youtrack.com/issue/KTLC-5)
 >
 > **コンポーネント**: コア言語
 >
@@ -107,7 +122,7 @@ _[言語の現代性を保つ](kotlin-evolution-principles.md)_ および _[快�
 
 ### `Number` と `Comparable` のインライン値クラスに対する型チェックの修正
 
-> **イシュー**: [KTLC-21](https://youtrack.jetbrains.com/issue/KTLC-21)
+> **イシュー**: [KTLC-21](https://youtrack.com/issue/KTLC-21)
 >
 > **コンポーネント**: Kotlin/JVM
 >
@@ -121,7 +136,7 @@ _[言語の現代性を保つ](kotlin-evolution-principles.md)_ および _[快�
 
 ### 間接的な依存関係からのアクセス不能なジェネリック型の禁止
 
-> **イシュー**: [KTLC-3](https://youtrack.jetbrains.com/issue/KTLC-3)
+> **イシュー**: [KTLC-3](https://youtrack.com/issue/KTLC-3)
 >
 > **コンポーネント**: コア言語
 >
@@ -137,7 +152,7 @@ _[言語の現代性を保つ](kotlin-evolution-principles.md)_ および _[快�
 
 ### 型パラメータ境界に対する可視性チェックの強制
 
-> **イシュー**: [KTLC-274](https://youtrack.jetbrains.com/issue/KTLC-274)
+> **イシュー**: [KTLC-274](https://youtrack.com/issue/KTLC-274)
 >
 > **コンポーネント**: コア言語
 >
@@ -152,7 +167,7 @@ _[言語の現代性を保つ](kotlin-evolution-principles.md)_ および _[快�
 
 ### 非プライベートインライン関数でプライベート型を公開する際のエラー報告
 
-> **イシュー**: [KT-70916](https://youtrack.jetbrains.com/issue/KT-70916)
+> **イシュー**: [KT-70916](https://youtrack.com/issue/KT-70916)
 >
 > **コンポーネント**: コア言語
 >
@@ -166,7 +181,7 @@ _[言語の現代性を保つ](kotlin-evolution-principles.md)_ および _[快�
 
 ### パラメータのデフォルト値として使用されるラムダにおける非ローカルリターンの禁止
 
-> **イシュー**: [KTLC-286](https://youtrack.jetbrains.com/issue/KTLC-286)
+> **イシュー**: [KTLC-286](https://youtrack.com/issue/KTLC-286)
 >
 > **コンポーネント**: コア言語
 >
@@ -182,7 +197,7 @@ _[言語の現代性を保つ](kotlin-evolution-principles.md)_ および _[快�
 
 ### `kotlin.native.Throws` の非推奨化
 
-> **イシュー**: [KT-72137](https://youtrack.jetbrains.com/issue/KT-72137)
+> **イシュー**: [KT-72137](https://youtrack.com/issue/KT-72137)
 >
 > **コンポーネント**: Kotlin/Native
 >
@@ -197,7 +212,7 @@ _[言語の現代性を保つ](kotlin-evolution-principles.md)_ および _[快�
 
 ### `AbstractDoubleTimeSource` の非推奨化
 
-> **イシュー**: [KT-72137](https://youtrack.jetbrains.com/issue/KT-72137)
+> **イシュー**: [KT-72137](https://youtrack.com/issue/KT-72137)
 >
 > **コンポーネント**: kotlin-stdlib
 >
@@ -214,7 +229,7 @@ _[言語の現代性を保つ](kotlin-evolution-principles.md)_ および _[快�
 
 ### `KotlinCompileTool` の `setSource()` 関数がソースを置き換えるように修正
 
-> **イシュー**: [KT-59632](https://youtrack.jetbrains.com/issue/KT-59632)
+> **イシュー**: [KT-59632](https://youtrack.com/issue/KT-59632)
 >
 > **コンポーネント**: Gradle
 >
@@ -228,7 +243,7 @@ _[言語の現代性を保つ](kotlin-evolution-principles.md)_ および _[快�
 
 ### `KotlinCompilationOutput#resourcesDirProvider` プロパティの非推奨化
 
-> **イシュー**: [KT-70620](https://youtrack.jetbrains.com/issue/KT-70620)
+> **イシュー**: [KT-70620](https://youtrack.com/issue/KT-70620)
 >
 > **コンポーネント**: Gradle
 >
@@ -257,7 +272,7 @@ _[言語の現代性を保つ](kotlin-evolution-principles.md)_ および _[快�
 
 ### `kotlin-android-extensions` プラグインの非推奨化
 
-> **イシュー**: [KT-72341](https://youtrack.jetbrains.com/issue/KT-72341/)
+> **イシュー**: [KT-72341](https://youtrack.com/issue/KT-72341/)
 >
 > **コンポーネント**: Gradle
 >
@@ -273,7 +288,7 @@ _[言語の現代性を保つ](kotlin-evolution-principles.md)_ および _[快�
 
 ### `kotlinOptions` DSLの非推奨化
 
-> **イシュー**: [KT-54110](https://youtrack.jetbrains.com/issue/KT-54110)
+> **イシュー**: [KT-54110](https://youtrack.com/issue/KT-54110)
 >
 > **コンポーネント**: Gradle
 >
@@ -288,7 +303,7 @@ _[言語の現代性を保つ](kotlin-evolution-principles.md)_ および _[快�
 
 ### `kotlin.incremental.useClasspathSnapshot` プロパティの削除
 
-> **イシュー**: [KT-62963](https://youtrack.jetbrains.com/issue/KT-62963)
+> **イシュー**: [KT-62963](https://youtrack.com/issue/KT-62963)
 >
 > **コンポーネント**: Gradle
 >
@@ -303,7 +318,7 @@ _[言語の現代性を保つ](kotlin-evolution-principles.md)_ および _[快�
 
 ### Kotlinスクリプト機能の非推奨化
 
-> **イシュー**: [KT-71685](https://youtrack.jetbrains.com/issue/KT-71685)、[KT-75632](https://youtrack.jetbrains.com/issue/KT-75632/)、[KT-76196](https://youtrack.jetbrains.com/issue/KT-76196/)。
+> **イシュー**: [KT-71685](https://youtrack.com/issue/KT-71685)、[KT-75632](https://youtrack.com/issue/KT-75632/)、[KT-76196](https://youtrack.com/issue/KT-76196/)。
 >
 > **コンポーネント**: スクリプト
 >
@@ -323,7 +338,7 @@ _[言語の現代性を保つ](kotlin-evolution-principles.md)_ および _[快�
 
 ### 曖昧さ解消分類子プロパティの非推奨化
 
-> **イシュー**: [KT-58231](https://youtrack.jetbrains.com/issue/KT-58231)
+> **イシュー**: [KT-58231](https://youtrack.com/issue/KT-58231)
 >
 > **コンポーネント**: Gradle
 >
@@ -342,7 +357,7 @@ _[言語の現代性を保つ](kotlin-evolution-principles.md)_ および _[快�
 
 ### 共通化パラメータの非推奨化
 
-> **イシュー**: [KT-75161](https://youtrack.jetbrains.com/issue/KT-75161)
+> **イシュー**: [KT-75161](https://youtrack.com/issue/KT-75161)
 >
 > **コンポーネント**: Gradle
 >
@@ -370,7 +385,7 @@ _[言語の現代性を保つ](kotlin-evolution-principles.md)_ および _[快�
 
 ### レガシーメタデータコンパイルのサポートの非推奨化
 
-> **イシュー**: [KT-61817](https://youtrack.jetbrains.com/issue/KT-61817)
+> **イシュー**: [KT-61817](https://youtrack.com/issue/KT-61817)
 >
 > **コンポーネント**: Gradle
 >
@@ -388,7 +403,7 @@ _[言語の現代性を保つ](kotlin-evolution-principles.md)_ および _[快�
 
 ### `KotlinCompilation.source` APIの非推奨化
 
-> **イシュー**: [KT-64991](https://youtrack.jetbrains.com/issue/KT-64991)
+> **イシュー**: [KT-64991](https://youtrack.com/issue/KT-64991)
 >
 > **コンポーネント**: Gradle
 >
@@ -404,7 +419,7 @@ _[言語の現代性を保つ](kotlin-evolution-principles.md)_ および _[快�
 
 ### ターゲットプリセットAPIの非推奨化
 
-> **イシュー**: [KT-71698](https://youtrack.jetbrains.com/issue/KT-71698)
+> **イシュー**: [KT-71698](https://youtrack.com/issue/KT-71698)
 >
 > **コンポーネント**: Gradle
 >
@@ -424,7 +439,7 @@ _[言語の現代性を保つ](kotlin-evolution-principles.md)_ および _[快�
 
 ### Appleターゲットショートカットの非推奨化
 
-> **イシュー**: [KT-70615](https://youtrack.jetbrains.com/issue/KT-70615)
+> **イシュー**: [KT-70615](https://youtrack.com/issue/KT-70615)
 >
 > **コンポーネント**: Gradle
 >
@@ -440,7 +455,7 @@ _[言語の現代性を保つ](kotlin-evolution-principles.md)_ および _[快�
 
 ### `publishAllLibraryVariants()` 関数の非推奨化
 
-> **イシュー**: [KT-60623](https://youtrack.jetbrains.com/issue/KT-60623)
+> **イシュー**: [KT-60623](https://youtrack.com/issue/KT-60623)
 >
 > **コンポーネント**: Gradle
 >
@@ -454,7 +469,7 @@ _[言語の現代性を保つ](kotlin-evolution-principles.md)_ および _[快�
 
 ### `android` ターゲットの非推奨化
 
-> **イシュー**: [KT-71608](https://youtrack.jetbrains.com/issue/KT-71608)
+> **イシュー**: [KT-71608](https://youtrack.com/issue/KT-71608)
 >
 > **コンポーネント**: Gradle
 >
@@ -470,7 +485,7 @@ _[言語の現代性を保つ](kotlin-evolution-principles.md)_ および _[快�
 
 ### `CInteropProcess` の `konanVersion` の非推奨化
 
-> **イシュー**: [KT-71069](https://youtrack.jetbrains.com/issue/KT-71069)
+> **イシュー**: [KT-71069](https://youtrack.com/issue/KT-71069)
 >
 > **コンポーネント**: Gradle
 >
@@ -486,7 +501,7 @@ _[言語の現代性を保つ](kotlin-evolution-principles.md)_ および _[快�
 
 ### `destinationDir` の `CInteropProcess` 非推奨化
 
-> **イシュー**: [KT-71068](https://youtrack.jetbrains.com/issue/KT-71068)
+> **イシュー**: [KT-71068](https://youtrack.com/issue/KT-71068)
 >
 > **コンポーネント**: Gradle
 >
@@ -502,13 +517,13 @@ _[言語の現代性を保つ](kotlin-evolution-principles.md)_ および _[快�
 
 ### `kotlinArtifacts` APIの非推奨化
 
-> **イシュー**: [KT-74953](https://youtrack.jetbrains.com/issue/KT-74953)
+> **イシュー**: [KT-74953](https://youtrack.com/issue/KT-74953)
 >
 > **コンポーネント**: Gradle
 >
 > **非互換変更の種類**: ソース
 >
-> **概要**: 実験的な `kotlinArtifacts` APIは非推奨になりました。最終的なネイティブバイナリをビルドするには、Kotlin Gradleプラグインで利用可能な現在のDSLを[使用してください](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-build-native-binaries.html)。移行に十分でない場合は、[こちらのYouTrackイシュー](https://youtrack.jetbrains.com/issue/KT-74953)にコメントを残してください。
+> **概要**: 実験的な `kotlinArtifacts` APIは非推奨になりました。最終的なネイティブバイナリをビルドするには、Kotlin Gradleプラグインで利用可能な現在のDSLを[使用してください](https://kotlinlang.org/docs/multiplatform/multiplatform-build-native-binaries.html)。移行に十分でない場合は、[こちらのYouTrackイシュー](https://youtrack.jetbrains.com/issue/KT-74953)にコメントを残してください。
 >
 > **非推奨サイクル**:
 >

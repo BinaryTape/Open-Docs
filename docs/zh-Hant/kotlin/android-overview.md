@@ -23,4 +23,4 @@
 若要開始將 Kotlin 用於：
 
 *   Android 開發，請閱讀 [Google 關於使用 Kotlin 開發 Android 應用程式的文件](https://developer.android.com/kotlin/get-started)。
-*   開發跨平台行動應用程式，請參閱 [建立具有共享邏輯和原生 UI 的應用程式](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-create-first-app.html)。
+*   開發跨平台行動應用程式，請參閱 [建立具有共享邏輯和原生 UI 的應用程式](https://kotlinlang.org/docs/multiplatform/multiplatform-create-first-app.html)。

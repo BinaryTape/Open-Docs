@@ -150,3 +150,7 @@ kotlinc -script-templates org.example.CustomScriptDefinition -script custom.scri
 ```
 
 有關更多詳細資訊，請參閱 [KEEP-75](https://github.com/Kotlin/KEEP/blob/master/proposals/scripting-support.md)。
+
+## 接下來呢？
+
+[建立一個基於 Kotlin/JVM 的主控台應用程式](jvm-get-started.md)。

@@ -74,7 +74,7 @@ Kotlinコンパイラプラグインにオプションを渡します。
 
 ### -language-version _version_
 
-指定されたKotlinバージョンとのソース互換性を提供します。
+このオプションは、指定された言語バージョンに従ってサポートされている構文とセマンティクスを設定します。例えば、Kotlinコンパイラのバージョン2.2.0を`-language-version=1.9`と共に使用すると、バージョン1.9以前の言語機能と標準ライブラリAPIのみを使用できます。これは、新しいKotlinバージョンへの段階的な移行に役立ちます。
 
 ### -api-version _version_
 
@@ -330,7 +330,7 @@ KotlinからJSへのコンパイルのためのコマンドラインツールは
 - `amd` - [Asynchronous Module Definition](https://en.wikipedia.org/wiki/Asynchronous_module_definition)モジュール
 - `plain` - プレーンJSモジュール
 
-異なる種類のJSモジュールとその違いについては、[この記事](https://www.davidbcalhoun.com/2014/what-is-amd-commonjs-and-umd/)を参照してください。
+異なる種類のJSモジュールとその違いについて詳しく知るには、[この記事](https://www.davidbcalhoun.com/2014/what-is-amd-commonjs-and-umd/)を参照してください。
 
 ### -no-stdlib (JS)
 
@@ -425,8 +425,7 @@ Kotlin/Nativeコンパイルのためのコマンドラインツールは、`kot
 ### -module-name _name_ (Native)
 
 コンパイルモジュールの名前を指定します。
-このオプションは、Objective-Cにエクスポートされる宣言の名前プレフィックスを指定するためにも使用できます。
-[KotlinフレームワークのカスタムObjective-Cプレフィックス/名前を指定するにはどうすればよいですか？](native-faq.md#how-do-i-specify-a-custom-objective-c-prefix-name-for-my-kotlin-framework)
+このオプションは、Objective-Cにエクスポートされる宣言の名前プレフィックスを指定するためにも使用できます。[KotlinフレームワークのカスタムObjective-Cプレフィックス/名前を指定するにはどうすればよいですか？](native-faq.md#how-do-i-specify-a-custom-objective-c-prefix-name-for-my-kotlin-framework)
 
 ### -native-library _path_ (-nl _path_)
 

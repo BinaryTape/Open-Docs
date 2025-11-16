@@ -760,7 +760,7 @@ Kotlin/Native 獲得了許多效能改進，加速了開發過程和執行。
 您都必須從 IntelliJ IDEA 切換到 Xcode，呼叫 `pod install`，並在那裡運行 Xcode 建置。
 
 現在，您可以在 IntelliJ IDEA 中直接管理 Pod 依賴項，同時享受它為程式碼工作提供的好處，
-例如程式碼高亮顯示和自動完成。您還可以使用 Gradle 建置整個 Kotlin 專案，而無需切換到 Xcode。
+例如程式碼亮點顯示和自動完成。您還可以使用 Gradle 建置整個 Kotlin 專案，而無需切換到 Xcode。
 這意味著您只需要在需要編寫 Swift/Objective-C 程式碼或在模擬器或裝置上運行您的應用程式時才需要進入 Xcode。
 
 現在您還可以處理本地儲存的 Pod 函式庫。
@@ -777,7 +777,7 @@ Kotlin/Native 獲得了許多效能改進，加速了開發過程和執行。
 ## Kotlin 多平台
 
 > 對多平台專案的支援處於 [Alpha](components-stability.md) 階段。未來它可能會發生不相容的變更，並需要手動遷移。
-> 我們感謝您在 [YouTrack](https://youtrack.jetbrains.com/issues/KT) 上提供回饋。
+> 我們感謝您在 [YouTrack](https://youtrack.com/issues/KT) 上提供回饋。
 >
 {style="warning"}
 
@@ -1464,8 +1464,8 @@ Kotlin Scripting API 現在提供了實作編譯腳本快取的能力，顯著�
 Kotlin 外掛程式的遷移工具可幫助您將專案從早期版本的 Kotlin 遷移到 1.4.0。
 
 只需將 Kotlin 版本更改為 `1.4.0` 並重新匯入您的 Gradle 或 Maven 專案。IDE 將隨後詢問您有關遷移的事宜。
-
-如果您同意，它將運行遷移程式碼檢查，檢查您的程式碼並建議任何在 1.4.0 中無法運作或不建議使用的修正。
+ 
+如果您同意，它將運行遷移程式碼檢查，檢查您的程式碼並建議任何在 1.4.0 中無法運作或不建議使用的修正。 
 
 ![Run migration](run-migration-wn.png){width=300}
 

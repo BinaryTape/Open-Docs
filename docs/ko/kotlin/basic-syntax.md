@@ -1,6 +1,6 @@
-[//]: # (title: 기본 문법)
+[//]: # (title: 기본 문법 개요)
 
-다음은 예시와 함께 기본적인 문법 요소들을 모아놓은 것입니다. 각 섹션 끝에는 해당 주제에 대한 자세한 설명 링크가 있습니다.
+이 문서는 예제와 함께 기본적인 문법 요소들을 모아놓은 것입니다. 각 섹션 끝에는 해당 주제에 대한 자세한 설명 링크가 있습니다.
 
 또한 JetBrains Academy에서 제공하는 무료 [Kotlin Core 트랙](https://hyperskill.org/tracks?category=4&utm_source=jbkotlin_hs&utm_medium=referral&utm_campaign=kotlinlang-docs&utm_content=button_1&utm_term=22.03.23)을 통해 Kotlin의 필수 사항을 모두 배울 수 있습니다.
 

@@ -14,21 +14,21 @@ Kotlin 1.3 持續改進並完善 Native 目標。詳情請參閱 [Kotlin/Native 
 
 ## 多平台專案
 
-在 1.3 中，我們徹底重構了多平台專案的模型，以提高表達能力和靈活性，並使共用共同程式碼變得更容易。此外，Kotlin/Native 現在也作為其中一個目標得到支援！
+在 1.3 中，我們徹底重構了多平台專案的模型，以提高表達能力和彈性，並使共用共同程式碼變得更容易。此外，Kotlin/Native 現在也作為其中一個目標得到支援！
 
 與舊模型的主要差異是：
 
   * 在舊模型中，共同程式碼和平台特定程式碼需要放置在不同的模組中，並透過 `expectedBy` 依賴項連結。現在，共同程式碼和平台特定程式碼放置在同一模組的不同原始碼根目錄中，使專案更容易配置。
-  * 現在有大量[預設平台配置](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-dsl-reference.html#targets)用於不同的受支援平台。
-  * [依賴項配置](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-add-dependencies.html)已更改；依賴項現在為每個原始碼根目錄單獨指定。
+  * 現在有大量[預設平台配置](https://kotlinlang.org/docs/multiplatform/multiplatform-dsl-reference.html#targets)用於不同的受支援平台。
+  * [依賴項配置](https://kotlinlang.org/docs/multiplatform/multiplatform-add-dependencies.html)已更改；依賴項現在為每個原始碼根目錄單獨指定。
   * 原始碼集現在可以在平台的任意子集之間共用（例如，在一個以 JS、Android 和 iOS 為目標的模組中，您可以有一個只在 Android 和 iOS 之間共用的原始碼集）。
-  * 現在支援[發佈多平台函式庫](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-publish-lib-setup.html)。
+  * 現在支援[發佈多平台函式庫](https://kotlinlang.org/docs/multiplatform/multiplatform-publish-lib-setup.html)。
 
-欲了解更多資訊，請參閱[多平台程式設計文件](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html)。
+欲了解更多資訊，請參閱[多平台程式設計文件](https://kotlinlang.org/docs/multiplatform/get-started.html)。
 
 ## 契約
 
-Kotlin 編譯器執行廣泛的靜態分析以提供警告並減少重複程式碼。其中最顯著的功能之一是 smartcasts — 能夠根據執行的型別檢查自動執行轉換：
+Kotlin 編譯器執行廣泛的靜態分析以提供警告並減少樣板程式碼。其中最顯著的功能之一是 smartcasts — 能夠根據執行的型別檢查自動執行轉換：
 
 ```kotlin
 fun foo(s: String?) {
@@ -360,6 +360,7 @@ fun main() {
 //sampleEnd
 }
 ```
+{kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
 ### associateWith 函式
 

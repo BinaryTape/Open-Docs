@@ -265,11 +265,11 @@ Kotlin `挂起`函数现在在 Swift 中返回 `Void` 类型而非 `KotlinUnit`�
 
 从 Kotlin 1.7.0 开始，如果您想在您的项目中集成 CocoaPods，您不再需要安装 `cocoapods-generate` 插件。
 
-以前，您需要安装 CocoaPods 依赖项管理器和 `cocoapods-generate` 插件才能使用 CocoaPods，例如，在 Kotlin Multiplatform Mobile 项目中处理 [iOS 依赖项](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-ios-dependencies.html#with-cocoapods)。
+以前，您需要安装 CocoaPods 依赖项管理器和 `cocoapods-generate` 插件才能使用 CocoaPods，例如，在 Kotlin Multiplatform Mobile 项目中处理 [iOS 依赖项](https://kotlinlang.org/docs/multiplatform/multiplatform-ios-dependencies.html#with-cocoapods)。
 
 现在设置 CocoaPods 集成更容易，并且我们解决了 `cocoapods-generate` 无法在 Ruby 3 及更高版本上安装的问题。现在支持在 Apple M1 上表现更好的最新 Ruby 版本。
 
-了解如何设置[初始 CocoaPods 集成](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-cocoapods-overview.html#set-up-an-environment-to-work-with-cocoapods)。
+了解如何设置[初始 CocoaPods 集成](https://kotlinlang.org/docs/multiplatform/multiplatform-cocoapods-overview.html#set-up-an-environment-to-work-with-cocoapods)。
 
 ### 覆盖 Kotlin/Native 编译器下载 URL
 
@@ -414,7 +414,7 @@ fun main() {
 
 为了支持库作者开发旨在与广泛的旧 Kotlin 版本兼容的库，并应对 Kotlin 主要版本发布频率的增加，我们扩展了对以前语言和 API 版本的支持。
 
-通过 Kotlin 1.7.0，我们支持三个而非两个以前的语言和 API 版本。这意味着 Kotlin 1.7.0 支持开发面向 Kotlin 1.4.0 及更低版本的库。有关向后兼容性的更多信息，请参阅[兼容模式](compatibility-modes.md)。
+通过 Kotlin 1.7.0，我们支持三个而非两个以前的语言和 API 版本。这意味着 Kotlin 1.7.0 支持开发面向 Kotlin 1.4.0 及更低版本的库。有关向后兼容性的更多信息，请参阅[兼容模式](kotlin-evolution-principles.md#compatibility-options)。
 
 ### 通过反射访问注解
 
@@ -809,17 +809,17 @@ sourceSets {
 
 #### 移除了已弃用的插件
 
-在 Kotlin 1.4.0 中，`kotlin2js` 和 `kotlin-dce-plugin` 插件已弃用，并在此版本中移除。而不是 `kotlin2js`，请使用新的 `org.jetbrains.kotlin.js` 插件。无用代码消除 (DCE) 在 Kotlin/JS Gradle 插件正确配置时工作。
+在 Kotlin 1.4.0 中，`kotlin2js` 和 `kotlin-dce-plugin` 插件已弃用，并在此版本中移除。而不是 `kotlin2js`，请使用新的 `org.jetbrains.kotlin.js` 插件。无用代码消除 (DCE) 工作时，Kotlin/JS Gradle 插件已正确配置。
 
 在 Kotlin 1.6.0 中，我们将 `KotlinGradleSubplugin` 类的弃用级别更改为 `ERROR`。开发者曾使用此 class 编写编译器插件。在此版本中，[此 class 已移除](https://youtrack.jetbrains.com/issue/KT-48831/)。改用 `KotlinCompilerPluginSupportPlugin` class。
 
-> 最佳实践是在您的整个项目中统一使用 1.7.0 及更高版本的 Kotlin 插件。
+> 最佳实践是在您的整个项目中使用 1.7.0 及更高版本的 Kotlin 插件。
 >
 {style="tip"}
 
 #### 移除了已弃用的协程 DSL 选项和属性
 
-我们移除了已弃用的 `kotlin.experimental.coroutines` Gradle DSL 选项和 `gradle.properties` 中使用的 `kotlin.coroutines` 属性。现在您只需使用 _[挂起函数](coroutines-basics.md)_ 或[添加 `kotlinx.coroutines` 依赖项](gradle-configure-project.md#set-a-dependency-on-a-kotlinx-library)到您的构建脚本。
+我们移除了已弃用的 `kotlin.experimental.coroutines` Gradle DSL 选项和 `kotlin.coroutines` 属性用于 `gradle.properties`。现在您只需使用 _[挂起函数](coroutines-basics.md)_ 或[添加 `kotlinx.coroutines` 依赖项](gradle-configure-project.md#set-a-dependency-on-a-kotlinx-library)到您的构建脚本。
 
 在[协程指南](coroutines-guide.md)中了解更多关于协程的信息。
 

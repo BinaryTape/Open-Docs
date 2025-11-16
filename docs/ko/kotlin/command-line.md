@@ -148,3 +148,7 @@ kotlinc -script-templates org.example.CustomScriptDefinition -script custom.scri
 ```
 
 자세한 내용은 [KEEP-75](https://github.com/Kotlin/KEEP/blob/master/proposals/scripting-support.md)를 참조하세요.
+
+## 다음 단계
+
+[Kotlin/JVM 기반 콘솔 애플리케이션 생성](jvm-get-started.md).

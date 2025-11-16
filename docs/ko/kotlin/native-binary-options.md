@@ -1,6 +1,6 @@
 [//]: # (title: Kotlin/Native 바이너리 옵션)
 
-이 페이지에서는 Kotlin/Native [최종 바이너리](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-build-native-binaries.html)를 구성하는 데 사용할 수 있는 유용한 Kotlin/Native 바이너리 옵션과 프로젝트에서 바이너리 옵션을 설정하는 방법을 나열합니다.
+이 페이지에서는 Kotlin/Native [최종 바이너리](https://kotlinlang.org/docs/multiplatform/multiplatform-build-native-binaries.html)를 구성하는 데 사용할 수 있는 유용한 Kotlin/Native 바이너리 옵션과 프로젝트에서 바이너리 옵션을 설정하는 방법을 나열합니다.
 
 ## 활성화 방법
 
@@ -322,4 +322,4 @@ kotlinc-native main.kt -Xbinary=enableSafepointSignposts=true
 
 ## 다음 단계
 
-[최종 네이티브 바이너리를 빌드하는 방법](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-build-native-binaries.html)을 알아보세요.
+[최종 네이티브 바이너리를 빌드하는 방법](https://kotlinlang.org/docs/multiplatform/multiplatform-build-native-binaries.html)을 알아보세요.

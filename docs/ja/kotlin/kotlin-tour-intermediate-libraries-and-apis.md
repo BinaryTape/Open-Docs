@@ -235,11 +235,11 @@ fun main() {
 
 fun main() {
     val timeTaken = /* Write your code here */ {
-        // データ処理をシミュレート
+        // Simulate some data processing
         val data = List(1000) { it * 2 }
         val filteredData = data.filter { it % 3 == 0 }
 
-        // フィルタリングされたデータの処理をシミュレート
+        // Simulate processing the filtered data
         val processedData = filteredData.map { it / 2 }
         println("Processed data")
     }
@@ -285,5 +285,5 @@ fun main() {
 
 *   [Spring BootとKotlinでバックエンドアプリケーションを作成する](jvm-create-project-with-spring-boot.md)
 *   AndroidとiOS向けのクロスプラットフォームアプリケーションを一から作成する（そして以下）：
-    *   [UIをネイティブのままビジネスロジックを共有する](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-create-first-app.html)
-    *   [ビジネスロジックとUIを共有する](https://www.jetbrains.com/help/kotlin-multiplatform-dev/compose-multiplatform-create-first-app.html)
+    *   [UIをネイティブのままビジネスロジックを共有する](https://kotlinlang.org/docs/multiplatform/multiplatform-create-first-app.html)
+    *   [ビジネスロジックとUIを共有する](https://kotlinlang.org/docs/multiplatform/compose-multiplatform-create-first-app.html)

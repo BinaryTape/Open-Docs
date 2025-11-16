@@ -59,7 +59,7 @@ plugins {
 ```groovy
 plugins {
     // <...>をターゲット環境に適したプラグイン名に置き換えてください
-    id 'org.jetbrains.kotlin.<...>' version '%kotlinVersion%'
+    id 'org.jetbrains.kotlin.<...>' version "%kotlinVersion%"
     // たとえば、ターゲット環境がJVMの場合: 
     // id 'org.jetbrains.kotlin.jvm' version "%kotlinVersion%"
     // ターゲットがKotlin Multiplatformの場合:
@@ -100,7 +100,7 @@ Kotlin %kotlinVersion% に更新するには、`pom.xml` ファイルのバー�
 </plugins>
 ```
 
-以前のKotlinバージョンで作成されたプロジェクトがある場合、[kotlinxライブラリのバージョンを更新](maven.md#set-dependencies)する必要があるか確認してください。
+以前のKotlinバージョンで作成されたプロジェクトがある場合、[kotlinxライブラリのバージョンを更新](maven.md#dependency-on-a-kotlinx-library)する必要があるか確認してください。
 
 > プロジェクトでMavenを操作する方法の詳細については、[Maven](maven.md)を参照してください。
 >
@@ -151,7 +151,7 @@ K2モードの詳細については、[こちらのブログ](https://blog.jetbr
     <tr>
         <td><strong>2.2.20</strong>
             <p>リリース日: <strong>2025年9月10日</strong></p>
-            <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.2.20" target="_blank">Release on GitHub</a></p>
+            <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.2.20" target="_blank">GitHubでのリリース</a></p>
         </td>
         <td>
             <p>Kotlin 2.2.0 向けのツールリリースで、ウェブ開発における重要な変更やその他の改善が含まれています。</p>

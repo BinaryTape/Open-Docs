@@ -8,7 +8,7 @@
 </tldr>
 
 在这部分中，你将迁移服务层以使用 [Spring Data](https://docs.spring.io/spring-data/commons/docs/current/api/org/springframework/data/repository/CrudRepository.html) 的 `CrudRepository` 而不是 `JdbcTemplate` 来进行数据库访问。
-_CrudRepository_ 是一个 Spring Data 接口，用于对特定类型的仓库执行通用 [CRUD](https://en.wikipedia.org/wiki/Create,_read,_update_and_delete) 操作。
+_CrudRepository_ 是一个 Spring Data 接口，用于对特定类型的版本库执行通用 [CRUD](https://en.wikipedia.org/wiki/Create,_read,_update_and_delete) 操作。
 它提供了几个开箱即用的方法，用于与数据库交互。
 
 ## 更新你的应用程序
@@ -220,9 +220,6 @@ class MessageController(private val service: MessageService) {
    <img src="get-kotlin-language-map.png" width="700" alt="获取 Kotlin 语言地图" style="block"/>
 </a>
 
-* 了解更多关于[从 Kotlin 代码调用 Java](java-interop.md) 和[从 Java 代码调用 Kotlin](java-to-kotlin-interop.md) 的信息。
-* 了解如何使用 [Java 到 Kotlin 转换器](mixing-java-kotlin-intellij.md#converting-an-existing-java-file-to-kotlin-with-j2k) 将现有 Java 代码转换为 Kotlin。
-* 查看我们的 Java 到 Kotlin 迁移指南： 
-  * [Java 和 Kotlin 中的字符串](java-to-kotlin-idioms-strings.md)。
-  * [Java 和 Kotlin 中的集合](java-to-kotlin-collections-guide.md)。
-  * [Java 和 Kotlin 中的可空性](java-to-kotlin-nullability-guide.md)。
+* 查阅 [Spring Framework](https://docs.spring.io/spring-framework/docs/current/reference/html/languages.html#languages) 文档。
+* 完成[使用 Spring Boot 和 Kotlin 构建 Web 应用程序](https://spring.io/guides/tutorials/spring-boot-kotlin)教程。
+* 在[使用 Kotlin 协程和 RSocket 的 Spring Boot](https://spring.io/guides/tutorials/spring-webflux-kotlin-rsocket/) 教程中创建一个聊天应用程序。

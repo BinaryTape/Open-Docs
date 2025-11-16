@@ -27,7 +27,7 @@ Wasm 是一種基於堆疊虛擬機器的二進位指令格式。這種格式與
 
 ![Kotlin/Wasm 示範](wasm-demo.png){width=700}
 
-此外，您可以在 Kotlin/Wasm 中直接使用最受歡迎的 Kotlin 函式庫。如同在其他 Kotlin 和多平台專案中一樣，您可以在建置指令碼中包含依賴宣告。如需更多資訊，請參閱 [新增多平台函式庫的依賴](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-add-dependencies.html)。
+此外，您可以在 Kotlin/Wasm 中直接使用最受歡迎的 Kotlin 函式庫。如同在其他 Kotlin 和多平台專案中一樣，您可以在建置指令碼中包含依賴宣告。如需更多資訊，請參閱 [新增多平台函式庫的依賴](https://kotlinlang.org/docs/multiplatform/multiplatform-add-dependencies.html)。
 
 您想親自試試看嗎？
 

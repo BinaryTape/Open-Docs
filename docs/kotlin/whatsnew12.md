@@ -25,11 +25,11 @@ _发布日期：2017 年 11 月 28 日_
 在**公共代码**中：
 
 ```kotlin
-// 预期的平台特有 API:
+// expected platform-specific API:
 expect fun hello(world: String): String
 
 fun greet() {
-    // 预期的 API 用法：
+    // usage of the expected API:
     val greeting = hello("multiplatform world")
     println(greeting)
 }
@@ -46,11 +46,11 @@ expect class URL(spec: String) {
 actual fun hello(world: String): String =
     "Hello, $world, on the JVM platform!"
 
-// 使用现有平台特有实现：
+// using existing platform-specific implementation:
 actual typealias URL = java.net.URL
 ```
 
-关于详细信息和**构建**多平台项目的**步骤**，请参见[多平台编程**文档**](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html)。
+关于详细信息和**构建**多平台项目的**步骤**，请参见[多平台编程**文档**](https://kotlinlang.org/docs/multiplatform/get-started.html)。
 
 ## 其他语言特性
 
@@ -75,7 +75,7 @@ public class BookRepositoryImpl {
 class Node<T>(val value: T, val next: () -> Node<T>)
 
 fun main(args: Array<String>) {
-    // 三个节点循环：
+    // A cycle of three nodes:
     lateinit var third: Node<Int>
 
     val second = Node(2, next = { third })
@@ -151,11 +151,11 @@ fun countFirst(s: Any): Int {
 //sampleStart
     val firstChar = (s as? CharSequence)?.firstOrNull()
     if (firstChar != null)
-    return s.count { it == firstChar } // s: Any 被智能类型转换到 CharSequence
+    return s.count { it == firstChar } // s: Any is smart cast to CharSequence
 
     val firstItem = (s as? Iterable<*>)?.firstOrNull()
     if (firstItem != null)
-    return s.count { it == firstItem } // s: Any 被智能类型转换到 Iterable<*>
+    return s.count { it == firstItem } // s: Any is smart cast to Iterable<*>
 //sampleEnd
     return -1
 }
@@ -183,7 +183,7 @@ fun main(args: Array<String>) {
 
     run {
         if (x != null) {
-            println(x.length) // x 被智能类型转换到 String
+            println(x.length) // x is smart cast to String
         }
     }
 //sampleEnd
@@ -237,7 +237,7 @@ Kotlin 标准库现在与 Java 9 **模块系统**完全兼容，后者禁止**�
 
 从 Kotlin 的**角度**来看，新 artifact 中的**声明**在相同的**包名**下可见，但对于 Java 来说**包名**不同。因此，切换到新的 artifact 不会对你的**源代码**造成任何更改。
 
-为了确保与新的**模块系统**兼容而进行的另一个更改是，从 `kotlin-reflect` **库**中移除了 `kotlin.reflect` **包**中已**弃用**的**声明**。如果你一直在使用它们，你需要切换到使用在 `kotlin.reflect.full` **包**中的**声明**，这在 Kotlin 1.1 中已得到支持。
+为了确保与新的**模块系统**兼容而进行的另一个更改是，从 `kotlin-reflect` **库**中移除了 `kotlin.reflect` **包**中已**弃用**的**声明**。如果你一直在使用它们，你需要切换到使用在 `kotlin.reflect.full` **包**中的**声明**，这在 Kotlin 1 1 中已得到支持。
 
 ### windowed, chunked, zipWithNext
 

@@ -466,7 +466,7 @@ Kotlin 팀은 이 옵션을 구현해준 [Ahmed El-Helw](https://github.com/ahme
 
 이는 저희 생태계에 중요한 변화입니다. 더 나은 개선을 위해 여러분의 피드백을 주시면 감사하겠습니다.
 
-프로젝트에서 새로운 메모리 관리자를 사용해보고 [이슈 트래커인 YouTrack](https://youtrack.com/issue/KT-48525)에 피드백을 공유해 주세요.
+프로젝트에서 새로운 메모리 관리자를 사용해보고 [이슈 트래커인 YouTrack](https://youtrack.jetbrains.com/issue/KT-48525)에 피드백을 공유해 주세요.
 
 ### Info.plist 파일 사용자 지정
 
@@ -506,7 +506,7 @@ Kotlin Gradle 플러그인에서 발생하는 사용 중단 경고 수를 줄이
 
 * `org.jetbrains.kotlin.gradle.dsl.SingleTargetExtension`은 이제 제네릭 파라미터인 `SingleTargetExtension<T : KotlinTarget>`를 가집니다.
 * `kotlin.targets.fromPreset()` 컨벤션은 더 이상 사용되지 않습니다. 대신 여전히 `kotlin.targets { fromPreset() }`을 사용할 수 있지만,
-  [명시적으로 타겟을 설정하는 것](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-discover-project.html#targets)을 권장합니다.
+  [명시적으로 타겟을 설정하는 것](https://kotlinlang.org/docs/multiplatform/multiplatform-discover-project.html#targets)을 권장합니다.
 * Gradle에 의해 자동 생성된 타겟 접근자는 더 이상 `kotlin.targets { }` 블록 내에서 사용할 수 없습니다. 대신 `findByName("targetName")`
   메서드를 사용하십시오.
 
@@ -574,7 +574,7 @@ Kotlin 1.7.20은 `java.nio.file.Path` 클래스에 대한 새로운 [확장 함�
 * `visitFileTree(fileVisitor: FileVisitor, ...)`는 준비된 `FileVisitor`를 소비하고 내부적으로 `java.nio.file.Files.walkFileTree()`를 사용합니다.
 * `visitFileTree(..., builderAction: FileVisitorBuilder.() -> Unit)`는 `builderAction`으로 `FileVisitor`를 생성하고
   `visitFileTree(fileVisitor, ...)` 함수를 호출합니다.
-* `FileVisitor`의 반환 타입인 `FileVisitResult`는 파일 처리를 계속하는 `CONTINUE` 기본값을 가집니다.
+* `FileVisitResult`의 반환 타입인 `FileVisitor`는 파일 처리를 계속하는 `CONTINUE` 기본값을 가집니다.
 
 > `java.nio.file.Path`의 새로운 확장 함수는 [실험적](components-stability.md)입니다.
 > 이 함수들은 언제든지 변경될 수 있습니다. 옵트인(`opt-in`)이 필요하며(자세한 내용은 아래 참조), 평가 목적으로만 사용해야 합니다.
@@ -615,7 +615,7 @@ Kotlin 1.7.20은 `java.nio.file.Path` 클래스에 대한 새로운 [확장 함�
   
       onVisitFile { file, attributes ->
           // 파일 방문 시 일부 로직
-          FileVisitResult.CONTINCE
+          FileVisitResult.CONTINUE
       }
   }
   ```
@@ -676,8 +676,8 @@ Kotlin 1.7.20은 `java.nio.file.Path` 클래스에 대한 새로운 [확장 함�
 실험적 API에 대한 일반적인 경우와 같이, 새로운 확장 함수에는 옵트인(`opt-in`)이 필요합니다: `@OptIn(kotlin.io.path.ExperimentalPathApi::class)`
 또는 `@kotlin.io.path.ExperimentalPathApi`. 또는 컴파일러 옵션 `-opt-in=kotlin.io.path.ExperimentalPathApi`를 사용할 수 있습니다.
 
-[YouTrack](https://youtrack.com/issue/KT-52909)의 [`walk()` 함수](https://youtrack.com/issue/KT-52909)와
-[방문 확장 함수](https://youtrack.com/issue/KT-52910)에 대한 피드백을 주시면 감사하겠습니다.
+[YouTrack](https://youtrack.jetbrains.com/issue/KT-52909)의 [`walk()` 함수](https://youtrack.jetbrains.com/issue/KT-52909)와
+[방문 확장 함수](https://youtrack.jetbrains.com/issue/KT-52910)에 대한 피드백을 주시면 감사하겠습니다.
 
 ## 문서 업데이트
 
@@ -685,17 +685,17 @@ Kotlin 1.7.20은 `java.nio.file.Path` 클래스에 대한 새로운 [확장 함�
 
 ### 개편 및 개선된 페이지
 
-* [기본 타입 개요](basic-types.md) – Kotlin에서 사용되는 기본 타입(숫자, 부울, 문자, 문자열, 배열, 부호 없는 정수)에 대해 알아보세요.
+* [기본 타입 개요](types-overview.md) – Kotlin에서 사용되는 기본 타입(숫자, 부울, 문자, 문자열, 배열, 부호 없는 정수)에 대해 알아보세요.
 * [Kotlin 개발용 IDE](kotlin-ide.md) – 공식 Kotlin 지원이 제공되는 IDE 및 커뮤니티 지원 플러그인이 있는 도구 목록을 확인하세요.
 
 ### Kotlin 멀티플랫폼 저널의 새로운 글
 
-* [네이티브 및 크로스 플랫폼 앱 개발: 어떻게 선택할까?](https://www.jetbrains.com/help/kotlin-multiplatform-dev/native-and-cross-platform.html) – 크로스 플랫폼 앱 개발과 네이티브 접근 방식의 개요 및 장점을 확인해 보세요.
-* [최고의 크로스 플랫폼 앱 개발 프레임워크 6가지](https://www.jetbrains.com/help/kotlin-multiplatform-dev/cross-platform-frameworks.html) – 크로스 플랫폼 프로젝트에 적합한 프레임워크를 선택하는 데 도움이 되는 주요 측면에 대해 알아보세요.
+* [네이티브 및 크로스 플랫폼 앱 개발: 어떻게 선택할까?](https://kotlinlang.org/docs/multiplatform/native-and-cross-platform.html) – 크로스 플랫폼 앱 개발과 네이티브 접근 방식의 개요 및 장점을 확인해 보세요.
+* [최고의 크로스 플랫폼 앱 개발 프레임워크 6가지](https://kotlinlang.org/docs/multiplatform/cross-platform-frameworks.html) – 크로스 플랫폼 프로젝트에 적합한 프레임워크를 선택하는 데 도움이 되는 주요 측면에 대해 알아보세요.
 
 ### 새롭고 업데이트된 튜토리얼
 
-* [Kotlin 멀티플랫폼 시작하기](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-create-first-app.html) – Kotlin을 사용한 크로스 플랫폼 모바일 개발에 대해 알아보고 Android 및 iOS에서 모두 작동하는 앱을 만드세요.
+* [Kotlin 멀티플랫폼 시작하기](https://kotlinlang.org/docs/multiplatform/multiplatform-create-first-app.html) – Kotlin을 사용한 크로스 플랫폼 모바일 개발에 대해 알아보고 Android 및 iOS에서 모두 작동하는 앱을 만드세요.
 * [React 및 Kotlin/JS로 웹 애플리케이션 구축](js-react.md) – Kotlin의 DSL과 일반적인 React 프로그램의 기능을 탐색하는 브라우저 앱을 만드세요.
 
 ### 릴리스 문서의 변경 사항

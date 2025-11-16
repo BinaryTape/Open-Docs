@@ -1,4 +1,4 @@
-[//]: # (title: 基本語法)
+[//]: # (title: 基本語法概述)
 
 這是一系列包含範例的基本語法元素。在每個章節的末尾，您都會找到一個指向相關主題詳細描述的連結。
 
@@ -299,7 +299,7 @@ Kotlin 中的區塊註釋可以巢狀：
 
 ```kotlin
 /* The comment starts here
-/* contains a nested comment */     
+/* contains a nested comment *​/  
 and ends here. */
 ```
 

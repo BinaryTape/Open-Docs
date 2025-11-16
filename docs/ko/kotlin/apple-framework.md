@@ -28,7 +28,7 @@ Kotlin 프레임워크를 생성하기 위해 명령줄(command line)을 직접 
 
 ## Kotlin 라이브러리 생성
 
-> 자세한 첫 단계와 새로운 Kotlin/Native 프로젝트를 생성하고 IntelliJ IDEA에서 여는 방법에 대한 지침은 [Kotlin/Native 시작하기](native-get-started.md#using-gradle) 튜토리얼을 참조하십시오.
+> [Kotlin/Native 시작하기](native-get-started.md#using-gradle) 튜토리얼에서 자세한 첫 단계와 새로운 Kotlin/Native 프로젝트를 생성하고 IntelliJ IDEA에서 여는 방법에 대한 지침을 참조하십시오.
 >
 {style="tip"}
 
@@ -311,7 +311,7 @@ Swift와 Objective-C는 자동 참조 카운팅(ARC)을 사용합니다. Kotlin/
 
 Objective-C에서 프레임워크를 호출해 보겠습니다. 프레임워크 디렉터리에 다음 코드를 포함하는 `main.m` 파일을 생성합니다.
 
-```objc
+```objc 
 #import <Foundation/Foundation.h>
 #import <Demo/Demo.h>
 
@@ -371,7 +371,7 @@ let ret = LibKt.acceptFun { "\($0) Kotlin is fun" }
 if (ret != nil) {
     print(ret!)
 }
-```
+``` 
 
 원본 Kotlin 코드와 Swift 버전 사이에는 약간의 차이가 있습니다. Kotlin에서는 모든 객체 선언이 단 하나의 인스턴스를 가집니다. `Object.shared` 구문은 이 단일 인스턴스에 접근하는 데 사용됩니다.
 
@@ -383,7 +383,7 @@ Kotlin 함수 및 프로퍼티 이름은 그대로 번역됩니다. Kotlin의 `S
 
 이제 생성된 프레임워크를 iOS 프로젝트에 의존성으로 연결할 수 있습니다. 이를 설정하고 자동화하는 여러 가지 방법이 있으니, 자신에게 가장 적합한 방법을 선택하십시오.
 
-<a href="https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-ios-integration-overview.html"><img src="choose-ios-integration.svg" width="700" alt="Choose iOS integration method" style="block"/></a>
+<a href="https://kotlinlang.org/docs/multiplatform/multiplatform-ios-integration-overview.html"><img src="choose-ios-integration.svg" width="700" alt="Choose iOS integration method" style="block"/></a>
 
 ## 다음 단계
 

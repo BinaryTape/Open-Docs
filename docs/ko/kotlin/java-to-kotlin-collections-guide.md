@@ -1,14 +1,10 @@
 [//]: # (title: Java 및 Kotlin의 컬렉션)
 
-<web-summary>Java 컬렉션에서 Kotlin 컬렉션으로 마이그레이션하는 방법을 알아보세요. 이 가이드에서는 Kotlin 및 Java List, ArrayList, Map, Set 등과 같은 데이터 구조를 다룹니다.</web-summary>
+<web-summary>Java 컬렉션에서 Kotlin 컬렉션으로 마이그레이션하는 방법을 알아보세요. 이 가이드에서는 Kotlin 및 Java의 List, ArrayList, Map, Set과 같은 데이터 구조를 다룹니다.</web-summary>
 
-_컬렉션_은 해결하려는 문제에 중요하고 일반적으로 조작되는 가변 개수(0개일 수도 있음)의 항목 그룹입니다.
-이 가이드에서는 Java 및 Kotlin의 컬렉션 개념과 연산을 설명하고 비교합니다.
-이를 통해 Java에서 Kotlin으로 마이그레이션하고 코드를 진정한 Kotlin 방식으로 작성하는 데 도움이 될 것입니다.
+_컬렉션_은 해결하려는 문제에 중요하며 일반적으로 조작되는 가변 개수(0개일 수도 있음)의 항목 그룹입니다. 이 가이드는 Java 및 Kotlin의 컬렉션 개념과 연산을 설명하고 비교합니다. 이를 통해 Java에서 Kotlin으로 마이그레이션하고 코드를 진정한 Kotlin 방식으로 작성하는 데 도움이 될 것입니다.
 
-이 가이드의 첫 번째 부분에는 Java 및 Kotlin에서 동일한 컬렉션에 대한 연산의 간략한 용어집이 포함되어 있습니다.
-[Java 및 Kotlin에서 동일한 연산](#operations-that-are-the-same-in-java-and-kotlin)과 [Java 표준 라이브러리에는 없는 연산](#operations-that-don-t-exist-in-java-s-standard-library)으로 나뉩니다.
-가이드의 두 번째 부분은 [가변성](#mutability)부터 시작하여 특정 사례를 통해 몇 가지 차이점을 설명합니다.
+이 가이드의 첫 번째 부분에는 Java 및 Kotlin에서 동일한 컬렉션에 대한 연산의 간략한 용어집이 포함되어 있습니다. 이는 [동일한 연산](#operations-that-are-the-same-in-java-and-kotlin)과 [Kotlin에만 있는 연산](#operations-that-don-t-exist-in-java-s-standard-library)으로 나뉩니다. [가변성](#mutability)부터 시작하는 가이드의 두 번째 부분은 특정 사례를 통해 몇 가지 차이점을 설명합니다.
 
 컬렉션 소개는 [컬렉션 개요](collections-overview.md)를 참조하거나 Kotlin 개발자 옹호자인 Sebastian Aigner의 [비디오](https://www.youtube.com/watch?v=F8jj7e-_jFA)를 시청하세요.
 
@@ -44,7 +40,7 @@ Kotlin에는 Java의 해당 연산과 동일하게 보이는 컬렉션 연산이
 | 맵이 비어 있는지 확인 | `isEmpty()` | [`isNotEmpty()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/is-not-empty.html)를 사용하여 맵이 비어 있지 않은지 확인합니다. |
 | 요소 제거 | `remove(key)`, `remove(key, value)` | [`minusAssign`(`-=`) 연산자](collection-plus-minus.md)를 사용합니다: `map -= key`. |
 | 맵에서 모든 요소 제거 | `clear()` | |
-| 맵에서 스트림 가져오기 | 엔트리, 키 또는 값에 대한 stream() | |
+| 맵에서 스트림 가져오기 | 엔트리, 키 또는 값에 대한 `stream()` | |
 
 ### 리스트에만 있는 연산
 
@@ -686,7 +682,7 @@ fun main() {
 
 *   [Kotlin Koans](koans.md)를 방문하세요 – Kotlin 구문을 배우기 위한 연습을 완료하세요. 각 연습은 실패하는 단위 테스트로 생성되며, 이를 통과시키는 것이 여러분의 임무입니다.
 *   다른 [Kotlin 관용구](idioms.md)를 살펴보세요.
-*   [Java-Kotlin 변환기](mixing-java-kotlin-intellij.md#converting-an-existing-java-file-to-kotlin-with-j2k)를 사용하여 기존 Java 코드를 Kotlin으로 변환하는 방법을 알아보세요.
+*   [Java-Kotlin 변환기](mixing-java-kotlin-intellij.md#convert-java-files-to-kotlin)를 사용하여 기존 Java 코드를 Kotlin으로 변환하는 방법을 알아보세요.
 *   [Kotlin의 컬렉션](collections-overview.md)을 알아보세요.
 
 마음에 드는 관용구가 있다면, 풀 리퀘스트를 보내 공유해 주세요.

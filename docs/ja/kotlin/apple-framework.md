@@ -374,7 +374,7 @@ Kotlinの関数名とプロパティ名はそのまま翻訳されます。Kotli
 
 これで、生成されたフレームワークをiOSプロジェクトに依存関係として接続できます。設定とプロセスを自動化する方法は複数ありますので、最適な方法を選択してください。
 
-<a href="https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-ios-integration-overview.html"><img src="choose-ios-integration.svg" width="700" alt="Choose iOS integration method" style="block"/></a>
+<a href="https://kotlinlang.org/docs/multiplatform/multiplatform-ios-integration-overview.html"><img src="choose-ios-integration.svg" width="700" alt="Choose iOS integration method" style="block"/></a>
 
 ## 次のステップ
 

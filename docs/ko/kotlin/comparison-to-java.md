@@ -15,7 +15,7 @@
 ## 자바에 있지만 코틀린에 없는 기능
 
 *   [검사 예외](exceptions.md)
-*   클래스가 아닌 [원시 타입](basic-types.md). 바이트코드는 가능한 경우 원시 타입을 사용하지만, 명시적으로 사용할 수는 없습니다.
+*   클래스가 아닌 [원시 타입](types-overview.md). 바이트코드는 가능한 경우 원시 타입을 사용하지만, 명시적으로 사용할 수는 없습니다.
 *   [정적 멤버](classes.md)는 [동반 객체](object-declarations.md#companion-objects), [최상위 함수](functions.md), [확장 함수](extensions.md#extension-functions) 또는 [`@JvmStatic`](java-to-kotlin-interop.md#static-methods)로 대체됩니다.
 *   [와일드카드 타입](generics.md)은 [선언-지점 변성](generics.md#declaration-site-variance) 및 [타입 프로젝션](generics.md#type-projections)으로 대체됩니다.
 *   [삼항 연산자 `a ? b : c`](control-flow.md#if-expression)는 [if 표현식](control-flow.md#if-expression)으로 대체됩니다.
@@ -33,7 +33,7 @@
 *   [프로퍼티](properties.md)
 *   [주 생성자](classes.md)
 *   [일급 위임](delegation.md)
-*   [변수 및 프로퍼티 타입 추론](basic-types.md) (**Java 10**: [Local-Variable Type Inference](https://openjdk.org/jeps/286))
+*   [변수 및 프로퍼티 타입 추론](types-overview.md) (**Java 10**: [Local-Variable Type Inference](https://openjdk.org/jeps/286))
 *   [싱글톤](object-declarations.md)
 *   [선언-지점 변성 및 타입 프로젝션](generics.md)
 *   [범위 표현식](ranges.md)
@@ -45,7 +45,7 @@
 *   [기본값이 있는 파라미터](functions.md#parameters-with-default-values)
 *   [이름이 있는 파라미터](functions.md#named-arguments)
 *   [중위 함수](functions.md#infix-notation)
-*   [expect 및 actual 선언](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-expect-actual.html)
+*   [expect 및 actual 선언](https://kotlinlang.org/docs/multiplatform/multiplatform-expect-actual.html)
 *   [명시적 API 모드](whatsnew14.md#explicit-api-mode-for-library-authors) 및 [API 표면에 대한 더 나은 제어](opt-in-requirements.md)
 
 ## 다음 단계는?

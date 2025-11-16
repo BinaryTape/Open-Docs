@@ -349,7 +349,7 @@ fun main(input: Rho) {
 
 以前，Kotlin 編譯器的設計使其無法在編譯時將共同原始碼集和平台原始碼集分離。因此，共同程式碼可以存取平台程式碼，這導致了平台之間的行為差異。此外，一些編譯器設定和來自共同程式碼的依賴項過去會洩漏到平台程式碼中。
 
-在 Kotlin 2.0.0 中，我們在新的 Kotlin K2 編譯器實作中重新設計了編譯方案，以確保共同原始碼集和平台原始碼集之間嚴格分離。當您使用 [期望和實際函式](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-expect-actual.html#expected-and-actual-functions) 時，此變更最為顯著。以前，在您的共同程式碼中呼叫函式可能會解析為平台程式碼中的函式。例如：
+在 Kotlin 2.0.0 中，我們在新的 Kotlin K2 編譯器實作中重新設計了編譯方案，以確保共同原始碼集和平台原始碼集之間嚴格分離。當您使用 [期望和實際函式](https://kotlinlang.org/docs/multiplatform/multiplatform-expect-actual.html#expected-and-actual-functions) 時，此變更最為顯著。以前，在您的共同程式碼中呼叫函式可能會解析為平台程式碼中的函式。例如：
 
 <table>
    <tr>
@@ -389,7 +389,7 @@ fun foo(x: Int) = println("platform foo")
 
 在 Kotlin 2.0.0 中，共同程式碼無法存取平台程式碼，因此兩個平台都成功將 `foo()` 函式解析為共同程式碼中的 `foo()` 函式：`common foo`。
 
-除了提高跨平台行為的一致性之外，我們還努力修復了 IntelliJ IDEA 或 Android Studio 與編譯器之間行為衝突的情況。例如，當您使用 [期望和實際類別](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-expect-actual.html#expected-and-actual-classes) 時，會發生以下情況：
+除了提高跨平台行為的一致性之外，我們還努力修復了 IntelliJ IDEA 或 Android Studio 與編譯器之間行為衝突的情況。例如，當您使用 [期望和實際類別](https://kotlinlang.org/docs/multiplatform/multiplatform-expect-actual.html#expected-and-actual-classes) 時，會發生以下情況：
 
 <table>
    <tr>
@@ -484,7 +484,7 @@ fun whichFun(x: Int) = println("platform function")
 
 #### 期望和實際宣告的不同可見性級別
 
-在 Kotlin 2.0.0 之前，如果您在 Kotlin 多平台專案中使用 [期望和實際宣告](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-expect-actual.html)，它們必須具有相同的 [可見性級別](visibility-modifiers.md)。
+在 Kotlin 2.0.0 之前，如果您在 Kotlin 多平台專案中使用 [期望和實際宣告](https://kotlinlang.org/docs/multiplatform/multiplatform-expect-actual.html)，它們必須具有相同的 [可見性級別](visibility-modifiers.md)。
 Kotlin 2.0.0 現在也支援不同的可見性級別，但 **僅限於** 實際宣告比期望宣告 _更寬鬆_ 的情況。例如：
 
 ```kotlin
@@ -591,7 +591,7 @@ Kotlin Playground 支援 2.0.0 版本。 [查看！](https://pl.kotl.in/czuoQprc
 在您的 IDE 中，前往 **設定** | **語言與框架** | **Kotlin**，然後選擇 **啟用 K2 模式** 選項。
 IDE 將使用其 K2 模式分析您的程式碼。
 
-![啟用 K2 模式](k2-mode.png){width=200}
+![Enable K2 mode](k2-mode.png){width=200}
 
 啟用 K2 模式後，由於編譯器行為的變更，您可能會注意到 IDE 分析的差異。在我們的 [遷移指南](k2-compiler-migration-guide.md) 中了解新 K2 編譯器與舊編譯器的差異。
 
@@ -695,7 +695,7 @@ Objective-C 方法可以有不同的名稱，但參數的數量和類型相同�
 
 以前，Kotlin/Native 編譯器會隱式解析標準函式庫和平台依賴項，這導致 Kotlin Gradle 外掛程式在 Kotlin 目標之間的工作方式不一致。
 
-現在，每個 Kotlin/Native Gradle 編譯都透過 `compileDependencyFiles` [編譯參數](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-dsl-reference.html#compilation-parameters)
+現在，每個 Kotlin/Native Gradle 編譯都透過 `compileDependencyFiles` [編譯參數](https://kotlinlang.org/docs/multiplatform/multiplatform-dsl-reference.html#compilation-parameters)
 明確地將標準函式庫和平台依賴項包含在其編譯時函式庫路徑中。
 
 ### Gradle 配置快取中的任務錯誤
@@ -721,7 +721,7 @@ Kotlin 2.0.0 提高了與 JavaScript 的效能和互通性：
 *   [Kotlin/Wasm 中 TypeScript 宣告檔案的生成](#generation-of-typescript-declaration-files-in-kotlin-wasm)
 *   [支援捕獲 JavaScript 例外](#support-for-catching-javascript-exceptions)
 *   [新的例外處理提案現已作為選項支援](#new-exception-handling-proposal-is-now-supported-as-an-option)
-*   [`withWasm()` 函式已分為 JS 和 WASI 變體](#the-withwasm-function-is-split-into-js-and-wasi-variants)
+*   [`withWasm()` 函式已分為 JS 和 WASI 變體](#the-withwasm-functionis-split-into-js-and-wasi-variants)
 
 ### 預設使用 Binaryen 優化生產建置
 
@@ -1154,7 +1154,7 @@ Jetpack Compose 編譯器（將可組合項轉換為 Kotlin 程式碼）現已�
 
 要在您的專案中使用新的 Compose 編譯器，請在您的 `build.gradle(.kts)` 檔案中套用 `org.jetbrains.kotlin.plugin.compose` Gradle 外掛程式，並將其版本設定為等於 Kotlin 2.0.0。
 
-要了解有關此變更的更多資訊並查看遷移說明，請參閱 [Compose 編譯器](https://www.jetbrains.com/help/kotlin-multiplatform-dev/compose-compiler.html) 文件。
+要了解有關此變更的更多資訊並查看遷移說明，請參閱 [Compose 編譯器](https://kotlinlang.org/docs/multiplatform/compose-compiler.html) 文件。
 
 ### 區分 JVM 和 Android 發佈函式庫的新屬性
 
@@ -1408,6 +1408,68 @@ kotlin.native.distribution.downloadFromMaven=false
 
 要了解有關如何啟用建置報告及其內容的更多資訊，請參閱 [建置報告](gradle-compilation-and-caches.md#build-reports)。
 
+### 建置報告的新 JSON 輸出格式
+
+在 Kotlin 1.7.0 中，我們引入了建置報告以幫助追蹤編譯器效能。隨著時間的推移，我們添加了更多指標，使這些報告在調查效能問題時更加詳細和有用。以前，本地檔案唯一的輸出格式是 `*.txt` 格式。在 Kotlin 2.0.0 中，我們支援 JSON 輸出格式，以使其更容易使用其他工具進行分析。
+
+要為您的建置報告配置 JSON 輸出格式，請在您的 `gradle.properties` 檔案中宣告以下屬性：
+
+```none
+kotlin.build.report.output=json
+
+// The directory to store your build reports
+kotlin.build.report.json.directory=my/directory/path
+```
+
+或者，您可以執行以下命令：
+
+```shell
+./gradlew assemble -Pkotlin.build.report.output=json -Pkotlin.build.report.json.directory="my/directory/path"
+``` 
+
+配置後，Gradle 會在您指定的目錄中生成您的建置報告，名稱為：
+`${project_name}-date-time-<sequence_number>.json`。
+
+以下是帶有 JSON 輸出格式的建置報告範例片段，其中包含建置指標和彙總指標：
+
+```json
+"buildOperationRecord": [
+    {
+     "path": ":lib:compileKotlin",
+      "classFqName": "org.jetbrains.kotlin.gradle.tasks.KotlinCompile_Decorated",
+      "startTimeMs": 1714730820601,
+      "totalTimeMs": 2724,
+      "buildMetrics": {
+        "buildTimes": {
+          "buildTimesNs": {
+            "CLEAR_OUTPUT": 713417,
+            "SHRINK_AND_SAVE_CURRENT_CLASSPATH_SNAPSHOT_AFTER_COMPILATION": 19699333,
+            "IR_TRANSLATION": 281000000,
+            "NON_INCREMENTAL_LOAD_CURRENT_CLASSPATH_SNAPSHOT": 14088042,
+            "CALCULATE_OUTPUT_SIZE": 1301500,
+            "GRADLE_TASK": 2724000000,
+            "COMPILER_INITIALIZATION": 263000000,
+            "IR_GENERATION": 74000000,
+...
+          }
+        }
+...
+ "aggregatedMetrics": {
+    "buildTimes": {
+      "buildTimesNs": {
+        "CLEAR_OUTPUT": 782667,
+        "SHRINK_AND_SAVE_CURRENT_CLASSPATH_SNAPSHOT_AFTER_COMPILATION": 22031833,
+        "IR_TRANSLATION": 333000000,
+        "NON_INCREMENTAL_LOAD_CURRENT_CLASSPATH_SNAPSHOT": 14890292,
+        "CALCULATE_OUTPUT_SIZE": 2370750,
+        "GRADLE_TASK": 3234000000,
+        "COMPILER_INITIALIZATION": 292000000,
+        "IR_GENERATION": 89000000,
+...
+      }
+    }
+```
+
 ### kapt 配置繼承超級配置中的註解處理器
 
 在 Kotlin 2.0.0 之前，如果您想在單獨的 Gradle 配置中定義一組共同的註解處理器，並在您的子專案的 kapt 特定配置中擴充此配置，kapt 將跳過註解處理，因為它找不到任何註解處理器。在 Kotlin 2.0.0 中，kapt 可以成功檢測到您的註解處理器存在間接依賴項。
@@ -1442,7 +1504,7 @@ Gradle 配置對 Dagger 註解處理器存在依賴項。因此，kapt 將 Dagge
 *   [穩定的 AutoCloseable 介面](#stable-autocloseable-interface)
 *   [共同保護屬性 AbstractMutableList.modCount](#common-protected-property-abstractmutablelist-modcount)
 *   [共同保護函式 AbstractMutableList.removeRange](#common-protected-function-abstractmutablelist-removerange)
-*   [共同 String.toCharArray(destination)](#common-string-tochararray-destination-function)
+*   [共同 String.toCharArray(destination) 函式](#common-string-tochararray-destination-function)
 
 ### enum 類別值泛型函式的穩定取代
 

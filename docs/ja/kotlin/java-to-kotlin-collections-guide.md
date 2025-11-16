@@ -54,7 +54,7 @@ Kotlinには、Javaでの同等の操作とまったく同じように見える�
 | 要素の最後のインデックスを取得する | `lastIndexOf()` | |
 | 要素を取得する | `get()` | インデックス演算子を使用して要素を取得します: `list[index]`。 |
 | サブリストを取得する | `subList()` | |
-| 要素または要素群を置換する | `set()`, `replaceAll()` | `set()`の代わりにインデックス演算子を使用します: `list[index] = value`。 |
+| 要素または要素群を置換する | `set()`,  `replaceAll()` | `set()`の代わりにインデックス演算子を使用します: `list[index] = value`。 |
 
 ## 少し異なる操作
 
@@ -106,7 +106,7 @@ Javaには、可変（mutable）コレクションがあります。
 
 ```java
 // Java
-// This list is mutable!
+// このリストは可変です！
 public List<Customer> getCustomers() { ... }
 ```
 {id="mutability-java"}
@@ -116,7 +116,7 @@ public List<Customer> getCustomers() { ... }
 ```java
 // Java
 List<String> numbers = Arrays.asList("one", "two", "three", "four");
-numbers.add("five"); // Fails in runtime with `UnsupportedOperationException`
+numbers.add("five"); // 実行時に `UnsupportedOperationException` で失敗します
 ```
 {id="mutability-partly-java"}
 
@@ -125,9 +125,9 @@ numbers.add("five"); // Fails in runtime with `UnsupportedOperationException`
 ```java
 // Java
 List<String> numbers = new LinkedList<>();
-// This list is immutable!
+// このリストは不変です！
 List<String> immutableCollection = Collections.unmodifiableList(numbers);
-immutableCollection.add("five"); // Fails in runtime with `UnsupportedOperationException`
+immutableCollection.add("five"); // 実行時に `UnsupportedOperationException` で失敗します
 ```
 {id="immutable-java"}
 
@@ -140,9 +140,9 @@ Javaとは異なり、Kotlinでは必要に応じて可変または読み取り�
 ```kotlin
 // Kotlin
 val numbers = mutableListOf("one", "two", "three", "four")
-numbers.add("five")            // This is OK
+numbers.add("five")            // これはOKです
 val immutableNumbers = listOf("one", "two")
-//immutableNumbers.add("five") // Compilation error - Unresolved reference: add
+//immutableNumbers.add("five") // コンパイルエラー - 未解決の参照: add
 ```
 {id="mutability-kotlin"}
 
@@ -161,8 +161,7 @@ class Shape {}
 class Rectangle extends Shape {}
 
 public void doSthWithShapes(List<? extends Shape> shapes) {
-/* If using just List<Shape>, the code won't compile when calling
-this function with the List<Rectangle> as the argument as below */
+/* List<Shape>をそのまま使用した場合、以下の引数としてList<Rectangle>でこの関数を呼び出すとコードはコンパイルされません */
 }
 
 public void main() {
@@ -365,7 +364,7 @@ public void remove() {
     numbers.add(2);
     numbers.add(3);
     numbers.add(1);
-    numbers.remove(1); // This removes by index
+    numbers.remove(1); // これはインデックスによる削除です
     System.out.println(numbers); // [1, 3, 1]
     numbers.remove(Integer.valueOf(1));
     System.out.println(numbers); // [3, 1]
@@ -705,7 +704,7 @@ fun main() {
 
 * [Kotlin Koans](koans.md)にアクセスして、Kotlin構文を学ぶための演習を完了しましょう。各演習は失敗するユニットテストとして作成されており、それをパスさせることがあなたの仕事です。
 * 他の[Kotlinイディオム](idioms.md)を確認してください。
-* [Java to Kotlinコンバーター](mixing-java-kotlin-intellij.md#converting-an-existing-java-file-to-kotlin-with-j2k)を使用して、既存のJavaコードをKotlinに変換する方法を学びましょう。
+* [Java to Kotlinコンバーター](mixing-java-kotlin-intellij.md#convert-java-files-to-kotlin)を使用して、既存のJavaコードをKotlinに変換する方法を学びましょう。
 * [Kotlinのコレクション](collections-overview.md)を発見してください。
 
 お気に入りのイディオムがあれば、プルリクエストを送ってぜひ共有してください。

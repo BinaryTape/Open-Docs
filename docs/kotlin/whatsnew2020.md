@@ -172,7 +172,7 @@ Kotlin 2.0.20 改进了多平台项目中的源代码集管理，并由于 Gradl
 
 ### 默认目标层级结构中源代码集的静态访问器
 
-自 Kotlin 1.9.20 起，[默认层级结构模板](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-hierarchy.html#default-hierarchy-template)
+自 Kotlin 1.9.20 起，[默认层级结构模板](https://kotlinlang.org/docs/multiplatform/multiplatform-hierarchy.html#default-hierarchy-template)
 会自动应用于所有 Kotlin Multiplatform 项目。
 对于默认层级结构模板中的所有源代码集，Kotlin Gradle 插件提供了类型安全的访问器。
 这样，您最终可以访问所有指定目标的源代码集，而无需使用 `by getting` 或 `by creating` 构造。
@@ -207,7 +207,7 @@ kotlin {
 
 ![Accessing the source sets by name](accessing-sourse-sets.png){width=700}
 
-关于 [Kotlin Multiplatform 中的层级项目结构](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-hierarchy.html) 请了解更多信息。
+关于 [Kotlin Multiplatform 中的层级项目结构](https://kotlinlang.org/docs/multiplatform/multiplatform-hierarchy.html) 请了解更多信息。
 
 ### 弃用 Kotlin Multiplatform Gradle 插件与 Gradle Java 插件的兼容性
 
@@ -566,7 +566,7 @@ kotlin.jvm.addClassesVariant=true
 {style="note"}
 
 我们非常感谢您对此新方法的反馈。您在使用它时是否注意到任何性能改进？
-请在 [YouTrack](https://youtrack.jetbrains.com/issue/KT-61861/Gradle-Kotlin-compilations-depend-on-packed-artifacts) 中添加评论，让我们知道。
+请在 [YouTrack](https://youtrack.com/issue/KT-61861/Gradle-Kotlin-compilations-depend-on-packed-artifacts) 中添加评论，让我们知道。
 
 ### Kotlin Gradle 插件与 java-test-fixtures 插件的依赖行为对齐
 
@@ -783,7 +783,7 @@ UUID 在生成唯一标识符困难的环境中也很有用。
 
 * 为数据库记录分配唯一 ID。
 * 生成 Web 会话标识符。
-* 任何需要唯一标识或跟踪的场景。
+* 任何需要唯一识别或跟踪的场景。
 
 ### HexFormat 中对 minLength 的支持
 
@@ -892,7 +892,7 @@ Kotlin 文档收到了一些值得注意的更改：
 * 改进的 [异常页面](exceptions.md) - 了解异常以及如何抛出和捕获它们。
 * 改进的 [在 JVM 中使用 JUnit 测试代码 - 教程](jvm-test-using-junit.md) - 了解如何使用 JUnit 创建测试。
 * 改进的 [与 Swift/Objective-C 互操作页面](native-objc-interop.md) - 了解如何在 Swift/Objective-C 代码中使用 Kotlin 声明以及如何在 Kotlin 代码中使用 Objective-C 声明。
-* 改进的 [Swift 包导出设置页面](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-spm-export.html) - 了解如何设置可由 Swift 包管理器依赖项使用的 Kotlin/Native 输出。
+* 改进的 [Swift 包导出设置页面](https://kotlinlang.org/docs/multiplatform/multiplatform-spm-export.html) - 了解如何设置可由 Swift 包管理器依赖项使用的 Kotlin/Native 输出。
 
 ## 安装 Kotlin 2.0.20
 

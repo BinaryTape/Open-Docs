@@ -19,7 +19,7 @@ Kotlin/JS ウェブアプリケーションを作成するには、
 ### 環境をセットアップする
 
 1.  [IntelliJ IDEA](https://www.jetbrains.com/idea/) の最新バージョンをダウンロードしてインストールします。
-2.  [Kotlin Multiplatform 開発用に環境をセットアップ](https://www.jetbrains.com/help/kotlin-multiplatform-dev/quickstart.html#set-up-the-environment)します。
+2.  [Kotlin Multiplatform 開発用に環境をセットアップ](https://kotlinlang.org/docs/multiplatform/quickstart.html#set-up-the-environment)します。
 
 ### プロジェクトを作成する
 
@@ -52,7 +52,7 @@ Kotlin/JS ウェブアプリケーションを作成するには、
    または、Gradle ツールウィンドウの更新ボタンをクリックします。
 
 マルチプラットフォームプロジェクトの Gradle 設定に関する詳細については、
-[Multiplatform Gradle DSL リファレンス](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-dsl-reference.html)を参照してください。
+[Multiplatform Gradle DSL リファレンス](https://kotlinlang.org/docs/multiplatform/multiplatform-dsl-reference.html)を参照してください。
 
 ### アプリケーションをビルドして実行する
 
@@ -141,7 +141,7 @@ Gradle はプロジェクトのインクリメンタルビルドを自動的に�
 1.  `appendInput()`関数内にリスナーを追加して、入力値を読み取り、変更に反応するようにします。
 
     ```kotlin
-    // Replace the current appendInput() function
+   // Replace the current appendInput() function
     fun Element.appendInput(onChange: (String) -> Unit = {}) {
         val input = document.createElement("input").apply {
             addEventListener("change") { event ->
@@ -163,7 +163,7 @@ Gradle はプロジェクトのインクリメンタルビルドを自動的に�
         // Replace document.body?.appendInput()
         document.body?.appendInput(onChange = { println(it) })
     }
-    ```
+   ```
 
 #### 出力要素を追加する
 
@@ -214,7 +214,7 @@ fun main() {
 *   [`replace()`関数](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/replace.html)は、名前内の空のスペースを削除します。
 *   [`let{}`スコープ関数](scope-functions.md#let)は、オブジェクトコンテキスト内で関数を実行します。
 *   [文字列テンプレート](strings.md#string-templates) (`${it.length}`) は、ドル記号（`$`）を前に付け、波括弧（`{}`）で囲むことにより、単語の長さを文字列に挿入します。
-    一方、`it`は[ラムダパラメーター](coding-conventions.md#lambda-parameters)のデフォルト名です。
+一方、`it`は[ラムダパラメーター](coding-conventions.md#lambda-parameters)のデフォルト名です。
 
 #### アプリケーションを実行する
 
@@ -416,5 +416,5 @@ IntelliJ IDEAは、それがKotlin/JSプロジェクトであるかどうかを�
 *   [Kotlin/JS プロジェクトをセットアップする](js-project-setup.md)。
 *   [Kotlin/JS アプリケーションをデバッグする方法](js-debugging.md)を学ぶ。
 *   [Kotlin/JS でテストを作成および実行する方法](js-running-tests.md)を学ぶ。
-*   [実際の Kotlin/JS プロジェクト用の Gradle ビルドスクリプトを作成する方法](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-dsl-reference.html)を学ぶ。
+*   [実際の Kotlin/JS プロジェクト用の Gradle ビルドスクリプトを作成する方法](https://kotlinlang.org/docs/multiplatform/multiplatform-dsl-reference.html)を学ぶ。
 *   [Gradle ビルドシステム](gradle.md)に関する詳細を読む。

@@ -22,7 +22,7 @@ Objective-Cのフレームワークとライブラリは、ビルドに適切に
 詳細については、以下を参照してください：
 
 *   [ライブラリ定義ファイルの作成と設定](native-definition-file.md)
-*   [ネイティブライブラリのコンパイル設定](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-configure-compilations.html#configure-interop-with-native-languages)
+*   [ネイティブライブラリのコンパイル設定](https://kotlinlang.org/docs/multiplatform/multiplatform-configure-compilations.html#configure-interop-with-native-languages)
 
 Swiftライブラリは、そのAPIが`@objc`でObjective-Cにエクスポートされていれば、Kotlinコードで使用できます。
 純粋なSwiftモジュールはまだサポートされていません。
@@ -31,7 +31,7 @@ Swiftライブラリは、そのAPIが`@objc`でObjective-Cにエクスポート
 
 Kotlinモジュールは、フレームワークにコンパイルされていれば、Swift/Objective-Cコードで使用できます。
 
-*   バイナリの宣言方法については、[最終的なネイティブバイナリのビルド](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-build-native-binaries.html#declare-binaries)を参照してください。
+*   バイナリの宣言方法については、[最終的なネイティブバイナリのビルド](https://kotlinlang.org/docs/multiplatform/multiplatform-build-native-binaries.html#declare-binaries)を参照してください。
 *   例については、[Kotlin Multiplatformサンプルプロジェクト](https://github.com/Kotlin/kmm-basic-sample)を確認してください。
 
 ### Objective-CとSwiftからKotlin宣言を隠す

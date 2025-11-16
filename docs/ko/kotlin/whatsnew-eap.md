@@ -1,5 +1,7 @@
 `[//]: # (title: Kotlin %kotlinEapVersion%의 새로운 기능)`
 
+<primary-label ref="eap"/>
+
 _[릴리스 날짜: %kotlinEapReleaseDate%](eap.md#build-details)_
 
 > 이 문서는 얼리 액세스 프리뷰(EAP) 릴리스의 모든 기능을 다루지는 않지만,

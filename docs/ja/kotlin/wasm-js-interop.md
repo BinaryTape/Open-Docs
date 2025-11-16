@@ -6,7 +6,7 @@ Kotlin/Wasmでは、KotlinからJavaScriptコードを、またJavaScriptからK
 
 [Kotlin/JS](js-overview.md)と同様に、Kotlin/WasmコンパイラもJavaScriptとの相互運用性を持っています。Kotlin/JSの相互運用性に精通している場合、Kotlin/Wasmの相互運用性も似ていることに気づくでしょう。ただし、考慮すべき重要な違いがいくつかあります。
 
-> Kotlin/Wasmは[アルファ版](components-stability.md)です。これはいつでも変更される可能性があります。本番環境前のシナリオでご使用ください。フィードバックは[YouTrack](https://youtrack.jetbrains.com/issue/KT-56492)にて歓迎いたします。
+> Kotlin/Wasmは[ベータ版](components-stability.md)です。これはいつでも変更される可能性があります。本番環境前のシナリオでご使用ください。フィードバックは[YouTrack](https://youtrack.jetbrains.com/issue/KT-56492)にて歓迎いたします。
 >
 {style="note"}
 
@@ -468,7 +468,7 @@ Kotlin/Wasmの相互運用性はKotlin/JSの相互運用性と類似点があり
 
 ## Web関連のブラウザAPI
 
-[`kotlinx-browser`ライブラリ](https://github.com/kotlin/kotlinx-browser)は、JavaScriptブラウザAPIを提供するスタンドアロンライブラリです。これには以下が含まれます。
+[`kotlinx-browser`ライブラリ](https://github.com/Kotlin/kotlinx-browser)は、JavaScriptブラウザAPIを提供するスタンドアロンライブラリです。これには以下が含まれます。
 *   パッケージ`org.khronos.webgl`：
     *   `Int8Array`のような型付き配列。
     *   WebGL型。

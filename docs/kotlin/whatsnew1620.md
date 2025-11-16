@@ -31,19 +31,19 @@ Kotlin 1.6.20 揭示了未来语言特性的抢先体验预览，将分层结构
 
 ```kotlin
 interface LoggingContext {
-    val log: Logger // This context provides a reference to a logger 
+    val log: Logger // 此上下文提供对日志记录器的引用 
 }
 
 context(LoggingContext)
 fun startBusinessOperation() {
-    // You can access the log property since LoggingContext is an implicit receiver
+    // 您可以访问 log 属性，因为 LoggingContext 是一个隐式接收者
     log.info("Operation has started")
 }
 
 fun test(loggingContext: LoggingContext) {
     with(loggingContext) {
-        // You need to have LoggingContext in a scope as an implicit receiver
-        // to call startBusinessOperation()
+        // 您需要在作用域中拥有 LoggingContext 作为隐式接收者
+        // 才能调用 startBusinessOperation()
         startBusinessOperation()
     }
 }
@@ -602,16 +602,16 @@ val a = run {
     val result = // intensive computations
         println(result)
     result
-} // run is executed upon the first usage of the variable
+} // run 在变量首次使用时执行
 ```
 
 如果由于某种原因您需要在应用程序启动时急切初始化属性，请使用 [`@EagerInitialization`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.native/-eager-initialization/) 注解标记它。
 
 ### IR 编译器默认项目模块独立 JS 文件
 
-以前，JS IR 编译器提供了[生成独立 `.js` 文件](https://youtrack.jetbrains.com/issue/KT-44319)的能力，用于项目模块。
+以前，JS IR 编译器提供了[生成独立 `.js` 文件]( https://youtrack.jetbrains.com/issue/KT-44319)的能力，用于项目模块。
 这是默认选项——整个项目的单个 `.js` 文件——的替代方案。
-这个文件可能太大且不方便使用，因为每当您想使用项目中的函数时，都必须将整个 JS 文件作为依赖项包含在内。
+这个文件可能太大且不方便使用，因为 whenever 您想使用项目中的函数时，都必须将整个 JS 文件作为依赖项包含在内。
 拥有多个文件增加了灵活性并减小了此类依赖项的大小。此特性可与 `-Xir-per-module` 编译器选项一起使用。
 
 从 1.6.20 开始，JS IR 编译器默认为项目模块生成独立的 `.js` 文件。
@@ -665,7 +665,7 @@ Kotlin 1.6.20 引入了一些特性来提高您的代码安全性：
 
 ```kotlin
 tasks.withType(org.jetbrains.kotlin.gradle.dsl.KotlinCompile::class).configureEach {
-    // $base is a base path of source files
+    // $base 是源文件的基本路径
     kotlinOptions.freeCompilerArgs += "-Xklib-relative-path-base=$base"
 }
 ```
@@ -676,11 +676,11 @@ tasks.withType(org.jetbrains.kotlin.gradle.dsl.KotlinCompile::class).configureEa
 ```groovy
 tasks.withType(org.jetbrains.kotlin.gradle.dsl.KotlinCompile).configureEach {
     kotlinOptions {
-        // $base is a base path of source files
+        // $base 是源文件的基本路径
         freeCompilerArgs += "-Xklib-relative-path-base=$base"
     }
 }
-``` 
+```
 
 </tab>
 </tabs>
@@ -723,13 +723,13 @@ rootProject.plugins.withType(org.jetbrains.kotlin.gradle.targets.js.yarn.YarnPlu
         file("my-kotlin-js-store")
     rootProject.extensions.getByType(org.jetbrains.kotlin.gradle.targets.js.yarn.YarnRootExtension).lockFileName = 'my-yarn.lock'
 }
-``` 
+```
 
 </tab>
 </tabs>
 
 > 更改锁定文件的名称可能会导致依赖项检查工具无法再识别该文件。
-> 
+>
 {style="warning"}
 
 ### 默认情况下使用 --ignore-scripts 安装 npm 依赖项
@@ -759,7 +759,7 @@ rootProject.plugins.withType<org.jetbrains.kotlin.gradle.targets.js.yarn.YarnPlu
 rootProject.plugins.withType(org.jetbrains.kotlin.gradle.targets.js.yarn.YarnPlugin) {
     rootProject.extensions.getByType(org.jetbrains.kotlin.gradle.targets.js.yarn.YarnRootExtension).ignoreScripts = false
 }
-``` 
+```
 
 </tab>
 </tabs>
@@ -796,9 +796,9 @@ Kotlin 1.6.20 引入了一个同名的 Gradle 属性 `kotlin.compiler.execution.
 | Out of process | 每次调用都在单独的进程中 | 否       | —                                                                  |
 
 因此，`kotlin.compiler.execution.strategy` 属性（系统属性和 Gradle 属性）的可用值是：
-1. `daemon`（默认）
-2. `in-process`
-3. `out-of-process`
+1.  `daemon`（默认）
+2.  `in-process`
+3.  `out-of-process`
 
 在 `gradle.properties` 中使用 Gradle 属性 `kotlin.compiler.execution.strategy`：
 
@@ -809,9 +809,9 @@ kotlin.compiler.execution.strategy=out-of-process
 
 `compilerExecutionStrategy` 任务属性的可用值是：
 
-1. `org.jetbrains.kotlin.gradle.tasks.KotlinCompilerExecutionStrategy.DAEMON`（默认）
-2. `org.jetbrains.kotlin.gradle.tasks.KotlinCompilerExecutionStrategy.IN_PROCESS`
-3. `org.jetbrains.kotlin.gradle.tasks.KotlinCompilerExecutionStrategy.OUT_OF_PROCESS`
+1.  `org.jetbrains.kotlin.gradle.tasks.KotlinCompilerExecutionStrategy.DAEMON`（默认）
+2.  `org.jetbrains.kotlin.gradle.tasks.KotlinCompilerExecutionStrategy.IN_PROCESS`
+3.  `org.jetbrains.kotlin.gradle.tasks.KotlinCompilerExecutionStrategy.OUT_OF_PROCESS`
 
 在 `build.gradle.kts` 构建脚本中使用 `compilerExecutionStrategy` 任务属性：
 

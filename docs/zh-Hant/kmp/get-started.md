@@ -1,8 +1,8 @@
 ---
 aside: false
 ---
-<topic 
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<topic
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:noNamespaceSchemaLocation="https://resources.jetbrains.com/writerside/1.0/topic.v2.xsd"
 	title="Kotlin Multiplatform 入門" id="get-started">
     <section-starting-page>
@@ -12,12 +12,12 @@ aside: false
         </description>
         <spotlight>
             <a href="quickstart.md" type="cross-platform" summary="設定並執行您的第一個 KMP 專案">Kotlin Multiplatform 快速入門</a>
-            <a href="compose-multiplatform.topic" summary="探索 JetBrains 開發的基於 Kotlin 的宣告式多平台 UI 框架" type="creative">Compose Multiplatform</a>
+            <a href="kmp-overview.md" summary="了解 Kotlin Multiplatform 的功能與優勢" type="idea">什麼是 Kotlin Multiplatform</a>
         </spotlight>
         <primary>
             <title>常見使用案例</title>
-            <a href="multiplatform-create-first-app.md" summary="瞭解 Kotlin Multiplatform 並在 Android Studio 中建立適用於 Android 和 iOS 的行動應用程式">共用邏輯但保留原生 UI</a>
             <a href="compose-multiplatform-create-first-app.md" summary="使用 Compose Multiplatform 建立在 Android、iOS 和桌面平台之間共用 UI 的應用程式">共用邏輯與 UI</a>
+            <a href="multiplatform-create-first-app.md" summary="瞭解 Kotlin Multiplatform 並在 Android Studio 中建立適用於 Android 和 iOS 的行動應用程式">共用邏輯但保留原生 UI</a>
             <a href="multiplatform-ktor-sqldelight.md" summary="建立一個在 Android 和 iOS 之間共用資料存取層的多平台應用程式">共用部分邏輯</a>
             <a href="multiplatform-integrate-in-existing-app.md" summary="將您的 Android 應用程式遷移到 Kotlin Multiplatform，以支援 Android 和 iOS">使您的應用程式支援多平台</a>
         </primary>

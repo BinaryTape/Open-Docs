@@ -30,7 +30,7 @@ fun interface IntPredicate {
 
 val isEven = IntPredicate { it % 2 == 0 }
 
-fun main() {
+fun main() { 
     println("Is 7 even? - ${isEven.accept(7)}")
 }
 ```
@@ -606,7 +606,7 @@ kotlin {
 
 1.4.0 では、Kotlin/Native に以下のものを含む、数多くの新機能と改善が追加されました。
 
-*   [Swift および Objective-C でのサスペンド関数のサポート](#support-for-kotlin-s-suspending-functions-in-swift-and-objective-c)
+*   [Swift および Objective-C での Kotlin のサスペンド関数のサポート](#support-for-kotlin-s-suspending-functions-in-swift-and-objective-c)
 *   [Objective-C ジェネリクスのデフォルトサポート](#objective-c-generics-support-by-default)
 *   [Objective-C/Swift 相互運用における例外処理](#exception-handling-in-objective-c-swift-interop)
 *   [Apple ターゲットでのリリース .dSYMs のデフォルト生成](#generate-release-dsyms-on-apple-targets-by-default)

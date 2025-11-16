@@ -97,7 +97,7 @@ _Experimental_、_Alpha_、_Beta_を総称して**プレ安定版**レベルと�
 | **コンポーネント**                                  | **ステータス** | **バージョンからのステータス** | **コメント**                                                              |
 |------------------------------------------------|------------|--------------------------|---------------------------------------------------------------------------|
 | Kotlin Multiplatform                           | Stable     | 1.9.20                   |                                                                           |
-| Kotlin Multiplatform plugin for Android Studio | Beta       | 0.8.0                    | [言語とは別にバージョン管理されています](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-plugin-releases.html) |
+| Kotlin Multiplatform plugin for Android Studio | Beta       | 0.8.0                    | [言語とは別にバージョン管理されています](https://kotlinlang.org/docs/multiplatform/multiplatform-plugin-releases.html) |
 
 ### Kotlin/Native
 

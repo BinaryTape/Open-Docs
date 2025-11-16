@@ -19,12 +19,12 @@ Kotlin 1.3 继续改进和完善 Native 目标平台。有关详细信息，请�
 与旧模型的主要区别在于：
 
   * 在旧模型中，公共代码和平台特有的代码需要放置在单独的模块中，并通过 `expectedBy` 依赖项链接。现在，公共代码和平台特有的代码放置在同一个模块的不同源代码根目录中，从而使项目配置更加简单。
-  * 现在为各种受支持的平台提供了大量的 [预设平台配置](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-dsl-reference.html#targets)。
-  * [依赖项配置](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-add-dependencies.html) 已更改；现在为每个源代码根目录单独指定依赖项。
+  * 现在为各种受支持的平台提供了大量的 [预设平台配置](https://kotlinlang.org/docs/multiplatform/multiplatform-dsl-reference.html#targets)。
+  * [依赖项配置](https://kotlinlang.org/docs/multiplatform/multiplatform-add-dependencies.html) 已更改；现在为每个源代码根目录单独指定依赖项。
   * 源代码集现在可以在任意平台子集之间共享（例如，在一个面向 JS、Android 和 iOS 的模块中，您可以拥有一个仅在 Android 和 iOS 之间共享的源代码集）。
-  * 现在支持 [发布多平台库](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-publish-lib-setup.html)。
+  * 现在支持 [发布多平台库](https://kotlinlang.org/docs/multiplatform/multiplatform-publish-lib-setup.html)。
 
-有关更多信息，请参考 [多平台编程文档](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html)。
+有关更多信息，请参考 [多平台编程文档](https://kotlinlang.org/docs/multiplatform/get-started.html)。
 
 ## 契约
 
@@ -265,7 +265,7 @@ Kotlin 1.3 引入了无符号整数类型：
 * `kotlin.UInt`：一个无符号 32 位整数，范围从 0 到 2^32 - 1
 * `kotlin.ULong`：一个无符号 64 位整数，范围从 0 到 2^64 - 1
 
-有符号类型的大多数**功能**也支持其无符号对应项：
+有符号类型的大部分**功能**也支持其无符号对应项：
 
 ```kotlin
 fun main() {
@@ -354,6 +354,7 @@ fun main() {
 //sampleEnd
 }
 ```
+{kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
 ### associateWith
 

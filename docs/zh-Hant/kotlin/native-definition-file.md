@@ -197,7 +197,7 @@ libraryPaths = /opt/local/lib /usr/local/opt/curl/lib
 ### 協助解決連結器錯誤
 
 當 Kotlin 函式庫依賴於 C 或 Objective-C 函式庫時，可能會發生連結器錯誤，例如使用
-[CocoaPods 整合](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-cocoapods-overview.html)。如果依賴的函式庫未在機器上本地安裝或未在專案建置腳本中明確配置，則會出現「Framework not found」錯誤。
+[CocoaPods 整合](https://kotlinlang.org/docs/multiplatform/multiplatform-cocoapods-overview.html)。如果依賴的函式庫未在機器上本地安裝或未在專案建置腳本中明確配置，則會出現「Framework not found」錯誤。
 
 如果您是函式庫作者，可以透過自訂訊息協助使用者解決連結器錯誤。
 為此，請將 `userSetupHint=message` 屬性新增到您的 `.def` 檔案中，或將 `-Xuser-setup-hint` 編譯器選項傳遞給 `cinterop`。

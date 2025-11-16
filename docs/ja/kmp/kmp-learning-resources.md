@@ -2,13 +2,11 @@
 
 <web-summary>あなたのKMP経験レベルに最適な学習教材を選択してください。</web-summary>
 
-このガイドでは、主要なKotlin Multiplatform (KMP)とCompose Multiplatformの学習教材を厳選して紹介しています。スキルレベル別にチュートリアル、コース、記事を閲覧し、あなたの経験に合ったものを見つけてください。
-
-各レベルの説明は以下のとおりです。
+Kotlin Multiplatform (KMP)とCompose Multiplatformの主要な学習教材を30以上集めました。スキルレベル別にチュートリアル、コース、記事を閲覧し、あなたの経験に合ったものを見つけてください。
 
 🌱 **初心者**. JetBrainsとGoogleの公式チュートリアルを通じてKMPとComposeの基礎を学びましょう。Room、Ktor、SQLDelightなどの主要ライブラリを使用してシンプルなアプリを構築します。
 
-🌿 **中級者**. マルチプラットフォームのViewModel、KoinベースのDI、クリーンアーキテクチャを使用して実用的なアプリを開発します。JetBrainsやコミュニティの教育者によるコースが含まれます。
+🌿 **中級者**. 共有ViewModel、Koinベースの依存性注入、クリーンアーキテクチャを使用して実用的なアプリを開発します。JetBrainsやコミュニティの教育者によるコースを通じて学びましょう。
 
 🌳 **上級者**. バックエンドおよびゲーム開発のユースケース、大規模な多チームプロジェクトにおけるアーキテクチャのスケーリングと導入に関するガイドを通じて、本格的なKMPエンジニアリングへと進みましょう。
 
@@ -78,7 +76,7 @@ JetBrains
 </td>
 
 <td>
-KMPの核となる価値、実際のユースケース、プロジェクトに適した学習パスを見つけます。
+KMPの核となる価値、実際のユースケース、適切な学習パスを選択するためのガイダンス。
 </td>
 <td>
 無料
@@ -104,7 +102,7 @@ JetBrains
 </td>
 
 <td>
-KMPプロジェクトのセットアップ方法、AndroidとiOS間でシンプルなビジネスロジックを共有しつつUIは完全にネイティブにする方法。
+KMPプロジェクトをセットアップし、UIを完全にネイティブに保ちながらAndroidとiOS間でシンプルなビジネスロジックを共有する方法。
 </td>
 <td>
 無料
@@ -126,7 +124,9 @@ KMPプロジェクトのセットアップ方法、AndroidとiOS間でシンプ�
 
 </td>
 <td>
-Google / Android
+Google
+
+Android
 </td>
 
 <td>
@@ -267,10 +267,10 @@ Gumroad
 expect/actualやソースセットといったKMPの基礎を習得し、Ktorをネットワーキングに、Roomを永続化に使用するなどの最新ライブラリを用いた完全なアプリスタックを構築することで、既存のAndroid開発スキルをiOSに拡張する方法。
 </td>
 <td>
-有料 (約60ドル)
+約60ドル
 </td>
 <td>
-8～12時間 (進行中)
+8～12時間
 </td>
 </tr>
 
@@ -280,7 +280,7 @@ expect/actualやソースセットといったKMPの基礎を習得し、Ktorを
 </td>
 <td>
 
-[Kotlin Multiplatformマスタークラス](https://www.udemy.com/course/kotlin-multiplatform-masterclass/)
+[Kotlin Multiplatform Masterclass](https://www.udemy.com/course/kotlin-multiplatform-masterclass/)
 
 ビデオコース
 
@@ -295,7 +295,7 @@ Udemy
 クリーンアーキテクチャとMVIをゼロから適用して完全なKMPアプリケーションを構築し、Ktor、SQLDelight、Koinといった主要ライブラリのフルスタックをネイティブのJetpack ComposeとSwiftUI UIに統合する方法。
 </td>
 <td>
-有料 (10～20ユーロ)
+10～20ユーロ
 </td>
 <td>
 6時間
@@ -348,10 +348,10 @@ LinkedIn Learning
 </td>
 
 <td>
-Compose MultiplatformとネイティブUI間のアーキテクチャ選択を行う方法、Swift相互運用の基礎を理解する方法、ネットワーキング、永続化、依存性注入のためのKMPエコシステムの包括的な概要。
+Compose MultiplatformとネイティブUI間のアーキテクチャ選択、Swift相互運用の基礎、およびネットワーキング、永続化、依存性注入のためのKMPエコシステムの包括的な概要。
 </td>
 <td>
-有料 (約30～40ドル/月)
+約30～40ドル/月
 </td>
 <td>
 3時間
@@ -374,10 +374,10 @@ Kodeco Team (Kevin D. Moore, Carlos Mota, Saeed Taheri)
 </td>
 
 <td>
-KMP共有モジュールにネイティブUIを接続して、ネットワーキング、シリアル化、永続化のためのコードを共有する基礎。依存性注入、テスト、最新のアーキテクチャを適用して、保守可能でスケーラブルな実用的なアプリを構築する方法も学びます。
+ネットワーキング、シリアル化、永続化のためにネイティブUIをKMP共有モジュールに接続してコードを共有する基礎。依存性注入、テスト、最新のアーキテクチャを適用して、保守可能でスケーラブルな実用的なアプリを構築する方法も学びます。
 </td>
 <td>
-有料 (約60ドル)
+約60ドル
 </td>
 <td>
 40～60時間
@@ -426,7 +426,9 @@ JetBrains
 
 </td>
 <td>
-Google / Android
+Google
+
+Android
 </td>
 
 <td>
@@ -486,7 +488,7 @@ YouTube
 </td>
 
 <td>
-クリーンアーキテクチャを使用して、Ktorをネットワーキングに、Roomをローカルデータベースに、Koinを依存性注入に、そしてマルチプラットフォームナビゲーションを含む最新のKMPスタックを網羅し、ゼロから完全な本番環境対応のブックアプリを構築する方法。
+クリーンアーキテクチャを使用して、Ktorをネットワーキングに、ローカルデータベースにRoom、依存性注入にKoin、そしてマルチプラットフォームナビゲーションを含む最新のKMPスタックを網羅し、ゼロから完全な本番環境対応のブックアプリを構築する方法。
 </td>
 <td>
 無料
@@ -518,7 +520,7 @@ Philipp Lackner
 ネイティブUI（Jetpack ComposeとSwiftUI）間でViewModelとビジネスロジックを共有することで、実用的な翻訳アプリを構築する方法。クリーンアーキテクチャから両プラットフォームの単体テスト、UIテスト、エンドツーエンドテストまでの開発ライフサイクル全体を網羅します。
 </td>
 <td>
-有料 (約99ユーロ)
+約99ユーロ
 </td>
 <td>
 20時間
@@ -547,7 +549,7 @@ Philipp Lackner
 リアルタイムWebSocketのためのKtor、ローカル永続化のためのRoom、マルチモジュール依存性注入のためのKoinを含む完全なCompose Multiplatformスタックを使用して、大規模なオフラインファーストのチャットアプリケーションをゼロから構築する方法。
 </td>
 <td>
-有料 (約199ユーロ)
+約199ユーロ
 </td>
 <td>
 34時間
@@ -576,7 +578,7 @@ Udemy
 Compose Multiplatformのみで機能豊富な仮想暗号ウォレットアプリを構築する方法。コアスタック（Ktor、Room、Koin）だけでなく、堅牢な単体/UIテスト、生体認証のような高度なプラットフォーム統合も網羅します。
 </td>
 <td>
-有料 (約20ユーロ)
+約20ユーロ
 </td>
 <td>
 8時間
@@ -635,7 +637,7 @@ Udemy
 EコマースアプリのFigma UI設計から、Compose Multiplatformを使用した共有UIを持つ完全なマルチモジュラーアプリケーションとしての構築まで、製品のライフサイクル全体を学びます。また、Firebaseサービス（認証、データベース、自動Cloud Functions）で完全なバックエンドを作成・統合する方法も含まれます。
 </td>
 <td>
-有料 (約50ユーロ)
+約50ユーロ
 </td>
 <td>
 30時間
@@ -663,7 +665,7 @@ LinkedIn Learning
 まず安全なKtorバックエンドを作成しAWSにデプロイし、次にKotlin Multiplatformを使用してAPIを消費する共有コードを持つネイティブクライアントを構築することで、フルスタックのKotlinアプリケーションを構築する方法。
 </td>
 <td>
-有料 (約30～40ドル/月)
+約30～40ドル/月
 </td>
 <td>
 2～3時間
@@ -691,7 +693,7 @@ Udemy
 Compose Multiplatformで完全な2Dゲームを構築する方法。物理演算、衝突検出、スプライトシートアニメーションを網羅し、Android、iOS、デスクトップ、ウェブ（Kotlin/Wasm経由）にデプロイする方法。
 </td>
 <td>
-有料 (約99ユーロ)
+約99ユーロ
 </td>
 <td>
 8～10時間
@@ -720,7 +722,7 @@ Philipp Lackner
 マルチモジュールのWebSockets付きSpring Bootバックエンドから、オフラインファーストのCompose Multiplatformクライアント（Android、iOS、デスクトップ、ウェブ）、そして完全なCI/CDパイプラインまで、すべてを網羅した完全なフルスタックチャットアプリケーションを設計、構築、デプロイする方法。
 </td>
 <td>
-有料 (約429ユーロ)
+約429ユーロ
 </td>
 <td>
 55時間
@@ -817,7 +819,7 @@ JetBrains
 
 [Dokkaによるドキュメント作成](https://kotlinlang.org/docs/dokka-introduction.html)
 
-ドキュメント / GitHub
+ドキュメント
 
 </td>
 <td>
@@ -895,7 +897,7 @@ KMPライブラリをMaven Centralに公開するための完全なステップ�
 </td>
 <td>
 
-[Kotlin Multiplatformライブラリ](https://www.linkedin.com/learning/kotlin-multiplatform-libraries)
+[Kotlin Multiplatform Libraries](https://www.linkedin.com/learning/kotlin-multiplatform-libraries)
 
 ビデオコース
 
@@ -908,7 +910,7 @@ LinkedIn Learning
 KMPライブラリ作成の完全なライフサイクル。効果的なAPI設計とコード共有戦略から、最終的な配布とベストプラクティスまでを網羅します。
 </td>
 <td>
-有料 (約30～40ドル/月)
+約30～40ドル/月
 </td>
 <td>
 2～3時間

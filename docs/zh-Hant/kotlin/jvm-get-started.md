@@ -1,4 +1,4 @@
-[//]: # (title: 開始使用 Kotlin/JVM)
+[//]: # (title: 建立主控台應用程式 – 教學)
 
 本教學將示範如何使用 IntelliJ IDEA 建立一個主控台應用程式。
 

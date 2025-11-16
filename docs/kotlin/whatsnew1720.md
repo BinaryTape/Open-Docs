@@ -93,7 +93,8 @@ Kotlin 1.7.20 引入了新语言特性的预览版，并对构建器类型推断
 >
 {style="warning"}
 
-本次发布引入了新的 `..<` 操作符。Kotlin 拥有 `..` 操作符来表示一个值区间。新的 `..<` 操作符作用类似于 `until` 函数，可以帮助你定义开放区间。
+本次发布引入了新的 `..<` 操作符。Kotlin 拥有 `..` 操作符来表示一个值区间。新的 `..<`
+操作符作用类似于 `until` 函数，可以帮助你定义开放区间。
 
 <video src="https://www.youtube.com/watch?v=v0AHdAIBnbs" title="用于开放区间的新操作符"/>
 
@@ -103,10 +104,10 @@ Kotlin 1.7.20 引入了新语言特性的预览版，并对构建器类型推断
 
 ```kotlin
 when (value) {
-    in 0.0..<0.25 -> // 第一季度
-    in 0.25..<0.5 -> // 第二季度
-    in 0.5..<0.75 -> // 第三季度
-    in 0.75..1.0 ->  // 最后一个季度 <- 请注意此处为闭区间
+    in 0.0..<0.25 -> // First quarter
+    in 0.25..<0.5 -> // Second quarter
+    in 0.5..<0.75 -> // Third quarter
+    in 0.75..1.0 ->  // Last quarter  <- Note closed range here
 }
 ```
 {validate="false"}
@@ -121,9 +122,9 @@ when (value) {
 
 ```kotlin
 interface OpenEndRange<T : Comparable<T>> {
-    // 下限
+    // Lower bound
     val start: T
-    // 上限，不包含在区间内
+    // Upper bound, not included in the range
     val endExclusive: T
     operator fun contains(value: T): Boolean = value >= start && value < endExclusive
     fun isEmpty(): Boolean = start >= endExclusive
@@ -223,7 +224,7 @@ compileKotlin {
 
 ### 新的构建器类型推断限制
 
-Kotlin 1.7.20 对[构建器类型推断的使用](using-builders-with-builder-inference.md)施加了一些主要限制，这可能会影响你的代码。这些限制适用于包含构建器 lambda 函数的代码，在这种情况下，在不分析 lambda 本身的情况下无法推导出形参。该形参用作实参。现在，编译器总是会为此类代码显示错误，并要求你显式指定类型。
+Kotlin 1.7.20 对[构建器类型推断的使用](using-builders-with-builder-inference.md)施加了一些主要限制，这可能会影响你的代码。这些限制适用于包含构建器 lambda 表达式的函数，在这种情况下，在不分析 lambda 表达式本身的情况下无法推导出形参。该形参用作实参。现在，编译器总是会为此类代码显示错误，并要求你显式指定类型。
 
 这是一个破坏性更改，但我们的研究表明，这些情况非常罕见，这些限制不应该影响你的代码。如果确实影响了，请考虑以下情况：
 
@@ -241,7 +242,7 @@ Kotlin 1.7.20 对[构建器类型推断的使用](using-builders-with-builder-in
     fun test() {
         buildList {
             this.add(Data())
-            this.get(0).doSmth() // 解析为 2 并导致错误
+            this.get(0).doSmth() // Resolves to 2 and leads to error
         }
     }
     ```
@@ -257,14 +258,14 @@ Kotlin 1.7.20 对[构建器类型推断的使用](using-builders-with-builder-in
     fun <T> T.doSmth() {} // 2
     
     fun test() {
-        buildList<Data> { // 类型实参！
+        buildList<Data> { // Type argument!
             this.add(Data())
-            this.get(0).doSmth() // 解析为 1
+            this.get(0).doSmth() // Resolves to 1
         }
     }
     ```
 
-* 具有多个 lambda 且类型实参未显式指定的构建器推断。
+* 具有多个 lambda 表达式且类型实参未显式指定的构建器推断。
 
   如果在构建器推断中有两个或更多 lambda 代码块，它们会影响类型。为防止出现错误，编译器要求你指定类型：
 
@@ -325,7 +326,7 @@ Kotlin 1.7.20 引入了泛型内联类，增加了对委托属性的字节码优
 
 > 泛型内联类是一项[实验性的](components-stability.md#stability-levels-explained)特性。
 > 它随时可能被取消或更改。需要选择性加入（详见下文），且仅应将其用于评估目的。
-> 我们期待你能在 [YouTrack](https://youtrack.com/issue/KT-52994) 上提供关于此功能的反馈。
+> 我们期待你能在 [YouTrack](https://youtrack.jetbrains.com/issue/KT-52994) 上提供关于此功能的反馈。
 >
 {style="warning"}
 
@@ -339,7 +340,7 @@ Kotlin 1.7.20 允许 JVM 内联类的底层类型作为类型形参。编译器�
 @JvmInline
 value class UserId<T>(val value: T)
 
-fun compute(s: UserId<String>) {} // 编译器生成 fun compute-<hashcode>(s: Any?)
+fun compute(s: UserId<String>) {} // Compiler generates fun compute-<hashcode>(s: Any?)
 ```
 
 该函数将内联类作为形参。该形参映射到上限，而不是类型实参。
@@ -499,7 +500,7 @@ Kotlin 1.7.20 包含对 Gradle 7.1 的支持更改。废弃的方法和属性已
 ### 目标配置
 
 * `org.jetbrains.kotlin.gradle.dsl.SingleTargetExtension` 现在有一个泛型形参：`SingleTargetExtension<T : KotlinTarget>`。
-* `kotlin.targets.fromPreset()` 约定已被废弃。作为替代，你仍然可以使用 `kotlin.targets { fromPreset() }`，但我们建议[显式设置目标](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-discover-project.html#targets)。
+* `kotlin.targets.fromPreset()` 约定已被废弃。作为替代，你仍然可以使用 `kotlin.targets { fromPreset() }`，但我们建议[显式设置目标](https://kotlinlang.org/docs/multiplatform/multiplatform-discover-project.html#targets)。
 * 由 Gradle 自动生成的目标访问器在 `kotlin.targets { }` 代码块中不再可用。请改用 `findByName("targetName")` 方法。
 
   请注意，此类访问器在 `kotlin.targets` 的情况下仍然可用，例如 `kotlin.targets.linuxX64`。
@@ -576,17 +577,17 @@ Kotlin 1.7.20 为 `java.nio.file.Path` 类提供了新的[扩展函数](extensio
   ```kotlin
   val cleanVisitor = fileVisitor {
       onPreVisitDirectory { directory, attributes ->
-          // 访问目录时的某些逻辑
+          // Some logic on visiting directories
           FileVisitResult.CONTINUE
       }
   
       onVisitFile { file, attributes ->
-          // 访问文件时的某些逻辑
+          // Some logic on visiting files
           FileVisitResult.CONTINUE
       }
   }
   
-  // 这里可以有一些逻辑
+  // Some logic may go here
   
   projectDirectory.visitFileTree(cleanVisitor)
   ```
@@ -595,20 +596,20 @@ Kotlin 1.7.20 为 `java.nio.file.Path` 类提供了新的[扩展函数](extensio
 
   ```kotlin
   projectDirectory.visitFileTree {
-  // builderAction 的定义：
+  // Definition of the builderAction:
       onPreVisitDirectory { directory, attributes ->
-          // 访问目录时的某些逻辑
+          // Some logic on visiting directories
           FileVisitResult.CONTINUE
       }
   
       onVisitFile { file, attributes ->
-          // 访问文件时的某些逻辑
+          // Some logic on visiting files
           FileVisitResult.CONTINUE
       }
   }
   ```
 
-* 使用 `walk()` 函数遍历以指定路径为根的文件树：
+* 遍历以指定路径为根的文件树，使用 `walk()` 函数：
 
   ```kotlin
   @OptIn(kotlin.io.path.ExperimentalPathApi::class)
@@ -671,17 +672,17 @@ Kotlin 1.7.20 为 `java.nio.file.Path` 类提供了新的[扩展函数](extensio
 
 ### 改进和增强的页面
 
-* [基本类型概述](basic-types.md) – 了解 Kotlin 中使用的基本类型：数字、布尔值、字符、字符串、数组和无符号整数。
+* [基本类型概述](types-overview.md) – 了解 Kotlin 中使用的基本类型：数字、布尔值、字符、字符串、数组和无符号整数。
 * [用于 Kotlin 开发的 IDE](kotlin-ide.md) – 查看具有官方 Kotlin 支持的 IDE 列表以及具有社区支持插件的工具。
 
 ### Kotlin 多平台期刊中的新文章
 
-* [原生和跨平台应用开发：如何选择？](https://www.jetbrains.com/help/kotlin-multiplatform-dev/native-and-cross-platform.html) – 查看我们关于跨平台应用开发和原生方法的概述和优势。
-* [六个最佳跨平台应用开发框架](https://www.jetbrains.com/help/kotlin-multiplatform-dev/cross-platform-frameworks.html) – 阅读关于关键方面的内容，帮助你为跨平台项目选择合适的框架。
+* [原生和跨平台应用开发：如何选择？](https://kotlinlang.org/docs/multiplatform/native-and-cross-platform.html) – 查看我们关于跨平台应用开发和原生方法的概述和优势。
+* [六个最佳跨平台应用开发框架](https://kotlinlang.org/docs/multiplatform/cross-platform-frameworks.html) – 阅读关于关键方面的内容，帮助你为跨平台项目选择合适的框架。
 
 ### 新的和更新的教程
 
-* [Kotlin 多平台入门](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-create-first-app.html) – 了解使用 Kotlin 进行跨平台移动开发，并创建一个可在 Android 和 iOS 上运行的应用。
+* [Kotlin 多平台入门](https://kotlinlang.org/docs/multiplatform/multiplatform-create-first-app.html) – 了解使用 Kotlin 进行跨平台移动开发，并创建一个可在 Android 和 iOS 上运行的应用。
 * [使用 React 和 Kotlin/JS 构建 Web 应用程序](js-react.md) – 创建一个浏览器应用，探索 Kotlin 的 DSL 和典型 React 程序的特性。
 
 ### 发布文档中的更改

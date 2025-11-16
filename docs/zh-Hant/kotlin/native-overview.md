@@ -49,7 +49,7 @@ Kotlin/Native 提供[透過 Objective-C 與 Swift 的互通性](native-objc-inte
 
 Kotlin/Native 包含一套預建置的[平台函式庫](native-platform-libs.md)，有助於在專案之間共用 Kotlin 程式碼。POSIX、gzip、OpenGL、Metal、Foundation 和許多其他流行的函式庫和 Apple 框架都已預先匯入並作為 Kotlin/Native 函式庫包含在編譯器套件中。
 
-Kotlin/Native 是 [Kotlin 多平台](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html)技術的一部分，該技術有助於在多個平台之間共用通用程式碼，包括 Android、iOS、JVM、網頁和原生。多平台函式庫為通用 Kotlin 程式碼提供必要的 API，並允許在一個地方用 Kotlin 編寫專案的共用部分。
+Kotlin/Native 是 [Kotlin 多平台](https://kotlinlang.org/docs/multiplatform/get-started.html)技術的一部分，該技術有助於在多個平台之間共用通用程式碼，包括 Android、iOS、JVM、網頁和原生。多平台函式庫為通用 Kotlin 程式碼提供必要的 API，並允許在一個地方用 Kotlin 編寫專案的共用部分。
 
 ## 記憶體管理員
 

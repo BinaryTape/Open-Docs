@@ -79,7 +79,7 @@ Kotlin 编译器会自动生成所有必要的文件（包括 `swiftmodule` 文�
 
 ## 当前限制
 
-Swift export 当前仅适用于使用[直接集成](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-direct-integration.html)将 iOS framework 连接到 Xcode 项目的项目。这是使用 IntelliJ IDEA 中的 Kotlin 多平台插件或通过[网页向导](https://kmp.jetbrains.com/)创建的 Kotlin 多平台项目的标准配置。
+Swift export 当前仅适用于使用[直接集成](https://kotlinlang.org/docs/multiplatform/multiplatform-direct-integration.html)将 iOS framework 连接到 Xcode 项目的项目。这是使用 IntelliJ IDEA 中的 Kotlin 多平台插件或通过[网页向导](https://kmp.jetbrains.com/)创建的 Kotlin 多平台项目的标准配置。
 
 其他已知问题：
 

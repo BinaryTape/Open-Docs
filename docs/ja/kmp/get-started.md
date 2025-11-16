@@ -12,12 +12,12 @@ aside: false
         </description>
         <spotlight>
             <a href="quickstart.md" type="cross-platform" summary="最初の KMP プロジェクトをセットアップして実行する">Kotlin Multiplatform クイックスタート</a>
-            <a href="compose-multiplatform.topic" summary="JetBrains が開発した Kotlin ベースの宣言型マルチプラットフォーム UI フレームワークを発見する" type="creative">Compose Multiplatform</a>
+            <a href="kmp-overview.md" summary="Kotlin Multiplatform の機能と利点について学ぶ" type="idea">Kotlin Multiplatform とは</a>
         </spotlight>
         <primary>
             <title>一般的なユースケース</title>
-            <a href="multiplatform-create-first-app.md" summary="Kotlin Multiplatform を理解し、Android と iOS の両方で動作するモバイルアプリを Android Studio で作成する">ロジックを共有し、UI はネイティブのままにする</a>
             <a href="compose-multiplatform-create-first-app.md" summary="Compose Multiplatform を使用して、Android、iOS、デスクトップ間で UI を共有するアプリケーションを作成する">ロジックと UI の両方を共有する</a>
+            <a href="multiplatform-create-first-app.md" summary="Kotlin Multiplatform を理解し、Android と iOS の両方で動作するモバイルアプリを Android Studio で作成する">ロジックを共有し、UI はネイティブのままにする</a>
             <a href="multiplatform-ktor-sqldelight.md" summary="Android と iOS 間で共有データアクセスレイヤーを持つマルチプラットフォームアプリを作成する">ロジックの一部を共有する</a>
             <a href="multiplatform-integrate-in-existing-app.md" summary="Android アプリケーションを Android および iOS 向け Kotlin Multiplatform に移行する">アプリをマルチプラットフォーム対応にする</a>
         </primary>

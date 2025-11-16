@@ -4,7 +4,8 @@
 <p>최신 Kotlin 릴리스:<b> <a href="%kotlinLatestWhatsnew%">%kotlinVersion%</a></b></p>
 </tldr>
 
-Kotlin은 개발자들을 더 행복하게 만들도록 설계된 현대적이지만 이미 성숙한 프로그래밍 언어입니다. 간결하고 안전하며 Java 및 다른 언어들과 상호 운용 가능하며, 생산적인 프로그래밍을 위해 여러 플랫폼 간에 코드를 재사용할 수 있는 다양한 방법을 제공합니다.
+Kotlin은 개발자들을 더 행복하게 만들도록 설계된 현대적이지만 이미 성숙한 프로그래밍 언어입니다.
+간결하고 안전하며 Java 및 다른 언어들과 상호 운용 가능하며, 생산적인 프로그래밍을 위해 여러 플랫폼 간에 코드를 재사용할 수 있는 다양한 방법을 제공합니다.
 
 시작하려면, Kotlin 둘러보기를 시작해 보는 건 어떨까요? 이 둘러보기는 Kotlin 프로그래밍 언어의 기본 사항을 다루며, 전적으로 브라우저에서 완료할 수 있습니다.
 
@@ -12,7 +13,8 @@ Kotlin은 개발자들을 더 행복하게 만들도록 설계된 현대적이�
 
 ## Kotlin 설치
 
-Kotlin은 각 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/) 및 [Android Studio](https://developer.android.com/studio) 릴리스에 포함되어 있습니다. 이 IDE 중 하나를 다운로드하여 설치하면 Kotlin을 사용할 수 있습니다.
+Kotlin은 각 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/) 및 [Android Studio](https://developer.android.com/studio) 릴리스에 포함되어 있습니다.
+이 IDE 중 하나를 다운로드하여 설치하면 Kotlin을 사용할 수 있습니다.
 
 ## Kotlin 사용 사례 선택
  
@@ -32,30 +34,33 @@ Kotlin은 각 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/) 및 [And
 
 여기서는 Kotlin 서버 측으로 백엔드 애플리케이션을 개발하는 방법을 배웁니다.
 
-1. **첫 백엔드 애플리케이션 생성:**
+* **Kotlin을 Java 프로젝트에 도입:**
 
-     * [Spring Boot로 RESTful 웹 서비스 생성](jvm-get-started-spring-boot.md)
-     * [Ktor로 HTTP API 생성](https://ktor.io/docs/creating-http-apis.html)
+  * [Kotlin과 함께 작동하도록 Java 프로젝트 구성](mixing-java-kotlin-intellij.md)
+  * [Java Maven 프로젝트에 Kotlin 테스트 추가](jvm-test-using-junit.md)
 
-2. **[애플리케이션에서 Kotlin과 Java 코드 혼합 방법 학습](mixing-java-kotlin-intellij.md).**
+* **Kotlin으로 백엔드 앱을 처음부터 생성:**
+
+  * [Spring Boot로 RESTful 웹 서비스 생성](jvm-get-started-spring-boot.md)
+  * [Ktor로 HTTP API 생성](https://ktor.io/docs/creating-http-apis.html)
 
 </tab>
 
 <tab id="cross-platform-mobile" title="크로스 플랫폼">
 
-여기서는 [Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html)을 사용하여 크로스 플랫폼 애플리케이션을 개발하는 방법을 배웁니다.
+여기서는 [Kotlin Multiplatform](https://kotlinlang.org/docs/multiplatform/get-started.html)을 사용하여 크로스 플랫폼 애플리케이션을 개발하는 방법을 배웁니다.
 
-1. **[크로스 플랫폼 개발을 위한 환경 설정](https://www.jetbrains.com/help/kotlin-multiplatform-dev/quickstart.html).**
+1. **[크로스 플랫폼 개발을 위한 환경 설정](https://kotlinlang.org/docs/multiplatform/quickstart.html).**
 
 2. **iOS 및 Android용 첫 애플리케이션 생성:**
 
    * 크로스 플랫폼 애플리케이션을 처음부터 생성하고 다음을 수행합니다.
-     * [UI를 네이티브로 유지하면서 비즈니스 로직 공유](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-create-first-app.html)
-     * [비즈니스 로직 및 UI 공유](https://www.jetbrains.com/help/kotlin-multiplatform-dev/compose-multiplatform-create-first-app.html)
-   * [기존 Android 애플리케이션이 iOS에서 작동하도록 만들기](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-integrate-in-existing-app.html)
-   * [Ktor 및 SQLdelight를 사용하여 크로스 플랫폼 애플리케이션 생성](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-ktor-sqldelight.html)
+     * [UI를 네이티브로 유지하면서 비즈니스 로직 공유](https://kotlinlang.org/docs/multiplatform/multiplatform-create-first-app.html)
+     * [비즈니스 로직 및 UI 공유](https://kotlinlang.org/docs/multiplatform/compose-multiplatform-create-first-app.html)
+   * [기존 Android 애플리케이션이 iOS에서 작동하도록 만들기](https://kotlinlang.org/docs/multiplatform/multiplatform-integrate-in-existing-app.html)
+   * [Ktor 및 SQLdelight를 사용하여 크로스 플랫폼 애플리케이션 생성](https://kotlinlang.org/docs/multiplatform/multiplatform-ktor-sqldelight.html)
 
-3. **[샘플 프로젝트](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-samples.html) 살펴보기**.
+3. **[샘플 프로젝트](https://kotlinlang.org/docs/multiplatform/multiplatform-samples.html) 살펴보기**.
 
 </tab>
 
@@ -78,7 +83,7 @@ Android 개발에 Kotlin을 사용하기 시작하려면 [Android에서 Kotlin �
    * [DataFrame](https://kotlin.github.io/dataframe/overview.html) – 데이터 분석 및 조작을 위한 라이브러리.
    * [Kandy](https://kotlin.github.io/kandy/welcome.html) – 데이터 시각화를 위한 플로팅 도구.
 
-3. **Twitter에서 Kotlin For Data Analysis 팔로우:** [KotlinForData](http://twitter.com/KotlinForData).
+3. **Twitter에서 Kotlin for Data Analysis 팔로우:** [KotlinForData](http://twitter.com/KotlinForData).
 
 </tab>
 

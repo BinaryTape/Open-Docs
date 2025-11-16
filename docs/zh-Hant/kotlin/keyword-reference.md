@@ -86,14 +86,14 @@
 以下標記在宣告的修飾符列表中充當關鍵字，並且在其他上下文中可以用作識別符號：
 
  * `abstract` 將類別或成員標記為[抽象的](classes.md#abstract-classes)。
- * `actual` 在[多平台專案](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-expect-actual.html)中表示平台特定的實作。
+ * `actual` 在[多平台專案](https://kotlinlang.org/docs/multiplatform/multiplatform-expect-actual.html)中表示平台特定的實作。
  * `annotation` 宣告一個[註解類別](annotations.md)。
  * `companion` 宣告一個[伴生物件](object-declarations.md#companion-objects)。
  * `const` 將屬性標記為[編譯期常數](properties.md#compile-time-constants)。
  * `crossinline` 禁止[傳遞給行內函式的 Lambda 中進行非區域返回](inline-functions.md#returns)。
  * `data` 指示編譯器為[類別生成規範成員](data-classes.md)。
  * `enum` 宣告一個[列舉](enum-classes.md)。
- * `expect` 將宣告標記為[平台特定](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-expect-actual.html)，預期在平台模組中實作。
+ * `expect` 將宣告標記為[平台特定](https://kotlinlang.org/docs/multiplatform/multiplatform-expect-actual.html)，預期在平台模組中實作。
  * `external` 將宣告標記為在 Kotlin 外部實作（可透過 [JNI](java-interop.md#using-jni-with-kotlin) 或在 [JavaScript](js-interop.md#external-modifier) 中存取）。
  * `final` 禁止[覆寫成員](inheritance.md#overriding-methods)。
  * `infix` 允許使用[中綴表示法](functions.md#infix-notation)呼叫函式。

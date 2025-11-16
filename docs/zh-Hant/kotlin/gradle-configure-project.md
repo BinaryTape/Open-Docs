@@ -63,7 +63,7 @@ plugins {
 > *Kotlin 2.0.20–2.0.21 和 Kotlin 2.1.0–2.1.10 與 Gradle 8.6 或更早版本完全相容。
 > Gradle 8.7–8.10 版本也受支援，但只有一個例外：如果您使用 Kotlin Multiplatform Gradle 外掛程式，
 > 您可能會在呼叫 JVM 目標中的 `withJava()` 函式的多平台專案中看到棄用警告。
-> 如需更多資訊，請參閱 [依預設建立的 Java 原始碼集](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-compatibility-guide.html#java-source-sets-created-by-default)。
+> 如需更多資訊，請參閱 [依預設建立的 Java 原始碼集](https://kotlinlang.org/docs/multiplatform/multiplatform-compatibility-guide.html#java-source-sets-created-by-default)。
 >
 {style="warning"}
 
@@ -517,8 +517,6 @@ tasks.named("compileJava", JavaCompile.class) {
 
 ### 其他詳細資訊
 
-了解更多關於 [Kotlin/JVM](jvm-get-started.md) 的資訊。
-
 #### 禁用在編譯任務中使用構件
 
 在某些罕見情況下，您可能會遇到由於循環依賴錯誤導致的建構失敗。例如，當您有多個編譯，其中一個編譯可以看到另一個編譯的所有內部聲明，並且生成的構件依賴於兩個編譯任務的輸出時：
@@ -564,7 +562,7 @@ tasks.jar(type: Jar) {
 
 ## 針對多個平台
 
-針對[多個平台](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-dsl-reference.html#targets)的專案，稱為[多平台專案](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html)，
+針對[多個平台](https://kotlinlang.org/docs/multiplatform/multiplatform-dsl-reference.html#targets)的專案，稱為[多平台專案](https://kotlinlang.org/docs/multiplatform/get-started.html)，
 需要 `kotlin-multiplatform` 外掛程式。
 
 > `kotlin-multiplatform` 外掛程式適用於 Gradle %minGradleVersion% 或更高版本。
@@ -592,7 +590,7 @@ plugins {
 </tab>
 </tabs>
 
-了解更多關於 [Kotlin Multiplatform 適用於不同平台](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html)和 [Kotlin Multiplatform 適用於 iOS 和 Android](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-getting-started.html) 的資訊。
+了解更多關於 [Kotlin Multiplatform 適用於不同平台](https://kotlinlang.org/docs/multiplatform/get-started.html)和 [Kotlin Multiplatform 適用於 iOS 和 Android](https://kotlinlang.org/docs/multiplatform/multiplatform-getting-started.html) 的資訊。
 
 ## 針對 Android
 
@@ -615,7 +613,7 @@ Kotlin 透過 Kotlin Multiplatform，為 Web 開發提供了兩種方法：
 * 與 JavaScript/TypeScript 程式碼庫共用業務邏輯
 * 使用 Kotlin 建構不可共用的 Web 應用程式
 
-更多資訊請參閱 [為 Kotlin Multiplatform 專案選擇合適的 Web 目標](https://www.jetbrains.com/help/kotlin-multiplatform-dev/choosing-web-target.html)。
+更多資訊請參閱 [為 Kotlin Multiplatform 專案選擇合適的 Web 目標](https://kotlinlang.org/docs/multiplatform/choosing-web-target.html)。
 
 針對 JavaScript 時，請使用 `kotlin-multiplatform` 外掛程式：
 
@@ -650,14 +648,14 @@ kotlin {
 }
 ```
 
-> 請參閱 [更多關於 JavaScript 的 Gradle 配置細節](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-dsl-reference.html#web-targets) 並了解更多關於 [設定 Kotlin/JS 專案](js-project-setup.md) 的資訊。
+> 請參閱 [更多關於 JavaScript 的 Gradle 配置細節](https://kotlinlang.org/docs/multiplatform/multiplatform-dsl-reference.html#web-targets) 並了解更多關於 [設定 Kotlin/JS 專案](js-project-setup.md) 的資訊。
 >
 {style="note"}
 
 ### 針對 WebAssembly
 
 如果您想在多個平台之間共用邏輯和 UI，請使用 Kotlin/Wasm。更多資訊請參閱
-[為 Kotlin Multiplatform 專案選擇合適的 Web 目標](https://www.jetbrains.com/help/kotlin-multiplatform-dev/choosing-web-target.html)。
+[為 Kotlin Multiplatform 專案選擇合適的 Web 目標](https://kotlinlang.org/docs/multiplatform/choosing-web-target.html)。
 
 與 JavaScript 一樣，針對 WebAssembly (Wasm) 時，請使用 `kotlin-multiplatform` 外掛程式：
 
@@ -711,7 +709,7 @@ kotlin {
 }
 ```
 
-> [請參閱更多關於 Wasm 的 Gradle 配置細節](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-dsl-reference.html#web-targets)。
+> [請參閱更多關於 Wasm 的 Gradle 配置細節](https://kotlinlang.org/docs/multiplatform/multiplatform-dsl-reference.html#web-targets)。
 >
 {style="note"}
 

@@ -1,6 +1,6 @@
 [//]: # (title: Kotlin/Native 二进制选项)
 
-本页面列出了有用的 Kotlin/Native 二进制选项，你可以使用它们来配置 Kotlin/Native [最终二进制文件](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-build-native-binaries.html)，以及在项目中设置二进制选项的方式。
+本页面列出了有用的 Kotlin/Native 二进制选项，你可以使用它们来配置 Kotlin/Native [最终二进制文件](https://kotlinlang.org/docs/multiplatform/multiplatform-build-native-binaries.html)，以及在项目中设置二进制选项的方式。
 
 ## 如何启用
 
@@ -89,7 +89,7 @@ kotlinc-native main.kt -Xbinary=enableSafepointSignposts=true
                 <li><code>no</code> (默认)</li>
             </list>
         </td>
-        <td>启用栈金丝雀：`yes` 用于易受攻击的函数，`all` 用于所有函数，`strong` 用于更强的启发式方法。</td>
+        <td>启用栈金丝雀：<code>yes</code> 用于易受攻击的函数，<code>all</code> 用于所有函数，<code>strong</code> 用于更强的启发式方法。</td>
         <td>自 2.2.20 起可用</td>
     </tr>
     <tr>
@@ -100,7 +100,7 @@ kotlinc-native main.kt -Xbinary=enableSafepointSignposts=true
                 <li><code>false</code></li>
             </list>
         </td>
-        <td>控制分配的（缓冲）分页。当为 `false` 时，内存分配器会按对象预留内存。</td>
+        <td>控制分配的（缓冲）分页。当为 <code>false</code> 时，内存分配器会按对象预留内存。</td>
         <td>自 2.2.0 起为实验性的</td>
     </tr>
     <tr>
@@ -117,7 +117,7 @@ kotlinc-native main.kt -Xbinary=enableSafepointSignposts=true
     <tr>
         <td><a href="native-memory-manager.md#track-memory-consumption-on-apple-platforms"><code>mmapTag</code></a></td>
         <td><code>UInt</code></td>
-        <td>控制内存标记，对于 Apple 平台上的内存消耗跟踪是必需的。可用值 `240`-`255`（默认为 `246`）；`0` 禁用标记。</td>
+        <td>控制内存标记，对于 Apple 平台上的内存消耗跟踪是必需的。可用值 <code>240</code>-<code>255</code>（默认为 <code>246</code>）；<code>0</code> 禁用标记。</td>
         <td>自 2.2.0 起可用</td>
     </tr>
     <tr>
@@ -128,7 +128,7 @@ kotlinc-native main.kt -Xbinary=enableSafepointSignposts=true
                 <li><code>false</code> (默认)</li>
             </list>
         </td>
-        <td>控制默认分配器。当为 `true` 时，使用 `malloc` 内存分配器而不是 `mmap`。</td>
+        <td>控制默认分配器。当为 <code>true</code> 时，使用 <code>malloc</code> 内存分配器而不是 <code>mmap</code>。</td>
         <td>自 2.2.0 起可用</td>
     </tr>
     <tr>
@@ -190,7 +190,7 @@ kotlinc-native main.kt -Xbinary=enableSafepointSignposts=true
                 <li><code>false</code></li>
             </list>
         </td>
-        <td>控制 Swift/Objective-C 对象的去初始化。当为 `false` 时，去初始化发生在特殊的 GC 线程而不是主线程上。</td>
+        <td>控制 Swift/Objective-C 对象的去初始化。当为 <code>false</code> 时，去初始化发生在特殊的 GC 线程而不是主线程上。</td>
         <td>自 1.9.0 起可用</td>
     </tr>
     <tr>
@@ -203,7 +203,7 @@ kotlinc-native main.kt -Xbinary=enableSafepointSignposts=true
         </td>
         <td>
             <p>控制应用程序在后台运行时，基于计时器调用垃圾回收器。</p>
-            <p>当 `enabled` 时，仅当内存消耗过高时才调用 GC。</p>
+            <p>当 <code>enabled</code> 时，仅当内存消耗过高时才调用 GC。</p>
        </td>
         <td>自 1.7.20 起为实验性的</td>
     </tr>
@@ -214,7 +214,7 @@ kotlinc-native main.kt -Xbinary=enableSafepointSignposts=true
                 <li><code>String</code></li>
             </list>
         </td>
-        <td>在 `Info.plst` 文件中设置 bundle ID (`CFBundleIdentifier`)。</td>
+        <td>在 <code>Info.plst</code> 文件中设置 bundle ID (<code>CFBundleIdentifier</code>)。</td>
         <td>自 1.7.20 起可用</td>
     </tr>
     <tr>
@@ -224,7 +224,7 @@ kotlinc-native main.kt -Xbinary=enableSafepointSignposts=true
                 <li><code>String</code></li>
             </list>
         </td>
-        <td>在 `Info.plst` 文件中设置短 bundle 版本 (`CFBundleShortVersionString`)。</td>
+        <td>在 <code>Info.plst</code> 文件中设置短 bundle 版本 (<code>CFBundleShortVersionString</code>)。</td>
         <td>自 1.7.20 起可用</td>
     </tr>
     <tr>
@@ -234,7 +234,7 @@ kotlinc-native main.kt -Xbinary=enableSafepointSignposts=true
                 <li><code>String</code></li>
             </list>
         </td>
-        <td>在 `Info.plst` 文件中设置 bundle 版本 (`CFBundleVersion`)。</td>
+        <td>在 <code>Info.plst</code> 文件中设置 bundle 版本 (<code>CFBundleVersion</code>)。</td>
         <td>自 1.7.20 起可用</td>
     </tr>
     <tr>
@@ -242,13 +242,13 @@ kotlinc-native main.kt -Xbinary=enableSafepointSignposts=true
         <td>
             <list>
                 <li><code>libbacktrace</code></li>
-                <li><code>coresymbolication</code> (Apple targets)</li>
+                <li><code>coresymbolication</code> (Apple 目标平台)</li>
                 <li><code>noop</code> (默认)</li>
             </list>
         </td>
         <td>
             <p>将文件位置和行号添加到异常栈追踪中。</p>
-            <p>`coresymbolication` 仅适用于 Apple [目标平台](...)，并且在调试模式下为 macOS 和 Apple 模拟器默认启用。</p>
+            <p><code>coresymbolication</code> 仅适用于 Apple 目标平台，并且在调试模式下为 macOS 和 Apple 模拟器默认启用。</p>
         </td>
         <td>自 1.6.20 起为实验性的</td>
     </tr>
@@ -322,4 +322,4 @@ kotlinc-native main.kt -Xbinary=enableSafepointSignposts=true
 
 ## 接下来
 
-了解如何[构建最终的原生二进制文件](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-build-native-binaries.html)。
+了解如何[构建最终的原生二进制文件](https://kotlinlang.org/docs/multiplatform/multiplatform-build-native-binaries.html)。

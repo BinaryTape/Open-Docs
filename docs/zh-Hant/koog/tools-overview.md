@@ -183,7 +183,7 @@ val strategy = strategy<Unit, Unit>("strategy-name") {
 
 ### 將代理程式轉換為工具
 
-若要將代理程式轉換為工具，請使用 `asTool()` 擴展函數：
+若要將代理程式轉換為工具，請使用 `AIAgentService` 和 `createAgentTool()` 擴展函數：
 
 <!--- INCLUDE
 import ai.koog.agents.core.agent.AIAgent

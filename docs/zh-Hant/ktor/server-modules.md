@@ -177,19 +177,25 @@ suspend fun Application.installEvents() {
 
 ### 配置選項
 
-以下 Gradle 配置屬性可用：
+以下配置屬性可用：
 
 | 屬性                                | 類型                        | 說明                                              | 預設值      |
 |-----------------------------------------|-----------------------------|----------------------------------------------------------|--------------|
 | `ktor.application.startup`              | `sequential` / `concurrent` | 定義應用程式模組的載入方式               | `sequential` |
-| `ktor.application.startupTimeoutMillis` | `Long`                      | 應用程式模組載入逾時（毫秒） | `100000`     |
+| `ktor.application.startupTimeoutMillis` | `Long`                      | 應用程式模組載入逾時（毫秒） | `10000`      |
 
 ### 啟用並行模組載入
 
-要選擇啟用並行模組載入，請將以下屬性添加到您的 `gradle.properties` 檔案中：
+要選擇啟用並行模組載入，請將以下屬性添加到您的伺服器配置檔中：
 
-```none
-ktor.application.startup = concurrent
+```yaml
+# application.conf
+
+ktor {
+    application {
+        startup = concurrent
+    }
+}
 ```
 
 對於依賴注入，您可以按照出現順序載入以下模組而不會出現問題：

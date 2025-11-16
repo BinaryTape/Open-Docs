@@ -11,7 +11,7 @@
 
 特別是，Kotlin/Native 編譯器產生的二進位檔可能包含第三方程式碼、資料或衍生作品。這表示經 Kotlin/Native 編譯的二進位檔受限於第三方許可證的條款和條件。
 
-實際上，如果您發布一個經 Kotlin/Native 編譯的[最終二進位檔](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-build-native-binaries.html)，您應始終在您的二進位發布中包含必要的許可檔案。這些檔案應以可讀形式供您的發布使用者存取。
+實際上，如果您發布一個經 Kotlin/Native 編譯的[最終二進位檔](https://kotlinlang.org/docs/multiplatform/multiplatform-build-native-binaries.html)，您應始終在您的二進位發布中包含必要的許可檔案。這些檔案應以可讀形式供您的發布使用者存取。
 
 請始終為相應專案包含以下許可檔案：
 

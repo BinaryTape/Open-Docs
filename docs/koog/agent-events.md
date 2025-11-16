@@ -18,6 +18,7 @@ Koog 提供了可用于自定义消息处理器的预定义事件类型。这些
 - [Agent 事件](#agent-events)
 - [策略事件](#strategy-events)
 - [节点事件](#node-events)
+- [子图事件](#subgraph-events)
 - [LLM 调用事件](#llm-call-events)
 - [LLM 流式事件](#llm-streaming-events)
 - [工具执行事件](#tool-execution-events)
@@ -135,6 +136,40 @@ Koog 提供了可用于自定义消息处理器的预定义事件类型。这些
 | `input`    | JsonElement | No       | null    | 提供给节点的输入数据。                                                                          |
 | `error`    | AIAgentError | Yes      |         | 在节点运行期间发生的特定错误。关于详情，请参见 [AIAgentError](#aiagenterror)。 |
 
+### 子图事件
+
+#### SubgraphExecutionStartingEvent
+
+表示子图运行的开始。包括以下字段：
+
+| 名称            | 数据类型    | 必需 | 默认 | 描述                         |
+|-----------------|-------------|----------|---------|------------------------------|
+| `runId`         | String      | Yes      |         | 策略运行的唯一标识符。       |
+| `subgraphName`  | String      | Yes      |         | 运行开始的子图的名称。       |
+| `input`         | JsonElement | No       | null    | 子图的输入值。               |
+
+#### SubgraphExecutionCompletedEvent
+
+表示子图运行的结束。包括以下字段：
+
+| 名称            | 数据类型    | 必需 | 默认 | 描述                         |
+|-----------------|-------------|----------|---------|------------------------------|
+| `runId`         | String      | Yes      |         | 策略运行的唯一标识符。       |
+| `subgraphName`  | String      | Yes      |         | 运行结束的子图的名称。       |
+| `input`         | JsonElement | No       | null    | 子图的输入值。               |
+| `output`        | JsonElement | No       | null    | 子图产生的输出值。           |
+
+#### SubgraphExecutionFailedEvent
+
+表示在子图运行期间发生的错误。包括以下字段：
+
+| 名称            | 数据类型    | 必需 | 默认 | 描述                                                                                                     |
+|-----------------|-------------|----------|---------|-----------------------------------------------------------------------------------------------------------------|
+| `runId`         | String      | Yes      |         | 策略运行的唯一标识符。                                                                          |
+| `subgraphName`  | String      | Yes      |         | 发生错误的子图的名称。                                                                          |
+| `input`         | JsonElement | No       | null    | 提供给子图的输入数据。                                                                          |
+| `error`         | AIAgentError | Yes      |         | 在子图运行期间发生的特定错误。关于详情，请参见 [AIAgentError](#aiagenterror)。 |
+
 ### LLM 调用事件
 
 #### LLMCallStartingEvent
@@ -146,29 +181,40 @@ Koog 提供了可用于自定义消息处理器的预定义事件类型。这些
 | `runId`  | String      | Yes      |         | LLM 运行的唯一标识符。                                                      |
 | `callId` | String      | Yes      |         | LLM 调用的唯一标识符，用于关联相关事件。                                    |
 | `prompt` | Prompt      | Yes      |         | 发送给模型的 Prompt。关于详情，请参见 [Prompt](#prompt)。                     |
-| `model`  | String      | Yes      |         | 模型标识符，格式为 `llm_provider:model_id`。                                |
-| `tools`  | List&lt;String&gt; | Yes      |         | 模型可以调用的工具 list。                                                   |
+| `model`  | ModelInfo   | Yes      |         | 模型信息。参见 [ModelInfo](#modelinfo)。                                    |
+| `tools`  | List<String> | Yes      |         | 模型可以调用的工具 list。                                                   |
 
 <a id="prompt"></a>
 `Prompt` 类表示一个 Prompt 的数据结构，由消息 list、唯一标识符和用于语言模型设置的可选形参组成。包括以下字段：
 
 | 名称       | 数据类型          | 必需 | 默认        | 描述                                                       |
 |------------|-------------------|----------|-------------|------------------------------------------------------------|
-| `messages` | List&lt;Message&gt;     | Yes      |             | 构成 Prompt 的消息 list。                                  |
+| `messages` | List<Message>     | Yes      |             | 构成 Prompt 的消息 list。                                  |
 | `id`       | String            | Yes      |             | Prompt 的唯一标识符。                                      |
 | `params`   | LLMParams         | No       | LLMParams() | 控制 LLM 生成内容方式的设置。                            |
+
+<a id="modelinfo"></a>
+`ModelInfo` 类表示关于语言模型的信息，包括其提供者、模型标识符和特性。包括以下字段：
+
+| 名称              | 数据类型 | 必需 | 默认 | 描述                                                       |
+|-------------------|-----------|----------|---------|------------------------------------------------------------|
+| `provider`        | String    | Yes      |         | 提供者标识符 (例如: "openai", "google", "anthropic")。     |
+| `model`           | String    | Yes      |         | 模型标识符 (例如: "gpt-4", "claude-3")。                 |
+| `displayName`     | String    | No       | null    | 可选的、人类可读的模型显示名称。                           |
+| `contextLength`   | Long      | No       | null    | 模型可以处理的最大 token 数量。                            |
+| `maxOutputTokens` | Long      | No       | null    | 模型可以生成的最大 token 数量。                            |
 
 #### LLMCallCompletedEvent
 
 表示 LLM 调用的结束。包括以下字段：
 
-| 名称                 | 数据类型               | 必需 | 默认 | 描述                                                       |
+| 名称                 | 数据类型              | 必需 | 默认 | 描述                                                       |
 |----------------------|------------------------|----------|---------|------------------------------------------------------------|
 | `runId`              | String                 | Yes      |         | LLM 运行的唯一标识符。                                       |
 | `callId`             | String                 | Yes      |         | LLM 调用的唯一标识符，用于关联相关事件。                     |
 | `prompt`             | Prompt                 | Yes      |         | 调用中使用的 Prompt。                                        |
-| `model`              | String                 | Yes      |         | 模型标识符，格式为 `llm_provider:model_id`。                 |
-| `responses`          | List&lt;Message.Response&gt; | Yes      |         | 模型返回的一个或多个响应。                                   |
+| `model`              | ModelInfo              | Yes      |         | 模型信息。参见 [ModelInfo](#modelinfo)。                     |
+| `responses`          | List<Message.Response> | Yes      |         | 模型返回的一个或多个响应。                                   |
 | `moderationResponse` | ModerationResult       | No       | null    | 如果可用，表示审核响应。                                     |
 
 ### LLM 流式事件
@@ -182,8 +228,8 @@ Koog 提供了可用于自定义消息处理器的预定义事件类型。这些
 | `runId`  | String      | Yes      |         | LLM 运行的唯一标识符。                                     |
 | `callId` | String      | Yes      |         | LLM 调用的唯一标识符，用于关联相关事件。                   |
 | `prompt` | Prompt      | Yes      |         | 发送给模型的 Prompt。                                      |
-| `model`  | String      | Yes      |         | 模型标识符，格式为 `llm_provider:model_id`。               |
-| `tools`  | List&lt;String&gt; | Yes      |         | 模型可以调用的工具 list。                                  |
+| `model`  | ModelInfo   | Yes      |         | 模型信息。参见 [ModelInfo](#modelinfo)。                   |
+| `tools`  | List<String> | Yes      |         | 模型可以调用的工具 list。                                  |
 
 #### LLMStreamingFrameReceivedEvent
 
@@ -214,8 +260,8 @@ Koog 提供了可用于自定义消息处理器的预定义事件类型。这些
 | `runId`  | String      | Yes      |         | LLM 运行的唯一标识符。                                     |
 | `callId` | String      | Yes      |         | LLM 调用的唯一标识符，用于关联相关事件。                   |
 | `prompt` | Prompt      | Yes      |         | 发送给模型的 Prompt。                                      |
-| `model`  | String      | Yes      |         | 模型标识符，格式为 `llm_provider:model_id`。               |
-| `tools`  | List&lt;String&gt; | Yes      |         | 模型可以调用的工具 list。                                  |
+| `model`  | ModelInfo   | Yes      |         | 模型信息。参见 [ModelInfo](#modelinfo)。                   |
+| `tools`  | List<String> | Yes      |         | 模型可以调用的工具 list。                                  |
 
 ### 工具执行事件
 

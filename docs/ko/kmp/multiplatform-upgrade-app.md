@@ -246,9 +246,9 @@ data class RocketLaunch (
 1.  `shared/src/commonMain/kotlin` 디렉터리에 있는 `Greeting.kt` 파일을 엽니다.
 2.  `Greeting` 클래스에 `rocketComponent` 프로퍼티를 추가합니다. 이 프로퍼티는 마지막 성공적인 발사 날짜가 포함된 메시지를 저장합니다.
 
-    ```kotlin
-    private val rocketComponent = RocketComponent()
-    ```
+   ```kotlin
+   private val rocketComponent = RocketComponent()
+   ```
 
 3.  `greet()` 함수를 `Flow`를 반환하도록 변경합니다.
 
@@ -300,18 +300,7 @@ data class RocketLaunch (
 이제 애플리케이션이 더 복잡해지고 있으므로, UI를 구현하는 `App()` 함수를 호출하는 [Android 액티비티](https://developer.android.com/guide/components/activities/intro-activities)인 `MainActivity`에 뷰 모델을 도입할 때입니다.
 뷰 모델은 액티비티의 데이터를 관리하며, 액티비티가 수명 주기 변경을 겪을 때 사라지지 않습니다.
 
-1.  `composeApp/build.gradle.kts` 파일에 다음 의존성을 추가합니다.
-
-    ```kotlin
-    androidMain.dependencies {
-        // ...
-        implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2")
-        implementation("androidx.lifecycle:lifecycle-runtime-compose:2.6.2")
-        implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2")
-    }
-    ```
-
-2.  `composeApp/src/androidMain/kotlin/com/jetbrains/greeting/greetingkmp` 디렉터리에 새 `MainViewModel` Kotlin 클래스를 만듭니다.
+1.  `composeApp/src/androidMain/kotlin/com/jetbrains/greeting/greetingkmp` 디렉터리에 새 `MainViewModel` Kotlin 클래스를 만듭니다.
 
     ```kotlin
     import androidx.lifecycle.ViewModel
@@ -323,7 +312,7 @@ data class RocketLaunch (
 
     이 클래스는 Android의 `ViewModel` 클래스를 확장하며, 수명 주기 및 구성 변경에 대한 올바른 동작을 보장합니다.
 
-3.  [StateFlow](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/-state-flow/) 타입의 `greetingList` 값과 해당 지원 프로퍼티를 생성합니다.
+2.  [StateFlow](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/-state-flow/) 타입의 `greetingList` 값과 해당 지원 프로퍼티를 생성합니다.
 
     ```kotlin
     import kotlinx.coroutines.flow.MutableStateFlow
@@ -338,13 +327,13 @@ data class RocketLaunch (
     *   여기서 `StateFlow`는 `Flow` 인터페이스를 확장하지만 단일 값 또는 상태를 가집니다.
     *   private 지원 프로퍼티 `_greetingList`는 이 클래스의 클라이언트만 읽기 전용 `greetingList` 프로퍼티에 접근할 수 있도록 보장합니다.
 
-4.  뷰 모델의 `init` 함수에서 `Greeting().greet()` Flow의 모든 문자열을 수집합니다.
+3.  뷰 모델의 `init` 함수에서 `Greeting().greet()` Flow의 모든 문자열을 수집합니다.
 
     ```kotlin
-    import androidx.lifecycle.viewModelScope
-    import kotlinx.coroutines.launch
+   import androidx.lifecycle.viewModelScope
+   import kotlinx.coroutines.launch
    
-    class MainViewModel : ViewModel() {
+   class MainViewModel : ViewModel() {
        private val _greetingList = MutableStateFlow<List<String>>(listOf())
        val greetingList: StateFlow<List<String>> get() = _greetingList
        
@@ -361,7 +350,7 @@ data class RocketLaunch (
     `collect()` 함수가 중단되기 때문에, 뷰 모델의 스코프 내에서 `launch` 코루틴이 사용됩니다.
     이는 `launch` 코루틴이 뷰 모델 수명 주기의 올바른 단계에서만 실행됨을 의미합니다.
 
-5.  `collect` 트레일링 람다 내부에서 `_greetingList`의 값을 업데이트하여 수집된 `phrase`를 `list`의 문구 목록에 추가합니다.
+4.  `collect` 트레일링 람다 내부에서 `_greetingList`의 값을 업데이트하여 수집된 `phrase`를 `list`의 문구 목록에 추가합니다.
 
     ```kotlin
     import kotlinx.coroutines.flow.update

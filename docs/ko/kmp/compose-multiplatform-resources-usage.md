@@ -122,7 +122,7 @@ Material Symbols 라이브러리에서 벡터 Android XML 아이콘을 사용할
     </vector>
     ```
 
-4.  프로젝트를 빌드하여 리소스 접근자를 생성하거나, [Kotlin Multiplatform 플러그인](https://plugins.jetbrains.com/plugin/14936-kotlin-multiplatform)이 자동으로 처리하도록 하세요.
+4.  프로젝트를 빌드하여 리소스 접근자를 생성하거나, [Kotlin Multiplatform IDE 플러그인](https://plugins.jetbrains.com/plugin/14936-kotlin-multiplatform)이 자동으로 처리하도록 하세요.
 
 다음은 Compose Multiplatform 코드에서 `colorFilter` 매개변수를 사용하여 아이콘에 접근하고 색상을 조정하는 방법의 예시입니다:
 
@@ -199,7 +199,7 @@ coroutineScope.launch {
 * `\t` – 탭 기호
 * `\uXXXX` – 특정 유니코드 문자
 
-Android 문자열에서처럼 "@" 또는 "?"와 같은 특수 XML 문자를 이스케이프할 필요가 없습니다.
+[Android 문자열](https://developer.android.com/guide/topics/resources/string-resource#escaping_quotes)에서처럼 "@" 또는 "?"와 같은 특수 XML 문자를 이스케이프할 필요가 없습니다.
 
 #### 문자열 템플릿
 
@@ -394,7 +394,7 @@ private fun InterTypography(): Typography {
 >
 {style="note"}
 
-웹 타겟에서 이모티콘이나 아랍어 스크립트와 같은 특수 문자를 지원하려면 해당 글꼴을 리소스에 추가하고 [Compose Multiplatform 사전 로드 API를 사용하여 리소스 사전 로드](#preload-resources-using-the-compose-multiplatform-preload-api)해야 합니다.
+웹 타겟에서 이모티콘이나 아랍어 스크립트와 같은 특수 문자를 지원하려면 해당 글꼴을 리소스에 추가하고 [대체 글꼴을 사전 로드](#preload-resources-using-the-compose-multiplatform-preload-api)해야 합니다.
 
 ### 원시 파일
 
@@ -509,7 +509,7 @@ fun App() {
     }
 }
 ```
-{initial-collapse-state="collapsed" collapsible="true" collapsed-title="AndroidView(factory = { WebView(it).apply"}
+{initial-collapse-state="collapsed" collapsible="true"  collapsed-title="AndroidView(factory = { WebView(it).apply"}
 
 이 예시는 다음 단순 HTML 파일과 함께 작동합니다:
 
@@ -525,7 +525,7 @@ fun App() {
 </body>
 </html>
 ```
-{initial-collapse-state="collapsed" collapsible="true" collapsed-title="<title>Cat Resource</title>"}
+{initial-collapse-state="collapsed" collapsible="true"  collapsed-title="<title>Cat Resource</title>"}
 
 이 예시의 두 리소스 파일은 모두 `commonMain` 소스 세트에 있습니다:
 

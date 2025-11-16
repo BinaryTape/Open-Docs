@@ -1,12 +1,12 @@
 [//]: # (title: 開始使用 Kotlin/Wasm 與 Compose Multiplatform)
 
-<primary-label ref="beta"/> 
+<primary-label ref="beta"/>
 
 本教學課程示範如何在 IntelliJ IDEA 中使用 [Kotlin/Wasm](wasm-overview.md) 執行 [Compose Multiplatform](https://www.jetbrains.com/lp/compose-multiplatform/) 應用程式，並產生可用於發佈為網站的成果物。
 
 ## 建立專案
 
-1. [設定您的 Kotlin Multiplatform 開發環境](https://www.jetbrains.com/help/kotlin-multiplatform-dev/quickstart.html#set-up-the-environment)。
+1. [設定您的 Kotlin Multiplatform 開發環境](https://kotlinlang.org/docs/multiplatform/quickstart.html#set-up-the-environment)。
 2. 在 IntelliJ IDEA 中，選取 **File | New | Project**。
 3. 在左側面板中，選取 **Kotlin Multiplatform**。
 
@@ -91,15 +91,15 @@
 
 ## 接下來呢？
 
-* [了解如何使用 Compose Multiplatform 在 iOS 和 Android 之間共用 UI](https://www.jetbrains.com/help/kotlin-multiplatform-dev/compose-multiplatform-create-first-app.html)
+* [了解如何使用 Compose Multiplatform 在 iOS 和 Android 之間共用 UI](https://kotlinlang.org/docs/multiplatform/compose-multiplatform-create-first-app.html)
 * 嘗試更多 Kotlin/Wasm 範例：
 
-  * [KotlinConf 應用程式](https://github.com/JetBrains/kotlinconf-app)
-  * [Compose 圖片檢視器](https://github.com/JetBrains/compose-multiplatform/tree/master/examples/imageviewer)
-  * [Jetsnack 應用程式](https://github.com/JetBrains/compose-multiplatform/tree/master/examples/jetsnack)
-  * [Node.js 範例](https://github.com/Kotlin/kotlin-wasm-nodejs-template)
-  * [WASI 範例](https://github.com/Kotlin/kotlin-wasm-wasi-template)
-  * [Compose 範例](https://github.com/Kotlin/kotlin-wasm-compose-template)
+  * [KotlinConf application](https://github.com/JetBrains/kotlinconf-app)
+  * [Compose image viewer](https://github.com/JetBrains/compose-multiplatform/tree/master/examples/imageviewer)
+  * [Jetsnack application](https://github.com/JetBrains/compose-multiplatform/tree/master/examples/jetsnack)
+  * [Node.js example](https://github.com/Kotlin/kotlin-wasm-nodejs-template)
+  * [WASI example](https://github.com/Kotlin/kotlin-wasm-wasi-template)
+  * [Compose example](https://github.com/Kotlin/kotlin-wasm-compose-template)
 
 * 在 Kotlin Slack 中加入 Kotlin/Wasm 社群：
 

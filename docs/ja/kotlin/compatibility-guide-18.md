@@ -1,4 +1,4 @@
-[//]: # (title: Kotlin 1.8 互換性ガイド)
+[//]: # (title: Kotlin 1.8.x 互換性ガイド)
 
 _[言語をモダンに保つ](kotlin-evolution-principles.md)_ および _[快適なアップデート](kotlin-evolution-principles.md)_ は、Kotlin 言語設計における基本的な原則の1つです。前者は、言語の進化を妨げる構文は削除されるべきであると述べており、後者は、コードの移行を可能な限りスムーズにするために、この削除が事前に十分に周知されるべきであると述べています。
 
@@ -35,7 +35,7 @@ _[言語をモダンに保つ](kotlin-evolution-principles.md)_ および _[快�
 
 ### 抽象スーパークラスメンバーへのスーパークラス呼び出しの委譲を禁止
 
-> **問題**: [KT-45508](https://youtrack.com/issue/KT-45508), [KT-49017](https://youtrack.com/issue/KT-49017), [KT-38078](https://youtrack.com/issue/KT-38078)
+> **問題**: [KT-45508](https://youtrack.jetbrains.com/issue/KT-45508), [KT-49017](https://youtrack.jetbrains.com/issue/KT-49017), [KT-38078](https://youtrack.jetbrains.com/issue/KT-38078)
 >
 > **コンポーネント**: コア言語
 >
@@ -53,7 +53,7 @@ _[言語をモダンに保つ](kotlin-evolution-principles.md)_ および _[快�
 
 ### `when`式における紛らわしい文法を非推奨に
 
-> **問題**: [KT-48385](https://youtrack.com/issue/KT-48385)
+> **問題**: [KT-48385](https://youtrack.jetbrains.com/issue/KT-48385)
 >
 > **コンポーネント**: コア言語
 >
@@ -65,11 +65,11 @@ _[言語をモダンに保つ](kotlin-evolution-principles.md)_ および _[快�
 >
 > -   1.6.20: 影響を受ける式に対して非推奨警告を導入
 > -   1.8.0: この警告をエラーに昇格。`-XXLanguage:-ProhibitConfusingSyntaxInWhenBranches` を使用して一時的に 1.8 より前の挙動に戻すことができます。
-> -   >= 1.9: いくつかの非推奨の構造を新しい言語機能のために再利用
+> -   &gt;= 1.9: いくつかの非推奨の構造を新しい言語機能のために再利用
 
 ### 異なる数値型間の暗黙的な型強制を禁止
 
-> **問題**: [KT-48645](https://youtrack.com/issue/KT-48645)
+> **問題**: [KT-48645](https://youtrack.jetbrains.com/issue/KT-48645)
 >
 > **コンポーネント**: Kotlin/JVM
 >
@@ -81,11 +81,11 @@ _[言語をモダンに保つ](kotlin-evolution-principles.md)_ および _[快�
 >
 > -   < 1.5.30: 影響を受けるすべての場合で古い挙動
 > -   1.5.30: 生成されたプロパティデリゲートアクセサにおけるダウンキャストの挙動を修正。`-Xuse-old-backend` を使用して一時的に 1.5.30 より前の修正前の挙動に戻すことができます。
-> -   >= 1.9: 他の影響を受ける場合でのダウンキャストの挙動を修正
+> -   &gt;= 1.9: 他の影響を受ける場合でのダウンキャストの挙動を修正
 
 ### `sealed` クラスのプライベートコンストラクタを本当にプライベートに
 
-> **問題**: [KT-44866](https://youtrack.com/issue/KT-44866)
+> **問題**: [KT-44866](https://youtrack.jetbrains.com/issue/KT-44866)
 >
 > **コンポーネント**: コア言語
 >
@@ -100,7 +100,7 @@ _[言語をモダンに保つ](kotlin-evolution-principles.md)_ および _[快�
 
 ### ビルダー推論コンテキストにおいて、互換性のない数値型に対して `==` 演算子を使用することを禁止
 
-> **問題**: [KT-45508](https://youtrack.com/issue/KT-45508)
+> **問題**: [KT-45508](https://youtrack.jetbrains.com/issue/KT-45508)
 >
 > **コンポーネント**: コア言語
 >
@@ -115,7 +115,7 @@ _[言語をモダンに保つ](kotlin-evolution-principles.md)_ および _[快�
 
 ### Elvis 演算子の右辺における `else` を持たない `if` および網羅的でない `when` を禁止
 
-> **問題**: [KT-44705](https://youtrack.com/issue/KT-44705)
+> **問題**: [KT-44705](https://youtrack.jetbrains.com/issue/KT-44705)
 >
 > **コンポーネント**: コア言語
 >
@@ -130,7 +130,7 @@ _[言語をモダンに保つ](kotlin-evolution-principles.md)_ および _[快�
 
 ### ジェネリック型エイリアスの使用における上限違反を禁止 (エイリアス型の複数の型引数で使用される型パラメータ)
 
-> **問題**: [KT-29168](https://youtrack.com/issue/KT-29168)
+> **問題**: [KT-29168](https://youtrack.jetbrains.com/issue/KT-29168)
 >
 > **コンポーネント**: コア言語
 >
@@ -145,7 +145,7 @@ _[言語をモダンに保つ](kotlin-evolution-principles.md)_ および _[快�
 
 ### ジェネリック型エイリアスの使用における上限違反を禁止 (エイリアス型の型引数のジェネリック型引数として使用される型パラメータ)
 
-> **問題**: [KT-54066](https://youtrack.com/issue/KT-54066)
+> **問題**: [KT-54066](https://youtrack.jetbrains.com/issue/KT-54066)
 >
 > **コンポーネント**: コア言語
 >
@@ -156,11 +156,11 @@ _[言語をモダンに保つ](kotlin-evolution-principles.md)_ および _[快�
 > **非推奨サイクル**:
 >
 > -   1.8.0: ジェネリック型エイリアスの使用において、型引数が対応するエイリアス型（alias type）の型パラメータの上限制約に違反している場合に警告を報告
-> -   >=1.10: 警告をエラーに昇格
+> -   &gt;=1.10: 警告をエラーに昇格
 
 ### 委譲内での拡張プロパティに宣言された型パラメータの使用を禁止
 
-> **問題**: [KT-24643](https://youtrack.com/issue/KT-24643)
+> **問題**: [KT-24643](https://youtrack.jetbrains.com/issue/KT-24643)
 >
 > **コンポーネント**: コア言語
 >
@@ -175,7 +175,7 @@ _[言語をモダンに保つ](kotlin-evolution-principles.md)_ および _[快�
 
 ### サスペンド関数での `@Synchronized` アノテーションを禁止
 
-> **問題**: [KT-48516](https://youtrack.com/issue/KT-48516)
+> **問題**: [KT-48516](https://youtrack.jetbrains.com/issue/KT-48516)
 >
 > **コンポーネント**: コア言語
 >
@@ -190,7 +190,7 @@ _[言語をモダンに保つ](kotlin-evolution-principles.md)_ および _[快�
 
 ### 非可変長引数パラメータへの引数渡しにスプレッド演算子を使用することを禁止
 
-> **問題**: [KT-48162](https://youtrack.com/issue/KT-48162)
+> **問題**: [KT-48162](https://youtrack.jetbrains.com/issue/KT-48162)
 >
 > **コンポーネント**: コア言語
 >
@@ -205,7 +205,7 @@ _[言語をモダンに保つ](kotlin-evolution-principles.md)_ および _[快�
 
 ### ラムダの戻り値型によってオーバーロードされた関数に渡されるラムダにおける null 安全性違反を禁止
 
-> **問題**: [KT-49658](https://youtrack.com/issue/KT-49658)
+> **問題**: [KT-49658](https://youtrack.jetbrains.com/issue/KT-49658)
 >
 > **コンポーネント**: コア言語
 >
@@ -220,7 +220,7 @@ _[言語をモダンに保つ](kotlin-evolution-principles.md)_ および _[快�
 
 ### `public` なシグネチャでローカル型を近似する際に null 可能性を保持
 
-> **問題**: [KT-53982](https://youtrack.com/issue/KT-53982)
+> **問題**: [KT-53982](https://youtrack.jetbrains.com/issue/KT-53982)
 >
 > **コンポーネント**: コア言語
 >
@@ -236,7 +236,7 @@ _[言語をモダンに保つ](kotlin-evolution-principles.md)_ および _[快�
 
 ### オーバーライドを通じて非推奨を伝播しない
 
-> **問題**: [KT-47902](https://youtrack.com/issue/KT-47902)
+> **問題**: [KT-47902](https://youtrack.jetbrains.com/issue/KT-47902)
 >
 > **コンポーネント**: コア言語
 >
@@ -251,7 +251,7 @@ _[言語をモダンに保つ](kotlin-evolution-principles.md)_ および _[快�
 
 ### ビルダー推論コンテキストにおける、型変数を上限に暗黙的に推論することを禁止
 
-> **問題**: [KT-47986](https://youtrack.com/issue/KT-47986)
+> **問題**: [KT-47986](https://youtrack.jetbrains.com/issue/KT-47986)
 >
 > **コンポーネント**: コア言語
 >
@@ -266,7 +266,7 @@ _[言語をモダンに保つ](kotlin-evolution-principles.md)_ および _[快�
 
 ### アノテーションクラス内でのコレクションリテラルの使用を、パラメータ宣言以外の場所で禁止
 
-> **問題**: [KT-39041](https://youtrack.com/issue/KT-39041)
+> **問題**: [KT-39041](https://youtrack.jetbrains.com/issue/KT-39041)
 >
 > **コンポーネント**: コア言語
 >
@@ -281,7 +281,7 @@ _[言語をモダンに保つ](kotlin-evolution-principles.md)_ および _[快�
 
 ### デフォルト値式におけるデフォルト値を持つパラメータの前方参照を禁止
 
-> **問題**: [KT-25694](https://youtrack.com/issue/KT-25694)
+> **問題**: [KT-25694](https://youtrack.jetbrains.com/issue/KT-25694)
 >
 > **コンポーネント**: コア言語
 >
@@ -296,7 +296,7 @@ _[言語をモダンに保つ](kotlin-evolution-principles.md)_ および _[快�
 
 ### インライン関数型パラメータに対する拡張呼び出しを禁止
 
-> **問題**: [KT-52502](https://youtrack.com/issue/KT-52502)
+> **問題**: [KT-52502](https://youtrack.jetbrains.com/issue/KT-52502)
 >
 > **コンポーネント**: コア言語
 >
@@ -311,7 +311,7 @@ _[言語をモダンに保つ](kotlin-evolution-principles.md)_ および _[快�
 
 ### 匿名関数引数を持つ `suspend` という名前の infix 関数への呼び出しを禁止
 
-> **問題**: [KT-49264](https://youtrack.com/issue/KT-49264)
+> **問題**: [KT-49264](https://youtrack.jetbrains.com/issue/KT-49264)
 >
 > **コンポーネント**: コア言語
 >
@@ -323,11 +323,11 @@ _[言語をモダンに保つ](kotlin-evolution-principles.md)_ および _[快�
 >
 > -   1.7.20: 匿名関数リテラルを持つ `suspend` infix 呼び出しに対して警告を報告
 > -   1.9.0: 警告をエラーに昇格。`-XXLanguage:-ModifierNonBuiltinSuspendFunError` を使用して一時的に 1.9 より前の挙動に戻すことができます。
-> -   >=1.10: `suspend fun` トークンシーケンスがパーサーによって解釈される方法を変更
+> -   &gt;=1.10: `suspend fun` トークンシーケンスがパーサーによって解釈される方法を変更
 
 ### `inner` クラスでキャプチャされた型パラメータを、そのバリアンスに反して使用することを禁止
 
-> **問題**: [KT-50947](https://youtrack.com/issue/KT-50947)
+> **問題**: [KT-50947](https://youtrack.jetbrains.com/issue/KT-50947)
 >
 > **コンポーネント**: コア言語
 >
@@ -342,7 +342,7 @@ _[言語をモダンに保つ](kotlin-evolution-principles.md)_ および _[快�
 
 ### 複合代入演算子での明示的な戻り値型を持たない関数の再帰呼び出しを禁止
 
-> **問題**: [KT-48546](https://youtrack.com/issue/KT-48546)
+> **問題**: [KT-48546](https://youtrack.jetbrains.com/issue/KT-48546)
 >
 > **コンポーネント**: コア言語
 >
@@ -357,7 +357,7 @@ _[言語をモダンに保つ](kotlin-evolution-principles.md)_ および _[快�
 
 ### `@NotNull T` が期待され、null 許容境界を持つ Kotlin ジェネリックパラメータが与えられた場合の不健全な呼び出しを禁止
 
-> **問題**: [KT-36770](https://youtrack.com/issue/KT-36770)
+> **問題**: [KT-36770](https://youtrack.jetbrains.com/issue/KT-36770)
 >
 > **コンポーネント**: Kotlin/JVM
 >
@@ -372,7 +372,7 @@ _[言語をモダンに保つ](kotlin-evolution-principles.md)_ および _[快�
 
 ### `enum` のエントリ初期化子からの `enum` クラスのコンパニオンのメンバーへのアクセスを禁止
 
-> **問題**: [KT-49110](https://youtrack.com/issue/KT-49110)
+> **問題**: [KT-49110](https://youtrack.jetbrains.com/issue/KT-49110)
 >
 > **コンポーネント**: コア言語
 >
@@ -387,7 +387,7 @@ _[言語をモダンに保つ](kotlin-evolution-principles.md)_ および _[快�
 
 ### `Enum.declaringClass` シンセティックプロパティを非推奨にし、削除
 
-> **問題**: [KT-49653](https://youtrack.com/issue/KT-49653)
+> **問題**: [KT-49653](https://youtrack.jetbrains.com/issue/KT-49653)
 >
 > **コンポーネント**: Kotlin/JVM
 >
@@ -399,11 +399,11 @@ _[言語をモダンに保つ](kotlin-evolution-principles.md)_ および _[快�
 >
 > -   1.7.0: `declaringClass` プロパティの使用に対して警告を報告 (またはプログレッシブモードではエラーを報告) し、`declaringJavaClass` 拡張への移行を提案
 > -   1.9.0: 警告をエラーに昇格。`-XXLanguage:-ProhibitEnumDeclaringClass` を使用して一時的に 1.9 より前の挙動に戻すことができます。
-> -   >=1.10: `declaringClass` シンセティックプロパティを削除
+> -   &gt;=1.10: `declaringClass` シンセティックプロパティを削除
 
 ### コンパイラオプション `-Xjvm-default` の `enable` および `compatibility` モードを非推奨に
 
-> **問題**: [KT-46329](https://youtrack.com/issue/KT-46329)
+> **問題**: [KT-46329](https://youtrack.jetbrains.com/issue/KT-46329)
 >
 > **コンポーネント**: Kotlin/JVM
 >
@@ -414,13 +414,13 @@ _[言語をモダンに保つ](kotlin-evolution-principles.md)_ および _[快�
 > **非推奨サイクル**:
 >
 > -   1.6.20: コンパイラオプション `-Xjvm-default` の `enable` および `compatibility` モードに対して警告を導入
-> -   >= 1.9: この警告をエラーに昇格
+> -   &gt;= 1.9: この警告をエラーに昇格
 
 ## 標準ライブラリ
 
 ### `Range`/`Progression` が `Collection` を実装し始める際の潜在的なオーバーロード解決の変更について警告
 
-> **問題**: [KT-49276](https://youtrack.com/issue/KT-49276)
+> **問題**: [KT-49276](https://youtrack.jetbrains.com/issue/KT-49276)
 >
 > **コンポーネント**: コア言語 / kotlin-stdlib
 >
@@ -436,7 +436,7 @@ _[言語をモダンに保つ](kotlin-evolution-principles.md)_ および _[快�
 
 ### `kotlin.dom` および `kotlin.browser` パッケージの宣言を `kotlinx.*` に移行
 
-> **問題**: [KT-39330](https://youtrack.com/issue/KT-39330)
+> **問題**: [KT-39330](https://youtrack.jetbrains.com/issue/KT-39330)
 >
 > **コンポーネント**: kotlin-stdlib (JS)
 >
@@ -450,11 +450,11 @@ _[言語をモダンに保つ](kotlin-evolution-principles.md)_ および _[快�
 > -   1.4.0: `kotlin.dom` および `kotlin.browser` パッケージの API を非推奨化し、上記の新しい API を代替として提案
 > -   1.6.0: 非推奨レベルをエラーに昇格
 > -   1.8.20: JS-IR ターゲット向けに stdlib から非推奨の関数を削除
-> -   >= 1.9: `kotlinx.*` パッケージの API を別のライブラリに移動
+> -   &gt;= 1.9: `kotlinx.*` パッケージの API を別のライブラリに移動
 
 ### 一部の JS 専用 API を非推奨に
 
-> **問題**: [KT-48587](https://youtrack.com/issue/KT-48587)
+> **問題**: [KT-48587](https://youtrack.jetbrains.com/issue/KT-48587)
 >
 > **コンポーネント**: kotlin-stdlib (JS)
 >
@@ -466,13 +466,13 @@ _[言語をモダンに保つ](kotlin-evolution-principles.md)_ および _[快�
 >
 > -   1.6.0: 影響を受ける関数を警告とともに非推奨化
 > -   1.9.0: 非推奨レベルをエラーに昇格
-> -   >=1.10.0: 公開 API から非推奨の関数を削除
+> -   &gt;=1.10.0: 公開 API から非推奨の関数を削除
 
 ## ツール
 
 ### `KotlinCompile` タスクの `classpath` プロパティの非推奨レベルを昇格
 
-> **問題**: [KT-51679](https://youtrack.com/issue/KT-51679)
+> **問題**: [KT-51679](https://youtrack.jetbrains.com/issue/KT-51679)
 >
 > **コンポーネント**: Gradle
 >
@@ -484,11 +484,11 @@ _[言語をモダンに保つ](kotlin-evolution-principles.md)_ および _[快�
 >
 > -   1.7.0: `classpath` プロパティが非推奨化
 > -   1.8.0: 非推奨レベルをエラーに昇格
-> -   >=1.9.0: 公開 API から非推奨の関数を削除
+> -   &gt;=1.9.0: 公開 API から非推奨の関数を削除
 
 ### `kapt.use.worker.api` Gradle プロパティを削除
 
-> **問題**: [KT-48827](https://youtrack.com/issue/KT-48827)
+> **問題**: [KT-48827](https://youtrack.jetbrains.com/issue/KT-48827)
 >
 > **コンポーネント**: Gradle
 >
@@ -503,7 +503,7 @@ _[言語をモダンに保つ](kotlin-evolution-principles.md)_ および _[快�
 
 ### `kotlin.compiler.execution.strategy` システムプロパティを削除
 
-> **問題**: [KT-51831](https://youtrack.com/issue/KT-51831)
+> **問題**: [KT-51831](https://youtrack.jetbrains.com/issue/KT-51831)
 >
 > **コンポーネント**: Gradle
 >
@@ -511,14 +511,14 @@ _[言語をモダンに保つ](kotlin-evolution-principles.md)_ および _[快�
 >
 > **概要**: コンパイラの実行戦略を選択するために使用されていた `kotlin.compiler.execution.strategy` システムプロパティを削除します。代わりに Gradle プロパティ `kotlin.compiler.execution.strategy` またはコンパイルタスクプロパティ `compilerExecutionStrategy` を使用してください。
 >
-> **非推奨サイクル**:
+> **非推奨サイクル:**
 >
 > -   1.7.0: 非推奨レベルを警告に昇格
 > -   1.8.0: プロパティを削除
 
 ### コンパイラオプションの変更
 
-> **問題**: [KT-27301](https://youtrack.com/issue/KT-27301), [KT-48532](https://youtrack.com/issue/KT-48532)
+> **問題**: [KT-27301](https://youtrack.jetbrains.com/issue/KT-27301), [KT-48532](https://youtrack.jetbrains.com/issue/KT-48532)
 >
 > **コンポーネント**: Gradle
 >
@@ -526,13 +526,13 @@ _[言語をモダンに保つ](kotlin-evolution-principles.md)_ および _[快�
 >
 > **概要**: この変更は Gradle プラグインの作成者に影響を与える可能性があります。`kotlin-gradle-plugin` には、一部の内部型に追加のジェネリックパラメータがあります (ジェネリック型または `*` を追加する必要があります)。`KotlinNativeLink` タスクは `AbstractKotlinNativeCompile` タスクを継承しなくなりました。`KotlinJsCompilerOptions.outputFile` および関連する `KotlinJsOptions.outputFile` オプションは非推奨になりました。代わりに `Kotlin2JsCompile.outputFileProperty` タスク入力を使用してください。`kotlinOptions` タスク入力および `kotlinOptions{...}` タスク DSL はサポートモードであり、今後のリリースで非推奨になる予定です。`compilerOptions` および `kotlinOptions` はタスク実行フェーズで変更できません ([Kotlin 1.8 の新機能](whatsnew18.md#limitations) の例外を1つ参照)。`freeCompilerArgs` は不変の `List<String>` を返します – `kotlinOptions.freeCompilerArgs.remove("something")` は失敗します。古い JVM バックエンドを使用することを許可していた `useOldBackend` プロパティは削除されました。
 >
-> **非推奨サイクル**:
+> **非推奨サイクル:**
 >
 > -   1.8.0: `KotlinNativeLink` タスクは `AbstractKotlinNativeCompile` を継承しません。`KotlinJsCompilerOptions.outputFile` および関連する `KotlinJsOptions.outputFile` オプションは非推奨になりました。古い JVM バックエンドを使用することを許可していた `useOldBackend` プロパティは削除されました。
 
 ### `kotlin.internal.single.build.metrics.file` プロパティを非推奨に
 
-> **問題**: [KT-53357](https://youtrack.com/issue/KT-53357)
+> **問題**: [KT-53357](https://youtrack.jetbrains.com/issue/KT-53357)
 >
 > **コンポーネント**: Gradle
 >
@@ -540,7 +540,7 @@ _[言語をモダンに保つ](kotlin-evolution-principles.md)_ および _[快�
 >
 > **概要**: ビルドレポート用の単一ファイルを定義するために使用されていた `kotlin.internal.single.build.metrics.file` プロパティを非推奨にします。代わりに `kotlin.build.report.output=single_file` とともに `kotlin.build.report.single_file` プロパティを使用してください。
 >
-> **非推奨サイクル**:
+> **非推奨サイクル:**
 >
 > -   1.8.0: 非推奨レベルを警告に昇格
-> -   >= 1.9: プロパティを削除
+> -   &gt;= 1.9: プロパティを削除

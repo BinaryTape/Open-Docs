@@ -14,7 +14,7 @@
 
 Kotlin 中的每个变量和数据结构都有一个类型。类型非常重要，因为它们告诉编译器你允许对该变量或数据结构执行哪些操作。换句话说，它具有哪些函数和属性。
 
-在上一章节中，Kotlin 在之前的示例中能够识别出 `customers` 的类型为 [`Int`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/)。Kotlin **推断**类型的能力称为**类型推断**。`customers` 被赋予了一个整型值。由此，Kotlin 推断 `customers` 具有数值类型 `Int`。因此，编译器知道你可以对 `customers` 执行算术操作：
+在上一章节中，Kotlin 在之前的示例中能够识别出 `customers` 的类型为 [`Int`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/)。Kotlin **推断**类型的能力称为**类型推断**。`customers` 被赋值一个整型值。由此，Kotlin 推断 `customers` 具有数值类型 `Int`。因此，编译器知道你可以对 `customers` 执行算术操作：
 
 ```kotlin
 fun main() {
@@ -51,7 +51,7 @@ fun main() {
 | 字符           | `Char`                             | `val separator: Char = ','`                                   |
 | 字符串         | `String`                           | `val message: String = "Hello, world!"`                       |
 
-关于基本类型及其属性的更多信息，请参见[基本类型](basic-types.md)。
+关于基本类型及其属性的更多信息，请参见[类型概览](types-overview.md)。
 
 掌握了这些知识，你可以声明变量并在以后初始化它们。只要变量在首次读取之前被初始化，Kotlin 就能处理这种情况。
 

@@ -40,7 +40,7 @@ Kilua는 [KVision](https://kvision.io) 프레임워크의 후속작(successor)�
 
 [KVision](https://kvision.io)은 즉시 사용 가능한 UI 컴포넌트로 Kotlin/JS 애플리케이션을 구축하기 위한 객체 지향 웹 프레임워크입니다. 이 컴포넌트는 애플리케이션 사용자 인터페이스의 구성 요소(building blocks)가 될 수 있습니다.
 
-이 프레임워크를 사용하면 반응형(reactive) 및 명령형(imperative) 프로그래밍 모델을 모두 사용하여 프런트엔드(frontend)를 구축할 수 있습니다. Ktor, Spring Boot 및 기타 프레임워크용 커넥터(connector)를 사용하여 서버 측 애플리케이션과 통합할 수도 있습니다. 또한 [Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html)을 사용하여 코드를 공유할 수 있습니다.
+이 프레임워크를 사용하면 반응형(reactive) 및 명령형(imperative) 프로그래밍 모델을 모두 사용하여 프런트엔드(frontend)를 구축할 수 있습니다. Ktor, Spring Boot 및 기타 프레임워크용 커넥터(connector)를 사용하여 서버 측 애플리케이션과 통합할 수도 있습니다. 또한 [Kotlin Multiplatform](https://kotlinlang.org/docs/multiplatform/get-started.html)을 사용하여 코드를 공유할 수 있습니다.
 
 문서, 튜토리얼 및 예제는 [KVision docs](https://kvision.io/#docs) 사이트를 참조하세요.
 

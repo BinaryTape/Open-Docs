@@ -364,7 +364,7 @@ fun getUsername(profile: UserProfile?): String? =
 ## 次のステップ
 
 *   他の[Kotlinイディオム](idioms.md)を参照してください。
-*   [Java-to-Kotlin (J2K) コンバーター](mixing-java-kotlin-intellij.md#converting-an-existing-java-file-to-kotlin-with-j2k)を使用して、既存のJavaコードをKotlinに変換する方法を学びましょう。
+*   [Java-to-Kotlin (J2K) コンバーター](mixing-java-kotlin-intellij.md#convert-java-files-to-kotlin)を使用して、既存のJavaコードをKotlinに変換する方法を学びましょう。
 *   その他の移行ガイドを確認してください。
     *   [JavaとKotlinの文字列](java-to-kotlin-idioms-strings.md)
     *   [JavaとKotlinのコレクション](java-to-kotlin-collections-guide.md)

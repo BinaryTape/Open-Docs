@@ -10,7 +10,7 @@
 
 開箱即用，Kobweb 提供了頁面路由、明暗模式、CSS 樣式、Markdown 支援、後端 API 等功能。它還包含 [Silk](https://silk-ui.netlify.app/)，這是一個 UI 函式庫，帶有一組用於現代使用者介面的多功能 widget。
 
-Kobweb 還支援透過產生頁面快照來進行網站匯出，以用於 SEO 和自動搜尋索引。此外，它還能建立基於 DOM 的使用者介面 (UI)，這些介面能夠有效地響應狀態變化進行更新。
+Kobweb 還支援透過產生頁面快照來進行網站匯出，以用於 SEO 和自動搜尋索引。此外，它還能建立基於 DOM 的使用者介面，這些介面能夠有效地響應狀態變化進行更新。
 
 如需文件和範例，請參閱 [Kobweb 文件](https://kobweb.varabyte.com/docs/getting-started/what-is-kobweb) 網站。
 
@@ -40,7 +40,7 @@ Kilua 是 [KVision](https://kvision.io) 框架的後繼者。Kilua 旨在讓 Com
 
 [KVision](https://kvision.io) 是一個物件導向的網頁框架，用於使用開箱即用的 UI 元件建構 Kotlin/JS 應用程式。這些元件可以作為應用程式使用者介面的建構區塊。
 
-透過此框架，你可以使用響應式和命令式程式設計模型來建構你的前端。你還可以透過使用 Ktor、Spring Boot 和其他框架的連接器，將其與你的伺服器端應用程式整合。此外，你可以使用 [Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html) 共享程式碼。
+透過此框架，你可以使用響應式和命令式程式設計模型來建構你的前端。你還可以透過使用 Ktor、Spring Boot 和其他框架的連接器，將其與你的伺服器端應用程式整合。此外，你可以使用 [Kotlin Multiplatform](https://kotlinlang.org/docs/multiplatform/get-started.html) 共享程式碼。
 
 如需文件、教學課程和範例，請參閱 [KVision 文件](https://kvision.io/#docs) 網站。
 

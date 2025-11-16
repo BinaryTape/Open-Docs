@@ -1,4 +1,4 @@
-[//]: # (title: Kotlin 1.6 兼容性指南)
+[//]: # (title: Kotlin 1.6.x 兼容性指南)
 
 _[保持语言现代化](kotlin-evolution-principles.md)_ 和 _[舒适更新](kotlin-evolution-principles.md)_ 是 Kotlin 语言设计中的基本原则。前者指出，阻碍语言演进的构造应该被移除；后者指出，这种移除应该提前充分沟通，以便代码迁移尽可能顺利。
 
@@ -24,11 +24,11 @@ _[保持语言现代化](kotlin-evolution-principles.md)_ 和 _[舒适更新](ko
 >
 > **Incompatible change type**: source
 >
-> **Short summary**: Kotlin 1.6 将对 `when` 语句使用 `enum`、`sealed` 或 `Boolean` 类型的主体但未穷尽所有情况时发出警告。
+> **Short summary**: Kotlin 1.6 将对 `when` 语句使用 enum、sealed 或 Boolean 类型的主体但未穷尽所有情况时发出警告。
 >
 > **Deprecation cycle**:
 >
-> - 1.6.0: 当 `when` 语句使用 `enum`、`sealed` 或 `Boolean` 类型的主体但未穷尽时引入警告（在渐进模式下为错误）。
+> - 1.6.0: 当 `when` 语句使用 enum、sealed 或 Boolean 类型的主体但未穷尽时引入警告（在渐进模式下为错误）。
 > - 1.7.0: 将此警告提升为错误。
 
 ### 废弃 when-with-subject 中易混淆的语法
@@ -61,11 +61,11 @@ _[保持语言现代化](kotlin-evolution-principles.md)_ 和 _[舒适更新](ko
 >
 > - 1.5.20: 对存在问题的实参引入警告。
 > - 1.6.0: 将此警告提升为错误。
-> - `-XXLanguage:-ProhibitSelfCallsInNestedObjects` 可用于暂时恢复到 1.6 之前的行为。
+>  `-XXLanguage:-ProhibitSelfCallsInNestedObjects` 可用于暂时恢复到 1.6 之前的行为。
 
 ### 类型可空性增强改进
 
-> **Issue**: [KT-48623](https://youtrack.jetbrains.com/issue/KT-48623)
+> **Issue**: [KT-48623](https://youtrack.com/issue/KT-48623)
 >
 > **Component**: Kotlin/JVM
 >
@@ -77,7 +77,7 @@ _[保持语言现代化](kotlin-evolution-principles.md)_ 和 _[舒适更新](ko
 >
 > - 1.4.30: 对更精确的类型可空性可能导致错误的情况引入警告。
 > - 1.7.0: 推断更精确的 Java 类型可空性。
-> - `-XXLanguage:-TypeEnhancementImprovementsInStrictMode` 可用于暂时恢复到 1.7 之前的行为。
+>   `-XXLanguage:-TypeEnhancementImprovementsInStrictMode` 可用于暂时恢复到 1.7 之前的行为。
 
 ### 阻止不同数字类型之间的隐式强制转换
 
@@ -93,7 +93,7 @@ _[保持语言现代化](kotlin-evolution-principles.md)_ 和 _[舒适更新](ko
 >
 > - &lt; 1.5.30: 所有受影响情况下的旧行为。
 > - 1.5.30: 修复生成的属性委托访问器中的向下转型行为。
-> - `-Xuse-old-backend` 可用于暂时恢复到 1.5.30 修复之前的行为。
+>   `-Xuse-old-backend` 可用于暂时恢复到 1.5.30 修复之前的行为。
 > - &gt;= 1.6.20: 修复其他受影响情况下的向下转型行为。
 
 ### 禁止声明容器注解违反 JLS 规范的可重复注解类
@@ -104,13 +104,13 @@ _[保持语言现代化](kotlin-evolution-principles.md)_ 和 _[舒适更新](ko
 >
 > **Incompatible change type**: source
 >
-> **Short summary**: Kotlin 1.6 将检测可重复注解的容器注解是否满足 JLS 9.6.3 中相同的要求：数组类型的 value 方法、保留策略和目标。
+> **Short summary**: Kotlin 1.6 将检测可重复注解的容器注解是否满足 [JLS 9.6.3](https://docs.oracle.com/javase/specs/jls/se16/html/jls-9.html#jls-9.6.3) 中相同的要求：数组类型的 value 方法、保留策略和目标。
 >
 > **Deprecation cycle**:
 >
 > - 1.5.30: 对违反 JLS 要求的可重复容器注解声明引入警告（在渐进模式下为错误）。
 > - 1.6.0: 将此警告提升为错误。
-> - `-XXLanguage:-RepeatableAnnotationContainerConstraints` 可用于暂时禁用错误报告。
+>   `-XXLanguage:-RepeatableAnnotationContainerConstraints` 可用于暂时禁用错误报告。
 
 ### 禁止在可重复注解类中声明名为 Container 的嵌套类
 
@@ -126,7 +126,7 @@ _[保持语言现代化](kotlin-evolution-principles.md)_ 和 _[舒适更新](ko
 >
 > - 1.5.30: 对 Kotlin 可重复注解类中名为 `Container` 的嵌套类引入警告（在渐进模式下为错误）。
 > - 1.6.0: 将此警告提升为错误。
-> - `-XXLanguage:-RepeatableAnnotationContainerConstraints` 可用于暂时禁用错误报告。
+>   `-XXLanguage:-RepeatableAnnotationContainerConstraints` 可用于暂时禁用错误报告。
 
 ### 禁止在覆盖接口属性的主构造函数中的属性上使用 @JvmField 注解
 
@@ -142,7 +142,7 @@ _[保持语言现代化](kotlin-evolution-principles.md)_ 和 _[舒适更新](ko
 >
 > - 1.5.20: 对主构造函数中此类属性上的 `@JvmField` 注解引入警告。
 > - 1.6.0: 将此警告提升为错误。
-> - `-XXLanguage:-ProhibitJvmFieldOnOverrideFromInterfaceInPrimaryConstructor` 可用于暂时禁用错误报告。
+>   `-XXLanguage:-ProhibitJvmFieldOnOverrideFromInterfaceInPrimaryConstructor` 可用于暂时禁用错误报告。
 
 ### 废弃编译器选项 -Xjvm-default 的 enable 和 compatibility 模式
 
@@ -173,7 +173,7 @@ _[保持语言现代化](kotlin-evolution-principles.md)_ 和 _[舒适更新](ko
 >
 > - 1.5.0: 对从公共或保护型的 inline 函数或属性访问器中调用 `super` 引入警告。
 > - 1.6.0: 将此警告提升为错误。
-> - `-XXLanguage:-ProhibitSuperCallsFromPublicInline` 可用于暂时禁用错误报告。
+>   `-XXLanguage:-ProhibitSuperCallsFromPublicInline` 可用于暂时禁用错误报告。
 
 ### 禁止从公共 inline 函数中调用保护型构造函数
 
@@ -189,7 +189,7 @@ _[保持语言现代化](kotlin-evolution-principles.md)_ 和 _[舒适更新](ko
 >
 > - 1.4.30: 对从公共或保护型的 inline 函数或属性访问器中调用保护型构造函数引入警告。
 > - 1.6.0: 将此警告提升为错误。
-> - `-XXLanguage:-ProhibitProtectedConstructorCallFromPublicInline` 可用于暂时禁用错误报告。
+>   `-XXLanguage:-ProhibitProtectedConstructorCallFromPublicInline` 可用于暂时禁用错误报告。
 
 ### 禁止从文件内私有类型中暴露私有嵌套类型
 
@@ -205,7 +205,7 @@ _[保持语言现代化](kotlin-evolution-principles.md)_ 和 _[舒适更新](ko
 >
 > - 1.5.0: 对从文件内私有类型中暴露私有类型引入警告。
 > - 1.6.0: 将此警告提升为错误。
-> - `-XXLanguage:-PrivateInFileEffectiveVisibility` 可用于暂时禁用错误报告。
+>   `-XXLanguage:-PrivateInFileEffectiveVisibility` 可用于暂时禁用错误报告。
 
 ### 针对类型上的注解，在某些情况下不再分析注解目标
 
@@ -221,7 +221,7 @@ _[保持语言现代化](kotlin-evolution-principles.md)_ 和 _[舒适更新](ko
 >
 > - 1.5.20: 在渐进模式下引入错误。
 > - 1.6.0: 引入错误。
-> - `-XXLanguage:-ProperCheckAnnotationsTargetInTypeUsePositions` 可用于暂时禁用错误报告。
+>   `-XXLanguage:-ProperCheckAnnotationsTargetInTypeUsePositions` 可用于暂时禁用错误报告。
 
 ### 禁止调用名为 suspend 且带尾部 lambda 表达式的函数
 
@@ -249,11 +249,11 @@ _[保持语言现代化](kotlin-evolution-principles.md)_ 和 _[舒适更新](ko
 >
 > **Incompatible change type**: behavioral
 >
-> **Short summary**: Kotlin 1.6 将不再对从集合/可迭代对象/数组/序列中移除多个元素的函数和操作符的实参执行转换为 `set` 的优化。
+> **Short summary**: Kotlin 1.6 将不再对从集合/可迭代对象/数组/序列中移除多个元素的函数和操作符的实参执行转换为 set 的优化。
 >
 > **Deprecation cycle**:
 >
-> - &lt; 1.6: 旧行为：在某些情况下实参会转换为 `set`。
+> - &lt; 1.6: 旧行为：在某些情况下实参会转换为 set。
 > - 1.6.0: 如果函数实参是集合，则不再转换为 `Set`。如果不是集合，则可以转换为 `List`。
 > 旧行为可以通过设置系统属性 `kotlin.collections.convert_arg_to_set_in_removeAll=true` 在 JVM 上暂时恢复。
 > - &gt;= 1.7: 上述系统属性将不再生效。

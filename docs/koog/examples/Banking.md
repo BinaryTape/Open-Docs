@@ -131,7 +131,7 @@ class MoneyTransferTools : ToolSet {
         "EUR" to "GBP" -> "0.86"
         "GBP" to "EUR" -> "1.16"
         "USD" to "EUR" -> "0.90"
-        else -> "No information about exchange rate available."
+        else -> "没有可用的汇率信息。"
     }
 
     @Tool
@@ -173,7 +173,7 @@ class MoneyTransferTools : ToolSet {
         @LLMDescription("用户是否已确认此转账。") confirmed: Boolean = false
     ): String {
         val recipient = contactById[recipientId] ?: return "无效的收款人。"
-        val summary = "将 €%.2f 转账给 %s %s (%s)，用于“%s”。"
+        val summary = "将 €%.2f 转账给 %s %s (%s)，用于“%s”."
             .format(amount, recipient.name, recipient.surname ?: "", recipient.phoneNumber, purpose)
 
         if (!confirmed) {
@@ -211,27 +211,19 @@ val transferAgentService = AIAgentService(
 )
 
 // 测试代理在各种场景下的表现
-println("银行助手已启动")
-val message = "转账 25 欧元给 Daniel，用于餐厅晚餐。"
+println("Banking Assistant started")
+val message = "Send 25 euros to Daniel for dinner at the restaurant."
 
 // 你可以尝试的其他测试消息：
-// - “转账 50 欧元给 Alice，用于演唱会门票”
-// - “我的当前余额是多少？”
-// - “转账 100 欧元给 Bob，用于分摊的度假费用”
+// - “Send 50 euros to Alice for the concert tickets”
+// - “What's my current balance?”
+// - “Transfer 100 euros to Bob for the shared vacation expenses”
 
 runBlocking {
     val result = transferAgentService.createAgentAndRun(message)
     result
 }
 ```
-
-    银行助手已启动
-    有两个名为 Daniel 的联系人。请确认你想将钱转给哪一个：
-    1. Daniel Anderson (+46 70 123 45 67)
-    2. Daniel Garcia (+34 612 345 678)
-    请确认将 €25.00 转账给 Daniel Garcia (+34 612 345 678)，用于“餐厅晚餐”。
-
-    任务已成功完成。
 
 ## 添加交易分析功能
 让我们通过交易分析工具扩展助手的`功能`。
@@ -426,7 +418,6 @@ class TransactionAnalysisTools : ToolSet {
 ```
 
 ```kotlin
-import ai.koog.agents.core.agent.AIAgent
 import ai.koog.agents.core.agent.AIAgentService
 import ai.koog.agents.core.tools.ToolRegistry
 import ai.koog.agents.core.tools.reflect.asTools
@@ -444,26 +435,20 @@ $transactionAnalysisPrompt",
     }
 )
 
-println("交易分析助手已启动")
-val analysisMessage = "我这个月在餐厅花了多少钱？"
+println("Transaction Analysis Assistant started")
+val analysisMessage = "How much have I spent on restaurants this month?"
 
 // 其他可以尝试的查询：
-// - “我这个月在餐厅的最高消费是多少？”
-// - “五月第一周我在日用杂货上花了多少钱？”
-// - “五月我在娱乐方面的总开销是多少？”
-// - “显示我上周的所有交易”
+// - “What's my maximum check at a restaurant this month?”
+// - “How much did I spend on groceries in the first week of May?”
+// - “What's my total spending on entertainment in May?”
+// - “Show me all transactions from last week”
 
 runBlocking {
     val result = analysisAgentService.createAgentAndRun(analysisMessage)
     result
 }
 ```
-
-    交易分析助手已启动
-
-    你本月在餐饮上的总支出为 $517.64。
-    
-    任务已成功完成。
 
 ## 使用图构建代理
 现在，让我们将专门的代理组合成一个图代理，它可以将请求路由到适当的处理程序。
@@ -526,15 +511,15 @@ val strategy = strategy<String, String>("banking assistant") {
             examples = listOf(
                 ClassifiedBankRequest(
                     requestType = RequestType.Transfer,
-                    userRequest = "转账 25 欧元给 Daniel，用于餐厅晚餐。"
+                    userRequest = "Send 25 euros to Daniel for dinner at the restaurant."
                 ),
                 ClassifiedBankRequest(
                     requestType = RequestType.Analytics,
-                    userRequest = "提供上个月的交易概览"
+                    userRequest = "Provide transaction overview for the last month"
                 )
             ),
             fixingParser = StructureFixingParser(
-                fixingModel = OpenAIModels.CostOptimized.GPT4oMini,
+                model = OpenAIModels.CostOptimized.GPT4oMini,
                 retries = 2,
             )
         )
@@ -548,7 +533,7 @@ val strategy = strategy<String, String>("banking assistant") {
         edge(
             requestClassification forwardTo nodeFinish
                 onCondition { it.isSuccess }
-                transformed { it.getOrThrow().structure }
+                transformed { it.getOrThrow().data }
         )
 
         edge(
@@ -610,8 +595,8 @@ val strategy = strategy<String, String>("banking assistant") {
 ```kotlin
 import ai.koog.agents.core.agent.config.AIAgentConfig
 import ai.koog.prompt.dsl.prompt
-import ai.koog.agents.core.agent.AIAgent
 import ai.koog.prompt.executor.clients.openai.OpenAIModels // 导入 OpenAIModels
+import ai.koog.agents.core.agent.AIAgent // 导入 AIAgent
 
 val agentConfig = AIAgentConfig(
     prompt = prompt(id = "banking assistant") {
@@ -635,35 +620,26 @@ val agent = AIAgent<String, String>(
 ```kotlin
 import kotlinx.coroutines.runBlocking
 
-println("银行助手已启动")
-val testMessage = "转账 25 欧元给 Daniel，用于餐厅晚餐。"
+println("Banking Assistant started")
+val testMessage = "Send 25 euros to Daniel for dinner at the restaurant."
 
 // 测试各种场景：
 // 转账请求：
-//   - “转账 50 欧元给 Alice，用于演唱会门票”
-//   - “转账 100 欧元给 Bob，用于日用杂货”
-//   - “我的当前余额是多少？”
+//   - “Send 50 euros to Alice for the concert tickets”
+//   - “Transfer 100 to Bob for groceries”
+//   - “What's my current balance?”
 //
 // 分析请求：
-//   - “我这个月在餐厅花了多少钱？”
-//   - “我这个月在餐厅的最高消费是多少？”
-//   - “五月第一周我在日用杂货上花了多少钱？”
-//   - “五月我在娱乐方面的总开销是多少？”
+//   - “How much have I spent on restaurants this month?”
+//   - “What's my maximum check at a restaurant this month?”
+//   - “How much did I spend on groceries in the first week of May?”
+//   - “What's my total spending on entertainment in May?”
 
 runBlocking {
     val result = agent.run(testMessage)
-    "结果：$result"
+    "Result: $result"
 }
 ```
-
-    银行助手已启动
-    我找到了多个名为 Daniel 的联系人。请选择正确的那个：
-    1. Daniel Anderson (+46 70 123 45 67)
-    2. Daniel Garcia (+34 612 345 678)
-    请指定正确收款人的编号。
-    请确认是否要继续将 €25 转账给 Daniel Garcia，用于“餐厅晚餐”。
-
-    结果：任务已成功完成。
 
 ## 代理组合——将代理作为工具使用
 
@@ -719,22 +695,14 @@ $transactionAnalysisPrompt"
 ```kotlin
 import kotlinx.coroutines.runBlocking
 
-println("银行助手已启动")
-val composedMessage = "转账 25 欧元给 Daniel，用于餐厅晚餐。"
+println("Banking Assistant started")
+val composedMessage = "Send 25 euros to Daniel for dinner at the restaurant."
 
 runBlocking {
     val result = classifierAgent.run(composedMessage)
-    "结果：$result"
+    "Result: $result"
 }
 ```
-
-    银行助手已启动
-    有两个名为 Daniel 的联系人。请确认你想将钱转给哪一个：
-    1. Daniel Anderson (+46 70 123 45 67)
-    2. Daniel Garcia (+34 612 345 678)
-    请确认将 €25.00 转账给 Daniel Anderson (+46 70 123 45 67)，用于“餐厅晚餐”。
-
-    结果：无法执行任务。
 
 ## 总结
 在本教程中，你学习了如何：

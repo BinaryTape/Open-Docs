@@ -79,7 +79,7 @@ Xcode を構成して Swift export をプロジェクトに統合するには：
 
 ## 現在の制限事項
 
-Swift export は現在、iOS フレームワークを Xcode プロジェクトに接続するために [直接統合](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-direct-integration.html) を使用するプロジェクトでのみ機能します。
+Swift export は現在、iOS フレームワークを Xcode プロジェクトに接続するために [直接統合](https://kotlinlang.org/docs/multiplatform/multiplatform-direct-integration.html) を使用するプロジェクトでのみ機能します。
 これは、IntelliJ IDEA の Kotlin Multiplatform プラグイン、または [Web ウィザード](https://kmp.jetbrains.com/) を介して作成された Kotlin Multiplatform プロジェクトの標準的な構成です。
 
 その他の既知の課題：

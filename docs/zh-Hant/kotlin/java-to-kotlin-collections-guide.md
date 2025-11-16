@@ -41,7 +41,7 @@ _集合_ 是數量可變（可能為零）的項目群組，這些項目對於�
 | 替換一個或多個元素 | `put()`, `replace()`, `replaceAll()` | 使用索引運算子 `map[key] = value` 而非 `put()` 和 `replace()`。 |
 | 取得元素 | `get()` | 使用索引運算子來取得元素：`map[index]`。 |
 | 檢查映射是否包含一個或多個元素 | `containsKey()`, `containsValue()` | 使用 [`in` 關鍵字](collection-elements.md#check-element-existence)以運算子形式呼叫 `contains()`：`element in map`。 |
-| 檢查映射是否為空 |  `isEmpty()` | 使用 [`isNotEmpty()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/is-not-empty.html) 檢查映射是否不為空。 |
+| 檢查映射是否為空 | `isEmpty()` | 使用 [`isNotEmpty()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/is-not-empty.html) 檢查映射是否不為空。 |
 | 移除元素 | `remove(key)`, `remove(key, value)` | 使用 [`minusAssign` (`-=`) 運算子](collection-plus-minus.md)：`map -= key`。 |
 | 從映射中移除所有元素 | `clear()` | |
 | 從映射中取得 stream | 對 entries、keys 或 values 的 `stream()` | |
@@ -54,7 +54,7 @@ _集合_ 是數量可變（可能為零）的項目群組，這些項目對於�
 | 取得元素的最後索引 | `lastIndexOf()` | |
 | 取得元素 | `get()` | 使用索引運算子來取得元素：`list[index]`。 |
 | 取得子列表 | `subList()` | |
-| 替換一個或多個元素 | `set()`,  `replaceAll()` | 使用索引運算子而非 `set()`：`list[index] = value`。 |
+| 替換一個或多個元素 | `set()`, `replaceAll()` | 使用索引運算子而非 `set()`：`list[index] = value`。 |
 
 ## 稍有不同的操作
 
@@ -265,7 +265,7 @@ fun main() {
 
 ## 多準則比較
 
-在 Java 中，若要依多個準則比較物件，您可以使用 [`Comparator`](https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html) 介面中的 [`comparing()`](https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html#comparing-java.util.function.Function-) 和 [`thenComparingX()`](https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html#thenComparing-java.util.Comparator-) 函數。
+在 Java 中，若要依多個準則比較物件，您可以使用 [`comparing()`](https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html#comparing-java.util.function.Function-) 和 [`thenComparingX()`](https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html#thenComparing-java.util.Comparator-) 函數從 [`Comparator`](https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html) 介面中。
 例如，依姓名和年齡比較人物：
 
 ```java
@@ -701,7 +701,7 @@ fun main() {
 
 *   造訪 [Kotlin Koans](koans.md) – 完成練習以學習 Kotlin 語法。每個練習都建立為一個失敗的單元測試，您的任務是使其通過。
 *   瀏覽其他 [Kotlin 慣用寫法](idioms.md)。
-*   了解如何使用 [Java 到 Kotlin 轉換器](mixing-java-kotlin-intellij.md#converting-an-existing-java-file-to-kotlin-with-j2k)將現有的 Java 程式碼轉換為 Kotlin。
+*   了解如何使用 [Java 到 Kotlin 轉換器](mixing-java-kotlin-intellij.md#convert-java-files-to-kotlin)將現有的 Java 程式碼轉換為 Kotlin。
 *   探索 [Kotlin 中的集合](collections-overview.md)。
 
 如果您有喜歡的慣用寫法，歡迎透過發送 pull request 來分享。

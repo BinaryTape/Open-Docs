@@ -2,8 +2,8 @@
 
 <tldr>
 <p>
-<b>コード例</b>: 
-<a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/embedded-server-modules">embedded-server-modules</a>, 
+<b>コード例</b>:
+<a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/embedded-server-modules">embedded-server-modules</a>,
 <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/engine-main-modules">engine-main-modules</a>
 </p>
 </tldr>
@@ -32,7 +32,8 @@ fun Application.module1() {
 
 ## embeddedServer {id="embedded-server"}
 
-通常、`embeddedServer`関数は、ラムダ引数としてモジュールを暗黙的に受け入れます。[コードでの設定](server-create-and-configure.topic#embedded-server)のセクションで例を見ることができます。
+通常、`embeddedServer`関数は、ラムダ引数としてモジュールを暗黙的に受け入れます。
+[コードでの設定](server-create-and-configure.topic#embedded-server)のセクションで例を見ることができます。
 アプリケーションロジックを別のモジュールに抽出し、このモジュールへの参照を`module`パラメーターとして渡すこともできます。
 
 ```kotlin
@@ -180,19 +181,25 @@ suspend fun Application.installEvents() {
 
 ### 設定オプション
 
-以下のGradle設定プロパティが利用可能です。
+以下の設定プロパティが利用可能です。
 
-| プロパティ                                | 型                        | 説明                                              | デフォルト      |
+| プロパティ                                | 型                        | 説明                                              | デフォルト   |
 |-----------------------------------------|-----------------------------|----------------------------------------------------------|--------------|
 | `ktor.application.startup`              | `sequential` / `concurrent` | アプリケーションモジュールの読み込み方法を定義します               | `sequential` |
-| `ktor.application.startupTimeoutMillis` | `Long`                      | アプリケーションモジュールの読み込みのタイムアウト (ミリ秒単位) | `100000`     |
+| `ktor.application.startupTimeoutMillis` | `Long`                      | アプリケーションモジュールの読み込みのタイムアウト (ミリ秒単位) | `10000`      |
 
 ### 並行モジュール読み込みを有効にする
 
-並行モジュール読み込みを有効にするには、`gradle.properties`ファイルに以下のプロパティを追加します。
+並行モジュール読み込みを有効にするには、以下のプロパティをサーバー設定ファイルに追加します。
 
-```none
-ktor.application.startup = concurrent
+```yaml
+# application.conf
+
+ktor {
+    application {
+        startup = concurrent
+    }
+}
 ```
 
 依存性注入の場合、以下のモジュールを出現順に問題なく読み込むことができます。

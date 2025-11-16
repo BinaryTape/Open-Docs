@@ -63,7 +63,7 @@ plugins {
 > *Kotlin 2.0.20–2.0.21およびKotlin 2.1.0–2.1.10は、Gradle 8.6まで完全に互換性があります。
 > Gradleバージョン8.7–8.10もサポートされていますが、1つだけ例外があります。Kotlin Multiplatform Gradleプラグインを使用している場合、
 > JVMターゲットで`withJava()`関数を呼び出すマルチプラットフォームプロジェクトで非推奨の警告が表示されることがあります。
-> 詳細については、[デフォルトで作成されるJavaソースセット](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-compatibility-guide.html#java-source-sets-created-by-default)を参照してください。
+> 詳細については、[デフォルトで作成されるJavaソースセット](https://kotlinlang.org/docs/multiplatform/multiplatform-compatibility-guide.html#java-source-sets-created-by-default)を参照してください。
 >
 {style="warning"}
 
@@ -238,7 +238,7 @@ plugins {
 </tab>
 </tabs>
 
-ビルドスクリプトに`jvmTarget`値に関する明示的な情報がない場合、そのデフォルト値は`null`であり、コンパイラはそれをデフォルト値`1.8`に変換します。`targetCompatibility`は現在のGradleのJDKバージョンと等しく、これはあなたのJDKバージョンと等しくなります（[Javaツールチェーンアプローチ](gradle-configure-project.md#gradle-java-toolchains-support)を使用しない限り）。あなたのJDKバージョンが`%jvmLTSVersionSupportedByKotlin%`であると仮定すると、公開されたライブラリアーティファクトはJDK %jvmLTSVersionSupportedByKotlin%+との互換性を[宣言](https://docs.gradle.org/current/userguide/publishing_gradle_module_metadata.html)します: `org.gradle.jvm.version=%jvmLTSVersionSupportedByKotlin%`。これは間違っています。この場合、バイトコードのバージョンが`1.8`であるにもかかわらず、このライブラリを追加するためにメインプロジェクトでJava %jvmLTSVersionSupportedByKotlin%を使用する必要があります。この問題を解決するには、[ツールチェーンを構成](gradle-configure-project.md#gradle-java-toolchains-support)してください。
+ビルドスクリプトに`jvmTarget`値に関する明示的な情報がない場合、そのデフォルト値は`null`であり、コンパイラはそれをデフォルト値`1.8`に変換します。`targetCompatibility`は現在のGradleのJDKバージョンと等しく、これはあなたのJDKバージョンと等しくなります（[Javaツールチェーンアプローチ](gradle-configure-project.md#gradle-java-toolchains-support)を使用しない限り）。あなたのJDKバージョンが`%jvmLTSVersionSupportedByKotlin%`であると仮定すると、公開されたライブラリアーティファクトはJDK %jvmLTSVersionSupportedByKotlin% +との互換性を[宣言](https://docs.gradle.org/current/userguide/publishing_gradle_module_metadata.html)します: `org.gradle.jvm.version=%jvmLTSVersionSupportedByKotlin%`。これは間違っています。この場合、バイトコードのバージョンが`1.8`であるにもかかわらず、このライブラリを追加するためにメインプロジェクトでJava %jvmLTSVersionSupportedByKotlin%を使用する必要があります。この問題を解決するには、[ツールチェーンを構成](gradle-configure-project.md#gradle-java-toolchains-support)してください。
 
 ### Gradle Javaツールチェーンのサポート
 
@@ -499,13 +499,11 @@ tasks.named("compileJava", JavaCompile.class) {
 {style="note"}
 
 詳細については、以下を参照してください。
-* [Javaモジュールシステム用のモジュールのビルド](https://docs.gradle.org/current/userguide/java_library_plugin.html#sec:java_library_modular)
-* [Javaモジュールシステムを使用したアプリケーションのビルド](https://docs.gradle.org/current/userguide/application_plugin.html#sec:application_modular)
-* [Kotlinにおける「モジュール」の意味](visibility-modifiers.md#modules)
+* [Building modules for the Java Module System](https://docs.gradle.org/current/userguide/java_library_plugin.html#sec:java_library_modular)
+* [Building applications using the Java Module System](https://docs.gradle.org/current/userguide/application_plugin.html#sec:application_modular)
+* [What "module" means in Kotlin](visibility-modifiers.md#modules)
 
 ### その他の詳細
-
-[Kotlin/JVM](jvm-get-started.md)についてさらに学ぶ。
 
 #### コンパイルタスクでの成果物の使用を無効にする
 
@@ -549,7 +547,7 @@ tasks.jar(type: Jar) {
 
 ## 複数プラットフォームをターゲットにする
 
-[複数プラットフォーム](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-dsl-reference.html#targets)をターゲットとするプロジェクトは、[マルチプラットフォームプロジェクト](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html)と呼ばれ、`kotlin-multiplatform`プラグインを必要とします。
+[複数プラットフォーム](https://kotlinlang.org/docs/multiplatform/multiplatform-dsl-reference.html#targets)をターゲットとするプロジェクトは、[マルチプラットフォームプロジェクト](https://kotlinlang.org/docs/multiplatform/get-started.html)と呼ばれ、`kotlin-multiplatform`プラグインを必要とします。
 
 > `kotlin-multiplatform`プラグインは、Gradle %minGradleVersion%以降で動作します。
 >
@@ -576,7 +574,7 @@ plugins {
 </tab>
 </tabs>
 
-[異なるプラットフォーム向けKotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html)および[iOSとAndroid向けKotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-getting-started.html)についてさらに学ぶ。
+[異なるプラットフォーム向けKotlin Multiplatform](https://kotlinlang.org/docs/multiplatform/get-started.html)および[iOSとAndroid向けKotlin Multiplatform](https://kotlinlang.org/docs/multiplatform/multiplatform-getting-started.html)についてさらに学ぶ。
 
 ## Androidをターゲットにする
 
@@ -598,7 +596,7 @@ Kotlinは、Kotlin Multiplatformを介して、Web開発のための2つのア�
 * ビジネスロジックをJavaScript/TypeScriptコードベースと共有する
 * 共有できないWebアプリをKotlinで構築する
 
-詳細については、[Kotlin Multiplatformプロジェクトに適したWebターゲットを選択する](https://www.jetbrains.com/help/kotlin-multiplatform-dev/choosing-web-target.html)を参照してください。
+詳細については、[Kotlin Multiplatformプロジェクトに適したWebターゲットを選択する](https://kotlinlang.org/docs/multiplatform/choosing-web-target.html)を参照してください。
 
 JavaScriptをターゲットにする場合、`kotlin-multiplatform`プラグインを使用します。
 
@@ -633,13 +631,13 @@ kotlin {
 }
 ```
 
-> [JavaScriptのGradle構成に関する詳細](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-dsl-reference.html#web-targets)と[Kotlin/JSプロジェクトのセットアップ](js-project-setup.md)についてさらに学ぶ。
+> [JavaScriptのGradle構成に関する詳細](https://kotlinlang.org/docs/multiplatform/multiplatform-dsl-reference.html#web-targets)と[Kotlin/JSプロジェクトのセットアップ](js-project-setup.md)についてさらに学ぶ。
 >
 {style="note"}
 
 ### WebAssemblyをターゲットにする
 
-複数のプラットフォーム間でロジックとUIの両方を共有したい場合は、Kotlin/Wasmを使用してください。詳細については、[Kotlin Multiplatformプロジェクトに適したWebターゲットを選択する](https://www.jetbrains.com/help/kotlin-multiplatform-dev/choosing-web-target.html)を参照してください。
+複数のプラットフォーム間でロジックとUIの両方を共有したい場合は、Kotlin/Wasmを使用してください。詳細については、[Kotlin Multiplatformプロジェクトに適したWebターゲットを選択する](https://kotlinlang.org/docs/multiplatform/choosing-web-target.html)を参照してください。
 
 JavaScriptと同様に、WebAssembly (Wasm) をターゲットにする場合、`kotlin-multiplatform`プラグインを使用します。
 
@@ -693,7 +691,7 @@ kotlin {
 }
 ```
 
-> [WasmのGradle構成に関する詳細](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-dsl-reference.html#web-targets)を参照してください。
+> [WasmのGradle構成に関する詳細](https://kotlinlang.org/docs/multiplatform/multiplatform-dsl-reference.html#web-targets)を参照してください。
 >
 {style="note"}
 

@@ -39,7 +39,6 @@ Koog 的 **流式 API** 允许您以 `Flow<StreamFrame>` 的形式**增量地消
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
 import ai.koog.prompt.streaming.StreamFrame
-import ai.koog.prompt.structure.markdown.MarkdownStructuredDataDefinition
 
 val strategy = strategy<String, String>("strategy_name") {
     val node by node<Unit, Unit> {
@@ -77,7 +76,7 @@ llm.writeSession {
 
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
-import ai.koog.prompt.structure.markdown.MarkdownStructuredDataDefinition
+import ai.koog.prompt.structure.markdown.MarkdownStructureDefinition
 
 val strategy = strategy<String, String>("strategy_name") {
     val node by node<Unit, Unit> {
@@ -87,18 +86,18 @@ val strategy = strategy<String, String>("strategy_name") {
 }
 -->
 ```kotlin
-fun markdownBookDefinition(): MarkdownStructuredDataDefinition {
-    return MarkdownStructuredDataDefinition("name", schema = { /*...*/ })
+fun markdownBookDefinition(): MarkdownStructureDefinition {
+    return MarkdownStructureDefinition("name", schema = { /*...*/ })
 }
 
 val mdDefinition = markdownBookDefinition()
 
 llm.writeSession {
     val stream = requestLLMStreaming(mdDefinition)
-    // Access the raw string chunks directly
+    // 直接访问原始字符串块
     stream.collect { chunk ->
-        // Process each chunk of text as it arrives
-        println("Received chunk: $chunk") // The chunks together will be structured as a text following the mdDefinition schema
+        // 处理到达的每个文本块
+        println("Received chunk: $chunk") // 这些块共同将按照 mdDefinition 模式结构化为文本
     }
 }
 ```
@@ -124,10 +123,10 @@ val strategy = strategy<String, String>("strategy_name") {
 llm.writeSession {
     val frames = requestLLMStreaming()
 
-    // Stream text chunks as they come:
+    // 流式传输文本块：
     frames.filterTextOnly().collect { chunk -> print(chunk) }
 
-    // Or, gather all text into one String after End:
+    // 或者，在流结束时将所有文本收集到一个 String 中：
     val fullText = frames.collectText()
     println("
 ---
@@ -145,6 +144,7 @@ import ai.koog.agents.core.dsl.builder.strategy
 import ai.koog.agents.core.agent.GraphAIAgent
 import ai.koog.agents.features.eventHandler.feature.handleEvents
 import ai.koog.prompt.streaming.StreamFrame
+import ai.koog.prompt.structure.markdown.MarkdownStructureDefinition
 
 fun GraphAIAgent.FeatureContext.installStreamingApi() {
 -->
@@ -189,8 +189,8 @@ handleEvents {
 
 结构化数据方法包括以下关键组件：
 
-1.  **MarkdownStructuredDataDefinition**：一个帮助您定义 Markdown 格式结构化数据的 schema 和 examples 的类。
-2.  **markdownStreamingParser**：一个用于创建解析器（该解析器处理 Markdown 数据块流并发出事件）的函数。
+1. **MarkdownStructureDefinition**：一个帮助您定义 Markdown 格式结构化数据的 schema 和 examples 的类。
+2. **markdownStreamingParser**：一个用于创建解析器（该解析器处理 Markdown 数据块流并发出事件）的函数。
 
 以下部分提供了处理结构化数据流的分步说明和代码示例。
 
@@ -213,15 +213,15 @@ data class Book(
 
 #### 2. 定义 Markdown 结构
 
-使用 `MarkdownStructuredDataDefinition` 类创建一个定义，用于指定您的数据应如何在 Markdown 中进行结构化：
+使用 `MarkdownStructureDefinition` 类创建一个定义，用于指定您的数据应如何在 Markdown 中进行结构化：
 
 <!--- INCLUDE
 import ai.koog.prompt.markdown.markdown
-import ai.koog.prompt.structure.markdown.MarkdownStructuredDataDefinition
+import ai.koog.prompt.structure.markdown.MarkdownStructureDefinition
 -->
 ```kotlin
-fun markdownBookDefinition(): MarkdownStructuredDataDefinition {
-    return MarkdownStructuredDataDefinition("bookList", schema = {
+fun markdownBookDefinition(): MarkdownStructureDefinition {
+    return MarkdownStructureDefinition("bookList", schema = {
         markdown {
             header(1, "title")
             bulleted {
@@ -261,15 +261,15 @@ fun parseMarkdownStreamToBooks(markdownStream: Flow<String>): Flow<Book> {
 -->
 ```kotlin
 markdownStreamingParser {
-    // Handle level 1 headings (level ranges from 1 to 6)
+    // 处理一级标题（级别范围从 1 到 6）
     onHeader(1) { headerText -> }
-    // Handle bullet points
+    // 处理项目符号
     onBullet { bulletText -> }
-    // Handle code blocks
+    // 处理代码块
     onCodeBlock { codeBlockContent -> }
-    // Handle lines matching a regex pattern
+    // 处理匹配正则表达式模式的行
     onLineMatching(Regex("pattern")) { line -> }
-    // Handle the end of the stream
+    // 处理流的结束
     onFinishStream { remainingText -> }
 }
 ```
@@ -293,9 +293,9 @@ fun parseMarkdownStreamToBooks(markdownStream: Flow<StreamFrame>): Flow<Book> {
          var currentBookTitle = ""
          val bulletPoints = mutableListOf<String>()
 
-         // Handle the event of receiving the Markdown header in the response stream
+         // 处理在响应流中接收 Markdown 标题的事件
          onHeader(1) { headerText ->
-            // If there was a previous book, emit it
+            // 如果存在上一本书，则发出它
             if (currentBookTitle.isNotEmpty() && bulletPoints.isNotEmpty()) {
                val author = bulletPoints.getOrNull(0) ?: ""
                val description = bulletPoints.getOrNull(1) ?: ""
@@ -306,14 +306,14 @@ fun parseMarkdownStreamToBooks(markdownStream: Flow<StreamFrame>): Flow<Book> {
             bulletPoints.clear()
          }
 
-         // Handle the event of receiving the Markdown bullets list in the response stream
+         // 处理在响应流中接收 Markdown 项目符号列表的事件
          onBullet { bulletText ->
             bulletPoints.add(bulletText)
          }
 
-         // Handle the end of the response stream
+         // 处理响应流的结束
          onFinishStream {
-            // Emit the last book, if present
+            // 如果存在，则发出最后一本书
             if (currentBookTitle.isNotEmpty() && bulletPoints.isNotEmpty()) {
                val author = bulletPoints.getOrNull(0) ?: ""
                val description = bulletPoints.getOrNull(1) ?: ""
@@ -337,16 +337,16 @@ import ai.koog.agents.example.exampleStreamingApi06.parseMarkdownStreamToBooks
 -->
 ```kotlin
 val agentStrategy = strategy<String, List<Book>>("library-assistant") {
-   // Describe the node containing the output stream parsing
+   // 描述包含输出流解析的节点
    val getMdOutput by node<String, List<Book>> { booksDescription ->
       val books = mutableListOf<Book>()
       val mdDefinition = markdownBookDefinition()
 
       llm.writeSession {
          appendPrompt { user(booksDescription) }
-         // Initiate the response stream in the form of the definition `mdDefinition`
+         // 以定义 `mdDefinition` 的形式启动响应流
          val markdownStream = requestLLMStreaming(mdDefinition)
-         // Call the parser with the result of the response stream and perform actions with the result
+         // 使用响应流的结果调用解析器并对结果执行操作
          parseMarkdownStreamToBooks(markdownStream).collect { book ->
             books.add(book)
             println("Parsed Book: ${book.title} by ${book.author}")
@@ -355,7 +355,7 @@ val agentStrategy = strategy<String, List<Book>>("library-assistant") {
 
       books
    }
-   // Describe the agent's graph making sure the node is accessible
+   // 描述代理的图，确保节点可访问
    edge(nodeStart forwardTo getMdOutput)
    edge(getMdOutput forwardTo nodeFinish)
 }
@@ -398,7 +398,7 @@ class BookTool(): SimpleTool<Book>() {
         get() = Book.serializer()
 
     override val name: String = NAME
-    override val description: String = "A tool to parse book information from Markdown"
+    override val description: String = "一个用于从 Markdown 解析书籍信息的工具"
 }
 ```
 <!--- KNIT example-streaming-api-08.kt -->
@@ -431,7 +431,7 @@ val agentStrategy = strategy<String, Unit>("library-assistant") {
             */
          }
 
-         // We can make parallel tool calls
+         // 我们可以进行并行工具调用
          parseMarkdownStreamToBooks(markdownStream).toParallelToolCallsRaw(toolClass=BookTool::class).collect {
             println("Tool call result: $it")
          }
@@ -472,16 +472,16 @@ val runner = AIAgent(
 
 ## 最佳实践
 
-1.  **定义清晰的结构**：为您的数据创建清晰明确的 Markdown 结构。
+1. **定义清晰的结构**：为您的数据创建清晰明确的 Markdown 结构。
 
-2.  **提供良好的示例**：在您的 `MarkdownStructuredDataDefinition` 中包含全面的示例以指导 LLM。
+2. **提供良好的示例**：在您的 `MarkdownStructureDefinition` 中包含全面的示例以指导 LLM。
 
-3.  **处理不完整数据**：在从流中解析数据时，始终检测空值或空数据。
+3. **处理不完整数据**：在从流中解析数据时，始终检测空值或空数据。
 
-4.  **清理资源**：使用 `onFinishStream` 处理程序清理资源并处理任何剩余数据。
+4. **清理资源**：使用 `onFinishStream` 处理程序清理资源并处理任何剩余数据。
 
-5.  **处理错误**：为格式错误的 Markdown 或意外数据实现适当的错误处理。
+5. **处理错误**：为格式错误的 Markdown 或意外数据实现适当的错误处理。
 
-6.  **测试**：使用各种输入场景（包括部分数据块和格式错误的输入）测试您的解析器。
+6. **测试**：使用各种输入场景（包括部分数据块和格式错误的输入）测试您的解析器。
 
-7.  **并行处理**：对于独立的数据项，考虑使用并行工具调用以获得更好的性能。
+7. **并行处理**：对于独立的数据项，考虑使用并行工具调用以获得更好的性能。

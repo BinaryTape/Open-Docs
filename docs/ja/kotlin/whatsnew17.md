@@ -108,11 +108,11 @@ object Runner {
 }
 
 fun main() {
-    // SomeImplementationがSomeClass<String>を継承しているため、TはStringと推論される
+    // TはStringと推論される (SomeImplementationがSomeClass<String>を継承しているため)
     val s = Runner.run<SomeImplementation, _>()
     assert(s == "Test")
 
-    // OtherImplementationがSomeClass<Int>を継承しているため、TはIntと推論される
+    // TはIntと推論される (OtherImplementationがSomeClass<Int>を継承しているため)
     val n = Runner.run<OtherImplementation, _>()
     assert(n == 42)
 }
@@ -233,7 +233,8 @@ Kotlin 1.7.0以降、Kotlin Multiplatform Gradleプラグインは、Kotlin/Nati
 
 > この機能は、プラグイン開発者が既存のプラグインに対して移行手順を踏む必要がある場合があります。
 >
-> アップデートに向けてプラグインを準備する方法については、[こちらのYouTrack課題](https://youtrack.jetbrains.com/issue/KT-48595)をご覧ください。
+> アップデートに向けてプラグインを準備する方法については、
+> [こちらのYouTrack課題](https://youtrack.jetbrains.com/issue/KT-48595)をご覧ください。
 >
 {style="warning"}
 
@@ -267,11 +268,11 @@ KotlinコードをSwift/Objective-Cコードから呼び出す場合（または
 
 Kotlin 1.7.0以降、プロジェクトにCocoaPodsを統合したい場合でも、`cocoapods-generate`プラグインをインストールする必要がなくなりました。
 
-以前は、CocoaPodsを使用するため、例えばKotlin Multiplatform Mobileプロジェクトで[iOSの依存関係](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-ios-dependencies.html#with-cocoapods)を処理するために、CocoaPods依存関係マネージャーと`cocoapods-generate`プラグインの両方をインストールする必要がありました。
+以前は、CocoaPodsを使用するため、例えばKotlin Multiplatform Mobileプロジェクトで[iOSの依存関係](https://kotlinlang.org/docs/multiplatform/multiplatform-ios-dependencies.html#with-cocoapods)を処理するために、CocoaPods依存関係マネージャーと`cocoapods-generate`プラグインの両方をインストールする必要がありました。
 
 これでCocoaPods統合のセットアップが容易になり、`cocoapods-generate`がRuby 3以降にインストールできない問題も解決されました。Apple M1でより良く動作する最新のRubyバージョンもサポートされています。
 
-[初期のCocoaPods統合](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-cocoapods-overview.html#set-up-an-environment-to-work-with-cocoapods)のセットアップ方法をご覧ください。
+[初期のCocoaPods統合](https://kotlinlang.org/docs/multiplatform/multiplatform-cocoapods-overview.html#set-up-an-environment-to-work-with-cocoapods)のセットアップ方法をご覧ください。
 
 ### Kotlin/NativeコンパイラのダウンロードURLの上書き
 
@@ -418,7 +419,7 @@ fun main() {
 
 幅広い以前のKotlinバージョンで利用可能なライブラリを開発するライブラリ作成者をサポートし、Kotlinのメジャーリリース頻度の増加に対応するために、以前の言語バージョンとAPIバージョンのサポートを拡張しました。
 
-Kotlin 1.7.0では、以前の言語およびAPIバージョンを2つではなく3つサポートしています。これは、Kotlin 1.7.0がKotlin 1.4.0までのKotlinバージョンをターゲットとするライブラリの開発をサポートすることを意味します。下位互換性の詳細については、[互換性モード](compatibility-modes.md)をご覧ください。
+Kotlin 1.7.0では、以前の言語およびAPIバージョンを2つではなく3つサポートしています。これは、Kotlin 1.7.0がKotlin 1.4.0までのKotlinバージョンをターゲットとするライブラリの開発をサポートすることを意味します。下位互換性の詳細については、[互換性モード](kotlin-evolution-principles.md#compatibility-options)をご覧ください。
 
 ### リフレクションによるアノテーションへのアクセス
 
@@ -471,7 +472,7 @@ fun main() {
 
 ### デフォルト時間ソースのインラインクラスに基づくタイムマーク
 
-Kotlin 1.7.0では、`TimeSource.Monotonic`によって返されるタイムマークをインライン値クラスに変更することで、時間計測機能のパフォーマンスが向上しました。これは、`markNow()`、`elapsedNow()`、`measureTime()`、`measureTimedValue()`などの関数を呼び出しても、その`TimeMark`インスタンスのラッパークラスが割り当てられないことを意味します。特に、ホットパスの一部であるコードを計測する場合、これにより計測のパフォーマンスへの影響を最小限に抑えることができます。
+Kotlin 1.7.0では、`TimeSource.Monotonic`によって返されるタイムマークをインライン値クラスに変更することで、時間計測機能のパフォーマンスが向上しました。これは、`markNow()`、`elapsedNow()`、`measureTime()`、`measureTimedValue()`などの関数を呼び出しても、その`TimeMark`インスタンスのラッパークラスが割り当てられないことを意味します。特に、ホットパスの一部であるコードを計測する場合、これにより計測のパフォーマンスへの影響を最小限に抑えます。
 
 ```kotlin
 @OptIn(ExperimentalTime::class)

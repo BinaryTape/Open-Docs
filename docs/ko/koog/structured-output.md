@@ -252,7 +252,7 @@ val structuredResponse = promptExecutor.executeStructured<WeatherForecast>(
         examples = exampleForecasts,
         // 선택 사항: 오류 수정을 위한 교정 파서 제공
         fixingParser = StructureFixingParser(
-            fixingModel = OpenAIModels.Chat.GPT4o,
+            model = OpenAIModels.Chat.GPT4o,
             retries = 3
         )
     )
@@ -295,7 +295,7 @@ val structuredResponse = llm.writeSession {
     requestLLMStructured<WeatherForecast>(
         examples = exampleForecasts,
         fixingParser = StructureFixingParser(
-            fixingModel = OpenAIModels.Chat.GPT4o,
+            model = OpenAIModels.Chat.GPT4o,
             retries = 3
         )
     )
@@ -326,7 +326,7 @@ val agentStrategy = strategy("weather-forecast") {
         val structuredResponse = llm.writeSession {
             requestLLMStructured<WeatherForecast>(
                 fixingParser = StructureFixingParser(
-                    fixingModel = OpenAIModels.Chat.GPT4o,
+                    model = OpenAIModels.Chat.GPT4o,
                     retries = 3
                 )
             )
@@ -379,7 +379,7 @@ val agentStrategy = strategy("weather-forecast") {
         name = "forecast-node",
         examples = exampleForecasts,
         fixingParser = StructureFixingParser(
-            fixingModel = OpenAIModels.Chat.GPT4o,
+            model = OpenAIModels.Chat.GPT4o,
             retries = 3
         )
     )
@@ -387,7 +387,7 @@ val agentStrategy = strategy("weather-forecast") {
     val processResult by node<Result<StructuredResponse<WeatherForecast>>, String> { result ->
         when {
             result.isSuccess -> {
-                val forecast = result.getOrNull()?.structure
+                val forecast = result.getOrNull()?.data
                 "Weather forecast: $forecast"
             }
             result.isFailure -> {
@@ -422,7 +422,7 @@ import ai.koog.prompt.executor.clients.openai.OpenAIModels
 import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
 import ai.koog.prompt.message.Message
 import ai.koog.prompt.structure.json.generator.BasicJsonSchemaGenerator
-import ai.koog.prompt.structure.json.JsonStructuredData
+import ai.koog.prompt.structure.json.JsonStructure
 import kotlinx.coroutines.runBlocking
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
@@ -459,7 +459,7 @@ fun main(): Unit = runBlocking {
     )
 
     // JSON 스키마 생성
-    val forecastStructure = JsonStructuredData.createJsonStructure<SimpleWeatherForecast>(
+    val forecastStructure = JsonStructure.create<SimpleWeatherForecast>(
         schemaGenerator = BasicJsonSchemaGenerator.Default,
         examples = exampleForecasts
     )
@@ -517,9 +517,9 @@ fun main(): Unit = runBlocking {
 
 ### 수동 스키마 생성 및 구성
 
-자동 스키마 생성에 의존하는 대신, `JsonStructuredData.createJsonStructure`를 사용하여 스키마를 명시적으로 생성하고 `StructuredOutput` 클래스를 통해 구조화된 출력 동작을 수동으로 구성할 수 있습니다.
+자동 스키마 생성에 의존하는 대신, `JsonStructure.create`를 사용하여 스키마를 명시적으로 생성하고 `StructuredOutput` 클래스를 통해 구조화된 출력 동작을 수동으로 구성할 수 있습니다.
 
-주요 차이점은 `examples` 및 `fixingParser`와 같은 단순 매개변수를 전달하는 대신, 다음과 같은 세밀한 제어를 허용하는 `StructuredOutputConfig` 객체를 생성한다는 것입니다:
+주요 차이점은 `examples` 및 `fixingParser`와 같은 단순 매개변수를 전달하는 대신, 다음과 같은 세밀한 제어를 허용하는 `StructuredRequestConfig` 객체를 생성한다는 것입니다:
 
 -   **스키마 생성**: 특정 생성기(표준, 기본 또는 공급자별) 선택
 -   **출력 모드**: 네이티브 구조화된 출력 지원 vs 수동 프롬프트
@@ -534,14 +534,14 @@ import ai.koog.prompt.executor.clients.openai.OpenAIModels
 import ai.koog.prompt.executor.clients.anthropic.AnthropicModels
 import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
 import ai.koog.prompt.structure.executeStructured
-import ai.koog.prompt.structure.StructuredOutput
-import ai.koog.prompt.structure.StructuredOutputConfig
+import ai.koog.prompt.structure.StructuredRequest
 import ai.koog.prompt.structure.StructureFixingParser
-import ai.koog.prompt.structure.json.JsonStructuredData
+import ai.koog.prompt.structure.json.JsonStructure
 import ai.koog.prompt.structure.json.generator.StandardJsonSchemaGenerator
 import ai.koog.prompt.executor.clients.openai.base.structure.OpenAIBasicJsonSchemaGenerator
 import ai.koog.prompt.llm.LLMProvider
 import kotlinx.coroutines.runBlocking
+import ai.koog.prompt.structure.StructuredRequestConfig
 
 fun main() {
     runBlocking {
@@ -552,32 +552,32 @@ fun main() {
 -->
 ```kotlin
 // 다른 생성기로 다른 스키마 구조 생성
-val genericStructure = JsonStructuredData.createJsonStructure<WeatherForecast>(
+val genericStructure = JsonStructure.create<WeatherForecast>(
     schemaGenerator = StandardJsonSchemaGenerator,
     examples = exampleForecasts
 )
 
-val openAiStructure = JsonStructuredData.createJsonStructure<WeatherForecast>(
+val openAiStructure = JsonStructure.create<WeatherForecast>(
     schemaGenerator = OpenAIBasicJsonSchemaGenerator,
     examples = exampleForecasts
 )
 
 val promptExecutor = simpleOpenAIExecutor(System.getenv("OPENAI_KEY"))
 
-// 고급 API는 단순 매개변수 대신 StructuredOutputConfig를 사용합니다.
+// 고급 API는 단순 매개변수 대신 StructuredRequestConfig를 사용합니다.
 val structuredResponse = promptExecutor.executeStructured(
     prompt = prompt("structured-data") {
         system("You are a weather forecasting assistant.")
         user("What is the weather forecast for Amsterdam?")
     },
     model = OpenAIModels.CostOptimized.GPT4oMini,
-    config = StructuredOutputConfig(
+    config = StructuredRequestConfig(
         byProvider = mapOf(
-            LLMProvider.OpenAI to StructuredOutput.Native(openAiStructure),
+            LLMProvider.OpenAI to StructuredRequest.Native(openAiStructure),
         ),
-        default = StructuredOutput.Manual(genericStructure),
+        default = StructuredRequest.Manual(genericStructure),
         fixingParser = StructureFixingParser(
-            fixingModel = AnthropicModels.Haiku_3_5,
+            model = AnthropicModels.Haiku_3_5,
             retries = 2
         )
     )
@@ -595,11 +595,11 @@ val structuredResponse = promptExecutor.executeStructured(
 
 ### 모든 계층에서의 사용
 
-고급 구성은 API의 세 가지 계층 모두에서 일관되게 작동합니다. 메서드 이름은 동일하게 유지되며, 매개변수만 단순 인수에서 더 고급 `StructuredOutputConfig`로 변경됩니다:
+고급 구성은 API의 세 가지 계층 모두에서 일관되게 작동합니다. 메서드 이름은 동일하게 유지되며, 매개변수만 단순 인수에서 더 고급 `StructuredRequestConfig`로 변경됩니다:
 
--   **프롬프트 실행기**: `executeStructured(prompt, model, config: StructuredOutputConfig<T>)`
--   **에이전트 LLM 컨텍스트**: `requestLLMStructured(config: StructuredOutputConfig<T>)`
--   **노드 계층**: `nodeLLMRequestStructured(config: StructuredOutputConfig<T>)`
+-   **프롬프트 실행기**: `executeStructured(prompt, model, config: StructuredRequestConfig<T>)`
+-   **에이전트 LLM 컨텍스트**: `requestLLMStructured(config: StructuredRequestConfig<T>)`
+-   **노드 계층**: `nodeLLMRequestStructured(config: StructuredRequestConfig<T>)`
 
 대부분의 사용 사례에서는 단순화된 API(단순히 `examples` 및 `fixingParser` 매개변수 사용)가 권장되며, 고급 API는 필요할 때 추가 제어를 제공합니다.
 

@@ -45,11 +45,11 @@ Kotlin/Native 編譯器不斷接收更新，以提升其效能。藉由最新的
 *   `linkDebug*`。在開發期間執行您的程式碼時，您通常只需要一個二進位檔，因此執行對應的 `linkDebug*` 任務應該就足夠了。
 *   `embedAndSignAppleFrameworkForXcode`。由於 iOS 模擬器和裝置具有不同的處理器架構，因此將 Kotlin/Native 二進位檔作為通用 (fat) 框架發布是一種常見方法。
 
-    然而，在本地開發期間，僅為您使用的平台建置 `.framework` 檔案會更快。要建置特定平台框架，請使用 [embedAndSignAppleFrameworkForXcode](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-direct-integration.html#connect-the-framework-to-your-project) 任務。
+    然而，在本地開發期間，僅為您使用的平台建置 `.framework` 檔案會更快。要建置特定平台框架，請使用 [embedAndSignAppleFrameworkForXcode](https://kotlinlang.org/docs/multiplatform/multiplatform-direct-integration.html#connect-the-framework-to-your-project) 任務。
 
 ### 僅為必要的目標建置
 
-與上述建議類似，不要一次為所有原生平台建置二進位檔。例如，編譯 [XCFramework](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-build-native-binaries.html#build-xcframeworks)（使用 `*XCFramework` 任務）會為所有目標建置相同的程式碼，這會比為單一目標建置花費成比例更多的時間。
+與上述建議類似，不要一次為所有原生平台建置二進位檔。例如，編譯 [XCFramework](https://kotlinlang.org/docs/multiplatform/multiplatform-build-native-binaries.html#build-xcframeworks)（使用 `*XCFramework` 任務）會為所有目標建置相同的程式碼，這會比為單一目標建置花費成比例更多的時間。
 
 如果您的設定確實需要 XCFramework，您可以減少目標數量。例如，如果您不在基於 Intel 的 Mac 上的 iOS 模擬器上執行此專案，則不需要 `iosX64`。
 
@@ -59,7 +59,7 @@ Kotlin/Native 編譯器不斷接收更新，以提升其效能。藉由最新的
 
 ### 不要建置不必要的發行二進位檔
 
-Kotlin/Native 支援兩種建置模式：[偵錯和發行](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-build-native-binaries.html#declare-binaries)。發行模式經過高度最佳化，這會花費大量時間：編譯發行二進位檔所花費的時間比偵錯二進位檔高一個數量級。
+Kotlin/Native 支援兩種建置模式：[偵錯和發行](https://kotlinlang.org/docs/multiplatform/multiplatform-build-native-binaries.html#declare-binaries)。發行模式經過高度最佳化，這會花費大量時間：編譯發行二進位檔所花費的時間比偵錯二進位檔高一個數量級。
 
 除了實際發行之外，在典型的開發週期中，所有這些最佳化可能是不必要的。如果您在開發過程中使用了名稱中包含 `Release` 的任務，請考慮將其替換為 `Debug`。同樣地，您可以執行 `assembleSharedDebugXCFramework`，而不是執行 `assembleXCFramework`。
 
@@ -73,11 +73,11 @@ Kotlin/Native 支援兩種建置模式：[偵錯和發行](https://www.jetbrains
 
 ### 不要使用傳遞式匯出
 
-使用 [`transitiveExport = true`](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-build-native-binaries.html#export-dependencies-to-binaries) 在許多情況下會停用死碼消除，因此編譯器必須處理大量未使用的程式碼。這會增加編譯時間。相反地，請明確使用 `export` 方法來匯出所需的專案和依賴項。
+使用 [`transitiveExport = true`](https://kotlinlang.org/docs/multiplatform/multiplatform-build-native-binaries.html#export-dependencies-to-binaries) 在許多情況下會停用死碼消除，因此編譯器必須處理大量未使用的程式碼。這會增加編譯時間。相反地，請明確使用 `export` 方法來匯出所需的專案和依賴項。
 
 ### 不要過度匯出模組
 
-盡量避免不必要的 [模組匯出](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-build-native-binaries.html#export-dependencies-to-binaries)。每個匯出的模組都會對編譯時間和二進位檔大小產生負面影響。
+盡量避免不必要的 [模組匯出](https://kotlinlang.org/docs/multiplatform/multiplatform-build-native-binaries.html#export-dependencies-to-binaries)。每個匯出的模組都會對編譯時間和二進位檔大小產生負面影響。
 
 ### 使用 Gradle 建置快取
 

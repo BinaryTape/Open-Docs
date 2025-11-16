@@ -182,19 +182,25 @@ suspend fun Application.installEvents() {
 
 ### 설정 옵션
 
-다음 Gradle 설정 속성을 사용할 수 있습니다:
+다음 설정 속성을 사용할 수 있습니다:
 
 | 속성                                | 유형                        | 설명                                              | 기본값      |
 |-----------------------------------------|-----------------------------|----------------------------------------------------------|--------------|
 | `ktor.application.startup`              | `sequential` / `concurrent` | 애플리케이션 모듈이 로드되는 방식을 정의합니다. | `sequential` |
-| `ktor.application.startupTimeoutMillis` | `Long`                      | 애플리케이션 모듈 로딩 타임아웃 (밀리초 단위) | `100000`     |
+| `ktor.application.startupTimeoutMillis` | `Long`                      | 애플리케이션 모듈 로딩 타임아웃 (밀리초 단위) | `10000`      |
 
 ### 동시 모듈 로딩 활성화
 
-동시 모듈 로딩을 선택하려면, `gradle.properties` 파일에 다음 속성을 추가합니다:
+동시 모듈 로딩을 선택하려면, 서버 설정 파일에 다음을 추가합니다:
 
-```none
-ktor.application.startup = concurrent
+```yaml
+# application.conf
+
+ktor {
+    application {
+        startup = concurrent
+    }
+}
 ```
 
 의존성 주입의 경우, 다음 모듈들을 나타나는 순서대로 문제없이 로드할 수 있습니다:

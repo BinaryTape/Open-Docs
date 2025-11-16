@@ -1,4 +1,4 @@
-[//]: # (title: Kotlin 2.0 兼容性指南)
+[//]: # (title: Kotlin 2.0.x 兼容性指南)
 
 _[保持语言现代化](kotlin-evolution-principles.md)_ 和 _[舒适的更新](kotlin-evolution-principles.md)_ 是 Kotlin 语言设计的核心原则。前者指出，阻碍语言演进的结构应该被移除；后者则强调，这种移除应提前充分沟通，以使代码迁移尽可能顺畅。
 
@@ -73,8 +73,8 @@ _[保持语言现代化](kotlin-evolution-principles.md)_ 和 _[舒适的更新]
 >
 > **废弃周期**：
 >
-> - 1.8.20：对有问题的调用报告警告
-> - 2.0.0：将警告提升为错误
+> - 1.8.20：对有问题的调用报告警告。
+> - 2.0.0：将警告提升为错误。
 
 ### 禁止在属性初始化前访问属性值
 
@@ -102,7 +102,7 @@ _[保持语言现代化](kotlin-evolution-principles.md)_ 和 _[舒适的更新]
 
 ### 默认通过 invokedynamic 和 LambdaMetafactory 生成 Kotlin lambda 表达式
 
-> **问题**：[KT-45375](https://youtrack.jetbrains.com/issue/KT-45375)
+> **问题**：[KT-45375](https://youtrack.com/issue/KT-45375)
 >
 > **组件**：核心语言
 >
@@ -114,7 +114,7 @@ _[保持语言现代化](kotlin-evolution-principles.md)_ 和 _[舒适的更新]
 
 ### 禁止当需要表达式时 if 条件只有一个分支
 
-> **问题**：[KT-57871](https://youtrack.jetbrains.com/issue/KT-57871)
+> **问题**：[KT-57871](https://youtrack.com/issue/KT-57871)
 >
 > **组件**：核心语言
 >
@@ -126,7 +126,7 @@ _[保持语言现代化](kotlin-evolution-principles.md)_ 和 _[舒适的更新]
 
 ### 禁止通过传递泛型类型的星投影来违反自身上界
 
-> **问题**：[KT-61718](https://youtrack.jetbrains.com/issue/KT-61718)
+> **问题**：[KT-61718](https://youtrack.com/issue/KT-61718)
 >
 > **组件**：核心语言
 >
@@ -138,7 +138,7 @@ _[保持语言现代化](kotlin-evolution-principles.md)_ 和 _[舒适的更新]
 
 ### 近似私有内联函数的返回类型中的匿名类型
 
-> **问题**：[KT-54862](https://youtrack.jetbrains.com/issue/KT-54862)
+> **问题**：[KT-54862](https://youtrack.com/issue/KT-54862)
 >
 > **组件**：核心语言
 >
@@ -151,7 +151,7 @@ _[保持语言现代化](kotlin-evolution-principles.md)_ 和 _[舒适的更新]
 
 ### 变更重载解析行为，以优先处理本地扩展函数调用而非本地函数类型属性的 invoke 约定
 
-> **问题**：[KT-37592](https://youtrack.jetbrains.com/issue/KT-37592)
+> **问题**：[KT-37592](https://youtrack.com/issue/KT-37592)
 >
 > **组件**：核心语言
 >
@@ -163,7 +163,7 @@ _[保持语言现代化](kotlin-evolution-principles.md)_ 和 _[舒适的更新]
 
 ### 当由于二进制依赖项中的超类型变更导致继承成员冲突时报告错误
 
-> **问题**：[KT-51194](https://youtrack.jetbrains.com/issue/KT-51194)
+> **问题**：[KT-51194](https://youtrack.com/issue/KT-51194)
 >
 > **组件**：核心语言
 >
@@ -176,7 +176,7 @@ _[保持语言现代化](kotlin-evolution-principles.md)_ 和 _[舒适的更新]
 
 ### 忽略不型变类型中形参上的 @UnsafeVariance 注解
 
-> **问题**：[KT-57609](https://youtrack.jetbrains.com/issue/KT-57609)
+> **问题**：[KT-57609](https://youtrack.com/issue/KT-57609)
 >
 > **组件**：核心语言
 >
@@ -188,7 +188,7 @@ _[保持语言现代化](kotlin-evolution-principles.md)_ 和 _[舒适的更新]
 
 ### 变更伴生对象成员的调用外部引用的类型
 
-> **问题**：[KT-54316](https://youtrack.jetbrains.com/issue/KT-54316)
+> **问题**：[KT-54316](https://youtrack.com/issue/KT-54316)
 >
 > **组件**：核心语言
 >
@@ -201,7 +201,7 @@ _[保持语言现代化](kotlin-evolution-principles.md)_ 和 _[舒适的更新]
 
 ### 禁止私有内联函数暴露匿名类型
 
-> **问题**：[KT-33917](https://youtrack.jetbrains.com/issue/KT-33917)
+> **问题**：[KT-33917](https://youtrack.com/issue/KT-33917)
 >
 > **组件**：核心语言
 >
@@ -214,7 +214,7 @@ _[保持语言现代化](kotlin-evolution-principles.md)_ 和 _[舒适的更新]
 
 ### 报告 while 循环中断后不健全智能类型转换的错误
 
-> **问题**：[KT-22379](https://youtrack.jetbrains.com/issue/KT-22379)
+> **问题**：[KT-22379](https://youtrack.com/issue/KT-22379)
 >
 > **组件**：核心语言
 >
@@ -226,7 +226,7 @@ _[保持语言现代化](kotlin-evolution-principles.md)_ 和 _[舒适的更新]
 
 ### 当交集类型变量被赋值一个不是该交集类型子类型的值时报告错误
 
-> **问题**：[KT-53752](https://youtrack.jetbrains.com/issue/KT-53752)
+> **问题**：[KT-53752](https://youtrack.com/issue/KT-53752)
 >
 > **组件**：核心语言
 >
@@ -238,7 +238,7 @@ _[保持语言现代化](kotlin-evolution-principles.md)_ 和 _[舒适的更新]
 
 ### 要求当用 SAM 构造函数构造的接口包含一个需要选择启用的方法时选择启用
 
-> **问题**：[KT-52628](https://youtrack.jetbrains.com/issue/KT-52628)
+> **问题**：[KT-52628](https://youtrack.com/issue/KT-52628)
 >
 > **组件**：核心语言
 >
@@ -251,7 +251,7 @@ _[保持语言现代化](kotlin-evolution-principles.md)_ 和 _[舒适的更新]
 
 ### 禁止类型别名构造函数中违反上界
 
-> **问题**：[KT-54066](https://youtrack.jetbrains.com/issue/KT-54066)
+> **问题**：[KT-54066](https://youtrack.com/issue/KT-54066)
 >
 > **组件**：核心语言
 >
@@ -264,7 +264,7 @@ _[保持语言现代化](kotlin-evolution-principles.md)_ 和 _[舒适的更新]
 
 ### 使解构变量的真实类型与指定时的显式类型保持一致
 
-> **问题**：[KT-57011](https://youtrack.jetbrains.com/issue/KT-57011)
+> **问题**：[KT-57011](https://youtrack.com/issue/KT-57011)
 >
 > **组件**：核心语言
 >
@@ -276,7 +276,7 @@ _[保持语言现代化](kotlin-evolution-principles.md)_ 和 _[舒适的更新]
 
 ### 要求当调用具有需要选择启用的默认值形参类型的构造函数时选择启用
 
-> **问题**：[KT-55111](https://youtrack.jetbrains.com/issue/KT-55111)
+> **问题**：[KT-55111](https://youtrack.com/issue/KT-55111)
 >
 > **组件**：核心语言
 >
@@ -289,7 +289,7 @@ _[保持语言现代化](kotlin-evolution-principles.md)_ 和 _[舒适的更新]
 
 ### 在同一作用域级别具有相同名称的属性和枚举条目之间存在歧义时报告错误
 
-> **问题**：[KT-52802](https://youtrack.jetbrains.com/issue/KT-52802)
+> **问题**：[KT-52802](https://youtrack.com/issue/KT-52802)
 >
 > **组件**：核心语言
 >
@@ -302,7 +302,7 @@ _[保持语言现代化](kotlin-evolution-principles.md)_ 和 _[舒适的更新]
 
 ### 变更限定符解析行为以优先选择伴生属性而非枚举条目
 
-> **问题**：[KT-47310](https://youtrack.jetbrains.com/issue/KT-47310)
+> **问题**：[KT-47310](https://youtrack.com/issue/KT-47310)
 >
 > **组件**：核心语言
 >
@@ -314,7 +314,7 @@ _[保持语言现代化](kotlin-evolution-principles.md)_ 和 _[舒适的更新]
 
 ### 解析 invoke 调用接收者类型和 invoke 函数类型，如同它们以脱糖形式编写
 
-> **问题**：[KT-58260](https://youtrack.jetbrains.com/issue/KT-58260)
+> **问题**：[KT-58260](https://youtrack.com/issue/KT-58260)
 >
 > **组件**：核心语言
 >
@@ -326,7 +326,7 @@ _[保持语言现代化](kotlin-evolution-principles.md)_ 和 _[舒适的更新]
 
 ### 禁止通过非私有内联函数暴露私有类成员
 
-> **问题**：[KT-55179](https://youtrack.jetbrains.com/issue/KT-55179)
+> **问题**：[KT-55179](https://youtrack.com/issue/KT-55179)
 >
 > **组件**：核心语言
 >
@@ -339,7 +339,7 @@ _[保持语言现代化](kotlin-evolution-principles.md)_ 和 _[舒适的更新]
 
 ### 更正投影泛型类型中确定非空类型的可空性
 
-> **问题**：[KT-54663](https://youtrack.jetbrains.com/issue/KT-54663)
+> **问题**：[KT-54663](https://youtrack.com/issue/KT-54663)
 >
 > **组件**：核心语言
 >
@@ -351,7 +351,7 @@ _[保持语言现代化](kotlin-evolution-principles.md)_ 和 _[舒适的更新]
 
 ### 变更前缀自增的推断类型，以匹配 getter 的返回类型而非 inc() 操作符的返回类型
 
-> **问题**：[KT-57178](https://youtrack.jetbrains.com/issue/KT-57178)
+> **问题**：[KT-57178](https://youtrack.com/issue/KT-57178)
 >
 > **组件**：核心语言
 >
@@ -363,7 +363,7 @@ _[保持语言现代化](kotlin-evolution-principles.md)_ 和 _[舒适的更新]
 
 ### 强制当从超类中声明的泛型内部类继承内部类时进行边界检测
 
-> **问题**：[KT-61749](https://youtrack.jetbrains.com/issue/KT-61749)
+> **问题**：[KT-61749](https://youtrack.com/issue/KT-61749)
 >
 > **组件**：核心语言
 >
@@ -375,7 +375,7 @@ _[保持语言现代化](kotlin-evolution-principles.md)_ 和 _[舒适的更新]
 
 ### 禁止当预期类型是带有函数类型形参的函数类型时，对带有 SAM 类型的可调用引用进行赋值
 
-> **问题**：[KT-64342](https://youtrack.jetbrains.com/issue/KT-64342)
+> **问题**：[KT-64342](https://youtrack.com/issue/KT-64342)
 >
 > **组件**：核心语言
 >
@@ -387,7 +387,7 @@ _[保持语言现代化](kotlin-evolution-principles.md)_ 和 _[舒适的更新]
 
 ### 考虑伴生对象作用域以解析伴生对象上的注解
 
-> **问题**：[KT-64299](https://youtrack.jetbrains.com/issue/KT-64299)
+> **问题**：[KT-64299](https://youtrack.com/issue/KT-64299)
 >
 > **组件**：核心语言
 >
@@ -399,7 +399,7 @@ _[保持语言现代化](kotlin-evolution-principles.md)_ 和 _[舒适的更新]
 
 ### 变更安全调用和约定操作符组合的求值语义
 
-> **问题**：[KT-41034](https://youtrack.jetbrains.com/issue/KT-41034)
+> **问题**：[KT-41034](https://youtrack.com/issue/KT-41034)
 >
 > **组件**：核心语言
 >
@@ -412,7 +412,7 @@ _[保持语言现代化](kotlin-evolution-principles.md)_ 和 _[舒适的更新]
 
 ### 要求具有幕后字段和自定义 setter 的属性立即初始化
 
-> **问题**：[KT-58589](https://youtrack.jetbrains.com/issue/KT-58589)
+> **问题**：[KT-58589](https://youtrack.com/issue/KT-58589)
 >
 > **组件**：核心语言
 >
@@ -425,7 +425,7 @@ _[保持语言现代化](kotlin-evolution-principles.md)_ 和 _[舒适的更新]
 
 ### 禁止在 invoke 操作符约定调用中对任意表达式进行 Unit 转换
 
-> **问题**：[KT-61182](https://youtrack.jetbrains.com/issue/KT-61182)
+> **问题**：[KT-61182](https://youtrack.com/issue/KT-61182)
 >
 > **组件**：核心语言
 >
@@ -437,7 +437,7 @@ _[保持语言现代化](kotlin-evolution-principles.md)_ 和 _[舒适的更新]
 
 ### 禁止当字段通过安全调用访问时对非空 Java 字段进行可空赋值
 
-> **问题**：[KT-62998](https://youtrack.jetbrains.com/issue/KT-62998)
+> **问题**：[KT-62998](https://youtrack.com/issue/KT-62998)
 >
 > **组件**：核心语言
 >
@@ -449,7 +449,7 @@ _[保持语言现代化](kotlin-evolution-principles.md)_ 和 _[舒适的更新]
 
 ### 要求当覆盖包含原始类型形参的 Java 方法时使用星投影类型
 
-> **问题**：[KT-57600](https://youtrack.jetbrains.com/issue/KT-57600)
+> **问题**：[KT-57600](https://youtrack.com/issue/KT-57600)
 >
 > **组件**：核心语言
 >
@@ -461,7 +461,7 @@ _[保持语言现代化](kotlin-evolution-principles.md)_ 和 _[舒适的更新]
 
 ### 变更当 V 具有伴生对象时 (V)::foo 引用的解析
 
-> **问题**：[KT-47313](https://youtrack.jetbrains.com/issue/KT-47313)
+> **问题**：[KT-47313](https://youtrack.com/issue/KT-47313)
 >
 > **组件**：核心语言
 >
@@ -474,7 +474,7 @@ _[保持语言现代化](kotlin-evolution-principles.md)_ 和 _[舒适的更新]
 
 ### 禁止在实际公共内联函数中隐式访问非公共 API
 
-> **问题**：[KT-54997](https://youtrack.jetbrains.com/issue/KT-54997)
+> **问题**：[KT-54997](https://youtrack.com/issue/KT-54997)
 >
 > **组件**：核心语言
 >
@@ -487,7 +487,7 @@ _[保持语言现代化](kotlin-evolution-principles.md)_ 和 _[舒适的更新]
 
 ### 禁止在属性 getter 上使用点 get 注解
 
-> **问题**：[KT-57422](https://youtrack.jetbrains.com/issue/KT-57422)
+> **问题**：[KT-57422](https://youtrack.com/issue/KT-57422)
 >
 > **组件**：核心语言
 >
@@ -500,7 +500,7 @@ _[保持语言现代化](kotlin-evolution-principles.md)_ 和 _[舒适的更新]
 
 ### 阻止构建器推断 lambda 函数中类型形参的隐式推断到上界
 
-> **问题**：[KT-47986](https://youtrack.jetbrains.com/issue/KT-47986)
+> **问题**：[KT-47986](https://youtrack.com/issue/KT-47986)
 >
 > **组件**：核心语言
 >
@@ -513,7 +513,7 @@ _[保持语言现代化](kotlin-evolution-principles.md)_ 和 _[舒适的更新]
 
 ### 在公共签名中近似本地类型时保持可空性
 
-> **问题**：[KT-53982](https://youtrack.jetbrains.com/issue/KT-53982)
+> **问题**：[KT-53982](https://youtrack.com/issue/KT-53982)
 >
 > **组件**：核心语言
 >
@@ -526,7 +526,7 @@ _[保持语言现代化](kotlin-evolution-principles.md)_ 和 _[舒适的更新]
 
 ### 移除 false && ... 和 false || ... 为了智能类型转换目的的特殊处理
 
-> **问题**：[KT-65776](https://youtrack.jetbrains.com/issue/KT-65776)
+> **问题**：[KT-65776](https://youtrack.com/issue/KT-65776)
 >
 > **组件**：核心语言
 >
@@ -538,7 +538,7 @@ _[保持语言现代化](kotlin-evolution-principles.md)_ 和 _[舒适的更新]
 
 ### 禁止枚举中的内联开放函数
 
-> **问题**：[KT-34372](https://youtrack.jetbrains.com/issue/KT-34372)
+> **问题**：[KT-34372](https://youtrack.com/issue/KT-34372)
 >
 > **组件**：核心语言
 >
@@ -553,7 +553,7 @@ _[保持语言现代化](kotlin-evolution-principles.md)_ 和 _[舒适的更新]
 
 ### Gradle 中的可见性变更
 
-> **问题**：[KT-64653](https://youtrack.jetbrains.com/issue/KT-64653)
+> **问题**：[KT-64653](https://youtrack.com/issue/KT-64653)
 >
 > **组件**：Gradle
 >
@@ -571,7 +571,7 @@ _[保持语言现代化](kotlin-evolution-principles.md)_ 和 _[舒适的更新]
 
 ### 废弃 kotlinOptions DSL
 
-> **问题**：[KT-63419](https://youtrack.jetbrains.com/issue/KT-63419)
+> **问题**：[KT-63419](https://youtrack.com/issue/KT-63419)
 >
 > **组件**：Gradle
 >
@@ -585,7 +585,7 @@ _[保持语言现代化](kotlin-evolution-principles.md)_ 和 _[舒适的更新]
 
 ### 废弃 KotlinCompilation DSL 中的 compilerOptions
 
-> **问题**：[KT-65568](https://youtrack.jetbrains.com/issue/KT-65568)
+> **问题**：[KT-65568](https://youtrack.com/issue/KT-65568)
 >
 > **组件**：Gradle
 >
@@ -599,7 +599,7 @@ _[保持语言现代化](kotlin-evolution-principles.md)_ 和 _[舒适的更新]
 
 ### 废弃 CInteropProcess 处理的旧方式
 
-> **问题**：[KT-62795](https://youtrack.jetbrains.com/issue/KT-62795)
+> **问题**：[KT-62795](https://youtrack.com/issue/KT-62795)
 >
 > **组件**：Gradle
 >
@@ -617,7 +617,7 @@ _[保持语言现代化](kotlin-evolution-principles.md)_ 和 _[舒适的更新]
 
 ### 移除 kotlin.useK2 Gradle 属性
 
-> **问题**：[KT-64379](https://youtrack.jetbrains.com/issue/KT-64379)
+> **问题**：[KT-64379](https://youtrack.com/issue/KT-64379)
 >
 > **组件**：Gradle
 >
@@ -632,7 +632,7 @@ _[保持语言现代化](kotlin-evolution-principles.md)_ 和 _[舒适的更新]
 
 ### 移除已废弃的平台插件 ID
 
-> **问题**：[KT-65187](https://youtrack.jetbrains.com/issue/KT-65187)
+> **问题**：[KT-65187](https://youtrack.com/issue/KT-65187)
 >
 > **组件**：Gradle
 >
@@ -653,7 +653,7 @@ _[保持语言现代化](kotlin-evolution-principles.md)_ 和 _[舒适的更新]
 
 ### 移除 outputFile JavaScript 编译器选项
 
-> **问题**：[KT-61116](https://youtrack.jetbrains.com/issue/KT-61116)
+> **问题**：[KT-61116](https://youtrack.com/issue/KT-61116)
 >
 > **组件**：Gradle
 >

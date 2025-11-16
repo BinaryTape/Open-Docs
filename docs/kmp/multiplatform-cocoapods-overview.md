@@ -97,8 +97,7 @@ sudo gem install cocoapods
 当你的 CocoaPods 环境设置好后，你可以配置 Kotlin Multiplatform 项目以与 Pods 配合使用。
 以下步骤展示了在新生成的项目上的配置：
 
-1. 使用 [Kotlin Multiplatform IDE 插件](https://plugins.jetbrains.com/plugin/14936-kotlin-multiplatform)
-   （在 macOS 上）或 [Kotlin Multiplatform 网页向导](https://kmp.jetbrains.com)生成一个新的 Android 和 iOS 项目。
+1. 使用 [Kotlin Multiplatform IDE 插件](https://plugins.jetbrains.com/plugin/14936-kotlin-multiplatform) （在 macOS 上）或 [Kotlin Multiplatform 网页向导](https://kmp.jetbrains.com)生成一个新的 Android 和 iOS 项目。
    如果使用网页向导，请解压归档文件并将其导入你的 IDE。
 2. 在 `gradle/libs.versions.toml` 文件中，将 Kotlin CocoaPods Gradle 插件添加到 `[plugins]` 代码块中：
 

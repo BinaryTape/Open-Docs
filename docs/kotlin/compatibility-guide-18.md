@@ -1,16 +1,16 @@
-[//]: # (title: Kotlin 1.8 兼容性指南)
+[//]: # (title: Kotlin 1.8.x 兼容性指南)
 
-_[保持语言现代化](kotlin-evolution-principles.md)_ 和 _[舒适的更新](kotlin-evolution-principles.md)_ 是 Kotlin 语言设计的核心原则。前者指出，阻碍语言演进的结构应该被移除；后者则强调，这种移除应提前充分沟通，以使代码迁移尽可能平滑。
+_[保持语言现代化](kotlin-evolution-principles.md)_ 和 _[舒适的更新](kotlin-evolution-principles.md)_ 是 Kotlin 语言设计中的基本原则。前者指出，阻碍语言演进的结构应该被移除；后者则强调，这种移除应提前充分沟通，以使代码迁移尽可能平滑。
 
 虽然大多数语言变更已通过其他渠道（例如更新日志或编译器警告）发布，但本文档总结了所有这些变更，为从 Kotlin 1.7 迁移到 Kotlin 1.8 提供了完整参考。
 
 ## 基本术语
 
-本文档中引入了几种兼容性：
+本文档中介绍了几种兼容性：
 
--   _源兼容性_：源不兼容变更会导致原本可以正常（无错误或警告）编译的代码不再编译通过。
--   _二进制兼容性_：如果两个二进制 artifact 相互替换不会导致加载或链接错误，则称它们具有二进制兼容性。
--   _行为兼容性_：如果同一程序在应用变更前后表现出不同行为，则称该变更具有行为不兼容性。
+- _源兼容性_：源不兼容变更会导致原本可以正常（无错误或警告）编译的代码不再编译通过。
+- _二进制兼容性_：如果两个二进制 artifact 相互替换不会导致加载或链接错误，则称它们具有二进制兼容性。
+- _行为兼容性_：如果同一程序在应用变更前后表现出不同行为，则称该变更具有行为不兼容性。
 
 请记住，这些定义仅适用于纯 Kotlin。从其他语言（例如 Java）的角度来看 Kotlin 代码的兼容性不在本文档的范围之内。
 
@@ -141,13 +141,13 @@ _[保持语言现代化](kotlin-evolution-principles.md)_ 和 _[舒适的更新]
 >
 > **Incompatible change type**: source
 >
-> **Short summary**: Kotlin 1.8 将禁止使用类型实参违反别名类型相应类型形参上限约束的类型别名，如果一个类型别名类型形参被用于别名类型的多个类型实参中，例如 `typealias Alias<T> = Base<T, T>`。
+> **Short summary**: Kotlin 1.8 将禁止使用类型别名，其中类型实参违反了别名类型相应类型形参的上限约束，尤其是在一个类型别名类型形参被用于别名类型的多个类型实参中的情况下，例如 `typealias Alias<T> = Base<T, T>`。
 >
 > **Deprecation cycle**:
 >
-> - 1.7.0: 对使用类型实参违反别名类型相应类型形参上限约束的类型别名报告警告（或在渐进模式中报告错误）
+> - 1.7.0: 对使用类型实参违反别名类型相应类型形参上限约束的类型别名用法报告警告（或在渐进模式中报告错误）
 > - 1.8.0: 将此警告提升为错误，
->   可以使用 `-XXLanguage:-ReportMissingUpperBoundsViolatedErrorOnAbbreviationAtSupertypes` 暂时恢复到 1.8 之前的行为
+>  可以使用 `-XXLanguage:-ReportMissingUpperBoundsViolatedErrorOnAbbreviationAtSupertypes` 暂时恢复到 1.8 之前的行为
 
 ### 禁止在泛型类型别名用法中违反上限约束（当一个类型形参被用作别名类型的类型实参的泛型类型实参中）
 
@@ -157,7 +157,7 @@ _[保持语言现代化](kotlin-evolution-principles.md)_ 和 _[舒适的更新]
 >
 > **Incompatible change type**: source
 >
-> **Short summary**: Kotlin 将禁止使用类型实参违反别名类型相应类型形参上限约束的类型别名，如果类型别名类型形参被用作别名类型的类型实参的泛型类型实参中，例如 `typealias Alias<T> = Base<List<T>>`。
+> **Short summary**: Kotlin 将禁止使用类型别名，其中类型实参违反了别名类型相应类型形参的上限约束，尤其是在类型别名类型形参被用作别名类型的类型实参的泛型类型实参中的情况下，例如 `typealias Alias<T> = Base<List<T>>`。
 >
 > **Deprecation cycle**:
 >
@@ -178,7 +178,7 @@ _[保持语言现代化](kotlin-evolution-principles.md)_ 和 _[舒适的更新]
 >
 > - 1.6.0: 当将扩展属性委托给以特定方式使用从委托属性类型实参推断的类型形参的类型时，报告警告（或在渐进模式中报告错误）
 > - 1.8.0: 将警告提升为错误，
->   可以使用 `-XXLanguage:-ForbidUsingExtensionPropertyTypeParameterInDelegate` 暂时恢复到 1.8 之前的行为
+>  可以使用 `-XXLanguage:-ForbidUsingExtensionPropertyTypeParameterInDelegate` 暂时恢复到 1.8 之前的行为
 
 ### 禁止在挂起函数上使用 @Synchronized 注解
 
@@ -215,7 +215,7 @@ _[保持语言现代化](kotlin-evolution-principles.md)_ 和 _[舒适的更新]
 
 ### 禁止在传递给通过 lambda 返回类型重载的函数中，lambda 表达式中出现空安全违规
 
-> **Issue**: [KT-49658](https://youtrack.fakku.com/issue/KT-49658)
+> **Issue**: [KT-49658](https://youtrack.jetbrains.com/issue/KT-49658)
 >
 > **Component**: Core language
 >
@@ -560,7 +560,7 @@ _[保持语言现代化](kotlin-evolution-principles.md)_ 和 _[舒适的更新]
 > **Deprecation cycle:**
 >
 > - 1.8.0: `KotlinNativeLink` 任务不再继承 `AbstractKotlinNativeCompile`。`KotlinJsCompilerOptions.outputFile`
->   和相关的 `KotlinJsOptions.outputFile` 选项已被弃用。允许使用旧 JVM 后端的 `useOldBackend` 属性已被移除。
+> 和相关的 `KotlinJsOptions.outputFile` 选项已被弃用。允许使用旧 JVM 后端的 `useOldBackend` 属性已被移除。
 
 ### 弃用 kotlin.internal.single.build.metrics.file 属性
 

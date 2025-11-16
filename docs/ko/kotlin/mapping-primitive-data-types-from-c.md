@@ -1,8 +1,8 @@
 [//]: # (title: C 언어의 기본 데이터 타입 매핑 – 튜토리얼)
 
 <tldr>
-    <p>이 튜토리얼은 <strong>Kotlin과 C 매핑</strong> 튜토리얼 시리즈의 첫 번째 부분입니다.</p>
-    <p><img src="icon-1.svg" width="20" alt="First step"/> <strong>C 언어의 기본 데이터 타입 매핑</strong><br/>
+    <p>이 튜토리얼은 **Kotlin과 C 매핑** 튜토리얼 시리즈의 첫 번째 부분입니다.</p>
+    <p><img src="icon-1.svg" width="20" alt="First step"/> **C 언어의 기본 데이터 타입 매핑**<br/>
        <img src="icon-2-todo.svg" width="20" alt="Second step"/> <a href="mapping-struct-union-types-from-c.md">C 언어의 구조체 및 유니온 타입 매핑</a><br/>
        <img src="icon-3-todo.svg" width="20" alt="Third step"/> <a href="mapping-function-pointers-from-c.md">C 언어의 함수 포인터 매핑</a><br/>
        <img src="icon-4-todo.svg" width="20" alt="Fourth step"/> <a href="mapping-strings-from-c.md">C 언어의 문자열 매핑</a><br/>
@@ -23,7 +23,7 @@
 *   [익스포트(export)에 해당 타입을 사용하는 C 라이브러리 생성](#create-a-c-library)
 *   [C 라이브러리에서 생성된 Kotlin API 검사](#inspect-generated-kotlin-apis-for-a-c-library)
 
-명령줄을 사용해서 Kotlin 라이브러리를 직접 생성하거나, 스크립트 파일(.sh 또는 .bat 파일 등)을 통해 생성할 수 있습니다. 하지만 이 방법은 수백 개의 파일과 라이브러리를 가진 대규모 프로젝트에는 잘 확장되지 않습니다. 빌드 시스템을 사용하면 Kotlin/Native 컴파일러 바이너리 및 전이적 종속성을 가진 라이브러리를 다운로드하고 캐싱하는 것은 물론, 컴파일러와 테스트를 실행함으로써 프로세스를 단순화할 수 있습니다. Kotlin/Native는 [Kotlin 멀티플랫폼 플러그인](gradle-configure-project.md#targeting-multiple-platforms)을 통해 [Gradle](https://gradle.org) 빌드 시스템을 사용할 수 있습니다.
+명령줄을 사용해서 Kotlin 라이브러리를 직접 생성하거나, 스크립트 파일(예: `.sh` 또는 `.bat` 파일)을 통해 생성할 수 있습니다. 하지만 이 방법은 수백 개의 파일과 라이브러리를 가진 대규모 프로젝트에는 잘 확장되지 않습니다. 빌드 시스템을 사용하면 Kotlin/Native 컴파일러 바이너리 및 전이적 종속성을 가진 라이브러리를 다운로드하고 캐싱하는 것은 물론, 컴파일러와 테스트를 실행함으로써 프로세스를 단순화할 수 있습니다. Kotlin/Native는 [Kotlin 멀티플랫폼 플러그인](gradle-configure-project.md#targeting-multiple-platforms)을 통해 [Gradle](https://gradle.org) 빌드 시스템을 사용할 수 있습니다.
 
 ## C 언어의 타입
 
@@ -170,7 +170,7 @@ C 라이브러리를 생성하려면:
     </tabs>
 
    이 프로젝트 파일은 C interop을 추가 빌드 단계로 구성합니다.
-   다양한 구성 방법을 알아보려면 [멀티플랫폼 Gradle DSL 참조](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-dsl-reference.html)를 확인하세요.
+   다양한 구성 방법을 알아보려면 [멀티플랫폼 Gradle DSL 참조](https://kotlinlang.org/docs/multiplatform/multiplatform-dsl-reference.html)를 확인하세요.
 
 2.  `interop.def`, `lib.h`, `lib.def` 파일을 `src/nativeInterop/cinterop` 디렉토리로 이동합니다.
 3.  `src/nativeMain/kotlin` 디렉토리를 생성합니다. 이 곳에 모든 소스 파일을 배치해야 하며, 이는 구성 대신 컨벤션(관례)을 사용하는 Gradle의 권장 사항을 따릅니다.

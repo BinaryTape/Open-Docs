@@ -551,8 +551,8 @@ Kotlin은 이제 JVM 바이트코드(대상 버전 1.8 이상)에 타입 어노�
 
 현재까지는 기본적인 경우만 지원됩니다.
 
-- 메서드 매개변수, 메서드 반환 타입 및 프로퍼티 타입에 대한 타입 어노테이션;
-- 타입 인자의 불변 프로젝션 (invariant projection), 예를 들어 `Smth<@Ann Foo>`, `Array<@Ann Foo>`.
+-   메서드 매개변수, 메서드 반환 타입 및 프로퍼티 타입에 대한 타입 어노테이션;
+-   타입 인자의 불변 프로젝션 (invariant projection), 예를 들어 `Smth<@Ann Foo>`, `Array<@Ann Foo>`.
 
 다음 예시에서 `String` 타입에 대한 `@Foo` 어노테이션은 바이트코드로 내보내진 다음 라이브러리 코드에서 사용될 수 있습니다.
 
@@ -684,16 +684,16 @@ kotlin {
 Kotlin/Native는 개발 프로세스와 실행 속도를 모두 향상시키는 많은 성능 개선을 받았습니다.
 몇 가지 예시는 다음과 같습니다.
 
-- 객체 할당 속도 향상을 위해 시스템 할당자 대신 [mimalloc](https://github.com/microsoft/mimalloc) 메모리 할당자를 대체 옵션으로 제공합니다. mimalloc은 일부 벤치마크에서 최대 두 배 빠르게 작동합니다.
-  현재 Kotlin/Native에서 mimalloc 사용은 실험적입니다. `-Xallocator=mimalloc` 컴파일러 옵션을 사용하여 mimalloc으로 전환할 수 있습니다.
+-   객체 할당 속도 향상을 위해 시스템 할당자 대신 [mimalloc](https://github.com/microsoft/mimalloc) 메모리 할당자를 대체 옵션으로 제공합니다. mimalloc은 일부 벤치마크에서 최대 두 배 빠르게 작동합니다.
+    현재 Kotlin/Native에서 mimalloc 사용은 실험적입니다. `-Xallocator=mimalloc` 컴파일러 옵션을 사용하여 mimalloc으로 전환할 수 있습니다.
 
-- C 상호 운용 라이브러리 빌드 방식을 재작업했습니다. 새로운 도구를 통해 Kotlin/Native는 이전보다 최대 4배 빠르게 상호 운용 라이브러리를 생성하며, 아티팩트 크기는 이전의 25%에서 30% 수준입니다.
+-   C 상호 운용 라이브러리 빌드 방식을 재작업했습니다. 새로운 도구를 통해 Kotlin/Native는 이전보다 최대 4배 빠르게 상호 운용 라이브러리를 생성하며, 아티팩트 크기는 이전의 25%에서 30% 수준입니다.
 
-- GC 최적화로 인해 전반적인 런타임 성능이 향상되었습니다. 이 개선 사항은 많은 수의 장기 생존 객체가 있는 프로젝트에서 특히 두드러질 것입니다. `HashMap` 및 `HashSet` 컬렉션은 불필요한 boxing을 회피하여 이제 더 빠르게 작동합니다.
+-   GC 최적화로 인해 전반적인 런타임 성능이 향상되었습니다. 이 개선 사항은 많은 수의 장기 생존 객체가 있는 프로젝트에서 특히 두드러질 것입니다. `HashMap` 및 `HashSet` 컬렉션은 불필요한 boxing을 회피하여 이제 더 빠르게 작동합니다.
 
-- 1.3.70에서는 Kotlin/Native 컴파일 성능을 향상시키기 위한 두 가지 새로운 기능을 도입했습니다.
-  [프로젝트 의존성 캐싱 및 Gradle 데몬에서 컴파일러 실행](https://blog.jetbrains.com/kotlin/2020/03/kotlin-1-3-70-released/#kotlin-native).
-  그 이후로 우리는 수많은 문제를 해결하고 이러한 기능의 전반적인 안정성을 개선했습니다.
+-   1.3.70에서는 Kotlin/Native 컴파일 성능을 향상시키기 위한 두 가지 새로운 기능을 도입했습니다.
+    [프로젝트 의존성 캐싱 및 Gradle 데몬에서 컴파일러 실행](https://blog.jetbrains.com/kotlin/2020/03/kotlin-1-3-70-released/#kotlin-native).
+    그 이후로 우리는 수많은 문제를 해결하고 이러한 기능의 전반적인 안정성을 개선했습니다.
 
 ### CocoaPods 의존성 관리 간소화
 

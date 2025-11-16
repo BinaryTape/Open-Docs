@@ -2,7 +2,7 @@
 
 <primary-label ref="experimental-general"/>
 
-Kotlin은 Swift export에 대한 실험적 지원을 제공합니다. 이를 통해 Kotlin 소스를 직접 내보내고 Swift에서 Kotlin 코드를 Swift 고유의 방식으로 호출할 수 있게 해줍니다. 이로써 Objective-C 헤더가 필요하지 않습니다.
+Kotlin은 Swift export에 대한 실험적 지원을 제공합니다. 이를 통해 Kotlin 소스를 직접 내보내고 Swift에서 Kotlin 코드를 Swift 고유의 방식으로 호출할 수 있게 해주며, Objective-C 헤더가 필요하지 않습니다.
 
 Swift export는 Apple 대상의 멀티플랫폼 개발을 더욱 간소화합니다. 예를 들어, 최상위 함수가 있는 Kotlin 모듈이 있다면, Swift export는 깔끔하고 모듈별 임포트를 가능하게 하여 혼란스러운 Objective-C 언더스코어와 변형된 이름들을 제거합니다.
 
@@ -79,7 +79,7 @@ Xcode에서 Swift export를 프로젝트에 통합하도록 구성하려면:
 
 ## 현재 제한 사항
 
-Swift export는 현재 iOS 프레임워크를 Xcode 프로젝트에 연결하기 위해 [직접 통합](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-direct-integration.html)을 사용하는 프로젝트에서만 작동합니다. 이는 IntelliJ IDEA의 Kotlin Multiplatform 플러그인 또는 [웹 마법사](https://kmp.jetbrains.com/)를 통해 생성된 Kotlin Multiplatform 프로젝트의 표준 구성입니다.
+Swift export는 현재 iOS 프레임워크를 Xcode 프로젝트에 연결하기 위해 [직접 통합](https://kotlinlang.org/docs/multiplatform/multiplatform-direct-integration.html)을 사용하는 프로젝트에서만 작동합니다. 이는 IntelliJ IDEA의 Kotlin Multiplatform 플러그인 또는 [웹 마법사](https://kmp.jetbrains.com/)를 통해 생성된 Kotlin Multiplatform 프로젝트의 표준 구성입니다.
 
 알려진 다른 문제:
 

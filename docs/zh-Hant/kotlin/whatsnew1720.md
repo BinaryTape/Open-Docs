@@ -95,7 +95,8 @@ Kotlin 1.7.20 引入了新語言功能的預覽版本，並對建構器型別推
 >
 {style="warning"}
 
-此版本引入了新的 `..<` 運算子。Kotlin 具有 `..` 運算子來表達一個值範圍。新的 `..<` 運算子作用類似於 `until` 函式，幫助您定義開放式範圍。
+此版本引入了新的 `..<` 運算子。Kotlin 具有 `..` 運算子來表達一個值範圍。新的 `..<`
+運算子作用類似於 `until` 函式，幫助您定義開放式範圍。
 
 <video src="https://www.youtube.com/watch?v=v0AHdAIBnbs" title="New operator for open-ended ranges"/>
 
@@ -105,10 +106,10 @@ Kotlin 1.7.20 引入了新語言功能的預覽版本，並對建構器型別推
 
 ```kotlin
 when (value) {
-    in 0.0..<0.25 -> // First quarter
-    in 0.25..<0.5 -> // Second quarter
-    in 0.5..<0.75 -> // Third quarter
-    in 0.75..1.0 ->  // Last quarter  <- Note closed range here
+    in 0.0..<0.25 -> // 第一個四分位
+    in 0.25..<0.5 -> // 第二個四分位
+    in 0.5..<0.75 -> // 第三個四分位
+    in 0.75..1.0 ->  // 最後一個四分位  <- 注意此處是閉合範圍
 }
 ```
 {validate="false"}
@@ -123,9 +124,9 @@ when (value) {
 
 ```kotlin
 interface OpenEndRange<T : Comparable<T>> {
-    // Lower bound
+    // 下限
     val start: T
-    // Upper bound, not included in the range
+    // 上限，不包含在範圍內
     val endExclusive: T
     operator fun contains(value: T): Boolean = value >= start && value < endExclusive
     fun isEmpty(): Boolean = start >= endExclusive
@@ -164,7 +165,8 @@ class IntRange : IntProgression(...), ClosedRange<Int>, OpenEndRange<Int> {
 >
 {style="warning"}
 
-此版本引入了一種新的 `object` 宣告型別供您使用：`data object`。[資料物件](https://youtrack.com/issue/KT-4107) 在概念上與常規 `object` 宣告行為相同，但預設提供簡潔的 `toString` 表示。
+此版本引入了一種新的 `object` 宣告型別供您使用：`data object`。[資料物件](https://youtrack.jetbrains.com/issue/KT-4107)
+在概念上與常規 `object` 宣告行為相同，但預設提供簡潔的 `toString` 表示。
 
 <video src="https://www.youtube.com/v/ovAqcwFhEGc" title="Data objects in Kotlin 1.7.20"/>
 
@@ -179,7 +181,8 @@ fun main() {
 }
 ```
 
-這使得 `data object` 宣告非常適合密封類別層次結構，您可以在其中將它們與 `data class` 宣告一起使用。在此程式碼片段中，將 `EndOfFile` 宣告為 `data object` 而非普通的 `object` 意味著它將獲得一個美觀的 `toString` 而無需手動覆寫，與伴隨的 `data class` 定義保持對稱：
+這使得 `data object` 宣告非常適合密封類別層次結構，您可以在其中將它們與 `data class`
+宣告一起使用。在此程式碼片段中，將 `EndOfFile` 宣告為 `data object` 而非普通的 `object` 意味著它將獲得一個美觀的 `toString` 而無需手動覆寫，與伴隨的 `data class` 定義保持對稱：
 
 ```kotlin
 sealed class ReadResult {
@@ -243,7 +246,7 @@ Kotlin 1.7.20 對 [建構器型別推斷的使用](using-builders-with-builder-i
     fun test() {
         buildList {
             this.add(Data())
-            this.get(0).doSmth() // Resolves to 2 and leads to error
+            this.get(0).doSmth() // 解析為 2 並導致錯誤
         }
     }
     ```
@@ -259,9 +262,9 @@ Kotlin 1.7.20 對 [建構器型別推斷的使用](using-builders-with-builder-i
     fun <T> T.doSmth() {} // 2
     
     fun test() {
-        buildList<Data> { // Type argument!
+        buildList<Data> { // 型別引數！
             this.add(Data())
-            this.get(0).doSmth() // Resolves to 1
+            this.get(0).doSmth() // 解析為 1
         }
     }
     ```
@@ -399,7 +402,9 @@ fun compute(s: UserId<String>) {} // 編譯器產生 fun compute-<hashcode>(s: A
 >
 {style="warning"}
 
-在 1.7.20 之前，kapt 存根生成任務使用舊後端，且 [可重複註解](annotations.md#repeatable-annotations) 不適用於 [kapt](kapt.md)。從 Kotlin 1.7.20 開始，我們在 kapt 存根生成任務中增加了對 [JVM IR 後端](whatsnew15.md#stable-jvm-ir-backend) 的支援。這使得使用 kapt 能夠支援所有最新的 Kotlin 功能，包括可重複註解。
+在 1.7.20 之前，kapt 存根生成任務使用舊後端，且 [可重複註解](annotations.md#repeatable-annotations)
+不適用於 [kapt](kapt.md)。從 Kotlin 1.7.20 開始，我們在 kapt 存根生成任務中增加了對 [JVM IR 後端](whatsnew15.md#stable-jvm-ir-backend)
+的支援。這使得使用 kapt 能夠支援所有最新的 Kotlin 功能，包括可重複註解。
 
 要在 kapt 中使用 IR 後端，請將以下選項新增到您的 `gradle.properties` 檔案中：
 
@@ -485,7 +490,8 @@ Kotlin 團隊非常感謝 Mads Ager 實作此功能。
 Kotlin/JS 收到了一些增強功能，提高了開發人員體驗並提升了效能：
 
 * 由於依賴項載入效率的提高，Klib 生成在增量和全新建置中都更快。
-* [開發二進位檔的增量編譯](js-ir-compiler.md#incremental-compilation-for-development-binaries) 已重新設計，從而顯著改善了全新建置場景、加快了增量建置並修正了穩定性問題。
+* [開發二進位檔的增量編譯](js-ir-compiler.md#incremental-compilation-for-development-binaries)
+  已重新設計，從而顯著改善了全新建置場景、加快了增量建置並修正了穩定性問題。
 * 我們改進了針對巢狀物件、密封類別以及建構函式中具有預設值的參數的 `.d.ts` 生成。
 
 ## Gradle
@@ -499,7 +505,7 @@ Kotlin 1.7.20 包含支援 Gradle 7.1 的變更。已棄用的方法和屬性已
 ### 目標組態
 
 * `org.jetbrains.kotlin.gradle.dsl.SingleTargetExtension` 現在具有一個泛型參數 `SingleTargetExtension<T : KotlinTarget>`。
-* `kotlin.targets.fromPreset()` 慣例已被棄用。您仍然可以使用 `kotlin.targets { fromPreset() }`，但我們建議 [明確設定目標](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-discover-project.html#targets)。
+* `kotlin.targets.fromPreset()` 慣例已被棄用。您仍然可以使用 `kotlin.targets { fromPreset() }`，但我們建議 [明確設定目標](https://kotlinlang.org/docs/multiplatform/multiplatform-discover-project.html#targets)。
 * Gradle 自動生成的目標存取器不再在 `kotlin.targets { }` 區塊內部可用。請改用 `findByName("targetName")` 方法。
 
   請注意，此類存取器在 `kotlin.targets` 的情況下仍然可用，例如 `kotlin.targets.linuxX64`。
@@ -577,17 +583,17 @@ Kotlin 1.7.20 為 `java.nio.file.Path` 類別提供了新的 [擴充函式](exte
   ```kotlin
   val cleanVisitor = fileVisitor {
       onPreVisitDirectory { directory, attributes ->
-          // Some logic on visiting directories
+          // 在遍歷目錄時的一些邏輯
           FileVisitResult.CONTINUE
       }
   
       onVisitFile { file, attributes ->
-          // Some logic on visiting files
+          // 在遍歷檔案時的一些邏輯
           FileVisitResult.CONTINUE
       }
   }
   
-  // Some logic may go here
+  // 一些邏輯可以放在這裡
   
   projectDirectory.visitFileTree(cleanVisitor)
   ```
@@ -596,14 +602,14 @@ Kotlin 1.7.20 為 `java.nio.file.Path` 類別提供了新的 [擴充函式](exte
 
   ```kotlin
   projectDirectory.visitFileTree {
-  // Definition of the builderAction:
+  // builderAction 的定義：
       onPreVisitDirectory { directory, attributes ->
-          // Some logic on visiting directories
+          // 在遍歷目錄時的一些邏輯
           FileVisitResult.CONTINUE
       }
   
       onVisitFile { file, attributes ->
-          // Some logic on visiting files
+          // 在遍歷檔案時的一些邏輯
           FileVisitResult.CONTINUE
       }
   }
@@ -646,7 +652,7 @@ Kotlin 1.7.20 為 `java.nio.file.Path` 類別提供了新的 [擴充函式](exte
       }
   
    
-  // Use walk function:
+  // 使用 walk 函式：
       val directoryStructure = rootDirectory.walk(PathWalkOption.INCLUDE_DIRECTORIES)
           .map { it.relativeTo(rootDirectory).toString() }
           .toList().sorted()
@@ -662,7 +668,8 @@ Kotlin 1.7.20 為 `java.nio.file.Path` 類別提供了新的 [擴充函式](exte
   }
   ```
 
-如同實驗性 API 的慣例，新的擴充功能需要選擇性加入：`@OptIn(kotlin.io.path.ExperimentalPathApi::class)` 或 `@kotlin.io.path.ExperimentalPathApi`。或者，您可以使用編譯器選項：`-opt-in=kotlin.io.path.ExperimentalPathApi`。
+如同實驗性 API 的慣例，新的擴充功能需要選擇性加入：`@OptIn(kotlin.io.path.ExperimentalPathApi::class)`
+或 `@kotlin.io.path.ExperimentalPathApi`。或者，您可以使用編譯器選項：`-opt-in=kotlin.io.path.ExperimentalPathApi`。
 
 我們歡迎您在 YouTrack 上提供關於 [`walk()` 函式](https://youtrack.jetbrains.com/issue/KT-52909) 和 [visit 擴充函式](https://youtrack.jetbrains.com/issue/KT-52910) 的回饋。
 
@@ -672,17 +679,17 @@ Kotlin 1.7.20 為 `java.nio.file.Path` 類別提供了新的 [擴充函式](exte
 
 ### 重新設計和改進的頁面
 
-* [基本類型概述](basic-types.md) – 了解 Kotlin 中使用的基本類型：數字、布林值、字元、字串、陣列和無符號整數。
+* [基本類型概述](types-overview.md) – 了解 Kotlin 中使用的基本類型：數字、布林值、字元、字串、陣列和無符號整數。
 * [Kotlin 開發的 IDE](kotlin-ide.md) – 查看支援 Kotlin 的官方 IDE 列表以及具有社群支援外掛程式的工具。
 
 ### Kotlin 多平台期刊中的新文章
 
-* [原生和跨平台應用程式開發：如何選擇？](https://www.jetbrains.com/help/kotlin-multiplatform-dev/native-and-cross-platform.html) – 查看我們對跨平台應用程式開發和原生方法的概述及優勢。
-* [六個最佳跨平台應用程式開發框架](https://www.jetbrains.com/help/kotlin-multiplatform-dev/cross-platform-frameworks.html) – 閱讀關於幫助您為跨平台專案選擇正確框架的關鍵方面。
+* [原生和跨平台應用程式開發：如何選擇？](https://kotlinlang.org/docs/multiplatform/native-and-cross-platform.html) – 查看我們對跨平台應用程式開發和原生方法的概述及優勢。
+* [六個最佳跨平台應用程式開發框架](https://kotlinlang.org/docs/multiplatform/cross-platform-frameworks.html) – 閱讀關於幫助您為跨平台專案選擇正確框架的關鍵方面。
 
 ### 新增和更新的教學
 
-* [Kotlin 多平台入門](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-create-first-app.html) – 了解使用 Kotlin 進行跨平台行動開發，並建立一個同時適用於 Android 和 iOS 的應用程式。
+* [Kotlin 多平台入門](https://kotlinlang.org/docs/multiplatform/multiplatform-create-first-app.html) – 了解使用 Kotlin 進行跨平台行動開發，並建立一個同時適用於 Android 和 iOS 的應用程式。
 * [使用 React 和 Kotlin/JS 建置網頁應用程式](js-react.md) – 建立一個瀏覽器應用程式，探索 Kotlin 的 DSL 和典型 React 程式的特點。
 
 ### 發佈文件中的變更

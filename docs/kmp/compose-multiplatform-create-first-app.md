@@ -219,7 +219,7 @@ fun App() {
 
 ##### 运行应用
 
-用数据线连接你的 iPhone。如果你的设备已在 Xcode 中注册，IntelliJ IDEA 应该在运行配置列表中显示它。运行相应的 `iosApp` 配置。
+用数据线连接你的 iPhone。如果你已在 Xcode 中注册该设备，IntelliJ IDEA 应该在运行配置列表中显示它。运行相应的 `iosApp` 配置。
 
 如果你尚未在 Xcode 中注册你的 iPhone，请遵循 [Apple 建议](https://developer.apple.com/documentation/xcode/running-your-app-in-simulator-or-on-a-device/)。
 简而言之，你应该：
@@ -264,7 +264,7 @@ Web 应用程序将在你的浏览器中自动打开。
 >
 {style="tip"}
 
-![Compose web application](first-compose-project-on-web.png){width=600}
+![Compose Web 应用程序](first-compose-project-on-web.png){width=600}
 
 #### Web 目标的兼容模式
 

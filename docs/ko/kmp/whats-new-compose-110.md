@@ -16,7 +16,12 @@
     * [Material 1.10.0-beta01](https://developer.android.com/jetpack/androidx/releases/compose-material#1.10.0-beta01)
     * [Material3 1.4.0](https://developer.android.com/jetpack/androidx/releases/compose-material3#1.4.0)
 
-* Compose Material3 라이브러리 `org.jetbrains.compose.material3:material3*:1.10.0-alpha04`. [Jetpack Compose Material3 1.5.0-alpha07](https://developer.android.com/jetpack/androidx/releases/compose-material3#1.5.0-alpha07) 기반
+* Compose Material3 라이브러리 `org.jetbrains.compose.material3:material3*:1.10.0-alpha04`. [Jetpack Compose Material3 1.5.0-alpha07](https://developer.android.com/jetpack/androidx/releases/compose-material3#1.5.0-alpha07) 기반.
+
+  [Expressive 테마](whats-new-compose-190.md#material-3-expressive-theme)를 사용하려면 Material 3의 실험적인 버전을 포함하세요:
+    ```kotlin
+    implementation("org.jetbrains.compose.material3:material3:1.9.0-alpha04")
+    ```
 * Compose Material3 Adaptive 라이브러리 `org.jetbrains.compose.material3.adaptive:adaptive*:1.3.0-alpha01`. [Jetpack Compose Material3 Adaptive 1.3.0-alpha02](https://developer.android.com/jetpack/androidx/releases/compose-material3-adaptive#1.3.0-alpha02) 기반
 * Lifecycle 라이브러리 `org.jetbrains.androidx.lifecycle:lifecycle-*:2.10.0-alpha04`. [Jetpack Lifecycle 2.10.0-beta01](https://developer.android.com/jetpack/androidx/releases/lifecycle#2.10.0-beta01) 기반
 * Navigation 라이브러리 `org.jetbrains.androidx.navigation:navigation-*:2.9.1`. [Jetpack Navigation 2.9.4](https://developer.android.com/jetpack/androidx/releases/navigation#2.9.4) 기반
@@ -127,12 +132,12 @@ singleWindowApplication {
     LaunchedEffect(Unit) {
         delay(500)
         // Grows the text
-        repeat(2) { 
+        repeat(2) {
             label.text = "#${label.text}#"
             delay(200)
         }
         // Shrinks the text
-        repeat(2) { 
+        repeat(2) {
             label.text = label.text.substring(1, label.text.length - 1)
             delay(200)
         }

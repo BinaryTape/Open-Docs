@@ -6,7 +6,7 @@ Kotlin/Wasm 允许你在 Kotlin 中使用 JavaScript 代码，反之亦然，在
 
 与 [Kotlin/JS](js-overview.md) 类似，Kotlin/Wasm 编译器也具有与 JavaScript 的互操作性。如果你熟悉 Kotlin/JS 互操作性，你会发现 Kotlin/Wasm 的互操作性很相似。然而，仍有一些主要区别需要考虑。
 
-> Kotlin/Wasm 处于 [Alpha](components-stability.md) 阶段。它随时可能更改。请在生产环境之前的使用场景中使用。我们非常感谢你在 [YouTrack](https://youtrack.jetbrains.com/issue/KT-56492) 中提供反馈。
+> Kotlin/Wasm 处于 [Beta](components-stability.md) 阶段。它随时可能更改。请在生产环境之前的使用场景中使用。我们非常感谢你在 [YouTrack](https://youtrack.jetbrains.com/issue/KT-56492) 中提供反馈。
 >
 {style="note"}
 
@@ -14,7 +14,7 @@ Kotlin/Wasm 允许你在 Kotlin 中使用 JavaScript 代码，反之亦然，在
 
 了解如何在 Kotlin 中通过使用 `external` 声明、带有 JavaScript 代码片段的函数以及 `@JsModule` 注解来使用 JavaScript 代码。
 
-### `external` 声明
+### External 声明
 
 外部 JavaScript 代码默认情况下在 Kotlin 中不可见。
 要在 Kotlin 中使用 JavaScript 代码，你可以使用 `external` 声明来描述其 API。
@@ -142,8 +142,8 @@ external object Counter : JsAny {
 
 #### External 类型层级结构
 
-与常规类和接口类似，你可以声明 external 声明来继承其他 external 类并实现 external 接口。
-但是，你不能在同一类型层级结构中混合使用 external 和非 external 声明。
+与常规类和接口类似，你可以声明 `external` 声明来继承其他 `external` 类并实现 `external` 接口。
+但是，你不能在同一类型层级结构中混合使用 `external` 和非 `external` 声明。
 
 ### 带有 JavaScript 代码的 Kotlin 函数
 
@@ -176,7 +176,7 @@ Kotlin/Wasm 以特殊方式处理对 `js()` 函数的调用，并且其实现有
 * `js()` 函数调用必须是函数体中的唯一表达式。
 * `js()` 函数只允许从包级函数中调用。
 * 函数返回类型必须显式提供。
-* [类型](#type-correspondence)受到限制，类似于 `external fun`。
+* [类型对应](#type-correspondence)受到限制，类似于 `external fun`。
 
 Kotlin 编译器会将代码字符串放入生成的 JavaScript 文件中的一个函数中，并将其导入 WebAssembly 格式。
 Kotlin 编译器不验证这些 JavaScript 片段。
@@ -188,7 +188,7 @@ Kotlin 编译器不验证这些 JavaScript 片段。
 
 ### JavaScript 模块
 
-默认情况下，external 声明对应于 JavaScript 全局作用域。如果你使用 [`@JsModule` 注解](js-modules.md#jsmodule-annotation) 注解一个 Kotlin 文件，那么其中所有 external 声明都将从指定模块中导入。
+默认情况下，`external` 声明对应于 JavaScript 全局作用域。如果你使用 [`@JsModule` 注解](js-modules.md#jsmodule-annotation) 注解一个 Kotlin 文件，那么其中所有 `external` 声明都将从指定模块中导入。
 
 考虑以下 JavaScript 代码示例：
 
@@ -310,7 +310,7 @@ kotlin {
 Kotlin/Wasm 只允许 JavaScript 互操作声明的签名中使用特定类型。
 这些限制统一适用于带有 `external`、`= js("code")` 或 `@JsExport` 的声明。
 
-请看 Kotlin 类型如何与 JavaScript 类型对应：
+请看 Kotlin 类型如何与 Javascript 类型对应：
 
 | Kotlin 类型                                                 | JavaScript 类型                     |
 |------------------------------------------------------------|-----------------------------------|
@@ -432,15 +432,15 @@ fun main() {
 
 | 特性                      | **Kotlin/Wasm**                                                                                                                                                                                                     | **Kotlin/JS**                                                                                                                                       |
 |-------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------|
-| **External enums**      | 不支持 external 枚举类。                                                                                                                                                                                                 | 支持 external 枚举类。                                                                                                                              |
-| **类型扩展**                | 不支持非 external 类型继承 external 类型。                                                                                                                                                                                   | 支持非 external 类型。                                                                                                                              |
-| **`JsName` 注解**       | 仅在注解 external 声明时生效。                                                                                                                                                                                             | 可用于更改常规非 external 声明的名称。                                                                                                                |
-| **`js()` 函数**           | `js("code")` 函数调用允许作为包级函数的单一表达式函数体。                                                                                                                                                                    | `js("code")` 函数可以在任何上下文中使用，并返回 `dynamic` 值。                                                                                         |
+| **External enums**      | 不支持 `external` 枚举类。                                                                                                                                                                                                 | 支持 `external` 枚举类。                                                                                                                              |
+| **类型扩展**                | 不支持非 `external` 类型继承 `external` 类型。                                                                                                                                                                                   | 支持非 `external` 类型。                                                                                                                              |
+| **`JsName` 注解**       | 仅在注解 `external` 声明时生效。                                                                                                                                                                                             | 可用于更改常规非 `external` 声明的名称。                                                                                                                |
+| **`js()` 函数**           | `js("code")` 函数调用允许作为包级函数的单一表达式函数体。                                                                                                                                                                    | `js("code")` 函数可以在任何上下文中使用，并返回一个 `dynamic` 值。                                                                                         |
 | **模块系统**                | 仅支持 ES 模块。没有 `@JsNonModule` 注解的对应物。以 `default` 对象上的属性形式提供其导出项。仅允许导出包级函数。                                                                                                                                                  | 支持 ES 模块和旧式模块系统。提供命名 ESM 导出。允许导出类和对象。                                                                                     |
 | **类型**                  | 对所有互操作声明 `external`、`= js("code")` 和 `@JsExport` 统一应用更严格的类型限制。允许少数[内置 Kotlin 类型和 `JsAny` 子类型](#type-correspondence)。                                                                                                                             | 允许 `external` 声明中的所有类型。限制 [@JsExport](js-to-kotlin-interop.md#kotlin-types-in-javascript) 中可使用的类型。                                |
 | **Long**                | 类型对应于 JavaScript `BigInt`。                                                                                                                                                                                           | 作为 JavaScript 中的自定义类可见。                                                                                                                    |
 | **数组**                  | 尚未直接支持互操作。你可以改用新的 `JsArray` 类型。                                                                                                                                                                          | 实现为 JavaScript 数组。                                                                                                                            |
-| **Other types**         | 需要 `JsReference<>` 将 Kotlin 对象传递给 JavaScript。                                                                                                                                                                 | 允许在 external 声明中使用非 external Kotlin 类类型。                                                                                               |
+| **Other types**         | 需要 `JsReference<>` 将 Kotlin 对象传递给 JavaScript。                                                                                                                                                                 | 允许在 `external` 声明中使用非 `external` Kotlin 类类型。                                                                                               |
 | **Exception handling**  | 你可以使用 `JsException` 和 `Throwable` 类型捕获任何 JavaScript 异常。                                                                                                                                                      | 可以使用 `Throwable` 类型捕获 JavaScript `Error`。可以使用 `dynamic` 类型捕获任何 JavaScript 异常。                                                    |
 | **Dynamic types**       | 不支持 `dynamic` 类型。改用 `JsAny`（见下文示例代码）。                                                                                                                                                                  | 支持 `dynamic` 类型。                                                                                                                               |
 
@@ -469,7 +469,7 @@ fun main() {
 
 ## 与 Web 相关的浏览器 API
 
-[`kotlinx-browser` 库](https://github.com/kotlin/kotlinx-browser) 是一个独立的库，提供了 JavaScript 浏览器 API，包括：
+[`kotlinx-browser` 库](https://github.com/Kotlin/kotlinx-browser) 是一个独立的库，提供了 JavaScript 浏览器 API，包括：
 * 包 `org.khronos.webgl`：
   * 类型化数组，例如 `Int8Array`。
   * WebGL 类型。

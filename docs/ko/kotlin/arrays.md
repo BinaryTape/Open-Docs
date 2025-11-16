@@ -36,7 +36,7 @@ Kotlin에서 배열은 특정 저수준(low-level) 요구사항을 충족해야 
 ## 배열 생성
 
 Kotlin에서 배열을 생성하려면 다음을 사용할 수 있습니다:
-*   [`arrayOf()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/array-of.html), [`arrayOfNulls()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/array-of-nulls.html#kotlin$arrayOfNulls(kotlin.Int)) 또는 [`emptyArray()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/empty-array.html)와 같은 함수.
+*   함수, 예를 들어 [`arrayOf()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/array-of.html), [`arrayOfNulls()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/array-of-nulls.html#kotlin$arrayOfNulls(kotlin.Int)) 또는 [`emptyArray()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/empty-array.html).
 *   `Array` 생성자.
 
 이 예시는 [`arrayOf()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/array-of.html) 함수를 사용하고 항목 값을 전달합니다:
@@ -312,15 +312,15 @@ fun main() {
 `Array` 클래스를 프리미티브 값과 함께 사용하면, 이 값들은 객체로 박싱됩니다. 대안으로, 박싱 오버헤드의 부작용 없이 프리미티브를 배열에 저장할 수 있는 프리미티브 타입 배열을 사용할 수 있습니다:
 
 | 프리미티브 타입 배열 | Java에서의 해당 타입 |
-|--------------------|--------------------|
-| [`BooleanArray`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean-array/) | `boolean[]`        |
-| [`ByteArray`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-byte-array/)     | `byte[]`           |
-| [`CharArray`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-array/)     | `char[]`           |
-| [`DoubleArray`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double-array/) | `double[]`         |
-| [`FloatArray`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float-array/)   | `float[]`          |
-| [`IntArray`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int-array/)       | `int[]`            |
-| [`LongArray`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long-array/)     | `long[]`           |
-| [`ShortArray`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-short-array/)   | `short[]`          |
+|---|----------------|
+| [`BooleanArray`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean-array/) | `boolean[]`|
+| [`ByteArray`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-byte-array/) | `byte[]`|
+| [`CharArray`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-array/) | `char[]`|
+| [`DoubleArray`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double-array/) | `double[]`|
+| [`FloatArray`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float-array/) | `float[]`|
+| [`IntArray`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int-array/) | `int[]`|
+| [`LongArray`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long-array/) | `long[]`|
+| [`ShortArray`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-short-array/) | `short[]`|
 
 이 클래스들은 `Array` 클래스와 상속 관계가 없지만, 동일한 함수와 속성(property) 세트를 가집니다.
 
@@ -340,12 +340,13 @@ fun main() {
 
 > 프리미티브 타입 배열을 객체 타입 배열로 변환하려면 [`.toTypedArray()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/to-typed-array.html) 함수를 사용하세요.
 >
-> 객체 타입 배열을 프리미티브 타입 배열로 변환하려면 [`.toBooleanArray()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/to-boolean-array.html), [`.toByteArray()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/to-byte-array.html), [`.toCharArray()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/to-char-array.html) 등을 사용하세요.
+> 객체 타입 배열을 프리미티브 타입 배열로 변환하려면 [`.toBooleanArray()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/to-boolean-array.html),
+> [`.toByteArray()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/to-byte-array.html), [`.toCharArray()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/to-char-array.html) 등을 사용하세요.
 >
 {style="note"}
 
 ## 다음 단계
 
 *   대부분의 사용 사례에서 컬렉션 사용을 권장하는 이유에 대해 자세히 알아보려면 [컬렉션 개요](collections-overview.md)를 읽어보세요.
-*   다른 [기본 타입](basic-types.md)에 대해 알아보세요.
+*   다른 [기본 타입](types-overview.md)에 대해 알아보세요.
 *   Java 개발자라면 [컬렉션](java-to-kotlin-collections-guide.md)에 대한 Java-Kotlin 마이그레이션 가이드를 읽어보세요.

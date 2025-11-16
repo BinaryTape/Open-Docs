@@ -1,10 +1,10 @@
 [//]: # (title: Kotlin/Native 二進位選項)
 
-本頁列出了實用的 Kotlin/Native 二進位選項，您可以用它們來設定 Kotlin/Native [最終二進位檔](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-build-native-binaries.html)，以及在您的專案中設定二進位選項的方式。
+本頁列出了實用的 Kotlin/Native 二進位選項，您可以用它們來設定 Kotlin/Native [最終二進位檔](https://kotlinlang.org/docs/multiplatform/multiplatform-build-native-binaries.html)，以及在您的專案中設定二進位選項的方式。
 
 ## 如何啟用
 
-您可以在 `gradle.properties` 檔案、建置檔案中啟用二進位選項，或將其作為編譯器引數傳遞。
+您可以在 `gradle.properties` 檔案、您的建置檔案中啟用二進位選項，或將其作為編譯器引數傳遞。
 
 ### 在 Gradle 屬性中
 
@@ -322,4 +322,4 @@ kotlinc-native main.kt -Xbinary=enableSafepointSignposts=true
 
 ## 接下來是什麼
 
-了解如何 [建置最終原生二進位檔](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-build-native-binaries.html)。
+了解如何 [建置最終原生二進位檔](https://kotlinlang.org/docs/multiplatform/multiplatform-build-native-binaries.html)。

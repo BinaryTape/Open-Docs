@@ -1,66 +1,137 @@
-[//]: # (title: 在同一个项目中混合使用 Java 和 Kotlin – 教程)
+[//]: # (title: 将 Kotlin 添加到 Java 项目 – 教程)
 
-Kotlin 提供了与 Java 的一流互操作性，现代 IDE 使其变得更好。在本教程中，你将学习如何在 IntelliJ IDEA 的同一个项目中同时使用 Kotlin 和 Java 源代码。关于在 IntelliJ IDEA 中启动新的 Kotlin 项目，请参见 [Getting started with IntelliJ IDEA](jvm-get-started.md)。
+Kotlin 与 Java 完全互操作，因此你可以逐步将其引入现有的 Java 项目，而无需全部重写。
 
-## 添加 Java 源代码到现有 Kotlin 项目
+在本教程中，你将学习如何：
 
-向 Kotlin 项目添加 Java 类非常简单直观。你只需创建一个新的 Java 文件。在你的项目内选择一个目录或包，然后转到 **File** | **New** | **Java Class** 或使用 **Alt + Insert**/**Cmd + N** 快捷键。
+*   设置 Maven 或 Gradle 构建工具以同时编译 Java 和 Kotlin 代码。
+*   在项目目录中组织 Java 和 Kotlin 源代码文件。
+*   使用 IntelliJ IDEA 将 Java 文件转换为 Kotlin。
 
-![添加新的 Java 类](new-java-class.png){width=400}
+> 你可以使用任何现有的 Java 项目来完成本教程，或者克隆我们的公共 [示例项目](https://github.com/kotlin-hands-on/kotlin-junit-sample/tree/main/complete)，其中已配置好 Maven 和 Gradle 构建文件。
+>
+{style="tip"}
 
-如果你已经有 Java 类，你可以直接将它们复制到项目目录中。
+## 项目配置
 
-你现在可以在 Kotlin 中使用 Java 类，反之亦然，无需任何进一步操作。
+要将 Kotlin 添加到 Java 项目，你需要根据所使用的构建工具，将项目配置为同时使用 Kotlin 和 Java。
 
-例如，添加以下 Java 类：
+项目配置可确保 Kotlin 和 Java 代码都得到正确编译，并且能够无缝相互引用。
 
-``` java
-public class Customer {
+### Maven
 
-    private String name;
+> 从 **IntelliJ IDEA 2025.3** 开始，当你首次将 Kotlin 文件添加到基于 Maven 的 Java 项目时，IDE 会自动更新你的 `pom.xml` 文件，以包含 Kotlin Maven 插件和标准依赖项。如果你想自定义版本或构建阶段，仍然可以手动配置。
+>
+{style="note"}
 
-    public Customer(String s){
-        name = s;
+要在 Maven 项目中同时使用 Kotlin 和 Java，请在你的 `pom.xml` 文件中应用 Kotlin Maven 插件并添加 Kotlin 依赖项：
+
+1.  在 `<properties>` 部分，添加 Kotlin 版本属性：
+
+    ```xml
+    ```
+   {src="jvm-test-tutorial/pom.xml" ignore-vars="false" include-lines="13,17,18"}
+
+2.  在 `<dependencies>` 部分，将所需的依赖项添加到 `<plugins>` 部分：
+
+    ```xml
+    ```
+   {src="jvm-test-tutorial/pom.xml" include-lines="32,38-43,45-49,62"}
+
+3.  在 `<build><plugins>` 部分，添加 Kotlin 插件：
+
+    ```xml
+    ```
+   {src="jvm-test-tutorial/pom.xml" include-lines="64-66,102-104,105-137"}
+
+    在此配置中：
+
+    *   `<extensions>true</extensions>` 让 Maven 将 Kotlin 插件集成到构建生命周期中。
+    *   自定义执行阶段允许 Kotlin 插件首先编译 Kotlin，然后编译 Java。
+    *   Kotlin 和 Java 代码可以通过配置的 `sourceDirs` 目录相互引用。
+    *   当使用带有扩展的 Kotlin Maven 插件时，你不需要在 `<build><pluginManagement>` 部分使用单独的 `maven-compiler-plugin`。
+
+4.  在 IDE 中重新加载 Maven 项目。
+5.  运行测试以验证配置：
+
+    ```bash
+    ./mvnw clean test
+    ```
+
+### Gradle
+
+要在 Gradle 项目中同时使用 Kotlin 和 Java，请在你的 `build.gradle.kts` 文件中应用 Kotlin JVM 插件并添加 Kotlin 依赖项：
+
+1.  在 `plugins {}` 代码块中，添加 Kotlin JVM 插件：
+
+    ```kotlin
+    plugins {
+        // Other plugins
+        kotlin("jvm") version "%kotlinVersion%"
     }
+    ```
 
-    public String getName() {
-        return name;
-    }
+2.  设置 JVM toolchain 版本以匹配你的 Java 版本：
 
-    public void setName(String name) {
-        this.name = name;
+    ```kotlin
+    kotlin {
+        jvmToolchain(17)
     }
+    ```
+
+    这确保了 Kotlin 使用与你的 Java 代码相同的 JDK 版本。
+
+3.  在 `dependencies {}` 代码块中，添加 `kotlin("test")` 库，它提供了 Kotlin 测试工具并与 JUnit 集成：
+
+    ```kotlin
+    dependencies {
+        // Other dependencies
     
-    public void placeOrder() {
-        System.out.println("A new order is placed by " + name);
+        testImplementation(kotlin("test"))
+        // Other test dependencies
     }
-}
+    ```
+
+4.  在 IDE 中重新加载 Gradle 项目。
+5.  运行测试以验证配置：
+
+    ```bash
+    ./gradlew clean test
+    ```
+
+## 项目结构
+
+通过此配置，你可以在相同的源代码目录中混合使用 Java 和 Kotlin 文件：
+
+```none
+src/
+  ├── main/
+  │    ├── java/          # Java 和 Kotlin 生产代码
+  │    └── kotlin/        # 额外 Kotlin 生产代码（可选）
+  └── test/
+       ├── java/          # Java 和 Kotlin 测试代码
+       └── kotlin/        # 额外 Kotlin 测试代码（可选）
 ```
 
-让你可以像 Kotlin 中的任何其他类型一样从 Kotlin 调用它。
+你可以手动创建这些目录，或者让 IntelliJ IDEA 在你添加第一个 Kotlin 文件时创建它们。
 
-```kotlin
-val customer = Customer("Phase")
-println(customer.name)
-println(customer.placeOrder())
-```
+Kotlin 插件会自动识别 `src/main/java` 和 `src/test/java` 目录，因此你可以将 `.kt` 和 `.java` 文件放在相同的目录中。
 
-## 添加 Kotlin 源代码到现有 Java 项目
+## 将 Java 文件转换为 Kotlin
 
-向现有 Java 项目添加 Kotlin 文件几乎相同。
-
-![添加新的 Kotlin 文件类](new-kotlin-file.png){width=400}
-
-如果你是第一次向此项目添加 Kotlin 文件，IntelliJ IDEA 将自动添加所需的 Kotlin 运行时。
-
-![捆绑 Kotlin 运行时](bundling-kotlin-option.png){width=350}
-
-你也可以从 **Tools** | **Kotlin** | **Configure Kotlin in Project** 手动打开 Kotlin 运行时配置。
-
-## 使用 J2K 将现有 Java 文件转换为 Kotlin
-
-Kotlin 插件还捆绑了一个 Java 到 Kotlin 的转换器 (_J2K_)，它可以自动将 Java 文件转换为 Kotlin。要在一个文件上使用 J2K，请在其上下文菜单或 IntelliJ IDEA 的 **Code** 菜单中点击 **Convert Java File to Kotlin File**。
+Kotlin 插件还捆绑了一个 Java 到 Kotlin 转换器 (_J2K_)，它可以自动将 Java 文件转换为 Kotlin。要在一个文件上使用 J2K，请在其上下文菜单或 IntelliJ IDEA 的 **Code** 菜单中点击 **Convert Java File to Kotlin File**。
 
 ![将 Java 转换为 Kotlin](convert-java-to-kotlin.png){width=500}
 
 虽然这个转换器并非万无一失，但它在将大多数 Java 样板代码转换为 Kotlin 方面做得相当不错。但是，有时仍需要一些手动调整。
+
+## 下一步
+
+在 Java 项目中开始使用 Kotlin 最简单的方法是首先添加 Kotlin 测试：
+
+[将你的第一个 Kotlin 测试添加到你的 Java 项目](jvm-test-using-junit.md)
+
+### 另请参见
+
+*   [Kotlin 和 Java 互操作性详情](java-to-kotlin-interop.md)
+*   [Maven 构建配置参考](maven.md)

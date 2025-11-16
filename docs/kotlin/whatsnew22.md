@@ -321,7 +321,7 @@ Kotlin 2.2.0 添加了在其他声明中定义类型别名的支持。
 <video src="https://www.youtube.com/v/1W6d45IOwWk" title="Kotlin 2.2.0 中的嵌套类型别名"/>
 
 以前，你只能在 Kotlin 文件的顶层声明[类型别名](type-aliases.md)。这意味着
-即使是内部或领域特定的类型别名也必须存在于使用它们的类之外。
+即使是内部或领域特有的类型别名也必须存在于使用它们的类之外。
 
 从 2.2.0 开始，你可以在其他声明中定义类型别名，只要它们不捕获其外部类的类型形参：
 
@@ -1229,7 +1229,10 @@ composeCompiler {
 
 本节重点介绍了值得注意的重大破坏性变更和弃用。有关此版本中所有破坏性变更和弃用的完整概述，请参见我们的[兼容性指南](compatibility-guide-22.md)。
 
-*   从 Kotlin 2.2.0 开始，对 [](ant.md) 构建系统的支持已弃用。Kotlin 对 Ant 的支持已长时间未进行活跃开发，并且由于其用户群相对较小，目前没有进一步维护的计划。
+*   从 Kotlin 2.2.0 开始，编译器[不再支持 `-language-version=1.6` 或 `-language-version=1.7`](compatibility-guide-22.md#drop-support-in-language-version-for-1-6-and-1-7)。
+    早于 1.8 的语言特性集不受支持，但语言本身仍然与 Kotlin 1.0 完全向后兼容。
+
+*   对 [](ant.md) 构建系统的支持已弃用。Kotlin 对 Ant 的支持已长时间未进行活跃开发，并且由于其用户群相对较小，目前没有进一步维护的计划。
     
     我们计划在 2.3.0 中移除 Ant 支持。但是，Kotlin 仍然[欢迎贡献](contribute.md)。如果你
     有兴趣成为 Ant 的外部维护者，请在此 [YouTrack 问题](https://youtrack.jetbrains.com/issue/KT-75875/)中留下评论，并将可见性设置为“jetbrains-team”。
@@ -1271,17 +1274,9 @@ composeCompiler {
 
 ## 文档更新
 
-此版本带来了显著的文档更改，包括将 Kotlin Multiplatform 文档迁移到 [KMP 门户](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html)。
+此版本带来了显著的文档更改，包括将 Kotlin Multiplatform 文档迁移到 [KMP 门户](https://kotlinlang.org/docs/multiplatform/get-started.html)。
 
-此外，我们启动了一项文档调查，创建了新页面和教程，并改进了现有页面。
-
-### Kotlin 的文档调查
-
-我们正在寻求真实的反馈，以改进 Kotlin 文档。
-
-调查大约需要 15 分钟才能完成，你的意见将有助于塑造 Kotlin 文档的未来。
-
-[在此处参与调查](https://surveys.jetbrains.com/s3/Kotlin-Docs-2025)。
+此外，我们创建了新页面和教程，并改进了现有页面。
 
 ### 新的和改进的教程
 
@@ -1290,21 +1285,21 @@ composeCompiler {
 *   [](jvm-create-project-with-spring-boot.md) – 学习如何使用 IntelliJ IDEA 的 **New Project** 向导通过 Gradle 创建 Spring Boot 项目。
 *   [Kotlin 和 C 映射教程系列](mapping-primitive-data-types-from-c.md) – 了解不同类型和构造在 Kotlin 和 C 之间如何映射。
 *   [使用 C 互操作和 libcurl 创建应用程序](native-app-with-c-and-libcurl.md) – 创建一个可以使用 libcurl C 库原生运行的简单 HTTP 客户端。
-*   [创建你的 Kotlin Multiplatform 库](https://www.jetbrains.com/help/kotlin-multiplatform-dev/create-kotlin-multiplatform-library.html) – 学习如何使用 IntelliJ IDEA 创建和发布多平台库。
+*   [创建你的 Kotlin Multiplatform 库](https://kotlinlang.org/docs/multiplatform/create-kotlin-multiplatform-library.html) – 学习如何使用 IntelliJ IDEA 创建和发布多平台库。
 *   [使用 Ktor 和 Kotlin Multiplatform 构建全栈应用程序](https://ktor.io/docs/full-stack-development-with-kotlin-multiplatform.html) – 此教程现在使用 IntelliJ IDEA 而不是 Fleet，以及 Material 3 和最新版本的 Ktor 和 Kotlin。
-*   [在你的 Compose Multiplatform 应用程序中管理本地资源环境](https://www.jetbrains.com/help/kotlin-multiplatform-dev/compose-resource-environment.html) – 学习如何管理应用程序的资源环境，例如应用内主题和语言。
+*   [在你的 Compose Multiplatform 应用程序中管理本地资源环境](https://kotlinlang.org/docs/multiplatform/compose-resource-environment.html) – 学习如何管理应用程序的资源环境，例如应用内主题和语言。
 
 ### 新的和改进的页面
 
 *   [Kotlin 用于 AI 概述](kotlin-ai-apps-development-overview.md) – 探索 Kotlin 在构建 AI 驱动应用程序方面的能力。
 *   [Dokka 迁移指南](https://kotlinlang.org/docs/dokka-migration.html) – 学习如何迁移到 Dokka Gradle 插件的 v2。
 *   [](metadata-jvm.md) – 探索有关为 JVM 编译的 Kotlin 类读取、修改和生成元数据的指南。
-*   [CocoaPods 集成](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-cocoapods-overview.html) – 通过教程和示例项目了解如何设置环境、添加 Pod 依赖项或将 Kotlin 项目用作 CocoaPod 依赖项。
+*   [CocoaPods 集成](https://kotlinlang.org/docs/multiplatform/multiplatform-cocoapods-overview.html) – 通过教程和示例项目了解如何设置环境、添加 Pod 依赖项或将 Kotlin 项目用作 CocoaPod 依赖项。
 *   Compose Multiplatform 的新页面，以支持 iOS 稳定版本：
-    *   特别是[导航](https://www.jetbrains.com/help/kotlin-multiplatform-dev/compose-navigation.html)和[深层链接](https://www.jetbrains.com/help/kotlin-multiplatform-dev/compose-navigation-deep-links.html)。
-    *   [在 Compose 中实现布局](https://www.jetbrains.com/help/kotlin-multiplatform-dev/compose-layout.html)。
-    *   [字符串本地化](https://www.jetbrains.com/help/kotlin-multiplatform-dev/compose-localize-strings.html)和其他国际化页面，例如对 RTL 语言的支持。
-*   [Compose 热重载](https://www.jetbrains.com/help/kotlin-multiplatform-dev/compose-hot-reload.html) – 学习如何将 Compose 热重载与桌面目标一起使用，以及如何将其添加到现有项目中。
+    *   特别是[导航](https://kotlinlang.org/docs/multiplatform/compose-navigation.html)和[深层链接](https://kotlinlang.org/docs/multiplatform/compose-navigation-deep-links.html)。
+    *   [在 Compose 中实现布局](https://kotlinlang.org/docs/multiplatform/compose-layout.html)。
+    *   [字符串本地化](https://kotlinlang.org/docs/multiplatform/compose-localize-strings.html)和其他国际化页面，例如对 RTL 语言的支持。
+*   [Compose 热重载](https://kotlinlang.org/docs/multiplatform/compose-hot-reload.html) – 学习如何将 Compose 热重载与桌面目标一起使用，以及如何将其添加到现有项目中。
 *   [Exposed 迁移](https://www.jetbrains.com/help/exposed/migrations.html) – 了解 Exposed 为管理数据库模式更改提供的工具。
 
 ## 如何更新到 Kotlin 2.2.0

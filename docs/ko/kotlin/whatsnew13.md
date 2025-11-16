@@ -19,12 +19,12 @@ Kotlin 1.3은 Native 타겟을 지속적으로 개선하고 다듬고 있습니�
 이전 모델과의 주요 차이점은 다음과 같습니다:
 
 *   이전 모델에서는 공통 코드와 플랫폼별 코드를 별도의 모듈에 배치하고 `expectedBy` 의존성으로 연결해야 했습니다. 이제 공통 코드와 플랫폼별 코드는 동일한 모듈의 다른 소스 루트에 배치되어 프로젝트 구성이 더 쉬워졌습니다.
-*   이제 지원되는 다양한 플랫폼을 위한 [사전 설정 플랫폼 구성](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-dsl-reference.html#targets)이 많이 제공됩니다.
-*   [의존성 구성](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-add-dependencies.html)이 변경되었습니다. 이제 각 소스 루트에 대해 의존성이 별도로 지정됩니다.
+*   이제 지원되는 다양한 플랫폼을 위한 [사전 설정 플랫폼 구성](https://kotlinlang.org/docs/multiplatform/multiplatform-dsl-reference.html#targets)이 많이 제공됩니다.
+*   [의존성 구성](https://kotlinlang.org/docs/multiplatform/multiplatform-add-dependencies.html)이 변경되었습니다. 이제 각 소스 루트에 대해 의존성이 별도로 지정됩니다.
 *   이제 소스 세트를 플랫폼의 임의의 하위 집합 간에 공유할 수 있습니다(예를 들어, JS, Android, iOS를 타겟으로 하는 모듈에서 Android와 iOS 간에만 공유되는 소스 세트를 가질 수 있습니다).
-*   [멀티플랫폼 라이브러리 게시](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-publish-lib-setup.html)가 이제 지원됩니다.
+*   [멀티플랫폼 라이브러리 게시](https://kotlinlang.org/docs/multiplatform/multiplatform-publish-lib-setup.html)가 이제 지원됩니다.
 
-자세한 내용은 [멀티플랫폼 프로그래밍 문서](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html)를 참조하세요.
+자세한 내용은 [멀티플랫폼 프로그래밍 문서](https://kotlinlang.org/docs/multiplatform/get-started.html)를 참조하세요.
 
 ## 계약 (Contracts)
 
@@ -428,7 +428,7 @@ Kotlin 1.3은 IntelliJ IDEA에서 [권장 코드 스타일](coding-conventions.m
 
 자세한 내용은 [여기](https://github.com/Kotlin/kotlinx.serialization#current-project-status)를 참조하세요.
 
->kotlinx.serialization이 이제 Kotlin 컴파일러 배포판과 함께 제공되지만, Kotlin 1.3에서는 여전히 실험적 기능으로 간주됩니다.
+> kotlinx.serialization이 이제 Kotlin 컴파일러 배포판과 함께 제공되지만, Kotlin 1.3에서는 여전히 실험적 기능으로 간주됩니다.
 >
 {style="warning"}
 

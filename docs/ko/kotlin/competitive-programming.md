@@ -4,7 +4,7 @@
 
 [경쟁 프로그래밍(Competitive programming)](https://en.wikipedia.org/wiki/Competitive_programming)은 참가자들이 엄격한 제약 조건 내에서 정확하게 명시된 알고리즘 문제를 해결하기 위해 프로그램을 작성하는 마인드 스포츠입니다. 문제는 어떤 소프트웨어 개발자라도 해결할 수 있고 올바른 솔루션을 얻는 데 코드가 거의 필요 없는 간단한 문제부터 특수 알고리즘, 자료 구조에 대한 지식과 많은 연습이 필요한 복잡한 문제까지 다양합니다. 코틀린은 경쟁 프로그래밍을 위해 특별히 설계된 것은 아니지만, 이 분야에 우연히 잘 들어맞습니다. 프로그래머가 코드를 작성하고 읽는 데 필요한 일반적인 상용구(boilerplate) 양을 동적 타입(dynamically-typed) 스크립팅 언어가 제공하는 수준으로 거의 줄여주는 동시에, 정적 타입(statically-typed) 언어의 도구와 성능을 제공합니다.
 
-코틀린 개발 환경을 설정하는 방법은 [Kotlin/JVM 시작하기](jvm-get-started.md)에서 확인할 수 있습니다. 경쟁 프로그래밍에서는 일반적으로 단일 프로젝트를 생성하고 각 문제의 솔루션을 단일 소스 파일에 작성합니다.
+IntelliJ IDEA에서 코틀린 프로젝트를 생성하는 방법에 대한 자세한 정보는 [콘솔 앱 생성](jvm-get-started.md) 튜토리얼을 참조하세요. 경쟁 프로그래밍에서는 일반적으로 단일 프로젝트를 생성하고 각 문제의 솔루션을 단일 소스 파일에 작성합니다.
 
 ## 간단한 예시: 도달 가능한 숫자 문제
 
@@ -48,7 +48,7 @@ fun f(x: Int): Int {
 ```kotlin
 fun main() {
     var n = readln().toInt() // read integer from the input
-    val reached = HashSet<Int>() // a mutable hash set
+    val reached = HashSet<Int>() // a mutable hash set 
     while (reached.add(n)) n = f(n) // iterate function f
     println(reached.size) // print answer to the output
 }
@@ -62,7 +62,7 @@ fun main() {
 ```kotlin
 fun main() {
     var n = readLine()!!.toInt() // read integer from the input
-    val reached = HashSet<Int>() // a mutable hash set
+    val reached = HashSet<Int>() // a mutable hash set 
     while (reached.add(n)) n = f(n) // iterate function f
     println(reached.size) // print answer to the output
 }
@@ -148,7 +148,7 @@ fun main() {
     // compose and write the answer
     val ans =
         s.substring(0, i) +
-        s.substring(i, j).map { c -> f(c) }.joinToString("") +
+        s.substring(i, j).map { c -> f(c) }.joinToString("") + 
         s.substring(j)
     println(ans)
 }
@@ -199,7 +199,7 @@ val fl = readInts()
 
 경쟁 프로그래밍 문제는 종종 다음과 같은 입력을 가집니다.
 
-> The first line of the input contains two integers `n` and `k`
+The first line of the input contains two integers `n` and `k`
 
 코틀린에서는 정수 리스트에서 [구조 분해 선언(destructuring declaration)](destructuring-declarations.md)을 사용하여 다음 문장으로 이 줄을 간결하게 파싱할 수 있습니다.
 

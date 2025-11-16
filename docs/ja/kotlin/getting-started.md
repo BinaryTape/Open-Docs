@@ -4,7 +4,7 @@
 <p>最新のKotlinリリース:<b> <a href="%kotlinLatestWhatsnew%">%kotlinVersion%</a></b></p>
 </tldr>
 
-Kotlin は、開発者の生産性を高めるために設計された、モダンでありながら成熟したプログラミング言語です。
+Kotlin は、開発者の満足度を高めるために設計された、モダンでありながら成熟したプログラミング言語です。
 簡潔で安全、Java やその他の言語との相互運用性に優れ、複数のプラットフォーム間でコードを再利用する多くの方法を提供し、生産的なプログラミングを可能にします。
 
 始めるにあたり、Kotlin ツアーに参加してみてはいかがでしょうか？このツアーでは Kotlin プログラミング言語の基本を学び、
@@ -35,30 +35,33 @@ Kotlin は、各 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/) お�
 
 ここでは、Kotlin サーバーサイドを使用してバックエンドアプリケーションを開発する方法を学びます。
 
-1. **最初のバックエンドアプリケーションを作成する:**
+* **Java プロジェクトに Kotlin を導入する:**
 
-     * [Spring Boot を使用して RESTful ウェブサービスを作成する](jvm-get-started-spring-boot.md)
-     * [Ktor を使用して HTTP API を作成する](https://ktor.io/docs/creating-http-apis.html)
+  * [Kotlin を使用するように Java プロジェクトを設定する](mixing-java-kotlin-intellij.md)
+  * [Java Maven プロジェクトに Kotlin テストを追加する](jvm-test-using-junit.md)
 
-2. **[アプリケーションで Kotlin と Java のコードを混在させる方法を学ぶ](mixing-java-kotlin-intellij.md)。**
+* **Kotlin を使用してバックエンドアプリケーションをゼロから作成する:**
+
+  * [Spring Boot を使用して RESTful ウェブサービスを作成する](jvm-get-started-spring-boot.md)
+  * [Ktor を使用して HTTP API を作成する](https://ktor.io/docs/creating-http-apis.html)
 
 </tab>
 
 <tab id="cross-platform-mobile" title="クロスプラットフォーム">
 
-ここでは、[Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html) を使用してクロスプラットフォームアプリケーションを開発する方法を学びます。
+ここでは、[Kotlin Multiplatform](https://kotlinlang.org/docs/multiplatform/get-started.html) を使用してクロスプラットフォームアプリケーションを開発する方法を学びます。
 
-1. **[クロスプラットフォーム開発のための環境をセットアップする](https://www.jetbrains.com/help/kotlin-multiplatform-dev/quickstart.html)。**
+1. **[クロスプラットフォーム開発のための環境をセットアップする](https://kotlinlang.org/docs/multiplatform/quickstart.html)。**
 
 2. **iOS および Android 用の最初のアプリケーションを作成する:**
 
    * クロスプラットフォームアプリケーションをゼロから作成し、以下を実行します。
-     * [UI をネイティブに保ちながらビジネスロジックを共有する](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-create-first-app.html)
-     * [ビジネスロジックと UI を共有する](https://www.jetbrains.com/help/kotlin-multiplatform-dev/compose-multiplatform-create-first-app.html)
-   * [既存の Android アプリケーションを iOS で動作させる](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-integrate-in-existing-app.html)
-   * [Ktor と SQLdelight を使用してクロスプラットフォームアプリケーションを作成する](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-ktor-sqldelight.html)
+     * [UI をネイティブに保ちながらビジネスロジックを共有する](https://kotlinlang.org/docs/multiplatform/multiplatform-create-first-app.html)
+     * [ビジネスロジックと UI を共有する](https://kotlinlang.org/docs/multiplatform/compose-multiplatform-create-first-app.html)
+   * [既存の Android アプリケーションを iOS で動作させる](https://kotlinlang.org/docs/multiplatform/multiplatform-integrate-in-existing-app.html)
+   * [Ktor と SQLdelight を使用してクロスプラットフォームアプリケーションを作成する](https://kotlinlang.org/docs/multiplatform/multiplatform-ktor-sqldelight.html)
 
-3. **[サンプルプロジェクト](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-samples.html) を探索する。**
+3. **[サンプルプロジェクト](https://kotlinlang.org/docs/multiplatform/multiplatform-samples.html) を探索する。**
 
 </tab>
 

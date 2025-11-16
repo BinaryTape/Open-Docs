@@ -4,20 +4,22 @@
 
 <tldr>
     <p>이 문서는 <strong>Spring Boot 및 Kotlin 시작하기</strong> 튜토리얼의 마지막 부분입니다. 진행하기 전에 이전 단계를 모두 완료했는지 확인하세요:</p><br/>
-    <p><img src="icon-1-done.svg" width="20" alt="First step"/> <a href="jvm-create-project-with-spring-boot.md">코틀린으로 Spring Boot 프로젝트 생성하기</a><br/><img src="icon-2-done.svg" width="20" alt="Second step"/> <a href="jvm-spring-boot-add-data-class.md">Spring Boot 프로젝트에 데이터 클래스 추가하기</a><br/><img src="icon-3-done.svg" width="20" alt="Third step"/> <a href="jvm-spring-boot-add-db-support.md">Spring Boot 프로젝트에 데이터베이스 지원 추가하기</a><br/><img src="icon-4.svg" width="20" alt="Fourth step"/> <strong>Spring Data CrudRepository를 사용하여 데이터베이스 접근하기</strong></p>
+    <p><img src="icon-1-done.svg" width="20" alt="첫 번째 단계"/> <a href="jvm-create-project-with-spring-boot.md">코틀린으로 Spring Boot 프로젝트 생성하기</a><br/><img src="icon-2-done.svg" width="20" alt="두 번째 단계"/> <a href="jvm-spring-boot-add-data-class.md">Spring Boot 프로젝트에 데이터 클래스 추가하기</a><br/><img src="icon-3-done.svg" width="20" alt="세 번째 단계"/> <a href="jvm-spring-boot-add-db-support.md">Spring Boot 프로젝트에 데이터베이스 지원 추가하기</a><br/><img src="icon-4.svg" width="20" alt="네 번째 단계"/> <strong>Spring Data CrudRepository를 사용하여 데이터베이스 접근하기</strong></p>
 </tldr>
 
-이 섹션에서는 데이터베이스 접근을 위해 `JdbcTemplate` 대신 [Spring Data](https://docs.spring.io/spring-data/commons/docs/current/api/org/springframework/data/repository/CrudRepository.html)의 `CrudRepository`를 사용하도록 서비스 계층을 마이그레이션합니다. `_CrudRepository_`는 특정 유형의 리포지토리에서 일반 [CRUD](https://en.wikipedia.org/wiki/Create,_read,_update_and_delete) 작업을 위한 Spring Data 인터페이스입니다. 이는 데이터베이스와 상호 작용하기 위한 여러 메서드를 기본적으로 제공합니다.
+이 부분에서는 데이터베이스 접근을 위해 `JdbcTemplate` 대신 [Spring Data](https://docs.spring.io/spring-data/commons/docs/current/api/org/springframework/data/repository/CrudRepository.html)의 `CrudRepository`를 사용하도록 서비스 계층을 마이그레이션합니다.
+`_CrudRepository_`는 특정 유형의 리포지토리에서 일반 [CRUD](https://en.wikipedia.org/wiki/Create,_read,_update_and_delete) 작업을 위한 Spring Data 인터페이스입니다.
+이는 데이터베이스와 상호 작용하기 위한 여러 메서드를 기본적으로 제공합니다.
 
 ## 애플리케이션 업데이트
 
-먼저 `CrudRepository` API와 연동되도록 `Message` 클래스를 조정해야 합니다.
+먼저 `CrudRepository` API와 연동되도록 `Message` 클래스를 조정해야 합니다:
 
-1.  `Message` 클래스에 `@Table` 어노테이션을 추가하여 데이터베이스 테이블에 매핑을 선언합니다.
-    `id` 필드 앞에 `@Id` 어노테이션을 추가합니다.
+1. `Message` 클래스에 `@Table` 어노테이션을 추가하여 데이터베이스 테이블에 매핑을 선언합니다.  
+   `id` 필드 앞에 `@Id` 어노테이션을 추가합니다.
 
     > 이 어노테이션들은 추가적인 임포트를 필요로 합니다.
-    >
+    >  
     {style="note"}
 
     ```kotlin
@@ -32,20 +34,20 @@
     ```
 
     또한 `Message` 클래스의 사용을 더 관용적으로 만들려면,
-    `id` 프로퍼티의 기본값을 `null`로 설정하고 데이터 클래스 프로퍼티의 순서를 바꿀 수 있습니다.
+    `id` 프로퍼티의 기본값을 `null`로 설정하고 데이터 클래스 프로퍼티의 순서를 바꿀 수 있습니다: 
 
     ```kotlin
     @Table("MESSAGES")
     data class Message(val text: String, @Id val id: String? = null)
     ```
  
-    이제 `Message` 클래스의 새 인스턴스를 생성해야 할 때, `text` 프로퍼티만 매개변수로 지정할 수 있습니다.
+    이제 `Message` 클래스의 새 인스턴스를 생성해야 할 때, `text` 프로퍼티만 매개변수로 지정할 수 있습니다:
 
     ```kotlin
     val message = Message("Hello") // id is null
     ```
 
-2.  `Message` 데이터 클래스와 함께 작동할 `CrudRepository`의 인터페이스를 선언합니다. `MessageRepository.kt` 파일을 생성하고 다음 코드를 추가하세요.
+2. `Message` 데이터 클래스와 함께 작동할 `CrudRepository`의 인터페이스를 선언합니다. `MessageRepository.kt` 파일을 생성하고 다음 코드를 추가하세요:
 
     ```kotlin
     // MessageRepository.kt
@@ -56,7 +58,7 @@
     interface MessageRepository : CrudRepository<Message, String>
     ```
 
-3.  `MessageService` 클래스를 업데이트합니다. 이제 SQL 쿼리를 실행하는 대신 `MessageRepository`를 사용합니다.
+3. `MessageService` 클래스를 업데이트합니다. 이제 SQL 쿼리를 실행하는 대신 `MessageRepository`를 사용합니다:
 
     ```kotlin
     // MessageService.kt
@@ -86,7 +88,7 @@
        </def>
     </deflist>
 
-4.  삽입된 객체에 대한 ID를 생성하도록 메시지 테이블 정의를 업데이트합니다. `id`는 문자열이므로, `RANDOM_UUID()` 함수를 사용하여 기본적으로 ID 값을 생성할 수 있습니다.
+4. 삽입된 객체에 대한 ID를 생성하도록 메시지 테이블 정의를 업데이트합니다. `id`는 문자열이므로, `RANDOM_UUID()` 함수를 사용하여 기본적으로 ID 값을 생성할 수 있습니다:
 
     ```sql
     -- schema.sql 
@@ -96,7 +98,7 @@
     );
     ```
 
-5.  `src/main/resources` 폴더에 있는 `application.properties` 파일의 데이터베이스 이름을 업데이트합니다.
+5. `src/main/resources` 폴더에 있는 `application.properties` 파일의 데이터베이스 이름을 업데이트합니다:
 
    ```none
    spring.application.name=demo
@@ -108,7 +110,7 @@
    spring.sql.init.mode=always
    ```
 
-애플리케이션의 전체 코드는 다음과 같습니다.
+애플리케이션의 전체 코드는 다음과 같습니다:
 
 ```kotlin
 // DemoApplication.kt
@@ -211,15 +213,12 @@ class MessageController(private val service: MessageService) {
 
 ## 다음 단계
 
-코틀린 기능을 탐색하고 언어 학습 진행 상황을 추적하는 데 도움이 되는 개인 언어 맵을 받으세요.
+코틀린 기능을 탐색하고 언어 학습 진행 상황을 추적하는 데 도움이 되는 개인 언어 맵을 받으세요:
 
 <a href="https://resources.jetbrains.com/storage/products/kotlin/docs/Kotlin_Language_Features_Map.pdf">
-   <img src="get-kotlin-language-map.png" width="700" alt="Get the Kotlin language map" style="block"/>
+   <img src="get-kotlin-language-map.png" width="700" alt="코틀린 언어 맵 받기" style="block"/>
 </a>
 
-*   [코틀린 코드에서 자바 호출하기](java-interop.md) 및 [자바 코드에서 코틀린 호출하기](java-to-kotlin-interop.md)에 대해 자세히 알아보세요.
-*   [자바-코틀린 변환기](mixing-java-kotlin-intellij.md#converting-an-existing-java-file-to-kotlin-with-j2k)를 사용하여 기존 자바 코드를 코틀린으로 변환하는 방법을 알아보세요.
-*   자바에서 코틀린으로의 마이그레이션 가이드를 확인하세요:
-    *   [자바와 코틀린의 문자열](java-to-kotlin-idioms-strings.md).
-    *   [자바와 코틀린의 컬렉션](java-to-kotlin-collections-guide.md).
-    *   [자바와 코틀린의 널 가능성](java-to-kotlin-nullability-guide.md).
+* [Spring Framework](https://docs.spring.io/spring-framework/docs/current/reference/html/languages.html#languages) 문서를 확인하세요.
+* [Spring Boot 및 Kotlin으로 웹 애플리케이션 구축하기](https://spring.io/guides/tutorials/spring-boot-kotlin) 튜토리얼을 완료하세요.
+* [Spring Boot와 코틀린 코루틴 및 RSocket](https://spring.io/guides/tutorials/spring-webflux-kotlin-rsocket/) 튜토리얼에서 채팅 애플리케이션을 생성하세요.

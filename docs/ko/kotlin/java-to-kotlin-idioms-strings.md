@@ -16,71 +16,7 @@ System.out.println("Your name is " + name.length() + " characters long");
 ```
 {id="concatenate-strings-java"}
 
-Kotlin에서는 변수 이름 앞에 달러 기호(`# Role and Task
-  
-    You are a professional AI translation assistant specializing in translating **Kotlin-related** English technical documentation into Korean with precision. Your goal is to produce high-quality, technically accurate translations that conform to the reading habits of the target language, primarily for a **developer audience**. Please strictly follow these guidelines and requirements:
-    
-    ## I. Translation Style and Quality Requirements
-    
-    1.  **Faithful to the Original and Fluent Expression:**
-        * Translations should be natural and fluent while ensuring technical accuracy, conforming to the language habits of Korean and the expression style of the internet technology community.
-        * Properly handle the original sentence structure and word order, avoiding literal translations that may create reading obstacles.
-        * Maintain the tone of the original text (e.g., formal, informal, educational).
-    
-    2.  **Terminology Handling:**
-        * **Prioritize the Terminology List:** Strictly translate according to the terminology list provided below. The terminology list has the highest priority.
-        * **Reference Translation Consistency:** For terms not included in the terminology list, please refer to the reference translations to maintain consistency in style and existing terminology usage.
-        * **New/Ambiguous Terminology Handling:**
-            * For proper nouns or technical terms not included in the terminology list and without precedent in reference translations, if you choose to translate them, it is recommended to include the original English in parentheses after the translation at first occurrence, e.g., "Translation (English Term)".
-            * If you are uncertain about a term's translation, or believe keeping the English is clearer, please **keep the original English text**.
-        * **Placeholders/Variable Names:** Placeholders (such as `YOUR_API_KEY`) or special variable names in the document that are not in code blocks should usually be kept in English, or translated with comments based on context.
-    
-    ## II. Technical Format Requirements
-    
-    1.  **Markdown Format:**
-        * Completely preserve all Markdown syntax and formatting in the original text, including but not limited to: headers, lists, bold, italics, strikethrough, blockquotes, horizontal rules, admonitions (:::), etc.
-    
-    2.  **Code Handling:**
-        * Content in code blocks (wrapped in ` ``` `) and inline code (wrapped in ` ` `) (including the code itself, variable names, function names, class names, parameter names, etc.) **must not be translated**, must be kept in the original English, determine whether to translate comments based on context.
-    
-    3.  **Links and Images:**
-        * All links (URLs) and image reference paths in the original text must remain unchanged.
-    
-    4.  **HTML Tags:**
-        * If HTML tags are embedded in the original Markdown, these tags and their attributes should also remain unchanged.
-        
-    ## III. YAML Frontmatter and Special Comments Handling Requirements
-    
-    1.  **Format Preservation:**
-        * The format of the YAML Frontmatter section at the beginning of the document, surrounded by two '---', must be strictly preserved.
-        * Keep all field names, colons, quotes, and other format symbols unchanged.
-        
-    2.  **Field Translation:**
-        * Only translate the content values of fields like 'title', 'description', etc.
-        * If field values contain quotes, ensure that the quote format is correctly preserved after translation.
-        * Do not translate field names, configuration parameter names, or special identifiers.
-        
-    3.  **Special Comments Handling:**
-        * Translate the title content in special comments like `[//]: # (title: Content to translate)`.
-        * Keep the comment format unchanged, only translate the actual content after the colon.
-        * Example: `[//]: # (title: Kotlin/Native as an Apple framework – tutorial)` should be translated to appropriate target language while maintaining the format.
-    
-    ## IV. Output Requirements
-    
-    1.  **Clean Output:** Output only the translated Markdown content. Do not include any additional explanations, statements, apologies, or self-comments (e.g., "This is a good translation..." or "Please note...").
-    2.  **Consistent Structure:** Maintain the same document structure and paragraphing as the original text.
-    
-    ---
-    
-    ## V. Resources
-    
-    ### 1. Terminology List (Glossary)
-    * The following terms must use the specified translations:
-    No relevant terms
-    
-    ### 2. Reference Translations
-    * Please refer to the following previously translated document fragments to maintain consistency in style and terminology:
-    )를 사용하여 해당 변수의 값을 문자열에 삽입합니다:
+Kotlin에서는 변수 이름 앞에 달러 기호(`$`)를 사용하여 해당 변수의 값을 문자열에 삽입합니다:
 
 ```kotlin
 fun main() {
@@ -212,7 +148,8 @@ fun getName(): String =
 
 ## 문자열의 시작과 끝 문자 바꾸기
 
-Java에서는 [replaceAll()](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html#replaceAll(java.lang.String,java.lang.String)) 함수를 사용할 수 있습니다. 이 경우 `replaceAll()` 함수는 각각 `##`로 시작하고 끝나는 문자열을 정의하는 정규 표현식 `^##`와 `##$`를 인수로 받습니다:
+Java에서는 [replaceAll()](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html#replaceAll(java.lang.String,java.lang.String)) 함수를 사용할 수 있습니다.
+이 경우 `replaceAll()` 함수는 각각 `##`로 시작하고 끝나는 문자열을 정의하는 정규 표현식 `^##`와 `##$`를 인수로 받습니다:
 
 ```java
 // Java
@@ -251,7 +188,8 @@ System.out.println("Anonymized input: '" + replacementResult + "'");
 ```
 {id="replace-occurrences-java"}
 
-Kotlin에서는 정규 표현식 작업을 단순화하는 [Regex](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/-regex/) 클래스를 사용합니다. 또한, 백슬래시 수를 줄여 정규식 패턴을 단순화하려면 [여러 줄 문자열](strings.md#multiline-strings)을 사용하세요:
+Kotlin에서는 정규 표현식 작업을 단순화하는 [Regex](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/-regex/) 클래스를 사용합니다.
+또한, 백슬래시 수를 줄여 정규식 패턴을 단순화하려면 [여러 줄 문자열](strings.md#multiline-strings)을 사용하세요:
 
 ```kotlin
 fun main() {
@@ -269,7 +207,8 @@ fun main() {
 
 ## 문자열 분할
 
-Java에서는 마침표 문자(`.`)로 문자열을 분할하려면 이스케이프(`\\`)를 사용해야 합니다. 이는 `String` 클래스의 [split()](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html#split(java.lang.String)) 함수가 정규 표현식을 인수로 받기 때문입니다:
+Java에서는 마침표 문자(`.`)로 문자열을 분할하려면 이스케이프(`\\`)를 사용해야 합니다.
+이는 `String` 클래스의 [split()](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html#split(java.lang.String)) 함수가 정규 표현식을 인수로 받기 때문입니다:
 
 ```java
 // Java
@@ -293,7 +232,8 @@ fun main() {
 
 ## 부분 문자열 가져오기
 
-Java에서는 부분 문자열을 시작할 문자의 포함 시작 인덱스를 받는 [substring()](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html#substring(int)) 함수를 사용할 수 있습니다. 이 문자 뒤의 부분 문자열을 가져오려면 인덱스를 증가시켜야 합니다:
+Java에서는 부분 문자열을 시작할 문자의 포함 시작 인덱스를 받는 [substring()](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html#substring(int)) 함수를 사용할 수 있습니다.
+이 문자 뒤의 부분 문자열을 가져오려면 인덱스를 증가시켜야 합니다:
 
 ```java
 // Java
@@ -345,7 +285,8 @@ System.out.println(result);
 ```
 {id="join-strings-11-java"}
 
-Java 15에서 [텍스트 블록](https://docs.oracle.com/en/java/javase/15/text-blocks/index.html)이 도입되었습니다. 한 가지 명심할 점은, 여러 줄 문자열을 출력할 때 세 개의 따옴표(triple-quote)가 다음 줄에 있으면 추가적인 빈 줄이 생긴다는 것입니다:
+Java 15에서 [텍스트 블록](https://docs.oracle.com/en/java/javase/15/text-blocks/index.html)이 도입되었습니다.
+한 가지 명심할 점은, 여러 줄 문자열을 출력할 때 세 개의 따옴표(triple-quote)가 다음 줄에 있으면 추가적인 빈 줄이 생긴다는 것입니다:
 
 ```java
 // Java
@@ -363,7 +304,8 @@ System.out.println(result);
 
 마지막 단어와 같은 줄에 세 개의 따옴표(triple-quote)를 두면 이러한 동작 차이는 사라집니다.
 
-Kotlin에서는 따옴표를 새 줄에 배치하여 줄을 포맷할 수 있으며, 출력 결과에 추가적인 빈 줄이 생기지 않습니다. 어떤 줄이든 가장 왼쪽에 있는 문자가 해당 줄의 시작을 나타냅니다. Java와의 차이점은 Java는 자동으로 들여쓰기를 제거하지만, Kotlin에서는 명시적으로 이 작업을 수행해야 한다는 것입니다:
+Kotlin에서는 따옴표를 새 줄에 배치하여 줄을 포맷할 수 있으며, 출력 결과에 추가적인 빈 줄이 생기지 않습니다.
+어떤 줄이든 가장 왼쪽에 있는 문자가 해당 줄의 시작을 나타냅니다. Java와의 차이점은 Java는 자동으로 들여쓰기를 제거하지만, Kotlin에서는 명시적으로 이 작업을 수행해야 한다는 것입니다:
 
 ```kotlin
 fun main() {
@@ -404,6 +346,6 @@ fun main() {
 ## 다음 단계는 무엇인가요?
 
 * 다른 [Kotlin 관용구](idioms.md)를 살펴보세요.
-* [Java-Kotlin 변환기](mixing-java-kotlin-intellij.md#converting-an-existing-java-file-to-kotlin-with-j2k)를 사용하여 기존 Java 코드를 Kotlin으로 변환하는 방법을 알아보세요.
+* [Java-Kotlin 변환기](mixing-java-kotlin-intellij.md#convert-java-files-to-kotlin)를 사용하여 기존 Java 코드를 Kotlin으로 변환하는 방법을 알아보세요.
 
 자신이 좋아하는 관용구가 있다면, 풀 리퀘스트를 보내 공유해 주시기 바랍니다.

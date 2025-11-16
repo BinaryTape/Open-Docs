@@ -427,7 +427,7 @@ Kotlin 1.7.20では、新しいKotlin/Nativeメモリマネージャーがデフ
 
 Kotlin 1.7.20より、新しいメモリマネージャーがデフォルトになりました。追加のセットアップはほとんど必要ありません。
 
-すでに手動で有効にしている場合は、`gradle.properties` から `kotlin.native.binary.memoryModel=experimental` オプションを削除するか、`build.gradle(.kts)` ファイルから `binaryOptions["memoryModel"] = "experimental"` を削除できます。
+すでに手動で有効にしている場合は、`gradle.properties` から `kotlin.native.binary.memoryModel=experimental` オプションを削除するか、`binaryOptions["memoryModel"] = "experimental"` を`build.gradle(.kts)` ファイルから削除できます。
 
 必要であれば、`gradle.properties` で `kotlin.native.binary.memoryModel=strict` オプションを使用することで、従来のメモリマネージャーに戻すことができます。ただし、従来のメモリマネージャーではコンパイラーキャッシュのサポートが利用できなくなったため、コンパイル時間が悪化する可能性があります。
 
@@ -498,7 +498,7 @@ Kotlin 1.7.20には、Gradle 7.1をサポートするための変更が含まれ
 ### ターゲット構成
 
 * `org.jetbrains.kotlin.gradle.dsl.SingleTargetExtension` は、ジェネリックなパラメーター `SingleTargetExtension<T : KotlinTarget>` を持つようになりました。
-* `kotlin.targets.fromPreset()` 規約は非推奨になりました。代わりに、引き続き `kotlin.targets { fromPreset() }` を使用できますが、[ターゲットを明示的に設定する](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-discover-project.html#targets)ことをお勧めします。
+* `kotlin.targets.fromPreset()` 規約は非推奨になりました。代わりに、引き続き `kotlin.targets { fromPreset() }` を使用できますが、[ターゲットを明示的に設定する](https://kotlinlang.org/docs/multiplatform/multiplatform-discover-project.html#targets)ことをお勧めします。
 * Gradleによって自動生成されるターゲットアクセサーは、`kotlin.targets { }` ブロック内では利用できなくなりました。代わりに `findByName("targetName")` メソッドを使用してください。
 
   ただし、`kotlin.targets` の場合、例えば `kotlin.targets.linuxX64` のように、これらのアクセサーは引き続き利用できます。
@@ -670,17 +670,17 @@ Kotlin 1.7.20では、`java.nio.file.Path` クラス向けに新しい[拡張関
 
 ### 改訂および改善されたページ
 
-* [基本型概要](basic-types.md) – Kotlinで使用される基本型（数値、ブール値、文字、文字列、配列、符号なし整数）について学習します。
+* [基本型概要](types-overview.md) – Kotlinで使用される基本型（数値、ブール値、文字、文字列、配列、符号なし整数）について学習します。
 * [Kotlin開発用IDE](kotlin-ide.md) – 公式のKotlinサポートを持つIDEと、コミュニティがサポートするプラグインを持つツールのリストを確認してください。
 
 ### Kotlin Multiplatformジャーナルの新しい記事
 
-* [ネイティブおよびクロスプラットフォームアプリ開発: 選択方法](https://www.jetbrains.com/help/kotlin-multiplatform-dev/native-and-cross-platform.html) – クロスプラットフォームアプリ開発とネイティブアプローチの概要と利点をご覧ください。
-* [最高のクロスプラットフォームアプリ開発フレームワーク6選](https://www.jetbrains.com/help/kotlin-multiplatform-dev/cross-platform-frameworks.html) – クロスプラットフォームプロジェクトに適切なフレームワークを選択するのに役立つ主要な側面についてお読みください。
+* [ネイティブおよびクロスプラットフォームアプリ開発: 選択方法](https://kotlinlang.org/docs/multiplatform/native-and-cross-platform.html) – クロスプラットフォームアプリ開発とネイティブアプローチの概要と利点をご覧ください。
+* [最高のクロスプラットフォームアプリ開発フレームワーク6選](https://kotlinlang.org/docs/multiplatform/cross-platform-frameworks.html) – クロスプラットフォームプロジェクトに適切なフレームワークを選択するのに役立つ主要な側面についてお読みください。
 
 ### 新規および更新されたチュートリアル
 
-* [Kotlin Multiplatformを始める](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-create-first-app.html) – Kotlinでのクロスプラットフォームモバイル開発について学び、AndroidとiOSの両方で動作するアプリを作成します。
+* [Kotlin Multiplatformを始める](https://kotlinlang.org/docs/multiplatform/multiplatform-create-first-app.html) – Kotlinでのクロスプラットフォームモバイル開発について学び、AndroidとiOSの両方で動作するアプリを作成します。
 * [ReactとKotlin/JSでWebアプリケーションを構築する](js-react.md) – KotlinのDSLと典型的なReactプログラムの機能を活用してブラウザアプリを作成します。
 
 ### リリースドキュメントの変更点

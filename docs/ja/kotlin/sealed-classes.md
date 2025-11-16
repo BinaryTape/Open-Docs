@@ -120,30 +120,30 @@ sealed class IOError {
 これらの制限は、間接的なサブクラスには適用されません。シールドクラスの直接のサブクラスがsealedとしてマークされていない場合、その修飾子が許可するあらゆる方法で拡張できます。
 
 ```kotlin
-// Sealed interface 'Error' has implementations only in the same package and module
+// シールドインターフェース'Error'は同じパッケージとモジュール内でのみ実装を持ちます
 sealed interface Error
 
-// Sealed class 'IOError' extends 'Error' and is extendable only within the same package
+// シールドクラス'IOError'は'Error'を拡張し、同じパッケージ内でのみ拡張可能です
 sealed class IOError(): Error
 
-// Open class 'CustomError' extends 'Error' and can be extended anywhere it's visible
+// オープンクラス'CustomError'は'Error'を拡張し、可視な場所であればどこでも拡張可能です
 open class CustomError(): Error
 ```
 
 ### マルチプラットフォームプロジェクトにおける継承
 
-[マルチプラットフォームプロジェクト](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html)にはもう1つの継承制限があります。シールドクラスの直接のサブクラスは、同じ[ソースセット](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-discover-project.html#source-sets)に存在する必要があります。これは、[expectedおよびactual修飾子](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-expect-actual.html)を持たないシールドクラスに適用されます。
+[マルチプラットフォームプロジェクト](https://kotlinlang.org/docs/multiplatform/get-started.html)にはもう1つの継承制限があります。シールドクラスの直接のサブクラスは、同じ[ソースセット](https://kotlinlang.org/docs/multiplatform/multiplatform-discover-project.html#source-sets)に存在する必要があります。これは、[expectedおよびactual修飾子](https://kotlinlang.org/docs/multiplatform/multiplatform-expect-actual.html)を持たないシールドクラスに適用されます。
 
 シールドクラスが共通ソースセットで`expect`として宣言され、プラットフォームソースセットで`actual`実装を持つ場合、`expect`と`actual`の両方のバージョンがそれぞれのソースセットにサブクラスを持つことができます。さらに、階層構造を使用する場合、`expect`と`actual`の宣言間の任意のソースセットにサブクラスを作成できます。
 
-[マルチプラットフォームプロジェクトの階層構造について詳しく学ぶ](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-hierarchy.html)。
+[マルチプラットフォームプロジェクトの階層構造について詳しく学ぶ](https://kotlinlang.org/docs/multiplatform/multiplatform-hierarchy.html)。
 
 ## `when`式でのシールドクラスの使用
 
 シールドクラスを使用する主要な利点は、[`when`式](control-flow.md#when-expressions-and-statements)で使用する際に発揮されます。シールドクラスとともに使用される`when`式は、Kotlinコンパイラがすべての可能なケースが網羅されていることを徹底的にチェックすることを可能にします。そのような場合、`else`句を追加する必要はありません。
 
 ```kotlin
-// Sealed class and its subclasses
+// シールドクラスとそのサブクラス
 sealed class Error {
     class FileReadError(val file: String): Error()
     class DatabaseError(val source: String): Error()
@@ -151,16 +151,16 @@ sealed class Error {
 }
 
 //sampleStart
-// Function to log errors
+// エラーをログに記録する関数
 fun log(e: Error) = when(e) {
     is Error.FileReadError -> println("Error while reading file ${e.file}")
     is Error.DatabaseError -> println("Error while reading from database ${e.source}")
     Error.RuntimeError -> println("Runtime error")
-    // No `else` clause is required because all the cases are covered
+    // すべてのケースが網羅されているため、`else`句は不要です
 }
 //sampleEnd
 
-// List all errors
+// すべてのエラーをリスト表示
 fun main() {
     val errors = listOf(
         Error.FileReadError("example.txt"),
@@ -181,7 +181,7 @@ fun main() {
 
 `when`式でシールドクラスを使用する場合、単一のブランチに追加のチェックを含めるためのガード条件を追加することもできます。詳細については、「[`when`式のガード条件](control-flow.md#guard-conditions-in-when-expressions)」を参照してください。
 
-> マルチプラットフォームプロジェクトでは、共通コードに[`expected宣言`](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-expect-actual.html)として`when`式を持つシールドクラスがある場合でも、`else`ブランチが必要です。これは、`actual`プラットフォーム実装のサブクラスが、共通コードで既知ではないシールドクラスを拡張する可能性があるためです。
+> マルチプラットフォームプロジェクトでは、共通コードに[`expected宣言`](https://kotlinlang.org/docs/multiplatform/multiplatform-expect-actual.html)として`when`式を持つシールドクラスがある場合でも、`else`ブランチが必要です。これは、`actual`プラットフォーム実装のサブクラスが、共通コードで既知ではないシールドクラスを拡張する可能性があるためです。
 >
 {style="note"}
 
@@ -238,13 +238,13 @@ fun processPayment(payment: Payment) {
 シールドクラスとシールドインターフェースを使用して、APIリクエストとレスポンスを処理するユーザー認証システムを実装できます。ユーザー認証システムにはログインとログアウトの機能があります。`ApiRequest`シールドインターフェースは、ログイン用の`LoginRequest`とログアウト操作用の`LogoutRequest`という特定の要求タイプを定義します。シールドクラス`ApiResponse`は、ユーザーデータを含む`UserSuccess`、ユーザーが存在しない場合の`UserNotFound`、およびあらゆる失敗の場合の`Error`など、異なる応答シナリオをカプセル化します。`handleRequest`関数は`when`式を使用してこれらのリクエストを型安全な方法で処理し、`getUserById`はユーザー検索をシミュレートします。
 
 ```kotlin
-// Import necessary modules
+// 必要なモジュールをインポート
 import io.ktor.server.application.*
 import io.ktor.server.resources.*
 
 import kotlinx.serialization.*
 
-// Define the sealed interface for API requests using Ktor resources
+// Ktorリソースを使用してAPIリクエストのシールドインターフェースを定義
 @Resource("api")
 sealed interface ApiRequest
 
@@ -256,23 +256,23 @@ data class LoginRequest(val username: String, val password: String) : ApiRequest
 @Resource("logout")
 object LogoutRequest : ApiRequest
 
-// Define the ApiResponse sealed class with detailed response types
+// 詳細な応答タイプを持つApiResponseシールドクラスを定義
 sealed class ApiResponse {
     data class UserSuccess(val user: UserData) : ApiResponse()
     data object UserNotFound : ApiResponse()
     data class Error(val message: String) : ApiResponse()
 }
 
-// User data class to be used in the success response
+// 成功応答で使用されるユーザーデータクラス
 data class UserData(val userId: String, val name: String, val email: String)
 
-// Function to validate user credentials (for demonstration purposes)
+// ユーザー認証情報を検証する関数（デモンストレーション目的）
 fun isValidUser(username: String, password: String): Boolean {
-    // Some validation logic (this is just a placeholder)
+    // いくつかの検証ロジック（これはプレースホルダーです）
     return username == "validUser" && password == "validPass"
 }
 
-// Function to handle API requests with detailed responses
+// 詳細な応答を伴うAPIリクエストを処理する関数
 fun handleRequest(request: ApiRequest): ApiResponse {
     return when (request) {
         is LoginRequest -> {
@@ -283,23 +283,23 @@ fun handleRequest(request: ApiRequest): ApiResponse {
             }
         }
         is LogoutRequest -> {
-            // Assuming logout operation always succeeds for this example
-            ApiResponse.UserSuccess(UserData("userId", "userName", "userEmail")) // For demonstration
+            // この例ではログアウト操作は常に成功すると仮定
+            ApiResponse.UserSuccess(UserData("userId", "userName", "userEmail")) // デモンストレーションのため
         }
     }
 }
 
-// Function to simulate a getUserById call
+// getUserById呼び出しをシミュレートする関数
 fun getUserById(userId: String): ApiResponse {
     return if (userId == "validUserId") {
         ApiResponse.UserSuccess(UserData("validUserId", "John Doe", "john@example.com"))
     } else {
         ApiResponse.UserNotFound
     }
-    // Error handling would also result in an Error response.
+    // エラー処理もError応答になります。
 }
 
-// Main function to demonstrate the usage
+// 使用法をデモンストレーションするメイン関数
 fun main() {
     val loginResponse = handleRequest(LoginRequest("user", "pass"))
     println(loginResponse)

@@ -2,12 +2,9 @@
 
 [Kotlin Multiplatform IDE 插件](https://plugins.jetbrains.com/plugin/14936-kotlin-multiplatform)可帮助你开发适用于 Android、iOS、桌面和 Web 的跨平台应用程序。请确保你拥有最新版本的插件，以便使用 Kotlin Multiplatform 项目。
 
-该插件兼容 IntelliJ IDEA（版本 2025.1.1.1 及更高）和 Android Studio（版本 Narwhal 2025.1.1 及更高）。
-
-> 要在 Windows 和 Linux 上使用 Kotlin Multiplatform 插件，你需要 IntelliJ IDEA 2025.2.2。
-> Android Studio 将在即将发布的版本中增加对 KMP IDE 插件在 Windows 和 Linux 上的支持。
->
-{style="note"}
+该插件兼容 IntelliJ IDEA 和 Android Studio：
+* 从 2025.1.1.1 版本开始，IntelliJ IDEA 支持在 macOS 上使用该插件；从 2025.2.2 版本开始，在 Windows 和 Linux 上也支持。
+* 从 Narwhal 2025.1.1 版本开始，Android Studio 支持在 macOS 上使用该插件；从 Otter 2025.2.1 版本开始，在 Windows 和 Linux 上也支持。
 
 关于 Kotlin Multiplatform Gradle 插件的信息，请参见其 [DSL 参考](multiplatform-dsl-reference.md)和[兼容性指南](multiplatform-compatibility-guide.md)。
 
@@ -649,8 +646,8 @@ Kotlin Multiplatform 插件已彻底重构：
 </td>
 <td>
 
- * 修复了与 [Kotlin 1.4.20-M1](https://kotlinlang.org/docs/eap.html#build-details) 的兼容性。
- * 默认启用向 JetBrains 报告错误。
+* 修复了与 [Kotlin 1.4.20-M1](https://kotlinlang.org/docs/eap.html#build-details) 的兼容性。
+* 默认启用向 JetBrains 报告错误。
 
 </td>
 <td>

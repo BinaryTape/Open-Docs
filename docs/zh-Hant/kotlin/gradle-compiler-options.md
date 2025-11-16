@@ -13,7 +13,7 @@
 
 Kotlin 編譯器有許多選項可用於客製化編譯過程。
 
-Gradle DSL 允許對編譯器選項進行全面性配置。它適用於 [Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-dsl-reference.html#compiler-options) 和 [JVM/Android](#target-the-jvm) 專案。
+Gradle DSL 允許對編譯器選項進行全面性配置。它適用於 [Kotlin Multiplatform](https://kotlinlang.org/docs/multiplatform/multiplatform-dsl-reference.html#compiler-options) 和 [JVM/Android](#target-the-jvm) 專案。
 
 透過 Gradle DSL，你可以在建構指令碼中的三個層級配置編譯器選項：
 * **[擴充層級](#extension-level)**：在 `kotlin {}` 區塊中，適用於所有目標和共用原始碼集。
@@ -27,15 +27,15 @@ Gradle DSL 允許對編譯器選項進行全面性配置。它適用於 [Kotlin 
 * 在擴充層級設定的編譯器選項，是目標層級選項的預設值，包括 `commonMain`、`nativeMain` 和 `commonTest` 等共用原始碼集。
 * 在目標層級設定的編譯器選項，是編譯單元（任務）層級選項的預設值，例如 `compileKotlinJvm` 和 `compileTestKotlinJvm` 任務。
 
-反之，較低層級的配置會覆蓋較高層級的相關設定：
+反之，較低層級的配置會覆寫較高層級的相關設定：
 
-* 任務層級的編譯器選項會覆蓋目標或擴充層級的相關配置。
-* 目標層級的編譯器選項會覆蓋擴充層級的相關配置。
+* 任務層級的編譯器選項會覆寫目標或擴充層級的相關配置。
+* 目標層級的編譯器選項會覆寫擴充層級的相關配置。
 
 要找出哪些層級的編譯器引數應用於編譯，請使用 Gradle [記錄](https://docs.gradle.org/current/userguide/logging.html) 的 `DEBUG` 層級。
 對於 JVM 和 JS/WASM 任務，在記錄中搜尋 `"Kotlin compiler args:"` 字串；對於原生任務，搜尋 `"Arguments ="` 字串。
 
-> 如果你是第三方外掛作者，最好將你的配置應用於專案層級，以避免覆蓋問題。你可以使用新的 [Kotlin 外掛 DSL 擴充型別](whatsnew21.md#new-api-for-kotlin-gradle-plugin-extensions) 來實現這一點。建議你明確地在你的文件中說明此配置。
+> 如果你是第三方外掛作者，最好將你的配置應用於專案層級，以避免覆寫問題。你可以使用新的 [Kotlin 外掛 DSL 擴充型別](whatsnew21.md#new-api-for-kotlin-gradle-plugin-extensions) 來實現這一點。建議你明確地在你的文件中說明此配置。
 >
 {style="tip"}
 
@@ -65,7 +65,7 @@ kotlin {
 }
 ```
 
-在 Kotlin Multiplatform 專案中，你可以在特定目標內部配置編譯器選項。例如，`jvm { compilerOptions {}}`。有關更多資訊，請參閱 [Multiplatform Gradle DSL 參考](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-dsl-reference.html)。
+在 Kotlin Multiplatform 專案中，你可以在特定目標內部配置編譯器選項。例如，`jvm { compilerOptions {}}`。有關更多資訊，請參閱 [Multiplatform Gradle DSL 參考](https://kotlinlang.org/docs/multiplatform/multiplatform-dsl-reference.html)。
 
 ### 編譯單元層級
 
@@ -95,7 +95,7 @@ kotlin {
 }
 ```
 
-如果你想配置與 JVM/Android 和 [Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-dsl-reference.html) 不同的外掛，
+如果你想配置與 JVM/Android 和 [Kotlin Multiplatform](https://kotlinlang.org/docs/multiplatform/multiplatform-dsl-reference.html) 不同的外掛，
 請使用相應 Kotlin 編譯任務的 `compilerOptions {}` 屬性。以下範例顯示如何在 Kotlin 和 Groovy DSL 中設定此配置：
 
 <tabs group="build-script">
@@ -134,7 +134,7 @@ tasks.named('compileKotlin', org.jetbrains.kotlin.gradle.tasks.KotlinCompilation
 
 #### 集中編譯器選項並使用型別
 
-盡可能在[擴充層級](#extension-level)配置編譯器選項，並在[編譯單元層級](#compilation-unit-level)針對特定任務覆蓋它們。
+盡可能在[擴充層級](#extension-level)配置編譯器選項，並在[編譯單元層級](#compilation-unit-level)針對特定任務覆寫它們。
 
 你不能在 `compilerOptions {}` 區塊中使用原始字串，因此需要將它們轉換為型別化值。例如，如果你有：
 
@@ -393,8 +393,8 @@ kotlin {
 
 #### 遷移 `freeCompilerArgs`
 
-* 將所有 `+=` 操作替換為 `add()` 或 `addAll()` 函數。
-* 如果你使用 `-opt-in` 編譯器選項，請檢查 [KGP API 參考](https://kotlinlang.org/api/kotlin-gradle-plugin/kotlin-gradle-plugin-api/) 中是否已有專用的 DSL，並使用它。
+* 將所有 `+=` 運算替換為 `add()` 或 `addAll()` 函數。
+* 如果你使用 `-opt-in` 編譯器選項，請檢查 [KGP API reference](https://kotlinlang.org/api/kotlin-gradle-plugin/kotlin-gradle-plugin-api/) 中是否已有專用的 DSL，並使用它。
 * 將所有使用 `-progressive` 編譯器選項的地方遷移為使用專用 DSL：`progressiveMode.set(true)`。
 * 將所有使用 `-Xjvm-default` 編譯器選項的地方遷移為[使用專用 DSL](gradle-compiler-options.md#attributes-specific-to-jvm)：`jvmDefault.set()`。使用以下選項對應：
 
@@ -473,7 +473,7 @@ kotlin {
 需要注意的一些重要細節：
 
 * `kotlin.compilerOptions` 配置專案中的每個 Kotlin 編譯任務。
-* 你可以使用 `tasks.named<KotlinJvmCompile>("compileKotlin") { }` (或 `tasks.withType<KotlinJvmCompile>().configureEach { }`) 方法覆蓋 `kotlin.compilerOptions` DSL 所應用的配置。
+* 你可以使用 `tasks.named<KotlinJvmCompile>("compileKotlin") { }` (或 `tasks.withType<KotlinJvmCompile>().configureEach { }`) 方法覆寫 `kotlin.compilerOptions` DSL 所應用的配置。
 
 ## 目標 JavaScript
 
@@ -577,8 +577,8 @@ tasks.named('compileKotlin', KotlinCompilationTask) {
 | `suppressWarnings` | 不要產生警告 |                                                                | false |
 | `verbose` | 啟用詳細記錄輸出。僅在[啟用 Gradle 偵錯記錄層級](https://docs.gradle.org/current/userguide/logging.html)時有效 |                                                                | false |
 | `freeCompilerArgs` | 附加編譯器引數的列表。你也可以在此處使用實驗性的 `-X` 引數。請參閱[使用 `freeCompilerArgs` 的附加引數範例](#example-of-additional-arguments-usage-via-freecompilerargs) |                                                                | [] |
-| `apiVersion`      | 限制宣告的使用，僅限於指定版本捆綁程式庫中的宣告 | "1.8", "1.9", "2.0", "2.1", "2.2" (實驗性) |               |
-| `languageVersion` | 提供與指定 Kotlin 版本的原始碼相容性                         | "1.8", "1.9", "2.0", "2.1", "2.2" (實驗性)  |               |
+| `apiVersion`      | 限制宣告的使用，僅限於指定版本捆綁程式庫中的宣告 | "1.8", "1.9", "2.0", "2.1", "2.2" (EXPERIMENTAL) |               |
+| `languageVersion` | 提供與指定 Kotlin 版本的原始碼相容性                         | "1.8", "1.9", "2.0", "2.1", "2.2" (EXPERIMENTAL)  |               |
 
 > 我們將在未來版本中棄用 `freeCompilerArgs` 屬性。如果你在 Kotlin Gradle DSL 中缺少某些選項，
 > 請[提交問題](https://youtrack.jetbrains.com/newissue?project=kt)。
@@ -714,7 +714,7 @@ tasks
 ## 接下來？
 
 了解更多關於：
-* [Kotlin Multiplatform DSL 參考](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-dsl-reference.html)。
+* [Kotlin Multiplatform DSL 參考](https://kotlinlang.org/docs/multiplatform/multiplatform-dsl-reference.html)。
 * [增量編譯、快取支援、建構報告以及 Kotlin Daemon](gradle-compilation-and-caches.md)。
 * [Gradle 基礎和細節](https://docs.gradle.org/current/userguide/userguide.html)。
 * [Gradle 外掛變體支援](gradle-plugin-variants.md)。

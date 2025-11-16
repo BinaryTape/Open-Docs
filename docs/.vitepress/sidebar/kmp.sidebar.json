@@ -274,7 +274,7 @@
       },
       {
         "text": "kmp.compose-multiplatform-for-web",
-        "href": "https://kotlinlang.org/docs/wasm-get-started.html"
+        "href": "/docs/wasm-get-started.html"
       },
       {
         "text": "kmp.compose-compiler",

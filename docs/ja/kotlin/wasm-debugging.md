@@ -6,7 +6,7 @@
 
 ## 開始する前に
 
-1. [Kotlin Multiplatform 開発環境をセットアップする](https://www.jetbrains.com/help/kotlin-multiplatform-dev/quickstart.html#set-up-the-environment)。
+1. [Kotlin Multiplatform 開発環境をセットアップする](https://kotlinlang.org/docs/multiplatform/quickstart.html#set-up-the-environment)。
 2. [Kotlin/Wasm をターゲットとする Kotlin Multiplatform プロジェクトを作成する](wasm-get-started.md#create-a-project)の手順に従ってください。
 
 > * IntelliJ IDEA での Kotlin/Wasm コードのデバッグは、IDE のバージョン 2025.3 以降で利用可能であり、現在 [早期アクセスプログラム (EAP)](https://www.jetbrains.com/resources/eap/) で安定版への移行を進めています。

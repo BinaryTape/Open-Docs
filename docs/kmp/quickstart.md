@@ -17,12 +17,9 @@ Kotlin Multiplatform (KMP) 项目需要特定的环境，但大多数要求都�
 
     对于独立安装，请下载 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/) 或 [Android Studio](https://developer.android.com/studio) 的安装程序。
 
-    Kotlin Multiplatform 所需的插件需要至少 **IntelliJ IDEA 2025.1.1** 或 **Android Studio Narwhal 2025.1.1**。
+    Kotlin Multiplatform 所需的插件需要至少 **IntelliJ IDEA 2025.2.2** 或 **Android Studio Otter 2025.2.1**。
 
 2.  安装 [Kotlin Multiplatform IDE 插件](https://plugins.jetbrains.com/plugin/14936-kotlin-multiplatform)（不要与 Kotlin Multiplatform Gradle 插件混淆）。
-
-    > 要在 Windows 和 Linux 上使用 Kotlin Multiplatform 插件，你需要 IntelliJ IDEA 2025.2.2。Android Studio 将在即将发布的版本中添加对 Windows 和 Linux 上的 KMP IDE 插件的支持。
-    > {style="note"}
 
 3.  为 IntelliJ IDEA 安装 Kotlin Multiplatform IDE 插件还会安装所有必要的依赖项（如果你还没有安装），Android Studio 已捆绑所有必要的插件。
 
@@ -54,12 +51,15 @@ Kotlin Multiplatform (KMP) 项目需要特定的环境，但大多数要求都�
     </TabItem>
     </Tabs>
 
-5.  要创建 iOS 应用程序，你需要一台安装了 [Xcode](https://apps.apple.com/us/app/xcode/id497799835) 的 macOS 主机。你的 IDE 会在后台运行 Xcode 来构建 iOS framework。
+5.  要创建 iOS 应用程序，你需要一台安装了 [Xcode](https://apps.apple.com/us/app/xcode/id497799835) 的 macOS 主机。
+    你的 IDE 会在后台运行 Xcode 来构建 iOS framework。
 
     确保在开始使用 KMP 项目之前至少启动 Xcode 一次，以便它完成初始设置。
 
-    > 每次 Xcode 更新时，你都需要手动启动它并下载更新的工具。Kotlin Multiplatform IDE 插件会进行预检，在 Xcode 未处于正确工作状态时提醒你。
-    > {style="note"}
+    > 每次 Xcode 更新时，你都需要手动启动它并下载更新的工具。
+    > Kotlin Multiplatform IDE 插件会进行预检，在 Xcode 未处于正确工作状态时提醒你。
+    >
+    {style="note"}
 
 ## 创建项目
 
@@ -83,16 +83,14 @@ Kotlin Multiplatform (KMP) 项目需要特定的环境，但大多数要求都�
 
 选择完平台后，点击 **Create** 按钮，等待 IDE 生成并导入项目。
 
-![IntelliJ IDEA 向导，包含默认设置并选择了 Android、iOS、桌面和 Web 平台](idea-wizard-1step.png){width=800}
+![IntelliJ IDEA 向导，包含默认设置并选择了 Android、iOS、桌面和 Web 平台](idea-wizard-1step.png){width=600}
 
 </TabItem>
 <TabItem title= "Android Studio">
 
-> KMP IDE 插件尚不支持 Windows 和 Linux 版本的 Android Studio。
-> {style="warning"}
-
 Kotlin Multiplatform IDE 插件高度依赖 K2 功能，如果没有 K2 功能将无法按所述工作。
-因此，在开始之前，请确保 K2 模式已启用：**Settings** | **Languages & Frameworks** | **Kotlin** | **Enable K2 mode**。
+因此，在开始之前，请确保 K2 模式已启用：
+**Settings** | **Languages & Frameworks** | **Kotlin** | **Enable K2 mode**。
 
 使用 IDE 向导创建新的 KMP 项目：
 
@@ -114,26 +112,27 @@ Kotlin Multiplatform IDE 插件高度依赖 K2 功能，如果没有 K2 功能�
 
 选择完平台后，点击 **Finish** 按钮，等待 IDE 生成并导入项目。
 
-![Android Studio 向导的最后一步，选择了 Android、iOS、桌面和 Web 平台](as-wizard-3step.png){width=800}
+![Android Studio 向导的最后一步，选择了 Android、iOS、桌面和 Web 平台](as-wizard-3step.png){width=600}
 
 </TabItem>
 </Tabs>
 
 ## 查阅预检
 
-你可以通过打开 **Project Environment Preflight Checks** 工具窗口来确保项目设置没有环境问题：点击右侧边栏或底部栏上的预检图标 ![带有飞机的预检图标](ide-preflight-checks.png){width="20"}
+你可以通过打开 **Project Environment Preflight Checks** 工具窗口来确保项目设置没有环境问题：
+点击右侧边栏或底部栏上的预检图标 ![带有飞机的预检图标](ide-preflight-checks.png){width="20"}
 
 在这个工具窗口中，你可以查看与这些检测相关的消息，重新运行它们，或更改它们的设置。
 
 预检命令也可以在 **Search Everywhere** 对话框中找到。
 按下双重 <shortcut>Shift</shortcut> 并搜索包含“preflight”一词的命令：
 
-![Search Everywhere 菜单，输入了“preflight”一词](double-shift-preflight-checks.png)
+![Search Everywhere 菜单，输入了“preflight”一词](double-shift-preflight-checks.png){width=600}
 
 ## 运行示例应用
 
 IDE 向导创建的项目包含为 iOS、Android、桌面和 Web 应用程序生成的运行配置，以及用于运行服务器应用程序的 Gradle 任务。
-在 Windows 和 Linux 上，以下列出了每个平台的具体 Gradle 命令。
+以下列出了每个平台的具体 Gradle 命令。
 
 <Tabs>
 <TabItem title="Android">
@@ -142,17 +141,18 @@ IDE 向导创建的项目包含为 iOS、Android、桌面和 Web 应用程序生
 
 ![突出显示 Android 运行配置的下拉菜单](run-android-configuration.png){width=250}
 
-要在 Windows 或 Linux 上运行 Android 应用程序，请创建 **Android App** 运行配置，并选择模块 **[项目名称].composeApp**。
+要手动创建 Android 运行配置，请选择 **Android App** 作为运行配置模板，并选择模块 **[项目名称].composeApp**。
 
 默认情况下，它会在第一个可用的虚拟设备上运行：
 
-![在虚拟设备上运行的 Android 应用程序](run-android-app.png){width=350}
+![在虚拟设备上运行的 Android 应用程序](run-android-app.png){width=300}
 
 </TabItem>
 <TabItem title="iOS">
 
 > 你需要 macOS 主机来构建 iOS 应用程序。
-> {style="note"}
+>
+{style="note"}
 
 如果你为项目选择了 iOS 目标并设置了带有 Xcode 的 macOS 机器，你可以选择 **iosApp** 运行配置并选择一个模拟设备：
 
@@ -170,7 +170,7 @@ IDE 向导创建的项目包含为 iOS、Android、桌面和 Web 应用程序生
 
 ![突出显示默认桌面运行配置的下拉菜单](run-desktop-configuration.png){width=250}
 
-要在 Windows 或 Linux 上运行桌面应用程序，请创建一个 **Gradle** 运行配置，指向 **[app name]:composeApp** Gradle 项目，并使用以下命令：
+要手动创建桌面运行配置，请选择一个 **Gradle** 运行配置模板，并指向 **[app name]:composeApp** Gradle 项目，并使用以下命令：
 
 ```shell
 desktopRun -DmainClass=com.example.myapplication.MainKt --quiet
@@ -187,7 +187,7 @@ Web 应用程序的默认运行配置创建为 **composeApp [wasmJs]**：
 
 ![突出显示默认 Wasm 运行配置的下拉菜单](run-wasm-configuration.png){width=250}
 
-要在 Windows 或 Linux 上运行 Web 应用程序，请创建一个 **Gradle** 运行配置，指向 **[app name]:composeApp** Gradle 项目，并使用以下命令：
+要手动创建 Web 运行配置，请选择一个 **Gradle** 运行配置模板，并指向 **[app name]:composeApp** Gradle 项目，并使用以下命令：
 
 ```shell
 wasmJsBrowserDevelopmentRun
@@ -210,20 +210,26 @@ Java 常见问题：
     解决此问题：
     *   将 `JAVA_HOME` 环境变量设置为安装了相应 JDK 的目录。
 
-        > 我们建议使用 [JetBrains Runtime](https://github.com/JetBrains/JetBrainsRuntime)，这是一个支持类重定义的 OpenJDK 分支。
-        > {style="note"}
+        > 我们建议使用 [JetBrains Runtime](https://github.com/JetBrains/JetBrainsRuntime)，
+        > 一个支持类重定义的 OpenJDK 分支。
+        >
+        {style="note"}
 
-    *   将 `JAVA_HOME` 目录内的 `bin` 文件夹路径附加到 `PATH` 变量，以便 JDK 中包含的工具在终端中可用。
+    *   将 `JAVA_HOME` 目录内的 `bin` 文件夹路径附加到 `PATH` 变量，
+        以便 JDK 中包含的工具在终端中可用。
 *   如果在 Android Studio 中遇到 Gradle JDK 问题，请确保其配置正确：
     选择 **Settings** | **Build, Execution, Deployment** | **Build Tools** | **Gradle**。
 
 ### Android 工具
 
-与 JDK 类似，如果你在启动 `adb` 等 Android 工具时遇到问题，请确保已将 `ANDROID_HOME/tools`、`ANDROID_HOME/tools/bin` 和 `ANDROID_HOME/platform-tools` 的路径添加到你的 `PATH` 环境变量中。
+与 JDK 类似，如果你在启动 `adb` 等 Android 工具时遇到问题，
+请确保已将 `ANDROID_HOME/tools`、`ANDROID_HOME/tools/bin` 和
+`ANDROID_HOME/platform-tools` 的路径添加到你的 `PATH` 环境变量中。
 
 ### Xcode
 
-如果你的 iOS 运行配置报告没有可运行的虚拟设备，或者预检失败，请确保启动 Xcode 并查看是否有 iOS 模拟器的任何更新。
+如果你的 iOS 运行配置报告没有可运行的虚拟设备，或者预检失败，请确保启动 Xcode
+并查看是否有 iOS 模拟器的任何更新。
 
 ### 获取帮助
 
@@ -247,4 +253,5 @@ Java 常见问题：
     *   [kotlin-multiplatform](https://github.com/topics/kotlin-multiplatform)，用 Kotlin Multiplatform 实现的项目。
     *   [kotlin-multiplatform-sample](https://github.com/topics/kotlin-multiplatform-sample)，
         用 KMP 编写的示例项目列表。
-*   [klibs.io](https://klibs.io) – KMP 库搜索平台，迄今已收录 2000 多个库，包括 OkHttp、Ktor、Coil、Koin、SQLDelight 等。
+*   [klibs.io](https://klibs.io) – KMP 库搜索平台，迄今已收录 2000 多个库，
+    包括 OkHttp、Ktor、Coil、Koin、SQLDelight 等。

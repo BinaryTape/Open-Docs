@@ -38,7 +38,7 @@ Kotlin/Native では、Linux、macOS、Windows など、[様々なターゲッ�
 
     ![Load Gradle changes button](load-gradle-changes.png){width=295}
 
-これらの設定の詳細については、[Multiplatform Gradle DSL リファレンス](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-dsl-reference.html)を参照してください。
+これらの設定の詳細については、[Multiplatform Gradle DSL リファレンス](https://kotlinlang.org/docs/multiplatform/multiplatform-dsl-reference.html)を参照してください。
 
 ### アプリケーションをビルドして実行する
 
@@ -107,22 +107,22 @@ IntelliJ IDEA は Gradle タスクを使用してコードを実行し、結果�
     *   スコープ関数 [`let`](scope-functions.md#let) を使用して、オブジェクトコンテキスト内で関数を実行します。
     *   [文字列テンプレート](strings.md#string-templates)を使用して、ドル記号を追加し中括弧で囲むことで、名前の長さを文字列に挿入します – `${it.length}`。`it` は[ラムダパラメータ](coding-conventions.md#lambda-parameters)のデフォルト名です。
 
-    ```kotlin
-    fun main() {
-        // 入力値を読み取ります。
-        println("Hello, enter your name:")
-        val name = readln()
-        // 名前の文字数を数えます。
-        name.replace(" ", "").let {
-            println("Your name contains ${it.length} letters")
-        }
-    }
-    ```
+   ```kotlin
+   fun main() {
+       // 入力値を読み取ります。
+       println("Hello, enter your name:")
+       val name = readln()
+       // 名前の文字数を数えます。
+       name.replace(" ", "").let {
+           println("Your name contains ${it.length} letters")
+       }
+   }
+   ```
 
 4.  アプリケーションを実行します。
 5.  名前を入力し、結果を確認します。
 
-    ![Application output](native-output-gutter-2.png){width=422}
+   ![Application output](native-output-gutter-2.png){width=422}
 
 次に、名前のユニークな文字だけを数えてみましょう。
 
@@ -133,32 +133,32 @@ IntelliJ IDEA は Gradle タスクを使用してコードを実行し、結果�
     *   [`distinct()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/distinct.html) 関数を使用して、名前のユニークな文字のみを選択します。
     *   [`count()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/count.html) 関数を使用して、ユニークな文字の数を数えます。
 
-    ```kotlin
-    fun String.countDistinctCharacters() = lowercase().toList().distinct().count()
-    ```
+   ```kotlin
+   fun String.countDistinctCharacters() = lowercase().toList().distinct().count()
+   ```
 
 2.  `.countDistinctCharacters()` 関数を使用して、名前のユニークな文字数を数えます。
 
-    ```kotlin
-    fun String.countDistinctCharacters() = lowercase().toList().distinct().count()
+   ```kotlin
+   fun String.countDistinctCharacters() = lowercase().toList().distinct().count()
 
-    fun main() {
-        // 入力値を読み取ります。
-        println("Hello, enter your name:")
-        val name = readln()
-        // 名前の文字数を数えます。
-        name.replace(" ", "").let {
-            println("Your name contains ${it.length} letters")
-            // ユニークな文字数を出力します。
-            println("Your name contains ${it.countDistinctCharacters()} unique letters")
-        }
-    }
-    ```
+   fun main() {
+       // 入力値を読み取ります。
+       println("Hello, enter your name:")
+       val name = readln()
+       // 名前の文字数を数えます。
+       name.replace(" ", "").let {
+           println("Your name contains ${it.length} letters")
+           // ユニークな文字数を出力します。
+           println("Your name contains ${it.countDistinctCharacters()} unique letters")
+       }
+   }
+   ```
 
 3.  アプリケーションを実行します。
 4.  名前を入力し、結果を確認します。
 
-    ![Application output](native-output-gutter-3.png){width=422}
+   ![Application output](native-output-gutter-3.png){width=422}
 
 ## Gradle を使用する
 
@@ -169,77 +169,77 @@ IntelliJ IDEA は Gradle タスクを使用してコードを実行し、結果�
 1.  まず、互換性のあるバージョンの[Gradle](https://gradle.org/install/)をインストールします。[互換性テーブル](gradle-configure-project.md#apply-the-plugin)を参照して、Kotlin Gradle プラグイン (KGP) と利用可能な Gradle バージョンの互換性を確認してください。
 2.  空のプロジェクトディレクトリを作成します。その中に、次の内容の `build.gradle(.kts)` ファイルを作成します。
 
-    <tabs group="build-script">
-    <tab title="Kotlin" group-key="kotlin">
+   <tabs group="build-script">
+   <tab title="Kotlin" group-key="kotlin">
 
-    ```kotlin
-    // build.gradle.kts
-    plugins {
-        kotlin("multiplatform") version "%kotlinVersion%"
-    }
+   ```kotlin
+   // build.gradle.kts
+   plugins {
+       kotlin("multiplatform") version "%kotlinVersion%"
+   }
 
-    repositories {
-        mavenCentral()
-    }
+   repositories {
+       mavenCentral()
+   }
 
-    kotlin {
-        macosArm64("native") {  // macOS上
-        // linuxArm64("native") // Linux上
-        // mingwX64("native")   // Windows上
-            binaries {
-                executable()
-            }
-        }
-    }
+   kotlin {
+       macosArm64("native") {  // macOS上
+       // linuxArm64("native") // Linux上
+       // mingwX64("native")   // Windows上
+           binaries {
+               executable()
+           }
+       }
+   }
 
-    tasks.withType<Wrapper> {
-        gradleVersion = "%gradleVersion%"
-        distributionType = Wrapper.DistributionType.BIN
-    }
-    ```
+   tasks.withType<Wrapper> {
+       gradleVersion = "%gradleVersion%"
+       distributionType = Wrapper.DistributionType.BIN
+   }
+   ```
 
-    </tab>
-    <tab title="Groovy" group-key="groovy">
+   </tab>
+   <tab title="Groovy" group-key="groovy">
 
-    ```groovy
-    // build.gradle
-    plugins {
-        id 'org.jetbrains.kotlin.multiplatform' version '%kotlinVersion%'
-    }
+   ```groovy
+   // build.gradle
+   plugins {
+       id 'org.jetbrains.kotlin.multiplatform' version '%kotlinVersion%'
+   }
 
-    repositories {
-        mavenCentral()
-    }
+   repositories {
+       mavenCentral()
+   }
 
-    kotlin {
-        macosArm64('native') {  // macOS上
-        // linuxArm64('native') // Linux上
-        // mingwX64('native')   // Windows上
-            binaries {
-                executable()
-            }
-        }
-    }
+   kotlin {
+       macosArm64('native') {  // macOS上
+       // linuxArm64('native') // Linux上
+       // mingwX64('native')   // Windows上
+           binaries {
+               executable()
+           }
+       }
+   }
 
-    wrapper {
-        gradleVersion = '%gradleVersion%'
-        distributionType = 'BIN'
-    }
-    ```
+   wrapper {
+       gradleVersion = '%gradleVersion%'
+       distributionType = 'BIN'
+   }
+   ```
 
-    </tab>
-    </tabs>
+   </tab>
+   </tabs>
 
-    `macosArm64`、`iosArm64`、`linuxArm64`、`mingwX64` のような異なる[ターゲット名](native-target-support.md)を使用して、コードをコンパイルするターゲットを定義できます。これらのターゲット名は、オプションでプラットフォーム名をパラメータとして取ることができます。この場合は `native` です。プラットフォーム名は、プロジェクト内のソースパスとタスク名を生成するために使用されます。
+   `macosArm64`、`iosArm64`、`linuxArm64`、`mingwX64` のような異なる[ターゲット名](native-target-support.md)を使用して、コードをコンパイルするターゲットを定義できます。これらのターゲット名は、オプションでプラットフォーム名をパラメータとして取ることができます。この場合は `native` です。プラットフォーム名は、プロジェクト内のソースパスとタスク名を生成するために使用されます。
 
 3.  プロジェクトディレクトリに空の `settings.gradle(.kts)` ファイルを作成します。
 4.  `src/nativeMain/kotlin` ディレクトリを作成し、その中に以下の内容の `hello.kt` ファイルを配置します。
 
-    ```kotlin
-    fun main() {
-        println("Hello, Kotlin/Native!")
-    }
-    ```
+   ```kotlin
+   fun main() {
+       println("Hello, Kotlin/Native!")
+   }
+   ```
 
 慣例により、すべてのソースは `src/<target name>[Main|Test]/kotlin` ディレクトリに配置されます。ここで `Main` はソースコード用、`Test` はテスト用です。`<target name>` は、ビルドファイルで指定されたターゲットプラットフォーム（この場合は `native`）に対応します。
 
@@ -247,19 +247,19 @@ IntelliJ IDEA は Gradle タスクを使用してコードを実行し、結果�
 
 1.  プロジェクトのルートディレクトリから、ビルドコマンドを実行します。
 
-    ```bash
-    ./gradlew nativeBinaries
-    ```
+   ```bash
+   ./gradlew nativeBinaries
+   ```
 
-    このコマンドは `build/bin/native` ディレクトリを作成し、その中に `debugExecutable` と `releaseExecutable` の2つのディレクトリを作成します。これらには対応するバイナリファイルが含まれます。
+   このコマンドは `build/bin/native` ディレクトリを作成し、その中に `debugExecutable` と `releaseExecutable` の2つのディレクトリを作成します。これらには対応するバイナリファイルが含まれます。
 
-    デフォルトでは、バイナリファイルの名前はプロジェクトディレクトリと同じになります。
+   デフォルトでは、バイナリファイルの名前はプロジェクトディレクトリと同じになります。
 
 2.  プロジェクトを実行するには、以下のコマンドを実行します。
 
-    ```bash
-    build/bin/native/debugExecutable/<project_name>.kexe
-    ```
+   ```bash
+   build/bin/native/debugExecutable/<project_name>.kexe
+   ```
 
 ターミナルに "Hello, Kotlin/Native!" と出力されます。
 
@@ -286,9 +286,9 @@ IntelliJ IDEA は Gradle タスクを使用してコードを実行し、結果�
 3.  選択したディレクトリにアーカイブを解凍します。
 4.  シェルプロファイルを開き、コンパイラの `/bin` ディレクトリへのパスを `PATH` 環境変数に追加します。
 
-    ```bash
-    export PATH="/<path to the compiler>/kotlin-native/bin:$PATH"
-    ```
+   ```bash
+   export PATH="/<path to the compiler>/kotlin-native/bin:$PATH"
+   ```
 
 > コンパイラ出力には依存関係や仮想マシンの要件はありませんが、コンパイラ自体には Java 1.8 以降のランタイムが必要です。[JDK 8 (JAVA SE 8) 以降のバージョン](https://www.oracle.com/java/technologies/downloads/)でサポートされています。
 >
@@ -342,5 +342,5 @@ kotlinc-native hello.kt -o hello
 ## 次のステップ
 
 *   ネイティブ HTTP クライアントを作成し、C ライブラリと相互運用する方法を説明する[C interop と libcurl を使用したアプリの作成](native-app-with-c-and-libcurl.md)チュートリアルを完了してください。
-*   [実際の Kotlin/Native プロジェクト向けに Gradle ビルドスクリプトを記述する方法](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-dsl-reference.html)を学びましょう。
+*   [実際の Kotlin/Native プロジェクト向けに Gradle ビルドスクリプトを記述する方法](https://kotlinlang.org/docs/multiplatform/multiplatform-dsl-reference.html)を学びましょう。
 *   Gradle ビルドシステムの詳細については、[ドキュメント](gradle.md)を参照してください。

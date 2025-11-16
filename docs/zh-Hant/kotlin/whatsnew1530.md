@@ -332,7 +332,7 @@ Kotlin 1.5.30 引入了改進的 CocoaPods Gradle 插件 DSL，用於 Kotlin/Nat
 * 明確啟用匯出依賴項
 * 啟用 Bitcode 嵌入
 
-要使用新的 DSL，請將您的專案更新到 Kotlin 1.5.30，並在 `build.gradle(.kts)` 檔案的 `cocoapods` 部分中指定參數：
+要使用新的 DSL，請將您的專案更新到 Kotlin 1.5.30，並在 `cocoapods` 部分的 `build.gradle(.kts)` 檔案中指定參數：
 
 ```kotlin
 cocoapods {
@@ -359,7 +359,7 @@ cocoapods {
 
 Kotlin CocoaPods Gradle 插件支援 Xcode 建置配置中的自訂名稱。如果您在 Xcode 中為建置配置使用特殊名稱，例如 `Staging`，這也將有所幫助。
 
-要指定自訂名稱，請在 `build.gradle(.kts)` 檔案的 `cocoapods` 部分中使用 `xcodeConfigurationToNativeBuildType` 參數：
+要指定自訂名稱，請在 `cocoapods` 部分的 `build.gradle(.kts)` 檔案中使用 `xcodeConfigurationToNativeBuildType` 參數：
 
 ```kotlin
 cocoapods {
@@ -766,13 +766,13 @@ Kotlin 1.5.30 正在改進標準函式庫的 `Duration` 和 `Regex` API：
 
 |**函式呼叫範例**|**先前輸出**|**目前輸出**|
 | --- | --- | --- |
-Duration.days(45).toString()|`45.0d`|`45d`|
-Duration.days(1.5).toString()|`36.0h`|`1d 12h`|
-Duration.minutes(1230).toString()|`20.5h`|`20h 30m`|
-Duration.minutes(2415).toString()|`40.3h`|`1d 16h 15m`|
-Duration.minutes(920).toString()|`920m`|`15h 20m`|
-Duration.seconds(1.546).toString()|`1.55s`|`1.546s`|
-Duration.milliseconds(25.12).toString()|`25.1ms`|`25.12ms`|
+|Duration.days(45).toString()|`45.0d`|`45d`|
+|Duration.days(1.5).toString()|`36.0h`|`1d 12h`|
+|Duration.minutes(1230).toString()|`20.5h`|`20h 30m`|
+|Duration.minutes(2415).toString()|`40.3h`|`1d 16h 15m`|
+|Duration.minutes(920).toString()|`920m`|`15h 20m`|
+|Duration.seconds(1.546).toString()|`1.55s`|`1.546s`|
+|Duration.milliseconds(25.12).toString()|`25.1ms`|`25.12ms`|
 
 負持續時間的表示方式也已變更。負持續時間以減號 (`-`) 為前綴，如果它由多個組件組成，則用圓括號包圍：`-12m` 和 `-(1h 30m)`。
 

@@ -1,10 +1,10 @@
 [//]: # (title: CおよびObjective-Cライブラリのインポートの安定性)
 <primary-label ref="beta"/>
 
-Kotlin/Nativeは、[C](native-c-interop.md)および[Objective-C](native-objc-interop.md)ライブラリのインポート機能を提供します。
+Kotlin/Nativeは、[Cのインポート機能](native-c-interop.md)と[Objective-Cライブラリ](native-objc-interop.md)を提供します。
 これらのライブラリのサポートは、現在[ベータ版](components-stability.md#kotlin-native)です。
 
-ベータ版である主な理由の1つは、CおよびObjective-Cライブラリを使用すると、さまざまなバージョンのKotlin、依存関係、およびXcodeとのコードの互換性に影響を与える可能性があることです。このガイドでは、実際に頻繁に発生する互換性の問題、一部の場合にのみ発生する問題、および仮想的な潜在的な問題も示します。
+ベータ版である主な理由の1つは、CおよびObjective-Cライブラリを使用すると、Kotlin、依存関係、およびXcodeのさまざまなバージョンとのコードの互換性に影響を与える可能性があることです。このガイドでは、実際に頻繁に発生する互換性の問題、一部の場合にのみ発生する問題、および仮想的な潜在的な問題も示します。
 
 このガイドでは、CおよびObjective-Cライブラリ、または簡潔にするため_ネイティブライブラリ_は、次のように分けられます:
 
@@ -49,7 +49,7 @@ Kotlinコンパイラは、デプロイターゲットで利用できないObjec
 ## サードパーティライブラリ
 
 システムプラットフォームライブラリとは別に、Kotlin/Nativeはサードパーティのネイティブライブラリのインポートを許可します。
-たとえば、[CocoaPodsの統合](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-cocoapods-overview.html)を使用するか、[cinteropsの設定](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-dsl-reference.html#cinterops)を行うことができます。
+たとえば、[CocoaPodsの統合](https://kotlinlang.org/docs/multiplatform/multiplatform-cocoapods-overview.html)を使用するか、[cinteropsの設定](https://kotlinlang.org/docs/multiplatform/multiplatform-dsl-reference.html#cinterops)を行うことができます。
 
 ### Xcodeのバージョンが不一致のライブラリのインポート
 
@@ -59,7 +59,7 @@ Kotlinコンパイラは、デプロイターゲットで利用できないObjec
 
 そのため、XcodeのバージョンはKotlinへのネイティブライブラリのインポートに影響を与えます。これは、サードパーティのネイティブライブラリを使用する場合、[Mac以外のホストからのAppleターゲットのクロスコンパイル](whatsnew21.md#ability-to-publish-kotlin-libraries-from-any-host)が依然として不可能な理由の1つでもあります。
 
-すべてのKotlinバージョンは、単一のXcodeバージョンと最も互換性があります。これが推奨バージョンであり、対応するKotlinバージョンに対して最も多くテストされています。特定のXcodeバージョンとの互換性は、[互換性テーブル](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-compatibility-guide.html#version-compatibility)で確認してください。
+すべてのKotlinバージョンは、単一のXcodeバージョンと最も互換性があります。これが推奨バージョンであり、対応するKotlinバージョンに対して最も多くテストされています。特定のXcodeバージョンとの互換性は、[互換性テーブル](https://kotlinlang.org/docs/multiplatform/multiplatform-compatibility-guide.html#version-compatibility)で確認してください。
 
 新しいまたは古いXcodeバージョンを使用することはしばしば可能ですが、問題を引き起こす可能性があります。通常、サードパーティのネイティブライブラリのインポートに影響します。
 
@@ -124,8 +124,8 @@ public fun getDate(): String = NSDate().toString()
 
 サードパーティのネイティブライブラリにカスタム名を使用するには:
 
-*   CocoaPods統合を介してネイティブライブラリをインポートする場合、Gradleビルドスクリプトの`pod {}`ブロックで[`packageName`](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-cocoapods-dsl-reference.html#pod-function)プロパティを使用してください。
-*   `cinterops`設定でネイティブライブラリをインポートする場合、設定ブロックで[`packageName`](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-dsl-reference.html#cinterops)プロパティを使用してください。
+*   CocoaPods統合を介してネイティブライブラリをインポートする場合、Gradleビルドスクリプトの`pod {}`ブロックで[`packageName`](https://kotlinlang.org/docs/multiplatform/multiplatform-cocoapods-dsl-reference.html#pod-function)プロパティを使用してください。
+*   `cinterops`設定でネイティブライブラリをインポートする場合、設定ブロックで[`packageName`](https://kotlinlang.org/docs/multiplatform/multiplatform-dsl-reference.html#cinterops)プロパティを使用してください。
 
 #### 古いKotlinバージョンとの互換性を確認する
 

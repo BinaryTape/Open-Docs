@@ -24,7 +24,7 @@ Kotlin 更简洁。粗略估计，代码行数大约减少 40%。它也更类型
 
 ### Kotlin 与 Java 编程语言兼容吗？
 
-是的。Kotlin 与 Java 编程语言 100% 互操作，并且重点在于确保你现有的代码库可以与 Kotlin 正常交互。你可以轻松地[从 Java 调用 Kotlin 代码](java-to-kotlin-interop.md)以及[从 Kotlin 调用 Java 代码](java-interop.md)。这使得采用 Kotlin 更加容易，风险更低。IDE 中还内置了一个[自动化 Java 转 Kotlin 转换器](mixing-java-kotlin-intellij.md#converting-an-existing-java-file-to-kotlin-with-j2k)，简化了现有代码的迁移。
+是的。Kotlin 与 Java 编程语言 100% 互操作，并且重点在于确保你现有的代码库可以与 Kotlin 正常交互。你可以轻松地[从 Java 调用 Kotlin 代码](java-to-kotlin-interop.md)以及[从 Kotlin 调用 Java 代码](java-interop.md)。这使得采用 Kotlin 更加容易，风险更低。IDE 中还内置了一个[自动化 Java 转 Kotlin 转换器](mixing-java-kotlin-intellij.md#convert-java-files-to-kotlin)，简化了现有代码的迁移。
 
 ### 我可以用 Kotlin 做什么？
 
@@ -88,7 +88,7 @@ Kotlin 的灵感来源于 Java、C#、JavaScript、Scala 和 Groovy 等现有语
 
 Kotlin 由 [JetBrains 的工程师团队（当前团队规模超过 100 人）](https://www.jetbrains.com/)开发。首席语言设计师是 Michail Zarečenskij。除了核心团队，GitHub 上还有超过 250 名外部贡献者。
 
-### 我可以在哪里了解更多关于 Kotlin 的信息？
+### 我在哪里可以了解更多关于 Kotlin 的信息？
 
 最好的起点是[我们的网站](https://kotlinlang.org)。要开始使用 Kotlin，你可以安装其中一个[官方 IDE](kotlin-ide.md) 或[在线尝试](https://play.kotlinlang.org)。
 

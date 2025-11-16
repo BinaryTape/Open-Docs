@@ -14,7 +14,7 @@ Koog의 **스트리밍 API**를 사용하면 `Flow<StreamFrame>` 형태로 **LLM
 - `StreamFrame.ToolCall(id: String?, name: String, content: String)` — 도구 호출 (안전하게 결합됨)
 - `StreamFrame.End(finishReason: String?)` — 스트림 종료 마커
 
-일반 텍스트를 추출하고, 프레임을 `Message.Response` 객체로 변환하며, **청크로 분할된 도구 호출**을 안전하게 결합하는 헬퍼가 제공됩니다.
+헬퍼가 제공되어 일반 텍스트를 추출하고, 프레임을 `Message.Response` 객체로 변환하며, 안전하게 **청크로 분할된 도구 호출**을 결합합니다.
 
 ---
 
@@ -39,7 +39,6 @@ Koog의 **스트리밍 API**를 사용하면 `Flow<StreamFrame>` 형태로 **LLM
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
 import ai.koog.prompt.streaming.StreamFrame
-import ai.koog.prompt.structure.markdown.MarkdownStructuredDataDefinition
 
 val strategy = strategy<String, String>("strategy_name") {
     val node by node<Unit, Unit> {
@@ -78,7 +77,7 @@ llm.writeSession {
 
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
-import ai.koog.prompt.structure.markdown.MarkdownStructuredDataDefinition
+import ai.koog.prompt.structure.markdown.MarkdownStructureDefinition
 
 val strategy = strategy<String, String>("strategy_name") {
     val node by node<Unit, Unit> {
@@ -88,8 +87,8 @@ val strategy = strategy<String, String>("strategy_name") {
 }
 -->
 ```kotlin
-fun markdownBookDefinition(): MarkdownStructuredDataDefinition {
-    return MarkdownStructuredDataDefinition("name", schema = { /*...*/ })
+fun markdownBookDefinition(): MarkdownStructureDefinition {
+    return MarkdownStructureDefinition("name", schema = { /*...*/ })
 }
 
 val mdDefinition = markdownBookDefinition()
@@ -147,6 +146,7 @@ import ai.koog.agents.core.dsl.builder.strategy
 import ai.koog.agents.core.agent.GraphAIAgent
 import ai.koog.agents.features.eventHandler.feature.handleEvents
 import ai.koog.prompt.streaming.StreamFrame
+import ai.koog.prompt.structure.markdown.MarkdownStructureDefinition
 
 fun GraphAIAgent.FeatureContext.installStreamingApi() {
 -->
@@ -164,8 +164,8 @@ handleEvents {
             print(frame.text)
         }
     }
-    onLLMStreamingFailed { context -> 
-        println("❌ 오류: ${context.error}")
+    onLLMStreamingFailed { context ->
+        println("❌ Error: ${context.error}")
     }
     onLLMStreamingCompleted {
         println("🏁 완료")
@@ -192,8 +192,8 @@ handleEvents {
 
 구조화된 데이터 접근 방식은 다음과 같은 주요 구성 요소를 포함합니다.
 
-1.  **MarkdownStructuredDataDefinition**: 마크다운 형식으로 구조화된 데이터에 대한 스키마 및 예제를 정의하는 데 도움이 되는 클래스입니다.
-2.  **markdownStreamingParser**: 마크다운 청크 스트림을 처리하고 이벤트를 방출하는 파서를 생성하는 함수입니다.
+1. **MarkdownStructureDefinition**: 마크다운 형식으로 구조화된 데이터에 대한 스키마 및 예제를 정의하는 데 도움이 되는 클래스입니다.
+2. **markdownStreamingParser**: 마크다운 청크 스트림을 처리하고 이벤트를 방출하는 파서를 생성하는 함수입니다.
 
 아래 섹션에서는 구조화된 데이터 스트림을 처리하는 것과 관련된 단계별 지침과 코드 샘플을 제공합니다.
 
@@ -216,15 +216,15 @@ data class Book(
 
 #### 2. 마크다운 구조 정의
 
-`MarkdownStructuredDataDefinition` 클래스를 사용하여 마크다운에서 데이터가 어떻게 구조화되어야 하는지를 지정하는 정의를 생성합니다.
+`MarkdownStructureDefinition` 클래스를 사용하여 마크다운에서 데이터가 어떻게 구조화되어야 하는지를 지정하는 정의를 생성합니다.
 
 <!--- INCLUDE
 import ai.koog.prompt.markdown.markdown
-import ai.koog.prompt.structure.markdown.MarkdownStructuredDataDefinition
+import ai.koog.prompt.structure.markdown.MarkdownStructureDefinition
 -->
 ```kotlin
-fun markdownBookDefinition(): MarkdownStructuredDataDefinition {
-    return MarkdownStructuredDataDefinition("bookList", schema = {
+fun markdownBookDefinition(): MarkdownStructureDefinition {
+    return MarkdownStructureDefinition("bookList", schema = {
         markdown {
             header(1, "title")
             bulleted {
@@ -278,7 +278,7 @@ markdownStreamingParser {
 ```
 <!--- KNIT example-streaming-api-05.kt -->
 
-정의된 핸들러를 사용하여 `markdownStreamingParser` 함수를 통해 마크다운 스트림을 파싱하고 데이터 객체를 방출하는 함수를 구현할 수 있습니다.
+정의된 핸들러를 사용하여, `markdownStreamingParser` 함수를 통해 마크다운 스트림을 파싱하고 데이터 객체를 방출하는 함수를 구현할 수 있습니다.
 
 <!--- INCLUDE
 import ai.koog.agents.example.exampleStreamingApi03.Book
@@ -367,7 +367,8 @@ val agentStrategy = strategy<String, List<Book>>("library-assistant") {
 
 ### 고급 사용법: 도구와 함께 스트리밍
 
-스트리밍 API를 도구와 함께 사용하여 데이터가 도착하는 즉시 처리할 수도 있습니다. 다음 섹션에서는 도구를 정의하고 스트리밍 데이터와 함께 사용하는 방법에 대한 간략한 단계별 가이드를 제공합니다.
+스트리밍 API를 도구와 함께 사용하여 데이터가 도착하는 즉시 처리할 수도 있습니다.
+다음 섹션에서는 도구를 정의하고 스트리밍 데이터와 함께 사용하는 방법에 대한 간략한 단계별 가이드를 제공합니다.
 
 ### 1. 데이터 구조를 위한 도구 정의
 
@@ -475,16 +476,16 @@ val runner = AIAgent(
 
 ## 모범 사례
 
-1.  **명확한 구조 정의**: 데이터에 대한 명확하고 모호하지 않은 마크다운 구조를 생성합니다.
+1. **명확한 구조 정의**: 데이터에 대한 명확하고 모호하지 않은 마크다운 구조를 생성합니다.
 
-2.  **좋은 예시 제공**: LLM을 안내하기 위해 `MarkdownStructuredDataDefinition`에 포괄적인 예시를 포함합니다.
+2. **좋은 예시 제공**: LLM을 안내하기 위해 `MarkdownStructureDefinition`에 포괄적인 예시를 포함합니다.
 
-3.  **불완전한 데이터 처리**: 스트림에서 데이터를 파싱할 때 항상 null 또는 비어 있는 값을 확인합니다.
+3. **불완전한 데이터 처리**: 스트림에서 데이터를 파싱할 때 항상 null 또는 비어 있는 값을 확인합니다.
 
-4.  **리소스 정리**: `onFinishStream` 핸들러를 사용하여 리소스를 정리하고 남아 있는 데이터를 처리합니다.
+4. **리소스 정리**: `onFinishStream` 핸들러를 사용하여 리소스를 정리하고 남아 있는 데이터를 처리합니다.
 
-5.  **오류 처리**: 잘못된 형식의 마크다운 또는 예기치 않은 데이터에 대해 적절한 오류 처리를 구현합니다.
+5. **오류 처리**: 잘못된 형식의 마크다운 또는 예기치 않은 데이터에 대해 적절한 오류 처리를 구현합니다.
 
-6.  **테스트**: 부분 청크 및 잘못된 형식의 입력을 포함하여 다양한 입력 시나리오로 파서를 테스트합니다.
+6. **테스트**: 부분 청크 및 잘못된 형식의 입력을 포함하여 다양한 입력 시나리오로 파서를 테스트합니다.
 
-7.  **병렬 처리**: 독립적인 데이터 항목의 경우, 더 나은 성능을 위해 병렬 도구 호출 사용을 고려하십시오.
+7. **병렬 처리**: 독립적인 데이터 항목의 경우, 더 나은 성능을 위해 병렬 도구 호출 사용을 고려하십시오.

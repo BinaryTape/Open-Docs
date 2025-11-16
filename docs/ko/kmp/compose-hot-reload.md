@@ -8,7 +8,7 @@ Compose 핫 리로드는 현재 멀티플랫폼 프로젝트에 데스크톱 타
 
 JetBrains는 향후 다른 타겟에 대한 지원 추가를 검토 중입니다. 그 동안 데스크톱 앱을 샌드박스(sandbox)로 사용하면 작업 흐름을 방해하지 않고 공통 코드의 UI 변경 사항을 빠르게 실험할 수 있습니다.
 
-![Compose 핫 리로드](compose-hot-reload.gif){width=500}
+![Compose 핫 리로드](compose-hot-reload.gif){width=350}
 
 ## 프로젝트에 Compose 핫 리로드 추가하기
 
@@ -26,17 +26,17 @@ Compose 핫 리로드는 다음 두 가지 방법으로 추가할 수 있습니�
 3.  왼쪽 패널에서 **Kotlin Multiplatform**을 선택합니다.
 4.  **새 프로젝트** 창에서 **Name**, **Group**, **Artifact** 필드를 지정합니다.
 5.  **Desktop** 타겟을 선택하고 **Create**를 클릭합니다.
-    ![데스크톱 타겟으로 멀티플랫폼 프로젝트 생성](create-desktop-project.png){width=700}
+    ![데스크톱 타겟으로 멀티플랫폼 프로젝트 생성](create-desktop-project.png){width=600 style="block"}
 
 ### 기존 프로젝트에 추가하기
 
 이 섹션에서는 기존 멀티플랫폼 프로젝트에 Compose 핫 리로드를 추가하는 단계를 안내합니다. 이 단계는 [공유 로직 및 UI로 앱 생성](compose-multiplatform-create-first-app.md) 튜토리얼의 프로젝트를 참조합니다.
 
-> 최신 버전의 Compose 핫 리로드를 찾으려면 [Releases](https://github.com/JetBrains/compose-hot-reload/releases)를 참조하세요.
+> Compose Multiplatform 1.10.0부터는 Compose 핫 리로드 플러그인이 데스크톱 타겟을 포함하는 프로젝트에 [번들로 제공](whats-new-compose-110.md#compose-hot-reload-integration)되고 기본적으로 활성화되므로 더 이상 별도로 구성할 필요가 없습니다. 하지만 특정 버전을 사용하기 위해 Compose 핫 리로드 플러그인을 명시적으로 선언할 수도 있습니다.
 >
-{style="tip"}
+{style="note"}
 
-1.  프로젝트에서 버전 카탈로그(version catalog)를 업데이트합니다. `gradle/libs.versions.toml`에 다음 코드를 추가합니다.
+1.  프로젝트에서 최신 버전의 Compose 핫 리로드(자세한 내용은 [Releases](https://github.com/JetBrains/compose-hot-reload/releases) 참조)로 버전 카탈로그(version catalog)를 업데이트합니다. `gradle/libs.versions.toml`에 다음 코드를 추가합니다.
     ```kotlin
     composeHotReload = { id = "org.jetbrains.compose.hot-reload", version.ref = "composeHotReload"}
     ```
@@ -53,7 +53,7 @@ Compose 핫 리로드는 다음 두 가지 방법으로 추가할 수 있습니�
 
 3.  멀티플랫폼 애플리케이션을 포함하는 서브프로젝트의 `build.gradle.kts`(`ComposeDemo/composeApp/build.gradle.kts`)에 다음 코드를 `plugins {}` 블록에 추가합니다.
     ```kotlin
-    plugins {
+    plugins { 
         alias(libs.plugins.composeHotReload)
     }
     ```
@@ -73,7 +73,7 @@ Compose 핫 리로드는 다음 두 가지 방법으로 추가할 수 있습니�
     }
     ```
 
-5.  **Gradle 변경 사항 동기화** 버튼을 클릭하여 Gradle 파일을 동기화합니다. ![Gradle 파일 동기화](gradle-sync.png){width=50}
+5.  **Gradle 변경 사항 동기화** 버튼을 클릭하여 Gradle 파일을 동기화합니다. ![Synchronize Gradle files](gradle-sync.png){width=50}
 
 ## Compose 핫 리로드 사용하기
 
@@ -117,7 +117,7 @@ Compose 핫 리로드는 다음 두 가지 방법으로 추가할 수 있습니�
 
 5.  `greet()` 함수에서 반환되는 문자열을 업데이트한 다음, 모든 파일을 저장하여 (<shortcut>⌘ S</shortcut> / <shortcut>Ctrl+S</shortcut>) 데스크톱 앱이 자동으로 업데이트되는 것을 확인합니다.
 
-    ![Compose 핫 리로드](compose-hot-reload.gif){width=500}
+    ![Compose 핫 리로드](compose-hot-reload.gif){width=350}
 
 축하합니다! Compose 핫 리로드가 작동하는 것을 확인했습니다. 이제 변경할 때마다 데스크톱 실행 구성을 다시 시작할 필요 없이 텍스트, 이미지, 서식, UI 구조 등을 변경하면서 실험할 수 있습니다.
 

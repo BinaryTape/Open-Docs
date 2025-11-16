@@ -21,16 +21,11 @@ IDE와 필요한 플러그인부터 시작하세요:
     단독 설치의 경우, [IntelliJ IDEA](https://www.jetbrains.com/idea/download/)
     또는 [Android Studio](https://developer.android.com/studio)용 설치 프로그램을 다운로드하세요.
 
-    Kotlin Multiplatform에 필요한 플러그인은 최소 **IntelliJ IDEA 2025.1.1**
-    또는 **Android Studio Narwhal 2025.1.1**을 요구합니다.
+    Kotlin Multiplatform에 필요한 플러그인은 최소
+    **IntelliJ IDEA 2025.2.2** 또는 **Android Studio Otter 2025.2.1**을 요구합니다.
 
 2.  [Kotlin Multiplatform IDE 플러그인](https://plugins.jetbrains.com/plugin/14936-kotlin-multiplatform)을 설치하세요
     (Kotlin Multiplatform Gradle 플러그인과 혼동하지 마세요).
-
-    > Windows 및 Linux에서 Kotlin Multiplatform 플러그인을 사용하려면 IntelliJ IDEA 2025.2.2가 필요합니다.
-    > Android Studio는 향후 릴리스에서 Windows 및 Linux용 KMP IDE 플러그인 지원을 추가할 예정입니다.
-    >
-    {style="note"}
 
 3.  IntelliJ IDEA용 Kotlin Multiplatform IDE 플러그인을 설치하면 아직 필요한 종속성이 없는 경우 모든 필수 종속성도 설치됩니다
     (Android Studio에는 모든 필수 플러그인이 번들로 제공됩니다).
@@ -98,14 +93,10 @@ IDE 마법사를 사용하여 새 KMP 프로젝트를 생성하세요:
 
 플랫폼 선택이 완료되면 **Create** 버튼을 클릭하고 IDE가 프로젝트를 생성하고 가져오도록 기다립니다.
 
-![기본 설정과 Android, iOS, 데스크톱, 웹 플랫폼이 선택된 IntelliJ IDEA 마법사](idea-wizard-1step.png){width=800}
+![기본 설정과 Android, iOS, 데스크톱, 웹 플랫폼이 선택된 IntelliJ IDEA 마법사](idea-wizard-1step.png){width=600}
 
 </TabItem>
 <TabItem title= "Android Studio">
-
-> KMP IDE 플러그인은 아직 Android Studio의 Windows 및 Linux 버전에서 지원되지 않습니다.
->
-{style="warning"}
 
 Kotlin Multiplatform IDE 플러그인은 K2 기능에 크게 의존하므로 K2 기능 없이 설명된 대로 작동하지 않습니다.
 따라서 시작하기 전에 K2 모드가 활성화되어 있는지 확인하세요:
@@ -132,7 +123,7 @@ IDE 마법사를 사용하여 새 KMP 프로젝트를 생성하세요:
 
 플랫폼 선택이 완료되면 **Finish** 버튼을 클릭하고 IDE가 프로젝트를 생성하고 가져오도록 기다립니다.
 
-![Android, iOS, 데스크톱, 웹 플랫폼이 선택된 Android Studio 마법사의 마지막 단계](as-wizard-3step.png){width=800}
+![Android, iOS, 데스크톱, 웹 플랫폼이 선택된 Android Studio 마법사의 마지막 단계](as-wizard-3step.png){width=600}
 
 </TabItem>
 </Tabs>
@@ -147,7 +138,7 @@ IDE 마법사를 사용하여 새 KMP 프로젝트를 생성하세요:
 사전 검사 명령은 **Search Everywhere** 대화 상자에서도 사용할 수 있습니다.
 <shortcut>Shift</shortcut> 키를 두 번 누르고 "preflight" 단어를 포함하는 명령을 검색하세요:
 
-![Search Everywhere 메뉴에 "preflight" 단어가 입력됨](double-shift-preflight-checks.png)
+![Search Everywhere 메뉴에 "preflight" 단어가 입력됨](double-shift-preflight-checks.png){width=600}
 
 ## 샘플 앱 실행
 
@@ -167,7 +158,7 @@ Android 실행 구성을 수동으로 생성하려면, 실행 구성 템플릿�
 
 기본적으로 사용 가능한 첫 번째 가상 장치에서 실행됩니다:
 
-![가상 장치에서 실행된 Android 앱](run-android-app.png){width=350}
+![가상 장치에서 실행된 Android 앱](run-android-app.png){width=300}
 
 </TabItem>
 <TabItem title="iOS">

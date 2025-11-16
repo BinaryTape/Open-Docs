@@ -68,19 +68,19 @@ fun main() {
 
 此示例：
 
-* 导入 `Duration` 类及其伴生对象的 `hours` 和 `minutes` 扩展属性。
-* 使用 `minutes` 属性将 `30` 转换为 30 分钟的 `Duration`。
-* 使用 `hours` 属性将 `0.5` 转换为 30 分钟的 `Duration`。
-* 检测两个 Duration 是否相等并打印结果。
+*   导入 `Duration` 类及其伴生对象的 `hours` 和 `minutes` 扩展属性。
+*   使用 `minutes` 属性将 `30` 转换为 30 分钟的 `Duration`。
+*   使用 `hours` 属性将 `0.5` 转换为 30 分钟的 `Duration`。
+*   检测两个 Duration 是否相等并打印结果。
 
 ### 先搜索后构建
 
 在你决定编写自己的代码之前，请检测标准库以查看你正在寻找的内容是否已存在。以下是标准库已为你提供了许多类、函数和属性的领域列表：
 
-* [Collections](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/)
-* [Sequences](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.sequences/)
-* [String manipulation](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.text/)
-* [Time management](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.time/)
+*   [Collections](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/)
+*   [Sequences](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.sequences/)
+*   [String manipulation](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.text/)
+*   [Time management](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.time/)
 
 关于标准库中的其他内容，请探查其 [API 参考](https://kotlinlang.org/api/core/kotlin-stdlib/)。
 
@@ -108,13 +108,13 @@ fun main() {
 
 此示例：
 
-* 导入 `kotlinx.datetime` 包。
-* 使用 `Clock.System.now()` 函数创建 `Instant` 类的实例，该实例包含当前时间，并将结果赋值给 `now` 变量。
-* 打印当前时间。
-* 使用 `TimeZone.of()` 函数查找纽约的时区，并将结果赋值给 `zone` 变量。
-* 在包含当前时间的实例上调用 `.toLocalDateTime()` 函数，并将纽约时区作为实参。
-* 将结果赋值给 `localDateTime` 变量。
-* 打印根据纽约时区调整后的时间。
+*   导入 `kotlinx.datetime` 包。
+*   使用 `Clock.System.now()` 函数创建 `Instant` 类的实例，该实例包含当前时间，并将结果赋值给 `now` 变量。
+*   打印当前时间。
+*   使用 `TimeZone.of()` 函数查找纽约的时区，并将结果赋值给 `zone` 变量。
+*   在包含当前时间的实例上调用 `.toLocalDateTime()` 函数，并将纽约时区作为实参。
+*   将结果赋值给 `localDateTime` 变量。
+*   打印根据纽约时区调整后的时间。
 
 > 关于本示例中使用的函数和类的更详细探查，请参见 [API 参考](https://kotlinlang.org/api/kotlinx-datetime/kotlinx-datetime/kotlinx.datetime/)。
 >
@@ -171,16 +171,16 @@ fun main() {
 
 其中：
 
-* `A` 是计息后累计的金额（本金 + 利息）。
-* `P` 是本金（初始投资）。
-* `r` 是年利率（小数）。
-* `n` 是每年复利的次数。
-* `t` 是资金投资的年限（以年为单位）。
+*   `A` 是计息后累计的金额（本金 + 利息）。
+*   `P` 是本金（初始投资）。
+*   `r` 是年利率（小数）。
+*   `n` 是每年复利的次数。
+*   `t` 是资金投资的年限（以年为单位）。
 
 更新代码以：
 
-1. 从 [`kotlin.math` 包](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.math/) 导入所需函数。
-2. 为 `calculateCompoundInterest()` 函数添加函数体，计算应用复利后的最终金额。
+1.  从 [`kotlin.math` 包](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.math/) 导入所需函数。
+2.  为 `calculateCompoundInterest()` 函数添加函数体，计算应用复利后的最终金额。
 
 |--|--|
 
@@ -224,7 +224,7 @@ fun main() {
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="示例解决方案" id="kotlin-tour-libraries-solution-1"}
 
-### 练习 2 {initial-collapse-state="collapsed" collapsible="true" id="libraries-exercise-2"}
+### 2. 练习 {initial-collapse-state="collapsed" collapsible="true" id="libraries-exercise-2"}
 
 你希望测量程序中执行多个数据处理任务所需的时间。更新代码，从 [`kotlin.time`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.time/) 包中添加正确的导入语句和函数：
 
@@ -283,7 +283,7 @@ fun main() {
 
 恭喜！你已完成中级教程！作为下一步，请查阅我们的热门 Kotlin 应用程序教程：
 
-* [使用 Spring Boot 和 Kotlin 创建后端应用程序](jvm-create-project-with-spring-boot.md)
-* 从头开始为 Android 和 iOS 创建跨平台应用程序，并：
-    * [在保持 UI 原生的同时共享业务逻辑](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-create-first-app.html)
-    * [共享业务逻辑和 UI](https://www.jetbrains.com/help/kotlin-multiplatform-dev/compose-multiplatform-create-first-app.html)
+*   [使用 Spring Boot 和 Kotlin 创建后端应用程序](jvm-create-project-with-spring-boot.md)
+*   从头开始为 Android 和 iOS 创建跨平台应用程序，并：
+    *   [在保持 UI 原生的同时共享业务逻辑](https://kotlinlang.org/docs/multiplatform/multiplatform-create-first-app.html)
+    *   [共享业务逻辑和 UI](https://kotlinlang.org/docs/multiplatform/compose-multiplatform-create-first-app.html)

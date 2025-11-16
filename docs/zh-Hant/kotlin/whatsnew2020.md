@@ -32,7 +32,7 @@ Kotlin 2.0.20 開始引入變更，以改進 data class 的一致性，並取代
 我們的遷移計畫從 Kotlin 2.0.20 開始，它會在您的程式碼中發出警告，表示可見性將在未來發生變化。例如：
 
 ```kotlin
-// 在 2.0.20 中觸發警告
+// Triggers a warning in 2.0.20
 data class PositiveInteger private constructor(val number: Int) {
     companion object {
         fun create(number: Int): PositiveInteger? = if (number > 0) PositiveInteger(number) else null
@@ -41,10 +41,10 @@ data class PositiveInteger private constructor(val number: Int) {
 
 fun main() {
     val positiveNumber = PositiveInteger.create(42) ?: return
-    // 在 2.0.20 中觸發警告
+    // Triggers a warning in 2.0.20
     val negativeNumber = positiveNumber.copy(number = -1)
-    // Warning: 非公開主要建構函式透過 data class 自動生成的 'copy()' 方法暴露。
-    // 自動生成的 'copy()' 在未來版本中會變更其可見性。
+    // Warning: Non-public primary constructor is exposed via the generated 'copy()' method of the 'data' class.
+    // The generated 'copy()' will change its visibility in future releases.
 }
 ```
 
@@ -74,8 +74,8 @@ fun main() {
 class MyContext
 
 context(MyContext)
-// Warning: 實驗性內容接收器已被棄用，將被內容參數取代。
-// 請不要使用內容接收器。您可以明確傳遞參數或使用帶有擴充功能的成員。
+// Warning: Experimental context receivers are deprecated and will be superseded by context parameters. 
+// Please don't use context receivers. You can either pass parameters explicitly or use members with extensions.
 fun someFunction() {
 }
 ```
@@ -86,70 +86,70 @@ fun someFunction() {
 
 *   明確參數。
 
-    <table>
-        <tr>
-            <td>之前</td>
-            <td>之後</td>
-        </tr>
-        <tr>
-    <td>
+   <table>
+      <tr>
+          <td>之前</td>
+          <td>之後</td>
+      </tr>
+      <tr>
+   <td>
 
-    ```kotlin
-    context(ContextReceiverType)
-    fun someFunction() {
-        contextReceiverMember()
-    }
-    ```
+   ```kotlin
+   context(ContextReceiverType)
+   fun someFunction() {
+       contextReceiverMember()
+   }
+   ```
 
-    </td>
-    <td>
+   </td>
+   <td>
 
-    ```kotlin
-    fun someFunction(explicitContext: ContextReceiverType) {
-        explicitContext.contextReceiverMember()
-    }
-    ```
+   ```kotlin
+   fun someFunction(explicitContext: ContextReceiverType) {
+       explicitContext.contextReceiverMember()
+   }
+   ```
 
-    </td>
-    </tr>
-    </table>
+   </td>
+   </tr>
+   </table>
 
 *   擴充成員函式（如果可能）。
 
-    <table>
-        <tr>
-            <td>之前</td>
-            <td>之後</td>
-        </tr>
-        <tr>
-    <td>
+   <table>
+      <tr>
+          <td>之前</td>
+          <td>之後</td>
+      </tr>
+      <tr>
+   <td>
 
-    ```kotlin
-    context(ContextReceiverType)
-    fun contextReceiverMember() = TODO()
+   ```kotlin
+   context(ContextReceiverType)
+   fun contextReceiverMember() = TODO()
+   
+   context(ContextReceiverType)
+   fun someFunction() {
+       contextReceiverMember()
+   }
+   ```
 
-    context(ContextReceiverType)
-    fun someFunction() {
-        contextReceiverMember()
-    }
-    ```
+   </td>
+   <td>
 
-    </td>
-    <td>
+   ```kotlin
+   class ContextReceiverType {
+       fun contextReceiverMember() = TODO()
+   }
+   
+   fun ContextReceiverType.someFunction() {
+       contextReceiverMember()
+   }
+   ```
 
-    ```kotlin
-    class ContextReceiverType {
-        fun contextReceiverMember() = TODO()
-    }
-
-    fun ContextReceiverType.someFunction() {
-        contextReceiverMember()
-    }
-    ```
-
-    </td>
-    </tr>
-    </table>
+   </td>
+   </tr>
+   </table>
 
 或者，您可以等到編譯器支援內容參數的 Kotlin 版本。請注意，內容參數最初將作為實驗性功能引入。
 
@@ -159,7 +159,7 @@ Kotlin 2.0.20 為多平台專案中的原始碼集管理帶來了改進，並由
 
 ### 預設目標階層的原始碼集提供靜態存取器
 
-自 Kotlin 1.9.20 起，[預設階層範本](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-hierarchy.html#default-hierarchy-template)會自動套用於所有 Kotlin 多平台專案。
+自 Kotlin 1.9.20 起，[預設階層範本](https://kotlinlang.org/docs/multiplatform/multiplatform-hierarchy.html#default-hierarchy-template)會自動套用於所有 Kotlin 多平台專案。
 對於預設階層範本中的所有原始碼集，Kotlin Gradle 外掛程式提供了型別安全存取器。
 這樣，您最終無需使用 `by getting` 或 `by creating` 結構即可存取所有指定目標的原始碼集。
 
@@ -174,7 +174,7 @@ kotlin {
     linuxX64()
     linuxArm64()
     mingwX64()
-
+  
     sourceSets {
         commonMain.languageSettings {
             progressiveMode = true
@@ -191,7 +191,7 @@ kotlin {
 
 ![Accessing the source sets by name](accessing-sourse-sets.png){width=700}
 
-了解更多關於 [Kotlin 多平台中的階層式專案結構](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-hierarchy.html)。
+了解更多關於 [Kotlin 多平台中的階層式專案結構](https://kotlinlang.org/docs/multiplatform/multiplatform-hierarchy.html)。
 
 ### 棄用與 Kotlin Multiplatform Gradle 外掛程式和 Gradle Java 外掛程式的相容性
 
@@ -209,7 +209,7 @@ kotlin {
 不幸的是，Gradle 目前不提供任何 API 來解決這些問題。
 
 我們之前在 Kotlin Multiplatform 中使用了一些變通方法來幫助整合 Java 生態系統外掛程式。
-然而，這些變通方法從未真正解決相容性問題，並且自 Gradle 8.8 版本發布以來，這些變通方法已不再可行。更多資訊請參閱我們的 [YouTrack 問題](https://youtrack.jetbrains.com/issue/KT-66542/Gradle-JVM-target-with-withJava-produces-a-deprecation-warning)。
+然而，這些變通方法從未真正解決相容性問題，並且自 Gradle 8.8 版本發布以來，這些變通方法已不再可行。更多資訊請參閱我們的 [YouTrack 問題](https://youtrack.com/issue/KT-66542/Gradle-JVM-target-with-withJava-produces-a-deprecation-warning)。
 
 雖然我們尚不確切知道如何解決此相容性問題，但我們承諾繼續支援您的 Kotlin 多平台專案中的某些形式的 Java 原始碼編譯。至少，我們將支援 Java 原始碼的編譯以及在您的多平台專案中使用 Gradle 的 [`java-base`](https://docs.gradle.org/current/javadoc/org/gradle/api/plugins/JavaBasePlugin.html) 外掛程式。
 
@@ -596,7 +596,7 @@ Compose 編譯器 2.0.0 有一個問題，它有時會錯誤地推斷多平台�
 
 我們引入了一種新的選項配置機制，以避免頂層參數的變動。
 對於 Compose 編譯器團隊來說，透過建立或移除 `composeCompiler {}` 區塊的頂層條目來測試東西會更困難。
-因此，諸如強跳過模式和非跳過群組優化等選項現在透過 `featureFlags` 屬性啟用。
+因此，諸如強力跳過模式和非跳過群組優化等選項現在透過 `featureFlags` 屬性啟用。
 此屬性將用於測試最終將成為預設值的新 Compose 編譯器選項。
 
 此變更也已套用到 Compose 編譯器 Gradle 外掛程式。要配置未來的 feature flags，
@@ -684,7 +684,7 @@ Kotlin 2.0.20 在通用 Kotlin 標準函式庫中引入了一個用於表示 [UU
 以下程式碼範例展示了這些操作：
 
 ```kotlin
-// 建構位元組陣列以建立 UUID
+// Constructs a byte array for UUID creation
 val byteArray = byteArrayOf(
     0x55, 0x0E, 0x84.toByte(), 0x00, 0xE2.toByte(), 0x9B.toByte(), 0x41, 0xD4.toByte(),
     0xA7.toByte(), 0x16, 0x44, 0x66, 0x55, 0x44, 0x00, 0x00
@@ -701,14 +701,14 @@ println(uuid1 == uuid2)
 println(uuid2 == uuid3)
 // true
 
-// 存取 UUID 位元
+// Accesses UUID bits
 val version = uuid1.toLongs { mostSignificantBits, _ ->
     ((mostSignificantBits shr 12) and 0xF).toInt()
 }
 println(version)
 // 4
 
-// 生成隨機 UUID
+// Generates a random UUID
 val randomUuid = Uuid.random()
 
 println(uuid1 == randomUuid)
@@ -720,11 +720,11 @@ println(uuid1 == randomUuid)
 
 ```kotlin
 val kotlinUuid = Uuid.parseHex("550e8400e29b41d4a716446655440000")
-// 將 Kotlin UUID 轉換為 java.util.UUID
+// Converts Kotlin UUID to java.util.UUID
 val javaUuid = kotlinUuid.toJavaUuid()
 
 val javaUuid = java.util.UUID.fromString("550e8400-e29b-41d4-a716-446655440000")
-// 將 Java UUID 轉換為 kotlin.uuid.Uuid
+// Converts Java UUID to kotlin.uuid.Uuid
 val kotlinUuid = javaUuid.toKotlinUuid()
 ```
 
@@ -790,10 +790,10 @@ val base64 = Base64.UrlSafe.withPadding(Base64.PaddingOption.ABSENT_OPTIONAL)
 
 此函數允許建立具有不同填充選項的 `Base64` 實例：
 
-| `PaddingOption` | 編碼時       | 解碼時         |
-| --------------- | ------------ | -------------- |
-| `PRESENT`       | 新增填充     | 需要填充       |
-| `ABSENT`        | 忽略填充     | 不允許填充     |
+| `PaddingOption`    | 編碼時       | 解碼時         |
+|--------------------|--------------|---------------------|
+| `PRESENT`          | 新增填充     | 需要填充       |
+| `ABSENT`           | 忽略填充     | 不允許填充     |
 | `PRESENT_OPTIONAL` | 新增填充    | 填充是可選的   |
 | `ABSENT_OPTIONAL`  | 忽略填充    | 填充是可選的   |
 
@@ -841,7 +841,7 @@ Kotlin 文件收到了一些顯著的變更：
 *   改進了[異常頁面](exceptions.md) - 學習異常、如何拋出和捕捉它們。
 *   改進了[在 JVM 中使用 JUnit 測試程式碼 – 教學課程](jvm-test-using-junit.md) - 學習如何使用 JUnit 建立測試。
 *   改進了[與 Swift/Objective-C 的互通性頁面](native-objc-interop.md) - 學習如何在 Swift/Objective-C 程式碼中使用 Kotlin 宣告以及在 Kotlin 程式碼中使用 Objective-C 宣告。
-*   改進了[Swift 套件匯出設定頁面](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-spm-export.html) - 學習如何設定 Kotlin/Native 輸出，使其可由 Swift 套件管理器依賴使用。
+*   改進了[Swift 套件匯出設定頁面](https://kotlinlang.org/docs/multiplatform/multiplatform-spm-export.html) - 學習如何設定 Kotlin/Native 輸出，使其可由 Swift 套件管理器依賴使用。
 
 ## 安裝 Kotlin 2.0.20
 

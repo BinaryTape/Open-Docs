@@ -6,7 +6,7 @@
 
 ## 创建项目
 
-1. [为 Kotlin Multiplatform 开发设置环境](https://www.jetbrains.com/help/kotlin-multiplatform-dev/quickstart.html#set-up-the-environment)。
+1. [为 Kotlin Multiplatform 开发设置环境](https://kotlinlang.org/docs/multiplatform/quickstart.html#set-up-the-environment)。
 2. 在 IntelliJ IDEA 中，选择 **File | New | Project**。
 3. 在左侧面板中，选择 **Kotlin Multiplatform**。
 
@@ -31,7 +31,7 @@
 
 ## 运行应用程序
 
-项目加载后，在运行配置列表中选择 **composeApp [wasmJs]**，然后点击 **Run**。
+项目加载后，在运行配置列表选择 **composeApp [wasmJs]**，然后点击 **Run**。
 
 ![Run the Compose Multiplatform app on web](compose-run-web-black.png){width=300}
 
@@ -59,7 +59,7 @@ Web 应用程序将在你的浏览器中自动打开。或者，你可以在运�
 1. 通过选择 **View** | **Tool Windows** | **Gradle** 打开 **Gradle** 工具窗口。
 2. 在 **wasmdemo** | **Tasks** | **kotlin browser** 中，选择并运行 **wasmJsBrowserDistribution** 任务。
 
-   > 你需要至少 Java 11 作为 Gradle JVM 以便任务成功加载，通常，我们建议 Compose Multiplatform 项目至少使用 Java 17。
+   > 你需要至少 Java 11 作为你的 Gradle JVM 以便任务成功加载，通常，我们建议 Compose Multiplatform 项目至少使用 Java 17。
    >
    {style="note"}
 
@@ -77,9 +77,7 @@ Web 应用程序将在你的浏览器中自动打开。或者，你可以在运�
 
 ## 发布应用程序
 
-使用生成的构件来部署你的 Kotlin/Wasm 应用程序。
-选择你偏好的发布选项，并按照说明部署构件。
-一些替代方案包括：
+使用生成的构件来部署你的 Kotlin/Wasm 应用程序。选择你偏好的发布选项，并按照说明部署构件。一些替代方案包括：
 
 * [GitHub pages](https://docs.github.com/en/pages/getting-started-with-github-pages/creating-a-github-pages-site#creating-your-site)
 * [Cloudflare](https://developers.cloudflare.com/workers/)
@@ -93,7 +91,7 @@ Web 应用程序将在你的浏览器中自动打开。或者，你可以在运�
 
 ## 接下来
 
-* [了解如何在 iOS 和 Android 之间使用 Compose Multiplatform 共享 UI](https://www.jetbrains.com/help/kotlin-multiplatform-dev/compose-multiplatform-create-first-app.html)
+* [了解如何在 iOS 和 Android 之间使用 Compose Multiplatform 共享 UI](https://kotlinlang.org/docs/multiplatform/compose-multiplatform-create-first-app.html)
 * 尝试更多 Kotlin/Wasm 示例：
 
   * [KotlinConf 应用程序](https://github.com/JetBrains/kotlinconf-app)

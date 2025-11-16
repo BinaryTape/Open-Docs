@@ -1,6 +1,6 @@
 # Agent 事件
 
-Agent 事件是在 Agent 工作流程中發生動作或互動。其包含：
+Agent 事件是指在 Agent 工作流程中發生的動作或互動。其包含：
 
 - Agent 生命週期事件
 - 策略事件
@@ -18,6 +18,7 @@ Koog 提供了可用於自訂訊息處理器的預定義事件類型。預定義
 - [Agent 事件](#agent-events)
 - [策略事件](#strategy-events)
 - [節點事件](#node-events)
+- [子圖事件](#subgraph-events)
 - [LLM 呼叫事件](#llm-call-events)
 - [LLM 串流事件](#llm-streaming-events)
 - [工具執行事件](#tool-execution-events)
@@ -74,7 +75,7 @@ Koog 提供了可用於自訂訊息處理器的預定義事件類型。預定義
 
 #### GraphStrategyStartingEvent
 
-代表圖形策略執行 (run) 的開始。包含以下欄位：
+代表基於圖形的策略執行 (run) 的開始。包含以下欄位：
 
 | 名稱           | 資料類型           | 必要 | 預設 | 說明                                   |
 |----------------|--------------------|------|------|----------------------------------------|
@@ -135,41 +136,86 @@ Koog 提供了可用於自訂訊息處理器的預定義事件類型。預定義
 | `input`    | JsonElement  | 否   | null | 提供給節點的輸入資料。                                                                           |
 | `error`    | AIAgentError | 是   |      | 在節點執行期間發生的特定錯誤。詳細資訊請參閱 [AIAgentError](#aiagenterror)。|
 
+### 子圖事件
+
+#### SubgraphExecutionStartingEvent
+
+代表子圖執行 (run) 的開始。包含以下欄位：
+
+| 名稱           | 資料類型    | 必要 | 預設 | 說明                           |
+|----------------|-------------|------|------|--------------------------------|
+| `runId`        | String      | 是   |      | 策略執行的唯一識別碼。         |
+| `subgraphName` | String      | 是   |      | 開始執行的子圖名稱。           |
+| `input`        | JsonElement | 否   | null | 子圖的輸入值。                 |
+
+#### SubgraphExecutionCompletedEvent
+
+代表子圖執行 (run) 的結束。包含以下欄位：
+
+| 名稱           | 資料類型    | 必要 | 預設 | 說明                           |
+|----------------|-------------|------|------|--------------------------------|
+| `runId`        | String      | 是   |      | 策略執行的唯一識別碼。         |
+| `subgraphName` | String      | 是   |      | 結束執行的子圖名稱。           |
+| `input`        | JsonElement | 否   | null | 子圖的輸入值。                 |
+| `output`       | JsonElement | 否   | null | 子圖產生的輸出值。             |
+
+#### SubgraphExecutionFailedEvent
+
+代表子圖執行 (run) 期間發生錯誤。包含以下欄位：
+
+| 名稱           | 資料類型     | 必要 | 預設 | 說明                                                                                             |
+|----------------|--------------|------|------|--------------------------------------------------------------------------------------------------|
+| `runId`        | String       | 是   |      | 策略執行的唯一識別碼。                                                                           |
+| `subgraphName` | String       | 是   |      | 發生錯誤的子圖名稱。                                                                             |
+| `input`        | JsonElement  | 否   | null | 提供給子圖的輸入資料。                                                                           |
+| `error`        | AIAgentError | 是   |      | 在子圖執行期間發生的特定錯誤。詳細資訊請參閱 [AIAgentError](#aiagenterror)。|
+
 ### LLM 呼叫事件
 
 #### LLMCallStartingEvent
 
 代表 LLM 呼叫的開始。包含以下欄位：
 
-| 名稱     | 資料類型          | 必要 | 預設 | 說明                                       |
-|----------|-------------------|------|------|--------------------------------------------|
-| `runId`  | String            | 是   |      | LLM 執行的唯一識別碼。                     |
-| `callId` | String            | 是   |      | LLM 呼叫的唯一識別碼，用於關聯相關事件。   |
-| `prompt` | Prompt            | 是   |      | 傳送至模型的提示。詳細資訊請參閱 [Prompt](#prompt)。|
-| `model`  | String            | 是   |      | 模型識別碼，格式為 `llm_provider:model_id`。|
-| `tools`  | List&lt;String&gt; | 是   |      | 模型可呼叫的工具列表。                     |
+| 名稱     | 資料類型    | 必要 | 預設 | 說明                                       |
+|----------|-------------|------|------|--------------------------------------------|
+| `runId`  | String      | 是   |      | LLM 執行的唯一識別碼。                     |
+| `callId` | String      | 是   |      | LLM 呼叫的唯一識別碼，用於關聯相關事件。   |
+| `prompt` | Prompt      | 是   |      | 傳送至模型的提示。詳細資訊請參閱 [Prompt](#prompt)。|
+| `model`  | ModelInfo   | 是   |      | 模型資訊。詳細資訊請參閱 [ModelInfo](#modelinfo)。|
+| `tools`  | List<String> | 是   |      | 模型可呼叫的工具列表。                     |
 
 <a id="prompt"></a>
 `Prompt` 類別代表提示的資料結構，由訊息列表、唯一識別碼以及語言模型設定的可選參數組成。包含以下欄位：
 
-| 名稱       | 資料類型          | 必要 | 預設        | 說明                                           |
-|------------|-------------------|------|-------------|------------------------------------------------|
-| `messages` | List&lt;Message&gt;     | 是   |             | 提示包含的訊息列表。                           |
-| `id`       | String            | 是   |             | 提示的唯一識別碼。                             |
-| `params`   | LLMParams         | 否   | LLMParams() | 控制 LLM 生成內容方式的設定。                |
+| 名稱       | 資料類型           | 必要 | 預設        | 說明                                           |
+|------------|--------------------|------|-------------|------------------------------------------------|
+| `messages` | List<Message>      | 是   |             | 提示包含的訊息列表。                           |
+| `id`       | String             | 是   |             | 提示的唯一識別碼。                             |
+| `params`   | LLMParams          | 否   | LLMParams() | 控制 LLM 生成內容方式的設定。                |
+
+<a id="modelinfo"></a>
+`ModelInfo` 類別代表語言模型的相關資訊，包括其供應商、模型識別碼和特性。包含以下欄位：
+
+| 名稱              | 資料類型 | 必要 | 預設 | 說明                                           |
+|-------------------|----------|------|------|------------------------------------------------|
+| `provider`        | String   | 是   |      | 供應商識別碼（例如：「openai」、「google」、「anthropic」）。|
+| `model`           | String   | 是   |      | 模型識別碼（例如：「gpt-4」、「claude-3」）。   |
+| `displayName`     | String   | 否   | null | 模型的可選人類可讀顯示名稱。                   |
+| `contextLength`   | Long     | 否   | null | 模型可處理的最大 tokens 數。                   |
+| `maxOutputTokens` | Long     | 否   | null | 模型可生成的最大 tokens 數。                   |
 
 #### LLMCallCompletedEvent
 
 代表 LLM 呼叫的結束。包含以下欄位：
 
-| 名稱                 | 資料類型               | 必要 | 預設 | 說明                                       |
-|----------------------|------------------------|------|------|--------------------------------------------|
-| `runId`              | String                 | 是   |      | LLM 執行的唯一識別碼。                     |
-| `callId`             | String                 | 是   |      | LLM 呼叫的唯一識別碼，用於關聯相關事件。   |
-| `prompt`             | Prompt                 | 是   |      | 呼叫中使用的提示。                         |
-| `model`              | String                 | 是   |      | 模型識別碼，格式為 `llm_provider:model_id`。|
-| `responses`          | List&lt;Message.Response&gt; | 是   |      | 模型返回的一個或多個回應。                 |
-| `moderationResponse` | ModerationResult       | 否   | null | 審核回應（如果有的話）。                   |
+| 名稱                 | 資料類型              | 必要 | 預設 | 說明                                       |
+|----------------------|-----------------------|------|------|--------------------------------------------|
+| `runId`              | String                | 是   |      | LLM 執行的唯一識別碼。                     |
+| `callId`             | String                | 是   |      | LLM 呼叫的唯一識別碼，用於關聯相關事件。   |
+| `prompt`             | Prompt                | 是   |      | 呼叫中使用的提示。                         |
+| `model`              | ModelInfo             | 是   |      | 模型資訊。詳細資訊請參閱 [ModelInfo](#modelinfo)。|
+| `responses`          | List<Message.Response> | 是   |      | 模型返回的一個或多個回應。                 |
+| `moderationResponse` | ModerationResult      | 否   | null | 審核回應（如果有的話）。                   |
 
 ### LLM 串流事件
 
@@ -177,13 +223,13 @@ Koog 提供了可用於自訂訊息處理器的預定義事件類型。預定義
 
 代表 LLM 串流呼叫的開始。包含以下欄位：
 
-| 名稱     | 資料類型          | 必要 | 預設 | 說明                                       |
-|----------|-------------------|------|------|--------------------------------------------|
-| `runId`  | String            | 是   |      | LLM 執行的唯一識別碼。                     |
-| `callId` | String            | 是   |      | LLM 呼叫的唯一識別碼，用於關聯相關事件。   |
-| `prompt` | Prompt            | 是   |      | 傳送至模型的提示。                         |
-| `model`  | String            | 是   |      | 模型識別碼，格式為 `llm_provider:model_id`。|
-| `tools`  | List&lt;String&gt; | 是   |      | 模型可呼叫的工具列表。                     |
+| 名稱     | 資料類型    | 必要 | 預設 | 說明                                       |
+|----------|-------------|------|------|--------------------------------------------|
+| `runId`  | String      | 是   |      | LLM 執行的唯一識別碼。                     |
+| `callId` | String      | 是   |      | LLM 呼叫的唯一識別碼，用於關聯相關事件。   |
+| `prompt` | Prompt      | 是   |      | 傳送至模型的提示。                         |
+| `model`  | ModelInfo   | 是   |      | 模型資訊。詳細資訊請參閱 [ModelInfo](#modelinfo)。|
+| `tools`  | List<String> | 是   |      | 模型可呼叫的工具列表。                     |
 
 #### LLMStreamingFrameReceivedEvent
 
@@ -209,13 +255,13 @@ Koog 提供了可用於自訂訊息處理器的預定義事件類型。預定義
 
 代表 LLM 串流呼叫的結束。包含以下欄位：
 
-| 名稱     | 資料類型          | 必要 | 預設 | 說明                                       |
-|----------|-------------------|------|------|--------------------------------------------|
-| `runId`  | String            | 是   |      | LLM 執行的唯一識別碼。                     |
-| `callId` | String            | 是   |      | LLM 呼叫的唯一識別碼，用於關聯相關事件。   |
-| `prompt` | Prompt            | 是   |      | 傳送至模型的提示。                         |
-| `model`  | String            | 是   |      | 模型識別碼，格式為 `llm_provider:model_id`。|
-| `tools`  | List&lt;String&gt; | 是   |      | 模型可呼叫的工具列表。                     |
+| 名稱     | 資料類型    | 必要 | 預設 | 說明                                       |
+|----------|-------------|------|------|--------------------------------------------|
+| `runId`  | String      | 是   |      | LLM 執行的唯一識別碼。                     |
+| `callId` | String      | 是   |      | LLM 呼叫的唯一識別碼，用於關聯相關事件。   |
+| `prompt` | Prompt      | 是   |      | 傳送至模型的提示。                         |
+| `model`  | ModelInfo   | 是   |      | 模型資訊。詳細資訊請參閱 [ModelInfo](#modelinfo)。|
+| `tools`  | List<String> | 是   |      | 模型可呼叫的工具列表。                     |
 
 ### 工具執行事件
 
@@ -315,7 +361,7 @@ install(Tracing) {
     )
     addMessageProcessor(fileWriter)
     
-    // Only trace LLM calls
+    // 只追蹤 LLM 呼叫
     fileWriter.setMessageFilter { message ->
         message is LLMCallStartingEvent || message is LLMCallCompletedEvent
     }

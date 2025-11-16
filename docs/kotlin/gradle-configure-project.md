@@ -2,7 +2,8 @@
 
 要使用 [Gradle](https://docs.gradle.org/current/userguide/userguide.html) 构建 Kotlin 项目，你需要将 [Kotlin Gradle 插件添加](#apply-the-plugin) 到你的构建脚本文件 `build.gradle(.kts)` 中，并在其中 [配置项目的依赖项](#configure-dependencies)。
 
-> 要了解更多关于构建脚本的内容，请访问[探索构建脚本](get-started-with-jvm-gradle-project.md#explore-the-build-script)章节。
+> 要了解更多关于构建脚本的内容，
+> 请访问[探索构建脚本](get-started-with-jvm-gradle-project.md#explore-the-build-script)章节。
 >
 {style="note"}
 
@@ -62,7 +63,7 @@ plugins {
 > *Kotlin 2.0.20–2.0.21 和 Kotlin 2.1.0–2.1.10 完全兼容 Gradle 最高 8.6 版本。
 > Gradle 8.7–8.10 版本也受支持，只有一个例外：如果你使用 Kotlin 多平台 Gradle 插件，
 > 你可能会在调用 JVM 目标中的 `withJava()` 函数的多平台项目中看到弃用警告。
-> 关于更多信息，请参见 [默认创建的 Java 源代码集](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-compatibility-guide.html#java-source-sets-created-by-default)。
+> 关于更多信息，请参见 [默认创建的 Java 源代码集](https://kotlinlang.org/docs/multiplatform/multiplatform-compatibility-guide.html#java-source-sets-created-by-default)。
 >
 {style="warning"}
 
@@ -173,7 +174,7 @@ sourceSets {
 
 对于这些相关的任务，Kotlin Gradle 插件会检测 JVM 目标兼容性。`kotlin` 扩展或任务中的 [`jvmTarget` 属性](gradle-compiler-options.md#attributes-specific-to-jvm) 和 `java` 扩展或任务中的 [`targetCompatibility`](https://docs.gradle.org/current/userguide/java_plugin.html#sec:java-extension) 存在不同值时会导致 JVM 目标不兼容。例如：
 `compileKotlin` 任务的 `jvmTarget=1.8`，而
-`compileJava` 任务的 `targetCompatibility=15`（或[继承](https://docs.gradle.org/current/userguide/java_plugin.html#sec:java-extension)自此）。
+`compileJava` 任务的（或[继承](https://docs.gradle.org/current/userguide/java_plugin.html#sec:java-extension)自此）`targetCompatibility=15`。
 
 通过在 `gradle.properties` 文件中设置 `kotlin.jvm.target.validation.mode` 属性，你可以配置此检测在整个项目中的行为：
 
@@ -511,12 +512,10 @@ tasks.named("compileJava", JavaCompile.class) {
 
 了解更多关于：
 * [为 Java 模块系统构建模块](https://docs.gradle.org/current/userguide/java_library_plugin.html#sec:java_library_modular)
-* [使用 Java 模块系统构建应用程序](https://docs.gradle.org/current/useruserguide/application_plugin.html#sec:application_modular)
+* [使用 Java 模块系统构建应用程序](https://docs.gradle.org/current/userguide/application_plugin.html#sec:application_modular)
 * [“模块”在 Kotlin 中的含义](visibility-modifiers.md#modules)
 
 ### 其他详情
-
-了解更多关于 [Kotlin/JVM](jvm-get-started.md)。
 
 #### 禁用 artifact 在编译任务中的使用
 
@@ -563,7 +562,7 @@ tasks.jar(type: Jar) {
 
 ## 面向多平台
 
-面向[多平台](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-dsl-reference.html#targets)的项目，称为[多平台项目](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html)，
+面向[多平台](https://kotlinlang.org/docs/multiplatform/multiplatform-dsl-reference.html#targets)的项目，称为[多平台项目](https://kotlinlang.org/docs/multiplatform/get-started.html)，
 需要 `kotlin-multiplatform` 插件。
 
 > `kotlin-multiplatform` 插件适用于 Gradle %minGradleVersion% 或更高版本。
@@ -591,8 +590,8 @@ plugins {
 </tab>
 </tabs>
 
-了解更多关于[针对不同平台的 Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html) 以及
-[针对 iOS 和 Android 的 Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-getting-started.html)。
+了解更多关于[针对不同平台的 Kotlin Multiplatform](https://kotlinlang.org/docs/multiplatform/get-started.html) 以及
+[针对 iOS 和 Android 的 Kotlin Multiplatform](https://kotlinlang.org/docs/multiplatform/multiplatform-getting-started.html)。
 
 ## 面向 Android
 
@@ -612,7 +611,7 @@ Kotlin 通过 Kotlin Multiplatform 为 Web 开发提供两种方法：
 * 共享业务逻辑与 JavaScript/TypeScript 代码库
 * 使用 Kotlin 构建不可共享的 Web 应用
 
-请使用 Kotlin/JS。关于更多信息，请参见[为 Kotlin Multiplatform 项目选择正确的 Web 目标](https://www.jetbrains.com/help/kotlin-multiplatform-dev/choosing-web-target.html)。
+请使用 Kotlin/JS。关于更多信息，请参见[为 Kotlin Multiplatform 项目选择正确的 Web 目标](https://kotlinlang.org/docs/multiplatform/choosing-web-target.html)。
 
 面向 JavaScript 时，请使用 `kotlin-multiplatform` 插件：
 
@@ -647,14 +646,14 @@ kotlin {
 }
 ```
 
-> 关于 [Gradle 配置 JavaScript](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-dsl-reference.html#web-targets) 的更多详情请参见，并了解更多关于[设置 Kotlin/JS 项目](js-project-setup.md)的信息。
+> 关于 [Gradle 配置 JavaScript](https://kotlinlang.org/docs/multiplatform/multiplatform-dsl-reference.html#web-targets) 的更多详情请参见，并了解更多关于[设置 Kotlin/JS 项目](js-project-setup.md)的信息。
 >
 {style="note"}
 
 ### 面向 WebAssembly
 
 如果你想跨多个平台共享逻辑和 UI，请使用 Kotlin/Wasm。关于更多信息，
-请参见[为 Kotlin Multiplatform 项目选择正确的 Web 目标](https://www.jetbrains.com/help/kotlin-multiplatform-dev/choosing-web-target.html)。
+请参见[为 Kotlin Multiplatform 项目选择正确的 Web 目标](https://kotlinlang.org/docs/multiplatform/choosing-web-target.html)。
 
 与 JavaScript 一样，当面向 WebAssembly (Wasm) 时，请使用 `kotlin-multiplatform` 插件：
 
@@ -708,7 +707,7 @@ kotlin {
 }
 ```
 
-> [关于 Gradle 配置 Wasm](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-dsl-reference.html#web-targets) 的更多详情请参见。
+> [关于 Gradle 配置 Wasm](https://kotlinlang.org/docs/multiplatform/multiplatform-dsl-reference.html#web-targets) 的更多详情请参见。
 >
 {style="note"}
 

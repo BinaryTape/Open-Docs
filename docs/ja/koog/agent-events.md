@@ -18,6 +18,7 @@ Koog は、カスタムメッセージプロセッサーで使用できる事前
 - [エージェントイベント](#agent-events)
 - [ストラテジーイベント](#strategy-events)
 - [ノードイベント](#node-events)
+- [サブグラフイベント](#subgraph-events)
 - [LLM呼び出しイベント](#llm-call-events)
 - [LLMストリーミングイベント](#llm-streaming-events)
 - [ツール実行イベント](#tool-execution-events)
@@ -135,6 +136,40 @@ Koog は、カスタムメッセージプロセッサーで使用できる事前
 | `input`    | JsonElement  | No       | null    | ノードに提供された入力データ。                                                               |
 | `error`    | AIAgentError  | Yes      |         | ノード実行中に発生した特定のエラー。詳細については、[AIAgentError](#aiagenterror) を参照してください。 |
 
+### サブグラフイベント
+
+#### SubgraphExecutionStartingEvent
+
+サブグラフ実行の開始を表します。以下のフィールドが含まれます。
+
+| 名前            | データ型   | 必須 | デフォルト | 説明                             |
+|-----------------|-------------|----------|---------|----------------------------------|
+| `runId`         | String      | Yes      |         | ストラテジー実行の一意の識別子。 |
+| `subgraphName`  | String      | Yes      |         | 実行が開始されたサブグラフの名前。 |
+| `input`         | JsonElement | No       | null    | サブグラフへの入力値。           |
+
+#### SubgraphExecutionCompletedEvent
+
+サブグラフ実行の終了を表します。以下のフィールドが含まれます。
+
+| 名前            | データ型   | 必須 | デフォルト | 説明                             |
+|-----------------|-------------|----------|---------|----------------------------------|
+| `runId`         | String      | Yes      |         | ストラテジー実行の一意の識別子。 |
+| `subgraphName`  | String      | Yes      |         | 実行が終了したサブグラフの名前。   |
+| `input`         | JsonElement | No       | null    | サブグラフへの入力値。           |
+| `output`        | JsonElement | No       | null    | サブグラフによって生成された出力値。 |
+
+#### SubgraphExecutionFailedEvent
+
+サブグラフ実行中に発生したエラーを表します。以下のフィールドが含まれます。
+
+| 名前            | データ型    | 必須 | デフォルト | 説明                                                                                         |
+|-----------------|---------------|----------|---------|----------------------------------------------------------------------------------------------|
+| `runId`         | String        | Yes      |         | ストラテジー実行の一意の識別子。                                                             |
+| `subgraphName`  | String        | Yes      |         | エラーが発生したサブグラフの名前。                                                           |
+| `input`         | JsonElement  | No       | null    | サブグラフに提供された入力データ。                                                           |
+| `error`         | AIAgentError  | Yes      |         | サブグラフ実行中に発生した特定のエラー。詳細については、[AIAgentError](#aiagenterror) を参照してください。 |
+
 ### LLM呼び出しイベント
 
 #### LLMCallStartingEvent
@@ -146,7 +181,7 @@ LLM呼び出しの開始を表します。以下のフィールドが含まれ�
 | `runId`  | String       | Yes      |         | LLM実行の一意の識別子。                                                  |
 | `callId` | String       | Yes      |         | LLM呼び出しの一意の識別子。関連するイベントを関連付けます。             |
 | `prompt` | Prompt       | Yes      |         | モデルに送信されるプロンプト。詳細については、[Prompt](#prompt) を参照してください。 |
-| `model`  | String       | Yes      |         | `llm_provider:model_id` の形式のモデル識別子。                           |
+| `model`  | ModelInfo    | Yes      |         | モデル情報。詳細については、[ModelInfo](#modelinfo) を参照してください。 |
 | `tools`  | List&lt;String&gt; | Yes      |         | モデルが呼び出すことができるツールのリスト。                             |
 
 <a id="prompt"></a>
@@ -158,6 +193,17 @@ LLM呼び出しの開始を表します。以下のフィールドが含まれ�
 | `id`       | String              | Yes      |             | プロンプトの一意の識別子。                           |
 | `params`   | LLMParams           | No       | LLMParams() | LLMがコンテンツを生成する方法を制御する設定。        |
 
+<a id="modelinfo"></a>
+`ModelInfo` クラスは、そのプロバイダー、モデル識別子、および特性を含む言語モデルに関する情報を表します。以下のフィールドが含まれます。
+
+| 名前              | データ型 | 必須 | デフォルト | 説明                                                              |
+|-------------------|-----------|----------|---------|--------------------------------------------------------------------------|
+| `provider`        | String    | Yes      |         | プロバイダー識別子 (例: "openai", "google", "anthropic")。         |
+| `model`           | String    | Yes      |         | モデル識別子 (例: "gpt-4", "claude-3")。                        |
+| `displayName`     | String    | No       | null    | モデルのオプションの人間に判読可能な表示名。                      |
+| `contextLength`   | Long      | No       | null    | モデルが処理できるトークンの最大数。                          |
+| `maxOutputTokens` | Long      | No       | null    | モデルが生成できるトークンの最大数。                         |
+
 #### LLMCallCompletedEvent
 
 LLM呼び出しの終了を表します。以下のフィールドが含まれます。
@@ -167,7 +213,7 @@ LLM呼び出しの終了を表します。以下のフィールドが含まれ�
 | `runId`              | String                 | Yes      |         | LLM実行の一意の識別子。                                          |
 | `callId`             | String                 | Yes      |         | LLM呼び出しの一意の識別子。関連するイベントを関連付けます。     |
 | `prompt`             | Prompt                 | Yes      |         | 呼び出しで使用されたプロンプト。                                 |
-| `model`              | String                 | Yes      |         | `llm_provider:model_id` の形式のモデル識別子。                   |
+| `model`              | ModelInfo              | Yes      |         | モデル情報。詳細については、[ModelInfo](#modelinfo) を参照してください。 |
 | `responses`          | List&lt;Message.Response&gt; | Yes      |         | モデルから返された1つまたは複数の応答。                          |
 | `moderationResponse` | ModerationResult       | No       | null    | モデレーション応答（存在する場合）。                             |
 
@@ -182,7 +228,7 @@ LLMストリーミング呼び出しの開始を表します。以下のフィ�
 | `runId`  | String       | Yes      |         | LLM実行の一意の識別子。                                          |
 | `callId` | String       | Yes      |         | LLM呼び出しの一意の識別子。関連するイベントを関連付けます。     |
 | `prompt` | Prompt       | Yes      |         | モデルに送信されるプロンプト。                                   |
-| `model`  | String       | Yes      |         | `llm_provider:model_id` の形式のモデル識別子。                   |
+| `model`  | ModelInfo    | Yes      |         | モデル情報。詳細については、[ModelInfo](#modelinfo) を参照してください。 |
 | `tools`  | List&lt;String&gt; | Yes      |         | モデルが呼び出すことができるツールのリスト。                     |
 
 #### LLMStreamingFrameReceivedEvent
@@ -214,7 +260,7 @@ LLMストリーミング呼び出しの終了を表します。以下のフィ�
 | `runId`  | String       | Yes      |         | LLM実行の一意の識別子。                                          |
 | `callId` | String       | Yes      |         | LLM呼び出しの一意の識別子。関連するイベントを関連付けます。     |
 | `prompt` | Prompt       | Yes      |         | モデルに送信されるプロンプト。                                   |
-| `model`  | String       | Yes      |         | `llm_provider:model_id` の形式のモデル識別子。                   |
+| `model`  | ModelInfo    | Yes      |         | モデル情報。詳細については、[ModelInfo](#modelinfo) を参照してください。 |
 | `tools`  | List&lt;String&gt; | Yes      |         | モデルが呼び出すことができるツールのリスト。                     |
 
 ### ツール実行イベント

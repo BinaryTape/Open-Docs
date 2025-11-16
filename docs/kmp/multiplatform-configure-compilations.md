@@ -195,13 +195,13 @@ kotlin {
 
 ## JVM 编译项
 
-当你在多平台项目中声明 `jvm` 目标平台时，Kotlin Multiplatform plugin 会自动创建 Java 源代码集，并将其包含在 JVM 目标平台的编译项中。
+当你在多平台项目中声明 `jvm` 目标平台时，Kotlin Multiplatform Gradle 插件会自动创建 Java 源代码集，并将其包含在 JVM 目标平台的编译项中。
 
 公共源代码集不能包含 Java 资源，因此你应该将它们放在多平台项目的相应子目录中。例如：
 
 ![Java source files](java-source-paths.png){width=200}
 
-目前，Kotlin Multiplatform plugin 会替换 Java plugin 配置的一些任务：
+目前，Kotlin Multiplatform Gradle 插件会替换 Java 插件配置的一些任务：
 
 *   JAR 任务：它不使用标准的 `jar` 任务，而是使用基于构件名称的目标平台特有任务，例如，`jvm()` 目标声明的 `jvmJar` 和 `jvm("desktop")` 的 `desktopJar`。
 *   测试任务：它不使用标准的 `test` 任务，而是使用基于构件名称的目标平台特有任务，例如 `jvmTest`。
@@ -268,7 +268,7 @@ kotlin {
 </TabItem>
 </Tabs>
 
-此目标平台由 Kotlin Multiplatform plugin 发布，无需 Java plugin 特有的步骤。
+此目标平台由 Kotlin Multiplatform Gradle 插件发布，无需 Java 插件特有的步骤。
 
 ## 配置与原生语言的互操作
 

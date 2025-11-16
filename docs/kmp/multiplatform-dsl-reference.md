@@ -444,7 +444,7 @@ kotlin {
 
 关于 [Android 编译](multiplatform-configure-compilations.md#compilation-for-android) 的更多信息。
 
-> `kotlin {}` 代码块内的 `androidTarget` 配置不会替换任何 Android 项目的构建配置。
+> `androidTarget` 配置不会替换 `kotlin {}` 代码块内部任何 Android 项目的构建配置。
 > 有关为 Android 项目编写构建脚本的更多信息，请参见 [Android 开发者文档](https://developer.android.com/studio/build)。
 >
 {style="note"}
@@ -509,7 +509,7 @@ kotlin {
 kotlin {
     //...
     sourceSets { 
-        val myMain by creating { /* ... */ } // 创建一个名为 'MyMain' 的新源代码集
+        val myMain by creating { /* ... */ } // create a new source set by the name 'MyMain'
     }
 }
 ```
@@ -521,7 +521,7 @@ kotlin {
 kotlin {
     //...
     sourceSets { 
-        myMain { /* ... */ } // 创建或配置一个名为 'myMain' 的源代码集
+        myMain { /* ... */ } // create or configure a source set by the name 'myMain' 
     }
 }
 ```
@@ -610,10 +610,10 @@ kotlin {
 kotlin {
     jvm {
         val main by compilations.getting {
-            output // 获取 main 编译项输出
+            output // get the main compilation output
         }
 
-        compilations["test"].runtimeDependencyFiles // 获取测试运行时类路径
+        compilations["test"].runtimeDependencyFiles // get the test runtime classpath
     }
 }
 ```
@@ -624,8 +624,8 @@ kotlin {
 ```groovy
 kotlin {
     jvm {
-        compilations.main.output // 获取 main 编译项输出
-        compilations.test.runtimeDependencyFiles // 获取测试运行时类路径
+        compilations.main.output // get the main compilation output
+        compilations.test.runtimeDependencyFiles // get the test runtime classpath
     }
 }
 ```
@@ -727,19 +727,19 @@ kotlin {
         val main by compilations.getting {
             compileTaskProvider.configure {
                 compilerOptions {
-                    // 为 'main' 编译项设置 Kotlin 编译器选项：
+                    // Set up the Kotlin compiler options for the 'main' compilation:
                     jvmTarget.set(JvmTarget.JVM_1_8)
                 }
             }
         
-            compileKotlinTask // 获取 Kotlin 任务 'compileKotlinJvm'
-            output // 获取 main 编译项输出
+            compileKotlinTask // get the Kotlin task 'compileKotlinJvm' 
+            output // get the main compilation output
         }
         
-        compilations["test"].runtimeDependencyFiles // 获取测试运行时类路径
+        compilations["test"].runtimeDependencyFiles // get the test runtime classpath
     }
 
-    // 配置所有目标平台的所有编译项：
+    // Configure all compilations of all targets:
     compilerOptions {
         allWarningsAsErrors.set(true)
     }
@@ -761,12 +761,12 @@ kotlin {
             }
         }
 
-        compilations.main.compileKotlinTask // 获取 Kotlin 任务 'compileKotlinJvm'
-        compilations.main.output // 获取 main 编译项输出
-        compilations.test.runtimeDependencyFiles // 获取测试运行时类路径
+        compilations.main.compileKotlinTask // get the Kotlin task 'compileKotlinJvm' 
+        compilations.main.output // get the main compilation output
+        compilations.test.runtimeDependencyFiles // get the test runtime classpath
     }
 
-    // 配置所有目标平台的所有编译项：
+    // Configure all compilations of all targets:
     compilerOptions {
         allWarningsAsErrors = true
     }
@@ -784,7 +784,7 @@ kotlin {
 *   **目标平台级别**，在目标代码块中。
 *   **编译单元级别**，通常在特定的编译任务中。
 
-![Kotlin 编译器选项级别](compiler-options-levels.svg){width=700}
+![Kotlin compiler options levels](compiler-options-levels.svg){width=700}
 
 较高级别的设置作为较低级别的默认值：
 
@@ -1060,11 +1060,11 @@ kotlin {
 kotlin {
     sourceSets.all {
         languageSettings.apply {
-            languageVersion = "%languageVersion%" // 可能的值："1.8"、"1.9"、"2.0"、"2.1"
-            apiVersion = "%apiVersion%" // 可能的值："1.8"、"1.9"、"2.0"、"2.1"
-            enableLanguageFeature("InlineClasses") // 语言特性名称
-            optIn("kotlin.ExperimentalUnsignedTypes") // 注解 FQ-name
-            progressiveMode = true // 默认为 false
+            languageVersion = "%languageVersion%" // possible values: "1.8", "1.9", "2.0", "2.1"
+            apiVersion = "%apiVersion%" // possible values: "1.8", "1.9", "2.0", "2.1"
+            enableLanguageFeature("InlineClasses") // language feature name
+            optIn("kotlin.ExperimentalUnsignedTypes") // annotation FQ-name
+            progressiveMode = true // false by default
         }
     }
 }
@@ -1077,11 +1077,11 @@ kotlin {
 kotlin {
     sourceSets.all {
         languageSettings {
-            languageVersion = '%languageVersion%' // 可能的值："1.8"、"1.9"、"2.0"、"2.1"
-            apiVersion = '%apiVersion%' // 可能的值："1.8"、"1.9"、"2.0"、"2.1"
-            enableLanguageFeature('InlineClasses') // 语言特性名称
-            optIn('kotlin.ExperimentalUnsignedTypes') // 注解 FQ-name
-            progressiveMode = true // 默认为 false
+            languageVersion = '%languageVersion%' // possible values: '1.8', '1.9', '2.0', '2.1'
+            apiVersion = '%apiVersion%' // possible values: '1.8', '1.9', '2.0', '2.1'
+            enableLanguageFeature('InlineClasses') // language feature name
+            optIn('kotlin.ExperimentalUnsignedTypes') // annotation FQ-name
+            progressiveMode = true // false by default
         }
     }
 }

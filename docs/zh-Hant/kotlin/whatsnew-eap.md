@@ -1,5 +1,7 @@
 [//]: # (title: Kotlin %kotlinEapVersion% 有什麼新功能)
 
+<primary-label ref="eap"/>
+
 _[發佈日期：%kotlinEapReleaseDate%](eap.md#build-details)_
 
 > 本文件不涵蓋搶先體驗預覽版 (EAP) 的所有功能，
@@ -67,7 +69,7 @@ Kotlin %kotlinEapVersion% 引入了一項新功能：未使用回傳值檢查器
 fun formatGreeting(name: String): String {
     if (name.isBlank()) return "Hello, anonymous user!"
     if (!name.contains(' ')) {
-        // 檢查器會報告此結果被忽略的警告
+        // The checker reports a warning that this result is ignored
         "Hello, " + name.replaceFirstChar(Char::titlecase) + "!"
     }
     val (first, last) = name.split(' ')
@@ -95,7 +97,7 @@ kotlin {
 例如，您可以標記整個檔案：
 
 ```kotlin
-// 標記此檔案中的所有函式和類別，以便檢查器報告未使用回傳值
+// Marks all functions and classes in this file so the checker reports unused return values
 @file:MustUseReturnValues
 
 package my.project
@@ -106,7 +108,7 @@ fun someFunction(): String
 或特定類別：
 
 ```kotlin
-// 標記此類別中的所有函式，以便檢查器報告未使用回傳值
+// Marks all functions in this class so the checker reports unused return values
 @MustUseReturnValues
 class Greeter {
     fun greet(name: String): String = "Hello, $name"
@@ -127,7 +129,8 @@ kotlin {
 }
 ```
 
-在此模式下，Kotlin 會自動將您編譯的檔案視為已使用 `@MustUseReturnValues` 註解標記，因此檢查器會套用到您專案函式的所有回傳值。
+在此模式下，Kotlin 會自動將您編譯的檔案視為已使用 `@MustUseReturnValues` 註解標記，
+因此檢查器會套用到您專案函式的所有回傳值。
 
 您可以透過使用 `@IgnorableReturnValue` 註解標記特定函式來抑制警告。
 註解那些忽略結果很常見且預期的函式，例如 `MutableList.add`：
@@ -143,20 +146,21 @@ fun <T> MutableList<T>.addAndIgnoreResult(element: T): Boolean {
 為此，請將結果指定給一個帶有底線語法 (`_`) 的特殊匿名變數：
 
 ```kotlin
-// 不可忽略的函式
+// Non-ignorable function
 fun computeValue(): Int = 42
 
 fun main() {
 
-    // 報告警告：結果被忽略
+    // Reports a warning: result is ignored
     computeValue()
 
-    // 僅在此呼叫點使用特殊未使用變數抑制警告
+    // Suppresses the warning only at this call site with a special unused variable
     val _ = computeValue()
 }
 ```
 
-我們非常感謝您在 [YouTrack](https://youtrack.jetbrains.com/issue/KT-12719) 中提供回饋。有關更多資訊，請參閱該功能的 [KEEP](https://github.com/Kotlin/KEEP/blob/main/proposals/KEEP-0412-unused-return-value-checker.md)。
+我們非常感謝您在 [YouTrack](https://youtrack.jetbrains.com/issue/KT-12719) 中提供回饋。有關更多資訊，
+請參閱該功能的 [KEEP](https://github.com/Kotlin/KEEP/blob/main/proposals/KEEP-0412-unused-return-value-checker.md)。
 
 ### 上下文感知解析的變更
 <primary-label ref="experimental-general"/>
@@ -165,7 +169,8 @@ fun main() {
 >
 {style = "note"}
 
-上下文感知解析仍為[實驗性](components-stability.md#stability-levels-explained)，但我們將根據使用者回饋持續改進此功能：
+上下文感知解析仍為[實驗性](components-stability.md#stability-levels-explained)，
+但我們將根據使用者回饋持續改進此功能：
 
 *   現在將目前型別的 sealed 和封閉超型別視為搜尋上下文範圍的一部分。不考慮其他超型別範圍。
 *   在涉及型別運算符和相等性的情況下，如果使用上下文感知解析導致解析模糊，編譯器現在會報告警告。例如，當匯入類別的衝突宣告時，可能會發生這種情況。
@@ -225,7 +230,8 @@ func log(_ messages: String...)
 
 ### 偵錯模式中預設啟用泛型型別邊界上的型別檢查
 
-從 Kotlin %kotlinEapVersion% 開始，在偵錯模式中，預設啟用泛型型別邊界上的型別檢查，協助您更早發現與未經檢查的型別轉換相關的錯誤。此變更提高了安全性，並使跨平台的無效泛型型別轉換偵錯更具可預測性。
+從 Kotlin %kotlinEapVersion% 開始，在偵錯模式中，預設啟用泛型型別邊界上的型別檢查，
+協助您更早發現與未經檢查的型別轉換相關的錯誤。此變更提高了安全性，並使跨平台的無效泛型型別轉換偵錯更具可預測性。
 
 以前，在 Kotlin/Native 中，未經檢查的型別轉換可能導致堆污染和記憶體安全違規，而這些問題可能不會被注意到。
 現在，這些情況會像 Kotlin/JVM 或 Kotlin/JS 一樣，穩定地以運行時型別轉換錯誤失敗。例如：
@@ -234,7 +240,7 @@ func log(_ messages: String...)
 fun main() {
     val list = listOf("hello")
     val x = (list as List<Int>)[0]
-    println(x) // 現在會拋出 ClassCastException 錯誤
+    println(x) // Now throws a ClassCastException error
 }
 ```
 
@@ -376,14 +382,14 @@ kotlin.sourceSets.getByName("main").generatedKotlin.srcDir(generatorTask)
 
 ## 標準函式庫
 
-在 Kotlin %kotlinEapVersion% 中，新的時間追蹤功能 [`kotlin.time.Clock` 和 `kotlin.time.Instant`](whatsnew2120.md#new-time-tracking-functionality) 成為[穩定版](components-stability.md#stability-levels-explained)。
+在 Kotlin %kotlinEapVersion% 中，新的時間追蹤功能，[`kotlin.time.Clock` 和 `kotlin.time.Instant`](whatsnew2120.md#new-time-tracking-functionality) 成為[穩定版](components-stability.md#stability-levels-explained)。
 
 ## Compose 編譯器：縮小化 Android 應用程式的堆疊追蹤
 
 從 Kotlin 2.3.0 開始，當應用程式由 R8 縮小化時，編譯器會為 Compose 堆疊追蹤輸出 ProGuard 映射。
 這擴展了以前僅在可偵錯變體中可用的實驗性堆疊追蹤功能。
 
-堆疊追蹤的發佈變體包含群組鍵，可用於在縮小化應用程式中識別可組合函式，而無需在運行時記錄來源資訊的開銷。群組鍵堆疊追蹤要求您的應用程式必須使用 Compose runtime 1.10 或更高版本建置。
+堆疊追蹤的發佈變體包含群組鍵，可用於在縮小化應用程式中識別可組合函式，而無需在運行時記錄來源資訊的開銷。群組鍵堆疊追蹤要求您的應用程式必須使用 Compose runtime 1.10 或更新版本建置。
 
 若要啟用群組鍵堆疊追蹤，請在初始化任何 `@Composable` 內容之前新增以下行：
 
@@ -391,7 +397,7 @@ kotlin.sourceSets.getByName("main").generatedKotlin.srcDir(generatorTask)
 Composer.setDiagnosticStackTraceMode(ComposeStackTraceMode.GroupKeys)
 ```
 
-啟用這些堆疊追蹤後，即使應用程式經過縮小化，Compose runtime 也會在組合、測量或繪製階段捕獲崩潰後附加其自己的堆疊追蹤：
+啟用這些堆疊追蹤後，Compose runtime 也會在組合、測量或繪製階段捕獲崩潰後附加其自己的堆疊追蹤，即使應用程式經過縮小化：
 
 ```text
 java.lang.IllegalStateException: <message>

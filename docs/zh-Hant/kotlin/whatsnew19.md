@@ -9,15 +9,15 @@ Kotlin 1.9.0 版本已推出，且 JVM 的 K2 編譯器現已進入 **Beta** 階
 *   [用於開放範圍的穩定 `..<` 運算子](#stable-operator-for-open-ended-ranges)
 *   [根據名稱取得正規表達式捕獲群組的新共同函式](#new-common-function-to-get-regex-capture-group-by-name)
 *   [建立父目錄的新路徑工具程式](#new-path-utility-to-create-parent-directories)
-*   [Kotlin Multiplatform 中 Gradle 配置快取的預覽](#preview-of-the-gradle-configuration-cache)
-*   [Kotlin Multiplatform 中 Android 目標支援的變更](#changes-to-android-target-support)
+*   [Kotlin Multiplatform 中 Gradle 配置快取的預覽](#preview-of-the-gradle-configuration-cache-in-kotlin-multiplatform)
+*   [Kotlin Multiplatform 中 Android 目標支援的變更](#changes-to-android-target-support-in-kotlin-multiplatform)
 *   [Kotlin/Native 中自訂記憶體分配器的預覽](#preview-of-custom-memory-allocator)
 *   [Kotlin/Native 中的函式庫連結](#library-linkage-in-kotlin-native)
 *   [Kotlin/Wasm 中與大小相關的優化](#size-related-optimizations)
 
 您也可以在這段影片中找到更新的簡要概述：
 
-<video src="https://www.youtube.com/v/fvwTZc-dxsM" title="What's new in Kotlin 1.9.0"/>
+<video src="https://www.youtube.com/v/fvwTZc-dxsM" title="Kotlin 1.9.0 的新功能"/>
 
 ## IDE 支援
 
@@ -82,9 +82,9 @@ Gradle 屬性新增至您的 `gradle.properties` 檔案，輕鬆測試 K2 編譯
 [Gradle 建置報告](gradle-compilation-and-caches.md#build-reports)現在會顯示是使用了當前編譯器還是 K2 編譯器
 來編譯程式碼。在 Kotlin 1.9.0 中，您可以在 [Gradle 建置掃描](https://scans.gradle.com/)中看到此資訊：
 
-![Gradle build scan - K1](gradle-build-scan-k1.png){width=700}
+![Gradle 建置掃描 - K1](gradle-build-scan-k1.png){width=700}
 
-![Gradle build scan - K2](gradle-build-scan-k2.png){width=700}
+![Gradle 建置掃描 - K2](gradle-build-scan-k2.png){width=700}
 
 您也可以直接在建置報告中找到專案中使用的 Kotlin 版本：
 
@@ -93,7 +93,7 @@ Task info:
   Kotlin language version: 1.9
 ```
 
-> 如果您使用 Gradle 8.0，您可能會遇到一些建置報告問題，尤其是在啟用 Gradle 配置快取時。這是已知問題，已在 Gradle 8.1 及更高版本中修復。
+> 如果您使用 Gradle 8.0，您可能會遇到一些建置報告問題，尤其是在啟用 Gradle 配置快取時。這是已知問題，已在 Gradle 8.1 及更高版本中修正。
 >
 {style="note"}
 
@@ -134,7 +134,7 @@ kotlin {
 
 在 Kotlin 1.9.0 中，我們正在穩定一些先前引入的新語言功能：
 *   [列舉類別 `values` 函式的替代方案](#stable-replacement-of-the-enum-class-values-function)
-*   [資料物件與資料類別的對稱性](#stable-data-objects-for-symmetry-with-data-classes)
+*   [資料物件與資料類別的穩定對稱性](#stable-data-objects-for-symmetry-with-data-classes)
 *   [支援帶有主體的次級建構函式的行內值類別](#support-for-secondary-constructors-with-bodies-in-inline-value-classes)
 
 ### 列舉類別 `values` 函式的穩定替代方案
@@ -211,7 +211,7 @@ value class Person(private val fullName: String) {
 以前，Kotlin 只允許行內類別中使用公開主建構函式。因此，無法
 封裝底層值或建立表示某些受約束值的行內類別。
 
-隨著 Kotlin 的發展，這些問題得到了修復。Kotlin 1.4.30 解除了對 `init` 區塊的限制，然後 Kotlin 1.8.20
+隨著 Kotlin 的發展，這些問題得到了修正。Kotlin 1.4.30 解除了對 `init` 區塊的限制，然後 Kotlin 1.8.20
 預覽了帶有主體的次級建構函式。它們現在預設可用。在 [KEEP](https://github.com/Kotlin/KEEP/blob/master/proposals/inline-classes.md) 中了解更多關於 Kotlin 行內類別的開發。
 
 ## Kotlin/JVM
@@ -226,7 +226,7 @@ value class Person(private val fullName: String) {
 Kotlin 1.6 中 `JvmDefaultWithCompatibility` 的引入，這些模式提供了對 `DefaultImpls` 類別生成的全面控制，
 確保與舊的 Kotlin 程式碼無縫相容。
 
-因此，在 Kotlin 1.9.0 中，`JvmDefault` 註解不再具有任何意義，並已被標記為
+因此在 Kotlin 1.9.0 中，`JvmDefault` 註解不再具有任何意義，並已被標記為
 已棄用，導致錯誤。它最終將從 Kotlin 中移除。
 
 ## Kotlin/Native
@@ -473,7 +473,7 @@ Google 外掛程式將是處理多平台專案中 Android 的首選方式。當�
 *   清晰的 Gradle 配置命名方案 – 該方案現在在 `KotlinSourceSets` 和 `AndroidSourceSets` 中都更加一致且可預測。
 
 新的佈局需要 Android Gradle 外掛程式 7.0 或更高版本，並支援 Android Studio 2022.3 及更高版本。請參閱我們的
-[遷移指南](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-android-layout.html)以在您的 `build.gradle(.kts)` 檔案中進行必要的變更。
+[遷移指南](https://kotlinlang.org/docs/multiplatform/multiplatform-android-layout.html)以在您的 `build.gradle(.kts)` 檔案中進行必要的變更。
 
 ### Gradle 配置快取的預覽
 
@@ -485,21 +485,21 @@ Kotlin 1.9.0 支援多平台函式庫中的 [Gradle 配置快取](https://docs.g
 Gradle 配置快取透過重複使用配置階段的結果來加速建置過程，以用於後續
 建置。此功能自 Gradle 8.1 起已穩定。若要啟用它，請遵循 [Gradle 文件](https://docs.gradle.org/current/userguide/configuration_cache.html#config_cache:usage)中的說明。
 
-> Kotlin 多平台外掛程式仍不支援帶有 Xcode 整合任務或 [Kotlin CocoaPods Gradle 外掛程式](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-cocoapods-dsl-reference.html)的 Gradle 配置快取。我們預計在未來的 Kotlin 版本中添加此功能。
+> Kotlin 多平台外掛程式仍不支援帶有 Xcode 整合任務或 [Kotlin CocoaPods Gradle 外掛程式](https://kotlinlang.org/docs/multiplatform/multiplatform-cocoapods-dsl-reference.html)的 Gradle 配置快取。我們預計在未來的 Kotlin 版本中添加此功能。
 >
 {style="note"}
 
 ## Kotlin/Wasm
 
 Kotlin 團隊持續實驗新的 Kotlin/Wasm 目標。此版本引入了多項效能和
-[大小相關的優化](#size-related-optimizations)，以及 [JavaScript 互通的更新](#updates-in-javascript-interop)。
+[與大小相關的優化](#size-related-optimizations)，以及 [JavaScript 互通的更新](#updates-in-javascript-interop)。
 
-### 大小相關的優化
+### 與大小相關的優化
 
 Kotlin 1.9.0 為 WebAssembly (Wasm) 專案引入了顯著的大小改進。比較兩個「Hello World」專案，
 Kotlin 1.9.0 中 Wasm 的程式碼佔用空間現在比 Kotlin 1.8.20 小 10 倍以上。
 
-![Kotlin/Wasm size-related optimizations](wasm-1-9-0-size-improvements.png){width=700}
+![Kotlin/Wasm 與大小相關的優化](wasm-1-9-0-size-improvements.png){width=700}
 
 這些大小優化可提高資源利用率，並在以 Kotlin 程式碼為目標 Wasm 平台時改善效能。
 
@@ -540,7 +540,7 @@ Kotlin Playground 支援 Kotlin/Wasm 目標。
 
 > 使用 Kotlin/Wasm 需要在您的瀏覽器中啟用實驗性功能。
 >
-> [了解如何啟用這些功能](wasm-troubleshooting.md)。
+> [了解如何啟用這些功能](wasm-configuration.md)。
 >
 {style="note"}
 
@@ -591,7 +591,7 @@ fun computeAck(m: Int, n: Int) {
 在 Kotlin 1.8.0 中，我們[宣布](whatsnew18.md#stable-js-ir-compiler-backend)基於 IR 的後端已成為[穩定版本](components-stability.md)。
 從那時起，未指定編譯器已成為錯誤，而使用舊編譯器則會導致警告。
 
-在 Kotlin 1.9.0 中，使用舊後端會導致錯誤。請遵循我們的[遷移指南](js-ir-migration.md)遷移到 IR 編譯器。
+在 Kotlin 1.9.0 中，使用舊後端會導致錯誤。請[遷移到 IR 編譯器](js-ir-migration.md)。
 
 ### Kotlin/JS Gradle 外掛程式的棄用
 
@@ -601,7 +601,7 @@ fun computeAck(m: Int, n: Int) {
 Kotlin/JS Gradle 外掛程式的功能實質上複製了 `kotlin-multiplatform` 外掛程式，並且底層共用
 相同的實作。這種重疊造成了混淆，並增加了 Kotlin 團隊的維護負擔。
 
-有關遷移說明，請參閱我們的 [Kotlin 多平台相容性指南](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-compatibility-guide.html#migration-from-kotlin-js-gradle-plugin-to-kotlin-multiplatform-gradle-plugin)。如果您發現指南中未涵蓋的任何問題，請向我們的[問題追蹤器](http://kotl.in/issue)報告。
+有關遷移說明，請參閱我們的 [Kotlin 多平台相容性指南](https://kotlinlang.org/docs/multiplatform/multiplatform-compatibility-guide.html#migration-from-kotlin-js-gradle-plugin-to-kotlin-multiplatform-gradle-plugin)。如果您發現指南中未涵蓋的任何問題，請向我們的[問題追蹤器](http://kotl.in/issue)報告。
 
 ### 外部列舉的棄用
 
@@ -677,7 +677,7 @@ tasks.withType<KotlinJsCompile>().configureEach {
 
 Kotlin 1.9.0 帶來了新的 Gradle 編譯器選項以及更多功能：
 
-*   [移除 classpath 屬性](#removed-classpath-property)
+*   [移除 `classpath` 屬性](#removed-classpath-property)
 *   [新的編譯器選項](#new-compiler-options)
 *   [Kotlin/JVM 的專案層級編譯器選項](#project-level-compiler-options-for-kotlin-jvm)
 *   [Kotlin/Native 模組名稱的編譯器選項](#compiler-option-for-kotlin-native-module-name)
@@ -686,7 +686,7 @@ Kotlin 1.9.0 帶來了新的 Gradle 編譯器選項以及更多功能：
 *   [kapt 不會導致 Gradle 中急切的任務建立](#kapt-doesn-t-cause-eager-task-creation-in-gradle)
 *   [JVM 目標驗證模式的程式化配置](#programmatic-configuration-of-the-jvm-target-validation-mode)
 
-### 移除 classpath 屬性
+### 移除 `classpath` 屬性
 
 在 Kotlin 1.7.0 中，我們宣布了 `KotlinCompile` 任務屬性 `classpath` 的棄用週期開始。
 在 Kotlin 1.8.0 中，棄用級別提高到 `ERROR`。在此版本中，我們最終移除了 `classpath` 屬性。
@@ -794,7 +794,7 @@ Gradle 將這些外掛程式添加為編譯器引數。您無需對現有專案�
 ### kapt 不會導致 Gradle 中急切的任務建立
 
 在 1.9.0 之前，[kapt 編譯器外掛程式](kapt.md)會透過請求 Kotlin 編譯任務的已配置實例來導致急切的任務建立。
-此行為已在 Kotlin 1.9.0 中修復。如果您為 `build.gradle.kts` 檔案使用預設配置，則您的設定不受此變更影響。
+此行為已在 Kotlin 1.9.0 中修正。如果您為 `build.gradle.kts` 檔案使用預設配置，則您的設定不受此變更影響。
 
 > 如果您使用自訂配置，您的設定將受到不利影響。
 > 例如，如果您使用 Gradle 的任務 API 修改了 `KotlinJvmCompile` 任務，您必須以同樣的方式修改
@@ -1026,7 +1026,7 @@ fun main() {
 
 我們將感謝您提出的任何回饋！您可以透過在[工單](https://youtrack.jetbrains.com/issue/KT-57728)上留言直接提供您的回饋。
 
-### 穩定 @Volatile 註解
+### 穩定 `@Volatile` 註解
 
 如果您用 `@Volatile` 註解 `var` 屬性，則後備欄位會被標記，以便對此欄位的任何讀取或寫入都是原子性的，並且寫入總是對其他執行緒可見。
 
@@ -1083,7 +1083,7 @@ sourcePath.copyToRecursively(
  ```
 {validate="false"}
 
-### 新的 HexFormat 類別來格式化和解析十六進位值
+### 新的 `HexFormat` 類別來格式化和解析十六進位值
 
 > 新的 `HexFormat` 類別及其相關的擴展函式是[實驗性](components-stability.md#stability-levels-explained)功能，
 > 若要使用它們，您可以選擇加入 `@OptIn(ExperimentalStdlibApi::class)` 或編譯器引數
@@ -1155,8 +1155,8 @@ println("0x3a".hexToInt(HexFormat { number.prefix = "0x" })) // "58"
 
 Kotlin 文件收到了一些顯著變更：
 *   [Kotlin 之旅](kotlin-tour-welcome.md) – 學習 Kotlin 程式語言的基礎知識，章節包含理論與實踐。
-*   [Android 來源集佈局](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-android-layout.html) – 了解新的 Android 來源集佈局。
-*   [Kotlin 多平台相容性指南](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-compatibility-guide.html) – 了解您在使用 Kotlin 多平台開發專案時可能遇到的不相容變更。
+*   [Android 來源集佈局](https://kotlinlang.org/docs/multiplatform/multiplatform-android-layout.html) – 了解新的 Android 來源集佈局。
+*   [Kotlin 多平台相容性指南](https://kotlinlang.org/docs/multiplatform/multiplatform-compatibility-guide.html) – 了解您在使用 Kotlin 多平台開發專案時可能遇到的不相容變更。
 *   [Kotlin Wasm](wasm-overview.md) – 了解 Kotlin/Wasm 以及如何在您的 Kotlin 多平台專案中使用它。
 
 ## 安裝 Kotlin 1.9.0
@@ -1166,7 +1166,7 @@ Kotlin 文件收到了一些顯著變更：
 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/) 2022.3.3 和 2023.1.1 會自動建議將 Kotlin
 外掛程式更新到 1.9.0 版本。IntelliJ IDEA 2023.2 將包含 Kotlin 1.9.0 外掛程式。
 
-Android Studio Giraffe (223) 和 Hedgehog (231) 將在其即將發佈的版本中支援 Kotlin 1.9.0。
+Android Studio Giraffe (223) 和 Hedgehog (231) 將支援 Kotlin 1.9.0 在其即將發佈版本中。
 
 新的命令列編譯器可在 [GitHub 發佈頁面](https://github.com/JetBrains/kotlin/releases/tag/v1.9.0)上下載。
 
@@ -1188,5 +1188,5 @@ pluginManagement {
 
 ## Kotlin 1.9.0 相容性指南
 
-Kotlin 1.9.0 是一個[功能發佈](kotlin-evolution-principles.md#language-and-tooling-releases)，因此可能
+Kotlin 1.9.0 是一個[功能發佈](kotlin-evolution-principles.md#language-and-tooling-releases)並可以，因此，
 帶來與您為早期語言版本編寫的程式碼不相容的變更。在 [Kotlin 1.9.0 相容性指南](compatibility-guide-19.md)中找到這些變更的詳細列表。

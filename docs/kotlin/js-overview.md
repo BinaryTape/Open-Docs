@@ -2,7 +2,7 @@
 
 Kotlin/JavaScript (Kotlin/JS) 允许你将 Kotlin 代码、Kotlin 标准库以及任何兼容的依赖项转译为 JavaScript。这样，你的 Kotlin 应用程序就可以在任何支持 JavaScript 的环境中运行。
 
-通过 [Kotlin Multiplatform Gradle 插件](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-dsl-reference.html)（`kotlin.multiplatform`）使用 Kotlin/JS，可以从一个地方配置和管理面向 JavaScript 的 Kotlin 项目。
+通过 [Kotlin Multiplatform Gradle 插件](https://kotlinlang.org/docs/multiplatform/multiplatform-dsl-reference.html)（`kotlin.multiplatform`）使用 Kotlin/JS，可以从一个地方配置和管理面向 JavaScript 的 Kotlin 项目。
 
 Kotlin Multiplatform Gradle 插件让你能够使用诸如控制应用程序打包以及直接从 npm 添加 JavaScript 依赖项等特性。关于可用配置选项的概览，请参见[设置 Kotlin/JS 项目](js-project-setup.md)。
 
@@ -26,7 +26,7 @@ Kotlin Multiplatform Gradle 插件让你能够使用诸如控制应用程序打�
 
      使用 Kotlin 开发传统 Web 前端，同时与现有工具和库集成：
 
-     * 如果你熟悉 Android 开发，可以使用 [Kobweb](https://kobweb.varabyte.com/) 或 [Kilua](https://kilua.dev/) 等基于 Compose 的框架构建 Web 应用程序。
+     * 如果你熟悉 Android 开发，可以使用基于 Compose 的框架，如 [Kobweb](https://kobweb.varabyte.com/) 或 [Kilua](https://kilua.dev/) 构建 Web 应用程序。
      * 使用 JetBrains 提供的[适用于常见 JavaScript 库的 Kotlin 包装器](https://github.com/JetBrains/kotlin-wrappers)，用 Kotlin/JS 构建完全类型安全的 React 应用程序。Kotlin 包装器（`kotlin-wrappers`）为 React 和其他 JavaScript 框架提供了抽象和集成。
        
        这些包装器还支持诸如 [React Redux](https://react-redux.js.org/)、[React Router](https://reactrouter.com/) 和 [styled-components](https://styled-components.com/) 等补充库。你还可以通过与 JavaScript 生态系统的互操作性来使用第三方 React 组件和组件库。

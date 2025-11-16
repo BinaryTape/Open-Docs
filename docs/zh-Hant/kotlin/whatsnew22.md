@@ -53,33 +53,33 @@ Kotlin 中的上下文參數透過簡化依賴注入、改進 DSL 設計和範�
 您可以使用 `context` 關鍵字，後跟參數列表（形式為 `name: Type`），為屬性和函數宣告上下文參數。以下是依賴於 `UserService` 介面的範例：
 
 ```kotlin
-// UserService defines the dependency required in the context 
+// UserService 定義了上下文中所需的依賴 
 interface UserService {
     fun log(message: String)
     fun findUserById(id: Int): String
 }
 
-// Declares a function with a context parameter
+// 宣告帶有上下文參數的函數
 context(users: UserService)
 fun outputMessage(message: String) {
-    // Uses log from the context
+    // 使用上下文中的 log
     users.log("Log: $message")
 }
 
-// Declares a property with a context parameter
+// 宣告帶有上下文參數的屬性
 context(users: UserService)
 val firstUser: String
-    // Uses findUserById from the context    
+    // 使用上下文中的 findUserById    
     get() = users.findUserById(1)
 ```
 
 您可以將 `_` 用作上下文參數名稱。在這種情況下，參數值可用於解析，但在區塊內部無法透過名稱存取：
 
 ```kotlin
-// Uses "_" as context parameter name
+// 將 "_" 用作上下文參數名稱
 context(_: UserService)
 fun logWelcome() {
-    // Finds the appropriate log function from UserService
+    // 從 UserService 尋找適當的 log 函數
     outputMessage("Welcome!")
 }
 ```
@@ -144,7 +144,7 @@ enum class Problem {
     CONNECTION, AUTHENTICATION, DATABASE, UNKNOWN
 }
 
-// Resolves enum entries based on the known type of problem
+// 根據已知問題型別解析列舉項目
 fun message(problem: Problem): String = when (problem) {
     CONNECTION -> "connection"
     AUTHENTICATION -> "authentication"
@@ -1253,7 +1253,10 @@ composeCompiler {
 
 本節重點介紹值得注意的重要破壞性變更與棄用。有關此版本中所有破壞性變更與棄用的完整概述，請參閱我們的[相容性指南](compatibility-guide-22.md)。
 
-*   從 Kotlin 2.2.0 開始，支援 [](ant.md) 構建系統的功能已棄用。Kotlin 對 Ant 的支援長期以來一直沒有積極開發，並且由於其相對較小的用戶群，沒有進一步維護的計劃。
+*   從 Kotlin 2.2.0 開始，編譯器[不再支援 `-language-version=1.6` 或 `-language-version=1.7`](compatibility-guide-22.md#drop-support-in-language-version-for-1-6-and-1-7)。
+    1.8 之前的語言功能集不受支援，但語言本身仍完全向後相容於 Kotlin 1.0。
+
+*   支援 [](ant.md) 構建系統的功能已棄用。Kotlin 對 Ant 的支援長期以來一直沒有積極開發，並且由於其相對較小的用戶群，沒有進一步維護的計劃。
 
     我們計劃在 2.3.0 中移除 Ant 支援。然而，Kotlin 仍然歡迎[貢獻](contribute.md)。如果您有興趣成為 Ant 的外部維護者，請在 [此 YouTrack 問題](https://youtrack.jetbrains.com/issue/KT-75875/)中留下評論並設定為「jetbrains-team」可見性。
 

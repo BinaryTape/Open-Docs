@@ -1,4 +1,4 @@
-[//]: # (title: 基本语法)
+[//]: # (title: 基本语法概览)
 
 这是基本语法元素及其示例的集合。在每个部分的末尾，你都会找到一个指向相关主题详细描述的链接。
 
@@ -73,13 +73,13 @@ fun main() {
 你可以将 `println()`、`readln()` 和 `print()` 函数结合使用，以打印请求和显示用户输入的提示信息：
 
 ```kotlin
-// 打印请求输入的提示信息
+// Prints a message to request input
 println("Enter any word: ")
 
-// 读取并存储用户输入。例如：Happiness
+// Reads and stores the user input. For example: Happiness
 val yourWord = readln()
 
-// 打印包含输入内容的提示信息
+// Prints a message with the input
 print("You entered the word: ")
 print(yourWord)
 // You entered the word: Happiness
@@ -289,18 +289,18 @@ class Rectangle(val height: Double, val length: Double): Shape() {
 与大多数现代语言一样，Kotlin 支持单行（或_行末_）和多行（_块_）注释：
 
 ```kotlin
-// 这是单行注释
+// This is an end-of-line comment
 
-/* 这是多行注释
-   多行内容。 */
+/* This is a block comment
+   on multiple lines. */
 ```
 
 Kotlin 中的块注释可以嵌套：
 
 ```kotlin
-/* 注释从此处开始
-/* 包含一个嵌套注释 */     
-并在此处结束。 */
+/* The comment starts here
+/* contains a nested comment *​/  
+and ends here. */
 ```
 
 关于文档注释语法的信息，请参见 [Kotlin 代码文档化](kotlin-doc.md)。
@@ -573,9 +573,9 @@ fun printProduct(arg1: String, arg2: String) {
     val x = parseInt(arg1)
     val y = parseInt(arg2)
 
-    // 使用 `x * y` 会报错，因为它们可能包含 null 值。
+    // Using `x * y` yields error because they may hold nulls.
     if (x != null && y != null) {
-        // 在 null 检测后，x 和 y 会自动转换为非空类型
+        // x and y are automatically cast to non-nullable after null check
         println(x * y)
     }
     else {
@@ -614,7 +614,7 @@ fun printProduct(arg1: String, arg2: String) {
         return
     }
 
-    // 在 null 检测后，x 和 y 会自动转换为非空类型
+    // x and y are automatically cast to non-nullable after null check
     println(x * y)
 //sampleEnd
 }
@@ -638,11 +638,11 @@ fun main() {
 //sampleStart
 fun getStringLength(obj: Any): Int? {
     if (obj is String) {
-        // 在此分支中，`obj` 会自动转换为 `String` 类型
+        // `obj` is automatically cast to `String` in this branch
         return obj.length
     }
 
-    // 在类型检测分支外部，`obj` 仍然是 `Any` 类型
+    // `obj` is still of type `Any` outside of the type-checked branch
     return null
 }
 //sampleEnd
@@ -665,7 +665,7 @@ fun main() {
 fun getStringLength(obj: Any): Int? {
     if (obj !is String) return null
 
-    // 在此分支中，`obj` 会自动转换为 `String` 类型
+    // `obj` is automatically cast to `String` in this branch
     return obj.length
 }
 //sampleEnd
@@ -686,7 +686,7 @@ fun main() {
 ```kotlin
 //sampleStart
 fun getStringLength(obj: Any): Int? {
-    // 在 `&&` 的右侧，`obj` 会自动转换为 `String` 类型
+    // `obj` is automatically cast to `String` on the right-hand side of `&&`
     if (obj is String && obj.length >= 0) {
         return obj.length
     }

@@ -2,7 +2,8 @@
 
 <web-summary>JetBrainsは、IntelliJ IDEAとAndroid Studioに対し、公式のKotlin IDEサポートを提供しています。</web-summary>
 
-JetBrainsは、以下のIDEおよびコードエディター向けに公式のKotlinサポートを提供しています：[IntelliJ IDEA](#intellij-idea) と [Android Studio](#android-studio)。
+JetBrainsは、以下のIDEおよびコードエディター向けに公式のKotlinサポートを提供しています：
+[IntelliJ IDEA](#intellij-idea) と [Android Studio](#android-studio)。
 
 その他のIDEやコードエディターは、Kotlinコミュニティがサポートするプラグインのみを提供しています。
 
@@ -54,5 +55,5 @@ Kotlinコードの記述には任意のテキストエディターを使用で�
 
 ## 次へ
 
-*   [IntelliJ IDEA IDEを使用して最初のプロジェクトを開始する](jvm-get-started.md)
-*   [Android Studioを使用して最初のクロスプラットフォームモバイルアプリを作成する](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-create-first-app.html)
+*   [IntelliJ IDEAでコンソールアプリケーションを作成する](jvm-get-started.md)
+*   [Android Studioを使用して最初のクロスプラットフォームモバイルアプリを作成する](https://kotlinlang.org/docs/multiplatform/multiplatform-create-first-app.html)

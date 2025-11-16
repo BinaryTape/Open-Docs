@@ -155,7 +155,7 @@ Kotlin 2.0.20은 멀티플랫폼 프로젝트의 소스 세트 관리 기능을 
 
 ### 기본 타겟 계층 구조의 소스 세트에 대한 정적 접근자
 
-Kotlin 1.9.20부터는 [기본 계층 템플릿](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-hierarchy.html#default-hierarchy-template)이 모든 Kotlin 멀티플랫폼 프로젝트에 자동으로 적용됩니다. 그리고 기본 계층 템플릿의 모든 소스 세트에 대해 Kotlin Gradle 플러그인은 타입-세이프(type-safe) 접근자를 제공했습니다. 그렇게 하면 `by getting` 또는 `by creating` 구성 없이도 지정된 모든 타겟에 대한 소스 세트에 접근할 수 있게 됩니다.
+Kotlin 1.9.20부터는 [기본 계층 템플릿](https://kotlinlang.org/docs/multiplatform/multiplatform-hierarchy.html#default-hierarchy-template)이 모든 Kotlin 멀티플랫폼 프로젝트에 자동으로 적용됩니다. 그리고 기본 계층 템플릿의 모든 소스 세트에 대해 Kotlin Gradle 플러그인은 타입-세이프(type-safe) 접근자를 제공했습니다. 그렇게 하면 `by getting` 또는 `by creating` 구성 없이도 지정된 모든 타겟에 대한 소스 세트에 접근할 수 있게 됩니다.
 
 Kotlin 2.0.20은 IDE 경험을 더욱 향상시키는 것을 목표로 합니다. 이제 `sourceSets {}` 블록에서 기본 계층 템플릿의 모든 소스 세트에 대한 정적 접근자를 제공합니다. 이 변경 사항으로 인해 이름으로 소스 세트에 접근하는 것이 더 쉽고 예측 가능해질 것이라고 생각합니다.
 
@@ -184,7 +184,7 @@ kotlin {
 
 ![Accessing the source sets by name](accessing-sourse-sets.png){width=700}
 
-[Kotlin 멀티플랫폼의 계층적 프로젝트 구조](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-hierarchy.html)에 대해 자세히 알아보세요.
+[Kotlin 멀티플랫폼의 계층적 프로젝트 구조](https://kotlinlang.org/docs/multiplatform/multiplatform-hierarchy.html)에 대해 자세히 알아보세요.
 
 ### Kotlin 멀티플랫폼 Gradle 플러그인과 Gradle Java 플러그인 호환성 지원 중단 예정
 
@@ -713,9 +713,9 @@ Kotlin 2.0.20에서 Base64 디코더의 동작에 두 가지 변경 사항이 �
 
 Base64 인코더는 이제 기본적으로 패딩을 추가하며, 디코더는 패딩을 요구하고 디코딩 시 0이 아닌 패드 비트를 금지합니다.
 
-#### 패딩 구성을 위한 `withPadding` 함수
+#### withPadding 함수를 통한 패딩 구성
 
-Base64 인코딩 및 디코딩의 패딩 동작을 제어하기 위해 새로운 `.withPadding()` 함수가 도입되었습니다.
+새로운 `.withPadding()` 함수가 도입되었습니다. 이 함수를 사용하면 Base64 인코딩 및 디코딩의 패딩 동작을 제어할 수 있습니다.
 
 ```kotlin
 val base64 = Base64.UrlSafe.withPadding(Base64.PaddingOption.ABSENT_OPTIONAL)
@@ -723,12 +723,12 @@ val base64 = Base64.UrlSafe.withPadding(Base64.PaddingOption.ABSENT_OPTIONAL)
 
 이 함수를 사용하면 다양한 패딩 옵션을 가진 `Base64` 인스턴스를 생성할 수 있습니다.
 
-| `PaddingOption` | 인코딩 시 | 디코딩 시 |
-|:----------------|:----------|:------------|
-| `PRESENT`       | 패딩 추가 | 패딩 필수   |
-| `ABSENT`        | 패딩 생략 | 패딩 허용 안됨 |
-| `PRESENT_OPTIONAL`| 패딩 추가 | 패딩 선택 사항 |
-| `ABSENT_OPTIONAL` | 패딩 생략 | 패딩 선택 사항 |
+| `PaddingOption`    | 인코딩 시 | 디코딩 시 |
+|:-------------------|:----------|:------------|
+| `PRESENT`          | 패딩 추가 | 패딩 필수   |
+| `ABSENT`           | 패딩 생략 | 패딩 허용 안됨 |
+| `PRESENT_OPTIONAL` | 패딩 추가 | 패딩 선택 사항 |
+| `ABSENT_OPTIONAL`  | 패딩 생략 | 패딩 선택 사항 |
 
 다양한 패딩 옵션을 가진 `Base64` 인스턴스를 생성하여 데이터를 인코딩하고 디코딩할 수 있습니다.
 
@@ -774,7 +774,7 @@ Kotlin 문서는 몇 가지 주목할 만한 변경 사항을 받았습니다.
 *   [예외 페이지](exceptions.md) 개선 - 예외, 예외를 throw하고 catch하는 방법을 알아보세요.
 *   [JVM에서 JUnit을 사용한 테스트 코드 - 튜토리얼](jvm-test-using-junit.md) 개선 - JUnit을 사용하여 테스트를 만드는 방법을 알아보세요.
 *   [Swift/Objective-C와의 상호 운용성 페이지](native-objc-interop.md) 개선 - Swift/Objective-C 코드에서 Kotlin 선언을 사용하고 Kotlin 코드에서 Objective-C 선언을 사용하는 방법을 알아보세요.
-*   [Swift 패키지 익스포트 설정 페이지](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-spm-export.html) 개선 - Swift 패키지 관리자(Swift package manager) 의존성에서 사용할 수 있는 Kotlin/Native 출력을 설정하는 방법을 알아보세요.
+*   [Swift 패키지 익스포트 설정 페이지](https://kotlinlang.org/docs/multiplatform/multiplatform-spm-export.html) 개선 - Swift 패키지 관리자(Swift package manager) 의존성에서 사용할 수 있는 Kotlin/Native 출력을 설정하는 방법을 알아보세요.
 
 ## Kotlin 2.0.20 설치
 

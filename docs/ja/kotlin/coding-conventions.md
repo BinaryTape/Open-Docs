@@ -19,6 +19,10 @@ Kotlinで最も人気のある2つのIDEである[IntelliJ IDEA](https://www.jet
 2.  **Incorrect formatting** インスペクションをオンにします。
 スタイルガイドで説明されているその他の問題（命名規則など）を検証する追加のインスペクションは、デフォルトで有効になっています。
 
+<!-- Replace with an external link when the guide is moved -->
+
+詳細については、[IntelliJ IDEA を使用して Kotlin コードスタイルに移行する](code-style-migration-guide.md)ガイドを参照してください。
+
 ## ソースコードの構成
 
 ### ディレクトリ構造

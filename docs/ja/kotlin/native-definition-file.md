@@ -60,8 +60,8 @@ Cライブラリの定義ファイルを作成し、バインディングを生�
 | [`compilerOpts`](#pass-compiler-and-linker-options)                                 | cinteropツールがCコンパイラに渡すコンパイラオプション。                                                                                                                                                        |
 | [`linkerOpts`](#pass-compiler-and-linker-options)                                   | cinteropツールがリンカーに渡すリンカーオプション。                                                                                                                                                              |
 | [`excludedFunctions`](#ignore-specific-functions)                                   | 無視すべき関数名のスペース区切りリスト。                                                                                                                                                         |
-| [`staticLibraries`](#include-a-static-library)                                      | <primary-label ref="experimental-general"/> [実験的](components-stability.md#stability-levels-explained)。スタティックライブラリを`.klib`に含めます。                                                                                                              |
-| [`libraryPaths`](#include-a-static-library)                                         | <primary-label ref="experimental-general"/> [実験的](components-stability.md#stability-levels-explained)。cinteropツールが`.klib`に含めるライブラリを検索するディレクトリのスペース区切りリスト。                                    |
+| [`staticLibraries`](#include-a-static-library)                                      | [実験的](components-stability.md#stability-levels-explained)。スタティックライブラリを`.klib`に含めます。                                                                                                              |
+| [`libraryPaths`](#include-a-static-library)                                         | [実験的](components-stability.md#stability-levels-explained)。cinteropツールが`.klib`に含めるライブラリを検索するディレクトリのスペース区切りリスト。                                    |
 | `packageName`                                                                       | 生成されるKotlin APIのパッケージプレフィックス。                                                                                                                                                                             |
 | [`headerFilter`](#filter-headers-by-globs)                                          | ライブラリをインポートする際に、globでヘッダーをフィルタリングし、それらのみを含めます。                                                                                                                                                |
 | [`excludeFilter`](#exclude-headers)                                                 | ライブラリをインポートする際に特定のヘッダーを除外し、`headerFilter`よりも優先されます。                                                                                                                               |
@@ -179,7 +179,7 @@ Objective-C例外をKotlinに伝播するには、`foreignExceptionMode = objc-w
 
 ### リンカーエラーの解決を支援する
 
-KotlinライブラリがCまたはObjective-Cライブラリに依存している場合、たとえば[CocoaPods連携](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-cocoapods-overview.html)を使用している場合、リンカーエラーが発生する可能性があります。依存ライブラリがマシンにローカルでインストールされていないか、プロジェクトのビルドスクリプトで明示的に設定されていない場合、「Framework not found」エラーが発生します。
+KotlinライブラリがCまたはObjective-Cライブラリに依存している場合、たとえば[CocoaPods連携](https://kotlinlang.org/docs/multiplatform/multiplatform-cocoapods-overview.html)を使用している場合、リンカーエラーが発生する可能性があります。依存ライブラリがマシンにローカルでインストールされていないか、プロジェクトのビルドスクリプトで明示的に設定されていない場合、「Framework not found」エラーが発生します。
 
 ライブラリの作者である場合、カスタムメッセージでユーザーがリンカーエラーを解決するのを支援できます。これを行うには、`.def`ファイルに`userSetupHint=message`プロパティを追加するか、`-Xuser-setup-hint`コンパイラオプションを`cinterop`に渡します。
 

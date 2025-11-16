@@ -77,7 +77,7 @@ class Graph<Node> {
 }
 ```
 
-この問題を修正するには、型エイリアスで型パラメータを直接宣言します。
+この問題を修正するには、型パラメータを型エイリアスで直接宣言します。
 
 ```kotlin
 class Graph<Node> {
@@ -96,7 +96,7 @@ class Graph<Node> {
 *   可視性の点では、エイリアスはその参照される型が許可する以上に公開することはできません。
 *   それらのスコープは、[ネストされたクラス](nested-classes.md)と同じです。クラスの内部で定義でき、オーバーライドしないため、同じ名前の親の型エイリアスを隠蔽します。
 *   ネストされた型エイリアスは、可視性を制限するために `internal` または `private` としてマークできます。
-*   ネストされた型エイリアスは、Kotlin Multiplatformの[`expect/actual` 宣言](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-expect-actual.html)ではサポートされていません。
+*   ネストされた型エイリアスは、Kotlin Multiplatformの[`expect/actual` 宣言](https://kotlinlang.org/docs/multiplatform/multiplatform-expect-actual.html)ではサポートされていません。
 
 ### ネストされた型エイリアスを有効にする方法
 

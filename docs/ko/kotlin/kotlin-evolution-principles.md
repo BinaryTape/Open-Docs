@@ -94,7 +94,7 @@ Kotlin 언어 기능은 다음 상태 중 하나를 가질 수 있습니다.
 
 *   **프리뷰 중**. 기능 프로토타입이 준비되었으며, 기능별 컴파일러 옵션을 사용하여 활성화할 수 있습니다.
     우리는 코드베이스에 얼마나 쉽게 통합되는지, 기존 코드와 어떻게 상호 작용하는지, IDE 지원 문제나 제안 사항을 포함하여 기능 사용 경험에 대한 피드백을 찾고 있습니다.
-    기능의 디자인은 피드백에 따라 크게 변경되거나 완전히 철회될 수 있습니다. 기능이 *프리뷰 중*일 때, 이는 [안정성 수준](components-stability.md#stability-levels-explained)을 가집니다.
+    기능의 디자인은 피드백에 따라 크게 변경되거나 완전히 철회될 수 있습니다. 기능이 *프리뷰 중*일 때, 이는 Experimental 또는 Beta [안정성 수준](components-stability.md#stability-levels-explained)을 가집니다.
 
 *   **안정**. 언어 기능은 이제 Kotlin 언어에서 일급 시민입니다.
     우리는 해당 기능의 하위 호환성 및 도구 지원을 보장합니다.
@@ -137,11 +137,16 @@ Kotlin/JVM, JS, Native 컴파일러 및 다양한 라이브러리와 같은 [Kot
 
 ### 호환성 옵션
 
-새 버전이 이전 버전의 동작을 에뮬레이트하여 호환성을 유지하도록 `-language-version X.Y` 및 `-api-version X.Y` 옵션을 제공합니다. 마이그레이션 시간을 더 드리기 위해, 최신 안정 버전 외에 이전 세 가지 언어 및 API 버전을 [지원합니다](compatibility-modes.md).
+새 Kotlin 버전이 이전 버전의 동작을 에뮬레이트하여 호환성을 유지하도록 호환성 옵션을 제공합니다:
+
+*   `-language-version X.Y` - Kotlin 언어 버전 X.Y에 대한 호환성 모드로, 이후에 나온 모든 언어 기능에 대해 오류를 보고합니다.
+*   `-api-version X.Y` - Kotlin API 버전 X.Y에 대한 호환성 모드로, Kotlin 표준 라이브러리의 최신 API를 사용하는 모든 코드(컴파일러가 생성한 코드 포함)에 대해 오류를 보고합니다.
+
+마이그레이션 시간을 더 드리기 위해, 최신 안정 버전 외에 이전 세 가지 언어 및 API 버전을 지원합니다.
 
 활발히 유지보수되는 코드베이스는 전체 사용 중단(deprecation) 주기가 완료되기를 기다리지 않고 가능한 한 빨리 버그 수정을 받는 것이 좋습니다. 현재 이러한 프로젝트는 `-progressive` 옵션을 활성화하여 도구 릴리스에서도 이러한 수정 사항을 적용할 수 있습니다.
 
-모든 옵션은 명령줄뿐만 아니라 [Gradle](gradle-compiler-options.md) 및 [Maven](maven.md#specify-compiler-options)에서도 사용할 수 있습니다.
+모든 옵션은 IDE, 명령줄뿐만 아니라 [Gradle](gradle-compiler-options.md) 및 [Maven](maven.md#specify-compiler-options)에서도 사용할 수 있습니다.
 
 ### 바이너리 형식 발전
 

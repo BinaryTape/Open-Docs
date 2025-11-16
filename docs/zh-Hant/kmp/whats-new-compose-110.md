@@ -16,7 +16,12 @@
     * [Material 1.10.0-beta01](https://developer.android.com/jetpack/androidx/releases/compose-material#1.10.0-beta01)
     * [Material3 1.4.0](https://developer.android.com/jetpack/androidx/releases/compose-material3#1.4.0)
 
-* Compose Material3 函式庫 `org.jetbrains.compose.material3:material3*:1.10.0-alpha04`。基於 [Jetpack Compose Material3 1.5.0-alpha07](https://developer.android.com/jetpack/androidx/releases/compose-material3#1.5.0-alpha07)
+* Compose Material3 函式庫 `org.jetbrains.compose.material3:material3*:1.10.0-alpha04`。基於 [Jetpack Compose Material3 1.5.0-alpha07](https://developer.android.com/jetpack/androidx/releases/compose-material3#1.5.0-alpha07)。
+
+  若要使用 [Expressive 主題](whats-new-compose-190.md#material-3-expressive-theme)，請包含實驗性版本的 Material 3：
+    ```kotlin
+    implementation("org.jetbrains.compose.material3:material3:1.9.0-alpha04")
+    ```
 * Compose Material3 Adaptive 函式庫 `org.jetbrains.compose.material3.adaptive:adaptive*:1.3.0-alpha01`。基於 [Jetpack Compose Material3 Adaptive 1.3.0-alpha02](https://developer.android.com/jetpack/androidx/releases/compose-material3-adaptive#1.3.0-alpha02)
 * Lifecycle 函式庫 `org.jetbrains.androidx.lifecycle:lifecycle-*:2.10.0-alpha04`。基於 [Jetpack Lifecycle 2.10.0-beta01](https://developer.android.com/jetpack/androidx/releases/lifecycle#2.10.0-beta01)
 * Navigation 函式庫 `org.jetbrains.androidx.navigation:navigation-*:2.9.1`。基於 [Jetpack Navigation 2.9.4](https://developer.android.com/jetpack/androidx/releases/navigation#2.9.4)
@@ -65,7 +70,7 @@ Compose Multiplatform 現在支援 `WindowInsetsRulers`，它提供根據視窗�
 
 這種管理視窗內嵌區的新方法使用單一實作來檢索特定平台的視窗內嵌區資料。這表示 `WindowInsets` 和 `WindowInsetsRulers` 都使用通用機制來一致地管理內嵌區。因此，特定平台本機變數，包括 `LocalLayoutMargins`、`LocalSafeArea`、`LocalKeyboardOverlapHeight` 和 `LocalInterfaceOrientation`，已棄用，轉而使用新的統一 API。
 
-> 之前，`WindowInsets.Companion.captionBar` 並未標記為 `@Composable`。我們新增了 `@Composable` 屬性，以使其行為在各平台之間保持一致。
+>之前，`WindowInsets.Companion.captionBar` 並未標記為 `@Composable`。我們新增了 `@Composable` 屬性，以使其行為在各平台之間保持一致。
 > 
 {style="note"}
 
@@ -89,7 +94,7 @@ Compose Hot Reload 外掛程式現在已與 Compose Multiplatform Gradle 外掛�
  * 您可以安全地移除宣告，以便使用 Compose Multiplatform Gradle 外掛程式提供的版本。
  * 如果您選擇保留特定版本宣告，則將使用該版本而不是內建版本。
 
-> 內建的 Compose Hot Reload Gradle 外掛程式將 Compose Multiplatform 專案所需的 Kotlin 版本提升至 2.1.20。
+>內建的 Compose Hot Reload Gradle 外掛程式將 Compose Multiplatform 專案所需的 Kotlin 版本提升至 2.1.20。
 >
 {style="warning"}
 

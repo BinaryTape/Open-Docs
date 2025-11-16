@@ -2,15 +2,13 @@
 
 <web-summary>選擇最符合您 KMP 經驗水準的學習材料。</web-summary>
 
-本指南彙整了關鍵的 Kotlin Multiplatform (KMP) 和 Compose Multiplatform 學習材料。您可以按技能水準瀏覽，尋找適合您經驗的教學、課程和文章。
-
-以下是各級別說明：
+我們彙整了超過 30 份重要的 Kotlin Multiplatform (KMP) 和 Compose Multiplatform 學習材料。您可以依技能水準瀏覽，尋找適合您經驗的教學、課程和文章：
 
 🌱 **初學者**。透過 JetBrains 和 Google 的官方教學，學習 KMP 和 Compose 的基礎知識。使用 Room、Ktor 和 SQLDelight 等核心函式庫建構簡單的應用程式。
 
-🌿 **中級**。使用多平台 ViewModel、基於 Koin 的依賴注入 (DI) 和整潔架構開發實際應用程式。包含 JetBrains 和社群教育者的課程。
+🌿 **中級**。使用共享 ViewModels、基於 Koin 的依賴注入和整潔架構開發實際應用程式。透過 JetBrains 和社群教育者的課程學習。
 
-🌳 **進階者**。深入全面的 KMP 工程，涵蓋後端和遊戲開發使用案例，以及關於大型多團隊專案的擴展架構和採用指南。
+🌳 **進階者**。深入全面的 KMP 工程，涵蓋後端和遊戲開發使用案例，並提供大型、多團隊專案的擴展架構和採用指南。
 
 🧩 **函式庫作者**。建立並發布可重複使用的 KMP 函式庫。學習 API 設計、Dokka 文件和使用官方 JetBrains 工具與範本進行 Maven 發布。
 
@@ -68,7 +66,7 @@
 </td>
 <td>
 
-[Kotlin Multiplatform 概觀](kmp-overview.md)
+[Kotlin Multiplatform Overview](kmp-overview.md)
 
 文章
 
@@ -78,7 +76,7 @@ JetBrains
 </td>
 
 <td>
-KMP 的核心價值、了解實際使用案例，並為您的專案找到正確的學習路徑。
+KMP 的核心價值、實際使用案例，以及選擇正確學習路徑的指南。
 </td>
 <td>
 免費
@@ -94,7 +92,7 @@ KMP 的核心價值、了解實際使用案例，並為您的專案找到正確�
 </td>
 <td>
 
-[建立您的第一個 KMP 應用程式](multiplatform-create-first-app.md)
+[Create Your First KMP App](multiplatform-create-first-app.md)
 
 教學
 
@@ -104,13 +102,13 @@ JetBrains
 </td>
 
 <td>
-如何設定 KMP 專案並在 Android 和 iOS 之間共享簡單的業務邏輯，同時保持 UI 完全原生。
+如何設定 KMP 專案，並在 Android 和 iOS 之間共享簡單的業務邏輯，同時保持 UI 完全原生。
 </td>
 <td>
 免費
 </td>
 <td>
-1-2 小時
+1–2 小時
 </td>
 </tr>
 
@@ -120,13 +118,15 @@ JetBrains
 </td>
 <td>
 
-[開始使用 Kotlin Multiplatform (Google Codelab)](https://developer.android.com/codelabs/kmp-get-started)
+[Get Started With Kotlin Multiplatform (Google Codelab)](https://developer.android.com/codelabs/kmp-get-started)
 
 教學
 
 </td>
 <td>
-Google/ Android
+Google
+
+Android
 </td>
 
 <td>
@@ -136,7 +136,7 @@ Google/ Android
 免費
 </td>
 <td>
-1-2 小時
+1–2 小時
 </td>
 </tr>
 
@@ -146,7 +146,7 @@ Google/ Android
 </td>
 <td>
 
-[建立您的第一個 Compose Multiplatform 應用程式](compose-multiplatform-create-first-app.md)
+[Create Your First Compose Multiplatform App](compose-multiplatform-create-first-app.md)
 
 教學
 
@@ -162,7 +162,7 @@ JetBrains
 免費
 </td>
 <td>
-2-3 小時
+2–3 小時
 </td>
 </tr>
 
@@ -172,7 +172,7 @@ JetBrains
 </td>
 <td>
 
-[使用 Ktor 和 SQLDelight 建立多平台應用程式](multiplatform-ktor-sqldelight.md)
+[Create a Multiplatform App Using Ktor and SQLDelight](multiplatform-ktor-sqldelight.md)
 
 教學
 
@@ -188,7 +188,7 @@ JetBrains
 免費
 </td>
 <td>
-4-6 小時
+4–6 小時
 </td>
 </tr>
 
@@ -198,7 +198,7 @@ JetBrains
 </td>
 <td>
 
-[預期與實際宣告](multiplatform-expect-actual.md)
+[Expected and Actual Declarations](multiplatform-expect-actual.md)
 
 文章
 
@@ -214,7 +214,7 @@ JetBrains
 免費
 </td>
 <td>
-1-2 小時
+1–2 小時
 </td>
 </tr>
 
@@ -224,7 +224,7 @@ JetBrains
 </td>
 <td>
 
-[在 KMP 應用程式中使用平台專屬 API](https://www.youtube.com/watch?v=bSNumV04y_w)
+[Using Platform-Specific APIs in KMP Apps](https://www.youtube.com/watch?v=bSNumV04y_w)
 
 影音教學
 
@@ -252,7 +252,7 @@ YouTube
 </td>
 <td>
 
-[適用於 Android 開發人員的 KMP](https://nsmirosh.gumroad.com/l/tmmqwa)
+[KMP for Android Developers](https://nsmirosh.gumroad.com/l/tmmqwa)
 
 影音課程
 
@@ -267,10 +267,10 @@ Gumroad
 如何透過掌握 expect/actual 和原始碼集等 KMP 基礎知識，將您現有的 Android 開發技能擴展到 iOS，然後使用 Ktor 進行網路和 Room 進行持久性等現代函式庫建構完整的應用程式堆疊。
 </td>
 <td>
-付費 (~$60)
+~$60
 </td>
 <td>
-8-12 小時 (進行中)
+8–12 小時
 </td>
 </tr>
 
@@ -280,7 +280,7 @@ Gumroad
 </td>
 <td>
 
-[Kotlin Multiplatform 大師班](https://www.udemy.com/course/kotlin-multiplatform-masterclass/)
+[Kotlin Multiplatform Masterclass](https://www.udemy.com/course/kotlin-multiplatform-masterclass/)
 
 影音課程
 
@@ -295,7 +295,7 @@ Udemy
 如何從零開始應用整潔架構和 MVI 來建構一個完整的 KMP 應用程式，整合 Ktor、SQLDelight 和 Koin 等一系列基本函式庫，並搭配原生 Jetpack Compose 和 SwiftUI UI。
 </td>
 <td>
-付費 (€10-20)
+€10–€20
 </td>
 <td>
 6 小時
@@ -308,7 +308,7 @@ Udemy
 </td>
 <td>
 
-[Compose Multiplatform 完整課程 2025 – 從零到精通](https://www.youtube.com/watch?v=Z92zJzL-6z0&list=PL0pXjGnY7PORAoIX2q7YG2sotapCp4hyl)
+[Compose Multiplatform Full Course 2025 | Zero to Hero](https://www.youtube.com/watch?v=Z92zJzL-6z0&list=PL0pXjGnY7PORAoIX2q7YG2sotapCp4hyl)
 
 影音課程
 
@@ -336,7 +336,7 @@ YouTube
 </td>
 <td>
 
-[Kotlin Multiplatform 開發](https://www.linkedin.com/learning/kotlin-multiplatform-development)
+[Kotlin Multiplatform Development](https://www.linkedin.com/learning/kotlin-multiplatform-development)
 
 影音課程
 
@@ -351,7 +351,7 @@ LinkedIn Learning
 如何在 Compose Multiplatform 和原生 UI 之間做出架構選擇，理解 Swift 互通性的基礎知識，並全面概觀 KMP 生態系統中用於網路、持久性和依賴注入的必備元素。
 </td>
 <td>
-付費 (~$30-40/月)
+~$30–$40/月)
 </td>
 <td>
 3 小時
@@ -364,23 +364,23 @@ LinkedIn Learning
 </td>
 <td>
 
-[透過教學學習 Kotlin Multiplatform (第三版)](https://www.kodeco.com/books/kotlin-multiplatform-by-tutorials/v3.0)
+[Kotlin Multiplatform by Tutorials (Third Edition)](https://www.kodeco.com/books/kotlin-multiplatform-by-tutorials/v3.0)
 
 書籍
 
 </td>
 <td>
-Kodeco 團隊 (Kevin D. Moore, Carlos Mota, Saeed Taheri)
+Kodeco Team (Kevin D. Moore, Carlos Mota, Saeed Taheri)
 </td>
 
 <td>
 透過將原生 UI 連接到 KMP 共享模組，以實現網路、序列化和持久性，學習程式碼共享的基礎知識。您還將看到如何應用依賴注入、測試和現代架構來建構可維護和可擴展的實際應用程式。
 </td>
 <td>
-付費 (~$60)
+~$60
 </td>
 <td>
-40-60 小時
+40–60 小時
 </td>
 </tr>
 
@@ -394,7 +394,7 @@ Kodeco 團隊 (Kevin D. Moore, Carlos Mota, Saeed Taheri)
 </td>
 <td>
 
-[讓您的 Android 應用程式在 iOS 上運作](multiplatform-integrate-in-existing-app.md)
+[Make Your Android Application Work on iOS](multiplatform-integrate-in-existing-app.md)
 
 教學
 
@@ -420,13 +420,15 @@ JetBrains
 </td>
 <td>
 
-[將現有應用程式遷移至 Room KMP (Google Codelab)](https://developer.android.com/codelabs/kmp-migrate-room)
+[Migrate Existing Apps to Room KMP (Google Codelab)](https://developer.android.com/codelabs/kmp-migrate-room)
 
 教學
 
 </td>
 <td>
-Google/ Android
+Google
+
+Android
 </td>
 
 <td>
@@ -446,7 +448,7 @@ Google/ Android
 </td>
 <td>
 
-[如何在 Compose Multiplatform 中共享 ViewModel (附依賴注入！)](https://www.youtube.com/watch?v=O85qOS7U3XQ)
+[How to Share ViewModels in Compose Multiplatform (with Dependency Injection!)](https://www.youtube.com/watch?v=O85qOS7U3XQ)
 
 影音教學
 
@@ -474,7 +476,7 @@ YouTube
 </td>
 <td>
 
-[Compose Multiplatform 速成課程 2025](https://www.youtube.com/watch?v=WT9-4DXUqsM)
+[The Compose Multiplatform Crash Course 2025](https://www.youtube.com/watch?v=WT9-4DXUqsM)
 
 影音課程
 
@@ -502,7 +504,7 @@ YouTube
 </td>
 <td>
 
-[使用 KMP 建構產業級多平台應用程式](https://pl-coding.com/kmp/)
+[Building Industry-Level Multiplatform Apps With KMP](https://pl-coding.com/kmp/)
 
 影音課程
 
@@ -515,10 +517,10 @@ Philipp Lackner
 </td>
 
 <td>
-如何透過在原生 UI (Jetpack Compose & SwiftUI) 之間共享 ViewModel 和業務邏輯，建構一個實際的翻譯應用程式，涵蓋從整潔架構到單元測試、UI 測試和端到端測試的完整開發生命週期。
+如何透過在原生 UI (Jetpack Compose 和 SwiftUI) 之間共享 ViewModel 和業務邏輯，建構一個實際的翻譯應用程式，涵蓋從整潔架構到單元測試、UI 測試和端到端測試的完整開發生命週期。
 </td>
 <td>
-付費 (~€99)
+~€99
 </td>
 <td>
 20 小時
@@ -531,7 +533,7 @@ Philipp Lackner
 </td>
 <td>
 
-[建構產業級 Compose Multiplatform Android & iOS 應用程式](https://pl-coding.com/cmp-mobile)
+[Building Industry-Level Compose Multiplatform Android and iOS Apps](https://pl-coding.com/cmp-mobile)
 
 影音課程
 
@@ -547,7 +549,7 @@ Philipp Lackner
 如何從零開始使用完整的 Compose Multiplatform 堆疊建構一個大規模、離線優先的聊天應用程式，包括 Ktor 用於即時 WebSocket、Room 用於本機持久性，以及 Koin 用於多模組依賴注入。
 </td>
 <td>
-付費 (~€199)
+~€199
 </td>
 <td>
 34 小時
@@ -560,7 +562,7 @@ Philipp Lackner
 </td>
 <td>
 
-[終極 Compose Multiplatform：Android/iOS + 測試](https://www.udemy.com/course/ultimate-compose-multiplatform-androidios-testing-kotlin/)
+[Ultimate Compose Multiplatform: Android/iOS and Testing](https://www.udemy.com/course/ultimate-compose-multiplatform-androidios-testing-kotlin/)
 
 影音課程
 
@@ -576,7 +578,7 @@ Udemy
 如何完全使用 Compose Multiplatform 建構一個功能豐富的虛擬加密錢包應用程式，不僅涵蓋核心堆疊 (Ktor、Room、Koin)，還包括穩固的單元/UI 測試和生物識別驗證等進階平台整合。
 </td>
 <td>
-付費 (~€20)
+~€20
 </td>
 <td>
 8 小時
@@ -592,7 +594,7 @@ Udemy
 </td>
 <td>
 
-[Kotlin/Swift 互操作百科](https://github.com/kotlin-hands-on/kotlin-swift-interopedia)
+[Kotlin/Swift Interopedia](https://github.com/kotlin-hands-on/kotlin-swift-interopedia)
 
 文章
 
@@ -604,7 +606,7 @@ GitHub
 </td>
 
 <td>
-與 iOS (Obj-C/Swift) 的互操作性、SKIE、KMP-NativeCoroutines、語言功能差距的解決方法、Swift 匯出、雙向互操作。
+與 iOS (Obj-C/Swift) 的互操作性、SKIE、KMP-NativeCoroutines、語言功能差距的解決方法、Swift 匯出，以及雙向互操作。
 </td>
 <td>
 免費
@@ -620,7 +622,7 @@ GitHub
 </td>
 <td>
 
-[適用於 Android & iOS 的多模組電子商務應用程式 (KMP)](https://www.udemy.com/course/multi-modular-ecommerce-app-for-android-ios-kmp/)
+[Multi-Modular Ecommerce App for Android and iOS (KMP)](https://www.udemy.com/course/multi-modular-ecommerce-app-for-android-ios-kmp/)
 
 影音課程
 
@@ -635,7 +637,7 @@ Udemy
 從設計電子商務應用程式的 Figma UI 到使用 Compose Multiplatform 將其建構為一個完整的、具有共享 UI 的多模組應用程式，同時也使用 Firebase 服務（用於身份驗證、資料庫和自動化 Cloud Functions）建立並整合完整的後端。
 </td>
 <td>
-付費 (~€50)
+~€50
 </td>
 <td>
 30 小時
@@ -648,7 +650,7 @@ Udemy
 </td>
 <td>
 
-[使用 Kotlin Multiplatform 和 Compose 探索 Ktor](https://www.linkedin.com/learning/exploring-ktor-with-kotlin-multiplatform-and-compose)
+[Exploring Ktor with Kotlin Multiplatform and Compose](https://www.linkedin.com/learning/exploring-ktor-with-kotlin-multiplatform-and-compose)
 
 影音課程
 
@@ -663,7 +665,7 @@ LinkedIn Learning
 如何建構一個全端 Kotlin 應用程式，首先建立並部署安全的 Ktor 後端到 AWS，然後使用 Kotlin Multiplatform 建構具有共享程式碼的原生用戶端，這些用戶端將消耗您的 API。
 </td>
 <td>
-付費 (~$30-40/月)
+~$30–$40/月
 </td>
 <td>
 2-3 小時
@@ -676,7 +678,7 @@ LinkedIn Learning
 </td>
 <td>
 
-[全端遊戲開發 - Kotlin & Compose Multiplatform](https://www.udemy.com/course/full-stack-game-development-kotlin-compose-multiplatform/)
+[Full-Stack Game Development - Kotlin and Compose Multiplatform](https://www.udemy.com/course/full-stack-game-development-kotlin-compose-multiplatform/)
 
 影音課程
 
@@ -691,10 +693,10 @@ Udemy
 如何使用 Compose Multiplatform 建構一個完整的 2D 遊戲，涵蓋物理、碰撞偵測、精靈表動畫，並將其部署到 Android、iOS、桌面和網頁 (透過 Kotlin/Wasm)。
 </td>
 <td>
-付費 (~€99)
+~€99
 </td>
 <td>
-8-10 小時
+8–10 小時
 </td>
 </tr>
 
@@ -704,7 +706,7 @@ Udemy
 </td>
 <td>
 
-[Philipp Lackner 全端套裝：KMP + Spring Boot](https://pl-coding.com/full-stack-bundle)
+[Philipp Lackner Full-Stack Bundle: KMP and Spring Boot](https://pl-coding.com/full-stack-bundle)
 
 影音課程
 
@@ -720,7 +722,7 @@ Philipp Lackner
 如何架構、建構和部署一個完整的全端聊天應用程式，涵蓋從帶有 WebSocket 的多模組 Spring Boot 後端，到離線優先的 Compose Multiplatform 用戶端 (Android、iOS、桌面、網頁)，以及完整的 CI/CD 管線。
 </td>
 <td>
-付費 (~€429)
+~€429
 </td>
 <td>
 55 小時
@@ -733,7 +735,7 @@ Philipp Lackner
 </td>
 <td>
 
-[KMP 適用於原生行動團隊](https://touchlab.co/kmp-teams-intro)
+[KMP for Native Mobile Teams](https://touchlab.co/kmp-teams-intro)
 
 系列文章
 
@@ -749,7 +751,7 @@ Touchlab
 免費
 </td>
 <td>
-6-8 小時
+6–8 小時
 </td>
 </tr>
 
@@ -763,7 +765,7 @@ Touchlab
 </td>
 <td>
 
-[多平台函式庫建構的 API 指南](https://kotlinlang.org/docs/api-guidelines-build-for-multiplatform.html)
+[API Guidelines for Multiplatform Library Building](https://kotlinlang.org/docs/api-guidelines-build-for-multiplatform.html)
 
 文件
 
@@ -779,7 +781,7 @@ JetBrains
 免費
 </td>
 <td>
-1-2 小時
+1–2 小時
 </td>
 </tr>
 
@@ -789,7 +791,7 @@ JetBrains
 </td>
 <td>
 
-[建立您的 Kotlin Multiplatform 函式庫](create-kotlin-multiplatform-library.md)
+[Create Your Kotlin Multiplatform Library](create-kotlin-multiplatform-library.md)
 
 教學
 
@@ -805,7 +807,7 @@ JetBrains
 免費
 </td>
 <td>
-2-3 小時
+2–3 小時
 </td>
 </tr>
 
@@ -815,9 +817,9 @@ JetBrains
 </td>
 <td>
 
-[使用 Dokka 建立文件](https://kotlinlang.org/docs/dokka-introduction.html)
+[Documentation with Dokka](https://kotlinlang.org/docs/dokka-introduction.html)
 
-文件/ GitHub
+文件
 
 </td>
 <td>
@@ -831,7 +833,7 @@ JetBrains
 免費
 </td>
 <td>
-2-3 小時
+2–3 小時
 </td>
 </tr>
 
@@ -841,7 +843,7 @@ JetBrains
 </td>
 <td>
 
-[KMP 函式庫範本](https://github.com/Kotlin/multiplatform-library-template)
+[KMP Library Template](https://github.com/Kotlin/multiplatform-library-template)
 
 GitHub 範本
 
@@ -869,7 +871,7 @@ GitHub
 </td>
 <td>
 
-[發布至 Maven Central](multiplatform-publish-libraries.md)
+[Publish to Maven Central](multiplatform-publish-libraries.md)
 
 教學
 
@@ -885,7 +887,7 @@ JetBrains
 免費
 </td>
 <td>
-3-4 小時
+3–4 小時
 </td>
 </tr>
 
@@ -895,7 +897,7 @@ JetBrains
 </td>
 <td>
 
-[Kotlin Multiplatform 函式庫](https://www.linkedin.com/learning/kotlin-multiplatform-libraries)
+[Kotlin Multiplatform Libraries](https://www.linkedin.com/learning/kotlin-multiplatform-libraries)
 
 影音課程
 
@@ -908,7 +910,7 @@ LinkedIn Learning
 建立 KMP 函式庫的完整生命週期，從有效的 API 設計和程式碼共享策略，到最終發布和最佳實踐。
 </td>
 <td>
-付費 (~$30-40/月)
+~$30–$40/月
 </td>
 <td>
 2-3 小時

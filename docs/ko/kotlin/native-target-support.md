@@ -8,7 +8,7 @@ Kotlin/Native 컴파일러는 다양한 대상을 지원하지만, 모든 대상
 
 계층 테이블에 사용된 다음 용어에 유의하십시오:
 
-*   **Gradle 대상 이름**은 Kotlin Multiplatform Gradle 플러그인에서 대상을 활성화하는 데 사용되는 [대상 이름](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-dsl-reference.html#targets)입니다.
+*   **Gradle 대상 이름**은 Kotlin Multiplatform Gradle 플러그인에서 대상을 활성화하는 데 사용되는 [대상 이름](https://kotlinlang.org/docs/multiplatform/multiplatform-dsl-reference.html#targets)입니다.
 *   **Target triple**은 [컴파일러](https://clang.llvm.org/docs/CrossCompilation.html#target-triple)에서 일반적으로 사용되는 `<architecture>-<vendor>-<system>-<abi>` 구조에 따른 대상 이름입니다.
 *   **테스트 실행**은 Gradle 및 IDE에서 테스트를 즉시 실행할 수 있는 지원을 의미합니다.
   

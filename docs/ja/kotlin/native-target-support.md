@@ -8,7 +8,7 @@ Kotlin/Nativeコンパイラは非常に多くの異なるターゲットをサ�
 
 以下のティアテーブルで使用される用語にご注意ください。
 
-*   **Gradleターゲット名**は、Kotlin Multiplatform Gradleプラグインでターゲットを有効にするために使用される[ターゲット名](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-dsl-reference.html#targets)です。
+*   **Gradleターゲット名**は、Kotlin Multiplatform Gradleプラグインでターゲットを有効にするために使用される[ターゲット名](https://kotlinlang.org/docs/multiplatform/multiplatform-dsl-reference.html#targets)です。
 *   **ターゲットトリプル**は、[コンパイラ](https://clang.llvm.org/docs/CrossCompilation.html#target-triple)で一般的に使用される`<architecture>-<vendor>-<system>-<abi>`構造に基づくターゲット名です。
 *   **テストの実行**は、GradleおよびIDEでのテスト実行の「すぐに使える（out-of-the-box）」サポートを示します。
   

@@ -39,7 +39,6 @@ Koog 的 **流式 API** 讓您能夠以 `Flow<StreamFrame>` 形式**逐步接收
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
 import ai.koog.prompt.streaming.StreamFrame
-import ai.koog.prompt.structure.markdown.MarkdownStructuredDataDefinition
 
 val strategy = strategy<String, String>("strategy_name") {
     val node by node<Unit, Unit> {
@@ -60,7 +59,7 @@ llm.writeSession {
             is StreamFrame.ToolCall -> {
                 println("
 🔧 Tool call: ${frame.name} args=${frame.content}")
-                // 可選地延遲解析：
+                // Optionally parse lazily:
                 // val json = frame.contentJson
             }
             is StreamFrame.End -> println("
@@ -77,7 +76,7 @@ llm.writeSession {
 
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
-import ai.koog.prompt.structure.markdown.MarkdownStructuredDataDefinition
+import ai.koog.prompt.structure.markdown.MarkdownStructureDefinition
 
 val strategy = strategy<String, String>("strategy_name") {
     val node by node<Unit, Unit> {
@@ -87,18 +86,18 @@ val strategy = strategy<String, String>("strategy_name") {
 }
 -->
 ```kotlin
-fun markdownBookDefinition(): MarkdownStructuredDataDefinition {
-    return MarkdownStructuredDataDefinition("name", schema = { /*...*/ })
+fun markdownBookDefinition(): MarkdownStructureDefinition {
+    return MarkdownStructureDefinition("name", schema = { /*...*/ })
 }
 
 val mdDefinition = markdownBookDefinition()
 
 llm.writeSession {
     val stream = requestLLMStreaming(mdDefinition)
-    // 直接存取原始字串區塊
+    // Access the raw string chunks directly
     stream.collect { chunk ->
-        // 處理每個抵達的文字區塊
-        println("已接收區塊: $chunk") // 這些區塊會共同構成遵循 mdDefinition 結構描述的文字
+        // Process each chunk of text as it arrives
+        println("Received chunk: $chunk") // The chunks together will be structured as a text following the mdDefinition schema
     }
 }
 ```
@@ -124,10 +123,10 @@ val strategy = strategy<String, String>("strategy_name") {
 llm.writeSession {
     val frames = requestLLMStreaming()
 
-    // 串流傳遞文字區塊：
+    // Stream text chunks as they come:
     frames.filterTextOnly().collect { chunk -> print(chunk) }
 
-    // 或者，在結束後將所有文字收集到一個 String 中：
+    // Or, gather all text into one String after End:
     val fullText = frames.collectText()
     println("
 ---
@@ -145,6 +144,7 @@ import ai.koog.agents.core.dsl.builder.strategy
 import ai.koog.agents.core.agent.GraphAIAgent
 import ai.koog.agents.features.eventHandler.feature.handleEvents
 import ai.koog.prompt.streaming.StreamFrame
+import ai.koog.prompt.structure.markdown.MarkdownStructureDefinition
 
 fun GraphAIAgent.FeatureContext.installStreamingApi() {
 -->
@@ -189,8 +189,8 @@ handleEvents {
 
 結構化資料方法包括以下關鍵組件：
 
-1.  `MarkdownStructuredDataDefinition`：一個類別，可幫助您定義 Markdown 格式結構化資料的結構描述和範例。
-2.  `markdownStreamingParser`：一個函數，用於創建一個解析器，該解析器處理 Markdown 區塊流並發出事件。
+1.  **MarkdownStructureDefinition**：一個類別，可幫助您定義 Markdown 格式結構化資料的結構描述和範例。
+2.  **markdownStreamingParser**：一個函數，用於創建一個解析器，該解析器處理 Markdown 區塊流並發出事件。
 
 以下部分提供了與處理結構化資料流相關的逐步說明和程式碼範例。
 
@@ -213,15 +213,15 @@ data class Book(
 
 #### 2. 定義 Markdown 結構
 
-使用 `MarkdownStructuredDataDefinition` 類別創建一個定義，指定您的資料應如何在 Markdown 中結構化：
+使用 `MarkdownStructureDefinition` 類別創建一個定義，指定您的資料應如何在 Markdown 中結構化：
 
 <!--- INCLUDE
 import ai.koog.prompt.markdown.markdown
-import ai.koog.prompt.structure.markdown.MarkdownStructuredDataDefinition
+import ai.koog.prompt.structure.markdown.MarkdownStructureDefinition
 -->
 ```kotlin
-fun markdownBookDefinition(): MarkdownStructuredDataDefinition {
-    return MarkdownStructuredDataDefinition("bookList", schema = {
+fun markdownBookDefinition(): MarkdownStructureDefinition {
+    return MarkdownStructureDefinition("bookList", schema = {
         markdown {
             header(1, "title")
             bulleted {
@@ -261,15 +261,15 @@ fun parseMarkdownStreamToBooks(markdownStream: Flow<String>): Flow<Book> {
 -->
 ```kotlin
 markdownStreamingParser {
-    // 處理一級標題 (級別範圍從 1 到 6)
+    // Handle level 1 headings (level ranges from 1 to 6)
     onHeader(1) { headerText -> }
-    // 處理項目符號
+    // Handle bullet points
     onBullet { bulletText -> }
-    // 處理程式碼區塊
+    // Handle code blocks
     onCodeBlock { codeBlockContent -> }
-    // 處理符合正則表達式模式的行
+    // Handle lines matching a regex pattern
     onLineMatching(Regex("pattern")) { line -> }
-    // 處理資料流結束
+    // Handle the end of the stream
     onFinishStream { remainingText -> }
 }
 ```
@@ -293,9 +293,9 @@ fun parseMarkdownStreamToBooks(markdownStream: Flow<StreamFrame>): Flow<Book> {
          var currentBookTitle = ""
          val bulletPoints = mutableListOf<String>()
 
-         // 處理在回應資料流中接收到 Markdown 標題的事件
+         // Handle the event of receiving the Markdown header in the response stream
          onHeader(1) { headerText ->
-            // 如果存在上一本書，則發出它
+            // If there was a previous book, emit it
             if (currentBookTitle.isNotEmpty() && bulletPoints.isNotEmpty()) {
                val author = bulletPoints.getOrNull(0) ?: ""
                val description = bulletPoints.getOrNull(1) ?: ""
@@ -306,14 +306,14 @@ fun parseMarkdownStreamToBooks(markdownStream: Flow<StreamFrame>): Flow<Book> {
             bulletPoints.clear()
          }
 
-         // 處理在回應資料流中接收到 Markdown 項目符號列表的事件
+         // Handle the event of receiving the Markdown bullets list in the response stream
          onBullet { bulletText ->
             bulletPoints.add(bulletText)
          }
 
-         // 處理回應資料流的結束
+         // Handle the end of the response stream
          onFinishStream {
-            // 發出最後一本書（如果存在）
+            // Emit the last book, if present
             if (currentBookTitle.isNotEmpty() && bulletPoints.isNotEmpty()) {
                val author = bulletPoints.getOrNull(0) ?: ""
                val description = bulletPoints.getOrNull(1) ?: ""
@@ -337,25 +337,25 @@ import ai.koog.agents.example.exampleStreamingApi06.parseMarkdownStreamToBooks
 -->
 ```kotlin
 val agentStrategy = strategy<String, List<Book>>("library-assistant") {
-   // 描述包含輸出資料流解析的節點
+   // Describe the node containing the output stream parsing
    val getMdOutput by node<String, List<Book>> { booksDescription ->
       val books = mutableListOf<Book>()
       val mdDefinition = markdownBookDefinition()
 
       llm.writeSession {
          appendPrompt { user(booksDescription) }
-         // 以 `mdDefinition` 的定義形式啟動回應資料流
+         // Initiate the response stream in the form of the definition `mdDefinition`
          val markdownStream = requestLLMStreaming(mdDefinition)
-         // 使用回應資料流的結果呼叫解析器並對結果執行操作
+         // Call the parser with the result of the response stream and perform actions with the result
          parseMarkdownStreamToBooks(markdownStream).collect { book ->
             books.add(book)
-            println("已解析書籍: ${book.title} by ${book.author}")
+            println("Parsed Book: ${book.title} by ${book.author}")
          }
       }
 
       books
    }
-   // 描述代理的圖形，確保節點可存取
+   // Describe the agent's graph making sure the node is accessible
    edge(nodeStart forwardTo getMdOutput)
    edge(getMdOutput forwardTo nodeFinish)
 }
@@ -424,16 +424,16 @@ val agentStrategy = strategy<String, Unit>("library-assistant") {
 
          parseMarkdownStreamToBooks(markdownStream).collect { book ->
             callToolRaw(BookTool.NAME, book)
-            /* 其他可能的選項：
+            /* Other possible options:
                 callTool(BookTool::class, book)
                 callTool<BookTool>(book)
                 findTool(BookTool::class).execute(book)
             */
          }
 
-         // 我們可以進行平行工具呼叫
+         // We can make parallel tool calls
          parseMarkdownStreamToBooks(markdownStream).toParallelToolCallsRaw(toolClass=BookTool::class).collect {
-            println("工具呼叫結果: $it")
+            println("Tool call result: $it")
          }
       }
    }
@@ -474,7 +474,7 @@ val runner = AIAgent(
 
 1.  **定義清晰的結構**：為您的資料建立清晰且無歧義的 Markdown 結構。
 
-2.  **提供良好的範例**：在您的 `MarkdownStructuredDataDefinition` 中包含全面的範例，以指導 LLM。
+2.  **提供良好的範例**：在您的 `MarkdownStructureDefinition` 中包含全面的範例，以指導 LLM。
 
 3.  **處理不完整資料**：從資料流解析資料時，務必檢查空值或空白值。
 

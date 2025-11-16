@@ -26,7 +26,8 @@ Kotlinコンパイラを手動でインストールするには：
 
 ### SDKMAN!
 
-macOS、Linux、Cygwin、FreeBSD、SolarisなどのUNIX系システムにKotlinをインストールする簡単な方法は、[SDKMAN!](https://sdkman.io)を使用することです。これはBashおよびZSHシェルでも動作します。[SDKMAN!のインストール方法](https://sdkman.io/install)をご覧ください。
+macOS、Linux、Cygwin、FreeBSD、SolarisなどのUNIX系システムにKotlinをインストールする簡単な方法は、
+[SDKMAN!](https://sdkman.io)を使用することです。これはBashおよびZSHシェルでも動作します。[SDKMAN!のインストール方法](https://sdkman.io/install)をご覧ください。
 
 SDKMAN!経由でKotlinコンパイラをインストールするには、ターミナルで次のコマンドを実行します。
 
@@ -146,3 +147,7 @@ kotlinc -script-templates org.example.CustomScriptDefinition -script custom.scri
 ```
 
 追加の詳細については、[KEEP-75](https://github.com/Kotlin/KEEP/blob/master/proposals/scripting-support.md)を参照してください。
+
+## 次のステップ
+
+[Kotlin/JVMベースのコンソールアプリケーションを作成する](jvm-get-started.md)。

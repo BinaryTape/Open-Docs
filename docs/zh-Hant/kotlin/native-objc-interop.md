@@ -23,7 +23,7 @@ Objective-C 框架和函式庫可在 Kotlin 程式碼中使用，前提是它們
 更多細節請參閱：
 
 *   [建立並配置函式庫定義檔](native-definition-file.md)
-*   [配置原生函式庫的編譯](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-configure-compilations.html#configure-interop-with-native-languages)
+*   [配置原生函式庫的編譯](https://kotlinlang.org/docs/multiplatform/multiplatform-configure-compilations.html#configure-interop-with-native-languages)
 
 如果 Swift 函式庫的 API 使用 `@objc` 匯出到 Objective-C，則可以在 Kotlin 程式碼中使用。
 純粹的 Swift 模組尚不支援。
@@ -32,7 +32,7 @@ Objective-C 框架和函式庫可在 Kotlin 程式碼中使用，前提是它們
 
 Kotlin 模組如果編譯為框架，則可以在 Swift/Objective-C 程式碼中使用：
 
-*   請參閱 [建置最終原生二進位檔](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-build-native-binaries.html#declare-binaries)，了解如何宣告二進位檔。
+*   請參閱 [建置最終原生二進位檔](https://kotlinlang.org/docs/multiplatform/multiplatform-build-native-binaries.html#declare-binaries)，了解如何宣告二進位檔。
 *   查看 [Kotlin Multiplatform 範例專案](https://github.com/Kotlin/kmm-basic-sample) 以獲取範例。
 
 ### 從 Objective-C 和 Swift 隱藏 Kotlin 宣告
@@ -323,13 +323,13 @@ Objective-C 類別和 Swift 擴展的成員通常會作為擴展匯入 Kotlin。
 
 Kotlin 對「常規」Kotlin 類別的擴展會分別匯入 Swift 和 Objective-C 作為擴展和類別成員。Kotlin 對其他類型的擴展則視為 [頂層宣告](#top-level-functions-and-properties)，並帶有額外的接收者參數。這些類型包括：
 
-*   Kotlin `String` 類型
-*   Kotlin 集合類型和子類型
-*   Kotlin `interface` 類型
+*   Kotlin `String` 型別
+*   Kotlin 集合型別和子型別
+*   Kotlin `interface` 型別
 *   Kotlin 基本型別
 *   Kotlin `inline` 類別
-*   Kotlin `Any` 類型
-*   Kotlin 函數型別和子類型
+*   Kotlin `Any` 型別
+*   Kotlin 函數型別和子型別
 *   Objective-C 類別和協定
 
 [請參閱 Kotlin-Swift 互通百科中的範例集合](https://github.com/kotlin-hands-on/kotlin-swift-interopedia/tree/main/docs/extensions)。

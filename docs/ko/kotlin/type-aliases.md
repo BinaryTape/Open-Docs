@@ -96,7 +96,7 @@ class Graph<Node> {
 *   가시성 측면에서, 별칭은 참조되는 타입이 허용하는 것 이상으로 노출될 수 없습니다.
 *   범위는 [중첩 클래스](nested-classes.md)와 동일합니다. 클래스 내부에 정의할 수 있으며, 오버라이드하지 않으므로 같은 이름을 가진 모든 상위 타입 별칭을 숨깁니다.
 *   중첩 타입 별칭은 가시성을 제한하기 위해 `internal` 또는 `private`으로 표시될 수 있습니다.
-*   중첩 타입 별칭은 Kotlin Multiplatform의 [`expect/actual` 선언](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-expect-actual.html)에서 지원되지 않습니다.
+*   중첩 타입 별칭은 Kotlin Multiplatform의 [`expect/actual` 선언](https://kotlinlang.org/docs/multiplatform/multiplatform-expect-actual.html)에서 지원되지 않습니다.
 
 ### 중첩 타입 별칭 활성화 방법
 

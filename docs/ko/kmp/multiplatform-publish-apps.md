@@ -19,7 +19,7 @@ Kotlin Multiplatform 프로젝트의 iOS 앱은 일반적인 Xcode 프로젝트�
 >
 {style="note"}
 
-Kotlin Multiplatform 프로젝트에 특정한 부분은 공유 Kotlin 모듈을 프레임워크로 컴파일하여 Xcode 프로젝트에 연결하는 것입니다. 일반적으로 공유 모듈과 Xcode 프로젝트 간의 통합은 [Android Studio용 Kotlin Multiplatform 플러그인](https://plugins.jetbrains.com/plugin/14936-kotlin-multiplatform-mobile)에 의해 자동으로 수행됩니다. 하지만 플러그인을 사용하지 않는 경우, Xcode에서 iOS 프로젝트를 빌드하고 번들링할 때 다음 사항을 염두에 두세요:
+Kotlin Multiplatform 프로젝트에 특정한 부분은 공유 Kotlin 모듈을 프레임워크로 컴파일하여 Xcode 프로젝트에 연결하는 것입니다. 일반적으로 공유 모듈과 Xcode 프로젝트 간의 통합은 [Android Studio용 Kotlin Multiplatform 플러그인](https://plugins.jetbrains.com/plugin/14936-kotlin-multiplatform)에 의해 자동으로 수행됩니다. 하지만 플러그인을 사용하지 않는 경우, Xcode에서 iOS 프로젝트를 빌드하고 번들링할 때 다음 사항을 염두에 두세요:
 
 *   공유 Kotlin 라이브러리는 네이티브 프레임워크로 컴파일됩니다.
 *   특정 플랫폼용으로 컴파일된 프레임워크를 iOS 앱 프로젝트에 연결해야 합니다.

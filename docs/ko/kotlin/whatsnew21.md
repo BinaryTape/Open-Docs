@@ -28,11 +28,11 @@ IDE에서 Kotlin 플러그인을 업데이트할 필요가 없습니다.
 K2 컴파일러가 포함된 Kotlin 2.0.0 출시 후, JetBrains 팀은 새로운 기능으로 언어를 개선하는 데 집중하고 있습니다.
 이번 릴리스에서는 여러 가지 새로운 언어 디자인 개선 사항을 발표하게 되어 기쁩니다.
 
-이 기능들은 미리보기로 제공되며, 사용해보고 피드백을 공유해 주시길 권장합니다.
+이 기능들은 미리보기로 제공되며, 사용해보고 피드백을 공유해 주시길 권장합니다:
 
 *   [주어가 있는 `when`의 가드 조건](#guard-conditions-in-when-with-a-subject)
 *   [비지역 `break` 및 `continue`](#non-local-break-and-continue)
-*   [다중 달러 보간: 문자열 리터럴에서 `$` 처리 개선](#multi-dollar-string-interpolation)
+*   [다중 달러 보간: 문자열 리터럴에서 달러 기호(`$`) 처리 개선](#multi-dollar-string-interpolation)
 
 > 모든 기능은 K2 모드가 활성화된 최신 IntelliJ IDEA 2024.3 버전에서 IDE 지원을 제공합니다.
 >
@@ -44,9 +44,9 @@ K2 컴파일러가 포함된 Kotlin 2.0.0 출시 후, JetBrains 팀은 새로운
 
 이번 릴리스에는 다음 언어 업데이트도 포함되어 있습니다:
 
-*   [](#support-for-requiring-opt-in-to-extend-apis)
-*   [](#improved-overload-resolution-for-functions-with-generic-types)
-*   [](#improved-exhaustiveness-checks-for-when-expressions-with-sealed-classes)
+*   [API 확장 시 선택적 동의 요구 지원](#support-for-requiring-opt-in-to-extend-apis)
+*   [제네릭 타입 함수에 대한 오버로드 해결 개선](#improved-overload-resolution-for-functions-with-generic-types)
+*   [봉인 클래스를 사용한 `when` 표현식의 완전성 검사 개선](#improved-exhaustiveness-checks-for-when-expressions-with-sealed-classes)
 
 ### 주어가 있는 `when`의 가드 조건
 
@@ -62,7 +62,7 @@ K2 컴파일러가 포함된 Kotlin 2.0.0 출시 후, JetBrains 팀은 새로운
 가드 조건을 사용하면 `when` 표현식의 분기에 둘 이상의 조건을 포함할 수 있으므로,
 복잡한 제어 흐름을 더 명시적이고 간결하게 만들고 코드 구조를 평탄화할 수 있습니다.
 
-분기에 가드 조건을 포함하려면 기본 조건 뒤에 `if`로 구분하여 배치합니다.
+분기에 가드 조건을 포함하려면 기본 조건 뒤에 `if`로 구분하여 배치합니다:
 
 ```kotlin
 sealed interface Animal {
@@ -168,7 +168,7 @@ kotlin {
 >
 {style="warning"}
 
-Kotlin 2.1.0은 다중 달러 문자열 보간(`$`) 지원을 도입하여,
+Kotlin 2.1.0은 다중 달러 문자열 보간을 지원을 도입하여,
 문자열 리터럴 내에서 달러 기호(`$`)가 처리되는 방식을 개선합니다.
 이 기능은 템플릿 엔진, JSON 스키마 또는 기타 데이터 형식과 같이
 여러 달러 기호가 필요한 컨텍스트에서 유용합니다.
@@ -324,20 +324,20 @@ Kotlin 2.1.0부터 K2 컴파일러에서 추가 검사를 활성화할 수 있�
 
 | 검사 유형                                             | 설명                                                                                         |
 | :---------------------------------------------------- | :------------------------------------------------------------------------------------------- |
-| `REDUNDANT_NULLABLE`                                  | `Boolean?` 대신 `Boolean??`가 사용됨                                                 |
-| `PLATFORM_CLASS_MAPPED_TO_KOTLIN`                     | `kotlin.String` 대신 `java.lang.String`이 사용됨                                      |
-| `ARRAY_EQUALITY_OPERATOR_CAN_BE_REPLACED_WITH_EQUALS` | `arrayOf("").contentEquals(arrayOf(""))` 대신 `arrayOf("") == arrayOf("")`가 사용됨 |
-| `REDUNDANT_CALL_OF_CONVERSION_METHOD`                 | `42` 대신 `42.toInt()`가 사용됨                                                              |
-| `USELESS_CALL_ON_NOT_NULL`                            | `""` 대신 `"".orEmpty()`가 사용됨                                                              |
-| `REDUNDANT_SINGLE_EXPRESSION_STRING_TEMPLATE`         | `string` 대신 `"$string"`가 사용됨                                                           |
+| `REDUNDANT_NULLABLE`                                  | `Boolean??`가 `Boolean?` 대신 사용됨                                                 |
+| `PLATFORM_CLASS_MAPPED_TO_KOTLIN`                     | `java.lang.String`이 `kotlin.String` 대신 사용됨                                      |
+| `ARRAY_EQUALITY_OPERATOR_CAN_BE_REPLACED_WITH_EQUALS` | `arrayOf("") == arrayOf("")`가 `arrayOf("").contentEquals(arrayOf(""))` 대신 사용됨 |
+| `REDUNDANT_CALL_OF_CONVERSION_METHOD`                 | `42.toInt()`가 `42` 대신 사용됨                                                              |
+| `USELESS_CALL_ON_NOT_NULL`                            | `"".orEmpty()`가 `""` 대신 사용됨                                                              |
+| `REDUNDANT_SINGLE_EXPRESSION_STRING_TEMPLATE`         | `"$string"`가 `string` 대신 사용됨                                                           |
 | `UNUSED_ANONYMOUS_PARAMETER`                          | 람다 표현식에 전달된 매개변수가 사용되지 않음                                                    |
-| `REDUNDANT_VISIBILITY_MODIFIER`                       | `class Klass` 대신 `public class Klass`가 사용됨                                             |
-| `REDUNDANT_MODALITY_MODIFIER`                         | `class Klass` 대신 `final class Klass`가 사용됨                                              |
-| `REDUNDANT_SETTER_PARAMETER_TYPE`                     | `set(value)` 대신 `set(value: Int)`가 사용됨                                                 |
+| `REDUNDANT_VISIBILITY_MODIFIER`                       | `public class Klass`가 `class Klass` 대신 사용됨                                             |
+| `REDUNDANT_MODALITY_MODIFIER`                         | `final class Klass`가 `class Klass` 대신 사용됨                                              |
+| `REDUNDANT_SETTER_PARAMETER_TYPE`                     | `set(value: Int)`가 `set(value)` 대신 사용됨                                                 |
 | `CAN_BE_VAL`                                          | `var local = 0`이 정의되었지만 다시 할당되지 않음, `val local = 42`로 변경 가능        |
 | `ASSIGNED_VALUE_IS_NEVER_READ`                        | `val local = 42`이 정의되었지만 코드에서 사용되지 않음                                     |
 | `UNUSED_VARIABLE`                                     | `val local = 0`이 정의되었지만 코드에서 사용되지 않음                                         |
-| `REDUNDANT_RETURN_UNIT_TYPE`                          | `fun foo() {}` 대신 `fun foo(): Unit {}`가 사용됨                                             |
+| `REDUNDANT_RETURN_UNIT_TYPE`                          | `fun foo(): Unit {}`가 `fun foo() {}` 대신 사용됨                                             |
 | `UNREACHABLE_CODE`                                    | 코드 문이 존재하지만 실행될 수 없음                                                           |
 
 검사가 참이면 문제를 해결하는 방법에 대한 제안과 함께 컴파일러 경고가 표시됩니다.
@@ -388,7 +388,7 @@ kotlin {
 *   오류 억제는 허용되지 않습니다.
 *   알 수 없는 경고 이름을 전달하면 컴파일 시 오류가 발생합니다.
 *   여러 경고를 한 번에 지정할 수 있습니다:
-
+  
     <tabs>
     <tab title="명령줄">
 
@@ -420,7 +420,7 @@ kotlin {
 
 > K2 컴파일러용 kapt 플러그인(K2 kapt)은 [알파](components-stability.md#stability-levels-explained) 상태입니다.
 > 언제든지 변경될 수 있습니다.
->
+> 
 > [YouTrack](https://youtrack.jetbrains.com/issue/KT-71439/K2-kapt-feedback)에 피드백을 주시면 감사하겠습니다.
 >
 {style="warning"}
@@ -559,14 +559,14 @@ Kotlin 2.1.0에서는 이 DSL이 Stable로 승격되었습니다.
 ![Kotlin 컴파일러 옵션 레벨](compiler-options-levels.svg){width=700}
 
 다양한 레벨과 그 사이에서 컴파일러 옵션을 구성하는 방법에 대한 자세한 내용은
-[컴파일러 옵션](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-dsl-reference.html#compiler-options)을 참조하세요.
+[컴파일러 옵션](https://kotlinlang.org/docs/multiplatform/multiplatform-dsl-reference.html#compiler-options)을 참조하세요.
 
 ### Kotlin Multiplatform에서 Gradle의 Isolated Projects 미리보기
 
 > 이 기능은 [Experimental](components-stability.md#stability-levels-explained)이며 현재 Gradle에서 pre-Alpha 상태입니다.
 > Gradle 버전 8.10에서만 평가 목적으로만 사용해야 합니다. 이 기능은 언제든지 제거되거나 변경될 수 있습니다.
->
-> [YouTrack](https://youtrack.jetbrains.com/issue/KT-57279/Support-Gradle-Project-Isolation-Feature-for-Kotlin-Multiplatform)에 대한 피드백을 주시면 감사하겠습니다.
+> 
+> [YouTrack](https://youtrack.jetbrains.com/issue/KT-57279/Support-Gradle-Project-Isolation-Feature-for-Kotlin-Multiplatform)에 대한 피드백을 주시면 감사하겠습니다. 
 > 선택적 동의(`opt-in`)가 필요합니다(아래 세부 정보 참조).
 >
 {style="warning"}
@@ -600,7 +600,7 @@ Kotlin Gradle 플러그인의 새 모델을 활성화하는 두 가지 방법이
 > 이 기능은 현재 개발 초기 단계에 있습니다. 언제든지 제거되거나 변경될 수 있습니다.
 > 선택적 동의(`opt-in`)가 필요하며(아래 세부 정보 참조), 평가 목적으로만 사용해야 합니다.
 > [YouTrack](https://kotl.in/issue)에 대한 피드백을 주시면 감사하겠습니다.
->
+> 
 {style="warning"}
 
 버전 2.1.0은 Kotlin에서 Swift export를 지원하는 첫 걸음을 내딛었습니다.
@@ -653,7 +653,7 @@ Swift Export가 이미 설정된 [공개 샘플](https://github.com/Kotlin/swift
 이 기능은 현재 개발 초기 단계에 불과하다는 점을 명심하세요.
 
 Swift Export는 현재 iOS 프레임워크를 Xcode 프로젝트에 연결하기 위해
-[직접 통합](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-direct-integration.html)을 사용하는 프로젝트에서 작동합니다.
+[직접 통합](https://kotlinlang.org/docs/multiplatform/multiplatform-direct-integration.html)을 사용하는 프로젝트에서 작동합니다.
 이는 Android Studio 또는 [웹 위자드](https://kmp.jetbrains.com/)를 통해 생성된 Kotlin Multiplatform 프로젝트의 표준 구성입니다.
 
 프로젝트에서 Swift Export를 사용해 보려면:
@@ -708,15 +708,15 @@ kotlin.native.enableKlibsCrossCompilation=true
 이 기능은 현재 Experimental이며 몇 가지 제한 사항이 있습니다. 다음 경우에는 여전히 Mac 머신을 사용해야 합니다:
 
 *   라이브러리에 [cinterop 종속성](native-c-interop.md)이 있는 경우.
-*   프로젝트에 [CocoaPods 통합](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-cocoapods-overview.html)이 설정되어 있는 경우.
-*   Apple 타겟용 [최종 바이너리](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-build-native-binaries.html)를 빌드하거나 테스트해야 하는 경우.
+*   프로젝트에 [CocoaPods 통합](https://kotlinlang.org/docs/multiplatform/multiplatform-cocoapods-overview.html)이 설정되어 있는 경우.
+*   Apple 타겟용 [최종 바이너리](https://kotlinlang.org/docs/multiplatform/multiplatform-build-native-binaries.html)를 빌드하거나 테스트해야 하는 경우.
 
 #### 모든 호스트에서 라이브러리 게시 기능에 대한 피드백 남기기
 
 향후 Kotlin 릴리스에서 이 기능을 안정화하고 라이브러리 게시를 더욱 개선할 계획입니다.
 [이슈 트래커 YouTrack](https://youtrack.jetbrains.com/issue/KT-71290)에 피드백을 남겨주세요.
 
-자세한 내용은 [멀티플랫폼 라이브러리 게시](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-publish-lib-setup.html)를 참조하세요.
+자세한 내용은 [멀티플랫폼 라이브러리 게시](https://kotlinlang.org/docs/multiplatform/multiplatform-publish-lib-setup.html)를 참조하세요.
 
 ### 압축되지 않은 klib 지원
 
@@ -774,7 +774,7 @@ Kotlin 2.1.0에서는 기존 `android` 타겟 이름에 대한 사용 중단 경
 Google의 새로운 DSL은 Kotlin Multiplatform에서 Android 타겟 지원을 위한 선호되는 옵션이 될 것입니다.
 
 자세한 내용은
-[Kotlin Multiplatform 호환성 가이드](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-compatibility-guide.html#rename-of-android-target-to-androidtarget)를 참조하세요.
+[Kotlin Multiplatform 호환성 가이드](https://kotlinlang.org/docs/multiplatform/multiplatform-compatibility-guide.html#rename-of-android-target-to-androidtarget)를 참조하세요.
 
 ### 동일한 타입의 다중 타겟 선언 지원 중단
 
@@ -782,7 +782,7 @@ Kotlin 2.1.0 이전에는 멀티플랫폼 프로젝트에서 동일한 타입의
 그러나 이로 인해 타겟을 구별하고 공유 소스 세트를 효과적으로 지원하는 것이 어려워졌습니다.
 대부분의 경우 별도의 Gradle 프로젝트를 사용하는 것과 같은 더 간단한 설정이 더 효과적입니다.
 마이그레이션 방법 및 예시에 대한 자세한 지침은
-Kotlin Multiplatform 호환성 가이드의 [여러 유사 타겟 선언](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-compatibility-guide.html#declaring-several-similar-targets)을 참조하세요.
+Kotlin Multiplatform 호환성 가이드의 [여러 유사 타겟 선언](https://kotlinlang.org/docs/multiplatform/multiplatform-compatibility-guide.html#declaring-several-similar-targets)을 참조하세요.
 
 Kotlin 1.9.20은 멀티플랫폼 프로젝트에서 동일한 타입의 여러 타겟을 선언하면 사용 중단 경고를 발생시켰습니다.
 Kotlin 2.1.0에서는 이 사용 중단 경고가 Kotlin/JS 타겟을 제외한 모든 타겟에 대해 이제 오류가 됩니다.
@@ -796,7 +796,7 @@ Kotlin 2.1.0에는 [`iosArm64` 타겟 지원 업그레이드](#iosarm64-promoted
 
 ### iosArm64가 Tier 1으로 승격
 
-[Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html) 개발에 필수적인 `iosArm64` 타겟이 Tier 1으로 승격되었습니다. 이는 Kotlin/Native 컴파일러에서 가장 높은 수준의 지원입니다.
+[Kotlin Multiplatform](https://kotlinlang.org/docs/multiplatform/get-started.html) 개발에 필수적인 `iosArm64` 타겟이 Tier 1으로 승격되었습니다. 이는 Kotlin/Native 컴파일러에서 가장 높은 수준의 지원입니다.
 
 이는 타겟이 컴파일 및 실행이 가능하도록 CI 파이프라인에서 정기적으로 테스트됨을 의미합니다.
 또한 타겟에 대해 컴파일러 릴리스 간의 소스 및 바이너리 호환성을 제공합니다.
@@ -821,7 +821,8 @@ Kotlin 2.1.0에서는 cinterop 캐싱 프로세스에 변경 사항이 있습니
 새로운 권장 접근 방식은 태스크 결과를 캐시하기 위해
 [`cacheIf`](https://docs.gradle.org/current/kotlin-dsl/gradle/org.gradle.api.tasks/-task-outputs/cache-if.html) 출력 타입을 사용하는 것입니다.
 
-이는 `UP-TO-DATE` 검사가 [정의 파일](native-definition-file.md)에 지정된 헤더 파일 변경 사항을 감지하지 못하여
+이는 `UP-TO-DATE`
+검사가 [정의 파일](native-definition-file.md)에 지정된 헤더 파일 변경 사항을 감지하지 못하여
 빌드 시스템이 코드를 다시 컴파일하지 못하게 하는 문제를 해결해야 합니다.
 
 ### mimalloc 메모리 할당자 사용 중단
@@ -867,7 +868,8 @@ Kotlin/Wasm 증분 컴파일을 사용해 보고 [피드백을 공유](https://y
 
 이전에는 웹 API 및 관련 타겟 유틸리티에 대한 선언이 Kotlin/Wasm 표준 라이브러리의 일부였습니다.
 
-이번 릴리스에서는 `org.w3c.*` 선언이 Kotlin/Wasm 표준 라이브러리에서 새로운 [kotlinx-browser 라이브러리](https://github.com/kotlin/kotlinx-browser)로 이동되었습니다.
+이번 릴리스에서는 `org.w3c.*`
+선언이 Kotlin/Wasm 표준 라이브러리에서 새로운 [kotlinx-browser 라이브러리](https://github.com/kotlin/kotlinx-browser)로 이동되었습니다.
 이 라이브러리에는 `org.khronos.webgl`, `kotlin.dom`, `kotlinx.browser`와 같은 다른 웹 관련 패키지도 포함되어 있습니다.
 
 이 분리는 모듈성을 제공하여 Kotlin의 릴리스 주기와 별개로 웹 관련 API를 독립적으로 업데이트할 수 있도록 합니다.
@@ -909,7 +911,7 @@ val wasmJsMain by getting {
     kotlin {
         wasmJs {
             // ...
-
+    
             compilerOptions {
                 freeCompilerArgs.add("-Xwasm-debugger-custom-formatters")
             }
@@ -1107,7 +1109,8 @@ val length = headers.`content-length`
 Kotlin 2.1.0부터 이 기능은 기본적으로 활성화됩니다.
 Kotlin/JS는 이제 역따옴표(``)와 `@JsName` 어노테이션을 사용하여 비식별자 문자를 포함하는 JavaScript 속성과 상호 작용하고 테스트 메서드 이름을 사용할 수 있도록 합니다.
 
-또한 `@JsName` 및 `@JsQualifier` 어노테이션을 사용하여 Kotlin 속성 이름을 JavaScript 동등물에 매핑할 수 있습니다:
+또한,
+`@JsName` 및 `@JsQualifier` 어노테이션을 사용하여 Kotlin 속성 이름을 JavaScript 동등물에 매핑할 수 있습니다:
 
 ```kotlin
 object Bar {
@@ -1176,7 +1179,7 @@ Kotlin 2.1.0은 Kotlin Gradle 플러그인을 구성하기 위한 자체 플러�
 
 | 이름                     | 설명                                                                                                                                                                                                                                                          |
 | :----------------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `KotlinBaseExtension`    | 전체 프로젝트에 대한 공통 Kotlin JVM, Android 및 Multiplatform 플러그인 옵션을 구성하기 위한 플러그인 DSL 확장 타입:<list><li>`org.jetbrains.kotlin.jvm`</li><li>`org.jetbrains.kotlin.android`</li><li>`org.jetbrains.kotlin.multiplatform`</li></list> |
+| `KotlinBaseExtension`    | 전체 프로젝트에 대한 공통 Kotlin JVM, Android 및 Multiplatform 플러그인 옵션을 구성하기 위한 플러그인 DSL 확장 타입:<list><li>`org.jetbrains.kotlin.jvm`</li><li>`org.jetbrains.kotlin.android`</li><li>`org.jetbrains.jetbrains.kotlin.multiplatform`</li></list> |
 | `KotlinJvmExtension`     | 전체 프로젝트에 대한 Kotlin **JVM** 플러그인 옵션을 구성하기 위한 플러그인 DSL 확장 타입.                                                                                                                                                                    |
 | `KotlinAndroidExtension` | 전체 프로젝트에 대한 Kotlin **Android** 플러그인 옵션을 구성하기 위한 플러그인 DSL 확장 타입.                                                                                                                                                                |
 
@@ -1548,9 +1551,9 @@ Kotlin 문서에 몇 가지 주목할 만한 변경 사항이 있었습니다:
 
 *   새로운 [멀티플랫폼용 Kotlin 라이브러리 빌드](https://kotlinlang.org/docs/api-guidelines-build-for-multiplatform.html) 페이지 –
     Kotlin Multiplatform용 Kotlin 라이브러리를 설계하는 방법을 알아보세요.
-*   새로운 [Kotlin Multiplatform 소개](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html) 페이지 – Kotlin Multiplatform의 주요 개념, 종속성, 라이브러리 등을 알아보세요.
+*   새로운 [Kotlin Multiplatform 소개](https://kotlinlang.org/docs/multiplatform/get-started.html) 페이지 – Kotlin Multiplatform의 주요 개념, 종속성, 라이브러리 등을 알아보세요.
 *   [Kotlin Multiplatform 개요](multiplatform.topic) 페이지 업데이트 – Kotlin Multiplatform의 필수 요소 및 인기 있는 사용 사례를 탐색하세요.
-*   새로운 [iOS 통합](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-ios-integration-overview.html) 섹션 – Kotlin Multiplatform 공유 모듈을 iOS 앱에 통합하는 방법을 알아보세요.
+*   새로운 [iOS 통합](https://kotlinlang.org/docs/multiplatform/multiplatform-ios-integration-overview.html) 섹션 – Kotlin Multiplatform 공유 모듈을 iOS 앱에 통합하는 방법을 알아보세요.
 *   새로운 [Kotlin/Native의 정의 파일](native-definition-file.md) 페이지 – C 및 Objective-C 라이브러리를 사용하기 위한 정의 파일을 생성하는 방법을 알아보세요.
 *   [WASI 시작하기](wasm-wasi.md) –
     다양한 WebAssembly 가상 머신에서 WASI를 사용하여 간단한 Kotlin/Wasm 애플리케이션을 실행하는 방법을 알아보세요.

@@ -126,11 +126,16 @@ Kotlin 語言功能可具有以下狀態之一：
 
 ### 相容性選項
 
-我們提供 `-language-version X.Y` 和 `-api-version X.Y` 選項，使新版本能夠模擬舊版本的行為，以達到相容性目的。為了給您更多的遷移時間，我們除了最新的穩定版本外，還[支援](compatibility-modes.md)前三個語言和 API 版本。
+我們提供相容性選項，使新版本能夠模擬舊版本的行為，以達到相容性目的：
+
+*   `-language-version X.Y` - 適用於 Kotlin 語言版本 X.Y 的相容性模式，會針對所有後來推出的語言功能報告錯誤。
+*   `-api-version X.Y` - 適用於 Kotlin API 版本 X.Y 的相容性模式，會針對所有使用 Kotlin 標準函式庫中較新 API 的程式碼（包括編譯器生成的程式碼）報告錯誤。
+
+為了給您更多的遷移時間，我們除了最新的穩定版本外，還[支援](compatibility-modes.md)前三個語言和 API 版本。
 
 積極維護的程式碼庫可以從盡快獲得錯誤修復中受益，而無需等待完整的棄用週期完成。目前，此類專案可以啟用 `-progressive` 選項，即使在工具版本中也能啟用此類修復。
 
-所有選項都可以在命令列以及 [Gradle](gradle-compiler-options.md) 和 [Maven](maven.md#specify-compiler-options) 中使用。
+所有選項都可以在 IDE、命令列以及 [Gradle](gradle-compiler-options.md) 和 [Maven](maven.md#specify-compiler-options) 中使用。
 
 ### 二進位格式的演進
 

@@ -5,7 +5,7 @@
 每个属性都有一个名称、一个类型，以及一个自动生成的名为 `getter` 的 `get()` 函数。你可以使用 getter 读取属性的值。如果属性是可变的，它还有一个名为 `setter` 的 `set()` 函数，允许你更改属性的值。
 
 > getter 和 setter 被称为 _访问器_。
-> 
+>
 {style="tip"}
 
 ## 声明属性
@@ -267,7 +267,7 @@ fun main() {
 
 ### 幕后属性
 
-有时你可能需要比使用[幕后字段](#backing-fields)所能提供的更强的灵活性。例如，如果你有一个 API，你希望能够在内部修改属性，但在外部不可修改。在这种情况下，你可以使用一种称为 _幕后属性_ 的编码模式。
+有时你可能需要比使用[幕后字段](#backing-fields)所能提供的更强的灵活性。例如，如果你有一个 API，你希望能够在内部修改属性，但在外部不可修改。在这种情况下，你可以使用一种称为 _幕后属性_ 的编码范式。
 
 在以下示例中，`ShoppingCart` 类有一个 `items` 属性，表示购物车中的所有物品。你希望 `items` 属性在类外部是只读的，但仍允许用户通过一种“批准”的方式直接修改 `items` 属性。为实现此目的，你可以定义一个名为 `_items` 的私有幕后属性，以及一个名为 `items` 的公共属性，该属性委托给幕后属性的值。
 
@@ -357,9 +357,9 @@ const val MAX_LOGIN_ATTEMPTS = 3
 
 编译期常量必须满足以下要求：
 
-* 必须是顶层属性，或者是 [`object` 声明](object-declarations.md#object-declarations-overview)或[伴生对象](object-declarations.md#companion-objects)的成员。
-* 必须使用 `String` 类型或[原生类型](basic-types.md)的值进行初始化。
-* 不能是自定义 getter。
+*   必须是顶层属性，或者是 [`object` 声明](object-declarations.md#object-declarations-overview)或[伴生对象](object-declarations.md#companion-objects)的成员。
+*   必须使用 `String` 类型或[原生类型](types-overview.md)的值进行初始化。
+*   不能有自定义 getter。
 
 编译期常量仍然有一个幕后字段，因此你可以使用[反射](reflection.md)与它们进行交互。
 
@@ -395,16 +395,16 @@ public class OrderServiceTest {
 
 你可以在以下声明的 `var` 属性上使用 `lateinit` 修饰符：
 
-* 顶层属性。
-* 局部变量。
-* 类体内部的属性。
+*   顶层属性。
+*   局部变量。
+*   类体内部的属性。
 
 对于类属性：
 
-* 你不能在主构造函数中声明它们。
-* 它们不能有自定义 getter 或 setter。
+*   你不能在主构造函数中声明它们。
+*   它们不能有自定义 getter 或 setter。
 
-在所有情况下，属性或变量必须是非空的，并且不能是[原生类型](basic-types.md)。
+在所有情况下，属性或变量必须是非空的，并且不能是[原生类型](types-overview.md)。
 
 在 `lateinit` 属性初始化之前访问它，Kotlin 会抛出一个特殊异常，该异常清楚地标识了被访问的未初始化属性：
 
@@ -454,7 +454,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-lateinit-property-check-initialization"}
 
-此检测仅适用于在相同类型、其中一个外部类型或同一文件的顶层声明时词法可访问的属性。
+你只能在代码中已经可以访问该属性的情况下使用 `isInitialized`。该属性必须在相同类、外部类或相同文件的顶层声明。
 
 ## 覆盖属性
 
@@ -466,9 +466,9 @@ fun main() {
 
 委托访问器行为使属性的访问器逻辑集中化，从而更易于重用。这种方法在实现以下行为时很有用：
 
-* 惰性求值。
-* 根据给定键从 Map 中读取。
-* 访问数据库。
-* 在属性访问时通知监听器。
+*   惰性求值。
+*   根据给定键从 Map 中读取。
+*   访问数据库。
+*   在属性访问时通知监听器。
 
 你可以在库中自行实现这些常见行为，或使用外部库提供的现有委托。关于更多信息，请参见[委托属性](delegated-properties.md)。

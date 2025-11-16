@@ -50,15 +50,13 @@ fun main() {
     when (x) { 
         Mode.ON -> println("ON")
     }
-// WARNING: Non exhaustive 'when' statements on sealed classes/interfaces 
-// will be prohibited in 1.7, add an 'OFF' or 'else' branch instead
+// WARNING: 봉인된 클래스/인터페이스에 대한 비완전한 'when' 문은 1.7에서 금지될 예정입니다. 대신 'OFF' 또는 'else' 브랜치를 추가하세요.
 
     val y: Boolean = true
     when (y) {  
         true -> println("true")
     }
-// WARNING: Non exhaustive 'when' statements on Booleans will be prohibited 
-// in 1.7, add a 'false' or 'else' branch instead
+// WARNING: Boolean에 대한 비완전한 'when' 문은 1.7에서 금지될 예정입니다. 대신 'false' 또는 'else' 브랜치를 추가하세요.
 }
 ```
 
@@ -158,23 +156,23 @@ kotlin {
 Kotlin 1.5.30에서는 컴파일러가 시그니처에 실험적 타입이 있는 모든 선언을 실험적으로 처리합니다. 즉, 실험적 API의 암묵적 사용에 대해서도 옵트인이 필요합니다. 예를 들어, 함수의 반환 타입이 실험적 API 요소로 표시된 경우, 선언이 명시적으로 옵트인을 요구하지 않더라도 해당 함수를 사용하려면 옵트인이 필요합니다.
 
 ```kotlin
-// Library code
+// 라이브러리 코드
 
 @RequiresOptIn(message = "This API is experimental.")
 @Retention(AnnotationRetention.BINARY)
 @Target(AnnotationTarget.CLASS)
-annotation class MyDateTime // Opt-in requirement annotation
+annotation class MyDateTime // 옵트인 요구 사항 어노테이션
 
 @MyDateTime
-class DateProvider // A class requiring opt-in
+class DateProvider // 옵트인을 요구하는 클래스
 
-// Client code
+// 클라이언트 코드
 
-// Warning: experimental API usage
+// 경고: 실험적 API 사용
 fun createDateSource(): DateProvider { /* ... */ }
 
 fun getDate(): Date {
-    val dateSource = createDateSource() // Also warning: experimental API usage
+    val dateSource = createDateSource() // 또한 경고: 실험적 API 사용
     // ... 
 }
 ```
@@ -336,20 +334,18 @@ Kotlin 1.5.30은 Kotlin/Native 프레임워크를 위한 향상된 CocoaPods Gra
 
 ```kotlin
 cocoapods {
-    frameworkName = "MyFramework" // This property is deprecated 
-    // and will be removed in future versions
-    // New DSL for framework configuration:
+    frameworkName = "MyFramework" // 이 속성은 더 이상 사용되지 않으며 향후 버전에서 제거될 예정입니다.
+    // 프레임워크 구성을 위한 새로운 DSL:
     framework {
-        // All Framework properties are supported
-        // Framework name configuration. Use this property instead of 
-        // deprecated 'frameworkName'
+        // 모든 Framework 속성이 지원됩니다.
+        // 프레임워크 이름 구성. 더 이상 사용되지 않는 'frameworkName' 대신 이 속성을 사용하십시오.
         baseName = "MyFramework"
-        // Dynamic framework support
+        // 동적 프레임워크 지원
         isStatic = false
-        // Dependency export
+        // 종속성 내보내기
         export(project(":anotherKMMModule"))
-        transitiveExport = false // This is default.
-        // Bitcode embedding
+        transitiveExport = false // 이것이 기본값입니다.
+        // 비트코드 임베딩
         embedBitcode(BITCODE)
     }
 }
@@ -363,7 +359,7 @@ Kotlin CocoaPods Gradle 플러그인은 Xcode 빌드 구성에서 커스텀 이�
 
 ```kotlin
 cocoapods {
-    // Maps custom Xcode configuration to NativeBuildType
+    // 커스텀 Xcode 구성을 NativeBuildType에 매핑합니다.
     xcodeConfigurationToNativeBuildType["CUSTOM_DEBUG"] = NativeBuildType.DEBUG
     xcodeConfigurationToNativeBuildType["CUSTOM_RELEASE"] = NativeBuildType.RELEASE
 }
@@ -432,7 +428,7 @@ LLD 링커로의 전환에 대한 여러분의 생각과 우려 사항을 [이 Y
 
 ### 공유 네이티브 코드에서 커스텀 cinterop 라이브러리 사용 기능
 
-Kotlin Multiplatform은 공유 소스 세트에서 플랫폼 종속 [interop 라이브러리](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-share-on-platforms.html#connect-platform-specific-libraries)를 사용할 수 있는 [옵션](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-share-on-platforms.html#connect-platform-specific-libraries)을 제공합니다. 1.5.30 이전에는 이는 Kotlin/Native 배포판과 함께 제공되는 [플랫폼 라이브러리](native-platform-libs.md)에서만 작동했습니다. 1.5.30부터는 커스텀 `cinterop` 라이브러리에서도 사용할 수 있습니다. 이 기능을 활성화하려면 `gradle.properties`에 `kotlin.mpp.enableCInteropCommonization=true` 속성을 추가하십시오:
+Kotlin Multiplatform은 공유 소스 세트에서 플랫폼 종속 [interop 라이브러리](https://kotlinlang.org/docs/multiplatform/multiplatform-share-on-platforms.html#connect-platform-specific-libraries)를 사용할 수 있는 [옵션](https://kotlinlang.org/docs/multiplatform/multiplatform-share-on-platforms.html#connect-platform-specific-libraries)을 제공합니다. 1.5.30 이전에는 이는 Kotlin/Native 배포판과 함께 제공되는 [플랫폼 라이브러리](native-platform-libs.md)에서만 작동했습니다. 1.5.30부터는 커스텀 `cinterop` 라이브러리에서도 사용할 수 있습니다. 이 기능을 활성화하려면 `gradle.properties`에 `kotlin.mpp.enableCInteropCommonization=true` 속성을 추가하십시오:
 
 ```none
 kotlin.mpp.enableGranularSourceSetsMetadata=true
@@ -530,7 +526,7 @@ XCFrameworks를 선언하면 다음과 같은 새로운 Gradle 태스크가 등�
 
 ### Android 아티팩트를 위한 새로운 기본 퍼블리싱 설정
 
-`maven-publish` Gradle 플러그인을 사용하면 빌드 스크립트에서 [Android 베리언트(variant)](https://developer.android.com/studio/build/build-variants) 이름을 지정하여 [Android 타겟용 멀티플랫폼 라이브러리를 퍼블리싱](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-publish-lib-setup.html#publish-an-android-library)할 수 있습니다. Kotlin Gradle 플러그인은 자동으로 퍼블리케이션을 생성합니다.
+`maven-publish` Gradle 플러그인을 사용하면 빌드 스크립트에서 [Android 베리언트(variant)](https://developer.android.com/studio/build/build-variants) 이름을 지정하여 [Android 타겟용 멀티플랫폼 라이브러리를 퍼블리싱](https://kotlinlang.org/docs/multiplatform/multiplatform-publish-lib-setup.html#publish-an-android-library)할 수 있습니다. Kotlin Gradle 플러그인은 자동으로 퍼블리케이션을 생성합니다.
 
 1.5.30 이전에는 생성된 퍼블리케이션 [메타데이터](https://docs.gradle.org/current/userguide/publishing_gradle_module_metadata.html)에 퍼블리싱된 모든 Android 베리언트에 대한 빌드 타입 속성이 포함되어 라이브러리 소비자가 사용하는 동일한 빌드 타입과만 호환되었습니다. Kotlin 1.5.30은 새로운 기본 퍼블리싱 설정을 도입합니다:
 *   프로젝트가 퍼블리싱하는 모든 Android 베리언트가 동일한 빌드 타입 속성을 가지면, 퍼블리싱된 베리언트는 빌드 타입 속성을 가지지 않으며 어떤 빌드 타입과도 호환됩니다.
@@ -856,7 +852,7 @@ fun main() {
 fun main(){
 //sampleStart
     val releaseText = "Kotlin 1.5.30 is released!"
-    // regular expression: one digit, dot, one digit, dot, one or more digits
+    // 정규 표현식: 숫자 하나, 점, 숫자 하나, 점, 하나 이상의 숫자
     val versionRegex = "\\d[.]\\d[.]\\d+".toRegex()
     println(versionRegex.matchesAt(releaseText, 0)) // "false"
     println(versionRegex.matchesAt(releaseText, 7)) // "true"

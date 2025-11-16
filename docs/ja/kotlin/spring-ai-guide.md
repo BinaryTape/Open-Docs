@@ -1,6 +1,6 @@
 [//]: # (title: Qdrantに保存されたドキュメントを基に質問に回答するSpring AIを活用したKotlinアプリの構築 — チュートリアル)
 
-このチュートリアルでは、[Spring AI](https://spring.io/projects/spring-ai) を使用してLLMに接続し、ドキュメントをベクトルデータベースに保存し、それらのドキュメントのコンテキストを使用して質問に回答するKotlinアプリの構築方法を学びます。
+このチュートリアルでは、[Spring AI](https://spring.io/projects/spring-ai) を介してLLMに接続し、ドキュメントをベクトルデータベースに保存し、それらのドキュメントのコンテキストを使用して質問に回答するKotlinアプリの構築方法を学びます。
 
 このチュートリアルでは、以下のツールを使用します:
 
@@ -138,7 +138,7 @@ IntelliJ IDEA Ultimate Editionで新しいSpring Bootプロジェクトを作成
     ```kotlin
     package org.example.springaidemo
 
-    // Imports the required Spring and utility classes
+    // 必要なSpringおよびユーティリティクラスをインポートします
     import org.slf4j.LoggerFactory
     import org.springframework.ai.document.Document
     import org.springframework.ai.vectorstore.SearchRequest
@@ -163,7 +163,7 @@ IntelliJ IDEA Ultimate Editionで新しいSpring Bootプロジェクトを作成
         @OptIn(ExperimentalUuidApi::class)
         @PostMapping("/load-docs")
         fun load() {
-            // Loads a list of documents from the Kotlin documentation
+            // Kotlinドキュメントからドキュメントのリストをロードします
             val kotlinStdTopics = listOf(
                 "collections-overview", "constructing-collections", "iterators", "ranges", "sequences",
                 "collection-operations", "collection-transformations", "collection-filtering", "collection-plus-minus",
@@ -171,14 +171,14 @@ IntelliJ IDEA Ultimate Editionで新しいSpring Bootプロジェクトを作成
                 "collection-aggregate", "collection-write", "list-operations", "set-operations",
                 "map-operations", "read-standard-input", "opt-in-requirements", "scope-functions", "time-measurement",
             )
-            // Base URL for the documents
+            // ドキュメントのベースURL
             val url = "https://raw.githubusercontent.com/JetBrains/kotlin-web-site/refs/heads/master/docs/topics/"
-            // Retrieves each document from the URL and adds it to the vector store
+            // URLから各ドキュメントを取得し、ベクトルストアに追加します
             kotlinStdTopics.forEach { topic ->
                 val data = restTemplate.getForObject("$url$topic.md", String::class.java)
                 data?.let { it ->
                     val doc = Document.builder()
-                        // Builds a document with a random UUID
+                        // ランダムなUUIDでドキュメントを構築します
                         .id(Uuid.random().toString())
                         .text(it)
                         .metadata("topic", topic)
@@ -266,7 +266,7 @@ IntelliJ IDEA Ultimate Editionで新しいSpring Bootプロジェクトを作成
 2.  `ChatRequest`データクラスを定義します:
 
     ```kotlin
-    // Represents the request payload for chat queries
+    // チャットクエリのリクエストペイロードを表します
     data class ChatRequest(val query: String, val topK: Int = 3)
     ```
 
@@ -283,7 +283,7 @@ IntelliJ IDEA Ultimate Editionで新しいSpring Bootプロジェクトを作成
 4.  コントローラークラス内で、`ChatClient`インスタンスを作成します:
 
     ```kotlin
-    // Builds the chat client with a simple logging advisor
+    // シンプルなロギングアドバイザーでチャットクライアントを構築します
     private val chatClient = chatClientBuilder.defaultAdvisors(SimpleLoggerAdvisor()).build()
     ```
 
@@ -292,7 +292,7 @@ IntelliJ IDEA Ultimate Editionで新しいSpring Bootプロジェクトを作成
     ```kotlin
     @PostMapping("/chat/ask")
     fun chatAsk(@RequestBody request: ChatRequest): String? {
-        // Defines the prompt template with placeholders
+        // プレースホルダーを含むプロンプトテンプレートを定義します
         val promptTemplate = PromptTemplate(
             """
             {query}.
@@ -300,11 +300,11 @@ IntelliJ IDEA Ultimate Editionで新しいSpring Bootプロジェクトを作成
         """.trimIndent()
         )
 
-        // Creates the prompt by substituting placeholders with actual values
+        // プレースホルダーを実際の値に置き換えてプロンプトを作成します
         val prompt: Prompt =
             promptTemplate.create(mapOf("query" to request.query))
 
-        // Configures the retrieval advisor to augment the query with relevant documents
+        // 関連するドキュメントでクエリを拡張するようにRetrievalアドバイザーを構成します
         val retrievalAdvisor = QuestionAnswerAdvisor.builder(vectorStore)
             .searchRequest(
                 SearchRequest.builder()
@@ -315,7 +315,7 @@ IntelliJ IDEA Ultimate Editionで新しいSpring Bootプロジェクトを作成
             .promptTemplate(promptTemplate)
             .build()
 
-        // Sends the prompt to the LLM with the retrieval advisor and retrieves the generated content
+        // Retrievalアドバイザーと共にプロンプトをLLMに送信し、生成されたコンテンツを取得します
         val response = chatClient.prompt(prompt)
             .advisors(retrievalAdvisor)
             .call()

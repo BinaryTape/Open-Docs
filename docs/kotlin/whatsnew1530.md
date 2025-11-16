@@ -310,7 +310,7 @@ Kotlin/Native 已经收到了各种变更和改进：
 
 Kotlin 1.5.30 引入了对 [Apple silicon](https://support.apple.com/en-us/HT211814) 的原生支持。
 
-此前，Kotlin/Native 编译器和工具链需要在 Apple silicon 主机上工作时使用 [Rosetta 转换环境](https://developer.apple.com/documentation/apple-silicon/about-the-rosetta-translation-environment)。在 Kotlin 1.5.30 中，不再需要转换环境——编译器和工具链可以在 Apple silicon 硬件上运行，无需任何额外操作。
+此前，Kotlin/Native 编译器和工具链需要在 Apple silicon 主机上工作时使用 [Rosetta 转换环境](https://developer.apple.com/documentation/apple-silicon/about-the-rosetta-translation-environment)。在 Kotlin 1.5.30 中，转换环境不再需要——编译器和工具链可以在 Apple silicon 硬件上运行，无需任何额外操作。
 
 我们还引入了新的目标平台，使 Kotlin 代码能够在 Apple silicon 上原生运行：
 * `macosArm64`
@@ -332,7 +332,7 @@ Kotlin 1.5.30 引入了针对 Kotlin/Native 框架的改进 CocoaPods Gradle 插
 * 显式启用导出依赖项
 * 启用 Bitcode 嵌入
 
-要使用新的 DSL，请将你的项目更新到 Kotlin 1.5.30，并在 `build.gradle(.kts)` 文件的 `cocoapods` 部分指定形参：
+要使用新的 DSL，请将你的项目更新到 Kotlin 1.5.30，并在 `cocoapods` 部分的 `build.gradle(.kts)` 文件中指定形参：
 
 ```kotlin
 cocoapods {
@@ -359,7 +359,7 @@ cocoapods {
 
 Kotlin CocoaPods Gradle 插件支持 Xcode 构建配置中的自定义名称。如果你在 Xcode 中使用特殊的构建配置名称（例如 `Staging`），这也会有所帮助。
 
-要指定自定义名称，请在 `build.gradle(.kts)` 文件的 `cocoapods` 部分使用 `xcodeConfigurationToNativeBuildType` 形参：
+要指定自定义名称，请在 `cocoapods` 部分的 `build.gradle(.kts)` 文件中使用 `xcodeConfigurationToNativeBuildType` 形参：
 
 ```kotlin
 cocoapods {
@@ -548,7 +548,7 @@ Kotlin/JS 在 1.5.30 中带来了两项主要改进：
 
 Kotlin/JS 的[基于 IR 的编译器后端](whatsnew14.md#unified-backends-and-extensibility)于 1.4.0 以 [Alpha](components-stability.md) 版引入，现已达到 Beta 版。
 
-此前，我们发布了[JS IR 后端的迁移指南](js-ir-migration.md)以帮助你将项目迁移到新的后端。现在我们想介绍 [Kotlin/JS Inspection Pack](https://plugins.jetbrains.com/plugin/17183-kotlin-js-inspection-pack/) IDE 插件，它直接在 IntelliJ IDEA 中显示所需的更改。
+此前，我们发布了 JS IR 后端的迁移指南，以帮助你将项目迁移到新的后端。现在我们想介绍 [Kotlin/JS Inspection Pack](https://plugins.jetbrains.com/plugin/17183-kotlin-js-inspection-pack/) IDE 插件，它直接在 IntelliJ IDEA 中显示所需的更改。
 
 ### Kotlin/JS IR 后端应用程序的更好调试体验
 
@@ -663,7 +663,7 @@ project.tasks
 
 使用 `UsesKotlinJavaToolchain` 接口处理 Gradle 6.1 到 6.6 版本。从 Gradle 6.7 开始，请改用 [Java toolchains](#support-for-java-toolchains)。
 
-使用此特性时，请注意 [kapt 任务工作进程](kapt.md#run-kapt-tasks-in-parallel)将仅使用[进程隔离模式](https://docs.gradle.org/current/userguide/worker_api.html#changing_the_isolation_mode)，并且 `kapt.workers.isolation` 属性将被忽略。
+使用此特性时，请注意 [`kapt` 任务工作进程](kapt.md#run-kapt-tasks-in-parallel)将仅使用[进程隔离模式](https://docs.gradle.org/current/userguide/worker_api.html#changing_the_isolation_mode)，并且 `kapt.workers.isolation` 属性将被忽略。
 
 ### 更简单地显式指定 Kotlin daemon JVM 实参的方式
 
@@ -741,7 +741,7 @@ project.tasks
 
     > 在这种情况下，新的 Kotlin daemon 实例可以在任务执行时启动。了解更多关于 [Kotlin daemon 与 JVM 实参的交互](gradle-compilation-and-caches.md#setting-kotlin-daemon-s-jvm-arguments)的信息。
     >
-    {style="note"}
+  {style="note"}
 
 有关 Kotlin daemon 的更多信息，请参见 [Kotlin daemon 及其与 Gradle 的用法](gradle-compilation-and-caches.md#the-kotlin-daemon-and-how-to-use-it-with-gradle)。
 
@@ -774,7 +774,7 @@ Duration.minutes(920).toString()|`920m`|`15h 20m`|
 Duration.seconds(1.546).toString()|`1.55s`|`1.546s`|
 Duration.milliseconds(25.12).toString()|`25.1ms`|`25.12ms`|
 
-负时长（negative duration）的表示方式也已更改。负时长以负号（`-`）为前缀，如果它由多个组件组成，则用圆括号括起来：`-12m` 和 `-(1h 30m)`。
+负时长的表示方式也已更改。负时长以负号（`-`）为前缀，如果它由多个组件组成，则用圆括号括起来：`-12m` 和 `-(1h 30m)`。
 
 请注意，小于一秒的短时长表示为单个数字，带有其中一个亚秒单位。例如，`ms`（毫秒）、`us`（微秒）或 `ns`（纳秒）：`140.884ms`、`500us`、`24ns`。不再使用科学记数法来表示它们。
 

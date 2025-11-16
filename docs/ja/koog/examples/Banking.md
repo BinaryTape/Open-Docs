@@ -26,7 +26,7 @@ Kotlin Notebookカーネルを使用します。KoogアーティファクトがM
 %useLatestDescriptors
 %use datetime
 
-// Maven Centralからkoogを使用する場合は、これをコメント解除してください
+// uncomment this for using koog from Maven Central
 // %use koog
 ```
 
@@ -149,7 +149,7 @@ class MoneyTransferTools : ToolSet {
                 (c.surname?.contains(confusingRecipientName, ignoreCase = true) ?: false)
         }
         if (matches.isEmpty()) {
-            return "'$confusingRecipientName' の候補が見つかりませんでした。getContactsを使用して、ユーザーに選択を依頼してください。"
+            return "No candidates found for '$confusingRecipientName'. Use getContacts and ask the user to choose."
         }
         return matches.mapIndexed { idx, c ->
             "${idx + 1}. ${c.id}: ${c.name} ${c.surname ?: ""} (${c.phoneNumber})"
@@ -173,15 +173,15 @@ class MoneyTransferTools : ToolSet {
         @LLMDescription("ユーザーがこの送金を既に確認したかどうか。") confirmed: Boolean = false
     ): String {
         val recipient = contactById[recipientId] ?: return "無効な受取人です。"
-        val summary = "%.2fユーロを %s %s (%s) に「%s」の目的で送金します。"
+        val summary = "Transfer €%.2f to %s %s (%s) for \"%s\"."
             .format(amount, recipient.name, recipient.surname ?: "", recipient.phoneNumber, purpose)
 
         if (!confirmed) {
             return "REQUIRES_CONFIRMATION: $summary"
         }
 
-        // 実際のシステムでは、ここで支払いAPIを呼び出します。
-        return "送金が完了しました。$summary"
+        // In a real system this is where you'd call a payment API.
+        return "Money was sent. $summary"
     }
 }
 ```
@@ -203,18 +203,18 @@ val transferAgentService = AIAgentService(
     executor = openAIExecutor,
     llmModel = OpenAIModels.Reasoning.GPT4oMini,
     systemPrompt = bankingAssistantSystemPrompt,
-    temperature = 0.0,  // 金融取引には決定論的な応答を使用
+    temperature = 0.0,  // Use deterministic responses for financial operations
     toolRegistry = ToolRegistry {
         tool(AskUser)
         tools(MoneyTransferTools().asTools())
     }
 )
 
-// さまざまなシナリオでエージェントをテストします
-println("バンキングアシスタントが起動しました")
+// Test the agent with various scenarios
+println("Banking Assistant started")
 val message = "Send 25 euros to Daniel for dinner at the restaurant."
 
-// 他に試せるテストメッセージ：
+// Other test messages you can try:
 // - "Send 50 euros to Alice for the concert tickets"
 // - "What's my current balance?"
 // - "Transfer 100 euros to Bob for the shared vacation expenses"
@@ -358,19 +358,19 @@ class TransactionAnalysisTools : ToolSet {
     ): String {
         var filteredTransactions = sampleTransactions
 
-        // userIdを検証します（本番環境では、これは実際のデータベースをクエリします）
+        // Validate userId (in production, this would query a real database)
         if (userId != null && userId != "123") {
             return "ユーザー $userId の取引は見つかりませんでした。"
         }
 
-        // カテゴリフィルターを適用します
+        // Apply category filter
         category?.let { cat ->
             val categoryEnum = TransactionCategory.fromString(cat)
                 ?: return "無効なカテゴリ: $cat。利用可能なカテゴリ: ${TransactionCategory.availableCategories()}"
             filteredTransactions = filteredTransactions.filter { it.category == categoryEnum }
         }
 
-        // 日付範囲フィルターを適用します
+        // Apply date range filters
         startDate?.let { date ->
             val startDateTime = parseDate(date, startOfDay = true)
             filteredTransactions = filteredTransactions.filter { it.date >= startDateTime }
@@ -401,13 +401,13 @@ class TransactionAnalysisTools : ToolSet {
         val numbersList = numbers.split(",")
             .mapNotNull { it.trim().toDoubleOrNull() }
         val sum = numbersList.sum()
-        return "合計: $%.2f".format(sum)
+        return "Sum: $%.2f".format(sum)
     }
 
-    // 日付を解析するためのヘルパー関数
+    // Helper function to parse dates
     private fun parseDate(dateStr: String, startOfDay: Boolean): LocalDateTime {
         val parts = dateStr.split("-").map { it.toInt() }
-        require(parts.size == 3) { "無効な日付形式です。YYYY-MM-DDを使用してください。" }
+        require(parts.size == 3) { "Invalid date format. Use YYYY-MM-DD" }
 
         return if (startOfDay) {
             LocalDateTime(parts[0], parts[1], parts[2], 0, 0, 0, 0)
@@ -430,10 +430,10 @@ $transactionAnalysisPrompt",
     }
 )
 
-println("取引分析アシスタントが起動しました")
+println("Transaction Analysis Assistant started")
 val analysisMessage = "How much have I spent on restaurants this month?"
 
-// 他に試せるクエリ：
+// Other queries to try:
 // - "What's my maximum check at a restaurant this month?"
 // - "How much did I spend on groceries in the first week of May?"
 // - "What's my total spending on entertainment in May?"
@@ -501,7 +501,7 @@ import ai.koog.agents.core.dsl.extension.*
 import ai.koog.agents.ext.agent.subgraphWithTask
 import ai.koog.prompt.structure.StructureFixingParser
 
-val strategy = strategy<String, String>("バンキングアシスタント") {
+val strategy = strategy<String, String>("banking assistant") {
 
     // ユーザーリクエストを分類するためのサブグラフ
     val classifyRequest by subgraph<String, ClassifiedBankRequest>(
@@ -520,7 +520,7 @@ val strategy = strategy<String, String>("バンキングアシスタント") {
                 )
             ),
             fixingParser = StructureFixingParser(
-                fixingModel = OpenAIModels.CostOptimized.GPT4oMini,
+                model = OpenAIModels.CostOptimized.GPT4oMini,
                 retries = 2,
             )
         )
@@ -534,7 +534,7 @@ val strategy = strategy<String, String>("バンキングアシスタント") {
         edge(
             requestClassification forwardTo nodeFinish
                 onCondition { it.isSuccess }
-                transformed { it.getOrThrow().structure }
+                transformed { it.getOrThrow().data }
         )
 
         edge(
@@ -561,7 +561,7 @@ val strategy = strategy<String, String>("バンキングアシスタント") {
     ) { request ->
         """
         $bankingAssistantSystemPrompt
-        具体的には、以下のリクエストに対応する必要があります:
+        Specifically, you need to help with the following request:
         ${request.userRequest}
         """.trimIndent()
     }
@@ -573,7 +573,7 @@ val strategy = strategy<String, String>("バンキングアシスタント") {
         """
         $bankingAssistantSystemPrompt
         $transactionAnalysisPrompt
-        具体的には、以下のリクエストに対応する必要があります:
+        Specifically, you need to help with the following request:
         ${request.userRequest}
         """.trimIndent()
     }
@@ -598,7 +598,7 @@ import ai.koog.agents.core.agent.config.AIAgentConfig
 import ai.koog.prompt.dsl.prompt
 
 val agentConfig = AIAgentConfig(
-    prompt = prompt(id = "バンキングアシスタント") {
+    prompt = prompt(id = "banking assistant") {
         system("$bankingAssistantSystemPrompt
 $transactionAnalysisPrompt")
     },
@@ -617,16 +617,16 @@ val agent = AIAgent<String, String>(
 ## グラフエージェントの実行
 
 ```kotlin
-println("バンキングアシスタントが起動しました")
+println("Banking Assistant started")
 val testMessage = "Send 25 euros to Daniel for dinner at the restaurant."
 
-// さまざまなシナリオをテスト：
-// 資金移動リクエスト：
+// Test various scenarios:
+// Transfer requests:
 //   - "Send 50 euros to Alice for the concert tickets"
 //   - "Transfer 100 to Bob for groceries"
 //   - "What's my current balance?"
 //
-// 分析リクエスト：
+// Analytics requests:
 //   - "How much have I spent on restaurants this month?"
 //   - "What's my maximum check at a restaurant this month?"
 //   - "How much did I spend on groceries in the first week of May?"
@@ -634,7 +634,7 @@ val testMessage = "Send 25 euros to Daniel for dinner at the restaurant."
 
 runBlocking {
     val result = agent.run(testMessage)
-    "結果: $result"
+    "Result: $result"
 }
 ```
 
@@ -662,7 +662,7 @@ val classifierAgent = AIAgent(
     toolRegistry = ToolRegistry {
         tool(AskUser)
 
-        // エージェントをツールに変換
+        // Convert agents into tools
         tool(
             transferAgentService.createAgentTool(
                 agentName = "transferMoney",
@@ -695,12 +695,12 @@ $transactionAnalysisPrompt"
 ## 構成されたエージェントの実行
 
 ```kotlin
-println("バンキングアシスタントが起動しました")
+println("Banking Assistant started")
 val composedMessage = "Send 25 euros to Daniel for dinner at the restaurant."
 
 runBlocking {
     val result = classifierAgent.run(composedMessage)
-    "結果: $result"
+    "Result: $result"
 }
 ```
 

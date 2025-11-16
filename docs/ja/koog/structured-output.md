@@ -251,7 +251,7 @@ val structuredResponse = promptExecutor.executeStructured<WeatherForecast>(
         examples = exampleForecasts,
         // オプション: エラー修正のための修正パーサーを提供
         fixingParser = StructureFixingParser(
-            fixingModel = OpenAIModels.Chat.GPT4o,
+            model = OpenAIModels.Chat.GPT4o,
             retries = 3
         )
     )
@@ -294,7 +294,7 @@ val structuredResponse = llm.writeSession {
     requestLLMStructured<WeatherForecast>(
         examples = exampleForecasts,
         fixingParser = StructureFixingParser(
-            fixingModel = OpenAIModels.Chat.GPT4o,
+            model = OpenAIModels.Chat.GPT4o,
             retries = 3
         )
     )
@@ -325,7 +325,7 @@ val agentStrategy = strategy("weather-forecast") {
         val structuredResponse = llm.writeSession {
             requestLLMStructured<WeatherForecast>(
                 fixingParser = StructureFixingParser(
-                    fixingModel = OpenAIModels.Chat.GPT4o,
+                    model = OpenAIModels.Chat.GPT4o,
                     retries = 3
                 )
             )
@@ -378,7 +378,7 @@ val agentStrategy = strategy("weather-forecast") {
         name = "forecast-node",
         examples = exampleForecasts,
         fixingParser = StructureFixingParser(
-            fixingModel = OpenAIModels.Chat.GPT4o,
+            model = OpenAIModels.Chat.GPT4o,
             retries = 3
         )
     )
@@ -386,7 +386,7 @@ val agentStrategy = strategy("weather-forecast") {
     val processResult by node<Result<StructuredResponse<WeatherForecast>>, String> { result ->
         when {
             result.isSuccess -> {
-                val forecast = result.getOrNull()?.structure
+                val forecast = result.getOrNull()?.data
                 "天気予報: $forecast"
             }
             result.isFailure -> {
@@ -421,7 +421,7 @@ import ai.koog.prompt.executor.clients.openai.OpenAIModels
 import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
 import ai.koog.prompt.message.Message
 import ai.koog.prompt.structure.json.generator.BasicJsonSchemaGenerator
-import ai.koog.prompt.structure.json.JsonStructuredData
+import ai.koog.prompt.structure.json.JsonStructure
 import kotlinx.coroutines.runBlocking
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
@@ -458,7 +458,7 @@ fun main(): Unit = runBlocking {
     )
 
     // JSON スキーマを生成
-    val forecastStructure = JsonStructuredData.createJsonStructure<SimpleWeatherForecast>(
+    val forecastStructure = JsonStructure.create<SimpleWeatherForecast>(
         schemaGenerator = BasicJsonSchemaGenerator.Default,
         examples = exampleForecasts
     )
@@ -515,9 +515,9 @@ fun main(): Unit = runBlocking {
 
 ### 手動でのスキーマ作成と設定
 
-自動スキーマ生成に頼る代わりに、`JsonStructuredData.createJsonStructure` を使用してスキーマを明示的に作成し、`StructuredOutput` クラスを介して構造化出力の動作を手動で設定できます。
+自動スキーマ生成に頼る代わりに、`JsonStructure.create` を使用してスキーマを明示的に作成し、`StructuredRequest` クラスを介して構造化出力の動作を手動で設定できます。
 
-主な違いは、`examples` や `fixingParser` のような単純なパラメーターを渡す代わりに、以下をきめ細かく制御できる `StructuredOutputConfig` オブジェクトを作成することです。
+主な違いは、`examples` や `fixingParser` のような単純なパラメーターを渡す代わりに、`StructuredRequestConfig` オブジェクトを作成して、以下のきめ細かな制御が可能になることです。
 
 -   **スキーマ生成**: 特定のジェネレーター (Standard、Basic、またはプロバイダー固有) を選択
 -   **出力モード**: ネイティブ構造化出力サポート 対 手動プロンプト
@@ -532,14 +532,14 @@ import ai.koog.prompt.executor.clients.openai.OpenAIModels
 import ai.koog.prompt.executor.clients.anthropic.AnthropicModels
 import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
 import ai.koog.prompt.structure.executeStructured
-import ai.koog.prompt.structure.StructuredOutput
-import ai.koog.prompt.structure.StructuredOutputConfig
+import ai.koog.prompt.structure.StructuredRequest
 import ai.koog.prompt.structure.StructureFixingParser
-import ai.koog.prompt.structure.json.JsonStructuredData
+import ai.koog.prompt.structure.json.JsonStructure
 import ai.koog.prompt.structure.json.generator.StandardJsonSchemaGenerator
 import ai.koog.prompt.executor.clients.openai.base.structure.OpenAIBasicJsonSchemaGenerator
 import ai.koog.prompt.llm.LLMProvider
 import kotlinx.coroutines.runBlocking
+import ai.koog.prompt.structure.StructuredRequestConfig
 
 fun main() {
     runBlocking {
@@ -550,32 +550,32 @@ fun main() {
 -->
 ```kotlin
 // 異なるジェネレーターで異なるスキーマ構造を作成
-val genericStructure = JsonStructuredData.createJsonStructure<WeatherForecast>(
+val genericStructure = JsonStructure.create<WeatherForecast>(
     schemaGenerator = StandardJsonSchemaGenerator,
     examples = exampleForecasts
 )
 
-val openAiStructure = JsonStructuredData.createJsonStructure<WeatherForecast>(
+val openAiStructure = JsonStructure.create<WeatherForecast>(
     schemaGenerator = OpenAIBasicJsonSchemaGenerator,
     examples = exampleForecasts
 )
 
 val promptExecutor = simpleOpenAIExecutor(System.getenv("OPENAI_KEY"))
 
-// 高度な API は、単純なパラメーターの代わりに StructuredOutputConfig を使用します
+// 高度な API は、単純なパラメーターの代わりに StructuredRequestConfig を使用します
 val structuredResponse = promptExecutor.executeStructured(
     prompt = prompt("structured-data") {
         system("あなたは天気予報アシスタントです。")
         user("アムステルダムの天気予報は？")
     },
     model = OpenAIModels.CostOptimized.GPT4oMini,
-    config = StructuredOutputConfig(
+    config = StructuredRequestConfig(
         byProvider = mapOf(
-            LLMProvider.OpenAI to StructuredOutput.Native(openAiStructure),
+            LLMProvider.OpenAI to StructuredRequest.Native(openAiStructure),
         ),
-        default = StructuredOutput.Manual(genericStructure),
+        default = StructuredRequest.Manual(genericStructure),
         fixingParser = StructureFixingParser(
-            fixingModel = AnthropicModels.Haiku_3_5,
+            model = AnthropicModels.Haiku_3_5,
             retries = 2
         )
     )
@@ -593,11 +593,11 @@ val structuredResponse = promptExecutor.executeStructured(
 
 ### すべてのレイヤーでの使用法
 
-高度な設定は、API の 3 つのすべてのレイヤーで一貫して機能します。メソッド名は同じままですが、パラメーターが単純な引数からより高度な `StructuredOutputConfig` に変わります。
+高度な設定は、API の 3 つのすべてのレイヤーで一貫して機能します。メソッド名は同じままですが、パラメーターが単純な引数からより高度な `StructuredRequestConfig` に変わります。
 
--   **プロンプトエグゼキューター**: `executeStructured(prompt, model, config: StructuredOutputConfig<T>)`
--   **エージェント LLM コンテキスト**: `requestLLMStructured(config: StructuredOutputConfig<T>)`
--   **ノード層**: `nodeLLMRequestStructured(config: StructuredOutputConfig<T>)`
+-   **プロンプトエグゼキューター**: `executeStructured(prompt, model, config: StructuredRequestConfig<T>)`
+-   **エージェント LLM コンテキスト**: `requestLLMStructured(config: StructuredRequestConfig<T>)`
+-   **ノード層**: `nodeLLMRequestStructured(config: StructuredRequestConfig<T>)`
 
 簡易 API (`examples` および `fixingParser` パラメーターのみを使用) はほとんどのユースケースで推奨されますが、高度な API は必要に応じて追加の制御を提供します。
 

@@ -1,4 +1,4 @@
-[//]: # (title: Kotlin 1.6 互換性ガイド)
+[//]: # (title: Kotlin 1.6.x 互換性ガイド)
 
 _[言語の現代性を保つ](kotlin-evolution-principles.md)_ことと、_[快適なアップデート](kotlin-evolution-principles.md)_は、Kotlinの言語設計における基本的な原則です。前者は、言語の進化を妨げる構造は削除されるべきであると述べており、後者は、コードの移行が可能な限りスムーズになるように、この削除が事前に適切に伝えられるべきであると述べています。
 
@@ -225,7 +225,7 @@ _[言語の現代性を保つ](kotlin-evolution-principles.md)_ことと、_[快
 
 ### 末尾ラムダを持つ`suspend`という名前の関数呼び出しを禁止する
 
-> **課題**: [KT-22562](https://youtrack.jetbrains.com/issue/KT-22562)
+> **課題**: [KT-22562](https://youtrack.com/issue/KT-22562)
 >
 > **コンポーネント**: コア言語
 >
@@ -245,7 +245,7 @@ _[言語の現代性を保つ](kotlin-evolution-principles.md)_ことと、_[快
 
 > **課題**: [KT-45438](https://youtrack.com/issue/KT-45438)
 >
-> **コンポーネント**: `kotlin-stdlib`
+> **コンポーネント**: kotlin-stdlib
 >
 > **非互換な変更の種類**: 振る舞い
 >
@@ -262,11 +262,11 @@ _[言語の現代性を保つ](kotlin-evolution-principles.md)_ことと、_[快
 
 > **課題**: [KT-47304](https://youtrack.com/issue/KT-47304)
 >
-> **コンポーネント**: `kotlin-stdlib`
+> **コンポーネント**: kotlin-stdlib
 >
 > **非互換な変更の種類**: 振る舞い
 >
-> **概要**: Kotlin 1.6では、`Random.nextLong`関数の値生成アルゴリズムが変更され、指定された範囲外の値を生成するのを避けるようになります。
+> **概要**: Kotlin 1.6 changes the value generation algorithm in the `Random.nextLong` function to avoid producing values out of the specified range.
 >
 > **非推奨サイクル**:
 >
@@ -276,7 +276,7 @@ _[言語の現代性を保つ](kotlin-evolution-principles.md)_ことと、_[快
 
 > **課題**: [KT-38854](https://youtrack.com/issue/KT-38854)
 >
-> **コンポーネント**: `kotlin-stdlib`
+> **コンポーネント**: kotlin-stdlib
 >
 > **非互換な変更の種類**: ソース
 >
@@ -293,7 +293,7 @@ _[言語の現代性を保つ](kotlin-evolution-principles.md)_ことと、_[快
 
 > **課題**: [KT-28753](https://youtrack.com/issue/KT-28753)
 >
-> **コンポーネント**: `kotlin-stdlib`
+> **コンポーネント**: kotlin-stdlib
 >
 > **非互換な変更の種類**: ソース
 >
@@ -307,9 +307,9 @@ _[言語の現代性を保つ](kotlin-evolution-principles.md)_ことと、_[快
 
 ### `kotlin.dom`および`kotlin.browser`パッケージからの宣言を`kotlinx.*`に移行する
 
-> **課題**: [KT-39330](https://youtrack.com/issue/KT-39330)
+> **課題**: [KT-39330](https://youtrack.jetbrains.com/issue/KT-39330)
 >
-> **コンポーネント**: `kotlin-stdlib` (JS)
+> **コンポーネント**: kotlin-stdlib (JS)
 >
 > **非互換な変更の種類**: ソース
 >
@@ -325,9 +325,9 @@ _[言語の現代性を保つ](kotlin-evolution-principles.md)_ことと、_[快
 
 ### Kotlin/JSにおける`Regex.replace`関数をインラインにしない
 
-> **課題**: [KT-27738](https://youtrack.com/issue/KT-27738)
+> **課題**: [KT-27738](https://youtrack.jetbrains.com/issue/KT-27738)
 >
-> **コンポーネント**: `kotlin-stdlib` (JS)
+> **コンポーネント**: kotlin-stdlib (JS)
 >
 > **非互換な変更の種類**: ソース
 >
@@ -339,9 +339,9 @@ _[言語の現代性を保つ](kotlin-evolution-principles.md)_ことと、_[快
 
 ### 置換文字列がグループ参照を含む場合のJVMとJSにおける`Regex.replace`関数の異なる振る舞い
 
-> **課題**: [KT-28378](https://youtrack.com/issue/KT-28378)
+> **課題**: [KT-28378](https://youtrack.jetbrains.com/issue/KT-28378)
 >
-> **コンポーネント**: `kotlin-stdlib` (JS)
+> **コンポーネント**: kotlin-stdlib (JS)
 >
 > **非互換な変更の種類**: 振る舞い
 >
@@ -353,9 +353,9 @@ _[言語の現代性を保つ](kotlin-evolution-principles.md)_ことと、_[快
 
 ### JS RegexでのUnicodeケースフォールディングの使用
 
-> **課題**: [KT-45928](https://youtrack.com/issue/KT-45928)
+> **課題**: [KT-45928](https://youtrack.jetbrains.com/issue/KT-45928)
 >
-> **コンポーネント**: `kotlin-stdlib` (JS)
+> **コンポーネント**: kotlin-stdlib (JS)
 >
 > **非互換な変更の種類**: 振る舞い
 >
@@ -369,9 +369,9 @@ _[言語の現代性を保つ](kotlin-evolution-principles.md)_ことと、_[快
 
 ### 一部のJS専用APIを非推奨にする
 
-> **課題**: [KT-48587](https://youtrack.com/issue/KT-48587)
+> **課題**: [KT-48587](https://youtrack.jetbrains.com/issue/KT-48587)
 >
-> **コンポーネント**: `kotlin-stdlib` (JS)
+> **コンポーネント**: kotlin-stdlib (JS)
 >
 > **非互換な変更の種類**: ソース
 >
@@ -385,9 +385,9 @@ _[言語の現代性を保つ](kotlin-evolution-principles.md)_ことと、_[快
 
 ### Kotlin/JSのクラスのパブリックAPIから実装固有および相互運用固有の関数を隠す
 
-> **課題**: [KT-48587](https://youtrack.com/issue/KT-48587)
+> **課題**: [KT-48587](https://youtrack.jetbrains.com/issue/KT-48587)
 >
-> **コンポーネント**: `kotlin-stdlib` (JS)
+> **コンポーネント**: kotlin-stdlib (JS)
 >
 > **非互換な変更の種類**: ソース、バイナリ
 >
@@ -401,7 +401,7 @@ _[言語の現代性を保つ](kotlin-evolution-principles.md)_ことと、_[快
 
 ### `KotlinGradleSubplugin`クラスを非推奨にする
 
-> **課題**: [KT-48830](https://youtrack.com/issue/KT-48830)
+> **課題**: [KT-48830](https://youtrack.jetbrains.com/issue/KT-48830)
 >
 > **コンポーネント**: Gradle
 >
@@ -416,7 +416,7 @@ _[言語の現代性を保つ](kotlin-evolution-principles.md)_ことと、_[快
 
 ### `kotlin.useFallbackCompilerSearch`ビルドオプションを削除する
 
-> **課題**: [KT-46719](https://youtrack.com/issue/KT-46719)
+> **課題**: [KT-46719](https://youtrack.jetbrains.com/issue/KT-46719)
 >
 > **コンポーネント**: Gradle
 >
@@ -431,7 +431,7 @@ _[言語の現代性を保つ](kotlin-evolution-principles.md)_ことと、_[快
 
 ### いくつかのコンパイラオプションを削除する
 
-> **課題**: [KT-48847](https://youtrack.com/issue/KT-48847)
+> **課題**: [KT-48847](https://youtrack.jetbrains.com/issue/KT-48847)
 >
 > **コンポーネント**: Gradle
 >
@@ -446,7 +446,7 @@ _[言語の現代性を保つ](kotlin-evolution-principles.md)_ことと、_[快
 
 ### `useIR`コンパイラオプションを非推奨にする
 
-> **課題**: [KT-48847](https://youtrack.com/issue/KT-48847)
+> **課題**: [KT-48847](https://youtrack.jetbrains.com/issue/KT-48847)
 >
 > **コンポーネント**: Gradle
 >

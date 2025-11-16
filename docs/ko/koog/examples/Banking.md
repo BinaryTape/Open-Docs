@@ -520,7 +520,7 @@ val strategy = strategy<String, String>("banking assistant") {
                 )
             ),
             fixingParser = StructureFixingParser(
-                fixingModel = OpenAIModels.CostOptimized.GPT4oMini,
+                model = OpenAIModels.CostOptimized.GPT4oMini,
                 retries = 2,
             )
         )
@@ -534,20 +534,20 @@ val strategy = strategy<String, String>("banking assistant") {
         edge(
             requestClassification forwardTo nodeFinish
                 onCondition { it.isSuccess }
-                transformed { it.getOrThrow().structure }
+                transformed { it.getOrThrow().data }
         )
 
         edge(
             requestClassification forwardTo callLLM
                 onCondition { it.isFailure }
-                transformed { "Failed to understand the user's intent" }
+                transformed { "사용자 의도를 이해하지 못했습니다" }
         )
 
         edge(callLLM forwardTo callAskUserTool onToolCall { true })
 
         edge(
             callLLM forwardTo callLLM onAssistantMessage { true }
-                transformed { "Please call `${AskUser.name}` tool instead of chatting" }
+                transformed { "채팅 대신 `${AskUser.name}` 도구를 호출하세요" }
         )
 
         edge(callAskUserTool forwardTo requestClassification
@@ -627,7 +627,7 @@ val testMessage = "Send 25 euros to Daniel for dinner at the restaurant."
 //   - "현재 잔액이 얼마야?"
 //
 // 분석 요청:
-//   - "이번 달 레스토랑에 얼마를 지출했어?"
+//   - "이번 달 레스토토랑에 얼마를 지출했어?"
 //   - "이번 달 레스토랑에서 가장 많이 지출한 금액은 얼마야?"
 //   - "5월 첫째 주에 식료품에 얼마를 지출했어?"
 //   - "5월에 엔터테인먼트에 총 얼마를 지출했어?"

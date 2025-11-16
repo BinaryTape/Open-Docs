@@ -1,4 +1,4 @@
-[//]: # (title: 基本構文)
+[//]: # (title: 基本構文の概要)
 
 これは、基本的な構文要素の例を集めたものです。各セクションの終わりには、関連トピックの詳細な説明へのリンクがあります。
 
@@ -73,13 +73,13 @@ fun main() {
 `println()`、`readln()`、`print()`関数を組み合わせて、ユーザー入力の要求と表示を行うメッセージを出力できます。
 
 ```kotlin
-// 入力を要求するメッセージを出力します
+// Prints a message to request input
 println("Enter any word: ")
 
-// ユーザー入力を読み取り、保存します。例: Happiness
+// Reads and stores the user input. For example: Happiness
 val yourWord = readln()
 
-// 入力されたメッセージを出力します
+// Prints a message with the input
 print("You entered the word: ")
 print(yourWord)
 // You entered the word: Happiness
@@ -159,7 +159,7 @@ Kotlinでは、`val`または`var`キーワードを変数名の前に付けて�
 ```kotlin
 fun main() {
 //sampleStart
-    // 変数xを宣言し、値5で初期化します
+    // Declares the variable x and initializes it with the value of 5
     val x: Int = 5
     // 5
 //sampleEnd
@@ -173,9 +173,9 @@ fun main() {
 ```kotlin
 fun main() {
 //sampleStart
-    // 変数xを宣言し、値5で初期化します
+    // Declares the variable x and initializes it with the value of 5
     var x: Int = 5
-    // 変数xに新しい値6を再代入します
+    // Reassigns a new value of 6 to the variable x
     x += 1
     // 6
 //sampleEnd
@@ -189,7 +189,7 @@ Kotlinは型推論をサポートしており、宣言された変数のデー�
 ```kotlin
 fun main() {
 //sampleStart
-    // 値5で変数xを宣言します。`Int`型が推論されます
+    // Declares the variable x with the value of 5;`Int` type is inferred
     val x = 5
     // 5
 //sampleEnd
@@ -203,11 +203,11 @@ fun main() {
 ```kotlin
 fun main() {
 //sampleStart
-    // 宣言時に変数xを初期化します。型は不要です
+    // Initializes the variable x at the moment of declaration; type is not required
     val x = 5
-    // 初期化せずに変数cを宣言します。型が必要です
+    // Declares the variable c without initialization; type is required
     val c: Int
-    // 宣言後に変数cを初期化します
+    // Initializes the variable c after declaration 
     c = 3
     // 5 
     // 3
@@ -289,18 +289,18 @@ class Rectangle(val height: Double, val length: Double): Shape() {
 ほとんどのモダンな言語と同様に、Kotlinは単一行（または_行末_）コメントと複数行（_ブロック_）コメントをサポートしています。
 
 ```kotlin
-// これは行末コメントです
+// This is an end-of-line comment
 
-/* これは複数行にわたる
-   ブロックコメントです。 */
+/* This is a block comment
+   on multiple lines. */
 ```
 
 Kotlinのブロックコメントはネストできます。
 
 ```kotlin
-/* コメントはここから始まり
-/* ネストされたコメントが含まれ */     
-ここで終わります。 */
+/* The comment starts here
+/* contains a nested comment *​/  
+and ends here. */
 ```
 
 ドキュメントコメントの構文については、[Kotlinコードのドキュメント化](kotlin-doc.md)を参照してください。
@@ -311,11 +311,11 @@ Kotlinのブロックコメントはネストできます。
 fun main() {
 //sampleStart
     var a = 1
-    // テンプレート内の単純な名前:
+    // simple name in template:
     val s1 = "a is $a" 
     
     a = 2
-    // テンプレート内の任意の式:
+    // arbitrary expression in template:
     val s2 = "${s1.replace("is", "was")}, but now is $a"
 //sampleEnd
     println(s2)
@@ -328,17 +328,17 @@ fun main() {
 ## 条件式
 
 ```kotlin
+fun main() {
 //sampleStart
-fun maxOf(a: Int, b: Int): Int {
-    if (a > b) {
-        return a
-    } else {
-        return b
+    fun maxOf(a: Int, b: Int): Int {
+        if (a > b) {
+            return a
+        } else {
+            return b
+        }
     }
-}
 //sampleEnd
 
-fun main() {
     println("max of 0 and 42 is ${maxOf(0, 42)}")
 }
 ```
@@ -347,11 +347,11 @@ fun main() {
 Kotlinでは、`if`は式としても使用できます。
 
 ```kotlin
+fun main() {
 //sampleStart
-fun maxOf(a: Int, b: Int) = if (a > b) a else b
+    fun maxOf(a: Int, b: Int) = if (a > b) a else b
 //sampleEnd
 
-fun main() {
     println("max of 0 and 42 is ${maxOf(0, 42)}")
 }
 ```
@@ -410,18 +410,18 @@ fun main() {
 ## when式
 
 ```kotlin
+fun main() {
 //sampleStart
-fun describe(obj: Any): String =
-    when (obj) {
-        1          -> "One"
-        "Hello"    -> "Greeting"
-        is Long    -> "Long"
-        !is String -> "Not a string"
-        else       -> "Unknown"
-    }
+    fun describe(obj: Any): String =
+        when (obj) {
+            1          -> "One"
+            "Hello"    -> "Greeting"
+            is Long    -> "Long"
+            !is String -> "Not a string"
+            else       -> "Unknown"
+        }
 //sampleEnd
 
-fun main() {
     println(describe(1))
     println(describe("Hello"))
     println(describe(1000L))
@@ -568,21 +568,21 @@ fun parseInt(str: String): Int? {
     return str.toIntOrNull()
 }
 
-//sampleStart
 fun printProduct(arg1: String, arg2: String) {
     val x = parseInt(arg1)
     val y = parseInt(arg2)
 
-    // `x * y`を使用すると、nullを含む可能性があるためエラーになります。
+//sampleStart
+    // Using `x * y` yields error because they may hold nulls.
     if (x != null && y != null) {
-        // nullチェック後、xとyは自動的に非nullableにキャストされます
+        // x and y are automatically cast to non-nullable after null check
         println(x * y)
     }
     else {
         println("'$arg1' or '$arg2' is not a number")
     }    
-}
 //sampleEnd
+}
 
 fun main() {
     printProduct("6", "7")
@@ -614,7 +614,7 @@ fun printProduct(arg1: String, arg2: String) {
         return
     }
 
-    // nullチェック後、xとyは自動的に非nullableにキャストされます
+    // x and y are automatically cast to non-nullable after null check
     println(x * y)
 //sampleEnd
 }
@@ -635,19 +635,19 @@ fun main() {
 不変のローカル変数またはプロパティが特定の型としてチェックされる場合、明示的にキャストする必要はありません。
 
 ```kotlin
+fun main() {
 //sampleStart
-fun getStringLength(obj: Any): Int? {
-    if (obj is String) {
-        // このブランチでは、`obj`は自動的に`String`にキャストされます
-        return obj.length
-    }
+    fun getStringLength(obj: Any): Int? {
+        if (obj is String) {
+            // `obj` is automatically cast to `String` in this branch
+            return obj.length
+        }
 
-    // 型チェックされたブランチの外では、`obj`は依然として`Any`型です
-    return null
-}
+        // `obj` is still of type `Any` outside of the type-checked branch
+        return null
+    }
 //sampleEnd
 
-fun main() {
     fun printLength(obj: Any) {
         println("Getting the length of '$obj'. Result: ${getStringLength(obj) ?: "Error: The object is not a string"} ")
     }
@@ -661,16 +661,16 @@ fun main() {
 または：
 
 ```kotlin
+fun main() {
 //sampleStart
-fun getStringLength(obj: Any): Int? {
-    if (obj !is String) return null
+    fun getStringLength(obj: Any): Int? {
+        if (obj !is String) return null
 
-    // このブランチでは、`obj`は自動的に`String`にキャストされます
-    return obj.length
-}
+        // `obj` is automatically cast to `String` in this branch
+        return obj.length
+    }
 //sampleEnd
 
-fun main() {
     fun printLength(obj: Any) {
         println("Getting the length of '$obj'. Result: ${getStringLength(obj) ?: "Error: The object is not a string"} ")
     }
@@ -684,18 +684,18 @@ fun main() {
 あるいはさらに：
 
 ```kotlin
+fun main() {
 //sampleStart
-fun getStringLength(obj: Any): Int? {
-    // `&&`の右側では、`obj`は自動的に`String`にキャストされます
-    if (obj is String && obj.length >= 0) {
-        return obj.length
-    }
+    fun getStringLength(obj: Any): Int? {
+        // `obj` is automatically cast to `String` on the right-hand side of `&&`
+        if (obj is String && obj.length >= 0) {
+            return obj.length
+        }
 
-    return null
-}
+        return null
+    }
 //sampleEnd
 
-fun main() {
     fun printLength(obj: Any) {
         println("Getting the length of '$obj'. Result: ${getStringLength(obj) ?: "Error: The object is not a string"} ")
     }

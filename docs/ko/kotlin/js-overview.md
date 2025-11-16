@@ -2,7 +2,7 @@
 
 Kotlin/JavaScript (Kotlin/JS)를 사용하면 Kotlin 코드, Kotlin 표준 라이브러리 및 모든 호환되는 종속성을 JavaScript로 트랜스파일할 수 있습니다. 이를 통해 Kotlin 애플리케이션은 JavaScript를 지원하는 모든 환경에서 실행될 수 있습니다.
 
-[Kotlin Multiplatform Gradle 플러그인](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-dsl-reference.html)(`kotlin.multiplatform`)을 통해 Kotlin/JS를 사용하면 JavaScript를 대상으로 하는 Kotlin 프로젝트를 한곳에서 설정하고 관리할 수 있습니다.
+[Kotlin Multiplatform Gradle 플러그인](https://kotlinlang.org/docs/multiplatform/multiplatform-dsl-reference.html)(`kotlin.multiplatform`)을 통해 Kotlin/JS를 사용하면 JavaScript를 대상으로 하는 Kotlin 프로젝트를 한곳에서 설정하고 관리할 수 있습니다.
 
 Kotlin Multiplatform Gradle 플러그인은 애플리케이션 번들링 제어 및 npm에서 JavaScript 종속성을 직접 추가하는 것과 같은 기능에 대한 접근을 제공합니다. 사용 가능한 구성 옵션에 대한 개요는 [Kotlin/JS 프로젝트 설정](js-project-setup.md)을 참조하세요.
 

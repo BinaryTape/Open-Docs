@@ -103,7 +103,7 @@ plugins {
 </plugins>
 ```
 
-如果您有使用較早 Kotlin 版本建立的專案，請檢查是否也需要 [更新任何 kotlinx 函式庫的版本](maven.md#set-dependencies)。
+如果您有使用較早 Kotlin 版本建立的專案，請檢查是否也需要 [更新任何 kotlinx 函式庫的版本](maven.md#dependency-on-a-kotlinx-library)。
 
 > 若要深入了解如何在專案中使用 Maven，請參閱 [Maven](maven.md)。
 >

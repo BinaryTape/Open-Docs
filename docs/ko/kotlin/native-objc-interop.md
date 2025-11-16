@@ -23,7 +23,7 @@ Objective-C 프레임워크와 라이브러리는 빌드에 제대로 임포트�
 자세한 내용은 다음을 참조하세요:
 
 * [라이브러리 정의 파일 생성 및 구성](native-definition-file.md)
-* [네이티브 라이브러리 컴파일 구성](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-configure-compilations.html#configure-interop-with-native-languages)
+* [네이티브 라이브러리 컴파일 구성](https://kotlinlang.org/docs/multiplatform/multiplatform-configure-compilations.html#configure-interop-with-native-languages)
 
 Swift 라이브러리는 `@objc`를 사용하여 API가 Objective-C로 익스포트(export)되는 경우 Kotlin 코드에서 사용할 수 있습니다.
 순수 Swift 모듈은 아직 지원되지 않습니다.
@@ -32,7 +32,7 @@ Swift 라이브러리는 `@objc`를 사용하여 API가 Objective-C로 익스포
 
 Kotlin 모듈은 프레임워크로 컴파일되면 Swift/Objective-C 코드에서 사용할 수 있습니다:
 
-* 바이너리를 선언하는 방법은 [최종 네이티브 바이너리 빌드](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-build-native-binaries.html#declare-binaries)를 참조하세요.
+* 바이너리를 선언하는 방법은 [최종 네이티브 바이너리 빌드](https://kotlinlang.org/docs/multiplatform/multiplatform-build-native-binaries.html#declare-binaries)를 참조하세요.
 * 예제는 [Kotlin Multiplatform 샘플 프로젝트](https://github.com/Kotlin/kmm-basic-sample)를 확인하세요.
 
 ### Objective-C 및 Swift에서 Kotlin 선언 숨기기
@@ -140,7 +140,7 @@ kotlin {
 
 "->" 및 "<-"는 매핑이 단방향으로만 진행됨을 나타냅니다.
 
-| Kotlin                 | Swift                            | Objective-C                      | 참고                                                                              |
+| Kotlin                 | Swift                            | Objective-C                      | Notes                                                                              |
 |------------------------|----------------------------------|----------------------------------|------------------------------------------------------------------------------------|
 | `class`                | `class`                          | `@interface`                     | [note](#classes)                                                                   |
 | `interface`            | `protocol`                       | `@protocol`                      |                                                                                    |
@@ -665,8 +665,8 @@ val nsString = "Hello" as NSString
 val string = nsString as String
 ```
 
-IDEs might incorrectly emit "This cast can never succeed" warnings.
-In such cases, use the `@Suppress("CAST_NEVER_SUCCEEDS")` annotation.
+IDE는 "이 형변환은 절대로 성공할 수 없습니다" 경고를 잘못 발행할 수 있습니다.
+이런 경우, `@Suppress("CAST_NEVER_SUCCEEDS")` 어노테이션을 사용하세요.
 
 ## 서브클래싱(Subclassing)
 

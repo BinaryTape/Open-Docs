@@ -79,7 +79,7 @@ Kotlin 編譯器會自動生成所有必要的檔案（包括 `swiftmodule` 檔�
 
 ## 當前限制
 
-Swift 匯出目前僅適用於使用[直接整合](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-direct-integration.html)將 iOS 框架連接到 Xcode 專案的專案。這是在 IntelliJ IDEA 中使用 Kotlin Multiplatform 外掛程式或透過[網路精靈](https://kmp.jetbrains.com/)建立的 Kotlin Multiplatform 專案的標準配置。
+Swift 匯出目前僅適用於使用[直接整合](https://kotlinlang.org/docs/multiplatform/multiplatform-direct-integration.html)將 iOS 框架連接到 Xcode 專案的專案。這是在 IntelliJ IDEA 中使用 Kotlin Multiplatform 外掛程式或透過[網路精靈](https://kmp.jetbrains.com/)建立的 Kotlin Multiplatform 專案的標準配置。
 
 其他已知問題：
 

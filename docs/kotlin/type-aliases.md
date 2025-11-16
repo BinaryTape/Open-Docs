@@ -2,7 +2,7 @@
 
 类型别名提供现有类型的替代名称。如果类型名称过长，你可以引入一个不同的短名称并使用新名称来替代。
 
-它有助于缩短冗长的泛型类型。例如，缩短集合类型通常很有用：
+这有助于缩短冗长的泛型类型。例如，缩短集合类型通常很有用：
 
 ```kotlin
 typealias NodeSet = Set<Network.Node>
@@ -91,7 +91,7 @@ class Graph<Node> {
 *   在可见性方面，别名不能暴露超出其引用类型允许的范围。
 *   它们的[作用域](nested-classes.md)与嵌套类相同。你可以在类内部定义它们，并且它们会隐藏任何同名的父类型别名，因为它们不会[覆盖](override)。
 *   嵌套类型别名可以标记为 `internal` 或 `private` 以限制其可见性。
-*   Kotlin Multiplatform 的 [`expect/actual` 声明](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-expect-actual.html)中不支持嵌套类型别名。
+*   Kotlin Multiplatform 的 [`expect/actual` 声明](https://kotlinlang.org/docs/multiplatform/multiplatform-expect-actual.html)中不支持嵌套类型别名。
 
 ### 如何启用嵌套类型别名
 

@@ -1,6 +1,6 @@
-[//]: # (title: Kotlin 1.9 相容性指南)
+[//]: # (title: Kotlin 1.9.x 相容性指南)
 
-_保持語言現代化 (Keeping the Language Modern)_ 和 _舒適的更新 (Comfortable Updates)_ 是 Kotlin 語言設計中的基本原則。前者指出應移除阻礙語言演進的結構，後者則表示此類移除應事先充分溝通，以使程式碼遷移盡可能順暢。
+_[保持語言現代化](kotlin-evolution-principles.md)_ 和 _[舒適的更新](kotlin-evolution-principles.md)_ 是 Kotlin 語言設計中的基本原則。前者指出應移除阻礙語言演進的結構，後者則表示此類移除應事先充分溝通，以使程式碼遷移盡可能順暢。
 
 儘管大多數語言變更已透過其他管道（如更新日誌或編譯器警告）公佈，但本文件將所有變更彙總，為從 Kotlin 1.8 遷移到 Kotlin 1.9 提供了完整的參考資料。
 
@@ -8,9 +8,9 @@ _保持語言現代化 (Keeping the Language Modern)_ 和 _舒適的更新 (Comf
 
 本文件介紹了幾種相容性：
 
-- _原始碼 (source)_：原始碼不相容變更會使原本能正常編譯（沒有錯誤或警告）的程式碼不再能編譯
-- _二進位 (binary)_：如果互相替換兩個二進位構件不會導致載入或連結錯誤，則稱它們為二進位相容
-- _行為 (behavioral)_：如果同一程式在應用變更前後展現不同的行為，則稱該變更為行為不相容
+- _原始碼_：原始碼不相容變更會使原本能正常編譯（沒有錯誤或警告）的程式碼不再能編譯
+- _二進位_：如果互相替換兩個二進位構件不會導致載入或連結錯誤，則稱它們為二進位相容
+- _行為_：如果同一程式在應用變更前後展現不同的行為，則稱該變更為行為不相容
 
 請記住，這些定義僅適用於純粹的 Kotlin。從其他語言角度來看的 Kotlin 程式碼相容性（例如，從 Java 的角度）不在本文件範圍內。
 
@@ -64,7 +64,7 @@ _保持語言現代化 (Keeping the Language Modern)_ 和 _舒適的更新 (Comf
 
 ### 禁止註解參數型別中的循環
 
-> **Issue**: [KT-47932](https://youtrack.com/issue/KT-47932)
+> **Issue**: [KT-47932](https://youtrack.jetbrains.com/issue/KT-47932)
 >
 > **Component**: Core language
 >
@@ -78,7 +78,7 @@ _保持語言現代化 (Keeping the Language Modern)_ 和 _舒適的更新 (Comf
 
 ### 禁止在沒有參數的函式型別上使用 @ExtensionFunctionType 註解
 
-> **Issue**: [KT-43527](https://youtrack.com/issue/KT-43527)
+> **Issue**: [KT-43527](https://youtrack.jetbrains.com/issue/KT-43527)
 >
 > **Component**: Core language
 >
@@ -92,7 +92,7 @@ _保持語言現代化 (Keeping the Language Modern)_ 和 _舒適的更新 (Comf
 
 ### 禁止 Java 欄位型別不匹配賦值
 
-> **Issue**: [KT-48994](https://youtrack.com/issue/KT-48994)
+> **Issue**: [KT-48994](https://youtrack.jetbrains.com/issue/KT-48994)
 >
 > **Component**: Kotlin/JVM
 >
@@ -106,7 +106,7 @@ _保持語言現代化 (Keeping the Language Modern)_ 和 _舒適的更新 (Comf
 
 ### 平台型別可空性斷言例外中不包含原始碼摘錄
 
-> **Issue**: [KT-57570](https://youtrack.com/issue/KT-57570)
+> **Issue**: [KT-57570](https://youtrack.jetbrains.com/issue/KT-57570)
 >
 > **Component**: Kotlin/JVM
 >
@@ -120,7 +120,7 @@ _保持語言現代化 (Keeping the Language Modern)_ 和 _舒適的更新 (Comf
 
 ### 禁止將 super 呼叫委派給抽象父類別成員
 
-> **Issues**: [KT-45508](https://youtrack.com/issue/KT-45508), [KT-49017](https://youtrack.com/issue/KT-49017), [KT-38078](https://youtrack.com/issue/KT-38078)
+> **Issues**: [KT-45508](https://youtrack.jetbrains.com/issue/KT-45508), [KT-49017](https://youtrack.jetbrains.com/issue/KT-49017), [KT-38078](https://youtrack.jetbrains.com/issue/KT-38078)
 >
 > **Component**: Core language
 >
@@ -138,7 +138,7 @@ _保持語言現代化 (Keeping the Language Modern)_ 和 _舒適的更新 (Comf
 
 ### 廢棄帶主詞的 when 中容易混淆的語法
 
-> **Issue**: [KT-48385](https://youtrack.com/issue/KT-48385)
+> **Issue**: [KT-48385](https://youtrack.jetbrains.com/issue/KT-48385)
 >
 > **Component**: Core language
 >
@@ -170,7 +170,7 @@ _保持語言現代化 (Keeping the Language Modern)_ 和 _舒適的更新 (Comf
 
 ### 禁止泛型型別別名使用中的上限違規（在別名型別的型別引數的泛型型別引數中使用的型別參數）
 
-> **Issue**: [KT-54066](https://youtrack.com/issue/KT-54066)
+> **Issue**: [KT-54066](https://youtrack.jetbrains.com/issue/KT-54066)
 >
 > **Component**: Core language
 >
@@ -185,7 +185,7 @@ _保持語言現代化 (Keeping the Language Modern)_ 和 _舒適的更新 (Comf
 
 ### 在公共簽名中近似局部型別時保持可空性
 
-> **Issue**: [KT-53982](https://youtrack.com/issue/KT-53982)
+> **Issue**: [KT-53982](https://youtrack.jetbrains.com/issue/KT-53982)
 >
 > **Component**: Core language
 >
@@ -216,7 +216,7 @@ _保持語言現代化 (Keeping the Language Modern)_ 和 _舒適的更新 (Comf
 
 ### 禁止在註解類別中除其參數宣告以外的任何地方使用集合字面量
 
-> **Issue**: [KT-39041](https://youtrack.com/issue/KT-39041)
+> **Issue**: [KT-39041](https://youtrack.jetbrains.com/issue/KT-39041)
 >
 > **Component**: Core language
 >
@@ -231,7 +231,7 @@ _保持語言現代化 (Keeping the Language Modern)_ 和 _舒適的更新 (Comf
 
 ### 禁止在預設值表達式中向前引用參數
 
-> **Issue**: [KT-25694](https://youtrack.com/issue/KT-25694)
+> **Issue**: [KT-25694](https://youtrack.jetbrains.com/issue/KT-25694)
 >
 > **Component**: Core language
 >
@@ -246,7 +246,7 @@ _保持語言現代化 (Keeping the Language Modern)_ 和 _舒適的更新 (Comf
 
 ### 禁止在內聯函式參數上進行擴充呼叫
 
-> **Issue**: [KT-52502](https://youtrack.com/issue/KT-52502)
+> **Issue**: [KT-52502](https://youtrack.jetbrains.com/issue/KT-52502)
 >
 > **Component**: Core language
 >
@@ -261,7 +261,7 @@ _保持語言現代化 (Keeping the Language Modern)_ 和 _舒適的更新 (Comf
 
 ### 禁止呼叫名稱為 suspend 且帶有匿名函式引數的中綴函式
 
-> **Issue**: [KT-49264](https://youtrack.com/issue/KT-49264)
+> **Issue**: [KT-49264](https://youtrack.jetbrains.com/issue/KT-49264)
 >
 > **Component**: Core language
 >
@@ -277,7 +277,7 @@ _保持語言現代化 (Keeping the Language Modern)_ 和 _舒適的更新 (Comf
 
 ### 禁止在內部類別中使用捕獲的型別參數，以防其變異性衝突
 
-> **Issue**: [KT-50947](https://youtrack.com/issue/KT-50947)
+> **Issue**: [KT-50947](https://youtrack.jetbrains.com/issue/KT-50947)
 >
 > **Component**: Core language
 >
@@ -292,7 +292,7 @@ _保持語言現代化 (Keeping the Language Modern)_ 和 _舒適的更新 (Comf
 
 ### 禁止在複合賦值運算子中遞歸呼叫沒有明確返回型別的函式
 
-> **Issue**: [KT-48546](https://youtrack.com/issue/KT-48546)
+> **Issue**: [KT-48546](https://youtrack.jetbrains.com/issue/KT-48546)
 >
 > **Component**: Core language
 >
@@ -322,7 +322,7 @@ _保持語言現代化 (Keeping the Language Modern)_ 和 _舒適的更新 (Comf
 
 ### 禁止從列舉條目初始化器存取該列舉的伴生物件成員
 
-> **Issue**: [KT-49110](https://youtrack.com/issue/KT-49110)
+> **Issue**: [KT-49110](https://youtrack.jetbrains.com/issue/KT-49110)
 >
 > **Component**: Core language
 >
@@ -337,7 +337,7 @@ _保持語言現代化 (Keeping the Language Modern)_ 和 _舒適的更新 (Comf
 
 ### 廢棄並移除 Enum.declaringClass 合成屬性
 
-> **Issue**: [KT-49653](https://youtrack.com/issue/KT-49653)
+> **Issue**: [KT-49653](https://youtrack.jetbrains.com/issue/KT-49653)
 >
 > **Component**: Kotlin/JVM
 >
@@ -353,7 +353,7 @@ _保持語言現代化 (Keeping the Language Modern)_ 和 _舒適的更新 (Comf
 
 ### 廢棄編譯器選項 -Xjvm-default 的 enable 和 compatibility 模式
 
-> **Issues**: [KT-46329](https://youtrack.com/issue/KT-46329), [KT-54746](https://youtrack.com/issue/KT-54746)
+> **Issues**: [KT-46329](https://youtrack.jetbrains.com/issue/KT-46329), [KT-54746](https://youtrack.jetbrains.com/issue/KT-54746)
 >
 > **Component**: Kotlin/JVM
 >
@@ -368,7 +368,7 @@ _保持語言現代化 (Keeping the Language Modern)_ 和 _舒適的更新 (Comf
 
 ### 禁止在建構器推斷上下文下隱式將型別變數推斷為上限
 
-> **Issue**: [KT-47986](https://youtrack.com/issue/KT-47986)
+> **Issue**: [KT-47986](https://youtrack.jetbrains.com/issue/KT-47986)
 >
 > **Component**: Core language
 >
@@ -401,7 +401,7 @@ _保持語言現代化 (Keeping the Language Modern)_ 和 _舒適的更新 (Comf
 
 ### 將宣告從 kotlin.dom 和 kotlin.browser 封裝遷移到 kotlinx.*
 
-> **Issue**: [KT-39330](https://youtrack.com/issue/KT-39330)
+> **Issue**: [KT-39330](https://youtrack.jetbrains.com/issue/KT-39330)
 >
 > **Component**: kotlin-stdlib (JS)
 >
@@ -419,7 +419,7 @@ _保持語言現代化 (Keeping the Language Modern)_ 和 _舒適的更新 (Comf
 
 ### 廢棄部分僅限 JS 的 API
 
-> **Issue**: [KT-48587](https://youtrack.com/issue/KT-48587)
+> **Issue**: [KT-48587](https://youtrack.jetbrains.com/issue/KT-48587)
 >
 > **Component**: kotlin-stdlib (JS)
 >
@@ -437,7 +437,7 @@ _保持語言現代化 (Keeping the Language Modern)_ 和 _舒適的更新 (Comf
 
 ### 從 Gradle 設定中移除 enableEndorsedLibs 標誌
 
-> **Issue**: [KT-54098](https://youtrack.com/issue/KT-54098)
+> **Issue**: [KT-54098](https://youtrack.jetbrains.com/issue/KT-54098)
 >
 > **Component**: Gradle
 >
@@ -452,7 +452,7 @@ _保持語言現代化 (Keeping the Language Modern)_ 和 _舒適的更新 (Comf
 
 ### 移除 Gradle 慣例
 
-> **Issue**: [KT-52976](https://youtrack.com/issue/KT-52976)
+> **Issue**: [KT-52976](https://youtrack.jetbrains.com/issue/KT-52976)
 >
 > **Component**: Gradle
 >

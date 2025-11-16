@@ -1,4 +1,4 @@
-[//]: # (title: Kotlin 1.5 相容性指南)
+[//]: # (title: Kotlin 1.5.x 相容性指南)
 
 _[保持語言現代化](kotlin-evolution-principles.md)_ 和 _[舒適的更新](kotlin-evolution-principles.md)_ 是 Kotlin 語言設計中的基本原則。前者指出，阻礙語言演進的建構應該被移除；後者則表示，此類移除應事先充分溝通，以確保程式碼遷移盡可能順暢。
 

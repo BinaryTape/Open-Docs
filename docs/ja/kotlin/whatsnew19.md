@@ -2,7 +2,7 @@
 
 _[リリース日: 2023年7月6日](releases.md#release-details)_
 
-Kotlin 1.9.0がリリースされ、JVM向けK2コンパイラが**ベータ版**になりました。その他、主なハイライトは以下のとおりです。
+Kotlin 1.9.0がリリースされ、JVM向けK2コンパイラは現在**ベータ版**です。また、主なハイライトは以下の通りです。
 
 *   [Kotlin K2コンパイラの新しい更新](#new-kotlin-k2-compiler-updates)
 *   [enumクラスの`values`関数の安定版の代替機能](#stable-replacement-of-the-enum-class-values-function)
@@ -15,7 +15,7 @@ Kotlin 1.9.0がリリースされ、JVM向けK2コンパイラが**ベータ版*
 *   [Kotlin/Nativeにおけるライブラリのリンク](#library-linkage-in-kotlin-native)
 *   [Kotlin/Wasmにおけるサイズ関連の最適化](#size-related-optimizations)
 
-これらの更新の簡単な概要を以下のビデオでご覧いただけます。
+これらの更新の簡単な概要を以下のビデオでもご覧いただけます。
 
 <video src="https://www.youtube.com/v/fvwTZc-dxsM" title="What's new in Kotlin 1.9.0"/>
 
@@ -38,7 +38,7 @@ Kotlin 1.9.0プラグインは、今後のIntelliJ IDEA 2023.2のリリースに
 
 ## Kotlin K2コンパイラの新しい更新
 
-JetBrainsのKotlinチームはK2コンパイラの安定化を続けており、1.9.0リリースではさらなる進歩が導入されました。
+JetBrainsのKotlinチームはK2コンパイラの安定化を続けており、1.9.0リリースではさらなる進歩を導入しています。
 JVM向けK2コンパイラは現在**ベータ版**です。
 
 Kotlin/Nativeおよびマルチプラットフォームプロジェクトの基本的なサポートも追加されました。
@@ -129,8 +129,8 @@ kotlin {
 ## 言語
 
 Kotlin 1.9.0では、以前に導入されたいくつかの新言語機能を安定化しています。
-*   [enumクラスの`values`関数の代替機能](#stable-replacement-of-the-enum-class-values-function)
-*   [データクラスとの対称性のためのデータオブジェクト](#stable-data-objects-for-symmetry-with-data-classes)
+*   [enumクラスの`values`関数の安定版の代替機能](#stable-replacement-of-the-enum-class-values-function)
+*   [データクラスとの対称性のためのデータオブジェクトの安定化](#stable-data-objects-for-symmetry-with-data-classes)
 *   [インライン値クラスにおける本体を持つセカンダリコンストラクタのサポート](#support-for-secondary-constructors-with-bodies-in-inline-value-classes)
 
 ### enumクラスの`values`関数の安定版の代替機能
@@ -218,7 +218,7 @@ Kotlin 1.5以降、`JvmDefault`アノテーションの使用は、新しい`-Xj
 
 *   [カスタムメモリ割り当て機能のプレビュー](#preview-of-custom-memory-allocator)
 *   [メインスレッドでのObjective-CまたはSwiftオブジェクトのデアロケーションフック](#objective-c-or-swift-object-deallocation-hook-on-the-main-thread)
-*   [Kotlin/Nativeでの定数値アクセス時のオブジェクト初期化なし](#no-object-initialization-when-accessing-constant-values-in-kotlin-native)
+*   [Kotlin/Nativeにおける定数値アクセス時のオブジェクト初期化なし](#no-object-initialization-when-accessing-constant-values-in-kotlin-native)
 *   [iOSシミュレータテストのスタンドアローンモード設定機能](#ability-to-configure-standalone-mode-for-ios-simulator-tests-in-kotlin-native)
 *   [Kotlin/Nativeにおけるライブラリのリンク](#library-linkage-in-kotlin-native)
 
@@ -283,7 +283,7 @@ kotlin.native.binary.objcDisposeOnMain=false
 
 このようなケースは、[課題トラッカー](https://kotl.in/issue)に報告することをためらわないでください。
 
-### Kotlin/Nativeでの定数値アクセス時のオブジェクト初期化なし
+### Kotlin/Nativeにおける定数値アクセス時のオブジェクト初期化なし
 
 Kotlin 1.9.0以降、Kotlin/Nativeバックエンドは`const val`フィールドにアクセスする際にオブジェクトを初期化しません。
 
@@ -425,7 +425,7 @@ Kotlin 1.9.0以降、新しいAndroidソースセットレイアウトがデフ�
 *   改善されたソースディレクトリレイアウト – 新しいレイアウトにより、`SourceDirectories`の配置がより一貫性のあるものになり、コードの整理とソースファイルの特定が容易になります。
 *   Gradle構成の明確な命名スキーム – スキーマは`KotlinSourceSets`と`AndroidSourceSets`の両方でより一貫性があり、予測可能になりました。
 
-新しいレイアウトには、Android Gradleプラグインバージョン7.0以降が必要であり、Android Studio 2022.3以降でサポートされています。`build.gradle(.kts)`ファイルに必要な変更を加えるには、[マイグレーションガイド](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-android-layout.html)を参照してください。
+新しいレイアウトには、Android Gradleプラグインバージョン7.0以降が必要であり、Android Studio 2022.3以降でサポートされます。`build.gradle(.kts)`ファイルに必要な変更を加えるには、[マイグレーションガイド](https://kotlinlang.org/docs/multiplatform/multiplatform-android-layout.html)を参照してください。
 
 ### Gradle構成キャッシュのプレビュー
 
@@ -435,7 +435,7 @@ Kotlin 1.9.0には、マルチプラットフォームライブラリにおけ�
 
 Gradle構成キャッシュは、設定フェーズの結果を後続のビルドで再利用することで、ビルドプロセスを高速化します。この機能はGradle 8.1以降で安定版となりました。有効にするには、[Gradleドキュメント](https://docs.gradle.org/current/userguide/configuration_cache.html#config_cache:usage)の指示に従ってください。
 
-> Kotlin Multiplatformプラグインは、Xcode統合タスクや[Kotlin CocoaPods Gradleプラグイン](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-cocoapods-dsl-reference.html)では、まだGradle構成キャッシュをサポートしていません。この機能は今後のKotlinリリースで追加される予定です。
+> Kotlin Multiplatformプラグインは、Xcode統合タスクや[Kotlin CocoaPods Gradleプラグイン](https://kotlinlang.org/docs/multiplatform/multiplatform-cocoapods-dsl-reference.html)では、まだGradle構成キャッシュをサポートしていません。この機能は今後のKotlinリリースで追加される予定です。
 >
 {style="note"}
 
@@ -475,7 +475,7 @@ Kotlin/Wasmは、値をJavaScriptに渡したりJavaScriptから受け取った�
 
 詳細については、[Kotlin/WasmとJavaScriptの相互運用性](wasm-js-interop.md)のドキュメントを参照してください。
 
-### Kotlin/Wasm in Kotlin Playground
+### Kotlin PlaygroundにおけるKotlin/Wasm
 
 Kotlin PlaygroundはKotlin/Wasmターゲットをサポートしています。
 Kotlin/WasmをターゲットとするKotlinコードを記述、実行、共有できます。[ぜひお試しください！](https://pl.kotl.in/HDFAvimga)
@@ -542,7 +542,7 @@ Kotlin 1.9.0以降、`kotlin-js` Gradleプラグインは非推奨になりま�
 
 Kotlin/JS Gradleプラグインの機能は、実質的に`kotlin-multiplatform`プラグインと重複しており、内部で同じ実装を共有していました。この重複は混乱を生み出し、Kotlinチームのメンテナンス負荷を増加させていました。
 
-マイグレーション手順については、[Kotlin Multiplatformの互換性ガイド](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-compatibility-guide.html#migration-from-kotlin-js-gradle-plugin-to-kotlin-multiplatform-gradle-plugin)を参照してください。ガイドに記載されていない問題が見つかった場合は、[課題トラッカー](http://kotl.in/issue)に報告してください。
+マイグレーション手順については、[Kotlin Multiplatformの互換性ガイド](https://kotlinlang.org/docs/multiplatform/multiplatform-compatibility-guide.html#migration-from-kotlin-js-gradle-plugin-to-kotlin-multiplatform-gradle-plugin)を参照してください。ガイドに記載されていない問題が見つかった場合は、[課題トラッカー](http://kotl.in/issue)に報告してください。
 
 ### 外部enumの非推奨化
 
@@ -759,10 +759,10 @@ tasks.named<org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile>("compileKotlin")
 
 Kotlin 1.9.0では、標準ライブラリにいくつかの大きな改善があります。
 *   [`..<`演算子](#stable-operator-for-open-ended-ranges)と[Time API](#stable-time-api)が安定版になりました。
-*   [Kotlin/Native標準ライブラリが徹底的に見直され、更新されました](#the-kotlin-native-standard-library-s-journey-towards-stabilization)。
-*   [`@Volatile`アノテーションがより多くのプラットフォームで使用できるようになりました](#stable-volatile-annotation)。
-*   [正規表現キャプチャグループを名前で取得する**共通**関数があります](#new-common-function-to-get-regex-capture-group-by-name)。
-*   [16進数をフォーマットおよびパースするための新しい`HexFormat`クラスが導入されました](#new-hexformat-class-to-format-and-parse-hexadecimals)。
+*   [Kotlin/Native標準ライブラリが徹底的に見直され、更新されました](#the-kotlin-native-standard-library-s-journey-towards-stabilization)
+*   [`@Volatile`アノテーションがより多くのプラットフォームで使用できるようになりました](#stable-volatile-annotation)
+*   [正規表現キャプチャグループを名前で取得する**共通**関数があります](#new-common-function-to-get-regex-capture-group-by-name)
+*   [16進数をフォーマットおよびパースするための新しい`HexFormat`クラスが導入されました](#new-hexformat-class-to-format-and-parse-hexadecimals)
 
 ### オープンエンドレンジの安定版`..<`演算子
 
@@ -1044,8 +1044,8 @@ println("0x3a".hexToInt(HexFormat { number.prefix = "0x" })) // "58"
 
 Kotlinのドキュメントにはいくつかの注目すべき変更が加えられました。
 *   [Kotlinのツアー](kotlin-tour-welcome.md) – Kotlinプログラミング言語の基礎を、理論と実践の両方を含む章で学びます。
-*   [Androidソースセットレイアウト](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-android-layout.html) – 新しいAndroidソースセットレイアウトについて学びます。
-*   [Kotlin Multiplatformの互換性ガイド](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-compatibility-guide.html) – Kotlin Multiplatformでプロジェクトを開発する際に遭遇する可能性のある互換性のない変更について学びます。
+*   [Androidソースセットレイアウト](https://kotlinlang.org/docs/multiplatform/multiplatform-android-layout.html) – 新しいAndroidソースセットレイアウトについて学びます。
+*   [Kotlin Multiplatformの互換性ガイド](https://kotlinlang.org/docs/multiplatform/multiplatform-compatibility-guide.html) – Kotlin Multiplatformでプロジェクトを開発する際に遭遇する可能性のある互換性のない変更について学びます。
 *   [Kotlin Wasm](wasm-overview.md) – Kotlin/Wasmと、Kotlin Multiplatformプロジェクトでの使用方法について学びます。
 
 ## Kotlin 1.9.0のインストール

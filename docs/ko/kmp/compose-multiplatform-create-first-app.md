@@ -7,10 +7,10 @@
     <p>이 튜토리얼은 IntelliJ IDEA를 사용하지만, Android Studio에서도 따라 할 수 있습니다. 두 IDE 모두 동일한 핵심 기능과 Kotlin Multiplatform 지원을 공유합니다.</p>
     <br/>
     <p>이 튜토리얼은 **공유 로직과 UI를 사용하는 Compose Multiplatform 앱 생성하기** 튜토리얼의 첫 번째 파트입니다.</p>
-    <p><img src="icon-1.svg" width="20" alt="First step"/> <strong>Compose Multiplatform 앱 생성하기</strong><br/>
-        <img src="icon-2-todo.svg" width="20" alt="Second step"/> 컴포저블 코드 탐색하기 <br/>
-        <img src="icon-3-todo.svg" width="20" alt="Third step"/> 프로젝트 수정하기 <br/>      
-        <img src="icon-4-todo.svg" width="20" alt="Fourth step"/> 나만의 애플리케이션 생성하기 <br/>
+    <p><img src="icon-1.svg" width="20" alt="첫 번째 단계"/> <strong>Compose Multiplatform 앱 생성하기</strong><br/>
+        <img src="icon-2-todo.svg" width="20" alt="두 번째 단계"/> 컴포저블 코드 탐색하기 <br/>
+        <img src="icon-3-todo.svg" width="20" alt="세 번째 단계"/> 프로젝트 수정하기 <br/>      
+        <img src="icon-4-todo.svg" width="20" alt="네 번째 단계"/> 나만의 애플리케이션 생성하기 <br/>
     </p>
 </tldr>
 
@@ -304,5 +304,5 @@ Gradle 작업이 완료되면 `composeApp/build/dist/composeWebCompatibility/pro
 
 ## 도움 받기
 
-* **Kotlin Slack**. [초대](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up)를 받아 [#multiplatform](https://kotlinlang.slack.com/archives/C3PQML5NU) 채널에 참여하세요.
+* **Kotlin Slack**. [초대](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up)를 받아 [#multiplatform](https://kotlinlang.org/slack.com/archives/C3PQML5NU) 채널에 참여하세요.
 * **Kotlin 이슈 트래커**. [새로운 이슈 보고](https://youtrack.jetbrains.com/newIssue?project=KT).

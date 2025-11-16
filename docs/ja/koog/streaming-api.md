@@ -39,7 +39,6 @@ Koogの**ストリーミングAPI**を使用すると、`Flow<StreamFrame>`と�
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
 import ai.koog.prompt.streaming.StreamFrame
-import ai.koog.prompt.structure.markdown.MarkdownStructuredDataDefinition
 
 val strategy = strategy<String, String>("strategy_name") {
     val node by node<Unit, Unit> {
@@ -78,7 +77,7 @@ llm.writeSession {
 
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
-import ai.koog.prompt.structure.markdown.MarkdownStructuredDataDefinition
+import ai.koog.prompt.structure.markdown.MarkdownStructureDefinition
 
 val strategy = strategy<String, String>("strategy_name") {
     val node by node<Unit, Unit> {
@@ -88,8 +87,8 @@ val strategy = strategy<String, String>("strategy_name") {
 }
 -->
 ```kotlin
-fun markdownBookDefinition(): MarkdownStructuredDataDefinition {
-    return MarkdownStructuredDataDefinition("name", schema = { /*...*/ })
+fun markdownBookDefinition(): MarkdownStructureDefinition {
+    return MarkdownStructureDefinition("name", schema = { /*...*/ })
 }
 
 val mdDefinition = markdownBookDefinition()
@@ -147,6 +146,7 @@ import ai.koog.agents.core.dsl.builder.strategy
 import ai.koog.agents.core.agent.GraphAIAgent
 import ai.koog.agents.features.eventHandler.feature.handleEvents
 import ai.koog.prompt.streaming.StreamFrame
+import ai.koog.prompt.structure.markdown.MarkdownStructureDefinition
 
 fun GraphAIAgent.FeatureContext.installStreamingApi() {
 -->
@@ -192,7 +192,7 @@ handleEvents {
 
 構造化データのアプローチには、以下の主要なコンポーネントが含まれます。
 
-1.  **MarkdownStructuredDataDefinition**: Markdown形式で構造化データのスキーマと例を定義するのに役立つクラス。
+1.  **MarkdownStructureDefinition**: Markdown形式で構造化データのスキーマと例を定義するのに役立つクラス。
 2.  **markdownStreamingParser**: Markdownチャンクのストリームを処理し、イベントを発行するパーサーを作成する関数。
 
 以下のセクションでは、構造化データのストリームを処理することに関連する段階的な手順とコードサンプルを提供します。
@@ -216,15 +216,15 @@ data class Book(
 
 #### 2. Markdown構造を定義する
 
-`MarkdownStructuredDataDefinition`クラスを使用して、Markdownでデータがどのように構造化されるべきかを指定する定義を作成します。
+`MarkdownStructureDefinition`クラスを使用して、Markdownでデータがどのように構造化されるべきかを指定する定義を作成します。
 
 <!--- INCLUDE
 import ai.koog.prompt.markdown.markdown
-import ai.koog.prompt.structure.markdown.MarkdownStructuredDataDefinition
+import ai.koog.prompt.structure.markdown.MarkdownStructureDefinition
 -->
 ```kotlin
-fun markdownBookDefinition(): MarkdownStructuredDataDefinition {
-    return MarkdownStructuredDataDefinition("bookList", schema = {
+fun markdownBookDefinition(): MarkdownStructureDefinition {
+    return MarkdownStructureDefinition("bookList", schema = {
         markdown {
             header(1, "title")
             bulleted {
@@ -402,7 +402,7 @@ class BookTool(): SimpleTool<Book>() {
         get() = Book.serializer()
 
     override val name: String = NAME
-    override val description = "A tool to parse book information from Markdown"
+    override val description: String = "A tool to parse book information from Markdown"
 }
 ```
 <!--- KNIT example-streaming-api-08.kt -->
@@ -478,7 +478,7 @@ val runner = AIAgent(
 
 1.  **明確な構造を定義する**: データのために明確で曖昧さのないMarkdown構造を作成します。
 
-2.  **良い例を提供する**: `MarkdownStructuredDataDefinition`に包括的な例を含めて、LLMをガイドします。
+2.  **良い例を提供する**: `MarkdownStructureDefinition`に包括的な例を含めて、LLMをガイドします。
 
 3.  **不完全なデータを処理する**: ストリームからデータをパースする際は、常にnullまたは空の値をチェックします。
 

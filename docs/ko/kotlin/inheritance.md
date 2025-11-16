@@ -1,6 +1,11 @@
 [//]: # (title: 상속)
 
-코틀린의 모든 클래스는 공통 슈퍼클래스인 `Any`를 가집니다. 이는 슈퍼타입이 선언되지 않은 클래스의 기본 슈퍼클래스입니다.
+> 클래스로 상속 계층을 만들기 전에, [추상 클래스](classes.md#abstract-classes)나 [인터페이스](interfaces.md) 사용을 고려하십시오.
+> 추상 클래스와 인터페이스는 기본적으로 상속받을 수 있습니다. 이들은 다른 클래스들이 해당 멤버를 상속받고 구현할 수 있도록 설계되었습니다.
+>
+{style="tip"}
+
+코틀린의 모든 클래스는 공통 슈퍼클래스인 `Any`를 가집니다. 이는 슈퍼타입이 선언되지 않은 클래스의 기본 슈퍼클래스입니다:
 
 ```kotlin
 class Example // 암묵적으로 Any를 상속받습니다.
@@ -8,7 +13,7 @@ class Example // 암묵적으로 Any를 상속받습니다.
 
 `Any`는 `equals()`, `hashCode()`, `toString()` 세 가지 메서드를 가지고 있습니다. 따라서 이 메서드들은 모든 코틀린 클래스에 대해 정의됩니다.
 
-기본적으로 코틀린 클래스는 `final`입니다. 즉, 상속될 수 없습니다. 클래스를 상속 가능하게 만들려면 `open` 키워드를 붙여야 합니다.
+기본적으로 코틀린 클래스는 `final`입니다. 즉, 상속될 수 없습니다. 클래스를 상속 가능하게 만들려면 `open` 키워드를 붙여야 합니다:
 
 ```kotlin
 open class Base // 이 클래스는 상속을 위해 open됩니다.
@@ -39,7 +44,7 @@ class MyView : View {
 
 ## Open 키워드
 
-코틀린에서 `open` 키워드는 클래스 또는 멤버(함수나 프로퍼티)가 서브클래스에서 오버라이드될 수 있음을 나타냅니다. 기본적으로 코틀린 클래스와 멤버는 _`final`_입니다. 즉, 명시적으로 `open`으로 표시하지 않는 한 상속(클래스의 경우)되거나 오버라이드(멤버의 경우)될 수 없습니다.
+코틀린에서 `open` 키워드는 클래스 또는 멤버(함수나 프로퍼티)가 서브클래스에서 오버라이드될 수 있음을 나타냅니다. 기본적으로 코틀린 클래스와 멤버는 _`final`_입니다. 즉, 명시적으로 `open`으로 표시하지 않는 한 상속(클래스의 경우)되거나 오버라이드(멤버의 경우)될 수 없습니다:
 
 ```kotlin
 // 상속을 허용하기 위해 open 키워드가 있는 기본 클래스
@@ -63,7 +68,7 @@ class Student(
 }
 ```
 
-기본 클래스의 멤버를 오버라이드하는 경우, 오버라이드하는 멤버도 기본적으로 `open`입니다. 이를 변경하고 클래스의 서브클래스가 현재 구현을 오버라이드하는 것을 금지하려면, 오버라이드하는 멤버를 명시적으로 `final`로 표시할 수 있습니다.
+기본 클래스의 멤버를 오버라이드하는 경우, 오버라이드하는 멤버도 기본적으로 `open`입니다. 이를 변경하고 클래스의 서브클래스가 현재 구현을 오버라이드하는 것을 금지하려면, 오버라이드하는 멤버를 명시적으로 `final`로 표시할 수 있습니다:
 
 ```kotlin
 // 상속을 허용하기 위해 open 키워드가 있는 기본 클래스
@@ -85,7 +90,7 @@ class Student(name: String, val school: String) : Person(name) {
 
 ## 메서드 오버라이딩
 
-코틀린은 오버라이드 가능한 멤버와 오버라이드에 명시적인 변경자를 요구합니다.
+코틀린은 오버라이드 가능한 멤버와 오버라이드에 명시적인 변경자를 요구합니다:
 
 ```kotlin
 open class Shape {
@@ -110,7 +115,7 @@ open class Rectangle() : Shape() {
 
 ## 프로퍼티 오버라이딩
 
-오버라이딩 메커니즘은 메서드와 동일한 방식으로 프로퍼티에서도 작동합니다. 슈퍼클래스에 선언된 프로퍼티를 파생 클래스에서 다시 선언할 때는 `override` 키워드를 앞에 붙여야 하며, 호환되는 타입을 가져야 합니다. 각 선언된 프로퍼티는 초기화자를 가진 프로퍼티 또는 `get` 메서드를 가진 프로퍼티로 오버라이드될 수 있습니다.
+오버라이딩 메커니즘은 메서드와 동일한 방식으로 프로퍼티에서도 작동합니다. 슈퍼클래스에 선언된 프로퍼티를 파생 클래스에서 다시 선언할 때는 `override` 키워드를 앞에 붙여야 하며, 호환되는 타입을 가져야 합니다. 각 선언된 프로퍼티는 초기화자를 가진 프로퍼티 또는 `get` 메서드를 가진 프로퍼티로 오버라이드될 수 있습니다:
 
 ```kotlin
 open class Shape {
@@ -131,10 +136,10 @@ interface Shape {
     val vertexCount: Int
 }
 
-class Rectangle(override val vertexCount: Int = 4) : Shape // Always has 4 vertices
+class Rectangle(override val vertexCount: Int = 4) : Shape // 항상 4개의 꼭짓점을 가집니다
 
 class Polygon : Shape {
-    override var vertexCount: Int = 0  // Can be set to any number later
+    override var vertexCount: Int = 0  // 나중에 어떤 숫자로든 설정될 수 있습니다
 }
 ```
 
@@ -146,26 +151,26 @@ class Polygon : Shape {
 //sampleStart
 open class Base(val name: String) {
 
-    init { println("Initializing a base class") }
+    init { println("기본 클래스 초기화 중") }
 
-    open val size: Int = 
-        name.length.also { println("Initializing size in the base class: $it") }
+    open val size: Int =
+        name.length.also { println("기본 클래스에서 size 초기화 중: $it") }
 }
 
 class Derived(
     name: String,
     val lastName: String,
-) : Base(name.replaceFirstChar { it.uppercase() }.also { println("Argument for the base class: $it") }) {
+) : Base(name.replaceFirstChar { it.uppercase() }.also { println("기본 클래스 인자: $it") }) {
 
-    init { println("Initializing a derived class") }
+    init { println("파생 클래스 초기화 중") }
 
     override val size: Int =
-        (super.size + lastName.length).also { println("Initializing size in the derived class: $it") }
+        (super.size + lastName.length).also { println("파생 클래스에서 size 초기화 중: $it") }
 }
 //sampleEnd
 
 fun main() {
-    println("Constructing the derived class(\"hello\", \"world\")")
+    println("파생 클래스(\"hello\", \"world\") 생성 중")
     Derived("hello", "world")
 }
 ```
@@ -179,14 +184,14 @@ fun main() {
 
 ```kotlin
 open class Rectangle {
-    open fun draw() { println("Drawing a rectangle") }
+    open fun draw() { println("직사각형을 그리는 중") }
     val borderColor: String get() = "black"
 }
 
 class FilledRectangle : Rectangle() {
     override fun draw() {
         super.draw()
-        println("Filling the rectangle")
+        println("직사각형을 채우는 중")
     }
 
     val fillColor: String get() = super.borderColor
@@ -197,7 +202,7 @@ class FilledRectangle : Rectangle() {
 
 ```kotlin
 open class Rectangle {
-    open fun draw() { println("Drawing a rectangle") }
+    open fun draw() { println("직사각형을 그리는 중") }
     val borderColor: String get() = "black"
 }
 
@@ -209,11 +214,11 @@ class FilledRectangle: Rectangle() {
     }
     
     inner class Filler {
-        fun fill() { println("Filling") }
+        fun fill() { println("채우는 중") }
         fun drawAndFill() {
             super@FilledRectangle.draw() // Rectangle.draw() 호출
             fill()
-            println("Drawn a filled rectangle with color ${super@FilledRectangle.borderColor}") // Rectangle의 borderColor의 get() 구현 사용
+            println("색상 ${super@FilledRectangle.borderColor}으로 채워진 직사각형을 그렸습니다") // Rectangle의 borderColor의 get() 구현 사용
         }
     }
 }

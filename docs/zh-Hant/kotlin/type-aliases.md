@@ -1,6 +1,6 @@
 [//]: # (title: 類型別名)
 
-類型別名提供現有類型的替代名稱。
+類型別名為現有類型提供替代名稱。
 如果類型名稱過長，您可以引入一個不同的簡短名稱並改用新名稱。
  
 這對於縮短冗長的泛型類型很有用。
@@ -96,7 +96,7 @@ class Graph<Node> {
 * 就可見性而言，該別名不能暴露超過其引用類型所允許的範圍。
 * 它們的作用域與[巢狀類別](nested-classes.md)相同。您可以在類別內部定義它們，並且它們會隱藏任何具有相同名稱的父類型別名，因為它們不進行覆寫。
 * 巢狀類型別名可以標記為 `internal` 或 `private` 來限制其可見性。
-* 在 Kotlin 多平台（Multiplatform）的 [`expect/actual` 宣告](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-expect-actual.html)中不支援巢狀類型別名。
+* 巢狀類型別名在 Kotlin 多平台（Multiplatform）的 [`expect/actual` 宣告](https://kotlinlang.org/docs/multiplatform/multiplatform-expect-actual.html)中不支援。
 
 ### 如何啟用巢狀類型別名
 

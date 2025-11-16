@@ -39,11 +39,11 @@ Kotlin/Wasm을 컴파일 타겟으로 사용합니다. Kotlin/Wasm 및 Compose M
 
 또한 Kotlin/Wasm에서 가장 인기 있는 Kotlin 라이브러리를 바로 사용할 수 있습니다. 다른 Kotlin 및 멀티플랫폼
 프로젝트와 마찬가지로 빌드 스크립트에 의존성 선언을 포함할 수 있습니다. 자세한 내용은
-[멀티플랫폼 라이브러리에 의존성 추가](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-add-dependencies.html)를 참조하세요.
+[멀티플랫폼 라이브러리에 의존성 추가](https://kotlinlang.org/docs/multiplatform/multiplatform-add-dependencies.html)를 참조하세요.
 
 직접 사용해보고 싶으신가요?
 
-<a href="wasm-get-started.md"><img src="wasm-get-started-button.svg" width="600" alt="Get started with Kotlin/Wasm" style="block"/></a>
+<a href="wasm-get-started.md"><img src="wasm-get-started-button.svg" width="600" alt="Kotlin/Wasm 시작하기" style="block"/></a>
 
 ## Kotlin/Wasm 및 WASI
 

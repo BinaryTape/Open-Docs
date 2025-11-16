@@ -296,7 +296,7 @@ Kotlin `String` 和 Objective-C `NSString*` 被透明地映射。同樣，Kotlin
 
 您可以在 [與 Swift/Objective-C 的互通性](native-objc-interop.md#mappings) 中找到有關類型映射的更多資訊。
 
-## 垃圾回收與引用計數
+## 垃圾收集與引用計數
 
 Swift 和 Objective-C 使用自動引用計數 (ARC)。Kotlin/Native 有自己的 [垃圾收集器](native-memory-manager.md#garbage-collector)，它也 [與 Swift/Objective-C ARC 整合](native-arc-integration.md)。
 
@@ -377,7 +377,7 @@ Kotlin 函數和屬性名稱被直接翻譯。Kotlin 的 `String` 被轉換為 S
 
 現在您可以將生成的框架作為依賴項連接到您的 iOS 專案。有多種方法可以設定和自動化此過程，請選擇最適合您的方法：
 
-<a href="https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-ios-integration-overview.html"><img src="choose-ios-integration.svg" width="700" alt="選擇 iOS 整合方法" style="block"/></a>
+<a href="https://kotlinlang.org/docs/multiplatform/multiplatform-ios-integration-overview.html"><img src="choose-ios-integration.svg" width="700" alt="選擇 iOS 整合方法" style="block"/></a>
 
 ## 接下來
 

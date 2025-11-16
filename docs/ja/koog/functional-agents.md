@@ -62,20 +62,20 @@ fun main() {
 }
 -->
 ```kotlin
-// Create an AIAgent instance and provide a system prompt, prompt executor, and LLM
+// AIAgentインスタンスを作成し、システムプロンプト、プロンプトエグゼキューター、およびLLMを提供する
 val mathAgent = AIAgent<String, String>(
     systemPrompt = "You are a precise math assistant.",
     promptExecutor = simpleOllamaAIExecutor(),
     llmModel = OllamaModels.Meta.LLAMA_3_2,
-    strategy = functionalStrategy { input -> // Define the agent logic
-        // Make one LLM call
+    strategy = functionalStrategy { input -> // エージェントロジックを定義
+        // 1回のLLM呼び出しを行う
         val response = requestLLM(input)
-        // Extract and return the assistant message content from the response
+        // レスポンスからアシスタントメッセージの内容を抽出して返す
         response.asAssistantMessage().content
     }
 )
 
-// Run the agent with a user input and print the result
+// ユーザー入力でエージェントを実行し、結果を出力する
 val result = mathAgent.run("What is 12 × 9?")
 println(result)
 ```
@@ -107,22 +107,22 @@ fun main() {
 }
 -->
 ```kotlin
-// Create an AIAgent instance and provide a system prompt, prompt executor, and LLM
+// AIAgentインスタンスを作成し、システムプロンプト、プロンプトエグゼキューター、およびLLMを提供する
 val mathAgent = AIAgent<String, String>(
     systemPrompt = "You are a precise math assistant.",
     promptExecutor = simpleOllamaAIExecutor(),
     llmModel = OllamaModels.Meta.LLAMA_3_2,
-    strategy = functionalStrategy { input -> // Define the agent logic
+    strategy = functionalStrategy { input -> // エージェントロジックを定義
         // ユーザー入力に基づいて最初のドラフトを生成する最初のLLM呼び出し
         val draft = requestLLM("Draft: $input").asAssistantMessage().content
         // ドラフトの内容を再度LLMにプロンプトして、ドラフトを改善する2番目のLLM呼び出し
-        val improved = requestLLM("Improve and clarify: $draft").asAssistantMessage().content
+        val improved = requestLLM("Improve and clarify.").asAssistantMessage().content
         // 改善されたテキストをフォーマットし、最終的なフォーマットされた結果を返す最後のLLM呼び出し
-        requestLLM("Format the result as bold: $improved").asAssistantMessage().content
+        requestLLM("Format the result as bold.").asAssistantMessage().content
     }
 )
 
-// Run the agent with a user input and print the result
+// ユーザー入力でエージェントを実行し、結果を出力する
 val result = mathAgent.run("What is 12 × 9?")
 println(result)
 ```

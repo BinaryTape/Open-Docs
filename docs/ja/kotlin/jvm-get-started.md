@@ -1,4 +1,4 @@
-[//]: # (title: Kotlin/JVMを使ってみる)
+[//]: # (title: コンソールアプリケーションを作成する – チュートリアル)
 
 このチュートリアルでは、IntelliJ IDEAを使ってコンソールアプリケーションを作成する方法を説明します。
 
@@ -48,7 +48,7 @@
     > 
     > ```groovy
     > plugins {
-    >     id 'org.jetbrains.kotlin.jvm' version '%kotlinVersion%'
+    >     id 'org.jetbrains.kotlin.jvm' version "%kotlinVersion%"
     >     id 'application'
     > }
     > ```

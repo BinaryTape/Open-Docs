@@ -50,6 +50,10 @@
         "link": "prompt-api"
       },
       {
+        "text": "koog.llm-parameters",
+        "link": "llm-parameters"
+      },
+      {
         "text": "koog.tools",
         "items": [
           {

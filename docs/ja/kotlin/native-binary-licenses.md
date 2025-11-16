@@ -5,7 +5,7 @@
 
 > Kotlinで使用されているサードパーティの著作物のライセンスは、GitHubリポジトリで確認できます。
 >
-> * [Kotlinコンパイラ](https://github.com/JetBrains/kotlin/tree/master/license/third_party)
+> * [Kotlin compiler](https://github.com/JetBrains/kotlin/tree/master/license/third_party)
 > * [Kotlin/Native](https://github.com/JetBrains/kotlin/tree/master/kotlin-native/licenses/third_party)
 >
 {style="note"}
@@ -13,7 +13,8 @@
 特に、Kotlin/Nativeコンパイラは、サードパーティのコード、データ、または派生著作物を含む可能性のあるバイナリを生成します。
 これは、Kotlin/Nativeでコンパイルされたバイナリが、サードパーティのライセンスの利用規約に準拠することを意味します。
 
-実際には、Kotlin/Nativeでコンパイルされた[最終バイナリ](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-build-native-binaries.html)を配布する場合、常に必要なライセンスファイルをバイナリ配布物に含める必要があります。これらのファイルは、配布物のユーザーが読み取り可能な形式でアクセスできる必要があります。
+実際には、Kotlin/Nativeでコンパイルされた[最終バイナリ](https://kotlinlang.org/docs/multiplatform/multiplatform-build-native-binaries.html)を配布する場合、
+常に必要なライセンスファイルをバイナリ配布物に含める必要があります。これらのファイルは、配布物のユーザーが読み取り可能な形式でアクセスできる必要があります。
 
 対応するプロジェクトには、以下のライセンスファイルを常に含めてください。
 
@@ -63,7 +64,7 @@
 
 `mingwX64` ターゲットには追加のライセンスファイルが必要です。
 
-| プロジェクト                                                          | 含めるべきファイル                                                                                                                                                                                                                                                                                                              | 
+| プロジェクト                                                              | 含めるべきファイル                                                                                                                                                                                                                                                                                                              | 
 |-----------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | [MinGW-w64 ヘッダーおよびランタイムライブラリ](https://www.mingw-w64.org/) | <list><li><a href="https://sourceforge.net/p/mingw-w64/mingw-w64/ci/master/tree/COPYING.MinGW-w64-runtime/COPYING.MinGW-w64-runtime.txt">MinGW-w64ランタイムライセンス</a></li><li><a href="https://sourceforge.net/p/mingw-w64/mingw-w64/ci/master/tree/mingw-w64-libraries/winpthreads/COPYING">Winpthreadsライセンス</a></li></list> |
 

@@ -2,7 +2,7 @@
 
 ## Kotlin 中解决的一些 Java 问题
 
-Kotlin 解决了 Java 存在的一系列问题：
+Kotlin 解决了一系列 Java 存在的问题：
 
 *   空引用由[类型系统](null-safety.md)控制。
 *   [无原始类型](java-interop.md#java-generics-in-kotlin)
@@ -15,7 +15,7 @@ Kotlin 解决了 Java 存在的一系列问题：
 ## Java 有而 Kotlin 没有的特性
 
 *   [受检异常](exceptions.md)
-*   不是类的[基本类型](basic-types.md)。字节码尽可能使用基本类型，但它们不[显式](basic-types.md)可用。
+*   [基本类型](types-overview.md)不是类的。字节码尽可能使用基本类型，但它们不显式可用。
 *   [静态成员](classes.md)被 [companion objects](object-declarations.md#companion-objects)、[顶层函数](functions.md)、[扩展函数](extensions.md#extension-functions)或 [@JvmStatic](java-to-kotlin-interop.md#static-methods) 取代。
 *   [通配符类型](generics.md)被[声明处型变](generics.md#declaration-site-variance)和[类型投影](generics.md#type-projections)取代。
 *   [三元操作符 `a ? b : c`](control-flow.md#if-expression)被 [if 表达式](control-flow.md#if-expression)取代。
@@ -33,7 +33,7 @@ Kotlin 解决了 Java 存在的一系列问题：
 *   [属性](properties.md)
 *   [主构造函数](classes.md)
 *   [头等委托](delegation.md)
-*   [变量和属性的类型推断](basic-types.md)（**Java 10**：[Local-Variable Type Inference](https://openjdk.org/jeps/286)）
+*   [变量和属性的类型推断](types-overview.md)（**Java 10**：[Local-Variable Type Inference](https://openjdk.org/jeps/286)）
 *   [单例](object-declarations.md)
 *   [声明处型变与类型投影](generics.md)
 *   [区间表达式](ranges.md)
@@ -45,7 +45,7 @@ Kotlin 解决了 Java 存在的一系列问题：
 *   [带默认值的形参](functions.md#parameters-with-default-values)
 *   [具名形参](functions.md#named-arguments)
 *   [中缀函数](functions.md#infix-notation)
-*   [预期与实际声明](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-expect-actual.html)
+*   [预期与实际声明](https://kotlinlang.org/docs/multiplatform/multiplatform-expect-actual.html)
 *   [显式 API 模式](whatsnew14.md#explicit-api-mode-for-library-authors)和[更好地控制 API 面](opt-in-requirements.md)
 
 ## 接下来？

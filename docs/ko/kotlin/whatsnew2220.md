@@ -520,7 +520,7 @@ Swift에서 Kotlin 코드를 관용적으로 호출할 수 있어 Objective-C �
 
 #### Swift export를 활성화하는 방법
 
-이 기능은 현재 [실험적](components-stability.md#stability-levels-explained)이며 [직접 통합](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-direct-integration.html)을 사용하는 프로젝트에서만 작동합니다.
+이 기능은 현재 [실험적](components-stability.md#stability-levels-explained)이며 [직접 통합](https://kotlinlang.org/docs/multiplatform/multiplatform-direct-integration.html)을 사용하는 프로젝트에서만 작동합니다.
 이는 iOS 프레임워크를 Xcode 프로젝트에 연결하는 표준 구성입니다. 이는 IntelliJ IDEA의 Kotlin Multiplatform 플러그인 또는 [웹 마법사](https://kmp.jetbrains.com/)를 통해 생성된 멀티플랫폼 프로젝트의 표준 구성입니다.
 
 Swift export를 사용해 보려면 Xcode 프로젝트를 다음과 같이 구성하세요:
@@ -586,7 +586,7 @@ suspend fun readCopiedText(): String {
 }
 ```
 
-이번 릴리스부터 Kotlin Gradle 플러그인은 [기본 계층 템플릿](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-hierarchy.html#default-hierarchy-template)을 사용할 때 웹을 위한 새로운 공유 소스 세트(`webMain` 및 `webTest`로 구성)를 추가합니다.
+이번 릴리스부터 Kotlin Gradle 플러그인은 [기본 계층 템플릿](https://kotlinlang.org/docs/multiplatform/multiplatform-hierarchy.html#default-hierarchy-template)을 사용할 때 웹을 위한 새로운 공유 소스 세트(`webMain` 및 `webTest`로 구성)를 추가합니다.
 
 이 변경으로 `web` 소스 세트는 `js` 및 `wasmJs` 소스 세트 모두의 부모가 됩니다. 업데이트된 소스 세트
 계층 구조는 다음과 같습니다:
@@ -623,7 +623,7 @@ actual suspend fun readCopiedText(): String {
 *   라이브러리 작성자이고, 코드 중복 없이 `js` 및 `wasmJs` 타겟을 모두 지원하려는 경우.
 *   웹을 타겟으로 하는 Compose Multiplatform 애플리케이션을 개발하고 있으며, 더 넓은 브라우저 호환성을 위해 `js` 및 `wasmJs` 타겟 모두에 대해 크로스 컴파일을 활성화하는 경우. 이 폴백(fallback) 모드를 통해 웹 사이트를 만들 때 최신 브라우저는 `wasmJs`를 사용하고 이전 브라우저는 `js`를 사용하므로 모든 브라우저에서 즉시 작동합니다.
 
-이 기능을 사용하려면 `build.gradle(.kts)` 파일의 `kotlin {}` 블록에서 [기본 계층 템플릿](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-hierarchy.html#default-hierarchy-template)을 사용하세요:
+이 기능을 사용하려면 `build.gradle(.kts)` 파일의 `kotlin {}` 블록에서 [기본 계층 템플릿](https://kotlinlang.org/docs/multiplatform/multiplatform-hierarchy.html#default-hierarchy-template)을 사용하세요:
 
 ```kotlin
 kotlin {
@@ -650,10 +650,10 @@ Kotlin 라이브러리를 위한 크로스 플랫폼 컴파일을 안정화합�
 안타깝게도, 몇 가지 제한 사항이 여전히 존재합니다. 다음 경우에는 여전히 Mac 머신을 사용해야 합니다:
 
 *   라이브러리 또는 종속 모듈에 [cinterop 종속성](native-c-interop.md)이 있는 경우.
-*   프로젝트에 [CocoaPods 통합](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-cocoapods-overview.html)이 설정되어 있는 경우.
-*   Apple 타겟을 위한 [최종 바이너리](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-build-native-binaries.html)를 빌드하거나 테스트해야 하는 경우.
+*   프로젝트에 [CocoaPods 통합](https://kotlinlang.org/docs/multiplatform/multiplatform-cocoapods-overview.html)이 설정되어 있는 경우.
+*   Apple 타겟을 위한 [최종 바이너리](https://kotlinlang.org/docs/multiplatform/multiplatform-build-native-binaries.html)를 빌드하거나 테스트해야 하는 경우.
 
-멀티플랫폼 라이브러리 게시와 관련한 자세한 내용은 [문서](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-publish-lib-setup.html)를 참조하세요.
+멀티플랫폼 라이브러리 게시와 관련한 자세한 내용은 [문서](https://kotlinlang.org/docs/multiplatform/multiplatform-publish-lib-setup.html)를 참조하세요.
 
 ### 공통 의존성을 선언하는 새로운 접근 방식
 <primary-label ref="experimental-opt-in"/>
@@ -888,7 +888,7 @@ Kotlin 2.2.20-2.4.0 릴리스 주기 동안 모든 `x86_64` Apple 타겟을 점�
 
 Kotlin/Wasm은 이제 베타 버전으로, 분리된 npm 의존성,
 [JavaScript 상호 운용성을 위한 정교한 예외 처리](#improved-exception-handling-in-kotlin-wasm-and-javascript-interop),
-[내장 브라우저 디버깅 지원](#support-for-debugging-in-browsers-without-configuration) 등과 같은 개선 사항과 함께 더 큰 안정성을 제공합니다.
+[내장 브라우저 디버깅 지원](#support-for-debugging-in-browsers-without-configuration), 그리고 기타 개선 사항과 함께 더 큰 안정성을 제공합니다.
 
 ### 분리된 npm 의존성
 
@@ -1160,7 +1160,7 @@ Kotlin 2.2.20에서는 이제 컴파일러가 인라인 함수의 람다 변경 
 
 Kotlin 2.2.20은 라이브러리 게시를 더 쉽게 만드는 새로운 Gradle 태스크를 추가합니다. 이 태스크는 키 쌍 생성, 공개 키 업로드, 그리고 Maven Central 저장소에 업로드하기 전에 검증 프로세스가 성공하는지 확인하기 위한 로컬 검사 실행을 돕습니다.
 
-게시 프로세스의 일부로 이러한 태스크를 사용하는 방법에 대한 자세한 내용은 [라이브러리를 Maven Central에 게시](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-publish-libraries.html)를 참조하세요.
+게시 프로세스의 일부로 이러한 태스크를 사용하는 방법에 대한 자세한 내용은 [라이브러리를 Maven Central에 게시](https://kotlinlang.org/docs/multiplatform/multiplatform-publish-libraries.html)를 참조하세요.
 
 #### PGP 키 생성 및 업로드를 위한 새로운 Gradle 태스크
 

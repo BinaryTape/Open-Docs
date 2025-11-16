@@ -426,7 +426,7 @@ annotation class Tag(val name: String)
 // 编译器会生成 @Tag.Container 容器注解
 ```
 
-你可以通过应用 [`@kotlin.jvm.JvmRepeatable`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.jvm/-jvmrepeatable/) 元注解并传递一个显式声明的容器注解类作为实参来为容器注解设置自定义名称：
+你可以通过应用 [`@kotlin.jvm.JvmRepeatable`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.jvm/-jvm-repeatable/) 元注解并传递一个显式声明的容器注解类作为实参来为容器注解设置自定义名称：
 
 ```kotlin
 @JvmRepeatable(Tags::class)

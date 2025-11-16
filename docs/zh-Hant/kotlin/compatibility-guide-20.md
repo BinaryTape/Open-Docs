@@ -1,6 +1,6 @@
-[//]: # (title: Kotlin 2.0 兼容性指南)
+[//]: # (title: Kotlin 2.0.x 兼容性指南)
 
-_讓語言保持現代化 (Keeping the Language Modern)_ 和 _舒適的更新 (Comfortable Updates)_ 是 Kotlin 語言設計中的基本原則。前者指出阻礙語言演進的結構應被移除，後者則要求此類移除應事先充分溝通，以使程式碼遷移盡可能順暢。
+_[讓語言保持現代化 (Keeping the Language Modern)](kotlin-evolution-principles.md)_ 和 _[舒適的更新 (Comfortable Updates)](kotlin-evolution-principles.md)_ 是 Kotlin 語言設計中的基本原則。前者指出阻礙語言演進的結構應被移除，後者則要求此類移除應事先充分溝通，以使程式碼遷移盡可能順暢。
 
 儘管大多數語言變更已透過其他管道（例如更新的變更日誌或編譯器警告）發布，但本文件提供了一份從 Kotlin 1.9 遷移至 Kotlin 2.0 的完整參考。
 
@@ -39,7 +39,7 @@ _讓語言保持現代化 (Keeping the Language Modern)_ 和 _舒適的更新 (C
 
 ### 棄用對投射接收者使用合成設定器
 
-> **Issue**: [KT-54309](https://youtrack.com/issue/KT-54309)
+> **Issue**: [KT-54309](https://youtrack.jetbrains.com/issue/KT-54309)
 >
 > **Component**: Core language
 >
@@ -54,7 +54,7 @@ _讓語言保持現代化 (Keeping the Language Modern)_ 和 _舒適的更新 (C
 
 ### 在 Java 子類中重載的函式，當呼叫帶有內聯類別參數的函式時，修正名稱修飾
 
-> **Issue**: [KT-56545](https://youtrack.com/issue/KT-56545)
+> **Issue**: [KT-56545](https://youtrack.jetbrains.com/issue/KT-56545)
 >
 > **Component**: Core language
 >
@@ -91,7 +91,7 @@ _讓語言保持現代化 (Keeping the Language Modern)_ 和 _舒適的更新 (C
 
 ### 報告導入類別中名稱相同時的歧義錯誤
 
-> **Issue**: [KT-57750](https://youtrack.com/issue/KT-57750)
+> **Issue**: [KT-57750](https://youtrack.jetbrains.com/issue/KT-57750)
 >
 > **Component**: Core language
 >
@@ -99,7 +99,7 @@ _讓語言保持現代化 (Keeping the Language Modern)_ 和 _舒適的更新 (C
 >
 > **Deprecation cycle**:
 >
-> - 2.0.0: 當解析一個在多個通過星號導入的套件中存在的類別名稱時，報告錯誤。
+> - 2.0.0: 當解析一個在多個透過星號導入的套件中存在的類別名稱時，報告錯誤。
 
 ### 預設透過 invokedynamic 和 LambdaMetafactory 生成 Kotlin lambda 表達式
 
@@ -127,7 +127,7 @@ _讓語言保持現代化 (Keeping the Language Modern)_ 和 _舒適的更新 (C
 
 ### 禁止透過傳遞泛型類型的星號投射來違反自身上界
 
-> **Issue**: [KT-61718](https://youtrack.com/issue/KT-61718)
+> **Issue**: [KT-61718](https://youtrack.jetbrains.com/issue/KT-61718)
 >
 > **Component**: Core language
 >
@@ -152,7 +152,7 @@ _讓語言保持現代化 (Keeping the Language Modern)_ 和 _舒適的更新 (C
 
 ### 變更重載解析行為，優先考慮局部擴展函式呼叫而非局部函式類型屬性的調用慣例
 
-> **Issue**: [KT-37592](https://youtrack.com/issue/KT-37592)
+> **Issue**: [KT-37592](https://youtrack.jetbrains.com/issue/KT-37592)
 >
 > **Component**: Core language
 >
@@ -164,7 +164,7 @@ _讓語言保持現代化 (Keeping the Language Modern)_ 和 _舒適的更新 (C
 
 ### 當由於二進制依賴中的超類型變更而導致繼承成員衝突時，報告錯誤
 
-> **Issue**: [KT-51194](https://youtrack.com/issue/KT-51194)
+> **Issue**: [KT-51194](https://youtrack.jetbrains.com/issue/KT-51194)
 >
 > **Component**: Core language
 >
@@ -189,7 +189,7 @@ _讓語言保持現代化 (Keeping the Language Modern)_ 和 _舒適的更新 (C
 
 ### 變更伴隨物件成員的外部呼叫引用的類型
 
-> **Issue**: [KT-54316](https://youtrack.com/issue/KT-54316)
+> **Issue**: [KT-54316](https://youtrack.jetbrains.com/issue/KT-54316)
 >
 > **Component**: Core language
 >
@@ -202,7 +202,7 @@ _讓語言保持現代化 (Keeping the Language Modern)_ 和 _舒適的更新 (C
 
 ### 禁止從私有內聯函式暴露匿名類型
 
-> **Issue**: [KT-33917](https://youtrack.com/issue/KT-33917)
+> **Issue**: [KT-33917](https://youtrack.jetbrains.com/issue/KT-33917)
 >
 > **Component**: Core language
 >
@@ -215,7 +215,7 @@ _讓語言保持現代化 (Keeping the Language Modern)_ 和 _舒適的更新 (C
 
 ### 在 while 循環中斷後，對不健全的智能轉換報告錯誤
 
-> **Issue**: [KT-22379](https://youtrack.com/issue/KT-22379)
+> **Issue**: [KT-22379](https://youtrack.jetbrains.com/issue/KT-22379)
 >
 > **Component**: Core language
 >
@@ -227,7 +227,7 @@ _讓語言保持現代化 (Keeping the Language Modern)_ 和 _舒適的更新 (C
 
 ### 當交集類型的變數被賦予的值不是該交集類型的子類型時，報告錯誤
 
-> **Issue**: [KT-53752](https://youtrack.com/issue/KT-53752)
+> **Issue**: [KT-53752](https://youtrack.jetbrains.com/issue/KT-53752)
 >
 > **Component**: Core language
 >
@@ -252,7 +252,7 @@ _讓語言保持現代化 (Keeping the Language Modern)_ 和 _舒適的更新 (C
 
 ### 禁止類型別名構造函數中的上界違反
 
-> **Issue**: [KT-54066](https://youtrack.com/issue/KT-54066)
+> **Issue**: [KT-54066](https://youtrack.jetbrains.com/issue/KT-54066)
 >
 > **Component**: Core language
 >
@@ -265,7 +265,7 @@ _讓語言保持現代化 (Keeping the Language Modern)_ 和 _舒適的更新 (C
 
 ### 使解構變數的實際類型與指定時的顯式類型保持一致
 
-> **Issue**: [KT-57011](https://youtrack.com/issue/KT-57011)
+> **Issue**: [KT-57011](https://youtrack.jetbrains.com/issue/KT-57011)
 >
 > **Component**: Core language
 >
@@ -277,7 +277,7 @@ _讓語言保持現代化 (Keeping the Language Modern)_ 和 _舒適的更新 (C
 
 ### 當呼叫的構造函數具有需要選擇啟用的預設值參數類型時，要求選擇啟用
 
-> **Issue**: [KT-55111](https://youtrack.com/issue/KT-55111)
+> **Issue**: [KT-55111](https://youtrack.jetbrains.com/issue/KT-55111)
 >
 > **Component**: Core language
 >
@@ -290,7 +290,7 @@ _讓語言保持現代化 (Keeping the Language Modern)_ 和 _舒適的更新 (C
 
 ### 在相同作用域級別下，當屬性和列舉條目同名時，報告歧義錯誤
 
-> **Issue**: [KT-52802](https://youtrack.com/issue/KT-52802)
+> **Issue**: [KT-52802](https://youtrack.jetbrains.com/issue/KT-52802)
 >
 > **Component**: Core language
 >
@@ -303,7 +303,7 @@ _讓語言保持現代化 (Keeping the Language Modern)_ 和 _舒適的更新 (C
 
 ### 變更限定符解析行為，優先選擇伴隨屬性而非列舉條目
 
-> **Issue**: [KT-47310](https://youtrack.com/issue/KT-47310)
+> **Issue**: [KT-47310](https://youtrack.jetbrains.com/issue/KT-47310)
 >
 > **Component**: Core language
 >
@@ -315,7 +315,7 @@ _讓語言保持現代化 (Keeping the Language Modern)_ 和 _舒適的更新 (C
 
 ### 解析調用接收者類型和調用函式類型，如同它們以去糖化形式編寫一樣
 
-> **Issue**: [KT-58260](https://youtrack.com/issue/KT-58260)
+> **Issue**: [KT-58260](https://youtrack.jetbrains.com/issue/KT-58260)
 >
 > **Component**: Core language
 >
@@ -327,7 +327,7 @@ _讓語言保持現代化 (Keeping the Language Modern)_ 和 _舒適的更新 (C
 
 ### 禁止透過非私有內聯函式暴露私有類別成員
 
-> **Issue**: [KT-55179](https://youtrack.com/issue/KT-55179)
+> **Issue**: [KT-55179](https://youtrack.jetbrains.com/issue/KT-55179)
 >
 > **Component**: Core language
 >
@@ -340,7 +340,7 @@ _讓語言保持現代化 (Keeping the Language Modern)_ 和 _舒適的更新 (C
 
 ### 修正投射泛型類型中確定非空類型的可空性
 
-> **Issue**: [KT-54663](https://youtrack.com/issue/KT-54663)
+> **Issue**: [KT-54663](https://youtrack.jetbrains.com/issue/KT-54663)
 >
 > **Component**: Core language
 >
@@ -350,7 +350,7 @@ _讓語言保持現代化 (Keeping the Language Modern)_ 和 _舒適的更新 (C
 >
 > - 2.0.0: 實施新行為；投射類型將考慮所有就地非空類型。
 
-### 變更前綴遞增的推斷類型，使其與 getter 的返回類型匹配，而非 `inc()` 運算子的返回類型
+### 變更前綴遞增的推斷類型，使其與 getter 的返回類型匹配，而非 inc() 運算子的返回類型
 
 > **Issue**: [KT-57178](https://youtrack.com/issue/KT-57178)
 >
@@ -364,7 +364,7 @@ _讓語言保持現代化 (Keeping the Language Modern)_ 和 _舒適的更新 (C
 
 ### 繼承超類中聲明的泛型內部類別時，強制執行邊界檢查
 
-> **Issue**: [KT-61749](https://youtrack.com/issue/KT-61749)
+> **Issue**: [KT-61749](https://youtrack.jetbrains.com/issue/KT-61749)
 >
 > **Component**: Core language
 >
@@ -376,7 +376,7 @@ _讓語言保持現代化 (Keeping the Language Modern)_ 和 _舒適的更新 (C
 
 ### 禁止將帶有 SAM 類型的可呼叫引用賦值給預期類型為帶有函式類型參數的函式類型
 
-> **Issue**: [KT-64342](https://youtrack.com/issue/KT-64342)
+> **Issue**: [KT-64342](https://youtrack.jetbrains.com/issue/KT-64342)
 >
 > **Component**: Core language
 >
@@ -388,7 +388,7 @@ _讓語言保持現代化 (Keeping the Language Modern)_ 和 _舒適的更新 (C
 
 ### 在伴隨物件上的註解解析中考慮伴隨物件作用域
 
-> **Issue**: [KT-64299](https://youtrack.com/issue/KT-64299)
+> **Issue**: [KT-64299](https://youtrack.jetbrains.com/issue/KT-64299)
 >
 > **Component**: Core language
 >
@@ -426,7 +426,7 @@ _讓語言保持現代化 (Keeping the Language Modern)_ 和 _舒適的更新 (C
 
 ### 禁止在調用運算子慣例呼叫中對任意表達式進行 Unit 轉換
 
-> **Issue**: [KT-61182](https://youtrack.com/issue/KT-61182)
+> **Issue**: [KT-61182](https://youtrack.jetbrains.com/issue/KT-61182)
 >
 > **Component**: Core language
 >
@@ -438,7 +438,7 @@ _讓語言保持現代化 (Keeping the Language Modern)_ 和 _舒適的更新 (C
 
 ### 禁止在安全呼叫存取 Java 欄位時，將可空值賦值給非空 Java 欄位
 
-> **Issue**: [KT-62998](https://youtrack.com/issue/KT-62998)
+> **Issue**: [KT-62998](https://youtrack.jetbrains.com/issue/KT-62998)
 >
 > **Component**: Core language
 >
@@ -450,7 +450,7 @@ _讓語言保持現代化 (Keeping the Language Modern)_ 和 _舒適的更新 (C
 
 ### 覆寫包含原始類型參數的 Java 方法時，要求星號投射類型
 
-> **Issue**: [KT-57600](https://youtrack.com/issue/KT-57600)
+> **Issue**: [KT-57600](https://youtrack.jetbrains.com/issue/KT-57600)
 >
 > **Component**: Core language
 >
@@ -475,7 +475,7 @@ _讓語言保持現代化 (Keeping the Language Modern)_ 和 _舒適的更新 (C
 
 ### 禁止在實際上的公共內聯函式中隱式存取非公共 API
 
-> **Issue**: [KT-54997](https://youtrack.com/issue/KT-54997)
+> **Issue**: [KT-54997](https://youtrack.jetbrains.com/issue/KT-54997)
 >
 > **Component**: Core language
 >
@@ -488,7 +488,7 @@ _讓語言保持現代化 (Keeping the Language Modern)_ 和 _舒適的更新 (C
 
 ### 禁止在屬性 getter 上使用點 get 註解
 
-> **Issue**: [KT-57422](https://youtrack.com/issue/KT-57422)
+> **Issue**: [KT-57422](https://youtrack.jetbrains.com/issue/KT-57422)
 >
 > **Component**: Core language
 >
@@ -501,7 +501,7 @@ _讓語言保持現代化 (Keeping the Language Modern)_ 和 _舒適的更新 (C
 
 ### 防止在構建器推斷 lambda 函式中將類型參數隱式推斷為上界
 
-> **Issue**: [KT-47986](https://youtrack.com/issue/KT-47986)
+> **Issue**: [KT-47986](https://youtack.jetbrains.com/issue/KT-47986)
 >
 > **Component**: Core language
 >
@@ -514,7 +514,7 @@ _讓語言保持現代化 (Keeping the Language Modern)_ 和 _舒適的更新 (C
 
 ### 在公共簽名中近似局部類型時保持可空性
 
-> **Issue**: [KT-53982](https://youtrack.com/issue/KT-53982)
+> **Issue**: [KT-53982](https://youtrack.jetbrains.com/issue/KT-53982)
 >
 > **Component**: Core language
 >
@@ -527,7 +527,7 @@ _讓語言保持現代化 (Keeping the Language Modern)_ 和 _舒適的更新 (C
 
 ### 移除 `false && ...` 和 `false || ...` 在智能轉換目的中的特殊處理
 
-> **Issue**: [KT-65776](https://youtrack.com/issue/KT-65776)
+> **Issue**: [KT-65776](https://youtrack.jetbrains.com/issue/KT-65776)
 >
 > **Component**: Core language
 >
@@ -539,7 +539,7 @@ _讓語言保持現代化 (Keeping the Language Modern)_ 和 _舒適的更新 (C
 
 ### 禁止列舉中的內聯開放函式
 
-> **Issue**: [KT-34372](https://youtrack.com/issue/KT-34372)
+> **Issue**: [KT-34372](https://youtrack.jetbrains.com/issue/KT-34372)
 >
 > **Component**: Core language
 >
@@ -554,7 +554,7 @@ _讓語言保持現代化 (Keeping the Language Modern)_ 和 _舒適的更新 (C
 
 ### Gradle 中的可見性變更
 
-> **Issue**: [KT-64653](https://youtrack.com/issue/KT-64653)
+> **Issue**: [KT-64653](https://youtrack.jetbrains.com/issue/KT-64653)
 >
 > **Component**: Gradle
 >
@@ -572,7 +572,7 @@ _讓語言保持現代化 (Keeping the Language Modern)_ 和 _舒適的更新 (C
 
 ### 棄用 kotlinOptions DSL
 
-> **Issue**: [KT-63419](https://youtrack.com/issue/KT-63419)
+> **Issue**: [KT-63419](https://youtrack.jetbrains.com/issue/KT-63419)
 >
 > **Component**: Gradle
 >
@@ -584,9 +584,9 @@ _讓語言保持現代化 (Keeping the Language Modern)_ 和 _舒適的更新 (C
 >
 > - 2.0.0: 報告警告。
 
-### 棄用 KotlinCompilation DSL 中的 compilerOptions
+### 棄用 compilerOptions 在 KotlinCompilation DSL 中的使用
 
-> **Issue**: [KT-65568](https://youtrack.com/issue/KT-65568)
+> **Issue**: [KT-65568](https://youtrack.jetbrains.com/issue/KT-65568)
 >
 > **Component**: Gradle
 >
@@ -600,7 +600,7 @@ _讓語言保持現代化 (Keeping the Language Modern)_ 和 _舒適的更新 (C
 
 ### 棄用 CInteropProcess 處理的舊方法
 
-> **Issue**: [KT-62795](https://youtrack.com/issue/KT-62795)
+> **Issue**: [KT-62795](https://youtrack.jetbrains.com/issue/KT-62795)
 >
 > **Component**: Gradle
 >
@@ -618,7 +618,7 @@ _讓語言保持現代化 (Keeping the Language Modern)_ 和 _舒適的更新 (C
 
 ### 移除 kotlin.useK2 Gradle 屬性
 
-> **Issue**: [KT-64379](https://youtrack.com/issue/KT-64379)
+> **Issue**: [KT-64379](https://youtrack.jetbrains.com/issue/KT-64379)
 >
 > **Component**: Gradle
 >
@@ -633,7 +633,7 @@ _讓語言保持現代化 (Keeping the Language Modern)_ 和 _舒適的更新 (C
 
 ### 移除棄用的平台外掛程式 ID
 
-> **Issue**: [KT-65187](https://youtrack.com/issue/KT-65187)
+> **Issue**: [KT-65187](https://youtrack.jetbrains.com/issue/KT-65187)
 >
 > **Component**: Gradle
 >
@@ -654,7 +654,7 @@ _讓語言保持現代化 (Keeping the Language Modern)_ 和 _舒適的更新 (C
 
 ### 移除 outputFile JavaScript 編譯器選項
 
-> **Issue**: [KT-61116](https://youtrack.com/issue/KT-61116)
+> **Issue**: [KT-61116](https://youtrack.jetbrains.com/issue/KT-61116)
 >
 > **Component**: Gradle
 >

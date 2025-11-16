@@ -11,7 +11,7 @@
 
 特别是，Kotlin/Native 编译器生成的二进制文件可以包含第三方代码、数据或派生作品。这意味着 Kotlin/Native 编译的二进制文件受第三方许可的条款和条件约束。
 
-实际上，如果您分发 Kotlin/Native 编译的[最终二进制文件](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-build-native-binaries.html)，则应始终在您的二进制分发中包含必要的许可文件。这些文件应以可读形式供您的分发版的用户访问。
+实际上，如果您分发 Kotlin/Native 编译的[最终二进制文件](https://kotlinlang.org/docs/multiplatform/multiplatform-build-native-binaries.html)，则应始终在您的二进制分发中包含必要的许可文件。这些文件应以可读形式供您的分发版的用户访问。
 
 请始终为相应的项目包含以下许可文件：
 

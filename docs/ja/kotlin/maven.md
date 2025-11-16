@@ -28,7 +28,7 @@ Mavenは、あらゆるJavaベースのプロジェクトをビルドおよび�
 
 ### JDK 17の使用
 
-JDK 17を使用するには、`.mvn/jvm.config` ファイルに以下を追加します。
+JDK 17を使用するには、`.mvn/jvm.config` ファイルに、以下を追加します。
 
 ```none
 --add-opens=java.base/java.lang=ALL-UNNAMED
@@ -54,6 +54,20 @@ JDK 17を使用するには、`.mvn/jvm.config` ファイルに以下を追加�
 
 ## 依存関係の設定
 
+ライブラリへの依存関係を追加するには、`<dependencies>` 要素に含めます。
+
+```xml
+<dependencies>
+    <dependency>
+        <groupId>org.jetbrains.kotlinx</groupId>
+        <artifactId>kotlinx-serialization-json</artifactId>
+        <version>%serializationVersion%</version>
+    </dependency>
+</dependencies>
+```
+
+### 標準ライブラリへの依存関係
+
 Kotlinには、アプリケーションで使用できる広範な標準ライブラリがあります。プロジェクトで標準ライブラリを使用するには、`pom.xml` ファイルに以下の依存関係を追加します。
 
 ```xml
@@ -61,6 +75,8 @@ Kotlinには、アプリケーションで使用できる広範な標準ライ�
     <dependency>
         <groupId>org.jetbrains.kotlin</groupId>
         <artifactId>kotlin-stdlib</artifactId>
+        <!-- Uses the kotlin.version property 
+            specified in <properties/>: --> 
         <version>${kotlin.version}</version>
     </dependency>
 </dependencies>
@@ -70,9 +86,51 @@ Kotlinには、アプリケーションで使用できる広範な標準ライ�
 > * 1.8より古い場合は、それぞれ `kotlin-stdlib-jdk7` または `kotlin-stdlib-jdk8` を使用します。
 > * 1.2より古い場合は、それぞれ `kotlin-stdlib-jre7` または `kotlin-stdlib-jre8` を使用します。
 >
-{style="note"} 
+{style="note"}
 
-プロジェクトが[Kotlinリフレクション](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect.full/index.html)またはテスト機能を使用する場合は、対応する依存関係も追加する必要があります。アーティファクトIDは、リフレクションライブラリには`kotlin-reflect`、テストライブラリには`kotlin-test`および`kotlin-test-junit`です。
+### テストライブラリへの依存関係
+
+プロジェクトが[Kotlinリフレクション](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect.full/index.html)またはテストフレームワークを使用する場合は、関連する依存関係を追加します。リフレクションライブラリには `kotlin-reflect` を、テストライブラリには `kotlin-test` および `kotlin-test-junit` を使用します。
+
+例えば：
+
+```xml
+<dependencies>
+    <dependency>
+        <groupId>org.jetbrains.kotlin</groupId>
+        <artifactId>kotlin-reflect</artifactId>
+        <version>${kotlin.version}</version>
+    </dependency>
+</dependencies>
+```
+
+### kotlinxライブラリへの依存関係
+
+kotlinxライブラリに応じて、ベースのアーティファクト名または`-jvm`サフィックスが付いた名前を追加できます。[klibs.io](https://klibs.io/)でライブラリのREADMEファイルを参照してください。
+
+例えば、`kotlinx.coroutines` への依存関係を追加するには：
+
+```xml
+<dependencies>
+    <dependency>
+        <groupId>org.jetbrains.kotlinx</groupId>
+        <artifactId>kotlinx-coroutines-core</artifactId>
+        <version>%coroutinesVersion%</version>
+    </dependency>
+</dependencies>
+```
+
+`kotlinx-datetime` への依存関係を追加するには：
+
+```xml
+<dependencies>
+    <dependency>
+        <groupId>org.jetbrains.kotlinx</groupId>
+        <artifactId>kotlinx-datetime-jvm</artifactId>
+        <version>%dateTimeVersion%</version>
+    </dependency>
+</dependencies>
+```
 
 ## Kotlinのみのソースコードのコンパイル
 
@@ -121,37 +179,112 @@ Kotlin 1.8.20以降、上記の`<executions>`要素全体を`<extensions>true</e
 > 
 {style="note"}
 
-<!-- 以下のヘッダーはMariリンクサービスで使用されています。ここで変更する場合は、そちらのリンクも変更してください -->
+<!-- The following header is used in the Mari link service. If you wish to change it here, change the link there too -->
 
 ## KotlinおよびJavaソースのコンパイル
 
-KotlinとJavaのソースコードを含むプロジェクトをコンパイルするには、Javaコンパイラより前にKotlinコンパイラを呼び出します。Mavenの用語では、これは`kotlin-maven-plugin`が`maven-compiler-plugin`より先に実行されるべきであることを意味します。具体的には、`pom.xml` ファイルで `kotlin` プラグインが `maven-compiler-plugin` より前に来るように、以下の方法を使用します。
+KotlinとJavaのソースファイルの両方を含むプロジェクトをコンパイルするには、KotlinコンパイラがJavaコンパイラより先に実行されることを確認してください。Javaコンパイラは、Kotlinの宣言が`.class`ファイルにコンパイルされるまでそれらを見ることができません。JavaコードがKotlinクラスを使用する場合、`cannot find symbol`エラーを避けるために、これらのクラスは最初にコンパイルされなければなりません。
+
+Mavenは、プラグインの実行順序を主に以下の2つの要素に基づいて決定します。
+
+* `pom.xml`ファイルにおけるプラグイン宣言の順序。
+* `pom.xml`ファイル内の位置に関わらず、常にユーザー定義の実行より先に実行される`default-compile`や`default-testCompile`などの組み込みのデフォルト実行。
+
+実行順序を制御するには：
+
+* `maven-compiler-plugin`より前に`kotlin-maven-plugin`を宣言します。
+* Javaコンパイラプラグインのデフォルト実行を無効にします。
+* コンパイルフェーズを明示的に制御するためのカスタム実行を追加します。
+
+> Mavenでは、特別な`none`フェーズを使用してデフォルト実行を無効にできます。
+>
+{style="note"}
+
+`extensions` を使用して、Kotlin/Java混合コンパイルの構成を簡素化できます。これにより、Mavenコンパイラプラグインの構成をスキップできます：
+
+<tabs group="kotlin-java-maven">
+<tab title="エクステンションを使用する場合" group-key="with-extensions">
 
 ```xml
 <build>
     <plugins>
+        <!-- Kotlin compiler plugin configuration -->
         <plugin>
             <groupId>org.jetbrains.kotlin</groupId>
             <artifactId>kotlin-maven-plugin</artifactId>
             <version>${kotlin.version}</version>
-            <extensions>true</extensions> <!-- このオプションを設定すると、ライフサイクルに関する情報が自動的に取得されます -->
+            <extensions>true</extensions>
             <executions>
                 <execution>
-                    <id>compile</id>
-                    <goals>
-                        <goal>compile</goal> <!-- プラグインのエクステンションを有効にしている場合、<goals>要素をスキップできます -->
-                    </goals>
+                    <id>default-compile</id>
+                    <phase>compile</phase>
                     <configuration>
                         <sourceDirs>
                             <sourceDir>src/main/kotlin</sourceDir>
+                            <!-- Ensure Kotlin code can reference Java code -->
                             <sourceDir>src/main/java</sourceDir>
                         </sourceDirs>
                     </configuration>
                 </execution>
                 <execution>
-                    <id>test-compile</id>
-                    <goals> 
-                        <goal>test-compile</goal> <!-- プラグインのエクステンションを有効にしている場合、<goals>要素をスキップできます -->
+                    <id>default-test-compile</id>
+                    <phase>test-compile</phase>
+                    <configuration>
+                        <sourceDirs>
+                            <sourceDir>src/test/kotlin</sourceDir>
+                            <sourceDir>src/test/java</sourceDir>
+                        </sourceDirs>
+                    </configuration>
+                </execution>
+            </executions>
+        </plugin>
+        <!-- No need to configure Maven compiler plugin with extensions -->
+    </plugins>
+</build>
+```
+
+プロジェクトが以前にKotlinのみの構成を持っていた場合、`<build>` セクションから以下の行も削除する必要があります。
+
+```xml
+<build>
+    <sourceDirectory>src/main/kotlin</sourceDirectory>
+    <testSourceDirectory>src/test/kotlin</testSourceDirectory>
+</build>
+```
+
+これにより、`extensions` の設定でKotlinコードがJavaコードを参照でき、その逆も可能になります。
+
+</tab>
+<tab title="エクステンションを使用しない場合" group-key="no-extensions">
+
+```xml
+<build>
+    <plugins>
+        <!-- Kotlin compiler plugin configuration -->
+        <plugin>
+            <groupId>org.jetbrains.kotlin</groupId>
+            <artifactId>kotlin-maven-plugin</artifactId>
+            <version>${kotlin.version}</version>
+            <executions>
+                <execution>
+                    <id>kotlin-compile</id>
+                    <phase>compile</phase>
+                    <goals>
+                        <goal>compile</goal>
+                    </goals>
+                    <configuration>
+                        <sourceDirs>
+                            <sourceDir>src/main/kotlin</sourceDir>
+                            <!-- Ensure Kotlin code can reference Java code -->
+                            <sourceDir>src/main/java</sourceDir>
+                        </sourceDirs>
+                    </configuration>
+                </execution>
+                <execution>
+                    <id>kotlin-test-compile</id>
+                    <phase>test-compile</phase>
+                    <goals>
+                        <goal>test-compile</goal>
                     </goals>
                     <configuration>
                         <sourceDirs>
@@ -162,21 +295,24 @@ KotlinとJavaのソースコードを含むプロジェクトをコンパイル�
                 </execution>
             </executions>
         </plugin>
+
+        <!-- Maven compiler plugin configuration -->
         <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-compiler-plugin</artifactId>
-            <version>3.5.1</version>
+            <version>3.14.0</version>
             <executions>
-                <!-- Mavenによって特別に扱われるdefault-compileを置き換える -->
+                <!-- Disable default executions -->
                 <execution>
                     <id>default-compile</id>
                     <phase>none</phase>
                 </execution>
-                <!-- Mavenによって特別に扱われるdefault-testCompileを置き換える -->
                 <execution>
                     <id>default-testCompile</id>
                     <phase>none</phase>
                 </execution>
+
+                <!-- Define custom executions -->
                 <execution>
                     <id>java-compile</id>
                     <phase>compile</phase>
@@ -196,6 +332,17 @@ KotlinとJavaのソースコードを含むプロジェクトをコンパイル�
     </plugins>
 </build>
 ```
+
+</tab>
+</tabs>
+
+この構成により、以下が保証されます。
+
+* Kotlinコードが最初にコンパイルされます。
+* JavaコードはKotlinの後にコンパイルされ、Kotlinクラスを参照できます。
+* デフォルトのMaven動作がプラグインの順序を上書きしません。
+
+Mavenがプラグインの実行をどのように処理するかについての詳細は、公式Mavenドキュメントの[Guide to default plugin execution IDs](https://maven.apache.org/guides/mini/guide-default-execution-ids.html)を参照してください。
 
 ## Kotlinコンパイラの実行戦略を構成する
 
@@ -283,7 +430,7 @@ _Kotlinコンパイラの実行戦略_は、Kotlinコンパイラがどこで実
 
 この自己完結型のJARファイルは、アプリケーションを実行するためにJREに直接渡すことができます。
 
-```bash
+``` bash
 java -jar target/mymodule-0.0.1-SNAPSHOT-jar-with-dependencies.jar
 ```
 

@@ -1,6 +1,6 @@
 [//]: # (title: JavaとKotlinの文字列)
 
-<web-summary>Javaの`String`からKotlinの`String`への移行方法を学びましょう。このガイドでは、Javaの`StringBuilder`、文字列の連結と分割、複数行文字列、ストリームなどについて解説します。</web-summary>
+<web-summary>Javaの`String`からKotlinの`String`への移行方法を学びましょう。このガイドでは、Javaの`StringBuilder`、文字列の連結と分割、複数行文字列、ストリーム、その他トピックについて解説します。</web-summary>
 
 このガイドでは、JavaとKotlinで文字列の一般的なタスクを実行する方法の例を説明します。JavaからKotlinへの移行を支援し、Kotlinらしいコードを書くのに役立ちます。
 
@@ -16,7 +16,7 @@ System.out.println("Your name is " + name.length() + " characters long");
 ```
 {id="concatenate-strings-java"}
 
-Kotlinでは、変数名の前にドル記号 (`$`) を使用して、その変数の値を文字列に埋め込みます。
+Kotlinでは、変数名の前にドル記号 (` を使用して、その変数の値を文字列に埋め込みます。
 
 ```kotlin
 fun main() {
@@ -150,7 +150,7 @@ fun getName(): String =
 ## 文字列の先頭と末尾の文字を置換する
 
 Javaでは、[`replaceAll()`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html#replaceAll(java.lang.String,java.lang.String))関数を使用できます。
-この場合の`replaceAll()`関数は、それぞれ`##`で始まり`##`で終わる文字列を定義する正規表現`^##`と`##$`を受け入れます。
+この場合の`replaceAll()`関数は、正規表現`^##`と`##$`を受け入れ、それぞれ`##`で始まり`##`で終わる文字列を定義します。
 
 ```java
 // Java
@@ -346,6 +346,6 @@ fun main() {
 ## 次のステップ
 
 * その他の[Kotlinイディオム](idioms.md)を確認してください。
-* [Java to Kotlin変換ツール](mixing-java-kotlin-intellij.md#converting-an-existing-java-file-to-kotlin-with-j2k)を使用して、既存のJavaコードをKotlinに変換する方法を学びます。
+* [Java to Kotlin変換ツール](mixing-java-kotlin-intellij.md#convert-java-files-to-kotlin)を使用して、既存のJavaコードをKotlinに変換する方法を学びます。
 
 お気に入りのイディオムがあれば、プルリクエストを送って共有してください。

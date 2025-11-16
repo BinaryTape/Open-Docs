@@ -1,6 +1,6 @@
-[//]: # (title: Kotlin 1.6 相容性指南)
+[//]: # (title: Kotlin 1.6.x 相容性指南)
 
-_[保持語言現代化](kotlin-evolution-principles.md)_ 和 _[舒適的更新](kotlin-evolution-evolution-principles.md)_ 是 Kotlin 語言設計的基本原則。前者指出，阻礙語言演進的建構應予移除；後者則說明，此類移除應事先充分溝通，以使程式碼遷移盡可能順暢。
+_[保持語言現代化](kotlin-evolution-principles.md)_ 和 _[舒適的更新](kotlin-evolution-principles.md)_ 是 Kotlin 語言設計的基本原則。前者指出，阻礙語言演進的建構應予移除；後者則說明，此類移除應事先充分溝通，以使程式碼遷移盡可能順暢。
 
 儘管大多數語言變更已透過其他管道（例如更新變更日誌或編譯器警告）公佈，但本文總結了所有變更，為從 Kotlin 1.5 遷移至 Kotlin 1.6 提供了完整的參考資料。
 
@@ -65,7 +65,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_ 和 _[舒適的更新]
 
 ### 型別空值可否性增強改進
 
-> **議題**：[KT-48623](https://youtrack.com/issue/KT-48623)
+> **議題**：[KT-48623](https://youtrack.jetbrains.com/issue/KT-48623)
 >
 > **元件**：Kotlin/JVM
 >
@@ -130,7 +130,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_ 和 _[舒適的更新]
 
 ### 禁止在覆寫介面屬性的主建構函式中的屬性上使用 `@JvmField`
 
-> **議題**：[KT-32753](https://youtrack.jetbrains.com/issue/KT-32753)
+> **議題**：[KT-32753](https://youtack.jetbrains.com/issue/KT-32753)
 >
 > **元件**：Kotlin/JVM
 >

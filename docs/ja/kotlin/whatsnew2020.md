@@ -158,7 +158,7 @@ Kotlin 2.0.20 では、マルチプラットフォームプロジェクトにお
 
 ### デフォルトのターゲット階層からのソースセットに対する静的アクセサー
 
-Kotlin 1.9.20 以降、[デフォルト階層テンプレート](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-hierarchy.html#default-hierarchy-template)がすべての Kotlin Multiplatform プロジェクトに自動的に適用されます。
+Kotlin 1.9.20 以降、[デフォルト階層テンプレート](https://kotlinlang.org/docs/multiplatform/multiplatform-hierarchy.html#default-hierarchy-template)がすべての Kotlin Multiplatform プロジェクトに自動的に適用されます。
 そして、デフォルト階層テンプレートのすべてのソースセットに対して、Kotlin Gradle プラグインはタイプセーフなアクセサーを提供しました。
 これにより、`by getting` や `by creating` のような構文を使用せずに、指定されたすべてのターゲットのソースセットにアクセスできるようになりました。
 
@@ -190,7 +190,7 @@ kotlin {
 
 ![ソースセットを名前でアクセスする](accessing-sourse-sets.png){width=700}
 
-[Kotlin Multiplatform の階層型プロジェクト構造](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-hierarchy.html)について詳しく学ぶ。
+[Kotlin Multiplatform の階層型プロジェクト構造](https://kotlinlang.org/docs/multiplatform/multiplatform-hierarchy.html)について詳しく学ぶ。
 
 ### Kotlin Multiplatform Gradle プラグインと Gradle Java プラグインとの互換性の非推奨化
 
@@ -820,7 +820,7 @@ Kotlin ドキュメントはいくつかの注目すべき変更を受けまし�
 *   [例外ページ](exceptions.md)の改善 - 例外、それらのスローとキャッチの方法について学習します。
 *   [JVM で JUnit を使用してコードをテストするチュートリアル](jvm-test-using-junit.md)の改善 - JUnit を使用してテストを作成する方法について学習します。
 *   [Swift/Objective-C との相互運用性ページ](native-objc-interop.md)の改善 - Swift/Objective-C コードにおける Kotlin 宣言の使用方法、および Kotlin コードにおける Objective-C 宣言の使用方法について学習します。
-*   [Swift パッケージエクスポートセットアップページ](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-spm-export.html)の改善 - Swift パッケージマネージャの依存関係によって使用できる Kotlin/Native 出力を設定する方法について学習します。
+*   [Swift パッケージエクスポートセットアップページ](https://kotlinlang.org/docs/multiplatform/multiplatform-spm-export.html)の改善 - Swift パッケージマネージャの依存関係によって使用できる Kotlin/Native 出力を設定する方法について学習します。
 
 ## Kotlin 2.0.20 のインストール
 

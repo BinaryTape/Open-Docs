@@ -4,7 +4,8 @@
 <p>最新 Kotlin 版本:<b> <a href="%kotlinLatestWhatsnew%">%kotlinVersion%</a></b></p>
 </tldr>
 
-Kotlin 是一种现代但已成熟的编程语言，旨在让开发者更愉快。它简洁、安全，并可与 Java 及其他语言互操作，提供了多种在多个平台间复用代码的方式，以实现高效编程。
+Kotlin 是一种现代但已成熟的编程语言，旨在让开发者更愉快。
+它简洁、安全，并可与 Java 及其他语言互操作，提供了多种在多个平台间复用代码的方式，以实现高效编程。
 
 要开始使用，何不参加我们的 Kotlin 之旅？本趟旅程涵盖了 Kotlin 编程语言的基础知识，可完全在浏览器中完成。
 
@@ -12,7 +13,8 @@ Kotlin 是一种现代但已成熟的编程语言，旨在让开发者更愉快�
 
 ## 安装 Kotlin
 
-Kotlin 包含在每个 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/) 和 [Android Studio](https://developer.android.com/studio) 版本中。下载并安装其中一个 IDE 即可开始使用 Kotlin。
+Kotlin 包含在每个 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/) 和 [Android Studio](https://developer.android.com/studio) 版本中。
+下载并安装其中一个 IDE 即可开始使用 Kotlin。
 
 ## 选择你的 Kotlin 用例
  
@@ -32,30 +34,33 @@ Kotlin 包含在每个 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/)
 
 在这里，你将学习如何使用 Kotlin 服务端开发后端应用程序。
 
-1. **创建你的第一个后端应用程序：**
+* **将 Kotlin 引入你的 Java 项目：**
 
-     * [使用 Spring Boot 创建 RESTful Web 服务](jvm-get-started-spring-boot.md)
-     * [使用 Ktor 创建 HTTP API](https://ktor.io/docs/creating-http-apis.html)
+  * [配置 Java 项目以使用 Kotlin](mixing-java-kotlin-intellij.md)
+  * [为你的 Java Maven 项目添加 Kotlin 测试](jvm-test-using-junit.md)
 
-2. **[学习如何在应用程序中混合使用 Kotlin 和 Java 代码](mixing-java-kotlin-intellij.md)。**
+* **使用 Kotlin 从头开始创建后端应用：**
+
+  * [使用 Spring Boot 创建 RESTful Web 服务](jvm-get-started-spring-boot.md)
+  * [使用 Ktor 创建 HTTP API](https://ktor.io/docs/creating-http-apis.html)
 
 </tab>
 
 <tab id="cross-platform-mobile" title="跨平台">
 
-在这里，你将学习如何使用 [Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html) 开发跨平台应用程序。
+在这里，你将学习如何使用 [Kotlin Multiplatform](https://kotlinlang.org/docs/multiplatform/get-started.html) 开发跨平台应用程序。
 
-1. **[设置跨平台开发环境](https://www.jetbrains.com/help/kotlin-multiplatform-dev/quickstart.html)。**
+1. **[设置跨平台开发环境](https://kotlinlang.org/docs/multiplatform/quickstart.html)。**
 
 2. **创建你的第一个 iOS 和 Android 应用程序：**
 
    * 从头开始创建跨平台应用程序并：
-     * [共享业务逻辑，同时保持 UI 原生](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-create-first-app.html)
-     * [共享业务逻辑和 UI](https://www.jetbrains.com/help/kotlin-multiplatform-dev/compose-multiplatform-create-first-app.html)
-   * [使你现有的 Android 应用程序在 iOS 上运行](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-integrate-in-existing-app.html)
-   * [使用 Ktor 和 SQLdelight 创建跨平台应用程序](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-ktor-sqldelight.html)
+     * [共享业务逻辑，同时保持 UI 原生](https://kotlinlang.org/docs/multiplatform/multiplatform-create-first-app.html)
+     * [共享业务逻辑和 UI](https://kotlinlang.org/docs/multiplatform/compose-multiplatform-create-first-app.html)
+   * [使你现有的 Android 应用程序在 iOS 上运行](https://kotlinlang.org/docs/multiplatform/multiplatform-integrate-in-existing-app.html)
+   * [使用 Ktor 和 SQLdelight 创建跨平台应用程序](https://kotlinlang.org/docs/multiplatform/multiplatform-ktor-sqldelight.html)
 
-3. **[探索示例项目](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-samples.html)**。
+3. **[探索示例项目](https://kotlinlang.org/docs/multiplatform/multiplatform-samples.html)**。
 
 </tab>
 
@@ -78,7 +83,7 @@ Kotlin 包含在每个 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/)
    * [DataFrame](https://kotlin.github.io/dataframe/overview.html) – 一个用于数据分析和操作的库。
    * [Kandy](https://kotlin.github.io/kandy/welcome.html) – 一个用于数据可视化的绘图工具。
 
-3. 在 Twitter 上关注 Kotlin for Data Analysis：[KotlinForData](http://twitter.com/KotlinForData)。
+3. **在 Twitter 上关注 Kotlin for Data Analysis：**[KotlinForData](http://twitter.com/KotlinForData)。
 
 </tab>
 

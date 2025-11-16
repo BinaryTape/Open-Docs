@@ -51,7 +51,7 @@ fun main() {
 | 字元                   | `Char`                             | `val separator: Char = ','`                                   |
 | 字串                   | `String`                           | `val message: String = "Hello, world!"`                       |
 
-有關基本型別及其屬性的更多資訊，請參閱[基本型別](basic-types.md)。
+有關基本型別及其屬性的更多資訊，請參閱[型別概覽](types-overview.md)。
 
 有了這些知識，您可以宣告變數並在稍後初始化它們。只要變數在首次讀取前被初始化，Kotlin 就能夠管理這項操作。
 

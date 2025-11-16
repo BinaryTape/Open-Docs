@@ -41,9 +41,9 @@ val strategy = strategy<String, String>("strategy_name") {
 -->
 ```kotlin
 val nodeName by parallel<Input, Output>(
-   firstNode, secondNode, thirdNode /* 필요한 경우 노드 추가 */
+   firstNode, secondNode, thirdNode /* Add more nodes if needed */
 ) {
-   // 병합 전략은 여기에 작성됩니다. 예를 들어: 
+   // Merge strategy goes here, for example: 
    selectByMax { it.length }
 }
 ```
@@ -150,7 +150,7 @@ val nodeLongestJoke by parallel<String, String>(
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
 import ai.koog.prompt.executor.clients.openai.OpenAIModels
-import ai.koog.prompt.structure.json.JsonStructuredData
+import ai.koog.prompt.structure.json.JsonStructure
 
 typealias Input = String
 typealias Output = String
@@ -177,11 +177,11 @@ val nodeBestJoke by parallel<String, String>(
          model = OpenAIModels.Chat.GPT4o
          appendPrompt {
             system("You are a comedy critic. Select the best joke.")
-            user("Here are three jokes: ${jokes.joinToString("
+            user("여기 세 가지 농담이 있습니다: ${jokes.joinToString("
 \n")}")
          }
          val response = requestLLMStructured<JokeRating>()
-         response.getOrNull()!!.structure.bestJokeIndex
+         response.getOrNull()!!.data.bestJokeIndex
       }
    }
 }
@@ -303,7 +303,7 @@ $joke" }.joinToString("
             }
 
             val response = requestLLMStructured<JokeRating>()
-            val bestJoke = response.getOrNull()!!.structure
+            val bestJoke = response.getOrNull()!!.data
             bestJoke.bestJokeIndex
          }
       }

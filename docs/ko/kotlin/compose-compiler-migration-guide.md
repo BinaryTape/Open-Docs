@@ -4,15 +4,14 @@ Compose 컴파일러는 Gradle 플러그인에 의해 보완되며, 이는 설�
 Android Gradle 플러그인(AGP)과 함께 적용될 때, 이 Compose 컴파일러 플러그인은 AGP가 자동으로 제공하는 Compose 컴파일러의 좌표를 재정의합니다.
 
 Compose 컴파일러는 Kotlin 2.0.0부터 Kotlin 리포지토리에 병합되었습니다.
-이는 Compose 컴파일러가 Kotlin과 동시에 제공되며 항상 동일한 버전의 Kotlin과 호환되므로, 프로젝트를 Kotlin 2.0.0 이상으로 원활하게 마이그레이션하는 데 도움이 됩니다.
+이는 Compose 컴파일러가 Kotlin과 동시에 제공되며 항상 동일한 버전의 Kotlin과 호환되기 때문에, 프로젝트를 Kotlin 2.0.0 이상으로 원활하게 마이그레이션하는 데 도움이 됩니다.
 
-프로젝트에서 새로운 Compose 컴파일러 플러그인을 사용하려면 Compose를 사용하는 각 모듈에 적용하세요.
-[Jetpack Compose 프로젝트를 마이그레이션하는 방법](#migrating-a-jetpack-compose-project)에 대한 자세한 내용은 계속 읽어보세요. Compose Multiplatform 프로젝트의 경우, [멀티플랫폼 마이그레이션 가이드](https://www.jetbrains.com/help/kotlin-multiplatform-dev/compose-compiler.html#migrating-a-compose-multiplatform-project)를 참조하세요.
+프로젝트에서 새로운 Compose 컴파일러 플러그인을 사용하려면, Compose를 사용하는 각 모듈에 플러그인을 적용하세요.
+[Jetpack Compose 프로젝트를 마이그레이션하는 방법](#migrating-a-jetpack-compose-project)에 대한 자세한 내용은 계속 읽어보세요. Compose Multiplatform 프로젝트의 경우, [멀티플랫폼 마이그레이션 가이드](https://kotlinlang.org/docs/multiplatform/compose-compiler.html#migrating-a-compose-multiplatform-project)를 참조하세요.
 
 ## Jetpack Compose 프로젝트 마이그레이션
 
-1.9 버전에서 Kotlin 2.0.0 또는 그 이후 버전으로 마이그레이션할 때, Compose 컴파일러를 다루는 방식에 따라 프로젝트 구성을 조정해야 합니다.
-구성 관리를 자동화하기 위해 Kotlin Gradle 플러그인과 Compose 컴파일러 Gradle 플러그인을 사용하는 것을 권장합니다.
+1.9 버전에서 Kotlin 2.0.0 또는 그 이후 버전으로 마이그레이션할 때, Compose 컴파일러를 다루는 방식에 따라 프로젝트 구성을 조정해야 합니다. 구성 관리를 자동화하기 위해 Kotlin Gradle 플러그인과 Compose 컴파일러 Gradle 플러그인을 사용하는 것을 권장합니다.
 
 ### Gradle 플러그인을 사용하여 Compose 컴파일러 관리하기
 
@@ -64,4 +63,4 @@ Gradle 플러그인을 사용하여 Compose 컴파일러를 관리하지 않는 
 ## 다음 단계
 
 *   Compose 컴파일러가 Kotlin 리포지토리로 이전하는 것에 대한 [Google의 발표](https://android-developers.googleblog.com/2024/04/jetpack-compose-compiler-moving-to-kotlin-repository.html)를 확인하세요.
-*   Jetpack Compose를 사용하여 Android 앱을 빌드하는 경우, [멀티플랫폼으로 만드는 방법에 대한 가이드](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-integrate-in-existing-app.html)를 확인하세요.
+*   Jetpack Compose를 사용하여 Android 앱을 빌드하는 경우, [멀티플랫폼으로 만드는 방법에 대한 가이드](https://kotlinlang.org/docs/multiplatform/multiplatform-integrate-in-existing-app.html)를 확인하세요.

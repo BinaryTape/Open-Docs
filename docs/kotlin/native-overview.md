@@ -16,15 +16,15 @@ Kotlin/Native 主要设计用于支持在那些不适合或不可能使用_虚�
 
 Kotlin/Native 支持以下平台：
 
-* Linux
-* Windows（通过 [MinGW](https://www.mingw-w64.org/)）
-* [Android NDK](https://developer.android.com/ndk)
-* 适用于 macOS、iOS、tvOS 和 watchOS 的 Apple 目标平台
+*   Linux
+*   Windows（通过 [MinGW](https://www.mingw-w64.org/)）
+*   [Android NDK](https://developer.android.com/ndk)
+*   适用于 macOS、iOS、tvOS 和 watchOS 的 Apple 目标平台
 
-  > 要编译 Apple 目标平台，你需要安装 [Xcode](https://apps.apple.com/us/app/xcode/id497799835)
-  > 及其命令行工具。
-  >
-  {style="note"}
+    > 要编译 Apple 目标平台，你需要安装 [Xcode](https://apps.apple.com/us/app/xcode/id497799835)
+    > 及其命令行工具。
+    >
+    {style="note"}
 
 [关于支持的目标平台的完整列表，请参见此处](native-target-support.md)。
 
@@ -39,9 +39,9 @@ Kotlin/Native 提供了[与 C 的互操作](native-c-interop.md)。你可以直�
 
 要了解更多信息，请完成以下教程：
 
-* [为 C/C++ 项目创建包含 C 头文件的动态库](native-dynamic-libraries.md)
-* [了解 C 类型如何映射到 Kotlin](mapping-primitive-data-types-from-c.md)
-* [使用 C 互操作和 libcurl 创建原生 HTTP 客户端](native-app-with-c-and-libcurl.md)
+*   [为 C/C++ 项目创建包含 C 头文件的动态库](native-dynamic-libraries.md)
+*   [了解 C 类型如何映射到 Kotlin](mapping-primitive-data-types-from-c.md)
+*   [使用 C 互操作和 libcurl 创建原生 HTTP 客户端](native-app-with-c-and-libcurl.md)
 
 ### 与 Swift/Objective-C 的互操作
 
@@ -53,7 +53,7 @@ Kotlin/Native 提供了[通过 Objective-C 与 Swift 的互操作](native-objc-i
 
 Kotlin/Native 包含一组预构建的[平台库](native-platform-libs.md)，有助于在项目之间共享 Kotlin 代码。POSIX、gzip、OpenGL、Metal、Foundation 以及许多其他流行的库和 Apple frameworks 都已预导入并作为 Kotlin/Native 库包含在编译器包中。
 
-Kotlin/Native 是 [Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html) 技术的一部分，该技术有助于在多个平台（包括 Android、iOS、JVM、web 和原生）之间共享公共代码。多平台库为公共 Kotlin 代码提供了必要的 API，并允许在一个地方用 Kotlin 编写项目的共享部分。
+Kotlin/Native 是 [Kotlin Multiplatform](https://kotlinlang.org/docs/multiplatform/get-started.html) 技术的一部分，该技术有助于在多个平台（包括 Android、iOS、JVM、web 和原生）之间共享公共代码。多平台库为公共 Kotlin 代码提供了必要的 API，并允许在一个地方用 Kotlin 编写项目的共享部分。
 
 ## 内存管理器
 

@@ -5,7 +5,7 @@ Gradleは、ビルドプロセスを自動化および管理するのに役立�
 さまざまなプラットフォーム向けに[これらの手順](gradle-configure-project.md)で独自のプロジェクトをセットアップするか、Kotlinでシンプルなバックエンドの「Hello World」アプリケーションを作成する方法を示す小さな[ステップバイステップのチュートリアル](get-started-with-jvm-gradle-project.md)を試すことができます。
 
 > Kotlin、Gradle、およびAndroid Gradleプラグインのバージョンの互換性に関する情報は[こちら](gradle-configure-project.md#apply-the-plugin)で確認できます。
-> 
+>
 {style="tip"}
 
 この章では、以下についても学習できます。

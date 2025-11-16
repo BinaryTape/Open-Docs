@@ -7,7 +7,7 @@
 
 ## 開始之前
 
-1. [設定 Kotlin Multiplatform 開發環境](https://www.jetbrains.com/help/kotlin-multiplatform-dev/quickstart.html#set-up-the-environment)。
+1. [設定 Kotlin Multiplatform 開發環境](https://kotlinlang.org/docs/multiplatform/quickstart.html#set-up-the-environment)。
 2. 按照說明 [建立一個以 Kotlin/Wasm 為目標的 Kotlin Multiplatform 專案](wasm-get-started.md#create-a-project)。
 
 > * 在 IntelliJ IDEA 中偵錯 Kotlin/Wasm 程式碼從 IDE 2025.3 版本開始可用，目前處於 [搶先體驗計畫 (EAP)](https://www.jetbrains.com/resources/eap/) 階段，並將逐步趨於穩定。如果您是在不同版本的 IntelliJ IDEA 中建立 `WasmDemo` 專案，請切換到 2025.3 版本並在那裡開啟專案以繼續本教學。

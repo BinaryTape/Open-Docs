@@ -4,7 +4,8 @@ _[リリース日: 2025年6月23日](releases.md#release-details)_
 
 Kotlin 2.2.0がリリースされました！主なハイライトは以下の通りです。
 
-*   **言語**: [コンテキストパラメータ](#preview-of-context-parameters)など、プレビュー段階の新言語機能が追加されました。ガード条件、非ローカルな`break`と`continue`、複数ドル記号による文字列補間など、[以前実験的だった機能のいくつかは安定版になりました](#stable-features-guard-conditions-non-local-break-and-continue-and-multi-dollar-interpolation)。
+*   **言語**: [コンテキストパラメータ](#preview-of-context-parameters)など、プレビュー段階の新言語機能が追加されました。
+    ガード条件、非ローカルな`break`と`continue`、複数ドル記号による文字列補間など、[以前実験的だった機能のいくつかは安定版になりました](#stable-features-guard-conditions-non-local-break-and-continue-and-multi-dollar-interpolation)。
 *   **Kotlinコンパイラ**: [コンパイラの警告の一元管理](#kotlin-compiler-unified-management-of-compiler-warnings)。
 *   **Kotlin/JVM**: [インターフェース関数のデフォルトメソッド生成の変更点](#changes-to-default-method-generation-for-interface-functions)。
 *   **Kotlin/Native**: [LLVM 19とメモリ消費量の追跡および調整のための新機能](#kotlin-native)。
@@ -799,7 +800,7 @@ typealias SomeClass = Any
 
 ### マルチプラットフォームの`expect`宣言における`@JsExport`のサポート
 
-Kotlinマルチプラットフォームプロジェクトで[`expect/actual`メカニズム](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-expect-actual.html)を使用する場合、共通コードの`expect`宣言に`@JsExport`アノテーションを使用することはできませんでした。
+Kotlinマルチプラットフォームプロジェクトで[`expect/actual`メカニズム](https://kotlinlang.org/docs/multiplatform/multiplatform-expect-actual.html)を使用する場合、共通コードの`expect`宣言に`@JsExport`アノテーションを使用することはできませんでした。
 
 このリリースから、`expect`宣言に直接`@JsExport`を適用できます。
 
@@ -1069,7 +1070,8 @@ Kotlin 2.2.0では、[Base64 API](https://kotlinlang.org/api/core/kotlin-stdlib/
     {style="tip"}
 
 *   [`Base64.UrlSafe`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.io.encoding/-base64/-default/-url-safe.html)は、["URLおよびファイル名セーフ"](https://www.rfc-editor.org/rfc/rfc4648#section-5)エンコーディングスキームを使用します。
-*   [`Base64.Mime`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.io.encoding/-base64/-default/-mime.html)は、[MIME](https://www.rfc-editor.org/rfc/rfc2045#section-6.8)エンコーディングスキームを使用し、エンコード中に76文字ごとに改行文字を挿入し、デコード中に不正な文字をスキップします。
+*   [`Base64.Mime`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.io.encoding/-base64/-default/-mime.html)は、[MIME](https://www.rfc-editor.org/rfc/rfc2045#section-6.8)
+    エンコーディングスキームを使用し、エンコード中に76文字ごとに改行文字を挿入し、デコード中に不正な文字をスキップします。
 *   `Base64.Pem`は`Base64.Mime`のようにデータをエンコードしますが、行の長さを64文字に制限します。
 
 Base64 APIを使用して、バイナリデータをBase64文字列にエンコードし、バイトにデコードするために使用できます。
@@ -1183,7 +1185,10 @@ composeCompiler {
 
 このセクションでは、注目すべき重要な破壊的変更と非推奨化について説明します。このリリースにおけるすべての破壊的変更と非推奨化の完全な概要については、[互換性ガイド](compatibility-guide-22.md)を参照してください。
 
-*   Kotlin 2.2.0以降、[Ant](ant.md)ビルドシステムのサポートは非推奨になりました。AntのKotlinサポートは長らく活発な開発が行われておらず、ユーザーベースが比較的小さいため、これ以上維持する計画はありません。
+*   Kotlin 2.2.0以降、コンパイラは[`-language-version=1.6`または`-language-version=1.7`をサポートしなくなりました](compatibility-guide-22.md#drop-support-in-language-version-for-1-6-and-1-7)。
+    1.8より古い言語機能セットはサポートされませんが、言語自体はKotlin 1.0との完全な下位互換性を維持します。
+
+*   [Ant](ant.md)ビルドシステムのサポートは非推奨になりました。AntのKotlinサポートは長らく活発な開発が行われておらず、ユーザーベースが比較的小さいため、これ以上維持する計画はありません。
 
     2.3.0でAntのサポートを削除する予定です。しかし、Kotlinは[貢献](contribute.md)に対して開かれたままです。Antの外部メンテナーになることに興味がある場合は、[このYouTrack issue](https://youtrack.jetbrains.com/issue/KT-75875/)に「jetbrains-team」の公開設定でコメントを残してください。
 
@@ -1220,17 +1225,9 @@ composeCompiler {
 
 ## ドキュメントの更新
 
-このリリースでは、Kotlin Multiplatformのドキュメントが[KMPポータル](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html)に移行されるなど、注目すべきドキュメントの変更が行われました。
+このリリースでは、Kotlin Multiplatformのドキュメントが[KMPポータル](https://kotlinlang.org/docs/multiplatform/get-started.html)に移行されるなど、注目すべきドキュメントの変更が行われました。
 
-さらに、ドキュメントに関するアンケートを開始し、新しいページやチュートリアルを作成・改訂しました。
-
-### Kotlinドキュメントに関するアンケート
-
-Kotlinドキュメントをより良くするために、皆様からの率直なフィードバックを求めています。
-
-アンケートの所要時間は約15分です。皆様の意見がKotlinドキュメントの未来を形作るのに役立ちます。
-
-[こちらからアンケートにご回答ください](https://surveys.jetbrains.com/s3/Kotlin-Docs-2025)。
+さらに、新しいページやチュートリアルを作成・改訂し、既存のものを刷新しました。
 
 ### 新しいチュートリアルと改訂されたチュートリアル
 
@@ -1239,21 +1236,21 @@ Kotlinドキュメントをより良くするために、皆様からの率直�
 *   [GradleでSpring Bootプロジェクトを作成する](jvm-create-project-with-spring-boot.md) – IntelliJ IDEAの**New Project**ウィザードを使用して、GradleでSpring Bootプロジェクトを作成する方法を学びます。
 *   [KotlinとCのマッピングチュートリアルシリーズ](mapping-primitive-data-types-from-c.md) – KotlinとCの間でさまざまな型と構造がどのようにマッピングされるかを学びます。
 *   [C interopとlibcurlを使用してアプリを作成する](native-app-with-c-and-libcurl.md) – libcurl Cライブラリを使用してネイティブで実行できるシンプルなHTTPクライアントを作成します。
-*   [Kotlin Multiplatformライブラリを作成する](https://www.jetbrains.com/help/kotlin-multiplatform-dev/create-kotlin-multiplatform-library.html) – IntelliJ IDEAを使用してマルチプラットフォームライブラリを作成および公開する方法を学びます。
+*   [Kotlin Multiplatformライブラリを作成する](https://kotlinlang.org/docs/multiplatform/create-kotlin-multiplatform-library.html) – IntelliJ IDEAを使用してマルチプラットフォームライブラリを作成および公開する方法を学びます。
 *   [KtorとKotlin Multiplatformでフルスタックアプリケーションを構築する](https://ktor.io/docs/full-stack-development-with-kotlin-multiplatform.html) – このチュートリアルでは、Fleetの代わりにIntelliJ IDEAを使用し、Material 3とKtorおよびKotlinの最新バージョンを使用するようになりました。
-*   [Compose Multiplatformアプリでローカルリソース環境を管理する](https://www.jetbrains.com/help/kotlin-multiplatform-dev/compose-resource-environment.html) – アプリケーションのテーマや言語など、アプリ内リソース環境を管理する方法を学びます。
+*   [Compose Multiplatformアプリでローカルリソース環境を管理する](https://kotlinlang.org/docs/multiplatform/compose-resource-environment.html) – アプリケーションのテーマや言語など、アプリ内リソース環境を管理する方法を学びます。
 
 ### 新しいページと改訂されたページ
 
 *   [Kotlin for AI概要](kotlin-ai-apps-development-overview.md) – AI搭載アプリケーションを構築するためのKotlinの機能を学びます。
 *   [Dokka移行ガイド](https://kotlinlang.org/docs/dokka-migration.html) – Dokka Gradleプラグインのv2への移行方法を学びます。
 *   [Kotlinメタデータ](metadata-jvm.md) – JVM用にコンパイルされたKotlinクラスのメタデータを読み取り、変更、生成する方法に関するガイダンスを探ります。
-*   [CocoaPods統合](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-cocoapods-overview.html) – チュートリアルとサンプルプロジェクトを通じて、環境の設定、Pod依存関係の追加、KotlinプロジェクトをCocoaPod依存関係として使用する方法を学びます。
+*   [CocoaPods統合](https://kotlinlang.org/docs/multiplatform/multiplatform-cocoapods-overview.html) – チュートリアルとサンプルプロジェクトを通じて、環境の設定、Pod依存関係の追加、KotlinプロジェクトをCocoaPod依存関係として使用する方法を学びます。
 *   iOS安定版リリースをサポートするためのCompose Multiplatformの新しいページ:
-    *   [ナビゲーション](https://www.jetbrains.com/help/kotlin-multiplatform-dev/compose-navigation.html)と特に[ディープリンク](https://www.jetbrains.com/help/kotlin-multiplatform-dev/compose-navigation-deep-links.html)。
-    *   [Composeでのレイアウトの実装](https://www.jetbrains.com/help/kotlin-multiplatform-dev/compose-layout.html)。
-    *   [文字列のローカライズ](https://www.jetbrains.com/help/kotlin-multiplatform-dev/compose-localize-strings.html)や、RTL言語のサポートなど他の国際化ページ。
-*   [Compose Hot Reload](https://www.jetbrains.com/help/kotlin-multiplatform-dev/compose-hot-reload.html) – デスクトップターゲットでCompose Hot Reloadを使用する方法と、既存のプロジェクトに追加する方法を学びます。
+    *   [ナビゲーション](https://kotlinlang.org/docs/multiplatform/compose-navigation.html)と特に[ディープリンク](https://kotlinlang.org/docs/multiplatform/compose-navigation-deep-links.html)。
+    *   [Composeでのレイアウトの実装](https://kotlinlang.org/docs/multiplatform/compose-layout.html)。
+    *   [文字列のローカライズ](https://kotlinlang.org/docs/multiplatform/compose-localize-strings.html)や、RTL言語のサポートなど他の国際化ページ。
+*   [Compose Hot Reload](https://kotlinlang.org/docs/multiplatform/compose-hot-reload.html) – デスクトップターゲットでCompose Hot Reloadを使用する方法と、既存のプロジェクトに追加する方法を学びます。
 *   [Exposedマイグレーション](https://www.jetbrains.com/help/exposed/migrations.html) – Exposedがデータベーススキーマの変更を管理するために提供するツールについて学びます。
 
 ## Kotlin 2.2.0へのアップデート方法

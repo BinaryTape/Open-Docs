@@ -66,15 +66,15 @@ Kotlin 스크립트 파일을 평가합니다. 이 옵션으로 호출되면, �
 ### -kotlin-home _path_
 
 런타임 라이브러리 검색에 사용되는 Kotlin 컴파일러의 사용자 정의 경로를 지정합니다.
-
+  
 ### -P plugin:pluginId:optionName=value
 
 Kotlin 컴파일러 플러그인에 옵션을 전달합니다.
 핵심 플러그인과 해당 옵션은 문서의 [핵심 컴파일러 플러그인](components-stability.md#core-compiler-plugins) 섹션에 나열되어 있습니다.
-
+  
 ### -language-version _version_
 
-지정된 Kotlin 버전과의 소스 호환성을 제공합니다.
+이 옵션은 지정된 언어 버전에 따라 지원되는 구문 및 의미 체계를 설정합니다. 예를 들어, Kotlin 컴파일러 버전 2.2.0을 `-language-version=1.9`와 함께 사용하면 버전 1.9 이하의 언어 기능 및 표준 라이브러리 API만 사용할 수 있습니다. 이는 최신 Kotlin 버전으로의 점진적인 마이그레이션에 도움이 될 수 있습니다.
 
 ### -api-version _version_
 
@@ -266,7 +266,7 @@ Kotlin 스크립트 파일을 실행하는 데도 사용할 수 있습니다.
 ### -module-name _name_ (JVM)
 
 생성된 `.kotlin_module` 파일의 사용자 정의 이름을 설정합니다.
-
+  
 ### -no-jdk
 
 Java 런타임을 클래스패스에 자동으로 포함하지 않습니다.
@@ -278,7 +278,7 @@ Kotlin 리플렉션(`kotlin-reflect.jar`)을 클래스패스에 자동으로 포
 ### -no-stdlib (JVM)
 
 Kotlin/JVM stdlib(`kotlin-stdlib.jar`) 및 Kotlin 리플렉션(`kotlin-reflect.jar`)을 클래스패스에 자동으로 포함하지 않습니다.
-
+  
 ### -script-templates _classnames[,]_
 
 스크립트 정의 템플릿 클래스입니다. 정규화된 클래스 이름을 사용하고 쉼표(**,**)로 구분합니다.
@@ -330,7 +330,7 @@ Kotlin-JS 컴파일을 위한 명령줄 도구는 `kotlinc-js`입니다.
 - `commonjs` - [CommonJS](http://www.commonjs.org/) 모듈
 - `amd` - [Asynchronous Module Definition](https://en.wikipedia.org/wiki/Asynchronous_module_definition) 모듈
 - `plain` - 일반 JS 모듈
-
+    
 다양한 JS 모듈 종류와 그 차이점에 대해 자세히 알아보려면 [이](https://www.davidbcalhoun.com/2014/what-is-amd-commonjs-and-umd/) 문서를 참조하세요.
 
 ### -no-stdlib (JS)
@@ -394,7 +394,7 @@ Kotlin/Native 컴파일을 위한 명령줄 도구는 `kotlinc-native`입니다.
 ### -g
 
 디버그 정보 생성을 활성화합니다. 이 옵션은 최적화 수준을 낮추므로 [`-opt`](#opt) 옵션과 함께 사용해서는 안 됩니다.
-
+    
 ### -generate-test-runner (-tr)
 
 프로젝트에서 유닛 테스트를 실행하기 위한 애플리케이션을 생성합니다.
@@ -414,7 +414,7 @@ Kotlin/Native 컴파일을 위한 명령줄 도구는 `kotlinc-native`입니다.
 ### -library-version _version_ (-lv _version_)
 
 라이브러리 버전을 설정합니다.
-
+    
 ### -list-targets
 
 사용 가능한 하드웨어 타겟을 나열합니다.

@@ -20,4 +20,4 @@ Android 移动开发自 2019 年 Google I/O 大会以来一直秉持 [Kotlin 优
 要开始将 Kotlin 用于：
 
 *   Android 开发，关于使用 Kotlin 开发 Android 应用，请参阅 [Google 提供的文档](https://developer.android.com/kotlin/get-started)。
-*   开发跨平台移动应用程序，关于创建具有共享逻辑和原生 UI 的应用，请参见 [此文档](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-create-first-app.html)。
+*   开发跨平台移动应用程序，关于创建具有共享逻辑和原生 UI 的应用，请参见 [此文档](https://kotlinlang.org/docs/multiplatform/multiplatform-create-first-app.html)。

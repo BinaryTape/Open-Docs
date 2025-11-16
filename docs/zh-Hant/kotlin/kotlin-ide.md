@@ -50,7 +50,7 @@ Kotlin 團隊管理著適用於 Eclipse 的 Kotlin 外掛程式的開發和貢�
 ## 其他 IDE 支援
 
 JetBrains 不為其他 IDE 提供 Kotlin 外掛程式。
-然而，一些其他 IDE 和原始碼編輯器，例如 Eclipse、Visual Studio Code 和 Atom，都有其自己的 Kotlin 外掛程式，由 Kotlin 社群支援。
+然而，一些其他 IDE 和程式碼編輯器，例如 Eclipse、Visual Studio Code 和 Atom，都有其自己的 Kotlin 外掛程式，由 Kotlin 社群支援。
 
 您可以使用任何文字編輯器編寫 Kotlin 程式碼，但沒有 IDE 相關功能：例如程式碼格式化、偵錯工具等。
 要在文字編輯器中使用 Kotlin，您可以從 Kotlin [GitHub 版本發布](%kotlinLatestUrl%) 下載最新的 Kotlin 命令列編譯器（`kotlin-compiler-%kotlinVersion%.zip`）並[手動安裝](command-line.md#manual-install)。
@@ -58,5 +58,5 @@ JetBrains 不為其他 IDE 提供 Kotlin 外掛程式。
 
 ## 下一步？
 
-*   [使用 IntelliJ IDEA IDE 開始您的第一個專案](jvm-get-started.md)
-*   [使用 Android Studio 建立您的第一個跨平台行動應用程式](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-create-first-app.html)
+* [在 IntelliJ IDEA 中建立控制台應用程式](jvm-get-started.md)
+* [使用 Android Studio 建立您的第一個跨平台行動應用程式](https://kotlinlang.org/docs/multiplatform/multiplatform-create-first-app.html)

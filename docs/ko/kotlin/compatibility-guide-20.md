@@ -1,4 +1,4 @@
-[//]: # (title: Kotlin 2.0 호환성 가이드)
+[//]: # (title: Kotlin 2.0.x 호환성 가이드)
 
 _[언어 현대성 유지 (Keeping the Language Modern)](kotlin-evolution-principles.md)_ 및 _[편리한 업데이트 (Comfortable Updates)](kotlin-evolution-principles.md)_는 Kotlin 언어 설계의 근본적인 원칙 중 하나입니다. 전자는 언어 발전을 방해하는 구성 요소를 제거해야 한다고 말하며, 후자는 이러한 제거가 코드 마이그레이션을 최대한 원활하게 만들기 위해 사전에 잘 전달되어야 한다고 말합니다.
 
@@ -115,7 +115,7 @@ _[언어 현대성 유지 (Keeping the Language Modern)](kotlin-evolution-princi
 
 ### 표현식이 필요할 때 단일 분기 `if` 조건 금지
 
-> **Issue**: [KT-57871](https://youtrack.com/issue/KT-57871)
+> **Issue**: [KT-57871](https://youtrack.jetbrains.com/issue/KT-57871)
 >
 > **Component**: 코어 언어
 >
@@ -127,7 +127,7 @@ _[언어 현대성 유지 (Keeping the Language Modern)](kotlin-evolution-princi
 
 ### 제네릭 타입의 스타-프로젝션을 전달하여 자체 상위 바운드 위반 금지
 
-> **Issue**: [KT-61718](https://youtrack.com/issue/KT-61718)
+> **Issue**: [KT-61718](https://youtrack.jetbrains.com/issue/KT-61718)
 >
 > **Component**: 코어 언어
 >
@@ -139,7 +139,7 @@ _[언어 현대성 유지 (Keeping the Language Modern)](kotlin-evolution-princi
 
 ### private 인라인 함수 반환 타입의 익명 타입 근사화
 
-> **Issue**: [KT-54862](https://youtrack.com/issue/KT-54862)
+> **Issue**: [KT-54862](https://youtrack.jetbrains.com/issue/KT-54862)
 >
 > **Component**: 코어 언어
 >
@@ -152,7 +152,7 @@ _[언어 현대성 유지 (Keeping the Language Modern)](kotlin-evolution-princi
 
 ### 오버로드 해결 동작 변경: 로컬 함수 타입 속성의 `invoke` 컨벤션보다 로컬 확장 함수 호출 우선순위 지정
 
-> **Issue**: [KT-37592](https://youtrack.com/issue/KT-37592)
+> **Issue**: [KT-37592](https://youtrack.jetbrains.com/issue/KT-37592)
 >
 > **Component**: 코어 언어
 >
@@ -164,7 +164,7 @@ _[언어 현대성 유지 (Keeping the Language Modern)](kotlin-evolution-princi
 
 ### 바이너리 의존성으로부터의 상위 타입 변경으로 인해 상속된 멤버 충돌이 발생할 때 오류 보고
 
-> **Issue**: [KT-51194](https://youtrack.com/issue/KT-51194)
+> **Issue**: [KT-51194](https://youtrack.jetbrains.com/issue/KT-51194)
 >
 > **Component**: 코어 언어
 >
@@ -177,7 +177,7 @@ _[언어 현대성 유지 (Keeping the Language Modern)](kotlin-evolution-princi
 
 ### 불변 타입 매개변수의 `@UnsafeVariance` 어노테이션 무시
 
-> **Issue**: [KT-57609](https://youtrack.com/issue/KT-57609)
+> **Issue**: [KT-57609](https://youtrack.jetbrains.com/issue/KT-57609)
 >
 > **Component**: 코어 언어
 >
@@ -215,7 +215,7 @@ _[언어 현대성 유지 (Keeping the Language Modern)](kotlin-evolution-princi
 
 ### `while` 루프 `break` 후 불안정한 스마트 캐스트에 대해 오류 보고
 
-> **Issue**: [KT-22379](https://youtrack.com/issue/KT-22379)
+> **Issue**: [KT-22379](https://youtrack.jetbrains.com/issue/KT-22379)
 >
 > **Component**: 코어 언어
 >
@@ -227,7 +227,7 @@ _[언어 현대성 유지 (Keeping the Language Modern)](kotlin-evolution-princi
 
 ### 교차 타입 변수에 해당 교차 타입의 서브타입이 아닌 값이 할당될 때 오류 보고
 
-> **Issue**: [KT-53752](https://youtrack.com/issue/KT-53752)
+> **Issue**: [KT-53752](https://youtrack.jetbrains.com/issue/KT-53752)
 >
 > **Component**: 코어 언어
 >
@@ -252,7 +252,7 @@ _[언어 현대성 유지 (Keeping the Language Modern)](kotlin-evolution-princi
 
 ### 타입 별칭 생성자에서 상위 바운드 위반 금지
 
-> **Issue**: [KT-54066](https://youtrack.com/issue/KT-54066)
+> **Issue**: [KT-54066](https://youtrack.jetbrains.com/issue/KT-54066)
 >
 > **Component**: 코어 언어
 >
@@ -265,7 +265,7 @@ _[언어 현대성 유지 (Keeping the Language Modern)](kotlin-evolution-princi
 
 ### 비구조화 변수의 실제 타입을 지정된 명시적 타입과 일치시키기
 
-> **Issue**: [KT-57011](https://youtrack.com/issue/KT-57011)
+> **Issue**: [KT-57011](https://youtrack.jetbrains.com/issue/KT-57011)
 >
 > **Component**: 코어 언어
 >
@@ -277,7 +277,7 @@ _[언어 현대성 유지 (Keeping the Language Modern)](kotlin-evolution-princi
 
 ### opt-in이 필요한 기본값을 가진 매개변수 타입이 있는 생성자를 호출할 때 opt-in 요구
 
-> **Issue**: [KT-55111](https://youtrack.com/issue/KT-55111)
+> **Issue**: [KT-55111](https://youtrack.jetbrains.com/issue/KT-55111)
 >
 > **Component**: 코어 언어
 >
@@ -290,7 +290,7 @@ _[언어 현대성 유지 (Keeping the Language Modern)](kotlin-evolution-princi
 
 ### 동일한 스코프 레벨에서 동일한 이름을 가진 속성과 enum 엔트리 간의 모호성 보고
 
-> **Issue**: [KT-52802](https://youtrack.com/issue/KT-52802)
+> **Issue**: [KT-52802](https://youtrack.jetbrains.com/issue/KT-52802)
 >
 > **Component**: 코어 언어
 >
@@ -303,7 +303,7 @@ _[언어 현대성 유지 (Keeping the Language Modern)](kotlin-evolution-princi
 
 ### 한정자 해결 동작 변경: enum 엔트리보다 컴패니언 속성 선호
 
-> **Issue**: [KT-47310](https://youtrack.com/issue/KT-47310)
+> **Issue**: [KT-47310](https://youtrack.jetbrains.com/issue/KT-47310)
 >
 > **Component**: 코어 언어
 >
@@ -313,9 +313,9 @@ _[언어 현대성 유지 (Keeping the Language Modern)](kotlin-evolution-princi
 >
 > - 2.0.0: 새로운 해결 동작 구현; 컴패니언 속성이 enum 엔트리보다 선호됨
 
-### desugared 형태로 작성된 것처럼 `invoke` 호출 리시버 타입과 `invoke` 함수 타입 해결
+### `invoke` 호출 리시버 타입과 `invoke` 함수 타입 해결
 
-> **Issue**: [KT-58260](https://youtrack.com/issue/KT-58260)
+> **Issue**: [KT-58260](https://youtrack.jetbrains.com/issue/KT-58260)
 >
 > **Component**: 코어 언어
 >
@@ -327,7 +327,7 @@ _[언어 현대성 유지 (Keeping the Language Modern)](kotlin-evolution-princi
 
 ### 비-private 인라인 함수를 통해 private 클래스 멤버 노출 금지
 
-> **Issue**: [KT-55179](https://youtrack.com/issue/KT-55179)
+> **Issue**: [KT-55179](https://youtrack.jetbrains.com/issue/KT-55179)
 >
 > **Component**: 코어 언어
 >
@@ -340,7 +340,7 @@ _[언어 현대성 유지 (Keeping the Language Modern)](kotlin-evolution-princi
 
 ### 프로젝션된 제네릭 타입에서 확실히 non-null 타입의 널러블리티 수정
 
-> **Issue**: [KT-54663](https://youtrack.com/issue/KT-54663)
+> **Issue**: [KT-54663](https://youtrack.jetbrains.com/issue/KT-54663)
 >
 > **Component**: 코어 언어
 >
@@ -352,7 +352,7 @@ _[언어 현대성 유지 (Keeping the Language Modern)](kotlin-evolution-princi
 
 ### 접두사 증가의 추론된 타입을 `inc()` 연산자의 반환 타입 대신 getter의 반환 타입과 일치하도록 변경
 
-> **Issue**: [KT-57178](https://youtrack.com/issue/KT-57178)
+> **Issue**: [KT-57178](https://youtrack.jetbrains.com/issue/KT-57178)
 >
 > **Component**: 코어 언어
 >
@@ -364,7 +364,7 @@ _[언어 현대성 유지 (Keeping the Language Modern)](kotlin-evolution-princi
 
 ### 상위 클래스에 선언된 제네릭 내부 클래스로부터 내부 클래스를 상속할 때 바운드 체크 강제
 
-> **Issue**: [KT-61749](https://youtrack.com/issue/KT-61749)
+> **Issue**: [KT-61749](https://youtrack.jetbrains.com/issue/KT-61749)
 >
 > **Component**: 코어 언어
 >
@@ -376,7 +376,7 @@ _[언어 현대성 유지 (Keeping the Language Modern)](kotlin-evolution-princi
 
 ### 예상 타입이 함수 타입 매개변수를 가진 함수 타입일 때 SAM 타입의 호출 가능 참조 할당 금지
 
-> **Issue**: [KT-64342](https://youtrack.com/issue/KT-64342)
+> **Issue**: [KT-64342](https://youtrack.jetbrains.com/issue/KT-64342)
 >
 > **Component**: 코어 언어
 >
@@ -388,7 +388,7 @@ _[언어 현대성 유지 (Keeping the Language Modern)](kotlin-evolution-princi
 
 ### 컴패니언 객체에 대한 어노테이션 해결 시 컴패니언 객체 스코프 고려
 
-> **Issue**: [KT-64299](https://youtrack.com/issue/KT-64299)
+> **Issue**: [KT-64299](https://youtrack.jetbrains.com/issue/KT-64299)
 >
 > **Component**: 코어 언어
 >
@@ -400,7 +400,7 @@ _[언어 현대성 유지 (Keeping the Language Modern)](kotlin-evolution-princi
 
 ### 안전 호출 및 컨벤션 연산자 조합에 대한 평가 의미론 변경
 
-> **Issue**: [KT-41034](https://youtrack.com/issue/KT-41034)
+> **Issue**: [KT-41034](https://youtrack.jetbrains.com/issue/KT-41034)
 >
 > **Component**: 코어 언어
 >
@@ -413,7 +413,7 @@ _[언어 현대성 유지 (Keeping the Language Modern)](kotlin-evolution-princi
 
 ### backing field와 커스텀 세터가 있는 속성은 즉시 초기화되어야 함
 
-> **Issue**: [KT-58589](https://youtrack.com/issue/KT-58589)
+> **Issue**: [KT-58589](https://youtrack.jetbrains.com/issue/KT-58589)
 >
 > **Component**: 코어 언어
 >
@@ -426,7 +426,7 @@ _[언어 현대성 유지 (Keeping the Language Modern)](kotlin-evolution-princi
 
 ### invoke 연산자 컨벤션 호출에서 임의 표현식에 대한 Unit 변환 금지
 
-> **Issue**: [KT-61182](https://youtrack.com/issue/KT-61182)
+> **Issue**: [KT-61182](https://youtrack.jetbrains.com/issue/KT-61182)
 >
 > **Component**: 코어 언어
 >
@@ -438,7 +438,7 @@ _[언어 현대성 유지 (Keeping the Language Modern)](kotlin-evolution-princi
 
 ### 안전 호출로 필드에 접근할 때 널러블 값을 non-null Java 필드에 할당하는 것을 금지
 
-> **Issue**: [KT-62998](https://youtrack.com/issue/KT-62998)
+> **Issue**: [KT-62998](https://youtrack.jetbrains.com/issue/KT-62998)
 >
 > **Component**: 코어 언어
 >
@@ -450,7 +450,7 @@ _[언어 현대성 유지 (Keeping the Language Modern)](kotlin-evolution-princi
 
 ### raw-type 매개변수를 포함하는 Java 메서드를 오버라이딩할 때 스타-프로젝션된 타입 요구
 
-> **Issue**: [KT-57600](https://youtrack.com/issue/KT-57600)
+> **Issue**: [KT-57600](https://youtrack.jetbrains.com/issue/KT-57600)
 >
 > **Component**: 코어 언어
 >
@@ -462,7 +462,7 @@ _[언어 현대성 유지 (Keeping the Language Modern)](kotlin-evolution-princi
 
 ### V가 컴패니언을 가질 때 `(V)::foo` 참조 해결 변경
 
-> **Issue**: [KT-47313](https://youtrack.com/issue/KT-47313)
+> **Issue**: [KT-47313](https://youtrack.jetbrains.com/issue/KT-47313)
 >
 > **Component**: 코어 언어
 >
@@ -475,7 +475,7 @@ _[언어 현대성 유지 (Keeping the Language Modern)](kotlin-evolution-princi
 
 ### 실질적으로 public인 인라인 함수에서 암시적 비-public API 접근 금지
 
-> **Issue**: [KT-54997](https://youtrack.com/issue/KT-54997)
+> **Issue**: [KT-54997](https://youtrack.jetbrains.com/issue/KT-54997)
 >
 > **Component**: 코어 언어
 >
@@ -488,7 +488,7 @@ _[언어 현대성 유지 (Keeping the Language Modern)](kotlin-evolution-princi
 
 ### 속성 getter에 대한 use-site `get` 어노테이션 금지
 
-> **Issue**: [KT-57422](https://youtrack.com/issue/KT-57422)
+> **Issue**: [KT-57422](https://youtrack.jetbrains.com/issue/KT-57422)
 >
 > **Component**: 코어 언어
 >
@@ -501,7 +501,7 @@ _[언어 현대성 유지 (Keeping the Language Modern)](kotlin-evolution-princi
 
 ### 빌더 추론 람다 함수에서 타입 매개변수가 상위 바운드로 암시적으로 추론되는 것을 방지
 
-> **Issue**: [KT-47986](https://youtrack.com/issue/KT-47986)
+> **Issue**: [KT-47986](https://youtrack.jetbrains.com/issue/KT-47986)
 >
 > **Component**: 코어 언어
 >
@@ -514,7 +514,7 @@ _[언어 현대성 유지 (Keeping the Language Modern)](kotlin-evolution-princi
 
 ### public 시그니처에서 로컬 타입을 근사화할 때 널러블리티 유지
 
-> **Issue**: [KT-53982](https://youtrack.com/issue/KT-53982)
+> **Issue**: [KT-53982](https://youtrack.jetbrains.com/issue/KT-53982)
 >
 > **Component**: 코어 언어
 >
@@ -539,7 +539,7 @@ _[언어 현대성 유지 (Keeping the Language Modern)](kotlin-evolution-princi
 
 ### enum 내 인라인 open 함수 금지
 
-> **Issue**: [KT-34372](https://youtrack.com/issue/KT-34372)
+> **Issue**: [KT-34372](https://youtrack.jetbrains.com/issue/KT-34372)
 >
 > **Component**: 코어 언어
 >
@@ -554,7 +554,7 @@ _[언어 현대성 유지 (Keeping the Language Modern)](kotlin-evolution-princi
 
 ### Gradle의 가시성 변경
 
-> **Issue**: [KT-64653](https://youtrack.com/issue/KT-64653)
+> **Issue**: [KT-64653](https://youtrack.jetbrains.com/issue/KT-64653)
 >
 > **Component**: Gradle
 >
@@ -572,7 +572,7 @@ _[언어 현대성 유지 (Keeping the Language Modern)](kotlin-evolution-princi
 
 ### `kotlinOptions` DSL 사용 중단
 
-> **Issue**: [KT-63419](https://youtrack.com/issue/KT-63419)
+> **Issue**: [KT-63419](https://youtrack.jetbrains.com/issue/KT-63419)
 >
 > **Component**: Gradle
 >
@@ -586,7 +586,7 @@ _[언어 현대성 유지 (Keeping the Language Modern)](kotlin-evolution-princi
 
 ### `KotlinCompilation` DSL에서 `compilerOptions` 사용 중단
 
-> **Issue**: [KT-65568](https://youtrack.com/issue/KT-65568)
+> **Issue**: [KT-65568](https://youtrack.jetbrains.com/issue/KT-65568)
 >
 > **Component**: Gradle
 >
@@ -600,7 +600,7 @@ _[언어 현대성 유지 (Keeping the Language Modern)](kotlin-evolution-princi
 
 ### `CInteropProcess` 처리의 기존 방식 사용 중단
 
-> **Issue**: [KT-62795](https://youtrack.com/issue/KT-62795)
+> **Issue**: [KT-62795](https://youtrack.jetbrains.com/issue/KT-62795)
 >
 > **Component**: Gradle
 >
@@ -618,7 +618,7 @@ _[언어 현대성 유지 (Keeping the Language Modern)](kotlin-evolution-princi
 
 ### `kotlin.useK2` Gradle 속성 제거
 
-> **Issue**: [KT-64379](https://youtrack.com/issue/KT-64379)
+> **Issue**: [KT-64379](https://youtrack.jetbrains.com/issue/KT-64379)
 >
 > **Component**: Gradle
 >
@@ -654,7 +654,7 @@ _[언어 현대성 유지 (Keeping the Language Modern)](kotlin-evolution-princi
 
 ### `outputFile` JavaScript 컴파일러 옵션 제거
 
-> **Issue**: [KT-61116](https://youtrack.com/issue/KT-61116)
+> **Issue**: [KT-61116](https://youtrack.jetbrains.com/issue/KT-61116)
 >
 > **Component**: Gradle
 >

@@ -51,7 +51,7 @@ fun main() {
 | 문자                 | `Char`                         | `val separator: Char = ','`                               |
 | 문자열               | `String`                       | `val message: String = "Hello, world!"`                   |
 
-기본 타입 및 해당 프로퍼티에 대한 자세한 내용은 [기본 타입](basic-types.md)을 참조하세요.
+기본 타입 및 해당 프로퍼티에 대한 자세한 내용은 [타입 개요](types-overview.md)를 참조하세요.
 
 이 지식을 바탕으로 변수를 선언하고 나중에 초기화할 수 있습니다. 변수가 처음 읽히기 전에 초기화되기만 하면 Kotlin이 이를 관리할 수 있습니다.
 

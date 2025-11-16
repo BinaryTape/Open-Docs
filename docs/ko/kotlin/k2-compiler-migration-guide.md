@@ -70,13 +70,13 @@ class Cat {
 fun petAnimal(animal: Any) {
     val isCat = animal is Cat
     if (isCat) {
-        // In Kotlin 2.0.0, the compiler can access
-        // information about isCat, so it knows that
-        // animal was smart-cast to the type Cat.
-        // Therefore, the purr() function can be called.
-        // In Kotlin 1.9.20, the compiler doesn't know
-        // about the smart cast, so calling the purr()
-        // function triggers an error.
+        // Kotlin 2.0.0에서는 컴파일러가 isCat에 대한
+        // 정보에 접근할 수 있으므로, animal이 Cat 타입으로
+        // 스마트 캐스트되었음을 압니다.
+        // 따라서 purr() 함수를 호출할 수 있습니다.
+        // Kotlin 1.9.20에서는 컴파일러가 스마트 캐스트에 대해
+        // 알지 못하므로, purr() 함수를 호출하면
+        // 오류가 발생합니다.
         animal.purr()
     }
 }
@@ -106,12 +106,12 @@ interface Declined : Status
 
 fun signalCheck(signalStatus: Any) {
     if (signalStatus is Postponed || signalStatus is Declined) {
-        // signalStatus is smart-cast to a common supertype Status
+        // signalStatus는 공통 슈퍼타입 Status로 스마트 캐스트됩니다.
         signalStatus.signal()
-        // Prior to Kotlin 2.0.0, signalStatus is smart cast 
-        // to type Any, so calling the signal() function triggered an
-        // Unresolved reference error. The signal() function can only 
-        // be called successfully after another type check:
+        // Kotlin 2.0.0 이전에는 signalStatus가 
+        // Any 타입으로 스마트 캐스트되었으므로, signal() 함수를 호출하면
+        // Unresolved reference 오류가 발생했습니다. signal() 함수는 
+        // 다른 타입 검사 후에만 성공적으로 호출될 수 있었습니다:
         
         // check(signalStatus is Status)
         // signalStatus.signal()
@@ -143,18 +143,17 @@ fun nextProcessor(): Processor? = null
 fun runProcessor(): Processor? {
     var processor: Processor? = null
     inlineAction {
-        // In Kotlin 2.0.0, the compiler knows that processor 
-        // is a local variable and inlineAction() is an inline function, so 
-        // references to processor can't be leaked. Therefore, it's safe 
-        // to smart-cast processor.
+        // Kotlin 2.0.0에서는 컴파일러가 processor가 
+        // 지역 변수이고 inlineAction()이 인라인 함수임을 알기 때문에, 
+        // processor에 대한 참조가 유출될 수 없습니다. 따라서 
+        // processor를 스마트 캐스트하는 것이 안전합니다.
       
-        // If processor isn't null, processor is smart-cast
+        // processor가 null이 아니면, processor는 스마트 캐스트됩니다.
         if (processor != null) {
-            // The compiler knows that processor isn't null, so no safe call 
-            // is needed
+            // 컴파일러는 processor가 null이 아님을 알기 때문에 안전 호출이 필요하지 않습니다.
             processor.process()
 
-            // In Kotlin 1.9.20, you have to perform a safe call:
+            // Kotlin 1.9.20에서는 안전 호출을 수행해야 합니다:
             // processor?.process()
         }
 
@@ -172,14 +171,14 @@ fun runProcessor(): Processor? {
 ```kotlin
 class Holder(val provider: (() -> Unit)?) {
     fun process() {
-        // In Kotlin 2.0.0, if provider isn't null,
-        // it is smart-cast
+        // Kotlin 2.0.0에서는 provider가 null이 아니면,
+        // 스마트 캐스트됩니다.
         if (provider != null) {
-            // The compiler knows that provider isn't null
+            // 컴파일러는 provider가 null이 아님을 압니다.
             provider()
 
-            // In 1.9.20, the compiler doesn't know that provider isn't 
-            // null, so it triggers an error:
+            // 1.9.20에서는 컴파일러가 provider가 null이 아님을 알지 못하므로, 
+            // 오류가 발생합니다:
             // Reference has a nullable type '(() -> Unit)?', use explicit '?.invoke()' to make a function-like call instead
         }
     }
@@ -199,7 +198,7 @@ class Holder(val provider: Provider?, val processor: Processor?) {
     fun process() {
         if (provider != null) {
             provider() 
-            // In 1.9.20, the compiler triggers an error: 
+            // 1.9.20에서는 컴파일러가 오류를 발생시킵니다: 
             // Reference has a nullable type 'Provider?', use explicit '?.invoke()' to make a function-like call instead
         }
     }
@@ -214,28 +213,28 @@ Kotlin 2.0.0에서는 예외 처리(exception handling)에 개선이 이루어�
 //sampleStart
 fun testString() {
     var stringInput: String? = null
-    // stringInput is smart-cast to String type
+    // stringInput은 String 타입으로 스마트 캐스트됩니다.
     stringInput = ""
     try {
-        // The compiler knows that stringInput isn't null
+        // 컴파일러는 stringInput이 null이 아님을 압니다.
         println(stringInput.length)
         // 0
 
-        // The compiler rejects previous smart cast information for 
-        // stringInput. Now stringInput has the String? type.
+        // 컴파일러는 stringInput에 대한 이전 스마트 캐스트 정보를 거부합니다. 
+        // 이제 stringInput은 String? 타입을 가집니다.
         stringInput = null
 
-        // Trigger an exception
+        // 예외를 발생시킵니다.
         if (2 > 1) throw Exception()
         stringInput = ""
     } catch (exception: Exception) {
-        // In Kotlin 2.0.0, the compiler knows stringInput 
-        // can be null, so stringInput stays nullable.
+        // Kotlin 2.0.0에서는 컴파일러가 stringInput이 
+        // null일 수 있음을 알기 때문에 stringInput은 nullable 상태를 유지합니다.
         println(stringInput?.length)
         // null
 
-        // In Kotlin 1.9.20, the compiler says that a safe call isn't
-        // needed, but this is incorrect.
+        // Kotlin 1.9.20에서는 컴파일러가 안전 호출이 필요 없다고 말하지만,
+        // 이는 올바르지 않습니다.
     }
 }
 //sampleEnd
@@ -265,34 +264,29 @@ interface Tau {
 fun main(input: Rho) {
     var unknownObject: Rho = input
 
-    // Check if unknownObject inherits from the Tau interface
-    // Note, it's possible that unknownObject inherits from both
-    // Rho and Tau interfaces.
+    // unknownObject가 Tau 인터페이스를 상속하는지 확인합니다.
+    // 참고로, unknownObject는 Rho와 Tau 인터페이스를 모두 상속할 수 있습니다.
     if (unknownObject is Tau) {
 
-        // Use the overloaded inc() operator from interface Rho.
-        // In Kotlin 2.0.0, the type of unknownObject is smart-cast to
-        // Sigma.
+        // Rho 인터페이스의 오버로드된 inc() 연산자를 사용합니다.
+        // Kotlin 2.0.0에서는 unknownObject의 타입이 Sigma로 스마트 캐스트됩니다.
         ++unknownObject
 
-        // In Kotlin 2.0.0, the compiler knows unknownObject has type
-        // Sigma, so the sigma() function can be called successfully.
+        // Kotlin 2.0.0에서는 컴파일러가 unknownObject가 Sigma 타입을 가짐을 알기 때문에,
+        // sigma() 함수를 성공적으로 호출할 수 있습니다.
         unknownObject.sigma()
 
-        // In Kotlin 1.9.20, the compiler doesn't perform a smart cast
-        // when inc() is called so the compiler still thinks that 
-        // unknownObject has type Tau. Calling the sigma() function 
-        // throws a compile-time error.
+        // Kotlin 1.9.20에서는 inc()가 호출될 때 컴파일러가 스마트 캐스트를 수행하지 않으므로
+        // 컴파일러는 여전히 unknownObject가 Tau 타입을 가진다고 생각합니다. sigma() 함수를 호출하면 
+        // 컴파일 타임 오류가 발생합니다.
         
-        // In Kotlin 2.0.0, the compiler knows unknownObject has type
-        // Sigma, so calling the tau() function throws a compile-time 
-        // error.
+        // Kotlin 2.0.0에서는 컴파일러가 unknownObject가 Sigma 타입을 가짐을 알기 때문에,
+        // tau() 함수를 호출하면 컴파일 타임 오류가 발생합니다.
         unknownObject.tau()
         // Unresolved reference 'tau'
 
-        // In Kotlin 1.9.20, since the compiler mistakenly thinks that 
-        // unknownObject has type Tau, the tau() function can be called,
-        // but it throws a ClassCastException.
+        // Kotlin 1.9.20에서는 컴파일러가 unknownObject가 실수로 Tau 타입을 가진다고 생각하므로, 
+        // tau() 함수를 호출할 수 있지만, ClassCastException이 발생합니다.
     }
 }
 ```
@@ -335,7 +329,7 @@ fun exampleFunction() {
 fun foo(x: Int) = println("platform foo")
 
 // JavaScript
-// There is no foo() function overload on the JavaScript platform
+// JavaScript 플랫폼에는 foo() 함수 오버로드가 없습니다.
 ```
 
 </td>
@@ -365,9 +359,9 @@ expect class Identity {
 }
 
 fun common() {
-    // Before 2.0.0, it triggers an IDE-only error
+    // 2.0.0 이전에는 IDE에서만 오류가 발생합니다.
     Identity().confirmIdentity()
-    // RESOLUTION_TO_CLASSIFIER : Expected class Identity has no default constructor.
+    // RESOLUTION_TO_CLASSIFIER : 예상 클래스 Identity에는 기본 생성자가 없습니다.
 }
 ```
 
@@ -397,21 +391,21 @@ Expected class 'expect class Identity : Any' does not have default constructor
 서로 다른 시그니처를 가진 두 개의 `whichFun()` 함수를 포함하는 라이브러리가 있다고 가정해 봅시다:
 
 ```kotlin
-// Example library
+// 예제 라이브러리
 
-// MODULE: common
+// 모듈: 공통
 fun whichFun(x: Any) = println("common function") 
 
-// MODULE: JVM
+// 모듈: JVM
 fun whichFun(x: Int) = println("platform function")
 ```
 
 공통 코드에서 `whichFun()` 함수를 호출하면, 라이브러리에서 가장 관련성 높은 인자 타입을 가진 함수가 해석됩니다:
 
 ```kotlin
-// A project that uses the example library for the JVM target
+// JVM 타겟용 예제 라이브러리를 사용하는 프로젝트
 
-// MODULE: common
+// 모듈: 공통
 fun main(){
     whichFun(2) 
     // platform function
@@ -421,9 +415,9 @@ fun main(){
 이에 비해, 동일한 소스 세트 내에서 `whichFun()`에 대한 오버로드를 선언하면, 코드가 플랫폼별 버전에 접근할 수 없기 때문에 공통 코드의 함수가 해석됩니다:
 
 ```kotlin
-// Example library isn't used
+// 예제 라이브러리가 사용되지 않음
 
-// MODULE: common
+// 모듈: 공통
 fun whichFun(x: Any) = println("common function") 
 
 fun main(){
@@ -431,7 +425,7 @@ fun main(){
     // common function
 }
 
-// MODULE: JVM
+// 모듈: JVM
 fun whichFun(x: Int) = println("platform function")
 ```
 
@@ -444,19 +438,19 @@ fun whichFun(x: Int) = println("platform function")
 Kotlin 2.0.0 이전에는 Kotlin Multiplatform 프로젝트에서 [예상 및 실제 선언](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-expect-actual.html)을 사용할 경우 동일한 [가시성 수준](visibility-modifiers.md)을 가져야 했습니다. Kotlin 2.0.0은 이제 다른 가시성 수준도 지원하지만, 이는 실제 선언이 예상 선언보다 _더_ 관대(permissive)한 경우에 **만** 해당됩니다. 예를 들어:
 
 ```kotlin
-expect internal class Attribute // Visibility is internal
-actual class Attribute          // Visibility is public by default,
-                                // which is more permissive
+expect internal class Attribute // 가시성은 internal
+actual class Attribute          // 기본적으로 public 가시성,
+                                // 더 관대함
 ```
 
 마찬가지로, 실제 선언에서 [타입 별칭(type alias)](type-aliases.md)을 사용하는 경우, **기저 타입(underlying type)**의 가시성은 예상 선언과 같거나 더 관대해야 합니다. 예를 들어:
 
 ```kotlin
-expect internal class Attribute                 // Visibility is internal
+expect internal class Attribute                 // 가시성은 internal
 internal actual typealias Attribute = Expanded
 
-class Expanded                                  // Visibility is public by default,
-                                                // which is more permissive
+class Expanded                                  // 기본적으로 public 가시성,
+                                                // 더 관대함
 ```
 
 ## Kotlin K2 컴파일러 활성화 방법
@@ -551,9 +545,9 @@ open class Base {
     open var b: Int
     
     init {
-        // Error starting with Kotlin 2.0 that earlier compiled successfully 
+        // Kotlin 2.0부터 오류 발생, 이전에는 성공적으로 컴파일됨 
         this.a = 1 //Error: open val must have initializer
-        // Always an error
+        // 항상 오류
         this.b = 1 // Error: open var must have initializer
     }
 }
@@ -603,14 +597,14 @@ fun exampleFunction(starProjected: Container<*>, inProjected: Container<in Numbe
     starProjected.setFoo(sampleString)
     // Error since Kotlin 1.0
 
-    // Synthetic setter `foo` is resolved to the `setFoo()` method
+    // 합성 세터 `foo`는 `setFoo()` 메서드로 해석됩니다.
     starProjected.foo = sampleString
     // Error since Kotlin 2.0.0
 
     inProjected.setFoo(sampleString)
     // Error since Kotlin 1.0
 
-    // Synthetic setter `foo` is resolved to the `setFoo()` method
+    // 합성 세터 `foo`는 `setFoo()` 메서드로 해석됩니다.
     inProjected.foo = sampleString
     // Error since Kotlin 2.0.0
 }
@@ -631,38 +625,38 @@ K2 컴파일러의 새로운 아키텍처로 인해, 접근 불가능한 제네�
 예를 들어, 하나의 모듈에 제네릭 클래스를 선언했다고 가정해 봅시다:
 
 ```kotlin
-// Module one
+// 모듈 1
 class Node<V>(val value: V)
 ```
 
 모듈 1에 종속성이 구성된 다른 모듈(모듈 2)이 있는 경우, 코드는 `Node<V>` 클래스에 접근하여 함수 타입에서 타입으로 사용할 수 있습니다:
 
 ```kotlin
-// Module two
+// 모듈 2
 fun execute(func: (Node<Int>) -> Unit) {}
-// Function compiles successfully
+// 함수가 성공적으로 컴파일됩니다.
 ```
 
 그러나 프로젝트가 모듈 2에만 의존하는 세 번째 모듈(모듈 3)을 가지도록 잘못 구성된 경우, Kotlin 컴파일러는 세 번째 모듈을 컴파일할 때 **모듈 1**의 `Node<V>` 클래스에 접근할 수 없습니다. 이제 모듈 3에서 `Node<V>` 타입을 사용하는 모든 람다(lambdas) 또는 익명 함수(anonymous functions)는 Kotlin 2.0.0에서 오류를 발생시켜, 코드에서 나중에 발생할 수 있는 피할 수 있는 컴파일러 오류, 충돌 및 런타임 예외를 방지합니다:
 
 ```kotlin
-// Module three
+// 모듈 3
 fun test() {
-    // Triggers an error in Kotlin 2.0.0, as the type of the implicit 
-    // lambda parameter (it) resolves to Node, which is inaccessible
+    // Kotlin 2.0.0에서 오류 발생, 암시적 
+    // 람다 매개변수(it)의 타입이 접근 불가능한 Node로 해석되기 때문
     execute {}
 
-    // Triggers an error in Kotlin 2.0.0, as the type of the unused 
-    // lambda parameter (_) resolves to Node, which is inaccessible
+    // Kotlin 2.0.0에서 오류 발생, 사용되지 않는 
+    // 람다 매개변수(_)의 타입이 접근 불가능한 Node로 해석되기 때문
     execute { _ -> }
 
-    // Triggers an error in Kotlin 2.0.0, as the type of the unused
-    // anonymous function parameter (_) resolves to Node, which is inaccessible
+    // Kotlin 2.0.0에서 오류 발생, 사용되지 않는
+    // 익명 함수 매개변수(_)의 타입이 접근 불가능한 Node로 해석되기 때문
     execute(fun (_) {})
 }
 ```
 
-접근 불가능한 제네릭 타입의 값 매개변수를 포함할 때 함수 리터럴이 오류를 발생시키는 것 외에도, 타입이 접근 불가능한 제네릭 타입 인자를 가질 때도 오류가 발생합니다.
+함수 리터럴이 접근 불가능한 제네릭 타입의 값 매개변수를 포함할 때 오류를 발생시키는 것 외에도, 타입이 접근 불가능한 제네릭 타입 인자를 가질 때도 오류가 발생합니다.
 
 예를 들어, 모듈 1에 동일한 제네릭 클래스 선언이 있습니다. 모듈 2에서는 또 다른 제네릭 클래스인 `Container<C>`를 선언합니다. 또한, 모듈 2에서 제네릭 클래스 `Node<V>`를 타입 인자로 사용하여 `Container<C>`를 사용하는 함수를 선언합니다:
 
@@ -675,7 +669,7 @@ fun test() {
 <td>
 
 ```kotlin
-// Module one
+// 모듈 1
 class Node<V>(val value: V)
 ```
 
@@ -683,11 +677,11 @@ class Node<V>(val value: V)
 <td>
 
 ```kotlin
-// Module two
+// 모듈 2
 class Container<C>(vararg val content: C)
 
-// Functions with generic class type that
-// also have a generic class type argument
+// 제네릭 클래스 타입을 가진 함수
+// 또한 제네릭 클래스 타입 인자를 가짐
 fun produce(): Container<Node<Int>> = Container(Node(42))
 fun consume(arg: Container<Node<Int>>) {}
 ```
@@ -699,10 +693,10 @@ fun consume(arg: Container<Node<Int>>) {}
 모듈 3에서 이러한 함수를 호출하려고 하면, 제네릭 클래스 `Node<V>`가 모듈 3에서 접근 불가능하기 때문에 Kotlin 2.0.0에서 오류가 발생합니다:
 
 ```kotlin
-// Module three
+// 모듈 3
 fun test() {
-    // Triggers an error in Kotlin 2.0.0, as generic class Node<V> is 
-    // inaccessible
+    // Kotlin 2.0.0에서 오류 발생, 제네릭 클래스 Node<V>에 
+    // 접근 불가능하기 때문
     consume(produce())
 }
 ```
@@ -720,7 +714,7 @@ fun test() {
 <td>
 
 ```kotlin
-// Module one
+// 모듈 1
 class IntNode(val value: Int)
 ```
 
@@ -728,15 +722,15 @@ class IntNode(val value: Int)
 <td>
 
 ```kotlin
-// Module two
-// A function that contains a lambda 
-// parameter with `IntNode` type
+// 모듈 2
+// 람다 매개변수를 포함하는 함수 
+// `IntNode` 타입을 가짐
 fun execute(func: (IntNode) -> Unit) {}
 
 class Container<C>(vararg val content: C)
 
-// Functions with generic class type
-// that has `IntNode` as a type argument
+// 제네릭 클래스 타입을 가진 함수
+// `IntNode`를 타입 인자로 가짐
 fun produce(): Container<IntNode> = Container(IntNode(42))
 fun consume(arg: Container<IntNode>) {}
 ```
@@ -748,10 +742,10 @@ fun consume(arg: Container<IntNode>) {}
 모듈 3에서 이러한 함수를 호출하면 일부 경고가 발생합니다:
 
 ```kotlin
-// Module three
+// 모듈 3
 fun test() {
-    // Triggers warnings in Kotlin 2.0.0, as class IntNode is 
-    // inaccessible.
+    // Kotlin 2.0.0에서 경고 발생, 클래스 IntNode에 
+    // 접근 불가능하기 때문.
 
     execute {}
     // Class 'IntNode' of the parameter 'it' is inaccessible.
@@ -760,8 +754,7 @@ fun test() {
     execute(fun (_) {})
     // Class 'IntNode' of the parameter '_' is inaccessible.
 
-    // Will trigger a warning in future Kotlin releases, as IntNode is
-    // inaccessible.
+    // IntNode에 접근 불가능하므로 향후 Kotlin 릴리스에서 경고가 발생합니다.
     consume(produce())
 }
 ```
@@ -796,16 +789,16 @@ public class Base {
 class Derived : Base() {
     val a = "aa"
 
-    // Declares custom get() function
+    // 커스텀 get() 함수 선언
     val b get() = "bb"
 }
 
 fun main() {
-    // Resolves Derived.a
+    // Derived.a로 해석
     println(a)
     // aa
 
-    // Resolves Base.b
+    // Base.b로 해석
     println(b)
     // b
 }
@@ -821,7 +814,7 @@ Kotlin 2.0.0에서는 예제의 해석 동작이 일관되어, Kotlin 프로퍼�
 >
 {style="note"}
 
-일반적인 규칙은 서브클래스(subclass)가 우선한다는 것입니다. `Derived`가 `Base` Java 클래스의 서브클래스이므로 `Derived` 클래스의 Kotlin 프로퍼티 `a`가 해석되는 이전 예제에서 이를 보여줍니다.
+일반적인 규칙은 서브클래스(subclass)가 우선한다는 것입니다. 이전 예제에서 이를 보여줍니다. `Derived`가 `Base` Java 클래스의 서브클래스이므로 `Derived` 클래스의 Kotlin 프로퍼티 `a`가 해석됩니다.
 
 상속이 역전되어 Java 클래스가 Kotlin 클래스를 상속하는 경우, 서브클래스의 Java 필드가 동일한 이름의 Kotlin 프로퍼티보다 우선합니다.
 
@@ -858,7 +851,7 @@ public class Derived extends Base {
 
 ```kotlin
 fun main() {
-    // Resolves Derived.a
+    // Derived.a로 해석
     println(a)
     // a
 }
@@ -945,9 +938,9 @@ abstract class FileSystem {
     abstract fun listFiles()
 }
 expect open class PlatformFileSystem() : FileSystem {
-    // In Kotlin 2.0.0, an explicit override is needed
+    // Kotlin 2.0.0에서는 명시적인 오버라이드가 필요합니다.
     expect override fun listFiles()
-    // Before Kotlin 2.0.0, an override wasn't needed
+    // Kotlin 2.0.0 이전에는 오버라이드가 필요 없었습니다.
 }
 ```
 
@@ -1133,7 +1126,7 @@ actual open class PlatformFileSystem : FileSystem {
 | [KT-55111](https://youtrack.jetbrains.com/issue/KT-55111)  | OptIn: 마커 아래에서 기본 인자(기본값을 가진 매개변수)를 가진 생성자 호출 금지                                                      |
 | [KT-61182](https://youtrack.jetbrains.com/issue/KT-61182)  | 변수에 대한 표현식 + invoke 해석에 Unit 변환이 우발적으로 허용됩니다.                                                             |
 | [KT-55199](https://youtrack.jetbrains.com/issue/KT-55199)  | 적응형 호출 가능 참조를 KFunction으로 승격하는 것을 금지                                                                         |
-| [KT-65776](https://youtrack.jetbrains.com/issue/KT-65776)  | [LC] K2는 \`false && ...\` 및 \`false &VerticalLine;&VerticalLine; ...\`를 깨뜨립니다.                                                             |
+| [KT-65776](https://youtrack.jetbrains.com/issue/KT-65776)  | [LC] K2는 \`false && ...\` 및 \`false \|\| ...\`를 깨뜨립니다.                                                             |
 | [KT-65682](https://youtrack.jetbrains.com/issue/KT-65682)  | [LC] \`header\`/\`impl\` 키워드 사용 중단                                                                                          |
 | [KT-45375](https://youtrack.jetbrains.com/issue/KT-45375)  | 기본적으로 invokedynamic + LambdaMetafactory를 통해 모든 Kotlin 람다 생성                                                         |
 

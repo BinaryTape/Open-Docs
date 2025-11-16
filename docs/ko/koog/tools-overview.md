@@ -7,7 +7,7 @@
 Koog 프레임워크는 도구 작업을 위한 다음 워크플로를 제공합니다:
 
 1.  커스텀 도구를 생성하거나 내장 도구 중 하나를 사용합니다.
-2.  도구를 도구 레지스트리에 추가합니다.
+2.  도구 레지스트리에 도구를 추가합니다.
 3.  도구 레지스트리를 에이전트에 전달합니다.
 4.  에이전트와 함께 도구를 사용합니다.
 
@@ -92,7 +92,7 @@ val agent = AIAgent(
 
 ### 도구 호출하기
 
-에이전트 코드 내에서 도구를 호출하는 여러 가지 방법이 있습니다. 권장되는 접근 방식은 도구를 직접 호출하는 대신 에이전트 컨텍스트에서 제공되는 메서드를 사용하는 것입니다. 이는 에이전트 환경 내에서 도구 작업의 적절한 처리를 보장하기 때문입니다.
+에이전트 코드 내에서 도구를 호출하는 여러 가지 방법이 있습니다. 권장되는 접근 방식은 에이전트 환경 내에서 도구 작업의 적절한 처리를 보장하므로 도구를 직접 호출하는 대신 에이전트 컨텍스트에서 제공되는 메서드를 사용하는 것입니다.
 
 !!! tip
     에이전트 오류를 방지하려면 도구에 적절한 [오류 처리](agent-event-handlers.md)가 구현되었는지 확인하세요.
@@ -172,17 +172,17 @@ val strategy = strategy<Unit, Unit>("strategy-name") {
 
 *   **nodeExecuteMultipleTools**: 여러 도구 호출을 수행하고 그 결과를 반환합니다. 자세한 내용은 [API 참조](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.dsl.extension/node-execute-multiple-tools.html)를 참조하세요.
 
-*   **nodeLLMSendToolResult**: 도구 결과를 LLM에 보내고 응답을 받습니다. 자세한 내용은 [API 참조](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.dsl.extension/node-l-l-m-send-tool-result.html)를 참조하세요.
+*   **nodeLLMSendToolResult**: 도구 결과를 LLM에 보내고 응답을 받습니다. 자세한 내용은 [API 참조](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.dsl.extension/node-l-l-m-send-tool-result.html).
 
 *   **nodeLLMSendMultipleToolResults**: 여러 도구 결과를 LLM에 보냅니다. 자세한 내용은 [API 참조](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.dsl.extension/node-l-l-m-send-multiple-tool-results.html)를 참조하세요.
 
 ## 에이전트를 도구로 사용하기
 
-이 프레임워크는 모든 AI 에이전트를 다른 에이전트가 사용할 수 있는 도구로 변환하는 기능을 제공합니다. 이 강력한 기능을 통해 전문 에이전트가 상위 수준의 오케스트레이션 에이전트에 의해 도구로 호출될 수 있는 계층적 에이전트 아키텍처를 생성할 수 있습니다.
+프레임워크는 모든 AI 에이전트를 다른 에이전트가 사용할 수 있는 도구로 변환하는 기능을 제공합니다. 이 강력한 기능을 통해 전문 에이전트가 상위 수준의 오케스트레이션 에이전트에 의해 도구로 호출될 수 있는 계층적 에이전트 아키텍처를 생성할 수 있습니다.
 
 ### 에이전트를 도구로 변환하기
 
-에이전트를 도구로 변환하려면 `AIAgentService`의 `createAgentTool()` 함수를 사용하세요:
+에이전트를 도구로 변환하려면 `AIAgentService`와 `createAgentTool()` 확장 함수를 사용하세요:
 
 <!--- INCLUDE
 import ai.koog.agents.core.agent.AIAgent

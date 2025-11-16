@@ -2,12 +2,9 @@
 
 [Kotlin Multiplatform IDE 外掛程式](https://plugins.jetbrains.com/plugin/14936-kotlin-multiplatform) 可協助您開發適用於 Android、iOS、桌面和網頁的跨平台應用程式。請確保您擁有最新版本的此外掛程式，以便使用 Kotlin Multiplatform 專案。
 
-此外掛程式與 IntelliJ IDEA (從版本 2025.1.1.1 開始) 和 Android Studio (從 Narwhal 2025.1.1 開始) 相容。
-
-> 若要在 Windows 和 Linux 上使用 Kotlin Multiplatform 外掛程式，您需要 IntelliJ IDEA 2025.2.2。
-> Android Studio 將在即將推出的版本中新增對 KMP IDE 外掛程式在 Windows 和 Linux 上的支援。
->
-{style="note"}
+此外掛程式與 IntelliJ IDEA 和 Android Studio 相容：
+* IntelliJ IDEA 支援 macOS 上的此外掛程式，從 2025.1.1.1 版本開始；支援 Windows 和 Linux 上的此外掛程式，從 2025.2.2 版本開始。
+* Android Studio 支援 macOS 上的此外掛程式，從 Narwhal 2025.1.1 版本開始；支援 Windows 和 Linux 上的此外掛程式，從 Otter 2025.2.1 版本開始。
 
 有關 Kotlin Multiplatform Gradle 外掛程式的資訊，請參閱其 [DSL 參考](multiplatform-dsl-reference.md) 和 [相容性指南](multiplatform-compatibility-guide.md)。
 
@@ -26,7 +23,7 @@
 
 ## 發佈詳情
 
-下表列出了 Kotlin Multiplatform IDE 外掛程式的發佈版本：
+下表列出了 Kotlin Multiplatform IDE 外掛程式的發佈版本： 
 
 <table> 
 
@@ -52,7 +49,7 @@
 </td>
 <td>
 
-Kotlin Multiplatform 外掛程式已完全重建：
+Kotlin Multiplatform 外掛程式已從頭開始完全重建：
 
 * 針對支援的 IDE 整合了 **New Project** 精靈。
 * 預檢環境檢查，有助於找出並解決設定問題，包括 Java、Android、Xcode 和 Gradle。
@@ -441,7 +438,7 @@ Kotlin Multiplatform 外掛程式已完全重建：
 * [在專案精靈中新增了關於 Xcode 整合選項的資訊](https://youtrack.jetbrains.com/issue/KT-47466)。
 * [新增了錯誤通知，當生成了帶有 CocoaPods 的專案，但 CocoaPods gem 尚未安裝時](https://youtrack.jetbrains.com/issue/KT-47329)。
 * [在生成的共享模組中新增了對 Apple M1 模擬器目標的支援，版本為 Kotlin 1.5.30](https://youtrack.jetbrains.com/issue/KT-47631)。
-* [使用 Kotlin 1.5.20 清理了生成的 Xcode 專案](https://youtrack.jetbrains.com/issue/KT-47465)。
+* [清理了使用 Kotlin 1.5.20 生成的 Xcode 專案](https://youtrack.jetbrains.com/issue/KT-47465)。
 * 修正了在真實 iOS 裝置上啟動 Xcode Release 組態的問題。
 * 修正了使用 Xcode 12.5 啟動模擬器的問題。
 

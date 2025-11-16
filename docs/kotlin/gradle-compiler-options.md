@@ -13,7 +13,7 @@
 
 Kotlin 编译器提供了许多选项，用于定制编译过程。
 
-Gradle DSL 允许对编译器选项进行全面配置。它适用于 [Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-dsl-reference.html#compiler-options) 和 [JVM/Android](#target-the-jvm) 项目。
+Gradle DSL 允许对编译器选项进行全面配置。它适用于 [Kotlin Multiplatform](https://kotlinlang.org/docs/multiplatform/multiplatform-dsl-reference.html#compiler-options) 和 [JVM/Android](#target-the-jvm) 项目。
 
 使用 Gradle DSL，您可以在构建脚本中通过三个级别配置编译器选项：
 *   **[扩展级别](#extension-level)**，在 `kotlin {}` 代码块中，适用于所有目标平台和共享源代码集。
@@ -66,7 +66,7 @@ kotlin {
 }
 ```
 
-在 Kotlin Multiplatform 项目中，您可以在特定目标平台内部配置编译器选项。例如，`jvm { compilerOptions {}}`。关于更多信息，请参见 [Multiplatform Gradle DSL 参考](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-dsl-reference.html)。
+在 Kotlin Multiplatform 项目中，您可以在特定目标平台内部配置编译器选项。例如，`jvm { compilerOptions {}}`。关于更多信息，请参见 [Multiplatform Gradle DSL 参考](https://kotlinlang.org/docs/multiplatform/multiplatform-dsl-reference.html)。
 
 ### 编译单元级别
 
@@ -96,7 +96,7 @@ kotlin {
 }
 ```
 
-如果您想配置与 JVM/Android 和 [Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-dsl-reference.html) 目标平台不同的插件，请使用相应 Kotlin 编译任务的 `compilerOptions {}` 属性。以下示例展示了如何在 Kotlin 和 Groovy DSL 中设置此配置：
+如果您想配置与 JVM/Android 和 [Kotlin Multiplatform](https://kotlinlang.org/docs/multiplatform/multiplatform-dsl-reference.html) 目标平台不同的插件，请使用相应 Kotlin 编译任务的 `compilerOptions {}` 属性。以下示例展示了如何在 Kotlin 和 Groovy DSL 中设置此配置：
 
 <tabs group="build-script">
 <tab title="Kotlin" group-key="kotlin">
@@ -399,7 +399,7 @@ kotlin {
 *   迁移任何 `-progressive` 编译器选项的使用，转而使用专用 DSL：`progressiveMode.set(true)`。
 *   迁移任何 `-Xjvm-default` 编译器选项的使用，[转而使用专用 DSL](gradle-compiler-options.md#attributes-specific-to-jvm)：`jvmDefault.set()`。使用以下选项映射：
 
-    | Before                            | After                                             |
+    | 之前                            | 之后                                             |
     |-----------------------------------|---------------------------------------------------|
     | `-Xjvm-default=all-compatibility` | `jvmDefault.set(JvmDefaultMode.ENABLE)`           |
     | `-Xjvm-default=all`               | `jvmDefault.set(JvmDefaultMode.NO_COMPATIBILITY)` |
@@ -558,7 +558,7 @@ tasks.named('compileKotlin', KotlinCompilationTask) {
 |---|---|---|---|
 | `optIn` | 用于配置 [opt-in 编译器实参](opt-in-requirements.md)列表的属性 | `listOf( /* opt-ins */ )` | `emptyList()` |
 | `progressiveMode` | 启用[渐进式编译模式](whatsnew13.md#progressive-mode) | `true`, `false` | `false` |
-| `extraWarnings` | 启用[额外的声明、表达式和类型编译器检测](whatsnew21.md#extra-compiler-checks)，如果为 true 则发出警告 | `true`, `false` | `false` |
+| `extraWarnings` | 启用[额外的声明、表达式和类型编译器检测](whatsnew21.md#extra-compiler-checks)，如果为 true 则发出警告 | `true`, `false` | `false`       |
 
 ### JVM 特有的属性
 
@@ -578,8 +578,8 @@ tasks.named('compileKotlin', KotlinCompilationTask) {
 | `suppressWarnings` | 不生成警告 | | false |
 | `verbose` | 启用详细日志输出。仅当[启用 Gradle 调试日志级别](https://docs.gradle.org/current/userguide/logging.html)时有效 | | false |
 | `freeCompilerArgs` | 额外的编译器实参列表。您也可以在此处使用实验性的 `-X` 实参。关于示例请参见[通过 freeCompilerArgs 使用额外实参的示例](#example-of-additional-arguments-usage-via-freecompilerargs) | | [] |
-| `apiVersion` | 将声明的使用限制为来自指定版本捆绑库中的声明 | "1.8", "1.9", "2.0", "2.1", "2.2" (实验性的) | |
-| `languageVersion` | 提供与指定版本 Kotlin 的源代码兼容性 | "1.8", "1.9", "2.0", "2.1", "2.2" (实验性的) | |
+| `apiVersion` | 将声明的使用限制为来自指定版本捆绑库中的声明 | "1.8", "1.9", "2.0", "2.1", "2.2" (EXPERIMENTAL) | |
+| `languageVersion` | 提供与指定版本 Kotlin 的源代码兼容性 | "1.8", "1.9", "2.0", "2.1", "2.2" (EXPERIMENTAL) | |
 
 > 我们将在未来版本中弃用 `freeCompilerArgs` 属性。如果您发现 Kotlin Gradle DSL 中缺少某些选项，请[提交一个问题](https://youtrack.jetbrains.com/newissue?project=kt)。
 >
@@ -704,7 +704,7 @@ tasks
 | 选项 | 类型 | 示例 |
 |---|---|---|
 | `jvmTarget` | [`JvmTarget`](https://github.com/JetBrains/kotlin/blob/master/libraries/tools/kotlin-gradle-compiler-types/src/generated/kotlin/org/jetbrains/kotlin/gradle/dsl/JvmTarget.kt) | `compilerOptions.jvmTarget.set(JvmTarget.JVM_11)` |
-| `apiVersion` 和 `languageVersion` | [`KotlinVersion`](https://github.com/JetBrains/kotlin/blob/master/libraries/tools/kotlin-gradle-compiler-types/src/generated/kotlin/org/jetbrains/kotlin/gradle/dsl/KotlinVersion.kt) | `compilerOptions.languageVersion.set(KotlinVersion.%gradleLanguageVersion%)` |
+| `apiVersion` and `languageVersion` | [`KotlinVersion`](https://github.com/JetBrains/kotlin/blob/master/libraries/tools/kotlin-gradle-compiler-types/src/generated/kotlin/org/jetbrains/kotlin/gradle/dsl/KotlinVersion.kt) | `compilerOptions.languageVersion.set(KotlinVersion.%gradleLanguageVersion%)` |
 | `main` | [`JsMainFunctionExecutionMode`](https://github.com/JetBrains/kotlin/blob/master/libraries/tools/kotlin-gradle-compiler-types/src/generated/kotlin/org/jetbrains/kotlin/gradle/dsl/JsMainFunctionExecutionMode.kt) | `compilerOptions.main.set(JsMainFunctionExecutionMode.NO_CALL)` |
 | `moduleKind` | [`JsModuleKind`](https://github.com/JetBrains/kotlin/blob/master/libraries/tools/kotlin-gradle-compiler-types/src/generated/kotlin/org/jetbrains/kotlin/gradle/dsl/JsModuleKind.kt) | `compilerOptions.moduleKind.set(JsModuleKind.MODULE_ES)` |
 | `sourceMapEmbedSources` | [`JsSourceMapEmbedMode`](https://github.com/JetBrains/kotlin/blob/master/libraries/tools/kotlin-gradle-compiler-types/src/generated/kotlin/org/jetbrains/kotlin/gradle/dsl/JsSourceMapEmbedMode.kt) | `compilerOptions.sourceMapEmbedSources.set(JsSourceMapEmbedMode.SOURCE_MAP_SOURCE_CONTENT_INLINING)` |
@@ -713,7 +713,7 @@ tasks
 ## 接下来是什么？
 
 了解更多关于：
-*   [Kotlin Multiplatform DSL 参考](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-dsl-reference.html)。
+*   [Kotlin Multiplatform DSL 参考](https://kotlinlang.org/docs/multiplatform/multiplatform-dsl-reference.html)。
 *   [增量编译、缓存支持、构建报告和 Kotlin 守护进程](gradle-compilation-and-caches.md)。
 *   [Gradle 基础知识和细节](https://docs.gradle.org/current/userguide/userguide.html)。
 *   [对 Gradle 插件变体的支持](gradle-plugin-variants.md)。

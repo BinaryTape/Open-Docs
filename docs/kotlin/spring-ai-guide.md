@@ -1,6 +1,6 @@
 [//]: # (title: 构建一个使用 Spring AI 的 Kotlin 应用，基于存储在 Qdrant 中的文档来回答问题 — 教程)
 
-在本教程中，你将学习如何构建一个使用 [Spring AI](https://spring.io/projects/spring-ai) 的 Kotlin 应用，该应用能够连接到 LLM，将文档存储到向量数据库中，并使用这些文档中的上下文来回答问题。
+在本教程中，你将学习如何构建一个 Kotlin 应用，该应用通过 [Spring AI](https://spring.io/projects/spring-ai) 连接到 LLM，将文档存储到向量数据库中，并使用这些文档中的上下文来回答问题。
 
 在本教程中，你将使用以下工具：
 
@@ -241,7 +241,7 @@
     curl -X GET http://localhost:8080/kotlin/docs
     ```
 
-   ![GET request results](spring-ai-get-results.png){width="700"}
+   ![GET 请求结果](spring-ai-get-results.png){width="700"}
 
 > 你也可以在 [Qdrant collections](http://localhost:6333/dashboard#/collections) 页面上查看结果。
 >

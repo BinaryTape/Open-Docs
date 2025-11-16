@@ -17,9 +17,11 @@
 
 在这里，你将学习如何使用 IntelliJ IDEA 创建并运行你的第一个 Kotlin Multiplatform 应用程序。
 
-Kotlin Multiplatform 技术简化了跨平台项目的开发。Kotlin Multiplatform 应用程序可以在多种平台（例如 iOS、Android、macOS、Windows、Linux、Web 等）上运行。
+Kotlin Multiplatform 技术简化了跨平台项目的开发。
+Kotlin Multiplatform 应用程序可以在多种平台（例如 iOS、Android、macOS、Windows、Linux、Web 等）上运行。
 
-Kotlin Multiplatform 的主要用例之一是在移动平台之间共享代码。你可以在 iOS 和 Android 应用之间共享应用程序逻辑，并且只在需要实现原生 UI 或使用平台 API 时才编写平台特有的代码。
+Kotlin Multiplatform 的主要用例之一是在移动平台之间共享代码。
+你可以在 iOS 和 Android 应用之间共享应用程序逻辑，并且只在需要实现原生 UI 或使用平台 API 时才编写平台特有的代码。
 
 ## 创建项目
 
@@ -37,7 +39,7 @@ Kotlin Multiplatform 的主要用例之一是在移动平台之间共享代码�
 6.  对于 iOS，选择**不共享 UI** 选项以保持 UI 原生。
 7.  指定所有字段和目标平台后，点击 **Create**。
 
-> IntelliJ IDEA 可能会自动建议将项目中的 Android Gradle 插件升级到最新版本。
+> IDE 可能会自动建议将项目中的 Android Gradle 插件升级到最新版本。
 > 我们不建议升级，因为 Kotlin Multiplatform 与最新的 AGP 版本不兼容
 > (关于兼容性，请参见[兼容性表](https://kotlinlang.org/docs/multiplatform-compatibility-guide.html#version-compatibility))。
 >
@@ -51,7 +53,7 @@ Kotlin Multiplatform 的主要用例之一是在移动平台之间共享代码�
 
 *   _shared_ 是一个 Kotlin 模块，包含 Android 和 iOS 应用程序共用的逻辑——你可以在平台之间共享的代码。它使用 [Gradle](https://kotlinlang.org/docs/gradle.html) 作为构建系统来帮助自动化你的构建过程。
 *   _composeApp_ 是一个 Kotlin 模块，可构建为一个 Android 应用程序。它使用 Gradle 作为构建系统。composeApp 模块依赖于 shared 模块并将其作为常规 Android 库使用。
-*   _iosApp_ 是一个 Xcode 项目，可构建为一个 iOS 应用程序。它依赖于 shared 模块并将其作为 iOS framework 使用。shared 模块可以作为常规 framework 或 [CocoaPods 依赖项](multiplatform-cocoapods-overview.md)使用。默认情况下，在 IntelliJ IDEA 中创建的 Kotlin Multiplatform 项目使用常规 framework 依赖项。
+*   _iosApp_ 是一个 Xcode project，可构建为一个 iOS 应用程序。它依赖于 shared 模块并将其作为 iOS framework 使用。shared 模块可以作为常规 framework 或 [CocoaPods 依赖项](multiplatform-cocoapods-overview.md)使用。默认情况下，在 IntelliJ IDEA 中创建的 Kotlin Multiplatform 项目使用常规 framework 依赖项。
 
 ![Basic Multiplatform project structure](basic-project-structure.svg){width=700}
 
@@ -261,11 +263,11 @@ common 源代码集可以定义预期声明（接口、类等）。然后，每�
 
 #### 在真实的 iOS 设备上运行 {initial-collapse-state="collapsed" collapsible="true"}
 
-你可以在真实的 iOS 设备上运行你的多平台应用程序。在开始之前，你需要设置与你的 [Apple ID](https://support.apple.com/en-us/HT204316) 相关联的团队 ID。
+你可以在真实的 iOS 设备上运行你的多平台应用程序。在开始之前，你需要设置与你的 [Apple ID](https://support.apple.com/en-us/HT204316) 相关联的 Team ID。
 
-##### 设置你的团队 ID
+##### 设置你的 Team ID
 
-要在你的项目中设置团队 ID，你可以使用 IntelliJ IDEA 中的 KDoctor 工具，或者在 Xcode 中选择你的团队。
+要在你的项目中设置 Team ID，你可以使用 IntelliJ IDEA 中的 KDoctor 工具，或者在 Xcode 中选择你的团队。
 
 对于 KDoctor：
 
@@ -275,14 +277,14 @@ common 源代码集可以定义预期声明（接口、类等）。然后，每�
     kdoctor --team-ids 
     ```
 
-    KDoctor 将列出当前在你的系统上配置的所有团队 ID，例如：
+    KDoctor 将列出当前在你的系统上配置的所有 Team ID，例如：
 
     ```text
     3ABC246XYZ (Max Sample)
     ZABCW6SXYZ (SampleTech Inc.)
     ```
 
-2.  在 IntelliJ IDEA 中，打开 `iosApp/Configuration/Config.xcconfig` 并指定你的团队 ID。
+2.  在 IntelliJ IDEA 中，打开 `iosApp/Configuration/Config.xcconfig` 并指定你的 Team ID。
 
 或者，在 Xcode 中选择团队：
 
@@ -290,9 +292,9 @@ common 源代码集可以定义预期声明（接口、类等）。然后，每�
 2.  导航到你项目中的 `iosApp/iosApp.xcworkspace` 文件。
 3.  在左侧菜单中，选择 `iosApp`。
 4.  导航到 **Signing & Capabilities**。
-5.  在**团队**列表中，选择你的团队。
+5.  在 **Team** 列表中，选择你的团队。
 
-    如果你尚未设置你的团队，请在**团队**列表中使用**添加账户**选项并遵循 Xcode 说明。
+    如果你尚未设置你的团队，请在 **Team** 列表中使用 **Add an Account** 选项并遵循 Xcode 说明。
 
 6.  确保 Bundle Identifier 是唯一的，并且 Signing Certificate 已成功分配。
 
@@ -309,7 +311,7 @@ common 源代码集可以定义预期声明（接口、类等）。然后，每�
 5.  使用你的 Apple ID 登录以在设备上启用开发能力。
 6.  遵循屏幕上的说明以完成配对过程。
 
-一旦你在 Xcode 中注册了你的 iPhone，在 IntelliJ IDEA 中[创建一个新的运行配置](#在新的-ios-模拟设备上运行)并在**执行目标**列表中选择你的设备。运行对应的 `iosApp` 配置。
+一旦你在 Xcode 中注册了你的 iPhone，[在新的 iOS 模拟设备上运行](#在新的-ios-模拟设备上运行) IntelliJ IDEA 中创建一个新的运行配置并在 **Execution target** 列表中选择你的设备。运行对应的 `iosApp` 配置。
 
 ## 下一步
 

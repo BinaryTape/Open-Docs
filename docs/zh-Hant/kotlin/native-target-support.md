@@ -8,7 +8,7 @@ Kotlin/Native 編譯器支援大量不同的目標平台，儘管難以對所有
 
 請注意以下用於層級表格的術語：
 
-*   **Gradle 目標名稱** 是用於 Kotlin 多平台 Gradle 外掛程式中以啟用目標平台的 [目標名稱](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-dsl-reference.html#targets)。
+*   **Gradle 目標名稱** 是用於 Kotlin 多平台 Gradle 外掛程式中以啟用目標平台的 [目標名稱](https://kotlinlang.org/docs/multiplatform/multiplatform-dsl-reference.html#targets)。
 *   **目標三元組** 是根據 `<architecture>-<vendor>-<system>-<abi>` 結構定義的目標名稱，常被 [編譯器](https://clang.llvm.org/docs/CrossCompilation.html#target-triple) 使用。
 *   **執行測試** 表示在 Gradle 和 IDE 中執行測試的開箱即用支援。
     

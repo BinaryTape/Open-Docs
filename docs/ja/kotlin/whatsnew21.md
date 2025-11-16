@@ -1,38 +1,4 @@
-[//]: # (title: Kotlin 2.1.0 の新機能)
-
-[リリース日: 2024年11月27日](releases.md#release-details)
-
-Kotlin 2.1.0 がリリースされました！主なハイライトは以下の通りです。
-
-*   **プレビュー版の新言語機能**: [when式でのガード条件（when with a subject）](#guard-conditions-in-when-with-a-subject)、
-    [非ローカルな `break` と `continue`](#non-local-break-and-continue)、および[複数ドル記号による文字列補間](#multi-dollar-string-interpolation)。
-*   **K2 コンパイラの更新**: [コンパイラチェックの柔軟性向上](#extra-compiler-checks)と [kapt実装の改善](#improved-k2-kapt-implementation)。
-*   **Kotlin Multiplatform**: [Swiftエクスポートの基本サポート](#basic-support-for-swift-export)の導入、
-    [コンパイラオプションの安定版Gradle DSL](#new-gradle-dsl-for-compiler-options-in-multiplatform-projects-promoted-to-stable)など。
-*   **Kotlin/Native**: [`iosArm64`のサポート改善](#iosarm64-promoted-to-tier-1)およびその他の更新。
-*   **Kotlin/Wasm**: [インクリメンタルコンパイルのサポート](#support-for-incremental-compilation)を含む複数の更新。
-*   **Gradle サポート**: [新しいバージョンのGradleおよびAndroid Gradleプラグインとの互換性向上](#gradle-improvements)、
-    [Kotlin GradleプラグインAPIの更新](#new-api-for-kotlin-gradle-plugin-extensions)。
-*   **ドキュメント**: [Kotlinドキュメントの大幅な改善](#documentation-updates)。
-
-## IDEサポート
-
-2.1.0 をサポートする Kotlin プラグインは、最新の IntelliJ IDEA および Android Studio にバンドルされています。
-IDE 内の Kotlin プラグインを更新する必要はありません。
-ビルドスクリプトで Kotlin バージョンを 2.1.0 に変更するだけです。
-
-詳細については、[新しい Kotlin バージョンへの更新](releases.md#update-to-a-new-kotlin-version)を参照してください。
-
-## 言語
-
-K2 コンパイラを搭載した Kotlin 2.0.0 のリリース後、JetBrains チームは新機能で言語の改善に注力しています。
-このリリースでは、いくつかの新しい言語設計の改善を発表できることを嬉しく思います。
-
-これらの機能はプレビュー版として利用可能であり、ぜひお試しいただき、フィードバックを共有してください。
-
-*   [when式でのガード条件（when with a subject）](#guard-conditions-in-when-with-a-subject)
-*   [非ローカルな `break` と `continue`](#non-local-break-and-continue)
-*   [複数ドル記号による文字列補間: 文字列リテラル内の`$`の処理を改善](#multi-dollar-string-interpolation)
+` in string literals](#multi-dollar-string-interpolation)
 
 > すべての機能は、K2 モードが有効になっている IntelliJ IDEA の最新バージョン 2024.3 で IDE サポートが提供されています。
 >
@@ -185,7 +151,7 @@ val KClass<*>.jsonSchema : String
     """
 ```
 
-この例では、最初の `$` は、補間をトリガーするために **2つのドル記号** (`$`) が必要であることを意味します。
+この例では、最初の `$` は、補間をトリガーするために **2つのドル記号** (`$$`) が必要であることを意味します。
 これにより、`$schema`、`$id`、`$dynamicAnchor` が補間マーカーとして解釈されるのを防ぎます。
 
 このアプローチは、プレースホルダー構文にドル記号を使用するシステムと連携する場合に特に役立ちます。
@@ -528,7 +494,7 @@ Kotlin 2.1.0 で、この DSL は安定版に昇格しました。
 
 ![Kotlinコンパイラオプションのレベル](compiler-options-levels.svg){width=700}
 
-異なるレベルと、それらの間でコンパイラオプションをどのように構成できるかについて詳しく知るには、[コンパイラオプション](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-dsl-reference.html#compiler-options)を参照してください。
+異なるレベルと、それらの間でコンパイラオプションをどのように構成できるかについて詳しく知るには、[コンパイラオプション](https://kotlinlang.org/docs/multiplatform/multiplatform-dsl-reference.html#compiler-options)を参照してください。
 
 ### Kotlin MultiplatformにおけるGradleのIsolated Projectsのプレビュー
 
@@ -616,7 +582,7 @@ Swift エクスポートが既に設定されている[公開サンプル](https
 
 この機能は現在、開発の初期段階にあることに留意してください。
 
-Swift エクスポートは現在、iOS フレームワークを Xcode プロジェクトに接続するために[直接統合](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-direct-integration.html)を使用するプロジェクトで動作します。
+Swift エクスポートは現在、iOS フレームワークを Xcode プロジェクトに接続するために[直接統合](https://kotlinlang.org/docs/multiplatform/multiplatform-direct-integration.html)を使用するプロジェクトで動作します。
 これは、Android Studio または [Web ウィザード](https://kmp.jetbrains.com/)で作成された Kotlin Multiplatform プロジェクトの標準的な構成です。
 
 プロジェクトで Swift エクスポートを試すには：
@@ -670,15 +636,15 @@ kotlin.native.enableKlibsCrossCompilation=true
 この機能は現在実験的であり、いくつかの制限があります。Mac マシンは、以下の場合は引き続き必要です。
 
 *   ライブラリに [cinterop の依存関係](native-c-interop.md)がある場合。
-*   プロジェクトで [CocoaPods 統合](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-cocoapods-overview.html)が設定されている場合。
-*   Apple ターゲット向けの[最終バイナリ](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-build-native-binaries.html)をビルドまたはテストする必要がある場合。
+*   プロジェクトで [CocoaPods 統合](https://kotlinlang.org/docs/multiplatform/multiplatform-cocoapods-overview.html)が設定されている場合。
+*   Apple ターゲット向けの[最終バイナリ](https://kotlinlang.org/docs/multiplatform/multiplatform-build-native-binaries.html)をビルドまたはテストする必要がある場合。
 
 #### 任意のホストからライブラリを公開することに関するフィードバック
 
 この機能を安定させ、将来の Kotlin リリースでライブラリの公開をさらに改善する予定です。
 課題トラッカー[YouTrack](https://youtrack.jetbrains.com/issue/KT-71290)にフィードバックをお願いいたします。
 
-詳細については、[マルチプラットフォームライブラリの公開](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-publish-lib-setup.html)を参照してください。
+詳細については、[マルチプラットフォームライブラリの公開](https://kotlinlang.org/docs/multiplatform/multiplatform-publish-lib-setup.html)を参照してください。
 
 ### 非圧縮klibのサポート
 
@@ -732,14 +698,14 @@ Kotlin 2.1.0 では、古い `android` ターゲット名の非推奨警告が�
 新しいプラグインが利用可能になったら、さらなる移行手順を提供します。
 Google からの新しい DSL は、Kotlin Multiplatform の Android ターゲットサポートの推奨オプションとなります。
 
-詳細については、[Kotlin Multiplatform 互換性ガイド](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-compatibility-guide.html#rename-of-android-target-to-androidtarget)を参照してください。
+詳細については、[Kotlin Multiplatform 互換性ガイド](https://kotlinlang.org/docs/multiplatform/multiplatform-compatibility-guide.html#rename-of-android-target-to-androidtarget)を参照してください。
 
 ### 同タイプの複数ターゲット宣言のサポート終了
 
 Kotlin 2.1.0 以前は、マルチプラットフォームプロジェクトで同じタイプの複数のターゲットを宣言できました。
 しかし、これによりターゲット間の区別が難しくなり、共有ソースセットを効果的にサポートすることが困難になりました。
 ほとんどの場合、別々の Gradle プロジェクトを使用するなど、よりシンプルな設定の方がうまく機能します。
-詳細なガイダンスと移行方法の例については、Kotlin Multiplatform 互換性ガイドの[複数の類似ターゲットの宣言](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-compatibility-guide.html#declaring-several-similar-targets)を参照してください。
+詳細なガイダンスと移行方法の例については、Kotlin Multiplatform 互換性ガイドの[複数の類似ターゲットの宣言](https://kotlinlang.org/docs/multiplatform/multiplatform-compatibility-guide.html#declaring-several-similar-targets)を参照してください。
 
 Kotlin 1.9.20 では、マルチプラットフォームプロジェクトで同じタイプの複数のターゲットを宣言した場合に非推奨警告がトリガーされました。
 Kotlin 2.1.0 では、この非推奨警告は Kotlin/JS ターゲットを除くすべてのターゲットでエラーとなりました。
@@ -747,11 +713,11 @@ Kotlin/JS ターゲットが免除される理由の詳細については、[You
 
 ## Kotlin/Native
 
-Kotlin 2.1.0 には、[`iosArm64` ターゲットサポートのアップグレード](#iosarm64-promoted-to-tier-1)、[cinterop キャッシュプロセスの改善](#changes-to-cinterop-caching)、およびその他の更新が含まれています。
+Kotlin 2.1.0 には、[`iosArm64` ターゲットサポートのアップグレード](#iosarm64-promoted-to-tier-1)、[cinterop キャッシュプロセスの改善](#changes-to-caching-in-cinterop)、およびその他の更新が含まれています。
 
 ### iosArm64がTier 1に昇格
 
-[Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html) 開発にとって重要な `iosArm64` ターゲットが Tier 1 に昇格しました。
+[Kotlin Multiplatform](https://kotlinlang.org/docs/multiplatform/get-started.html) 開発にとって重要な `iosArm64` ターゲットが Tier 1 に昇格しました。
 これは Kotlin/Native コンパイラで最高レベルのサポートです。
 
 これは、ターゲットがコンパイルおよび実行可能であることを保証するために、CI パイプラインで定期的にテストされることを意味します。
@@ -775,7 +741,8 @@ Kotlin 2.1.0 では、cinterop キャッシュプロセスに変更を加えま�
 [`CacheableTask`](https://docs.gradle.org/current/javadoc/org/gradle/api/tasks/CacheableTask.html) アノテーション型はなくなりました。
 新しい推奨アプローチは、タスクの結果をキャッシュするために [`cacheIf`](https://docs.gradle.org/current/kotlin-dsl/gradle/org.gradle.api.tasks/-task-outputs/cache-if.html) 出力タイプを使用することです。
 
-これにより、[`definition file`](native-definition-file.md)で指定されたヘッダーファイルへの変更を `UP-TO-DATE` チェックが検出できなかった問題を解決し、ビルドシステムがコードを再コンパイルすることを防ぎます。
+これにより、`UP-TO-DATE`
+チェックが[`definition file`](native-definition-file.md)で指定されたヘッダーファイルへの変更を検出できなかった問題を解決し、ビルドシステムがコードを再コンパイルすることを防ぎます。
 
 ### mimallocメモリ割り当て機能の非推奨化
 
@@ -818,7 +785,8 @@ Kotlin/Wasm のインクリメンタルコンパイルを試して、[フィー�
 
 以前は、Web API および関連ターゲットユーティリティの宣言は Kotlin/Wasm 標準ライブラリの一部でした。
 
-このリリースでは、`org.w3c.*` の宣言が Kotlin/Wasm 標準ライブラリから新しい [kotlinx-browser ライブラリ](https://github.com/kotlin/kotlinx-browser)に移動されました。
+このリリースでは、`org.w3c.*`
+の宣言が Kotlin/Wasm 標準ライブラリから新しい [kotlinx-browser ライブラリ](https://github.com/kotlin/kotlinx-browser)に移動されました。
 このライブラリには、`org.khronos.webgl`、`kotlin.dom`、`kotlinx.browser` などの他の Web 関連パッケージも含まれています。
 
 この分離によりモジュール性が提供され、Kotlin のリリースサイクルとは独立して Web 関連 API の更新が可能になります。
@@ -1105,7 +1073,8 @@ Kotlin 2.1.0 から、サポートされる Gradle の最小バージョンは 7
 ### Kotlin Gradleプラグイン拡張の新API
 
 Kotlin 2.1.0 では、Kotlin Gradle プラグインを設定するための独自のプラグインをより簡単に作成できる新しい API が導入されました。
-この変更により、`KotlinTopLevelExtension` および `KotlinTopLevelExtensionConfig` インターフェースが非推奨となり、プラグイン作成者向けに以下のインターフェースが導入されます。
+この変更により、`KotlinTopLevelExtension` および `KotlinTopLevelExtensionConfig`
+インターフェースが非推奨となり、プラグイン作成者向けに以下のインターフェースが導入されます。
 
 | 名前                     | 説明                                                                                                                                                                                                                                                          |
 |:-----------------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -1308,17 +1277,22 @@ Kotlin 2.1.0 では、いくつかの標準ライブラリ API の非推奨度�
 これらの API にコードが依存している場合、互換性を確保するために更新する必要があります。
 最も注目すべき変更は以下の通りです。
 
-*   **`Char`および`String`のロケール依存のケース変換関数が非推奨に:** `Char.toLowerCase()`、`Char.toUpperCase()`、`String.toUpperCase()`、`String.toLowerCase()` などの関数が非推奨となり、使用するとエラーになります。
+*   **`Char`および`String`のロケール依存のケース変換関数が非推奨に:**
+    `Char.toLowerCase()`、`Char.toUpperCase()`、`String.toUpperCase()`、
+    および `String.toLowerCase()` などの関数が非推奨となり、使用するとエラーになります。
     それらをロケールに依存しない関数の代替または他のケース変換メカニズムに置き換えてください。
-    デフォルトロケールを引き続き使用したい場合は、`String.toLowerCase()` のような呼び出しを、ロケールを明示的に指定して `String.lowercase(Locale.getDefault())` に置き換えてください。
+    デフォルトロケールを引き続き使用したい場合は、`String.toLowerCase()`
+    のような呼び出しを、ロケールを明示的に指定して `String.lowercase(Locale.getDefault())` に置き換えてください。
     ロケールに依存しない変換の場合は、デフォルトで不変ロケールを使用する `String.lowercase()` に置き換えてください。
 
-*   **Kotlin/NativeのフリージングAPIが非推奨に:** 以前 `@FreezingIsDeprecated` アノテーションでマークされていたフリージング関連の宣言を使用すると、エラーになります。
+*   **Kotlin/NativeのフリージングAPIが非推奨に:**
+    以前 `@FreezingIsDeprecated` アノテーションでマークされていたフリージング関連の宣言を使用すると、エラーになります。
     この変更は、Kotlin/Native におけるレガシーメモリマネージャからの移行を反映しており、スレッド間でオブジェクトを共有するためにオブジェクトのフリーズが必要でした。
     新しいメモリモデルでフリージング関連 API から移行する方法については、[Kotlin/Native 移行ガイド](native-migration-guide.md#update-your-code)を参照してください。
     詳細については、[フリージング非推奨化に関するお知らせ](whatsnew1720.md#freezing)を参照してください。
 
-*   **`appendln()`が`appendLine()`に代わって非推奨に:** `StringBuilder.appendln()` および `Appendable.appendln()` 関数は非推奨となり、使用するとエラーになります。
+*   **`appendln()`が`appendLine()`に代わって非推奨に:**
+    `StringBuilder.appendln()` および `Appendable.appendln()` 関数は非推奨となり、使用するとエラーになります。
     それらを置き換えるには、代わりに `StringBuilder.appendLine()` または `Appendable.appendLine()` 関数を使用します。
     `appendln()` 関数が非推奨となるのは、Kotlin/JVM 上で `line.separator` システムプロパティを使用するためで、これは OS ごとに異なるデフォルト値を持っています。
     Kotlin/JVM では、このプロパティは Windows ではデフォルトで `\r
@@ -1342,7 +1316,7 @@ Kotlin 2.1.0 では、以下のファイルツリー走査拡張が[安定版](c
 *   `sealed interface FileVisitorBuilder` を使用すると、カスタムの `FileVisitor` 実装を定義できます。
 *   `enum class PathWalkOption` は、`Path.walk()` 関数の走査オプションを提供します。
 
-以下の例は、これらのファイル走査 API を使用してカスタムの `FileVisitor` 動作を作成し、ファイルやディレクトリを訪れる際の特定のアクションを定義する方法を示しています。
+以下の例は、これらのファイル走査 API を使用してカスタムの `FileVisitor` 動作を作成し、ファイルやディレクトリを訪れる際の特定のアクションを定義する方法を示します。
 
 例えば、`FileVisitor` を明示的に作成し、後で使用することができます。
 
@@ -1457,9 +1431,9 @@ Kotlin のドキュメントにはいくつかの注目すべき変更が加え�
 ### マルチプラットフォーム開発
 
 *   新しい[マルチプラットフォーム用Kotlinライブラリのビルド](https://kotlinlang.org/docs/api-guidelines-build-for-multiplatform.html)ページ – Kotlin Multiplatform 用に Kotlin ライブラリを設計する方法を学びます。
-*   新しい[Kotlin Multiplatformの紹介](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html)ページ – Kotlin Multiplatform の主要な概念、依存関係、ライブラリなどについて学びます。
+*   新しい[Kotlin Multiplatformの紹介](https://kotlinlang.org/docs/multiplatform/get-started.html)ページ – Kotlin Multiplatform の主要な概念、依存関係、ライブラリなどについて学びます。
 *   更新された[Kotlin Multiplatformの概要](multiplatform.topic)ページ – Kotlin Multiplatform の基本と一般的なユースケースをナビゲートします。
-*   新しい[iOS統合](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-ios-integration-overview.html)セクション – Kotlin Multiplatform 共有モジュールを iOS アプリに統合する方法を学びます。
+*   新しい[iOS統合](https://kotlinlang.org/docs/multiplatform/multiplatform-ios-integration-overview.html)セクション – Kotlin Multiplatform 共有モジュールを iOS アプリに統合する方法を学びます。
 *   新しい[Kotlin/Nativeの定義ファイル](native-definition-file.md)ページ – C および Objective-C ライブラリを使用するための定義ファイルの作成方法を学びます。
 *   [WASIを使ってみる](wasm-wasi.md) – WASI を使用してさまざまな WebAssembly 仮想マシンでシンプルな Kotlin/Wasm アプリケーションを実行する方法を学びます。
 

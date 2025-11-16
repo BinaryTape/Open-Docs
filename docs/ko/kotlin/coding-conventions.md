@@ -20,6 +20,10 @@ Kotlin을 위한 가장 인기 있는 두 가지 IDE인 [IntelliJ IDEA](https://
 2. **Incorrect formatting** 검사를 켭니다.
 스타일 가이드에 설명된 다른 문제(예: 명명 규칙)를 확인하는 추가 검사는 기본적으로 활성화되어 있습니다.
 
+<!-- Replace with an external link when the guide is moved -->
+
+자세한 내용은 [IntelliJ IDEA로 Kotlin 코드 스타일 마이그레이션](code-style-migration-guide.md) 가이드를 참조하십시오.
+
 ## 소스 코드 구성
 
 ### 디렉토리 구조

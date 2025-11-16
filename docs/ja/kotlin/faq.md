@@ -30,9 +30,7 @@ Kotlinはより簡潔です。おおよその見積もりでは、コード行�
 
 ### KotlinはJavaプログラミング言語と互換性がありますか？
 
-はい。KotlinはJavaプログラミング言語と100%相互運用可能であり、既存のコードベースがKotlinと適切に連携できるようにすることに重点が置かれています。
-[JavaからKotlinコードを簡単に呼び出す](java-to-kotlin-interop.md)ことも、[KotlinからJavaコードを呼び出す](java-interop.md)こともできます。
-これにより、導入がはるかに容易になり、リスクが低減されます。また、既存のコードの移行を簡素化するために、[IDEにJava-to-Kotlin変換ツールが組み込まれています](mixing-java-kotlin-intellij.md#converting-an-existing-java-file-to-kotlin-with-j2k)。
+はい。KotlinはJavaプログラミング言語と100%相互運用可能であり、既存のコードベースがKotlinと適切に連携できるようにすることに重点が置かれています。[JavaからKotlinコードを簡単に呼び出す](java-to-kotlin-interop.md)ことも、[KotlinからJavaコードを呼び出す](java-interop.md)こともできます。これにより、導入がはるかに容易になり、リスクが低減されます。また、既存のコードの移行を簡素化するために、自動化された[IDEにJava-to-Kotlin変換ツールが組み込まれています](mixing-java-kotlin-intellij.md#convert-java-files-to-kotlin)。
 
 ### Kotlinは何に利用できますか？
 
@@ -42,19 +40,15 @@ Kotlin/Nativeが現在開発中であり、組み込みシステム、macOS、iO
 
 ### Android開発にKotlinを使用できますか？
 
-はい。KotlinはAndroidでファーストクラス言語としてサポートされています。Basecamp、Pinterestなど、すでに何百ものアプリケーションがAndroidにKotlinを使用しています。
-詳細については、[Android開発のリソース](android-overview.md)を確認してください。
+はい。KotlinはAndroidでファーストクラス言語としてサポートされています。Basecamp、Pinterestなど、すでに何百ものアプリケーションがAndroidにKotlinを使用しています。詳細については、[Android開発のリソース](android-overview.md)を確認してください。
 
 ### サーバーサイド開発にKotlinを使用できますか？
 
-はい。KotlinはJVMと100%互換性があり、そのためSpring Boot、vert.x、JSFなどの既存のフレームワークを使用できます。
-さらに、[Ktor](https://github.com/kotlin/ktor)など、Kotlinで書かれた特定のフレームワークもあります。
-詳細については、[サーバーサイド開発のリソース](server-overview.md)を確認してください。
+はい。KotlinはJVMと100%互換性があり、そのためSpring Boot、vert.x、JSFなどの既存のフレームワークを使用できます。さらに、[Ktor](https://github.com/kotlin/ktor)など、Kotlinで書かれた特定のフレームワークもあります。詳細については、[サーバーサイド開発のリソース](server-overview.md)を確認してください。
 
 ### Web開発にKotlinを使用できますか？
 
-はい。バックエンドWeb開発では、Kotlinは[Ktor](https://ktor.io/)や[Spring](https://spring.io/)などのフレームワークと相性が良く、サーバーサイドアプリケーションを効率的に構築できます。
-さらに、クライアントサイドWeb開発にはKotlin/Wasmを使用できます。
+はい。バックエンドWeb開発では、Kotlinは[Ktor](https://ktor.io/)や[Spring](https://spring.io/)などのフレームワークと相性が良く、サーバーサイドアプリケーションを効率的に構築できます。さらに、クライアントサイドWeb開発にはKotlin/Wasmを使用できます。
 [Kotlin/Wasmの入門方法](wasm-get-started.md)を学びましょう。
 
 ### デスクトップ開発にKotlinを使用できますか？
@@ -94,8 +88,7 @@ Nativeをターゲットとする場合、Kotlinはプラットフォーム固�
 ### KotlinがターゲットとするJVMのバージョンは何ですか？
 
 Kotlinでは、実行するJVMのバージョンを選択できます。デフォルトでは、Kotlin/JVMコンパイラはJava 8互換のバイトコードを生成します。
-より新しいJavaバージョンで利用可能な最適化を利用したい場合は、ターゲットとするJavaバージョンを9から24まで明示的に指定できます。
-この場合、結果のバイトコードは下位バージョンでは実行できない可能性があることに注意してください。
+より新しいJavaバージョンで利用可能な最適化を利用したい場合は、ターゲットとするJavaバージョンを9から24まで明示的に指定できます。この場合、結果のバイトコードは下位バージョンでは実行できない可能性があることに注意してください。
 [Kotlin 1.5](whatsnew15.md#new-default-jvm-target-1-8)以降、コンパイラはJava 8より前のバージョンと互換性のあるバイトコードの生成をサポートしていません。
 
 ### Kotlinは難しいですか？
@@ -154,8 +147,7 @@ JetBrains Academyの[Kotlin Coreトラック](https://hyperskill.org/tracks?cate
 KotlinConfでは、技術講演やワークショップに加えて、ネットワーキングの機会、コミュニティ交流、ソーシャルイベントも提供され、参加者は他のKotlinerとつながり、アイデアを交換できます。
 これは、Kotlinエコシステム内でのコラボレーションとコミュニティ構築を促進するためのプラットフォームとして機能します。
 
-Kotlinは世界中の様々なカンファレンスでも取り上げられています。
-[今後の講演のリスト](https://kotlinlang.org/community/talks.html?time=upcoming)はウェブサイトで確認できます。
+Kotlinは世界中の様々なカンファレンスでも取り上げられています。[今後の講演のリスト](https://kotlinlang.org/community/talks.html?time=upcoming)はウェブサイトで確認できます。
 
 ### Kotlinはソーシャルメディアにありますか？
 

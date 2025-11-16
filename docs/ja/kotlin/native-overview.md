@@ -49,7 +49,7 @@ Kotlin/Nativeは[Objective-Cを介したSwiftとの相互運用](native-objc-int
 
 Kotlin/Nativeには、プロジェクト間でKotlinコードを共有するのに役立つ、事前ビルドされた[プラットフォームライブラリ](native-platform-libs.md)のセットが含まれています。POSIX、gzip、OpenGL、Metal、Foundation、その他多くの人気のあるライブラリやAppleフレームワークは、コンパイラパッケージにKotlin/Nativeライブラリとして事前インポートされ、含まれています。
 
-Kotlin/Nativeは、Android、iOS、JVM、Web、ネイティブなど、複数のプラットフォーム間で共通コードを共有するのに役立つ[Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html)テクノロジーの一部です。マルチプラットフォームライブラリは、共通のKotlinコードに必要なAPIを提供し、プロジェクトの共有部分をすべてKotlinで一箇所に記述することを可能にします。
+Kotlin/Nativeは、Android、iOS、JVM、Web、ネイティブなど、複数のプラットフォーム間で共通コードを共有するのに役立つ[Kotlin Multiplatform](https://kotlinlang.org/docs/multiplatform/get-started.html)テクノロジーの一部です。マルチプラットフォームライブラリは、共通のKotlinコードに必要なAPIを提供し、プロジェクトの共有部分をすべてKotlinで一箇所に記述することを可能にします。
 
 ## メモリマネージャ
 

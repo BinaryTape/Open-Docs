@@ -36,7 +36,7 @@ Kotlin/Native 允许你使用 C 和 Objective-C 库，从而在 Kotlin 中利用
 
         如果你不想将外部依赖项（例如系统 `stdint.h` 头文件）获取到互操作库中，可以使用 `headerFilter`。此外，它可能有助于优化库大小，并解决系统与所提供的 Kotlin/Native 编译环境之间潜在的冲突。
 
-    *   如果需要修改某个平台特有的行为，你可以使用 `compilerOpts.osx` 或 `compilerOpts.linux` 等格式为选项提供平台特有的值。在此例中，它们是 macOS（`.osx` 后缀）和 Linux（`.linux` 后缀）。不带后缀的参数也是可能的（例如，`linkerOpts=`），并应用于所有平台。
+    *   如果某个平台特有的行为需要修改，你可以使用 `compilerOpts.osx` 或 `compilerOpts.linux` 等格式为选项提供平台特有的值。在此例中，它们是 macOS（`.osx` 后缀）和 Linux（`.linux` 后缀）。不带后缀的参数也是可能的（例如，`linkerOpts=`），并应用于所有平台。
 
 5.  要生成绑定，请在通知中点击 **Sync Now** 以同步 Gradle 文件。
 
@@ -127,7 +127,7 @@ compilerOpts = -DFOO=bar
 linkerOpts = -lpng
 ```
 
-你还可以指定仅适用于某个目标特有的选项：
+你还可以指定仅适用于某个目标的选项：
 
 ```none
 compilerOpts = -DBAR=bar
@@ -143,9 +143,7 @@ compilerOpts.macos_x64 = -DFOO=foo2
 
 ### 包含静态库
 
-> 此特性是 [实验性的](components-stability.md#stability-levels-explained)。它可能随时被删除或更改。仅用于评估目的。
->
-{style="warning"}
+<primary-label ref="experimental-general"/>
 
 有时，将静态库与你的产品一起交付比假定它在用户环境中可用更为方便。要将静态库包含到 `.klib` 中，请使用 `staticLibrary` 和 `libraryPaths` 属性：
 
@@ -179,7 +177,7 @@ libraryPaths = /opt/local/lib /usr/local/opt/curl/lib
 
 ### 帮助解决链接器错误
 
-当 Kotlin 库依赖于 C 或 Objective-C 库时，可能会发生链接器错误，例如，使用 [CocoaPods 集成](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-cocoapods-overview.html) 时。如果依赖库未本地安装在机器上或未在项目构建脚本中显式配置，则会发生“Framework not found”错误。
+当 Kotlin 库依赖于 C 或 Objective-C 库时，可能会发生链接器错误，例如，使用 [CocoaPods 集成](https://kotlinlang.org/docs/multiplatform/multiplatform-cocoapods-overview.html) 时。如果依赖库未本地安装在机器上或未在项目构建脚本中显式配置，则会发生“Framework not found”错误。
 
 如果你是一位库作者，你可以通过自定义消息帮助用户解决链接器错误。为此，请将 `userSetupHint=message` 属性添加到你的 `.def` 文件中，或将 `-Xuser-setup-hint` 编译器选项传递给 `cinterop`。
 

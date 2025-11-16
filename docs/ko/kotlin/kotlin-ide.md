@@ -55,5 +55,5 @@ JetBrains는 다른 IDE용 Kotlin 플러그인을 제공하지 않습니다.
 
 ## 다음 단계
 
-*   [IntelliJ IDEA IDE를 사용하여 첫 프로젝트 시작하기](jvm-get-started.md)
-*   [Android Studio를 사용하여 첫 크로스 플랫폼 모바일 앱 만들기](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-create-first-app.html)
+* [IntelliJ IDEA에서 콘솔 애플리케이션 만들기](jvm-get-started.md)
+* [Android Studio를 사용하여 첫 크로스 플랫폼 모바일 앱 만들기](https://kotlinlang.org/docs/multiplatform/multiplatform-create-first-app.html)

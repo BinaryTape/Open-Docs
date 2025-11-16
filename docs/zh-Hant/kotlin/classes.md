@@ -1,5 +1,10 @@
 [//]: # (title: 類別)
 
+> 在建立類別之前，如果目的是儲存資料，請考慮使用[資料類別](data-classes.md)。
+> 或者，考慮使用[擴充功能](extensions.md)來擴充現有類別，而不是從頭建立一個新類別。
+>
+{style="tip"}
+
 如同其他物件導向語言，Kotlin 使用 _類別_ 來封裝資料（屬性）和行為（函式），以實現可重複使用、結構化的程式碼。
 
 類別是物件的藍圖或模板，您可以透過[建構函式](#constructors-and-initializer-blocks)來建立物件。當您[建立類別實例](#creating-instances)時，您正在基於該藍圖建立一個具體物件。
@@ -67,8 +72,8 @@ val anonymousUser = Person()
 
 在 Kotlin 中，您可以透過以下方式建立實例：
 
-*   **不帶引數** (`Person()`)：如果類別中宣告了預設值，則使用預設值建立實例。
-*   **帶引數** (`Person(value)`)：透過傳遞特定值來建立實例。
+*   **不帶引數** (`Person()`): 如果類別中宣告了預設值，則使用預設值建立實例。
+*   **帶引數** (`Person(value)`): 透過傳遞特定值來建立實例。
 
 您可以將建立的實例指派給可變 (`var`) 或唯讀 (`val`) [變數](basic-syntax.md#variables)：
 
@@ -381,7 +386,7 @@ class Person {
         println("1. First initializer block runs")
     }
 
-    // 接受整數參數的次要建構函式
+    // 次要建構函式，接受整數參數
     constructor(i: Int) {
         // 在初始化區塊之後執行
         println("2. Person $i is created")
@@ -413,7 +418,7 @@ fun main() {
 }
 ```
 
-這個隱式主要建構函式的可視性是公開的，表示它可以從任何地方存取。如果您不希望您的類別擁有公開建構函式，請宣告一個具有非預設可視性的空主要建構函式：
+這個隱式主要建數函式的可視性是公開的，表示它可以從任何地方存取。如果您不希望您的類別擁有公開建構函式，請宣告一個具有非預設可視性的空主要建構函式：
 
 ```kotlin
 class Person private constructor() { /*...*/ }

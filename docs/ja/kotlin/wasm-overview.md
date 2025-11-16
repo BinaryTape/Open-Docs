@@ -29,7 +29,7 @@ Webプラットフォーム向けには、Compose MultiplatformはKotlin/Wasmを
 
 ![Kotlin/Wasm demo](wasm-demo.png){width=700}
 
-さらに、最も人気のあるKotlinライブラリをKotlin/Wasmですぐに利用できます。他のKotlinおよびMultiplatformプロジェクトと同様に、ビルドスクリプトに依存関係宣言を含めることができます。詳細については、[マルチプラットフォームライブラリへの依存関係の追加](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-add-dependencies.html)を参照してください。
+さらに、最も人気のあるKotlinライブラリをKotlin/Wasmですぐに利用できます。他のKotlinおよびMultiplatformプロジェクトと同様に、ビルドスクリプトに依存関係宣言を含めることができます。詳細については、[マルチプラットフォームライブラリへの依存関係の追加](https://kotlinlang.org/docs/multiplatform/multiplatform-add-dependencies.html)を参照してください。
 
 ご自身で試してみませんか？
 
@@ -50,7 +50,7 @@ WASIは、WebAssemblyにコンパイルされたKotlinアプリケーション�
 
 ## Kotlin/Wasmのパフォーマンス
 
-Kotlin/Wasmはまだアルファ版ですが、Kotlin/Wasm上で動作するCompose Multiplatformは、すでに有望なパフォーマンス特性を示しています。その実行速度はJavaScriptを上回り、JVMのそれに近づいていることがわかります。
+Kotlin/Wasmはまだベータ版ですが、Kotlin/Wasm上で動作するCompose Multiplatformは、すでに有望なパフォーマンス特性を示しています。その実行速度はJavaScriptを上回り、JVMのそれに近づいていることがわかります。
 
 ![Kotlin/Wasm performance](wasm-performance-compose.png){width=700}
 
@@ -68,15 +68,15 @@ Kotlin/Wasm標準ライブラリは、DOM APIを含むブラウザAPIの宣言�
 
 ### Kotlin/Wasmに関するフィードバック
 
-* ![Slack](slack.svg){width=25}{type="joined"} Slack: [Slackへの招待](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up)を受け取り、[#webassembly](https://kotlinlang.slack.com/archives/CDFP59223)チャンネルで開発者に直接フィードバックを提供してください。
-* [YouTrack](https://youtrack.jetbrains.com/issue/KT-56492)で問題があれば報告してください。
+*   ![Slack](slack.svg){width=25}{type="joined"} Slack: [Slackへの招待](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up)を受け取り、[#webassembly](https://kotlinlang.slack.com/archives/CDFP59223)チャンネルで開発者に直接フィードバックを提供してください。
+*   [YouTrack](https://youtrack.jetbrains.com/issue/KT-56492)で問題があれば報告してください。
 
 ### Compose Multiplatformに関するフィードバック
 
-* ![Slack](slack.svg){width=25}{type="joined"} Slack: [#compose-web](https://slack-chats.kotlinlang.org/c/compose-web)公開チャンネルでフィードバックを提供してください。
-* [GitHubで問題があれば報告してください](https://github.com/JetBrains/compose-multiplatform/issues)。
+*   ![Slack](slack.svg){width=25}{type="joined"} Slack: [#compose-web](https://slack-chats.kotlinlang.org/c/compose-web)公開チャンネルでフィードバックを提供してください。
+*   [GitHubで問題があれば報告してください](https://github.com/JetBrains/compose-multiplatform/issues)。
 
 ## 詳細情報
 
-* Kotlin/Wasmの詳細については、こちらの[YouTubeプレイリスト](https://kotl.in/wasm-pl)をご覧ください。
-* GitHubリポジトリの[Kotlin/Wasmの例](https://github.com/Kotlin/kotlin-wasm-examples)をご覧ください。
+*   Kotlin/Wasmの詳細については、こちらの[YouTubeプレイリスト](https://kotl.in/wasm-pl)をご覧ください。
+*   GitHubリポジトリの[Kotlin/Wasmの例](https://github.com/Kotlin/kotlin-wasm-examples)をご覧ください。

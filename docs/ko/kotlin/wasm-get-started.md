@@ -6,7 +6,7 @@
 
 ## 프로젝트 생성
 
-1. [Kotlin Multiplatform 개발 환경을 설정합니다.](https://www.jetbrains.com/help/kotlin-multiplatform-dev/quickstart.html#set-up-the-environment)
+1. [Kotlin Multiplatform 개발 환경을 설정합니다.](https://kotlinlang.org/docs/multiplatform/quickstart.html#set-up-the-environment)
 2. IntelliJ IDEA에서 **파일(File) | 새로 만들기(New) | 프로젝트(Project)**를 선택합니다.
 3. 왼쪽 패널에서 **Kotlin Multiplatform**을 선택합니다.
 
@@ -92,7 +92,7 @@ Compose Multiplatform 로고가 표시됩니다:
 
 ## 다음 단계는 무엇인가요?
 
-* [Compose Multiplatform을 사용하여 iOS와 Android 간에 UI를 공유하는 방법 알아보기](https://www.jetbrains.com/help/kotlin-multiplatform-dev/compose-multiplatform-create-first-app.html)
+* [Compose Multiplatform을 사용하여 iOS와 Android 간에 UI를 공유하는 방법 알아보기](https://kotlinlang.org/docs/multiplatform/compose-multiplatform-create-first-app.html)
 * 더 많은 Kotlin/Wasm 예제를 사용해 보세요:
 
   * [KotlinConf 애플리케이션](https://github.com/JetBrains/kotlinconf-app)

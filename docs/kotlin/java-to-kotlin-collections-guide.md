@@ -37,10 +37,10 @@ _集合_是由可变数量（可能为零）的项组成的组，这些项对解
 | 替换一个或多个元素 | `put()`, `replace()`, `replaceAll()` | 使用索引操作符 `map[key] = value` 代替 `put()` 和 `replace()`。 |
 | 获取元素 | `get()` | 使用索引操作符获取元素：`map[index]`。 |
 | 检测 map 是否包含一个或多个元素 | `containsKey()`, `containsValue()` | 使用[`in` 关键字](collection-elements.md#check-element-existence)以操作符形式调用 `contains()`：`element in map`。 |
-| 检测 map 是否为空 |  `isEmpty()` | 使用[`isNotEmpty()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/is-not-empty.html) 检测 map 是否不为空。 |
+| 检测 map 是否为空 | `isEmpty()` | 使用[`isNotEmpty()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/is-not-empty.html) 检测 map 是否不为空。 |
 | 移除元素 | `remove(key)`, `remove(key, value)` | 使用[`minusAssign`(`-=`) 操作符](collection-plus-minus.md)：`map -= key`。 |
 | 从 map 中移除所有元素 | `clear()` | |
-| 从 map 中获取流 | `stream()` on entries, keys, or values | |
+| 从 map 中获取流 | `stream()` | |
 
 ### 仅存在于 List 的操作
 
@@ -50,7 +50,7 @@ _集合_是由可变数量（可能为零）的项组成的组，这些项对解
 | 获取元素的最后一个索引 | `lastIndexOf()` | |
 | 获取元素 | `get()` | 使用索引操作符获取元素：`list[index]`。 |
 | 获取子 list | `subList()` | |
-| 替换一个或多个元素 | `set()`,  `replaceAll()` | 使用索引操作符代替 `set()`：`list[index] = value`。 |
+| 替换一个或多个元素 | `set()`, `replaceAll()` | 使用索引操作符代替 `set()`：`list[index] = value`。 |
 
 ## 略有不同的操作
 
@@ -86,11 +86,11 @@ _集合_是由可变数量（可能为零）的项组成的组，这些项对解
 
 ## Java 标准库中不存在的操作
 
-* [`zip()`, `unzip()`](collection-transformations.md) – 转换集合。
-* [`aggregate()`](collection-grouping.md) – 按条件分组。
-* [`takeLast()`, `takeLastWhile()`, `dropLast()`, `dropLastWhile()`](collection-parts.md#take-and-drop) – 按谓词取用或舍弃元素。
-* [`slice()`, `chunked()`, `windowed()`](collection-parts.md) – 检索集合部分。
-* [加 (`+`) 和减 (`-`) 操作符](collection-plus-minus.md) – 添加或移除元素。
+*   [`zip()`, `unzip()`](collection-transformations.md) – 转换集合。
+*   [`aggregate()`](collection-grouping.md) – 按条件分组。
+*   [`takeLast()`, `takeLastWhile()`, `dropLast()`, `dropLastWhile()`](collection-parts.md#take-and-drop) – 按谓词取用或舍弃元素。
+*   [`slice()`, `chunked()`, `windowed()`](collection-parts.md) – 检索集合部分。
+*   [加 (`+`) 和减 (`-`) 操作符](collection-plus-minus.md) – 添加或移除元素。
 
 如果你想深入了解 `zip()`、`chunked()`、`windowed()` 和其他一些操作，请观看 Sebastian Aigner 讲解 Kotlin 中高级集合操作的此视频：
 
@@ -638,7 +638,7 @@ fun main() {
 
     println(colors.zip(animals) { color, animal -> 
         "The ${animal.replaceFirstChar { it.uppercase() }} is $color" })
-//sampleEnd
+//end
 }
 ```
 {kotlin-runnable="true" id="zip-elements-kotlin"}
@@ -672,16 +672,16 @@ fun main() {
     // Kotlin
     val numbers = listOf("one", "two", "three", "four")
     println(numbers.associateWith { it.length })
-//sampleEnd
+//end
 }
 ```
 {kotlin-runnable="true" id="associate-elements-kotlin"}
 
 ## 接下来是什么？
 
-* 访问 [Kotlin 心印](koans.md) – 完成练习以学习 Kotlin 语法。每个练习都创建为一个失败的单元测试，你的任务是使其通过。
-* 浏览其他 [Kotlin 惯用法](idioms.md)。
-* 了解如何使用 [Java 到 Kotlin 转换器](mixing-java-kotlin-intellij.md#converting-an-existing-java-file-to-kotlin-with-j2k) 将现有 Java 代码转换为 Kotlin。
-* 探索 [Kotlin 中的集合](collections-overview.md)。
+*   访问 [Kotlin 心印](koans.md) – 完成练习以学习 Kotlin 语法。每个练习都创建为一个失败的单元测试，你的任务是使其通过。
+*   浏览其他 [Kotlin 惯用法](idioms.md)。
+*   了解如何使用 [Java 到 Kotlin 转换器](mixing-java-kotlin-intellij.md#converting-an-existing-java-file-to-kotlin-with-j2k) 将现有 Java 代码转换为 Kotlin。
+*   探索 [Kotlin 中的集合](collections-overview.md)。
 
 如果你有喜欢的惯用法，我们邀请你通过发送拉取请求来分享。

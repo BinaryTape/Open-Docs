@@ -1,5 +1,10 @@
 [//]: # (title: 继承)
 
+> 在使用类创建继承层级之前，请考虑使用[抽象类](classes.md#abstract-classes)或[接口](interfaces.md)。
+> 默认情况下，你可以继承抽象类和接口。它们旨在让其他类可以继承它们的成员并实现它们。
+>
+{style="tip"}
+
 Kotlin 中的所有类都有一个共同的超类 `Any`，它是未声明任何超类型的类的默认超类：
 
 ```kotlin
@@ -15,7 +20,7 @@ open class Base // 类可用于继承
 
 ```
 
-[关于 `open` 关键字，请参见 Open 关键字](#open-keyword)。
+[关于 `open` 关键字的更多信息，请参见 Open 关键字](#open-keyword)。
 
 要声明一个显式超类型，请在类头中的冒号后放置该类型：
 
@@ -42,11 +47,11 @@ class MyView : View {
 在 Kotlin 中，`open` 关键字表明一个类或成员（函数或属性）可以在子类中被覆盖。默认情况下，Kotlin 类及其成员是 _final_ 的，这意味着它们不能被继承（对于类而言）或被覆盖（对于成员而言），除非你显式地将它们标记为 `open`：
 
 ```kotlin
-// 带有 `open` 关键字的基类，允许被继承
+// 带有 open 关键字的基类，允许被继承
 open class Person(
     val name: String
 ) {
-    // 可以在子类中被覆盖的 `open` 函数
+    // 可以在子类中被覆盖的 open 函数
     open fun introduce() {
         println("Hello, my name is $name.")
     }
@@ -66,9 +71,9 @@ class Student(
 如果你覆盖基类的一个成员，该覆盖成员默认也是 `open` 的。如果你想改变这一点并禁止你的类的子类覆盖你的实现，你可以显式地将覆盖成员标记为 `final`：
 
 ```kotlin
-// 带有 `open` 关键字的基类，允许被继承
+// 带有 open 关键字的基类，允许被继承
 open class Person(val name: String) {
-    // 可以在子类中被覆盖的 `open` 函数
+    // 可以在子类中被覆盖的 open 函数
     open fun introduce() {
         println("Hello, my name is $name.")
     }
@@ -76,7 +81,7 @@ open class Person(val name: String) {
 
 // 继承自 Person 并覆盖 introduce() 函数的子类
 class Student(name: String, val school: String) : Person(name) {
-    // `final` 关键字可防止在子类中进一步覆盖
+    // final 关键字可防止在子类中进一步覆盖
     final override fun introduce() {
         println("Hi, I'm $name, and I study at $school.")
     }

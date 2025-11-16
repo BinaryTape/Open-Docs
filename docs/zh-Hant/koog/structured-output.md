@@ -10,14 +10,14 @@
 
 結構化輸出 API 包含幾個主要組成部分：
 
-1.  **資料結構定義**：`Kotlin data class`，使用 `kotlinx.serialization` 和 LLM 特定註解進行註解。
-2.  **JSON Schema 產生**：從 `Kotlin data class` 產生 `JSON Schema` 的工具。
-3.  **結構化 LLM 請求**：向 `LLMs` 請求符合定義結構回應的方法。
+1.  **資料結構定義**：使用 `kotlinx.serialization` 和 LLM 特定註解註解的 Kotlin data class。
+2.  **JSON Schema 產生**：從 Kotlin data class 產生 JSON Schema 的工具。
+3.  **結構化 LLM 請求**：向 LLMs 請求符合定義結構回應的方法。
 4.  **回應處理**：處理和驗證結構化回應。
 
 ## 定義資料結構
 
-使用結構化輸出 API 的第一步是使用 `Kotlin data class` 定義您的資料結構。
+使用結構化輸出 API 的第一步是使用 Kotlin data class 定義您的資料結構。
 
 ### 基本結構
 
@@ -45,7 +45,7 @@ data class WeatherForecast(
 
 -   `@Serializable`：`kotlinx.serialization` 處理類別所需。
 -   `@SerialName`：指定序列化期間使用的名稱。
--   `@LLMDescription`：為 `LLM` 提供類別描述。對於欄位註解，請使用 `@property:LLMDescription`。
+-   `@LLMDescription`：為 LLM 提供類別描述。對於欄位註解，請使用 `@property:LLMDescription`。
 
 ### 支援的功能
 
@@ -159,7 +159,7 @@ sealed class WeatherAlert {
 
 ### 提供範例
 
-您可以提供範例，以幫助 `LLM` 理解預期的格式：
+您可以提供範例，以幫助 LLM 理解預期的格式：
 
 <!--- INCLUDE
 import ai.koog.agents.example.exampleStructuredData03.WeatherForecast
@@ -193,20 +193,20 @@ val exampleForecasts = listOf(
 
 在 Koog 中，您可以在三個主要層級使用結構化輸出：
 
-1.  **提示執行器層**：使用提示執行器進行直接的 `LLM` 呼叫
+1.  **提示執行器層**：使用提示執行器進行直接的 LLM 呼叫
 2.  **代理 LLM 上下文層**：在代理會話中用於對話式上下文
 3.  **節點層**：建立具有結構化輸出功能的，可重複使用的代理節點
 
 ### 第 1 層：提示執行器
 
-提示執行器層提供了進行結構化 `LLM` 呼叫最直接的方式。對於單一、獨立的請求，請使用 `executeStructured` 方法：
+提示執行器層提供了進行結構化 LLM 呼叫最直接的方式。對於單一、獨立的請求，請使用 `executeStructured` 方法：
 
 此方法執行提示並透過以下方式確保回應正確結構化：
 
 -   根據 [模型功能](./model-capabilities.md) 自動選擇最佳的結構化輸出方法
 -   必要時將結構化輸出指令注入原始提示
 -   在可用時使用原生的結構化輸出支援
--   當解析失敗時，透過輔助 `LLM` 提供自動錯誤修正
+-   當解析失敗時，透過輔助 LLM 提供自動錯誤修正
 
 以下是使用 `executeStructured` 方法的範例：
 
@@ -251,7 +251,7 @@ val structuredResponse = promptExecutor.executeStructured<WeatherForecast>(
         examples = exampleForecasts,
         // Optional: provide a fixing parser for error correction
         fixingParser = StructureFixingParser(
-            fixingModel = OpenAIModels.Chat.GPT4o,
+            model = OpenAIModels.Chat.GPT4o,
             retries = 3
         )
     )
@@ -265,13 +265,13 @@ val structuredResponse = promptExecutor.executeStructured<WeatherForecast>(
 | `prompt`       | Prompt                 | 是       |               | 要執行的提示。更多資訊請參閱 [提示 API](prompt-api.md)。                                   |
 | `model`        | LLModel                | 是       |               | 執行提示的主要模型。                                                                           |
 | `examples`     | List&lt;T&gt;                | 否       | `emptyList()` | 可選的範例列表，以幫助模型理解預期的格式。                                     |
-| `fixingParser` | StructureFixingParser? | 否       | `null`        | 可選的解析器，透過使用輔助 `LLM` 智慧地修正解析錯誤，來處理格式不正確的回應。 |
+| `fixingParser` | StructureFixingParser? | 否       | `null`        | 可選的解析器，透過使用輔助 LLM 智慧地修正解析錯誤，來處理格式不正確的回應。 |
 
 該方法回傳一個 `Result<StructuredResponse<T>>`，其中包含成功解析的結構化資料或錯誤。
 
 ### 第 2 層：代理 LLM 上下文
 
-代理 `LLM` 上下文層允許您在代理會話中請求結構化回應。這對於建構在流程特定點需要結構化資料的對話式代理非常有用。
+代理 LLM 上下文層允許您在代理會話中請求結構化回應。這對於建構在流程特定點需要結構化資料的對話式代理非常有用。
 
 在 `writeSession` 中使用 `requestLLMStructured` 方法進行基於代理的互動：
 
@@ -294,7 +294,7 @@ val structuredResponse = llm.writeSession {
     requestLLMStructured<WeatherForecast>(
         examples = exampleForecasts,
         fixingParser = StructureFixingParser(
-            fixingModel = OpenAIModels.Chat.GPT4o,
+            model = OpenAIModels.Chat.GPT4o,
             retries = 3
         )
     )
@@ -302,7 +302,7 @@ val structuredResponse = llm.writeSession {
 ```
 <!--- KNIT example-structured-data-08.kt -->
 
-`fixingParser` 參數指定了透過輔助 `LLM` 在重試期間處理格式不正確回應的配置。這有助於確保您始終獲得有效回應。
+`fixingParser` 參數指定了透過輔助 LLM 在重試期間處理格式不正確回應的配置。這有助於確保您始終獲得有效回應。
 
 #### 與代理策略整合
 
@@ -325,7 +325,7 @@ val agentStrategy = strategy("weather-forecast") {
         val structuredResponse = llm.writeSession {
             requestLLMStructured<WeatherForecast>(
                 fixingParser = StructureFixingParser(
-                    fixingModel = OpenAIModels.Chat.GPT4o,
+                    model = OpenAIModels.Chat.GPT4o,
                     retries = 3
                 )
             )
@@ -350,8 +350,8 @@ val agentStrategy = strategy("weather-forecast") {
 
 這會建立一個代理節點，它會：
 -   接受 `String` 輸入 (使用者訊息)
--   將訊息附加到 `LLM` 提示
--   從 `LLM` 請求結構化輸出
+-   將訊息附加到 LLM 提示
+-   從 LLM 請求結構化輸出
 -   回傳 `Result<StructuredResponse<MyStruct>>`
 
 #### 節點層範例
@@ -378,7 +378,7 @@ val agentStrategy = strategy("weather-forecast") {
         name = "forecast-node",
         examples = exampleForecasts,
         fixingParser = StructureFixingParser(
-            fixingModel = OpenAIModels.Chat.GPT4o,
+            model = OpenAIModels.Chat.GPT4o,
             retries = 3
         )
     )
@@ -386,7 +386,7 @@ val agentStrategy = strategy("weather-forecast") {
     val processResult by node<Result<StructuredResponse<WeatherForecast>>, String> { result ->
         when {
             result.isSuccess -> {
-                val forecast = result.getOrNull()?.structure
+                val forecast = result.getOrNull()?.data
                 "Weather forecast: $forecast"
             }
             result.isFailure -> {
@@ -421,7 +421,7 @@ import ai.koog.prompt.executor.clients.openai.OpenAIModels
 import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
 import ai.koog.prompt.message.Message
 import ai.koog.prompt.structure.json.generator.BasicJsonSchemaGenerator
-import ai.koog.prompt.structure.json.JsonStructuredData
+import ai.koog.prompt.structure.json.JsonStructure
 import kotlinx.coroutines.runBlocking
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
@@ -458,7 +458,7 @@ fun main(): Unit = runBlocking {
     )
 
     // Generate JSON Schema
-    val forecastStructure = JsonStructuredData.createJsonStructure<SimpleWeatherForecast>(
+    val forecastStructure = JsonStructure.create<SimpleWeatherForecast>(
         schemaGenerator = BasicJsonSchemaGenerator.Default,
         examples = exampleForecasts
     )
@@ -511,17 +511,17 @@ fun main(): Unit = runBlocking {
 
 ## 進階用法
 
-上述範例展示了簡化 API，它會根據模型功能自動選擇最佳的結構化輸出方法。如需對結構化輸出過程有更多控制，您可以使用進階 API，搭配手動建立 `Schema` 和特定供應商的配置。
+上述範例展示了簡化 API，它會根據模型功能自動選擇最佳的結構化輸出方法。如需對結構化輸出過程有更多控制，您可以使用進階 API，搭配手動建立 Schema 和特定供應商的配置。
 
 ### 手動建立 Schema 和配置
 
-您可以不再依賴自動 `Schema` 產生，而是使用 `JsonStructuredData.createJsonStructure` 明確建立 `Schema`，並透過 `StructuredOutput` 類別手動配置結構化輸出行為。
+您可以不再依賴自動 Schema 產生，而是使用 `JsonStructure.create` 明確建立 Schema，並透過 `StructuredRequest` 類別手動配置結構化輸出行為。
 
-關鍵區別在於，您不再傳遞像 `examples` 和 `fixingParser` 這樣簡單的參數，而是建立一個 `StructuredOutputConfig` 物件，該物件允許對以下方面進行細粒度控制：
+關鍵區別在於，您不再傳遞像 `examples` 和 `fixingParser` 這樣簡單的參數，而是建立一個 `StructuredRequestConfig` 物件，該物件允許對以下方面進行細粒度控制：
 
--   **Schema 產生**：選擇特定的產生器（標準、基本或特定供應商）
+-   **Schema 產生**：選擇特定的產生器 (Standard、Basic 或特定供應商)
 -   **輸出模式**：原生結構化輸出支援 `vs` 手動提示
--   **供應商映射**：針對不同的 `LLM` 供應商採用不同的配置
+-   **供應商映射**：針對不同的 LLM 供應商採用不同的配置
 -   **後備策略**：當特定供應商配置不可用時的預設行為
 
 <!--- INCLUDE
@@ -532,14 +532,14 @@ import ai.koog.prompt.executor.clients.openai.OpenAIModels
 import ai.koog.prompt.executor.clients.anthropic.AnthropicModels
 import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
 import ai.koog.prompt.structure.executeStructured
-import ai.koog.prompt.structure.StructuredOutput
-import ai.koog.prompt.structure.StructuredOutputConfig
+import ai.koog.prompt.structure.StructuredRequest
 import ai.koog.prompt.structure.StructureFixingParser
-import ai.koog.prompt.structure.json.JsonStructuredData
+import ai.koog.prompt.structure.json.JsonStructure
 import ai.koog.prompt.structure.json.generator.StandardJsonSchemaGenerator
 import ai.koog.prompt.executor.clients.openai.base.structure.OpenAIBasicJsonSchemaGenerator
 import ai.koog.prompt.llm.LLMProvider
 import kotlinx.coroutines.runBlocking
+import ai.koog.prompt.structure.StructuredRequestConfig
 
 fun main() {
     runBlocking {
@@ -550,32 +550,32 @@ fun main() {
 -->
 ```kotlin
 // Create different schema structures with different generators
-val genericStructure = JsonStructuredData.createJsonStructure<WeatherForecast>(
+val genericStructure = JsonStructure.create<WeatherForecast>(
     schemaGenerator = StandardJsonSchemaGenerator,
     examples = exampleForecasts
 )
 
-val openAiStructure = JsonStructuredData.createJsonStructure<WeatherForecast>(
+val openAiStructure = JsonStructure.create<WeatherForecast>(
     schemaGenerator = OpenAIBasicJsonSchemaGenerator,
     examples = exampleForecasts
 )
 
 val promptExecutor = simpleOpenAIExecutor(System.getenv("OPENAI_KEY"))
 
-// The advanced API uses StructuredOutputConfig instead of simple parameters
+// The advanced API uses StructuredRequestConfig instead of simple parameters
 val structuredResponse = promptExecutor.executeStructured(
     prompt = prompt("structured-data") {
         system("You are a weather forecasting assistant.")
         user("What is the weather forecast for Amsterdam?")
     },
     model = OpenAIModels.CostOptimized.GPT4oMini,
-    config = StructuredOutputConfig(
+    config = StructuredRequestConfig(
         byProvider = mapOf(
-            LLMProvider.OpenAI to StructuredOutput.Native(openAiStructure),
+            LLMProvider.OpenAI to StructuredRequest.Native(openAiStructure),
         ),
-        default = StructuredOutput.Manual(genericStructure),
+        default = StructuredRequest.Manual(genericStructure),
         fixingParser = StructureFixingParser(
-            fixingModel = AnthropicModels.Haiku_3_5,
+            model = AnthropicModels.Haiku_3_5,
             retries = 2
         )
     )
@@ -585,34 +585,34 @@ val structuredResponse = promptExecutor.executeStructured(
 
 ### Schema 產生器
 
-根據您的需求，可以使用不同的 `Schema` 產生器：
+根據您的需求，可以使用不同的 Schema 產生器：
 
--   **StandardJsonSchemaGenerator**：完整的 `JSON Schema`，支援多型、定義和遞迴引用
--   **BasicJsonSchemaGenerator**：簡化後的 `Schema`，不支援多型，與更多模型相容
--   **特定供應商的產生器**：針對特定 `LLM` 供應商（OpenAI、Google 等）優化的 `Schema`
+-   **StandardJsonSchemaGenerator**：完整的 JSON Schema，支援多型、定義和遞迴引用
+-   **BasicJsonSchemaGenerator**：簡化後的 Schema，不支援多型，與更多模型相容
+-   **特定供應商的產生器**：針對特定 LLM 供應商 (OpenAI、Google 等) 優化的 Schema
 
 ### 跨所有層級的使用
 
-進階配置在 API 的所有三個層級中都能保持一致。方法名稱保持不變，只有參數從簡單參數變為更進階的 `StructuredOutputConfig`：
+進階配置在 API 的所有三個層級中都能保持一致。方法名稱保持不變，參數從簡單參數變為更進階的 `StructuredRequestConfig`：
 
--   **提示執行器**：`executeStructured(prompt, model, config: StructuredOutputConfig<T>)`
--   **代理 LLM 上下文**：`requestLLMStructured(config: StructuredOutputConfig<T>)`
--   **節點層**：`nodeLLMRequestStructured(config: StructuredOutputConfig<T>)`
+-   **提示執行器**：`executeStructured(prompt, model, config: StructuredRequestConfig<T>)`
+-   **代理 LLM 上下文**：`requestLLMStructured(config: StructuredRequestConfig<T>)`
+-   **節點層**：`nodeLLMRequestStructured(config: StructuredRequestConfig<T>)`
 
 簡化 API (僅使用 `examples` 和 `fixingParser` 參數) 推薦用於大多數使用情境，而進階 API 則在需要時提供額外控制。
 
 ## 最佳實踐
 
-1.  **使用清晰的描述**：使用 `@LLMDescription` 註解提供清晰詳細的描述，以幫助 `LLM` 理解預期的資料。
+1.  **使用清晰的描述**：使用 `@LLMDescription` 註解提供清晰詳細的描述，以幫助 LLM 理解預期的資料。
 
-2.  **提供範例**：包含有效資料結構的範例，以引導 `LLM`。
+2.  **提供範例**：包含有效資料結構的範例，以引導 LLM。
 
-3.  **優雅地處理錯誤**：實作適當的錯誤處理，以應對 `LLM` 可能無法產生有效結構的情況。
+3.  **優雅地處理錯誤**：實作適當的錯誤處理，以應對 LLM 可能無法產生有效結構的情況。
 
-4.  **使用適當的 Schema 類型**：根據您的需求和您所使用的 `LLM` 的功能選擇適當的 `Schema` 格式和類型。
+4.  **使用適當的 Schema 類型**：根據您的需求和您所使用的 LLM 的功能選擇適當的 Schema 格式和類型。
 
-5.  **使用不同模型進行測試**：不同的 `LLM` 可能在遵循結構化格式方面有不同的能力，因此如果可能，請使用多個模型進行測試。
+5.  **使用不同模型進行測試**：不同的 LLM 可能在遵循結構化格式方面有不同的能力，因此如果可能，請使用多個模型進行測試。
 
 6.  **從簡單開始**：從簡單的結構開始，並根據需要逐步增加複雜性。
 
-7.  **謹慎使用多型**：儘管 API 支援密封類別的多型，但請注意，對於 `LLM` 來說，正確處理它可能更具挑戰性。
+7.  **謹慎使用多型**：儘管 API 支援密封類別的多型，但請注意，對於 LLM 來說，正確處理它可能更具挑戰性。

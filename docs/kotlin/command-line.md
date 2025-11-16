@@ -55,7 +55,8 @@ sudo snap install --classic kotlin
 
 ## 创建并运行应用程序
 
-1. 在 Kotlin 中创建一个简单的控制台 JVM 应用程序，显示“Hello, World!”。在代码编辑器中，创建一个名为 `hello.kt` 的新文件，其中包含以下代码：
+1. 在 Kotlin 中创建一个简单的控制台 JVM 应用程序，显示“Hello, World!”。
+   在代码编辑器中，创建一个名为 `hello.kt` 的新文件，其中包含以下代码：
 
    ```kotlin
    fun main() {
@@ -96,7 +97,8 @@ sudo snap install --classic kotlin
 kotlinc hello.kt -d hello.jar
 ```
 
-由于以这种方式编译的二进制文件依赖于 Kotlin 运行时，因此每当你的编译库被使用时，都应确保它存在于 classpath 中。
+由于以这种方式编译的二进制文件依赖于 Kotlin 运行时，
+因此每当你的编译库被使用时，都应确保它存在于 classpath 中。
 
 你也可以使用 `kotlin` 脚本来运行由 Kotlin 编译器生成的二进制文件：
 
@@ -116,7 +118,8 @@ kotlin -classpath hello.jar HelloKt
 
 ## 运行脚本
 
-你可以将 Kotlin 用作脚本语言。Kotlin 脚本是包含顶层可执行代码的 Kotlin 源文件（`.kts`）。
+你可以将 Kotlin 用作脚本语言。
+Kotlin 脚本是包含顶层可执行代码的 Kotlin 源文件（`.kts`）。
 
 ```kotlin
 import java.io.File
@@ -135,12 +138,21 @@ folders?.forEach { folder -> println(folder) }
 kotlinc -script list_folders.kts -- -d <path_to_folder_to_inspect>
 ```
 
-Kotlin 为脚本自定义提供实验性的支持，例如添加外部属性、提供静态或动态依赖项等等。自定义由所谓的 _脚本定义_ 定义——即带有相应支持代码的、带有注解的 Kotlin 类。脚本文件扩展名用于选择相应的定义。了解更多关于 [Kotlin 自定义脚本](custom-script-deps-tutorial.md) 的信息。
+Kotlin 为脚本自定义提供实验性的支持，例如添加外部属性、
+提供静态或动态依赖项等等。
+自定义由所谓的 _脚本定义_ 定义——即带有相应支持代码的、带有注解的 Kotlin 类。
+脚本文件扩展名用于选择相应的定义。
+了解更多关于 [Kotlin 自定义脚本](custom-script-deps-tutorial.md) 的信息。
 
-当相应的 jar 文件包含在编译 classpath 中时，准备好的脚本定义会被自动检测并应用。或者，你可以通过向编译器传递 `-script-templates` 选项来手动指定定义：
+当相应的 jar 文件包含在编译 classpath 中时，准备好的脚本定义会被自动检测并应用。
+或者，你可以通过向编译器传递 `-script-templates` 选项来手动指定定义：
 
 ```bash
 kotlinc -script-templates org.example.CustomScriptDefinition -script custom.script1.kts
 ```
 
 有关更多详细信息，请参见 [KEEP-75](https://github.com/Kotlin/KEEP/blob/master/proposals/scripting-support.md)。
+
+## 接下来做什么？
+
+[创建一个基于 Kotlin/JVM 的控制台应用程序](jvm-get-started.md)。

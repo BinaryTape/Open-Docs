@@ -2,8 +2,8 @@
 
 _[发布日期：2023 年 11 月 1 日](releases.md#release-details)_
 
-Kotlin 1.9.20 版本已发布，适用于所有目标平台的 K2 编译器现已进入 Beta 阶段，
-Kotlin Multiplatform 现已 Stable。此外，以下是一些主要亮点：
+Kotlin 1.9.20 版本已发布，[适用于所有目标平台的 K2 编译器现已进入 Beta 阶段](#new-kotlin-k2-compiler-updates)，
+且 [Kotlin Multiplatform 现已 Stable](#kotlin-multiplatform-is-stable)。此外，以下是一些主要亮点：
 
 *   [配置多平台项目的新默认层级模板](#template-for-configuring-multiplatform-projects)
 *   [Kotlin Multiplatform 全面支持 Gradle 配置缓存](#full-support-for-the-gradle-configuration-cache-in-kotlin-multiplatform)
@@ -25,7 +25,8 @@ Kotlin Multiplatform 现已 Stable。此外，以下是一些主要亮点：
 | IntelliJ IDEA  | 2023.1.x, 2023.2.x, 2023.x             |
 | Android Studio | Hedgehog (2023.1.1), Iguana (2023.2.1) |
 
-> 从 IntelliJ IDEA 2023.3.x 和 Android Studio Iguana (2023.2.1) Canary 15 开始，Kotlin 插件将自动包含并更新。您只需更新项目中 Kotlin 的版本。
+> 从 IntelliJ IDEA 2023.3.x 和 Android Studio Iguana (2023.2.1) Canary 15 开始，Kotlin 插件将自动包含并更新。
+> 您只需更新项目中 Kotlin 的版本。
 >
 {style="note"}
 
@@ -252,7 +253,7 @@ kotlin {
 class Greeting {
     companion object {
         init {
-            print("Hello, Kotlin!")
+            print("Hello, Kotlin!") 
         }
     }
 }
@@ -280,7 +281,7 @@ fun main() {
 
 如果您是库作者，您现在可以通过自定义消息帮助您的用户解决链接器错误。
 
-如果您的 Kotlin 库依赖于 C 或 Objective-C 库（例如，使用 [CocoaPods 集成](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-cocoapods-overview.html)），其用户需要将这些依赖库本地化到机器上，或者在项目构建脚本中显式配置它们。
+如果您的 Kotlin 库依赖于 C 或 Objective-C 库（例如，使用 [CocoaPods 集成](https://kotlinlang.org/docs/multiplatform/multiplatform-cocoapods-overview.html)），其用户需要将这些依赖库本地化到机器上，或者在项目构建脚本中显式配置它们。
 如果不这样做，用户过去会收到一条令人困惑的“Framework not found”消息。
 
 您现在可以在编译失败消息中提供特定说明或链接。为此，将 `-Xuser-setup-hint` 编译器选项传递给 `cinterop`，或将 `userSetupHint=message` 属性添加到您的 `.def` 文件。
@@ -327,13 +328,13 @@ Kotlin 1.9.20 侧重于 Kotlin Multiplatform 的稳定化，并在通过新的�
 
 ### Kotlin Multiplatform 现已 Stable
 
-1.9.20 版本标志着 Kotlin 演进中的一个重要里程碑：[Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html) 终于成为 Stable。这意味着该技术在您的项目中可以安全使用，并且 100% 可用于生产。这也意味着 Kotlin Multiplatform 的未来开发将继续遵循我们严格的[向后兼容性规则](https://kotlinfoundation.org/language-committee-guidelines/)。
+1.9.20 版本标志着 Kotlin 演进中的一个重要里程碑：[Kotlin Multiplatform](https://kotlinlang.org/docs/multiplatform/get-started.html) 终于成为 Stable。这意味着该技术在您的项目中可以安全使用，并且 100% 可用于生产。这也意味着 Kotlin Multiplatform 的未来开发将继续遵循我们严格的[向后兼容性规则](https://kotlinfoundation.org/language-committee-guidelines/)。
 
 请注意，Kotlin Multiplatform 的一些高级特性仍在演进中。使用它们时，您会收到一个警告，说明您正在使用的特性的当前稳定状态。在 IntelliJ IDEA 中使用任何实验性的功能之前，您需要通过 **Settings** | **Advanced Settings** | **Kotlin** | **Experimental Multiplatform** 显式启用它。
 
 *   访问 [Kotlin 博客](https://blog.jetbrains.com/kotlin/2023/11/kotlin-multiplatform-stable/)以了解有关 Kotlin Multiplatform 稳定化和未来计划的更多信息。
-*   查看[多平台兼容性指南](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-compatibility-guide.html)，了解在稳定化过程中进行的重大更改。
-*   阅读[预期和实际声明的机制](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-expect-actual.html)，这是 Kotlin Multiplatform 的重要组成部分，在此版本中也部分稳定化。
+*   查看[多平台兼容性指南](https://kotlinlang.org/docs/multiplatform/multiplatform-compatibility-guide.html)，了解在稳定化过程中进行的重大更改。
+*   阅读[预期和实际声明的机制](https://kotlinlang.org/docs/multiplatform/multiplatform-expect-actual.html)，这是 Kotlin Multiplatform 的重要组成部分，在此版本中也部分稳定化。
 
 ### 配置多平台项目的模板
 
@@ -523,7 +524,7 @@ JetBrains 团队正在引入一种创建跨平台项目的新方式 – [Kotlin 
 
 之前，我们引入了 [Gradle 配置缓存的预览版](whatsnew19.md#preview-of-the-gradle-configuration-cache)，该缓存可用于 Kotlin 多平台库。随着 1.9.20 的发布，Kotlin Multiplatform 插件更进一步。
 
-它现在支持 [Kotlin CocoaPods Gradle 插件](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-cocoapods-dsl-reference.html)中的 Gradle 配置缓存，以及 Xcode 构建所需的集成任务中，例如 `embedAndSignAppleFrameworkForXcode`。
+它现在支持 [Kotlin CocoaPods Gradle 插件](https://kotlinlang.org/docs/multiplatform/multiplatform-cocoapods-dsl-reference.html)中的 Gradle 配置缓存，以及 Xcode 构建所需的集成任务中，例如 `embedAndSignAppleFrameworkForXcode`。
 
 现在所有多平台项目都可以利用改进的构建期。
 Gradle 配置缓存通过重用配置阶段的结果进行后续构建，从而加速构建过程。
@@ -593,9 +594,9 @@ kotlin {
 
 ### 默认支持第三方 cinterop 库
 
-Kotlin 1.9.20 添加了对应用了 [Kotlin CocoaPods Gradle](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-cocoapods-overview.html) 插件的项目中所有 cinterop 依赖项的默认支持（而非通过选择启用支持）。
+Kotlin 1.9.20 添加了对应用了 [Kotlin CocoaPods Gradle](https://kotlinlang.org/docs/multiplatform/multiplatform-cocoapods-overview.html) 插件的项目中所有 cinterop 依赖项的默认支持（而非通过选择启用支持）。
 
-这意味着您现在可以共享更多原生代码，而不受平台特有的依赖项限制。例如，您可以向 `iosMain` 共享源代码集添加对 [Pod 库的依赖项](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-cocoapods-libraries.html)。
+这意味着您现在可以共享更多原生代码，而不受平台特有的依赖项限制。例如，您可以向 `iosMain` 共享源代码集添加对 [Pod 库的依赖项](https://kotlinlang.org/docs/multiplatform/multiplatform-cocoapods-libraries.html)。
 
 之前，这只适用于随 Kotlin/Native 分发版提供的[平台特有的库](native-platform-libs.md)（例如 Foundation、UIKit 和 POSIX）。所有第三方 Pod 库现在默认在共享源代码集中可用。您不再需要指定单独的 Gradle 属性来支持它们。
 
@@ -645,7 +646,7 @@ Kotlin 1.9.20 支持最新的操作码，因此我们强烈建议您将您的 Wa
 *   Chrome 和基于 Chromium 的浏览器版本 119 或更高。
 *   Firefox 版本 119 或更高。请注意，在 Firefox 119 中，您需要[手动开启 Wasm GC](wasm-configuration.md)。
 
-### 新的 `wasm-wasi` 目标平台，以及将 `wasm` 目标平台重命名为 `wasm-js`
+### 新的 wasm-wasi 目标平台，以及将 wasm 目标平台重命名为 wasm-js
 
 在此版本中，我们引入了 Kotlin/Wasm 的新目标平台 – `wasm-wasi`。我们还将 `wasm` 目标平台重命名为 `wasm-js`。
 在 Gradle DSL 中，这些目标平台分别作为 `wasmWasi {}` 和 `wasmJs {}` 可用。
@@ -686,7 +687,7 @@ import kotlin.wasm.WasmImport
 private external fun wasiRawClockTimeGet(clockId: Int, precision: Long, resultPtr: Int): Int
 ```
 
-您可以在我们的 [GitHub 版本库](https://github.com/Kotlin/kotlin-wasm-examples/tree/main/wasi-example)中找到完整示例。
+[您可以在我们的 GitHub 版本库中找到完整示例](https://github.com/Kotlin/kotlin-wasm-examples/tree/main/wasi-example)。
 
 > 当面向 `wasmWasi` 目标平台时，无法使用[与 JavaScript 的互操作性](wasm-js-interop.md)。
 >
@@ -732,11 +733,11 @@ fun main() {
 Kotlin 1.9.20 完全兼容 Gradle 6.8.3 到 8.1。您也可以使用最新 Gradle 版本之前的 Gradle 版本，但如果您这样做，请记住您可能会遇到弃用警告或某些新的 Gradle 特性可能不起作用。
 
 此版本带来了以下更改：
-*   [支持测试夹具访问内部声明](#support-for-test-fixtures-to-access-internal-declarations)
+*   [支持测试夹具访问 `internal` 声明](#support-for-test-fixtures-to-access-internal-declarations)
 *   [配置 Konan 目录路径的新属性](#new-property-to-configure-paths-to-konan-directories)
 *   [Kotlin/Native 任务的新构建报告指标](#new-build-report-metrics-for-kotlin-native-tasks)
 
-### 支持测试夹具访问内部声明
+### 支持测试夹具访问 `internal` 声明
 
 在 Kotlin 1.9.20 中，如果您使用 Gradle 的 `java-test-fixtures` 插件，那么您的[测试夹具](https://docs.gradle.org/current/userguide/java_testing.html#sec:java_test_fixtures)现在可以访问主源代码集类中的 `internal` 声明。此外，任何测试源代码也可以查看测试夹具类中的任何 `internal` 声明。
 
@@ -860,7 +861,7 @@ printAllValues<RGB>()
   > 感谢您在 [YouTrack](https://kotl.in/issue) 中提供反馈。
   >
   {style="warning"}
-*   在 `kotlin.native.concurrent` 包中，在 Kotlin 1.9.0 中以弃用级别 `WARNING` 弃用的 Atomics API 的弃用级别已提升到 `ERROR`。
+*   在 `kotlin.native.concurrent` 包中，Atomics API 在 Kotlin 1.9.0 中以弃用级别 `WARNING` 弃用的成员函数已将其弃用级别提升到 `ERROR`。
 *   在 `kotlin.concurrent` 包中，弃用级别为 `ERROR` 的 [`AtomicInt`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.concurrent/-atomic-int/index.html) 和 [`AtomicLong`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.concurrent/-atomic-long/index.html) 类的成员函数已被移除。
 *   `AtomicReference` 类的所有[成员函数](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.concurrent/-atomic-reference/#functions)现在都使用原子内建函数。
 
@@ -881,7 +882,7 @@ Kotlin 文档收到了一些值得注意的更改：
 *   [Kotlin 之旅](kotlin-tour-welcome.md)中改进的集合章节 – 通过包含理论和实践的章节，了解 Kotlin 编程语言的基础知识。
 *   [确定非空类型](generics.md#definitely-non-nullable-types) – 了解确定非空泛型类型。
 *   改进的[数组页面](arrays.md) – 了解数组以及何时使用它们。
-*   [Kotlin Multiplatform 中的预期和实际声明](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-expect-actual.html) – 了解 Kotlin Multiplatform 中预期和实际声明的 Kotlin 机制。
+*   [Kotlin Multiplatform 中的预期和实际声明](https://kotlinlang.org/docs/multiplatform/multiplatform-expect-actual.html) – 了解 Kotlin Multiplatform 中预期和实际声明的 Kotlin 机制。
 
 ## 安装 Kotlin 1.9.20
 

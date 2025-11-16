@@ -1,4 +1,4 @@
-`[//]: # (title: 提高编译时间的建议)`
+[//]: # (title: 提高编译时间的建议)
 
 <show-structure depth="1"/>
 
@@ -45,11 +45,11 @@ Kotlin/Native 编译器持续接收更新，以提升其性能。借助于最新
 *   `linkDebug*`。为了在开发过程中运行代码，你通常只需要一个二进制文件，因此运行相应的 `linkDebug*` 任务就足够了。
 *   `embedAndSignAppleFrameworkForXcode`。由于 iOS 模拟器和设备具有不同的处理器架构，将 Kotlin/Native 二进制文件作为通用 (fat) framework 分发是一种常见方法。
 
-    然而，在本地开发期间，仅为你正在使用的平台构建 `.framework` 文件会更快。要构建平台特有的 framework，请使用 [embedAndSignAppleFrameworkForXcode](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-direct-integration.html#connect-the-framework-to-your-project) 任务。
+    然而，在本地开发期间，仅为你正在使用的平台构建 `.framework` 文件会更快。要构建平台特有的 framework，请使用 [embedAndSignAppleFrameworkForXcode](https://kotlinlang.org/docs/multiplatform/multiplatform-direct-integration.html#connect-the-framework-to-your-project) 任务。
 
 ### 仅为必要的目标平台构建
 
-与上述建议类似，不要一次性为所有原生平台构建二进制文件。例如，编译 [XCFramework](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-build-native-binaries.html#build-xcframeworks)（使用 `*XCFramework` 任务）会为所有目标平台构建相同的代码，这比为单个目标平台构建耗时按比例更长。
+与上述建议类似，不要一次性为所有原生平台构建二进制文件。例如，编译 [XCFramework](https://kotlinlang.org/docs/multiplatform/multiplatform-build-native-binaries.html#build-xcframeworks)（使用 `*XCFramework` 任务）会为所有目标平台构建相同的代码，这比为单个目标平台构建耗时按比例更长。
 
 如果你的设置确实需要 XCFrameworks，可以减少目标平台数量。例如，如果你不在基于 Intel 的 Mac 上运行此项目，则不需要 `iosX64`。
 
@@ -60,7 +60,7 @@ Kotlin/Native 编译器持续接收更新，以提升其性能。借助于最新
 
 ### 不要构建不必要的发布二进制文件
 
-Kotlin/Native 支持两种构建模式：[调试和发布](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-build-native-binaries.html#declare-binaries)。发布模式经过高度优化，这会耗费大量时间：发布二进制文件的编译时间比调试二进制文件长一个数量级。
+Kotlin/Native 支持两种构建模式：[调试和发布](https://kotlinlang.org/docs/multiplatform/multiplatform-build-native-binaries.html#declare-binaries)。发布模式经过高度优化，这会耗费大量时间：发布二进制文件的编译时间比调试二进制文件长一个数量级。
 
 除了实际发布之外，所有这些优化在典型开发周期中可能是不必要的。如果在开发过程中使用了名称中包含 `Release` 的任务，请考虑将其替换为 `Debug`。类似地，你可以运行 `assembleSharedDebugXCFramework`，而不是运行 `assembleXCFramework`。
 
@@ -74,11 +74,11 @@ Kotlin/Native 支持两种构建模式：[调试和发布](https://www.jetbrains
 
 ### 不要使用传递性导出
 
-使用 [`transitiveExport = true`](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-build-native-binaries.html#export-dependencies-to-binaries) 在许多情况下会禁用无用代码消除，因此编译器必须处理大量未使用的代码。这会增加编译时间。相反，请明确使用 `export` 方法导出所需的项目和依赖项。
+使用 [`transitiveExport = true`](https://kotlinlang.org/docs/multiplatform/multiplatform-build-native-binaries.html#export-dependencies-to-binaries) 在许多情况下会禁用无用代码消除，因此编译器必须处理大量未使用的代码。这会增加编译时间。相反，请明确使用 `export` 方法导出所需的项目和依赖项。
 
 ### 不要过度导出模块
 
-尽量避免不必要的[模块导出](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-build-native-binaries.html#export-dependencies-to-binaries)。每个导出的模块都会对编译时间与二进制文件大小产生负面影响。
+尽量避免不必要的[模块导出](https://kotlinlang.org/docs/multiplatform/multiplatform-build-native-binaries.html#export-dependencies-to-binaries)。每个导出的模块都会对编译时间与二进制文件大小产生负面影响。
 
 ### 使用 Gradle 构建缓存
 
@@ -103,7 +103,7 @@ Kotlin/Native 支持两种构建模式：[调试和发布](https://www.jetbrains
 *   `kotlin.native.cacheKind=none`
 *   `kotlin.native.cacheKind.$target=none`，其中 `$target` 是 Kotlin/Native 编译目标，例如 `iosSimulatorArm64`。
 
-如果你之前遇到这些特性导致的问题，并将这些行添加到你的 `gradle.properties` 文件或 Gradle 实参中，请删除它们并检查构建是否成功完成。这些属性可能是在解决已修复的问题时添加的。
+如果你之前遇到这些特性导致的问题，并将这些行添加到你的 `gradle.properties` 文件或 Gradle 实参中，请删除它们并检测构建是否成功完成。这些属性可能是在解决已修复的问题时添加的。
 
 ### 尝试 klib 构件的增量编译
 

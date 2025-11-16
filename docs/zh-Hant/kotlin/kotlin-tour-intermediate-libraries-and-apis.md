@@ -244,7 +244,7 @@ fun main() {
         println("Processed data")
     }
 
-println("Time taken: $timeTaken") // e.g. 16 ms
+    println("Time taken: $timeTaken") // e.g. 16 ms
 }
 ```
 {validate="false" kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-tour-libraries-exercise-2"}
@@ -285,5 +285,5 @@ Kotlin 最新版本中標準程式庫有一個新功能。您想嘗試它，但�
 
 *   [使用 Spring Boot 和 Kotlin 建立後端應用程式](jvm-create-project-with-spring-boot.md)
 *   從頭開始建立 Android 和 iOS 的跨平台應用程式並：
-    *   [在保持原生使用者介面的同時分享業務邏輯](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-create-first-app.html)
-    *   [分享業務邏輯和使用者介面](https://www.jetbrains.com/help/kotlin-multiplatform-dev/compose-multiplatform-create-first-app.html)
+    *   [在保持原生使用者介面的同時分享業務邏輯](https://kotlinlang.org/docs/multiplatform/multiplatform-create-first-app.html)
+    *   [分享業務邏輯和使用者介面](https://kotlinlang.org/docs/multiplatform/compose-multiplatform-create-first-app.html)

@@ -18,7 +18,7 @@
 ### 設定環境
 
 1.  下載並安裝最新版本的 [IntelliJ IDEA](https://www.jetbrains.com/idea/)。
-2.  [設定您的 Kotlin 多平台開發環境](https://www.jetbrains.com/help/kotlin-multiplatform-dev/quickstart.html#set-up-the-environment)。
+2.  [設定您的 Kotlin 多平台開發環境](https://kotlinlang.org/docs/multiplatform/quickstart.html#set-up-the-environment)。
 
 ### 建立您的專案
 
@@ -36,7 +36,7 @@
 1.  開啟 `kmp-js-wizard/gradle/libs.versions.toml` 檔案。它包含專案依賴項的版本目錄。
 2.  確保 Kotlin 版本與 Kotlin Multiplatform Gradle plugin 的版本相符，這是建立針對 Kotlin/JS 的網頁應用程式所必需的：
 
-    ```text
+    ```kotlin
     [versions]
     kotlin = "%kotlinVersion%"
 
@@ -46,11 +46,11 @@
 
 3.  同步 Gradle 檔案 (如果您更新了 `libs.versions.toml` 檔案)。點擊建置檔案中出現的 **Load Gradle Changes** (載入 Gradle 變更) 圖示。
 
-    ![載入 Gradle 變更按鈕](load-gradle-changes.png){width=300}
+    ![Load the Gradle changes button](load-gradle-changes.png){width=300}
 
     或者，點擊 Gradle 工具視窗中的重新整理按鈕。
 
-更多關於多平台專案的 Gradle 設定資訊，請參閱 [多平台 Gradle DSL 參考資料](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-dsl-reference.html)。
+更多關於多平台專案的 Gradle 設定資訊，請參閱 [多平台 Gradle DSL 參考資料](https://kotlinlang.org/docs/multiplatform/multiplatform-dsl-reference.html)。
 
 ### 建置並執行應用程式
 
@@ -61,7 +61,7 @@
 
 2.  點擊 `main()` 函式中的 **Run** (執行) 圖示來執行程式碼。
 
-    ![執行應用程式](js-run-gutter.png){width=500}
+    ![Run the application](js-run-gutter.png){width=500}
 
 網頁應用程式會自動在您的瀏覽器中開啟。
 或者，當執行完成後，您可以在瀏覽器中開啟以下 URL：
@@ -72,11 +72,11 @@
 
 您可以看到網頁應用程式：
 
-![應用程式輸出](js-output-gutter-1.png){width=600}
+![Application output](js-output-gutter-1.png){width=600}
 
 首次執行應用程式後，IntelliJ IDEA 會在頂部工具列建立其對應的執行設定 (**jsMain [js]**)：
 
-![Gradle 執行設定](js-run-config.png){width=500}
+![Gradle run configuration](js-run-config.png){width=500}
 
 > 在 IntelliJ IDEA Ultimate 中，
 > 您可以使用 [JS 除錯器](https://www.jetbrains.com/help/idea/configuring-javascript-debugger.html)
@@ -90,11 +90,11 @@
 
 1.  在執行設定清單中選擇 **jsMain [js]**，然後點擊 **More Actions** (更多動作) | **Edit** (編輯)。
 
-    ![Gradle 編輯執行設定](js-edit-run-config.png){width=500}
+    ![Gradle edit run configuration](js-edit-run-config.png){width=500}
 
 2.  在 **Run/Debug Configurations** (執行/除錯設定) 對話框中，在 **Run** (執行) 欄位內輸入 `jsBrowserDevelopmentRun --continuous`。
 
-    ![持續執行設定](js-continuous-run-config.png){width=500}
+    ![Continuous run configuration](js-continuous-run-config.png){width=500}
 
 3.  點擊 **OK** (確定)。
 
@@ -113,7 +113,7 @@ Gradle 就會自動執行專案的增量建置並熱重新載入瀏覽器。
     以讀取使用者輸入：
 
     ```kotlin
-    // 取代 Element.appendMessage() 函式
+    // Replace the Element.appendMessage() function
     fun Element.appendInput() {
         val input = document.createElement("input")
         appendChild(input)
@@ -124,7 +124,7 @@ Gradle 就會自動執行專案的增量建置並熱重新載入瀏覽器。
 
     ```kotlin
     fun main() {
-        // 取代 document.body!!.appendMessage(message)
+        // Replace document.body!!.appendMessage(message)
         document.body?.appendInput()
     }
     ```
@@ -133,14 +133,14 @@ Gradle 就會自動執行專案的增量建置並熱重新載入瀏覽器。
 
     您的應用程式會像這樣：
 
-    ![帶有輸入元素的應用程式](js-added-input-element.png){width=600}
+    ![Application with an input element](js-added-input-element.png){width=600}
 
 #### 新增輸入事件處理
 
 1.  在 `appendInput()` 函式內部新增一個監聽器以讀取輸入值並對變更做出反應：
 
     ```kotlin
-    // 取代目前的 appendInput() 函式
+    // Replace the current appendInput() function
     fun Element.appendInput(onChange: (String) -> Unit = {}) {
         val input = document.createElement("input").apply {
             addEventListener("change") { event ->
@@ -153,13 +153,13 @@ Gradle 就會自動執行專案的增量建置並熱重新載入瀏覽器。
 
 2.  依照 IDE 的建議匯入 `HTMLInputElement` 依賴項。
 
-    ![匯入依賴項](js-import-dependency.png){width=600}
+    ![Import dependencies](js-import-dependency.png){width=600}
 
 3.  在 `main()` 中呼叫 `onChange` 回呼。它會讀取並處理輸入值：
 
     ```kotlin
     fun main() {
-        // 取代 document.body?.appendInput()
+        // Replace document.body?.appendInput()
         document.body?.appendInput(onChange = { println(it) })
     }
     ```
@@ -179,11 +179,11 @@ Gradle 就會自動執行專案的增量建置並熱重新載入瀏覽器。
 
     ```kotlin
     fun main() {
-        // 為我們的輸出建立一個文字容器
-        // 取代 val message = Message(topic = "Kotlin/JS", content = "Hello!")
+        // Creates a text container for our output
+        // Replace val message = Message(topic = "Kotlin/JS", content = "Hello!")
         val output = document.body?.appendTextContainer()
 
-        // 讀取輸入值
+        // Reads the input value
         document.body?.appendInput(onChange = { println(it) })
     }
     ```
@@ -196,11 +196,11 @@ Gradle 就會自動執行專案的增量建置並熱重新載入瀏覽器。
 
 ```kotlin
 fun main() {
-    // 為我們的輸出建立一個文字容器
+    // Creates a text container for our output
     val output = document.body?.appendTextContainer()
 
-    // 讀取輸入值
-    // 取代目前的 appendInput() 函式
+    // Reads the input value
+    // Replace the current appendInput() function
     document.body?.appendInput(onChange = { name ->
         name.replace(" ", "").let {
             output?.textContent = "您的姓名包含 ${it.length} 個字母"
@@ -223,7 +223,7 @@ fun main() {
 
 您可以看到結果：
 
-![應用程式輸出](js-output-gutter-2.png){width=600}
+![Application output](js-output-gutter-2.png){width=600}
 
 #### 處理輸入以計算唯一字母的數量
 
@@ -246,14 +246,14 @@ fun main() {
 
     ```kotlin
     fun main() {
-        // 為我們的輸出建立一個文字容器
+        // Creates a text container for our output
         val output = document.body?.appendTextContainer()
 
-        // 讀取輸入值
+        // Reads the input value
         document.body?.appendInput(onChange = { name ->
             name.replace(" ", "").let {
-                // 印出唯一字母的數量
-                // 取代 output?.textContent = "您的姓名包含 ${it.length} 個字母"
+                // Prints the number of unique letters
+                // Replace output?.textContent = "Your name contains ${it.length} letters"
                 output?.textContent = "您的姓名包含 ${it.countDistinctCharacters()} 個唯一字母"
             }
         })
@@ -264,7 +264,7 @@ fun main() {
 
 您可以看到結果：
 
-![應用程式輸出](js-output-gutter-3.png){width=600}
+![Application output](js-output-gutter-3.png){width=600}
 
 ## 使用 Gradle 建立您的應用程式
 
@@ -295,8 +295,8 @@ Gradle 是 Kotlin/JS 和 Kotlin Multiplatform 專案的預設建置系統。
 
     kotlin {
         js {
-            // 使用 browser() 在瀏覽器中執行，或使用 nodejs() 在 Node.js 中執行
-            browser()
+            // Use browser() for running in a browser or nodejs() for running in Node.js
+            browser() 
             binaries.executable()
         }
     }
@@ -317,8 +317,8 @@ Gradle 是 Kotlin/JS 和 Kotlin Multiplatform 專案的預設建置系統。
 
     kotlin {
         js {
-            // 使用 browser() 在瀏覽器中執行，或使用 nodejs() 在 Node.js 中執行
-            browser()
+            // Use browser() for running in a browser or nodejs() for running in Node.js
+            browser() 
             binaries.executable()
         }
     }
@@ -379,24 +379,24 @@ Gradle 是 Kotlin/JS 和 Kotlin Multiplatform 專案的預設建置系統。
 若要建置專案，請從專案根目錄執行以下命令：
 
 ```bash
-# 針對瀏覽器
+# For browser
 gradle jsBrowserDevelopmentRun
 
-# 或者
+# OR
 
-# 針對 Node.js
-gradle jsNodeDevelopmentRun
+# For Node.js
+gradle jsNodeDevelopmentRun 
 ```
 
 如果您正在使用 `browser` 環境，
 您會看到瀏覽器開啟 `index.html` 檔案並在瀏覽器主控台中印出「Hello, Kotlin/JS!」。
 您可以使用 <shortcut>Ctrl + Shift + J</shortcut>/<shortcut>Cmd + Option + J</shortcut> 命令開啟主控台。
 
-![應用程式輸出](js-output-gutter-4.png){width=600}
+![Application output](js-output-gutter-4.png){width=600}
 
 如果您正在使用 `nodejs` 環境，您會看到終端機印出「Hello, Kotlin/JS!」。
 
-![應用程式輸出](js-output-gutter-5.png){width=500}
+![Application output](js-output-gutter-5.png){width=500}
 
 ### 在 IDE 中開啟專案
 
@@ -420,5 +420,5 @@ IntelliJ IDEA 會在 **Build** (建置) 窗格中顯示錯誤訊息。
 *   [設定您的 Kotlin/JS 專案](js-project-setup.md)。
 *   學習如何 [除錯 Kotlin/JS 應用程式](js-debugging.md)。
 *   學習如何 [使用 Kotlin/JS 編寫和執行測試](js-running-tests.md)。
-*   學習如何 [為實際的 Kotlin/JS 專案編寫 Gradle 建置腳本](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-dsl-reference.html)。
+*   學習如何 [為實際的 Kotlin/JS 專案編寫 Gradle 建置腳本](https://kotlinlang.org/docs/multiplatform/multiplatform-dsl-reference.html)。
 *   閱讀更多關於 [Gradle 建置系統](gradle.md) 的資訊。

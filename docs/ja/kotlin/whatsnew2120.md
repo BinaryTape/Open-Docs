@@ -524,7 +524,7 @@ Kotlin 2.1.20以降、この機能はすべてのプラットフォームでデ�
 ## 破壊的変更と非推奨
 
 *   Kotlin MultiplatformをGradleの今後の変更に合わせるため、`withJava()`関数を段階的に廃止しています。
-    [Javaソースセットはデフォルトで作成されるようになりました](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-compatibility-guide.html#java-source-sets-created-by-default)。[Javaテストフィクスチャ](https://docs.gradle.org/current/userguide/java_testing.html#sec:java_test_fixtures)Gradleプラグインを使用している場合は、
+    [Javaソースセットはデフォルトで作成されるようになりました](https://kotlinlang.org/docs/multiplatform/multiplatform-compatibility-guide.html#java-source-sets-created-by-default)。[Javaテストフィクスチャ](https://docs.gradle.org/current/userguide/java_testing.html#sec:java_test_fixtures)Gradleプラグインを使用している場合は、
     互換性の問題を避けるため、直接[Kotlin 2.1.21](releases.md#release-details)にアップグレードしてください。
 *   JetBrainsチームは`kotlin-android-extensions`プラグインの非推奨化を進めています。プロジェクトでこれを使用しようとすると、
     設定エラーが発生し、プラグインコードは実行されなくなります。
@@ -540,16 +540,16 @@ Kotlinドキュメントにはいくつかの注目すべき変更が加えら�
 
 *   [Kotlinロードマップ](roadmap.md) – Kotlinの言語とエコシステムの進化における優先順位の更新されたリストをご覧ください。
 *   [Gradleのベストプラクティス](gradle-best-practices.md)ページ – Gradleビルドを最適化し、パフォーマンスを向上させるための重要なベストプラクティスを学びましょう。
-*   [Compose MultiplatformとJetpack Compose](https://www.jetbrains.com/help/kotlin-multiplatform-dev/compose-multiplatform-and-jetpack-compose.html)
+*   [Compose MultiplatformとJetpack Compose](https://kotlinlang.org/docs/multiplatform/compose-multiplatform-and-jetpack-compose.html)
     – 2つのUIフレームワーク間の関係の概要。
-*   [Kotlin MultiplatformとFlutter](https://www.jetbrains.com/help/kotlin-multiplatform-dev/kotlin-multiplatform-flutter.html)
+*   [Kotlin MultiplatformとFlutter](https://kotlinlang.org/docs/multiplatform/kotlin-multiplatform-flutter.html)
     – 2つの人気のあるクロスプラットフォームフレームワークの比較をご覧ください。
 *   [Cとの相互運用](native-c-interop.md) – KotlinとCの相互運用の詳細を探りましょう。
 *   [数値型](numbers.md) – 数値を表現するためのさまざまなKotlin型について学びましょう。
 
 ### 新しく更新されたチュートリアル
 
-*   [Maven Centralにライブラリを公開する](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-publish-libraries.html)
+*   [Maven Centralにライブラリを公開する](https://kotlinlang.org/docs/multiplatform/multiplatform-publish-libraries.html)
     – 最も人気のあるMavenリポジトリにKMPライブラリアーティファクトを公開する方法を学びましょう。
 *   [Kotlin/Nativeを動的ライブラリとして使用する](native-dynamic-libraries.md) – 動的Kotlinライブラリを作成します。
 *   [Kotlin/NativeをAppleフレームワークとして使用する](apple-framework.md) – 独自のフレームワークを作成し、macOSおよびiOS上のSwift/Objective-CアプリケーションからKotlin/Nativeコードを使用します。

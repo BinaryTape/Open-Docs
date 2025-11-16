@@ -136,7 +136,7 @@ public interface Game<T> {
 ```kotlin
 interface ArcadeGame<T1> : Game<T1> {
   override fun save(x: T1): T1
-  // T1 is definitely non-nullable
+  // T1 是确定非空的
   override fun load(x: T1 & Any): T1 & Any
 }
 ```
@@ -182,7 +182,7 @@ data class Customer(val name: String)
 
 val order = findOrder()
 
-// Direct conversion
+// 直接转换
 if (order != null){
     processCustomer(order.customer)
 }
@@ -244,7 +244,7 @@ numbers.add(1);
 numbers.add(2);
 
 System.out.println(numbers.get(0));
-//numbers.get(5) // Exception!
+//numbers.get(5) // 异常！
 ```
 {id="functions-returning-null-java"}
 
@@ -375,7 +375,7 @@ fun getUsername(profile: UserProfile?): String? =
 ## 接下来？
 
 *   浏览其他 [Kotlin 惯用法](idioms.md)。
-*   了解如何使用 [Java-to-Kotlin (J2K) 转换器](mixing-java-kotlin-intellij.md#converting-an-existing-java-file-to-kotlin-with-j2k) 将现有 Java 代码转换为 Kotlin。
+*   了解如何使用 [Java-to-Kotlin (J2K) 转换器](mixing-java-kotlin-intellij.md#convert-java-files-to-kotlin) 将现有 Java 代码转换为 Kotlin。
 *   查阅其他迁移指南：
     *   [Java 与 Kotlin 中的字符串](java-to-kotlin-idioms-strings.md)
     *   [Java 与 Kotlin 中的集合](java-to-kotlin-collections-guide.md)

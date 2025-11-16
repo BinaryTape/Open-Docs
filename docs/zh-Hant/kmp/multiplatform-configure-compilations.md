@@ -195,13 +195,13 @@ kotlin {
 
 ## JVM 編譯
 
-當您在多平台專案中宣告 `jvm` 目標時，Kotlin 多平台外掛程式會自動建立 Java 原始碼集並將其包含在 JVM 目標的編譯中。
+當您在多平台專案中宣告 `jvm` 目標時，Kotlin 多平台 Gradle 外掛程式會自動建立 Java 原始碼集並將其包含在 JVM 目標的編譯中。
 
 通用原始碼集不能包含 Java 資源，因此您應該將它們放置在多平台專案的對應子目錄中。例如：
 
 ![Java source files](java-source-paths.png){width=200}
 
-目前，Kotlin 多平台外掛程式會取代由 Java 外掛程式配置的某些任務：
+目前，Kotlin 多平台 Gradle 外掛程式會取代由 Java 外掛程式配置的某些任務：
 
 * JAR 任務：它不使用標準的 `jar`，而是使用基於構件名稱的目標特定任務，例如，`jvm()` 目標宣告的 `jvmJar` 和 `jvm("desktop")` 的 `desktopJar`。
 * 測試任務：它不使用標準的 `test`，而是使用基於構件名稱的目標特定任務，例如 `jvmTest`。
@@ -268,7 +268,7 @@ kotlin {
 </TabItem>
 </Tabs>
 
-此目標由 Kotlin 多平台外掛程式發佈，且不需要 Java 外掛程式特有的步驟。
+此目標由 Kotlin 多平台 Gradle 外掛程式發佈，且不需要 Java 外掛程式特有的步驟。
 
 ## 配置與原生語言的互通性
 
@@ -360,8 +360,8 @@ kotlin {
 </Tabs>
 
 ## Android 編譯
-
-為 Android 目標建立的預設編譯與 [Android 建構變體](https://developer.android.com/build/build-variants) 綁定：對於每個建構變體，會以相同名稱建立一個 Kotlin 編譯。
+ 
+預設為 Android 目標建立的編譯與 [Android 建構變體](https://developer.android.com/build/build-variants) 綁定：對於每個建構變體，會以相同名稱建立一個 Kotlin 編譯。
 
 然後，對於為每個變體編譯的每個 [Android 原始碼集](https://developer.android.com/build/build-variants#sourcesets)，都會建立一個以目標名稱作為前綴的 Kotlin 原始碼集，例如 Android 原始碼集 `debug` 和名為 `androidTarget` 的 Kotlin 目標會對應到 Kotlin 原始碼集 `androidDebug`。這些 Kotlin 原始碼集會相應地添加到變體的編譯中。
 
@@ -379,7 +379,7 @@ dependencies {
 }
 ```
 
-## 原始碼集階層的編譯
+## 原始碼集階層的編譯 
 
 Kotlin 可以使用 `dependsOn` 關係建立[原始碼集階層](multiplatform-share-on-platforms.md#share-code-on-similar-platforms)。
 

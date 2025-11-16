@@ -47,7 +47,7 @@ class MessageService(private val db: JdbcTemplate) {
    <def title="생성자 인수 및 의존성 주입 – (private val db: JdbcTemplate)">
       <p>Kotlin의 클래스에는 주 생성자가 있습니다. 또한 하나 이상의 <a href="classes.md#secondary-constructors">보조 생성자</a>를 가질 수도 있습니다.
       <i>주 생성자</i>는 클래스 헤더의 일부이며, 클래스 이름과 선택적 타입 파라미터 뒤에 옵니다. 이 경우 생성자는 <code>(val db: JdbcTemplate)</code>입니다.</p>
-      <p><code>val db: JdbcTemplate</code>는 생성자의 인수입니다:</p>
+      <p><code>val db: JdbcTemplate</code>은 생성자의 인수입니다:</p>
       <code-block lang="kotlin">
       @Service
       class MessageService(private val db: JdbcTemplate)
@@ -146,12 +146,12 @@ class MessageService(private val db: JdbcTemplate) {
     }
 
     fun save(message: Message): Message {
-        val id = message.id ?: UUID.randomUUID().toString() // Generate new id if it is null
+        val id = message.id ?: UUID.randomUUID().toString() // id가 null이면 새 id 생성
         db.update(
             "insert into messages values ( ?, ? )",
             id, message.text
         )
-        return message.copy(id = id) // Return a copy of the message with the new id
+        return message.copy(id = id) // 새 id를 가진 메시지 복사본 반환
     }
 }
 ```
@@ -197,7 +197,7 @@ class MessageService(private val db: JdbcTemplate) {
    ```
 
    이 설정은 Spring Boot 애플리케이션에 데이터베이스를 활성화합니다.  
-   [스프링 문서](https://docs.spring.io/spring-boot/docs/current/reference/html/appendix-application-properties.html)에서 일반 애플리케이션 속성의 전체 목록을 확인하세요.
+   [스프링 문서](https://docs.spring.io/spring-boot/appendix/application-properties/index.html)에서 일반 애플리케이션 속성의 전체 목록을 확인하세요.
 
 ## HTTP 요청을 통해 데이터베이스에 메시지 추가
 
@@ -287,12 +287,12 @@ ID별로 개별 메시지를 검색하도록 애플리케이션의 기능을 확
         }.singleOrNull()
     
         fun save(message: Message): Message {
-            val id = message.id ?: UUID.randomUUID().toString() // Generate new id if it is null
+            val id = message.id ?: UUID.randomUUID().toString() // id가 null이면 새 id 생성
             db.update(
                 "insert into messages values ( ?, ? )",
                 id, message.text
             )
-            return message.copy(id = id) // Return a copy of the message with the new id
+            return message.copy(id = id) // 새 id를 가진 메시지 복사본 반환
         }
     }
     ```
@@ -349,7 +349,7 @@ ID별로 개별 메시지를 검색하도록 애플리케이션의 기능을 확
             service.findMessageById(id).toResponseEntity()
         
         private fun Message?.toResponseEntity(): ResponseEntity<Message> =
-            // If the message is null (not found), set response code to 404
+            // 메시지가 null(찾을 수 없음)인 경우 응답 코드를 404로 설정
             this?.let { ResponseEntity.ok(it) } ?: ResponseEntity.notFound().build() 
     }
     ```
@@ -494,6 +494,6 @@ class MessageController(private val service: MessageService) {
 
 ## 다음 단계
 
-마지막 단계에서는 Spring Data를 사용하여 데이터베이스에 연결하는 더 일반적인 방법을 보여줍니다.
+마지막 단계에서는 Spring Data를 사용하여 데이터베이스에 연결하는 더 일반적인 방법을 보여줍니다. 
 
 **[다음 챕터로 진행](jvm-spring-boot-using-crudrepository.md)**

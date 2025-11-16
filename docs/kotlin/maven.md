@@ -2,7 +2,7 @@
 
 Maven 是一种构建系统，可用于构建和管理任何基于 Java 的项目。
 
-## 配置和启用插件
+## 配置并启用插件
 
 `kotlin-maven-plugin` 用于编译 Kotlin 源代码和模块。目前仅支持 Maven v3。
 
@@ -54,13 +54,28 @@ Maven 是一种构建系统，可用于构建和管理任何基于 Java 的项�
 
 ## 设置依赖项
 
-Kotlin 拥有一个丰富的标准库，可以在你的应用程序中使用。要在你的项目中包含该标准库，请将以下依赖项添加到你的 `pom.xml` 文件中：
+要添加对库的依赖项，请将其包含在 `<dependencies>` 元素中：
+
+```xml
+<dependencies>
+    <dependency>
+        <groupId>org.jetbrains.kotlinx</groupId>
+        <artifactId>kotlinx-serialization-json</artifactId>
+        <version>%serializationVersion%</version>
+    </dependency>
+</dependencies>
+```
+
+### 对标准库的依赖
+
+Kotlin 拥有一个丰富的标准库，你可以在应用程序中使用它。要在你的项目中包含该标准库，请将以下依赖项添加到你的 `pom.xml` 文件中：
 
 ```xml
 <dependencies>
     <dependency>
         <groupId>org.jetbrains.kotlin</groupId>
         <artifactId>kotlin-stdlib</artifactId>
+        <!-- 使用在 <properties/> 中指定的 kotlin.version 属性： -->
         <version>${kotlin.version}</version>
     </dependency>
 </dependencies>
@@ -72,7 +87,49 @@ Kotlin 拥有一个丰富的标准库，可以在你的应用程序中使用。�
 >
 {style="note"}
 
-如果你的项目使用 [Kotlin 反射](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect.full/index.html)或测试功能，你需要添加相应的依赖项。反射库的构件 ID 为 `kotlin-reflect`，测试库的构件 ID 为 `kotlin-test` 和 `kotlin-test-junit`。
+### 对测试库的依赖
+
+如果你的项目使用 [Kotlin 反射](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect.full/index.html)或测试框架，请添加相应的依赖项。反射库请使用 `kotlin-reflect`，测试库请使用 `kotlin-test` 和 `kotlin-test-junit`。
+
+例如：
+
+```xml
+<dependencies>
+    <dependency>
+        <groupId>org.jetbrains.kotlin</groupId>
+        <artifactId>kotlin-reflect</artifactId>
+        <version>${kotlin.version}</version>
+    </dependency>
+</dependencies>
+```
+
+### 对 kotlinx 库的依赖
+
+根据 kotlinx 库的不同，你可以添加基础构件名称或带有 `-jvm` 后缀的名称。请参阅 [klibs.io](https://klibs.io/) 上该库的 README 文件。
+
+例如，要添加对 `kotlinx.coroutines` 的依赖项：
+
+```xml
+<dependencies>
+    <dependency>
+        <groupId>org.jetbrains.kotlinx</groupId>
+        <artifactId>kotlinx-coroutines-core</artifactId>
+        <version>%coroutinesVersion%</version>
+    </dependency>
+</dependencies>
+```
+
+要添加对 `kotlinx-datetime` 的依赖项：
+
+```xml
+<dependencies>
+    <dependency>
+        <groupId>org.jetbrains.kotlinx</groupId>
+        <artifactId>kotlinx-datetime-jvm</artifactId>
+        <version>%dateTimeVersion%</version>
+    </dependency>
+</dependencies>
+```
 
 ## 编译仅含 Kotlin 的源代码
 
@@ -121,37 +178,112 @@ Kotlin Maven 插件需要被引用才能编译源代码：
 >
 {style="note"}
 
-<!-- 以下标题用于 Mari 链接服务。如果你希望在此处更改它，请同时更改那里的链接 -->
+<!-- The following header is used in the Mari link service. If you wish to change it here, change the link there too -->
 
 ## 编译 Kotlin 和 Java 源代码
 
-要编译包含 Kotlin 和 Java 源代码的项目，请在 Java 编译器之前调用 Kotlin 编译器。在 Maven 术语中，这意味着 `kotlin-maven-plugin` 应在 `maven-compiler-plugin` 之前运行，使用以下方法，确保 `kotlin` 插件在你的 `pom.xml` 文件中位于 `maven-compiler-plugin` 之前：
+要编译包含 Kotlin 和 Java 源代码的项目，请确保 Kotlin 编译器在 Java 编译器之前运行。Java 编译器无法看到 Kotlin 声明，直到它们被编译成 `.class` 文件。如果你的 Java 代码使用 Kotlin 类，那些类必须首先被编译，以避免 `cannot find symbol` 错误。
+
+Maven 根据两个主要因素来确定插件的执行顺序：
+
+*   `pom.xml` 文件中插件的声明顺序。
+*   内置的默认执行项，例如 `default-compile` 和 `default-testCompile`，它们总是优先于用户定义的执行项运行，无论它们在 `pom.xml` 文件中的位置如何。
+
+要控制执行顺序：
+
+*   在 `maven-compiler-plugin` 之前声明 `kotlin-maven-plugin`。
+*   禁用 Java 编译器插件的默认执行项。
+*   添加自定义执行项以显式控制编译阶段。
+
+> 你可以使用 Maven 中特殊的 `none` 阶段来禁用默认执行项。
+>
+{style="note"}
+
+可以使用 `extensions` 简化 Kotlin/Java 混合编译的配置。它允许跳过 Maven 编译器插件的配置：
+
+<tabs group="kotlin-java-maven">
+<tab title="使用扩展" group-key="with-extensions">
 
 ```xml
 <build>
     <plugins>
+        <!-- Kotlin 编译器插件配置 -->
         <plugin>
             <groupId>org.jetbrains.kotlin</groupId>
             <artifactId>kotlin-maven-plugin</artifactId>
             <version>${kotlin.version}</version>
-            <extensions>true</extensions> <!-- 你可以设置此选项以自动获取有关生命周期的信息 -->
+            <extensions>true</extensions>
             <executions>
                 <execution>
-                    <id>compile</id>
-                    <goals>
-                        <goal>compile</goal> <!-- 如果你为插件启用了扩展，则可以跳过 <goals> 元素 -->
-                    </goals>
+                    <id>default-compile</id>
+                    <phase>compile</phase>
                     <configuration>
                         <sourceDirs>
                             <sourceDir>src/main/kotlin</sourceDir>
+                            <!-- 确保 Kotlin 代码可以引用 Java 代码 -->
                             <sourceDir>src/main/java</sourceDir>
                         </sourceDirs>
                     </configuration>
                 </execution>
                 <execution>
-                    <id>test-compile</id>
-                    <goals> 
-                        <goal>test-compile</goal> <!-- 如果你为插件启用了扩展，则可以跳过 <goals> 元素 -->
+                    <id>default-test-compile</id>
+                    <phase>test-compile</phase>
+                    <configuration>
+                        <sourceDirs>
+                            <sourceDir>src/test/kotlin</sourceDir>
+                            <sourceDir>src/test/java</sourceDir>
+                        </sourceDirs>
+                    </configuration>
+                </execution>
+            </executions>
+        </plugin>
+        <!-- 无需使用扩展配置 Maven 编译器插件 -->
+    </plugins>
+</build>
+```
+
+如果你的项目之前是仅限 Kotlin 的配置，你还需要从 `<build>` 部分中移除以下行：
+
+```xml
+<build>
+    <sourceDirectory>src/main/kotlin</sourceDirectory>
+    <testSourceDirectory>src/test/kotlin</testSourceDirectory>
+</build>
+```
+
+这确保了在 `extensions` 设置下，Kotlin 代码可以引用 Java 代码，反之亦然。
+
+</tab>
+<tab title="不使用扩展" group-key="no-extensions">
+
+```xml
+<build>
+    <plugins>
+        <!-- Kotlin 编译器插件配置 -->
+        <plugin>
+            <groupId>org.jetbrains.kotlin</groupId>
+            <artifactId>kotlin-maven-plugin</artifactId>
+            <version>${kotlin.version}</version>
+            <executions>
+                <execution>
+                    <id>kotlin-compile</id>
+                    <phase>compile</phase>
+                    <goals>
+                        <goal>compile</goal>
+                    </goals>
+                    <configuration>
+                        <sourceDirs>
+                            <sourceDir>src/main/kotlin</sourceDir>
+                            <!-- 确保 Kotlin 代码可以引用 Java 代码 -->
+                            <sourceDir>src/main/java</sourceDir>
+                        </sourceDirs>
+                    </configuration>
+                </execution>
+                <execution>
+                    <id>kotlin-test-compile</id>
+                    <phase>test-compile</phase>
+                    <goals>
+                        <goal>test-compile</goal>
                     </goals>
                     <configuration>
                         <sourceDirs>
@@ -162,21 +294,24 @@ Kotlin Maven 插件需要被引用才能编译源代码：
                 </execution>
             </executions>
         </plugin>
+
+        <!-- Maven 编译器插件配置 -->
         <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-compiler-plugin</artifactId>
-            <version>3.5.1</version>
+            <version>3.14.0</version>
             <executions>
-                <!-- Replacing default-compile as it is treated specially by Maven -->
+                <!-- 禁用默认执行项 -->
                 <execution>
                     <id>default-compile</id>
                     <phase>none</phase>
                 </execution>
-                <!-- Replacing default-testCompile as it is treated specially by Maven -->
                 <execution>
                     <id>default-testCompile</id>
                     <phase>none</phase>
                 </execution>
+
+                <!-- 定义自定义执行项 -->
                 <execution>
                     <id>java-compile</id>
                     <phase>compile</phase>
@@ -196,6 +331,17 @@ Kotlin Maven 插件需要被引用才能编译源代码：
     </plugins>
 </build>
 ```
+
+</tab>
+</tabs>
+
+此配置确保：
+
+*   Kotlin 代码首先被编译。
+*   Java 代码在 Kotlin 之后被编译，并且可以引用 Kotlin 类。
+*   默认的 Maven 行为不会覆盖插件顺序。
+
+有关 Maven 如何处理插件执行的更多详细信息，请参见 Maven 官方文档中的[默认插件执行 ID 指南](https://maven.apache.org/guides/mini/guide-default-execution-ids.html)。
 
 ## 配置 Kotlin 编译器执行策略
 
@@ -230,7 +376,7 @@ _Kotlin 编译器执行策略_ 定义了 Kotlin 编译器的运行位置。有�
 
 ## 配置注解处理
 
-请参见[`kapt` – 在 Maven 中使用](kapt.md#use-in-maven)。
+请参见 [`kapt` – 在 Maven 中使用](kapt.md#use-in-maven)。
 
 ## 创建 JAR 文件
 

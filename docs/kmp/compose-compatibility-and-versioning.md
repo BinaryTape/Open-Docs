@@ -6,14 +6,14 @@ Compose Multiplatform 发布版本与 Kotlin 和 Jetpack Compose 发布版本是
 
 Compose Multiplatform %org.jetbrains.compose% 支持以下平台：
 
-| 平台 | 最低版本                                                                                               |
-|----------|--------------------------------------------------------------------------------------------------------|
-| Android  | Android 5.0 (API level 21)                                                                             |
-| iOS      | iOS 13                                                                                                 |
-| macOS    | macOS 12 x64, macOS 13 arm64                                                                           |
-| Windows  | Windows 10 (x86-64, arm64)                                                                             |
-| Linux    | Ubuntu 20.04 (x86-64, arm64)                                                                           |
-| Web      | 支持 [WasmGC 的浏览器](https://kotlinlang.org/docs/wasm-configuration.html#browser-versions) |
+| 平台 | 最低版本 |
+|----------|----------------------------------------------------------------------------------------|
+| Android | Android 5.0 (API level 21) |
+| iOS | iOS 13 |
+| macOS | macOS 12 x64, macOS 13 arm64 |
+| Windows | Windows 10 (x86-64, arm64) |
+| Linux | Ubuntu 20.04 (x86-64, arm64) |
+| Web | 支持 [WasmGC 的浏览器](https://kotlinlang.org/docs/wasm-configuration.html#browser-versions) |
 
 [//]: # (https://youtrack.jetbrains.com/issue/CMP-7539)
 
@@ -56,10 +56,10 @@ Compose Multiplatform 与 Google 开发的 Android 框架 [Jetpack Compose](http
 
 当 Jetpack Compose 发布新版本时，我们：
 
-1.  使用该发布版本的 commit 作为下一个 [Compose Multiplatform](https://github.com/JetBrains/androidx) 版本的基础。
-2.  添加对新平台特性的支持。
-3.  稳定所有平台。
-4.  发布新版本的 Compose Multiplatform。
+1. 使用该发布版本的 commit 作为下一个 [Compose Multiplatform](https://github.com/JetBrains/androidx) 版本的基础。
+2. 添加对新平台特性的支持。
+3. 稳定所有平台。
+4. 发布新版本的 Compose Multiplatform。
 
 Compose Multiplatform 发布版本与 Jetpack Compose 发布版本之间的间隔通常为 1–3 个月。
 
@@ -81,31 +81,31 @@ maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
 
 下表列出了每个 Compose Multiplatform 版本使用的 Jetpack Compose 构件版本：
 
-| Compose Multiplatform 版本                                                     | Jetpack Compose 版本 | Jetpack Compose Material3 版本 |
+| Compose Multiplatform 版本 | Jetpack Compose 版本 | Jetpack Compose Material3 版本 |
 |-----------------------------------------------------------------------------------|-------------------------|-----------------------------------|
-| [1.9.3](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.9.3)   | 1.9.4                   | 1.4.0                             |
-| [1.8.2](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.8.2)   | 1.8.2                   | 1.3.2                             |
-| [1.7.3](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.7.3)   | 1.7.6                   | 1.3.1                             |
-| [1.7.1](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.7.1)   | 1.7.5                   | 1.3.1                             |
-| [1.7.0](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.7.0)   | 1.7.1                   | 1.3.0                             |
-| [1.6.11](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.6.11) | 1.6.7                   | 1.2.1                             |
-| [1.6.10](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.6.10) | 1.6.7                   | 1.2.1                             |
-| [1.6.2](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.6.2)   | 1.6.4                   | 1.2.1                             |
-| [1.6.1](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.6.1)   | 1.6.3                   | 1.2.1                             |
-| [1.6.0](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.6.0)   | 1.6.1                   | 1.2.0                             |
-| [1.5.12](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.5.12) | 1.5.4                   | 1.1.2                             |
-| [1.5.11](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.5.11) | 1.5.4                   | 1.1.2                             |
-| [1.5.10](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.5.10) | 1.5.4                   | 1.1.2                             |
-| [1.5.1](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.5.1)   | 1.5.0                   | 1.1.1                             |
-| [1.5.0](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.5.0)   | 1.5.0                   | 1.1.1                             |
-| [1.4.3](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.4.3)   | 1.4.3                   | 1.0.1                             |
-| [1.4.1](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.4.1)   | 1.4.3                   | 1.0.1                             |
-| [1.4.0](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.4.0)   | 1.4.0                   | 1.0.1                             |
-| [1.3.1](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.3.1)   | 1.3.3                   | 1.0.1                             |
-| [1.3.0](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.3.0)   | 1.3.3                   | 1.0.1                             |
-| [1.2.1](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.2.1)   | 1.2.1                   | 1.0.0-alpha14                     |
-| [1.2.0](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.2.0)   | 1.2.1                   | 1.0.0-alpha14                     |
-| [1.1.1](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.1.1)   | 1.1.0                   | 1.0.0-alpha05                     |
-| [1.1.0](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.1.0)   | 1.1.0                   | 1.0.0-alpha05                     |
-| [1.0.1](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.0.1)   | 1.1.0-beta02            | 1.0.0-alpha03                     |
-| [1.0.0](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.0.0)   | 1.1.0-beta02            | 1.0.0-alpha03                     |
+| [1.9.3](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.9.3) | 1.9.4 | 1.4.0 |
+| [1.8.2](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.8.2) | 1.8.2 | 1.3.2 |
+| [1.7.3](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.7.3) | 1.7.6 | 1.3.1 |
+| [1.7.1](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.7.1) | 1.7.5 | 1.3.1 |
+| [1.7.0](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.7.0) | 1.7.1 | 1.3.0 |
+| [1.6.11](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.6.11) | 1.6.7 | 1.2.1 |
+| [1.6.10](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.6.10) | 1.6.7 | 1.2.1 |
+| [1.6.2](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.6.2) | 1.6.4 | 1.2.1 |
+| [1.6.1](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.6.1) | 1.6.3 | 1.2.1 |
+| [1.6.0](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.6.0) | 1.6.1 | 1.2.0 |
+| [1.5.12](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.5.12) | 1.5.4 | 1.1.2 |
+| [1.5.11](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.5.11) | 1.5.4 | 1.1.2 |
+| [1.5.10](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.5.10) | 1.5.4 | 1.1.2 |
+| [1.5.1](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.5.1) | 1.5.0 | 1.1.1 |
+| [1.5.0](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.5.0) | 1.5.0 | 1.1.1 |
+| [1.4.3](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.4.3) | 1.4.3 | 1.0.1 |
+| [1.4.1](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.4.1) | 1.4.3 | 1.0.1 |
+| [1.4.0](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.4.0) | 1.4.0 | 1.0.1 |
+| [1.3.1](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.3.1) | 1.3.3 | 1.0.1 |
+| [1.3.0](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.3.0) | 1.3.3 | 1.0.1 |
+| [1.2.1](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.2.1) | 1.2.1 | 1.0.0-alpha14 |
+| [1.2.0](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.2.0) | 1.2.1 | 1.0.0-alpha14 |
+| [1.1.1](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.1.1) | 1.1.0 | 1.0.0-alpha05 |
+| [1.1.0](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.1.0) | 1.1.0 | 1.0.0-alpha05 |
+| [1.0.1](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.0.1) | 1.1.0-beta02 | 1.0.0-alpha03 |
+| [1.0.0](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.0.0) | 1.1.0-beta02 | 1.0.0-alpha03 |

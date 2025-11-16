@@ -160,7 +160,7 @@ kotlin {
 您可能會遇到專案執行錯誤。要解決此問題，請關閉您的 Xcode 專案並
 在 Podfile 目錄中執行 `pod install`。
 
-有關更多資訊，請參閱 [CocoaPods Gradle 外掛程式 DSL 參考](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-cocoapods-dsl-reference.html)。
+有關更多資訊，請參閱 [CocoaPods Gradle 外掛程式 DSL 參考](https://kotlinlang.org/docs/multiplatform/multiplatform-cocoapods-dsl-reference.html)。
 
 ## Kotlin Multiplatform：新的 Android 原始碼集佈局
 
@@ -628,7 +628,7 @@ fun wait(timeout: Long, unit: TimeUnit) {
 }
 ```
 
-### 可比較和可相減的 TimeMarks
+### 可比較和可相減 `TimeMarks` 的預覽
 
 > `TimeMarks` 的新功能是[實驗性](components-stability.md#stability-levels-explained)的，要使用它
 > 您需要透過使用 `@OptIn(ExperimentalTime::class)` 或 `@ExperimentalTime` 選擇性加入。
@@ -780,8 +780,8 @@ Kotlin 文件收到了一些顯著的變更：
 ### 新與更新的教學
 
 *   [開始使用 Gradle 和 Kotlin/JVM](get-started-with-jvm-gradle-project.md) – 使用 IntelliJ IDEA 和 Gradle 建立控制台應用程式。
-*   [使用 Ktor 和 SQLDelight 建立多平台應用程式](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-ktor-sqldelight.html) – 使用 Kotlin Multiplatform Mobile 建立適用於 iOS 和 Android 的行動應用程式。
-*   [開始使用 Kotlin 多平台](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-create-first-app.html) – 了解使用 Kotlin 進行跨平台行動開發，並建立一個同時適用於 Android 和 iOS 的應用程式。
+*   [使用 Ktor 和 SQLDelight 建立多平台應用程式](https://kotlinlang.org/docs/multiplatform/multiplatform-ktor-sqldelight.html) – 使用 Kotlin Multiplatform Mobile 建立適用於 iOS 和 Android 的行動應用程式。
+*   [開始使用 Kotlin 多平台](https://kotlinlang.org/docs/multiplatform/multiplatform-create-first-app.html) – 了解使用 Kotlin 進行跨平台行動開發，並建立一個同時適用於 Android 和 iOS 的應用程式。
 
 ## 安裝 Kotlin 1.8.0
 

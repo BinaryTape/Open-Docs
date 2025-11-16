@@ -40,7 +40,7 @@ Kiluaは[KVision](https://kvision.io)フレームワークの後継となりま�
 
 [KVision](https://kvision.io)は、すぐに使えるUIコンポーネントを使用してKotlin/JSアプリケーションを構築するためのオブジェクト指向ウェブフレームワークです。これらのコンポーネントは、アプリケーションのユーザーインターフェースの構成要素として機能します。
 
-このフレームワークを使用すると、リアクティブなプログラミングモデルと命令型のプログラミングモデルの両方を使用してフロントエンドを構築できます。Ktor、Spring Boot、その他のフレームワーク用のコネクタを使用することで、サーバーサイドアプリケーションと統合することも可能です。さらに、[Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html)を使用してコードを共有できます。
+このフレームワークを使用すると、リアクティブなプログラミングモデルと命令型のプログラミングモデルの両方を使用してフロントエンドを構築できます。Ktor、Spring Boot、その他のフレームワーク用のコネクタを使用することで、サーバーサイドアプリケーションと統合することも可能です。さらに、[Kotlin Multiplatform](https://kotlinlang.org/docs/multiplatform/get-started.html)を使用してコードを共有できます。
 
 ドキュメント、チュートリアル、例については、[KVision docs](https://kvision.io/#docs)サイトを参照してください。
 

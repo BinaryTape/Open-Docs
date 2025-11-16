@@ -6,8 +6,8 @@
 <tldr>
     <p>本教學使用 IntelliJ IDEA，但您也可以在 Android Studio 中遵循它 – 這兩個 IDE 共享相同的核心功能和 Kotlin Multiplatform 支援。</p>
     <br/>
-    <p>這是「<strong>使用共享邏輯和原生 UI 建立 Kotlin Multiplatform 應用程式</strong>」教學的第一部分。</p>
-    <p><img src="icon-1.svg" width="20" alt="First step"/> <strong>建立您的 Kotlin Multiplatform 應用程式</strong><br/>
+    <p>這是「**使用共享邏輯和原生 UI 建立 Kotlin Multiplatform 應用程式**」教學的第一部分。</p>
+    <p><img src="icon-1.svg" width="20" alt="First step"/> **建立您的 Kotlin Multiplatform 應用程式**<br/>
        <img src="icon-2-todo.svg" width="20" alt="Second step"/> 更新使用者介面<br/>
        <img src="icon-3-todo.svg" width="20" alt="Third step"/> 新增依賴項<br/>       
        <img src="icon-4-todo.svg" width="20" alt="Fourth step"/> 共享更多邏輯<br/>

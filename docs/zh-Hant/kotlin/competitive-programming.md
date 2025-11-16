@@ -4,7 +4,7 @@
 
 [競技程式設計](https://en.wikipedia.org/wiki/Competitive_programming)是一項智力運動，參賽者編寫程式來解決在嚴格限制內精確指定的演算法問題。問題範圍可以從任何軟體開發者都能解決且只需少量程式碼即可獲得正確解決方案的簡單問題，到需要特殊演算法、資料結構和大量練習的複雜問題。儘管並非專為競技程式設計而設計，Kotlin 卻恰好非常適合這個領域，它將程式設計師在編寫和閱讀程式碼時所需的典型樣板程式碼量減少到幾乎與動態型別的腳本語言所提供的水平，同時又擁有靜態型別語言的工具和效能。
 
-請參閱 [開始使用 Kotlin/JVM](jvm-get-started.md) 了解如何設定 Kotlin 的開發環境。在競技程式設計中，通常會建立一個單一專案，每個問題的解決方案都寫在一個原始碼檔案中。
+有關如何在 IntelliJ IDEA 中建立 Kotlin 專案的更多資訊，請參閱 [建立主控台應用程式](jvm-get-started.md) 教學課程。在競技程式設計中，通常會建立一個單一專案，每個問題的解決方案都寫在一個原始碼檔案中。
 
 ## 簡單範例：可達數字問題
 
@@ -47,7 +47,7 @@ fun f(x: Int): Int {
 ```kotlin
 fun main() {
     var n = readln().toInt() // 從輸入讀取整數
-    val reached = HashSet<Int>() // 一個可變的雜湊集合 
+    val reached = HashSet<Int>() // 一個可變的雜湊集合
     while (reached.add(n)) n = f(n) // 迭代函式 f
     println(reached.size) // 將答案輸出
 }
@@ -61,7 +61,7 @@ fun main() {
 ```kotlin
 fun main() {
     var n = readLine()!!.toInt() // 從輸入讀取整數
-    val reached = HashSet<Int>() // 一個可變的雜湊集合 
+    val reached = HashSet<Int>() // 一個可變的雜湊集合
     while (reached.add(n)) n = f(n) // 迭代函式 f
     println(reached.size) // 將答案輸出
 }
@@ -147,7 +147,7 @@ fun main() {
     // 組成並寫入答案
     val ans =
         s.substring(0, i) +
-        s.substring(i, j).map { c -> f(c) }.joinToString("") + 
+        s.substring(i, j).map { c -> f(c) }.joinToString("") +
         s.substring(j)
     println(ans)
 }
@@ -206,9 +206,9 @@ val fl = readInts()
 val (n, k) = readInts()
 ```
 
-使用 JVM 的 `java.util.Scanner` 類別來解析非結構化輸入格式可能很誘人。Kotlin 旨在與 JVM 函式庫良好地互操作，因此它們在 Kotlin 中的使用感覺非常自然。然而，請注意 `java.util.Scanner` 非常慢。事實上，使用它解析 10^5 個或更多整數可能無法符合典型的 2 秒時間限制，而簡單的 Kotlin `split(" ").map { it.toInt() }` 就可以處理。
+使用 JVM 的 `java.util.Scanner` 類別來解析非結構化輸入格式可能很誘人。Kotlin 旨在與 JVM 函式庫良好地互操作，因此它們在 Kotlin 中的使用感覺非常自然。然而，請注意 `java.util.Scanner` 非常慢。事實上，使用它解析 10<sup>5</sup> 個或更多整數可能無法符合典型的 2 秒時間限制，而簡單的 Kotlin `split(" ").map { it.toInt() }` 就可以處理。
 
-在 Kotlin 中寫入輸出通常很直接，可以使用 [println(...)](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.io/println.html) 呼叫和 Kotlin 的 [字串樣板](strings.md#string-templates)。然而，當輸出包含 10^5 行或更多時，必須小心處理。發出如此多的 `println` 呼叫會太慢，因為 Kotlin 中的輸出在每行之後會自動沖刷（flush）。從陣列或列表中寫入多行的更快方法是使用 [joinToString()](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/join-to-string.html) 函式並以 `"
+在 Kotlin 中寫入輸出通常很直接，可以使用 [println(...)](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.io/println.html) 呼叫和 Kotlin 的 [字串樣板](strings.md#string-templates)。然而，當輸出包含 10<sup>5</sup> 行或更多時，必須小心處理。發出如此多的 `println` 呼叫會太慢，因為 Kotlin 中的輸出在每行之後會自動沖刷（flush）。從陣列或列表中寫入多行的更快方法是使用 [joinToString()](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/join-to-string.html) 函式並以 `"
 "` 作為分隔符，如下所示：
 
 ```kotlin

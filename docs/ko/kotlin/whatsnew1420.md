@@ -1,6 +1,6 @@
 [//]: # (title: Kotlin 1.4.20의 새로운 기능)
 
-[릴리스: 2020년 11월 23일](releases.md#release-details)
+_[릴리스: 2020년 11월 23일](releases.md#release-details)_
 
 Kotlin 1.4.20은 여러 가지 새로운 실험적인 기능을 제공하며, 1.4.0에 추가된 기능을 포함한 기존 기능에 대한 수정 및 개선 사항을 제공합니다.
 
@@ -64,7 +64,7 @@ browser {
 
 [webpack 번들링 구성](js-project-setup.md#webpack-bundling)에 대해 자세히 알아보십시오.
 
-#### Gradle에서 package.json 사용자 정의
+#### package.json 사용자 정의
 
 Kotlin/JS 패키지 관리 및 배포에 대한 더 많은 제어를 위해 이제 Gradle DSL을 통해 프로젝트 파일 [`package.json`](https://nodejs.dev/learn/the-package-json-guide)에 속성을 추가할 수 있습니다.
 
@@ -166,7 +166,7 @@ Kotlin/Native는 새로운 [이스케이프 분석](https://en.wikipedia.org/wik
 
 ### 성능 개선 및 버그 수정
 
-Kotlin/Native는 1.4.0에 추가된 [코드 공유 메커니즘](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-share-on-platforms.html#share-code-on-similar-platforms)을 포함하여 다양한 구성 요소에서 성능 개선 및 버그 수정을 제공합니다.
+Kotlin/Native는 1.4.0에 추가된 [코드 공유 메커니즘](https://kotlinlang.org/docs/multiplatform/multiplatform-share-on-platforms.html#share-code-on-similar-platforms)을 포함하여 다양한 구성 요소에서 성능 개선 및 버그 수정을 제공합니다.
 
 ### Objective-C 예외 옵트인 래핑
 
@@ -178,7 +178,7 @@ Kotlin/Native는 이제 프로그램 충돌을 피하기 위해 런타임에 Obj
 
 `NSException`을 `ForeignException` 타입의 Kotlin 예외로 래핑하도록 옵트인할 수 있습니다. 이 예외들은 원본 `NSException`에 대한 참조를 유지합니다. 이를 통해 근본 원인에 대한 정보를 얻고 적절하게 처리할 수 있습니다.
 
-Objective-C 예외 래핑을 활성화하려면 `cinterop` 호출에서 `-Xforeign-exception-mode objc-wrap` 옵션을 지정하거나 `.def` 파일에 `foreignExceptionMode = objc-wrap` 속성을 추가하십시오. [CocoaPods 통합](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-cocoapods-overview.html)을 사용하는 경우, 종속성의 `pod {}` 빌드 스크립트 블록에 다음과 같이 옵션을 지정하십시오:
+Objective-C 예외 래핑을 활성화하려면 `cinterop` 호출에서 `-Xforeign-exception-mode objc-wrap` 옵션을 지정하거나 `.def` 파일에 `foreignExceptionMode = objc-wrap` 속성을 추가하십시오. [CocoaPods 통합](https://kotlinlang.org/docs/multiplatform/multiplatform-cocoapods-overview.html)을 사용하는 경우, 종속성의 `pod {}` 빌드 스크립트 블록에 다음과 같이 옵션을 지정하십시오:
 
 ```kotlin
 pod("foo") {
@@ -202,7 +202,7 @@ CocoaPods 플러그인은 향상된 태스크 실행 흐름을 제공합니다. 
 
 #### 확장된 DSL
 
-Kotlin 프로젝트에 [CocoaPods](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-cocoapods-overview.html) 종속성을 추가하는 DSL은 새로운 기능을 받습니다.
+Kotlin 프로젝트에 [CocoaPods](https://kotlinlang.org/docs/multiplatform/multiplatform-cocoapods-overview.html) 종속성을 추가하는 DSL은 새로운 기능을 받습니다.
 
 로컬 Pods 및 CocoaPods 저장소의 Pods 외에도 다음과 같은 유형의 라이브러리에 대한 종속성을 추가할 수 있습니다:
 * 사용자 정의 Spec 저장소의 라이브러리.
@@ -211,7 +211,7 @@ Kotlin 프로젝트에 [CocoaPods](https://www.jetbrains.com/help/kotlin-multipl
 * 정적 라이브러리.
 * 사용자 정의 cinterop 옵션이 있는 라이브러리.
 
-Kotlin 프로젝트에서 [CocoaPods 종속성 추가](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-cocoapods-libraries.html)에 대해 자세히 알아보십시오. [Kotlin with CocoaPods 샘플](https://github.com/Kotlin/kmm-with-cocoapods-sample)에서 예시를 찾아볼 수 있습니다.
+Kotlin 프로젝트에서 [CocoaPods 종속성 추가](https://kotlinlang.org/docs/multiplatform/multiplatform-cocoapods-libraries.html)에 대해 자세히 알아보십시오. [Kotlin with CocoaPods 샘플](https://github.com/Kotlin/kmm-with-cocoapods-sample)에서 예시를 찾아볼 수 있습니다.
 
 #### Xcode와의 통합 업데이트
 
@@ -222,7 +222,7 @@ Xcode와 올바르게 작동하려면 Kotlin은 Podfile에 일부 변경 사항�
 
 이제 IDEA에서 통합 오류에 대한 상세 설명이 제공됩니다. 따라서 Podfile에 문제가 발생하면 즉시 해결 방법을 알 수 있습니다.
 
-[Kotlin Pods 생성](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-cocoapods-xcode.html)에 대해 자세히 알아보십시오.
+[Kotlin Pods 생성](https://kotlinlang.org/docs/multiplatform/multiplatform-cocoapods-xcode.html)에 대해 자세히 알아보십시오.
 
 ### Xcode 12 라이브러리 지원
 
@@ -232,13 +232,13 @@ Xcode 12와 함께 제공되는 새로운 라이브러리에 대한 지원을 �
 
 ### 멀티플랫폼 라이브러리 게시 구조 업데이트
 
-Kotlin 1.4.20부터는 더 이상 별도의 메타데이터 게시가 없습니다. 이제 메타데이터 아티팩트는 전체 라이브러리를 나타내는 _루트_ 게시물에 포함되며, 공통 소스 세트에 종속성으로 추가될 때 적절한 플랫폼별 아티팩트로 자동 해결됩니다.
+Kotlin 1.4.20부터는 더 이상 별도의 메타데이터 게시가 없습니다. 메타데이터 아티팩트는 이제 전체 라이브러리를 나타내는 _루트_ 게시물에 포함되며, 공통 소스 세트에 종속성으로 추가될 때 적절한 플랫폼별 아티팩트로 자동 해결됩니다.
 
-[멀티플랫폼 라이브러리 게시](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-publish-lib-setup.html)에 대해 자세히 알아보십시오.
+[멀티플랫폼 라이브러리 게시](https://kotlinlang.org/docs/multiplatform/multiplatform-publish-lib-setup.html)에 대해 자세히 알아보십시오.
 
 #### 이전 버전과의 호환성
 
-이 구조 변경은 [계층적 프로젝트 구조](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-share-on-platforms.html#share-code-on-similar-platforms)를 가진 프로젝트 간의 호환성을 손상시킵니다. 멀티플랫폼 프로젝트와 해당 프로젝트가 의존하는 라이브러리가 모두 계층적 프로젝트 구조를 가지고 있다면, 동시에 Kotlin 1.4.20 이상으로 업데이트해야 합니다. Kotlin 1.4.20으로 게시된 라이브러리는 이전 버전으로 게시된 프로젝트에서 사용할 수 없습니다.
+이 구조 변경은 [계층적 프로젝트 구조](https://kotlinlang.org/docs/multiplatform/multiplatform-share-on-platforms.html#share-code-on-similar-platforms)를 가진 프로젝트 간의 호환성을 손상시킵니다. 멀티플랫폼 프로젝트와 해당 프로젝트가 의존하는 라이브러리가 모두 계층적 프로젝트 구조를 가지고 있다면, 동시에 Kotlin 1.4.20 이상으로 업데이트해야 합니다. Kotlin 1.4.20으로 게시된 라이브러리는 이전 버전으로 게시된 프로젝트에서 사용할 수 없습니다.
 
 계층적 프로젝트 구조가 없는 프로젝트와 라이브러리는 호환됩니다.
 
@@ -246,10 +246,10 @@ Kotlin 1.4.20부터는 더 이상 별도의 메타데이터 게시가 없습니�
 
 Kotlin 1.4.20의 표준 라이브러리는 파일 작업용 새로운 확장 기능과 향상된 성능을 제공합니다.
 
-- [java.nio.file.Path용 확장 기능](#extensions-for-java-nio-file-path)
-- [String.replace 함수 성능 개선](#improved-string-replace-function-performance)
+- [`java.nio.file.Path`용 확장 기능](#extensions-for-java-nio-file-path)
+- [`String.replace` 함수 성능 개선](#improved-string-replace-function-performance)
 
-### java.nio.file.Path용 확장 기능
+### `java.nio.file.Path`용 확장 기능
 
 > `java.nio.file.Path`용 확장 기능은 [실험적](components-stability.md) 기능입니다. 이 기능은 언제든지 제거되거나 변경될 수 있습니다. 옵트인(Opt-in)이 필요합니다(자세한 내용은 아래 참조). 평가 목적으로만 사용하십시오. [YouTrack](https://youtrack.jetbrains.com/issues/KT)에 여러분의 피드백을 주시면 감사하겠습니다.
 >
@@ -258,17 +258,17 @@ Kotlin 1.4.20의 표준 라이브러리는 파일 작업용 새로운 확장 기
 이제 표준 라이브러리는 `java.nio.file.Path`용 실험적 확장 기능을 제공합니다. 현대적인 JVM 파일 API를 Kotlin스러운 방식으로 사용하는 것은 `kotlin.io` 패키지의 `java.io.File` 확장 기능과 유사합니다.
 
 ```kotlin
-// construct path with the div (/) operator
+// div (/) 연산자로 경로 생성
 val baseDir = Path("/base")
 val subDir = baseDir / "subdirectory" 
 
-// list files in a directory
+// 디렉터리의 파일 목록 표시
 val kotlinFiles: List<Path> = Path("/home/user").listDirectoryEntries("*.kt")
 ```
 
 이 확장 기능은 `kotlin-stdlib-jdk7` 모듈의 `kotlin.io.path` 패키지에 있습니다. 확장 기능을 사용하려면 실험적 어노테이션 `@ExperimentalPathApi`에 [옵트인](opt-in-requirements.md)해야 합니다.
 
-### String.replace 함수 성능 개선
+### `String.replace` 함수 성능 개선
 
 `String.replace()`의 새로운 구현은 함수 실행 속도를 높입니다. 대소문자를 구분하는 변형은 `indexOf`를 기반으로 하는 수동 교체 루프를 사용하며, 대소문자를 구분하지 않는 변형은 정규 표현식 매칭을 사용합니다.
 
@@ -277,7 +277,7 @@ val kotlinFiles: List<Path> = Path("/home/user").listDirectoryEntries("*.kt")
 1.4.20에서는 Kotlin Android Extensions 플러그인이 더 이상 사용되지 않으며(`deprecated`), `Parcelable` 구현 생성기는 별도의 플러그인으로 이동합니다.
 
 - [합성 뷰 사용 중단](#deprecation-of-synthetic-views)
-- [Parcelable 구현 생성기를 위한 새로운 플러그인](#new-plugin-for-parcelable-implementation-generator)
+- [`Parcelable` 구현 생성기를 위한 새로운 플러그인](#new-plugin-for-parcelable-implementation-generator)
 
 ### 합성 뷰 사용 중단
 
@@ -285,11 +285,11 @@ _합성 뷰_는 UI 요소와의 상호 작용을 단순화하고 상용구(boile
 
 저희는 `kotlin-android-extensions`에서 `Parcelable` 구현 생성기를 추출하고, 나머지 기능인 합성 뷰에 대한 사용 중단(deprecation) 주기를 시작합니다. 현재로서는 사용 중단 경고와 함께 계속 작동할 것입니다. 미래에는 프로젝트를 다른 솔루션으로 전환해야 합니다. 다음은 Android 프로젝트를 합성 뷰에서 뷰 바인딩으로 마이그레이션하는 데 도움이 될 [가이드라인](https://goo.gle/kotlin-android-extensions-deprecation)입니다.
 
-### Parcelable 구현 생성기를 위한 새로운 플러그인
+### `Parcelable` 구현 생성기를 위한 새로운 플러그인
 
 `Parcelable` 구현 생성기는 이제 새로운 `kotlin-parcelize` 플러그인에서 사용할 수 있습니다. `kotlin-android-extensions` 대신 이 플러그인을 적용하십시오.
 
-> `kotlin-parcelize`와 `kotlin-android-extensions`는 한 모듈에 함께 적용할 수 없습니다.
+>`kotlin-parcelize`와 `kotlin-android-extensions`는 한 모듈에 함께 적용할 수 없습니다.
 >
 {style="note"}
 

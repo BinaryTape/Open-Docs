@@ -17,6 +17,11 @@
     * [Material3 1.4.0](https://developer.android.com/jetpack/androidx/releases/compose-material3#1.4.0)
 
 * Compose Material3ライブラリ `org.jetbrains.compose.material3:material3*:1.10.0-alpha04`。[Jetpack Compose Material3 1.5.0-alpha07](https://developer.android.com/jetpack/androidx/releases/compose-material3#1.5.0-alpha07)に基づいています。
+
+  [エクスプレッシブテーマ](whats-new-compose-190.md#material-3-expressive-theme)を使用するには、Material 3の実験的バージョンを含めます。
+    ```kotlin
+    implementation("org.jetbrains.compose.material3:material3:1.9.0-alpha04")
+    ```
 * Compose Material3 Adaptiveライブラリ `org.jetbrains.compose.material3.adaptive:adaptive*:1.3.0-alpha01`。[Jetpack Compose Material3 Adaptive 1.3.0-alpha02](https://developer.android.com/jetpack/androidx/releases/compose-material3-adaptive#1.3.0-alpha02)に基づいています。
 * Lifecycleライブラリ `org.jetbrains.androidx.lifecycle:lifecycle-*:2.10.0-alpha04`。[Jetpack Lifecycle 2.10.0-beta01](https://developer.android.com/jetpack/androidx/releases/lifecycle#2.10.0-beta01)に基づいています。
 * Navigationライブラリ `org.jetbrains.androidx.navigation:navigation-*:2.9.1`。[Jetpack Navigation 2.9.4](https://developer.android.com/jetpack/androidx/releases/navigation#2.9.4)に基づいています。

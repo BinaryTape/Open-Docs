@@ -1,4 +1,4 @@
-[//]: # (title: Kotlin 1.7 兼容性指南)
+[//]: # (title: Kotlin 1.7.0 兼容性指南)
 
 _[保持语言现代性](kotlin-evolution-principles.md)_ 和 _[舒适的更新](kotlin-evolution-principles.md)_ 是 Kotlin 语言设计中的基本原则。前者指出，阻碍语言演进的构造应被移除；后者则强调，此移除应提前充分沟通，以使代码迁移尽可能顺畅。
 
@@ -58,7 +58,7 @@ _[保持语言现代性](kotlin-evolution-principles.md)_ 和 _[舒适的更新]
 >
 > **Incompatible change type**: source
 >
-> **Short summary**: 当显式或隐式 `super` 调用委托给超类的 _抽象_ 成员时，Kotlin 将报告编译错误，即使超接口中有默认实现。
+> **Short summary**: Kotlin 将报告编译错误，当显式或隐式 `super` 调用委托给超类的 _抽象_ 成员时，即使超接口中有默认实现。
 >
 > **Deprecation cycle**:
 >
@@ -99,7 +99,7 @@ _[保持语言现代性](kotlin-evolution-principles.md)_ 和 _[舒适的更新]
 
 ### 禁止在 `when` 条件分支和循环条件中计算复杂布尔表达式的常量值
 
-> **Issue**: [KT-39883](https://youtrack.com/issue/KT-39883)
+> **Issue**: [KT-39883](https://youtrack.jetbrains.com/issue/KT-39883)
 >
 > **Component**: Core language
 >
@@ -156,7 +156,7 @@ _[保持语言现代性](kotlin-evolution-principles.md)_ 和 _[舒适的更新]
 > **Deprecation cycle**:
 >
 > - 1.4.30: 对更精确的类型可空性可能导致错误的情况引入警告
-> - 1.7.0: 推断 Java 类型的更精确可空性，
+> - 1.7.0: 推断 Java 类型的更精确可空性，  
 > `-XXLanguage:-TypeEnhancementImprovementsInStrictMode` 可用于临时恢复到 1.7 之前的行为
 
 ### 防止不同数值类型之间的隐式强制转换
@@ -172,7 +172,7 @@ _[保持语言现代性](kotlin-evolution-principles.md)_ 和 _[舒适的更新]
 > **Deprecation cycle**:
 >
 > - < 1.5.30: 所有受影响案例中的旧行为
-> - 1.5.30: 修复生成的属性委托访问器中的向下转换行为，
+> - 1.5.30: 修复生成的属性委托访问器中的向下转换行为，  
 > `-Xuse-old-backend` 可用于临时恢复到 1.5.30 修复前的行为
 > - &gt;= 1.7.20: 修复其他受影响案例中的向下转换行为
 

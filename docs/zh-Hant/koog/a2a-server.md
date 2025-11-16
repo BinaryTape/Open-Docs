@@ -4,7 +4,7 @@ A2A 伺服器讓您能夠透過標準化的 A2A (Agent-to-Agent) 協定公開 AI
 
 ## 相依性
 
-要在您的專案中使用 A2A 伺服器，請將以下相依性新增至 `build.gradle.kts`：
+要在您的專案中使用 A2A 伺服器，請將以下相依性新增至您的 `build.gradle.kts`：
 
 ```kotlin
 dependencies {
@@ -35,8 +35,9 @@ A2A 伺服器作為 A2A 協定傳輸層與您的自訂代理程式邏輯之間�
 - **處理**所有協定操作：訊息傳送、任務查詢、取消、推播通知
 
 `A2AServer` 接受兩個必要參數：
-* `AgentExecutor`，定義代理程式的業務邏輯實作
-* `AgentCard`，定義代理程式功能和中繼資料
+
+*   `AgentExecutor`，定義代理程式的業務邏輯實作
+*   `AgentCard`，定義代理程式功能和中繼資料
 
 以及許多可用於自訂其儲存和傳輸行為的可選參數。
 
@@ -66,8 +67,9 @@ class MyAgentExecutor : AgentExecutor {
 `RequestContext` 提供關於目前請求的豐富資訊，包括目前會話的 `contextId` 和 `taskId`、傳送的 `message` 以及請求的 `params`。
 
 `SessionEventProcessor` 與用戶端通訊：
-- **`sendMessage(message)`**：傳送即時回應（聊天風格互動）
-- **`sendTaskEvent(event)`**：傳送任務相關更新（長時間執行的操作）
+
+-   **`sendMessage(message)`**：傳送即時回應（聊天風格互動）
+-   **`sendTaskEvent(event)`**：傳送任務相關更新（長時間執行的操作）
 
 ```kotlin
 // 用於即時回應（例如聊天機器人）
@@ -87,7 +89,7 @@ eventProcessor.sendTaskEvent(
         taskId = context.taskId,
         status = TaskStatus(
             state = TaskState.Working,
-            message = Message(/* progress update */), // 進度更新
+            message = Message(/* progress update */),
             timestamp = Clock.System.now()
         ),
         final = false  // 還有更多更新會到來
@@ -116,7 +118,7 @@ val agentCard = AgentCard(
         AgentInterface("https://api.example.com/a2a", TransportProtocol.JSONRPC),
     ),
 
-    // 功能宣告
+    // 能力宣告
     capabilities = AgentCapabilities(
         streaming = true,              // 支援即時回應
         pushNotifications = true,      // 傳送非同步通知
@@ -132,12 +134,12 @@ val agentCard = AgentCard(
         "bearer" to HTTPAuthSecurityScheme(
             scheme = "Bearer",
             bearerFormat = "JWT",
-            description = "JWT token authentication"
+            description = "JWT 權杖驗證"
         ),
         "api-key" to APIKeySecurityScheme(
             `in` = In.Header,
             name = "X-API-Key",
-            description = "API key for service authentication"
+            description = "用於服務驗證的 API 金鑰"
         )
     ),
 
@@ -158,8 +160,8 @@ val agentCard = AgentCard(
             description = "Generate custom recipes based on ingredients, dietary restrictions, and preferences",
             tags = listOf("cooking", "recipes", "nutrition"),
             examples = listOf(
-                "Create a vegan pasta recipe with mushrooms",
-                "I have chicken, rice, and vegetables. What can I make?"
+                "建立純素蘑菇義大利麵食譜",
+                "我有雞肉、米飯和蔬菜。我能做什麼？"
             )
         ),
         AgentSkill(
@@ -174,7 +176,7 @@ val agentCard = AgentCard(
     iconUrl = "https://example.com/agent-icon.png",
     documentationUrl = "https://docs.example.com/recipe-agent",
     provider = AgentProvider(
-        organization = "CookingAI Inc.",
+        organization = "CookingAI 公司",
         url = "https://cookingai.com"
     )
 )
@@ -200,9 +202,9 @@ transport.start(
 
 A2A 伺服器使用可插拔的儲存架構，分離不同類型的資料。所有儲存實作都是可選的，並預設為開發用途的記憶體內變體。
 
-- **TaskStorage**：任務生命週期管理 – 儲存和管理任務狀態、歷史記錄和產物
-- **MessageStorage**：會話歷史記錄 – 管理會話上下文中的訊息歷史記錄
-- **PushNotificationConfigStorage**：Webhook 管理 – 管理用於非同步通知的 Webhook 配置
+-   **TaskStorage**：任務生命週期管理 – 儲存和管理任務狀態、歷史記錄和產物
+-   **MessageStorage**：會話歷史記錄 – 管理會話上下文中的訊息歷史記錄
+-   **PushNotificationConfigStorage**：Webhook 管理 – 管理用於非同步通知的 Webhook 配置
 
 ## 快速入門
 
@@ -219,7 +221,7 @@ val agentCard = AgentCard(
     url = "https://api.example.com/a2a",
     preferredTransport = TransportProtocol.JSONRPC,
 
-    // 功能宣告
+    // 能力宣告
     capabilities =
         AgentCapabilities(
             streaming = true,              // 支援即時回應
@@ -261,7 +263,7 @@ class EchoAgentExecutor : AgentExecutor {
         val response = Message(
             messageId = UUID.randomUUID().toString(),
             role = Role.Agent,
-            parts = listOf(TextPart("You said: $userText")),
+            parts = listOf(TextPart("你說：$userText")),
             contextId = context.contextId,
             taskId = context.taskId
         )

@@ -1,4 +1,4 @@
-[//]: # (title: 兼容性指南：Kotlin 1.3)
+[//]: # (title: Kotlin 1.3.x 兼容性指南)
 
 _[保持语言现代性](kotlin-evolution-principles.md)_ 和 _[舒适的更新](kotlin-evolution-principles.md)_ 是 Kotlin 语言设计中的基本原则。前者指出应移除阻碍语言演进的结构，后者则要求这种移除应提前充分沟通，以使代码迁移尽可能顺畅。
 
@@ -16,7 +16,7 @@ _[保持语言现代性](kotlin-evolution-principles.md)_ 和 _[舒适的更新]
 
 ## 不兼容的变更
 
-### 构造函数实参关于 `<clinit>` 调用的求值顺序
+### 构造函数实参关于 &lt;clinit&gt; 调用的求值顺序
 
 > **问题**: [KT-19532](https://youtrack.jetbrains.com/issue/KT-19532)
 >
@@ -271,7 +271,7 @@ _[保持语言现代性](kotlin-evolution-principles.md)_ 和 _[舒适的更新]
 
 ### 目标为 EXPRESSION 的注解的保留策略
 
-> **问题**: [KT-13762](https://youtrack.jetbrains.com/issue/KT-13762)
+> **问题**: [KT-13762](https://youtrack.com/issue/KT-13762)
 >
 > **组件**: 核心语言
 >
@@ -287,7 +287,7 @@ _[保持语言现代性](kotlin-evolution-principles.md)_ 和 _[舒适的更新]
 
 ### 目标为 PARAMETER 的注解不应适用于形参的类型
 
-> **问题**: [KT-9580](https://youtrack.jetbrains.com/issue/KT-9580)
+> **问题**: [KT-9580](https://youtrack.com/issue/KT-9580)
 >
 > **组件**: 核心语言
 >
@@ -303,7 +303,7 @@ _[保持语言现代性](kotlin-evolution-principles.md)_ 和 _[舒适的更新]
 
 ### 当索引超出范围时 Array.copyOfRange 抛出异常而不是扩大返回的数组
 
-> **问题**: [KT-19489](https://youtrack.jetbrains.com/issue/KT-19489)
+> **问题**: [KT-19489](https://youtrack.com/issue/KT-19489)
 >
 > **组件**: kotlin-stdlib (JVM)
 >
@@ -318,7 +318,7 @@ _[保持语言现代性](kotlin-evolution-principles.md)_ 和 _[舒适的更新]
 
 ### 步长为 Int.MIN_VALUE 和 Long.MIN_VALUE 的 Int 和 Long 数列已被禁用，不允许实例化
 
-> **问题**: [KT-17176](https://youtrack.jetbrains.com/issue/KT-17176)
+> **问题**: [KT-17176](https://youtrack.com/issue/KT-17176)
 >
 > **组件**: kotlin-stdlib (JVM)
 >
@@ -333,13 +333,13 @@ _[保持语言现代性](kotlin-evolution-principles.md)_ 和 _[舒适的更新]
 
 ### 非常长序列操作中的索引溢出检测
 
-> **问题**: [KT-16097](https://youtrack.jetbrains.com/issue/KT-16097)
+> **问题**: [KT-16097](https://youtrack.com/issue/KT-16097)
 >
 > **组件**: kotlin-stdlib (JVM)
 >
 > **不兼容的变更类型**: 行为
 >
-> **简述**: 从 Kotlin 1.3 开始，确保 `index`、`count` 和类似方法不会在长序列上溢出。受影响方法的完整列表请参见问题。
+> **简述**: 从 Kotlin 1.3 开始，确保 `index`、`count` 和类似方法不会在长序列上溢出。关于受影响方法的完整列表请参见问题。
 >
 > **弃用周期**:
 >
@@ -348,7 +348,7 @@ _[保持语言现代性](kotlin-evolution-principles.md)_ 和 _[舒适的更新]
 
 ### 统一各平台空匹配正则表达式的 split 结果
 
-> **问题**: [KT-21049](https://youtrack.jetbrains.com/issue/KT-21049)
+> **问题**: [KT-21049](https://youtrack.com/issue/KT-21049)
 >
 > **组件**: kotlin-stdlib (JVM)
 >
@@ -363,7 +363,7 @@ _[保持语言现代性](kotlin-evolution-principles.md)_ 和 _[舒适的更新]
 
 ### 编译器分发版中已停用的弃用构件
 
-> **问题**: [KT-23799](https://youtrack.jetbrains.com/issue/KT-23799)
+> **问题**: [KT-23799](https://youtrack.com/issue/KT-23799)
 >
 > **组件**: 其他
 >
@@ -381,7 +381,7 @@ _[保持语言现代性](kotlin-evolution-principles.md)_ 和 _[舒适的更新]
 
 ### stdlib 中的注解
 
-> **问题**: [KT-21784](https://youtrack.jetbrains.com/issue/KT-21784)
+> **问题**: [KT-21784](https://youtrack.com/issue/KT-21784)
 >
 > **组件**: kotlin-stdlib (JVM)
 >

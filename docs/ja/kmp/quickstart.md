@@ -19,15 +19,10 @@ IDE と必要なプラグインから始めます。
 
     スタンドアロンインストールの場合、[IntelliJ IDEA](https://www.jetbrains.com/idea/download/) または [Android Studio](https://developer.android.com/studio) のインストーラーをダウンロードしてください。
 
-    Kotlin Multiplatform に必要なプラグインには、少なくとも **IntelliJ IDEA 2025.1.1**
-    または **Android Studio Narwhal 2025.1.1** が必要です。
+    Kotlin Multiplatform に必要なプラグインには、少なくとも
+    **IntelliJ IDEA 2025.2.2** または **Android Studio Otter 2025.2.1** が必要です。
 
 2.  [Kotlin Multiplatform IDE プラグイン](https://plugins.jetbrains.com/plugin/14936-kotlin-multiplatform)をインストールします (Kotlin Multiplatform Gradle プラグインと混同しないように)。
-
-    > Windows および Linux で Kotlin Multiplatform プラグインを使用するには、IntelliJ IDEA 2025.2.2 が必要です。
-    > Android Studio は、今後のリリースで Windows および Linux 上の KMP IDE プラグインのサポートを追加する予定です。
-    >
-    {style="note"}
 
 3.  IntelliJ IDEA 用の Kotlin Multiplatform IDE プラグインをインストールすると、まだ持っていない場合は必要なすべての依存関係もインストールされます
     (Android Studio には必要なすべてのプラグインがバンドルされています)。
@@ -94,17 +89,13 @@ IDE ウィザードを使用して新しい KMP プロジェクトを作成し�
 
 プラットフォームの選択が完了したら、**Create** ボタンをクリックし、IDE がプロジェクトを生成してインポートするのを待ちます。
 
-![IntelliJ IDEA ウィザードのデフォルト設定で Android、iOS、デスクトップ、および Web プラットフォームが選択されている](idea-wizard-1step.png){width=800}
+![IntelliJ IDEA ウィザードのデフォルト設定で Android、iOS、デスクトップ、および Web プラットフォームが選択されている](idea-wizard-1step.png){width=600}
 
 </TabItem>
 <TabItem title= "Android Studio">
 
-> KMP IDE プラグインは、Android Studio の Windows および Linux バージョンではまだサポートされていません。
->
-{style="warning"}
-
 Kotlin Multiplatform IDE プラグインは K2 機能に大きく依存しており、それがなければ記載どおりに動作しません。
-したがって、開始する前に K2 モードが有効になっていることを確認してください。
+したがって、開始する前に K2 モードが有効になっていることを確認してください:
 **Settings** | **Languages & Frameworks** | **Kotlin** | **Enable K2 mode**。
 
 IDE ウィザードを使用して新しい KMP プロジェクトを作成します。
@@ -128,7 +119,7 @@ IDE ウィザードを使用して新しい KMP プロジェクトを作成し�
 
 プラットフォームの選択が完了したら、**Finish** ボタンをクリックし、IDE がプロジェクトを生成してインポートするのを待ちます。
 
-![Android、iOS、デスクトップ、および Web プラットフォームが選択された Android Studio ウィザードの最後のステップ](as-wizard-3step.png){width=800}
+![Android、iOS、デスクトップ、および Web プラットフォームが選択された Android Studio ウィザードの最後のステップ](as-wizard-3step.png){width=600}
 
 </TabItem>
 </Tabs>
@@ -141,9 +132,9 @@ IDE ウィザードを使用して新しい KMP プロジェクトを作成し�
 このツールウィンドウでは、これらのチェックに関連するメッセージを確認したり、再実行したり、設定を変更したりできます。
 
 プリフライトチェックコマンドは、**Search Everywhere** ダイアログでも利用できます。
-`Shift` を2回押して、「preflight」という単語を含むコマンドを検索します。
+<shortcut>Shift</shortcut> を2回押して、「preflight」という単語を含むコマンドを検索します。
 
-![「preflight」という単語が入力された Search Everywhere メニュー](double-shift-preflight-checks.png)
+![「preflight」という単語が入力された Search Everywhere メニュー](double-shift-preflight-checks.png){width=600}
 
 ## サンプルアプリを実行する
 
@@ -159,11 +150,11 @@ Android アプリを実行するには、**composeApp** 実行設定を開始し
 
 ![Android 実行設定がハイライトされたドロップダウン](run-android-configuration.png){width=250}
 
-Android 実行設定を手動で作成するには、実行設定テンプレートとして **Android App** を選択し、モジュールを **[プロジェクト名].composeApp** に選択します。
+Android 実行設定を手動で作成するには、実行設定テンプレートとして **Android App** を選択し、モジュールを **[project name].composeApp** に選択します。
 
 デフォルトでは、利用可能な最初の仮想デバイスで実行されます。
 
-![仮想デバイスで実行された Android アプリ](run-android-app.png){width=350}
+![仮想デバイスで実行された Android アプリ](run-android-app.png){width=300}
 
 </TabItem>
 <TabItem title="iOS">
@@ -189,7 +180,7 @@ iOS アプリを実行すると、内部で Xcode を使用してビルドされ
 
 ![デフォルトのデスクトップ実行設定がハイライトされたドロップダウン](run-desktop-configuration.png){width=250}
 
-デスクトップ実行設定を手動で作成するには、**Gradle** 実行設定テンプレートを選択し、以下のコマンドで **[アプリ名]:composeApp** Gradle プロジェクトを指します。
+デスクトップ実行設定を手動で作成するには、**Gradle** 実行設定テンプレートを選択し、以下のコマンドで **[app name]:composeApp** Gradle プロジェクトを指します。
 
 ```shell
 desktopRun -DmainClass=com.example.myapplication.MainKt --quiet
@@ -206,7 +197,7 @@ Web アプリのデフォルトの実行設定は、**composeApp [wasmJs]** と�
 
 ![デフォルトの Wasm 実行設定がハイライトされたドロップダウン](run-wasm-configuration.png){width=250}
 
-Web 実行設定を手動で作成するには、**Gradle** 実行設定テンプレートを選択し、以下のコマンドで **[アプリ名]:composeApp** Gradle プロジェクトを指します。
+Web 実行設定を手動で作成するには、**Gradle** 実行設定テンプレートを選択し、以下のコマンドで **[app name]:composeApp** Gradle プロジェクトを指します。
 
 ```shell
 wasmJsBrowserDevelopmentRun
@@ -254,16 +245,16 @@ iOS 実行設定が実行する仮想デバイスがないと報告する場合�
 ## 次にすること
 
 KMP プロジェクトの構造と共有コードの作成について詳しく学習します。
-*   共有 UI コードの使用に関するチュートリアルのシリーズ: [Compose Multiplatform アプリを作成する](compose-multiplatform-create-first-app.md)
-*   ネイティブ UI と共有コードの使用に関するチュートリアルのシリーズ: [Kotlin Multiplatform アプリを作成する](multiplatform-create-first-app.md)
+*   共有 UI コードの使用に関するチュートリアルのシリーズ: [Create your Compose Multiplatform app](compose-multiplatform-create-first-app.md)
+*   ネイティブ UI と共有コードの使用に関するチュートリアルのシリーズ: [Create your Kotlin Multiplatform app](multiplatform-create-first-app.md)
 *   Kotlin Multiplatform ドキュメントを詳しく確認します。
-    *   [プロジェクト設定](multiplatform-project-configuration.md)
-    *   [マルチプラットフォーム依存関係の使用](https://kotlinlang.org/docs/multiplatform-add-dependencies.html)
+    *   [Project configuration](multiplatform-project-configuration.md)
+    *   [Working with multiplatform dependencies](https://kotlinlang.org/docs/multiplatform-add-dependencies.html)
 *   Compose Multiplatform UI フレームワーク、その基本、およびプラットフォーム固有の機能について学習します。
-    [Compose Multiplatform と Jetpack Compose](compose-multiplatform-and-jetpack-compose.md)。
+    [Compose Multiplatform and Jetpack Compose](compose-multiplatform-and-jetpack-compose.md)。
 
 KMP 向けにすでに書かれたコードを見つける。
-*   公式 JetBrains サンプルと、KMP の機能を示す厳選されたプロジェクトリストを含む [サンプル](multiplatform-samples.md) ページ。
+*   公式 JetBrains サンプルと、KMP の機能を示す厳選されたプロジェクトリストを含む [Samples](multiplatform-samples.md) ページ。
 *   GitHub トピック:
     *   [kotlin-multiplatform](https://github.com/topics/kotlin-multiplatform)、Kotlin Multiplatform で実装されたプロジェクト。
     *   [kotlin-multiplatform-sample](https://github.com/topics/kotlin-multiplatform-sample)、

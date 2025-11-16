@@ -1,6 +1,6 @@
-[//]: # (title: Kotlin 1.4 相容性指南)
+[//]: # (title: Kotlin 1.4.x 相容性指南)
 
-_保持語言現代化 (Keeping the Language Modern)_ 和 _舒適的更新 (Comfortable Updates)_ 是 Kotlin 語言設計的根本原則。前者指出阻礙語言演進的建構應予移除，後者則要求此類移除應事先充分溝通，以使程式碼遷移盡可能順暢。
+_[保持語言現代化](kotlin-evolution-principles.md)_ 和 _[舒適的更新](kotlin-evolution-principles.md)_ 是 Kotlin 語言設計的根本原則。前者指出阻礙語言演進的建構應予移除，後者則要求此類移除應事先充分溝通，以使程式碼遷移盡可能順暢。
 
 儘管大多數語言變更已透過其他管道發布，例如更新變更日誌或編譯器警告，但本文檔將它們全部總結，為從 Kotlin 1.3 遷移到 Kotlin 1.4 提供完整的參考。
 
@@ -12,9 +12,9 @@ _保持語言現代化 (Keeping the Language Modern)_ 和 _舒適的更新 (Comf
 -   _binary_：如果兩個二進位檔案相互替換不會導致載入或連結錯誤，則稱它們為二進位相容。
 -   _behavioral_：如果相同的程式在應用變更前後表現出不同的行為，則稱此變更為行為不相容。
 
-請記住，這些定義僅適用於純粹的 Kotlin。從其他語言（例如 Java）角度來看的 Kotlin 程式碼相容性不在本文檔的範圍內。
+請記住，這些定義僅適用於純粹的 Kotlin。從其他語言角度來看的 Kotlin 程式碼相容性（例如，從 Java）不在本文檔的範圍內。
 
-## 語言與標準函式庫 (stdlib)
+## 語言與 stdlib
 
 ### `in` 中綴運算子與 ConcurrentHashMap 的意外行為
 
@@ -82,7 +82,7 @@ _保持語言現代化 (Keeping the Language Modern)_ 和 _舒適的更新 (Comf
 
 ### 泛型 Lambda 中最後一個表達式沒有智慧型轉換
 
-> **Issue**: [KT-15020](https://youtrack.com/issue/KT-15020)
+> **Issue**: [KT-15020](https://youtrack.jetbrains.com/issue/KT-15020)
 >
 > **Component**: 核心語言 (Core Language)
 >
@@ -274,7 +274,7 @@ _保持語言現代化 (Keeping the Language Modern)_ 和 _舒適的更新 (Comf
 
 ### 帶有可空值型別引數的逆變型別錯誤的多載解析
 
-> **Issue**: [KT-31670](https://youtrack.jetbrains.com/issue/KT-31670)
+> **Issue**: [KT-31670](https://youtrack.com/issue/KT-31670)
 >
 > **Component**: 核心語言 (Core language)
 >
@@ -461,7 +461,7 @@ _保持語言現代化 (Keeping the Language Modern)_ 和 _舒適的更新 (Comf
 
 ### 不為非 `const` 的 `val`s 生成 `ConstantValue` 屬性
 
-> **Issue**: [KT-16615](https://youtrack.jetbrains.com/issue/KT-16615)
+> **Issue**: [KT-16615](https://youtrack.com/issue/KT-16615)
 >
 > **Component**: Kotlin/JVM
 >
@@ -512,7 +512,7 @@ _保持語言現代化 (Keeping the Language Modern)_ 和 _舒適的更新 (Comf
 >
 > **Component**: Kotlin/JVM
 >
-> **Incompatible change type**: 行為 (behavior)
+> **Incompatible change type**: 行為 (behavioral)
 >
 > **Short summary**: 從 Kotlin 1.4 開始，所有執行時空值檢查都將拋出 `java.lang.NullPointerException`。
 >
@@ -555,7 +555,7 @@ _保持語言現代化 (Keeping the Language Modern)_ 和 _舒適的更新 (Comf
 
 ### 廢棄 `appendln` 轉而使用 `appendLine`
 
-> **Issue**: [KT-38754](https://youtrack.jetbrains.com/issue/KT-38754)
+> **Issue**: [KT-38754](https://youtrack.com/issue/KT-38754)
 >
 > **Component**: kotlin-stdlib (JVM)
 >
@@ -570,7 +570,7 @@ _保持語言現代化 (Keeping the Language Modern)_ 和 _舒適的更新 (Comf
 
 ### 廢棄浮點型別轉換為 `Short` 和 `Byte`
 
-> **Issue**: [KT-30360](https://youtrack.jetbrains.com/issue/KT-30360)
+> **Issue**: [KT-30360](https://youtrack.com/issue/KT-30360)
 >
 > **Component**: kotlin-stdlib (JVM)
 >
@@ -583,7 +583,7 @@ _保持語言現代化 (Keeping the Language Modern)_ 和 _舒適的更新 (Comf
 > -   1.4: 廢棄 `Double.toShort()/toByte()` 和 `Float.toShort()/toByte()` 並建議替代方案。
 > -   &gt;=1.5: 將廢棄級別提升為錯誤。
 
-### 在 `Regex.findAll` 遇到無效 `startIndex` 時快速失敗
+### 在 Regex.findAll 遇到無效 `startIndex` 時快速失敗
 
 > **Issue**: [KT-28356](https://youtrack.jetbrains.com/issue/KT-28356)
 >
@@ -630,7 +630,7 @@ _保持語言現代化 (Keeping the Language Modern)_ 和 _舒適的更新 (Comf
 
 ### 隱藏 `Throwable.addSuppressed` 成員並傾向於使用擴充函式
 
-> **Issue**: [KT-38777](https://youtrack.jetbrains.com/issue/KT-38777)
+> **Issue**: [KT-38777](https://youtrack.com/issue/KT-38777)
 >
 > **Component**: kotlin-stdlib
 >

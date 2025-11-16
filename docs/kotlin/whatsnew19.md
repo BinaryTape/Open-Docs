@@ -44,7 +44,7 @@ JetBrains 的 Kotlin 团队持续稳定 K2 编译器，而 1.9.0 版本引入了
 
 ### kapt 编译器插件与 K2 编译器的兼容性
 
-你可以在你的项目中将 [kapt 插件](kapt.md)与 K2 编译器一起使用，但有一些限制。尽管将 `languageVersion` 设置为 `2.0`，kapt 编译器插件仍会使用旧的编译器。
+你可以在你的项目中使用 [kapt 插件](kapt.md)以及 K2 编译器，但存在一些限制。尽管将 `languageVersion` 设置为 `2.0`，kapt 编译器插件仍会使用旧的编译器。
 
 如果你在 `languageVersion` 设置为 `2.0` 的项目中执行 kapt 编译器插件，kapt 将自动切换到 `1.9` 并禁用特定的版本兼容性检测。此行为等同于包含以下命令实参：
 *   `-Xskip-metadata-version-check`
@@ -127,12 +127,12 @@ kotlin {
 
 在 Kotlin 1.9.0 中，我们正在稳定一些早期引入的新语言特性：
 *   [enum class values 函数的替代](#stable-replacement-of-the-enum-class-values-function)
-*   [data object 与 data class 的对称性](#stable-data-objects-for-symmetry-with-data-classes)
+*   [data object 与 data class 的稳定对称性](#stable-data-objects-for-symmetry-with-data-classes)
 *   [支持 inline value class 中带函数体的次构造函数](#support-for-secondary-constructors-with-bodies-in-inline-value-classes)
 
 ### enum class values 函数的稳定替代
 
-在 1.8.20 中，enum class 的 `entries` 属性作为一项实验性的特性引入。`entries` 属性是合成 `values()` 函数的一种现代化且高性能的替代。在 1.9.0 中，`entries` 属性已稳定。
+在 1.8.20 中，enum class 的 `entries` 属性作为一项实验性特性引入。`entries` 属性是合成 `values()` 函数的一种现代化且高性能的替代。在 1.9.0 中，`entries` 属性已稳定。
 
 > `values()` 函数仍然受支持，但我们建议你使用 `entries` 属性。
 >
@@ -153,7 +153,7 @@ fun findByRgb(rgb: String): Color? = Color.entries.find { it.rgb == rgb }
 
 ### data object 与 data class 的稳定对称性
 
-在 [Kotlin 1.8.20](whatsnew1820.md#preview-of-data-objects-for-symmetry-with-data-classes) 中引入的 data object 声明现在已稳定。这包括为与 data class 对称而添加的函数：`toString()`、`equals()` 和 `hashCode()`。
+Data object 声明在 [Kotlin 1.8.20](whatsnew1820.md#preview-of-data-objects-for-symmetry-with-data-classes) 中引入，现在已稳定。这包括为与 data class 对称而添加的函数：`toString()`、`equals()` 和 `hashCode()`。
 
 此特性对于 `sealed` 层次结构（例如 `sealed class` 或 `sealed interface` 层次结构）特别有用，因为 `data object` 声明可以方便地与 `data class` 声明一起使用。在此示例中，将 `EndOfFile` 声明为 `data object` 而不是普通 `object` 意味着它会自动拥有 `toString()` 函数，而无需手动覆盖。这保持了与伴随的 data class 定义的对称性。
 
@@ -307,7 +307,7 @@ fun main() {
 
 默认情况下，在运行 Kotlin/Native 的 iOS 模拟器测试时，使用 `--standalone` 标志来避免手动模拟器启动和关闭。在 1.9.0 中，你现在可以通过 `standalone` 属性来配置是否在 Gradle 任务中使用此标志。默认情况下，使用 `--standalone` 标志，因此独立模式是启用的。
 
-以下是禁用 `standalone` 模式在 `build.gradle.kts` 文件中的示例：
+以下是禁用独立模式在 `build.gradle.kts` 文件中的示例：
 
 ```kotlin
 tasks.withType<org.jetbrains.kotlin.gradle.targets.native.tasks.KotlinNativeSimulatorTest>().configureEach {
@@ -371,7 +371,7 @@ kotlin {
 
 ### 用于 C 互操作隐式整数转换的编译器选项
 
-我们为 C 互操作引入了一个编译器选项，允许你使用隐式整数转换。经过仔细考虑，我们引入了此编译器选项以防止意外使用，因为此功能仍有改进空间，我们的目标是提供最高质量的 API。
+我们为 C 互操作引入了一个编译器选项，允许你使用隐式整数转换。经过仔细考虑，我们引入了此编译器选项以防止意外使用，因为此特性仍有改进空间，我们的目标是提供最高质量的 API。
 
 在此代码示例中，即使 [`options`](https://developer.apple.com/documentation/foundation/nscalendar/options) 具有无符号类型 `UInt` 且 `0` 为有符号，隐式整数转换也允许 `options = 0`。
 
@@ -422,7 +422,7 @@ Google 插件将是多平台项目中与 Android 配合使用的首选方式。�
 *   改进的源代码目录布局 – 使用新布局，`SourceDirectories` 的排列变得更加连贯，从而更易于组织代码和查找源文件。
 *   清晰的 Gradle 配置命名方案 – 该方案现在在 `KotlinSourceSets` 和 `AndroidSourceSets` 中都更加一致和可预测。
 
-新布局需要 Android Gradle 插件版本 7.0 或更高版本，并支持 Android Studio 2022.3 及更高版本。请参阅我们的[迁移指南](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-android-layout.html)以在你的 `build.gradle(.kts)` 文件中进行必要的更改。
+新布局需要 Android Gradle 插件版本 7.0 或更高版本，并支持 Android Studio 2022.3 及更高版本。请参阅我们的[迁移指南](https://kotlinlang.org/docs/multiplatform/multiplatform-android-layout.html)以在你的 `build.gradle(.kts)` 文件中进行必要的更改。
 
 ### Gradle 配置缓存的预览
 
@@ -430,9 +430,9 @@ Google 插件将是多平台项目中与 Android 配合使用的首选方式。�
 
 Kotlin 1.9.0 支持多平台库中的 [Gradle 配置缓存](https://docs.gradle.org/current/userguide/configuration_cache.html)。如果你是库作者，你已经可以从改进的构建性能中受益。
 
-Gradle 配置缓存通过重用配置阶段的结果来加快构建过程，以便后续构建。该特性自 Gradle 8.1 起已稳定。要启用它，请遵循 [Gradle 文档](https://docs.gradle.org/current/userguide/configuration_cache.html#config_cache:usage)中的说明。
+Gradle 配置缓存通过重用配置阶段的结果来加快构建过程，以便后续构建。该特性自 Gradle 8.1 起已稳定。要启用它，请遵循 [Gradle 文档](https://docs.gradle.com/current/userguide/configuration_cache.html#config_cache:usage)中的说明。
 
-> Kotlin Multiplatform 插件仍然不支持与 Xcode 集成任务或 [Kotlin CocoaPods Gradle 插件](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-cocoapods-dsl-reference.html)一起使用 Gradle 配置缓存。我们预计将在未来的 Kotlin 版本中添加此特性。
+> Kotlin Multiplatform 插件仍然不支持与 Xcode 集成任务或 [Kotlin CocoaPods Gradle 插件](https://kotlinlang.org/docs/multiplatform/multiplatform-cocoapods-dsl-reference.html)一起使用 Gradle 配置缓存。我们预计将在未来的 Kotlin 版本中添加此特性。
 >
 {style="note"}
 
@@ -479,7 +479,7 @@ Kotlin Playground 支持 Kotlin/Wasm 目标平台。
 
 > 使用 Kotlin/Wasm 需要在你的浏览器中启用实验性特性。
 >
-> [了解如何启用这些特性](wasm-troubleshooting.md)。
+> [了解如何启用这些特性](wasm-configuration.md)。
 >
 {style="note"}
 
@@ -537,7 +537,7 @@ fun computeAck(m: Int, n: Int) {
 
 Kotlin/JS Gradle 插件的功能本质上是重复 `kotlin-multiplatform` 插件的功能，并在底层共享相同的实现。这种重叠造成了混淆，并增加了 Kotlin 团队的维护负担。
 
-请参阅我们的 [Kotlin Multiplatform 兼容性指南](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-compatibility-guide.html#migration-from-kotlin-js-gradle-plugin-to-kotlin-multiplatform-gradle-plugin)以获取迁移说明。如果你发现指南中未涵盖的任何问题，请向我们的[问题跟踪器](http://kotl.in/issue)报告。
+请参阅我们的 [Kotlin Multiplatform 兼容性指南](https://kotlinlang.org/docs/multiplatform/multiplatform-compatibility-guide.html#migration-from-kotlin-js-gradle-plugin-to-kotlin-multiplatform-gradle-plugin)以获取迁移说明。如果你发现指南中未涵盖的任何问题，请向我们的[问题跟踪器](http://kotl.in/issue)报告。
 
 ### 外部枚举的弃用
 
@@ -589,7 +589,7 @@ tasks.withType<KotlinJsCompile>().configureEach {
 
 ### JS 生产构件的默认目标路径已更改
 
-在 Kotlin 1.9.0 之前，分发目标目录是 `build/distributions`。然而，这是 Gradle archive 的常见目录。为了解决这个问题，我们在 Kotlin 1.9.0 中将默认分发目标目录更改为：`build/dist/<targetName>/<binaryName>`。
+在 Kotlin 1.9.0 之前，分发目标目录是 `build/distributions`。然而，这是 Gradle archives 的常见目录。为了解决这个问题，我们在 Kotlin 1.9.0 中将默认分发目标目录更改为：`build/dist/<targetName>/<binaryName>`。
 
 例如，`productionExecutable` 以前在 `build/distributions` 中。在 Kotlin 1.9.0 中，它位于 `build/dist/js/productionExecutable` 中。
 
@@ -624,12 +624,12 @@ Kotlin 1.9.0 带来了新的 Gradle 编译器选项以及更多功能：
 
 Kotlin Gradle 插件现在为 opt-ins 和编译器的渐进模式提供了新属性。
 
-*   要选择启用新 API，你现在可以使用 `optIn` 属性并传递字符串列表，例如：`optIn.set(listOf(a, b, c))`。
+*   要选择启用新 API，你现在可以使用 `optIn` 属性并传递字符串 list，例如：`optIn.set(listOf(a, b, c))`。
 *   要启用渐进模式，请使用 `progressiveMode.set(true)`。
 
 ### Kotlin/JVM 的项目级编译器选项
 
-从 Kotlin 1.9.0 开始，`kotlin` 配置块中新增了一个 `compilerOptions` 代码块：
+从 Kotlin 1.9.0 开始，`kotlin` 配置代码块中新增了一个 `compilerOptions` 代码块：
 
 ```kotlin
 kotlin {
@@ -695,7 +695,7 @@ Kotlin 1.9.0 引入了其官方库的独立编译器插件。以前，编译器�
 
 现在，编译器插件作为独立的依赖项添加，因此你将不再面临与旧版本 Gradle 的兼容性问题。新方法的另一个主要优点是新编译器插件可以与其他构建系统（如 [Bazel](https://bazel.build/)）一起使用。
 
-以下是我们现在发布到 Maven Central 的新编译器插件列表：
+以下是我们现在发布到 Maven Central 的新编译器插件 list：
 
 *   kotlin-atomicfu-compiler-plugin
 *   kotlin-allopen-compiler-plugin
@@ -793,7 +793,7 @@ fun main() {
 ```
 {validate="false"}
 
-> 从 IntelliJ IDEA 2023.1.1 版本开始，提供了一项新的代码检测功能，当你可以使用 `..<` 操作符时，它会突出显示。
+> 从 IntelliJ IDEA 2023.1.1 版本开始，提供了一项新的代码检测特性，当你可以使用 `..<` 操作符时，它会突出显示。
 >
 {style="note"}
 
@@ -853,7 +853,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-whats-new-time-elapsed"}
 
-要检查截止日期是否已过或是否已达到超时，请使用 [`hasPassedNow()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.time/-time-mark/has-passed-now.html) 和 [`hasNotPassedNow()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.time/-time-mark/has-not-passed-now.html) 扩展函数：
+要检测截止日期是否已过或是否已达到超时，请使用 [`hasPassedNow()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.time/-time-mark/has-passed-now.html) 和 [`hasNotPassedNow()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.time/-time-mark/has-not-passed-now.html) 扩展函数：
 
 ```kotlin
 import kotlin.time.*
@@ -882,12 +882,12 @@ fun main() {
 随着 Kotlin/Native 标准库的不断发展，我们决定是时候进行一次全面审阅，以确保其符合我们的高标准。作为其中的一部分，我们仔细审阅了**每一个**现有的公共签名。对于每个签名，我们都考虑了它是否：
 
 *   具有独特的目的。
-*   与 Kotin 其他 API 保持一致。
+*   与 Kotlin 其他 API 保持一致。
 *   与 JVM 上的对应项行为相似。
 *   面向未来。
 
 基于这些考虑，我们做出了以下决策之一：
-*   将其稳定。
+*   使其稳定。
 *   使其成为实验性的。
 *   将其标记为 `private`。
 *   修改其行为。
@@ -904,16 +904,16 @@ fun main() {
 
 我们不会在此处列出审阅的所有结果，但以下是一些亮点：
 *   我们稳定了 Atomics API。
-*   我们将 [`kotlinx.cinterop`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlinx.cinterop/) 设为实验性的，现在需要不同的 opt-in 才能使用该包。更多信息，请参见[显式 C 互操作稳定性保证](#explicit-c-interoperability-stability-guarantees)。
+*   我们将 [`kotlinx.cinterop`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlinx.cinterop/) 设为实验性的，现在需要不同的 opt-ins 才能使用该包。更多信息，请参见[显式 C 互操作稳定性保证](#explicit-c-interoperability-stability-guarantees)。
 *   我们将 [`Worker`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.native.concurrent/-worker/) 类及其相关 API 标记为已废弃。
 *   我们将 [`BitSet`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.native/-bit-set/) 类标记为已废弃。
 *   我们将 `kotlin.native.internal` 包中的所有 `public` API 标记为 `private` 或将其移动到其他包。
 
 #### 显式 C 互操作稳定性保证
 
-为了保持 API 的高质量，我们决定将 [`kotlinx.cinterop`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlinx.cinterop/) 设为实验性的。尽管 `kotlinx.cinterop` 已经过彻底的尝试和测试，但在我们满意并将其稳定之前，仍有改进空间。我们建议你将此 API 用于互操作，但尽量将其使用限制在项目中的特定区域。一旦我们开始发展此 API 以使其稳定，这将使你的迁移更容易。
+为了保持 API 的高质量，我们决定将 [`kotlinx.cinterop`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlinx.cinterop/) 设为实验性的。尽管 `kotlinx.cinterop` 已经过彻底的尝试和测试，但在我们满意并将其稳定之前，仍有改进空间。我们建议你将此 API 用于互操作，但你应尽量将其使用限制在项目中的特定区域。一旦我们开始发展此 API 以使其稳定，这将使你的迁移更容易。
 
-如果你想使用类似 C 的外部 API（例如指针），则必须使用 `@OptIn(ExperimentalForeignApi)` 选择启用，否则你的代码将无法编译。
+如果你想使用 C 语言风格的外部 API（例如指针），则必须使用 `@OptIn(ExperimentalForeignApi)` 选择启用，否则你的代码将无法编译。
 
 要使用 `kotlinx.cinterop` 的其余部分（涵盖 Objective-C/Swift 互操作），你必须选择启用 `@OptIn(BetaInteropApi)`。如果你尝试在没有选择启用的情况下使用此 API，你的代码将编译成功，但编译器会发出警告，提供对你所期望行为的清晰解释。
 
@@ -937,7 +937,7 @@ fun main() {
 
 在 1.9.0 之前，每个平台都有自己的扩展来从正则表达式匹配中通过名称获取正则表达式捕获组。然而，没有公共函数。在 Kotlin 1.8.0 之前不可能拥有公共函数，因为标准库仍然支持 JVM 目标平台 1.6 和 1.7。
 
-从 Kotlin 1.8.0 开始，标准库与 JVM 目标平台 1.8 编译。因此，在 1.9.0 中，现在有一个**公共** [`groups`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/-match-result/groups.html) 函数，你可以使用它来检索正则表达式匹配的捕获组内容。这在你想要访问属于特定捕获组的正则表达式匹配结果时很有用。
+从 Kotlin 1.8.0 开始，标准库与 JVM 目标平台 1.8 编译。所以在 1.9.0 中，现在有一个**公共** [`groups`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/-match-result/groups.html) 函数，你可以使用它来检索正则表达式匹配的捕获组内容。这在你想要访问属于特定捕获组的正则表达式匹配结果时很有用。
 
 以下是一个包含三个捕获组（`city`、`state` 和 `areaCode`）的正则表达式示例。你可以使用这些组名称来访问匹配的值：
 
@@ -1039,8 +1039,8 @@ println("0x3a".hexToInt(HexFormat { number.prefix = "0x" })) // "58"
 
 Kotlin 文档收到了一些显著更改：
 *   [Kotlin 之旅](kotlin-tour-welcome.md) – 通过包含理论和实践章节的指南，学习 Kotlin 编程语言的基础知识。
-*   [Android 源代码集布局](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-android-layout.html) – 了解新的 Android 源代码集布局。
-*   [Kotlin Multiplatform 兼容性指南](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-compatibility-guide.html) – 了解你在使用 Kotlin Multiplatform 开发项目时可能遇到的不兼容更改。
+*   [Android 源代码集布局](https://kotlinlang.org/docs/multiplatform/multiplatform-android-layout.html) – 了解新的 Android 源代码集布局。
+*   [Kotlin Multiplatform 兼容性指南](https://kotlinlang.org/docs/multiplatform/multiplatform-compatibility-guide.html) – 了解你在使用 Kotlin Multiplatform 开发项目时可能遇到的不兼容更改。
 *   [Kotlin Wasm](wasm-overview.md) – 了解 Kotlin/Wasm 以及如何在你的 Kotlin Multiplatform 项目中使用它。
 
 ## 安装 Kotlin 1.9.0
@@ -1071,4 +1071,4 @@ pluginManagement {
 
 ## Kotlin 1.9.0 兼容性指南
 
-Kotlin 1.9.0 是一个[特性版本](kotlin-evolution-principles.md#language-and-tooling-releases)，因此可能会带来与你为早期语言版本编写的代码不兼容的更改。有关这些更改的详细列表，请参见 [Kotlin 1.9.0 兼容性指南](compatibility-guide-19.md)。
+Kotlin 1.9.0 是一个[特性版本](kotlin-evolution-principles.md#language-and-tooling-releases)，因此可能会带来与你为早期语言版本编写的代码不兼容的更改。有关这些更改的详细 list，请参见 [Kotlin 1.9.0 兼容性指南](compatibility-guide-19.md)。

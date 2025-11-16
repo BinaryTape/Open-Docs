@@ -64,7 +64,7 @@ fun stringLength(a: String) = a.length
 
 參數 `a` 的型別是 `String`，這在 Kotlin 中表示它必須始終包含一個 `String` 實例，並且不能包含 `null`。
 Kotlin 中的可為空型別以問號 `?` 標記，例如 `String?`。
-如果在執行時期 `a` 是 `String`，則出現 `NullPointerException` 的情況是不可能的，因為編譯器強制執行 `stringLength()` 的所有參數不能為 `null` 的規則。
+如果在執行時期 `a` 是 `String`，則出現 `NullPointerException` 的情況是不可能的，因為編譯器強制執行 `stringLength()` 的所有引數不能為 `null` 的規則。
 
 嘗試將 `null` 值傳遞給 `stringLength(a: String)` 函式將導致編譯時期錯誤，「Null 不能是 String 非空型別的值」：
 
@@ -367,7 +367,7 @@ fun getUsername(profile: UserProfile?): String? =
 ## 接下來？
 
 *   瀏覽其他 [Kotlin 慣用語](idioms.md)。
-*   了解如何使用 [Java-to-Kotlin (J2K) 轉換器](mixing-java-kotlin-intellij.md#converting-an-existing-java-file-to-kotlin-with-j2k) 將現有 Java 程式碼轉換為 Kotlin。
+*   了解如何使用 [Java-to-Kotlin (J2K) 轉換器](mixing-java-kotlin-intellij.md#convert-java-files-to-kotlin) 將現有 Java 程式碼轉換為 Kotlin。
 *   查看其他遷移指南：
     *   [Java 和 Kotlin 中的字串](java-to-kotlin-idioms-strings.md)
     *   [Java 和 Kotlin 中的集合](java-to-kotlin-collections-guide.md)

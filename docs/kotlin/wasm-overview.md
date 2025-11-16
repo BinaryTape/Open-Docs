@@ -26,7 +26,7 @@ Wasm 是一种用于基于栈的虚拟机的二进制指令格式。
 
 ![Kotlin/Wasm demo](wasm-demo.png){width=700}
 
-此外，您可以开箱即用地在 Kotlin/Wasm 中使用最流行的 Kotlin 库。与其他 Kotlin 和多平台项目一样，您可以在构建脚本中添加依赖项声明。更多信息，请参阅 [添加多平台库依赖项](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-add-dependencies.html)。
+此外，您可以开箱即用地在 Kotlin/Wasm 中使用最流行的 Kotlin 库。与其他 Kotlin 和多平台项目一样，您可以在构建脚本中添加依赖项声明。更多信息，请参阅 [添加多平台库依赖项](https://kotlinlang.org/docs/multiplatform/multiplatform-add-dependencies.html)。
 
 想亲自尝试吗？
 
@@ -47,8 +47,7 @@ WASI 提供了一个安全的标准接口，用于在不同环境中运行编译
 
 ## Kotlin/Wasm 性能
 
-尽管 Kotlin/Wasm 仍处于 Alpha 阶段，但运行在 Kotlin/Wasm 上的 Compose Multiplatform 已经展现出令人鼓舞的性能特性。
-您可以看到其执行速度优于 JavaScript 并正在接近 JVM 的性能：
+尽管 Kotlin/Wasm 仍处于 Beta 阶段，但运行在 Kotlin/Wasm 上的 Compose Multiplatform 已经展现出令人鼓舞的性能特性。您可以看到其执行速度优于 JavaScript 并正在接近 JVM 的性能：
 
 ![Kotlin/Wasm performance](wasm-performance-compose.png){width=700}
 

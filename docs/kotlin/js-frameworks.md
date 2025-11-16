@@ -22,7 +22,7 @@ Kobweb 还通过生成页面快照来支持网站导出，以实现 SEO 和自�
 
 Kilua 提供了一个模块化 API，用于创建声明式 UI 组件并管理其状态。它还包括一组用于常见 Web 应用程序用例的即用型组件。
 
-Kilua 是 [KVision](https://kvision.io) 框架的后继者。Kilua 的设计旨在让 Compose 用户（`@Composable` 函数、状态管理、协程/流集成）和 KVision 用户（允许与 UI 组件进行某些命令式交互的基于组件的 API）都感到熟悉。
+Kilua 是 [KVision](https://kvision.io) 框架的后继者。Kilua 的设计旨在让 Compose 用户 (`@Composable` 函数、状态管理、协程/流集成) 和 KVision 用户 (允许与 UI 组件进行某些命令式交互的基于组件的 API) 都感到熟悉。
 
 关于文档和示例，请参见 GitHub 上的 [Kilua 版本库](https://github.com/rjaros/kilua?tab=readme-ov-file#building-and-running-the-examples)。
 
@@ -40,7 +40,7 @@ Kilua 是 [KVision](https://kvision.io) 框架的后继者。Kilua 的设计旨�
 
 [KVision](https://kvision.io) 是一个面向对象的 Web 框架，用于使用即用型 UI 组件构建 Kotlin/JS 应用程序。这些组件可以成为您的应用程序用户界面的构建块。
 
-借助此框架，您可以使用反应式和命令式编程模型来构建前端。您还可以通过使用 Ktor、Spring Boot 和其他框架的连接器，将其与您的服务器端应用程序集成。此外，您还可以使用 [Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html) 共享代码。
+借助此框架，您可以使用反应式和命令式编程模型来构建前端。您还可以通过使用 Ktor、Spring Boot 和其他框架的连接器，将其与您的服务器端应用程序集成。此外，您还可以使用 [Kotlin Multiplatform](https://kotlinlang.org/docs/multiplatform/get-started.html) 共享代码。
 
 关于文档、教程和示例，请参见 [KVision 文档](https://kvision.io/#docs)网站。
 

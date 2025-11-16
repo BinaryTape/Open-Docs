@@ -6,13 +6,11 @@
 
 ## 시작하기 전에
 
-1.  [Kotlin Multiplatform 개발 환경을 설정](https://www.jetbrains.com/help/kotlin-multiplatform-dev/quickstart.html#set-up-the-environment)합니다.
+1.  [Kotlin Multiplatform 개발 환경을 설정합니다](https://kotlinlang.org/docs/multiplatform/quickstart.html#set-up-the-environment).
 2.  [Kotlin/Wasm을 대상으로 하는 Kotlin Multiplatform 프로젝트를 생성](wasm-get-started.md#create-a-project)하는 지침을 따릅니다.
 
-> *   IntelliJ IDEA에서 Kotlin/Wasm 코드 디버깅은 IDE 버전 2025.3부터 사용할 수 있으며, 현재 [EAP(Early Access Program)](https://www.jetbrains.com/resources/eap/)에 있으며 안정화 단계에 있습니다.
->     다른 IntelliJ IDEA 버전에서 `WasmDemo` 프로젝트를 생성했다면, 버전 2025.3으로 전환하여 프로젝트를 열고 이 튜토리얼을 계속 진행하세요.
-> *   IntelliJ IDEA에서 Kotlin/Wasm 코드를 디버그하려면 JavaScript Debugger 플러그인이 설치되어 있어야 합니다.
->     [플러그인 및 설치 방법에 대한 자세한 내용](https://www.jetbrains.com/help/idea/debugging-javascript-in-chrome.html#ws_js_debugging_chrome_before_you_start)을 참조하세요.
+> *   IntelliJ IDEA에서 Kotlin/Wasm 코드 디버깅은 IDE 버전 2025.3부터 사용할 수 있으며, 현재 [EAP(Early Access Program)](https://www.jetbrains.com/resources/eap/)에 있으며 안정화 단계에 있습니다. 다른 IntelliJ IDEA 버전에서 `WasmDemo` 프로젝트를 생성했다면, 버전 2025.3으로 전환하여 프로젝트를 열고 이 튜토리얼을 계속 진행하세요.
+> *   IntelliJ IDEA에서 Kotlin/Wasm 코드를 디버그하려면 JavaScript Debugger 플러그인이 설치되어 있어야 합니다. [플러그인 및 설치 방법에 대한 자세한 내용](https://www.jetbrains.com/help/idea/debugging-javascript-in-chrome.html#ws_js_debugging_chrome_before_you_start)을 참조하세요.
 >
 {style="note"}
 

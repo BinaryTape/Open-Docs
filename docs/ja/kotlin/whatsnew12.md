@@ -4,7 +4,7 @@ _リリース日: 2017年11月28日_
 
 ## 目次
 
-* [マルチプラットフォームプロジェクト (実験的機能)](#multiplatform-projects-experimental)
+* [マルチプラットフォームプロジェクト](#multiplatform-projects-experimental)
 * [その他の言語機能](#other-language-features)
 * [標準ライブラリ](#standard-library)
 * [JVMバックエンド](#jvm-backend)
@@ -50,7 +50,7 @@ actual fun hello(world: String): String =
 actual typealias URL = java.net.URL
 ```
 
-詳細およびマルチプラットフォームプロジェクトの構築手順については、[マルチプラットフォームプログラミングのドキュメント](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html)を参照してください。
+詳細およびマルチプラットフォームプロジェクトの構築手順については、[マルチプラットフォームプログラミングのドキュメント](https://kotlinlang.org/docs/multiplatform/get-started.html)を参照してください。
 
 ## その他の言語機能
 
@@ -386,4 +386,3 @@ Kotlinのプリミティブ配列（`IntArray`、`DoubleArray` など）を[Java
 compileKotlin {
     kotlinOptions.allWarningsAsErrors = true
 }
-```

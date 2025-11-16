@@ -108,13 +108,13 @@ class Cat {
 fun petAnimal(animal: Any) {
     val isCat = animal is Cat
     if (isCat) {
-        // Kotlin 2.0.0 では、コンパイラは
-        // isCat に関する情報にアクセスできるため、
-        // animal が Cat 型にスマートキャストされたことを認識します。
-        // したがって、purr() 関数を呼び出すことができます。
-        // Kotlin 1.9.20 では、コンパイラは
-        // スマートキャストについて認識しないため、
-        // purr() 関数の呼び出しはエラーを発生させます。
+        // In Kotlin 2.0.0, the compiler can access
+        // information about isCat, so it knows that
+        // animal was smart-cast to the type Cat.
+        // Therefore, the purr() function can be called.
+        // In Kotlin 1.9.20, the compiler doesn't know
+        // about the smart cast, so calling the purr()
+        // function triggers an error.
         animal.purr()
     }
 }
@@ -180,18 +180,18 @@ fun nextProcessor(): Processor? = null
 fun runProcessor(): Processor? {
     var processor: Processor? = null
     inlineAction {
-        // Kotlin 2.0.0 では、コンパイラは processor が
-        // ローカル変数であり、inlineAction() がインライン関数であることを認識するため、
-        // processor への参照が漏れることはありません。したがって、
-        // processor をスマートキャストすることは安全です。
+        // In Kotlin 2.0.0, the compiler knows that processor 
+        // is a local variable, and inlineAction() is an inline function, so 
+        // references to processor can't be leaked. Therefore, it's safe 
+        // to smart-cast processor.
 
-        // processor が null でない場合、processor はスマートキャストされる
+        // If processor isn't null, processor is smart-cast
         if (processor != null) {
-            // コンパイラは processor が null でないことを認識するため、
-            // 安全な呼び出しは不要です
+            // The compiler knows that processor isn't null, so no safe call 
+            // is needed
             processor.process()
 
-            // Kotlin 1.9.20 では、安全な呼び出しを実行する必要がありました。
+            // In Kotlin 1.9.20, you have to perform a safe call:
             // processor?.process()
         }
 
@@ -210,14 +210,14 @@ Kotlin 2.0.0 と K2 コンパイラでこの動作を修正しました。例：
 ```kotlin
 class Holder(val provider: (() -> Unit)?) {
     fun process() {
-        // Kotlin 2.0.0 では、provider が null でない場合、
-        // provider はスマートキャストされる
+        // In Kotlin 2.0.0, if provider isn't null, then
+        // provider is smart-cast
         if (provider != null) {
-            // コンパイラは provider が null でないことを認識している
+            // The compiler knows that provider isn't null
             provider()
 
-            // 1.9.20 では、コンパイラは provider が null でないことを認識しないため、
-            // エラーが発生します。
+            // In 1.9.20, the compiler doesn't know that provider isn't 
+            // null, so it triggers an error:
             // Reference has a nullable type '(() -> Unit)?', use explicit '?.invoke()' to make a function-like call instead
         }
     }
@@ -237,7 +237,7 @@ class Holder(val provider: Provider?, val processor: Processor?) {
     fun process() {
         if (provider != null) {
             provider()
-            // 1.9.20 では、コンパイラはエラーを発生させます。
+            // In 1.9.20, the compiler triggers an error: 
             // Reference has a nullable type 'Provider?' use explicit '?.invoke()' to make a function-like call instead
         }
     }
@@ -267,13 +267,13 @@ fun testString() {
         if (2 > 1) throw Exception()
         stringInput = ""
     } catch (exception: Exception) {
-        // Kotlin 2.0.0 では、コンパイラは stringInput が
-        // null である可能性があることを認識しているため、stringInput は null のままです。
+        // In Kotlin 2.0.0, the compiler knows stringInput 
+        // can be null, so stringInput stays nullable.
         println(stringInput?.length)
         // null
 
-        // Kotlin 1.9.20 では、コンパイラは安全な呼び出しが不要だと判断しますが、
-        // これは誤りです。
+        // In Kotlin 1.9.20, the compiler says that a safe call isn't
+        // needed, but this is incorrect.
     }
 }
 
@@ -309,24 +309,28 @@ fun main(input: Rho) {
     if (unknownObject is Tau) {
 
         // インターフェース Rho のオーバーロードされた inc() 演算子を使用する。
-        // Kotlin 2.0.0 では、unknownObject の型は Sigma にスマートキャストされる。
+        // In Kotlin 2.0.0, the type of unknownObject is smart-cast to
+        // Sigma.
         ++unknownObject
 
-        // Kotlin 2.0.0 では、コンパイラは unknownObject が Sigma 型であることを認識しているため、
-        // sigma() 関数を正常に呼び出すことができる。
+        // In Kotlin 2.0.0, the compiler knows unknownObject has type
+        // Sigma, so the sigma() function can be called successfully.
         unknownObject.sigma()
 
-        // Kotlin 1.9.20 では、inc() が呼び出されてもコンパイラはスマートキャストを実行しないため、
-        // unknownObject は Tau 型であると誤解している。sigma() 関数を呼び出すと
-        // コンパイル時エラーが発生する。
-
-        // Kotlin 2.0.0 では、コンパイラは unknownObject が Sigma 型であることを認識しているため、
-        // tau() 関数を呼び出すとコンパイル時エラーが発生する。
+        // In Kotlin 1.9.20, the compiler doesn't perform a smart cast
+        // when inc() is called so the compiler still thinks that 
+        // unknownObject has type Tau. Calling the sigma() function 
+        // throws a compile-time error.
+        
+        // In Kotlin 2.0.0, the compiler knows unknownObject has type
+        // Sigma, so calling the tau() function throws a compile-time 
+        // error.
         unknownObject.tau()
         // Unresolved reference 'tau'
 
-        // Kotlin 1.9.20 では、コンパイラが誤って unknownObject を Tau 型であると認識しているため、
-        // tau() 関数を呼び出すことはできるが、ClassCastException がスローされる。
+        // In Kotlin 1.9.20, since the compiler mistakenly thinks that 
+        // unknownObject has type Tau, the tau() function can be called,
+        // but it throws a ClassCastException.
     }
 }
 ```
@@ -343,7 +347,7 @@ Kotlin 2.0.0では、Kotlin Multiplatformに関連するK2コンパイラの改�
 
 以前は、Kotlinコンパイラの設計上、共通ソースセットとプラットフォームソースセットをコンパイル時に分離することができませんでした。その結果、共通コードがプラットフォームコードにアクセスでき、プラットフォーム間で異なる動作を引き起こしていました。さらに、共通コードからの一部コンパイラ設定と依存関係がプラットフォームコードに漏洩していました。
 
-Kotlin 2.0.0では、新しいKotlin K2コンパイラの導入に伴い、コンパイルスキームを再設計し、共通ソースセットとプラットフォームソースセットの厳密な分離を保証しました。この変更は、[expectedおよびactual関数](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-expect-actual.html#expected-and-actual-functions) を使用する際に最も顕著に現れます。
+Kotlin 2.0.0では、新しいKotlin K2コンパイラの導入に伴い、コンパイルスキームを再設計し、共通ソースセットとプラットフォームソースセットの厳密な分離を保証しました。この変更は、[expectedおよびactual関数](https://kotlinlang.org/docs/multiplatform/multiplatform-expect-actual.html#expected-and-actual-functions) を使用する際に最も顕著に現れます。
 以前は、共通コード内の関数呼び出しがプラットフォームコード内の関数に解決される可能性がありました。例：
 
 <table>
@@ -370,8 +374,8 @@ fun exampleFunction() {
 fun foo(x: Int) = println("platform foo")
 
 // JavaScript
-// JavaScript プラットフォームには
-// foo() 関数のオーバーロードはない
+// There is no foo() function overload
+// on the JavaScript platform
 ```
 
 </td>
@@ -385,7 +389,7 @@ fun foo(x: Int) = println("platform foo")
 
 Kotlin 2.0.0では、共通コードはプラットフォームコードにアクセスできないため、両方のプラットフォームで `foo()` 関数は共通コードの `foo()` 関数（`common foo`）に正常に解決されます。
 
-プラットフォーム間の動作の一貫性向上に加えて、IntelliJ IDEAまたはAndroid Studioとコンパイラ間の動作の競合があったケースの修正にも力を入れました。例えば、[expectedおよびactualクラス](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-expect-actual.html#expected-and-actual-classes) を使用した場合、以下のようになります。
+プラットフォーム間の動作の一貫性向上に加えて、IntelliJ IDEAまたはAndroid Studioとコンパイラ間の動作の競合があったケースの修正にも力を入れました。例えば、[expectedおよびactualクラス](https://kotlinlang.org/docs/multiplatform/multiplatform-expect-actual.html#expected-and-actual-classes) を使用した場合、以下のようになります。
 
 <table>
    <tr>
@@ -401,8 +405,8 @@ expect class Identity {
 }
 
 fun common() {
-    // 2.0.0 以前は、
-    // IDEのみでエラーが発生
+    // Before 2.0.0,
+    // it triggers an IDE-only error
     Identity().confirmIdentity()
     // RESOLUTION_TO_CLASSIFIER : Expected class
     // Identity has no default constructor.
@@ -436,7 +440,7 @@ Expected class 'expect class Identity : Any' does not have default constructor
 シグネチャが異なる2つの `whichFun()` 関数を持つライブラリがあると仮定します。
 
 ```kotlin
-// ライブラリの例
+// Example library
 
 // MODULE: common
 fun whichFun(x: Any) = println("common function")
@@ -448,7 +452,7 @@ fun whichFun(x: Int) = println("platform function")
 共通コードで `whichFun()` 関数を呼び出すと、ライブラリ内で最も関連性の高い引数型を持つ関数が解決されます。
 
 ```kotlin
-// JVM ターゲット用の例のライブラリを使用するプロジェクト
+// A project that uses the example library for the JVM target
 
 // MODULE: common
 fun main() {
@@ -460,7 +464,7 @@ fun main() {
 比較として、`whichFun()` のオーバーロードを同じソースセット内で宣言した場合、コードがプラットフォーム固有のバージョンにアクセスできないため、共通コードからの関数が解決されます。
 
 ```kotlin
-// 例のライブラリは使用しない
+// Example library isn't used
 
 // MODULE: common
 fun whichFun(x: Any) = println("common function")
@@ -480,23 +484,23 @@ fun whichFun(x: Int) = println("platform function")
 
 #### expectedおよびactual宣言の異なる可視性レベル
 
-Kotlin 2.0.0以前は、Kotlin Multiplatformプロジェクトで[expectedおよびactual宣言](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-expect-actual.html) を使用する場合、それらは同じ[可視性レベル](visibility-modifiers.md) を持っている必要がありました。
+Kotlin 2.0.0以前は、Kotlin Multiplatformプロジェクトで[expectedおよびactual宣言](https://kotlinlang.org/docs/multiplatform/multiplatform-expect-actual.html) を使用する場合、それらは同じ[可視性レベル](visibility-modifiers.md) を持っている必要がありました。
 Kotlin 2.0.0では、異なる可視性レベルもサポートされるようになりましたが、**actual宣言がexpected宣言よりも_より寛容である_場合に限ります**。例：
 
 ```kotlin
-expect internal class Attribute // 可視性は internal
-actual class Attribute          // 可視性はデフォルトで public、
-                                // これはより寛容
+expect internal class Attribute // Visibility is internal
+actual class Attribute          // Visibility is public by default,
+                                // which is more permissive
 ```
 
 同様に、actual宣言で[型エイリアス](type-aliases.md) を使用している場合、**基になる型の可視性**は、expected宣言と同じか、より寛容である必要があります。例：
 
 ```kotlin
-expect internal class Attribute                 // 可視性は internal
+expect internal class Attribute                 // Visibility is internal
 internal actual typealias Attribute = Expanded
 
-class Expanded                                  // 可視性はデフォルトで public、
-                                                // これはより寛容
+class Expanded                                  // Visibility is public by default,
+                                                // which is more permissive
 ```
 
 ### コンパイラプラグインのサポート
@@ -625,10 +629,10 @@ Kotlin 2.0.0では、`invokedynamic` を使用してラムダ関数を生成す�
 fun main() {
     println({})
 
-    // Kotlin 1.9.24 とリフレクションの場合、以下を返す
+    // With Kotlin 1.9.24 and reflection, returns
     // () -> kotlin.Unit
     
-    // Kotlin 2.0.0 の場合、以下を返す
+    // With Kotlin 2.0.0, returns
     // FileKt$Lambda$13/0x00007f88a0004608@506e1b77
 }
 ```
@@ -689,7 +693,7 @@ Kotlinでは、これらのメソッドは同じシグネチャを持つため�
 
 以前は、Kotlin/Nativeコンパイラは標準ライブラリとプラットフォームの依存関係を暗黙的に解決していました。これは、Kotlin GradleプラグインがKotlinターゲット間で動作する方法に不整合を引き起こしていました。
 
-現在、各Kotlin/Native Gradleコンパイルは、[`compileDependencyFiles` コンパイルパラメータ](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-dsl-reference.html#compilation-parameters) を介して、コンパイル時ライブラリパスに標準ライブラリとプラットフォームの依存関係を明示的に含めています。
+現在、各Kotlin/Native Gradleコンパイルは、[`compileDependencyFiles` コンパイルパラメータ](https://kotlinlang.org/docs/multiplatform/multiplatform-dsl-reference.html#compilation-parameters) を介して、コンパイル時ライブラリパスに標準ライブラリとプラットフォームの依存関係を明示的に含めています。
 
 ### Gradle設定キャッシュにおけるタスクエラー
 
@@ -782,8 +786,6 @@ kotlin {
 }
 ```
 
-また、新しい`es2015` [コンパイルターゲット](#new-compilation-target) を使用することもできます。
-
 ### JavaScript例外のキャッチのサポート
 
 以前は、Kotlin/WasmコードはJavaScriptの例外をキャッチできなかったため、プログラムのJavaScript側で発生するエラーを処理することが困難でした。
@@ -841,7 +843,7 @@ kotlin {
 
 ### ES2015ジェネレータとしてのSuspend関数
 
-このリリースでは、[Suspend関数](composing-suspending-functions.md) をコンパイルするためのES2015ジェネレータの[実験的サポート](components-stability.md#stability-levels-explained) が導入されました。
+このリリースでは、[Experimental](components-stability.md#stability-levels-explained) サポートとして、[Suspend関数](composing-suspending-functions.md) をコンパイルするためのES2015ジェネレータが導入されました。
 
 ステートマシンではなくジェネレータを使用することで、プロジェクトの最終バンドルサイズが改善されるはずです。たとえば、JetBrainsチームはES2015ジェネレータを使用することで、Spaceプロジェクトのバンドルサイズを20%削減することに成功しました。
 
@@ -891,26 +893,26 @@ Kotlin 2.0.0 では、Kotlin/JS プロジェクトの出力に対する新しい
     // build.gradle.kts
     kotlin {
         js(IR) {
-            useEsModules() // ES2015 modules を有効にする
+            useEsModules() // Enables ES2015 modules
             browser()
         }
     }
     ```
 
-    これには、新しい`es2015` [コンパイルターゲット](#new-compilation-target)を使用することもできます。
-
 2.  `-Xir-per-file` コンパイラオプションを適用するか、`gradle.properties` ファイルを次のように更新します。
 
     ```none
     # gradle.properties
-    kotlin.js.ir.output.granularity=per-file // `per-module` がデフォルト
+    kotlin.js.ir.output.granularity=per-file // `per-module` is the default
     ```
 
 ### 改善されたコレクション相互運用性
 
-Kotlin 2.0.0以降、シグネチャ内にKotlinコレクション型を持つ宣言をJavaScript（およびTypeScript）にエクスポートすることが可能になりました。これは、`Set`、`Map`、`List` コレクション型とその可変バージョンに適用されます。
+Starting with Kotlin 2.0.0, it's possible to export declarations with a Kotlin collection type inside the signature to
+JavaScript (and TypeScript). This applies to `Set`, `Map`, and `List` collection types and their mutable counterparts.
 
-JavaScriptでKotlinコレクションを使用するには、まず必要な宣言を[`@JsExport`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.js/-js-export/) アノテーションでマークします。
+To use Kotlin collections in JavaScript, first mark the necessary declarations
+with [`@JsExport`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.js/-js-export/) annotation:
 
 ```kotlin
 // Kotlin
@@ -927,7 +929,7 @@ val me = User(
 )
 ```
 
-その後、JavaScriptから通常のJavaScript配列としてそれらを使用できます。
+You can then consume them from JavaScript as regular JavaScript arrays:
 
 ```javascript
 // JavaScript
@@ -938,7 +940,8 @@ const allMyFriendNames = me.friends
     .map(x => x.name) // ['Kodee']
 ```
 
-> 残念ながら、JavaScriptからKotlinコレクションを作成することはまだできません。Kotlin 2.0.20でこの機能を追加する予定です。
+> Unfortunately, creating Kotlin collections from JavaScript is still unavailable. We're planning to add this
+> functionality in Kotlin 2.0.20.
 >
 {style="note"}
 
@@ -950,8 +953,8 @@ Kotlin 2.0.0以降、Kotlin/JSターゲットから[`createInstance()`](https://
 
 ### 型安全なプレーンJavaScriptオブジェクトのサポート
 
-> `js-plain-objects` プラグインは[実験的機能](components-stability.md#stability-levels-explained)です。
-> いつでも廃止または変更される可能性があります。`js-plain-objects` プラグインはK2コンパイラのみをサポートします。
+> The `js-plain-objects` plugin is [Experimental](components-stability.md#stability-levels-explained).
+> It may be dropped or changed at any time. The `js-plain-objects` plugin **only** supports the K2 compiler.
 >
 {style="warning"}
 
@@ -973,9 +976,9 @@ external interface User {
 }
 
 fun main() {
-    // JavaScript オブジェクトを作成する
+    // Creates a JavaScript object
     val user = User(name = "Name", age = 10)
-    // オブジェクトをコピーし、email を追加する
+    // Copies the object and adds an email
     val copy = user.copy(age = 11, email = "some@user.com")
 
     println(JSON.stringify(user))
@@ -998,12 +1001,13 @@ external interface FetchOptions {
     val method: String
 }
 
-// Window.fetch のラッパー
+// A wrapper for Window.fetch
 suspend fun fetch(url: String, options: FetchOptions? = null) = TODO("Add your custom behavior here")
 
-// "metod" がメソッドとして認識されないため、コンパイル時エラーが発生する
+// A compile-time error is triggered as "metod" is not recognized
+// as method
 fetch("https://google.com", options = FetchOptions(metod = "POST"))
-// method が必須であるため、コンパイル時エラーが発生する
+// A compile-time error is triggered as method is required
 fetch("https://google.com", options = FetchOptions(body = "SOME STRING")) 
 ```
 
@@ -1013,11 +1017,12 @@ fetch("https://google.com", options = FetchOptions(body = "SOME STRING"))
 ```kotlin
 suspend fun fetch(url: String, options: FetchOptions? = null) = TODO("Add your custom behavior here")
 
-// エラーは発生しない。"metod" が認識されないため、間違ったメソッド（GET）が使用される。
+// No error is triggered. As "metod" is not recognized, the wrong method 
+// (GET) is used.
 fetch("https://google.com", options = js("{ metod: 'POST' }"))
 
-// デフォルトでは GET メソッドが使用される。body が存在すべきではないため、
-// 実行時エラーが発生する。
+// By default, the GET method is used. A runtime error is triggered as 
+// body shouldn't be present.
 fetch("https://google.com", options = js("{ body: 'SOME STRING' }"))
 // TypeError: Window.fetch: HEAD or GET Request cannot have a body
 ```
@@ -1140,7 +1145,7 @@ kotlin {
 
 プロジェクトで新しいComposeコンパイラを使用するには、`build.gradle(.kts)`ファイルで`org.jetbrains.kotlin.plugin.compose` Gradleプラグインを適用し、そのバージョンをKotlin 2.0.0と同じに設定します。
 
-この変更の詳細と移行手順については、[Composeコンパイラのドキュメント](https://www.jetbrains.com/help/kotlin-multiplatform-dev/compose-compiler.html) を参照してください。
+この変更の詳細と移行手順については、[Composeコンパイラのドキュメント](https://kotlinlang.org/docs/multiplatform/compose-compiler.html) を参照してください。
 
 ### JVMおよびAndroid公開ライブラリを区別するための新しい属性
 
@@ -1234,25 +1239,23 @@ Kotlin 2.0.0 では、ビルドスクリプトの制御と安全性を向上さ�
 
 ```kotlin
 kotlin {
-    // Target DSL は、
-    // kotlin{} 拡張 DSL で定義されたメソッドやプロパティにアクセスできなかった
+    // Target DSL couldn't access methods and properties defined in the
+    // kotlin{} extension DSL
     jvm {
-        // Compilation DSL は、
-        // kotlin{} 拡張 DSL や Kotlin jvm{} ターゲット DSL で定義された
-        // メソッドやプロパティにアクセスできなかった
+        // Compilation DSL couldn't access methods and properties defined
+        // in the kotlin{} extension DSL and Kotlin jvm{} target DSL
         compilations.configureEach {
-            // Compilation task DSL は、
-            // kotlin{} 拡張、Kotlin jvm{} ターゲット、
-            // または Kotlin compilation DSL で定義された
-            // メソッドやプロパティにアクセスできなかった
+            // Compilation task DSLs couldn't access methods and
+            // properties defined in the kotlin{} extension, Kotlin jvm{}
+            // target or Kotlin compilation DSL
             compileTaskProvider.configure {
-                // 例：
+                // For example:
                 explicitApi()
-                // ERROR (kotlin{} 拡張 DSL で定義されているため)
+                // ERROR as it is defined in the kotlin{} extension DSL
                 mavenPublication {}
-                // ERROR (Kotlin jvm{} ターゲット DSL で定義されているため)
+                // ERROR as it is defined in the Kotlin jvm{} target DSL
                 defaultSourceSet {}
-                // ERROR (Kotlin compilation DSL で定義されているため)
+                // ERROR as it is defined in the Kotlin compilation DSL
             }
         }
     }
@@ -1278,7 +1281,7 @@ kotlin {
 }
 ```
 
-この場合、`sourceSets` の警告メッセージは次のようになります。
+In this case, the warning message for `sourceSets` is:
 
 ```none
 [DEPRECATION] 'sourceSets: NamedDomainObjectContainer<KotlinSourceSet>' is deprecated.Accessing 'sourceSets' container on the Kotlin target level DSL is deprecated. Consider configuring 'sourceSets' on the Kotlin extension level.
@@ -1400,7 +1403,7 @@ Kotlin 1.7.0では、コンパイラパフォーマンスを追跡するのに�
 ```none
 kotlin.build.report.output=json
 
-// ビルドレポートを保存するディレクトリ
+// The directory to store your build reports
 kotlin.build.report.json.directory=my/directory/path
 ```
 
@@ -1580,7 +1583,7 @@ fun main() {
     val myString = "Kotlin is awesome!"
     val destinationArray = CharArray(myString.length)
 
-    // 文字列を変換し、destinationArray に格納する:
+    // Convert the string and store it in the destinationArray:
     myString.toCharArray(destinationArray)
 
     for (char in destinationArray) {

@@ -5,7 +5,7 @@ Gradle 是一种构建系统，有助于自动化和管理你的构建过程。�
 你可以根据 [这些说明](gradle-configure-project.md) 为不同平台设置你自己的项目，或者完成一个小的 [分步教程](get-started-with-jvm-gradle-project.md)，该教程将向你展示如何使用 Kotlin 创建一个简单的后端“Hello World”应用程序。
 
 > 你可以在 [此处](gradle-configure-project.md#apply-the-plugin) 找到关于 Kotlin、Gradle 和 Android Gradle 插件版本兼容性的信息。
-> 
+>
 {style="tip"}
 
 在本章节中，你还可以了解：

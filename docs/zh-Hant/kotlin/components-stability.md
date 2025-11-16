@@ -102,7 +102,7 @@ Kotlin 語言和工具集被劃分為許多元件，例如 JVM、JS 和 Native �
 | **元件**                                  | **狀態** | **自版本起狀態** | **備註**                                                                                                                         |
 |------------------------------------------------|------------|--------------------------|--------------------------------------------------------------------------------------------------------------------------------------|
 | Kotlin Multiplatform                           | Stable     | 1.9.20                   |                                                                                                                                      |
-| Kotlin Multiplatform 外掛程式 for Android Studio | Beta       | 0.8.0                    | [與語言單獨版本化](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-plugin-releases.html) |
+| Kotlin Multiplatform 外掛程式 for Android Studio | Beta       | 0.8.0                    | [與語言單獨版本化](https://kotlinlang.org/docs/multiplatform/multiplatform-plugin-releases.html) |
 
 ### Kotlin/Native
 

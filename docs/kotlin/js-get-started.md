@@ -18,7 +18,7 @@
 ### 设置环境
 
 1.  下载并安装最新版 [IntelliJ IDEA](https://www.jetbrains.com/idea/)。
-2.  [设置 Kotlin 多平台开发环境](https://www.jetbrains.com/help/kotlin-multiplatform-dev/quickstart.html#set-up-the-environment)。
+2.  [设置 Kotlin 多平台开发环境](https://kotlinlang.org/docs/multiplatform/quickstart.html#set-up-the-environment)。
 
 ### 创建项目
 
@@ -50,7 +50,7 @@
 
     或者，点击 Gradle 工具窗口中的刷新按钮。
 
-有关多平台项目的 Gradle 配置的更多信息，请参见 [Multiplatform Gradle DSL 参考](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-dsl-reference.html)。
+有关多平台项目的 Gradle 配置的更多信息，请参见 [Multiplatform Gradle DSL 参考](https://kotlinlang.org/docs/multiplatform/multiplatform-dsl-reference.html)。
 
 ### 构建并运行应用程序
 
@@ -74,7 +74,7 @@ Web 应用程序会自动在您的浏览器中打开。
 
 ![Application output](js-output-gutter-1.png){width=600}
 
-首次运行应用程序后，IntelliJ IDEA 会在其顶部栏创建相应的运行配置（**jsMain \[js]**）：
+首次运行应用程序后，IntelliJ IDEA 会在其顶部栏创建相应的运行配置（**jsMain [js]**）：
 
 ![Gradle run configuration](js-run-config.png){width=500}
 
@@ -88,7 +88,7 @@ Web 应用程序会自动在您的浏览器中打开。
 
 每当您进行更改时，Gradle 都可以自动重新构建您的项目：
 
-1.  在运行配置列表中选择 **jsMain \[js]**，然后点击 **More Actions** | **Edit**。
+1.  在运行配置列表中选择 **jsMain [js]**，然后点击 **More Actions** | **Edit**。
 
     ![Gradle edit run configuration](js-edit-run-config.png){width=500}
 
@@ -422,5 +422,5 @@ IntelliJ IDEA 会在 **Build** 面板中显示错误消息。
 *   [设置您的 Kotlin/JS 项目](js-project-setup.md)。
 *   了解如何[调试 Kotlin/JS 应用程序](js-debugging.md)。
 *   了解如何[使用 Kotlin/JS 编写并运行测试](js-running-tests.md)。
-*   了解如何[为真实的 Kotlin/JS 项目编写 Gradle 构建脚本](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-dsl-reference.html)。
+*   了解如何[为真实的 Kotlin/JS 项目编写 Gradle 构建脚本](https://kotlinlang.org/docs/multiplatform/multiplatform-dsl-reference.html)。
 *   了解更多关于 [Gradle 构建系统](gradle.md) 的信息。

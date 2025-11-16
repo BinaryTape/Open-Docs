@@ -21,6 +21,10 @@
 2. 開啟 **Incorrect formatting** 檢查。
 其他驗證風格指南中描述的其他問題（例如命名慣例）的檢查預設為啟用。
 
+<!-- Replace with an external link when the guide is moved -->
+
+如需更多資訊，請參閱 [使用 IntelliJ IDEA 遷移到 Kotlin 程式碼風格 (Migrate to Kotlin code style with IntelliJ IDEA)](code-style-migration-guide.md) 指南。
+
 ## 原始碼組織
 
 ### 目錄結構
@@ -172,9 +176,9 @@ fun Foo(): Foo { return FooImpl() }
 
 ```kotlin
 class MyTestCase {
-     @Test fun `ensure everything works`() { /*...*/ }
-     
-     @Test fun ensureEverythingWorks_onAndroid() { /*...*/ }
+    @Test fun `ensure everything works`() { /*...*/ }
+
+    @Test fun ensureEverythingWorks_onAndroid() { /*...*/ }
 }
 ```
 
@@ -211,7 +215,7 @@ class C {
     private val _elementList = mutableListOf<Element>()
 
     val elementList: List<Element>
-         get() = _elementList
+        get() = _elementList
 }
 ```
 
@@ -299,9 +303,9 @@ abstract class Foo<out T : Any> : IFoo {
 
 class FooImpl : Foo() {
     constructor(x: String) : this(x) { /*...*/ }
-    
-    val x = object : IFoo { /*...*/ } 
-} 
+
+    val x = object : IFoo { /*...*/ }
+}
 ```
 
 ### 類別標頭
@@ -355,7 +359,7 @@ class MyFavouriteVeryLongClassHolder :
 class MyFavouriteVeryLongClassHolder :
     MyLongHolder<MyFavouriteVeryLongClass>(),
     SomeOtherInterface,
-    AndAnotherOne 
+    AndAnotherOne
 {
     fun foo() { /*...*/ }
 }
@@ -379,7 +383,7 @@ tailrec
 vararg
 suspend
 inner
-enum / annotation / fun // as a modifier in `fun interface` 
+enum / annotation / fun // as a modifier in `fun interface`
 companion
 inline / value
 infix
@@ -449,7 +453,7 @@ fun longMethodName(
 
 ```kotlin
 fun foo(): Int {     // bad
-    return 1 
+    return 1
 }
 
 fun foo() = 1        // good
@@ -603,10 +607,10 @@ appendCommaSeparated(properties) { prop ->
 
 ```kotlin
 foo {
-   context: Context,
-   environment: Env
-   ->
-   context.configureEnv(environment)
+    context: Context,
+    environment: Env
+    ->
+    context.configureEnv(environment)
 }
 ```
 
@@ -676,7 +680,7 @@ class Customer(
 
 ```kotlin
 fun powerOf(
-    number: Int, 
+    number: Int,
     exponent: Int, // trailing comma
 ) { /*...*/ }
 constructor(
@@ -754,7 +758,7 @@ annotation class ApplicableFor(val services: Array<String>)
 fun run() {}
 ```
 
-#### 類型參數 {initial-collapse-state="collapsed" collapsible="true"}
+#### 類型引數 {initial-collapse-state="collapsed" collapsible="true"}
 
 ```kotlin
 fun <T1, T2> foo() {}
@@ -871,15 +875,15 @@ println("$name has ${children.size} children")
 
 ```kotlin
 val KClass<*>.jsonSchema : String
-get() = $"""
-    {
-      "$schema": "https://json-schema.org/draft/2020-12/schema",
-      "$id": "https://example.com/product.schema.json",
-      "$dynamicAnchor": "meta",
-      "title": "${simpleName ?: qualifiedName ?: "unknown"}",
-      "type": "object"
-    }
-    """
+    get() = $"""
+        {
+            "$schema": "https://json-schema.org/draft/2020-12/schema",
+            "$id": "https://example.com/product.schema.json",
+            "$dynamicAnchor": "meta",
+            "title": "${simpleName ?: qualifiedName ?: "unknown"}",
+            "type": "object"
+        }
+        """
 ```
 
 ## 慣用語法特性使用
@@ -981,7 +985,7 @@ else
 when(x) {
     0 -> return "zero"
     else -> return "nonzero"
-}    
+}
 ```
 
 ### if 與 when

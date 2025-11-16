@@ -22,4 +22,4 @@ IntelliJ IDEAで作業している場合、実行構成のリストを介して�
 
 ![変更を待機中のGradle](waiting-for-changes.png){width=700}
 
-変更が検出されると、プログラムは自動的に再コンパイルされます。ブラウザでウェブページを開いたままにしている場合、開発サーバーはページの自動リロードをトリガーし、変更が反映されます。これは、[Kotlin Multiplatform Gradleプラグイン](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-dsl-reference.html)によって管理される統合された[`webpack-dev-server`](https://webpack.js.org/configuration/dev-server/)のおかげです。
+変更が検出されると、プログラムは自動的に再コンパイルされます。ブラウザでウェブページを開いたままにしている場合、開発サーバーはページの自動リロードをトリガーし、変更が反映されます。これは、[Kotlin Multiplatform Gradleプラグイン](https://kotlinlang.org/docs/multiplatform/multiplatform-dsl-reference.html)によって管理される統合された[`webpack-dev-server`](https://webpack.js.org/configuration/dev-server/)のおかげです。

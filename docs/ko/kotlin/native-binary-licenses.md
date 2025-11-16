@@ -11,7 +11,7 @@
 
 특히, Kotlin/Native 컴파일러는 타사 코드, 데이터 또는 파생 저작물을 포함할 수 있는 바이너리를 생성합니다. 이는 Kotlin/Native로 컴파일된 바이너리가 타사 라이선스의 약관에 따라야 함을 의미합니다.
 
-실제로, Kotlin/Native로 컴파일된 [최종 바이너리](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-build-native-binaries.html)를 배포하는 경우, 바이너리 배포에 필요한 라이선스 파일을 항상 포함해야 합니다. 이 파일들은 배포 사용자에게 읽을 수 있는 형태로 접근 가능해야 합니다.
+실제로, Kotlin/Native로 컴파일된 [최종 바이너리](https://kotlinlang.org/docs/multiplatform/multiplatform-build-native-binaries.html)를 배포하는 경우, 바이너리 배포에 필요한 라이선스 파일을 항상 포함해야 합니다. 이 파일들은 배포 사용자에게 읽을 수 있는 형태로 접근 가능해야 합니다.
 
 해당 프로젝트에 대해 항상 다음 라이선스 파일을 포함하십시오:
 
@@ -50,7 +50,7 @@
         </td>
    </tr>
    <tr>
-        <td><a href="https://www.unicode.org/">Unicode 문자 데이터베이스</a></td>
+        <td><a href="https://www.unicode.org/">Unicode character database</a></td>
         <td><a href="https://github.com/JetBrains/kotlin/blob/master/kotlin-native/licenses/third_party/unicode_LICENSE.txt">유니코드 라이선스</a></td>
    </tr>
    <tr>

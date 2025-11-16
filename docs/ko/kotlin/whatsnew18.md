@@ -134,7 +134,7 @@ kotlin {
 
 정적 링크 유형을 사용하는 기존 프로젝트가 있고 Kotlin 1.8.0으로 업그레이드(또는 링크 유형을 명시적으로 변경)하는 경우, 프로젝트 실행 시 오류가 발생할 수 있습니다. 이를 해결하려면 Xcode 프로젝트를 닫고 Podfile 디렉터리에서 `pod install`을 실행하세요.
 
-자세한 내용은 [CocoaPods Gradle 플러그인 DSL 참조](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-cocoapods-dsl-reference.html)를 참조하세요.
+자세한 내용은 [CocoaPods Gradle 플러그인 DSL 참조](https://kotlinlang.org/docs/multiplatform/multiplatform-cocoapods-dsl-reference.html)를 참조하세요.
 
 ## Kotlin 멀티플랫폼: 새로운 Android 소스 세트 레이아웃
 
@@ -581,7 +581,7 @@ fun main() {
 
 ### 디렉터리 재귀적 복사 또는 삭제
 
-> `java.nio.file.Path`에 대한 이 새로운 함수들은 [실험적](components-stability.md#stability-levels-explained)입니다. 이를 사용하려면 `@OptIn(kotlin.io.path.ExperimentalPathApi::class)` 또는 `@kotlin.io.path.ExperimentalPathApi`를 사용하여 옵트인해야 합니다. 또는 컴파일러 옵션 `-opt-in=kotlin.io.path.ExperimentalPathApi`를 사용할 수 있습니다.
+> 이 새로운 `java.nio.file.Path` 함수들은 [실험적](components-stability.md#stability-levels-explained)입니다. 이를 사용하려면 `@OptIn(kotlin.io.path.ExperimentalPathApi::class)` 또는 `@kotlin.io.path.ExperimentalPathApi`를 사용하여 옵트인해야 합니다. 또는 컴파일러 옵션 `-opt-in=kotlin.io.path.ExperimentalPathApi`를 사용할 수 있습니다.
 >
 {style="warning"}
 
@@ -661,8 +661,8 @@ Kotlin 문서에 몇 가지 주목할 만한 변경 사항이 있었습니다:
 ### 새로운 및 업데이트된 튜토리얼
 
 *   [Gradle 및 Kotlin/JVM 시작하기](get-started-with-jvm-gradle-project.md) – IntelliJ IDEA 및 Gradle을 사용하여 콘솔 애플리케이션을 생성합니다.
-*   [Ktor 및 SQLDelight를 사용하여 멀티플랫폼 앱 생성](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-ktor-sqldelight.html) – Kotlin Multiplatform Mobile을 사용하여 iOS 및 Android용 모바일 애플리케이션을 생성합니다.
-*   [Kotlin 멀티플랫폼 시작하기](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-create-first-app.html) – Kotlin을 사용한 크로스 플랫폼 모바일 개발에 대해 알아보고 Android 및 iOS에서 모두 작동하는 앱을 생성합니다.
+*   [Ktor 및 SQLDelight를 사용하여 멀티플랫폼 앱 생성](https://kotlinlang.org/docs/multiplatform/multiplatform-ktor-sqldelight.html) – Kotlin Multiplatform Mobile을 사용하여 iOS 및 Android용 모바일 애플리케이션을 생성합니다.
+*   [Kotlin 멀티플랫폼 시작하기](https://kotlinlang.org/docs/multiplatform/multiplatform-create-first-app.html) – Kotlin을 사용한 크로스 플랫폼 모바일 개발에 대해 알아보고 Android 및 iOS에서 모두 작동하는 앱을 생성합니다.
 
 ## Kotlin 1.8.0 설치
 

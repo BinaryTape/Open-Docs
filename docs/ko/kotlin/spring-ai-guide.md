@@ -297,7 +297,7 @@ IntelliJ IDEA Ultimate Edition에서 새 Spring Boot 프로젝트를 생성합�
         val promptTemplate = PromptTemplate(
             """
             {query}.
-            Please provide a concise answer based on the "Kotlin standard library" documentation.
+            "Kotlin 표준 라이브러리" 문서에 기반하여 간결한 답변을 제공해 주세요.
         """.trimIndent()
         )
 

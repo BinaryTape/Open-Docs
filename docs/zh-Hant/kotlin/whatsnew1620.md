@@ -478,8 +478,8 @@ Kotlin 1.6.20 預設啟用階層式結構支援。
 
 #### 專案中更好的程式碼共享
 
-在沒有階層式結構支援的情況下，無法直接地在**某些**而非**所有** [Kotlin 目標](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-dsl-reference.html#targets)之間共享程式碼。
-一個常見的例子是在所有 iOS 目標之間共享程式碼，並存取 iOS 特定的[依賴項](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-share-on-platforms.html#connect-platform-specific-libraries)，例如 Foundation。
+在沒有階層式結構支援的情況下，無法直接地在**某些**而非**所有** [Kotlin 目標](https://kotlinlang.org/docs/multiplatform/multiplatform-dsl-reference.html#targets)之間共享程式碼。
+一個常見的例子是在所有 iOS 目標之間共享程式碼，並存取 iOS 特定的[依賴項](https://kotlinlang.org/docs/multiplatform/multiplatform-share-on-platforms.html#connect-platform-specific-libraries)，例如 Foundation。
 
 多虧了階層式專案結構支援，您現在可以開箱即用地實現這一點。
 在新結構中，原始碼集形成階層。
@@ -498,13 +498,13 @@ Kotlin 工具鏈提供正確的預設依賴項，例如 Kotlin/Native 標準函�
 
 當多平台函式庫發佈時，其中間原始碼集的應用程式介面現在已正確地與其一同發佈，供消費者使用。
 同樣，Kotlin 工具鏈將自動找出消費者原始碼集中可用的應用程式介面，同時仔細防範不安全的使用方式，例如在 JS 程式碼中使用適用於 JVM 的應用程式介面。
-了解有關[在函式庫中共享程式碼](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-share-on-platforms.html#share-code-in-libraries)的更多資訊。
+了解有關[在函式庫中共享程式碼](https://kotlinlang.org/docs/multiplatform/multiplatform-share-on-platforms.html#share-code-in-libraries)的更多資訊。
 
 #### 配置和設定
 
 從 Kotlin 1.6.20 開始，所有新建立的多平台專案都將採用階層式專案結構。無需額外設定。
 
-*   如果您已[手動開啟](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-share-on-platforms.html#share-code-on-similar-platforms)它，您可以從 `gradle.properties` 中移除已棄用的選項：
+*   如果您已[手動開啟](https://kotlinlang.org/docs/multiplatform/multiplatform-share-on-platforms.html#share-code-on-similar-platforms)它，您可以從 `gradle.properties` 中移除已棄用的選項：
 
     ```none
     # gradle.properties
@@ -533,9 +533,9 @@ Kotlin 工具鏈提供正確的預設依賴項，例如 Kotlin/Native 標準函�
 
 *   CocoaPods 外掛程式現在具有建置 XCFrameworks 並包含所有註冊目標以及生成 Podspec 檔案的任務。當您不想直接與 Xcode 整合，但想要建置產物並將其部署到本地 CocoaPods 儲存庫時，這會很有用。
     
-    了解更多關於[建置 XCFrameworks](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-build-native-binaries.html#build-xcframeworks) 的資訊。
+    了解更多關於[建置 XCFrameworks](https://kotlinlang.org/docs/multiplatform/multiplatform-build-native-binaries.html#build-xcframeworks) 的資訊。
 
-*   如果您在專案中使用 [CocoaPods 整合](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-cocoapods-overview.html)，您習慣於為整個 Gradle 專案指定所需的 Pod 版本。現在您有更多選項：
+*   如果您在專案中使用 [CocoaPods 整合](https://kotlinlang.org/docs/multiplatform/multiplatform-cocoapods-overview.html)，您習慣於為整個 Gradle 專案指定所需的 Pod 版本。現在您有更多選項：
     *   直接在 `cocoapods` 區塊中指定 Pod 版本
     *   繼續使用 Gradle 專案版本
     
@@ -557,7 +557,7 @@ kotlin {
 }
 ```
 
-請參閱完整的 Kotlin CocoaPods Gradle 外掛程式 [DSL 參考](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-cocoapods-dsl-reference.html)。
+請參閱完整的 Kotlin CocoaPods Gradle 外掛程式 [DSL 參考](https://kotlinlang.org/docs/multiplatform/multiplatform-cocoapods-dsl-reference.html)。
 
 ## Kotlin/JS
 
@@ -792,9 +792,9 @@ Kotlin 1.6.20 引入了一個同名的 Gradle 屬性 `kotlin.compiler.execution.
 
 | 策略       | Kotlin 編譯器執行位置     | 增量編譯 | 其他特性                                                 |
 |------------|-------------------------|----------|----------------------------------------------------------|
-| 守護行程 (Daemon) | 在其自身的守護行程程序內部      | 是        | *預設策略*。可在不同的 Gradle 守護行程之間共享              |
-| 進程內 (In process) | 在 Gradle 守護行程程序內部  | 否        | 可能與 Gradle 守護行程共享堆積記憶體                       |
-| 進程外 (Out of process) | 每次呼叫都在單獨的程序中 | 否        | —                                                        |
+| Daemon     | 在其自身的守護行程程序內部      | 是        | *預設策略*。可在不同的 Gradle 守護行程之間共享              |
+| In process | 在 Gradle 守護行程程序內部  | 否        | 可能與 Gradle 守護行程共享堆積記憶體                       |
+| Out of process | 每次呼叫都在單獨的程序中 | 否        | —                                                        |
 
 因此，`kotlin.compiler.execution.strategy` 屬性（包括系統屬性和 Gradle 屬性）的可用值為：
 1. `daemon` (預設)

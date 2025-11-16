@@ -1,10 +1,10 @@
 [//]: # (title: 범위와 등차수열)
 
-Kotlin에서 범위(Ranges)와 등차수열(Progressions)은 값의 시퀀스를 정의하며, 범위 연산자, 반복, 사용자 지정 스텝 값 및 등차수열을 지원합니다.
+범위와 등차수열은 Kotlin에서 값의 시퀀스를 정의하며, 범위 연산자, 반복, 사용자 지정 스텝 값 및 등차수열을 지원합니다.
 
 ## 범위 {id="range"}
 
-Kotlin에서는 `kotlin.ranges` 패키지의 [` .rangeTo()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.ranges/range-to.html) 및 [` .rangeUntil()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.ranges/range-until.html) 함수를 사용하여 값의 범위를 쉽게 생성할 수 있습니다.
+Kotlin에서는 `kotlin.ranges` 패키지의 [`.rangeTo()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.ranges/range-to.html) 및 [`.rangeUntil()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.ranges/range-until.html) 함수를 사용하여 값의 범위를 쉽게 생성할 수 있습니다.
 
 범위는 시작과 끝이 정의된 값의 순서 있는 집합을 나타냅니다. 기본적으로 각 스텝에서 1씩 증가합니다. 예를 들어, `1..4`는 숫자 1, 2, 3, 4를 나타냅니다.
 

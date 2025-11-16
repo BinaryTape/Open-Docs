@@ -10,7 +10,7 @@
 
 *   **改进的调用解析和类型推断**。编译器行为更一致，对你的代码理解更深入。
 *   **更容易引入新语言特性的语法糖**。未来，当新**特性**引入时，你将能够使用更简洁、更可读的代码。
-*   **更快的编译时间**。**编译时间**可以[显著加快](#performance-improvements)。
+*   **更快的编译期**。**编译项**时间可以[显著加快](#performance-improvements)。
 *   **增强的 IDE 性能**。从 2025.1 开始，IntelliJ IDEA 使用 K2 模式分析你的 Kotlin 代码，提升了稳定性并提供了性能改进。有关更多信息，请参见[IDE 支持](#support-in-ides)。
 
 本指南：
@@ -19,19 +19,19 @@
 *   强调你在迁移过程中可能遇到的变化，以及如何相应地调整代码。
 *   描述了如何回滚到之前的版本。
 
-> 新 K2 编译器从 2.0.0 开始默认启用。有关 Kotlin 2.0.0 中提供的新**特性**以及新 K2 编译器的更多信息，请参见 [Kotlin 2.0.0 的新增**特性**](whatsnew20.md)。
+> 新 K2 编译器从 2.0.0 开始默认启用。关于 Kotlin 2.0.0 中提供的新**特性**以及新 K2 编译器的更多信息，请参见 [Kotlin 2.0.0 的新增**特性**](whatsnew20.md)。
 >
 {style="note"}
 
 ## 性能改进
 
-为了评估 K2 编译器的性能，我们在两个开源**项目**上运行了性能测试：[Anki-Android](https://github.com/ankidroid/Anki-Android) 和 [Exposed](https://github.com/JetBrains/Exposed)。以下是我们发现的关键性能改进：
+为了**求值** K2 编译器的性能，我们在两个开源**项目**上运行了性能测试：[Anki-Android](https://github.com/ankidroid/Anki-Android) 和 [Exposed](https://github.com/JetBrains/Exposed)。以下是我们发现的关键性能改进：
 
-*   K2 编译器带来了高达 94% 的**编译**速度提升。例如，在 Anki-Android **项目**中，纯净**构建**时间从 Kotlin 1.9.23 的 57.7 秒缩短到 Kotlin 2.0.0 的 29.7 秒。
+*   K2 编译器带来了高达 94% 的**编译项**速度提升。例如，在 Anki-Android **项目**中，纯净**构建**时间从 Kotlin 1.9.23 的 57.7 秒缩短到 Kotlin 2.0.0 的 29.7 秒。
 *   使用 K2 编译器，初始化阶段速度提升高达 488%。例如，在 Anki-Android **项目**中，增量**构建**的初始化阶段从 Kotlin 1.9.23 的 0.126 秒削减到 Kotlin 2.0.0 的仅 0.022 秒。
 *   与之前的编译器相比，Kotlin K2 编译器在分析阶段快了 376%。例如，在 Anki-Android **项目**中，增量**构建**的分析时间从 Kotlin 1.9.23 的 0.581 秒大幅减少到 Kotlin 2.0.0 的仅 0.122 秒。
 
-有关这些改进的更多详细信息，以及了解我们如何分析 K2 编译器性能的更多信息，请参见我们的[博客文章](https://blog.jetbrains.com/kotlin/2024/04/k2-compiler-performance-benchmarks-and-how-to-measure-them-on-your-projects/)。
+关于这些改进的更多详细信息，以及了解我们如何分析 K2 编译器性能的更多信息，请参见我们的[博客文章](https://blog.jetbrains.com/kotlin/2024/04/k2-compiler-performance-benchmarks-and-how-to-measure-them-on-your-projects/)。
 
 ## 语言**特性**改进
 
@@ -44,7 +44,7 @@ Kotlin 编译器可以在特定情况下自动将对象**类型转换**为某种
 在 Kotlin 2.0.0 中，我们在以下领域对**智能类型转换**进行了改进：
 
 *   [局部变量和更深的作用域](#local-variables-and-further-scopes)
-*   [使用逻辑或**操作符**的类型**检测**](#type-checks-with-the-logical-or-operator)
+*   [使用逻辑 `or` **操作符**的类型**检测**](#type-checks-with-the-logical-or-operator)
 *   [内联**函数**](#inline-functions)
 *   [带有**函数**类型的属性](#properties-with-function-types)
 *   [异常处理](#exception-handling)
@@ -52,7 +52,7 @@ Kotlin 编译器可以在特定情况下自动将对象**类型转换**为某种
 
 #### 局部变量和更深的作用域
 
-之前，如果变量在 `if` 条件中被**检测**为非 `null`，该变量会进行**智能类型转换**。然后，有关此变量的信息会在 `if` **代码块**的作用域内进一步共享。
+之前，如果变量在 `if` 条件中被**检测**为非 `null`，该变量会进行**智能类型转换**。然后，有关此变量的信息会在 `if` **代码块**的**作用域**内进一步共享。
 
 然而，如果你在 `if` 条件**外部****声明**变量，则 `if` 条件内将没有关于该变量的信息，因此它无法进行**智能类型转换**。这种行为也出现在 `when` 表达式和 `while` 循环中。
 
@@ -89,7 +89,7 @@ fun main(){
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="2.0" id="kotlin-smart-casts-k2-local-variables" validate="false"}
 
-#### 使用逻辑或**操作符**的类型**检测**
+#### 使用逻辑 `or` **操作符**的类型**检测**
 
 在 Kotlin 2.0.0 中，如果你使用 `or` **操作符** (`||`) 组合对象的类型**检测**，**智能类型转换**会转换为它们最接近的共同父类型。在此更改之前，**智能类型转换**总是转换为 `Any` 类型。
 
@@ -309,7 +309,7 @@ K2 编译器在以下领域改进了 Kotlin Multiplatform 相关**特性**：
 
 之前，Kotlin 编译器的设计阻止了它在**编译期**将公共和平台**源代码集**分开。因此，公共代码可以访问平台代码，导致平台之间行为不一致。此外，编译器设置和公共代码中的**依赖项**会泄露到平台代码中。
 
-在 Kotlin 2.0.0 中，我们新 Kotlin K2 编译器的实现包含对编译方案的重新设计，以确保公共和平台**源代码集**之间的严格分离。当你使用 [**expect** 和 **actual** **函数**](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-expect-actual.html#expected-and-actual-functions)时，此更改最为明显。之前，公共代码中的**函数调用**可能会解析为平台代码中的**函数**。例如：
+在 Kotlin 2.0.0 中，我们新 Kotlin K2 编译器的实现包含对**编译项**方案的重新设计，以确保公共和平台**源代码集**之间的严格分离。当你使用 [**expect** 和 **actual** **函数**](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-expect-actual.html#expected-and-actual-functions)时，此更改最为明显。之前，公共代码中的**函数调用**可能会解析为平台代码中的**函数**。例如：
 
 <table>
    <tr>
@@ -392,9 +392,9 @@ Expected class 'expect class Identity : Any' does not have default constructor
 
 ##### 何时解析行为不变
 
-我们仍在向新的编译方案迁移中，因此当你调用不在同一**源代码集**中的**函数**时，解析行为仍然相同。你主要会在公共代码中使用多平台库中的**重载**时注意到这种差异。
+我们仍在向新的**编译项**方案迁移中，因此当你调用不在同一**源代码集**中的**函数**时，解析行为仍然相同。你主要会在公共代码中使用多平台**版本库**中的**重载**时注意到这种差异。
 
-假设你有一个库，它有两个带有不同签名的 `whichFun()` **函数**：
+假设你有一个**版本库**，它有两个带有不同签名的 `whichFun()` **函数**：
 
 ```kotlin
 // Example library
@@ -406,7 +406,7 @@ fun whichFun(x: Any) = println("common function")
 fun whichFun(x: Int) = println("platform function")
 ```
 
-如果你在公共代码中调用 `whichFun()` **函数**，库中拥有最相关**实参**类型的**函数**将被解析：
+如果你在公共代码中调用 `whichFun()` **函数**，**版本库**中拥有最相关**实参**类型的**函数**将被解析：
 
 ```kotlin
 // A project that uses the example library for the JVM target
@@ -435,9 +435,9 @@ fun main(){
 fun whichFun(x: Int) = println("platform function")
 ```
 
-类似于多平台库，由于 `commonTest` 模块位于单独的**源代码集**中，它仍然可以访问**平台特有的**代码。因此，调用 `commonTest` 模块中**函数**的解析行为与旧的编译方案相同。
+类似于多平台**版本库**，由于 `commonTest` **模块**位于单独的**源代码集**中，它仍然可以访问**平台特有的**代码。因此，调用 `commonTest` **模块**中**函数**的解析行为与旧的**编译项**方案相同。
 
-未来，这些剩余情况将与新的编译方案更加一致。
+未来，这些剩余情况将与新的**编译项**方案更加一致。
 
 #### `expect` 和 `actual` **声明**的不同可见性级别
 
@@ -469,7 +469,7 @@ class Expanded                                  // Visibility is public by defau
 
 ### 将 Kotlin **构建报告**与 Gradle 结合使用
 
-Kotlin [**构建报告**](gradle-compilation-and-caches.md#build-reports)提供了关于 Kotlin 编译器**任务**在不同**编译项**阶段所花费时间的信息，以及使用了哪个编译器和 Kotlin 版本，以及**编译项**是否为增量**编译项**。这些**构建报告**对于评估你的**构建**性能很有用。它们比 [Gradle **构建扫描**](https://scans.gradle.com/) 对 Kotlin **编译项流水线**有更多洞察，因为它们为你提供了所有 Gradle **任务**的性能概览。
+Kotlin [**构建报告**](gradle-compilation-and-caches.md#build-reports)提供了关于 Kotlin 编译器**任务**在不同**编译项**阶段所花费时间的信息，以及使用了哪个编译器和 Kotlin 版本，以及**编译项**是否为增量**编译项**。这些**构建报告**对于**求值**你的**构建**性能有用。它们比 [Gradle **构建扫描**](https://scans.gradle.com/) 对 Kotlin **编译项流水线**有更多洞察，因为它们为你提供了所有 Gradle **任务**的性能概览。
 
 #### 如何启用**构建报告**
 
@@ -489,7 +489,7 @@ kotlin.build.report.output=file
 | `http` | 使用 HTTP(S) **发布构建报告**。POST **方法**以 JSON 格式发送指标。你可以在 [Kotlin **版本库**](https://github.com/JetBrains/kotlin/blob/master/libraries/tools/kotlin-gradle-plugin/src/common/kotlin/org/jetbrains/kotlin/gradle/report/data/GradleCompileStatisticsData.kt) 中查看已发送数据的当前版本。你可以在[这篇博客文章](https://blog.jetbrains.com/kotlin/2022/06/introducing-kotlin-build-reports/?_gl=1*1a7pghy*_ga*MTcxMjc1NzE5Ny4xNjY1NDAzNjkz*_ga_9J976DJZ68*MTcxNTA3NjA2NS4zNzcuMS4xNzE1MDc2MDc5LjQ2LjAuMA..&_ga=2.265800911.1124071296.1714976764-1712757197.1665403693#enable_build_reports)中找到 HTTP 端点示例。 |
 | `json` | 将**构建报告**以 JSON 格式保存到本地文件。在 `kotlin.build.report.json.directory` 中设置**构建报告**的位置。默认情况下，其名称为 `${project_name}-build-<date-time>-<index>.json`。 |
 
-有关**构建报告**可能性的更多信息，请参见 [**构建报告**](gradle-compilation-and-caches.md#build-reports)。
+关于**构建报告**可能性的更多信息，请参见 [**构建报告**](gradle-compilation-and-caches.md#build-reports)。
 
 ## IDE 支持
 
@@ -577,7 +577,7 @@ class Derived : Base() {
 *   将属性设为 `final`。
 *   使用允许延迟初始化的私有**幕后属性**。
 
-有关更多信息，请参见 [YouTrack](https://youtrack.jetbrains.com/issue/KT-57555) 中的相应问题。
+关于更多信息，请参见 [YouTrack](https://youtrack.jetbrains.com/issue/KT-57555) 中的相应问题。
 
 ### 弃用对**型变接收者**使用合成**setter**
 
@@ -620,7 +620,7 @@ fun exampleFunction(starProjected: Container<*>, inProjected: Container<in Numbe
 
 如果你发现此更改导致代码中出现错误，你可能需要重新考虑如何**声明**你的类型。你可能不需要使用类型**型变**，或者你可能需要从代码中删除任何**赋值**。
 
-有关更多信息，请参见 [YouTrack](https://youtrack.jetbrains.com/issue/KT-54309) 中的相应问题。
+关于更多信息，请参见 [YouTrack](https://youtrack.jetbrains.com/issue/KT-54309) 中的相应问题。
 
 ### 禁止使用无法访问的泛型类型
 
@@ -628,14 +628,14 @@ fun exampleFunction(starProjected: Container<*>, inProjected: Container<in Numbe
 
 由于 K2 编译器的新架构，我们更改了处理无法访问的泛型类型的方式。通常，你不应该在代码中**依赖**无法访问的泛型类型，因为这表明你的**项目构建配置**存在配置错误，导致编译器无法访问**编译**所需的必要信息。在 Kotlin 2.0.0 中，你无法**声明**或调用带有无法访问的泛型类型的**函数字面量**，也无法使用带有无法访问的泛型类型**实参**的泛型类型。此限制有助于你避免代码后期出现编译器错误。
 
-例如，假设你在一个模块中**声明**了一个泛型类：
+例如，假设你在一个**模块**中**声明**了一个泛型类：
 
 ```kotlin
 // Module one
 class Node<V>(val value: V)
 ```
 
-如果你有另一个模块（模块二），其**依赖项配置**在模块一上，你的代码可以访问 `Node<V>` 类并将其用作**函数**类型中的类型：
+如果你有另一个**模块**（**模块**二），其**依赖项配置**在**模块**一上，你的代码可以访问 `Node<V>` 类并将其用作**函数**类型中的类型：
 
 ```kotlin
 // Module two
@@ -643,7 +643,7 @@ fun execute(func: (Node<Int>) -> Unit) {}
 // Function compiles successfully
 ```
 
-然而，如果你的**项目**配置错误，使得你有一个只**依赖**模块二的第三方模块（模块三），那么 Kotlin 编译器在**编译**模块三时将无法访问**模块一**中的 `Node<V>` 类。现在，模块三中任何使用 `Node<V>` 类型的 lambda 或匿名**函数**都会在 Kotlin 2.0.0 中触发错误，从而避免了代码后期可能出现的编译器错误、崩溃和**运行时**异常：
+然而，如果你的**项目**配置错误，使得你有一个只**依赖****模块**二的第三方**模块**（**模块**三），那么 Kotlin 编译器在**编译****模块**三时将无法访问**模块**一中的 `Node<V>` 类。现在，**模块**三中任何使用 `Node<V>` 类型的 lambda 或匿名**函数**都会在 Kotlin 2.0.0 中触发错误，从而避免了代码后期可能出现的编译器错误、崩溃和**运行时**异常：
 
 ```kotlin
 // Module three
@@ -664,7 +664,7 @@ fun test() {
 
 除了**函数字面量**在包含无法访问泛型类型的**值形参**时触发错误之外，当类型具有无法访问的泛型类型**实参**时也会发生错误。
 
-例如，你在模块一中有相同的泛型类**声明**。在模块二中，你**声明**另一个泛型类：`Container<C>`。此外，你在模块二中**声明**使用 `Container<C>` 并以泛型类 `Node<V>` 作为类型**实参**的**函数**：
+例如，你在**模块**一中有相同的泛型类**声明**。在**模块**二中，你**声明**另一个泛型类：`Container<C>`。此外，你在**模块**二中**声明**使用 `Container<C>` 并以泛型类 `Node<V>` 作为类型**实参**的**函数**：
 
 <table>
    <tr>
@@ -696,7 +696,7 @@ fun consume(arg: Container<Node<Int>>) {}
 </tr>
 </table>
 
-如果你尝试在模块三中调用这些**函数**，Kotlin 2.0.0 会触发错误，因为泛型类 `Node<V>` 无法从模块三访问：
+如果你尝试在**模块**三中调用这些**函数**，Kotlin 2.0.0 会触发错误，因为泛型类 `Node<V>` 无法从**模块**三访问：
 
 ```kotlin
 // Module three
@@ -709,7 +709,7 @@ fun test() {
 
 在未来的版本中，我们将继续弃用一般情况下无法访问的类型。我们已经在 Kotlin 2.0.0 中通过为某些无法访问的类型场景（包括非泛型类型）添加警告来开始这一工作。
 
-例如，让我们使用与之前示例相同的模块设置，但将泛型类 `Node<V>` 转换为非泛型类 `IntNode`，所有**函数**都在模块二中**声明**：
+例如，让我们使用与之前示例相同的**模块**设置，但将泛型类 `Node<V>` 转换为非泛型类 `IntNode`，所有**函数**都在**模块**二中**声明**：
 
 <table>
    <tr>
@@ -745,7 +745,7 @@ fun consume(arg: Container<IntNode>) {}
 </tr>
 </table>
 
-如果你在模块三中调用这些**函数**时，会触发一些警告：
+如果你在**模块**三中调用这些**函数**时，会触发一些警告：
 
 ```kotlin
 // Module three
@@ -770,15 +770,15 @@ fun test() {
 
 如果你遇到关于无法访问的泛型类型的新警告，极有可能你的**构建系统配置**存在问题。我们建议**检测**你的**构建脚本**和配置。
 
-作为最后手段，你可以为模块三配置对模块一的直接**依赖项**。或者，你可以修改你的代码，使类型在同一模块内可访问。
+作为最后手段，你可以为**模块**三配置对**模块**一的直接**依赖项**。或者，你可以修改你的代码，使类型在同一**模块**内可访问。
 
-有关更多信息，请参见 [YouTrack](https://youtrack.jetbrains.com/issue/KT-64474) 中的相应问题。
+关于更多信息，请参见 [YouTrack](https://youtrack.jetbrains.com/issue/KT-64474) 中的相应问题。
 
 ### Kotlin 属性与同名 Java 字段的一致解析顺序
 
 **更改了什么？**
 
-在 Kotlin 2.0.0 之前，如果你处理相互**继承**并包含相同名称的 Kotlin 属性和 Java 字段的 Java 和 Kotlin 类，重复名称的解析行为不一致。IntelliJ IDEA 和编译器之间也存在冲突行为。在开发 Kotlin 2.0.0 的新解析行为时，我们的目标是对用户造成最小影响。
+在 Kotlin 2.0.0 之前，如果你处理相互**继承**并包含相同名称的 Kotlin 属性和 Java 字段的 Java 和 Kotlin 类，重复名称的解析行为不一致。IntelliJ IDEA 和编译器之间也存在冲突行为。在开发 Kotlin 2.0.0 的新解析行为时，我们的**目标**是对用户造成最小影响。
 
 例如，假设有一个 Java 类 `Base`：
 
@@ -868,7 +868,7 @@ fun main() {
 
 如果此更改影响了你的代码，请考虑你是否真的需要使用重复的名称。如果你想让 Java 或 Kotlin 类各自包含同名字段或属性，并且相互**继承**，请记住子类中的字段或属性将优先。
 
-有关更多信息，请参见 [YouTrack](https://youtrack.jetbrains.com/issue/KT-55017) 中的相应问题。
+关于更多信息，请参见 [YouTrack](https://youtrack.jetbrains.com/issue/KT-55017) 中的相应问题。
 
 ### 改进 Java **原语数组**的**空安全**
 
@@ -909,10 +909,10 @@ dataService.fetchData()[0]
 
 在 Kotlin 2.0.0 中，Java **原语数组**的**空安全**现在在 Kotlin 中是标准**特性**，因此如果你使用它们，请**检测**你的代码中是否有新的警告和错误：
 
-*   任何在没有**显式可空性检测**的情况下使用 `@Nullable` Java **原语数组**，或尝试将 `null` 传递给预期非**非空的****原语数组**的 Java **方法**的代码，现在都将无法**编译**。
+*   任何在没有**显式可空性检测**的情况下使用 `@Nullable` Java **原语数组**，或尝试将 `null` 传递给预期**非空的****原语数组**的 Java **方法**的代码，现在都将无法**编译**。
 *   使用带有**可空性检测**的 `@NotNull` **原语数组**现在会发出“不必要的安全调用”或“与 null 比较始终为 false”警告。
 
-有关更多信息，请参见 [YouTrack](https://youtrack.jetbrains.com/issue/KT-54521) 中的相应问题。
+关于更多信息，请参见 [YouTrack](https://youtrack.jetbrains.com/issue/KT-54521) 中的相应问题。
 
 ### `expect` 类中抽象成员的更严格规则
 
@@ -968,11 +968,11 @@ actual open class PlatformFileSystem : FileSystem {
 
 如果你在 `expect` 非抽象类中**继承**抽象**函数**，请添加一个非抽象**覆盖**。
 
-有关更多信息，请参见 [YouTrack](https://youtrack.jetbrains.com/issue/KT-59739/K2-MPP-reports-ABSTRACTMEMBERNOTIMPLEMENTED-for-inheritor-in-common-code-when-the-implementation-is-located-in-the-actual) 中的相应问题。
+关于更多信息，请参见 [YouTrack](https://youtrack.jetbrains.com/issue/KT-59739/K2-MPP-reports-ABSTRACTMEMBERNOTIMPLEMENTED-for-inheritor-in-common-code-when-the-implementation-is-located-in-the-actual) 中的相应问题。
 
 ### 按主题领域
 
-这些主题领域列出了不太可能影响你的代码的更改，但提供了相关 YouTrack 问题的链接，供进一步阅读。标记星号 (*) 的问题 ID 在本节开头已解释。
+这些主题领域**列出**了不太可能影响你的代码的更改，但提供了相关 YouTrack 问题的链接，供进一步阅读。标记星号 (*) 的问题 ID 在本节开头已解释。
 
 #### 类型**推断** {initial-collapse-state="collapsed" collapsible="true"}
 
@@ -980,9 +980,9 @@ actual open class PlatformFileSystem : FileSystem {
 |:---------------------------------------------------------|:-----------------------------------------------------------------------------------------------------------|
 | [KT-64189](https://youtrack.jetbrains.com/issue/KT-64189) | 如果类型**显式**为 `Normal`，则属性引用**编译****函数**签名中的类型不正确                                       |
 | [KT-47986](https://youtrack.jetbrains.com/issue/KT-47986) | 禁止在**构建器推断**上下文中将类型变量隐式**推断**为上限                                                       |
-| [KT-59275](https://youtrack.jetbrains.com/issue/KT-59275) | K2：要求数组**字面量**中泛型注解调用的**显式**类型**实参**                                                     |
+| [KT-59275](https://youtrack.jetbrains.com/issue/KT-59275) | K2：要求**圆括号****字面量**中泛型注解调用的**显式**类型**实参**                                                     |
 | [KT-53752](https://youtrack.jetbrains.com/issue/KT-53752) | 缺少对交集类型的子类型**检测**                                                                                 |
-| [KT-59138](https://youtrack.jetbrains.com/issue/KT-59138) | 更改 Kotlin 中基于 Java 类型**形参**的类型默认表示                                                             |
+| [KT-59138](https://youtrack.jetbrains.com/issue/KT-59138) | 更改 Java 类型**形参**的类型默认表示                                                             |
 | [KT-57178](https://youtrack.jetbrains.com/issue/KT-57178) | 更改前缀自增的**推断**类型为**getter**的返回类型，而不是 `inc()` **操作符**的返回类型                          |
 | [KT-57609](https://youtrack.jetbrains.com/issue/KT-57609) | K2：停止**依赖** `@UnsafeVariance` 用于**逆变****形参**的存在                                                    |
 | [KT-57620](https://youtrack.jetbrains.com/issue/KT-57620) | K2：禁止**解析**为**原始类型**中的**被包含成员**                                                               |
@@ -1024,25 +1024,25 @@ actual open class PlatformFileSystem : FileSystem {
 | [KT-63558](https://youtrack.jetbrains.com/issue/KT-63558)  | K2：迁移 `COMPATIBILITY_WARNING` 周围的解析                                                                                                                    |
 | [KT-51194](https://youtrack.jetbrains.com/issue/KT-51194)  | 当**依赖类**包含在同一**依赖项**的两个不同版本中时，`CONFLICTING_INHERITED_MEMBERS` 误报                                                                        |
 | [KT-37592](https://youtrack.jetbrains.com/issue/KT-37592)  | 带有**接收者**的**函数**类型的属性 `invoke` 优先于**扩展****函数** `invoke`                                                                                           |
-| [KT-51666](https://youtrack.jetbrains.com/issue/KT-51666)  | 限定 `this`：引入/优先处理带有类型情况的限定 `this`                                                                                                            |
+| [KT-51666](https://youtrack.jetbrains.com/issue/KT-51666)  | **限定** `this`：引入/优先处理带有类型情况的**限定** `this`                                                                                                            |
 | [KT-54166](https://youtrack.jetbrains.com/issue/KT-54166)  | 确认类路径中 FQ 名称冲突时的未指定行为                                                                                                                         |
 | [KT-64431](https://youtrack.jetbrains.com/issue/KT-64431)  | K2：禁止在导入中使用类型别名作为**限定符**                                                                                                                     |
 | [KT-56520](https://youtrack.jetbrains.com/issue/KT-56520)  | K1/K2：类型引用在低级别存在**歧义**时的解析塔工作不正确                                                                                                         |
 
 #### 可见性 {initial-collapse-state="collapsed" collapsible="true"}
 
-| 问题 ID                                                    | 标题                                                                                                                       |
-|:-----------------------------------------------------------|:---------------------------------------------------------------------------------------------------------------------------|
+| 问题 ID                                                    | 标题                                                                                                                          |
+|:-----------------------------------------------------------|:------------------------------------------------------------------------------------------------------------------------------|
 | [KT-64474](https://youtrack.jetbrains.com/issue/KT-64474/)* | [将无法访问类型的用法**声明**为未指定行为](#forbidden-use-of-inaccessible-generic-types)                                   |
 | [KT-55179](https://youtrack.jetbrains.com/issue/KT-55179)   | 从内部内联**函数**调用私有类伴生对象成员时，`PRIVATE_CLASS_MEMBER_FROM_INLINE` 误报                                      |
 | [KT-58042](https://youtrack.jetbrains.com/issue/KT-58042)   | 如果等效**getter**不可见，即使**覆盖****声明**可见，也使合成属性不可见                                                    |
-| [KT-64255](https://youtrack.jetbrains.com/issue/KT-64255)   | 禁止从另一个模块的派生类中访问内部**setter**                                                                               |
+| [KT-64255](https://youtrack.jetbrains.com/issue/KT-64255)   | 禁止从另一个**模块**的派生类中访问内部**setter**                                                                               |
 | [KT-33917](https://youtrack.jetbrains.com/issue/KT-33917)   | 禁止从私有内联**函数**中暴露匿名类型                                                                                       |
 | [KT-54997](https://youtrack.jetbrains.com/issue/KT-54997)   | 禁止从公共 API 内联**函数**中进行隐式非公共 API 访问                                                                     |
 | [KT-56310](https://youtrack.jetbrains.com/issue/KT-56310)   | **智能类型转换**不应影响受保护成员的可见性                                                                                 |
 | [KT-65494](https://youtrack.jetbrains.com/issue/KT-65494)   | 禁止从公共内联**函数**访问被忽略的私有**操作符****函数**                                                                   |
 | [KT-65004](https://youtrack.jetbrains.com/issue/KT-65004)   | K1：`var` 的**setter**（**覆盖**受保护的 `val`）生成为 `public`                                                            |
-| [KT-64972](https://youtrack.jetbrains.com/issue/KT-64972)   | 在 Kotlin/Native 的链接**编译期**，禁止私有成员的**覆盖**                                                                  |
+| [KT-64972](https://youtrack.jetbrains.com/issue/KT-64972)   | 在 Kotlin/**Native** 的链接**编译期**，禁止私有成员的**覆盖**                                                                  |
 
 #### 注解 {initial-collapse-state="collapsed" collapsible="true"}
 
@@ -1069,14 +1069,14 @@ actual open class PlatformFileSystem : FileSystem {
 | [KT-62998](https://youtrack.jetbrains.com/issue/KT-62998)  | 禁止将**可空的****赋值**给非**非空的** Java 字段作为不安全**赋值**的**选择器**                                  |
 | [KT-63209](https://youtrack.jetbrains.com/issue/KT-63209)  | 报告警告级别 Java 类型的错误级别**可空实参**缺失的错误                                                         |
 
-#### Java 互操作性 {initial-collapse-state="collapsed" collapsible="true"}
+#### Java **互操作**性 {initial-collapse-state="collapsed" collapsible="true"}
 
 | 问题 ID                                                  | 标题                                                                                                             |
 |:---------------------------------------------------------|:-----------------------------------------------------------------------------------------------------------------|
 | [KT-53061](https://youtrack.jetbrains.com/issue/KT-53061) | 禁止源中具有相同 FQ 名称的 Java 和 Kotlin 类                                                                     |
-| [KT-49882](https://youtrack.jetbrains.com/issue/KT-49882) | **继承**自 Java 集合的类根据父类型顺序具有不一致的行为                                                            |
+| [KT-49882](https://youtrack.jetbrains.com/issue/KT-49882) | **继承**自 Java **集合**的类根据父类型顺序具有不一致的行为                                                            |
 | [KT-66324](https://youtrack.jetbrains.com/issue/KT-66324) | K2：Java 类**继承**自 Kotlin 私有类时的未指定行为                                                                |
-| [KT-66220](https://youtrack.jetbrains.com/issue/KT-66220) | 将 Java `vararg` **方法**传递给内联**函数**在**运行时**导致**数组的数组**而不是单个数组                          |
+| [KT-66220](https://youtrack.jetbrains.com/issue/KT-66220) | 将 Java `vararg` **方法**传递给内联**函数**在**运行时**导致**数组的数组**而不是单个**数组**                          |
 | [KT-66204](https://youtrack.jetbrains.com/issue/KT-66204) | 允许在 K-J-K 层次结构中**覆盖**内部成员                                                                          |
 
 #### 属性 {initial-collapse-state="collapsed" collapsible="true"}
@@ -1086,7 +1086,7 @@ actual open class PlatformFileSystem : FileSystem {
 | [KT-57555](https://youtrack.jetbrains.com/issue/KT-57555)* | [[LC] 禁止延迟初始化带有**幕后字段**的 `open` 属性](#immediate-initialization-of-open-properties-with-backing-fields)                         |
 | [KT-58589](https://youtrack.jetbrains.com/issue/KT-58589)  | 当没有主**构造函数**或类为局部时，弃用缺失的 `MUST_BE_INITIALIZED`                                                                                |
 | [KT-64295](https://youtrack.jetbrains.com/issue/KT-64295)  | 禁止属性上潜在 `invoke` 调用的递归解析                                                                                                              |
-| [KT-57290](https://youtrack.jetbrains.com/issue/KT-57290)  | 如果基类来自另一个模块，则弃用对不可见派生类的基类属性的**智能类型转换**                                                                          |
+| [KT-57290](https://youtrack.jetbrains.com/issue/KT-57290)  | 如果基类来自另一个**模块**，则弃用对不可见派生类的基类属性的**智能类型转换**                                                                          |
 | [KT-62661](https://youtrack.jetbrains.com/issue/KT-62661)  | K2：数据类属性缺失 `OPT_IN_USAGE_ERROR`                                                                                                           |
 
 #### 控制流 {initial-collapse-state="collapsed" collapsible="true"}
@@ -1120,14 +1120,14 @@ actual open class PlatformFileSystem : FileSystem {
 | 问题 ID                                                  | 标题                                                                     |
 |:---------------------------------------------------------|:-------------------------------------------------------------------------|
 | [KT-54316](https://youtrack.jetbrains.com/issue/KT-54316) | 对伴生对象成员的外部调用引用签名无效                                     |
-| [KT-47313](https://youtrack.jetbrains.com/issue/KT-47313) | 当 V 具有伴生对象时，更改 `(V)::foo` 引用解析                           |
+| [KT-47313](https://youtrack.jetbrains.com/issue/KT-47313) | 更改 `(V)::foo` 引用解析，当 V 具有伴生对象时                           |
 
 #### 其他 {initial-collapse-state="collapsed" collapsible="true"}
 
-| 问题 ID                                                    | 标题                                                                                                                                                |
-|:-----------------------------------------------------------|:----------------------------------------------------------------------------------------------------------------------------------------------------|
+| 问题 ID                                                    | 标题                                                                                                                                      |
+|:-----------------------------------------------------------|:--------------------------------------------------------------------------------------------------------------------------------------------|
 | [KT-59739](https://youtrack.jetbrains.com/issue/KT-59739)* | K2/MPP 在公共代码中的**继承者**的实现位于实际对应方时报告 [ABSTRACT_MEMBER_NOT_IMPLEMENTED]                                                         |
-| [KT-49015](https://youtrack.jetbrains.com/issue/KT-49015)  | 限定 `this`：更改潜在标签冲突时的行为                                                                                                               |
+| [KT-49015](https://youtrack.jetbrains.com/issue/KT-49015)  | **限定** `this`：更改潜在标签冲突时的行为                                                                                                               |
 | [KT-56545](https://youtrack.jetbrains.com/issue/KT-56545)  | 修复 JVM 后端中，Java 子类中意外冲突**重载**情况下的不正确**名字修饰**                                                                              |
 | [KT-62019](https://youtrack.jetbrains.com/issue/KT-62019)  | [LC 问题] 禁止在语句位置**声明**带有 `suspend` 标记的匿名**函数**                                                                                    |
 | [KT-55111](https://youtrack.jetbrains.com/issue/KT-55111)  | OptIn：禁止在标记下进行带有默认**实参**（带有默认值的**形参**）的**构造函数**调用                                                                |
@@ -1145,14 +1145,14 @@ actual open class PlatformFileSystem : FileSystem {
 |-----------------------|-----------------|
 | 2.0.0–%kotlinVersion% | 稳定            |
 | 1.9.20–1.9.25         | Beta            |
-| 1.9.0–1.9.10          | JVM 为 Beta     |
+| 1.9.0–1.9.10          | JVM 是 Beta     |
 | 1.7.0–1.8.22          | Alpha           |
 
-## 与 Kotlin 库的兼容性
+## 与 Kotlin **版本库**的兼容性
 
-如果你正在使用 Kotlin/JVM，K2 编译器与使用任何 Kotlin 版本**编译**的库兼容。
+如果你正在使用 Kotlin/JVM，K2 编译器与使用任何 Kotlin 版本**编译**的**版本库**兼容。
 
-如果你正在使用 Kotlin Multiplatform，K2 编译器保证与使用 Kotlin 1.9.20 及更高版本**编译**的库兼容。
+如果你正在使用 Kotlin Multiplatform，K2 编译器保证与使用 Kotlin 版本 1.9.20 及更高版本**编译**的**版本库**兼容。
 
 ## 编译器插件支持
 
@@ -1192,7 +1192,7 @@ actual open class PlatformFileSystem : FileSystem {
 
 #### 后端和前端编译器插件
 
-如果你的插件使用了前端相关的**扩展点**，你需要使用新的 K2 编译器 API 重写插件。有关新 API 的简介，请参见 [FIR Plugin API](https://github.com/JetBrains/kotlin/blob/master/docs/fir/fir-plugins.md)。
+如果你的插件使用了前端相关的**扩展点**，你需要使用新的 K2 编译器 API 重写插件。关于新 API 的简介，请参见 [FIR Plugin API](https://github.com/JetBrains/kotlin/blob/master/docs/fir/fir-plugins.md)。
 
 > 如果你对升级自定义编译器插件有疑问，请加入我们的 [#compiler](https://kotlinlang.slack.com/archives/C7L3JB43G) Slack **频道**，我们将尽力帮助你。
 >

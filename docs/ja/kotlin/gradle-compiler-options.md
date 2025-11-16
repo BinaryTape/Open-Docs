@@ -15,7 +15,7 @@ JVM、JavaScript、そして[サポートされているプラットフォーム
 Kotlinコンパイラーには、コンパイルプロセスを調整するための多数のオプションがあります。
 
 Gradle DSLは、コンパイラーオプションの包括的な
-設定を可能にします。[Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-dsl-reference.html#compiler-options)と[JVM/Android](#target-the-jvm)プロジェクトで利用できます。
+設定を可能にします。[Kotlin Multiplatform](https://kotlinlang.org/docs/multiplatform/multiplatform-dsl-reference.html#compiler-options)と[JVM/Android](#target-the-jvm)プロジェクトで利用できます。
 
 Gradle DSLを使用すると、ビルドスクリプト内で3つのレベルでコンパイラーオプションを設定できます。
 * **[拡張レベル](#extension-level)**: `kotlin {}`ブロック内でのすべてのターゲットと共有ソースセットに対する設定。
@@ -69,7 +69,7 @@ kotlin {
 }
 ```
 
-Kotlin Multiplatformプロジェクトでは、特定のターゲット内でコンパイラーオプションを設定できます。たとえば、`jvm { compilerOptions {}}`です。詳細については、[Multiplatform Gradle DSLリファレンス](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-dsl-reference.html)を参照してください。
+Kotlin Multiplatformプロジェクトでは、特定のターゲット内でコンパイラーオプションを設定できます。たとえば、`jvm { compilerOptions {}}`です。詳細については、[Multiplatform Gradle DSLリファレンス](https://kotlinlang.org/docs/multiplatform/multiplatform-dsl-reference.html)を参照してください。
 
 ### コンパイル単位レベル
 
@@ -99,7 +99,7 @@ kotlin {
 }
 ```
 
-JVM/Androidおよび[Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-dsl-reference.html)とは異なるターゲットのプラグインを設定したい場合は、対応するKotlinコンパイルタスクの`compilerOptions {}`プロパティを使用してください。以下の例は、この設定をKotlinおよびGroovy DSLの両方でセットアップする方法を示しています。
+JVM/Androidおよび[Kotlin Multiplatform](https://kotlinlang.org/docs/multiplatform/multiplatform-dsl-reference.html)とは異なるターゲットのプラグインを設定したい場合は、対応するKotlinコンパイルタスクの`compilerOptions {}`プロパティを使用してください。以下の例は、この設定をKotlinおよびGroovy DSLの両方でセットアップする方法を示しています。
 
 <tabs group="build-script">
 <tab title="Kotlin" group-key="kotlin">
@@ -566,7 +566,7 @@ Gradleコンパイラーのオプションの全リストを以下に示しま�
 ### JVM固有の属性
 
 | 名前                      | 説明                                                                                                                                                                                                                                  | 設定可能な値                                                                                         | デフォルト値               |
-|---------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------|-----------------------------
+|---------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------|-----------------------------|
 | `javaParameters`          | メソッドパラメータに対するJava 1.8リフレクションのメタデータを生成します。                                                                                                                                                                               |                                                                                                         | `false`                     |
 | `jvmTarget`               | 生成されるJVMバイトコードのターゲットバージョンです。                                                                                                                                                                                                 | "1.8", "9", "10", ...,  "23", "24"。また、[コンパイラーオプションの型](#types-for-compiler-options)も参照してください。 | "%defaultJvmTargetVersion%" |
 | `noJdk`                   | Javaランタイムをクラスパスに自動的に含めません。                                                                                                                                                                              |                                                                                                         | `false`                     |
@@ -718,7 +718,7 @@ tasks
 ## 次に何をしますか？
 
 詳細はこちらをご覧ください。
-* [Kotlin Multiplatform DSLリファレンス](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-dsl-reference.html)。
+* [Kotlin Multiplatform DSLリファレンス](https://kotlinlang.org/docs/multiplatform/multiplatform-dsl-reference.html)。
 * [インクリメンタルコンパイル、キャッシュサポート、ビルドレポート、Kotlinデーモン](gradle-compilation-and-caches.md)。
 * [Gradleの基本と詳細](https://docs.gradle.org/current/userguide/userguide.html)。
 * [Gradleプラグインバリアントのサポート](gradle-plugin-variants.md)。

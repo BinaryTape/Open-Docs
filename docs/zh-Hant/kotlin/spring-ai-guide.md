@@ -1,6 +1,6 @@
 [//]: # (title: 建構一個 Kotlin 應用程式，使用 Spring AI 回答基於 Qdrant 中儲存文件的問題 — 教學課程)
 
-在本教學課程中，您將學習如何建構一個 Kotlin 應用程式，該應用程式使用 [Spring AI](https://spring.io/projects/spring-ai) 來連接到 LLM，
+在本教學課程中，您將學習如何建構一個 Kotlin 應用程式，該應用程式透過 [Spring AI](https://spring.io/projects/spring-ai) 連接到大型語言模型 (LLM)，
 將文件儲存在向量資料庫中，並使用來自這些文件的上下文來回答問題。
 
 在本教學課程中，您將使用以下工具：
@@ -139,7 +139,7 @@
 
     ```kotlin
     package org.example.springaidemo
-    
+
     // 匯入所需的 Spring 和工具類別
     import org.slf4j.LoggerFactory
     import org.springframework.ai.document.Document
@@ -157,10 +157,10 @@
     @RestController
     @RequestMapping("/kotlin")
     class KotlinSTDController(
-    private val restTemplate: RestTemplate,
-    private val vectorStore: VectorStore,
+        private val restTemplate: RestTemplate,
+        private val vectorStore: VectorStore,
     ) {
-    private val logger = LoggerFactory.getLogger(this::class.java)
+        private val logger = LoggerFactory.getLogger(this::class.java)
 
         @OptIn(ExperimentalUuidApi::class)
         @PostMapping("/load-docs")
@@ -212,19 +212,18 @@
 
    ```kotlin
    package org.example.springaidemo
-   
+
    import org.springframework.boot.autoconfigure.SpringBootApplication
    import org.springframework.boot.runApplication
    import org.springframework.context.annotation.Bean
    import org.springframework.web.client.RestTemplate
-   
+
    @SpringBootApplication
    class SpringAiDemoApplication {
-   
        @Bean
        fun restTemplate(): RestTemplate = RestTemplate()
    }
-   
+
    fun main(args: Array<String>) {
        runApplication<SpringAiDemoApplication>(*args)
    }

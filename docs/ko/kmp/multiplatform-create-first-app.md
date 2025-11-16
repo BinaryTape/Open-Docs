@@ -1,4 +1,4 @@
-[//]: # (title: Kotlin 멀티플랫폼 앱 만들기)
+`[//]: # (title: Kotlin 멀티플랫폼 앱 만들기)`
 
 <secondary-label ref="IntelliJ IDEA"/>
 <secondary-label ref="Android Studio"/>
@@ -7,7 +7,7 @@
     <p>이 튜토리얼은 IntelliJ IDEA를 사용하지만 Android Studio에서도 따라할 수 있습니다. 두 IDE 모두 동일한 핵심 기능과 Kotlin Multiplatform 지원을 공유합니다.</p>
     <br/>
     <p>이 튜토리얼은 **공유 로직과 네이티브 UI를 사용하는 Kotlin 멀티플랫폼 앱 만들기** 가이드의 첫 번째 부분입니다.</p>
-    <p><img src="icon-1.svg" width="20" alt="첫 번째 단계"/> <strong>Kotlin 멀티플랫폼 앱 만들기</strong><br/>
+    <p><img src="icon-1.svg" width="20" alt="첫 번째 단계"/> **Kotlin 멀티플랫폼 앱 만들기**<br/>
        <img src="icon-2-todo.svg" width="20" alt="두 번째 단계"/> 사용자 인터페이스 업데이트<br/>
        <img src="icon-3-todo.svg" width="20" alt="세 번째 단계"/> 종속성 추가<br/>       
        <img src="icon-4-todo.svg" width="20" alt="네 번째 단계"/> 더 많은 로직 공유<br/>

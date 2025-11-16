@@ -117,9 +117,9 @@ val mathAgent = AIAgent<String, String>(
         // 第一次 LLM 调用，根据用户输入生成初始草稿
         val draft = requestLLM("Draft: $input").asAssistantMessage().content
         // 第二次 LLM 调用，通过使用草稿内容再次提示 LLM 来改进草稿
-        val improved = requestLLM("Improve and clarify: $draft").asAssistantMessage().content
+        val improved = requestLLM("Improve and clarify.").asAssistantMessage().content
         // 最终的 LLM 调用，以格式化改进的文本并返回最终格式化的结果
-        requestLLM("Format the result as bold: $improved").asAssistantMessage().content
+        requestLLM("Format the result as bold.").asAssistantMessage().content
     }
 )
 

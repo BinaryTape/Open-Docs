@@ -1,6 +1,6 @@
 # A2A 服务器
 
-A2A 服务器使您能够通过标准化的 A2A（Agent-to-Agent）协议公开 AI 代理。它提供了 [A2A 协议规范](https://a2a-protocol.org/latest/specification/) 的完整实现，负责处理客户端请求、执行代理逻辑、管理复杂的任务生命周期，并支持实时流式响应。
+A2A 服务器使您能够通过标准化的 A2A (Agent-to-Agent) 协议公开 AI 代理。它提供了 [A2A 协议规范](https://a2a-protocol.org/latest/specification/) 的完整实现，负责处理客户端请求、执行代理逻辑、管理复杂的任务生命周期，并支持实时流式响应。
 
 ## 依赖项
 
@@ -8,13 +8,13 @@ A2A 服务器使您能够通过标准化的 A2A（Agent-to-Agent）协议公开 
 
 ```kotlin
 dependencies {
-    // 核心 A2A 服务器库
+    // Core A2A server library
     implementation("ai.koog:a2a-server:$koogVersion")
 
-    // HTTP JSON-RPC 传输（最常用）
+    // HTTP JSON-RPC transport (most common)
     implementation("ai.koog:a2a-transport-server-jsonrpc-http:$koogVersion")
 
-    // Ktor 服务器引擎（选择适合您需求的）
+    // Ktor server engine (choose one that fits your needs)
     implementation("io.ktor:ktor-server-netty:$ktorVersion")
 }
 ```
@@ -35,6 +35,7 @@ A2A 服务器充当 A2A 协议传输层与您的自定义代理逻辑之间的�
 - **处理** 所有协议操作：消息发送、任务查询、取消和推送通知
 
 `A2AServer` 接受两个必填形参：
+
 * `AgentExecutor`，它定义了代理的业务逻辑实现
 * `AgentCard`，它定义了代理能力和元数据
 
@@ -50,7 +51,7 @@ class MyAgentExecutor : AgentExecutor {
         context: RequestContext<MessageSendParams>,
         eventProcessor: SessionEventProcessor
     ) {
-        // 在此处编写代理逻辑
+        // Agent logic here
     }
 
     override suspend fun cancel(
@@ -58,7 +59,7 @@ class MyAgentExecutor : AgentExecutor {
         eventProcessor: SessionEventProcessor,
         agentJob: Deferred<Unit>?
     ) {
-        // 在此处取消代理，可选
+        // Cancel agent here, optional
     }
 }
 ```
@@ -66,11 +67,12 @@ class MyAgentExecutor : AgentExecutor {
 `RequestContext` 提供有关当前请求的丰富信息，包括当前会话的 `contextId` 和 `taskId`、发送的 `message` 以及请求的 `params`。
 
 `SessionEventProcessor` 与客户端通信：
+
 - **`sendMessage(message)`**：发送即时响应（聊天式交互）
 - **`sendTaskEvent(event)`**：发送任务相关的更新（长时间运行的操作）
 
 ```kotlin
-// 用于即时响应（例如聊天机器人）
+// For immediate responses (like chatbots)
 eventProcessor.sendMessage(
     Message(
         messageId = generateId(),
@@ -80,17 +82,17 @@ eventProcessor.sendMessage(
     )
 )
 
-// 用于基于任务的操作
+// For task-based operations
 eventProcessor.sendTaskEvent(
     TaskStatusUpdateEvent(
         contextId = context.contextId,
         taskId = context.taskId,
         status = TaskStatus(
             state = TaskState.Working,
-            message = Message(/* 进度更新 */),
+            message = Message(/* progress update */),
             timestamp = Clock.System.now()
         ),
-        final = false  // 更多更新将到来
+        final = false  // More updates to come
     )
 )
 ```
@@ -118,9 +120,9 @@ val agentCard = AgentCard(
 
     // 能力声明
     capabilities = AgentCapabilities(
-        streaming = true,              // 支持实时响应
-        pushNotifications = true,      // 发送异步通知
-        stateTransitionHistory = true  // 维护任务历史记录
+        streaming = true,              // Support real-time responses
+        pushNotifications = true,      // Send async notifications
+        stateTransitionHistory = true  // Maintain task history
     ),
 
     // 内容类型支持
@@ -189,10 +191,10 @@ A2A 本身支持多种传输协议用于与客户端通信。目前，Koog 提�
 ```kotlin
 val transport = HttpJSONRPCServerTransport(server)
 transport.start(
-    engineFactory = CIO,           // Ktor 引擎 (CIO, Netty, Jetty)
-    port = 8080,                   // 服务器端口
-    path = "/a2a",                 // API 端点路径
-    wait = true                    // 阻塞直到服务器停止
+    engineFactory = CIO,           // Ktor engine (CIO, Netty, Jetty)
+    port = 8080,                   // Server port
+    path = "/a2a",                 // API endpoint path
+    wait = true                    // Block until server stops
 )
 ```
 
@@ -222,9 +224,9 @@ val agentCard = AgentCard(
     // 能力声明
     capabilities =
         AgentCapabilities(
-            streaming = true,              // 支持实时响应
-            pushNotifications = true,      // 发送异步通知
-            stateTransitionHistory = true  // 维护任务历史记录
+            streaming = true,              // Support real-time responses
+            pushNotifications = true,      // Send async notifications
+            stateTransitionHistory = true  // Maintain task history
         ),
 
     // 内容类型支持
@@ -257,7 +259,7 @@ class EchoAgentExecutor : AgentExecutor {
             .filterIsInstance<TextPart>()
             .joinToString(" ") { it.text }
 
-        // 回显用户的消息
+        // Echo the user's message back
         val response = Message(
             messageId = UUID.randomUUID().toString(),
             role = Role.Agent,
@@ -284,7 +286,7 @@ val server = A2AServer(
 ### 3. 添加传输层
 创建一个传输层并启动服务器。
 ```kotlin
-// HTTP JSON-RPC 传输
+// HTTP JSON-RPC transport
 val transport = HttpJSONRPCServerTransport(server)
 transport.start(
     engineFactory = CIO,
@@ -326,7 +328,7 @@ class TaskAgentExecutor : AgentExecutor {
         context: RequestContext<MessageSendParams>,
         eventProcessor: SessionEventProcessor
     ) {
-        // 发送工作状态
+        // Send working status
         eventProcessor.sendTaskEvent(
             TaskStatusUpdateEvent(
                 contextId = context.contextId,
@@ -339,9 +341,9 @@ class TaskAgentExecutor : AgentExecutor {
             )
         )
 
-        // 执行工作...
+        // Do work...
 
-        // 发送完成状态
+        // Send completion
         eventProcessor.sendTaskEvent(
             TaskStatusUpdateEvent(
                 contextId = context.contextId,
@@ -355,3 +357,4 @@ class TaskAgentExecutor : AgentExecutor {
         )
     }
 }
+```

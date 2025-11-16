@@ -47,7 +47,7 @@ _CrudRepository_ 是一個 Spring Data 介面，用於對特定類型的儲存�
     val message = Message("Hello") // id is null
     ```
 
-2.  宣告一個適用於 `Message` 資料類別的 `CrudRepository` 介面。建立 `MessageRepository.kt` 檔案並向其中新增以下程式碼：
+2.  宣告一個適用於 `CrudRepository` 且將與 `Message` 資料類別協同運作的介面。建立 `MessageRepository.kt` 檔案並向其中新增以下程式碼：
 
     ```kotlin
     // MessageRepository.kt
@@ -219,9 +219,6 @@ class MessageController(private val service: MessageService) {
    <img src="get-kotlin-language-map.png" width="700" alt="Get the Kotlin language map" style="block"/>
 </a>
 
-*   了解更多關於[從 Kotlin 程式碼呼叫 Java](java-interop.md) 和[從 Java 程式碼呼叫 Kotlin](java-to-kotlin-interop.md)。
-*   了解如何使用 [Java-to-Kotlin 轉換器](mixing-java-kotlin-intellij.md#converting-an-existing-java-file-to-kotlin-with-j2k)將現有的 Java 程式碼轉換為 Kotlin。
-*   查看我們的 Java 到 Kotlin 遷移指南：
-    *   [Java 和 Kotlin 中的字串](java-to-kotlin-idioms-strings.md)。
-    *   [Java 和 Kotlin 中的集合](java-to-kotlin-collections-guide.md)。
-    *   [Java 和 Kotlin 中的空值安全](java-to-kotlin-nullability-guide.md)。
+*   查看 [Spring Framework](https://docs.spring.io/spring-framework/docs/current/reference/html/languages.html#languages) 文件。
+*   完成 [Building web applications with Spring Boot and Kotlin](https://spring.io/guides/tutorials/spring-boot-kotlin) 教學。
+*   在 [Spring Boot with Kotlin Coroutines and RSocket](https://spring.io/guides/tutorials/spring-webflux-kotlin-rsocket/) 教學中建立一個聊天應用程式。

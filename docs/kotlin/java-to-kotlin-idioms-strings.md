@@ -309,7 +309,7 @@ String result = """
     Kotlin
        Java
     """;
-System.println(result);
+System.out.println(result);
 ```
 {id="join-strings-15-java"}
 
@@ -361,6 +361,6 @@ fun main() {
 ## 下一步是什么？
 
 * 浏览其他 [Kotlin 惯用法](idioms.md)。
-* 了解如何使用 [Java 到 Kotlin 转换器](mixing-java-kotlin-intellij.md#converting-an-existing-java-file-to-kotlin-with-j2k) 将现有 Java 代码转换为 Kotlin。
+* 了解如何使用 [Java 到 Kotlin 转换器](mixing-java-kotlin-intellij.md#convert-java-files-to-kotlin) 将现有 Java 代码转换为 Kotlin。
 
 如果你有最喜欢的惯用法，我们邀请你通过发送 Pull Request 来分享它。

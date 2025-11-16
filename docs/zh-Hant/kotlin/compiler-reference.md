@@ -73,7 +73,7 @@ Kotlin 編譯器有許多選項可用於客製化編譯過程。
   
 ### -language-version _version_
 
-提供與指定 Kotlin 版本的原始碼相容性。
+此選項根據指定的語言版本設定支援的語法和語義。例如，將 Kotlin 編譯器版本 2.2.0 與 `-language-version=1.9` 搭配使用，您只能使用版本 1.9 或更早版本的語言功能和標準函式庫 API。這有助於逐步遷移到較新的 Kotlin 版本。
 
 ### -api-version _version_
 
@@ -271,7 +271,7 @@ kotlinc -Xwarning-level=DIAGNOSTIC_NAME:(error|warning|disabled)
 
 不要自動將 Kotlin/JVM 標準函式庫 (`kotlin-stdlib.jar`) 和 Kotlin 反射 (`kotlin-reflect.jar`) 包含在類別路徑中。
   
-### -script-templates _classnames[,] _
+### -script-templates _classnames[,]_
 
 腳本定義範本類別。使用完整限定類別名稱並以逗號 (**,**) 分隔。
 

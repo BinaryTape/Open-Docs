@@ -1,186 +1,298 @@
-[//]: # (title: 使用 JUnit 在 JVM 中測試程式碼 – 教學)
+[//]: # (title: 使用 Kotlin 和 JUnit 測試 Java 程式碼 – 教學)
 
-本教學將向您展示如何在 Kotlin/JVM 專案中編寫一個簡單的單元測試，並使用 Gradle 建構工具執行它。
+Kotlin 與 Java 完全互通，這表示您可以使用 Kotlin 撰寫 Java 程式碼的測試，並與專案中現有的 Java 測試一起執行。
 
-在此專案中，您將使用 [`kotlin.test`](https://kotlinlang.org/api/latest/kotlin.test/index.html) 函式庫，並使用 JUnit 執行測試。如果您正在開發多平台應用程式，請參閱 [Kotlin 多平台教學](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-run-tests.html)。
+在本教學中，您將學習如何：
 
-若要開始，請先下載並安裝最新版本的 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/index.html)。
+*   設定混合型 Java–Kotlin 專案以使用 [JUnit 5](https://junit.org/junit5/) 執行測試。
+*   新增驗證 Java 程式碼的 Kotlin 測試。
+*   使用 Maven 或 Gradle 執行測試。
 
-## 新增依賴項
+> 在您開始之前，請確保已具備：
+>
+> *   [IntelliJ IDEA](https://www.jetbrains.com/idea/download/) (Community 或 Ultimate 版)，其中包含綁定的 Kotlin 外掛程式
+>     或已安裝 [Kotlin 擴充功能](https://github.com/Kotlin/kotlin-lsp/tree/main?tab=readme-ov-file#vs-code-quick-start) 的 [VS Code](https://code.visualstudio.com/Download)。
+> *   Java 17 或更新版本
+>
+{style="note"}
 
-1. 在 IntelliJ IDEA 中開啟 Kotlin 專案。如果您沒有專案，請[建立一個](https://www.jetbrains.com/help/idea/create-your-first-kotlin-app.html#create-project)。
+## 設定專案
 
-2. 開啟 `build.gradle(.kts)` 檔案並檢查 `testImplementation` 依賴項是否存在。此依賴項允許您使用 `kotlin.test` 和 `JUnit`：
+1.  在您的 IDE 中，從版本控制複製範例專案：
 
-    <tabs group="build-script">
-    <tab title="Kotlin" group-key="kotlin">
+    ```text
+    https://github.com/kotlin-hands-on/kotlin-junit-sample.git
+    ```
 
-   ```kotlin
-   dependencies {
-       // 其他依賴項。
-       testImplementation(kotlin("test"))
-   }
-   ```
+2.  導覽至 `initial` 模組並檢閱專案結構：
+
+    ```text
+    kotlin-junit-sample/
+    ├── initial/
+    │   ├── src/
+    │   │   ├── main/java/    # Java 原始碼
+    │   │   └── test/java/    # Java 中的 JUnit 測試
+    │   ├── pom.xml           # Maven 設定
+    │   └── build.gradle.kts  # Gradle 設定
+    ```
+
+    `initial` 模組包含一個簡單的 Java Todo 應用程式，帶有一個測試。
+
+3.  在同一目錄中，開啟 Maven 的 `pom.xml` 或 Gradle 的 `build.gradle.kts` 建構檔案，並更新其內容以支援 Kotlin：
+
+    <tabs group="build-system">
+    <tab title="Maven" group-key="maven">
+
+    ```xml
+    ```
+   {src="jvm-test-tutorial/pom.xml" initial-collapse-state="collapsed" collapsible="true" ignore-vars="false" collapsed-title="pom.xml 檔案"}
+
+    *   在 `<properties>` 區段中，設定 Kotlin 版本。
+    *   在 `<dependencies>` 區段中，新增 JUnit Jupiter 依賴項和 `kotlin-stdlib` (測試範圍)，以編譯和執行 Kotlin 測試。
+    *   在 `<build><plugins>` 區段中，套用啟用 `extensions` 的 `kotlin-maven-plugin`，並設定 Kotlin 和 Java 的 `compile` 和 `test-compile` 執行與 `sourceDirs`。
+    *   使用啟用擴充功能的 Kotlin Maven 外掛程式時，您不需要將 `maven-compiler-plugin` 新增到 `<build><pluginManagement>` 區段。
 
     </tab>
-    <tab title="Groovy" group-key="groovy">
+    <tab title="Gradle" group-key="gradle">
 
-   ```groovy
-   dependencies {
-       // Other dependencies.
-       testImplementation 'org.jetbrains.kotlin:kotlin-test'
-   }
-   ```
+    ```kotlin
+    group = "org.jetbrains.kotlin"
+    version = "1.0-SNAPSHOT"
+    description = "kotlin-junit-complete"
+    java.sourceCompatibility = JavaVersion.VERSION_17
+    
+    plugins {
+        application
+        kotlin("jvm") version "%kotlinVersion%"
+    }
 
-   </tab>
-   </tabs>
+    kotlin {
+        jvmToolchain(17)
+    }
 
-3. 將 `test` 任務新增到 `build.gradle(.kts)` 檔案中：
+    application {
+        mainClass.set("org.jetbrains.kotlin.junit.App")
+    }
 
-    <tabs group="build-script">
-    <tab title="Kotlin" group-key="kotlin">
+    repositories {
+        mavenCentral()
+    }
 
-   ```kotlin
-   tasks.test {
-       useJUnitPlatform()
-   }
-   ```
+    dependencies {
+        implementation("com.gitlab.klamonte:jexer:1.6.0")
+
+        testImplementation(kotlin("test"))
+        testImplementation(libs.org.junit.jupiter.junit.jupiter.api)
+        testImplementation(libs.org.junit.jupiter.junit.jupiter.params)
+        testRuntimeOnly(libs.org.junit.jupiter.junit.jupiter.engine)
+        testRuntimeOnly(libs.org.junit.platform.junit.platform.launcher)
+    }
+
+    tasks.test {
+        useJUnitPlatform()
+    }
+    ```
+   {initial-collapse-state="collapsed" collapsible="true" collapsed-title="build.gradle.kts 檔案"}
+
+    *   在 `plugins {}` 區塊中，新增 `kotlin("jvm")` 外掛程式。
+    *   設定 JVM 工具鏈版本以符合您的 Java 版本。
+    *   在 `dependencies {}` 區塊中，新增 `kotlin.test` 函式庫，該函式庫提供 Kotlin 的測試工具並與 JUnit 整合。
 
     </tab>
-    <tab title="Groovy" group-key="groovy">
+    </tabs>
 
-   ```groovy
-   test {
-       useJUnitPlatform()
-   }
-   ```
+4.  在您的 IDE 中重新載入建構檔案。
 
-   </tab>
-   </tabs>
+有關建構檔案設定的更多詳細說明，請參閱 [專案設定](mixing-java-kotlin-intellij.md#project-configuration)。
 
-   > 如果您在建構腳本中使用 `useJUnitPlatform()` 函式，
-   > `kotlin-test` 函式庫會自動將 JUnit 5 作為依賴項包含進來。
-   > 此設定允許在僅限 JVM 的專案和 Kotlin 多平台 (KMP) 專案的 JVM 測試中存取所有 JUnit 5 API，以及 `kotlin-test` API。
-   >
-   {style="note"}
+## 新增您的第一個 Kotlin 測試
 
-以下是 `build.gradle.kts` 的完整程式碼：
+`initial/src/test/java` 中的 `TodoItemTest.java` 測試已驗證應用程式的基本功能：項目建立、預設值、唯一 ID 和狀態變更。
 
-```kotlin
-plugins {
-    kotlin("jvm") version "%kotlinVersion%"
-}
+您可以透過新增驗證儲存庫層級行為的 Kotlin 測試來擴展測試覆蓋範圍：
 
-group = "org.example"
-version = "1.0-SNAPSHOT"
+1.  導覽至相同的測試原始碼目錄 `initial/src/test/java`。
+2.  在與 Java 測試相同的套件中建立 `TodoRepositoryTest.kt` 檔案。
+3.  建立帶有欄位宣告和設定函式的測試類別：
 
-repositories {
-    mavenCentral()
-}
+    ```kotlin
+    package org.jetbrains.kotlin.junit
 
-dependencies {
-    testImplementation(kotlin("test"))
-}
+    import org.junit.jupiter.api.BeforeEach
+    import org.junit.jupiter.api.Assertions
+    import org.junit.jupiter.api.Test
+    import org.junit.jupiter.api.DisplayName
 
-tasks.test {
-    useJUnitPlatform()
-}
-```
-{initial-collapse-state="collapsed" collapsible="true"}
+    internal class TodoRepositoryTest {
+        lateinit var repository: TodoRepository
+        lateinit var testItem1: TodoItem
+        lateinit var testItem2: TodoItem
 
-## 新增要測試的程式碼
+        @BeforeEach
+        fun setUp() {
+            repository = TodoRepository()
+            testItem1 = TodoItem("Task 1", "Description 1")
+            testItem2 = TodoItem("Task 2", "Description 2")
+        }
+    }
+    ```
 
-1. 開啟 `src/main/kotlin` 中的 `Main.kt` 檔案。
+    *   JUnit 5 註解在 Kotlin 中與 Java 中運作方式相同。
+    *   在 Kotlin 中，[`lateinit` 關鍵字](properties.md#late-initialized-properties-and-variables) 允許宣告稍後初始化的非空屬性。
+        這有助於避免在測試中使用可空類型 (`TodoRepository?`)。
 
-   `src` 目錄包含 Kotlin 原始檔和資源。
-   `Main.kt` 檔案包含列印 `Hello, World!` 的範例程式碼。
+4.  在 `TodoRepositoryTest` 類別中新增一個測試，以檢查初始儲存庫狀態及其大小：
 
-2. 建立包含 `sum()` 函式的 `Sample` 類別，該函式將兩個整數相加：
+    ```kotlin
+    @Test
+    @DisplayName("Should start with empty repository")
+    fun shouldStartEmpty() {
+        Assertions.assertEquals(0, repository.size())
+        Assertions.assertTrue(repository.all.isEmpty())
+    }
+    ```
 
-   ```kotlin
-   class Sample() {
-       fun sum(a: Int, b: Int): Int {
-           return a + b
-       }
-   }
-   ```
+    *   與 Java 靜態匯入不同，Jupiter 的 `Assertions` 作為一個類別匯入，並用作斷言函式的限定符。
+    *   您可以像在 Kotlin 中使用 `repository.all` 一樣，將 Java getter 函式作為屬性存取，而不是呼叫 `.getAll()`。
 
-## 建立測試
+5.  撰寫另一個測試以驗證所有項目的複製行為：
 
-1. 在 IntelliJ IDEA 中，為 `Sample` 類別選擇 **Code** | **Generate** | **Test...**：
+    ```kotlin
+    @Test
+    @DisplayName("Should return defensive copy of items")
+    fun shouldReturnDefensiveCopy() {
+        repository.add(testItem1)
 
-   ![Generate a test](generate-test.png)
+        val items1 = repository.all
+        val items2 = repository.all
 
-2. 指定測試類別的名稱。例如，`SampleTest`：
+        Assertions.assertNotSame(items1, items2)
+        Assertions.assertThrows(
+            UnsupportedOperationException::class.java
+        ) { items1.clear() }
+        Assertions.assertEquals(1, repository.size())
+    }
+    ```
 
-   ![Create a test](create-test.png)
+    *   要從 Kotlin 類別取得 Java 類別物件，請使用 `::class.java`。
+    *   您可以將複雜的斷言拆分到多行，而無需使用任何特殊的續行字元。
 
-   IntelliJ IDEA 會在 `test` 目錄中建立 `SampleTest.kt` 檔案。
-   此目錄包含 Kotlin 測試原始檔和資源。
+6.  新增一個測試以驗證透過 ID 尋找項目：
 
-   > 您也可以在 `src/test/kotlin` 中手動為測試建立 `*.kt` 檔案。
-   >
-   {style="note"}
+    ```kotlin
+    @Test
+    @DisplayName("Should find item by ID")
+    fun shouldFindItemById() {
+        repository.add(testItem1)
+        repository.add(testItem2)
 
-3. 在 `SampleTest.kt` 中為 `sum()` 函式新增測試程式碼：
+         val found = repository.getById(testItem1.id())
 
-   * 使用 [`@Test` 註解](https://kotlinlang.org/api/latest/kotlin.test/-test/index.html) 定義 `testSum()` 測試函式。
-   * 透過使用 [`assertEquals()`](https://kotlinlang.org/api/latest/kotlin.test/kotlin.test/assert-equals.html) 函式，檢查 `sum()` 函式是否回傳預期值。
+         Assertions.assertTrue(found.isPresent)
+         Assertions.assertEquals(testItem1, found.get())
+    }
+    ```
 
-   ```kotlin
-   import org.example.Sample
-   import org.junit.jupiter.api.Assertions.*
-   import kotlin.test.Test
+    Kotlin 與 Java 的 [`Optional` API](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Optional.html) 順暢地協同工作。它會自動將 getter 方法轉換為屬性，這就是為什麼此處將 `isPresent()` 方法作為屬性存取的原因。
 
-   class SampleTest {
-       private val testSample: Sample = Sample()
+7.  撰寫一個測試以驗證項目移除機制：
 
-       @Test
-       fun testSum() {
-           val expected = 42
-           assertEquals(expected, testSample.sum(40, 2))
-       }
-   }
-   ```
+    ```kotlin
+     @Test
+     @DisplayName("Should remove item by ID")
+     fun shouldRemoveItemById() {
+         repository.add(testItem1)
+         repository.add(testItem2)
+
+         val removed = repository.remove(testItem1.id())
+
+         Assertions.assertTrue(removed)
+         Assertions.assertEquals(1, repository.size())
+         Assertions.assertTrue(repository.getById(testItem1.id()).isEmpty)
+         Assertions.assertTrue(repository.getById(testItem2.id()).isPresent)
+     }
+    
+     @Test
+     @DisplayName("Should return false when removing non-existent item")
+     fun shouldReturnFalseForNonExistentRemoval() {
+         repository.add(testItem1)
+
+         val removed = repository.remove("non-existent-id")
+
+         Assertions.assertFalse(removed)
+         Assertions.assertEquals(1, repository.size())
+     }
+    ```
+
+    在 Kotlin 中，您可以鏈接方法呼叫和屬性存取，例如 `repository.getById(id).isEmpty`。
+
+> 您可以在 `TodoRepositoryTest` 測試類別中新增更多測試，以涵蓋額外的功能。
+> 請參閱範例專案的 [`complete`](https://github.com/kotlin-hands-on/kotlin-junit-sample/blob/main/complete/src/test/java/org/jetbrains/kotlin/junit/TodoRepositoryTest.kt) 模組中的完整原始碼。
+>
+{style="tip"}
 
 ## 執行測試
 
-1. 使用邊欄圖示執行測試：
+執行 Java 和 Kotlin 測試以驗證您的專案是否如預期運作：
 
-   ![Run the test](run-test.png)
+1.  使用邊欄圖示執行測試：
 
-   > 您也可以透過命令列介面使用 `./gradlew check` 命令執行所有專案測試。
-   >
-   {style="note"}
+    ![Run the test](run-test.png)
 
-2. 在 **Run** 工具視窗中檢查結果：
+    您也可以使用命令列從 `initial` 目錄執行所有專案測試：
 
-   ![檢查測試結果。測試已成功通過](test-successful.png)
+    <tabs group="build-system">
+    <tab title="Maven" group-key="maven">
 
-   測試函式已成功執行。
+    ```bash
+    mvn test
+    ```
 
-3. 透過將 `expected` 變數的值更改為 43，確保測試正常運作：
+    </tab>
+    <tab title="Gradle" group-key="gradle">
 
-   ```kotlin
-   @Test
-   fun testSum() {
-       val expected = 43
-       assertEquals(expected, classForTesting.sum(40, 2))
-   }
-   ```
+    ```bash
+    ./gradlew test
+    ```
 
-4. 再次執行測試並檢查結果：
+    </tab>
+    </tabs>
 
-   ![檢查測試結果。測試已失敗](test-failed.png)
+2.  透過變更其中一個變數值來檢查測試是否正常運作。例如，修改 `shouldAddItem` 測試以預期錯誤的儲存庫大小：
 
-   測試執行失敗。
+    ```kotlin
+    @Test
+    @DisplayName("Should add item to repository")
+    fun shouldAddItem() {
+        repository.add(testItem1)
+
+        Assertions.assertEquals(2, repository.size())  // 從 1 變更為 2
+        Assertions.assertTrue(repository.all.contains(testItem1))
+    }
+    ```
+
+3.  再次執行測試並驗證它是否失敗：
+
+    ![Check the test result. The test has failed](test-failed.png)
+
+> 您可以在範例專案的 [`complete`](https://github.com/kotlin-hands-on/kotlin-junit-sample/tree/main/complete) 模組中找到已完全設定並包含測試的專案。
+>
+{style="tip"}
+
+## 探索其他測試函式庫
+
+除了 JUnit，您還可以使用其他支援 Kotlin 和 Java 的函式庫：
+
+| 函式庫                                                     | 描述                                                                                                        |
+|-------------------------------------------------------------|------------------------------------------------------------------------------------------------------------|
+| [AssertJ](https://github.com/assertj/assertj)               | 具有可鏈接斷言的流暢斷言函式庫。                                                                           |
+| [Mockito-Kotlin](https://github.com/mockito/mockito-kotlin) | Mockito 的 Kotlin 包裝器，提供輔助函式並與 Kotlin 類型系統更好地整合。                                     |
+| [MockK](https://github.com/mockk/mockk)                     | 原生 Kotlin 模擬函式庫，支援 Kotlin 特定功能，包括協程和擴充函式。                                         |
+| [Kotest](https://github.com/kotest/kotest)                  | 適用於 Kotlin 的斷言函式庫，提供多種斷言樣式和廣泛的匹配器支援。                                            |
+| [Strikt](https://github.com/robfletcher/strikt)             | 適用於 Kotlin 的斷言函式庫，具有類型安全斷言和資料類別支援。                                               |
 
 ## 接下來
 
-完成第一個測試後，您可以：
-
-* 使用其他 [`kotlin.test`](https://kotlinlang.org/api/latest/kotlin.test/kotlin.test/) 函式編寫更多測試。
-   例如，使用 [`assertNotEquals()`](https://kotlinlang.org/api/latest/kotlin.test/kotlin.test/assert-not-equals.html) 函式。
-* 使用 [Kotlin Power-assert 編譯器外掛程式](power-assert.md)改進您的測試輸出。
-   該外掛程式以環境資訊豐富了測試輸出。
-* 使用 Kotlin 和 Spring Boot [建立您的第一個伺服器端應用程式](jvm-get-started-spring-boot.md)。
+*   使用 [Kotlin 的 Power-assert 編譯器外掛程式](power-assert.md) 改進您的測試輸出。
+*   使用 Kotlin 和 Spring Boot [建立您的第一個伺服器端應用程式](jvm-get-started-spring-boot.md)。
+*   探索 [`kotlin.test` 函式庫](https://kotlinlang.org/api/latest/kotlin.test/kotlin.test/) 的功能。
