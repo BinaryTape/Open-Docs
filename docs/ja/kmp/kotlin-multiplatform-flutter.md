@@ -121,7 +121,7 @@ Compose Multiplatformは現在、[iOS](https://blog.jetbrains.com/kotlin/2025/05
     
 <tr>
 <td><b>UIレンダリング</b></td>
-        <td>GoogleのJetpack Composeをベースにした<a href="https://www.jetbrains.com/compose-multiplatform/">Compose Multiplatform</a>を使用してプラットフォーム間でUIを共有できます。これはOpenGL、ANGLE（OpenGL ES 2または3の呼び出しをネイティブAPIに変換）、Vulkan、およびMetalと互換性のあるSkiaエンジンを使用します。</td>
+        <td><a href="https://www.jetbrains.com/compose-multiplatform/">Compose Multiplatform</a>を使用すると、GoogleのJetpack Composeをベースとして、プラットフォーム間でUIを共有できます。これは、OpenGL、ANGLE（OpenGL ES 2または3の呼び出しをネイティブAPIに変換）、Vulkan、およびMetalと互換性のあるSkiaエンジンを使用します。</td>
         <td>Flutterウィジェットは、カスタムの<a href="https://docs.flutter.dev/perf/impeller">Impellerエンジン</a>を使用して画面にレンダリングされます。これはプラットフォームとデバイスに応じて、Metal、Vulkan、またはOpenGLを使用してGPUと直接通信します。</td>
 </tr>
 
@@ -136,16 +136,16 @@ Compose Multiplatformは現在、[iOS](https://blog.jetbrains.com/kotlin/2025/05
     
 <tr>
 <td><b>採用企業</b></td>
-        <td><a href="https://www.forbes.com/sites/forbes-engineering/2023/11/13/forbes-mobile-app-shifts-to-kotlin-multiplatform/">Forbes</a>、<a href="https://www.youtube.com/watch?v=z-o9MqN86eE">Todoist</a>、<a href="https://medium.com/mcdonalds-technical-blog/mobile-multiplatform-development-at-mcdonalds-3b72c8d44ebc">McDonald’s</a>、<a href="https://www.youtube.com/watch?v=5sOXv-X43vc">Google Workspace</a>、<a href="https://www.youtube.com/watch?v=hZPL8QqiLi8">Philips</a>、<a href="https://raymondctc.medium.com/adopting-kotlin-multiplatform-mobile-kmm-on-9gag-app-dfe526d9ce04">9gag</a>、<a href="https://kotlinlang.org/lp/multiplatform/case-studies/baidu">Baidu</a>、<a href="https://kotlinlang.org/lp/multiplatform/case-studies/autodesk/">Autodesk</a>、<a href="https://touchlab.co/">TouchLab</a>、<a href="https://www.youtube.com/watch?v=YsQ-2lQYQ8M">Instabee</a>など、さらに多くの企業が私たちの<Links href="/kmp/case-studies" summary="undefined">KMP事例集</Links>に記載されています。</td>
+        <td><a href="https://www.forbes.com/sites/forbes-engineering/2023/11/13/forbes-mobile-app-shifts-to-kotlin-multiplatform/">Forbes</a>、<a href="https://www.youtube.com/watch?v=z-o9MqN86eE">Todoist</a>、<a href="https://medium.com/mcdonalds-technical-blog/mobile-multiplatform-development-at-mcdonalds-3b72c8d44ebc">McDonald’s</a>、<a href="https://www.youtube.com/watch?v=5sOXv-X43vc">Google Workspace</a>、<a href="https://www.youtube.com/watch?v=hZPL8QqiLi8">Philips</a>、<a href="https://raymondctc.medium.com/adopting-kotlin-multiplatform-mobile-kmm-on-9gag-app-dfe526d9ce04">9gag</a>、<a href="https://kotlinlang.org/lp/multiplatform/case-studies/baidu">Baidu</a>、<a href="https://kotlinlang.org/lp/multiplatform/case-studies/autodesk/">Autodesk</a>、<a href="https://touchlab.co/">TouchLab</a>、<a href="https://www.youtube.com/watch?v=YsQ-2lQYQ8M">Instabee</a>など、さらに多くの企業が私たちの<a href="https://kotlinlang.org/case-studies/?type=multiplatform">KMP事例集</a>に記載されています。</td>
         <td><a href="https://flutter.dev/showcase/xiaomi">Xiaomi</a>、<a href="https://flutter.dev/showcase/wolt">Wolt</a>、<a href="https://flutter.dev/showcase/universal-studios">Universal Studios</a>、<a href="https://flutter.dev/showcase/alibaba-group">Alibaba Group</a>、<a href="https://flutter.dev/showcase/bytedance">ByteDance</a>、<a href="https://www.geico.com/techblog/flutter-as-the-multi-channel-ux-framework/">Geico</a>、<a href="https://flutter.dev/showcase/ebay">eBay Motors</a>、<a href="https://flutter.dev/showcase/google-pay">Google Pay</a>、<a href="https://flutter.dev/showcase/so-vegan">So Vegan</a>など、さらに多くの企業が<a href="https://flutter.dev/showcase">Flutter Showcase</a>に記載されています。</td>
 </tr>
 
 </table>
 
-[![Explore real-life use cases from global companies that leverage Kotlin Multiplatform for cross-platform development.](kmp-use-cases-1.svg){width="500"}](https://www.jetbrains.com/help/kotlin-multiplatform-dev/case-studies.html)
+[![Kotlin Multiplatformをクロスプラットフォーム開発に活用しているグローバル企業の実際のユースケースを探る。](kmp-use-cases-1.svg){width="500"}](https://www.jetbrains.com/help/kotlin-multiplatform-dev/case-studies.html)
 
-また、Googleのブログ記事[「Making Development Across Platforms Easier for Developers」](https://developers.googleblog.com/en/making-development-across-platforms-easier-for-developers/)も参照できます。これは、プロジェクトに適切な技術スタックを選択するためのガイダンスを提供しています。
+また、Googleのブログ記事「[Making Development Across Platforms Easier for Developers](https://developers.googleblog.com/en/making-development-across-platforms-easier-for-developers/)」も参照できます。これは、プロジェクトに適切な技術スタックを選択するためのガイダンスを提供しています。
 
-Kotlin MultiplatformとFlutterのさらなる比較については、Philipp Lacknerによる[「KMP vs. Flutter」動画](https://www.youtube.com/watch?v=dzog64ENKG0)もご覧ください。この動画では、コード共有、UIレンダリング、パフォーマンス、および両テクノロジーの将来性に関して、興味深い考察が共有されています。
+Kotlin MultiplatformとFlutterのさらなる比較については、Philipp Lacknerによる「[KMP vs. Flutter video](https://www.youtube.com/watch?v=dzog64ENKG0)」もご覧ください。この動画では、コード共有、UIレンダリング、パフォーマンス、および両テクノロジーの将来性に関して、興味深い考察が共有されています。
 
 あなたの特定のビジネスニーズ、目的、タスクを慎重に評価することで、要件に最も合致するクロスプラットフォームソリューションを特定できます。

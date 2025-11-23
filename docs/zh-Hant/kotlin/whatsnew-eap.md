@@ -15,7 +15,7 @@ Kotlin %kotlinEapVersion% 版本已發佈！以下是此 EAP 版本的一些詳�
 
 *   **語言**：[更穩定且預設啟用的功能、新的未使用回傳值檢查器，以及上下文感知解析的變更](#language)。
 *   **Kotlin/JVM**：[支援 Java 25](#kotlin-jvm-support-for-java-25)。
-*   **Kotlin/Native**：[透過 Swift 匯出改善互通性，並預設啟用泛型型別邊界上的型別檢查](#kotlin-native)。
+*   **Kotlin/Native**：[透過 Swift 匯出改善互通性](#kotlin-native-improved-interop-through-swift-export)。
 *   **Kotlin/Wasm**：[預設啟用完整限定名稱和新的例外處理提案](#kotlin-wasm)。
 *   **Kotlin/JS**：[新的實驗性 suspend 函式匯出和 `LongArray` 表示方式](#kotlin-js)。
 *   **Gradle**：[與 Gradle 9.0 相容，以及用於註冊生成原始碼的新 API](#gradle)。
@@ -69,7 +69,7 @@ Kotlin %kotlinEapVersion% 引入了一項新功能：未使用回傳值檢查器
 fun formatGreeting(name: String): String {
     if (name.isBlank()) return "Hello, anonymous user!"
     if (!name.contains(' ')) {
-        // The checker reports a warning that this result is ignored
+        // 檢查器報告此結果被忽略的警告
         "Hello, " + name.replaceFirstChar(Char::titlecase) + "!"
     }
     val (first, last) = name.split(' ')
@@ -97,7 +97,7 @@ kotlin {
 例如，您可以標記整個檔案：
 
 ```kotlin
-// Marks all functions and classes in this file so the checker reports unused return values
+// 標記此檔案中的所有函式和類別，以便檢查器報告未使用回傳值
 @file:MustUseReturnValues
 
 package my.project
@@ -108,7 +108,7 @@ fun someFunction(): String
 或特定類別：
 
 ```kotlin
-// Marks all functions in this class so the checker reports unused return values
+// 標記此類別中的所有函式，以便檢查器報告未使用回傳值
 @MustUseReturnValues
 class Greeter {
     fun greet(name: String): String = "Hello, $name"
@@ -146,15 +146,15 @@ fun <T> MutableList<T>.addAndIgnoreResult(element: T): Boolean {
 為此，請將結果指定給一個帶有底線語法 (`_`) 的特殊匿名變數：
 
 ```kotlin
-// Non-ignorable function
+// 不可忽略的函式
 fun computeValue(): Int = 42
 
 fun main() {
 
-    // Reports a warning: result is ignored
+    // 報告警告：結果被忽略
     computeValue()
 
-    // Suppresses the warning only at this call site with a special unused variable
+    // 僅在此呼叫站點使用特殊未使用變數抑制警告
     val _ = computeValue()
 }
 ```
@@ -181,9 +181,7 @@ fun main() {
 
 從 Kotlin %kotlinEapVersion% 開始，編譯器可以生成包含 Java 25 位元組碼的類別。
 
-## Kotlin/Native
-
-### 透過 Swift 匯出改善互通性
+## Kotlin/Native：透過 Swift 匯出改善互通性
 <primary-label ref="experimental-general"/>
 
 Kotlin %kotlinEapVersion% 透過 Swift 匯出進一步改善了 Kotlin 與 Swift 的互通性，新增了對原生列舉類別和可變參數函式的支援。
@@ -221,32 +219,12 @@ fun log(vararg messages: String)
 
 ```Swift
 // Swift
-func log(_ messages: String...)
+public func log(messages: Swift.String...)
 ```
 
 > 可變參數函式參數中的泛型型別尚未支援。
 >
 {style="note"}
-
-### 偵錯模式中預設啟用泛型型別邊界上的型別檢查
-
-從 Kotlin %kotlinEapVersion% 開始，在偵錯模式中，預設啟用泛型型別邊界上的型別檢查，
-協助您更早發現與未經檢查的型別轉換相關的錯誤。此變更提高了安全性，並使跨平台的無效泛型型別轉換偵錯更具可預測性。
-
-以前，在 Kotlin/Native 中，未經檢查的型別轉換可能導致堆污染和記憶體安全違規，而這些問題可能不會被注意到。
-現在，這些情況會像 Kotlin/JVM 或 Kotlin/JS 一樣，穩定地以運行時型別轉換錯誤失敗。例如：
-
-```kotlin
-fun main() {
-    val list = listOf("hello")
-    val x = (list as List<Int>)[0]
-    println(x) // Now throws a ClassCastException error
-}
-```
-
-此程式碼以前會列印 `6`；現在它在偵錯模式中會如預期地拋出 `ClassCastException` 錯誤。
-
-有關更多資訊，請參閱[型別檢查與型別轉換](typecasts.md)。
 
 ## Kotlin/Wasm
 
@@ -408,9 +386,19 @@ Suppressed: androidx.compose.runtime.DiagnosticComposeException: Composition sta
           ...
 ```
 
-在此模式下，Jetpack Compose 1.10 生成的堆疊追蹤僅包含仍需去混淆的群組鍵。
+Jetpack Compose 1.10 在此模式下生成的堆疊追蹤僅包含仍需去混淆的群組鍵。
 這在 Kotlin 2.3.0 版本中得到解決，Compose 編譯器 Gradle 插件現在將群組鍵條目附加到 R8 生成的 ProGuard 映射檔案中。如果您發現編譯器未能為某些函式建立映射時出現新的警告，請向 [Google 問題追蹤器](https://issuetracker.google.com/issues/new?component=610764&template=1424126)報告。
 
 > 由於依賴 R8 映射檔案，Compose 編譯器 Gradle 插件僅在啟用 R8 進行建置時為群組鍵堆疊追蹤建立去混淆映射。
 >
 {style="note"}
+
+依預設，映射檔案的 Gradle 任務會執行，無論您是否啟用追蹤。如果它們在您的建置中造成問題，您可以完全禁用此功能。請在您的 Gradle 設定的 `composeCompiler {}` 區塊中新增以下屬性：
+
+```kotlin
+composeCompiler {
+    includeComposeMappingFile.set(false)
+}
+```
+
+請向 [Google 問題追蹤器](https://issuetracker.google.com/issues/new?component=610764&template=1424126)報告遇到的任何問題。

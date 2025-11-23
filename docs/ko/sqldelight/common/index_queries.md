@@ -2,7 +2,7 @@
 
 SQLDelight는 `.sq` 파일에 있는 레이블이 지정된 SQL 문에 대해 타입 안전 함수를 생성합니다.
 
-```sql title="src/main/sqldelight/com/example/sqldelight/hockey/data/Player.sq"
+```sql title="src/commonMain/sqldelight/com/example/sqldelight/hockey/data/Player.sq"
 selectAll:
 SELECT *
 FROM hockeyPlayer;
@@ -17,7 +17,7 @@ VALUES ?;
 ```
 
 레이블이 지정된 문을 포함하는 `.sq` 파일마다 "Queries" 객체가 생성됩니다.
-예를 들어, 위에서 보인 `Player.sq` 파일에 대해 `PlayerQueries` 객체가 생성됩니다.
+예를 들어, 위에 보인 `Player.sq` 파일에 대해 `PlayerQueries` 객체가 생성됩니다.
 이 객체는 생성된 타입 안전 함수를 호출하는 데 사용될 수 있으며, 이 함수들은 실제 SQL 문을 실행합니다.
 
 ```kotlin

@@ -2,7 +2,9 @@
 
 ## 未リリース
 
-今のところありません！
+### 追加
+-   [Gradle Plugin] `SqlDelightWorkerTask` をより設定可能にし、Windows での開発をサポートするためにデフォルト設定を更新 (#5215 by @MSDarwish2000)
+-   [SQLite Dialect] `FTS5` 仮想テーブルでの合成列のサポートを追加 (#5986 by @watbe)
 
 ## [2.2.1] - 2025-11-13
 [2.2.1]: https://github.com/sqldelight/sqldelight/releases/tag/2.2.1
@@ -59,7 +61,7 @@
 -   [PostgreSQL Dialect] `Postgresql ILIKE operator` をサポート (#5330 by @griffio)
 -   [PostgreSQL Dialect] `PostgreSql XML type` をサポート (#5331 by @griffio)
 -   [PostgreSQL Dialect] `PostgreSql AT TIME ZONE` をサポート (#5243 by @griffio)
--   [PostgreSQL Dialect] `postgresql order by nulls` のサポートを追加 (#5199 by @griffio)
+-   [PostgreSQL Dialect] PostgreSQL の `order by nulls` のサポートを追加 (#5199 by @griffio)
 -   [PostgreSQL Dialect] PostgreSQL の現在日時関数 (`current date/time function`) サポートを追加 (#5226 by @drewd)
 -   [PostgreSQL Dialect] `PostgreSql Regex operators` をサポート (#5137 by @griffio)
 -   [PostgreSQL Dialect] `brin gist` を追加 (#5059 by @griffio)
@@ -273,7 +275,7 @@
 -   [Runtime] 古い `MM` のサポートを削除 (#4148 by @hfhbd)
 
 ### 修正
--   [R2DBC Driver] R2DBC: ドライバーのクローズ (`closing the driver`) を待機 (`Await`) するように修正 (#4139 by @hfhbd)
+-   [R2DBC Driver] `R2DBC`: ドライバーのクローズ (`closing the driver`) を待機 (`Await`) するように修正 (#4139 by @hfhbd)
 -   [Compiler] `database create(SqlDriver)` にマイグレーションからの `PRAGMAs` を含めるように修正 (#3845 by @MariusVolkhart)
 -   [Compiler] `RETURNING` 句のコード生成 (`codegen`) を修正 (#3872 by @MariusVolkhart)
 -   [Compiler] 仮想テーブル (`virtual tables`) の型を生成しない (`Dont generate types`) ように修正 (#4015)
@@ -360,7 +362,7 @@
 -   [Gradle Plugin] Kotlin `1.7.20` での `NPEs` を回避 (#3398 by @ZacSweers)
 -   [Gradle Plugin] `squash migrations task` の説明 (`description`) を修正 (#3449)
 -   [IDE Plugin] 新しい `Kotlin` プラグインでの `NoSuchFieldError` を修正 (#3422 by @madisp)
--   [IDE Plugin] IDEA: `UnusedQueryInspection` - `ArrayIndexOutOfBoundsException` を修正 (#3427 by @vanniktech)
+-   [IDE Plugin] `IDEA: UnusedQueryInspection` - `ArrayIndexOutOfBoundsException` を修正 (#3427 by @vanniktech)
 -   [IDE Plugin] 古い `kotlin` プラグインの参照にリフレクション (`reflection`) を使用
 -   [Compiler] 拡張関数 (`extension function`) を持つカスタムダイアレクト (`Custom dialect`) がインポート (`imports`) を作成しない問題を修正 (#3338 by @hfhbd)
 -   [Compiler] `CodeBlock.of("${CodeBlock.toString()}")` のエスケープ (`escaping`) を修正 (#3340 by @hfhbd)
@@ -573,7 +575,7 @@ sqldelight {
 -   [IDE Plugin] 欠落しているインスペクションの説明 (`missing inspection descriptions`) を追加 (#2768 by @aperfilyev)
 -   [IDE Plugin] `GotoDeclarationHandler` での例外 (`exception`) を修正 (#2531, #2688, #2804 by @aperfilyev)
 -   [IDE Plugin] `import` キーワードをハイライト表示 (`Highlight import keyword`) (by @aperfilyev)
--   [IDE Plugin] 未解決の `kotlin types` を修正 (#1678 by @aperfilyev)
+-   [IDE Plugin] 未解決の Kotlin 型 (`unresolved kotlin types`) を修正 (#1678 by @aperfilyev)
 -   [IDE Plugin] 未解決のパッケージ (`unresolved package`) のハイライト (`highlighting`) を修正 (#2543 by @aperfilyev)
 -   [IDE Plugin] プロジェクトインデックス (`project index`) がまだ初期化されていない場合 (`not yet initialized`)、不一致の列 (`mismatched columns`) の検査 (`inspect`) を試みない (`Dont attempt`) ように修正
 -   [IDE Plugin] `gradle sync` が発生するまでファイルインデックス (`file index`) を初期化 (`initialize`) しないように修正

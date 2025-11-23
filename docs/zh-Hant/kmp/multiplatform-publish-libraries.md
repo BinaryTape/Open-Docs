@@ -221,16 +221,16 @@ gpg --keyserver keyserver.ubuntu.com --send-keys F175482952A225BFC4A07A715EE6B5F
 
 **匯出您的私密金鑰** {id="export-your-private-key"}
 
-要讓您的 Gradle 專案存取您的私密金鑰，您需要將其匯出到二進位檔案中。
+要讓您的 Gradle 專案存取您的私密金鑰，您需要將其匯出到檔案中。
 系統將提示您輸入建立金鑰時使用的密碼。
 
 使用以下命令，**傳遞您自己的金鑰 ID** 作為參數：
 
 ```bash
-gpg --no-armor --export-secret-keys F175482952A225BFC4A07A715EE6B5F76620B385CE > key.gpg
+gpg --armor --export-secret-keys F175482952A225BFC4A07A715EE6B5F76620B385CE > key.gpg
 ```
 
-此命令將建立一個包含您的私密金鑰的 `key.gpg` 二進位檔案（請務必**不要**使用 `--armor` 旗標，該旗標只會建立金鑰的純文字版本）。
+此命令將建立一個包含您的私密金鑰的 `key.gpg` 文字檔案。
 
 > 切勿與任何人分享您的私密金鑰檔案 – 只有您應該有權存取它，
 > 因為私密金鑰允許使用您的憑證簽署檔案。

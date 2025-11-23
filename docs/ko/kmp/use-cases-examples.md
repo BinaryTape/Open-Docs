@@ -51,9 +51,9 @@
 코틀린 멀티플랫폼을 통해 핵심 로직을 공유하면서도 사용자가 기대하는 네이티브 디자인과 느낌을 유지할 수 있습니다. 
 기존 코드베이스를 활용함으로써, 이러한 팀은 사용자 경험을 손상시키지 않고 개발을 가속화할 수 있습니다.
 
-KMP는 또한 크로스 플랫폼 기능을 점진적으로 도입할 수 있는 유연한 접근 방식을 지원합니다. 이는 기존 앱을 발전시키거나 
-새로운 기능을 출시하는 팀에게 특히 효과적이며, 개발 시간을 단축하고 오버헤드를 줄이며 필요에 따라 
-플랫폼별 맞춤화를 유지하는 데 도움을 줍니다.
+KMP는 또한 크로스 플랫폼 기능을 점진적으로 도입할 수 있는 유연한 접근 방식을 지원합니다. 이는 특히 
+기존 앱을 발전시키거나 새로운 기능을 출시하는 팀에게 효과적이며, 개발 시간을 단축하고 오버헤드를 줄이며 
+필요에 따라 플랫폼별 맞춤화를 유지하는 데 도움을 줍니다.
 
 **사례 연구:**
 
@@ -73,7 +73,7 @@ KMP를 사용하면 새로운 기술 스택을 도입할 필요가 없습니다.
 **사례 연구:** [Forbes](https://www.forbes.com/sites/forbes-engineering/2023/11/13/forbes-mobile-app-shifts-to-kotlin-multiplatform/), [McDonald’s](https://medium.com/mcdonalds-technical-blog/mobile-multiplatform-development-at-mcdonalds-3b72c8d44ebc), [Google Docs](https://www.youtube.com/watch?v=5lkZj4v4-ks), [Philips](https://www.youtube.com/watch?v=hZPL8QqiLi8), [VMware](https://medium.com/vmware-end-user-computing/adopting-a-cross-platform-strategy-for-mobile-apps-59495ffa23b0), [Cash App](https://kotlinlang.org/lp/multiplatform/case-studies/cash-app?_gl=1*1qc1ixl*_gcl_aw*R0NMLjE3NTEzNTcwMDguRUFJYUlRb2JDaE1JblBLRmc0cWJqZ01WZ0VnZENSM3pYQkVWRUFFWUFTQUFFZ0ltOVBEX0J3RQ..*_gcl_au*MTE5NzY3MzgyLjE3NDk3MDk0NjI.*FPAU*MTE5NzY3MzgyLjE3NDk3MDk0NjI.*_ga*MTM4NjAyOTM0NS4xNzM2ODUwMzA5*_ga_9J976DJZ68*czE3NTE1MjQ2MDUkbzcxJGcxJHQxNzUxNTI3Njc5JGozJGwwJGgw), 
 [Wonder App by Baidu](https://kotlinlang.org/lp/multiplatform/case-studies/baidu)
 
-[![KMP 성공 사례 알아보기](kmp-success-stories.svg){width="700"}{style="block"}](case-studies.topic)
+[![KMP 성공 사례 알아보기](kmp-success-stories.svg){width="700"}{style="block"}](https://kotlinlang.org/case-studies/?type=multiplatform)
 
 ### 에이전시
 
@@ -152,7 +152,7 @@ KMP는 이상적인 장기 솔루션이 될 수 있습니다.
 모든 사용자에게 일관된 동작을 보장합니다.
 
 **사례 연구:** [Bolt](https://medium.com/vmware-end-user-computing/adopting-a-cross-platform-strategy-for-mobile-apps-59495ffa23b0), 
-[Feres](case-studies.topic#case-study-feres)
+[Feres](https://kotlinlang.org/case-studies/#case-study-feres)
 
 ### 교육 기술
 
@@ -162,8 +162,8 @@ KMP는 이상적인 장기 솔루션이 될 수 있습니다.
 이러한 코드 공유는 성능과 일관성을 크게 향상시킬 수 있습니다. 예를 들어, Quizlet은 공유 코드를 
 JavaScript에서 코틀린으로 마이그레이션하여 안드로이드 및 iOS 앱 모두에서 현저한 속도 향상을 경험했습니다.
 
-**사례 연구:** [Duolingo](https://youtu.be/RJtiFt5pbfs?si=mFpiN9SNs8m-jpFL), [Quizlet](https://quizlet.com/blog/shared-code-kotlin-multiplatform), [Chalk](https://kotlinlang.org/lp/multiplatform/case-studies/chalk/?_gl=1*1wxmdrv*_gcl_au*MTE5NzY3MzgyLjE3NDk3MDk0NjI.*FPAU*MTE5NzY3MzgyLjE3NDk3MDk0NjI.*_ga*MTM4NjAyOTM0NS4xNzM2ODUwMzA5*_ga_9J976DJZ68*czE3NTEwMjI5ODAkbzYwJGcxJHQxNzUxMDIzMTU2JGo1OCRsMCRoMA..), [Memrise](https://engineering.memrise.com/kotlin-multiplatform-memrise-3764b3a4a0db), 
-[Physics Wallah](case-studies.topic#case-study-physics-wallah)
+**사례 연구:** [Duolingo](https://youtu.be/RJtiFt5pbfs?si=mFpiN9SNs8m-jpFL), [Quizlet](https://quizlet.com/blog/shared-code-kotlin-multiplatform), [Chalk](https://kotlinlang.org/lp/multiplatform/case-studies/chalk/?_gl=1*1wxmdrv*_gcl_au*MTE5NzY3MzgyLjE3NDk3MDk0NjI.*FPAU*MTE5NzY3MzgyLjE3NDk3MDk0NjI.*_ga*MTM4NjAyOTM0NS4xNzM2ODUwMzA5*_ga_9J976DJZ68*czE3NTEwMjI5ODAkbzYwJGcxJHQxNzUxMDIzMTU2JGo1OCRsMCRoMA..), [Memrise](https://engineering.memrise.com/kotlin-multiplatform-memrise-3764b5a4a0db), 
+[Physics Wallah](https://kotlinlang.org/case-studies/#case-study-physics-wallah)
 
 ### 전자상거래
 
@@ -172,7 +172,7 @@ JavaScript에서 코틀린으로 마이그레이션하여 안드로이드 및 iO
 팀이 플랫폼 전반에 걸쳐 비즈니스 로직과 UI를 모두 공유할 수 있도록 합니다. 
 이러한 하이브리드 접근 방식은 더 빠른 개발, 일관된 사용자 경험, 그리고 중요한 네이티브 기능을 통합할 수 있는 유연성을 보장합니다.
 
-**사례 연구:** [Balary Market](case-studies.topic#case-study-balary), [Markaz](case-studies.topic#case-study-markaz)
+**사례 연구:** [Balary Market](https://kotlinlang.org/case-studies/#case-study-balary), [Markaz](https://kotlinlang.org/case-studies/#case-study-markaz)
 
 ### 소셜 네트워킹 및 커뮤니티
 
@@ -189,7 +189,7 @@ JavaScript에서 코틀린으로 마이그레이션하여 안드로이드 및 iO
 신뢰할 수 있는 크로스 플랫폼 동작에 의존합니다. 이러한 앱은 종종 운동 로직 및 데이터 처리와 같은 핵심 기능을 공유해야 하며, 
 동시에 완전히 네이티브 UI와 센서, 알림 또는 건강 API와 같은 플랫폼별 통합을 유지해야 합니다.
 
-**사례 연구:** [Respawn Pro](https://youtu.be/LB5a2FRrT94?si=vgcJI-XoCrWree3u), [Fast&amp;Fit](case-studies.topic#case-study-fast-and-fit), [Philips](https://www.youtube.com/watch?v=hZPL8QqiLi8), [Down Dog](https://kotlinlang.org/lp/multiplatform/case-studies/down-dog/?_gl=1*1ryf8m7*_gcl_au*MTE5NzY3MzgyLjE3NDk3MDk0NjI.*FPAU*MTE5NzY3MzgyLjE3NDk3MDk0NjI.*_ga*MTM4NjAyOTM0NS4xNzM2ODUwMzA5*_ga_9J976DJZ68*czE3NTEyNzEzNzckbzYyJGcxJHQxNzUxMjcxMzgzJGo1NCRsMCRoMA..)
+**사례 연구:** [Respawn Pro](https://youtu.be/LB5a2FRrT94?si=mFpiN9SNs8m-jpFL), [Fast&amp;Fit](https://kotlinlang.org/case-studies/#case-study-fast-and-fit), [Philips](https://www.youtube.com/watch?v=hZPL8QqiLi8), [Down Dog](https://kotlinlang.org/lp/multiplatform/case-studies/down-dog)
 
 ### 우편 서비스
 
@@ -202,4 +202,4 @@ JavaScript에서 코틀린으로 마이그레이션하여 안드로이드 및 iO
 이러한 예시들은 코틀린 멀티플랫폼이 거의 모든 산업이나 앱 유형에 어떻게 사용될 수 있는지 보여줍니다. 
 핀테크 앱, 모빌리티 솔루션, 교육 플랫폼 또는 그 외 어떤 것을 구축하든, 
 코틀린 멀티플랫폼은 네이티브 경험을 희생하지 않으면서도 프로젝트에 적합한 만큼 코드를 유연하게 공유할 수 있도록 합니다. 
-또한 기술을 프로덕션 환경에서 사용하는 많은 다른 기업들을 보여주는 [KMP 사례 연구](case-studies.topic)의 광범위한 목록을 확인할 수 있습니다.
+또한 기술을 프로덕션 환경에서 사용하는 많은 다른 기업들을 보여주는 [KMP 사례 연구](https://kotlinlang.org/case-studies/?type=multiplatform)의 광범위한 목록을 확인할 수 있습니다.

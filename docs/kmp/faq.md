@@ -8,7 +8,7 @@
 
 ### 我可以使用 Kotlin Multiplatform 共享 UI 吗？
 
-可以，你可以使用 [Compose Multiplatform](https://www.jetbrains.com/lp/compose-multiplatform/)，这是一个 JetBrains 基于 Kotlin 和 [Jetpack Compose](https://developer.android.com/jetpack/compose) 开发的声明式 UI 框架。此框架允许你为 iOS、Android、桌面和 Web 等平台创建共享 UI 组件，帮助你在不同设备和平台间保持一致的用户界面。
+可以，你可以使用 [Compose Multiplatform](https://www.jetbrains.com/lp/compose-multiplatform/)，这是 JetBrains 基于 Kotlin 和 [Jetpack Compose](https://developer.android.com/jetpack/compose) 开发的声明式 UI 框架。此框架允许你为 iOS、Android、桌面和 Web 等平台创建共享 UI 组件，帮助你在不同设备和平台间保持一致的用户界面。
 
 要了解更多信息，请参见 [Compose Multiplatform](#compose-multiplatform) 部分。
 
@@ -34,7 +34,7 @@ Kotlin Multiplatform 支持 Android、iOS、桌面、Web、服务端以及其他
 
 ### 我在哪里可以找到真实 Kotlin Multiplatform 应用程序的列表？有哪些公司在生产环境中使用 KMP？
 
-请查阅我们的 [案例研究列表](case-studies.topic)，了解其他已在生产环境采用 Kotlin Multiplatform 的公司的经验。
+请查阅我们的 [案例研究列表](https://kotlinlang.org/case-studies/?type=multiplatform)，了解其他已在生产环境采用 Kotlin Multiplatform 的公司的经验。
 
 ### 哪些操作系统可以与 Kotlin Multiplatform 配合使用？
 

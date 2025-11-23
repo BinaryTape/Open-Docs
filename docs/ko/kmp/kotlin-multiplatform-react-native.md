@@ -1,9 +1,49 @@
+```xml
 <topic xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:noNamespaceSchemaLocation="https://resources.jetbrains.com/writerside/1.0/topic.v2.xsd"
        id="kotlin-multiplatform-react-native"
        title="Kotlin Multiplatform vs. React Native: 크로스 플랫폼 비교">
+<include-in-head>
+<![CDATA[
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          "mainEntity": [{
+            "@type": "Question",
+            "name": "Q: Kotlin Multiplatform은 프로덕션에 사용할 준비가 되었나요?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Kotlin Multiplatform은 프로덕션에서 사용할 준비가 된 안정적인 기술입니다. 이는 가장 보수적인 사용 시나리오에서도 Android, iOS, 데스크톱 (JVM), 서버 측 (JVM) 및 웹 전반에서 코드를 공유하는 데 Kotlin Multiplatform을 사용할 수 있음을 의미합니다. Compose Multiplatform, 여러 플랫폼에서 공유 UI를 구축하기 위한 프레임워크 (Kotlin Multiplatform 및 Google의 Jetpack Compose 기반)는 iOS, Android, 데스크톱에서 안정적입니다. 웹 지원은 현재 베타 단계입니다. Kotlin Multiplatform의 전반적인 방향에 대해 더 자세히 알아보려면, 저희 블로그 게시물인 <a href=\"https://blog.jetbrains.com/kotlin/2025/08/kmp-roadmap-aug-2025/\">Kotlin Multiplatform 및 Compose Multiplatform의 다음 단계</a>를 확인하세요."
+            }
+          }, {
+            "@type": "Question",
+            "name": "Q: Kotlin Multiplatform이 React Native보다 좋나요?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Kotlin Multiplatform과 React Native는 모두 고유한 강점을 가지고 있으며, 선택은 프로젝트의 특정 목표, 기술 요구사항 및 팀 전문성에 따라 달라집니다. 위 비교에서는 코드 공유, 빌드 도구, 컴파일 및 생태계와 같은 주요 차이점을 설명하여 사용 사례에 가장 적합한 옵션을 결정하는 데 도움을 드렸습니다."
+            }
+          }, {
+            "@type": "Question",
+            "name": "Q: Google은 Kotlin Multiplatform을 지원하나요?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Google I/O 2024에서 Google은 Android와 iOS 간의 비즈니스 로직 공유를 위해 Android에서 Kotlin Multiplatform 사용에 대한 공식 지원을 발표했습니다."
+            }
+          }, {
+            "@type": "Question",
+            "name": "Q: Kotlin Multiplatform을 배울 가치가 있나요?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "네이티브 성능과 유연성을 유지하면서 Android, iOS, 데스크톱 및 웹 전반에서 코드를 공유하는 데 관심이 있다면 Kotlin Multiplatform은 배울 가치가 있습니다. JetBrains의 지원을 받고 있으며, Android에서 Android와 iOS 간의 비즈니스 로직을 공유하는 데 Google의 공식 지원을 받습니다. 또한, Compose Multiplatform과 함께하는 KMP는 다중 플랫폼 앱을 구축하는 기업에서 프로덕션에 점점 더 많이 채택되고 있습니다."
+            }
+          }]
+        }
+        </script>
+]]>
+</include-in-head>
 <web-summary>Kotlin Multiplatform과 Compose Multiplatform이 React Native와 코드 공유, 생태계, UI 렌더링 측면에서 어떻게 비교되는지 살펴보세요. 어떤 도구 스택이 팀에 가장 적합한지 알아보세요.
-</web-summary>
+    </web-summary>
 <tip>
     <p>이 비교 기사는 Kotlin Multiplatform이 플랫폼 API에 대한 완전한 접근 권한으로 Android 및 iOS 전반에 걸쳐 진정한 네이티브 경험을 제공하는 데 탁월하다는 점을 강조합니다.
         KMP는 특히 공유 UI 코드에 Compose Multiplatform을 사용할 때 성능, 유지보수성, 네이티브한 외관 및 느낌에 중점을 두는 팀에 특히 매력적입니다.
@@ -24,15 +64,15 @@
                                                                       width="500"/></a></p>
     <p>KMP를 사용하면 앱 진입점을 제외한 모든 코드를 공유하는 것부터, 단일 로직 (네트워크 또는 데이터베이스 모듈과 같은)을 공유하거나, UI를 네이티브로 유지하면서 비즈니스 로직을 공유하는 등 다양한 공유 전략을 선택할 수 있습니다.</p>
     <p>플랫폼 간 UI 코드를 공유하려면 <a
-            href="https://blog.jetbrains.com/kotlin/2023/11/kotlin-multiplatform-stable/">Compose Multiplatform</a> — Kotlin Multiplatform과 Google의 Jetpack Compose를 기반으로 구축된 JetBrains의 최신 선언형 프레임워크를 사용할 수 있습니다. 이 프레임워크는
+            href="https://blog.jetbrains.com/kotlin/2023/11/kotlin-multiplatform-stable/">Compose Multiplatform</a> — JetBrains의 최신 선언형 프레임워크를 사용할 수 있습니다. 이 프레임워크는 Kotlin Multiplatform과 Google의 Jetpack Compose를 기반으로 구축되었으며
         <a href="https://blog.jetbrains.com/kotlin/2023/11/kotlin-multiplatform-stable/?_gl=1*dcswc7*_gcl_au*MTE5NzY3MzgyLjE3NDk3MDk0NjI.*FPAU*MTE5NzY3MzgyLjE3NDk3MDk0NjI.*_ga*MTM4NjAyOTM0NS4xNzM2ODUwMzA5*_ga_9J976DJZ68*czE3NTA2NzU0MzQkbzM2JGcxJHQxNzUwNjc1NjEwJGo2MCRsMCRoMA..">iOS</a>, Android 및 데스크톱에서 안정적이며, 웹 지원은 현재 베타 단계에 있습니다.</p>
     <p><a href="https://www.jetbrains.com/compose-multiplatform/"><img src="explore-compose.svg"
                                                                        alt="Compose Multiplatform 탐색하기"
                                                                        style="block"
                                                                        width="500"/></a></p>
     <p>Kotlin 1.2 (2017년)에서 처음 소개된 Kotlin Multiplatform은 2023년 11월에 <a
-            href="https://blog.jetbrains.com/kotlin/2023/11/kotlin-multiplatform-stable/">안정화</a>되었습니다. Google I/O 2024에서 Google은 <a
-            href="https://android-developers.googleblog.com/2024/05/android-support-for-kotlin-multiplatform-to-share-business-logic-across-mobile-web-server-desktop.html">Android에서 Kotlin Multiplatform 사용에 대한 공식 지원</a>을 발표했습니다.
+            href="https://blog.jetbrains.com/kotlin/2023/11/kotlin-multiplatform-stable/">안정화</a>되었습니다. Google I/O 2024에서 Google은 Android와 iOS 간에 비즈니스 로직을 공유하기 위해 <a
+                    href="https://android-developers.googleblog.com/2024/05/android-support-for-kotlin-multiplatform-to-share-business-logic-across-mobile-web-server-desktop.html">Android에서 Kotlin Multiplatform 사용에 대한 공식 지원</a>을 발표했습니다.
     </p>
 </chapter>
 <chapter title="React Native" id="react-native">
@@ -111,7 +151,7 @@
         </tr>
         <tr>
             <td><b>UI 렌더링</b></td>
-            <td>Google의 Jetpack Compose를 기반으로 하는 <a href="https://www.jetbrains.com/compose-multiplatform/">Compose Multiplatform</a>은 OpenGL, ANGLE (OpenGL ES 2 또는 3 호출을 네이티브 API로 변환), Vulkan 및 Metal과 호환되는 Skia 엔진을 사용하여 여러 플랫폼에서 UI를 공유하는 데 사용할 수 있습니다.
+            <td><a href="https://www.jetbrains.com/compose-multiplatform/">Compose Multiplatform</a>은 Google의 Jetpack Compose를 기반으로 하며, OpenGL, ANGLE (OpenGL ES 2 또는 3 호출을 네이티브 API로 변환), Vulkan 및 Metal과 호환되는 Skia 엔진을 사용하여 여러 플랫폼에서 UI를 공유하는 데 사용할 수 있습니다.
             </td>
             <td>React Native는 <code>View</code>,
                 <code>Text</code>, <code>Image</code>와 같은 핵심적인 플랫폼에 독립적인 네이티브 컴포넌트 세트를 포함하며, 이들은 iOS의 <code>UIView</code> 및 Android의 <code>android.view</code>와 같이 플랫폼의 네이티브 UI 빌딩 블록에 직접 매핑됩니다.
@@ -129,13 +169,13 @@
             <td>
                 <a href="https://www.forbes.com/sites/forbes-engineering/2023/11/13/forbes-mobile-app-shifts-to-kotlin-multiplatform/">Forbes</a>,
                 <a href="https://www.youtube.com/watch?v=z-o9MqN86eE">Todoist</a>, <a
-                    href="https://medium.com/mcdonalds-technical-blog/mobile-multiplatform-development-at-mcdonalds-3b72c8d44ebc">McDonald's</a>,
+                        href="https://medium.com/mcdonalds-technical-blog/mobile-multiplatform-development-at-mcdonalds-3b72c8d44ebc">McDonald's</a>,
                 <a href="https://youtu.be/5lkZj4v4-ks?si=DoW00DU7CYkaMmKc">Google Workspace</a>, <a
-                    href="https://www.youtube.com/watch?v=hZPL8QqiLi8">Philips</a>, <a
-                    href="https://raymondctc.medium.com/adopting-kotlin-multiplatform-mobile-kmm-on-9gag-app-dfe526d9ce04">9gag</a>,
+                        href="https://www.youtube.com/watch?v=hZPL8QqiLi8">Philips</a>, <a
+                        href="https://raymondctc.medium.com/adopting-kotlin-multiplatform-mobile-kmm-on-9gag-app-dfe526d9ce04">9gag</a>,
                 <a href="https://kotlinlang.org/lp/multiplatform/case-studies/baidu">Baidu</a>, <a
-                    href="https://kotlinlang.org/lp/multiplatform/case-studies/autodesk/">Autodesk</a>, <a
-                    href="https://touchlab.co/">TouchLab</a>, <a href="https://www.youtube.com/watch?v=YsQ-2lQYQ8M">Instabee</a> 등 더 많은 기업이 <a href="case-studies.topic">KMP 사례 연구</a>에 나열되어 있습니다.</td>
+                        href="https://kotlinlang.org/lp/multiplatform/case-studies/autodesk/">Autodesk</a>, <a
+                        href="https://touchlab.co/">TouchLab</a>, <a href="https://www.youtube.com/watch?v=YsQ-2lQYQ8M">Instabee</a> 등 더 많은 기업이 <a href="https://kotlinlang.org/case-studies/?type=multiplatform">KMP 사례 연구</a>에 나열되어 있습니다.</td>
             <td>Facebook, <a href="https://engineering.fb.com/2024/10/02/android/react-at-meta-connect-2024/">Instagram</a>,
                 <a href="https://devblogs.microsoft.com/react-native/">Microsoft Office</a>, <a
                         href="https://devblogs.microsoft.com/react-native/">Microsoft Outlook</a>, Amazon Shopping,

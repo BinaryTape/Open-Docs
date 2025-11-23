@@ -2,13 +2,13 @@
 
 <web-summary>프로젝트에서 Kotlin Multiplatform를 사용해야 하는 10가지 이유를 알아보세요. 기업의 실제 사례를 통해 이 기술을 멀티플랫폼 개발에 활용하는 방법을 확인하세요.</web-summary>
 
-오늘날 다양한 기술 환경에서 개발자들은 개발 시간을 최적화하고 사용자 생산성을 높이면서, 여러 플랫폼에서 원활하게 작동하는 애플리케이션을 구축해야 하는 과제에 직면해 있습니다. Kotlin Multiplatform (KMP)은 여러 플랫폼을 위한 앱을 만들고, 네이티브 프로그래밍의 이점을 유지하면서 코드 재사용을 용이하게 하는 솔루션을 제공합니다.
+오늘날의 다양한 기술 환경에서 개발자들은 개발 시간을 최적화하고 사용자 생산성을 높이면서, 여러 플랫폼에서 원활하게 작동하는 애플리케이션을 구축해야 하는 과제에 직면해 있습니다. Kotlin Multiplatform (KMP)은 여러 플랫폼을 위한 앱을 만들고, 네이티브 프로그래밍의 이점을 유지하면서 코드 재사용을 용이하게 하는 솔루션을 제공합니다.
 
 이 문서에서는 개발자가 기존 또는 새로운 프로젝트에서 Kotlin Multiplatform 사용을 고려해야 하는 10가지 이유와 KMP가 계속해서 많은 관심을 받는 이유를 살펴봅니다.
 
 ## 프로젝트에서 Kotlin Multiplatform를 시도해야 하는 이유
 
-효율성 향상을 추구하든 새로운 기술을 탐구하고 싶든, 이 문서는 개발 노력을 간소화하는 능력부터 광범위한 플랫폼 지원 및 강력한 툴링 생태계에 이르기까지 Kotlin Multiplatform가 가져다주는 실질적인 이점과 실제 기업의 사례 연구를 설명할 것입니다.
+개발 효율성을 높이거나 새로운 기술을 탐구하고 싶든, 이 문서는 개발 노력을 간소화하고, 광범위한 플랫폼을 지원하며, 강력한 툴링 생태계를 제공하는 등 Kotlin Multiplatform의 몇 가지 실질적인 이점을 설명하므로 도움이 될 것입니다. 또한 실제 기업의 사례 연구도 찾아볼 수 있습니다.
 
 1.  [Kotlin Multiplatform는 코드 중복을 피할 수 있게 해줍니다.](#1-kotlin-multiplatform-helps-you-avoid-code-duplication)
 2.  [Kotlin Multiplatform는 광범위한 플랫폼 목록을 지원합니다.](#2-kotlin-multiplatform-supports-an-extensive-list-of-platforms)
@@ -123,7 +123,7 @@ JetBrains에서는 Kotlin Multiplatform 설문조사를 자주 실시하며, 커
 
 ### 8. Kotlin Multiplatform는 이미 글로벌 기업에서 사용되고 있습니다.
 
-KMP는 Forbes, Philips, Cash App, Meetup, Autodesk 등 전 세계의 많은 대기업에서 이미 사용되고 있습니다. 이들의 모든 사례는 [사례 연구 페이지](case-studies.topic)에서 확인할 수 있습니다.
+KMP는 Forbes, Philips, Cash App, Meetup, Autodesk 등 전 세계의 많은 대기업에서 이미 사용되고 있습니다. 이들의 모든 사례는 [사례 연구 페이지](https://kotlinlang.org/case-studies/?type=multiplatform)에서 확인할 수 있습니다.
 
 2023년 11월, JetBrains는 Kotlin Multiplatform가 이제 [안정화(Stable)](https://blog.jetbrains.com/kotlin/2023/11/kotlin-multiplatform-stable/)되었다고 발표하며, 더 많은 기업과 팀의 기술에 대한 관심을 불러일으켰습니다.
 

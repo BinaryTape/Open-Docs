@@ -15,7 +15,7 @@ Kotlin %kotlinEapVersion% がリリースされました！このEAPリリース
 
 *   **言語**: [より安定したデフォルト機能、未使用の戻り値に対する新しいチェッカー、およびコンテキスト依存の解決に対する変更](#language)。
 *   **Kotlin/JVM**: [Java 25 のサポート](#kotlin-jvm-support-for-java-25)。
-*   **Kotlin/Native**: [Swiftエクスポートによる相互運用性の向上、およびジェネリック型境界における型チェックのデフォルト有効化](#kotlin-native)。
+*   **Kotlin/Native**: [Swiftエクスポートによる相互運用性の向上](#kotlin-native-improved-interop-through-swift-export)。
 *   **Kotlin/Wasm**: [完全修飾名と新しい例外処理提案のデフォルト有効化](#kotlin-wasm)。
 *   **Kotlin/JS**: [新しい試験版の`suspend`関数エクスポートと`LongArray`の表現](#kotlin-js)。
 *   **Gradle**: [Gradle 9.0との互換性、および生成されたソースを登録するための新しいAPI](#gradle)。
@@ -157,7 +157,7 @@ fun main() {
 }
 ```
 
-[YouTrack](https://youtrack.jetbrains.com/issue/KT-12719)にてフィードバックをいただけると幸いです。詳細については、この機能の[KEEP]( https://github.com/Kotlin/KEEP/blob/main/proposals/KEEP-0412-unused-return-value-checker.md)を参照してください。
+[YouTrack](https://youtrack.com/issue/KT-12719)にてフィードバックをいただけると幸いです。詳細については、この機能の[KEEP]( https://github.com/Kotlin/KEEP/blob/main/proposals/KEEP-0412-unused-return-value-checker.md)を参照してください。
 
 ### コンテキスト依存の解決における変更
 <primary-label ref="experimental-general"/>
@@ -180,12 +180,10 @@ fun main() {
 
 Kotlin %kotlinEapVersion% 以降、コンパイラはJava 25のバイトコードを含むクラスを生成できるようになります。
 
-## Kotlin/Native
-
-### Swiftエクスポートによる相互運用性の向上
+## Kotlin/Native: Swiftエクスポートによる相互運用性の向上
 <primary-label ref="experimental-general"/>
 
-Kotlin %kotlinEapVersion% は、Swiftエクスポートを通じてKotlinとSwiftの相互運用性をさらに向上させ、ネイティブのenumクラスと可変引数関数のパラメータのサポートを追加します。
+Kotlin %kotlinEapVersion% は、Swiftエクスポートを通じてKotlinとSwiftの相互運用性をさらに向上させ、ネイティブのenumクラスと可変引数関数パラメータのサポートを追加します。
 
 以前は、Kotlinのenumは通常のSwiftクラスとしてエクスポートされていました。現在では直接マッピングされ、通常のネイティブSwift enumを使用できます。例えば：
 
@@ -220,30 +218,12 @@ fun log(vararg messages: String)
 
 ```Swift
 // Swift
-func log(_ messages: String...)
+public func log(messages: Swift.String...)
 ```
 
 > 可変引数関数のパラメータにおけるジェネリック型はまだサポートされていません。
 >
 {style="note"}
-
-### デバッグモードでのジェネリック型境界における型チェック
-
-Kotlin %kotlinEapVersion% 以降、デバッグモードでジェネリック型境界における型チェックがデフォルトで有効になり、チェックされないキャストに関連するエラーをより早期に発見できるようになります。この変更により、安全性が向上し、無効なジェネリックキャストのデバッグがプラットフォーム間でより予測可能になります。
-
-これまで、ヒープ汚染やメモリ安全性の違反につながるチェックされないキャストは、Kotlin/Nativeでは見過ごされる可能性がありました。現在、そのようなケースは、Kotlin/JVMやKotlin/JSと同様に、実行時キャストエラーで一貫して失敗するようになりました。例:
-
-```kotlin
-fun main() {
-    val list = listOf("hello")
-    val x = (list as List<Int>)[0]
-    println(x) // ClassCastExceptionエラーをスローするようになりました
-}
-```
-
-このコードは以前は `6` を出力していましたが、現在では予想どおりデバッグモードで `ClassCastException` エラーをスローします。
-
-詳細については、[型チェックとキャスト](typecasts.md)を参照してください。
 
 ## Kotlin/Wasm
 
@@ -392,7 +372,7 @@ Kotlin 2.3.0以降、アプリケーションがR8によって縮小されると
 Composer.setDiagnosticStackTraceMode(ComposeStackTraceMode.GroupKeys)
 ```
 
-これらのスタックトレースが有効になっている場合、アプリが縮小されている場合でも、Composeランタイムは、コンポジション、測定、または描画パス中にクラッシュが捕捉された後、独自のスタックトレースを追加します。
+これらのスタックトレースが有効になっている場合、Composeランタイムは、コンポジション、測定、または描画パス中にクラッシュが捕捉された後、独自のスタックトレースを追加します。これは、アプリが縮小されている場合でも同様です。
 
 ```text
 java.lang.IllegalStateException: <message>
@@ -409,3 +389,13 @@ Suppressed: androidx.compose.runtime.DiagnosticComposeException: Composition sta
 > ビルドでR8が有効になっている場合にのみ、グループキースタックトレースの難読化解除マッピングを作成します。
 >
 {style="note"}
+
+デフォルトでは、マッピングファイルGradleタスクはトレースを有効にしているかどうかに関わらず実行されます。ビルドで問題を引き起こす場合は、この機能全体を無効にできます。Gradle設定の`composeCompiler {}`ブロックに以下のプロパティを追加します。
+
+```kotlin
+composeCompiler {
+    includeComposeMappingFile.set(false)
+}
+```
+
+発生した問題は[Google IssueTracker](https://issuetracker.google.com/issues/new?component=610764&template=1424126)に報告してください。

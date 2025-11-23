@@ -173,7 +173,7 @@ Compose Multiplatform 還有一個官方範例，名為 [ImageViewer App](https:
 ### 8. Kotlin Multiplatform 已被全球公司採用
 
 KMP 已經被全球許多大型公司使用，包括 Forbes、Philips、Cash App、Meetup、Autodesk，
-以及許多其他公司。您可以在[案例研究頁面](case-studies.topic)上閱讀他們的所有故事。
+以及許多其他公司。您可以在[案例研究頁面](https://kotlinlang.org/case-studies/?type=multiplatform)上閱讀他們的所有故事。
 
 2023 年 11 月，JetBrains 宣布 Kotlin Multiplatform 現已 [穩定](https://blog.jetbrains.com/kotlin/2023/11/kotlin-multiplatform-stable/)，
 吸引了更多公司和團隊對這項技術的興趣。

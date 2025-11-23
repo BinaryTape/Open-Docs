@@ -58,6 +58,10 @@
           {
             "text": "sqldelight.grouping-statements",
             "link": "android_sqlite/grouping_statements"
+          },
+          {
+            "text": "sqldelight.fts5-virtual-tables",
+            "link": "android_sqlite/fts5_virtual_tables"
           }
         ],
         "collapsed": true
@@ -166,6 +170,10 @@
           {
             "text": "sqldelight.grouping-statements",
             "link": "multiplatform_sqlite/grouping_statements"
+          },
+          {
+            "text": "sqldelight.fts5-virtual-tables",
+            "link": "android_sqlite/fts5_virtual_tables"
           }
         ],
         "collapsed": true
@@ -466,6 +474,10 @@
           {
             "text": "sqldelight.grouping-statements",
             "link": "native_sqlite/grouping_statements"
+          },
+          {
+            "text": "sqldelight.fts5-virtual-tables",
+            "link": "android_sqlite/fts5_virtual_tables"
           }
         ],
         "collapsed": true
@@ -550,6 +562,10 @@
           {
             "text": "sqldelight.grouping-statements",
             "link": "jvm_sqlite/grouping_statements"
+          },
+          {
+            "text": "sqldelight.fts5-virtual-tables",
+            "link": "android_sqlite/fts5_virtual_tables"
           }
         ],
         "collapsed": true
@@ -660,6 +676,10 @@
           {
             "text": "sqldelight.grouping-statements",
             "link": "js_sqlite/grouping_statements"
+          },
+          {
+            "text": "sqldelight.fts5-virtual-tables",
+            "link": "android_sqlite/fts5_virtual_tables"
           }
         ],
         "collapsed": true

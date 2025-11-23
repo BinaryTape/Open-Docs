@@ -4,11 +4,11 @@
 
 ### 什麼是 Kotlin Multiplatform？
 
-[Kotlin Multiplatform](https://www.jetbrains.com/kotlin-multiplatform/) (KMP) 是 JetBrains 旗下的開源技術，用於靈活的跨平台開發。它讓您可以建立適用於各種平台的應用程式，並在它們之間高效重用程式碼，同時保留原生程式設計的優勢。透過 Kotlin Multiplatform，您可以開發適用於 Android、iOS、桌面、網頁、伺服器端及其他平台的應用程式。
+[Kotlin Multiplatform](https://www.jetbrains.com/kotlin-multiplatform/) (KMP) 是 JetBrains 旗下用於靈活跨平台開發的開源技術。它讓您可以建立適用於各種平台的應用程式，並在它們之間高效重用程式碼，同時保留原生程式設計的優勢。透過 Kotlin Multiplatform，您可以開發適用於 Android、iOS、桌面、網頁、伺服器端及其他平台的應用程式。
 
 ### 我可以使用 Kotlin Multiplatform 共享 UI 嗎？
 
-是的，您可以使用 [Compose Multiplatform](https://www.jetbrains.com/lp/compose-multiplatform/) 分享 UI，這是 JetBrains 旗下的聲明式 UI 框架，基於 Kotlin 和 [Jetpack Compose](https://developer.android.com/jetpack/compose) 開發。此框架讓您可以建立適用於 iOS、Android、桌面和網頁等平台的共享 UI 元件，幫助您在不同裝置和平台之間保持使用者介面的一致性。
+是的，您可以使用 [Compose Multiplatform](https://www.jetbrains.com/lp/compose-multiplatform/) 共享 UI，這是 JetBrains 旗下基於 Kotlin 和 [Jetpack Compose](https://developer.android.com/jetpack/compose) 開發的聲明式 UI 框架。此框架讓您可以建立適用於 iOS、Android、桌面和網頁等平台的共享 UI 元件，幫助您在不同裝置和平台之間保持使用者介面的一致性。
 
 要了解更多資訊，請參閱 [Compose Multiplatform](#compose-multiplatform) 章節。
 
@@ -34,7 +34,7 @@ Kotlin Multiplatform 支援 Android、iOS、桌面、網頁、伺服器端及其
 
 ### 我在哪裡可以找到真實的 Kotlin Multiplatform 應用程式列表？哪些公司在生產環境中使用 KMP？
 
-查看我們的 [案例研究列表](case-studies.topic)，以了解其他已在生產環境中採用 Kotlin Multiplatform 的公司經驗。
+查看我們的 [案例研究列表](https://kotlinlang.org/case-studies/?type=multiplatform)，以了解其他已在生產環境中採用 Kotlin Multiplatform 的公司經驗。
 
 ### 哪些作業系統可以與 Kotlin Multiplatform 協同工作？
 
@@ -130,6 +130,14 @@ Compose Multiplatform 的 Android、iOS 和桌面目標已穩定。您可以在�
 ### 我可以將 UIKit 或 SwiftUI 元件整合到 Compose 畫面中嗎？
 
 是的，您可以。請參閱 [與 SwiftUI 整合](compose-swiftui-integration.md) 和 [與 UIKit 整合](compose-uikit-integration.md)。
+
+<!-- Need to revise
+### What happens when my mobile OS updates and introduces new platform capabilities?
+
+You can use them in platform-specific parts of your codebase once Kotlin supports them. We do our best to support them
+in the upcoming Kotlin version. All new Android capabilities provide Kotlin or Java APIs, and wrappers over iOS APIs are
+generated automatically.
+-->
 
 ### 當我的行動作業系統更新並更改系統元件的視覺樣式或行為時會發生什麼？
 

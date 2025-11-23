@@ -145,7 +145,7 @@ C++는 1985년 C 프로그래밍 언어의 확장으로 처음 출시된 범용 
 
 ![Kotlin Multiplatform 사례 연구](kmp-case-studies.png){width="700"}
 
-[![Kotlin Multiplatform 실제 사용 사례 살펴보기](kmp-use-cases-1.svg){width="500" style="block"}](case-studies.topic)
+[![Kotlin Multiplatform 실제 사용 사례 살펴보기](kmp-use-cases-1.svg){width="500" style="block"}](https://kotlinlang.org/case-studies/?type=multiplatform)
 
 **5. 언어 생태계**
 

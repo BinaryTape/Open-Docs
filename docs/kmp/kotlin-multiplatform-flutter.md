@@ -144,7 +144,7 @@ Compose Multiplatform 目前在 [iOS](https://blog.jetbrains.com/kotlin/2025/05/
 
 [![探索全球公司利用 Kotlin Multiplatform 进行跨平台开发的真实用例。](kmp-use-cases-1.svg){width="500"}](https://www.jetbrains.com/help/kotlin-multiplatform-dev/case-studies.html)
 
-您还可以查看 Google 的博客文章[《让开发者更轻松地进行跨平台开发》](https://developers.googleblog.com/en/making-development-across-platforms-easier-for-developers/)，其中提供了关于为您的项目选择正确技栈的指导。
+您还可以查阅 Google 的博客文章[《让开发者更轻松地进行跨平台开发》](https://developers.googleblog.com/en/making-development-across-platforms-easier-for-developers/)，其中提供了关于为您的项目选择正确技栈的指导。
 
 如果您正在寻找 Kotlin Multiplatform 和 Flutter 之间的额外比较，您还可以观看 Philipp Lackner 的[《KMP vs. Flutter》视频](https://www.youtube.com/watch?v=dzog64ENKG0)。在该视频中，他就代码共享、UI 渲染、性能以及这两种技术的未来等方面分享了一些有趣的见解。
 

@@ -73,7 +73,7 @@ Kotlin Multiplatform (KMP)は、JetBrainsが開発したオープンソーステ
 
 **プログラミング言語:** Kotlin。
 
-**モバイルアプリの例:** McDonald's、Netflix、Forbes、9GAG、Cash App、Philips。[Kotlin Multiplatformの事例](case-studies.topic)について詳しく読む。
+**モバイルアプリの例:** McDonald's、Netflix、Forbes、9GAG、Cash App、Philips。[Kotlin Multiplatformの事例](https://kotlinlang.org/case-studies/?type=multiplatform)について詳しく読む。
 
 **主な機能:**
 
@@ -82,7 +82,7 @@ Kotlin Multiplatform (KMP)は、JetBrainsが開発したオープンソーステ
 *   JetBrainsによる最新の宣言型クロスプラットフォームUIフレームワークである[Compose Multiplatform](https://www.jetbrains.com/lp/compose-multiplatform/)のおかげで、開発者は完全なコード共有の柔軟性を持ち、ロジックとUIの両方を共有する能力を得られます。
 *   Androidで既にKotlinを使用している場合、コードベースに新しい言語を導入する必要はありません。Kotlinのコードと専門知識を再利用できるため、他のテクノロジーと比較してKotlin Multiplatformへの移行のリスクは低くなります。
 
-このクロスプラットフォームモバイル開発フレームワークは、リストの中で最も新しいものの一つですが、成熟したコミュニティを持っています。2023年11月、JetBrainsはこれを[Stable](https://blog.jetbrains.com/kotlin/2023/11/kotlin-multiplatform-stable/)に昇格させました。急速に成長しており、今日の市場ですでに際立った印象を与えています。定期的に更新される[ドキュメント](get-started.topic)とコミュニティサポートのおかげで、疑問に対する答えをいつでも見つけることができます。さらに、多くの[グローバル企業やスタートアップがすでにKotlin Multiplatform](case-studies.topic)を使用して、ネイティブのようなユーザーエクスペリエンスを持つマルチプラットフォームアプリを開発しています。
+このクロスプラットフォームモバイル開発フレームワークは、リストの中で最も新しいものの一つですが、成熟したコミュニティを持っています。2023年11月、JetBrainsはこれを[Stable](https://blog.jetbrains.com/kotlin/2023/11/kotlin-multiplatform-stable/)に昇格させました。急速に成長しており、今日の市場ですでに際立った印象を与えています。定期的に更新される[ドキュメント](get-started.topic)とコミュニティサポートのおかげで、疑問に対する答えをいつでも見つけることができます。さらに、多くの[グローバル企業やスタートアップがすでにKotlin Multiplatform](https://kotlinlang.org/case-studies/?type=multiplatform)を使用して、ネイティブのようなユーザーエクスペリエンスを持つマルチプラットフォームアプリを開発しています。
 
 [![Kotlin Multiplatformの旅を始めよう](kmp-journey-start.svg){width="700"}](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html)
 

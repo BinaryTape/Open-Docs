@@ -15,7 +15,7 @@ Kotlin %kotlinEapVersion% 릴리스가 출시되었습니다! 다음은 이 EAP 
 
 *   **언어**: [더 안정적이고 기본적으로 활성화된 기능, 사용되지 않는 반환 값을 위한 새로운 검사기, 컨텍스트에 민감한 해결 변경 사항](#language).
 *   **Kotlin/JVM**: [Java 25 지원](#kotlin-jvm-support-for-java-25).
-*   **Kotlin/Native**: [Swift 내보내기를 통한 상호 운용성 개선 및 제네릭 타입 경계에 대한 타입 검사가 기본적으로 활성화됨](#kotlin-native).
+*   **Kotlin/Native**: [Swift 내보내기를 통한 상호 운용성 개선](#kotlin-native-improved-interop-through-swift-export).
 *   **Kotlin/Wasm**: [완전 한정 이름 및 새로운 예외 처리 제안이 기본적으로 활성화됨](#kotlin-wasm).
 *   **Kotlin/JS**: [새로운 실험적 중단 함수 내보내기 및 `LongArray` 표현](#kotlin-js).
 *   **Gradle**: [Gradle 9.0 호환성 및 생성된 소스 등록을 위한 새로운 API](#gradle).
@@ -71,6 +71,7 @@ Kotlin %kotlinEapVersion%은 사용되지 않는 반환 값 검사기라는 새�
 fun formatGreeting(name: String): String {
     if (name.isBlank()) return "Hello, anonymous user!"
     if (!name.contains(' ')) {
+        // The checker reports a warning that this result is ignored
         // 검사기는 이 결과가 무시된다는 경고를 보고합니다.
         "Hello, " + name.replaceFirstChar(Char::titlecase) + "!"
     }
@@ -99,6 +100,7 @@ kotlin {
 예를 들어, 전체 파일을 표시할 수 있습니다:
 
 ```kotlin
+// Marks all functions and classes in this file so the checker reports unused return values
 // 이 파일의 모든 함수와 클래스를 표시하여 검사기가 사용되지 않는 반환 값을 보고합니다.
 @file:MustUseReturnValues
 
@@ -110,6 +112,7 @@ fun someFunction(): String
 또는 특정 클래스를 표시할 수 있습니다:
 
 ```kotlin
+// Marks all functions in this class so the checker reports unused return values
 // 이 클래스의 모든 함수를 표시하여 검사기가 사용되지 않는 반환 값을 보고합니다.
 @MustUseReturnValues
 class Greeter {
@@ -148,20 +151,23 @@ fun <T> MutableList<T>.addAndIgnoreResult(element: T): Boolean {
 이렇게 하려면 밑줄 구문(`_`)을 사용하는 특별한 이름 없는 변수에 결과를 할당하세요:
 
 ```kotlin
+// Non-ignorable function
 // 무시할 수 없는 함수
 fun computeValue(): Int = 42
 
 fun main() {
 
+    // Reports a warning: result is ignored
     // 경고를 보고합니다: 결과가 무시됩니다.
     computeValue()
 
+    // Suppresses the warning only at this call site with a special unused variable
     // 특별한 사용되지 않는 변수로 이 호출 위치에서만 경고를 억제합니다.
     val _ = computeValue()
 }
 ```
 
-[YouTrack](https://youtrack.jetbrains.com/issue/KT-12719)에 피드백을 주시면 감사하겠습니다. 자세한 내용은 이 기능의 [KEEP](https://github.com/Kotlin/KEEP/blob/main/proposals/KEEP-0412-unused-return-value-checker.md)을 참조하세요.
+[YouTrack](https://youtrack.jetbrains.com/issue/KT-12719)에 피드백을 주시면 감사하겠습니다. 자세한 내용은 이 기능의 [KEEP]( https://github.com/Kotlin/KEEP/blob/main/proposals/KEEP-0412-unused-return-value-checker.md)을 참조하세요.
 
 ### 컨텍스트에 민감한 해결 변경 사항
 <primary-label ref="experimental-general"/>
@@ -185,9 +191,7 @@ fun main() {
 
 Kotlin %kotlinEapVersion%부터 컴파일러는 Java 25 바이트코드를 포함하는 클래스를 생성할 수 있습니다.
 
-## Kotlin/Native
-
-### Swift 내보내기를 통한 상호 운용성 개선
+## Kotlin/Native: Swift 내보내기를 통한 상호 운용성 개선
 <primary-label ref="experimental-general"/>
 
 Kotlin %kotlinEapVersion%은 Swift 내보내기를 통해 Kotlin과 Swift 간의 상호 운용성을 더욱 개선하여,
@@ -215,7 +219,8 @@ public enum Color: Swift.CaseIterable, Swift.LosslessStringConvertible, Swift.Ra
 }
 ```
 
-Kotlin의 [`vararg`](functions.md#variable-number-of-arguments-varargs) 함수도 이제 Swift의 가변 인자 함수 매개변수에 직접 매핑됩니다.
+Kotlin의 [`vararg`](functions.md#variable-number-of-arguments-varargs) 함수도 이제 Swift의
+가변 인자 함수 매개변수(variadic function parameters)에 직접 매핑됩니다.
 
 이러한 함수를 사용하면 가변 개수의 인수를 전달할 수 있습니다. 이는 인수의 개수를 미리 알 수 없거나,
 타입을 지정하지 않고 컬렉션을 생성하거나 전달하려는 경우에 유용합니다. 예를 들어:
@@ -227,39 +232,18 @@ fun log(vararg messages: String)
 
 ```Swift
 // Swift
-func log(_ messages: String...)
+public func log(messages: Swift.String...)
 ```
 
 > 가변 인자 함수 매개변수에서 제네릭 타입은 아직 지원되지 않습니다.
 >
 {style="note"}
 
-### 디버그 모드에서 제네릭 타입 경계에 대한 타입 검사
-
-Kotlin %kotlinEapVersion%부터 디버그 모드에서 제네릭 타입 경계에 대한 타입 검사가 기본적으로 활성화되어,
-비검사 캐스트(unchecked casts)와 관련된 오류를 더 일찍 찾을 수 있도록 돕습니다. 이 변경 사항은 안전성을 개선하고 유효하지 않은
-제네릭 캐스트 디버깅을 플랫폼 전반에 걸쳐 더 예측 가능하게 만듭니다.
-
-이전에는 힙 오염(heap pollution) 및 메모리 안전성 위반으로 이어지는 비검사 캐스트가 Kotlin/Native에서 인지되지 않을 수 있었습니다.
-이제 이러한 경우 Kotlin/JVM 또는 Kotlin/JS와 유사하게 런타임 캐스트 오류로 일관되게 실패합니다. 예를 들어:
-
-```kotlin
-fun main() {
-    val list = listOf("hello")
-    val x = (list as List<Int>)[0]
-    println(x) // 이제 ClassCastException 오류를 발생시킵니다.
-}
-```
-
-이 코드는 이전에는 `6`을 출력했지만, 이제는 예상대로 디버그 모드에서 `ClassCastException` 오류를 발생시킵니다.
-
-자세한 내용은 [타입 검사 및 캐스트](typecasts.md)를 참조하세요.
-
 ## Kotlin/Wasm
 
 ### 완전 한정 이름이 기본적으로 활성화됨
 
-Kotlin/Wasm 타겟에서 완전 한정 이름(FQN)은 런타임에 기본적으로 활성화되지 않았습니다.
+Kotlin/Wasm 타겟에서 완전 한정 이름(Fully Qualified Names, FQN)은 런타임에 기본적으로 활성화되지 않았습니다.
 수동으로 `KClass.qualifiedName` 속성 지원을 활성화해야 했습니다.
 
 이전에는 클래스 이름(패키지 제외)만 접근 가능했으며, 이는 JVM에서 Wasm 타겟으로 포팅된 코드 또는
@@ -448,3 +432,15 @@ Kotlin 2.3.0 릴리스에서 해결됩니다.
 > 그룹 키 스택 트레이스에 대한 난독화 해제 매핑을 생성합니다.
 >
 {style="note"}
+
+기본적으로 매핑 파일 Gradle 태스크는 트레이스 활성화 여부와 관계없이 실행됩니다.
+빌드에 문제가 발생하는 경우 이 기능을 완전히 비활성화할 수 있습니다.
+Gradle 구성의 `composeCompiler {}` 블록에 다음 속성을 추가하세요:
+
+```kotlin
+composeCompiler {
+    includeComposeMappingFile.set(false)
+}
+```
+
+발생하는 모든 문제는 [Google IssueTracker](https://issuetracker.google.com/issues/new?component=610764&template=1424126)에 보고해 주십시오.

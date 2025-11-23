@@ -39,7 +39,7 @@
 * 降低了维护和测试成本。
 * 显著提高了团队内部的生产力。
 
-[![探索真实世界的 Kotlin Multiplatform 用例](kmp-use-cases-1.svg){width="700"}](https://www.jetbrains.com/help/kotlin-multiplatform-dev/case-studies.html)
+[![Explore real-world Kotlin Multiplatform use cases](kmp-use-cases-1.svg){width="700"}](https://www.jetbrains.com/help/kotlin-multiplatform-dev/case-studies.html)
 
 ### 2. Kotlin Multiplatform 支持广泛的平台列表
 
@@ -85,7 +85,7 @@ Quizlet 团队尝试了 JavaScript、React Native、C++、Rust 和 Go 等技术�
 
 ![Before Kotlin Multiplatform: writing all code natively](before-kotlin-multiplatform.svg){width="700"}
 
-得益于 [Compose Multiplatform](https://www.jetbrains.com/lp/compose-multiplatform/)，Kotlin Multiplatform 允许开发者共享业务逻辑、表示逻辑，甚至 UI 逻辑。
+得益于 [Compose Multiplatform](https://www.jetbrains.com/lp/compose-multiplatform/)，Kotlin Multiplatform 允许开发者共享业务逻辑、表示逻辑，或甚至 UI 逻辑。
 
 ![With Kotlin Multiplatform and Compose Multiplatform: developers can share business logic, presentation logic, or even UI logic](with-compose-multiplatform.svg){width="700"}
 
@@ -99,7 +99,7 @@ _Instabee_，一个专门为电子商务企业提供最后一公里物流服务�
 
 Compose Multiplatform 有一个官方示例，名为 [ImageViewer App](https://github.com/JetBrains/compose-multiplatform/tree/master/examples/imageviewer)，它在 Android、iOS、桌面和 Web 上运行，并集成了地图和相机等原生组件。还有一个社区示例，[New York Times App](https://github.com/xxfast/NYTimes-KMP) 克隆，它甚至可以在手表上的 Wear OS（智能手表操作系统）上运行。查看此 [Kotlin Multiplatform 和 Compose Multiplatform 示例列表](multiplatform-samples.md)以查看更多示例。
 
-[![探索 Compose Multiplatform](explore-compose.svg){width="700"}](https://www.jetbrains.com/compose-multiplatform/)
+[![Explore Compose Multiplatform](explore-compose.svg){width="700"}](https://www.jetbrains.com/compose-multiplatform/)
 
 ### 6. 您可在现有和新项目中使用 Kotlin Multiplatform
 
@@ -123,7 +123,7 @@ Compose Multiplatform 有一个官方示例，名为 [ImageViewer App](https://g
 
 ### 8. Kotlin Multiplatform 已被全球公司采用
 
-KMP 已被全球许多大型公司使用，包括 Forbes、Philips、Cash App、Meetup、Autodesk 等等。您可以在[案例研究页面](case-studies.topic)阅读他们的所有故事。
+KMP 已被全球许多大型公司使用，包括 Forbes、Philips、Cash App、Meetup、Autodesk 等等。您可以在[案例研究页面](https://kotlinlang.org/case-studies/?type=multiplatform)阅读他们的所有故事。
 
 2023 年 11 月，JetBrains 宣布 Kotlin Multiplatform 现已 [稳定 (Stable)](https://blog.jetbrains.com/kotlin/2023/11/kotlin-multiplatform-stable/)，吸引了更多公司和团队对这项技术的兴趣。
 
@@ -163,7 +163,7 @@ Kotlin Multiplatform 生态系统正在蓬勃发展。它由全球众多 Kotlin 
 *   **制定计划**。制定清晰的实验计划，假设预期结果以及实现和分析的方法。明确共享代码的贡献角色，并建立有效分发更改的工作流程。
 *   **评估并进行复盘**。与您的团队进行一次复盘会议，评估实验的成功与否，并找出任何挑战或需要改进的领域。如果实验成功，您可能希望扩大范围，共享更多代码。如果未能成功，您需要了解此次实验未成功的原因。
 
-[![查看 Kotlin Multiplatform 的实际应用！立即开始](kmp-get-started-action.svg){width="700"}](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html)
+[![See Kotlin Multiplatform in action! Get Started now](kmp-get-started-action.svg){width="700"}](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html)
 
 对于那些希望帮助团队开始使用 Kotlin Multiplatform 的人，我们准备了一份包含实用技巧的[详细指南](multiplatform-introduce-your-team.md)。
 

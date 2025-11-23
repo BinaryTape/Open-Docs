@@ -85,7 +85,7 @@
   "kotlin.kotlin-overview": "Kotlinの概要",
   "kotlin.what-s-new-in-kotlin": "Kotlinの新機能",
   "kotlin.whatsnew22": "Kotlin 2.2.0",
-  "kotlin.whatsnew-eap": "Kotlin 2.3.0-Beta2",
+  "kotlin.whatsnew-eap": "Kotlin 2.3.0-RC",
   "kotlin.earlier-versions": "以前のバージョン",
   "kotlin.whatsnew2120": "Kotlin 2.1.20",
   "kotlin.whatsnew21": "Kotlin 2.1.0",
@@ -514,7 +514,7 @@
   "koog.event-handlers": "イベントハンドラー",
   "kmp.kmp-tooling": "KMPツーリング",
   "kotlin.compose-multiplatform-material3": "Compose Multiplatform Material3",
-  "kmp.whats-new-compose-110": "Compose Multiplatform 1.10.0-beta01",
+  "kmp.whats-new-compose-110": "Compose Multiplatform 1.10.0-beta02",
   "kmp.earlier-versions": "以前のバージョン",
   "kotlin.language-guide": "言語ガイド",
   "kotlin.basic-syntax": "概要",
@@ -582,5 +582,7 @@
   "kotlin.compatibility-guide-14": "互換性ガイド",
   "kotlin.kotlin-1-3-x": "Kotlin 1.3.x",
   "kotlin.compatibility-guide-13": "互換性ガイド",
-  "koog.llm-parameters": "LLMパラメーター"
+  "koog.llm-parameters": "LLMパラメーター",
+  "sqldelight.fts5-virtual-tables": "FTS5 Virtual Tables",
+  "kmp.case-studies": "ケーススタディ"
 }

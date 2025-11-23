@@ -1,4 +1,4 @@
-[//]: # (title: Compose Multiplatform 1.10.0-beta01 の新機能)
+[//]: # (title: Compose Multiplatform 1.10.0-beta02 の新機能)
 
 このEAP機能リリースでの主なハイライトは以下のとおりです。
  * [`@Preview`アノテーションの統合](#unified-preview-annotation)
@@ -9,26 +9,41 @@
 
 ## 依存関係
 
-* Gradleプラグイン `org.jetbrains.compose`、バージョン `1.10.0-beta01`。Jetpack Composeライブラリに基づいています。
-    * [Runtime 1.10.0-beta01](https://developer.android.com/jetpack/androidx/releases/compose-runtime#1.10.0-beta01)
-    * [UI 1.10.0-beta01](https://developer.android.com/jetpack/androidx/releases/compose-ui#1.10.0-beta01)
-    * [Foundation 1.10.0-beta01](https://developer.android.com/jetpack/androidx/releases/compose-foundation#1.10.0-beta01)
-    * [Material 1.10.0-beta01](https://developer.android.com/jetpack/androidx/releases/compose-material#1.10.0-beta01)
-    * [Material3 1.4.0](https://developer.android.com/jetpack/androidx/releases/compose-material3#1.4.0)
+* Gradleプラグイン `org.jetbrains.compose`、バージョン `1.10.0-beta02`。Jetpack Composeライブラリに基づいています。
+    * [Runtime 1.10.0-beta02](https://developer.android.com/jetpack/androidx/releases/compose-runtime#1.10.0-beta02)
+    * [UI 1.10.0-beta02](https://developer.android.com/jetpack/androidx/releases/compose-ui#1.10.0-beta02)
+    * [Foundation 1.10.0-beta02](https://developer.android.com/jetpack/androidx/releases/compose-foundation#1.10.0-beta02)
+    * [Material 1.10.0-beta02](https://developer.android.com/jetpack/androidx/releases/compose-material#1.10.0-beta02)
+    * [Material3 1.5.0-alpha08](https://developer.android.com/jetpack/androidx/releases/compose-material3#1.5.0-alpha08)
 
-* Compose Material3ライブラリ `org.jetbrains.compose.material3:material3*:1.10.0-alpha04`。[Jetpack Compose Material3 1.5.0-alpha07](https://developer.android.com/jetpack/androidx/releases/compose-material3#1.5.0-alpha07)に基づいています。
+* Compose Material3ライブラリ `org.jetbrains.compose.material3:material3*:1.10.0-alpha05`。[Jetpack Compose Material3 1.5.0-alpha08](https://developer.android.com/jetpack/androidx/releases/compose-material3#1.5.0-alpha08)に基づいています。
 
   [エクスプレッシブテーマ](whats-new-compose-190.md#material-3-expressive-theme)を使用するには、Material 3の実験的バージョンを含めます。
     ```kotlin
     implementation("org.jetbrains.compose.material3:material3:1.9.0-alpha04")
     ```
-* Compose Material3 Adaptiveライブラリ `org.jetbrains.compose.material3.adaptive:adaptive*:1.3.0-alpha01`。[Jetpack Compose Material3 Adaptive 1.3.0-alpha02](https://developer.android.com/jetpack/androidx/releases/compose-material3-adaptive#1.3.0-alpha02)に基づいています。
-* Lifecycleライブラリ `org.jetbrains.androidx.lifecycle:lifecycle-*:2.10.0-alpha04`。[Jetpack Lifecycle 2.10.0-beta01](https://developer.android.com/jetpack/androidx/releases/lifecycle#2.10.0-beta01)に基づいています。
+* Compose Material3 Adaptiveライブラリ `org.jetbrains.compose.material3.adaptive:adaptive*:1.3.0-alpha02`。[Jetpack Compose Material3 Adaptive 1.3.0-alpha03](https://developer.android.com/jetpack/androidx/releases/compose-material3-adaptive#1.3.0-alpha03)に基づいています。
+* Lifecycleライブラリ `org.jetbrains.androidx.lifecycle:lifecycle-*:2.10.0-alpha05`。[Jetpack Lifecycle 2.10.0-rc01](https://developer.android.com/jetpack/androidx/releases/lifecycle#2.10.0-rc01)に基づいています。
 * Navigationライブラリ `org.jetbrains.androidx.navigation:navigation-*:2.9.1`。[Jetpack Navigation 2.9.4](https://developer.android.com/jetpack/androidx/releases/navigation#2.9.4)に基づいています。
-* Navigation 3ライブラリ `org.jetbrains.androidx.navigation:navigation3-*:1.0.0-alpha04`。[Jetpack Navigation 3](https://developer.android.com/jetpack/androidx/releases/navigation3#1.0.0-beta01)に基づいています。
-* Navigation Eventライブラリ `org.jetbrains.androidx.navigationevent:navigationevent-compose:1.0.0-beta01`。[Jetpack Navigation Event 1.0.0-beta01](https://developer.android.com/jetpack/androidx/releases/navigationevent#1.0.0-beta01)に基づいています。
-* Savedstateライブラリ `org.jetbrains.androidx.savedstate:savedstate*:1.4.0-beta01`。[Jetpack Savedstate 1.4.0-rc01](https://developer.android.com/jetpack/androidx/releases/savedstate#1.4.0-rc01)に基づいています。
-* WindowManager Coreライブラリ `org.jetbrains.androidx.window:window-core:1.5.0-rc01`。[Jetpack WindowManager 1.5.0](https://developer.android.com/jetpack/androidx/releases/window#1.5.0)に基づいています。
+* Navigation 3ライブラリ `org.jetbrains.androidx.navigation3:navigation3-*:1.0.0-alpha05`。[Jetpack Navigation3 1.0.0-rc01](https://developer.android.com/jetpack/androidx/releases/navigation3#1.0.0-rc01)に基づいています。
+* Navigation Eventライブラリ `org.jetbrains.androidx.navigationevent:navigationevent-compose:1.0.0-beta02`。[Jetpack Navigation Event 1.0.0-rc01](https://developer.android.com/jetpack/androidx/releases/navigationevent#1.0.0-rc01)に基づいています。
+* Savedstateライブラリ `org.jetbrains.androidx.savedstate:savedstate*:1.4.0-rc01`。[Jetpack Savedstate 1.4.0](https://developer.android.com/jetpack/androidx/releases/savedstate#1.4.0)に基づいています。
+* WindowManager Coreライブラリ `org.jetbrains.androidx.window:window-core:1.5.0`。[Jetpack WindowManager 1.5.0](https://developer.android.com/jetpack/androidx/releases/window#1.5.0)に基づいています。
+
+## 破壊的変更
+
+### 非推奨の依存関係エイリアス
+
+Compose Multiplatform Gradleプラグイン（`compose.ui`など）によってサポートされている依存関係エイリアスは、1.10.0-beta01リリースで非推奨となりました。
+バージョンカタログに直接ライブラリ参照を追加することをお勧めします。
+具体的な参照は、対応する非推奨通知で提案されています。
+
+この変更により、Compose Multiplatformライブラリの依存関係管理がもう少し透過的になるはずです。
+将来的には、互換性のあるバージョンの設定を簡素化するために、Compose Multiplatform用のBOMを提供したいと考えています。
+
+### Webの最小Kotlinバージョンが引き上げられました
+
+プロジェクトにWebターゲットが含まれている場合、最新の機能を使用するにはKotlin 2.2.21へのアップグレードが必要です。
 
 ## クロスプラットフォーム
 
@@ -63,6 +78,13 @@ Compose Multiplatform 1.10.0-beta01は、Android以外のターゲットで新�
 * [ブラウザの履歴ナビゲーション](compose-navigation-routing.md#support-for-browser-navigation-in-web-apps)とアドレスバーでのデスティネーションの使用のサポートは、Compose Multiplatform 1.10ではNavigation 3に拡張されません。
   これはマルチプラットフォームライブラリの今後のバージョンに延期されました。
 
+### インターロップビューの自動サイズ調整
+
+Compose Multiplatformは、デスクトップとiOSの両方でネイティブのインターロップ要素の自動サイズ調整をサポートするようになりました。これらの要素は、コンテンツに基づいてレイアウトを調整できるようになり、正確なサイズを手動で計算したり、固定寸法を事前に指定したりする必要がなくなります。
+
+* デスクトップでは、`SwingPanel`は組み込みコンポーネントの最小サイズ、推奨サイズ、最大サイズに基づいて、自動的にサイズを調整します。
+* iOSでは、UIKitインターロップビューがビューの適合サイズ（固有のコンテンツサイズ）に応じたサイズ調整をサポートするようになりました。これにより、SwiftUIビュー（`UIHostingController`経由）や`NSLayoutConstraints`に依存しない基本的な`UIView`サブクラスの適切なラッピングが可能になります。
+
 ### Skiaがマイルストーン138に更新されました
 
 Compose MultiplatformでSkikoを介して使用されるSkiaのバージョンが、マイルストーン138に更新されました。
@@ -78,10 +100,9 @@ Compose Multiplatformは、ステータスバー、ナビゲーションバー�
 
 この新しいウィンドウインセット管理アプローチでは、プラットフォーム固有のウィンドウインセットデータを取得するために単一の実装を使用します。
 これは、`WindowInsets`と`WindowInsetsRulers`の両方が、インセットを一貫して管理するための共通メカニズムを使用することを意味します。
-したがって、`LocalLayoutMargins`、`LocalSafeArea`、`LocalKeyboardOverlapHeight`、`LocalInterfaceOrientation`などのプラットフォーム固有のローカルは、新しい統合APIに置き換えられました。
 
->以前は、`WindowInsets.Companion.captionBar`には`@Composable`属性が付与されていませんでした。プラットフォーム間での動作を合わせるため、`@Composable`属性を追加しました。
->
+> 以前は、`WindowInsets.Companion.captionBar`には`@Composable`属性が付与されていませんでした。プラットフォーム間での動作を合わせるため、`@Composable`属性を追加しました。
+> 
 {style="note"}
 
 ### IME構成の改善
@@ -93,11 +114,30 @@ Compose Multiplatformは、ステータスバー、ナビゲーションバー�
  * `UIResponder.inputView` は、デフォルトのシステムキーボードを置き換えるカスタム入力ビューを指定します。
  * `UIResponder.inputAccessoryView` は、IMEアクティベーション時にシステムキーボードまたはカスタム`inputView`にアタッチするカスタムアクセサリビューを定義します。
 
+### インターロップビューのオーバーレイ配置
+<primary-label ref="Experimental"/>
+
+実験的な`placedAsOverlay`フラグを使用すると、`UIKitView`および`UIKitViewController`ビューをCompose UIの上に配置できるようになりました。
+このフラグにより、インターロップビューは透明な背景とネイティブのシェーダーエフェクトをサポートできます。
+
+インターロップビューをオーバーレイとしてレンダリングするには、`@OptIn(ExperimentalComposeUiApi::class)`アノテーションを使用し、`UIKitInteropProperties`で`placedAsOverlay`パラメーターを`true`に設定します。
+
+```kotlin
+UIKitViewController(
+    modifier = modifier,
+    update = {},
+    factory = { factory.createNativeMap() },
+    properties = UIKitInteropProperties(placedAsOverlay = true)
+)
+```
+
+この構成はビューをCompose UIレイヤーの上にレンダリングすることに留意してください。結果として、同じ領域にある他のコンポーザブルを視覚的に覆い隠します。
+
 ## デスクトップ
 
 ### Compose Hot Reloadの統合
 
-Compose Hot Reloadプラグインが、Compose Multiplatform Gradleプラグインにバンドルされるようになりました。
+Compose Hot Reloadプラグインは、Compose Multiplatform Gradleプラグインにバンドルされるようになりました。
 デスクトップをターゲットとするCompose Multiplatformプロジェクトではデフォルトで有効になっているため、Hot Reloadプラグインを別途設定する必要がなくなりました。
 
 Compose Hot Reloadプラグインを明示的に宣言しているプロジェクトに対する影響は以下のとおりです。
@@ -105,47 +145,9 @@ Compose Hot Reloadプラグインを明示的に宣言しているプロジェ�
  * Compose Multiplatform Gradleプラグインによって提供されるバージョンを使用するため、宣言を安全に削除できます。
  * 特定のバージョン宣言を保持することを選択した場合、バンドルされたバージョンではなく、そのバージョンが使用されます。
 
-> バンドルされているCompose Hot Reload Gradleプラグインは、Compose Multiplatformプロジェクトに必要なKotlinバージョンを2.1.20に引き上げます。
->
-{style="warning"}
-
-### `SwingPanel`の自動サイズ調整
-
-`SwingPanel`は、コンテンツの最小サイズ、推奨サイズ、最大サイズに基づいて、自動的にサイズを調整するようになりました。
-これにより、正確なサイズを計算したり、事前に固定寸法を指定したりする必要がなくなります。
-
-```kotlin
-val label = JLabel("Hello Swing!")
-
-singleWindowApplication {
-    SwingPanel(factory = { label })
-
-    LaunchedEffect(Unit) {
-        delay(500)
-        // Grows the text
-        repeat(2) { 
-            label.text = "#${label.text}#"
-            delay(200)
-        }
-        // Shrinks the text
-        repeat(2) { 
-            label.text = label.text.substring(1, label.text.length - 1)
-            delay(200)
-        }
-    }
-}
-```
+バンドルされているCompose Hot Reload Gradleプラグインの最小Kotlinバージョンは2.1.20です。これより古いKotlinバージョンが検出された場合、ホットリロード機能は無効になります。
 
 ## Gradle
-
-### 非推奨の依存関係エイリアス
-
-Compose Multiplatform Gradleプラグインによってサポートされている依存関係エイリアス（`compose.ui`など）は、1.10.0-beta01リリースで非推奨となりました。
-バージョンカタログに直接ライブラリ参照を追加することを推奨します。
-具体的な参照は、対応する非推奨通知で提案されています。
-
-この変更により、Compose Multiplatformライブラリの依存関係管理がもう少し透過的になるはずです。
-将来的には、互換性のあるバージョンの設定を簡素化するために、Compose Multiplatform用のBOMを提供したいと考えています。
 
 ### AGP 9.0.0のサポート
 

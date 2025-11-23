@@ -66,7 +66,7 @@ GitHub 계정을 사용하여 네임스페이스를 생성하는 것은 도메�
 2.  표시된 **Verification Key**를 복사합니다.
 3.  인증 키를 내용으로 하는 새 TXT DNS 레코드를 생성합니다.
 
-    다양한 도메인 등록기관에서 이 작업을 수행하는 방법에 대한 자세한 내용은 [Maven Central의 FAQ](https://central.sonatype.com/faq/how-to-set-txt-record/)를 참조하세요.
+    다양한 도메인 등록기관에서 이 작업을 수행하는 방법에 대한 자세한 내용은 [Maven Central의 FAQ](https://central.sonatype.org/faq/how-to-set-txt-record/)를 참조하세요.
 4.  Maven Central로 돌아가서 **Verify Namespace** 버튼을 클릭합니다. 확인에 성공하면 생성했던 TXT 레코드를 삭제할 수 있습니다.
 
 </TabItem>
@@ -101,7 +101,7 @@ Kotlin Gradle 플러그인에는 키 쌍을 생성하는 데 사용할 수 있�
 
 서명을 관리할 수 있는 `gpg` 도구는 [GnuPG 웹사이트](https://gnupg.org/download/index.html)에서 사용할 수 있습니다. [Homebrew](https://brew.sh/)와 같은 패키지 관리자를 사용하여 설치할 수도 있습니다.
 
-```bash
+```bash 
 brew install gpg
 ```
 
@@ -207,7 +207,7 @@ Kotlin Gradle 플러그인에는 공개 키를 업로드하는 데 사용할 수
 </TabItem>
 <TabItem title="gpg 도구 사용" group-key="gpg">
 
-Maven Central에서 공개 키를 수락하려면 [키 서버에 공개 키를 업로드](https://central.sonatype.com/publish/requirements/gpg/#distributing-your-public-key)해야 합니다. 여러 키 서버가 있으며, `keyserver.ubuntu.com`을 기본 선택으로 사용하겠습니다.
+Maven Central에서 공개 키를 수락하려면 [키 서버에 공개 키를 업로드](https://central.sonatype.org/publish/requirements/gpg/#distributing-your-public-key)해야 합니다. 여러 키 서버가 있으며, `keyserver.ubuntu.com`을 기본 선택으로 사용하겠습니다.
 
 `gpg`를 사용하여 공개 키를 업로드하려면 다음 명령어를 실행하고, 매개변수에 **자신의 키 ID를 대체**하세요.
 
@@ -217,15 +217,16 @@ gpg --keyserver keyserver.ubuntu.com --send-keys F175482952A225BFC4A07A715EE6B5F
 
 **개인 키 내보내기** {id="export-your-private-key"}
 
-Gradle 프로젝트가 개인 키에 접근할 수 있도록 하려면, 개인 키를 바이너리 파일로 내보내야 합니다. 키를 생성할 때 사용한 암호를 입력하라는 메시지가 나타날 것입니다.
+Gradle 프로젝트가 개인 키에 접근할 수 있도록 하려면, 개인 키를 파일로 내보내야 합니다.
+키를 생성할 때 사용한 암호를 입력하라는 메시지가 나타날 것입니다.
 
 다음 명령어를 사용하고, 매개변수로 **자신의 키 ID를 전달**하세요.
 
 ```bash
-gpg --no-armor --export-secret-keys F175482952A225BFC4A07A715EE6B5F76620B385CE > key.gpg
+gpg --armor --export-secret-keys F175482952A225BFC4A07A715EE6B5F76620B385CE > key.gpg
 ```
 
-이 명령어는 개인 키가 포함된 `key.gpg` 바이너리 파일을 생성합니다(`--armor` 플래그는 키의 일반 텍스트 버전만 생성하므로 사용하지 않도록 주의하세요).
+이 명령어는 개인 키가 포함된 `key.gpg` 텍스트 파일을 생성합니다.
 
 > 개인 키 파일은 절대로 누구와도 공유하지 마세요. 개인 키는 여러분의 자격 증명으로 파일에 서명할 수 있도록 하므로, 오직 여러분만 접근할 수 있어야 합니다.
 > 

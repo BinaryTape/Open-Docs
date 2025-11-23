@@ -240,7 +240,7 @@ fun main() {
 *   [`shuffle()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/shuffle.html) 而不是 `shuffled()`。
 *   [`reverse()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/reverse.html) 而不是 `reversed()`。
 
-在可变 list 上调用的 [`asReversed()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/as-reversed.html) 返回另一个可变 list，它是原始 list 的反向视图。该视图中的更改会反映在原始 list 中。以下示例展示了可变 list 的排序函数：
+[`asReversed()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/as-reversed.html) 在可变 list 上调用时，返回另一个可变 list，它是原始 list 的反向视图。该视图中的更改会反映在原始 list 中。以下示例展示了可变 list 的排序函数：
 
 ```kotlin
 

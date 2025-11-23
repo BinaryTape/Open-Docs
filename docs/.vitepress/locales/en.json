@@ -51,7 +51,7 @@
   "kotlin.kotlin-overview": "Kotlin overview",
   "kotlin.what-s-new-in-kotlin": "What's new in Kotlin",
   "kotlin.whatsnew22": "Kotlin 2.2.0",
-  "kotlin.whatsnew-eap": "Kotlin 2.3.0-Beta2",
+  "kotlin.whatsnew-eap": "Kotlin 2.3.0-RC",
   "kotlin.earlier-versions": "Earlier versions",
   "kotlin.whatsnew2120": "Kotlin 2.1.20",
   "kotlin.whatsnew21": "Kotlin 2.1.0",
@@ -481,7 +481,7 @@
   "koog.event-handlers": "Event handlers",
   "kmp.kmp-tooling": "KMP tooling",
   "kotlin.compose-multiplatform-material3": "Compose Multiplatform Material3",
-  "kmp.whats-new-compose-110": "Compose Multiplatform 1.10.0-beta01",
+  "kmp.whats-new-compose-110": "Compose Multiplatform 1.10.0-beta02",
   "kmp.earlier-versions": "Earlier versions",
   "kotlin.language-guide": "Language guide",
   "kotlin.basic-syntax": "Overview",
@@ -549,5 +549,7 @@
   "kotlin.compatibility-guide-14": "Compatibility guide",
   "kotlin.kotlin-1-3-x": "Kotlin 1.3.x",
   "kotlin.compatibility-guide-13": "Compatibility guide",
-  "koog.llm-parameters": "LLM parameters"
+  "koog.llm-parameters": "LLM parameters",
+  "sqldelight.fts5-virtual-tables": "FTS5 Virtual Tables",
+  "kmp.case-studies": "Case studies"
 }

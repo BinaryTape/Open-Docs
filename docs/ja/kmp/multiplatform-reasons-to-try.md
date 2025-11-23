@@ -132,7 +132,7 @@ JetBrainsでは、Kotlin Multiplatformに関する調査を頻繁に実施し、
 
 ### 8. Kotlin Multiplatformはすでに世界中の企業で採用されている
 
-KMPは、Forbes、Philips、Cash App、Meetup、Autodeskなど、世界中の多くの大企業ですでに使用されています。彼らのすべての事例は、[事例紹介ページ](case-studies.topic)で読むことができます。
+KMPは、Forbes、Philips、Cash App、Meetup、Autodeskなど、世界中の多くの大企業ですでに使用されています。彼らのすべての事例は、[事例紹介ページ](https://kotlinlang.org/case-studies/?type=multiplatform)で読むことができます。
 
 2023年11月、JetBrainsはKotlin Multiplatformが[Stable](https://blog.jetbrains.com/kotlin/2023/11/kotlin-multiplatform-stable/)になったことを発表し、より多くの企業やチームがこのテクノロジーに関心を持つようになりました。
 

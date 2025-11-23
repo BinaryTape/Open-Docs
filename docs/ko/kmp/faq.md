@@ -36,7 +36,7 @@
 
 ### 실제 코틀린 멀티플랫폼 애플리케이션 목록은 어디서 찾을 수 있나요? 어떤 회사에서 KMP를 프로덕션 환경에서 사용하나요?
 
-코틀린 멀티플랫폼을 이미 프로덕션 환경에 도입한 다른 회사들로부터 배우려면 [성공 사례 목록](case-studies.topic)을 확인해 보세요.
+코틀린 멀티플랫폼을 이미 프로덕션 환경에 도입한 다른 회사들로부터 배우려면 [성공 사례 목록](https://kotlinlang.org/case-studies/?type=multiplatform)을 확인해 보세요.
 
 ### 어떤 운영 체제에서 코틀린 멀티플랫폼과 함께 작업할 수 있나요?
 
@@ -53,7 +53,7 @@ iOS 전용 코드를 작성하고 iOS 애플리케이션을 시뮬레이터나 �
 
 Swift에서 중단 함수와 Flow를 호출하는 현재 가장 좋은 방법은 [KMP-NativeCoroutines](https://github.com/rickclephas/KMP-NativeCoroutines)와 같은 플러그인 및 라이브러리를 Swift의 `async`/`await` 또는 Combine 및 RxSwift와 같은 라이브러리와 함께 사용하는 것입니다.
 
-현재 KMP-NativeCoroutines는 더 많이 시도되고 검증된 솔루션이며, Swift의 `async`/`await`, Combine 및 RxSwift와 같은 동시성 처리 방식을 지원합니다. SKIE는 설정이 더 쉽고 간결합니다. 예를 들어, 코틀린 `Flow`를 Swift `AsyncSequence`에 직접 매핑합니다. 이 두 라이브러리 모두 코루틴의 적절한 취소를 지원합니다.
+현재 KMP-NativeCoroutines는 더 많이 시도되고 검증된 솔루션이며, Swift의 `async`/`await`, Combine 및 RxSwift와 같은 동시성 처리 방식을 지원합니다. SKIE는 설정이 더 쉽고 간결합니다. 예를 들어, 코틀린 `Flow`를 Swift `AsyncSequence`에 직접 매핑합니다. 이 두 라이브러리 모두 코루틴의 적절한 취소를 지원합니다. 
 
 사용 방법을 배우려면 [iOS와 Android 간에 더 많은 로직 공유](multiplatform-upgrade-app.md)를 참조하세요.
 
@@ -86,7 +86,7 @@ Swift에서 중단 함수와 Flow를 호출하는 현재 가장 좋은 방법은
 
 ### 어떤 플랫폼 간에 UI를 공유할 수 있나요?
 
-Android, iOS, 데스크톱(Linux, macOS, Windows) 및 웹(Wasm 기반)을 포함하여 인기 있는 플랫폼의 모든 조합 간에 UI를 공유할 수 있는 옵션을 제공하고자 합니다. 컴포즈 멀티플랫폼은 현재 Android, iOS, 데스크톱에 대해서만 Stable 상태입니다. 자세한 내용은 [지원되는 플랫폼](supported-platforms.md)을 참조하세요.
+저희는 인기 있는 플랫폼의 모든 조합(Android, iOS, 데스크톱(Linux, macOS, Windows), 웹(Wasm 기반)) 간에 UI를 공유할 수 있는 옵션을 제공하고자 합니다. 컴포즈 멀티플랫폼은 현재 Android, iOS, 데스크톱에 대해서만 Stable 상태입니다. 자세한 내용은 [지원되는 플랫폼](supported-platforms.md)을 참조하세요.
 
 ### 컴포즈 멀티플랫폼을 프로덕션 환경에서 사용할 수 있나요?
 
@@ -139,6 +139,14 @@ Material의 테마 기능(theming capabilities)을 사용하여 색상, 글꼴 �
 
 네, 가능합니다. [SwiftUI 통합](compose-swiftui-integration.md) 및 [UIKit 통합](compose-uikit-integration.md)을 참조하세요.
 
+<!-- Need to revise
+### What happens when my mobile OS updates and introduces new platform capabilities?
+
+You can use them in platform-specific parts of your codebase once Kotlin supports them. We do our best to support them
+in the upcoming Kotlin version. All new Android capabilities provide Kotlin or Java APIs, and wrappers over iOS APIs are
+generated automatically.
+-->
+
 ### 모바일 OS가 업데이트되어 시스템 컴포넌트의 시각적 스타일이나 동작이 변경되면 어떻게 되나요?
 
 모든 컴포넌트가 캔버스에 그려지기 때문에 OS 업데이트 후에도 UI는 동일하게 유지됩니다. 화면에 네이티브 iOS 컴포넌트를 포함하는 경우, 업데이트가 해당 모양에 영향을 미칠 수 있습니다.
@@ -159,7 +167,7 @@ Material의 테마 기능(theming capabilities)을 사용하여 색상, 글꼴 �
 
 ### 코틀린 및 컴포즈 멀티플랫폼의 웹 타겟에 대한 향후 지원은 어떻게 되나요?
 
-현재 WebAssembly (Wasm)에 자원을 집중하고 있으며, 이는 큰 잠재력을 보여주고 있습니다. 새로운 [코틀린/Wasm 백엔드](https://kotlinlang.org/docs/wasm-overview.html)와 Wasm 기반 [컴포즈 멀티플랫폼 for 웹](https://kotl.in/wasm-compose-example)을 실험해 볼 수 있습니다.
+저희는 현재 WebAssembly (Wasm)에 자원을 집중하고 있으며, 이는 큰 잠재력을 보여주고 있습니다. 새로운 [코틀린/Wasm 백엔드](https://kotlinlang.org/docs/wasm-overview.html)와 Wasm 기반 [컴포즈 멀티플랫폼 for 웹](https://kotl.in/wasm-compose-example)을 실험해 볼 수 있습니다.
 
 JS 타겟의 경우, 코틀린/JS 백엔드는 이미 Stable 상태에 도달했습니다. 컴포즈 멀티플랫폼에서는 리소스 제약으로 인해 JS Canvas에서 Wasm으로 초점을 전환했습니다. Wasm이 더 큰 가능성을 지닌다고 믿기 때문입니다.
 

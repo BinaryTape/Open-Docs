@@ -1,6 +1,6 @@
 [//]: # (title: Kotlin 和 Compose Multiplatform 的實際應用：真實世界案例)
 
-<web-summary>探索 Kotlin Multiplatform 與 Compose Multiplatform 如何在真實世界的專案中用於生產環境。探索實用的使用案例及範例。</web-summary>
+<web-summary>探索 Kotlin Multiplatform 搭配 Compose Multiplatform 如何在真實世界的專案中用於生產環境。探索實用的使用案例及範例。</web-summary>
 
 > 隨著全球大大小小的公司採用 Kotlin Multiplatform (KMP) 搭配 Compose Multiplatform，這項技術已成為建構和擴展現代化跨平台應用程式的可靠解決方案。
 > 
@@ -46,9 +46,10 @@ KMP 也支援一種彈性方法，可以逐步引入跨平台功能。這使得�
 
 大型應用程式通常擁有龐大的程式碼庫，不斷有新功能加入，並且複雜的業務邏輯必須在所有平台上以相同的方式運作。Kotlin Multiplatform 提供漸進式整合，允許團隊逐步採用。由於開發人員可以重複使用其現有的 Kotlin 技能，使用 KMP 也使他們免於引入新的技術棧。
 
-**案例研究：** [Forbes](https://www.forbes.com/sites/forbes-engineering/2023/11/13/forbes-mobile-app-shifts-to-kotlin-multiplatform/), [McDonald’s](https://medium.com/mcdonalds-technical-blog/mobile-multiplatform-development-at-mcdonalds-3b72c8d44ebc), [Google Docs](https://www.youtube.com/watch?v=5lkZj4v4-ks), [Philips](https://www.youtube.com/watch?v=hZPL8QqiLi8), [VMware](https://medium.com/vmware-end-user-computing/adopting-a-cross-platform-strategy-for-mobile-apps-59495ffa23b0), [Cash App](https://kotlinlang.org/lp/multiplatform/case-studies/cash-app?_gl=1*1qc1ixl*_gcl_aw*R0NMLjE3NTEzNTcwMDguRUFJYUlRb2JDaE1JblBLRmc0cWJqZ01WZ0VnZENSM3pYQkVWRUFFWUFTQUFFZ0ltOVBEX0J3RQ..*_gcl_au*MTE5NzY3MzgyLjE3NDk3MDk0NjI.*FPAU*MTE5NzY3MzgyLjE3NDk3MDk0NjI.*_ga*MTM4NjAyOTM0NS4xNzM2ODUwMzA5*_ga_9J976DJZ68*czE3NTE1MjQ2MDUkbzcxJGcxJHQxNzUxNTI3Njc5JGozJGwwJGgw), [Wonder App by Baidu](https://kotlinlang.org/lp/multiplatform/case-studies/baidu)
+**案例研究：** [Forbes](https://www.forbes.com/sites/forbes-engineering/2023/11/13/forbes-mobile-app-shifts-to-kotlin-multiplatform/), [McDonald’s](https://medium.com/mcdonalds-technical-blog/mobile-multiplatform-development-at-mcdonalds-3b72c8d44ebc), [Google Docs](https://www.youtube.com/watch?v=5lkZj4v4-ks), [Philips](https://www.youtube.com/watch?v=hZPL8QqiLi8), [VMware](https://medium.com/vmware-end-user-computing/adopting-a-cross-platform-strategy-for-mobile-apps-59495ffa23b0), [Cash App](https://kotlinlang.org/lp/multiplatform/case-studies/cash-app?_gl=1*1qc1ixl*_gcl_aw*R0NMLjE3NTEzNTcwMDguRUFJYUlRb2JDaE1JblBLRmc0cWJqZ01WZ0VnZENSM3pYQkVWRUFFWUFTQUFFZ0ltOVBEX0J3RQ..*_gcl_au*MTE5NzY3MzgyLjE3NDk3MDk0NjI.*FPAU*MTE5NzY3MzgyLjE3NDk3MDk0NjI.*_ga*MTM4NjAyOTM0NS4xNzM2ODUwMzA5*_ga_9J976DJZ68*czE3NTE1MjQ2MDUkbzcxJGcxJHQxNzUxNTI3Njc5JGozJGwwJGgw), 
+[Wonder App by Baidu](https://kotlinlang.org/lp/multiplatform/case-studies/baidu)
 
-[![Learn from KMP success stories](kmp-success-stories.svg){width="700"}{style="block"}](case-studies.topic)
+[![從 KMP 成功案例中學習](kmp-success-stories.svg){width="700"}{style="block"}](https://kotlinlang.org/case-studies/?type=multiplatform)
 
 ### 代理商
 
@@ -99,19 +100,21 @@ Kotlin Multiplatform 的多功能性從其在各行各業中廣泛用於生產�
 
 叫車、外送和出行平台透過在他們的司機、乘客和商家應用程式中共享共同功能，從 Kotlin Multiplatform 中受益。像即時追蹤、路線最佳化或應用程式內聊天等服務的核心邏輯可以編寫一次，並在 Android 和 iOS 上使用，從而保證所有使用者的一致行為。
 
-**案例研究：** [Bolt](https://medium.com/vmware-end-user-computing/adopting-a-cross-platform-strategy-for-mobile-apps-59495ffa23b0), [Feres](case-studies.topic#case-study-feres)
+**案例研究：** [Bolt](https://medium.com/vmware-end-user-computing/adopting-a-cross-platform-strategy-for-mobile-apps-59495ffa23b0), 
+[Feres](https://kotlinlang.org/case-studies/#case-study-feres)
 
 ### 教育科技
 
 教育應用程式必須在行動和網路平台上提供無縫且一致的學習體驗，尤其是在支援龐大、分散的使用者群時。透過使用 Kotlin Multiplatform 集中學習演算法、測驗和其他業務邏輯，教育應用程式在每個裝置上都能提供統一的學習體驗。這種程式碼共享可以顯著提升效能和一致性——例如，Quizlet 將其共享程式碼從 JavaScript 遷移到 Kotlin 後，其 Android 和 iOS 應用程式都看到了顯著的速度提升。
 
-**案例研究：** [Duolingo](https://youtu.be/RJtiFt5pbfs?si=mFpiN9SNs8m-jpFL), [Quizlet](https://quizlet.com/blog/shared-code-kotlin-multiplatform), [Chalk](https://kotlinlang.org/lp/multiplatform/case-studies/chalk/?_gl=1*1wxmdrv*_gcl_au*MTE5NzY3MzgyLjE3NDk3MDk0NjI.*FPAU*MTE5NzY3MzgyLjE3NDk3MDk0NjI.*_ga*MTM4NjAyOTM0NS4xNzM2ODUwMzA5*_ga_9J976DJZ68*czE3NTEwMjI5ODAkbzYwJGcxJHQxNzUxMDIzMTU2JGo1OCRsMCRoMA..), [Memrise](https://engineering.memrise.com/kotlin-multiplatform-memrise-3764b5a4a0db), [Physics Wallah](case-studies.topic#case-study-physics-wallah)
+**案例研究：** [Duolingo](https://youtu.be/RJtiFt5pbfs?si=mFpiN9SNs8m-jpFL), [Quizlet](https://quizlet.com/blog/shared-code-kotlin-multiplatform), [Chalk](https://kotlinlang.org/lp/multiplatform/case-studies/chalk/?_gl=1*1wxmdrv*_gcl_au*MTE5NzY3MzgyLjE3NDk3MDk0NjI.*FPAU*MTE5NzY3MzgyLjE3NDk3MDk0NjI.*_ga*MTM4NjAyOTM0NS4xNzM2ODUwMzA5*_ga_9J976DJZ68*czE3NTEwMjI5ODAkbzYwJGcxJHQxNzUxMDIzMTU2JGo1OCRsMCRoMA..), [Memrise](https://engineering.memrise.com/kotlin-multiplatform-memrise-3764b5a4a0db), 
+[Physics Wallah](https://kotlinlang.org/case-studies/#case-study-physics-wallah)
 
 ### 電子商務
 
 建構跨平台購物體驗意味著平衡共享業務邏輯與原生功能，例如支付、相機存取和地圖。Kotlin Multiplatform 搭配 Compose Multiplatform 使團隊能夠在各平台間共享業務邏輯和 UI，同時在需要時仍可使用特定平台的組件。這種混合方法確保了更快的開發速度、一致的使用者體驗，以及整合關鍵原生功能的靈活性。
 
-**案例研究：** [Balary Market](case-studies.topic#case-study-balary), [Markaz](case-studies.topic#case-study-markaz)
+**案例研究：** [Balary Market](https://kotlinlang.org/case-studies/#case-study-balary), [Markaz](https://kotlinlang.org/case-studies/#case-study-markaz)
 
 ### 社群網路與社區
 
@@ -123,7 +126,7 @@ Kotlin Multiplatform 的多功能性從其在各行各業中廣泛用於生產�
 
 無論是引導瑜伽課程還是跨裝置同步健康數據，健康應用程式都依賴於響應能力和可靠的跨平台行為。這些應用程式通常需要共享核心功能，例如運動邏輯和數據處理，同時保持完全原生的 UI 和特定平台的整合，例如感測器、通知或健康 API。
 
-**案例研究：** [Respawn Pro](https://youtu.be/LB5a2FRrT94?si=vgcJI-XoCrWree3u), [Fast&amp;Fit](case-studies.topic#case-study-fast-and-fit), [Philips](https://www.youtube.com/watch?v=hZPL8QqiLi8), [Down Dog](https://kotlinlang.org/lp/multiplatform/case-studies/down-dog/?_gl=1*1ryf8m7*_gcl_au*MTE5NzY3MzgyLjE3NDk3MDk0NjI.*FPAU*MTE5NzY3MzgyLjE3NDk3MDk0NjI.*_ga*MTM4NjAyOTM0NS4xNzM2ODUwMzA5*_ga_9J976DJZ68*czE3NTEyNzEzNzckbzYyJGcxJHQxNzUxMjcxMzgzJGo1NCRsMCRoMA..)
+**案例研究：** [Respawn Pro](https://youtu.be/LB5a2FRrT94?si=vgcJI-XoCrWree3u), [Fast&amp;Fit](https://kotlinlang.org/case-studies/#case-study-fast-and-fit), [Philips](https://www.youtube.com/watch?v=hZPL8QqiLi8), [Down Dog](https://kotlinlang.org/lp/multiplatform/case-studies/down-dog)
 
 ### 郵政服務
 
@@ -131,4 +134,4 @@ Kotlin Multiplatform 的多功能性從其在各行各業中廣泛用於生產�
 
 **案例研究：** [Posten Bring](https://2024.javazone.no/program/a1d9aeac-ffc3-4b1d-ba08-a0568f415a02)
 
-這些範例突顯了 Kotlin Multiplatform 如何在幾乎任何產業或應用程式類型中使用。無論您是在建構金融科技應用程式、出行解決方案、教育平台還是其他什麼，Kotlin Multiplatform 都提供了靈活性，讓您可以根據專案需求共享盡可能多的程式碼，而不會犧牲原生體驗。您還可以查閱[KMP 案例研究](case-studies.topic)的完整列表，其中展示了許多其他在生產環境中使用該技術的公司。
+這些範例突顯了 Kotlin Multiplatform 如何在幾乎任何產業或應用程式類型中使用。無論您是在建構金融科技應用程式、出行解決方案、教育平台還是其他什麼，Kotlin Multiplatform 都提供了靈活性，讓您可以根據專案需求共享盡可能多的程式碼，而不會犧牲原生體驗。您還可以查閱 [KMP 案例研究](https://kotlinlang.org/case-studies/?type=multiplatform) 的完整列表，其中展示了許多其他在生產環境中使用該技術的公司。

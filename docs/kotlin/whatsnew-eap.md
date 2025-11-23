@@ -13,9 +13,9 @@ _[发布时间：%kotlinEapReleaseDate%](eap.md#build-details)_
 
 Kotlin %kotlinEapVersion% 版本已发布！以下是此 EAP 版本的一些详细信息：
 
-*   **语言**：[更稳定和默认的特性、新的无用返回值检测器以及上下文敏感解析的变更](#language)。
+*   **语言**：[更稳定和默认启用的特性、新的无用返回值检测器以及上下文敏感解析的变更](#language)。
 *   **Kotlin/JVM**：[支持 Java 25](#kotlin-jvm-support-for-java-25)。
-*   **Kotlin/Native**：[通过 Swift 导出改进互操作性以及泛型类型边界上的类型检测默认启用](#kotlin-native)。
+*   **Kotlin/Native**：[通过 Swift 导出改进互操作性](#kotlin-native-improved-interop-through-swift-export)。
 *   **Kotlin/Wasm**：[完全限定名称和新的异常处理提案默认启用](#kotlin-wasm)。
 *   **Kotlin/JS**：[新的实验性的挂起函数导出和 `LongArray` 表示](#kotlin-js)。
 *   **Gradle**：[与 Gradle 9.0 的兼容性以及用于注册生成源代码的新 API](#gradle)。
@@ -182,9 +182,7 @@ fun main() {
 
 从 Kotlin %kotlinEapVersion% 开始，编译器可以生成包含 Java 25 字节码的类。
 
-## Kotlin/Native
-
-### 通过 Swift 导出改进互操作性
+## Kotlin/Native：通过 Swift 导出改进互操作性
 <primary-label ref="experimental-general"/>
 
 Kotlin %kotlinEapVersion% 通过 Swift 导出进一步改进了 Kotlin 与 Swift 的互操作性，新增对原生枚举类和可变参数函数的支持。
@@ -222,32 +220,12 @@ fun log(vararg messages: String)
 
 ```Swift
 // Swift
-func log(_ messages: String...)
+public func log(messages: Swift.String...)
 ```
 
 > 可变参数函数中的泛型类型尚不支持。
 >
 {style="note"}
-
-### 调试模式下泛型类型边界上的类型检测
-
-从 Kotlin %kotlinEapVersion% 开始，泛型类型边界上的类型检测默认在调试模式下启用，
-帮助您更早地发现与未经检测的类型转换相关的错误。此变更提高了安全性，并使跨平台的无效泛型类型转换调试更具可预测性。
-
-以前，导致堆污染和内存安全违规的未经检测的类型转换可能在 Kotlin/Native 中未被发现。
-现在，此类情况会一致地导致运行时类型转换错误，类似于 Kotlin/JVM 或 Kotlin/JS。例如：
-
-```kotlin
-fun main() {
-    val list = listOf("hello")
-    val x = (list as List<Int>)[0]
-    println(x) // Now throws a ClassCastException error
-}
-```
-
-此代码过去会打印 `6`；现在它在调试模式下会抛出 `ClassCastException` 错误，符合预期。
-
-关于更多信息，请参见 [类型检测和类型转换](typecasts.md)。
 
 ## Kotlin/Wasm
 
@@ -267,7 +245,7 @@ fun main() {
 此变更不会增加编译后的 Wasm 二进制文件的大小，这得益于编译器优化，
 它通过使用紧凑存储 Latin-1 字符串字面量来减少元数据。
 
-### 新的异常处理提案默认启用 `wasmWasi` 目标平台
+### 新的异常处理提案默认启用 `wasmWasi`
 
 以前，Kotlin/Wasm 对所有目标平台，包括 [`wasmWasi`](wasm-overview.md#kotlin-wasm-and-wasi)，
 都使用 [旧版异常处理提案](https://github.com/WebAssembly/exception-handling/blob/master/proposals/exception-handling/legacy/Exceptions.md)。
@@ -375,7 +353,8 @@ Kotlin %kotlinEapVersion% 在
 该 API 对于生成代码的第三方插件或工具也特别有用，例如 [KSP](ksp-overview.md) (Kotlin Symbol Processing)。
 
 要注册包含 Kotlin 或 Java 文件的目录，请在您的 `build.gradle(.kts)` 文件中使用
-`SourceDirectorySet` 类型的 `generatedKotlin` 属性。例如：
+[`SourceDirectorySet`](https://docs.gradle.org/current/kotlin-dsl/gradle/org.gradle.api.file/-source-directory-set/index.html)
+类型的 `generatedKotlin` 属性。例如：
 
 ```kotlin
 val generatorTask = project.tasks.register("generator") {
@@ -443,3 +422,14 @@ Jetpack Compose 1.10 在此模式下生成的堆栈轨迹仅包含尚待反混�
 > 才为组键堆栈轨迹创建反混淆映射。
 >
 {style="note"}
+
+默认情况下，无论您是否启用跟踪，映射文件 Gradle 任务都会运行。如果它们在您的构建中导致问题，
+您可以完全禁用此特性。请在 Gradle 配置的 `composeCompiler {}` 代码块中添加以下属性：
+
+```kotlin
+composeCompiler {
+    includeComposeMappingFile.set(false)
+}
+```
+
+请将遇到的任何问题报告给 [Google IssueTracker](https://issuetracker.google.com/issues/new?component=610764&template=1424126)。

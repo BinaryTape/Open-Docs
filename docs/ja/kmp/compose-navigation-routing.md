@@ -38,7 +38,7 @@ Jetpack Composeと同様に、ナビゲーションを実装するには、次�
 `RESUMED`は「確定済み」とも表現されます。新しい画面が準備され、アクティブになった時点でナビゲーションは完了したと見なされます。
 Compose Multiplatformにおける現在の実装の詳細については、[ライフサイクル](compose-lifecycle.md)ページをご覧ください。
 
-## Webアプリケーションでのブラウザナビゲーションのサポート
+## Webアプリでのブラウザナビゲーションのサポート
 <primary-label ref="Experimental"/>
 
 Web向けのCompose Multiplatformは、共通のNavigationライブラリAPIを完全にサポートしており、さらにブラウザからのナビゲーション入力をアプリが受け取れるようにします。
@@ -63,7 +63,7 @@ fun App(
     }
 }
 
-//wasmJsMain source set
+//jsMain source set
 @OptIn(ExperimentalComposeUiApi::class)
 @ExperimentalBrowserHistoryApi
 fun main() {
@@ -75,7 +75,7 @@ fun main() {
     }
 }
 
-//jsMain source set
+//wasmJsMain source set
 @OptIn(ExperimentalComposeUiApi::class)
 @ExperimentalBrowserHistoryApi
 fun main() {
@@ -142,14 +142,14 @@ internal fun App(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center
             ) {
-                Text("Starting screen")
-                // Button that opens the 'Id' screen with a suitable parameter
+                Text("開始画面")
+                // 適切なパラメーターで'Id'画面を開くボタン
                 Button(onClick = { navController.navigate(Id(222)) }) {
-                    Text("Pass 222 as a parameter to the ID screen")
+                    Text("ID画面に222をパラメーターとして渡す")
                 }
-                // Button that opens the 'Patient' screen with suitable parameters
+                // 適切なパラメーターで'Patient'画面を開くボタン
                 Button(onClick = { navController.navigate(Patient( "Jane Smith-Baker", 33)) }) {
-                    Text("Pass 'Jane Smith-Baker' and 33 to the Person screen")
+                    Text("「Jane Smith-Baker」と33をPerson画面に渡す")
                 }
             }
         }
@@ -200,9 +200,8 @@ fun main() {
                         }
                         route.startsWith(Patient.serializer().descriptor.serialName) -> {
                             val args = entry.toRoute<Patient>()
-                            // 対応するURLフラグメントを
-                            // "#org.company.app.Patient%2FJane%2520Smith-Baker%2F33" の代わりに
-                            // "#patient_Jane%20Smith-Baker_33" に設定する
+                            // 対応するURLフラグメントを "#org.company.app.Patient%2FJane%2520Smith-Baker%2F33"
+                            // の代わりに "#patient_Jane%20Smith-Baker_33" に設定する
                             "#patient_${args.name}_${args.age}"
                         }
                         // その他のすべてのルートにはURLフラグメントを設定しない

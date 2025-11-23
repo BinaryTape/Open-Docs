@@ -40,13 +40,13 @@
         <th>构建亮点</th>
     </tr>
     <tr>
-        <td><strong>2.3.0-Beta2</strong>
-            <p>发布时间：<strong>October 28, 2025</strong></p>
-            <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.3.0-Beta2" target="_blank">在 GitHub 上发布</a></p>
+        <td><strong>2.3.0-RC</strong>
+            <p>发布时间：<strong>November 18, 2025</strong></p>
+            <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.3.0-RC" target="_blank">在 GitHub 上发布</a></p>
         </td>
         <td>
             <p>一个语言版本，包含新特性预览和工具链更新。</p>
-            <p>有关更多详情，请参见 <a href="https://github.com/JetBrains/kotlin/releases/tag/v2.3.0-Beta2">更新日志</a> 或 <a href="whatsnew-eap.md">Kotlin 2.3.0-Beta2 的新特性</a>。</p>
+            <p>有关更多详情，请参见 <a href="https://github.com/JetBrains/kotlin/releases/tag/v2.3.0-RC">更新日志</a> 或 <a href="whatsnew-eap.md">Kotlin 2.3.0-RC 的新特性</a>。</p>
         </td>
     </tr>
 </table>

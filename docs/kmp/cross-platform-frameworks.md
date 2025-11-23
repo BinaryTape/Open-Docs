@@ -51,7 +51,7 @@ React Native 是一个开源 UI 软件框架，由 Meta Platforms（前身为 Fa
 **主要特性：**
 
 *   借助 Fast Refresh 特性，开发者可以立即看到其 React 组件中的更改。
-*   React Native 的优势之一是侧重于 UI。React 原语渲染为原生平台 UI 组件，让您能够构建定制化和响应式用户界面。
+*   React Native 的优势之一是侧重于 UI。React 原语渲染为原生平台 UI 组件，让您能够构建定制化和反应式用户界面。
 *   在 0.62 及更高版本中，React Native 与移动应用调试器 Flipper 之间的集成默认启用。Flipper 用于调试 Android、iOS 和 React Native 应用，它提供了日志查看器、交互式布局检查器和网络检查器等工具。
 
 作为最热门的跨平台应用开发框架之一，React Native 拥有庞大而强大的开发者社区，他们分享自己的技术知识。借助这个社区，您在用该框架构建移动应用时可以获得所需的支持。
@@ -62,7 +62,7 @@ Kotlin Multiplatform (KMP) 是 JetBrains 构建的一项开源技术，它允许
 
 **编程语言：** Kotlin。
 
-**移动应用示例：** 麦当劳、Netflix、福布斯、9GAG、Cash App、飞利浦。[参阅更多 Kotlin Multiplatform 案例研究](case-studies.topic)。
+**移动应用示例：** 麦当劳、Netflix、福布斯、9GAG、Cash App、飞利浦。[关于 Kotlin Multiplatform 案例研究请参阅更多](https://kotlinlang.org/case-studies/?type=multiplatform)。
 
 **主要特性：**
 
@@ -71,7 +71,7 @@ Kotlin Multiplatform (KMP) 是 JetBrains 构建的一项开源技术，它允许
 *   借助 [Compose Multiplatform](https://www.jetbrains.com/lp/compose-multiplatform/)（JetBrains 推出的一款现代声明式跨平台 UI 框架），开发者拥有完整的代码共享灵活性，并能够同时共享逻辑和 UI。
 *   如果您已经将 Kotlin 用于 Android，则无需将新语言引入您的代码库。您可以重用您的 Kotlin 代码和专业知识，这使得迁移到 Kotlin Multiplatform 的风险低于其他技术。
 
-尽管这款跨平台移动开发框架是我们列表中最年轻的框架之一，但它拥有一个成熟的社区。2023 年 11 月，JetBrains 将其提升为[稳定版](https://blog.jetbrains.com/kotlin/2023/11/kotlin-multiplatform-stable/)。它正在快速发展，并已在当今市场留下深刻印象。凭借其定期更新的[文档](get-started.topic)和社区支持，您总能找到问题的答案。更重要的是，许多[全球公司和初创企业已经使用 Kotlin Multiplatform](case-studies.topic) 来开发具有类似原生用户体验的多平台应用。
+尽管这款跨平台移动开发框架是我们列表中最年轻的框架之一，但它拥有一个成熟的社区。2023 年 11 月，JetBrains 将其提升为[稳定版](https://blog.jetbrains.com/kotlin/2023/11/kotlin-multiplatform-stable/)。它正在快速发展，并已在当今市场留下深刻印象。凭借其定期更新的[文档](get-started.topic)和社区支持，您总能找到问题的答案。更重要的是，许多[全球公司和初创企业已经使用 Kotlin Multiplatform](https://kotlinlang.org/case-studies/?type=multiplatform) 来开发具有类似原生用户体验的多平台应用。
 
 [![开启您的 Kotlin Multiplatform 之旅](kmp-journey-start.svg){width="700"}](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html)
 
@@ -145,7 +145,7 @@ NativeScript 基于 JavaScript 和 Angular 等知名 Web 技术，这就是许�
 
 #### 4. 框架成熟度
 
-了解潜在框架的公共 API 和工具变化的频繁程度。例如，对原生操作系统组件的一些更改会破坏内部跨平台行为。最好意识到在使用移动应用开发框架时可能面临的挑战。您还可以浏览 GitHub 并检测该框架有多少错误以及这些错误如何处理。
+查明潜在框架的公共 API 和工具变化的频繁程度。例如，对原生操作系统组件的一些更改会破坏内部跨平台行为。最好意识到在使用移动应用开发框架时可能面临的挑战。您还可以浏览 GitHub 并检测该框架有多少错误以及这些错误如何处理。
 
 #### 5. 框架能力
 
@@ -153,7 +153,7 @@ NativeScript 基于 JavaScript 和 Angular 等知名 Web 技术，这就是许�
 
 #### 6. 安全性
 
-在构建关键业务移动应用时，例如包含支付系统的银行和电子商务应用，安全性和隐私尤为重要。根据 [OWASP 移动十大安全风险](https://owasp.org/www-project-mobile-top-10/)，移动应用程序最关键的安全风险包括不安全的数据存储和认证/授权。
+在构建关键业务移动应用时，例如包含支付系统的银行和电子商务应用，安全性和隐私尤为重要。根据 [OWASP Mobile Top 10](https://owasp.org/www-project-mobile-top-10/)，移动应用程序最关键的安全风险包括不安全的数据存储和认证/授权。
 
 您需要确保您选择的多平台移动开发框架提供所需的安全级别。一种方法是浏览框架问题追踪器上的安全工单（如果它有公开可用的）。
 

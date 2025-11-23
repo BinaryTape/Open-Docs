@@ -4,7 +4,7 @@
 
 ### Kotlin Multiplatformとは何ですか？
 
-[Kotlin Multiplatform](https://www.jetbrains.com/kotlin-multiplatform/) (KMP)は、JetBrainsが提供する柔軟なクロスプラットフォーム開発のためのオープンソース技術です。様々なプラットフォーム向けにアプリケーションを作成し、ネイティブプログラミングの利点を維持しながら、コードを効率的に再利用できます。Kotlin Multiplatformを使用すると、Android、iOS、デスクトップ、ウェブ、サーバーサイド、その他のプラットフォーム向けにアプリを開発できます。
+[Kotlin Multiplatform](https://www.jetbrains.com/kotlin-multiplatform/) (KMP)は、JetBrainsが提供する、柔軟なクロスプラットフォーム開発のためのオープンソース技術です。様々なプラットフォーム向けにアプリケーションを作成し、ネイティブプログラミングの利点を維持しながら、コードを効率的に再利用できます。Kotlin Multiplatformを使用すると、Android、iOS、デスクトップ、ウェブ、サーバーサイド、その他のプラットフォーム向けにアプリを開発できます。
 
 ### Kotlin MultiplatformでUIを共有できますか？
 
@@ -34,7 +34,7 @@ Kotlin Multiplatformプロジェクトでの作業には、Android Studio IDEを
 
 ### 実際のKotlin Multiplatformアプリケーションのリストはどこで見つけられますか？どの企業が本番環境でKMPを使用していますか？
 
-[ケーススタディのリスト](case-studies.topic)を確認して、すでに本番環境でKotlin Multiplatformを採用している他の企業から学びましょう。
+[ケーススタディのリスト](https://kotlinlang.org/case-studies/?type=multiplatform)を確認して、すでに本番環境でKotlin Multiplatformを採用している他の企業から学びましょう。
 
 ### Kotlin Multiplatformはどのオペレーティングシステムで動作しますか？
 
@@ -82,7 +82,7 @@ Compose Multiplatformは、Googleが開発したAndroid UIフレームワーク�
 
 ### どのプラットフォーム間でUIを共有できますか？
 
-Android、iOS、デスクトップ（Linux、macOS、Windows）、ウェブ（Wasmベース）といった人気のプラットフォームの任意の組み合わせ間でUIを共有するオプションを提供したいと考えています。Compose Multiplatformは現時点ではAndroid、iOS、デスクトップでのみStableです。詳細については、[サポートされているプラットフォーム](supported-platforms.md)を参照してください。
+人気のプラットフォームの任意の組み合わせ – Android、iOS、デスクトップ（Linux、macOS、Windows）、およびウェブ（Wasmベース）間でUIを共有するオプションを提供したいと考えています。Compose Multiplatformは現時点ではAndroid、iOS、デスクトップでのみStableです。詳細については、[サポートされているプラットフォーム](supported-platforms.md)を参照してください。
 
 ### Compose Multiplatformを本番環境で使用できますか？
 

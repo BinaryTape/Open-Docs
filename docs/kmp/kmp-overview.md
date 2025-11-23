@@ -16,7 +16,7 @@ Kotlin Multiplatform 有助于简化技术和组织流程：
 
 除了更快的上市时间，**55%** 的用户表示在采用 KMP 后协作得到了改善，**65%** 的团队报告性能和质量有所提升（来自 KMP 2024 年第二季度调查）。
 
-KMP 已被各种规模的组织投入生产使用，从初创公司到全球企业。诸如 Google、Duolingo、Forbes、Philips、McDonald's、Bolt、H&M、百度、快手和Bilibili等公司已经采用 KMP，因为它具备灵活性、原生性能、提供原生用户体验的能力、成本效益以及对渐进式采用的支持。[了解更多已采用 KMP 的公司](case-studies.topic)。
+KMP 已被各种规模的组织投入生产使用，从初创公司到全球企业。诸如 Google、Duolingo、Forbes、Philips、McDonald's、Bolt、H&M、百度、快手和Bilibili等公司已经采用 KMP，因为它具备灵活性、原生性能、提供原生用户体验的能力、成本效益以及对渐进式采用的支持。[了解更多已采用 KMP 的公司](https://kotlinlang.org/case-studies/?type=multiplatform)。
 
 ### 代码共享的灵活性
 
@@ -42,19 +42,19 @@ Kotlin Multiplatform 利用 [Kotlin/Native](https://kotlinlang.org/docs/native-o
 
 ### 无缝工具链
 
-IntelliJ IDEA 和 Android Studio 通过 [Kotlin Multiplatform IDE 插件](https://plugins.jetbrains.com/plugin/14936-kotlin-multiplatform) 为 KMP 提供智能 IDE 支持，包括共同的 UI 预览、[Compose Multiplatform 的热重载](compose-hot-reload.md)、跨语言导航、重构以及在 Kotlin 和 Swift 代码之间进行调试。
+IntelliJ IDEA 和 Android Studio 通过 [Kotlin Multiplatform IDE plugin](https://plugins.jetbrains.com/plugin/14936-kotlin-multiplatform) 为 KMP 提供智能 IDE 支持，包括共同的 UI 预览、[Compose Multiplatform 的热重载](compose-hot-reload.md)、跨语言导航、重构以及在 Kotlin 和 Swift 代码之间进行调试。
 
 <video src="https://youtu.be/ACmerPEQAWA" width="700"/>
 
 ### AI 驱动的开发
 
-让 JetBrains 的 AI 编码代理 [Junie](https://jetbrains.com/junie) 处理 KMP 任务，从而让你的团队更快地推进。
+让 [Junie](https://jetbrains.com/junie)，JetBrains 的 AI 编码代理，处理 KMP 任务，从而让你的团队更快地推进。
 
 ## 探索 Kotlin Multiplatform 的用例
 
 了解公司和开发者如何已经从共享 Kotlin 代码中获益：
 
-*   了解公司如何在他们的代码库中成功采用 KMP，请访问我们的[案例研究页面](case-studies.topic)。
+*   了解公司如何在他们的代码库中成功采用 KMP，请访问我们的[案例研究页面](https://kotlinlang.org/case-studies/?type=multiplatform)。
 *   查看我们的[精选示例列表](multiplatform-samples.md)中各种示例应用程序，以及 GitHub 的 [kotlin-multiplatform-sample](https://github.com/topics/kotlin-multiplatform-sample) 主题。
 *   在 [klibs.io](https://klibs.io/) 上已有的数千个多平台库中搜索特定库。
 

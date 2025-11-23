@@ -27,7 +27,7 @@
 この記事では、クロスプラットフォーム開発に適した定評のあるプログラミング言語に焦点を当てます。さまざまな目的のために設計された多くの言語がありますが、このセクションでは、クロスプラットフォーム開発で最も人気のあるプログラミング言語の一部を、関連する統計とそれらをサポートするフレームワークとともに簡潔に概説します。
 
 <table style="header-row">
-    
+
 <tr>
 <td>言語</td>
         <td>初出</td>
@@ -37,7 +37,6 @@
         <td>テクノロジー/フレームワーク</td>
 </tr>
 
-    
 <tr>
 <td>JavaScript</td>
         <td>1995</td>
@@ -47,7 +46,6 @@
         <td>React Native, Ionic</td>
 </tr>
 
-    
 <tr>
 <td>Dart</td>
         <td>2011</td>
@@ -57,7 +55,6 @@
         <td>Flutter</td>
 </tr>
 
-    
 <tr>
 <td>Kotlin</td>
         <td>2011</td>
@@ -67,7 +64,6 @@
         <td>Kotlin Multiplatform</td>
 </tr>
 
-    
 <tr>
 <td>C#</td>
         <td>2000</td>
@@ -77,7 +73,6 @@
         <td>.NET MAUI</td>
 </tr>
 
-    
 <tr>
 <td>C++</td>
         <td>1985</td>
@@ -145,13 +140,13 @@ C++は、Cプログラミング言語の拡張として1985年に初めてリリ
 
 ![Kotlin Multiplatform Case Studies](kmp-case-studies.png){width="700"}
 
-[![Explore Real-World Kotlin Multiplatform Use Cases](kmp-use-cases-1.svg){width="500" style="block"}](case-studies.topic)
+[![Explore Real-World Kotlin Multiplatform Use Cases](kmp-use-cases-1.svg){width="500" style="block"}](https://kotlinlang.org/case-studies/?type=multiplatform)
 
 **5. 言語エコシステム**
 
 もう1つの重要な要素は、言語のエコシステムの成熟度です。マルチプラットフォーム開発をサポートするツールやライブラリの利用可能性と品質に注意を払ってください。例えば、JavaScriptには、フロントエンドフレームワーク（React、Angular、Vue.js）、バックエンド開発（Express、NestJS）、その他幅広い機能性をサポートする膨大な数のライブラリがあります。
 
-同様に、Flutterには、パッケージやプラグインとしても知られる、重要かつ急速に増加している数のライブラリがあります。Kotlin Multiplatformは現在ライブラリの数が少ないものの、そのエコシステムは急速に成長しており、世界中の多くのKotlin開発者によって言語が強化されています。以下のインフォグラフィックは、Kotlin Multiplatformライブラリの数が年々どのように増加しているかを示しています。
+同様に、Flutterには、パッケージやプラグインとしても知られる、重要かつ急速に増加している数のライブラリがあります。Kotlin Multiplatformは現在ライブラリの数が少ないものの、そのエコシステムは急速に成長しており、世界中の多くのKotlin開発者によって言語が強化されています。以下のインフォグラフィックは、Kotlin Multiplatformライブラリの数が年々どのように増加しているかを示します。
 
 ![Kotlin Multiplatform Libraries Over Years](kmp-libs-over-years.png){width="700"}
 

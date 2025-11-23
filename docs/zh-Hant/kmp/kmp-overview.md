@@ -16,7 +16,7 @@ Kotlin Multiplatform 有助於簡化技術和組織流程：
 
 除了更快的上市時間外，**55%** 的使用者表示採用 KMP 後協作有所改善，**65%** 的團隊表示效能和品質有所提升（根據 2024 年第二季 KMP 調查）。
 
-KMP 正在被從新創公司到全球企業的各種規模組織在生產環境中使用。Google、Duolingo、Forbes、Philips、McDonald's、Bolt、H&M、Baidu、Kuaishou 和 Bilibili 等公司已採用 KMP，因為其具備彈性、原生效能、提供原生使用者體驗的能力、成本效益以及對逐步採用的支援。[進一步了解採用 KMP 的公司](case-studies.topic)。
+KMP 正在被從新創公司到全球企業的各種規模組織在生產環境中使用。Google、Duolingo、Forbes、Philips、McDonald's、Bolt、H&M、Baidu、Kuaishou 和 Bilibili 等公司已採用 KMP，因為其具備彈性、原生效能、提供原生使用者體驗的能力、成本效益以及對逐步採用的支援。[進一步了解採用 KMP 的公司](https://kotlinlang.org/case-studies/?type=multiplatform)。
 
 ### 程式碼共用的彈性
 
@@ -55,7 +55,7 @@ IntelliJ IDEA 和 Android Studio 透過 [Kotlin Multiplatform IDE 外掛程式](
 
 看看公司和開發人員如何享受共用 Kotlin 程式碼帶來的好處：
 
-*   在我們的[案例研究頁面](case-studies.topic)了解公司如何在程式碼庫中成功採用 KMP。
+*   在我們的[案例研究頁面](https://kotlinlang.org/case-studies/?type=multiplatform)了解公司如何在程式碼庫中成功採用 KMP。
 *   在我們的[精選範例列表](multiplatform-samples.md)以及 GitHub 的 [kotlin-multiplatform-sample](https://github.com/topics/kotlin-multiplatform-sample) 主題中查看各種範例應用程式。
 *   在 [klibs.io](https://klibs.io/) 上數千個已有的函式庫中搜尋特定的多平台函式庫。
 

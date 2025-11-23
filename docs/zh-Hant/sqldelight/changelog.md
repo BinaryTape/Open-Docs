@@ -2,7 +2,9 @@
 
 ## 未發布
 
-尚無內容！
+### 新增
+- [Gradle 外掛程式] 使 `SqlDelightWorkerTask` 更具可配置性，並更新預設配置以支援在 Windows 上開發 (#5215 by @MSDarwish2000)
+- [SQLite 變體] 新增對 FTS5 虛擬表格中合成欄位的支援 (#5986 by @watbe)
 
 ## [2.2.1] - 2025-11-13
 [2.2.1]: https://github.com/sqldelight/sqldelight/releases/tag/2.2.1
@@ -117,7 +119,7 @@
 ### 變更
 - [IDE 外掛程式] 最低版本為 2023.1 / Android Studio Iguana
 - [編譯器] 允許覆寫 encapsulatingType 中的型別空值性 (#4882 by @eygraber)
-- [編譯器] 對於 SELECT * 內聯欄位名稱
+- [編譯器] SELECT * 內聯欄位名稱
 - [Gradle 外掛程式] 切換到 processIsolation (#5068 by @nwagu)
 - [Android 執行期] 將 Android minSDK 提高到 21 (#5094 by @hfhbd)
 - [驅動程式] 為變體作者公開更多 JDBC/R2DBC 陳述式方法 (#5098 by @hfhbd)
@@ -138,7 +140,7 @@
 - [SQLite 變體] 修正 4897 sqlite 變更表格重新命名欄位 (#4899 by @griffio)
 - [IDE 外掛程式] 修正錯誤處理程式崩潰 (#4988 by @aperfilyev)
 - [IDE 外掛程式] BugSnag 在 IDEA 2023.3 中初始化失敗 (by @aperfilyev)
-- [IDE 外掛程式] PluginException 在 IntelliJ 中透過外掛程式開啟 .sq 檔案時發生 (by @aperfilyev)
+- [IDE 外掛程式] 在 IntelliJ 中透過外掛程式開啟 .sq 檔案時發生 PluginException (by @aperfilyev)
 - [IDE 外掛程式] 不要將 Kotlin 函式庫捆綁到 IntelliJ 外掛程式中，因為它已經是外掛程式的依賴項 (#5126)
 - [IDE 外掛程式] 使用擴充功能陣列而不是串流 (#5127)
 
@@ -157,7 +159,7 @@
 - [PostgreSQL 變體] 將 DATE PostgreSQL 型別新增到 min 和 max 聚合函式 (#4816 by @anddani)
 - [PostgreSQL 變體] 將 PostgreSql 時間型別新增到 SqlBinaryExpr (#4657 by @griffio)
 - [PostgreSQL 變體] 新增 TRUNCATE 到 postgres 變體 (#4817 by @de-luca)
-- [SQLite 3.35 變體] 允許依序評估多個 ON CONFLICT 子句 (#4551 by @eygraber)
+- [SQLite 3.35 變體] 允許依序評估多個 ON CONFLICT 子句 (#4551 by @griffio)
 - [JDBC 驅動程式] 新增語言註釋以實現更愉快的 SQL 編輯 (#4602 by @MariusVolkhart)
 - [原生驅動程式] 原生驅動程式：新增對 linuxArm64 的支援 (#4792 by @hfhbd)
 - [Android 驅動程式] 為 AndroidSqliteDriver 新增 `windowSizeBytes` 參數 (#4804 by @BoD)
@@ -186,7 +188,7 @@
 - [PostgreSQL 變體] 修正 4837 變更表格變更欄位 (#4846 by @griffio)
 - [PostgreSQL 變體] 修正 4501 PostgreSql 序列 (#4528 by @griffio)
 - [SQLite 變體] 允許 JSON 二進位運算子用於欄位表達式 (#4776 by @eygraber)
-- [SQLite 變體] 修正 Update From 因名稱找到多個欄位而導致的誤報 (#4777 by @eygraber)
+- [SQLite 變體] Update From 因名稱找到多個欄位而導致的誤報 (#4777 by @eygraber)
 - [原生驅動程式] 支援具名記憶體內資料庫 (#4662 by @05nelsonm)
 - [原生驅動程式] 確保查詢監聽器集合的執行緒安全 (#4567 by @kpgalligan)
 - [JDBC 驅動程式] 修正 ConnectionManager 中的連接洩漏 (#4589 by @MariusVolkhart)
@@ -598,7 +600,7 @@ sqldelight {
 
 ### 新增
 - [JDBC 驅動程式] 開放 JdbcDriver 以支援第三方驅動程式實作 (#2672 by @hfhbd)
-- [MySQL 變體] 新增時間增量函式 (#2671 by @sdoward)
+- [MySQL 變體] 新增缺失的時間增量函式 (#2671 by @sdoward)
 - [Coroutines 擴充功能] 為 coroutines-extensions 新增 M1 目標 (by @PhilipDukhov)
 
 ### 變更
@@ -747,7 +749,7 @@ sqldelight {
 - [IDE 外掛程式] 確保我們不會嘗試負數子字串 (#2068)
 - [IDE 外掛程式] 另外確保專案在執行 Gradle 動作之前未被銷毀 (#2155)
 - [IDE 外掛程式] 可空型別的算術運算也應為可空 (#1853)
-- [IDE 外掛程式] 使「展開 * 意圖」適用於額外的投影 (#2173 by @aperfilyev)
+- [IDE 外掛程式] 使「展開 * 意圖」工作與額外的投影 (#2173 by @aperfilyev)
 - [IDE 外掛程式] 如果 Kotlin 解析在 GoTo 期間失敗，則不要嘗試 GoTo `sqldelight` 檔案
 - [IDE 外掛程式] 如果 IntelliJ 在 `sqldelight` 索引時遇到例外，請勿崩潰
 - [IDE 外掛程式] 處理在 IDE 中程式碼生成之前檢測錯誤時發生的例外
@@ -811,7 +813,7 @@ sqldelight {
 - [編譯器] 修正生成無效 Kotlin 的問題 (#1925 by @eygraber)
 - [編譯器] 為未知函式提供更好的錯誤訊息 (#1843)
 - [編譯器] 將字串公開為 `instr` 第二個參數的型別
-- [IDE 外掛程式] 修正 IDE 外掛程式的守護程序膨脹和 UI 執行緒停滯 (#1916)
+- [IDE 外掛程式] 修正守護程序膨脹和 UI 執行緒停滯 (#1916)
 - [IDE 外掛程式] 處理 null 模組場景 (#1902)
 - [IDE 外掛程式] 在未配置的 sq 檔案中返回空字串作為套件名稱 (#1920)
 - [IDE 外掛程式] 修正群組陳述式並為其新增整合測試 (#1820)

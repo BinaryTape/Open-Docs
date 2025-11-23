@@ -62,7 +62,7 @@ Kotlin Multiplatform (KMP) 是一種由 JetBrains 開發的開源技術，它允
 
 **程式語言：** Kotlin。
 
-**行動應用程式範例：** McDonald's, Netflix, Forbes, 9GAG, Cash App, Philips。[閱讀更多關於 Kotlin Multiplatform 案例研究](case-studies.topic)。
+**行動應用程式範例：** McDonald's, Netflix, Forbes, 9GAG, Cash App, Philips。[閱讀更多關於 Kotlin Multiplatform 案例研究](https://kotlinlang.org/case-studies/?type=multiplatform)。
 
 **主要功能：**
 
@@ -71,7 +71,7 @@ Kotlin Multiplatform (KMP) 是一種由 JetBrains 開發的開源技術，它允
 *   歸功於 [Compose Multiplatform](https://www.jetbrains.com/lp/compose-multiplatform/)（JetBrains 推出的一個現代聲明式跨平台 UI 框架），開發者擁有完整的程式碼共用靈活性，並且能夠同時共用邏輯和 UI。
 *   當您已經在 Android 上使用 Kotlin 時，無需在您的程式碼庫中引入新語言。您可以重用您的 Kotlin 程式碼和專業知識，這使得遷移到 Kotlin Multiplatform 相較於其他技術風險更低。
 
-儘管這個跨平台行動開發框架是我們清單上最年輕的之一，但它擁有成熟的社群。在 2023 年 11 月，JetBrains 將其升級為[穩定版](https://blog.jetbrains.com/kotlin/2023/11/kotlin-multiplatform-stable/)。它發展迅速，並已在當今市場上留下獨特的印象。由於其定期更新的[文件](get-started.topic)和社群支援，您可以隨時找到問題的答案。更重要的是，許多[全球公司和新創公司已經使用 Kotlin Multiplatform](case-studies.topic) 來開發具有類似原生使用者體驗的多平台應用程式。
+儘管這個跨平台行動開發框架是我們清單上最年輕的之一，但它擁有成熟的社群。在 2023 年 11 月，JetBrains 將其升級為[穩定版](https://blog.jetbrains.com/kotlin/2023/11/kotlin-multiplatform-stable/)。它發展迅速，並已在當今市場上留下獨特的印象。由於其定期更新的[文件](get-started.topic)和社群支援，您可以隨時找到問題的答案。更重要的是，許多[全球公司和新創公司已經使用 Kotlin Multiplatform](https://kotlinlang.org/case-studies/?type=multiplatform) 來開發具有類似原生使用者體驗的多平台應用程式。
 
 [![啟動您的 Kotlin Multiplatform 旅程](kmp-journey-start.svg){width="700"}](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html)
 

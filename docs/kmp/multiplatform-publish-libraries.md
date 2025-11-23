@@ -6,7 +6,7 @@
 
 1.  设置凭据，包括 Maven Central 账户和用于签名的 PGP 密钥。
 2.  在你的库的**项目**中配置发布插件。
-3.  向发布插件提供你的凭据，以便它可以签署和上传你的**构件**。
+3.  向发布插件提供你的凭据，以便它可以签署和上传你的构件。
 4.  运行发布**任务**，无论是在本地还是使用持续集成。
 
 本教程假设你：
@@ -19,7 +19,7 @@
 
 > 即使你使用的是不同的设置，这里的大多数步骤仍然适用，但可能需要考虑一些差异。
 >
-> 一个[重要限制](multiplatform-publish-lib-setup.md#host-requirements)是 Apple **目标平台**必须在 macOS 机器上构建。
+> 一个[重要限制](multiplatform-publish-lib-setup.md#host-requirements)是 Apple 目标平台必须在 macOS 机器上构建。
 >
 {style="note"}
 
@@ -36,15 +36,15 @@
 
 ### 选择并验证命名空间
 
-你需要一个已验证的命名空间，以唯一标识你的库在 Maven Central 上的**构件**。
+你需要一个已验证的命名空间，以唯一标识你的库在 Maven Central 上的构件。
 
-Maven **构件**通过其[坐标](https://central.sonatype.org/publish/requirements/#correct-coordinates)进行标识，例如 `com.example:fibonacci-library:1.0.0`。这些坐标由三个部分组成，以冒号分隔：
+Maven 构件通过其[坐标](https://central.sonatype.org/publish/requirements/#correct-coordinates)进行标识，例如 `com.example:fibonacci-library:1.0.0`。这些坐标由三个部分组成，以冒号分隔：
 
 *   `groupId` 以反向 DNS 形式表示，例如 `com.example`
 *   `artifactId`：库本身的唯一名称，例如 `fibonacci-library`
 *   `version`：版本字符串，例如 `1.0.0`。版本可以是任何字符串，但不能以 `-SNAPSHOT` 结尾
 
-你注册的命名空间允许你设置 Maven Central 上 `groupId` 的格式。例如，如果你注册 `com.example` 命名空间，则可以发布 `groupId` 设置为 `com.example`、`com.example.libraryname`、`com.example.module.feature` 等的**构件**。
+你注册的命名空间允许你设置 Maven Central 上 `groupId` 的格式。例如，如果你注册 `com.example` 命名空间，则可以发布 `groupId` 设置为 `com.example`、`com.example.libraryname`、`com.example.module.feature` 等的构件。
 
 登录 Maven Central 后，导航到[命名空间](https://central.sonatype.com/publishing/namespaces)页面。
 然后，点击 **Add Namespace** 按钮并注册你的命名空间：
@@ -76,12 +76,12 @@ Maven **构件**通过其[坐标](https://central.sonatype.org/publish/requireme
 
 #### 生成密钥对
 
-在你发布内容到 Maven Central 之前，你需要使用 [PGP 签名](https://central.sonatype.org/publish/requirements/gpg/)签署你的**构件**，这允许用户验证**构件**的来源。
+在你发布内容到 Maven Central 之前，你需要使用 [PGP 签名](https://central.sonatype.org/publish/requirements/gpg/)签署你的构件，这允许用户验证构件的来源。
 
 要开始签名，你需要生成一个密钥对：
 
-*   _私钥_ 用于签署你的**构件**，绝不应与他人共享。
-*   _公钥_ 可以与他人共享，以便他们可以验证你的**构件**的签名。
+*   _私钥_ 用于签署你的构件，绝不应与他人共享。
+*   _公钥_ 可以与他人共享，以便他们可以验证你的构件的签名。
 
 <Tabs group ="key-pair-tools">
 <TabItem title="使用 Kotlin Gradle 插件" group-key="kgp">
@@ -171,13 +171,13 @@ brew install gpg
 
 5.  输入密码短语来加密密钥，并在提示时重复输入。
 
-   请妥善安全地保管此密码短语。稍后签署**构件**时，你需要它来访问私钥。
+   请妥善安全地保管此密码短语。稍后签署构件时，你需要它来访问私钥。
 
 6.  使用以下命令查看你创建的密钥：
 
-    ```bash
-    gpg --list-keys
-    ```
+   ```bash
+   gpg --list-keys
+   ```
 
    输出将类似于：
 
@@ -219,18 +219,18 @@ Kotlin Gradle 插件有一个 Gradle **任务**，你可以用它来上传公钥
 gpg --keyserver keyserver.ubuntu.com --send-keys F175482952A225BFC4A07A715EE6B5F76620B385CE
 ```
 
-**导出私钥** {id="export-your-private-key"}
+**导出你的私钥** {id="export-your-private-key"}
 
-为了让你的 Gradle **项目**访问你的私钥，你需要将其导出为二进制文件。
+为了让你的 Gradle **项目**访问你的私钥，你需要将其导出为文件。
 系统将提示你输入创建密钥时使用的密码短语。
 
 使用以下命令，**将你自己的密钥 ID 作为参数传入**：
 
 ```bash
-gpg --no-armor --export-secret-keys F175482952A225BFC4A07A715EE6B5F76620B385CE > key.gpg
+gpg --armor --export-secret-keys F175482952A225BFC4A07A715EE6B5F76620B385CE > key.gpg
 ```
 
-此命令将创建一个包含你私钥的 `key.gpg` 二进制文件（请确保**不要**使用 `--armor` 标志，因为它只会创建密钥的纯文本版本）。
+此命令将创建一个包含你私钥的 `key.gpg` 文本文件。
 
 > 切勿与任何人分享你的私钥文件 – 只有你才能访问它，因为私钥能让你使用凭据签署文件。
 >
@@ -245,7 +245,7 @@ gpg --no-armor --export-secret-keys F175482952A225BFC4A07A715EE6B5F76620B385CE >
 
 如果你从模板**项目**开始开发库，现在是更改**项目**中所有默认名称以匹配你自己的库名称的好时机。这包括你的库模块名称和你的**顶层** `build.gradle.kts` 文件中根**项目**的名称。
 
-如果你的**项目**中包含 Android **目标平台**，你应该遵循[准备 Android 库发布](https://developer.android.com/build/publish-library/prep-lib-release)的步骤。
+如果你的**项目**中包含 Android 目标平台，你应该遵循[准备 Android 库发布](https://developer.android.com/build/publish-library/prep-lib-release)的步骤。
 至少，此过程要求你为库[指定适当的命名空间](https://developer.android.com/build/publish-library/prep-lib-release#choose-namespace)，以便在编译其资源时生成唯一的 `R` 类。
 请注意，该命名空间与[之前创建的](#choose-and-verify-a-namespace) Maven 命名空间不同。
 
@@ -289,7 +289,7 @@ mavenPublishing {
     
     coordinates(group.toString(), "fibonacci", version.toString())
     
-    pom { 
+    pom {
         name = "Fibonacci library"
         description = "A mathematics calculation library."
         inceptionYear = "2024"
@@ -317,7 +317,7 @@ mavenPublishing {
 }
 ```
 
-> 要配置此项，你还可以使用 [Gradle 属性](https://docs.gradle.org/current/userguide/build_environment.html)。
+> 要配置此项，你还可以使用 [Gradle properties](https://docs.gradle.org/current/userguide/build_environment.html)。
 >
 {style="tip"}
 
@@ -458,7 +458,7 @@ jobs:
 
    你可能希望它们与你在 `build.gradle.kts` 文件中指定的库版本号相同。
 
-   ![Create a release on GitHub](create_release_and_tag.png){width=700}
+   ![Add secrets to GitHub](create_release_and_tag.png){width=700}
 
 6.  仔细**检测**你想要发布的目标分支（尤其如果它不是默认分支），并为你的新版本添加适当的发布说明。
 7.  使用描述下方的复选框将发布标记为预发布版本（对于**抢先体验预览**版本如 alpha、beta 或 RC 很有用）。
@@ -472,16 +472,16 @@ jobs:
 
     在 Maven Central 执行**检测**时，此部署可能会在 _pending_ 或 _validating_ 状态下停留一段时间。
 
-11. 一旦你的部署进入 _validated_ 状态，**检测**它是否包含你上传的所有**构件**。
-    如果一切看起来正确，点击 **Publish** 按钮以发布这些**构件**。
+11. 一旦你的部署进入 _validated_ 状态，**检测**它是否包含你上传的所有构件。
+    如果一切看起来正确，点击 **Publish** 按钮以发布这些构件。
 
     ![Publishing settings](published_on_maven_central.png){width=700}
 
-    > 发布后，**构件**需要一些时间（通常约为 15–30 分钟，但可能需要数小时）才能在 Maven Central **版本库**中公开可用。它们可能需要更长时间才能被索引并在 [Maven Central 网站](https://central.sonatype.com/)上可搜索。
+    > 发布后，构件需要一些时间（通常约为 15–30 分钟，但可能需要数小时）才能在 Maven Central **版本库**中公开可用。它们可能需要更长时间才能被索引并在 [Maven Central 网站](https://central.sonatype.com/)上可搜索。
     >
     {style="tip"}
 
-要一旦部署验证完成就自动发布**构件**，请将工作流中的 `publishToMavenCentral` **任务**替换为 `publishAndReleaseToMavenCentral`。
+要一旦部署验证完成就自动发布构件，请将工作流中的 `publishToMavenCentral` **任务**替换为 `publishAndReleaseToMavenCentral`。
 
 ## 下一步
 

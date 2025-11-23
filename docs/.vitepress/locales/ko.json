@@ -85,7 +85,7 @@
   "kotlin.kotlin-overview": "Kotlin 개요",
   "kotlin.what-s-new-in-kotlin": "Kotlin의 새로운 기능",
   "kotlin.whatsnew22": "Kotlin 2.2.0",
-  "kotlin.whatsnew-eap": "Kotlin 2.3.0-Beta2",
+  "kotlin.whatsnew-eap": "Kotlin 2.3.0-RC",
   "kotlin.earlier-versions": "이전 버전",
   "kotlin.whatsnew2120": "Kotlin 2.1.20",
   "kotlin.whatsnew21": "Kotlin 2.1.0",
@@ -514,7 +514,7 @@
   "koog.event-handlers": "이벤트 핸들러",
   "kmp.kmp-tooling": "KMP 툴링",
   "kotlin.compose-multiplatform-material3": "Compose Multiplatform Material3",
-  "kmp.whats-new-compose-110": "Compose Multiplatform 1.10.0-beta01",
+  "kmp.whats-new-compose-110": "Compose Multiplatform 1.10.0-beta02",
   "kmp.earlier-versions": "이전 버전",
   "kotlin.language-guide": "언어 가이드",
   "kotlin.basic-syntax": "개요",
@@ -582,5 +582,7 @@
   "kotlin.compatibility-guide-14": "호환성 가이드",
   "kotlin.kotlin-1-3-x": "Kotlin 1.3.x",
   "kotlin.compatibility-guide-13": "호환성 가이드",
-  "koog.llm-parameters": "LLM 파라미터"
+  "koog.llm-parameters": "LLM 파라미터",
+  "sqldelight.fts5-virtual-tables": "FTS5 가상 테이블",
+  "kmp.case-studies": "사례 연구"
 }

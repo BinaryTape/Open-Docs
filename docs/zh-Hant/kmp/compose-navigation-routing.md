@@ -37,12 +37,12 @@ kotlin {
 ## 對於網頁應用程式中的瀏覽器導覽支援
 <primary-label ref="Experimental"/>
 
-適用於網頁的 Compose Multiplatform 完全支援通用導覽函式庫 API，此外還允許您的應用程式從瀏覽器接收導覽輸入。使用者可以使用瀏覽器中的「上一頁」和「下一頁」按鈕在反映在瀏覽器歷史記錄中的導覽路由之間移動，以及使用網址列了解他們目前的位置並直接前往目的地。
+適用於網頁的 Compose Multiplatform 完全支援通用導覽函式庫 API，此外還允許您的應用程式從瀏覽器接收導覽輸入。使用者可以使用瀏覽器中的「**上一頁**」和「**下一頁**」按鈕在反映在瀏覽器歷史記錄中的導覽路由之間移動，以及使用網址列了解他們目前的位置並直接前往目的地。
 
 若要將網頁應用程式綁定到通用程式碼中定義的導覽圖，您可以在 Kotlin/Wasm 程式碼中使用 `NavController.bindToBrowserNavigation()` 方法。您也可以在 Kotlin/JS 中使用相同的方法，但必須將其包裝在 `onWasmReady {}` 區塊中，以確保 Wasm 應用程式已初始化且 Skia 已準備好繪製圖形。以下是如何設定此項的範例：
 
 ```kotlin
-//commonMain source set
+//commonMain 原始碼集
 @Composable
 fun App(
     onNavHostReady: suspend (NavController) -> Unit = {}
@@ -56,7 +56,7 @@ fun App(
     }
 }
 
-//wasmJsMain source set
+//jsMain 原始碼集
 @OptIn(ExperimentalComposeUiApi::class)
 @ExperimentalBrowserHistoryApi
 fun main() {
@@ -68,7 +68,7 @@ fun main() {
     }
 }
 
-//jsMain source set
+//wasmJsMain 原始碼集
 @OptIn(ExperimentalComposeUiApi::class)
 @ExperimentalBrowserHistoryApi
 fun main() {
@@ -99,8 +99,8 @@ fun main() {
 * 若要使 URL 簡單易讀，請使用 `@SerialName` 註解以明確設定可序列化物件或類別的序列名稱：
 
     ```kotlin
-    // Instead of using the app package and object name,
-    // this route will be translated to the URL simply as "#start"
+    // 不使用應用程式套件和物件名稱，
+    // 此路由將直接轉換為 URL "#start"
     @Serializable @SerialName("start") data object StartScreen
     ```
 * 若要完整建構每個 URL，您可以使用選用的 `getBackStackEntryRoute` lambda。
@@ -115,7 +115,7 @@ fun main() {
 以下是一個簡單的型別安全導覽圖範例，可與以下網頁程式碼範例一起使用 (`commonMain/kotlin/org.example.app/App.kt`)：
 
 ```kotlin
-// Serializable object and classes for route arguments in the navigation graph
+// 導覽圖中用於路由引數的可序列化物件和類別
 @Serializable data object StartScreen
 @Serializable data class Id(val id: Long)
 @Serializable data class Patient(val name: String, val age: Long)
@@ -135,14 +135,14 @@ internal fun App(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center
             ) {
-                Text("Starting screen")
-                // Button that opens the 'Id' screen with a suitable parameter
+                Text("起始畫面")
+                // 開啟「Id」畫面並傳遞合適參數的按鈕
                 Button(onClick = { navController.navigate(Id(222)) }) {
-                    Text("Pass 222 as a parameter to the ID screen")
+                    Text("將 222 作為參數傳遞給 ID 畫面")
                 }
-                // Button that opens the 'Patient' screen with suitable parameters
+                // 開啟「Patient」畫面並傳遞合適參數的按鈕
                 Button(onClick = { navController.navigate(Patient( "Jane Smith-Baker", 33)) }) {
-                    Text("Pass 'Jane Smith-Baker' and 33 to the Person screen")
+                    Text("將 'Jane Smith-Baker' 和 33 傳遞給 Person 畫面")
                 }
             }
         }
@@ -172,30 +172,30 @@ fun main() {
                 navController.bindToBrowserNavigation() { entry ->
                     val route = entry.destination.route.orEmpty()
                     when {
-                        // Identifies the route using its serial descriptor
+                        // 使用其序列描述符識別路由
                         route.startsWith(StartScreen.serializer().descriptor.serialName) -> {
-                            // Sets the corresponding URL fragment to "#start"
-                            // instead of "#org.example.app.StartScreen"
+                            // 將對應的 URL 片段設定為 "#start"
+                            // 而不是 "#org.example.app.StartScreen"
                             //
-                            // This string must always start with the `#` character to keep
-                            // the processing at the front end
+                            // 此字串必須始終以 `#` 字元開頭，以將
+                            // 處理保留在前端
                             "#start"
                         }
                         route.startsWith(Id.serializer().descriptor.serialName) -> {
-                            // Accesses the route arguments
+                            // 存取路由引數
                             val args = entry.toRoute<Id>()
 
-                            // Sets the corresponding URL fragment to "#find_id_222"
-                            // instead of "#org.example.app.ID%2F222"
+                            // 將對應的 URL 片段設定為 "#find_id_222"
+                            // 而不是 "#org.example.app.ID%2F222"
                             "#find_id_${args.id}"
                         }
                         route.startsWith(Patient.serializer().descriptor.serialName) -> {
                             val args = entry.toRoute<Patient>()
-                            // Sets the corresponding URL fragment to "#patient_Jane%20Smith-Baker_33"
-                            // instead of "#org.company.app.Patient%2FJane%2520Smith-Baker%2F33"
+                            // 將對應的 URL 片段設定為 "#patient_Jane%20Smith-Baker_33"
+                            // 而不是 "#org.company.app.Patient%2FJane%2520Smith-Baker%2F33"
                             "#patient_${args.name}_${args.age}"
                         }
-                        // Doesn't set a URL fragment for all other routes
+                        // 不為所有其他路由設定 URL 片段
                         else -> ""
                     }
                 }
@@ -212,7 +212,7 @@ fun main() {
 {style="note"}
 
 如果您的 URL 具有自訂格式，您應該新增反向處理以將手動輸入的 URL 與目的地路由進行匹配。
-執行匹配的程式碼需要在 `navController.bindToBrowserNavigation()` 呼叫將 `window.location` 綁定到導覽圖之前執行：
+執行匹配的程式碼需要在 `navController.bindToBrowserNavigation()` 呼叫將瀏覽器位置綁定到導覽圖之前執行：
 
 <Tabs>
     <TabItem title="Kotlin/Wasm">

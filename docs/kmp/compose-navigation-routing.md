@@ -29,11 +29,15 @@ kotlin {
 Android codelab 转换而来。
 
 与 Jetpack Compose 一样，要实现导航，您应该：
-1. [列出](https://github.com/JetBrains/compose-multiplatform/blob/a6961385ccf0dee7b6d31e3f73d2c8ef91005f1a/examples/nav_cupcake/composeApp/src/commonMain/kotlin/org/jetbrains/nav_cupcake/CupcakeScreen.kt#L50) 应包含在导航图中的路由。每个路由都必须是定义路径的唯一字符串。
-2. [创建](https://github.com/JetBrains/compose-multiplatform/blob/a6961385ccf0dee7b6d31e3f73d2c8ef91005f1a/examples/nav_cupcake/composeApp/src/commonMain/kotlin/org/jetbrains/nav_cupcake/CupcakeScreen.kt#L89) 一个 `NavHostController` 实例作为您的主要可组合属性来管理导航。
-3. [将 `NavHost` 可组合项添加](https://github.com/JetBrains/compose-multiplatform/blob/a6961385ccf0dee7b6d31e3f73d2c8ef91005f1a/examples/nav_cupcake/composeApp/src/commonMain/kotlin/org/jetbrains/nav_cupcake/CupcakeScreen.kt#L109) 到您的应用：
+1. [列出路由](https://github.com/JetBrains/compose-multiplatform/blob/a6961385ccf0dee7b6d31e3f73d2c8ef91005f1a/examples/nav_cupcake/composeApp/src/commonMain/kotlin/org/jetbrains/nav_cupcake/CupcakeScreen.kt#L50)
+   应包含在导航图中。每个路由都必须是定义路径的唯一字符串。
+2. [创建一个 `NavHostController` 实例](https://github.com/JetBrains/compose-multiplatform/blob/a6961385ccf0dee7b6d31e3f73d2c8ef91005f1a/examples/nav_cupcake/composeApp/src/commonMain/kotlin/org/jetbrains/nav_cupcake/CupcakeScreen.kt#L89)
+   作为您的主要可组合属性来管理导航。
+3. [将 `NavHost` 可组合项添加](https://github.com/JetBrains/JetBrains/compose-multiplatform/blob/a6961385ccf0dee7b6d31e3f73d2c8ef91005f1a/examples/nav_cupcake/composeApp/src/commonMain/kotlin/org/jetbrains/nav_cupcake/CupcakeScreen.kt#L109)
+   到您的应用：
     1. 从您之前定义的路由列表中选择起始目标。
-    2. 直接创建导航图（作为创建 `NavHost` 的一部分），或者使用 `NavController.createGraph()` 函数以编程方式创建。
+    2. 创建导航图，可以直接作为创建 `NavHost` 的一部分，也可以使用
+       `NavController.createGraph()` 函数以编程方式创建。
 
 每个返回栈条目（图中包含的每个导航路由）都实现了 `LifecycleOwner` 接口。
 应用不同屏幕之间的切换会使其状态从 `RESUMED` 变为 `STARTED`，然后再变回。
@@ -43,18 +47,19 @@ Android codelab 转换而来。
 ## Web 应用中的浏览器导航支持
 <primary-label ref="Experimental"/>
 
-面向 Web 的 Compose Multiplatform 完全支持通用的 Navigation 库 API，
-并且允许您的应用从浏览器接收导航输入。
+面向 Web 的 Compose Multiplatform 完全支持通用的 Navigation 库 API
+并允许您的应用从浏览器接收导航输入。
 用户可以使用浏览器中的“**返回**”和“**前进**”按钮在浏览器历史记录中反映的导航路由之间移动，
 也可以使用地址栏来了解当前位置并直接前往某个目标。
 
 要将 Web 应用绑定到公共代码中定义的导航图，
 您可以在 Kotlin/Wasm 代码中使用 `NavController.bindToBrowserNavigation()` 方法。
-您可以在 Kotlin/JS 中使用相同的方法，但要将其包装在 `onWasmReady {}` 代码块中，以确保 Wasm 应用程序已初始化并且 Skia 已准备好渲染图形。
+您可以在 Kotlin/JS 中使用相同的方法，但要将其包装在 `onWasmReady {}` 代码块中，以确保
+Wasm 应用程序已初始化并且 Skia 已准备好渲染图形。
 以下是设置示例：
 
 ```kotlin
-//commonMain source set
+//commonMain 源代码集
 @Composable
 fun App(
     onNavHostReady: suspend (NavController) -> Unit = {}
@@ -68,7 +73,7 @@ fun App(
     }
 }
 
-//wasmJsMain source set
+//jsMain 源代码集
 @OptIn(ExperimentalComposeUiApi::class)
 @ExperimentalBrowserHistoryApi
 fun main() {
@@ -80,7 +85,7 @@ fun main() {
     }
 }
 
-//jsMain source set
+//wasmJsMain 源代码集
 @OptIn(ExperimentalComposeUiApi::class)
 @ExperimentalBrowserHistoryApi
 fun main() {
@@ -107,7 +112,8 @@ fun main() {
 
 ### 自定义路由与 URL 之间的转换
 
-由于 Compose Multiplatform 应用是单页应用，框架会操纵地址栏以模仿常规的 Web 导航。
+由于 Compose Multiplatform 应用是单页应用，框架会操纵地址栏以模仿
+常规的 Web 导航。
 如果您希望使 URL 更具可读性，并将实现与 URL 模式分离，
 您可以直接为屏幕分配名称，或者为目标路由开发完全自定义的处理方式：
 

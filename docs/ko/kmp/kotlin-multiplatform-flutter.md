@@ -2,7 +2,7 @@
 
 <web-summary>이 글에서는 Kotlin Multiplatform과 Flutter를 탐색하여, 이들의 기능 이해를 돕고 크로스 플랫폼 프로젝트에 적합한 솔루션을 선택하는 데 도움을 드립니다.</web-summary> 
 
-빠르게 발전하는 기술 세계에서 개발자들은 고품질 애플리케이션을 구축하는 데 도움이 되는 효율적인 프레임워크와 도구를 끊임없이 찾고 있습니다. 그러나 사용 가능한 여러 옵션 중에서 선택할 때, 이른바 '최고의 옵션'을 찾는 데 너무 많은 강조를 두는 것은 피해야 합니다. 이러한 접근 방식이 항상 가장 적합한 선택으로 이어지지는 않을 수 있기 때문입니다.
+급변하는 기술 세계에서 개발자들은 고품질 애플리케이션을 구축하는 데 도움이 되는 효율적인 프레임워크와 도구를 끊임없이 찾고 있습니다. 그러나 사용 가능한 여러 옵션 중에서 선택할 때, 이른바 '최고의 옵션'을 찾는 데 너무 많은 강조를 두는 것은 피해야 합니다. 이러한 접근 방식이 항상 가장 적합한 선택으로 이어지지는 않을 수 있기 때문입니다.
 
 각 프로젝트는 고유하며 특정 요구 사항을 가지고 있습니다. 이 글은 선택을 안내하고 Kotlin Multiplatform 또는 Flutter와 같은 어떤 기술이 귀하의 프로젝트에 가장 적합한지 더 잘 이해하여 정보에 입각한 결정을 내릴 수 있도록 돕는 것을 목표로 합니다.
 
@@ -136,7 +136,7 @@ Compose Multiplatform은 현재 [iOS](https://blog.jetbrains.com/kotlin/2025/05/
     
 <tr>
 <td><b>기술을 사용하는 회사</b></td>
-        <td><a href="https://www.forbes.com/sites/forbes-engineering/2023/11/13/forbes-mobile-app-shifts-to-kotlin-multiplatform/">Forbes</a>, <a href="https://www.youtube.com/watch?v=z-o9MqN86eE">Todoist</a>, <a href="https://medium.com/mcdonalds-technical-blog/mobile-multiplatform-development-at-mcdonalds-3b72c8d44ebc">McDonald’s</a>, <a href="https://www.youtube.com/watch?v=5sOXv-X43vc">Google Workspace</a>, <a href="https://www.youtube.com/watch?v=hZPL8QqiLi8">Philips</a>, <a href="https://raymondctc.medium.com/adopting-kotlin-multiplatform-mobile-kmm-on-9gag-app-dfe526d9ce04">9gag</a>, <a href="https://kotlinlang.org/lp/multiplatform/case-studies/baidu">Baidu</a>, <a href="https://kotlinlang.org/lp/multiplatform/case-studies/autodesk/">Autodesk</a>, <a href="https://touchlab.co/">TouchLab</a>, <a href="https://www.youtube.com/watch?v=YsQ-2lQYQ8M">Instabee</a>, 그리고 더 많은 회사가 저희 <Links href="/kmp/case-studies" summary="undefined">KMP 사례 연구</Links>에 나열되어 있습니다.</td>
+        <td><a href="https://www.forbes.com/sites/forbes-engineering/2023/11/13/forbes-mobile-app-shifts-to-kotlin-multiplatform/">Forbes</a>, <a href="https://www.youtube.com/watch?v=z-o9MqN86eE">Todoist</a>, <a href="https://medium.com/mcdonalds-technical-blog/mobile-multiplatform-development-at-mcdonalds-3b72c8d44ebc">McDonald’s</a>, <a href="https://www.youtube.com/watch?v=5sOXv-X43vc">Google Workspace</a>, <a href="https://www.youtube.com/watch?v=hZPL8QqiLi8">Philips</a>, <a href="https://raymondctc.medium.com/adopting-kotlin-multiplatform-mobile-kmm-on-9gag-app-dfe526d9ce04">9gag</a>, <a href="https://kotlinlang.org/lp/multiplatform/case-studies/baidu">Baidu</a>, <a href="https://kotlinlang.org/lp/multiplatform/case-studies/autodesk/">Autodesk</a>, <a href="https://touchlab.co/">TouchLab</a>, <a href="https://www.youtube.com/watch?v=YsQ-2lQYQ8M">Instabee</a>, 그리고 더 많은 회사가 저희 <a href="https://kotlinlang.org/case-studies/?type=multiplatform">KMP 사례 연구</a>에 나열되어 있습니다.</td>
         <td><a href="https://flutter.dev/showcase/xiaomi">Xiaomi</a>, <a href="https://flutter.dev/showcase/wolt">Wolt</a>, <a href="https://flutter.dev/showcase/universal-studios">Universal Studios</a>, <a href="https://flutter.dev/showcase/alibaba-group">Alibaba Group</a>, <a href="https://flutter.dev/showcase/bytedance">ByteDance</a>, <a href="https://www.geico.com/techblog/flutter-as-the-multi-channel-ux-framework/">Geico</a>, <a href="https://flutter.dev/showcase/ebay">eBay Motors</a>, <a href="https://flutter.dev/showcase/google-pay">Google Pay</a>, <a href="https://flutter.dev/showcase/so-vegan">So Vegan</a>, 그리고 더 많은 회사가 <a href="https://flutter.dev/showcase">Flutter 쇼케이스</a>에 나열되어 있습니다.</td>
 </tr>
 

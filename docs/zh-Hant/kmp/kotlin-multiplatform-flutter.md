@@ -1,6 +1,6 @@
 # Kotlin Multiplatform 和 Flutter：跨平台開發解決方案
 
-<web-summary>本文探討 Kotlin Multiplatform 和 Flutter，協助您瞭解它們的功能，並為您的跨平台專案選擇最適合的方案。</web-summary> 
+<web-summary>本文探討 Kotlin Multiplatform 和 Flutter，協助您瞭解它們的功能，並為您的跨平台專案選擇最適合的方案。</web-summary>
 
 在快速發展的科技世界中，開發人員不斷尋求高效的框架和工具以協助他們建構高品質的應用程式。然而，在眾多可能性中進行選擇時，重要的是要避免過度強調尋找所謂的「最佳」選項，因為這種方法不一定總能帶來最合適的選擇。
 

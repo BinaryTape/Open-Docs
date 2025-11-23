@@ -47,7 +47,7 @@ fun main() {
 
 ### 線形探索
 
-任意のリストにおいて、`indexOf()` および `lastIndexOf()` 関数を使用して要素の位置を見つけることができます。これらは、リスト内で与えられた引数と等しい要素の最初と最後の位置を返します。
+任意のリストにおいて、[`indexOf()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/index-of.html) および [`lastIndexOf()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/last-index-of.html) 関数を使用して要素の位置を見つけることができます。これらは、リスト内で与えられた引数と等しい要素の最初と最後の位置を返します。
 そのような要素がない場合、両方の関数は `-1` を返します。
 
 ```kotlin
@@ -266,23 +266,23 @@ fun main() {
     val numbers = mutableListOf("one", "two", "three", "four")
 
     numbers.sort()
-    println("Sort into ascending: $numbers")
+    println("昇順にソート: $numbers")
     numbers.sortDescending()
-    println("Sort into descending: $numbers")
+    println("降順にソート: $numbers")
 
     numbers.sortBy { it.length }
-    println("Sort into ascending by length: $numbers")
+    println("長さで昇順にソート: $numbers")
     numbers.sortByDescending { it.last() }
-    println("Sort into descending by the last letter: $numbers")
+    println("最後の文字で降順にソート: $numbers")
     
     numbers.sortWith(compareBy<String> { it.length }.thenBy { it })
-    println("Sort by Comparator: $numbers")
+    println("Comparatorでソート: $numbers")
 
     numbers.shuffle()
-    println("Shuffle: $numbers")
+    println("シャッフル: $numbers")
 
     numbers.reverse()
-    println("Reverse: $numbers")
+    println("反転: $numbers")
 //sampleEnd
 }
 ```

@@ -1,4 +1,4 @@
-[//]: # (title: Kotlin Multiplatform이란?)
+[//]: # (title: Kotlin Multiplatform란?)
 [//]: # (description: Kotlin Multiplatform는 JetBrains의 오픈 소스 기술로, Android, iOS, 데스크톱, 웹, 서버에서 코드를 공유할 수 있습니다.)
 
 Kotlin Multiplatform (KMP)는 JetBrains의 오픈 소스 기술로, Android, iOS, 데스크톱, 웹, 서버에서 코드를 공유하는 동시에 네이티브 개발의 장점을 유지할 수 있도록 합니다.
@@ -16,7 +16,7 @@ Kotlin Multiplatform는 기술 및 조직 프로세스 모두를 간소화하는
 
 더 빠른 시장 출시 외에도, **55%**의 사용자들이 KMP 도입 후 협업이 개선되었다고 보고했으며, **65%**의 팀들이 성능과 품질이 향상되었다고 보고했습니다(KMP 설문조사 2024년 2분기).
 
-KMP는 스타트업부터 글로벌 기업에 이르기까지 모든 규모의 조직에서 프로덕션 환경에 사용되고 있습니다. Google, Duolingo, Forbes, Philips, McDonald's, Bolt, H&M, Baidu, Kuaishou, Bilibili와 같은 기업들은 유연성, 네이티브 성능, 네이티브 사용자 경험 제공 능력, 비용 효율성, 그리고 점진적 도입 지원을 이유로 KMP를 채택했습니다. [KMP를 도입한 기업에 대해 더 알아보기](case-studies.topic).
+KMP는 스타트업부터 글로벌 기업에 이르기까지 모든 규모의 조직에서 프로덕션 환경에 사용되고 있습니다. Google, Duolingo, Forbes, Philips, McDonald's, Bolt, H&M, Baidu, Kuaishou, Bilibili와 같은 기업들은 유연성, 네이티브 성능, 네이티브 사용자 경험 제공 능력, 비용 효율성, 그리고 점진적 도입 지원을 이유로 KMP를 채택했습니다. [KMP를 도입한 기업에 대해 더 알아보기](https://kotlinlang.org/case-studies/?type=multiplatform).
 
 ### 코드 공유의 유연성
 
@@ -55,7 +55,7 @@ JetBrains의 AI 코딩 에이전트인 [Junie](https://jetbrains.com/junie)에�
 
 기업과 개발자들이 공유 Kotlin 코드의 이점을 어떻게 누리고 있는지 살펴보세요.
 
-* [사례 연구 페이지](case-studies.topic)에서 기업들이 코드베이스에 KMP를 성공적으로 도입한 방법을 알아보세요.
+* [사례 연구 페이지](https://kotlinlang.org/case-studies/?type=multiplatform)에서 기업들이 코드베이스에 KMP를 성공적으로 도입한 방법을 알아보세요.
 * [엄선된 샘플 목록](multiplatform-samples.md)과 GitHub의 [kotlin-multiplatform-sample](https://github.com/topics/kotlin-multiplatform-sample) 토픽에서 다양한 샘플 앱을 확인해보세요.
 * [klibs.io](https://klibs.io/)에 이미 존재하는 수천 개의 멀티플랫폼 라이브러리 중에서 특정 멀티플랫폼 라이브러리를 검색하세요.
 
