@@ -1,6 +1,6 @@
 # Langfuse 익스포터
 
-Koog는 AI 애플리케이션의 관측 가능성 및 분석 플랫폼인 [Langfuse](https://langfuse.com/)로 에이전트 트레이스를 내보내는 내장 지원을 제공합니다.  
+Koog는 AI 애플리케이션의 관측 가능성 및 분석 플랫폼인 [Langfuse](https://langfuse.com/)로 에이전트 트레이스를 내보내는 내장 지원을 제공합니다.
 Langfuse 통합을 통해 Koog 에이전트가 LLM, API 및 기타 구성 요소와 상호 작용하는 방식을 시각화하고, 분석하고, 디버그할 수 있습니다.
 
 Koog의 OpenTelemetry 지원에 대한 배경 정보는 [OpenTelemetry 지원](https://docs.koog.ai/opentelemetry-support/) 문서를 참조하세요.
@@ -11,7 +11,7 @@ Koog의 OpenTelemetry 지원에 대한 배경 정보는 [OpenTelemetry 지원](h
 
 1.  Langfuse 프로젝트를 생성합니다. [Langfuse에서 새 프로젝트 생성](https://langfuse.com/docs/get-started#create-new-project-in-langfuse) 설정 가이드를 따르세요.
 2.  API 자격 증명을 얻습니다. [Langfuse API 키는 어디에 있나요?](https://langfuse.com/faq/all/where-are-langfuse-api-keys)에 설명된 대로 Langfuse `public key`와 `secret key`를 검색합니다.
-3.  Langfuse 호스트, 공개 키, 및 비밀 키를 Langfuse 익스포터에 전달합니다.  
+3.  Langfuse 호스트, 공개 키, 및 비밀 키를 Langfuse 익스포터에 전달합니다.
     이는 `addLangfuseExporter()` 함수의 매개변수로 제공하거나, 아래와 같이 환경 변수를 설정하여 수행할 수 있습니다.
 
 ```bash
@@ -22,7 +22,7 @@ Koog의 OpenTelemetry 지원에 대한 배경 정보는 [OpenTelemetry 지원](h
 
 ## 구성
 
-Langfuse 내보내기를 활성화하려면 **OpenTelemetry 기능**을 설치하고 `LangfuseExporter`를 추가합니다.  
+Langfuse 내보내기를 활성화하려면 **OpenTelemetry 기능**을 설치하고 `LangfuseExporter`를 추가합니다.
 익스포터는 내부적으로 `OtlpHttpSpanExporter`를 사용하여 Langfuse의 OpenTelemetry 엔드포인트로 트레이스를 보냅니다.
 
 ### 예시: Langfuse 트레이싱을 사용하는 에이전트
@@ -41,7 +41,7 @@ fun main() = runBlocking {
     
     val agent = AIAgent(
         promptExecutor = simpleOpenAIExecutor(apiKey),
-        llmModel = OpenAIModels.CostOptimized.GPT4oMini,
+        llmModel = OpenAIModels.Chat.GPT4oMini,
         systemPrompt = "You are a code assistant. Provide concise code examples."
     ) {
         install(OpenTelemetry) {
@@ -49,19 +49,19 @@ fun main() = runBlocking {
         }
     }
 
-    println("Running agent with Langfuse tracing")
+    println("Langfuse 트레이싱을 사용하여 에이전트 실행 중")
 
     val result = agent.run("Tell me a joke about programming")
 
-    println("Result: $result
-See traces on the Langfuse instance")
+    println("결과: $result
+Langfuse 인스턴스에서 트레이스 확인")
 }
 ```
 <!--- KNIT example-langfuse-exporter-01.kt -->
 
 ## 트레이스 속성
 
-Langfuse는 세션, 환경, 태그 및 기타 메타데이터와 같은 기능을 사용하여 관측 가능성을 향상시키기 위해 트레이스 수준 속성을 사용합니다.  
+Langfuse는 세션, 환경, 태그 및 기타 메타데이터와 같은 기능을 사용하여 관측 가능성을 향상시키기 위해 트레이스 수준 속성을 사용합니다.
 `addLangfuseExporter` 함수는 `CustomAttribute` 객체 목록을 받는 `traceAttributes` 매개변수를 지원합니다.
 
 이러한 속성은 각 트레이스의 루트 `InvokeAgentSpan` 스팬에 추가되며, Langfuse의 고급 기능을 활성화합니다. Langfuse가 지원하는 모든 속성을 전달할 수 있습니다. 자세한 내용은 [Langfuse OpenTelemetry 문서](https://langfuse.com/integrations/native/opentelemetry#trace-level-attributes)에서 전체 목록을 참조하세요.
@@ -90,7 +90,7 @@ fun main() = runBlocking {
 
     val agent = AIAgent(
         promptExecutor = simpleOpenAIExecutor(apiKey),
-        llmModel = OpenAIModels.CostOptimized.GPT4oMini,
+        llmModel = OpenAIModels.Chat.GPT4oMini,
         systemPrompt = "You are a helpful assistant."
     ) {
         install(OpenTelemetry) {
@@ -103,7 +103,7 @@ fun main() = runBlocking {
         }
     }
 
-    // Multiple runs with the same session ID will be grouped in Langfuse
+    // 동일한 세션 ID로 여러 번 실행하면 Langfuse에서 그룹화됩니다.
     agent.run("What is Kotlin?")
     agent.run("Show me a coroutine example")
 }
@@ -121,7 +121,7 @@ fun main() = runBlocking {
 
 Koog는 [에이전트 그래프](https://langfuse.com/docs/observability/features/agent-graphs)를 표시하기 위해 Langfuse가 요구하는 스팬 속성도 캡처합니다.
 
-보안상의 이유로 OpenTelemetry 스팬의 일부 내용은 기본적으로 마스킹됩니다.  
+보안상의 이유로 OpenTelemetry 스팬의 일부 내용은 기본적으로 마스킹됩니다.
 Langfuse에서 해당 내용을 사용할 수 있도록 하려면 OpenTelemetry 구성에서 [setVerbose](opentelemetry-support.md#setverbose) 메서드를 사용하고 `verbose` 인수를 다음과 같이 `true`로 설정하세요:
 
 <!--- INCLUDE
@@ -154,7 +154,7 @@ Langfuse에서 시각화될 때, 트레이스는 다음과 같이 나타납니�
 ![Langfuse traces](img/opentelemetry-langfuse-exporter-light.png#only-light)
 ![Langfuse traces](img/opentelemetry-langfuse-exporter-dark.png#only-dark)
 
-Langfuse OpenTelemetry 트레이싱에 대한 자세한 내용은 다음을 참조하세요:  
+Langfuse OpenTelemetry 트레이싱에 대한 자세한 내용은 다음을 참조하세요:
 [Langfuse OpenTelemetry 문서](https://langfuse.com/integrations/native/opentelemetry#opentelemetry-endpoint).
 
 ---

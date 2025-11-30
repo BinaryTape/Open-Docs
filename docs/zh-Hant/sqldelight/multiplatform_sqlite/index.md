@@ -2,7 +2,7 @@
 
 {% include 'common/index_gradle_database.md' %}
 
-{% include 'common/index_schema.md' %}
+{% include 'multiplatform_sqlite/index_schema.md' %}
 
 若要在你的程式碼中使用已生成的資料庫，你必須為專案新增 SQLDelight 驅動程式依賴。每個目標平台都有其自己的驅動程式實作。
 

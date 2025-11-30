@@ -30,7 +30,7 @@ Kotlin 在编译期禁止此类调用，从而防止了许多可能的异常。
 >
 {style="note"}
 
-在 Java 中，如果你不编写 `null` 检测，方法可能会抛出 `NullPointerException`：
+在 Java 中，如果你不编写 null 检测，方法可能会抛出 `NullPointerException`：
 
 ```java
 // Java
@@ -63,13 +63,13 @@ fun stringLength(a: String) = a.length
 ```
 {id="get-length-kotlin"}
 
-参数 `a` 的类型为 `String`，这在 Kotlin 中意味着它必须始终包含 `String` 实例，并且不能包含 `null`。
+形参 `a` 的类型为 `String`，这在 Kotlin 中意味着它必须始终包含 `String` 实例，并且不能包含 `null`。
 Kotlin 中的可空类型用问号 `?` 标记，例如 `String?`。
 如果在运行时 `a` 的类型是 `String`，则 `NullPointerException` 的情况是不可能发生的，因为编译器强制执行
 `stringLength()` 的所有实参都不能为 `null` 的规则。
 
 尝试将 `null` 值传递给 `stringLength(a: String)` 函数将导致编译期错误：
-“Null 不能是非空类型 String 的值”：
+“Null can not be a value of a non-null type String”：
 
 ![将 null 传递给非空函数时的错误](passing-null-to-function.png){width=700}
 
@@ -108,10 +108,10 @@ fun stringLength(a: String?): Int = a?.length ?: 0
 
 如果你的 Java 代码没有这些注解，那么 Kotlin 将把 Java 类型视为_平台类型_。
 但由于 Kotlin 没有这些类型的可空性信息，其编译器将允许对其进行所有操作。
-你需要决定是否执行 `null` 检测，因为：
+你需要决定是否执行 null 检测，因为：
 
 *   与 Java 中一样，如果你尝试对 `null` 执行操作，将得到 `NullPointerException`。
-*   编译器不会高亮显示任何冗余的 `null` 检测，而当你在非空类型的值上执行空安全操作时，它通常会这样做。
+*   编译器不会高亮显示任何冗余的 null 检测，而当你在非空类型的值上执行空安全操作时，它通常会这样做。
 
 详细了解[从 Kotlin 调用 Java（关于空安全和平台类型）](java-interop.md#null-safety-and-platform-types)。
 
@@ -190,7 +190,7 @@ if (order != null){
 {id="process-customer-if-not-null-kotlin"}
 
 结合标准库中的任何[作用域函数](scope-functions.md)，使用[安全调用操作符 `?.`（非空即else 速记）](idioms.md#if-not-null-shorthand)。
-通常为此使用 `let` 函数：
+`let` 函数通常为此使用：
 
 ```kotlin
 // Kotlin
@@ -212,9 +212,9 @@ findOrder()?.customer?.let(::processCustomer)
 
 ## 默认值而非 null
 
-检测 `null` 通常与[设置默认值](functions.md#parameters-with-default-values)结合使用，以防 `null` 检测成功。
+检测 `null` 通常与[设置默认值](functions.md#parameters-with-default-values)结合使用，以防 null 检测成功。
 
-带 `null` 检测的 Java 代码：
+带 null 检测的 Java 代码：
 
 ```java
 // Java
@@ -235,7 +235,7 @@ val order = findOrder() ?: Order(Customer("Antonio"))
 
 ## 返回值或 null 的函数
 
-在 Java 中，处理列表元素时需要小心。在使用元素之前，应始终检测特定索引处是否存在元素：
+在 Java 中，处理 list 元素时需要小心。在使用元素之前，应始终检测特定索引处是否存在元素：
 
 ```java
 // Java
@@ -309,7 +309,7 @@ void main() {
 ```
 {id="casting-types-java"}
 
-为了在 Kotlin 中避免异常，请使用[安全转换操作符](typecasts.md#safe-nullable-cast-operator) `as?`，它在失败时返回 `null`：
+为了在 Kotlin 中避免异常，请使用[安全转换操作符](typecasts.md#unsafe-cast-operator) `as?`，它在失败时返回 `null`：
 
 ```kotlin
 // Kotlin

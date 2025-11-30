@@ -64,6 +64,7 @@
 1. 開啟 `composeApp/src/commonMain/kotlin/App.kt` 檔案，並添加以下函數，該函數會回傳一個包含當前日期的字串：
 
    ```kotlin
+   @OptIn(ExperimentalTime::class)
    fun todaysDate(): String {
        fun LocalDateTime.format() = toString().substringBefore('T')
 
@@ -72,8 +73,8 @@
        return now.toLocalDateTime(zone).format()
    }
    ```
-
-2. 在同一個檔案中，修改 `App()` composable 以包含呼叫此函數並顯示結果的 `Text()` composable：
+2. 添加 IDE 建議的匯入。請確保從 `kotlin.time` 匯入 `Clock` 類別，**而不是** `kotlinx.datetime`。
+3. 在同一個檔案中，修改 `App()` composable 以包含呼叫此函數並顯示結果的 `Text()` composable：
    
     ```kotlin
     @Composable
@@ -108,7 +109,7 @@
     }
     ```
 
-3. 按照 IDE 的建議匯入遺失的依賴項。
+4. 按照 IDE 的建議匯入遺失的依賴項。
    請確保從更新的套件匯入 `todaysDate()` 函數的所有遺失依賴項，並在 IDE 提示時選擇加入。
 
    ![未解析的引用](compose-unresolved-references.png)
@@ -129,12 +130,6 @@
     </TabItem>
 </Tabs>
 
-<!--
-> You can find this state of the project in our [GitHub repository](https://github.com/kotlin-hands-on/get-started-with-cm/tree/main/ComposeDemoStage1).
->
-{style="tip"}
--->
-
 ## 下一步
 
 在本教學課程的下一部分中，您將學習新的 Compose Multiplatform 概念並從頭開始建立您自己的應用程式。
@@ -143,5 +138,5 @@
 
 ## 取得協助
 
-* **Kotlin Slack**。取得[邀請](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up)並加入 [#multiplatform](https://kotlinlang.slack.com/archives/C3PQML5NU) 頻道。
-* **Kotlin 問題追蹤器**。[回報新的問題](https://youtrack.jetbrains.com/newIssue?project=KT)。
+*   **Kotlin Slack**。取得[邀請](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up)並加入 [#multiplatform](https://kotlinlang.slack.com/archives/C3PQML5NU) 頻道。
+*   **Kotlin 問題追蹤器**。[回報新的問題](https://youtrack.jetbrains.com/newIssue?project=KT)。

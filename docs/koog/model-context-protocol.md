@@ -6,7 +6,7 @@ MCP 将工具和提示作为 API 端点公开，AI 智能体可以调用这些�
 
 Koog 框架提供了与 MCP 服务器的集成，使你能够将 MCP 工具整合到你的 Koog 智能体中。
 
-关于该协议的更多信息，请参阅 [Model Context Protocol](https://modelcontextprotocol.io) 文档。
+关于该协议的更多信息，请参见 [Model Context Protocol](https://modelcontextprotocol.io) 文档。
 
 ## MCP 服务器
 
@@ -113,7 +113,7 @@ val toolRegistry = McpToolRegistryProvider.fromTransport(
 *   使用连接到 MCP 服务器的现有 MCP 客户端。例如：
 <!--- INCLUDE
 import ai.koog.agents.mcp.McpToolRegistryProvider
-import io.modelcontextprotocol.kotlin.sdk.Implementation
+import io.modelcontextprotocol.kotlin.sdk.types.Implementation
 import io.modelcontextprotocol.kotlin.sdk.client.Client
 import kotlinx.coroutines.runBlocking
 

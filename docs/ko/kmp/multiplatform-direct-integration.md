@@ -52,21 +52,33 @@ CocoaPods 플러그인에서 마이그레이션하려면:
 
    ![Add run script phase](xcode-run-script-phase-1.png){width=700}
 
-5. 다음 스크립트를 조정한 후 스크립트 실행 필드에 붙여넣으세요:
+5. 다음 스크립트를 조정한 후 새 단계의 스크립트 텍스트 필드에 붙여넣으세요:
 
    ```bash
+   if [ "YES" = "$OVERRIDE_KOTLIN_BUILD_IDE_SUPPORTED" ]; then
+       echo "Skipping Gradle build task invocation due to OVERRIDE_KOTLIN_BUILD_IDE_SUPPORTED environment variable set to \"YES\""
+       exit 0
+   fi
    cd "<Path to the root of the multiplatform project>"
-   ./gradlew :<Shared module name>:embedAndSignAppleFrameworkForXcode 
+   ./gradlew :<Shared module name>:embedAndSignAppleFrameworkForXcode
    ```
 
    * `cd` 명령에서 Kotlin 멀티플랫폼 프로젝트의 루트 경로를 지정하세요. 예를 들어, `$SRCROOT/..`입니다.
    * `./gradlew` 명령에서 공유 모듈의 이름을 지정하세요. 예를 들어, `:shared` 또는 `:composeApp`입니다.
-
-   ![Add the script](xcode-run-script-phase-2.png){width=700}
+   
+   iOS 실행 구성을 시작할 때, IntelliJ IDEA 및 Android Studio는 Xcode 빌드를 시작하기 전에 Kotlin 프레임워크 의존성을 빌드하고, `OVERRIDE_KOTLIN_BUILD_IDE_SUPPORTED` 환경 변수를 "YES"로 설정합니다. 제공된 셸 스크립트는 이 변수를 확인하여 Kotlin 프레임워크가 Xcode에서 두 번 빌드되는 것을 방지합니다.
+     
+   > 이를 지원하지 않는 프로젝트에 대한 iOS 실행 구성을 시작하면,
+     IDE가 빌드 가드(build guard)를 설정하는 수정 사항을 제안합니다.
+   >
+   {style="note"}
 
 6. **Based on dependency analysis** 옵션을 비활성화합니다.
 
+   ![Add the script](xcode-run-script-phase-2.png){width=700}
+
    이렇게 하면 Xcode가 모든 빌드 중에 스크립트를 실행하고, 매번 누락된 출력 의존성에 대해 경고하지 않도록 보장합니다.
+
 7. **Run Script** 단계를 **Compile Sources** 단계보다 위로 이동시킵니다.
 
    ![Drag the Run Script phase](xcode-run-script-phase-3.png){width=700}

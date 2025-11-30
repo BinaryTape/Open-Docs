@@ -1,11 +1,7 @@
 # KoogフレームワークでAIチェスプレイヤーを構築する
 
-[:material-github: GitHubで開く](
-https://github.com/JetBrains/koog/blob/develop/examples/notebooks/Chess.ipynb
-){ .md-button .md-button--primary }
-[:material-download: .ipynbをダウンロード](
-https://raw.githubusercontent.com/JetBrains/koog/develop/examples/notebooks/Chess.ipynb
-){ .md-button }
+[:material-github: GitHubで開く](https://github.com/JetBrains/koog/blob/develop/examples/notebooks/Chess.ipynb){ .md-button .md-button--primary }
+[:material-download: .ipynbをダウンロード](https://raw.githubusercontent.com/JetBrains/koog/develop/examples/notebooks/Chess.ipynb){ .md-button }
 
 このチュートリアルでは、Koogフレームワークを使用して知的なチェスAIエージェントを構築する方法を説明します。ツール連携、エージェント戦略、メモリ最適化、インタラクティブなAI意思決定といった主要な概念を探求します。
 
@@ -141,9 +137,9 @@ class ChessBoard {
 
 `ChessBoard`クラスは、8x8のグリッドと駒の位置を管理します。主要な設計上の決定事項は以下の通りです。
 
-- **内部表現**: 効率的なアクセスと変更のために、可変リストのリストを使用
-- **視覚表示**: `toString()`メソッドは、段（ランク）の数字と筋（ファイル）の文字を伴う明確なASCII表現を提供
-- **位置のマッピング**: チェス表記（a1-h8）と内部配列インデックス間の変換
+-   **内部表現**: 効率的なアクセスと変更のために、可変リストのリストを使用
+-   **視覚表示**: `toString()`メソッドは、段（ランク）の数字と筋（ファイル）の文字を伴う明確なASCII表現を提供
+-   **位置のマッピング**: チェス表記（a1-h8）と内部配列インデックス間の変換
 
 ### ChessGameのロジック
 
@@ -231,10 +227,10 @@ class ChessGame {
 
 `ChessGame`クラスは、ゲームロジックを調整し、状態を維持します。特筆すべき機能は以下の通りです。
 
-- **棋譜表記のサポート**: 通常の動き、キャスリング（0-0、0-0-0）、ポーンの昇格など、標準的なチェス表記を受け入れます
-- **特殊な動きの処理**: アンパッサン（通過中の捕獲）とキャスリングのロジックを実装します
-- **ターンの管理**: 各手番後にプレイヤー間を自動的に切り替えます
-- **検証**: 動きの合法性を検証しない（AIが有効な動きをすると信頼する）ものの、動きの解析と状態の更新を正しく処理します
+-   **棋譜表記のサポート**: 通常の動き、キャスリング（0-0、0-0-0）、ポーンの昇格など、標準的なチェス表記を受け入れます
+-   **特殊な動きの処理**: アンパッサン（通過中の捕獲）とキャスリングのロジックを実装します
+-   **ターンの管理**: 各手番後にプレイヤー間を自動的に切り替えます
+-   **検証**: 動きの合法性を検証しない（AIが有効な動きをすると信頼する）ものの、動きの解析と状態の更新を正しく処理します
 
 `moveNotation`文字列は、AIエージェントが許容する動きの形式について明確なドキュメントを提供します。
 
@@ -283,9 +279,10 @@ ${game.currentPlayer()} to move! Make the move!"
 4.  **実行ロジック**: `doExecute`メソッドは、実際の動きの実行を処理し、フォーマットされたフィードバックを提供
 
 主要な設計側面:
-- **コンテキストインジェクション**: ツールは`ChessGame`インスタンスを受け取り、ゲームの状態を変更可能
-- **フィードバックループ**: 現在の盤面状態を返し、次のプレイヤーを促すことで、会話の流れを維持
-- **エラー処理**: 動きの検証とエラー報告のためにゲームクラスに依存
+
+-   **コンテキストインジェクション**: ツールは`ChessGame`インスタンスを受け取り、ゲームの状態を変更可能
+-   **フィードバックループ**: 現在の盤面状態を返し、次のプレイヤーを促すことで、会話の流れを維持
+-   **エラー処理**: 動きの検証とエラー報告のためにゲームクラスに依存
 
 ## エージェント戦略の設計
 
@@ -318,7 +315,7 @@ val strategy = strategy<String, String>("chess_strategy") {
     val nodeSendToolResult by nodeLLMSendToolResult("nodeSendToolResult")
     val nodeTrimHistory by nodeTrimHistory<ReceivedToolResult>()
 
-    edge(nodeStart forwardTo nodeCallLLL)
+    edge(nodeStart forwardTo nodeCallLLM)
     edge(nodeCallLLM forwardTo nodeExecuteTool onToolCall { true })
     edge(nodeCallLLM forwardTo nodeFinish onAssistantMessage { true })
     edge(nodeExecuteTool forwardTo nodeTrimHistory)
@@ -334,23 +331,26 @@ val strategy = strategy<String, String>("chess_strategy") {
 2.  **最新のメッセージ**: 最新の盤面状態とゲームコンテキスト
 
 このアプローチは以下の特徴を持ちます。
-- **トークン消費量の削減**: 会話履歴の指数関数的な増加を防ぐ
-- **コンテキストの維持**: 重要なゲーム状態情報を保持する
-- **パフォーマンスの向上**: 短いプロンプトで処理が高速化
-- **長いゲームを可能にする**: トークン制限に達することなく、長時間のゲームプレイを可能にする
+
+-   **トークン消費量の削減**: 会話履歴の指数関数的な増加を防ぐ
+-   **コンテキストの維持**: 重要なゲーム状態情報を保持する
+-   **パフォーマンスの向上**: 短いプロンプトで処理が高速化
+-   **長いゲームを可能にする**: トークン制限に達することなく、長時間のゲームプレイを可能にする
 
 このチェス戦略は、Koogのグラフベースのエージェントアーキテクチャを示しています。
 
 **ノードタイプ:**
-- `nodeCallLLM`: 入力を処理し、応答/ツール呼び出しを生成する
-- `nodeExecuteTool`: 提供されたパラメータでMoveツールを実行する
-- `nodeTrimHistory`: 上記の通り会話メモリを最適化する
-- `nodeSendToolResult`: ツール実行結果をLLMに送り返す
+
+-   `nodeCallLLM`: 入力を処理し、応答/ツール呼び出しを生成する
+-   `nodeExecuteTool`: 提供されたパラメータでMoveツールを実行する
+-   `nodeTrimHistory`: 上記の通り会話メモリを最適化する
+-   `nodeSendToolResult`: ツール実行結果をLLMに送り返す
 
 **制御フロー:**
-- **線形パス**: 開始 → LLMリクエスト → ツール実行 → 履歴トリミング → 結果送信
-- **決定点**: LLMの応答は、会話を終了させるか、別のツール呼び出しをトリガーするかのいずれか
-- **メモリ管理**: 各ツール実行後に履歴トリミングが行われる
+
+-   **線形パス**: 開始 → LLMリクエスト → ツール実行 → 履歴トリミング → 結果送信
+-   **決定点**: LLMの応答は、会話を終了させるか、別のツール呼び出しをトリガーするかのいずれか
+-   **メモリ管理**: 各ツール実行後に履歴トリミングが行われる
 
 この戦略により、効率的でステートフルなゲームプレイが保証され、会話の一貫性も維持されます。
 
@@ -363,9 +363,10 @@ val baseExecutor = simpleOpenAIExecutor(System.getenv("OPENAI_API_KEY"))
 このセクションでは、OpenAIエグゼキュータを初期化します。`simpleOpenAIExecutor`は、環境変数から取得したAPIキーを使用して、OpenAIのAPIへの接続を作成します。
 
 **設定に関する注意点:**
-- OpenAI APIキーを`OPENAI_API_KEY`環境変数に格納してください。
-- エグゼキュータは認証とAPI通信を自動的に処理します。
-- さまざまなLLMプロバイダー向けに異なるエグゼキュータタイプが利用可能です。
+
+-   OpenAI APIキーを`OPENAI_API_KEY`環境変数に格納してください。
+-   エグゼキュータは認証とAPI通信を自動的に処理します。
+-   さまざまなLLMプロバイダー向けに異なるエグゼキュータタイプが利用可能です。
 
 ### エージェントの組み立て
 
@@ -377,7 +378,7 @@ val toolRegistry = ToolRegistry { tools(listOf(Move(game))) }
 val agent = AIAgent(
     executor = baseExecutor,
     strategy = strategy,
-    llmModel = OpenAIModels.Reasoning.O3Mini,
+    llmModel = OpenAIModels.Chat.O3Mini,
     systemPrompt = """
             You are an agent who plays chess.
             You should always propose a move in response to the "Your move!" message.
@@ -395,17 +396,19 @@ val agent = AIAgent(
 ここでは、すべてのコンポーネントを機能的なチェスAIエージェントとして組み立てます。
 
 **主要な設定:**
-- **モデルの選択**: 高品質なチェスプレイのために`OpenAIModels.Reasoning.O3Mini`を使用
-- **温度**: 決定論的で戦略的な動きのために0.0に設定
-- **システムプロンプト**: 合法的な動きと適切な行動を強調するよう慎重に作成された指示
-- **ツールレジストリ**: エージェントにMoveツールへのアクセスを提供する
-- **最大イテレーション**: 完全なゲームを可能にするために200に設定
+
+-   **モデルの選択**: 高品質なチェスプレイのために`OpenAIModels.Chat.O3Mini`を使用
+-   **温度**: 決定論的で戦略的な動きのために0.0に設定
+-   **システムプロンプト**: 合法的な動きと適切な行動を強調するよう慎重に作成された指示
+-   **ツールレジストリ**: エージェントにMoveツールへのアクセスを提供する
+-   **最大イテレーション**: 完全なゲームを可能にするために200に設定
 
 **システムプロンプトの設計:**
-- 動きの提案責任を強調する
-- ハルシネーションと違法な動きを禁止する
-- メッセージを投了またはチェックメイトの宣言のみに制限する
-- 焦点を絞った、ゲーム志向の行動を作成する
+
+-   動きの提案責任を強調する
+-   ハルシネーションと違法な動きを禁止する
+-   メッセージを投了またはチェックメイトの宣言のみに制限する
+-   焦点を絞った、ゲーム志向の行動を作成する
 
 ### 基本的なエージェントの実行
 
@@ -531,16 +534,18 @@ class AskUserChoiceSelectionStrategy(
 `AskUserChoiceSelectionStrategy`は、Koogの`ChoiceSelectionStrategy`インターフェースを実装し、AIの意思決定における人間の参加を可能にします。
 
 **主要な機能:**
-- **カスタマイズ可能な表示**: プロンプトと選択肢のフォーマットを行う関数
-- **インタラクティブな入力**: ユーザー対話のための標準入出力を使用
-- **検証**: ユーザー入力が有効な範囲内であることを保証する
-- **柔軟なI/O**: さまざまな環境に対応する構成可能なprintおよびread関数
+
+-   **カスタマイズ可能な表示**: プロンプトと選択肢のフォーマットを行う関数
+-   **インタラクティブな入力**: ユーザー対話のための標準入出力を使用
+-   **検証**: ユーザー入力が有効な範囲内であることを保証する
+-   **柔軟なI/O**: さまざまな環境に対応する構成可能なprintおよびread関数
 
 **ユースケース:**
-- ゲームプレイにおける人間とAIの協調
-- AIの意思決定の透明性と説明可能性
-- トレーニングおよびデバッグシナリオ
-- 教育的なデモンストレーション
+
+-   ゲームプレイにおける人間とAIの協調
+-   AIの意思決定の透明性と説明可能性
+-   トレーニングおよびデバッグシナリオ
+-   教育的なデモンストレーション
 
 ### 選択機能で強化された戦略
 
@@ -591,9 +596,10 @@ val promptExecutor = PromptExecutorWithChoiceSelection(baseExecutor, askChoiceSt
 最初のインタラクティブなアプローチでは、基本エグゼキュータを選択機能でラップする`PromptExecutorWithChoiceSelection`を使用します。カスタム表示関数は、ツール呼び出しから動きの情報を抽出し、AIが何をしたいのかをユーザーに示します。
 
 **アーキテクチャの変更点:**
-- **ラップされたエグゼキュータ**: `PromptExecutorWithChoiceSelection`は、あらゆる基本エグゼキュータに選択機能を追加する
-- **コンテキストを認識する表示**: フルプロンプトの代わりに最後のツール呼び出しの内容を表示する
-- **高い温度**: より多様な動きの選択肢のために1.0に増加
+
+-   **ラップされたエグゼキュータ**: `PromptExecutorWithChoiceSelection`は、あらゆる基本エグゼキュータに選択機能を追加する
+-   **コンテキストを認識する表示**: フルプロンプトの代わりに最後のツール呼び出しの内容を表示する
+-   **高い温度**: より多様な動きの選択肢のために1.0に増加
 
 ### 高度な戦略：手動による選択
 
@@ -604,7 +610,7 @@ val toolRegistry = ToolRegistry { tools(listOf(Move(game))) }
 val agent = AIAgent(
     executor = promptExecutor,
     strategy = strategy,
-    llmModel = OpenAIModels.Reasoning.O3Mini,
+    llmModel = OpenAIModels.Chat.O3Mini,
     systemPrompt = """
             You are an agent who plays chess.
             You should always propose a move in response to the "Your move!" message.
@@ -623,18 +629,21 @@ val agent = AIAgent(
 高度な戦略では、選択機能をエージェントの実行グラフに直接統合します。
 
 **新しいノード:**
-- `nodeLLMSendResultsMultipleChoices`: 複数のLLM選択肢を同時に処理する
-- `nodeSelectLLMChoice`: 選択戦略をワークフローに統合する
+
+-   `nodeLLMSendResultsMultipleChoices`: 複数のLLM選択肢を同時に処理する
+-   `nodeSelectLLMChoice`: 選択戦略をワークフローに統合する
 
 **強化された制御フロー:**
-- ツール結果は、複数の選択肢をサポートするためにリストにラップされる
-- 選択されたパスに進む前にユーザー選択が行われる
-- 選択された選択肢はアンラップされ、通常のフローを通じて継続される
+
+-   ツール結果は、複数の選択肢をサポートするためにリストにラップされる
+-   ユーザー選択が行われる前に、選択されたパスに進む
+-   選択された選択肢はアンラップされ、通常のフローを通じて継続される
 
 **利点:**
-- **より高い制御**: エージェントのワークフローとのきめ細かな統合
-- **柔軟性**: 他のエージェント機能と組み合わせ可能
-- **透明性**: ユーザーはAIが何を検討しているかを正確に確認できる
+
+-   **より高い制御**: エージェントのワークフローとのきめ細かな統合
+-   **柔軟性**: 他のエージェント機能と組み合わせ可能
+-   **透明性**: ユーザーはAIが何を検討しているかを正確に確認できる
 
 ### インタラクティブなエージェントの実行
 
@@ -743,7 +752,7 @@ val toolRegistry = ToolRegistry { tools(listOf(Move(game))) }
 val agent = AIAgent(
     executor = baseExecutor,
     strategy = strategy,
-    llmModel = OpenAIModels.Reasoning.O3Mini,
+    llmModel = OpenAIModels.Chat.O3Mini,
     systemPrompt = """
             You are an agent who plays chess.
             You should always propose a move in response to the "Your move!" message.
@@ -851,11 +860,11 @@ runBlocking {
 
 ### 探求したフレームワークの機能
 
-- ✅ カスタムツールの作成と連携
-- ✅ エージェント戦略の設計とグラフベースの制御フロー
-- ✅ メモリ最適化技術
-- ✅ インタラクティブな選択
-- ✅ 複数のLLM応答の処理
-- ✅ ステートフルなゲーム管理
+-   ✅ カスタムツールの作成と連携
+-   ✅ エージェント戦略の設計とグラフベースの制御フロー
+-   ✅ メモリ最適化技術
+-   ✅ インタラクティブな選択
+-   ✅ 複数のLLM応答の処理
+-   ✅ ステートフルなゲーム管理
 
 Koogフレームワークは、効率性と透明性を維持しながら、複雑な多ターン対話を処理できる洗練されたAIエージェントを構築するための基盤を提供します。

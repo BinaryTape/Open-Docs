@@ -2,7 +2,7 @@
 
 SQLDelight 將為 `.sq` 檔案中任何標記的 SQL 陳述式生成型別安全的函式。
 
-```sql title="src/commonMain/sqldelight/com/example/sqldelight/hockey/data/Player.sq"
+```sql title="src/main/sqldelight/com/example/sqldelight/hockey/data/Player.sq"
 selectAll:
 SELECT *
 FROM hockeyPlayer;

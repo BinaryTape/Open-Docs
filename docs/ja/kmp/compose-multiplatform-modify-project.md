@@ -7,10 +7,10 @@
     <p>このチュートリアルではIntelliJ IDEAを使用していますが、Android Studioでも同様に進めることができます。両IDEは同じコア機能とKotlin Multiplatformのサポートを共有しています。</p>
     <br/>
     <p>これは「**共有ロジックとUIを持つCompose Multiplatformアプリの作成**」チュートリアルの3番目のパートです。進む前に、前の手順を完了していることを確認してください。</p>
-    <p><img src="icon-1-done.svg" width="20" alt="First step"/> <Links href="/kmp/compose-multiplatform-create-first-app" summary="This tutorial uses IntelliJ IDEA, but you can also follow it in Android Studio – both IDEs share the same core functionality and Kotlin Multiplatform support. This is the first part of the Create a Compose Multiplatform app with shared logic and UI tutorial. Create your Compose Multiplatform app Explore composable code Modify the project Create your own application">Compose Multiplatformアプリを作成する</Links><br/>
-       <img src="icon-2-done.svg" width="20" alt="Second step"/> <Links href="/kmp/compose-multiplatform-explore-composables" summary="This tutorial uses IntelliJ IDEA, but you can also follow it in Android Studio – both IDEs share the same core functionality and Kotlin Multiplatform support. This is the second part of the Create a Compose Multiplatform app with shared logic and UI tutorial. Before proceeding, make sure you've completed previous steps. Create your Compose Multiplatform app Explore composable code Modify the project Create your own application">コンポーザブルコードを探索する</Links><br/>
-       <img src="icon-3.svg" width="20" alt="Third step"/> <strong>プロジェクトを修正する</strong><br/>
-       <img src="icon-4-todo.svg" width="20" alt="Fourth step"/> 独自のアプリケーションを作成する<br/>
+    <p><img src="icon-1-done.svg" width="20" alt="最初のステップ"/> <Links href="/kmp/compose-multiplatform-create-first-app" summary="This tutorial uses IntelliJ IDEA, but you can also follow it in Android Studio – both IDEs share the same core functionality and Kotlin Multiplatform support. This is the first part of the Create a Compose Multiplatform app with shared logic and UI tutorial. Create your Compose Multiplatform app Explore composable code Modify the project Create your own application">Compose Multiplatformアプリを作成する</Links><br/>
+       <img src="icon-2-done.svg" width="20" alt="2番目のステップ"/> <Links href="/kmp/compose-multiplatform-explore-composables" summary="This tutorial uses IntelliJ IDEA, but you can also follow it in Android Studio – both IDEs share the same core functionality and Kotlin Multiplatform support. This is the second part of the Create a Compose Multiplatform app with shared logic and UI tutorial. Before proceeding, make sure you've completed previous steps. Create your Compose Multiplatform app Explore composable code Modify the project Create your own application">コンポーザブルコードを探索する</Links><br/>
+       <img src="icon-3.svg" width="20" alt="3番目のステップ"/> <strong>プロジェクトを修正する</strong><br/>
+       <img src="icon-4-todo.svg" width="20" alt="4番目のステップ"/> 独自のアプリケーションを作成する<br/>
     </p>
 </tldr>
 
@@ -49,7 +49,7 @@ Kotlin Multiplatformウィザードによって生成されたコードを修正
     *   簡潔にするため、バージョン番号はバージョンカタログに追加する代わりに直接含まれています。
     *   Webターゲットでタイムゾーンをサポートするために、必要なnpmパッケージへの参照が`webMain`依存関係に含まれます。
 
-2. 依存関係が追加されると、プロジェクトの再同期を促されます。**Sync Gradle Changes**ボタンをクリックしてGradleファイルを同期します。 ![Synchronize Gradle files](gradle-sync.png){width=50}
+2. 依存関係が追加されると、プロジェクトの再同期を促されます。**Sync Gradle Changes**ボタンをクリックしてGradleファイルを同期します。 ![Gradleファイルを同期](gradle-sync.png){width=50}
 
 3. **Terminal**ツールウィンドウで、以下のコマンドを実行します。
 
@@ -64,6 +64,7 @@ Kotlin Multiplatformウィザードによって生成されたコードを修正
 1. `composeApp/src/commonMain/kotlin/App.kt`ファイルを開き、現在の日付を含む文字列を返す以下の関数を追加します。
 
    ```kotlin
+   @OptIn(ExperimentalTime::class)
    fun todaysDate(): String {
        fun LocalDateTime.format() = toString().substringBefore('T')
 
@@ -72,8 +73,8 @@ Kotlin Multiplatformウィザードによって生成されたコードを修正
        return now.toLocalDateTime(zone).format()
    }
    ```
-
-2. 同じファイルで、`App()`コンポーザブルを修正し、この関数を呼び出して結果を表示する`Text()`コンポーザブルを含めます。
+2. IDEの提案に従ってインポートを追加します。`Clock`クラスは`kotlinx.datetime`ではなく、**`kotlin.time`から**インポートするようにしてください。
+3. 同じファイルで、`App()`コンポーザブルを修正し、この関数を呼び出して結果を表示する`Text()`コンポーザブルを含めます。
    
     ```kotlin
     @Composable
@@ -108,32 +109,26 @@ Kotlin Multiplatformウィザードによって生成されたコードを修正
     }
     ```
 
-3. IDEの提案に従って、不足している依存関係をインポートします。
+4. IDEの提案に従って、不足している依存関係をインポートします。
    `todaysDate()`関数の不足しているすべての依存関係を、更新されたパッケージからインポートし、IDEからプロンプトが表示された場合はオプトインしてください。
 
-   ![Unresolved references](compose-unresolved-references.png)
+   ![未解決の参照](compose-unresolved-references.png)
 
 ## アプリケーションを再実行する
 
 Android、iOS、デスクトップ、およびWebの同じ実行設定を使用して、[アプリケーションを再実行](compose-multiplatform-create-first-app.md#run-your-application)できるようになりました。
 
 <Tabs>
-    <TabItem id="mobile-app" title="Android と iOS">
-        <img src="first-compose-project-on-android-ios-2.png" alt="First Compose Multiplatform app on Android and iOS" width="500"/>
+    <TabItem id="mobile-app" title="AndroidとiOS">
+        <img src="first-compose-project-on-android-ios-2.png" alt="AndroidおよびiOSでの最初のCompose Multiplatformアプリ" width="500"/>
     </TabItem>
     <TabItem id="desktop-app" title="デスクトップ">
-        <img src="first-compose-project-on-desktop-2.png" alt="First Compose Multiplatform app on desktop" width="400"/>
+        <img src="first-compose-project-on-desktop-2.png" alt="デスクトップでの最初のCompose Multiplatformアプリ" width="400"/>
     </TabItem>
     <TabItem id="web-app" title="Web">
-        <img src="first-compose-project-on-web-2.png" alt="First Compose Multiplatform app on web" width="400"/>
+        <img src="first-compose-project-on-web-2.png" alt="Webでの最初のCompose Multiplatformアプリ" width="400"/>
     </TabItem>
 </Tabs>
-
-<!--
-> You can find this state of the project in our [GitHub repository](https://github.com/kotlin-hands-on/get-started-with-cm/tree/main/ComposeDemoStage1).
->
-{style="tip"}
--->
 
 ## 次のステップ
 

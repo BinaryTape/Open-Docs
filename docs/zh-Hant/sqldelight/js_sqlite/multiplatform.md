@@ -25,7 +25,7 @@ kotlin {
   }
 
   sourceSets.jsMain.dependencies {
-    implementation "app.cash.sqldelight:sqljs-driver:{{ versions.sqldelight }}"
+    implementation "app.cash.sqldelight:web-worker-driver:{{ versions.sqldelight }}"
     implementation npm("sql.js", "1.6.2")
     implementation devNpm("copy-webpack-plugin", "9.1.0")
   }
@@ -41,7 +41,7 @@ expect suspend fun provideDbDriver(
   schema: SqlSchema<QueryResult.AsyncValue<Unit>>
 ): SqlDriver
 ```
-`SqlSchema` 介面包含一個泛型 `QueryResult` 類型參數，用於區分透過將 `generateAsync` 配置選項設定為 `true` 而產生的結構描述 (schema) 程式碼。有些驅動器在建立或遷移結構描述時依賴同步行為，因此若要使用非同步結構描述，您可以使用 [`synchronous()`](../../2.x/extensions/async-extensions/app.cash.sqldelight.async.coroutines/#427896482%2FFunctions%2F-1043631958) 擴充方法來使其適應同步驅動器使用。
+`SqlSchema` 介面包含一個泛型 `QueryResult` 型別參數，用於區分透過將 `generateAsync` 設定選項設定為 `true` 而產生的結構描述程式碼。有些驅動器在建立或遷移結構描述時依賴同步行為，因此若要使用非同步結構描述，您可以使用 [`synchronous()`](../../2.x/extensions/async-extensions/app.cash.sqldelight.async.coroutines/#427896482%2FFunctions%2F-1043631958) 擴充方法來使其適應同步驅動器使用。
 
 === "src/jsMain/kotlin"
     ```kotlin

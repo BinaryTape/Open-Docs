@@ -4,7 +4,7 @@
 https://github.com/JetBrains/koog/blob/develop/examples/notebooks/Banking.ipynb
 ){ .md-button .md-button--primary }
 [:material-download: 下載 .ipynb](
-https://raw.githubusercontent.com/JetBrains/koog/develop/examples/notebooks/Banking.ipynb
+https://raw.githubusercontent.com/JetBrains/koog/blob/develop/examples/notebooks/Banking.ipynb
 ){ .md-button }
 
 在本教學課程中，我們將使用 Kotlin 中的 **Koog** 代理程式來建構一個小型銀行助理。
@@ -54,7 +54,7 @@ val bankingAssistantSystemPrompt = """
 
 ## 領域模型與範例資料
 
-首先，讓我們定義我們的領域模型和範例資料。我們將使用 Kotlin 的資料類別 (data class) 並支援序列化。
+首先，讓我們定義我們的領域模型和範例資料。我們將使用 Kotlin 的資料類別並支援序列化。
 
 ```kotlin
 import kotlinx.serialization.Serializable
@@ -83,7 +83,7 @@ val contactById = contactList.associateBy(Contact::id)
 工具應該是**純粹的 (pure)** 且**可預測的 (predictable)**。
 
 我們模擬兩個「軟性合約 (soft contracts)」：
-- `chooseRecipient` 在檢測到歧義時傳回*候選人 (candidates)*。
+- `chooseRecipient` 在檢測到歧義 (ambiguity) 時傳回*候選人 (candidates)*。
 - `sendMoney` 支援 `confirmed` 標誌。如果為 `false`，它會要求代理程式與使用者確認。
 
 ```kotlin
@@ -201,7 +201,7 @@ import kotlinx.coroutines.runBlocking
 
 val transferAgentService = AIAgentService(
     executor = openAIExecutor,
-    llmModel = OpenAIModels.Reasoning.GPT4oMini,
+    llmModel = OpenAIModels.Chat.GPT4oMini,
     systemPrompt = bankingAssistantSystemPrompt,
     temperature = 0.0,  // Use deterministic responses for financial operations
     toolRegistry = ToolRegistry {
@@ -215,9 +215,9 @@ println("銀行助理已啟動")
 val message = "Send 25 euros to Daniel for dinner at the restaurant."
 
 // 您可以嘗試的其他測試訊息：
-// - "傳送 50 歐元給 Alice 作為音樂會門票"
-// - "我的目前餘額是多少？"
-// - "轉帳 100 歐元給 Bob 作為共享假期費用"
+// - "Send 50 euros to Alice for the concert tickets"
+// - "What's my current balance?"
+// - "Transfer 100 euros to Bob for the shared vacation expenses"
 
 runBlocking {
     val result = transferAgentService.createAgentAndRun(message)
@@ -404,7 +404,7 @@ class TransactionAnalysisTools : ToolSet {
         return "Sum: $%.2f".format(sum)
     }
 
-    // 解析日期的輔助函式
+    // Helper function to parse dates
     private fun parseDate(dateStr: String, startOfDay: Boolean): LocalDateTime {
         val parts = dateStr.split("-").map { it.toInt() }
         require(parts.size == 3) { "無效日期格式。請使用 YYYY-MM-DD" }
@@ -421,7 +421,7 @@ class TransactionAnalysisTools : ToolSet {
 ```kotlin
 val analysisAgentService = AIAgentService(
     executor = openAIExecutor,
-    llmModel = OpenAIModels.Reasoning.GPT4oMini,
+    llmModel = OpenAIModels.Chat.GPT4oMini,
     systemPrompt = "$bankingAssistantSystemPrompt
 $transactionAnalysisPrompt",
     temperature = 0.0,
@@ -501,7 +501,7 @@ import ai.koog.agents.core.dsl.extension.*
 import ai.koog.agents.ext.agent.subgraphWithTask
 import ai.koog.prompt.structure.StructureFixingParser
 
-val strategy = strategy<String, String>("銀行助理") {
+val strategy = strategy<String, String>("banking assistant") {
 
     // 用於分類使用者請求的子圖
     val classifyRequest by subgraph<String, ClassifiedBankRequest>(
@@ -520,7 +520,7 @@ val strategy = strategy<String, String>("銀行助理") {
                 )
             ),
             fixingParser = StructureFixingParser(
-                model = OpenAIModels.CostOptimized.GPT4oMini,
+                model = OpenAIModels.Chat.GPT4oMini,
                 retries = 2,
             )
         )
@@ -622,15 +622,15 @@ val testMessage = "Send 25 euros to Daniel for dinner at the restaurant."
 
 // 測試各種情境：
 // 轉帳請求：
-//   - "傳送 50 歐元給 Alice 作為音樂會門票"
-//   - "轉帳 100 給 Bob 作為雜貨費用"
-//   - "我的目前餘額是多少？"
+//   - "Send 50 euros to Alice for the concert tickets"
+//   - "Transfer 100 to Bob for groceries"
+//   - "What's my current balance?"
 //
 // 分析請求：
-//   - "我本月在餐廳花費了多少錢？"
-//   - "我本月在餐廳的最高消費是多少？"
-//   - "我在五月的第一週在雜貨上花了多少錢？"
-//   - "我五月在娛樂上的總花費是多少？"
+//   - "How much have I spent on restaurants this month?"
+//   - "What's my maximum check at a restaurant this month?"
+//   - "How much did I spend on groceries in the first week of May?"
+//   - "What's my total spending on entertainment in May?"
 
 runBlocking {
     val result = agent.run(testMessage)
@@ -658,7 +658,7 @@ import ai.koog.agents.core.tools.ToolParameterType
 
 val classifierAgent = AIAgent(
     executor = openAIExecutor,
-    llmModel = OpenAIModels.Reasoning.GPT4oMini,
+    llmModel = OpenAIModels.Chat.GPT4oMini,
     toolRegistry = ToolRegistry {
         tool(AskUser)
 

@@ -1,6 +1,7 @@
 [//]: # (title: Kotlin/Native)
 
-Kotlin/Native 是一種技術，用於將 Kotlin 程式碼編譯為無需虛擬機器即可執行的原生二進位檔。Kotlin/Native 包含一個基於 [LLVM](https://llvm.org/) 的 Kotlin 編譯器後端，以及 Kotlin 標準函式庫的原生實作。
+Kotlin/Native 是一種技術，用於將 Kotlin 程式碼編譯為無需虛擬機器即可執行的原生二進位檔。
+Kotlin/Native 包含一個基於 [LLVM](https://llvm.org/) 的 Kotlin 編譯器後端，以及 Kotlin 標準函式庫的原生實作。
 
 ## 為什麼選擇 Kotlin/Native？
 
@@ -23,7 +24,7 @@ Kotlin/Native 支援以下平台：
   >
   {style="note"}
 
-[查看支援目標的完整列表](native-target-support.md)。
+[查看支援目標和主機的完整列表](native-target-support.md)。
 
 ## 互通性
 

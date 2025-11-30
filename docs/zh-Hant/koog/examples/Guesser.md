@@ -73,7 +73,7 @@ class GuesserTool : ToolSet {
 }
 ```
 
-## 工具註冊器 (Tool Registry)
+## 工具註冊器
 
 將您的工具公開給代理。我們還新增了一個內建的 `SayToUser` 工具，這樣代理就能直接向使用者顯示訊息。
 
@@ -91,7 +91,7 @@ val toolRegistry = ToolRegistry {
 ```kotlin
 val agent = AIAgent(
     executor = simpleOpenAIExecutor(System.getenv("OPENAI_API_KEY")),
-    llmModel = OpenAIModels.Reasoning.GPT4oMini,
+    llmModel = OpenAIModels.Chat.GPT4oMini,
     systemPrompt = """
             You are a number guessing agent. Your goal is to guess a number that the user is thinking of.
             

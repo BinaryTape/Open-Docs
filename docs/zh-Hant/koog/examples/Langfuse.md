@@ -51,11 +51,11 @@ import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
  *  2. 依照 [此處](https://langfuse.com/faq/all/where-are-langfuse-api-keys) 的說明取得 Langfuse 憑證
  *  3. 設定 `LANGFUSE_HOST`、`LANGFUSE_PUBLIC_KEY` 和 `LANGFUSE_SECRET_KEY` 環境變數
  *
- * @see <a href="https://langfuse.com/docs/opentelemetry/get-started#opentelemetry-endpoint">Langfuse OpenTelemetry 文件</a>
+ * @see <a href="https://langfuse.com/docs/opentelemetry/get-started#opentelemetry-endpoint">Langfuse OpenTelemetry Docs</a>
  */
 val agent = AIAgent(
     executor = simpleOpenAIExecutor(System.getenv("OPENAI_API_KEY")),
-    llmModel = OpenAIModels.Reasoning.GPT4oMini,
+    llmModel = OpenAIModels.Chat.GPT4oMini,
     systemPrompt = "You are a code assistant. Provide concise code examples."
 ) {
     install(OpenTelemetry) {
@@ -84,7 +84,6 @@ runBlocking {
     "Result: $result
 See traces on the Langfuse instance"
 }
-
 ```
 
 ## 執行代理並查看追蹤

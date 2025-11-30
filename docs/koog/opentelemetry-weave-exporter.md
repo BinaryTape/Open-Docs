@@ -1,8 +1,6 @@
 # W&B Weave 导出器
 
-Koog 提供内置支持，可将智能体追踪导出到 [W&B Weave](https://wandb.ai/site/weave/)，
-Weights & Biases 提供的这款开发者工具专用于 AI 应用程序的可观测性和分析。
-通过 Weave 集成，你可以捕获提示、补全、系统上下文和执行追踪，并将其直接可视化到你的 W&B 工作区中。
+Koog 提供内置支持，可将智能体追踪导出到 [W&B Weave](https://wandb.ai/site/weave/)，这款由 Weights & Biases 提供的开发者工具专用于 AI 应用程序的可观测性和分析。通过 Weave 集成，你可以捕获提示、补全、系统上下文和执行追踪，并将其直接可视化到你的 W&B 工作区中。
 
 关于 Koog 的 OpenTelemetry 支持的背景信息，请参见 [OpenTelemetry 支持](https://docs.koog.ai/opentelemetry-support/)。
 
@@ -12,12 +10,9 @@ Weights & Biases 提供的这款开发者工具专用于 AI 应用程序的可�
 
 1. 在 [https://wandb.ai](https://wandb.ai) 注册一个 W&B 账户。
 2. 从 [https://wandb.ai/authorize](https://wandb.ai/authorize) 获取你的 API 密钥。
-3. 访问你的 W&B 仪表盘 [https://wandb.ai/home](https://wandb.ai/home) 查找你的 `entity` 名称。
-   如果这是个人账户，你的 `entity` 通常是你的用户名；如果是团队/组织账户，则是你的团队/组织名称。
+3. 访问你的 W&B 仪表盘 [https://wandb.ai/home](https://wandb.ai/home) 查找你的 `entity` 名称。如果这是个人账户，你的 `entity` 通常是你的用户名；如果是团队/组织账户，则是你的团队/组织名称。
 4. 为你的项目定义一个名称。你无需提前创建项目，当第一个追踪被发送时，它将自动创建。
-5. 将 Weave `entity`、项目名称和 API 密钥传递给 Weave 导出器。
-   这可以通过将它们作为形参传递给 `addWeaveExporter()` 函数来完成，
-   或者通过设置环境变量，如下所示：
+5. 将 Weave `entity`、项目名称和 API 密钥传递给 Weave 导出器。这可以通过将它们作为形参传递给 `addWeaveExporter()` 函数来完成，或者通过设置环境变量，如下所示：
 
 ```bash
 export WEAVE_API_KEY="<your-api-key>"
@@ -27,8 +22,7 @@ export WEAVE_PROJECT_NAME="koog-tracing"
 
 ## 配置
 
-要启用 Weave 导出，请安装 **OpenTelemetry 特性** 并添加 `WeaveExporter`。
-该导出器通过 `OtlpHttpSpanExporter` 使用 Weave 的 OpenTelemetry 端点。
+要启用 Weave 导出，请安装 **OpenTelemetry 特性** 并添加 `WeaveExporter`。该导出器通过 `OtlpHttpSpanExporter` 使用 Weave 的 OpenTelemetry 端点。
 
 ### 示例：使用 Weave 追踪的智能体
 
@@ -48,7 +42,7 @@ fun main() = runBlocking {
     
     val agent = AIAgent(
         promptExecutor = simpleOpenAIExecutor(apiKey),
-        llmModel = OpenAIModels.CostOptimized.GPT4oMini,
+        llmModel = OpenAIModels.Chat.GPT4oMini,
         systemPrompt = "You are a code assistant. Provide concise code examples."
     ) {
         install(OpenTelemetry) {
@@ -75,8 +69,7 @@ See traces on https://wandb.ai/$entity/$projectName/weave/traces")
 -   **工具调用**：工具调用的执行追踪
 -   **系统上下文**：元数据，例如模型名称、环境、Koog 版本
 
-出于安全原因，OpenTelemetry spans 的部分内容默认会被屏蔽。
-为了让内容在 Weave 中可用，请在 OpenTelemetry 配置中使用 [setVerbose](opentelemetry-support.md#setverbose) 方法，并将其 `verbose` 实参设置为 `true`，如下所示：
+出于安全原因，OpenTelemetry spans 的部分内容默认会被屏蔽。为了让内容在 Weave 中可用，请在 OpenTelemetry 配置中使用 [setVerbose](opentelemetry-support.md#setverbose) 方法，并将其 `verbose` 实参设置为 `true`，如下所示：
 
 <!--- INCLUDE
 import ai.koog.agents.core.agent.AIAgent
@@ -105,8 +98,8 @@ install(OpenTelemetry) {
 <!--- KNIT example-weave-exporter-02.kt -->
 
 在 W&B Weave 中可视化时，追踪显示如下：
-![W&B Weave 追踪](img/opentelemetry-weave-exporter-light.png#only-light)
-![W&B Weave 追踪](img/opentelemetry-weave-exporter-dark.png#only-dark)
+![W&B Weave traces](img/opentelemetry-weave-exporter-light.png#only-light)
+![W&B Weave traces](img/opentelemetry-weave-exporter-dark.png#only-dark)
 
 更多详细信息，请参见官方的 [Weave OpenTelemetry 文档](https://weave-docs.wandb.ai/guides/tracking/otel/)。
 

@@ -81,7 +81,7 @@ Jetpack Compose の新しいカスタムコンテキストメニュー API を `
 ComposeFoundationFlags.isNewContextMenuEnabled = true
 ```
 
-詳細については、[コンテキストメニュー API リファレンス](https://developer.android.com/reference/kotlin/androidx/compose/foundation/text/contextmenu/data/package-summary)を参照してください。
+詳細については、[コンテキストメニュー API リファレンス](https://developer.android.com/reference/kotlin/androidx/compose/foundation/text/contextmenu/data/package-summary)。
 
 ### Material 3 Expressive テーマ
 <primary-label ref="Experimental"/>

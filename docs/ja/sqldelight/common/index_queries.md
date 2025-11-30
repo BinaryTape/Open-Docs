@@ -2,7 +2,7 @@
 
 SQLDelightは、`.sq`ファイル内のラベル付きSQLステートメントに対して型安全な関数を生成します。
 
-```sql title="src/commonMain/sqldelight/com/example/sqldelight/hockey/data/Player.sq"
+```sql title="src/main/sqldelight/com/example/sqldelight/hockey/data/Player.sq"
 selectAll:
 SELECT *
 FROM hockeyPlayer;

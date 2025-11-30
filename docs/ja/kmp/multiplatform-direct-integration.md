@@ -52,21 +52,32 @@ CocoaPodsプラグインから移行するには：
 
    ![Add run script phase](xcode-run-script-phase-1.png){width=700}
 
-5. 以下のスクリプトを調整し、その結果を実行スクリプトフィールドに貼り付けます。
+5. 以下のスクリプトを調整し、そのスクリプトを新しいフェーズのスクリプトテキストフィールドに貼り付けます。
 
    ```bash
+   if [ "YES" = "$OVERRIDE_KOTLIN_BUILD_IDE_SUPPORTED" ]; then
+       echo "Skipping Gradle build task invocation due to OVERRIDE_KOTLIN_BUILD_IDE_SUPPORTED environment variable set to \"YES\""
+       exit 0
+   fi
    cd "<Path to the root of the multiplatform project>"
-   ./gradlew :<Shared module name>:embedAndSignAppleFrameworkForXcode 
+   ./gradlew :<Shared module name>:embedAndSignAppleFrameworkForXcode
    ```
 
    * `cd`コマンドでは、Kotlin Multiplatformプロジェクトのルートへのパス（例: `$SRCROOT/..`）を指定します。
    * `./gradlew`コマンドでは、共有モジュールの名前（例: `:shared`または`:composeApp`）を指定します。
-
-   ![Add the script](xcode-run-script-phase-2.png){width=700}
+   
+   iOSの実行構成を開始すると、IntelliJ IDEA と Android Studio は Xcode ビルドを開始する前に Kotlin フレームワークの依存関係をビルドし、`OVERRIDE_KOTLIN_BUILD_IDE_SUPPORTED` 環境変数を「YES」に設定します。提供されたシェルスクリプトはこの変数をチェックし、Kotlin フレームワークが Xcode から二重にビルドされるのを防ぎます。
+     
+   > これをサポートしていないプロジェクトでiOSの実行構成を起動すると、IDEはビルドガードをセットアップするための修正を提案します。
+   >
+   {style="note"}
 
 6. **Based on dependency analysis**オプションを無効にします。
 
+   ![Add the script](xcode-run-script-phase-2.png){width=700}
+
    これにより、Xcodeはすべてのビルド中にスクリプトを実行し、出力依存関係の不足について毎回警告を発しなくなります。
+
 7. **Run Script**フェーズを**Compile Sources**フェーズの前に移動して、より上位に配置します。
 
    ![Drag the Run Script phase](xcode-run-script-phase-3.png){width=700}
@@ -86,7 +97,8 @@ CocoaPodsプラグインから移行するには：
 9. Xcodeでプロジェクトをビルドします。すべて正しく設定されていれば、プロジェクトは正常にビルドされます。
 
 > デフォルトの`Debug`または`Release`とは異なるカスタムビルド構成を使用している場合は、**Build Settings**タブの**User-Defined**の下に`KOTLIN_FRAMEWORK_BUILD_TYPE`設定を追加し、`Debug`または`Release`に設定してください。
-> {style="note"}
+>
+{style="note"}
 
 ## 次のステップ
 

@@ -318,7 +318,7 @@ val strategy = strategy<String, String>("chess_strategy") {
     val nodeSendToolResult by nodeLLMSendToolResult("nodeSendToolResult")
     val nodeTrimHistory by nodeTrimHistory<ReceivedToolResult>()
 
-    edge(nodeStart forwardTo nodeCallLLL)
+    edge(nodeStart forwardTo nodeCallLLLL)
     edge(nodeCallLLM forwardTo nodeExecuteTool onToolCall { true })
     edge(nodeCallLLM forwardTo nodeFinish onAssistantMessage { true })
     edge(nodeExecuteTool forwardTo nodeTrimHistory)
@@ -377,7 +377,7 @@ val toolRegistry = ToolRegistry { tools(listOf(Move(game))) }
 val agent = AIAgent(
     executor = baseExecutor,
     strategy = strategy,
-    llmModel = OpenAIModels.Reasoning.O3Mini,
+    llmModel = OpenAIModels.Chat.O3Mini,
     systemPrompt = """
             You are an agent who plays chess.
             You should always propose a move in response to the "Your move!" message.
@@ -395,7 +395,8 @@ val agent = AIAgent(
 在這裡，我們將所有元件組裝成一個功能性的國際象棋對弈代理：
 
 **關鍵設定：**
-- **模型選擇**：使用 `OpenAIModels.Reasoning.O3Mini` 進行高品質國際象棋對弈
+
+- **模型選擇**：使用 `OpenAIModels.Chat.O3Mini` 進行高品質國際象棋對弈
 - **溫度**：設定為 0.0 以實現確定性、策略性的走法
 - **系統提示**：精心設計的指令，強調合法走法和適當行為
 - **工具註冊中心**：為代理提供了對 `Move` 工具的存取權限
@@ -567,7 +568,7 @@ val strategy = strategy<String, String>("chess_strategy") {
     val nodeSendToolResult by nodeLLMSendToolResult("nodeSendToolResult")
     val nodeTrimHistory by nodeTrimHistory<ReceivedToolResult>()
 
-    edge(nodeStart forwardTo nodeCallLLM)
+    edge(nodeStart forwardTo nodeCallLLLL)
     edge(nodeCallLLM forwardTo nodeExecuteTool onToolCall { true })
     edge(nodeCallLLM forwardTo nodeFinish onAssistantMessage { true })
     edge(nodeExecuteTool forwardTo nodeTrimHistory)
@@ -606,7 +607,7 @@ val toolRegistry = ToolRegistry { tools(listOf(Move(game))) }
 val agent = AIAgent(
     executor = promptExecutor,
     strategy = strategy,
-    llmModel = OpenAIModels.Reasoning.O3Mini,
+    llmModel = OpenAIModels.Chat.O3Mini,
     systemPrompt = """
             You are an agent who plays chess.
             You should always propose a move in response to the "Your move!" message.
@@ -702,6 +703,7 @@ Please choose a choice. Enter a number between 1 and 3:
 -----------------
 
 The execution was interrupted
+```
 
 ```kotlin
 import ai.koog.agents.core.feature.choice.nodeLLMSendResultsMultipleChoices
@@ -746,7 +748,7 @@ val toolRegistry = ToolRegistry { tools(listOf(Move(game))) }
 val agent = AIAgent(
     executor = baseExecutor,
     strategy = strategy,
-    llmModel = OpenAIModels.Reasoning.O3Mini,
+    llmModel = OpenAIModels.Chat.O3Mini,
     systemPrompt = """
             You are an agent who plays chess.
             You should always propose a move in response to the "Your move!" message.

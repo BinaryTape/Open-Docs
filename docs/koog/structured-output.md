@@ -2,8 +2,7 @@
 
 ## 简介
 
-结构化输出 API 提供了一种方式，可确保大型语言模型 (LLM) 的响应符合特定的数据结构。
-这对于构建可靠的 AI 应用程序至关重要，因为你需要可预测、格式良好的数据，而非自由格式文本。
+结构化输出 API 提供了一种方式，可确保大型语言模型 (LLM) 的响应符合特定的数据结构。这对于构建可靠的 AI 应用程序至关重要，因为你需要可预测、格式良好的数据，而非自由格式文本。
 
 本文将解释如何使用此 API 定义数据结构、生成模式，并从 LLM 请求结构化响应。
 
@@ -247,7 +246,7 @@ val structuredResponse = promptExecutor.executeStructured<WeatherForecast>(
             )
         },
         // 定义执行请求的主模型
-        model = OpenAIModels.CostOptimized.GPT4oMini,
+        model = OpenAIModels.Chat.GPT4oMini,
         // 可选：提供示例以帮助模型理解格式
         examples = exampleForecasts,
         // 可选：提供一个修复解析器用于错误校正
@@ -388,12 +387,12 @@ val agentStrategy = strategy("weather-forecast") {
         when {
             result.isSuccess -> {
                 val forecast = result.getOrNull()?.data
-                "Weather forecast: $forecast"
+                "天气预报：$forecast"
             }
             result.isFailure -> {
-                "Failed to get structured forecast: ${result.exceptionOrNull()?.message}"
+                "未能获取结构化预报：${result.exceptionOrNull()?.message}"
             }
-            else -> "Unknown result state"
+            else -> "未知结果状态"
         }
     }
 
@@ -428,7 +427,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 -->
 ```kotlin
-// Note: Import statements are omitted for brevity
+// 注意：为简洁起见，省略了 import 语句
 @Serializable
 @SerialName("SimpleWeatherForecast")
 @LLMDescription("某地的简单天气预报")
@@ -512,8 +511,7 @@ fun main(): Unit = runBlocking {
 
 ## 高级用法
 
-上述示例展示了根据模型能力自动选择最佳结构化输出方法的简化 API。
-为了更精细地控制结构化输出过程，你可以使用带有手动模式创建和提供者特有配置的高级 API。
+上述示例展示了根据模型能力自动选择最佳结构化输出方法的简化 API。为了更精细地控制结构化输出过程，你可以使用带有手动模式创建和提供者特有配置的高级 API。
 
 ### 手动模式创建和配置
 

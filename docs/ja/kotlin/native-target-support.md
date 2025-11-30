@@ -1,20 +1,24 @@
-[//]: # (title: Kotlin/Nativeのターゲットサポート)
+[//]: # (title: Kotlin/Nativeがサポートするターゲットとホスト)
 
-Kotlin/Nativeコンパイラは非常に多くの異なるターゲットをサポートしていますが、それらすべてに対して同じレベルのサポートを提供することは困難です。このドキュメントでは、Kotlin/Nativeがサポートするターゲットと、コンパイラによるサポートの度合いに応じてそれらをいくつかのティアに分類する方法について説明します。
+このドキュメントでは、Kotlin/Nativeコンパイラがサポートするターゲットとホストについて説明します。
 
-> ティアの数、サポートされるターゲットのリスト、およびその機能は、必要に応じて調整される可能性があります。
+> サポートされるターゲットとホストのリスト、ティアの数、およびそれらの機能は、必要に応じて調整される可能性があります。
 >
 {style="tip"}
 
-以下のティアテーブルで使用される用語にご注意ください。
+## ターゲットのティア
+
+Kotlin/Nativeコンパイラは多数の異なるターゲットをサポートしていますが、それらに対するサポートのレベルは異なります。これらのレベルを明確にするために、コンパイラがどれだけ適切にサポートしているかに応じて、ターゲットをいくつかのティアに分類しました。
+
+ティアの表で使用されている以下の用語にご注意ください。
 
 *   **Gradleターゲット名**は、Kotlin Multiplatform Gradleプラグインでターゲットを有効にするために使用される[ターゲット名](https://kotlinlang.org/docs/multiplatform/multiplatform-dsl-reference.html#targets)です。
 *   **ターゲットトリプル**は、[コンパイラ](https://clang.llvm.org/docs/CrossCompilation.html#target-triple)で一般的に使用される`<architecture>-<vendor>-<system>-<abi>`構造に基づくターゲット名です。
-*   **テストの実行**は、GradleおよびIDEでのテスト実行の「すぐに使える（out-of-the-box）」サポートを示します。
+*   **テストの実行**は、GradleおよびIDEでのテスト実行に対する「すぐに使える（out-of-the-box）」サポートを示します。
   
     これは、特定のターゲットに対するネイティブホストでのみ利用可能です。例えば、`macosX64`および`iosX64`のテストは、macOS x86-64ホスト上でのみ実行できます。
 
-## ティア1
+### ティア1
 
 *   ターゲットは、コンパイルおよび実行可能であるかCIで定期的にテストされます。
 *   コンパイラのリリース間でのソースおよび[バイナリ互換性](https://youtrack.jetbrains.com/issue/KT-42293)を提供します。
@@ -26,7 +30,7 @@ Kotlin/Nativeコンパイラは非常に多くの異なるターゲットをサ�
 | `iosSimulatorArm64`     | `aarch64-apple-ios-simulator` | ✅             | Apple Siliconプラットフォーム上のApple iOSシミュレーター |
 | `iosArm64`              | `aarch64-apple-ios`           |               | ARM64プラットフォーム上のApple iOSおよびiPadOS  |
 
-## ティア2
+### ティア2
 
 *   ターゲットは、コンパイル可能であるかCIで定期的にテストされますが、実行可能であるかの自動テストは行われない場合があります。
 *   コンパイラのリリース間でのソースおよび[バイナリ互換性](https://youtrack.jetbrains.com/issue/KT-42293)を提供するよう最善を尽くしています。
@@ -46,7 +50,7 @@ Kotlin/Nativeコンパイラは非常に多くの異なるターゲットをサ�
 | `tvosX64`               | `x86_64-apple-tvos-simulator`     | ✅             | x86_64プラットフォーム上のApple tvOSシミュレーター       |
 | `tvosArm64`             | `aarch64-apple-tvos`              |               | ARM64プラットフォーム上のApple tvOS                |
 
-## ティア3
+### ティア3
 
 *   ターゲットはCIでテストされることを保証しません。
 *   これらのターゲットに対する変更は非常にまれですが、異なるコンパイラのリリース間でのソースおよびバイナリ互換性を約束することはできません。
@@ -65,7 +69,7 @@ Kotlin/Nativeコンパイラは非常に多くの異なるターゲットをサ�
 >
 {style="note"}
 
-## ライブラリ作者向け
+### ライブラリ作者向け
 
 ライブラリ作者がKotlin/Nativeコンパイラよりも多くのターゲットをテストしたり、より厳格な保証を提供したりすることはお勧めしません。ネイティブターゲットのサポートを検討する際には、以下のアプローチを使用できます。
 
@@ -73,3 +77,33 @@ Kotlin/Nativeコンパイラは非常に多くの異なるターゲットをサ�
 *   ティア1および2で、すぐにテスト実行をサポートするターゲットを定期的にテストします。
 
 Kotlinチームは、公式のKotlinライブラリ（例: [kotlinx.coroutines](coroutines-guide.md)や[kotlinx.serialization](serialization.md)）でこのアプローチを使用しています。
+
+## ホスト
+
+Kotlin/Nativeコンパイラは以下のホストをサポートしています。
+
+| ホストOS                                         | 最終バイナリのビルド                 | `.klib`アーティファクトの生成                               |
+|----------------------------------------------------|--------------------------------------|-----------------------------------------------------------------|
+| Apple Silicon (ARM64)上のmacOS                     | Appleターゲットを含むすべてのサポートされるターゲット | Appleターゲットを含むすべてのサポートされるターゲット |
+| Intelチップ (x86_64)上のmacOS                      | Appleターゲットを含むすべてのサポートされるターゲット | Appleターゲットを含むすべてのサポートされるターゲット |
+| x86_64アーキテクチャのLinux                        | Appleターゲットを除くすべてのサポートされるターゲット | すべてのサポートされるターゲット（Appleターゲットはcinterop依存関係がない場合のみ） |
+| x86_64アーキテクチャのWindows (MinGWツールチェーン) | Appleターゲットを除くすべてのサポートされるターゲット | すべてのサポートされるターゲット（Appleターゲットはcinterop依存関係がない場合のみ） |
+
+### 最終バイナリのビルド
+
+最終バイナリを生成するには、[サポートされるターゲット](#target-tiers)に対して、_サポートされるホスト_上でのみコンパイルできます。例えば、FreeBSDやARM64アーキテクチャで実行されているLinuxマシン上では実行できません。
+
+LinuxおよびWindows上でのAppleターゲット用の最終バイナリのビルドも不可能です。
+
+### `.klib`アーティファクトの生成
+
+一般に、Kotlin/Nativeはどの_サポートされるホスト_でもサポートされるターゲット用の`.klib`アーティファクトを生成することを許可します。
+
+ただし、Appleターゲットのアーティファクト生成には、LinuxとWindowsでいくつかの制限がまだあります。プロジェクトが[cinterop依存関係](native-c-interop.md)（[CocoaPods](https://kotlinlang.org/docs/multiplatform/multiplatform-cocoapods-overview.html)を含む）を使用している場合、macOSホストを使用する必要があります。
+
+例えば、`macosArm64`ターゲット用の`.klib`をx86_64アーキテクチャで実行されているWindowsマシン上で生成できるのは、cinterop依存関係がない場合に限られます。
+
+## 次のステップ
+
+*   [最終的なネイティブバイナリのビルド](https://kotlinlang.org/docs/multiplatform/multiplatform-build-native-binaries.html)
+*   [Appleターゲットのコンパイル](https://kotlinlang.org/docs/multiplatform/multiplatform-publish-lib-setup.html#compilation-for-apple-targets)

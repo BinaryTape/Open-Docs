@@ -56,7 +56,35 @@ Compose Multiplatform Gradle 플러그인(`compose.ui` 및 기타)에서 지원�
 `org.jetbrains.compose.ui.tooling.preview.Preview`와 같은 다른 모든 어노테이션 및
 데스크톱 전용 `androidx.compose.desktop.ui.tooling.preview.Preview`는 더 이상 사용되지 않습니다.
 
+### 자동 크기 조정 인터롭 뷰
+
+Compose Multiplatform은 이제 데스크톱 및 iOS의 네이티브 인터롭 요소에 대한 자동 크기 조정을 지원합니다.
+이제 이러한 요소들은 콘텐츠를 기반으로 레이아웃을 조정할 수 있으며,
+정확한 크기를 수동으로 계산하거나 고정된 치수를 미리 지정할 필요가 없습니다.
+
+* 데스크톱에서는 `SwingPanel`이 포함된 구성 요소의 최소, 권장 및 최대 크기를 기반으로 자동으로 크기를 조정합니다.
+* iOS에서는 UIKit 인터롭 뷰가 이제 뷰의 적합 크기(고유 콘텐츠 크기)에 따라 크기 조정을 지원합니다.
+  이를 통해 SwiftUI 뷰(`UIHostingController`를 통해) 및
+  `NSLayoutConstraints`에 의존하지 않는 기본 `UIView` 서브클래스의 적절한 래핑이 가능합니다.
+
+### 안정화된 `Popup` 및 `Dialog` 속성
+
+`DialogProperties`의 다음 속성들이 안정화되었으며 더 이상 실험적이지 않습니다:
+`usePlatformInsets`, `useSoftwareKeyboardInset`, `scrimColor`.
+
+마찬가지로, `PopupProperties`의 `usePlatformDefaultWidth` 및 `usePlatformInsets` 속성도 안정화되었습니다.
+
+`PopupProperties` 매개변수 없이 `Popup` 오버로드를 사용하는 것에 대한 지원 중단 수준이 업데이트된 API 사용을 강제하기 위해 `ERROR`로 변경되었습니다.
+
+### Skia Milestone 138로 업데이트
+
+Skiko를 통해 Compose Multiplatform에서 사용하는 Skia 버전이 Milestone 138로 업데이트되었습니다.
+
+이전 Skia 버전은 Milestone 132였습니다.
+이 버전들 사이의 변경 사항은 [릴리스 노트](https://skia.googlesource.com/skia/+/refs/heads/chrome/m138/RELEASE_NOTES.md)에서 확인할 수 있습니다.
+
 ### Navigation 3 지원
+<primary-label ref="Experimental"/>
 
 Navigation 3는 Compose와 함께 작동하도록 설계된 새로운 내비게이션 라이브러리입니다.
 Navigation 3를 사용하면 백 스택을 완벽하게 제어할 수 있으며,
@@ -83,24 +111,6 @@ Compose Multiplatform 1.10.0-beta01은 비 Android 대상에서 새로운 내비
   이는 데스크톱 앱에서 이미 그러하듯이 작동합니다.
 * [브라우저 기록 내비게이션](compose-navigation-routing.md#support-for-browser-navigation-in-web-apps) 지원 및 주소 표시줄에서 목적지를 사용하는 것은 Compose Multiplatform 1.10에서 Navigation 3으로 확장되지 않을 것입니다.
   이는 멀티플랫폼 라이브러리의 이후 버전으로 연기되었습니다.
-
-### 자동 크기 조정 인터롭 뷰
-
-Compose Multiplatform은 이제 데스크톱 및 iOS의 네이티브 인터롭 요소에 대한 자동 크기 조정을 지원합니다.
-이제 이러한 요소들은 콘텐츠를 기반으로 레이아웃을 조정할 수 있으며,
-정확한 크기를 수동으로 계산하거나 고정된 치수를 미리 지정할 필요가 없습니다.
-
-* 데스크톱에서는 `SwingPanel`이 포함된 구성 요소의 최소, 권장 및 최대 크기를 기반으로 자동으로 크기를 조정합니다.
-* iOS에서는 UIKit 인터롭 뷰가 이제 뷰의 적합 크기(고유 콘텐츠 크기)에 따라 크기 조정을 지원합니다.
-  이를 통해 SwiftUI 뷰(`UIHostingController`를 통해) 및
-  `NSLayoutConstraints`에 의존하지 않는 기본 `UIView` 서브클래스의 적절한 래핑이 가능합니다.
-
-### Skia Milestone 138로 업데이트
-
-Skiko를 통해 Compose Multiplatform에서 사용하는 Skia 버전이 Milestone 138로 업데이트되었습니다.
-
-이전 Skia 버전은 Milestone 132였습니다.
-이 버전들 사이의 변경 사항은 [릴리스 노트](https://skia.googlesource.com/skia/+/refs/heads/chrome/m138/RELEASE_NOTES.md)에서 확인할 수 있습니다.
 
 ## iOS
 
@@ -172,4 +182,4 @@ Compose Multiplatform은 Android Gradle 플러그인(AGP) 버전 9.0.0에 대한
 새로운 AGP 버전과의 호환성을 위해 Compose Multiplatform 1.9.3 또는 1.10.0으로 업그레이드해야 합니다.
 
 장기적으로 업데이트 프로세스를 더 원활하게 만들기 위해,
-프로젝트 구조를 변경하여 AGP 사용을 전용 Android 모듈로 분리하는 것을 권장합니다.
+프로젝트 구조를 변경하여 AGP 사용을 전용 Android 애플리케이션 모듈로 분리하는 것을 권장합니다.

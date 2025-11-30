@@ -49,7 +49,7 @@ Kotlin/JSでも同じメソッドを使用できますが、Wasmアプリケー�
 以下にその設定方法の例を示します。
 
 ```kotlin
-//commonMain source set
+//commonMainソースセット
 @Composable
 fun App(
     onNavHostReady: suspend (NavController) -> Unit = {}
@@ -63,7 +63,7 @@ fun App(
     }
 }
 
-//jsMain source set
+//wasmJsMainソースセット
 @OptIn(ExperimentalComposeUiApi::class)
 @ExperimentalBrowserHistoryApi
 fun main() {
@@ -75,7 +75,7 @@ fun main() {
     }
 }
 
-//wasmJsMain source set
+//jsMainソースセット
 @OptIn(ExperimentalComposeUiApi::class)
 @ExperimentalBrowserHistoryApi
 fun main() {
@@ -122,7 +122,7 @@ URLをより読みやすくし、実装をURLパターンから分離したい�
 以下に、以下のWebコードサンプル（`commonMain/kotlin/org.example.app/App.kt`）で使用するシンプルな型安全なナビゲーショングラフの例を示します。
 
 ```kotlin
-// Serializable object and classes for route arguments in the navigation graph
+// ナビゲーショングラフのルート引数用のシリアライズ可能なオブジェクトとクラス
 @Serializable data object StartScreen
 @Serializable data class Id(val id: Long)
 @Serializable data class Patient(val name: String, val age: Long)
@@ -200,8 +200,8 @@ fun main() {
                         }
                         route.startsWith(Patient.serializer().descriptor.serialName) -> {
                             val args = entry.toRoute<Patient>()
-                            // 対応するURLフラグメントを "#org.company.app.Patient%2FJane%2520Smith-Baker%2F33"
-                            // の代わりに "#patient_Jane%20Smith-Baker_33" に設定する
+                            // 対応するURLフラグメントを "#patient_Jane%20Smith-Baker_33"
+                            // の代わりに "#org.company.app.Patient%2FJane%2520Smith-Baker%2F33" に設定する
                             "#patient_${args.name}_${args.age}"
                         }
                         // その他のすべてのルートにはURLフラグメントを設定しない

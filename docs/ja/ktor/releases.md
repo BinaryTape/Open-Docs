@@ -35,6 +35,18 @@ IntelliJ Ktor プラグインを使用すると、Ktor プロジェクトを最�
 </tr>
 
 <tr>
+<td>3.3.3</td><td>2025年11月26日</td><td>
+<p>
+Jetty Client で HTTP/2 over cleartext (h2c) のサポートを追加し、ロギングと OpenAPI 生成を改善し、エンジン、SSE 処理、二重レスポンス、HTTP/2 ヘッダー、およびクライアントキャッシュにおけるバグを修正するパッチリリースです。
+</p>
+<var name="version" value="3.3.3"/>
+<p>
+    <a href="https://github.com/ktorio/ktor/releases/tag/%version%">GitHub で変更履歴を見る</a>
+</p>
+</td>
+</tr>
+
+<tr>
 <td>3.3.2</td><td>2025年11月5日</td><td>
 <p>
 Darwin 向けの SOCKS プロキシのサポートを追加し、WebRTC クライアントターゲットと Java プロキシ処理を洗練し、HTTP の再試行、OpenAPI、キャッシュ、および Android 上の Netty における複数の問題を修正するパッチリリースです。

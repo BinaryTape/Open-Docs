@@ -1,3 +1,4 @@
+[//]: # (title: Koog 搭配 OpenTelemetry：追蹤您的 AI 代理程式)
 # Koog 搭配 OpenTelemetry：追蹤您的 AI 代理程式
 
 [:material-github: 在 GitHub 上開啟](
@@ -58,7 +59,7 @@ import io.opentelemetry.exporter.otlp.trace.OtlpGrpcSpanExporter
 ```kotlin
 val agent = AIAgent(
     executor = simpleOpenAIExecutor(System.getenv("OPENAI_API_KEY")),
-    llmModel = OpenAIModels.Reasoning.GPT4oMini,
+    llmModel = OpenAIModels.Chat.GPT4oMini,
     systemPrompt = "You are a code assistant. Provide concise code examples."
 ) {
     install(OpenTelemetry) {
@@ -117,9 +118,9 @@ Check Jaeger UI at http://localhost:16686 to view traces"
   - 確認您的 `OPENAI_API_KEY` 已在筆記本執行的環境中設定。
   - 確保匯出器中的端點與 Collector 相符：`http://localhost:4317`。
 
-- 預期的 span：
-  - Koog 代理程式生命週期
-  - LLM 請求/回應中繼資料
-  - 任何工具執行 span (如果您新增工具)
+預期的 span：
+- Koog 代理程式生命週期
+- LLM 請求/回應中繼資料
+- 任何工具執行 span (如果您新增工具)
 
 您現在可以迭代您的代理程式並觀察追蹤管線中的變更。

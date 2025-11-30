@@ -91,7 +91,7 @@ val toolRegistry = ToolRegistry {
 ```kotlin
 val agent = AIAgent(
     executor = simpleOpenAIExecutor(System.getenv("OPENAI_API_KEY")),
-    llmModel = OpenAIModels.Reasoning.GPT4oMini,
+    llmModel = OpenAIModels.Chat.GPT4oMini,
     systemPrompt = """
             You are a number guessing agent. Your goal is to guess a number that the user is thinking of.
             

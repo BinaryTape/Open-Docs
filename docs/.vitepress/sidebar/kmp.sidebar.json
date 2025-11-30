@@ -85,7 +85,17 @@
       },
       {
         "text": "kmp.compose-multiplatform-and-jetpack-compose",
-        "link": "compose-multiplatform-and-jetpack-compose"
+        "items": [
+          {
+            "text": "kmp.compose-multiplatform-and-jetpack-compose",
+            "link": "compose-multiplatform-and-jetpack-compose"
+          },
+          {
+            "text": "kmp.compose-multiplatform-jetpack-libraries",
+            "link": "compose-multiplatform-jetpack-libraries"
+          }
+        ],
+        "collapsed": true
       },
       {
         "text": "kmp.compose-platform-specifics",

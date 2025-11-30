@@ -24,7 +24,7 @@ https://raw.githubusercontent.com/JetBrains/koog/develop/examples/notebooks/Weav
 
 例 (macOS/Linux):
 ```bash
-export WEAVE_API_KEY=...  # required by Weave
+export WEAVE_API_KEY=...  # Weaveで必須
 export WEAVE_ENTITY=your-team-or-username
 export WEAVE_PROJECT_NAME=koog-tracing
 export OPENAI_API_KEY=...
@@ -43,7 +43,6 @@ export OPENAI_API_KEY=...
 ## エージェントを作成してWeaveトレースを有効にする
 
 最小限の `AIAgent` を構築し、Weaveエクスポーターとともに `OpenTelemetry` 機能をインストールします。このエクスポーターは、環境設定を使用してOTLPスパンをWeaveに送信します。
-
 - `WEAVE_API_KEY` — Weaveへの認証
 - `WEAVE_ENTITY` — トレースを所有するチーム/ユーザー
 - `WEAVE_PROJECT_NAME` — トレースを保存するWeaveプロジェクト
@@ -60,7 +59,7 @@ val projectName = System.getenv()["WEAVE_PROJECT_NAME"] ?: "koog-tracing"
 
 val agent = AIAgent(
     executor = simpleOpenAIExecutor(System.getenv("OPENAI_API_KEY")),
-    llmModel = OpenAIModels.Reasoning.GPT4oMini,
+    llmModel = OpenAIModels.Chat.GPT4oMini,
     systemPrompt = "You are a code assistant. Provide concise code examples."
 ) {
     install(OpenTelemetry) {
@@ -70,6 +69,7 @@ val agent = AIAgent(
         )
     }
 }
+
 ```
 
 ## エージェントを実行し、Weaveでトレースを表示する
@@ -86,6 +86,7 @@ runBlocking {
     "Result: $result
 See traces on https://wandb.ai/$entity/$projectName/weave/traces"
 }
+
 ```
 
 ## トラブルシューティング

@@ -58,14 +58,14 @@ import io.opentelemetry.exporter.otlp.trace.OtlpGrpcSpanExporter
 ```kotlin
 val agent = AIAgent(
     executor = simpleOpenAIExecutor(System.getenv("OPENAI_API_KEY")),
-    llmModel = OpenAIModels.Reasoning.GPT4oMini,
+    llmModel = OpenAIModels.Chat.GPT4oMini,
     systemPrompt = "You are a code assistant. Provide concise code examples."
 ) {
     install(OpenTelemetry) {
-        // Add a console logger for local debugging
+        // 로컬 디버깅을 위한 콘솔 로거 추가
         addSpanExporter(LoggingSpanExporter.create())
 
-        // Send traces to OpenTelemetry collector
+        // OpenTelemetry 콜렉터로 트레이스 전송
         addSpanExporter(
             OtlpGrpcSpanExporter.builder()
                 .setEndpoint("http://localhost:4317")
@@ -111,8 +111,8 @@ Check Jaeger UI at http://localhost:16686 to view traces"
 - Jaeger에서 트레이스가 보이지 않는 경우:
   - 스택이 실행 중인지 확인하세요: `./docker-compose up -d`를 실행하고 몇 초 기다리세요.
   - 포트 확인:
-    - Collector (OTLP gRPC): `http://localhost:4317`
-    - Jaeger UI: `http://localhost:16686`
+    - Collector (OTLP gRPC): http://localhost:4317
+    - Jaeger UI: http://localhost:16686
   - 컨테이너 로그 확인: `docker-compose logs --tail=200`
   - 노트북이 실행되는 환경에서 `OPENAI_API_KEY`가 설정되었는지 확인하세요.
   - 익스포터의 엔드포인트(endpoint)가 콜렉터(collector)와 일치하는지 확인하세요: `http://localhost:4317`.

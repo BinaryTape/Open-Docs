@@ -55,7 +55,7 @@ import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
  */
 val agent = AIAgent(
     executor = simpleOpenAIExecutor(System.getenv("OPENAI_API_KEY")),
-    llmModel = OpenAIModels.Reasoning.GPT4oMini,
+    llmModel = OpenAIModels.Chat.GPT4oMini,
     systemPrompt = "You are a code assistant. Provide concise code examples."
 ) {
     install(OpenTelemetry) {
@@ -84,7 +84,6 @@ runBlocking {
     "결과: $result
 Langfuse 인스턴스에서 트레이스 확인"
 }
-
 ```
 
 ## 에이전트 실행 및 트레이스 보기

@@ -1,4 +1,4 @@
-[//]: # (title: Compose Multiplatform 與 Jetpack Compose)
+[//]: # (title: Compose Multiplatform 與 Jetpack Compose 之間的關係)
 
 <web-summary>本文解釋了 Compose Multiplatform 與 Jetpack Compose 之間的關係。您將會深入了解這兩個工具包以及它們如何協調。</web-summary>
 
@@ -13,7 +13,8 @@
 Compose Multiplatform 是由 JetBrains 開發的跨平台 UI 工具包。
 它透過支援額外的目標平台來擴展 Google 針對 Android 的 [Jetpack Compose](https://developer.android.com/jetpack/compose) 工具包。
 
-Compose Multiplatform 將 Compose API 從[共同 Kotlin 程式碼](multiplatform-discover-project.md#common-code)中提供，讓您能夠編寫可在 Android、iOS、桌面和網路上運行的共享 Compose UI 程式碼。
+Compose Multiplatform 將 Compose API 從[共同 Kotlin 程式碼](multiplatform-discover-project.md#common-code)中提供，
+讓您能夠編寫可在 Android、iOS、桌面和網路上運行的共享 Compose UI 程式碼。
 
 |                  | **Compose Multiplatform**  | **Jetpack Compose** |
 |------------------|----------------------------|---------------------|
@@ -29,19 +30,24 @@ Jetpack Compose 是一個宣告式 UI 工具包，用於建立原生 Android 介
 Jetpack Compose 包含 `Text`、`Button`、`Row` 和 `Column` 等常用 UI 元件，您可以使用修飾符 (modifiers) 進行自訂。
 
 Compose Multiplatform 建立在相同的原則之上。
-它與 Jetpack Compose 共享 Compose 編譯器和執行時 (runtime)，並使用相同的 API — `@Composable` 函式、`remember` 等狀態管理工具、佈局元件、修飾符和動畫支援。
-這意味著您可以將您的 Jetpack Compose 知識應用於 Compose Multiplatform，以建立適用於 Android、iOS、桌面和網路的跨平台 UI。
+它與 Jetpack Compose 共享 Compose 編譯器和執行時 (runtime)，並使用相同的 API — `@Composable` 函式、
+`remember` 等狀態管理工具、佈局元件、修飾符和動畫支援。
+這意味著您可以將您的 Jetpack Compose 知識應用於 Compose Multiplatform，以建立適用於 Android、
+iOS、桌面和網路的跨平台 UI。
 
 ## Compose Multiplatform 與 Jetpack Compose 功能
 
-> 您可以從幾乎所有 Jetpack Compose 資料中了解這兩個 UI 框架的基礎知識，包括 [Google 的官方文件](https://developer.android.com/jetpack/compose/documentation)。
+> 您可以從幾乎所有 Jetpack Compose 資料中了解這兩個 UI 框架的基礎知識，
+> 包括 [Google 的官方文件](https://developer.android.com/jetpack/compose/documentation)。
 >
 {style="tip"}
 
 當然，Compose Multiplatform 具有平台專屬的功能和考量：
 
-* [僅限 Android 的元件](compose-android-only-components.md)頁面列出了與 Android 平台緊密相關的 API，因此無法從共同 Compose Multiplatform 程式碼中取得。
-* 某些平台專屬的 API，例如用於桌面的視窗處理 API 或用於 iOS 的 UIKit 相容性 API，僅在其各自的平台上可用。
+*   [僅限 Android 的元件](compose-android-only-components.md)頁面列出了與 Android 平台緊密相關的 API，
+    因此無法從共同 Compose Multiplatform 程式碼中取得。
+*   某些平台專屬的 API，例如用於桌面的視窗處理 API 或用於 iOS 的 UIKit 相容性 API，
+    僅在其各自的平台上可用。
 
 以下是常用元件和 API 可用性的概述：
 
@@ -64,17 +70,21 @@ Compose Multiplatform 建立在相同的原則之上。
 ## 技術細節
 
 Compose Multiplatform 建立在 Google 發佈的程式碼和版本之上。
-雖然 Google 的重點是針對 Android 的 Jetpack Compose，但 Google 和 JetBrains 之間有密切合作以啟用 Compose Multiplatform。
+雖然 Google 的重點是針對 Android 的 Jetpack Compose，
+但 Google 和 JetBrains 之間有密切合作以啟用 Compose Multiplatform。
 
-Jetpack 包含 Foundation 和 Material 等第一方函式庫，Google 針對 Android 發佈了這些函式庫。
-為了使[這些函式庫](https://github.com/JetBrains/compose-multiplatform-core)提供的 API 可從共同程式碼中取得，JetBrains 維護了這些函式庫的多平台版本，這些版本針對 Android 以外的目標平台發佈。
+Jetpack 包含 Foundation 和 Material 等第一方函式庫，
+Google 針對 Android 發佈了這些函式庫。
+為了使[這些函式庫](https://github.com/JetBrains/compose-multiplatform-core)提供的 API 可從共同程式碼中取得，
+JetBrains 維護了這些函式庫的多平台版本，這些版本針對 Android 以外的目標平台發佈。
 
 > 在[相容性和版本](compose-compatibility-and-versioning.md#jetpack-compose-and-compose-multiplatform-release-cycles)頁面上了解更多關於發佈週期的資訊。
 >
 {style="tip"}
 
 當您為 Android 建置您的 Compose Multiplatform 應用程式時，您會使用 Google 發佈的 Jetpack Compose 構件。
-例如，如果您將 `compose.material3` 新增到您的依賴項中，您的專案將在 Android 目標中使用 `androidx.compose.material3:material3`，並在其他目標中使用 `org.jetbrains.compose.material3:material3`。
+例如，如果您將 `compose.material3` 新增到您的依賴項中，您的專案將在 Android 目標中使用 `androidx.compose.material3:material3`，
+並在其他目標中使用 `org.jetbrains.compose.material3:material3`。
 這是根據多平台構件中的 Gradle 模組中繼資料自動完成的。
 
 ## 適用於 Compose Multiplatform 的函式庫
@@ -92,7 +102,7 @@ Jetpack 包含 Foundation 和 Material 等第一方函式庫，Google 針對 And
 ## 下一步
 
 閱讀更多關於以下元件的 Compose Multiplatform 實作：
-* [生命週期](compose-lifecycle.md)
-* [資源](compose-multiplatform-resources.md)
-* [共同 ViewModel](compose-viewmodel.md)
-* [導航和路由](compose-navigation-routing.md)
+*   [生命週期](compose-lifecycle.md)
+*   [資源](compose-multiplatform-resources.md)
+*   [共同 ViewModel](compose-viewmodel.md)
+*   [導航和路由](compose-navigation-routing.md)

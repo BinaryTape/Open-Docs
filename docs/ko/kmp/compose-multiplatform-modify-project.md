@@ -7,10 +7,10 @@
     <p>이 튜토리얼은 IntelliJ IDEA를 사용하지만, Android Studio에서도 따라 할 수 있습니다. 두 IDE 모두 동일한 핵심 기능과 Kotlin Multiplatform 지원을 공유합니다.</p>
     <br/>
     <p>이 튜토리얼은 <strong>공유 로직 및 UI를 사용하는 Compose Multiplatform 앱 생성하기</strong> 튜토리얼의 세 번째 부분입니다. 계속 진행하기 전에 이전 단계를 완료했는지 확인하세요.</p>
-    <p><img src="icon-1-done.svg" width="20" alt="첫 번째 단계"/> <Links href="/kmp/compose-multiplatform-create-first-app" summary="이 튜토리얼은 IntelliJ IDEA를 사용하지만, Android Studio에서도 따라 할 수 있습니다. 두 IDE 모두 동일한 핵심 기능과 Kotlin Multiplatform 지원을 공유합니다. 이 튜토리얼은 공유 로직 및 UI를 사용하는 Compose Multiplatform 앱 생성하기 튜토리얼의 첫 번째 부분입니다. Compose Multiplatform 앱 생성하기 컴포저블 코드 살펴보기 프로젝트 수정하기 자신만의 애플리케이션 생성하기">Compose Multiplatform 앱 생성하기</Links><br/>
-       <img src="icon-2-done.svg" width="20" alt="두 번째 단계"/> <Links href="/kmp/compose-multiplatform-explore-composables" summary="이 튜토리얼은 IntelliJ IDEA를 사용하지만, Android Studio에서도 따라 할 수 있습니다. 두 IDE 모두 동일한 핵심 기능과 Kotlin Multiplatform 지원을 공유합니다. 이 튜토리얼은 공유 로직 및 UI를 사용하는 Compose Multiplatform 앱 생성하기 튜토리얼의 두 번째 부분입니다. 계속 진행하기 전에 이전 단계를 완료했는지 확인하세요. Compose Multiplatform 앱 생성하기 컴포저블 코드 살펴보기 프로젝트 수정하기 자신만의 애플리케이션 생성하기">컴포저블 코드 살펴보기</Links><br/>
-       <img src="icon-3.svg" width="20" alt="세 번째 단계"/> <strong>프로젝트 수정하기</strong><br/>
-       <img src="icon-4-todo.svg" width="20" alt="네 번째 단계"/> 자신만의 애플리케이션 생성하기<br/>
+    <p><img src="icon-1-done.svg" width="20" alt="First step"/> <Links href="/kmp/compose-multiplatform-create-first-app" summary="This tutorial uses IntelliJ IDEA, but you can also follow it in Android Studio – both IDEs share the same core functionality and Kotlin Multiplatform support. This is the first part of the Create a Compose Multiplatform app with shared logic and UI tutorial. Create your Compose Multiplatform app Explore composable code Modify the project Create your own application">Compose Multiplatform 앱 생성하기</Links><br/>
+       <img src="icon-2-done.svg" width="20" alt="Second step"/> <Links href="/kmp/compose-multiplatform-explore-composables" summary="This tutorial uses IntelliJ IDEA, but you can also follow it in Android Studio – both IDEs share the same core functionality and Kotlin Multiplatform support. This is the second part of the Create a Compose Multiplatform app with shared logic and UI tutorial. Before proceeding, make sure you've completed previous steps. Create your Compose Multiplatform app Explore composable code Modify the project Create your own application">컴포저블 코드 살펴보기</Links><br/>
+       <img src="icon-3.svg" width="20" alt="Third step"/> <strong>프로젝트 수정하기</strong><br/>
+       <img src="icon-4-todo.svg" width="20" alt="Fourth step"/> 자신만의 애플리케이션 생성하기<br/>
     </p>
 </tldr>
 
@@ -64,6 +64,7 @@ Kotlin Multiplatform 마법사가 생성한 코드를 수정하고 `App` 컴포�
 1. `composeApp/src/commonMain/kotlin/App.kt` 파일을 열고 현재 날짜를 포함하는 문자열을 반환하는 다음 함수를 추가합니다.
 
    ```kotlin
+   @OptIn(ExperimentalTime::class)
    fun todaysDate(): String {
        fun LocalDateTime.format() = toString().substringBefore('T')
 
@@ -72,8 +73,8 @@ Kotlin Multiplatform 마법사가 생성한 코드를 수정하고 `App` 컴포�
        return now.toLocalDateTime(zone).format()
    }
    ```
-
-2. 같은 파일에서 `App()` 컴포저블을 수정하여 이 함수를 호출하고 결과를 표시하는 `Text()` 컴포저블을 포함하도록 합니다.
+2. IDE에서 제안하는 임포트를 추가합니다. `Clock` 클래스를 `kotlinx.datetime`이 **아닌** `kotlin.time`에서 임포트해야 합니다.
+3. 같은 파일에서 `App()` 컴포저블을 수정하여 이 함수를 호출하고 결과를 표시하는 `Text()` 컴포저블을 포함하도록 합니다.
    
     ```kotlin
     @Composable
@@ -108,8 +109,7 @@ Kotlin Multiplatform 마법사가 생성한 코드를 수정하고 `App` 컴포�
     }
     ```
 
-3. IDE의 제안에 따라 누락된 의존성을 임포트합니다.
-   `todaysDate()` 함수에 필요한 모든 누락된 의존성을 업데이트된 패키지에서 임포트해야 하며, IDE에서 메시지가 표시되면 옵트인하세요.
+4. IDE의 제안에 따라 누락된 의존성을 임포트합니다. `todaysDate()` 함수에 필요한 모든 누락된 의존성을 업데이트된 패키지에서 임포트해야 하며, IDE에서 메시지가 표시되면 옵트인하세요.
 
    ![해결되지 않은 참조](compose-unresolved-references.png)
 
@@ -128,12 +128,6 @@ Kotlin Multiplatform 마법사가 생성한 코드를 수정하고 `App` 컴포�
         <img src="first-compose-project-on-web-2.png" alt="웹에서의 첫 Compose Multiplatform 앱" width="400"/>
     </TabItem>
 </Tabs>
-
-<!--
-> You can find this state of the project in our [GitHub repository](https://github.com/kotlin-hands-on/get-started-with-cm/tree/main/ComposeDemoStage1).
->
-{style="tip"}
--->
 
 ## 다음 단계
 

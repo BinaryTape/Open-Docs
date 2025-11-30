@@ -271,7 +271,7 @@ fun main() {
 // Java
 var numbers = new ArrayList<Integer>();
 var max = numbers.stream().max(Comparator.naturalOrder()).orElse(null);
-System.out.println("Max: " + max);
+System.println("Max: " + max);
 ```
 {id="aggregate-functions-java"}
 

@@ -7,8 +7,7 @@ https://github.com/JetBrains/koog/blob/develop/examples/notebooks/Weave.ipynb
 https://raw.githubusercontent.com/JetBrains/koog/develop/examples/notebooks/Weave.ipynb
 ){ .md-button }
 
-本筆記本展示如何使用 OpenTelemetry (OTLP) 將 Koog 代理程式追蹤到 W&B Weave。
-您將建立一個簡單的 Koog `AIAgent`，啟用 Weave 匯出器，執行提示，並在 Weave UI 中查看豐富的追蹤。
+本筆記本展示如何使用 OpenTelemetry (OTLP) 將 Koog 代理程式追蹤到 W&B Weave。您將建立一個簡單的 Koog `AIAgent`，啟用 Weave 匯出器，執行提示，並在 Weave UI 中查看豐富的追蹤。
 
 如需背景資訊，請參閱 Weave OpenTelemetry 文件：https://weave-docs.wandb.ai/guides/tracking/otel/
 
@@ -43,8 +42,7 @@ export OPENAI_API_KEY=...
 
 ## 建立代理程式並啟用 Weave 追蹤
 
-我們建構一個最小的 `AIAgent` 並安裝 OpenTelemetry 功能，搭配 Weave 匯出器。
-此匯出器使用您的環境配置將 OTLP span 發送到 Weave：
+我們建構一個最小的 `AIAgent` 並安裝 `OpenTelemetry` 功能，搭配 Weave 匯出器。此匯出器使用您的環境配置將 OTLP span 發送到 Weave：
 - `WEAVE_API_KEY` — 向 Weave 進行驗證
 - `WEAVE_ENTITY` — 哪個團隊/使用者擁有這些追蹤
 - `WEAVE_PROJECT_NAME` — 儲存追蹤的 Weave 專案
@@ -61,7 +59,7 @@ val projectName = System.getenv()["WEAVE_PROJECT_NAME"] ?: "koog-tracing"
 
 val agent = AIAgent(
     executor = simpleOpenAIExecutor(System.getenv("OPENAI_API_KEY")),
-    llmModel = OpenAIModels.Reasoning.GPT4oMini,
+    llmModel = OpenAIModels.Chat.GPT4oMini,
     systemPrompt = "You are a code assistant. Provide concise code examples."
 ) {
     install(OpenTelemetry) {
@@ -76,8 +74,7 @@ val agent = AIAgent(
 
 ## 執行代理程式並在 Weave 中查看追蹤
 
-執行一個簡單的提示。完成後，打開列印出的連結以在 Weave 中查看追蹤。
-您應該會看到代理程式執行、模型呼叫和其他檢測操作的 span。
+執行一個簡單的提示。完成後，打開列印出的連結以在 Weave 中查看追蹤。您應該會看到代理程式執行、模型呼叫和其他檢測操作的 span。
 
 ```kotlin
 import kotlinx.coroutines.runBlocking

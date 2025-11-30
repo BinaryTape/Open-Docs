@@ -191,7 +191,7 @@ kotlin {
 inline fun <reified ExceptionType : Throwable> handleException(block: () -> Unit) {
     try {
         block()
-        // This is now allowed after the change
+        // 此更改后，现在允许这样做
     } catch (e: ExceptionType) {
         println("Caught specific exception: ${e::class.simpleName}")
     }
@@ -258,7 +258,7 @@ sealed class Result<out T, out F : Failure> {
 }
 
 @OptIn(ExperimentalContracts::class)
-// Uses a contract to assert a generic type
+// 使用契约来断言泛型类型
 fun <T, F : Failure> Result<T, F>.isHttpError(): Boolean {
     contract {
         returns(true) implies (this@isHttpError is Result.Failed<Failure.HttpError>)
@@ -291,14 +291,14 @@ import kotlin.contracts.*
 val Any.isHelloString: Boolean
     get() {
         @OptIn(ExperimentalContracts::class)
-        // Enables smart casting the receiver to String when the getter returns true
+        // 当 getter 返回 true 时，启用将接收者智能类型转换为 String
         contract { returns(true) implies (this@isHelloString is String) }
         return "hello" == this
     }
 
 fun printIfHelloString(x: Any) {
     if (x.isHelloString) {
-        // Prints the length after the smart cast of the receiver to String
+        // 在接收者智能类型转换为 String 后打印长度
         println(x.length)
         // 5
     }
@@ -322,7 +322,7 @@ import kotlin.contracts.*
 
 class Runner {
     @OptIn(ExperimentalContracts::class)
-    // Enables initialization of variables assigned inside the lambda
+    // 启用在 lambda 内部赋值的变量的初始化
     operator fun invoke(block: () -> Unit) {
         contract {
             callsInPlace(block, InvocationKind.EXACTLY_ONCE)
@@ -336,7 +336,7 @@ fun testOperator(runner: Runner) {
     runner {
         number = 1
     }
-    // Prints the value after definite initialization guaranteed by the contract
+    // 打印由契约保证的确定初始化后的值
     println(number)
     // 1
 }
@@ -362,7 +362,7 @@ import kotlin.contracts.*
 @OptIn(ExperimentalContracts::class, ExperimentalExtendedContracts::class)
 fun decode(encoded: String?): String? {
     contract {
-        // Guarantees a non-null return value when the input is non-null
+        // 当输入非空时，保证返回非空值
         (encoded != null) implies (returnsNotNull())
     }
     if (encoded == null) return null
@@ -370,10 +370,10 @@ fun decode(encoded: String?): String? {
 }
 
 fun useDecodedValue(s: String?) {
-    // Uses a safe call since the return value may be null
+    // 由于返回值可能为空，使用安全调用
     decode(s)?.length
     if (s != null) {
-        // Treats the return value as non-null after the smart cast
+        // 在智能类型转换后，将返回值视为非空
         decode(s).length
     }
 }
@@ -403,9 +403,9 @@ import kotlin.contracts.*
 @OptIn(ExperimentalContracts::class, ExperimentalExtendedContracts::class)
 fun <T> T.alsoIf(condition: Boolean, block: (T) -> Unit): T {
     contract {
-        // Declares that the lambda runs at most once
+        // 声明 lambda 最多运行一次
         callsInPlace(block, InvocationKind.AT_MOST_ONCE)
-        // Declares that the condition is assumed to be true inside the lambda
+        // 声明条件在 lambda 内部被假定为 true
         condition holdsIn block
     }
     if (condition) block(this)
@@ -416,8 +416,8 @@ fun useApplyIf(input: Any) {
     val result = listOf(1, 2, 3)
         .first()
         .alsoIf(input is Int) {
-            // The input parameter is smart cast to Int inside the lambda
-            // Prints the sum of input and first list element
+            // 输入参数在 lambda 内部被智能类型转换为 Int
+            // 打印输入和列表第一个元素的和
             println(input + it)
             // 2
         }
@@ -458,7 +458,7 @@ class B : Example()
 class C : Example()
 
 fun test(e: Example) = when (e) {
-    // Uses invokedynamic with SwitchBootstraps.typeSwitch
+    // 将 invokedynamic 与 SwitchBootstraps.typeSwitch 结合使用
     is A -> 1
     is B -> 2
     is C -> 3
@@ -552,12 +552,12 @@ expect suspend fun readCopiedText(): String
 
 // jsMain
 external interface Navigator { val clipboard: Clipboard }
-// Different interop in JS and Wasm
+// JS 和 Wasm 中不同的互操作
 external interface Clipboard { fun readText(): Promise<String> }
 external val navigator: Navigator
 
 suspend fun readCopiedText(): String {
-    // Different interop in JS and Wasm
+    // JS 和 Wasm 中不同的互操作
     return navigator.clipboard.readText().await()
 }
 
@@ -613,7 +613,7 @@ kotlin {
     js()
     wasmJs()
 
-    // Enables the default source set hierarchy, including webMain and webTest
+    // 启用默认源代码集层级，包括 webMain 和 webTest
     applyDefaultHierarchyTemplate()
 }
 ```
@@ -622,9 +622,9 @@ kotlin {
 
 ### Kotlin 库的稳定跨平台编译
 
-Kotlin 2.2.20 完成了一项重要的[路线图项](https://youtrack.jetbrains.com/issue/KT-71290)，稳定了 Kotlin 库的跨平台编译。
+Kotlin 2.2.20 完成了一项重要的[路线图项](https://youtrack.com/issue/KT-71290)，稳定了 Kotlin 库的跨平台编译。
 
-您现在可以使用任何主机来生成 `.klib` artifact 以发布 Kotlin 库。这显著简化了发布过程，特别是对于以前需要 Mac 机器的 Apple 目标平台。
+您现在可以使用任何[支持的主机](native-target-support.md#hosts)来生成 `.klib` artifact 以发布 Kotlin 库。这显著简化了发布过程，特别是对于以前需要 Mac 机器的 Apple 目标平台。
 
 此特性默认可用。如果您已经使用 `kotlin.native.enableKlibsCrossCompilation=true` 启用了交叉编译，现在可以从 `gradle.properties` 文件中移除它。
 
@@ -959,7 +959,7 @@ if (config.devServer) {
 
 在 Kotlin/Wasm 上，编译器默认不会在生成的二进制文件中存储类的完全限定名称 (FQN)。这种方法避免了增加应用程序大小。
 
-因此，在以前的 Kotlin 版本中，调用 `KClass::qualifiedName` 属性会返回一个空字符串，而不是类的限定名称。
+作为结果，在以前的 Kotlin 版本中，调用 `KClass::qualifiedName` 属性会返回一个空字符串，而不是类的限定名称。
 
 从 Kotlin 2.2.20 开始，除非您显式启用限定名称特性，否则当您在 Kotlin/Wasm 项目中使用 `KClass::qualifiedName` 属性时，编译器会报告错误。
 
@@ -1059,7 +1059,7 @@ fun main(args: Array<String>) {
 
 ```kotlin
 fun main(args: Array<String>) {
-    // No need for drop() and only your custom arguments are included 
+    // 无需 drop()，并且只包含您的自定义实参
     println(args.joinToString(", "))
 }
 ```
@@ -1236,13 +1236,13 @@ fun main() {
     val counter = AtomicLong(Random.nextLong())
     val minSetBitsThreshold = 20
 
-    // Sets a new value without using the result
+    // 设置一个新值而不使用结果
     counter.update { if (it < 0xDECAF) 0xCACA0 else 0xC0FFEE }
 
-    // Retrieves the current value, then updates it
+    // 检索当前值，然后更新它
     val previousValue = counter.fetchAndUpdate { 0x1CEDL.shl(Long.SIZE_BITS - it.countLeadingZeroBits()) or it }
 
-    // Updates the value, then retrieves the result
+    // 更新值，然后检索结果
     val current = counter.updateAndFetch {
         if (it.countOneBits() < minSetBitsThreshold) it.shl(20) or 0x15BADL else it
     }
@@ -1275,7 +1275,7 @@ Kotlin 2.2.20 引入了 [`copyOf()`](https://kotlinlang.org/api/core/kotlin-stdl
 @OptIn(ExperimentalStdlibApi::class)
 fun main() {
     val row1: Array<String> = arrayOf("one", "two")
-    // Resizes the array and populates the new elements using the lambda
+    // 调整数组大小并使用 lambda 填充新元素
     val row2: Array<String> = row1.copyOf(4) { "default" }
     println(row2.contentToString())
     // [one, two, default, default]
@@ -1304,10 +1304,10 @@ Compose 编译器从 Kotlin 2.1.0 开始支持抽象函数中的默认形参，�
 
 ```text
 @Composable fun App() {
-  Box { // <-- `Box` is a `@UiComposable`
-    Path(...) // <-- `Path` is a `@VectorComposable`
+  Box { // <-- `Box` 是 `@UiComposable`
+    Path(...) // <-- `Path` 是 `@VectorComposable`
     ^^^^^^^^^
-    warning: Calling a Vector composable function where a UI composable was expected
+    warning: 在预期 UI 可组合函数的位置调用 Vector 可组合函数
   }
 }
 ```

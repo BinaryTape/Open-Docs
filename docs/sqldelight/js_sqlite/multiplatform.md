@@ -9,13 +9,13 @@ async: true
 
 ```groovy
 kotlin {
-  // The drivers needed will change depending on what platforms you target:
+  // 所需的驱动器将根据你面向的平台而有所不同:
 
   sourceSets.androidMain.dependencies {
     implementation "app.cash.sqldelight:android-driver:{{ versions.sqldelight }}"
   }
 
-  // or sourceSets.iosMain, sourceSets.windowsMain, etc.
+  // 或 sourceSets.iosMain、sourceSets.windowsMain 等。
   sourceSets.nativeMain.dependencies {
     implementation "app.cash.sqldelight:native-driver:{{ versions.sqldelight }}"
   }
@@ -25,7 +25,7 @@ kotlin {
   }
 
   sourceSets.jsMain.dependencies {
-    implementation "app.cash.sqldelight:sqljs-driver:{{ versions.sqldelight }}"
+    implementation "app.cash.sqldelight:web-worker-driver:{{ versions.sqldelight }}"
     implementation npm("sql.js", "1.6.2")
     implementation devNpm("copy-webpack-plugin", "9.1.0")
   }
@@ -80,4 +80,3 @@ expect suspend fun provideDbDriver(
     ): SqlDriver {
       return NativeSqliteDriver(schema.synchronous(), "test.db")
     }
-    ```

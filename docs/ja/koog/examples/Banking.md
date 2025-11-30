@@ -201,7 +201,7 @@ import kotlinx.coroutines.runBlocking
 
 val transferAgentService = AIAgentService(
     executor = openAIExecutor,
-    llmModel = OpenAIModels.Reasoning.GPT4oMini,
+    llmModel = OpenAIModels.Chat.GPT4oMini,
     systemPrompt = bankingAssistantSystemPrompt,
     temperature = 0.0,  // Use deterministic responses for financial operations
     toolRegistry = ToolRegistry {
@@ -229,7 +229,7 @@ runBlocking {
     「Daniel」という名前の連絡先が2件見つかりました。どちらに送金しますか？
     1. Daniel Anderson (+46 70 123 45 67)
     2. Daniel Garcia (+34 612 345 678)
-    Daniel Garcia (+34 612 345 678)に「ディナー代」として25.00ユーロを送金することを確認してください。
+    Daniel Garcia (+34 612 345 678)に「レストランでの夕食代」として25.00ユーロを送金することを確認してください。
 
     タスクが正常に完了しました。
 
@@ -421,7 +421,7 @@ class TransactionAnalysisTools : ToolSet {
 ```kotlin
 val analysisAgentService = AIAgentService(
     executor = openAIExecutor,
-    llmModel = OpenAIModels.Reasoning.GPT4oMini,
+    llmModel = OpenAIModels.Chat.GPT4oMini,
     systemPrompt = "$bankingAssistantSystemPrompt
 $transactionAnalysisPrompt",
     temperature = 0.0,
@@ -520,7 +520,7 @@ val strategy = strategy<String, String>("banking assistant") {
                 )
             ),
             fixingParser = StructureFixingParser(
-                model = OpenAIModels.CostOptimized.GPT4oMini,
+                model = OpenAIModels.Chat.GPT4oMini,
                 retries = 2,
             )
         )
@@ -658,7 +658,7 @@ import ai.koog.agents.core.tools.ToolParameterType
 
 val classifierAgent = AIAgent(
     executor = openAIExecutor,
-    llmModel = OpenAIModels.Reasoning.GPT4oMini,
+    llmModel = OpenAIModels.Chat.GPT4oMini,
     toolRegistry = ToolRegistry {
         tool(AskUser)
 
@@ -708,7 +708,7 @@ runBlocking {
     「Daniel」という名前の連絡先が2件見つかりました。どちらに送金しますか？
     1. Daniel Anderson (+46 70 123 45 67)
     2. Daniel Garcia (+34 612 345 678)
-    Daniel Anderson (+46 70 123 45 67)に「ディナー代」として25.00ユーロを送金することを確認してください。
+    Daniel Anderson (+46 70 123 45 67)に「レストランでの夕食代」として25.00ユーロを送金することを確認してください。
 
     結果: タスクを実行できません。
 

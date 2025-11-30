@@ -1,4 +1,38 @@
-` in string literals](#multi-dollar-string-interpolation)
+[//]: # (title: Kotlin 2.1.0の新機能)
+
+_[リリース日: 2024年11月27日](releases.md#release-details)_
+
+Kotlin 2.1.0 がリリースされました！主なハイライトは以下の通りです。
+
+*   **プレビュー版の新しい言語機能**: [when式でのガード条件（when with a subject）](#guard-conditions-in-when-with-a-subject)、
+    [非ローカルな`break`と`continue`](#non-local-break-and-continue)、および[複数ドル記号による文字列補間](#multi-dollar-string-interpolation)。
+*   **K2コンパイラの更新**: [コンパイラチェックに関する柔軟性の向上](#extra-compiler-checks)と[kapt実装の改善](#improved-k2-kapt-implementation)。
+*   **Kotlin Multiplatform**: [Swiftエクスポートの基本サポート](#basic-support-for-swift-export)の導入、
+    [コンパイラオプション用の安定版Gradle DSL](#new-gradle-dsl-for-compiler-options-in-multiplatform-projects-promoted-to-stable)など。
+*   **Kotlin/Native**: [`iosArm64`のサポート改善](#iosarm64-promoted-to-tier-1)およびその他の更新。
+*   **Kotlin/Wasm**: [インクリメンタルコンパイルのサポート](#support-for-incremental-compilation)を含む複数の更新。
+*   **Gradleサポート**: [新しいバージョンのGradleおよびAndroid Gradleプラグインとの互換性の改善](#gradle-improvements)、
+    および[Kotlin GradleプラグインAPIの更新](#new-api-for-kotlin-gradle-plugin-extensions)。
+*   **ドキュメント**: [Kotlinドキュメントの大幅な改善](#documentation-updates)。
+
+## IDEサポート
+
+2.1.0 をサポートする Kotlin プラグインは、最新の IntelliJ IDEA および Android Studio にバンドルされています。
+IDE の Kotlin プラグインを更新する必要はありません。
+ビルドスクリプトで Kotlin のバージョンを 2.1.0 に変更するだけです。
+
+詳細については、[新しい Kotlin バージョンへの更新](releases.md#update-to-a-new-kotlin-version)を参照してください。
+
+## 言語
+
+K2コンパイラを搭載したKotlin 2.0.0リリース後、JetBrainsチームは新機能で言語の改善に注力しています。
+このリリースでは、いくつかの新しい言語設計の改善を発表できることを嬉しく思います。
+
+これらの機能はプレビュー版として利用可能であり、ぜひ試してフィードバックを共有してください。
+
+*   [when式でのガード条件（when with a subject）](#guard-conditions-in-when-with-a-subject)
+*   [非ローカルな`break`と`continue`](#non-local-break-and-continue)
+*   [複数ドル記号による文字列補間: 文字列リテラル内でのドル記号 (`$`) の処理方法を改善します](#multi-dollar-string-interpolation)。
 
 > すべての機能は、K2 モードが有効になっている IntelliJ IDEA の最新バージョン 2024.3 で IDE サポートが提供されています。
 >
@@ -174,7 +208,7 @@ kotlin {
 ```
 
 コードが既に単一ドル記号による標準の文字列補間を使用している場合、変更は必要ありません。
-文字列リテラルにドル記号が必要な場合はいつでも `$` を使用できます。
+文字列リテラルにドル記号が必要な場合はいつでも `$$` を使用できます。
 
 ### APIを拡張するためのオプトイン必須化のサポート
 
@@ -335,33 +369,33 @@ kotlin {
 *   エラーの抑制は許可されていません。
 *   不明な警告名を渡すと、コンパイルエラーになります。
 *   複数の警告を一度に指定できます。
+  
+   <tabs>
+   <tab title="コマンドライン">
 
-<tabs>
-<tab title="コマンドライン">
+   ```bash
+   kotlinc -Xsuppress-warning=NOTHING_TO_INLINE -Xsuppress-warning=NO_TAIL_CALLS_FOUND main.kt
+   ```
 
-```bash
-kotlinc -Xsuppress-warning=NOTHING_TO_INLINE -Xsuppress-warning=NO_TAIL_CALLS_FOUND main.kt
-```
+   </tab>
+   <tab title="ビルドファイル">
 
-</tab>
-<tab title="ビルドファイル">
+   ```kotlin
+   // build.gradle.kts
+   kotlin {
+       compilerOptions {
+           freeCompilerArgs.addAll(
+               listOf(
+                   "-Xsuppress-warning=NOTHING_TO_INLINE",
+                   "-Xsuppress-warning=NO_TAIL_CALLS_FOUND"
+               )
+           )
+       }
+   }
+   ```
 
-```kotlin
-// build.gradle.kts
-kotlin {
-    compilerOptions {
-        freeCompilerArgs.addAll(
-            listOf(
-                "-Xsuppress-warning=NOTHING_TO_INLINE",
-                "-Xsuppress-warning=NO_TAIL_CALLS_FOUND"
-            )
-        )
-    }
-}
-```
-
-</tab>
-</tabs>
+   </tab>
+   </tabs>
 
 ### K2 kapt実装の改善
 

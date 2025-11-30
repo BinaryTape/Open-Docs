@@ -54,7 +54,30 @@ Compose Multiplatform Gradleプラグイン（`compose.ui`など）によって�
 
 `org.jetbrains.compose.ui.tooling.preview.Preview`やデスクトップ固有の`androidx.compose.desktop.ui.tooling.preview.Preview`など、その他のすべてのアノテーションは非推奨となりました。
 
+### インターロップビューの自動サイズ調整
+
+Compose Multiplatformは、デスクトップとiOSの両方でネイティブのインターロップ要素の自動サイズ調整をサポートするようになりました。これらの要素は、コンテンツに基づいてレイアウトを調整できるようになり、正確なサイズを手動で計算したり、固定寸法を事前に指定したりする必要がなくなります。
+
+* デスクトップでは、`SwingPanel`は組み込みコンポーネントの最小サイズ、推奨サイズ、最大サイズに基づいて、自動的にサイズを調整します。
+* iOSでは、UIKitインターロップビューがビューの適合サイズ（固有のコンテンツサイズ）に応じたサイズ調整をサポートするようになりました。これにより、SwiftUIビュー（`UIHostingController`経由）や`NSLayoutConstraints`に依存しない基本的な`UIView`サブクラスの適切なラッピングが可能になります。
+
+### `Popup`および`Dialog`プロパティの安定版
+
+`DialogProperties`内の以下のプロパティ、`usePlatformInsets`、`useSoftwareKeyboardInset`、`scrimColor`は、安定版に昇格し、実験版ではなくなりました。
+
+同様に、`PopupProperties`内の`usePlatformDefaultWidth`および`usePlatformInsets`プロパティも安定版に昇格しました。
+
+`PopupProperties`パラメーターを持たない`Popup`オーバーロードの非推奨レベルは`ERROR`に変更され、更新されたAPIの使用が強制されるようになりました。
+
+### Skiaがマイルストーン138に更新されました
+
+Compose MultiplatformでSkikoを介して使用されるSkiaのバージョンが、マイルストーン138に更新されました。
+
+以前使用されていたSkiaのバージョンはマイルストーン132でした。
+これらのバージョン間で行われた変更は、[リリースノート](https://skia.googlesource.com/skia/+/refs/heads/chrome/m138/RELEASE_NOTES.md)で確認できます。
+
 ### Navigation 3のサポート
+<primary-label ref="Experimental"/>
 
 Navigation 3は、Composeと連携するように設計された新しいナビゲーションライブラリです。
 Navigation 3を使用すると、バックスタックを完全に制御でき、デスティネーションへの移動やデスティネーションからの移動は、リストからのアイテムの追加と削除と同じくらい簡単になります。
@@ -77,20 +100,6 @@ Compose Multiplatform 1.10.0-beta01は、Android以外のターゲットで新�
 * Webアプリでは、デスクトップブラウザで**Esc**キーを押すと、デスクトップアプリと同様に、ユーザーを前の画面に戻す（およびダイアログ、ポップアップ、Material 3の`SearchBar`のような一部のウィジェットを閉じる）ようになりました。
 * [ブラウザの履歴ナビゲーション](compose-navigation-routing.md#support-for-browser-navigation-in-web-apps)とアドレスバーでのデスティネーションの使用のサポートは、Compose Multiplatform 1.10ではNavigation 3に拡張されません。
   これはマルチプラットフォームライブラリの今後のバージョンに延期されました。
-
-### インターロップビューの自動サイズ調整
-
-Compose Multiplatformは、デスクトップとiOSの両方でネイティブのインターロップ要素の自動サイズ調整をサポートするようになりました。これらの要素は、コンテンツに基づいてレイアウトを調整できるようになり、正確なサイズを手動で計算したり、固定寸法を事前に指定したりする必要がなくなります。
-
-* デスクトップでは、`SwingPanel`は組み込みコンポーネントの最小サイズ、推奨サイズ、最大サイズに基づいて、自動的にサイズを調整します。
-* iOSでは、UIKitインターロップビューがビューの適合サイズ（固有のコンテンツサイズ）に応じたサイズ調整をサポートするようになりました。これにより、SwiftUIビュー（`UIHostingController`経由）や`NSLayoutConstraints`に依存しない基本的な`UIView`サブクラスの適切なラッピングが可能になります。
-
-### Skiaがマイルストーン138に更新されました
-
-Compose MultiplatformでSkikoを介して使用されるSkiaのバージョンが、マイルストーン138に更新されました。
-
-以前使用されていたSkiaのバージョンはマイルストーン132でした。
-これらのバージョン間で行われた変更は、[リリースノート](https://skia.googlesource.com/skia/+/refs/heads/chrome/m138/RELEASE_NOTES.md)で確認できます。
 
 ## iOS
 
@@ -154,4 +163,4 @@ Compose Hot Reloadプラグインを明示的に宣言しているプロジェ�
 Compose Multiplatformは、Android Gradle Plugin (AGP) バージョン9.0.0のサポートを導入します。
 新しいAGPバージョンとの互換性を確保するには、Compose Multiplatform 1.9.3または1.10.0にアップグレードしてください。
 
-長期的に更新プロセスをよりスムーズにするために、AGPの使用を専用のAndroidモジュールに分離するようにプロジェクト構造を変更することをお勧めします。
+長期的に更新プロセスをよりスムーズにするために、AGPの使用を専用のAndroidアプリケーションモジュールに分離するようにプロジェクト構造を変更することをお勧めします。

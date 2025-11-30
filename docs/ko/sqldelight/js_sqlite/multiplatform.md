@@ -25,7 +25,7 @@ kotlin {
   }
 
   sourceSets.jsMain.dependencies {
-    implementation "app.cash.sqldelight:sqljs-driver:{{ versions.sqldelight }}"
+    implementation "app.cash.sqldelight:web-worker-driver:{{ versions.sqldelight }}"
     implementation npm("sql.js", "1.6.2")
     implementation devNpm("copy-webpack-plugin", "9.1.0")
   }
@@ -41,7 +41,7 @@ expect suspend fun provideDbDriver(
   schema: SqlSchema<QueryResult.AsyncValue<Unit>>
 ): SqlDriver
 ```
-`SqlSchema` 인터페이스에는 `generateAsync` 구성 옵션을 `true`로 설정하여 생성된 스키마 코드를 구별하는 데 사용되는 제네릭 `QueryResult` 타입 인자가 포함되어 있습니다. 일부 드라이버는 스키마를 생성하거나 마이그레이션할 때 동기적인 동작에 의존하므로, 비동기 스키마를 사용하려면 `[`synchronous()`](../../2.x/extensions/async-extensions/app.cash.sqldelight.async.coroutines/#427896482%2FFunctions%2F-1043631958)` 확장 메서드를 사용하여 동기 드라이버와 함께 사용할 수 있도록 조정할 수 있습니다. 
+`SqlSchema` 인터페이스에는 `generateAsync` 구성 옵션이 `true`로 설정되어 생성된 스키마 코드를 구별하는 데 사용되는 제네릭 `QueryResult` 타입 인자가 포함되어 있습니다. 일부 드라이버는 스키마를 생성하거나 마이그레이션할 때 동기적인 동작에 의존하므로, 비동기 스키마를 사용하려면 [`synchronous()`](../../2.x/extensions/async-extensions/app.cash.sqldelight.async.coroutines/#427896482%2FFunctions%2F-1043631958) 확장 메서드를 사용하여 동기 드라이버와 함께 사용할 수 있도록 조정할 수 있습니다. 
 
 === "src/jsMain/kotlin"
     ```kotlin
@@ -79,4 +79,3 @@ expect suspend fun provideDbDriver(
     ): SqlDriver {
       return NativeSqliteDriver(schema.synchronous(), "test.db")
     }
-    ```

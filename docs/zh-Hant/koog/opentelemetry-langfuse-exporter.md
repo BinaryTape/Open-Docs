@@ -11,9 +11,8 @@ Koog 內建支援將代理程式追蹤匯出到 [Langfuse](https://langfuse.com/
 
 1.  建立一個 Langfuse 專案。請遵循 [在 Langfuse 中建立新專案](https://langfuse.com/docs/get-started#create-new-project-in-langfuse) 的設定指南。
 2.  取得 API 憑證。請按照 [Langfuse API 金鑰在哪裡？](https://langfuse.com/faq/all/where-are-langfuse-api-keys) 所述，擷取您的 Langfuse `public key` 和 `secret key`。
-3.  將 Langfuse 主機、public key 和 secret key 傳遞給 Langfuse 匯出器。
-    這可以透過將它們作為參數提供給 `addLangfuseExporter()` 函式來完成，
-    或者如下所示設定環境變數：
+3.  將 Langfuse 主機、secret key 和 secret key 傳遞給 Langfuse 匯出器。
+    這可以透過將它們作為參數提供給 `addLangfuseExporter()` 函式來完成，或者如下所示設定環境變數：
 
 ```bash
    export LANGFUSE_HOST="https://cloud.langfuse.com"
@@ -42,7 +41,7 @@ fun main() = runBlocking {
     
     val agent = AIAgent(
         promptExecutor = simpleOpenAIExecutor(apiKey),
-        llmModel = OpenAIModels.CostOptimized.GPT4oMini,
+        llmModel = OpenAIModels.Chat.GPT4oMini,
         systemPrompt = "You are a code assistant. Provide concise code examples."
     ) {
         install(OpenTelemetry) {
@@ -91,7 +90,7 @@ fun main() = runBlocking {
 
     val agent = AIAgent(
         promptExecutor = simpleOpenAIExecutor(apiKey),
-        llmModel = OpenAIModels.CostOptimized.GPT4oMini,
+        llmModel = OpenAIModels.Chat.GPT4oMini,
         systemPrompt = "You are a helpful assistant."
     ) {
         install(OpenTelemetry) {

@@ -2,7 +2,7 @@
 
 SQLDelight 将为 `.sq` 文件中的任何带标签的 SQL 语句生成一个类型安全函数。
 
-```sql title="src/commonMain/sqldelight/com/example/sqldelight/hockey/data/Player.sq"
+```sql title="src/main/sqldelight/com/example/sqldelight/hockey/data/Player.sq"
 selectAll:
 SELECT *
 FROM hockeyPlayer;

@@ -1,4 +1,4 @@
-[//]: # (title: Compose Multiplatform과 Jetpack Compose)
+[//]: # (title: Compose Multiplatform과 Jetpack Compose의 관계)
 
 <web-summary>이 문서는 Compose Multiplatform과 Jetpack Compose의 관계에 대해 설명합니다. 두 툴킷과 이들이 어떻게 조화를 이루는지 자세히 알아봅니다.</web-summary>
 
@@ -35,7 +35,7 @@ Jetpack Compose와 Compose 컴파일러 및 런타임을 공유하며, `@Composa
 ## Compose Multiplatform과 Jetpack Compose 기능
 
 > 두 UI 프레임워크의 기본 개념은 [Google의 공식 문서](https://developer.android.com/jetpack/compose/documentation)를 포함하여 거의 모든 Jetpack Compose 자료에서 배울 수 있습니다.
-> 
+>
 {style="tip"}
 
 당연히 Compose Multiplatform에는 플랫폼별 기능 및 고려 사항이 있습니다.
@@ -70,7 +70,7 @@ Jetpack에는 Google이 Android용으로 게시하는 Foundation 및 Material과
 [이러한 라이브러리](https://github.com/JetBrains/compose-multiplatform-core)에서 제공하는 API를 공통 코드에서 사용할 수 있도록 하기 위해, JetBrains는 Android 외의 다른 타겟을 위해 게시되는 이러한 라이브러리의 멀티플랫폼 버전을 유지 관리합니다.
 
 > [호환성 및 버전](compose-compatibility-and-versioning.md#jetpack-compose-and-compose-multiplatform-release-cycles) 페이지에서 릴리스 주기에 대해 자세히 알아보세요.
-> 
+>
 {style="tip"}
 
 Compose Multiplatform 애플리케이션을 Android용으로 빌드할 때, Google이 게시한 Jetpack Compose 아티팩트를 사용합니다.
@@ -91,7 +91,7 @@ Compose Multiplatform을 사용하면 Compose API를 사용하는 라이브러�
 ## 다음 단계
 
 다음 컴포넌트에 대한 Compose Multiplatform 구현에 대해 더 읽어보세요.
-  * [Lifecycle](compose-lifecycle.md)
-  * [Resources](compose-multiplatform-resources.md)
-  * [Common ViewModel](compose-viewmodel.md)
-  * [Navigation and routing](compose-navigation-routing.md)
+*   [Lifecycle](compose-lifecycle.md)
+*   [Resources](compose-multiplatform-resources.md)
+*   [Common ViewModel](compose-viewmodel.md)
+*   [Navigation and routing](compose-navigation-routing.md)

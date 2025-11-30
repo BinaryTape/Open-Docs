@@ -55,7 +55,7 @@ import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
  */
 val agent = AIAgent(
     executor = simpleOpenAIExecutor(System.getenv("OPENAI_API_KEY")),
-    llmModel = OpenAIModels.Reasoning.GPT4oMini,
+    llmModel = OpenAIModels.Chat.GPT4oMini,
     systemPrompt = "你是一位代码助手。请提供简洁的代码示例。"
 ) {
     install(OpenTelemetry) {
@@ -80,7 +80,7 @@ import kotlinx.coroutines.runBlocking
 println("正在运行带 Langfuse 追踪的代理")
 
 runBlocking {
-    val result = agent.run("Tell me a joke about programming")
+    val result = agent.run("给我讲个关于编程的笑话")
     "结果: $result
 在 Langfuse 实例上查看追踪"
 }
@@ -93,13 +93,13 @@ runBlocking {
 
 ### 在 Langfuse 中查看的位置
 
-1.  打开你的 Langfuse 控制面板并选择你的项目
-2.  导航到追踪/Span 视图
-3.  查找你在运行此单元格时附近的最新条目
-4.  深入到 span 中查看：
-    - 代理生命周期事件
-    - LLM 请求/响应元数据
-    - 错误（如果有）
+1. 打开你的 Langfuse 控制面板并选择你的项目
+2. 导航到追踪/Span 视图
+3. 查找你在运行此单元格时附近的最新条目
+4. 深入到 span 中查看：
+   - 代理生命周期事件
+   - LLM 请求/响应元数据
+   - 错误（如果有）
 
 ### 故障排除
 

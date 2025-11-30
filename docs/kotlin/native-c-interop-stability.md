@@ -57,7 +57,7 @@ Kotlin 编译器不会阻止你使用在部署目标上不可用的 Objective-C 
 
 处理原生库时，编译器通常使用本地安装的 Xcode 中的头文件，因为几乎所有原生库头文件都会导入来自 Xcode 的“标准”头文件（例如，`stdint.h`）而这些头文件源自 Xcode。
 
-这就是为什么 Xcode 版本会影响原生库导入 Kotlin 的原因。这也是在使用第三方原生库时，[从非 Mac 主机交叉编译 Apple 目标平台](whatsnew21.md#ability-to-publish-kotlin-libraries-from-any-host)仍然不可能的原因之一。
+这就是为什么 Xcode 版本会影响原生库导入 Kotlin 的原因。这也是在使用第三方原生库时，[从非 Mac 主机交叉编译 Apple 目标平台](https://kotlinlang.org/docs/multiplatform/multiplatform-publish-lib-setup.html#compilation-for-apple-targets)仍然不可能的原因之一。
 
 每个 Kotlin 版本都与一个特定 Xcode 版本最兼容。这是推荐版本，它已针对相应的 Kotlin 版本进行了最充分的测试。请在 [兼容性表](https://kotlinlang.org/docs/multiplatform/multiplatform-compatibility-guide.html#version-compatibility) 中检查与特定 Xcode 版本的兼容性。
 

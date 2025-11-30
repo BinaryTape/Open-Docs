@@ -57,18 +57,29 @@
 5.  调整以下脚本，并将结果粘贴到运行脚本字段中：
 
    ```bash
+   if [ "YES" = "$OVERRIDE_KOTLIN_BUILD_IDE_SUPPORTED" ]; then
+       echo "Skipping Gradle build task invocation due to OVERRIDE_KOTLIN_BUILD_IDE_SUPPORTED environment variable set to \"YES\""
+       exit 0
+   fi
    cd "<Path to the root of the multiplatform project>"
    ./gradlew :<Shared module name>:embedAndSignAppleFrameworkForXcode
    ```
 
    *   在 `cd` 命令中，指定你的 Kotlin Multiplatform 项目的根路径，例如 `$SRCROOT/..`。
    *   在 `./gradlew` 命令中，指定共享模块的名称，例如 `:shared` 或 `:composeApp`。
-
-   ![添加脚本](xcode-run-script-phase-2.png){width=700}
+   
+   当你启动一个 iOS 运行配置时，IntelliJ IDEA 和 Android Studio 会在启动 Xcode 构建之前构建 Kotlin framework 依赖项，并将 `OVERRIDE_KOTLIN_BUILD_IDE_SUPPORTED` 环境变量设置为 "YES"。所提供的 shell 脚本会检查此变量，并防止 Kotlin framework 从 Xcode 中第二次构建。
+     
+   > 当你为不支持此功能的 project 启动 iOS 运行配置时，IDE 会建议一个修复方案来设置构建守卫。
+   >
+   {style="note"}
 
 6.  禁用 **Based on dependency analysis** 选项。
 
+   ![添加脚本](xcode-run-script-phase-2.png){width=700}
+
    这可确保 Xcode 在每次构建期间都运行脚本，并且不会每次都警告缺少输出依赖项。
+
 7.  将 **Run Script** 阶段上移，放置在 **Compile Sources** 阶段之前。
 
    ![拖动运行脚本阶段](xcode-run-script-phase-3.png){width=700}

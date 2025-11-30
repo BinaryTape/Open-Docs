@@ -2,7 +2,7 @@
 
 {% include 'common/index_gradle_database.md' %}
 
-{% include 'common/index_schema.md' %}
+{% include 'multiplatform_sqlite/index_schema.md' %}
 
 생성된 데이터베이스를 코드에서 사용하려면 프로젝트에 SQLDelight 드라이버 의존성을 추가해야 합니다.
 각 타겟 플랫폼에는 고유한 드라이버 구현이 있습니다.
@@ -89,6 +89,6 @@ fun createDatabase(driverFactory: DriverFactory): Database {
     }
     ```
 
-Kotlin/JS에서 사용하려면 [여기서 확인하세요](../js_sqlite/multiplatform).
+Kotlin/JS에서 사용하려면, [여기서 확인하세요](../js_sqlite/multiplatform).
 
 {% include 'common/index_queries.md' %}

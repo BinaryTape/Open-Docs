@@ -11,7 +11,7 @@ https://raw.githubusercontent.com/JetBrains/koog/develop/examples/notebooks/Ches
 
 ## 您将学到什么
 
-- 如何为复杂游戏建模领域特定数据结构
+- 如何为复杂游戏建模领域特有的数据结构
 - 创建代理可用于与环境交互的自定义工具
 - 实现带内存管理的有效代理策略
 - 构建具有选择能力（choice selection capabilities）的交互式 AI 系统
@@ -143,30 +143,30 @@ class ChessBoard {
 
 - **内部表示**：使用可变列表的列表进行高效访问和修改
 - **可视化显示**：`toString()` 方法提供清晰的 ASCII 表示，带有等级数字和文件字母
-- **位置映射**：在国际象棋符号（a1-h8）和内部数组索引之间进行转换
+- **位置映射**：在国际象棋记法（a1-h8）和内部数组索引之间进行转换
 
 ### ChessGame 逻辑
 
 ```kotlin
 /**
- * 不检查有效走法的简单国际象棋游戏。
- * 如果输入的走法有效，则存储棋盘的正确状态。
+ * Simple chess game without checks for valid moves.
+ * Stores a correct state of the board if the entered moves are valid
  */
 class ChessGame {
     private val board: ChessBoard = ChessBoard()
     private var currentPlayer: Player = Player.White
     val moveNotation: String = """
-        0-0 - 短易位
-        0-0-0 - 长易位
-        <piece>-<from>-<to> - 常规走法。例如 p-e2-e4
-        <piece>-<from>-<to>-<promotion> - 升变走法。例如 p-e7-e8-q。
-        棋子名称：
-            p - 兵
-            n - 马
-            b - 象
-            r - 车
-            q - 后
-            k - 王
+        0-0 - short castle
+        0-0-0 - long castle
+        <piece>-<from>-<to> - usual move. e.g. p-e2-e4
+        <piece>-<from>-<to>-<promotion> - promotion move. e.g. p-e7-e8-q.
+        Piece names:
+            p - pawn
+            n - knight
+            b - bishop
+            r - rook
+            q - queen
+            k - king
     """.trimIndent()
 
     fun move(move: String) {
@@ -231,7 +231,7 @@ class ChessGame {
 
 `ChessGame` 类协调游戏逻辑并维护状态。显著特性包括：
 
-- **支持走法记法**：接受标准国际象棋记法，用于常规走法、易位（0-0, 0-0-0）和兵的升变
+- **走法记法支持**：接受标准国际象棋记法，用于常规走法、易位（0-0, 0-0-0）和兵的升变
 - **特殊走法处理**：实现吃过路兵（en passant）和易位逻辑
 - **回合管理**：每次走法后自动在玩家之间交替
 - **验证**：虽然它不验证走法的合法性（信任 AI 会做出有效走法），但它正确处理走法解析和状态更新
@@ -247,18 +247,18 @@ import kotlinx.serialization.Serializable
 
 class Move(val game: ChessGame) : SimpleTool<Move.Args>() {
     @Serializable
-    data class class Args(val notation: String) : ToolArgs
+    data class Args(val notation: String) : ToolArgs
 
     override val argsSerializer = Args.serializer()
 
     override val descriptor = ToolDescriptor(
         name = "move",
-        description = "根据记法移动棋子：
+        description = "Moves a piece according to the notation:
 ${game.moveNotation}",
         requiredParameters = listOf(
             ToolParameterDescriptor(
                 name = "notation",
-                description = "要移动棋子的记法",
+                description = "The notation of the piece to move",
                 type = ToolParameterType.String,
             )
         )
@@ -268,19 +268,19 @@ ${game.moveNotation}",
         game.move(args.notation)
         println(game.getBoard())
         println("-----------------")
-        return "当前游戏状态：
+        return "Current state of the game:
 ${game.getBoard()}
-${game.currentPlayer()} 回合！走子吧！"
+${game.currentPlayer()} to move! Make the move!"
     }
 }
 ```
 
 `Move` 工具展示了 Koog 框架的工具集成模式：
 
-1.  **扩展 SimpleTool**：继承基本工具功能，带类型安全的实参处理
-2.  **可序列化实参**：使用 Kotlin 序列化定义工具的输入形参
-3.  **丰富文档**：`ToolDescriptor` 为 LLM 提供关于工具目的和形参的详细信息
-4.  **执行逻辑**：`doExecute` 方法处理实际的走法执行并提供格式化反馈
+1. **扩展 SimpleTool**：继承基本工具功能，带类型安全的实参处理
+2. **可序列化实参**：使用 Kotlin 序列化定义工具的输入形参
+3. **丰富文档**：`ToolDescriptor` 为 LLM 提供关于工具目的和形参的详细信息
+4. **执行逻辑**：`doExecute` 方法处理实际的走法执行并提供格式化反馈
 
 关键设计方面：
 - **上下文注入**：工具接收 `ChessGame` 实例，允许其修改游戏状态
@@ -295,8 +295,8 @@ ${game.currentPlayer()} 回合！走子吧！"
 import ai.koog.agents.core.environment.ReceivedToolResult
 
 /**
- * 国际象棋的局面（几乎）完全由棋盘状态定义，
- * 因此我们可以裁剪 LLM 的历史记录，使其仅包含系统提示和最后一步走法。
+ * Chess position is (almost) completely defined by the board state,
+ * So we can trim the history of the LLM to only contain the system prompt and the last move.
  */
 inline fun <reified T> AIAgentSubgraphBuilderBase<*, *>.nodeTrimHistory(
     name: String? = null
@@ -330,8 +330,8 @@ val strategy = strategy<String, String>("chess_strategy") {
 
 `nodeTrimHistory` 函数为国际象棋游戏实现了一个关键的优化。由于国际象棋局面主要由当前棋盘状态而非完整的走法历史决定，我们可以通过仅保留以下内容来显著减少 token 使用：
 
-1.  **系统提示**：包含代理的核心指令和行为准则
-2.  **最新消息**：最新的棋盘状态和游戏上下文
+1. **系统提示**：包含代理的核心指令和行为准则
+2. **最新消息**：最新的棋盘状态和游戏上下文
 
 这种方法：
 - **减少 Token 消耗**：防止对话历史呈指数级增长
@@ -373,11 +373,11 @@ val baseExecutor = simpleOpenAIExecutor(System.getenv("OPENAI_API_KEY"))
 val game = ChessGame()
 val toolRegistry = ToolRegistry { tools(listOf(Move(game))) }
 
-// 创建带系统提示和工具注册表的聊天代理
+// Create a chat agent with a system prompt and the tool registry
 val agent = AIAgent(
     executor = baseExecutor,
     strategy = strategy,
-    llmModel = OpenAIModels.Reasoning.O3Mini,
+    llmModel = OpenAIModels.Chat.O3Mini,
     systemPrompt = """
             你是一个下国际象棋的代理。
             你应该总是在收到“轮到你走了！”消息时提出一步走法。
@@ -395,7 +395,8 @@ val agent = AIAgent(
 在这里，我们将所有组件组装成一个功能齐全的国际象棋对弈代理：
 
 **关键配置：**
-- **模型选择**：使用 `OpenAIModels.Reasoning.O3Mini` 进行高质量国际象棋对弈
+
+- **模型选择**：使用 `OpenAIModels.Chat.O3Mini` 进行高质量国际象棋对弈
 - **Temperature**：设置为 0.0 以实现确定性的策略性走法
 - **系统提示**：精心设计的指令，强调合法走法和适当行为
 - **工具注册表**：为代理提供对 Move 工具的访问
@@ -412,9 +413,9 @@ val agent = AIAgent(
 ```kotlin
 import kotlinx.coroutines.runBlocking
 
-println("国际象棋游戏开始！")
+println("Chess Game started!")
 
-val initialMessage = "起始局面是 ${game.getBoard()}。白方走子！"
+val initialMessage = "Starting position is ${game.getBoard()}. White to move!"
 
 runBlocking {
     agent.run(initialMessage)
@@ -487,13 +488,14 @@ runBlocking {
 import ai.koog.agents.core.feature.choice.ChoiceSelectionStrategy
 
 /**
- * `AskUserChoiceStrategy` 允许用户从语言模型提供的一系列选项中交互式选择一个选项。
- * 该策略使用可定制的方法来显示提示和选项，并读取用户输入以确定所选选项。
+ * `AskUserChoiceStrategy` allows users to interactively select a choice from a list of options
+ * presented by a language model. The strategy uses customizable methods to display the prompt
+ * and choices and read user input to determine the selected choice.
  *
- * @property promptShowToUser 一个函数，用于格式化并向用户显示给定的 `Prompt`。
- * @property choiceShowToUser 一个函数，用于格式化并向用户表示给定的 `LLMChoice`。
- * @property print 一个负责向用户显示消息的函数，例如，用于显示提示或反馈。
- * @property read 一个捕获用户输入的函数。
+ * @property promptShowToUser A function that formats and displays a given `Prompt` to the user.
+ * @property choiceShowToUser A function that formats and represents a given `LLMChoice` to the user.
+ * @property print A function responsible for displaying messages to the user, e.g., for showing prompts or feedback.
+ * @property read A function to capture user input.
  */
 class AskUserChoiceSelectionStrategy(
     private val promptShowToUser: (Prompt) -> String = { "Current prompt: $it" },
@@ -504,15 +506,15 @@ class AskUserChoiceSelectionStrategy(
     override suspend fun choose(prompt: Prompt, choices: List<LLMChoice>): LLMChoice {
         print(promptShowToUser(prompt))
 
-        print("可用的 LLM 选项")
+        print("Available LLM choices")
 
         choices.withIndex().forEach { (index, choice) ->
-            print("选项编号 ${index + 1}: ${choiceShowToUser(choice)}")
+            print("Choice number ${index + 1}: ${choiceShowToUser(choice)}")
         }
 
         var choiceNumber = ask(choices.size)
         while (choiceNumber == null) {
-            print("无效响应。")
+            print("Invalid response.")
             choiceNumber = ask(choices.size)
         }
 
@@ -520,7 +522,7 @@ class AskUserChoiceSelectionStrategy(
     }
 
     private fun ask(numChoices: Int): Int? {
-        print("请选择一个选项。输入一个介于 1 和 $numChoices 之间的数字：")
+        print("Please choose a choice. Enter a number between 1 and $numChoices: ")
 
         return read()?.toIntOrNull()?.takeIf { it in 1..numChoices }
     }
@@ -544,12 +546,6 @@ class AskUserChoiceSelectionStrategy(
 ### 带选择功能的增强策略
 
 ```kotlin
-import ai.koog.agents.core.environment.ReceivedToolResult
-
-/**
- * 国际象棋的局面（几乎）完全由棋盘状态定义，
- * 因此我们可以裁剪 LLM 的历史记录，使其仅包含系统提示和最后一步走法。
- */
 inline fun <reified T> AIAgentSubgraphBuilderBase<*, *>.nodeTrimHistory(
     name: String? = null
 ): AIAgentNodeDelegate<T, T> = node(name) { result ->
@@ -609,7 +605,7 @@ val toolRegistry = ToolRegistry { tools(listOf(Move(game))) }
 val agent = AIAgent(
     executor = promptExecutor,
     strategy = strategy,
-    llmModel = OpenAIModels.Reasoning.O3Mini,
+    llmModel = OpenAIModels.Chat.O3Mini,
     systemPrompt = """
             你是一个下国际象棋的代理。
             你应该总是在收到“轮到你走了！”消息时提出一步走法。
@@ -644,9 +640,9 @@ val agent = AIAgent(
 ### 运行交互式代理
 
 ```kotlin
-println("国际象棋游戏开始！")
+println("Chess Game started!")
 
-val initialMessage = "起始局面是 ${game.getBoard()}。白方走子！"
+val initialMessage = "Starting position is ${game.getBoard()}. White to move!"
 
 runBlocking {
     agent.run(initialMessage)
@@ -672,7 +668,7 @@ runBlocking {
     -----------------
 
     可用的 LLM 选项
-    选项编号 1: [Call(id=call_2V93GXOcI0fAjUAIFEk9h5S, tool=move, content={"notation": "p-e7-e5"}, metaInfo=ResponseMetaInfo(timestamp=2025-08-18T21:17:47.949303Z, totalTokensCount=1301, inputTokensCount=341, outputTokensCount=960, additionalInfo={}))]
+    选项编号 1: [Call(id=call_2V93GXOcIe0fAjUAIFEk9h5S, tool=move, content={"notation": "p-e7-e5"}, metaInfo=ResponseMetaInfo(timestamp=2025-08-18T21:17:47.949303Z, totalTokensCount=1301, inputTokensCount=341, outputTokensCount=960, additionalInfo={}))]
     选项编号 2: [Call(id=call_INM59xRzKMFC1w8UAV74l9e1, tool=move, content={"notation": "p-e7-e5"}, metaInfo=ResponseMetaInfo(timestamp=2025-08-18T21:17:47.949303Z, totalTokensCount=1301, inputTokensCount=341, outputTokensCount=960, additionalInfo={}))]
     选项编号 3: [Call(id=call_r4QoiTwn0F3jizepHH5ia8BU, tool=move, content={"notation": "p-e7-e5"}, metaInfo=ResponseMetaInfo(timestamp=2025-08-18T21:17:47.949303Z, totalTokensCount=1301, inputTokensCount=341, outputTokensCount=960, additionalInfo={}))]
     请选择一个选项。输入一个介于 1 和 3 之间的数字：
@@ -709,10 +705,6 @@ runBlocking {
 import ai.koog.agents.core.feature.choice.nodeLLMSendResultsMultipleChoices
 import ai.koog.agents.core.feature.choice.nodeSelectLLMChoice
 
-/**
- * 国际象棋的局面（几乎）完全由棋盘状态定义，
- * 因此我们可以裁剪 LLM 的历史记录，使其仅包含系统提示和最后一步走法。
- */
 inline fun <reified T> AIAgentSubgraphBuilderBase<*, *>.nodeTrimHistory(
     name: String? = null
 ): AIAgentNodeDelegate<T, T> = node(name) { result ->
@@ -752,7 +744,7 @@ val toolRegistry = ToolRegistry { tools(listOf(Move(game))) }
 val agent = AIAgent(
     executor = baseExecutor,
     strategy = strategy,
-    llmModel = OpenAIModels.Reasoning.O3Mini,
+    llmModel = OpenAIModels.Chat.O3Mini,
     systemPrompt = """
             你是一个下国际象棋的代理。
             你应该总是在收到“轮到你走了！”消息时提出一步走法。
@@ -769,9 +761,9 @@ val agent = AIAgent(
 ```
 
 ```kotlin
-println("国际象棋游戏开始！")
+println("Chess Game started!")
 
-val initialMessage = "起始局面是 ${game.getBoard()}。白方走子！"
+val initialMessage = "Starting position is ${game.getBoard()}. White to move!"
 
 runBlocking {
     agent.run(initialMessage)
@@ -842,9 +834,9 @@ runBlocking {
 
 交互式示例展示了用户如何引导 AI 的决策过程。在输出中，您可以看到：
 
-1.  **多个选项**：AI 生成 3 个不同的走法选项
-2.  **用户选择**：用户输入数字 1-3 来选择他们偏好的走法
-3.  **游戏继续**：所选走法被执行，游戏继续
+1. **多个选项**：AI 生成 3 个不同的走法选项
+2. **用户选择**：用户输入数字 1-3 来选择他们偏好的走法
+3. **游戏继续**：所选走法被执行，游戏继续
 
 ## 结论
 
@@ -852,11 +844,11 @@ runBlocking {
 
 ### 主要收获
 
-1.  **领域建模**：良好结构化的数据模型对于复杂应用程序至关重要
-2.  **工具集成**：自定义工具使代理能够有效地与外部系统交互
-3.  **内存管理**：策略性历史裁剪优化了长时间交互的性能
-4.  **策略图**：Koog 基于图的方法提供了灵活的控制流
-5.  **交互式 AI**：选项选择实现了人机协作和透明度
+1. **领域建模**：良好结构化的数据模型对于复杂应用程序至关重要
+2. **工具集成**：自定义工具使代理能够有效地与外部系统交互
+3. **内存管理**：策略性历史裁剪优化了长时间交互的性能
+4. **策略图**：Koog 基于图的方法提供了灵活的控制流
+5. **交互式 AI**：选项选择实现了人机协作和透明度
 
 ### 探索的框架特性
 

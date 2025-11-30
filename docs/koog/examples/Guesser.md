@@ -91,7 +91,7 @@ val toolRegistry = ToolRegistry {
 ```kotlin
 val agent = AIAgent(
     executor = simpleOpenAIExecutor(System.getenv("OPENAI_API_KEY")),
-    llmModel = OpenAIModels.Reasoning.GPT4oMini,
+    llmModel = OpenAIModels.Chat.GPT4oMini,
     systemPrompt = """
             你是一个猜数智能体。你的目标是猜测用户心中所想的数字。
             

@@ -98,6 +98,9 @@ _預覽_ 是 IDE 中可用的可組合項的非互動式佈局呈現。
 若要查看可組合項的預覽：
 
 1.  如果您的專案中沒有 Android 目標，請新增一個（預覽機制使用 Android 函式庫）。
+    > 從 Compose Multiplatform [1.10.0](whats-new-compose-110.md#unified-preview-annotation) 開始，您可以在 `commonMain` 原始碼集中為所有目標平台使用 `@Preview` 註解。
+    >
+    >{style="note"}
 2.  在通用程式碼中，使用 `@Preview` 註解標記您希望可預覽的可組合項。
 3.  切換到編輯器視窗中的 **分割** 或 **設計** 檢視。
     如果您尚未這麼做，它將提示您首次建置專案。

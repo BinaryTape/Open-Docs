@@ -179,7 +179,7 @@ kotlin {
 <primary-label ref="experimental-opt-in"/>
 
 > IntelliJ IDEA의 [2025.3 EAP 빌드](https://www.jetbrains.com/idea/nextversion/)에서만 현재 이 기능에 대한 코드 분석, 코드 완성 및 하이라이팅 지원이 제공됩니다.
-> 
+>
 {style = "note"}
 
 Kotlin 2.2.20에서는 컴파일러가 `inline` 함수의 `catch` 절에서 [재실체화된 제네릭 타입 매개변수](inline-functions.md#reified-type-parameters)를 사용하는 것을 허용합니다.
@@ -223,7 +223,7 @@ Kotlin 팀은 외부 기여자 [Iven Krall](https://github.com/kralliv)의 기�
 ### Kotlin 계약(contracts) 개선
 <primary-label ref="experimental-opt-in"/>
 
-> IntelliJ IDEA의 [2025.3 EAP 빌드](https://www.jetbrains.com/idea/nextversion/)에서만 현재 이 기능에 대한 코드 분석, 코드 완성 및 하이라이팅 지원이 제공됩니다.
+> IntelliJ IDEA의 [2025.3 EAP 빌드](https://www.jetbrains.com/idea/nextversion/)에서만 현재 이 기능에 대한 코드 분석, 코드 완성 및 하이라이팅 지원이 제공됩니다。
 >
 {style = "note"}
 
@@ -529,11 +529,11 @@ Swift export를 사용해 보려면 Xcode 프로젝트를 다음과 같이 구�
 2.  **Build Phases** 탭에서 `embedAndSignAppleFrameworkForXcode` 태스크가 있는 **Run Script** 단계를 찾습니다.
 3.  스크립트를 조정하여 run script 단계에서 `embedSwiftExportForXcode` 태스크를 사용하도록 합니다:
 
-   ```bash
-   ./gradlew :<Shared module name>:embedSwiftExportForXcode
-   ```
+    ```bash
+    ./gradlew :<Shared module name>:embedSwiftExportForXcode
+    ```
 
-   ![Add the Swift export script](xcode-swift-export-run-script-phase.png){width=700}
+    ![Add the Swift export script](xcode-swift-export-run-script-phase.png){width=700}
 
 4.  프로젝트를 빌드합니다. Swift 모듈은 빌드 출력 디렉토리에 생성됩니다.
 
@@ -1177,7 +1177,7 @@ Kotlin 2.2.20 이전에는 멀티플랫폼 라이브러리를 Maven Central 저�
 이 태스크는 키 쌍을 `build/pgp` 디렉토리에 저장합니다.
 
 > 키 쌍을 실수로 삭제하거나 무단 액세스를 방지하기 위해 안전한 위치로 옮기세요.
-> 
+>
 {style="warning"}
 
 ##### 공개 키 업로드

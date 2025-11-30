@@ -33,7 +33,7 @@ Android codelab 转换而来。
    应包含在导航图中。每个路由都必须是定义路径的唯一字符串。
 2. [创建一个 `NavHostController` 实例](https://github.com/JetBrains/compose-multiplatform/blob/a6961385ccf0dee7b6d31e3f73d2c8ef91005f1a/examples/nav_cupcake/composeApp/src/commonMain/kotlin/org/jetbrains/nav_cupcake/CupcakeScreen.kt#L89)
    作为您的主要可组合属性来管理导航。
-3. [将 `NavHost` 可组合项添加](https://github.com/JetBrains/JetBrains/compose-multiplatform/blob/a6961385ccf0dee7b6d31e3f73d2c8ef91005f1a/examples/nav_cupcake/composeApp/src/commonMain/kotlin/org/jetbrains/nav_cupcake/CupcakeScreen.kt#L109)
+3. [将 `NavHost` 可组合项添加](https://github.com/JetBrains/compose-multiplatform/blob/a6961385ccf0dee7b6d31e3f73d2c8ef91005f1a/examples/nav_cupcake/composeApp/src/commonMain/kotlin/org/jetbrains/nav_cupcake/CupcakeScreen.kt#L109)
    到您的应用：
     1. 从您之前定义的路由列表中选择起始目标。
     2. 创建导航图，可以直接作为创建 `NavHost` 的一部分，也可以使用
@@ -59,7 +59,7 @@ Wasm 应用程序已初始化并且 Skia 已准备好渲染图形。
 以下是设置示例：
 
 ```kotlin
-//commonMain 源代码集
+//commonMain source set
 @Composable
 fun App(
     onNavHostReady: suspend (NavController) -> Unit = {}
@@ -73,7 +73,7 @@ fun App(
     }
 }
 
-//jsMain 源代码集
+//wasmJsMain source set
 @OptIn(ExperimentalComposeUiApi::class)
 @ExperimentalBrowserHistoryApi
 fun main() {
@@ -85,7 +85,7 @@ fun main() {
     }
 }
 
-//wasmJsMain 源代码集
+//jsMain source set
 @OptIn(ExperimentalComposeUiApi::class)
 @ExperimentalBrowserHistoryApi
 fun main() {
@@ -159,7 +159,7 @@ internal fun App(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center
             ) {
-                Text("起始屏幕")
+                Text("Starting screen")
                 // 打开“Id”屏幕并带有合适参数的按钮
                 Button(onClick = { navController.navigate(Id(222)) }) {
                     Text("将 222 作为参数传递给 ID 屏幕")

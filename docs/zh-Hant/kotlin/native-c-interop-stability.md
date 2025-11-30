@@ -59,7 +59,7 @@ Kotlin 編譯器不會阻止您使用在您的部署目標中不可用的 Object
 
 當處理原生函式庫時，編譯器通常使用來自本地安裝 Xcode 的標頭檔，因為幾乎所有原生函式庫標頭都會匯入來自 Xcode 的「標準」標頭（例如 `stdint.h`）。
 
-這就是為什麼 Xcode 版本會影響原生函式庫匯入 Kotlin 的原因。這也是為什麼當使用第三方原生函式庫時，[從非 Mac 主機交叉編譯 Apple 目標](whatsnew21.md#ability-to-publish-kotlin-libraries-from-any-host) 仍然不可能的原因之一。
+這就是為什麼 Xcode 版本會影響原生函式庫匯入 Kotlin 的原因。這也是為什麼當使用第三方原生函式庫時，[從非 Mac 主機交叉編譯 Apple 目標](https://kotlinlang.org/docs/multiplatform/multiplatform-publish-lib-setup.html#compilation-for-apple-targets) 仍然不可能的原因之一。
 
 每個 Kotlin 版本與單一 Xcode 版本的相容性最佳。這是推薦版本，針對對應的 Kotlin 版本進行了最充分的測試。請在 [相容性表格](https://kotlinlang.org/docs/multiplatform/multiplatform-compatibility-guide.html#version-compatibility) 中檢查與特定 Xcode 版本的相容性。
 
@@ -111,7 +111,7 @@ Kotlin 編譯器不會阻止您使用在您的部署目標中不可用的 Object
 ```kotlin
 // 請格外小心！函式庫 API 中使用了原生類型：
 public fun createUIView(): UIView
-public fun handleThirdPartyNativeType(c: ThirdPartyNativeType)
+public fun fun handleThirdPartyNativeType(c: ThirdPartyNativeType)
 
 // 照常小心；函式庫 API 中沒有使用原生類型：
 internal fun createUIViewController(): UIViewController

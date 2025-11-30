@@ -1,15 +1,58 @@
+[//]: # (title: LLM 提供商)
+
 # LLM 提供商
 
-Koog 集成主流 LLM 提供商，并通过与 [Ollama](https://ollama.com/) 集成来支持本地模型。
+Koog 集成了主流的 LLM 提供商，并通过 [Ollama](https://ollama.com/) 支持本地模型。目前支持以下提供商：
 
-- OpenAI
-- Anthropic
-- Google
-- DeepSeek
-- OpenRouter
-- Bedrock
-- Mistral
-- Ollama
+| <div style="width:115px">LLM 提供商</div> | 选择原因 |
+|---------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------|
+| [OpenAI](https://platform.openai.com/docs/overview) (包括 [Azure OpenAI 服务](https://azure.microsoft.com/en-us/products/ai-foundry/models/openai)) | 具有广泛能力的高级模型。 |
+| [Anthropic](https://www.anthropic.com/) | 长上下文和提示词缓存。 |
+| [Google](https://ai.google.dev/) | 多模态处理（音频、视频）、大上下文。 |
+| [DeepSeek](https://www.deepseek.com/) | 经济高效的推理和编码。 |
+| [OpenRouter](https://openrouter.ai/) | 通过一次集成即可访问多个提供商的多种模型，以实现灵活性、提供商比较和统一的 API。 |
+| [Amazon Bedrock](https://aws.amazon.com/bedrock/) | AWS 原生环境、企业级安全与合规性、多提供商访问。 |
+| [Mistral](https://mistral.ai/) | 欧洲数据托管、GDPR 合规性。 |
+| [阿里巴巴](https://www.alibabacloud.com/en?_p_lc=1) ([DashScope](https://dashscope.aliyun.com/)) | 大上下文和经济高效的通义千问模型。 |
+| [Ollama](https://ollama.com/) | 隐私保护、本地开发、离线操作，且无 API 成本。 |
+
+下表展示了 Koog 支持的 LLM 能力，以及哪些提供商的模型提供了这些能力。`*` 符号表示该能力由提供商的特定模型支持。
+
+| <div style="width:115px">LLM 能力</div> | OpenAI | Anthropic | Google | DeepSeek | OpenRouter | Amazon Bedrock | Mistral | 阿里巴巴 (DashScope) | Ollama (本地模型) |
+|-----------------------------------------------|------------------------------|------------------------|--------------------------------------|----------|------------------|------------------|------------------------|----------------------------|-----------------------|
+| 支持的输入 | 文本、图像、音频、文档 | 文本、图像、文档* | 文本、图像、音频、视频、文档* | 文本 | 因模型而异 | 因模型而异 | 文本、图像、文档* | 文本、图像、音频、视频* | 文本、图像* |
+| 响应流式传输 | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
+| 工具 | ✓ | ✓ | ✓ | ✓ | ✓ | ✓* | ✓ | ✓ | ✓ |
+| 工具选择 | ✓ | ✓ | ✓ | ✓ | ✓ | ✓* | ✓ | ✓ | – |
+| 结构化输出 (JSON Schema) | ✓ | – | ✓ | ✓ | ✓* | – | ✓ | ✓* | ✓ |
+| 多选 | ✓ | – | ✓ | – | ✓* | ✓* | ✓ | ✓* | – |
+| 温度 | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
+| 推测 | ✓* | – | – | – | ✓* | – | ✓* | ✓* | – |
+| 内容审核 | ✓ | – | – | – | – | ✓ | ✓ | – | ✓ |
+| 嵌入 | ✓ | – | – | – | – | ✓ | ✓ | – | ✓ |
+| 提示词缓存 | ✓* | ✓ | – | – | – | – | – | – | – |
+| 补全 | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
+| 本地执行 | – | – | – | – | – | – | – | – | ✓ |
 
 !!! note
-    关于使用这些提供商的 LLM 来运行提示词和创建 AI 代理的更多信息，请参考 [Prompt API](prompt-api.md#choosing-between-llm-clients-and-prompt-executors)。
+    Koog 支持用于创建 AI 代理最常用的能力。各提供商的 LLM 可能拥有 Koog 当前不支持的额外特性。关于更多信息，请参考 [模型能力](model-capabilities.md)。
+
+## 与提供商协作
+
+Koog 允许您在两个层面与 LLM 提供商协作：
+
+* 使用 **LLM 客户端**直接与特定提供商交互。
+  每个客户端都实现了 `LLMClient` 接口，负责处理提供商的认证、请求格式化和响应解析。
+  关于详细信息，请参见 [使用 LLM 客户端运行提示词](prompt-api.md#running-prompts-with-llm-clients)。
+
+* 使用 **提示词执行器**，它是一个更高级别的抽象，封装了一个或多个 LLM 客户端，
+  管理它们的生命周期，并统一了跨提供商的接口。
+  如果某个特定提供商不可用，它还可以选择回退到单个 LLM 客户端。
+  提示词执行器还处理故障、重试和提供商之间的切换。
+  您可以创建自己的执行器，也可以使用为特定提供商预定义的提示词执行器。
+  关于详细信息，请参见 [使用提示词执行器运行提示词](prompt-api.md#running-prompts-with-prompt-executors)。
+
+## 后续步骤
+
+- [使用特定 LLM 提供商创建并运行代理](getting-started.md)。
+- 深入了解 [提示词](prompt-api.md) 以及 [如何选择 LLM 客户端和提示词执行器](prompt-api.md#choosing-between-llm-clients-and-prompt-executors)。

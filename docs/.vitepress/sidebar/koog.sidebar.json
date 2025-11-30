@@ -71,6 +71,10 @@
           {
             "text": "koog.class-based-tools",
             "link": "class-based-tools"
+          },
+          {
+            "text": "koog.custom-tools-schema",
+            "link": "tools/tool-descriptor-schemer"
           }
         ],
         "collapsed": true

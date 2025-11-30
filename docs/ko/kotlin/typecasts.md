@@ -1,60 +1,216 @@
 [//]: # (title: 타입 검사 및 캐스트)
 
-코틀린에서는 런타임에 객체의 타입을 확인하기 위해 타입 검사를 수행할 수 있습니다. 타입 캐스트를 사용하면 객체를 다른 타입으로 변환할 수 있습니다.
+코틀린에서는 런타임에 타입과 관련하여 두 가지 작업을 수행할 수 있습니다. 객체가 특정 타입인지 확인하거나, 다른 타입으로 변환하는 것입니다. 타입 **검사**는 다루는 객체의 종류를 확인하는 데 도움을 주며, 타입 **캐스트**는 객체를 다른 타입으로 변환하려고 시도합니다.
 
-> **제네릭** 타입 검사 및 캐스트(`List<T>`, `Map<K,V>` 등)에 대해 자세히 알아보려면 [제네릭 타입 검사 및 캐스트](generics.md#generics-type-checks-and-casts)를 참조하세요.
+> **제네릭** 타입 검사 및 캐스트(예: `List<T>`, `Map<K,V>`)에 대해 자세히 알아보려면 [제네릭 타입 검사 및 캐스트](generics.md#generics-type-checks-and-casts)를 참조하세요.
 >
 {style="tip"}
 
-## `is` 및 `!is` 연산자
+## `is` 및 `!is` 연산자를 사용한 검사 {id="is-and-is-operators"}
 
-객체가 주어진 타입에 부합하는지 런타임에 확인하려면 `is` 연산자 또는 그 부정 형태인 `!is`를 사용합니다.
-
-```kotlin
-if (obj is String) {
-    print(obj.length)
-}
-
-if (obj !is String) { // Same as !(obj is String)
-    print("Not a String")
-} else {
-    print(obj.length)
-}
-```
-
-## 스마트 캐스트
-
-대부분의 경우, 컴파일러가 객체를 자동으로 캐스트하므로 명시적 캐스트 연산자를 사용할 필요가 없습니다. 이를 스마트 캐스트(smart-casting)라고 합니다. 컴파일러는 변경 불가능한 값에 대한 타입 검사와 [명시적 캐스트](#unsafe-cast-operator)를 추적하고 필요할 때 암시적(안전한) 캐스트를 자동으로 삽입합니다.
+`is` 연산자(또는 그 부정 형태인 `!is`)를 사용하여 런타임에 객체가 특정 타입과 일치하는지 확인합니다.
 
 ```kotlin
-fun demo(x: Any) {
-    if (x is String) {
-        print(x.length) // x is automatically cast to String
+fun main() {
+    val input: Any = "Hello, Kotlin"
+
+    if (input is String) {
+        println("Message length: ${input.length}")
+        // Message length: 13
+    }
+
+    if (input !is String) { // Same as !(input is String)
+        println("Input is not a valid message")
+    } else {
+        println("Processing message: ${input.length} characters")
+        // Processing message: 13 characters
     }
 }
 ```
+{kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-typecasts-is-operator"}
+
+`is` 및 `!is` 연산자를 사용하여 객체가 하위 타입과 일치하는지 확인할 수도 있습니다.
+
+```kotlin
+interface Animal {
+    val name: String
+    fun speak()
+}
+
+class Dog(override val name: String) : Animal {
+    override fun speak() = println("$name says: Woof!")
+}
+
+class Cat(override val name: String) : Animal {
+    override fun speak() = println("$name says: Meow!")
+}
+//sampleStart
+fun handleAnimal(animal: Animal) {
+    println("Handling animal: ${animal.name}")
+    animal.speak()
+    
+    // Use is operator to check for subtypes
+    if (animal is Dog) {
+        println("Special care instructions: This is a dog.")
+    } else if (animal is Cat) {
+        println("Special care instructions: This is a cat.")
+    }
+}
+//sampleEnd
+fun main() {
+    val pets: List<Animal> = listOf(
+        Dog("Buddy"),
+        Cat("Whiskers"),
+        Dog("Rex")
+    )
+
+    for (pet in pets) {
+        handleAnimal(pet)
+        println("---")
+    }
+    // Handling animal: Buddy
+    // Buddy says: Woof!
+    // Special care instructions: This is a dog.
+    // ---
+    // Handling animal: Whiskers
+    // Whiskers says: Meow!
+    // Special care instructions: This is a cat.
+    // ---
+    // Handling animal: Rex
+    // Rex says: Woof!
+    // Special care instructions: This is a dog.
+    // ---
+}
+```
+{kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-typecasts-is-operator-subtype"}
+
+이 예시는 `is` 연산자를 사용하여 `Animal` 클래스 인스턴스가 `Dog` 또는 `Cat` 하위 타입을 가지는지 확인하고 관련 관리 지침을 출력합니다.
+
+객체가 선언된 타입의 상위 타입인지 확인할 수 있지만, 그 답은 항상 참이므로 그렇게 할 가치는 없습니다. 모든 클래스 인스턴스는 이미 해당 상위 타입의 인스턴스입니다.
+
+> 런타임에 객체의 타입을 식별하려면 [리플렉션](reflection.md)을 참조하세요.
+> 
+{type="tip"}
+
+## 타입 캐스트
+
+코틀린에서 객체의 타입을 다른 타입으로 변환하는 것을 **캐스팅(casting)**이라고 합니다.
+
+어떤 경우에는 컴파일러가 객체를 자동으로 캐스트합니다. 이를 **스마트 캐스팅(smart-casting)**이라고 합니다.
+
+타입을 명시적으로 캐스트해야 하는 경우, `as?` 또는 `as` [캐스트 연산자](#unsafe-cast-operator)를 사용하세요.
+
+## 스마트 캐스트
+
+컴파일러는 변경 불가능한 값에 대한 타입 검사 및 [명시적 캐스트](#unsafe-cast-operator)를 추적하고 암시적(안전한) 캐스트를 자동으로 삽입합니다.
+
+```kotlin
+fun logMessage(data: Any) {
+    // data is automatically cast to String
+    if (data is String) {
+        println("Received text: ${data.length} characters")
+    }
+}
+
+fun main() {
+    logMessage("Server started")
+    // Received text: 14 characters
+    logMessage(404)
+}
+```
+{kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-typecasts-smartcast"}
 
 컴파일러는 부정 검사 결과로 반환이 이루어지는 경우에도 캐스트가 안전하다는 것을 알 만큼 충분히 똑똑합니다.
 
 ```kotlin
-if (x !is String) return
+fun logMessage(data: Any) {
+    // data is automatically cast to String
+    if (data !is String) return
 
-print(x.length) // x is automatically cast to String
+    println("Received text: ${data.length} characters")
+}
+
+fun main() {
+    logMessage("User signed in")
+    // Received text: 14 characters
+    logMessage(true)
+}
 ```
+{kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-typecasts-smartcast-negative"}
 
 ### 제어 흐름
 
-스마트 캐스트는 `if` 조건식뿐만 아니라 [`when` 식](control-flow.md#when-expressions-and-statements) 및 [`while` 루프](control-flow.md#while-loops)에서도 작동합니다.
+스마트 캐스트는 `if` 조건식뿐만 아니라 [`when` 식](control-flow.md#when-expressions-and-statements)에서도 작동합니다.
 
 ```kotlin
-when (x) {
-    is Int -> print(x + 1)
-    is String -> print(x.length + 1)
-    is IntArray -> print(x.sum())
+fun processInput(data: Any) {
+    when (data) {
+        // data is automatically cast to Int
+        is Int -> println("Log: Assigned new ID ${data + 1}")
+        // data is automatically cast to String
+        is String -> println("Log: Received message \"$data\"")
+        // data is automatically cast to IntArray
+        is IntArray -> println("Log: Processed scores, total = ${data.sum()}")
+    }
+}
+
+fun main() {
+    processInput(1001)
+    // Log: Assigned new ID 1002
+    processInput("System rebooted")
+    // Log: Received message "System rebooted"
+    processInput(intArrayOf(10, 20, 30))
+    // Log: Processed scores, total = 60
 }
 ```
+{kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-typecasts-smartcast-when"}
 
-`if`, `when` 또는 `while` 조건에서 사용하기 전에 `Boolean` 타입의 변수를 선언하면, 컴파일러가 해당 변수에 대해 수집한 모든 정보가 스마트 캐스트를 위한 해당 블록에서 접근 가능합니다.
+그리고 [`while` 루프](control-flow.md#while-loops)에서도 작동합니다.
+
+```kotlin
+sealed interface Status
+data class Ok(val currentRoom: String) : Status
+data object Error : Status
+
+class RobotVacuum(val rooms: List<String>) {
+    var index = 0
+
+    fun status(): Status =
+        if (index < rooms.size) Ok(rooms[index])
+        else Error
+
+    fun clean(): Status {
+        println("Finished cleaning ${rooms[index]}")
+        index++
+        return status()
+    }
+}
+
+fun main() {
+    //sampleStart
+    val robo = RobotVacuum(listOf("Living Room", "Kitchen", "Hallway"))
+
+    var status: Status = robo.status()
+    while (status is Ok) {
+        // The compiler smart casts status to OK type, so the currentRoom
+        // property is accessible.
+        println("Cleaning ${status.currentRoom}...")
+        status = robo.clean()
+    }
+    // Cleaning Living Room...
+    // Finished cleaning Living Room
+    // Cleaning Kitchen...
+    // Finished cleaning Kitchen
+    // Cleaning Hallway...
+    // Finished cleaning Hallway
+    //sampleEnd
+}
+```
+{kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-typecasts-smartcast-while"}
+
+이 예시에서 봉인된 인터페이스 `Status`는 두 가지 구현을 가집니다. 데이터 클래스 `Ok`와 데이터 객체 `Error`입니다. `Ok` 데이터 클래스만이 `currentRoom` 프로퍼티를 가집니다. `while` 루프 조건이 `true`로 평가될 때, 컴파일러는 `status` 변수를 `Ok` 타입으로 스마트 캐스트하여 `currentRoom` 프로퍼티를 루프 본문 내에서 접근 가능하게 합니다.
+
+`if`, `when` 또는 `while` 조건에서 사용하기 전에 `Boolean` 타입의 변수를 선언하면, 컴파일러가 해당 변수에 대해 수집한 모든 정보가 스마트 캐스팅을 위한 해당 블록에서 접근 가능합니다.
 
 이는 불리언 조건을 변수로 추출하는 등의 작업을 수행할 때 유용합니다. 이렇게 하면 변수에 의미 있는 이름을 부여하여 코드 가독성을 높이고 나중에 코드에서 변수를 재사용할 수 있습니다. 예를 들면 다음과 같습니다.
 
@@ -64,12 +220,14 @@ class Cat {
         println("Purr purr")
     }
 }
-
+//sampleStart
 fun petAnimal(animal: Any) {
     val isCat = animal is Cat
     if (isCat) {
-        // 컴파일러는 isCat에 대한 정보에 접근할 수 있으므로, animal이 Cat 타입으로 스마트 캐스트되었음을 압니다.
-        // 따라서 purr() 함수를 호출할 수 있습니다.
+        // The compiler can access information about
+        // isCat, so it knows that animal was smart-cast
+        // to the type Cat.
+        // Therefore, the purr() function can be called.
         animal.purr()
     }
 }
@@ -79,6 +237,7 @@ fun main(){
     petAnimal(kitty)
     // Purr purr
 }
+//sampleEnd
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="2.0" id="kotlin-smart-casts-local-variables" validate="false"}
 
@@ -87,12 +246,12 @@ fun main(){
 컴파일러는 `&&` 또는 `||` 연산자의 왼쪽에 타입 검사(일반 또는 부정)가 있는 경우, 오른쪽에 스마트 캐스트를 수행할 수 있습니다.
 
 ```kotlin
-// || 연산자의 오른쪽에 있는 x는 자동으로 String으로 캐스트됩니다.
+// x is automatically cast to String on the right-hand side of `||`
 if (x !is String || x.length == 0) return
 
-// && 연산자의 오른쪽에 있는 x는 자동으로 String으로 캐스트됩니다.
+// x is automatically cast to String on the right-hand side of `&&`
 if (x is String && x.length > 0) {
-    print(x.length) // x는 자동으로 String으로 캐스트됩니다.
+    print(x.length) // x is automatically cast to String
 }
 ```
 
@@ -109,7 +268,7 @@ interface Declined : Status
 
 fun signalCheck(signalStatus: Any) {
     if (signalStatus is Postponed || signalStatus is Declined) {
-        // signalStatus는 공통 상위 타입 Status로 스마트 캐스트됩니다.
+        // signalStatus is smart-cast to a common supertype Status
         signalStatus.signal()
     }
 }
@@ -139,14 +298,14 @@ fun nextProcessor(): Processor? = null
 fun runProcessor(): Processor? {
     var processor: Processor? = null
     inlineAction {
-        // 컴파일러는 processor가 로컬 변수이고 inlineAction()
-        // 이 인라인 함수이므로 processor에 대한 참조가 누출될 수 없다는 것을 압니다.
-        // 따라서 processor를 스마트 캐스트하는 것이 안전합니다.
+        // The compiler knows that processor is a local variable and inlineAction()
+        // is an inline function, so references to processor can't be leaked.
+        // Therefore, it's safe to smart-cast processor.
       
-        // processor가 null이 아니면 processor는 스마트 캐스트됩니다.
+        // If processor isn't null, processor is smart-cast
         if (processor != null) {
-            // 컴파일러는 processor가 null이 아님을 알므로 안전 호출
-            // 이 필요하지 않습니다.
+            // The compiler knows that processor isn't null, so no safe call 
+            // is needed
             processor.process()
         }
 
@@ -165,23 +324,23 @@ fun runProcessor(): Processor? {
 //sampleStart
 fun testString() {
     var stringInput: String? = null
-    // stringInput은 String 타입으로 스마트 캐스트됩니다.
+    // stringInput is smart-cast to String type
     stringInput = ""
     try {
-        // 컴파일러는 stringInput이 null이 아님을 압니다.
+        // The compiler knows that stringInput isn't null
         println(stringInput.length)
         // 0
 
-        // 컴파일러는 stringInput에 대한 이전 스마트 캐스트 정보를 거부합니다.
-        // 이제 stringInput은 String? 타입을 가집니다.
+        // The compiler rejects previous smart cast information for 
+        // stringInput. Now stringInput has the String? type.
         stringInput = null
 
-        // 예외 발생
+        // Trigger an exception
         if (2 > 1) throw Exception()
         stringInput = ""
     } catch (exception: Exception) {
-        // 컴파일러는 stringInput이 null일 수 있음을 압니다.
-        // 따라서 stringInput은 널 허용 상태를 유지합니다.
+        // The compiler knows stringInput can be null
+        // so stringInput stays nullable.
         println(stringInput?.length)
         // null
     }
@@ -195,11 +354,7 @@ fun main() {
 
 ### 스마트 캐스트 전제 조건
 
-> 스마트 캐스트는 컴파일러가 변수가 검사와 사용 사이에 변경되지 않을 것을 보장할 수 있는 경우에만 작동한다는 점에 유의하십시오.
->
-{style="warning"}
-
-스마트 캐스트는 다음 조건에서 사용할 수 있습니다.
+스마트 캐스트는 컴파일러가 변수가 검사와 사용 사이에 변경되지 않을 것을 보장할 수 있는 경우에만 작동합니다. 다음 조건에서 사용할 수 있습니다.
 
 <table style="none">
     <tr>
@@ -236,28 +391,164 @@ fun main() {
     </tr>
 </table>
 
-## "안전하지 않은" 캐스트 연산자
+## `as` 및 `as?` 캐스트 연산자 {id="unsafe-cast-operator"}
 
-객체를 널이 아닌 타입으로 명시적으로 캐스트하려면 *안전하지 않은* 캐스트 연산자 `as`를 사용합니다.
+코틀린에는 두 가지 캐스트 연산자 `as`와 `as?`가 있습니다. 둘 다 캐스트에 사용할 수 있지만 동작이 다릅니다.
 
-```kotlin
-val x: String = y as String
-```
-
-캐스트가 불가능한 경우 컴파일러는 예외를 발생시킵니다. 이것이 _안전하지 않다고_ 불리는 이유입니다.
-
-이전 예시에서 `y`가 `null`이면 위 코드는 예외를 발생시킵니다. 이는 `String`이 [널 허용](null-safety.md)이 아니므로 `null`을 `String`으로 캐스트할 수 없기 때문입니다. 가능한 널 값을 처리하기 위해 예시가 작동하도록 하려면 캐스트의 오른쪽에 널 허용 타입을 사용합니다.
+`as` 연산자를 사용한 캐스트가 실패하면 런타임에 `ClassCastException`이 발생합니다. 이것이 바로 **안전하지 않은(unsafe)** 연산자라고 불리는 이유입니다.
+널이 아닌 타입으로 캐스팅할 때 `as`를 사용할 수 있습니다.
 
 ```kotlin
-val x: String? = y as String?
+fun main() {
+    val rawInput: Any = "user-1234"
+
+    // Casts to String successfully
+    val userId = rawInput as String
+    println("Logging in user with ID: $userId")
+    // Logging in user with ID: user-1234
+
+    // Triggers ClassCastException
+    val wrongCast = rawInput as Int
+    println("wrongCast contains: $wrongCast")
+    // Exception in thread "main" java.lang.ClassCastException
+}
 ```
+{kotlin-runnable="true" kotlin-min-compiler-version="2.0" id="kotlin-unsafe-cast-operator" validate="false"}
 
-## "안전한" (널 허용) 캐스트 연산자
-
-예외를 피하려면 실패 시 `null`을 반환하는 *안전한* 캐스트 연산자 `as?`를 사용합니다.
+대신 `as?` 연산자를 사용하고 캐스트가 실패하면 해당 연산자는 `null`을 반환합니다. 이것이 바로 **안전한(safe)** 연산자라고 불리는 이유입니다.
 
 ```kotlin
-val x: String? = y as? String
+fun main() {
+    val rawInput: Any = "user-1234"
+
+    // Casts to String successfully
+    val userId = rawInput as? String
+    println("Logging in user with ID: $userId")
+    // Logging in user with ID: user-1234
+
+    // Assigns a null value to wrongCast
+    val wrongCast = rawInput as? Int
+    println("wrongCast contains: $wrongCast")
+    // wrongCast contains: null
+}
+```
+{kotlin-runnable="true" kotlin-min-compiler-version="2.0" id="kotlin-safe-cast-operator"}
+
+널 허용 타입을 안전하게 캐스트하려면, 캐스트 실패 시 `ClassCastException` 발생을 방지하기 위해 `as?` 연산자를 사용하세요.
+
+널 허용 타입과 함께 `as`를 사용할 _수도_ 있습니다. 이 경우 결과가 `null`이 될 수 있지만, 캐스트가 성공적이지 않으면 여전히 `ClassCastException`을 발생시킵니다. 이러한 이유로 `as?`가 더 안전한 옵션입니다.
+
+```kotlin
+fun main() {
+    val config: Map<String, Any?> = mapOf(
+        "username" to "kodee",
+        "alias" to null,
+        "loginAttempts" to 3
+    )
+
+    // Unsafely casts to a nullable String
+    val username: String? = config["username"] as String?
+    println("Username: $username")
+    // Username: kodee
+
+    // Unsafely casts a null value to a nullable String
+    val alias: String? = config["alias"] as String?
+    println("Alias: $alias")
+    // Alias: null
+
+    // Fails to cast to nullable String and throws ClassCastException
+    // val unsafeAttempts: String? = config["loginAttempts"] as String?
+    // println("Login attempts (unsafe): $unsafeAttempts")
+    // Exception in thread "main" java.lang.ClassCastException
+
+    // Fails to cast to nullable String and returns null
+    val safeAttempts: String? = config["loginAttempts"] as? String
+    println("Login attempts (safe): $safeAttempts")
+    // Login attempts (safe): null
+}
+```
+{kotlin-runnable="true" kotlin-min-compiler-version="2.0" id="kotlin-cast-nullable-types"}
+
+### 업캐스팅 및 다운캐스팅
+
+코틀린에서는 객체를 상위 타입과 하위 타입으로 캐스트할 수 있습니다.
+
+객체를 상위 클래스의 인스턴스로 캐스트하는 것을 **업캐스팅(upcasting)**이라고 합니다. 업캐스팅은 특별한 구문이나 캐스트 연산자가 필요하지 않습니다. 예를 들면 다음과 같습니다.
+
+```kotlin
+interface Animal {
+    fun makeSound()
+}
+
+class Dog : Animal {
+    // Implements behavior for makeSound()
+    override fun makeSound() {
+        println("Dog says woof!")
+    }
+}
+
+fun printAnimalInfo(animal: Animal) {
+    animal.makeSound()
+}
+
+fun main() {
+    val dog = Dog()
+    // Upcasts Dog instance to Animal
+    printAnimalInfo(dog)  
+    // Dog says woof!
+}
+```
+{kotlin-runnable="true" kotlin-min-compiler-version="2.0" id="kotlin-upcast"}
+
+이 예시에서 `printAnimalInfo()` 함수가 `Dog` 인스턴스로 호출될 때, 컴파일러는 예상되는 매개변수 타입이 `Animal`이므로 `Dog` 인스턴스를 `Animal`로 업캐스트합니다. 실제 객체는 여전히 `Dog` 인스턴스이므로, 컴파일러는 `Dog` 클래스의 `makeSound()` 함수를 동적으로 해결하여 `"Dog says woof!"`를 출력합니다.
+
+추상 타입에 따라 동작이 달라지는 코틀린 API에서 명시적인 업캐스팅을 흔히 볼 수 있습니다. 또한 모든 UI 요소를 상위 타입으로 취급하고 나중에 특정 하위 클래스에서 작동하는 Jetpack Compose 및 UI 툴킷에서도 일반적입니다.
+
+```kotlin
+    val textView = TextView(this)
+    textView.text = "Hello, View!"
+
+    // Upcasts from TextView to View
+    val view: View = textView  
+
+    // Use View functions
+    view.setPadding(20, 20, 20, 20)
+    // Activity expects a View type
+    setContentView(view)
 ```
 
-`as?`의 오른쪽이 널이 아닌 타입 `String`임에도 불구하고 캐스트 결과는 널 허용 타입이라는 점에 유의하십시오.
+객체를 하위 클래스의 인스턴스로 캐스트하는 것을 **다운캐스팅(downcasting)**이라고 합니다. 다운캐스팅은 안전하지 않을 수 있으므로 명시적인 캐스트 연산자를 사용해야 합니다. 캐스트 실패 시 예외 발생을 피하려면, 캐스트가 실패할 경우 `null`을 반환하는 안전한 캐스트 연산자 `as?`를 사용하는 것이 좋습니다.
+
+```kotlin
+interface Animal {
+    fun makeSound()
+}
+
+class Dog : Animal {
+    override fun makeSound() {
+        println("Dog says woof!")
+    }
+
+    fun bark() {
+        println("BARK!")
+    }
+}
+
+fun main() {
+    // Creates animal as a Dog instance with Animal
+    // type
+    val animal: Animal = Dog()
+    
+    // Safely downcasts animal to Dog type
+    val dog: Dog? = animal as? Dog
+
+    // Uses a safe call to call bark() if dog isn't null
+    dog?.bark()
+    // "BARK!"
+}
+```
+{kotlin-runnable="true" kotlin-min-compiler-version="2.0" id="kotlin-downcast"}
+
+이 예시에서 `animal`은 `Animal` 타입으로 선언되었지만, `Dog` 인스턴스를 가지고 있습니다. 코드는 `animal`을 `Dog` 타입으로 안전하게 캐스트하고 [안전 호출](null-safety.md#safe-call-operator) (`?.`)을 사용하여 `bark()` 함수에 접근합니다.
+
+다운캐스팅은 직렬화 시 기본 클래스를 특정 하위 타입으로 역직렬화할 때 사용됩니다. 또한 상위 타입 객체를 반환하는 Java 라이브러리와 작업할 때도 흔히 사용되며, 이때 코틀린에서 다운캐스팅해야 할 수 있습니다.

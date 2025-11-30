@@ -10,7 +10,7 @@ https://raw.githubusercontent.com/JetBrains/koog/develop/examples/notebooks/Bank
 在本教程中，我们将使用 Kotlin 中的 **Koog** 代理构建一个小型银行助手。
 你将学习如何：
 - 定义领域模型和样本数据
-- 暴露专注于功能的工具，用于**资金转账**和**交易分析**
+- 暴露专注于能力的工具，用于**资金转账**和**交易分析**
 - 分类用户意图（转账 vs 分析）
 - 以两种风格编排调用：
   1) 图/子图策略
@@ -97,12 +97,12 @@ class MoneyTransferTools : ToolSet {
     @Tool
     @LLMDescription(
         """
-        返回给定用户的联系人列表。
+        返回给定用户的联系人list。
         此演示中的用户始终是 userId=123。
         """
     )
     fun getContacts(
-        @LLMDescription("请求其联系人列表的用户的唯一标识符。") userId: Int
+        @LLMDescription("请求其联系人list的用户的唯一标识符。") userId: Int
     ): String = buildString {
         contactList.forEach { c ->
             appendLine("${c.id}: ${c.name} ${c.surname ?: ""} (${c.phoneNumber})")
@@ -137,7 +137,7 @@ class MoneyTransferTools : ToolSet {
     @Tool
     @LLMDescription(
         """
-        返回一个针对模糊姓名的可能收款人排名列表。
+        返回一个针对模糊姓名的可能收款人排名list。
         代理应要求用户选择一个，然后使用所选的联系人 id。
         """
     )
@@ -162,7 +162,7 @@ class MoneyTransferTools : ToolSet {
         """
         将资金从用户发送给联系人。
         如果 confirmed=false，则返回带有易读摘要的 "REQUIRES_CONFIRMATION"。
-        代理应在以 confirmed=true 重试之前与用户确认。
+        代理应在以 confirmed=true 重新赋值之前与用户确认。
         """
     )
     fun sendMoney(
@@ -201,7 +201,7 @@ import kotlinx.coroutines.runBlocking
 
 val transferAgentService = AIAgentService(
     executor = openAIExecutor,
-    llmModel = OpenAIModels.Reasoning.GPT4oMini,
+    llmModel = OpenAIModels.Chat.GPT4oMini,
     systemPrompt = bankingAssistantSystemPrompt,
     temperature = 0.0,  // 对金融操作使用确定性响应
     toolRegistry = ToolRegistry {
@@ -210,7 +210,7 @@ val transferAgentService = AIAgentService(
     }
 )
 
-// 测试代理在各种场景下的表现
+// 检测代理在各种场景下的表现
 println("Banking Assistant started")
 val message = "Send 25 euros to Daniel for dinner at the restaurant."
 
@@ -225,14 +225,19 @@ runBlocking {
 }
 ```
 
+Banking Assistant started
+There are two contacts named Daniel. Please confirm which one you would like to send money to:
+1. Daniel Anderson (+46 70 123 45 67)
+2. Daniel Garcia (+34 612 345 678)
+Please confirm the transfer of €25.00 to Daniel Garcia (+34 612 345 678) for "Dinner at the restaurant".
+
+Task completed successfully.
+
 ## 添加交易分析功能
 让我们通过交易分析工具扩展助手的`功能`。
 首先，我们将定义交易领域模型。
 
 ```kotlin
-import kotlinx.serialization.Serializable
-import kotlinx.datetime.LocalDateTime
-
 @Serializable
 enum class TransactionCategory(val title: String) {
     FOOD_AND_DINING("餐饮"),
@@ -330,10 +335,6 @@ val sampleTransactions = listOf(
 ## 交易分析工具
 
 ```kotlin
-import ai.koog.agents.core.tools.annotations.LLMDescription
-import ai.koog.agents.core.tools.annotations.Tool
-import ai.koog.agents.core.tools.reflect.ToolSet
-
 @LLMDescription("用于分析交易历史的工具")
 class TransactionAnalysisTools : ToolSet {
 
@@ -365,11 +366,11 @@ class TransactionAnalysisTools : ToolSet {
         // 应用类别过滤器
         category?.let { cat ->
             val categoryEnum = TransactionCategory.fromString(cat)
-                ?: return "无效类别：$cat。可用类别：${TransactionCategory.availableCategories()}"
+                ?: return "无效类别：$cat。可用：${TransactionCategory.availableCategories()}"
             filteredTransactions = filteredTransactions.filter { it.category == categoryEnum }
         }
 
-        // 应用日期范围过滤器
+        // 应用日期区间过滤器
         startDate?.let { date ->
             val startDateTime = parseDate(date, startOfDay = true)
             filteredTransactions = filteredTransactions.filter { it.date >= startDateTime }
@@ -394,7 +395,7 @@ class TransactionAnalysisTools : ToolSet {
     @Tool
     @LLMDescription("计算双精度浮点数数组的总和。")
     fun sumArray(
-        @LLMDescription("逗号分隔的双精度浮点数列表，用于求和（例如，'1.5,2.3,4.7'）。")
+        @LLMDescription("逗号分隔的双精度浮点数list，用于求和（例如，'1.5,2.3,4.7'）。")
         numbers: String
     ): String {
         val numbersList = numbers.split(",")
@@ -418,15 +419,9 @@ class TransactionAnalysisTools : ToolSet {
 ```
 
 ```kotlin
-import ai.koog.agents.core.agent.AIAgentService
-import ai.koog.agents.core.tools.ToolRegistry
-import ai.koog.agents.core.tools.reflect.asTools
-import ai.koog.prompt.executor.clients.openai.OpenAIModels
-import kotlinx.coroutines.runBlocking
-
 val analysisAgentService = AIAgentService(
     executor = openAIExecutor,
-    llmModel = OpenAIModels.Reasoning.GPT4oMini,
+    llmModel = OpenAIModels.Chat.GPT4oMini,
     systemPrompt = "$bankingAssistantSystemPrompt
 $transactionAnalysisPrompt",
     temperature = 0.0,
@@ -449,6 +444,12 @@ runBlocking {
     result
 }
 ```
+
+Transaction Analysis Assistant started
+
+You have spent a total of $517.64 on restaurants this month. 
+
+Task completed successfully.
 
 ## 使用图构建代理
 现在，让我们将专门的代理组合成一个图代理，它可以将请求路由到适当的处理程序。
@@ -475,7 +476,6 @@ data class ClassifiedBankRequest(
     @property:LLMDescription("银行应用程序要执行的实际请求")
     val userRequest: String
 )
-
 ```
 
 ### 共享工具注册表
@@ -519,7 +519,7 @@ val strategy = strategy<String, String>("banking assistant") {
                 )
             ),
             fixingParser = StructureFixingParser(
-                model = OpenAIModels.CostOptimized.GPT4oMini,
+                model = OpenAIModels.Chat.GPT4oMini,
                 retries = 2,
             )
         )
@@ -595,8 +595,6 @@ val strategy = strategy<String, String>("banking assistant") {
 ```kotlin
 import ai.koog.agents.core.agent.config.AIAgentConfig
 import ai.koog.prompt.dsl.prompt
-import ai.koog.prompt.executor.clients.openai.OpenAIModels // 导入 OpenAIModels
-import ai.koog.agents.core.agent.AIAgent // 导入 AIAgent
 
 val agentConfig = AIAgentConfig(
     prompt = prompt(id = "banking assistant") {
@@ -623,7 +621,7 @@ import kotlinx.coroutines.runBlocking
 println("Banking Assistant started")
 val testMessage = "Send 25 euros to Daniel for dinner at the restaurant."
 
-// 测试各种场景：
+// 检测各种场景：
 // 转账请求：
 //   - “Send 50 euros to Alice for the concert tickets”
 //   - “Transfer 100 to Bob for groceries”
@@ -641,22 +639,27 @@ runBlocking {
 }
 ```
 
+Banking Assistant started
+I found multiple contacts with the name Daniel. Please choose the correct one:
+1. Daniel Anderson (+46 70 123 45 67)
+2. Daniel Garcia (+34 612 345 678)
+Please specify the number of the correct recipient.
+Please confirm if you would like to proceed with sending €25 to Daniel Garcia for "dinner at the restaurant."
+
+Result: Task completed successfully.
+
 ## 代理组合——将代理作为工具使用
 
-Koog 允许你在其他代理中使用代理作为工具，从而实现强大的组合模式。
+Koog 允许你在其他代理中使用代理作为工具，从而实现强大的组合范式。
 
 ```kotlin
 import ai.koog.agents.core.agent.createAgentTool
 import ai.koog.agents.core.tools.ToolParameterDescriptor
 import ai.koog.agents.core.tools.ToolParameterType
-import ai.koog.agents.core.agent.AIAgent // 导入 AIAgent
-import ai.koog.prompt.executor.clients.openai.OpenAIModels // 导入 OpenAIModels
-import ai.koog.agents.core.tools.ToolRegistry // 导入 ToolRegistry
-import ai.koog.agents.ext.tool.AskUser // 导入 AskUser
 
 val classifierAgent = AIAgent(
     executor = openAIExecutor,
-    llmModel = OpenAIModels.Reasoning.GPT4oMini,
+    llmModel = OpenAIModels.Chat.GPT4oMini,
     toolRegistry = ToolRegistry {
         tool(AskUser)
 
@@ -703,6 +706,14 @@ runBlocking {
     "Result: $result"
 }
 ```
+
+Banking Assistant started
+There are two contacts named Daniel. Please confirm which one you would like to send money to:
+1. Daniel Anderson (+46 70 123 45 67)
+2. Daniel Garcia (+34 612 345 678)
+Please confirm the transfer of €25.00 to Daniel Anderson (+46 70 123 45 67) for "Dinner at the restaurant".
+
+Result: Can't perform the task.
 
 ## 总结
 在本教程中，你学习了如何：

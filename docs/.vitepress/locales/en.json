@@ -119,7 +119,7 @@
   "kotlin.native-arc-integration": "Integration with ARC",
   "kotlin.native-migration-guide": "Migration guide",
   "kotlin.reference-and-tips": "Reference and tips",
-  "kotlin.native-target-support": "Target support",
+  "kotlin.native-target-support": "Target and host support",
   "kotlin.native-improving-compilation-time": "Improving compilation time",
   "kotlin.native-llvm-passes": "Customizing LLVM passes",
   "kotlin.native-binary-licenses": "License files",
@@ -551,5 +551,8 @@
   "kotlin.compatibility-guide-13": "Compatibility guide",
   "koog.llm-parameters": "LLM parameters",
   "sqldelight.fts5-virtual-tables": "FTS5 Virtual Tables",
-  "kmp.case-studies": "Case studies"
+  "kmp.case-studies": "Case studies",
+  "kmp.compose-multiplatform-and-jetpack-compose": "Relationship between frameworks",
+  "kmp.compose-multiplatform-jetpack-libraries": "Multiplatform artifacts for Compose libraries",
+  "koog.custom-tools-schema": "Custom tools schema"
 }

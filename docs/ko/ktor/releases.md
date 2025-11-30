@@ -33,6 +33,18 @@ IntelliJ Ktor 플러그인을 사용하면 Ktor 프로젝트를 최신 버전으
 </tr>
 
 <tr>
+<td>3.3.3</td><td>2025년 11월 26일</td><td>
+<p>
+Jetty 클라이언트에서 클리어텍스트(h2c)를 통한 HTTP/2 지원을 추가하고, 로깅 및 OpenAPI 생성을 개선하며, 엔진, SSE 처리, 이중 응답, HTTP/2 헤더 및 클라이언트 캐싱의 버그를 수정하는 패치 릴리스입니다.
+</p>
+<var name="version" value="3.3.3"/>
+<p>
+    <a href="https://github.com/ktorio/ktor/releases/tag/%version%">GitHub에서 변경 로그 보기</a>
+</p>
+</td>
+</tr>
+
+<tr>
 <td>3.3.2</td><td>2025년 11월 5일</td><td>
 <p>
 Darwin용 SOCKS 프록시 지원을 추가하고, WebRTC 클라이언트 타겟 및 Java 프록시 처리를 개선하며, HTTP 재시도, OpenAPI, 캐싱, Android의 Netty에서 발생하는 여러 문제를 해결하는 패치 릴리스입니다.

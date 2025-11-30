@@ -32,7 +32,7 @@ K2 컴파일러가 포함된 Kotlin 2.0.0 출시 후, JetBrains 팀은 새로운
 
 *   [주어가 있는 `when`의 가드 조건](#guard-conditions-in-when-with-a-subject)
 *   [비지역 `break` 및 `continue`](#non-local-break-and-continue)
-*   [다중 달러 보간: 문자열 리터럴에서 달러 기호(`$`) 처리 개선](#multi-dollar-string-interpolation)
+*   [다중 달러 보간: 문자열 리터럴에서 달러 기호](#multi-dollar-string-interpolation) 처리 개선
 
 > 모든 기능은 K2 모드가 활성화된 최신 IntelliJ IDEA 2024.3 버전에서 IDE 지원을 제공합니다.
 >
@@ -175,7 +175,7 @@ Kotlin 2.1.0은 다중 달러 문자열 보간을 지원을 도입하여,
 
 Kotlin의 문자열 보간은 단일 달러 기호를 사용합니다.
 그러나 금융 데이터 및 템플릿 시스템에서 흔히 사용되는 문자열 내에서 리터럴 달러 기호를 사용하려면
-`${'$'}`와 같은 해결 방법이 필요했습니다.
+`${' `와 같은 해결 방법이 필요했습니다.
 다중 달러 보간 기능이 활성화되면 보간을 트리거하는 달러 기호 수를 구성할 수 있으며,
 더 적은 수의 달러 기호는 문자열 리터럴로 처리됩니다.
 
@@ -522,11 +522,11 @@ public class SomeJavaClass {
 ```kotlin
 // Kotlin
 fun test(sjc: SomeJavaClass) {
-    // Accesses a non-null result, which is allowed
+    // non-null 결과에 접근, 허용됨
     sjc.foo().length
 
-    // Raises an error in the default strict mode because the result is nullable
-    // To avoid the error, use ?.length instead
+    // 결과가 nullable이므로 기본 엄격 모드에서 오류 발생
+    // 오류를 피하려면 ?.length를 대신 사용
     sjc.bar().length
 }
 ```
@@ -716,7 +716,7 @@ kotlin.native.enableKlibsCrossCompilation=true
 향후 Kotlin 릴리스에서 이 기능을 안정화하고 라이브러리 게시를 더욱 개선할 계획입니다.
 [이슈 트래커 YouTrack](https://youtrack.jetbrains.com/issue/KT-71290)에 피드백을 남겨주세요.
 
-자세한 내용은 [멀티플랫폼 라이브러리 게시](https://kotlinlang.org/docs/multiplatform/multiplatform-publish-lib-setup.html)를 참조하세요.
+자세한 내용은 [멀티플랫폼 라이브러리 게시](https://kotlinlang.org/docs/multiplatform/multiplatform-publish-lib-setup.html)를 참조하세요。
 
 ### 압축되지 않은 klib 지원
 
@@ -896,7 +896,7 @@ val wasmJsMain by getting {
 ![Kotlin/Wasm 기존 디버거](wasm-old-debugger.png){width=700}
 
 이 경험을 개선하기 위해 변수 뷰에 사용자 정의 포매터가 추가되었습니다.
-이 구현은 Firefox 및 Chromium 기반 브라우저와 같은 주요 브라우저에서 지원되는 [사용자 정의 포매터 API](https://firefox-source-docs.mozilla.org/devtools-user/custom_formatters/index.html)를 사용합니다.
+이 구현은 Firefox 및 Chromium 기반 브라우저와 같은 주요 브라우저에서 지원되는 [사용 정의 포매터 API](https://firefox-source-docs.mozilla.org/devtools-user/custom_formatters/index.html)를 사용합니다.
 
 이 변경으로 이제 변수 값을 더 사용자 친화적이고 이해하기 쉬운 방식으로 표시하고 찾을 수 있습니다.
 
@@ -945,7 +945,7 @@ val wasmJsMain by getting {
 Kotlin과 JavaScript 코드 간의 상호 운용성을 복잡하게 만들었습니다.
 
 이번 릴리스에서는 `JsArray<T>`를 `Array<T>`로 자동 변환하고 그 반대로 변환하는 어댑터 함수를 도입하여
-배열 작업을 단순화했습니다.
+배열 작업을 단순화했습니다。
 
 다음은 제네릭 타입인 Kotlin `List<T>` 및 `Array<T>`와 JavaScript `JsArray<T>` 간의 변환 예시입니다.
 
@@ -1402,174 +1402,4 @@ Kotlin 2.1.0에서는 여러 표준 라이브러리 API의 사용 중단 심각�
     자세한 내용은 [동결 사용 중단에 대한 공지](whatsnew1720.md#freezing)를 참조하세요.
 
 *   **`appendln()`이 `appendLine()`로 대체됩니다:**
-    `StringBuilder.appendln()` 및 `Appendable.appendln()` 함수는 이제 사용 중단되며, 이를 사용하면 오류가 발생합니다.
-    이를 대체하려면 `StringBuilder.appendLine()` 또는 `Appendable.appendLine()` 함수를 사용하세요.
-    `appendln()` 함수는 Kotlin/JVM에서 각 OS마다 기본값이 다른 `line.separator` 시스템 속성을 사용하기 때문에 사용 중단됩니다.
-    Kotlin/JVM에서 이 속성은 Windows에서는 기본적으로 `\r
-` (CR LF)이고 다른 시스템에서는 `
-` (LF)입니다.
-    반면에 `appendLine()` 함수는 일관되게 `
-` (LF)를 줄 구분자로 사용하여 플랫폼 간에 일관된 동작을 보장합니다.
-
-이번 릴리스에서 영향을 받는 API의 전체 목록은 [KT-71628](https://youtrack.jetbrains.com/issue/KT-71628) YouTrack 이슈를 참조하세요.
-
-### `java.nio.file.Path`를 위한 안정적인 파일 트리 탐색 확장
-
-Kotlin 1.7.20은 파일 트리를 탐색할 수 있는 `java.nio.file.Path` 클래스에 대한 Experimental [확장 함수](extensions.md#extension-functions)를 도입했습니다.
-Kotlin 2.1.0에서는 다음 파일 트리 탐색 확장이 이제 [Stable](components-stability.md#stability-levels-explained)입니다:
-
-*   `walk()`는 지정된 경로에 뿌리를 둔 파일 트리를 지연 방식으로 탐색합니다.
-*   `fileVisitor()`는 `FileVisitor`를 별도로 생성할 수 있도록 합니다.
-    `FileVisitor`는 탐색 중에 디렉터리와 파일에서 수행할 작업을 지정합니다.
-*   `visitFileTree(fileVisitor: FileVisitor, ...)`는 파일 트리를 탐색하며,
-    각 항목에 대해 지정된 `FileVisitor`를 호출하고, 내부적으로 `java.nio.file.Files.walkFileTree()` 함수를 사용합니다.
-*   `visitFileTree(..., builderAction: FileVisitorBuilder.() -> Unit)`는 제공된 `builderAction`으로 `FileVisitor`를 생성하고
-    `visitFileTree(fileVisitor, ...)` 함수를 호출합니다.
-*   `sealed interface FileVisitorBuilder`는 사용자 정의 `FileVisitor` 구현을 정의할 수 있도록 합니다.
-*   `enum class PathWalkOption`은 `Path.walk()` 함수에 대한 탐색 옵션을 제공합니다.
-
-아래 예시는 이러한 파일 탐색 API를 사용하여 사용자 정의 `FileVisitor` 동작을 생성하는 방법을 보여줍니다.
-이를 통해 파일 및 디렉터리 방문에 대한 특정 작업을 정의할 수 있습니다.
-
-예를 들어, `FileVisitor`를 명시적으로 생성하고 나중에 사용할 수 있습니다:
-
-```kotlin
-val cleanVisitor = fileVisitor {
-    onPreVisitDirectory { directory, attributes ->
-        // Placeholder: Add logic on visiting directories
-        FileVisitResult.CONTINUE
-    }
-
-    onVisitFile { file, attributes ->
-        // Placeholder: Add logic on visiting files
-        FileVisitResult.CONTINUE
-    }
-}
-
-// Placeholder: Add logic here for general setup before traversal
-projectDirectory.visitFileTree(cleanVisitor)
-```
-
-또한 `builderAction`으로 `FileVisitor`를 생성하고 즉시 탐색에 사용할 수도 있습니다:
-
-```kotlin
-projectDirectory.visitFileTree {
-    // Defines the builderAction:
-    onPreVisitDirectory { directory, attributes ->
-        // Some logic on visiting directories
-        FileVisitResult.CONTINUE
-    }
-
-    onVisitFile { file, attributes ->
-        // Some logic on visiting files
-        FileVisitResult.CONTINUE
-    }
-}
-```
-
-추가적으로, `walk()` 함수를 사용하여 지정된 경로에 뿌리를 둔 파일 트리를 탐색할 수 있습니다:
-
-```kotlin
-fun traverseFileTree() {
-    val cleanVisitor = fileVisitor {
-        onPreVisitDirectory { directory, _ ->
-            if (directory.name == "build") {
-                directory.toFile().deleteRecursively()
-                FileVisitResult.SKIP_SUBTREE
-            } else {
-                FileVisitResult.CONTINUE
-            }
-        }
-
-        // Deletes files with the .class extension
-        onVisitFile { file, _ ->
-            if (file.extension == "class") {
-                file.deleteExisting()
-            }
-            FileVisitResult.CONTINUE
-        }
-    }
-
-    // Sets up the root directory and files
-    val rootDirectory = createTempDirectory("Project")
-
-    // Creates the src directory with A.kt and A.class files
-    rootDirectory.resolve("src").let { srcDirectory ->
-        srcDirectory.createDirectory()
-        srcDirectory.resolve("A.kt").createFile()
-        srcDirectory.resolve("A.class").createFile()
-    }
-
-    // Creates the build directory with a Project.jar file
-    rootDirectory.resolve("build").let { buildDirectory ->
-        buildDirectory.createDirectory()
-        buildDirectory.resolve("Project.jar").createFile()
-    }
-
-    // Uses the walk() function:
-    val directoryStructure = rootDirectory.walk(PathWalkOption.INCLUDE_DIRECTORIES)
-        .map { it.relativeTo(rootDirectory).toString() }
-        .toList().sorted()
-    println(directoryStructure)
-    // "[, build, build/Project.jar, src, src/A.class, src/A.kt]"
-  
-    // Traverses the file tree with cleanVisitor, applying the rootDirectory.visitFileTree(cleanVisitor) cleanup rules
-    val directoryStructureAfterClean = rootDirectory.walk(PathWalkOption.INCLUDE_DIRECTORIES)
-        .map { it.relativeTo(rootDirectory).toString() }
-        .toList().sorted()
-    println(directoryStructureAfterClean)
-    // "[, src, src/A.kt]"
-}
-```
-
-## 문서 업데이트
-
-Kotlin 문서에 몇 가지 주목할 만한 변경 사항이 있었습니다:
-
-### 언어 개념
-
-*   [널 안전](null-safety.md) 페이지 개선 – 코드에서 `null` 값을 안전하게 처리하는 방법을 알아보세요.
-*   [객체 선언 및 표현식](object-declarations.md) 페이지 개선 –
-    단일 단계에서 클래스를 정의하고 인스턴스를 생성하는 방법을 알아보세요.
-*   [When 표현식 및 문](control-flow.md#when-expressions-and-statements) 섹션 업데이트 –
-    `when` 조건문과 사용 방법을 알아보세요.
-*   [Kotlin 로드맵](roadmap.md), [Kotlin 진화 원칙](kotlin-evolution-principles.md),
-    및 [Kotlin 언어 기능 및 제안](kotlin-language-features-and-proposals.md) 페이지 업데이트 –
-    Kotlin의 계획, 진행 중인 개발 및 기본 원칙에 대해 알아보세요.
-
-### Compose 컴파일러
-
-*   [Compose 컴파일러 문서](compose-compiler-migration-guide.md)가 이제 컴파일러 및 플러그인 섹션에 위치 –
-    Compose 컴파일러, 컴파일러 옵션 및 마이그레이션 단계를 알아보세요.
-
-### API 참조
-
-*   새로운 [Kotlin Gradle 플러그인 API 참조](https://kotlinlang.org/api/kotlin-gradle-plugin) –
-    Kotlin Gradle 플러그인 및 Compose 컴파일러 Gradle 플러그인의 API 참조를 살펴보세요.
-
-### 멀티플랫폼 개발
-
-*   새로운 [멀티플랫폼용 Kotlin 라이브러리 빌드](https://kotlinlang.org/docs/api-guidelines-build-for-multiplatform.html) 페이지 –
-    Kotlin Multiplatform용 Kotlin 라이브러리를 설계하는 방법을 알아보세요.
-*   새로운 [Kotlin Multiplatform 소개](https://kotlinlang.org/docs/multiplatform/get-started.html) 페이지 – Kotlin Multiplatform의 주요 개념, 종속성, 라이브러리 등을 알아보세요.
-*   [Kotlin Multiplatform 개요](multiplatform.topic) 페이지 업데이트 – Kotlin Multiplatform의 필수 요소 및 인기 있는 사용 사례를 탐색하세요.
-*   새로운 [iOS 통합](https://kotlinlang.org/docs/multiplatform/multiplatform-ios-integration-overview.html) 섹션 – Kotlin Multiplatform 공유 모듈을 iOS 앱에 통합하는 방법을 알아보세요.
-*   새로운 [Kotlin/Native의 정의 파일](native-definition-file.md) 페이지 – C 및 Objective-C 라이브러리를 사용하기 위한 정의 파일을 생성하는 방법을 알아보세요.
-*   [WASI 시작하기](wasm-wasi.md) –
-    다양한 WebAssembly 가상 머신에서 WASI를 사용하여 간단한 Kotlin/Wasm 애플리케이션을 실행하는 방법을 알아보세요.
-
-### 도구
-
-*   [새로운 Dokka 마이그레이션 가이드](dokka-migration.md) – Dokka Gradle 플러그인 v2로 마이그레이션하는 방법을 알아보세요.
-
-## Kotlin 2.1.0 호환성 가이드
-
-Kotlin 2.1.0은 기능 릴리스이므로,
-이전 버전의 언어로 작성된 코드와 호환되지 않는 변경 사항이 있을 수 있습니다.
-이러한 변경 사항에 대한 자세한 목록은 [Kotlin 2.1.0 호환성 가이드](compatibility-guide-21.md)에서 확인하세요.
-
-## Kotlin 2.1.0 설치
-
-IntelliJ IDEA 2023.3 및 Android Studio Iguana (2023.2.1) Canary 15부터 Kotlin 플러그인은 IDE에 번들로 포함된 플러그인으로 배포됩니다. 이는 더 이상 JetBrains Marketplace에서 플러그인을 설치할 수 없음을 의미합니다.
-
-새로운 Kotlin 버전으로 업데이트하려면 빌드 스크립트에서 [Kotlin 버전을 변경](releases.md#update-to-a-new-kotlin-version)하여 2.1.0으로 설정하세요.
+    `StringBuilder.appendln()` 및 `Appendable.appendln()` 함수는 이제 사용 중단되며, 이를 사용하면 오류가 발생합니다

@@ -64,6 +64,7 @@
 1. 打开 `composeApp/src/commonMain/kotlin/App.kt` 文件，并添加以下函数，该函数返回一个包含当前日期的字符串：
 
    ```kotlin
+   @OptIn(ExperimentalTime::class)
    fun todaysDate(): String {
        fun LocalDateTime.format() = toString().substringBefore('T')
 
@@ -72,8 +73,8 @@
        return now.toLocalDateTime(zone).format()
    }
    ```
-
-2. 在同一文件中，修改 `App()` 可组合项，以包含调用此函数并显示结果的 `Text()` 可组合项：
+2. 按照 IDE 的建议导入缺失的依赖项。请确保从 `kotlin.time` 导入 `Clock` 类，**而不是** `kotlinx.datetime`。 
+3. 在同一文件中，修改 `App()` 可组合项，以包含调用此函数并显示结果的 `Text()` 可组合项：
    
     ```kotlin
     @Composable
@@ -108,7 +109,7 @@
     }
     ```
 
-3. 按照 IDE 的建议导入缺失的依赖项。请确保从更新的包中导入 `todaysDate()` 函数的所有缺失依赖项，并在 IDE 提示时选择加入。
+4. 按照 IDE 的建议导入缺失的依赖项。请确保从更新的包中导入 `todaysDate()` 函数的所有缺失依赖项，并在 IDE 提示时选择加入。
 
    ![Unresolved references](compose-unresolved-references.png)
 
@@ -127,12 +128,6 @@
         <img src="first-compose-project-on-web-2.png" alt="首个在 Web 平台运行的 Compose Multiplatform 应用" width="400"/>
     </TabItem>
 </Tabs>
-
-<!--
-> 你可以在我们的 [GitHub 版本库](https://github.com/kotlin-hands-on/get-started-with-cm/tree/main/ComposeDemoStage1) 中找到此项目状态。
->
-{style="tip"}
--->
 
 ## 下一步
 

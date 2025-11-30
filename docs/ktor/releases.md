@@ -33,6 +33,18 @@ IntelliJ Ktor 插件允许你将 Ktor 项目迁移到最新版本。你可以从
 </tr>
 
 <tr>
+<td>3.3.3</td><td>2025 年 11 月 26 日</td><td>
+<p>
+一个补丁版本，增加了 Jetty Client 对明文 HTTP/2 (h2c) 的支持，改进了日志记录和 OpenAPI 生成，并修复了引擎、SSE 处理、双重响应、HTTP/2 头信息以及客户端缓存中的错误。
+</p>
+<var name="version" value="3.3.3"/>
+<p>
+    <a href="https://github.com/ktorio/ktor/releases/tag/%version%">在 GitHub 上查看更新日志</a>
+</p>
+</td>
+</tr>
+
+<tr>
 <td>3.3.2</td><td>2025 年 11 月 5 日</td><td>
 <p>
 一个补丁版本，增加了对 Darwin 的 SOCKS 代理支持，完善了 WebRTC 客户端目标和 Java 代理处理，并修复了 HTTP 重试、OpenAPI、缓存和 Android 上的 Netty 中的多个问题。

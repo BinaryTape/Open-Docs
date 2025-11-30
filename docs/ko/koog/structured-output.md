@@ -2,8 +2,7 @@
 
 ## 소개
 
-구조화된 출력 API는 대규모 언어 모델(LLM)의 응답이 특정 데이터 구조를 따르도록 보장하는 방법을 제공합니다.
-이는 자유 형식 텍스트가 아닌 예측 가능하고 잘 정돈된 데이터가 필요한 신뢰할 수 있는 AI 애플리케이션을 구축하는 데 중요합니다.
+구조화된 출력 API는 대규모 언어 모델(LLM)의 응답이 특정 데이터 구조를 따르도록 보장하는 방법을 제공합니다. 이는 자유 형식 텍스트가 아닌 예측 가능하고 잘 정돈된 데이터가 필요한 신뢰할 수 있는 AI 애플리케이션을 구축하는 데 중요합니다.
 
 이 페이지에서는 이 API를 사용하여 데이터 구조를 정의하고, 스키마를 생성하며, LLM에 구조화된 응답을 요청하는 방법을 설명합니다.
 
@@ -247,7 +246,7 @@ val structuredResponse = promptExecutor.executeStructured<WeatherForecast>(
             )
         },
         // 요청을 실행할 주 모델 정의
-        model = OpenAIModels.CostOptimized.GPT4oMini,
+        model = OpenAIModels.Chat.GPT4oMini,
         // 선택 사항: 모델이 형식을 이해하는 데 도움이 되는 예시 제공
         examples = exampleForecasts,
         // 선택 사항: 오류 수정을 위한 교정 파서 제공
@@ -512,8 +511,7 @@ fun main(): Unit = runBlocking {
 
 ## 고급 사용법
 
-위의 예시는 모델 기능에 따라 최적의 구조화된 출력 접근 방식을 자동으로 선택하는 단순화된 API를 보여줍니다.
-구조화된 출력 프로세스를 더 세밀하게 제어하려면 수동 스키마 생성 및 공급자별 구성이 포함된 고급 API를 사용할 수 있습니다.
+위의 예시는 모델 기능에 따라 최적의 구조화된 출력 접근 방식을 자동으로 선택하는 단순화된 API를 보여줍니다. 구조화된 출력 프로세스를 더 세밀하게 제어하려면 수동 스키마 생성 및 공급자별 구성이 포함된 고급 API를 사용할 수 있습니다.
 
 ### 수동 스키마 생성 및 구성
 
@@ -570,7 +568,7 @@ val structuredResponse = promptExecutor.executeStructured(
         system("You are a weather forecasting assistant.")
         user("What is the weather forecast for Amsterdam?")
     },
-    model = OpenAIModels.CostOptimized.GPT4oMini,
+    model = OpenAIModels.Chat.GPT4oMini,
     config = StructuredRequestConfig(
         byProvider = mapOf(
             LLMProvider.OpenAI to StructuredRequest.Native(openAiStructure),

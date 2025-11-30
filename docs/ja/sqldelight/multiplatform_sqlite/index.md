@@ -2,7 +2,7 @@
 
 {% include 'common/index_gradle_database.md' %}
 
-{% include 'common/index_schema.md' %}
+{% include 'multiplatform_sqlite/index_schema.md' %}
 
 生成されたデータベースをコードで使用するには、プロジェクトにSQLDelightドライバーの依存関係を追加する必要があります。
 各ターゲットプラットフォームには、独自のドライバー実装があります。

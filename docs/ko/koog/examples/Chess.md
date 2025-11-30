@@ -377,7 +377,7 @@ val toolRegistry = ToolRegistry { tools(listOf(Move(game))) }
 val agent = AIAgent(
     executor = baseExecutor,
     strategy = strategy,
-    llmModel = OpenAIModels.Reasoning.O3Mini,
+    llmModel = OpenAIModels.Chat.O3Mini,
     systemPrompt = """
             You are an agent who plays chess.
             You should always propose a move in response to the "Your move!" message.
@@ -395,7 +395,7 @@ val agent = AIAgent(
 여기에서는 모든 구성 요소를 기능적인 체스 플레이 에이전트로 조립합니다.
 
 **주요 구성:**
--   **모델 선택**: 고품질 체스 플레이를 위해 `OpenAIModels.Reasoning.O3Mini` 사용
+-   **모델 선택**: 고품질 체스 플레이를 위해 `OpenAIModels.Chat.O3Mini` 사용
 -   **온도**: 결정론적이고 전략적인 수를 위해 0.0으로 설정
 -   **시스템 프롬프트**: 합법적인 수와 적절한 행동을 강조하는 신중하게 작성된 지침
 -   **도구 레지스트리**: 에이전트에 Move 도구에 대한 액세스를 제공합니다
@@ -604,7 +604,7 @@ val toolRegistry = ToolRegistry { tools(listOf(Move(game))) }
 val agent = AIAgent(
     executor = promptExecutor,
     strategy = strategy,
-    llmModel = OpenAIModels.Reasoning.O3Mini,
+    llmModel = OpenAIModels.Chat.O3Mini,
     systemPrompt = """
             You are an agent who plays chess.
             You should always propose a move in response to the "Your move!" message.
@@ -743,7 +743,7 @@ val toolRegistry = ToolRegistry { tools(listOf(Move(game))) }
 val agent = AIAgent(
     executor = baseExecutor,
     strategy = strategy,
-    llmModel = OpenAIModels.Reasoning.O3Mini,
+    llmModel = OpenAIModels.Chat.O3Mini,
     systemPrompt = """
             You are an agent who plays chess.
             You should always propose a move in response to the "Your move!" message.

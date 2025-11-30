@@ -61,10 +61,10 @@ import ai.koog.agents.mcp.McpToolRegistryProvider
 import ai.koog.agents.mcp.defaultStdioTransport
 -->
 ```kotlin
-// Start an MCP server (for example, as a process)
+// 啟動一個 MCP 伺服器（例如，作為一個程序）
 val process = ProcessBuilder("path/to/mcp/server").start()
 
-// Create the stdio transport 
+// 建立 stdio 傳輸 
 val transport = McpToolRegistryProvider.defaultStdioTransport(process)
 ```
 <!--- KNIT example-model-context-protocol-01.kt -->
@@ -77,7 +77,7 @@ val transport = McpToolRegistryProvider.defaultStdioTransport(process)
 import ai.koog.agents.mcp.McpToolRegistryProvider
 -->
 ```kotlin
-// Create the SSE transport
+// 建立 SSE 傳輸
 val transport = McpToolRegistryProvider.defaultSseTransport("http://localhost:8931")
 ```
 <!--- KNIT example-model-context-protocol-02.kt -->
@@ -101,7 +101,7 @@ fun main() {
 }
 -->
 ```kotlin
-// Create a tool registry with tools from the MCP server
+// 使用 MCP 伺服器中的工具建立工具註冊表
 val toolRegistry = McpToolRegistryProvider.fromTransport(
     transport = transport,
     name = "my-client",
@@ -113,7 +113,7 @@ val toolRegistry = McpToolRegistryProvider.fromTransport(
 *   使用連接到 MCP 伺服器的現有 MCP 客戶端。例如：
 <!--- INCLUDE
 import ai.koog.agents.mcp.McpToolRegistryProvider
-import io.modelcontextprotocol.kotlin.sdk.Implementation
+import io.modelcontextprotocol.kotlin.sdk.types.Implementation
 import io.modelcontextprotocol.kotlin.sdk.client.Client
 import kotlinx.coroutines.runBlocking
 
@@ -127,7 +127,7 @@ fun main() {
 }
 -->
 ```kotlin
-// Create a tool registry from an existing MCP client
+// 從現有的 MCP 客戶端建立工具註冊表
 val toolRegistry = McpToolRegistryProvider.fromClient(
     mcpClient = existingMcpClient
 )
@@ -160,7 +160,7 @@ fun main() {
 }
 -->
 ```kotlin
-// Create an agent with the tools
+// 建立一個帶有工具的代理
 val agent = AIAgent(
     promptExecutor = executor,
     strategy = strategy,
@@ -168,23 +168,23 @@ val agent = AIAgent(
     toolRegistry = toolRegistry
 )
 
-// Run the agent with a task that uses an MCP tool
+// 執行一個使用 MCP 工具的代理任務
 val result = agent.run("Use the MCP tool to perform a task")
 ```
 <!--- KNIT example-model-context-protocol-05.kt -->
 
-[//]: # (## Working directly with MCP tools)
+[//]: # (## 直接使用 MCP 工具)
 
 [//]: # ()
-[//]: # (In addition to running tools through the agent, you can also run them directly:)
+[//]: # (除了透過代理執行工具之外，您還可以直接執行它們：)
 
 [//]: # ()
-[//]: # (1. Retrieve a specific tool from the tool registry.)
+[//]: # (1. 從工具註冊表中檢索特定工具。)
 
-[//]: # (2. Run the tool with specific arguments using the standard Koog mechanism.)
+[//]: # (2. 使用標準 Koog 機制執行帶有特定參數的工具。)
 
 [//]: # ()
-[//]: # (Here is an example:)
+[//]: # (以下是一個範例：)
 
 [//]: # (<!--- INCLUDE)
 
@@ -210,12 +210,12 @@ val result = agent.run("Use the MCP tool to perform a task")
 
 [//]: # (```kotlin)
 
-[//]: # (// Get a tool )
+[//]: # (// 取得工具 )
 
 [//]: # (val tool = toolRegistry.getTool&#40;"tool-name"&#41; as McpTool)
 
 [//]: # ()
-[//]: # (// Create arguments for the tool)
+[//]: # (// 為工具建立參數)
 
 [//]: # (val args = McpTool.Args&#40;buildJsonObject { )
 
@@ -226,12 +226,12 @@ val result = agent.run("Use the MCP tool to perform a task")
 [//]: # (}&#41;)
 
 [//]: # ()
-[//]: # (// Run the tool with the given arguments)
+[//]: # (// 使用給定參數執行工具)
 
 [//]: # (val toolResult = tool.execute&#40;args&#41;)
 
 [//]: # ()
-[//]: # (// Print the result)
+[//]: # (// 列印結果)
 
 [//]: # (println&#40;toolResult&#41;)
 
@@ -240,7 +240,7 @@ val result = agent.run("Use the MCP tool to perform a task")
 [//]: # (<!--- KNIT example-model-context-protocol-06.kt -->)
 
 [//]: # ()
-[//]: # (You can also retrieve all available MCP tools from the registry:)
+[//]: # (您還可以從註冊表中檢索所有可用的 MCP 工具：)
 
 [//]: # ()
 [//]: # (<!--- INCLUDE)
@@ -274,7 +274,7 @@ val result = agent.run("Use the MCP tool to perform a task")
 
 [//]: # (```kotlin)
 
-[//]: # (// Get all tools)
+[//]: # (// 取得所有工具)
 
 [//]: # (val tools = toolRegistry.tools)
 
@@ -306,25 +306,25 @@ fun main() {
 }
 -->
 ```kotlin
-// Start the Docker container with the Google Maps MCP server
+// 啟動帶有 Google 地圖 MCP 伺服器的 Docker 容器
 val process = ProcessBuilder(
     "docker", "run", "-i",
     "-e", "GOOGLE_MAPS_API_KEY=$googleMapsApiKey",
     "mcp/google-maps"
 ).start()
 
-// Create the ToolRegistry with tools from the MCP server
+// 建立帶有 MCP 伺服器工具的 ToolRegistry
 val toolRegistry = McpToolRegistryProvider.fromTransport(
     transport = McpToolRegistryProvider.defaultStdioTransport(process)
 )
 
-// Create and run the agent
+// 建立並執行代理
 val agent = AIAgent(
     promptExecutor = simpleOpenAIExecutor(openAIApiToken),
     llmModel = OpenAIModels.Chat.GPT4o,
     toolRegistry = toolRegistry,
 )
-agent.run("Get elevation of the Jetbrains Office in Munich, Germany?")
+agent.run("獲取德國慕尼黑 Jetbrains 辦公室的海拔高度？")
 ```
 <!--- KNIT example-model-context-protocol-06.kt -->
 
@@ -349,22 +349,22 @@ fun main() {
 }
 -->
 ```kotlin
-// Start the Playwright MCP server
+// 啟動 Playwright MCP 伺服器
 val process = ProcessBuilder(
     "npx", "@playwright/mcp@latest", "--port", "8931"
 ).start()
 
-// Create the ToolRegistry with tools from the MCP server
+// 建立帶有 MCP 伺服器工具的 ToolRegistry
 val toolRegistry = McpToolRegistryProvider.fromTransport(
     transport = McpToolRegistryProvider.defaultSseTransport("http://localhost:8931")
 )
 
-// Create and run the agent
+// 建立並執行代理
 val agent = AIAgent(
     promptExecutor = simpleOpenAIExecutor(openAIApiToken),
     llmModel = OpenAIModels.Chat.GPT4o,
     toolRegistry = toolRegistry,
 )
-agent.run("Open a browser, navigate to jetbrains.com, accept all cookies, click AI in toolbar")
+agent.run("開啟瀏覽器，導航到 jetbrains.com，接受所有 cookie，點擊工具列中的 AI")
 ```
 <!--- KNIT example-model-context-protocol-07.kt -->

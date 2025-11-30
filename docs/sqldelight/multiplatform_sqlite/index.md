@@ -1,11 +1,11 @@
-# Multiplatform 上 SQLite 入门
+# 多平台上的 SQLite 入门
 
 {% include 'common/index_gradle_database.md' %}
 
-{% include 'common/index_schema.md' %}
+{% include 'multiplatform_sqlite/index_schema.md' %}
 
-要在代码中使用生成的数据库，您必须将 SQLDelight 驱动依赖项添加到您的项目中。
-每个目标平台都有自己的驱动实现。
+要在你的代码中使用生成的数据库，你必须向你的项目中添加一个 SQLDelight 驱动依赖项。
+每个目标平台都有其自己的驱动实现。
 
 === "Kotlin"
     ```kotlin
@@ -44,7 +44,7 @@
 
 ## 构建驱动实例
 
-创建一个通用的工厂类或方法来获取 `SqlDriver` 实例。
+创建一个通用的工厂类或方法来获取一个 `SqlDriver` 实例。
 
 ```kotlin title="src/commonMain/kotlin"
 import com.example.Database

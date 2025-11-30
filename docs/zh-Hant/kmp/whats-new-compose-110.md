@@ -54,7 +54,33 @@ Compose Multiplatform Gradle 外掛程式支援的依賴項別名 (`compose.ui` 
 
 所有其他註解，例如 `org.jetbrains.compose.ui.tooling.preview.Preview` 以及桌面專用的 `androidx.compose.desktop.ui.tooling.preview.Preview`，都已被棄用。
 
+### 互操作檢視的自動調整大小
+
+Compose Multiplatform 現在支援桌面和 iOS 上原生互操作元素的自動調整大小。
+這些元素現在可以根據其內容調整其版面配置，
+從而消除了手動計算精確尺寸和預先指定固定尺寸的需求。
+
+* 在桌面版上，`SwingPanel` 會根據嵌入元件的最小、慣用和最大尺寸自動調整其大小。
+* 在 iOS 上，UIKit 互操作檢視現在支援根據檢視的合適尺寸（內在內容尺寸）進行大小調整。
+  這使得 SwiftUI 檢視（透過 `UIHostingController`）和不依賴於 `NSLayoutConstraints` 的基本 `UIView` 子類別能夠正確地換行。
+
+### Popup 和 Dialog 屬性的穩定化
+
+`DialogProperties` 中的以下屬性已晉升為穩定版，不再是實驗性：`usePlatformInsets`、`useSoftwareKeyboardInset` 和 `scrimColor`。
+
+同樣地，`PopupProperties` 中的 `usePlatformDefaultWidth` 和 `usePlatformInsets` 屬性也已晉升為穩定版。
+
+沒有 `PopupProperties` 參數的 `Popup` 重載的棄用等級已變更為 `ERROR`，以強制使用更新後的 API。
+
+### Skia 更新至 Milestone 138
+
+Compose Multiplatform 透過 Skiko 使用的 Skia 版本已更新至 Milestone 138。
+
+之前使用的 Skia 版本是 Milestone 132。
+您可以在[發行說明](https://skia.googlesource.com/skia/+/refs/heads/chrome/m138/RELEASE_NOTES.md)中查看這些版本之間的變更。
+
 ### 支援 Navigation 3
+<primary-label ref="Experimental"/>
 
 Navigation 3 是一個新的導覽函式庫，專為與 Compose 協同工作而設計。
 藉由 Navigation 3，您可以完全控制返回堆疊，
@@ -78,23 +104,6 @@ Compose Multiplatform 1.10.0-beta01 為在非 Android 目標上使用新的導�
 * 在網頁應用程式中，現在桌面瀏覽器中按下 **Esc** 鍵會將使用者返回到上一畫面（並關閉對話框、彈出視窗以及某些小工具，例如 Material 3 的 `SearchBar`），就像它在桌面應用程式中已經做的那樣。
 * Compose Multiplatform 1.10 將不會延伸對 [瀏覽器歷史導覽](compose-navigation-routing.md#support-for-browser-navigation-in-web-apps) 和在網址列中使用目標的支援至 Navigation 3。
   這已延後到多平台函式庫的後續版本。
-
-### 互操作檢視的自動調整大小
-
-Compose Multiplatform 現在支援桌面和 iOS 上原生互操作元素的自動調整大小。
-這些元素現在可以根據其內容調整其版面配置，
-從而消除了手動計算精確尺寸和預先指定固定尺寸的需求。
-
-* 在桌面版上，`SwingPanel` 會根據嵌入元件的最小、慣用和最大尺寸自動調整其大小。
-* 在 iOS 上，UIKit 互操作檢視現在支援根據檢視的合適尺寸（內在內容尺寸）進行大小調整。
-  這使得 SwiftUI 檢視（透過 `UIHostingController`）和不依賴於 `NSLayoutConstraints` 的基本 `UIView` 子類別能夠正確地換行。
-
-### Skia 更新至 Milestone 138
-
-Compose Multiplatform 透過 Skiko 使用的 Skia 版本已更新至 Milestone 138。
-
-之前使用的 Skia 版本是 Milestone 132。
-您可以在[發行說明](https://skia.googlesource.com/skia/+/refs/heads/chrome/m138/RELEASE_NOTES.md)中查看這些版本之間的變更。
 
 ## iOS
 

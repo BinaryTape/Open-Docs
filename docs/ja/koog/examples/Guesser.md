@@ -7,7 +7,7 @@ https://github.com/JetBrains/koog/blob/develop/examples/notebooks/Guesser.ipynb
 https://raw.githubusercontent.com/JetBrains/koog/develop/examples/notebooks/Guesser.ipynb
 ){ .md-button }
 
-あなたが考えている数字を推測する、小さくて楽しいエージェントを構築しましょう。Koogのツール呼び出し（tool-calling）を活用し、的を絞った質問をし、古典的な二分探索戦略（binary search strategy）を使用して収束させます。その結果、ドキュメントに直接組み込むことができるKotlinらしいノートブック（Kotlin Notebook）が完成します。
+あなたが考えている数字を推測する、小さくて楽しいエージェントを構築しましょう。Koogのツール呼び出しを活用し、的を絞った質問をし、古典的な二分探索戦略（binary search strategy）を使用して収束させます。その結果、ドキュメントに直接組み込むことができるKotlinらしいノートブック（Kotlin Notebook）が完成します。
 
 コードは最小限に抑え、フローは明確にします。いくつかの小さなツール、コンパクトなプロンプト、そしてインタラクティブなCLIループで構成されます。
 
@@ -91,7 +91,7 @@ val toolRegistry = ToolRegistry {
 ```kotlin
 val agent = AIAgent(
     executor = simpleOpenAIExecutor(System.getenv("OPENAI_API_KEY")),
-    llmModel = OpenAIModels.Reasoning.GPT4oMini,
+    llmModel = OpenAIModels.Chat.GPT4oMini,
     systemPrompt = """
             You are a number guessing agent. Your goal is to guess a number that the user is thinking of.
             

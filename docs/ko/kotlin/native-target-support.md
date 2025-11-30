@@ -1,10 +1,14 @@
-[//]: # (title: Kotlin/Native 대상 지원)
+[//]: # (title: Kotlin/Native 지원 대상 및 호스트)
 
-Kotlin/Native 컴파일러는 다양한 대상을 지원하지만, 모든 대상에 동일한 수준의 지원을 제공하기는 어렵습니다. 이 문서에서는 Kotlin/Native가 지원하는 대상을 설명하고, 컴파일러의 지원 수준에 따라 여러 계층으로 분류합니다.
+이 문서는 Kotlin/Native 컴파일러가 지원하는 대상과 호스트를 설명합니다.
 
-> 진행하면서 계층의 수, 지원 대상 목록, 그리고 해당 기능을 조정할 수 있습니다.
-> 
+> 진행하면서 지원 대상 및 호스트 목록, 계층의 수, 그리고 해당 기능을 조정할 수 있습니다.
+>
 {style="tip"}
+
+## 대상 계층
+
+Kotlin/Native 컴파일러는 여러 다양한 대상을 지원하지만, 각 대상에 대한 지원 수준은 다릅니다. 이러한 수준을 명확히 하기 위해, 컴파일러의 지원 수준에 따라 대상을 여러 계층으로 분류했습니다.
 
 계층 테이블에 사용된 다음 용어에 유의하십시오:
 
@@ -14,7 +18,7 @@ Kotlin/Native 컴파일러는 다양한 대상을 지원하지만, 모든 대상
   
     이는 특정 대상의 네이티브 호스트에서만 사용할 수 있습니다. 예를 들어, `macosX64` 및 `iosX64` 테스트는 macOS x86-64 호스트에서만 실행할 수 있습니다.
 
-## 계층 1
+### 계층 1
 
 *   CI에서 컴파일 및 실행 가능 여부가 정기적으로 테스트되는 대상입니다.
 *   컴파일러 릴리스 간의 소스 및 [바이너리 호환성](https://youtrack.jetbrains.com/issue/KT-42293)을 제공합니다.
@@ -26,7 +30,7 @@ Kotlin/Native 컴파일러는 다양한 대상을 지원하지만, 모든 대상
 | `iosSimulatorArm64`   | `aarch64-apple-ios-simulator` | ✅           | Apple Silicon 플랫폼의 Apple iOS 시뮬레이터 |
 | `iosArm64`            | `aarch64-apple-ios`           |             | ARM64 플랫폼의 Apple iOS 및 iPadOS         |
 
-## 계층 2
+### 계층 2
 
 *   CI에서 컴파일 가능 여부는 정기적으로 테스트되지만, 실행 가능 여부는 자동으로 테스트되지 않을 수 있는 대상입니다.
 *   컴파일러 릴리스 간의 소스 및 [바이너리 호환성](https://youtrack.jetbrains.com/issue/KT-42293)을 제공하기 위해 최선을 다하고 있습니다.
@@ -46,7 +50,7 @@ Kotlin/Native 컴파일러는 다양한 대상을 지원하지만, 모든 대상
 | `tvosX64`             | `x86_64-apple-tvos-simulator`     | ✅           | x86_64 플랫폼의 Apple tvOS 시뮬레이터          |
 | `tvosArm64`           | `aarch64-apple-tvos`              |             | ARM64 플랫폼의 Apple tvOS                      |
 
-## 계층 3
+### 계층 3
 
 *   CI에서 테스트가 보장되지 않는 대상입니다.
 *   컴파일러 릴리스 간의 소스 및 바이너리 호환성을 보장할 수는 없지만, 이러한 대상에 대한 변경 사항은 매우 드뭅니다.
@@ -62,10 +66,10 @@ Kotlin/Native 컴파일러는 다양한 대상을 지원하지만, 모든 대상
 | `watchosDeviceArm64`  | `aarch64-apple-watchos`         |             | ARM64 플랫폼의 Apple watchOS                                     |
 
 > `linuxArm32Hfp` 대상은 더 이상 사용되지 않으며 향후 릴리스에서 제거될 예정입니다.
-> 
+>
 {style="note"}
 
-## 라이브러리 개발자를 위한 정보
+### 라이브러리 개발자를 위한 정보
 
 라이브러리 개발자가 Kotlin/Native 컴파일러보다 더 많은 대상을 테스트하거나 더 엄격한 보증을 제공하는 것은 권장하지 않습니다. 네이티브 대상 지원을 고려할 때 다음 접근 방식을 사용할 수 있습니다:
 
@@ -73,3 +77,33 @@ Kotlin/Native 컴파일러는 다양한 대상을 지원하지만, 모든 대상
 *   즉시 테스트 실행을 지원하는 계층 1 및 2의 대상을 정기적으로 테스트합니다.
 
 Kotlin 팀은 예를 들어 [kotlinx.coroutines](coroutines-guide.md) 및 [kotlinx.serialization](serialization.md)과 같은 공식 Kotlin 라이브러리에서 이 접근 방식을 사용합니다.
+
+## 호스트
+
+Kotlin/Native 컴파일러는 다음 호스트를 지원합니다:
+
+| 호스트 OS                                            | 최종 바이너리 빌드                        | .klib 아티팩트 생성                                            |
+|----------------------------------------------------|------------------------------------------|----------------------------------------------------------------|
+| Apple Silicon (ARM64) 기반 macOS                     | 모든 지원 대상                           | 모든 지원 대상                                               |
+| Intel 칩 (x86_64) 기반 macOS                      | 모든 지원 대상                           | 모든 지원 대상                                               |
+| x86_64 아키텍처를 사용하는 Linux                     | Apple 대상을 제외한 모든 지원 대상         | 모든 지원 대상, Apple 대상은 cinterop 종속성이 없는 경우에만 |
+| x86_64 아키텍처를 사용하는 Windows (MinGW 툴체인) | Apple 대상을 제외한 모든 지원 대상         | 모든 지원 대상, Apple 대상은 cinterop 종속성이 없는 경우에만 |
+
+### 최종 바이너리 빌드
+
+최종 바이너리를 생성하려면, [지원 대상](#target-tiers)을 _지원되는 호스트_에서만 컴파일할 수 있습니다. 예를 들어, FreeBSD 또는 ARM64 아키텍처에서 실행되는 Linux 머신에서는 이를 수행할 수 없습니다.
+
+Linux 및 Windows에서 Apple 대상의 최종 바이너리를 빌드하는 것도 불가능합니다.
+
+### .klib 아티팩트 생성
+
+일반적으로 Kotlin/Native는 모든 _지원되는 호스트_에서 지원 대상용 `.klib` 아티팩트를 생성할 수 있도록 허용합니다.
+
+하지만 Linux 및 Windows에서는 Apple 대상에 대한 아티팩트 생성에 여전히 몇 가지 제약이 있습니다. 프로젝트에서 [cinterop 종속성](native-c-interop.md) ( [CocoaPods](https://kotlinlang.org/docs/multiplatform/multiplatform-cocoapods-overview.html) 포함)을 사용하는 경우 macOS 호스트를 사용해야 합니다.
+
+예를 들어, `macosArm64` 대상용 `.klib`은 cinterop 종속성이 없는 경우에만 x86_64 아키텍처에서 실행되는 Windows 머신에서 생성할 수 있습니다.
+
+## 다음 단계는 무엇인가요?
+
+*   [최종 네이티브 바이너리 빌드](https://kotlinlang.org/docs/multiplatform/multiplatform-build-native-binaries.html)
+*   [Apple 대상 컴파일](https://kotlinlang.org/docs/multiplatform/multiplatform-publish-lib-setup.html#compilation-for-apple-targets)

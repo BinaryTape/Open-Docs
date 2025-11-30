@@ -153,7 +153,7 @@
   "kotlin.native-arc-integration": "与 ARC 集成",
   "kotlin.native-migration-guide": "迁移指南",
   "kotlin.reference-and-tips": "参考与提示",
-  "kotlin.native-target-support": "目标平台支持",
+  "kotlin.native-target-support": "目标与主机支持",
   "kotlin.native-improving-compilation-time": "优化编译时间",
   "kotlin.native-llvm-passes": "自定义 LLVM passes",
   "kotlin.native-binary-licenses": "二进制许可",
@@ -169,7 +169,6 @@
   "kotlin.collection-operations": "操作概览",
   "kotlin.collection-transformations": "转换",
   "kotlin.collection-filtering": "过滤",
-  "kotlin.collection-grouping": "分组",
   "kotlin.collection-write": "写入操作",
   "kotlin.official-libraries": "官方库",
   "kotlin.coroutines-kotlinx-coroutines": "协程 (kotlinx.coroutines)",
@@ -542,7 +541,7 @@
   "kotlin.multiplatform": "多平台开发",
   "kotlin.android-overview": "Android 开发",
   "kotlin.library-design": "库设计",
-  "kotlin.custom-script-deps-tutorial": "Kotlin 自定义脚本",
+  "kotlin.custom-script-deps-tutorial": "Kotlin 自定义脚本依赖项 – 教程",
   "kotlin.development-tooling": "开发工具",
   "kotlin.interoperability": "互操作性",
   "kotlin.java-interop": "Java 互操作",
@@ -585,5 +584,8 @@
   "kotlin.compatibility-guide-13": "兼容性指南",
   "koog.llm-parameters": "LLM 参数",
   "sqldelight.fts5-virtual-tables": "FTS5 虚拟表",
-  "kmp.case-studies": "案例研究"
+  "kmp.case-studies": "案例研究",
+  "kmp.compose-multiplatform-and-jetpack-compose": "框架间的关系",
+  "kmp.compose-multiplatform-jetpack-libraries": "Compose 库的多平台构件",
+  "koog.custom-tools-schema": "自定义工具模式"
 }

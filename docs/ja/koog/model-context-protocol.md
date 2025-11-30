@@ -36,7 +36,7 @@ Koogフレームワークは、`agent-mcp`モジュールで提供される追�
 KoogにおけるMCP統合の主要なコンポーネントは以下の通りです。
 
 | コンポーネント                                                                                                                                                           | 説明                                                                                                |
-|---------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------|
+|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------|:-----------------------------------------------------------------------------------------------------------|
 | [`McpTool`](https://api.koog.ai/agents/agents-mcp/ai.koog.agents.mcp/-mcp-tool/index.html)                                                                          | KoogツールインターフェースとMCP SDK間のブリッジとして機能します。                  |
 | [`McpToolDescriptorParser`](https://api.koog.ai/agents/agents-mcp/ai.koog.agents.mcp/-mcp-tool-descriptor-parser/index.html)                                        | MCPツール定義をKoogツールディスクリプタ形式に解析します。                                          |
 | [`McpToolRegistryProvider`](https://api.koog.ai/agents/agents-mcp/ai.koog.agents.mcp/-mcp-tool-registry-provider/index.html?query=object%20McpToolRegistryProvider) | さまざまなトランスポートメカニズム (stdio、SSE) を介してMCPサーバーに接続するMCPツールレジストリを作成します。 |
@@ -113,7 +113,7 @@ val toolRegistry = McpToolRegistryProvider.fromTransport(
 *   MCPサーバーに接続されたMCPクライアントを使用します。例：
 <!--- INCLUDE
 import ai.koog.agents.mcp.McpToolRegistryProvider
-import io.modelcontextprotocol.kotlin.sdk.Implementation
+import io.modelcontextprotocol.kotlin.sdk.types.Implementation
 import io.modelcontextprotocol.kotlin.sdk.client.Client
 import kotlinx.coroutines.runBlocking
 
@@ -169,22 +169,22 @@ val agent = AIAgent(
 )
 
 // MCPツールを使用するタスクでエージェントを実行
-val result = agent.run("MCPツールを使用してタスクを実行")
+val result = agent.run("Use the MCP tool to perform a task")
 ```
 <!--- KNIT example-model-context-protocol-05.kt -->
 
-[//]: # (## MCPツールを直接操作する)
+[//]: # (## Working directly with MCP tools)
 
 [//]: # ()
-[//]: # (エージェントを介してツールを実行するだけでなく、直接実行することもできます。)
+[//]: # (In addition to running tools through the agent, you can also run them directly:)
 
 [//]: # ()
-[//]: # (1. ツールレジストリから特定のツールを取得します。)
+[//]: # (1. Retrieve a specific tool from the tool registry.)
 
-[//]: # (2. 標準のKoogメカニズムを使用して、特定の引数でツールを実行します。)
+[//]: # (2. Run the tool with specific arguments using the standard Koog mechanism.)
 
 [//]: # ()
-[//]: # (以下に例を示します。)
+[//]: # (Here is an example:)
 
 [//]: # (<!--- INCLUDE)
 
@@ -220,6 +220,7 @@ val result = agent.run("MCPツールを使用してタスクを実行")
 [//]: # (val args = McpTool.Args&#40;buildJsonObject { )
 
 [//]: # (    put&#40;"parameter1", JsonPrimitive&#40;"value1"&#41;&#41;)
+
 [//]: # (    put&#40;"parameter2", JsonPrimitive&#40;"value2"&#41;&#41;)
 
 [//]: # (}&#41;)
@@ -239,7 +240,7 @@ val result = agent.run("MCPツールを使用してタスクを実行")
 [//]: # (<!--- KNIT example-model-context-protocol-06.kt -->)
 
 [//]: # ()
-[//]: # (利用可能なすべてのMCPツールをレジストリから取得することもできます。)
+[//]: # (You can also retrieve all available MCP tools from the registry:)
 
 [//]: # ()
 [//]: # (<!--- INCLUDE)
@@ -298,7 +299,7 @@ import kotlinx.coroutines.runBlocking
 const val googleMapsApiKey = ""
 const val openAIApiToken = ""
 fun main() {
-    runBlocking {
+    runBlocking { 
 -->
 <!--- SUFFIX
     }
@@ -323,7 +324,7 @@ val agent = AIAgent(
     llmModel = OpenAIModels.Chat.GPT4o,
     toolRegistry = toolRegistry,
 )
-agent.run("ドイツ、ミュンヘンのJetbrains Officeの標高を取得できますか？")
+agent.run("Get elevation of the Jetbrains Office in Munich, Germany?")
 ```
 <!--- KNIT example-model-context-protocol-06.kt -->
 
@@ -341,7 +342,7 @@ import kotlinx.coroutines.runBlocking
 val openAIApiToken = ""
 
 fun main() {
-    runBlocking {
+    runBlocking { 
 -->
 <!--- SUFFIX
     }
@@ -364,6 +365,6 @@ val agent = AIAgent(
     llmModel = OpenAIModels.Chat.GPT4o,
     toolRegistry = toolRegistry,
 )
-agent.run("ブラウザを開き、jetbrains.comに移動し、すべてのCookieを受け入れ、ツールバーのAIをクリック")
+agent.run("Open a browser, navigate to jetbrains.com, accept all cookies, click AI in toolbar")
 ```
 <!--- KNIT example-model-context-protocol-07.kt -->

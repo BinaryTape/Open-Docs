@@ -155,8 +155,7 @@ install(OpenTelemetry) {
 | `verbose` | `Boolean` | 是       | `false`       | 如果為 true，應用程式會收集更詳細的遙測資料。 |
 
 !!! note
-
-    出於安全原因，OpenTelemetry Span 的某些內容預設會被遮罩。例如，LLM 訊息會被遮罩為 `HIDDEN:non-empty`，而不是實際訊息內容。若要取得內容，請將 `verbose` 引數的值設定為 `true`。
+    OpenTelemetry Span 的某些內容預設會被遮罩，出於安全原因。例如，LLM 訊息會被遮罩為 `HIDDEN:non-empty`，而不是實際訊息內容。若要取得內容，請將 `verbose` 引數的值設定為 `true`。
 
 #### setSdk
 
@@ -316,7 +315,7 @@ Span 還可以有一個附加到其上的「Event」。Event 描述了在特定�
 - **ChoiceEvent**：來自模型的回應訊息。
 - **ModerationResponseEvent**：模型審核結果或訊號。
 
-!!! note   
+!!! note
     `opentelemetry-java` SDK 在添加 Event 時不支援 Event 主體欄位參數。因此，在 Koog 的 OpenTelemetry 支援中，Event 主體欄位是一個單獨的 Attribute，其鍵為 `body` 且值類型為字串。該字串包含 Event 主體欄位的內容或負載，通常是一個類似 JSON 的物件。有關 Event 主體欄位的範例，請參閱 [OpenTelemetry 文件](https://opentelemetry.io/docs/specs/semconv/gen-ai/gen-ai-events/#examples)。有關 `opentelemetry-java` 中 Event 主體欄位支援狀態，請參閱相關的 [GitHub issue](https://github.com/open-telemetry/semantic-conventions/issues/1870)。
 
 ## Exporter
@@ -572,7 +571,7 @@ fun main() {
     runBlocking {
         val agent = AIAgent(
             promptExecutor = simpleOpenAIExecutor(openAIApiKey),
-            llmModel = OpenAIModels.Reasoning.O4Mini,
+            llmModel = OpenAIModels.Chat.O4Mini,
             systemPrompt = "You are a code assistant. Provide concise code examples."
         ) {
             install(OpenTelemetry) {

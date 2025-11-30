@@ -3,8 +3,12 @@
 ## 未发布
 
 ### 新增
+- [Gradle Plugin] 修复当起始 schema 版本不为 1 且 `verifyMigrations` 为 true 时构建失败的问题 (#6017 by @neilgmiller)
 - [Gradle Plugin] 使 `SqlDelightWorkerTask` 更具可配置性，并更新默认配置以支持在 Windows 上开发 (#5215 by @MSDarwish2000)
 - [SQLite Dialect] 添加对 FTS5 虚拟表中合成列的支持 (#5986 by @watbe)
+
+### 变更
+- [Compiler] 允许包名中使用下划线。以前下划线会被清理，导致意外行为 (#6027 by @BierDav)
 
 ## [2.2.1] - 2025-11-13
 [2.2.1]: https://github.com/sqldelight/sqldelight/releases/tag/2.2.1
@@ -16,12 +20,12 @@
 - [SQLite Dialect] 添加 SQLite 3.35 对使用公共表表达式的 MATERIALIZED 查询规划器提示的支持 (#5961 by @griffio)
 - [PostgreSQL Dialect] 添加对使用公共表表达式的 MATERIALIZED 查询规划器提示的支持 (#5961 by @griffio)
 - [PostgreSQL Dialect] 添加对 Postgres JSON 聚合 FILTER 的支持 (#5957 by @griffio)
-- [PostgreSQL Dialect] 添加对 Postgres 枚举的支持 (#5935 by @griffio)
+- [PostgreSQL Dialect] 添加对 Postgres Enum 的支持 (#5935 by @griffio)
 - [PostgreSQL Dialect] 添加对 Postgres 触发器的有限支持 (#5932 by @griffio)
 - [PostgreSQL Dialect] 添加谓词以检测 SQL 表达式是否可解析为 JSON (#5843 by @griffio)
 - [PostgreSQL Dialect] 添加对 PostgreSql COMMENT ON 语句的有限支持 (#5808 by @griffio)
 - [MySQL Dialect] 添加对索引可见性选项的支持 (#5785 by @orenkislev-faire)
-- [PostgreSQL Dialect] 添加对 TSQUERY 数据类型的支持 (#5779 by @griffio)
+- [PostgreSql Dialect] 添加对 TSQUERY 数据类型的支持 (#5779 by @griffio)
 - [Gradle Plugin] 添加对在添加模块时使用版本目录的支持 (#5755 by @DRSchlaubi)
 
 ### 变更
@@ -70,13 +74,13 @@
 
 ### 变更
 - [Compiler] 生成的查询文件为简单修改器返回行计数 (#4578 by @MariusVolkhart)
-- [Native Driver] 更新 `NativeSqlDatabase.kt` 以更改 `DELETE`、`INSERT` 和 `UPDATE` 语句的只读标志 (#5680 by @griffio)
-- [PostgreSQL Dialect] 将 `PgInterval` 更改为 String (#5403 by @griffio)
+- [Native Driver] 更新 NativeSqlDatabase.kt 以更改 `DELETE`、`INSERT` 和 `UPDATE` 语句的只读标志 (#5680 by @griffio)
+- [PostgreSQL Dialect] 将 PgInterval 更改为 String (#5403 by @griffio)
 - [PostgreSQL Dialect] 支持 SqlDelight 模块实现 PostgreSQL 扩展 (#5677 by @griffio)
 
 ### 修复
 - [Compiler] 修复：执行带结果的分组语句时通知查询 (#5006 by @vitorhugods)
-- [Compiler] 修复 `SqlDelightModule` 类型解析器 (#5625 by @griffio)
+- [Compiler] 修复 SqlDelightModule 类型解析器 (#5625 by @griffio)
 - [Compiler] 修复 5501 插入对象转义列 (#5503 by @griffio)
 - [Compiler] 编译器：改进错误消息，使路径链接可点击并显示正确的行和字符位置 (#5604 by @vanniktech)
 - [Compiler] 修复问题 5298：允许关键字用作表名
@@ -98,7 +102,7 @@
 - [PostgreSQL Dialect] Postgresql 异步绑定形参 (#5313 by @griffio)
 - [PostgreSQL Dialect] PostgreSql 布尔字面量 (#5262 by @griffio)
 - [PostgreSQL Dialect] PostgreSql Window 函数 (#5155 by @griffio)
-- [PostgreSQL Dialect] PostgreSql `isNull isNotNull` 类型 (#5173 by @griffio)
+- [PostgreSQL Dialect] PostgreSql isNull isNotNull 类型 (#5173 by @griffio)
 - [PostgreSQL Dialect] PostgreSql `SELECT DISTINCT` (#5172 by @griffio)
 - [Paging Extension] Paging 刷新初始加载修复 (#5615 by @evant)
 - [Paging Extension] 添加 MacOS 原生目标 (#5324 by @vitorhugods)
@@ -140,7 +144,7 @@
 - [SQLite Dialect] 修复 4897 sqlite `ALTER TABLE RENAME COLUMN` (#4899 by @griffio)
 - [IDE Plugin] 修复错误处理器崩溃 (#4988 by @aperfilyev)
 - [IDE Plugin] BugSnag 未能在 IDEA 2023.3 中初始化 (by @aperfilyev)
-- [IDE Plugin] PluginException 当在 IntelliJ 中通过插件打开 .sq 文件时 (#5126)
+- [IDE Plugin] PluginException 当在 IntelliJ 中通过插件打开 .sq 文件时 (by @aperfilyev)
 - [IDE Plugin] 不将 kotlin lib 打包到 IntelliJ 插件中，因为它已经是插件依赖项 (#5126)
 - [IDE Plugin] 使用 extensions 数组而不是 stream (#5127)
 
@@ -158,10 +162,10 @@
 - [PostgreSQL Dialect] 添加额外的 Postgres String 函数定义 (#4752 by @MariusVolkhart)
 - [PostgreSQL Dialect] 将 DATE PostgreSQL 类型添加到 min 和 max 聚合函数 (#4816 by @anddani)
 - [PostgreSQL Dialect] 将 PostgreSql 时间类型添加到 SqlBinaryExpr (#4657 by @griffio)
-- [PostgreSQL Dialect] 将 `TRUNCATE` 添加到 Postgres 方言 (#4817 by @de-luca)
+- [PostgreSQL Dialect] 将 TRUNCATE 添加到 postgres 方言 (#4817 by @de-luca)
 - [SQLite 3.35 Dialect] 允许按顺序求值的多个 `ON CONFLICT` 子句 (#4551 by @griffio)
 - [JDBC Driver] 添加 Language 注解以实现更愉快的 SQL 编辑 (#4602 by @MariusVolkhart)
-- [Native Driver] native-driver: 添加对 linuxArm64 的支持 (#4792 by @hfhbd)
+- [Native Driver] Native-driver: 添加对 linuxArm64 的支持 (#4792 by @hfhbd)
 - [Android Driver] 为 AndroidSqliteDriver 添加 `windowSizeBytes` 形参 (#4804 by @BoD)
 - [Paging3 Extension] 特性: 为 OffsetQueryPagingSource 添加 `initialOffset` (#4802 by @MohamadJaara)
 
@@ -188,7 +192,7 @@
 - [PostgreSQL Dialect] 修复 4837 `ALTER TABLE ALTER COLUMN` (#4846 by @griffio)
 - [PostgreSQL Dialect] 修复 4501 PostgreSql sequence (#4528 by @griffio)
 - [SQLite Dialect] 允许 JSON 二进制操作符用于列表达式 (#4776 by @eygraber)
-- [SQLite Dialect] `UPDATE FROM` 对于发现的多个同名列存在误报 (#4777 by @eygraber)
+- [SQLite Dialect] Update From 对于发现的多个同名列存在误报 (#4777 by @eygraber)
 - [Native Driver] 支持命名内存数据库 (#4662 by @05nelsonm)
 - [Native Driver] 确保查询监听器集合的线程安全 (#4567 by @kpgalligan)
 - [JDBC Driver] 修复 ConnectionManager 中的连接泄漏 (#4589 by @MariusVolkhart)
@@ -198,10 +202,10 @@
 [2.0.0]: https://github.com/sqldelight/sqldelight/releases/tag/2.0.0
 
 ### 新增
-- [MySQL Dialect] MySQL：支持 timestamp/bigint 在 `IF` 表达式中使用 (#4329 by @shellderp)
-- [MySQL Dialect] MySQL：添加 `NOW` (#4431 by @hfhbd)
+- [MySQL Dialect] MySQL：支持 timestamp/bigint 在 IF 表达式中使用 (#4329 by @shellderp)
+- [MySQL Dialect] MySQL：添加 NOW (#4431 by @hfhbd)
 - [Web Driver] 启用 NPM 包发布 (#4364)
-- [IDE Plugin] 允许用户在 Gradle Tooling 连接失败时显示堆栈跟踪 (#4383)
+- [IDE Plugin] 允许用户在 Gradle tooling 连接失败时显示堆栈跟踪 (#4383)
 
 ### 变更
 - [Sqlite Driver] 简化 JdbcSqliteDriver 使用 schema 迁移 (#3737 by @morki)
@@ -223,11 +227,11 @@
 
 ### 新增
 - [MySQL Dialect] 支持小写日期类型以及日期类型的 min 和 max (#4243 by @shellderp)
-- [MySQL Dialect] 支持 MySQL 二进制表达式和 sum 类型 (#4254 by @shellderp)
+- [MySQL Dialect] 支持 mysql 二进制表达式和 sum 类型 (#4254 by @shellderp)
 - [MySQL Dialect] 支持没有显示宽度的无符号 int (#4306 by @shellderp)
-- [MySQL Dialect] 支持 `LOCK IN SHARED MODE`
+- [MySQL Dialect] 支持 LOCK IN SHARED MODE
 - [PostgreSQL Dialect] 添加 boolean 和 Timestamp 到 min max (#4245 by @griffio)
-- [PostgreSQL Dialect] Postgres：添加 Window 函数支持 (#4283 by @hfhbd)
+- [PostgreSQL Dialect] Postgres: 添加 Window 函数支持 (#4283 by @hfhbd)
 - [Runtime] 添加 linuxArm64、androidNative 和 watchosDeviceArm 目标到运行时 (#4258 by @hfhbd)
 - [Paging Extension] 为 Paging 扩展添加 linux 和 mingw x64 目标 (#4280 by @chippman)
 
@@ -365,17 +369,17 @@
 - [IDE Plugin] IDEA: UnusedQueryInspection - 修复 ArrayIndexOutOfBoundsException。 (#3427 by @vanniktech)
 - [IDE Plugin] 为旧 Kotlin 插件引用使用反射
 - [Compiler] 带有扩展函数的自定义方言不创建导入 (#3338 by @hfhbd)
-- [Compiler] 修复转义 `CodeBlock.of("${CodeBlock.toString()}")` (#3340 by @hfhbd)
+- [Compiler] 修复转义 CodeBlock.of("${CodeBlock.toString()}") (#3340 by @hfhbd)
 - [Compiler] 迁移中等待异步执行语句 (#3352)
 - [Compiler] 修复 AS (#3370 by @hfhbd)
 - [Compiler] `getObject` 方法支持自动填充实际类型。 (#3401 by @robxyy)
 - [Compiler] 修复异步分组返回语句的代码生成 (#3411)
 - [Compiler] 如果可能，推断绑定形参的 Kotlin 类型，否则抛出更好的错误消息 (#3413 by @hfhbd)
-- [Compiler] 不允许 `ABS("foo")` (#3430 by @hfhbd)
+- [Compiler] 不允许 ABS("foo") (#3430 by @hfhbd)
 - [Compiler] 支持从其他形参推断 Kotlin 类型 (#3431 by @hfhbd)
 - [Compiler] 始终创建数据库实现 (#3540 by @hfhbd)
 - [Compiler] 放宽 JavaDoc 并将其添加到自定义 mapper 函数中 (#3554 @hfhbd)
-- [Compiler] 修复绑定中的 DEFAULT (by @hfhbd)
+- [Compiler] 修复 DEFAULT 在绑定中 (by @hfhbd)
 - [Paging] 修复 Paging 3 (#3396)
 - [Paging] 允许使用 Long 构造 OffsetQueryPagingSource (#3409)
 - [Paging] 不静态交换 Dispatchers.Main (#3428)
@@ -461,14 +465,14 @@ sqldelight {
 - [Compiler] 支持为标记的列生成值类型
 - [Compiler] 添加对乐观锁和验证的支持 (#1952)
 - [Compiler] 支持多更新语句
-- [PostgreSQL] 支持 Postgres `RETURNING` 语句
-- [PostgreSQL] 支持 Postgres 日期类型
-- [PostgreSQL] 支持 PG 区间
+- [PostgreSQL] 支持 postgres returning 语句
+- [PostgreSQL] 支持 postgres 日期类型
+- [PostgreSQL] 支持 pg 区间
 - [PostgreSQL] 支持 PG 布尔类型并修复 alter tables 上的插入操作
 - [PostgreSQL] 支持 Postgres 中的可选 `LIMIT`
 - [PostgreSQL] 支持 PG BYTEA 类型
 - [PostgreSQL] 添加 Postgres serials 的测试
-- [PostgreSQL] 支持 `FOR UPDATE` Postgres 语法
+- [PostgreSQL] 支持 `FOR UPDATE` postgres 语法
 - [PostgreSQL] 支持 PostgreSQL 数组类型
 - [PostgreSQL] 正确存储/检索 PG 中的 UUID 类型
 - [PostgreSQL] 支持 PostgreSQL NUMERIC 类型 (#1882)
@@ -482,8 +486,8 @@ sqldelight {
 - [MySQL] 支持 MySQL `INTERVAL` (#2969 by @eygraber)
 - [HSQL] 添加 HSQL Window 功能
 - [SQLite] 不替换 `WHERE` 中可空形参的相等检测 (#1490 by @eygraber)
-- [SQLite] 支持 SQLite 3.35 `RETURNING` 语句 (#1490 by @eygraber)
-- [SQLite] 支持 `GENERATED` 子句
+- [SQLite] 支持 SQLite 3.35 returning 语句 (#1490 by @eygraber)
+- [SQLite] 支持 GENERATED 子句
 - [SQLite] 添加对 SQLite 3.38 方言的支持 (by @eygraber)
 
 ### 变更
@@ -502,8 +506,8 @@ sqldelight {
 - [Compiler] 如果 `SELECT` 中存在多个匹配项，查询结果应使用 `SELECT` 中的表 (#1874, #2313)
 - [Compiler] 支持更新具有 INSTEAD OF 触发器的视图 (#1018)
 - [Compiler] 支持函数名中的 `FROM` 和 `FOR`
-- [Compiler] 允许函数表达式中使用 `SEPARATOR` 关键字
-- [Compiler] 无法访问 `ORDER BY` 中别名表的 ROWID
+- [Compiler] 允许 SEPARATOR 关键字在函数表达式中使用
+- [Compiler] 无法访问别名表在 `ORDER BY` 中的 ROWID
 - [Compiler] 别名列名在 MySQL 的 `HAVING` 子句中无法识别
 - [Compiler] 错误的“Multiple columns found”错误
 - [Compiler] 无法设置 `PRAGMA locking_mode = EXCLUSIVE;`
@@ -549,11 +553,11 @@ sqldelight {
 - [Gradle Plugin] 为 Gradle 类型安全项目访问器添加快捷方式 (by @hfhbd)
 - [Compiler] 根据方言自定义代码生成 (by @MariusVolkhart)
 - [JDBC Driver] 为 JdbcDriver 添加公共类型 (by @MariusVolkhart)
-- [SQLite] 添加对 SQLite 3.35 的支持 (by @eygraber)
+- [SQLite] 添加对 sqlite 3.35 的支持 (by @eygraber)
 - [SQLite] 添加对 `ALTER TABLE DROP COLUMN` 的支持 (by @eygraber)
-- [SQLite] 添加对 SQLite 3.30 方言的支持 (by @eygraber)
+- [SQLite] 添加对 Sqlite 3.30 方言的支持 (by @eygraber)
 - [SQLite] 支持 SQLite 中的 `NULLS FIRST/LAST` (by @eygraber)
-- [HSQL] 添加 HSQL 对 `GENERATED` 子句的支持 (by @MariusVolkhart)
+- [HSQL] 添加 HSQL 对 generated 子句的支持 (by @MariusVolkhart)
 - [HSQL] 添加对 HSQL 中命名形参的支持 (by @MariusVolkhart)
 - [HSQL] 自定义 HSQL 插入查询 (by @MariusVolkhart)
 
@@ -703,15 +707,15 @@ sqldelight {
 ### 新增
 - [SQLite Javascript Driver] 启用 sqljs-driver 发布 (#1667 by @dellisd)
 - [Paging3 Extension] Android Paging 3 库的扩展 (#1786 by @kevincianfarini)
-- [MySQL Dialect] 添加对 MySQL 的 `ON DUPLICATE KEY UPDATE` 冲突解决的支持。(by @rharter)
-- [SQLite Dialect] 添加编译器对 SQLite `offsets()` 的支持 (by @qjroberts)
+- [MySQL Dialect] 添加对 mysql 的 `ON DUPLICATE KEY UPDATE` 冲突解决的支持。(by @rharter)
+- [SQLite Dialect] 添加编译器对 SQLite offsets() 的支持 (by @qjroberts)
 - [IDE Plugin] 为未知类型添加导入快速修复 (#683 by @aperfilyev)
 - [IDE Plugin] 添加无用导入探查 (#1161 by @aperfilyev)
 - [IDE Plugin] 添加无用查询探查 (by @aperfilyev)
 - [IDE Plugin] 添加无用列探查 (#569 by @aperfilyev)
 - [IDE Plugin] 在复制/粘贴时自动导入 (#684 by @aperfilyev)
 - [IDE Plugin] 当 Gradle/IntelliJ 插件版本不兼容时弹出一个气球提示
-- [IDE Plugin] `INSERT INTO ... VALUES(?)` 形参提示 (#506 by @aperfilyev)
+- [IDE Plugin] Insert Into ... VALUES(?) 形参提示 (#506 by @aperfilyev)
 - [IDE Plugin] 内联形参提示 (by @aperfilyev)
 - [Runtime] 在运行时包含一个用于运行带回调迁移的 API (#1844)
 
@@ -720,7 +724,7 @@ sqldelight {
 - [Compiler] 防止在运行时失败的关键字 (#1471, #1629)
 - [Gradle Plugin] 将 Gradle 插件大小从 60MB 减小到 13MB。
 - [Gradle Plugin] 正确支持 Android 变体，并移除对 KMM 目标特有的 SQL 的支持 (#1039)
-- [Gradle Plugin] 根据 minSDK 选择最低 SQLite 版本 (#1684)
+- [Gradle Plugin] 根据 minsdk 选择最低 SQLite 版本 (#1684)
 - [Native Driver] 原生驱动连接池和性能更新
 
 ### 修复
@@ -734,7 +738,7 @@ sqldelight {
 - [Compiler] 如果联合两个相同类型，则返回表类型 (#1342)
 - [Compiler] 确保 `ifnull` 和 `coalesce` 的形参可以为空 (#1263)
 - [Compiler] 正确使用查询强制的可空性来处理表达式
-- [MySQL Dialect] 支持 MySQL `IF` 语句
+- [MySQL Dialect] 支持 MySQL if 语句
 - [PostgreSQL Dialect] 在 PostgreSQL 中将 NUMERIC 和 DECIMAL 检索为 Double (#2118)
 - [SQLite Dialect] UPSERT 通知应考虑 `BEFORE/AFTER UPDATE` 触发器。 (#2198 by @andersio)
 - [SQLite Driver] 在 SqliteDriver 中为线程使用多个连接，除非在内存中 (#1832)
@@ -844,7 +848,7 @@ sqldelight {
 
 ### 修复
 - [Compiler] 为列定义规则和表接口生成器添加可选 Javadoc (#1224 by @endanke)
-- [SQLite Dialect] 添加对 SQLite FTS5 辅助函数 `highlight`、`snippet` 和 `bm25` 的支持 (by @drampelt)
+- [SQLite Dialect] 添加对 sqlite fts5 辅助函数 highlight, snippet, 和 bm25 的支持 (by @drampelt)
 - [MySQL Dialect] 支持 MySQL bit 数据类型
 - [MySQL Dialect] 支持 MySQL 二进制字面量
 - [PostgreSQL Dialect] 从 sql-psi 暴露 `SERIAL` (by @veyndan)
@@ -860,7 +864,7 @@ sqldelight {
 - [PostgreSQL Dialect] 实验性的 PostgreSQL 支持 (by @veyndan)
 - [HSQL Dialect] 实验性的 H2 支持 (by @MariusVolkhart)
 - [SQLite Dialect] SQLite FTS5 支持 (by @benasher44 & @jpalawaga)
-- [SQLite Dialect] 支持 `ALTER TABLE RENAME COLUMN` (#1505 by @angusholder)
+- [SQLite Dialect] 支持 alter table rename column (#1505 by @angusholder)
 - [IDE] IDE 对迁移 (.sqm) 文件的支持
 - [IDE] 添加模仿内置 SQL 实时模板的 SQLDelight 实时模板 (#1154 by @veyndan)
 - [IDE] 添加新的 SqlDelight 文件动作 (#42 by @romtsn)
@@ -1094,7 +1098,7 @@ sqldelight {
 ## [0.4.0] - 2016-06-14
 [0.4.0]: https://github.com/sqldelight/sqldelight/releases/tag/0.4.0
 
-* 新增: Mapper 按查询而不是按表生成。
+* 新增: Mappers 按查询而不是按表生成。
 * 新增: Java 类型可以在 .sq 文件中导入。
 * 新增: SQLite 函数经过验证。
 * 修复: 移除重复错误。

@@ -15,10 +15,10 @@ C, C++, Swift, Objective-C 및 기타 언어로 작성된 기존 프로젝트에
 
 Kotlin/Native는 다음 플랫폼을 지원합니다:
 
-*   Linux
-*   Windows ([MinGW](https://www.mingw-w64.org/)를 통해)
-*   [Android NDK](https://developer.android.com/ndk)
-*   macOS, iOS, tvOS, watchOS용 Apple 타겟
+* Linux
+* Windows ([MinGW](https://www.mingw-w64.org/)를 통해)
+* [Android NDK](https://developer.android.com/ndk)
+* macOS, iOS, tvOS, watchOS용 Apple 타겟
 
   > Apple 타겟을 컴파일하려면 [Xcode](https://apps.apple.com/us/app/xcode/id497799835)와 해당 명령줄 도구를 설치해야 합니다.
   >
@@ -36,9 +36,9 @@ Kotlin/Native는 [C와의 상호 운용성](native-c-interop.md)을 제공합니
 
 자세한 내용은 다음 튜토리얼을 완료하세요:
 
-*   [C/C++ 프로젝트용 C 헤더를 포함하는 동적 라이브러리 생성](native-dynamic-libraries.md)
-*   [C 타입이 Kotlin으로 매핑되는 방식 알아보기](mapping-primitive-data-types-from-c.md)
-*   [C 상호 운용성 및 libcurl을 사용하여 네이티브 HTTP 클라이언트 생성](native-app-with-c-and-libcurl.md)
+* [C/C++ 프로젝트용 C 헤더를 포함하는 동적 라이브러리 생성](native-dynamic-libraries.md)
+* [C 타입이 Kotlin으로 매핑되는 방식 알아보기](mapping-primitive-data-types-from-c.md)
+* [C 상호 운용성 및 libcurl을 사용하여 네이티브 HTTP 클라이언트 생성](native-app-with-c-and-libcurl.md)
 
 ### Swift/Objective-C와의 상호 운용성
 

@@ -1102,7 +1102,7 @@ kotlin {
 
 ## Gradle
 
-Kotlin 2.2.20では、GradleビルドレポートにKotlin/Nativeタスク用の新しいコンパイラパフォーマンスメトリクスが追加され、インクリメンタルコンパイルの使い勝手が向上しました。
+Kotlin 2.2.20では、GradleビルドレポートにKotlin/Nativeタスク用の新しいコンパイラパフォーマンスメトリクスが追加され、インクリメンタルコンパイルの使い勝手が向上します。
 
 ### Kotlin/Nativeタスクのビルドレポートにおける新しいコンパイラパフォーマンスメトリクス
 
@@ -1177,7 +1177,7 @@ Kotlin GradleプラグインをGradleの[Signing Plugin](https://docs.gradle.org
 ./gradlew checkSigningConfiguration checkPomFileForKotlinMultiplatformPublication
 ```
 
-`checkSigningConfiguration`タスクは以下をチェックします。
+The `checkSigningConfiguration`タスクは以下をチェックします。
 
 *   Signing Pluginにキーが設定されていること。
 *   設定された公開鍵が`keyserver.ubuntu.com`または`keys.openpgp.org`のキーサーバーのいずれかにアップロードされていること。

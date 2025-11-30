@@ -55,7 +55,35 @@ Compose Multiplatform Gradle 插件支持的依赖项别名（`compose.ui` 等�
 所有其他注解，例如 `org.jetbrains.compose.ui.tooling.preview.Preview` 和
 桌面特有的 `androidx.compose.desktop.ui.tooling.preview.Preview`，均已被弃用。
 
+### 自动调整大小的互操作视图
+
+Compose Multiplatform 现在支持桌面和 iOS 上原生互操作元素的自动调整大小。
+这些元素现在可以根据其内容调整布局，
+消除了提前手动计算确切大小和指定固定尺寸的需要。
+
+* 在桌面平台，`SwingPanel` 会根据嵌入组件的最小、首选和最大尺寸自动调整其大小。
+* 在 iOS 上，UIKit 互操作视图现在支持根据视图的适配尺寸（固有内容尺寸）进行大小调整。
+  这使得 SwiftUI 视图（通过 `UIHostingController`）的正确包裹成为可能，
+  以及不依赖于 `NSLayoutConstraints` 的基本 `UIView` 子类。
+
+### Popup 和 Dialog 属性稳定化
+
+`DialogProperties` 中的以下属性已提升为稳定，不再是实验性的：
+`usePlatformInsets`、`useSoftwareKeyboardInset` 和 `scrimColor`。
+
+类似地，`PopupProperties` 中的 `usePlatformDefaultWidth` 和 `usePlatformInsets` 属性也已提升为稳定。
+
+不带 `PopupProperties` 形参的 `Popup` 重载的弃用级别已更改为 `ERROR`，以强制使用更新后的 API。
+
+### Skia 更新至 Milestone 138
+
+Compose Multiplatform 通过 Skiko 使用的 Skia 版本已更新至 Milestone 138。
+
+以前使用的 Skia 版本是 Milestone 132。
+你可以在[发行说明](https://skia.googlesource.com/skia/+/refs/heads/chrome/m138/RELEASE_NOTES.md)中查看这些版本之间的更改。
+
 ### 支持 Navigation 3
+<primary-label ref="Experimental"/>
 
 Navigation 3 是一个专为 Compose 设计的新导航库。
 借助 Navigation 3，你可以完全控制返回栈，
@@ -82,24 +110,6 @@ Compose Multiplatform 1.10.0-beta01 为在非 Android 目标上使用新的导�
   就像在桌面应用中那样。
 * 对 [浏览器历史导航](compose-navigation-routing.md#support-for-browser-navigation-in-web-apps) 和在地址栏中使用目标的支持将不会扩展到 Compose Multiplatform 1.10 的 Navigation 3。
   这已推迟到多平台库的更高版本。
-
-### 自动调整大小的互操作视图
-
-Compose Multiplatform 现在支持桌面和 iOS 上原生互操作元素的自动调整大小。
-这些元素现在可以根据其内容调整布局，
-消除了提前手动计算确切大小和指定固定尺寸的需要。
-
-* 在桌面平台，`SwingPanel` 会根据嵌入组件的最小、首选和最大尺寸自动调整其大小。
-* 在 iOS 上，UIKit 互操作视图现在支持根据视图的适配尺寸（固有内容尺寸）进行大小调整。
-  这使得 SwiftUI 视图（通过 `UIHostingController`）的正确包裹成为可能，
-  以及不依赖于 `NSLayoutConstraints` 的基本 `UIView` 子类。
-
-### Skia 更新至 Milestone 138
-
-Compose Multiplatform 通过 Skiko 使用的 Skia 版本已更新至 Milestone 138。
-
-以前使用的 Skia 版本是 Milestone 132。
-你可以在[发行说明](https://skia.googlesource.com/skia/+/refs/heads/chrome/m138/RELEASE_NOTES.md)中查看这些版本之间的更改。
 
 ## iOS
 

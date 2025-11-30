@@ -302,7 +302,7 @@ void main() {
 ```
 {id="casting-types-java"}
 
-Kotlin에서 예외를 피하려면 실패 시 `null`을 반환하는 [안전 형변환 연산자](typecasts.md#safe-nullable-cast-operator) `as?`를 사용하세요:
+Kotlin에서 예외를 피하려면 실패 시 `null`을 반환하는 [안전 형변환 연산자](typecasts.md#unsafe-cast-operator) `as?`를 사용하세요:
 
 ```kotlin
 // Kotlin
@@ -368,7 +368,7 @@ fun getUsername(profile: UserProfile?): String? =
 ## 다음 단계
 
 *   다른 [Kotlin 관용구](idioms.md)를 살펴보세요.
-*   [Java-to-Kotlin (J2K) 변환기](mixing-java-kotlin-intellij.md#converting-an-existing-java-file-to-kotlin-with-j2k)를 사용하여 기존 Java 코드를 Kotlin으로 변환하는 방법을 알아보세요.
+*   [Java-to-Kotlin (J2K) 변환기](mixing-java-kotlin-intellij.md#convert-java-files-to-kotlin)를 사용하여 기존 Java 코드를 Kotlin으로 변환하는 방법을 알아보세요.
 *   다른 마이그레이션 가이드를 확인하세요:
     *   [Java와 Kotlin의 문자열](java-to-kotlin-idioms-strings.md)
     *   [Java와 Kotlin의 컬렉션](java-to-kotlin-collections-guide.md)

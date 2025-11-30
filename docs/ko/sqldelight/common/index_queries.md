@@ -2,7 +2,7 @@
 
 SQLDelight는 `.sq` 파일에 있는 레이블이 지정된 SQL 문에 대해 타입 안전 함수를 생성합니다.
 
-```sql title="src/commonMain/sqldelight/com/example/sqldelight/hockey/data/Player.sq"
+```sql title="src/main/sqldelight/com/example/sqldelight/hockey/data/Player.sq"
 selectAll:
 SELECT *
 FROM hockeyPlayer;

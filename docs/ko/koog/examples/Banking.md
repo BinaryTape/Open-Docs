@@ -201,7 +201,7 @@ import kotlinx.coroutines.runBlocking
 
 val transferAgentService = AIAgentService(
     executor = openAIExecutor,
-    llmModel = OpenAIModels.Reasoning.GPT4oMini,
+    llmModel = OpenAIModels.Chat.GPT4oMini,
     systemPrompt = bankingAssistantSystemPrompt,
     temperature = 0.0,  // 금융 거래에 대해 결정론적 응답 사용
     toolRegistry = ToolRegistry {
@@ -421,7 +421,7 @@ class TransactionAnalysisTools : ToolSet {
 ```kotlin
 val analysisAgentService = AIAgentService(
     executor = openAIExecutor,
-    llmModel = OpenAIModels.Reasoning.GPT4oMini,
+    llmModel = OpenAIModels.Chat.GPT4oMini,
     systemPrompt = "$bankingAssistantSystemPrompt
 $transactionAnalysisPrompt",
     temperature = 0.0,
@@ -520,7 +520,7 @@ val strategy = strategy<String, String>("banking assistant") {
                 )
             ),
             fixingParser = StructureFixingParser(
-                model = OpenAIModels.CostOptimized.GPT4oMini,
+                model = OpenAIModels.Chat.GPT4oMini,
                 retries = 2,
             )
         )
@@ -627,7 +627,7 @@ val testMessage = "Send 25 euros to Daniel for dinner at the restaurant."
 //   - "현재 잔액이 얼마야?"
 //
 // 분석 요청:
-//   - "이번 달 레스토토랑에 얼마를 지출했어?"
+//   - "이번 달 레스토랑에 얼마를 지출했어?"
 //   - "이번 달 레스토랑에서 가장 많이 지출한 금액은 얼마야?"
 //   - "5월 첫째 주에 식료품에 얼마를 지출했어?"
 //   - "5월에 엔터테인먼트에 총 얼마를 지출했어?"
@@ -658,7 +658,7 @@ import ai.koog.agents.core.tools.ToolParameterType
 
 val classifierAgent = AIAgent(
     executor = openAIExecutor,
-    llmModel = OpenAIModels.Reasoning.GPT4oMini,
+    llmModel = OpenAIModels.Chat.GPT4oMini,
     toolRegistry = ToolRegistry {
         tool(AskUser)
 

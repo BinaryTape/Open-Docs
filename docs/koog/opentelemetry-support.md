@@ -48,7 +48,7 @@ val agent = AIAgent(
     systemPrompt = "You are a helpful assistant.",
     installFeatures = {
         install(OpenTelemetry) {
-            // 配置选项放在这里
+            // Configuration options go here
         }
     }
 )
@@ -64,7 +64,7 @@ val agent = AIAgent(
 | Name | Data type | Default value | Description |
 |:---|:---|:---|:---|
 | `serviceName` | `String` | `ai.koog` | 正在插桩的服务名称。 |
-| `serviceVersion` | `String` | Current Koog library version | 正在插桩的服务版本。 |
+| `serviceVersion` | `String` | 当前 Koog 库版本 | 正在插桩的服务版本。 |
 | `isVerbose` | `Boolean` | `false` | 是否为 OpenTelemetry 配置调试启用详细日志记录。 |
 | `sdk` | `OpenTelemetrySdk` | | 用于遥测数据收集的 OpenTelemetry SDK 实例。 |
 | `tracer` | `Tracer` | | 用于创建 Span 的 OpenTelemetry tracer 实例。 |
@@ -94,10 +94,10 @@ val agent = AIAgent(
 -->
 ```kotlin
 install(OpenTelemetry) {
-    // 设置您的服务配置
+    // Set your service configuration
     setServiceInfo("my-agent-service", "1.0.0")
     
-    // 添加日志导出器
+    // Add the Logging exporter
     addSpanExporter(LoggingSpanExporter.create())
 }
 ```
@@ -198,16 +198,16 @@ val agent = AIAgent(
 -->
 ```kotlin
 install(OpenTelemetry) {
-    // 设置您的服务配置
+    // Set your service configuration
     setServiceInfo("my-agent-service", "1.0.0")
     
-    // 添加日志导出器
+    // Add the Logging exporter
     addSpanExporter(LoggingSpanExporter.create())
     
-    // 设置采样器 
+    // Set the sampler 
     setSampler(Sampler.traceIdRatioBased(0.5)) 
 
-    // 添加资源属性
+    // Add resource attributes
     addResourceAttributes(mapOf(
         AttributeKey.stringKey("custom.attribute") to "custom-value")
     )
@@ -358,9 +358,9 @@ val agent = AIAgent(
 -->
 ```kotlin
 install(OpenTelemetry) {
-    // 添加日志记录导出器
+    // Add the logging exporter
     addSpanExporter(LoggingSpanExporter.create())
-    // 根据需要添加更多导出器
+    // Add more exporters as needed
 }
 ```
 <!--- KNIT example-opentelemetry-support-05.kt -->
@@ -391,14 +391,14 @@ val agent = AIAgent(
 -->
 ```kotlin
 install(OpenTelemetry) {
-   // 添加 OpenTelemetry HTTP 导出器 
+   // Add OpenTelemetry HTTP exporter 
    addSpanExporter(
       OtlpHttpSpanExporter.builder()
-         // 设置等待收集器处理已导出 Span 批次的最长时间 
+         // Set the maximum time to wait for the collector to process an exported batch of spans 
          .setTimeout(30, TimeUnit.SECONDS)
-         // 设置要连接的 OpenTelemetry 端点
+         // Set the OpenTelemetry endpoint to connect to
          .setEndpoint("http://localhost:3000/api/public/otel/v1/traces")
-         // 添加授权头
+         // Add the authorization header
          .addHeader("Authorization", "Basic $AUTH_STRING")
          .build()
    )
@@ -430,10 +430,10 @@ val agent = AIAgent(
 -->
 ```kotlin
 install(OpenTelemetry) {
-   // 添加 OpenTelemetry gRPC 导出器 
+   // Add OpenTelemetry gRPC exporter 
    addSpanExporter(
       OtlpGrpcSpanExporter.builder()
-          // 设置主机和端口
+          // Set the host and the port
          .setEndpoint("http://localhost:4317")
          .build()
    )
@@ -567,7 +567,7 @@ fun main() {
     runBlocking {
         val agent = AIAgent(
             promptExecutor = simpleOpenAIExecutor(openAIApiKey),
-            llmModel = OpenAIModels.Reasoning.O4Mini,
+            llmModel = OpenAIModels.Chat.O4Mini,
             systemPrompt = "You are a code assistant. Provide concise code examples."
         ) {
             install(OpenTelemetry) {
@@ -608,7 +608,7 @@ fun main() {
 
 2.  **Span 缺失或跟踪不完整**
     - 验证代理执行是否成功完成。
-    - 确保您没有在代理执行后过快地关闭应用程序。
+    - 确保您没有在应用程序执行后过快地关闭应用程序。
     - 在代理执行后添加延迟，以便有时间导出 Span。
 
 3.  **Span 数量过多**

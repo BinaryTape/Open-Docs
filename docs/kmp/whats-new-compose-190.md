@@ -56,12 +56,12 @@ Compose Multiplatform 中的 `@Preview` 注解现在包含额外参数，用于�
 
 <list columns="2">
    <li><code-block lang="kotlin" code="        Box(&#10;            Modifier.size(120.dp)&#10;                .dropShadow(&#10;                    RectangleShape,&#10;                    DropShadow(12.dp)&#10;                )&#10;                .background(Color.White)&#10;        )&#10;        Box(&#10;            Modifier.size(120.dp)&#10;                .innerShadow(&#10;                    RectangleShape,&#10;                    InnerShadow(12.dp)&#10;                )&#10;        )"/></li>
-   <li><img src="compose-advanced-shadows.png" type="inline" alt="Customizable shadows" width="200"/></li>
+   <li><img src="compose-advanced-shadows.png" type="inline" alt="可定制的阴影" width="200"/></li>
 </list>
 
 你可以绘制任意形状和颜色的阴影，甚至可以使用阴影几何形状作为遮罩来创建内部渐变填充阴影：
 
-<img src="compose-expressive-shadows.png" alt="Expressive shadows" width="244"/>
+<img src="compose-expressive-shadows.png" alt="表现力阴影" width="244"/>
 
 有关详细信息，请参见 [阴影 API 参考](https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/shadow/package-summary.html)。
 
@@ -70,8 +70,8 @@ Compose Multiplatform 中的 `@Preview` 注解现在包含额外参数，用于�
 我们已采用 Jetpack Compose 的新 API，用于 `SelectionContainer` 和 `BasicTextField` 中的自定义上下文菜单。该实现在 iOS 和 web 上已完成，而桌面端则有初步支持。
 
 <list columns="2">
-   <li><img src="compose_basic_text_field.png" type="inline" alt="Context menu for BasicTextField" width="420"/></li>
-   <li><img src="compose_selection_container.png" type="inline" alt="Context menu for SelectionContainer" width="440"/></li>
+   <li><img src="compose_basic_text_field.png" type="inline" alt="BasicTextField 的上下文菜单" width="420"/></li>
+   <li><img src="compose_selection_container.png" type="inline" alt="SelectionContainer 的上下文菜单" width="440"/></li>
 </list>
 
 要启用此新 API，请在应用程序入口点使用以下设置：
@@ -104,7 +104,7 @@ Compose Multiplatform 现在支持来自 Material 3 库的实验性的 [`Materia
 
 Material 组件，例如 [`Button()`](https://kotlinlang.org/api/compose-multiplatform/material3/androidx.compose.material3/-button.html) 和 [`Checkbox()`](https://kotlinlang.org/api/compose-multiplatform/material3/androidx.compose.material3/-checkbox.html)，随后将自动使用你提供的值。
 
-<img src="compose_expressive_theme.animated.gif" alt="Material 3 Expressive" width="250" preview-src="compose_expressive_theme.png"/>
+<img src="compose_expressive_theme.animated.gif" alt="Material 3 表现力" width="250" preview-src="compose_expressive_theme.png"/>
 
 ### `androidx.compose.runtime:runtime` 中的多平台目标
 

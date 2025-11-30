@@ -106,6 +106,9 @@ _预览_ 是 IDE 中可组合项的不可交互的布局呈现。
 要查看可组合项的预览：
 
 1.  如果项目中没有 Android 目标平台，请添加一个（预览机制使用 Android 库）。
+    > 从 Compose Multiplatform [1.10.0](whats-new-compose-110.md#unified-preview-annotation) 开始，您可以在 `commonMain` 源代码集中为所有目标平台使用 `@Preview` 注解。
+    >
+    >{style="note"}
 2.  在公共代码中使用 `@Preview` 注解标记您想要预览的可组合项。
 3.  切换到编辑器窗口中的 **分割** 视图或 **设计** 视图。
     如果尚未构建项目，它将提示您首次构建。

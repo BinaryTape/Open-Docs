@@ -153,7 +153,7 @@
   "kotlin.native-arc-integration": "ARC 통합",
   "kotlin.native-migration-guide": "마이그레이션 가이드",
   "kotlin.reference-and-tips": "참조 및 팁",
-  "kotlin.native-target-support": "타겟 지원",
+  "kotlin.native-target-support": "대상 및 호스트 지원",
   "kotlin.native-improving-compilation-time": "컴파일 시간 개선",
   "kotlin.native-llvm-passes": "LLVM 패스 사용자 지정",
   "kotlin.native-binary-licenses": "라이선스 파일",
@@ -584,5 +584,8 @@
   "kotlin.compatibility-guide-13": "호환성 가이드",
   "koog.llm-parameters": "LLM 파라미터",
   "sqldelight.fts5-virtual-tables": "FTS5 가상 테이블",
-  "kmp.case-studies": "사례 연구"
+  "kmp.case-studies": "사례 연구",
+  "kmp.compose-multiplatform-and-jetpack-compose": "프레임워크 간의 관계",
+  "kmp.compose-multiplatform-jetpack-libraries": "Compose 라이브러리를 위한 멀티플랫폼 아티팩트",
+  "koog.custom-tools-schema": "커스텀 도구 스키마"
 }

@@ -57,7 +57,7 @@ Kotlinコンパイラは、デプロイターゲットで利用できないObjec
 
 ネイティブライブラリを処理する際、コンパイラは通常、ローカルにインストールされているXcodeのヘッダーファイルを使用します。これは、ほとんどすべてのネイティブライブラリのヘッダーが、Xcodeから提供される「標準」ヘッダー (たとえば、`stdint.h`) をインポートするためです。
 
-そのため、XcodeのバージョンはKotlinへのネイティブライブラリのインポートに影響を与えます。これは、サードパーティのネイティブライブラリを使用する場合、[Mac以外のホストからのAppleターゲットのクロスコンパイル](whatsnew21.md#ability-to-publish-kotlin-libraries-from-any-host)が依然として不可能な理由の1つでもあります。
+そのため、XcodeのバージョンはKotlinへのネイティブライブラリのインポートに影響を与えます。これは、サードパーティのネイティブライブラリを使用する場合、[Mac以外のホストからのAppleターゲットのクロスコンパイル](https://kotlinlang.org/docs/multiplatform/multiplatform-publish-lib-setup.html#compilation-for-apple-targets)が依然として不可能な理由の1つでもあります。
 
 すべてのKotlinバージョンは、単一のXcodeバージョンと最も互換性があります。これが推奨バージョンであり、対応するKotlinバージョンに対して最も多くテストされています。特定のXcodeバージョンとの互換性は、[互換性テーブル](https://kotlinlang.org/docs/multiplatform/multiplatform-compatibility-guide.html#version-compatibility)で確認してください。
 

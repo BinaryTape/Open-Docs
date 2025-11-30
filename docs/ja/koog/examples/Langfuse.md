@@ -1,4 +1,4 @@
-# KoogエージェントをOpenTelemetryでLangfuseにトレースする
+# OpenTelemetryでKoogエージェントをLangfuseにトレースする
 
 [:material-github: GitHubで開く](
 https://github.com/JetBrains/koog/blob/develop/examples/notebooks/Langfuse.ipynb
@@ -55,7 +55,7 @@ import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
  */
 val agent = AIAgent(
     executor = simpleOpenAIExecutor(System.getenv("OPENAI_API_KEY")),
-    llmModel = OpenAIModels.Reasoning.GPT4oMini,
+    llmModel = OpenAIModels.Chat.GPT4oMini,
     systemPrompt = "You are a code assistant. Provide concise code examples."
 ) {
     install(OpenTelemetry) {
@@ -84,7 +84,6 @@ runBlocking {
     "結果: $result
 Langfuseインスタンスでトレースを確認してください"
 }
-
 ```
 
 ## エージェントを実行し、トレースを表示する
