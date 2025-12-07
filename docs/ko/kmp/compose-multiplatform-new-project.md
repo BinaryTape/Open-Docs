@@ -51,21 +51,26 @@
     }
     ```
 
-    *   레이아웃은 두 개의 컴포저블을 포함하는 열입니다. 첫 번째는 `Text` 컴포저블이고, 두 번째는 `Button`입니다.
-    *   두 컴포저블은 `timeAtLocation` 속성이라는 단일 공유 상태로 연결됩니다. `Text` 컴포저블은 이 상태의 옵저버입니다.
-    *   `Button` 컴포저블은 `onClick` 이벤트 핸들러를 사용하여 상태를 변경합니다.
+   * 레이아웃은 두 개의 컴포저블을 포함하는 열입니다. 첫 번째는 `Text` 컴포저블이고, 두 번째는 `Button`입니다.
+   * 두 컴포저블은 `timeAtLocation` 속성이라는 단일 공유 상태로 연결됩니다. `Text` 컴포저블은 이 상태의 옵저버입니다.
+   * `Button` 컴포저블은 `onClick` 이벤트 핸들러를 사용하여 상태를 변경합니다.
 
-2.  Android 및 iOS에서 애플리케이션을 실행하세요.
+2. Android 및 iOS에서 애플리케이션을 실행하세요.
 
-    ![New Compose Multiplatform app on Android and iOS](first-compose-project-on-android-ios-3.png){width=500}
+   ![Android 및 iOS의 새 Compose Multiplatform 앱](first-compose-project-on-android-ios-3.png){width=500}
 
-    애플리케이션을 실행하고 버튼을 클릭하면 하드코딩된 시간이 표시됩니다.
+   애플리케이션을 실행하고 버튼을 클릭하면 하드코딩된 시간이 표시됩니다.
 
-3.  데스크톱에서 애플리케이션을 실행합니다. 작동은 하지만, UI에 비해 창이 너무 큽니다.
+3. [Compose Hot Reload](compose-hot-reload.md)를 사용하여 데스크톱에서 애플리케이션을 실행합니다.
+   1. `composeApp/src/jvmMain/kotlin/main.kt` 파일에서 거터(gutter)의 **실행** 아이콘을 클릭하세요.
+   2. **'composeApp [jvm]'을 Compose Hot Reload (베타)로 실행**을 선택하세요.
+   ![거터에서 Compose Hot Reload 실행](compose-hot-reload-gutter-run.png){width=350}
 
-    ![New Compose Multiplatform app on desktop](first-compose-project-on-desktop-3.png){width=400}
+   앱은 작동하지만, UI에 비해 창이 너무 큽니다.
 
-4.  이를 해결하려면 `composeApp/src/desktopMain/kotlin`에서 `main.kt` 파일을 다음과 같이 업데이트하세요.
+   ![데스크톱의 새 Compose Multiplatform 앱](first-compose-project-on-desktop-3.png){width=400}
+
+4. 이를 해결하려면 `main.kt` 파일을 다음과 같이 업데이트하세요.
 
     ```kotlin
    fun main() = application {
@@ -86,33 +91,19 @@
 
     여기서는 창의 제목을 설정하고 `WindowState` 타입을 사용하여 창의 초기 크기와 화면에서의 위치를 지정합니다.
 
-    > 데스크톱 앱에서 변경 사항을 실시간으로 확인하려면 [Compose Hot Reload](compose-hot-reload.md)를 사용하세요:
-    > 1.  `main.kt` 파일에서 거터(gutter)의 **실행** 아이콘을 클릭하세요.
-    > 2.  **'composeApp [hotRunJvm]'을 Compose Hot Reload (베타)로 실행**을 선택하세요.
-    > ![Run Compose Hot Reload from gutter](compose-hot-reload-gutter-run.png){width=350}
-    > 
-    > 앱이 자동으로 업데이트되는 것을 보려면 수정된 파일(<shortcut>⌘ S</shortcut> / <shortcut>Ctrl+S</shortcut>)을 저장하세요.
-    > 
-    > Compose Hot Reload는 현재 [베타](https://kotlinlang.org/components-stability.html#stability-levels-explained) 단계이므로 기능이 변경될 수 있습니다.
-    >
-    {style="tip"}
+5. IDE의 지침에 따라 누락된 의존성을 임포트하세요.
 
-5.  IDE의 지침에 따라 누락된 의존성을 임포트하세요.
-6.  데스크톱 애플리케이션을 다시 실행하세요. 모양이 개선될 것입니다.
+6. 앱이 자동으로 업데이트되는 것을 보려면 수정된 파일(<shortcut>⌘ S</shortcut> / <shortcut>Ctrl+S</shortcut>)을 저장하세요. 모양이 개선될 것입니다.
 
-    ![Improved appearance of the Compose Multiplatform app on desktop](first-compose-project-on-desktop-4.png){width=350}
-
-<!--
-   ### Compose Hot Reload demo {initial-collapse-state="collapsed" collapsible="true"}
+   ![데스크톱 Compose Multiplatform 앱의 개선된 모양](first-compose-project-on-desktop-4.png){width=350}
 
    ![Compose Hot Reload](compose-hot-reload-resize.gif)
--->
 
 ## 사용자 입력 지원
 
 이제 사용자가 도시 이름을 입력하여 해당 위치의 시간을 확인할 수 있도록 합니다. 이를 달성하는 가장 간단한 방법은 `TextField` 컴포저블을 추가하는 것입니다.
 
-1.  `App`의 현재 구현을 아래 코드로 대체하세요.
+1. `App`의 현재 구현을 아래 코드로 대체하세요.
 
     ```kotlin
     @Composable
@@ -139,15 +130,15 @@
 
     새 코드는 `TextField`와 `location` 속성을 모두 추가합니다. 사용자가 텍스트 필드에 입력할 때, `onValueChange` 이벤트 핸들러를 사용하여 속성 값이 점진적으로 업데이트됩니다.
 
-2.  IDE의 지침에 따라 누락된 의존성을 임포트하세요.
-3.  타겟팅하는 각 플랫폼에서 애플리케이션을 실행하세요.
+2. IDE의 지침에 따라 누락된 의존성을 임포트하세요.
+3. 타겟팅하는 각 플랫폼에서 애플리케이션을 실행하세요.
 
 <Tabs>
     <TabItem id="mobile-user-input" title="Android 및 iOS">
-        <img src="first-compose-project-on-android-ios-4.png" alt="User input in the Compose Multiplatform app on Android and iOS" width="500"/>
+        <img src="first-compose-project-on-android-ios-4.png" alt="Android 및 iOS의 Compose Multiplatform 앱 사용자 입력" width="500"/>
     </TabItem>
     <TabItem id="desktop-user-input" title="데스크톱">
-        <img src="first-compose-project-on-desktop-5.png" alt="User input in the Compose Multiplatform app on desktop" width="350"/>
+        <img src="first-compose-project-on-desktop-5.png" alt="데스크톱 Compose Multiplatform 앱 사용자 입력" width="350"/>
     </TabItem>
 </Tabs>
 
@@ -155,7 +146,7 @@
 
 다음 단계는 주어진 입력을 사용하여 시간을 계산하는 것입니다. 이를 위해 `currentTimeAt()` 함수를 생성하세요.
 
-1.  `App.kt` 파일로 돌아가 다음 함수를 추가하세요.
+1. `App.kt` 파일로 돌아가 다음 함수를 추가하세요.
 
     ```kotlin
     fun currentTimeAt(location: String): String? {
@@ -174,8 +165,8 @@
 
     이 함수는 이전에 만들었지만 더 이상 필요하지 않은 `todaysDate()`와 유사합니다.
 
-2.  IDE의 지침에 따라 누락된 의존성을 임포트하세요.
-3.  `App` 컴포저블을 `currentTimeAt()`를 호출하도록 조정하세요.
+2. IDE의 지침에 따라 누락된 의존성을 임포트하세요.
+3. `currentTimeAt()`를 호출하도록 `App` 컴포저블을 조정하세요.
 
     ```kotlin
    @Composable
@@ -200,15 +191,15 @@
    }
     ```
 
-4.  애플리케이션을 다시 실행하고 유효한 타임존(timezone)을 입력하세요.
-5.  버튼을 클릭하세요. 올바른 시간이 표시될 것입니다.
+4. 애플리케이션을 다시 실행하고 유효한 타임존(timezone)을 입력하세요.
+5. 버튼을 클릭하세요. 올바른 시간이 표시될 것입니다.
 
 <Tabs>
     <TabItem id="mobile-time-display" title="Android 및 iOS">
-        <img src="first-compose-project-on-android-ios-5.png" alt="Time display in the Compose Multiplatform app on Android and iOS" width="500"/>
+        <img src="first-compose-project-on-android-ios-5.png" alt="Android 및 iOS의 Compose Multiplatform 앱 시간 표시" width="500"/>
     </TabItem>
     <TabItem id="desktop-time-display" title="데스크톱">
-        <img src="first-compose-project-on-desktop-6.png" alt="Time display in the Compose Multiplatform app on desktop" width="350"/>
+        <img src="first-compose-project-on-desktop-6.png" alt="데스크톱 Compose Multiplatform 앱 시간 표시" width="350"/>
     </TabItem>
 </Tabs>
 
@@ -216,7 +207,7 @@
 
 애플리케이션은 작동하지만, 외관에 문제가 있습니다. 컴포저블 간의 간격이 더 잘 조정될 수 있으며, 시간 메시지는 더 눈에 띄게 표시될 수 있습니다.
 
-1.  이러한 문제를 해결하려면 다음 버전의 `App` 컴포저블을 사용하세요.
+1. 이러한 문제를 해결하려면 다음 버전의 `App` 컴포저블을 사용하세요.
 
     ```kotlin
     @Composable
@@ -254,21 +245,21 @@
     }
     ```
 
-    *   `modifier` 매개변수는 `Column` 주변에, 그리고 `Button`과 `TextField`의 상단에 패딩을 추가합니다.
-    *   `Text` 컴포저블은 사용 가능한 수평 공간을 채우고 내용을 중앙에 정렬합니다.
-    *   `style` 매개변수는 `Text`의 모양을 사용자 정의합니다.
+    * `modifier` 매개변수는 `Column` 주변에, 그리고 `Button`과 `TextField`의 상단에 패딩을 추가합니다.
+    * `Text` 컴포저블은 사용 가능한 수평 공간을 채우고 내용을 중앙에 정렬합니다.
+    * `style` 매개변수는 `Text`의 모양을 사용자 정의합니다.
 
-2.  IDE의 지침에 따라 누락된 의존성을 임포트하세요.
+2. IDE의 지침에 따라 누락된 의존성을 임포트하세요.
     `Alignment`의 경우 `androidx.compose.ui` 버전을 사용하세요.
 
-3.  애플리케이션을 실행하여 모양이 어떻게 개선되었는지 확인하세요.
+3. 애플리케이션을 실행하여 모양이 어떻게 개선되었는지 확인하세요.
 
 <Tabs>
     <TabItem id="mobile-improved-style" title="Android 및 iOS">
-        <img src="first-compose-project-on-android-ios-6.png" alt="Improved style of the Compose Multiplatform app on Android and iOS" width="500"/>
+        <img src="first-compose-project-on-android-ios-6.png" alt="Android 및 iOS의 Compose Multiplatform 앱 개선된 스타일" width="500"/>
     </TabItem>
     <TabItem id="desktop-improved-style" title="데스크톱">
-        <img src="first-compose-project-on-desktop-7.png" alt="Improved style of the Compose Multiplatform app on desktop" width="350"/>
+        <img src="first-compose-project-on-desktop-7.png" alt="데스크톱 Compose Multiplatform 앱 개선된 스타일" width="350"/>
     </TabItem>
 </Tabs>
 
@@ -282,7 +273,7 @@
 
 애플리케이션은 작동하지만, 오타에 취약합니다. 예를 들어, 사용자가 "France" 대신 "Franse"를 입력하면 앱은 해당 입력을 처리할 수 없습니다. 사용자에게 미리 정의된 목록에서 국가를 선택하도록 요청하는 것이 더 좋습니다.
 
-1.  이를 달성하려면 `App` 컴포저블에서 디자인을 변경하세요.
+1. 이를 달성하려면 `App` 컴포저블에서 디자인을 변경하세요.
 
     ```kotlin
     data class Country(val name: String, val zone: TimeZone)
@@ -348,21 +339,22 @@
         }
     }
     ```
+    {initial-collapse-state="collapsed" collapsible="true"  collapsed-title="data class Country(val name: String, val zone: TimeZone) 데이터 클래스"}
 
-    *   `Country` 타입은 이름과 타임존(timezone)으로 구성됩니다.
-    *   `currentTimeAt()` 함수는 두 번째 매개변수로 `TimeZone`을 받습니다.
-    *   이제 `App`은 국가 목록을 매개변수로 요구합니다. `countries()` 함수가 이 목록을 제공합니다.
-    *   `DropdownMenu`가 `TextField`를 대체했습니다. `showCountries` 속성 값은 `DropdownMenu`의 가시성을 결정합니다. 각 국가에 대한 `DropdownMenuItem`이 있습니다.
+   * `Country` 타입은 이름과 타임존(timezone)으로 구성됩니다.
+   * `currentTimeAt()` 함수는 두 번째 매개변수로 `TimeZone`을 받습니다.
+   * 이제 `App`은 국가 목록을 매개변수로 요구합니다. `countries()` 함수가 이 목록을 제공합니다.
+   * `DropdownMenu`가 `TextField`를 대체했습니다. `showCountries` 속성 값은 `DropdownMenu`의 가시성을 결정합니다. 각 국가에 대한 `DropdownMenuItem`이 있습니다.
 
-2.  IDE의 지침에 따라 누락된 의존성을 임포트하세요.
-3.  애플리케이션을 실행하여 재설계된 버전을 확인하세요.
+2. IDE의 지침에 따라 누락된 의존성을 임포트하세요.
+3. 애플리케이션을 실행하여 재설계된 버전을 확인하세요.
 
 <Tabs>
     <TabItem id="mobile-country-list" title="Android 및 iOS">
-        <img src="first-compose-project-on-android-ios-7.png" alt="The country list in the Compose Multiplatform app on Android and iOS" width="500"/>
+        <img src="first-compose-project-on-android-ios-7.png" alt="Android 및 iOS의 Compose Multiplatform 앱 국가 목록" width="500"/>
     </TabItem>
     <TabItem id="desktop-country-list" title="데스크톱">
-        <img src="first-compose-project-on-desktop-8.png" alt="The country list in the Compose Multiplatform app on desktop" width="350"/>
+        <img src="first-compose-project-on-desktop-8.png" alt="데스크톱 Compose Multiplatform 앱 국가 목록" width="350"/>
     </TabItem>
 </Tabs>
 
@@ -384,15 +376,15 @@ Compose Multiplatform은 모든 플랫폼에서 공통 코드를 통해 리소�
 
 프로젝트에서 이미지를 지원하려면 이미지 파일을 다운로드하여 올바른 디렉터리에 저장하고, 이를 로드하고 표시하는 코드를 추가해야 합니다.
 
-1.  [Flag CDN](https://flagcdn.com/)과 같은 외부 리소스를 사용하여 이미 생성한 국가 목록과 일치하는 국기 이미지를 다운로드하세요. 이 경우 [일본](https://flagcdn.com/w320/jp.png), [프랑스](https://flagcdn.com/w320/fr.png), [멕시코](https://flagcdn.com/w320/mx.png), [인도네시아](https://flagcdn.com/w320/id.png), [이집트](https://flagcdn.com/w320/eg.png)입니다.
+1. [Flag CDN](https://flagcdn.com/)과 같은 외부 리소스를 사용하여 이미 생성한 국가 목록과 일치하는 국기 이미지를 다운로드하세요. 이 경우 [일본](https://flagcdn.com/w320/jp.png), [프랑스](https://flagcdn.com/w320/fr.png), [멕시코](https://flagcdn.com/w320/mx.png), [인도네시아](https://flagcdn.com/w320/id.png), [이집트](https://flagcdn.com/w320/eg.png)입니다.
 
-2.  동일한 국기 이미지를 모든 플랫폼에서 사용할 수 있도록 이미지를 `composeApp/src/commonMain/composeResources/drawable` 디렉터리로 이동하세요.
+2. 동일한 국기 이미지를 모든 플랫폼에서 사용할 수 있도록 이미지를 `composeApp/src/commonMain/composeResources/drawable` 디렉터리로 이동하세요.
 
-    ![Compose Multiplatform resources project structure](compose-resources-project-structure.png){width=300}
+   ![Compose Multiplatform 리소스 프로젝트 구조](compose-resources-project-structure.png){width=300}
 
-3.  추가된 리소스에 대한 접근자를 포함하는 `Res` 클래스를 생성하려면 애플리케이션을 빌드하거나 실행하세요.
+3. 추가된 리소스에 대한 접근자를 포함하는 `Res` 클래스를 생성하려면 애플리케이션을 빌드하거나 실행하세요.
 
-4.  이미지를 지원하도록 `commonMain/kotlin/.../App.kt` 파일의 코드를 업데이트하세요.
+4. `commonMain/kotlin/.../App.kt` 파일의 코드를 업데이트하여 이미지를 지원하세요.
 
     ```kotlin
     import compose.project.demo.generated.resources.eg
@@ -473,20 +465,20 @@ Compose Multiplatform은 모든 플랫폼에서 공통 코드를 통해 리소�
     ```
     {initial-collapse-state="collapsed" collapsible="true"  collapsed-title="data class Country(val name: String, val zone: TimeZone, val image: DrawableResource) 데이터 클래스"}
 
-    *   `Country` 타입은 관련 이미지의 경로를 저장합니다.
-    *   `App`에 전달된 국가 목록에는 이 경로들이 포함됩니다.
-    *   `App`은 각 `DropdownMenuItem`에 `Image`를 표시하고, 그 뒤에 국가 이름을 포함하는 `Text` 컴포저블을 표시합니다.
-    *   각 `Image`는 데이터를 가져오기 위해 `Painter` 객체를 필요로 합니다.
+    * `Country` 타입은 관련 이미지의 경로를 저장합니다.
+    * `App`에 전달된 국가 목록에는 이 경로들이 포함됩니다.
+    * `App`은 각 `DropdownMenuItem`에 `Image`를 표시하고, 그 뒤에 국가 이름을 포함하는 `Text` 컴포저블을 표시합니다.
+    * 각 `Image`는 데이터를 가져오기 위해 `Painter` 객체를 필요로 합니다.
 
-5.  IDE의 지침에 따라 누락된 의존성을 임포트하세요.
-6.  애플리케이션을 실행하여 새로운 동작을 확인하세요.
+5. IDE의 지침에 따라 누락된 의존성을 임포트하세요.
+6. 애플리케이션을 실행하여 새로운 동작을 확인하세요.
 
 <Tabs>
     <TabItem id="mobile-flags" title="Android 및 iOS">
-        <img src="first-compose-project-on-android-ios-8.png" alt="The country flags in the Compose Multiplatform app on Android and iOS" width="500"/>
+        <img src="first-compose-project-on-android-ios-8.png" alt="Android 및 iOS의 Compose Multiplatform 앱 국기" width="500"/>
     </TabItem>
     <TabItem id="desktop-flags" title="데스크톱">
-        <img src="first-compose-project-on-desktop-9.png" alt="The country flags in the Compose Multiplatform app on desktop" width="350"/>
+        <img src="first-compose-project-on-desktop-9.png" alt="데스크톱 Compose Multiplatform 앱 국기" width="350"/>
     </TabItem>
 </Tabs>
 

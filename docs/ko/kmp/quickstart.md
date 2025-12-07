@@ -93,7 +93,7 @@ IDE 마법사를 사용하여 새 KMP 프로젝트를 생성하세요:
 
 플랫폼 선택이 완료되면 **Create** 버튼을 클릭하고 IDE가 프로젝트를 생성하고 가져오도록 기다립니다.
 
-![기본 설정과 Android, iOS, 데스크톱, 웹 플랫폼이 선택된 IntelliJ IDEA 마법사](idea-wizard-1step.png){width=600}
+![IntelliJ IDEA Wizard with default settings and Android, iOS, desktop, and web platforms selected](idea-wizard-1step.png){width=600}
 
 </TabItem>
 <TabItem title= "Android Studio">
@@ -107,7 +107,7 @@ IDE 마법사를 사용하여 새 KMP 프로젝트를 생성하세요:
 1.  메인 메뉴에서 **File** | **New** | **New project**를 선택합니다.
 2.  기본 **Phone and Tablet** 템플릿 범주에서 **Kotlin Multiplatform**을 선택합니다.
 
-    ![Android Studio의 첫 번째 새 프로젝트 단계](as-wizard-1.png){width="400"}
+    ![First new project step in Android Studio](as-wizard-1.png){width="400"}
 
 3.  필요에 따라 프로젝트의 이름, 위치 및 기타 기본 속성을 설정한 다음 **Next**를 클릭합니다.
 4.  프로젝트의 일부로 포함할 플랫폼을 선택하세요:
@@ -123,7 +123,7 @@ IDE 마법사를 사용하여 새 KMP 프로젝트를 생성하세요:
 
 플랫폼 선택이 완료되면 **Finish** 버튼을 클릭하고 IDE가 프로젝트를 생성하고 가져오도록 기다립니다.
 
-![Android, iOS, 데스크톱, 웹 플랫폼이 선택된 Android Studio 마법사의 마지막 단계](as-wizard-3step.png){width=600}
+![Last step in the Android Studio wizard with Android, iOS, desktop, and web platforms selected](as-wizard-3step.png){width=600}
 
 </TabItem>
 </Tabs>
@@ -138,7 +138,7 @@ IDE 마법사를 사용하여 새 KMP 프로젝트를 생성하세요:
 사전 검사 명령은 **Search Everywhere** 대화 상자에서도 사용할 수 있습니다.
 <shortcut>Shift</shortcut> 키를 두 번 누르고 "preflight" 단어를 포함하는 명령을 검색하세요:
 
-![Search Everywhere 메뉴에 "preflight" 단어가 입력됨](double-shift-preflight-checks.png){width=600}
+![The Search Everywhere menu with the word "preflight" entered](double-shift-preflight-checks.png){width=600}
 
 ## 샘플 앱 실행
 
@@ -151,14 +151,14 @@ IDE 마법사가 생성한 프로젝트에는 iOS, Android,
 
 Android 앱을 실행하려면 **composeApp** 실행 구성을 시작하세요:
 
-![Android 실행 구성이 강조 표시된 드롭다운](run-android-configuration.png){width=250}
+![Dropdown with the Android run configuration highlighted](run-android-configuration.png){width=250}
 
 Android 실행 구성을 수동으로 생성하려면, 실행 구성 템플릿으로 **Android App**을 선택하고
 모듈 **[프로젝트 이름].composeApp**을 선택하세요.
 
 기본적으로 사용 가능한 첫 번째 가상 장치에서 실행됩니다:
 
-![가상 장치에서 실행된 Android 앱](run-android-app.png){width=300}
+![Android app ran on a virtual device](run-android-app.png){width=300}
 
 </TabItem>
 <TabItem title="iOS">
@@ -170,19 +170,19 @@ Android 실행 구성을 수동으로 생성하려면, 실행 구성 템플릿�
 프로젝트에 iOS 대상을 선택하고 Xcode가 설치된 macOS 장치를 설정했다면,
 **iosApp** 실행 구성을 선택하고 시뮬레이션된 장치를 선택할 수 있습니다:
 
-![iOS 실행 구성이 강조 표시된 드롭다운](run-ios-configuration.png){width=250}
+![Dropdown with the iOS run configuration highlighted](run-ios-configuration.png){width=250}
 
 iOS 앱을 실행하면 내부적으로 Xcode로 빌드되고 iOS 시뮬레이터에서 실행됩니다.
 첫 빌드 시 컴파일을 위한 네이티브 종속성을 수집하고, 이후 실행을 위한 빌드를 준비합니다:
 
-![가상 장치에서 실행된 iOS 앱](run-ios-app.png){width=350}
+![iOS app ran on a virtual device](run-ios-app.png){width=350}
 
 </TabItem>
 <TabItem title="Desktop">
 
 데스크톱 앱의 기본 실행 구성은 **composeApp [desktop]**으로 생성됩니다:
 
-![기본 데스크톱 실행 구성이 강조 표시된 드롭다운](run-desktop-configuration.png){width=250}
+![Dropdown with the default desktop run configuration highlighted](run-desktop-configuration.png){width=250}
 
 데스크톱 실행 구성을 수동으로 생성하려면, **Gradle** 실행 구성 템플릿을 선택하고
 다음 명령과 함께 **[앱 이름]:composeApp** Gradle 프로젝트를 가리키세요:
@@ -193,14 +193,14 @@ desktopRun -DmainClass=com.example.myapplication.MainKt --quiet
 
 이 구성으로 JVM 데스크톱 앱을 실행할 수 있습니다:
 
-![가상 장치에서 실행된 JVM 앱](run-desktop-app.png){width=600}
+![JVM app ran on a virtual device](run-desktop-app.png){width=600}
 
 </TabItem>
 <TabItem title="Web">
 
 웹 앱의 기본 실행 구성은 **composeApp [wasmJs]**로 생성됩니다:
 
-![기본 Wasm 실행 구성이 강조 표시된 드롭다운](run-wasm-configuration.png){width=250}
+![Dropdown with the default Wasm run configuration highlighted](run-wasm-configuration.png){width=250}
 
 웹 실행 구성을 수동으로 생성하려면, **Gradle** 실행 구성 템플릿을 선택하고
 다음 명령과 함께 **[앱 이름]:composeApp** Gradle 프로젝트를 가리키세요:
@@ -211,7 +211,7 @@ wasmJsBrowserDevelopmentRun
 
 이 구성을 실행하면 IDE는 Kotlin/Wasm 앱을 빌드하고 기본 브라우저에서 엽니다:
 
-![가상 장치에서 실행된 웹 앱](run-wasm-app.png){width=600}
+![Web app ran on a virtual device](run-wasm-app.png){width=600}
 
 </TabItem>
 </Tabs>
@@ -254,16 +254,16 @@ iOS 시뮬레이터에 대한 업데이트가 있는지 확인하세요.
 ## 다음 단계
 
 KMP 프로젝트의 구조와 공유 코드 작성에 대해 자세히 알아보세요:
-*   공유 UI 코드 작업에 대한 튜토리얼 시리즈: [Compose Multiplatform 앱 생성](compose-multiplatform-create-first-app.md)
-*   네이티브 UI와 함께 공유 코드 작업에 대한 튜토리얼 시리즈: [Kotlin Multiplatform 앱 생성](multiplatform-create-first-app.md)
+*   공유 UI 코드 작업에 대한 튜토리얼 시리즈: [Create your Compose Multiplatform app](compose-multiplatform-create-first-app.md)
+*   네이티브 UI와 함께 공유 코드 작업에 대한 튜토리얼 시리즈: [Create your Kotlin Multiplatform app](multiplatform-create-first-app.md)
 *   Kotlin Multiplatform 문서를 심층 탐색:
-    *   [프로젝트 구성](multiplatform-project-configuration.md)
-    *   [멀티플랫폼 종속성 작업](https://kotlinlang.org/docs/multiplatform-add-dependencies.html)
+    *   [Project configuration](multiplatform-project-configuration.md)
+    *   [Working with multiplatform dependencies](https://kotlinlang.org/docs/multiplatform-add-dependencies.html)
 *   Compose Multiplatform UI 프레임워크, 기본 사항 및 플랫폼별 기능에 대해 알아보세요:
-    [Compose Multiplatform 및 Jetpack Compose](compose-multiplatform-and-jetpack-compose.md).
+    [Relationship between Compose Multiplatform and Jetpack Compose](compose-multiplatform-and-jetpack-compose.md).
 
 KMP용으로 이미 작성된 코드를 살펴보세요:
-*   공식 JetBrains 샘플과 KMP 기능을 보여주는 선별된 프로젝트 목록이 있는 [샘플](multiplatform-samples.md) 페이지.
+*   공식 JetBrains 샘플과 KMP 기능을 보여주는 선별된 프로젝트 목록이 있는 [Samples](multiplatform-samples.md) 페이지.
 *   GitHub 토픽:
     *   [kotlin-multiplatform](https://github.com/topics/kotlin-multiplatform), Kotlin Multiplatform으로 구현된 프로젝트.
     *   [kotlin-multiplatform-sample](https://github.com/topics/kotlin-multiplatform-sample),

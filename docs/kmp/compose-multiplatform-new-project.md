@@ -28,7 +28,7 @@
 
 要开始，请实现一个新的 `App` 可组合项：
 
-1.  在 `composeApp/src/commonMain/kotlin` 中，打开 `App.kt` 文件并将代码替换为以下 `App` 可组合项：
+1. 在 `composeApp/src/commonMain/kotlin` 中，打开 `App.kt` 文件并将代码替换为以下 `App` 可组合项：
 
     ```kotlin
     @Composable
@@ -51,21 +51,26 @@
     }
     ```
 
-    *   布局是一个包含两个可组合项的列。第一个是 `Text` 可组合项，第二个是 `Button`。
-    *   这两个可组合项由单个共享状态链接，即 `timeAtLocation` 属性。`Text` 可组合项是此状态的观察者。
-    *   `Button` 可组合项使用 `onClick` 事件处理程序改变状态。
+   * 布局是一个包含两个可组合项的列。第一个是 `Text` 可组合项，第二个是 `Button`。
+   * 这两个可组合项由单个共享状态链接，即 `timeAtLocation` 属性。`Text` 可组合项是此状态的观察者。
+   * `Button` 可组合项使用 `onClick` 事件处理程序改变状态。
 
-2.  在 Android 和 iOS 上运行应用程序：
+2. 在 Android 和 iOS 上运行应用程序：
 
-    ![New Compose Multiplatform app on Android and iOS](first-compose-project-on-android-ios-3.png){width=500}
+   ![New Compose Multiplatform app on Android and iOS](first-compose-project-on-android-ios-3.png){width=500}
 
-    当你运行应用程序并点击按钮时，将显示硬编码的时间。
+   当你运行应用程序并点击按钮时，将显示硬编码的时间。
 
-3.  在桌面上运行应用程序。它正常工作，但窗口明显过大，不适合 UI：
+3. 在桌面上运行应用程序，使用 [Compose 热重载](compose-hot-reload.md)：
+   1. 在 `composeApp/src/jvmMain/kotlin/main.kt` 文件中，点击边栏中的 **运行** 图标。
+   2. 选择 **使用 Compose 热重载运行 'composeApp [jvm]'**。
+   ![Run Compose Hot Reload from gutter](compose-hot-reload-gutter-run.png){width=350}
 
-    ![New Compose Multiplatform app on desktop](first-compose-project-on-desktop-3.png){width=400}
+   应用程序正常工作，但窗口明显过大，不适合 UI：
 
-4.  要解决此问题，在 `composeApp/src/jvmMain/kotlin` 中，按如下方式更新 `main.kt` 文件：
+   ![New Compose Multiplatform app on desktop](first-compose-project-on-desktop-3.png){width=400}
+
+4. 要解决此问题，请按如下方式更新 `main.kt` 文件：
 
     ```kotlin
    fun main() = application {
@@ -74,8 +79,8 @@
            position = WindowPosition(300.dp, 300.dp)
        )
        Window(
-           title = "Local Time App",
-           onCloseRequest = ::exitApplication,
+           title = "Local Time App", 
+           onCloseRequest = ::exitApplication, 
            state = state,
            alwaysOnTop = true
        ) {
@@ -86,33 +91,19 @@
 
     在这里，你设置了窗口的标题，并使用 `WindowState` 类型为窗口提供屏幕上的初始大小和位置。
 
-    > 要在桌面应用中实时查看你的更改，请使用 [Compose 热重载](compose-hot-reload.md)：
-    > 1.  在 `main.kt` 文件中，点击边栏中的 **运行** 图标。
-    > 2.  选择 **使用 Compose 热重载（Beta）运行 'composeApp [hotRunJvm]'**。
-    > ![Run Compose Hot Reload from gutter](compose-hot-reload-gutter-run.png){width=350}
-    >
-    > 要查看应用自动更新，请保存任何修改的文件（<shortcut>⌘ S</shortcut> / <shortcut>Ctrl+S</shortcut>）。
-    >
-    > Compose 热重载目前处于 [Beta](https://kotlinlang.org/components-stability.html#stability-levels-explained) 阶段，因此其功能可能会发生变化。
-    >
-    {style="tip"}
+5. 遵循 IDE 的指示导入缺失的依赖项。
 
-5.  遵循 IDE 的指示导入缺失的依赖项。
-6.  再次运行桌面应用程序。其外观应有所改善：
+6. 要查看应用自动更新，请保存任何修改的文件（<shortcut>⌘ S</shortcut> / <shortcut>Ctrl+S</shortcut>）。其外观应有所改善：
 
-    ![Improved appearance of the Compose Multiplatform app on desktop](first-compose-project-on-desktop-4.png){width=350}
-
-<!--
-   ### Compose Hot Reload demo {initial-collapse-state="collapsed" collapsible="true"}
+   ![Improved appearance of the Compose Multiplatform app on desktop](first-compose-project-on-desktop-4.png){width=350}
 
    ![Compose Hot Reload](compose-hot-reload-resize.gif)
--->
 
 ## 支持用户输入
 
 现在让用户输入城市名称以查看该位置的时间。实现此目的的最简单方法是添加一个 `TextField` 可组合项：
 
-1.  将 `App` 的当前实现替换为以下内容：
+1. 将 `App` 的当前实现替换为以下内容：
 
     ```kotlin
     @Composable
@@ -139,15 +130,15 @@
 
     新代码添加了 `TextField` 和 `location` 属性。当用户在文本字段中输入时，属性的值会使用 `onValueChange` 事件处理程序逐渐更新。
 
-2.  遵循 IDE 的指示导入缺失的依赖项。
-3.  在你所面向的每个平台上运行应用程序：
+2. 遵循 IDE 的指示导入缺失的依赖项。
+3. 在你所面向的每个平台上运行应用程序：
 
 <Tabs>
     <TabItem id="mobile-user-input" title="Android 和 iOS">
-        <img src="first-compose-project-on-android-ios-4.png" alt="User input in the Compose Multiplatform app on Android and iOS" width="500"/>
+        <img src="first-compose-project-on-android-ios-4.png" alt="在 Android 和 iOS 上的 Compose Multiplatform 应用中的用户输入" width="500"/>
     </TabItem>
     <TabItem id="desktop-user-input" title="桌面">
-        <img src="first-compose-project-on-desktop-5.png" alt="User input in the Compose Multiplatform app on desktop" width="350"/>
+        <img src="first-compose-project-on-desktop-5.png" alt="在桌面上的 Compose Multiplatform 应用中的用户输入" width="350"/>
     </TabItem>
 </Tabs>
 
@@ -155,7 +146,7 @@
 
 下一步是使用给定输入计算时间。为此，请创建 `currentTimeAt()` 函数：
 
-1.  返回 `App.kt` 文件并添加以下函数：
+1. 返回 `App.kt` 文件并添加以下函数：
 
     ```kotlin
     fun currentTimeAt(location: String): String? {
@@ -174,14 +165,14 @@
 
     此函数类似于你之前创建的 `todaysDate()`，后者已不再需要。
 
-2.  遵循 IDE 的指示导入缺失的依赖项。
-3.  调整你的 `App` 可组合项以调用 `currentTimeAt()`：
+2. 遵循 IDE 的指示导入缺失的依赖项。
+3. 调整你的 `App` 可组合项以调用 `currentTimeAt()`：
 
     ```kotlin
    @Composable
    @Preview
    fun App() {
-   MaterialTheme {
+   MaterialTheme { 
        var location by remember { mutableStateOf("Europe/Paris") }
        var timeAtLocation by remember { mutableStateOf("No location selected") }
    
@@ -200,24 +191,15 @@
    }
     ```
 
-4.  在 `wasmJsMain/kotlin/main.kt` 文件中，在 `main()` 函数之前添加以下代码以初始化 Web 的时区支持：
-
-    ```kotlin
-    @JsModule("@js-joda/timezone")
-    external object JsJodaTimeZoneModule
-    
-    private val jsJodaTz = JsJodaTimeZoneModule
-    ```
-
-5.  再次运行应用程序并输入有效的时区。
-6.  点击按钮。你应该会看到正确的时间：
+4. 再次运行应用程序并输入有效的时区。
+5. 点击按钮。你应该会看到正确的时间：
 
 <Tabs>
     <TabItem id="mobile-time-display" title="Android 和 iOS">
-        <img src="first-compose-project-on-android-ios-5.png" alt="Time display in the Compose Multiplatform app on Android and iOS" width="500"/>
+        <img src="first-compose-project-on-android-ios-5.png" alt="在 Android 和 iOS 上的 Compose Multiplatform 应用中的时间显示" width="500"/>
     </TabItem>
     <TabItem id="desktop-time-display" title="桌面">
-        <img src="first-compose-project-on-desktop-6.png" alt="Time display in the Compose Multiplatform app on desktop" width="350"/>
+        <img src="first-compose-project-on-desktop-6.png" alt="在桌面上的 Compose Multiplatform 应用中的时间显示" width="350"/>
     </TabItem>
 </Tabs>
 
@@ -225,7 +207,7 @@
 
 应用程序正在工作，但其外观存在问题。可组合项的间距可以更好，并且时间消息可以更突出地显示。
 
-1.  为了解决这些问题，请使用以下版本的 `App` 可组合项：
+1. 为了解决这些问题，请使用以下版本的 `App` 可组合项：
 
     ```kotlin
     @Composable
@@ -263,21 +245,21 @@
     }
     ```
 
-    *   `modifier` 形参在 `Column` 周围以及 `Button` 和 `TextField` 的顶部添加了内边距。
-    *   `Text` 可组合项填充可用的水平空间并居中其内容。
-    *   `style` 形参自定义了 `Text` 的外观。
+    * `modifier` 形参在 `Column` 周围以及 `Button` 和 `TextField` 的顶部添加了内边距。
+    * `Text` 可组合项填充可用的水平空间并居中其内容。
+    * `style` 形参自定义了 `Text` 的外观。
 
-2.  遵循 IDE 的指示导入缺失的依赖项。
+2. 遵循 IDE 的指示导入缺失的依赖项。
     对于 `Alignment`，请使用 `androidx.compose.ui` 版本。
 
-3.  运行应用程序以查看外观如何改善：
+3. 运行应用程序以查看外观如何改善：
 
 <Tabs>
     <TabItem id="mobile-improved-style" title="Android 和 iOS">
-        <img src="first-compose-project-on-android-ios-6.png" alt="Improved style of the Compose Multiplatform app on Android and iOS" width="500"/>
+        <img src="first-compose-project-on-android-ios-6.png" alt="在 Android 和 iOS 上的 Compose Multiplatform 应用的改进样式" width="500"/>
     </TabItem>
     <TabItem id="desktop-improved-style" title="桌面">
-        <img src="first-compose-project-on-desktop-7.png" alt="Improved style of the Compose Multiplatform app on desktop" width="350"/>
+        <img src="first-compose-project-on-desktop-7.png" alt="在桌面上的 Compose Multiplatform 应用的改进样式" width="350"/>
     </TabItem>
 </Tabs>
 
@@ -291,7 +273,7 @@
 
 应用程序可以工作，但它容易出现拼写错误。例如，如果用户输入“Franse”而不是“France”，应用程序将无法处理该输入。最好要求用户从预定义列表中选择国家。
 
-1.  为了实现这一点，请更改 `App` 可组合项中的设计：
+1. 为了实现这一点，请更改 `App` 可组合项中的设计：
 
     ```kotlin
     data class Country(val name: String, val zone: TimeZone)
@@ -358,20 +340,20 @@
     }
     ```
 
-    *   有一个 `Country` 类型，由名称和时区组成。
-    *   `currentTimeAt()` 函数将 `TimeZone` 作为其第二个形参。
-    *   `App` 现在需要一个国家列表作为形参。`countries()` 函数提供此列表。
-    *   `DropdownMenu` 已替换 `TextField`。`showCountries` 属性的值决定了 `DropdownMenu` 的可见性。每个国家都有一个 `DropdownMenuItem`。
+   * 有一个 `Country` 类型，由名称和时区组成。
+   * `currentTimeAt()` 函数将 `TimeZone` 作为其第二个形参。
+   * `App` 现在需要一个国家列表作为形参。`countries()` 函数提供此列表。
+   * `DropdownMenu` 已替换 `TextField`。`showCountries` 属性的值决定了 `DropdownMenu` 的可见性。每个国家都有一个 `DropdownMenuItem`。
 
-2.  遵循 IDE 的指示导入缺失的依赖项。
-3.  运行应用程序以查看重新设计版本：
+2. 遵循 IDE 的指示导入缺失的依赖项。
+3. 运行应用程序以查看重新设计版本：
 
 <Tabs>
     <TabItem id="mobile-country-list" title="Android 和 iOS">
-        <img src="first-compose-project-on-android-ios-7.png" alt="The country list in the Compose Multiplatform app on Android and iOS" width="500"/>
+        <img src="first-compose-project-on-android-ios-7.png" alt="在 Android 和 iOS 上的 Compose Multiplatform 应用中的国家列表" width="500"/>
     </TabItem>
     <TabItem id="desktop-country-list" title="桌面">
-        <img src="first-compose-project-on-desktop-8.png" alt="The country list in the Compose Multiplatform app on desktop" width="350"/>
+        <img src="first-compose-project-on-desktop-8.png" alt="在桌面上的 Compose Multiplatform 应用中的国家列表" width="350"/>
     </TabItem>
 </Tabs>
 
@@ -393,15 +375,15 @@ Compose Multiplatform 提供了一个库，用于通过公共代码跨所有平�
 
 为了在你的项目中支持图片，你需要下载图片文件，将它们存储在正确的目录中，并添加代码来加载和显示它们：
 
-1.  使用外部资源，例如 [Flag CDN](https://flagcdn.com/)，下载与你已创建的国家列表相匹配的国旗。在这种情况下，它们是 [Japan](https://flagcdn.com/w320/jp.png)、[France](https://flagcdn.com/w320/fr.png)、[Mexico](https://flagcdn.com/w320/mx.png)、[Indonesia](https://flagcdn.com/w320/id.png) 和 [Egypt](https://flagcdn.com/w320/eg.png)。
+1. 使用外部资源，例如 [Flag CDN](https://flagcdn.com/)，下载与你已创建的国家列表相匹配的国旗。在这种情况下，它们是 [Japan](https://flagcdn.com/w320/jp.png)、[France](https://flagcdn.com/w320/fr.png)、[Mexico](https://flagcdn.com/w320/mx.png)、[Indonesia](https://flagcdn.com/w320/id.png) 和 [Egypt](https://flagcdn.com/w320/eg.png)。
 
-2.  将图片移动到 `composeApp/src/commonMain/composeResources/drawable` 目录，以便所有平台都可使用相同的国旗：
+2. 将图片移动到 `composeApp/src/commonMain/composeResources/drawable` 目录，以便所有平台都可使用相同的国旗：
 
-    ![Compose Multiplatform resources project structure](compose-resources-project-structure.png){width=300}
+   ![Compose Multiplatform resources project structure](compose-resources-project-structure.png){width=300}
 
-3.  构建或运行应用程序以生成包含已添加资源访问器的 `Res` 类。
+3. 构建或运行应用程序以生成包含已添加资源访问器的 `Res` 类。
 
-4.  更新 `commonMain/kotlin/.../App.kt` 文件中的代码以支持图片：
+4. 更新 `commonMain/kotlin/.../App.kt` 文件中的代码以支持图片：
 
     ```kotlin
     import compose.project.demo.generated.resources.eg
@@ -410,7 +392,7 @@ Compose Multiplatform 提供了一个库，用于通过公共代码跨所有平�
     import compose.project.demo.generated.resources.jp
     import compose.project.demo.generated.resources.mx
    
-    data class Country(val name: String, val zone: TimeZone, val image: DrawableResource)
+   data class Country(val name: String, val zone: TimeZone, val image: DrawableResource)
 
     fun currentTimeAt(location: String, zone: TimeZone): String {
         fun LocalTime.formatted() = "$hour:$minute:$second"
@@ -482,20 +464,20 @@ Compose Multiplatform 提供了一个库，用于通过公共代码跨所有平�
     ```
     {initial-collapse-state="collapsed" collapsible="true"  collapsed-title="data class Country(val name: String, val zone: TimeZone, val image: DrawableResource)"}
 
-    *   `Country` 类型存储相关图片的路径。
-    *   传递给 `App` 的国家列表包含这些路径。
-    *   `App` 在每个 `DropdownMenuItem` 中显示一个 `Image`，后跟一个包含国家名称的 `Text` 可组合项。
-    *   每个 `Image` 都需要一个 `Painter` 对象来获取数据。
+    * `Country` 类型存储相关图片的路径。
+    * 传递给 `App` 的国家列表包含这些路径。
+    * `App` 在每个 `DropdownMenuItem` 中显示一个 `Image`，后跟一个包含国家名称的 `Text` 可组合项。
+    * 每个 `Image` 都需要一个 `Painter` 对象来获取数据。
 
-5.  遵循 IDE 的指示导入缺失的依赖项。
-6.  运行应用程序以查看新行为：
+5. 遵循 IDE 的指示导入缺失的依赖项。
+6. 运行应用程序以查看新行为：
 
 <Tabs>
     <TabItem id="mobile-flags" title="Android 和 iOS">
-        <img src="first-compose-project-on-android-ios-8.png" alt="The country flags in the Compose Multiplatform app on Android and iOS" width="500"/>
+        <img src="first-compose-project-on-android-ios-8.png" alt="在 Android 和 iOS 上的 Compose Multiplatform 应用中的国旗" width="500"/>
     </TabItem>
     <TabItem id="desktop-flags" title="桌面">
-        <img src="first-compose-project-on-desktop-9.png" alt="The country flags in the Compose Multiplatform app on desktop" width="350"/>
+        <img src="first-compose-project-on-desktop-9.png" alt="在桌面上的 Compose Multiplatform 应用中的国旗" width="350"/>
     </TabItem>
 </Tabs>
 

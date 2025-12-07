@@ -356,6 +356,10 @@
         "link": "multiplatform-integrate-in-existing-app"
       },
       {
+        "text": "kmp.migrate-from-android",
+        "link": "migrate-from-android"
+      },
+      {
         "text": "kmp.multiplatform-ktor-sqldelight",
         "link": "multiplatform-ktor-sqldelight"
       },

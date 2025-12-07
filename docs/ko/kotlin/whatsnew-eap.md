@@ -71,7 +71,6 @@ Kotlin %kotlinEapVersion%은 사용되지 않는 반환 값 검사기라는 새�
 fun formatGreeting(name: String): String {
     if (name.isBlank()) return "Hello, anonymous user!"
     if (!name.contains(' ')) {
-        // The checker reports a warning that this result is ignored
         // 검사기는 이 결과가 무시된다는 경고를 보고합니다.
         "Hello, " + name.replaceFirstChar(Char::titlecase) + "!"
     }
@@ -100,7 +99,6 @@ kotlin {
 예를 들어, 전체 파일을 표시할 수 있습니다:
 
 ```kotlin
-// Marks all functions and classes in this file so the checker reports unused return values
 // 이 파일의 모든 함수와 클래스를 표시하여 검사기가 사용되지 않는 반환 값을 보고합니다.
 @file:MustUseReturnValues
 
@@ -112,7 +110,6 @@ fun someFunction(): String
 또는 특정 클래스를 표시할 수 있습니다:
 
 ```kotlin
-// Marks all functions in this class so the checker reports unused return values
 // 이 클래스의 모든 함수를 표시하여 검사기가 사용되지 않는 반환 값을 보고합니다.
 @MustUseReturnValues
 class Greeter {
@@ -151,17 +148,14 @@ fun <T> MutableList<T>.addAndIgnoreResult(element: T): Boolean {
 이렇게 하려면 밑줄 구문(`_`)을 사용하는 특별한 이름 없는 변수에 결과를 할당하세요:
 
 ```kotlin
-// Non-ignorable function
 // 무시할 수 없는 함수
 fun computeValue(): Int = 42
 
 fun main() {
 
-    // Reports a warning: result is ignored
     // 경고를 보고합니다: 결과가 무시됩니다.
     computeValue()
 
-    // Suppresses the warning only at this call site with a special unused variable
     // 특별한 사용되지 않는 변수로 이 호출 위치에서만 경고를 억제합니다.
     val _ = computeValue()
 }
@@ -290,7 +284,7 @@ Kotlin %kotlinEapVersion%부터 `@JsExport` 애노테이션을 사용하여 중�
 ```kotlin
 kotlin {
     compilerOptions {
-        freeCompilerArgs.add("-XXLanguage:+JsAllowExportingSuspendFunctions")
+        freeCompilerArgs.add("-Xenable-suspend-function-exporting")
     }
 }
 ```

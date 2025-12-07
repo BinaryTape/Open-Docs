@@ -1,4 +1,4 @@
-[//]: # (title: 配置 Gradle 專案)
+[//]: # (title: 設定 Gradle 專案)
 
 要使用 [Gradle](https://docs.gradle.org/current/userguide/userguide.html) 建構 Kotlin 專案，您需要在建構指令碼檔案 `build.gradle(.kts)` 中[新增 Kotlin Gradle 外掛程式](#apply-the-plugin)，並在其中[配置專案的依賴項](#configure-dependencies)。
 
@@ -44,21 +44,21 @@ plugins {
 
 配置專案時，請檢查 Kotlin Gradle 外掛程式 (KGP) 與可用 Gradle 版本的相容性。下表列出了 Gradle 和 Android Gradle 外掛程式 (AGP) 的最低和最高**完全支援**版本：
 
-| KGP version   | Gradle min and max versions           | AGP min and max versions                            |
-|---------------|---------------------------------------|-----------------------------------------------------|
-| 2.2.20        | %minGradleVersion%–%maxGradleVersion% | %minAndroidGradleVersion%–%maxAndroidGradleVersion% |
-| 2.2.0-2.2.10  | 7.6.3-8.14                            | 7.3.1-8.10.0                                        |
-| 2.1.20-2.1.21 | 7.6.3–8.12.1                          | 7.3.1–8.7.2                                         |
-| 2.1.0–2.1.10  | 7.6.3–8.10*                           | 7.3.1–8.7.2                                         |
-| 2.0.20–2.0.21 | 6.8.3–8.8*                            | 7.1.3–8.5                                           |
-| 2.0.0         | 6.8.3–8.5                             | 7.1.3–8.3.1                                         |
-| 1.9.20–1.9.25 | 6.8.3–8.1.1                           | 4.2.2–8.1.0                                         |
-| 1.9.0–1.9.10  | 6.8.3–7.6.0                           | 4.2.2–7.4.0                                         |
-| 1.8.20–1.8.22 | 6.8.3–7.6.0                           | 4.1.3–7.4.0                                         |      
-| 1.8.0–1.8.11  | 6.8.3–7.3.3                           | 4.1.3–7.2.1                                         |   
-| 1.7.20–1.7.22 | 6.7.1–7.1.1                           | 3.6.4–7.0.4                                         |
-| 1.7.0–1.7.10  | 6.7.1–7.0.2                           | 3.4.3–7.0.2                                         |
-| 1.6.20–1.6.21 | 6.1.1–7.0.2                           | 3.4.3–7.0.2                                         |
+| KGP version | Gradle min and max versions | AGP min and max versions |
+|---|---|---|
+| 2.2.20–2.2.21 | %minGradleVersion%–%maxGradleVersion% | %minAndroidGradleVersion%–%maxAndroidGradleVersion% |
+| 2.2.0–2.2.10 | 7.6.3–8.14 | 7.3.1–8.10.0 |
+| 2.1.20–2.1.21 | 7.6.3–8.12.1 | 7.3.1–8.7.2 |
+| 2.1.0–2.1.10 | 7.6.3–8.10* | 7.3.1–8.7.2 |
+| 2.0.20–2.0.21 | 6.8.3–8.8* | 7.1.3–8.5 |
+| 2.0.0 | 6.8.3–8.5 | 7.1.3–8.3.1 |
+| 1.9.20–1.9.25 | 6.8.3–8.1.1 | 4.2.2–8.1.0 |
+| 1.9.0–1.9.10 | 6.8.3–7.6.0 | 4.2.2–7.4.0 |
+| 1.8.20–1.8.22 | 6.8.3–7.6.0 | 4.1.3–7.4.0 |
+| 1.8.0–1.8.11 | 6.8.3–7.3.3 | 4.1.3–7.2.1 |
+| 1.7.20–1.7.22 | 6.7.1–7.1.1 | 3.6.4–7.0.4 |
+| 1.7.0–1.7.10 | 6.7.1–7.0.2 | 3.4.3–7.0.2 |
+| 1.6.20–1.6.21 | 6.1.1–7.0.2 | 3.4.3–7.0.2 |
 
 > *Kotlin 2.0.20–2.0.21 和 Kotlin 2.1.0–2.1.10 與 Gradle 8.6 或更早版本完全相容。
 > Gradle 8.7–8.10 版本也受支援，但只有一個例外：如果您使用 Kotlin Multiplatform Gradle 外掛程式，
@@ -84,9 +84,9 @@ plugins {
 
 您可以將屬性新增到專案的 `gradle.properties` 檔案中以配置此行為：
 
-| Gradle property                                     | Description                                                                                                                                       |
-|-----------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------|
-| `kotlin.project.persistent.dir`                     | 配置專案層級資料的儲存位置。預設值：`<project-root-directory>/.kotlin`                                      |
+| Gradle property | Description |
+|---|---|
+| `kotlin.project.persistent.dir` | 配置專案層級資料的儲存位置。預設值：`<project-root-directory>/.kotlin` |
 | `kotlin.project.persistent.dir.gradle.disableWrite` | 控制是否禁用將 Kotlin 資料寫入 `.gradle` 目錄（為了與舊版 IDEA 相容）。預設值：false |
 
 ## 針對 JVM
@@ -131,10 +131,10 @@ project
 ```
 
 > 請勿將 Java `.java` 檔案儲存在 `src/*/kotlin` 目錄中，因為 `.java` 檔案將不會被編譯。
-> 
+>
 > 相反，您可以使用 `src/main/java`。
 >
-{style="warning"} 
+{style="warning"}
 
 如果您不使用預設慣例，則應更新對應的 `sourceSets` 屬性：
 
@@ -245,7 +245,7 @@ plugins {
 ### Gradle Java 工具鏈支援
 
 > Android 使用者的警告。要使用 Gradle 工具鏈支援，請使用 Android Gradle 外掛程式 (AGP) 版本 8.1.0-alpha09 或更高版本。
-> 
+>
 > Gradle Java 工具鏈支援[僅從 AGP 7.4.0 開始可用](https://issuetracker.google.com/issues/194113162)。
 > 然而，由於[此問題](https://issuetracker.google.com/issues/260059413)，直到 8.1.0-alpha09 版本，AGP 才將 `targetCompatibility` 設定為與工具鏈的 JDK 相等。
 > 如果您使用低於 8.1.0-alpha09 的版本，您需要透過 `compileOptions` 手動配置 `targetCompatibility`。
@@ -260,7 +260,7 @@ plugins {
 > }
 > ```
 >
-{style="warning"} 
+{style="warning"}
 
 Gradle 6.7 引入了 [Java 工具鏈支援](https://docs.gradle.org/current/userguide/toolchains.html)。
 使用此功能，您可以：
@@ -325,7 +325,7 @@ kotlin {
 ```kotlin
 java {
     toolchain {
-        languageVersion.set(JavaLanguageVersion.of(<MAJOR_JDK_VERSION>)) 
+        languageVersion.set(JavaLanguageVersion.of(<MAJOR_JDK_VERSION>))
     }
 }
 ```
@@ -466,7 +466,7 @@ integrationTestCompilation {
 
 <tabs group="build-script">
 <tab title="Kotlin" group-key="kotlin">
-        
+
 ```kotlin
 // Add the following three lines if you use a Gradle version less than 7.0
 java {
@@ -505,7 +505,7 @@ tasks.named("compileJava", JavaCompile.class) {
 </tabs>
 
 > 像往常一樣將 `module-info.java` 放到 `src/main/java` 目錄中。
-> 
+>
 > 對於模組，Kotlin 檔案中的套件名稱應與 `module-info.java` 中的套件名稱相同，以避免「package is empty or does not exist」建構失敗。
 >
 {style="note"}
@@ -975,11 +975,10 @@ kotlin.stdlib.jdk.variants.version.alignment=false
 
   </tab>
   </tabs>
-  
+
 * 如果您新增 Kotlin 標準函式庫版本 `%kotlinVersion%` 的依賴項：`implementation("org.jetbrains.kotlin:kotlin-stdlib:%kotlinVersion%")`，
   並且 Kotlin Gradle 外掛程式是舊版本（早於 `1.8.0`），請更新 Kotlin Gradle 外掛程式以符合標準函式庫版本：
 
-  
   <tabs group="build-script">
   <tab title="Kotlin" group-key="kotlin">
 
@@ -1252,6 +1251,7 @@ repositories {
     mavenCentral()
 }
 ```
+
 </tab>
 <tab title="Groovy" group-key="groovy">
 
@@ -1260,13 +1260,14 @@ repositories {
     mavenCentral()
 }
 ```
+
 </tab>
 </tabs>
 
 常見的儲存庫有 [Maven Central](https://central.sonatype.com/) 和 [Google 的 Maven 儲存庫](https://maven.google.com/web/index.html)。
 
 > 如果您也使用 Maven 專案，我們建議避免將 `mavenLocal()` 作為儲存庫新增，因為在 Gradle 和 Maven 專案之間切換時可能會遇到問題。如果您必須新增 `mavenLocal()` 儲存庫，請將其新增到 `repositories{}` 區塊中的最後一個儲存庫。如需更多資訊，請參閱 [The case for mavenLocal()](https://docs.gradle.org/current/userguide/declaring_repositories.html#sec:case-for-maven-local)。
-> 
+>
 {style="warning"}
 
 如果您需要在多個子專案中宣告相同的儲存庫，請在您的 `settings.gradle(.kts)` 檔案中的 `dependencyResolutionManagement{}` 區塊中集中宣告儲存庫：
@@ -1281,6 +1282,7 @@ dependencyResolutionManagement {
     }
 }
 ```
+
 </tab>
 <tab title="Groovy" group-key="groovy">
 
@@ -1291,6 +1293,7 @@ dependencyResolutionManagement {
     }
 }
 ```
+
 </tab>
 </tabs>
 

@@ -1,7 +1,5 @@
 [//]: # (title: Compose 热重载)
 
-<primary-label ref="beta"/>
-
 [Compose 热重载](https://github.com/JetBrains/compose-hot-reload) 帮助您在处理 Compose Multiplatform 项目时可视化并实验 UI 变更。
 
 Compose 热重载 目前仅在您的多平台项目包含 desktop 目标平台且兼容 Java 21 或更早版本时可用。
@@ -10,7 +8,7 @@ Compose 热重载 目前仅在您的多平台项目包含 desktop 目标平台�
 
 ![Compose 热重载](compose-hot-reload.gif){width=350}
 
-## 将 Compose Hot Reload 添加到您的项目
+## 将 Compose 热重载 添加到您的项目
 
 Compose 热重载 可通过两种方式添加，即：
 
@@ -94,7 +92,7 @@ Compose 热重载 可通过两种方式添加，即：
    ```
    通过将 `alwaysOnTop` 变量设置为 `true`，生成的 desktop 应用将保持在所有窗口的顶部，使您更轻松地编辑代码并实时查看更改。
 
-2. 打开 `App.kt` 文件并更新 `Button` 可组合项：
+2. 打开 `App.kt` 文件并更新 `Button` composable：
    ```kotlin
    Button(onClick = { showContent = !showContent }) {
        Column {
@@ -111,8 +109,8 @@ Compose 热重载 可通过两种方式添加，即：
     }
    ```
 
-4. 打开 `main.kt` 文件并点击边栏中的 **Run** 图标。
-   选择 **Run 'composeApp [hotRunJvm]' with Compose Hot Reload (Beta)**。
+4. 打开 `main.kt` 文件并点击边栏中的 **Run** 图标。 
+   选择 **Run 'composeApp [jvm]' with Compose Hot Reload**。
 
    ![从边栏运行 Compose 热重载](compose-hot-reload-gutter-run.png){width=350}
 

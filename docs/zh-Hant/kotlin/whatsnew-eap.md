@@ -159,7 +159,7 @@ fun main() {
 }
 ```
 
-我們非常感謝您在 [YouTrack](https://youtrack.jetbrains.com/issue/KT-12719) 中提供回饋。有關更多資訊，
+我們非常感謝您在 [YouTrack](https://youtrack.com/issue/KT-12719) 中提供回饋。有關更多資訊，
 請參閱該功能的 [KEEP](https://github.com/Kotlin/KEEP/blob/main/proposals/KEEP-0412-unused-return-value-checker.md)。
 
 ### 上下文感知解析的變更
@@ -184,7 +184,7 @@ fun main() {
 ## Kotlin/Native：透過 Swift 匯出改善互通性
 <primary-label ref="experimental-general"/>
 
-Kotlin %kotlinEapVersion% 透過 Swift 匯出進一步改善了 Kotlin 與 Swift 的互通性，新增了對原生列舉類別和可變參數函式的支援。
+Kotlin %kotlinEapVersion% 透過 Swift 匯出進一步改善了 Kotlin 與 Swift 的互通性，新增了對原生列舉類別和可變參數函式支援。
 
 以前，Kotlin 的列舉會匯出為普通的 Swift 類別。現在映射是直接的，您可以直接使用常規的原生 Swift 列舉。例如：
 
@@ -236,9 +236,9 @@ public func log(messages: Swift.String...)
 以前，只有類別名稱（不包含套件）可存取，這導致了從 JVM 移植到 Wasm 目標的程式碼或期望在運行時使用完整限定名稱的函式庫出現問題。
 
 在 Kotlin %kotlinEapVersion% 中，`KClass.qualifiedName` 屬性在 Kotlin/Wasm 目標上預設啟用。
-這表示 FQN 在運行時無需任何額外配置即可使用。
+這表示 FQNs 在運行時無需任何額外配置即可使用。
 
-預設啟用 FQN 提高了程式碼的可移植性，並透過顯示完整限定名稱使運行時錯誤更具資訊性。
+預設啟用 FQNs 提高了程式碼的可移植性，並透過顯示完整限定名稱使運行時錯誤更具資訊性。
 
 由於編譯器優化，使用 Latin-1 字串常值（string literals）的緊湊儲存方式來減少中繼資料，此變更不會增加編譯後的 Wasm 二進位檔案大小。
 
@@ -269,7 +269,7 @@ public func log(messages: Swift.String...)
 ```kotlin
 kotlin {
     compilerOptions {
-        freeCompilerArgs.add("-XXLanguage:+JsAllowExportingSuspendFunctions")
+        freeCompilerArgs.add("-Xenable-suspend-function-exporting")
     }
 }
 ```
@@ -323,7 +323,7 @@ kotlin {
 
 Kotlin %kotlinEapVersion% 與 Gradle 7.6.3 至 9.0.0 完全相容。您也可以使用最新的 Gradle 版本。然而，請注意，這樣做可能會導致棄用警告，並且某些新的 Gradle 功能可能無法正常運作。
 
-此外，最低支援的 Android Gradle plugin 版本現在是 8.2.2，最高支援版本是 8.13.0。
+此外，最低支援的 Android Gradle 插件版本現在是 8.2.2，最高支援版本是 8.13.0。
 
 ### 用於在 Gradle 專案中註冊生成原始碼的新 API
 <primary-label ref="experimental-general"/>

@@ -2,7 +2,7 @@
 
 要使用 [Gradle](https://docs.gradle.org/current/userguide/userguide.html) 构建 Kotlin 项目，你需要将 [Kotlin Gradle 插件添加](#apply-the-plugin) 到你的构建脚本文件 `build.gradle(.kts)` 中，并在其中 [配置项目的依赖项](#configure-dependencies)。
 
-> 要了解更多关于构建脚本的内容，
+> 关于构建脚本的更多内容，
 > 请访问[探索构建脚本](get-started-with-jvm-gradle-project.md#explore-the-build-script)章节。
 >
 {style="note"}
@@ -44,21 +44,21 @@ plugins {
 
 配置项目时，请检测 Kotlin Gradle 插件 (KGP) 与可用 Gradle 版本的兼容性。下表列出了 Gradle 和 Android Gradle 插件 (AGP) **完全支持** 的最低和最高版本：
 
-| KGP 版本      | Gradle 最低和最高版本         | AGP 最低和最高版本                              |
-|---------------|-------------------------------|-----------------------------------------------------|
-| 2.2.20        | %minGradleVersion%–%maxGradleVersion% | %minAndroidGradleVersion%–%maxAndroidGradleVersion% |
-| 2.2.0–2.2.10  | 7.6.3–8.14                    | 7.3.1–8.10.0                                        |
-| 2.1.20–2.1.21 | 7.6.3–8.12.1                  | 7.3.1–8.7.2                                         |
-| 2.1.0–2.1.10  | 7.6.3–8.10*                   | 7.3.1–8.7.2                                         |
-| 2.0.20–2.0.21 | 6.8.3–8.8*                    | 7.1.3–8.5                                           |
-| 2.0.0         | 6.8.3–8.5                     | 7.1.3–8.3.1                                         |
-| 1.9.20–1.9.25 | 6.8.3–8.1.1                   | 4.2.2–8.1.0                                         |
-| 1.9.0–1.9.10  | 6.8.3–7.6.0                   | 4.2.2–7.4.0                                         |
-| 1.8.20–1.8.22 | 6.8.3–7.6.0                   | 4.1.3–7.4.0                                         |
-| 1.8.0–1.8.11  | 6.8.3–7.3.3                   | 4.1.3–7.2.1                                         |
-| 1.7.20–1.7.22 | 6.7.1–7.1.1                   | 3.6.4–7.0.4                                         |
-| 1.7.0–1.7.10  | 6.7.1–7.0.2                   | 3.4.3–7.0.2                                         |
-| 1.6.20–1.6.21 | 6.1.1–7.0.2                   | 3.4.3–7.0.2                                         |
+| KGP 版本      | Gradle 最低和最高版本           | AGP 最低和最高版本                                |
+|---------------|-----------------------------------|-----------------------------------------------------|
+| 2.2.20–2.2.21 | %minGradleVersion%–%maxGradleVersion% | %minAndroidGradleVersion%–%maxAndroidGradleVersion% |
+| 2.2.0–2.2.10  | 7.6.3–8.14                        | 7.3.1–8.10.0                                        |
+| 2.1.20–2.1.21 | 7.6.3–8.12.1                      | 7.3.1–8.7.2                                         |
+| 2.1.0–2.1.10  | 7.6.3–8.10*                       | 7.3.1–8.7.2                                         |
+| 2.0.20–2.0.21 | 6.8.3–8.8*                        | 7.1.3–8.5                                           |
+| 2.0.0         | 6.8.3–8.5                         | 7.1.3–8.3.1                                         |
+| 1.9.20–1.9.25 | 6.8.3–8.1.1                       | 4.2.2–8.1.0                                         |
+| 1.9.0–1.9.10  | 6.8.3–7.6.0                       | 4.2.2–7.4.0                                         |
+| 1.8.20–1.8.22 | 6.8.3–7.6.0                       | 4.1.3–7.4.0                                         |      
+| 1.8.0–1.8.11  | 6.8.3–7.3.3                       | 4.1.3–7.2.1                                         |   
+| 1.7.20–1.7.22 | 6.7.1–7.1.1                       | 3.6.4–7.0.4                                         |
+| 1.7.0–1.7.10  | 6.7.1–7.0.2                       | 3.4.3–7.0.2                                         |
+| 1.6.20–1.6.21 | 6.1.1–7.0.2                       | 3.4.3–7.0.2                                         |
 
 > *Kotlin 2.0.20–2.0.21 和 Kotlin 2.1.0–2.1.10 完全兼容 Gradle 最高 8.6 版本。
 > Gradle 8.7–8.10 版本也受支持，只有一个例外：如果你使用 Kotlin 多平台 Gradle 插件，
@@ -84,10 +84,10 @@ plugins {
 
 你可以将以下属性添加到你项目的 `gradle.properties` 文件中来配置此行为：
 
-| Gradle 属性                                         | 描述                                                                                                                                              |
-|-----------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------|
-| `kotlin.project.persistent.dir`                     | 配置项目级别数据的存储位置。默认值：`<project-root-directory>/.kotlin`                                                                               |
-| `kotlin.project.persistent.dir.gradle.disableWrite` | 控制是否禁用向 `.gradle` 目录写入 Kotlin 数据（为了向后兼容旧的 IDEA 版本）。默认值：false                                                            |
+| Gradle 属性                                     | 描述                                                                                                                                              |
+|-------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------|
+| `kotlin.project.persistent.dir`                 | 配置项目级别数据的存储位置。默认值：`<project-root-directory>/.kotlin`                                                                               |
+| `kotlin.project.persistent.dir.gradle.disableWrite` | 控制是否禁用向 `.gradle` 目录写入 Kotlin 数据（为了向后兼容旧的 IDEA 版本）。默认值：false |
 
 ## 面向 JVM
 
@@ -240,7 +240,7 @@ plugins {
 </tab>
 </tabs>
 
-当构建脚本中没有关于 `jvmTarget` 值的显式信息时，其默认值为 `null`，编译器会将其转换为默认值 `1.8`。`targetCompatibility` 等于当前 Gradle 的 JDK 版本，也就是你的 JDK 版本（除非你使用 [Java 工具链方法](gradle-configure-project.md#gradle-java-toolchains-support)）。假设你的 JDK 版本是 `%jvmLTSVersionSupportedByKotlin%`，你发布的库 artifact 将[声明自身兼容](https://docs.gradle.org/current/userguide/publishing_gradle_module_metadata.html) JDK %jvmLTSVersionSupportedByKotlin%+: `org.gradle.jvm.version=%jvmLTSVersionSupportedByKotlin%`，这是错误的。在这种情况下，你必须在主项目中使用 Java %jvmLTSVersionSupportedByKotlin% 来添加此库，即使字节码版本是 `1.8`。[配置工具链](gradle-configure-project.md#gradle-java-toolchains-support)来解决此问题。
+当构建脚本中没有关于 `jvmTarget` 值的显式信息时，其默认值为 `null`，编译器会将其转换为默认值 `1.8`。`targetCompatibility` 等于当前 Gradle 的 JDK 版本，也就是你的 JDK 版本（除非你使用 [Java 工具链方法](gradle-configure-project.md#gradle-java-toolchains-support)）。假设你的 JDK 版本是 `%jvmLTSVersionSupportedByKotlin%`，你发布的库构件将[声明自身兼容](https://docs.gradle.org/current/userguide/publishing_gradle_module_metadata.html) JDK %jvmLTSVersionSupportedByKotlin%+: `org.gradle.jvm.version=%jvmLTSVersionSupportedByKotlin%`，这是错误的。在这种情况下，你必须在主项目中使用 Java %jvmLTSVersionSupportedByKotlin% 来添加此库，即使字节码版本是 `1.8`。[配置工具链](gradle-configure-project.md#gradle-java-toolchains-support)来解决此问题。
 
 ### Gradle Java 工具链支持
 
@@ -426,7 +426,7 @@ tasks.withType<UsesKotlinJavaToolchain>().configureEach {
 }
 ```
 
-### 关联编译器任务
+### 关联编译任务
 
 你可以通过在编译项之间建立一种关系来 _关联_ 编译项，即一个编译项使用另一个编译项的编译输出。关联编译项会在它们之间建立 `internal` 可见性。
 
@@ -519,7 +519,7 @@ tasks.named("compileJava", JavaCompile.class) {
 
 #### 禁用 artifact 在编译任务中的使用
 
-在某些罕见场景中，你可能会遇到由循环依赖错误导致的构建失败。例如，当你拥有多个编译项，其中一个编译项可以看到另一个编译项的所有内部声明，并且生成的 artifact 依赖于这两个编译任务的输出时：
+在某些罕见场景中，你可能会遇到由循环依赖错误导致的构建失败。例如，当你拥有多个编译项，其中一个编译项可以看到另一个编译项的所有内部声明，并且生成的构件依赖于这两个编译任务的输出时：
 
 ```none
 FAILURE: Build failed with an exception.
@@ -533,12 +533,12 @@ Circular dependency between the following tasks:
 ```
 
 为了解决这个循环依赖错误，我们添加了一个 Gradle 属性：`archivesTaskOutputAsFriendModule`。
-此属性控制编译任务中 artifact 输入的使用，并确定是否因此创建任务依赖。
+此属性控制编译任务中构件输入的使用，并确定是否因此创建任务依赖。
 
 默认情况下，此属性设置为 `true` 以跟踪任务依赖。如果你遇到循环依赖错误，
-你可以禁用 artifact 在编译任务中的使用，从而移除任务依赖并避免循环依赖错误。
+你可以禁用构件在编译任务中的使用，从而移除任务依赖并避免循环依赖错误。
 
-要禁用 artifact 在编译任务中的使用，请将以下内容添加到你的 `gradle.properties` 文件中：
+要禁用构件在编译任务中的使用，请将以下内容添加到你的 `gradle.properties` 文件中：
 
 ```kotlin
 kotlin.build.archivesTaskOutputAsFriendModule=false
@@ -1171,7 +1171,7 @@ kotlin.test.infer.jvm.variant=false
 
 ### 设置对 kotlinx 库的依赖项
 
-如果你使用多平台库并需要依赖共享代码，请在共享源代码集中只设置一次依赖项。使用库的基础 artifact 名称，例如 `kotlinx-coroutines-core` 或 `ktor-client-core`：
+如果你使用多平台库并需要依赖共享代码，请在共享源代码集中只设置一次依赖项。使用库的基础构件名称，例如 `kotlinx-coroutines-core` 或 `ktor-client-core`：
 
 <tabs group="build-script">
 <tab title="Kotlin" group-key="kotlin">
@@ -1204,7 +1204,7 @@ kotlin {
 </tab>
 </tabs>
 
-如果你需要 kotlinx 库用于平台特有的依赖项，你仍然可以在相应的平台源代码集中使用库的基础 artifact 名称：
+如果你需要 kotlinx 库用于平台特有的依赖项，你仍然可以在相应的平台源代码集中使用库的基础构件名称：
 
 <tabs group="build-script">
 <tab title="Kotlin" group-key="kotlin">

@@ -1,4 +1,4 @@
-[//]: # (title: Compose Multiplatform 1.10.0-beta02 新特性)
+[//]: # (title: Compose Multiplatform 1.10.0-rc01 新特性)
 
 以下是本次抢先体验预览 (EAP) 特性发布的主要亮点：
  * [统一的 `@Preview` 注解](#unified-preview-annotation)
@@ -9,11 +9,11 @@
 
 ## 依赖项
 
-* Gradle 插件 `org.jetbrains.compose`，版本 `1.10.0-beta02`。基于 Jetpack Compose 库：
-    * [Runtime 1.10.0-beta02](https://developer.android.com/jetpack/androidx/releases/compose-runtime#1.10.0-beta02)
-    * [UI 1.10.0-beta02](https://developer.android.com/jetpack/androidx/releases/compose-ui#1.10.0-beta02)
-    * [Foundation 1.10.0-beta02](https://developer.android.com/jetpack/androidx/releases/compose-foundation#1.10.0-beta02)
-    * [Material 1.10.0-beta02](https://developer.android.com/jetpack/androidx/releases/compose-material#1.10.0-beta02)
+* Gradle 插件 `org.jetbrains.compose`，版本 `1.10.0-rc01`。基于 Jetpack Compose 库：
+    * [Runtime 1.10.0-rc01](https://developer.android.com/jetpack/androidx/releases/compose-runtime#1.10.0-rc01)
+    * [UI 1.10.0-rc01](https://developer.android.com/jetpack/androidx/releases/compose-ui#1.10.0-rc01)
+    * [Foundation 1.10.0-rc01](https://developer.android.com/jetpack/androidx/releases/compose-foundation#1.10.0-rc01)
+    * [Material 1.10.0-rc01](https://developer.android.com/jetpack/androidx/releases/compose-material#1.10.0-rc01)
     * [Material3 1.5.0-alpha08](https://developer.android.com/jetpack/androidx/releases/compose-material3#1.5.0-alpha08)
 
 * Compose Material3 库 `org.jetbrains.compose.material3:material3*:1.10.0-alpha05`。基于 [Jetpack Compose Material3 1.5.0-alpha08](https://developer.android.com/jetpack/androidx/releases/compose-material3#1.5.0-alpha08)。
@@ -23,12 +23,12 @@
     implementation("org.jetbrains.compose.material3:material3:1.9.0-alpha04")
     ```
 * Compose Material3 Adaptive 库 `org.jetbrains.compose.material3.adaptive:adaptive*:1.3.0-alpha02`。基于 [Jetpack Compose Material3 Adaptive 1.3.0-alpha03](https://developer.android.com/jetpack/androidx/releases/compose-material3-adaptive#1.3.0-alpha03)
-* Lifecycle 库 `org.jetbrains.androidx.lifecycle:lifecycle-*:2.10.0-alpha05`。基于 [Jetpack Lifecycle 2.10.0-rc01](https://developer.android.com/jetpack/androidx/releases/lifecycle#2.10.0-rc01)
+* Lifecycle 库 `org.jetbrains.androidx.lifecycle:lifecycle-*:2.10.0-alpha06`。基于 [Jetpack Lifecycle 2.10.0](https://developer.android.com/jetpack/androidx/releases/lifecycle#2.10.0)
 * Navigation 库 `org.jetbrains.androidx.navigation:navigation-*:2.9.1`。基于 [Jetpack Navigation 2.9.4](https://developer.android.com/jetpack/androidx/releases/navigation#2.9.4)
-* Navigation 3 库 `org.jetbrains.androidx.navigation3:navigation3-*:1.0.0-alpha05`。基于 [Jetpack Navigation3 1.0.0-rc01](https://developer.android.com/jetpack/androidx/releases/navigation3#1.0.0-rc01)
-* Navigation Event 库 `org.jetbrains.androidx.navigationevent:navigationevent-compose:1.0.0-beta02`。基于 [Jetpack Navigation Event 1.0.0-rc01](https://developer.android.com/jetpack/androidx/releases/navigationevent#1.0.0-rc01)
-* Savedstate 库 `org.jetbrains.androidx.savedstate:savedstate*:1.4.0-rc01`。基于 [Jetpack Savedstate 1.4.0](https://developer.android.com/jetpack/androidx/releases/savedstate#1.4.0)
-* WindowManager Core 库 `org.jetbrains.androidx.window:window-core:1.5.0`。基于 [Jetpack WindowManager 1.5.0](https://developer.android.com/jetpack/androidx/releases/window#1.5.0)
+* Navigation 3 库 `org.jetbrains.androidx.navigation3:navigation3-*:1.0.0-alpha06`。基于 [Jetpack Navigation3 1.0.0](https://developer.android.com/jetpack/androidx/releases/navigation3#1.0.0)
+* Navigation Event 库 `org.jetbrains.androidx.navigationevent:navigationevent-compose:1.0.0-rc01`。基于 [Jetpack Navigation Event 1.0.0](https://developer.android.com/jetpack/androidx/releases/navigationevent#1.0.0)
+* Savedstate 库 `org.jetbrains.androidx.savedstate:savedstate*:1.4.0`。基于 [Jetpack Savedstate 1.4.0](https://developer.android.com/jetpack/androidx/releases/savedstate#1.4.0)
+* WindowManager Core 库 `org.jetbrains.androidx.window:window-core:1.5.1`。基于 [Jetpack WindowManager 1.5.1](https://developer.android.com/jetpack/androidx/releases/window#1.5.1)
 
 ## 破坏性变更
 
@@ -43,7 +43,7 @@ Compose Multiplatform Gradle 插件支持的依赖项别名（`compose.ui` 等�
 
 ### Web 平台的最低 Kotlin 版本已提高
 
-如果你的项目包含 Web 目标，则最新特性需要升级到 Kotlin 2.2.21。
+如果你的项目包含 Web 目标，则最新特性需要升级到 Kotlin 2.2.20。
 
 ## 跨平台
 
@@ -144,8 +144,8 @@ Compose Multiplatform 现在支持 `WindowInsetsRulers`，
 你现在可以使用实验性的 `placedAsOverlay` 标志，将 `UIKitView` 和 `UIKitViewController` 视图放置在 Compose UI 之上。
 此标志允许互操作视图支持透明背景和原生着色器效果。
 
-要将互操作视图渲染为叠加层，请使用 `@OptIn(ExperimentalComposeUiApi::class)` 注解并
-在 `UIKitInteropProperties` 中将 `placedAsOverlay` 形参设置为 `true`：
+要将互操作视图渲染为叠加层，请使用 `@OptIn(ExperimentalComposeUiApi::class)` 注解并将
+`UIKitInteropProperties` 中将 `placedAsOverlay` 形参设置为 `true`：
 
 ```kotlin
 UIKitViewController(
@@ -183,4 +183,4 @@ Compose Multiplatform 引入了对 Android Gradle 插件 (AGP) 9.0.0 版本的�
 为了与新的 AGP 版本兼容，请确保你升级到 Compose Multiplatform 1.9.3 或 1.10.0。
 
 为了长期使更新过程更顺畅，
-我们建议你更改项目结构，以将 AGP 的使用隔离到专用的 Android 模块中。
+我们建议你更改项目结构，以使用专用的 Android 应用程序模块。

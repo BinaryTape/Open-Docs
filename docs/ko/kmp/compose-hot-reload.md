@@ -1,7 +1,5 @@
 [//]: # (title: Compose 핫 리로드)
 
-<primary-label ref="beta"/>
-
 [Compose 핫 리로드](https://github.com/JetBrains/compose-hot-reload)는 Compose Multiplatform 프로젝트에서 작업하는 동안 UI 변경 사항을 시각화하고 실험하는 데 도움을 줍니다.
 
 Compose 핫 리로드는 현재 멀티플랫폼 프로젝트에 데스크톱 타겟이 포함되어 있고 Java 21 이하 버전과 호환되는 경우에만 사용할 수 있습니다.
@@ -62,7 +60,7 @@ Compose 핫 리로드는 다음 두 가지 방법으로 추가할 수 있습니�
     Compose 핫 리로드는 프로젝트에 호환 가능한 JBR을 자동으로 프로비저닝(provision)할 수 있습니다.
 
     > 최신 JetBrains Runtime은 Java 21만 지원합니다. Java 22 이상 버전에서만 호환되는 프로젝트에 Compose 핫 리로드를 추가하면 프로젝트 실행 시 링키지 오류가 발생합니다.
-    >
+    > 
     {style="warning"}
 
     자동 프로비저닝을 허용하려면 다음 Gradle 플러그인을 `settings.gradle.kts` 파일에 추가합니다.
@@ -73,7 +71,7 @@ Compose 핫 리로드는 다음 두 가지 방법으로 추가할 수 있습니�
     }
     ```
 
-5.  **Gradle 변경 사항 동기화** 버튼을 클릭하여 Gradle 파일을 동기화합니다. ![Synchronize Gradle files](gradle-sync.png){width=50}
+5.  **Gradle 변경 사항 동기화** 버튼을 클릭하여 Gradle 파일을 동기화합니다. ![Gradle 변경 사항 동기화](gradle-sync.png){width=50}
 
 ## Compose 핫 리로드 사용하기
 
@@ -108,8 +106,7 @@ Compose 핫 리로드는 다음 두 가지 방법으로 추가할 수 있습니�
      }
     ```
 
-4.  `main.kt` 파일을 열고 거터(gutter)에 있는 **Run** 아이콘을 클릭합니다.
-    **Run 'composeApp [hotRunJvm]' with Compose Hot Reload (Beta)**를 선택합니다.
+4.  `main.kt` 파일을 열고 거터(gutter)에 있는 **Run** 아이콘을 클릭합니다. **Run 'composeApp [jvm]' with Compose Hot Reload**를 선택합니다.
 
     ![거터에서 Compose 핫 리로드 실행](compose-hot-reload-gutter-run.png){width=350}
 

@@ -85,7 +85,7 @@
   "kotlin.kotlin-overview": "Kotlinの概要",
   "kotlin.what-s-new-in-kotlin": "Kotlinの新機能",
   "kotlin.whatsnew22": "Kotlin 2.2.0",
-  "kotlin.whatsnew-eap": "Kotlin 2.3.0-RC",
+  "kotlin.whatsnew-eap": "Kotlin 2.3.0-RC2",
   "kotlin.earlier-versions": "以前のバージョン",
   "kotlin.whatsnew2120": "Kotlin 2.1.20",
   "kotlin.whatsnew21": "Kotlin 2.1.0",
@@ -153,7 +153,7 @@
   "kotlin.native-arc-integration": "ARCとの統合",
   "kotlin.native-migration-guide": "移行ガイド",
   "kotlin.reference-and-tips": "リファレンスとヒント",
-  "kotlin.native-target-support": "Target and host support",
+  "kotlin.native-target-support": "ターゲットとホストのサポート",
   "kotlin.native-improving-compilation-time": "コンパイル時間の改善",
   "kotlin.native-binary-licenses": "ライセンスファイル",
   "kotlin.webassembly-wasm": "WebAssembly (Wasm)",
@@ -514,7 +514,7 @@
   "koog.event-handlers": "イベントハンドラー",
   "kmp.kmp-tooling": "KMPツーリング",
   "kotlin.compose-multiplatform-material3": "Compose Multiplatform Material3",
-  "kmp.whats-new-compose-110": "Compose Multiplatform 1.10.0-beta02",
+  "kmp.whats-new-compose-110": "Compose Multiplatform 1.10.0-rc01",
   "kmp.earlier-versions": "以前のバージョン",
   "kotlin.language-guide": "言語ガイド",
   "kotlin.basic-syntax": "概要",
@@ -585,7 +585,8 @@
   "koog.llm-parameters": "LLMパラメーター",
   "sqldelight.fts5-virtual-tables": "FTS5 Virtual Tables",
   "kmp.case-studies": "ケーススタディ",
-  "kmp.compose-multiplatform-and-jetpack-compose": "Relationship between frameworks",
-  "kmp.compose-multiplatform-jetpack-libraries": "Multiplatform artifacts for Compose libraries",
-  "koog.custom-tools-schema": "Custom tools schema"
+  "kmp.compose-multiplatform-and-jetpack-compose": "フレームワーク間の関係",
+  "kmp.compose-multiplatform-jetpack-libraries": "ComposeライブラリのMultiplatformアーティファクト",
+  "koog.custom-tools-schema": "カスタムツールスキーマ",
+  "kmp.migrate-from-android": "高度なAndroidアプリをKMPに移行する"
 }

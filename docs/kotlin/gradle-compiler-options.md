@@ -182,6 +182,9 @@ tasks.withType(KotlinCompile).configureEach {
 <tab title="Kotlin" group-key="kotlin">
 
 ```kotlin
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
+
 plugins {
     kotlin("jvm") version "%kotlinVersion%"
 }
@@ -207,6 +210,9 @@ tasks.named<KotlinJvmCompile>("compileKotlin"){
 <tab title="Groovy" group-key="groovy">
 
 ```kotlin
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
+
 plugins {
     id 'org.jetbrains.kotlin.jvm' version '%kotlinVersion%'
 }
@@ -577,7 +583,7 @@ tasks.named('compileKotlin', KotlinCompilationTask) {
 | `allWarningsAsErrors` | 如果有任何警告则报告错误 | | false |
 | `suppressWarnings` | 不生成警告 | | false |
 | `verbose` | 启用详细日志输出。仅当[启用 Gradle 调试日志级别](https://docs.gradle.org/current/userguide/logging.html)时有效 | | false |
-| `freeCompilerArgs` | 额外的编译器实参列表。您也可以在此处使用实验性的 `-X` 实参。关于示例请参见[通过 freeCompilerArgs 使用额外实参的示例](#example-of-additional-arguments-usage-via-freecompilerargs) | | [] |
+| `freeCompilerArgs` | 额外的编译器实参列表。您也可以在此处使用实验性的 `-X` 实参。关于示例请参见[通过 freeCompilerArgs 使用额外实参的示例](#example-of-additional-arguments-usage-via-freeCompilerArgs) | | [] |
 | `apiVersion` | 将声明的使用限制为来自指定版本捆绑库中的声明 | "1.8", "1.9", "2.0", "2.1", "2.2" (EXPERIMENTAL) | |
 | `languageVersion` | 提供与指定版本 Kotlin 的源代码兼容性 | "1.8", "1.9", "2.0", "2.1", "2.2" (EXPERIMENTAL) | |
 

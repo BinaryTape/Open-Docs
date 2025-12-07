@@ -1,7 +1,5 @@
 [//]: # (title: Compose Hot Reload)
 
-<primary-label ref="beta"/>
-
 [Compose Hot Reload](https://github.com/JetBrains/compose-hot-reload) 協助您在處理 Compose Multiplatform 專案時，視覺化並試驗使用者介面 (UI) 的變更。
 
 Compose Hot Reload 目前僅適用於您的多平台專案包含桌面目標且與 Java 21 或更早版本相容的情況。
@@ -54,7 +52,7 @@ Compose Hot Reload 可以透過兩種方式新增，方式如下：
 
 3.  在包含您的多平台應用程式的子專案的 `build.gradle.kts` (`ComposeDemo/composeApp/build.gradle.kts`) 中，將以下程式碼新增到您的 `plugins {}` 區塊：
     ```kotlin
-    plugins {
+    plugins { 
         alias(libs.plugins.composeHotReload)
     }
     ```
@@ -112,7 +110,7 @@ Compose Hot Reload 可以透過兩種方式新增，方式如下：
     ```
 
 4.  開啟 `main.kt` 檔案並點擊編輯器邊欄中的 **Run** 圖示。
-    選取 **Run 'composeApp [hotRunJvm]' with Compose Hot Reload (Beta)**。
+    選取 **Run 'composeApp [jvm]' with Compose Hot Reload**。
 
     ![從編輯器邊欄執行 Compose Hot Reload](compose-hot-reload-gutter-run.png){width=350}
 

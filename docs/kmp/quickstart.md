@@ -51,8 +51,7 @@ Kotlin Multiplatform (KMP) 项目需要特定的环境，但大多数要求都�
     </TabItem>
     </Tabs>
 
-5.  要创建 iOS 应用程序，你需要一台安装了 [Xcode](https://apps.apple.com/us/app/xcode/id497799835) 的 macOS 主机。
-    你的 IDE 会在后台运行 Xcode 来构建 iOS framework。
+5.  要创建 iOS 应用程序，你需要一台安装了 [Xcode](https://apps.apple.com/us/app/xcode/id497799835) 的 macOS 主机。你的 IDE 会在后台运行 Xcode 来构建 iOS framework。
 
     确保在开始使用 KMP 项目之前至少启动 Xcode 一次，以便它完成初始设置。
 

@@ -267,7 +267,7 @@ Java 的常見問題：
     *   [專案配置](multiplatform-project-configuration.md)
     *   [使用多平台依賴項](https://kotlinlang.org/docs/multiplatform-add-dependencies.html)
 *   了解 Compose Multiplatform UI 框架、其基礎知識和平台特定功能：
-    [Compose Multiplatform 和 Jetpack Compose](compose-multiplatform-and-jetpack-compose.md)。
+    [Compose Multiplatform 和 Jetpack Compose 的關係](compose-multiplatform-and-jetpack-compose.md)。
 
 探索已為 KMP 編寫的代碼：
 *   我們的 [範例](multiplatform-samples.md) 頁面，包含 JetBrains 官方範例以及展示 KMP 功能的精選專案列表。

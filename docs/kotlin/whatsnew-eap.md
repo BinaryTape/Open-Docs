@@ -185,7 +185,7 @@ fun main() {
 ## Kotlin/Native：通过 Swift 导出改进互操作性
 <primary-label ref="experimental-general"/>
 
-Kotlin %kotlinEapVersion% 通过 Swift 导出进一步改进了 Kotlin 与 Swift 的互操作性，新增对原生枚举类和可变参数函数的支持。
+Kotlin %kotlinEapVersion% 通过 Swift 导出进一步改进了 Kotlin 与 Swift 的互操作性，新增对原生枚举类和可变参数函数（variadic function parameters）的支持。
 
 以前，Kotlin 枚举被导出为普通的 Swift 类。现在映射是直接的，您可以使用常规的原生 Swift 枚举。例如：
 
@@ -209,7 +209,7 @@ public enum Color: Swift.CaseIterable, Swift.LosslessStringConvertible, Swift.Ra
 }
 ```
 
-Kotlin 的 [`vararg`](functions.md#variable-number-of-arguments-varargs) 函数现在也直接映射到 Swift 的可变参数函数。
+Kotlin 的 [`vararg`](functions.md#variable-number-of-arguments-varargs) 函数现在也直接映射到 Swift 的可变参数函数（variadic function parameters）。
 
 此类函数允许您传递可变数量的实参。这在您不提前知道实参数量，或者想要创建或传递集合而不指定其类型时非常有用。例如：
 
@@ -223,7 +223,7 @@ fun log(vararg messages: String)
 public func log(messages: Swift.String...)
 ```
 
-> 可变参数函数中的泛型类型尚不支持。
+> 可变参数函数（variadic function parameters）中的泛型类型尚不支持。
 >
 {style="note"}
 
@@ -278,7 +278,7 @@ Kotlin 的异步函数现在无需额外代码即可直接从 JS/TS 调用。
 ```kotlin
 kotlin {
     compilerOptions {
-        freeCompilerArgs.add("-XXLanguage:+JsAllowExportingSuspendFunctions")
+        freeCompilerArgs.add("-Xenable-suspend-function-exporting")
     }
 }
 ```
@@ -394,7 +394,7 @@ kotlin.sourceSets.getByName("main").generatedKotlin.srcDir(generatorTask)
 这扩展了以前仅在可调试变体中可用的实验性堆栈轨迹特性。
 
 堆栈轨迹的发布变体包含组键，可用于在精简应用程序中识别可组合函数，而无需在运行时记录源信息的开销。
-组键堆栈轨迹要求您的应用程序使用 Compose runtime 1.10 或更高版本构建。
+组键堆栈轨迹要求您的应用程序使用 Compose runtime 1.10 或更新版本构建。
 
 要启用组键堆栈轨迹，请在初始化任何 `@Composable` 内容之前添加以下行：
 

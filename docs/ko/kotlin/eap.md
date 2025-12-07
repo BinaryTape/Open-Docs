@@ -40,13 +40,13 @@ Kotlin 얼리 액세스 프리뷰(EAP)에 참여하여 최신 Kotlin 기능을 �
         <th>빌드 주요 사항</th>
     </tr>
     <tr>
-        <td><strong>2.3.0-RC</strong>
-            <p>릴리스됨: <strong>2025년 11월 18일</strong></p>
-            <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.3.0-RC" target="_blank">GitHub에서 릴리스</a></p>
+        <td><strong>2.3.0-RC2</strong>
+            <p>릴리스됨: <strong>2025년 12월 2일</strong></p>
+            <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.3.0-RC2" target="_blank">GitHub에서 릴리스</a></p>
         </td>
         <td>
             <p>새로운 기능 미리 보기 및 툴링 업데이트가 포함된 언어 릴리스입니다.</p>
-            <p>자세한 내용은 <a href="https://github.com/JetBrains/kotlin/releases/tag/v2.3.0-RC">변경 로그</a> 또는 <a href="whatsnew-eap.md">Kotlin 2.3.0-RC의 새로운 기능</a>을 참조하세요.</p>
+            <p>자세한 내용은 <a href="https://github.com/JetBrains/kotlin/releases/tag/v2.3.0-RC2">변경 로그</a> 또는 <a href="whatsnew-eap.md">Kotlin 2.3.0-RC2의 새로운 기능</a>을 참조하세요.</p>
         </td>
     </tr>
 </table>

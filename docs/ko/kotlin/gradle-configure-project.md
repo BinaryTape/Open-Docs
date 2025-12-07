@@ -46,9 +46,9 @@ plugins {
 
 | KGP 버전      | Gradle 최소 및 최대 버전          | AGP 최소 및 최대 버전                               |
 |---------------|-----------------------------------|-----------------------------------------------------|
-| 2.2.20        | %minGradleVersion%–%maxGradleVersion% | %minAndroidGradleVersion%–%maxAndroidGradleVersion% |
-| 2.2.0-2.2.10  | 7.6.3-8.14                        | 7.3.1-8.10.0                                        |
-| 2.1.20-2.1.21 | 7.6.3–8.12.1                      | 7.3.1–8.7.2                                         |
+| 2.2.20–2.2.21 | %minGradleVersion%–%maxGradleVersion% | %minAndroidGradleVersion%–%maxAndroidGradleVersion% |
+| 2.2.0–2.2.10  | 7.6.3–8.14                        | 7.3.1–8.10.0                                        |
+| 2.1.20–2.1.21 | 7.6.3–8.12.1                      | 7.3.1–8.7.2                                         |
 | 2.1.0–2.1.10  | 7.6.3–8.10*                       | 7.3.1–8.7.2                                         |
 | 2.0.20–2.0.21 | 6.8.3–8.8*                        | 7.1.3–8.5                                           |
 | 2.0.0         | 6.8.3–8.5                         | 7.1.3–8.3.1                                         |
@@ -1256,7 +1256,7 @@ repositories {
 > 
 {style="warning"}
 
-둘 이상의 서브프로젝트에서 동일한 저장소를 선언해야 하는 경우, `settings.gradle(.kts)` 파일의 `dependencyResolutionManagement{}` 블록에 저장소를 중앙에서 선언하세요:
+둘 이상의 서브프로젝트에서 동일한 저장소를 선언해야 하는 경우, `dependencyResolutionManagement{}` 블록에 저장소를 중앙에서 선언하세요:
 
 <tabs group="build-script">
 <tab title="Kotlin" group-key="kotlin">

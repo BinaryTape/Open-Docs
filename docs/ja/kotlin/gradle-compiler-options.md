@@ -183,6 +183,9 @@ tasks.withType(KotlinCompile).configureEach {
 <tab title="Kotlin" group-key="kotlin">
 
 ```kotlin
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
+
 plugins {
     kotlin("jvm") version "%kotlinVersion%"
 }
@@ -208,6 +211,9 @@ tasks.named<KotlinJvmCompile>("compileKotlin"){
 <tab title="Groovy" group-key="groovy">
 
 ```kotlin
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
+
 plugins {
     id 'org.jetbrains.kotlin.jvm' version '%kotlinVersion%'
 }

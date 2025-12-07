@@ -1,11 +1,11 @@
-`[//]: # (title: 建立您自己的應用程式)`
+[//]: # (title: 建立您自己的應用程式)
 
 <secondary-label ref="IntelliJ IDEA"/>
 <secondary-label ref="Android Studio"/>
 
 <tldr>
     <p>本教學課程使用 IntelliJ IDEA，但您也可以在 Android Studio 中進行操作 – 這兩個 IDE 共享相同的核心功能並支援 Kotlin Multiplatform。</p>
-    <br/>
+    <br/>   
     <p>這是**使用共享邏輯和使用者介面建立 Compose Multiplatform 應用程式**教學課程的最後一部分。在繼續之前，請確保您已完成先前的步驟。</p>
     <p><img src="icon-1-done.svg" width="20" alt="第一個步驟"/> <Links href="/kmp/compose-multiplatform-create-first-app" summary="This tutorial uses IntelliJ IDEA, but you can also follow it in Android Studio – both IDEs share the same core functionality and Kotlin Multiplatform support. This is the first part of the Create a Compose Multiplatform app with shared logic and UI tutorial. Create your Compose Multiplatform app Explore composable code Modify the project Create your own application">建立您的 Compose Multiplatform 應用程式</Links><br/>
        <img src="icon-2-done.svg" width="20" alt="第二個步驟"/> <Links href="/kmp/compose-multiplatform-explore-composables" summary="This tutorial uses IntelliJ IDEA, but you can also follow it in Android Studio – both IDEs share the same core functionality and Kotlin Multiplatform support. This is the second part of the Create a Compose Multiplatform app with shared logic and UI tutorial. Before proceeding, make sure you've completed previous steps. Create your Compose Multiplatform app Explore composable code Modify the project Create your own application">探索可組合程式碼</Links><br/>
@@ -61,11 +61,16 @@
 
    當您執行應用程式並按一下按鈕時，將顯示硬編碼的時間。
 
-3. 在桌面上執行應用程式。它運作正常，但視窗對於使用者介面來說顯然太大了：
+3. 使用 [Compose 熱重載](compose-hot-reload.md) 在桌面上執行應用程式：
+   1. 在 `composeApp/src/jvmMain/kotlin/main.kt` 檔案中，按一下邊槽中的 **執行** 圖示。
+   2. 選擇 **使用 Compose 熱重載執行 'composeApp [jvm]'**。
+   ![從邊槽執行 Compose 熱重載](compose-hot-reload-gutter-run.png){width=350}
+
+   應用程式運作正常，但視窗對於使用者介面來說顯然太大了：
 
    ![桌面上的新 Compose Multiplatform 應用程式](first-compose-project-on-desktop-3.png){width=400}
 
-4. 為了解決這個問題，請在 `composeApp/src/jvmMain/kotlin` 中，將 `main.kt` 檔案更新如下：
+4. 為了解決這個問題，請將 `main.kt` 檔案更新如下：
 
     ```kotlin
    fun main() = application {
@@ -86,27 +91,13 @@
 
     在這裡，您設定了視窗標題並使用 `WindowState` 類型為視窗設定初始大小和螢幕位置。
 
-    > 若要在桌面應用程式中即時查看您的變更，請使用 [Compose 熱重載](compose-hot-reload.md)：
-    > 1. 在 `main.kt` 檔案中，按一下邊槽中的 **執行** 圖示。
-    > 2. 選擇 **使用 Compose 熱重載 (Beta) 執行 'composeApp [hotRunJvm]'**。
-    > ![從邊槽執行 Compose 熱重載](compose-hot-reload-gutter-run.png){width=350}
-    >
-    > 若要讓應用程式自動更新，請儲存任何修改過的檔案 (<shortcut>⌘ S</shortcut> / <shortcut>Ctrl+S</shortcut>)。
-    >
-    > Compose 熱重載目前處於 [Beta](https://kotlinlang.org/components-stability.html#stability-levels-explained) 階段，因此其功能可能會有所變更。
-    >
-    {style="tip"}
-
 5. 遵循 IDE 的指示匯入缺少的依賴項。
-6. 再次執行桌面應用程式。其外觀應會改善：
+
+6. 若要讓應用程式自動更新，請儲存任何修改過的檔案 (<shortcut>⌘ S</shortcut> / <shortcut>Ctrl+S</shortcut>)。其外觀應會改善：
 
    ![Compose Multiplatform 應用程式在桌面上的外觀改善](first-compose-project-on-desktop-4.png){width=350}
 
-<!--
-   ### Compose Hot Reload demo {initial-collapse-state="collapsed" collapsible="true"}
-
    ![Compose Hot Reload](compose-hot-reload-resize.gif)
--->
 
 ## 支援使用者輸入
 
@@ -200,17 +191,8 @@
    }
     ```
 
-4. 在 `wasmJsMain/kotlin/main.kt` 檔案中，在 `main()` 函式之前新增以下程式碼，以初始化對網路時區的支援：
-
-    ```kotlin
-    @JsModule("@js-joda/timezone")
-    external object JsJodaTimeZoneModule
-    
-    private val jsJodaTz = JsJodaTimeZoneModule
-    ```
-
-5. 再次執行應用程式並輸入有效的時區。
-6. 按一下按鈕。您應該會看到正確的時間：
+4. 再次執行應用程式並輸入有效的時區。
+5. 按一下按鈕。您應該會看到正確的時間：
 
 <Tabs>
     <TabItem id="mobile-time-display" title="Android 和 iOS">

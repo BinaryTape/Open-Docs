@@ -181,6 +181,9 @@ tasks.withType(KotlinCompile).configureEach {
 <tab title="Kotlin" group-key="kotlin">
 
 ```kotlin
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
+
 plugins {
     kotlin("jvm") version "%kotlinVersion%"
 }
@@ -206,6 +209,9 @@ tasks.named<KotlinJvmCompile>("compileKotlin"){
 <tab title="Groovy" group-key="groovy">
 
 ```kotlin
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
+
 plugins {
     id 'org.jetbrains.kotlin.jvm' version '%kotlinVersion%'
 }
@@ -277,8 +283,8 @@ android {
 
 ```kotlin
 plugins {
-  id("com.android.application")
-  kotlin("android")
+    id("com.android.application")
+    kotlin("android")
 }
 
 kotlin {
@@ -401,7 +407,7 @@ kotlin {
   | 이전                            | 이후                                             |
   |-----------------------------------|---------------------------------------------------|
   | `-Xjvm-default=all-compatibility` | `jvmDefault.set(JvmDefaultMode.ENABLE)`           |
-  | `-Xjvm-default=all`               | `jvmDefault.set(JvmDefaultMode.NO_COMPATIBILITY)` | 
+  | `-Xjvm-default=all`               | `jvmDefault.set(JvmDefaultMode.NO_COMPATIBILITY)` |
   | `-Xjvm-default=disable`           | `jvmDefault.set(JvmDefaultMode.DISABLE)`          |
 
 예를 들어 다음과 같은 코드가 있다면:
@@ -713,7 +719,7 @@ tasks
 ## 다음은 무엇입니까?
 
 다음에 대해 자세히 알아보십시오:
-* [Kotlin 멀티플랫폼 DSL 참조](https://kotlinlang.org/docs/multiplatform/multiplatform-dsl-reference.html). 
+* [Kotlin 멀티플랫폼 DSL 참조](https://kotlinlang.org/docs/multiplatform/multiplatform-dsl-reference.html).
 * [증분 컴파일, 캐시 지원, 빌드 보고서 및 Kotlin 데몬](gradle-compilation-and-caches.md).
 * [Gradle 기본 사항 및 세부 사항](https://docs.gradle.org/current/userguide/userguide.html).
 * [Gradle 플러그인 변형 지원](gradle-plugin-variants.md).

@@ -1,4 +1,4 @@
-[//]: # (title: Compose Multiplatform 1.10.0-beta02 新功能)
+[//]: # (title: Compose Multiplatform 1.10.0-rc01 新功能)
 
 以下是此 EAP 功能版本的重點：
  * [統一的 `@Preview` 註解](#unified-preview-annotation)
@@ -9,11 +9,11 @@
 
 ## 依賴項
 
-* Gradle Plugin `org.jetbrains.compose`，版本 `1.10.0-beta02`。基於 Jetpack Compose 函式庫：
-    * [Runtime 1.10.0-beta02](https://developer.android.com/jetpack/androidx/releases/compose-runtime#1.10.0-beta02)
-    * [UI 1.10.0-beta02](https://developer.android.com/jetpack/androidx/releases/compose-ui#1.10.0-beta02)
-    * [Foundation 1.10.0-beta02](https://developer.android.com/jetpack/androidx/releases/compose-foundation#1.10.0-beta02)
-    * [Material 1.10.0-beta02](https://developer.android.com/jetpack/androidx/releases/compose-material#1.10.0-beta02)
+* Gradle Plugin `org.jetbrains.compose`，版本 `1.10.0-rc01`。基於 Jetpack Compose 函式庫：
+    * [Runtime 1.10.0-rc01](https://developer.android.com/jetpack/androidx/releases/compose-runtime#1.10.0-rc01)
+    * [UI 1.10.0-rc01](https://developer.android.com/jetpack/androidx/releases/compose-ui#1.10.0-rc01)
+    * [Foundation 1.10.0-rc01](https://developer.android.com/jetpack/androidx/releases/compose-foundation#1.10.0-rc01)
+    * [Material 1.10.0-rc01](https://developer.android.com/jetpack/androidx/releases/compose-material#1.10.0-rc01)
     * [Material3 1.5.0-alpha08](https://developer.android.com/jetpack/androidx/releases/compose-material3#1.5.0-alpha08)
 
 * Compose Material3 函式庫 `org.jetbrains.compose.material3:material3*:1.10.0-alpha05`。基於 [Jetpack Compose Material3 1.5.0-alpha08](https://developer.android.com/jetpack/androidx/releases/compose-material3#1.5.0-alpha08)。
@@ -23,12 +23,12 @@
     implementation("org.jetbrains.compose.material3:material3:1.9.0-alpha04")
     ```
 * Compose Material3 Adaptive 函式庫 `org.jetbrains.compose.material3.adaptive:adaptive*:1.3.0-alpha02`。基於 [Jetpack Compose Material3 Adaptive 1.3.0-alpha03](https://developer.android.com/jetpack/androidx/releases/compose-material3-adaptive#1.3.0-alpha03)
-* Lifecycle 函式庫 `org.jetbrains.androidx.lifecycle:lifecycle-*:2.10.0-alpha05`。基於 [Jetpack Lifecycle 2.10.0-rc01](https://developer.android.com/jetpack/androidx/releases/lifecycle#2.10.0-rc01)
+* Lifecycle 函式庫 `org.jetbrains.androidx.lifecycle:lifecycle-*:2.10.0-alpha06`。基於 [Jetpack Lifecycle 2.10.0](https://developer.android.com/jetpack/androidx/releases/lifecycle#2.10.0)
 * Navigation 函式庫 `org.jetbrains.androidx.navigation:navigation-*:2.9.1`。基於 [Jetpack Navigation 2.9.4](https://developer.android.com/jetpack/androidx/releases/navigation#2.9.4)
-* Navigation 3 函式庫 `org.jetbrains.androidx.navigation3:navigation3-*:1.0.0-alpha05`。基於 [Jetpack Navigation3 1.0.0-rc01](https://developer.android.com/jetpack/androidx/releases/navigation3#1.0.0-rc01)
-* Navigation Event 函式庫 `org.jetbrains.androidx.navigationevent:navigationevent-compose:1.0.0-beta02`。基於 [Jetpack Navigation Event 1.0.0-rc01](https://developer.android.com/jetpack/androidx/releases/navigationevent#1.0.0-rc01)
-* Savedstate 函式庫 `org.jetbrains.androidx.savedstate:savedstate*:1.4.0-rc01`。基於 [Jetpack Savedstate 1.4.0](https://developer.android.com/jetpack/androidx/releases/savedstate#1.4.0)
-* WindowManager Core 函式庫 `org.jetbrains.androidx.window:window-core:1.5.0`。基於 [Jetpack WindowManager 1.5.0](https://developer.android.com/jetpack/androidx/releases/window#1.5.0)
+* Navigation 3 函式庫 `org.jetbrains.androidx.navigation3:navigation3-*:1.0.0-alpha06`。基於 [Jetpack Navigation3 1.0.0](https://developer.android.com/jetpack/androidx/releases/navigation3#1.0.0)
+* Navigation Event 函式庫 `org.jetbrains.androidx.navigationevent:navigationevent-compose:1.0.0-rc01`。基於 [Jetpack Navigation Event 1.0.0](https://developer.android.com/jetpack/androidx/releases/navigationevent#1.0.0)
+* Savedstate 函式庫 `org.jetbrains.androidx.savedstate:savedstate*:1.4.0`。基於 [Jetpack Savedstate 1.4.0](https://developer.android.com/jetpack/androidx/releases/savedstate#1.4.0)
+* WindowManager Core 函式庫 `org.jetbrains.androidx.window:window-core:1.5.1`。基於 [Jetpack WindowManager 1.5.1](https://developer.android.com/jetpack/androidx/releases/window#1.5.1)
 
 ## 破壞性變更
 
@@ -43,7 +43,7 @@ Compose Multiplatform Gradle 外掛程式支援的依賴項別名 (`compose.ui` 
 
 ### 網頁平台的最低 Kotlin 版本已提高
 
-如果您的專案包含網頁目標，最新功能需要升級到 Kotlin 2.2.21。
+如果您的專案包含網頁目標，最新功能需要升級到 Kotlin 2.2.20。
 
 ## 跨平台
 
@@ -101,7 +101,9 @@ Compose Multiplatform 1.10.0-beta01 為在非 Android 目標上使用新的導�
 * 在 iOS 上，您現在可以使用 [EndEdgePanGestureBehavior](https://github.com/JetBrains/compose-multiplatform-core/pull/2519) 選項（預設為 `Disabled`）來管理終點邊緣[平移手勢](https://developer.apple.com/documentation/uikit/handling-pan-gestures)的導覽。
   「終點邊緣」在此指由左至右 (LTR) 介面中的螢幕右側邊緣，以及由右至左 (RTL) 介面中的左側邊緣。
   起始邊緣與終點邊緣相對，並且始終綁定到返回手勢。
-* 在網頁應用程式中，現在桌面瀏覽器中按下 **Esc** 鍵會將使用者返回到上一畫面（並關閉對話框、彈出視窗以及某些小工具，例如 Material 3 的 `SearchBar`），就像它在桌面應用程式中已經做的那樣。
+* 在網頁應用程式中，現在桌面瀏覽器中按下 **Esc** 鍵會將使用者返回到上一畫面
+  (並關閉對話框、彈出視窗以及某些小工具，例如 Material 3 的 `SearchBar`)，
+  就像它在桌面應用程式中已經做的那樣。
 * Compose Multiplatform 1.10 將不會延伸對 [瀏覽器歷史導覽](compose-navigation-routing.md#support-for-browser-navigation-in-web-apps) 和在網址列中使用目標的支援至 Navigation 3。
   這已延後到多平台函式庫的後續版本。
 
@@ -117,7 +119,7 @@ Compose Multiplatform 現在支援 `WindowInsetsRulers`，
 
 > 之前，`WindowInsets.Companion.captionBar` 並未標記為 `@Composable`。
 > 我們新增了 `@Composable` 屬性，以使其行為在各平台之間保持一致。
-> 
+>
 {style="note"}
 
 ### 改進的 IME 設定
@@ -174,4 +176,4 @@ Compose Multiplatform 引入了對 Android Gradle Plugin (AGP) 9.0.0 版本的�
 為了與新的 AGP 版本相容，請確保您升級到 Compose Multiplatform 1.9.3 或 1.10.0。
 
 為了使長期更新過程更順暢，
-我們建議更改您的專案結構，將 AGP 用途隔離到專用 Android 模組中。
+我們建議更改您的專案結構，將 AGP 用途隔離到專用 Android 應用程式模組中。

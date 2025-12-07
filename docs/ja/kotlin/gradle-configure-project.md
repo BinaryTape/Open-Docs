@@ -46,9 +46,9 @@ plugins {
 
 | KGPバージョン | Gradleの最小および最大バージョン | AGPの最小および最大バージョン |
 |---------------|----------------------------------|---------------------------------------|
-| 2.2.20        | %minGradleVersion%–%maxGradleVersion% | %minAndroidGradleVersion%–%maxAndroidGradleVersion% |
-| 2.2.0-2.2.10  | 7.6.3-8.14                       | 7.3.1-8.10.0                          |
-| 2.1.20-2.1.21 | 7.6.3–8.12.1                     | 7.3.1–8.7.2                           |
+| 2.2.20–2.2.21 | %minGradleVersion%–%maxGradleVersion% | %minAndroidGradleVersion%–%maxAndroidGradleVersion% |
+| 2.2.0–2.2.10  | 7.6.3–8.14                       | 7.3.1–8.10.0                          |
+| 2.1.20–2.1.21 | 7.6.3–8.12.1                     | 7.3.1–8.7.2                           |
 | 2.1.0–2.1.10  | 7.6.3–8.10*                      | 7.3.1–8.7.2                           |
 | 2.0.20–2.0.21 | 6.8.3–8.8*                       | 7.1.3–8.5                             |
 | 2.0.0         | 6.8.3–8.5                        | 7.1.3–8.3.1                           |
@@ -499,9 +499,9 @@ tasks.named("compileJava", JavaCompile.class) {
 {style="note"}
 
 詳細については、以下を参照してください。
-* [Building modules for the Java Module System](https://docs.gradle.org/current/userguide/java_library_plugin.html#sec:java_library_modular)
-* [Building applications using the Java Module System](https://docs.gradle.org/current/userguide/application_plugin.html#sec:application_modular)
-* [What "module" means in Kotlin](visibility-modifiers.md#modules)
+* [Java Module System向けモジュールのビルド](https://docs.gradle.org/current/userguide/java_library_plugin.html#sec:java_library_modular)
+* [Java Module Systemを使用したアプリケーションのビルド](https://docs.gradle.org/current/userguide/application_plugin.html#sec:application_modular)
+* [Kotlinにおける「モジュール」の意味](visibility-modifiers.md#modules)
 
 ### その他の詳細
 

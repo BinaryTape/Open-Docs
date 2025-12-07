@@ -1,7 +1,5 @@
 [//]: # (title: Compose Hot Reload)
 
-<primary-label ref="beta"/>
-
 [Compose Hot Reload](https://github.com/JetBrains/compose-hot-reload)は、Compose Multiplatformプロジェクトでの作業中にUIの変更を視覚化し、試すのに役立ちます。
 
 Compose Hot Reloadは、現時点では、マルチプラットフォームプロジェクトにデスクトップターゲットが含まれており、Java 21以前と互換性がある場合にのみ利用可能です。
@@ -24,7 +22,7 @@ Compose Hot Reloadは、以下の2つの方法で追加できます。
 1.  [クイックスタート](quickstart.md)で、[Kotlin Multiplatform開発の環境をセットアップする](quickstart.md#set-up-the-environment)の手順を完了します。
 2.  IntelliJ IDEAで、**File** | **New** | **Project**を選択します。
 3.  左側のパネルで、**Kotlin Multiplatform**を選択します。
-4.  **新規プロジェクト**ウィンドウで、**Name**、**Group**、および**Artifact**フィールドを指定します。
+4.  **New Project**ウィンドウで、**Name**、**Group**、および**Artifact**フィールドを指定します。
 5.  **Desktop**ターゲットを選択し、**Create**をクリックします。
     ![Create multiplatform project with desktop target](create-desktop-project.png){width=600 style="block"}
 
@@ -62,7 +60,8 @@ Compose Hot Reloadは、以下の2つの方法で追加できます。
 4.  Compose Hot Reloadの全ての機能を使用するには、プロジェクトは、拡張されたクラス再定義をサポートするOpenJDKのフォークである[JetBrains Runtime](https://github.com/JetBrains/JetBrainsRuntime) (JBR)で実行される必要があります。
     Compose Hot Reloadは、プロジェクトのために互換性のあるJBRを自動的にプロビジョニングできます。
 
-    > 最新のJetBrains RuntimeはJava 21のみをサポートしています。Compose Hot ReloadをJava 22以降のみと互換性のあるプロジェクトに追加すると、プロジェクトの実行時にリンケージエラーが発生します。
+    > 最新のJetBrains RuntimeはJava 21のみをサポートしています。
+    > Compose Hot ReloadをJava 22以降のみと互換性のあるプロジェクトに追加すると、プロジェクトの実行時にリンケージエラーが発生します。
     >
     {style="warning"}
 
@@ -110,7 +109,7 @@ Compose Hot Reloadは、以下の2つの方法で追加できます。
     ```
 
 4.  `main.kt`ファイルを開き、ガターの**実行**アイコンをクリックします。
-    **Run 'composeApp [hotRunJvm]' with Compose Hot Reload (Beta)**を選択します。
+    **Run 'composeApp [jvm]' with Compose Hot Reload**を選択します。
 
     ![Run Compose Hot Reload from gutter](compose-hot-reload-gutter-run.png){width=350}
 

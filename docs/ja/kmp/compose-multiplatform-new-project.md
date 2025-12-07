@@ -61,11 +61,16 @@
 
    アプリケーションを実行し、ボタンをクリックすると、ハードコードされた時刻が表示されます。
 
-3.  デスクトップでアプリケーションを実行します。動作しますが、UIに対してウィンドウが明らかに大きすぎます。
+3.  [Compose Hot Reload](compose-hot-reload.md)を使用してデスクトップでアプリケーションを実行します。
+    1.  `composeApp/src/jvmMain/kotlin/main.kt`ファイルで、ガターにある**Run**アイコンをクリックします。
+    2.  **Run 'composeApp [jvm]' with Compose Hot Reload**を選択します。
+   ![ガターからCompose Hot Reloadを実行する](compose-hot-reload-gutter-run.png){width=350}
+
+   アプリは動作しますが、UIに対してウィンドウが明らかに大きすぎます。
 
    ![デスクトップでの新しいCompose Multiplatformアプリ](first-compose-project-on-desktop-3.png){width=400}
 
-4.  これを修正するには、`composeApp/src/jvmMain/kotlin`にある`main.kt`ファイルを次のように更新します。
+4.  これを修正するには、`main.kt`ファイルを次のように更新します。
 
     ```kotlin
    fun main() = application {
@@ -86,21 +91,13 @@
 
     ここでは、ウィンドウのタイトルを設定し、`WindowState`型を使用してウィンドウの初期サイズと画面上の位置を設定しています。
 
-    > デスクトップアプリでリアルタイムに変更を見るには、[Compose Hot Reload](compose-hot-reload.md)を使用します。
-    > 1. `main.kt`ファイルで、ガターにある**Run**アイコンをクリックします。
-    > 2. **Run 'composeApp [hotRunJvm]' with Compose Hot Reload (Beta)**を選択します。
-    > ![ガターからCompose Hot Reloadを実行する](compose-hot-reload-gutter-run.png){width=350}
-    >
-    > アプリが自動的に更新されるのを見るには、変更されたファイルを保存します（<shortcut>⌘ S</shortcut> / <shortcut>Ctrl+S</shortcut>）。
-    >
-    > Compose Hot Reloadは現在[ベータ版](https://kotlinlang.org/components-stability.html#stability-levels-explained)であり、その機能は変更される可能性があります。
-    >
-    {style="tip"}
-
 5.  IDEの指示に従って、不足している依存関係をインポートします。
-6.  デスクトップアプリケーションを再度実行します。見た目が改善されているはずです。
+
+6.  アプリが自動的に更新されるのを見るには、変更されたファイルを保存します（<shortcut>⌘ S</shortcut> / <shortcut>Ctrl+S</shortcut>）。見た目が改善されているはずです。
 
    ![デスクトップ上のCompose Multiplatformアプリの改善された外観](first-compose-project-on-desktop-4.png){width=350}
+
+   ![Compose Hot Reload](compose-hot-reload-resize.gif)
 
 ## ユーザー入力をサポートする
 
@@ -266,6 +263,12 @@
     </TabItem>
 </Tabs>
 
+<!--
+> You can find this state of the project in our [GitHub repository](https://github.com/kotlin-hands-on/get-started-with-cm/tree/main/ComposeDemoStage2).
+>
+{style="tip"}
+-->
+
 ## デザインをリファクタリングする
 
 アプリケーションは動作していますが、スペルミスが起こりやすいです。たとえば、ユーザーが「France」の代わりに「Franse」と入力した場合、アプリはその入力を処理できません。ユーザーに定義済みリストから国を選択してもらう方が望ましいでしょう。
@@ -355,6 +358,12 @@
     </TabItem>
 </Tabs>
 
+<!--
+> You can find this state of the project in our [GitHub repository](https://github.com/kotlin-hands-on/get-started-with-cm/tree/main/ComposeDemoStage3).
+>
+{style="tip"}
+-->
+
 > [Koin](https://insert-koin.io/)のような依存性注入フレームワークを使用して、場所のテーブルを構築および注入することで、デザインをさらに改善できます。データが外部に保存されている場合は、[Ktor](https://ktor.io/docs/create-client.html)ライブラリを使用してネットワーク経由でフェッチするか、[SQLDelight](https://github.com/cashapp/sqldelight)ライブラリを使用してデータベースからフェッチできます。
 >
 {style="note"}
@@ -384,7 +393,7 @@ Compose Multiplatformは、すべてのプラットフォームで共通コー�
     import compose.project.demo.generated.resources.jp
     import compose.project.demo.generated.resources.mx
 
-    data class Country(val name: String, val zone: TimeZone, val image: DrawableResource)
+   data class Country(val name: String, val zone: TimeZone, val image: DrawableResource)
 
     fun currentTimeAt(location: String, zone: TimeZone): String {
         fun LocalTime.formatted() = "$hour:$minute:$second"

@@ -40,13 +40,13 @@ Kotlin早期アクセスプレビュー (EAP) に参加して、Kotlinの最新�
         <th>ビルドのハイライト</th>
     </tr>
     <tr>
-        <td><strong>2.3.0-RC</strong>
-            <p>リリース日: <strong>2025年11月18日</strong></p>
-            <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.3.0-RC" target="_blank">GitHubでリリース</a></p>
+        <td><strong>2.3.0-RC2</strong>
+            <p>リリース日: <strong>2025年12月2日</strong></p>
+            <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.3.0-RC2" target="_blank">GitHubでリリース</a></p>
         </td>
         <td>
             <p>新機能のプレビューとツール更新を含む言語リリースです。</p>
-            <p>詳細については、<a href="https://github.com/JetBrains/kotlin/releases/tag/v2.3.0-RC">変更履歴</a>または<a href="whatsnew-eap.md">Kotlin 2.3.0-RCの新機能</a>をご参照ください。</p>
+            <p>詳細については、<a href="https://github.com/JetBrains/kotlin/releases/tag/v2.3.0-RC2">変更履歴</a>または<a href="whatsnew-eap.md">Kotlin 2.3.0-RC2の新機能</a>をご参照ください。</p>
         </td>
     </tr>
 </table>

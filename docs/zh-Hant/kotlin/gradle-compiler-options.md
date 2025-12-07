@@ -53,7 +53,7 @@ kotlin {
 
 ### 目標層級
 
-你可以在 `target {}` 區塊內的 `compilerOptions {}` 區塊中，為 JVM/Android 目標配置編譯器選項：
+你可以在 `compilerOptions {}` 區塊中，為 `target {}` 區塊內的 JVM/Android 目標配置編譯器選項：
 
 ```kotlin
 kotlin {
@@ -181,6 +181,9 @@ tasks.withType(KotlinCompile).configureEach {
 <tab title="Kotlin" group-key="kotlin">
 
 ```kotlin
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
+
 plugins {
     kotlin("jvm") version "%kotlinVersion%"
 }
@@ -206,6 +209,9 @@ tasks.named<KotlinJvmCompile>("compileKotlin"){
 <tab title="Groovy" group-key="groovy">
 
 ```kotlin
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
+
 plugins {
     id 'org.jetbrains.kotlin.jvm' version '%kotlinVersion%'
 }
@@ -277,8 +283,8 @@ android {
 
 ```kotlin
 plugins {
-  id("com.android.application")
-  kotlin("android")
+    id("com.android.application")
+    kotlin("android")
 }
 
 kotlin {

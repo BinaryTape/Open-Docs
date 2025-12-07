@@ -85,7 +85,7 @@
   "kotlin.kotlin-overview": "Kotlin 概覽",
   "kotlin.what-s-new-in-kotlin": "Kotlin 新功能",
   "kotlin.whatsnew22": "Kotlin 2.2.0",
-  "kotlin.whatsnew-eap": "Kotlin 2.3.0-RC",
+  "kotlin.whatsnew-eap": "Kotlin 2.3.0-RC2",
   "kotlin.earlier-versions": "更早版本",
   "kotlin.whatsnew2120": "Kotlin 2.1.20",
   "kotlin.whatsnew21": "Kotlin 2.1.0",
@@ -515,7 +515,7 @@
   "koog.event-handlers": "事件處理器",
   "kmp.kmp-tooling": "KMP 工具",
   "kotlin.compose-multiplatform-material3": "Compose Multiplatform Material3",
-  "kmp.whats-new-compose-110": "Compose Multiplatform 1.10.0-beta02",
+  "kmp.whats-new-compose-110": "Compose Multiplatform 1.10.0-rc01",
   "kmp.earlier-versions": "更早版本",
   "kotlin.language-guide": "語言指南",
   "kotlin.basic-syntax": "概覽",
@@ -589,5 +589,6 @@
   "kmp.case-studies": "案例研究",
   "kmp.compose-multiplatform-and-jetpack-compose": "框架之間的關係",
   "kmp.compose-multiplatform-jetpack-libraries": "Compose 函式庫的多平台構件",
-  "koog.custom-tools-schema": "自訂工具模式"
+  "koog.custom-tools-schema": "自訂工具模式",
+  "kmp.migrate-from-android": "將進階 Android 應用程式遷移至 KMP"
 }
