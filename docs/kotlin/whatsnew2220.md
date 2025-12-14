@@ -12,7 +12,7 @@ Kotlin 2.2.20 版本现已发布，为 Web 开发带来了重要变更。[Kotlin
 此外，以下是一些主要亮点：
 
 *   **Kotlin Multiplatform**：[Swift 导出功能默认可用](#swift-export-available-by-default)、[Kotlin 库的稳定跨平台编译](#stable-cross-platform-compilation-for-kotlin-libraries)，以及[声明公共依赖项的新方法](#new-approach-for-declaring-common-dependencies)。
-*   **语言**：[将 lambda 传递给挂起函数类型重载时，改进的重载决议](#improved-overload-resolution-for-lambdas-with-suspend-function-types)。
+*   **语言**：[将 lambda 表达式传递给挂起函数类型重载时，改进的重载决议](#improved-overload-resolution-for-lambdas-with-suspend-function-types)。
 *   **Kotlin/Native**：[支持 Xcode 26、栈保护（stack canaries）和减小发布二进制文件大小](#kotlin-native)。
 *   **Kotlin/JS**：[`Long` 值编译为 JavaScript `BigInt`](#usage-of-the-bigint-type-to-represent-kotlin-s-long-type)。
 
@@ -33,37 +33,36 @@ Kotlin 2.2.20 版本现已发布，为 Web 开发带来了重要变更。[Kotlin
 ## 语言
 
 在 Kotlin 2.2.20 中，您可以试用计划用于 Kotlin 2.3.0 的即将推出的语言特性，包括
-[将 lambda 传递给挂起函数类型重载时，改进的重载决议](#improved-overload-resolution-for-lambdas-with-suspend-function-types)
+[将 lambda 表达式传递给挂起函数类型重载时，改进的重载决议](#improved-overload-resolution-for-lambdas-with-suspend-function-types)
 和[支持在具有显式返回类型的表达式体中使用 `return` 语句](#support-for-return-statements-in-expression-bodies-with-explicit-return-types)。此版本还包括对
 [`when` 表达式的穷尽性检测](#data-flow-based-exhaustiveness-checks-for-when-expressions)、
 [具体化 `Throwable` 捕获](#support-for-reified-types-in-catch-clauses)和 [Kotlin 契约](#improved-kotlin-contracts)的改进。
 
-### 将 lambda 传递给挂起函数类型重载时，改进的重载决议
+### 将 lambda 表达式传递给挂起函数类型重载时，改进的重载决议
 
-此前，当将 lambda 传递给同时具有常规函数类型和 `suspend` 函数类型的重载函数时，会导致歧义错误。您可以通过显式类型转换来解决此错误，但编译器会错误地报告“无需转换”警告：
+此前，当将 lambda 表达式传递给同时具有常规函数类型和 `suspend` 函数类型的重载函数时，会导致歧义错误。您可以通过显式类型转换来解决此错误，但编译器会错误地报告“无需转换”警告：
 
 ```kotlin
-// Defines two overloads
+// 定义两个重载
 fun transform(block: () -> Int) {}
 fun transform(block: suspend () -> Int) {}
 
 fun test() {
-    // Fails with overload resolution ambiguity
+    // 失败，出现重载决议歧义
     transform({ 42 })
 
-    // Uses an explicit cast, but the compiler incorrectly reports 
-    // a "No cast needed" warning
+    // 使用显式类型转换，但编译器错误地报告“无需转换”警告
     transform({ 42 } as () -> Int)
 }
 ```
 
-此更改后，当您同时定义常规和 `suspend` 函数类型重载时，不带类型转换的 lambda 将决议为常规重载。使用 `suspend` 关键字可显式决议为 suspend 重载：
+此更改后，当您同时定义常规和 `suspend` 函数类型重载时，不带类型转换的 lambda 表达式将决议为常规重载。使用 `suspend` 关键字可显式决议为 suspend 重载：
 
 ```kotlin
-// Resolves to transform(() -> Int)
+// 决议为 transform(() -> Int)
 transform({ 42 })
 
-// Resolves to transform(suspend () -> Int)
+// 决议为 transform(suspend () -> Int)
 transform(suspend { 42 })
 ```
 
@@ -91,28 +90,28 @@ kotlin {
 
 ```kotlin
 fun example() = return 42
-// Error: Returns are prohibited for functions with an expression body
+// 错误：具有表达式体的函数禁止使用 return 语句
 ```
 
 此更改后，只要显式写入返回类型，您现在就可以在表达式体中使用 `return`：
 
 ```kotlin
-// Specifies the return type explicitly
+// 显式指定返回类型
 fun getDisplayNameOrDefault(userId: String?): String = getDisplayName(userId ?: return "default")
 
-// Fails because it doesn't specify the return type explicitly
+// 失败，因为它没有显式指定返回类型
 fun getDisplayNameOrDefault(userId: String?) = getDisplayName(userId ?: return "default")
 ```
 
-同样，在具有表达式体的函数中，lambda 和嵌套表达式内部的 `return` 语句过去会意外编译。Kotlin 现在支持这些情况，只要显式指定返回类型即可。在 Kotlin 2.3.0 中，没有显式返回类型的情况将被弃用：
+同样，在具有表达式体的函数中，lambda 表达式和嵌套表达式内部的 `return` 语句过去会意外编译。Kotlin 现在支持这些情况，只要显式指定返回类型即可。在 Kotlin 2.3.0 中，没有显式返回类型的情况将被弃用：
 
 ```kotlin
-// Return type isn't explicitly specified, and the return statement is inside a lambda
-// which will be deprecated
+// 返回类型未显式指定，并且 return 语句位于 lambda 表达式内部
+// 这将被弃用
 fun returnInsideLambda() = run { return 42 }
 
-// Return type isn't explicitly specified, and the return statement is inside the initializer
-// of a local variable, which will be deprecated
+// 返回类型未显式指定，并且 return 语句位于局部变量的初始化器内部
+// 这将被弃用
 fun returnInsideIf() = when {
     else -> {
         val result = if (someCondition()) return "" else "value"
@@ -154,13 +153,13 @@ Kotlin 2.2.20 引入了针对 `when` 表达式的**基于数据流的**穷尽性
 enum class UserRole { ADMIN, MEMBER, GUEST }
 
 fun getPermissionLevel(role: UserRole): Int {
-    // Covers the Admin case outside of the when expression
+    // 涵盖 when 表达式之外的 Admin 情况
     if (role == UserRole.ADMIN) return 99
 
     return when (role) {
         UserRole.MEMBER -> 10
         UserRole.GUEST -> 1
-        // You no longer have to include this else branch 
+        // 您不再需要包含此 else 分支
         // else -> throw IllegalStateException()
     }
 }
@@ -180,7 +179,7 @@ kotlin {
 <primary-label ref="experimental-opt-in"/>
 
 > IntelliJ IDEA 中对该特性的代码分析、代码补全和高亮显示支持目前仅在 [2025.3 EAP 构建版](https://www.jetbrains.com/idea/nextversion/)中提供。
-> 
+>
 {style = "note"}
 
 在 Kotlin 2.2.20 中，编译器现在允许在 `inline` 函数的 `catch` 子句中使用[具体化泛型类型形参](inline-functions.md#reified-type-parameters)。
@@ -198,7 +197,7 @@ inline fun <reified ExceptionType : Throwable> handleException(block: () -> Unit
 }
 
 fun main() {
-    // Tries to perform an action that might throw an IOException
+    // 尝试执行可能抛出 IOException 的操作
     handleException<java.io.IOException> {
         throw java.io.IOException("File not found")
     }
@@ -232,7 +231,7 @@ Kotlin 2.2.20 对 [Kotlin 契约](https://kotlinlang.org/api/core/kotlin-stdlib/
 *   [契约类型断言中对泛型的支持](#support-for-generics-in-contract-type-assertions)。
 *   [支持在属性访问器和特定操作符函数内部使用契约](#support-for-contracts-inside-property-accessors-and-specific-operator-functions)。
 *   [契约中对 `returnsNotNull()` 函数的支持](#support-for-the-returnsnotnull-function-in-contracts)，以确保在满足条件时返回非空值。
-*   [新的 `holdsIn` 关键字](#new-holdsin-keyword)，允许您假定条件在 lambda 内部为 true。
+*   [新的 `holdsIn` 关键字](#new-holdsin-keyword)，允许您假定条件在 lambda 表达式内部为 `true`。
 
 这些改进是[实验性的](components-stability.md#stability-levels-explained)。要选择启用，您仍然需要在声明契约时使用 `@OptIn(ExperimentalContracts::class)` 注解。`holdsIn` 关键字和 `returnsNotNull()` 函数也需要 `@OptIn(ExperimentalExtendedContracts::class)` 注解。
 
@@ -249,7 +248,7 @@ import kotlin.contracts.*
 
 sealed class Failure {
     class HttpError(val code: Int) : Failure()
-    // Insert other failure types here
+    // 在此处插入其他故障类型
 }
 
 sealed class Result<out T, out F : Failure> {
@@ -267,7 +266,7 @@ fun <T, F : Failure> Result<T, F>.isHttpError(): Boolean {
 }
 ```
 
-在此示例中，契约对 `Result` 对象执行类型断言，允许编译器安全地将其[智能类型转换为](typecasts.md#smart-casts)断言的泛型类型。
+在此示例中，契约对 `Result` 对象执行类型断言，允许编译器安全地将其[智能类型转换](typecasts.md#smart-casts)为断言的泛型类型。
 
 此特性是[实验性的](components-stability.md#stability-levels-explained)。要选择启用，请将以下编译器选项添加到您的 `build.gradle(.kts)` 文件中：
 
@@ -315,14 +314,14 @@ fun printIfHelloString(x: Any) {
 *   `unaryPlus`、`unaryMinus`、`not`
 *   `inc`、`dec`
 
-这是一个在操作符函数中使用契约以确保 lambda 内部变量初始化的示例：
+这是一个在操作符函数中使用契约以确保 lambda 表达式内部变量初始化的示例：
 
 ```kotlin
 import kotlin.contracts.*
 
 class Runner {
     @OptIn(ExperimentalContracts::class)
-    // 启用在 lambda 内部赋值的变量的初始化
+    // 启用在 lambda 表达式内部赋值的变量的初始化
     operator fun invoke(block: () -> Unit) {
         contract {
             callsInPlace(block, InvocationKind.EXACTLY_ONCE)
@@ -393,7 +392,7 @@ kotlin {
 
 #### 新的 `holdsIn` 关键字
 
-Kotlin 2.2.20 引入了用于契约的新 [`holdsIn`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.contracts/-contract-builder/holds-in.html) 关键字。您可以使用它来确保在特定 lambda 内部，布尔条件被假定为 `true`。这让您可以使用契约构建带有条件智能类型转换的 DSL。
+Kotlin 2.2.20 引入了用于契约的新 [`holdsIn`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.contracts/-contract-builder/holds-in.html) 关键字。您可以使用它来确保在特定 lambda 表达式内部，布尔条件被假定为 `true`。这让您可以使用契约构建带有条件智能类型转换的 DSL。
 
 这是一个例子：
 
@@ -403,9 +402,9 @@ import kotlin.contracts.*
 @OptIn(ExperimentalContracts::class, ExperimentalExtendedContracts::class)
 fun <T> T.alsoIf(condition: Boolean, block: (T) -> Unit): T {
     contract {
-        // 声明 lambda 最多运行一次
+        // 声明 lambda 表达式最多运行一次
         callsInPlace(block, InvocationKind.AT_MOST_ONCE)
-        // 声明条件在 lambda 内部被假定为 true
+        // 声明条件在 lambda 表达式内部被假定为 true
         condition holdsIn block
     }
     if (condition) block(this)
@@ -416,8 +415,8 @@ fun useApplyIf(input: Any) {
     val result = listOf(1, 2, 3)
         .first()
         .alsoIf(input is Int) {
-            // 输入参数在 lambda 内部被智能类型转换为 Int
-            // 打印输入和列表第一个元素的和
+            // 输入形参在 lambda 表达式内部被智能类型转换为 Int
+            // 打印输入和 list 第一个元素的和
             println(input + it)
             // 2
         }
@@ -436,7 +435,7 @@ kotlin {
 ```
 
 ## Kotlin/JVM：支持 `invokedynamic` 和 `when` 表达式
-<primary-label ref="experimental-opt-in"/> 
+<primary-label ref="experimental-opt-in"/>
 
 在 Kotlin 2.2.20 中，您现在可以使用 `invokedynamic` 编译 `when` 表达式。此前，带有多个类型检测的 `when` 表达式会编译成字节码中一长串的 `instanceof` 检测。
 
@@ -444,7 +443,7 @@ kotlin {
 
 *   除了 `else` 之外，所有条件都是 `is` 或 `null` 检测。
 *   表达式不包含[守卫条件 (`if`)](control-flow.md#guard-conditions-in-when-expressions)。
-*   条件不包含不能直接进行类型检测的类型，例如可变 Kotlin 集合 (`MutableList`) 或函数类型 (`kotlin.Function1`、`kotlin.Function2` 等)。
+*   条件不包含不能直接进行类型检测的类型，例如可变 Kotlin list (`MutableList`) 或函数类型 (`kotlin.Function1`、`kotlin.Function2` 等)。
 *   除了 `else` 之外，至少有两个条件。
 *   所有分支都检测 `when` 表达式的相同主体。
 
@@ -491,7 +490,7 @@ kotlin {
 Kotlin 2.2.20 为 Kotlin Multiplatform 带来了重大变化：Swift 导出功能默认可用，引入了新的共享源代码集，并且您可以尝试一种管理公共依赖项的新方法。
 
 ### Swift 导出功能默认可用
-<primary-label ref="experimental-general"/> 
+<primary-label ref="experimental-general"/>
 
 Kotlin 2.2.20 引入了对 Swift 导出的实验性支持。它允许您直接导出 Kotlin 源代码并以符合 Swift 习惯的方式调用 Kotlin 代码，无需 Objective-C 头文件。
 
@@ -622,17 +621,17 @@ kotlin {
 
 ### Kotlin 库的稳定跨平台编译
 
-Kotlin 2.2.20 完成了一项重要的[路线图项](https://youtrack.com/issue/KT-71290)，稳定了 Kotlin 库的跨平台编译。
+Kotlin 2.2.20 完成了一项重要的[路线图项](https://youtrack.jetbrains.com/issue/KT-71290)，稳定了 Kotlin 库的跨平台编译。
 
-您现在可以使用任何[支持的主机](native-target-support.md#hosts)来生成 `.klib` artifact 以发布 Kotlin 库。这显著简化了发布过程，特别是对于以前需要 Mac 机器的 Apple 目标平台。
+您现在可以使用任何[支持的主机](native-target-support.md#hosts)来生成 `.klib` 构件以发布 Kotlin 库。这显著简化了发布过程，特别是对于以前需要 Mac 机器的 Apple 目标平台。
 
 此特性默认可用。如果您已经使用 `kotlin.native.enableKlibsCrossCompilation=true` 启用了交叉编译，现在可以从 `gradle.properties` 文件中移除它。
 
 不幸的是，仍然存在一些限制。在以下情况下，您仍然需要使用 Mac 机器：
 
 *   您的库或任何依赖模块具有 [cinterop 依赖项](native-c-interop.md)。
-*   您已在项目中设置了 [CocoaPods 集成](https://kotlinlang.org/docs/multiplatform/multiplatform-cocoapods-overview.html)。
-*   您需要为 Apple 目标平台[构建或测试最终二进制文件](https://kotlinlang.org/docs/multiplatform/multiplatform-build-native-binaries.html)。
+*   您已在项目中使用 [CocoaPods 集成](https://kotlinlang.org/docs/multiplatform/multiplatform-cocoapods-overview.html)。
+*   您需要为 Apple 目标平台[构建或检测最终二进制文件](https://kotlinlang.org/docs/multiplatform/multiplatform-build-native-binaries.html)。
 
 有关多平台库发布的更多信息，请参见我们的[文档](https://kotlinlang.org/docs/multiplatform/multiplatform-publish-lib-setup.html)。
 
@@ -698,7 +697,7 @@ kotlin.native.binary.stackProtector=yes
 请注意，在某些情况下，栈保护可能会带来性能开销。
 
 ### 减小发布二进制文件大小
-<primary-label ref="experimental-opt-in"/> 
+<primary-label ref="experimental-opt-in"/>
 
 Kotlin 2.2.20 引入了 `smallBinary` 选项，可以帮助您减小发布二进制文件的大小。新选项有效地将 `-Oz` 设置为 LLVM 编译阶段编译器默认的优化实参。
 
@@ -749,7 +748,7 @@ Kotlin 团队感谢 [Nikita Nazarov](https://github.com/nikita-nazarov) 对此�
 
 Kotlin 2.2.20 引入了一个选项，可以将 Kotlin/Native 项目中导出的 Kotlin 函数类型的显式形参名称添加到 Objective-C 头文件中的块类型。形参名称改进了 Xcode 中的自动补全建议，并有助于避免 Clang 警告。
 
-此前，生成的 Objective-C 头文件中会省略块类型中的形参名称。在这种情况下，Xcode 的自动补全会建议在没有形参名称的情况下调用此类函数。生成的块会触发 Clang 警告。
+此前，生成的 Objective-C 头文件中会省略块类型中的形参名称。在这种情况下，Xcode 的自动补全会建议在没有形参名称的情况下调用此类函数。生成的代码块会触发 Clang 警告。
 
 例如，对于以下 Kotlin 代码：
 
@@ -827,7 +826,7 @@ import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 kotlin {
     iosArm64 {
         binaries {
-            framework { 
+            framework {
                 baseName = "sdk"
                 @OptIn(ExperimentalKotlinGradlePluginApi::class)
                 exportKdoc.set(false)
@@ -843,7 +842,7 @@ kotlin {
 
 Apple 在几年前停止生产配备 Intel 芯片的设备，并且[最近宣布](https://www.youtube.com/live/51iONeETSng?t=3288s) macOS Tahoe 26 将是最后一个支持基于 Intel 架构的操作系统版本。
 
-这使得我们越来越难以在构建代理上正确测试这些目标平台，尤其是在未来的 Kotlin 版本中，我们将更新 macOS 26 附带的受支持 Xcode 版本。
+这使得我们越来越难以在构建代理上正确检测这些目标平台，尤其是在未来的 Kotlin 版本中，我们将更新 macOS 26 附带的受支持 Xcode 版本。
 
 从 Kotlin 2.2.20 开始，`macosX64` 和 `iosX64` 目标平台被降级到支持层级 2。这意味着目标平台会在 CI 上定期检测以确保其能够编译，但可能不会自动检测以确保其能够运行。
 
@@ -989,13 +988,13 @@ Kotlin 2.2.20 支持使用 `BigInt` 类型来表示 Kotlin 的 `Long` 类型，�
 ### 使用 `BigInt` 类型表示 Kotlin 的 `Long` 类型
 <primary-label ref="experimental-opt-in"/>
 
-在 ES2020 标准之前，JavaScript (JS) 不支持用于表示大于 53 位的精确整数的基本类型。
+在 ES2020 标准之前，JavaScript (JS) 不支持用于表示大于 53 位的精确整数的原生类型。
 
 因此，Kotlin/JS 过去将 `Long` 值（64 位宽）表示为包含两个 `number` 属性的 JavaScript 对象。这种自定义实现使得 Kotlin 和 JavaScript 之间的互操作性更加复杂。
 
 从 Kotlin 2.2.20 开始，Kotlin/JS 现在在编译到现代 JavaScript (ES2020) 时使用 JavaScript 的内置 `BigInt` 类型来表示 Kotlin 的 `Long` 值。
 
-此更改允许[将 `Long` 类型导出到 JavaScript](#usage-of-long-in-exported-declarations)，这也是 Kotlin 2.2.20 中引入的一项特性。因此，此更改简化了 Kotlin 和 JavaScript 之间的互操作性。
+此更改使[能够将 `Long` 类型导出到 JavaScript](#usage-of-long-in-exported-declarations)，这也是 Kotlin 2.2.20 中引入的一项特性。因此，此更改简化了 Kotlin 和 JavaScript 之间的互操作性。
 
 要启用它，您需要添加以下编译器选项到您的 `build.gradle(.kts)` 文件中：
 
@@ -1014,7 +1013,7 @@ kotlin {
 
 #### 在导出声明中使用 `Long`
 
-由于 Kotlin/JS 使用自定义 `Long` 表示，因此很难提供一种直接的方法来从 JavaScript 与 Kotlin 的 `Long` 进行交互。结果是，您无法将使用 `Long` 类型的 Kotlin 代码导出到 JavaScript。此问题影响了所有使用 `Long` 的代码，例如函数形参、类属性或构造函数。
+因为 Kotlin/JS 使用自定义 `Long` 表示，所以很难提供一种直接的方法来从 JavaScript 与 Kotlin 的 `Long` 进行交互。结果是，您无法将使用 `Long` 类型的 Kotlin 代码导出到 JavaScript。此问题影响了所有使用 `Long` 的代码，例如函数形参、类属性或构造函数。
 
 现在，Kotlin 的 `Long` 类型可以编译为 JavaScript 的 `BigInt` 类型，Kotlin/JS 支持将 `Long` 值导出到 JavaScript，简化了 Kotlin 和 JavaScript 代码之间的互操作性。
 
@@ -1026,14 +1025,14 @@ kotlin {
     kotlin {
         js {
             ...
-            compilerOptions {                   
+            compilerOptions {
                 freeCompilerArgs.add("-XXLanguage:+JsAllowLongInExportedDeclarations")
             }
         }
     }
     ```
 
-2.  启用 `BigInt` 类型。请参阅[使用 `BigInt` 类型表示 Kotlin 的 `Long` 类型](#usage-of-the-bigint-type-to-represent-kotlin-s-long-type)中如何启用它。
+2.  启用 `BigInt` 类型。请参见[使用 `BigInt` 类型表示 Kotlin 的 `Long` 类型](#usage-of-the-bigint-type-to-represent-kotlin-s-long-type)中如何启用它。
 
 ### 用于清理实参的新 DSL 函数
 
@@ -1105,11 +1104,11 @@ kotlin.incremental.jvm.fir=true
 
 我们非常感谢您在 [YouTrack](https://youtrack.jetbrains.com/issue/KT-72822) 中对此特性提供反馈。
 
-### 增量编译检测内联函数 lambda 中的更改
+### 增量编译检测内联函数 lambda 表达式中的更改
 
-在 Kotlin 2.2.20 之前，如果您启用增量编译并更改了内联函数中 lambda 内部的逻辑，编译器不会重新编译该内联函数在其他模块中的调用点。结果是，那些调用点使用了 lambda 的先前版本，这可能导致意外行为。
+在 Kotlin 2.2.20 之前，如果您启用增量编译并更改了内联函数中 lambda 表达式内部的逻辑，编译器不会重新编译该内联函数在其他模块中的调用点。结果是，那些调用点使用了 lambda 表达式的先前版本，这可能导致意外行为。
 
-在 Kotlin 2.2.20 中，编译器现在可以检测内联函数中 lambda 的更改，并自动重新编译它们的调用点。
+在 Kotlin 2.2.20 中，编译器现在可以检测内联函数中 lambda 表达式的更改，并自动重新编译它们的调用点。
 
 ### 库发布的改进
 
@@ -1132,7 +1131,7 @@ Kotlin 2.2.20 添加了新的 Gradle 任务，使库发布更加容易。这些�
 该任务将密钥对存储在 `build/pgp` 目录中。
 
 > 将您的密钥对移动到安全位置，以防止意外删除或未经授权的访问。
-> 
+>
 {style="warning"}
 
 ##### 上传公钥
@@ -1187,7 +1186,7 @@ Kotlin 2.2.20 还引入了一个新的 `jvmArgs` 属性，您可以使用它来�
 
 ## Kotlin 编译器选项的新通用 Schema
 
-Kotlin 2.2.20 引入了所有编译器选项的通用 Schema，发布在 [`org.jetbrains.kotlin:kotlin-compiler-arguments-description`](https://central.sonatype.com/artifact/org.jetbrains.kotlin/kotlin-compiler-arguments-description) 下。此 artifact 包括所有编译器选项的代码表示和 JSON 等效形式（适用于非 JVM 消费者）、其描述以及元数据，例如每个选项被引入或稳定的版本。您可以使用此 Schema 生成自定义视图或根据需要分析它们。
+Kotlin 2.2.20 引入了所有编译器选项的通用 Schema，发布在 [`org.jetbrains.kotlin:kotlin-compiler-arguments-description`](https://central.sonatype.com/artifact/org.jetbrains.kotlin/kotlin-compiler-arguments-description) 下。此构件包括所有编译器选项的代码表示和 JSON 等效形式（适用于非 JVM 消费者）、其描述以及元数据，例如每个选项被引入或稳定的版本。您可以使用此 Schema 生成自定义视图或根据需要分析它们。
 
 ## 标准库
 
@@ -1205,7 +1204,7 @@ Kotlin 2.2.20 将[实验性的](components-stability.md#stability-levels-explain
 ```kotlin
 @OptIn(ExperimentalStdlibApi::class)
 fun inspect(klass: KClass<*>) {
-    // Prints true for interfaces
+    // 打印 true 表示接口
     println(klass.isInterface)
 }
 ```
@@ -1267,7 +1266,7 @@ fun main() {
 
 Kotlin 2.2.20 引入了 [`copyOf()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/copy-of.html) 函数的实验性重载。它适用于泛型类型 `Array<T>` 的数组和所有原语数组类型。
 
-您可以使用此函数来增大数组，并使用初始化器 lambda 中的值填充新元素。这可以帮助您减少自定义样板代码，并解决了调整泛型 `Array<T>` 大小会产生可空结果 (`Array<T?>`) 的常见痛点。
+您可以使用此函数来增大数组，并使用初始化器 lambda 表达式中的值填充新元素。这可以帮助您减少自定义样板代码，并解决了调整泛型 `Array<T>` 大小会产生可空结果 (`Array<T?>`) 的常见痛点。
 
 这是一个例子：
 
@@ -1275,7 +1274,7 @@ Kotlin 2.2.20 引入了 [`copyOf()`](https://kotlinlang.org/api/core/kotlin-stdl
 @OptIn(ExperimentalStdlibApi::class)
 fun main() {
     val row1: Array<String> = arrayOf("one", "two")
-    // 调整数组大小并使用 lambda 填充新元素
+    // 调整数组大小并使用 lambda 表达式填充新元素
     val row2: Array<String> = row1.copyOf(4) { "default" }
     println(row2.contentToString())
     // [one, two, default, default]

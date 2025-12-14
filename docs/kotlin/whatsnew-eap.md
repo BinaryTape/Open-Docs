@@ -44,10 +44,14 @@ Kotlin %kotlinEapVersion% 侧重于特性稳定化，引入了一种新的无用
 
 ### 默认启用的特性
 
-在 Kotlin %kotlinEapVersion% 中，以下语言特性现在默认启用：
+从 Kotlin %kotlinEapVersion% 开始，[在带有显式返回类型的表达式体中使用 `return` 语句](whatsnew2220.md#support-for-return-statements-in-expression-bodies-with-explicit-return-types) 的支持现在默认启用。
 
-*   [改进了带挂起函数类型的 lambda 表达式的重载解析](whatsnew2220.md#improved-overload-resolution-for-lambdas-with-suspend-function-types)
-*   [支持在带有显式返回类型的表达式体中使用 `return` 语句](whatsnew2220.md#support-for-return-statements-in-expression-bodies-with-explicit-return-types)
+> 在 Kotlin %kotlinEapVersion% 中，[改进了带挂起函数类型的 lambda 表达式的重载解析](whatsnew2220.md#improved-overload-resolution-for-lambdas-with-suspend-function-types) **已禁用**。
+>
+> 此特性最初计划在 Kotlin 2.3.0 中默认启用，但在发现一些问题后，
+> 我们决定推迟其实现。它将在未来的版本中以改进的设计再次可用。
+>
+{style="note"}
 
 [关于完整的 Kotlin 语言设计特性和提案列表，请参见](kotlin-language-features-and-proposals.md)。
 
@@ -165,10 +169,6 @@ fun main() {
 ### 上下文敏感解析的变更
 <primary-label ref="experimental-general"/>
 
-> 对代码分析、代码补全以及此特性高亮显示的支持，目前仅在 [2025.3 EAP 构建](https://www.jetbrains.com/idea/nextversion/) 中可用。
->
-{style = "note"}
-
 上下文敏感解析仍然是[实验性的](components-stability.md#stability-levels-explained)，
 但我们根据用户反馈继续改进此特性：
 
@@ -234,8 +234,7 @@ public func log(messages: Swift.String...)
 在 Kotlin/Wasm 目标平台，完全限定名称 (FQNs) 在运行时未默认启用。
 您必须手动启用对 `KClass.qualifiedName` 属性的支持。
 
-以前，只有类名（不包含包名）是可访问的，这给从 JVM 移植到 Wasm 目标平台的代码，
-或期望在运行时使用完全限定名称的库带来了问题。
+以前，只有类名（不包含包名）是可访问的，这给从 JVM 移植到 Wasm 目标平台或期望在运行时使用完全限定名称的库带来了问题。
 
 在 Kotlin %kotlinEapVersion% 中，`KClass.qualifiedName` 属性在 Kotlin/Wasm 目标平台默认启用。
 这意味着 FQNs 在运行时无需任何额外配置即可使用。
@@ -262,7 +261,7 @@ public func log(messages: Swift.String...)
 
 ## Kotlin/JS
 
-### JsExport 新增挂起函数导出功能
+### 使用 `JsExport` 导出挂起函数的新特性
 <primary-label ref="experimental-opt-in"/>
 
 以前，`@JsExport` 注解不允许将挂起函数（或包含此类函数的类和接口）导出到 JavaScript。
@@ -303,7 +302,7 @@ class Bar extends Foo {
 ```
 
 此特性是[实验性的](components-stability.md#stability-levels-explained)。我们非常感谢您在
-[YouTrack](https://youtrack.jetbrains.com/issue/KT-56281/KJS-Cant-export-suspend-functions) 问题跟踪器中提供反馈。
+我们的问题跟踪器 [YouTrack](https://youtrack.jetbrains.com/issue/KT-56281/KJS-Cant-export-suspend-functions) 中提供反馈。
 
 ### 使用 `BigInt64Array` 类型表示 Kotlin 的 `LongArray` 类型
 <primary-label ref="experimental-opt-in"/>
@@ -330,7 +329,7 @@ kotlin {
 ```
 
 此特性是[实验性的](components-stability.md#stability-levels-explained)。我们非常感谢您在
-[YouTrack](https://youtrack.jetbrains.com/issue/KT-79284/Use-BigInt64Array-for-LongArray) 问题跟踪器中提供反馈。
+我们的问题跟踪器 [YouTrack](https://youtrack.jetbrains.com/issue/KT-79284/Use-BigInt64Array-for-LongArray) 中提供反馈。
 
 ## Gradle
 
@@ -347,10 +346,10 @@ Kotlin %kotlinEapVersion% 在
 接口中引入了一个新的[实验性的](components-stability.md#stability-levels-explained) API，
 您可以使用它来在您的 Gradle 项目中注册生成的源代码。
 
-这项新 API 是一项提升开发体验的改进，它帮助 IDE 区分生成代码与常规源文件。
+这项新 API 是一项开发体验的提升，它帮助 IDE 区分生成代码与常规源文件。
 该 API 允许 IDE 在 UI 中以不同方式高亮显示生成代码，并在导入项目时触发生成任务。
 我们目前正在 IntelliJ IDEA 中添加此支持。
-该 API 对于生成代码的第三方插件或工具也特别有用，例如 [KSP](ksp-overview.md) (Kotlin Symbol Processing)。
+该 API 对于生成代码的第三方插件或工具也特别有用，例如 [KSP](ksp-overview.md) (Kotlin 符号处理)。
 
 要注册包含 Kotlin 或 Java 文件的目录，请在您的 `build.gradle(.kts)` 文件中使用
 [`SourceDirectorySet`](https://docs.gradle.org/current/kotlin-dsl/gradle/org.gradle.api.file/-source-directory-set/index.html)

@@ -311,7 +311,7 @@ K2 編譯器在以下領域對 Kotlin 多平台進行了改進：
 
 以前，Kotlin 編譯器的設計阻止了它在編譯時將共同和平台原始碼集分開。因此，共同程式碼可以存取平台程式碼，這導致了平台之間的不同行為。此外，一些來自共同程式碼的編譯器設定和依賴關係也曾洩漏到平台程式碼中。
 
-在 Kotlin 2.0.0 中，我們對新 Kotlin K2 編譯器的實作包括了編譯方案的重新設計，以確保共同和平台原始碼集之間嚴格分離。當您使用[預期與實際函式](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-expect-actual.html#expected-and-actual-functions)時，這項變更最為顯著。以前，您的共同程式碼中的函式呼叫可能會解析為平台程式碼中的函式。例如：
+在 Kotlin 2.0.0 中，我們對新 Kotlin K2 編譯器的實作包括了編譯方案的重新設計，以確保共同和平台原始碼集之間嚴格分離。當您使用[預期與實際函式](https://kotlinlang.org/docs/multiplatform/multiplatform-expect-actual.html#expected-and-actual-functions)時，這項變更最為顯著。以前，您的共同程式碼中的函式呼叫可能會解析為平台程式碼中的函式。例如：
 
 <table>
    <tr>
@@ -351,7 +351,7 @@ fun foo(x: Int) = println("platform foo")
 
 在 Kotlin 2.0.0 中，共同程式碼無法存取平台程式碼，因此兩個平台都成功地將 `foo()` 函式解析為共同程式碼中的 `foo()` 函式：`common foo`。
 
-除了改進跨平台行為的一致性之外，我們還努力修復了 IntelliJ IDEA 或 Android Studio 與編譯器之間行為衝突的情況。例如，當您使用[預期與實際類別](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-expect-actual.html#expected-and-actual-classes)時，會發生以下情況：
+除了改進跨平台行為的一致性之外，我們還努力修復了 IntelliJ IDEA 或 Android Studio 與編譯器之間行為衝突的情況。例如，當您使用[預期與實際類別](https://kotlinlang.org/docs/multiplatform/multiplatform-expect-actual.html#expected-and-actual-classes)時，會發生以下情況：
 
 <table>
    <tr>
@@ -443,7 +443,7 @@ fun whichFun(x: Int) = println("platform function")
 
 #### 預期與實際宣告的不同可見性等級
 
-在 Kotlin 2.0.0 之前，如果您在 Kotlin 多平台專案中使用[預期與實際宣告](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-expect-actual.html)，它們必須具有相同的[可見性等級](visibility-modifiers.md)。
+在 Kotlin 2.0.0 之前，如果您在 Kotlin 多平台專案中使用[預期與實際宣告](https://kotlinlang.org/docs/multiplatform/multiplatform-expect-actual.html)，它們必須具有相同的[可見性等級](visibility-modifiers.md)。
 Kotlin 2.0.0 現在也支援不同的可見性等級，但**僅限於**實際宣告比預期宣告 _更具_ 寬容性時。例如：
 
 ```kotlin
@@ -468,7 +468,7 @@ class Expanded                                  // Visibility is public by defau
 
 要升級 Kotlin 版本，請在您的 [Gradle](gradle-configure-project.md#apply-the-plugin) 和 [Maven](maven.md#configure-and-enable-the-plugin) 建構腳本中將其更改為 2.0.0 或更高版本。
 
-為了在 IntelliJ IDEA 或 Android Studio 中獲得最佳體驗，請考慮在您的 IDE 中[啟用 K2 模式](#support-in-ides)。
+為了在 Android Studio 中獲得最佳體驗，請在您的 IDE 中使用 [K2 模式](#support-in-ides)。IntelliJ IDEA 預設使用 K2 模式，因此您無需更改任何內容。
 
 ### 使用 Gradle 建構報告
 
@@ -498,24 +498,12 @@ kotlin.build.report.output=file
 
 IntelliJ IDEA 和 Android Studio 中的 K2 模式使用 K2 編譯器來改進程式碼分析、程式碼完成和語法高亮。
 
-從 IntelliJ IDEA 2025.1 開始，K2 模式[預設啟用](https://blog.jetbrains.com/idea/2025/04/k2-mode-in-intellij-idea-2025-1-current-state-and-faq/)。
+IntelliJ IDEA 2025.3 及更高版本始終使用 K2 模式。
 
 在 Android Studio 中，您可以從 2024.1 版本開始透過以下步驟啟用 K2 模式：
 
 1.  前往 **Settings** | **Languages & Frameworks** | **Kotlin**。
 2.  選取 **Enable K2 mode** 選項。
-
-### 先前的 IDE 行為 {initial-collapse-state="collapsed" collapsible="true"}
-
-如果您想恢復到先前的 IDE 行為，可以停用 K2 模式：
-
-1.  前往 **Settings** | **Languages & Frameworks** | **Kotlin**。
-2.  取消選取 **Enable K2 mode** 選項。
-
-> 我們計畫在 Kotlin 2.1.0 之後引入[穩定](components-stability.md#stability-levels-explained)的語言功能。
-> 在此之前，您可以繼續使用先前的 IDE 功能進行程式碼分析，並且不會遇到由於無法識別的語言功能而導致的程式碼高亮問題。
->
-{style="note"}
 
 ## 在 Kotlin Playground 中試用 Kotlin K2 編譯器
 
@@ -993,7 +981,7 @@ actual open class PlatformFileSystem : FileSystem {
 | [KT-57609](https://youtrack.jetbrains.com/issue/KT-57609) | K2：停止依賴對 contravariant 參數使用 @UnsafeVariance                                                      |
 | [KT-57620](https://youtrack.jetbrains.com/issue/KT-57620) | K2：禁止將原始型別解析為被包含的成員                                                                       |
 | [KT-64641](https://youtrack.jetbrains.com/issue/KT-64641) | K2：正確推斷可呼叫參考的型別，該可呼叫參考具有擴展函式參數                                                   |
-| [KT-57011](https://youtrack.jetbrains.com/issue/KT-57011) | 使解構變數的真實型別與指定時的明確型別保持一致                                                             |
+| [KT-57011](https://youtrack.com/issue/KT-57011) | 使解構變數的真實型別與指定時的明確型別保持一致                                                             |
 | [KT-38895](https://youtrack.jetbrains.com/issue/KT-38895) | K2：修復整數文字溢出的不一致行為                                                                           |
 | [KT-54862](https://youtrack.jetbrains.com/issue/KT-54862) | 匿名型別可以從型別引數中的匿名函式中公開                                                                   |
 | [KT-22379](https://youtrack.jetbrains.com/issue/KT-22379) | 帶有 break 的 while 迴圈條件可以產生不健全的智慧型轉型                                                       |
@@ -1009,7 +997,7 @@ actual open class PlatformFileSystem : FileSystem {
 | [KT-57600](https://youtrack.jetbrains.com/issue/KT-57600)  | 禁止使用原始型別參數覆寫帶有泛型型別參數的 Java 方法                                                                                                |
 | [KT-54663](https://youtrack.jetbrains.com/issue/KT-54663)  | 禁止將可能為空型別參數傳遞給 \`in\` 投影的 DNN 參數                                                                                                 |
 | [KT-54066](https://youtrack.jetbrains.com/issue/KT-54066)  | 棄用型別別名建構函式中的上限違規                                                                                                                    |
-| [KT-49404](https://youtrack.jetbrains.com/issue/KT-49404)  | 修復基於 Java 類別的 contravariant 捕獲型別的型別不健全問題                                                                                         |
+| [KT-49404](https://youtrack.com/issue/KT-49404)  | 修復基於 Java 類別的 contravariant 捕獲型別的型別不健全問題                                                                                         |
 | [KT-61718](https://youtrack.jetbrains.com/issue/KT-61718)  | 禁止自上限和捕獲型別的不健全程式碼                                                                                                                    |
 | [KT-61749](https://youtrack.jetbrains.com/issue/KT-61749)  | 禁止泛型內部類別的泛型外部類別中的不健全邊界違規                                                                                                    |
 | [KT-62923](https://youtrack.jetbrains.com/issue/KT-62923)  | K2：為內部類別的外部父型別的投影引入 PROJECTION_IN_IMMEDIATE_ARGUMENT_TO_SUPERTYPE                                                                  |
@@ -1027,7 +1015,7 @@ actual open class PlatformFileSystem : FileSystem {
 | [KT-58260](https://youtrack.jetbrains.com/issue/KT-58260)  | 使 invoke 慣例與預期的語法糖轉換一致                                                                                                                                                             |
 | [KT-62866](https://youtrack.jetbrains.com/issue/KT-62866)  | K2：改變當伴隨物件優先於靜態範圍時的限定詞解析行為                                                                                                                                               |
 | [KT-57750](https://youtrack.jetbrains.com/issue/KT-57750)  | 當解析型別並具有相同名稱的類別星號匯入時，報告歧義錯誤                                                                                                                                           |
-| [KT-63558](https://youtrack.jetbrains.com/issue/KT-63558)  | K2：遷移 COMPATIBILITY_WARNING 周圍的解析                                                                                                                                                        |
+| [KT-63558](https://youtrack.com/issue/KT-63558)  | K2：遷移 COMPATIBILITY_WARNING 周圍的解析                                                                                                                                                        |
 | [KT-51194](https://youtrack.jetbrains.com/issue/KT-51194)  | 當依賴類別包含在同一依賴關係的兩個不同版本中時，錯誤的負 CONFLICTING_INHERITED_MEMBERS                                                                                                           |
 | [KT-37592](https://youtrack.jetbrains.com/issue/KT-37592)  | 具有接收者的函式型別的屬性 invoke 優於擴展函式 invoke                                                                                                                                            |
 | [KT-51666](https://youtrack.jetbrains.com/issue/KT-51666)  | 合格的 this：引入/優先考慮帶有型別案例的 this                                                                                                                                                   |
@@ -1037,8 +1025,8 @@ actual open class PlatformFileSystem : FileSystem {
 
 #### 可見性 {initial-collapse-state="collapsed" collapsible="true"}
 
-| 問題 ID                                                     | 標題                                                                                                                                 |
-| :---------------------------------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------- |
+| 問題 ID                                                     | 標題                                                                                                                          |
+| :---------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------ |
 | [KT-64474](https://youtrack.jetbrains.com/issue/KT-64474/)* | [將不可存取型別的使用宣告為未指定行為](#forbidden-use-of-inaccessible-generic-types)                                                 |
 | [KT-55179](https://youtrack.jetbrains.com/issue/KT-55179)   | 呼叫來自內部內聯函式的私有類別伴隨物件成員時，假負 PRIVATE_CLASS_MEMBER_FROM_INLINE                                                  |
 | [KT-58042](https://youtrack.jetbrains.com/issue/KT-58042)   | 如果等效的 getter 不可見，即使被覆寫的宣告可見，也要使合成屬性不可見                                                                   |

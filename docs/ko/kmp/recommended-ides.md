@@ -18,11 +18,6 @@ iOS 앱을 위한 기본적인 실행 및 디버깅 기능,
 사전 환경 검사, 그리고 기타 유용한 KMP 기능을 제공하는
 [Kotlin Multiplatform IDE 플러그인](https://plugins.jetbrains.com/plugin/14936-kotlin-multiplatform)을 설치할 수 있습니다.
 
-> 프레임워크를 완전히 경험하려면 Android Studio에서 K2 모드를 켜야 합니다.
-> 기본적으로 꺼져 있을 수 있습니다.
-> 
-{style="note"}
-
 ## 다른 IDE 및 코드 에디터
 
 기본적인 Kotlin Multiplatform 지원으로 충분하다면, Kotlin을 지원하는 모든 IDE를 사용할 수 있습니다.

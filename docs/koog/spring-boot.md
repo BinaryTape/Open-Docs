@@ -17,11 +17,12 @@ Koog 通过其自动配置 starter 提供了无缝的 Spring Boot 集成，使�
 
 ### 1. 添加依赖项
 
-将 Spring Boot starter 添加到您的 `build.gradle.kts` 中：
+将 Koog Spring Boot starter 和 [Ktor Client Engine](https://ktor.io/docs/client-engines.html#jvm) 添加到您的 `build.gradle.kts` 或 `pom.xml` 中：
 
 ```kotlin
 dependencies {
     implementation("ai.koog:koog-spring-boot-starter:$koogVersion")
+    implementation("io.ktor:ktor-client-okhttp-jvm:$ktorVersion")
 }
 ```
 

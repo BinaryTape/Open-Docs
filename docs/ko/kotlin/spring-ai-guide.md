@@ -1,6 +1,6 @@
-[//]: # (title: Qdrant에 저장된 문서를 기반으로 질문에 답변하는 Spring AI를 사용하는 Kotlin 앱 구축 — 튜토리얼)
+[//]: # (title: Spring AI를 사용하여 질문에 답변하는 Kotlin 앱 구축 — 튜토리얼)
 
-이 튜토리얼에서는 [Spring AI](https://spring.io/projects/spring-ai)를 사용하여 LLM에 연결하고, 문서를 벡터 데이터베이스에 저장하며, 해당 문서의 컨텍스트를 사용하여 질문에 답변하는 Kotlin 앱을 구축하는 방법을 배웁니다.
+이 튜토리얼에서는 [Spring AI](https://spring.io/projects/spring-ai)를 통해 LLM에 연결하고, 문서를 벡터 데이터베이스에 저장하며, 해당 문서의 컨텍스트를 사용하여 질문에 답변하는 Kotlin 앱을 구축하는 방법을 배웁니다.
 
 이 튜토리얼 동안 다음 도구를 사용합니다:
 

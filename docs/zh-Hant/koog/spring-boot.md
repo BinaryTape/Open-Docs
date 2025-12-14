@@ -17,11 +17,12 @@ Koog 透過其自動配置啟動器，提供無縫的 Spring Boot 整合，讓�
 
 ### 1. 加入依賴
 
-將 Spring Boot starter 加入您的 `build.gradle.kts`：
+將 Koog Spring Boot starter 和 [Ktor Client Engine](https://ktor.io/docs/client-engines.html#jvm) 加入您的 `build.gradle.kts` 或 `pom.xml`：
 
 ```kotlin
 dependencies {
     implementation("ai.koog:koog-spring-boot-starter:$koogVersion")
+    implementation("io.ktor:ktor-client-okhttp-jvm:$ktorVersion")
 }
 ```
 
@@ -119,7 +120,7 @@ class AIService(
 
     suspend fun generateResponse(input: String): String {
         val prompt = prompt {
-            system("You are a helpful AI assistant")
+            system("您是一位有用的 AI 助理")
             user(input)
         }
 
@@ -156,7 +157,7 @@ class ChatController(
         return if (anthropicExecutor != null) {
             try {
                 val prompt = prompt {
-                    system("You are a helpful assistant")
+                    system("您是個有用的助理")
                     user(request.message)
                 }
 
@@ -191,7 +192,7 @@ class RobustAIService(
 
     suspend fun generateWithFallback(input: String): String {
         val prompt = prompt {
-            system("You are a helpful AI assistant")
+            system("您是一位有用的 AI 助理")
             user(input)
         }
 

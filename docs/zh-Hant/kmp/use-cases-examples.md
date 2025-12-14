@@ -3,7 +3,7 @@
 <web-summary>探索 Kotlin Multiplatform 搭配 Compose Multiplatform 如何在真實世界的專案中用於生產環境。探索實用的使用案例及範例。</web-summary>
 
 > 隨著全球大大小小的公司採用 Kotlin Multiplatform (KMP) 搭配 Compose Multiplatform，這項技術已成為建構和擴展現代化跨平台應用程式的可靠解決方案。
-> 
+>
 {style="note"}
 
 從整合現有應用程式和共享應用程式邏輯，到建構全新的跨平台應用程式，[Kotlin Multiplatform](https://www.jetbrains.com/kotlin-multiplatform/) 已成為許多公司的首選技術。這些團隊正利用 KMP 所提供的優勢，更快地推出產品並降低開發成本。
@@ -25,10 +25,10 @@
 **案例研究：**
 
 *   [Instabee](https://www.youtube.com/watch?v=YsQ-2lQYQ8M) 將其 Android 應用程式邏輯和 UI 遷移到 Kotlin Multiplatform 搭配 Compose Multiplatform。透過有效利用 Android 程式碼庫，該公司得以在短時間內發布其 iOS 應用程式。
-*   [Respawn Pro](https://youtu.be/LB5a2FRrT94?si=vgcJI-XoCrWree3u) 開發了一款習慣追蹤和生產力應用程式。其 iOS 應用程式使用 Compose Multiplatform 建構，與 Android 共享了 96% 的程式碼。
+*   [Respawn Pro](https://youtu.be/LB5a2FRrT94?si=mFpiN9SNs8m-jpFL) 開發了一款習慣追蹤和生產力應用程式。其 iOS 應用程式使用 Compose Multiplatform 建構，與 Android 共享了 96% 的程式碼。
 
 > 如果您正在 [Kotlin Multiplatform 和 Flutter](https://www.jetbrains.com/help/kotlin-multiplatform-dev/kotlin-multiplatform-flutter.html) 之間做選擇，請不要錯過我們對這兩項技術的概述。
-> 
+>
 {style="tip"}
 
 ### 中小型企業
@@ -39,14 +39,14 @@ KMP 也支援一種彈性方法，可以逐步引入跨平台功能。這使得�
 
 **案例研究：**
 
-*   [Down Dog](https://kotlinlang.org/lp/multiplatform/case-studies/down-dog/?_gl=1*xdrptd*_gcl_au*ODIxNDk5NDA4LjE3MjEwNDg0OTY.*_ga*MTY1Nzk3NDc4MC4xNzA1NDc1NDcw*_ga_9J976DJZ68*MTcyNzg1MTIzNS4yMzcuMS.MTcyNzg1MTQzNC41Ni4wLjA..) 對其應用程式採用「最大化共享 Kotlin」策略，為行動裝置帶來了工作室般的瑜伽體驗。該公司透過 Kotlin Multiplatform 在客戶端和伺服器之間共享各種輔助工具，以及大部分的客戶端程式碼。該團隊透過保留僅原生視圖，成功顯著提高了應用程式的開發速度。
+*   [Down Dog](https://kotlinlang.org/lp/multiplatform/case-studies/down-dog/?_gl=1*xdrptd*_gcl_au*ODIxNDk5NDA4LjE3MjEwNDg0OTY.*_ga*MTY1Nzk3NDc4MC4xNzA1NDc1NDcw*_ga_9J976DJZ68*MTcyNzg1MTIzNS4yMzcuMS4xNzI3ODUxNDM0LjU2LjAuMA..) 對其應用程式採用「最大化共享 Kotlin」策略，為行動裝置帶來了工作室般的瑜伽體驗。該公司透過 Kotlin Multiplatform 在客戶端和伺服器之間共享各種輔助工具，以及大部分的客戶端程式碼。該團隊透過保留僅原生視圖，成功顯著提高了應用程式的開發速度。
 *   [Doist](https://www.youtube.com/watch?v=z-o9MqN86eE) 在其屢獲殊榮的待辦事項應用程式 Todoist 中使用了 Kotlin Multiplatform。該團隊在 Android 和 iOS 之間共享了關鍵邏輯，以確保一致的行為並簡化開發。他們逐步採用 KMP，從內部函式庫開始。
 
 ### 需要應用程式在不同裝置上行為一致的企業
 
 大型應用程式通常擁有龐大的程式碼庫，不斷有新功能加入，並且複雜的業務邏輯必須在所有平台上以相同的方式運作。Kotlin Multiplatform 提供漸進式整合，允許團隊逐步採用。由於開發人員可以重複使用其現有的 Kotlin 技能，使用 KMP 也使他們免於引入新的技術棧。
 
-**案例研究：** [Forbes](https://www.forbes.com/sites/forbes-engineering/2023/11/13/forbes-mobile-app-shifts-to-kotlin-multiplatform/), [McDonald’s](https://medium.com/mcdonalds-technical-blog/mobile-multiplatform-development-at-mcdonalds-3b72c8d44ebc), [Google Docs](https://www.youtube.com/watch?v=5lkZj4v4-ks), [Philips](https://www.youtube.com/watch?v=hZPL8QqiLi8), [VMware](https://medium.com/vmware-end-user-computing/adopting-a-cross-platform-strategy-for-mobile-apps-59495ffa23b0), [Cash App](https://kotlinlang.org/lp/multiplatform/case-studies/cash-app?_gl=1*1qc1ixl*_gcl_aw*R0NMLjE3NTEzNTcwMDguRUFJYUlRb2JDaE1JblBLRmc0cWJqZ01WZ0VnZENSM3pYQkVWRUFFWUFTQUFFZ0ltOVBEX0J3RQ..*_gcl_au*MTE5NzY3MzgyLjE3NDk3MDk0NjI.*FPAU*MTE5NzY3MzgyLjE3NDk3MDk0NjI.*_ga*MTM4NjAyOTM0NS4xNzM2ODUwMzA5*_ga_9J976DJZ68*czE3NTE1MjQ2MDUkbzcxJGcxJHQxNzUxNTI3Njc5JGozJGwwJGgw), 
+**案例研究：** [Forbes](https://www.forbes.com/sites/forbes-engineering/2023/11/13/forbes-mobile-app-shifts-to-kotlin-multiplatform/), [McDonald’s](https://medium.com/mcdonalds-technical-blog/mobile-multiplatform-development-at-mcdonalds-3b72c8d44ebc), [Google Docs](https://www.youtube.com/watch?v=5lkZj4v4-ks), [Philips](https://www.youtube.com/watch?v=hZPL8QqiLi8), [VMware](https://medium.com/vmware-end-user-computing/adopting-a-cross-platform-strategy-for-mobile-apps-59495ffa23b0), [Cash App](https://kotlinlang.org/lp/multiplatform/case-studies/cash-app?_gl=1*1qc1ixl*_gcl_aw*R0NMLjE3NTEzNTcwMDguRUFJYUlRb2JDaE1JblBLRmc0cWJqZ01WZ0VnZENSM3pYQkVWRUFFWUFTQUFFZ0ltOVBEX0J3RQ..*_gcl_au*MTE5NzY3MzgyLjE3NDk3MDk0NjI.*FPAU*MTE5NzY3MzgyLjE3NDk3MDk0NjI.*_ga*MTM4NjAyOTM0NS4xNzM2ODUwMzA5*_ga_9J976DJZ68*czE3NTE1MjQ2MDUkbzcxJGcxJHQxNzUxNTI3Njc5JGozJGwwJGgw),
 [Wonder App by Baidu](https://kotlinlang.org/lp/multiplatform/case-studies/baidu)
 
 [![從 KMP 成功案例中學習](kmp-success-stories.svg){width="700"}{style="block"}](https://kotlinlang.org/case-studies/?type=multiplatform)
@@ -57,6 +57,7 @@ KMP 也支援一種彈性方法，可以逐步引入跨平台功能。這使得�
 
 **案例研究：**
 
+*   [Touchlab](https://touchlab.co/) 專精於 Kotlin Multiplatform 的跨平台開發和諮詢工作。Touchlab 也建立了可改善 iOS 開發體驗的工具，例如增強從 Kotlin 發布的 Swift API 的 [SKIE](https://github.com/touchlab/SKIE)，以及 [Kotlin 的 Xcode 外掛程式](https://github.com/touchlab/xcode-kotlin)。
 *   [IceRock](https://icerockdev.com/) 是一家外包公司，使用 Kotlin Multiplatform 為其客戶開發應用程式。其應用程式組合涵蓋了各種業務需求，並輔以大量的開源 Kotlin Multiplatform 函式庫，這些函式庫可增強 Kotlin Multiplatform 的開發流程。
 *   [Mirego](https://kotlinlang.org/lp/multiplatform/case-studies/mirego/) 是一個端到端數位產品團隊，使用 Kotlin Multiplatform 在網路、iOS、tvOS、Android 和 Amazon Fire TV 上運行相同的業務邏輯。KMP 允許其簡化開發，同時仍能充分利用每個平台。
 
@@ -100,14 +101,14 @@ Kotlin Multiplatform 的多功能性從其在各行各業中廣泛用於生產�
 
 叫車、外送和出行平台透過在他們的司機、乘客和商家應用程式中共享共同功能，從 Kotlin Multiplatform 中受益。像即時追蹤、路線最佳化或應用程式內聊天等服務的核心邏輯可以編寫一次，並在 Android 和 iOS 上使用，從而保證所有使用者的一致行為。
 
-**案例研究：** [Bolt](https://medium.com/vmware-end-user-computing/adopting-a-cross-platform-strategy-for-mobile-apps-59495ffa23b0), 
+**案例研究：** [Bolt](https://medium.com/vmware-end-user-computing/adopting-a-cross-platform-strategy-for-mobile-apps-59495ffa23b0),
 [Feres](https://kotlinlang.org/case-studies/#case-study-feres)
 
 ### 教育科技
 
 教育應用程式必須在行動和網路平台上提供無縫且一致的學習體驗，尤其是在支援龐大、分散的使用者群時。透過使用 Kotlin Multiplatform 集中學習演算法、測驗和其他業務邏輯，教育應用程式在每個裝置上都能提供統一的學習體驗。這種程式碼共享可以顯著提升效能和一致性——例如，Quizlet 將其共享程式碼從 JavaScript 遷移到 Kotlin 後，其 Android 和 iOS 應用程式都看到了顯著的速度提升。
 
-**案例研究：** [Duolingo](https://youtu.be/RJtiFt5pbfs?si=mFpiN9SNs8m-jpFL), [Quizlet](https://quizlet.com/blog/shared-code-kotlin-multiplatform), [Chalk](https://kotlinlang.org/lp/multiplatform/case-studies/chalk/?_gl=1*1wxmdrv*_gcl_au*MTE5NzY3MzgyLjE3NDk3MDk0NjI.*FPAU*MTE5NzY3MzgyLjE3NDk3MDk0NjI.*_ga*MTM4NjAyOTM0NS4xNzM2ODUwMzA5*_ga_9J976DJZ68*czE3NTEwMjI5ODAkbzYwJGcxJHQxNzUxMDIzMTU2JGo1OCRsMCRoMA..), [Memrise](https://engineering.memrise.com/kotlin-multiplatform-memrise-3764b5a4a0db), 
+**案例研究：** [Duolingo](https://youtu.be/RJtiFt5pbfs?si=mFpiN9SNs8m-jpFL), [Quizlet](https://quizlet.com/blog/shared-code-kotlin-multiplatform), [Chalk](https://kotlinlang.org/lp/multiplatform/case-studies/chalk/?_gl=1*1wxmdrv*_gcl_au*MTE5NzY3MzgyLjE3NDk3MDk0NjI.*FPAU*MTE5NzY3MzgyLjE3NDk3MDk0NjI.*_ga*MTM4NjAyOTM0NS4xNzM2ODUwMzA5*_ga_9J976DJZ68*czE3NTEwMjI5ODAkbzYwJGcxJHQxNzUxMDIzMTU2JGo1OCRsMCRoMA..), [Memrise](https://engineering.memrise.com/kotlin-multiplatform-memrise-3764b5a4a0db),
 [Physics Wallah](https://kotlinlang.org/case-studies/#case-study-physics-wallah)
 
 ### 電子商務
@@ -126,7 +127,7 @@ Kotlin Multiplatform 的多功能性從其在各行各業中廣泛用於生產�
 
 無論是引導瑜伽課程還是跨裝置同步健康數據，健康應用程式都依賴於響應能力和可靠的跨平台行為。這些應用程式通常需要共享核心功能，例如運動邏輯和數據處理，同時保持完全原生的 UI 和特定平台的整合，例如感測器、通知或健康 API。
 
-**案例研究：** [Respawn Pro](https://youtu.be/LB5a2FRrT94?si=vgcJI-XoCrWree3u), [Fast&amp;Fit](https://kotlinlang.org/case-studies/#case-study-fast-and-fit), [Philips](https://www.youtube.com/watch?v=hZPL8QqiLi8), [Down Dog](https://kotlinlang.org/lp/multiplatform/case-studies/down-dog)
+**案例研究：** [Respawn Pro](https://youtu.be/LB5a2FRrT94?si=mFpiN9SNs8m-jpFL), [Fast&amp;Fit](https://kotlinlang.org/case-studies/#case-study-fast-and-fit), [Philips](https://www.youtube.com/watch?v=hZPL8QqiLi8), [Down Dog](https://kotlinlang.org/lp/multiplatform/case-studies/down-dog)
 
 ### 郵政服務
 

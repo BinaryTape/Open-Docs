@@ -6,7 +6,7 @@
 
 JVMおよびKotlin/Nativeでは、コルーチンなどのすべての並行コードは、オペレーティングシステムによって管理される_スレッド_上で実行されます。コルーチンはスレッドをブロックする代わりに、実行を中断できます。これにより、あるコルーチンがデータの到着を待って中断し、別のコルーチンが同じスレッドで実行されることが可能になり、効果的なリソース利用が保証されます。
 
-![並列スレッドと並行スレッドの比較](parallelism-and-concurrency.svg){width="700"}
+![Comparing parallel and concurrent threads](parallelism-and-concurrency.svg){width="700"}
 
 コルーチンとスレッドの違いについて詳しくは、[コルーチンとJVMスレッドの比較](#comparing-coroutines-and-jvm-threads)をご覧ください。
 
@@ -212,7 +212,7 @@ Kotlinでコルーチンを作成するには、次のものが必要です。
 
 この例を複数回実行してみてください。プログラムを実行するたびに出力順序とスレッド名が変更される可能性があります。これは、OSがスレッドの実行を決定するためです。
 
-> 追加情報として、コードの出力でコルーチン名をスレッド名の横に表示できます。これを行うには、ビルドツールまたはIDEの実行構成で`-Dkotlinx.coroutines.debug` VMオプションを渡します。
+> コードの出力でコルーチン名をスレッド名の横に表示できます。これを行うには、ビルドツールまたはIDEの実行構成で`-Dkotlinx.coroutines.debug` VMオプションを渡します。
 >
 > 詳しくは、[コルーチンのデバッグ](https://github.com/Kotlin/kotlinx.coroutines/blob/master/docs/topics/debugging.md)をご覧ください。
 >
@@ -267,7 +267,7 @@ suspend fun main() {
 ```
 {kotlin-runnable="true"}
 
-この例では[ディスパッチャー](#coroutine-dispatchers)が指定されていないため、`coroutineScope()`ブロック内の`CoroutineScope.launch()`ビルダー関数は現在のコンテキストを継承します。そのコンテキストに指定されたディスパッチャーがない場合、`CoroutineScope.launch()`は`Dispatchers.Default`を使用します。これは共有スレッドプールで実行されます。
+この例では[ディスパッチャー](#coroutine-dispatchers)が指定されていないため、`CoroutineScope.launch()`ビルダー関数は現在のコンテキストを継承します。そのコンテキストに指定されたディスパッチャーがない場合、`CoroutineScope.launch()`は`Dispatchers.Default`を使用します。これは共有スレッドプールで実行されます。
 
 ### コルーチンスコープからコルーチンビルダーを抽出する
 
@@ -508,7 +508,7 @@ _スレッド_はオペレーティングシステムによって管理されま
 
 一方、コルーチンは特定のスレッドに縛られません。あるスレッドで中断し、別のスレッドで再開できるため、多くのコルーチンが同じスレッドプールを共有できます。コルーチンが中断すると、スレッドはブロックされず、他のタスクを実行するために解放されたままになります。これにより、コルーチンはスレッドよりもはるかに軽量であり、システムリソースを枯渇させることなく、1つのプロセスで何百万ものコルーチンを実行できます。
 
-![コルーチンとスレッドの比較](coroutines-and-threads.svg){width="700"}
+![Comparing coroutines and threads](coroutines-and-threads.svg){width="700"}
 
 50,000個のコルーチンがそれぞれ5秒待機し、その後ピリオド（`.`）を出力する例を見てみましょう。
 

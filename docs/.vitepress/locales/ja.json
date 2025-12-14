@@ -85,7 +85,7 @@
   "kotlin.kotlin-overview": "Kotlinの概要",
   "kotlin.what-s-new-in-kotlin": "Kotlinの新機能",
   "kotlin.whatsnew22": "Kotlin 2.2.0",
-  "kotlin.whatsnew-eap": "Kotlin 2.3.0-RC2",
+  "kotlin.whatsnew-eap": "Kotlin 2.3.0-RC3",
   "kotlin.earlier-versions": "以前のバージョン",
   "kotlin.whatsnew2120": "Kotlin 2.1.20",
   "kotlin.whatsnew21": "Kotlin 2.1.0",
@@ -514,7 +514,7 @@
   "koog.event-handlers": "イベントハンドラー",
   "kmp.kmp-tooling": "KMPツーリング",
   "kotlin.compose-multiplatform-material3": "Compose Multiplatform Material3",
-  "kmp.whats-new-compose-110": "Compose Multiplatform 1.10.0-rc01",
+  "kmp.whats-new-compose-110": "Compose Multiplatform 1.10.0-rc02",
   "kmp.earlier-versions": "以前のバージョン",
   "kotlin.language-guide": "言語ガイド",
   "kotlin.basic-syntax": "概要",
@@ -588,5 +588,6 @@
   "kmp.compose-multiplatform-and-jetpack-compose": "フレームワーク間の関係",
   "kmp.compose-multiplatform-jetpack-libraries": "ComposeライブラリのMultiplatformアーティファクト",
   "koog.custom-tools-schema": "カスタムツールスキーマ",
-  "kmp.migrate-from-android": "高度なAndroidアプリをKMPに移行する"
+  "kmp.migrate-from-android": "高度なAndroidアプリをKMPに移行する",
+  "coroutines.cancellation-and-timeouts": "Cancellation"
 }

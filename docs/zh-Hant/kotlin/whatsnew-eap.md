@@ -44,10 +44,14 @@ Kotlin %kotlinEapVersion% 專注於功能穩定化，引入了新的未使用回
 
 ### 預設啟用功能
 
-在 Kotlin %kotlinEapVersion% 中，以下語言功能現在預設啟用：
+從 Kotlin %kotlinEapVersion% 開始，[帶有明確回傳型別的表達式主體中 `return` 陳述式](whatsnew2220.md#support-for-return-statements-in-expression-bodies-with-explicit-return-types) 的支援現在預設啟用。
 
-*   [改進了帶有 `suspend` 函式型別的 lambda 函式重載解析](whatsnew2220.md#improved-overload-resolution-for-lambdas-with-suspend-function-types)
-*   [支援在具有明確回傳型別的表達式主體中使用 `return` 陳述式](whatsnew2220.md#support-for-return-statements-in-expression-bodies-with-explicit-return-types)
+> 在 Kotlin %kotlinEapVersion% 中，[改進了帶有 `suspend` 函式型別的 lambda 函式重載解析](whatsnew2220.md#improved-overload-resolution-for-lambdas-with-suspend-function-types) **已禁用**。
+>
+> 此功能最初計劃在 Kotlin 2.3.0 中預設啟用，但在發現一些問題後，
+> 我們決定推遲其實現。它將在未來版本中以改進的設計再次提供。
+>
+{style="note"}
 
 [請參閱 Kotlin 語言設計功能和提案的完整列表](kotlin-language-features-and-proposals.md)。
 
@@ -57,7 +61,8 @@ Kotlin %kotlinEapVersion% 專注於功能穩定化，引入了新的未使用回
 Kotlin %kotlinEapVersion% 引入了一項新功能：未使用回傳值檢查器。
 當表達式回傳的值不是 `Unit` 或 `Nothing`，且未傳遞給函式、未在條件中檢查或未以其他方式使用時，此功能會發出警告。
 
-您可以使用它來捕獲錯誤，例如函式呼叫產生有意義的結果，但結果卻被默默丟棄，這可能導致意外行為或難以追蹤的問題。
+您可以使用它來捕獲錯誤，例如函式呼叫產生有意義的結果，但結果卻被默默丟棄，
+這可能導致意外行為或難以追蹤的問題。
 
 > 檢查器會忽略來自遞增操作（例如 `++` 和 `--`）的回傳值。
 >
@@ -159,7 +164,7 @@ fun main() {
 }
 ```
 
-我們非常感謝您在 [YouTrack](https://youtrack.com/issue/KT-12719) 中提供回饋。有關更多資訊，
+我們非常感謝您在 [YouTrack](https://youtrack.jetbrains.com/issue/KT-12719) 中提供回饋。有關更多資訊，
 請參閱該功能的 [KEEP](https://github.com/Kotlin/KEEP/blob/main/proposals/KEEP-0412-unused-return-value-checker.md)。
 
 ### 上下文感知解析的變更
@@ -172,7 +177,7 @@ fun main() {
 上下文感知解析仍為[實驗性](components-stability.md#stability-levels-explained)，
 但我們將根據使用者回饋持續改進此功能：
 
-*   現在將目前型別的 sealed 和封閉超型別視為搜尋上下文範圍的一部分。不考慮其他超型別範圍。
+*   目前型別的 sealed 和封閉超型別現在被視為搜尋上下文範圍的一部分。不考慮其他超型別範圍。
 *   在涉及型別運算符和相等性的情況下，如果使用上下文感知解析導致解析模糊，編譯器現在會報告警告。例如，當匯入類別的衝突宣告時，可能會發生這種情況。
 
 有關詳細資訊，請參閱 [KEEP](https://github.com/Kotlin/KEEP/blob/main/proposals/KEEP-0379-context-sensitive-resolution.md) 中當前提案的完整文字。

@@ -2,7 +2,7 @@
 
 <web-summary>JetBrains 为 IntelliJ IDEA 和 Android Studio 提供官方 Kotlin IDE 支持。</web-summary>
 
-通过本教程，你可以让一个简单的 Kotlin Multiplatform 应用程序运行起来。
+通过本教程，你可以让一个简单的 Kotlin Multiplatform 应用运行起来。
 
 ## 设置环境
 
@@ -37,7 +37,7 @@ Kotlin Multiplatform (KMP) 项目需要特定的环境，但大多数要求都�
     </TabItem>
     <TabItem title= "Windows PowerShell 或 CMD">
 
-    对于 PowerShell，你可以使用以下命令添加一个持久性环境变量（详见 [PowerShell 文档](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_environment_variables)）：
+    对于 PowerShell，你可以使用以下命令添加一个持久性环境变量（关于详情，请参见 [PowerShell 文档](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_environment_variables)）：
 
     ```shell
     [Environment]::SetEnvironmentVariable('ANDROID_HOME', '<path to the SDK>', 'Machine')
@@ -51,7 +51,7 @@ Kotlin Multiplatform (KMP) 项目需要特定的环境，但大多数要求都�
     </TabItem>
     </Tabs>
 
-5.  要创建 iOS 应用程序，你需要一台安装了 [Xcode](https://apps.apple.com/us/app/xcode/id497799835) 的 macOS 主机。你的 IDE 会在后台运行 Xcode 来构建 iOS framework。
+5.  要创建 iOS 应用程序，你需要一台安装了 [Xcode](https://apps.apple.com/us/app/xcode/id497799835) 的 macOS 主机。你的 IDE 会在后台运行 Xcode 来构建 iOS frameworks。
 
     确保在开始使用 KMP 项目之前至少启动 Xcode 一次，以便它完成初始设置。
 
@@ -77,7 +77,7 @@ Kotlin Multiplatform (KMP) 项目需要特定的环境，但大多数要求都�
     *   对于 iOS，你可以选择两种实现之一：
         *   共享 UI 代码，使用 Compose Multiplatform，
         *   完全原生的 UI，使用 SwiftUI 构建并与共享逻辑的 Kotlin 模块连接。
-    *   桌面目标包含 [Compose Hot Reload](compose-hot-reload.md) 功能的 Beta 版本，它允许你在更改相应代码后立即看到 UI 更改。
+    *   桌面目标包含 [Compose Hot Reload](compose-hot-reload.md) 功能，它允许你在更改代码后立即看到 UI 更改。
         即使你没有计划制作桌面应用程序，你也可能希望使用桌面版本来加速编写 UI 代码。
 
 选择完平台后，点击 **Create** 按钮，等待 IDE 生成并导入项目。
@@ -86,10 +86,6 @@ Kotlin Multiplatform (KMP) 项目需要特定的环境，但大多数要求都�
 
 </TabItem>
 <TabItem title= "Android Studio">
-
-Kotlin Multiplatform IDE 插件高度依赖 K2 功能，如果没有 K2 功能将无法按所述工作。
-因此，在开始之前，请确保 K2 模式已启用：
-**Settings** | **Languages & Frameworks** | **Kotlin** | **Enable K2 mode**。
 
 使用 IDE 向导创建新的 KMP 项目：
 
@@ -130,13 +126,13 @@ Kotlin Multiplatform IDE 插件高度依赖 K2 功能，如果没有 K2 功能�
 
 ## 运行示例应用
 
-IDE 向导创建的项目包含为 iOS、Android、桌面和 Web 应用程序生成的运行配置，以及用于运行服务器应用程序的 Gradle 任务。
+IDE 向导创建的项目包含为 iOS、Android、桌面和 Web 应用程序生成的运行配置，以及用于运行服务器应用的 Gradle 任务。
 以下列出了每个平台的具体 Gradle 命令。
 
 <Tabs>
 <TabItem title="Android">
 
-要运行 Android 应用程序，请启动 **composeApp** 运行配置：
+要运行 Android 应用，请启动 **composeApp** 运行配置：
 
 ![突出显示 Android 运行配置的下拉菜单](run-android-configuration.png){width=250}
 
@@ -149,7 +145,7 @@ IDE 向导创建的项目包含为 iOS、Android、桌面和 Web 应用程序生
 </TabItem>
 <TabItem title="iOS">
 
-> 你需要 macOS 主机来构建 iOS 应用程序。
+> 你需要 macOS 主机来构建 iOS 应用。
 >
 {style="note"}
 
@@ -157,7 +153,7 @@ IDE 向导创建的项目包含为 iOS、Android、桌面和 Web 应用程序生
 
 ![突出显示 iOS 运行配置的下拉菜单](run-ios-configuration.png){width=250}
 
-当你运行 iOS 应用程序时，它会在后台使用 Xcode 构建，并在 iOS 模拟器中启动。
+当你运行 iOS 应用时，它会在后台使用 Xcode 构建，并在 iOS 模拟器中启动。
 第一次构建会收集编译所需的原生依赖项，并为后续运行预热构建：
 
 ![在虚拟设备上运行的 iOS 应用程序](run-ios-app.png){width=350}
@@ -165,7 +161,7 @@ IDE 向导创建的项目包含为 iOS、Android、桌面和 Web 应用程序生
 </TabItem>
 <TabItem title="Desktop">
 
-桌面应用程序的默认运行配置创建为 **composeApp [desktop]**：
+桌面应用的默认运行配置创建为 **composeApp [desktop]**：
 
 ![突出显示默认桌面运行配置的下拉菜单](run-desktop-configuration.png){width=250}
 
@@ -175,14 +171,14 @@ IDE 向导创建的项目包含为 iOS、Android、桌面和 Web 应用程序生
 desktopRun -DmainClass=com.example.myapplication.MainKt --quiet
 ```
 
-通过此配置，你可以运行 JVM 桌面应用程序：
+通过此配置，你可以运行 JVM 桌面应用：
 
 ![在虚拟设备上运行的 JVM 应用程序](run-desktop-app.png){width=600}
 
 </TabItem>
 <TabItem title="Web">
 
-Web 应用程序的默认运行配置创建为 **composeApp [wasmJs]**：
+Web 应用的默认运行配置创建为 **composeApp [wasmJs]**：
 
 ![突出显示默认 Wasm 运行配置的下拉菜单](run-wasm-configuration.png){width=250}
 
@@ -192,7 +188,7 @@ Web 应用程序的默认运行配置创建为 **composeApp [wasmJs]**：
 wasmJsBrowserDevelopmentRun
 ```
 
-当你运行此配置时，IDE 会构建 Kotlin/Wasm 应用程序并在默认浏览器中打开它：
+当你运行此配置时，IDE 会构建 Kotlin/Wasm 应用并在默认浏览器中打开它：
 
 ![在虚拟设备上运行的 Web 应用程序](run-wasm-app.png){width=600}
 
@@ -238,13 +234,13 @@ Java 常见问题：
 ## 后续步骤
 
 了解更多关于 KMP 项目结构和编写共享代码的信息：
-*   关于使用共享 UI 代码的系列教程：[创建你的 Compose Multiplatform 应用程序](compose-multiplatform-create-first-app.md)
-*   关于将共享代码与原生 UI 结合使用的系列教程：[创建你的 Kotlin Multiplatform 应用程序](multiplatform-create-first-app.md)
+*   关于使用共享 UI 代码的系列教程：[创建你的 Compose Multiplatform 应用](compose-multiplatform-create-first-app.md)
+*   关于将共享代码与原生 UI 结合使用的系列教程：[创建你的 Kotlin Multiplatform 应用](multiplatform-create-first-app.md)
 *   深入研究 Kotlin Multiplatform 文档：
     *   [项目配置](multiplatform-project-configuration.md)
     *   [使用多平台依赖项](https://kotlinlang.org/docs/multiplatform-add-dependencies.html)
 *   了解 Compose Multiplatform UI 框架、其基础知识和平台特有的特性：
-    [Compose Multiplatform 和 Jetpack Compose](compose-multiplatform-and-jetpack-compose.md)。
+    [Compose Multiplatform 和 Jetpack Compose 之间的关系](compose-multiplatform-and-jetpack-compose.md)。
 
 发现已为 KMP 编写的代码：
 *   我们的 [示例](multiplatform-samples.md) 页面，包含 JetBrains 官方示例以及精心策划的展示 KMP 功能的项目列表。

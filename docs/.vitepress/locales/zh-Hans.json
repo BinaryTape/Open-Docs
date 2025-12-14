@@ -85,7 +85,7 @@
   "kotlin.kotlin-overview": "Kotlin 概览",
   "kotlin.what-s-new-in-kotlin": "Kotlin 新特性",
   "kotlin.whatsnew22": "Kotlin 2.2.0",
-  "kotlin.whatsnew-eap": "Kotlin 2.3.0-RC2",
+  "kotlin.whatsnew-eap": "Kotlin 2.3.0-RC3",
   "kotlin.earlier-versions": "更早版本",
   "kotlin.whatsnew2120": "Kotlin 2.1.20",
   "kotlin.whatsnew21": "Kotlin 2.1.0",
@@ -514,7 +514,7 @@
   "koog.event-handlers": "事件处理器",
   "kmp.kmp-tooling": "KMP 工具",
   "kotlin.compose-multiplatform-material3": "Compose Multiplatform Material3",
-  "kmp.whats-new-compose-110": "Compose Multiplatform 1.10.0-rc01",
+  "kmp.whats-new-compose-110": "Compose Multiplatform 1.10.0-rc02",
   "kmp.earlier-versions": "更早版本",
   "kotlin.language-guide": "语言指南",
   "kotlin.basic-syntax": "概览",
@@ -588,5 +588,6 @@
   "kmp.compose-multiplatform-and-jetpack-compose": "框架间的关系",
   "kmp.compose-multiplatform-jetpack-libraries": "Compose 库的多平台构件",
   "koog.custom-tools-schema": "自定义工具模式",
-  "kmp.migrate-from-android": "将高级 Android 应用迁移到 KMP"
+  "kmp.migrate-from-android": "将高级 Android 应用迁移到 KMP",
+  "coroutines.cancellation-and-timeouts": "Cancellation"
 }

@@ -176,7 +176,7 @@ fun AIAgentSubgraphBuilderBase<*, *>.myStatefulNode(
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
 
-val strategy = strategy<String, String>("strategy_name") {
+val strategy = strategy<String, String>("my-strategy") {
 -->
 <!--- SUFFIX
 }
@@ -215,7 +215,7 @@ val stringToIntNode by node<String, Int>("node_name") { input: String ->
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
 
-val strategy = strategy<String, String>("strategy_name") {
+val strategy = strategy<String, String>("my-strategy") {
 -->
 <!--- SUFFIX
 }
@@ -236,7 +236,7 @@ val loggingNode by node<String, String>("node_name") { input ->
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
 
-val strategy = strategy<String, String>("strategy_name") {
+val strategy = strategy<String, String>("my-strategy") {
 -->
 <!--- SUFFIX
 }
@@ -256,7 +256,7 @@ LLM과 상호작용하는 노드입니다.
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
 
-val strategy = strategy<String, String>("strategy_name") {
+val strategy = strategy<String, String>("my-strategy") {
 -->
 <!--- SUFFIX
 }

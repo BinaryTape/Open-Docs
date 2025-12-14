@@ -1,4 +1,4 @@
-[//]: # (title: Ktor Clientにおけるベアラー認証)
+[//]: # (title: Ktorクライアントにおけるベアラー認証)
 
 <show-structure for="chapter" depth="2"/>
 
@@ -15,7 +15,7 @@
 </p>
 </tldr>
 
-ベアラー認証には、ベアラー型トークンと呼ばれるセキュリティトークンが関与します。例えば、これらのトークンはOAuthフローの一部として、Google、Facebook、Twitterなどの外部プロバイダーを使用してアプリケーションのユーザーを認証するために使用できます。Ktorサーバーの[OAuth認証フロー](server-oauth.md#flow)セクションから、OAuthフローがどのように見えるか学ぶことができます。
+ベアラー認証には、ベアラー型トークンと呼ばれるセキュリティトークンが関与します。例えば、これらのトークンはOAuthフローの一部として、Google、Facebook、Twitterなどの外部プロバイダーを使用してアプリケーションのユーザーを認可するために使用できます。Ktorサーバーの[OAuth認証フロー](server-oauth.md#flow)セクションから、OAuthフローがどのように見えるか学ぶことができます。
 
 > サーバー側では、Ktorはベアラー認証を処理するための[Authentication (認証)](server-bearer-auth.md)プラグインを提供しています。
 
@@ -32,7 +32,7 @@ Ktorクライアントを使用すると、`Authorization`ヘッダーに`Bearer
     val client = HttpClient(CIO) {
         install(Auth) {
            bearer {
-              // Configure bearer authentication
+             // Configure bearer authentication
            }
         }
     }
@@ -98,13 +98,13 @@ Ktorクライアントを使用すると、`Authorization`ヘッダーに`Bearer
 認証と認可に[OAuth 2.0プロトコル](https://developers.google.com/identity/protocols/oauth2)を使用するGoogle APIにアクセスするために、ベアラー認証を使用する方法を見てみましょう。Googleのプロファイル情報を取得する[client-auth-oauth-google](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-auth-oauth-google)コンソールアプリケーションを調査します。
 
 ### クライアント認証情報を取得する {id="google-client-credentials"}
-最初のステップとして、Google APIにアクセスするために必要なクライアント認証情報を取得する必要があります。
-1.  Googleアカウントを作成します。
-2.  [Google Cloud Console](https://console.cloud.google.com/apis/credentials)を開き、`Android`アプリケーションタイプで`OAuth client ID`認証情報を作成します。このクライアントIDは[ステップ1](#step1)で認可グラントを取得するために使用されます。
+Google APIにアクセスするには、まずOAuthクライアント認証情報が必要です。
+1.  Googleアカウントを作成するか、サインインします。
+2.  [Google Cloud Console](https://console.cloud.google.com/apis/credentials)を開き、`Android`アプリケーションタイプで`OAuth client ID`認証情報を作成します。このクライアントIDは[認可グラントの取得](#step1)に使用されます。
 
-### OAuth認証フロー {id="oauth-flow"}
+### OAuth認可フロー {id="oauth-flow"}
 
-私たちのアプリケーションのOAuth認証フローは次のようになります。
+OAuth認可フローは次のようになります。
 
 ```Console
 (1)  --> Authorization request                Resource owner
@@ -123,11 +123,11 @@ Ktorクライアントを使用すると、`Authorization`ヘッダーに`Bearer
 ```
 {disable-links="false"}
 
-各ステップがどのように実装され、`Bearer`認証プロバイダーがAPIへのアクセスをどのように支援するかを調査しましょう。
+次のセクションでは、各ステップがどのように実装され、`Bearer`認証プロバイダーがAPIへのアクセスをどのように支援するかを説明します。
 
 ### (1) -> 認可リクエスト {id="step1"}
 
-最初のステップとして、必要な権限をリクエストするために使用される認可リンクを構築する必要があります。これを行うには、指定されたクエリパラメータをURLに追加する必要があります。
+最初のステップは、必要な権限をリクエストするために使用される認可URLを構築することです。これは、必要なクエリパラメータを追加することで行われます。
 
 ```kotlin
 val authorizationUrlQuery = parameters {
@@ -141,17 +141,17 @@ println("https://accounts.google.com/o/oauth2/auth?$authorizationUrlQuery")
 println("Open a link above, get the authorization code, insert it below, and press Enter.")
 ```
 
--   `client_id`: [以前取得した](#google-client-credentials)クライアントIDがGoogle APIへのアクセスに使用されます。
+-   `client_id`: [以前取得した](#google-client-credentials)Google APIへのアクセスに使用されるクライアントIDです。
 -   `scope`: Ktorアプリケーションに必要なリソースのスコープです。このケースでは、アプリケーションはユーザーのプロファイルに関する情報をリクエストします。
--   `response_type`: アクセストークンを取得するために使用されるグラントタイプです。このケースでは、認可コードを取得する必要があります。
+-   `response_type`: アクセストークンを取得するために使用されるグラントタイプです。このケースでは、認可コードを取得するために`"code"`に設定されています。
 -   `redirect_uri`: `http://127.0.0.1:8080`の値は、認可コードを取得するために_ループバックIPアドレスフロー_が使用されることを示します。
     > このURLを使用して認可コードを受け取るには、アプリケーションがローカルWebサーバーでリッスンしている必要があります。
     > 例えば、[Ktorサーバー](server-create-and-configure.topic)を使用して、認可コードをクエリパラメータとして取得できます。
--   `access_type`: コンソールアプリケーションがユーザーがブラウザにいないときにアクセストークンを更新する必要があるため、アクセスの種類は`offline`に設定されます。
+-   `access_type`: ユーザーがブラウザにいないときにアプリケーションがアクセストークンを更新できるように、`offline`に設定されます。
 
 ### (2) <- 認可グラント (コード) {id="step2"}
 
-このステップでは、ブラウザから認可コードをコピーし、コンソールに貼り付け、変数に保存します。
+ブラウザから認可コードをコピーし、コンソールに貼り付け、変数に保存します。
 
 ```kotlin
 val authorizationCode = readln()
@@ -159,7 +159,7 @@ val authorizationCode = readln()
 
 ### (3) -> 認可グラント (コード) {id="step3"}
 
-これで、認可コードをトークンと交換する準備ができました。これを行うには、クライアントを作成し、`json`シリアライザーとともに[ContentNegotiation (コンテンツネゴシエーション)](client-serialization.md)プラグインをインストールする必要があります。このシリアライザーは、Google OAuthトークンエンドポイントから受信したトークンを逆シリアル化するために必要です。
+次に、認可コードをトークンと交換します。これを行うには、クライアントを作成し、`json`シリアライザーとともに[ContentNegotiation (コンテンツネゴシエーション)](client-serialization.md)プラグインをインストールする必要があります。このシリアライザーは、Google OAuthトークンエンドポイントから受信したトークンを逆シリアル化するために必要です。
 
 ```kotlin
 val client = HttpClient(CIO) {
@@ -202,7 +202,7 @@ data class TokenInfo(
 
 ### (4) <- アクセスおよびリフレッシュトークン {id="step4"}
 
-トークンを受信したら、ストレージに保存できます。この例では、ストレージは`BearerTokens`インスタンスのミュータブルリストです。これは、その要素を`loadTokens`および`refreshTokens`コールバックに渡せることを意味します。
+トークンを受信したら、`loadTokens`および`refreshTokens`コールバックに供給できるように保存します。この例では、ストレージは`BearerTokens`のミュータブルリストです。
 
 ```kotlin
         val bearerTokenStorage = mutableListOf<BearerTokens>()
@@ -210,11 +210,13 @@ data class TokenInfo(
         bearerTokenStorage.add(BearerTokens(tokenInfo.accessToken, tokenInfo.refreshToken!!))
 ```
 
-> `bearerTokenStorage`は、クライアント構成内で使用されるため、[クライアントの初期化](#step3)の前に作成する必要があることに注意してください。
+> `bearerTokenStorage`はクライアント構成内で使用されるため、[クライアントの初期化](#step3)の前に作成する必要があることに注意してください。
 
 ### (5) -> 有効なトークンでのリクエスト {id="step5"}
 
-これで有効なトークンが手に入ったので、保護されたGoogle APIにリクエストを行い、ユーザーに関する情報を取得できます。まず、クライアントの[構成](#step3)を調整する必要があります。
+これで有効なトークンが手に入ったので、クライアントは保護されたGoogle APIにリクエストを行い、ユーザー情報を取得できます。
+
+その前に、クライアントの[構成](#step3)を調整する必要があります。
 
 ```kotlin
         val client = HttpClient(CIO) {
@@ -239,14 +241,29 @@ data class TokenInfo(
 
 -   既にインストールされている[ContentNegotiation (コンテンツネゴシエーション)](client-serialization.md)プラグインと`json`シリアライザーは、リソースサーバーからJSON形式で受信したユーザー情報を逆シリアル化するために必要です。
 
--   [Auth (認証)](client-auth.md)プラグインの`bearer`プロバイダーは次のように設定されます。
+-   `bearer`プロバイダーを使用する[Auth (認証)](client-auth.md)プラグインは次のように設定されます。
     *   `loadTokens`コールバックは[ストレージ](#step4)からトークンをロードします。
-    *   `sendWithoutRequest`コールバックは、`401` (Unauthorized) レスポンスを待つことなく、保護されたリソースへのアクセスを提供するホストにのみ認証情報を送信するように設定されています。
+    *   `sendWithoutRequest`コールバックは、Googleの保護されたAPIにアクセスする際に`401 Unauthorized`レスポンスを待つことなくアクセストークンを送信するように設定されています。
 
 このクライアントを使用して、保護されたリソースにリクエストを行うことができます。
 
 ```kotlin
 while (true) {
+    println("Make a request? Type 'yes' and press Enter to proceed.")
+    when (readln()) {
+        "yes" -> {
+            val response: HttpResponse = client.get("https://www.googleapis.com/oauth2/v2/userinfo")
+            try {
+                val userInfo: UserInfo = response.body()
+                println("Hello, ${userInfo.name}!")
+            } catch (e: Exception) {
+                val errorInfo: ErrorInfo = response.body()
+                println(errorInfo.error.message)
+            }
+        }
+        else -> return@runBlocking
+    }
+}
 ```
 
 ### (6) <- 保護されたリソース {id="step6"}
@@ -276,16 +293,17 @@ data class UserInfo(
 
 ### (7) -> 有効期限切れのトークンでのリクエスト {id="step7"}
 
-ある時点で、クライアントは[ステップ5](#step5)のようにリクエストを行いますが、有効期限切れのアクセストークンを使用します。
+ある時点で、クライアントは[ステップ5](#step5)のようにリクエストを繰り返しますが、有効期限切れのアクセストークンを使用します。
 
 ### (8) <- 401 Unauthorizedレスポンス {id="step8"}
 
-リソースサーバーは`401` Unauthorizedレスポンスを返すため、クライアントは`refreshTokens`コールバックを呼び出す必要があります。
-> `401`レスポンスはエラー詳細を含むJSONデータを返すため、レスポンスを受信する際にこのケースを[処理](#step12)する必要があることに注意してください。
+トークンが無効になった場合、リソースサーバーは`401 Unauthorized`レスポンスを返します。その後、クライアントは新しいトークンの取得を担当する`refreshTokens`コールバックを呼び出します。
+
+> `401`レスポンスはエラー詳細を含むJSONデータを返します。これは[レスポンス受信時に処理](#step12)する必要があります。
 
 ### (9) -> 認可グラント (リフレッシュトークン) {id="step9"}
 
-新しいアクセストークンを取得するには、`refreshTokens`を設定し、トークンエンドポイントにもう一度リクエストを行う必要があります。今回は、`authorization_code`ではなく`refresh_token`グラントタイプを使用します。
+新しいアクセストークンを取得するには、`refreshTokens`を設定して、トークンエンドポイントにもう一度リクエストを行う必要があります。今回は、`authorization_code`ではなく`refresh_token`グラントタイプが使用されます。
 
 ```kotlin
 install(Auth) {
@@ -304,15 +322,15 @@ install(Auth) {
 }
 ```
 
-`refreshTokens`コールバックがレシーバーとして`RefreshTokensParams`を使用し、以下の設定にアクセスできることに注意してください。
--   `client`インスタンス。上記のコードスニペットでは、フォームパラメータを送信するためにこれを使用しています。
--   `oldTokens`プロパティは、リフレッシュトークンにアクセスし、それをトークンエンドポイントに送信するために使用されます。
+`refreshTokens`コールバックはレシーバーとして`RefreshTokensParams`を使用し、以下の設定にアクセスできます。
+-   フォームパラメータを送信するために使用できる`client`インスタンス。
+-   リフレッシュトークンにアクセスし、それをトークンエンドポイントに送信するために使用される`oldTokens`プロパティ。
 
 > `HttpRequestBuilder`によって公開される`markAsRefreshTokenRequest`関数は、リフレッシュトークンを取得するために使用されるリクエストの特別な処理を可能にします。
 
 ### (10) <- アクセスおよびリフレッシュトークン {id="step10"}
 
-新しいトークンを受信した後、それらを[ストレージ](#step4)に保存できるため、`refreshTokens`は次のようになります。
+新しいトークンを受信したら、それらを[トークンストレージ](#step4)に保存する必要があります。これにより、`refreshTokens`コールバックは次のようになります。
 
 ```kotlin
 refreshTokens {
@@ -331,15 +349,14 @@ refreshTokens {
 
 ### (11) -> 新しいトークンでのリクエスト {id="step11"}
 
-このステップでは、保護されたリソースへのリクエストには新しいトークンが含まれており、問題なく動作するはずです。
-
+リフレッシュされたアクセストークンが保存された状態で、保護されたリソースへの次のリクエストは成功するはずです。
 ```kotlin
 val response: HttpResponse = client.get("https://www.googleapis.com/oauth2/v2/userinfo")
 ```
 
 ### (12) <-- 保護されたリソース {id="step12"}
 
-[401レスポンス](#step8)がエラー詳細を含むJSONデータを返すため、エラーに関する情報を`ErrorInfo`オブジェクトとして受け取るようにサンプルを更新する必要があります。
+[401レスポンス](#step8)がエラー詳細を含むJSONデータを返すことを考慮して、エラーレスポンスを`ErrorInfo`オブジェクトとして読み取るように例を更新します。
 
 ```kotlin
 val response: HttpResponse = client.get("https://www.googleapis.com/oauth2/v2/userinfo")
@@ -352,7 +369,7 @@ try {
 }
 ```
 
-`ErrorInfo`クラスは次のようになります。
+`ErrorInfo`クラスは次のように定義されます。
 
 ```kotlin
 import kotlinx.serialization.*
@@ -368,4 +385,4 @@ data class ErrorDetails(
 )
 ```
 
-完全な例はこちらで見つけることができます: [client-auth-oauth-google](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-auth-oauth-google)。
+完全な例は[client-auth-oauth-google](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-auth-oauth-google)で見つけることができます。

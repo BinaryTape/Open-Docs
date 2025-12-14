@@ -2,7 +2,7 @@
 
 <web-summary>JetBrains は IntelliJ IDEA および Android Studio の公式 Kotlin IDE サポートを提供しています。</web-summary>
 
-このチュートリアルでは、シンプルな Kotlin Multiplatform アプリケーションをすばやく起動して実行できます。
+このチュートリアルでは、シンプルな Kotlin Multiplatform アプリをすばやく起動して実行できます。
 
 ## 環境設定
 
@@ -84,7 +84,7 @@ IDE ウィザードを使用して新しい KMP プロジェクトを作成し�
     *   iOS の場合、2つの実装のいずれかを選択できます。
         *   Compose Multiplatform を使用した共有 UI コード
         *   SwiftUI で作成され、共有ロジックを持つ Kotlin モジュールに接続された完全なネイティブ UI
-    *   デスクトップターゲットには、[Compose Hot Reload](compose-hot-reload.md) 機能のベータ版が含まれており、対応するコードを変更するとすぐに UI の変更を確認できます。
+    *   デスクトップターゲットには、[Compose Hot Reload](compose-hot-reload.md) 機能のベータ版が含まれており、コードを変更するとすぐに UI の変更を確認できます。
         デスクトップアプリを作成する予定がない場合でも、UI コードの作成を高速化するためにデスクトップバージョンを使用することをお勧めします。
 
 プラットフォームの選択が完了したら、**Create** ボタンをクリックし、IDE がプロジェクトを生成してインポートするのを待ちます。
@@ -93,10 +93,6 @@ IDE ウィザードを使用して新しい KMP プロジェクトを作成し�
 
 </TabItem>
 <TabItem title= "Android Studio">
-
-Kotlin Multiplatform IDE プラグインは K2 機能に大きく依存しており、それがなければ記載どおりに動作しません。
-したがって、開始する前に K2 モードが有効になっていることを確認してください:
-**Settings** | **Languages & Frameworks** | **Kotlin** | **Enable K2 mode**。
 
 IDE ウィザードを使用して新しい KMP プロジェクトを作成します。
 
@@ -251,7 +247,7 @@ KMP プロジェクトの構造と共有コードの作成について詳しく�
     *   [Project configuration](multiplatform-project-configuration.md)
     *   [Working with multiplatform dependencies](https://kotlinlang.org/docs/multiplatform-add-dependencies.html)
 *   Compose Multiplatform UI フレームワーク、その基本、およびプラットフォーム固有の機能について学習します。
-    [Compose Multiplatform と Jetpack Compose の関係](compose-multiplatform-and-jetpack-compose.md)。
+    [Relationship between Compose Multiplatform and Jetpack Compose](compose-multiplatform-and-jetpack-compose.md)。
 
 KMP 向けにすでに書かれたコードを見つける。
 *   公式 JetBrains サンプルと、KMP の機能を示す厳選されたプロジェクトリストを含む [Samples](multiplatform-samples.md) ページ。

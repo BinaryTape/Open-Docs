@@ -163,7 +163,7 @@ fun getPermissionLevel(role: UserRole): Int {
     return when (role) {
         UserRole.MEMBER -> 10
         UserRole.GUEST -> 1
-        // You no longer have to include this else branch 
+        // このelseブランチを含める必要はなくなりました 
         // else -> throw IllegalStateException()
     }
 }
@@ -195,18 +195,18 @@ Kotlin 2.2.20では、コンパイラは`inline`関数の`catch`句で[reified�
 inline fun <reified ExceptionType : Throwable> handleException(block: () -> Unit) {
     try {
         block()
-        // This is now allowed after the change
+        // この変更後、これは許可されます
     } catch (e: ExceptionType) {
         println("Caught specific exception: ${e::class.simpleName}")
     }
 }
 
 fun main() {
-    // Tries to perform an action that might throw an IOException
+    // IOExceptionをスローする可能性のあるアクションを実行しようとします
     handleException<java.io.IOException> {
         throw java.io.IOException("File not found")
     }
-    // Caught specific exception: IOException
+    // 特定の例外をキャッチしました: IOException
 }
 ```
 
@@ -263,7 +263,7 @@ sealed class Result<out T, out F : Failure> {
 }
 
 @OptIn(ExperimentalContracts::class)
-// Uses a contract to assert a generic type
+// ジェネリック型をアサートするためにコントラクトを使用します
 fun <T, F : Failure> Result<T, F>.isHttpError(): Boolean {
     contract {
         returns(true) implies (this@isHttpError is Result.Failed<Failure.HttpError>)
@@ -297,14 +297,14 @@ import kotlin.contracts.*
 val Any.isHelloString: Boolean
     get() {
         @OptIn(ExperimentalContracts::class)
-        // Enables smart casting the receiver to String when the getter returns true
+        // ゲッターがtrueを返すときにレシーバーをStringにスマートキャストできるようにします
         contract { returns(true) implies (this@isHelloString is String) }
         return "hello" == this
     }
 
 fun printIfHelloString(x: Any) {
     if (x.isHelloString) {
-        // Prints the length after the smart cast of the receiver to String
+        // レシーバーがStringにスマートキャストされた後、長さを出力します
         println(x.length)
         // 5
     }
@@ -328,7 +328,7 @@ import kotlin.contracts.*
 
 class Runner {
     @OptIn(ExperimentalContracts::class)
-    // Enables initialization of variables assigned inside the lambda
+    // ラムダ内で割り当てられた変数の初期化を有効にします
     operator fun invoke(block: () -> Unit) {
         contract {
             callsInPlace(block, InvocationKind.EXACTLY_ONCE)
@@ -342,7 +342,7 @@ fun testOperator(runner: Runner) {
     runner {
         number = 1
     }
-    // Prints the value after definite initialization guaranteed by the contract
+    // コントラクトによって保証された確定的な初期化後に値を出力します
     println(number)
     // 1
 }
@@ -370,7 +370,7 @@ import kotlin.contracts.*
 @OptIn(ExperimentalContracts::class, ExperimentalExtendedContracts::class)
 fun decode(encoded: String?): String? {
     contract {
-        // Guarantees a non-null return value when the input is non-null
+        // 入力が非nullの場合に非nullの戻り値を保証します
         (encoded != null) implies (returnsNotNull())
     }
     if (encoded == null) return null
@@ -378,10 +378,10 @@ fun decode(encoded: String?): String? {
 }
 
 fun useDecodedValue(s: String?) {
-    // Uses a safe call since the return value may be null
+    // 戻り値がnullである可能性があるため、安全な呼び出しを使用します
     decode(s)?.length
     if (s != null) {
-        // Treats the return value as non-null after the smart cast
+        // スマートキャスト後、戻り値を非nullとして扱います
         decode(s).length
     }
 }
@@ -412,9 +412,9 @@ import kotlin.contracts.*
 @OptIn(ExperimentalContracts::class, ExperimentalExtendedContracts::class)
 fun <T> T.alsoIf(condition: Boolean, block: (T) -> Unit): T {
     contract {
-        // Declares that the lambda runs at most once
+        // ラムダが最大1回実行されることを宣言します
         callsInPlace(block, InvocationKind.AT_MOST_ONCE)
-        // Declares that the condition is assumed to be true inside the lambda
+        // 条件がラムダ内でtrueであると仮定されることを宣言します
         condition holdsIn block
     }
     if (condition) block(this)
@@ -425,8 +425,8 @@ fun useApplyIf(input: Any) {
     val result = listOf(1, 2, 3)
         .first()
         .alsoIf(input is Int) {
-            // The input parameter is smart cast to Int inside the lambda
-            // Prints the sum of input and first list element
+            // 入力パラメータはラムダ内でIntにスマートキャストされます
+            // 入力とリストの最初の要素の合計を出力します
             println(input + it)
             // 2
         }
@@ -467,7 +467,7 @@ class B : Example()
 class C : Example()
 
 fun test(e: Example) = when (e) {
-    // Uses invokedynamic with SwitchBootstraps.typeSwitch
+    // SwitchBootstraps.typeSwitchでinvokedynamicを使用します
     is A -> 1
     is B -> 2
     is C -> 3
@@ -532,7 +532,7 @@ Swiftエクスポートを試すには、Xcodeプロジェクトを設定しま�
    ./gradlew :<Shared module name>:embedSwiftExportForXcode
    ```
 
-   ![Add the Swift export script](xcode-swift-export-run-script-phase.png){width=700}
+   ![Swiftエクスポートスクリプトを追加](xcode-swift-export-run-script-phase.png){width=700}
 
 4.  プロジェクトをビルドします。Swiftモジュールはビルド出力ディレクトリに生成されます。
 
@@ -565,12 +565,12 @@ expect suspend fun readCopiedText(): String
 
 // jsMain
 external interface Navigator { val clipboard: Clipboard }
-// Different interop in JS and Wasm
+// JSとWasmで異なる相互運用
 external interface Clipboard { fun readText(): Promise<String> }
 external val navigator: Navigator
 
 suspend fun readCopiedText(): String {
-    // Different interop in JS and Wasm
+    // JSとWasmで異なる相互運用
     return navigator.clipboard.readText().await()
 }
 
@@ -588,7 +588,7 @@ suspend fun readCopiedText(): String {
 
 この変更により、`web`ソースセットは`js`と`wasmJs`の両方のソースセットの親となります。更新されたソースセット階層は次のようになります。
 
-![An example of using the default hierarchy template with web](default-hierarchy-example-with-web.svg)
+![Webでデフォルト階層テンプレートを使用する例](default-hierarchy-example-with-web.svg)
 
 新しいソースセットにより、`js`と`wasmJs`の両方のターゲットに対して1つのコードを記述できます。共有コードを`webMain`に配置すると、両方で自動的に機能します。
 
@@ -626,7 +626,7 @@ kotlin {
     js()
     wasmJs()
 
-    // Enables the default source set hierarchy, including webMain and webTest
+    // webMainとwebTestを含むデフォルトソースセット階層を有効にします
     applyDefaultHierarchyTemplate()
 }
 ```
@@ -1081,7 +1081,7 @@ fun main(args: Array<String>) {
 
 ```kotlin
 fun main(args: Array<String>) {
-    // No need for drop() and only your custom arguments are included 
+    // drop()は不要で、カスタム引数のみが含まれます 
     println(args.joinToString(", "))
 }
 ```
@@ -1177,7 +1177,7 @@ Kotlin GradleプラグインをGradleの[Signing Plugin](https://docs.gradle.org
 ./gradlew checkSigningConfiguration checkPomFileForKotlinMultiplatformPublication
 ```
 
-The `checkSigningConfiguration`タスクは以下をチェックします。
+`checkSigningConfiguration`タスクは以下をチェックします。
 
 *   Signing Pluginにキーが設定されていること。
 *   設定された公開鍵が`keyserver.ubuntu.com`または`keys.openpgp.org`のキーサーバーのいずれかにアップロードされていること。
@@ -1229,7 +1229,7 @@ Kotlin 2.2.20は、[Experimental](components-stability.md#stability-levels-expla
 ```kotlin
 @OptIn(ExperimentalStdlibApi::class)
 fun inspect(klass: KClass<*>) {
-    // Prints true for interfaces
+    // インターフェースの場合はtrueを出力します
     println(klass.isInterface)
 }
 ```
@@ -1263,13 +1263,13 @@ fun main() {
     val counter = AtomicLong(Random.nextLong())
     val minSetBitsThreshold = 20
 
-    // Sets a new value without using the result
+    // 結果を使用せずに新しい値を設定します
     counter.update { if (it < 0xDECAF) 0xCACA0 else 0xC0FFEE }
 
-    // Retrieves the current value, then updates it
+    // 現在の値を取得し、それを更新します
     val previousValue = counter.fetchAndUpdate { 0x1CEDL.shl(Long.SIZE_BITS - it.countLeadingZeroBits()) or it }
 
-    // Updates the value, then retrieves the result
+    // 値を更新し、結果を取得します
     val current = counter.updateAndFetch {
         if (it.countOneBits() < minSetBitsThreshold) it.shl(20) or 0x15BADL else it
     }
@@ -1304,7 +1304,7 @@ Kotlin 2.2.20では、[`copyOf()`](https://kotlinlang.org/api/core/kotlin-stdlib
 @OptIn(ExperimentalStdlibApi::class)
 fun main() {
     val row1: Array<String> = arrayOf("one", "two")
-    // Resizes the array and populates the new elements using the lambda
+    // 配列のサイズを変更し、ラムダを使用して新しい要素を埋めます
     val row2: Array<String> = row1.copyOf(4) { "default" }
     println(row2.contentToString())
     // [one, two, default, default]
@@ -1333,10 +1333,10 @@ fun main() {
 
 ```text
 @Composable fun App() {
-  Box { // <-- `Box` is a `@UiComposable`
-    Path(...) // <-- `Path` is a `@VectorComposable`
+  Box { // <-- `Box` は `@UiComposable` です
+    Path(...) // <-- `Path` は `@VectorComposable` です
     ^^^^^^^^^
-    warning: Calling a Vector composable function where a UI composable was expected
+    warning: UIコンポーザブルが予期される場所でVectorコンポーザブル関数を呼び出しています
   }
 }
 ```

@@ -142,7 +142,7 @@ Kotlin에서 코루틴을 생성하려면 다음이 필요합니다.
     > 일부 프로젝트에서는 `main()` 함수를 `suspend`로 표시할 수 있지만, 기존 코드와 통합하거나 프레임워크를 사용하는 경우에는 불가능할 수 있습니다.
     > 이 경우 프레임워크 문서에서 일시 중단 함수 호출을 지원하는지 확인하세요.
     > 지원하지 않는다면 [`runBlocking()`](#runblocking)을 사용하여 현재 스레드를 블록하면서 호출하세요.
-    >
+    > 
     {style="note"}
 
 3.  데이터 가져오기 또는 데이터베이스 쓰기와 같은 일시 중단 작업을 시뮬레이션하기 위해 [`delay()`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/delay.html#) 함수를 추가합니다.
@@ -172,9 +172,9 @@ Kotlin에서 코루틴을 생성하려면 다음이 필요합니다.
    > 동시성 코드의 비블록킹 진입점도 정의합니다.
    > 이 함수는 [`Dispatchers.Default` 디스패처](#coroutine-dispatchers)를 사용하여 공유 스레드 풀에서 코드를 실행하여 멀티스레드 실행을 수행합니다.
    > 기본적으로 이 풀은 런타임에 사용 가능한 CPU 코어 수만큼의 스레드를 사용하며, 최소 두 개의 스레드를 사용합니다.
-   >
+   > 
    > `withContext()` 블록 내부에서 시작된 코루틴은 동일한 코루틴 스코프를 공유하며, 이는 [구조화된 동시성](#coroutine-scope-and-structured-concurrency)을 보장합니다.
-   >
+   > 
    {style="note"}
 
 5.  [`CoroutineScope.launch()`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/launch.html)와 같은 [코루틴 빌더 함수](#coroutine-builder-functions)를 사용하여 코루틴을 시작합니다.
@@ -401,7 +401,7 @@ suspend fun performBackgroundWork() = coroutineScope { // this: CoroutineScope
     // Main coroutine continues while a previous one suspends
     println("Scope continues")
 }
-//샘플 끝
+//sampleEnd
 ```
 {kotlin-runnable="true"}
 
@@ -410,7 +410,7 @@ suspend fun performBackgroundWork() = coroutineScope { // this: CoroutineScope
 > `CoroutineScope.launch()` 함수는 [`Job`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-job/) 핸들을 반환합니다.
 > 시작된 코루틴이 완료될 때까지 기다리려면 이 핸들을 사용합니다.
 > 자세한 내용은 [취소 및 타임아웃](cancellation-and-timeouts.md#cancelling-coroutine-execution)을 참조하세요.
->
+> 
 {style="tip"}
 
 ### `CoroutineScope.async()`
@@ -443,7 +443,7 @@ suspend fun main() = withContext(Dispatchers.Default) { // this: CoroutineScope
     val pagesAreEqual = firstPage.await() == secondPage.await()
     println("Pages are equal: $pagesAreEqual")
 }
-//샘플 끝
+//sampleEnd
 ```
 {kotlin-runnable="true"}
 
@@ -495,7 +495,7 @@ suspend fun myReadItem(): Int {
 > 모든 코루틴에 디스패처를 지정할 필요는 없습니다.
 > 기본적으로 코루틴은 부모 스코프로부터 디스패처를 상속받습니다.
 > 다른 컨텍스트에서 코루틴을 실행하려면 디스패처를 지정할 수 있습니다.
->
+> 
 > 코루틴 컨텍스트에 디스패처가 포함되어 있지 않으면 코루틴 빌더는 `Dispatchers.Default`를 사용합니다.
 >
 {style="note"}
@@ -543,7 +543,7 @@ suspend fun main() = withContext(Dispatchers.Default) { // this: CoroutineScope
     // Waits for both calculations and prints the result
     println("Combined total: ${one.await() + two.await()}")
 }
-//샘플 끝
+//sampleEnd
 ```
 {kotlin-runnable="true"}
 
@@ -588,7 +588,7 @@ suspend fun printPeriods() = coroutineScope { // this: CoroutineScope
         }
     }
 }
-//샘플 끝
+//sampleEnd
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 

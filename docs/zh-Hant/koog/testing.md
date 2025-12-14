@@ -391,7 +391,7 @@ assertNodes {
     callTool withInput toolCallMessage(
         SolveTool,
         SolveTool.Args("solve")
-    ) outputs toolResult(SolveTool, "solved")
+    ) outputs toolResult(SolveTool, SolveTool.Args("solve"), "solved")
 }
 ```
 <!--- KNIT example-testing-07.kt -->
@@ -539,7 +539,7 @@ assertNodes {
     callTool withInput toolCallMessage(
         AnalyzeTool,
         AnalyzeTool.Args(query = "complex", depth = 5)
-    ) outputs toolResult(AnalyzeTool, AnalyzeTool.Result(
+    ) outputs toolResult(AnalyzeTool, AnalyzeTool.Args(query = "complex", depth = 5), AnalyzeTool.Result(
         analysis = "Detailed analysis",
         confidence = 0.95,
         metadata = mapOf("source" to "database", "timestamp" to "2023-06-15")
@@ -695,7 +695,8 @@ fun main() {
 assertEdges {
     // Test routing based on tool result content
     callTool withOutput toolResult(
-        AnalyzeTool, 
+        AnalyzeTool,
+        AnalyzeTool.Args(query = "parameters", depth = 3),
         AnalyzeTool.Result(analysis = "Needs more processing", confidence = 0.5)
     ) goesTo processResult
 }
@@ -741,12 +742,14 @@ fun main() {
 assertEdges {
     // Route to different nodes based on confidence level
     callTool withOutput toolResult(
-        AnalyzeTool, 
+        AnalyzeTool,
+        AnalyzeTool.Args(query = "parameters", depth = 3),
         AnalyzeTool.Result(analysis = "Complete", confidence = 0.9)
     ) goesTo finish
 
     callTool withOutput toolResult(
-        AnalyzeTool, 
+        AnalyzeTool,
+        AnalyzeTool.Args(query = "parameters", depth = 3),
         AnalyzeTool.Result(analysis = "Uncertain", confidence = 0.3)
     ) goesTo verifyResult
 }

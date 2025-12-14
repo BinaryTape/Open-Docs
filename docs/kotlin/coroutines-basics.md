@@ -6,7 +6,7 @@
 
 在 JVM 和 Kotlin/Native 上，所有并发代码（例如协程）都运行在由操作系统管理的 _线程_ 上。协程可以挂起它们的执行，而不是阻塞线程。这允许一个协程在等待某些数据到达时挂起，而另一个协程则在同一线程上运行，从而确保了有效的资源利用。
 
-![Comparing parallel and concurrent threads](parallelism-and-concurrency.svg){width="700"}
+![比较并行与并发线程](parallelism-and-concurrency.svg){width="700"}
 
 关于协程与线程之间差异的更多信息，请参见[比较协程与 JVM 线程](#comparing-coroutines-and-jvm-threads)。
 
@@ -131,7 +131,7 @@ dependencies {
     suspend fun main() {}
     ```
 
-    > 虽然你可以在某些项目中将 `main()` 函数标记为 `suspend`，但在与现有代码集成或使用框架时可能无法实现。
+    > 尽管你可以在某些项目中将 `main()` 函数标记为 `suspend`，但在与现有代码集成或使用框架时可能无法实现。
     > 在这种情况下，请查阅框架文档，看它是否支持调用挂起函数。
     > 如果不支持，请使用 [`runBlocking()`](#runblocking) 通过阻塞当前线程来调用它们。
     > 
@@ -155,7 +155,7 @@ dependencies {
     ```kotlin
     suspend fun main() {
         withContext(Dispatchers.Default) {
-            // Add the coroutine builders here
+            // 在这里添加协程构建器
         }
     }
     ```
@@ -199,7 +199,7 @@ dependencies {
     }
 
     suspend fun main() {
-        // 在共享线程池上运行此代码块中的代码
+        // 在此代码块中的代码在共享线程池上运行
         withContext(Dispatchers.Default) { // this: CoroutineScope
             this.launch() {
                 greet()
@@ -252,7 +252,8 @@ import kotlin.time.Duration.Companion.seconds
 
 import kotlinx.coroutines.*
 
-// 如果协程上下文未指定调度器，CoroutineScope.launch() 将使用 Dispatchers.Default
+// 如果协程上下文未指定调度器，
+// CoroutineScope.launch() 将使用 Dispatchers.Default
 //sampleStart
 suspend fun main() {
     // 协程子树的根
@@ -260,17 +261,17 @@ suspend fun main() {
         this.launch {
             this.launch {
                 delay(2.seconds)
-                println("封闭协程的子协程已完成")
+                println("Child of the enclosing coroutine completed")
             }
-            println("子协程 1 已完成")
+            println("Child coroutine 1 completed")
         }
         this.launch {
             delay(1.seconds)
-            println("子协程 2 已完成")
+            println("Child coroutine 2 completed")
         }
     }
     // 仅在 coroutineScope 中的所有子协程完成后运行
-    println("协程作用域已完成")
+    println("Coroutine scope completed")
 }
 //sampleEnd
 ```
@@ -320,7 +321,7 @@ fun CoroutineScope.launchAll() { // this: CoroutineScope
     this.launch { println("2") } 
 }
 //sampleEnd
-/* -- Calling launch without declaring CoroutineScope as the receiver results in a compilation error --
+/* -- 不声明 CoroutineScope 作为接收者而调用 launch 会导致编译错误 --
 
 fun launchAll() {
     // 编译错误：this 未定义
@@ -381,7 +382,7 @@ suspend fun performBackgroundWork() = coroutineScope { // this: CoroutineScope
 
 > `CoroutineScope.launch()` 函数返回一个 [`Job`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-job/) 句柄。
 > 使用此句柄等待启动的协程完成。
-> 关于更多信息，请参见[取消与超时](cancellation-and-timeouts.md#cancelling-coroutine-execution)。
+> 关于更多信息，请参见[取消与超时](cancellation-and-timeouts.md#cancel-coroutines)。
 > 
 {style="tip"}
 
@@ -521,7 +522,7 @@ _线程_ 由操作系统管理。线程可以在多个 CPU 核心上并行运行
 
 另一方面，协程不绑定到特定线程。它可以在一个线程上挂起并在另一个线程上恢复，因此许多协程可以共享同一个线程池。当协程挂起时，线程不会被阻塞，并保持空闲以运行其他任务。这使得协程比线程轻量得多，并允许在一个进程中运行数百万个协程，而不耗尽系统资源。
 
-![Comparing coroutines and threads](coroutines-and-threads.svg){width="700"}
+![比较协程与线程](coroutines-and-threads.svg){width="700"}
 
 让我们看一个示例，其中 50,000 个协程每个等待五秒，然后打印一个点（`.`）：
 

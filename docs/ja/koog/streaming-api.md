@@ -59,7 +59,7 @@ llm.writeSession {
             is StreamFrame.ToolCall -> {
                 println("
 🔧 Tool call: ${frame.name} args=${frame.content}")
-                // Optionally parse lazily:
+                // 必要に応じて遅延パース:
                 // val json = frame.contentJson
             }
             is StreamFrame.End -> println("
@@ -95,10 +95,10 @@ val mdDefinition = markdownBookDefinition()
 
 llm.writeSession {
     val stream = requestLLMStreaming(mdDefinition)
-    // Access the raw string chunks directly
+    // 生の文字列チャンクに直接アクセス
     stream.collect { chunk ->
-        // Process each chunk of text as it arrives
-        println("Received chunk: $chunk") // The chunks together will be structured as a text following the mdDefinition schema
+        // テキストの各チャンクが到着するたびに処理
+        println("Received chunk: $chunk") // チャンクは全体としてmdDefinitionスキーマに従うテキストとして構造化されます
     }
 }
 ```
@@ -125,10 +125,10 @@ val strategy = strategy<String, String>("strategy_name") {
 llm.writeSession {
     val frames = requestLLMStreaming()
 
-    // Stream text chunks as they come:
+    // テキストチャンクが到着するとストリームする:
     frames.filterTextOnly().collect { chunk -> print(chunk) }
 
-    // Or, gather all text into one String after End:
+    // あるいは、終了後にすべてのテキストを1つの文字列にまとめる:
     val fullText = frames.collectText()
     println("
 ---
@@ -157,7 +157,7 @@ fun GraphAIAgent.FeatureContext.installStreamingApi() {
 handleEvents {
     onToolCallStarting { context ->
         println("
-🔧 Using ${context.tool.name} with ${context.toolArgs}... ")
+🔧 Using ${context.toolName} with ${context.toolArgs}... ")
     }
     onLLMStreamingFrameReceived { context ->
         (context.streamFrame as? StreamFrame.Append)?.let { frame ->
@@ -428,7 +428,7 @@ val agentStrategy = strategy<String, Unit>("library-assistant") {
 
          parseMarkdownStreamToBooks(markdownStream).collect { book ->
             callToolRaw(BookTool.NAME, book)
-            /* Other possible options:
+            /* その他の可能なオプション:
                 callTool(BookTool::class, book)
                 callTool<BookTool>(book)
                 findTool(BookTool::class).execute(book)

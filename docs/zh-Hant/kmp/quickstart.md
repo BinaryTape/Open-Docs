@@ -90,7 +90,7 @@ Kotlin Multiplatform (KMP) 專案需要特定的環境，
     * 對於 iOS，您可以選擇兩種實作方式之一：
         * 共用 UI 代碼，使用 Compose Multiplatform，
         * 完全原生的 UI，使用 SwiftUI 製作並與具有共用邏輯的 Kotlin 模組連接。
-    * 桌面目標包含 [Compose Hot Reload](compose-hot-reload.md) 功能的 Beta 版本，它允許您在更改相應代碼後立即看到 UI 變更。
+    * 桌面目標包含 [Compose Hot Reload](compose-hot-reload.md) 功能，它允許您在更改相應代碼後立即看到 UI 變更。
       即使您不打算製作桌面應用程式，您可能也會想使用桌面版本來加速
       編寫 UI 代碼。
 
@@ -100,10 +100,6 @@ Kotlin Multiplatform (KMP) 專案需要特定的環境，
 
 </TabItem>
 <TabItem title= "Android Studio">
-
-Kotlin Multiplatform IDE 插件嚴重依賴 K2 功能，沒有它將無法如描述般運作。
-因此，在開始之前，請確保 K2 模式已啟用：
-**設定** | **語言與框架** | **Kotlin** | **啟用 K2 模式**。
 
 使用 IDE 精靈建立新的 KMP 專案：
 

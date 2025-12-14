@@ -22,7 +22,7 @@ Kotlin 2.2.20 版本已發布，為網頁開發帶來了重要的變更。[Kotli
 
 您也可以在此影片中找到更新的簡要概述：
 
-<video src="https://www.youtube.com/v/QWpp5-LlTqA" title="What's new in Kotlin 2.2.21"/>
+<video src="https://www.youtube.com/v/QWpp5-LlTqA" title="Kotlin 2.2.21 有什麼新功能"/>
 
 ## IDE 支援
 
@@ -143,10 +143,6 @@ kotlin {
 ### 基於資料流的 `when` 表達式窮舉檢查
 <primary-label ref="experimental-opt-in"/>
 
-> 對 IntelliJ IDEA 中此功能的程式碼分析、程式碼補齊和語法高亮顯示目前僅在 [2025.3 EAP 版本](https://www.jetbrains.com/idea/nextversion/) 中可用。
->
-{style = "note"}
-
 Kotlin 2.2.20 引入了基於**資料流**的 `when` 表達式窮舉檢查。
 以前，編譯器的檢查僅限於 `when` 表達式本身，
 通常會強制您添加多餘的 `else` 分支。
@@ -172,7 +168,7 @@ fun getPermissionLevel(role: UserRole): Int {
 }
 ```
 
-此功能是 [實驗性](components-stability.md#stability-levels-explained)。
+此功能是[實驗性](components-stability.md#stability-levels-explained)。
 要啟用它，請將以下編譯器選項添加到您的 `build.gradle(.kts)` 檔案中：
 
 ```kotlin
@@ -186,11 +182,7 @@ kotlin {
 ### `catch` 子句中支援實化型別
 <primary-label ref="experimental-opt-in"/>
 
-> 對 IntelliJ IDEA 中此功能的程式碼分析、程式碼補齊和語法高亮顯示目前僅在 [2025.3 EAP 版本](https://www.jetbrains.com/idea/nextversion/) 中可用。
-> 
-{style = "note"}
-
-在 Kotlin 2.2.20 中，編譯器現在允許在 `inline` 函式的 `catch` 子句中使用 [實化泛型型別參數](inline-functions.md#reified-type-parameters)。
+在 Kotlin 2.2.20 中，編譯器現在允許在 `inline` 函式的 `catch` 子句中使用[實化泛型型別參數](inline-functions.md#reified-type-parameters)。
 
 這是一個範例：
 
@@ -231,10 +223,6 @@ Kotlin 團隊感謝外部貢獻者 [Iven Krall](https://github.com/kralliv) 的�
 ### 改進的 Kotlin 契約
 <primary-label ref="experimental-opt-in"/>
 
-> 對 IntelliJ IDEA 中此功能的程式碼分析、程式碼補齊和語法高亮顯示目前僅在 [2025.3 EAP 版本](https://www.jetbrains.com/idea/nextversion/) 中可用。
->
-{style = "note"}
-
 Kotlin 2.2.20 引入了 [Kotlin 契約](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.contracts/contract.html) 的多項改進，包括：
 
 *   [契約型別斷言中支援泛型](#support-for-generics-in-contract-type-assertions)。
@@ -242,7 +230,7 @@ Kotlin 2.2.20 引入了 [Kotlin 契約](https://kotlinlang.org/api/core/kotlin-s
 *   [契約中支援 `returnsNotNull()` 函式](#support-for-the-returnsnotnull-function-in-contracts)，以確保在滿足條件時回傳非空值。
 *   [新的 `holdsIn` 關鍵字](#new-holdsin-keyword)，允許您假定條件在 Lambda 內部為真。
 
-這些改進是 [實驗性](components-stability.md#stability-levels-explained)。要啟用，您仍然需要在宣告契約時使用 `@OptIn(ExperimentalContracts::class)` 註解。`holdsIn` 關鍵字和 `returnsNotNull()` 函式也需要 `@OptIn(ExperimentalExtendedContracts::class)` 註解。
+這些改進是[實驗性](components-stability.md#stability-levels-explained)。要啟用，您仍然需要在宣告契約時使用 `@OptIn(ExperimentalContracts::class)` 註解。`holdsIn` 關鍵字和 `returnsNotNull()` 函式也需要 `@OptIn(ExperimentalExtendedContracts::class)` 註解。
 
 要使用這些改進，您還需要添加以下每個部分中描述的編譯器選項。
 
@@ -277,7 +265,7 @@ fun <T, F : Failure> Result<T, F>.isHttpError(): Boolean {
 
 在此範例中，契約對 `Result` 物件執行型別斷言，允許編譯器安全地將其[智慧型轉型](typecasts.md#smart-casts) 為斷言的泛型型別。
 
-此功能是 [實驗性](components-stability.md#stability-levels-explained)。要啟用它，請將以下編譯器選項添加到您的 `build.gradle(.kts)` 檔案中：
+此功能是[實驗性](components-stability.md#stability-levels-explained)。要啟用它，請將以下編譯器選項添加到您的 `build.gradle(.kts)` 檔案中：
 
 ```kotlin
 kotlin {
@@ -351,7 +339,7 @@ fun testOperator(runner: Runner) {
 }
 ```
 
-此功能是 [實驗性](components-stability.md#stability-levels-explained)。要啟用它，請將以下編譯器選項添加到您的 `build.gradle(.kts)` 檔案中：
+此功能是[實驗性](components-stability.md#stability-levels-explained)。要啟用它，請將以下編譯器選項添加到您的 `build.gradle(.kts)` 檔案中：
 
 ```kotlin
 kotlin {
@@ -392,7 +380,7 @@ fun useDecodedValue(s: String?) {
 
 在此範例中，`decode()` 函式中的契約允許編譯器在輸入為非空時智慧型轉型其回傳值，從而無需額外的空值檢查或多個多載。
 
-此功能是 [實驗性](components-stability.md#stability-levels-explained)。要啟用它，請將以下編譯器選項添加到您的 `build.gradle(.kts)` 檔案中：
+此功能是[實驗性](components-stability.md#stability-levels-explained)。要啟用它，請將以下編譯器選項添加到您的 `build.gradle(.kts)` 檔案中：
 
 ```kotlin
 kotlin {
@@ -437,7 +425,7 @@ fun useApplyIf(input: Any) {
 }
 ```
 
-此功能是 [實驗性](components-stability.md#stability-levels-explained)。要啟用它，請將以下編譯器選項添加到您的 `build.gradle(.kts)` 檔案中：
+此功能是[實驗性](components-stability.md#stability-levels-explained)。要啟用它，請將以下編譯器選項添加到您的 `build.gradle(.kts)` 檔案中：
 
 ```kotlin
 kotlin {
@@ -496,7 +484,7 @@ kotlin {
 }
 ```
 
-此功能是 [實驗性](components-stability.md#stability-levels-explained)。我們很樂意在我們的問題追蹤器 [YouTrack](https://youtrack.jetbrains.com/issue/KT-65688) 中收到您的回饋。
+此功能是[實驗性](components-stability.md#stability-levels-explained)。我們很樂意在我們的問題追蹤器 [YouTrack](https://youtrack.jetbrains.com/issue/KT-65688) 中收到您的回饋。
 
 ## Kotlin Multiplatform
 
@@ -523,8 +511,8 @@ Kotlin 2.2.20 引入了對 Swift 匯出的實驗性支援。它允許您直接�
 
 #### 如何啟用 Swift 匯出
 
-此功能目前是 [實驗性](components-stability.md#stability-levels-explained)，僅適用於使用 [直接整合](https://kotlinlang.org/docs/multiplatform/multiplatform-direct-integration.html)
-將 iOS 框架連接到 Xcode 專案的專案。這是使用 IntelliJ IDEA 中 Kotlin Multiplatform 插件或透過 [網路精靈](https://kmp.jetbrains.com/) 建立的 Multiplatform 專案的標準配置。
+此功能目前是[實驗性](components-stability.md#stability-levels-explained)，僅適用於使用[直接整合](https://kotlinlang.org/docs/multiplatform/multiplatform-direct-integration.html)
+將 iOS 框架連接到 Xcode 專案的專案。這是使用 IntelliJ IDEA 中 Kotlin Multiplatform 插件或透過[網路精靈](https://kmp.jetbrains.com/) 建立的 Multiplatform 專案的標準配置。
 
 要試用 Swift 匯出，請配置您的 Xcode 專案：
 
@@ -663,7 +651,7 @@ Kotlin 2.2.20 完成了一個重要的[發展藍圖項目](https://youtrack.jetb
 <primary-label ref="experimental-opt-in"/>
 
 為了簡化使用 Gradle 設定 Multiplatform 專案，當您的專案使用 Gradle 8.8 或更高版本時，Kotlin 2.2.20 現在允許您在 `kotlin {}` 區塊中透過使用頂層 `dependencies {}` 區塊來宣告共同依賴。
-這些依賴的行為就如同它們在 `commonMain` 原始碼集中宣告一樣。此功能與您用於 Kotlin/JVM 和僅限 Android 專案的 `dependencies` 區塊類似，它現在在 Kotlin Multiplatform 中是 [實驗性](components-stability.md#stability-levels-explained)。
+這些依賴的行為就如同它們在 `commonMain` 原始碼集中宣告一樣。此功能與您用於 Kotlin/JVM 和僅限 Android 專案的 `dependencies` 區塊類似，它現在在 Kotlin Multiplatform 中是[實驗性](components-stability.md#stability-levels-explained)。
 
 在專案層級宣告共同依賴可減少跨原始碼集的重複配置，並有助於簡化您的建置設定。您仍然可以根據需要在每個原始碼集中添加平台專屬依賴。
 
@@ -734,7 +722,7 @@ Kotlin 2.2.20 引入了 `smallBinary` 選項，可以幫助您減小發布版本
 啟用 `smallBinary` 選項後，您可以使發布版本二進位檔案更小並縮短建置時間。但是，它可能會
 在某些情況下影響執行時效能。
 
-新功能目前是 [實驗性](components-stability.md#stability-levels-explained)。要在您的
+新功能目前是[實驗性](components-stability.md#stability-levels-explained)。要在您的
 專案中試用它，請將以下[二進位選項](native-binary-options.md) 添加到您的 `gradle.properties` 檔案中：
 
 ```none
@@ -966,7 +954,7 @@ devServer = (devServer ?: KotlinWebpackConfig.DevServer()).apply {
 }
 ```
 
-從 Kotlin 2.2.20 開始，在 [現代瀏覽器](wasm-configuration.md#browser-versions) 中偵錯您的應用程式可以開箱即用。
+從 Kotlin 2.2.20 開始，在[現代瀏覽器](wasm-configuration.md#browser-versions) 中偵錯您的應用程式可以開箱即用。
 當您執行 Gradle 開發任務 (`*DevRun`) 時，Kotlin 會自動向瀏覽器提供原始檔，允許您
 設定中斷點、檢查變數並逐步執行 Kotlin 程式碼，無需額外設定。
 
@@ -1078,7 +1066,7 @@ kotlin {
 }
 ```
 
-此功能是 [實驗性](components-stability.md#stability-levels-explained)。我們很樂意在我們的問題追蹤器 [YouTrack](https://youtrack.jetbrains.com/issue/KT-57128) 中收到您的回饋。
+此功能是[實驗性](components-stability.md#stability-levels-explained)。我們很樂意在我們的問題追蹤器 [YouTrack](https://youtrack.jetbrains.com/issue/KT-57128) 中收到您的回饋。
 
 #### 在匯出宣告中使用 `Long`
 
@@ -1153,7 +1141,7 @@ Kotlin 2.2.20 在 Gradle 建置報告中為 Kotlin/Native 任務添加了新的�
 
 ### Kotlin/Native 任務建置報告中的新編譯器效能指標
 
-在 Kotlin 1.7.0 中，我們引入了 [建置報告](gradle-compilation-and-caches.md#build-reports) 以幫助追蹤編譯器效能。從那時起，我們添加了更多指標，使這些報告更加詳細和有用，以便調查效能問題。
+在 Kotlin 1.7.0 中，我們引入了[建置報告](gradle-compilation-and-caches.md#build-reports) 以幫助追蹤編譯器效能。從那時起，我們添加了更多指標，使這些報告更加詳細和有用，以便調查效能問題。
 
 在 Kotlin 2.2.20 中，建置報告現在包含 Kotlin/Native 任務的編譯器效能指標。
 
@@ -1283,7 +1271,7 @@ Kotlin 2.2.20 引入了在 [`org.jetbrains.kotlin:kotlin-compiler-arguments-desc
 ### Kotlin/JS 中透過反射識別介面型別的支援
 <primary-label ref="experimental-opt-in"/>
 
-Kotlin 2.2.20 將 [實驗性](components-stability.md#stability-levels-explained) [`KClass.isInterface`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.reflect/-k-class/is-interface.html) 屬性
+Kotlin 2.2.20 將[實驗性](components-stability.md#stability-levels-explained) [`KClass.isInterface`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.reflect/-k-class/is-interface.html) 屬性
 添加到 Kotlin/JS 標準函式庫。
 
 透過此屬性，您現在可以檢查類別參考是否表示 Kotlin 介面。這使得 Kotlin/JS 更接近
@@ -1314,7 +1302,7 @@ Kotlin 2.2.20 引入了用於更新常用原子型別及其陣列對應物元素
 您可以使用這些函式來實作不開箱即用的原子轉換，例如乘法或位元運算。
 在這次變更之前，遞增常用原子型別並讀取舊值需要使用 [`compareAndSet()` 函式](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.concurrent/-atomic-int/compare-and-set.html) 進行迴圈。
 
-與所有用於常用原子型別的 API 一樣，這些函式是 [實驗性](components-stability.md#stability-levels-explained)。
+與所有用於常用原子型別的 API 一樣，這些函式是[實驗性](components-stability.md#stability-levels-explained)。
 要啟用，請使用 `@OptIn(ExperimentalAtomicApi::class)` 註解。
 
 以下是一個執行不同型別的更新並回傳舊值或新值的程式碼範例：
@@ -1376,7 +1364,7 @@ fun main() {
 }
 ```
 
-此 API 是 [實驗性](components-stability.md#stability-levels-explained)。要啟用，請使用 `@OptIn(ExperimentalStdlibApi::class)` 註解。
+此 API 是[實驗性](components-stability.md#stability-levels-explained)。要啟用，請使用 `@OptIn(ExperimentalStdlibApi::class)` 註解。
 
 我們很樂意在我們的[問題追蹤器](https://youtrack.jetbrains.com/issue/KT-70984) 中收到您的回饋。
 

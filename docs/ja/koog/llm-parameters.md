@@ -10,88 +10,95 @@ Koogでは、`LLMParams`クラスがLLMパラメータを組み込み、言語�
 
 - プロンプトを作成する場合:
 
-    <!--- INCLUDE
-    import ai.koog.prompt.prompt
-    import ai.koog.prompt.params.LLMParams
-    -->
-    ```kotlin
-    val prompt = prompt(
-        id = "dev-assistant",
-        params = LLMParams(
-            temperature = 0.7,
-            maxTokens = 500
-        )
-    ) {
-        // コンテキストを設定するためのシステムメッセージを追加
-        system("You are a helpful assistant.")
+<!--- INCLUDE
+import ai.koog.prompt.dsl.prompt
+import ai.koog.prompt.params.LLMParams
+-->
+```kotlin
+val prompt = prompt(
+    id = "dev-assistant",
+    params = LLMParams(
+        temperature = 0.7,
+        maxTokens = 500
+    )
+) {
+    // Add a system message to set the context
+    system("You are a helpful assistant.")
 
-        // ユーザーメッセージを追加
-        user("Tell me about Kotlin")
-    }
-    ```
-    <!--- KNIT example-llm-parameters-01.kt -->
+    // Add a user message
+    user("Tell me about Kotlin")
+}
+```
+<!--- KNIT example-llm-parameters-01.kt -->
 
-    プロンプトの作成に関する詳細については、「[Prompt API](prompt-api.md)」を参照してください。
+プロンプトの作成に関する詳細については、「[プロンプト](prompt-api.md)」を参照してください。
 
 - サブグラフを作成する場合:
 
-    <!--- INCLUDE
-    import ai.koog.agents.core.dsl.builder.strategy
-    import ai.koog.agents.ext.tool.SayToUser
-    import ai.koog.prompt.executor.clients.openai.OpenAIModels
-    import ai.koog.agents.ext.agent.subgraphWithTask
-    val searchTool = SayToUser
-    val calculatorTool = SayToUser
-    val weatherTool = SayToUser
-    val strategy = strategy<String, String>("strategy_name") {
-    -->
-    <!--- SUFFIX
-    }
-    -->
-    ```kotlin
-    val processQuery by subgraphWithTask<String, String>(
-        tools = listOf(searchTool, calculatorTool, weatherTool),
-        llmModel = OpenAIModels.Chat.GPT4o,
-        llmparams = LLMParams(
-            temperature = 0.7,
-            maxTokens = 500,
-        )
-    ) { userQuery ->
-        """
-        You are a helpful assistant that can answer questions about various topics.
-        Please help with the following query:
-        $userQuery
-        """
-    }
-    ```
-    <!--- KNIT example-llm-parameters-02.kt -->
+<!--- INCLUDE
+import ai.koog.agents.core.agent.ToolCalls
+import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.ext.tool.SayToUser
+import ai.koog.prompt.executor.clients.openai.OpenAIModels
+import ai.koog.agents.ext.agent.subgraphWithTask
+import ai.koog.prompt.params.LLMParams
 
-    独自のサブグラフの作成と実装に関する詳細については、「[Custom subgraphs](custom-subgraphs.md)」を参照してください。
+val searchTool = SayToUser
+val calculatorTool = SayToUser
+val weatherTool = SayToUser
+
+val strategy = strategy<String, String>("strategy_name") {
+-->
+<!--- SUFFIX
+}
+-->
+```kotlin
+val processQuery by subgraphWithTask<String, String>(
+    tools = listOf(searchTool, calculatorTool, weatherTool),
+    llmModel = OpenAIModels.Chat.GPT4o,
+    llmParams = LLMParams(
+        temperature = 0.7,
+        maxTokens = 500
+    ),
+    runMode = ToolCalls.SEQUENTIAL,
+    assistantResponseRepeatMax = 3,
+) { userQuery ->
+    """
+    You are a helpful assistant that can answer questions about various topics.
+    Please help with the following query:
+    $userQuery
+    """
+}
+```
+<!--- KNIT example-llm-parameters-02.kt -->
+
+Koogに存在するサブグラフの種類に関する詳細については、「[事前定義されたサブグラフ](nodes-and-components.md#predefined-subgraphs)」を参照してください。独自のサブグラフの作成と実装に関する詳細については、「[カスタムサブグラフ](custom-subgraphs.md)」を参照してください。
 
 - LLMライトセッションでプロンプトを更新する場合:
 
-    <!--- INCLUDE
-    import ai.koog.agents.core.dsl.builder.strategy
-    val strategy = strategy<Unit, Unit>("strategy-name") {
-    val node by node<Unit, Unit> {
-    -->
-    <!--- SUFFIX
-       }
-    }
-    -->
-    ```kotlin
-    llm.writeSession {
-        changeLLMParams(
-            LLMParams(
-                temperature = 0.7,
-                maxTokens = 500
-            )
+<!--- INCLUDE
+import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.prompt.params.LLMParams
+val strategy = strategy<Unit, Unit>("strategy-name") {
+val node by node<Unit, Unit> {
+-->
+<!--- SUFFIX
+   }
+}
+-->
+```kotlin
+llm.writeSession {
+    changeLLMParams(
+        LLMParams(
+            temperature = 0.7,
+            maxTokens = 500
         )
-    }
-    ```
-    <!--- KNIT example-llm-parameters-03.kt -->
+    )
+}
+```
+<!--- KNIT example-llm-parameters-03.kt -->
 
-    セッションに関する詳細については、「[LLM sessions and manual history management](sessions.md)」を参照してください。
+セッションに関する詳細については、「[LLM sessions and manual history management](sessions.md)」を参照してください。
 
 ## LLMパラメータリファレンス
 
@@ -112,102 +119,107 @@ Koogでは、`LLMParams`クラスがLLMパラメータを組み込み、言語�
 
 - [OpenAI Chat](https://platform.openai.com/docs/api-reference/chat/create)
 - [OpenAI Responses](https://platform.openai.com/docs/api-reference/responses/create)
+- [Google](https://ai.google.dev/api/generate-content#generationconfig)
+- [Anthropic](https://platform.claude.com/docs/en/api/messages/create)
+- [Mistral](https://docs.mistral.ai/api/#operation/chatCompletions)
 - [DeepSeek](https://api-docs.deepseek.com/api/create-chat-completion#request)
-- [OpenRouter](https://openrouter.ai/docs/api-reference/parameters)
+- [OpenRouter](https://openrouter.ai/docs/api/reference/parameters)
+- Alibaba ([DashScope](https://www.alibabacloud.com/help/en/model-studio/qwen-api-reference))
 
 ## スキーマ
 
-`Schema`インターフェースは、モデルの応答フォーマットの構造を定義します。Koogは、以下のセクションで説明するように、JSONスキーマをサポートしています。
+`Schema`インターフェースは、モデルの応答フォーマットの構造を定義します。
+Koogは、以下のセクションで説明するように、JSONスキーマをサポートしています。
 
 ### JSONスキーマ
 
 JSONスキーマを使用すると、言語モデルから構造化されたJSONデータを要求できます。Koogは以下の2種類のJSONスキーマをサポートしています。
 
-1.  **基本JSONスキーマ** (`LLMParams.Schema.JSON.Basic`): 基本的なJSON処理機能に使用されます。このフォーマットは主に、高度なJSONスキーマ機能を持たないネストされたデータ定義に焦点を当てています。
+1) **基本JSONスキーマ** (`LLMParams.Schema.JSON.Basic`): 基本的なJSON処理機能に使用されます。このフォーマットは主に、高度なJSONスキーマ機能を持たないネストされたデータ定義に焦点を当てています。
 
-    <!--- INCLUDE
-    import ai.koog.prompt.params.LLMParams
-    import kotlinx.serialization.json.JsonObject
-    import kotlinx.serialization.json.JsonArray
-    import kotlinx.serialization.json.JsonPrimitive
-    -->
-    ```kotlin
-    // Create parameters with a basic JSON schema
-    val jsonParams = LLMParams(
-        temperature = 0.2,
-        schema = LLMParams.Schema.JSON.Basic(
-            name = "PersonInfo",
-            schema = JsonObject(mapOf(
-                "type" to JsonPrimitive("object"),
-                "properties" to JsonObject(
-                    mapOf(
-                        "name" to JsonObject(mapOf("type" to JsonPrimitive("string"))),
-                        "age" to JsonObject(mapOf("type" to JsonPrimitive("number"))),
-                        "skills" to JsonObject(
-                            mapOf(
-                                "type" to JsonPrimitive("array"),
-                                "items" to JsonObject(mapOf("type" to JsonPrimitive("string")))
-                            )
+<!--- INCLUDE
+import ai.koog.prompt.params.LLMParams
+import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.json.JsonArray
+import kotlinx.serialization.json.JsonPrimitive
+-->
+```kotlin
+// Create parameters with a basic JSON schema
+val jsonParams = LLMParams(
+    temperature = 0.2,
+    schema = LLMParams.Schema.JSON.Basic(
+        name = "PersonInfo",
+        schema = JsonObject(mapOf(
+            "type" to JsonPrimitive("object"),
+            "properties" to JsonObject(
+                mapOf(
+                    "name" to JsonObject(mapOf("type" to JsonPrimitive("string"))),
+                    "age" to JsonObject(mapOf("type" to JsonPrimitive("number"))),
+                    "skills" to JsonObject(
+                        mapOf(
+                            "type" to JsonPrimitive("array"),
+                            "items" to JsonObject(mapOf("type" to JsonPrimitive("string")))
                         )
                     )
-                ),
-                "additionalProperties" to JsonPrimitive(false),
-                "required" to JsonArray(listOf(JsonPrimitive("name"), JsonPrimitive("age"), JsonPrimitive("skills")))
-            ))
-        )
+                )
+            ),
+            "additionalProperties" to JsonPrimitive(false),
+            "required" to JsonArray(listOf(JsonPrimitive("name"), JsonPrimitive("age"), JsonPrimitive("skills")))
+        ))
     )
-    ```
-    <!--- KNIT example-llm-parameters-04.kt -->
+)
+```
+<!--- KNIT example-llm-parameters-04.kt -->
 
-2.  **標準JSONスキーマ** (`LLMParams.Schema.JSON.Standard`): [json-schema.org](https://json-schema.org/)に従った標準JSONスキーマを表します。このフォーマットは、公式JSONスキーマ仕様の適切なサブセットです。すべてのLLMプロバイダーが完全なJSONスキーマをサポートしているわけではないため、LLMプロバイダーによって特性が異なる場合があることに注意してください。
+2) **標準JSONスキーマ** (`LLMParams.Schema.JSON.Standard`): [json-schema.org](https://json-schema.org/)に従った標準JSONスキーマを表します。このフォーマットは、公式JSONスキーマ仕様の適切なサブセットです。すべてのLLMプロバイダーが完全なJSONスキーマをサポートしているわけではないため、LLMプロバイダーによって特性が異なる場合があることに注意してください。
 
-    <!--- INCLUDE
-    import ai.koog.prompt.params.LLMParams
-    import kotlinx.serialization.json.JsonObject
-    import kotlinx.serialization.json.JsonPrimitive
-    import kotlinx.serialization.json.JsonArray
-    -->
-    ```kotlin
-    // Create parameters with a standard JSON schema
-    val standardJsonParams = LLMParams(
-        temperature = 0.2,
-        schema = LLMParams.Schema.JSON.Standard(
-            name = "ProductCatalog",
-            schema = JsonObject(mapOf(
-                "type" to JsonPrimitive("object"),
-                "properties" to JsonObject(mapOf(
-                    "products" to JsonObject(mapOf(
-                        "type" to JsonPrimitive("array"),
-                        "items" to JsonObject(mapOf(
-                            "type" to JsonPrimitive("object"),
-                            "properties" to JsonObject(mapOf(
-                                "id" to JsonObject(mapOf("type" to JsonPrimitive("string"))),
-                                "name" to JsonObject(mapOf("type" to JsonPrimitive("string"))),
-                                "price" to JsonObject(mapOf("type" to JsonPrimitive("number"))),
-                                "description" to JsonObject(mapOf("type" to JsonPrimitive("string")))
-                            )),
-                            "additionalProperties" to JsonPrimitive(false),
-                            "required" to JsonArray(listOf(JsonPrimitive("id"), JsonPrimitive("name"), JsonPrimitive("price"), JsonPrimitive("description")))
-                        ))
+<!--- INCLUDE
+import ai.koog.prompt.params.LLMParams
+import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.json.JsonPrimitive
+import kotlinx.serialization.json.JsonArray
+-->
+```kotlin
+// Create parameters with a standard JSON schema
+val standardJsonParams = LLMParams(
+    temperature = 0.2,
+    schema = LLMParams.Schema.JSON.Standard(
+        name = "ProductCatalog",
+        schema = JsonObject(mapOf(
+            "type" to JsonPrimitive("object"),
+            "properties" to JsonObject(mapOf(
+                "products" to JsonObject(mapOf(
+                    "type" to JsonPrimitive("array"),
+                    "items" to JsonObject(mapOf(
+                        "type" to JsonPrimitive("object"),
+                        "properties" to JsonObject(mapOf(
+                            "id" to JsonObject(mapOf("type" to JsonPrimitive("string"))),
+                            "name" to JsonObject(mapOf("type" to JsonPrimitive("string"))),
+                            "price" to JsonObject(mapOf("type" to JsonPrimitive("number"))),
+                            "description" to JsonObject(mapOf("type" to JsonPrimitive("string")))
+                        )),
+                        "additionalProperties" to JsonPrimitive(false),
+                        "required" to JsonArray(listOf(JsonPrimitive("id"), JsonPrimitive("name"), JsonPrimitive("price"), JsonPrimitive("description")))
                     ))
-                )),
-                "additionalProperties" to JsonPrimitive(false),
-                "required" to JsonArray(listOf(JsonPrimitive("products")))
-            ))
-        )
+                ))
+            )),
+            "additionalProperties" to JsonPrimitive(false),
+            "required" to JsonArray(listOf(JsonPrimitive("products")))
+        ))
     )
-    ```
-    <!--- KNIT example-llm-parameters-05.kt -->
+)
+```
+<!--- KNIT example-llm-parameters-05.kt -->
 
 ## ツール選択
 
 `ToolChoice`クラスは、言語モデルがツールを使用する方法を制御します。以下のオプションを提供します。
 
-*   `LLMParams.ToolChoice.Named`: 言語モデルは指定されたツールを呼び出します。呼び出すツールの名前を表す`name`文字列引数を取ります。
-*   `LLMParams.ToolChoice.All`: 言語モデルはすべてのツールを呼び出します。
-*   `LLMParams.ToolChoice.None`: 言語モデルはツールを呼び出さず、テキストのみを生成します。
-*   `LLMParams.ToolChoice.Auto`: 言語モデルは、ツールを呼び出すかどうか、およびどのツールを呼び出すかを自動的に決定します。
-*   `LLMParams.ToolChoice.Required`: 言語モデルは少なくとも1つのツールを呼び出します。
+* `LLMParams.ToolChoice.Named`: 言語モデルは指定されたツールを呼び出します。呼び出すツールの名前を表す`name`文字列引数を取ります。
+* `LLMParams.ToolChoice.All`: 言語モデルはすべてのツールを呼び出します。
+* `LLMParams.ToolChoice.None`: 言語モデルはツールを呼び出さず、テキストのみを生成します。
+* `LLMParams.ToolChoice.Auto`: 言語モデルは、ツールを呼び出すかどうか、およびどのツールを呼び出すかを自動的に決定します。
+* `LLMParams.ToolChoice.Required`: 言語モデルは少なくとも1つのツールを呼び出します。
 
 ここに、特定のツールを呼び出すために`LLMParams.ToolChoice.Named`クラスを使用する例を示します。
 
@@ -219,48 +231,136 @@ val specificToolParams = LLMParams(
     toolChoice = LLMParams.ToolChoice.Named(name = "calculator")
 )
 ```
-<!--- KNIT example-llm-parameters-01.kt -->
+<!--- KNIT example-llm-parameters-06.kt -->
 
 ## プロバイダー固有のパラメータ
 
 Koogは、一部のLLMプロバイダー向けにプロバイダー固有のパラメータをサポートしています。これらのパラメータは、基本の`LLMParams`クラスを拡張し、プロバイダー固有の機能を追加します。以下のクラスには、プロバイダーごとに固有のパラメータが含まれています。
 
--   `DeepSeekParams`: DeepSeekモデルに固有のパラメータ。
--   `OpenRouterParams`: OpenRouterモデルに固有のパラメータ。
--   `OpenAIChatParams`: OpenAI Chat Completions APIに固有のパラメータ。
--   `OpenAIResponsesParams`: OpenAI Responses APIに固有のパラメータ。
+- `OpenAIChatParams`: OpenAI Chat Completions APIに固有のパラメータ。
+- `OpenAIResponsesParams`: OpenAI Responses APIに固有のパラメータ。
+- `GoogleParams`: Googleモデルに固有のパラメータ。
+- `AnthropicParams`: Anthropicモデルに固有のパラメータ。
+- `MistralAIParams`: Mistralモデルに固有のパラメータ。
+- `DeepSeekParams`: DeepSeekモデルに固有のパラメータ。
+- `OpenRouterParams`: OpenRouterモデルに固有のパラメータ。
+- `DashscopeParams`: Alibabaモデルに固有のパラメータ。
 
 Koogにおけるプロバイダー固有のパラメータの完全なリファレンスを以下に示します。
 
-| パラメータ          | プロバイダー                                        | 型                     | 説明                                                                                                                                                                                                                                                                                                                                                                                                                        |
-|--------------------|----------------------------------------------------|------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `topP`             | OpenAI Chat, OpenAI Responses, DeepSeek, OpenRouter | Double                 | nucleus samplingとも呼ばれます。確率値の合計が指定された`topP`値に達するまで、最も高い確率値を持つトークンをサブセットに追加することで、次のトークンのサブセットを作成します。0.0より大きく1.0以下の値を取ります。                                                                                                                                                   |
-| `logprobs`         | OpenAI Chat, OpenAI Responses, DeepSeek, OpenRouter | Boolean                | `true`の場合、出力トークンのログ確率を含めます。                                                                                                                                                                                                                                                                                                                                            |
-| `topLogprobs`      | OpenAI Chat, OpenAI Responses, DeepSeek, OpenRouter | Integer                | 位置ごとの最も可能性の高い上位トークンの数。0～20の範囲の値を取ります。`logprobs`パラメータが`true`に設定されている必要があります。                                                                                                                                                                                                                                                                                          |
-| `frequencyPenalty` | OpenAI Chat, DeepSeek, OpenRouter                  | Double                 | 頻繁に出現するトークンにペナルティを課して繰り返しを減らします。`frequencyPenalty`値が高いほど、フレーズの多様性が増し、繰り返しが減少します。-2.0～2.0の範囲の値を取ります。                                                                                                                                                                                                                                        |
-| `presencePenalty`  | OpenAI Chat, DeepSeek, OpenRouter                  | Double                 | モデルが出力にすでに含まれているトークンを再利用するのを防ぎます。値が高いほど、新しいトークンやトピックの導入を促します。-2.0～2.0の範囲の値を取ります。                                                                                                                                                                                                                                |
-| `stop`             | OpenAI Chat, DeepSeek, OpenRouter                  | List&lt;String&gt;     | モデルがこれらのいずれかに遭遇したときに、コンテンツの生成を停止するようモデルに合図する文字列。例えば、モデルが2つの改行を生成したときにコンテンツの生成を停止させるには、停止シーケンスを`stop = listOf("/n/n")`として指定します。                                                                                                                                                 |
-| `parallelToolCalls`| OpenAI Chat, OpenAI Responses                      | Boolean                | `true`の場合、複数のツール呼び出しを並行して実行できます。                                                                                                                                                                                                                                                                                                                                                 |
-| `promptCacheKey`   | OpenAI Chat, OpenAI Responses                      | String                 | プロンプトキャッシュ用の安定したキャッシュキー。OpenAIはこれを使用して、類似のリクエストの応答をキャッシュします。                                                                                                                                                                                                                                                                                                                                       |
-| `safetyIdentifier` | OpenAI Chat, OpenAI Responses                      | String                 | OpenAIポリシーに違反するユーザーを検出するために使用できる、安定した一意のユーザー識別子。                                                                                                                                                                                                                                                                                                                                  |
-| `serviceTier`      | OpenAI Chat, OpenAI Responses                      | ServiceTier            | OpenAIの処理層選択。コストよりもパフォーマンスを優先するか、その逆かを指定できます。詳細については、[ServiceTier](https://api.koog.ai/prompt/prompt-executor/prompt-executor-clients/prompt-executor-openai-client-base/ai.koog.prompt.executor.clients.openai.base.models/-service-tier/index.html)のAPIドキュメントを参照してください。                                                                               |
-| `store`            | OpenAI Chat, OpenAI Responses                      | Boolean                | `true`の場合、プロバイダーは後で取得できるように出力を保存できます。                                                                                                                                                                                                                                                                                                                                                                     |
-| `audio`            | OpenAI Chat                                        | OpenAIAudioConfig      | オーディオ対応モデルを使用する場合のオーディオ出力設定。詳細については、[OpenAIAudioConfig](https://api.koog.ai/prompt/prompt-executor/prompt-executor-clients/prompt-executor-openai-client-base/ai.koog.prompt.executor.clients.openai.base.models/-open-a-i-audio-config/index.html)のAPIドキュメントを参照してください。                                                                                                   |
-| `reasoningEffort`  | OpenAI Chat                                        | ReasoningEffort        | モデルが使用する推論のレベルを指定します。詳細および利用可能な値については、[ReasoningEffort](https://api.koog.ai/prompt/prompt-executor/prompt-executor-clients/prompt-executor-openai-client-base/ai.koog.prompt.executor.clients.openai.base.models/-reasoning-effort/index.html)のAPIドキュメントを参照してください。                                                                                |
-| `webSearchOptions` | OpenAI Chat                                        | OpenAIWebSearchOptions | ウェブ検索ツール使用を構成します（サポートされている場合）。詳細については、[OpenAIWebSearchOptions](https://api.koog.ai/prompt/prompt-executor/prompt-executor-clients/prompt-executor-openai-client-base/ai.koog.prompt.executor.clients.openai.base.models/-open-a-i-web-search-options/index.html)のAPIドキュメントを参照してください。                                                                                                    |
-| `background`       | OpenAI Responses                                   | Boolean                | バックグラウンドで応答を実行します。                                                                                                                                                                                                                                                                                                                                                                                                |
-| `include`          | OpenAI Responses                                   | List&lt;String&gt;     | 含める追加の出力セクション。詳細については、OpenAIドキュメントの[include](https://platform.openai.com/docs/api-reference/responses/create#responses-create-include)パラメータについて学習してください。                                                                                                                                                                                                              |
-| `maxToolCalls`     | OpenAI Responses                                   | Int                    | この応答で許可される組み込みツール呼び出しの最大総数。`0`以上の値を取ります。                                                                                                                                                                                                                                                                                                                                                 |
-| `reasoning`        | OpenAI Responses                                   | ReasoningConfig        | 推論可能なモデルの推論設定。詳細については、[ReasoningConfig](https://api.koog.ai/prompt/prompt-executor/prompt-executor-clients/prompt-executor-openai-client/ai.koog.prompt.executor.clients.openai.models/-reasoning-config/index.html)のAPIドキュメントを参照してください。                                                                                                                         |
-| `truncation`       | OpenAI Responses                                   | Truncation             | コンテキストウィンドウに近づいた場合の切り詰め戦略。詳細については、[Truncation](https://api.koog.ai/prompt/prompt-executor/prompt-executor-clients/prompt-executor-openai-client/ai.koog.prompt.executor.clients.openai.models/-truncation/index.html)のAPIドキュメントを参照してください。                                                                                                                                      |
-| `topK`             | OpenRouter                                         | Int                    | 出力を生成する際に考慮する上位トークンの数。1以上の値を取ります。                                                                                                                                                                                                                                                                                                                                                            |
-| `repetitionPenalty`| OpenRouter                                         | Double                 | トークンの繰り返しにペナルティを課します。出力に既に出現したトークンの次トークン確率は`repetitionPenalty`の値で割られるため、`repetitionPenalty > 1`の場合、再度出現する可能性が低くなります。0.0より大きく2.0以下の値を取ります。                                                                                                                                       |
-| `minP`             | OpenRouter                                         | Double                 | 最も可能性の高いトークンに対する相対確率が定義された`minP`値より低いトークンを除外します。0.0～0.1の範囲の値を取ります。                                                                                                                                                                                                                                                                                                                  |
-| `topA`             | OpenRouter                                         | Double                 | モデルの信頼度に基づいてサンプリングウィンドウを動的に調整します。モデルが確信している場合（支配的な高確率の次トークンがある場合）、サンプリングウィンドウを少数の上位トークンに限定します。信頼度が低い場合（類似の確率を持つ多くのトークンがある場合）、より多くのトークンをサンプリングウィンドウに保持します。0.0～0.1の範囲の値を取ります（両端を含む）。値が高いほど、動的な適応性が高まります。 |
-| `transforms`       | OpenRouter                                         | List&lt;String&gt;     | コンテキスト変換のリスト。コンテキストがモデルのトークン制限を超えた場合にどのように変換されるかを定義します。デフォルトの変換は`middle-out`で、プロンプトの中央から切り詰めます。変換しない場合は空のリストを使用します。詳細については、OpenRouterドキュメントの[Message Transforms](https://openrouter.ai/docs/features/message-transforms)を参照してください。                                                       |
-| `models`           | OpenRouter                                         | List&lt;String&gt;     | リクエストで許可されるモデルのリスト。                                                                                                                                                                                                                                                                                                                                                                                            |
-| `route`            | OpenRouter                                         | String                 | リクエストルーティング識別子。                                                                                                                                                                                                                                                                                                                                                                                                        |
-| `provider`         | OpenRouter                                         | ProviderPreferences    | モデルプロバイダーのプリファレンス。詳細については、[ProviderPreferences](https://api.koog.ai/prompt/prompt-executor/prompt-executor-clients/prompt-executor-openrouter-client/ai.koog.prompt.executor.clients.openrouter.models/-provider-preferences/index.html)のAPIドキュメントを参照してください。                                                                                                                                     |
+=== "OpenAI Chat"
+
+    | パラメータ | 型 | 説明 |
+    |---|---|---|
+    | `audio` | `OpenAIAudioConfig` | オーディオ対応モデルを使用する場合のオーディオ出力設定。詳細については、[OpenAIAudioConfig](https://api.koog.ai/prompt/prompt-executor/prompt-executor-clients/prompt-executor-openai-client-base/ai.koog.prompt.executor.clients.openai.base.models/-open-a-i-audio-config/index.html)のAPIドキュメントを参照してください。 |
+    | `frequencyPenalty` | `Double` | 頻繁に出現するトークンにペナルティを課して繰り返しを減らします。`frequencyPenalty`値が高いほど、フレーズの多様性が増し、繰り返しが減少します。-2.0～2.0の範囲の値を取ります。 |
+    | `logprobs` | `Boolean` | `true`の場合、出力トークンのログ確率を含めます。 |
+    | `parallelToolCalls` | `Boolean` | `true`の場合、複数のツール呼び出しを並行して実行できます。 |
+    | `presencePenalty` | `Double` | モデルが出力にすでに含まれているトークンを再利用するのを防ぎます。値が高いほど、新しいトークンやトピックの導入を促します。-2.0～2.0の範囲の値を取ります。 |
+    | `promptCacheKey` | `String` | プロンプトキャッシュ用の安定したキャッシュキー。OpenAIはこれを使用して、類似のリクエストの応答をキャッシュします。 |
+    | `reasoningEffort` | `ReasoningEffort` | モデルが使用する推論のレベルを指定します。詳細および利用可能な値については、[ReasoningEffort](https://api.koog.ai/prompt/prompt-executor/prompt-executor-clients/prompt-executor-openai-client-base/ai.koog.prompt.executor.clients.openai.base.models/-reasoning-effort/index.html)のAPIドキュメントを参照してください。 |
+    | `safetyIdentifier` | `String` | OpenAIポリシーに違反するユーザーを検出するために使用できる、安定した一意のユーザー識別子。 |
+    | `serviceTier` | `ServiceTier` | OpenAIの処理層選択。コストよりもパフォーマンスを優先するか、その逆かを指定できます。詳細については、[ServiceTier](https://api.koog.ai/prompt/prompt-executor/prompt-executor-clients/prompt-executor-openai-client-base/ai.koog.prompt.executor.clients.openai.base.models/-service-tier/index.html)のAPIドキュメントを参照してください。 |
+    | `stop` | `List<String>` | モデルがこれらのいずれかに遭遇したときに、コンテンツの生成を停止するようモデルに合図する文字列。例えば、モデルが2つの改行を生成したときにコンテンツの生成を停止させるには、停止シーケンスを`stop = listOf("/n/n")`として指定します。 |
+    | `store` | `Boolean` | `true`の場合、プロバイダーは後で取得できるように出力を保存できます。 |
+    | `topLogprobs` | `Integer` | 位置ごとの最も可能性の高い上位トークンの数。0～20の範囲の値を取ります。`logprobs`パラメータが`true`に設定されている必要があります。 |
+    | `topP` | `Double` | nucleus samplingとも呼ばれます。確率値の合計が指定された`topP`値に達するまで、最も高い確率値を持つトークンをサブセットに追加することで、次のトークンのサブセットを作成します。0.0より大きく1.0以下の値を取ります。 |
+    | `webSearchOptions` | `OpenAIWebSearchOptions` | ウェブ検索ツール使用を構成します（サポートされている場合）。詳細については、[OpenAIWebSearchOptions](https://api.koog.ai/prompt/prompt-executor/prompt-executor-clients/prompt-executor-openai-client-base/ai.koog.prompt.executor.clients.openai.base.models/-open-a-i-web-search-options/index.html)のAPIドキュメントを参照してください。 |
+
+=== "OpenAI Responses"
+
+    | パラメータ | 型 | 説明 |
+    |---|---|---|
+    | `background` | `Boolean` | バックグラウンドで応答を実行します。 |
+    | `include` | `List<String>` | 含める追加の出力セクション。詳細については、OpenAIドキュメントの[include](https://platform.openai.com/docs/api-reference/responses/create#responses-create-include)パラメータについて学習してください。 |
+    | `logprobs` | `Boolean` | `true`の場合、出力トークンのログ確率を含めます。 |
+    | `maxToolCalls` | `Int` | この応答で許可される組み込みツール呼び出しの最大総数。`0`以上の値を取ります。 |
+    | `parallelToolCalls` | `Boolean` | `true`の場合、複数のツール呼び出しを並行して実行できます。 |
+    | `promptCacheKey` | `String` | プロンプトキャッシュ用の安定したキャッシュキー。OpenAIはこれを使用して、類似のリクエストの応答をキャッシュします。 |
+    | `reasoning` | `ReasoningConfig` | 推論可能なモデルの推論設定。詳細については、[ReasoningConfig](https://api.koog.ai/prompt/prompt-executor/prompt-executor-clients/prompt-executor-openai-client/ai.koog.prompt.executor.clients.openai.models/-reasoning-config/index.html)のAPIドキュメントを参照してください。 |
+    | `safetyIdentifier` | `String` | OpenAIポリシーに違反するユーザーを検出するために使用できる、安定した一意のユーザー識別子。 |
+    | `serviceTier` | `ServiceTier` | OpenAIの処理層選択。コストよりもパフォーマンスを優先するか、その逆かを指定できます。詳細については、[ServiceTier](https://api.koog.ai/prompt/prompt-executor/prompt-executor-clients/prompt-executor-openai-client-base/ai.koog.prompt.executor.clients.openai.base.models/-service-tier/index.html)のAPIドキュメントを参照してください。 |
+    | `store` | `Boolean` | `true`の場合、プロバイダーは後で取得できるように出力を保存できます。 |
+    | `topLogprobs` | `Integer` | 位置ごとの最も可能性の高い上位トークンの数。0～20の範囲の値を取ります。`logprobs`パラメータが`true`に設定されている必要があります。 |
+    | `topP` | `Double` | nucleus samplingとも呼ばれます。確率値の合計が指定された`topP`値に達するまで、最も高い確率値を持つトークンをサブセットに追加することで、次のトークンのサブセットを作成します。0.0より大きく1.0以下の値を取ります。 |
+    | `truncation` | `Truncation` | コンテキストウィンドウに近づいた場合の切り詰め戦略。詳細については、[Truncation](https://api.koog.ai/prompt/prompt-executor/prompt-executor-clients/prompt-executor-openai-client/ai.koog.prompt.executor.clients.openai.models/-truncation/index.html)のAPIドキュメントを参照してください。 |
+
+=== "Google"
+
+    | パラメータ | 型 | 説明 |
+    |---|---|---|
+    | `thinkingConfig` | `ThinkingConfig` | モデルが問題解決と思考生成にどのように取り組むかに関する設定。 |
+    | `topK` | `Int` | 出力を生成する際に考慮する上位トークンの数。1以上の値を取ります。 |
+    | `topP` | `Double` | nucleus samplingとも呼ばれます。確率値の合計が指定された`topP`値に達するまで、最も高い確率値を持つトークンをサブセットに追加することで、次のトークンのサブセットを作成します。0.0より大きく1.0以下の値を取ります。 |
+
+=== "Anthropic"
+
+    | パラメータ | 型 | 説明 |
+    |---|---|---|
+    | `container` | `String` | Anthropicモデルを実行するコンテナを指定します。隔離や特定の環境要件に役立つ場合があります。 |
+    | `mcpServers` | `List<String>` | Anthropicモデルに使用するMCPサーバーのリスト。高度なルーティングやカスタムデプロイメントに使用されます。 |
+    | `serviceTier` | `ServiceTier` | OpenAIの処理層選択。コストよりもパフォーマンスを優先するか、その逆かを指定できます。詳細については、[ServiceTier](https://api.koog.ai/prompt/prompt-executor/prompt-executor-clients/prompt-executor-openai-client-base/ai.koog.prompt.executor.clients.openai.base.models/-service-tier/index.html)のAPIドキュメントを参照してください。 |
+    | `stopSequences` | `List<String>` | モデルがこれらのいずれかに遭遇したときに、コンテンツの生成を停止するようモデルに合図する文字列のリスト。 |
+    | `thinking` | `Thinking` | モデルの内部思考プロセスを制御します。高い値は、より熟慮された複雑な推論につながる可能性があります。 |
+    | `topK` | `Int` | 出力を生成する際に考慮する上位トークンの数。1以上の値を取ります。 |
+    | `topP` | `Double` | nucleus samplingとも呼ばれます。確率値の合計が指定された`topP`値に達するまで、最も高い確率値を持つトークンをサブセットに追加することで、次のトークンのサブセットを作成します。0.0より大きく1.0以下の値を取ります。 |
+
+=== "Mistral"
+
+    | パラメータ | 型 | 説明 |
+    |---|---|---|
+    | `frequencyPenalty` | `Double` | 頻繁に出現するトークンにペナルティを課して繰り返しを減らします。`frequencyPenalty`値が高いほど、フレーズの多様性が増し、繰り返しが減少します。-2.0～2.0の範囲の値を取ります。 |
+    | `parallelToolCalls` | `Boolean` | `true`の場合、複数のツール呼び出しを並行して実行できます。 |
+    | `presencePenalty` | `Double` | モデルが出力にすでに含まれているトークンを再利用するのを防ぎます。値が高いほど、新しいトークンやトピックの導入を促します。-2.0～2.0の範囲の値を取ります。 |
+    | `promptMode` | `String` | プロンプトが処理されるモードを定義します。例: 「chat」または「instruct」。 |
+    | `randomSeed` | `Integer` | 再現可能な出力のためのシード。指定された場合、モデルは複数のリクエストにわたって同じ入力に対して同じ出力を生成しようとします。 |
+    | `safePrompt` | `Boolean` | `true`の場合、モデルは有害または安全でないコンテンツの生成を避けようとします。 |
+    | `stop` | `List<String>` | モデルがこれらのいずれかに遭遇したときに、コンテンツの生成を停止するようモデルに合図する文字列。例えば、モデルが2つの改行を生成したときにコンテンツの生成を停止させるには、停止シーケンスを`stop = listOf("/n/n")`として指定します。 |
+    | `topP` | `Double` | nucleus samplingとも呼ばれます。確率値の合計が指定された`topP`値に達するまで、最も高い確率値を持つトークンをサブセットに追加することで、次のトークンのサブセットを作成します。0.0より大きく1.0以下の値を取ります。 |
+
+=== "DeepSeek"
+
+    | パラメータ | 型 | 説明 |
+    |---|---|---|
+    | `frequencyPenalty` | `Double` | 頻繁に出現するトークンにペナルティを課して繰り返しを減らします。`frequencyPenalty`値が高いほど、フレーズの多様性が増し、繰り返しが減少します。-2.0～2.0の範囲の値を取ります。 |
+    | `logprobs` | `Boolean` | `true`の場合、出力トークンのログ確率を含めます。 |
+    | `presencePenalty` | `Double` | モデルが出力にすでに含まれているトークンを再利用するのを防ぎます。値が高いほど、新しいトークンやトピックの導入を促します。-2.0～2.0の範囲の値を取ります。 |
+    | `stop` | `List<String>` | モデルがこれらのいずれかに遭遇したときに、コンテンツの生成を停止するようモデルに合図する文字列。例えば、モデルが2つの改行を生成したときにコンテンツの生成を停止させるには、停止シーケンスを`stop = listOf("/n/n")`として指定します。 |
+    | `topLogprobs` | `Integer` | 位置ごとの最も可能性の高い上位トークンの数。0～20の範囲の値を取ります。`logprobs`パラメータが`true`に設定されている必要があります。 |
+    | `topP` | `Double` | nucleus samplingとも呼ばれます。確率値の合計が指定された`topP`値に達するまで、最も高い確率値を持つトークンをサブセットに追加することで、次のトークンのサブセットを作成します。0.0より大きく1.0以下の値を取ります。 |
+
+=== "OpenRouter"
+
+    | パラメータ | 型 | 説明 |
+    |---|---|---|
+    | `frequencyPenalty` | `Double` | 頻繁に出現するトークンにペナルティを課して繰り返しを減らします。`frequencyPenalty`値が高いほど、フレーズの多様性が増し、繰り返しが減少します。-2.0～2.0の範囲の値を取ります。 |
+    | `logprobs` | `Boolean` | `true`の場合、出力トークンのログ確率を含めます。 |
+    | `minP` | `Double` | 最も可能性の高いトークンに対する相対確率が定義された`minP`値より低いトークンを除外します。0.0～0.1の範囲の値を取ります。 |
+    | `models` | `List<String>` | リクエストで許可されるモデルのリスト。 |
+    | `presencePenalty` | `Double` | モデルが出力にすでに含まれているトークンを再利用するのを防ぎます。値が高いほど、新しいトークンやトピックの導入を促します。-2.0～2.0の範囲の値を取ります。 |
+    | `provider` | `ProviderPreferences` | モデルプロバイダーのプリファレンス。詳細については、[ProviderPreferences](https://api.koog.ai/prompt/prompt-executor/prompt-executor-clients/prompt-executor-openrouter-client/ai.koog.prompt.executor.clients.openrouter.models/-provider-preferences/index.html)のAPIドキュメントを参照してください。 |
+    | `repetitionPenalty` | `Double` | トークンの繰り返しにペナルティを課します。出力に既に出現したトークンの次トークン確率は`repetitionPenalty`の値で割られるため、`repetitionPenalty > 1`の場合、再度出現する可能性が低くなります。0.0より大きく2.0以下の値を取ります。 |
+    | `route` | `String` | リクエストルーティング識別子。 |
+    | `stop` | `List<String>` | モデルがこれらのいずれかに遭遇したときに、コンテンツの生成を停止するようモデルに合図する文字列。例えば、モデルが2つの改行を生成したときにコンテンツの生成を停止させるには、停止シーケンスを`stop = listOf("/n/n")`として指定します。 |
+    | `topA` | `Double` | モデルの信頼度に基づいてサンプリングウィンドウを動的に調整します。モデルが確信している場合（支配的な高確率の次トークンがある場合）、サンプリングウィンドウを少数の上位トークンに限定します。信頼度が低い場合（類似の確率を持つ多くのトークンがある場合）、より多くのトークンをサンプリングウィンドウに保持します。0.0～0.1の範囲の値を取ります（両端を含む）。値が高いほど、動的な適応性が高まります。 |
+    | `topK` | `Int` | 出力を生成する際に考慮する上位トークンの数。1以上の値を取ります。 |
+    | `topLogprobs` | `Integer` | 位置ごとの最も可能性の高い上位トークンの数。0～20の範囲の値を取ります。`logprobs`パラメータが`true`に設定されている必要があります。 |
+    | `topP` | `Double` | nucleus samplingとも呼ばれます。確率値の合計が指定された`topP`値に達するまで、最も高い確率値を持つトークンをサブセットに追加することで、次のトークンのサブセットを作成します。0.0より大きく1.0以下の値を取ります。 |
+    | `transforms` | `List<String>` | コンテキスト変換のリスト。コンテキストがモデルのトークン制限を超えた場合にどのように変換されるかを定義します。デフォルトの変換は`middle-out`で、プロンプトの中央から切り詰めます。変換しない場合は空のリストを使用します。詳細については、OpenRouterドキュメントの[Message Transforms](https://openrouter.ai/docs/features/message-transforms)を参照してください。 |
+
+=== "Alibaba (DashScope)"
+
+    | パラメータ | 型 | 説明 |
+    |---|---|---|
+    | `enableSearch` | `Boolean` | `true`の場合、モデルが応答を補強するためにウェブ検索を実行できるようにします。 |
+    | `enableThinking` | `Boolean` | `true`の場合、より複雑な推論のためにモデルの内部思考プロセスを有効にします。 |
+    | `frequencyPenalty` | `Double` | 頻繁に出現するトークンにペナルティを課して繰り返しを減らします。`frequencyPenalty`値が高いほど、フレーズの多様性が増し、繰り返しが減少します。-2.0～2.0の範囲の値を取ります。 |
+    | `logprobs` | `Boolean` | `true`の場合、出力トークンのログ確率を含めます。 |
+    | `parallelToolCalls` | `Boolean` | `true`の場合、複数のツール呼び出しを並行して実行できます。 |
+    | `presencePenalty` | `Double` | モデルが出力にすでに含まれているトークンを再利用するのを防ぎます。値が高いほど、新しいトークンやトピックの導入を促します。-2.0～2.0の範囲の値を取ります。 |
+    | `stop` | `List<String>` | モデルがこれらのいずれかに遭遇したときに、コンテンツの生成を停止するようモデルに合図する文字列。例えば、モデルが2つの改行を生成したときにコンテンツの生成を停止させるには、停止シーケンスを`stop = listOf("/n/n")`として指定します。 |
+    | `topLogprobs` | `Integer` | 位置ごとの最も可能性の高い上位トークンの数。0～20の範囲の値を取ります。`logprobs`パラメータが`true`に設定されている必要があります。 |
+    | `topP` | `Double` | nucleus samplingとも呼ばれます。確率値の合計が指定された`topP`値に達するまで、最も高い確率値を持つトークンをサブセットに追加することで、次のトークンのサブセットを作成します。0.0より大きく1.0以下の値を取ります。 |
 
 以下の例は、プロバイダー固有の`OpenRouterParams`クラスを使用して定義されたOpenRouter LLMパラメータを示しています。
 
@@ -280,7 +380,7 @@ val openRouterParams = OpenRouterParams(
     transforms = listOf("middle-out")
 )
 ```
-<!--- KNIT example-llm-parameters-02.kt -->
+<!--- KNIT example-llm-parameters-07.kt -->
 
 ## 使用例
 
@@ -297,11 +397,12 @@ val basicParams = LLMParams(
     toolChoice = LLMParams.ToolChoice.Auto
 )
 ```
-<!--- KNIT example-llm-parameters-03.kt -->
+<!--- KNIT example-llm-parameters-08.kt -->
 
 ### 推論制御
 
-モデルの推論を制御するプロバイダー固有のパラメータを介して、推論制御を実装します。OpenAI Chat APIと推論をサポートするモデルを使用する場合、`reasoningEffort`パラメータを使用して、モデルが応答を提供する前に生成する推論トークンの数を制御します。
+モデルの推論を制御するプロバイダー固有のパラメータを介して、推論制御を実装します。
+OpenAI Chat APIと推論をサポートするモデルを使用する場合、`reasoningEffort`パラメータを使用して、モデルが応答を提供する前に生成する推論トークンの数を制御します。
 
 <!--- INCLUDE
 import ai.koog.prompt.executor.clients.openai.OpenAIChatParams
@@ -312,9 +413,10 @@ val openAIReasoningEffortParams = OpenAIChatParams(
     reasoningEffort = ReasoningEffort.MEDIUM
 )
 ```
-<!--- KNIT example-llm-parameters-04.kt -->
+<!--- KNIT example-llm-parameters-09.kt -->
 
-さらに、ステートレスモードでOpenAI Responses APIを使用する場合、推論アイテムの暗号化された履歴を保持し、会話の各ターンでモデルに送信します。暗号化はOpenAI側で行われ、リクエストの`include`パラメータを`reasoning.encrypted_content`に設定して、暗号化された推論トークンを要求する必要があります。その後、次の会話ターンで暗号化された推論トークンをモデルに渡すことができます。
+さらに、ステートレスモードでOpenAI Responses APIを使用する場合、推論アイテムの暗号化された履歴を保持し、会話の各ターンでモデルに送信します。暗号化はOpenAI側で行われ、リクエストの`include`パラメータを`reasoning.encrypted_content`に設定して、暗号化された推論トークンを要求する必要があります。
+その後、次の会話ターンで暗号化された推論トークンをモデルに渡すことができます。
 
 <!--- INCLUDE
 import ai.koog.prompt.executor.clients.openai.OpenAIResponsesParams
@@ -325,7 +427,7 @@ val openAIStatelessReasoningParams = OpenAIResponsesParams(
     include = listOf(OpenAIInclude.REASONING_ENCRYPTED_CONTENT)
 )
 ```
-<!--- KNIT example-llm-parameters-05.kt -->
+<!--- KNIT example-llm-parameters-10.kt -->
 
 ### カスタムパラメータ
 
@@ -345,11 +447,12 @@ val customParams = LLMParams(
     )
 )
 ```
-<!--- KNIT example-llm-parameters-06.kt -->
+<!--- KNIT example-llm-parameters-11.kt -->
 
 ### パラメータの設定とオーバーライド
 
-以下のコードサンプルは、主に利用したいLLMパラメータのセットを定義し、元のセットの値を部分的にオーバーライドしたり、新しい値を追加したりして別のセットを作成する方法を示しています。これにより、ほとんどのリクエストに共通のパラメータを定義しつつ、共通パラメータを繰り返すことなく、より具体的なパラメータの組み合わせを追加できます。
+以下のコードサンプルは、主に利用したいLLMパラメータのセットを定義し、元のセットの値を部分的にオーバーライドしたり、新しい値を追加したりして別のセットを作成する方法を示しています。
+これにより、ほとんどのリクエストに共通のパラメータを定義しつつ、共通パラメータを繰り返すことなく、より具体的なパラメータの組み合わせを追加できます。
 
 <!--- INCLUDE
 import ai.koog.prompt.params.LLMParams
@@ -368,7 +471,7 @@ val overrideParams = LLMParams(
     numberOfChoices = 3
 ).default(defaultParams)
 ```
-<!--- KNIT example-llm-parameters-07.kt -->
+<!--- KNIT example-llm-parameters-12.kt -->
 
 結果として得られる`overrideParams`セットの値は、以下と等価です。
 
@@ -383,4 +486,4 @@ val overrideParams = LLMParams(
     numberOfChoices = 3
 )
 ```
-<!--- KNIT example-llm-parameters-08.kt -->
+<!--- KNIT example-llm-parameters-13.kt -->

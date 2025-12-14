@@ -366,7 +366,7 @@ install(ContentNegotiation) {
 
 ### カスタムシリアライザー {id="register_custom"}
 
-指定された`Content-Type`にカスタムシリアライザーを登録するには、`register`メソッドを呼び出す必要があります。以下の例では、`application/json`および`application/xml`データをデシリアライズするために2つの[カスタムシリアライザー](#implement_custom_serializer)が登録されています:
+指定された`Content-Type`にカスタムシリアライザーを登録するには、`register`メソッドを呼び出す必要があります。以下の例では、2つの[カスタムシリアライザー](#implement_custom_serializer)が登録されており、`application/json`および`application/xml`データをデシリアライズします:
 
 ```kotlin
 install(ContentNegotiation) {
@@ -380,15 +380,14 @@ install(ContentNegotiation) {
 ### データクラスの作成 {id="create_data_class"}
 受信したデータをオブジェクトにデシリアライズするには、データクラスを作成する必要があります。例:
 ```kotlin
-@Serializable
+data class Customer(val id: Int, val firstName: String, val lastName: String)
 ```
 
 kotlinx.serializationを使用する場合、このクラスに`@Serializable`アノテーションが付いていることを確認してください:
 ```kotlin
 import kotlinx.serialization.*
-import io.ktor.server.util.getValue
-
 @Serializable
+data class Customer(val id: Int, val firstName: String, val lastName: String)
 ```
 
 <snippet id="serialization_types">

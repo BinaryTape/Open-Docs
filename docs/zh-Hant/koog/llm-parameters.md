@@ -4,94 +4,101 @@
 
 ## 總覽
 
-LLM 參數是配置選項，讓您可以微調語言模型生成回應的方式。這些參數控制回應的隨機性、長度、格式和工具使用等方面。透過調整這些參數，您可以為不同的使用案例優化模型行為，從創意內容生成到確定性結構化輸出。
+LLM 參數是配置選項，讓您可以微調語言模型生成回應的方式。這些參數控制回應的隨機性、長度、格式和工具使用等方面。透過調整參數，您可以為不同的使用案例優化模型行為，從創意內容生成到確定性結構化輸出。
 
 在 Koog 中，`LLMParams` 類別整合了 LLM 參數，並提供了一個一致的介面來配置語言模型的行為。您可以透過以下方式使用 LLM 參數：
 
 - 建立提示時：
 
-    <!--- INCLUDE
-    import ai.koog.prompt.prompt
-    import ai.koog.prompt.params.LLMParams
-    -->
-    ```kotlin
-    val prompt = prompt(
-        id = "dev-assistant",
-        params = LLMParams(
-            temperature = 0.7,
-            maxTokens = 500
-        )
-    ) {
-        // 新增系統訊息以設定上下文
-        system("You are a helpful assistant.")
+<!--- INCLUDE
+import ai.koog.prompt.dsl.prompt
+import ai.koog.prompt.params.LLMParams
+-->
+```kotlin
+val prompt = prompt(
+    id = "dev-assistant",
+    params = LLMParams(
+        temperature = 0.7,
+        maxTokens = 500
+    )
+) {
+    // Add a system message to set the context
+    system("You are a helpful assistant.")
 
-        // 新增使用者訊息
-        user("Tell me about Kotlin")
-    }
-    ```
-    <!--- KNIT example-llm-parameters-01.kt -->
+    // Add a user message
+    user("Tell me about Kotlin")
+}
+```
+<!--- KNIT example-llm-parameters-01.kt -->
 
-    有關提示建立的更多資訊，請參閱 [Prompt API](prompt-api.md)。
+有關提示建立的更多資訊，請參閱 [Prompts](prompt-api.md)。
 
 - 建立子圖時：
 
-    <!--- INCLUDE
-    import ai.koog.agents.core.dsl.builder.strategy
-    import ai.koog.agents.ext.tool.SayToUser
-    import ai.koog.prompt.executor.clients.openai.OpenAIModels
-    import ai.koog.agents.ext.agent.subgraphWithTask
-    val searchTool = SayToUser
-    val calculatorTool = SayToUser
-    val weatherTool = SayToUser
-    val strategy = strategy<String, String>("strategy_name") {
-    -->
-    <!--- SUFFIX
-    }
-    -->
-    ```kotlin
-    val processQuery by subgraphWithTask<String, String>(
-        tools = listOf(searchTool, calculatorTool, weatherTool),
-        llmModel = OpenAIModels.Chat.GPT4o,
-        llmparams = LLMParams(
-            temperature = 0.7,
-            maxTokens = 500,
-        )
-    ) { userQuery ->
-        """
-        You are a helpful assistant that can answer questions about various topics.
-        Please help with the following query:
-        $userQuery
-        """
-    }
-    ```
-    <!--- KNIT example-llm-parameters-02.kt -->
+<!--- INCLUDE
+import ai.koog.agents.core.agent.ToolCalls
+import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.ext.tool.SayToUser
+import ai.koog.prompt.executor.clients.openai.OpenAIModels
+import ai.koog.agents.ext.agent.subgraphWithTask
+import ai.koog.prompt.params.LLMParams
 
-    有關如何建立和實作您自己的子圖的更多資訊，請參閱 [Custom subgraphs](custom-subgraphs.md)。
+val searchTool = SayToUser
+val calculatorTool = SayToUser
+val weatherTool = SayToUser
+
+val strategy = strategy<String, String>("strategy_name") {
+-->
+<!--- SUFFIX
+}
+-->
+```kotlin
+val processQuery by subgraphWithTask<String, String>(
+    tools = listOf(searchTool, calculatorTool, weatherTool),
+    llmModel = OpenAIModels.Chat.GPT4o,
+    llmParams = LLMParams(
+        temperature = 0.7,
+        maxTokens = 500
+    ),
+    runMode = ToolCalls.SEQUENTIAL,
+    assistantResponseRepeatMax = 3,
+) { userQuery ->
+    """
+    You are a helpful assistant that can answer questions about various topics.
+    Please help with the following query:
+    $userQuery
+    """
+}
+```
+<!--- KNIT example-llm-parameters-02.kt -->
+
+有關 Koog 中現有子圖類型的更多資訊，請參閱 [Predefined subgraphs](nodes-and-components.md#predefined-subgraphs)。要了解如何建立和實作您自己的子圖，請參閱 [Custom subgraphs](custom-subgraphs.md)。
 
 - 在 LLM 寫入工作階段中更新提示時：
 
-    <!--- INCLUDE
-    import ai.koog.agents.core.dsl.builder.strategy
-    val strategy = strategy<Unit, Unit>("strategy-name") {
-    val node by node<Unit, Unit> {
-    -->
-    <!--- SUFFIX
-       }
-    }
-    -->
-    ```kotlin
-    llm.writeSession {
-        changeLLMParams(
-            LLMParams(
-                temperature = 0.7,
-                maxTokens = 500
-            )
+<!--- INCLUDE
+import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.prompt.params.LLMParams
+val strategy = strategy<Unit, Unit>("strategy-name") {
+val node by node<Unit, Unit> {
+-->
+<!--- SUFFIX
+   }
+}
+-->
+```kotlin
+llm.writeSession {
+    changeLLMParams(
+        LLMParams(
+            temperature = 0.7,
+            maxTokens = 500
         )
-    }
-    ```
-    <!--- KNIT example-llm-parameters-03.kt -->
+    )
+}
+```
+<!--- KNIT example-llm-parameters-03.kt -->
 
-    有關工作階段的更多資訊，請參閱 [LLM sessions and manual history management](sessions.md)。
+有關工作階段的更多資訊，請參閱 [LLM sessions and manual history management](sessions.md)。
 
 ## LLM 參數參考
 
@@ -112,8 +119,12 @@ LLM 參數是配置選項，讓您可以微調語言模型生成回應的方式�
 
 - [OpenAI Chat](https://platform.openai.com/docs/api-reference/chat/create)
 - [OpenAI Responses](https://platform.openai.com/docs/api-reference/responses/create)
+- [Google](https://ai.google.dev/api/generate-content#generationconfig)
+- [Anthropic](https://platform.claude.com/docs/en/api/messages/create)
+- [Mistral](https://docs.mistral.ai/api/#operation/chatCompletions)
 - [DeepSeek](https://api-docs.deepseek.com/api/create-chat-completion#request)
-- [OpenRouter](https://openrouter.ai/docs/api-reference/parameters)
+- [OpenRouter](https://openrouter.ai/docs/api/reference/parameters)
+- Alibaba ([DashScope](https://www.alibabacloud.com/help/en/model-studio/qwen-api-reference))
 
 ## 綱要
 
@@ -123,81 +134,81 @@ LLM 參數是配置選項，讓您可以微調語言模型生成回應的方式�
 
 JSON 綱要讓您可以從語言模型請求結構化的 JSON 資料。Koog 支援以下兩種 JSON 綱要：
 
-1.  **基本 JSON 綱要** (`LLMParams.Schema.JSON.Basic`)：用於基本的 JSON 處理功能。這種格式主要側重於巢狀資料定義，而不包含進階的 JSON Schema 功能。
+1) **基本 JSON 綱要** (`LLMParams.Schema.JSON.Basic`)：用於基本的 JSON 處理功能。這種格式主要側重於巢狀資料定義，而不包含進階的 JSON Schema 功能。
 
-    <!--- INCLUDE
-    import ai.koog.prompt.params.LLMParams
-    import kotlinx.serialization.json.JsonObject
-    import kotlinx.serialization.json.JsonArray
-    import kotlinx.serialization.json.JsonPrimitive
-    -->
-    ```kotlin
-    // 建立帶有基本 JSON 綱要的參數
-    val jsonParams = LLMParams(
-        temperature = 0.2,
-        schema = LLMParams.Schema.JSON.Basic(
-            name = "PersonInfo",
-            schema = JsonObject(mapOf(
-                "type" to JsonPrimitive("object"),
-                "properties" to JsonObject(
-                    mapOf(
-                        "name" to JsonObject(mapOf("type" to JsonPrimitive("string"))),
-                        "age" to JsonObject(mapOf("type" to JsonPrimitive("number"))),
-                        "skills" to JsonObject(
-                            mapOf(
-                                "type" to JsonPrimitive("array"),
-                                "items" to JsonObject(mapOf("type" to JsonPrimitive("string")))
-                            )
+<!--- INCLUDE
+import ai.koog.prompt.params.LLMParams
+import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.json.JsonArray
+import kotlinx.serialization.json.JsonPrimitive
+-->
+```kotlin
+// Create parameters with a basic JSON schema
+val jsonParams = LLMParams(
+    temperature = 0.2,
+    schema = LLMParams.Schema.JSON.Basic(
+        name = "PersonInfo",
+        schema = JsonObject(mapOf(
+            "type" to JsonPrimitive("object"),
+            "properties" to JsonObject(
+                mapOf(
+                    "name" to JsonObject(mapOf("type" to JsonPrimitive("string"))),
+                    "age" to JsonObject(mapOf("type" to JsonPrimitive("number"))),
+                    "skills" to JsonObject(
+                        mapOf(
+                            "type" to JsonPrimitive("array"),
+                            "items" to JsonObject(mapOf("type" to JsonPrimitive("string")))
                         )
                     )
-                ),
-                "additionalProperties" to JsonPrimitive(false),
-                "required" to JsonArray(listOf(JsonPrimitive("name"), JsonPrimitive("age"), JsonPrimitive("skills")))
-            ))
-        )
+                )
+            ),
+            "additionalProperties" to JsonPrimitive(false),
+            "required" to JsonArray(listOf(JsonPrimitive("name"), JsonPrimitive("age"), JsonPrimitive("skills")))
+        ))
     )
-    ```
-    <!--- KNIT example-llm-parameters-04.kt -->
+)
+```
+<!--- KNIT example-llm-parameters-04.kt -->
 
-2.  **標準 JSON 綱要** (`LLMParams.Schema.JSON.Standard`)：代表符合 [json-schema.org](https://json-schema.org/) 的標準 JSON 綱要。這種格式是官方 JSON Schema 規範的適當子集。請注意，不同 LLM 供應商的風格可能有所不同，因為並非所有供應商都支援完整的 JSON 綱要。
+2) **標準 JSON 綱要** (`LLMParams.Schema.JSON.Standard`)：代表符合 [json-schema.org](https://json-schema.org/) 的標準 JSON 綱要。這種格式是官方 JSON Schema 規範的適當子集。請注意，不同 LLM 供應商的風格可能有所不同，因為並非所有供應商都支援完整的 JSON 綱要。
 
-    <!--- INCLUDE
-    import ai.koog.prompt.params.LLMParams
-    import kotlinx.serialization.json.JsonObject
-    import kotlinx.serialization.json.JsonPrimitive
-    import kotlinx.serialization.json.JsonArray
-    -->
-    ```kotlin
-    // 建立帶有標準 JSON 綱要的參數
-    val standardJsonParams = LLMParams(
-        temperature = 0.2,
-        schema = LLMParams.Schema.JSON.Standard(
-            name = "ProductCatalog",
-            schema = JsonObject(mapOf(
-                "type" to JsonPrimitive("object"),
-                "properties" to JsonObject(mapOf(
-                    "products" to JsonObject(mapOf(
-                        "type" to JsonPrimitive("array"),
-                        "items" to JsonObject(mapOf(
-                            "type" to JsonPrimitive("object"),
-                            "properties" to JsonObject(mapOf(
-                                "id" to JsonObject(mapOf("type" to JsonPrimitive("string"))),
-                                "name" to JsonObject(mapOf("type" to JsonPrimitive("string"))),
-                                "price" to JsonObject(mapOf("type" to JsonPrimitive("number"))),
-                                "description" to JsonObject(mapOf("type" to JsonPrimitive("string")))
-                            )),
-                            "additionalProperties" to JsonPrimitive(false),
-                            "required" to JsonArray(listOf(JsonPrimitive("id"), JsonPrimitive("name"), JsonPrimitive("price"), JsonPrimitive("description")))
-                        ))
+<!--- INCLUDE
+import ai.koog.prompt.params.LLMParams
+import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.json.JsonPrimitive
+import kotlinx.serialization.json.JsonArray
+-->
+```kotlin
+// Create parameters with a standard JSON schema
+val standardJsonParams = LLMParams(
+    temperature = 0.2,
+    schema = LLMParams.Schema.JSON.Standard(
+        name = "ProductCatalog",
+        schema = JsonObject(mapOf(
+            "type" to JsonPrimitive("object"),
+            "properties" to JsonObject(mapOf(
+                "products" to JsonObject(mapOf(
+                    "type" to JsonPrimitive("array"),
+                    "items" to JsonObject(mapOf(
+                        "type" to JsonPrimitive("object"),
+                        "properties" to JsonObject(mapOf(
+                            "id" to JsonObject(mapOf("type" to JsonPrimitive("string"))),
+                            "name" to JsonObject(mapOf("type" to JsonPrimitive("string"))),
+                            "price" to JsonObject(mapOf("type" to JsonPrimitive("number"))),
+                            "description" to JsonObject(mapOf("type" to JsonPrimitive("string")))
+                        )),
+                        "additionalProperties" to JsonPrimitive(false),
+                        "required" to JsonArray(listOf(JsonPrimitive("id"), JsonPrimitive("name"), JsonPrimitive("price"), JsonPrimitive("description")))
                     ))
-                )),
-                "additionalProperties" to JsonPrimitive(false),
-                "required" to JsonArray(listOf(JsonPrimitive("products")))
-            ))
-        )
+                ))
+            )),
+            "additionalProperties" to JsonPrimitive(false),
+            "required" to JsonArray(listOf(JsonPrimitive("products")))
+        ))
     )
-    ```
-    <!--- KNIT example-llm-parameters-05.kt -->
+)
+```
+<!--- KNIT example-llm-parameters-05.kt -->
 
 ## 工具選擇
 
@@ -219,48 +230,144 @@ val specificToolParams = LLMParams(
     toolChoice = LLMParams.ToolChoice.Named(name = "calculator")
 )
 ```
-<!--- KNIT example-llm-parameters-01.kt -->
+<!--- KNIT example-llm-parameters-06.kt -->
 
 ## 特定供應商參數
 
 Koog 支援某些 LLM 供應商的特定供應商參數。這些參數擴展了基礎 `LLMParams` 類別，並增加了特定供應商的功能。以下類別包含每個供應商特有的參數：
 
--   `DeepSeekParams`：DeepSeek 模型特有的參數。
--   `OpenRouterParams`：OpenRouter 模型特有的參數。
 -   `OpenAIChatParams`：OpenAI Chat Completions API 特有的參數。
 -   `OpenAIResponsesParams`：OpenAI Responses API 特有的參數。
+-   `GoogleParams`：Google 模型特有的參數。
+-   `AnthropicParams`：Anthropic 模型特有的參數。
+-   `MistralAIParams`：Mistral 模型特有的參數。
+-   `DeepSeekParams`：DeepSeek 模型特有的參數。
+-   `OpenRouterParams`：OpenRouter 模型特有的參數。
+-   `DashscopeParams`：Alibaba 模型特有的參數。
 
 以下是 Koog 中特定供應商參數的完整參考：
 
-| 參數                  | 供應商                                            | 類型                   | 描述                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
-|-----------------------|---------------------------------------------------|------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `topP`                | OpenAI Chat, OpenAI Responses, DeepSeek, OpenRouter | Double                 | 也稱為核子取樣。透過將具有最高機率值的符元新增到子集中，直到其機率總和達到指定的 `topP` 值，從而建立下一個符元的子集。接受大於 0.0 且小於或等於 1.0 的值。                                                                                                                                                                                                                                                |
-| `logprobs`            | OpenAI Chat, OpenAI Responses, DeepSeek, OpenRouter | Boolean                | 如果為 `true`，則包含輸出符元的對數機率。                                                                                                                                                                                                                                                                                                                                                                                                          |
-| `topLogprobs`         | OpenAI Chat, OpenAI Responses, DeepSeek, OpenRouter | Integer                | 每個位置最有可能的頂部符元數量。接受 0–20 範圍內的值。需要將 `logprobs` 參數設定為 `true`。                                                                                                                                                                                                                                                                                                                                                       |
-| `frequencyPenalty`    | OpenAI Chat, DeepSeek, OpenRouter                 | Double                 | 懲罰頻繁出現的符元以減少重複。較高的 `frequencyPenalty` 值會導致詞語變化更大並減少重複。接受 -2.0 到 2.0 範圍內的值。                                                                                                                                                                                                                                                                                                                                     |
-| `presencePenalty`     | OpenAI Chat, DeepSeek, OpenRouter                 | Double                 | 防止模型重複使用已包含在輸出中的符元。較高的值鼓勵引入新的符元和主題。接受 -2.0 到 2.0 範圍內的值。                                                                                                                                                                                                                                                                                                                                             |
-| `stop`                | OpenAI Chat, DeepSeek, OpenRouter                 | List&lt;String&gt;     | 當模型遇到任何這些字串時，會停止生成內容。例如，要讓模型在產生兩個換行符時停止生成內容，請將停止序列指定為 `stop = listOf("/n/n")`。                                                                                                                                                                                                                                                                                                                                           |
-| `parallelToolCalls`   | OpenAI Chat, OpenAI Responses                     | Boolean                | 如果為 `true`，多個工具呼叫可以平行執行。                                                                                                                                                                                                                                                                                                                                                                                                               |
-| `promptCacheKey`      | OpenAI Chat, OpenAI Responses                     | String                 | 用於提示快取的穩定快取鍵。OpenAI 使用它來快取相似請求的回應。                                                                                                                                                                                                                                                                                                                                                                                                     |
-| `safetyIdentifier`    | OpenAI Chat, OpenAI Responses                     | String                 | 一個穩定且唯一的使用者識別碼，可用於偵測違反 OpenAI 政策的使用者。                                                                                                                                                                                                                                                                                                                                                                                                |
-| `serviceTier`         | OpenAI Chat, OpenAI Responses                     | ServiceTier            | OpenAI 處理層級選擇，讓您可以在效能和成本之間進行優先排序，反之亦然。有關更多資訊，請參閱 [ServiceTier](https://api.koog.ai/prompt/prompt-executor/prompt-executor-clients/prompt-executor-openai-client-base/ai.koog.prompt.executor.clients.openai.base.models/-service-tier/index.html) 的 API 文件。                                                                                                                                             |
-| `store`               | OpenAI Chat, OpenAI Responses                     | Boolean                | 如果為 `true`，供應商可能會儲存輸出以供稍後擷取。                                                                                                                                                                                                                                                                                                                                                                                                    |
-| `audio`               | OpenAI Chat                                       | OpenAIAudioConfig      | 使用支援音訊的模型時的音訊輸出配置。有關更多資訊，請參閱 [OpenAIAudioConfig](https://api.koog.ai/prompt/prompt-executor/prompt-executor-clients/prompt-executor-openai-client-base/ai.koog.prompt.executor.clients.openai.base.models/-open-a-i-audio-config/index.html) 的 API 文件。                                                                                                                                                                   |
-| `reasoningEffort`     | OpenAI Chat                                       | ReasoningEffort        | 指定模型將使用的推理工作量等級。有關更多資訊和可用值，請參閱 [ReasoningEffort](https://api.koog.ai/prompt/prompt-executor/prompt-executor-clients/prompt-executor-openai-client-base/ai.koog.prompt.executor.clients.openai.base.models/-reasoning-effort/index.html) 的 API 文件。                                                                                                                                              |
-| `webSearchOptions`    | OpenAI Chat                                       | OpenAIWebSearchOptions | 配置網路搜尋工具使用（如果支援）。有關更多資訊，請參閱 [OpenAIWebSearchOptions](https://api.koog.ai/prompt/prompt-executor/prompt-executor-clients/prompt-executor-openai-client-base/ai.koog.prompt.executor.clients.openai.base.models/-open-a-i-web-search-options/index.html) 的 API 文件。                                                                                                                                                                  |
-| `background`          | OpenAI Responses                                  | Boolean                | 在背景中執行回應。                                                                                                                                                                                                                                                                                                                                                                                                                               |
-| `include`             | OpenAI Responses                                  | List&lt;String&gt;     | 要包含的其他輸出部分。有關更多資訊，請參閱 OpenAI 文件中關於 [include](https://platform.openai.com/docs/api-reference/responses/create#responses-create-include) 參數的說明。                                                                                                                                                                                                              |
-| `maxToolCalls`        | OpenAI Responses                                  | Int                    | 此回應中允許的最大內建工具呼叫總數。接受大於或等於 `0` 的值。                                                                                                                                                                                                                                                                                                                                                                                                               |
-| `reasoning`           | OpenAI Responses                                  | ReasoningConfig        | 支援推理的模型之推理配置。有關更多資訊，請參閱 [ReasoningConfig](https://api.koog.ai/prompt/prompt-executor/prompt-executor-clients/prompt-executor-openai-client/ai.koog.prompt.executor.clients.openai.models/-reasoning-config/index.html) 的 API 文件。                                                                                                                         |
-| `truncation`          | OpenAI Responses                                  | Truncation             | 接近上下文視窗時的截斷策略。有關更多資訊，請參閱 [Truncation](https://api.koog.ai/prompt/prompt-executor/prompt-executor-clients/prompt-executor-openai-client/ai.koog.prompt.executor.clients.openai.models/-truncation/index.html) 的 API 文件。                                                                                                                                      |
-| `topK`                | OpenRouter                                        | Int                    | 生成輸出時要考慮的頂部符元數量。接受大於或等於 1 的值。                                                                                                                                                                                                                                                                                                                                                                                                                           |
-| `repetitionPenalty`   | OpenRouter                                        | Double                 | 懲罰符元重複。如果 `repetitionPenalty > 1`，已出現在輸出中的符元的下一個符元機率將除以 `repetitionPenalty` 的值，這使得它們再次出現的可能性降低。接受大於 0.0 且小於或等於 2.0 的值。                                                                                                                                                                                                     |
-| `minP`                | OpenRouter                                        | Double                 | 過濾掉相對於最有可能符元的機率低於定義的 `minP` 值的符元。接受 0.0–0.1 範圍內的值。                                                                                                                                                                                                                                                                                                                                                                                       |
-| `topA`                | OpenRouter                                        | Double                 | 根據模型置信度動態調整取樣視窗。如果模型有信心（存在主要的、高機率的下一個符元），它會將取樣視窗限制在幾個頂部符元。如果置信度低（存在許多機率相似的符元），則會在取樣視窗中保留更多符元。接受 0.0–0.1（含）範圍內的值。值越高表示動態適應性越強。 |
-| `transforms`          | OpenRouter                                        | List&lt;String&gt;     | 上下文轉換列表。定義當上下文超出模型符元限制時如何轉換。預設轉換是 `middle-out`，它從提示的中間截斷。使用空列表表示不進行轉換。有關更多資訊，請參閱 OpenRouter 文件中的 [Message Transforms](https://openrouter.ai/docs/features/message-transforms)。                                                       |
-| `models`              | OpenRouter                                        | List&lt;String&gt;     | 請求允許的模型列表。                                                                                                                                                                                                                                                                                                                                                                                                                           |
-| `route`               | OpenRouter                                        | String                 | 請求路由識別碼。                                                                                                                                                                                                                                                                                                                                                                                                                                       |
-| `provider`            | OpenRouter                                        | ProviderPreferences    | 模型供應商偏好設定。有關更多資訊，請參閱 [ProviderPreferences](https://api.koog.ai/prompt/prompt-executor/prompt-executor-clients/prompt-executor-openrouter-client/ai.koog.prompt.executor.clients.openrouter.models/-provider-preferences/index.html) 的 API 文件。                                                                                                                                     |
+=== "OpenAI Chat"
+
+    --8<--
+    llm-parameters-snippets.md:heading
+    llm-parameters-snippets.md:audio
+    llm-parameters-snippets.md:frequencyPenalty
+    llm-parameters-snippets.md:logprobs
+    llm-parameters-snippets.md:parallelToolCalls
+    llm-parameters-snippets.md:presencePenalty
+    llm-parameters-snippets.md:promptCacheKey
+    llm-parameters-snippets.md:reasoningEffort
+    llm-parameters-snippets.md:safetyIdentifier
+    llm-parameters-snippets.md:serviceTier
+    llm-parameters-snippets.md:stop
+    llm-parameters-snippets.md:store
+    llm-parameters-snippets.md:topLogprobs
+    llm-parameters-snippets.md:topP
+    llm-parameters-snippets.md:webSearchOptions
+    --8<--
+
+=== "OpenAI Responses"
+
+    --8<--
+    llm-parameters-snippets.md:heading
+    llm-parameters-snippets.md:background
+    llm-parameters-snippets.md:include
+    llm-parameters-snippets.md:logprobs
+    llm-parameters-snippets.md:maxToolCalls
+    llm-parameters-snippets.md:parallelToolCalls
+    llm-parameters-snippets.md:promptCacheKey
+    llm-parameters-snippets.md:reasoning
+    llm-parameters-snippets.md:safetyIdentifier
+    llm-parameters-snippets.md:serviceTier
+    llm-parameters-snippets.md:store
+    llm-parameters-snippets.md:topLogprobs
+    llm-parameters-snippets.md:topP
+    llm-parameters-snippets.md:truncation
+    --8<--
+
+=== "Google"
+
+    --8<--
+    llm-parameters-snippets.md:heading
+    llm-parameters-snippets.md:thinkingConfig
+    llm-parameters-snippets.md:topK
+    llm-parameters-snippets.md:topP
+    --8<--
+
+=== "Anthropic"
+
+    --8<--
+    llm-parameters-snippets.md:heading
+    llm-parameters-snippets.md:container
+    llm-parameters-snippets.md:mcpServers
+    llm-parameters-snippets.md:serviceTier
+    llm-parameters-snippets.md:stopSequences
+    llm-parameters-snippets.md:thinking
+    llm-parameters-snippets.md:topK
+    llm-parameters-snippets.md:topP
+    --8<--
+
+=== "Mistral"
+
+    --8<--
+    llm-parameters-snippets.md:heading
+    llm-parameters-snippets.md:frequencyPenalty
+    llm-parameters-snippets.md:parallelToolCalls
+    llm-parameters-snippets.md:presencePenalty
+    llm-parameters-snippets.md:promptMode
+    llm-parameters-snippets.md:randomSeed
+    llm-parameters-snippets.md:safePrompt
+    llm-parameters-snippets.md:stop
+    llm-parameters-snippets.md:topP
+    --8<--
+
+=== "DeepSeek"
+
+    --8<--
+    llm-parameters-snippets.md:heading
+    llm-parameters-snippets.md:frequencyPenalty
+    llm-parameters-snippets.md:logprobs
+    llm-parameters-snippets.md:presencePenalty
+    llm-parameters-snippets.md:stop
+    llm-parameters-snippets.md:topLogprobs
+    llm-parameters-snippets.md:topP
+    --8<--
+
+=== "OpenRouter"
+
+    --8<--
+    llm-parameters-snippets.md:heading
+    llm-parameters-snippets.md:frequencyPenalty
+    llm-parameters-snippets.md:logprobs
+    llm-parameters-snippets.md:minP
+    llm-parameters-snippets.md:models
+    llm-parameters-snippets.md:presencePenalty
+    llm-parameters-snippets.md:provider
+    llm-parameters-snippets.md:repetitionPenalty
+    llm-parameters-snippets.md:route
+    llm-parameters-snippets.md:stop
+    llm-parameters-snippets.md:topA
+    llm-parameters-snippets.md:topK
+    llm-parameters-snippets.md:topLogprobs
+    llm-parameters-snippets.md:topP
+    llm-parameters-snippets.md:transforms
+    --8<--
+
+=== "Alibaba (DashScope)"
+
+    --8<--
+    llm-parameters-snippets.md:heading
+    llm-parameters-snippets.md:enableSearch
+    llm-parameters-snippets.md:enableThinking
+    llm-parameters-snippets.md:frequencyPenalty
+    llm-parameters-snippets.md:logprobs
+    llm-parameters-snippets.md:parallelToolCalls
+    llm-parameters-snippets.md:presencePenalty
+    llm-parameters-snippets.md:stop
+    llm-parameters-snippets.md:topLogprobs
+    llm-parameters-snippets.md:topP
+    --8<--
 
 以下範例展示了使用特定供應商的 `OpenRouterParams` 類別定義 OpenRouter LLM 參數：
 
@@ -280,7 +387,7 @@ val openRouterParams = OpenRouterParams(
     transforms = listOf("middle-out")
 )
 ```
-<!--- KNIT example-llm-parameters-02.kt -->
+<!--- KNIT example-llm-parameters-07.kt -->
 
 ## 使用範例
 
@@ -290,14 +397,14 @@ val openRouterParams = OpenRouterParams(
 import ai.koog.prompt.params.LLMParams
 -->
 ```kotlin
-// 一組具有有限長度的基本參數
+// A basic set of parameters with limited length 
 val basicParams = LLMParams(
     temperature = 0.7,
     maxTokens = 150,
     toolChoice = LLMParams.ToolChoice.Auto
 )
 ```
-<!--- KNIT example-llm-parameters-03.kt -->
+<!--- KNIT example-llm-parameters-08.kt -->
 
 ### 推理控制
 
@@ -312,7 +419,7 @@ val openAIReasoningEffortParams = OpenAIChatParams(
     reasoningEffort = ReasoningEffort.MEDIUM
 )
 ```
-<!--- KNIT example-llm-parameters-04.kt -->
+<!--- KNIT example-llm-parameters-09.kt -->
 
 此外，當在無狀態模式下使用 OpenAI Responses API 時，您會保留推理項目的加密歷史記錄，並在每個對話回合中將其發送到模型。加密在 OpenAI 端完成，您需要透過將請求中的 `include` 參數設定為 `reasoning.encrypted_content` 來請求加密的推理符元。然後，您可以在後續的對話回合中將加密的推理符元傳回給模型。
 
@@ -325,7 +432,7 @@ val openAIStatelessReasoningParams = OpenAIResponsesParams(
     include = listOf(OpenAIInclude.REASONING_ENCRYPTED_CONTENT)
 )
 ```
-<!--- KNIT example-llm-parameters-05.kt -->
+<!--- KNIT example-llm-parameters-10.kt -->
 
 ### 自訂參數
 
@@ -336,7 +443,7 @@ import ai.koog.prompt.params.LLMParams
 import ai.koog.prompt.params.additionalPropertiesOf
 -->
 ```kotlin
-// 為特定模型供應商新增自訂參數
+// Add custom parameters for specific model providers
 val customParams = LLMParams(
     additionalProperties = additionalPropertiesOf(
         "top_p" to 0.95,
@@ -345,7 +452,7 @@ val customParams = LLMParams(
     )
 )
 ```
-<!--- KNIT example-llm-parameters-06.kt -->
+<!--- KNIT example-llm-parameters-11.kt -->
 
 ### 設定與覆寫參數
 
@@ -355,20 +462,20 @@ val customParams = LLMParams(
 import ai.koog.prompt.params.LLMParams
 -->
 ```kotlin
-// 定義預設參數
+// Define default parameters
 val defaultParams = LLMParams(
     temperature = 0.7,
     maxTokens = 150,
     toolChoice = LLMParams.ToolChoice.Auto
 )
 
-// 建立帶有部分覆寫的參數，其餘使用預設值
+// Create parameters with some overrides, using defaults for the rest
 val overrideParams = LLMParams(
     temperature = 0.2,
     numberOfChoices = 3
 ).default(defaultParams)
 ```
-<!--- KNIT example-llm-parameters-07.kt -->
+<!--- KNIT example-llm-parameters-12.kt -->
 
 最終的 `overrideParams` 集合中的值等同於以下內容：
 
@@ -383,4 +490,4 @@ val overrideParams = LLMParams(
     numberOfChoices = 3
 )
 ```
-<!--- KNIT example-llm-parameters-08.kt -->
+<!--- KNIT example-llm-parameters-13.kt -->

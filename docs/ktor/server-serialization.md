@@ -38,7 +38,7 @@ ContentNegotiation 插件有两个主要目的：在客户端和服务器之间�
 ### ContentNegotiation {id="add_content_negotiation_dependency"}
 
 <p>
-    要使用 <code>%plugin_name%</code>，您需要在构建脚本中包含 <code>%artifact_name%</code> artifact：
+    要使用 <code>%plugin_name%</code>，您需要在构建脚本中包含 <code>%artifact_name%</code>构件：
 </p>
 <Tabs group="languages">
     <TabItem title="Gradle (Kotlin)" group-key="kotlin">
@@ -52,9 +52,9 @@ ContentNegotiation 插件有两个主要目的：在客户端和服务器之间�
     </TabItem>
 </Tabs>
 
-请注意，特定格式的序列化器需要额外的 artifact。例如，kotlinx.serialization 需要 `ktor-serialization-kotlinx-json` 依赖项来处理 JSON。
+请注意，特定格式的序列化器需要额外的构件。例如，kotlinx.serialization 需要 `ktor-serialization-kotlinx-json` 依赖项来处理 JSON。
 
-### 序列化 {id="serialization_dependency"}
+### Serialization {id="serialization_dependency"}
 
 <snippet id="add_serialization_dependency">
 
@@ -67,7 +67,7 @@ ContentNegotiation 插件有两个主要目的：在客户端和服务器之间�
 <Tabs group="json-libraries">
 <TabItem title="kotlinx.serialization" group-key="kotlinx">
 
-在构建脚本中添加 `ktor-serialization-kotlinx-json` artifact：
+在构建脚本中添加 `ktor-serialization-kotlinx-json` 构件：
 
 <var name="artifact_name" value="ktor-serialization-kotlinx-json"/>
 <Tabs group="languages">
@@ -85,7 +85,7 @@ ContentNegotiation 插件有两个主要目的：在客户端和服务器之间�
 </TabItem>
 <TabItem title="Gson" group-key="gson">
 
-在构建脚本中添加 `ktor-serialization-gson` artifact：
+在构建脚本中添加 `ktor-serialization-gson` 构件：
 
 <var name="artifact_name" value="ktor-serialization-gson"/>
 <Tabs group="languages">
@@ -103,7 +103,7 @@ ContentNegotiation 插件有两个主要目的：在客户端和服务器之间�
 </TabItem>
 <TabItem title="Jackson" group-key="jackson">
 
-在构建脚本中添加 `ktor-serialization-jackson` artifact：
+在构建脚本中添加 `ktor-serialization-jackson` 构件：
 
 <var name="artifact_name" value="ktor-serialization-jackson"/>
 <Tabs group="languages">
@@ -381,15 +381,14 @@ install(ContentNegotiation) {
 ### 创建数据类 {id="create_data_class"}
 要将接收到的数据反序列化为对象，您需要创建一个数据类，例如：
 ```kotlin
-@Serializable
+data class Customer(val id: Int, val firstName: String, val lastName: String)
 ```
 
 如果您使用 kotlinx.serialization，请确保此注解有 `@Serializable` 注解：
 ```kotlin
 import kotlinx.serialization.*
-import io.ktor.server.util.getValue
-
 @Serializable
+data class Customer(val id: Int, val firstName: String, val lastName: String)
 ```
 
 <snippet id="serialization_types">
@@ -458,7 +457,7 @@ routing {
 
 ## 实现自定义序列化器 {id="implement_custom_serializer"}
 
-在 Ktor 中，您可以编写自己的[序列化器](#configure_serializer)来序列化/反序列化数据。为此，您需要实现 [ContentConverter](https://api.ktor.io/ktor-shared/ktor-serialization/io.ktor.serialization/-content-converter/index.html) 接口：
+在 Ktor 中，您可以编写自己的[序列化器](#configure_serializer)来序列化/反序列化数据。为此，您需要实现 [ContentConverter](https://api.ktor.io/ktor-serialization/io.ktor.serialization/-content-converter/index.html) 接口：
 ```kotlin
 interface ContentConverter {
     suspend fun serialize(contentType: ContentType, charset: Charset, typeInfo: TypeInfo, value: Any): OutgoingContent?

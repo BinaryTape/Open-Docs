@@ -33,7 +33,7 @@ val str = strategy<Input, Output>("my-strategy") {
 -->
 ```kotlin
 val myNode by node<Input, Output>("node_name") { input ->
-    // Processing
+    // 処理
     returnValue
 }
 ```
@@ -51,7 +51,7 @@ val str = strategy<String, Int>("my-strategy") {
 -->
 ```kotlin
 val myNode by node<String, Int>("node_name") { input ->
-    // Processing
+    // 処理
     input.length
 }
 ```
@@ -76,8 +76,8 @@ val strategy = strategy<String, String>("strategy_name") {
 fun AIAgentSubgraphBuilderBase<*, *>.myCustomNode(
     name: String? = null
 ): AIAgentNodeDelegate<Input, Output> = node(name) { input ->
-    // Custom logic
-    input // Return the input as output (pass-through)
+    // カスタムロジック
+    input // 入力を出力として返す（パススルー）
 }
 
 val myCustomNode by myCustomNode("node_name")
@@ -109,8 +109,8 @@ val strategy = strategy<String, String>("strategy_name") {
     arg1: String,
     arg2: Int
 ): AIAgentNodeDelegate<Input, Output> = node(name) { input ->
-    // Use arg1 and arg2 in your custom logic
-    input // Return the input as the output
+    // カスタムロジックでarg1とarg2を使用する
+    input // 入力を出力として返す
 }
 
 val myCustomNode by myNodeWithArguments("node_name", arg1 = "value1", arg2 = 42)
@@ -131,8 +131,8 @@ import ai.koog.agents.core.dsl.builder.strategy
 inline fun <reified T> AIAgentSubgraphBuilderBase<*, *>.myParameterizedNode(
     name: String? = null,
 ): AIAgentNodeDelegate<T, T> = node(name) { input ->
-    // Do some additional actions
-    // Return the input as the output
+    // 追加のアクションを実行する
+    // 入力を出力として返す
     input
 }
 
@@ -176,15 +176,15 @@ fun AIAgentSubgraphBuilderBase<*, *>.myStatefulNode(
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
 
-val strategy = strategy<String, String>("strategy_name") {
+val strategy = strategy<String, String>("my-strategy") {
 -->
 <!--- SUFFIX
 }
 -->
 ```kotlin
 val stringToIntNode by node<String, Int>("node_name") { input: String ->
-    // Processing
-    input.toInt() // Convert string to integer
+    // 処理
+    input.toInt() // 文字列を整数に変換
 }
 ```
 <!--- KNIT example-custom-nodes-07.kt -->
@@ -224,7 +224,7 @@ val strategy = strategy<String, String>("strategy_name") {
 
 val loggingNode by node<String, String>("node_name") { input ->
     println("Processing input: $input")
-    input // Return the input as the output
+    input // 入力を出力として返す
 }
 ```
 <!--- KNIT example-custom-nodes-08.kt -->
@@ -244,7 +244,7 @@ val strategy = strategy<String, String>("strategy_name") {
 ```kotlin
 val upperCaseNode by node<String, String>("node_name") { input ->
     println("Processing input: $input")
-    input.uppercase() // Transform the input to uppercase
+    input.uppercase() // 入力を大文字に変換する
 }
 ```
 <!--- KNIT example-custom-nodes-09.kt -->
@@ -304,7 +304,7 @@ val nodeExecuteCustomTool by node<String, String>("node_name") { input ->
         id = UUID.randomUUID().toString(),
         tool = toolName,
         metaInfo = ResponseMetaInfo.create(Clock.System),
-        content = Json.encodeToString(ToolArgs(arg1 = input, arg2 = 42)) // Use the input as tool arguments
+        content = Json.encodeToString(ToolArgs(arg1 = input, arg2 = 42)) // 入力をツール引数として使用する
     )
 
     val result = environment.executeTool(toolCall)

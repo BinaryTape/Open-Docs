@@ -2,7 +2,7 @@
 
 ## 概要
 
-テスト機能は、KoogフレームワークにおけるAIエージェントのパイプライン、サブグラフ、およびツール連携をテストするための包括的なフレームワークを提供します。これにより、開発者はモックLLM (大規模言語モデル) エグゼキューター、ツールレジストリ、およびエージェント環境を備えた、制御されたテスト環境を構築できます。
+テスト機能は、KoogフレームワークにおけるAIエージェントのパイプライン、サブグラフ、およびツール連携をテストするための包括的なフレームワークを提供します。これにより、開発者はモックLLM（大規模言語モデル）エグゼキューター、ツールレジストリ、およびエージェント環境を備えた、制御されたテスト環境を構築できます。
 
 ### 目的
 
@@ -45,12 +45,12 @@ val toolRegistry = ToolRegistry {}
 
 -->
 ```kotlin
-// Create a mock LLM executor
+// モックLLMエグゼキューターを作成
 val mockLLMApi = getMockExecutor(toolRegistry) {
-  // Mock a simple text response
+  // シンプルなテキスト応答をモックする
   mockLLMAnswer("Hello!") onRequestContains "Hello"
 
-  // Mock a default response
+  // デフォルト応答をモックする
   mockLLMAnswer("I don't know how to answer that.").asDefaultResponse
 }
 ```
@@ -141,34 +141,34 @@ val mockLLMApi = getMockExecutor {
 }
 -->
 ```kotlin
-// Mock a tool call response
+// ツール呼び出しの応答をモックする
 mockLLMToolCall(CreateTool, CreateTool.Args("solve")) onRequestEquals "Solve task"
 
-// Mock tool behavior - simplest form without lambda
+// ツールの動作をモックする - ラムダなしの最もシンプルな形式
 mockTool(PositiveToneTool) alwaysReturns "The text has a positive tone."
 
-// Using lambda when you need to perform extra actions
+// 追加のアクションを実行する必要がある場合はラムダを使用する
 mockTool(NegativeToneTool) alwaysTells {
-  // Perform some extra action
+  // 追加のアクションを実行する
   println("Negative tone tool called")
 
-  // Return the result
+  // 結果を返す
   "The text has a negative tone."
 }
 
-// Mock tool behavior based on specific arguments
+// 特定の引数に基づいたツールの動作をモックする
 mockTool(AnalyzeTool) returns "Detailed analysis" onArguments AnalyzeTool.Args("analyze deeply")
 
-// Mock tool behavior with conditional argument matching
+// 条件付き引数マッチングによるツールの動作をモックする
 mockTool(SearchTool) returns "Found results" onArgumentsMatching { args ->
   args.query.contains("important")
 }
 ```
 <!--- KNIT example-testing-03.kt -->
 
-上記の例は、単純なものからより複雑なものまで、ツールをモックするさまざまな方法を示しています。
+上記の例は、シンプルなものからより複雑なものまで、ツールをモックするさまざまな方法を示しています。
 
-1.  `alwaysReturns`: 最も単純な形式で、ラムダなしで直接値を返します。
+1.  `alwaysReturns`: ラムダなしで値を直接返す最もシンプルな形式。
 2.  `alwaysTells`: 追加のアクションを実行する必要がある場合にラムダを使用します。
 3.  `returns...onArguments`: 正確な引数の一致に対して特定の値を返します。
 4.  `returns...onArgumentsMatching`: カスタム引数条件に基づいて結果を返します。
@@ -186,20 +186,20 @@ import ai.koog.prompt.executor.clients.openai.OpenAIModels
 
 val llmModel = OpenAIModels.Chat.GPT4o
 
-// Create the agent with testing enabled
+// テストが有効なエージェントを作成
 fun main() {
 -->
 <!--- SUFFIX
 }
 -->
 ```kotlin
-// Create the agent with testing enabled
+// テストが有効なエージェントを作成
 AIAgent(
     promptExecutor = mockLLMApi,
     toolRegistry = toolRegistry,
     llmModel = llmModel
 ) {
-    // Enable testing mode
+    // テストモードを有効にする
     withTesting()
 }
 ```
@@ -237,7 +237,7 @@ fun main() {
 -->
 ```kotlin
 AIAgent(
-    // Constructor arguments
+    // コンストラクタ引数
     promptExecutor = mockLLMApi,
     toolRegistry = toolRegistry,
     llmModel = llmModel
@@ -246,23 +246,23 @@ AIAgent(
         val firstSubgraph = assertSubgraphByName<String, String>("first")
         val secondSubgraph = assertSubgraphByName<String, String>("second")
 
-        // Assert subgraph connections
+        // サブグラフの接続をアサートする
         assertEdges {
             startNode() alwaysGoesTo firstSubgraph
             firstSubgraph alwaysGoesTo secondSubgraph
             secondSubgraph alwaysGoesTo finishNode()
         }
 
-        // Verify the first subgraph
+        // 最初のサブグラフを検証する
         verifySubgraph(firstSubgraph) {
             val start = startNode()
             val finish = finishNode()
 
-            // Assert nodes by name
+            // 名前でノードをアサートする
             val askLLM = assertNodeByName<String, Message.Response>("callLLM")
             val callTool = assertNodeByName<Message.Tool.Call, ReceivedToolResult>("executeTool")
 
-            // Assert node reachability
+            // ノードの到達可能性をアサートする
             assertReachable(start, askLLM)
             assertReachable(askLLM, callTool)
         }
@@ -314,10 +314,10 @@ fun main() {
 ```kotlin
 assertNodes {
 
-    // Test basic text responses
+    // 基本的なテキスト応答をテストする
     askLLM withInput "Hello" outputs assistantMessage("Hello!")
 
-    // Test tool call responses
+    // ツール呼び出しの応答をテストする
     askLLM withInput "Solve task" outputs toolCallMessage(CreateTool, CreateTool.Args("solve"))
 }
 ```
@@ -349,7 +349,7 @@ import ai.koog.agents.core.tools.annotations.LLMDescription
 
 object SolveTool : SimpleTool<SolveTool.Args>() {
     @Serializable
-    data class Args(
+    data class class Args(
         @property:LLMDescription("Message from the agent")
         val message: String
     )
@@ -387,11 +387,11 @@ fun main() {
 -->
 ```kotlin
 assertNodes {
-    // Test tool runs with specific arguments
+    // 特定の引数でツール実行をテストする
     callTool withInput toolCallMessage(
         SolveTool,
         SolveTool.Args("solve")
-    ) outputs toolResult(SolveTool, "solved")
+    ) outputs toolResult(SolveTool, SolveTool.Args("solve"), "solved")
 }
 ```
 <!--- KNIT example-testing-07.kt -->
@@ -457,10 +457,10 @@ fun main() {
 -->
 ```kotlin
 assertNodes {
-    // Test with different inputs to the same node
+    // 同じノードに対する異なる入力でテストする
     askLLM withInput "Simple query" outputs assistantMessage("Simple response")
 
-    // Test with complex parameters
+    // 複雑なパラメータでテストする
     askLLM withInput "Complex query with parameters" outputs toolCallMessage(
         AnalyzeTool,
         AnalyzeTool.Args(query = "parameters", depth = 3)
@@ -535,11 +535,11 @@ fun main() {
 -->
 ```kotlin
 assertNodes {
-    // Test a complex tool call with a structured result
+    // 構造化された結果を持つ複雑なツール呼び出しをテストする
     callTool withInput toolCallMessage(
         AnalyzeTool,
         AnalyzeTool.Args(query = "complex", depth = 5)
-    ) outputs toolResult(AnalyzeTool, AnalyzeTool.Result(
+    ) outputs toolResult(AnalyzeTool, AnalyzeTool.Args(query = "complex", depth = 5), AnalyzeTool.Result(
         analysis = "Detailed analysis",
         confidence = 0.95,
         metadata = mapOf("source" to "database", "timestamp" to "2023-06-15")
@@ -597,10 +597,10 @@ fun main() {
 -->
 ```kotlin
 assertEdges {
-    // Test text message routing
+    // テキストメッセージのルーティングをテストする
     askLLM withOutput assistantMessage("Hello!") goesTo giveFeedback
 
-    // Test tool call routing
+    // ツール呼び出しのルーティングをテストする
     askLLM withOutput toolCallMessage(CreateTool, CreateTool.Args("solve")) goesTo callTool
 }
 ```
@@ -648,7 +648,7 @@ fun main() {
 -->
 ```kotlin
 assertEdges {
-    // Different text responses can route to different nodes
+    // 異なるテキスト応答は異なるノードにルーティングされる
     askLLM withOutput assistantMessage("Need more information") goesTo askForInfo
     askLLM withOutput assistantMessage("Ready to proceed") goesTo processRequest
 }
@@ -693,9 +693,10 @@ fun main() {
 -->
 ```kotlin
 assertEdges {
-    // Test routing based on tool result content
+    // ツール結果の内容に基づいたルーティングをテストする
     callTool withOutput toolResult(
-        AnalyzeTool, 
+        AnalyzeTool,
+        AnalyzeTool.Args(query = "parameters", depth = 3),
         AnalyzeTool.Result(analysis = "Needs more processing", confidence = 0.5)
     ) goesTo processResult
 }
@@ -739,14 +740,16 @@ fun main() {
 -->
 ```kotlin
 assertEdges {
-    // Route to different nodes based on confidence level
+    // 信頼度レベルに基づいて異なるノードにルーティングする
     callTool withOutput toolResult(
-        AnalyzeTool, 
+        AnalyzeTool,
+        AnalyzeTool.Args(query = "parameters", depth = 3),
         AnalyzeTool.Result(analysis = "Complete", confidence = 0.9)
     ) goesTo finish
 
     callTool withOutput toolResult(
-        AnalyzeTool, 
+        AnalyzeTool,
+        AnalyzeTool.Args(query = "parameters", depth = 3),
         AnalyzeTool.Result(analysis = "Uncertain", confidence = 0.3)
     ) goesTo verifyResult
 }
@@ -772,13 +775,13 @@ assertEdges {
 ```kotlin
 @Test
 fun testToneAgent() = runTest {
-    // Create a list to track tool calls
+    // ツール呼び出しを追跡するリストを作成
     var toolCalls = mutableListOf<String>()
     var result: String? = null
 
-    // Create a tool registry
+    // ツールレジストリを作成
     val toolRegistry = ToolRegistry {
-        // A special tool, required with this type of agent
+        // このタイプのエージェントに必要な特別なツール
         tool(SayToUser)
 
         with(ToneTools) {
@@ -786,7 +789,7 @@ fun testToneAgent() = runTest {
         }
     }
 
-    // Create an event handler
+    // イベントハンドラを作成
     val eventHandler = EventHandler {
         onToolCallStarting { tool, args ->
             println("[DEBUG_LOG] Tool called: tool ${tool.name}, args $args")
@@ -814,19 +817,19 @@ ${it.stackTraceToString()}")
     val neutralResponse = "The text has a neutral tone."
 
     val mockLLMApi = getMockExecutor(toolRegistry, eventHandler) {
-        // Set up LLM responses for different input texts
+        // 異なる入力テキストに対するLLM応答を設定
         mockLLMToolCall(NeutralToneTool, ToneTool.Args(defaultText)) onRequestEquals defaultText
         mockLLMToolCall(PositiveToneTool, ToneTool.Args(positiveText)) onRequestEquals positiveText
         mockLLMToolCall(NegativeToneTool, ToneTool.Args(negativeText)) onRequestEquals negativeText
 
-        // Mock the behavior where the LLM responds with just tool responses when the tools return results
+        // ツールが結果を返した場合にLLMがツール応答のみで応答する動作をモック
         mockLLMAnswer(positiveResponse) onRequestContains positiveResponse
         mockLLMAnswer(negativeResponse) onRequestContains negativeResponse
         mockLLMAnswer(neutralResponse) onRequestContains neutralResponse
 
         mockLLMAnswer(defaultText).asDefaultResponse
 
-        // Tool mocks
+        // ツールモック
         mockTool(PositiveToneTool) alwaysTells {
             toolCalls += "Positive tone tool called"
             positiveResponse
@@ -841,10 +844,10 @@ ${it.stackTraceToString()}")
         }
     }
 
-    // Create a strategy
+    // ストラテジーを作成
     val strategy = toneStrategy("tone_analysis")
 
-    // Create an agent configuration
+    // エージェント設定を作成
     val agentConfig = AIAgentConfig(
         prompt = prompt("test-agent") {
             system(
@@ -861,7 +864,7 @@ ${it.stackTraceToString()}")
         maxAgentIterations = 10
     )
 
-    // Create an agent with testing enabled
+    // テストが有効なエージェントを作成
     val agent = AIAgent(
         promptExecutor = mockLLMApi,
         toolRegistry = toolRegistry,
@@ -872,17 +875,17 @@ ${it.stackTraceToString()}")
         withTesting()
     }
 
-    // Test the positive text
+    // ポジティブなテキストをテスト
     agent.run(positiveText)
     assertEquals("The text has a positive tone.", result, "Positive tone result should match")
     assertEquals(1, toolCalls.size, "One tool is expected to be called")
 
-    // Test the negative text
+    // ネガティブなテキストをテスト
     agent.run(negativeText)
     assertEquals("The text has a negative tone.", result, "Negative tone result should match")
     assertEquals(2, toolCalls.size, "Two tools are expected to be called")
 
-    //Test the neutral text
+    // ニュートラルなテキストをテスト
     agent.run(defaultText)
     assertEquals("The text has a neutral tone.", result, "Neutral tone result should match")
     assertEquals(3, toolCalls.size, "Three tools are expected to be called")
@@ -1021,7 +1024,7 @@ fun testMultiSubgraphAgentStructure() = runTest {
 val mockExecutor = getMockExecutor {
     mockTool(myTool) alwaysReturns myResult
 
-    // Or with conditions
+    // あるいは条件付きで
     mockTool(myTool) returns myResult onArguments myArgs
 }
 ```
@@ -1057,14 +1060,14 @@ testGraph<Unit, String>("test") {
     val mySubgraph = assertSubgraphByName<Unit, String>("mySubgraph")
 
     verifySubgraph(mySubgraph) {
-        // Get references to nodes
+        // ノードへの参照を取得
         val nodeA = assertNodeByName<Unit, String>("nodeA")
         val nodeB = assertNodeByName<String, String>("nodeB")
 
-        // Assert reachability
+        // 到達可能性をアサート
         assertReachable(nodeA, nodeB)
 
-        // Assert edge connections
+        // エッジ接続をアサート
         assertEdges {
             nodeA.withOutput("result") goesTo nodeB
         }

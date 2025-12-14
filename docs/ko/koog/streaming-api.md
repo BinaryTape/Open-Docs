@@ -59,7 +59,7 @@ llm.writeSession {
             is StreamFrame.ToolCall -> {
                 println("
 🔧 Tool call: ${frame.name} args=${frame.content}")
-                // Optionally parse lazily:
+                // 선택적으로 지연 파싱:
                 // val json = frame.contentJson
             }
             is StreamFrame.End -> println("
@@ -95,9 +95,9 @@ val mdDefinition = markdownBookDefinition()
 
 llm.writeSession {
     val stream = requestLLMStreaming(mdDefinition)
-    // Access the raw string chunks directly
+    // 원시 문자열 청크에 직접 접근
     stream.collect { chunk ->
-        // Process each chunk of text as it arrives
+        // 도착하는 각 텍스트 청크 처리
         println("Received chunk: $chunk") // The chunks together will be structured as a text following the mdDefinition schema
     }
 }
@@ -125,10 +125,10 @@ val strategy = strategy<String, String>("strategy_name") {
 llm.writeSession {
     val frames = requestLLMStreaming()
 
-    // Stream text chunks as they come:
+    // 텍스트 청크가 도착하는 대로 스트림:
     frames.filterTextOnly().collect { chunk -> print(chunk) }
 
-    // Or, gather all text into one String after End:
+    // 또는, End 이후 모든 텍스트를 하나의 String으로 수집:
     val fullText = frames.collectText()
     println("
 ---
@@ -157,14 +157,14 @@ fun GraphAIAgent.FeatureContext.installStreamingApi() {
 handleEvents {
     onToolCallStarting { context ->
         println("
-🔧 ${context.tool.name}을 ${context.toolArgs}와 함께 사용 중... ")
+🔧 ${context.toolName}을 ${context.toolArgs}와 함께 사용 중... ")
     }
     onLLMStreamingFrameReceived { context ->
         (context.streamFrame as? StreamFrame.Append)?.let { frame ->
             print(frame.text)
         }
     }
-    onLLMStreamingFailed { context ->
+    onLLMStreamingFailed { context -> 
         println("❌ Error: ${context.error}")
     }
     onLLMStreamingCompleted {
@@ -192,8 +192,8 @@ handleEvents {
 
 구조화된 데이터 접근 방식은 다음과 같은 주요 구성 요소를 포함합니다.
 
-1. **MarkdownStructureDefinition**: 마크다운 형식으로 구조화된 데이터에 대한 스키마 및 예제를 정의하는 데 도움이 되는 클래스입니다.
-2. **markdownStreamingParser**: 마크다운 청크 스트림을 처리하고 이벤트를 방출하는 파서를 생성하는 함수입니다.
+1.  **MarkdownStructureDefinition**: 마크다운 형식으로 구조화된 데이터에 대한 스키마 및 예제를 정의하는 데 도움이 되는 클래스입니다.
+2.  **markdownStreamingParser**: 마크다운 청크 스트림을 처리하고 이벤트를 방출하는 파서를 생성하는 함수입니다.
 
 아래 섹션에서는 구조화된 데이터 스트림을 처리하는 것과 관련된 단계별 지침과 코드 샘플을 제공합니다.
 
@@ -264,15 +264,15 @@ fun parseMarkdownStreamToBooks(markdownStream: Flow<String>): Flow<Book> {
 -->
 ```kotlin
 markdownStreamingParser {
-    // Handle level 1 headings (level ranges from 1 to 6)
+    // 레벨 1 헤더 처리 (레벨 범위는 1에서 6까지)
     onHeader(1) { headerText -> }
-    // Handle bullet points
+    // 글머리 기호 처리
     onBullet { bulletText -> }
-    // Handle code blocks
+    // 코드 블록 처리
     onCodeBlock { codeBlockContent -> }
-    // Handle lines matching a regex pattern
+    // 정규식 패턴과 일치하는 줄 처리
     onLineMatching(Regex("pattern")) { line -> }
-    // Handle the end of the stream
+    // 스트림 종료 처리
     onFinishStream { remainingText -> }
 }
 ```
@@ -296,9 +296,9 @@ fun parseMarkdownStreamToBooks(markdownStream: Flow<StreamFrame>): Flow<Book> {
          var currentBookTitle = ""
          val bulletPoints = mutableListOf<String>()
 
-         // Handle the event of receiving the Markdown header in the response stream
+         // 응답 스트림에서 마크다운 헤더를 수신하는 이벤트 처리
          onHeader(1) { headerText ->
-            // If there was a previous book, emit it
+            // 이전 책이 있었다면, 방출
             if (currentBookTitle.isNotEmpty() && bulletPoints.isNotEmpty()) {
                val author = bulletPoints.getOrNull(0) ?: ""
                val description = bulletPoints.getOrNull(1) ?: ""
@@ -309,14 +309,14 @@ fun parseMarkdownStreamToBooks(markdownStream: Flow<StreamFrame>): Flow<Book> {
             bulletPoints.clear()
          }
 
-         // Handle the event of receiving the Markdown bullets list in the response stream
+         // 응답 스트림에서 마크다운 글머리 기호 목록을 수신하는 이벤트 처리
          onBullet { bulletText ->
             bulletPoints.add(bulletText)
          }
 
-         // Handle the end of the response stream
+         // 응답 스트림 종료 처리
          onFinishStream {
-            // Emit the last book, if present
+            // 마지막 책이 있다면 방출
             if (currentBookTitle.isNotEmpty() && bulletPoints.isNotEmpty()) {
                val author = bulletPoints.getOrNull(0) ?: ""
                val description = bulletPoints.getOrNull(1) ?: ""
@@ -340,16 +340,16 @@ import ai.koog.agents.example.exampleStreamingApi06.parseMarkdownStreamToBooks
 -->
 ```kotlin
 val agentStrategy = strategy<String, List<Book>>("library-assistant") {
-   // Describe the node containing the output stream parsing
+   // 출력 스트림 파싱을 포함하는 노드 설명
    val getMdOutput by node<String, List<Book>> { booksDescription ->
       val books = mutableListOf<Book>()
       val mdDefinition = markdownBookDefinition()
 
       llm.writeSession {
          appendPrompt { user(booksDescription) }
-         // Initiate the response stream in the form of the definition `mdDefinition`
+         // 정의 `mdDefinition` 형태로 응답 스트림 시작
          val markdownStream = requestLLMStreaming(mdDefinition)
-         // Call the parser with the result of the response stream and perform actions with the result
+         // 응답 스트림 결과로 파서를 호출하고 결과로 작업을 수행
          parseMarkdownStreamToBooks(markdownStream).collect { book ->
             books.add(book)
             println("파싱된 책: ${book.title} (저자: ${book.author})")
@@ -358,7 +358,7 @@ val agentStrategy = strategy<String, List<Book>>("library-assistant") {
 
       books
    }
-   // Describe the agent's graph making sure the node is accessible
+   // 노드에 접근할 수 있도록 에이전트 그래프 설명
    edge(nodeStart forwardTo getMdOutput)
    edge(getMdOutput forwardTo nodeFinish)
 }
@@ -428,14 +428,14 @@ val agentStrategy = strategy<String, Unit>("library-assistant") {
 
          parseMarkdownStreamToBooks(markdownStream).collect { book ->
             callToolRaw(BookTool.NAME, book)
-            /* Other possible options:
+            /* 다른 가능한 옵션:
                 callTool(BookTool::class, book)
                 callTool<BookTool>(book)
                 findTool(BookTool::class).execute(book)
             */
          }
 
-         // We can make parallel tool calls
+         // 병렬 도구 호출을 수행할 수 있습니다
          parseMarkdownStreamToBooks(markdownStream).toParallelToolCallsRaw(toolClass=BookTool::class).collect {
             println("도구 호출 결과: $it")
          }
@@ -476,16 +476,16 @@ val runner = AIAgent(
 
 ## 모범 사례
 
-1. **명확한 구조 정의**: 데이터에 대한 명확하고 모호하지 않은 마크다운 구조를 생성합니다.
+1.  **명확한 구조 정의**: 데이터에 대한 명확하고 모호하지 않은 마크다운 구조를 생성합니다.
 
-2. **좋은 예시 제공**: LLM을 안내하기 위해 `MarkdownStructureDefinition`에 포괄적인 예시를 포함합니다.
+2.  **좋은 예시 제공**: LLM을 안내하기 위해 `MarkdownStructureDefinition`에 포괄적인 예시를 포함합니다.
 
-3. **불완전한 데이터 처리**: 스트림에서 데이터를 파싱할 때 항상 null 또는 비어 있는 값을 확인합니다.
+3.  **불완전한 데이터 처리**: 스트림에서 데이터를 파싱할 때 항상 null 또는 비어 있는 값을 확인합니다.
 
-4. **리소스 정리**: `onFinishStream` 핸들러를 사용하여 리소스를 정리하고 남아 있는 데이터를 처리합니다.
+4.  **리소스 정리**: `onFinishStream` 핸들러를 사용하여 리소스를 정리하고 남아 있는 데이터를 처리합니다.
 
-5. **오류 처리**: 잘못된 형식의 마크다운 또는 예기치 않은 데이터에 대해 적절한 오류 처리를 구현합니다.
+5.  **오류 처리**: 잘못된 형식의 마크다운 또는 예기치 않은 데이터에 대해 적절한 오류 처리를 구현합니다.
 
-6. **테스트**: 부분 청크 및 잘못된 형식의 입력을 포함하여 다양한 입력 시나리오로 파서를 테스트합니다.
+6.  **테스트**: 부분 청크 및 잘못된 형식의 입력을 포함하여 다양한 입력 시나리오로 파서를 테스트합니다.
 
-7. **병렬 처리**: 독립적인 데이터 항목의 경우, 더 나은 성능을 위해 병렬 도구 호출 사용을 고려하십시오.
+7.  **병렬 처리**: 독립적인 데이터 항목의 경우, 더 나은 성능을 위해 병렬 도구 호출 사용을 고려하십시오.

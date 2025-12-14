@@ -46,7 +46,7 @@ val agent = AIAgent(
 handleEvents {
     // 处理工具调用
     onToolCallStarting { eventContext ->
-        println("Tool called: ${eventContext.tool.name} with args ${eventContext.toolArgs}")
+        println("Tool called: ${eventContext.toolName} with args ${eventContext.toolArgs}")
     }
     // 处理智能体完成执行时触发的事件
     onAgentCompleted { eventContext ->
@@ -76,7 +76,7 @@ val agent = AIAgent(
     handleEvents {
         // 处理工具调用
         onToolCallStarting { eventContext ->
-            println("Tool called: ${eventContext.tool.name} with args ${eventContext.toolArgs}")
+            println("Tool called: ${eventContext.toolName} with args ${eventContext.toolArgs}")
         }
         // 处理智能体完成执行时触发的事件
         onAgentCompleted { eventContext ->

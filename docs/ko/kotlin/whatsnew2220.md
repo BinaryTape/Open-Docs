@@ -135,10 +135,6 @@ kotlin {
 ### `when` 표현식을 위한 데이터 흐름 기반 완전성 검사
 <primary-label ref="experimental-opt-in"/>
 
-> IntelliJ IDEA의 [2025.3 EAP 빌드](https://www.jetbrains.com/idea/nextversion/)에서만 현재 이 기능에 대한 코드 분석, 코드 완성 및 하이라이팅 지원이 제공됩니다.
->
-{style = "note"}
-
 Kotlin 2.2.20은 `when` 표현식을 위한 **데이터 흐름 기반** 완전성 검사를 도입합니다.
 이전에는 컴파일러의 검사가 `when` 표현식 자체에 국한되어,
 종종 중복된 `else` 브랜치를 추가해야 했습니다.
@@ -177,10 +173,6 @@ kotlin {
 
 ### `catch` 절에서 재실체화된(reified) 타입 지원
 <primary-label ref="experimental-opt-in"/>
-
-> IntelliJ IDEA의 [2025.3 EAP 빌드](https://www.jetbrains.com/idea/nextversion/)에서만 현재 이 기능에 대한 코드 분석, 코드 완성 및 하이라이팅 지원이 제공됩니다.
->
-{style = "note"}
 
 Kotlin 2.2.20에서는 컴파일러가 `inline` 함수의 `catch` 절에서 [재실체화된 제네릭 타입 매개변수](inline-functions.md#reified-type-parameters)를 사용하는 것을 허용합니다.
 
@@ -222,10 +214,6 @@ Kotlin 팀은 외부 기여자 [Iven Krall](https://github.com/kralliv)의 기�
 
 ### Kotlin 계약(contracts) 개선
 <primary-label ref="experimental-opt-in"/>
-
-> IntelliJ IDEA의 [2025.3 EAP 빌드](https://www.jetbrains.com/idea/nextversion/)에서만 현재 이 기능에 대한 코드 분석, 코드 완성 및 하이라이팅 지원이 제공됩니다。
->
-{style = "note"}
 
 Kotlin 2.2.20은 [Kotlin 계약(contracts)](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.contracts/contract.html)에 몇 가지 개선 사항을 도입합니다:
 
@@ -445,7 +433,7 @@ kotlin {
 ```
 
 ## Kotlin/JVM: `when` 표현식에서 `invokedynamic` 지원
-<primary-label ref="experimental-opt-in"/> 
+<primary-label ref="experimental-opt-in"/>
 
 Kotlin 2.2.20에서는 이제 `invokedynamic`를 사용하여 `when` 표현식을 컴파일할 수 있습니다. 이전에는 여러 타입 검사가 있는 `when` 표현식이 바이트코드에서 긴 `instanceof` 검사 체인으로 컴파일되었습니다.
 
@@ -501,7 +489,7 @@ Kotlin 2.2.20은 Kotlin Multiplatform에 중요한 변화를 도입합니다: Sw
 새로운 공유 소스 세트가 있고, 공통 의존성을 관리하는 새로운 접근 방식을 시도할 수 있습니다.
 
 ### Swift export가 기본적으로 제공
-<primary-label ref="experimental-general"/> 
+<primary-label ref="experimental-general"/>
 
 Kotlin 2.2.20은 Swift export에 대한 실험적 지원을 도입합니다. 이를 통해 Kotlin 소스를 직접 내보내고
 Swift에서 Kotlin 코드를 관용적으로 호출할 수 있어 Objective-C 헤더의 필요성이 사라집니다.
@@ -642,7 +630,7 @@ kotlin {
 Kotlin 2.2.20은 중요한 [로드맵 항목](https://youtrack.jetbrains.com/issue/KT-71290)을 완료하여
 Kotlin 라이브러리를 위한 크로스 플랫폼 컴파일을 안정화합니다.
 
-이제 어떤 호스트를 사용해서든 Kotlin 라이브러리 게시를 위한 `.klib` 아티팩트를 생성할 수 있습니다. 이는 특히 이전에 Mac 머신이 필요했던 Apple 타겟의 게시 프로세스를 크게 간소화합니다.
+이제 어떤 [지원되는 호스트](native-target-support.md#hosts)를 사용해서든 Kotlin 라이브러리 게시를 위한 `.klib` 아티팩트를 생성할 수 있습니다. 이는 특히 이전에 Mac 머신이 필요했던 Apple 타겟의 게시 프로세스를 크게 간소화합니다.
 
 이 기능은 기본적으로 제공됩니다. `kotlin.native.enableKlibsCrossCompilation=true`로 크로스 컴파일을 이미 활성화했다면,
 이제 `gradle.properties` 파일에서 제거할 수 있습니다.
@@ -721,7 +709,7 @@ kotlin.native.binary.stackProtector=yes
 일부 경우 스택 보호 기능이 성능 비용을 수반할 수 있다는 점에 유의하세요.
 
 ### 릴리스 바이너리의 바이너리 크기 축소
-<primary-label ref="experimental-opt-in"/> 
+<primary-label ref="experimental-opt-in"/>
 
 Kotlin 2.2.20은 릴리스 바이너리의 크기를 줄이는 데 도움이 되는 `smallBinary` 옵션을 도입합니다.
 새로운 옵션은 LLVM 컴파일 단계에서 컴파일러의 기본 최적화 인수로 효과적으로 `-Oz`를 설정합니다.
@@ -854,7 +842,7 @@ import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 kotlin {
     iosArm64 {
         binaries {
-            framework { 
+            framework {
                 baseName = "sdk"
                 @OptIn(ExperimentalKotlinGradlePluginApi::class)
                 exportKdoc.set(false)
@@ -1071,7 +1059,7 @@ Kotlin/JS는 사용자 정의 `Long` 표현을 사용했기 때문에 JavaScript
     kotlin {
         js {
             ...
-            compilerOptions {                   
+            compilerOptions {
                 freeCompilerArgs.add("-XXLanguage:+JsAllowLongInExportedDeclarations")
             }
         }
@@ -1104,7 +1092,7 @@ fun main(args: Array<String>) {
 
 ```kotlin
 fun main(args: Array<String>) {
-    // No need for drop() and only your custom arguments are included 
+    // No need for drop() and only your custom arguments are included
     println(args.joinToString(", "))
 }
 ```
@@ -1353,7 +1341,7 @@ fun main() {
 
 기본 매개변수는 추상 함수는 Kotlin 2.1.0부터, 오픈 함수는 Kotlin 2.2.0부터 Compose 컴파일러에서 지원됩니다. 이전 Kotlin 언어 버전을 타겟팅하면서 최신 버전의 Compose 컴파일러를 사용할 때, 라이브러리 개발자는 언어 버전이 기본 매개변수를 지원하지 않더라도 추상 또는 오픈 함수에 기본 매개변수가 여전히 공개 API에 나타날 수 있음을 인지해야 합니다.
 
-### K2 컴파일러에 대한 Composable 타겟 경고
+### Composable 타겟 경고
 
 이번 릴리스에서는 K2 컴파일러 사용 시 [`@ComposableTarget`](https://developer.android.com/reference/kotlin/androidx/compose/runtime/ComposableTarget) 불일치에 대한 경고를 추가합니다.
 

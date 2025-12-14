@@ -1,4 +1,4 @@
-[//]: # (title: Compose Multiplatform 1.10.0-rc01의 새로운 기능)
+[//]: # (title: Compose Multiplatform 1.10.0-rc02의 새로운 기능)
 
 이번 EAP 기능 릴리스의 주요 내용은 다음과 같습니다:
  * [통합된 `@Preview` 어노테이션](#unified-preview-annotation)
@@ -9,24 +9,23 @@
 
 ## 의존성
 
-* Gradle 플러그인 `org.jetbrains.compose`, 버전 `1.10.0-rc01`. Jetpack Compose 라이브러리 기반:
-    * [Runtime 1.10.0-rc01](https://developer.android.com/jetpack/androidx/releases/compose-runtime#1.10.0-rc01)
-    * [UI 1.10.0-rc01](https://developer.android.com/jetpack/androidx/releases/compose-ui#1.10.0-rc01)
-    * [Foundation 1.10.0-rc01](https://developer.android.com/jetpack/androidx/releases/compose-foundation#1.10.0-rc01)
-    * [Material 1.10.0-rc01](https://developer.android.com/jetpack/androidx/releases/compose-material#1.10.0-rc01)
-    * [Material3 1.5.0-alpha08](https://developer.android.com/jetpack/androidx/releases/compose-material3#1.5.0-alpha08)
+* Gradle 플러그인 `org.jetbrains.compose`, 버전 `1.10.0-rc02`. Jetpack Compose 라이브러리 기반:
+    * [Runtime 1.10.0](https://developer.android.com/jetpack/androidx/releases/compose-runtime#1.10.0)
+    * [UI 1.10.0](https://developer.android.com/jetpack/androidx/releases/compose-ui#1.10.0)
+    * [Foundation 1.10.0](https://developer.android.com/jetpack/androidx/releases/compose-foundation#1.10.0)
+    * [Material 1.10.0](https://developer.android.com/jetpack/androidx/releases/compose-material#1.10.0)
 
 * Compose Material3 라이브러리 `org.jetbrains.compose.material3:material3*:1.10.0-alpha05`. [Jetpack Compose Material3 1.5.0-alpha08](https://developer.android.com/jetpack/androidx/releases/compose-material3#1.5.0-alpha08) 기반.
 
   [Expressive 테마](whats-new-compose-190.md#material-3-expressive-theme)를 사용하려면 Material 3의 실험적인 버전을 포함하세요:
     ```kotlin
-    implementation("org.jetbrains.compose.material3:material3:1.9.0-alpha04")
+    implementation("org.jetbrains.compose.material3:material3:1.9.0-alpha05")
     ```
 * Compose Material3 Adaptive 라이브러리 `org.jetbrains.compose.material3.adaptive:adaptive*:1.3.0-alpha02`. [Jetpack Compose Material3 Adaptive 1.3.0-alpha03](https://developer.android.com/jetpack/androidx/releases/compose-material3-adaptive#1.3.0-alpha03) 기반
 * Lifecycle 라이브러리 `org.jetbrains.androidx.lifecycle:lifecycle-*:2.10.0-alpha06`. [Jetpack Lifecycle 2.10.0](https://developer.android.com/jetpack/androidx/releases/lifecycle#2.10.0) 기반
 * Navigation 라이브러리 `org.jetbrains.androidx.navigation:navigation-*:2.9.1`. [Jetpack Navigation 2.9.4](https://developer.android.com/jetpack/androidx/releases/navigation#2.9.4) 기반
 * Navigation 3 라이브러리 `org.jetbrains.androidx.navigation3:navigation3-*:1.0.0-alpha06`. [Jetpack Navigation3 1.0.0](https://developer.android.com/jetpack/androidx/releases/navigation3#1.0.0) 기반
-* Navigation Event 라이브러리 `org.jetbrains.androidx.navigationevent:navigationevent-compose:1.0.0-rc01`. [Jetpack Navigation Event 1.0.0](https://developer.android.com/jetpack/androidx/releases/navigationevent#1.0.0) 기반
+* Navigation Event 라이브러리 `org.jetbrains.androidx.navigationevent:navigationevent-compose:1.0.0-rc02`. [Jetpack Navigation Event 1.0.1](https://developer.android.com/jetpack/androidx/releases/navigationevent#1.0.1) 기반
 * Savedstate 라이브러리 `org.jetbrains.androidx.savedstate:savedstate*:1.4.0`. [Jetpack Savedstate 1.4.0](https://developer.android.com/jetpack/androidx/releases/savedstate#1.4.0) 기반
 * WindowManager Core 라이브러리 `org.jetbrains.androidx.window:window-core:1.5.1`. [Jetpack WindowManager 1.5.1](https://developer.android.com/jetpack/androidx/releases/window#1.5.1) 기반
 

@@ -155,7 +155,7 @@ fun GraphAIAgent.FeatureContext.installStreamingApi() {
 handleEvents {
     onToolCallStarting { context ->
         println("
-🔧 Using ${context.tool.name} with ${context.toolArgs}... ")
+🔧 Using ${context.toolName} with ${context.toolArgs}... ")
     }
     onLLMStreamingFrameReceived { context ->
         (context.streamFrame as? StreamFrame.Append)?.let { frame ->
@@ -398,7 +398,7 @@ class BookTool(): SimpleTool<Book>() {
         get() = Book.serializer()
 
     override val name: String = NAME
-    override val description: String = "一个用于从 Markdown 解析书籍信息的工具"
+    override val description = "一个用于从 Markdown 解析书籍信息的工具"
 }
 ```
 <!--- KNIT example-streaming-api-08.kt -->
@@ -424,7 +424,7 @@ val agentStrategy = strategy<String, Unit>("library-assistant") {
 
          parseMarkdownStreamToBooks(markdownStream).collect { book ->
             callToolRaw(BookTool.NAME, book)
-            /* Other possible options:
+            /* 其他可能选项：
                 callTool(BookTool::class, book)
                 callTool<BookTool>(book)
                 findTool(BookTool::class).execute(book)

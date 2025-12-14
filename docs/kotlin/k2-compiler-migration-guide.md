@@ -2,14 +2,14 @@
 
 随着 Kotlin 语言和生态系统的持续演进，Kotlin 编译器也随之发展。第一步是引入新的 JVM 和 JS IR (中间表示) 后端，它们共享逻辑，简化了针对不同平台**目标**的代码生成。现在，其演进的下一个阶段带来了名为 K2 的新前端。
 
-![Kotlin K2 编译器架构](k2-compiler-architecture.svg){width=700}
+![Kotlin K2 compiler architecture](k2-compiler-architecture.svg){width=700}
 
 随着 K2 编译器的到来，Kotlin 前端已被彻底重写，并采用了全新、更高效的架构。新编译器带来的根本性变化是使用了包含更多语义信息的统一数据结构。此前端负责执行语义分析、**调用解析**和**类型推断**。
 
 新架构和丰富的数据结构使 K2 编译器能够提供以下益处：
 
 *   **改进的调用解析和类型推断**。编译器行为更一致，对你的代码理解更深入。
-*   **更容易引入新语言特性的语法糖**。未来，当新**特性**引入时，你将能够使用更简洁、更可读的代码。
+*   **更容易引入新语言**特性**的语法糖**。未来，当新**特性**引入时，你将能够使用更简洁、更可读的代码。
 *   **更快的编译期**。**编译项**时间可以[显著加快](#performance-improvements)。
 *   **增强的 IDE 性能**。从 2025.1 开始，IntelliJ IDEA 使用 K2 模式分析你的 Kotlin 代码，提升了稳定性并提供了性能改进。有关更多信息，请参见[IDE 支持](#support-in-ides)。
 
@@ -309,12 +309,12 @@ K2 编译器在以下领域改进了 Kotlin Multiplatform 相关**特性**：
 
 之前，Kotlin 编译器的设计阻止了它在**编译期**将公共和平台**源代码集**分开。因此，公共代码可以访问平台代码，导致平台之间行为不一致。此外，编译器设置和公共代码中的**依赖项**会泄露到平台代码中。
 
-在 Kotlin 2.0.0 中，我们新 Kotlin K2 编译器的实现包含对**编译项**方案的重新设计，以确保公共和平台**源代码集**之间的严格分离。当你使用 [**expect** 和 **actual** **函数**](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-expect-actual.html#expected-and-actual-functions)时，此更改最为明显。之前，公共代码中的**函数调用**可能会解析为平台代码中的**函数**。例如：
+在 Kotlin 2.0.0 中，我们新 Kotlin K2 编译器的实现包含对**编译项**方案的重新设计，以确保公共和平台**源代码集**之间的严格分离。当你使用 [**expect** 和 **actual** **函数**](https://kotlinlang.org/docs/multiplatform/multiplatform-expect-actual.html#expected-and-actual-functions)时，此更改最为明显。之前，公共代码中的**函数调用**可能会解析为平台代码中的**函数**。例如：
 
 <table>
    <tr>
-       <td>公共代码</td>
-       <td>平台代码</td>
+       <td>Common code</td>
+       <td>Platform code</td>
    </tr>
    <tr>
 <td>
@@ -349,12 +349,12 @@ fun foo(x: Int) = println("platform foo")
 
 在 Kotlin 2.0.0 中，公共代码无法访问平台代码，因此两个平台都成功将 `foo()` **函数**解析为公共代码中的 `foo()` **函数**：`common foo`。
 
-除了改进了跨平台行为的一致性之外，我们还努力修复了 IntelliJ IDEA 或 Android Studio 与编译器之间行为冲突的情况。例如，当你使用 [**expect** 和 **actual** 类](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-expect-actual.html#expected-and-actual-classes)时，会发生以下情况：
+除了改进了跨平台行为的一致性之外，我们还努力修复了 IntelliJ IDEA 或 Android Studio 与编译器之间行为冲突的情况。例如，当你使用 [**expect** 和 **actual** 类](https://kotlinlang.org/docs/multiplatform/multiplatform-expect-actual.html#expected-and-actual-classes)时，会发生以下情况：
 
 <table>
    <tr>
-       <td>公共代码</td>
-       <td>平台代码</td>
+       <td>Common code</td>
+       <td>Platform code</td>
    </tr>
    <tr>
 <td>
@@ -441,7 +441,7 @@ fun whichFun(x: Int) = println("platform function")
 
 #### `expect` 和 `actual` **声明**的不同可见性级别
 
-在 Kotlin 2.0.0 之前，如果你在 Kotlin Multiplatform **项目**中使用了 [**expect** 和 **actual** **声明**](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-expect-actual.html)，它们必须具有相同的[可见性级别](visibility-modifiers.md)。Kotlin 2.0.0 现在也支持不同的可见性级别，但**仅限** `actual` **声明**比 `expect` **声明**更宽松的情况。例如：
+在 Kotlin 2.0.0 之前，如果你在 Kotlin Multiplatform **项目**中使用了 [**expect** 和 **actual** **声明**](https://kotlinlang.org/docs/multiplatform/multiplatform-expect-actual.html)，它们必须具有相同的[可见性级别](visibility-modifiers.md)。Kotlin 2.0.0 现在也支持不同的可见性级别，但**仅限** `actual` **声明**比 `expect` **声明**更宽松的情况。例如：
 
 ```kotlin
 expect internal class Attribute // Visibility is internal
@@ -465,7 +465,7 @@ class Expanded                                  // Visibility is public by defau
 
 要升级 Kotlin 版本，请在你的 [Gradle](gradle-configure-project.md#apply-the-plugin) 和 [Maven](maven.md#configure-and-enable-the-plugin)**构建脚本**中将其更改为 2.0.0 或更高版本。
 
-为了在 IntelliJ IDEA 或 Android Studio 中获得最佳体验，请考虑在 IDE 中[启用 K2 模式](#support-in-ides)。
+为了在 Android Studio 中获得最佳体验，请在 IDE 中[使用 K2 模式](#support-in-ides)。IntelliJ IDEA 默认使用 K2 模式，因此你无需更改任何内容。
 
 ### 将 Kotlin **构建报告**与 Gradle 结合使用
 
@@ -495,23 +495,12 @@ kotlin.build.report.output=file
 
 IntelliJ IDEA 和 Android Studio 中的 K2 模式使用 K2 编译器来改进代码分析、代码补全和高亮显示。
 
-从 IntelliJ IDEA 2025.1 开始，K2 模式[默认启用](https://blog.jetbrains.com/idea/2025/04/k2-mode-in-intellij-idea-2025-1-current-state-and-faq/)。
+IntelliJ IDEA 2025.3 及更高版本始终使用 K2 模式。
 
 在 Android Studio 中，你可以从 2024.1 开始按照以下步骤启用 K2 模式：
 
 1.  转到 **设置** | **语言和框架** | **Kotlin**。
 2.  选择**启用 K2 模式**选项。
-
-### 之前的 IDE 行为 {initial-collapse-state="collapsed" collapsible="true"}
-
-如果你想恢复之前的 IDE 行为，可以禁用 K2 模式：
-
-1.  转到 **设置** | **语言和框架** | **Kotlin**。
-2.  取消选择**启用 K2 模式**选项。
-
-> 我们计划在 Kotlin 2.1.0 之后引入[稳定](components-stability.md#stability-levels-explained)语言**特性**。在此之前，你可以继续使用之前的 IDE **特性**进行代码分析，并且不会遇到因未识别的语言**特性**而导致的任何代码高亮问题。
->
-{style="note"}
 
 ## 在 Kotlin Playground 中尝试 Kotlin K2 编译器
 
@@ -626,7 +615,7 @@ fun exampleFunction(starProjected: Container<*>, inProjected: Container<in Numbe
 
 **更改了什么？**
 
-由于 K2 编译器的新架构，我们更改了处理无法访问的泛型类型的方式。通常，你不应该在代码中**依赖**无法访问的泛型类型，因为这表明你的**项目构建配置**存在配置错误，导致编译器无法访问**编译**所需的必要信息。在 Kotlin 2.0.0 中，你无法**声明**或调用带有无法访问的泛型类型的**函数字面量**，也无法使用带有无法访问的泛型类型**实参**的泛型类型。此限制有助于你避免代码后期出现编译器错误。
+由于 K2 编译器的新架构，我们更改了处理无法访问的泛型类型的方式。通常，你不应该在代码中**依赖项**无法访问的泛型类型，因为这表明你的**项目构建配置**存在配置错误，导致编译器无法访问**编译**所需的必要信息。在 Kotlin 2.0.0 中，你无法**声明**或调用带有无法访问的泛型类型的**函数字面量**，也无法使用带有无法访问的泛型类型**实参**的泛型类型。此限制有助于你避免代码后期出现编译器错误。
 
 例如，假设你在一个**模块**中**声明**了一个泛型类：
 
@@ -934,8 +923,8 @@ dataService.fetchData()[0]
 
 <table>
    <tr>
-       <td>公共代码</td>
-       <td>平台代码</td>
+       <td>Common code</td>
+       <td>Platform code</td>
    </tr>
    <tr>
 <td>
@@ -976,7 +965,7 @@ actual open class PlatformFileSystem : FileSystem {
 
 #### 类型**推断** {initial-collapse-state="collapsed" collapsible="true"}
 
-| 问题 ID                                                  | 标题                                                                                                       |
+| Issue ID                                                  | Title                                                                                                      |
 |:---------------------------------------------------------|:-----------------------------------------------------------------------------------------------------------|
 | [KT-64189](https://youtrack.jetbrains.com/issue/KT-64189) | 如果类型**显式**为 `Normal`，则属性引用**编译****函数**签名中的类型不正确                                       |
 | [KT-47986](https://youtrack.jetbrains.com/issue/KT-47986) | 禁止在**构建器推断**上下文中将类型变量隐式**推断**为上限                                                       |
@@ -997,11 +986,11 @@ actual open class PlatformFileSystem : FileSystem {
 
 #### 泛型 {initial-collapse-state="collapsed" collapsible="true"}
 
-| 问题 ID                                                    | 标题                                                                                                                                              |
-|:-----------------------------------------------------------|:--------------------------------------------------------------------------------------------------------------------------------------------------|
+| Issue ID                                                   | Title                                                                                                                                                 |
+|:-----------------------------------------------------------|:------------------------------------------------------------------------------------------------------------------------------------------------------|
 | [KT-54309](https://youtrack.jetbrains.com/issue/KT-54309)* | [弃用对**型变接收者**使用合成**setter**](#deprecated-synthetics-setter-on-a-projected-receiver)                                                    |
 | [KT-57600](https://youtrack.jetbrains.com/issue/KT-57600)  | 禁止**覆盖**带有**原始类型****形参**的 Java **方法**，而使用带有泛型类型的**形参**                                                               |
-| [KT-54663](https://youtrack.jetbrains.com/issue/KT-54663)  | 禁止将可能**可空**的类型**形参**传递给 `in` **型变**的 DNN **形参**                                                                                |
+| [KT-54663](https://youtrack.jetbrains.com/issue/KT-54663)  | 禁止将可能**可空**的类型**形参**传递给 \`in\` **型变**的 DNN **形参**                                                                                 |
 | [KT-54066](https://youtrack.jetbrains.com/issue/KT-54066)  | 弃用类型别名**构造函数**中的上限违反                                                                                                                |
 | [KT-49404](https://youtrack.jetbrains.com/issue/KT-49404)  | 修复基于 Java 类的**逆变**捕获类型的类型不健全问题                                                                                                |
 | [KT-61718](https://youtrack.jetbrains.com/issue/KT-61718)  | 禁止带有自**上限**和捕获类型的不健全代码                                                                                                            |
@@ -1015,14 +1004,14 @@ actual open class PlatformFileSystem : FileSystem {
 
 #### 解析 {initial-collapse-state="collapsed" collapsible="true"}
 
-| 问题 ID                                                    | 标题                                                                                                                                                                   |
-|:-----------------------------------------------------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Issue ID                                                   | Title                                                                                                                                                                                        |
+|:-----------------------------------------------------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | [KT-55017](https://youtrack.jetbrains.com/issue/KT-55017)* | [在**重载解析**期间，选择派生类中的 Kotlin 属性而非基类中的 Java 字段](#consistent-resolution-order-of-kotlin-properties-and-java-fields-with-the-same-name) |
 | [KT-58260](https://youtrack.jetbrains.com/issue/KT-58260)  | 使 `invoke` 约定与预期**解糖**一致地工作                                                                                                                        |
 | [KT-62866](https://youtrack.jetbrains.com/issue/KT-62866)  | K2：当伴生对象优先于静态**作用域**时，更改**限定符**解析行为                                                                                                    |
 | [KT-57750](https://youtrack.jetbrains.com/issue/KT-57750)  | 在解析类型并星形导入同名类时，报告**歧义错误**                                                                                                                  |
 | [KT-63558](https://youtrack.jetbrains.com/issue/KT-63558)  | K2：迁移 `COMPATIBILITY_WARNING` 周围的解析                                                                                                                    |
-| [KT-51194](https://youtrack.jetbrains.com/issue/KT-51194)  | 当**依赖类**包含在同一**依赖项**的两个不同版本中时，`CONFLICTING_INHERITED_MEMBERS` 误报                                                                        |
+| [KT-51194](https://youtrack.jetbrains.com/issue/KT-51194)  | 当**依赖项类**包含在同一**依赖项**的两个不同版本中时，`CONFLICTING_INHERITED_MEMBERS` 误报                                                                        |
 | [KT-37592](https://youtrack.jetbrains.com/issue/KT-37592)  | 带有**接收者**的**函数**类型的属性 `invoke` 优先于**扩展****函数** `invoke`                                                                                           |
 | [KT-51666](https://youtrack.jetbrains.com/issue/KT-51666)  | **限定** `this`：引入/优先处理带有类型情况的**限定** `this`                                                                                                            |
 | [KT-54166](https://youtrack.jetbrains.com/issue/KT-54166)  | 确认类路径中 FQ 名称冲突时的未指定行为                                                                                                                         |
@@ -1031,8 +1020,8 @@ actual open class PlatformFileSystem : FileSystem {
 
 #### 可见性 {initial-collapse-state="collapsed" collapsible="true"}
 
-| 问题 ID                                                    | 标题                                                                                                                          |
-|:-----------------------------------------------------------|:------------------------------------------------------------------------------------------------------------------------------|
+| Issue ID                                                    | Title                                                                                                                          |
+|:-----------------------------------------------------------|:-------------------------------------------------------------------------------------------------------------------------------|
 | [KT-64474](https://youtrack.jetbrains.com/issue/KT-64474/)* | [将无法访问类型的用法**声明**为未指定行为](#forbidden-use-of-inaccessible-generic-types)                                   |
 | [KT-55179](https://youtrack.jetbrains.com/issue/KT-55179)   | 从内部内联**函数**调用私有类伴生对象成员时，`PRIVATE_CLASS_MEMBER_FROM_INLINE` 误报                                      |
 | [KT-58042](https://youtrack.jetbrains.com/issue/KT-58042)   | 如果等效**getter**不可见，即使**覆盖****声明**可见，也使合成属性不可见                                                    |
@@ -1046,8 +1035,8 @@ actual open class PlatformFileSystem : FileSystem {
 
 #### 注解 {initial-collapse-state="collapsed" collapsible="true"}
 
-| 问题 ID                                                  | 标题                                                                                                       |
-|:---------------------------------------------------------|:-----------------------------------------------------------------------------------------------------------|
+| Issue ID                                                  | Title                                                                                                  |
+|:---------------------------------------------------------|:-------------------------------------------------------------------------------------------------------|
 | [KT-58723](https://youtrack.jetbrains.com/issue/KT-58723) | 如果注解没有 `EXPRESSION` **目标**，则禁止用该注解标注语句                                                 |
 | [KT-49930](https://youtrack.jetbrains.com/issue/KT-49930) | 在 `REPEATED_ANNOTATION` **检测**期间忽略**圆括号**表达式                                                  |
 | [KT-57422](https://youtrack.jetbrains.com/issue/KT-57422) | K2：禁止在属性**getter**上使用以 'get' 为**目标**的**use-site**注解                                       |
@@ -1060,8 +1049,8 @@ actual open class PlatformFileSystem : FileSystem {
 
 #### **空安全** {initial-collapse-state="collapsed" collapsible="true"}
 
-| 问题 ID                                                   | 标题                                                                                                             |
-|:----------------------------------------------------------|:-----------------------------------------------------------------------------------------------------------------|
+| Issue ID                                                   | Title                                                                                                                   |
+|:----------------------------------------------------------|:------------------------------------------------------------------------------------------------------------------------|
 | [KT-54521](https://youtrack.jetbrains.com/issue/KT-54521)* | [弃用 Java 中注解为 Nullable 的数组类型的不安全用法](#improved-null-safety-for-java-primitive-arrays)              |
 | [KT-41034](https://youtrack.jetbrains.com/issue/KT-41034)  | K2：更改安全调用和约定**操作符**组合的**求值**语义                                                               |
 | [KT-50850](https://youtrack.jetbrains.com/issue/KT-50850)  | 父类型顺序**定义**了**继承函数**的**可空性****形参**                                                               |
@@ -1071,8 +1060,8 @@ actual open class PlatformFileSystem : FileSystem {
 
 #### Java **互操作**性 {initial-collapse-state="collapsed" collapsible="true"}
 
-| 问题 ID                                                  | 标题                                                                                                             |
-|:---------------------------------------------------------|:-----------------------------------------------------------------------------------------------------------------|
+| Issue ID                                                  | Title                                                                                                      |
+|:---------------------------------------------------------|:-----------------------------------------------------------------------------------------------------------|
 | [KT-53061](https://youtrack.jetbrains.com/issue/KT-53061) | 禁止源中具有相同 FQ 名称的 Java 和 Kotlin 类                                                                     |
 | [KT-49882](https://youtrack.jetbrains.com/issue/KT-49882) | **继承**自 Java **集合**的类根据父类型顺序具有不一致的行为                                                            |
 | [KT-66324](https://youtrack.jetbrains.com/issue/KT-66324) | K2：Java 类**继承**自 Kotlin 私有类时的未指定行为                                                                |
@@ -1081,8 +1070,8 @@ actual open class PlatformFileSystem : FileSystem {
 
 #### 属性 {initial-collapse-state="collapsed" collapsible="true"}
 
-| 问题 ID                                                    | 标题                                                                                                                                              |
-|:-----------------------------------------------------------|:--------------------------------------------------------------------------------------------------------------------------------------------------|
+| Issue ID                                                   | Title                                                                                                                                         |
+|:-----------------------------------------------------------|:----------------------------------------------------------------------------------------------------------------------------------------------|
 | [KT-57555](https://youtrack.jetbrains.com/issue/KT-57555)* | [[LC] 禁止延迟初始化带有**幕后字段**的 `open` 属性](#immediate-initialization-of-open-properties-with-backing-fields)                         |
 | [KT-58589](https://youtrack.jetbrains.com/issue/KT-58589)  | 当没有主**构造函数**或类为局部时，弃用缺失的 `MUST_BE_INITIALIZED`                                                                                |
 | [KT-64295](https://youtrack.jetbrains.com/issue/KT-64295)  | 禁止属性上潜在 `invoke` 调用的递归解析                                                                                                              |
@@ -1091,8 +1080,8 @@ actual open class PlatformFileSystem : FileSystem {
 
 #### 控制流 {initial-collapse-state="collapsed" collapsible="true"}
 
-| 问题 ID                                                  | 标题                                                                               |
-|:---------------------------------------------------------|:-----------------------------------------------------------------------------------|
+| Issue ID                                                  | Title                                                                                      |
+|:---------------------------------------------------------|:-------------------------------------------------------------------------------------------|
 | [KT-56408](https://youtrack.jetbrains.com/issue/KT-56408) | K1 和 K2 之间类初始化**代码块**中 CFA 的规则不一致                                 |
 | [KT-57871](https://youtrack.jetbrains.com/issue/KT-57871) | K1/K2 在不带 `else` 分支的**圆括号**条件 `if` 上的不一致性                         |
 | [KT-42995](https://youtrack.jetbrains.com/issue/KT-42995) | **作用域****函数**中带有初始化的 `try/catch` **代码块**中 `VAL_REASSIGNMENT` 误报 |
@@ -1100,8 +1089,8 @@ actual open class PlatformFileSystem : FileSystem {
 
 #### 枚举类 {initial-collapse-state="collapsed" collapsible="true"}
 
-| 问题 ID                                                  | 标题                                                                                     |
-|:---------------------------------------------------------|:-----------------------------------------------------------------------------------------|
+| Issue ID                                                  | Title                                                                                        |
+|:---------------------------------------------------------|:---------------------------------------------------------------------------------------------|
 | [KT-57608](https://youtrack.jetbrains.com/issue/KT-57608) | 禁止在枚举条目初始化期间访问枚举类的伴生对象                                           |
 | [KT-34372](https://youtrack.jetbrains.com/issue/KT-34372) | 报告枚举类中虚内联**方法**的缺失错误                                                     |
 | [KT-52802](https://youtrack.jetbrains.com/issue/KT-52802) | 报告属性/字段与枚举条目之间解析的**歧义**                                               |
@@ -1109,23 +1098,23 @@ actual open class PlatformFileSystem : FileSystem {
 
 #### **函数式** (SAM) 接口 {initial-collapse-state="collapsed" collapsible="true"}
 
-| 问题 ID                                                  | 标题                                                                                                    |
-|:---------------------------------------------------------|:--------------------------------------------------------------------------------------------------------|
+| Issue ID                                                  | Title                                                                                                           |
+|:---------------------------------------------------------|:----------------------------------------------------------------------------------------------------------------|
 | [KT-52628](https://youtrack.jetbrains.com/issue/KT-52628) | 弃用无需注解便需要 `OptIn` 的 SAM **构造函数**用法                                                      |
 | [KT-57014](https://youtrack.jetbrains.com/issue/KT-57014) | 禁止从 lambda 返回带有错误**可空性**的值，用于 JDK **函数**接口的 SAM **构造函数**                        |
 | [KT-64342](https://youtrack.jetbrains.com/issue/KT-64342) | 可调用引用**形参**类型的 SAM 转换导致 CCE                                                               |
 
 #### 伴生对象 {initial-collapse-state="collapsed" collapsible="true"}
 
-| 问题 ID                                                  | 标题                                                                     |
+| Issue ID                                                  | Title                                                                    |
 |:---------------------------------------------------------|:-------------------------------------------------------------------------|
 | [KT-54316](https://youtrack.jetbrains.com/issue/KT-54316) | 对伴生对象成员的外部调用引用签名无效                                     |
 | [KT-47313](https://youtrack.jetbrains.com/issue/KT-47313) | 更改 `(V)::foo` 引用解析，当 V 具有伴生对象时                           |
 
 #### 其他 {initial-collapse-state="collapsed" collapsible="true"}
 
-| 问题 ID                                                    | 标题                                                                                                                                      |
-|:-----------------------------------------------------------|:--------------------------------------------------------------------------------------------------------------------------------------------|
+| Issue ID                                                   | Title                                                                                                                                      |
+|:-----------------------------------------------------------|:-------------------------------------------------------------------------------------------------------------------------------------------|
 | [KT-59739](https://youtrack.jetbrains.com/issue/KT-59739)* | K2/MPP 在公共代码中的**继承者**的实现位于实际对应方时报告 [ABSTRACT_MEMBER_NOT_IMPLEMENTED]                                                         |
 | [KT-49015](https://youtrack.jetbrains.com/issue/KT-49015)  | **限定** `this`：更改潜在标签冲突时的行为                                                                                                               |
 | [KT-56545](https://youtrack.jetbrains.com/issue/KT-56545)  | 修复 JVM 后端中，Java 子类中意外冲突**重载**情况下的不正确**名字修饰**                                                                              |

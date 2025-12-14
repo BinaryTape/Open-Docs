@@ -114,7 +114,7 @@ Kotlin 在 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/) 和 [Androi
 
 IntelliJ IDEA 和 Android Studio 中的 K2 模式使用 K2 编译器来改进代码分析、代码补全和高亮显示。
 
-从 IntelliJ IDEA 2025.1 开始，K2 模式[默认启用](https://blog.jetbrains.com/idea/2025/04/k2-mode-in-intellij-idea-2025-1-current-state-and-faq/)。
+IntelliJ IDEA 2025.3 及更高版本始终使用 K2 模式。
 
 在 Android Studio 中，你可以从 2024.1 版本开始通过以下步骤启用 K2 模式：
 

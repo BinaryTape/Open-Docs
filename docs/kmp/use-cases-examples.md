@@ -79,6 +79,9 @@ Kotlin Multiplatform 的代码复用能力对于在紧迫的工期和有限的�
 
 **案例研究：**
 
+* [Touchlab](https://touchlab.co/) 专注于使用 Kotlin Multiplatform 进行跨平台开发和咨询工作。
+  Touchlab 还创建了可改善你的 iOS 开发体验的工具，例如用于增强从 Kotlin 发布的 Swift API 的 [SKIE](https://github.com/touchlab/SKIE)，
+  以及 [Xcode 的 Kotlin 插件](https://github.com/touchlab/xcode-kotlin)。
 * [IceRock](https://icerockdev.com/) 是一家外包公司，使用 Kotlin Multiplatform 为其客户开发应用程序。
   其应用程序组合涵盖各种业务需求，并辅以大量开源 Kotlin Multiplatform 库，
   这些库增强了 Kotlin Multiplatform 的开发流程。

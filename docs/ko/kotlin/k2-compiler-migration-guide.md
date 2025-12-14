@@ -2,7 +2,7 @@
 
 Kotlin 언어와 생태계가 계속 발전해 왔듯이 Kotlin 컴파일러도 마찬가지였습니다. 첫 번째 단계는 논리를 공유하여 다양한 플랫폼의 대상에 대한 코드 생성을 단순화하는 새로운 JVM 및 JS IR(Intermediate Representation) 백엔드를 도입하는 것이었습니다. 이제 그 진화의 다음 단계는 K2라고 알려진 새로운 프런트엔드를 선보입니다.
 
-![Kotlin K2 compiler architecture](k2-compiler-architecture.svg){width=700}
+![Kotlin K2 컴파일러 아키텍처](k2-compiler-architecture.svg){width=700}
 
 K2 컴파일러의 등장으로 Kotlin 프런트엔드는 완전히 재작성되었으며, 새롭고 더욱 효율적인 아키텍처를 특징으로 합니다. 새 컴파일러가 가져오는 근본적인 변화는 더 많은 의미론적 정보(semantic information)를 포함하는 하나의 통합된 데이터 구조를 사용하는 것입니다. 이 프런트엔드는 의미론적 분석(semantic analysis), 호출 분석(call resolution), 타입 추론(type inference)을 수행하는 역할을 합니다.
 
@@ -242,7 +242,7 @@ fun main() {
     testString()
 }
 ```
-{kotlin-runnable="true" kotlin-min-compiler-version="2.0" id="kotlin-smart-casts-k2-exception-handling"}
+{kotlin-runnable="true" kotlin-min-compiler-version="2.0" id="kotlin-smart-casts-k2-exception-handling" validate="false"}
 
 #### 증가 및 감소 연산자
 
@@ -303,7 +303,7 @@ K2 컴파일러에는 Kotlin Multiplatform과 관련된 다음 영역에서 개�
 
 이전에는 Kotlin 컴파일러 설계상 공통 소스 세트와 플랫폼 소스 세트를 컴파일 시 분리할 수 없었습니다. 그 결과 공통 코드가 플랫폼 코드에 접근할 수 있었고, 이는 플랫폼 간의 다른 동작을 초래했습니다. 또한, 공통 코드의 일부 컴파일러 설정 및 종속성이 플랫폼 코드로 유출되기도 했습니다.
 
-Kotlin 2.0.0에서는 새로운 Kotlin K2 컴파일러 구현에 컴파일 스키마 재설계가 포함되어 공통 소스 세트와 플랫폼 소스 세트 간의 엄격한 분리를 보장합니다. 이 변경은 [예상(expected) 및 실제(actual) 함수](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-expect-actual.html#expected-and-actual-functions)를 사용할 때 가장 두드러집니다. 이전에는 공통 코드의 함수 호출이 플랫폼 코드의 함수로 해석되는 것이 가능했습니다. 예를 들어:
+Kotlin 2.0.0에서는 새로운 Kotlin K2 컴파일러 구현에 컴파일 스키마 재설계가 포함되어 공통 소스 세트와 플랫폼 소스 세트 간의 엄격한 분리를 보장합니다. 이 변경은 [예상(expected) 및 실제(actual) 함수](https://kotlinlang.org/docs/multiplatform/multiplatform-expect-actual.html#expected-and-actual-functions)를 사용할 때 가장 두드러집니다. 이전에는 공통 코드의 함수 호출이 플랫폼 코드의 함수로 해석되는 것이 가능했습니다. 예를 들어:
 
 <table>
    <tr>
@@ -343,7 +343,7 @@ fun foo(x: Int) = println("platform foo")
 
 Kotlin 2.0.0에서는 공통 코드가 플랫폼 코드에 접근할 수 없으므로, 두 플랫폼 모두 `foo()` 함수를 공통 코드의 `foo()` 함수(`common foo`)로 성공적으로 해석합니다.
 
-플랫폼 간 동작 일관성 향상 외에도, IntelliJ IDEA 또는 Android Studio와 컴파일러 사이에 동작 충돌이 발생하는 경우를 해결하기 위해 노력했습니다. 예를 들어, [예상 및 실제 클래스](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-expect-actual.html#expected-and-actual-classes)를 사용할 때 다음이 발생했습니다:
+플랫폼 간 동작 일관성 향상 외에도, IntelliJ IDEA 또는 Android Studio와 컴파일러 사이에 동작 충돌이 발생하는 경우를 해결하기 위해 노력했습니다. 예를 들어, [예상 및 실제 클래스](https://kotlinlang.org/docs/multiplatform/multiplatform-expect-actual.html#expected-and-actual-classes)를 사용할 때 다음이 발생했습니다:
 
 <table>
    <tr>
@@ -435,7 +435,7 @@ fun whichFun(x: Int) = println("platform function")
 
 #### 예상 및 실제 선언의 다른 가시성 수준
 
-Kotlin 2.0.0 이전에는 Kotlin Multiplatform 프로젝트에서 [예상 및 실제 선언](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-expect-actual.html)을 사용할 경우 동일한 [가시성 수준](visibility-modifiers.md)을 가져야 했습니다. Kotlin 2.0.0은 이제 다른 가시성 수준도 지원하지만, 이는 실제 선언이 예상 선언보다 _더_ 관대(permissive)한 경우에 **만** 해당됩니다. 예를 들어:
+Kotlin 2.0.0 이전에는 Kotlin Multiplatform 프로젝트에서 [예상 및 실제 선언](https://kotlinlang.org/docs/multiplatform/multiplatform-expect-actual.html)을 사용할 경우 동일한 [가시성 수준](visibility-modifiers.md)을 가져야 했습니다. Kotlin 2.0.0은 이제 다른 가시성 수준도 지원하지만, 이는 실제 선언이 예상 선언보다 _더_ 관대(permissive)한 경우에 **만** 해당됩니다. 예를 들어:
 
 ```kotlin
 expect internal class Attribute // 가시성은 internal
@@ -459,7 +459,7 @@ Kotlin 2.0.0부터 Kotlin K2 컴파일러는 기본적으로 활성화됩니다.
 
 Kotlin 버전을 업그레이드하려면, [Gradle](gradle-configure-project.md#apply-the-plugin) 및 [Maven](maven.md#configure-and-enable-the-plugin) 빌드 스크립트에서 2.0.0 또는 그 이후 릴리스로 변경하세요.
 
-IntelliJ IDEA 또는 Android Studio에서 최상의 경험을 위해 IDE에서 [K2 모드를 활성화](#support-in-ides)하는 것을 고려해 보세요.
+Android Studio에서 최상의 경험을 위해 IDE에서 [K2 모드](#support-in-ides)를 사용하세요. IntelliJ IDEA는 K2 모드를 기본적으로 사용하므로 변경할 필요가 없습니다.
 
 ### Gradle과 함께 Kotlin 빌드 리포트 사용
 
@@ -477,7 +477,7 @@ kotlin.build.report.output=file
 
 | 옵션        | 설명                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
 |-------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `file`      | 빌드 리포트를 사람이 읽을 수 있는 형식으로 로컬 파일에 저장합니다. 기본적으로 `${project_folder}/build/reports/kotlin-build/${project_name}-timestamp.txt`에 저장됩니다.                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| `file`      | 빌드 리포트를 사람이 읽을 수 있는 형식으로 로컬 파일에 저장합니다. 기본적으로 `${project_folder}/build/reports/kotlin-build/${project_name}-timestamp.txt`에 저장됩니다.                                                                                                                                                                                                                                                                                                                                 |
 | `single_file` | 빌드 리포트를 객체 형식으로 지정된 로컬 파일에 저장합니다.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
 | `build_scan`| 빌드 리포트를 [빌드 스캔](https://scans.gradle.com/)의 `custom values` 섹션에 저장합니다. Gradle Enterprise 플러그인은 커스텀 값의 개수와 길이를 제한한다는 점에 유의하세요. 대규모 프로젝트에서는 일부 값이 손실될 수 있습니다.                                                                                                                                                                                                                                                                                                                                                                                                      |
 | `http`      | HTTP(S)를 사용하여 빌드 리포트를 게시합니다. POST 메서드는 JSON 형식으로 메트릭을 전송합니다. 전송된 데이터의 현재 버전은 [Kotlin 리포지토리](https://github.com/JetBrains/kotlin/blob/master/libraries/tools/kotlin-gradle-plugin/src/common/kotlin/org/jetbrains/kotlin/gradle/report/data/GradleCompileStatisticsData.kt)에서 확인할 수 있습니다. HTTP 엔드포인트 샘플은 [이 블로그 게시물](https://blog.jetbrains.com/kotlin/2022/06/introducing-kotlin-build-reports/?_gl=1*1a7pghy*_ga*MTcxMjc1NzE5Ny4xNjY1NDAzNjkz*_ga_9J976DJZ68*MTcxNTA3NjA2NS4zNzcuMS4xNzE1MDc2MDc5LjQ2LjAuMA..&_ga=2.265800911.1124071296.1714976764-1712757197.1665403693#enable_build_reports)에서 찾을 수 있습니다. |
@@ -489,23 +489,12 @@ kotlin.build.report.output=file
 
 IntelliJ IDEA 및 Android Studio의 K2 모드는 K2 컴파일러를 사용하여 코드 분석, 코드 자동 완성 및 하이라이팅을 개선합니다.
 
-IntelliJ IDEA 2025.1부터 K2 모드는 [기본적으로 활성화](https://blog.jetbrains.com/idea/2025/04/k2-mode-in-intellij-idea-2025-1-current-state-and-faq/)됩니다.
+IntelliJ IDEA 2025.3 이상 버전은 항상 K2 모드를 사용합니다.
 
 Android Studio에서 2024.1부터 다음 단계에 따라 K2 모드를 활성화할 수 있습니다:
 
 1.  **Settings** | **Languages & Frameworks** | **Kotlin**으로 이동합니다.
 2.  **Enable K2 mode** 옵션을 선택합니다.
-
-### 이전 IDE 동작 {initial-collapse-state="collapsed" collapsible="true"}
-
-이전 IDE 동작으로 돌아가려면 K2 모드를 비활성화할 수 있습니다:
-
-1.  **Settings** | **Languages & Frameworks** | **Kotlin**으로 이동합니다.
-2.  **Enable K2 mode** 옵션을 선택 해제합니다.
-
-> Kotlin 2.1.0 이후에 [안정적인(Stable)](components-stability.md#stability-levels-explained) 언어 기능을 도입할 계획입니다. 그때까지는 코드 분석을 위해 이전 IDE 기능을 계속 사용할 수 있으며, 인식되지 않는 언어 기능으로 인한 코드 하이라이팅 문제를 겪지 않을 것입니다.
->
-{style="note"}
 
 ## Kotlin Playground에서 Kotlin K2 컴파일러 사용해보기
 
@@ -597,14 +586,14 @@ fun exampleFunction(starProjected: Container<*>, inProjected: Container<in Numbe
     starProjected.setFoo(sampleString)
     // Error since Kotlin 1.0
 
-    // 합성 세터 `foo`는 `setFoo()` 메서드로 해석됩니다.
+    // Synthetic setter `foo` is resolved to the `setFoo()` method
     starProjected.foo = sampleString
     // Error since Kotlin 2.0.0
 
     inProjected.setFoo(sampleString)
     // Error since Kotlin 1.0
 
-    // 합성 세터 `foo`는 `setFoo()` 메서드로 해석됩니다.
+    // Synthetic setter `foo` is resolved to the `setFoo()` method
     inProjected.foo = sampleString
     // Error since Kotlin 2.0.0
 }
@@ -915,7 +904,7 @@ Kotlin 2.0.0에서는 Java 프리미티브 배열에 대한 null 안전성이 �
 
 **무엇이 변경되었나요?**
 
-K2 컴파일러를 사용한 컴파일 시 공통 및 플랫폼 소스 분리로 인해, 예상 클래스의 추상 멤버에 대한 엄격한 규칙을 구현했습니다.
+K2 컴파일러를 사용한 컴파일 시 공통 및 플랫폼 소스 분리로 인해, 예상 클래스의 추상 멤버에 대한 엄격한 규칙을 구현했습니다。
 
 이전 컴파일러에서는 예상 비추상 클래스가 [함수를 오버라이드](inheritance.md#overriding-rules)하지 않고 추상 함수를 상속하는 것이 가능했습니다. 컴파일러가 공통 코드와 플랫폼 코드에 동시에 접근할 수 있었기 때문에, 컴파일러는 추상 함수가 실제 클래스에 해당하는 오버라이드와 정의를 가지고 있는지 확인할 수 있었습니다.
 
@@ -1027,15 +1016,15 @@ actual open class PlatformFileSystem : FileSystem {
 | 이슈 ID                                                     | 제목                                                                                                                           |
 |:------------------------------------------------------------|:-------------------------------------------------------------------------------------------------------------------------------|
 | [KT-64474](https://youtrack.jetbrains.com/issue/KT-64474/)* | [접근 불가능한 타입의 사용을 지정되지 않은 동작으로 선언](#forbidden-use-of-inaccessible-generic-types)                          |
-| [KT-55179](https://youtrack.jetbrains.com/issue/KT-55179)   | 내부 인라인 함수에서 private 클래스 컴패니언 객체 멤버 호출 시 PRIVATE_CLASS_MEMBER_FROM_INLINE의 잘못된 음성                  |
-| [KT-58042](https://youtrack.jetbrains.com/issue/KT-58042)   | 오버라이드된 선언이 가시적일 때도 동등한 게터가 가시적이지 않으면 합성 프로퍼티를 비가시적으로 만듭니다.                         |
-| [KT-64255](https://youtrack.jetbrains.com/issue/KT-64255)   | 다른 모듈의 파생 클래스에서 내부 세터에 접근하는 것을 금지                                                                     |
-| [KT-33917](https://youtrack.jetbrains.com/issue/KT-33917)   | private 인라인 함수에서 익명 타입을 노출하는 것을 금지                                                                         |
-| [KT-54997](https://youtrack.jetbrains.com/issue/KT-54997)   | public-API 인라인 함수에서 암시적 비공개-API 접근을 금지                                                                       |
-| [KT-56310](https://youtrack.jetbrains.com/issue/KT-56310)   | 스마트 캐스트는 protected 멤버의 가시성에 영향을 미치지 않아야 합니다.                                                       |
-| [KT-65494](https://youtrack.jetbrains.com/issue/KT-65494)   | public 인라인 함수에서 간과된 private 연산자 함수에 접근하는 것을 금지                                                       |
-| [KT-65004](https://youtrack.jetbrains.com/issue/KT-65004)   | K1: protected val을 오버라이드하는 var의 세터가 public으로 생성됩니다.                                                       |
-| [KT-64972](https://youtrack.jetbrains.com/issue/KT-64972)   | Kotlin/Native의 링크 타임에서 private 멤버에 의한 오버라이드 금지                                                          |
+| [KT-55179](https://youtrack.com/issue/KT-55179)   | 내부 인라인 함수에서 private 클래스 컴패니언 객체 멤버 호출 시 PRIVATE_CLASS_MEMBER_FROM_INLINE의 잘못된 음성                  |
+| [KT-58042](https://youtrack.com/issue/KT-58042)   | 오버라이드된 선언이 가시적일 때도 동등한 게터가 가시적이지 않으면 합성 프로퍼티를 비가시적으로 만듭니다.                         |
+| [KT-64255](https://youtrack.com/issue/KT-64255)   | 다른 모듈의 파생 클래스에서 내부 세터에 접근하는 것을 금지                                                                     |
+| [KT-33917](https://youtrack.com/issue/KT-33917)   | private 인라인 함수에서 익명 타입을 노출하는 것을 금지                                                                         |
+| [KT-54997](https://youtrack.com/issue/KT-54997)   | public-API 인라인 함수에서 암시적 비공개-API 접근을 금지                                                                       |
+| [KT-56310](https://youtrack.com/issue/KT-56310)   | 스마트 캐스트는 protected 멤버의 가시성에 영향을 미치지 않아야 합니다.                                                       |
+| [KT-65494](https://youtrack.com/issue/KT-65494)   | public 인라인 함수에서 간과된 private 연산자 함수에 접근하는 것을 금지                                                       |
+| [KT-65004](https://youtrack.com/issue/KT-65004)   | K1: protected val을 오버라이드하는 var의 세터가 public으로 생성됩니다.                                                       |
+| [KT-64972](https://youtrack.com/issue/KT-64972)   | Kotlin/Native의 링크 타임에서 private 멤버에 의한 오버라이드 금지                                                          |
 
 #### 어노테이션 {initial-collapse-state="collapsed" collapsible="true"}
 
@@ -1165,7 +1154,7 @@ Kotlin Multiplatform으로 작업하는 경우, K2 컴파일러는 Kotlin 버전
 또한 Kotlin K2 컴파일러는 다음을 지원합니다:
 
 *   [Jetpack Compose](https://developer.android.com/jetpack/compose) 1.5.0 컴파일러 플러그인 및 이후 버전.
-*   [KSP2](https://android-developers.googleblog.com/2023/12/ksp2-preview-kotlin-k2-standalone.html)부터 [Kotlin Symbol Processing (KSP)](ksp-overview.md).
+*   [Kotlin Symbol Processing (KSP)](ksp-overview.md)부터 [KSP2](https://android-developers.googleblog.com/2023/12/ksp2-preview-kotlin-k2-standalone.html).
 
 > 추가 컴파일러 플러그인을 사용하는 경우, K2와 호환되는지 해당 문서를 확인하세요.
 >

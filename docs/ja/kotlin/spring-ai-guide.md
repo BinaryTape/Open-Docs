@@ -1,4 +1,4 @@
-[//]: # (title: Qdrantに保存されたドキュメントを基に質問に回答するSpring AIを活用したKotlinアプリの構築 — チュートリアル)
+[//]: # (title: Spring AIを活用して質問に回答するKotlinアプリを作成する — チュートリアル)
 
 このチュートリアルでは、[Spring AI](https://spring.io/projects/spring-ai) を介してLLMに接続し、ドキュメントをベクトルデータベースに保存し、それらのドキュメントのコンテキストを使用して質問に回答するKotlinアプリの構築方法を学びます。
 
@@ -60,7 +60,7 @@ IntelliJ IDEA Ultimate Editionで新しいSpring Bootプロジェクトを作成
         >
         {style="tip"}
 
-    ![Create Spring Boot project](create-spring-ai-project.png){width=800}
+   ![Create Spring Boot project](create-spring-ai-project.png){width=800}
 
 4.  すべてのフィールドを指定したことを確認し、**Next** をクリックします。
 5.  **Spring Boot** フィールドで最新の安定版Spring Bootバージョンを選択します。
@@ -71,13 +71,13 @@ IntelliJ IDEA Ultimate Editionで新しいSpring Bootプロジェクトを作成
     *   **AI | OpenAI**
     *   **SQL | Qdrant Vector Database**
 
-    ![Set up Spring Boot project](spring-ai-dependencies.png){width=800}
+   ![Set up Spring Boot project](spring-ai-dependencies.png){width=800}
 
 7.  **Create** をクリックしてプロジェクトを生成および設定します。
 
-    > IDEが新しいプロジェクトを生成して開きます。プロジェクトの依存関係のダウンロードとインポートには時間がかかる場合があります。
-    >
-    {style="tip"}
+   > IDEが新しいプロジェクトを生成して開きます。プロジェクトの依存関係のダウンロードとインポートには時間がかかる場合があります。
+   >
+   {style="tip"}
 
 これを行うと、**Project view** に以下の構造が表示されます:
 
@@ -98,36 +98,36 @@ IntelliJ IDEA Ultimate Editionで新しいSpring Bootプロジェクトを作成
         kotlin("plugin.spring") version "%kotlinVersion%"
         // Rest of the plugins
     }
-    ```
+   ```
 
 2.  `springAiVersion`を`1.0.0`に設定します:
 
-    ```kotlin
-    extra["springAiVersion"] = "1.0.0"
-    ```
+   ```kotlin
+   extra["springAiVersion"] = "1.0.0"
+   ```
 
 3.  **Sync Gradle Changes** ボタンをクリックしてGradleファイルを同期します。
 4.  `src/main/resources/application.properties`ファイルを次のように更新します:
 
-    ```text
-    # OpenAI
-    spring.ai.openai.api-key=YOUR_OPENAI_API_KEY
-    spring.ai.openai.chat.options.model=gpt-4o-mini
-    spring.ai.openai.embedding.options.model=text-embedding-ada-002
-    # Qdrant
-    spring.ai.vectorstore.qdrant.host=localhost
-    spring.ai.vectorstore.qdrant.port=6334
-    spring.ai.vectorstore.qdrant.collection-name=kotlinDocs
-    spring.ai.vectorstore.qdrant.initialize-schema=true
-    ```
-
-    > OpenAI APIキーを`spring.ai.openai.api-key`プロパティに設定します。
-    >
-    {style="note"}
+   ```text
+   # OpenAI
+   spring.ai.openai.api-key=YOUR_OPENAI_API_KEY
+   spring.ai.openai.chat.options.model=gpt-4o-mini
+   spring.ai.openai.embedding.options.model=text-embedding-ada-002
+   # Qdrant
+   spring.ai.vectorstore.qdrant.host=localhost
+   spring.ai.vectorstore.qdrant.port=6334
+   spring.ai.vectorstore.qdrant.collection-name=kotlinDocs
+   spring.ai.vectorstore.qdrant.initialize-schema=true
+   ```
+   
+   > OpenAI APIキーを`spring.ai.openai.api-key`プロパティに設定します。
+   >
+   {style="note"}
 
 5.  `SpringAiDemoApplication.kt`ファイルを実行してSpring Bootアプリケーションを開始します。実行後、ブラウザで[Qdrant collections](http://localhost:6333/dashboard#/collections) ページを開いて結果を確認します:
 
-    ![Qdrant collections](qdrant-collections.png){width=700}
+   ![Qdrant collections](qdrant-collections.png){width=700}
 
 ## ドキュメントをロードして検索するコントローラーを作成する
 
@@ -204,45 +204,44 @@ IntelliJ IDEA Ultimate Editionで新しいSpring Bootプロジェクトを作成
         }
     }
     ```
-    {collapsible="true"}
+   {collapsible="true"}
 
 2.  `SpringAiDemoApplication.kt`ファイルを更新し、`RestTemplate` beanを宣言します:
 
-    ```kotlin
-    package org.example.springaidemo
+   ```kotlin
+   package org.example.springaidemo
 
-    import org.springframework.boot.autoconfigure.SpringBootApplication
-    import org.springframework.boot.runApplication
-    import org.springframework.context.annotation.Bean
-    import org.springframework.web.client.RestTemplate
+   import org.springframework.boot.autoconfigure.SpringBootApplication
+   import org.springframework.boot.runApplication
+   import org.springframework.context.annotation.Bean
+   import org.springframework.web.client.RestTemplate
 
-    @SpringBootApplication
-    class SpringAiDemoApplication {
+   @SpringBootApplication
+   class SpringAiDemoApplication {
+       @Bean
+       fun restTemplate(): RestTemplate = RestTemplate()
+   }
 
-        @Bean
-        fun restTemplate(): RestTemplate = RestTemplate()
-    }
-
-    fun main(args: Array<String>) {
-        runApplication<SpringAiDemoApplication>(*args)
-    }
-    ```
-    {collapsible="true"}
+   fun main(args: Array<String>) {
+       runApplication<SpringAiDemoApplication>(*args)
+   }
+   ```
+   {collapsible="true"}
 
 3.  アプリケーションを実行します。
 4.  ターミナルで、`/kotlin/load-docs`エンドポイントにPOSTリクエストを送信してドキュメントをロードします:
 
-    ```bash
-    curl -X POST http://localhost:8080/kotlin/load-docs
-    ```
+   ```bash
+   curl -X POST http://localhost:8080/kotlin/load-docs
+   ```
 
 5.  ドキュメントがロードされたら、GETリクエストで検索できます:
 
-    ```Bash
-    curl -X GET http://localhost:8080/kotlin/docs
-    ```
+   ```Bash
+   curl -X GET http://localhost:8080/kotlin/docs
+   ```
 
-    ![GET request results](spring-ai-get-results.png){width="700"}
+   ![GET request results](spring-ai-get-results.png){width="700"}
 
 > 結果は[Qdrant collections](http://localhost:6333/dashboard#/collections) ページでも確認できます。
 >
@@ -254,87 +253,87 @@ IntelliJ IDEA Ultimate Editionで新しいSpring Bootプロジェクトを作成
 
 1.  `KotlinSTDController.kt`ファイルを開き、以下のクラスをインポートします:
 
-    ```kotlin
-    import org.springframework.ai.chat.client.ChatClient
-    import org.springframework.ai.chat.client.advisor.SimpleLoggerAdvisor
-    import org.springframework.ai.chat.client.advisor.vectorstore.QuestionAnswerAdvisor
-    import org.springframework.ai.chat.prompt.Prompt
-    import org.springframework.ai.chat.prompt.PromptTemplate
-    import org.springframework.web.bind.annotation.RequestBody
-    ```
+   ```kotlin
+   import org.springframework.ai.chat.client.ChatClient
+   import org.springframework.ai.chat.client.advisor.SimpleLoggerAdvisor
+   import org.springframework.ai.chat.client.advisor.vectorstore.QuestionAnswerAdvisor
+   import org.springframework.ai.chat.prompt.Prompt
+   import org.springframework.ai.chat.prompt.PromptTemplate
+   import org.springframework.web.bind.annotation.RequestBody
+   ```
 
 2.  `ChatRequest`データクラスを定義します:
 
-    ```kotlin
-    // チャットクエリのリクエストペイロードを表します
-    data class ChatRequest(val query: String, val topK: Int = 3)
-    ```
+   ```kotlin
+   // チャットクエリのリクエストペイロードを表します
+   data class ChatRequest(val query: String, val topK: Int = 3)
+   ```
 
 3.  コントローラーのコンストラクタパラメータに`ChatClient.Builder`を追加します:
 
-    ```kotlin
-    class KotlinSTDController(
-        private val chatClientBuilder: ChatClient.Builder,
-        private val restTemplate: RestTemplate,
-        private val vectorStore: VectorStore,
-    )
-    ```
+   ```kotlin
+   class KotlinSTDController(
+       private val chatClientBuilder: ChatClient.Builder,
+       private val restTemplate: RestTemplate,
+       private val vectorStore: VectorStore,
+   )
+   ```
 
 4.  コントローラークラス内で、`ChatClient`インスタンスを作成します:
 
-    ```kotlin
-    // シンプルなロギングアドバイザーでチャットクライアントを構築します
-    private val chatClient = chatClientBuilder.defaultAdvisors(SimpleLoggerAdvisor()).build()
-    ```
+   ```kotlin
+   // シンプルなロギングアドバイザーでチャットクライアントを構築します
+   private val chatClient = chatClientBuilder.defaultAdvisors(SimpleLoggerAdvisor()).build()
+   ```
 
 5.  `KotlinSTDController.kt`ファイルの最後に、以下のロジックを持つ新しい`chatAsk()`エンドポイントを追加します:
 
-    ```kotlin
-    @PostMapping("/chat/ask")
-    fun chatAsk(@RequestBody request: ChatRequest): String? {
-        // プレースホルダーを含むプロンプトテンプレートを定義します
-        val promptTemplate = PromptTemplate(
-            """
-            {query}.
-            Please provide a concise answer based on the "Kotlin standard library" documentation.
-        """.trimIndent()
-        )
+   ```kotlin
+   @PostMapping("/chat/ask")
+   fun chatAsk(@RequestBody request: ChatRequest): String? {
+       // プレースホルダーを含むプロンプトテンプレートを定義します
+       val promptTemplate = PromptTemplate(
+           """
+           {query}.
+           Please provide a concise answer based on the "Kotlin standard library" documentation.
+       """.trimIndent()
+       )
 
-        // プレースホルダーを実際の値に置き換えてプロンプトを作成します
-        val prompt: Prompt =
-            promptTemplate.create(mapOf("query" to request.query))
+       // プレースホルダーを実際の値に置き換えてプロンプトを作成します
+       val prompt: Prompt =
+           promptTemplate.create(mapOf("query" to request.query))
 
-        // 関連するドキュメントでクエリを拡張するようにRetrievalアドバイザーを構成します
-        val retrievalAdvisor = QuestionAnswerAdvisor.builder(vectorStore)
-            .searchRequest(
-                SearchRequest.builder()
-                    .similarityThreshold(0.7)
-                    .topK(request.topK)
-                    .build()
-            )
-            .promptTemplate(promptTemplate)
-            .build()
+       // 関連するドキュメントでクエリを拡張するようにRetrievalアドバイザーを構成します
+       val retrievalAdvisor = QuestionAnswerAdvisor.builder(vectorStore)
+           .searchRequest(
+               SearchRequest.builder()
+                   .similarityThreshold(0.7)
+                   .topK(request.topK)
+                   .build()
+           )
+           .promptTemplate(promptTemplate)
+           .build()
 
-        // Retrievalアドバイザーと共にプロンプトをLLMに送信し、生成されたコンテンツを取得します
-        val response = chatClient.prompt(prompt)
-            .advisors(retrievalAdvisor)
-            .call()
-            .content()
-        logger.info("Chat response generated for query: '${request.query}'")
-        return response
-    }
-    ```
+       // Retrievalアドバイザーと共にプロンプトをLLMに送信し、生成されたコンテンツを取得します
+       val response = chatClient.prompt(prompt)
+           .advisors(retrievalAdvisor)
+           .call()
+           .content()
+       logger.info("Chat response generated for query: '${request.query}'")
+       return response
+   }
+   ```
 
 6.  アプリケーションを実行します。
 7.  ターミナルで、新しいエンドポイントにPOSTリクエストを送信して結果を確認します:
 
-    ```bash
-    curl -X POST "http://localhost:8080/kotlin/chat/ask" \
-         -H "Content-Type: application/json" \
-         -d '{"query": "What are the performance implications of using lazy sequences in Kotlin for large datasets?", "topK": 3}'
-    ```
+   ```bash
+   curl -X POST "http://localhost:8080/kotlin/chat/ask" \
+        -H "Content-Type: application/json" \
+        -d '{"query": "What are the performance implications of using lazy sequences in Kotlin for large datasets?", "topK": 3}'
+   ```
 
-    ![OpenAI answer to chat request](open-ai-chat-endpoint.png){width="700"}
+   ![OpenAI answer to chat request](open-ai-chat-endpoint.png){width="700"}
 
 おめでとうございます！これで、OpenAIに接続し、Qdrantに保存されたドキュメントから取得したコンテキストを使用して質問に回答するKotlinアプリができました。
 さまざまなクエリを試したり、他のドキュメントをインポートして、さらに多くの可能性を探ってみてください。

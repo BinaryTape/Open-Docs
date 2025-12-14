@@ -116,20 +116,20 @@ dependencies {
 
 要在 Kotlin 中建立協程，您需要以下幾項：
 
-* [暫停函式](#suspending-functions)。
-* 可供其運行的[協程作用域](#coroutine-scope-and-structured-concurrency)，例如在 `withContext()` 函式內部。
-* [協程建構器](#coroutine-builder-functions)，例如 `CoroutineScope.launch()` 來啟動它。
-* [協程調度器](#coroutine-dispatchers) 來控制它使用哪些執行緒。
+*   [暫停函式](#suspending-functions)。
+*   可供其運行的[協程作用域](#coroutine-scope-and-structured-concurrency)，例如在 `withContext()` 函式內部。
+*   [協程建構器](#coroutine-builder-functions)，例如 `CoroutineScope.launch()` 來啟動它。
+*   [協程調度器](#coroutine-dispatchers) 來控制它使用哪些執行緒。
 
 讓我們來看一個在多執行緒環境中使用多個協程的範例：
 
-1. 匯入 `kotlinx.coroutines` 函式庫：
+1.  匯入 `kotlinx.coroutines` 函式庫：
 
     ```kotlin
     import kotlinx.coroutines.*
     ```
 
-2. 使用 `suspend` 關鍵字標記可以暫停和恢復的函式：
+2.  使用 `suspend` 關鍵字標記可以暫停和恢復的函式：
 
     ```kotlin
     suspend fun greet() {
@@ -145,7 +145,7 @@ dependencies {
     > 
     {style="note"}
 
-3. 新增 [`delay()`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/delay.html#) 函式來模擬暫停任務，例如擷取資料或寫入資料庫：
+3.  新增 [`delay()`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/delay.html#) 函式來模擬暫停任務，例如擷取資料或寫入資料庫：
 
     ```kotlin
     suspend fun greet() {
@@ -158,7 +158,7 @@ dependencies {
     >
     {style="tip"} -->
 
-4. 使用 [`withContext(Dispatchers.Default)`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/with-context.html#) 來定義多執行緒併發程式碼的進入點，這些程式碼在共用執行緒池上執行：
+4.  使用 [`withContext(Dispatchers.Default)`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/with-context.html#) 來定義多執行緒併發程式碼的進入點，這些程式碼在共用執行緒池上執行：
 
     ```kotlin
     suspend fun main() {
@@ -177,7 +177,7 @@ dependencies {
    > 
    {style="note"}
 
-5. 使用[協程建構器函式](#coroutine-builder-functions)（例如 [`CoroutineScope.launch()`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/launch.html)）來啟動協程：
+5.  使用[協程建構器函式](#coroutine-builder-functions)（例如 [`CoroutineScope.launch()`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/launch.html)）來啟動協程：
 
     ```kotlin
     suspend fun main() {
@@ -189,7 +189,7 @@ dependencies {
     }
     ```
 
-6. 組合這些部分以在共用執行緒池上同時執行多個協程：
+6.  組合這些部分以在共用執行緒池上同時執行多個協程：
 
     ```kotlin
     // Imports the coroutines library
@@ -361,11 +361,11 @@ fun launchAll() {
 協程建構器函式是一個接受 `suspend` [Lambda 運算式](lambdas.md)的函式，該 Lambda 運算式定義要執行的協程。
 以下是一些範例：
 
-* [`CoroutineScope.launch()`](#coroutinescope-launch)
-* [`CoroutineScope.async()`](#coroutinescope-async)
-* [`runBlocking()`](#runblocking)
-* [`withContext()`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/with-context.html)
-* [`coroutineScope()`](#create-a-coroutine-scope-with-the-coroutinescope-function)
+*   [`CoroutineScope.launch()`](#coroutinescope-launch)
+*   [`CoroutineScope.async()`](#coroutinescope-async)
+*   [`runBlocking()`](#runblocking)
+*   [`withContext()`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/with-context.html)
+*   [`coroutineScope()`](#create-a-coroutine-scope-with-the-coroutinescope-function)
 
 協程建構器函式需要一個 `CoroutineScope` 才能執行。
 這可以是現有的作用域，也可以是您使用輔助函式（例如 `coroutineScope()`、[`runBlocking()`](#runblocking) 或 [`withContext()`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/with-context.html#)）建立的作用域。
@@ -410,7 +410,7 @@ suspend fun performBackgroundWork() = coroutineScope { // this: CoroutineScope
 
 > `CoroutineScope.launch()` 函式會返回一個 [`Job`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-job/) 句柄。
 > 使用此句柄等待啟動的協程完成。
-> 有關更多資訊，請參閱[取消和逾時](cancellation-and-timeouts.md#cancelling-coroutine-execution)。
+> 有關更多資訊，請參閱[取消和逾時](cancellation-and-timeouts.md#cancel-coroutines)。
 > 
 {style="tip"}
 
@@ -619,7 +619,7 @@ JVM 執行緒版本可能會拋出記憶體不足錯誤，或減慢執行緒建�
 
 ## 接下來
 
-* 在[組合暫停函式](composing-suspending-functions.md)中了解更多關於組合暫停函式的資訊。
-* 在[取消和逾時](cancellation-and-timeouts.md)中學習如何取消協程和處理逾時。
-* 在[協程上下文和調度器](coroutine-context-and-dispatchers.md)中深入了解協程執行和執行緒管理。
-* 在[非同步流程](flow.md)中學習如何返回多個非同步計算的值。
+*   在[組合暫停函式](composing-suspending-functions.md)中了解更多關於組合暫停函式的資訊。
+*   在[取消和逾時](cancellation-and-timeouts.md)中學習如何取消協程和處理逾時。
+*   在[協程上下文和調度器](coroutine-context-and-dispatchers.md)中深入了解協程執行和執行緒管理。
+*   在[非同步流程](flow.md)中學習如何返回多個非同步計算的值。

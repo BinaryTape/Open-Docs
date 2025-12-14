@@ -536,10 +536,6 @@ fun main() {
 ### 改进了与内联值类的 Java 互操作性
 <primary-label ref="experimental-general"/>
 
-> 对 IntelliJ IDEA 中此特性的代码分析、代码补全和高亮显示目前仅在 [2025.3 EAP 构建](https://www.jetbrains.com/idea/nextversion/)中可用。
->
-{style = "note"}
-
 Kotlin 2.2.0 引入了一个新的实验性注解：[`@JvmExposeBoxed`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.jvm/-jvm-expose-boxed/)。此注解使得从 Java 中使用[内联值类](inline-classes.md)变得更容易。
 
 你可以在此视频中找到此特性的概述：
@@ -1031,7 +1027,7 @@ kotlin.internal.diagnostics.ignoreWarningMode=true
 
 ```kotlin
 kotlin.compiler.runViaBuildToolsApi=true
-```   
+```
 
 *   在 Maven 中，你无需执行任何操作。它默认启用。
 
@@ -1065,20 +1061,20 @@ BTA 使这成为可能。以下是你在 `build.gradle.kts` 文件中配置它�
 import org.jetbrains.kotlin.buildtools.api.ExperimentalBuildToolsApi
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 
-plugins { 
+plugins {
     kotlin("jvm") version "2.2.0"
 }
 
 group = "org.jetbrains.example"
 version = "1.0-SNAPSHOT"
 
-repositories { 
+repositories {
     mavenCentral()
 }
 
-kotlin { 
+kotlin {
     jvmToolchain(8)
-    @OptIn(ExperimentalBuildToolsApi::class, ExperimentalKotlinGradlePluginApi::class) 
+    @OptIn(ExperimentalBuildToolsApi::class, ExperimentalKotlinGradlePluginApi::class)
     compilerVersion.set("2.1.21") // 与 2.2.0 版本不同
 }
 
@@ -1144,7 +1140,7 @@ fun main() {
     val base64Output = output.encodingWith(Base64.Default)
 
     base64Output.use { stream ->
-        stream.write("Hello World!!".encodeToByteArray()) 
+        stream.write("Hello World!!".encodeToByteArray())
     }
 
     println(output.toString())
@@ -1233,7 +1229,7 @@ composeCompiler {
     早于 1.8 的语言特性集不受支持，但语言本身仍然与 Kotlin 1.0 完全向后兼容。
 
 *   对 [](ant.md) 构建系统的支持已弃用。Kotlin 对 Ant 的支持已长时间未进行活跃开发，并且由于其用户群相对较小，目前没有进一步维护的计划。
-    
+
     我们计划在 2.3.0 中移除 Ant 支持。但是，Kotlin 仍然[欢迎贡献](contribute.md)。如果你
     有兴趣成为 Ant 的外部维护者，请在此 [YouTrack 问题](https://youtrack.jetbrains.com/issue/KT-75875/)中留下评论，并将可见性设置为“jetbrains-team”。
 
@@ -1242,12 +1238,13 @@ composeCompiler {
 *   Kotlin 脚本仍然是 Kotlin 生态系统的重要组成部分，但我们正在专注于特定的用例，例如
     自定义脚本以及 `gradle.kts` 和 `main.kts` 脚本，以提供更好的体验。
     要了解更多信息，请参见我们更新的[博文](https://blog.jetbrains.com/kotlin/2024/11/state-of-kotlin-scripting-2024/)。因此，Kotlin 2.2.0 弃用对以下功能的支持：
-    
+
     *   REPL：要继续通过 `kotlinc` 使用 REPL，请使用 `-Xrepl` 编译器选项选择启用。
     *   JSR-223：由于此 [JSR](https://jcp.org/en/jsr/detail?id=223) 处于 **Withdrawn** 状态，JSR-223
         实现将继续与语言版本 1.9 配合使用，但将来不会迁移到使用 K2 编译器。
     *   `KotlinScriptMojo` Maven 插件：我们认为此插件没有足够的吸引力。如果你继续使用它，你将看到编译器警告。
-*   
+*
+
 *   在 Kotlin 2.2.0 中，[`KotlinCompileTool`](https://kotlinlang.org/api/kotlin-gradle-plugin/kotlin-gradle-plugin-api/org.jetbrains.kotlin.gradle.tasks/-kotlin-compile-tool/#) 中的 [`setSource()`](https://kotlinlang.org/api/kotlin-gradle-plugin/kotlin-gradle-plugin-api/org.jetbrains.kotlin.gradle.tasks/-kotlin-compile-tool/set-source.html#) 函数现在[替换已配置的源而不是添加](compatibility-guide-22.md#correct-setsource-function-in-kotlincompiletool-to-replace-sources)。
     如果你想添加源而不替换现有源，请使用 [`source()`](https://kotlinlang.org/api/kotlin-gradle-plugin/kotlin-gradle-plugin-api/org.jetbrains.kotlin.gradle.tasks/-kotlin-compile-tool/source.html#) 函数。
 *   `BaseKapt` 中 [`annotationProcessorOptionProviders`](https://kotlinlang.org/api/kotlin-gradle-plugin/kotlin-gradle-plugin-api/org.jetbrains.kotlin.gradle.tasks/-base-kapt/annotation-processor-option-providers.html#) 的类型已从 `MutableList<Any>` [更改为 `MutableList<CommandLineArgumentProvider>`](compatibility-guide-22.md#deprecate-basekapt-annotationprocessoroptionproviders-property)。如果你的代码当前将列表作为单个元素添加，请使用 `addAll()` 函数而不是 `add()` 函数。

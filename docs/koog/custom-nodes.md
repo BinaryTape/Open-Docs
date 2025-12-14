@@ -1,6 +1,6 @@
 # 自定义节点实现
 
-本页面详细介绍了如何在 Koog 框架中实现自己的自定义节点。自定义节点允许您通过创建执行特定操作的可复用组件来扩展代理工作流的功能。
+本页面详细介绍了如何在 Koog 框架中实现您自己的自定义节点。自定义节点允许您通过创建执行特定操作的可复用组件来扩展代理工作流的功能。
 
 关于图节点是什么、如何使用以及现有默认节点的更多信息，请参见 [图节点](nodes-and-components.md)。
 
@@ -16,7 +16,7 @@
 
 ### 基本节点实现
 
-在图中实现自定义节点并定义自己的自定义逻辑的最简单方法是使用以下模式：
+在图中实现自定义节点并定义您自己的自定义逻辑的最简单方法是使用以下模式：
 
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
@@ -33,7 +33,7 @@ val str = strategy<Input, Output>("my-strategy") {
 -->
 ```kotlin
 val myNode by node<Input, Output>("node_name") { input ->
-    // 处理
+    // Processing
     returnValue
 }
 ```
@@ -51,7 +51,7 @@ val str = strategy<String, Int>("my-strategy") {
 -->
 ```kotlin
 val myNode by node<String, Int>("node_name") { input ->
-    // 处理
+    // Processing
     input.length
 }
 ```
@@ -76,7 +76,7 @@ val strategy = strategy<String, String>("strategy_name") {
 fun AIAgentSubgraphBuilderBase<*, *>.myCustomNode(
     name: String? = null
 ): AIAgentNodeDelegate<Input, Output> = node(name) { input ->
-    // 自定义逻辑
+    // Custom logic
     input // 将输入作为输出返回（直通）
 }
 
@@ -183,7 +183,7 @@ val strategy = strategy<String, String>("strategy_name") {
 -->
 ```kotlin
 val stringToIntNode by node<String, Int>("node_name") { input: String ->
-    // 处理
+    // Processing
     input.toInt() // 将字符串转换为整数
 }
 ```

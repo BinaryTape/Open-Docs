@@ -98,13 +98,13 @@ Ktor 客戶端允許您設定要使用 `Bearer` 方案在 `Authorization` 標頭
 讓我們看看如何使用持有者驗證來存取 Google API，Google API 使用 [OAuth 2.0 協定](https://developers.google.com/identity/protocols/oauth2) 進行驗證和授權。我們將研究 [client-auth-oauth-google](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-auth-oauth-google) 主控台應用程式，該應用程式取得 Google 的個人資料資訊。
 
 ### 取得客戶端憑證 {id="google-client-credentials"}
-作為第一步，我們需要取得存取 Google API 所需的客戶端憑證：
-1. 建立 Google 帳戶。
+要存取 Google API，您首先需要 OAuth 客戶端憑證：
+1. 建立 Google 帳戶或登入。
 2. 開啟 [Google Cloud Console](https://console.cloud.google.com/apis/credentials) 並建立應用程式類型為 `Android` 的 `OAuth client ID` 憑證。此客戶端 ID 將用於取得[授權許可](#step1)。
 
 ### OAuth 授權流程 {id="oauth-flow"}
 
-我們應用程式的 OAuth 授權流程如下：
+OAuth 授權流程如下所示：
 
 ```Console
 (1)  --> 授權請求                資源擁有者
@@ -123,11 +123,11 @@ Ktor 客戶端允許您設定要使用 `Bearer` 方案在 `Authorization` 標頭
 ```
 {disable-links="false"}
 
-讓我們調查每個步驟的實現方式，以及 `Bearer` 驗證提供者如何幫助我們存取 API。
+以下章節將解釋每個步驟的實現方式，以及 `Bearer` 驗證提供者如何幫助存取 API。
 
 ### (1) -> 授權請求 {id="step1"}
 
-作為第一步，我們需要建立用於請求所需權限的授權連結。為此，我們需要將指定的查詢參數附加到 URL：
+第一步是建構用於請求所需權限的授權 URL。這是透過附加必要的查詢參數來完成的：
 
 ```kotlin
 val authorizationUrlQuery = parameters {
@@ -142,16 +142,16 @@ println("Open a link above, get the authorization code, insert it below, and pre
 ```
 
 - `client_id`：[先前取得的](#google-client-credentials)客戶端 ID 用於存取 Google API。
-- `scope`：Ktor 應用程式所需的資源範圍。在我們的案例中，應用程式請求使用者的個人資料資訊。
-- `response_type`：用於取得存取權杖的授予類型。在我們的案例中，我們需要取得授權碼。
+- `scope`：Ktor 應用程式所需的資源範圍。在此案例中，應用程式請求使用者的個人資料資訊。
+- `response_type`：用於取得存取權杖的授予類型。在此案例中，它設定為 `"code"` 以取得授權碼。
 - `redirect_uri`：`http://127.0.0.1:8080` 值表示使用 _回環 IP 位址流程_ 取得授權碼。
    > 要使用此 URL 接收授權碼，您的應用程式必須在本地網頁伺服器上監聽。
    > 例如，您可以使用 [Ktor 伺服器](server-create-and-configure.topic)將授權碼作為查詢參數取得。
-- `access_type`：存取類型設定為 `offline`，因為我們的主控台應用程式需要在使用者不在瀏覽器時重新整理存取權杖。
+- `access_type`：設定為 `offline`，以便在使用者不在瀏覽器時應用程式可以重新整理存取權杖。
 
 ### (2) <- 授權許可 (碼) {id="step2"}
 
-在此步驟中，我們從瀏覽器複製授權碼，將其貼到主控台，並將其儲存在變數中：
+從瀏覽器複製授權碼，將其貼到主控台，並將其儲存在變數中：
 
 ```kotlin
 val authorizationCode = readln()
@@ -159,7 +159,7 @@ val authorizationCode = readln()
 
 ### (3) -> 授權許可 (碼) {id="step3"}
 
-現在我們準備好將授權碼換取權杖。為此，我們需要建立一個客戶端並安裝 [ContentNegotiation](client-serialization.md) 外掛程式，並使用 `json` 序列化器。此序列化器是反序列化從 Google OAuth 權杖端點接收的權杖所必需的。
+接下來，將授權碼換取權杖。為此，請建立一個客戶端並安裝 [ContentNegotiation](client-serialization.md) 外掛程式，並使用 `json` 序列化器。此序列化器是反序列化從 Google OAuth 權杖端點接收的權杖所必需的。
 
 ```kotlin
 val client = HttpClient(CIO) {
@@ -169,7 +169,7 @@ val client = HttpClient(CIO) {
 }
 ```
 
-使用建立的客戶端，我們可以安全地將授權碼和其他必要的選項作為[表單參數](client-requests.md#form_parameters)傳遞到權杖端點：
+使用建立的客戶端，您可以安全地將授權碼和其他必要的選項作為[表單參數](client-requests.md#form_parameters)傳遞到權杖端點：
 
 ```kotlin
 val tokenInfo: TokenInfo = client.submitForm(
@@ -202,7 +202,7 @@ data class TokenInfo(
 
 ### (4) <- 存取和重新整理權杖 {id="step4"}
 
-接收到權杖後，我們可以將它們儲存在儲存區中。在我們的範例中，儲存區是 `BearerTokens` 實例的可變列表。這表示我們可以將其元素傳遞給 `loadTokens` 和 `refreshTokens` 回呼。
+接收到權杖後，將它們儲存起來，以便將它們提供給 `loadTokens` 和 `refreshTokens` 回呼。在此範例中，儲存區是 `BearerTokens` 的可變列表：
 
 ```kotlin
         val bearerTokenStorage = mutableListOf<BearerTokens>()
@@ -214,7 +214,9 @@ data class TokenInfo(
 
 ### (5) -> 攜帶有效權杖的請求 {id="step5"}
 
-現在我們擁有有效的權杖，因此我們可以向受保護的 Google API 發出請求並取得使用者資訊。首先，我們需要調整客戶端[設定](#step3)：
+現在有了有效的權杖，客戶端可以向受保護的 Google API 發出請求並取得使用者資訊。
+
+在此之前，您需要調整客戶端[設定](#step3)：
 
 ```kotlin
         val client = HttpClient(CIO) {
@@ -235,23 +237,38 @@ data class TokenInfo(
         }
 ```
 
-指定了以下設定：
+指定了以下設定： 
 
 - 已安裝的 [ContentNegotiation](client-serialization.md) 外掛程式與 `json` 序列化器，用於反序列化從資源伺服器以 JSON 格式接收的使用者資訊。
 
 - 帶有 `bearer` 提供者的 [Auth](client-auth.md) 外掛程式設定如下：
-   * `loadTokens` 回呼從[儲存區](#step4)載入權杖。
-   * `sendWithoutRequest` 回呼設定為只向提供受保護資源存取權限的主機傳送憑證，而不等待 `401` (Unauthorized) 回應。
+  * `loadTokens` 回呼從[儲存區](#step4)載入權杖。
+  * `sendWithoutRequest` 回呼設定為在存取 Google 的受保護 API 時，無需等待 `401 Unauthorized` 回應即可傳送存取權杖。
 
-此客戶端可用於向受保護資源發出請求：
+有了這個客戶端，您現在可以向受保護的資源發出請求：
 
 ```kotlin
 while (true) {
+    println("Make a request? Type 'yes' and press Enter to proceed.")
+    when (readln()) {
+        "yes" -> {
+            val response: HttpResponse = client.get("https://www.googleapis.com/oauth2/v2/userinfo")
+            try {
+                val userInfo: UserInfo = response.body()
+                println("Hello, ${userInfo.name}!")
+            } catch (e: Exception) {
+                val errorInfo: ErrorInfo = response.body()
+                println(errorInfo.error.message)
+            }
+        }
+        else -> return@runBlocking
+    }
+}
 ```
 
 ### (6) <- 受保護的資源 {id="step6"}
 
-資源伺服器以 JSON 格式返回使用者資訊。我們可以將回應反序列化為 `UserInfo` 類別實例並顯示個人問候語：
+資源伺服器以 JSON 格式返回使用者資訊。您可以將回應反序列化為 `UserInfo` 類別實例並顯示個人問候語：
 
 ```kotlin
 val userInfo: UserInfo = response.body()
@@ -280,12 +297,13 @@ data class UserInfo(
 
 ### (8) <- 401 未經授權回應 {id="step8"}
 
-資源伺服器返回 `401` 未經授權的回應，因此客戶端應呼叫 `refreshTokens` 回呼。
-> 請注意，`401` 回應返回包含錯誤詳細資訊的 JSON 資料，我們需要在接收回應時[處理此情況](#step12)。
+當權杖不再有效時，資源伺服器返回 `401 Unauthorized` 回應。客戶端隨後會呼叫 `refreshTokens` 回呼，該回呼負責取得新權杖。
+
+> `401` 回應返回包含錯誤詳細資訊的 JSON 資料。這需要在[接收回應時處理](#step12)。
 
 ### (9) -> 授權許可 (重新整理權杖) {id="step9"}
 
-為了取得新的存取權杖，我們需要設定 `refreshTokens` 並向權杖端點發出另一個請求。這次，我們使用 `refresh_token` 授予類型而不是 `authorization_code`：
+為了取得新的存取權杖，您需要設定 `refreshTokens` 以向權杖端點發出另一個請求。這次，使用 `refresh_token` 授予類型而不是 `authorization_code`：
 
 ```kotlin
 install(Auth) {
@@ -304,15 +322,15 @@ install(Auth) {
 }
 ```
 
-請注意，`refreshTokens` 回呼使用 `RefreshTokensParams` 作為接收者，並允許您存取以下設定：
-- `client` 實例。在上面的程式碼片段中，我們使用它來提交表單參數。
+`refreshTokens` 回呼使用 `RefreshTokensParams` 作為接收者，並允許您存取以下設定：
+- `client` 實例，可用於提交表單參數。
 - `oldTokens` 屬性用於存取重新整理權杖並將其傳送到權杖端點。
 
 > `HttpRequestBuilder` 暴露的 `markAsRefreshTokenRequest` 函式啟用對用於取得重新整理權杖的請求的特殊處理。
 
 ### (10) <- 存取和重新整理權杖 {id="step10"}
 
-收到新權杖後，我們可以將它們儲存在[儲存區](#step4)中，因此 `refreshTokens` 如下所示：
+接收到新權杖後，需要將它們儲存在[權杖儲存區](#step4)中。這樣，`refreshTokens` 回呼如下所示：
 
 ```kotlin
 refreshTokens {
@@ -331,15 +349,14 @@ refreshTokens {
 
 ### (11) -> 攜帶新權杖的請求 {id="step11"}
 
-在此步驟中，對受保護資源的請求包含新權杖，並且應該正常工作。
-
+隨著重新整理的存取權杖被儲存，對受保護資源的下一個請求應該會成功：
 ```kotlin
 val response: HttpResponse = client.get("https://www.googleapis.com/oauth2/v2/userinfo")
 ```
 
 ### (12) <-- 受保護的資源 {id="step12"}
 
-鑑於 [401 回應](#step8)返回包含錯誤詳細資訊的 JSON 資料，我們需要更新範例以將錯誤資訊作為 `ErrorInfo` 物件接收：
+鑑於 [401 回應](#step8)返回包含錯誤詳細資訊的 JSON 資料，更新範例以將錯誤回應讀取為 `ErrorInfo` 物件：
 
 ```kotlin
 val response: HttpResponse = client.get("https://www.googleapis.com/oauth2/v2/userinfo")
@@ -352,7 +369,7 @@ try {
 }
 ```
 
-`ErrorInfo` 類別如下所示：
+`ErrorInfo` 類別定義如下：
 
 ```kotlin
 import kotlinx.serialization.*
@@ -368,4 +385,4 @@ data class ErrorDetails(
 )
 ```
 
-您可以在此處找到完整範例：[client-auth-oauth-google](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-auth-oauth-google)。
+有關完整範例，請參閱 [client-auth-oauth-google](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-auth-oauth-google)。

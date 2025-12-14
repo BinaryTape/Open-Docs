@@ -23,7 +23,8 @@ The EventHandler entity consists of five main handler types:
 
 ### インストールと設定
 
-EventHandler機能は、`EventHandler` クラスを介してエージェントのワークフローと統合されます。このクラスは、様々なエージェントイベントのコールバックを登録する方法を提供し、エージェント設定の機能としてインストールできます。詳細については、[APIリファレンス](https://api.koog.ai/agents/agents-features/agents-features-event-handler/ai.koog.agents.features.eventHandler.feature/-event-handler/index.html)を参照してください。
+EventHandler機能は、`EventHandler` クラスを介してエージェントのワークフローと統合されます。
+このクラスは、様々なエージェントイベントのコールバックを登録する方法を提供し、エージェント設定の機能としてインストールできます。詳細については、[APIリファレンス](https://api.koog.ai/agents/agents-features/agents-features-event-handler/ai.koog.agents.features.eventHandler.feature/-event-handler/index.html)を参照してください。
 
 この機能をインストールし、エージェントのイベントハンドラーを設定するには、以下の手順を実行します。
 
@@ -46,7 +47,7 @@ val agent = AIAgent(
 handleEvents {
     // ツール呼び出しを処理
     onToolCallStarting { eventContext ->
-        println("Tool called: ${eventContext.tool.name} with args ${eventContext.toolArgs}")
+        println("Tool called: ${eventContext.toolName} with args ${eventContext.toolArgs}")
     }
     // エージェントが実行を完了したときにトリガーされるイベントを処理
     onAgentCompleted { eventContext ->
@@ -60,7 +61,8 @@ handleEvents {
 
 イベントハンドラーの設定に関する詳細については、[APIリファレンス](https://api.koog.ai/agents/agents-features/agents-features-event-handler/ai.koog.agents.features.eventHandler.feature/-event-handler-config/index.html)を参照してください。
 
-エージェント作成時に `handleEvents` 拡張関数を使用してイベントハンドラーを設定することもできます。この関数は、イベントハンドラー機能をインストールし、エージェントのイベントハンドラーを設定します。以下に例を示します。
+エージェント作成時に `handleEvents` 拡張関数を使用してイベントハンドラーを設定することもできます。
+この関数は、イベントハンドラー機能をインストールし、エージェントのイベントハンドラーを設定します。以下に例を示します。
 
 <!--- INCLUDE
 import ai.koog.agents.core.agent.AIAgent
@@ -76,7 +78,7 @@ val agent = AIAgent(
     handleEvents {
         // ツール呼び出しを処理
         onToolCallStarting { eventContext ->
-            println("Tool called: ${eventContext.tool.name} with args ${eventContext.toolArgs}")
+            println("Tool called: ${eventContext.toolName} with args ${eventContext.toolArgs}")
         }
         // エージェントが実行を完了したときにトリガーされるイベントを処理
         onAgentCompleted { eventContext ->

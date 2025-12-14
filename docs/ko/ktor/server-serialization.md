@@ -52,7 +52,7 @@ ContentNegotiation 플러그인은 클라이언트와 서버 간의 미디어 �
     </TabItem>
 </Tabs>
 
-특정 형식의 직렬 변환기(serializer)는 추가 아티팩트를 필요로 합니다. 예를 들어, kotlinx.serialization은 JSON을 위해 `ktor-serialization-kotlinx-json` 의존성이 필요합니다.
+참고로, 특정 형식의 직렬 변환기(serializer)는 추가 아티팩트를 필요로 합니다. 예를 들어, kotlinx.serialization은 JSON을 위해 `ktor-serialization-kotlinx-json` 의존성이 필요합니다.
 
 ### 직렬화 {id="serialization_dependency"}
 
@@ -380,15 +380,14 @@ install(ContentNegotiation) {
 ### 데이터 클래스 생성 {id="create_data_class"}
 수신된 데이터를 객체로 역직렬화하려면 데이터 클래스를 생성해야 합니다. 예를 들면 다음과 같습니다:
 ```kotlin
-@Serializable
+data class Customer(val id: Int, val firstName: String, val lastName: String)
 ```
 
 kotlinx.serialization을 사용하는 경우, 이 클래스에 `@Serializable` 어노테이션이 있는지 확인하세요:
 ```kotlin
 import kotlinx.serialization.*
-import io.ktor.server.util.getValue
-
 @Serializable
+data class Customer(val id: Int, val firstName: String, val lastName: String)
 ```
 
 <snippet id="serialization_types">
@@ -457,7 +456,7 @@ routing {
 
 ## 사용자 정의 직렬 변환기 구현 {id="implement_custom_serializer"}
 
-Ktor에서는 데이터를 직렬화/역직렬화하기 위해 자신만의 [직렬 변환기](#configure_serializer)를 작성할 수 있습니다. 이를 위해서는 [ContentConverter](https://api.ktor.io/ktor-shared/ktor-serialization/io.ktor.serialization/-content-converter/index.html) 인터페이스를 구현해야 합니다:
+Ktor에서는 데이터를 직렬화/역직렬화하기 위해 자신만의 [직렬 변환기](#configure_serializer)를 작성할 수 있습니다. 이를 위해서는 [ContentConverter](https://api.ktor.io/ktor-serialization/io.ktor.serialization/-content-converter/index.html) 인터페이스를 구현해야 합니다:
 ```kotlin
 interface ContentConverter {
     suspend fun serialize(contentType: ContentType, charset: Charset, typeInfo: TypeInfo, value: Any): OutgoingContent?

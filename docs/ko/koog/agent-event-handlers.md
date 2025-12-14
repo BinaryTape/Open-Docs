@@ -1,10 +1,10 @@
 # 이벤트 핸들러
 
-로깅, 테스트, 디버깅 및 에이전트 동작 확장용으로 이벤트 핸들러를 사용하여 에이전트 워크플로 중에 특정 이벤트를 모니터링하고 대응할 수 있습니다.
+에이전트 워크플로 중에 로깅, 테스트, 디버깅 및 에이전트 동작 확장을 위해 이벤트 핸들러를 사용하여 특정 이벤트를 모니터링하고 대응할 수 있습니다.
 
 ## 기능 개요
 
-`EventHandler` 기능은 다양한 에이전트 이벤트에 훅을 걸 수 있게 해줍니다. 이는 다음과 같은 이벤트 위임 메커니즘으로 작동합니다.
+`EventHandler` 기능은 다양한 에이전트 이벤트에 훅을 걸 수 있게 해줍니다. 이는 다음과 같은 이벤트 위임 메커니즘으로 작동합니다:
 
 - AI 에이전트 작업의 수명 주기를 관리합니다.
 - 워크플로의 다양한 단계를 모니터링하고 대응하기 위한 훅을 제공합니다.
@@ -38,15 +38,15 @@ val agent = AIAgent(
     llmModel = OllamaModels.Meta.LLAMA_3_2,
 ) {
 -->
-<!--- SUFFIX
-}
+<!--- SUFFIX 
+} 
 -->
 
 ```kotlin
 handleEvents {
     // 도구 호출 처리
     onToolCallStarting { eventContext ->
-        println("Tool called: ${eventContext.tool.name} with args ${eventContext.toolArgs}")
+        println("Tool called: ${eventContext.toolName} with args ${eventContext.toolArgs}")
     }
     // 에이전트 실행 완료 시 트리거되는 이벤트 처리
     onAgentCompleted { eventContext ->
@@ -76,7 +76,7 @@ val agent = AIAgent(
     handleEvents {
         // 도구 호출 처리
         onToolCallStarting { eventContext ->
-            println("Tool called: ${eventContext.tool.name} with args ${eventContext.toolArgs}")
+            println("Tool called: ${eventContext.toolName} with args ${eventContext.toolArgs}")
         }
         // 에이전트 실행 완료 시 트리거되는 이벤트 처리
         onAgentCompleted { eventContext ->

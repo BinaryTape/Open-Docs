@@ -44,10 +44,13 @@ Kotlin %kotlinEapVersion%은 기능 안정화에 중점을 두며, 사용되지 
 
 ### 기본적으로 활성화된 기능
 
-Kotlin %kotlinEapVersion%에서는 다음 언어 기능이 이제 기본적으로 활성화됩니다:
+Kotlin %kotlinEapVersion%부터 명시적 반환 타입이 있는 표현식 본문에서 [`return` 문 지원](whatsnew2220.md#support-for-return-statements-in-expression-bodies-with-explicit-return-types)이 이제 기본적으로 활성화됩니다.
 
-*   [중단 함수 타입을 가진 람다에 대한 오버로드 해결 개선](whatsnew2220.md#improved-overload-resolution-for-lambdas-with-suspend-function-types)
-*   [명시적 반환 타입이 있는 표현식 본문에서 `return` 문 지원](whatsnew2220.md#support-for-return-statements-in-expression-bodies-with-explicit-return-types)
+> Kotlin %kotlinEapVersion%에서 [중단 함수 타입을 가진 람다에 대한 오버로드 해결 개선](whatsnew2220.md#improved-overload-resolution-for-lambdas-with-suspend-function-types)은 **비활성화됩니다**.
+>
+> 이 기능은 원래 Kotlin 2.3.0에서 기본적으로 활성화될 예정이었으나, 일부 문제를 발견한 후 구현을 연기하기로 결정했습니다. 향후 릴리스에서 개선된 설계로 다시 제공될 예정입니다.
+>
+{style="note"}
 
 [Kotlin 언어 디자인 기능 및 제안의 전체 목록](kotlin-language-features-and-proposals.md)을 참조하세요.
 
@@ -134,7 +137,7 @@ kotlin {
 이 모드에서 Kotlin은 컴파일된 파일에 `@MustUseReturnValues` 애노테이션이 적용된 것처럼 자동 처리하므로,
 검사기는 프로젝트 함수의 모든 반환 값에 적용됩니다.
 
-`@IgnorableReturnValue` 애노테이션으로 특정 함수에 경고를 억제할 수 있습니다.
+특정 함수에 경고를 억제하려면 `@IgnorableReturnValue` 애노테이션을 표시하세요.
 `MutableList.add`와 같이 결과 무시가 일반적이고 예상되는 함수에 애노테이션을 적용하세요:
 
 ```kotlin
@@ -165,11 +168,6 @@ fun main() {
 
 ### 컨텍스트에 민감한 해결 변경 사항
 <primary-label ref="experimental-general"/>
-
-> 이 기능의 코드 분석, 코드 완성, IntelliJ IDEA에서의 하이라이팅 지원은 현재
-> [2025.3 EAP 빌드](https://www.jetbrains.com/idea/nextversion/)에서만 사용 가능합니다.
->
-{style = "note"}
 
 컨텍스트에 민감한 해결은 여전히 [실험적](components-stability.md#stability-levels-explained)이지만,
 사용자 피드백을 기반으로 기능을 계속 개선하고 있습니다:

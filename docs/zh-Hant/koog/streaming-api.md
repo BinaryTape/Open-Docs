@@ -155,7 +155,7 @@ fun GraphAIAgent.FeatureContext.installStreamingApi() {
 handleEvents {
     onToolCallStarting { context ->
         println("
-🔧 Using ${context.tool.name} with ${context.toolArgs}... ")
+🔧 Using ${context.toolName} with ${context.toolArgs}... ")
     }
     onLLMStreamingFrameReceived { context ->
         (context.streamFrame as? StreamFrame.Append)?.let { frame ->

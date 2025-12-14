@@ -79,8 +79,7 @@ IDE 마법사를 사용하여 새 KMP 프로젝트를 생성하세요:
 1.  메인 메뉴에서 **File** | **New** | **Project**를 선택합니다.
 2.  왼쪽 목록에서 **Kotlin Multiplatform**을 선택합니다.
 3.  필요에 따라 프로젝트의 이름, 위치 및 기타 기본 속성을 설정합니다.
-4.  [JetBrains Runtime](https://github.com/JetBrains/JetBrainsRuntime)(JBR) 버전을 프로젝트의 JDK로 선택하는 것을 권장합니다.
-    JBR은 특히 데스크톱 KMP 앱의 호환성을 개선하는 데 중요한 수정 사항을 제공합니다.
+4.  [JetBrains Runtime](https://github.com/JetBrains/JetBrainsRuntime)(JBR) 버전을 프로젝트의 JDK로 선택하는 것을 권장합니다. JBR은 특히 데스크톱 KMP 앱의 호환성을 개선하는 데 중요한 수정 사항을 제공합니다.
     관련 JBR 버전은 모든 IntelliJ IDEA 배포판에 포함되어 있으므로 추가 설정이 필요하지 않습니다.
 5.  프로젝트의 일부로 포함할 플랫폼을 선택하세요:
     *   모든 대상 플랫폼은 Compose Multiplatform을 사용하여 처음부터 UI 코드를 공유하도록 설정할 수 있습니다
@@ -88,7 +87,7 @@ IDE 마법사를 사용하여 새 KMP 프로젝트를 생성하세요:
     *   iOS의 경우 두 가지 구현 방식 중 하나를 선택할 수 있습니다:
         *   Compose Multiplatform을 사용한 공유 UI 코드,
         *   SwiftUI로 만든 완전 네이티브 UI를 공유 로직이 있는 Kotlin 모듈에 연결.
-    *   데스크톱 대상에는 해당 코드를 변경하는 즉시 UI 변경 사항을 확인할 수 있는 [Compose Hot Reload](compose-hot-reload.md) 기능의 베타 버전이 포함되어 있습니다.
+    *   데스크톱 대상에는 코드를 변경하는 즉시 UI 변경 사항을 확인할 수 있는 [Compose Hot Reload](compose-hot-reload.md) 기능이 포함되어 있습니다.
         데스크톱 앱을 만들 계획이 없더라도 UI 코드 작성 속도를 높이기 위해 데스크톱 버전을 사용할 수 있습니다.
 
 플랫폼 선택이 완료되면 **Create** 버튼을 클릭하고 IDE가 프로젝트를 생성하고 가져오도록 기다립니다.
@@ -97,10 +96,6 @@ IDE 마법사를 사용하여 새 KMP 프로젝트를 생성하세요:
 
 </TabItem>
 <TabItem title= "Android Studio">
-
-Kotlin Multiplatform IDE 플러그인은 K2 기능에 크게 의존하므로 K2 기능 없이 설명된 대로 작동하지 않습니다.
-따라서 시작하기 전에 K2 모드가 활성화되어 있는지 확인하세요:
-**Settings** | **Languages & Frameworks** | **Kotlin** | **Enable K2 mode**.
 
 IDE 마법사를 사용하여 새 KMP 프로젝트를 생성하세요:
 
@@ -224,7 +219,7 @@ Java와 관련된 일반적인 문제:
 
 *   일부 도구가 실행할 Java 버전을 찾지 못하거나 잘못된 버전을 사용할 수 있습니다.
     이를 해결하려면:
-    *   `JAVA_HOME` 환경 변수를 적절한 JDK가 설치된 디렉토리로 설정하세요.
+    *   `JAVA_HOME` 환경 변수를 적절한 JDK가 설치된 디렉터리로 설정하세요.
 
         > 클래스 재정의를 지원하는 OpenJDK 포크인 [JetBrains Runtime](https://github.com/JetBrains/JetBrainsRuntime)을 사용하는 것을 권장합니다.
         >

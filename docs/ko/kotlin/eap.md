@@ -8,11 +8,14 @@ Kotlin 얼리 액세스 프리뷰(EAP)에 참여하여 최신 Kotlin 기능을 �
 
 저희는 모든 언어(_2.x.0_) 및 툴링(_2.x.20_) 릴리스 전에 몇 가지 베타(_Beta_) 및 릴리스 후보(_RC_) 빌드를 제공합니다.
 
-저희 이슈 트래커 [YouTrack](https://kotl.in/issue)에 버그를 찾아 보고해 주시면 매우 감사하겠습니다. 최종 릴리스 전에 버그를 수정할 수 있을 가능성이 매우 높으므로, 문제 해결을 위해 다음 Kotlin 릴리스까지 기다릴 필요가 없을 것입니다.
+저희 이슈 트래커 [YouTrack](https://kotl.in/issue)에 버그를 찾아 보고해 주시면 매우 감사하겠습니다.
+최종 릴리스 전에 버그를 수정할 수 있을 가능성이 매우 높으므로, 문제 해결을 위해 다음 Kotlin 릴리스까지 기다릴 필요가 없을 것입니다.
 
-얼리 액세스 프리뷰에 참여하고 버그를 보고함으로써 Kotlin에 기여하고 [성장하는 Kotlin 커뮤니티](https://kotlinlang.org/community/)의 모든 사람들을 위해 Kotlin을 더 나은 상태로 만드는 데 도움을 주실 수 있습니다. 여러분의 도움에 크게 감사드립니다!
+얼리 액세스 프리뷰에 참여하고 버그를 보고함으로써 Kotlin에 기여하고
+[성장하는 Kotlin 커뮤니티](https://kotlinlang.org/community/)의 모든 사람들을 위해 Kotlin을 더 나은 상태로 만드는 데 도움을 주실 수 있습니다. 여러분의 도움에 크게 감사드립니다!
 
-궁금한 점이 있거나 토론에 참여하고 싶으시다면, Kotlin Slack의 [#eap 채널](https://app.slack.com/client/T09229ZC6/C0KLZSCHF)에 자유롭게 참여해 주세요. 이 채널에서 새로운 EAP 빌드에 대한 알림도 받을 수 있습니다.
+궁금한 점이 있거나 토론에 참여하고 싶으시다면, Kotlin Slack의 [#eap 채널](https://app.slack.com/client/T09229ZC6/C0KLZSCHF)에 자유롭게 참여해 주세요.
+이 채널에서 새로운 EAP 빌드에 대한 알림도 받을 수 있습니다.
 
 **[Kotlin EAP 버전에 맞게 프로젝트 구성하기](configure-build-for-eap.md)**
 
@@ -40,13 +43,13 @@ Kotlin 얼리 액세스 프리뷰(EAP)에 참여하여 최신 Kotlin 기능을 �
         <th>빌드 주요 사항</th>
     </tr>
     <tr>
-        <td><strong>2.3.0-RC2</strong>
-            <p>릴리스됨: <strong>2025년 12월 2일</strong></p>
-            <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.3.0-RC2" target="_blank">GitHub에서 릴리스</a></p>
+        <td><strong>2.3.0-RC3</strong>
+            <p>릴리스됨: <strong>2025년 12월 9일</strong></p>
+            <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.3.0-RC3" target="_blank">GitHub에서 릴리스</a></p>
         </td>
         <td>
             <p>새로운 기능 미리 보기 및 툴링 업데이트가 포함된 언어 릴리스입니다.</p>
-            <p>자세한 내용은 <a href="https://github.com/JetBrains/kotlin/releases/tag/v2.3.0-RC2">변경 로그</a> 또는 <a href="whatsnew-eap.md">Kotlin 2.3.0-RC2의 새로운 기능</a>을 참조하세요.</p>
+            <p>자세한 내용은 <a href="https://github.com/JetBrains/kotlin/releases/tag/v2.3.0-RC3">변경 로그</a> 또는 <a href="whatsnew-eap.md">Kotlin 2.3.0-RC3의 새로운 기능</a>을 참조하세요.</p>
         </td>
     </tr>
 </table>

@@ -3,7 +3,7 @@
 <web-summary>코틀린 멀티플랫폼과 컴포즈 멀티플랫폼이 실제 프로젝트에서 어떻게 프로덕션 환경에 사용되는지 알아보세요. 
 실제 사용 사례를 예시와 함께 탐색해 보세요.</web-summary>
 
-> 전 세계의 크고 작은 기업들이 컴포즈 멀티플랫폼(Compose Multiplatform)과 함께 코틀린 멀티플랫폼(KMP)을 채택하면서, 
+> 전 세계의 크고 작은 기업들이 코틀린 멀티플랫폼(KMP)과 컴포즈 멀티플랫폼(Compose Multiplatform)을 채택하면서, 
 > 이 기술은 현대적인 크로스 플랫폼 애플리케이션을 구축하고 확장하는 데 신뢰할 수 있는 솔루션이 되었습니다.
 > 
 {style="note"}
@@ -83,6 +83,7 @@ KMP를 채택함으로써 에이전시는 납품을 가속화하고 플랫폼 �
 
 **사례 연구:**
 
+* [Touchlab](https://touchlab.co/)은 코틀린 멀티플랫폼을 활용한 크로스 플랫폼 개발 및 컨설팅을 전문으로 합니다. Touchlab은 또한 코틀린에서 발행된 Swift API를 개선하는 [SKIE](https://github.com/touchlab/SKIE)와 [Xcode용 코틀린 플러그인](https://github.com/touchlab/xcode-kotlin)과 같이 iOS 개발 경험을 향상시키는 도구를 만듭니다.
 * [IceRock](https://icerockdev.com/)은 코틀린 멀티플랫폼을 사용하여 클라이언트 앱을 개발하는 아웃소싱 회사입니다. 
   이 회사의 앱 포트폴리오는 다양한 비즈니스 요구사항을 포괄하며, 코틀린 멀티플랫폼 개발 프로세스를 향상시키는 
   방대한 오픈소스 코틀린 멀티플랫폼 라이브러리 컬렉션으로 보완됩니다.
@@ -189,7 +190,7 @@ JavaScript에서 코틀린으로 마이그레이션하여 안드로이드 및 iO
 신뢰할 수 있는 크로스 플랫폼 동작에 의존합니다. 이러한 앱은 종종 운동 로직 및 데이터 처리와 같은 핵심 기능을 공유해야 하며, 
 동시에 완전히 네이티브 UI와 센서, 알림 또는 건강 API와 같은 플랫폼별 통합을 유지해야 합니다.
 
-**사례 연구:** [Respawn Pro](https://youtu.be/LB5a2FRrT94?si=mFpiN9SNs8m-jpFL), [Fast&amp;Fit](https://kotlinlang.org/case-studies/#case-study-fast-and-fit), [Philips](https://www.youtube.com/watch?v=hZPL8QqiLi8), [Down Dog](https://kotlinlang.org/lp/multiplatform/case-studies/down-dog)
+**사례 연구:** [Respawn Pro](https://youtu.be/LB5a2FRrT94?si=vgcJI-XoCrWree3u), [Fast&amp;Fit](https://kotlinlang.org/case-studies/#case-study-fast-and-fit), [Philips](https://www.youtube.com/watch?v=hZPL8QqiLi8), [Down Dog](https://kotlinlang.org/lp/multiplatform/case-studies/down-dog)
 
 ### 우편 서비스
 

@@ -1,4 +1,4 @@
-[//]: # (title: 构建一个使用 Spring AI 的 Kotlin 应用，基于存储在 Qdrant 中的文档来回答问题 — 教程)
+[//]: # (title: 构建一个使用 Spring AI 回答问题的 Kotlin 应用 — 教程)
 
 在本教程中，你将学习如何构建一个 Kotlin 应用，该应用通过 [Spring AI](https://spring.io/projects/spring-ai) 连接到 LLM，将文档存储到向量数据库中，并使用这些文档中的上下文来回答问题。
 
@@ -60,7 +60,7 @@
         >
         {style="tip"}
 
-   ![Create Spring Boot project](create-spring-ai-project.png){width=800}
+   ![创建 Spring Boot 项目](create-spring-ai-project.png){width=800}
 
 4.  确保你已指定所有字段，然后点击 **Next**。
 5.  在 **Spring Boot** 字段中选择最新的稳定 Spring Boot 版本。
@@ -71,7 +71,7 @@
     *   **AI | OpenAI**
     *   **SQL | Qdrant Vector Database**
 
-   ![Set up Spring Boot project](spring-ai-dependencies.png){width=800}
+   ![设置 Spring Boot 项目](spring-ai-dependencies.png){width=800}
 
 7.  点击 **Create** 生成并设置项目。
 
@@ -79,9 +79,9 @@
     >
     {style="tip"}
 
-之后，你将在 **Project** 视图中看到以下结构：
+之后，你将在 **Project view** 中看到以下结构：
 
-![Spring Boot project view](spring-ai-project-view.png){width=400}
+![Spring Boot 项目视图](spring-ai-project-view.png){width=400}
 
 生成的 Gradle 项目对应于 Maven 的标准目录布局：
 
@@ -96,7 +96,7 @@
     plugins {
         kotlin("jvm") version "%kotlinVersion%"
         kotlin("plugin.spring") version "%kotlinVersion%"
-        // 其他插件
+        // Rest of the plugins
     }
    ```
 
@@ -337,4 +337,4 @@
 
 恭喜！你现在拥有一个 Kotlin 应用，它能够连接到 OpenAI 并使用从存储在 Qdrant 中的文档中检索到的上下文来回答问题。尝试使用不同的查询或导入其他文档，以探索更多可能性。
 
-你可以在 [Spring AI 演示 GitHub 版本库](https://github.com/Kotlin/Kotlin-AI-Examples/tree/master/projects/spring-ai/springAI-demo) 中查看已完成的项目，或在 [Kotlin AI Examples](https://github.com/Kotlin/Kotlin-AI-Examples/tree/master) 中探索其他 Spring AI 示例。
+你可以在 [Spring AI demo GitHub 版本库](https://github.com/Kotlin/Kotlin-AI-Examples/tree/master/projects/spring-ai/springAI-demo) 中查看已完成的项目，或在 [Kotlin AI Examples](https://github.com/Kotlin/Kotlin-AI-Examples/tree/master) 中探索其他 Spring AI 示例。

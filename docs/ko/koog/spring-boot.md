@@ -17,11 +17,12 @@ Koog는 자동 구성 스타터(auto-configuration starter)를 통해 원활한 
 
 ### 1. 의존성 추가
 
-`build.gradle.kts`에 Spring Boot 스타터를 추가합니다:
+Koog Spring Boot 스타터와 [Ktor 클라이언트 엔진](https://ktor.io/docs/client-engines.html#jvm)을 `build.gradle.kts` 또는 `pom.xml`에 추가합니다:
 
 ```kotlin
 dependencies {
     implementation("ai.koog:koog-spring-boot-starter:$koogVersion")
+    implementation("io.ktor:ktor-client-okhttp-jvm:$ktorVersion")
 }
 ```
 
@@ -85,9 +86,9 @@ ai:
             base-url: http://localhost:11434
 ```
 
-`ai.koog.PROVIDER.api-key` 및 `ai.koog.PROVIDER.enabled` 속성 모두 제공업체를 활성화하는 데 사용됩니다.
+`ai.koog.PROVIDER.api-key`와 `ai.koog.PROVIDER.enabled` 속성 모두 제공업체를 활성화하는 데 사용됩니다.
 
-제공업체가 API 키를 지원하는 경우(예: OpenAI, Anthropic, Google) `ai.koog.PROVIDER.enabled`는 기본적으로 `true`로 설정됩니다.
+제공업체가 API 키를 지원하는 경우(예: OpenAI, Anthropic, Google), `ai.koog.PROVIDER.enabled`는 기본적으로 `true`로 설정됩니다.
 
 Ollama처럼 제공업체가 API 키를 지원하지 않는 경우, `ai.koog.PROVIDER.enabled`는 기본적으로 `false`로 설정되며, 애플리케이션 구성에서 제공업체를 명시적으로 활성화해야 합니다.
 
@@ -98,7 +99,7 @@ API 키를 안전하게 보관하고 버전 관리에서 제외하려면 환경 
 Spring 구성은 LLM 제공업체의 잘 알려진 환경 변수를 사용합니다.
 예를 들어, `OPENAI_API_KEY` 환경 변수를 설정하는 것만으로 OpenAI 스프링 구성을 활성화하기에 충분합니다.
 
-| LLM 제공업체 | 환경 변수             |
+| LLM 제공업체 | 환경 변수 |
 |--------------|-----------------------|
 | Open AI      | `OPENAI_API_KEY`      |
 | Anthropic    | `ANTHROPIC_API_KEY`   |
@@ -108,7 +109,7 @@ Spring 구성은 LLM 제공업체의 잘 알려진 환경 변수를 사용합니
 
 ### 3. 주입 및 사용
 
-자동 구성된 실행자(executor)를 서비스에 주입하여 사용합니다:
+자동 구성된 실행자를 서비스에 주입하여 사용합니다:
 
 ```kotlin
 @Service
@@ -179,7 +180,7 @@ data class ChatResponse(val response: String)
 
 ### 다중 제공업체 지원
 
-대체(fallback) 로직으로 다중 제공업체를 처리합니다:
+대체 로직으로 다중 제공업체를 처리합니다:
 
 ```kotlin
 @Service
@@ -244,19 +245,19 @@ class ConfigurableAIService(
 
 ### 사용 가능한 속성
 
-| 속성                            | 설명              | 빈 조건                                                         | 기본값                                     |
-|-------------------------------|-------------------|-----------------------------------------------------------------|--------------------------------------------|
-| `ai.koog.openai.api-key`      | OpenAI API 키     | `openAIExecutor` 빈에 필요함                                    | -                                          |
-| `ai.koog.openai.base-url`     | OpenAI 기본 URL   | 선택 사항                                                       | `https://api.openai.com`                   |
-| `ai.koog.anthropic.api-key`   | Anthropic API 키  | `anthropicExecutor` 빈에 필요함                                 | -                                          |
-| `ai.koog.anthropic.base-url`  | Anthropic 기본 URL| 선택 사항                                                       | `https://api.anthropic.com`                |
-| `ai.koog.google.api-key`      | Google API 키     | `googleExecutor` 빈에 필요함                                    | -                                          |
-| `ai.koog.google.base-url`     | Google 기본 URL   | 선택 사항                                                       | `https://generativelanguage.googleapis.com` |
-| `ai.koog.openrouter.api-key`  | OpenRouter API 키 | `openRouterExecutor` 빈에 필요함                                | -                                          |
-| `ai.koog.openrouter.base-url` | OpenRouter 기본 URL | 선택 사항                                                       | `https://openrouter.ai`                    |
-| `ai.koog.deepseek.api-key`    | DeepSeek API 키   | `deepSeekExecutor` 빈에 필요함                                  | -                                          |
-| `ai.koog.deepseek.base-url`   | DeepSeek 기본 URL | 선택 사항                                                       | `https://api.deepseek.com`                 |
-| `ai.koog.ollama.base-url`     | Ollama 기본 URL   | 모든 `ai.koog.ollama.*` 속성이 `ollamaExecutor` 빈을 활성화함 | `http://localhost:11434`                   |
+| 속성 | 설명 | 빈 조건 | 기본값 |
+|-------------------------------|---------------------|-----------------------------------------------------------------|---------------------------------------------|
+| `ai.koog.openai.api-key` | OpenAI API 키 | `openAIExecutor` 빈에 필요함 | - |
+| `ai.koog.openai.base-url` | OpenAI 기본 URL | 선택 사항 | `https://api.openai.com` |
+| `ai.koog.anthropic.api-key` | Anthropic API 키 | `anthropicExecutor` 빈에 필요함 | - |
+| `ai.koog.anthropic.base-url` | Anthropic 기본 URL | 선택 사항 | `https://api.anthropic.com` |
+| `ai.koog.google.api-key` | Google API 키 | `googleExecutor` 빈에 필요함 | - |
+| `ai.koog.google.base-url` | Google 기본 URL | 선택 사항 | `https://generativelanguage.googleapis.com` |
+| `ai.koog.openrouter.api-key` | OpenRouter API 키 | `openRouterExecutor` 빈에 필요함 | - |
+| `ai.koog.openrouter.base-url` | OpenRouter 기본 URL | 선택 사항 | `https://openrouter.ai` |
+| `ai.koog.deepseek.api-key` | DeepSeek API 키 | `deepSeekExecutor` 빈에 필요함 | - |
+| `ai.koog.deepseek.base-url` | DeepSeek 기본 URL | 선택 사항 | `https://api.deepseek.com` |
+| `ai.koog.ollama.base-url` | Ollama 기본 URL | 모든 `ai.koog.ollama.*` 속성이 `ollamaExecutor` 빈을 활성화함 | `http://localhost:11434` |
 
 ### 빈 이름
 

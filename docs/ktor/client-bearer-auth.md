@@ -104,26 +104,26 @@ Ktor 客户端允许你配置 token，以便使用 `Bearer` 方案将其在 `Aut
 
 ### OAuth 授权流程 {id="oauth-flow"}
 
-我们应用程序的 OAuth 授权流程如下所示：
+OAuth 授权流程如下所示：
 
 ```Console
-(1)  --> Authorization request                资源所有者
-(2)  <-- Authorization grant (code)           资源所有者
-(3)  --> Authorization grant (code)           授权服务器
-(4)  <-- Access and refresh tokens            授权服务器
-(5)  --> Request with valid token             资源服务器
-(6)  <-- Protected resource                   资源服务器
-⌛⌛⌛    Token 过期
-(7)  --> Request with expired token           资源服务器
-(8)  <-- 401 Unauthorized response            资源服务器
-(9)  --> Authorization grant (refresh token)  授权服务器
-(10) <-- Access and refresh tokens            授权服务器
-(11) --> Request with new token               资源服务器
-(12) <-- Protected resource                   资源服务器
+(1)  --> Authorization request                Resource owner
+(2)  <-- Authorization grant (code)           Resource owner
+(3)  --> Authorization grant (code)           Authorization server
+(4)  <-- Access and refresh tokens            Authorization server
+(5)  --> Request with valid token             Resource server
+(6)  <-- Protected resource                   Resource server
+⌛⌛⌛    Token expired
+(7)  --> Request with expired token           Resource server
+(8)  <-- 401 Unauthorized response            Resource server
+(9)  --> Authorization grant (refresh token)  Authorization server
+(10) <-- Access and refresh tokens            Authorization server
+(11) --> Request with new token               Resource server
+(12) <-- Protected resource                   Resource server
 ```
 {disable-links="false"}
 
-让我们探查每个步骤是如何实现的，以及 `Bearer` 认证提供程序如何帮助我们访问 API。
+以下小节将解释每个步骤是如何实现的，以及 `Bearer` 认证提供程序如何帮助我们访问 API。
 
 ### (1) -> 授权请求 {id="step1"}
 
@@ -202,7 +202,7 @@ data class TokenInfo(
 
 ### (4) <- 访问 token 和刷新 token {id="step4"}
 
-收到 token 后，我们可以将其保存到存储中。在我们的例子中，存储是 `BearerTokens` 实例的一个可变 `list`。这意味着我们可以将其元素传递给 `loadTokens` 和 `refreshTokens` 回调。
+收到 token 后，将其保存以便能提供给 `loadTokens` 和 `refreshTokens` 回调。在此示例中，存储是 `BearerTokens` 的一个可变 `list`：
 
 ```kotlin
         val bearerTokenStorage = mutableListOf<BearerTokens>()
@@ -214,7 +214,9 @@ data class TokenInfo(
 
 ### (5) -> 附带有效 token 的请求 {id="step5"}
 
-现在我们有了有效的 token，因此我们可以向受保护的 Google API 发出请求并获取用户信息。首先，我们需要调整客户端 [配置](#step3)：
+现在我们有了有效的 token，因此客户端可以向受保护的 Google API 发出请求并获取用户信息。
+
+在此之前，你需要调整客户端 [配置](#step3)：
 
 ```kotlin
         val client = HttpClient(CIO) {
@@ -240,13 +242,28 @@ data class TokenInfo(
 - 已经安装的带 `json` 序列化器的 [ContentNegotiation](client-serialization.md) 插件，用于反序列化从资源服务器接收到的 JSON 格式的用户信息。
 
 - 带 `bearer` 提供程序的 [Auth](client-auth.md) 插件配置如下：
-   * `loadTokens` 回调从 [存储](#step4) 中加载 token。
-   * `sendWithoutRequest` 回调配置为仅向提供受保护资源访问权限的主机发送凭据，而无需等待 `401` (Unauthorized) 响应。
+  * `loadTokens` 回调从 [存储](#step4) 中加载 token。
+  * `sendWithoutRequest` 回调配置为在访问 Google 的受保护 API 时，无需等待 `401 Unauthorized` 响应即可发送访问 token。
 
 此客户端可用于向受保护的资源发出请求：
 
 ```kotlin
 while (true) {
+    println("Make a request? Type 'yes' and press Enter to proceed.")
+    when (readln()) {
+        "yes" -> {
+            val response: HttpResponse = client.get("https://www.googleapis.com/oauth2/v2/userinfo")
+            try {
+                val userInfo: UserInfo = response.body()
+                println("Hello, ${userInfo.name}!")
+            } catch (e: Exception) {
+                val errorInfo: ErrorInfo = response.body()
+                println(errorInfo.error.message)
+            }
+        }
+        else -> return@runBlocking
+    }
+}
 ```
 
 ### (6) <- 受保护资源 {id="step6"}
@@ -280,12 +297,13 @@ data class UserInfo(
 
 ### (8) <- 401 未授权响应 {id="step8"}
 
-资源服务器返回 `401` 未授权响应，因此客户端应调用 `refreshTokens` 回调。
-> 请注意，`401` 响应返回包含错误详情的 JSON 数据，并且我们需要在接收到响应时 [处理这种情况](#step12)。
+当 token 不再有效时，资源服务器返回 `401 Unauthorized` 响应。客户端随即调用 `refreshTokens` 回调，该回调负责获取新 token。
+
+> 请注意，`401` 响应返回包含错误详情的 JSON 数据。我们需要在 [接收到响应时](#step12) 处理这种情况。
 
 ### (9) -> 授权许可（刷新 token） {id="step9"}
 
-为了获取新的访问 token，我们需要配置 `refreshTokens` 并向 token 端点发出另一个请求。这次，我们使用 `refresh_token` 授权类型而不是 `authorization_code`：
+为了获取新的访问 token，我们需要配置 `refreshTokens` 以向 token 端点发出另一个请求。这次，我们使用 `refresh_token` 授权类型而不是 `authorization_code`：
 
 ```kotlin
 install(Auth) {
@@ -304,15 +322,15 @@ install(Auth) {
 }
 ```
 
-请注意，`refreshTokens` 回调使用 `RefreshTokensParams` 作为接收者，并允许你访问以下设置：
-- `client` 实例。在上面的代码片段中，我们使用它来提交表单参数。
+`refreshTokens` 回调使用 `RefreshTokensParams` 作为接收者，并允许你访问以下设置：
+- `client` 实例，可用于提交表单参数。
 - `oldTokens` 属性用于访问刷新 token 并将其发送到 token 端点。
 
 > `HttpRequestBuilder` 暴露的 `markAsRefreshTokenRequest` 函数能够特殊处理用于获取刷新 token 的请求。
 
 ### (10) <- 访问 token 和刷新 token {id="step10"}
 
-收到新的 token 后，我们可以将其保存到 [存储](#step4) 中，因此 `refreshTokens` 如下所示：
+收到新的 token 后，它们需要保存到 [token 存储](#step4) 中。这样，`refreshTokens` 回调如下所示：
 
 ```kotlin
 refreshTokens {
@@ -321,7 +339,7 @@ refreshTokens {
         formParameters = parameters {
             append("grant_type", "refresh_token")
             append("client_id", System.getenv("GOOGLE_CLIENT_ID"))
-            append("refresh_token", oldTokens?.refreshToken!! + "INVALID") // Changed for testing
+            append("refresh_token", oldTokens?.refreshToken ?: "")
         }
     ) { markAsRefreshTokenRequest() }.body()
     bearerTokenStorage.add(BearerTokens(refreshTokenInfo.accessToken, oldTokens?.refreshToken!!))
@@ -331,15 +349,14 @@ refreshTokens {
 
 ### (11) -> 附带新 token 的请求 {id="step11"}
 
-在此步骤中，向受保护资源发出的请求包含新 token，并且应该正常工作。
-
+在此步骤中，向受保护资源发出的下一请求应会成功：
 ```kotlin
 val response: HttpResponse = client.get("https://www.googleapis.com/oauth2/v2/userinfo")
 ```
 
 ### (12) <-- 受保护资源 {id="step12"}
 
-鉴于 [401 响应](#step8) 返回包含错误详情的 JSON 数据，我们需要更新示例以将错误信息作为 `ErrorInfo` 对象接收：
+鉴于 [401 响应](#step8) 返回包含错误详情的 JSON 数据，我们需要更新示例以将错误响应作为 `ErrorInfo` 对象接收：
 
 ```kotlin
 val response: HttpResponse = client.get("https://www.googleapis.com/oauth2/v2/userinfo")
@@ -352,7 +369,7 @@ try {
 }
 ```
 
-`ErrorInfo` 类如下所示：
+`ErrorInfo` 类定义如下：
 
 ```kotlin
 import kotlinx.serialization.*

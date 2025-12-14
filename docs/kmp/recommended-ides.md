@@ -5,7 +5,7 @@
 [IntelliJ IDEA](https://www.jetbrains.com/idea/) 提供对 Kotlin Multiplatform 的全面支持。
 
 配合 IntelliJ IDEA 2025.2.2，
-你可以安装 [Kotlin Multiplatform IDE 插件](https://plugins.jetbrains.com/plugin/14936-kotlin-multiplatform)，
+你可以安装 [Kotlin Multiplatform IDE 插件](https://plugins.jetbrains.com/plugin/14936-kotlin-multiplatform)
 它为 iOS 应用提供了基本的启动和调试功能、
 预检环境检测，以及其他有用的 KMP 功能。
 
@@ -14,14 +14,9 @@
 [Android Studio](https://developer.android.com/studio) 是另一个稳定的 Kotlin Multiplatform 解决方案。
 
 配合 Android Studio Otter 2025.2.1，
-你可以安装 [Kotlin Multiplatform IDE 插件](https://plugins.jetbrains.com/plugin/14936-kotlin-multiplatform)，
+你可以安装 [Kotlin Multiplatform IDE 插件](https://plugins.jetbrains.com/plugin/14936-kotlin-multiplatform)
 它为 iOS 应用提供了基本的启动和调试功能、
 预检环境检测，以及其他有用的 KMP 功能。
-
-> 请务必在 Android Studio 中开启 K2 模式，以充分体验该框架，
-> 因为它可能默认是关闭的。
->
-{style="note"}
 
 ## 其他 IDE 和代码编辑器
 

@@ -24,7 +24,7 @@
 > 若要接收新 Kotlin 發布版本的通知，請訂閱 [Kotlin 電子報](https://lp.jetbrains.com/subscribe-to-kotlin-news/)、
 > 追蹤 [Kotlin 在 X 平台](https://x.com/kotlin)，
 > 或在 [Kotlin GitHub 儲存庫](https://github.com/JetBrains/kotlin) 上啟用 **Watch | Custom | Releases** 選項。
-> 
+>
 {style="note"}
 
 ## 即將推出的 Kotlin 發布版本
@@ -63,7 +63,7 @@ plugins {
 plugins {
     // Replace `<...>` with the plugin name appropriate for your target environment
     id 'org.jetbrains.kotlin.<...>' version '%kotlinVersion%'
-    // For example, if your target environment is JVM: 
+    // For example, if your target environment is JVM:
     // id 'org.jetbrains.kotlin.jvm' version '%kotlinVersion%'
     // If your target is Kotlin Multiplatform:
     // id 'org.jetbrains.kotlin.multiplatform' version '%kotlinVersion%'
@@ -78,7 +78,7 @@ plugins {
 如果您正在移轉到新的語言發布版本，Kotlin 外掛程式的移轉工具將協助您完成此過程。
 
 > 若要深入了解如何在專案中使用 Gradle，請參閱 [設定 Gradle 專案](gradle-configure-project.md)。
-> 
+>
 {style="tip"}
 
 ### Maven
@@ -115,7 +115,7 @@ Kotlin 在 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/) 和 [Androi
 
 IntelliJ IDEA 和 Android Studio 中的 K2 模式使用 K2 編譯器來改進程式碼分析、程式碼補齊和語法高亮顯示。
 
-從 IntelliJ IDEA 2025.1 開始，K2 模式 [預設啟用](https://blog.jetbrains.com/idea/2025/04/k2-mode-in-intellij-idea-2025-1-current-state-and-faq/)。
+IntelliJ IDEA 2025.3 及更高版本始終啟用 K2 模式。
 
 在 Android Studio 中，您可以從 2024.1 開始依照以下步驟啟用 K2 模式：
 
@@ -133,7 +133,7 @@ IntelliJ IDEA 和 Android Studio 中的 K2 模式使用 K2 編譯器來改進程
 下表列出了最新 Kotlin 發布版本的詳情：
 
 > 您也可以嘗試 [Kotlin 的搶先體驗預覽 (EAP) 版本](eap.md#build-details)。
-> 
+>
 {style="tip"}
 
 <table>
@@ -180,7 +180,7 @@ IntelliJ IDEA 和 Android Studio 中的 K2 模式使用 K2 編譯器來改進程
             <p>一個語言發布版本，包含新穩定語言功能、工具更新、針對不同平台的效能改進以及重要修正。</p>
             <p>詳情請參閱<a href="https://github.com/JetBrains/kotlin/releases/tag/v2.2.0">變更日誌</a>。</p>
         </td>
-    </tr> 
+    </tr>
     <tr>
         <td><strong>2.1.21</strong>
             <p>發布日期：<strong>2025 年 5 月 13 日</strong></p>
@@ -190,7 +190,7 @@ IntelliJ IDEA 和 Android Studio 中的 K2 模式使用 K2 編譯器來改進程
             <p>Kotlin 2.1.20 的錯誤修正發布版本。</p>
             <p>詳情請參閱<a href="https://github.com/JetBrains/kotlin/releases/tag/v2.1.21">變更日誌</a>。</p>
         </td>
-    </tr> 
+    </tr>
    <tr>
         <td><strong>2.1.20</strong>
             <p>發布日期：<strong>2025 年 3 月 20 日</strong></p>
@@ -237,7 +237,10 @@ IntelliJ IDEA 和 Android Studio 中的 K2 模式使用 K2 編譯器來改進程
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.0.20" target="_blank">在 GitHub 上發布</a></p>
         </td>
         <td>
-           <p>Kotlin 2.0.0 的工具發布版本，包含效能改進和錯誤修正。功能還包括 Kotlin/Native 垃圾收集器中的並行標記、Kotlin 通用標準函式庫中的 UUID 支援、Compose 編譯器更新以及支援高達 Gradle 8.8。</p>
+           <p>Kotlin 2.0.0 的工具發布版本，包含效能改進和錯誤修正。功能還包括
+              Kotlin/Native 垃圾收集器中的並行標記、Kotlin 通用標準函式庫中的 UUID 支援、
+              Compose 編譯器更新以及支援高達 Gradle 8.8。
+            </p>
             <p>在<a href="whatsnew2020.md" target="_blank">Kotlin 2.0.20 新功能</a>中深入了解 Kotlin 2.0.20。</p>
         </td>
     </tr>

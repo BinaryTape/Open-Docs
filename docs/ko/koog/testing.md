@@ -391,7 +391,7 @@ assertNodes {
     callTool withInput toolCallMessage(
         SolveTool,
         SolveTool.Args("solve")
-    ) outputs toolResult(SolveTool, "solved")
+    ) outputs toolResult(SolveTool, SolveTool.Args("solve"), "solved")
 }
 ```
 <!--- KNIT example-testing-07.kt -->
@@ -539,7 +539,7 @@ assertNodes {
     callTool withInput toolCallMessage(
         AnalyzeTool,
         AnalyzeTool.Args(query = "complex", depth = 5)
-    ) outputs toolResult(AnalyzeTool, AnalyzeTool.Result(
+    ) outputs toolResult(AnalyzeTool, AnalyzeTool.Args(query = "complex", depth = 5), AnalyzeTool.Result(
         analysis = "Detailed analysis",
         confidence = 0.95,
         metadata = mapOf("source" to "database", "timestamp" to "2023-06-15")
@@ -695,7 +695,8 @@ fun main() {
 assertEdges {
     // 도구 결과 내용을 기반으로 라우팅 테스트
     callTool withOutput toolResult(
-        AnalyzeTool, 
+        AnalyzeTool,
+        AnalyzeTool.Args(query = "parameters", depth = 3),
         AnalyzeTool.Result(analysis = "Needs more processing", confidence = 0.5)
     ) goesTo processResult
 }
@@ -741,12 +742,14 @@ fun main() {
 assertEdges {
     // 신뢰도 수준에 따라 다른 노드로 라우팅
     callTool withOutput toolResult(
-        AnalyzeTool, 
+        AnalyzeTool,
+        AnalyzeTool.Args(query = "parameters", depth = 3),
         AnalyzeTool.Result(analysis = "Complete", confidence = 0.9)
     ) goesTo finish
 
     callTool withOutput toolResult(
-        AnalyzeTool, 
+        AnalyzeTool,
+        AnalyzeTool.Args(query = "parameters", depth = 3),
         AnalyzeTool.Result(analysis = "Uncertain", confidence = 0.3)
     ) goesTo verifyResult
 }
@@ -849,11 +852,11 @@ ${it.stackTraceToString()}")
         prompt = prompt("test-agent") {
             system(
                 """
-                You are an question answering agent with access to the tone analysis tools.
-                You need to answer 1 question with the best of your ability.
-                Be as concise as possible in your answers.
-                DO NOT ANSWER ANY QUESTIONS THAT ARE BESIDES PERFORMING TONE ANALYSIS!
-                DO NOT HALLUCINATE!
+                당신은 어조 분석 도구에 접근할 수 있는 질문 응답 에이전트입니다.
+                최선을 다해 1가지 질문에 답해야 합니다.
+                답변은 가능한 한 간결하게 하십시오.
+                어조 분석 이외의 질문에는 답하지 마십시오!
+                환각하지 마십시오!
             """.trimIndent()
             )
         },
@@ -912,7 +915,7 @@ fun testMultiSubgraphAgentStructure() = runTest {
             val giveFeedback by node<String, String> { input ->
                 llm.writeSession {
                     appendPrompt {
-                        user("Call tools! Don't chat!")
+                        user("도구를 호출하세요! 채팅하지 마세요!")
                     }
                 }
                 input

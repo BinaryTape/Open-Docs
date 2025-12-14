@@ -17,11 +17,12 @@ Koogは、その自動構成スターターを通じてシームレスなSpring 
 
 ### 1. 依存関係の追加
 
-`build.gradle.kts`にSpring Bootスターターを追加します。
+Koog Spring Bootスターターと[Ktorクライアントエンジン](https://ktor.io/docs/client-engines.html#jvm)を`build.gradle.kts`または`pom.xml`に追加します。
 
 ```kotlin
 dependencies {
     implementation("ai.koog:koog-spring-boot-starter:$koogVersion")
+    implementation("io.ktor:ktor-client-okhttp-jvm:$ktorVersion")
 }
 ```
 
@@ -318,8 +319,8 @@ API key is required but not provided
 
 ## 次のステップ
 
--   基本的なAIワークフローを構築するために、[シングルランエージェント](single-run-agents.md)について学びます
+-   基本的なAIワークフローを構築するために、[基本的なエージェント](basic-agents.md)について学びます
 -   高度なユースケースには[複雑なワークフローエージェント](complex-workflow-agents.md)を探求します
 -   エージェントの機能を拡張するために[ツール概要](tools-overview.md)を参照してください
 -   実世界の実装については[例](examples.md)をチェックしてください
--   フレームワークをよりよく理解するために[主要な概念](key-concepts.md)を読んでください
+-   フレームワークをよりよく理解するために[用語集](glossary.md)を読んでください

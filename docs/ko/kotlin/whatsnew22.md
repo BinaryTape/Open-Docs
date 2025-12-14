@@ -955,7 +955,7 @@ org.gradle.console=plain
 
 이전에는 Kotlin Gradle Plugin(KGP)이 경고 및 오류와 같은 진단 메시지를 콘솔 또는 로그에 일반 텍스트 출력으로만 보고할 수 있었습니다.
 
-2.2.0부터 KGP는 추가 보고 메커니즘을 도입합니다: 이제 [Gradle의 Problems API](https://docs.gradle.org/current/kotlin-dsl/gradle/org.gradle.api.problems/index.html)를 사용합니다. 이는 빌드 프로세스 중에 풍부하고 구조화된 문제 정보를 보고하는 표준화된 방법입니다.
+2.2.0부터 KGP는 추가 보고 메커니즘을 도입합니다: 이제 [Gradle의 Problems API](https://docs.gradle.com/current/kotlin-dsl/gradle/org.gradle.api.problems/index.html)를 사용합니다. 이는 빌드 프로세스 중에 풍부하고 구조화된 문제 정보를 보고하는 표준화된 방법입니다.
 
 KGP 진단 메시지는 이제 Gradle CLI 및 IntelliJ IDEA와 같은 다양한 인터페이스에서 더 쉽게 읽고 일관되게 표시됩니다.
 
@@ -965,7 +965,7 @@ API는 여전히 발전 중이므로, 최신 개선 사항을 활용하려면 �
 ### `--warning-mode`와의 KGP 호환성
 
 Kotlin Gradle Plugin(KGP) 진단 메시지는 고정된 심각도 수준을 사용하여 문제를 보고했습니다.
-즉, Gradle의 [`--warning-mode` 명령줄 옵션](https://docs.gradle.org/current/userguide/command_line_interface.html#sec:command_line_warnings)은 KGP가 오류를 표시하는 방식에 영향을 미치지 않았습니다.
+즉, Gradle의 [`--warning-mode` 명령줄 옵션](https://docs.gradle.com/current/userguide/command_line_interface.html#sec:command_line_warnings)은 KGP가 오류를 표시하는 방식에 영향을 미치지 않았습니다.
 
 이제 KGP 진단 메시지는 `--warning-mode` 옵션과 호환되어 더 많은 유연성을 제공합니다. 예를 들어,
 모든 경고를 오류로 변환하거나 경고를 완전히 비활성화할 수 있습니다.

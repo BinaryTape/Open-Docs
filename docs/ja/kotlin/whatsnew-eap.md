@@ -18,7 +18,7 @@ Kotlin %kotlinEapVersion% がリリースされました！このEAPリリース
 *   **Kotlin/Native**: [Swiftエクスポートによる相互運用性の向上](#kotlin-native-improved-interop-through-swift-export)。
 *   **Kotlin/Wasm**: [完全修飾名と新しい例外処理提案のデフォルト有効化](#kotlin-wasm)。
 *   **Kotlin/JS**: [新しい試験版の`suspend`関数エクスポートと`LongArray`の表現](#kotlin-js)。
-*   **Gradle**: [Gradle 9.0との互換性、および生成されたソースを登録するための新しいAPI](#gradle)。
+*   **Gradle**: [Gradle 9.0 との互換性、および生成されたソースを登録するための新しい API](#gradle)。
 *   **標準ライブラリ**: [安定版の時間追跡機能](#standard-library)。
 
 ## IDEのサポート
@@ -44,10 +44,14 @@ Kotlin %kotlinEapVersion% は、機能の安定化に焦点を当て、未使用
 
 ### デフォルトで有効になった機能
 
-Kotlin %kotlinEapVersion% では、以下の言語機能がデフォルトで有効になりました。
+Kotlin %kotlinEapVersion% より、[明示的な戻り値型を持つ式本体での`return`文のサポート](whatsnew2220.md#support-for-return-statements-in-expression-bodies-with-explicit-return-types)がデフォルトで有効になりました。
 
-*   [`suspend`関数型を持つラムダに対するオーバーロード解決の改善](whatsnew2220.md#improved-overload-resolution-for-lambdas-with-suspend-function-types)
-*   [明示的な戻り値型を持つ式本体での`return`文のサポート](whatsnew2220.md#support-for-return-statements-in-expression-bodies-with-explicit-return-types)
+> Kotlin %kotlinEapVersion% では、[`suspend`関数型を持つラムダに対するオーバーロード解決の改善](whatsnew2220.md#improved-overload-resolution-for-lambdas-with-suspend-function-types)が**無効**になりました。
+>
+> この機能は当初Kotlin 2.3.0でデフォルトで有効にする予定でしたが、いくつかの問題が発見されたため、
+> 実装を延期することにしました。将来のリリースで改善された設計で再び利用可能になる予定です。
+>
+{style="note"}
 
 [Kotlinの言語設計機能と提案の全リストを参照してください](kotlin-language-features-and-proposals.md)。
 
@@ -71,7 +75,7 @@ Kotlin %kotlinEapVersion% は、未使用の戻り値チェッカーという新
 fun formatGreeting(name: String): String {
     if (name.isBlank()) return "Hello, anonymous user!"
     if (!name.contains(' ')) {
-        // チェッカーはこの結果が無視されていることを警告します
+        // The checker reports a warning that this result is ignored
         "Hello, " + name.replaceFirstChar(Char::titlecase) + "!"
     }
     val (first, last) = name.split(' ')
@@ -100,7 +104,7 @@ kotlin {
 たとえば、ファイル全体をマークできます。
 
 ```kotlin
-// このファイル内のすべての関数とクラスをマークし、チェッカーが未使用の戻り値を報告するようにします
+// Marks all functions and classes in this file so the checker reports unused return values
 @file:MustUseReturnValues
 
 package my.project
@@ -111,7 +115,7 @@ fun someFunction(): String
 または特定のクラスをマークできます。
 
 ```kotlin
-// このクラス内のすべての関数をマークし、チェッカーが未使用の戻り値を報告するようにします
+// Marks all functions in this class so the checker reports unused return values
 @MustUseReturnValues
 class Greeter {
     fun greet(name: String): String = "Hello, $name"
@@ -149,15 +153,15 @@ fun <T> MutableList<T>.addAndIgnoreResult(element: T): Boolean {
 これを行うには、結果をアンダースコア構文 (`_`) を持つ特別な無名変数に割り当てます。
 
 ```kotlin
-// 無視できない関数
+// Non-ignorable function
 fun computeValue(): Int = 42
 
 fun main() {
 
-    // 警告を報告: 結果は無視されます
+    // Reports a warning: result is ignored
     computeValue()
 
-    // この呼び出し箇所でのみ、特別な未使用変数で警告を抑制します
+    // Suppresses the warning only at this call site with a special unused variable
     val _ = computeValue()
 }
 ```
@@ -167,11 +171,6 @@ fun main() {
 
 ### コンテキスト依存の解決における変更
 <primary-label ref="experimental-general"/>
-
-> IntelliJ IDEAでのこの機能のコード分析、コード補完、およびハイライトのサポートは、現在
-> [2025.3 EAPビルド](https://www.jetbrains.com/idea/nextversion/)でのみ利用可能です。
->
-{style = "note"}
 
 コンテキスト依存の解決は依然として[試験的](components-stability.md#stability-levels-explained)ですが、
 ユーザーからのフィードバックに基づいて機能の改善を続けています。

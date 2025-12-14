@@ -1,4 +1,4 @@
-[//]: # (title: Compose Multiplatform 1.10.0-rc01 新特性)
+[//]: # (title: Compose Multiplatform 1.10.0-rc02 新特性)
 
 以下是本次抢先体验预览 (EAP) 特性发布的主要亮点：
  * [统一的 `@Preview` 注解](#unified-preview-annotation)
@@ -9,24 +9,23 @@
 
 ## 依赖项
 
-* Gradle 插件 `org.jetbrains.compose`，版本 `1.10.0-rc01`。基于 Jetpack Compose 库：
-    * [Runtime 1.10.0-rc01](https://developer.android.com/jetpack/androidx/releases/compose-runtime#1.10.0-rc01)
-    * [UI 1.10.0-rc01](https://developer.android.com/jetpack/androidx/releases/compose-ui#1.10.0-rc01)
-    * [Foundation 1.10.0-rc01](https://developer.android.com/jetpack/androidx/releases/compose-foundation#1.10.0-rc01)
-    * [Material 1.10.0-rc01](https://developer.android.com/jetpack/androidx/releases/compose-material#1.10.0-rc01)
-    * [Material3 1.5.0-alpha08](https://developer.android.com/jetpack/androidx/releases/compose-material3#1.5.0-alpha08)
+* Gradle 插件 `org.jetbrains.compose`，版本 `1.10.0-rc02`。基于 Jetpack Compose 库：
+    * [Runtime 1.10.0](https://developer.android.com/jetpack/androidx/releases/compose-runtime#1.10.0)
+    * [UI 1.10.0](https://developer.android.com/jetpack/androidx/releases/compose-ui#1.10.0)
+    * [Foundation 1.10.0](https://developer.android.com/jetpack/androidx/releases/compose-foundation#1.10.0)
+    * [Material 1.10.0](https://developer.android.com/jetpack/androidx/releases/compose-material#1.10.0)
 
 * Compose Material3 库 `org.jetbrains.compose.material3:material3*:1.10.0-alpha05`。基于 [Jetpack Compose Material3 1.5.0-alpha08](https://developer.android.com/jetpack/androidx/releases/compose-material3#1.5.0-alpha08)。
 
   要使用 [Expressive 主题](whats-new-compose-190.md#material-3-expressive-theme)，请包含实验性的 Material 3 版本：
     ```kotlin
-    implementation("org.jetbrains.compose.material3:material3:1.9.0-alpha04")
+    implementation("org.jetbrains.compose.material3:material3:1.9.0-alpha05")
     ```
 * Compose Material3 Adaptive 库 `org.jetbrains.compose.material3.adaptive:adaptive*:1.3.0-alpha02`。基于 [Jetpack Compose Material3 Adaptive 1.3.0-alpha03](https://developer.android.com/jetpack/androidx/releases/compose-material3-adaptive#1.3.0-alpha03)
 * Lifecycle 库 `org.jetbrains.androidx.lifecycle:lifecycle-*:2.10.0-alpha06`。基于 [Jetpack Lifecycle 2.10.0](https://developer.android.com/jetpack/androidx/releases/lifecycle#2.10.0)
 * Navigation 库 `org.jetbrains.androidx.navigation:navigation-*:2.9.1`。基于 [Jetpack Navigation 2.9.4](https://developer.android.com/jetpack/androidx/releases/navigation#2.9.4)
 * Navigation 3 库 `org.jetbrains.androidx.navigation3:navigation3-*:1.0.0-alpha06`。基于 [Jetpack Navigation3 1.0.0](https://developer.android.com/jetpack/androidx/releases/navigation3#1.0.0)
-* Navigation Event 库 `org.jetbrains.androidx.navigationevent:navigationevent-compose:1.0.0-rc01`。基于 [Jetpack Navigation Event 1.0.0](https://developer.android.com/jetpack/androidx/releases/navigationevent#1.0.0)
+* Navigation Event 库 `org.jetbrains.androidx.navigationevent:navigationevent-compose:1.0.0-rc02`。基于 [Jetpack Navigation Event 1.0.1](https://developer.android.com/jetpack/androidx/releases/navigationevent#1.0.1)
 * Savedstate 库 `org.jetbrains.androidx.savedstate:savedstate*:1.4.0`。基于 [Jetpack Savedstate 1.4.0](https://developer.android.com/jetpack/androidx/releases/savedstate#1.4.0)
 * WindowManager Core 库 `org.jetbrains.androidx.window:window-core:1.5.1`。基于 [Jetpack WindowManager 1.5.1](https://developer.android.com/jetpack/androidx/releases/window#1.5.1)
 
@@ -66,7 +65,7 @@ Compose Multiplatform 现在支持桌面和 iOS 上原生互操作元素的自�
   这使得 SwiftUI 视图（通过 `UIHostingController`）的正确包裹成为可能，
   以及不依赖于 `NSLayoutConstraints` 的基本 `UIView` 子类。
 
-### Popup 和 Dialog 属性稳定化
+### `Popup` 和 `Dialog` 属性稳定化
 
 `DialogProperties` 中的以下属性已提升为稳定，不再是实验性的：
 `usePlatformInsets`、`useSoftwareKeyboardInset` 和 `scrimColor`。
@@ -108,7 +107,7 @@ Compose Multiplatform 1.10.0-beta01 为在非 Android 目标上使用新的导�
 * 在 Web 应用中，在桌面浏览器中按下 **Esc** 键现在会将用户返回到上一个屏幕
   （并关闭对话框、弹窗和一些小组件，如 Material 3 的 `SearchBar`），
   就像在桌面应用中那样。
-* 对 [浏览器历史导航](compose-navigation-routing.md#support-for-browser-navigation-in-web-apps) 和在地址栏中使用目标的支持将不会扩展到 Compose Multiplatform 1.10 的 Navigation 3。
+* 对[浏览器历史导航](compose-navigation-routing.md#support-for-browser-navigation-in-web-apps)和在地址栏中使用目标的支持将不会扩展到 Compose Multiplatform 1.10 的 Navigation 3。
   这已推迟到多平台库的更高版本。
 
 ## iOS

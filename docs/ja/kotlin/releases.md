@@ -59,11 +59,11 @@ plugins {
 ```groovy
 plugins {
     // <...>をターゲット環境に適したプラグイン名に置き換えてください
-    id 'org.jetbrains.kotlin.<...>' version "%kotlinVersion%"
+    id 'org.jetbrains.kotlin.<...>' version '%kotlinVersion%'
     // たとえば、ターゲット環境がJVMの場合: 
-    // id 'org.jetbrains.kotlin.jvm' version "%kotlinVersion%"
+    // id 'org.jetbrains.kotlin.jvm' version '%kotlinVersion%'
     // ターゲットがKotlin Multiplatformの場合:
-    // id 'org.jetbrains.kotlin.multiplatform' version "%kotlinVersion%"
+    // id 'org.jetbrains.kotlin.multiplatform' version '%kotlinVersion%'
 }
 ```
 
@@ -112,7 +112,7 @@ Kotlinは、JetBrainsが開発した公式Kotlinプラグインにより、[Inte
 
 IntelliJ IDEAおよびAndroid StudioのK2モードは、K2コンパイラを使用してコード解析、コード補完、およびハイライトを改善します。
 
-IntelliJ IDEA 2025.1以降、K2モードは[デフォルトで有効化](https://blog.jetbrains.com/idea/2025/04/k2-mode-in-intellij-idea-2025-1-current-state-and-faq/)されています。
+IntelliJ IDEA 2025.3以降、K2モードは常に使用されます。
 
 Android Studioでは、2024.1以降で以下の手順に従ってK2モードを有効にできます:
 
@@ -495,7 +495,7 @@ K2モードの詳細については、[こちらのブログ](https://blog.jetbr
         </td>
         <td>
             <p>Kotlin 1.6.0 のバグ修正リリースです。</p>
-            <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.6.0" target="_blank">Kotlin 1.6.0</a> の詳細については、こちらをご覧ください。</p>
+            <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.6.10" target="_blank">Kotlin 1.6.0</a> の詳細については、こちらをご覧ください。</p>
         </td>
     </tr>
     <tr>

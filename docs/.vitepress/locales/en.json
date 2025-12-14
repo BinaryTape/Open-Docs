@@ -51,7 +51,7 @@
   "kotlin.kotlin-overview": "Kotlin overview",
   "kotlin.what-s-new-in-kotlin": "What's new in Kotlin",
   "kotlin.whatsnew22": "Kotlin 2.2.0",
-  "kotlin.whatsnew-eap": "Kotlin 2.3.0-RC2",
+  "kotlin.whatsnew-eap": "Kotlin 2.3.0-RC3",
   "kotlin.earlier-versions": "Earlier versions",
   "kotlin.whatsnew2120": "Kotlin 2.1.20",
   "kotlin.whatsnew21": "Kotlin 2.1.0",
@@ -481,7 +481,7 @@
   "koog.event-handlers": "Event handlers",
   "kmp.kmp-tooling": "KMP tooling",
   "kotlin.compose-multiplatform-material3": "Compose Multiplatform Material3",
-  "kmp.whats-new-compose-110": "Compose Multiplatform 1.10.0-rc01",
+  "kmp.whats-new-compose-110": "Compose Multiplatform 1.10.0-rc02",
   "kmp.earlier-versions": "Earlier versions",
   "kotlin.language-guide": "Language guide",
   "kotlin.basic-syntax": "Overview",
@@ -555,5 +555,6 @@
   "kmp.compose-multiplatform-and-jetpack-compose": "Relationship between frameworks",
   "kmp.compose-multiplatform-jetpack-libraries": "Multiplatform artifacts for Compose libraries",
   "koog.custom-tools-schema": "Custom tools schema",
-  "kmp.migrate-from-android": "Migrate advanced Android app to KMP"
+  "kmp.migrate-from-android": "Migrate advanced Android app to KMP",
+  "coroutines.cancellation-and-timeouts": "Cancellation"
 }

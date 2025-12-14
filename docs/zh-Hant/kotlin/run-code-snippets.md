@@ -4,62 +4,51 @@ Kotlin 程式碼通常以專案的形式組織，並在 IDE、文字編輯器或
 如果您想快速了解某個函式的運作方式或找出某個運算式的值，則無需建立新專案
 並建置它。請查看以下三種在不同環境中即時執行 Kotlin 程式碼的便捷方式：
 
-*   IDE 中的[暫存檔和工作表](#ide-scratches-and-worksheets)。
-*   瀏覽器中的 [Kotlin Playground](#browser-kotlin-playground)。
-*   命令列中的 [ki shell](#command-line-ki-shell)。
+*   [暫存檔](#ide-scratches-and-worksheets) 在 IDE 中。
+*   [Kotlin Playground](#browser-kotlin-playground) 在瀏覽器中。
+*   [ki shell](#command-line-ki-shell) 在命令列中。
 
-## IDE：暫存檔和工作表
+## IDE：暫存檔 {id="ide-scratches-and-worksheets"}
 
-IntelliJ IDEA 和 Android Studio 支援 Kotlin [暫存檔和工作表](https://www.jetbrains.com/help/idea/kotlin-repl.html#efb8fb32)。
+IntelliJ IDEA 和 Android Studio 支援 Kotlin [暫存檔](https://www.jetbrains.com/help/idea/kotlin-repl.html#efb8fb32)。
 
-*   _暫存檔_（或簡稱 _scratches_）讓您可以在專案的同一 IDE 視窗中建立程式碼草稿，並即時執行它們。
-    暫存檔不與專案綁定；您可以從作業系統上任何 IntelliJ IDEA 視窗存取並執行所有暫存檔。
+_暫存檔_（或簡稱 _scratches_）讓您可以在專案的同一 IDE 視窗中建立程式碼草稿，並即時執行它們。
+暫存檔不與專案綁定；您可以從作業系統上任何 IntelliJ IDEA 視窗存取並執行所有暫存檔。
 
-    要建立 Kotlin 暫存檔，請按一下 **File** | **New** | **Scratch File** 並選擇 **Kotlin** 型別。
-
-*   _工作表_ 是專案檔：它們儲存在專案目錄中並與專案模組綁定。
-    工作表適用於編寫不構成軟體單元，但仍應一同儲存在專案中的程式碼片段，例如教學或示範材料。
-
-    要在專案目錄中建立 Kotlin 工作表，請在專案樹中右鍵點擊該目錄並選擇
-    **New** | **Kotlin Class/File** | **Kotlin Worksheet**。
-
-    > Kotlin 工作表在 [K2 模式](https://blog.jetbrains.com/idea/2024/11/k2-mode-becomes-stable/)中不支援。我們正在努力提供具有類似功能的替代方案。
-    >
-    {style="warning"}
+要建立 Kotlin 暫存檔，請按一下 **File** | **New** | **Scratch File** 並選擇 **Kotlin** 型別。
 
 語法高亮、程式碼補齊以及其他
-IntelliJ IDEA 程式碼編輯功能在暫存檔和工作表中均受支援。無需宣告 `main()` 函式 
+IntelliJ IDEA 程式碼編輯功能在暫存檔中均受支援。無需宣告 `main()` 函式 
 — 您編寫的所有程式碼都將像在 `main()` 主體中一樣執行。
 
-在暫存檔或工作表中完成程式碼編寫後，請按一下 **Run**。
+在暫存檔中完成程式碼編寫後，請按一下 **Run**。
 執行結果將顯示在程式碼對應的行中。
 
 ![Run scratch](scratch-run.png){width=700}
 
 ### 互動模式
 
-IDE 可以自動從暫存檔和工作表中執行程式碼。要一停止
+IDE 可以自動從暫存檔執行程式碼。要一停止
 鍵入即可獲得執行結果，請開啟 **Interactive mode**。
 
 ![Scratch interactive mode](scratch-interactive.png){width=700}
 
 ### 使用模組
 
-您可以在暫存檔和工作表中，使用 Kotlin 專案中的類別或函式。
+您可以在暫存檔中，使用 Kotlin 專案中的類別或函式。
 
-工作表會自動存取其所在模組中的類別和函式。
+要在暫存檔中使用專案中的類別或函式，請像往常一樣，使用
+`import` 陳述式將它們匯入到暫存檔中。然後編寫您的程式碼，並在 **Use classpath of module** 列表中選取適當的模組來執行。
 
-要在暫存檔中使用專案中的類別或函式，請像往常一樣，使用 `import` 陳述式將它們匯入到暫存檔中。然後編寫您的程式碼，並在 **Use classpath of module** 列表中選取適當的模組來執行。
-
-暫存檔和工作表都使用已連接模組的編譯版本。因此，如果您修改了模組的原始碼檔案，
-當您重新建置模組時，這些變更將傳播到暫存檔和工作表。
-要在每次執行暫存檔或工作表之前自動重新建置模組，請選取 **Make module before Run**。
+暫存檔使用已連接模組的編譯版本。因此，如果您修改了模組的原始碼檔案，
+當您重新建置模組時，這些變更將傳播到暫存檔。
+要在每次執行暫存檔之前自動重新建置模組，請選取 **Make module before Run**。
 
 ![Scratch select module](scratch-select-module.png){width=700}
 
 ### 作為 REPL 執行 
 
-若要評估暫存檔或工作表中的每個特定運算式，請選取 **Use REPL** 來執行。程式碼行
+若要評估暫存檔中的每個特定運算式，請選取 **Use REPL** 來執行。程式碼行
 將按順序執行，並提供每個呼叫的結果。
 您可以稍後在同一檔案中透過其自動生成的 `res*` 名稱（它們顯示在對應的行中）來使用這些結果。
 
@@ -162,9 +151,9 @@ ki shell 中可用的命令。
 *   使用 `:load`（或 `:l`）命令載入原始碼檔案。
 *   使用 `:paste`（或 `:p`）命令在貼上模式下複製並貼上程式碼片段。
 
-![ki shell load file](ki-700]{width=700}
+![ki shell load file](ki-shell-load.png){width=700}
 
-`ls` 命令顯示可用的符號（變數和函式）。
+The `ls` command 顯示可用的符號（變數和函式）。
 
 ### 新增外部依賴項
 

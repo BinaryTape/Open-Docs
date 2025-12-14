@@ -1,4 +1,4 @@
-[//]: # (title: Compose Multiplatform 1.10.0-rc01 の新機能)
+[//]: # (title: Compose Multiplatform 1.10.0-rc02 の新機能)
 
 このEAP機能リリースでの主なハイライトは以下のとおりです。
  * [`@Preview`アノテーションの統合](#unified-preview-annotation)
@@ -9,24 +9,23 @@
 
 ## 依存関係
 
-* Gradleプラグイン `org.jetbrains.compose`、バージョン `1.10.0-rc01`。Jetpack Composeライブラリに基づいています。
-    * [Runtime 1.10.0-rc01](https://developer.android.com/jetpack/androidx/releases/compose-runtime#1.10.0-rc01)
-    * [UI 1.10.0-rc01](https://developer.android.com/jetpack/androidx/releases/compose-ui#1.10.0-rc01)
-    * [Foundation 1.10.0-rc01](https://developer.android.com/jetpack/androidx/releases/compose-foundation#1.10.0-rc01)
-    * [Material 1.10.0-rc01](https://developer.android.com/jetpack/androidx/releases/compose-material#1.10.0-rc01)
-    * [Material3 1.5.0-alpha08](https://developer.android.com/jetpack/androidx/releases/compose-material3#1.5.0-alpha08)
+* Gradleプラグイン `org.jetbrains.compose`、バージョン `1.10.0-rc02`。Jetpack Composeライブラリに基づいています。
+    * [Runtime 1.10.0](https://developer.android.com/jetpack/androidx/releases/compose-runtime#1.10.0)
+    * [UI 1.10.0](https://developer.android.com/jetpack/androidx/releases/compose-ui#1.10.0)
+    * [Foundation 1.10.0](https://developer.android.com/jetpack/androidx/releases/compose-foundation#1.10.0)
+    * [Material 1.10.0](https://developer.android.com/jetpack/androidx/releases/compose-material#1.10.0)
 
 * Compose Material3ライブラリ `org.jetbrains.compose.material3:material3*:1.10.0-alpha05`。[Jetpack Compose Material3 1.5.0-alpha08](https://developer.android.com/jetpack/androidx/releases/compose-material3#1.5.0-alpha08)に基づいています。
 
   [エクスプレッシブテーマ](whats-new-compose-190.md#material-3-expressive-theme)を使用するには、Material 3の実験的バージョンを含めます。
     ```kotlin
-    implementation("org.jetbrains.compose.material3:material3:1.9.0-alpha04")
+    implementation("org.jetbrains.compose.material3:material3:1.9.0-alpha05")
     ```
 * Compose Material3 Adaptiveライブラリ `org.jetbrains.compose.material3.adaptive:adaptive*:1.3.0-alpha02`。[Jetpack Compose Material3 Adaptive 1.3.0-alpha03](https://developer.android.com/jetpack/androidx/releases/compose-material3-adaptive#1.3.0-alpha03)に基づいています。
 * Lifecycleライブラリ `org.jetbrains.androidx.lifecycle:lifecycle-*:2.10.0-alpha06`。[Jetpack Lifecycle 2.10.0](https://developer.android.com/jetpack/androidx/releases/lifecycle#2.10.0)に基づいています。
 * Navigationライブラリ `org.jetbrains.androidx.navigation:navigation-*:2.9.1`。[Jetpack Navigation 2.9.4](https://developer.android.com/jetpack/androidx/releases/navigation#2.9.4)に基づいています。
 * Navigation 3ライブラリ `org.jetbrains.androidx.navigation3:navigation3-*:1.0.0-alpha06`。[Jetpack Navigation3 1.0.0](https://developer.android.com/jetpack/androidx/releases/navigation3#1.0.0)に基づいています。
-* Navigation Eventライブラリ `org.jetbrains.androidx.navigationevent:navigationevent-compose:1.0.0-rc01`。[Jetpack Navigation Event 1.0.0](https://developer.android.com/jetpack/androidx/releases/navigationevent#1.0.0)に基づいています。
+* Navigation Eventライブラリ `org.jetbrains.androidx.navigationevent:navigationevent-compose:1.0.0-rc02`。[Jetpack Navigation Event 1.0.1](https://developer.android.com/jetpack/androidx/releases/navigationevent#1.0.1)に基づいています。
 * Savedstateライブラリ `org.jetbrains.androidx.savedstate:savedstate*:1.4.0`。[Jetpack Savedstate 1.4.0](https://developer.android.com/jetpack/androidx/releases/savedstate#1.4.0)に基づいています。
 * WindowManager Coreライブラリ `org.jetbrains.androidx.window:window-core:1.5.1`。[Jetpack WindowManager 1.5.1](https://developer.android.com/jetpack/androidx/releases/window#1.5.1)に基づいています。
 
@@ -154,7 +153,8 @@ Compose Hot Reloadプラグインを明示的に宣言しているプロジェ�
  * Compose Multiplatform Gradleプラグインによって提供されるバージョンを使用するため、宣言を安全に削除できます。
  * 特定のバージョン宣言を保持することを選択した場合、バンドルされたバージョンではなく、そのバージョンが使用されます。
 
-バンドルされているCompose Hot Reload Gradleプラグインの最小Kotlinバージョンは2.1.20です。これより古いKotlinバージョンが検出された場合、ホットリロード機能は無効になります。
+バンドルされているCompose Hot Reload Gradleプラグインの最小Kotlinバージョンは2.1.20です。
+これより古いKotlinバージョンが検出された場合、ホットリロード機能は無効になります。
 
 ## Gradle
 

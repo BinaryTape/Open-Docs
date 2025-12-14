@@ -4,17 +4,19 @@
 
 [IntelliJ IDEA](https://www.jetbrains.com/idea/) は、完全なKotlin Multiplatformのサポートを提供します。
 
-IntelliJ IDEA 2025.2.2では、[Kotlin Multiplatform IDE plugin](https://plugins.jetbrains.com/plugin/14936-kotlin-multiplatform) をインストールできます。このプラグインは、iOSアプリ向けの基本的な起動およびデバッグ機能、実行前の環境チェック、およびその他の便利なKMP機能を提供します。
+IntelliJ IDEA 2025.2.2では、
+[Kotlin Multiplatform IDE plugin](https://plugins.jetbrains.com/plugin/14936-kotlin-multiplatform) をインストールできます。
+このプラグインは、iOSアプリ向けの基本的な起動およびデバッグ機能、
+実行前の環境チェック、およびその他の便利なKMP機能を提供します。
 
 ## Android Studio
 
-[Android Studio](https://developer.apple.com/xcode/) もまた、Kotlin Multiplatform向けの安定したソリューションです。
+[Android Studio](https://developer.android.com/studio) もまた、Kotlin Multiplatform向けの安定したソリューションです。
 
-Android Studio Otter 2025.2.1では、[Kotlin Multiplatform IDE plugin](https://plugins.jetbrains.com/plugin/14936-kotlin-multiplatform) をインストールできます。このプラグインは、iOSアプリ向けの基本的な起動およびデバッグ機能、実行前の環境チェック、およびその他の便利なKMP機能を提供します。
-
-> テクノロジーを最大限に体験するために、Android StudioでK2モードを有効にしてください。これは既定で無効になっている場合があります。
-> 
-{style="note"}
+Android Studio Otter 2025.2.1では、
+[Kotlin Multiplatform IDE plugin](https://plugins.jetbrains.com/plugin/14936-kotlin-multiplatform) をインストールできます。
+このプラグインは、iOSアプリ向けの基本的な起動およびデバッグ機能、
+実行前の環境チェック、およびその他の便利なKMP機能を提供します。
 
 ## その他のIDEとコードエディター
 
